@@ -1,0 +1,3 @@
+<header>::::: Help on Show topic in guild on join :::::<end>
+
+With this setting you are able to show the topic in guild channel too when someone does !join in guild channel to join the bot.

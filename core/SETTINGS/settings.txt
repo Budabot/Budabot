@@ -1,0 +1,9 @@
+<header>::::: Changing of Botsettings :::::<end>
+
+You can change the settings of this bot with this bot. Which settings you are getting depends on which modules you have installed on the bot but there are some basic ones too which every bot has. For example you can change the color for the different channels here easy.
+
+Behind the description you can find on some settings also a helpfile which helps when the descriptions doesn´t gives you any idea what it effects.
+
+When the Settings is editable then you see there a 'Change this' link, if not it is only changable about a command or is only accessable for a script(shows only a info then mostly). Behind this you can see the current setting for example the current default color for tells and so on.
+
+After clicking on the 'Change this' link you may have some basic values to what the setting can be changed too. As example we can take the chat colors, you can see there then a list of default colors but you can set your own colors too. How you do it is always explained in this window.

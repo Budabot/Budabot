@@ -1,0 +1,188 @@
+*****************************
+	Version 0.6.5 (unofficial release):
+*****************************
+
+-Applied an already posted patch/fix/edit for org invite messages (Thank "TheMekon" for the fix)
+-Fixed an issue with the bot not notifying of org logoffs by default. ie. bot notifications of player logoffs should be working correctly now.  The setting for changing the showing/hiding of logoffs has been moved to the !settings page (no more !botnotify on/off).
+-Chat library updated to work with Oribital Strike messages.  The optional Auto_OS module should now work correctly with budabot. (Special thanks to Funkman and Snuggles for helping get this tested and working)
+-Updated guild relays to work with the new chat implementation/feature from FC (right-click-on-persons-name-to-open-a-menu). (courtesy of IamZipfile)
+-Fixed up the !whereis command so it didn't arbitrarily display the varmint woods entry when you gave it an entry it could not find.
+-The AI Hoster, Listbot, and Team Modules are now deprecated so they have been removed from the regular release and added as optional downloads.
+-Boss, Breed,Nano, and Skills modules now included in the regular release of Budabot.
+-Bot now ignores the 3 shopping 11-50 channels instead of the old 1-50 channels.
+-The auto-notify feature now works again.  The bot will auto remove and auto-add people to the notify list as they join and leave/get kicked from the org.
+-Fixed up the help section for the skills module and updated its links.
+-Revived a lost security feature of the bot; The !limits command give you virtually full control over who can send tells to the bot or ask for private group invites.
+
+*****************************
+	Version 0.6.4 (unofficial release):
+*****************************
+
+- fixed the chat relay glitch (xml.php and chatbot.php).
+- updated the bot with the new chat servers since the 18.4.1 update
+- fixed various settings' help-file links that were broken
+- added flatbot's roll system (which includes multi-loot, re-rolling, and various rolling methods) and then i fixed it up a bit (small edits here and there). Special thanks to: Wyziddyj (for making it) and Egads (for making it public).
+- fixed a bug that allowed alts to add other people as alts of themselves, thereby creating a whole new alts list, seperate from the original main.
+- added  a long long (:D)!altsadmin command so mods can add/delete/fix alt listings.
+- added capability to add/delete alts 'from an alt', without having to log onto their main toon.
+- added a !botnotify command to combat those times when the chat server crashes and the bots start spamming org chat. A simple !botnotify off will stop the bot from spamming org chat with long lists of the org-members signing off.  Use !botnotify help for more details.*
+- fixed a minor bug where the bot was unable to update char info for players having apostrophes in their first/last name
+
+* I havent have any real chat server crashes to test this on so far. But it works in practice so far.
+
+*****************************
+	Version 0.6.3:
+*****************************
+- Changed the name of the php.ini to php-win.ini
+- Added the loading of the php-win.ini in the Batchfile and in the mainloop.php(if the OS is Windows)
+- Fixed some SQL querys in the Online Module that were still not compatible with MySQL
+- Added that the orgmembers var gets created during the start of the Bot
+- Adding a command similar to updatme just for the orgroster
+- Added that you can show also only orgmembers from a specific profession similar to online
+- Added Clan Newbie OOC to the Ignore List
+- Added that players can join the guestchannel without an invite of an orgmember. You can set if everyone or just players on guestlist can join.
+- Added that verify and guestjoin commands by-pass the tell requirements
+- Added that a member can set himself as setting afk kiting
+- Added that when the name of the player is beeing mentioned in the channel and he is afk, a message will be shown on the channel
+- Changed the look of the orgmembers command a bit
+- Fixed a problem with using " in a timer name
+- Added support for adding/kicking admins
+- On Adminlist the superadmin will be highlighted
+- Fixed that you can´t add/kick yourself to a admingroup
+- Fixed a problem with ' in itemsnames while adding it to a raid
+- Fixed a problem with deleting a raid
+- Added commands to set/show points of a specific player(Raidmodule stuff)
+- The lock command will nolonger kick everyone out of the privategroup
+- Fixed a few problems regarding the check of required accesslevels on commands
+- Fixed that in the config command some access levels wasn´t shown correctly
+- Added a few missing items to the ItemsDatabase(all platinum filigree rings were missing)
+- You can set now if the text of a raidleader will be repeated and the color of the repeated text
+- Made the tell command available for guildchannel
+- Added a command to send a tell to all online orgmembers
+- Command added to see when a orgmember was last online
+- Fixed that the battle command had a wrong starter access level
+- Fixed typos
+- Smiley command will now correctly be send back to the right channel
+- Fixed that the profession of guestchannel members wasn´t shown always
+- Added subcommands for the Newscommand so that the accesslevel for showing and adding/deleting news is different
+- Fixed a problem with using + as symbol
+- Added - as new Symbol
+- The roll command has been renamed to flatroll command to solve problems with the roll command from the Helpbot module
+- Fixed a bug that the roll command was continued even though there was nothing to roll.
+- Added a command to search after Land Control Areas(after QL or name).
+- The command to set news for the Privategroup has been renamed to privnews to solve problems with the News command for the Guild
+- Added and updated Helpfiles
+
+*****************************
+	Version 0.6.2:
+*****************************
+- Added a shellscript for Linux
+- Changed all filenames to lower cases except the Loading script for Modules
+- changed all path´s that they are only including / instead of \. For Linux compatibility
+- Changed some SQL Statements that has not been changed in the last version(for MySQL)
+- The title command was sending the output only to guild channel and not to the channel where the user used the command for it
+- Chatbot.bat is starting the php.exe with a reference to the new php-win.ini
+- Fixed some references to wrong files(no affect on windows as it isn´t case-sensitive)
+- Fixed an SQL Select Statement error in the count command
+- Fixed an rounding mistake in the oe command
+- Fixed that the sender name of tells was shown instead of the recievers one at the console
+- Added that only php files will be accepted that are in lowercases
+- Added the XML Infofile required for the BotManager
+- Updated the Itemsdatabase to 17.0.1
+
+*****************************
+	Version 0.6.1:
+*****************************
+- Changed the Online module output design and added the rank of each player  
+- Fixed a problem within the adminmodule that their online status was not shown correctly  
+- On the adminlist it is now shown too if he is in the private group  
+- Removed an old Tower debuge message that was shown on the console  
+- Corrected some itemlinks in the bio material script  
+- Some old helpfile descriptions weren´t stored correctly in the Database  
+- The log functions(file and console) are put now into one function to. Also the format of the output has been changed a bit.  
+- Messages from the Bot itself are shown in the logfiles and the console now too.  
+- Added that you can set in which channel you want to see the city attacks.(usefull when you have 2bots(1raidbot and 1 orgbot) so they don´t show both the attack in your guild channel)  
+- Fixed a problem when assigning some to a team when he had a number in his name  
+- Fixed that players that left the Bot couldn´t be removed from a team  
+- Using a command with prefix(like # or !) in tells will work now too  
+- Added a AI Raidhoster Module(used to roll for a AI Raid sponsor)  
+- Added a little countdown command to the timers module  
+- Removed the loot module as it is now part of the raidmodule  
+- Added that you can see the rank too on the orgmembers function
+- Fixed a problem with commands that are used in different modules but where shown on one cmd config window
+- Changed the Forum adress in various scripts
+- Added that you can set the color for the guestchannel relay text(changed that you can set different colors for channel, username and channelcolor)
+- Added that you can relay also the commands and results
+- Added that you can set if the guestchannel will be always/automatic/never relayed
+- Added a little news script for the privategroup join. One for admins and one for normal users
+- Added a very flexible raidmodule. Including raidloot, raidlist, raidkick, raidstart, raidcheck, rules, spawntime, raidhistory(Items can be flatrolled or pts). The raidloot table can be easy extended
+- Updated the adminmodule. Changed some messages that are sent to the rl/mod and the sender of the command. Added check if the player is a RL/Mod when you try to remove them from the list.
+- Added the old about command and updated the about.txt
+- Added the whereis script from Blackruby
+- Added the Alien City General Info File from Blackruby(shows what drops of a specific General)
+- Updated the Level Info with some new colors and also show how much tokens you get(done by Blackruby)
+- Added a Module with that you can see what you need for a specific Alien Armor Part(like which Viralbots and skills for the combine)
+- Updated the Character/org/server lookup class(xml.php) to solve some issues with getting wrong data. Also the Speed of the Splitting functions for xml files has been increased.
+- The Organisation XML file from the Bot org will be able to update every 6hrs while the rest is still set to 24hrs.
+- Updated to PHP5.2
+- Added a Exec command to the DB Class
+- Added a Function to the DB class to change the Create Table statements for SQLite(as they are compatibel with the ones used for MYSQL f.e. the autoincrement columns)
+- Fixed some issues with using MySQL as Database
+- Added that Newsentrys can be deleted
+- Fixed that guestchannel players were not shown on the !count commands
+- Fixed a bug in the !count lvl command that the amount of players in a TL were not calculated correctly
+- Fixed a bug that the bot were unable to respond to users with an userid higher than 2^31
+
+*****************************
+	Version 0.6:
+*****************************
+- Removed the online commands from the basic guild and basic chat
+- Added a new Module to show who is online and in the private chat
+- The online commands are available for tells now too. You can choose over an setting if it should show the guild or private members that are online
+- Added a helpfile for the secure tell module
+- Changed the default settings for the secure tell module
+- Fixed a problem with the clear command and when a text is infront of a item ref(when adding an item with loot)
+- Fixed a problem with disabling of pwinners
+- All public channels are now from default on ignore
+- Fixed a problem with the helpfiles(!help wasn´t available in guild/priv and admin check wasn´t correct)
+- Updated the itemsmodule so it is compatible with the new table
+- Fixed an error in the guest channel. If the player that has been added is an orgmember his logon was shown.
+- Players in the guest channel can´t use the afk command anymore(was showing that he is back only)
+- Updated the loot module for the new itemstable
+- gueslist is showing if the user is online/in chat or offline
+- Memberslist shows now if the user is online/offline and in chat
+- Added Versionsnumber and Supportforum adress(startup logo)
+- Added a little funmodule
+- guests list looks the same way as the online list and the guestslist is now sorted after player names
+- Added autoreinvite for players that have been in the privgrp after a bot restart or crasg
+- Topic can now be send too when a guildmember logs on
+- Changed the look of the online list a bit and added the alien lvl is shown too now
+- The Bot is now updating breed and gender too now in the org roster update
+- Added the days to the topic command for the time it has been set
+- The logonmsg that is relayed looks now the same way as normal logons
+- Added a list to show current orgmembers, their stats and when they logged off the last time
+- Fixed a problem with the new timer syntax and removed debug messages
+- Fixed a bug in one of the SELECT query statements(some entrys has been shown double or more)
+- Updated the Header in all Files which licence infos and stuff 
+- Added a GPL licence file 
+- Added a file with the patchnotes 
+- The Helpfile system got an overwork. Now only active modulehelpfiles are shown, they are categorized, their accesslvl can be changed over the config command and the help command works in guild channel too now 
+- Added Helpfiles
+- Updated Helpfiles
+- Fixed a problem with the newplugins command
+- Fixed a problem with the timer syntax
+- The minlvl for a lootspot wasn´t checked correctly 
+- Fixed a bug in the calc command that has shown an error when the result was zero 
+- Added that persons can be banned for an specific amount of time 
+- Added a listbot module
+- Logons are now relayed to the relayorg
+- Guestchannel messages are send over guildrelay too now 
+- Fixed a bug in the tower messages.(instead of attacker side was attacker guild save into the DB) 
+- Did a little overwork on the timer module. Some old timers didn´t got deleted in the DB and you can now use as time 2days 18hr 15min instead of setting it with the time in minutes. [color=red]THIS CHANGES REQUIRES A DELETE OF THE OLD TIMERS TABLE.[/color] 
+- Added an Healassist Macro 
+- Added a command so that player can force an update of their characters stats for private channel 
+
+*****************************
+	Version 0.5:
+*****************************
+- First DeveloperRelease

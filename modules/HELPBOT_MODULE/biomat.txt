@@ -1,0 +1,4 @@
+<header>::::: Identify an Biomaterial :::::<end>
+
+<highlight>To check the Biomaterial you have found use<end>
+<tab><symbol>bio 'Drag&Drop your Biomaterial here'

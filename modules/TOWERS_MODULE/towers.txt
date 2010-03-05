@@ -1,0 +1,9 @@
+<header>::::: Help on Tower Commands. :::::<end>
+
+<red>Remember that the bot needs at least Squad Commander to be able to see Tower Messages<end>
+
+<highlight>To see the last attack messages:<end>
+<tab><symbol>battle
+
+<highlight>To see the last tower battle result messages:<end>
+<tab><symbol>victory

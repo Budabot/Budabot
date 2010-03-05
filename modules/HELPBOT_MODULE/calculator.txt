@@ -1,0 +1,7 @@
+<header>::::: Help on the Calculator Command. :::::<end>
+
+<highlight>To use the minicalculator do:<end>
+<tab><symbol>calc 'insert your formula here'
+
+<highlight>For example:<end>
+<tab><symbol>calc 1+1

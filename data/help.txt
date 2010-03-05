@@ -1,0 +1,3 @@
+<header>::::: Main Help ::::: <end>
+
+This is the Main Help for the Bot <myname>.

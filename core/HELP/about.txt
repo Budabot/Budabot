@@ -1,0 +1,14 @@
+<header>::::: Budabot Info :::::<end>
+
+<highlight>General:<end>
+Programing Language: <highlight>PHP 5.1<end>
+Database Management System: <highlight>MySQL or SQLite<end>
+Project Site: <highlight>http://sourceforge.net/projects/budabot/<end>
+Project Forum and more Details: <highlight>http://aodevs.com<end>
+
+<highlight>Coders:<end>
+<highlight>Derroylo<end> - Project Manager and Maindeveloper.
+<highlight>Sebuda<end> - Creator of this Project.
+
+<highlight>Special thanks to:<end>
+Sch, Kuren, Vash, Auno, Snow(die bunnie die) and all of the Hackersquest/AODevs members.

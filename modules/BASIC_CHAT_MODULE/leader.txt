@@ -1,0 +1,17 @@
+<header>::::: Set a leader of the Raid :::::<end>
+
+<highlight>Set yourself as leader<end>
+<tab><symbol>leader
+
+<highlight>Give someone else leader<end>
+<tab><symbol>leader 'player name'
+
+<highlight>Enabling/Disabling echo for Leader<end>
+<highlight>Current Status<end>
+<tab><symbol>leaderecho
+
+<highlight>Enable Leaderecho<end>
+<tab><symbol>leaderecho on
+
+<highlight>Disable Leaderecho<end>
+<tab><symbol>leaderecho off
