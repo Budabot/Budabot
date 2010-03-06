@@ -58,9 +58,9 @@ if(eregi("^(.+) \((.+), (clan|neutral|omni)\) attacked (.+) \((clan|neutral|omni
     $db->query("SELECT * FROM towerranges WHERE `playfield` LIKE '%$zone%'");
     if($db->numrows() == 0) {
       	if(strtolower($def_guild) == strtolower($this->vars["my guild"]))
-			$msg = "<highlight>".$att_player."<end> (Lvl <highlight>".$whois->level."<end>/<highlight>".$whois->prof."<end>/".$att_guild."/".$att_side.") attacked the ".$def_side." organization <highlight>".$def_guild."´s<end> tower in ".$zone."(".$coordx."x".$coordy.").";	  		    
-		else 
 			$msg = "<red>The organisation <highlight>$att_guild<end> have declared war against us!!<end> <highlight>".$att_player."<end> (Lvl <highlight>".$whois->level."<end>/<highlight>".$whois->prof."<end>/".$att_guild."/".$att_side.") attacked our tower in ".$zone."(".$coordx."x".$coordy.").";
+		else
+			$msg = "<highlight>".$att_player."<end> (Lvl <highlight>".$whois->level."<end>/<highlight>".$whois->prof."<end>/".$att_guild."/".$att_side.") attacked the ".$def_side." organization <highlight>".$def_guild."´s<end> tower in ".$zone."(".$coordx."x".$coordy.").";	  		     
 		
 	} else {
 		while($row = $db->fObject()) {
