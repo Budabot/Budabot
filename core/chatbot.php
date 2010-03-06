@@ -992,12 +992,12 @@ class bot extends AOChat{
 		global $db;
 		
 		switch ($type){
-			case 60:
+			case AOCP_GROUP_ANNOUNCE: // 60
 				$b = unpack("C*", $args[0]);
 				if ($b[1]==3)
 					$this->vars["my guild id"] = $b[2]*256*256*256 + $b[3]*256*256 + $b[4]*256 + $b[5];
 			break;			
-			case 55:// Incoming player joined private chat
+			case AOCP_PRIVGRP_CLIJOIN: // 55, Incoming player joined private chat
 				$type = "joinPriv"; // Set message type.
 				$sender	= AOChat::get_uname($args[1]);// Get Name
 				// Add sender to the chatlist.
@@ -1018,7 +1018,7 @@ class bot extends AOChat{
 				if($restricted === true)
 					AOChat::privategroup_kick($sender);
 			break;	
-			case 56:// Incoming player left private chat
+			case AOCP_PRIVGRP_CLIPART: // 56, Incoming player left private chat
 				$type = "leavePriv"; // Set message type.
 				$sender	= AOChat::get_uname($args[1]); // Get Name
 				// Echo
@@ -1033,7 +1033,7 @@ class bot extends AOChat{
 				foreach($this->leavePriv as $filename)
 					include $filename;	
 			break;					
-			case 40:// Incoming buddy logon or off
+			case AOCP_BUDDY_ADD: // 40, Incoming buddy logon or off
 				// Basic packet data
 				$sender	= AOChat::get_uname($args[0]);
 				$status	= 0 + $args[1];
@@ -1068,7 +1068,7 @@ class bot extends AOChat{
 						} 				  
 				}
 			break;			
-			case 30: // Incoming Msg
+			case AOCP_MSG_PRIVATE: // 30, Incoming Msg
 				$type = "msg"; // Set message type.
 				$sender	= AOChat::get_uname($args[0]);				
 	
@@ -1157,7 +1157,7 @@ class bot extends AOChat{
 					$this->spam[$sender] = $this->spam[$sender] + 10; 
 				}						
 			break;			
-			case 57:// Incoming priv message
+			case AOCP_PRIVGRP_MESSAGE: // 57, Incoming priv message
 				$type = "priv";
 				$sender	= AOChat::get_uname($args[1]);
 				$channel = $this->vars["name"];
@@ -1228,9 +1228,9 @@ class bot extends AOChat{
 							include $filename;
 				}
 				else
-					$this->spam[$sender] = $this->spam[$sender] + 10;			
+					$this->spam[$sender] = $this->spam[$sender] + 10;
 			break;			
-			case 65: // Public and guild channels
+			case AOCP_GROUP_MESSAGE: // 65, Public and guild channels
 				$syntax_error = false;
 				$sender	 = AOChat::get_uname($args[1]);
 				$message = $args[2];			
@@ -1249,7 +1249,7 @@ class bot extends AOChat{
 						
 					if($this->banlist["$sender"]["name"] == "$sender")
 						return;
-				}				
+				}
 			
 				//Ignore Messages from Vicinity/IRRK New Wire/OT OOC/OT Newbie OOC...				
 				if($channel == "" || $channel == 'IRRK News Wire' || $channel == 'OT OOC' || $channel == 'OT Newbie OOC' || $channel == 'OT Jpn OOC' || $channel == 'OT shopping 11-50' || $channel == 'Tour Announcements' || $channel == 'Neu. Newbie OOC' || $channel == 'Neu. shopping 11-50' || $channel == 'Neu. OOC' || $channel == 'Clan OOC' || $channel == 'Clan Newbie OOC' || $channel == 'Clan shopping 11-50')
