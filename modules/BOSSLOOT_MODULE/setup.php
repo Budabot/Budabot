@@ -1,5 +1,19 @@
 <?php
-$db->query("CREATE TABLE IF NOT EXISTS boss_namedb (`bossid` int(10),`bossname` varchar(50),`location` varchar(50), 'keyname' varchar(200)Default NULL)");
+   /*
+   Bossloot Module Ver 1.1
+   Written By Jaqueme
+   For Budabot
+   Database Adapted From One Originally 
+   Compiled by Malosar For BeBot
+   Boss Drop Table Database Module
+   Written 5/11/07
+   Last Modified 5/14/07
+   */
+   
+copy("./modules/BOSSLOOT_MODULE/boss_namedb.sql", "./sql/boss_namedb.sql");
+copy("./modules/BOSSLOOT_MODULE/boss_lootdb.sql", "./sql/boss_lootdb.sql");
+   
+$db->query("CREATE TABLE IF NOT EXISTS boss_namedb (`bossid` int(10),`bossname` varchar(50),`location` varchar(50), 'keyname' varchar(200))");
 
 $db->query("SELECT * FROM boss_namedb");
 $filearray = file("./sql/boss_namedb.sql");
