@@ -43,6 +43,8 @@ if(eregi("^online$", $message)){
     $list .= "<header>::::: $numonline member(s) online :::::<end>\n";
     $data = $db->fObject("all");
     foreach($data as $row) {
+	    $name = bot::makeLink($row->name, "/tell $row->name", "chatcmd");
+	    
         if($row->profession == "")
 	        $row->profession = "Unknown";
 	        
@@ -71,14 +73,13 @@ if(eregi("^online$", $message)){
 		    	$guild = "Not in a guild";
 		    else
 		    	$guild = $row->guild." (<highlight>$row->rank<end>)";	
-
-	        $list .= "<tab><tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk $alt\n";		  
+	        $list .= "<tab><tab><highlight>$name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk $alt\n";		  
 		} else {
 		    if($row->guild == "") 
 		    	$guild = "Not in a guild";
 		    else
 		    	$guild = $row->guild;		  
-	        $list .= "<tab><tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk\n";	  
+	        $list .= "<tab><tab><highlight>$name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk\n";	  
 		}
     }
 
@@ -89,6 +90,8 @@ if(eregi("^online$", $message)){
 		$list .= "\n\n<highlight><u>$numguest User(s) in Guestchannel<end></u>\n";
 		$oldprof = "";
 	    while($row = $db->fObject()) {
+		    $name = bot::makeLink($row->name, "/tell $row->name", "chatcmd");
+		    
             if($row->profession == "")
 		        $row->profession = "Unknown";
 		    
@@ -107,7 +110,7 @@ if(eregi("^online$", $message)){
 		    	$guild = "Not in a guild";
 		    else
 		    	$guild = $row->guild;
-	        $list .= "<tab><tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk\n";	            
+	        $list .= "<tab><tab><highlight>$name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk\n";	            
 	    }      
 	}
 	$numonline += $numguest;
@@ -203,6 +206,8 @@ if(eregi("^online$", $message)){
     $list .= "<header>::::: $numonline members online :::::<end>\n";
     $data = $db->fObject("all");
     foreach($data as $row) {
+	    $name = bot::makeLink($row->name, "/tell $row->name", "chatcmd");
+	    
         if($row->profession == "")
 	        $row->profession = "Unknown";
 	        
@@ -231,14 +236,13 @@ if(eregi("^online$", $message)){
 		    	$guild = "Not in a guild";
 		    else
 		    	$guild = $row->guild." (<highlight>$row->rank<end>)";	
-
-	        $list .= "<tab><tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk $alt\n";		  
+	        $list .= "<tab><tab><highlight>$name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk $alt\n";		  
 		} else {
 		    if($row->guild == "") 
 		    	$guild = "Not in a guild";
 		    else
 		    	$guild = $row->guild;		  
-	        $list .= "<tab><tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk\n";	  
+	        $list .= "<tab><tab><highlight>$name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk\n";	  
 		}
     }
         
@@ -252,6 +256,8 @@ if(eregi("^online$", $message)){
 		$numguest = $db->numrows();
 		$list .= "\n\n<highlight><u>$numguest User(s) in Guestchannel<end></u>\n";
 	    while($row = $db->fObject()) {
+		    $name = bot::makeLink($row->name, "/tell $row->name", "chatcmd");
+		    
 	        if($row->profession == "")
 		        $row->profession = "Unknown";
 
@@ -270,7 +276,7 @@ if(eregi("^online$", $message)){
 		    	$guild = "Not in a guild";
 		    else
 		    	$guild = $row->guild; 	
-	        $list .= "<tab><tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk\n";	            
+	        $list .= "<tab><tab><highlight>$name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk\n";	            
         }      
 	}
 	$numonline += $numguest;
