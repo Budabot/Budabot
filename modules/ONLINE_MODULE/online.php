@@ -85,7 +85,10 @@ if(eregi("^online$", $message)){
 
 	// Guest Channel Part
     if(count($this->vars["Guest"]) > 0 && ($type == "guild" || ($this->settings["online_tell"] == 0 && $type == "msg")  || ($type == "priv" && $this->vars["Guest"][$sender] == true))) {
-	    $db->query("SELECT * FROM priv_chatlist_<myname> ORDER BY `profession`, `level` DESC");
+	    if($this->settings["relaybot"])
+			$db->query("SELECT * FROM priv_chatlist_<myname> UNION ALL SELECT * FROM priv_chatlist_".strtolower($this->settings["relaybot"])." ORDER BY `profession`, `level` DESC");
+	    else
+	    	$db->query("SELECT * FROM priv_chatlist_<myname> ORDER BY `profession`, `level` DESC");
 		$numguest = $db->numrows();
 		$list .= "\n\n<highlight><u>$numguest User(s) in Guestchannel<end></u>\n";
 		$oldprof = "";
@@ -249,9 +252,15 @@ if(eregi("^online$", $message)){
     // Guest Channel Part
     if(count($this->vars["Guest"]) > 0 && ($type == "guild" || ($this->settings["online_tell"] == 0 && $type == "msg") || ($type == "priv" && $this->vars["Guest"][$sender] == true))) {
 	    if($prof == "all")
-	        $db->query("SELECT * FROM priv_chatlist_<myname> ORDER BY `profession`, `level` DESC");
+		    if($this->settings["relaybot"])
+				$db->query("SELECT * FROM priv_chatlist_<myname> UNION ALL SELECT * FROM priv_chatlist_".strtolower($this->settings["relaybot"])." ORDER BY `profession`, `level` DESC");
+		    else
+		    	$db->query("SELECT * FROM priv_chatlist_<myname> ORDER BY `profession`, `level` DESC");
         else
-            $db->query("SELECT * FROM priv_chatlist_<myname> WHERE `profession` = '$prof'"); 	
+        	if($this->settings["relaybot"])
+				$db->query("SELECT * FROM priv_chatlist_<myname> UNION ALL SELECT * FROM priv_chatlist_".strtolower($this->settings["relaybot"])." WHERE `profession` = '$prof' ORDER BY `level` DESC");
+		    else
+		    	$db->query("SELECT * FROM priv_chatlist_<myname> WHERE `profession` = '$prof' ORDER BY `level` DESC");
 
 		$numguest = $db->numrows();
 		$list .= "\n\n<highlight><u>$numguest User(s) in Guestchannel<end></u>\n";
