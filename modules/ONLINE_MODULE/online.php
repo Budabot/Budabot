@@ -84,7 +84,7 @@ if(eregi("^online$", $message)){
     }
 
 	// Guest Channel Part
-    if(count($this->vars["Guest"]) > 0 && ($type == "guild" || ($this->settings["online_tell"] == 0 && $type == "msg")  || ($type == "priv" && $this->vars["Guest"][$sender] == true))) {
+    if($type == "guild" || ($this->settings["online_tell"] == 0 && $type == "msg")  || ($type == "priv" && $this->vars["Guest"][$sender] == true)) {
 	    if($this->settings["relaybot"])
 			$db->query("SELECT * FROM priv_chatlist_<myname> UNION ALL SELECT * FROM priv_chatlist_".strtolower($this->settings["relaybot"])." ORDER BY `profession`, `level` DESC");
 	    else
