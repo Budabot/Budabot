@@ -24,36 +24,38 @@ if (ereg ("^boss (.+)$", $message, $arr)) {
 	} else {
 		$boss = "<header>::::: Results of Search for $search :::::<end>\n";	
 	}
-
+	
 	// Find bossname or Boss key
 	$db->query("SELECT * FROM boss_namedb WHERE bossname LIKE  \"%$search%\" OR keyname LIKE \"%$search%\"");
 	$name_found = $db->numrows();
+	
 	//If multiple matches found output list of bosses
-	If ($name_found > 1) {
+	if ($name_found > 1) {
 		$db->query("SELECT * FROM boss_namedb WHERE bossname LIKE  \"%$search%\" OR keyname LIKE \"%$search%\"");
 		$data = $db->fobject("all");
 		$bosses = $data;
 		foreach ($bosses as $row) {
-		$bossname = $row->bossname;
-		$bossid = $row->bossid;
-		$db->query("SELECT * FROM whereis WHERE name = \"$bossname\"");
-		$data = $db->fobject("all"); 
+			$bossname = $row->bossname;
+			$bossid = $row->bossid;
+			$db->query("SELECT * FROM whereis WHERE name = \"$bossname\"");
+			$data = $db->fobject("all"); 
 			foreach ($data as $row) {
-			$bossname = $row->name;
-			$boss .= "\n\n<a href='chatcmd:///tell <myname> !boss $bossname'>$bossname</a>\n";
-			$where = $row->answer;
-			$boss .= "<green>Can be found $where<end>\nDrops:";
-			$db->query("SELECT * FROM boss_lootdb, aodb WHERE boss_lootdb.bossid = \"$bossid\" AND boss_lootdb.itemid = aodb.lowid");
-			$data = $db->fobject("all");
+				$bossname = $row->name;
+				$boss .= "\n\n<a href='chatcmd:///tell <myname> !boss $bossname'>$bossname</a>\n";
+				$where = $row->answer;
+				$boss .= "<green>Can be found $where<end>\nDrops:";
+				$db->query("SELECT * FROM boss_lootdb, aodb WHERE boss_lootdb.bossid = \"$bossid\" AND boss_lootdb.itemid = aodb.lowid");
+				$data = $db->fobject("all");
 				foreach ($data as $row) {
-				$lowid = $row->lowid;
-				$highid = $row->highid;
-				$ql = $row->highql;
-				$loot_name = $row->itemname;
-				$boss .= "<a href='itemref://$lowid/$highid/$ql.'>$loot_name</a> ";
+					$lowid = $row->lowid;
+					$highid = $row->highid;
+					$ql = $row->highql;
+					$loot_name = $row->itemname;
+					$boss .= "<a href='itemref://$lowid/$highid/$ql.'>$loot_name</a> ";
 				}
 			}
-		}	
+		}
+		$output = bot::makelink("Boss", $boss);
 	}
 	//If single match found, output full loot table
 	elseif ($name_found  == 1) {
