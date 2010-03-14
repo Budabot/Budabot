@@ -6,7 +6,7 @@ $db->query("CREATE TABLE IF NOT EXISTS tower_result_<myname> (`time` int, `win_g
 $db->query("CREATE TABLE IF NOT EXISTS towerranges (`id` int(11), `low_level` int(10) default NULL, `high_level` int(10) default NULL, `playfield` varchar(250) default NULL, `hugemaploc` varchar(10) default NULL, `coordx` varchar(10) 	default NULL, `coordy` varchar(10) default NULL, `location` varchar(250) default NULL)");
 		  
 $db->query("SELECT * FROM towerranges");
-$filearray = file("./modules/TOWERS_MODULE/towerranges.sql");
+$filearray = file("./modules/TOWERS_MODULES/towerranges.sql");
 if($db->numrows() != count($filearray)) 	{
   	$db->query("DELETE FROM towerranges");
 	echo "Creating Tower Database. \nDepending on the Database you are using this process can take a few mins.\n";	
