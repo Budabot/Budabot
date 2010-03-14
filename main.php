@@ -76,7 +76,8 @@ if(isWindows()) {
 }
 
 //Load Required Files
-require_once "config.php";
+$config_file = $argv[1];
+require_once $config_file;
 require_once "./core/aochat.php";
 require_once "./core/chatbot.php";
 require_once "./core/sql.php";
