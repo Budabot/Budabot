@@ -56,12 +56,6 @@ if(eregi("^is (.+)$", $message, $arr)) {
 			if($type == "msg")
 	            $this->vars["IgnoreLogSender"][$name] = $sender;
             bot::send("addbuddy", $uid);
-			if($this->buddyList[$name] == "0")
-                $status = "<red>offline<end>";
-            else
-                $status = "<green>online<end>";
-            $msg = "Player <highlight>$name<end> is $status";
-			bot::send("rembuddy", $uid);
         }
     }
     if($msg) {
