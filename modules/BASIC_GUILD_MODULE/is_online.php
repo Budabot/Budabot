@@ -56,6 +56,7 @@ if(eregi("^is (.+)$", $message, $arr)) {
 			if($type == "msg")
 	            $this->vars["IgnoreLogSender"][$name] = $sender;
             bot::send("addbuddy", $uid);
+            bot::send("rembuddy", $uid);
         }
     }
     if($msg) {
