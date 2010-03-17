@@ -50,22 +50,8 @@ foreach($tmp as $key => $value) {
 if($ql)
 	$query .= " AND `lowql` <= $ql AND `highql` >= $ql";
 
-
-$db_type = "Sqlite"; 
-$db_name = "nanos.db";
-$db_host = "./modules/NANO_MODULE/"; 
-
-$nanodb = new db($db_type, $db_name, $db_host);
-if($nanodb->errorCode != 0) {
-  	echo "Error in creating Database Object\n";
-  	echo "ErrorMsg: $nanodb->errorInfo";
-  	sleep(5);
-  	die();
-}
-
-
-$nanodb->query("SELECT * FROM nanos WHERE $query ORDER BY name, lowql  LIMIT 0, {$this->settings["maxnano"]}");
-$num = $nanodb->numrows();
+$db->query("SELECT * FROM nanos WHERE $query ORDER BY name, lowql  LIMIT 0, {$this->settings["maxnano"]}");
+$num = $db->numrows();
 if($num == 0) {
   	if($ql)
 	    $msg = "No nanos found with QL <highlight>$ql<end>. Maybe try fewer keywords.";
@@ -82,7 +68,7 @@ if($num == 0) {
 
 $countitems = 0;
 
-while($row = $nanodb->fObject()) {
+while($row = $db->fObject()) {
 	if(!isset($itemlist[$row->name])) {
 		$itemlist[$row->name] = array(array("lowid" => $row->lowid, "highid" => $row->highid, "lowql" => $row->lowql, "highql" => $row->highql, "icon" => $row->icon, "location" => $row->location));
 		$countitems++;
