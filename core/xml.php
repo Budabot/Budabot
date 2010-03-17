@@ -500,9 +500,7 @@ class server extends xml{
 			return;
         }
 
-       	if($rk_num == 3)
-       		$rk_num = "g";
-       	elseif($rk_num == 4)
+       	if($rk_num == 4)
        		$rk_num = "t";
 
        	$data = xml::spliceData($serverstat, "<dimension name=\"d$rk_num", "</dimension>");
