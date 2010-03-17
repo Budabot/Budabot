@@ -237,4 +237,29 @@ main(true, $chatBot);
             return false;
         }
     }
+	
+	/**
+	 * Takes two version numbers.  Returns 1 if the first is greater than the second.
+	 * Returns -1 if the second is greater than the first.  Returns 0 if they are equal.
+	 */
+	function compareVersionNumbers($ver1, $ver2) {
+		$ver1Array = explode('.', $ver1);
+		$ver2Array = explode('.', $ver2);
+		
+		for ($i = 0; $i < count($ver1Array) && $i < count($ver2Array); $i++) {
+			if ($ver1Array[$i] > $ver2Array[$i]) {
+				return 1;
+			} else if ($ver1Array[$i] < $ver2Array[$i]) {
+				return -1;
+			}
+		}
+		
+		if (count($ver1Array) > count($ver2Array)) {
+			return 1;
+		} else if (count($ver1Array) < count($ver2Array)) {
+			return -1;
+		} else {
+			return 0;
+		}
+	}
 ?>

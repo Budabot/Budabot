@@ -1,3 +1,5 @@
+DROP TABLE boss_lootdb;
+CREATE TABLE boss_lootdb (`bossid` int(10),`itemid` int(10), 'itemname' varchar (100));
 INSERT INTO `boss_lootdb` VALUES (1,245738,'Massive Bolt Charger');
 INSERT INTO `boss_lootdb` VALUES (2,245855,'Armplates of Meteorite Assembly');
 INSERT INTO `boss_lootdb` VALUES (2,245857,'Boots of Stolen Comet Speed');

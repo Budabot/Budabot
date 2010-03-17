@@ -11,7 +11,8 @@
    */
 	$MODULE_NAME = "BOSSLOOT_MODULE";
 	
-	bot::event("setup", "$MODULE_NAME/setup.php");
+	bot::loadSQLFile($MODULE_NAME, "boss_namedb");
+	bot::loadSQLFile($MODULE_NAME, "boss_lootdb");
 	
 	bot::command("msg", "$MODULE_NAME/boss.php", "boss", "all", "Bossloot Tables");
 	bot::command("priv", "$MODULE_NAME/boss.php", "boss", "all", "Bossloot Tables");

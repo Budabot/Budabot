@@ -1,7 +1,10 @@
 <?
 $MODULE_NAME = "NANO_MODULE";
 $PLUGIN_VERSION = 0.1;
-	
+
+	//Search for Database Updates
+	bot::loadSQLFile($MODULE_NAME, "nanos");
+
     //nano Search
 	bot::command("guild", "$MODULE_NAME/nano.php", "nano", "all", "Searches for a nano and tells you were to get it.");
 	bot::command("msg", "$MODULE_NAME/nano.php", "nano", "all", "Searches for a nano and tells you were to get it.");

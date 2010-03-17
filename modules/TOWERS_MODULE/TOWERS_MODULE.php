@@ -19,7 +19,7 @@ $PLUGIN_VERSION = 0.1;
   	bot::command("msg", "$MODULE_NAME/land_control_areas.php", "lca", "guild", "Shows Infos about Land Control Areas");
 
 	//Setup
-	bot::event("setup", "$MODULE_NAME/setup.php");
+	bot::loadSQLFile($MODULE_NAME, "towerranges");
 	
 	//Helpfiles
 	bot::help("towers", "$MODULE_NAME/towers.txt", "guild", "Show Tower messages", "Towers");

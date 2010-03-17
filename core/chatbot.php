@@ -640,10 +640,12 @@ class bot extends AOChat{
 		$module = $module[0];
 		
 		//Check if the file exists		
-		if(($actual_filename = bot::verifyFilename($filename)) != '') { 
+		if ($type == 'loadSQLFile') {
+			// do nothing
+		} else if(($actual_filename = bot::verifyFilename($filename)) != '') { 
     		$filename = $actual_filename; 
 		} else { 
-			echo "Error in registering the File $filename for Eventtype $type. The file doesn´t exists!\n";
+			echo "Error in registering the File $filename for Eventtype $type. The file doesn't exists!\n";
 			return;
 		}
 		
@@ -725,9 +727,9 @@ class bot extends AOChat{
 				if(!in_array($filename, $this->_connect))
 					$this->_connect[] = $filename;
 			break;			
-			case "setup":				
-				include "$filename";
-			break;						
+			case "setup":
+				include $filename;
+			break;
 		}
 	}
 
@@ -901,8 +903,9 @@ class bot extends AOChat{
 		if($this->existing_settings[$name] != true) {
 			$db->query("INSERT INTO settings_<myname> (`name`, `mod`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('$name', '$curMod', '$mode', '$setting', '$options', '$intoptions', '$description', 'db', '$admin', '$help')");
 		  	$this->settings[$name] = $setting;
-	  	} else
+	  	} else {
 			$db->query("UPDATE settings_<myname> SET `mode` = '$mode', `options` = '$options', `intoptions` = '$intoptions', `description` = '$description', `admin` = '$admin', `help` = '$help' WHERE `name` = '$name'");
+		}
 	}
 
 /*===============================
@@ -1406,6 +1409,82 @@ class bot extends AOChat{
 			echo "Warning: $filename does not match the nameconvention(All php files needs to be in lowercases except loading files)!\n";
 			sleep(2);
 			return false;
+		}
+	}
+	
+	/*===============================
+** Name: loadSQLFile
+** Loads an sql file if there is an update
+** Will load the sql file with name $namexx.xx.xx.xx.sql if xx.xx.xx.xx is newer than settings["module_name_sql_version"]
+*/	function loadSQLFile($module, $name, $forceUpdate = false) {
+		global $db;
+		global $curMod;
+		$curMod = $module;
+		$name = strtolower($name);
+		
+		// only letters, numbers, underscores are allowed
+		if (!eregi('^[a-z0-9_]+$', $name)) {
+			echo "Invalid SQL file name!  Only numbers, letters, and underscores permitted!\n";
+			return;
+		}
+		
+		$settingName = $name . "_db_version";
+		$currentVersion = bot::getsetting($settingName);
+		// if there is no saved version, set it to -1
+		// so if the maxFileVersion is 0 (ie, it has no version)
+		// it will still update
+		if ($currentVersion === false) {
+			$currentVersion = -1;
+		}
+		
+		$dir = "./modules/$module";
+		
+		$file = false;
+		$maxFileVersion = 0;  // 0 indicates no version
+		if ($d = dir($dir)) {
+			while (false !== ($entry = $d->read())) {
+				if (is_file("$dir/$entry") && eregi($name . "([0-9.]*)\\.sql", $entry, $temp)) {
+					// if there is no version on the file, set the version to 0
+					if ($temp[1] === false) {
+						$temp[1] = 0;
+					}
+
+					if (compareVersionNumbers($temp[1], $maxFileVersion) >= 0) {
+						$maxFileVersion = $temp[1];
+						$file = $entry;
+					}
+				}
+			}
+		}
+		
+		if ($file === false) {
+			echo "No SQL file found with name '$name'!\n";
+		} else if (compareVersionNumbers($maxFileVersion, $currentVersion) > 0 || $forceUpdate) {		
+			$filearray = file($file);
+
+			// if the file had a version, tell them the start and end version
+			// otherwise, just tell them we're updating the database
+			if ($maxFileVersion != 0) {
+				echo "Updating $name database...from '$currentVersion' to '$maxFileVersion'\n";
+			} else {
+				echo "Updating $name database...\n";
+			}
+
+			//$db->beginTransaction();
+			foreach($filearray as $num => $line) {
+				$db->query(rtrim($line));
+			}
+			//$db->Commit();			
+			echo "Finished updating $name database.\n";
+		
+			// if there was no version on the file, don't save the version number
+			// if maxFileVersion isn't 0, and savesetting fails (ie, a setting by that
+			// name doesn't exist, then add the setting
+			if ($maxFileVersion != 0 && !bot::savesetting($settingName, $maxFileVersion)) {
+				bot::addsetting($settingName, $settingName, 'noedit', $maxFileVersion);
+			}
+		} else {
+			echo "$name database already up to date! version: '$currentVersion'\n";
 		}
 	}
 }
