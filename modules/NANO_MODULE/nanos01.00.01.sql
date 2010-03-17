@@ -1,4 +1,4 @@
-DROP TABLE nanos;
+DROP TABLE IF EXISTS nanos;
 CREATE TABLE nanos (lowid INT, highid INT, lowql INT, highql INT, name VARCHAR(255), icon INT, profession VARCHAR(20), location VARCHAR(255));
 INSERT INTO nanos VALUES(26464,26464,10,10,"Nano Crystal (1H Blunt Weapon Expertise)",12226,"General","RK Store");
 INSERT INTO nanos VALUES(26462,26462,10,10,"Nano Crystal (1H Blunt Weapon Incompetence)",12226,"General","RK Store");

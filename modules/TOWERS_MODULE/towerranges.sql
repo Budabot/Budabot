@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS tower_attack_<myname> (`time` int, `att_guild` VARCHAR(50), `att_side` VARCHAR(10), `att_player` VARCHAR(20), `att_level` int, `att_profession` VARCHAR(15), `def_guild` VARCHAR(50), `def_side` VARCHAR(10), `zone` VARCHAR(50), `x` INT, `y` INT);
 CREATE TABLE IF NOT EXISTS tower_result_<myname> (`time` int, `win_guild` VARCHAR(50), `win_side` VARCHAR(10), `lose_guild` VARCHAR(50), `lose_side` VARCHAR(10));
-DROP TABLE towerranges;
+DROP TABLE IF EXISTS towerranges;
 CREATE TABLE towerranges (`id` int(11), `low_level` int(10) default NULL, `high_level` int(10) default NULL, `playfield` varchar(250) default NULL, `hugemaploc` varchar(10) default NULL, `coordx` varchar(10) 	default NULL, `coordy` varchar(10) default NULL, `location` varchar(250) default NULL);
 INSERT INTO towerranges (id, low_level, high_level, playfield, hugemaploc, coordx, coordy, location) VALUES (1, '10', '15', 'Clondyke', '7', '2500', '1220', 'Micron Slopes Notum Mine');
 INSERT INTO towerranges (id, low_level, high_level, playfield, hugemaploc, coordx, coordy, location) VALUES (2, '10', '15', 'Greater Omni Forest', '5', '1500', '1300', 'Greater Omni Forest South');

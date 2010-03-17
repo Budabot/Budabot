@@ -1460,7 +1460,7 @@ class bot extends AOChat{
 		if ($file === false) {
 			echo "No SQL file found with name '$name'!\n";
 		} else if (compareVersionNumbers($maxFileVersion, $currentVersion) > 0 || $forceUpdate) {		
-			$filearray = file($file);
+			$filearray = file("$dir/$file", FILE_TEXT | FILE_SKIP_EMPTY_LINES | FILE_IGNORE_NEW_LINES);
 
 			// if the file had a version, tell them the start and end version
 			// otherwise, just tell them we're updating the database
@@ -1472,16 +1472,18 @@ class bot extends AOChat{
 
 			//$db->beginTransaction();
 			foreach($filearray as $num => $line) {
-				$db->query(rtrim($line));
+				$db->query($line);
 			}
-			//$db->Commit();			
+			//$db->Commit();
 			echo "Finished updating $name database.\n";
 		
 			// if there was no version on the file, don't save the version number
 			// if maxFileVersion isn't 0, and savesetting fails (ie, a setting by that
 			// name doesn't exist, then add the setting
-			if ($maxFileVersion != 0 && !bot::savesetting($settingName, $maxFileVersion)) {
-				bot::addsetting($settingName, $settingName, 'noedit', $maxFileVersion);
+			if ($maxFileVersion != 0) {
+				if (!bot::savesetting($settingName, $maxFileVersion)) {
+					bot::addsetting($settingName, $settingName, 'noedit', $maxFileVersion);
+				}
 			}
 		} else {
 			echo "$name database already up to date! version: '$currentVersion'\n";

@@ -1,4 +1,4 @@
-DROP TABLE boss_namedb;
+DROP TABLE IF EXISTS boss_namedb;
 CREATE TABLE boss_namedb (`bossid` int(10),`bossname` varchar(50),`location` varchar(50), 'keyname' varchar(200));
 INSERT INTO `boss_namedb` VALUES (1,'Afreet Ellis','NE of Frontier Garden','Afreet, Ellis');
 INSERT INTO `boss_namedb` VALUES (2,'Akshki','South of Frontier','Ashki'); 
