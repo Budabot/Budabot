@@ -9,48 +9,48 @@
 	/* **************************************** */
 	
 	// Insert your Account infos here
-	$vars['login'] 			= "";          
-	$vars['password'] 		= "";          
-	$vars['name'] 			= ""; 
-	$vars['my guild'] 		= "";          
-	$vars['dimension'] 		= 1;         
+	$vars['login'] 			= "";
+	$vars['password'] 		= "";
+	$vars['name'] 			= "";
+	$vars['my guild'] 		= "";
+	$vars['dimension'] 		= 1;  // enter 1 for Atlantean, 2 for Rimor, 3 for Die Nueue Welt
 	//Insert the Administratorname here
-	$settings['Super Admin'] 	= "";          	
+	$settings['Super Admin'] 	= "";
     // What prefix should be used for private/Guild channel
-	$settings['symbol']			= "!";            	
+	$settings['symbol']			= "!";
 
 	// Debug Messages
 	// 0 = Show no message
 	// 1 = Show basic debug messages
 	// 2 = Show enhanced debug messages
 	// 3 = Show enhanced debug messages + 1sec delay
-	$settings['debug'] 			= 0;       
+	$settings['debug'] 			= 0;
 
 	// Log Messages
 	// 0 = Show nothing
 	// 1 = Show them only on the console
 	// 2 = Show them on the console and log them to files	
-	$settings['echo'] 			= 1;  
+	$settings['echo'] 			= 1;
 	
     // Default Delay for crons after bot is connected
-    $settings['CronDelay']      = 30;          
+    $settings['CronDelay']      = 30;
 	
     // Default Colors that should be used
-	$settings['default guild color']     = "<font color='#84FFFF'>";               
-	$settings['default priv color']      = "<font color='#84FFFF'>";          
-	$settings['default window color']    = "<font color='#84FFFF'>";          
-	$settings['default tell color']      = "<font color='#DDDDDD'>";             
-	$settings['default highlight color'] = "<font color='#9CC6E7'>";      
-	$settings['default header color']    = "<font color='#FFFF00'>";      
+	$settings['default guild color']     = "<font color='#84FFFF'>";
+	$settings['default priv color']      = "<font color='#84FFFF'>";
+	$settings['default window color']    = "<font color='#84FFFF'>";
+	$settings['default tell color']      = "<font color='#DDDDDD'>";
+	$settings['default highlight color'] = "<font color='#9CC6E7'>";
+	$settings['default header color']    = "<font color='#FFFF00'>";
 	
 	// Replace "Insert Name here" with the bot that
 	// tells should be ignored by default
 	$settings['Ignore'] = "";         
 	
 	//Database Informations	
-	$settings['DB Type'] = "Sqlite";           //What type of Database should be used? (Sqlite or Mysql)
-    $settings['DB Name'] = "budabot.db";           // Database Name
-	$settings['DB Host'] = "./data/";           // Hostname or File location.
+	$settings['DB Type'] = "Sqlite";         // What type of Database should be used? (Sqlite or Mysql)
+    $settings['DB Name'] = "budabot.db";     // Database Name
+	$settings['DB Host'] = "./data/";        // Hostname or File location.
 	$settings['DB username'] = "";           // Mysql User name
     $settings['DB password'] = "";           // Mysql Password
 
