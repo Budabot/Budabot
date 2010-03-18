@@ -62,17 +62,6 @@ if(isWindows()) {
         @dl('pdo_mysql.so');
     }
     
-    /*
-    * We try to load the aokex extension too,
-    * if it's available.
-    */
-    if(!extension_loaded('aokex')) {
-        if(!@dl('aokex.so')) {
-            echo "Failed to load the aokex extension!\n";
-        } else {
-            echo "Loaded the aokex extension.\n";
-        }
-    }
 }
 
 //Load Required Files
@@ -85,6 +74,7 @@ require_once "./core/xml.php";
 
 //Set Error Level
 error_reporting(E_ERROR | E_PARSE);
+//error_reporting(-1);
 
 //Show setup dialog
 if(!file_exists("delete me for new setup"))

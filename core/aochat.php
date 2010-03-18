@@ -253,7 +253,7 @@
         }
         if($tmp == "")
         {
-          die("Read error: EOF\n");
+          die("Read error: EOF\n(Someone else logging on to same account?)\n");
           $this->disconnect();
           return "";
         }
@@ -358,10 +358,7 @@
       if($this->state != "auth")
         die("AOChat: not expecting authentication.\n");
 
-      if(extension_loaded("aokex"))
-        $key = aokex_login_key($this->serverseed, $username, $password);
-      else
-        $key = $this->generate_login_key($this->serverseed, $username, $password);
+      $key = $this->generate_login_key($this->serverseed, $username, $password);
       $pak = new AOChatPacket("out", AOCP_LOGIN_REQUEST, array(0, $username, $key));
       $this->send_packet($pak);
       $packet = $this->get_packet();
@@ -725,6 +722,106 @@
       }
     }
 
+	/*
+	* This function returns the binary equivalent postive integer to a given negative
+	* integer of arbitrary length. This would be the same as taking a signed negative
+	* number and treating it as if it were unsigned. To see a simple example of this
+	* on Windows, open the Windows Calculator, punch in a negative number, select the
+	* hex display, and then switch back to the decimal display.
+	* http://www.hackersquest.com/boards/viewtopic.php?t=4884&start=75
+	*/
+	function NegativeToUnsigned($value)
+	{
+		if(bccomp($value, 0) != -1)
+		return $value;
+
+		$value = bcmul($value, -1);
+		$higherValue = 0xFFFFFFFF;
+
+		// We don't know how many bytes the integer might be, so
+		// start with one byte and then grow it byte by byte until
+		// our negative number fits inside it. This will make the resulting
+		// positive number fit in the same number of bytes.
+		while(bccomp($value, $higherValue) == 1)
+		{
+			$higherValue = bcadd(bcmul($higherValue, 0x100), 0xFF);
+		}
+
+		$value = bcadd(bcsub($higherValue, $value), 1);
+		return $value;
+	}
+
+
+
+	// On linux systems, unpack("H*", pack("L*", <value>)) returns differently than on Windows.
+	// This can be used instead of unpack/pack to get the value we need.
+	// http://www.hackersquest.com/boards/viewtopic.php?t=4884&start=75
+	function SafeDecHexReverseEndian($value)
+	{
+		$result = "";
+		$hex   = dechex($this -> ReduceTo32Bit($value));
+		$len   = strlen($hex);
+
+		while($len < 8)
+		{
+			$hex = "0$hex";
+			$len++;
+		}
+
+		$bytes = str_split($hex, 2);
+
+		for($i = 3; $i >= 0; $i--)
+		$result .= $bytes[$i];
+
+		return $result;
+	}
+
+	/*
+	* Takes a number and reduces it to a 32-bit value. The 32-bits
+	* remain a binary equivalent of 32-bits from the previous number.
+	* If the sign bit is set, the result will be negative, otherwise
+	* the result will be zero or positive.
+	* Function by: Feetus of RK1
+	* http://www.hackersquest.com/boards/viewtopic.php?t=4884&start=75
+	*/
+	function ReduceTo32Bit($value)
+	{
+
+		// If its negative, lets go positive ... its easier to do everything as positive.
+		if(bccomp($value, 0) == -1)
+		{
+			$value = $this -> NegativeToUnsigned($value);
+		}
+
+		$bit  = 0x80000000;
+		$bits = array();
+
+		// Find the largest bit contained in $value above 32-bits
+		while(bccomp($value, $bit) > -1)
+		{
+			$bit    = bcmul($bit, 2);
+			$bits[] = $bit;
+		}
+
+		// Subtract out bits above 32 from $value
+		while(NULL != ($bit = array_pop($bits)))
+		{
+			if(bccomp($value, $bit) >= 0)
+			{
+				$value = bcsub($value, $bit);
+			}
+		}
+
+		// Make negative if sign-bit is set in 32-bit value
+		if(bccomp($value, 0x80000000) != -1)
+		{
+			$value  = bcsub($value, 0x80000000);
+			$value -= 0x80000000;
+		}
+		return $value;
+	}
+
+
     /* This is 'half' Diffie-Hellman key exchange.
      * 'Half' as in we already have the server's key ($dhY)
      * $dhN is a prime and $dhG is generator for it.
@@ -788,35 +885,33 @@
 
       for($i=1; $i<=sizeof($dataarr); $i+=2)
       {
-        $cycle[0] = $dataarr[$i]   ^ $result[0];
-        $cycle[1] = $dataarr[$i+1] ^ $result[1];
-        $result   = $this->aochat_tea_encrypt($cycle, $keyarr);
-        $ret     .= array_pop(unpack("H*", pack("V*", $result[0], $result[1])));
+
+	$now[0] = (int)$this -> ReduceTo32Bit($dataarr[$i]) ^ (int)$this -> ReduceTo32Bit($prev[0]);
+	$now[1] = (int)$this -> ReduceTo32Bit($dataarr[$i+1]) ^ (int)$this -> ReduceTo32Bit($prev[1]);
+	$prev   = $this -> aocrypt_permute($now, $keyarr);
+
+	$ret .= $this -> SafeDecHexReverseEndian($prev[0]);
+	$ret .= $this -> SafeDecHexReverseEndian($prev[1]);
+
       }
 
       return $ret;
     }
 
-    /* TEA encryption
-     * http://en.wikipedia.org/wiki/Tiny_Encryption_Algorithm
-     */
-    function aochat_tea_encrypt($cycle, $key)
-    {
-      $a = $cycle[0];
-      $b = $cycle[1];
-      $sum = 0;
-      $delta = (int)0x9e3779b9;
-      $i = 32;
-
-      while($i--)
-      {
-        $sum = (int)($sum + $delta);
-        $a += (($b << 4 & 0xfffffff0) + $key[1]) ^ ($b + $sum) ^ (($b >> 5 & 0x7ffffff) + $key[2]);
-        $b += (($a << 4 & 0xfffffff0) + $key[3]) ^ ($a + $sum) ^ (($a >> 5 & 0x7ffffff) + $key[4]);
-      }
-
-      return array($a, $b);
-    }
+	function aocrypt_permute($x, $y)
+	{
+		$a = $x[0];
+		$b = $x[1];
+		$c = 0;
+		$d = (int)0x9e3779b9;
+		for($i = 32; $i-- > 0;)
+		{
+			$c  = (int)$this -> ReduceTo32Bit($c + $d);
+			$a += (int)$this -> ReduceTo32Bit((int)$this -> ReduceTo32Bit(((int)$this -> ReduceTo32Bit($b) << 4 & -16) + $y[1]) ^ (int)$this -> ReduceTo32Bit($b + $c)) ^ (int)$this -> ReduceTo32Bit(((int)$this -> ReduceTo32Bit($b) >> 5 & 134217727) + $y[2]);
+			$b += (int)$this -> ReduceTo32Bit((int)$this -> ReduceTo32Bit(((int)$this -> ReduceTo32Bit($a) << 4 & -16) + $y[3]) ^ (int)$this -> ReduceTo32Bit($a + $c)) ^ (int)$this -> ReduceTo32Bit(((int)$this -> ReduceTo32Bit($a) >> 5 & 134217727) + $y[4]);
+		}
+		return array($a, $b);
+	}
   }
 
 
@@ -1098,11 +1193,14 @@
                                       "R{SIDE}/s{ORG}/s{ZONE}"),
                   ),
       508 => array(0xa5849e7 => array(AOEM_ORG_JOIN,
-										"{INVITER} invited {NAME} to your organization.",
-										"s{INVITER}/s{NAME}"),
+				      "{INVITER} invited {NAME} to your organization.",
+				      "s{INVITER}/s{NAME}"),
                    0x2360067 => array(AOEM_ORG_KICK,
                                       "{KICKER} kicked {NAME} from the organization.",
                                       "s{KICKER}/s{NAME}"),
+		   0x13f08a9 => array(AOEM_ORG_KICK,
+		   		      "{KICKER} removed inactive character {NAME} from your organization.",
+				      "s{KICKER}/s{NAME}"),
                    0x2bd9377 => array(AOEM_ORG_LEAVE,
                                       "{NAME} has left the organization.",
                                       "s{NAME}"),
@@ -1115,9 +1213,9 @@
                    0xc477095 => array(AOEM_ORG_VOTE,
                                       "Voting notice: {SUBJECT}\nCandidates: {CHOICES}\nDuration: {DURATION} minutes",
                                       "s{SUBJECT}/u{MINUTES}/s{CHOICES}"),
-					0xa8241d4 => array(AOEM_ORG_STRIKE,
-									"Blammo! {NAME} has launched an orbital attack!",
-									"s{NAME}"),
+		   0xa8241d4 => array(AOEM_ORG_STRIKE,
+				      "Blammo! {NAME} has launched an orbital attack!",
+				      "s{NAME}"),
                   ),
      1001 => array(0x01 => array(AOEM_AI_CLOAK,
                                  "{NAME} turned the cloaking device in your city {STATUS}.",
@@ -1143,10 +1241,18 @@
                   ),
     );
     private static $ref_cat = array(
-      509 => array(0x00 => "Normal House"),
+      509 => array(0x00 => "Normal House",
+      		   0x02 => "Market",
+		   0x03 => "Grid",
+		   0x04 => "Guard House",
+		   0x05 => "Radar Station",
+		   0x06 => "Cloaking Device"
+      		  ),
+      
      2005 => array(0x00 => "Neutral",
                    0x01 => "Clan",
-                   0x02 => "Omni"),
+                   0x02 => "Omni"
+		  ),
     );
     public $type, $text, $args;
 
