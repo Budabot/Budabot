@@ -60,8 +60,8 @@ $PLUGIN_VERSION = 0.1;
 	bot::addsetting("leaderecho_color", "Color for Raidleader echo", "edit", "<font color=#FFFF00>", "color");
 
 	//Assist
-	bot::command("priv", "$MODULE_NAME/assist.php", "assist", "all", "Creates/shows an Assist macro");
-	bot::subcommand("priv", "$MODULE_NAME/assist.php", "assist (.+)", "leader", "assist", "Set a new assist");
+	bot::command("all", "$MODULE_NAME/assist.php", "assist", "all", "Creates/shows an Assist macro");
+	bot::subcommand("all", "$MODULE_NAME/assist.php", "assist (.+)", "leader", "assist", "Set a new assist");
 	bot::command("priv", "$MODULE_NAME/heal_assist.php", "heal", "all", "Creates/showes an Doc Assist macro");
 	bot::subcommand("priv", "$MODULE_NAME/heal_assist.php", "heal (.+)", "leader", "heal", "Set a new Doc assist");
 

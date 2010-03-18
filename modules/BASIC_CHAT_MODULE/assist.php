@@ -37,24 +37,29 @@ if(eregi("assist$", $message)) {
 	  	$msg = bot::makeLink("Current Assist is $caller", $link);
 	} else
 		$msg = "No caller set atm.";
-	bot::send($msg);
+	bot::reply($type, $sender, $msg);
 } elseif(eregi("^assist (.+)$", $message, $arr)) {
     $name = ucfirst(strtolower($arr[1]));
     $uid = AoChat::get_uid($name);
+	if($type == "priv" &&!isset($this->chatlist[$name])) {
+	  	$msg = "Player <highlight>".$name."<end> isn´t on this bot.";
+		bot::reply($type, $sender, $msg);
+	}
+	
     if(!$uid) {
 		$msg = "Player <highlight>".$name."<end> does not exist.";
-	    bot::send($msg);
-	} elseif(!isset($this->chatlist[$name])) {
-	  	$msg = "Player <highlight>".$name."<end> isn´t on this bot.";
-		bot::send($msg);
+	    bot::reply($type, $sender, $msg);
 	} else {
 	  	$caller = $name;
 		$link = "<header>::::: Assist Macro for $name :::::\n\n";
 	  	$link .= "<a href='chatcmd:///macro $name /assist $name'>Click here to make an assist $name macro</a>";
 	  	$msg = bot::makeLink("Assist $name Macro", $link);
-		bot::send($msg);
-		bot::send($msg);
-		bot::send($msg);		
+		bot::reply($type, $sender, $msg);
+		
+		if ($type == "priv") {
+			bot::reply($type, $sender, $msg);
+			bot::reply($type, $sender, $msg);
+		}
 	}
 } else
 	$syntax_error = true;
