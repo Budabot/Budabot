@@ -137,12 +137,12 @@ class db {
 
 	//Function for creating the table. Main reason is that some SQL commands are not compatible with sqlite for example the autoincrement field
 	function CreateTable($stmt) {
-		if($this->type == "Sqlite") {
-		 	$stmt = str_replace(" int ", " INTEGER ", $stmt);
-		 	$stmt = str_replace(" INT ", " INTEGER ", $stmt);
-		 	$stmt = str_replace("auto_increment", "AUTOINCREMENT", $stmt);			 	 	
-		 	$stmt = str_replace("AUTO_INCREMENT", "AUTOINCREMENT", $stmt);		 	
-		}
+		if($this->type == "Mysql") {
+            $stmt = str_ireplace("AUTOINCREMENT", "AUTO_INCREMENT", $stmt);
+        } elseif($this->type == "Sqlite") {
+            $stmt = str_ireplace("AUTO_INCREMENT", "AUTOINCREMENT", $stmt);
+			$stmt = str_ireplace(" INT ", " INTEGER ", $stmt);
+        }
 		
 		$this->sql->exec($stmt);
 
