@@ -448,19 +448,26 @@ class bot extends AOChat{
 */	function command($type, $filename, $command, $admin = 'all', $description = 'none'){
 		global $db;
 
-		$type = bot::processCommandType($type);	
+		if (!bot::processCommandArgs($type, $admin)) {
+			return;
+		}
+		if ($command == "assist" || $command == "heal") {
+			print_r($type);
+			print_r($admin);
+		}
+
 		$command = strtolower($command);
 		$module = explode("/", strtolower($filename));
 	  	
-		forEach ($type as $typeSingle) {
+		for ($i = 0; $i < count($type); $i++) {
 			if($this->settings['debug'] > 1) print("Adding Command to list:($command) File:($filename)\n");
-			if($this->settings['debug'] > 1) print("                 Admin:($admin) Type:($typeSingle)\n");
+			if($this->settings['debug'] > 1) print("                 Admin:({$admin[$i]}) Type:({$type[$i]})\n");
 			if($this->settings['debug'] > 2) sleep(1);
 			
-			if($this->existing_commands[$typeSingle][$command] == true)
-				$db->query("UPDATE cmdcfg_<myname> SET `module` = '$module[0]', `verify` = 1, `file` = '$filename', `description` = '$description' WHERE `cmd` = '$command' AND `type` = '$typeSingle'");
+			if($this->existing_commands[$type[$i]][$command] == true)
+				$db->query("UPDATE cmdcfg_<myname> SET `module` = '$module[0]', `verify` = 1, `file` = '$filename', `description` = '$description' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
 			else
-				$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`) VALUES ('$module[0]', '$typeSingle', '$filename', '$command', '$admin', '$description', 1, 'cmd', '".$this->settings["default module status"]."')");
+				$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`) VALUES ('$module[0]', '{$type[$i]}', '$filename', '$command', '{$admin[$i]}', '$description', 1, 'cmd', '".$this->settings["default module status"]."')");
 		}
 	}
 
@@ -577,14 +584,21 @@ class bot extends AOChat{
 /*===============================
 ** Name: processCommandType
 ** 	Returns a command type in the proper format
-*/	function processCommandType(&$type) {
-		if ($type == "all") {
-			return array("msg", "priv", "guild");
-		} else if (!is_array($type)) {
-			return array($type);
+*/	function processCommandArgs(&$type, &$admin) {
+		if ($type == "") {
+			$type = array("msg", "priv", "guild");
 		} else {
-			return $type;
+			$type = explode(' ', $type);
 		}
+
+		$admin = explode(' ', $admin);
+		if (count($admin) == 1) {
+			$admin = array_fill(0, count($type), $admin[0]);
+		} else if (count($admin) != count($type)) {
+			echo "ERROR! the number of type arguments does not equal the number of admin arguments for command/subcommand registration!";
+			return false;
+		}
+		return true;
 	}
 
 /*===============================
@@ -592,13 +606,17 @@ class bot extends AOChat{
 ** 	Register a subcommand
 */	function subcommand($type, $filename, $command, $admin = 'all', $dependson, $description = 'none'){
 		global $db;
+		
+		if (!bot::processCommandArgs($type, $admin)) {
+			return;
+		}
+		
 		$command = strtolower($command);
 		$module = explode("/", strtolower($filename));
-		
-		$type = bot::processCommandType($type);	  	
-		forEach ($type as $typeSingle) {
+
+		for ($i = 0; $i < count($type); $i++) {
 			if($this->settings['debug'] > 1) print("Adding Subcommand to list:($command) File:($filename)\n");
-			if($this->settings['debug'] > 1) print("                    Admin:($admin) Type:($typeSingle)\n");
+			if($this->settings['debug'] > 1) print("                    Admin:($admin) Type:({$type[$i]})\n");
 			if($this->settings['debug'] > 2) sleep(1);
 
 			//Check if the file exists		
@@ -613,25 +631,25 @@ class bot extends AOChat{
 				$command = strtolower($command);
 			
 			//Check if the admin status exists
-			if(!is_numeric($admin)) {
-				if($admin == "leader")
-					$admin = 1;
-				elseif($admin == "raidleader" || $admin == "rl")
+			if(!is_numeric($admin[$i])) {
+				if($admin[$i] == "leader")
+					$admin[$i] = 1;
+				elseif($admin[$i] == "raidleader" || $admin[$i] == "rl")
 					$admin = 2;
-				elseif($admin == "mod" || $admin == "moderator")
-					$admin = 3;
-				elseif($admin == "admin")
-					$admin = 4;
-				elseif($admin != "all" && $admin != "guild" && $admin != "guildadmin") {
-					echo "Error in registrating the command $command for channel $typeSingle. Reason Unknown Admintype: $admin. Admintype is set to all now.\n";
-					$admin = "all";
+				elseif($admin[$i] == "mod" || $admin[$i] == "moderator")
+					$admin[$i] = 3;
+				elseif($admin[$i] == "admin")
+					$admin[$i] = 4;
+				elseif($admin[$i] != "all" && $admin[$i] != "guild" && $admin[$i] != "guildadmin") {
+					echo "Error in registrating the command $command for channel {$type[$i]}. Reason Unknown Admintype: {$admin[$i]}. Admintype is set to all now.\n";
+					$admin[$i] = "all";
 				}
 			}
 			
-			if($this->existing_subcmds[$typeSingle][$command] == true)
-				$db->query("UPDATE cmdcfg_<myname> SET `module` = '$module[0]', `verify` = 1, `file` = '$filename', `description` = '$description', `dependson` = '$dependson' WHERE `cmd` = '$command' AND `type` = '$typeSingle'");
+			if($this->existing_subcmds[$type[$i]][$command] == true)
+				$db->query("UPDATE cmdcfg_<myname> SET `module` = '$module[0]', `verify` = 1, `file` = '$filename', `description` = '$description', `dependson` = '$dependson' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
 			else
-				$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `dependson`) VALUES ('$module[0]', '$typeSingle', '$filename', '$command', '$admin', '$description', 1, 'subcmd', '$dependson')");
+				$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `dependson`) VALUES ('$module[0]', '{$type[$i]}', '$filename', '$command', '{$admin[$i]}', '$description', 1, 'subcmd', '$dependson')");
 		}
 	}
 
