@@ -369,7 +369,7 @@ class bot extends AOChat{
 				AOChat::send_group($who,$this->settings["default guild color"].$message);
 		}
 	}
-	
+
 /*===============================
 ** Name: loadModules
 ** Load all Modules
@@ -441,6 +441,7 @@ class bot extends AOChat{
 		global $db;
 
 		if (!bot::processCommandArgs($type, $admin)) {
+			echo "invalid args for command '$command'!!\n";
 			return;
 		}
 
@@ -596,6 +597,7 @@ class bot extends AOChat{
 		global $db;
 		
 		if (!bot::processCommandArgs($type, $admin)) {
+			echo "invalid args for subcommand '$command'!!\n";
 			return;
 		}
 		
@@ -1111,17 +1113,20 @@ class bot extends AOChat{
 			case AOCP_MSG_PRIVATE: // 30, Incoming Msg
 				$type = "msg"; // Set message type.
 				$sender	= AOChat::get_uname($args[0]);
-				$sendto = $sender;				
-	
-                if($this->settings["Ignore"][$sender] == true || $this->banlist["$sender"]["name"] == "$sender" || ($this->spam[$sender] > 100 && $this->vars['spam protection'] == 1)){
-					$this->spam[$sender] += 20;
-					return;	
-				}
+				
 				// Removing tell color 
 				if(eregi("^<font color='#([0-9a-f]+)'>(.+)$", $args[1], $arr))
 					$message = $arr[2];
 				else
 					$message = $args[1];
+				
+				// Echo	
+				if($this->settings['echo'] >= 1) newLine("Inc. Msg.", $sender, $message, $this->settings['echo']);
+	
+                if($this->settings["Ignore"][$sender] == true || $this->banlist["$sender"]["name"] == "$sender" || ($this->spam[$sender] > 100 && $this->vars['spam protection'] == 1)){
+					$this->spam[$sender] += 20;
+					return;	
+				}
 									
 				// AFk check
 				if(eregi("^$sender is afk (.+)$", $message, $arr))				
@@ -1132,9 +1137,6 @@ class bot extends AOChat{
 				//Remove the prefix infront if there is one
 				if($message[0] == $this->settings["symbol"] && strlen($message) > 1)
 					$message = substr($message, 1);
-					
-				// Echo	
-				if($this->settings['echo'] >= 1) newLine("Inc. Msg.", $sender, $message, $this->settings['echo']);
 
 				// Check privatejoin and tell Limits
 				if(file_exists("./core/PRIV_TELL_LIMIT/check.php"))
@@ -1277,11 +1279,16 @@ class bot extends AOChat{
 				$sender	 = AOChat::get_uname($args[1]);
 				$message = $args[2];			
 				$channel = AOChat::get_gname($args[0]);
-
+			
+				//Ignore Messages from Vicinity/IRRK New Wire/OT OOC/OT Newbie OOC...				
+				if($channel == "" || $channel == 'IRRK News Wire' || $channel == 'OT OOC' || $channel == 'OT Newbie OOC' || $channel == 'OT Jpn OOC' || $channel == 'OT shopping 11-50' || $channel == 'Tour Announcements' || $channel == 'Neu. Newbie OOC' || $channel == 'Neu. shopping 11-50' || $channel == 'Neu. OOC' || $channel == 'Clan OOC' || $channel == 'Clan Newbie OOC' || $channel == 'Clan shopping 11-50')
+					return;
+					
+				if($this->settings['echo'] >= 1) newLine($channel, $sender, $message, $this->settings['echo']);
+					
 				if($sender) {
 					//Ignore Message that are send from the bot self
 					if($sender == $this->vars["name"]) {
-						if($this->settings['echo'] >= 1) newLine($channel, $sender, $message, $this->settings['echo']);
 						return;
 					}
 					
@@ -1292,12 +1299,6 @@ class bot extends AOChat{
 					if($this->banlist["$sender"]["name"] == "$sender")
 						return;
 				}
-			
-				//Ignore Messages from Vicinity/IRRK New Wire/OT OOC/OT Newbie OOC...				
-				if($channel == "" || $channel == 'IRRK News Wire' || $channel == 'OT OOC' || $channel == 'OT Newbie OOC' || $channel == 'OT Jpn OOC' || $channel == 'OT shopping 11-50' || $channel == 'Tour Announcements' || $channel == 'Neu. Newbie OOC' || $channel == 'Neu. shopping 11-50' || $channel == 'Neu. OOC' || $channel == 'Clan OOC' || $channel == 'Clan Newbie OOC' || $channel == 'Clan shopping 11-50')
-					return;
-				
-				if($this->settings['echo'] >= 1) newLine($channel, $sender, $message, $this->settings['echo']);
 				
 				if($channel == "All Towers" || $channel == "Tower Battle Outcome"){
                     $type = "towers";
