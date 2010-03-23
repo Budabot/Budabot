@@ -1,6 +1,6 @@
 <?
-$info = explode(" ", $message);
-list($msg, $AttTim, $FlingSkill) = $info;
+/* $info = explode(" ", $message);
+list($msg, $AttTim, $FlingSkill) = $info; */
 
 if($type == "msg")
     $sendto = $sender;
@@ -20,14 +20,19 @@ $help .= "[<orange>FS<end>] = Your Fling Skill\n\n";
 $help .= "Example:\n";
 $help .= "Your weapon has an attack time of <orange>1.2<end> seconds.\n";
 $help .= "You have <orange>900<end> Fling Skill.\n";
-$help .= "<a href='chatcmd:///tell <myname> <symbol>fling 1.2 900'>/tell <myname> <symbol>burst 1.2 900</a>\n\n";
+$help .= "<a href='chatcmd:///tell <myname> <symbol>fling 1.2 900'>/tell <myname> <symbol>fling 1.2 900</a>\n\n";
 $help .= $footer;
 
 $helplink = bot::makeLink("::How to use Fling::", $help);
 
-if((!$AttTim) || (!$FlingSkill))
-	bot::send($helplink, $sendto);
-else{
+/* if((!$AttTim) || (!$FlingSkill))
+	bot::send($helplink, $sendto); 
+else{*/
+//eregi("^fling ([0-9]+) ([0-9]+)", $message, $arr)
+if (eregi("^fling ([0-9]*\.?[0-9]+) ([0-9]+)$", $message, $arr)) {
+	$AttTim = trim($arr[1]);
+	$FlingSkill = trim($arr[2]);
+	
 	$flinghardcap = 4+$AttTim;
 
 	$flingrech =  round(($AttTim*16)-($FlingSkill/100));
@@ -42,9 +47,9 @@ else{
 	$inside	.= "Attack: <orange>". $AttTim ." <end>second(s).\n";
 	$inside	.= "Fling Skill: <orange>". $FlingSkill ."<end>\n";
 	$inside	.= "Fling Recharge:<orange> ". $flingrech ."<end>s\n";
-	$inside	.= "You need <orange>".$flingskillcap."<end> Fling Skill to cap your burst at: <orange>".$flinghardcap."<end>s";
+	$inside	.= "You need <orange>".$flingskillcap."<end> Fling Skill to cap your fling at: <orange>".$flinghardcap."<end>s";
 	$inside .= $footer;
 
 	$windowlink = bot::makeLink("::Your Fling Results::", $inside);
 	bot::send($windowlink, $sendto);
-	}
+} else bot::send($helplink, $sendto); 

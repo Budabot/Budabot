@@ -1,56 +1,103 @@
 <?
-$info = explode(" ", $message);
-list($msg, $MaSkill) = $info;
+	include 'utils.php';
+	
+    // MA templates
+	$skill_list = array(1,200,1000,1001,2000,2001,3000);
+	
+	$MA_min_list = array (3,25,90,91,203,204,425);
+	$MA_max_list = array (5,60,380,381,830,831,1280);
+	$MA_crit_list = array(3,50,500,501,560,561,770);
 
-if($type == "msg")
-    $sendto = $sender;
-elseif($type == "priv")
-	$sendto = "";
-elseif($type == "guild")
-	$sendto = "guild";
+	$shade_min_list = array (3,25,55,56,130,131,280);
+	$shade_max_list = array (5,60,258,259,682,683,890);
+	$shade_crit_list = array(3,50,250,251,275,276,300);
 
-$header = "\n<header>::::: MA Fist Calculator - Version 1.00 :::::<end>\n\n";
-$footer = "";
+	$gen_min_list = array (3,25,65,66,140,141,300);
+	$gen_max_list = array (5,60,280,281,715,716,990);
+	$gen_crit_list = array(3,50,500,501,605,605,630);
 
-$help = $header;
-$help .= "<font color=#3333CC>MAFist Usage:</font>\n";
-$help .= "/tell <myname> <symbol>mafist [<orange>MA<end>]\n";
-$help .= "[<orange>MA<end>] = MA Skill\n";
-$help .= "Example:\n";
-$help .= "You have 750 MA Skill.\n";
-$help .= "<a href='chatcmd:///tell <myname> <symbol>mafist 750'>/tell <myname> <symbol>mafist 750</a>\n\n";
-$help .= $footer;
+	// help screen
+	$header = "<header>::::: MA Fist Calculator - Version 1.00 :::::<end>\n\n";
+	$footer = "";
 
-$helplink = bot::makeLink("::How to use MA Fist::", $help);
+	$help = $header;
+	$help .= "<font color=#3333CC>MA Usage:</font>\n";
+	$help .= "/tell <myname> <symbol>mafist [<orange>class<end>] [<orange>MA<end>]\n";
+	$help .= "[<orange>class<end>] = Class: MA, shade, other\n";
+	$help .= "[<orange>MA<end>] = MA Skill\n";
+	$help .= "Example:\n";
+	$help .= "You are a shade and have 750 MA Skill.\n";
+	$help .= "<a href='chatcmd:///tell <myname> <symbol>mafist shade 750'>/tell <myname> <symbol>mafist shade 750</a>\n\n";
+	$help .= $footer;
 
-if(!$MaSkill)
-	bot::send($helplink, $sendto);
-else{
-	$fistql = round($MaSkill/2);
+	$helplink = bot::makeLink("::How to use MA::", $help);
 
-	if ($fistql <= 200)
-		$speed = 1.25;
-	else if ($fistql <= 500)   
-		{            
-        $speed = 1.25 + (0.2*(($fistql-200)/300));
+	// sendto
+	if($type == "msg")
+		$sendto = $sender;
+	elseif($type == "priv")
+		$sendto = "";
+	elseif($type == "guild")
+		$sendto = "guild";
+	
+	
+	if(eregi("^mafist ([A-Za-z]+) ([0-9]+)$", $message, $arr)) {
+		$MaSkill = trim($arr[2]);
+		
+		if ($MaSkill < 200) 
+			$i = 0; 
+		elseif ($MaSkill < 1001)
+			$i = 1; 
+		elseif ($MaSkill < 2001)
+			$i = 3; 
+		elseif ($MaSkill < 3001)
+			$i = 5; 
+		else { 
+			bot::send("Skill entered is out of range... please enter a number between <highlight>1 and 3000<end>.",$sendto);
+			return;
 		}
-	else if ($fistql <= 1000)
-		{
-		$speed = 1.45 + (0.2*(($fistql-500)/500));  
-		}
-	else if ($fistql <= 1500)
-		{
-		$speed = 1.65 + (0.2*(($fistql-1000)/500));
+		
+		$class = substr(strtolower(trim($arr[1])), 0, 2);
+		switch ($class) {
+			case "ma";
+				$min_list = $MA_min_list; $max_list = $MA_max_list; $crit_list = $MA_crit_list; $class_name = "Martial Artist";
+			break;
+			case "sh";
+				$min_list = $shade_min_list; $max_list = $shade_max_list; $crit_list = $shade_crit_list; $class_name = "Shade";
+			break;
+			default;
+				$min_list = $gen_min_list; $max_list = $gen_max_list; $crit_list = $gen_crit_list; $class_name = "All classes besides MA and Shade";
+			break;
 		}
 
-	$speed = round($speed,2);
-	$inside = $header;
-	$inside .= "Results:\n";
-	$inside	.= "MA Skill: <orange>". $MaSkill ."<end>\n";
-	$inside	.= "Fist QL: <orange>". $fistql ."<end>\n";
-	$inside	.= "Fist Speed: <orange>". $speed."<end>/<orange>".$speed ."<end>\n";
-	$inside .= $footer;
+		$min = interpolate($skill_list[$i], $skill_list[($i + 1)], $min_list[$i], $min_list[($i + 1)], $MaSkill);
+		$max = interpolate($skill_list[$i], $skill_list[($i + 1)], $max_list[$i], $max_list[($i + 1)], $MaSkill);
+		$crit = interpolate($skill_list[$i], $skill_list[($i + 1)], $crit_list[$i], $crit_list[($i + 1)], $MaSkill);
+		$dmg = "<orange>".$min."<end>-<orange>".$max."<end>(<orange>".$crit."<end>)";		
 
-	$windowlink = bot::makeLink("::Your Fist Results::", $inside);
-	bot::send($windowlink, $sendto);
-	}
+		$fistql = round($MaSkill/2,0);
+		
+		if ($fistql <= 200) {
+			$speed = 1.25;
+		} else if ($fistql <= 500) {
+			$speed = 1.25 + (0.2*(($fistql-200)/300));
+		} else if ($fistql <= 1000)	{
+			$speed = 1.45 + (0.2*(($fistql-500)/500));  
+		} else if ($fistql <= 1500)	{
+			$speed = 1.65 + (0.2*(($fistql-1000)/500));
+		}
+		$speed = round($speed,2);
+		
+		$inside = $header;
+		$inside .= "<u>Results</u>:\n";
+		$inside .= "Class: <orange>".$class_name."<end>\n";
+		$inside	.= "MA Skill: <orange>". $MaSkill ."<end>\n";
+		$inside	.= "Fist damage: ".$dmg."\n";
+		$inside .= "Fist speed: <orange>".$speed."<end>s/<orange>".$speed."<end>s\n";
+		$inside .= $footer;
+		
+		$windowlink = bot::makeLink("::Your MA skill results::", $inside);
+		bot::send($windowlink, $sendto);
+		
+	} else bot::send($helplink, $sendto);
+?>
