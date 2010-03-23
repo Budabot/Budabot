@@ -5,5 +5,17 @@
 <highlight>To see the last attack messages:<end>
 <tab><symbol>battle
 
+<highlight>To see the last attack messages for specific person/org/zone:<end>
+<tab><symbol>battle lucier
+
+<highlight>To see the last attack messages with a wildcard search:<end>
+<tab><symbol>battle lucier%
+
 <highlight>To see the last tower battle result messages:<end>
 <tab><symbol>victory
+
+<highlight>To see the last tower battle result messages from a specific org:<end>
+<tab><symbol>victory my org
+
+<highlight>To see the last tower battle result with a wildcard search:<end>
+<tab><symbol>victory my org%
