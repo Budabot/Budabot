@@ -35,7 +35,7 @@ foreach($this->admins as $who => $data){
 		if($who != "")
 			if($this->admins[$who]["online"] == "online") {
 				bot::send("Greetings <highlight>$who<end>, the bot is online and ready to use.", $who);
-				bot::send("For Updates or Help use the Budabot Forum <highlight>http://budabot.aodevs.com<end>", $who);
+				bot::send("For Updates or Help use the Budabot Forum <highlight>http://budabot.com<end>", $who);
 			}
 	}
 }

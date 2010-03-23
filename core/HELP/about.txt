@@ -3,12 +3,15 @@
 <highlight>General:<end>
 Programing Language: <highlight>PHP 5.1<end>
 Database Management System: <highlight>MySQL or SQLite<end>
-Project Site: <highlight>http://sourceforge.net/projects/budabot/<end>
-Project Forum and more Details: <highlight>http://aodevs.com<end>
+Project Site: <highlight>http://code.google.com/p/budabot2<end>
+Project Forum and more Details: <highlight>http://budabot.com<end>
 
 <highlight>Coders:<end>
-<highlight>Derroylo<end> - Project Manager and Maindeveloper.
+<highlight>Derroylo<end> - Project Manager and Main Developer.
 <highlight>Sebuda<end> - Creator of this Project.
+<highlight>Lucier (RK1)<end> - Co-Creator
+<highlight>Tyrence (RK2)<end> - Developer
+<highlight>Etheryal (RK2)<end> - Developer
 
 <highlight>Special thanks to:<end>
-Sch, Kuren, Vash, Auno, Snow(die bunnie die) and all of the Hackersquest/AODevs members.
+Sch, Kuren, Vash, Auno, Snow(die bunnie die), the Hackersquest/AODevs members, and all the people who have contributed modules to make Budabot what it is.
