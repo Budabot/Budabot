@@ -108,7 +108,7 @@ if(eregi("^list$", $message)) {
 		return;
 	}
 
-	bot::send($msg);
+	bot::send($msg, $sendto);
 } else
 	$syntax_error = true;
 ?>
