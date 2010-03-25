@@ -35,7 +35,7 @@ $message = str_replace("'", "&#39;", $message);
 $colorlabel = "<font color=#00DE42>";
 $colorvalue = "<font color=#63AD63>";
 
-if (eregi("^([a-zA-Z0-9]+) \((.+), (clan|neutral|omni)\) attacked (.+) \((clan|neutral|omni)\) in (.+) at ([0-9]+), ([0-9]+).$", $message, $arr)) {
+if (preg_match("/The (clan|neutral|omni) organization (.+) just entered a state of war! (.+) attacked the (clan|neutral|omni) organization (.+)'s tower in (.+) at location \(([0-9]+), ([0-9]+)\)/i", $message, $arr)) {
 	$att_player = $arr[1];
 	$att_guild = $arr[2];
 	$att_side = $arr[3];
