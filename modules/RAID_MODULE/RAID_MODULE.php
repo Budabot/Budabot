@@ -31,8 +31,6 @@ $MODULE_NAME = "RAID_MODULE";
 	bot::command("priv", "$MODULE_NAME/28.php", "28", "leader", "Adds apf28 loot list");
 	bot::command("priv", "$MODULE_NAME/35.php", "35", "leader", "Adds apf35 loot list");
 
-	bot::regGroup("basic_loot", $MODULE_NAME, "Handles a basic flatrolled loot system", "loot", "add", "clear", "list", "flatroll");
-	
 	//Settings
 	bot::addsetting("add_on_loot", "Adding to loot show on", "edit", "1", "tells;privatechat;privatechat and tells", '1;2;3', "mod");
 
@@ -45,6 +43,8 @@ $MODULE_NAME = "RAID_MODULE";
 	bot::command("priv", "$MODULE_NAME/rem.php", "rem", "all", "Let a player removing from a slot");
 	bot::command("msg", "$MODULE_NAME/rem.php", "rem", "all", "Let a player removing from a slot");
 	
+	bot::regGroup("basic_loot", $MODULE_NAME, "Handles a basic flatrolled loot system", "loot", "add", "clear", "list", "flatroll");
+
 	//Setup
 	bot::event("setup", "$MODULE_NAME/setup.php");
 
