@@ -49,7 +49,7 @@ if(eregi("^settings$", $message)) {
 			
 		if($num	> 0){
 			if($row->mod == "Basic Settings" && $row->mod != $cur) {
-				$link .= "\n<highlight></u>Basic Settings</u><end>\n";
+				$link .= "\n<highlight><u>Basic Settings</u><end>\n";
 			} elseif($row->mod != "" && $row->mod != $cur) {
 				$link .= "\n<highlight><u>".str_replace("_", " ",ucfirst(strtolower($row->mod)))."</u><end>\n";
 			}	

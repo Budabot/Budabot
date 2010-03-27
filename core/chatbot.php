@@ -1492,11 +1492,18 @@ class bot extends AOChat{
 			$currentVersion = -1;
 		}
 		
-		$dir = "./modules/$module";
+		$core_dir = "./core/$module";
+		$modules_dir = "./modules/$module";
+		$dir = '';
+		if ($d = dir($modules_dir)) {
+			$dir = $modules_dir;
+		} else if ($d = dir($core_dir)) {
+			$dir = $core_dir;
+		}
 		
 		$file = false;
 		$maxFileVersion = 0;  // 0 indicates no version
-		if ($d = dir($dir)) {
+		if ($d) {
 			while (false !== ($entry = $d->read())) {
 				if (is_file("$dir/$entry") && eregi($name . "([0-9.]*)\\.sql", $entry, $temp)) {
 					// if there is no version on the file, set the version to 0
