@@ -81,8 +81,10 @@ class bot extends AOChat{
 		while($row = $db->fObject())
 		  	$this->existing_settings[$row->name] = true;
 		
-		// Load the Core Modules
+		// Load the Core Modules -- SETINGS must be first in case the other modules have settings
 		if($this->settings['debug'] > 0) print("\n:::::::CORE MODULES::::::::\n");
+		if($this->settings['debug'] > 0) print("MODULE_NAME:(SETTINGS.php)\n");
+				include "./core/SETTINGS/SETTINGS.php";
 		if($this->settings['debug'] > 0) print("MODULE_NAME:(SYSTEM.php)\n");
 				include "./core/SYSTEM/SYSTEM.php";
 		if($this->settings['debug'] > 0) print("MODULE_NAME:(ADMIN.php)\n");
@@ -93,14 +95,14 @@ class bot extends AOChat{
 				include "./core/HELP/HELP.php";	
 		if($this->settings['debug'] > 0) print("MODULE_NAME:(CONFIG.php)\n");
 				include "./core/CONFIG/CONFIG.php";	
-		if($this->settings['debug'] > 0) print("MODULE_NAME:(SETTINGS.php)\n");
-				include "./core/SETTINGS/SETTINGS.php";
 		if($this->settings['debug'] > 0) print("MODULE_NAME:(ORG_ROSTER.php)\n");
 				include "./core/ORG_ROSTER/ORG_ROSTER.php";
 		if($this->settings['debug'] > 0) print("MODULE_NAME:(BASIC_CONNECTED_EVENTS.php)\n");
 				include "./core/BASIC_CONNECTED_EVENTS/BASIC_CONNECTED_EVENTS.php";
 		if($this->settings['debug'] > 0) print("MODULE_NAME:(PRIV_TELL_LIMIT.php)\n");
 				include "./core/PRIV_TELL_LIMIT/PRIV_TELL_LIMIT.php";
+		if($this->settings['debug'] > 0) print("MODULE_NAME:(NEWCONFIG.php)\n");
+				include "./core/NEWCONFIG/NEWCONFIG.php";
 		$curMod = "";
 								
 		// Load Plugin Modules
@@ -1470,7 +1472,8 @@ class bot extends AOChat{
 	/*===============================
 ** Name: loadSQLFile
 ** Loads an sql file if there is an update
-** Will load the sql file with name $namexx.xx.xx.xx.sql if xx.xx.xx.xx is newer than settings["module_name_sql_version"]
+** Will load the sql file with name $namexx.xx.xx.xx.sql if xx.xx.xx.xx is greater
+** than settings["module_name_sql_version"]
 */	function loadSQLFile($module, $name, $forceUpdate = false) {
 		global $db;
 		global $curMod;
@@ -1484,13 +1487,6 @@ class bot extends AOChat{
 		}
 		
 		$settingName = $name . "_db_version";
-		$currentVersion = bot::getsetting($settingName);
-		// if there is no saved version, set it to -1
-		// so if the maxFileVersion is 0 (ie, it has no version)
-		// it will still update
-		if ($currentVersion === false) {
-			$currentVersion = -1;
-		}
 		
 		$core_dir = "./core/$module";
 		$modules_dir = "./modules/$module";
@@ -1499,6 +1495,14 @@ class bot extends AOChat{
 			$dir = $modules_dir;
 		} else if ($d = dir($core_dir)) {
 			$dir = $core_dir;
+		}
+		
+		$currentVersion = bot::getsetting($settingName);
+		// if there is no saved version, set it to -1
+		// so if the maxFileVersion is 0 (ie, it has no version)
+		// it will still update
+		if ($currentVersion === false) {
+			$currentVersion = -1;
 		}
 		
 		$file = false;

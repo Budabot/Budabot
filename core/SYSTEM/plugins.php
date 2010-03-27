@@ -84,6 +84,8 @@ while($row = $db->fObject())
 
 //Load the Core Modules
 if($this->settings['debug'] > 0) print("\n:::::::CORE MODULES::::::::\n");
+if($this->settings['debug'] > 0) print("MODULE_NAME:(SETTINGS.php)\n");
+	include "./core/SETTINGS/SETTINGS.php";
 if($this->settings['debug'] > 0) print("MODULE_NAME:(SYSTEM.php)\n");
 	include "./core/SYSTEM/SYSTEM.php";
 	$curMod = "";
@@ -96,14 +98,14 @@ if($this->settings['debug'] > 0) print("MODULE_NAME:(HELP.php)\n");
 	include "./core/HELP/HELP.php";	
 if($this->settings['debug'] > 0) print("MODULE_NAME:(CONFIG.php)\n");
 	include "./core/CONFIG/CONFIG.php";	
-if($this->settings['debug'] > 0) print("MODULE_NAME:(SETTINGS.php)\n");
-	include "./core/SETTINGS/SETTINGS.php";
 if($this->settings['debug'] > 0) print("MODULE_NAME:(ORG_ROSTER.php)\n");
 	include "./core/ORG_ROSTER/ORG_ROSTER.php";
 if($this->settings['debug'] > 0) print("MODULE_NAME:(BASIC_CONNECTED_EVENTS.php)\n");
 	include "./core/BASIC_CONNECTED_EVENTS/BASIC_CONNECTED_EVENTS.php";
 if($this->settings['debug'] > 0) print("MODULE_NAME:(PRIV_TELL_LIMIT.php)\n");
 	include "./core/PRIV_TELL_LIMIT/PRIV_TELL_LIMIT.php";
+if($this->settings['debug'] > 0) print("MODULE_NAME:(NEWCONFIG.php)\n");
+	include "./core/NEWCONFIG/NEWCONFIG.php";
 				
 // Load Plugin Modules
 if($this->settings['debug'] > 0) print("\n:::::::PLUGIN MODULES::::::::\n");	
