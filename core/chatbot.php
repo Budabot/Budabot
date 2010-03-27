@@ -1143,14 +1143,15 @@ class bot extends AOChat{
 					include("./core/PRIV_TELL_LIMIT/check.php");
 					
 				// Events
-				if($this->privMsgs != NULL)
+				if($this->privMsgs != NULL) {
 					foreach($this->privMsgs as $file) {
 						$msg = "";
 						include $file;
 					}
+				}
 				
 				// Admin Code		
-				if($restricted != true){
+				if ($restricted != true) {
 					// Break down in to words.
 					$words	= split(' ', strtolower($message));
 					$admin 	= $this->tellCmds[$words[0]]["admin level"];
@@ -1204,7 +1205,7 @@ class bot extends AOChat{
 				$type = "priv";
 				$sender	= AOChat::get_uname($args[1]);
 				$sendto = 'prv';
-				$channel = $this->vars["name"];
+				$channel = AOChat::get_uname($args[0]);
 				$message = $args[2];
 				$restricted = false;
 				if($sender == $this->vars["name"]) {
@@ -1219,19 +1220,20 @@ class bot extends AOChat{
 					if($this->spam[$sender] > 60) AOChat::privategroup_kick($sender);																	
 					if(strlen($args[1]) > 400){
 						$this->largespam[$sender] = $this->largespam[$sender] + 1;
-						if($this->largespam[$sender] > 1) AOChat::privategroup_kick($sender);						
-						if($this->largespam[$sender] > 0) $this->send("Your client is sending a large chat messages. Stop or be kicked.", $sender);
+						if ($this->largespam[$sender] > 1) AOChat::privategroup_kick($sender);						
+						if ($this->largespam[$sender] > 0) $this->send("Your client is sending large chat messages. Stop or be kicked.", $sender);
 					}				  
 				}
 				
 				// Echo
 				if($this->settings['echo'] >= 1) newLine("Priv Group", $sender, $message, $this->settings['echo']);
-			
-				if($this->privChat != NULL)
+							
+				if($this->privChat != NULL) {
 					foreach($this->privChat as $file) {
 					  	$msg = "";
 						include $file; 	
-					}	
+					}
+				}
 				
 				$msg = "";
 				if(!$restriced && (($message[0] == $this->settings["symbol"] && strlen($message) >= 2) || eregi("^(afk|brb)", $message, $arr))) {
@@ -1283,6 +1285,19 @@ class bot extends AOChat{
 				//Ignore Messages from Vicinity/IRRK New Wire/OT OOC/OT Newbie OOC...				
 				if($channel == "" || $channel == 'IRRK News Wire' || $channel == 'OT OOC' || $channel == 'OT Newbie OOC' || $channel == 'OT Jpn OOC' || $channel == 'OT shopping 11-50' || $channel == 'Tour Announcements' || $channel == 'Neu. Newbie OOC' || $channel == 'Neu. shopping 11-50' || $channel == 'Neu. OOC' || $channel == 'Clan OOC' || $channel == 'Clan Newbie OOC' || $channel == 'Clan shopping 11-50')
 					return;
+				
+				// if it's an extended message
+				$em = null;
+				if (isset($args['extended_message'])) {
+					$em = $args['extended_message'];
+					print_r($em);
+					$db->query("SELECT category, entry, message FROM mmdb_data WHERE category = $em->category AND entry = $em->instance");
+					if ($row = $db->fObject()) {
+						echo "$row->message \n";
+						$message = vsprintf($row->message, $em->args);
+						echo "$message \n";
+					}
+				}
 					
 				if($this->settings['echo'] >= 1) newLine($channel, $sender, $message, $this->settings['echo']);
 					
@@ -1317,7 +1332,7 @@ class bot extends AOChat{
     					}
                     return;
                 } elseif($channel == $this->vars["my guild"]){
-                    $type = "guild"; 		
+                    $type = "guild";
 					$sendto = 'org';
 					if($this->guildChat != NULL)
     					foreach($this->guildChat as $file) {
@@ -1512,7 +1527,10 @@ class bot extends AOChat{
 
 			//$db->beginTransaction();
 			foreach($filearray as $num => $line) {
-				$db->query($line);
+				// don't process comment lines
+				if (substr($line, 0, 1) != "#") {
+					$db->query($line);
+				}
 			}
 			//$db->Commit();
 			echo "Finished updating $name database.\n";
