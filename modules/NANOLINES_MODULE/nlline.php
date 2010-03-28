@@ -70,18 +70,7 @@ if (eregi("^nlline ([0-9]*)$", $message, $arr)) {
 		$msg = "No nanoline found.";
 	}
 
-	if ($type == "msg")
-	{
-	    bot::send($msg, $sender);
-	}
-	else if ($type == "priv")
-	{
-	    bot::send($msg);
-	}
-	else if ($type == "guild")
-	{
-	    bot::send($msg, "guild");
-	}
+	bot::send($msg, $sendto);
 }
 
 ?>

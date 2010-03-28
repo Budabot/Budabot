@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^note( (.*))?$", $message)) {
+if (preg_match("/^note( (.*))?$/i", $message)) {
 
 	$usage = "Usage:\n<symbol>note add &lt;note&gt;\n<symbol>note rem &lt;note_id&gt;";
 	$msg = "";
@@ -53,7 +53,6 @@ if(eregi("^note( (.*))?$", $message)) {
 		  	$note = str_replace("\\", "", $parm2);
 		  	
 		  	$query = "INSERT INTO notes_<myname> (name, note) VALUES('$sender', '$note')";
-		  	echo $query;
 		  	$db->query($query);
 		  	$msg = "Note added successfully.";
   		} else {
@@ -63,12 +62,6 @@ if(eregi("^note( (.*))?$", $message)) {
 		$msg = $usage;
 	}
 
-    if($type == "msg") {
-        bot::send($msg, $sender);
-    } else if($type == "priv") {
-       	bot::send($msg);
-   	} elseif($type == "guild") {
-       	bot::send($msg, "guild");
-   	}
+    bot::send($msg, $sendto);
 }
 ?>

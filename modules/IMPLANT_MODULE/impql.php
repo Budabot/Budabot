@@ -44,30 +44,16 @@ require_once('implant_functions.php');
 	$msg = "";
 
 	// make sure the $ql is an integer between 1 and 300
-	if (!ereg("^[0-9]+$", $ql, $p) || ($ql < 1) || ($ql > 300))
-	{
+	if (!ereg("^[0-9]+$", $ql, $p) || ($ql < 1) || ($ql > 300)) {
 		$msg = "<br />Usage: <symbol>impql &lt;implant_ql&gt;<br />You must enter a value between 1 and 300.";
-	}
-	else
-	{
+	} else {
 		$obj = getRequirements($ql);
 		$clusterInfo = formatClusterBonuses($obj);
 		$link = bot::makeLink('More info', $clusterInfo, 'text');
 		$msg = "\nFor ql $ql imps\nTreatment required: $obj->treatment.\nAbility Required: $obj->ability\n$link";
 	}
 
-	if ($type == "msg")
-	{
-	    bot::send($msg, $sender);
-	}
-	else if ($type == "priv")
-	{
-	    bot::send($msg);
-	}
-	else if ($type == "guild")
-	{
-	    bot::send($msg, "guild");
-	}
+	bot::send($msg, $sendto);
 }
 
 ?>

@@ -42,21 +42,15 @@ require_once('implant_functions.php');
 	$arr = array();
 
 	if (!eregi("^impreq ([0-9]+) ([0-9]+)$", $message, $arr)) {
-
 		$msg = $invalidInputMsg;
-
 	} else {
-
 		// get the argument and set the ability and treatment variables
 		$ability = $arr[1];
 		$treatment = $arr[2];
 
 		if ($treatment < 11 || $ability < 6) {
-
 			$msg = "You do not have enough requirements to wear an implant.";
-
 		} else {
-
 			$obj = findMaxImplantQlByReqs($ability, $treatment);
 			$clusterInfo = formatClusterBonuses($obj);
 			$link = bot::makeLink("ql $obj->ql", $clusterInfo, 'text');
@@ -65,13 +59,7 @@ require_once('implant_functions.php');
 		}
 	}
 
-	if ($type == "msg") {
-	    bot::send($msg, $sender);
-	} else if ($type == "priv") {
-	    bot::send($msg);
-	} else if ($type == "guild") {
-	    bot::send($msg, "guild");
-	}
+	bot::send($msg, $sendto);
 }
 
 ?>

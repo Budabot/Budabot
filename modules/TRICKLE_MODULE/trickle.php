@@ -46,7 +46,7 @@ $str = 0;
 $sen = 0;
 
 // make sure the $ql is an integer between 1 and 300
-if (!eregi("^trickle( ([a-zA-Z]+) ([0-9]+)){1,6}$", $message)) {
+if (!preg_match("/^trickle( ([a-zA-Z]+) ([0-9]+)){1,6}$/i", $message)) {
 
 	$msg = $usageMsg;
 
@@ -85,17 +85,6 @@ if (!eregi("^trickle( ([a-zA-Z]+) ([0-9]+)){1,6}$", $message)) {
 	}
 }
 
-if ($type == "msg") {
-
-    bot::send($msg, $sender);
-
-} else if ($type == "priv") {
-
-    bot::send($msg);
-
-} else if ($type == "guild") {
-
-    bot::send($msg, "guild");
-}
+bot::send($msg, $sendto);
 
 ?>

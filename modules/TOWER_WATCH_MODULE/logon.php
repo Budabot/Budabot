@@ -21,7 +21,7 @@
    */
 
 require_once('functions.php');
-if(isset($this->guildmembers[$sender]) && $this->settings["displaylogon"] == "1") {
+if(isset($this->guildmembers[$sender])) {
     bot::send(getTowerInfoMsg(), $sender);
 }
 ?>

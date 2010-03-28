@@ -34,12 +34,7 @@ if(eregi("^waitlist next$", $message, $arr)) {
 	if(count($listbot_waitlist[$sender]) == 0) {
 	  	$msg = "There is no one on your waitlist atm!";
 	  	// Send info back
-	    if($type == "msg")
-	        bot::send($msg, $sender);
-	    elseif($type == "priv")
-	    	bot::send($msg);
-	    elseif($type == "guild")
-	    	bot::send($msg, "guild");
+	    bot::send($msg, $sendto);
       	return;
 	}
 	
@@ -63,36 +58,21 @@ if(eregi("^waitlist next$", $message, $arr)) {
 	$db->Commit();
 
 	$msg = "<highlight>$name<end> has been called to come now.";
-    if($type == "msg")
-	    bot::send($msg, $sender);
-	elseif($type == "priv")
-	  	bot::send($msg);
-	elseif($type == "guild")
-	  	bot::send($msg, "guild");
+	bot::send($msg, $sendto);
 } elseif(eregi("^waitlist add (.+)$", $message, $arr)) {
   	$uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     if(!$uid) {
       	$msg = "Player <highlight>".$name."<end> does not exist.";
    	    // Send info back
-	    if($type == "msg")
-	        bot::send($msg, $sender);
-	    elseif($type == "priv")
-	    	bot::send($msg);
-	    elseif($type == "guild")
-	    	bot::send($msg, "guild");
-      	return;
+		bot::send($msg, $sendto);
+	    return;
     }
 
 	if(count($listbot_waitlist[$sender]) > 10) {
 	  	$msg = "Sry but you can´t have more then 10 users on your waitlist!";
 	  	// Send info back
-	    if($type == "msg")
-	        bot::send($msg, $sender);
-	    elseif($type == "priv")
-	    	bot::send($msg);
-	    elseif($type == "guild")
-	    	bot::send($msg, "guild");
+        bot::send($msg, $sendto);
       	return;
 	}
 	
@@ -108,12 +88,7 @@ if(eregi("^waitlist next$", $message, $arr)) {
 	if($found == true) {
 	  	$msg = "<highlight>$name<end> is already on your waitlist!";
 	  	// Send info back
-	    if($type == "msg")
-	        bot::send($msg, $sender);
-	    elseif($type == "priv")
-	    	bot::send($msg);
-	    elseif($type == "guild")
-	    	bot::send($msg, "guild");
+	    bot::send($msg, $sendto);
       	return;
 	}
 	
@@ -121,24 +96,14 @@ if(eregi("^waitlist next$", $message, $arr)) {
 	$listbot_waitlist[$sender][] = array("name" => $name, "position" => $pos);
 	$db->query("INSERT INTO waitlist_<myname> VALUES ('$sender', '$name', $pos, ".time().")");
 	$msg = "<highlight>$name<end> has been added to your waitlist at Pos. <highlight>$pos<end>.";
-    if($type == "msg")
-	    bot::send($msg, $sender);
-	elseif($type == "priv")
-	  	bot::send($msg);
-	elseif($type == "guild")
-	  	bot::send($msg, "guild");
+	bot::send($msg, $sendto);
 	  	
 	bot::send("You have been added to the waitlist of <highlight>$sender<end> at Pos. <highlight>$pos<end>. You will be notified everytime you get one position up.", $name);
 } elseif(eregi("^waitlist rem all$", $message, $arr)) {
   	if(count($listbot_waitlist[$sender]) == 0) {
 	  	$msg = "There is no one on your waitlist atm!";
 	  	// Send info back
-	    if($type == "msg")
-	        bot::send($msg, $sender);
-	    elseif($type == "priv")
-	    	bot::send($msg);
-	    elseif($type == "guild")
-	    	bot::send($msg, "guild");
+	    bot::send($msg, $sendto);
       	return;
 	}
 	
@@ -146,24 +111,14 @@ if(eregi("^waitlist next$", $message, $arr)) {
 	unset($listbot_waitlist[$sender]);
 	
 	$msg = "<highlight>$sender<end> your waitlist has been cleared.";
-    if($type == "msg")
-	    bot::send($msg, $sender);
-	elseif($type == "priv")
-	  	bot::send($msg);
-	elseif($type == "guild")
-	  	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 } elseif(eregi("^waitlist rem (.+)$", $message, $arr)) {
   	$uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     if(!$uid) {
       	$msg = "Player <highlight>".$name."<end> does not exist.";
    	    // Send info back
-	    if($type == "msg")
-	        bot::send($msg, $sender);
-	    elseif($type == "priv")
-	    	bot::send($msg);
-	    elseif($type == "guild")
-	    	bot::send($msg, "guild");
+	    bot::send($msg, $sendto);
       	return;
     }
     //Search trough the array if the player is on the list
@@ -181,12 +136,7 @@ if(eregi("^waitlist next$", $message, $arr)) {
 	if($found == false) {
 	  	$msg = "<highlight>$name<end> is not on your waitlist!";
 	  	// Send info back
-	    if($type == "msg")
-	        bot::send($msg, $sender);
-	    elseif($type == "priv")
-	    	bot::send($msg);
-	    elseif($type == "guild")
-	    	bot::send($msg, "guild");
+	    bot::send($msg, $sendto);
       	return;
 	}
 
@@ -202,22 +152,12 @@ if(eregi("^waitlist next$", $message, $arr)) {
 	$db->Commit();
 	
 	$msg = "<highlight>$name<end> has been removed from your waitlist.";
-    if($type == "msg")
-	    bot::send($msg, $sender);
-	elseif($type == "priv")
-	  	bot::send($msg);
-	elseif($type == "guild")
-	  	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 } elseif(eregi("^waitlist$", $message)) {
   	if(count($listbot_waitlist[$sender]) == 0) {
 	 	$msg = "You don´t have any waitlist created yet!";
 	  	// Send info back
-	    if($type == "msg")
-	        bot::send($msg, $sender);
-	    elseif($type == "priv")
-	    	bot::send($msg);
-	    elseif($type == "guild")
-	    	bot::send($msg, "guild");
+	    bot::send($msg, $sendto);
       	return;
 	}
 	
@@ -232,11 +172,6 @@ if(eregi("^waitlist next$", $message, $arr)) {
 	}
 
   	// Send info back
-	if($type == "msg")
-		bot::send($msg, $sender);
-	elseif($type == "priv")
-	   	bot::send($msg);
-	elseif($type == "guild")
-	   	bot::send($msg, "guild");
+	bot::send($msg, $sendto);
 }
 ?>

@@ -33,7 +33,7 @@
    **
    */
 
-if (eregi("^orghistory (.+)$", $message, $arr)) {
+if (preg_match("/^orghistory (.+)$/i", $message, $arr)) {
 	
 	$character = $arr[1];
 
@@ -63,18 +63,7 @@ if (eregi("^orghistory (.+)$", $message, $arr)) {
 
 	$msg = bot::makeLink('Org History', $window, 'blob');
 
-	if ($type == "msg")
-	{
-	    bot::send($msg, $sender);
-	}
-	else if ($type == "priv")
-	{
-	    bot::send($msg);
-	}
-	else if ($type == "guild")
-	{
-	    bot::send($msg, "guild");
-	}
+	bot::send($msg, $sendto);
 }
 
 ?>

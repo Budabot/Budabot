@@ -40,12 +40,7 @@ if(eregi("^ts$", $message)) {
 	//If IP isn´t set show error msg
 	if($ip == "Not set yet.") {
 	  	$msg = "You need to configure your TS Server before you can use this!";
-	    if($type == "msg")
-		    bot::send($msg, $sender);
-	    elseif($type == "priv")
-	       	bot::send($msg);
-	    elseif($type == "guild")
-	      	bot::send($msg, "guild");		
+	    bot::send($msg, $sendto);
 		return;
 	}
 
@@ -217,12 +212,7 @@ if(eregi("^ts$", $message)) {
 		$msg = "Couldn´t connect to Teamspeak Server. Try again later.";
 
 	
-   if($type == "msg")
-	    bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-      	bot::send($msg, "guild");
+	bot::send($msg, $sendto);
 } else
 	$syntax_error = true;
 ?>

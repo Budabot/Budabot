@@ -9,10 +9,11 @@
    Written 5/11/07
    Last Modified 5/14/07
    */
- $links = array("Help;chatcmd:///tell <myname> help whereis");
+
+$links = array("Help;chatcmd:///tell <myname> help whereis");
 
 $output = '';
-if (ereg ("^whereis (.+)$", $message, $arr)) {
+if (preg_match("/^whereis (.+)$/i", $message, $arr)) {
 	$search = $arr[1];
 	$search = ucwords(strtolower($search));
 	$db->query("SELECT * FROM whereis WHERE name LIKE \"%$search%\"");
@@ -41,10 +42,6 @@ else {
 	$output .= "<yellow>You must enter valid search criteria.</end>\n";
 }
 
-if($type == "msg")
-	bot::send($output, $sender);
-elseif($type == "all")
-	bot::send($output);
-else
-	bot::send($output, "guild");
+bot::send($output, $sendto);
+
 ?>

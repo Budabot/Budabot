@@ -22,12 +22,11 @@
 
 require_once('functions.php');
 
-if(eregi("^premade (.*)$", $message, $arr)) {
+if(preg_match("/^premade (.*)$/i", $message, $arr)) {
 
 	$msg = "";
 
   	$searchTerms = strtolower($arr[1]);
-  	echo "'$searchTerms'";
   	$results = null;
   	
   	if ($searchTerms == '') {
@@ -79,17 +78,6 @@ if(eregi("^premade (.*)$", $message, $arr)) {
 	  	}
   	}
   
-    if($type == "msg")
-    {
-        bot::send($msg, $sender);
-    }
-    elseif($type == "priv")
-    {
-       	bot::send($msg);
-   	}
-    elseif($type == "guild")
-    {
-       	bot::send($msg, "guild");
-   	}
+    bot::send($msg, $sendto);
 }
 ?>

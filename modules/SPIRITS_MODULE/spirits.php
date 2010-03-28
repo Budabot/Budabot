@@ -11,81 +11,78 @@
    */
 
 	//If searched by Name or Slot
-if (ereg ("^spirits ([^0-9,]+)$", $message, $arr)) {
+if (preg_match("/^spirits ([^0-9,]+)$/i", $message, $arr)) {
 	$name = $arr[1];
 	$name = ucwords(strtolower($name));
 	$spirits = "<header>  :::::  Search Spirits Database for $name  :::::  <end>\n\n";
 	$db->query("SELECT * FROM spiritsdb WHERE name LIKE \"%$name%\" OR spot LIKE \"%$name%\" ORDER BY level");
 	$matches= $db->numrows();
 	if ($matches == 0) {
-	$spirits .="<red>There were no matches found for $name.\nTry putting a comma between search values.\n\n";
-	$spirits .="Valid slot types are:\n";
-	$spirits .="Head\n";
-	$spirits .="Eye\n";
-	$spirits .="Ear\n";
-	$spirits .="Chest\n";
-	$spirits .="Larm\n";
-	$spirits .="Rarm\n";
-	$spirits .="Waist\n";
-	$spirits .="Lwrist\n";
-	$spirits .="Rwrist\n";
-	$spirits .="Legs\n";
-	$spirits .="Lhand\n";
-	$spirits .="Rhand\n";
-	$spirits .="Feet\n";
-	}
-	else {
-	$data = $db->fobject("all");
-		foreach ($data as $row) {
-		$name = $row->name;
-		$spot = $row->spot;
-		$lvl = $row->level;
-		$loid = $row->id;
-		$agi = $row->agility;
-		
-		$db->query("SELECT * FROM aodb WHERE lowid = \"$loid\"");
+		$spirits .="<red>There were no matches found for $name.\nTry putting a comma between search values.\n\n";
+		$spirits .="Valid slot types are:\n";
+		$spirits .="Head\n";
+		$spirits .="Eye\n";
+		$spirits .="Ear\n";
+		$spirits .="Chest\n";
+		$spirits .="Larm\n";
+		$spirits .="Rarm\n";
+		$spirits .="Waist\n";
+		$spirits .="Lwrist\n";
+		$spirits .="Rwrist\n";
+		$spirits .="Legs\n";
+		$spirits .="Lhand\n";
+		$spirits .="Rhand\n";
+		$spirits .="Feet\n";
+	} else {
 		$data = $db->fobject("all");
+		foreach ($data as $row) {
+			$name = $row->name;
+			$spot = $row->spot;
+			$lvl = $row->level;
+			$loid = $row->id;
+			$agi = $row->agility;
+			
+			$db->query("SELECT * FROM aodb WHERE lowid = \"$loid\"");
+			$data = $db->fobject("all");
 			foreach ($data as $row); {
-			$hiid = $row->highid;
-			$icon = $row->icon;
-			$phat = $row->name;
-			$hiql = $row->highql;
+				$hiid = $row->highid;
+				$icon = $row->icon;
+				$phat = $row->name;
+				$hiql = $row->highql;
 			}
-		$spirits .= "<img src=rdb://".$icon."> ";
-		$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
-		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";    
+			$spirits .= "<img src=rdb://".$icon."> ";
+			$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
+			$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";
 		}
 	}
 }
 	//If searched by name and slot
-elseif (ereg("^spirits ([^0-9]+),([^0-9]+)$", $message, $arr)) {
-	if (eregi("(chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist)",$arr[1])) {
-	$slot = $arr[1];
-	$name = $arr[2];
-	$spirits = "<header>  :::::  Search Spirits Database for $name $slot  :::::  <end>\n\n";
-	}
-	elseif (eregi("(chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist)",$arr[2])) {
-	$name = $arr[1];
-	$slot = $arr[2];
-	$spirits = "<header>  :::::  Search Spirits Database for $name $slot  :::::  <end>\n\n";
-	}
-	else {
-	$spirits = "<header>  :::::  Search Spirits Database <red>Error<end>  :::::  <end>\n\n";
-	$spirits .= "<red>No matches were found for $name $slot\n\n";
-	$spirits .="If searching by Spirit Name and Slot valid slot types are:\n";
-	$spirits .="Head\n";
-	$spirits .="Eye\n";
-	$spirits .="Ear\n";
-	$spirits .="Chest\n";
-	$spirits .="Larm\n";
-	$spirits .="Rarm\n";
-	$spirits .="Waist\n";
-	$spirits .="Lwrist\n";
-	$spirits .="Rwrist\n";
-	$spirits .="Legs\n";
-	$spirits .="Lhand\n";
-	$spirits .="Rhand\n";
-	$spirits .="Feet\n";
+else if (preg_match("/^spirits ([^0-9]+),([^0-9]+)$/i", $message, $arr)) {
+	if (preg_match("/(chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist)/i", $arr[1])) {
+		$slot = $arr[1];
+		$name = $arr[2];
+		$spirits = "<header>  :::::  Search Spirits Database for $name $slot  :::::  <end>\n\n";
+	} else if (preg_match("/(chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist)/i", $arr[2])) {
+		$name = $arr[1];
+		$slot = $arr[2];
+		$spirits = "<header>  :::::  Search Spirits Database for $name $slot  :::::  <end>\n\n";
+	} else {
+		$spirits = "<header>  :::::  Search Spirits Database <red>Error<end>  :::::  <end>\n\n";
+		$spirits .= "<red>No matches were found for $name $slot\n\n";
+		$spirits .="If searching by Spirit Name and Slot valid slot types are:\n";
+		$spirits .="Head\n";
+		$spirits .="Eye\n";
+		$spirits .="Ear\n";
+		$spirits .="Chest\n";
+		$spirits .="Larm\n";
+		$spirits .="Rarm\n";
+		$spirits .="Waist\n";
+		$spirits .="Lwrist\n";
+		$spirits .="Rwrist\n";
+		$spirits .="Legs\n";
+		$spirits .="Lhand\n";
+		$spirits .="Rhand\n";
+		$spirits .="Feet\n";
 	}
 	$name = ucwords(strtolower($name));
 	$name = trim($name);
@@ -94,10 +91,10 @@ elseif (ereg("^spirits ([^0-9]+),([^0-9]+)$", $message, $arr)) {
 	$db->query("SELECT * FROM spiritsdb WHERE name LIKE \"%$name%\" AND spot = \"$slot\" ORDER BY level");
 	$matches= $db->numrows();
 	if ($matches == 0) {
-	$spirits .= "<red>No matches found for $name $slot";
+		$spirits .= "<red>No matches found for $name $slot";
 	}
 	$data = $db->fobject("all");
-		foreach ($data as $row) {
+	foreach ($data as $row) {
 		$name = $row->name;
 		$spot = $row->spot;
 		$lvl = $row->level;
@@ -106,34 +103,29 @@ elseif (ereg("^spirits ([^0-9]+),([^0-9]+)$", $message, $arr)) {
 		
 		$db->query("SELECT * FROM aodb WHERE lowid = \"$loid\"");
 		$data = $db->fobject("all");
-			foreach ($data as $row); {
+		foreach ($data as $row); {
 			$hiid = $row->highid;
 			$icon = $row->icon;
 			$phat = $row->name;
 			$hiql = $row->highql;
-			}
+		}
 		$spirits .= "<img src=rdb://".$icon."> ";
 		$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
-		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";    
-		}
+		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";
+	}
 }
 	// If searched by ql
-elseif (ereg ("^spirits ([0-9]+)$", $message, $arr)) {
+else if (preg_match("/^spirits ([0-9]+)$/i", $message, $arr)) {
 	$ql = $arr[1];
     if($ql <= 1 OR $ql >= 300) {
         $msg = "<red>No valid Ql specified(1-300)";
-        if($type == "msg")
-            bot::send($msg, $sender);
-        elseif($type == "priv")
-        	bot::send($msg);
-        elseif($type == "guild")
-        	bot::send($msg, "guild");
+		bot::send($msg, $sendto);
         return;
     }
 	$spirits = "<header>  :::::  Search for Spirits QL $ql  :::::  <end>\n\n";
 	$db->query("SELECT * FROM spiritsdb where ql = $ql ORDER BY ql");
 	$data = $db->fobject("all");
-		foreach ($data as $row) {
+	foreach ($data as $row) {
 		$name = $row->name;
 		$spot = $row->spot;
 		$lvl = $row->level;
@@ -142,35 +134,30 @@ elseif (ereg ("^spirits ([0-9]+)$", $message, $arr)) {
 		
 		$db->query("SELECT * FROM aodb WHERE lowid = $loid");
 		$data = $db->fobject("all");
-			foreach ($data as $row); {
+		foreach ($data as $row); {
 			$hiid = $row->highid;
 			$icon = $row->icon;
 			$phat = $row->name;
 			$hiql = $row->highql;
-			}
+		}
 		$spirits .= "<img src=rdb://".$icon."> ";
 		$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
-		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";    
-		}
+		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";
+	}
 }
 	// If searched by ql range
-elseif (ereg("^spirits ([0-9]+)-([0-9]+)$", $message, $arr)) {
+else if (preg_match("/^spirits ([0-9]+)-([0-9]+)$/i", $message, $arr)) {
 	$qllorange = $arr[1];
 	$qlhirange = $arr[2];
 	if ($qllorange < 1 OR $qlhirange > 219 OR $qllorange >= $qlhirange) {
-	$msg = "<red>Invalid Ql range specified(1-219)";
-        if($type == "msg")
-            bot::send($msg, $sender);
-        elseif($type == "priv")
-        	bot::send($msg);
-        elseif($type == "guild")
-        	bot::send($msg, "guild");
+		$msg = "<red>Invalid Ql range specified(1-219)";
+        bot::send($msg, $sendto);
         return;
 	}
 	$spirits = "<header>  :::::  Search for Spirits QL $qllorange to $qlhirange  :::::  <end>\n\n";
 	$db->query("SELECT * FROM spiritsdb where ql >= $qllorange AND ql <= $qlhirange ORDER BY ql");
 	$data = $db->fobject("all");
-		foreach ($data as $row) {
+	foreach ($data as $row) {
 		$name = $row->name;
 		$spot = $row->spot;
 		$lvl = $row->level;
@@ -179,33 +166,27 @@ elseif (ereg("^spirits ([0-9]+)-([0-9]+)$", $message, $arr)) {
 		
 		$db->query("SELECT * FROM aodb WHERE lowid = $loid");
 		$data = $db->fobject("all");
-			foreach ($data as $row); {
+		foreach ($data as $row); {
 			$hiid = $row->highid;
 			$icon = $row->icon;
 			$phat = $row->name;
 			$hiql = $row->highql;
-			}
+		}
 		$spirits .= "<img src=rdb://".$icon."> ";
 		$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
 		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";    
-		}	
+	}	
 }
 	// If searched by ql and slot
-elseif (ereg ("^spirits ([0-9]+) (.+)$", $message, $arr)) {
+else if (preg_match("/^spirits ([0-9]+) (.+)$/i", $message, $arr)) {
 	$ql = $arr[1];
 	$name = $arr[2];
 	$name = ucwords(strtolower($name));
     if($ql < 1 OR $ql > 300) {
         $msg = "<red>No valid Ql specified(1-300)";
-        if($type == "msg")
-            bot::send($msg, $sender);
-        elseif($type == "priv")
-        	bot::send($msg);
-        elseif($type == "guild")
-        	bot::send($msg, "guild");
+        bot::send($msg, $sendto);
         return;
-    }
-	elseif (eregi("[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]",$name)) {
+    } else if (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i", $name)) {
 		$spirits = "<header>  :::::  Search Spirits Database <red>Error<end>  :::::  <end>\n\n";
 		$spirits .= "<red>Invalid Input\n\n";
 		$spirits .="If searching by Ql and Slot valid slot types are:\n";
@@ -222,33 +203,32 @@ elseif (ereg ("^spirits ([0-9]+) (.+)$", $message, $arr)) {
 		$spirits .="Lhand\n";
 		$spirits .="Rhand\n";
 		$spirits .="Feet\n";
-	}
-	else  {
-	$spirits = "<header>  :::::  Search for $name Spirits QL $ql  :::::  <end>\n\n";
-	$db->query("SELECT * FROM spiritsdb where spot = \"$name\" AND ql = $ql ORDER BY ql");
-	$matches = $db->numrows();
-	if ($matches == 0) {
-	$spirits .="<red>There were no matches for Ql $ql $name";
-	}
-	$data = $db->fobject("all");
-		foreach ($data as $row) {
-		$name = $row->name;
-		$spot = $row->spot;
-		$lvl = $row->level;
-		$loid = $row->id;
-		$agi = $row->agility;
-		
-		$db->query("SELECT * FROM aodb WHERE lowid = $loid");
+	} else  {
+		$spirits = "<header>  :::::  Search for $name Spirits QL $ql  :::::  <end>\n\n";
+		$db->query("SELECT * FROM spiritsdb where spot = \"$name\" AND ql = $ql ORDER BY ql");
+		$matches = $db->numrows();
+		if ($matches == 0) {
+			$spirits .="<red>There were no matches for Ql $ql $name";
+		}
 		$data = $db->fobject("all");
+		foreach ($data as $row) {
+			$name = $row->name;
+			$spot = $row->spot;
+			$lvl = $row->level;
+			$loid = $row->id;
+			$agi = $row->agility;
+			
+			$db->query("SELECT * FROM aodb WHERE lowid = $loid");
+			$data = $db->fobject("all");
 			foreach ($data as $row); {
-			$hiid = $row->highid;
-			$icon = $row->icon;
-			$phat = $row->name;
-			$hiql = $row->highql;
+				$hiid = $row->highid;
+				$icon = $row->icon;
+				$phat = $row->name;
+				$hiql = $row->highql;
 			}
-		$spirits .= "<img src=rdb://".$icon."> ";
-		$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
-		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility Needed=$agi<end>\n\n";    
+			$spirits .= "<img src=rdb://".$icon."> ";
+			$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
+			$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility Needed=$agi<end>\n\n";
 		}
 	}
 }
@@ -707,14 +687,9 @@ elseif (ereg ("^spiritssen ([0-9]+) (.+)$", $message, $arr)) {
 else {
 	$spirits = "<header>  :::::  Result for Search of Spirits Databae  :::::<end>\n\n";
 	$spirits .= "<red>Invalid search criteria entered";
-	}
+}
 		
 $spirits = bot::makeLink("Spirits", $spirits); 
 		
-if($type == "msg") 
-bot::send($spirits, $sender); 
-elseif($type == "all") 
-bot::send($spirits); 
-else 
-bot::send($spirits, "guild");
+bot::send($spirits, $sendto); 
 ?>

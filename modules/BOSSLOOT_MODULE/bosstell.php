@@ -20,10 +20,6 @@ else {
 	$reply = "No data entered.  You must type your request after the <symbol>bosstell command";
 }
 	
-if($type == "msg")
-	bot::send($reply, $sender);
-elseif($type == "all")
-	bot::send($reply);
-else
-	bot::send($reply, "guild");
+bot::send($reply, $sendto);
+	
 ?>

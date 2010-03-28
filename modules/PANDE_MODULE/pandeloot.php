@@ -397,7 +397,7 @@ elseif( eregi("^pandeloot ([0-9]+)$", $message, $arr)) {
 			if(count($loot) < 31)
 				$nextloot = count($loot) + 1;
 			else{
-				bot::send("You can only roll 30 items max at one time!");
+				bot::send("You can only roll 30 items max at one time!", $sendto);
 				return;
 			}
 		}
@@ -637,11 +637,6 @@ elseif( eregi("^scorpio$", $message)){
 	$msg = bot::makeLink("Scorpio Loot", $list);
 }
 
-if($type == "msg")
-	bot::send($msg, $sender);
-elseif($type == "priv")
-	bot::send($msg);
-elseif($type == "guild")
-	bot::send($msg, "guild");
+bot::send($msg, $sendto);
 
 ?>

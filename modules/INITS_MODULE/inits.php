@@ -27,11 +27,7 @@ if(eregi('^inits \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\"\>', $me
 	$msg = "Syntax Error! Proper Syntax is <highlight>inits [drop weapon in chat]<end>"; 
 	// . <br>" . 	str_replace(array('<', '>'), array('&ltl', '&gt;'), $message);;
 }
-	if($type == "msg")
-		bot::send($msg, $sender);
-	elseif($type == "priv")
-		bot::send($msg);
-	elseif($type == "guild")
-		bot::send($msg, "guild");
+
+bot::send($msg, $sendto);
 
 ?>

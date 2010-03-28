@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^notes$", $message)) {
+if (preg_match("/^notes$/i", $message)) {
 
 	$moreInfoMsg = "";
 
@@ -45,18 +45,10 @@ if(eregi("^notes$", $message)) {
 		$moreInfoMsg = "No notes.";	
 	}
 	
-	
 	$moreInfoMsg = "Notes for $sender\n\n" . $moreInfoMsg;
 	
 	$msg = bot::makeLink('Notes', $moreInfoMsg, 'blob');
   	
-
-    if($type == "msg") {
-        bot::send($msg, $sender);
-    } else if($type == "priv") {
-       	bot::send($msg);
-   	} else if($type == "guild") {
-       	bot::send($msg, "guild");
-   	}
+	bot::send($msg, $sendto);
 }
 ?>

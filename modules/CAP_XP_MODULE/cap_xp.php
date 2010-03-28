@@ -254,7 +254,7 @@ if(eregi("^(capxp|capsk) ([0-9]+)$", $message, $arr)) {
 		$info = new whois($sender);
 		
 		if($info->errorCode != 0) {
-		bot::send("An Error occurred while trying to get your level. Please input it manually via <highlight><symbol>capxp 'mission reward' 'your lvl'<end> or try again later.", $sender);
+		bot::send("An Error occurred while trying to get your level. Please input it manually via <highlight><symbol>capxp 'mission reward' 'your lvl'<end> or try again later.", $sendto);
 		return;
 		}
 		else {
@@ -265,7 +265,7 @@ if(eregi("^(capxp|capsk) ([0-9]+)$", $message, $arr)) {
 elseif (eregi("^(capxp|capsk) ([0-9]+) ([0-9]+)$", $message, $arr)) {
 	
 	if(($arr[3] > 220) || ($arr[3] < 1)) {
-		bot::send("Your level cannot be greater than 220 or less than 1.", $sender);
+		bot::send("Your level cannot be greater than 220 or less than 1.", $sendto);
 		return;
 	}
 	else {
@@ -294,12 +294,6 @@ if (($cont == "on") && ($arr[2] >= 300)) {
 	 $msg = "Usage: <highlight><symbol>capxp 'mission reward amount' 'custom level'<end><br><tab>ex: !capxp 165000 215<br>If no level is specified, it will use your current level.";
 }
 	
-	// Send info back
-	if($type == "msg")
-		bot::send($msg, $sender);
-	elseif($type == "priv")
-		bot::send($msg);
-	elseif($type == "guild")
-		bot::send($msg, "guild");
+bot::send($msg, $sendto);
 
 ?>

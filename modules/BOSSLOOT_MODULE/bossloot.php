@@ -62,13 +62,8 @@ else {
 	$output .="<yellow>You must add a search criteria after the command.</end>";
 }	
 
+bot::send($output, $sendto);
 
-if($type == "msg")
-	bot::send($output, $sender);
-elseif($type == "all")
-	bot::send($output);
-else
-	bot::send($output, "guild");
 ?>
 
 

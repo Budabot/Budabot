@@ -33,7 +33,7 @@
    **
    */
 
-if (eregi("^stats$", $message, $arr)) {
+if (preg_match("/^stats$/i", $message, $arr)) {
 
 	$window = '';
 	if (method_exists('bot', 'makeHeader')) {
@@ -134,18 +134,7 @@ if (eregi("^stats$", $message, $arr)) {
 
 	$msg = bot::makeLink('Stats', $window, 'blob');
 
-	if ($type == "msg")
-	{
-	    bot::send($msg, $sender);
-	}
-	else if ($type == "priv")
-	{
-	    bot::send($msg);
-	}
-	else if ($type == "guild")
-	{
-	    bot::send($msg, "guild");
-	}
+	bot::send($msg, $sendto);
 }
 
 ?>

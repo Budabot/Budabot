@@ -33,12 +33,7 @@ if(eregi("^items ([0-9]+) (.+)$", $message, $arr)){
     $ql = $arr[1];
     if(!($ql >= 1 && $ql <= 500)) {
         $msg = "No valid Ql specified(1-500)";
-        if($type == "msg")
-            bot::send($msg, $sender);
-        elseif($type == "priv")
-        	bot::send($msg);
-        elseif($type == "guild")
-        	bot::send($msg, "guild");
+        bot::send($msg, $sendto);
         return;
     }
     $name = $arr[2];
@@ -47,12 +42,7 @@ if(eregi("^items ([0-9]+) (.+)$", $message, $arr)){
     $ql = false;
 } else {
   	$msg = "You need to specify an item to be searched for!";
-   	if($type == "msg")
-		bot::send($msg, $sender);
-	elseif($type == "priv")
-	 	bot::send($msg);
-	elseif($type == "guild")
-	  	bot::send($msg, "guild");
+	bot::send($msg, $sendto);
 	return;  	
 }
 
@@ -80,12 +70,7 @@ if($num == 0) {
 	    $msg = "No items found with QL <highlight>$ql<end>. Maybe try fewer keywords.";
 	else
 	    $msg = "No items found. Maybe try fewer keywords.";
-   	if($type == "msg")
-		bot::send($msg, $sender);
-	elseif($type == "priv")
-	 	bot::send($msg);
-	elseif($type == "guild")
-	  	bot::send($msg, "guild");
+   	bot::send($msg, $sendto);
 	return;
 }
 
@@ -116,12 +101,7 @@ if($countitems == 0) {
 	    $msg = "No items found with QL <highlight>$ql<end>. Maybe try fewer keywords.";
 	else
 	    $msg = "No items found. Maybe try fewer keywords.";
-   	if($type == "msg")
-		bot::send($msg, $sender);
-	elseif($type == "priv")
-	 	bot::send($msg);
-	elseif($type == "guild")
-	  	bot::send($msg, "guild");
+   	bot::send($msg, $sendto);
 	return;
 }
 
@@ -148,31 +128,16 @@ if($countitems > 3) {
     $link = bot::makeLink('Click here to see the results', $list);
 
 	//Send Itemslist
-	if($type == "msg")
-	    bot::send($link, $sender);
-	elseif($type == "priv")
-	  	bot::send($link);
-	elseif($type == "guild")
-	  	bot::send($link, "guild");
+    bot::send($link, $sendto);
 
 	//Show how many items found		
     $msg = "<highlight>".$countitems."<end> results in total";
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-      	bot::send($msg);
-    elseif($type == "guild")
-      	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
       	
 	//Show a warning if the maxitems are reached
 	if($countitems == $this->settings["maxitems"]) {
 	    $msg = "The output has been limited to <highlight>{$this->settings["maxitems"]}<end> items. Specify your search more if your item isn´t listed.";
-	    if($type == "msg")
-	        bot::send($msg, $sender);
-	    elseif($type == "priv")
-	      	bot::send($msg);
-	    elseif($type == "guild")
-	      	bot::send($msg, "guild");
+	    bot::send($msg, $sendto);
 	}
 } else {
     foreach($itemlist as $name => $item1) {
@@ -193,11 +158,6 @@ if($countitems > 3) {
     }
 
 	// Send info back
-	if($type == "msg")
-	    bot::send($link, $sender);
-	elseif($type == "priv")
-	  	bot::send($link);
-	elseif($type == "guild")
-	  	bot::send($link, "guild");
+    bot::send($link, $sendto);
 }
 ?>

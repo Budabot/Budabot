@@ -79,18 +79,7 @@ if(eregi("^info(.*)$", $message))
 		}
 	}
 	
-	if ($type == "msg")
-	{
-	    bot::send($msg, $sender);
-	}
-	else if ($type == "priv")
-	{
-	    bot::send($msg);
-	}
-	else if ($type == "guild")
-	{
-	    bot::send($msg, "guild");
-	}
+	bot::send($msg, $sendto);
 }
 
 ?>

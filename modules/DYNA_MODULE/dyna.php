@@ -56,11 +56,7 @@
 	} else {
 		$dynacamps = "<red>Could not locate a Dynacamp related to information provided.<end>";
 	}
-			
-	if($type == "msg")
-		bot::send($dynacamps, $sender);
-	elseif($type == "all")
-		bot::send($dynacamps);
-	else
-		bot::send($dynacamps, "guild");
+
+	bot::send($dynacamps, $sendto);
+
 ?>

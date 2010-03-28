@@ -31,9 +31,7 @@
 
 if(eregi("^cmd (.+)$", $message, $arr)) {
   	$msg = "<br><yellow>---------------------<br><red>".$arr[1]."<end><br><yellow>---------------------";
-	if($type == "priv")
- 	   bot::send($msg);
-    elseif($type == "guild")
-	   bot::send($msg, "guild");
+	
+	bot::send($msg, $sendto);
 }
 ?>

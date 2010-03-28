@@ -1,8 +1,4 @@
 <?php
-if($type == "priv")
-	$sendto = "";
-elseif($type == "guild")
-	$sendto = "guild";
 
 $header = "<header>::::: Heal Delta :::::<end>\n\n"	;
 $footer = "<tab><img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n\nby Imoutochan, RK1";
@@ -27,4 +23,5 @@ if (eregi("^hd$", $message)) {
 }
 
 bot::send($msg, $sendto);
+
 ?>

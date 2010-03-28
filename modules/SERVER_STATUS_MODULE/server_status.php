@@ -29,15 +29,10 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^server(.*)$", $message, $arr)) {
-	if(!$arr[1] || $arr[1] == 1 || $arr[1] == 2 || $arr[1] == 3 || $arr[1] == 4) {
+if (preg_match("/^server(.*)$/i", $message, $arr)) {
+	if (!$arr[1] || $arr[1] == 1 || $arr[1] == 2 || $arr[1] == 3 || $arr[1] == 4) {
 	 	$msg = "Getting Server status. Please standby.";
-	    if($type == "msg")
-	        bot::send($msg, $sender);
-	    elseif($type == "priv")
-	   	    bot::send($msg);
-	    elseif($type == "guild")
-	      	bot::send($msg, "guild");
+        bot::send($msg, $sendto);
 
 		$server = new server(trim($arr[1]));
 	  	if($server->errorCode != 0)
@@ -73,14 +68,10 @@ if(eregi("^server(.*)$", $message, $arr)) {
 			
 			$msg = bot::makeLink("Status of $server->name", $link);	    
 		}
-	} else
+	} else {
 		$msg = "Choose a server between 1 and 4";
+	}
 
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-   	    bot::send($msg);
-    elseif($type == "guild")
-      	bot::send($msg, "guild");
+	bot::send($msg, $sendto);
 }
 ?>

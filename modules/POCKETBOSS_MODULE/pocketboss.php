@@ -60,12 +60,7 @@ if(eregi("^pb (.+)$", $message, $arr)) {
 	else
 		$msg = "Couldn´t find the Pocketboss <highlight>".$pb."<end>";
 	
-    if($type == "msg")
-	    bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-      	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 } elseif(eregi("^symb (eye|ocular|head|brain|ear|rarm|chest|larm|rwrist|waist|lwrist|rhand|legs|leg|thigh|lhand|feet) (s(u(p(p(o(r(t)?)?)?)?)?)?|c(o(n(t(r(o(l)?)?)?)?)?)?|i(n(f(a(n(t(r(y)?)?)?)?)?)?)?|a(r(t(i(l(l(e(r(y)?)?)?)?)?)?)?)?|e(x(t(e(r(m(i(n(a(t(i(o(n)?)?)?)?)?)?)?)?)?)?)?)?)$", $message, $arr)) {
   	switch($arr[1]) {
 	    case "eye":
@@ -132,12 +127,7 @@ if(eregi("^pb (.+)$", $message, $arr)) {
 		$msg = "Couldn´t find any symbs";
 
 	
-    if($type == "msg")
-	    bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-      	bot::send($msg, "guild");  	
+    bot::send($msg, $sendto);
 } elseif(eregi("^symb (s(u(p(p(o(r(t)?)?)?)?)?)?|c(o(n(t(r(o(l)?)?)?)?)?)?|i(n(f(a(n(t(r(y)?)?)?)?)?)?)?|a(r(t(i(l(l(e(r(y)?)?)?)?)?)?)?)?|e(x(t(e(r(m(i(n(a(t(i(o(n)?)?)?)?)?)?)?)?)?)?)?)?) (eye|ocular|head|brain|ear|rarm|chest|larm|rwrist|waist|lwrist|rhand|legs|leg|thigh|lhand|feet)$", $message, $arr)) {
   	$index = count($arr) - 1;
 	switch($arr[$index]) {
@@ -204,13 +194,7 @@ if(eregi("^pb (.+)$", $message, $arr)) {
 	} else
 		$msg = "Couldn´t find any symbs";
 
-	
-    if($type == "msg")
-	    bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-      	bot::send($msg, "guild");  	
+	bot::send($msg, $sendto);
 } else
 	$syntax_error = true;
 ?>

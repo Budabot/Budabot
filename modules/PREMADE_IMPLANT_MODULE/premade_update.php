@@ -22,7 +22,7 @@
    
 require_once('functions.php');
 
-if(eregi("^premadeupdate$", $message)) {
+if(preg_match("/^premadeupdate$/i", $message)) {
 	
 	$msg = '';
 	$currentVersion = bot::getsetting('premade_implant_db_version');
@@ -35,12 +35,6 @@ if(eregi("^premadeupdate$", $message)) {
 		$msg = "Premade Implant Database is already up to date. Version: $newVersion.";
 	}
 
-    if($type == "msg") {
-        bot::send($msg, $sender);
-    } elseif($type == "priv") {
-       	bot::send($msg);
-   	} elseif($type == "guild") {
-       	bot::send($msg, "guild");
-   	}
+    bot::send($msg, $sendto);
 }
 ?>

@@ -10,10 +10,10 @@
    ** Date(last modified): 30.06.2007
    */
  
-if ( eregi("^friendlist(.+)?$", $message, $arg)) {
+if (preg_match("/^friendlist(.+)?$/i", $message, $arg)) {
 	if ($arg[1] == " clean") {$cleanup = true;}
 	
-	bot::send("One momment... (".count($this->buddyList)." names to check.)", $sender);
+	bot::send("One momment... (".count($this->buddyList)." names to check.)", $sendto);
 	$nickinfo = array();
 
 	foreach ($this->buddyList as $key => $value) {
@@ -44,7 +44,7 @@ if ( eregi("^friendlist(.+)?$", $message, $arg)) {
 	}
 	
 	if (count($nickinfo) == 0) {
-		bot::send("Didn't find any names in the friendlist.", $sender);
+		bot::send("Didn't find any names in the friendlist.", $sendto);
 	} else {
 		$msg = "KEY: <red>Admin<end>, <yellow>Guest channel<end>, <green>Org Member<end>, <white>Member list<end>\n\n";
 		ksort($nickinfo);
@@ -63,7 +63,7 @@ if ( eregi("^friendlist(.+)?$", $message, $arg)) {
 		
 		if ($unknowncount && $cleanup) {$msg .="\nRemoved: ($unknowncount)";}
 		elseif ($unknown) {$msg .= "\nUnknown: ($unknowncount) <a href='chatcmd:///tell <myname> <symbol>friendlist clean'>Remove Unknowns?</a>\n$unknown";}
-		bot::send(bot::makeLink("Friendlist Details",$msg), $sender);
+		bot::send(bot::makeLink("Friendlist Details", $msg), $sendto);
 	}
 }
 ?>

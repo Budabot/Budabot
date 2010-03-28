@@ -40,16 +40,11 @@ Sense         400 / 600
 Psychic       400 / 600';
 
 if(eregi ("^breed",$message ,$arr)) {
-$list = "               .:| Breed Caps |:.\n\n";
-$list.=" $s \n\n $n \n\n $o \n\n $a ";
+	$list = "               .:| Breed Caps |:.\n\n";
+	$list.=" $s \n\n $n \n\n $o \n\n $a ";
 	$msg = bot::makeLink("Results of Breedcap Inquiry.", $list);
-	}
+}
 
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-    	bot::send($msg);
-    elseif($type == "guild")
-    	bot::send($msg, "guild");   
+bot::send($msg, $sendto);
 
 ?>

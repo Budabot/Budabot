@@ -50,7 +50,7 @@ if (!function_exists(timeLeft)) {function timeLeft($origtime, $showbiggest=4) {
 
 
 // Listing of all votes
-if(eregi("^vote$", $message)) {
+if (preg_match("/^vote$/i", $message)) {
 	
 	$db->query("SELECT * FROM $table WHERE `duration` IS NOT NULL ORDER BY `started`");
 	
@@ -75,7 +75,7 @@ if(eregi("^vote$", $message)) {
 
 
 
-} else if(eregi("^vote (.+)$", $message, $arr)) {
+} else if (preg_match("/^vote (.+)$/i", $message, $arr)) {
 	$sect = explode($delimiter, $arr[1],3);
 	
 	//////////////////////////////////////
@@ -318,11 +318,6 @@ if(eregi("^vote$", $message)) {
 /////////////////////////////////////////////////
 $msg = str_replace("\'", "'", $msg);
 if ($msg){	// Send info back
-	if($type == "msg")
-		bot::send($msg, $sender);
-	elseif($type == "priv")
-   		bot::send($msg);
-	elseif($type == "guild")
-   		bot::send($msg, "guild");
+	bot::send($msg, $sendto);
 }
 ?>

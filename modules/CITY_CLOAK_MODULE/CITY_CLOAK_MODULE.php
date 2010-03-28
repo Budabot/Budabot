@@ -29,8 +29,8 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
    
-$MODULE_NAME = "CITY_CLOAK_MODULE";
-$PLUGIN_VERSION = 0.1;
+	$MODULE_NAME = "CITY_CLOAK_MODULE";
+	$PLUGIN_VERSION = 0.1;
 
 	//Logon
 	bot::event("logOn", "$MODULE_NAME/city_guild_logon.php", "city", "Displays summary of city status.");

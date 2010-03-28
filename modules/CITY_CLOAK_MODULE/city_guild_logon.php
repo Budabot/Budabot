@@ -31,10 +31,9 @@
 
 if(isset($this->guildmembers[$sender])) {
     $db->query("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 0, 20 ");
-    $msg = "<highlight>Unknown status on city cloak!<end>";
     
     $case = 0;
-    if($db->numrows() != 0) {
+    if($db->numrows() > 0) {
         $row = $db->fObject();
         if(((time() - $row->time) >= 60*60) && ($row->action == "off")) {
 	        $case = 1;
@@ -51,12 +50,15 @@ if(isset($this->guildmembers[$sender])) {
     	} elseif(((time() - $row->time) < 60*60) && ($row->action == "on")) {
             $msg = "The cloaking device is <green>enabled<end>. It is possible in ".round((($row->time + 60*60) - time())/60, 0)."min to disable it.";
             $case = 2;
-    	}
+    	} else {
+			$msg = "<highlight>Unknown status on city cloak!<end>";
+			$case = 2;
+		}
+		
+		if ($this->settings["showcloakstatus"] >= $case) {
+			bot::send($msg, $sender);
+		}
     }
-
-    if ($this->settings["showcloakstatus"] >= $case) {
-    	bot::send($msg, $sender);
-	}
 }
 
 ?>

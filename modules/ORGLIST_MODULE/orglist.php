@@ -144,9 +144,7 @@ if(eregi("^(orglist|onlineorg) (.+)$", $message, $arr)) {
 	}
 	
 	if (!$msg) {  // Checking if we can get info on this org.
-        	if($type == "msg") {bot::send("Searching and reading org list....", $sender);}
-        	elseif($type == "priv") {bot::send("Searching and reading org list....");}
-        	elseif($type == "guild"){bot::send("Searching and reading org list....", "guild");}
+        bot::send("Searching and reading org list....", $sendto);
 	
 		$orgmate = new org($orgid);
 
@@ -261,9 +259,7 @@ if(eregi("^(orglist|onlineorg) (.+)$", $message, $arr)) {
 
 	if($msg) {
 		// Send info back
-		if  ($type == "msg") {bot::send($msg, $sender);}
-		elseif($type == "priv") {bot::send($msg);}
-        	elseif($type == "guild") {bot::send($msg, "guild");}
+		bot::send($msg, $sendto);
 	}
 
 	// If we arent plugging names into the buddylist, then we are done.

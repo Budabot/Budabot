@@ -16,21 +16,21 @@ $message = str_replace('"', "&quot;", $message);
 
 
 // Adding a quote
-if(eregi("^quote add (.+)$", $message, $arr)) {
+if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 	
 	if (!isset($this->admins[$sender])) {
 		$requirement = $this->settings["quote_add_min"];
 		if ($requirement >= 0) {
 			if (!$this->guildmembers[$sender]) {
-				bot::send("Only org members can add a new quote.", $sender);
+				bot::send("Only org members can add a new quote.", $sendto);
 				return;
-			}elseif ($requirement < $this->guildmembers[$sender]) {
+			} else if ($requirement < $this->guildmembers[$sender]) {
 				$rankdiff = $this->guildmembers[$sender]-$requirement;
-				bot::send("You need $rankdiff promotion(s) in order to add a quote.", $sender);
+				bot::send("You need $rankdiff promotion(s) in order to add a quote.", $sendto);
 				return;
 			}
 		}else if (($requirement == -1 && !isset($this->chatlist[$sender])) && !$this->guildmembers[$sender]) {
-			bot::send("You need to at least be in the private chat in order to add a quote.", $sender);
+			bot::send("You need to at least be in the private chat in order to add a quote.", $sendto);
 			return;
 		}
 	}
@@ -93,7 +93,7 @@ if(eregi("^quote add (.+)$", $message, $arr)) {
 	}
 	
 // Removing a quote
-} else if(eregi("^quote (rem|del|remove|delete) (.+)$", $message, $arr)) {
+} else if (preg_match("/^quote (rem|del|remove|delete) (.+)$/i", $message, $arr)) {
 
 	$db->query("SELECT * FROM quote WHERE `IDNumber` = '$arr[2]'");
 
@@ -117,7 +117,7 @@ if(eregi("^quote add (.+)$", $message, $arr)) {
 	}
 
 //Searching for authors or victims.
-} else if(eregi("^quote search (.+)$", $message, $arr)) {
+} else if (preg_match("/^quote search (.+)$/i", $message, $arr)) {
 	
 	$search = ucfirst(strtolower($arr[1]));
 	
@@ -162,7 +162,7 @@ if(eregi("^quote add (.+)$", $message, $arr)) {
 	
 	
 //Show the top quoters/quoted
-} else if(eregi("^quote stats$", $message, $arr)) {
+} else if (preg_match("/^quote stats$/i", $message, $arr)) {
 	// might need to run it ourselves the first time. 
 	// cron will keep updating it later.
 	$msg = $this->vars["quotestats"];
@@ -174,10 +174,10 @@ if(eregi("^quote add (.+)$", $message, $arr)) {
 	
 	
 //View a specific quote
-} else if(eregi("^quote ([0-9]+)$", $message, $arr)) {
+} else if (preg_match("/^quote ([0-9]+)$/i", $message, $arr)) {
 	
 	//get total number of entries(by grabbing the Highest ID.)
-        $db->query("SELECT * FROM quote ORDER BY `IDNumber` DESC");
+    $db->query("SELECT * FROM quote ORDER BY `IDNumber` DESC");
 	$row = $db->fObject();
 	$count = $row->IDNumber;
 	
@@ -220,17 +220,17 @@ if(eregi("^quote add (.+)$", $message, $arr)) {
 	
 	
 // if i didnt get a number, they messed up.
-} else if(eregi("^quote (.+)$", $message, $arr)) {	
+} else if (preg_match("/^quote (.+)$/i", $message, $arr)) {	
 	$msg = "Its <symbol>quote for a random quote, or <symbol>quote # for a specific quote.";
 	
 	
 	
 //View a random quote
-} elseif(eregi("^quote$", $message)) {
+} else if (preg_match("/^quote$/i", $message)) {
 	//get total number of entries for rand (and see if we even have any quotes to show)
 	
 	// find the highest IDnumber
-        $db->query("SELECT * FROM quote ORDER BY `IDNumber` DESC");
+    $db->query("SELECT * FROM quote ORDER BY `IDNumber` DESC");
 	$row = $db->fObject();
 	$count = $row->IDNumber;
 
@@ -284,11 +284,6 @@ if(eregi("^quote add (.+)$", $message, $arr)) {
 
 if ($msg) {
 	$msg =  str_replace("\'", "'", $msg);
-	if($type == "msg")
-		bot::send($msg, $sender);
-	elseif($type == "priv")
-		bot::send($msg);
-	elseif($type == "guild")
-		bot::send($msg, "guild");
+	bot::send($msg, $sendto);
 }
 ?>

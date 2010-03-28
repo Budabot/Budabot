@@ -38,11 +38,6 @@ $window = "::: Lag Tweaks :::
 
 $msg = bot::makeLink("Lag Tweaks", $window);
 
-if($type == "msg")
-    bot::send($msg, $sender);
-elseif($type == "priv")
-	bot::send($msg);
-elseif($type == "guild")
-	bot::send($msg, "guild");   
+bot::send($msg, $sendto);   
 
 ?>

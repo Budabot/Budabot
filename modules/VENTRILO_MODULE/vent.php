@@ -113,11 +113,6 @@ if ($error === FALSE) {
 	$msg = "<orange>$error<end>";
 }
 
-if($type == "msg")
-	bot::send($msg, $sender);
-elseif($type == "priv")
-	bot::send($msg);
-elseif($type == "guild")
-	bot::send($msg, "guild");
+bot::send($msg, $sendto);
 
 ?>
