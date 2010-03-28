@@ -1115,6 +1115,7 @@ class bot extends AOChat{
 			case AOCP_MSG_PRIVATE: // 30, Incoming Msg
 				$type = "msg"; // Set message type.
 				$sender	= AOChat::get_uname($args[0]);
+				$sendto = $sender;
 				
 				// Removing tell color 
 				if(eregi("^<font color='#([0-9a-f]+)'>(.+)$", $args[1], $arr))
