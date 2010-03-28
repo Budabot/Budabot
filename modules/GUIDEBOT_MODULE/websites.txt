@@ -1,0 +1,19 @@
+(blue)-= Valuable Anarchy Online Websites =-
+(white)
+General/Overall Information
+<a href='chatcmd:///tell <myname> http://forums.anarchy-online.com/'</a>LINK</a> Official Forums - http://forums.anarchy-online.com/
+<a href='chatcmd:///tell <myname> http://aofroobs.com/'</a>LINK</a> AO Froobs.com - http://www.aofroobs.com/
+<a href='chatcmd:///tell <myname> http://ao-universe.com/'</a>LINK</a> AO Universe - http://www.ao-universe.com/main.php?site=knowledge&link=0
+<a href='chatcmd:///tell <myname> http://anarchyarcanum.com/'</a>LINK</a> Anarchy Arcanum - http://www.anarchyarcanum.com/
+<a href='chatcmd:///tell <myname> http://auno.org'</a>LINK</a> Auno - http://www.auno.org
+<a href='chatcmd:///tell <myname> http://ao.stratics.com/index.php'</a>LINK</a> AO Stratics - http://ao.stratics.com/index.php
+<a href='chatcmd:///tell <myname> http://gridstream.org/'</a>LINK</a> Gridstream Productions - http://gridstream.org/
+<a href='chatcmd:///tell <myname> http://travel.to/rubi-ka/'</a>LINK</a> Huge Map - http://travel.to/rubi-ka/
+<a href='chatcmd:///tell <myname> http://www.tirschool.com/'</a>LINK</a> Tir School Of Engineering - http://www.tirschool.com/
+
+Shadowlands Related
+
+<a href='chatcmd:///tell <myname> http://www.jexai.co.uk/anarchy/sl_maps.html'</a>LINK</a> Jexai's Dungeon Info SL Only -http://www.jexai.co.uk/anarchy/sl_maps.html
+<a href='chatcmd:///tell <myname> http://aopocket.tngk.com/'</a>LINK</a> AO Pocket Symbiant Information - http://aopocket.tngk.com/ 
+
+(blue)Note: These links will open in your web browser.

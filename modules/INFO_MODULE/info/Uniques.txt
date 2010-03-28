@@ -1,0 +1,34 @@
+*REMEMBER IT'S MORE IMPORTANT TO KEEP TIMERS THAN TO WIN LOOT* ;D Here's the list of uniques and their spawn rate, you can find uniques on CSP map and by doing a 
+!whereis
+followed by the uniques name
+
+Timers for 9hr:
+
+!timer 540 
+
+-9hr uniques- 
+Mike 'Nugget' McMullet
+Torrith the Ancient
+R-2000 Vermin Disposal Unit
+The Escaped Gargantula
+
+-18hr10minutes uniques-
+
+Timer for these mobs is:
+
+!timer 1090 
+
+-18hr10min uniques-
+
+Commander Kelly Frederickson
+The Iron Reet
+Jack "Leg-Chopper" Menendez
+Professor Van Horn
+Marcus Robicheaux, Poet Laureate
+Daria Marie Walzer
+Elian Zuwadza
+
+Let's keep the timers going and help each other out
+
+-Zeet
+Author: Zeet

@@ -1,0 +1,61 @@
+<?php
+   /*
+   ** Module: NANOLINES
+   ** Author: Tyrence/Whiz (RK2)
+   ** Description: Shows the nanolines and nanos in each nanoline for each profession
+   ** Version: 1.1
+   **
+   ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
+   **
+   ** Date(created): 31-May-2009
+   ** Date(last modified): 9-Mar-2010
+   **
+   ** Copyright (C) 2009 Jason Wheeler (bigwheels16@hotmail.com)
+   **
+   ** Licence Infos:
+   ** This file is an addon to Budabot.
+   **
+   ** This module is free software; you can redistribute it and/or modify
+   ** it under the terms of the GNU General Public License as published by
+   ** the Free Software Foundation; either version 2 of the License, or
+   ** (at your option) any later version.
+   **
+   ** This module is distributed in the hope that it will be useful,
+   ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+   ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   ** GNU General Public License for more details.
+   **
+   ** You should have received a copy of the GNU General Public License
+   ** along with this module; if not, write to the Free Software
+   ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+   **
+   ** This module may be obtained at: http://www.box.net/shared/bgl3cx1c3z
+   **
+   */
+
+	$MODULE_NAME = "NANOLINES_MODULE";
+
+	//Private
+	bot::command("priv", "$MODULE_NAME/nanolines.php", "nanolines", "all", "Shows a list of professions to choose from");
+	bot::command("priv", "$MODULE_NAME/nlprof.php", "nlprof", "all", "Shows a list of nanolines given a profession");
+	bot::command("priv", "$MODULE_NAME/nlline.php", "nlline", "all", "Shows a list of nanos given a nanoline");
+
+	//Guild
+	bot::command("guild", "$MODULE_NAME/nanolines.php", "nanolines", "all", "Shows a list of professions to choose from");
+	bot::command("guild", "$MODULE_NAME/nlprof.php", "nlprof", "all", "Shows a list of nanolines given a profession");
+	bot::command("guild", "$MODULE_NAME/nlline.php", "nlline", "all", "Shows a list of nanos given a nanoline");
+
+	//Tells
+	bot::command("msg", "$MODULE_NAME/nanolines.php", "nanolines", "all", "Shows a list of professions to choose from");
+	bot::command("msg", "$MODULE_NAME/nlprof.php", "nlprof", "all", "Shows a list of nanolines given a profession");
+	bot::command("msg", "$MODULE_NAME/nlline.php", "nlline", "all", "Shows a list of nanos given a nanoline");
+
+	//Help
+	bot::help("Nanolines", "$MODULE_NAME/nanolines.txt", "all", "Nanolines help", "Nanolines");
+
+	//Settings
+	bot::addsetting("shownanolineicons", "Show icons for the nanolines", "edit", "0", "true;false", "1;0");
+
+	//Setup
+	bot::loadSQLFile($MODULE_NAME, "nanolines");
+?>

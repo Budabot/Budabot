@@ -1,0 +1,145 @@
+-= Agility - Stamina Armor =-
+
+ Top Tier
+   * Omni Carbonum Plate <QL1-200> Omni Only. Weak vs. Ener, Rad. Bonus to NCU, Nano Init, Max Nano, Max Health. Craftable, Market Price is 1m + 10k per QL.
+   * Storm Carbonum Plate <QL1-200> Clan Only. Weak vs. Ener, Rad. Bonus to NCU, Nano Init, Max Nano, Nano Resist. Craftable, Market Price is 1m + 10k per QL.
+   * Carbonum Plate <QL1-200> Weak vs. Ener, Rad. Bonus to NCU, Nano Init, Max Nano. Craftable, Market Price is 10k per QL for a full suit at QLs 1-90.
+   
+   -= Agility - Strength Armor =-
+   
+ Top Tier
+   * Servants of Eight <QL10-200> Level Locked. Weak vs. Rad. Many Bonuses. Boss Loot.
+   * Flowers Tech <QL75-200> Weak vs. Pois. Avail in Mission/Loot.
+   * Primus Decus <QL30-200> Weak vs. Rad. Avail in Mission/Loot.
+
+ Other Armors
+   * Secundus Decus <QL20-200> Weak vs. Chem, Rad. Avail in Mission/Loot.
+   * Junkmetal Armor <QL1-200> Weak vs. Cold, Fire. Bonus to Health. Craftable from Robot Junk. Cheap and Effective.
+   * Tech Armor <QL1-200> Weak vs. Cold, Poison. Avail in Mission/Loot/Shop.
+
+ Special Armors
+   * Metallic Mantis <QL80-140> Somewhat weak vs. Rad, Fire. Many Bonuses, including Proj and Ener damage. Craftable, from Mantid Parts in Smuggler's Den.
+   * Kirch Kevlar <QL45-200> Buffing Armor. Bonuses to Max Health, AGI, SEN, PSY. Boss Loot.
+
+ Shop Food
+   * Tertius Decus
+   * Omni-Pol Desert
+   * Omni-Pol Forest
+   * Metaplast
+   * Kevlar
+   * Low-Tech Armor
+   
+   -= Stamina - Strength Armor =-
+   
+ Top Tier
+   * Omni Life Guard <QL30-200> Omni Only. Somewhat weak vs. Chem. Many Bonuses. Boss Loot.
+   * CAS Symbiotic <QL30-200> Weak vs. Cold. Many bonuses. Craftable, Market Price is 50-100k per QL for a full suit.
+   * Omni-Pol Elite <QL75-200> Omni Only. Weak vs. Chem. Avail in Mission/Loot.
+
+ Other Armors
+   * Graft Armor <QL30-200> Weak vs. Cold. Avail in Mission/Loot/Shops.
+   * Organic Armor <QL20-200> Weak vs. Cold, Rad. Avail in Mission/Loot/Shops.
+   * Omni-Pol Armor <QL30-200> Omni Only. Weak vs. Cold, Fire. Avail in Mission/Loot/Shops.
+
+ Special Armors
+   * Omni-Pol Trooper <QL5-225> Soldier Only. Somewhat weak vs. Pois. Boss Loot.
+   * Sekutek Chilled Plasteel <QL10-200> Buffing Armor. Many Bonuses, including STR, AGI, INT, and Max Nano. Boss Loot.
+
+ Shop Food
+   * Vito's Plasteel
+   * Titan Plasteel
+   * Nomad Armor
+   * Chilled Plasteel
+   * Heated Plasteel
+   * Flak Armor
+   
+   -= Strength - Psychic Armor =-
+   * Massive Steel Body Armor <QL10-50> Male Only <no Atroxes or Females>. Weak vs. Cold, Fire. Leveling Armor from 10-50.
+
+-= Sense - Agility Armor =-
+
+ Top Tier
+   * Omni Steel-Ribbed <QL20-200> Weak vs. Rad. Many Bonuses. Craftable, Market Price 1m + 10k per QL.
+   * Obtru Steel-Ribbed <QL20-200> Weak vs. Rad. Avail in Mission/Loot.
+
+ Other Armors
+   * Nadir Steel-Ribbed <QL20-200> Weak vs. Rad, Cold. Avail in Mission/Loot.
+
+ Special Armors
+   * Shadowfade <QL1> Agent Only. No weaknesses. Found in ToTW, from Reverends and Windcallers.
+   * Crawler Armor <QL75> Craftable, from Skincrawler Parts in Crypt of Home.
+   * Cyborg Death Squad <QL70-200> Fixer Only. Weak vs. Rad. Many Bonuses. Available as Loot drops from Cyborgs.
+   * Dillon <QL5-200> Buffing Armor. Bonuses to STA, INT, Piercing. Boss Loot.
+   * Nova Dillon <QL5-200> Buffing Armor. Bonuses to all Abilities and Piercing. Boss Loot.
+
+ Shop Food
+   * Sid's Leather
+   * Martial Artist Suit
+   * Steel-Ribbed
+   * Leather Armor
+   * Light Combat Armor
+   
+   -= Intelligence - Psychic Armor =-
+   
+ Top Tier
+   * Nano Armor <QL75-200> Weak vs. Chem. Avail in Mission/Loot.
+   * Waitt Cyber <QL30-200> Weak vs. Pois. The best form of Cyber armor, Avail in Mission/Loot/Shops.
+
+ Other Armors
+   * Bau Cyber <QL20-200> Weak vs. Chem, Pois.  Avail in Mission/Loot/Shops.
+
+ Shop Food
+   * Cyber Armor <QL1-200> Weak vs. Chem, Rad, Pois. Avail in Mission/Loot/Shops.
+
+ Special Armors
+   * Living Cyber Armor <QL 1 -50> Weak vs. Chem, Rad, Pois. Leveling armor <from 1-50>. Bonus to Health. The Sleeves do not exist in-game. Most parts can be found as a drop in the Subway <Deep section, humanoid monsters> or from the Party Mixer's quest.
+   * Barter <QL75-200> Trader Only. Weak vs. Chem. Many Bonuses. Craftable, Market Price 50-100k per QL for a full suit.
+   
+   -= Intelligence - Stamina Armor =-
+   * Bronto Hide <QL20-200> Somewhat weak vs. Ener, Rad. Bonus to Max Nano. Craftable from Bronto Hide parts. QLs higher than 60 are very rare.
+
+-= Psychic - Stamina Armor
+
+ Top Tier
+   * Biomech <QL75-200> Weak vs. Rad.  Bonus to First Aid, Treatment.  Available as Mission Reward/Loot/Shops.
+
+ Other Armors
+   * Links Energized <QL1-200> Weak vs. Chem, Poison. Avail in Mission/Loot/Shops.
+
+ Special Armors
+   * Augmented Cyborg Armor <QL77> Level-Locked at 71, NoDrop. Weak vs. Cold. Bonus to NCU.
+   * Physician's Cap <QL 15-75> Head Only. Leveling Armor <15-75>.
+
+ Shop Food
+   * Raven's Energized <QL30-200> Weak vs. Chem, Pois, Fire. Avail in Mission/Loot/Shops.
+   * Energized Armor <QL1-200> Weak vs. Chem, Cold, Pois, Fire. Avail in Mission/Loot/Shops.
+   
+   Other Special Armors <not covered above>
+   * Padded Love <QL5-200> Fixer Only. Somewhat weak vs. Rad, Cold. Many Bonuses. Boss Loot.
+   * Notum Saturated Metaplast <QL50-90> NT Only. No weaknesses. Craftable, Extremely Rare.
+   * Armor of Yearning <QL100-200> MP Only.
+
+ Armors NOT Covered by this guide:
+ 
+   * Azure Reveries <QL200>
+   * Carapace of the Infernal Tyrant <QL1>
+   * DeCranum's Corona MK I <QL140>
+   * DeCranum's Corona MKII <QL170>
+   * Dustbrigade Commander <QL200>
+   * Dustbrigade Trooper <QL200>
+   * Flower Guard Triplate <QL200>
+   * Gloomfall Armor <QL1>
+   * Lion's Leather <QL150>
+   * Living Dragonflesh <QL100>
+   * Luxurious Rubber <QL200>
+   * Mosquito Armor <QL5-225>
+   * Omni-Armed Forces <QL200>
+   * Omni-Med Battle <QL200>
+   * Superior Sentinel <QL200>
+   * Unhallowed Carapace of the Infernal Tyrant <QL1>
+   * All Shadowlands Armor
+   * Ambitious Suit
+   * Nano Breed Service Suit
+   * Pilgrim Protector
+   * Pilgrim Seeker
+   * Pilgrim Visionary

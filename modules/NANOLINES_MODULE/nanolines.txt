@@ -1,0 +1,18 @@
+<header>::::: Implant Commands :::::<end>
+
+<highlight>Allows you to select a profession<end>
+<tab>Usage: <symbol>nanolines
+
+<tab>eg: <symbol>nanolines
+
+
+<highlight>Shows the nanolines for each profession<end>
+<tab>Usage: <symbol>nlprof (profession)
+
+<tab>eg: <symbol>nlprof Adventurer
+
+
+<highlight>Shows the nanos in a nanoline<end>
+<tab>Usage: <symbol>nlline (number)
+
+<tab>eg: <symbol>nlline 12

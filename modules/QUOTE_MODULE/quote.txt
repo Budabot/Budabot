@@ -1,0 +1,27 @@
+<header>::::: Help on Quote command :::::<end>
+
+<highlight>View random quote:<end>
+<tab><symbol>quote
+
+<highlight>View a specific quote:<end>
+<tab><symbol>quote 1
+
+<highlight>Search for specific author/victim/text:<end>
+<tab><symbol>quote search person/text
+
+<highlight>View statistics (most quoters/quoted):<end>
+<tab><symbol>quote stats  (page gets updated once a day)
+
+<highlight>Add a quote:<end>
+<tab><symbol>quote add message
+
+** <highlight>When adding a quote, try to grab the quote to something like these examples, in order for module to determine who wrote it:<end>
+<tab>To [Person]: message
+<tab>[Person]: message
+<tab>[Any OOC] Person: message
+<tab>Person shouts: message
+<tab>Person whispers: message
+<tab>Person: message
+
+<highlight>Remove a quote:<end>
+<tab><symbol>quote rem 1

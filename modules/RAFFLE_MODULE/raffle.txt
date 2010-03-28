@@ -1,0 +1,13 @@
+<header>::::: Help on Raffle Commands. :::::<end>
+
+<highlight>Raffle off an item to orgmates (Tell or Guild Chat)<end>
+<tab><symbol>raffle 'insert your item here'
+
+<highlight>Join the raffle (Tell)<end>
+<tab><symbol>joinRaffle
+
+<highlight>Leave the raffle (Tell)<end>
+<tab><symbol>leaveRaffle
+
+<highlight>Check members who have entered the raffle (Tell or Guild Chat)<end>
+<tab><symbol>raffleStatus

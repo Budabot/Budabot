@@ -1,0 +1,87 @@
+(blue)-= Guide to Wrangles =-
+
+(white)Dedicated to Ferrell, whose patience is extraordinary, if not legendary.
+
+
+Ok, you've heard about it, listen to others ask for it, but what IS it exactly?
+ 
+A wrangle is a nanoprogram buff that traders can cast.  They can boost your skills by a certain amount of points for 3 minutes, making it ideal for 'twinking' new weapons that have requirements far above your skill, or casting robot shells/grid armor above your current nanoskill ability.
+
+The normal Skill Wrangler nanos only affect a single target and lower the abilities of the trader while raising the abilities of the target.  There are also Team Skill Wrangler nanos, which boost the abilities of everyone teamed with the trader, while draining some of the Trader's abilities.  Umbral Wranglers, available only to those who possess expansions, are special level-locked Team Wranglers that do not reduce the trader's skills, and act as a long-lasting aura.
+
+Sometimes, a trader needs to 'drain' before casting the wrangle.  Drains are a nanoprogram that traders can use to temporarily raise their abilities, allowing them to cast higher wrangles (or other nanoprograms).  Often, this means that the trader will need to be in a place where there are monsters wandering about.  Popular places include the lawn outside the Subway in Rome Stretch and the Holoworld in the Backyards.
+
+When asking for a wrangle, be sure to note exactly how many points that you need and be sure to check if you have enough NCU for the wrangle that you want. And please, always tip a trader.
+
+(blue)Wrangles boost the following skills:
+
+(darkgreen)Martial arts
+1h Blunt
+1h Edged 
+2h Edged 
+2h Blunt
+Melee energy  
+Ranged energy
+Piercing
+Sharp objects
+Grenade
+Heavy weapons
+Bow 
+Pistol
+Rifle
+Smg 
+Shotgun 
+Assault rifle
+Sensory improvement
+Matter metamorphosis
+Biological metamorphosis
+Psychological modifications
+Matter creation 
+Time and space
+
+(blue)Wrangles DO NOT boost the following skills:
+ 
+(darkgreen)All Abilities (Strength, Agility, etc.)
+Aimed Shot
+Burst
+Fast Attack
+First Aid
+Fling Shot
+Full Auto
+Multi-ranged
+Multi-melee
+Treatment
+Sneak Attack
+ 
+(blue)Below is a list of wrangles, with the skill bonus / NCU cost
+
+(darkgreen)+3 Bonus / 3 NCU - Skill Wrangler (Weak)
++9 Bonus / 5 NCU - Skill Wrangler (Patchy)
++10 Bonus / 6 NCU - Team Skill Wrangler (Weak)
++13 Bonus / 7 NCU - Skill Wrangler (Minor)
++18 Bonus / 9 NCU - Team Skill Wrangler (Patchy)
++22 Bonus / 11 NCU - Skill Wrangler (Minor)
++24 Bonus / 12 NCU - Team Skill Wrangler (Minor)
++27 Bonus / 13 NCU - Skill Wrangler (Lossy)
++32 Bonus / 15 NCU - Team Skill Wrangler (Commonplace)
++37 Bonus / 17 NCU - Skill Wrangler (Lesser)
++40 Bonus / 19 NCU - Team Skill Wrangler (Lossy)
++46 Bonus / 22 NCU - Skill Wrangler (Inferior)
++50 Bonus / 24 NCU - Team Skill Wrangler (Lesser)
++56 Bonus / 26 NCU - Skill Wrangler
++62 Bonus / 29 NCU - Team Skill Wrangler
++65 Bonus / 30 NCU - Skill Wrangler (Major)
++71 Bonus / 33 NCU - Team Skill Wrangler (Major)
++74 Bonus / 35 NCU - Skill Wrangler (Advanced)
++82 Bonus / 38 NCU - Team Skill Wrangler (Advanced)
++85 Bonus / 39 NCU - Skill Wrangler (Superior)
++93 Bonus / 43 NCU - Team Skill Wrangler (Superior)
++99 Bonus / 46 NCU - Skill Wrangler (Greater)
++102 Bonus / 47 NCU - Team Skill Wrangler (Greater)
++106 Bonus / 48 NCU - Skill Wrangler (Sophisticated)
++109 Bonus / 49 NCU - Team Skill Wrangler (Sophisticated)
++112 Bonus / 50 NCU - Skill Wrangler (Superb)
++118 Bonus / 52 NCU - Team Skill Wrangler (Exceptional)
++121 Bonus / 54 NCU - Skill Wrangler (Exceptional)
++131 Bonus / 58 NCU - Skill Wrangler (Premium)
++132 Bonus / 58 NCU - Team Skill Wrangler (Premium)

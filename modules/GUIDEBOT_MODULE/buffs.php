@@ -1,0 +1,240 @@
+<? 
+$Buffs_txt = "<header>::::: Information about all the In Game Buffs :::::<end>\n\n"; 
+$Buffs_txt ="<font color = yellow> Work in Progress
+
+Here's a list of nanos you can seek to buff the base abilities. The list here does not include any that are self-only, or profession-only. These are over and above the generic boosts (+12). For weapons & nano skill buffs of the base abilities see below.
+</font>
+
+<font color = #31D6FF>Abilities</font>
+
+<font color = yellow>* Strength </font>
+  o Prodigious Strength (QL 136) - Enforcer: +40 / 42 NCU
+  o Essence Line - Enforcer. Top is Essence of Behemoth (QL 152): +27 / 47 NCU
+  o Muscle Booster (QL 70) - Martial Artist: +25 / 22 NCU
+  o Iron Circle (QL 83) - Doctor: +20 / 26 NCU
+  o Enlarge (QL 37) - Doctor: +10 / 12 NCU
+  o Other common buffs include:
+    - QL 10 Concrete Cushions (+16 for a pair)
+  o Iron Circle, Essence lines, and General Buffs stack
+<font color = yellow>* Agility</font>
+  o Feline Grace (QL 53) - Agent: +25 / 17 NCU
+  o Other common buffs include:
+    - Tsakachumi Counter-Sniper Rifles
+<font color = yellow>* Stamina</font>
+  o Essence Line - Enforcer. Top is Essence of Behemoth (QL 152): +27 / 47 NCU
+  o Iron Circle (QL 83) - Doctor: +20 / 26 NCU
+  o Enlarge (QL 37) - Doctor: +10 / 12 NCU
+  o Other common buffs include:
+    - Modified Omni Armed Forces Training Helm (+3)
+    - QL 10 Concrete Cushions (+16 for a pair)
+  o Iron Circle, Essence lines, and General Buffs stack
+<font color = yellow>* Intelligence</font>
+  o (SL Only) Neuronal Stimulator - Nano Technician +20 / ? NCU
+  o Improved Cut yellow Tape (QL 159) - Bureaucrat: +3 / 29 NCU
+  o Other common buffs include:
+    - Viral Triumverate Eggs (+30 for a pair)
+    - OET Co Jess pistols (+40 for a pair)
+    - QL 1 Second-hand Old English Trading Co pistols (+10 for a pair)
+    - Shades of Lucubration (Nanomage only, +30)
+<font color = yellow>* Sense</font>
+  o Enhanced Senses (QL 27) - Agent: +15 / 9 NCU
+  o Other common buffs include:
+    - QL 1 YES Support 1010 (+5)
+    - Omni Smelling Salts (+3)
+    - Personalized Robotic Brain
+<font color = yellow>* Psychic</font>
+  o (SL Only) Neuronal Stimulator - Nano Technician +20 / ? NCU
+  o Improved Cut yellow Tape (QL 159) - Bureaucrat: +3 / 29 NCU
+  o Other common buffs include:
+    - Viral Triumverate Eggs (+30 for a pair)
+    - OET Co Jess pistols (+40 for a pair)
+    - Shades of Lucubration (Nanomage only, +30)
+
+<font color = #31D6FF>Body skills</font>
+<font color = yellow>* Martial Arts</font>
+  o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
+  o Martial Arts Mastery - Martial Artist: +50 / ? NCU
+<font color = yellow>* Brawling</font>
+  o Dirty Fighter (QL 33) - Martial Artist: +45 / 11 NCU
+<font color = yellow>* Dimach</font> - Expertise only
+<font color = yellow>* Riposte</font> - Expertise only
+<font color = yellow>* Adventuring</font> - Expertise only
+<font color = yellow>* Swimming</font> - Expertise only
+</font>
+<font color = #31D6FF>Melee</font>
+<font color = yellow>* 1h Blunt</font>
+  o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
+  o Brutal Thug - Enforcer
+<font color = yellow>* 1h Edged</font>
+  o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
+<font color = yellow>* Piercing</font>
+  o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
+<font color = yellow>* 2h Blunt</font>
+  o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
+  o Brutal Thug - Enforcer
+<font color = yellow>* 2h Edged</font>
+  o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
+<font color = yellow>* Melee Ener.</font>
+  o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
+<font color = yellow>* Parry</font>
+<font color = yellow>* Sneak Atck</font>
+  o Back Pain (QL 57) - Fixer: +64 / 18 NCU
+  o Unexpected Attack (QL 136) - Agent: +30 / 42 NCU
+<font color = yellow>* Mult. Melee</font> - No Nanoprogram buffs (except for Composites)
+<font color = yellow>* Fast Attack</font>
+</font>
+<font color = #31D6FF>Misc Weapons</font>
+<font color = yellow>* Sharp Obj</font>
+<font color = yellow>* Grenade</font>
+  o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
+  o Extreme Prejudice - Engineer
+<font color = yellow>* Heavy Weapons</font>
+  o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
+</font>
+<font color = #31D6FF>Ranged</font>
+<font color = yellow>* Bow</font>
+  o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
+<font color = yellow>* Pistol</font>
+  o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
+  o Extreme Prejudice - Engineer
+  o Pistol Mastery - Soldier: +40
+  o Gunslinger - Bureaucrat: +20
+  o (self only) Ballad line - Adventurer
+<font color = yellow>* Assault Rifle</font>
+  o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
+  o Assault Rifle Mastery - Soldier
+<font color = yellow>* MG/SMG</font>
+  o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
+  o Minor Suppressor - Fixer:
+  o Suppressor line - Fixer
+<font color = yellow>* Shotgun</font>
+  o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
+<font color = yellow>* Rifle</font>
+  o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
+  o Unexpected Attack (QL 136) - Agent: +110 / 42 NCU
+<font color = yellow>* Ranged Ener</font>
+  o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
+<font color = yellow>* Fling Shot</font>
+  o Offensive Steamroller (QL 156) - Soldier: +30 / 48 NCU.
+<font color = yellow>* Aimed Shot</font>
+  o Take the Shot (QL 152) - Agent: +130 / 47 NCU.
+  o Eagle Eye (QL 76) - Adventurer: 20 / 24 NCU.
+  o Sniper's Bliss (QL 43) - Agent: 15 / 14 NCU.
+  o Other common buffs include:
+    - Vision Enhancer - Targeting Scope
+<font color = yellow>* Burst</font>
+  o Riot Control (QL 126) - Soldier: +110 / 39 NCU
+<font color = yellow>* Full Auto</font>
+<font color = yellow>* Bow Spc Att</font>
+<font color = yellow>* Multi Ranged</font> - No nanoprogram buffs (except for Composites)
+</font>
+<font color = #31D6FF>Speed skills</font>
+<font color = yellow>* Melee. Init.</font>
+<font color = yellow>* Ranged. Init.</font>
+<font color = yellow>* Physic. Init</font>
+<font color = yellow>* NanoC. Init.</font>
+<font color = yellow>* Dodge-Rng</font> - No Expertise
+  o Gridspace Freedom (QL156)</font> - Fixer: whopping +79 / 48 NCU.
+<font color = yellow>* Evade-ClsC</font> - No Expertise
+  o Gridspace Freedom (QL156) - Fixer: whopping +79 / 48 NCU.
+<font color = yellow>* Duck-Exp</font> - No Expertise
+  o Gridspace Freedom (QL156) - Fixer: whopping +79 / 48 NCU.
+<font color = yellow>* Nano Resist</font> - No Expertise
+<font color = yellow>* Run Speed</font>
+  o Gridspace Freedom (QL156) - Fixer: whopping +720 / 48 NCU
+  o Calia's Form: Wolf (Other) (QL159) - Adventurer: +320 / 49 NCU
+  o Calia's Form: Parrot (Other)
+  o Quickness - General: +30/ ? NCU
+</font>
+<font color = #31D6FF>Trade And Repair</font>
+<font color = yellow>* Mech. Engi</font>
+  o Maestro Line (QL 152-156) - Trader: +125 / 47-48 NCU
+<font color = yellow>* Elec. Engi</font>
+  o Maestro Line (QL 152-156) - Trader: +125 / 47-48 NCU
+<font color = yellow>* Quantum FT</font>
+  o Maestro Line (QL 152-156) - Trader: +125 / 47-48 NCU
+<font color = yellow>* Weapon Smt</font>
+  o Maestro Line (QL 152-156) - Trader: +125 / 47-48 NCU
+<font color = yellow>* Pharma Tech</font>
+  o Philosopher's Stone (QL 53) - Engineer: +62 / 17 NCU
+  o Maestro Line (QL 152-156) - Trader: +125 / 47-48 NCU
+<font color = yellow>* Nano Programming</font>
+  o Advanced Symbol Manipulation (QL 93) - Meta-Physicist: +92 / 29 NCU
+<font color = yellow>* Comp. Liter</font>
+  o (Self only) Trading Mogul line - Trader
+  o Note: The ONLY &quot;other&quot; nano-buff for Computer Literacy is Expertise.
+<font color = yellow>* Psychology</font>
+<font color = yellow>* Chemistry</font>
+  o Philosopher's Stone (QL 53) - Engineer: +62 / 17 NCU
+  o Chemical Concoction (QL 63) - Agent: +50 / 20 NCU
+<font color = yellow>* Tutoring</font> - Expertise only
+</font>
+<font color = #31D6FF>Nano And Aiding</font>
+<font color = yellow>* Matt.Metam</font>
+  o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
+  o Mocham's Gift Line (QL 162-169) - Meta-Physicist: +140 / 51 NCU
+<font color = yellow>* Bio Metamor</font>
+  o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
+  o Mocham's Gift Line (QL 162-169) - Meta-Physicist: +140 / 51 NCU
+<font color = yellow>* Psycho Modi</font>
+  o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
+  o Mocham's Gift Line (QL 162-169) - Meta-Physicist: +140 / 51 NCU
+<font color = yellow>* Matter Crea</font>
+  o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
+  o Mocham's Gift Line (QL 162-169) - Meta-Physicist: +140 / 51 NCU
+<font color = yellow>* Time&Space</font>
+  o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
+  o Mocham's Gift Line (QL 162-169) - Meta-Physicist: +140 / 51 NCU
+<font color = yellow>* Sensory Impr</font>
+  o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
+  o Mocham's Gift Line (QL 162-169) - Meta-Physicist: +140 / 51 NCU
+<font color = yellow>* First Aid</font>
+  o Superior First Aid (QL 119) - Doctor: +80 / 37 NCU
+<font color = yellow>* Treatment</font>
+  o Superior First Aid (QL 119) - Doctor: +80 / 37 NCU
+  o Robust Treatment (QL 136) - Adventurer: +60 / 42 NCU
+  o Other common buffs include:
+    - Omni Med Suit (+78 for full)
+    - Biomech Helm, Physician's Cap, Stalker Helmet
+    - Biomech Armor Cloak
+    - QL 22-25 OT Windchaser Quartz rifles
+    - Collar of Amplification
+    - Treatment Library
+</font>
+<font color = #31D6FF>Spying</font>
+<font color = yellow>* Concealment</font>
+<font color = yellow>* Break&Entry</font>
+  o Karma Harvest (QL 152) - Fixer: +130 / 47 NCU. Also adds +130 to Perception and Trap Disarmament.
+  o Crowbar Subtlety (QL 20) - Engineer: +32 / 7 NCU
+  o Other common buffs include:
+    - Pick-a-Finger (+16)
+<font color = yellow>* Trap Disarm.</font>
+  o Karma Harvest (QL 152) - Fixer: +130 / 47 NCU. Also adds +130 to Breaking & Entry and Perception.
+  o Trap Artifice (QL 73) - Engineer: +79 / 23 NCU.
+<font color = yellow>* Perception</font>
+  o Stare of Cerberus (QL 162) - Adventurer: +600 / 45 NCU. Caveat: Your level must be 175+, and you must be in wolf form first.
+  o Karma Harvest (QL 152) - Fixer: +130 / 47 NCU. Also adds +130 to Breaking & Entry and Trap Disarmament.
+  o Blood Makes Noise (QL 116) - Fixer: +107 / 36 NCU.
+</font>
+<font color = #31D6FF>Navigation</font>
+<font color = yellow>* Vehicle Air</font> - No nanoprogram buffs
+<font color = yellow>* Vehicle Ground</font> - No nanoprogram buffs
+<font color = yellow>* Vehicle Water</font> - No nanoprogram buffs
+<font color = yellow>* Map Navig.</font> - No nanoprogram buffs
+</font>
+<font color = #31D6FF>Other</font>
+<font color = yellow>* Max NCU</font>
+   o Active Viral Compressor (QL 149) - Fixer: +195 / 1 NCU
+   o Other common buffs include Carbonum Armor, Salesman's Hat
+
+Again, keep in mind that many of the buffs here have lesser ones available in the same line. So you may be able to get something lower if there's a level-lock involved, or you contact a lower-level profession.
+</font>"
+; 
+$Buffs_txt = bot::makeLink("Information On Buffs", $Buffs_txt); 
+if($type == "msg") 
+bot::send($Buffs_txt, $sender); 
+elseif($type == "priv") 
+bot::send($Buffs_text); 
+else 
+bot::send($Buffs_txt, "guild");
+?>

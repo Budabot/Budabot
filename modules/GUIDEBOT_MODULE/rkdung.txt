@@ -1,0 +1,8 @@
+These are guides to the Static Dungeon of Rubi-Ka.
+
+#L 'Steps of Madness' '/tell chunkbot info steps' - A dungeon introduced on Halloween, for teams lvl 30-50
+#L 'Temple of the Three Winds' '/tell chunkbot info temple'  discription to be added
+#L 'Inner Sanctum' '/tell chunkbot info sanctum' - A Continuation of TOTW for lvls 125+
+#L 'Smuggler's Den' '/tell chunkbot info smugglers' - for lvls 125+
+#L 'Biomare (aka Foremans)' '/tell chunkbot info foremans' - discription to be added
+#L 'Hollow Island' '/tell chunkbot info hollow' - For lvl 190+ teams

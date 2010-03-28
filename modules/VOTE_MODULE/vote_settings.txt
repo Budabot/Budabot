@@ -1,0 +1,10 @@
+<header>::::: Vote Settings :::::<end>
+
+vote_channel_spam <highlight>controls where vote information is posted.  When a vote starts, hits 60min remaining, 15min remaining, 60sec remaining, or its ending, a message of the vote's time remaining can be posted onto org chat, private chat, both, or neither.<end>
+
+vote_add_new_choices<highlight> Allows voters to add in there own choice if they do not like any of the choices in the vote.  If you wish to have the vote creator decide if the vote should have new choices, then set this to Yes.  Then when adding a vote put a @ at the begining of the topic to prevent new choices in the topic.<end> 
+<tab><symbol>vote 5m|@This vote wont allow new choices.|yes|no|maybe
+
+vote_create_min<highlight> Sets the minimum org level needed to start a vote. Choosing 6 will allow anyone (that is in the org) to creating a vote.  None will allow even people outside of the org.<end>
+
+vote_use_min<highlight>  Sets the minimum org level needed to join a vote already running. Choosing 6 will allow anyone (that is in the org) to add their vote.  None will allow even people outside of the org.<end>

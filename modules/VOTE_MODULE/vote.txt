@@ -1,0 +1,29 @@
+<header>::::: Vote Commands :::::<end>
+
+<highlight>Start a new vote:<end>
+<tab><symbol>vote time|topic|option|option
+
+<highlight>eg:<end><symbol>vote 1s2m3h4d|WHAT... Is your favorite color?!?|Blue|Yellow
+<highlight>eg:A vote for: 'WHAT... Is your favorite color?!?' with two options: 'Blue and Yellow' with a deadline of: 4 days, 3 hours, 2 minutes, 1 second.<end>
+
+<highlight>When 'vote_add_new_choices' is set to yes, the person who initiated the vote can set whether or not voters can create there own choices.<end>
+
+<highlight>Allow voters to add in there own choice.<end>
+<tab><symbol>vote 1h|WHAT... Is your favorite color?!?|Blue|Yellow
+<highlight>Prevent voters to add in there own choice.<end>
+<tab><symbol>vote 1h|@WHAT... Is your favorite color?!?|Blue|Yellow
+
+<highlight>To see all the votes:<end>
+<tab><symbol>vote
+
+<highlight>View specific vote:<end>
+<tab><symbol>vote topic
+
+<highlight>Delete a vote: (Topic and all votes)<end>
+<tab><symbol>vote kill|topic  <highlight> Or press the Kill link in specific vote<end>
+
+<highlight>Remove a vote: (Personal vote only)<end>
+<tab><symbol>vote remove|topic  <highlight> Or press the Remove yourself link in specific vote<end>
+
+<highlight>End a vote: (change duration so vote ends in 60 seconds.)<end>
+<tab><symbol>vote end|topic  <highlight> Or press the End link in specific vote<end>

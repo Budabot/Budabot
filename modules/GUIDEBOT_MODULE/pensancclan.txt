@@ -1,0 +1,52 @@
+<? 
+$pensancg_txt = "<header>::::: Penumbra Sanctuary Garden Key Quest CLAN :::::<end>\n\n"; 
+$pensancg_txt = "Penumbra Sanctuary Garden Key Quest OMNI
+
+To start this quest, speak to <font color = yellow>The Forrester</font>. He is in the Penumbra Garden, in the middle of the maze to the north.
+
+<font color = yellow>Part one: Calibrate stuff!</font>
+The Forrester will give you a mission, and a Calibration Tuner. The mission has coords, so it's a smooth ride. Upload the coords to the map, enter the mission and find a large machine. Use your Tuner on the machine, and wait for a mission update. Run out, and repeat the process 5 times. Usually all the missions point to the same location, and the machine is almost always in the same room, so it's a piece of cake.
+
+
+<font color = yellow>Part two: Kill Unredeemed leaders!</font>
+This one is a bit trickier, you have to kill ten Unredeemed leaders. Some are pretty hard to reach because of the adds (no problem after lvl 203 (202?), adds turn grey around then), so you might want to bring backup.
+
+The leaders:
+
+<font color = yellow>1. Calan-Kur - Leader</font>
+   <font color = green>Coords: ? - Outside Pen Unredeemed Temple</font>
+
+<font color = yellow>2. Rawa-El - Marked</font>
+   <font color = green>Outside Pen Unredeemed Temple</font>
+
+<font color = yellow>3. Buran-Kuiri - Leader</font>
+   <font color = green>Outside Pen Unredeemed Temple</font>
+
+<font color = yellow>4. Chimera Cranii</font>
+   <font color = green>Coords: 2600x884 (East)</font>
+
+<font color = yellow>5. Malah-Ea - Leader</font>
+   <font color = green>Coords: 1520x1120 (West)</font>
+
+<font color = yellow>6. Baran-Kuir - Leader</font>
+   <font color = green>Outside Pen Unredeemed Temple</font>
+
+<font color = yellow>7. Eron-Cur - Leader</font>
+   <font color = green>Outside Pen Unredeemed Temple</font>
+
+<font color = yellow>8. Patriarch Prophet Nar Van</font>
+   <font color = green>Inside Pen Unredeemed Temple</font>
+
+<font color = yellow>9. Omega Carlos Truhillo</font>
+   <font color = green>Inside Pen Unredeemed Temple</font>
+
+<font color = yellow>10. Unredeemed Vanya</font> 
+   When Vanya dies, you get your key";
+
+$pensancg_txt = bot::makeLink("Penumbra: Sanctuary Garden Key Quest CLAN", $pensancg_txt); 
+if($type == "msg") 
+bot::send($pensancg_txt, $sender); 
+elseif($type == "all") 
+bot::send($pensancg_txt); 
+else 
+bot::send($pensancg_txt, "guild"); 

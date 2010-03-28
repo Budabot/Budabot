@@ -1,0 +1,125 @@
+The Temple of the Three Winds - written by Ryannyel
+
+The Temple of Three Winds is a dungeon for players of level 60 and below. As the headquarters of a cult known "Cult of the Immortal One", you will encounter many religious type NPCs in this dungeon. Most common are the Cultists who are guarding this temple with their lives. Many items from this dungeon have descriptions, explaining the "Cult of the Immortal One". Please keep in mind that you will be warped out of the dungeon after reaching a certain level and you will not be allowed to go back in again if you are higher than level 62 (I go to ToTW at lvl61).
+
+In the south east of Rome Green at 426 x 242 you should find several boxes and someone with the title "Windcaller" standing next to them. Talk to the person and once you get the option to give something to him, give him 1000 credits. You will get a key which you can use on the portal (Temple of Three Winds Gateway) next to the boxes, which will transport you to the Temple of 3 Winds instantly.
+
+NOTE: to get back from ToTW you need fixer or yalm. Walking your way down from Greater Tir County 1814 x 2714 (exact location of ToTW) is almost certain death and will take a lot of time. Many players choose to level up there and then die, with no loss of exp.
+
+Level recommendation: Team, 40 - 60
+
+Lower level players may still go there, but there are huge amount of mobs in every room, so do it at Your own risk.
+
+Below there are list of what You may find in ToTW, theres a lot of it. Besides good exp from mobs there, what You really need is Guardian Circuit Board (100% loot from Guardian of Tommorow), Memory Loop (from Lien the Memorystalker and Windcaller Yatila), Dark Memory (Lien the Memorystalker and Windcaller Yatila). Exarch robe (from every exarch)
+Of course there are a lot more good items (unfortunately almost every one of them is NODROP), but I find the ones I listed, most useful
+
+Monster list:
+
+Cultist (casts "Ire of the Immortal")
+Exarchs
+Windcallers
+Acolytes
+
+Bosses:
+Nematet the Custodian of Time (level 66) (casts "Touch of Uklesh" and "Wrath of the Immortal")
+Aztur the Immortal (drops the Stygian Desolator, a nice-looking melee weapon)
+Guardian of the Three
+Guardian of Tommorow (drops Guardian Circuit Board, Guardian Tank Armor)
+Khalum
+Uklesh the Frozen
+Lien the Memorystalker
+Windcaller Yatila
+
+Loot table:
+
+Weapons:
+QL 1 Stygian Desolator |NeedTeam|
+QL 1 Frost Scythe of the Legionnaire
+QL 1 Energy Scythe
+QL 1 Phase Blade
+QL 1 Howling Skull
+QL 1 Skull of Woe Cold dmg
+QL 1 Skull of Lamentation Fire dmg (same dmg range as 'woe')
+QL 1 Temporal Chalice
+QL 50ish South Wind Katana
+QL 50ish North Wind Katana
+QL 50ish East Wind Katana
+QL 50ish West Wind Katana
+
+Armor:
+QL 1 Guardian Tank Armor |Rare| Best armor if you have 191 Str/Stam
+QL 1 Exarch Robe |Uncommon| Best armor if your level 20
+QL 1 Windcaller Robe lvl20
+QL 1 Reverend Robe lvl20
+QL 1 Acolyte Robe lvl20
+QL 1 Robe of the Faithful no req.
+QL 1 Rockcrusher Gauntlets
+QL 1 Fist of Orion (MA only dmg gloves)
+
+Shadowfade Armor: (agent only)
+Shadowfade Armor (Body)
+Shadowfade Armor (Boots)
+Shadowfade Armor (Gloves)
+Shadowfade Armor (Helmet)
+Shadowfade Armor (Pants)
+Shadowfade Armor (Sleeves)
+
+Damage Rings:
+Notum Ring of the Three Best ring. +10dmg, +6ncu +PM +SI
+Notum Ring of the Three Best ring. +10dmg, +6ncu +MM +BM |Uncommon|
+Notum Ring of the Three Best ring. +10dmg, +6ncu +MC +TS |Uncommon|
+QL 1 Platinum Ring of the Three |Uncommon| 2nd Best. +6dmg, +5ncu
+QL 1 Gold Ring of the Three |Uncommon|
+QL 1 Silver Ring of the Three
+QL 1 Bronze Ring of the Three
+
+Specialty Rings:
+QL 1 Ring of Tattered Flame
+QL 1 Bloodleech Ring
+QL 1 Ring of Eternal Night |Uncommon|
+QL 1 Ring of Weeping Flesh
+QL 1 Ring of Memory Loss |Uncommon|
+
+Shoulder Pads:
+QL 1 Withered Flesh 500pt absorb shield, +100hp
+QL 1 Barrow Strength +15dmg, & +50 dmg every20mins
+
+
+NCU & Belt:
+QL 1 Guardian Circuit Board
+QL 1 Dark Memory
+QL 1 Memory Loop |VeryRare|
+
+Implants:
+QL 1 Notum Splice
+QL 1 Nematet's Inner Eye |Uncommon|
+QL 1 Keeper's Vitality |Very Rare|
+QL 1 Touch of the Gripper
+QL 1 Skull of the Ancient |VeryRare| |NeedTeam|
+
+
+Nanos:
+QL 390 Nano Crystal (Lien's Crystalizer) (Cast this to spawn shell, use an Urn on the shell to spawn a scythe wielding Legionnaire skeliton)
+
+
+Misc:
+QL 1 Purifying Rod
+QL 1 Crumbling Funeral Urn (use with Lien's Crystalizer to spawn the pet)
+
+
+Tattered book: Tree of Enlightenment (section 1)
+Tattered book: Tree of Enlightenment (section 2)
+Tattered book: Tree of Enlightenment (section 3)
+Tattered book: Tree of Enlightenment (section 4)
+Tattered book: Tree of Enlightenment (section 5)
+Tattered book: Tree of Enlightenment (section 6) MA Attack (120dmg + 290heal)
+
+Tattered book: Ape Fist of Khalum (section 1)
+Tattered book: Ape Fist of Khalum (section 2)
+Tattered book: Ape Fist of Khalum (section 3)
+Tattered book: Ape Fist of Khalum (section 4)
+Tattered book: Ape Fist of Khalum (section 5) MA Attack (97dmg, 2sec stun)
+
+
+Bracers:
+QL 1 Bracelet of Amplified Sound 

@@ -1,0 +1,66 @@
+Locations Of Rubi Ka
+
+***Please Note: All Links might not work, if you find one, please let your org leaders know***
+
+<font color = blue>Omni Locations-</font>
+
+<font color = blue>Rome Red</font> <a href='chatcmd:///tell helpbot whereis rome red'</a>LINK</a>
+<font color = blue>Rome Green</font> <a href='chatcmd:///tell helpbot whereis rome green'</a>LINK</a>
+<font color = blue>Trade District</font> <a href='chatcmd:///tell helpbot whereis trade'</a>LINK</a>
+<font color = blue>Omni Entertainment</font> <a href='chatcmd:///tell helpbot whereis ent'</a>LINK</a>
+<font color = blue>Lush Fields</font> <a href='chatcmd:///tell helpbot whereis lush'</a>LINK</a>
+<font color = blue>Clondyke</font> <a href='chatcmd:///tell helpbot whereis clondyke'</a>LINK</a>
+<font color = blue>The Longest Road</font> <a href='chatcmd:///tell helpbot whereis lroad'</a>LINK</a>
+<font color = blue>Biomare (aka Foremans)</font> <a href='chatcmd:///tell <myname> Biomare'</a>LINK</a>
+<font color = blue>Omni HQ</font> <a href='chatcmd:///tell helpbot whereis omni hq'</a>LINK</a>
+<font color = blue>Pleasant Meadows (aka 20k)</font> <a href='chatcmd:///tell helpbot whereis pleasant'</a>LINK</a>
+<font color = blue>Omni Forest</font> <a href='chatcmd:///tell helpbot whereis omni forest'</a>LINK</a>
+<font color = blue>Greater Omni Forest</font> <a href='chatcmd:///tell helpbot whereis greater omni forest'</a>LINK</a>
+<font color = blue>Broken Shores</font> <a href='chatcmd:///tell helpbot whereis broken shores</a>LINK</a>
+<font color = blue>Milky Way</font> <a href='chatcmd:///tell helpbot whereis milky way'</a>LINK</a>
+<font color = blue>Mutant Domain</font> <a href='chatcmd:///tell helpbot whereis mutant domain'</a>LINK</a>
+<font color = blue>Galway Shire</font> <a href='chatcmd:///tell helpbot whereis galway shire'</a>LINK</a>
+<font color = blue>Galway County</font> <a href='chatcmd:///tell helpbot whereis galway county'</a>LINK</a>
+<font color = blue>2HO</font> <a href='chatcmd:///tell helpbot whereis 2ho'</a>LINK</a>
+<font color = blue>Outpost 10-3</font> <a href='chatcmd:///tell helpbot whereis Outpost 10-3'</a>LINK</a>
+
+<font color = red>Clan Locations-</font>
+
+<font color = red>4 Holes</font> <a href='chatcmd:///tell helpbot whereis 4 holes'</a>LINK</a>
+<font color = red>Tir</font> <a href='chatcmd:///tell helpbot whereis tir'</a>LINK</a>
+<font color = red>Greater Tir County</font> <a href='chatcmd:///tell helpbot whereis tir county'</a>LINK</a>
+<font color = red>Old Athens</font> <a href='chatcmd:///tell helpbot whereis old athens'</a>LINK</a>
+<font color = red>West Athens</font> <a href='chatcmd:///tell helpbot whereis west athens'</a>LINK</a>
+<font color = red>Mort</font> <a href='chatcmd:///tell helpbot whereis mort'</a>LINK</a>
+<font color = red>Hope</font> <a href='chatcmd:///tell helpbot whereis hope'</a>LINK</a>
+<font color = red>Aegean</font> <a href='chatcmd:///tell helpbot whereis aegean'</a>LINK</a>
+<font color = red>Holes In The Wall</font> <a href='chatcmd:///tell helpbot whereis holes in the wall'</a>LINK</a>
+<font color = red>Athen Shire</font> <a href='chatcmd:///tell helpbot whereis athen shire'</a>LINK</a>
+<font color = red>Wailing Wastes</font> <a href='chatcmd:///tell helpbot whereis wailing wastes'</a>LINK</a>
+<font color = red>Avalon</font> <a href='chatcmd:///tell helpbot whereis avalon'</a>LINK</a>
+<font color = red>Camelot</font> <a href='chatcmd:///tell helpbot whereis camelot'</a>LINK</a>
+
+<font color = yellow>Neutral Locations-</font>
+
+<font color = yellow>Borealis</font> <a href='chatcmd:///tell helpbot whereis borealis'</a>LINK</a>
+<font color = yellow>Newland City</font> <a href='chatcmd:///tell helpbot whereis newland city'</a>LINK</a>
+<font color = yellow>Newland</font> <a href='chatcmd:///tell helpbot whereis newland'</a>LINK</a>
+<font color = yellow>Stret West Bank</font> <a href='chatcmd:///tell helpbot whereis stret west bank'</a>LINK</a>
+<font color = yellow>Upper Stret West Bank</font> <a href='chatcmd:///tell helpbot whereis upper stret west bank'</a>LINK</a>
+<font color = yellow>Stret East Bank</font> <a href='chatcmd:///tell helpbot whereis stret east bank'</a>LINK</a>
+<font color = yellow>Newland Desert</font> <a href='chatcmd:///tell helpbot whereis newland desert'</a>LINK</a>
+<font color = yellow>Andromeda</font> <a href='chatcmd:///tell helpbot whereis andromeda'</a>LINK</a>
+<font color = yellow>ICC</font> <a href='chatcmd:///tell helpbot whereis ICC'</a>LINK</a>
+<font color = yellow>Meetmedere</font> <a href='chatcmd:///tell helpbot whereis meetmedere'</a>LINK</a>
+
+Bars & Nightclubs (Links Inactive or Not Working)
+<font color = green>Reet Retreat</font> <a href='chatcmd:///tell helpbot whereis reets'</a>LINK</a>
+<font color = green>The Cup</font> <a href='chatcmd:///tell helpbot whereis  cup'</a>LINK</a>
+<font color = green>Baboons</font> <a href='chatcmd:///tell helpbot whereis baboons'</a>LINK</a>
+<font color = green>Beer & Booze</font> <a href='chatcmd:///tell helpbot whereis beer '</a>LINK</a>
+<font color = green>Rompa Bar</font> <a href='chatcmd:///tell helpbot whereis rompa '</a>LINK</a>
+<font color = green>The Happy Rebel </font> <a href='chatcmd:///tell helpbot whereis rebel'</a>LINK</a>
+<font color = green>Neuters 'r Us</font> <a href='chatcmd:///tell helpbot whereis neuters'</a>LINK</a>
+<font color = green>The Dancing Atrox</font> <a href='chatcmd:///tell helpbot whereis dancing'</a>LINK</a>
+
+'Enjoy It While It Lasts'
