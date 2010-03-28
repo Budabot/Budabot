@@ -41,7 +41,7 @@ if (preg_match("/^The (clan|neutral|omni) organization (.+) just entered a state
 	$zone = $arr[6];
 	$coordx = $arr[7];
 	$coordy = $arr[8];
-} else if (preg_match("/^(.+) just attacked the (.+) organization (.+)&#39;s tower in (.+) at location \(([0-9]+), ([0-9]+)\).(.*)$/i", $message, $arr)) {
+} else if (preg_match("/^(.+) just attacked the (.+) organization (.+)'s tower in (.+) at location \(([0-9]+), ([0-9]+)\).(.*)$/i", $message, $arr)) {
 	$att_player = $arr[1];
 	$def_side = $arr[2];
 	$def_guild = $arr[3];
