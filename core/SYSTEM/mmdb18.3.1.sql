@@ -16,16 +16,10 @@ INSERT INTO mmdb_data VALUES (506, 147506468, 'Notum Wars Update: The %s organiz
 INSERT INTO mmdb_data VALUES (506, 224009576, 'The tower %s in %s was just reduced to %d %% health by %s!');
 INSERT INTO mmdb_data VALUES (506, 265658836, 'The tower %s in %s was just reduced to %d %% health!');
 
-INSERT INTO mmdb_data VALUES (508, 5146599, '%s has joined your organization.');
 INSERT INTO mmdb_data VALUES (508, 17467336, 'Your controller tower in %s in %s has had its defense shield disabled by %s (%s).');
 INSERT INTO mmdb_data VALUES (508, 20908201, '%s removed inactive character %s from your organization.');
-INSERT INTO mmdb_data VALUES (508, 28601677, 'Your organization has been disbanded ( by a GM ).');
-INSERT INTO mmdb_data VALUES (508, 33183704, 'GM kicked %s from your organization.');
-INSERT INTO mmdb_data VALUES (508, 33408158, '%s, %s and %s kicked %s from the organization.');
 INSERT INTO mmdb_data VALUES (508, 37093479, '%s kicked %s from your organization.');
 INSERT INTO mmdb_data VALUES (508, 45978487, '%s just left your organization.');
-INSERT INTO mmdb_data VALUES (508, 116442029, 'Leadership has been given to %s by GM %s.');
-INSERT INTO mmdb_data VALUES (508, 119211733, 'Only the leader or a GM can stop the voting for your organization.');
 INSERT INTO mmdb_data VALUES (508, 134643352, 'Governing form changed to ''%s''.');
 INSERT INTO mmdb_data VALUES (508, 138965334, '%s changed governing form to ''%s''.');
 INSERT INTO mmdb_data VALUES (508, 147071208, 'GM removed character %s from your organization.');
@@ -33,7 +27,6 @@ INSERT INTO mmdb_data VALUES (508, 173558247, '%s invited %s to your organizatio
 INSERT INTO mmdb_data VALUES (508, 176308692, 'Blammo! %s has launched an orbital attack!');
 INSERT INTO mmdb_data VALUES (508, 192652356, '%d credits have been deducted from the organization bank for the upkeep of your city. Next payment is due in %d days.');
 INSERT INTO mmdb_data VALUES (508, 196585349, 'Your city upkeep payment of %d credits is due in %d hour(s). Please make sure the full upkeep amount is available in the organization bank or you will lose your city.');
-INSERT INTO mmdb_data VALUES (508, 230985621, '%s, %s and %s kicked you from the organization.');
 INSERT INTO mmdb_data VALUES (508, 241047288, 'Leadership has been given to %s.');
 
 INSERT INTO mmdb_data VALUES (1001, 1, '%s turned the cloaking device in your city %s.');

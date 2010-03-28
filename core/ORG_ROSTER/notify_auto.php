@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
    
-if(eregi("^(.+) invited (.+) to your organization.$", $message, $arr)) {
+if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
     $uid = AoChat::get_uid($arr[2]);
     $name = ucfirst(strtolower($arr[2]));
     $name2 = ucfirst(strtolower($arr[1]));
@@ -80,7 +80,7 @@ if(eregi("^(.+) invited (.+) to your organization.$", $message, $arr)) {
     bot::send($msg, $name);
 	$msg = "And you will see all my commands that are only there to make your life easier.";
     bot::send($msg, $name); 
-} elseif(eregi("^(.+) kicked (.+) from the organization.$", $message, $arr)) {
+} else if (preg_match("/^(.+) kicked (.+) from your organization.$/", $message, $arr) || preg_match("/^(.+) removed inactive character (.+) from your organization.$/", $message, $arr)) {
     $uid = AoChat::get_uid($arr[2]);
     $name = ucfirst(strtolower($arr[2]));
     $db -> query("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '$name'");
@@ -88,23 +88,7 @@ if(eregi("^(.+) invited (.+) to your organization.$", $message, $arr)) {
     $msg = "Removed <highlight>".$name."<end> from the Notify list.";
     unset($this->guildmembers[$name]);
     bot::send($msg, "guild");
-} elseif(eregi("^(.+) removed inactive character (.+) from your organization.$", $message, $arr)) {
-    $uid = AoChat::get_uid($arr[2]);
-    $name = ucfirst(strtolower($arr[2]));
-    $db -> query("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '$name'");
-    $db -> query("DELETE FROM guild_chatlist_<myname> WHERE `name` = '$name'");
-    $msg = "Removed <highlight>".$name."<end> from the Notify list.";
-    unset($this->guildmembers[$name]);
-    bot::send($msg, "guild");
-} elseif(eregi("^(.+) just left your organization.$", $message, $arr)) {
-    $uid = AoChat::get_uid($arr[1]);
-    $name = ucfirst(strtolower($arr[1]));
-    $db -> query("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '$name'");
-    $db -> query("DELETE FROM guild_chatlist_<myname> WHERE `name` = '$name'");
-    $msg = "Removed <highlight>".$name."<end> from the Notify list.";
-    unset($this->guildmembers[$name]);
-    bot::send($msg, "guild");
-} elseif(eregi("^(.+) has left the organization because of alignment change.$", $message, $arr)) {
+} else if(preg_match("/^(.+) just left your organization.$/", $message, $arr) || preg_match("/^(.+) kicked from organization (alignment changed).$/", $message, $arr)) {
     $uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     $db -> query("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '$name'");
