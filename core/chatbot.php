@@ -724,6 +724,10 @@ class bot extends AOChat{
 				if(!in_array($filename, $this->privChat))
 					$this->privChat[] = $filename;				
 			break;
+			case "extPriv":
+				if(!in_array($filename, $this->extPrivChat))
+					$this->extPrivChat[] = $filename;
+			break;
 			case "guild":	
 				if(!in_array($filename, $this->guildChat))
 					$this->guildChat[] = $filename;								
@@ -732,9 +736,25 @@ class bot extends AOChat{
 				if(!in_array($filename, $this->joinPriv))		
 					$this->joinPriv[] = $filename;
 			break;
+			case "extJoinPriv":	
+				if(!in_array($filename, $this->extJoinPriv))		
+					$this->extJoinPriv[] = $filename;
+			break;
 			case "leavePriv":	
 				if(!in_array($filename, leavePriv))	
 					$this->leavePriv[] = $filename;					
+			break;
+			case "extLeavePriv":	
+				if(!in_array($filename, extLeavePriv))	
+					$this->extLeavePriv[] = $filename;					
+			break;
+			case "extJoinPrivRequest":	
+				if(!in_array($filename, $this->extJoinPrivRequest))		
+					$this->extJoinPrivRequest[] = $filename;
+			break;
+			case "extKickPriv":	
+				if(!in_array($filename, $this->extJoinPrivRequest))		
+					$this->extJoinPrivRequest[] = $filename;
 			break;
 			case "logOn":	
 				if(!in_array($filename, $this->logOn))	
@@ -814,6 +834,12 @@ class bot extends AOChat{
 					unset($this->privChat[$temp[$filename]]);
 				}
 			break;
+			case "extPriv":	
+				if(in_array($filename, $this->extPrivChat)) {
+					$temp = array_flip($this->extPrivChat);
+					unset($this->extPrivChat[$temp[$filename]]);
+				}
+			break;
 			case "guild":	
 				if(in_array($filename, $this->guildChat)) {
 					$temp = array_flip($this->guildChat);
@@ -826,10 +852,34 @@ class bot extends AOChat{
 					unset($this->joinPriv[$temp[$filename]]);
 				}
 			break;
+			case "extJoinPriv":	
+				if(in_array($filename, $this->extJoinPriv)) {
+					$temp = array_flip($this->extJoinPriv);
+					unset($this->extJoinPriv[$temp[$filename]]);
+				}
+			break;
 			case "leavePriv":	
 				if(in_array($filename, $this->leavePriv)) {
 					$temp = array_flip($this->leavePriv);
 					unset($this->leavePriv[$temp[$filename]]);
+				}
+			break;
+			case "extLeavePriv":	
+				if(in_array($filename, $this->extLeavePriv)) {
+					$temp = array_flip($this->extLeavePriv);
+					unset($this->extLeavePriv[$temp[$filename]]);
+				}
+			break;
+			case "extJoinPrivRequest":	
+				if(in_array($filename, $this->extJoinPrivRequest)) {
+					$temp = array_flip($this->extJoinPrivRequest);
+					unset($this->extJoinPrivRequest[$temp[$filename]]);
+				}
+			break;
+			case "extKickPriv":	
+				if(in_array($filename, $this->extKickPriv)) {
+					$temp = array_flip($this->extKickPriv);
+					unset($this->extKickPriv[$temp[$filename]]);
 				}
 			break;
 			case "logOn":
@@ -1205,7 +1255,6 @@ class bot extends AOChat{
 				}						
 			break;			
 			case AOCP_PRIVGRP_MESSAGE: // 57, Incoming priv message
-				$type = "priv";
 				$sender	= AOChat::get_uname($args[1]);
 				$sendto = 'prv';
 				$channel = AOChat::get_uname($args[0]);
@@ -1228,56 +1277,74 @@ class bot extends AOChat{
 					}				  
 				}
 				
-				// Echo
-				if($this->settings['echo'] >= 1) newLine("Priv Group", $sender, $message, $this->settings['echo']);
+				if ($channel == $this->vars['name']) {
+					
+					$type = "priv";
+					
+					// Echo
+					if($this->settings['echo'] >= 1) newLine("Priv Group", $sender, $message, $this->settings['echo']);
+								
+					if($this->privChat != NULL) {
+						foreach($this->privChat as $file) {
+						  	$msg = "";
+							include $file; 	
+						}
+					}
+					
+					$msg = "";
+					if (!$restriced && (($message[0] == $this->settings["symbol"] && strlen($message) >= 2) || eregi("^(afk|brb)", $message, $arr))) {
+						if($message[0] == $this->settings["symbol"]) {
+							$message 	= substr($message, 1);
+						}
+						$words		= split(' ', strtolower($message));
+						$admin 		= $this->privCmds[$words[0]]["admin level"];
+						$filename 	= $this->privCmds[$words[0]]["filename"];
+
+						//Check if a subcommands for this exists			
+						if($this->subcommands[$filename][$type])
+							if(eregi("^{$this->subcommands[$filename][$type]["cmd"]}$", $message))
+								$admin = $this->subcommands[$filename][$type]["admin"];
+
 							
-				if($this->privChat != NULL) {
-					foreach($this->privChat as $file) {
-					  	$msg = "";
-						include $file; 	
+						if(is_numeric($admin)){		
+							if($this->admins[$sender]["level"] >= $admin && $this->admins[$sender]["level"] != "")
+								if($filename != "")
+									include $filename;
+
+							if($this->admins[$sender]["level"] == "" && $this->vars["leader"] == $sender && $admin == 1)
+								if($filename != "")
+									include $filename;									
+						}
+						elseif($admin == "guild"){			
+							if(isset($this->guildmembers[$sender]))
+								if($filename != "")
+									include $filename;
+						}
+						elseif($admin == "guildadmin"){			
+							if($this->guildmembers[$sender] <= $this->settings['guild admin level'])
+								if($filename != "")
+									include $filename;
+						}
+						elseif($admin == "all")
+							if($filename != "")
+								include $filename;
 					}
-				}
+					else
+						$this->spam[$sender] = $this->spam[$sender] + 10;
 				
-				$msg = "";
-				if(!$restriced && (($message[0] == $this->settings["symbol"] && strlen($message) >= 2) || eregi("^(afk|brb)", $message, $arr))) {
-					if($message[0] == $this->settings["symbol"]) {
-						$message 	= substr($message, 1);
+				} else {  // ext priv group message
+					
+					$type = "extPriv";
+					
+					if($this->settings['echo'] >= 1) newLine("Ext Priv Group $channel", $sender, $message, $this->settings['echo']);
+					
+					if($this->extPrivChat != NULL) {
+						foreach($this->extPrivChat as $file) {
+						  	$msg = "";
+							include $file; 	
+						}
 					}
-					$words		= split(' ', strtolower($message));
-					$admin 		= $this->privCmds[$words[0]]["admin level"];
-					$filename 	= $this->privCmds[$words[0]]["filename"];
-
-				  	//Check if a subcommands for this exists			
-				  	if($this->subcommands[$filename][$type])
-					    if(eregi("^{$this->subcommands[$filename][$type]["cmd"]}$", $message))
-							$admin = $this->subcommands[$filename][$type]["admin"];
-
-						
-					if(is_numeric($admin)){		
-						if($this->admins[$sender]["level"] >= $admin && $this->admins[$sender]["level"] != "")
-							if($filename != "")
-								include $filename;
-
-						if($this->admins[$sender]["level"] == "" && $this->vars["leader"] == $sender && $admin == 1)
-							if($filename != "")
-								include $filename;									
-					}
-					elseif($admin == "guild"){			
-						if(isset($this->guildmembers[$sender]))
-							if($filename != "")
-								include $filename;
-					}
-					elseif($admin == "guildadmin"){			
-						if($this->guildmembers[$sender] <= $this->settings['guild admin level'])
-							if($filename != "")
-								include $filename;
-					}
-					elseif($admin == "all")
-						if($filename != "")
-							include $filename;
 				}
-				else
-					$this->spam[$sender] = $this->spam[$sender] + 10;
 			break;			
 			case AOCP_GROUP_MESSAGE: // 65, Public and guild channels
 				$syntax_error = false;
@@ -1383,6 +1450,22 @@ class bot extends AOChat{
 							bot::send("Syntax error! for more info try /tell <myname> help", "guild");
 					}
 				}           		
+			break;
+			case AOCP_PRIVGRP_INVITE:  // 50, private group invite
+				$type = "extJoinPrivRequest"; // Set message type.
+				$uid = $args[0];
+				$sender = AOChat::get_uname($uid);
+
+				// Echo
+				if($this->settings['echo'] >= 1) newLine("Priv Group Invitation", $sender, " channel invited.", $this->settings['echo']);
+
+				if($this->invitedPriv != NULL) {
+					foreach($this->invitedPriv as $file) {
+						$msg = "";
+						include $file;
+					}
+				}
+                return;
 			break;
 		}
 	}
