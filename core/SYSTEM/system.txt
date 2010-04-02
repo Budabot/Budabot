@@ -1,0 +1,10 @@
+<header>::::: System Commands :::::<end>
+
+<highlight>To restart the bot use<end>
+<tab>/tell <myname> reboot
+
+<highlight>To shutdown the bot use<end>
+<tab>/tell <myname> shutdown
+
+<highlight>To reload all modules<end>
+<tab>/tell <myname> newplugins

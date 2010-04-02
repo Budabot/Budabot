@@ -1,0 +1,18 @@
+<header>::::: Rolling for an city raidhoster :::::<end>
+
+When you guild is rolling a sponsor for a cityraid(means he will provides the CRU and gets the loot of the generals for that) you should use the following commands to make sure that not always the same person wins and also that not someone always looses.
+
+<highlight>Starting the roll<end>
+<tab><symbol>crhoster start
+
+<highlight>Adding yourself to that list<end>
+<tab><symbol>crhadd
+
+<highlight>Removing yourself from that list<end>
+<tab><symbol>crhrem
+
+<highlight>Show the persons that have been added.<end>
+<tab><symbol>crhoster list
+
+<highlight>Rolling<end>
+<tab><symbol>crhoster roll

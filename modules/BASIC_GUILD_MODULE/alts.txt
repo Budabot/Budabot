@@ -1,0 +1,13 @@
+<header>::::: Alternative Char Commands :::::<end>
+
+<highlight>Shows your own alts<end>
+<tab><symbol>alts
+
+<highlight>Show alts from other guildmembers<end>
+<tab><symbol>alts 'insert name here'
+
+<highlight>Adding alts to your list<end>
+<tab><symbol>alts add 'insert name here'
+
+<highlight>Remove alts from your list<end>
+<tab><symbol>alts rem 'insert name here'

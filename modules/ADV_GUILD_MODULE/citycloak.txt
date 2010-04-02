@@ -1,0 +1,4 @@
+<header>::::: Help on City Cloak Commands. :::::<end>
+
+<highlight>Show the current status of the cloak and if needed how much time left to disable/enable it<end>
+<tab><symbol>city

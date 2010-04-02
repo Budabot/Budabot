@@ -1,0 +1,6 @@
+<header>::::: Teamspeak Plugin :::::<end>
+
+<red>Note: Before you can use this plugin you have to set the Server data´s(over the settings cmd)<end>
+
+<highlight>Show the current Teamspeakserver Status<end>
+<tab><symbol>ts

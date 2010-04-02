@@ -1,0 +1,3 @@
+<header>::::: Help on Max Guardian List :::::<end>
+
+With this setting you can change the highest number of shown players on the Guardian Order.

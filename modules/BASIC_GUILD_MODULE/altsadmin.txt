@@ -1,0 +1,9 @@
+<header>::::: Alternative Char Commands (admin) :::::<end>
+
+<highlight>Adding alts to a character<end>
+<tab><symbol>altsadmin add 'alt name' 'main toon'
+
+<highlight>Remove alts from a character<end>
+<tab><symbol>altsadmin rem 'alt name' 'main toon'
+<tab>use <symbol>alts 'alt name'
+<tab>if you are unsure of who the main is.

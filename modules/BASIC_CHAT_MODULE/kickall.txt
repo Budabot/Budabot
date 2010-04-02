@@ -1,0 +1,4 @@
+<header>::::: Kicking everyone out of the Chat :::::<end>
+
+<highlight>Kick everyone out of the Bot after 10seconds<end>
+<tab><symbol>kickall

@@ -1,0 +1,10 @@
+<header>::::: Locking the privategroup :::::<end>
+
+<highlight>Lock the privategroup<end>
+<tab><symbol>lock
+
+<highlight>Lock the privategroup, set a reason for it<end>
+<tab><symbol>lock 'reason'
+
+<highlight>Open the privategroup<end>
+<tab><symbol>unlock

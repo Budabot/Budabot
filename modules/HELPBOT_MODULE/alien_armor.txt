@@ -1,0 +1,44 @@
+<header>::::: Alien Armor Tradeskillprocess :::::<end>
+
+<highlight>To show the Process for an Alien Armor piece do<end>
+<tab><symbol>aiarmor 'type'
+
+<highlight>If you want to specify the QL do<end>
+<tab><symbol>aiarmor 'type' 'ql of the armor'
+
+Allowed Types:
+<highlight>- cc<end>
+<tab>Combined Commando's
+
+<highlight>- cm<end>
+<tab>Combined Mercenary's
+
+<highlight>- co<end>
+<tab>Combined Officer's
+
+<hihglight>- cp<end>
+<tab>Combined Paramedic's
+
+<highlight>- cs<end>
+<tab>Combined Scout's
+
+<highlight>- ss
+<tab>Combined Sharpshooter's
+
+<highlight>- strong<end>
+<tab>Strong Armor
+
+<highlight>- supple<end>
+<tab>Supple Armor
+
+<highlight>- enduring<end>
+<tab>Enduring Armor
+
+<highlight>- observant<end>
+<tab>Observant Armor
+
+<highlight>- arithmetic<end>
+<tab>Arithmetic Armor
+
+<highlight>- spiritual<end>
+<tab>Spiritual Armor
