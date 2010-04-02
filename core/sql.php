@@ -57,10 +57,11 @@ class db {
 				$this->sql = new PDO("mysql:host=$host", $user, $pass);
 				$this->query("CREATE DATABASE IF NOT EXISTS $dbName");
 				$this->selectDB($dbName);
+				$this->query("SET sql_mode='NO_BACKSLASH_ESCAPES'");
 			} catch(PDOException $e) {
 			  	$this->errorCode = 1;
 			  	$this->errorInfo = $e->getMessage();
-			} 
+			}
 		}
 		elseif($type == 'Sqlite'){
 			if($host == NULL || $host == "" || $host == "localhost")
