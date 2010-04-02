@@ -1,0 +1,7 @@
+<header>::::: Show the Time in different zones :::::<end>
+
+<highlight>To show all time zones do:<end>
+<tab><symbol>time
+
+<highlight>To show the time in a zone<end>
+<tab><symbol>time 'Insert timezone here'

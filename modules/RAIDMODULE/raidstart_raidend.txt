@@ -1,0 +1,7 @@
+<header>::::: Starting and Ending of an Raid :::::<end>
+
+Starting a raid(this will create also the raidlist)
+<highlight><tab><symbol>raidstart 'shortform'<end>
+
+Ending the raid
+<highlight><tab><symbol>raidend<end>

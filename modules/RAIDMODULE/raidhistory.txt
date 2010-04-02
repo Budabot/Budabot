@@ -1,0 +1,4 @@
+<header>::::: Raidhistory :::::<end>
+
+Show the last 20 Items that have been rolled
+<highlight><tab><symbol>raidhistory<end>

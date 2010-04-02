@@ -1,0 +1,7 @@
+<header>::::: Set a leader of the Raid :::::<end>
+
+<highlight>Set yourself as leader<end>
+<tab><symbol>leader
+
+<highlight>Give someone else leader<end>
+<tab><symbol>leader 'player name'

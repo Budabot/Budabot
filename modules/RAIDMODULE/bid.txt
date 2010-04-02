@@ -1,0 +1,6 @@
+<header>::::: Bidding on Items :::::<end>
+
+<red>Note<end>: Every bid will cost you 1point
+
+Bidding on an item:
+<highlight><tab><symbol>bid 'amount of points'<end>

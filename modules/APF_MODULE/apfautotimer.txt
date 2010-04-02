@@ -1,0 +1,7 @@
+<header>::::: Automatic Update of the APF Timers :::::<end>
+
+<red>Note: This service is currently only available for the Rimor Dimension(RK2). <end>
+
+1. You need to register your Bot on the apfservice Network. How you can register your Bot there can you find out with /tell apfservice help
+2. You will be assigned to one of the Bots that are spreading out the timers. This one has to be set as 'Bot for autoupdating APF Timers' in the settings of this Bot.
+3. To test if it has worked you can force the apfservice to update the timers of your Bot. Check the helpfile of apfservice on how todo it.

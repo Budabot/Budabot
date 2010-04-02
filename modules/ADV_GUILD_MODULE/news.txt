@@ -1,0 +1,7 @@
+<header>::::: Help for News Commands. :::::<end>
+
+<highlight>To show the latest News:<end>
+<tab><symbol>news
+
+<highlight>To add News do:<end>
+<tab><symbol>news 'text'

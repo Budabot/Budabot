@@ -1,0 +1,6 @@
+<header>::::: Rules of Pfchat :::::<end>
+
+<red>Note:<end> With joining the Bot you are agreeing to the rules. If you see someone is violating the rules pls inform an moderator asap!
+
+To open the rules:
+<highlight><tab><symbol>rules

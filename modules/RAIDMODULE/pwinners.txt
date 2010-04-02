@@ -1,0 +1,15 @@
+<header>::::: Preserve Winners :::::<end>
+
+Preserve Winners mode means that a person can only win one item per raid.
+
+<highlight>To see the current status<end>
+<tab><symbol>pwinners
+
+<highlight>Enabling the mode<end>
+<tab><symbol>pwinners on
+
+<highlight>Disabling the mode<end>
+<tab><symbol>pwinners off
+
+<highlight>Reseting the list<end>
+<tab><symbol>pwinners clear

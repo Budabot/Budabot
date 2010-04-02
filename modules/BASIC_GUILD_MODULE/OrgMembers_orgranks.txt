@@ -1,0 +1,8 @@
+<header>::::: Show current Orgmembers/Orgranks :::::<end>
+
+<tab><highlight>This shows the current members that are in your org
+<tab>with some basic stats and the last time they logged off<end>
+<tab><tab><symbol>orgmembers
+
+<tab><highlight>Same as orgmembers just sorted after ranks
+<tab><tab><symbol>orgranks

@@ -1,0 +1,11 @@
+<header>::::: Admin help :::::<end>
+
+Basic commands /tells
+<highlight>Access: All<end>
+<tab>/tell <myname> adminlist
+<highlight>Access: Moderators<end>
+<tab>/tell <myname> raidleader {player}
+<tab>/tell <myname> kickraidleader {player}
+<highlight>Access: Administrators<end>
+<tab>/tell <myname> addmod {player}
+<tab>/tell <myname> kickmod {player}

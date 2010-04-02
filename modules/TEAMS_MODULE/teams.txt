@@ -1,0 +1,23 @@
+<header>::::: Setting up teams :::::<end>
+
+<highlight>Show current team setup<end>
+<tab><symbol>teams
+
+<highlight>Clearing the team setup<end>
+<tab><symbol>teams clear
+
+You have 2 ways now to setup the team either you can do it manually with commands or over the Team Administration that you get on the show teams command.
+
+<highlight>Manual way:<end>
+
+<highlight>Start a new team<end>
+<tab><symbol>team 'team name'
+
+<highlight>Add a player to a team<end>
+<tab><symbol>team 'team number' 'player name'
+
+<highlight>Remove a player from a team<end>
+<tab><symbol>team 0 'player name'
+
+<highlight>Rename a team<end>
+<tab><symbol>team 'team name' 'team number'

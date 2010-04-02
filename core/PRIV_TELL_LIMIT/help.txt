@@ -1,0 +1,96 @@
+<header>::::: Set Limits for Tells and Privategroup :::::<end>
+
+The Bot supports to set limits for the privategroup and responding on tells. This means you can set for example a minimum level for the privategroup with that set no one under that lvl can join the group. Same can be done for responding on tells. This helps to secure the Bot and keeping unwanted players away from beeing able to use the Bot. Note that you need to set them both seperatly!
+
+With the command limits you can see the current configuration and changing them easily. Also you have the option to use the commands that in the versions before.
+
+Limits available for the privategroup
+<tab>- Min Level
+<tab>- Botmembers or Organisation Members
+<tab>- Faction
+<tab>- Maximum amount of players
+
+Limits available for tells
+<tab>- Min Level
+<tab>- Botmembers or Organisation Members
+<tab>- Faction
+
+Commands
+Configuration Window(works in tells only!)
+<tab><symbol>limits
+
+Show the current min Level for Tells
+<tab><symbol>tminlvl 
+
+Set a min Level for Tells(between 1 and 220)
+<tab><symbol>tminlvl 'level'
+
+Remove the min Level for Tells
+<tab><symbol>tminlvl 0
+
+
+Show the current general Limit for Tells
+<tab><symbol>topen
+
+Set a general Limit for Tells
+<tab><symbol>topen 'org or members'
+
+Remove the general Limit for Tells
+<tab><symbol>topen all
+
+
+Show the current faction Limit for Tells
+<tab><symbol>tfaction
+
+Set a faction Limit for Tells(only one faction is allowed)
+<tab><symbol>tfaction 'clan, omni or neutral'
+
+Set a faction Limit for Tells(set the faction you don´t wanna allow)
+<tab><symbol>tfaction not 'clan, omni or neutral'
+
+Remove the faction Limit for Tells
+<tab><symbol>tfaction all
+
+
+
+Show the current min Level for the privategroup
+<tab><symbol>minlvl
+
+Set a min Level for the privategroup(between 1 and 220)
+<tab><symbol>minlvl 'level'
+
+Remove the min Level for the privategroup
+<tab><symbol>minlvl 0
+
+
+Show the current general Limit for the privategroup
+<tab><symbol>open
+
+Set a general Limit for the privategroup
+<tab><symbol>open 'org or members'
+
+Remove the general Limit for the privategroup
+<tab><symbol>open all
+
+
+Show the current faction Limit for the privategroup
+<tab><symbol>faction
+
+Set a faction Limit for the privategroup(only one faction is allowed)
+<tab><symbol>faction 'clan, omni or neutral'
+
+Set a faction Limit for the privategroup(set the faction you don´t wanna allow)
+<tab><symbol>faction not 'clan, omni or neutral'
+
+Remove the general Limit for the privategroup
+<tab><symbol>faction all
+
+
+Show the current maximum players Limit for the privategroup
+<tab><symbol>maxplayers
+
+Set the maximum players Limit for the privategroup
+<tab><symbol>maxplayers 'amount of players'
+
+Remove the maximum players Limit for the privategroup
+<tab><symbol>maxplayers 0

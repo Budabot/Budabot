@@ -1,0 +1,3 @@
+<header>::::: Help on Aodb Version Setting :::::<end>
+
+It shows only the version of the current itemsdatabase that is used by this bot.

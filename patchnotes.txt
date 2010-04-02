@@ -1,0 +1,96 @@
+*****************************
+	Version 0.6.1:
+*****************************
+- Changed the Online module output design and added the rank of each player  
+- Fixed a problem within the adminmodule that their online status was not shown correctly  
+- On the adminlist it is now shown too if he is in the private group  
+- Removed an old Tower debuge message that was shown on the console  
+- Corrected some itemlinks in the bio material script  
+- Some old helpfile descriptions weren´t stored correctly in the Database  
+- The log functions(file and console) are put now into one function to. Also the format of the output has been changed a bit.  
+- Messages from the Bot itself are shown in the logfiles and the console now too.  
+- Added that you can set in which channel you want to see the city attacks.(usefull when you have 2bots(1raidbot and 1 orgbot) so they don´t show both the attack in your guild channel)  
+- Fixed a problem when assigning some to a team when he had a number in his name  
+- Fixed that players that left the Bot couldn´t be removed from a team  
+- Using a command with prefix(like # or !) in tells will work now too  
+- Added a AI Raidhoster Module(used to roll for a AI Raid sponsor)  
+- Added a little countdown command to the timers module  
+- Removed the loot module as it is now part of the raidmodule  
+- Added that you can see the rank too on the orgmembers function
+- Fixed a problem with commands that are used in different modules but where shown on one cmd config window
+- Changed the Forum adress in various scripts
+- Added that you can set the color for the guestchannel relay text(changed that you can set different colors for channel, username and channelcolor)
+- Added that you can relay also the commands and results
+- Added that you can set if the guestchannel will be always/automatic/never relayed
+- Added a little news script for the privategroup join. One for admins and one for normal users
+- Added a very flexible raidmodule. Including raidloot, raidlist, raidkick, raidstart, raidcheck, rules, spawntime, raidhistory(Items can be flatrolled or pts). The raidloot table can be easy extended
+- Updated the adminmodule. Changed some messages that are sent to the rl/mod and the sender of the command. Added check if the player is a RL/Mod when you try to remove them from the list.
+- Added the old about command and updated the about.txt
+- Added the whereis script from Blackruby
+- Added the Alien City General Info File from Blackruby(shows what drops of a specific General)
+- Updated the Level Info with some new colors and also show how much tokens you get(done by Blackruby)
+- Added a Module with that you can see what you need for a specific Alien Armor Part(like which Viralbots and skills for the combine)
+- Updated the Character/org/server lookup class(xml.php) to solve some issues with getting wrong data. Also the Speed of the Splitting functions for xml files has been increased.
+- The Organisation XML file from the Bot org will be able to update every 6hrs while the rest is still set to 24hrs.
+- Updated to PHP5.2
+- Added a Exec command to the DB Class
+- Added a Function to the DB class to change the Create Table statements for SQLite(as they are compatibel with the ones used for MYSQL f.e. the autoincrement columns)
+- Fixed some issues with using MySQL as Database
+- Added that Newsentrys can be deleted
+- Fixed that guestchannel players were not shown on the !count commands
+- Fixed a bug in the !count lvl command that the amount of players in a TL were not calculated correctly
+- Fixed a bug that the bot were unable to respond to users with an userid higher than 2^31
+
+*****************************
+	Version 0.6:
+*****************************
+- Removed the online commands from the basic guild and basic chat
+- Added a new Module to show who is online and in the private chat
+- The online commands are available for tells now too. You can choose over an setting if it should show the guild or private members that are online
+- Added a helpfile for the secure tell module
+- Changed the default settings for the secure tell module
+- Fixed a problem with the clear command and when a text is infront of a item ref(when adding an item with loot)
+- Fixed a problem with disabling of pwinners
+- All public channels are now from default on ignore
+- Fixed a problem with the helpfiles(!help wasn´t available in guild/priv and admin check wasn´t correct)
+- Updated the itemsmodule so it is compatible with the new table
+- Fixed an error in the guest channel. If the player that has been added is an orgmember his logon was shown.
+- Players in the guest channel can´t use the afk command anymore(was showing that he is back only)
+- Updated the loot module for the new itemstable
+- gueslist is showing if the user is online/in chat or offline
+- Memberslist shows now if the user is online/offline and in chat
+- Added Versionsnumber and Supportforum adress(startup logo)
+- Added a little funmodule
+- guests list looks the same way as the online list and the guestslist is now sorted after player names
+- Added autoreinvite for players that have been in the privgrp after a bot restart or crasg
+- Topic can now be send too when a guildmember logs on
+- Changed the look of the online list a bit and added the alien lvl is shown too now
+- The Bot is now updating breed and gender too now in the org roster update
+- Added the days to the topic command for the time it has been set
+- The logonmsg that is relayed looks now the same way as normal logons
+- Added a list to show current orgmembers, their stats and when they logged off the last time
+- Fixed a problem with the new timer syntax and removed debug messages
+- Fixed a bug in one of the SELECT query statements(some entrys has been shown double or more)
+- Updated the Header in all Files which licence infos and stuff 
+- Added a GPL licence file 
+- Added a file with the patchnotes 
+- The Helpfile system got an overwork. Now only active modulehelpfiles are shown, they are categorized, their accesslvl can be changed over the config command and the help command works in guild channel too now 
+- Added Helpfiles
+- Updated Helpfiles
+- Fixed a problem with the newplugins command
+- Fixed a problem with the timer syntax
+- The minlvl for a lootspot wasn´t checked correctly 
+- Fixed a bug in the calc command that has shown an error when the result was zero 
+- Added that persons can be banned for an specific amount of time 
+- Added a listbot module
+- Logons are now relayed to the relayorg
+- Guestchannel messages are send over guildrelay too now 
+- Fixed a bug in the tower messages.(instead of attacker side was attacker guild save into the DB) 
+- Did a little overwork on the timer module. Some old timers didn´t got deleted in the DB and you can now use as time 2days 18hr 15min instead of setting it with the time in minutes. [color=red]THIS CHANGES REQUIRES A DELETE OF THE OLD TIMERS TABLE.[/color] 
+- Added an Healassist Macro 
+- Added a command so that player can force an update of their characters stats for private channel 
+
+*****************************
+	Version 0.5:
+*****************************
+- First DeveloperRelease
