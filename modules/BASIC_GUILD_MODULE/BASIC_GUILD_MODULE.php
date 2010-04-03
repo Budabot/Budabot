@@ -13,6 +13,7 @@ $PLUGIN_VERSION = 0.1;
 	bot::event("priv", "$MODULE_NAME/guest_channel_cmd.php", "guest");
 	bot::event("logOn", "$MODULE_NAME/guest_channel_autoinv.php", "guest");
     bot::command("guild", "$MODULE_NAME/guest_channel.php", "guest", "all", "Guest Channel invite/kick");
+	bot::command("msg", "$MODULE_NAME/guest_channel.php", "guest", "all", "Guest Channel invite/kick");
     bot::command("guild", "$MODULE_NAME/guest_channel.php", "guestlist", "all", "Guest Channel Auto-Invitelist");
     bot::command("guild", "$MODULE_NAME/guest_channel.php", "guests", "all", "Guest Channellist");
     bot::command("msg", "$MODULE_NAME/guest_channel_telljoin.php", "guestjoin", "all", "Join command for guests");
