@@ -7,7 +7,7 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 15.12.2005
-   ** Date(last modified): 21.11.2006
+   ** Date(last modified): 10.12.2006
    ** 
    ** Copyright (C) 2006 Carsten Lohmann
    **
@@ -593,7 +593,10 @@ if(eregi("^config$", $message)) {
 	$list .= " - Click Adv. behind the name to change their Status for the single Channels \n";
 	$list .= "   and to change their Access Limit\n\n";
 
-	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' AND `type` != 'setup' AND `dependson` = 'none' AND `module` = '$mod' UNION ALL SELECT * FROM cmdcfg_".$this->vars["name"]." WHERE `cmdevent` = 'event' AND `type` != 'setup' AND `dependson` = 'none' AND `module` = '$mod' ORDER BY `cmd`");
+	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' AND `type` != 'setup' AND `dependson` = 'none' AND `module` = '$mod'"
+        ." UNION ALL"
+        ." SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'event' AND `type` != 'setup' AND `dependson` = 'none' AND `module` = '$mod'"
+        ." ORDER BY `cmd`");
 	$data = $db->fObject("all");
 	foreach($data as $row) {
         if($row->cmdevent == "cmd" && $oldcmd != $row->cmd) {

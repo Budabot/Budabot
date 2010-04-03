@@ -33,37 +33,37 @@ $PLUGIN_VERSION = 0.1;
 	bot::command("priv", "$MODULE_NAME/check.php", "check", "rl", "Checks who of the raidgroup is in the area");	
 	
 	//Topic set/show
-	bot::event("joinPriv", "$MODULE_NAME/Topic.php", "topic", "Show Topic when someone joins PrivChat");
-	bot::event("logOn", "$MODULE_NAME/Topic_logon.php", "none", "Show Topic on logon of members");
-	bot::command("priv", "$MODULE_NAME/Topic.php", "topic", "all", "Show Topic");
-	bot::command("guild", "$MODULE_NAME/Topic.php", "topic", "all", "Show Topic");
-	bot::command("msg", "$MODULE_NAME/Topic.php", "topic", "all", "Show Topic");
-	bot::subcommand("msg", "$MODULE_NAME/Topic.php", "topic (.+)", "leader", "topic", "Change Topic");
+	bot::event("joinPriv", "$MODULE_NAME/topic.php", "topic", "Show Topic when someone joins PrivChat");
+	bot::event("logOn", "$MODULE_NAME/topic_logon.php", "none", "Show Topic on logon of members");
+	bot::command("priv", "$MODULE_NAME/topic.php", "topic", "all", "Show Topic");
+	bot::command("guild", "$MODULE_NAME/topic.php", "topic", "all", "Show Topic");
+	bot::command("msg", "$MODULE_NAME/topic.php", "topic", "all", "Show Topic");
+	bot::subcommand("msg", "$MODULE_NAME/topic.php", "topic (.+)", "leader", "topic", "Change Topic");
 	bot::addsetting("topic", "Topic for Priv Channel", "noedit", "No Topic set.");	
 	bot::addsetting("topic_setby", "no", "hide", "none");
 	bot::addsetting("topic_time", "no", "hide", time());
 
     // Afk Check
-	bot::event("priv", "$MODULE_NAME/AFK_Check.php", "afk");
-	bot::command("priv", "$MODULE_NAME/AFK.php", "afk", "all", "Sets a member afk");
+	bot::event("priv", "$MODULE_NAME/afk_check.php", "afk");
+	bot::command("priv", "$MODULE_NAME/afk.php", "afk", "all", "Sets a member afk");
 
 	//Show Char infos on privjoin
-	bot::event("joinPriv", "$MODULE_NAME/Notify.php", "none", "Show Infos about a Char when he joins the channel");
-	bot::event("leavePriv", "$MODULE_NAME/Notify.php", "none", "Show a msg when someone leaves the channel");
+	bot::event("joinPriv", "$MODULE_NAME/notify.php", "none", "Show Infos about a Char when he joins the channel");
+	bot::event("leavePriv", "$MODULE_NAME/notify.php", "none", "Show a msg when someone leaves the channel");
 	
 	//Leader
-	bot::command("priv", "$MODULE_NAME/Leader.php", "leader", "all", "Sets the Leader of the raid");
-	bot::subcommand("priv", "$MODULE_NAME/Leader.php", "leader (.+)", "raidleader", "leader", "Set a specific Leader");
-	bot::event("priv", "$MODULE_NAME/LeaderEcho.php", "leader");
+	bot::command("priv", "$MODULE_NAME/leader.php", "leader", "all", "Sets the Leader of the raid");
+	bot::subcommand("priv", "$MODULE_NAME/leader.php", "leader (.+)", "raidleader", "leader", "Set a specific Leader");
+	bot::event("priv", "$MODULE_NAME/leaderecho.php", "leader");
 	
 	//Assist
-	bot::command("priv", "$MODULE_NAME/Assist.php", "assist", "all", "Creates/showes an Assist macro");
-	bot::subcommand("priv", "$MODULE_NAME/Assist.php", "assist (.+)", "leader", "assist", "Set a new assist");
-	bot::command("priv", "$MODULE_NAME/Heal_Assist.php", "heal", "all", "Creates/showes an Doc Assist macro");
-	bot::subcommand("priv", "$MODULE_NAME/Heal_Assist.php", "heal (.+)", "leader", "heal", "Set a new Doc assist");
+	bot::command("priv", "$MODULE_NAME/assist.php", "assist", "all", "Creates/showes an Assist macro");
+	bot::subcommand("priv", "$MODULE_NAME/assist.php", "assist (.+)", "leader", "assist", "Set a new assist");
+	bot::command("priv", "$MODULE_NAME/heal_assist.php", "heal", "all", "Creates/showes an Doc Assist macro");
+	bot::subcommand("priv", "$MODULE_NAME/heal_assist.php", "heal (.+)", "leader", "heal", "Set a new Doc assist");
 
 	//Tell
-	bot::command("priv", "$MODULE_NAME/Tell.php", "tell", "all", "Repeats a Message 3times");
+	bot::command("priv", "$MODULE_NAME/tell.php", "tell", "all", "Repeats a Message 3times");
 	
 	//updateme
 	bot::command("msg", "$MODULE_NAME/updateme.php", "updateme", "all", "Updates Charinfos from a player");

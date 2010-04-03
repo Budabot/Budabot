@@ -7,7 +7,7 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 04.12.2005
-   ** Date(last modified): 21.11.2006
+   ** Date(last modified): 10.12.2006
    ** 
    ** Copyright (C) 2005, 2006 Carsten Lohmann
    **
@@ -84,7 +84,7 @@ if(eregi("^(.+) has joined the organization.$", $message, $arr)){
     $uid = AoChat::get_uid($arr[2]);
     $name = ucfirst(strtolower($arr[2]));
     $db -> query("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '$name'");
-    $db -> query("DELETE FROM guild_chatlist_".$this->vars["name"]." WHERE `name` = '$name'");
+    $db -> query("DELETE FROM guild_chatlist_<myname> WHERE `name` = '$name'");
     $msg = "Removed <highlight>".$name."<end> from the Notify list.";
     unset($this->guildmembers[$name]);
     bot::send($msg, "guild");
@@ -92,7 +92,7 @@ if(eregi("^(.+) has joined the organization.$", $message, $arr)){
     $uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     $db -> query("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '$name'");
-    $db -> query("DELETE FROM guild_chatlist_".$this->vars["name"]." WHERE `name` = '$name'");
+    $db -> query("DELETE FROM guild_chatlist_<myname> WHERE `name` = '$name'");
     $msg = "Removed <highlight>".$name."<end> from the Notify list.";
     unset($this->guildmembers[$name]);
     bot::send($msg, "guild");

@@ -7,7 +7,7 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 23.11.2005
-   ** Date(last modified): 21.11.2006
+   ** Date(last modified): 10.12.2006
    ** 
    ** Copyright (C) 2005, 2006 Carsten Lohmann
    **
@@ -97,7 +97,7 @@ if(eregi("^notify (on|add) (.+)$", $message, $arr)){
     // Is the player a member of this bot?
     if($numrows != 0 && $row->mode != "del") {
         $db->query("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '$name'");
-        $db->query("DELETE FROM guild_chatlist_".$this->vars["name"]." WHERE `name` = '$name'");
+        $db->query("DELETE FROM guild_chatlist_<myname> WHERE `name` = '$name'");
         $msg = "Removed <highlight>$name<end> from the Notify list.";
     // Player is not a member of this bot
     } else

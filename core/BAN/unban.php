@@ -7,7 +7,7 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 01.10.2005
-   ** Date(last modified): 05.06.2006
+   ** Date(last modified): 10.12.2006
    ** 
    ** Copyright (C) 2005, 2006 J. Gracik
    **
@@ -38,7 +38,7 @@ if(eregi("^unban (.+)$", $message, $arr)){
 	}
 		
 	unset($this->banlist[$who]);
-	$db->query("DELETE FROM banlist_".$this->vars["name"]." WHERE name = '$who'");	
+	$db->query("DELETE FROM banlist_<myname> WHERE name = '$who'");	
 	bot::send("You have revomed the ban for <highlight>$who<end>", $sender);
 } else
 	$syntax_error = true;

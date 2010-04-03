@@ -7,7 +7,7 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 03.06.2006
-   ** Date(last modified): 21.11.2006
+   ** Date(last modified): 10.12.2006
    ** 
    ** Copyright (C) 2006 Carsten Lohmann
    **
@@ -172,7 +172,7 @@ if(eregi("^waitlist next$", $message, $arr)) {
 	 	if($listbot_waitlist[$sender][$key]["name"] == $name) {
 		   	$found = true;
 		   	$position = $listbot_waitlist[$sender][$key]["position"];
-		   	$db->query("DELETE FROM waitlist_{$this->vars["name"]} WHERE owner = '$sender' AND name = '{$listbot_waitlist[$sender][$key]["name"]}'");
+		   	$db->query("DELETE FROM waitlist_<myname> WHERE owner = '$sender' AND name = '{$listbot_waitlist[$sender][$key]["name"]}'");
 		   	unset($listbot_waitlist[$sender][$key]);
 		   	break;
 		}
@@ -195,7 +195,7 @@ if(eregi("^waitlist next$", $message, $arr)) {
 	foreach($listbot_waitlist[$sender] as $key => $value) {
 	 	if($listbot_waitlist[$sender][$key]["position"] > $position) {
 		   	$listbot_waitlist[$sender][$key]["position"] -= 1;
-			$db->query("UPDATE waitlist_{$this->vars["name"]} SET position = {$listbot_waitlist[$sender][$key]["position"]} WHERE owner = '$sender' AND name = '{$listbot_waitlist[$sender][$key]["name"]}'");
+			$db->query("UPDATE waitlist_<myname> SET position = {$listbot_waitlist[$sender][$key]["position"]} WHERE owner = '$sender' AND name = '{$listbot_waitlist[$sender][$key]["name"]}'");
 			bot::send("Your Position on <highlight>$sender<end>´s waitlist has been changed to <highlight>{$listbot_waitlist[$sender][$key]["position"]}<end>", $listbot_waitlist[$sender][$key]["name"]);
 		}
 	}

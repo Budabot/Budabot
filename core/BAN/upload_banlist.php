@@ -7,7 +7,7 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 21.01.2006
-   ** Date(last modified): 05.06.2006
+   ** Date(last modified): 10.12.2006
    ** 
    ** Copyright (C) 2006 Carsten Lohmann
    **
@@ -29,9 +29,9 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-$db->query("CREATE TABLE IF NOT EXISTS banlist_".$this->vars["name"]." (name VARCHAR(25) NOT NULL PRIMARY KEY, admin VARCHAR(25), time VARCHAR(10), why TEXT, banend INT)");
+$db->query("CREATE TABLE IF NOT EXISTS banlist_<myname> (name VARCHAR(25) NOT NULL PRIMARY KEY, admin VARCHAR(25), time VARCHAR(10), why TEXT, banend INT)");
 
-$db->query("SELECT * FROM banlist_".$this->vars["name"]);
+$db->query("SELECT * FROM banlist_<myname>");
 while($row = $db->fObject()) {
 	$this->banlist[$row->name]["name"] = $row->name;
 	$this->banlist[$row->name]["admin"] = $row->admin;

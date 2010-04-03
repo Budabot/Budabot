@@ -23,6 +23,11 @@ $title="<header>::::: Title Levels :::::<end>
 if(eregi("^title$", $message)) {
 	$text = $title;
 	$windowlink = bot::makeLink("Title levels", $text);
-	bot::send($windowlink, "guild");
+	if($type == "msg")
+		bot::send($windowlink, $sender);
+	elseif($type == "guild")
+		bot::send($windowlink, "guild");
+	elseif($type == "priv")
+		bot::send($windowlink);	
 }
 ?>

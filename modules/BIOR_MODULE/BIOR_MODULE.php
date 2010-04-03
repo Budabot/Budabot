@@ -5,9 +5,9 @@ $PLUGIN_VERSION = 0.1;
 	//Bio Regrowth module
 	bot::event("leavePriv", "$MODULE_NAME/left_chat.php", "bior");
 	bot::event("joinPriv", "$MODULE_NAME/joined_chat.php", "bior");
-	bot::event("2sec", "$MODULE_NAME/Bior_Check.php", "bior");
-	bot::command("priv", "$MODULE_NAME/Bior_Order.php", "bior", "leader", "Show Bio Regrowth Order");
-	bot::command("priv", "$MODULE_NAME/Cast_bior.php", "b", "all", "Show Bio Regrowth Cast");
+	bot::event("2sec", "$MODULE_NAME/bior_check.php", "bior");
+	bot::command("priv", "$MODULE_NAME/bior_order.php", "bior", "leader", "Show Bio Regrowth Order");
+	bot::command("priv", "$MODULE_NAME/cast_bior.php", "b", "all", "Show Bio Regrowth Cast");
 	bot::regGroup("bior", $MODULE_NAME, "Create a Bio Regrowth List", "bior", "b");
 	bot::addsetting("bior_max", "Max Persons that are shown on BioR list", "edit", "10", "10;15;20;25;30", '0', "mod", "$MODULE_NAME/bior_help.txt");
 

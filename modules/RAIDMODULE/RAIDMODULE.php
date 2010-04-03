@@ -5,18 +5,18 @@ $MODULE_NAME = "RAIDMODULE";
 	//Show current loot list
 	bot::command("priv", "$MODULE_NAME/list.php", "list", "leader", "Show current votelist");
 
+	//Set requirements for the loot roll
+	bot::command("priv", "$MODULE_NAME/setminlvl.php", "setminlvl", "leader", "Sets a minlvl for a slot");
+	bot::command("priv", "$MODULE_NAME/preservewinners.php", "pwinners", "leader", "Let users only win one item on a raid");		
+
 	//Loot list and adding/removing of players	
-	bot::command("priv", "$MODULE_NAME/Loot.php", "loot", "leader", "Adds an item to the loot list");
-	bot::command("priv", "$MODULE_NAME/Add.php", "add", "all", "Let a player join/rem from a roll");
-	bot::command("priv", "$MODULE_NAME/Loot.php", "clear", "leader", "Clears the loot list");
-	bot::command("priv", "$MODULE_NAME/ShowList.php", "list", "leader", "Shows the loot list");
-	bot::command("priv", "$MODULE_NAME/RollLoot.php", "roll", "leader", "Rolls the loot list");
+	bot::command("priv", "$MODULE_NAME/loot.php", "loot", "leader", "Adds an item to the loot list");
+	bot::command("priv", "$MODULE_NAME/add.php", "add", "all", "Let a player join/rem from a roll");
+	bot::command("priv", "$MODULE_NAME/loot.php", "clear", "leader", "Clears the loot list");
+	bot::command("priv", "$MODULE_NAME/showlist.php", "list", "leader", "Shows the loot list");
+	bot::command("priv", "$MODULE_NAME/rollloot.php", "roll", "leader", "Rolls the loot list");
 	bot::regGroup("basic_loot", $MODULE_NAME, "Handles a basic flatrolled loot system", "loot", "add", "clear", "list", "roll", "setminlvl", "pwinners");
 	
-	//Set requirements for the loot roll
-	bot::command("priv", "$MODULE_NAME/SetMinLvl.php", "setminlvl", "leader", "Sets a minlvl for a slot");
-	bot::command("priv", "$MODULE_NAME/PreserveWinners.php", "pwinners", "leader", "Let users only win one item on a raid");		
-
 	//Settings
 	bot::addsetting("add_on_loot", "Adding to loot show on", "edit", "1", "tells;privatechat;privatechat and tells", '1;2;3', "mod");
 	bot::addsetting("preserve_winners", "none", "hide", "0", "0;1");

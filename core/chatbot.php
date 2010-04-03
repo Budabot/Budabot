@@ -2,12 +2,12 @@
    /*
    ** Author: Sebuda/Derroylo (both RK2)
    ** Description: This class provides the basic functions for the bot.
-   ** Version: 0.5.5
+   ** Version: 0.5.6
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 01.10.2005
-   ** Date(last modified): 02.12.2006
+   ** Date(last modified): 25.12.2006
    ** 
    ** Copyright (C) 2005, 2006 Carsten Lohmann and J. Gracik
    **
@@ -68,8 +68,10 @@ class bot extends AOChat{
 		  	$this->existing_subcmds[$row->type][$row->cmd] = true;
 
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'event'");
-		while($row = $db->fObject())
-		  	$this->existing_events[$row->type][$row->file] = true;
+		while($row = $db->fObject()) {
+			if(bot::verifyNameConvention($row->file))
+			  	$this->existing_events[$row->type][$row->file] = true;
+		}
 
 		$db->query("SELECT * FROM hlpcfg_<myname>");
 		while($row = $db->fObject())
@@ -99,6 +101,8 @@ class bot extends AOChat{
 				include "./core/BASIC_CONNECTED_EVENTS/BASIC_CONNECTED_EVENTS.php";
 		if($this->settings['debug'] > 0) print("MODULE_NAME:(PRIV_TELL_LIMIT.php)\n");
 				include "./core/PRIV_TELL_LIMIT/PRIV_TELL_LIMIT.php";
+		if($this->settings['debug'] > 0) print("MODULE_NAME:(DBMANAGER.php)\n");
+				include "./core/DB_MANAGER/DB_MANAGER.php";
 		$curMod = "";
 								
 		// Load Plugin Modules
@@ -315,12 +319,10 @@ class bot extends AOChat{
 			  	if(($this->settings["guest_relay"] == 1 || (isset($this->vars[guestchannel_enabled]) && $this->vars["guestchannel_enabled"] && $this->settings["guest_relay"] == 2)) && $this->settings["guest_relay_commands"] == 1)
 					foreach($message as $key => $value)
 			  			AOChat::send_group($this->vars["my guild"], "</font>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}{$this->vars["name"]}</font>: {$this->settings["default priv color"]}$value</font>");
-//			  			AOChat::send_group($this->vars["my guild"], $this->settings["guest_color"]."[Guest] {$this->vars["name"]}: ".$value);
 			} else {
 				AOChat::send_privgroup($this->vars["name"],$this->settings["default priv color"].$message);
 				if(($this->settings["guest_relay"] == 1 || (isset($this->vars["guestchannel_enabled"]) && $this->vars["guestchannel_enabled"] && $this->settings["guest_relay"] == 2)) && $this->settings["guest_relay_commands"] == 1 && $disable_relay === false)
 		  			AOChat::send_group($this->vars["my guild"], "</font>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}{$this->vars["name"]}</font>: {$this->settings["default priv color"]}$message</font>");
-//					AOChat::send_group($this->vars["my guild"], $this->settings["guest_color"]."[Guest] {$this->vars["name"]}: ".$message);
 			}
 		} elseif($who == $this->vars["my guild"] || $who == 'guild') {// Target is guild chat.
     		if(is_array($message)) {
@@ -330,12 +332,10 @@ class bot extends AOChat{
   			  	if(($this->settings["guest_relay"] == 1 || (isset($this->vars[guestchannel_enabled]) && $this->vars["guestchannel_enabled"] && $this->settings["guest_relay"] == 2)) && $this->settings["guest_relay_commands"] == 1)
 					foreach($message as $key => $value)
 			  			AOChat::send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my guild"]}]<end> {$this->settings["guest_color_username"]}{$this->vars["name"]}</font>: {$this->settings["default guild color"]}$value</font>");		  
-//			  			AOChat::send_privgroup($this->vars["name"], $this->settings["guest_color"]."[{$this->vars["my guild"]}] {$this->vars["name"]}: ".$value);		  
 			} else {
 				AOChat::send_group($this->vars["my guild"],$this->settings["default guild color"].$message);
 				if(($this->settings["guest_relay"] == 1 || (isset($this->vars["guestchannel_enabled"]) && $this->vars["guestchannel_enabled"] && $this->settings["guest_relay"] == 2)) && $this->settings["guest_relay_commands"] == 1 && $disable_relay === false)
 		  			AOChat::send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my guild"]}]<end> {$this->settings["guest_color_username"]}{$this->vars["name"]}</font>: {$this->settings["default guild color"]}$message</font>");		  
-//					AOChat::send_privgroup($this->vars["name"], $this->settings["guest_color"]."[{$this->vars["my guild"]}] {$this->vars["name"]}: ".$message);
 			}
 		} elseif(AOChat::get_uid($who) != NULL) {// Target is a player.
     		if(is_array($message)) {
@@ -343,13 +343,13 @@ class bot extends AOChat{
 			  		AOChat::send_tell($who,$this->settings["default tell color"].$value);
 
 					// Echo	
-					if($this->settings['echo'] >= 1) newLine("Out. Msg.", $this->vars["name"], $value, $this->settings['echo']);
+					if($this->settings['echo'] >= 1) newLine("Out. Msg.", $who, $value, $this->settings['echo']);
 			  	}
 			} else {
 				AOChat::send_tell($who,$this->settings["default tell color"].$message);
 
 				// Echo	
-				if($this->settings['echo'] >= 1) newLine("Out. Msg.", $this->vars["name"], $message, $this->settings['echo']);
+				if($this->settings['echo'] >= 1) newLine("Out. Msg.", $who, $message, $this->settings['echo']);
 
 			}
 		} else { // Public channels that are not myguild.
@@ -456,12 +456,15 @@ class bot extends AOChat{
 
 		$module = explode("/", strtolower($filename));
 		$module = $module[0];
-		
-		// Edit incoming filenames for accual file names.
-        if (file_exists("./modules/$filename"))
-			$filename = "./modules/$filename";			
-		if (file_exists("./core/$filename")) 
-			$filename = "./core/$filename";					
+
+		//Check if the file exists		
+		if(($actual_filename = bot::verifyFilename($filename)) != '') { 
+    		$filename = $actual_filename; 
+		} else { 
+			echo "Error in registering the File $filename for command $command. The file doesn´t exists!\n";
+			return;
+		}
+							
 		if($command != NULL) // Change commands to lower case.
 			$command = strtolower($command);			
 		// Edit Admin if type is raidbot admin type.
@@ -556,11 +559,14 @@ class bot extends AOChat{
 		if($this->settings['debug'] > 1) print("                    Admin:($admin) Type:($type)\n");
 		if($this->settings['debug'] > 2) sleep(1);
 
-		// Edit incoming filenames for accual file names.
-        if (file_exists("./modules/$filename"))
-			$filename = "./modules/$filename";			
-		if (file_exists("./core/$filename")) 
-			$filename = "./core/$filename";					
+		//Check if the file exists		
+		if(($actual_filename = bot::verifyFilename($filename)) != '') { 
+    		$filename = $actual_filename; 
+		} else { 
+			echo "Error in registering the File $filename for Subcommand $command. The file doesn´t exists!\n";
+			return;
+		}
+						
 		if($command != NULL) // Change commands to lower case.
 			$command = strtolower($command);
 		
@@ -617,11 +623,13 @@ class bot extends AOChat{
 		$module = explode("/", strtolower($filename));
 		$module = $module[0];
 		
-		if (file_exists("./modules/$filename")) 
-			$filename = "./modules/$filename";		
-		
-		if (file_exists("./core/$filename")) 
-			$filename = "./core/$filename";
+		//Check if the file exists		
+		if(($actual_filename = bot::verifyFilename($filename)) != '') { 
+    		$filename = $actual_filename; 
+		} else { 
+			echo "Error in registering the File $filename for Eventtype $type. The file doesn´t exists!\n";
+			return;
+		}
 		
 		if($type != "setup") {
 			$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$module' AND `cmdevent` = 'event' AND `type` = 'setup'");
@@ -714,11 +722,13 @@ class bot extends AOChat{
 		if($this->settings['debug'] > 1) print("Deactivating Event:($type) File:($filename)\n");
 		if($this->settings['debug'] > 2) sleep(1);
 
-		if (file_exists("./modules/$filename")) 
-			$filename = "./modules/$filename";		
-		
-		if (file_exists("./core/$filename")) 
-			$filename = "./core/$filename";
+		//Check if the file exists		
+		if(($actual_filename = bot::verifyFilename($filename)) != '') { 
+    		$filename = $actual_filename; 
+		} else { 
+			echo "Error in unregistering the File $filename for Event $type. The file doesn´t exists!\n";
+			return;
+		}
 
 		switch ($type){
 			case "towers":
@@ -864,11 +874,14 @@ class bot extends AOChat{
 		global $curMod;
 		$name = strtolower($name);
 
-		if(file_exists("./modules/$help") && $help != "") 
-			$help = "./modules/$help";		
-		if(file_exists("./core/$help") && $help != "") 
-			$help = "./core/$help";	
-
+		//Check if the file exists		
+		if(($actual_filename = bot::verifyFilename($help)) != '' && $help != "") { 
+    		$filename = $actual_filename; 
+		} elseif($help != "") { 
+			echo "Error in registering the File $filename for Setting $name. The file doesn´t exists!\n";
+			return;
+		}
+		
 		if($this->existing_settings[$name] != true) {
 			$db->query("INSERT INTO settings_<myname> (`name`, `mod`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('$name', '$curMod', '$mode', '$setting', '$options', '$intoptions', '$description', 'db', '$admin', '$help')");
 		  	$this->settings[$name] = $setting;
@@ -927,14 +940,17 @@ class bot extends AOChat{
 		}
 
 		$module = explode("/", $filename);
-		
-		if (file_exists("./modules/$filename")) 
-			$filename = "./modules/$filename";		
-		if (file_exists("./core/$filename")) {
-			$filename = "./core/$filename";
-			$this->helpfiles[$cat][$command]["status"] = "enabled";
+
+		//Check if the file exists		
+		if(($actual_filename = bot::verifyFilename($filename)) != '') { 
+    		$filename = $actual_filename;
+    		if(substr($filename, 0, 7) == "./core/")
+	    		$this->helpfiles[$cat][$command]["status"] = "enabled";
+		} else { 
+			echo "Error in registering the File $filename for Helpcommand $command. The file doesn´t exists!\n";
+			return;
 		}
-		
+					
 		if(isset($this->existing_helps[$command]))
 			$db->query("UPDATE hlpcfg_<myname> SET `verify` = 1, `description` = '$info', `cat` = '$cat' WHERE `name` = '$command'");		
 		else
@@ -1339,6 +1355,34 @@ class bot extends AOChat{
 										
 				break;
 		}		
+	}
+	
+	function verifyFilename($filename) {
+		//Replace all \ characters with /
+		$filename = str_replace("\\", "/", $filename);
+		
+		if(!bot::verifyNameConvention($filename))
+			return "";
+		
+		//check if the file exists
+	    if(file_exists("./core/$filename")) { 
+	        return "./core/$filename"; 
+    	} else if(file_exists("./modules/$filename")) {
+        	return "./modules/$filename"; 
+	    } else { 
+	     	return "";
+	    }
+	}
+	
+	function verifyNameConvention($filename) {
+		eregi("^(.+)/([0-9a-z_]+).php$", $filename, $arr);
+		if($arr[2] == strtolower($arr[2])) {
+			return true;
+		} else {
+			echo "Warning: $filename does not match the nameconvention(All php files needs to be in lowercases except loading files)!\n";
+			sleep(2);
+			return false;
+		}
 	}
 }
 ?>

@@ -1,1 +1,1 @@
-@php mainloop.php
+@php -f mainloop.php

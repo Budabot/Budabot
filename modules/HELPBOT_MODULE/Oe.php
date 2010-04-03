@@ -7,7 +7,7 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 14.12.2005
-   ** Date(last modified): 14.12.2005
+   ** Date(last modified): 22.12.2005
    ** 
    ** Copyright (C) 2005 Carsten Lohmann
    **
@@ -31,8 +31,11 @@
 
 if(eregi("^oe ([0-9]+)$", $message, $arr)) {
     if($arr[1] <= 4000) {
-        $msg  = "With a skill of <highlight>".(int)$arr[1]."<end>, you will be OE above <highlight>".(int)($arr[1]/0.8)."<end> skill. ";
-        $msg .= "With a requirement of <highlight>".(int)$arr[1]."<end> skill, you can have <highlight>".(int)($arr[1]*0.8)."<end> without being OE.";
+     $oe = $arr[1]; 
+        $oevalue = (int)round($oe/0.8); 
+        $lowoevalue = (int)round($oe*0.8); 
+        $msg = "With a skill of <highlight>${oe}<end>, you will be OE above <highlight>${oevalue}<end> requirement. " . 
+        "With a requirement of <highlight>${oe}<end> skill, you can have <highlight>${lowoevalue}<end> without being OE.";
     } else {
         $msg = "A skill can´t get so high!";
     }

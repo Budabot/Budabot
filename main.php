@@ -1,13 +1,13 @@
 <?php
    /*
-   ** Author: Sebuda/Derroylo (both RK2)
+   ** Author: Sebuda/Derroylo (both RK2) + Linux compatibility Changes from Dak (RK2)
    ** Description: Creates the setup Procedure, Loads core classes and creates the bot mainloop.
-   ** Version: 0.5
+   ** Version: 0.6
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 01.10.2005	
-   ** Date(last modified): 21.10.2006
+   ** Date(last modified): 10.12.2006
    ** 
    ** Copyright (C) 2005, 2006 Carsten Lohmann and J. Gracik
    **
@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */  
 
-$version = "0.6.1";
+$version = "0.6.2";
 
 echo "\n\n\n\n\n\n\n\n\n\n\n";
 echo "		**************************************************\n";
@@ -43,24 +43,51 @@ echo "		**************************************************\n";
 echo "\n\n\n\n\n\n\n";
 sleep(5);
 
-// Load Extention 
-dl("php_sockets.dll");
-dl("php_pdo_sqlite.dll");
-dl("php_pdo_mysql.dll");
+if(isWindows()) {
+    // Load Extention 
+    dl("php_sockets.dll");
+    dl("php_pdo_sqlite.dll");
+    dl("php_pdo_mysql.dll");
+} else {
+    /*
+    * Load Extentions, if not already loaded.
+    *
+    * Note: These are normally present in a
+    * modern Linux system. This is a safeguard.
+    */
+    if(!extension_loaded('pdo_sqlite')) {
+        @dl('pdo_sqlite.so');
+    }
+    if(!extension_loaded('pdo_mysql')) {
+        @dl('pdo_mysql.so');
+    }
+    
+    /*
+    * We try to load the aokex extension too,
+    * if it's available.
+    */
+    if(!extension_loaded('aokex')) {
+        if(!dl('aokex.so')) {
+            echo "Failed to load the aokex extension!\n";
+        } else {
+            echo "Loaded the aokex extension.\n";
+        }
+    }
+}
 
 //Load Required Files
 require_once "config.php";
-require_once ".\core\aochat.php";
-require_once ".\core\chatBot.php";
-require_once ".\core\sql.php";
-require_once ".\core\xml.php";
+require_once "./core/aochat.php";
+require_once "./core/chatbot.php";
+require_once "./core/sql.php";
+require_once "./core/xml.php";
 
 //Set Error Level
 error_reporting(E_ERROR | E_PARSE);
 
 //Show setup dialog
 if(!file_exists("delete me for new setup"))
-	include(".\core\SETUP\setup.php");
+	include("./core/SETUP/setup.php");
 
 //Bring the ignore list to a bot readable format
 $ignore = explode(";", $settings["Ignore"]);
@@ -111,7 +138,7 @@ unset($settings["DB password"]);
 
 
 // Call Main Loop
-main(true,&$chatBot);
+main(true, $chatBot);
 /*
 ** Name: main
 ** Main Loop
@@ -171,19 +198,41 @@ main(true,&$chatBot);
 			$channel = "Tells";
 
 		$today =  date("m.d");
-		$log = array();
-		
-		if(file_exists("./logs/$today.$channel.txt"))
-			$log = file("./logs/$today.$channel.txt");
-			
-		$log = array_reverse($log);
-		array_unshift($log, $line."\r\n");
-		
-		$log = array_reverse($log);
-		$fp = fopen("./logs/$today.$channel.txt", "w");
-		
-		foreach($log as $data)
-			fwrite($fp, $data);
-		fclose($fp);
+
+        /*
+        * Correct line-ending, depending on OS.
+        * Should probably be made global for performance.
+        */
+        if(isWindows()) {
+            $nl = "\r\n";
+        } else {
+            $nl = "\n";
+        }
+        
+        /*
+        * Open and append to log-file. Complain on failure.
+        */
+        $filename = "./logs/$today.$channel.txt";
+        if(($fp = fopen($filename, "a")) === FALSE) {
+            // Failed!
+            echo "    *** Failed to open log-file $filename for writing ***\n";
+        } else {
+            fwrite($fp, $line.$nl);
+            fclose($fp);
+        }
+        
 	}
+    
+    /**
+    * isWindows is a little utility function to check
+    * whether the bot is running Windows or something
+    * else: returns true if under Windows, else false
+    */
+    function isWindows() {
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            return true;
+        } else {
+            return false;
+        }
+    }
 ?>

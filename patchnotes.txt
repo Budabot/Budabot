@@ -1,4 +1,21 @@
 *****************************
+	Version 0.6.2:
+*****************************
+- Added a shellscript for Linux
+- Changed all filenames to lower cases except the Loading script for Modules
+- changed all path´s that they are only including / instead of \. For Linux compatibility
+- Changed some SQL Statements that has not been changed in the last version(for MySQL)
+- The title command was sending the output only to guild channel and not to the channel where the user used the command for it
+- Chatbot.bat is starting the php.exe with a reference to the new php-win.ini
+- Fixed some references to wrong files(no affect on windows as it isn´t case-sensitive)
+- Fixed an SQL Select Statement error in the count command
+- Fixed an rounding mistake in the oe command
+- Fixed that the sender name of tells was shown instead of the recievers one at the console
+- Added that only php files will be accepted that are in lowercases
+- Added the XML Infofile required for the BotManager
+- Updated the Itemsdatabase to 17.0.1
+
+*****************************
 	Version 0.6.1:
 *****************************
 - Changed the Online module output design and added the rank of each player  

@@ -7,7 +7,7 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 05.06.2006
-   ** Date(last modified): 05.06.2006
+   ** Date(last modified): 10.12.2006
    ** 
    ** Copyright (C) 2006 Carsten Lohmann
    **
@@ -32,7 +32,7 @@
 foreach($this->banlist as $key => $data){
 	if(isset($this->banlist[$key]["banend"]) && ((time() - $this->banlist[$key]["banend"]) >= 0)) {
 	 	 unset($this->banlist[$key]);
-	 	 $db->query("DELETE FROM banlist_{$this->vars["name"]} WHERE name = '$key'");
+	 	 $db->query("DELETE FROM banlist_<myname> WHERE name = '$key'");
 	}	
 }
 ?>

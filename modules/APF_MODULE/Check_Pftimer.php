@@ -7,7 +7,7 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 22.03.2006
-   ** Date(last modified): 24.03.2006
+   ** Date(last modified): 10.12.2006
    ** 
    ** Copyright (C) 2006 Carsten Lohmann
    **
@@ -49,8 +49,8 @@ if($this->settings["pftimer"] != 0 && $this->settings["pftimer_status"] != "no_c
 	}
 
 	if($msg) {
-	    bot::send($msg);
-	    bot::send($msg, "guild");
+	    bot::send($msg, NULL, true);
+	    bot::send($msg, "guild", true);
 	}
 }
 

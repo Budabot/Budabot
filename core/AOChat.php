@@ -1,7 +1,7 @@
 <?php
 
   /*
-   * $Id: AOChat.php,v 1.2 2006/12/02 22:52:47 genesiscl Exp $
+   * $Id: aochat.php,v 1.1 2006/12/08 15:17:54 genesiscl Exp $
    *
    * Modified to handle the recent problem with the integer overflow
    *

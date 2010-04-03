@@ -7,7 +7,7 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 18.02.2006
-   ** Date(last modified): 18.02.2006
+   ** Date(last modified): 10.12.2006
    ** 
    ** Copyright (C) 2005, 2006 Carsten Lohmann
    **
@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-$db->query("SELECT * FROM guests_{$this->vars["name"]} WHERE name = '$sender'");
+$db->query("SELECT * FROM guests_<myname> WHERE name = '$sender'");
 if($db->numrows() != 0) {
  	$this->vars["Guest"][$sender] = false;
     $msg = "You have been autoinvited to the Guestchannel of {$this->vars["my guild"]}.";
