@@ -363,7 +363,11 @@
       if($this->state != "auth")
         die("AOChat: not expecting authentication.\n");
 
-      $key = $this->generate_login_key($this->serverseed, $username, $password);
+	  if(extension_loaded("aokex"))
+		$key = aokex_login_key($this->serverseed, $username, $password);
+      else
+		$key = $this->generate_login_key($this->serverseed, $username, $password);
+
       $pak = new AOChatPacket("out", AOCP_LOGIN_REQUEST, array(0, $username, $key));
       $this->send_packet($pak);
       $packet = $this->get_packet();
