@@ -21,7 +21,7 @@
    */
 
 require_once('functions.php');
-if(isset($this->guildmembers[$sender])) {
+if (isset($this->guildmembers[$sender])) {
     bot::send(getTowerInfoMsg(), $sender);
 }
 ?>

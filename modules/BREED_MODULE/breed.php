@@ -39,7 +39,7 @@ Intelligence  400 / 600
 Sense         400 / 600  
 Psychic       400 / 600';
 
-if(eregi ("^breed",$message ,$arr)) {
+if (preg_match("/^breed/i", $message, $arr)) {
 	$list = "               .:| Breed Caps |:.\n\n";
 	$list.=" $s \n\n $n \n\n $o \n\n $a ";
 	$msg = bot::makeLink("Results of Breedcap Inquiry.", $list);

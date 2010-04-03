@@ -287,13 +287,9 @@ class bot extends AOChat{
 	}
 	
 /*===============================
-** Name: send
-** Send chat messages back to aochat servers thru aochat.
-*/	function send($message, $who = 'prv', $disable_relay = false){
-		if ($who == 'guild') {
-			$who = 'org';
-		}
-
+** Name: formatMessage
+** Formats an outgoing message with correct colors, replaces values, etc
+*/	function formatMessage($message) {
 		// Color			
 		$message = str_replace("<header>", $this->settings['default header color'], $message);
 		$message = str_replace("<highlight>", $this->settings['default highlight color'], $message);			
@@ -310,6 +306,19 @@ class bot extends AOChat{
 		$message = str_replace("<tab>", "    ", $message);
 		$message = str_replace("<end>", "</font>", $message);
 		$message = str_replace("<symbol>", $this->settings["symbol"] , $message);
+		
+		return $message;
+	}
+	
+/*===============================
+** Name: send
+** Send chat messages back to aochat servers thru aochat.
+*/	function send($message, $who = 'prv', $disable_relay = false){
+		if ($who == 'guild') {
+			$who = 'org';
+		}
+
+		$message = bot::formatMessage($message);
 		
 		// Send
 		if($message == 'addbuddy') // Addbuddy
@@ -744,17 +753,17 @@ class bot extends AOChat{
 				if(!in_array($filename, leavePriv))	
 					$this->leavePriv[] = $filename;					
 			break;
-			case "extLeavePriv":	
+			case "extLeavePriv":
 				if(!in_array($filename, extLeavePriv))	
 					$this->extLeavePriv[] = $filename;					
 			break;
-			case "extJoinPrivRequest":	
+			case "extJoinPrivRequest":
 				if(!in_array($filename, $this->extJoinPrivRequest))		
 					$this->extJoinPrivRequest[] = $filename;
 			break;
 			case "extKickPriv":	
-				if(!in_array($filename, $this->extJoinPrivRequest))		
-					$this->extJoinPrivRequest[] = $filename;
+				if(!in_array($filename, $this->extKickPriv))		
+					$this->extKickPriv[] = $filename;
 			break;
 			case "logOn":	
 				if(!in_array($filename, $this->logOn))	
@@ -870,7 +879,7 @@ class bot extends AOChat{
 					unset($this->extLeavePriv[$temp[$filename]]);
 				}
 			break;
-			case "extJoinPrivRequest":	
+			case "extJoinPrivRequest":
 				if(in_array($filename, $this->extJoinPrivRequest)) {
 					$temp = array_flip($this->extJoinPrivRequest);
 					unset($this->extJoinPrivRequest[$temp[$filename]]);
@@ -1360,12 +1369,9 @@ class bot extends AOChat{
 				$em = null;
 				if (isset($args['extended_message'])) {
 					$em = $args['extended_message'];
-					print_r($em);
 					$db->query("SELECT category, entry, message FROM mmdb_data WHERE category = $em->category AND entry = $em->instance");
 					if ($row = $db->fObject()) {
-						echo "$row->message \n";
 						$message = vsprintf($row->message, $em->args);
-						echo "$message \n";
 					}
 				}
 					
@@ -1459,8 +1465,8 @@ class bot extends AOChat{
 				// Echo
 				if($this->settings['echo'] >= 1) newLine("Priv Group Invitation", $sender, " channel invited.", $this->settings['echo']);
 
-				if($this->invitedPriv != NULL) {
-					foreach($this->invitedPriv as $file) {
+				if($this->extJoinPrivRequest != NULL) {
+					foreach($this->extJoinPrivRequest as $file) {
 						$msg = "";
 						include $file;
 					}

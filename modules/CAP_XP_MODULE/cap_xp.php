@@ -248,23 +248,23 @@ $level[217] = 1774889;
 $level[218] = 2129867;
 $level[219] = 2555840;
 
-if(eregi("^(capxp|capsk) ([0-9]+)$", $message, $arr)) {
+if (preg_match("/^(capxp|capsk) ([0-9]+)/i$", $message, $arr)) {
 		//get player lvl
 		$rk_num = $this->vars["dimension"];
 		$info = new whois($sender);
 		
-		if($info->errorCode != 0) {
-		bot::send("An Error occurred while trying to get your level. Please input it manually via <highlight><symbol>capxp 'mission reward' 'your lvl'<end> or try again later.", $sendto);
-		return;
+		if ($info->errorCode != 0) {
+			bot::send("An Error occurred while trying to get your level. Please input it manually via <highlight><symbol>capxp 'mission reward' 'your lvl'<end> or try again later.", $sendto);
+			return;
 		}
 		else {
 			$lvl = $info->level;
 			$cont = "on";
 		}
 }
-elseif (eregi("^(capxp|capsk) ([0-9]+) ([0-9]+)$", $message, $arr)) {
+else if (preg_match("/^(capxp|capsk) ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	
-	if(($arr[3] > 220) || ($arr[3] < 1)) {
+	if (($arr[3] > 220) || ($arr[3] < 1)) {
 		bot::send("Your level cannot be greater than 220 or less than 1.", $sendto);
 		return;
 	}

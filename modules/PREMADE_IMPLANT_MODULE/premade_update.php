@@ -22,7 +22,7 @@
    
 require_once('functions.php');
 
-if(preg_match("/^premadeupdate$/i", $message)) {
+if (preg_match("/^premadeupdate$/i", $message)) {
 	
 	$msg = '';
 	$currentVersion = bot::getsetting('premade_implant_db_version');

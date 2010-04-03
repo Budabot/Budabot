@@ -1,4 +1,5 @@
 <?php
+
 if (preg_match("/^whereistell (.+)$/i", $message, $arr))  {
 	$message = "Whereis DB Update\n\n";
 	$message .= $arr[1];
