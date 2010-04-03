@@ -1,4 +1,20 @@
 *****************************
+	Version 0.6.4 (unofficial release):
+*****************************
+
+- fixed the chat relay glitch (xml.php and chatbot.php).
+- updated the bot with the new chat servers since the 18.4.1 update
+- fixed various settings' help-file links that were broken
+- added flatbot's roll system (which includes multi-loot, re-rolling, and various rolling methods) and then i fixed it up a bit (small edits here and there). Special thanks to: Wyziddyj (for making it) and Egads (for making it public).
+- fixed a bug that allowed alts to add other people as alts of themselves, thereby creating a whole new alts list, seperate from the original main.
+- added  a long long (:D)!altsadmin command so mods can add/delete/fix alt listings.
+- added capability to add/delete alts 'from an alt', without having to log onto their main toon.
+- added a !botnotify command to combat those times when the chat server crashes and the bots start spamming org chat. A simple !botnotify off will stop the bot from spamming org chat with long lists of the org-members signing off.  Use !botnotify help for more details.*
+- fixed a minor bug where the bot was unable to update char info for players having apostrophes in their first/last name
+
+* I havent have any real chat server crashes to test this on so far. But it works in practice so far.
+
+*****************************
 	Version 0.6.3:
 *****************************
 - Changed the name of the php.ini to php-win.ini

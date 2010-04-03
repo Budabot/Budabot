@@ -13,7 +13,9 @@ $PLUGIN_VERSION = 0.1;
 	bot::command("guild", "$MODULE_NAME/notify.php", "notify", "mod", "Adding a member man. to the notify list");
 	bot::command("msg", "$MODULE_NAME/notify.php", "notify", "mod", "Adding a member man. to the notify list");
 	bot::command("priv", "$MODULE_NAME/notify.php", "notify", "mod", "Adding a member man. to the notify list");
+	bot::command("msg", "$MODULE_NAME/notify.php", "botnotify", "mod", "Turn off/on orgchat org-member logged off messages");
 
 	//Helpfile
     bot::help("notify", "$MODULE_NAME/notify.txt", "mod", "Add or remove a player from the notify list.", "Notify List");
+	bot::help("botnotify", "$MODULE_NAME/botnotify.txt", "mod", "Turning on/off org-member logged off messages", "Bot-Silence");
 ?>

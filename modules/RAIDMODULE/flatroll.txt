@@ -5,6 +5,8 @@
 or
 <tab><symbol>loot 'item reference'
 
+<tab><symbol>multiloot #x 'item reference' (e.g.: <symbol>multiloot 3x Lockpick)
+
 <highlight>Clearing the list<end>
 <tab><symbol>loot clear
 
@@ -12,4 +14,7 @@ or
 <tab><symbol>list
 
 <highlight>Rolling the items<end>
-<tab><symbol>roll
+<tab><symbol>roll or <symbol>flatroll or <symbol>result
+
+<highlight>Re-adding remaining items after a roll<end>
+<tab><symbol>reroll

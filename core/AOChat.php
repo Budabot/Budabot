@@ -174,7 +174,7 @@
     }
 
     /* Network stuff */
-    function connect($server = "chat2.d1.funcom.com", $port = 7012)
+    function connect($server = "chat2.d1.funcom.com", $port = 7102)
     {
       if($this->state !== "connect")
         die("AOChat: not expecting connect.\n");

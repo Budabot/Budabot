@@ -31,8 +31,9 @@
 
 global $loot;
 global $loot_winners;
+global $residual;
 
-if(eregi("^flatroll$", $message)) {
+if(eregi("^flatroll$", $message) || eregi("^roll$", $message) || eregi("^result$", $message)) {
 	//Check if a loot list exits
   	if(!is_array($loot)) {
 	    $msg = "There is nothing to roll atm.";
@@ -42,26 +43,62 @@ if(eregi("^flatroll$", $message)) {
   	
   	$list = "<header>::::: Win List :::::<end>\n\n";
   	//Roll the loot
-	foreach($loot as $item) {
-  	  	$list .= "Item: <highlight>{$item["name"]}<end>\n";
-  	  	$list .= "Added by: <highlight>{$item["added_by"]}<end>\n";
-  	  	$list .= "Winner: ";
+	$resnum = 1;
+	foreach($loot as $key => $item) {
+  	  	$list .= "Item: <orange>{$item["name"]}<end>\n";
+  	  	$list .= "Winner(s): ";
 	    $users = count($item["users"]);
-	 	if($users == 0)
+	 	if($users == 0){
 	 		$list .= "<highlight>None added.<end>\n\n";
-	 	else {
-            $winner = array_rand($item["users"], 1);
-			$list .= "<highlight>$winner<end>\n\n";
+			$residual[$resnum]["name"] = $item["name"];
+			$residual[$resnum]["icon"] = $item["icon"];
+			$residual[$resnum]["linky"] = $item["linky"];
+			$residual[$resnum]["multiloot"] = $item["multiloot"];
+			$resnum++;
+	 	} else {
+			if($item["multiloot"]>1){
+				if($item["multiloot"] > sizeof($item["users"])){
+					$arrolnum = sizeof($item["users"]);
+					}
+				else{
+					$arrolnum = $item["multiloot"];
+					}
+				for($i=0;$i<$arrolnum;$i++){
+					$winner = array_rand($item["users"], 1);
+					unset($item["users"][$winner]);
+					$list .= "<red>$winner<end> ";
+					}
+
+				if($arrolnum<$item["multiloot"]){
+					$newmultiloot = $item["multiloot"]-$arrolnum;
+					$residual[$resnum]["name"] = $item["name"];
+					$residual[$resnum]["icon"] = $item["icon"];
+					$residual[$resnum]["linky"] = $item["linky"];
+					$residual[$resnum]["multiloot"] = $newmultiloot;
+					$resnum++;
+					}
+				}
+			else{
+            			$winner = array_rand($item["users"], 1);
+				$list .= "<red>$winner<end>";
+				}
+
+			$list .= "\n\n";
 			
-			//If preservewinners is enabled save this winner
-			if($this->settings["preserve_winners"] == 1)
-				$loot_winners[$winner] = true;
 		}
 	}
 	//Reset loot
+	$winner = "";
+	$arrolnum = "";
 	$loot = "";
 	//Show winner list
 	$msg = bot::makeLink("Winner List", $list);
-	bot::send($msg);
+	if(is_array($residual)){
+		$rerollmsg = " (There are item(s) left to be rolled. To re-add, type <symbol>reroll)";
+		}
+	else{
+		$rerollmsg = "";
+		}
+	bot::send($msg.$rerollmsg);
 }
 ?>

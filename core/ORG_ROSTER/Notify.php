@@ -28,7 +28,32 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-   
+
+
+$botnotify;
+if(eregi("^botnotify (.+)$", $message, $arr)) {
+	global $botnotify;
+	if($arr[1] == "off") {
+		$botnotify = 0;
+		$msg = "<myname> will not show org-member logoffs in org chat.";
+	}
+	elseif($arr[1] == "on") {
+		$botnotify = 1;
+		$msg = "<myname> will now resume posting org-member logoffs in org chat.";
+	}
+	elseif(!$arr[1]) {
+		global $botnotify;
+		if ($botnotify == 0) {
+			$msg = "<myname> <highlight>is not<end> showing org-member logoffs.";
+		}
+		elseif ($botnotify == 1) {
+			$msg = "<myname> <highlight>is<end> showing org-member logoffs.";
+		}
+	}
+	bot::send($msg, $sender);
+	return;
+} 
+
 if(eregi("^notify (on|add) (.+)$", $message, $arr)){
     // Get User id
     $uid = AoChat::get_uid($arr[2]);

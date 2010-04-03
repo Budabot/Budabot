@@ -77,8 +77,10 @@ class xml {
 	
 			fclose($fp);
 			return $data;
-		} else
+		} else {
+			fclose($fp);
 			return NULL;
+		}
 	}
 } //end class xml
 
@@ -151,7 +153,7 @@ class whois extends xml{
         
         //If no file was found or it is outdated try to update it from anarchyonline.com
         if(!$data_found) {
-			$playerbio = xml::getUrl("www.anarchyonline.com/character/bio/d/$rk_num/name/$name/bio.xml");
+			$playerbio = xml::getUrl("http://people.anarchyonline.com/character/bio/d/$rk_num/name/$name/bio.xml");
 			if(xml::spliceData($playerbio, '<nick>', '</nick>') == $name) {
 				$data_found = true;
 				$data_save = true;
@@ -288,7 +290,7 @@ class org extends xml {
         
         //If no file was found or it is outdated try to update it from anarchyonline.com
         if(!$data_found) {
-			$orgxml = xml::getUrl("http://www.anarchy-online.com/org/stats/d/$rk_num/name/$organization_id/basicstats.xml", 30);
+			$orgxml = xml::getUrl("http://people.anarchy-online.com/org/stats/d/$rk_num/name/$organization_id/basicstats.xml", 30);
 			if(xml::spliceData($orgxml, '<id>', '</id>') == $organization_id) {
 				$data_found = true;
 				$data_save = true;

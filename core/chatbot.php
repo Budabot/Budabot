@@ -145,15 +145,19 @@ class bot extends AOChat{
 		AOChat::AOchat("callback");
 
 		// Choose Server
-		if($this->vars["dimension"] == 0) 
-			$server="chat1.d1.funcom.com";
-		elseif($this->vars["dimension"] == 1) 
-			$server="chat2.d1.funcom.com";
-		elseif($this->vars["dimension"] == 2) 
-			$server="chat3.d1.funcom.com";
-		elseif($this->vars["dimension"] == 3) 
-			$server="chat4.d1.funcom.com";
-		else {
+		if($this->vars["dimension"] == 1) {
+			$server = "chat.d1.funcom.com";
+			$port = 7101;
+		} elseif($this->vars["dimension"] == 2) {
+			$server = "chat.d2.funcom.com";
+			$port = 7102;
+		} elseif($this->vars["dimension"] == 3) {
+			$server = "chat.d3.funcom.com";
+			$port = 7103;
+		} elseif($this->vars["dimension"] == 4) {
+			$server = "chat.dt.funcom.com";
+			$port = 7109;
+		} else {
 			echo "\n\n\n\n\n\n\n\n\n\n\n\n\n";
 			echo "		    	  No valid Server to connect with!\n";
 			echo "		       Available dimensions are 0, 1, 2 and 3!";
@@ -167,7 +171,7 @@ class bot extends AOChat{
 		echo "		    	  Connecting to AO Server...\n";
 		echo "		    	     ($server)";
 		echo "\n\n\n\n\n\n\n\n\n\n\n\n";
-		AOChat::connect($server);
+		AOChat::connect($server, $port);
 		sleep(2);
 		if($this->state != "auth") {
 			echo "\n\n\n\n\n\n\n\n\n\n\n\n\n";

@@ -32,12 +32,16 @@
 if(isset($this->guildmembers[$sender])) {
     $db->query("DELETE FROM guild_chatlist_<myname> WHERE `name` = '$sender'");
     if(time() >= $this->vars["onlinedelay"] && !($this->vars["IgnoreLog"][$sender])) {
-        bot::send("<highlight>$sender<end> logged off", "guild", true);
         $db->query("UPDATE org_members_<myname> SET `logged_off` = '".time()."' WHERE `name` = '$sender'");
-        
-        //Guestchannel part       	
-		if($this->settings["guest_relay"] == 1 || (isset($this->vars["guestchannel_enabled"]) && $this->vars["guestchannel_enabled"] && $this->settings["guest_relay"] == 2))
-			bot::send("<highlight>$sender<end> logged off", NULL, true);
+		
+		global $botnotify;
+		if($botnotify != 0) {
+			bot::send("<highlight>$sender<end> logged off", "guild", true);
+			
+			//Guestchannel part       	
+			if($this->settings["guest_relay"] == 1 || (isset($this->vars["guestchannel_enabled"]) && $this->vars["guestchannel_enabled"] && $this->settings["guest_relay"] == 2))
+				bot::send("<highlight>$sender<end> logged off", NULL, true);
+		}
     }
     //$this->vars["IgnoreLog"][$sender] if it is 2 then log modules didn´t executed yet
     if($this->vars["IgnoreLog"][$sender] == 2)

@@ -48,6 +48,9 @@ $PLUGIN_VERSION = 0.1;
 	bot::command("guild", "$MODULE_NAME/alts.php", "alts", "all", "Alt Char handling");
 	bot::command("msg", "$MODULE_NAME/alts.php", "alts", "guild", "Alt Char handling");
 	bot::command("priv", "$MODULE_NAME/alts.php", "alts", "all", "Alt Char handling");
+	bot::command("guild", "$MODULE_NAME/alts.php", "altsadmin", "mod", "Alt Char handling");
+	bot::command("msg", "$MODULE_NAME/alts.php", "altsadmin", "mod", "Alt Char handling");
+	bot::command("priv", "$MODULE_NAME/alts.php", "altsadmin", "mod", "Alt Char handling");
 
     // Checks if a player is online
 	bot::command("guild", "$MODULE_NAME/is_online.php", "is", "all", "Checks if a player is online");
@@ -64,7 +67,7 @@ $PLUGIN_VERSION = 0.1;
 	bot::command("msg", "$MODULE_NAME/orgranks.php", "orgranks", "guild", "Show the Members(sorted by rank) of the org");
 	bot::command("priv", "$MODULE_NAME/orgranks.php", "orgranks", "all", "Show the Members(sorted by rank) of the org");
 
-	//Force an update of the org rooster
+	//Force an update of the org roster
 	bot::command("msg", "$MODULE_NAME/updateorg.php", "updateorg", "mod", "Forcing an update of the org roster");
 	
 	//Tell and Tellall
@@ -78,6 +81,7 @@ $PLUGIN_VERSION = 0.1;
 	//Helpfile
     bot::help("afk_kiting", "$MODULE_NAME/afk_kiting.txt", "guild", "Set yourself AFK/Kiting", "Basic Guild Commands");
     bot::help("alts", "$MODULE_NAME/alts.txt", "guild", "How to set alts", "Basic Guild Commands");
+	bot::help("altsadmin", "$MODULE_NAME/altsadmin.txt", "guild", "How to set alts (admins)", "Basic Guild Commands");
     bot::help("GuestChannel", "$MODULE_NAME/guestchannel.txt", "guild", "Guestchannel", "Basic Guild Commands");
     bot::help("IsOnline", "$MODULE_NAME/isonline.txt", "guild", "Checking if a player is online", "Basic Guild Commands");
     bot::help("lastseen", "$MODULE_NAME/lastseen.txt", "guild", "Check when an orgmember was online", "Basic Guild Commands");

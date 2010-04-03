@@ -30,34 +30,54 @@
    */
 
 global $loot;
+global $residual;
 if(eregi("^(loot clear|clear)$", $message)) {
   	$loot = "";
+	$residual = "";
   	$msg = "Loot has been cleared by <highlight>$sender<end>.";
   	bot::send($msg);	
 } elseif(eregi("^loot (.+)$", $message, $arr)) {
- 	if($this->vars["raid_status"] != "" && $this->vars["raid_pts"] == 0) {
-		$msg = "<red>A flatrolled raid is already started and you can´t flatroll items while it is running!<end>";
-		bot::send($msg);
-		return;
-	}
- 
+
 	//Check if the item is a link
   	if(eregi("^<a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">(.+)<\/a>(.*)$", $arr[1], $item)) {
 	    $item_ql = $item[3];
 	    $item_highid = $item[1];
 	    $item_lowid = $item[2];
 	    $item_name = $item[4];
-	    $item_comment2 = trim($item[5]);
-	} elseif(eregi("^(.+)<a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">(.+)<\/a>(.*)$", $arr[1], $item)) {
+		}
+	elseif(eregi("^(.+)<a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">(.+)<\/a>(.*)$", $arr[1], $item)){
 	    $item_ql = $item[4];
 	    $item_highid = $item[2];
 	    $item_lowid = $item[3];
 	    $item_name = $item[5];
-	    $item_comment1 = trim($item[1]);
-	    $item_comment2 = trim($item[6]);
+		
 	} else
 		$item_name = $arr[1];
 		
+	//Check if the item is already on the list (i.e. SMART LOOT)
+	foreach($loot as $key => $item) {
+		if(strtolower($item["name"]) == strtolower($item_name)){
+			if($item["multiloot"]){
+				if($multiloot){
+					$loot[$key]["multiloot"] = $item["multiloot"]+$multiloot;
+					}
+				else{
+					$loot[$key]["multiloot"] = $item["multiloot"]+1;
+					}
+				}
+			else{
+				if($multiloot){
+					$loot[$key]["multiloot"] = 1+$multiloot;
+					}
+				else{
+					$loot[$key]["multiloot"] = 2;
+					}
+				}
+			$dontadd = 1;
+			$itmref = $key;
+			}
+	}
+
 	//get a slot for the item
   	if(is_array($loot)) {
 	  	$num_loot = count($loot);
@@ -72,6 +92,8 @@ if(eregi("^(loot clear|clear)$", $message)) {
 	    return;
 	}
 
+	$item_name = str_replace('"',"",$item_name);
+	
 	//Check if there is a icon available
 	$item_name = str_replace("'", "\'", $item_name);
 	$item_name = str_replace(":", "&#58;", $item_name);
@@ -86,7 +108,7 @@ if(eregi("^(loot clear|clear)$", $message)) {
 		$item_name = str_replace("&#58;", ":", $item_name);
 		$item_name = str_replace("&amp;", "&", $item_name);
 		//Save the icon
-		$loot[$num_loot]["icon"] = $row->icon;
+		$looticon = $row->icon;
 		//Save the aoid and ql if not set yet
 		if(!isset($item_highid)) {
 			$item_lowid = $row->lowid;
@@ -94,24 +116,47 @@ if(eregi("^(loot clear|clear)$", $message)) {
 			$item_ql = $row->highql;	  
 		}
 	}
+	
 
 	//Save item
-	if(isset($item_highid)) {
-		$loot[$num_loot]["name"] = "<a href='itemref://$item_lowid/$item_highid/$item_ql'>$item_name</a>";
-		if($item_comment1 != "")
-			$loot[$num_loot]["name"] = $item_comment1." ".$loot[$num_loot]["name"];
+	if(!$dontadd){
+		if(isset($item_highid)) {
+			$loot[$num_loot]["linky"] = "<a href='itemref://$item_lowid/$item_highid/$item_ql'>$item_name</a>";	
+			}
 			
-		if($item_comment2 != "")
-			$loot[$num_loot]["name"] .= " ".$item_comment2;
-	} else
 		$loot[$num_loot]["name"] = $item_name;
+		$loot[$num_loot]["icon"] = $looticon;
 
-	//Save the person who has added the loot item
-	$loot[$num_loot]["added_by"] = $sender;
+		//Save the person who has added the loot item
+		$loot[$num_loot]["added_by"] = $sender;
 	
-	//Send info
-	bot::send("<highlight>{$loot[$num_loot]["name"]}<end> will be rolled in Slot <highlight>#$num_loot<end>");
-	bot::send("To add use <symbol>add $num_loot, or <symbol>add 0 to remove yourself");
+		//Save multiloot
+		$loot[$num_loot]["multiloot"] = $multiloot;
+
+		//Send info
+		if($multiloot){
+			bot::send($multiloot."x <highlight>{$loot[$num_loot]["name"]}<end> will be rolled in Slot <highlight>#$num_loot<end>");
+			}
+		else{
+			bot::send("<highlight>{$loot[$num_loot]["name"]}<end> will be rolled in Slot <highlight>#$num_loot<end>");
+			}
+		bot::send("To add use <symbol>add $num_loot, or <symbol>add 0 to remove yourself");
+		}
+	else{
+		//Send info in case of SMART
+		if($multiloot){
+			bot::send($multiloot."x <highlight>{$loot[$itmref]["name"]}<end> added to Slot <highlight>#$itmref<end> as multiloot. Total: <yellow>{$loot[$itmref]["multiloot"]}<end>");
+			}
+		else{
+			bot::send("<highlight>{$loot[$itmref]["name"]}<end> added to Slot <highlight>#$itmref<end> as multiloot. Total: <yellow>{$loot[$itmref]["multiloot"]}<end>");
+			}
+		bot::send("To add use <symbol>add $itmref, or <symbol>add 0 to remove yourself");
+		$dontadd = 0;
+		$itmref = 0;
+		if(is_array($residual)){
+			$residual = "";
+			}
+		}
 } else
 	$syntax_error = true;
 ?>

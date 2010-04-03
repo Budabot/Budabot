@@ -88,8 +88,8 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 		            $mode = "del";
 		
 		        $db->query("UPDATE org_members_<myname> SET `mode` = '".$mode."',
-		                    `firstname` = '".$org->members[$amember]["firstname"]."',
-		                    `lastname` = '".$org->members[$amember]["lastname"]."',
+		                    `firstname` = '".str_replace("'", "''", $org->members[$amember]["firstname"])."',
+		                    `lastname` = '".str_replace("'", "''", $org->members[$amember]["lastname"])."',
 		                    `guild` = '".$org->orgname."',
 		                    `profession` = '".$org->members[$amember]["profession"]."', 
 		                    `rank_id`  = '".$org->members[$amember]["rank_id"]."',
@@ -104,8 +104,8 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 			} else {
 			    $db->query("INSERT INTO org_members_<myname> (`name`, `mode`, `firstname`, `lastname`, `guild`, `rank_id`, `rank`, `level`, `profession`, `gender`, `breed`, `ai_level`, `ai_rank`)
 		                        VALUES ('".$org -> members[$amember]["name"]."', 'org',
-		                        '".$org -> members[$amember]["firstname"]."',
-		                        '".$org -> members[$amember]["lastname"]."', '".$org->orgname."',
+		                        '".str_replace("'", "''", $org->members[$amember]["firstname"])."',
+		                        '".str_replace("'", "''", $org->members[$amember]["lastname"])."', '".$org->orgname."',
 		                        '".$org -> members[$amember]["rank_id"]."', '".$org->members[$amember]["rank"]."',
 		                        '".$org -> members[$amember]["level"]."', '".$org->members[$amember]["profession"]."',
 		                        '".$org -> members[$amember]["gender"]."', '".$org->members[$amember]["breed"]."',

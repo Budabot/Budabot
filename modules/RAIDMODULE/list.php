@@ -35,27 +35,38 @@ global $vote;
 if(eregi("^list$", $message)) {
 	if($this->vars["raid_status"] == "") {
 	  	if(is_array($loot)) {
-		  	$list = "<header>::::: Loot List :::::<end>\n\n";
+		  	$list = "<header>::::: Loot List :::::<end>\n\nUse <symbol>flatroll or <symbol>roll to roll.\n\n";
 			foreach($loot as $key => $item) {
 				$add = bot::makeLink("Add", "/tell <myname> add $key", "chatcmd");
 				$rem = bot::makeLink("Remove", "/tell <myname> add 0", "chatcmd");
 				$added_players = count($item["users"]);
 	
-				$list .= "<u>Slot #$key</u>\n";
+				$list .= "<u>Slot #<font color='#FF00AA'>$key</font></u>\n";
 			  	if($item["icon"] != "")
 			  		$list .= "<img src=rdb://{$item["icon"]}>\n";
+
+				if($item["multiloot"]>1){
+					$ml = " <yellow>(x".$item["multiloot"].")<end>";
+					}
+				else{
+					$ml = "";
+					}
+				if($item["linky"]){
+					$itmnm = $item["linky"];
+					}
+				else{
+					$itmnm = $item["name"];
+					}
 	
-				$list .= "Item: <highlight>{$item["name"]}<end>\n";
+				$list .= "Item: <orange>$itmnm<end>".$ml."\n";
 				if($item["minlvl"] != "")
 					$list .= "MinLvl set to <highlight>{$item["minlvl"]}<end>\n";
-
-				$list .= "Added by: <highlight>{$item["added_by"]}<end>\n";
-				
+								
 				$list .= "<highlight>$added_players<end> Total ($add/$rem)\n";
 			  	$list .= "Players added:";
 				if(count($item["users"]) > 0)
 					foreach($item["users"] as $key => $value)
-					  	$list .= " [<highlight>$key<end>]";
+					  	$list .= " [<yellow>$key<end>]";
 				else
 					$list .= " None added yet.";
 				
