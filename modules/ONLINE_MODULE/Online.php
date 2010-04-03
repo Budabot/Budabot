@@ -7,9 +7,9 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 23.11.2005
-   ** Date(last modified): 21.11.2006
+   ** Date(last modified): 03.02.2007
    ** 
-   ** Copyright (C) 2005, 2006 Carsten Lohmann
+   ** Copyright (C) 2005, 2006, 2007 Carsten Lohmann
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -33,7 +33,7 @@ $msg = "";
 if(eregi("^online$", $message)){
   	if($type == "guild" || ($this->settings["online_tell"] == 0 && $type == "msg") || ($type == "priv" && $this->vars["Guest"][$sender] == true)) {
 	  	if($this->settings["relaybot"])
-			$db->query("SELECT * FROM guild_chatlist_<myname> UNION ALL SELECT * FROM guild_chatlist_{$this->settings["relaybot"]} ORDER BY `profession`, `level` DESC");
+			$db->query("SELECT * FROM guild_chatlist_<myname> UNION ALL SELECT * FROM guild_chatlist_".strtolower($this->settings["relaybot"])." ORDER BY `profession`, `level` DESC");
 	    else
 			$db->query("SELECT * FROM guild_chatlist_<myname> ORDER BY `profession`, `level` DESC");
 	} elseif($type == "priv" || ($this->settings["online_tell"] == 1 && $type == "msg")) {
@@ -51,7 +51,9 @@ if(eregi("^online$", $message)){
             $oldprof = $row->profession;
         }
         
-        if($row->afk != "0")
+        if($row->afk == "kiting")
+            $afk = " <highlight>::<end> <red>KITING<end>";
+		elseif($row->afk != "0")
             $afk = " <highlight>::<end> <red>AFK<end>";
         else
             $afk = "";
@@ -85,6 +87,7 @@ if(eregi("^online$", $message)){
 	    $db->query("SELECT * FROM priv_chatlist_<myname> ORDER BY `profession`, `level` DESC");
 		$numguest = $db->numrows();
 		$list .= "\n\n<highlight><u>$numguest User(s) in Guestchannel<end></u>\n";
+		$oldprof = "";
 	    while($row = $db->fObject()) {
             if($row->profession == "")
 		        $row->profession = "Unknown";
@@ -93,7 +96,9 @@ if(eregi("^online$", $message)){
 	    	    $list .= "\n<tab><highlight>$row->profession<end>\n";
 	            $oldprof = $row->profession;
 	        }
-	        if($row->afk != "0")
+	        if($row->afk == "kiting")
+            	$afk = " <highlight>::<end> <red>KITING<end>";
+			elseif($row->afk != "0")
 	            $afk = " <highlight>::<end> <red>AFK<end>";
 	        else
 	            $afk = "";
@@ -178,9 +183,9 @@ if(eregi("^online$", $message)){
 	if($type == "guild" || ($this->settings["online_tell"] == 0 && $type == "msg")  || ($type == "priv" && $this->vars["Guest"][$sender] == true)) {
 		if($this->settings["relaybot"]) {
 			if($prof == "all")
-		        $db->query("SELECT * FROM guild_chatlist_<myname> UNION ALL SELECT * FROM guild_chatlist_{$this->settings["relaybot"]} ORDER BY `profession`, `level` DESC");
+		        $db->query("SELECT * FROM guild_chatlist_<myname> UNION ALL SELECT * FROM guild_chatlist_".strtolower($this->settings["relaybot"])." ORDER BY `profession`, `level` DESC");
 		    else
-	            $db->query("SELECT * FROM guild_chatlist_<myname> WHERE `profession` = '$prof' UNION ALL SELECT * FROM guild_chatlist_{$this->settings["relaybot"]} WHERE `profession` = '$prof'"); 	
+	            $db->query("SELECT * FROM guild_chatlist_<myname> WHERE `profession` = '$prof' UNION ALL SELECT * FROM guild_chatlist_".strtolower($this->settings["relaybot"])." WHERE `profession` = '$prof'"); 	
 		} else {
 	        if($prof == "all")
 	            $db->query("SELECT * FROM guild_chatlist_<myname> ORDER BY `profession`, `level` DESC");
@@ -206,7 +211,9 @@ if(eregi("^online$", $message)){
             $oldprof = $row->profession;
         }
         
-        if($row->afk != "0")
+        if($row->afk == "kiting")
+           	$afk = " <highlight>::<end> <red>KITING<end>";
+		elseif($row->afk != "0")
             $afk = " <highlight>::<end> <red>AFK<end>";
         else
             $afk = "";
@@ -252,7 +259,9 @@ if(eregi("^online$", $message)){
                 $list .= "\n<tab><highlight>$row->profession<end>\n";
                 $oldprof = $row->profession;
             }
-	        if($row->afk != "0")
+   	        if($row->afk == "kiting")
+            	$afk = " <highlight>::<end> <red>KITING<end>";
+			elseif($row->afk != "0")
 	            $afk = " <highlight>::<end> <red>AFK<end>";
 	        else
 	            $afk = "";

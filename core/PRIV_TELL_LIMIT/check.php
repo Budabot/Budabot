@@ -2,14 +2,14 @@
    /*
    ** Author: Derroylo (RK2)
    ** Description: Check if a player mets the requirements for joining Privatechannel or responding on the tell
-   ** Version: 0.1
+   ** Version: 0.2
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 15.10.2006
-   ** Date(last modified): 21.11.2006
+   ** Date(last modified): 23.01.2007
    ** 
-   ** Copyright (C) 2006 Carsten Lohmann
+   ** Copyright (C) 2006, 2007 Carsten Lohmann
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -94,7 +94,7 @@ if((eregi("^join$", $message) || eregi("^invite$", $message)) && !isset($this->a
 	  	$restricted = true;
 	    return;
 	}
-} elseif(!isset($this->admins[$sender]) && $sender != $this->settings["relaybot"] && $sender != $this->settings["apftimerbot"]) {
+} elseif(!isset($this->admins[$sender]) && $sender != $this->settings["relaybot"] && $sender != $this->settings["apftimerbot"] && !eregi("^guestjoin", $message) && !eregi("^verify", $message)) {
 	//Chek if he is a member of the Bot
 	if($this->settings["tell_req_open"] == "members") {
 	  	$db->query("SELECT * FROM members_<myname> WHERE `name` = '$sender'");

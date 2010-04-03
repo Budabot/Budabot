@@ -29,14 +29,14 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
    
-if(eregi("^news clear$", $message)) {
+if(eregi("^privnews clear$", $message)) {
 	bot::savesetting("news", "Not set.");
 	$msg = "News has been cleared.";
 	if($type == "priv")
 		bot::send($msg);
 	elseif($type == "msg")
 		bot::send($msg, $sender);
-} elseif(eregi("^news (.+)$", $message, $arr)) {
+} elseif(eregi("^privnews (.+)$", $message, $arr)) {
 	$news = $arr[1];
  	if(strlen($news) > 300) {
 		$msg = "News can´t be longer than 300chars.";

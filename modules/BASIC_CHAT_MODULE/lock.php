@@ -7,9 +7,9 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 10.03.2006
-   ** Date(last modified): 12.03.2006
+   ** Date(last modified): 31.01.2007
    ** 
-   ** Copyright (C) 2006 Carsten Lohmann
+   ** Copyright (C) 2006, 2007 Carsten Lohmann
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -38,15 +38,13 @@ if(eregi("^lock$", $message)) {
 	    	bot::send($msg);
 		return;
 	}
-	$msg = "The privategroup has been locked by <highlight>$sender<end>. All members will be kicked in 10seconds.";
+	$msg = "The privategroup has been locked by <highlight>$sender<end>.";
 	bot::send($msg);
 	$msg = "You have locked the privategroup.";
 	if($type == "msg")
 		bot::send($msg, $sender);
 	
 	bot::savesetting("priv_status", "closed");
-  	$this->vars["priv_kickall"] = time() + 10;
-	bot::regevent("2sec", "BASIC_CHAT_MODULE/kickall_event.php");
 } elseif(eregi("^lock (.+)$", $message, $arr)) {
   	$reason = $arr[1];
 	if($this->settings["priv_status"] == "closed") {
@@ -57,7 +55,7 @@ if(eregi("^lock$", $message)) {
 	    	bot::send($msg);
 		return;
 	}
-	$msg = "The privategroup has been locked with the reason <highlight>$reason<end> by <highlight>$sender<end>. All members will be kicked in 10seconds.";
+	$msg = "The privategroup has been locked with the reason <highlight>$reason<end> by <highlight>$sender<end>.";
 	bot::send($msg);
 	$msg = "You have locked the privategroup.";
 	if($type == "msg")
@@ -65,8 +63,6 @@ if(eregi("^lock$", $message)) {
 	
 	bot::savesetting("priv_status", "closed");
 	bot::savesetting("priv_status_reason", $reason);
-  	$this->vars["priv_kickall"] = time() + 10;
-	bot::regevent("2sec", "BASIC_CHAT_MODULE/kickall_event.php");
 } elseif(eregi("^unlock$", $message)) {
   	if($this->settings["priv_status"] == "open") {
 	    $msg = "Privategroup is already opened.";

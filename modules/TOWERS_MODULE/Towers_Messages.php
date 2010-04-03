@@ -7,9 +7,9 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 02.12.2005
-   ** Date(last modified): 26.11.2006
+   ** Date(last modified): 06.02.2007
    ** 
-   ** Copyright (C) 2005, 2006 Carsten Lohmann
+   ** Copyright (C) 2005, 2006, 2007 Carsten Lohmann
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -65,7 +65,7 @@ if(eregi("^(.+) \((.+), (clan|neutral|omni)\) attacked (.+) \((clan|neutral|omni
 	} else {
 		while($row = $db->fObject()) {
 		 	$dist[$row->id] = round(sqrt(pow(($coordx - $row->coordx), 2) + pow(($coordy - $row->coordy), 2)));
-			$data[$row->id]["level"] = $row->level;
+			$data[$row->id]["level"] = $row->low_level."-".$row->high_level;
 			$data[$row->id]["playfield"] = $row->playfield;
 			$data[$row->id]["location"] = $row->location;	
 			$data[$row->id]["hugemaploc"] = $row->hugemaploc;
@@ -135,7 +135,7 @@ if(eregi("^(.+) \((.+), (clan|neutral|omni)\) attacked (.+) \((clan|neutral|omni
 	} else {
 		while($row = $db->fObject()) {
 		 	$dist[$row->id] = round(sqrt(pow(($coordx - $row->coordx), 2) + pow(($coordy - $row->coordy), 2)));
-			$data[$row->id]["level"] = $row->level;
+			$data[$row->id]["level"] = $row->low_level."-".$row->high_level;;
 			$data[$row->id]["playfield"] = $row->playfield;
 			$data[$row->id]["location"] = $row->location;	
 			$data[$row->id]["hugemaploc"] = $row->hugemaploc;

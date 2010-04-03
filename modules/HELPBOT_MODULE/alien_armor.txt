@@ -1,7 +1,10 @@
 <header>::::: Alien Armor Tradeskillprocess :::::<end>
 
-To show the Process for an Alien Armor piece do
+<highlight>To show the Process for an Alien Armor piece do<end>
 <tab><symbol>aiarmor 'type'
+
+<highlight>If you want to specify the QL do<end>
+<tab><symbol>aiarmor 'type' 'ql of the armor'
 
 Allowed Types:
 <highlight>- cc<end>

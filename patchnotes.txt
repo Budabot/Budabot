@@ -1,4 +1,47 @@
 *****************************
+	Version 0.6.3:
+*****************************
+- Changed the name of the php.ini to php-win.ini
+- Added the loading of the php-win.ini in the Batchfile and in the mainloop.php(if the OS is Windows)
+- Fixed some SQL querys in the Online Module that were still not compatible with MySQL
+- Added that the orgmembers var gets created during the start of the Bot
+- Adding a command similar to updatme just for the orgroster
+- Added that you can show also only orgmembers from a specific profession similar to online
+- Added Clan Newbie OOC to the Ignore List
+- Added that players can join the guestchannel without an invite of an orgmember. You can set if everyone or just players on guestlist can join.
+- Added that verify and guestjoin commands by-pass the tell requirements
+- Added that a member can set himself as setting afk kiting
+- Added that when the name of the player is beeing mentioned in the channel and he is afk, a message will be shown on the channel
+- Changed the look of the orgmembers command a bit
+- Fixed a problem with using " in a timer name
+- Added support for adding/kicking admins
+- On Adminlist the superadmin will be highlighted
+- Fixed that you can´t add/kick yourself to a admingroup
+- Fixed a problem with ' in itemsnames while adding it to a raid
+- Fixed a problem with deleting a raid
+- Added commands to set/show points of a specific player(Raidmodule stuff)
+- The lock command will nolonger kick everyone out of the privategroup
+- Fixed a few problems regarding the check of required accesslevels on commands
+- Fixed that in the config command some access levels wasn´t shown correctly
+- Added a few missing items to the ItemsDatabase(all platinum filigree rings were missing)
+- You can set now if the text of a raidleader will be repeated and the color of the repeated text
+- Made the tell command available for guildchannel
+- Added a command to send a tell to all online orgmembers
+- Command added to see when a orgmember was last online
+- Fixed that the battle command had a wrong starter access level
+- Fixed typos
+- Smiley command will now correctly be send back to the right channel
+- Fixed that the profession of guestchannel members wasn´t shown always
+- Added subcommands for the Newscommand so that the accesslevel for showing and adding/deleting news is different
+- Fixed a problem with using + as symbol
+- Added - as new Symbol
+- The roll command has been renamed to flatroll command to solve problems with the roll command from the Helpbot module
+- Fixed a bug that the roll command was continued even though there was nothing to roll.
+- Added a command to search after Land Control Areas(after QL or name).
+- The command to set news for the Privategroup has been renamed to privnews to solve problems with the News command for the Guild
+- Added and updated Helpfiles
+
+*****************************
 	Version 0.6.2:
 *****************************
 - Added a shellscript for Linux

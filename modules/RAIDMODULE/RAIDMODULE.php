@@ -2,9 +2,6 @@
 $MODULE_NAME = "RAIDMODULE";
 
 	/* Commands used only for flatroll of items */
-	//Show current loot list
-	bot::command("priv", "$MODULE_NAME/list.php", "list", "leader", "Show current votelist");
-
 	//Set requirements for the loot roll
 	bot::command("priv", "$MODULE_NAME/setminlvl.php", "setminlvl", "leader", "Sets a minlvl for a slot");
 	bot::command("priv", "$MODULE_NAME/preservewinners.php", "pwinners", "leader", "Let users only win one item on a raid");		
@@ -13,9 +10,9 @@ $MODULE_NAME = "RAIDMODULE";
 	bot::command("priv", "$MODULE_NAME/loot.php", "loot", "leader", "Adds an item to the loot list");
 	bot::command("priv", "$MODULE_NAME/add.php", "add", "all", "Let a player join/rem from a roll");
 	bot::command("priv", "$MODULE_NAME/loot.php", "clear", "leader", "Clears the loot list");
-	bot::command("priv", "$MODULE_NAME/showlist.php", "list", "leader", "Shows the loot list");
-	bot::command("priv", "$MODULE_NAME/rollloot.php", "roll", "leader", "Rolls the loot list");
-	bot::regGroup("basic_loot", $MODULE_NAME, "Handles a basic flatrolled loot system", "loot", "add", "clear", "list", "roll", "setminlvl", "pwinners");
+	bot::command("priv", "$MODULE_NAME/list.php", "list", "leader", "Shows the loot list");
+	bot::command("priv", "$MODULE_NAME/rollloot.php", "flatroll", "leader", "Rolls the loot list");
+	bot::regGroup("basic_loot", $MODULE_NAME, "Handles a basic flatrolled loot system", "loot", "add", "clear", "list", "flatroll", "setminlvl", "pwinners");
 	
 	//Settings
 	bot::addsetting("add_on_loot", "Adding to loot show on", "edit", "1", "tells;privatechat;privatechat and tells", '1;2;3', "mod");
@@ -43,6 +40,10 @@ $MODULE_NAME = "RAIDMODULE";
 	bot::regevent("joinPriv", "$MODULE_NAME/starter_pts.php");
 	bot::command("msg", "$MODULE_NAME/mypoints.php", "mypoints", "all", "Let a player check his point status");
 	bot::command("msg", "$MODULE_NAME/mypoints.php", "mypoint", "all", "Let a player check his point status");
+	
+	//Setpoints/Showpoints
+	bot::command("msg", "$MODULE_NAME/showpts.php", "showpoints", "admin", "Show the points of a player");
+	bot::command("msg", "$MODULE_NAME/setpts.php", "setpoints", "admin", "Set the points for a player");
 	
 	//Raidloot
 	bot::command("msg", "$MODULE_NAME/raidloot.php", "raidloot", "leader", "Shows loot list of the sector");

@@ -7,7 +7,7 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 28.04.2005	
-   ** Date(last modified): 28.04.2005
+   ** Date(last modified): 12.01.2007
    ** 
    ** Copyright (C) 2006 Carsten Lohmann
    **
@@ -29,12 +29,24 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */ 
 
-$php_exec = "php.exe";
-$php_file = "main.php";
-	
-while(true) {
-	$last_line = system("$php_exec $php_file");
-	if(eregi("^The bot is shutting down.$", $last_line))
-    	die();
+/* 
+* If the bot is running under Windows, use php.exe 
+* and the Windows-specific php-win.ini, else use 
+* php and the system default php.ini, if any, or a 
+* local custom php.ini if it exists (hence the new 
+* name for the Windows-specific ini-file.) 
+*/ 
+if(strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') { 
+    $php_exec = "php.exe -c php-win.ini"; 
+} else { 
+    $php_exec = "php"; 
+} 
+
+$php_file = "main.php"; 
+
+while(true) { 
+    $last_line = system("$php_exec -f $php_file"); 
+    if(eregi("^The bot is shutting down.$", $last_line)) 
+        die(); 
 }
 ?>

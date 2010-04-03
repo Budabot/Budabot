@@ -7,9 +7,9 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 05.02.2006
-   ** Date(last modified): 21.11.2006
+   ** Date(last modified): 05.02.2007
    ** 
-   ** Copyright (C) 2006 Carsten Lohmann
+   ** Copyright (C) 2006, 2007 Carsten Lohmann
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -33,7 +33,7 @@
 //Prefix for commands
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'symbol'");
 if($db->numrows() == 0)
-  	$db->query("INSERT INTO settings_<myname> (`name`, `mod`, `mode`, `setting`, `options`, `description`, `source`, `admin`) VALUES ('symbol', 'Basic Settings', 'edit', '{$this->settings["symbol"]}', '!;#;*;§;$;+', 'Prefix for Guild- or Privatechat Commands', 'cfg', 'mod')");
+  	$db->query("INSERT INTO settings_<myname> (`name`, `mod`, `mode`, `setting`, `options`, `description`, `source`, `admin`) VALUES ('symbol', 'Basic Settings', 'edit', '{$this->settings["symbol"]}', '!;#;*;§;$;+;-', 'Prefix for Guild- or Privatechat Commands', 'cfg', 'mod')");
 else 
   	$db->query("UPDATE settings_<myname> SET `setting` = '{$this->settings["symbol"]}' WHERE `name` = 'symbol'");
 

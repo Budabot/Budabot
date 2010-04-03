@@ -7,9 +7,9 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 23.11.2005
-   ** Date(last modified): 21.11.2006
+   ** Date(last modified): 26.01.2007
    ** 
-   ** Copyright (C) 2005, 2006 Carsten Lohmann
+   ** Copyright (C) 2005, 2006, 2007 Carsten Lohmann
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -38,6 +38,27 @@ if(!eregi("^afk(.*)$", $message, $arr)) {
 	        $msg = "<highlight>$sender<end> is back";
 	        bot::send($msg, "guild");
 	    }
+	}
+	$name = split(" ", $message, 2);
+	$name = $name[0];
+	$name = ucfirst(strtolower($name));
+    $uid = AoChat::get_uid($name);
+   	if($uid) {
+		$db->query("SELECT afk FROM guild_chatlist_<myname> WHERE `name` = '$name'");
+		if($db->numrows() == 0 && $this->settings["guest_relay"] == 1 || (isset($this->vars["guestchannel_enabled"]) && $this->vars["guestchannel_enabled"] && $this->settings["guest_relay"] == 2))
+			$db->query("SELECT afk FROM priv_chatlist_<myname> WHERE `name` = '$name' AND `guest` = 1");
+
+		if($db->numrows() != 0) {
+			$row = $db->fObject();
+			if($row->afk == "1")
+				$msg = "<highlight>$name<end> is currently AFK.";
+			elseif($row->afk == "kiting")
+				$msg = "<highlight>$name<end> is currently Kiting.";
+			elseif($row->afk != "0")
+				$msg = "<highlight>$name<end> is currently AFK: <highlight>$row->afk<end>";
+			if($msg != "")
+				bot::send($msg, "guild");
+		}
 	}
 }
 ?>

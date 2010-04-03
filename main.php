@@ -7,7 +7,7 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 01.10.2005	
-   ** Date(last modified): 10.12.2006
+   ** Date(last modified): 12.01.2007
    ** 
    ** Copyright (C) 2005, 2006 Carsten Lohmann and J. Gracik
    **
@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */  
 
-$version = "0.6.2";
+$version = "0.6.3";
 
 echo "\n\n\n\n\n\n\n\n\n\n\n";
 echo "		**************************************************\n";
@@ -67,7 +67,7 @@ if(isWindows()) {
     * if it's available.
     */
     if(!extension_loaded('aokex')) {
-        if(!dl('aokex.so')) {
+        if(!@dl('aokex.so')) {
             echo "Failed to load the aokex extension!\n";
         } else {
             echo "Loaded the aokex extension.\n";
@@ -187,6 +187,7 @@ main(true, $chatBot);
         $line = preg_replace("/<font(.+)>/U", "", $line);
         $line = preg_replace("/<\/font>/U", "", $line);
         $line = preg_replace("/<a href=\"(.+)\">/sU", "[link]", $line);
+        $line = preg_replace("/<a href='(.+)'>/sU", "[link]", $line);
         $line = preg_replace("/<\/a>/U", "[/link]", $line);
         
 		echo "$line\n";

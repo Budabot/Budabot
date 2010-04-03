@@ -2,6 +2,8 @@
 $MODULE_NAME = "ADMIN";
 
 	//Commands	
+	bot::regcommand("msg", "$MODULE_NAME/addadmin.php", "addadmin", "admin");
+	bot::regcommand("msg", "$MODULE_NAME/kickadmin.php", "kickadmin", "admin");
 	bot::regcommand("msg", "$MODULE_NAME/addmod.php", "addmod", "admin");
 	bot::regcommand("msg", "$MODULE_NAME/kickmod.php", "kickmod", "admin");	
 	bot::regcommand("msg", "$MODULE_NAME/raidleader.php", "raidleader", "mod");

@@ -7,9 +7,9 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 23.11.2005
-   ** Date(last modified): 21.11.2006
+   ** Date(last modified): 16.01.2007
    ** 
-   ** Copyright (C) 2005, 2006 Carsten Lohmann
+   ** Copyright (C) 2005, 2006, 2007 Carsten Lohmann
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -35,7 +35,7 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 	
 	echo "\n \nStarting Roster Update \n";
 	//Get the org infos
-	$org = new org($this->vars["my guild id"], $this->vars["dimension"]);
+	$org = new org($this->vars["my guild id"], $this->vars["dimension"], $force_update);
 	
 	//Check if Orgxml file is correct if not abort
 	if($org->errorCode != 0) {

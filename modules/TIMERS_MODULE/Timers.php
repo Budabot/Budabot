@@ -7,9 +7,9 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 26.12.2005
-   ** Date(last modified): 21.11.2006
+   ** Date(last modified): 30.01.2006
    ** 
-   ** Copyright (C) 2005, 2006 Carsten Lohmann
+   ** Copyright (C) 2005, 2006, 2007 Carsten Lohmann
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -90,7 +90,8 @@ if(eregi("^timer ([0-9]+)$", $message, $arr) ) {
       	bot::send($msg, "guild");
 } elseif(eregi("^timer ([0-9]+) (.+)$", $message, $arr)) {
   	$timer_name = trim($arr[2]);
-
+	$timer_name = str_replace('"', '\"', $timer_name);
+	
   	if($arr[1] < 1 || $arr[1] > 10000) {
 		$msg = "No valid time specified!";
 		
@@ -116,6 +117,7 @@ if(eregi("^timer ([0-9]+)$", $message, $arr) ) {
 	}
 			
 	if($found) {
+	 	$timer_name = str_replace('\"', '"', $timer_name);
 	  	$msg = "A Timer with the name <highlight>$timer_name<end> is already running.";
 
   	    // Send info back
@@ -141,7 +143,13 @@ if(eregi("^timer ([0-9]+)$", $message, $arr) ) {
 		$timerset .= $mins."min(s)";
 
   	$this->vars["Timers"][] = array("name" => $timer_name, "owner" => $sender, "mode" => $type, "timer" => $timer, "settime" => time());
-    $db->query("INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`) VALUES (\"$timer_name\", '$sender', '$type', $timer, ".time().")");
+
+    if(strpos($timer_name, '"') === false)
+		$db->query("INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`) VALUES (\"$timer_name\", '$sender', '$type', $timer, ".time().")");
+	else
+		$db->query("INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`) VALUES ('$timer_name', '$sender', '$type', $timer, ".time().")");	
+
+ 	$timer_name = str_replace('\"', '"', $timer_name);
 	$msg = "Timer <highlight>$timer_name<end> has been set for $timerset.";
 		
     // Send info back
@@ -153,6 +161,8 @@ if(eregi("^timer ([0-9]+)$", $message, $arr) ) {
       	bot::send($msg, "guild");
 } elseif(eregi("^timer (rem|del) (.+)$", $message, $arr)) {
 	$timer_name = strtolower($arr[2]);
+	$timer_name = str_replace('"', '\"', $timer_name);
+	
 	foreach($this->vars["Timers"] as $key => $value) {
 		$name = $this->vars["Timers"][$key]["name"];
 		$owner = $this->vars["Timers"][$key]["owner"];
@@ -160,12 +170,22 @@ if(eregi("^timer ([0-9]+)$", $message, $arr) ) {
 		if(strtolower($name) == $timer_name) {
 			if($owner == $sender) {
 				unset($this->vars["Timers"][$key]);
-				$db->query("DELETE FROM timers_<myname> WHERE `name` = \"$name\" AND `owner` = '$sender'");
+				if(strpos($name, '"') === false)
+					$db->query("DELETE FROM timers_<myname> WHERE `name` = \"$name\" AND `owner` = '$sender'");
+				else
+					$db->query("DELETE FROM timers_<myname> WHERE `name` = '$name' AND `owner` = '$sender'");
+					
+			 	$name = str_replace('\"', '"', $timer_name);
 			  	$msg = "Removed timer <highlight>$name<end>.";
 			  	break;
 			} elseif(($this->guildmembers[$sender] <= $this->settings['guild admin level']) || isset($this->admins[$sender])) {
 				unset($this->vars["Timers"][$key]);
-				$db->query("DELETE FROM timers_<myname> WHERE `name` = \"$name\"");
+				if(strpos($name, '"') === false)
+					$db->query("DELETE FROM timers_<myname> WHERE `name` = \"$name\"");
+				else
+					$db->query("DELETE FROM timers_<myname> WHERE `name` = '$name'");
+
+			 	$name = str_replace('\"', '"', $timer_name);	
 			  	$msg = "Removed timer <highlight>$name<end>.";
 			  	break;			  	
 			} else
@@ -294,6 +314,7 @@ if(eregi("^timer ([0-9]+)$", $message, $arr) ) {
 } elseif(eregi("^timer (([0-9]*)[d|day|days]*).(([0-9]*)[h|hr|hrs]*).(([0-9]*)[m|min|mins]*) (.+)$", $message, $arr)) {
 	$last_item = count($arr);
 	$timer_name = trim($arr[$last_item - 1]);
+	$timer_name = str_replace('"', '\"', $timer_name);
 	
 	if(eregi("([0-9]+)(d|day|days)", $message, $day)) {
 		if($day[1] < 1 || $day[1] > 14) {
@@ -372,6 +393,7 @@ if(eregi("^timer ([0-9]+)$", $message, $arr) ) {
 	}
 			
 	if($found) {
+ 	 	$timer_name = str_replace('\"', '"', $timer_name);
 	  	$msg = "A Timer with the name <highlight>$timer_name<end> is already running.";
 
   	    // Send info back
@@ -393,7 +415,13 @@ if(eregi("^timer ([0-9]+)$", $message, $arr) ) {
 		$timerset .= $mins."min(s)";
 
   	$this->vars["Timers"][] = array("name" => $timer_name, "owner" => $sender, "mode" => $type, "timer" => $timer, "settime" => time());
-    $db->query("INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`) VALUES (\"$timer_name\", '$sender', '$type', $timer, ".time().")");
+	if(strpos($timer_name, '"') === false)
+		$db->query("INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`) VALUES (\"$timer_name\", '$sender', '$type', $timer, ".time().")");
+	else
+		$db->query("INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`) VALUES ('$timer_name', '$sender', '$type', $timer, ".time().")");
+
+    
+ 	$timer_name = str_replace('\"', '"', $timer_name);
 	$msg = "Timer <highlight>$timer_name<end> has been set for $timerset.";
 		
     // Send info back
@@ -441,7 +469,9 @@ if(eregi("^timer ([0-9]+)$", $message, $arr) ) {
 				$secs = $tleft-($days*86400)-($hours*3600)-$mins*60;
 				if($secs != 0)
 					$timer .= $secs."sec(s)";
-						
+				
+			 	$name = str_replace('\"', '"', $name);
+					 	
 				if($name == "PrimTimer")
 					$msg .= "\n Timer has <highlight>$timer<end> left [set by <highlight>$owner<end>]";
 				else
@@ -462,7 +492,9 @@ if(eregi("^timer ([0-9]+)$", $message, $arr) ) {
 				$secs = $tleft-($days*86400)-($hours*3600)-$mins*60;
 				if($secs != 0)
 					$timer .= $secs."sec(s)";
-						
+				
+				$name = str_replace('\"', '"', $name);
+				
 				if($name == "PrimTimer")
 					$msg .= "\n Timer has <highlight>$timer<end> left [set by <highlight>$owner<end>]";
 				else
@@ -497,7 +529,9 @@ if(eregi("^timer ([0-9]+)$", $message, $arr) ) {
 				$secs = $tleft-($days*86400)-($hours*3600)-$mins*60;
 				if($secs != 0)
 					$timer .= $secs."sec(s)";
-					
+				
+				$name = str_replace('\"', '"', $name);
+				
 				$list .= "Timername: <highlight>$name<end>\n";
 				$list .= "Timeleft: <highlight>$timer<end>\n";
 				$list .= "Set by: <highlight>$owner<end>\n\n";
@@ -517,7 +551,9 @@ if(eregi("^timer ([0-9]+)$", $message, $arr) ) {
 				$secs = $tleft-($days*86400)-($hours*3600)-$mins*60;
 				if($secs != 0)
 					$timer .= $secs."sec(s)";
-						
+				
+				$name = str_replace('\"', '"', $name);
+				
 				$list .= "Timername: <highlight>$name<end>\n";
 				$list .= "Timeleft: <highlight>$timer<end>\n";
 				$list .= "Set by: <highlight>$owner<end>\n\n";

@@ -2,14 +2,14 @@
    /*
    ** Author: Sebuda/Derroylo (both RK2)
    ** Description: This class provides the basic functions for the bot.
-   ** Version: 0.5.6
+   ** Version: 0.5.9
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 01.10.2005
-   ** Date(last modified): 25.12.2006
+   ** Date(last modified): 05.02.2007
    ** 
-   ** Copyright (C) 2005, 2006 Carsten Lohmann and J. Gracik
+   ** Copyright (C) 2005, 2006, 2007 Carsten Lohmann and J. Gracik
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -101,8 +101,6 @@ class bot extends AOChat{
 				include "./core/BASIC_CONNECTED_EVENTS/BASIC_CONNECTED_EVENTS.php";
 		if($this->settings['debug'] > 0) print("MODULE_NAME:(PRIV_TELL_LIMIT.php)\n");
 				include "./core/PRIV_TELL_LIMIT/PRIV_TELL_LIMIT.php";
-		if($this->settings['debug'] > 0) print("MODULE_NAME:(DBMANAGER.php)\n");
-				include "./core/DB_MANAGER/DB_MANAGER.php";
 		$curMod = "";
 								
 		// Load Plugin Modules
@@ -466,17 +464,24 @@ class bot extends AOChat{
 		}
 							
 		if($command != NULL) // Change commands to lower case.
-			$command = strtolower($command);			
-		// Edit Admin if type is raidbot admin type.
-		if(!is_numeric($admin = strtolower($admin))){
-			if ($admin == "leader")
+			$command = strtolower($command);
+		
+		$admin = strtolower($admin);
+		
+		//Check if the admin status exists
+		if(!is_numeric($admin)) {
+			if($admin == "leader")
 				$admin = 1;
-			if ($admin == "raidleader")
+			elseif($admin == "raidleader" || $admin == "rl")
 				$admin = 2;
-			if ($admin == "mod")
+			elseif($admin == "mod" || $admin == "moderator")
 				$admin = 3;
-			if ($admin == "admin")
+			elseif($admin == "admin")
 				$admin = 4;
+			elseif($admin != "all" && $admin != "guild" && $admin != "guildadmin") {
+				echo "Error in registrating the command $command for channel $type. Reason Unknown Admintype: $admin. Admintype is set to all now.\n";
+				$admin = "all";
+			}
 		}		
 				
 		switch ($type){
@@ -570,16 +575,20 @@ class bot extends AOChat{
 		if($command != NULL) // Change commands to lower case.
 			$command = strtolower($command);
 		
-		// Edit Admin if type is raidbot admin type.
-		if(!is_numeric($admin = strtolower($admin))){
-			if ($admin == "leader")
+		//Check if the admin status exists
+		if(!is_numeric($admin)) {
+			if($admin == "leader")
 				$admin = 1;
-			if ($admin == "raidleader")
+			elseif($admin == "raidleader" || $admin == "rl")
 				$admin = 2;
-			if ($admin == "mod")
+			elseif($admin == "mod" || $admin == "moderator")
 				$admin = 3;
-			if ($admin == "admin")
+			elseif($admin == "admin")
 				$admin = 4;
+			elseif($admin != "all" && $admin != "guild" && $admin != "guildadmin") {
+				echo "Error in registrating the command $command for channel $type. Reason Unknown Admintype: $admin. Admintype is set to all now.\n";
+				$admin = "all";
+			}
 		}
 		
 		if($this->existing_subcmds[$type][$command] == true)
@@ -927,16 +936,20 @@ class bot extends AOChat{
 
 		$command = strtolower($command);
 
-		// Edit Admin if type is raidbot admin type.
-		if(!is_numeric($admin = strtolower($admin))){
-			if ($admin == "leader")
+		//Check if the admin status exists
+		if(!is_numeric($admin)) {
+			if($admin == "leader")
 				$admin = 1;
-			if ($admin == "raidleader")
+			elseif($admin == "raidleader" || $admin == "rl")
 				$admin = 2;
-			if ($admin == "mod")
+			elseif($admin == "mod" || $admin == "moderator")
 				$admin = 3;
-			if ($admin == "admin")
+			elseif($admin == "admin")
 				$admin = 4;
+			elseif($admin != "all" && $admin != "guild" && $admin != "guildadmin") {
+				echo "Error in registrating the command $command for channel $type. Reason Unknown Admintype: $admin. Admintype is set to all now.\n";
+				$admin = "all";
+			}
 		}
 
 		$module = explode("/", $filename);
@@ -1142,6 +1155,7 @@ class bot extends AOChat{
 				$sender	= AOChat::get_uname($args[1]);
 				$channel = $this->vars["name"];
 				$message = $args[2];
+				$restricted = false;
 				if($sender == $this->vars["name"]) {
 					if($this->settings['echo'] >= 1) newLine("Priv Group", $sender, $message, $this->settings['echo']);
 					return;
@@ -1169,9 +1183,10 @@ class bot extends AOChat{
 					}	
 				
 				$msg = "";
-				
-				if(eregi("^{$this->settings["symbol"]}(.+)$", $message, $arr) || eregi("^(afk|brb)(.*)$", $message, $arr)){						
-					$message 	= $arr[1];
+				if(!$restriced && (($message[0] == $this->settings["symbol"] && strlen($message) >= 2) || eregi("^(afk|brb)", $message, $arr))) {
+					if($message[0] == $this->settings["symbol"]) {
+						$message 	= substr($message, 1);
+					}
 					$words		= split(' ', strtolower($message));
 					$admin 		= $this->privCmds[$words[0]]["admin level"];
 					$filename 	= $this->privCmds[$words[0]]["filename"];
@@ -1230,7 +1245,7 @@ class bot extends AOChat{
 				}				
 			
 				//Ignore Messages from Vicinity/IRRK New Wire/OT OOC/OT Newbie OOC...				
-				if($channel == "" || $channel == 'IRRK News Wire' || $channel == 'OT OOC' || $channel == 'OT Newbie OOC' || $channel == 'OT Jpn OOC' || $channel == 'OT shopping 1-50' || $channel == 'Tour Announcements' || $channel == 'Neu. Newbie OOC' || $channel == 'Neu. shopping 1-50' || $channel == 'Neu. OOC' || $channel == 'Clan OOC' || $channel == 'Clan shopping 1-50')
+				if($channel == "" || $channel == 'IRRK News Wire' || $channel == 'OT OOC' || $channel == 'OT Newbie OOC' || $channel == 'OT Jpn OOC' || $channel == 'OT shopping 1-50' || $channel == 'Tour Announcements' || $channel == 'Neu. Newbie OOC' || $channel == 'Neu. shopping 1-50' || $channel == 'Neu. OOC' || $channel == 'Clan OOC' || $channel == 'Clan Newbie OOC' || $channel == 'Clan shopping 1-50')
 					return;
 				
 				if($this->settings['echo'] >= 1) newLine($channel, $sender, $message, $this->settings['echo']);
@@ -1261,8 +1276,10 @@ class bot extends AOChat{
 						}
 					
 					$msg = "";
-					if(eregi("^{$this->settings["symbol"]}(.+)$", $message, $arr) || eregi("^(afk|brb)(.*)$", $message, $arr)){
-    					$message 	= $arr[1];
+					if(!$restriced && (($message[0] == $this->settings["symbol"] && strlen($message) >= 2) || eregi("^(afk|brb)", $message, $arr))) {
+						if($message[0] == $this->settings["symbol"]) {
+							$message 	= substr($message, 1);
+						}
     					$words		= split(' ', strtolower($message));
 						$admin 		= $this->guildCmds[$words[0]]["admin level"];
 						$filename 	= $this->guildCmds[$words[0]]["filename"];

@@ -1,15 +1,15 @@
 <?php
    /*
-   ** Author: Sebuda (RK2)
+   ** Author: Sebuda, Derroylo (RK2)
    ** Description: Shows the adminlist of the bot
    ** Version: 0.2
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 01.10.2005
-   ** Date(last modified): 06.10.2006
+   ** Date(last modified): 30.01.2007
    ** 
-   ** Copyright (C) 2005, 2006 J. Gracik
+   ** Copyright (C) 2005, 2006, 2007 J. Gracik, C. Lohmann
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -37,6 +37,10 @@ if(eregi("^adminlist$", $message)){
 		if($this->admins[$who]["level"] == 4){
 			if($who != ""){ 
 				$list.= "<tab>$who ";
+				
+				if($this->settings["Super Admin"] == $who)
+					$list .= "(<orange>Super Administrator<end>) ";
+					
 				if($this->admins[$who]["online"] == "online" && isset($this->chatlist[$who]))
 					$list.="(<green>Online and in chat<end>)";
 				elseif($this->admins[$who]["online"] == "online")

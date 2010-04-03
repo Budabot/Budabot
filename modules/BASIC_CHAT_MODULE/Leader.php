@@ -7,9 +7,9 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 17.02.2006
-   ** Date(last modified): 03.03.2006
+   ** Date(last modified): 02.02.2007
    ** 
-   ** Copyright (C) 2006 Carsten Lohmann
+   ** Copyright (C) 2006, 2007 Carsten Lohmann
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -29,6 +29,14 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
+if($this->settings["leaderecho"] == 1) {
+	$status = "<green>Enabled<end>";
+	$cmd = "off";
+} else {
+	$status = "<red>Disabled<end>";
+	$cmd = "on";
+}
+
 if(eregi("^leader (.+)$", $message, $arr)) {
     $uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
@@ -38,7 +46,7 @@ if(eregi("^leader (.+)$", $message, $arr)) {
 		$msg = "Player <highlight>".$name."<end> did´t joined this channel.";
 	else {
 		$this->vars["leader"] = $name;
-	  	$msg = "$name is now Raidleader.";	    	
+	  	$msg = "$name is now Raidleader. Raidleader echo is currently $status. You can change it with <symbol>leaderecho $cmd";	    	
 	}
   	bot::send($msg);
 } elseif(eregi("^leader$", $message)) {
@@ -48,12 +56,12 @@ if(eregi("^leader (.+)$", $message, $arr)) {
 	} elseif($this->vars["leader"] != "") {
 		if($this->admins[$sender]["level"] >= $this->admins[$this->vars["leader"]]["level"]){
   			$this->vars["leader"] = $sender;
-		  	$msg = "$sender is now Raidleader.";
+		  	$msg = "$sender is now Raidleader. Raidleader echo is currently $status. You can change it with <symbol>leaderecho $cmd";
 		} else
 			$msg = "You can´t take leader from <highlight>{$this->vars["leader"]}<end>.";
 	} else {
 		$this->vars["leader"] = $sender;
-	  	$msg = "$sender is now Raidleader.";
+	  	$msg = "$sender is now Raidleader. Raidleader echo is currently $status. You can change it with <symbol>leaderecho $cmd";
 	}
   	bot::send($msg);
 

@@ -7,9 +7,9 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 01.03.2006
-   ** Date(last modified): 22.11.2006
+   ** Date(last modified): 30.01.2007
    ** 
-   ** Copyright (C) 2006 Carsten Lohmann
+   ** Copyright (C) 2006, 2007 Carsten Lohmann
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -106,6 +106,9 @@ if(eregi("^(loot clear|clear)$", $message)) {
 	} else
 		$loot[$num_loot]["name"] = $item_name;
 
+	//Save the person who has added the loot item
+	$loot[$num_loot]["added_by"] = $sender;
+	
 	//Send info
 	bot::send("<highlight>{$loot[$num_loot]["name"]}<end> will be rolled in Slot <highlight>#$num_loot<end>");
 	bot::send("To add use <symbol>add $num_loot, or <symbol>add 0 to remove yourself");

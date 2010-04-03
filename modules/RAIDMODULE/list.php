@@ -7,9 +7,9 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 10.10.2006
-   ** Date(last modified): 10.10.2006
+   ** Date(last modified): 30.01.2007
    ** 
-   ** Copyright (C) 2006 Carsten Lohmann
+   ** Copyright (C) 2006, 2007 Carsten Lohmann
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -48,6 +48,9 @@ if(eregi("^list$", $message)) {
 				$list .= "Item: <highlight>{$item["name"]}<end>\n";
 				if($item["minlvl"] != "")
 					$list .= "MinLvl set to <highlight>{$item["minlvl"]}<end>\n";
+
+				$list .= "Added by: <highlight>{$item["added_by"]}<end>\n";
+				
 				$list .= "<highlight>$added_players<end> Total ($add/$rem)\n";
 			  	$list .= "Players added:";
 				if(count($item["users"]) > 0)

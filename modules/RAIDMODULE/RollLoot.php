@@ -2,14 +2,14 @@
    /*
    ** Author: Derroylo (RK2)
    ** Description: Rolling the loot
-   ** Version: 0.1
+   ** Version: 0.2
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 01.03.2006
-   ** Date(last modified): 09.03.2006
+   ** Date(last modified): 05.02.2007
    ** 
-   ** Copyright (C) 2006 Carsten Lohmann
+   ** Copyright (C) 2006, 2007 Carsten Lohmann
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -32,17 +32,19 @@
 global $loot;
 global $loot_winners;
 
-if(eregi("^roll$", $message)) {
+if(eregi("^flatroll$", $message)) {
 	//Check if a loot list exits
   	if(!is_array($loot)) {
 	    $msg = "There is nothing to roll atm.";
 	    bot::send($msg);
+	    return;
 	}
   	
   	$list = "<header>::::: Win List :::::<end>\n\n";
   	//Roll the loot
 	foreach($loot as $item) {
   	  	$list .= "Item: <highlight>{$item["name"]}<end>\n";
+  	  	$list .= "Added by: <highlight>{$item["added_by"]}<end>\n";
   	  	$list .= "Winner: ";
 	    $users = count($item["users"]);
 	 	if($users == 0)

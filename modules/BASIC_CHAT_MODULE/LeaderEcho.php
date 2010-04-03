@@ -7,9 +7,9 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 17.02.2006
-   ** Date(last modified): 08.03.2006
+   ** Date(last modified): 02.02.2007
    ** 
-   ** Copyright (C) 2006 Carsten Lohmann
+   ** Copyright (C) 2006, 2007 Carsten Lohmann
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -29,8 +29,8 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if($this->vars["leader"] == $sender && $message[0] != $this->settings["symbol"]) {
-  	$msg = "<yellow>$message<end>";
+if($this->settings["leaderecho"] == 1 && $this->vars["leader"] == $sender && $message[0] != $this->settings["symbol"]) {
+  	$msg = "{$this->settings["leaderecho_color"]}$message<end>";
   	bot::send($msg);
 }
 ?>

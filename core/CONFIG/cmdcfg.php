@@ -7,9 +7,9 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 15.12.2005
-   ** Date(last modified): 10.12.2006
+   ** Date(last modified): 03.02.2007
    ** 
-   ** Copyright (C) 2006 Carsten Lohmann
+   ** Copyright (C) 2006, 2007 Carsten Lohmann
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -39,8 +39,13 @@ if(eregi("^config$", $message)) {
 	$list .= " - Click ON or Off behind the Module Name to Enable or Disable them completly.\n";
 	$list .= " - Click ON or Off behind the Command/Eventname to Enable or Disable them.\n";
 	$list .= " - Click Adv. behind the name to change their Status for the single Channels \n";
-	$list .= "   and to change their Access Limit\n<end>";
-
+	$list .= "   and to change their Access Limit\n";
+	$list .= " - Behind Adv. you will find Indicators in which channel the command is enabled or disabled.\n";
+	$list .= "   G = Guild Channel\n";
+	$list .= "   P = Private Channel\n";
+	$list .= "   T = Tells\n";	
+	$list .= "   If the char is green the command is enabled otherwise it is disabled\n<end>";
+	
 	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' AND `type` != 'setup' AND `dependson` = 'none' UNION ALL SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'event' AND `type` != 'setup' AND `dependson` = 'none' ORDER BY `module`, `cmd`");
 	$data = $db->fObject("all");
 	foreach($data as $row) {
@@ -64,17 +69,36 @@ if(eregi("^config$", $message)) {
             $list .= "\n<u>".strtoupper($row->module)."</u>$a ($on/$off) $b\n";
             $oldmodule = $row->module;
         }
-        
+
+        $priv = "";
+        $guild = "";
+        $tell = "";
 		if($row->cmdevent == "cmd" && $oldcmd != $row->cmd) {
 			if($row->grp == "none") {
 				$on = "<a href='chatcmd:///tell <myname> config cmd $row->cmd enable all'>ON</a>";
 				$off = "<a href='chatcmd:///tell <myname> config cmd $row->cmd disable all'>OFF</a>";
 				$adv = "<a href='chatcmd:///tell <myname> config cmd $row->cmd $row->module'>Adv.</a>";
 		
+				$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$row->module' AND `cmd` = '$row->cmd'");
+				while($row1 = $db->fObject()) {
+					if($row1->type == "msg" && $row->status == 1)
+						$tell = "|<green>T<end>";
+					elseif($row1->type == "msg" && $row->status == 0)
+						$tell = "|<red>T<end>";
+					elseif($row1->type == "guild" && $row->status == 1)
+						$guild = "|<green>G<end>";
+					elseif($row1->type == "guild" && $row->status == 0)
+						$guild = "|<red>G<end>";
+					elseif($row1->type == "priv" && $row->status == 1)
+						$priv = "|<green>P<end>";
+					elseif($row1->type == "priv" && $row->status == 0)
+						$priv = "|<red>P<end>";
+				}
+
 				if($row->description != "none")
-					$list .= "  $row->description ($adv): $on  $off \n";
+					$list .= "  $row->description ($adv$tell$guild$priv): $on  $off\n";
 				else
-					$list .= "  $row->cmd Command ($adv): $on  $off \n";
+					$list .= "  $row->cmd Command ($adv$tell$guild$priv): $on  $off\n";
 				$oldcmd = $row->cmd;
 			} elseif($group[$row->grp] == false) {
 				$on = "<a href='chatcmd:///tell <myname> config grp ".$row->grp." enable all'>ON</a>";
@@ -345,14 +369,14 @@ if(eregi("^config$", $message)) {
 
 			$found_msg = 1;
 			
-			if($row->admin == 1)
-				$row->admin = "Leader";
-			elseif($row->admin == 2)
+			if($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
 				$row->admin = "Raidleader";
-			elseif ($row->admin == 3)
+			elseif ($row->admin == 2 || $row->admin == "mod")
 				$row->admin = "Moderator";
-			elseif ($row->admin == 4)
+			elseif ($row->admin == 3 || $row->admin == "admin")
 				$row->admin = "Administrator";
+			else
+				$row->admin = ucfirst(strtolower($row->admin));
 		
 			if($row->status == 1)
 				$status = "<green>Enabled<end>";
@@ -381,14 +405,14 @@ if(eregi("^config$", $message)) {
 
 			$found_priv = 1;
 
-			if($row->admin == 1)
-				$row->admin = "Leader";
-			elseif($row->admin == 2)
+			if($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
 				$row->admin = "Raidleader";
-			elseif ($row->admin == 3)
+			elseif ($row->admin == 2 || $row->admin == "mod")
 				$row->admin = "Moderator";
-			elseif ($row->admin == 4)
+			elseif ($row->admin == 3 || $row->admin == "admin")
 				$row->admin = "Administrator";
+			else
+				$row->admin = ucfirst(strtolower($row->admin));
 
 			if($row->status == 1)
 				$status = "<green>Enabled<end>";
@@ -417,13 +441,15 @@ if(eregi("^config$", $message)) {
 			
 			$found_guild = 1;
 			
-			if($row->admin == 1)
+			if($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
 				$row->admin = "Raidleader";
-			elseif ($row->admin == 2)
+			elseif ($row->admin == 2 || $row->admin == "mod")
 				$row->admin = "Moderator";
-			elseif ($row->admin == 3)
+			elseif ($row->admin == 3 || $row->admin == "admin")
 				$row->admin = "Administrator";
-			
+			else
+				$row->admin = ucfirst(strtolower($row->admin));
+				
 			if($row->status == 1)
 				$status = "<green>Enabled<end>";
 			else
@@ -452,14 +478,14 @@ if(eregi("^config$", $message)) {
 				else
 					$list .= "Command: $row->cmd\n";
 					
-				if($row->admin == 1)
-					$row->admin = "Leader";
-				elseif($row->admin == 2)
+				if($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
 					$row->admin = "Raidleader";
-				elseif ($row->admin == 3)
+				elseif ($row->admin == 2 || $row->admin == "mod")
 					$row->admin = "Moderator";
-				elseif ($row->admin == 4)
+				elseif ($row->admin == 3 || $row->admin == "admin")
 					$row->admin = "Administrator";
+				else
+					$row->admin = ucfirst(strtolower($row->admin));
 				
 				$list .= "Current Access: <highlight>$row->admin<end> \n";
 				$list .= "Set min. access lvl to use this command: ";
@@ -481,14 +507,14 @@ if(eregi("^config$", $message)) {
 				else
 					$list .= "Command: $row->cmd\n";
 					
-				if($row->admin == 1)
-					$row->admin = "Leader";
-				elseif($row->admin == 2)
+				if($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
 					$row->admin = "Raidleader";
-				elseif ($row->admin == 3)
+				elseif ($row->admin == 2 || $row->admin == "mod")
 					$row->admin = "Moderator";
-				elseif ($row->admin == 4)
+				elseif ($row->admin == 3 || $row->admin == "admin")
 					$row->admin = "Administrator";
+				else
+					$row->admin = ucfirst(strtolower($row->admin));
 				
 				$list .= "Current Access: <highlight>$row->admin<end> \n";
 				$list .= "Set min. access lvl to use this command: ";
@@ -510,14 +536,14 @@ if(eregi("^config$", $message)) {
 				else
 					$list .= "Command: $row->cmd\n";
 					
-				if($row->admin == 1)
-					$row->admin = "Leader";
-				elseif($row->admin == 2)
+				if($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
 					$row->admin = "Raidleader";
-				elseif ($row->admin == 3)
+				elseif ($row->admin == 2 || $row->admin == "mod")
 					$row->admin = "Moderator";
-				elseif ($row->admin == 4)
+				elseif ($row->admin == 3 || $row->admin == "admin")
 					$row->admin = "Administrator";
+				else
+					$row->admin = ucfirst(strtolower($row->admin));
 				
 				$list .= "Current Access: <highlight>$row->admin<end> \n";
 				$list .= "Set min. access lvl to use this command: ";

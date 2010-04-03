@@ -7,9 +7,9 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 18.02.2006
-   ** Date(last modified): 03.11.2006
+   ** Date(last modified): 26.01.2007
    ** 
-   ** Copyright (C) 2006 Carsten Lohmann
+   ** Copyright (C) 2006, 2007 Carsten Lohmann
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -33,8 +33,8 @@ $type = "priv";
 if($this->vars["Guest"][$sender] == true && $this->settings["guest_cmd"] == 1) {
   	if(eregi("^{$this->settings["symbol"]}(kick|leave)$", $message, $arr)) {
 		AOChat::privategroup_kick($sender);
-	} elseif(eregi("^{$this->settings["symbol"]}(.+)$", $message, $arr) || eregi("^(afk|brb)(.*)$", $message, $arr)){
-    	$message 	= $arr[1];
+	} elseif(eregi("^{$this->settings["symbol"]}(.+)$", $message, $arr)){
+		$message 	= $arr[1];
     	$words		= split(' ', strtolower($message));
 		$admin 		= $this->guildCmds[$words[0]]["admin level"];
 		$filename 	= $this->guildCmds[$words[0]]["filename"];
@@ -50,11 +50,12 @@ if($this->vars["Guest"][$sender] == true && $this->settings["guest_cmd"] == 1) {
 		//Shows syntax errors to the user
 		if($syntax_error == true)
 			bot::send("Syntax error! for more info try /tell <myname> help");
-		return;
-	} else
-		return;
+		
+		$restricted = true;
+	} elseif(eregi("^(afk|brb)", $message, $arr))
+		$restricted = false;
 } elseif($this->vars["Guest"][$sender] == true && eregi("^{$this->settings["symbol"]}(kick|leave)$", $message))
 	AOChat::privategroup_kick($sender);
 elseif($this->vars["Guest"][$sender] == true)
-	return;
+	$restricted = true;
 ?>

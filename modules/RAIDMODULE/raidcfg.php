@@ -7,9 +7,9 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 10.10.2006
-   ** Date(last modified): 22.11.2006
+   ** Date(last modified): 03.02.2007
    ** 
-   ** Copyright (C) 2006 Carsten Lohmann
+   ** Copyright (C) 2006, 2007 Carsten Lohmann
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -78,7 +78,7 @@ if(eregi("^raidconfig$", $message)) {
 				$list .= bot::makeLink("Configure Roll Mode", "/tell <myname> raidconfig rollmode $row->shortform", "chatcmd")." ";
 				$list .= bot::makeLink("Set spawntime", "/tell <myname> raidconfig spawntime $row->shortform", "chatcmd")." ";
 				$list .= bot::makeLink("Show Loottable", "/tell <myname> raidconfig showloot $row->shortform", "chatcmd")." ";
-				$list .= bot::makeLink("Delete this raid with his loottable", "/tell <myname> raidconfig remraid $row->shortform", "chatcmd");
+				$list .= bot::makeLink("Delete this raid(including loottable)", "/tell <myname> raidconfig remraid $row->shortform", "chatcmd");
 			} else
 				$list .= "<red>None available!<end> Add a shortform of the raid first.";
 			
@@ -359,7 +359,7 @@ if(eregi("^raidconfig$", $message)) {
 } elseif(eregi("^raidconfig remraid (.+)$", $message, $arr)) {
 	$raidname = $arr[1];
 	
-	$db->query("SELECT * FROM raids_settings_<myname> WHERE `raid_name` = '$raidname'");
+	$db->query("SELECT * FROM raids_settings_<myname> WHERE `shortform` = '$raidname'");
 	if($db->numrows() == 0) {
 		$msg = "<red>A raid with that name doesn´t exists!<end>";
 		bot::send($msg, $sender);
@@ -432,7 +432,7 @@ if(eregi("^raidconfig$", $message)) {
 	
 	$msg = "The Item <highlight>$item->name<end> has been assigned to the raid <highlight>$raid->raid_name<end>.";
 	bot::send($msg, $sender);
-	$db->query("INSERT INTO raids_items_<myname> VALUES ('$shortform', 'general', '$item->name', $item->highid, $item->highql, $item->icon, 1, 0, 'flat', 0)");
+	$db->query("INSERT INTO raids_items_<myname> VALUES ('$shortform', 'general', \"$item->name\", $item->highid, $item->highql, $item->icon, 1, 0, 'flat', 0)");
 } elseif(eregi("^raidconfig additem ([0-9]+)$", $message, $arr)) {
  	$itemid = $arr[1];
  	

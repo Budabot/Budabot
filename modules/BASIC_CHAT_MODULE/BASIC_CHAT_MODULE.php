@@ -54,8 +54,11 @@ $PLUGIN_VERSION = 0.1;
 	//Leader
 	bot::command("priv", "$MODULE_NAME/leader.php", "leader", "all", "Sets the Leader of the raid");
 	bot::subcommand("priv", "$MODULE_NAME/leader.php", "leader (.+)", "raidleader", "leader", "Set a specific Leader");
+	bot::command("priv", "$MODULE_NAME/leaderecho_cmd.php", "leaderecho", "leader", "Set if the text of the leader will be repeated");
 	bot::event("priv", "$MODULE_NAME/leaderecho.php", "leader");
-	
+	bot::addsetting("leaderecho", "Repeat the text of the raidleader", "edit", "1", "ON;OFF", "1;0");
+	bot::addsetting("leaderecho_color", "Color for Raidleader echo", "edit", "<font color=#FFFF00>", "color");
+
 	//Assist
 	bot::command("priv", "$MODULE_NAME/assist.php", "assist", "all", "Creates/showes an Assist macro");
 	bot::subcommand("priv", "$MODULE_NAME/assist.php", "assist (.+)", "leader", "assist", "Set a new assist");
@@ -76,20 +79,23 @@ $PLUGIN_VERSION = 0.1;
 	bot::event("connect", "$MODULE_NAME/autoreinvite.php", "none", "Reinvites the players that were in the privgrp before restart/crash");
 	
 	//Set admin and user news
-	bot::command("msg", "$MODULE_NAME/set_news.php", "news", "rl", "Set news that are shown on privjoin");
+	bot::command("msg", "$MODULE_NAME/set_news.php", "privnews", "rl", "Set news that are shown on privjoin");
 	bot::command("msg", "$MODULE_NAME/set_news.php", "adminnews", "mod", "Set adminnews that are shown on privjoin");
 	bot::addsetting("news", "no", "hide", "Not set.");
 	bot::addsetting("adminnews", "no", "hide", "Not set.");	
 	
 	//Helpfiles
+	bot::help("afk_priv", "$MODULE_NAME/afk.txt", "all", "Going AFK", "Raidbot");
 	bot::help("assist", "$MODULE_NAME/assist.txt", "all", "Creating an Assist Macro", "Raidbot");
 	bot::help("check", "$MODULE_NAME/check.txt", "all", "See of the ppls are in the area", "Raidbot");
 	bot::help("heal_assist", "$MODULE_NAME/healassist.txt", "all", "Creating an Healassist Macro", "Raidbot");
 	bot::help("join_leave", "$MODULE_NAME/joinleave.txt", "all", "Joining and leaving the bot", "Raidbot");
 	bot::help("kickall", "$MODULE_NAME/kickall.txt", "raidleader", "Kick all players from the Bot", "Raidbot");	
-	bot::help("leader", "$MODULE_NAME/leader.txt", "all", "Set a leader of the Raid", "Raidbot");	
+	bot::help("leader", "$MODULE_NAME/leader.txt", "all", "Set a Leader of a Raid/Echo on/off", "Raidbot");	
 	bot::help("lock", "$MODULE_NAME/lock.txt", "raidleader", "Lock the privategroup", "Raidbot");			
+	bot::help("priv_news", "$MODULE_NAME/priv_news.txt", "raidleader", "Set Privategroup News", "Raidbot");			
 	bot::help("tell", "$MODULE_NAME/tell.txt", "leader", "Repeating of a msg 3times", "Raidbot");
+	bot::help("topic", "$MODULE_NAME/topic.txt", "raidleader", "Set the Topic of the raid", "Raidbot");			
 	bot::help("updateme", "$MODULE_NAME/updateme.txt", "all", "Update your character infos", "Raidbot");
 	bot::help("userinvitekick", "$MODULE_NAME/userinvitekick.txt", "leader", "Invite or kick a player from the channel", "Raidbot");					
 ?>

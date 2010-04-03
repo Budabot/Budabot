@@ -7,7 +7,7 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 13.09.2006
-   ** Date(last modified): 13.09.2006
+   ** Date(last modified): 03.03.2007
    ** 
    */
 $basic="<header>::::: Smiley Dictionary: Basic Smileys :::::<end>
@@ -126,7 +126,16 @@ User just died. ";
 if(eregi("^smileys$", $message)) {
 	$basiclink = bot::makeLink("Basic Smileys", $basic) ;
 	$widelink = bot::makeLink("Widely Used Smileys", $wide);
-	bot::send($basiclink, "guild");
-	bot::send($widelink, "guild");
+
+	if($type == "msg") {
+		bot::send($basiclink, $sender);
+		bot::send($widelink, $sender);
+	} elseif($type == "guild") {
+		bot::send($basiclink, "guild");
+		bot::send($widelink, "guild");
+ 	} else {
+		bot::send($basiclink);
+		bot::send($widelink);
+	}
 }
 ?>

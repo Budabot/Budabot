@@ -7,9 +7,9 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 10.10.2006
-   ** Date(last modified): 10.10.2006
+   ** Date(last modified): 03.03.2007
    ** 
-   ** Copyright (C) 2006 Carsten Lohmann
+   ** Copyright (C) 2006, 2007 Carsten Lohmann
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -36,7 +36,7 @@ $time = time();
 foreach($raidlist_timers as $key => $value) {
 	$left_time = $time - $value;
   	if(($left_time >= 120) && ($left_time < 180))
-  		bot::send("You have left the bot for more then 2minutes now and will be kicked of the raidlist soon.", $key);
+  		bot::send("You have left the bot for more than 2minutes now and will be kicked of the raidlist soon.", $key);
   	elseif($left_time >= 300) {
 	    bot::send("You have been kicked out of the raidlist.", $key);
 	    if(isset($raidlist[$key]))

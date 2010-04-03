@@ -7,9 +7,9 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 01.10.2005
-   ** Date(last modified): 14.11.2006
+   ** Date(last modified): 16.01.2007
    ** 
-   ** Copyright (C) 2005, 2006 Carsten Lohmann and J. Gracik
+   ** Copyright (C) 2005, 2006, 2007 Carsten Lohmann and J. Gracik
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -239,7 +239,7 @@ class org extends xml {
     public $errorInfo;
 
 	//contructor of the class
-	function __construct($organization_id = 0, $rk_num = 0, $cache = 0){ 
+	function __construct($organization_id = 0, $rk_num = 0, $cache = 0, $force_update = false){ 
 		//if no server number is specified use the one on which the bot is logged in
 		if($rk_num == 0) {
 		  	global $vars;
@@ -257,17 +257,17 @@ class org extends xml {
 	        @mkdir($cache, 0777);
 		
 		//organisation lookup
-        $this->lookup($organization_id, $rk_num, $cache);            
+        $this->lookup($organization_id, $rk_num, $cache, $force_update);            
 	} //end of contructor
     
     //the organisation lookup function
-	function lookup($organization_id, $rk_num, $cache) {
+	function lookup($organization_id, $rk_num, $cache, $force_update) {
 	 	global $vars;
 		$data_found = false;
 		$data_save = false;
 		
 		//Check if a xml file of the person exists and if it is uptodate
-		if(file_exists("$cache/$organization_id.$rk_num.xml")) {
+		if(!force_update && file_exists("$cache/$organization_id.$rk_num.xml")) {
 	        $mins = (time() - filemtime("$cache/$organization_id.$rk_num.xml")) / 60;
             $hours = floor($mins/60);
             //if the file is not older then 24hrs and it is not the roster of the bot guild then use the cache one, when it the xml file from the org bot guild and not older then 6hrs use it

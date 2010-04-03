@@ -7,7 +7,7 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 23.11.2005
-   ** Date(last modified): 21.11.2006
+   ** Date(last modified): 13.01.2007
    ** 
    ** Copyright (C) 2005, 2006 Carsten Lohmann
    **
@@ -34,7 +34,7 @@ if(eregi("^chatlist$", $message) || eregi("^sm$", $message)){
 		$db->query("SELECT * FROM priv_chatlist_<myname> ORDER BY `level` DESC");
 	} elseif($type == "guild" || ($this->settings["online_tell"] == 0 && $type == "msg")) {
 	  	if($this->settings["relaybot"] != "0")
-			$db->query("SELECT * FROM guild_chatlist_<myname> UNION ALL SELECT * FROM guild_chatlist_{$this->settings["relaybot"]} ORDER BY `level` DESC");
+			$db->query("SELECT * FROM guild_chatlist_<myname> UNION ALL SELECT * FROM guild_chatlist_".strtolower($this->settings["relaybot"])." ORDER BY `level` DESC");
 		else
 			$db->query("SELECT * FROM guild_chatlist_<myname> ORDER BY `level` DESC");
 	}

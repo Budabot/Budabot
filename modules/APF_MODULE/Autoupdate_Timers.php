@@ -7,9 +7,9 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 25.03.2006
-   ** Date(last modified): 25.03.2006
+   ** Date(last modified): 02.02.2007
    ** 
-   ** Copyright (C) 2006 Carsten Lohmann
+   ** Copyright (C) 2006, 2007 Carsten Lohmann
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -47,6 +47,6 @@ if($sender == $this->settings["apftimerbot"]) {
 	  	bot::send($msg, "guild");
 		bot::send($msg);
 	}
-	return;
+	$restricted = true;
 }
 ?>

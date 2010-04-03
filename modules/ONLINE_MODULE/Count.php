@@ -7,7 +7,7 @@
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 23.11.2005
-   ** Date(last modified): 22.12.2006
+   ** Date(last modified): 23.01.2007
    ** 
    ** Copyright (C) 2005, 2006 Carsten Lohmann
    **
@@ -76,7 +76,7 @@ if(eregi("^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader)$", $m
     }
     if($type == "guild" || ($this->settings["count_tell"] == 0 && $type == "msg") || ($type == "priv" && $this->vars["Guest"][$sender] == true)) {
 	    if($this->settings["relaybot"])
-			$db->query("SELECT name, profession, level, afk FROM guild_chatlist_<myname> WHERE `profession` = '$prof' UNION ALL SELECT name, profession, level, afk FROM guild_chatlist_{$this->settings["relaybot"]} WHERE `profession` = '$prof' UNION ALL SELECT name, profession, level, afk FROM priv_chatlist_<myname> WHERE `profession` = '$prof' AND `guest` = 1 ORDER BY level");
+			$db->query("SELECT name, profession, level, afk FROM guild_chatlist_<myname> WHERE `profession` = '$prof' UNION ALL SELECT name, profession, level, afk FROM guild_chatlist_".strtolower($this->settings["relaybot"])." WHERE `profession` = '$prof' UNION ALL SELECT name, profession, level, afk FROM priv_chatlist_<myname> WHERE `profession` = '$prof' AND `guest` = 1 ORDER BY level");
 	    else
 		    $db->query("SELECT name, profession, level, afk FROM guild_chatlist_<myname> WHERE `profession` = '$prof' UNION ALL SELECT name, profession, level, afk FROM priv_chatlist_<myname> WHERE `profession` = '$prof' AND `guest` = 1 ORDER BY level"); 
 	} elseif($type == "priv" || ($this->settings["count_tell"] == 1 && $type == "msg")) {
@@ -86,7 +86,9 @@ if(eregi("^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader)$", $m
     $msg = "<highlight>$numonline<end> $prof:";
 
     while($row = $db->fObject()) {
-        if($row->afk != "0")
+        if($row->afk == "kiting")
+            $afk = "<red>*KITING*<end>";
+		elseif($row->afk != "0")
             $afk = "<red>*AFK*<end>";
         else
             $afk = "";
@@ -108,7 +110,7 @@ if(eregi("^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader)$", $m
 	$tl7 = 0;
 	if($type == "guild" || ($this->settings["count_tell"] == 0 && $type == "msg") || ($type == "priv" && $this->vars["Guest"][$sender] == true)) {							
 	    if($this->settings["relaybot"])
-		    $db->query("SELECT name, profession, level, afk FROM guild_chatlist_<myname> UNION ALL SELECT name, profession, level, afk FROM guild_chatlist_{$this->settings["relaybot"]} UNION ALL SELECT name, profession, level, afk FROM priv_chatlist_<myname> WHERE `guest` = 1 ORDER BY level");
+		    $db->query("SELECT name, profession, level, afk FROM guild_chatlist_<myname> UNION ALL SELECT name, profession, level, afk FROM guild_chatlist_".strtolower($this->settings["relaybot"])." UNION ALL SELECT name, profession, level, afk FROM priv_chatlist_<myname> WHERE `guest` = 1 ORDER BY level");
 	    else
 		    $db->query("SELECT name, profession, level, afk FROM guild_chatlist_<myname> UNION ALL SELECT name, profession, level, afk FROM priv_chatlist_<myname> WHERE `guest` = 1 ORDER BY level"); 
  	} elseif($type == "priv"  || ($this->settings["count_tell"] == 1 && $type == "msg")) {
@@ -228,11 +230,11 @@ if(eregi("^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader)$", $m
 	if($type == "guild" || ($this->settings["count_tell"] == 0 && $type == "msg") || ($type == "priv" && $this->vars["Guest"][$sender] == true)) {
 	    if($this->settings["relaybot"]) {
 	        if($prof == "all") {
-				$db->query("SELECT name, profession, level, afk FROM guild_chatlist_<myname> UNION ALL SELECT name, profession, level, afk FROM guild_chatlist_{$this->settings["relaybot"]} UNION ALL SELECT name, profession, level, afk FROM priv_chatlist_<myname> WHERE `guest` = 1 ORDER BY profession");
+				$db->query("SELECT name, profession, level, afk FROM guild_chatlist_<myname> UNION ALL SELECT name, profession, level, afk FROM guild_chatlist_".strtolower($this->settings["relaybot"])." UNION ALL SELECT name, profession, level, afk FROM priv_chatlist_<myname> WHERE `guest` = 1 ORDER BY profession");
 	            $numonline = $db->numrows();
 	            $msg = "<highlight>$numonline<end> in total: ";
 	        } else {
-				$db->query("SELECT name, profession, level, afk FROM guild_chatlist_<myname> WHERE `profession` = '$prof' UNION ALL SELECT name, profession, level, afk FROM guild_chatlist_{$this->settings["relaybot"]} WHERE `profession` = '$prof' UNION ALL SELECT name, profession, level, afk FROM priv_chatlist_<myname> WHERE `profession` = '$prof' AND `guest` = 1 ORDER BY level");
+				$db->query("SELECT name, profession, level, afk FROM guild_chatlist_<myname> WHERE `profession` = '$prof' UNION ALL SELECT name, profession, level, afk FROM guild_chatlist_".strtolower($this->settings["relaybot"])." WHERE `profession` = '$prof' UNION ALL SELECT name, profession, level, afk FROM priv_chatlist_<myname> WHERE `profession` = '$prof' AND `guest` = 1 ORDER BY level");
 	            $numonline = $db->numrows();
 	            $msg = "<highlight>$numonline<end> $prof:";
 	        }
@@ -263,7 +265,9 @@ if(eregi("^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader)$", $m
 	    if($prof == "all")
     	    $online[$row->profession]++;
         else {
-            if($row->afk != "0")
+            if($row->afk == "kiting")
+            	$afk = "<red>*KITING*<end>";
+			elseif($row->afk != "0")
 	            $afk = "<red>*AFK*<end>";
             else
                 $afk = "";

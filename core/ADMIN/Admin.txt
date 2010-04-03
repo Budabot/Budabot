@@ -9,3 +9,6 @@ Basic commands /tells
 <highlight>Access: Administrators<end>
 <tab>/tell <myname> addmod {player}
 <tab>/tell <myname> kickmod {player}
+<highlight>Access: Super-Administrator<end>
+<tab>/tell <myname> addadmin {player}
+<tab>/tell <myname> kickadmin {player}

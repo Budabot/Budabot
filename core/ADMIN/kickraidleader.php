@@ -1,15 +1,15 @@
 <?php
    /*
-   ** Author: Sebuda (RK2)
+   ** Author: Sebuda, Derroylo (RK2)
    ** Description: Removes a RL from the adminlist
    ** Version: 0.2
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 01.10.2005
-   ** Date(last modified): 21.11.2006
+   ** Date(last modified): 30.01.2007
    ** 
-   ** Copyright (C) 2005,2006 J. Gracik
+   ** Copyright (C) 2005,2006 J. Gracik, C. Lohmann
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -36,6 +36,12 @@ if(eregi("^kickraidleader (.+)$", $message, $arr)){
 		return;	
 	}
 	
+	if($who == $sender) {
+		bot::send("<red>You can´t kick yourself.<end>", $sender);
+		return;		
+	}
+
+
 	if($this->admins[$who]["level"] != 2) {
 		bot::send("<red>Sorry $who is not a Raidleader of this Bot.<end>", $sender);
 		return;	

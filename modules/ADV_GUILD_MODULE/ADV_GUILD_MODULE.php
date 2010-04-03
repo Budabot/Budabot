@@ -4,10 +4,16 @@ $PLUGIN_VERSION = 0.1;
 
 	//News
     bot::event("logOn", "$MODULE_NAME/news_logon.php", "none", "Show News on logon of members");  	
-	bot::command("guild", "$MODULE_NAME/news.php", "news", "all", "Set News");
-	bot::command("priv", "$MODULE_NAME/news.php", "news", "all", "Set News");
-	bot::command("msg", "$MODULE_NAME/news.php", "news", "all", "Set News");
-		
+	bot::command("guild", "$MODULE_NAME/news.php", "news", "all", "Show News");
+	bot::command("priv", "$MODULE_NAME/news.php", "news", "all", "Show News");
+	bot::command("msg", "$MODULE_NAME/news.php", "news", "all", "Show News");
+	bot::subcommand("msg", "$MODULE_NAME/news.php", "news (.+)", "guildadmin", "news", "Add News");
+	bot::subcommand("guild", "$MODULE_NAME/news.php", "news (.+)", "guildadmin", "news", "Add News");
+	bot::subcommand("priv", "$MODULE_NAME/news.php", "news (.+)", "guildadmin", "news", "Add News");	
+	bot::subcommand("msg", "$MODULE_NAME/news.php", "news del (.+)", "guildadmin", "news", "Delete a Newsentry");
+	bot::subcommand("guild", "$MODULE_NAME/news.php", "news del (.+)", "guildadmin", "news", "Delete a Newsentry");
+	bot::subcommand("priv", "$MODULE_NAME/news.php", "news del (.+)", "guildadmin", "news", "Delete a Newsentry");
+	
 	//Citycloak
     bot::command("guild", "$MODULE_NAME/city_guild.php", "city", "all", "Shows the status of the Citycloak");
     bot::event("guild", "$MODULE_NAME/city_guild.php", "city");
