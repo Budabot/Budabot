@@ -1,4 +1,0 @@
-<header>::::: Check your amount of points :::::<end>
-
-To see how much points you have do
-<highlight><tab><symbol>mypoints<end>

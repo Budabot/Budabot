@@ -1,7 +1,0 @@
-<header>::::: Raidloot :::::<end>
-
-To show the loot of the current raid
-<highlight><tab><symbol>raidloot<end>
-
-To roll the loot
-<highlight><tab><symbol>raidroll<end>

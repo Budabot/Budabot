@@ -1,4 +1,0 @@
-<header>::::: Raidpoints :::::<end>
-
-Give out raidpoints
-<highlight><tab><symbol>raidpoints<end>

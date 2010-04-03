@@ -1,4 +1,0 @@
-<header>::::: Raidconfiguration :::::<end>
-
-To configure the raids
-<highlight><tab><symbol>raidconfig<end>

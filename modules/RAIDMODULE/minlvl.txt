@@ -1,7 +1,0 @@
-<header>::::: Set a minlvl on an item :::::<end>
-
-<highlight>Set a minlvl on a item<end>
-<tab><symbol>setminlvl 'spot' 'min level'
-
-<highlight>Removing the minlvl from a item<end>
-<tab><symbol>setminlvl 'spot' 0
