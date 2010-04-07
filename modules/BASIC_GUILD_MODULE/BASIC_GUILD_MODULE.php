@@ -36,8 +36,8 @@
 
     // Afk Check
 	bot::event("guild", "$MODULE_NAME/afk_check.php", "afk");
-	bot::command("", "$MODULE_NAME/afk.php", "afk", "all", "Sets a member afk");
-	bot::command("", "$MODULE_NAME/kiting.php", "kiting", "all", "Sets a member afk kiting");
+	bot::command("guild", "$MODULE_NAME/afk.php", "afk", "all", "Sets a member afk");
+	bot::command("guild", "$MODULE_NAME/kiting.php", "kiting", "all", "Sets a member afk kiting");
 
 	//Verifies the Onlinelist every 1hour
 	bot::event("1hour", "$MODULE_NAME/online_check.php", "online");
