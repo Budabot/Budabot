@@ -1,65 +1,25 @@
 <?
-$MODULE_NAME = "ONLINE_MODULE";
+	$MODULE_NAME = "ONLINE_MODULE";
 
 	//Private
-	bot::command("priv", "$MODULE_NAME/online.php", "online", "all", "Shows who is the PrivChan");
-	bot::command("priv", "$MODULE_NAME/chatlist.php", "sm", "all", "Shows who is the PrivChan");
-	bot::command("priv", "$MODULE_NAME/chatlist.php", "chatlist", "all", "Shows who is the PrivChan");
-	bot::command("priv", "$MODULE_NAME/count.php", "count", "all", "Shows who is the PrivChan");
-    bot::command("priv", "$MODULE_NAME/count.php", "adv", "all", "Shows Adventurer큦 in PrivChan");
-    bot::command("priv", "$MODULE_NAME/count.php", "agent", "all", "Shows Agent큦 in PrivChan");
-    bot::command("priv", "$MODULE_NAME/count.php", "crat", "all", "Shows Bureaucrat큦 in PrivChan");
-    bot::command("priv", "$MODULE_NAME/count.php", "doc", "all", "Shows Doctor큦 in PrivChan");
-    bot::command("priv", "$MODULE_NAME/count.php", "enf", "all", "Shows Enforcer큦 in PrivChan");
-    bot::command("priv", "$MODULE_NAME/count.php", "eng", "all", "Shows Engineer큦 in PrivChan");
-    bot::command("priv", "$MODULE_NAME/count.php", "fix", "all", "Shows Fixer큦 in PrivChan");
-    bot::command("priv", "$MODULE_NAME/count.php", "keep", "all", "Shows Keeper큦 in PrivChan");
-    bot::command("priv", "$MODULE_NAME/count.php", "ma", "all", "Shows Martial-Artist큦 in PrivChan");
-    bot::command("priv", "$MODULE_NAME/count.php", "mp", "all", "Shows Meta-Physicist큦 in PrivChan");
-    bot::command("priv", "$MODULE_NAME/count.php", "nt", "all", "Shows Nano-Technician큦 in PrivChan");
-    bot::command("priv", "$MODULE_NAME/count.php", "sol", "all", "Shows Soldier큦 in PrivChan");
-    bot::command("priv", "$MODULE_NAME/count.php", "shade", "all", "Shows Shade큦 in PrivChan");
-    bot::command("priv", "$MODULE_NAME/count.php", "trader", "all", "Shows Trader큦 in PrivChan");
-
-	//Guild
-	bot::command("guild", "$MODULE_NAME/count.php", "adv", "all", "Shows online Adventurer큦");
-    bot::command("guild", "$MODULE_NAME/count.php", "agent", "all", "Shows online Agent큦");
-    bot::command("guild", "$MODULE_NAME/count.php", "crat", "all", "Shows online Bureaucrat큦");
-    bot::command("guild", "$MODULE_NAME/count.php", "doc", "all", "Shows online Doctor큦");
-    bot::command("guild", "$MODULE_NAME/count.php", "enf", "all", "Shows online Enforcer큦");
-    bot::command("guild", "$MODULE_NAME/count.php", "eng", "all", "Shows online Engineer큦");
-    bot::command("guild", "$MODULE_NAME/count.php", "fix", "all", "Shows online Fixer큦");
-    bot::command("guild", "$MODULE_NAME/count.php", "keep", "all", "Shows online Keeper큦");
-    bot::command("guild", "$MODULE_NAME/count.php", "ma", "all", "Shows online Martial-Artist큦");
-    bot::command("guild", "$MODULE_NAME/count.php", "mp", "all", "Shows online Meta-Physicist큦");
-    bot::command("guild", "$MODULE_NAME/count.php", "nt", "all", "Shows online Nano-Technician큦");
-    bot::command("guild", "$MODULE_NAME/count.php", "sol", "all", "Shows online Soldier큦");
-    bot::command("guild", "$MODULE_NAME/count.php", "shade", "all", "Shows online Shade큦");
-    bot::command("guild", "$MODULE_NAME/count.php", "trader", "all", "Shows online Trader큦");
-	bot::command("guild", "$MODULE_NAME/chatlist.php", "sm", "all", "Chatlist");
-	bot::command("guild", "$MODULE_NAME/chatlist.php", "chatlist", "all", "Chatlist");
-    bot::command("guild", "$MODULE_NAME/online.php", "online", "all", "Online List");
-	bot::command("guild", "$MODULE_NAME/count.php", "count", "all", "Counts online Members");
-	
-	//Tells
-	bot::command("msg", "$MODULE_NAME/count.php", "adv", "all", "Shows online Adventurer큦");
-    bot::command("msg", "$MODULE_NAME/count.php", "agent", "all", "Shows online Agent큦");
-    bot::command("msg", "$MODULE_NAME/count.php", "crat", "all", "Shows online Bureaucrat큦");
-    bot::command("msg", "$MODULE_NAME/count.php", "doc", "all", "Shows online Doctor큦");
-    bot::command("msg", "$MODULE_NAME/count.php", "enf", "all", "Shows online Enforcer큦");
-    bot::command("msg", "$MODULE_NAME/count.php", "eng", "all", "Shows online Engineer큦");
-    bot::command("msg", "$MODULE_NAME/count.php", "fix", "all", "Shows online Fixer큦");
-    bot::command("msg", "$MODULE_NAME/count.php", "keep", "all", "Shows online Keeper큦");
-    bot::command("msg", "$MODULE_NAME/count.php", "ma", "all", "Shows online Martial-Artist큦");
-    bot::command("msg", "$MODULE_NAME/count.php", "mp", "all", "Shows online Meta-Physicist큦");
-    bot::command("msg", "$MODULE_NAME/count.php", "nt", "all", "Shows online Nano-Technician큦");
-    bot::command("msg", "$MODULE_NAME/count.php", "sol", "all", "Shows online Soldier큦");
-    bot::command("msg", "$MODULE_NAME/count.php", "shade", "all", "Shows online Shade큦");
-    bot::command("msg", "$MODULE_NAME/count.php", "trader", "all", "Shows online Trader큦");
-	bot::command("msg", "$MODULE_NAME/chatlist.php", "sm", "all", "Chatlist");
-	bot::command("msg", "$MODULE_NAME/chatlist.php", "chatlist", "all", "Chatlist");
-    bot::command("msg", "$MODULE_NAME/online.php", "online", "all", "Online List");
-	bot::command("msg", "$MODULE_NAME/count.php", "count", "all", "Counts online Members");
+	bot::command("", "$MODULE_NAME/online.php", "online", "all", "Shows who is the PrivChan");
+	bot::command("", "$MODULE_NAME/chatlist.php", "sm", "all", "Shows who is the PrivChan");
+	bot::command("", "$MODULE_NAME/chatlist.php", "chatlist", "all", "Shows who is the PrivChan");
+	bot::command("", "$MODULE_NAME/count.php", "count", "all", "Shows who is the PrivChan");
+    bot::command("", "$MODULE_NAME/count.php", "adv", "all", "Shows Adventurer큦 in PrivChan");
+    bot::command("", "$MODULE_NAME/count.php", "agent", "all", "Shows Agent큦 in PrivChan");
+    bot::command("", "$MODULE_NAME/count.php", "crat", "all", "Shows Bureaucrat큦 in PrivChan");
+    bot::command("", "$MODULE_NAME/count.php", "doc", "all", "Shows Doctor큦 in PrivChan");
+    bot::command("", "$MODULE_NAME/count.php", "enf", "all", "Shows Enforcer큦 in PrivChan");
+    bot::command("", "$MODULE_NAME/count.php", "eng", "all", "Shows Engineer큦 in PrivChan");
+    bot::command("", "$MODULE_NAME/count.php", "fix", "all", "Shows Fixer큦 in PrivChan");
+    bot::command("", "$MODULE_NAME/count.php", "keep", "all", "Shows Keeper큦 in PrivChan");
+    bot::command("", "$MODULE_NAME/count.php", "ma", "all", "Shows Martial-Artist큦 in PrivChan");
+    bot::command("", "$MODULE_NAME/count.php", "mp", "all", "Shows Meta-Physicist큦 in PrivChan");
+    bot::command("", "$MODULE_NAME/count.php", "nt", "all", "Shows Nano-Technician큦 in PrivChan");
+    bot::command("", "$MODULE_NAME/count.php", "sol", "all", "Shows Soldier큦 in PrivChan");
+    bot::command("", "$MODULE_NAME/count.php", "shade", "all", "Shows Shade큦 in PrivChan");
+    bot::command("", "$MODULE_NAME/count.php", "trader", "all", "Shows Trader큦 in PrivChan");
 
 	//Group	
 	bot::regGroup("online", $MODULE_NAME, "Show who is online(guild or privatechat)", "adv", "agent", "crat", "doc", "enf", "eng", "fix", "keep", "ma", "mp", "nt", "sol", "shade", "trader", "sm", "chatlist", "online", "count");

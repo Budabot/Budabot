@@ -35,11 +35,7 @@
 
 	$MODULE_NAME = "ORG_HISTORY_MODULE";
 
-	//Guild
-	bot::command("guild", "$MODULE_NAME/org_history.php", "orghistory", "all", "Shows the org history (invites and kicks) for a player");
-
-	//Tells
-	bot::command("msg", "$MODULE_NAME/org_history.php", "orghistory", "all", "Shows the org history (invites and kicks) for a player");
+	bot::command("msg guild", "$MODULE_NAME/org_history.php", "orghistory", "all", "Shows the org history (invites and kicks) for a player");
 	
 	// events
 	bot::event("orgmsg", "$MODULE_NAME/org_action_listener.php", "none", "Capture Org Invite/Kick messages");

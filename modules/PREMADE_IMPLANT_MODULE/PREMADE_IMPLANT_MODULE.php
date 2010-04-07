@@ -23,14 +23,8 @@
 	$MODULE_NAME = "PREMADE_IMPLANT_MODULE";
 
 	//adds tower info to 'watch' list
-	bot::command("guild", "$MODULE_NAME/premade.php", "premade", "all", "Searches for implants out of the premade implants booths");
-	bot::command("priv", "$MODULE_NAME/premade.php", "premade", "all", "Searches for implants out of the premade implants booths");
-	bot::command("msg", "$MODULE_NAME/premade.php", "premade", "all", "Searches for implants out of the premade implants booths");
-	
-	// removes tower info from 'watch' list
-	bot::command("guild", "$MODULE_NAME/premade_update.php", "premadeupdate", "all", "Checks the premade imp db for updates");
-	bot::command("priv", "$MODULE_NAME/premade_update.php", "premadeupdate", "all", "Checks the premade imp db for updates");
-	bot::command("msg", "$MODULE_NAME/premade_update.php", "premadeupdate", "all", "Checks the premade imp db for updates");
+	bot::command("", "$MODULE_NAME/premade.php", "premade", "all", "Searches for implants out of the premade implants booths");
+	bot::command("", "$MODULE_NAME/premade_update.php", "premadeupdate", "all", "Checks the premade imp db for updates");
 	
 	//Helpfiles
 	bot::help("Premade Implants", "$MODULE_NAME/premade_implant.txt", "guild", "Premade Implant Help", "Premade Implant");

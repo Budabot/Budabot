@@ -4,19 +4,14 @@ $PLUGIN_VERSION = 0.1;
 
 	//Tower messages
     bot::event("towers", "$MODULE_NAME/towers_messages.php", "none", "Show Attack Messages"); 
-	bot::command("guild", "$MODULE_NAME/towers_result.php", "battle", "all", "Shows the last Tower Attack messages");
-  	bot::command("guild", "$MODULE_NAME/towers_result.php", "victory", "all", "Shows the last Tower Battle results");
-	bot::command("priv", "$MODULE_NAME/towers_result.php", "battle", "all", "Shows the last Tower Attack messages");
-  	bot::command("priv", "$MODULE_NAME/towers_result.php", "victory", "all", "Shows the last Tower Battle results");
-	bot::command("msg", "$MODULE_NAME/towers_result.php", "battle", "guild", "Shows the last Tower Attack messages");
-  	bot::command("msg", "$MODULE_NAME/towers_result.php", "victory", "guild", "Shows the last Tower Battle results");
+	
+	bot::command("", "$MODULE_NAME/towers_result.php", "battle", "all", "Shows the last Tower Attack messages");
+  	bot::command("", "$MODULE_NAME/towers_result.php", "victory", "all", "Shows the last Tower Battle results");
 
 	bot::regGroup("Tower_Battle", $MODULE_NAME, "Show Tower Attack Results", "battle", "victory");
 	
 	//Land Control Areas
-  	bot::command("guild", "$MODULE_NAME/land_control_areas.php", "lca", "all", "Shows Infos about Land Control Areas");
-  	bot::command("priv", "$MODULE_NAME/land_control_areas.php", "lca", "all", "Shows Infos about Land Control Areas");
-  	bot::command("msg", "$MODULE_NAME/land_control_areas.php", "lca", "guild", "Shows Infos about Land Control Areas");
+  	bot::command("", "$MODULE_NAME/land_control_areas.php", "lca", "all", "Shows Infos about Land Control Areas");
 
 	bot::addsetting("tower_attack_spam", "Layout types when displaying tower attacks", "edit", "1", "off;compact;normal;full", '0;1;2;3', "mod");
 	bot::addsetting("tower_faction_def", "Display certain factions defending", "edit", "7", "none;clan;neutral;clan+neutral;omni;clan+omni;neutral+omni;all", '0;1;2;3;4;5;6;7', "mod");

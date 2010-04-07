@@ -2,13 +2,7 @@
 	$MODULE_NAME = "ORGLIST_MODULE";
  
 	bot::command("guild", "$MODULE_NAME/orglist.php", "orglist", "mod", "Check someones org roster");
-	bot::command("priv", "$MODULE_NAME/orglist.php", "orglist", "mod", "Check someones org roster");
-	bot::command("msg", "$MODULE_NAME/orglist.php", "orglist", "mod", "Check someones org roster");
-	
-	// alias
 	bot::command("guild", "$MODULE_NAME/orglist.php", "onlineorg", "mod", "Check someones org roster");
-	bot::command("priv", "$MODULE_NAME/orglist.php", "onlineorg", "mod", "Check someones org roster");
-	bot::command("msg", "$MODULE_NAME/orglist.php", "onlineorg", "mod", "Check someones org roster");
 
 	bot::event("logOn", "$MODULE_NAME/orglist.php", "orglist");
 	bot::event("logOff", "$MODULE_NAME/orglist.php", "orglist");

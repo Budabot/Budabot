@@ -35,13 +35,6 @@
 
 	$MODULE_NAME = "STATS_MODULE";
 
-	//Private
-	bot::command("priv", "$MODULE_NAME/stats.php", "stats", "all", "Shows links that you can click on to see your stats for certain, unseen skills");
-	
-	//Guild
-	bot::command("guild", "$MODULE_NAME/stats.php", "stats", "all", "Shows links that you can click on to see your stats for certain, unseen skills");
-	
-	//Tells
-	bot::command("msg", "$MODULE_NAME/stats.php", "stats", "all", "Shows links that you can click on to see your stats for certain, unseen skills");
+	bot::command("", "$MODULE_NAME/stats.php", "stats", "all", "Shows links that you can click on to see your stats for certain, unseen skills");
 
 ?>

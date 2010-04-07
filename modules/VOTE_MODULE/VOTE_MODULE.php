@@ -2,10 +2,8 @@
 	$MODULE_NAME = "VOTE_MODULE";
 	
 	bot::event("setup", "$MODULE_NAME/setup.php");
-	
-	bot::command("msg", "$MODULE_NAME/vote.php", "vote", "all", "Vote/Polling");
-	bot::command("priv", "$MODULE_NAME/vote.php", "vote", "all", "Vote/Polling");
-	bot::command("guild", "$MODULE_NAME/vote.php", "vote", "all", "Vote/Polling");
+
+	bot::command("", "$MODULE_NAME/vote.php", "vote", "all", "Vote/Polling");
 	
 	bot::addsetting("vote_channel_spam", "Showing Vote status messages in", "edit", "2", "PrivateGroup;Guild;PrivateGroup and Guild;Neither", "0;1;2;3", "mod", "$MODULE_NAME/vote_settings.txt");
 	bot::addsetting("vote_add_new_choices", "Can users add in there own choices?", "edit", "1", "No;Yes", "0;1", "mod", "$MODULE_NAME/vote_settings.txt");

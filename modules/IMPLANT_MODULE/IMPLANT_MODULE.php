@@ -36,16 +36,8 @@
 	$MODULE_NAME = "IMPLANT_MODULE";
 
 	//Private
-	bot::command("priv", "$MODULE_NAME/impql.php", "impql", "all", "Shows stats for implant at given ql");
-	bot::command("priv", "$MODULE_NAME/impreq.php", "impreq", "all", "Shows the highest ql implant that can be worn given treatment and ability");
-
-	//Guild
-	bot::command("guild", "$MODULE_NAME/impql.php", "impql", "all", "Shows stats for implant at given ql");
-	bot::command("guild", "$MODULE_NAME/impreq.php", "impreq", "all", "Shows the highest ql implant that can be worn given treatment and ability");
-
-	//Tells
-	bot::command("msg", "$MODULE_NAME/impql.php", "impql", "all", "Shows stats for implant at given ql");
-	bot::command("msg", "$MODULE_NAME/impreq.php", "impreq", "all", "Shows the highest ql implant that can be worn given treatment and ability");
+	bot::command("", "$MODULE_NAME/impql.php", "impql", "all", "Shows stats for implant at given ql");
+	bot::command("", "$MODULE_NAME/impreq.php", "impreq", "all", "Shows the highest ql implant that can be worn given treatment and ability");
 
 	//Help
 	bot::help("Implant", "$MODULE_NAME/implant.txt", "all", "Implant help", "Implant");

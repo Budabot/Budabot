@@ -35,14 +35,7 @@
 
 	$MODULE_NAME = "TRICKLE_MODULE";
 
-	//Private
-	bot::command("priv", "$MODULE_NAME/trickle.php", "trickle", "all", "Shows how much skills you will gain by increasing an ability");
-
-	//Guild
-	bot::command("guild", "$MODULE_NAME/trickle.php", "trickle", "all", "Shows how much skills you will gain by increasing an ability");
-
-	//Tells
-	bot::command("msg", "$MODULE_NAME/trickle.php", "trickle", "all", "Shows how much skills you will gain by increasing an ability");
+	bot::command("", "$MODULE_NAME/trickle.php", "trickle", "all", "Shows how much skills you will gain by increasing an ability");
 
 	//Help
 	bot::help("Trickle", "$MODULE_NAME/trickle.txt", "all", "Trickle help", "Trickle");

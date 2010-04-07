@@ -23,19 +23,13 @@
 	$MODULE_NAME = "TOWER_WATCH_MODULE";
 
 	//adds tower info to 'watch' list
-	bot::command("guild", "$MODULE_NAME/scout.php", "scout", "all", "adds tower info to watch list");
-	bot::command("priv", "$MODULE_NAME/scout.php", "scout", "all", "adds tower info to watch list");
-	bot::command("msg", "$MODULE_NAME/scout.php", "scout", "all", "adds tower info to watch list");
+	bot::command("", "$MODULE_NAME/scout.php", "scout", "all", "adds tower info to watch list");
 	
 	// removes tower info from 'watch' list
-	bot::command("guild", "$MODULE_NAME/remscout.php", "remscout", "all", "removes tower info from watch list");
-	bot::command("priv", "$MODULE_NAME/remscout.php", "remscout", "all", "removes tower info from watch list");
-	bot::command("msg", "$MODULE_NAME/remscout.php", "remscout", "all", "removes tower info from watch list");
+	bot::command("", "$MODULE_NAME/remscout.php", "remscout", "all", "removes tower info from watch list");
 	
 	//shows the open times for each tower site on the 'watch' list
-	bot::command("guild", "$MODULE_NAME/opentimes.php", "opentimes", "all", "shows status of towers");
-	bot::command("priv", "$MODULE_NAME/opentimes.php", "opentimes", "all", "shows status of towers");
-	bot::command("msg", "$MODULE_NAME/opentimes.php", "opentimes", "all", "shows status of towers");
+	bot::command("", "$MODULE_NAME/opentimes.php", "opentimes", "all", "shows status of towers");
 	
 	//Helpfiles
 	bot::help("Tower Watch", "$MODULE_NAME/tower_watch.txt", "guild", "Tower Watch Help", "Tower Watch");

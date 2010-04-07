@@ -36,19 +36,9 @@
 	$MODULE_NAME = "NANOLINES_MODULE";
 
 	//Private
-	bot::command("priv", "$MODULE_NAME/nanolines.php", "nanolines", "all", "Shows a list of professions to choose from");
-	bot::command("priv", "$MODULE_NAME/nlprof.php", "nlprof", "all", "Shows a list of nanolines given a profession");
-	bot::command("priv", "$MODULE_NAME/nlline.php", "nlline", "all", "Shows a list of nanos given a nanoline");
-
-	//Guild
-	bot::command("guild", "$MODULE_NAME/nanolines.php", "nanolines", "all", "Shows a list of professions to choose from");
-	bot::command("guild", "$MODULE_NAME/nlprof.php", "nlprof", "all", "Shows a list of nanolines given a profession");
-	bot::command("guild", "$MODULE_NAME/nlline.php", "nlline", "all", "Shows a list of nanos given a nanoline");
-
-	//Tells
-	bot::command("msg", "$MODULE_NAME/nanolines.php", "nanolines", "all", "Shows a list of professions to choose from");
-	bot::command("msg", "$MODULE_NAME/nlprof.php", "nlprof", "all", "Shows a list of nanolines given a profession");
-	bot::command("msg", "$MODULE_NAME/nlline.php", "nlline", "all", "Shows a list of nanos given a nanoline");
+	bot::command("", "$MODULE_NAME/nanolines.php", "nanolines", "all", "Shows a list of professions to choose from");
+	bot::command("", "$MODULE_NAME/nlprof.php", "nlprof", "all", "Shows a list of nanolines given a profession");
+	bot::command("", "$MODULE_NAME/nlline.php", "nlline", "all", "Shows a list of nanos given a nanoline");
 
 	//Help
 	bot::help("Nanolines", "$MODULE_NAME/nanolines.txt", "all", "Nanolines help", "Nanolines");

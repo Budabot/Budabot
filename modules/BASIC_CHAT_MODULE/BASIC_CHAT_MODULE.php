@@ -6,20 +6,13 @@ $PLUGIN_VERSION = 0.1;
 	bot::event("setup", "$MODULE_NAME/setup.php");
 
 	//Invite/Leave/lock commands
-	bot::command("priv", "$MODULE_NAME/leave.php", "leave", "all", "Enables Privatechat Kick");
-	bot::command("priv", "$MODULE_NAME/leave.php", "kick", "all", "Enables Privatechat Kick");
-	bot::command("msg", "$MODULE_NAME/leave.php", "leave", "all", "Enables Privatechat Kick");
-	bot::command("msg", "$MODULE_NAME/leave.php", "kick", "all", "Enables Privatechat Kick");
-	bot::command("msg", "$MODULE_NAME/join.php", "join", "all", "Enables Privatechat Join");
-	bot::command("msg", "$MODULE_NAME/join.php", "invite", "all", "Enables Privatechat Join");
-	bot::command("guild", "$MODULE_NAME/join.php", "join", "all", "Enables Privatechat Join");
-	bot::command("guild", "$MODULE_NAME/join.php", "invite", "all", "Enables Privatechat Join");
-	bot::command("priv", "$MODULE_NAME/kickall.php", "kickall", "mod", "Kicks all from the privgroup");
-	bot::command("msg", "$MODULE_NAME/kickall.php", "kickall", "mod", "Kicks all from the privgroup");
-	bot::command("priv", "$MODULE_NAME/lock.php", "lock", "rl", "Locks the privgroup");
-	bot::command("priv", "$MODULE_NAME/lock.php", "unlock", "rl", "Unlocks the privgroup");	
-	bot::command("msg", "$MODULE_NAME/lock.php", "lock", "rl", "Locks the privgroup");
-	bot::command("msg", "$MODULE_NAME/lock.php", "unlock", "rl", "Unlocks the privgroup");	
+	bot::command("priv msg", "$MODULE_NAME/leave.php", "leave", "all", "Enables Privatechat Kick");
+	bot::command("priv msg", "$MODULE_NAME/leave.php", "kick", "all", "Enables Privatechat Kick");
+	bot::command("guild msg", "$MODULE_NAME/join.php", "join", "all", "Enables Privatechat Join");
+	bot::command("guild msg", "$MODULE_NAME/join.php", "invite", "all", "Enables Privatechat Join");
+	bot::command("priv msg", "$MODULE_NAME/kickall.php", "kickall", "mod", "Kicks all from the privgroup");
+	bot::command("priv msg", "$MODULE_NAME/lock.php", "lock", "rl", "Locks the privgroup");
+	bot::command("priv msg", "$MODULE_NAME/lock.php", "unlock", "rl", "Unlocks the privgroup");	
 	bot::regGroup("priv_invite_kick", $MODULE_NAME, "Enable Privatechat invite/kick/locking", "kick", "leave", "join", "kickall", "lock", "unlock", "invite");
 	bot::addsetting("topic_guild_join", "Show Topic in guild on join", "edit", "0", "ON;OFF", "1;0", "mod", "$MODULE_NAME/topic_show_guild.txt");
 	bot::addsetting("priv_status", "no", "hide", "open");
@@ -35,9 +28,7 @@ $PLUGIN_VERSION = 0.1;
 	//Topic set/show
 	bot::event("joinPriv", "$MODULE_NAME/topic.php", "topic", "Show Topic when someone joins PrivChat");
 	bot::event("logOn", "$MODULE_NAME/topic_logon.php", "none", "Show Topic on logon of members");
-	bot::command("priv", "$MODULE_NAME/topic.php", "topic", "all", "Show Topic");
-	bot::command("guild", "$MODULE_NAME/topic.php", "topic", "all", "Show Topic");
-	bot::command("msg", "$MODULE_NAME/topic.php", "topic", "all", "Show Topic");
+	bot::command("", "$MODULE_NAME/topic.php", "topic", "all", "Show Topic");
 	bot::subcommand("msg", "$MODULE_NAME/topic.php", "topic (.+)", "leader", "topic", "Change Topic");
 	bot::addsetting("topic", "Topic for Priv Channel", "noedit", "No Topic set.");	
 	bot::addsetting("topic_setby", "no", "hide", "none");
@@ -62,8 +53,8 @@ $PLUGIN_VERSION = 0.1;
 	//Assist
 	bot::command("", "$MODULE_NAME/assist.php", "assist", "all", "Creates/shows an Assist macro");
 	bot::subcommand("", "$MODULE_NAME/assist.php", "assist (.+)", "leader", "assist", "Set a new assist");
-	bot::command("priv", "$MODULE_NAME/heal_assist.php", "heal", "all", "Creates/showes an Doc Assist macro");
-	bot::subcommand("priv", "$MODULE_NAME/heal_assist.php", "heal (.+)", "leader", "heal", "Set a new Doc assist");
+	bot::command("", "$MODULE_NAME/heal_assist.php", "heal", "all", "Creates/showes an Doc Assist macro");
+	bot::subcommand("", "$MODULE_NAME/heal_assist.php", "heal (.+)", "leader", "heal", "Set a new Doc assist");
 
 	//Tell
 	bot::command("priv", "$MODULE_NAME/tell.php", "tell", "all", "Repeats a Message 3times");
