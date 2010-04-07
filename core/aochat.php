@@ -363,11 +363,7 @@
       if($this->state != "auth")
         die("AOChat: not expecting authentication.\n");
 
-	  if(extension_loaded("aokex"))
-		$key = aokex_login_key($this->serverseed, $username, $password);
-      else
-		$key = $this->generate_login_key($this->serverseed, $username, $password);
-
+      $key = $this->generate_login_key($this->serverseed, $username, $password);
       $pak = new AOChatPacket("out", AOCP_LOGIN_REQUEST, array(0, $username, $key));
       $this->send_packet($pak);
       $packet = $this->get_packet();
@@ -757,6 +753,7 @@
 		}
 
 		$value = bcadd(bcsub($higherValue, $value), 1);
+
 		return $value;
 	}
 
@@ -767,15 +764,10 @@
 	// http://www.hackersquest.com/boards/viewtopic.php?t=4884&start=75
 	function SafeDecHexReverseEndian($value)
 	{
-		$result = "";
-		$hex   = dechex($this -> ReduceTo32Bit($value));
-		$len   = strlen($hex);
 
-		while($len < 8)
-		{
-			$hex = "0$hex";
-			$len++;
-		}
+		$result = "";
+		$value = (int)$this->ReduceTo32Bit($value);		
+		$hex   = substr("00000000".dechex($value),-8);
 
 		$bytes = str_split($hex, 2);
 
@@ -827,6 +819,7 @@
 			$value  = bcsub($value, 0x80000000);
 			$value -= 0x80000000;
 		}
+
 		return $value;
 	}
 
