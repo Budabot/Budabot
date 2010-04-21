@@ -108,7 +108,7 @@ if($countitems == 0) {
 if($countitems > 3) {
 	foreach($itemlist as $name => $item1) {
 	 	foreach($item1 as $key => $item) {
-			$name = str_replace("\'", "'", $name);
+			$name = str_replace('"', '\"', $name);
 			$name = str_replace("&#58;", ":", $name);
 			$name = str_replace("&amp;", "&", $name);
 	        $list .= "<img src=rdb://".$item["icon"]."> \n";
