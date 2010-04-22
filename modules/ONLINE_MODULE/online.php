@@ -28,9 +28,14 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
+   
+// hack for logon event
+if ($type == "logon") {
+	$type = "msg";
+}
 
 $msg = "";
-if(eregi("^online$", $message)){
+if (preg_match("/^online$/i", $message)){
   	if($type == "guild" || ($this->settings["online_tell"] == 0 && $type == "msg") || ($type == "priv" && $this->vars["Guest"][$sender] == true)) {
 	  	if($this->settings["relaybot"])
 			$db->query("SELECT * FROM guild_chatlist_<myname> UNION ALL SELECT * FROM guild_chatlist_".strtolower($this->settings["relaybot"])." ORDER BY `profession`, `level` DESC");
@@ -121,13 +126,8 @@ if(eregi("^online$", $message)){
     $msg .= "<highlight>$numonline<end> members are online :: ";
     $link = bot::makeLink('Click here', $list);
 
-    if($type == "msg")
-        bot::send($msg.$link, $sender);
-    elseif($type == "priv")
-       	bot::send($msg.$link);
-    elseif($type == "guild")
-       	bot::send($msg.$link, "guild");
-} else if(eregi("^online (.*)$", $message, $arr)) {
+    bot::send($msg.$link, $sendto);
+} else if (preg_match("/^online (.*)$/i", $message, $arr)) {
     switch(strtolower($arr[1])) {
         case "all":
             $prof = "all";
@@ -177,12 +177,7 @@ if(eregi("^online$", $message)){
     }
     if(!$prof) {
         $msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, trad or all";
-	    if($type == "msg")
-	        bot::send($msg, $sender);
-	    elseif($type == "priv")
-	       	bot::send($msg);
-	    elseif($type == "guild")
-	       	bot::send($msg, "guild");
+	    bot::send($msg, $sendto);
 	    return;
     }
 
@@ -293,19 +288,9 @@ if(eregi("^online$", $message)){
     $msg .= "<highlight>".$numonline."<end> members are online ";
     $link = ":: ".bot::makeLink('Click here', $list);
     if($numonline != 0) {
-    	if($type == "msg")
-	        bot::send($msg.$link, $sender);
-	    elseif($type == "priv")
-	       	bot::send($msg.$link);
-	    elseif($type == "guild")
-	       	bot::send($msg.$link, "guild");		  
+    	bot::send($msg.$link, $sendto);
 	} else {
-	    if($type == "msg")
-	        bot::send($msg, $sender);
-	    elseif($type == "priv")
-	       	bot::send($msg);
-	    elseif($type == "guild")
-	       	bot::send($msg, "guild");		  
+	    bot::send($msg, $sendto);
 	}
 }
 ?>

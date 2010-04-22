@@ -29,6 +29,8 @@
 	bot::addsetting("count_tell", "Mode for Count Cmd in tells", "edit", "1", "Shows online privatechat members;Shows online guild members", "1;0");
 	bot::addsetting("chatlist_tell", "Mode for Chatlist Cmd in tells", "edit", "1", "Shows online privatechat members;Shows online guild members", "1;0");	
 	
+	bot::event("logon", "$MODULE_NAME/online.php", "none", "Sends a tell to players on logon showing who is online in org");
+	
 	//Setup
 	bot::event("setup", "$MODULE_NAME/setup.php");
 	
