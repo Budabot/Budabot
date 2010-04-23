@@ -1,4 +1,5 @@
-CREATE TABLE IF NOT EXISTS aodb (lowid INT, highid INT, lowql INT, highql INT, name VARCHAR(50), icon INT);
+DROP TABLE IF EXISTS aodb;
+CREATE TABLE aodb (lowid INT, highid INT, lowql INT, highql INT, name VARCHAR(50), icon INT);
 INSERT INTO aodb VALUES (152740, 152741, 51, 140, " Tear Blade", 13347);
 INSERT INTO aodb VALUES (275403, 275403, 1, 1, '"A History of Rubi-Ka" by Prof. Arthur B. Diggins', 136331);
 INSERT INTO aodb VALUES (119592, 119592, 1, 1, '"Green Lava" Floor Lamp', 119170);
