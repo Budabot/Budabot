@@ -29,19 +29,18 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */  
 
-$version = "0.6.5";
+$version = "0.6.6";
 
-echo "\n\n\n\n\n\n\n\n\n\n\n";
+echo "\n\n\n\n\n";
 echo "		**************************************************\n";
-echo "		****             Budabot Version: $version       ****\n";
-echo "		**** 	  written by Sebuda & Derroylo(RK2)   ****\n";
-echo "		****                Projectsite:              ****\n";
-echo "		**** https://sourceforge.net/projects/budabot ****\n";
-echo "		****               Supportforum:              ****\n";
-echo "		****        http://budabot.aodevs.com/        ****\n";
+echo "		****         Budabot Version: $version           ****\n";
+echo "		****    written by Sebuda & Derroylo(RK2)     ****\n";
+echo "		****                Project Site:             ****\n";
+echo "		****    http://code.google.com/p/budabot2/    ****\n";
+echo "		****               Support Forum:             ****\n";
+echo "		****          http://www.budabot.com/         ****\n";
 echo "		**************************************************\n";
-echo "\n\n\n\n\n\n\n";
-sleep(5);
+echo "\n";
 
 if(isWindows()) {
     // Load Extention 
