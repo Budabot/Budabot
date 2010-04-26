@@ -62,8 +62,8 @@
 	bot::command("msg", "$MODULE_NAME/updateorg.php", "updateorg", "mod", "Forcing an update of the org roster");
 	
 	//Tell and Tellall
-	bot::command("", "$MODULE_NAME/tell.php", "tell", "rl", "Repeats an message 3times in Orgchat");
-	bot::command("", "$MODULE_NAME/tell.php", "tellall", "rl", "Sends a tell to all online guildmembers");
+	bot::command("guild msg", "$MODULE_NAME/tell.php", "tell", "rl", "Repeats an message 3 times in Orgchat");
+	bot::command("guild msg", "$MODULE_NAME/tell.php", "tellall", "rl", "Sends a tell to all online guildmembers");
 	
 	//Lastseen
 	bot::command("", "$MODULE_NAME/lastseen.php", "lastseen", "guild", "Shows the logoff time of a player");
