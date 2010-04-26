@@ -145,6 +145,8 @@ class bot extends AOChat{
 */	function connectAO($login, $password){
 		//Create Aochat
 		AOChat::AOchat("callback");
+		
+		echo "\n\n";
 
 		// Choose Server
 		if($this->vars["dimension"] == 1) {
@@ -160,60 +162,40 @@ class bot extends AOChat{
 			$server = "chat.dt.funcom.com";
 			$port = 7109;
 		} else {
-			echo "\n\n\n\n\n\n\n\n\n\n\n\n\n";
-			echo "		    	  No valid Server to connect with!\n";
-			echo "		       Available dimensions are 0, 1, 2 and 3!";
-			echo "\n\n\n\n\n\n\n\n\n\n\n\n";
+			echo "No valid Server to connect with! Available dimensions are 0, 1, 2 and 3.\n";
 		  	sleep(10);
 		  	die();
 		}
 		
 		// Begin the login process
-		echo "\n\n\n\n\n\n\n\n\n\n\n\n\n";
-		echo "		    	  Connecting to AO Server...\n";
-		echo "		    	     ($server)";
-		echo "\n\n\n\n\n\n\n\n\n\n\n\n";
+		echo "Connecting to AO Server...($server)\n";
 		AOChat::connect($server, $port);
 		sleep(2);
 		if($this->state != "auth") {
-			echo "\n\n\n\n\n\n\n\n\n\n\n\n\n";
-			echo "		    	  Connection to AO Servers failed!\n";
-			echo "		     Pls check your Internetconnection and Firewall";
-			echo "\n\n\n\n\n\n\n\n\n\n\n\n";
+			echo "Connection failed! Please check your Internet connection and firewall.\n";
 			sleep(10);
 			die();
 		}
 
-		echo "\n\n\n\n\n\n\n\n\n\n\n\n\n";
-		echo "		    	  Authenticate login data...\n";
-		echo "\n\n\n\n\n\n\n\n\n\n\n\n";
+		echo "Authenticate login data...\n";
 		AOChat::authenticate($login, $password);
 		sleep(2);
 		if($this->state != "login") {
-			echo "\n\n\n\n\n\n\n\n\n\n\n\n\n";
-			echo "		    	  Authenticating of your data failed!\n";
-			echo "		          Pls check your Account Informations!";
-			echo "\n\n\n\n\n\n\n\n\n\n\n\n";
+			echo "Authentication failed! Please check your username and password.\n";
 			sleep(10);
 			die();
 		}
-		echo "\n\n\n\n\n\n\n\n\n\n\n\n\n";
-		echo "		    	  Logging in {$this->vars["name"]}...\n";
-		echo "\n\n\n\n\n\n\n\n\n\n\n\n";
+
+		echo "Logging in {$this->vars["name"]}...\n";
 		AOChat::login($this->vars["name"]);
 		sleep(2);
 		if($this->state != "ok") {
-			echo "\n\n\n\n\n\n\n\n\n\n\n\n\n";
-			echo "		    	Logging in of {$this->vars["name"]} failed!\n";
-			echo "		    Pls check if this char exists on the Account!";
-			echo "\n\n\n\n\n\n\n\n\n\n\n\n";
+			echo "Logging in of {$this->vars["name"]} failed! Please check the character name and dimension.\n";
 			sleep(10);
 			die();
 		}
 		
-		echo "\n\n\n\n\n\n\n\n\n\n\n\n\n";
-		echo "		    	  All Systems ready....\n";
-		echo "\n\n\n\n\n\n\n\n\n\n\n\n";
+		echo "All Systems ready....\n\n\n";
 		sleep(2);
 		
 		// Set cron timers
@@ -1013,26 +995,29 @@ class bot extends AOChat{
 ** Gets an loaded setting
 */	function getsetting($name = "none") {
 		$name = strtolower($name);
-		if(isset($this->settings[$name]))
+		if (isset($this->settings[$name])) {
 	  		return $this->settings[$name];
-	  	else
+	  	} else {
 	  		return false;
+		}
 	}
 
 /*===============================
 ** Name: savesetting
 ** Saves a setting to the db
-*/	function savesetting($name = "none", $newsetting = "none") {
+*/	function savesetting($name = "none", $newsetting = null) {
 		global $db;
 		$name = strtolower($name);
-		if($newsetting == "none")
+		if ($newsetting === null) {
 			return false;
+		}
 
-		if(isset($this->settings[$name])) {
+		if (isset($this->settings[$name])) {
 			$db->query("UPDATE settings_<myname> SET `setting` = '$newsetting' WHERE `name` = '$name'");
 			$this->settings[$name] = $newsetting;
-		} else
+		} else {
 			return false;
+		}
 	}
 
 
@@ -1563,7 +1548,7 @@ class bot extends AOChat{
 ** Name: loadSQLFile
 ** Loads an sql file if there is an update
 ** Will load the sql file with name $namexx.xx.xx.xx.sql if xx.xx.xx.xx is greater
-** than settings["module_name_sql_version"]
+** than settings[$name . "_sql_version"]
 */	function loadSQLFile($module, $name, $forceUpdate = false) {
 		global $db;
 		global $curMod;
@@ -1571,7 +1556,7 @@ class bot extends AOChat{
 		$name = strtolower($name);
 		
 		// only letters, numbers, underscores are allowed
-		if (!eregi('^[a-z0-9_]+$', $name)) {
+		if (!preg_match('/^[a-z0-9_]+$/', $name)) {
 			echo "Invalid SQL file name!  Only numbers, letters, and underscores permitted!\n";
 			return;
 		}
@@ -1588,25 +1573,25 @@ class bot extends AOChat{
 		}
 		
 		$currentVersion = bot::getsetting($settingName);
-		// if there is no saved version, set it to -1
-		// so if the maxFileVersion is 0 (ie, it has no version)
-		// it will still update
 		if ($currentVersion === false) {
-			$currentVersion = -1;
+			$currentVersion = 0;
 		}
-		
+
 		$file = false;
 		$maxFileVersion = 0;  // 0 indicates no version
 		if ($d) {
 			while (false !== ($entry = $d->read())) {
-				if (is_file("$dir/$entry") && eregi($name . "([0-9.]*)\\.sql", $entry, $temp)) {
-					// if there is no version on the file, set the version to 0
-					if ($temp[1] === false) {
-						$temp[1] = 0;
+				if (is_file("$dir/$entry") && preg_match("/^" . $name . "([0-9.]*)\\.sql$/i", $entry, $arr)) {
+					// if there is no version on the file, set the version to 0, and force update every time
+					if ($arr[1] == '') {
+						$file = $entry;
+						$maxFileVersion = 0;
+						$forceUpdate = true;
+						break;
 					}
 
-					if (compareVersionNumbers($temp[1], $maxFileVersion) >= 0) {
-						$maxFileVersion = $temp[1];
+					if (compareVersionNumbers($arr[1], $maxFileVersion) >= 0) {
+						$maxFileVersion = $arr[1];
 						$file = $entry;
 					}
 				}
@@ -1615,34 +1600,29 @@ class bot extends AOChat{
 		
 		if ($file === false) {
 			echo "No SQL file found with name '$name'!\n";
-		} else if (compareVersionNumbers($maxFileVersion, $currentVersion) > 0 || $forceUpdate) {		
-			$filearray = file("$dir/$file", FILE_TEXT | FILE_SKIP_EMPTY_LINES | FILE_IGNORE_NEW_LINES);
+		} else if ($forceUpdate || compareVersionNumbers($maxFileVersion, $currentVersion) > 0) {		
+			$fileArray = file("$dir/$file", FILE_TEXT | FILE_SKIP_EMPTY_LINES | FILE_IGNORE_NEW_LINES);
 
 			// if the file had a version, tell them the start and end version
 			// otherwise, just tell them we're updating the database
 			if ($maxFileVersion != 0) {
-				echo "Updating $name database...from '$currentVersion' to '$maxFileVersion'\n";
+				echo "Updating '$name' database from '$currentVersion' to '$maxFileVersion'...";
 			} else {
-				echo "Updating $name database...\n";
+				echo "Updating '$name' database...";
 			}
 
 			//$db->beginTransaction();
-			foreach($filearray as $num => $line) {
+			forEach ($fileArray as $num => $line) {
 				// don't process comment lines
 				if (substr($line, 0, 1) != "#") {
 					$db->query($line);
 				}
 			}
 			//$db->Commit();
-			echo "Finished updating $name database.\n";
+			echo "Finished!\n";
 		
-			// if there was no version on the file, don't save the version number
-			// if maxFileVersion isn't 0, and savesetting fails (ie, a setting by that
-			// name doesn't exist, then add the setting
-			if ($maxFileVersion != 0) {
-				if (!bot::savesetting($settingName, $maxFileVersion)) {
-					bot::addsetting($settingName, $settingName, 'noedit', $maxFileVersion);
-				}
+			if (!bot::savesetting($settingName, $maxFileVersion)) {
+				bot::addsetting($settingName, $settingName, 'noedit', $maxFileVersion);
 			}
 		} else {
 			echo "$name database already up to date! version: '$currentVersion'\n";
