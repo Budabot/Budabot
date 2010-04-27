@@ -46,12 +46,12 @@ class bot extends AOChat{
 		//Set startuptime
 		$this->vars["startup"] = time();
 
-		//Create commando/event settings table if not exists
+		//Create command/event settings table if not exists
 		$db->query("CREATE TABLE IF NOT EXISTS cmdcfg_<myname> (`module` VARCHAR(50), `cmdevent` VARCHAR(5), `type` VARCHAR(10), `file` VARCHAR(255), `cmd` VARCHAR(25), `admin` VARCHAR(10), `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0', `dependson` VARCHAR(25) DEFAULT 'none', `grp` VARCHAR(25) DEFAULT 'none')");
-		$db->query("CREATE TABLE IF NOT EXISTS settings_<myname> (`name` VARCHAR(30) NOT NULL, `mod` VARCHAR(50), `mode` VARCHAR(10), `setting` VARCHAR(50) Default '0', `options` VARCHAR(50) Default '0', `intoptions` VARCHAR(50) DEFAULT '0', `description` VARCHAR(50), `source` VARCHAR(5), `admin` VARCHAR(25), `help` VARCHAR(60))");
+		$db->query("CREATE TABLE IF NOT EXISTS settings_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `mode` VARCHAR(10), `setting` VARCHAR(50) Default '0', `options` VARCHAR(50) Default '0', `intoptions` VARCHAR(50) DEFAULT '0', `description` VARCHAR(50), `source` VARCHAR(5), `admin` VARCHAR(25), `help` VARCHAR(60))");
 		$db->query("CREATE TABLE IF NOT EXISTS hlpcfg_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `cat` VARCHAR(50), `description` VARCHAR(50), `admin` VARCHAR(10), `verify` INT Default '0')");
 
-		//Prepare commando/event settings table
+		//Prepare command/event settings table
 		$db->query("UPDATE cmdcfg_<myname> SET `verify` = 0");
 		$db->query("UPDATE hlpcfg_<myname> SET `verify` = 0");
 		$db->query("UPDATE cmdcfg_<myname> SET `status` = 0 WHERE `cmdevent` = 'event' AND `type` = 'setup'");
@@ -226,46 +226,48 @@ class bot extends AOChat{
 ** Name: makeLink
 ** Make click link reference.
 */	function makeLink($name, $content, $type = "blob", $style = NULL){
-		if($type == "blob") { // Normal link.
-			if(strlen($content) > $this->settings["max_blob_size"]) {  //Split the windows if they are too big
+		// escape double quotes
+		if ($type != 'blob') {
+			$content = str_replace('"', '&quote;', $content);
+			//$content = str_replace('"', '\"', $content);
+		}
+
+		if ($type == "blob") { // Normal link.
+			if (strlen($content) > $this->settings["max_blob_size"]) {  //Split the windows if they are too big
 				$pages = ceil(strlen($content) / $this->settings["max_blob_size"]);
 			  	$content = explode("\n", $content);
 				$page = 1;
-			  	foreach($content as $line) {
-					if($page > 1 && $display)
+			  	forEach ($content as $line) {
+					if ($page > 1 && $display) {
 						$result[$page] .= "<header>::::: $name Page $page :::::<end>\n";
+					}
 					$display = false;		
 				    $result[$page] .= $line."\n";
-				    if(strlen($result[$page]) >= $this->settings["max_blob_size"]) {
-						$result[$page] = "<a ".$style."href=\"text://".$this->settings["default window color"].$result[$page]."\">$name</a> (Page <highlight>$page<end> of <highlight>$pages<end>)";
+				    if (strlen($result[$page]) >= $this->settings["max_blob_size"]) {
+						$result[$page] = "<a $style href=\"text://".$this->settings["default window color"].$result[$page]."\">$name</a> (Page <highlight>$page<end> of <highlight>$pages<end>)";
 				    	$page++;
 						$display = true;					  
 					}
 				}
-				$result[$pages] = "<a ".$style."href=\"text://".$this->settings["default window color"].$result[$pages]."\">$name</a> (Page <highlight>$pages<end> of <highlight>$pages<end>)";				
+				$result[$pages] = "<a $style href=\"text://".$this->settings["default window color"].$result[$pages]."\">$name</a> (Page <highlight>$pages<end> of <highlight>$pages<end>)";
 				return $result;
-			} else
-				return "<a ".$style."href=\"text://".$this->settings["default window color"].$content."\">$name</a>";
-		} elseif($type == "text") // Majic link.
-			return "<a ".$style."href='text://".$content."'>$name</a>";
-		elseif($type == "chatcmd") // Chat command.
-			return "<a ".$style."href='chatcmd://".$content."'>$name</a>";
-		//Adds support for right clicking usernames in chat, providing you with a menu of options (ignore etc.) (see 18.1 AO patchnotes)
-		elseif($type == "user") // Adds user link
-			return "<a ".$style."href=\"user://".$content."\">$name</a>";
-		else							
-			return false;			
+			} else {
+				return "<a $style href=\"text://".$this->settings["default window color"].$content."\">$name</a>";
+			}
+		} else if ($type == "text") { // Majic link.
+			return "<a $style href='text://$content'>$name</a>";
+		} else if ($type == "chatcmd") { // Chat command.
+			return "<a $style href='chatcmd://$content'>$name</a>";
+		} else if ($type == "user") { // Adds support for right clicking usernames in chat, providing you with a menu of options (ignore etc.) (see 18.1 AO patchnotes)
+			return "<a $style href='/user://$content'>$name</a>";
+		}
 	}
 	
 /*===============================
 ** Name: makeItem
 ** Make item link reference.
 */	function makeItem($lowID, $hiID,  $ql, $name){
-		if($hiID != NULL && $lowID != NULL && $ql != NULL && $name !=NULL){ // make Item
-			return "<a href='itemref://" . $lowID . "/" . $hiID . "/" . $ql . "'>" . $name . "</a>";
-		}
-		else								
-			return false;		
+		return "<a href='itemref://$lowID/$hiID/$ql'>$name</a>";
 	}
 	
 /*===============================
@@ -431,6 +433,7 @@ class bot extends AOChat{
 ** Name: Command
 ** 	Register a command
 */	function command($type, $filename, $command, $admin = 'all', $description = 'none'){
+		global $curMod;
 		global $db;
 
 		if (!bot::processCommandArgs($type, $admin)) {
@@ -447,7 +450,7 @@ class bot extends AOChat{
 			if($this->settings['debug'] > 2) sleep(1);
 			
 			if($this->existing_commands[$type[$i]][$command] == true)
-				$db->query("UPDATE cmdcfg_<myname> SET `module` = '$module[0]', `verify` = 1, `file` = '$filename', `description` = '$description' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
+				$db->query("UPDATE cmdcfg_<myname> SET `module` = '$curMod', `verify` = 1, `file` = '$filename', `description` = '$description' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
 			else
 				$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`) VALUES ('$module[0]', '{$type[$i]}', '$filename', '$command', '{$admin[$i]}', '$description', 1, 'cmd', '".$this->settings["default module status"]."')");
 		}
@@ -983,7 +986,7 @@ class bot extends AOChat{
 		}
 		
 		if($this->existing_settings[$name] != true) {
-			$db->query("INSERT INTO settings_<myname> (`name`, `mod`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('$name', '$curMod', '$mode', '$setting', '$options', '$intoptions', '$description', 'db', '$admin', '$help')");
+			$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('$name', '$curMod', '$mode', '$setting', '$options', '$intoptions', '$description', 'db', '$admin', '$help')");
 		  	$this->settings[$name] = $setting;
 	  	} else {
 			$db->query("UPDATE settings_<myname> SET `mode` = '$mode', `options` = '$options', `intoptions` = '$intoptions', `description` = '$description', `admin` = '$admin', `help` = '$help' WHERE `name` = '$name'");

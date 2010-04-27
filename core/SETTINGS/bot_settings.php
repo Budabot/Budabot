@@ -38,23 +38,23 @@ $names = substr($names, 0, -1);
 if(eregi("^settings$", $message)) {
   	$link  = "<header>::::: Bot Settings :::::<end>\n\n";
  	$link .= "<highlight>You can see here a list of all Settings that can be changed without a restart of the bot. Please note that not all can be changed only the ones that have a 'Change this' behind their name, on the rest you can see only the current setting but can´t change it. When you click on 'Change it' a new poopup cames up and you see a list of allowed options for this setting. \n\n<end>";
- 	$db->query("SELECT * FROM settings_<myname> WHERE `mode` != 'hide' ORDER BY `mod`");
+ 	$db->query("SELECT * FROM settings_<myname> WHERE `mode` != 'hide' ORDER BY `module`");
 	$data	 = $db->fObject("all");
  	foreach($data as $row){
-		if($row->mod != "" && $row->mod != "Basic Settings"){
-			$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '".strtolower($row->mod)."' AND `status` = 1");
+		if($row->module != "" && $row->module != "Basic Settings"){
+			$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '".strtolower($row->module)."' AND `status` = 1");
 			$num = $db->numrows();
 		} else 
 			$num = 1;
 			
 		if($num	> 0){
-			if($row->mod == "Basic Settings" && $row->mod != $cur) {
+			if($row->module == "Basic Settings" && $row->module != $cur) {
 				$link .= "\n<highlight><u>Basic Settings</u><end>\n";
-			} elseif($row->mod != "" && $row->mod != $cur) {
-				$link .= "\n<highlight><u>".str_replace("_", " ",ucfirst(strtolower($row->mod)))."</u><end>\n";
+			} elseif($row->module != "" && $row->module != $cur) {
+				$link .= "\n<highlight><u>".str_replace("_", " ",ucfirst(strtolower($row->module)))."</u><end>\n";
 			}	
 
-			$cur = $row->mod;	
+			$cur = $row->module;	
 			$link .= "  *";
 			
 			if($row->help != "")

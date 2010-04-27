@@ -54,14 +54,15 @@ $first = true;
 foreach($tmp as $key => $value) {
 	$value = addslashes($value);
 	if($first) {
-		$query .= "`name` LIKE \"%$value%\"";
+		$query .= "`name` LIKE '%$value%'";
 		$first = false;
 	} else
 		$query .= " AND `name` LIKE '%$value%'";		
 }
 
-if($ql)
+if($ql) {
 	$query .= " AND `lowql` <= $ql AND `highql` >= $ql";
+}
 	
 $db->query("SELECT * FROM aodb WHERE $query ORDER BY `name` LIMIT 0, {$this->settings["maxitems"]}");
 $num = $db->numrows();
