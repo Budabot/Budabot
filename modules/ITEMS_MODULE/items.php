@@ -125,15 +125,9 @@ if($countitems > 3) {
 	    }
     }
     $list = "<header>::::: Item Search Result :::::<end>\n\n".$list;
-    $link = bot::makeLink('Click here to see the results', $list);
-
-	//Send Itemslist
+    $link = bot::makeLink("$countitems results in total", $list);
     bot::send($link, $sendto);
 
-	//Show how many items found		
-    $msg = "<highlight>".$countitems."<end> results in total";
-    bot::send($msg, $sendto);
-      	
 	//Show a warning if the maxitems are reached
 	if($countitems == $this->settings["maxitems"]) {
 	    $msg = "The output has been limited to <highlight>{$this->settings["maxitems"]}<end> items. Specify your search more if your item isn´t listed.";
