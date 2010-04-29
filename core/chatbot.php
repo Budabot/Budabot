@@ -1360,6 +1360,8 @@ class bot extends AOChat{
 					$db->query("SELECT category, entry, message FROM mmdb_data WHERE category = $em->category AND entry = $em->instance");
 					if ($row = $db->fObject()) {
 						$message = vsprintf($row->message, $em->args);
+					} else {
+						echo "Error: cannot find extended message with category: '$em->category' and instance: '$em->instance'\n";
 					}
 				}
 					
