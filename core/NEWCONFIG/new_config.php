@@ -28,49 +28,66 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (preg_match("/^newconfig$/", $message)) {
+if (preg_match("/^newconfig$/i", $message)) {
 	$list = "<header>::::: Command and Event Config :::::<end>\n";
 	$list .= "<highlight>Here can you disable or enable Modules and also changing their Access Level\n";
 	$list .= "The following options are available:\n";
 	$list .= " - Click ON or Off behind the Module Name to Enable or Disable them completly.\n";
 	$list .= " - Click Adv. behind the name to see more options for the modules<end> \n\n";
 	
-	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' AND `type` != 'setup' AND `dependson` = 'none' UNION ALL SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'event' AND `type` != 'setup' AND `dependson` = 'none' ORDER BY `module`, `cmd`");
+	$sql = "
+		SELECT
+			module
+		FROM
+			(SELECT module FROM settings_whizbot WHERE module <> 'Basic Settings'
+				UNION
+			SELECT module AS module FROM cmdcfg_whizbot WHERE module <> 'none'
+				UNION
+			SELECT module FROM hlpcfg_whizbot)
+		GROUP BY module
+		ORDER BY module ASC";
+
+	$db->query($sql);
 	$data = $db->fObject("all");
-	foreach($data as $row) {
-  	  	if($oldmodule != $row->module) {
-   	  	  	$db->query("SELECT * FROM hlpcfg_<myname> WHERE `module` = '".strtoupper($row->module)."'");
-  	  	  	$num = $db->numrows();
-  	  	  	if($num > 0)
-				$b = "(<a href='chatcmd:///tell <myname> config help $row->module'>Helpfiles</a>)";
-			else
-				$b = "";
-				
-			$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$row->module' AND `status` = 1");
-			$num = $db->numrows();
-			if($num > 0)
-				$a = "(<green>Running<end>)";
-			else
-				$a = "(<red>Disabled<end>)";
-				
-			$c = "(<a href='chatcmd:///tell <myname> newconfig $row->module'>Configure</a>)";
-		
-  			$on = "<a href='chatcmd:///tell <myname> config mod ".$row->module." enable all'>On</a>";
-			$off = "<a href='chatcmd:///tell <myname> config mod ".$row->module." disable all'>Off</a>";
-            $list .= "<u>".strtoupper($row->module)."</u> $a ($on/$off) $c $b\n";
-            $oldmodule = $row->module;
-        }
+	forEach ($data as $row) {
+		$db->query("SELECT * FROM hlpcfg_<myname> WHERE `module` = '".strtoupper($row->module)."'");
+		$num = $db->numrows();
+		if($num > 0)
+			$b = "(<a href='chatcmd:///tell <myname> config help $row->module'>Helpfiles</a>)";
+		else
+			$b = "";
+			
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$row->module' AND `status` = 1");
+		$num = $db->numrows();
+		if($num > 0)
+			$a = "(<green>Running<end>)";
+		else
+			$a = "(<red>Disabled<end>)";
+			
+		$c = "(<a href='chatcmd:///tell <myname> newconfig $row->module'>Configure</a>)";
+	
+		$on = "<a href='chatcmd:///tell <myname> config mod ".$row->module." enable all'>On</a>";
+		$off = "<a href='chatcmd:///tell <myname> config mod ".$row->module." disable all'>Off</a>";
+		$list .= "<u>".strtoupper($row->module)."</u> $a ($on/$off) $c $b\n";
 	}
 
 	$msg = bot::makeLink("Bot Configuration", $list);
 	bot::send($msg, $sender);  
-} else if (preg_match("/^newconfig (.*)$/", $message, $arr)) {
-	$module = strtolower($arr[1]);
+} else if (preg_match("/^newconfig cmd (enable|disable) (all|guild|priv|msg)$/i", $message, $arr)) {
+	$status = ($arr[1] == "enable" ? 1 : 0);
+	$typeSql = ($arr[2] == "all" ? "`type` = 'guild' OR `type` = 'priv' OR `type` = 'msg'" : "`type` = '{$arr[2]}'");
+	
+	$sql = "UPDATE cmdcfg_<myname> SET `status` = $status WHERE `cmdevent` = 'cmd' OR `cmdevent` = 'subcmd' AND ($typeSql)";
+	$db->update($sql);
+	
+	bot::send("Module(s) updated successfully.", $sendto);	
+} else if (preg_match("/^newconfig (.*)$/i", $message, $arr)) {
+	$module = $arr[1];
 	$list  = "<header>::::: Bot Settings :::::<end>\n\n";
  	$list .= "<highlight>You can see here a list of all Settings that can be changed without a restart of the bot. Please note that not all can be changed only the ones that have a 'Change this' behind their name, on the rest you can see only the current setting but can´t change it. When you click on 'Change it' a new poopup cames up and you see a list of allowed options for this setting. \n\n<end>";
 	$list .= "\n<highlight><u>" . strtoupper($module) . "</u><end>\n";
 
- 	$db->query("SELECT * FROM settings_<myname> WHERE `mode` != 'hide' AND `mod` = '$module'");
+ 	$db->query("SELECT * FROM settings_<myname> WHERE `mode` != 'hide' AND `module` = '$module'");
 	if ($db->numrows() > 0) {
 		$list .= "\n<tab>Settings\n";
 	}
