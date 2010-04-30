@@ -51,21 +51,21 @@ class db {
 		$this->user = $user;
 		$this->pass = $pass;
 		$this->botname = strtolower($vars["name"]);
+		$this->dim = $vars["dimension"];
 			
 		if($type == 'Mysql') {
 			try {
 				$this->sql = new PDO("mysql:host=$host", $user, $pass);
 				$this->query("CREATE DATABASE IF NOT EXISTS $dbName");
 				$this->selectDB($dbName);
-				$this->query("SET sql_mode='NO_BACKSLASH_ESCAPES'");
 			} catch(PDOException $e) {
 			  	$this->errorCode = 1;
 			  	$this->errorInfo = $e->getMessage();
-			}
+			} 
 		}
 		elseif($type == 'Sqlite'){
 			if($host == NULL || $host == "" || $host == "localhost")
-				$this->dbName = "./data/$this->dbName";
+				$this->dbName = "../shared/data/$this->dbName";
 			else
 				$this->dbName = "$host/$this->dbName";
 			try {
@@ -81,6 +81,7 @@ class db {
 	function query($stmt, $type = "object"){
 		$this->result = NULL;
 		$stmt = str_replace("<myname>", $this->botname, $stmt);
+		$stmt = str_replace("<dim>", $this->dim, $stmt);
 		
 		if(substr_compare($stmt, "create", 0, 6, true) == 0) {
 			$this->CreateTable($stmt);
@@ -88,7 +89,7 @@ class db {
 		}
 	
       	$result = $this->sql->query($stmt);
-      	
+      	//echo("$stmt\n");
 		if(is_object($result)) {
 		  	if($type == "object")
 	  			$this->result = $result->fetchALL(PDO::FETCH_OBJ);
@@ -107,7 +108,6 @@ class db {
 			newLine("SqlError", "Error in: $stmt");
 			sleep(5);
 		}
-
 		return($result);				
 	}
 	
@@ -116,12 +116,13 @@ class db {
 		$this->result = NULL;
 		
 		$stmt = str_replace("<myname>", $this->botname, $stmt);
+		$stmt = str_replace("<dim>", $this->dim, $stmt);
 		
 		if(substr_compare($stmt, "create", 0, 6, true) == 0) {
 			$this->CreateTable($stmt);
 			return;
 		}
-		
+		$stmt = str_replace("\'","''",$stmt);
       	$aff_rows = $this->sql->exec($stmt);
 
 		$error = $this->sql->errorInfo();
@@ -132,18 +133,18 @@ class db {
 			newLine("SqlError", "Error in: $stmt");
 						sleep(5);
 		}
-
+		echo("$stmt\n");
 		return($aff_rows);		
 	}
 
 	//Function for creating the table. Main reason is that some SQL commands are not compatible with sqlite for example the autoincrement field
 	function CreateTable($stmt) {
-		if($this->type == "Mysql") {
-            $stmt = str_ireplace("AUTOINCREMENT", "AUTO_INCREMENT", $stmt);
-        } elseif($this->type == "Sqlite") {
-            $stmt = str_ireplace("AUTO_INCREMENT", "AUTOINCREMENT", $stmt);
-			$stmt = str_ireplace(" INT ", " INTEGER ", $stmt);
-        }
+		if($this->type == "Sqlite") {
+		 	$stmt = str_replace(" int ", " INTEGER ", $stmt);
+		 	$stmt = str_replace(" INT ", " INTEGER ", $stmt);
+		 	$stmt = str_replace("auto_increment", "AUTOINCREMENT", $stmt);			 	 	
+		 	$stmt = str_replace("AUTO_INCREMENT", "AUTOINCREMENT", $stmt);		 	
+		}
 		
 		$this->sql->exec($stmt);
 
