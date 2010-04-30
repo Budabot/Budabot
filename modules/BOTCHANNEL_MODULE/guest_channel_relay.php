@@ -30,18 +30,18 @@
    */
 
 //Check if the guestchannel relay is enabled
-if($this->settings["guest_relay"] == 1 || (isset($this->vars["guestchannel_enabled"]) && $this->vars["guestchannel_enabled"] && $this->settings["guest_relay"] == 2)) {
+if ($this->settings["guest_relay"] == 1) {
  	//If the message comes from the privgroup(alias guest channel) and the message was not a command then
-	if($type == "priv" && $this->vars["Guest"][$sender] == true && ($args[2][0] != $this->settings["symbol"] || ($args[2][0] == $this->settings["symbol"] && $this->settings["guest_relay_commands"] == 1))) {
+	if ($type == "priv" && ($args[2][0] != $this->settings["symbol"] || ($args[2][0] == $this->settings["symbol"] && $this->settings["guest_relay_commands"] == 1))) {
 		//Relay the message to the guild channel
         $msg = "<end>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}".bot::makeLink($sender,$sender,"user")."<end>: {$this->settings["guest_color_guild"]}".$message."<end>";
         bot::send($msg, "guild", true);
         //If a guildrelay bot is set do
-        if(isset($this->settings["relaybot"]) && $this->settings["relaybot"] != "0")
+        if ($this->settings["relaybot"] != "0") {
         	bot::send("grc {$this->settings["guest_color"]}[".$this->vars["my guild"]."] ".$msg, $this->settings["relaybot"]);
-
+		}
 	//If the message comes from the guild and the message is not a command and the player is not on ignore
-	} elseif($type == "guild" && !$this->settings["Ignore"][$sender] && ($args[2][0] != $this->settings["symbol"] || ($args[2][0] == $this->settings["symbol"] && $this->settings["guest_relay_commands"] == 1))) {
+	} else if ($type == "guild" && ($args[2][0] != $this->settings["symbol"] || ($args[2][0] == $this->settings["symbol"] && $this->settings["guest_relay_commands"] == 1))) {
 		//Relay the message to the guest channel
         $msg = "<end>{$this->settings["guest_color_channel"]}[{$this -> vars["my guild"]}]<end> {$this->settings["guest_color_username"]}".bot::makeLink($sender,$sender,"user")."<end>: {$this->settings["guest_color_guest"]}".$message."<end>";
         bot::send($msg, NULL, true);

@@ -1,15 +1,15 @@
 <?
    /*
    ** Author: Derroylo (RK2)
-   ** Description: Kicks everyone out of the privategroup(event))
+   ** Description: Guestchannel (Auto-Invite)
    ** Version: 1.0
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
-   ** Date(created): 08.03.2006
-   ** Date(last modified): 08.03.2006
+   ** Date(created): 18.02.2006
+   ** Date(last modified): 10.12.2006
    ** 
-   ** Copyright (C) 2006 Carsten Lohmann
+   ** Copyright (C) 2005, 2006 Carsten Lohmann
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -28,10 +28,12 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-   
-if(time() >= $this->vars["priv_kickall"]) {
-	AOChat::privategroup_kick_all();
-	bot::unregevent("2sec", "BASIC_CHAT_MODULE/kickall_event.php");
-	unset($this->vars["priv_kickall"]);
+
+$db->query("SELECT * FROM members_<myname> WHERE name = '$sender' AND autoinv = 1");
+if ($db->numrows() != 0) {
+ 	$this->vars["Guest"][$sender] = false;
+    $msg = "You have been autoinvited to the Guestchannel of {$this->vars["my guild"]}.";
+    AOChat::privategroup_invite($sender);
+    bot::send($msg, $sender);
 }
 ?>

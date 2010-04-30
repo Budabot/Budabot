@@ -1,13 +1,13 @@
 <?
    /*
    ** Author: Derroylo (RK2)
-   ** Description: Reinvites the players that have been in the privgroup before restart/crash
-   ** Version: 0.1
+   ** Description: Kicks a player from the privatechannel
+   ** Version: 1.0
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
-   ** Date(created): 23.07.2006
-   ** Date(last modified): 23.07.2006
+   ** Date(created): 17.02.2006
+   ** Date(last modified): 18.02.2006
    ** 
    ** Copyright (C) 2006 Carsten Lohmann
    **
@@ -28,13 +28,28 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-   
-if(count($this->vars["members_before_restart"]) > 0) {
-	foreach($this->vars["members_before_restart"] as $key => $value) {
-	  	AOChat::privategroup_kick($key);
-		AOChat::privategroup_invite($key);
+
+if (preg_match("/^add (.+)$/i", $message, $arr)) {
+    $uid = AoChat::get_uid($arr[1]);
+    $name = ucfirst(strtolower($arr[1]));
+    if (!$uid) {
+        $msg = "Player <highlight>$who<end> does not exist.";
+    } else {
+	  	$db->query("SELECT * FROM members_<myname> WHERE `name` = '$who'");
+	  	if($db->numrows() != 0) {
+	  		$msg = "<highlight>$who<end> is already on the guestlist.";
+	  	} else {
+		    $db->query("INSERT INTO members_<myname> (`name`, `autoinv`) VALUES ('$who', 1)");
+		    $msg = "<highlight>$who<end> has been added to the guestlist.";
+			if (!isset($this->buddList[$who])) {
+		        bot::send("addbuddy", $uid);
+			}
+		}
 	}
+
+	bot::send($msg);
+} else {
+	$syntax_error = true;
 }
 
-unset($this->vars["members_before_restart"]);
 ?>

@@ -1,13 +1,13 @@
 <?
    /*
    ** Author: Derroylo (RK2)
-   ** Description: Checks the Guestchannel List
+   ** Description: Invites a player to the privatechannel
    ** Version: 1.0
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
-   ** Date(created): 03.03.2006
-   ** Date(last modified): 21.11.2006
+   ** Date(created): 17.02.2006
+   ** Date(last modified): 18.02.2006
    ** 
    ** Copyright (C) 2006 Carsten Lohmann
    **
@@ -29,10 +29,21 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-$db->query("SELECT * FROM priv_chatlist_<myname> WHERE `guest` = 1");
-$data = $db->fObject("all");
-foreach($data as $row)
-  	if(!isset($this->chatlist[$row->name]))
-  		$db->query("DELETE FROM priv_chatlist_<myname> WHERE `name` = '$row->name'");
-
+if (preg_match("/^invite (.+)$/i", $message, $arr)) {
+    $uid = AoChat::get_uid($arr[1]);
+    $name = ucfirst(strtolower($arr[1]));
+    if ($uid) {
+      	$msg = "Invited <highlight>$name<end> to this channel.";      	
+	  	AOChat::privategroup_kick($name);
+	  	AOChat::privategroup_invite($name);
+		$msg2 = "You have been invited to the Privategroup <highlight>{$this->vars["name"]}<end> by <highlight>$sender<end>";
+		bot::send($msg2, $name);
+    } else {
+		$msg = "Player <highlight>".$name."<end> does not exist.";
+	}
+	
+	bot::send($msg);
+} else {
+	$syntax_error = true;
+}
 ?>

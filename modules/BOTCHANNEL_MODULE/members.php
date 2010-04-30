@@ -1,13 +1,13 @@
-<?php
+<?
    /*
    ** Author: Derroylo (RK2)
-   ** Description: Privatechannel leave
-   ** Version: 1.0
+   ** Description: Guestchannel (invite/kick)
+   ** Version: 1.1
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
    ** Date(created): 23.11.2005
-   ** Date(last modified): 14.02.2006
+   ** Date(last modified): 21.11.2006
    ** 
    ** Copyright (C) 2005, 2006 Carsten Lohmann
    **
@@ -29,15 +29,33 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-global $caller;
-if($this->vars["leader"] == $sender){
-	$this->vars["leader"] = "";
-	bot::send("<yellow>Leader has been cleared, $sender left channel.");			
-}		
-if($caller == $sender)
-	unset($caller);
-	
-if(!isset($this->vars["Guest"][$sender])) {
-	$db->query("DELETE FROM priv_chatlist_<myname> WHERE `name` = '$sender'");
+if (preg_match("/^guestlist$/i", $message)) {
+	$db->query("SELECT * FROM members_<myname> ORDER BY `name`");
+	$autoguests = $db->numrows();
+	if ($autoguests != 0) {
+	  	$list .= "<header>::::: Users on Autoinvitelist :::::<end>\n\n";
+	  	while ($row = $db->fObject()) {
+	  	  	if ($this->buddyList[$row->name] == 1) {
+				$status = "<green>Online";
+				if($this->vars["Guest"][$row->name] == true)
+			    	$status .= " and in Guestchannel";
+			} else {
+				$status = "<red>Offline";
+			}
+
+	  		$list .= "<tab>- $row->name ($status<end>)\n";
+	  	}
+	  	
+	    $msg = "<highlight>".$autoguests."<end> players on the Autoinvitelist ";
+	    $link = ":: ".bot::makeLink('Click here', $list);
+	    if ($autoguests != 0) {
+           	bot::send($msg.$link, "guild");
+        } else {
+           	bot::send($msg, "guild");
+		}
+	} else {
+       	bot::send("No player is on this list.", "guild");
+	}
 }
+
 ?>

@@ -1,15 +1,15 @@
-<?
+<?php
    /*
    ** Author: Derroylo (RK2)
-   ** Description: Kicks everyone out of the privategroup
+   ** Description: Privatechannel kick/leave
    ** Version: 1.0
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
-   ** Date(created): 08.03.2006
-   ** Date(last modified): 08.03.2006
+   ** Date(created): 23.11.2005
+   ** Date(last modified): 14.02.2006
    ** 
-   ** Copyright (C) 2006 Carsten Lohmann
+   ** Copyright (C) 2005, 2006 Carsten Lohmann
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -28,12 +28,9 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-   
-if(eregi("^kickall$", $message)) {
-  	$msg = "All will be kicked out of this group in 10seconds. [by <highlight>$sender<end>]";
-  	bot::send($msg);
-  	$this->vars["priv_kickall"] = time() + 10;
-	bot::regevent("2sec", "BASIC_CHAT_MODULE/kickall_event.php");
-} else
-	$syntax_error = true;
+
+if (preg_match("/^leave$/i", $message)) {
+	AOChat::privategroup_kick($sender);
+}
+
 ?>

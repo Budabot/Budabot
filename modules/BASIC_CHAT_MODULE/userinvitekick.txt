@@ -1,7 +1,0 @@
-<header>::::: Kick or inviting ppl to the privategroup :::::<end>
-
-<highlight>Invite a player to the privategroup<end>
-<tab><symbol>inviteuser 'name'
-
-<highlight>Kick a player from the privategroup<end>
-<tab><symbol>kickuser 'name'

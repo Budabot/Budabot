@@ -1,15 +1,15 @@
-<?php
+<?
    /*
    ** Author: Derroylo (RK2)
-   ** Description: Handles the Privatechat join
-   ** Version: 1.0
+   ** Description: Reinvites the players that have been in the privgroup before restart/crash
+   ** Version: 0.1
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
-   ** Date(created): 23.11.2005
-   ** Date(last modified): 21.11.2006
+   ** Date(created): 23.07.2006
+   ** Date(last modified): 23.07.2006
    ** 
-   ** Copyright (C) 2005, 2006 Carsten Lohmann
+   ** Copyright (C) 2006 Carsten Lohmann
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -28,17 +28,13 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-
-if(!isset($this->vars["Guest"][$sender])) {
-	$whois = new whois($sender);
-	$db->query("INSERT INTO priv_chatlist_<myname> (`name`, `faction`, `profession`, `guild`, `breed`, `level`, `ai_level`) ".
-				"VALUES ('$sender', '$whois->faction', '$whois->prof', '$whois->org', '$whois->breed', '$whois->level', '$whois->ai_level')");
-
-	if(isset($this->admins[$sender]) && $this->admins[$sender]["level"] >= 2 && $this->settings["adminnews"] != "Not set.") {
-		bot::send("<red>Admin News:<end> <yellow>".$this->settings["adminnews"]."<end>", $sender);
-	} 
-	if($this->settings["news"] != "Not set.") {
-		bot::send("<red>News:<end> <yellow>".$this->settings["news"]."<end>", $sender);
+   
+if (count($this->vars["members_before_restart"]) > 0) {
+	forEach ($this->vars["members_before_restart"] as $key => $value) {
+	  	AOChat::privategroup_kick($key);
+		AOChat::privategroup_invite($key);
 	}
 }
+
+unset($this->vars["members_before_restart"]);
 ?>

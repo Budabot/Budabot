@@ -1,13 +1,13 @@
 <?
    /*
    ** Author: Derroylo (RK2)
-   ** Description: Invites a player to the privatechannel
+   ** Description: Kicks everyone out of the privategroup
    ** Version: 1.0
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
-   ** Date(created): 17.02.2006
-   ** Date(last modified): 18.02.2006
+   ** Date(created): 08.03.2006
+   ** Date(last modified): 08.03.2006
    ** 
    ** Copyright (C) 2006 Carsten Lohmann
    **
@@ -28,20 +28,13 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-
-if(eregi("^inviteuser (.+)$", $message, $arr)) {
-    $uid = AoChat::get_uid($arr[1]);
-    $name = ucfirst(strtolower($arr[1]));
-    if($uid) {
-      	$msg = "Invited <highlight>$name<end> to this channel.";      	
-	  	AOChat::privategroup_kick($name);
-	  	AOChat::privategroup_invite($name);
-		$msg2 = "You have been invited to the Privategroup <highlight>{$this->vars["name"]}<end> by <highlight>$sender<end>";
-		bot::send($msg2, $name);
-    } else
-		$msg = "Player <highlight>".$name."<end> does not exist.";
-	
-	bot::send($msg);
-} else
+   
+if (preg_match("/^kickall$/", $message)) {
+  	$msg = "All will be kicked out of this group in 10seconds. [by <highlight>$sender<end>]";
+  	bot::send($msg);
+  	$this->vars["priv_kickall"] = time() + 10;
+	bot::regevent("2sec", "BASIC_CHAT_MODULE/kickall_event.php");
+} else {
 	$syntax_error = true;
+}
 ?>

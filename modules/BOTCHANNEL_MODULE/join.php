@@ -29,20 +29,23 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
    
-if(eregi("^guestjoin$", $message)) {
- 	$db->query("SELECT * FROM guests_<myname> WHERE `name` = '$sender'");
+if (preg_match("/^join$/i", $message)) {
+ 	$db->query("SELECT * FROM members_<myname> WHERE `name` = '$sender'");
 	$on_guest_list = $db->numrows();
 	
-	if($this->settings["guest_man_join"] == 1 && $on_guest_list == 1) {
+	if ($this->settings["guest_man_join"] == 1 && $on_guest_list == 1) {
 		$this->vars["Guest"][$sender] = false;
 		AOChat::privategroup_kick($sender);
 		AOChat::privategroup_invite($sender);
-	} elseif($this->settings["guest_man_join"] == 0) {
+	} else if($this->settings["guest_man_join"] == 0) {
  	    $this->vars["Guest"][$sender] = false;
 		AOChat::privategroup_kick($sender);
 		AOChat::privategroup_invite($sender);
-	} else 
+	} else {
 		bot::send("You are not allowed to join the guestchannel, ask an Orgmember for an invite.", $sender);
-} else 
+	}
+} else {
 	$syntax_error = true;
+}
+
 ?>

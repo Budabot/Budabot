@@ -1,13 +1,13 @@
 <?
    /*
    ** Author: Derroylo (RK2)
-   ** Description: Autoinviting members
-   ** Version: 0.1
+   ** Description: Kicks everyone out of the privategroup(event))
+   ** Version: 1.0
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
-   ** Date(created): 04.04.2006
-   ** Date(last modified): 21.11.2006
+   ** Date(created): 08.03.2006
+   ** Date(last modified): 08.03.2006
    ** 
    ** Copyright (C) 2006 Carsten Lohmann
    **
@@ -29,11 +29,9 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
    
-$db->query("SELECT * FROM members_<myname> WHERE name = '$sender'");
-if($db->numrows() != 0) {
-  	$msg = "You have been autoinvited to the private group of <highlight>{$this->vars["name"]}<end>. To disable autoinvite do /tell <myname> autoinvite off";
-  	bot::send($msg, $sender);
-	AOChat::privategroup_kick($sender);
-	AOChat::privategroup_invite($sender);
+if (time() >= $this->vars["priv_kickall"]) {
+	AOChat::privategroup_kick_all();
+	bot::unregevent("2sec", "BASIC_CHAT_MODULE/kickall_event.php");
+	unset($this->vars["priv_kickall"]);
 }
 ?>

@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
    
-if(eregi("^lock$", $message)) {
+if (preg_match("/^lock$/i", $message)) {
   	if($this->settings["priv_status"] == "closed") {
 	    $msg = "Privategroup is already locked.";
 	    if($type == "msg")
@@ -45,7 +45,7 @@ if(eregi("^lock$", $message)) {
 		bot::send($msg, $sender);
 	
 	bot::savesetting("priv_status", "closed");
-} elseif(eregi("^lock (.+)$", $message, $arr)) {
+} else if (preg_match("/^lock (.+)$/i", $message, $arr)) {
   	$reason = $arr[1];
 	if($this->settings["priv_status"] == "closed") {
 	    $msg = "Privategroup is already locked.";
@@ -63,7 +63,7 @@ if(eregi("^lock$", $message)) {
 	
 	bot::savesetting("priv_status", "closed");
 	bot::savesetting("priv_status_reason", $reason);
-} elseif(eregi("^unlock$", $message)) {
+} else if (preg_match("/^unlock$/i", $message)) {
   	if($this->settings["priv_status"] == "open") {
 	    $msg = "Privategroup is already opened.";
 	    if($type == "msg")
@@ -80,6 +80,7 @@ if(eregi("^lock$", $message)) {
 	
 	bot::savesetting("priv_status", "open");
 	bot::savesetting("priv_status_reason", "not set");	
-} else
+} else {
 	$syntax_error = true;
+}
 ?>

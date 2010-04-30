@@ -29,18 +29,20 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^kickuser (.+)$", $message, $arr)) {
+if (preg_match("/^kick (.+)$/i", $message, $arr)) {
     $uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
-    if($uid) {
-        if($this->chatlist[$name] == true) {
+    if ($uid) {
+        if ($this->chatlist[$name] == true) {
 		  	AOChat::privategroup_kick($name);
 			$msg = "<highlight>$name<end> has been kicked.";
 		}
-    } else
+    } else {
 		$msg = "Player <highlight>".$name."<end> does not exist.";
+	}
 	
 	bot::send($msg);
-} else
+} else {
 	$syntax_error = true;
+}
 ?>
