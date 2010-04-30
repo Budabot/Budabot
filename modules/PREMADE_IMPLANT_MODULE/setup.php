@@ -23,25 +23,26 @@
 require_once('functions.php');
 
 $filearray = file("./modules/PREMADE_IMPLANT_MODULE/premade_implant.sql", FILE_TEXT | FILE_SKIP_EMPTY_LINES | FILE_IGNORE_NEW_LINES);
-foreach($filearray as $num => $line) {
+forEach ($filearray as $num => $line) {
 	$db->query($line);
 }
 
 global $curMod;
 $tempCurMod = $curMod;
 $curMod = "PREMADE_IMPLANT_MODULE";
-if (!bot::getsetting('premade_implant_db_version')) {
-	bot::addsetting('premade_implant_db_version', 'The version of the premade implant db', 'noedit', 0, null, null);
+
+$settingName = 'premade_implant_db_version';
+if (!bot::getsetting($settingName)) {
+	bot::addsetting($settingName, $settingName, 'noedit', 0);
 }
 
-echo "Checking for update.";
-$currentVersion = bot::getsetting('premade_implant_db_version');
+$currentVersion = bot::getsetting($settingName);
 $newVersion = checkForUpdate($currentVersion, false);
 if ($newVersion > $currentVersion) {
-	bot::savesetting('premade_implant_db_version', $newVersion);
-	echo "Premade Implant Database has been updated. New version: $newVersion.";
+	bot::savesetting($settingName, $newVersion);
+	echo "Updating '$settingName' database from '$currentVersion' to '$newVersion'...Finished!\n";
 } else {
-	echo "Premade Implant Database is already up to date. Version: $newVersion.";
+	echo "Updating '$settingName' database...already up to date! version: '$currentVersion'\n";
 }
 
 $curMod = $tempCurMod;
