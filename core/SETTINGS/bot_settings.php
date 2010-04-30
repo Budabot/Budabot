@@ -42,7 +42,7 @@ if(eregi("^settings$", $message)) {
 	$data	 = $db->fObject("all");
  	foreach($data as $row){
 		if($row->module != "" && $row->module != "Basic Settings"){
-			$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '".strtolower($row->module)."' AND `status` = 1");
+			$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '".strtoupper($row->module)."' AND `status` = 1");
 			$num = $db->numrows();
 		} else 
 			$num = 1;

@@ -39,7 +39,7 @@ if (preg_match("/^config$/i", $message)) {
 		bot::makeLink('Disable All', '/tell <myname> config cmd disable priv', 'chatcmd') . "\n";
 	$list .= "Private Message Commands - " . 
 		bot::makeLink('Enable All', '/tell <myname> config cmd enable msg', 'chatcmd') . " " . 
-		bot::makeLink('Disable All', '/tell <myname> config cmd disable msg', 'chatcmd') . "\n\n\n";
+		bot::makeLink('Disable All', '/tell <myname> config cmd disable msg', 'chatcmd') . "\n";
 	$list .= "ALL Commands - " . 
 		bot::makeLink('Enable All', '/tell <myname> config cmd enable all', 'chatcmd') . " " . 
 		bot::makeLink('Disable All', '/tell <myname> config cmd disable all', 'chatcmd') . "\n\n\n";
