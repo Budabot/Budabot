@@ -403,4 +403,3 @@
 	bot::regGroup("alieninvasion_guides", $MODULE_NAME, "pvpguide", "apf13guide", "apf28guide", "apf35guide", "apf42guide", "aridrift"  );
 	bot::regGroup("slinfo_guides", $MODULE_NAME, "SL Quest Guides", "infstar", "albainfo", "penguide", "spiritquest", "adoquest", "jobeshoel", "shoelyutto", "compact");
 ?>
-                                                                                                                     

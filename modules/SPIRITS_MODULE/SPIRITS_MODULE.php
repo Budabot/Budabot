@@ -11,4 +11,3 @@
 	bot::help("Spirits", "$MODULE_NAME/spirits.txt", "all", "Search for Spirits", "spirits");
 	
 ?>
-	
