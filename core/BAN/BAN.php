@@ -3,8 +3,14 @@ $MODULE_NAME = "BAN";
 
 	//Commands
 	bot::regcommand("msg", "$MODULE_NAME/ban_player.php", "ban","mod");
-	bot::regcommand("msg", "$MODULE_NAME/unban.php", "unban","mod"); 
-	bot::regcommand("msg", "$MODULE_NAME/banlist.php", "banlist");	
+	bot::regcommand("msg", "$MODULE_NAME/unban.php", "unban","mod");
+	bot::regcommand("msg", "$MODULE_NAME/banlist.php", "banlist");
+	bot::regcommand("priv", "$MODULE_NAME/ban_player.php", "ban","mod");
+	bot::regcommand("priv", "$MODULE_NAME/unban.php", "unban","mod");
+	bot::regcommand("priv", "$MODULE_NAME/banlist.php", "banlist");
+	bot::regcommand("guild", "$MODULE_NAME/ban_player.php", "ban","mod");
+	bot::regcommand("guild", "$MODULE_NAME/unban.php", "unban","mod");
+	bot::regcommand("guild", "$MODULE_NAME/banlist.php", "banlist");
 
 	//Events
 	bot::regevent("1hour", "$MODULE_NAME/check_tempban.php");
