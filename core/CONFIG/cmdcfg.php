@@ -29,110 +29,78 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^config$", $message)) {
-	$msg = "Getting Dynamic command and eventlist. This can take a few seconds.";
-  	bot::send($msg, $sender);
-
-	$list = "<header>::::: Command and Event Config :::::<end>\n";
-	$list .= "<highlight>Here can you disable or enable Commands/Events and also changing their Access Level\n";
-	$list .= "The following options are available:\n";
-	$list .= " - Click ON or Off behind the Module Name to Enable or Disable them completly.\n";
-	$list .= " - Click ON or Off behind the Command/Eventname to Enable or Disable them.\n";
-	$list .= " - Click Adv. behind the name to change their Status for the single Channels \n";
-	$list .= "   and to change their Access Limit\n";
-	$list .= " - Behind Adv. you will find Indicators in which channel the command is enabled or disabled.\n";
-	$list .= "   G = Guild Channel\n";
-	$list .= "   P = Private Channel\n";
-	$list .= "   T = Tells\n";	
-	$list .= "   If the char is green the command is enabled otherwise it is disabled\n<end>";
+if (preg_match("/^config$/i", $message)) {
+	$list = "<header>::::: Module Config :::::<end>\n\n";
+	$list .= "Org Commands - " . 
+		bot::makeLink('Enable All', '/tell <myname> config cmd enable guild', 'chatcmd') . " " . 
+		bot::makeLink('Disable All', '/tell <myname> config cmd disable guild', 'chatcmd') . "\n";
+	$list .= "Private Group Commands - " . 
+		bot::makeLink('Enable All', '/tell <myname> config cmd enable priv', 'chatcmd') . " " . 
+		bot::makeLink('Disable All', '/tell <myname> config cmd disable priv', 'chatcmd') . "\n";
+	$list .= "Private Message Commands - " . 
+		bot::makeLink('Enable All', '/tell <myname> config cmd enable msg', 'chatcmd') . " " . 
+		bot::makeLink('Disable All', '/tell <myname> config cmd disable msg', 'chatcmd') . "\n\n\n";
+	$list .= "ALL Commands - " . 
+		bot::makeLink('Enable All', '/tell <myname> config cmd enable all', 'chatcmd') . " " . 
+		bot::makeLink('Disable All', '/tell <myname> config cmd disable all', 'chatcmd') . "\n\n\n";
 	
-	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' AND `type` != 'setup' AND `dependson` = 'none' UNION ALL SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'event' AND `type` != 'setup' AND `dependson` = 'none' ORDER BY `module`, `cmd`");
+	$sql = "
+		SELECT
+			module
+		FROM
+			(SELECT module FROM settings_<myname> WHERE module <> 'Basic Settings'
+				UNION
+			SELECT module AS module FROM cmdcfg_<myname> WHERE module <> 'none')
+		GROUP BY module
+		ORDER BY module ASC";
+
+	$db->query($sql);
 	$data = $db->fObject("all");
-	foreach($data as $row) {
-  	  	if($oldmodule != $row->module) {
-   	  	  	$db->query("SELECT * FROM hlpcfg_<myname> WHERE `module` = '".strtoupper($row->module)."'");
-  	  	  	$num = $db->numrows();
-  	  	  	if($num > 0)
-				$b = "(<a href='chatcmd:///tell <myname> config help $row->module'>Configure Helpfiles</a>)";
-			else
-				$b = "";
-				
-			$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$row->module' AND `status` = 1");
-			$num = $db->numrows();
-			if($num > 0)
-				$a = "(<green>Running<end>)";
-			else
-				$a = "(<red>Disabled<end>)";
-		
-  			$on = "<a href='chatcmd:///tell <myname> config mod ".$row->module." enable all'>On</a>";
-			$off = "<a href='chatcmd:///tell <myname> config mod ".$row->module." disable all'>Off</a>";
-            $list .= "\n<u>".strtoupper($row->module)."</u>$a ($on/$off) $b\n";
-            $oldmodule = $row->module;
-        }
-
-        $priv = "";
-        $guild = "";
-        $tell = "";
-		if($row->cmdevent == "cmd" && $oldcmd != $row->cmd) {
-			if($row->grp == "none") {
-				$on = "<a href='chatcmd:///tell <myname> config cmd $row->cmd enable all'>ON</a>";
-				$off = "<a href='chatcmd:///tell <myname> config cmd $row->cmd disable all'>OFF</a>";
-				$adv = "<a href='chatcmd:///tell <myname> config cmd $row->cmd $row->module'>Adv.</a>";
-		
-				$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$row->module' AND `cmd` = '$row->cmd'");
-				while($row1 = $db->fObject()) {
-					if($row1->type == "msg" && $row->status == 1)
-						$tell = "|<green>T<end>";
-					elseif($row1->type == "msg" && $row->status == 0)
-						$tell = "|<red>T<end>";
-					elseif($row1->type == "guild" && $row->status == 1)
-						$guild = "|<green>G<end>";
-					elseif($row1->type == "guild" && $row->status == 0)
-						$guild = "|<red>G<end>";
-					elseif($row1->type == "priv" && $row->status == 1)
-						$priv = "|<green>P<end>";
-					elseif($row1->type == "priv" && $row->status == 0)
-						$priv = "|<red>P<end>";
-				}
-
-				if($row->description != "none")
-					$list .= "  $row->description ($adv$tell$guild$priv): $on  $off\n";
-				else
-					$list .= "  $row->cmd Command ($adv$tell$guild$priv): $on  $off\n";
-				$oldcmd = $row->cmd;
-			} elseif($group[$row->grp] == false) {
-				$on = "<a href='chatcmd:///tell <myname> config grp ".$row->grp." enable all'>ON</a>";
-				$off = "<a href='chatcmd:///tell <myname> config grp ".$row->grp." disable all'>OFF</a>";
-				$adv = "<a href='chatcmd:///tell <myname> config grp ".$row->grp."'>Adv.</a>";
-
-				$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = 'none' AND `cmdevent` = 'group' AND `type` = '$row->grp'");
-				if($db->numrows() == 1) {
-					$temp = $db->fObject();
-					if($temp->description != "none")
-						$list .= "  $temp->description ($adv): $on  $off \n";
-					else
-						$list .= "  $temp->grp group ($adv): $on  $off \n";				 	 	
-				}		
-				$group[$row->grp] = true;
-			}
-		} elseif ($row->cmdevent == "event") {
-				$on = "<a href='chatcmd:///tell <myname> config event ".$row->type." ".$row->file." enable all'>ON</a>";
-				$off = "<a href='chatcmd:///tell <myname> config event ".$row->type." ".$row->file." disable all'>OFF</a>";
-
-				if($row->status == 1)
-					$status = "<green>Enabled<end>";
-				else
-					$status = "<red>Disabled<end>";
-		
-				if($row->description != "none")
-					$list .= "  $row->description($status): $on  $off \n";
-				else
-					$list .= "  $row->type Event($status): $on  $off \n";			  	
-		}
+	forEach ($data as $row) {
+		$db->query("SELECT * FROM hlpcfg_<myname> WHERE `module` = '".strtoupper($row->module)."'");
+		$num = $db->numrows();
+		if($num > 0)
+			$b = "(<a href='chatcmd:///tell <myname> config help $row->module'>Helpfiles</a>)";
+		else
+			$b = "";
+			
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$row->module' AND `status` = 1");
+		$num = $db->numrows();
+		if($num > 0)
+			$a = "(<green>Running<end>)";
+		else
+			$a = "(<red>Disabled<end>)";
+			
+		$c = "(<a href='chatcmd:///tell <myname> config $row->module'>Configure</a>)";
+	
+		$on = "<a href='chatcmd:///tell <myname> config mod $row->module enable all'>On</a>";
+		$off = "<a href='chatcmd:///tell <myname> config mod $row->module disable all'>Off</a>";
+		$list .= strtoupper($row->module)." $a ($on/$off) $c $b\n";
 	}
 
-	$msg = bot::makeLink("Bot Configuration", $list);
+	$msg = bot::makeLink("Module Config", $list);
 	bot::send($msg, $sender);  
+} else if (preg_match("/^config cmd (enable|disable) (all|guild|priv|msg)$/i", $message, $arr)) {
+	$status = ($arr[1] == "enable" ? 1 : 0);
+	$typeSql = ($arr[2] == "all" ? "`type` = 'guild' OR `type` = 'priv' OR `type` = 'msg'" : "`type` = '{$arr[2]}'");
+	
+	$sql = "SELECT type, file, cmd, admin FROM cmdcfg_<myname> WHERE (`cmdevent` = 'cmd' OR `cmdevent` = 'subcmd') AND ($typeSql)";
+	$db->query($sql);
+	$data = $db->fObject('all');
+	forEach ($data as $row) {
+		print_r($row);
+	  	if ($status == 1) {
+			bot::regcommand($row->type, $row->file, $row->cmd, $row->admin);
+		} else {
+			bot::unregcommand($row->type, $row->file, $row->cmd);
+		}
+	}
+	print_r($row);
+	
+	$sql = "UPDATE cmdcfg_<myname> SET `status` = $status WHERE (`cmdevent` = 'cmd' OR `cmdevent` = 'subcmd') AND ($typeSql)";
+	$db->exec($sql);
+	
+	bot::send("Commands(s) updated successfully.", $sendto);	
 } elseif(eregi("^config (mod|cmd|grp|event) (.+) (enable|disable) (priv|msg|guild|all)$", $message, $arr)) {
 	if($arr[1] == "event") {
 		$temp = explode(" ", $arr[2]);
@@ -352,7 +320,7 @@ if(eregi("^config$", $message)) {
 	bot::send($msg, $sender);
 } elseif(eregi("^config cmd ([a-z0-9_]+) (.+)$", $message, $arr)) {
 	$cmd = strtolower($arr[1]);
-	$module = strtolower($arr[2]);
+	$module = strtoupper($arr[2]);
 	$found_msg = 0;
 	$found_priv = 0;
 	$found_guild = 0;	
@@ -716,6 +684,100 @@ if(eregi("^config$", $message)) {
 
 	$msg = bot::makeLink("Configurate helpfiles for module $mod", $list);
 	bot::send($msg, $sender);	
+} else if (preg_match("/^config (.*)$/i", $message, $arr)) {
+	$module = $arr[1];
+	$list  = "<header>::::: Bot Settings :::::<end>\n\n";
+ 	$list .= "<highlight>You can see here a list of all Settings that can be changed without a restart of the bot. Please note that not all can be changed only the ones that have a 'Change this' behind their name, on the rest you can see only the current setting but can´t change it. When you click on 'Change it' a new poopup cames up and you see a list of allowed options for this setting. \n\n<end>";
+	$list .= "\n<highlight><u>" . strtoupper($module) . "</u><end>\n";
+	
+
+ 	$db->query("SELECT * FROM settings_<myname> WHERE `mode` != 'hide' AND `module` = '$module'");
+	if ($db->numrows() > 0) {
+		$list .= "\n<i>Settings</i>\n";
+	}
+ 	while ($row = $db->fObject()){
+		$cur = $row->mod;	
+		
+		if($row->help != "")
+			$list .= "$row->description (<a href='chatcmd:///tell <myname> settings help $row->name'>Help</a>)";
+		else
+			$list .= $row->description;
+
+		if($row->mode == "edit")
+			$list .= " (<a href='chatcmd:///tell <myname> settings change $row->name'>Change this</a>)";
+	
+		$list .= ":  ";
+
+		$options = explode(";", $row->options);
+		if($options[0] == "color")
+			$list .= $row->setting."Current Color</font>\n";
+		elseif($row->intoptions != "0") {
+			$intoptions = explode(";", $row->intoptions);
+			$intoptions2 = array_flip($intoptions);
+			$key = $intoptions2[$row->setting];
+			$list .= "<highlight>{$options[$key]}<end>\n";
+		} else
+			$list .= "<highlight>$row->setting<end>\n";	
+	}
+
+	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' AND `type` != 'setup' AND `module` = '$module' GROUP BY cmd");
+	if ($db->numrows() > 0) {
+		$list .= "\n<i>Commands</i>\n";
+	}
+	$data = $db->fObject("all");
+	forEach ($data as $row) {
+		$priv = "";
+        $guild = "";
+        $tell = "";
+
+		$on = "<a href='chatcmd:///tell <myname> config cmd $row->cmd enable all'>ON</a>";
+		$off = "<a href='chatcmd:///tell <myname> config cmd $row->cmd disable all'>OFF</a>";
+		$adv = "<a href='chatcmd:///tell <myname> config cmd $row->cmd $row->module'>Adv.</a>";
+
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$row->module' AND `cmd` = '$row->cmd'");
+		while($row1 = $db->fObject()) {
+			if($row1->type == "msg" && $row->status == 1)
+				$tell = "|<green>T<end>";
+			elseif($row1->type == "msg" && $row->status == 0)
+				$tell = "|<red>T<end>";
+			elseif($row1->type == "guild" && $row->status == 1)
+				$guild = "|<green>G<end>";
+			elseif($row1->type == "guild" && $row->status == 0)
+				$guild = "|<red>G<end>";
+			elseif($row1->type == "priv" && $row->status == 1)
+				$priv = "|<green>P<end>";
+			elseif($row1->type == "priv" && $row->status == 0)
+				$priv = "|<red>P<end>";
+		}
+
+		if ($row->description != "none") {
+			$list .= "$row->cmd ($row->description) - ($adv$tell$guild$priv): $on  $off\n";
+		} else {
+			$list .= "$row->cmd - ($adv$tell$guild$priv): $on  $off\n";
+		}
+	}
+	
+	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'event' AND `type` != 'setup' AND `module` = '$module'");
+	if ($db->numrows() > 0) {
+		$list .= "\n<i>Events</i>\n";
+	}
+	while ($row = $db->fObject()) {
+		$on = "<a href='chatcmd:///tell <myname> config event ".$row->type." ".$row->file." enable all'>ON</a>";
+		$off = "<a href='chatcmd:///tell <myname> config event ".$row->type." ".$row->file." disable all'>OFF</a>";
+
+		if($row->status == 1)
+			$status = "<green>Enabled<end>";
+		else
+			$status = "<red>Disabled<end>";
+
+		if($row->description != "none")
+			$list .= "$row->type ($row->description) - ($status): $on  $off \n";
+		else
+			$list .= "$row->type - ($status): $on  $off \n";
+	}
+
+  	$msg = bot::makeLink("Bot Settings", $list);
+ 	bot::send($msg, $sender);
 } else
 	$syntax_error = true;
 
