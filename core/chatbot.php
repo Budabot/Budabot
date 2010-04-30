@@ -449,10 +449,11 @@ class bot extends AOChat{
 			if($this->settings['debug'] > 1) print("                 Admin:({$admin[$i]}) Type:({$type[$i]})\n");
 			if($this->settings['debug'] > 2) sleep(1);
 			
-			if($this->existing_commands[$type[$i]][$command] == true)
+			if($this->existing_commands[$type[$i]][$command] == true) {
 				$db->query("UPDATE cmdcfg_<myname> SET `module` = '$curMod', `verify` = 1, `file` = '$filename', `description` = '$description' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
-			else
-				$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`) VALUES ('$module[0]', '{$type[$i]}', '$filename', '$command', '{$admin[$i]}', '$description', 1, 'cmd', '".$this->settings["default module status"]."')");
+			} else {
+				$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`) VALUES ('$curMod', '{$type[$i]}', '$filename', '$command', '{$admin[$i]}', '$description', 1, 'cmd', '".$this->settings["default module status"]."')");
+			}
 		}
 	}
 
@@ -467,7 +468,7 @@ class bot extends AOChat{
 		if($this->settings['debug'] > 2) sleep(1);
 
 		$module = explode("/", strtolower($filename));
-		$module = $module[0];
+		$module = strtoupper($module[0]);
 
 		//Check if the file exists		
 		if(($actual_filename = bot::verifyFilename($filename)) != '') { 
@@ -591,6 +592,7 @@ class bot extends AOChat{
 ** 	Register a subcommand
 */	function subcommand($type, $filename, $command, $admin = 'all', $dependson, $description = 'none'){
 		global $db;
+		global $curMod;
 		
 		if (!bot::processCommandArgs($type, $admin)) {
 			echo "invalid args for subcommand '$command'!!\n";
@@ -632,10 +634,11 @@ class bot extends AOChat{
 				}
 			}
 			
-			if($this->existing_subcmds[$type[$i]][$command] == true)
-				$db->query("UPDATE cmdcfg_<myname> SET `module` = '$module[0]', `verify` = 1, `file` = '$filename', `description` = '$description', `dependson` = '$dependson' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
-			else
-				$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `dependson`) VALUES ('$module[0]', '{$type[$i]}', '$filename', '$command', '{$admin[$i]}', '$description', 1, 'subcmd', '$dependson')");
+			if($this->existing_subcmds[$type[$i]][$command] == true) {
+				$db->query("UPDATE cmdcfg_<myname> SET `module` = '$curMod', `verify` = 1, `file` = '$filename', `description` = '$description', `dependson` = '$dependson' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
+			} else {
+				$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `dependson`) VALUES ('$curMod', '{$type[$i]}', '$filename', '$command', '{$admin[$i]}', '$description', 1, 'subcmd', '$dependson')");
+			}
 		}
 	}
 
@@ -644,6 +647,7 @@ class bot extends AOChat{
 **  Registers an event
 */	function event($type, $filename, $dependson = 'none', $desc = 'none'){
 		global $db;
+		global $curMod;
 		
 		$module = explode("/", strtolower($filename));
 
@@ -655,10 +659,11 @@ class bot extends AOChat{
 		else
 			$status = 0;
 			
-		if($this->existing_events[$type][$filename] == true)
-		  	$db->query("UPDATE cmdcfg_<myname> SET `dependson` = '$dependson', `verify` = 1, `description` = '$desc' WHERE `type` = '$type' AND `cmdevent` = 'event' AND `file` = '$filename' AND `module` = '$module[0]'");
-		else
-		  	$db->query("INSERT INTO cmdcfg_<myname> (`module`, `cmdevent`, `type`, `file`, `verify`, `dependson`, `description`, `status`) VALUES ('$module[0]', 'event', '$type', '$filename', '1', '$dependson', '$desc', '$status')");
+		if($this->existing_events[$type][$filename] == true) {
+		  	$db->query("UPDATE cmdcfg_<myname> SET `dependson` = '$dependson', `verify` = 1, `description` = '$desc' WHERE `type` = '$type' AND `cmdevent` = 'event' AND `file` = '$filename' AND `module` = '$curMod'");
+		} else {
+		  	$db->query("INSERT INTO cmdcfg_<myname> (`module`, `cmdevent`, `type`, `file`, `verify`, `dependson`, `description`, `status`) VALUES ('$curMod', 'event', '$type', '$filename', '1', '$dependson', '$desc', '$status')");
+		}
 	}
 
 
@@ -668,12 +673,11 @@ class bot extends AOChat{
 **  Sets an event as active
 */	function regevent($type, $filename){
 		global $db;
+		global $curMod;
+		
 	  	if($this->settings['debug'] > 1) print("Activating Event:($type) File:($filename)\n");
 		if($this->settings['debug'] > 2) sleep(1);
 
-		$module = explode("/", strtolower($filename));
-		$module = $module[0];
-		
 		//Check if the file exists		
 		if ($type == 'loadSQLFile') {
 			// do nothing
@@ -696,7 +700,7 @@ class bot extends AOChat{
 						if (file_exists("./core/$row->file")) 
 							$file = "./core/$row->file";			  	  
 				  	  	include($file);
-					    $db->query("UPDATE cmdcfg_<myname> SET `status` = 1 WHERE `module` = '$module' AND `cmdevent` = 'event' AND `type` = 'setup'");
+					    $db->query("UPDATE cmdcfg_<myname> SET `status` = 1 WHERE `module` = '$curMod' AND `cmdevent` = 'event' AND `type` = 'setup'");
 					}
 				}
 			}
@@ -932,19 +936,18 @@ class bot extends AOChat{
 **  Register a group of commands
 */	function regGroup($group, $module = 'none', $desc = 'none'){
 		global $db;
-		$module = strtolower($module);
+		global $curMod;
+
 		$group = strtolower($group);
 		//Check if the module is correct
 		if($module == "none") {
 			echo "Error in creating group $group. You need to specify a module for the group.\n";
-			sleep(5);
 			return;	  	
 		}
 		//Check if the group already exists
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `grp` = '$group'");
 		if($db->numrows() != 0) {
 			echo "Error in creating group $group. This group already exists.\n";
-			sleep(5);
 			return;
 		}
     	$numargs = func_num_args();
@@ -952,17 +955,15 @@ class bot extends AOChat{
 		//Check if enough commands are given for the group
 		if($numargs < 5) {
 			echo "Not enough commands to build group $group(must be at least 2commands)";
-  			sleep(5);
 			return;
 		}
 		//Go through the arg list and assign it to the group
 		for($i = 3;$i < $numargs; $i++) {
-		  	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '".$arg_list[$i]."' AND `module` = '$module'");
-		  	if($db->numrows() != 0)
-			    $db->query("UPDATE cmdcfg_<myname> SET `grp` = '".$group."' WHERE `cmd` = '".$arg_list[$i]."' AND `module` = '$module'");
-			else {
-			  	echo "Error in creating group $group for module $module. Command ".$arg_list[$i]." doesn't exists.\n";
-  				sleep(5);
+		  	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '".$arg_list[$i]."' AND `module` = '$curMod'");
+		  	if($db->numrows() != 0) {
+			    $db->query("UPDATE cmdcfg_<myname> SET `grp` = '$group' WHERE `cmd` = '".$arg_list[$i]."' AND `module` = '$curMod'");
+			} else {
+			  	echo "Error in creating group $group for module $curMod. Command ".$arg_list[$i]." doesn't exists.\n";
 			}	  
 		}
 	  	$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `cmdevent`, `verify`, `description`) VALUES ('none', '$group', 'group', '1', '$desc')");
@@ -1349,9 +1350,14 @@ class bot extends AOChat{
 				$message = $args[2];			
 				$channel = AOChat::get_gname($args[0]);
 			
-				//Ignore Messages from Vicinity/IRRK New Wire/OT OOC/OT Newbie OOC...				
-				if($channel == "" || $channel == 'IRRK News Wire' || $channel == 'OT OOC' || $channel == 'OT Newbie OOC' || $channel == 'OT Jpn OOC' || $channel == 'OT shopping 11-50' || $channel == 'Tour Announcements' || $channel == 'Neu. Newbie OOC' || $channel == 'Neu. shopping 11-50' || $channel == 'Neu. OOC' || $channel == 'Clan OOC' || $channel == 'Clan Newbie OOC' || $channel == 'Clan shopping 11-50')
+				//Ignore Messages from Vicinity/IRRK New Wire/OT OOC/OT Newbie OOC...	
+				$channelsToIgnore = array("", 'IRRK News Wire', 'OT OOC', 'OT Newbie OOC', 'OT Jpn OOC', 'OT shopping 11-50',
+					'Tour Announcements', 'Neu. Newbie OOC', 'Neu. Jpn OOC', 'Neu. shopping 11-50', 'Neu. OOC', 'Clan OOC',
+					'Clan Newbie OOC', 'Clan Jpn OOC', 'Clan shopping 11-50');
+
+				if (in_array($channel, $channelsToIgnore)) {
 					return;
+				}
 				
 				// if it's an extended message
 				$em = null;
@@ -1562,7 +1568,7 @@ class bot extends AOChat{
 		
 		// only letters, numbers, underscores are allowed
 		if (!preg_match('/^[a-z0-9_]+$/', $name)) {
-			echo "Invalid SQL file name!  Only numbers, letters, and underscores permitted!\n";
+			echo "Invalid SQL file name: '$name' for module: '$module'!  Only numbers, letters, and underscores permitted!\n";
 			return;
 		}
 		
@@ -1630,7 +1636,7 @@ class bot extends AOChat{
 				bot::addsetting($settingName, $settingName, 'noedit', $maxFileVersion);
 			}
 		} else {
-			echo "$name database already up to date! version: '$currentVersion'\n";
+			echo "Updating '$name' database...already up to date! version: '$currentVersion'\n";
 		}
 	}
 }

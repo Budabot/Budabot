@@ -1,4 +1,4 @@
-<?PHP
+<?php
    /*
    Dynacamp Module Ver 2.0
    Written By Jaqueme
