@@ -176,8 +176,8 @@ main(true, $chatBot);
 
         $line = preg_replace("/<font(.+)>/U", "", $line);
         $line = preg_replace("/<\/font>/U", "", $line);
-        $line = preg_replace("/<a href=\"(.+)\">/sU", "[link]", $line);
-        $line = preg_replace("/<a href='(.+)'>/sU", "[link]", $line);
+        $line = preg_replace("/<a(\\s+)href=\"(.+)\">/sU", "[link]", $line);
+        $line = preg_replace("/<a(\\s+)href='(.+)'>/sU", "[link]", $line);
         $line = preg_replace("/<\/a>/U", "[/link]", $line);
         
 		echo "$line\n";
