@@ -48,6 +48,7 @@ if(eregi("^items ([0-9]+) (.+)$", $message, $arr)){
 
 $name = str_replace(":", "&#58;", $name);
 $name = str_replace("&", "&amp;", $name);
+$name = str_replace("'s", "", $name);
 
 $tmp = explode(" ", $name);
 $first = true;
