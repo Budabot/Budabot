@@ -29,15 +29,15 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
    
-if(eregi("^items ([0-9]+) (.+)$", $message, $arr)){
+if (preg_match("/^items ([0-9]+) (.+)$/i", $message, $arr)) {
     $ql = $arr[1];
     if(!($ql >= 1 && $ql <= 500)) {
-        $msg = "No valid Ql specified(1-500)";
+        $msg = "Invalid Ql specified(1-500)";
         bot::send($msg, $sendto);
         return;
     }
     $name = $arr[2];
-} else if(eregi("^items (.+)$", $message, $arr)){
+} else if(preg_match("/^items (.+)$/i", $message, $arr)) {
     $name = $arr[1];
     $ql = false;
 } else {
@@ -48,12 +48,11 @@ if(eregi("^items ([0-9]+) (.+)$", $message, $arr)){
 
 $name = str_replace(":", "&#58;", $name);
 $name = str_replace("&", "&amp;", $name);
-$name = str_replace("'s", "", $name);
 
 $tmp = explode(" ", $name);
 $first = true;
 foreach($tmp as $key => $value) {
-	$value = addslashes($value);
+	$value = str_replace("'", "''", $value);
 	if($first) {
 		$query .= "`name` LIKE '%$value%'";
 		$first = false;
@@ -64,7 +63,7 @@ foreach($tmp as $key => $value) {
 if($ql) {
 	$query .= " AND `lowql` <= $ql AND `highql` >= $ql";
 }
-	
+
 $db->query("SELECT * FROM aodb WHERE $query ORDER BY `name` LIMIT 0, {$this->settings["maxitems"]}");
 $num = $db->numrows();
 if($num == 0) {
@@ -138,7 +137,7 @@ if($countitems > 3) {
 } else {
     foreach($itemlist as $name => $item1) {
    	 	foreach($item1 as $key => $item) {
-		    $name = str_replace("\'", "'", $name);
+		    $name = str_replace('"', '\"', $name);
 			$name = str_replace("&#58;", ":", $name);
 			$name = str_replace("&amp;", "&", $name); 
 	        if($ql)
