@@ -3,9 +3,8 @@
 	
 	bot::loadSQLFile($MODULE_NAME, "private_chat");
     
-	bot::command("guild msg", "$MODULE_NAME/autoinvite.php", "autoinvite", "all", "Guest Channel Auto-Invitelist");
     bot::command("guild msg", "$MODULE_NAME/members.php", "members", "all", "Guest Channel Auto-Invitelist");
-    bot::command("guild msg", "$MODULE_NAME/guestguests.php", "guests", "all", "Guest Channellist");
+    bot::command("guild msg", "$MODULE_NAME/onlineguests.php", "onlineguests", "all", "Guest Channellist");
     bot::command("guild msg", "$MODULE_NAME/join.php", "join", "all", "Join command for guests");
 	bot::command("guild msg", "$MODULE_NAME/kick.php", "kick", "all", "kick command for guests");
 
@@ -32,7 +31,7 @@
 	bot::event("priv", "$MODULE_NAME/guest_channel_relay.php", "guest");
 	bot::event("joinPriv", "$MODULE_NAME/guest_channel_notify.php", "guest");
 	bot::event("leavePriv", "$MODULE_NAME/guest_channel_notify.php", "guest");
-	bot::event("logOn", "$MODULE_NAME/guest_channel_autoinv.php", "guest");
+	bot::event("logOn", "$MODULE_NAME/autoinvite.php", "guest");
 	
 	//Show Char infos on privjoin
 	bot::event("joinPriv", "$MODULE_NAME/notify.php", "none", "Show Infos about a Char when he joins the channel");

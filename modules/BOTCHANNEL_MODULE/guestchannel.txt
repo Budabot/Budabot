@@ -1,7 +1,7 @@
 <header>::::: Help on guestchannel :::::<end>
 
 <highlight>To show who is in the guest channel do<end>
-<tab><symbol>guests
+<tab><symbol>onlineguests
 
 <highlight>To invite someone to guestchannel<end>
 <tab><symbol>invite 'insert name here'
@@ -16,4 +16,4 @@
 <tab><symbol>rem 'insert name here'
 
 <highlight>To show the ones that are auto-invited after their logon<end>
-<tab><symbol>guestlist
+<tab><symbol>members

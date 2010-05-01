@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (preg_match("/^guests$/i", $message)) {
+if (preg_match("/^onlineguests$/i", $message)) {
 	if (count($this->vars["Guest"]) > 0) {
 		$db->query("SELECT * FROM priv_chatlist_<myname> WHERE `guest` = 1 ORDER BY `profession`, `level` DESC");
 		$numguest = $db->numrows();

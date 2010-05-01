@@ -5,5 +5,3 @@
 
 <highlight>Leave the bot<end>
 <tab><symbol>leave
-or
-<tab><symbol>kick
