@@ -233,6 +233,7 @@ class bot extends AOChat{
 		}
 
 		if ($type == "blob") { // Normal link.
+			$content = str_replace('"', '&quot;', $content);
 			if (strlen($content) > $this->settings["max_blob_size"]) {  //Split the windows if they are too big
 				$pages = ceil(strlen($content) / $this->settings["max_blob_size"]);
 			  	$content = explode("\n", $content);

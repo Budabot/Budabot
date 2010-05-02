@@ -60,13 +60,12 @@ if (!$syntax_error) {
 	$doc = new DOMDocument();
 	$doc->prevservWhiteSpace = false;
 	$doc->loadHTML($myCurl->__tostring());
-	//$rows = $doc->getElementsByTagName('tr');
 	
 	$tables = $doc->getElementsByTagName('table');
 	$rows = $tables->item(0)->getElementsByTagName('tr');
 	
 	$title = 'Search Results for ' . $postFields['search'];
-	$items = $title . "\n\n";
+	$items = '';
 	foreach ($rows as $row){
 		$childNodes = $row->childNodes;
 		
@@ -81,16 +80,18 @@ if (!$syntax_error) {
 		$time = trim($childNodes->item(3)->nodeValue);
 		
 		//echo $childNodes->item(1)->getElementsByTagName('a')->item(0)->getAttribute('href') . "\n\n";
-		$item = str_replace('"', '\"', $item);
 		
-		$searchItem = str_replace("'", ' ', $item);
-		$searchItem = str_replace(":", ' ', $searchItem);
-		$lookup = "<a href=\\\"chatcmd:///tell <myname> items $ql $searchItem\\\">Lookup</a>";
+		$lookup = bot::makeLink('Lookup', "/tell <myname> items $ql $searchItem", 'chatcmd');
 
 		$items .= bot::makeLink($seller, "/tell $seller", 'chatcmd') . ": $item (ql $ql) [" . $time . "] $lookup \n";
 	}
-	$items .= "\n\nSearch results provided by http://www.aojunkyard.com/";
-	$msg = bot::makeLink($title, $items, 'blob');
+	
+	if ($items != '') {
+		$items = $title . "\n\n" . $items . "\n\nSearch results provided by http://www.aojunkyard.com/";
+		$msg = bot::makeLink($title, $items, 'blob');
+	} else {
+		$msg = 'No items found. Maybe try fewer keywords.';
+	}
 	
 	bot::send($msg, $sendto);
 }

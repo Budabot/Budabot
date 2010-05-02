@@ -31,13 +31,13 @@
    
 if (preg_match("/^items ([0-9]+) (.+)$/i", $message, $arr)) {
     $ql = $arr[1];
-    if(!($ql >= 1 && $ql <= 500)) {
+    if (!($ql >= 1 && $ql <= 500)) {
         $msg = "Invalid Ql specified(1-500)";
         bot::send($msg, $sendto);
         return;
     }
     $name = $arr[2];
-} else if(preg_match("/^items (.+)$/i", $message, $arr)) {
+} else if (preg_match("/^items (.+)$/i", $message, $arr)) {
     $name = $arr[1];
     $ql = false;
 } else {
@@ -46,12 +46,13 @@ if (preg_match("/^items ([0-9]+) (.+)$/i", $message, $arr)) {
 	return;  	
 }
 
-$name = str_replace(":", "&#58;", $name);
-$name = str_replace("&", "&amp;", $name);
+// ao automatically converts '&' to '&amp;', so we convert it back
+$name = str_replace("&amp;", "&", $name);
 
 $tmp = explode(" ", $name);
 $first = true;
-foreach($tmp as $key => $value) {
+forEach ($tmp as $key => $value) {
+	// escape single quotes to prevent sql injection
 	$value = str_replace("'", "''", $value);
 	if($first) {
 		$query .= "`name` LIKE '%$value%'";
@@ -66,11 +67,12 @@ if($ql) {
 
 $db->query("SELECT * FROM aodb WHERE $query ORDER BY `name` LIMIT 0, {$this->settings["maxitems"]}");
 $num = $db->numrows();
-if($num == 0) {
-  	if($ql)
+if ($num == 0) {
+  	if ($ql) {
 	    $msg = "No items found with QL <highlight>$ql<end>. Maybe try fewer keywords.";
-	else
+	} else {
 	    $msg = "No items found. Maybe try fewer keywords.";
+	}
    	bot::send($msg, $sendto);
 	return;
 }
@@ -97,32 +99,31 @@ while($row = $db->fObject()) {
 	}
 }
 
-if($countitems == 0) {
-  	if($ql)
+if ($countitems == 0) {
+  	if ($ql) {
 	    $msg = "No items found with QL <highlight>$ql<end>. Maybe try fewer keywords.";
-	else
+	} else {
 	    $msg = "No items found. Maybe try fewer keywords.";
+	}
    	bot::send($msg, $sendto);
 	return;
 }
 
-if($countitems > 3) {
-	foreach($itemlist as $name => $item1) {
-	 	foreach($item1 as $key => $item) {
-			$name = str_replace('"', '\"', $name);
-			$name = str_replace("&#58;", ":", $name);
-			$name = str_replace("&amp;", "&", $name);
+if ($countitems > 3) {
+	forEach ($itemlist as $name => $item1) {
+	 	forEach ($item1 as $key => $item) {
 	        $list .= "<img src=rdb://".$item["icon"]."> \n";
-	        if($ql) {
+	        if ($ql) {
 		        $list .= "QL $ql ".bot::makeItem($item["lowid"], $item["highid"], $ql, $name);
 			} else {
 		        $list .= bot::makeItem($item["lowid"], $item["highid"], $item["highql"], $name);		  
 			}
 	
-	        if($item["lowql"] != $item["highql"])
+	        if ($item["lowql"] != $item["highql"]) {
 		        $list .= " (QL".$item["lowql"]." - ".$item["highql"].")\n\n";
-	        else
+	        } else {
 	    	    $list .= " (QL".$item["lowql"].")\n\n";
+			}
 	    }
     }
     $list = "<header>::::: Item Search Result :::::<end>\n\n".$list;
@@ -130,25 +131,24 @@ if($countitems > 3) {
     bot::send($link, $sendto);
 
 	//Show a warning if the maxitems are reached
-	if($countitems == $this->settings["maxitems"]) {
-	    $msg = "The output has been limited to <highlight>{$this->settings["maxitems"]}<end> items. Specify your search more if your item isn´t listed.";
+	if ($countitems == $this->settings["maxitems"]) {
+	    $msg = "The output has been limited to <highlight>{$this->settings["maxitems"]}<end> items. Specify your search more if your item isn't listed.";
 	    bot::send($msg, $sendto);
 	}
 } else {
-    foreach($itemlist as $name => $item1) {
-   	 	foreach($item1 as $key => $item) {
-		    $name = str_replace('"', '\"', $name);
-			$name = str_replace("&#58;", ":", $name);
-			$name = str_replace("&amp;", "&", $name); 
-	        if($ql)
+    forEach ($itemlist as $name => $item1) {
+   	 	forEach ($item1 as $key => $item) {
+	        if ($ql) {
 		        $link .= "\n QL $ql ".bot::makeItem($item["lowid"], $item["highid"], $ql, $name);
-			else
+			} else {
 		        $link .= "\n".bot::makeItem($item["lowid"], $item["highid"], $item["highql"], $name);
-	        
-	        if($item["lowql"] != $item["highql"])
+	        }
+			
+	        if ($item["lowql"] != $item["highql"]) {
 		        $link .= " (QL".$item["lowql"]." - ".$item["highql"].")";
-	        else
+	        } else {
 	            $link .= " (QL".$item["lowql"].")";
+			}
 	    }
     }
 
