@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Derroylo (RK2)
    ** Description: Creates a Bior Order
@@ -38,7 +38,7 @@ if(count($bior) == 0)
 else {
   	$blist = "";
 	$info  = "<header>::::: Info about Bio Regrowth macro :::::<end>\n\n";
-	$info .= "The bot has it´s own Bio Regrowth macro to use it just do ";
+	$info .= "The bot has itï¿½s own Bio Regrowth macro to use it just do ";
 	$info .= "<symbol>b in the chat. \n\n";
 	$info .= "<a href='chatcmd:///macro BR_Macro /g <myname> <symbol>b'>Click here to make an Bio Regrowth macro </a>";
 	$info = bot::makeLink("Info", $info);

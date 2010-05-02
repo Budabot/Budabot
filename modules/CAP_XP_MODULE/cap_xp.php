@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Legendadv (RK2)
    ** Description: Shows research % needed to still get maximum xp/sk from a mission/high level mob

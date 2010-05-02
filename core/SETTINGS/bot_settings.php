@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Derroylo (RK2)
    ** Description: Shows and changes Settings
@@ -37,7 +37,7 @@ while($row = $db->fObject())
 $names = substr($names, 0, -1);
 if(eregi("^settings$", $message)) {
   	$link  = "<header>::::: Bot Settings :::::<end>\n\n";
- 	$link .= "<highlight>You can see here a list of all Settings that can be changed without a restart of the bot. Please note that not all can be changed only the ones that have a 'Change this' behind their name, on the rest you can see only the current setting but can´t change it. When you click on 'Change it' a new poopup cames up and you see a list of allowed options for this setting. \n\n<end>";
+ 	$link .= "<highlight>You can see here a list of all Settings that can be changed without a restart of the bot. Please note that not all can be changed only the ones that have a 'Change this' behind their name, on the rest you can see only the current setting but canï¿½t change it. When you click on 'Change it' a new poopup cames up and you see a list of allowed options for this setting. \n\n<end>";
  	$db->query("SELECT * FROM settings_<myname> WHERE `mode` != 'hide' ORDER BY `module`");
 	$data	 = $db->fObject("all");
  	foreach($data as $row){
@@ -86,7 +86,7 @@ if(eregi("^settings$", $message)) {
     $link = "<header>::::: Settings for $arr[1] :::::<end>\n\n";
  	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '$arr[1]'");
 	if($db->numrows() == 0)
-		$msg = "This setting doesn´t exists.";
+		$msg = "This setting doesnï¿½t exists.";
 	else {
 		$row = $db->fObject();
 		$options = explode(";", $row->options);
@@ -150,7 +150,7 @@ if(eregi("^settings$", $message)) {
   	$change_to_setting = $arr[2];
  	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '$name_setting'");
 	if($db->numrows() == 0)
-		$msg = "This setting doesn´t exists.";
+		$msg = "This setting doesnï¿½t exists.";
 	else {
 		$row = $db->fObject();
 		$options = explode(";", $row->options);
@@ -159,7 +159,7 @@ if(eregi("^settings$", $message)) {
 			if(eregi("^#([0-9a-f]{6})$", $change_to_setting, $col)) 
 				$new_setting = "<font color='$col[0]'>";
 			else
-				$msg = "<highlight>$change_to_setting<end> this isn´t an correct HTML-Color.";
+				$msg = "<highlight>$change_to_setting<end> this isnï¿½t an correct HTML-Color.";
 		} elseif($options[0] == "text") {
 		  	if($options[1] <= 50 && $options[1] != "") {
 			 	if(strlen($change_to_setting) > $options[1]) {
@@ -188,13 +188,13 @@ if(eregi("^settings$", $message)) {
 			if(array_key_exists($key, $intoptions))
 				$new_setting = $intoptions[$key];
 			else
-				$msg = "This isn´t an correct option for this setting.";
+				$msg = "This isnï¿½t an correct option for this setting.";
 		} else {
 			$options2 = array_flip($options);
 			if(array_key_exists($change_to_setting, $options2))
 				$new_setting = $change_to_setting;
 			else
-				$msg = "This isn´t an correct option for this setting.";
+				$msg = "This isnï¿½t an correct option for this setting.";
 		}
 	}
 	if($new_setting != "") {

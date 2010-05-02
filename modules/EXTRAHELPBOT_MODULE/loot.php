@@ -1,4 +1,4 @@
-<?
+<?php
 	// help screen
 	$header = "<header>::::: Loot QL Calculator - Version 1.00 :::::<end>\n\n";
 	$footer = "";

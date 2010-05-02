@@ -1,4 +1,4 @@
-<?
+<?php
 if(eregi("^aiarmor (cc|cm|co|cp|cs|ss)$", $message, $arr) || eregi("^aiarmor (cc|cm|co|cp|cs|ss) ([0-9]+)$", $message, $arr)) {
 	$armortype = strtolower($arr[1]);
 	if($arr[2] >= 1 && $arr[2] <= 300)

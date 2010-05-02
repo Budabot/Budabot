@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Neksus (RK2)
    ** Original IGNbot version  by: Drevi1

@@ -1,4 +1,4 @@
-<?
+<?php
 //Create Vote Table
 $table = "vote_<myname>";
 

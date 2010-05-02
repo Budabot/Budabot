@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Derroylo (RK2)
    ** Description: Sets/shows/deletes Newsentrys

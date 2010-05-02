@@ -1,4 +1,4 @@
-<?
+<?php
 	// Guess I can't use bot::send in here, or else I get an error when logging in.
 
 	echo "\nOne momment, updating quote table now.\n";

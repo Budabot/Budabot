@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** The Majority of this code was written by Derroylo (RK2) for the 
    ** Budabot Items Module.  I just hacked it to use Nano DB from a
@@ -112,7 +112,7 @@ if($countitems > 1) {
       	
 	//Show a warning if the maxnano are reached
 	if($countitems == $this->settings["maxnano"]) {
-	    $msg = "The output has been limited to <highlight>{$this->settings["maxnano"]}<end> items. Specify your search more if your item isn´t listed.";
+	    $msg = "The output has been limited to <highlight>{$this->settings["maxnano"]}<end> items. Specify your search more if your item isnï¿½t listed.";
 	    bot::send($msg, $sendto);
 	}
 } 

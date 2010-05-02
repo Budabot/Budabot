@@ -1,4 +1,4 @@
-<?
+<?php
 $pvpguide_txt = "<header>::::: Guide to PVP :::::<end>\n\n";
 $pvpguide_txt .= "The ranks in AO are determined by 'PvP points' You get points when you win a fight (and are not too much below the rank of the enemy or too high above the rank of the enemy). You must not be in a team, if you want to win points. If you are teamed, you also won't lose any points.
 

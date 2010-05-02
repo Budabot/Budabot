@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Neksus (RK2)
    ** Description: Makes a blob with Title levels and the IP gained

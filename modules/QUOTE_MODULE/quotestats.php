@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Lucier (RK1)
    ** Description: Build a stats message for Quotes

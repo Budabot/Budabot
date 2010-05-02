@@ -1,4 +1,4 @@
-<?
+<?php
 // Timer Table
 $db->query("CREATE TABLE IF NOT EXISTS timers_<myname> (`name` VARCHAR(255), `owner` VARCHAR(25), `mode` VARCHAR(10), `timer` int, `settime` int)");
 

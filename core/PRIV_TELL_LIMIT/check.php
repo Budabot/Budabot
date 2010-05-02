@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Derroylo (RK2)
    ** Description: Check if a player mets the requirements for joining Privatechannel or responding on the tell

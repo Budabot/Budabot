@@ -1,4 +1,4 @@
-<?
+<?php
 	include 'buffstuffdb.php';
 	include 'db_utils.php';
 	

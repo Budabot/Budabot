@@ -1,4 +1,4 @@
-<?
+<?php
 $clandreadloch_txt = "<header>::::: Information about Dreadloch Camps :::::<end>\n\n"; 
 $clandreadloch_txt ="<font color = yellow>::::: Information about Dreadloch Camps :::::</font>
 

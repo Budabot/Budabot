@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Derroylo (RK2)
    ** Description: Sets APF Ship timer
@@ -40,7 +40,7 @@ if(eregi("^setship$", $message)) {
 	}
 	  
 	if($this->settings["shiptimer_status"] == "open") {
-	    bot::send("Shiptimer isn´t locked atm.", $sender);
+	    bot::send("Shiptimer isnï¿½t locked atm.", $sender);
 	    return; 
 	}
 	bot::savesetting("shiptimer_status", "open");
@@ -48,7 +48,7 @@ if(eregi("^setship$", $message)) {
 } elseif(eregi("^setship \+([0-9]+)$", $message, $arr) || eregi("^setship ([0-9]+)$", $message, $arr)) {
   	$ctime = $arr[1]*60;
 	if($arr[1] > 10) {
-	  	$msg = "You can´t change the timer for more then 10minutes!";
+	  	$msg = "You canï¿½t change the timer for more then 10minutes!";
 	  	bot::send($msg, $sender);
 	  	return;
 	}
@@ -59,7 +59,7 @@ if(eregi("^setship$", $message)) {
 } elseif(eregi("^setship -([0-9]+)$", $message, $arr)) {
   	$ctime = $arr[1] * 60;
 	if($arr[1] > 10) {
-	  	$msg = "You can´t change the timer for more then 10minutes!";
+	  	$msg = "You canï¿½t change the timer for more then 10minutes!";
 	  	bot::send($msg, $sender);
 	  	return;
 	}

@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Derroylo (RK2)
    ** Description: Shows the history of a player
@@ -32,7 +32,7 @@
 if(eregi("^history (.+)$", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 	if(!bot::get_uid($name))
-		$msg = "Player <highlight>$name<end> doesn´t exist.";
+		$msg = "Player <highlight>$name<end> doesnï¿½t exist.";
 	else {
 	  	$msg = "Getting History of player <highlight>$name<end>. Please standby.";
 	    if($type == "msg")

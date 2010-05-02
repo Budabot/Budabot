@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Sebuda (RK2)
    ** Description: Uploads banned players to the local var

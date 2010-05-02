@@ -1,4 +1,4 @@
-<?
+<?php
 $MODULE_NAME = "SERVER_STATUS_MODULE";
 	
 	bot::regevent("1min", "$MODULE_NAME/check_server_status.php");

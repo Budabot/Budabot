@@ -1,4 +1,4 @@
-<?
+<?php
 $infgarnkey_txt = "<header>::::: Information about Inferno Garden Key - Omni :::::<end>\n\n"; 
 $infgarnkey_txt ="
 

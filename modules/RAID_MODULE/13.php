@@ -1,4 +1,4 @@
-<?
+<?php
 
 global $loot;
 global $residual;

@@ -1,4 +1,4 @@
-<?
+<?php
 $MODULE_NAME = "RAID_MODULE";
 
 	/* Commands used only for flatroll of items */

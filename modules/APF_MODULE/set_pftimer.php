@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Derroylo (RK2)
    ** Description: Sets APF gates opening times
@@ -40,7 +40,7 @@ if(eregi("^setpf$", $message)) {
 	}
 	  
 	if($this->settings["pftimer_status"] == "open") {
-	    bot::send("PFtimer isn´t locked atm.", $sender);
+	    bot::send("PFtimer isnï¿½t locked atm.", $sender);
 	    return; 
 	}
 	bot::savesetting("pftimer_status", "open");
@@ -48,7 +48,7 @@ if(eregi("^setpf$", $message)) {
 } elseif(eregi("^setpf \+([0-9]+)$", $message, $arr) || eregi("^setpf ([0-9]+)$", $message, $arr)) {
   	$ctime = $arr[1]*60;
 	if($arr[1] > 420) {
-	  	$msg = "You can´t change the timer for more then 7hours!";
+	  	$msg = "You canï¿½t change the timer for more then 7hours!";
 	  	bot::send($msg, $sender);
 	  	return;
 	}
@@ -59,7 +59,7 @@ if(eregi("^setpf$", $message)) {
 } elseif(eregi("^setpf -([0-9]+)$", $message, $arr)) {
   	$ctime = $arr[1] * 60;
 	if($arr[1] > 420) {
-	  	$msg = "You can´t change the timer for more then 7hours!";
+	  	$msg = "You canï¿½t change the timer for more then 7hours!";
 	  	bot::send($msg, $sender);
 	  	return;
 	}

@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Legendadv (RK2)
    ** Description: Add/edit/delete in-game events to be stored by the bot

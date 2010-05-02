@@ -1,4 +1,4 @@
-<?
+<?php
 $albainfo_txt = "<header>::::: Information about Adonis Quests :::::<end>\n\n"; 
 $albainfo_txt ="
 

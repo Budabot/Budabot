@@ -1,4 +1,4 @@
-<?
+<?php
 $omnidreadloch_txt = "<header>::::: Information about Dreadloch Camps For Omni :::::<end>\n\n"; 
 $omnidreadloch_txt ="<font color = yellow>::::: Information about Dreadloch Camps : Omni :::::</font>
 

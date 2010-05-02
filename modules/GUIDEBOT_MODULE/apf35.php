@@ -1,4 +1,4 @@
-<?
+<?php
 $apf35guide_txt = "<header>::::: Guide to Apf Sector 35 :::::<end>\n\n";
 $apf35guide_txt = "
 <font color=#4169e1>Objective: ASSIST THE UNICORN FIELD ENGINEER</font>

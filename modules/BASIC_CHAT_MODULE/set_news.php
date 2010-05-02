@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Derroylo (RK2)
    ** Description: Set admin and user news
@@ -39,7 +39,7 @@ if(eregi("^privnews clear$", $message)) {
 } elseif(eregi("^privnews (.+)$", $message, $arr)) {
 	$news = $arr[1];
  	if(strlen($news) > 300) {
-		$msg = "News can´t be longer than 300chars.";
+		$msg = "News canï¿½t be longer than 300chars.";
 	} else {
 		bot::savesetting("news", $news);	
 		$msg = "News has been set.";
@@ -58,7 +58,7 @@ if(eregi("^privnews clear$", $message)) {
 } elseif(eregi("^adminnews (.+)$", $message, $arr)) {
 	$news = $arr[1];
  	if(strlen($news) > 300) {
-		$msg = "News can´t be longer than 300chars.";
+		$msg = "News canï¿½t be longer than 300chars.";
 	} else {
 		bot::savesetting("adminnews", $news);	
 		$msg = "Adminnews has been set.";

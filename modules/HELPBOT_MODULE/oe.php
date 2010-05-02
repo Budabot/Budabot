@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Derroylo (RK2)
    ** Description: OE calculator
@@ -37,7 +37,7 @@ if(eregi("^oe ([0-9]+)$", $message, $arr)) {
         $msg = "With a skill of <highlight>${oe}<end>, you will be OE above <highlight>${oevalue}<end> requirement. " . 
         "With a requirement of <highlight>${oe}<end> skill, you can have <highlight>${lowoevalue}<end> without being OE.";
     } else {
-        $msg = "A skill can´t get so high!";
+        $msg = "A skill canï¿½t get so high!";
     }
     
     // Send info back

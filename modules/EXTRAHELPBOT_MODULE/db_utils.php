@@ -1,4 +1,4 @@
-<?
+<?php
 	if (!function_exists(matches)){
 		function matches($probe, $comp) {
 			$bits = explode(" ", $comp);

@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Derroylo (RK2)
    ** Description: Shows status of a TS Server
@@ -37,7 +37,7 @@ if(eregi("^ts$", $message)) {
     $serverport 	= $this->settings["ts_serverport"];
     $servername 	= $this->settings["ts_servername"];
 
-	//If IP isn´t set show error msg
+	//If IP isnï¿½t set show error msg
 	if($ip == "Not set yet.") {
 	  	$msg = "You need to configure your TS Server before you can use this!";
 	    bot::send($msg, $sendto);
@@ -209,7 +209,7 @@ if(eregi("^ts$", $message)) {
 
 		$msg = bot::makeLink("Teamspeak Server Status", $link);
 	} else
-		$msg = "Couldn´t connect to Teamspeak Server. Try again later.";
+		$msg = "Couldnï¿½t connect to Teamspeak Server. Try again later.";
 
 	
 	bot::send($msg, $sendto);

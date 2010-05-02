@@ -1,4 +1,4 @@
-<?
+<?php
 $MODULE_NAME = "PRIV_TELL_LIMIT";
 	
 	//Set/Show Limits

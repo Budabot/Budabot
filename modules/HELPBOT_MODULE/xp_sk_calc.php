@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Derroylo (RK2)
    ** Description: Shows needed XP/SK for a level
@@ -281,7 +281,7 @@ if(eregi("^(xp|sk) ([0-9]+)$", $message, $arr)) {
             elseif(!$sk && $xp)
                 $msg = "From the beginning of <highlight>".$arr[2]."<end> to <highlight>".$arr[3]."<end>, you need <highlight>".number_format($xp)."<end> XP.";
         } else
-            $msg = "The startlevel can´t be higher then the endlevel.";
+            $msg = "The startlevel canï¿½t be higher then the endlevel.";
     } else
         $msg = "You need to specify a lvl between 1 and 220.";
 

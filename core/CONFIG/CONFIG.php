@@ -1,4 +1,4 @@
-<?
+<?php
 $MODULE_NAME = "CONFIG";
 $PLUGIN_VERSION = 0.1;
 

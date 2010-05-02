@@ -1,4 +1,4 @@
-<?
+<?php
 	$MODULE_NAME = "ORGLIST_MODULE";
  
 	bot::command("guild", "$MODULE_NAME/orglist.php", "orglist", "mod", "Check someones org roster");

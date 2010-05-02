@@ -1,4 +1,4 @@
-<?
+<?php
 $db->query("CREATE TABLE IF NOT EXISTS waitlist_<myname> (`owner` VARCHAR(25), `name` VARCHAR(25), `position` INT, `time` INT)");
 
 global $listbot_waitlist;

@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Derroylo (RK2)
    ** Description: Shows which symbiants a pocketboss can drop
@@ -58,7 +58,7 @@ if(eregi("^pb (.+)$", $message, $arr)) {
 	} elseif($pb_found > 5)
 		$msg = "Too many results.";
 	else
-		$msg = "Couldn´t find the Pocketboss <highlight>".$pb."<end>";
+		$msg = "Couldnï¿½t find the Pocketboss <highlight>".$pb."<end>";
 	
     bot::send($msg, $sendto);
 } elseif(eregi("^symb (eye|ocular|head|brain|ear|rarm|chest|larm|rwrist|waist|lwrist|rhand|legs|leg|thigh|lhand|feet) (s(u(p(p(o(r(t)?)?)?)?)?)?|c(o(n(t(r(o(l)?)?)?)?)?)?|i(n(f(a(n(t(r(y)?)?)?)?)?)?)?|a(r(t(i(l(l(e(r(y)?)?)?)?)?)?)?)?|e(x(t(e(r(m(i(n(a(t(i(o(n)?)?)?)?)?)?)?)?)?)?)?)?)$", $message, $arr)) {
@@ -124,7 +124,7 @@ if(eregi("^pb (.+)$", $message, $arr)) {
 		}
 		$msg .= bot::makeLink("Found $numrows matches", $link);
 	} else
-		$msg = "Couldn´t find any symbs";
+		$msg = "Couldnï¿½t find any symbs";
 
 	
     bot::send($msg, $sendto);
@@ -192,7 +192,7 @@ if(eregi("^pb (.+)$", $message, $arr)) {
 		}
 		$msg .= bot::makeLink("Found $numrows matches", $link);
 	} else
-		$msg = "Couldn´t find any symbs";
+		$msg = "Couldnï¿½t find any symbs";
 
 	bot::send($msg, $sendto);
 } else

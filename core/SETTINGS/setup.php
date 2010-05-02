@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 Table Description
 name = Name of the setting and also index of $this-vars

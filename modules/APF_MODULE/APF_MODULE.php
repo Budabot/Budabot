@@ -1,4 +1,4 @@
-<?
+<?php
 	$MODULE_NAME = "APF_MODULE";
 
 	//Loottable for the different APF Sectors

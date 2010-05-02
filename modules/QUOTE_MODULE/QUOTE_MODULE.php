@@ -1,4 +1,4 @@
-<?
+<?php
 	$MODULE_NAME = "QUOTE_MODULE";
 
 	bot::event("setup", "$MODULE_NAME/setup.php");							//Setup

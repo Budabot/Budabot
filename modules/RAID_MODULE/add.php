@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Derroylo (RK2)
    ** Description: Adding to a Lootslot
@@ -136,7 +136,7 @@ if(eregi("^add$", $message)) {
 		}
 		
 	  	if(!$found) {
-	  		$msg = "Sry but the slot you trying to add in doesn´t exists";
+	  		$msg = "Sry but the slot you trying to add in doesnï¿½t exists";
 		  	bot::send($msg, $sender);
 		  	return;
 	  	}
@@ -179,7 +179,7 @@ if(eregi("^add$", $message)) {
 
 		//Check if the slot exists
 	  	if(!isset($loot[$slot])) {
-	  		$msg = "Sry but the slot you trying to add in doesn´t exists";
+	  		$msg = "Sry but the slot you trying to add in doesnï¿½t exists";
 		  	bot::send($msg, $sender);
 		  	return;
 	  	}

@@ -1,4 +1,4 @@
-<?
+<?php
 	$MODULE_NAME = "BOTCHANNEL_MODULE";
 	
 	bot::loadSQLFile($MODULE_NAME, "private_chat");

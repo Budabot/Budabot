@@ -1,4 +1,4 @@
-<?
+<?php
 //Module based upon a RINGBOT module made by NoGoal (RK2)
 //Modified for Budabot by Healnjoo (RK2)
 

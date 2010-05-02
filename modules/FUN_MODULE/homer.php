@@ -1,4 +1,4 @@
-<?
+<?php
 
    /*
    ** Author: Derroylo (RK2)
@@ -373,10 +373,10 @@ $homer = array(
     "Marge : I want to get more involved in Bart's activities, but then I'd be afraid of smothering him. \n Homer : Yeah, and then we'd get the chair. \n Marge : That's not what I meant. \n Homer : Admit it Marge, it was.", 
     "Default! The two sweetest words in the English language.", 
     "Back you robots! Nobody ruins my family vacation but me! And maybe the boy.", 
-    "Burns : And this must be ... (reading card) little Brat. \n Bart : Bart. \n Homer : Don’t correct the man, Brat.", 
-    "Kent : Well what do you say to the accusation that your group has been causing more crimes than it’s been preventing? \n Homer : Oh, Kent I’d be lying if I said my men weren’t committing crimes. \n Kent : (pause) Mmm, touché.", 
+    "Burns : And this must be ... (reading card) little Brat. \n Bart : Bart. \n Homer : Donï¿½t correct the man, Brat.", 
+    "Kent : Well what do you say to the accusation that your group has been causing more crimes than itï¿½s been preventing? \n Homer : Oh, Kent Iï¿½d be lying if I said my men werenï¿½t committing crimes. \n Kent : (pause) Mmm, touchï¿½.", 
     "Homer no function beer well without.", 
-    "Bart : We were just planning the father-son river rafting trip. \n Homer : He he. You don’t have a son. ", 
+    "Bart : We were just planning the father-son river rafting trip. \n Homer : He he. You donï¿½t have a son. ", 
     "No offence Apu, but when they were handing out religions you must have been out taking a whizz.", 
     "Take it easy Marge. How about if we dope you up real good? [Marge's fear of flying].", 
     "Marge that's twice - I think you're spending entirely too much time with this woman.", 

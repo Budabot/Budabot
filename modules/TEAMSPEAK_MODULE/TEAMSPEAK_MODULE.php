@@ -1,4 +1,4 @@
-<?
+<?php
 	$MODULE_NAME = "TEAMSPEAK_MODULE";
 
 	bot::command("", "$MODULE_NAME/teamspeak_server.php", "ts", "all", "Show Status of the Teamspeak Server");

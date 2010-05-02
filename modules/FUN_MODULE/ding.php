@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Neksus (RK2)
    ** Description: Spams a congrats message in Guildchat

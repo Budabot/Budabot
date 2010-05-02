@@ -1,4 +1,4 @@
-<?
+<?php
 /*
    ** Author: Blackruby (RK2)
    ** Description: Where Is Command that shows you where places / uniques are on RK.

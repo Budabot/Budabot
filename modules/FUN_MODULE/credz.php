@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Derroylo (RK2)
    ** Description: Shows a random credits message(Ported over from a bebot plugin written by Xenixa (RK1))
@@ -42,7 +42,7 @@ $credz = array(
 	"Sorry, I'm flat ass broke hun. I'm just a Bot I don't get paid.",
 	"/me does /ignore *name* ... damn beggers.",
 	"No I don't think so. You still owe me *creds* credits from last time *name*!",
-	"Sorry, I don´t have any credits left. Would you like a RBP instead?");
+	"Sorry, I donï¿½t have any credits left. Would you like a RBP instead?");
 	
 if(eregi("^credz", $message)) {
 	$dmg = rand(100,999);

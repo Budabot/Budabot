@@ -1,4 +1,4 @@
-<?
+<?php
 $apf28guide_txt = "<header>::::: Guide to Apf Sector 35 :::::<end>\n\n";
 $apf28guide_txt = "
 <font color=#4169e1>Objective: PROTECT THE ROOKIE ALIEN HUNTER</font>

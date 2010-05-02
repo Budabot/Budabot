@@ -1,4 +1,4 @@
-<?
+<?php
 $napvp_txt = "<header>::::: Newcomers Alliance PvP Rules :::::<end>\n\n";
 $napvp_txt = "
 <font color=#4169e1>Newcomers Alliance PvP rules</font>

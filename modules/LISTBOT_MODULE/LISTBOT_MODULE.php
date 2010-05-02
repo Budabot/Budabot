@@ -1,4 +1,4 @@
-<?
+<?php
 	$MODULE_NAME = "LISTBOT_MODULE";
 
 	//Commands

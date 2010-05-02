@@ -1,4 +1,4 @@
-<?
+<?php
 	$MODULE_NAME = "HD_ND_MODULE";
 	$PLUGIN_VERSION = 1.0;
 

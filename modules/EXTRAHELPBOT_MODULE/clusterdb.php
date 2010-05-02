@@ -1,4 +1,4 @@
-<?
+<?php
 
 $cl_list = array(
 	"1h Blunt" => array("R.Arm", "R.Wrist", "R.Hand"),

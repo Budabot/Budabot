@@ -1,4 +1,4 @@
-<?
+<?php
 $MODULE_NAME = "TIMERS_MODULE";
 $PLUGIN_VERSION = 0.1;
 

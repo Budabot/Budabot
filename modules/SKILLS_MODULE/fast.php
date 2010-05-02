@@ -1,4 +1,4 @@
-<?
+<?php
 /* $info = explode(" ", $message);
 list($msg, $AttTim, $fastSkill) = $info; */
 

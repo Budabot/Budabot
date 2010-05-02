@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Sebuda (RK2)
    ** Description: Shows a specific Helpfile

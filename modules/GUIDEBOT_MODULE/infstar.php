@@ -1,4 +1,4 @@
-<?
+<?php
 $infstar_txt = "<header>::::: Inferno: Profession Star Quest:::::<end>\n\n"; 
 $infstar_txt ="
 

@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Derroylo (RK2) (Updated by Blackruby RK2)
    ** Description: Shows level infos

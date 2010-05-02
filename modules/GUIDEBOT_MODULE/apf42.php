@@ -1,4 +1,4 @@
-<?
+<?php
 $apf42guide_txt = "<header>::::: Guide to Apf Sector 42 :::::<end>\n\n";
 $apf42guide_txt = "
 <font color=#4170e1>Quest: Sector 42 Key</font>

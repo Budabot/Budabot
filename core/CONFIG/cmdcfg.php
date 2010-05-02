@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Derroylo (RK2)
    ** Description: Enable/Disable Command/events and sets Access Level for commands
@@ -655,7 +655,7 @@ if (preg_match("/^config$/i", $message)) {
 	
 	$db->query("SELECT * FROM hlpcfg_<myname> WHERE `name` = '$help' ORDER BY `name`");
 	if($db->numrows() == 0) {
-		bot::send("The helpfile <highlight>$help<end> doesn´t exists!", $sender);		  	
+		bot::send("The helpfile <highlight>$help<end> doesnï¿½t exists!", $sender);		  	
 		return;
 	}
 	$row = $db->fObject();
@@ -687,7 +687,7 @@ if (preg_match("/^config$/i", $message)) {
 } else if (preg_match("/^config (.*)$/i", $message, $arr)) {
 	$module = $arr[1];
 	$list  = "<header>::::: Bot Settings :::::<end>\n\n";
- 	$list .= "<highlight>You can see here a list of all Settings that can be changed without a restart of the bot. Please note that not all can be changed only the ones that have a 'Change this' behind their name, on the rest you can see only the current setting but can´t change it. When you click on 'Change it' a new poopup cames up and you see a list of allowed options for this setting. \n\n<end>";
+ 	$list .= "<highlight>You can see here a list of all Settings that can be changed without a restart of the bot. Please note that not all can be changed only the ones that have a 'Change this' behind their name, on the rest you can see only the current setting but canï¿½t change it. When you click on 'Change it' a new poopup cames up and you see a list of allowed options for this setting. \n\n<end>";
 	$list .= "\n<highlight><u>" . strtoupper($module) . "</u><end>\n";
 	
 

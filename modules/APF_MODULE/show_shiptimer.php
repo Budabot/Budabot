@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Derroylo (RK2)
    ** Description: Shows APF ship timer
@@ -43,7 +43,7 @@ if(eregi("^ship$", $message)) {
 	}
 
   	if($this->settings["shiptimer_status"] == "no_correction" && (!isset($this->admins[$sender]) || $type != "msg")) {
-  		$msg = "The timer didn´t got corrected after the downtime yet.";
+  		$msg = "The timer didnï¿½t got corrected after the downtime yet.";
   		    // Send info back
 	    if($type == "msg")
 	        bot::send($msg, $sender);

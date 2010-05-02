@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Legendadv (RK2)
    ** Description: Creates a highly Visible Message

@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Derroylo (RK2)
    ** Description: Does a random flip or a roll
@@ -62,7 +62,7 @@ if(eregi("^flip$", $message)) {
     	bot::send($msg, "guild");
 } elseif(eregi("^roll ([0-9]+)$", $message, $arr)) {
   	if($arr[1] > getrandmax())
-		$msg = "Can´t use the number you have given me. Maximum is <highlight>".getrandmax()."<end>";
+		$msg = "Canï¿½t use the number you have given me. Maximum is <highlight>".getrandmax()."<end>";
 	else {  		
 		$db->query("SELECT * FROM roll_<myname> WHERE `type` = 1 AND `name` = '$sender' ORDER BY `time`");
 		if($db->numrows() == 0) {
@@ -91,9 +91,9 @@ if(eregi("^flip$", $message)) {
     	bot::send($msg, "guild");
 } elseif(eregi("^roll ([0-9]+) ([0-9]+)$", $message, $arr)) {
   	if($arr[2] >= getrandmax())
-		$msg = "Can´t use the number you have given me. Maximum is <highlight>".getrandmax()."<end>";
+		$msg = "Canï¿½t use the number you have given me. Maximum is <highlight>".getrandmax()."<end>";
 	elseif($arr[1] >= $arr[2])
-		$msg = "The first number can´t be higher then the second one.";
+		$msg = "The first number canï¿½t be higher then the second one.";
 	else {
 		$db->query("SELECT * FROM roll_<myname> WHERE `type` = 1 AND `name` = '$sender' ORDER BY `time`");
 		if($db->numrows() == 0) {
@@ -123,7 +123,7 @@ if(eregi("^flip$", $message)) {
 } elseif(eregi("^verify ([0-9]+)$", $message, $arr)) {
 	$db->query("SELECT * FROM roll_<myname> WHERE `id` = $arr[1] ORDER BY `time`");
 	if($db->numrows() == 0)
-		$msg = "Sry but your verify number doesn´t exist.";
+		$msg = "Sry but your verify number doesnï¿½t exist.";
 	else {
 	  	$row = $db->fObject();
 	  	$time = time() - $row->time;

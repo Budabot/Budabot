@@ -1,4 +1,4 @@
-<?
+<?php
 /*
    ** Author: Blackruby (RK2)
    ** Description: Shows data on Alien Generals and their Loottable.

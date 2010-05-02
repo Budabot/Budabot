@@ -1,4 +1,4 @@
-<?
+<?php
 	$MODULE_NAME = "NOTES_MODULE";
 
 	//adds tower info to 'watch' list

@@ -1,4 +1,4 @@
-<?
+<?php
 $db->query("CREATE TABLE IF NOT EXISTS roll_<myname> (`id` INTEGER PRIMARY KEY AUTO_INCREMENT, `time` INT, `name` VARCHAR(25), `type` INT, `start` INT, `end` INT, `result` INT)");
 $db->query("SELECT * FROM roll_<myname>");
 if($db->numrows() >= 200)

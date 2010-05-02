@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Derroylo (RK2)
    ** Description: Kill On Sight List
@@ -63,12 +63,12 @@ if(eregi("^kos$", $message)) {
 	$reason = str_replace('"', "\'", $reason);	
   	$uid = AoChat::get_uid($name);
 	if(strlen($reason) >= 50)
-		$msg = "The reason can´t be longer then 50characters.";
+		$msg = "The reason canï¿½t be longer then 50characters.";
 	elseif($uid) {
 		$db->query("INSERT INTO koslist_<myname> (`time`, `name`, `sender`, `reason`) VALUES (".time().", '$name', '$sender', '$reason')");
 		$msg = "You have successfull added <highlight>$name<end> to the KOS List.";
 	} else
-		$msg = "The Player you wanna add doesn´t exists.";
+		$msg = "The Player you wanna add doesnï¿½t exists.";
 
     if($type == "msg")
         bot::send($msg, $sender);
@@ -88,7 +88,7 @@ if(eregi("^kos$", $message)) {
 			$msg = "You have successfull added <highlight>$name<end> to the KOS List.";	  
 		}
 	} else
-		$msg = "The Player you wanna add doesn´t exists.";
+		$msg = "The Player you wanna add doesnï¿½t exists.";
 
     if($type == "msg")
         bot::send($msg, $sender);
@@ -110,7 +110,7 @@ if(eregi("^kos$", $message)) {
 		} else
 			$msg = "No one with this name is on the KOS List.";
 	} else
-		$msg = "You don´t have this player on your KOS List.";
+		$msg = "You donï¿½t have this player on your KOS List.";
 
     if($type == "msg")
         bot::send($msg, $sender);
@@ -134,7 +134,7 @@ if(eregi("^kos$", $message)) {
 		}		
 	  	$msg = bot::makeLink("KOS-List from $name", $link);
 	} else
-		$msg = "The player <highlight>$name<end> isn´t on the KOS List.";
+		$msg = "The player <highlight>$name<end> isnï¿½t on the KOS List.";
 
     if($type == "msg")
         bot::send($msg, $sender);

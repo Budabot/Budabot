@@ -1,4 +1,4 @@
-<?
+<?php
 /*
    ** Author: Marinerecon (RK2)
    ** Description: Removes an item from the roll

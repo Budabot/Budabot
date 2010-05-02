@@ -1,4 +1,4 @@
-<?
+<?php
 $mish_and_shop = "Mission reward, shop buyable at QL1-125";
 $dyna_mish = "Dyna and mission boss loot";
 

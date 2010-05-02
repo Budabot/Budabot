@@ -1,4 +1,4 @@
-<?
+<?php
 if (preg_match("/^countdown$/i", $message)) {
   	global $countdown_last;
   	

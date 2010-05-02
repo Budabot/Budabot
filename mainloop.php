@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Derroylo (both RK2)
    ** Description: Main Loop of the bot

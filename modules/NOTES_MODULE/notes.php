@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Tyrence (RK2)
    ** Description: Add tower sites to watch list

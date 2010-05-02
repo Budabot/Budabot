@@ -1,4 +1,4 @@
-<?
+<?php
 /* ******************************************** */
 /* Author: C. Lohmann alias Derroylo(RK2)       */
 /* Date(created): 24.02.2006                    */
@@ -18,7 +18,7 @@ if(count($guard) == 0)
 else {
   	$glist = "";
 	$info  = "<header>::::: Info about Guardian macro :::::<end>\n\n";
-	$info .= "The bot has it´s own Guardian macro to use it just do ";
+	$info .= "The bot has itï¿½s own Guardian macro to use it just do ";
 	$info .= "<symbol>g in the chat. \n\n";
 	$info .= "<a href='chatcmd:///macro G_Macro /g <myname> <symbol>g'>Click here to make an G macro </a>";
 	$info = bot::makeLink("Info", $info);

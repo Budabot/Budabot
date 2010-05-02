@@ -1,4 +1,4 @@
-<?
+<?php
    /*
    ** Author: Lucier (RK1)
    ** Description: Friendlist_Diag_Module (Shows why a name is on the friendslist)
