@@ -3,18 +3,19 @@
 	
 	bot::loadSQLFile($MODULE_NAME, "private_chat");
     
-    bot::command("guild msg", "$MODULE_NAME/members.php", "members", "all", "Guest Channel Auto-Invitelist");
-    bot::command("guild msg", "$MODULE_NAME/onlineguests.php", "onlineguests", "all", "Guest Channellist");
+    bot::command("", "$MODULE_NAME/members.php", "members", "all", "Guest Channel Auto-Invitelist");
+    bot::command("", "$MODULE_NAME/onlineguests.php", "onlineguests", "all", "Guest Channellist");
     bot::command("guild msg", "$MODULE_NAME/join.php", "join", "all", "Join command for guests");
-	bot::command("guild msg", "$MODULE_NAME/kick.php", "kick", "all", "kick command for guests");
-
 	bot::command("priv msg", "$MODULE_NAME/leave.php", "leave", "all", "Enables Privatechat Kick");
-	bot::command("priv msg", "$MODULE_NAME/kickall.php", "kickall", "mod", "Kicks all from the privgroup");
-	bot::command("priv msg", "$MODULE_NAME/lock.php", "lock", "rl", "Locks the privgroup");
-	bot::command("priv msg", "$MODULE_NAME/lock.php", "unlock", "rl", "Unlocks the privgroup");
+
+	bot::command("", "$MODULE_NAME/kickall.php", "kickall", "mod", "Kicks all from the privgroup");
+	bot::command("", "$MODULE_NAME/lock.php", "lock", "rl", "Locks the privgroup");
+	bot::command("", "$MODULE_NAME/lock.php", "unlock", "rl", "Unlocks the privgroup");
 	
-	bot::command("", "$MODULE_NAME/invite.php", "invite", "all", "Enables Privatechat Join");
-	bot::command("", "$MODULE_NAME/add.php", "add", "all", "Enables Privatechat Join");
+	bot::command("", "$MODULE_NAME/invite.php", "inviteuser", "all", "Enables Privatechat Join");
+	bot::command("", "$MODULE_NAME/kick.php", "kickuser", "all", "kick command for guests");
+	bot::command("", "$MODULE_NAME/add.php", "adduser", "all", "Enables Privatechat Join");
+	bot::command("", "$MODULE_NAME/rem.php", "remuser", "all", "Enables Privatechat Join");
 	
 	bot::addsetting("guest_man_join", "Mode of manual guestchannel join", "edit", "1", "Only for members of guestlist;Everyone", "1;0");
 	bot::addsetting("guest_color_channel", "Color for Guestchannelrelay(ChannelName)", "edit", "<font color=#C3C3C3>", "color");

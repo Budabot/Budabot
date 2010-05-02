@@ -4,16 +4,16 @@
 <tab><symbol>onlineguests
 
 <highlight>To invite someone to guestchannel<end>
-<tab><symbol>invite 'insert name here'
+<tab><symbol>inviteuser 'insert name here'
 
 <highlight>To kick someone from guestchannel<end>
-<tab><symbol>kick 'insert name here'
+<tab><symbol>kickuser 'insert name here'
 
 <highlight>To add someone to the guestlist(he will get auto-invited after he logs on)<end>
-<tab><symbol>add 'insert name here'
+<tab><symbol>adduser 'insert name here'
 
 <highlight>To remove someone from the guestlist<end>
-<tab><symbol>rem 'insert name here'
+<tab><symbol>remuser 'insert name here'
 
 <highlight>To show the ones that are auto-invited after their logon<end>
 <tab><symbol>members

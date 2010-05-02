@@ -29,25 +29,25 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (preg_match("/^add (.+)$/i", $message, $arr)) {
+if (preg_match("/^adduser (.+)$/i", $message, $arr)) {
     $uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     if (!$uid) {
-        $msg = "Player <highlight>$who<end> does not exist.";
+        $msg = "Player <highlight>$name<end> does not exist.";
     } else {
-	  	$db->query("SELECT * FROM members_<myname> WHERE `name` = '$who'");
+	  	$db->query("SELECT * FROM members_<myname> WHERE `name` = '$name'");
 	  	if($db->numrows() != 0) {
-	  		$msg = "<highlight>$who<end> is already on the guestlist.";
+	  		$msg = "<highlight>$name<end> is already on the guestlist.";
 	  	} else {
-		    $db->query("INSERT INTO members_<myname> (`name`, `autoinv`) VALUES ('$who', 1)");
-		    $msg = "<highlight>$who<end> has been added to the guestlist.";
-			if (!isset($this->buddList[$who])) {
+		    $db->query("INSERT INTO members_<myname> (`name`, `autoinv`) VALUES ('$name', 1)");
+		    $msg = "<highlight>$name<end> has been added to the guestlist.";
+			if (!isset($this->buddList[$name])) {
 		        bot::send("addbuddy", $uid);
 			}
 		}
 	}
 
-	bot::send($msg);
+	bot::send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

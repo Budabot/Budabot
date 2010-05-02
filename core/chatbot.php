@@ -695,11 +695,13 @@ class bot extends AOChat{
 				$data = $db->fObject("all");
 		  		foreach($data as $row) {
 				  	if($row->status == 0) {
-						if (file_exists("./modules/$row->file")) 
-							$file = "./modules/$row->file";		
+						if (file_exists("./modules/$row->file"))  {
+							$file = "./modules/$row->file";
+						}
 						
-						if (file_exists("./core/$row->file")) 
-							$file = "./core/$row->file";			  	  
+						if (file_exists("./core/$row->file"))  {
+							$file = "./core/$row->file";
+						}
 				  	  	include($file);
 					    $db->query("UPDATE cmdcfg_<myname> SET `status` = 1 WHERE `module` = '$curMod' AND `cmdevent` = 'event' AND `type` = 'setup'");
 					}

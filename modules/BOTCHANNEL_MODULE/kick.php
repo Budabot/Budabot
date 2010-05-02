@@ -29,14 +29,17 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (preg_match("/^kick (.+)$/i", $message, $arr)) {
+if (preg_match("/^kickuser (.+)$/i", $message, $arr)) {
     $uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     if ($uid) {
         if ($this->chatlist[$name] == true) {
-		  	AOChat::privategroup_kick($name);
 			$msg = "<highlight>$name<end> has been kicked.";
+		} else {
+			$msg = "<highlight>$name<end> is not in private channel.";
 		}
+		// we kick whether they are in the channel or not incase the channel list is bugged
+		AOChat::privategroup_kick($name);
     } else {
 		$msg = "Player <highlight>".$name."<end> does not exist.";
 	}
