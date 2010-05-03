@@ -49,13 +49,15 @@ if (preg_match("/^members$/i", $message)) {
 	    $msg = "<highlight>".$autoguests."<end> players on the Autoinvitelist ";
 	    $link = ":: ".bot::makeLink('Click here', $list);
 	    if ($autoguests != 0) {
-           	bot::send($msg.$link, "guild");
+           	bot::send($msg.$link, $sendto);
         } else {
-           	bot::send($msg, "guild");
+           	bot::send($msg, $sendto);
 		}
 	} else {
-       	bot::send("No player is on this list.", "guild");
+       	bot::send("No player is on this list.", $sendto);
 	}
+} else {
+	$syntax_error = true;
 }
 
 ?>

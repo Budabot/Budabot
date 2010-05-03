@@ -51,12 +51,14 @@ if (preg_match("/^onlineguests$/i", $message)) {
         $msg = "<highlight>".$numguest."<end> players in Guestchannel ";
         $link = ":: ".bot::makeLink('Click here', $list);
         if($numguest != 0) {
-           	bot::send($msg.$link, "guild");
+           	bot::send($msg.$link, $sendto);
         } else {
-           	bot::send($msg, "guild");
+           	bot::send($msg, $sendto);
 		}
 	} else {
-		bot::send("No player is in the guestchannel.", "guild");
+		bot::send("No player is in the guestchannel.", $sendto);
 	}
+} else {
+	$syntax_error = true;
 }
 ?>

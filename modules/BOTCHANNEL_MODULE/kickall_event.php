@@ -28,10 +28,10 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-   
+
 if (time() >= $this->vars["priv_kickall"]) {
 	AOChat::privategroup_kick_all();
-	bot::unregevent("2sec", "BASIC_CHAT_MODULE/kickall_event.php");
+	bot::unregevent("2sec", "BOTCHANNEL_MODULE/kickall_event.php");
 	unset($this->vars["priv_kickall"]);
 }
 ?>
