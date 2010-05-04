@@ -9,7 +9,7 @@ $adoquest_txt ="
 Faction: All
 Level Range: 130-220</font>
 
-Adonis quests � the rise and fall of Xan super civilization 
+Adonis quests - the rise and fall of Xan super civilization 
 
 Note: This quest line might be challenging even for some end-game characters, so doing it in team is advised. 
 
@@ -39,7 +39,7 @@ You can pick up this quest line right after zoning into Adonis, like so most of 
 	Next, you need to kill <font color='#FF9900'>Biran-Keir the Custodian</font>, located in a dungeon.
 	You will get a mission key and update once completing the previous kills to guide you there. To get there, just follow your directional arrow.
 
-	Once dead, claim your reward � <img src=rdb://37932><a href='itemref://226267/226267/1'>Kanel's Story - Second Edition (Spec 3/2)</a> from Conserver Gil Gala-Hume and continue to Scott Free. 
+	Once dead, claim your reward - <img src=rdb://37932><a href='itemref://226267/226267/1'>Kanel's Story - Second Edition (Spec 3/2)</a> from Conserver Gil Gala-Hume and continue to Scott Free. 
 
   <font color='#33FF33'>Omni</font>
   <font color='#FF9900'>Omni: Operator Xum-Nar Dal</font>
@@ -52,7 +52,7 @@ You can pick up this quest line right after zoning into Adonis, like so most of 
 	Next, you need to kill <font color='#FF9900'>Car-Mea the Custodian</font>, located in a dungeon.
   To get there, just follow your directional arrow. 
   ****Insider tip - Dungeon is at the <font color='#FF9900'>190 Incarnator</font>, just south of <font color='#FF9900'>City North</font> Statue exit, door is the one of the NORTH side of the incarnator****
- 	Once dead, claim your reward � <img src=rdb://37932><a href='itemref://226267/226267/1'>Kanel's Story - Second Edition (Spec 3/2)</a> from Operator Xum-Nar Dal and continue to Scott Free. 
+ 	Once dead, claim your reward - <img src=rdb://37932><a href='itemref://226267/226267/1'>Kanel's Story - Second Edition (Spec 3/2)</a> from Operator Xum-Nar Dal and continue to Scott Free. 
 
   <font color = yellow>Step 4:</font><font color='#FF9900'> Scott Free</font>
   His first task for you is to collect <font color='#33FF33'>peach, purple and green</font> recollection shards (Adonis Recollection Shards), that drop from <font color='#33FF33'>Scintillated Spirits</font> north of his location. 
@@ -110,7 +110,7 @@ You can pick up this quest line right after zoning into Adonis, like so most of 
 	So first you need to visit <font color='#33FF33'>Jackson Turnfloat</font>, located at Pos: 2284.3, 692.0, 112.3, Area: The Hourglass 
 
 	He'll give you the parts he has in stock, namely Leaves of Tonacetum Parthenium. 
-	For the second ingredient � Ambergris, you need to to kill Molokh. 
+	For the second ingredient - Ambergris, you need to to kill Molokh. 
 	There are several around Jackson's location. Once you have both items, just combine them and return to One Who Gives Warnings. 
 	He's one happy Yuttocra now, so he'll give you <img src=rdb://205500><a href='itemref://238920/238921/160'>Yutto's Modified NCU</a>. 
 

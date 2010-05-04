@@ -53,7 +53,7 @@ if(eregi("^waitlist next$", $message, $arr)) {
 	foreach($listbot_waitlist[$sender] as $key => $value) {
 	   	$listbot_waitlist[$sender][$key]["position"] -= 1;
 		$db->query("UPDATE waitlist_<myname> SET `position` = {$listbot_waitlist[$sender][$key]["position"]} WHERE `owner` = '$sender' AND `name` = '{$listbot_waitlist[$sender][$key]["name"]}'");
-		bot::send("Your Position on <highlight>$sender<end>�s waitlist has been changed to <highlight>{$listbot_waitlist[$sender][$key]["position"]}<end>", $listbot_waitlist[$sender][$key]["name"]);
+		bot::send("Your Position on <highlight>$sender<end>'s waitlist has been changed to <highlight>{$listbot_waitlist[$sender][$key]["position"]}<end>", $listbot_waitlist[$sender][$key]["name"]);
 	}
 	$db->Commit();
 
@@ -70,7 +70,7 @@ if(eregi("^waitlist next$", $message, $arr)) {
     }
 
 	if(count($listbot_waitlist[$sender]) > 10) {
-	  	$msg = "Sry but you can�t have more then 10 users on your waitlist!";
+	  	$msg = "You can't have more then 10 users on your waitlist!";
 	  	// Send info back
         bot::send($msg, $sendto);
       	return;
@@ -146,7 +146,7 @@ if(eregi("^waitlist next$", $message, $arr)) {
 	 	if($listbot_waitlist[$sender][$key]["position"] > $position) {
 		   	$listbot_waitlist[$sender][$key]["position"] -= 1;
 			$db->query("UPDATE waitlist_<myname> SET position = {$listbot_waitlist[$sender][$key]["position"]} WHERE owner = '$sender' AND name = '{$listbot_waitlist[$sender][$key]["name"]}'");
-			bot::send("Your Position on <highlight>$sender<end>�s waitlist has been changed to <highlight>{$listbot_waitlist[$sender][$key]["position"]}<end>", $listbot_waitlist[$sender][$key]["name"]);
+			bot::send("Your Position on <highlight>$sender<end>'s waitlist has been changed to <highlight>{$listbot_waitlist[$sender][$key]["position"]}<end>", $listbot_waitlist[$sender][$key]["name"]);
 		}
 	}
 	$db->Commit();
@@ -155,7 +155,7 @@ if(eregi("^waitlist next$", $message, $arr)) {
     bot::send($msg, $sendto);
 } elseif(eregi("^waitlist$", $message)) {
   	if(count($listbot_waitlist[$sender]) == 0) {
-	 	$msg = "You don�t have any waitlist created yet!";
+	 	$msg = "You don't have any waitlist created yet!";
 	  	// Send info back
 	    bot::send($msg, $sendto);
       	return;

@@ -55,8 +55,8 @@ if(eregi("^whois (.+)$", $message, $arr)) {
 	
 	        $list = "<header>::::: Detailed infos :::::<end>\n\n";
 	        $list .= "<u>Options for ".$name."</u>\n \n";
-	        $list .= "<a href='chatcmd:///tell <myname> history ".$name."'>Check ".$name."�s History</a>\n";
-	        $list .= "<a href='chatcmd:///tell <myname> is ".$name."'>Check ".$name."�s online status</a>\n";
+	        $list .= "<a href='chatcmd:///tell <myname> history ".$name."'>Check ".$name."'s History</a>\n";
+	        $list .= "<a href='chatcmd:///tell <myname> is ".$name."'>Check ".$name."'s online status</a>\n";
 	        if($whois->org)
 		        $list .= "<a href='chatcmd:///tell <myname> whoisorg ".$whois->org_id."'>Show infos about $whois->org</a>\n";
 	        $list .= "<a href='chatcmd:///cc addbuddy ".$name."'>Add to buddylist</a>\n";
@@ -102,8 +102,8 @@ if(eregi("^whois (.+)$", $message, $arr)) {
 
             $list = "<header>::::: Detailed infos :::::<end>\n\n";
             $list .= "<u>Options for ".$name."</u>\n \n";
-            $list .= "<a href='chatcmd:///tell <myname> history ".$name."'>Check ".$name."�s History</a>\n";
-            $list .= "<a href='chatcmd:///tell <myname> is ".$name."'>Check ".$name."�s online status</a>\n";
+            $list .= "<a href='chatcmd:///tell <myname> history ".$name."'>Check ".$name."'s History</a>\n";
+            $list .= "<a href='chatcmd:///tell <myname> is ".$name."'>Check ".$name."'s online status</a>\n";
             $list .= "<a href='chatcmd:///cc addbuddy ".$name."'>Add to buddylist</a>\n";
             $list .= "<a href='chatcmd:///cc rembuddy ".$name."'>Remove from buddylist</a>\n";
             $msg .= " :: ".bot::makeLink("click for more options", $list);
@@ -243,8 +243,9 @@ if(eregi("^whois (.+)$", $message, $arr)) {
 	  	$link .= "<highlight>Soldiers:<end> $num_sol (".round(($num_sol*100)/$num_members, 1)."% of total)\n";
 	  	$link .= "<highlight>Traders:<end> $num_trad (".round(($num_trad*100)/$num_members, 1)."% of total)\n";		  			  			  	
 	  	$msg = bot::makeLink("Org Info $org->orgname", $link);
-	} else
-		$msg = "Error in getting the Org infos. Either that org doesn�t exist or the AO server was too slow to responce.";
+	} else {
+		$msg = "Error in getting the Org infos. Either that org doesn't exist or the AO server was too slow to responce.";
+	}
 
     if($type == "msg")
         bot::send($msg, $sender);

@@ -33,14 +33,14 @@
 //Prefix for commands
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'symbol'");
 if($db->numrows() == 0)
-  	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `admin`) VALUES ('symbol', 'Basic Settings', 'edit', '{$this->settings["symbol"]}', '!;#;*;�;$;+;-', 'Prefix for Guild- or Privatechat Commands', 'cfg', 'mod')");
+  	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `admin`) VALUES ('symbol', 'Basic Settings', 'edit', '{$this->settings["symbol"]}', '!;#;*;@;$;+;-', 'Prefix for Guild- or Privatechat Commands', 'cfg', 'mod')");
 else 
   	$db->query("UPDATE settings_<myname> SET `setting` = '{$this->settings["symbol"]}' WHERE `name` = 'symbol'");
 
 //Debug messages
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'debug'");
 if($db->numrows() == 0)
-  	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`) VALUES ('debug', 'Basic Settings', 'edit', '{$this->settings["debug"]}', 'Disabled;Show basic msg�s;Show enhanced debug msg�s;Show enhanced debug msg�s + 1s Delay', '0;1;2;3', 'Show debug messages', 'cfg', 'admin')");
+  	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`) VALUES ('debug', 'Basic Settings', 'edit', '{$this->settings["debug"]}', 'Disabled;Show basic msg''s;Show enhanced debug msg''s;Show enhanced debug msg''s + 1s Delay', '0;1;2;3', 'Show debug messages', 'cfg', 'admin')");
 else 
   	$db->query("UPDATE settings_<myname> SET `setting` = '{$this->settings["debug"]}' WHERE `name` = 'debug'");
 

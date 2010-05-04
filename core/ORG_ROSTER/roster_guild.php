@@ -73,9 +73,9 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 		//Start the transaction
 		$db->beginTransaction();
 		
-		// Going through each member of the org and add his data�s
+		// Going through each member of the org and add his data's
 		foreach($org->member as $amember) {
-			//If the orgmembers isn�t on buddylist add him
+			//If the orgmembers isn't on buddylist add him
 		    if(!isset($this->buddyList[$amember]))
 		        bot::send("addbuddy", $amember);
 		    
@@ -119,7 +119,7 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 		//End the transaction
 		$db->Commit();
 		
-		//Removing old data�s in the db and remove buddies if they exist
+		//Removing old data's in the db and remove buddies if they exist
 		$db->query("SELECT name FROM org_members_<myname> WHERE `mode` != 'man'");
 		while($row = $db->fObject()) {
 		    if(!$org->members[$row->name]) {

@@ -124,7 +124,7 @@ if(eregi("^axp$", $message)) {
 
             $msg = "From the beginning of ailvl <highlight>".$arr[1]."<end> to ailvl <highlight>".$arr[2]."<end> you need <highlight>".number_format($axp_comp)."<end> AXP to level up.";
         } else
-            $msg = "The startlevel can�t be higher then the endlevel.";
+            $msg = "The startlevel can't be higher then the endlevel.";
     } else
         $msg = "You need to specify a lvl between 1 and 30.";
 

@@ -34,7 +34,7 @@ if (eregi("^guildrelay off$", $message)) {
 		bot::savesetting("relaybot", "0");
 		$msg = "<highlight>Guildrelay<end> has been turned <red>off<end>";      
     } else
-        $msg = "Guild Relay wasn�t enabled.";
+        $msg = "Guild Relay wasn't enabled.";
             
     // Send info back
     if($type == "msg")

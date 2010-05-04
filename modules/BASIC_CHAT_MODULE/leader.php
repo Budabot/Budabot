@@ -43,7 +43,7 @@ if(eregi("^leader (.+)$", $message, $arr)) {
 	if(!$uid)
 		$msg = "Player <highlight>".$name."<end> does not exist.";
 	elseif(!isset($this->chatlist[$name]))
-		$msg = "Player <highlight>".$name."<end> did�t joined this channel.";
+		$msg = "Player <highlight>".$name."<end> did't joined this channel.";
 	else {
 		$this->vars["leader"] = $name;
 	  	$msg = "$name is now Raidleader. Raidleader echo is currently $status. You can change it with <symbol>leaderecho $cmd";	    	
@@ -58,7 +58,7 @@ if(eregi("^leader (.+)$", $message, $arr)) {
   			$this->vars["leader"] = $sender;
 		  	$msg = "$sender is now Raidleader. Raidleader echo is currently $status. You can change it with <symbol>leaderecho $cmd";
 		} else
-			$msg = "You can�t take leader from <highlight>{$this->vars["leader"]}<end>.";
+			$msg = "You can't take leader from <highlight>{$this->vars["leader"]}<end>.";
 	} else {
 		$this->vars["leader"] = $sender;
 	  	$msg = "$sender is now Raidleader. Raidleader echo is currently $status. You can change it with <symbol>leaderecho $cmd";

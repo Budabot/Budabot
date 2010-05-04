@@ -41,8 +41,8 @@ $beer[8] = "Sorry, I just ran out hun. Would you like some Rising Sun Sake inste
 $beer[9] = "Umm, I dont think you are of age, lets see some ID.";
 $beer[10] = "Well, by the looks of it. I think you have reached your limit for the night *name*.";
 $beer[11] = "NO!! First pay off your bar tab. You still owe me *creds* credits *name*!";
-$beer[12] = "YEAH! Let�s start gathering for a Pub raid!!";
-$beer[13] = "Only Leet�s are drinking beer! We need harder stuff like Wodka!";
+$beer[12] = "YEAH! Let's start gathering for a Pub raid!!";
+$beer[13] = "Only Leet's are drinking beer! We need harder stuff like Wodka!";
 	
 if(eregi("^beer", $message)) {
 	$dmg = rand(100,999);

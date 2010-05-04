@@ -112,7 +112,7 @@ if($countitems > 1) {
       	
 	//Show a warning if the maxnano are reached
 	if($countitems == $this->settings["maxnano"]) {
-	    $msg = "The output has been limited to <highlight>{$this->settings["maxnano"]}<end> items. Specify your search more if your item isn�t listed.";
+	    $msg = "The output has been limited to <highlight>{$this->settings["maxnano"]}<end> items. Specify your search more if your item isn't listed.";
 	    bot::send($msg, $sendto);
 	}
 } 

@@ -42,7 +42,7 @@ if(isset($this->guildmembers[$sender])) {
 				bot::send("<highlight>$sender<end> logged off", NULL, true);
 		}
     }
-    //$this->vars["IgnoreLog"][$sender] if it is 2 then log modules didn�t executed yet
+    //$this->vars["IgnoreLog"][$sender] if it is 2 then log modules didn't executed yet
     if($this->vars["IgnoreLog"][$sender] == 2)
         $this->vars["IgnoreLog"][$sender] = 1;
     //log module is executed

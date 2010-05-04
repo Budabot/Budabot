@@ -204,7 +204,7 @@ if(eregi("^orgmembers$", $message)) {
 
 	$members = $db->numrows();
   	if($members == 0) {
-		$msg = "No <highlight>$prof<end>�s as member recorded";		
+		$msg = "No <highlight>$prof<end>'s as member recorded";		
 	  	// Send info back
 	    if($type == "msg")
 	        bot::send($msg, $sender);

@@ -113,7 +113,7 @@ class db {
 		return($result);				
 	}
 	
-	//Does Basicly the same thing just don�t gives the result back(used for create table, Insert, delete etc), a bit faster as normal querys 
+	//Does Basicly the same thing just don't gives the result back(used for create table, Insert, delete etc), a bit faster as normal querys 
 	function exec($stmt) {
 		$this->result = NULL;
 		

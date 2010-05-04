@@ -136,7 +136,7 @@ if(eregi("^add$", $message)) {
 		}
 		
 	  	if(!$found) {
-	  		$msg = "Sry but the slot you trying to add in doesn�t exists";
+	  		$msg = "The slot you trying to add in doesn't exists";
 		  	bot::send($msg, $sender);
 		  	return;
 	  	}
@@ -179,7 +179,7 @@ if(eregi("^add$", $message)) {
 
 		//Check if the slot exists
 	  	if(!isset($loot[$slot])) {
-	  		$msg = "Sry but the slot you trying to add in doesn�t exists";
+	  		$msg = "The slot you trying to add in doesn't exists";
 		  	bot::send($msg, $sender);
 		  	return;
 	  	}

@@ -10,5 +10,5 @@
 	bot::event("msg", "$MODULE_NAME/tell_messages.php", 'none', 'Handles incoming tells from externalrelaybot');
 	
 	bot::addsetting("externalrelaybot", "Bot for external relay", "edit", "unknown", "text", '0', "mod", "");
-	bot::addsetting("externalrelaysymbol", "Symbol for external relay", "edit", "@", "!;#;*;�;$;+;-", '0', "mod", "");
+	bot::addsetting("externalrelaysymbol", "Symbol for external relay", "edit", "@", "!;#;*;@;$;+;-", '0', "mod", "");
 ?>

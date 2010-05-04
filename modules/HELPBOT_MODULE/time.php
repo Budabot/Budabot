@@ -95,7 +95,7 @@ if(eregi("^time$", $message)) {
 	$msg = "<highlight>".gmdate("dS M, H:i", $time)."<end> (GMT/AO)";
 	
 	$link = "<header>::::: Timezones :::::<end>\n\n";
-	$link .= "The following includes most of the timezones that exists but notice that this list doesnï¿½t show all countrys within the timezones and also that some countryï¿½s have 2 timezones. \nTo see the time in a special timezone use time 'timezone' for example time CET\n\n";
+	$link .= "The following includes most of the timezones that exists but notice that this list doesn't show all countrys within the timezones and also that some country´s have 2 timezones. \nTo see the time in a special timezone use time 'timezone' for example time CET\n\n";
 	$link .= "<u>Australia</u>\n";
 	$link .= "<tab><highlight>Northern Territory/South Australia<end>\n";
 	$link .= "<tab><tab>Standart Time (ACST = GMT+9:30): {$timezone["ACST"]["time"]}\n";
@@ -114,7 +114,7 @@ if(eregi("^time$", $message)) {
 	$link .= "<tab><highlight>Germany/France/Netherlands/Italy/Austria<end>\n";
 	$link .= "<tab><tab>Standart Time (CET = GMT+1): {$timezone["CET"]["time"]}\n";
 	$link .= "<tab><tab>Summer Time (CEST = GMT+2): {$timezone["CEST"]["time"]}\n";
-	$link .= "<tab><highlight>ï¿½gypten/Bulgarien/Finnland/Griechenland<end>\n";
+	$link .= "<tab><highlight>Ägypten/Bulgarien/Finnland/Griechenland<end>\n";
 	$link .= "<tab><tab>Standart Time (EET = GMT+2): {$timezone["EET"]["time"]}\n";
 	$link .= "<tab><tab>Summer Time (EEST/EEDT = GMT+3): {$timezone["EEST"]["time"]}\n";
 	$link .= "<tab><highlight>Bahrain/Irak/Russland/Saudi Arabien<end>\n";
@@ -158,7 +158,7 @@ if(eregi("^time$", $message)) {
   	if($timezone[$zone]["name"])
 		$msg = $timezone[$zone]["name"]." is <highlight>".$timezone[$zone]["time"]."<end>";
 	else
-		$msg = "This timezone doesnï¿½t exist or isnï¿½t known by this bot.";
+		$msg = "This timezone doesn't exist or isn't known by this bot.";
     if($type == "msg")
         bot::send($msg, $sender);
     elseif($type == "priv")

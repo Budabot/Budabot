@@ -37,7 +37,7 @@ if(eregi("^ts$", $message)) {
     $serverport 	= $this->settings["ts_serverport"];
     $servername 	= $this->settings["ts_servername"];
 
-	//If IP isn�t set show error msg
+	//If IP isn't set show error msg
 	if($ip == "Not set yet.") {
 	  	$msg = "You need to configure your TS Server before you can use this!";
 	    bot::send($msg, $sendto);
@@ -208,11 +208,12 @@ if(eregi("^ts$", $message)) {
 		}
 
 		$msg = bot::makeLink("Teamspeak Server Status", $link);
-	} else
-		$msg = "Couldn�t connect to Teamspeak Server. Try again later.";
-
+	} else {
+		$msg = "Couldn't connect to Teamspeak Server. Try again later.";
+	}
 	
 	bot::send($msg, $sendto);
-} else
+} else {
 	$syntax_error = true;
+}
 ?>
