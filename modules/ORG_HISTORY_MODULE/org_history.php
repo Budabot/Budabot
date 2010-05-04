@@ -41,6 +41,8 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 	if ($arr[1] != '') {
 		$page = $arr[1];
 	}
+	
+	$startingRecord = ($page - 1) * $pageSize;
 
 	$window = "";
 	if (method_exists('bot', 'makeHeader')) {
@@ -49,7 +51,7 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 		$window .= "<header>::::: Org History :::::<end>\n";	
 	}
 	
-	$sql = "SELECT actor, actee, action, organization, time FROM org_history ORDER BY time DESC LIMIT $page, $pageSize";
+	$sql = "SELECT actor, actee, action, organization, time FROM org_history ORDER BY time DESC LIMIT $startingRecord, $pageSize";
 	$db->query($sql);
 	while($row = $db->fObject()) {
 
