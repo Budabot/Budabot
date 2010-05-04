@@ -443,6 +443,7 @@ class bot extends AOChat{
 		}
 
 		$command = strtolower($command);
+		$description = str_replace("'", "''", $desription);
 		$module = explode("/", strtolower($filename));
 	  	
 		for ($i = 0; $i < count($type); $i++) {
