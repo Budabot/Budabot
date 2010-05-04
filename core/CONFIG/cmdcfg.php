@@ -51,6 +51,7 @@ if (preg_match("/^config$/i", $message)) {
 			(SELECT module FROM settings_<myname> WHERE module <> 'Basic Settings'
 				UNION
 			SELECT module AS module FROM cmdcfg_<myname> WHERE module <> 'none')
+			AS t1
 		GROUP BY module
 		ORDER BY module ASC";
 
