@@ -29,9 +29,6 @@ $MODULE_NAME = "RAID_MODULE";
 	
 	bot::regGroup("basic_loot", $MODULE_NAME, "Handles a basic flatrolled loot system", "loot", "add", "clear", "list", "flatroll");
 
-	//Setup
-	bot::event("setup", "$MODULE_NAME/setup.php");
-
 	//Helpfiles
 	bot::help("add", "$MODULE_NAME/add_rem.txt", "all", "Adding to a lootitem", "Raid");
 	bot::help("rem", "$MODULE_NAME/add_rem.txt", "all", "Removing your bid on a lootitem", "Raid");
