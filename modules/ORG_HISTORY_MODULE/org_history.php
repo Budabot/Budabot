@@ -32,8 +32,34 @@
    ** This module may be obtained at: http://www.box.net/shared/bgl3cx1c3z
    **
    */
+   
+$pageSize = 20;
 
-if (preg_match("/^orghistory (.+)$/i", $message, $arr)) {
+if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\\d+)$/i", $message, $arr)) {
+	
+	$page = 1;
+	if ($arr[1] != '') {
+		$page = $arr[1];
+	}
+
+	$window = "";
+	if (method_exists('bot', 'makeHeader')) {
+		$window .= bot::makeHeader("Org History", "none");
+	} else {
+		$window .= "<header>::::: Org History :::::<end>\n";	
+	}
+	
+	$sql = "SELECT actor, actee, action, organization, time FROM org_history ORDER BY time DESC LIMIT $page, $pageSize";
+	$db->query($sql);
+	while($row = $db->fObject()) {
+
+		$window .= "$row->actor $row->action $row->actee in $row->organization at " . gmdate("M j, Y, G:i", $row->time)." (GMT)\n";
+	}
+
+	$msg = bot::makeLink('Org History', $window, 'blob');
+
+	bot::send($msg, $sendto);
+} else if (preg_match("/^orghistory (.+)$/i", $message, $arr)) {
 	
 	$character = $arr[1];
 
@@ -46,7 +72,6 @@ if (preg_match("/^orghistory (.+)$/i", $message, $arr)) {
 	
 	$window .= "\n  Actions on $character\n";
 	$sql = "SELECT actor, actee, action, organization, time FROM org_history WHERE actee LIKE '$character' ORDER BY time DESC";
-	echo $sql;
 	$db->query($sql);
 	while($row = $db->fObject()) {
 
@@ -64,6 +89,7 @@ if (preg_match("/^orghistory (.+)$/i", $message, $arr)) {
 	$msg = bot::makeLink('Org History', $window, 'blob');
 
 	bot::send($msg, $sendto);
+
 }
 
 ?>
