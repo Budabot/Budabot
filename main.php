@@ -150,7 +150,7 @@ main(true, $chatBot);
 	}	
 /*
 ** Name: callback
-** Function called by Aochat each time a incoming packet is recived.
+** Function called by Aochat each time a incoming packet is received.
 ** Inputs: (int)$type, (array)$arguments, (object)&$incBot
 ** Outputs: None
 */	function callback($type, $args){
@@ -205,7 +205,6 @@ main(true, $chatBot);
         */
         $filename = "./logs/$today.$channel.txt";
         if(($fp = fopen($filename, "a")) === FALSE) {
-            // Failed!
             echo "    *** Failed to open log-file $filename for writing ***\n";
         } else {
             fwrite($fp, $line.$nl);
