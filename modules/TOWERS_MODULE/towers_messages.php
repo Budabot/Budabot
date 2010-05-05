@@ -32,7 +32,7 @@
 $colorlabel = "<font color=#00DE42>";
 $colorvalue = "<font color=#63AD63>";
 
-if (preg_match("/^The (clan|neutral|omni) organization (.+) just entered a state of war! (.+) attacked the (clan|neutral|omni) organization (.+)'s tower in (.+) at location \(([0-9]+), ([0-9]+)\)\.$/i", $message, $arr)) {
+if (preg_match("/^The (Clan|Neutral|Omni) organization (.+) just entered a state of war! (.+) attacked the (Clan|Neutral|Omni) organization (.+)'s tower in (.+) at location \(([0-9]+), ([0-9]+)\)\.$/i", $message, $arr)) {
 	$att_player = $arr[1];
 	$att_guild = $arr[2];
 	$att_side = $arr[3];
@@ -41,14 +41,14 @@ if (preg_match("/^The (clan|neutral|omni) organization (.+) just entered a state
 	$zone = $arr[6];
 	$coordx = $arr[7];
 	$coordy = $arr[8];
-} else if (preg_match("/^(.+) just attacked the (.+) organization (.+)'s tower in (.+) at location \(([0-9]+), ([0-9]+)\).(.*)$/i", $message, $arr)) {
+} else if (preg_match("/^(.+) just attacked the (Clan|Neutral|Omni) organization (.+)'s tower in (.+) at location \(([0-9]+), ([0-9]+)\).(.*)$/i", $message, $arr)) {
 	$att_player = $arr[1];
 	$def_side = $arr[2];
 	$def_guild = $arr[3];
 	$zone = $arr[4];
 	$coordx = $arr[5];
 	$coordy = $arr[6];
-} else if (preg_match("/^The (clan|omni|neutral) organization (.+) attacked the (clan|omni|neutral) (.+) at their base in (.+). The attackers won!!$/i", $message, $arr)) {
+} else if (preg_match("/^The (Clan|Neutral|Omni) organization (.+) attacked the (Clan|Neutral|Omni) (.+) at their base in (.+). The attackers won!!$/i", $message, $arr)) {
 	$db->query("INSERT INTO tower_result_<myname> (`time`, `win_guild`, `win_side`, `lose_guild`, `lose_side`) VALUES ('".time()."', '".$arr[2]."', '".$arr[1]."', '".$arr[4]."', '".$arr[3]."')");
 }
 

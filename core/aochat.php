@@ -1252,6 +1252,12 @@
               $str = self::$ref_cat[$cat][$ins];
             $args[] = $str;
             break;
+		  case "":
+			// because of how the loop runs, the last iteration is an empty string
+			break;
+		  default:
+			echo "Error! could not parse argument: '$data_type' for category: '$this->category' and instance: '$this->instance'\n";
+			break;
         }
       }
 	  
