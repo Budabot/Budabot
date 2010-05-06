@@ -1357,7 +1357,7 @@ class bot extends AOChat{
 				//Ignore Messages from Vicinity/IRRK New Wire/OT OOC/OT Newbie OOC...	
 				$channelsToIgnore = array("", 'IRRK News Wire', 'OT OOC', 'OT Newbie OOC', 'OT Jpn OOC', 'OT shopping 11-50',
 					'Tour Announcements', 'Neu. Newbie OOC', 'Neu. Jpn OOC', 'Neu. shopping 11-50', 'Neu. OOC', 'Clan OOC',
-					'Clan Newbie OOC', 'Clan Jpn OOC', 'Clan shopping 11-50');
+					'Clan Newbie OOC', 'Clan Jpn OOC', 'Clan shopping 11-50', 'OT German OOC', 'Clan German OOC', 'Neu. German OOC');
 
 				if (in_array($channel, $channelsToIgnore)) {
 					return;
