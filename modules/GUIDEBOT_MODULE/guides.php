@@ -146,7 +146,7 @@ Legacy of Xan Guides
 <a href='chatcmd:///tell <myname> <symbol>aridrift'> Information about The base Arid Rift Quests</a>
 
 <font color = RED>
-Can you think of any changes or additions? Contact your org leader or the <a href='chatcmd:///tell Plugsz'</a>Guide Developer, Plugsz</a> on RK1'
+Can you think of any changes or additions? Contact your org leader or the <a href='chatcmd:///tell Plugsz'>Guide Developer, Plugsz</a> on RK1'
 </font>
 Special Thanks to all the great AO websites, their creators, and the folks that take time to develop these guides
 "
