@@ -36,9 +36,8 @@
 	
 	//Settings for this module	
 	bot::addsetting("alarmpreview", "Sets how early alarm should sound for gas change in minutes.", "edit", 5, "number");
-	bot::addsetting("displayalarm", "Alarm should be displayed in org chat", "edit", "1", "true;false", "1;0");
 	
-	bot::event("2sec", "$MODULE_NAME/check_gas_change.php", "scout", "Checks for gas changes for tower sites on watch list");
+	bot::event("2sec", "$MODULE_NAME/show_gas_change.php", "scout", "Shows gas changes for tower sites on watch list in org chat");
 	bot::event("logOn", "$MODULE_NAME/logon.php", "scout", "Displays summary of tower sites and gas levels on logon.");
 	
 	//Setup
