@@ -33,11 +33,11 @@ $colorlabel = "<font color=#00DE42>";
 $colorvalue = "<font color=#63AD63>";
 
 if (preg_match("/^The (Clan|Neutral|Omni) organization (.+) just entered a state of war! (.+) attacked the (Clan|Neutral|Omni) organization (.+)'s tower in (.+) at location \\((\\d+),(\\d+)\\)\\.$/i", $message, $arr)) {
-	$att_player = $arr[1];
+	$att_side = $arr[1];
 	$att_guild = $arr[2];
-	$att_side = $arr[3];
-	$def_guild = $arr[4];
-	$def_side = $arr[5];
+	$att_player = $arr[3];
+	$def_side = $arr[4];
+	$def_guild = $arr[5];
 	$zone = $arr[6];
 	$coordx = $arr[7];
 	$coordy = $arr[8];

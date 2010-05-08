@@ -38,12 +38,14 @@ $colorvalue = "<font color=#63AD63>";
 
 $listcount = 20;
 
-if(eregi("^battle$", $message) || eregi("^battle (.+)$", $message, $arr)) {
+if (preg_match("/^battle$/i", $message) || preg_match("/^battle (.+)$/i", $message, $arr)) {
 
-	if ($arr[1] == "") {$search = " ";}
-	else {$search = " WHERE `att_guild` LIKE \"$arr[1]\" OR `att_player` LIKE \"$arr[1]\" OR `def_guild` LIKE \"$arr[1]\" OR `zone` LIKE \"$arr[1]\" ";}
+	$search = '';
+	if ($arr[1] != "") {
+		$search = " WHERE `att_guild` LIKE '$arr[1]' OR `att_player` LIKE '$arr[1]' OR `def_guild` LIKE '$arr[1]' OR `zone` LIKE '$arr[1]' ";
+	}
 
-	$db->query("SELECT * FROM tower_attack_<myname>".$search."ORDER BY `time` DESC LIMIT 0, $listcount");
+	$db->query("SELECT * FROM tower_attack_<myname> $search ORDER BY `time` DESC LIMIT 0, $listcount");
 
 	if($db->numrows() == 0 && $search == " ") {
         	$msg = "No Tower messages recorded yet.";
@@ -59,12 +61,13 @@ if(eregi("^battle$", $message) || eregi("^battle (.+)$", $message, $arr)) {
 			if (!$att_side = strtolower($row->att_side)) {$att_side = "unknown";}
 			if (!$def_side = strtolower($row->def_side)) {$def_side = "unknown";}
 
-	    		if($row->att_profession == "Unknown")
-				$list .= $colorlabel."Attacker:<end> <$att_side>".$row->att_player."<end> (".ucfirst($att_side).")\n";
-	    		elseif($row->att_guild == "")
+	    		if ($row->att_profession == "Unknown") {
+					$list .= $colorlabel."Attacker:<end> <$att_side>".$row->att_player."<end> (".ucfirst($att_side).")\n";
+	    		} else if ($row->att_guild == "") {
 	        		$list .= $colorlabel."Attacker:<end> <$att_side>".$row->att_player."<end> (Lvl ".$row->att_level."/".$row->att_profession.") (".ucfirst($att_side).")\n";
-	    		else
+	    		} else {
 	        		$list .= $colorlabel."Attacker:<end> ".$row->att_player." (Lvl ".$row->att_level."/".$row->att_profession."/<$att_side>".$row->att_guild."<end>) (".ucfirst($att_side).")\n";
+				}
 
 
 			$list .= $colorlabel."Defender:<end> <$def_side>".$row->def_guild."<end> (".ucfirst($def_side).")\n";
@@ -73,10 +76,10 @@ if(eregi("^battle$", $message) || eregi("^battle (.+)$", $message, $arr)) {
 		$msg = bot::makeLink("Tower Battle: click to view", $list);
 	}
 
-}else if(eregi("^victory$", $message) || eregi("^victory (.+)$", $message, $arr)) {
+} else if (preg_match("/^victory$/i", $message) || preg_match("/^victory (.+)$/i", $message, $arr)) {
 
 	if ($arr[1] == "") {$search = " ";}
-	else {$search = " WHERE `win_guild` LIKE \"$arr[1]\" OR `lose_guild` LIKE \"$arr[1]\" ";}
+	else {$search = " WHERE `win_guild` LIKE '$arr[1]' OR `lose_guild` LIKE '$arr[1]' ";}
 
 	$db->query("SELECT * FROM tower_result_<myname>".$search."ORDER BY `time` DESC LIMIT 0, $listcount");
 	if($db->numrows() == 0 && $search == " ")
