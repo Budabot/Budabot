@@ -51,14 +51,28 @@ if (eregi("^nlline ([0-9]*)$", $message, $arr)) {
 			$window = "<header>::::: $header :::::<end>\n";	
 		}
 
-		$sql = "SELECT * FROM aonanos_nanos WHERE nanoline_id = $nanoline_id ORDER BY ql DESC, name ASC";
+		$sql = "
+		SELECT
+			a.low_id,
+			a.high_id,
+			a.ql,
+			a.name,
+			n.location
+		FROM
+			aonanos_nanos a
+			LEFT JOIN nanos n
+				ON (a.high_id = n.highid AND a.low_id = n.lowid)
+		WHERE
+			nanoline_id = $nanoline_id
+		ORDER BY
+			a.ql DESC, a.name ASC";
 		$db->query($sql);
 		$count = 0;
 		while($row = $db->fObject()) {
 
 			$count++;
 			$window .= "<a href='itemref://" . $row->low_id . "/" . $row->high_id . "/" . $row->ql . "'>" . $row->name . "</a>";
-			$window .= " [$row->ql] \n";
+			$window .= " [$row->ql] $row->location\n";
 		}
 
 		$window .= "\n\nAO Nanos by Voriuste";
