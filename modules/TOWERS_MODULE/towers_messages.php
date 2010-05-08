@@ -32,7 +32,7 @@
 $colorlabel = "<font color=#00DE42>";
 $colorvalue = "<font color=#63AD63>";
 
-if (preg_match("/^The (Clan|Neutral|Omni) organization (.+) just entered a state of war! (.+) attacked the (Clan|Neutral|Omni) organization (.+)'s tower in (.+) at location \(([0-9]+), ([0-9]+)\)\.$/i", $message, $arr)) {
+if (preg_match("/^The (Clan|Neutral|Omni) organization (.+) just entered a state of war! (.+) attacked the (Clan|Neutral|Omni) organization (.+)'s tower in (.+) at location \\((\\d+),(\\d+)\\)\\.$/i", $message, $arr)) {
 	$att_player = $arr[1];
 	$att_guild = $arr[2];
 	$att_side = $arr[3];
@@ -232,10 +232,12 @@ if ($def_guild) {
     	bot::send($msg, NULL, true);
 	}
 
-    	$db -> query("INSERT INTO tower_attack_<myname> (`time`, `att_guild`, `att_side`, `att_player`, `att_level`, `att_profession`,
-                  	`def_guild`, `def_side`, `zone`, `x`, `y`) VALUES ('".time()."', '".$att_guild."', '".$att_side."',
-                  	'".$att_player."', '".$whois->level."', '".$whois->prof."', '".$def_guild."', '".$def_side."',
-                  	'".$zone."', '".$coordx."', '".$coordy."')");
+	$sql = "INSERT INTO tower_attack_<myname> (`time`, `att_guild`, `att_side`, `att_player`, `att_level`, `att_profession`,
+				`def_guild`, `def_side`, `zone`, `x`, `y`) VALUES ('".time()."', '".$att_guild."', '".$att_side."',
+				'".$att_player."', '".$whois->level."', '".$whois->prof."', '".$def_guild."', '".$def_side."',
+				'".$zone."', '".$coordx."', '".$coordy."')";
+
+	$db -> query($sql);
 }
 
 ?>

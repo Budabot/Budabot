@@ -1351,7 +1351,7 @@ class bot extends AOChat{
 			case AOCP_GROUP_MESSAGE: // 65, Public and guild channels
 				$syntax_error = false;
 				$sender	 = AOChat::get_uname($args[1]);
-				$message = $args[2];			
+				$message = $args[2];
 				$channel = AOChat::get_gname($args[0]);
 			
 				//Ignore Messages from Vicinity/IRRK New Wire/OT OOC/OT Newbie OOC...	

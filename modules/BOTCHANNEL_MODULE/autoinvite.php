@@ -29,7 +29,6 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-echo "hi\n";
 $db->query("SELECT * FROM members_<myname> WHERE name = '$sender' AND autoinv = 1");
 if ($db->numrows() != 0) {
  	$this->vars["Guest"][$sender] = false;
