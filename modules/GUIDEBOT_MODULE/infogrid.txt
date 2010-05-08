@@ -1,0 +1,30 @@
+(blue)-= The Grid =-
+
+(white)The grid is a fast way to teleport to other locations within Rubi-Ka.  Fixers have their own grid, but the public grid is available for all characters to use.  The Grid requires a certain amount of Computer Literacy to exit or enter the various grid terminals.  There are three floors to the Grid, each with different ranges of Computer Literacy needed:
+
+(blue)First Floor
+(white)0 : Emergency Exit
+0 : Organization Exit
+75 : Omni-1 Trade
+80 : Old Athens
+80 : Tir
+90 : Borealis
+90 : Newland
+
+(blue)Second Floor
+(white)75 : Omni-1 Entertainment
+80 : 2HO (Stret East Bank)
+90 : Meetmedere (Newland Desert)
+100 : Rome Red
+120 : Galway
+120 : Harry's
+120 : Lush Hills (Resort)
+130 : (West) Athens
+150 : Clondyke
+180 : 4 Holes
+250 : Broken Shores
+
+(blue)Third Floor
+(white)150 Omni-1 HQ
+450 Camelot (Avalon)
+440 Sentinels (Mort)
