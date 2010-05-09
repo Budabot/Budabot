@@ -30,8 +30,6 @@
 	
 	bot::event("guild", "$MODULE_NAME/guest_channel_relay.php", "guest");
 	bot::event("priv", "$MODULE_NAME/guest_channel_relay.php", "guest");
-	bot::event("joinPriv", "$MODULE_NAME/guest_channel_notify.php", "guest");
-	bot::event("leavePriv", "$MODULE_NAME/guest_channel_notify.php", "guest");
 	bot::event("logOn", "$MODULE_NAME/autoinvite.php", "guest");
 	
 	//Show Char infos on privjoin

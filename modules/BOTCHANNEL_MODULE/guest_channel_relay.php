@@ -35,7 +35,7 @@ if ($this->settings["guest_relay"] == 1) {
 	if ($type == "priv" && ($args[2][0] != $this->settings["symbol"] || ($args[2][0] == $this->settings["symbol"] && $this->settings["guest_relay_commands"] == 1))) {
 		//Relay the message to the guild channel
         $msg = "<end>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}".bot::makeLink($sender,$sender,"user")."<end>: {$this->settings["guest_color_guild"]}".$message."<end>";
-        bot::send($msg, "guild", true);
+        bot::send($msg, 'org', true);
         //If a guildrelay bot is set do
         if ($this->settings["relaybot"] != "0") {
         	bot::send("grc {$this->settings["guest_color"]}[".$this->vars["my guild"]."] ".$msg, $this->settings["relaybot"]);
@@ -44,7 +44,7 @@ if ($this->settings["guest_relay"] == 1) {
 	} else if ($type == "guild" && ($args[2][0] != $this->settings["symbol"] || ($args[2][0] == $this->settings["symbol"] && $this->settings["guest_relay_commands"] == 1))) {
 		//Relay the message to the guest channel
         $msg = "<end>{$this->settings["guest_color_channel"]}[{$this -> vars["my guild"]}]<end> {$this->settings["guest_color_username"]}".bot::makeLink($sender,$sender,"user")."<end>: {$this->settings["guest_color_guest"]}".$message."<end>";
-        bot::send($msg, NULL, true);
+        bot::send($msg, 'prv', true);
 	}
 }
 ?>

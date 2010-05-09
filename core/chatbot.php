@@ -302,6 +302,9 @@ class bot extends AOChat{
 		if ($who == 'guild') {
 			$who = 'org';
 		}
+		if ($who == 'priv') {
+			$who = 'prv';
+		}
 
 		$message = bot::formatMessage($message);
 		
@@ -317,52 +320,62 @@ class bot extends AOChat{
             else
                 return false;
         } elseif($who == 'prv') { // Target is private chat by defult.
-			if(is_array($message)) {
-			  	foreach($message as $key => $value)
+			if (is_array($message)) {
+			  	foreach($message as $key => $value) {
 			  		AOChat::send_privgroup($this->vars["name"],$this->settings["default priv color"].$value);
+				}
 			  	
-			  	if(($this->settings["guest_relay"] == 1 || (isset($this->vars[guestchannel_enabled]) && $this->vars["guestchannel_enabled"] && $this->settings["guest_relay"] == 2)) && $this->settings["guest_relay_commands"] == 1)
-					foreach($message as $key => $value)
+			  	if ($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1) {
+					forEach ($message as $key => $value) {
 			  			AOChat::send_group($this->vars["my guild"], "</font>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}".bot::makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default priv color"]}$value</font>");
+					}
+				}
 			} else {
 				AOChat::send_privgroup($this->vars["name"],$this->settings["default priv color"].$message);
-				if(($this->settings["guest_relay"] == 1 || (isset($this->vars["guestchannel_enabled"]) && $this->vars["guestchannel_enabled"] && $this->settings["guest_relay"] == 2)) && $this->settings["guest_relay_commands"] == 1 && $disable_relay === false)
+				if ($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1) {
 		  			AOChat::send_group($this->vars["my guild"], "</font>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}".bot::makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default priv color"]}$message</font>");
+				}
 			}
 		} elseif($who == $this->vars["my guild"] || $who == 'org') {// Target is guild chat.
-    		if(is_array($message)) {
-			  	foreach($message as $key => $value)
+    		if (is_array($message)) {
+			  	forEach ($message as $key => $value) {
 			  		AOChat::send_group($this->vars["my guild"],$this->settings["default guild color"].$value);
+				}
 
-  			  	if(($this->settings["guest_relay"] == 1 || (isset($this->vars[guestchannel_enabled]) && $this->vars["guestchannel_enabled"] && $this->settings["guest_relay"] == 2)) && $this->settings["guest_relay_commands"] == 1)
-					foreach($message as $key => $value)
+  			  	if ($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1) {
+					forEach ($message as $key => $value) {
 			  			AOChat::send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my guild"]}]<end> {$this->settings["guest_color_username"]}".bot::makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default guild color"]}$value</font>");		  
+					}
+				}
 			} else {
 				AOChat::send_group($this->vars["my guild"],$this->settings["default guild color"].$message);
-				if(($this->settings["guest_relay"] == 1 || (isset($this->vars["guestchannel_enabled"]) && $this->vars["guestchannel_enabled"] && $this->settings["guest_relay"] == 2)) && $this->settings["guest_relay_commands"] == 1 && $disable_relay === false)
+				if ($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1) {
 		  			AOChat::send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my guild"]}]<end> {$this->settings["guest_color_username"]}".bot::makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default guild color"]}$message</font>");		  
+				}
 			}
 		} elseif(AOChat::get_uid($who) != NULL) {// Target is a player.
-    		if(is_array($message)) {
-			  	foreach($message as $key => $value) {
+    		if (is_array($message)) {
+			  	forEach ($message as $key => $value) {
 			  		AOChat::send_tell($who,$this->settings["default tell color"].$value);
 
 					// Echo	
-					if($this->settings['echo'] >= 1) newLine("Out. Msg.", $who, $value, $this->settings['echo']);
+					if ($this->settings['echo'] >= 1) newLine("Out. Msg.", $who, $value, $this->settings['echo']);
 			  	}
 			} else {
 				AOChat::send_tell($who,$this->settings["default tell color"].$message);
 
 				// Echo	
-				if($this->settings['echo'] >= 1) newLine("Out. Msg.", $who, $message, $this->settings['echo']);
+				if ($this->settings['echo'] >= 1) newLine("Out. Msg.", $who, $message, $this->settings['echo']);
 
 			}
 		} else { // Public channels that are not myguild.
-	    	if(is_array($message)) {
-			  	foreach($message as $key => $value)
+	    	if (is_array($message)) {
+			  	forEach ($message as $key => $value) {
 			  		AOChat::send_group($who,$this->settings["default guild color"].$value);			  
-			} else
+				}
+			} else {
 				AOChat::send_group($who,$this->settings["default guild color"].$message);
+			}
 		}
 	}
 
@@ -1140,28 +1153,30 @@ class bot extends AOChat{
 				// Update buddylist array
 				$this->buddyList[$sender] = $status;
 				// If Status == 0(logoff) if Status == 1(logon)
-				if($status == 0){
+				if ($status == 0){
 					$type = "logOff"; // Set message type
 					// Echo 
-					//if($this->settings['echo'] == 1) print("$sender logged off.\n");
+					if ($this->settings['echo'] == 1) print("$sender logged off\n");
+					
 					// Check files, for all 'player logged off events'
-					if($this->logOff != NULL)
-						foreach($this->logOff as $filename) {
+					if ($this->logOff != NULL) {
+						forEach ($this->logOff as $filename) {
 							$msg = "";
 							include $filename;
 						}
-				}
-				if($status == 1){
+					}
+				} else if ($status == 1){
 					$type = "logOn"; // Set Message Type
 					// Echo 
-					if($this->settings['echo'] >= 1) newLine("Buddy", $sender, "logged on", $this->settings['echo']);
+					if ($this->settings['echo'] >= 1) newLine("Buddy", $sender, "logged on", $this->settings['echo']);
 
 					// Check files, for all 'player logged on events'.					
-					if($this->logOn != NULL)
-						foreach($this->logOn as $filename) {
+					if ($this->logOn != NULL) {
+						forEach ($this->logOn as $filename) {
 						  	$msg = "";
 						  	include $filename;
-						} 				  
+						}
+					}
 				}
 			break;			
 			case AOCP_MSG_PRIVATE: // 30, Incoming Msg

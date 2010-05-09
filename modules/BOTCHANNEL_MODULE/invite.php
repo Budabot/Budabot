@@ -42,7 +42,7 @@ if (preg_match("/^inviteuser (.+)$/i", $message, $arr)) {
 		$msg = "Player <highlight>".$name."<end> does not exist.";
 	}
 	
-	bot::send($msg);
+	bot::send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }
