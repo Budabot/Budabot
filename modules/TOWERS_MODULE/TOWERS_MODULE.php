@@ -6,6 +6,7 @@ $PLUGIN_VERSION = 0.1;
     bot::event("towers", "$MODULE_NAME/towers_messages.php", "none", "Show Attack Messages"); 
 	
 	bot::command("", "$MODULE_NAME/towers_result.php", "battle", "all", "Shows the last Tower Attack messages");
+	bot::command("", "$MODULE_NAME/towers_result.php", "battles", "all", "Shows the last Tower Attack messages");  // alias for !battle
   	bot::command("", "$MODULE_NAME/towers_result.php", "victory", "all", "Shows the last Tower Battle results");
 
 	bot::regGroup("Tower_Battle", $MODULE_NAME, "Show Tower Attack Results", "battle", "victory");

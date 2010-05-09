@@ -38,7 +38,7 @@ $colorvalue = "<font color=#63AD63>";
 
 $listcount = 20;
 
-if (preg_match("/^battle$/i", $message) || preg_match("/^battle (.+)$/i", $message, $arr)) {
+if (preg_match("/^battle(s?)$/i", $message) || preg_match("/^battle(s?) (.+)$/i", $message, $arr)) {
 
 	$search = '';
 	if ($arr[1] != "") {
