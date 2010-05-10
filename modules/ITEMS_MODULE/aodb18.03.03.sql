@@ -13495,7 +13495,7 @@ INSERT INTO aodb VALUES (236410, 236410, 80, 80, "Moving Waist Symbiant, Control
 INSERT INTO aodb VALUES (225703, 225704, 1, 300, "Mowgli's Harmonic Circlet", 151925);
 INSERT INTO aodb VALUES (283897, 283897, 1, 1, "Mr Squeaky Poster", 283902);
 INSERT INTO aodb VALUES (283987, 283987, 1, 1, "Mr. Evil Squeaky", 283973);
-INSERT INTO aodb VALUES (283976, 283976, 1, 1, "Mr. Pointy's \"Not Fake Blood\"", 283977);
+INSERT INTO aodb VALUES (283976, 283976, 1, 1, 'Mr. Pointy''s "Not Fake Blood"', 283977);
 INSERT INTO aodb VALUES (277889, 277889, 1, 1, "Mr. Squeaky", 277888);
 INSERT INTO aodb VALUES (157820, 157820, 200, 200, "Much Improved Click Stabber", 13346);
 INSERT INTO aodb VALUES (160100, 160101, 161, 199, "Much Polished Compressed Blade", 113986);
