@@ -1,7 +1,8 @@
 <header>::::: Budabot Info :::::<end>
 
 <highlight>General:<end>
-Programing Language: <highlight>PHP 5.1<end>
+Version: <highlight>0.6.6_rc5<end>
+Programing Language: <highlight>PHP 5.2.5<end>
 Database Management System: <highlight>MySQL or SQLite<end>
 Project Site: <highlight>http://code.google.com/p/budabot2<end>
 Project Forum and more Details: <highlight>http://budabot.com<end>
