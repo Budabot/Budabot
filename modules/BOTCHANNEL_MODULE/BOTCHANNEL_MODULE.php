@@ -28,9 +28,9 @@
 	//Autoreinvite Players after a botrestart or crash
 	bot::event("connect", "$MODULE_NAME/autoreinvite.php", "none", "Reinvites the players that were in the privgrp before restart/crash");
 	
-	bot::event("guild", "$MODULE_NAME/guest_channel_relay.php", "guest");
-	bot::event("priv", "$MODULE_NAME/guest_channel_relay.php", "guest");
-	bot::event("logOn", "$MODULE_NAME/autoinvite.php", "guest");
+	bot::event("guild", "$MODULE_NAME/guest_channel_relay.php", "none");
+	bot::event("priv", "$MODULE_NAME/guest_channel_relay.php", "none");
+	bot::event("logOn", "$MODULE_NAME/autoinvite.php", "none");
 	
 	//Show Char infos on privjoin
 	bot::event("joinPriv", "$MODULE_NAME/notify.php", "none", "Show Infos about a Char when he joins the channel");
