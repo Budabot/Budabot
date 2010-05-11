@@ -28,7 +28,7 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-
+global $db;	// declare $db as global, else function calls will fail
 //$db->query("SELECT * FROM members_<myname>");
 //$data = $db->fObject('all');
 $db->exec("DELETE FROM members_<myname>");
