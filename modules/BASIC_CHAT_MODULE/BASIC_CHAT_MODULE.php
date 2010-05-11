@@ -1,9 +1,6 @@
 <?php 
-$MODULE_NAME = "BASIC_CHAT_MODULE";
-$PLUGIN_VERSION = 0.1;
-
-	//Setup
-	bot::event("setup", "$MODULE_NAME/setup.php");
+	$MODULE_NAME = "BASIC_CHAT_MODULE";
+	$PLUGIN_VERSION = 0.1;
 
 	//Invite/Leave/lock commands
 	bot::addsetting("topic_guild_join", "Show Topic in guild on join", "edit", "0", "ON;OFF", "1;0", "mod", "$MODULE_NAME/topic_show_guild.txt");
