@@ -89,14 +89,12 @@ if (preg_match("/^config$/i", $message)) {
 	$db->query($sql);
 	$data = $db->fObject('all');
 	forEach ($data as $row) {
-		print_r($row);
 	  	if ($status == 1) {
 			bot::regcommand($row->type, $row->file, $row->cmd, $row->admin);
 		} else {
 			bot::unregcommand($row->type, $row->file, $row->cmd);
 		}
 	}
-	print_r($row);
 	
 	$sql = "UPDATE cmdcfg_<myname> SET `status` = $status WHERE (`cmdevent` = 'cmd' OR `cmdevent` = 'subcmd') AND ($typeSql)";
 	$db->exec($sql);
