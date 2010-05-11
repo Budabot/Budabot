@@ -28,13 +28,12 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-   
-if (count($this->vars["members_before_restart"]) > 0) {
-	forEach ($this->vars["members_before_restart"] as $key => $value) {
-	  	AOChat::privategroup_kick($key);
-		AOChat::privategroup_invite($key);
-	}
-}
 
-unset($this->vars["members_before_restart"]);
+//$db->query("SELECT * FROM members_<myname>");
+//$data = $db->fObject('all');
+$db->exec("DELETE FROM members_<myname>");
+//forEach ($data as $row) {
+//	AOChat::privategroup_invite($row->name);
+//}
+
 ?>
