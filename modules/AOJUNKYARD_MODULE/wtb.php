@@ -70,18 +70,18 @@ if (!$syntax_error) {
 		$childNodes = $row->childNodes;
 		
 		$ql = trim($childNodes->item(0)->nodeValue);
+		$item = trim($childNodes->item(1)->nodeValue);
+		$seller = trim($childNodes->item(2)->nodeValue);
+		$time = trim($childNodes->item(3)->nodeValue);
+		
 		// skip the first row
 		if ($ql == "QL") {
 			continue;
 		}
 		
-		$item = trim($childNodes->item(1)->nodeValue);
-		$seller = trim($childNodes->item(2)->nodeValue);
-		$time = trim($childNodes->item(3)->nodeValue);
-		
 		//echo $childNodes->item(1)->getElementsByTagName('a')->item(0)->getAttribute('href') . "\n\n";
 		
-		$lookup = bot::makeLink('Lookup', "/tell <myname> items $ql $searchItem", 'chatcmd');
+		$lookup = bot::makeLink('Lookup', "/tell <myname> items $ql $item", 'chatcmd');
 
 		$items .= bot::makeLink($seller, "/tell $seller", 'chatcmd') . ": $item (ql $ql) [" . $time . "] $lookup \n";
 	}
