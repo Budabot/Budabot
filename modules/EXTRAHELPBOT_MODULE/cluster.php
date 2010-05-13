@@ -17,15 +17,7 @@
 
 	$helplink = bot::makeLink("::How to use cluster::", $help);
 
-	// sendto
-	if($type == "msg")
-		$sendto = $sender;
-	elseif($type == "priv")
-		$sendto = "";
-	elseif($type == "guild")
-		$sendto = "guild";
-	
-	if (eregi("^cluster (.+)$", $message, $arr)) {
+	if (preg_match("/^cluster (.+)$/i", $message, $arr)) {
 		$name = trim($arr[1]);
 		
 		$info = "";
@@ -41,7 +33,7 @@
 		if ($found == 0) { 
 			bot::send("No matches, sorry.", $sendto); return; 
 		} elseif ($found == 1) {
-			$windowlink = "\n".str_replace("--", "", $info);
+			$windowlink = str_replace("--", "", $info);
 		} else {
 			$inside = $header;
 			$inside .= "Your query of <yellow>".$name."<end> returned the following results:\n\n";
@@ -53,5 +45,7 @@
 		bot::send($windowlink, $sendto);
 		if ($found >= 10) { bot::send("<highlight>More than 10 matches found!<end>\n<tab>Please specify your key words for better results.", $sendto);}
 		elseif ($found > 1) bot::send("<highlight>$found<end> matches in total.", $sendto);
-	} else bot::send($helplink, $sendto);
+	} else {
+		bot::send($helplink, $sendto);
+	}
 ?>

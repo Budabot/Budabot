@@ -17,17 +17,7 @@
 
 	$helplink = bot::makeLink("::How to use buffitem::", $help);
 
-	// sendto
-	if($type == "msg") {
-		$sendto = $sender;
-	} elseif($type == "priv") {
-		$sendto = "";
-	} elseif($type == "guild") {
-		$sendto = "guild";
-	}
-
-	
-	if (eregi("^buffitem (.+)$", $message, $arr)) {
+	if (preg_match("/^buffitem (.+)$/i", $message, $arr)) {
 		$name = $arr[1];
 		
 		$results = array();
@@ -55,7 +45,8 @@
 		}
 		
 		if ($found == 0) {
-			bot::send("No matches, sorry.", $sendto); return;
+			bot::send("No matches, sorry.", $sendto);
+			return;
 		} else {
 			$inside = $header;
 			$inside .= "Your query of <yellow>".$name."<end> returned the following item line(s):\n\n";
@@ -73,6 +64,8 @@
 		}
 		bot::send($windowlink, $sendto);
 		bot::send("<highlight>$found<end> result(s) in total", $sendto);
-	} else bot::send($helplink, $sendto);
+	} else {
+		bot::send($helplink, $sendto);
+	}
 	
 ?>

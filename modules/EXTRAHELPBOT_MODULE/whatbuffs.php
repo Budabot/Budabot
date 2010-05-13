@@ -17,15 +17,7 @@
 
 	$helplink = bot::makeLink("::How to use 'what buffs what?'::", $help);
 
-	// sendto
-	if($type == "msg")
-		$sendto = $sender;
-	elseif($type == "priv")
-		$sendto = "";
-	elseif($type == "guild")
-		$sendto = "guild";
-		
-	if (eregi("^whatbuffs (.+)$", $message, $arr)) {
+	if (preg_match("/^whatbuffs (.+)$/i", $message, $arr)) {
 		$name = trim($arr[1]);
 		// check if key words are unambiguous
 		$skills = array();
@@ -74,5 +66,7 @@
 					bot::send("Found several skills matching your key words.", $sendto);
 					return;
 		}
-	} else bot::send($helplink, $sendto);
+	} else {
+		bot::send($helplink, $sendto);
+	}
 ?>
