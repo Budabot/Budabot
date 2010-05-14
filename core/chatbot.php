@@ -297,10 +297,13 @@ class bot extends AOChat{
 				return "<a $style href=\"text://".$this->settings["default window color"].$content."\">$name</a>";
 			}
 		} else if ($type == "text") { // Majic link.
+			$content = str_replace("'", '&#39;', $content);
 			return "<a $style href='text://$content'>$name</a>";
 		} else if ($type == "chatcmd") { // Chat command.
+			$content = str_replace("'", '&#39;', $content);
 			return "<a $style href='chatcmd://$content'>$name</a>";
 		} else if ($type == "user") { // Adds support for right clicking usernames in chat, providing you with a menu of options (ignore etc.) (see 18.1 AO patchnotes)
+			$content = str_replace("'", '&#39;', $content);
 			return "<a $style href='user://$content'>$name</a>";
 		}
 	}
@@ -1251,6 +1254,8 @@ class bot extends AOChat{
 					$message = $arr[2];
 				else
 					$message = $args[1];
+				
+				$message = html_entity_decode($message, ENT_QUOTES);
 
 				// Echo	
 				if($this->settings['echo'] >= 1) newLine("Inc. Msg.", $sender, $message, $this->settings['echo']);
