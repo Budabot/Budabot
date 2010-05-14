@@ -12,7 +12,7 @@
 	bot::command("", "$MODULE_NAME/leave.php", "leaveRaffle", "all");
 
 	//timer
-	bot::event("2sec", "$MODULE_NAME/check_winner.php", "raffle", "Checks to see if raffle is over");
+	bot::event("2sec", "$MODULE_NAME/check_winner.php", "", "Checks to see if raffle is over");
 
 	//Help files
 	bot::help("Raffle", "$MODULE_NAME/raffle.txt", "guild", "Start/Join/Leave Raffles", "Raffles");

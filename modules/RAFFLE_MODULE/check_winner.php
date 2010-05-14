@@ -31,7 +31,7 @@
 //Generously hijacked and modified from Buddhabot's timers_check.php
 //Check if at least one timer is running
 
-	if($this->vars["Raffles"]["inprog"] == 0) {
+	if ($this->vars["Raffles"]["inprog"] == 0) {
 		return;
 	}
 
@@ -39,10 +39,9 @@
 	$owner = $this->vars["Raffles"]["owner"];
 	$item = $this->vars["Raffles"]["item"];
 	$timesincelastmsg = time() - $this->vars["Raffles"]["lastmsgtime"];
-	
+
 	$linkMsg="<white>Current Members:<end>";
-    foreach($this->vars["Raffles"]["rafflees"] as $tempName)
-    {
+    forEach ($this->vars["Raffles"]["rafflees"] as $tempName) {
        $linkMsg .= "\n$tempName";
     }
     if (count($this->vars["Raffles"]["rafflees"]) == 0) {
@@ -58,19 +57,18 @@ Click <a href='chatcmd:///tell <myname> leaveRaffle'>here</a> if you wish to lea
 
     $link = bot::makeLink("here", $linkMsg);
         
-	if($tleft < 0 && $timesincelastmsg > 15) {
+	if ($tleft < 0 && $timesincelastmsg > 15) {
 		$memNum = count($this->vars["Raffles"]["rafflees"]);
 		if($memNum > 0) {
 		    $winningnum = rand(0, $memNum-1);
 		    $winner = $this->vars["Raffles"]["rafflees"][$winningnum];
 		    $msg = "Winner of the raffle for $item is $winner. See $owner to collect your prize.";
-		}
-		else {
+		} else {
 		    $msg = "No raffle entrants, no winner for $item.";
 		}
 		$this->vars["Raffles"]["inprog"] = 0;
 	} elseif ($tleft < 240 && $tleft > 60 && $timesincelastmsg > 60) {
-			$msg = "<yellow>Reminder:<end> Raffle for $item <highlight>JOIN NOW<end>. Click $link to join.";
+		$msg = "<yellow>Reminder:<end> Raffle for $item <highlight>JOIN NOW<end>. Click $link to join.";
 	} elseif ($tleft < 60 && $tleft > 30 && $timesincelastmsg > 30) {
 		$msg = "<yellow>Reminder:<end> Raffle for $item <highlight>1 minute<end> left. Click $link to join.";
 	} elseif ($tleft < 30 && $tleft > 15 && $timesincelastmsg > 15) {
@@ -79,8 +77,9 @@ Click <a href='chatcmd:///tell <myname> leaveRaffle'>here</a> if you wish to lea
 		$msg = "<yellow>Reminder:<end> Raffle for $item has <highlight>15-Seconds<end> left. Click $link to join.";
 	}
 
-	if($msg != "") {
+	if ($msg != "") {
 	    $this->vars["Raffles"]["lastmsgtime"] = time();
-	    bot::send($msg, "guild");
+	    bot::send($msg, "org");
+		bot::send($msg, "prv");
 	}
 ?>
