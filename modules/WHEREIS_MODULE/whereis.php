@@ -16,7 +16,7 @@ $output = '';
 if (preg_match("/^whereis (.+)$/i", $message, $arr)) {
 	$search = $arr[1];
 	$search = ucwords(strtolower($search));
-	$db->query("SELECT * FROM whereis WHERE name LIKE \"%$search%\"");
+	$db->query("SELECT * FROM whereis WHERE name LIKE '%$search%'");
 	$whereis_found = $db->numrows();
 	$whereis = '';
 	if (method_exists('bot', 'makeHeader')) {

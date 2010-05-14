@@ -48,9 +48,7 @@ if (preg_match("/^note( (.*))?$/i", $message)) {
 			  	$msg = "Note could not be found.";
   			}
 	  	} else if ($action == 'add') {
-		  	$note = str_replace('\'', "", $parm2);
-		  	$note = str_replace('"', "", $parm2);
-		  	$note = str_replace("\\", "", $parm2);
+		  	$note = str_replace("'", "''", $parm2);
 		  	
 		  	$query = "INSERT INTO notes_<myname> (name, note) VALUES('$sender', '$note')";
 		  	$db->query($query);

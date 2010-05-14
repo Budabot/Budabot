@@ -26,25 +26,25 @@ if (ereg ("^boss (.+)$", $message, $arr)) {
 	}
 	
 	// Find bossname or Boss key
-	$db->query("SELECT * FROM boss_namedb WHERE bossname LIKE  \"%$search%\" OR keyname LIKE \"%$search%\"");
+	$db->query("SELECT * FROM boss_namedb WHERE bossname LIKE '%$search%' OR keyname LIKE '%$search%'");
 	$name_found = $db->numrows();
 	
 	//If multiple matches found output list of bosses
 	if ($name_found > 1) {
-		$db->query("SELECT * FROM boss_namedb WHERE bossname LIKE  \"%$search%\" OR keyname LIKE \"%$search%\"");
+		$db->query("SELECT * FROM boss_namedb WHERE bossname LIKE '%$search%' OR keyname LIKE '%$search%'");
 		$data = $db->fobject("all");
 		$bosses = $data;
 		foreach ($bosses as $row) {
 			$bossname = $row->bossname;
 			$bossid = $row->bossid;
-			$db->query("SELECT * FROM whereis WHERE name = \"$bossname\"");
+			$db->query("SELECT * FROM whereis WHERE name = '$bossname'");
 			$data = $db->fobject("all"); 
 			foreach ($data as $row) {
 				$bossname = $row->name;
 				$boss .= "\n\n<a href='chatcmd:///tell <myname> !boss $bossname'>$bossname</a>\n";
 				$where = $row->answer;
 				$boss .= "<green>Can be found $where<end>\nDrops:";
-				$db->query("SELECT * FROM boss_lootdb, aodb WHERE boss_lootdb.bossid = \"$bossid\" AND boss_lootdb.itemid = aodb.lowid");
+				$db->query("SELECT * FROM boss_lootdb, aodb WHERE boss_lootdb.bossid = '$bossid' AND boss_lootdb.itemid = aodb.lowid");
 				$data = $db->fobject("all");
 				foreach ($data as $row) {
 					$lowid = $row->lowid;
@@ -59,7 +59,7 @@ if (ereg ("^boss (.+)$", $message, $arr)) {
 	}
 	//If single match found, output full loot table
 	elseif ($name_found  == 1) {
-		$db->query("SELECT * FROM boss_namedb WHERE bossname LIKE  \"%$search%\" OR keyname LIKE \"%$search%\"");
+		$db->query("SELECT * FROM boss_namedb WHERE bossname LIKE  '%$search%' OR keyname LIKE '%$search%'");
 		$data = $db->fobject("all");
 		foreach ($data as $row)
 		$name_id = $row->bossid;
@@ -67,7 +67,7 @@ if (ereg ("^boss (.+)$", $message, $arr)) {
 		
 		$boss .= "<yellow>$name\n\n";
 		
-		$db->query("SELECT answer FROM whereis WHERE name = \"$name\"");
+		$db->query("SELECT answer FROM whereis WHERE name = '$name'");
 		$data = $db->fobject("all");
 			foreach ($data as $row) {
 			$where = $row->answer;

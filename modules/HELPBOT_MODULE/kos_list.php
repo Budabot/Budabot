@@ -58,9 +58,7 @@ if(eregi("^kos$", $message)) {
     	bot::send($msg, "guild"); 	
 } elseif(eregi("^kos add (.+) reason (.+)$", $message, $arr)) {
     $name = ucfirst(strtolower($arr[1]));
-	$reason = $arr[2];
-	$reason = str_replace("'", "\'", $reason);
-	$reason = str_replace('"', "\'", $reason);	
+	$reason = str_replace("'", "''", $arr[2]);
   	$uid = AoChat::get_uid($name);
 	if(strlen($reason) >= 50)
 		$msg = "The reason can't be longer than 50 characters.";

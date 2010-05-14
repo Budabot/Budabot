@@ -36,7 +36,7 @@
 	} elseif (ereg ("^dyna (.+)$", $message, $arr)) {
 		$search = str_replace(" ", "%", $arr[1]);
 		$search = ucfirst(strtolower($search));
-		$db->query("SELECT * FROM dynadb Where zone like \"%$search%\" OR mob = \"$search\" ORDER BY `minQl`");
+		$db->query("SELECT * FROM dynadb Where zone like '%$search%' OR mob = '$search' ORDER BY `minQl`");
 		$dyna_found = $db->numrows();
 		$dynacamps = '';
 		if (method_exists('bot', 'makeHeader')) {

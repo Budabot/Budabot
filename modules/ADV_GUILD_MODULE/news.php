@@ -36,34 +36,20 @@ if(eregi("^news del ([0-9]+)$", $message, $arr)) {
 	else
 		$msg = "Newsentry with the ID <highlight>{$arr[1]}<end> was successfully deleted.";
 
-	if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-    	bot::send($msg);
-    elseif($type == "guild")
-    	bot::send($msg, "guild"); 
+    bot::send($msg, $sendto);
 } elseif(eregi("^news (.+)$", $message, $arr)) {
-  	$news = $arr[1];
-	$news = str_replace("'", "\'", $news);
-	$news = str_replace('"', "'", $news);
-	$db->query("INSERT INTO news_<myname> (`time`, `name`, `news`) VALUES (".time().", '".$sender."', \"$news\")"); 
+	$news = str_replace("'", "''", $arr[1]);
+	$db->query("INSERT INTO news_<myname> (`time`, `name`, `news`) VALUES (".time().", '".$sender."', '$news')"); 
 	$msg = "News has been added.";
 
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-    	bot::send($msg);
-    elseif($type == "guild")
-    	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 } elseif(eregi("^news$", $message, $arr)) {
 	$db->query("SELECT * FROM news_<myname> ORDER BY `time` DESC LIMIT 0, 10");
 	if($db->numrows() != 0) {
 		$link = "<header>::::: News :::::<end>\n\n";
 		while($row = $db->fObject()) {
-		  	$row->news = str_replace('"', "'", $row->news);
-		  	$row->news = str_replace("\'", "'", $row->news);
 		  	if(!$updated)
-			  $updated = $row->time;
+				$updated = $row->time;
 			
 		  	$link .= "<highlight>Date:<end> ".gmdate("dS M, H:i", $row->time)."\n";
 		  	$link .= "<highlight>Author:<end> $row->name\n";
@@ -73,12 +59,8 @@ if(eregi("^news del ([0-9]+)$", $message, $arr)) {
 		$msg = bot::makeLink("Click to view the latest News", $link)." [Last updated at ".gmdate("dS M, H:i", $updated)."]";
 	} else
 		$msg = "No News recorded yet.";
-	
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-    	bot::send($msg);
-    elseif($type == "guild")
-    	bot::send($msg, "guild");  	
+
+		
+    bot::send($msg, $sendto);
 }
 ?>

@@ -270,7 +270,6 @@ class bot extends AOChat{
 		// escape double quotes
 		if ($type != 'blob') {
 			$content = str_replace('"', '&quote;', $content);
-			//$content = str_replace('"', '\"', $content);
 		}
 
 		if ($type == "blob") { // Normal link.

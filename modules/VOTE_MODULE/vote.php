@@ -12,40 +12,39 @@
    
    
 $table = "vote_<myname>";
-$message = str_replace("'", "\'", $message);
-$message = str_replace("&#39;", "\'", $message);
-$message = str_replace('"', "&quot;", $message);
 
 $delimiter = "|";
 
 // I hate seeing a function in a module/plugin. 
 // But this is just temporary until 0.7.0.
-if (!function_exists(timeLeft)) {function timeLeft($origtime, $showbiggest=4) {
-	// deal with negative values?
-	if ($origtime < 0) {$origtime = 0;}
-	//week = day * 7, month = day*365/12, year = day * 365
-	$set = array( array("label" => "year", 'length' => 31536000), array("label" => "month", 'length' => 2628000), 
-	array("label" => "week", 'length' => 604800), array("label" => "day", 'length' => 86400), 
-	array("label" => "hour", 'length' => 3600), array("label" => "minute", 'length' => 60), 
-	array("label" => "second", 'length' => 0));
-		
-	$thisset=0;	
-	while($thisset<=6){
-		if ($thisset < 6) {$val = floor($origtime/$set[$thisset]['length']);}
-		elseif ($thisset == 6) {$val = $origtime;}
+if (!function_exists(timeLeft)) {
+	function timeLeft($origtime, $showbiggest=4) {
+		// deal with negative values?
+		if ($origtime < 0) {$origtime = 0;}
+		//week = day * 7, month = day*365/12, year = day * 365
+		$set = array( array("label" => "year", 'length' => 31536000), array("label" => "month", 'length' => 2628000), 
+		array("label" => "week", 'length' => 604800), array("label" => "day", 'length' => 86400), 
+		array("label" => "hour", 'length' => 3600), array("label" => "minute", 'length' => 60), 
+		array("label" => "second", 'length' => 0));
 			
-		if ($val && $showbiggest > 0) {
-			$retval .= "$val ".$set[$thisset]['label'];
-			$retval .= ($val > 1) ? 's, ' : ', ';
-			$showbiggest--;
-			$origtime -= $val*$set[$thisset]['length'];
+		$thisset=0;	
+		while($thisset<=6){
+			if ($thisset < 6) {$val = floor($origtime/$set[$thisset]['length']);}
+			elseif ($thisset == 6) {$val = $origtime;}
+				
+			if ($val && $showbiggest > 0) {
+				$retval .= "$val ".$set[$thisset]['label'];
+				$retval .= ($val > 1) ? 's, ' : ', ';
+				$showbiggest--;
+				$origtime -= $val*$set[$thisset]['length'];
+			}
+			$thisset++;
 		}
-		$thisset++;
-	}
 
-	if ($retval) {$retval = substr($retval,0,strlen($retval)-2);}
-	return $retval;
-}}
+		if ($retval) {$retval = substr($retval,0,strlen($retval)-2);}
+		return $retval;
+	}
+}
 
 
 
@@ -57,7 +56,6 @@ if (preg_match("/^vote$/i", $message)) {
 	if ($db->numrows() > 0) {
 		while($row = $db->fObject()) {
 			$question = $row->question; $started = $row->started; $duration = $row->duration;
-			$question = str_replace("\'", "&#39;", $question);
 			$line = "<tab><a href='chatcmd:///tell <myname> vote $question'>$question</a>";
 			
 			$timeleft = $started+$duration-time();
@@ -124,9 +122,8 @@ if (preg_match("/^vote$/i", $message)) {
 				else if ($val < 100) {$msg .= "<black>_<end>$val% ";}
 				else {$msg .= "$val% ";}
 				
-				$key = str_replace("\'", "&#39;", $key);
 				if ($timeleft > 0) {
-					$msg .= "<a href='chatcmd:///tell <myname> vote ".str_replace("\'", "&#39;", $question);
+					$msg .= "<a href='chatcmd:///tell <myname> vote " . $question;
 					$msg .= "$delimiter".$key."'>$key</a> (Votes: $value)\n";
 				} else {
 					$msg .= "<highlight>$key<end> (Votes: $value)\n";
@@ -144,12 +141,12 @@ if (preg_match("/^vote$/i", $message)) {
 			}
 			
 			$msg .="\n<highlight>If you started this vote, you can:<end>\n";
-			$msg .="<tab><a href='chatcmd:///tell <myname> vote kill$delimiter".str_replace("\'", "&#39;", $question)."'>Kill</a> the vote completely.\n";
+			$msg .="<tab><a href='chatcmd:///tell <myname> vote kill$delimiter$question'>Kill</a> the vote completely.\n";
 			if ($timeleft > 0) {
-				$msg .="<tab><a href='chatcmd:///tell <myname> vote end$delimiter".str_replace("\'", "&#39;", $question)."'>End</a> the vote early.";
+				$msg .="<tab><a href='chatcmd:///tell <myname> vote end$delimiter$question'>End</a> the vote early.";
 			}
 			
-			$db->query("SELECT * FROM $table WHERE `author` = '$sender' AND `question` = \"$question\" AND `duration` IS NULL");
+			$db->query("SELECT * FROM $table WHERE `author` = '$sender' AND `question` = '$question' AND `duration` IS NULL");
 			$row = $db->fObject();
 			if ($row->answer && $timeleft > 0) {$privmsg = "On this vote, you already selected: <highlight>(".$row->answer.")<end>.";}
 			elseif ($timeleft > 0){$privmsg = "You haven't voted on this one yet.";}
@@ -166,9 +163,9 @@ if (preg_match("/^vote$/i", $message)) {
 		if (!isset($this->vars["Vote"][$sect[1]])) {
 			$msg = "There is no such topic available.";
 		} else {
-			$db->query("SELECT * FROM $table WHERE `question` == \"$sect[1]\" AND `author` = '$sender' AND `duration` IS NULL");
+			$db->query("SELECT * FROM $table WHERE `question` == '$sect[1]' AND `author` = '$sender' AND `duration` IS NULL");
 			if ($db->numrows() > 0) {
-				$db->query("DELETE FROM $table WHERE `question` == \"$sect[1]\" AND `author` = '$sender' AND `duration` IS NULL");
+				$db->query("DELETE FROM $table WHERE `question` == '$sect[1]' AND `author` = '$sender' AND `duration` IS NULL");
 				$msg = "Your vote has been removed.";
 			} else {
 				$msg = "I don't see your vote to delete.";
@@ -179,13 +176,13 @@ if (preg_match("/^vote$/i", $message)) {
 		// !vote kill|Does this module work?
 		
 		if ($this->admins[$sender]["level"] >= 4) {
-			$db->query("SELECT * FROM $table WHERE `question` == \"$sect[1]\"");
+			$db->query("SELECT * FROM $table WHERE `question` == '$sect[1]'");
 		} else {
-			$db->query("SELECT * FROM $table WHERE `question` == \"$sect[1]\" AND `author` = '$sender' AND `duration` IS NOT NULL");
+			$db->query("SELECT * FROM $table WHERE `question` == '$sect[1]' AND `author` = '$sender' AND `duration` IS NOT NULL");
 		}
 		
 		if ($db->numrows() > 0) {
-			$db->query("DELETE FROM $table WHERE `question` == \"$sect[1]\"");
+			$db->query("DELETE FROM $table WHERE `question` == '$sect[1]'");
 			unset($this->vars["Vote"][$sect[1]]);
 			$msg = "'$sect[1]' has been removed.";
 		} else {
@@ -196,7 +193,7 @@ if (preg_match("/^vote$/i", $message)) {
 	} elseif (count($sect) == 2 && strtolower($sect[0]) == "end") {      // End vote
 		// !vote end|Does this module work?
 
-		$db->query("SELECT * FROM $table WHERE `question` == \"$sect[1]\" AND `author` = '$sender' AND `duration` IS NOT NULL");
+		$db->query("SELECT * FROM $table WHERE `question` == '$sect[1]' AND `author` = '$sender' AND `duration` IS NOT NULL");
 		
 		if ($db->numrows() == 0) {$msg = "Either this vote doesn't exist, or you didn't create it.";}
 		else {
@@ -207,7 +204,7 @@ if (preg_match("/^vote$/i", $message)) {
 		
 			if ($timeleft > 60) {
 				$duration = (time()-$started)+61;
-				$db->query("UPDATE $table SET `duration` = '$duration' WHERE `author` = '$sender' AND `duration` IS NOT NULL AND `question` == \"$sect[1]\"");
+				$db->query("UPDATE $table SET `duration` = '$duration' WHERE `author` = '$sender' AND `duration` IS NOT NULL AND `question` == '$sect[1]'");
 				$this->vars["Vote"][$sect[1]]["duration"] = $duration;
 			} else {
 				$msg = "There is only $timeleft seconds left.";
@@ -230,7 +227,7 @@ if (preg_match("/^vote$/i", $message)) {
 		}
 
 		
-		$db->query("SELECT * FROM $table WHERE `question` == \"$sect[0]\" AND `duration` IS NOT NULL");
+		$db->query("SELECT * FROM $table WHERE `question` == '$sect[0]' AND `duration` IS NOT NULL");
 		$row = $db->fObject();
 		$question = $row->question; $author = $row->author; $started = $row->started;
 		$duration = $row->duration; $status = $row->status; $answer = $row->answer;
@@ -242,7 +239,7 @@ if (preg_match("/^vote$/i", $message)) {
 		else {
 			$db->query("SELECT * FROM $table WHERE `question` = \"$sect[0]\" AND `duration` IS NULL AND `author` = '$sender'");
 			if ($db->numrows() > 0) {
-				$db->query("UPDATE $table SET `answer` = \"$sect[1]\" WHERE `author` = '$sender' AND `duration` IS NULL AND `question` = \"$sect[0]\"");
+				$db->query("UPDATE $table SET `answer` = '$sect[1]' WHERE `author` = '$sender' AND `duration` IS NULL AND `question` = '$sect[0]'");
 				$msg = "You have altered your choice to <highlight>$sect[1]<end> for: <highlight>$sect[0]<end>.";
 			} else {
 				$db->query("INSERT INTO $table (`author`, `answer`, `question`) VALUES ('$sender', \"$sect[1]\", \"$sect[0]\")");
@@ -299,10 +296,10 @@ if (preg_match("/^vote$/i", $message)) {
 				} else {
 					$status = 0;
 				}
-				$db->query("SELECT * FROM $table WHERE `question` = \"$question\"");
+				$db->query("SELECT * FROM $table WHERE `question` = '$question'");
 				if ($db->numrows() == 0) {
 
-					$db->query("INSERT INTO $table (`question`, `author`, `started`, `duration`, `answer`, `status`) VALUES ( \"$question\", '$sender', '".time()."', '$newtime', \"$answers\", '$status')");
+					$db->query("INSERT INTO $table (`question`, `author`, `started`, `duration`, `answer`, `status`) VALUES ( '$question', '$sender', '".time()."', '$newtime', '$answers', '$status')");
 					$this->vars["Vote"][$question] = array("author" => $sender,  "started" => time(), "duration" => $newtime, "answer" => $answers, "status" => "0", "lockout" => $status);
 
 				} else {
@@ -316,7 +313,6 @@ if (preg_match("/^vote$/i", $message)) {
 /////////////////////////////////////////////////
 // we have a message after all that? post it
 /////////////////////////////////////////////////
-$msg = str_replace("\'", "'", $msg);
 if ($msg){	// Send info back
 	bot::send($msg, $sendto);
 }

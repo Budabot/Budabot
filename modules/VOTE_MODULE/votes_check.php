@@ -61,7 +61,7 @@ foreach($this->vars["Vote"] as $key => $value) {
 
 	if ($timeleft <= 0) {
 		$title = "Finished: $question";
-		$db->query("UPDATE $table SET `status` = '9' WHERE `duration` = '$duration' AND `question` = \"$question\"");
+		$db->query("UPDATE $table SET `status` = '9' WHERE `duration` = '$duration' AND `question` = '$question'");
 		unset($this->vars["Vote"][$key]);
 	} else if ($status == 0) {
 		$title = "Vote: $question";
@@ -85,7 +85,7 @@ foreach($this->vars["Vote"] as $key => $value) {
 
 	if($title != "") { // Send current results to guest + org chat.
 
-		$db->query("SELECT * FROM $table WHERE `question` = \"$question\"");
+		$db->query("SELECT * FROM $table WHERE `question` = '$question'");
 
 		$results = array();
 		while($row = $db->fObject()) {
@@ -122,9 +122,8 @@ foreach($this->vars["Vote"] as $key => $value) {
 			else if ($val < 100) {$msg .= "<black>_<end>$val% ";}
 			else {$msg .= "$val% ";}
 			
-			$key = str_replace("\'", "&#39;", $key);
 			if ($timeleft > 0) {
-				$msg .= "<a href='chatcmd:///tell ".$this->vars["name"]." vote ".str_replace("\'", "&#39;", $question);
+				$msg .= "<a href='chatcmd:///tell ".$this->vars["name"]." vote $question";
 				$msg .= "$delimiter".$key."'>$key</a> (Votes: $value)\n";
 			} else {
 				$msg .= "<highlight>$key<end> (Votes: $value)\n";
@@ -132,21 +131,19 @@ foreach($this->vars["Vote"] as $key => $value) {
 		}
 		
 		if ($timeleft > 0) {
-			$msg .= "\n<black>___%<end> <a href='chatcmd:///tell ".$this->vars["name"];
-			$msg .= " vote remove".$delimiter.str_replace("\'", "&#39;", $question)."'>Remove yourself from this vote</a>.\n";
+			$msg .= "\n<black>___%<end> <a href='chatcmd:///tell ".$this->vars["name"]." vote remove$delimiter$question'>Remove yourself from this vote</a>.\n";
 		}
 		if ($timeleft > 0 && $this->settings["vote_add_new_choices"] == 1 && $status == 0) {
 			$msg .="\n<highlight>Don't like these choices?  Add your own:<end>\n<tab>/tell ".$this->vars['name']." <symbol>vote $question$delimiter"."<highlight>your choice<end>\n"; 
 		}
 		
 		$msg .="\n<highlight>If you started this vote, you can:<end>\n";
-		$msg .="<tab><a href='chatcmd:///tell ".$this->vars["name"]." vote kill$delimiter".str_replace("\'", "&#39;", $question)."'>Kill</a> the vote completely.\n";
+		$msg .="<tab><a href='chatcmd:///tell ".$this->vars["name"]." vote kill$delimiter$question'>Kill</a> the vote completely.\n";
 		if ($timeleft > 0) {
-			$msg .="<tab><a href='chatcmd:///tell ".$this->vars["name"]." vote end$delimiter".str_replace("\'", "&#39;", $question)."'>End</a> the vote early.";
+			$msg .="<tab><a href='chatcmd:///tell ".$this->vars["name"]." vote end$delimiter$question'>End</a> the vote early.";
 		}
 		
 		$msg = bot::makeLink($title, $msg);
-		$msg = str_replace("\'", "'", $msg);
 		
 		if ($this->settings["vote_channel_spam"] == 0 || $this->settings["vote_channel_spam"] == 2) {bot::send($msg, "guild");}
 	   	if ($this->settings["vote_channel_spam"] == 1 || $this->settings["vote_channel_spam"] == 2) {bot::send($msg);}

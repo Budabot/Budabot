@@ -67,12 +67,7 @@ if(eregi("^whois (.+)$", $message, $arr)) {
         $msg = "Player <highlight>".$name."<end> does not exist.";
 
     // Send info back
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-    	bot::send($msg);
-    elseif($type == "guild")
-    	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 } elseif(eregi("^whoisall (.+)$", $message, $arr)){
     $name = ucfirst(strtolower($arr[1]));
     for($i = 1; $i <= 3; $i ++) {
@@ -111,23 +106,13 @@ if(eregi("^whois (.+)$", $message, $arr)) {
         } else
             $msg = "Server $server: Player <highlight>".$name."<end> does not exist.";
         // Send info back
-        if($type == "msg")
-            bot::send($msg, $sender);
-        elseif($type == "priv")
-        	bot::send($msg);
-        elseif($type == "guild")
-        	bot::send($msg, "guild");
+        bot::send($msg, $sendto);
     }
 } elseif(eregi("^whoisorg ([0-9]+)$", $message, $arr)) {
 	$org_id = $arr[1];
 
   	$msg = "Getting Org info. Please standby.";
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-   	    bot::send($msg);
-    elseif($type == "guild")
-      	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 	
     $org = new org($org_id);
 	if($org->errorCode == 0) {
@@ -247,12 +232,6 @@ if(eregi("^whois (.+)$", $message, $arr)) {
 		$msg = "Error in getting the Org infos. Either that org doesn't exist or the AO server was too slow to responce.";
 	}
 
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-   	    bot::send($msg);
-    elseif($type == "guild")
-      	bot::send($msg, "guild");   
-
+    bot::send($msg, $sendto);
 }
 ?>

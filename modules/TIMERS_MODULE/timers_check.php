@@ -49,10 +49,10 @@ foreach($this->vars["Timers"] as $key => $value) {
 			$msg = "<highlight>$owner<end> your timer named <highlight>$name<end> has gone off";
 	
 		unset($this->vars["Timers"][$key]);
-		$db->query("DELETE FROM timers_<myname> WHERE `name` = \"$name\" AND `owner` = '$owner'");
+		$db->query("DELETE FROM timers_<myname> WHERE `name` = '$name' AND `owner` = '$owner'");
 	} elseif ($tleft <= 0) {
 		unset($this->vars["Timers"][$key]);
-		$db->query("DELETE FROM timers_<myname> WHERE `name` = \"$name\" AND `owner` = '$owner'");
+		$db->query("DELETE FROM timers_<myname> WHERE `name` = '$name' AND `owner` = '$owner'");
 	} elseif ($tleft >= 3599 && $tleft < 3601 && ((time() - $set_time) >= 30)) {
 		if($name == "PrimTimer")
 			$msg = "Reminder: Timer has <highlight>1hour<end> left [set by <highlight>$owner<end>]";
@@ -70,12 +70,6 @@ foreach($this->vars["Timers"] as $key => $value) {
 			$msg = "Reminder: Timer <highlight>$name<end> has <highlight>1minute<end> left [set by <highlight>$owner<end>]";
 	}
 
-	if($mode == "guild" && $msg != "")
-	   	bot::send($msg, "guild");
-	elseif($mode == "msg" && $msg != "")
-		bot::send($msg, $owner);
-	elseif($mode == "priv" && $msg != "")
-		bot::send($msg);
-		
+   	bot::send($msg, $sendto);
 }
 ?>

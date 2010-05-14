@@ -32,16 +32,12 @@
 if(eregi("^pb (.+)$", $message, $arr)) {
 	$search = str_replace(" ", "%", $arr[1]);
 	$pb = ucfirst(strtolower($arr[1]));
-  	$db->query("SELECT * FROM pbdb WHERE `pb` LIKE \"%$search%\" GROUP BY `pb` ORDER BY `pb`");
+  	$db->query("SELECT * FROM pbdb WHERE `pb` LIKE '%$search%' GROUP BY `pb` ORDER BY `pb`");
 	$pb_found = $db->numrows();
   	if($pb_found >= 1 && $pb_found <= 5) {
 		$msg = "Pocketbosses matching: ";
   	  	$data = $db->fObject("all");
 		foreach($data as $row) {
-		  	$row->pb = str_replace("\'", "'", $row->pb);
-		  	$row->pb_location = str_replace("\'", "'", $row->pb_location);
-		  	$row->bp_mob = str_replace("\'", "'", $row->bp_mob);
-		  	$row->bp_location = str_replace("\'", "'", $row->bp_location);			  		  	
 			$link  = "<header>:::::: Remains of $row->pb :::::<end>\n\n";
 			$link .= "<highlight>Location:<end> $row->pb_location\n";
 			$link .= "<highlight>Found on:<end> $row->bp_mob\n";
@@ -117,8 +113,6 @@ if(eregi("^pb (.+)$", $message, $arr)) {
 	if($numrows != 0) {
 	  	$link = "<header>::::: Result of your search :::::<end>";
 		foreach($data as $row) {
-		  	$row->pb = str_replace("\'", "'", $row->pb);
-		  	
 		  	$name = "\n\nQL $row->ql $row->line $row->slot Symbiant, $row->type Unit Aban";
 		  	$link .= bot::makeItem($row->itemid, $row->itemid, $row->ql, $name)."\n";
 		  	$link .= "Found on ".bot::makeLink($row->pb, "/tell <myname> pb $row->pb", "chatcmd");
@@ -186,8 +180,6 @@ if(eregi("^pb (.+)$", $message, $arr)) {
 	if($numrows != 0) {
 	  	$link = "<header>::::: Result of your search :::::<end>";
 		foreach($data as $row) {
-		  	$row->pb = str_replace("\'", "'", $row->pb);
-		  	
 		  	$name = "\n\nQL $row->ql $row->line $row->slot Symbiant, $row->type Unit Aban";
 		  	$link .= bot::makeItem($row->itemid, $row->itemid, $row->ql, $name)."\n";
 		  	$link .= "Found on ".bot::makeLink($row->pb, "/tell <myname> pb $row->pb", "chatcmd");

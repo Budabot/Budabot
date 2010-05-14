@@ -61,63 +61,63 @@ else
 //Default guild Colors
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'default guild color'");
 if($db->numrows() == 0)
-  	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `admin`) VALUES ('default guild color', 'Basic Settings', 'edit', \"{$this->settings["default guild color"]}\", 'color', 'Default Guild Color', 'cfg', 'admin')");
+  	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `admin`) VALUES ('default guild color', 'Basic Settings', 'edit', '{$this->settings["default guild color"]}', 'color', 'Default Guild Color', 'cfg', 'admin')");
 else 
-  	$db->query("UPDATE settings_<myname> SET `setting` = \"{$this->settings["default guild color"]}\" WHERE `name` = 'default guild color'");
+  	$db->query("UPDATE settings_<myname> SET `setting` = '{$this->settings["default guild color"]}' WHERE `name` = 'default guild color'");
 
 //Default private Colors
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'default priv color'");
 if($db->numrows() == 0)
- 	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `admin`) VALUES ('default priv color', 'Basic Settings', 'edit', \"{$this->settings["default priv color"]}\", 'color', 'Default Private Color', 'cfg', 'admin')");
+ 	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `admin`) VALUES ('default priv color', 'Basic Settings', 'edit', '{$this->settings["default priv color"]}', 'color', 'Default Private Color', 'cfg', 'admin')");
 else 
-  	$db->query("UPDATE settings_<myname> SET `setting` = \"{$this->settings["default priv color"]}\" WHERE `name` = 'default priv color'");
+  	$db->query("UPDATE settings_<myname> SET `setting` = '{$this->settings["default priv color"]}' WHERE `name` = 'default priv color'");
 
 //Default Window Colors
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'default window color'");
 if($db->numrows() == 0)
-	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `admin`) VALUES ('default window color', 'Basic Settings', 'edit', \"{$this->settings["default window color"]}\", 'color', 'Default Window Color', 'cfg', 'admin')"); 	
+	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `admin`) VALUES ('default window color', 'Basic Settings', 'edit', '{$this->settings["default window color"]}', 'color', 'Default Window Color', 'cfg', 'admin')"); 	
 else 
-  	$db->query("UPDATE settings_<myname> SET `setting` = \"{$this->settings["default window color"]}\" WHERE `name` = 'default window color'");
+  	$db->query("UPDATE settings_<myname> SET `setting` = '{$this->settings["default window color"]}' WHERE `name` = 'default window color'");
 
 //Default tell Colors
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'default tell color'");
 if($db->numrows() == 0)
-	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `admin`) VALUES ('default tell color', 'Basic Settings', 'edit', \"{$this->settings["default tell color"]}\", 'color', 'Default Tell Color', 'cfg', 'admin')"); 	
+	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `admin`) VALUES ('default tell color', 'Basic Settings', 'edit', '{$this->settings["default tell color"]}', 'color', 'Default Tell Color', 'cfg', 'admin')"); 	
 else 
-  	$db->query("UPDATE settings_<myname> SET `setting` = \"{$this->settings["default tell color"]}\" WHERE `name` = 'default tell color'");
+  	$db->query("UPDATE settings_<myname> SET `setting` = '{$this->settings["default tell color"]}' WHERE `name` = 'default tell color'");
 
 //Default Highlight Color
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'default highlight color'");
 if($db->numrows() == 0)
-	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `admin`) VALUES ('default highlight color', 'Basic Settings', 'edit', \"{$this->settings["default highlight color"]}\", 'color', 'Default Highlight Color', 'cfg', 'admin')"); 	
+	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `admin`) VALUES ('default highlight color', 'Basic Settings', 'edit', '{$this->settings["default highlight color"]}', 'color', 'Default Highlight Color', 'cfg', 'admin')"); 	
 else 
-  	$db->query("UPDATE settings_<myname> SET `setting` = \"{$this->settings["default highlight color"]}\" WHERE `name` = 'default highlight color'");
+  	$db->query("UPDATE settings_<myname> SET `setting` = '{$this->settings["default highlight color"]}' WHERE `name` = 'default highlight color'");
 
 //Default Header Colors
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'default header color'");
 if($db->numrows() == 0)
-	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `admin`) VALUES ('default header color', 'Basic Settings', 'edit', \"{$this->settings["default header color"]}\", 'color', 'Default Header Color', 'cfg', 'admin')"); 	
+	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `admin`) VALUES ('default header color', 'Basic Settings', 'edit', '{$this->settings["default header color"]}', 'color', 'Default Header Color', 'cfg', 'admin')"); 	
 else 
-  	$db->query("UPDATE settings_<myname> SET `setting` = \"{$this->settings["default header color"]}\" WHERE `name` = 'default header color'");
+  	$db->query("UPDATE settings_<myname> SET `setting` = '{$this->settings["default header color"]}' WHERE `name` = 'default header color'");
 
 //Spam Protection
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'spam protection'");
 if($db->numrows() == 0)
-	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('spam protection', 'Basic Settings', 'edit', \"{$this->settings["spam protection"]}\", 'ON;OFF', '1;0', 'Spam Protection for Private Chat', 'cfg', 'admin', './core/SETTINGS/spam_help.txt')"); 	
+	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('spam protection', 'Basic Settings', 'edit', '{$this->settings["spam protection"]}', 'ON;OFF', '1;0', 'Spam Protection for Private Chat', 'cfg', 'admin', './core/SETTINGS/spam_help.txt')"); 	
 else 
   	$db->query("UPDATE settings_<myname> SET `setting` = '{$this->settings["spam protection"]}' WHERE `name` = 'spam protection'");
 
 //Default module status
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'default module status'");
 if($db->numrows() == 0)
-	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('default module status', 'Basic Settings', 'edit', \"{$this->settings["default module status"]}\", 'ON;OFF', '1;0', 'Default Status for new Modules', 'cfg', 'admin', './core/SETTINGS/module_status_help.txt')"); 	
+	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('default module status', 'Basic Settings', 'edit', '{$this->settings["default module status"]}', 'ON;OFF', '1;0', 'Default Status for new Modules', 'cfg', 'admin', './core/SETTINGS/module_status_help.txt')"); 	
 else 
   	$db->query("UPDATE settings_<myname> SET `setting` = '{$this->settings["default module status"]}' WHERE `name` = 'default module status'");
 
 //Max Blob size
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'max_blob_size'");
 if($db->numrows() == 0)
-	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `admin`, `help`) VALUES ('max_blob_size', 'Basic Settings', 'edit', \"{$this->settings["max_blob_size"]}\", 'number', 'Max chars for a window', 'cfg', 'admin', './core/SETTINGS/max_blob_size_help.txt')"); 	
+	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `admin`, `help`) VALUES ('max_blob_size', 'Basic Settings', 'edit', '{$this->settings["max_blob_size"]}', 'number', 'Max chars for a window', 'cfg', 'admin', './core/SETTINGS/max_blob_size_help.txt')"); 	
 else 
   	$db->query("UPDATE settings_<myname> SET `setting` = '{$this->settings["max_blob_size"]}' WHERE `name` = 'max_blob_size'");
 

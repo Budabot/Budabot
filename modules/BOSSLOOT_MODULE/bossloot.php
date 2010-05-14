@@ -24,12 +24,12 @@ if(ereg ("^bossloot (.+)$", $message, $arr)) {
 		$boss = "<header>::::: Mobs that drop $search :::::<end>\n";	
 	}
 	
-	$db->query("SELECT * FROM boss_lootdb WHERE itemname LIKE \"%$search%\"");
+	$db->query("SELECT * FROM boss_lootdb WHERE itemname LIKE '%$search%'");
 	$loot_found = $db->numrows();
 
 	if ($loot_found != 0) {
 		//Find loot item and associated boss and his location
-		$db->query("SELECT * FROM boss_lootdb, boss_namedb, whereis WHERE boss_lootdb.itemname LIKE \"%$search%\" AND boss_namedb.bossid = boss_lootdb.bossid AND whereis.name = boss_namedb.bossname");
+		$db->query("SELECT * FROM boss_lootdb, boss_namedb, whereis WHERE boss_lootdb.itemname LIKE '%$search%' AND boss_namedb.bossid = boss_lootdb.bossid AND whereis.name = boss_namedb.bossname");
 		$data = $db->fobject("all");
 		foreach ($data as $row) {
 			$bossname = $row->bossname;
@@ -41,7 +41,7 @@ if(ereg ("^bossloot (.+)$", $message, $arr)) {
 				$oldbossname = $bossname;
 				$boss .= "<green>Can be found $where<end>\nDrops:";
 				//output bossloot as many times as necessary
-				$db->query("SELECT * FROM boss_lootdb, aodb WHERE boss_lootdb.itemname LIKE \"%$search%\" AND boss_lootdb.bossid =	$bossid AND boss_lootdb.itemid = aodb.lowid");
+				$db->query("SELECT * FROM boss_lootdb, aodb WHERE boss_lootdb.itemname LIKE '%$search%' AND boss_lootdb.bossid = $bossid AND boss_lootdb.itemid = aodb.lowid");
 				$data = $db->fobject("all");
 				foreach ($data as $row) {
 					$lowid = $row->lowid;

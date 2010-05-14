@@ -34,10 +34,8 @@ if(isset($this->guildmembers[$sender]) && (time() >= $this->vars["newsdelay"])) 
 	if($db->numrows() != 0) {
 		$link = "<header>::::: News :::::<end>\n\n";
 		while($row = $db->fObject()) {
-		  	$row->news = str_replace('"', "'", $row->news);
-		  	$row->news = str_replace("\'", "'", $row->news);
 		  	if(!$updated)
-			  $updated = $row->time;
+				$updated = $row->time;
 		  	$link .= "<highlight>Date:<end> ".gmdate("dS M, H:i", $row->time)."\n";
 		  	$link .= "<highlight>Author:<end> $row->name\n";
 		  	$link .= "<highlight>Message:<end> $row->news\n\n";

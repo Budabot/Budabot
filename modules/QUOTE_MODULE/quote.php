@@ -10,11 +10,6 @@
    ** Date(last modified): 14.06.2007
    */
 
-$message = str_replace("'", "\'", $message);
-$message = str_replace('"', "&quot;", $message);
-
-
-
 // Adding a quote
 if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 	
@@ -36,7 +31,7 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 	}
 	
 	$arr[1] = trim($arr[1]);
-	$db->query("SELECT * FROM quote WHERE `What` LIKE \"$arr[1]\"");
+	$db->query("SELECT * FROM quote WHERE `What` LIKE '$arr[1]'");
 	if ($db->numrows() > 0) {
 		$row = $db->fObject();
 		$msg = "This quote is already in as quote <highlight>$row->IDNumber<end>.";
@@ -80,12 +75,13 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 					//Lucier: message
 					$quoteOfWHO = substr($quoteMSG,0,$findcolon);
 				}
-	
+
+				// TODO escape single quotes
 			} else {
 				//without a colon.. quoting him/her/itself?
 				$quoteOfWHO = $sender;
 			}
-			$db->query("INSERT INTO quote (`IDNumber`, `Who`, `OfWho`, `When`, `What`) VALUES ('$quoteID', '$quoteWHO', '$quoteOfWHO', '$quoteDATE', \"$quoteMSG\")");
+			$db->query("INSERT INTO quote (`IDNumber`, `Who`, `OfWho`, `When`, `What`) VALUES ($quoteID, '$quoteWHO', '$quoteOfWHO', '$quoteDATE', '$quoteMSG')");
 			$msg = "Quote <highlight>$quoteID<end> has been added.";
 		} else {
 			$msg = "This quote is too big.";
@@ -93,7 +89,7 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 	}
 	
 // Removing a quote
-} else if (preg_match("/^quote (rem|del|remove|delete) (.+)$/i", $message, $arr)) {
+} else if (preg_match("/^quote (rem|del|remove|delete) (\\d+)$/i", $message, $arr)) {
 
 	$db->query("SELECT * FROM quote WHERE `IDNumber` = '$arr[2]'");
 
@@ -107,7 +103,7 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 
 		//only author or superadmin can delete.
 		if (($quoteWHO == $sender) || ($this->admins[$sender]["level"] >= 4)) {
-			$db->query("DELETE FROM quote WHERE `IDNumber` = '$quoteID'");
+			$db->query("DELETE FROM quote WHERE `IDNumber` = $quoteID");
 			$msg = "This quote has been deleted.";
 		} else {
 			$msg = "Only the Superadmin or $quoteWHO can delete this quote.";
@@ -123,7 +119,7 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 	
 	// Search for poster:
 	$list = "";
-	$db->query("SELECT * FROM quote WHERE `Who` LIKE \"$search\"");
+	$db->query("SELECT * FROM quote WHERE `Who` LIKE '$search'");
 	while($row = $db->fObject()) {
 		$list .= "<a href='chatcmd:///tell ".$this->vars["name"]." quote $row->IDNumber'>$row->IDNumber</a>, ";
 	}
@@ -134,7 +130,7 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 	
 	// Search for victim:
 	$list = "";
-	$db->query("SELECT * FROM quote WHERE `OfWho` LIKE \"$search\"");
+	$db->query("SELECT * FROM quote WHERE `OfWho` LIKE '$search'");
 	while($row = $db->fObject()) {
 		$list .= "<a href='chatcmd:///tell ".$this->vars["name"]." quote $row->IDNumber'>$row->IDNumber</a>, ";
 	}
@@ -146,7 +142,7 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 
 	// Search inside quotes:
 	$list = "";
-	$db->query("SELECT * FROM quote WHERE `OfWho` NOT LIKE \"$search\" AND `What` LIKE \"%$search%\"");
+	$db->query("SELECT * FROM quote WHERE `OfWho` NOT LIKE '$search' AND `What` LIKE '%$search%'");
 	while($row = $db->fObject()) {
 		$list .= "<a href='chatcmd:///tell ".$this->vars["name"]." quote $row->IDNumber'>$row->IDNumber</a>, ";
 	}
@@ -283,7 +279,6 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 // Send info back
 
 if ($msg) {
-	$msg =  str_replace("\'", "'", $msg);
 	bot::send($msg, $sendto);
 }
 ?>

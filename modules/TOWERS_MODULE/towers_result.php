@@ -30,9 +30,6 @@
    */
 
 
-$message = str_replace('"', "&quot;", $message);
-$message = str_replace("'", "&#39;", $message);
-
 $colorlabel = "<font color=#00DE42>";
 $colorvalue = "<font color=#63AD63>";
 
@@ -113,9 +110,7 @@ if ($msg) {
 	$msg = str_replace("<unknown>", "<font color='#FF0000'>", $msg);
 
 	// Send info back
-	if($type == "msg")       {bot::send($msg, $sender);}
-	elseif($type == "priv")  {bot::send($msg);}
-	elseif($type == "guild") {bot::send($msg, "guild");}
+	bot::send($msg, $sendto);
 }
 
 ?>

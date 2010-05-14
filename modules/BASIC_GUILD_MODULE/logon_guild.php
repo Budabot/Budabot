@@ -58,9 +58,6 @@ if($row->mode != "del" && $numrows == 1) {
 
         $msg .= "logged on. ";
 
-        $logon_msg = $row->logon_msg;
-		$logon_msg = str_replace("\'", "'", $logon_msg);
-		
         // Alternative Characters Part
         $main = false;
         // Check if $sender is hisself the main
@@ -109,8 +106,8 @@ if($row->mode != "del" && $numrows == 1) {
 		}
 
 
-        if($logon_msg != '0')
-            $msg .= " - ".$logon_msg;
+        if($row->logon_msg != '0')
+            $msg .= " - " . $row->logon_msg;
 
        	bot::send($msg, "guild", true);
 

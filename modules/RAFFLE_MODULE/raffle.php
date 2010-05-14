@@ -7,7 +7,6 @@ if (preg_match("/^raffle (.+) ([0-9]+)$/i", $message, $arr) || preg_match("/^raf
 			$minutes = $arr[2];
 	    }
 	    
-        $item = str_replace('"', "'", $arr[1]);
         $this->vars["Raffles"] = array(
             "inprog" => 1,
             "owner" => $sender,

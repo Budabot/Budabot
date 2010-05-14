@@ -131,12 +131,7 @@ if(eregi("^bio <a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">Solid Clump 
     $msg = bot::makeItem($low_id, $high_id, $arr[3], "QL ".$arr[3]." ".$name)." ".$use;
 
     // Send info back
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-    	bot::send($msg);
-    elseif($type == "guild")
-    	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 } else
 	$syntax_error = true;
 ?>

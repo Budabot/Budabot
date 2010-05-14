@@ -31,36 +31,25 @@
 
 $db->query("SELECT name, logon_msg FROM org_members_<myname> WHERE `name` = '$sender'");
 $row = $db->fObject();
-if(eregi("^logon clear$", $message)) {
+if (eregi("^logon clear$", $message)) {
     if($row->name == $sender) {
         $db->query("UPDATE org_members_<myname> SET `logon_msg` = 0 WHERE `name` = '$sender'");
         $msg = "Logon message cleared.";
     } else
         $msg = "You are not on the Notify list of this bot.";
 
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-       	bot::send($msg, "guild");
-} else if(eregi("^logon (.+)$", $message, $arr)) {
+    bot::send($msg, $sendto);
+} else if (eregi("^logon (.+)$", $message, $arr)) {
     if($row->name == $sender) {
-        $arr[1] = str_replace("'", "\'", $arr[1]);
-        $arr[1] = str_replace('"', "\'", $arr[1]);        
+        $arr[1] = str_replace("'", "''", $arr[1]);
         if(strlen($arr[1]) <= 200) {
-            $db->query("UPDATE org_members_<myname> SET `logon_msg` = \"$arr[1]\" WHERE `name` = '$sender'");
+            $db->query("UPDATE org_members_<myname> SET `logon_msg` = '$arr[1]' WHERE `name` = '$sender'");
             $msg = "Thankyou ".$sender.". Your logon message has been set.";
         } else
             $msg = "Your Logon Message is too long. Pls choose a shorter one.";
     } else
         $msg = "You are not on the Notify list of this bot.";
 
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-       	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 }
 ?>

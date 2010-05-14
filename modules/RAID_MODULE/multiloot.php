@@ -98,21 +98,13 @@ if(eregi("^multiloot (.+)$", $message, $arr)) {
 	    return;
 	}
 
-	$item_name = str_replace('"',"",$item_name);
-
 	//Check if there is a icon available
-	$item_name = str_replace("'", "\'", $item_name);
-	$item_name = str_replace(":", "&#58;", $item_name);
-	$item_name = str_replace("&", "&amp;", $item_name);
-	$db->query("SELECT * FROM aodb WHERE `name` LIKE \"$item_name\"");
+	$db->query("SELECT * FROM aodb WHERE `name` LIKE '$item_name'");
 	if($db->numrows() != 0) {
 		//Create an Object of the data
 	  	$row = $db->fObject();
 	  	$item_name = $row->name;
-		//Return HTML to normal characters		
-  		$item_name = str_replace("\'", "'", $item_name);
-		$item_name = str_replace("&#58;", ":", $item_name);
-		$item_name = str_replace("&amp;", "&", $item_name);
+
 		//Save the icon
 		$looticon = $row->icon;
 		//Save the aoid and ql if not set yet

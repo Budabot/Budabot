@@ -20,10 +20,7 @@ if($this->settings['irc_status'] = "1") {
 	else {
 		$msg .= " has logged on.";
 	}
-	
-	$logon_msg = $row->logon_msg;
-	$logon_msg = str_replace("\'", "'", $logon_msg);
-	
+
 	// Alternative Characters Part
 	$main = false;
 	// Check if $sender is hisself the main
@@ -45,8 +42,8 @@ if($this->settings['irc_status'] = "1") {
 	}
 
 
-	if(($logon_msg != '') && ($logon_msg != '0'))
-		$msg .= " - ".$logon_msg;
+	if(($row->logon_msg != '') && ($row->logon_msg != '0'))
+		$msg .= " - " . $row->logon_msg;
 	
 	if($type == "joinPriv") {
 		fputs($socket, "PRIVMSG ".$this->settings['irc_channel']." :$msg\n");

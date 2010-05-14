@@ -39,7 +39,7 @@ function getTopicContents($path, $fileName, $fileExt)
 	//$info = str_replace("&", "&amp;", $info);
 	//$info = str_replace("<", "&lt;", $info);
 	//$info = str_replace(">", "&gt;", $info);
-	$info = str_replace('"', '\\"', $info);
+	//$info = str_replace('"', '\\"', $info);
 	
 	return $info;
 }

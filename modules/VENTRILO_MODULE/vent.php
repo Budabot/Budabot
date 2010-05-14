@@ -105,7 +105,6 @@ if ($error === FALSE) {
 	}
 	
 	$page .= "\n\n*Please note that sometimes the server will not return the right information, if this happens, please try again.\n";
-	$page = str_replace('"', "", $page);
 	$msg = bot::makeLink("Vent Status", $page, 'blob');
 
 } else {

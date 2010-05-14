@@ -31,10 +31,11 @@ $tmp = explode(" ", $name);
 $first = true;
 foreach($tmp as $key => $value) {
 	if($first) {
-		$query .= "`name` LIKE \"%$value%\"";
+		$query .= "`name` LIKE '%$value%'";
 		$first = false;
-	} else
-		$query .= " AND `name` LIKE '%$value%'";		
+	} else {
+		$query .= " AND `name` LIKE '%$value%'";
+	}
 }
 
 if($ql)
@@ -85,7 +86,6 @@ if($countitems == 0) {
 if($countitems > 1) {
 	foreach($itemlist as $name => $item1) {
 	 	foreach($item1 as $key => $item) {
-			$name = str_replace("\'", "'", $name);
 			$name = str_replace("&#58;", ":", $name);
 			$name = str_replace("&amp;", "&", $name);
 //	        $list .= "<img src=rdb://".$item["icon"]."> \n";
@@ -120,7 +120,6 @@ if($countitems > 1) {
 else {
     foreach($itemlist as $name => $item1) {
    	 	foreach($item1 as $key => $item) {
-		    $name = str_replace("\'", "'", $name);
 			$name = str_replace("&#58;", ":", $name);
 			$name = str_replace("&amp;", "&", $name); 
 	        if($ql)
