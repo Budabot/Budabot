@@ -49,7 +49,7 @@ if (preg_match("/^The (Clan|Neutral|Omni) organization (.+) just entered a state
 	$coordx = $arr[5];
 	$coordy = $arr[6];
 } else if (preg_match("/^The (Clan|Neutral|Omni) organization (.+) attacked the (Clan|Neutral|Omni) (.+) at their base in (.+). The attackers won!!$/i", $message, $arr)) {
-	$db->query("INSERT INTO tower_result_<myname> (`time`, `win_guild`, `win_side`, `lose_guild`, `lose_side`) VALUES ('".time()."', '".$arr[2]."', '".$arr[1]."', '".$arr[4]."', '".$arr[3]."')");
+	$db->query("INSERT INTO tower_result_<myname> (`time`, `win_guild`, `win_side`, `lose_guild`, `lose_side`) VALUES ('".time()."', '".str_replace("'", "''", $arr[2])."', '".$arr[1]."', '".str_replace("'", "''", $arr[4])."', '".$arr[3]."')");
 }
 
 if ($def_guild) {

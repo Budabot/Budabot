@@ -351,7 +351,7 @@ class bot extends AOChat{
 		  			AOChat::send_group($group, "</font>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}{$this->vars["name"]}</font>: {$this->settings["default priv color"]}$value</font>");
 		} else {
 			AOChat::send_privgroup($group,$this->settings["default priv color"].$message);
-			if(($this->settings["guest_relay"] == 1 && $disable_relay === false))
+			if(($this->settings["guest_relay"] == 1 $this->settings["guest_relay_commands"] == 1 && !$disable_relay))
 	  			AOChat::send_group($group, "</font>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}{$this->vars["name"]}</font>: {$this->settings["default priv color"]}$message</font>");
 		}
 	}
@@ -547,20 +547,21 @@ class bot extends AOChat{
 		$module = strtoupper($module[0]);
 
 		//Check if the file exists
-		if(($actual_filename = bot::verifyFilename($filename)) != '') {
+		if (($actual_filename = bot::verifyFilename($filename)) != '') {
     		$filename = $actual_filename;
 		} else {
 			echo "Error in registering the File $filename for command $command. The file doesn't exists!\n";
 			return;
 		}
 
-		if($command != NULL) // Change commands to lower case.
+		if ($command != NULL) { // Change commands to lower case.
 			$command = strtolower($command);
+		}
 
 		$admin = strtolower($admin);
 
 		//Check if the admin status exists
-		if(!is_numeric($admin)) {
+		if (!is_numeric($admin)) {
 			if($admin == "leader")
 				$admin = 1;
 			elseif($admin == "raidleader" || $admin == "rl")
@@ -756,19 +757,19 @@ class bot extends AOChat{
 		if($this->settings['debug'] > 2) sleep(1);
 
 		//Check if the file exists
-		if(($actual_filename = bot::verifyFilename($filename)) != '') {
+		if (($actual_filename = bot::verifyFilename($filename)) != '') {
     		$filename = $actual_filename;
 		} else {
 			echo "Error in registering the File $filename for Eventtype $type. The file doesn't exists!\n";
 			return;
 		}
 		
-		if($type != "setup") {
+		if ($type != "setup") {
 			$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$module' AND `cmdevent` = 'event' AND `type` = 'setup'");
-			if($db->numrows() != 0) {
+			if ($db->numrows() != 0) {
 				$data = $db->fObject("all");
-		  		foreach($data as $row) {
-				  	if($row->status == 0) {
+		  		forEach ($data as $row) {
+				  	if ($row->status == 0) {
 						if (file_exists("./modules/$row->file"))  {
 							$file = "./modules/$row->file";
 						}
@@ -877,7 +878,7 @@ class bot extends AOChat{
 		if($this->settings['debug'] > 2) sleep(1);
 
 		//Check if the file exists
-		if(($actual_filename = bot::verifyFilename($filename)) != '') {
+		if (($actual_filename = bot::verifyFilename($filename)) != '') {
     		$filename = $actual_filename;
 		} else {
 			echo "Error in unregistering the File $filename for Event $type. The file doesn't exists!\n";
@@ -1056,14 +1057,14 @@ class bot extends AOChat{
 		$name = strtolower($name);
 
 		//Check if the file exists
-		if(($actual_filename = bot::verifyFilename($help)) != '' && $help != "") {
+		if (($actual_filename = bot::verifyFilename($help)) != '' && $help != "") {
     		$filename = $actual_filename;
 		} elseif($help != "") {
 			echo "Error in registering the File $filename for Setting $name. The file doesn't exists!\n";
 			return;
 		}
 
-		if($this->existing_settings[$name] != true) {
+		if ($this->existing_settings[$name] != true) {
 			$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('$name', '$curMod', '$mode', '$setting', '$options', '$intoptions', '$description', 'db', '$admin', '$help')");
 		  	$this->settings[$name] = $setting;
 	  	} else {

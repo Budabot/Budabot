@@ -30,7 +30,7 @@
    */
 
 $msg = "";
-if(preg_match("/^is (.+)$/i", $message, $arr)) {
+if (preg_match("/^is (.+)$/i", $message, $arr)) {
     // Get User id
     $uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
@@ -53,20 +53,15 @@ if(preg_match("/^is (.+)$/i", $message, $arr)) {
         // else add him
         } else {
             $this->vars["IgnoreLog"][$name] = $type;
-						if($type == "msg")
-	            	$this->vars["IgnoreLogSender"][$name] = $sender;
+			if ($type == "msg") {
+	        	$this->vars["IgnoreLogSender"][$name] = $sender;
+			}
             bot::send("addbuddy", $uid);
             bot::send("rembuddy", $uid);
         }
     }
     if($msg) {
-        // Send info back
-        if($type == "msg")
-            bot::send($msg, $sender);
-        elseif($type == "priv")
-        	bot::send($msg);
-        elseif($type == "guild")
-        	bot::send($msg, "guild");
+        bot::send($msg, $sendto);
     }
 } elseif (($type == "logOn") || ($type == "logOff")) {
     //If $sender is marked as player to check online status
