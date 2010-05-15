@@ -42,8 +42,9 @@ if($this->settings['irc_status'] = "1") {
 	}
 
 
-	if(($row->logon_msg != '') && ($row->logon_msg != '0'))
+	if(($row->logon_msg != '') && ($row->logon_msg != '0')) {
 		$msg .= " - " . $row->logon_msg;
+	}
 	
 	if($type == "joinPriv") {
 		fputs($socket, "PRIVMSG ".$this->settings['irc_channel']." :$msg\n");

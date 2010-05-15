@@ -30,6 +30,7 @@ $name = str_replace("&", "&amp;", $name);
 $tmp = explode(" ", $name);
 $first = true;
 foreach($tmp as $key => $value) {
+	$value = str_replace("'", "''", $value);
 	if($first) {
 		$query .= "`name` LIKE '%$value%'";
 		$first = false;

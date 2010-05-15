@@ -61,7 +61,7 @@ foreach($this->vars["Vote"] as $key => $value) {
 
 	if ($timeleft <= 0) {
 		$title = "Finished: $question";
-		$db->query("UPDATE $table SET `status` = '9' WHERE `duration` = '$duration' AND `question` = '$question'");
+		$db->query("UPDATE $table SET `status` = '9' WHERE `duration` = '$duration' AND `question` = '".str_replace("'", "''", $question)."'");
 		unset($this->vars["Vote"][$key]);
 	} else if ($status == 0) {
 		$title = "Vote: $question";
@@ -85,7 +85,7 @@ foreach($this->vars["Vote"] as $key => $value) {
 
 	if($title != "") { // Send current results to guest + org chat.
 
-		$db->query("SELECT * FROM $table WHERE `question` = '$question'");
+		$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $question)."'");
 
 		$results = array();
 		while($row = $db->fObject()) {

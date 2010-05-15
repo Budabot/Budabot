@@ -30,7 +30,7 @@
    */
 
 $msg = "";
-if(eregi("^timer ([0-9]+)$", $message, $arr) ) {
+if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
   	if($arr[1] < 1 || $arr[1] > 10000) {
 		$msg = "No valid time specified!";
 		
@@ -73,7 +73,7 @@ if(eregi("^timer ([0-9]+)$", $message, $arr) ) {
 		
     // Send info back
     bot::send($msg, $sendto);
-} elseif(eregi("^timer ([0-9]+) (.+)$", $message, $arr)) {
+} elseif (preg_match("/^timer ([0-9]+) (.+)$/i", $message, $arr)) {
   	$timer_name = trim($arr[2]);
 	
   	if($arr[1] < 1 || $arr[1] > 10000) {
@@ -117,13 +117,13 @@ if(eregi("^timer ([0-9]+)$", $message, $arr) ) {
 
   	$this->vars["Timers"][] = array("name" => $timer_name, "owner" => $sender, "mode" => $type, "timer" => $timer, "settime" => time());
 
-    $db->query("INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`) VALUES ('$timer_name', '$sender', '$type', $timer, ".time().")");	
+    $db->query("INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`) VALUES ('".str_replace("'", "''", $timer_name)."', '$sender', '$type', $timer, ".time().")");	
 
 	$msg = "Timer <highlight>$timer_name<end> has been set for $timerset.";
 		
     // Send info back
     bot::send($msg, $sendto);
-} elseif(eregi("^timer (rem|del) (.+)$", $message, $arr)) {
+} elseif (preg_match("/^timer (rem|del) (.+)$/i", $message, $arr)) {
 	$timer_name = strtolower($arr[2]);
 	
 	foreach($this->vars["Timers"] as $key => $value) {
@@ -133,27 +133,29 @@ if(eregi("^timer ([0-9]+)$", $message, $arr) ) {
 		if(strtolower($name) == $timer_name) {
 			if($owner == $sender) {
 				unset($this->vars["Timers"][$key]);
-				$db->query("DELETE FROM timers_<myname> WHERE `name` = '$name' AND `owner` = '$sender'");
+				$db->query("DELETE FROM timers_<myname> WHERE `name` = '".str_replace("'", "''", $name)."' AND `owner` = '$sender'");
 					
 			  	$msg = "Removed timer <highlight>$name<end>.";
 			  	break;
 			} elseif(($this->guildmembers[$sender] <= $this->settings['guild admin level']) || isset($this->admins[$sender])) {
 				unset($this->vars["Timers"][$key]);
-				$db->query("DELETE FROM timers_<myname> WHERE `name` = '$name'");
+				$db->query("DELETE FROM timers_<myname> WHERE `name` = '".str_replace("'", "''", $name)."'");
 
 			  	$msg = "Removed timer <highlight>$name<end>.";
 			  	break;			  	
-			} else
-				$msg = "A Timer with this name is not running or you have not the right to remove it.";
+			} else {
+				$msg = "You don't have the right to remove this timer.";
+			}
 		}
 	}
 
-	if(!$msg)
-		$msg = "A Timer with this name is not running or you have not the right to remove it.";		
+	if(!$msg) {
+		$msg = "A timer with this name is not running.";
+	}
 
     // Send info back
     bot::send($msg, $sendto);
-} elseif(eregi("^timer (([0-9]*)[d|day|days]*).(([0-9]*)[h|hr|hrs]*).(([0-9]*)[m|min|mins]*)$", $message, $arr)) {
+} elseif (preg_match("/^timer (([0-9]*)[d|day|days]*).(([0-9]*)[h|hr|hrs]*).(([0-9]*)[m|min|mins]*)$/i", $message, $arr)) {
 	if(eregi("([0-9]+)(d|day|days)", $message, $day)) {
 		if($day[1] < 1 || $day[1] > 10) {
 			$msg = "No valid time specified!";
@@ -231,7 +233,7 @@ if(eregi("^timer ([0-9]+)$", $message, $arr) ) {
 		
     // Send info back
     bot::send($msg, $sendto);
-} elseif(eregi("^timer (([0-9]*)[d|day|days]*).(([0-9]*)[h|hr|hrs]*).(([0-9]*)[m|min|mins]*) (.+)$", $message, $arr)) {
+} elseif (preg_match("/^timer (([0-9]*)[d|day|days]*).(([0-9]*)[h|hr|hrs]*).(([0-9]*)[m|min|mins]*) (.+)$/i", $message, $arr)) {
 	$last_item = count($arr);
 	$timer_name = trim($arr[$last_item - 1]);
 	
@@ -308,7 +310,7 @@ if(eregi("^timer ([0-9]+)$", $message, $arr) ) {
 		$timerset .= $mins."min(s)";
 
   	$this->vars["Timers"][] = array("name" => $timer_name, "owner" => $sender, "mode" => $type, "timer" => $timer, "settime" => time());
-	$db->query("INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`) VALUES ('$timer_name', '$sender', '$type', $timer, ".time().")");
+	$db->query("INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`) VALUES ('".str_replace("'", "''", $timer_name) ."', '$sender', '$type', $timer, ".time().")");
 
     
 	$msg = "Timer <highlight>$timer_name<end> has been set for $timerset.";
@@ -320,7 +322,7 @@ if(eregi("^timer ([0-9]+)$", $message, $arr) ) {
    	    bot::send($msg);
     elseif($type == "guild")
       	bot::send($msg, "guild");      	      	      	
-} elseif(eregi("^timers$", $message, $arr)) {
+} elseif (preg_match("/^timers$/i", $message, $arr)) {
 	$num_timers = count($this->vars["Timers"]);
 	if($num_timers == 0) {
 		$msg = "No Timers running atm.";

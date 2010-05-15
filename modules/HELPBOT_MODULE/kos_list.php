@@ -50,12 +50,7 @@ if(eregi("^kos$", $message)) {
 	  	$msg = bot::makeLink("KOS-List", $link);
 	}  	
 
-  	if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-    	bot::send($msg);
-    elseif($type == "guild")
-    	bot::send($msg, "guild"); 	
+    bot::send($msg, $sendto);
 } elseif(eregi("^kos add (.+) reason (.+)$", $message, $arr)) {
     $name = ucfirst(strtolower($arr[1]));
 	$reason = str_replace("'", "''", $arr[2]);
@@ -63,62 +58,50 @@ if(eregi("^kos$", $message)) {
 	if(strlen($reason) >= 50)
 		$msg = "The reason can't be longer than 50 characters.";
 	elseif($uid) {
-		$db->query("INSERT INTO koslist_<myname> (`time`, `name`, `sender`, `reason`) VALUES (".time().", '$name', '$sender', '$reason')");
+		$db->query("INSERT INTO koslist_<myname> (`time`, `name`, `sender`, `reason`) VALUES (".time().", '".str_replace("'", "''", $name)."', '$sender', '".str_replace("'", "''", $reason)."')");
 		$msg = "You have successfull added <highlight>$name<end> to the KOS List.";
 	} else
 		$msg = "The Player you want to add doesn't exists.";
 
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-    	bot::send($msg);
-    elseif($type == "guild")
-    	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 } elseif(eregi("^kos add (.+)$", $message, $arr)) {
     $name = ucfirst(strtolower($arr[1]));
   	$uid = AoChat::get_uid($name);
 	if($uid) {
-	  	$db->query("SELECT * FROM koslist_<myname> WHERE `sender` = '$sender' AND `name` = '$name'");
+	  	$db->query("SELECT * FROM koslist_<myname> WHERE `sender` = '$sender' AND `name` = '".str_replace("'", "''", $name)."'");
 		if($db->numrows() == 1)
 			$msg = "You have already <highlight>$name<end> on your KOS List.";	  	
 		else {
-			$db->query("INSERT INTO koslist_<myname> (`time`, `name`, `sender`) VALUES (".time().", '$name', '$sender')");
+			$db->query("INSERT INTO koslist_<myname> (`time`, `name`, `sender`) VALUES (".time().", '".str_replace("'", "''", $name)."', '$sender')");
 			$msg = "You have successfull added <highlight>$name<end> to the KOS List.";	  
 		}
-	} else
+	} else {
 		$msg = "The Player you want to add doesn't exists.";
+	}
 
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-    	bot::send($msg);
-    elseif($type == "guild")
-    	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 } elseif(eregi("^kos rem (.+)$", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
-	$db->query("SELECT * FROM koslist_<myname> WHERE `sender` = '$sender' AND `name` = '$name'");
+	$db->query("SELECT * FROM koslist_<myname> WHERE `sender` = '$sender' AND `name` = '".str_replace("'", "''", $name)."'");
 	if($db->numrows() == 1) {
-	  	$db->query("DELETE FROM koslist_<myname> WHERE `sender` = '$sender' AND `name` = '$name'");
+	  	$db->query("DELETE FROM koslist_<myname> WHERE `sender` = '$sender' AND `name` = '".str_replace("'", "''", $name)."'");
 		$msg = "You have successfull removed <highlight>$name<end> from the KOS List.";	  	
 	} elseif($this->guildmembers[$sender] < $this->vars['guild admin level']) {
-	  	$db->query("SELECT * FROM koslist_<myname> WHERE `name` = '$name'");
+	  	$db->query("SELECT * FROM koslist_<myname> WHERE `name` = '".str_replace("'", "''", $name)."'");
 	  	if($db->numrows() != 0) {
-		  	$db->query("DELETE FROM koslist_<myname> WHERE `name` = '$name'");	  	  
+		  	$db->query("DELETE FROM koslist_<myname> WHERE `name` = '$".str_replace("'", "''", $name)."'");	  	  
 			$msg = "You have successfull removed <highlight>$name<end> from the KOS List.";	  			    
-		} else
+		} else {
 			$msg = "No one with this name is on the KOS List.";
-	} else
+		}
+	} else {
 		$msg = "You don't have this player on your KOS List.";
+	}
 
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-    	bot::send($msg);
-    elseif($type == "guild")
-    	bot::send($msg, "guild");	
+    bot::send($msg, $sendto);
 } elseif(eregi("^kos (.+)$", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
-	$db->query("SELECT * FROM koslist_<myname> WHERE `name` = '$name' LIMIT 0, 40");
+	$db->query("SELECT * FROM koslist_<myname> WHERE `name` = '".str_replace("'", "''", $name)."' LIMIT 0, 40");
 	if($db->numrows() >= 1) {
 	  	$link  = "<header>::::: Kill On Sight list :::::<end>\n\n";
 	  	$link .= "The following Players has added <highlight>$name<end> to his list\n\n";
@@ -134,12 +117,8 @@ if(eregi("^kos$", $message)) {
 	} else
 		$msg = "The player <highlight>$name<end> isn't on the KOS List.";
 
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-    	bot::send($msg);
-    elseif($type == "guild")
-    	bot::send($msg, "guild");	
-} else
+    bot::send($msg, $sendto);
+} else {
 	$syntax_error = true;
+}
 ?>

@@ -39,7 +39,7 @@ if (preg_match("/^battle(s?)$/i", $message) || preg_match("/^battle(s?) (.+)$/i"
 
 	$search = '';
 	if ($arr[1] != "") {
-		$search = " WHERE `att_guild` LIKE '$arr[1]' OR `att_player` LIKE '$arr[1]' OR `def_guild` LIKE '$arr[1]' OR `zone` LIKE '$arr[1]' ";
+		$search = " WHERE `att_guild` LIKE '".str_replace("'", "''", $arr[1])."' OR `att_player` LIKE '".str_replace("'", "''", $arr[1])."' OR `def_guild` LIKE '".str_replace("'", "''", $arr[1])."' OR `zone` LIKE '".str_replace("'", "''", $arr[1])."' ";
 	}
 
 	$db->query("SELECT * FROM tower_attack_<myname> $search ORDER BY `time` DESC LIMIT 0, $listcount");
@@ -76,7 +76,7 @@ if (preg_match("/^battle(s?)$/i", $message) || preg_match("/^battle(s?) (.+)$/i"
 } else if (preg_match("/^victory$/i", $message) || preg_match("/^victory (.+)$/i", $message, $arr)) {
 
 	if ($arr[1] == "") {$search = " ";}
-	else {$search = " WHERE `win_guild` LIKE '$arr[1]' OR `lose_guild` LIKE '$arr[1]' ";}
+	else {$search = " WHERE `win_guild` LIKE '".str_replace("'", "''", $arr[1])."' OR `lose_guild` LIKE '".str_replace("'", "''", $arr[1])."' ";}
 
 	$db->query("SELECT * FROM tower_result_<myname>".$search."ORDER BY `time` DESC LIMIT 0, $listcount");
 	if($db->numrows() == 0 && $search == " ")

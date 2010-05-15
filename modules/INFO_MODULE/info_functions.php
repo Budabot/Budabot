@@ -29,17 +29,10 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
   
-function getTopicContents($path, $fileName, $fileExt)
-{
+function getTopicContents($path, $fileName, $fileExt) {
 	// get the filename and read in the file
 	$file = "$path$fileName$fileExt";
 	$info = file_get_contents($file);
-	
-	// escape html characters
-	//$info = str_replace("&", "&amp;", $info);
-	//$info = str_replace("<", "&lt;", $info);
-	//$info = str_replace(">", "&gt;", $info);
-	//$info = str_replace('"', '\\"', $info);
 	
 	return $info;
 }

@@ -26,18 +26,18 @@ if (ereg ("^boss (.+)$", $message, $arr)) {
 	}
 	
 	// Find bossname or Boss key
-	$db->query("SELECT * FROM boss_namedb WHERE bossname LIKE '%$search%' OR keyname LIKE '%$search%'");
+	$db->query("SELECT * FROM boss_namedb WHERE bossname LIKE '%".str_replace("'", "''", $search)."%' OR keyname LIKE '%".str_replace("'", "''", $search)."%'");
 	$name_found = $db->numrows();
 	
 	//If multiple matches found output list of bosses
 	if ($name_found > 1) {
-		$db->query("SELECT * FROM boss_namedb WHERE bossname LIKE '%$search%' OR keyname LIKE '%$search%'");
+		$db->query("SELECT * FROM boss_namedb WHERE bossname LIKE '%".str_replace("'", "''", $search)."%' OR keyname LIKE '%".str_replace("'", "''", $search)."%'");
 		$data = $db->fobject("all");
 		$bosses = $data;
 		foreach ($bosses as $row) {
 			$bossname = $row->bossname;
 			$bossid = $row->bossid;
-			$db->query("SELECT * FROM whereis WHERE name = '$bossname'");
+			$db->query("SELECT * FROM whereis WHERE name = '".str_replace("'", "''", $bossname)."'");
 			$data = $db->fobject("all"); 
 			foreach ($data as $row) {
 				$bossname = $row->name;
@@ -59,7 +59,7 @@ if (ereg ("^boss (.+)$", $message, $arr)) {
 	}
 	//If single match found, output full loot table
 	elseif ($name_found  == 1) {
-		$db->query("SELECT * FROM boss_namedb WHERE bossname LIKE  '%$search%' OR keyname LIKE '%$search%'");
+		$db->query("SELECT * FROM boss_namedb WHERE bossname LIKE  '%".str_replace("'", "''", $search)."%' OR keyname LIKE '%".str_replace("'", "''", $search)."%'");
 		$data = $db->fobject("all");
 		foreach ($data as $row)
 		$name_id = $row->bossid;
@@ -67,7 +67,7 @@ if (ereg ("^boss (.+)$", $message, $arr)) {
 		
 		$boss .= "<yellow>$name\n\n";
 		
-		$db->query("SELECT answer FROM whereis WHERE name = '$name'");
+		$db->query("SELECT answer FROM whereis WHERE name = '".str_replace("'", "''", $name)."'");
 		$data = $db->fobject("all");
 			foreach ($data as $row) {
 			$where = $row->answer;

@@ -79,8 +79,7 @@ if (preg_match("/^vote$/i", $message)) {
 	//////////////////////////////////////
 	if (count($sect) == 1) { // Show vote
 		
-		// !vote Does this module work?
-		$db->query("SELECT * FROM $table WHERE `question` == \"$sect[0]\"");
+		$db->query("SELECT * FROM $table WHERE `question` == '".str_replace("'", "''", $sect[0])."'");
 		
 		if ($db->numrows() <= 0) { $msg = "Couldn't find any votes with this topic.";} 
 		
@@ -158,14 +157,13 @@ if (preg_match("/^vote$/i", $message)) {
 		
 	////////////////////////////////////////////////////////////////////////////////////
 	} elseif (count($sect) == 2 && strtolower($sect[0]) == "remove") {   // Remove vote
-		// !vote remove|Does this module work?
 		
 		if (!isset($this->vars["Vote"][$sect[1]])) {
 			$msg = "There is no such topic available.";
 		} else {
-			$db->query("SELECT * FROM $table WHERE `question` == '$sect[1]' AND `author` = '$sender' AND `duration` IS NULL");
+			$db->query("SELECT * FROM $table WHERE `question` == '".str_replace("'", "''", $sect[1])."' AND `author` = '$sender' AND `duration` IS NULL");
 			if ($db->numrows() > 0) {
-				$db->query("DELETE FROM $table WHERE `question` == '$sect[1]' AND `author` = '$sender' AND `duration` IS NULL");
+				$db->query("DELETE FROM $table WHERE `question` == '".str_replace("'", "''", $sect[1])."' AND `author` = '$sender' AND `duration` IS NULL");
 				$msg = "Your vote has been removed.";
 			} else {
 				$msg = "I don't see your vote to delete.";
@@ -173,16 +171,15 @@ if (preg_match("/^vote$/i", $message)) {
 		}
 	//////////////////////////////////////////////////////////////////////////////////
 	} elseif (count($sect) == 2 && strtolower($sect[0]) == "kill") {     // Kill vote
-		// !vote kill|Does this module work?
 		
 		if ($this->admins[$sender]["level"] >= 4) {
-			$db->query("SELECT * FROM $table WHERE `question` == '$sect[1]'");
+			$db->query("SELECT * FROM $table WHERE `question` == '".str_replace("'", "''", $sect[1])."'");
 		} else {
-			$db->query("SELECT * FROM $table WHERE `question` == '$sect[1]' AND `author` = '$sender' AND `duration` IS NOT NULL");
+			$db->query("SELECT * FROM $table WHERE `question` == '".str_replace("'", "''", $sect[1])."' AND `author` = '$sender' AND `duration` IS NOT NULL");
 		}
 		
 		if ($db->numrows() > 0) {
-			$db->query("DELETE FROM $table WHERE `question` == '$sect[1]'");
+			$db->query("DELETE FROM $table WHERE `question` == '".str_replace("'", "''", $sect[1])."'");
 			unset($this->vars["Vote"][$sect[1]]);
 			$msg = "'$sect[1]' has been removed.";
 		} else {
@@ -191,9 +188,8 @@ if (preg_match("/^vote$/i", $message)) {
 		
 	/////////////////////////////////////////////////////////////////////////////////
 	} elseif (count($sect) == 2 && strtolower($sect[0]) == "end") {      // End vote
-		// !vote end|Does this module work?
 
-		$db->query("SELECT * FROM $table WHERE `question` == '$sect[1]' AND `author` = '$sender' AND `duration` IS NOT NULL");
+		$db->query("SELECT * FROM $table WHERE `question` == '".str_replace("'", "''", $sect[1])."' AND `author` = '$sender' AND `duration` IS NOT NULL");
 		
 		if ($db->numrows() == 0) {$msg = "Either this vote doesn't exist, or you didn't create it.";}
 		else {
@@ -204,7 +200,7 @@ if (preg_match("/^vote$/i", $message)) {
 		
 			if ($timeleft > 60) {
 				$duration = (time()-$started)+61;
-				$db->query("UPDATE $table SET `duration` = '$duration' WHERE `author` = '$sender' AND `duration` IS NOT NULL AND `question` == '$sect[1]'");
+				$db->query("UPDATE $table SET `duration` = '$duration' WHERE `author` = '$sender' AND `duration` IS NOT NULL AND `question` == '".str_replace("'", "''", $sect[1])."'");
 				$this->vars["Vote"][$sect[1]]["duration"] = $duration;
 			} else {
 				$msg = "There is only $timeleft seconds left.";
@@ -212,7 +208,6 @@ if (preg_match("/^vote$/i", $message)) {
 		}
 	////////////////////////////////////////////////////////////////////////////////////
 	} elseif (count($sect) == 2) {		  			     // Adding vote
-		// !vote Does this module work?|yes
 
 		$requirement = $this->settings["vote_use_min"];
 		if ($requirement >= 0) {
@@ -227,7 +222,7 @@ if (preg_match("/^vote$/i", $message)) {
 		}
 
 		
-		$db->query("SELECT * FROM $table WHERE `question` == '$sect[0]' AND `duration` IS NOT NULL");
+		$db->query("SELECT * FROM $table WHERE `question` == '".str_replace("'", "''", $sect[1])."' AND `duration` IS NOT NULL");
 		$row = $db->fObject();
 		$question = $row->question; $author = $row->author; $started = $row->started;
 		$duration = $row->duration; $status = $row->status; $answer = $row->answer;
@@ -237,12 +232,12 @@ if (preg_match("/^vote$/i", $message)) {
 		elseif ($timeleft <= 0) {$msg = "No longer accepting votes for this topic.";} 
 		elseif (($this->settings["vote_add_new_choices"] == 0 || ($this->settings["vote_add_new_choices"] == 1 && $status == 1)) && strpos($delimiter.$answer.$delimiter, $delimiter.$sect[1].$delimiter) === false){$msg = "Cannot accept this choice.  Please choose one from the menu.";}
 		else {
-			$db->query("SELECT * FROM $table WHERE `question` = \"$sect[0]\" AND `duration` IS NULL AND `author` = '$sender'");
+			$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[0])."' AND `duration` IS NULL AND `author` = '$sender'");
 			if ($db->numrows() > 0) {
-				$db->query("UPDATE $table SET `answer` = '$sect[1]' WHERE `author` = '$sender' AND `duration` IS NULL AND `question` = '$sect[0]'");
+				$db->query("UPDATE $table SET `answer` = '".str_replace("'", "''", $sect[1])."' WHERE `author` = '$sender' AND `duration` IS NULL AND `question` = '".str_replace("'", "''", $sect[0])."'");
 				$msg = "You have altered your choice to <highlight>$sect[1]<end> for: <highlight>$sect[0]<end>.";
 			} else {
-				$db->query("INSERT INTO $table (`author`, `answer`, `question`) VALUES ('$sender', \"$sect[1]\", \"$sect[0]\")");
+				$db->query("INSERT INTO $table (`author`, `answer`, `question`) VALUES ('$sender', '".str_replace("'", "''", $sect[1])."', '".str_replace("'", "''", $sect[0])."')");
 				$msg = "You have selected choice <highlight>$sect[1]<end> for: <highlight>$sect[0]<end>.";
 			}
 			
@@ -296,10 +291,10 @@ if (preg_match("/^vote$/i", $message)) {
 				} else {
 					$status = 0;
 				}
-				$db->query("SELECT * FROM $table WHERE `question` = '$question'");
+				$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $question)."'");
 				if ($db->numrows() == 0) {
 
-					$db->query("INSERT INTO $table (`question`, `author`, `started`, `duration`, `answer`, `status`) VALUES ( '$question', '$sender', '".time()."', '$newtime', '$answers', '$status')");
+					$db->query("INSERT INTO $table (`question`, `author`, `started`, `duration`, `answer`, `status`) VALUES ( '".str_replace("'", "''", $question)."', '$sender', '".time()."', '$newtime', '".str_replace("'", "''", $answers)."', '$status')");
 					$this->vars["Vote"][$question] = array("author" => $sender,  "started" => time(), "duration" => $newtime, "answer" => $answers, "status" => "0", "lockout" => $status);
 
 				} else {

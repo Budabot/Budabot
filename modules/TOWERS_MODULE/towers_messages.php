@@ -233,8 +233,8 @@ if ($def_guild) {
 	}
 
 	$sql = "INSERT INTO tower_attack_<myname> (`time`, `att_guild`, `att_side`, `att_player`, `att_level`, `att_profession`,
-				`def_guild`, `def_side`, `zone`, `x`, `y`) VALUES ('".time()."', '".$att_guild."', '".$att_side."',
-				'".$att_player."', '".$whois->level."', '".$whois->prof."', '".$def_guild."', '".$def_side."',
+				`def_guild`, `def_side`, `zone`, `x`, `y`) VALUES ('".time()."', '".str_replace("'", "''", $att_guild)."', '".$att_side."',
+				'".$att_player."', '".$whois->level."', '".$whois->prof."', '".str_replace("'", "''", $def_guild)."', '".$def_side."',
 				'".$zone."', '".$coordx."', '".$coordy."')";
 
 	$db -> query($sql);

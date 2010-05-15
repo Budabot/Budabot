@@ -93,7 +93,7 @@ if(eregi("^(loot clear|clear)$", $message)) {
 	}
 
 	//Check if there is a icon available
-	$db->query("SELECT * FROM aodb WHERE `name` LIKE '$item_name'");
+	$db->query("SELECT * FROM aodb WHERE `name` LIKE '".str_replace("'", "''", $item_name)."'");
 	if($db->numrows() != 0) {
 		//Create an Object of the data
 	  	$row = $db->fObject();
@@ -149,6 +149,7 @@ if(eregi("^(loot clear|clear)$", $message)) {
 			$residual = "";
 			}
 		}
-} else
+} else {
 	$syntax_error = true;
+}
 ?>

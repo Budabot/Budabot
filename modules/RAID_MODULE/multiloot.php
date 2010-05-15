@@ -37,28 +37,26 @@ if(eregi("^multiloot (.+)$", $message, $arr)) {
 	//Check if it is a valid multiloot
 	if(eregi("^([0-9]+)x (.+)$", $arr[1], $lewt) || eregi("^([0-9]+) (.+)$", $arr[1], $lewt)){
 		$multiloot = $lewt[1];
-		}
-	else{
+	} else {
 		bot::send("The data you entered is not a multiloot. Please check <highlight>/tell <myname> <symbol>help multiloot<end> for the correct syntax.");
 		return;
 	}
 
- 
 	//Check if the item is a link
   	if(eregi("^<a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">(.+)<\/a>(.*)$", $lewt[2], $item)) {
 	    $item_ql = $item[3];
 	    $item_highid = $item[1];
 	    $item_lowid = $item[2];
 	    $item_name = $item[4];
-		}
-	elseif(eregi("^(.+)<a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">(.+)<\/a>(.*)$", $lewt[2], $item)){
+	} elseif(eregi("^(.+)<a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">(.+)<\/a>(.*)$", $lewt[2], $item)){
 	    $item_ql = $item[4];
 	    $item_highid = $item[2];
 	    $item_lowid = $item[3];
 	    $item_name = $item[5];
 		
-	} else
+	} else {
 		$item_name = $lewt[2];
+	}
 		
 	//Check if the item is already on the list (i.e. SMART LOOT)
 	foreach($loot as $key => $item) {
@@ -66,30 +64,28 @@ if(eregi("^multiloot (.+)$", $message, $arr)) {
 			if($item["multiloot"]){
 				if($multiloot){
 					$loot[$key]["multiloot"] = $item["multiloot"]+$multiloot;
-					}
-				else{
+				} else{
 					$loot[$key]["multiloot"] = $item["multiloot"]+1;
-					}
 				}
-			else{
+			} else{
 				if($multiloot){
 					$loot[$key]["multiloot"] = 1+$multiloot;
-					}
-				else{
+				} else{
 					$loot[$key]["multiloot"] = 2;
-					}
 				}
+			}
 			$dontadd = 1;
 			$itmref = $key;
-			}
+		}
 	}
 
 	//get a slot for the item
   	if(is_array($loot)) {
 	  	$num_loot = count($loot);
 	  	$num_loot++;
-	} else
+	} else {
 		$num_loot = 1;
+	}
 	
 	//Check if max slots is reached
   	if($num_loot >= 30) {
@@ -99,7 +95,7 @@ if(eregi("^multiloot (.+)$", $message, $arr)) {
 	}
 
 	//Check if there is a icon available
-	$db->query("SELECT * FROM aodb WHERE `name` LIKE '$item_name'");
+	$db->query("SELECT * FROM aodb WHERE `name` LIKE '".str_replace("'", "''", $item_name)."'");
 	if($db->numrows() != 0) {
 		//Create an Object of the data
 	  	$row = $db->fObject();
@@ -120,7 +116,7 @@ if(eregi("^multiloot (.+)$", $message, $arr)) {
 	if(!$dontadd){
 		if(isset($item_highid)) {
 			$loot[$num_loot]["linky"] = "<a href='itemref://$item_lowid/$item_highid/$item_ql'>$item_name</a>";	
-			}
+		}
 			
 		$loot[$num_loot]["name"] = $item_name;
 		$loot[$num_loot]["icon"] = $looticon;
@@ -134,22 +130,22 @@ if(eregi("^multiloot (.+)$", $message, $arr)) {
 		//Send info
 		if($multiloot){
 			bot::send($multiloot."x <highlight>{$loot[$num_loot]["name"]}<end> will be rolled in Slot <highlight>#$num_loot<end>");
-			}
-		bot::send("To add use <symbol>add $num_loot, or <symbol>add 0 to remove yourself");
 		}
-	else{
+		bot::send("To add use <symbol>add $num_loot, or <symbol>add 0 to remove yourself");
+	} else {
 		//Send info in case of SMART
 		if($multiloot){
 			bot::send($multiloot."x <highlight>{$loot[$itmref]["name"]}<end> added to Slot <highlight>#$itmref<end> as multiloot. Total: <yellow>{$loot[$itmref]["multiloot"]}<end>");
-			}
+		}
 
 		bot::send("To add use <symbol>add $itmref, or <symbol>add 0 to remove yourself");
 		$dontadd = 0;
 		$itmref = 0;
 		if(is_array($residual)){
 			$residual = "";
-			}
 		}
-} else
+	}
+} else {
 	$syntax_error = true;
+}
 ?>

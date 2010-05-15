@@ -132,6 +132,7 @@ if(eregi("^bio <a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">Solid Clump 
 
     // Send info back
     bot::send($msg, $sendto);
-} else
+} else {
 	$syntax_error = true;
+}
 ?>

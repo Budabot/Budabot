@@ -14,7 +14,7 @@
    **
    */
 
-if(eregi("^inspect (.+)$", $message, $arr)) {
+if (preg_match("/^inspect (.+)$/i", $message, $arr)) {
 	$realword = $arr[1]; 
 	if (
 		ereg("<a href=\"itemref://[0-9]{6}/[0-9]{6}/[0-9]{1,3}\">Christmas Gift</a>",$realword) || 

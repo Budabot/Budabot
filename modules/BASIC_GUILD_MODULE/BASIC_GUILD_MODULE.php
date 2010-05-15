@@ -18,17 +18,14 @@
 	//Verifies the Onlinelist every 1hour
 	bot::event("1hour", "$MODULE_NAME/online_check.php", "online");
 
-	//Verifies the Guestchannellist every 1hour
-	bot::event("1hour", "$MODULE_NAME/guest_channel_check.php", "guest");
-
     // Alternative Characters
 	bot::command("", "$MODULE_NAME/alts.php", "alts", "all", "Alt Char handling");
 	bot::command("", "$MODULE_NAME/alts.php", "altsadmin", "mod", "Alt Char handling (admin)");
 
     // Checks if a player is online
 	bot::command("", "$MODULE_NAME/is_online.php", "is", "all", "Checks if a player is online");
-	bot::event("logOn", "$MODULE_NAME/is_online.php", "is");
-	bot::event("logOff", "$MODULE_NAME/is_online.php", "is");
+	bot::event("logOn", "$MODULE_NAME/is_online.php", "");
+	bot::event("logOff", "$MODULE_NAME/is_online.php", "");
 
     // Show orgmembers
 	bot::command("", "$MODULE_NAME/orgmembers.php", "orgmembers", "all", "Show the Members(sorted by name) of the org");

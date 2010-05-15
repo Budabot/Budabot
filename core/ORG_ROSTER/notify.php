@@ -29,22 +29,24 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^notify (on|add) (.+)$", $message, $arr)){
+if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
     // Get User id
     $uid = AoChat::get_uid($arr[2]);
 	$name = ucfirst(strtolower($arr[2]));
     $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$name'");
 	$numrows = $db->numrows();
-	if($numrows != 0)
+	if($numrows != 0) {
 	    $row = $db->fObject();
+	}
     // Is the player already a member?
-    if($numrows != 0 && $row->mode != "del")
+    if($numrows != 0 && $row->mode != "del") {
         $msg = "<highlight>$name<end> is already on the Notify list.";
     // If the member was deleted set him as manual added again
-    elseif($numrows != 0 && $row->mode == "del") {
+    } elseif ($numrows != 0 && $row->mode == "del") {
         $db->query("UPDATE org_members_<myname> SET `mode` = 'man' WHERE `name` = '$name'");
-	    if(!isset($this->buddyList[$name]))
+	    if (!isset($this->buddyList[$name])) {
 	        bot::send("addbuddy", $name);
+		}
 	    
 	    $this->vars["IgnoreLog"][$name] = 2;
     	$msg = "<highlight>$name<end> has been added to the Notify list.";
@@ -77,17 +79,13 @@ if(eregi("^notify (on|add) (.+)$", $message, $arr)){
                     '".$whois -> ai_rank."')");
     	$msg = "<highlight>".$name."<end> has been added to the Notify list.";
     // Player name is not valid
-    } else
+    } else {
         $msg = "Player <highlight>".$name."<end> does not exist.";
+	}
 
     // Send info back
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-    	bot::send($msg);
-    elseif($type == "guild")
-    	bot::send($msg, "guild");
-} else if(eregi("^notify (off|rem) (.+)$", $message, $arr)){
+    bot::send($msg, $sendto);
+} else if (preg_match("/^notify (off|rem) (.+)$/i", $message, $arr)) {
     $name = ucfirst(strtolower($arr[2]));
     $query = $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$name'");
 	$numrows = $db->numrows();
@@ -100,16 +98,13 @@ if(eregi("^notify (on|add) (.+)$", $message, $arr)){
         $db->query("DELETE FROM guild_chatlist_<myname> WHERE `name` = '$name'");
         $msg = "Removed <highlight>$name<end> from the Notify list.";
     // Player is not a member of this bot
-    } else
+    } else {
         $msg = "<highlight>$name<end> is not a member of this bot.";
+	}
 
     // Send info back
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-    	bot::send($msg);
-    elseif($type == "guild")
-    	bot::send($msg, "guild");
-} else
+    bot::send($msg, $sendto);
+} else {
 	$syntax_error = true;
+}
 ?>

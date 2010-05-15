@@ -106,8 +106,9 @@ if($row->mode != "del" && $numrows == 1) {
 		}
 
 
-        if($row->logon_msg != '0')
+        if ($row->logon_msg != '0') {
             $msg .= " - " . $row->logon_msg;
+		}
 
        	bot::send($msg, "guild", true);
 

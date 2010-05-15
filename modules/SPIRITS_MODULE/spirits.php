@@ -15,7 +15,7 @@ if (preg_match("/^spirits ([^0-9,]+)$/i", $message, $arr)) {
 	$name = $arr[1];
 	$name = ucwords(strtolower($name));
 	$spirits = "<header>  :::::  Search Spirits Database for $name  :::::  <end>\n\n";
-	$db->query("SELECT * FROM spiritsdb WHERE name LIKE '%$name%' OR spot LIKE '%$name%' ORDER BY level");
+	$db->query("SELECT * FROM spiritsdb WHERE name LIKE '%".str_replace("'", "''", $name)."%' OR spot LIKE '%".str_replace("'", "''", $name)."%' ORDER BY level");
 	$matches= $db->numrows();
 	if ($matches == 0) {
 		$spirits .="<red>There were no matches found for $name.\nTry putting a comma between search values.\n\n";
@@ -88,7 +88,7 @@ else if (preg_match("/^spirits ([^0-9]+),([^0-9]+)$/i", $message, $arr)) {
 	$name = trim($name);
 	$slot = ucwords(strtolower($slot));
 	$slot = trim($slot);
-	$db->query("SELECT * FROM spiritsdb WHERE name LIKE '%$name%' AND spot = '$slot' ORDER BY level");
+	$db->query("SELECT * FROM spiritsdb WHERE name LIKE '%".str_replace("'", "''", $name)."%' AND spot = '$slot' ORDER BY level");
 	$matches= $db->numrows();
 	if ($matches == 0) {
 		$spirits .= "<red>No matches found for $name $slot";
@@ -205,7 +205,7 @@ else if (preg_match("/^spirits ([0-9]+) (.+)$/i", $message, $arr)) {
 		$spirits .="Feet\n";
 	} else  {
 		$spirits = "<header>  :::::  Search for $name Spirits QL $ql  :::::  <end>\n\n";
-		$db->query("SELECT * FROM spiritsdb where spot = '$name' AND ql = $ql ORDER BY ql");
+		$db->query("SELECT * FROM spiritsdb where spot = '".str_replace("'", "''", $name)."' AND ql = $ql ORDER BY ql");
 		$matches = $db->numrows();
 		if ($matches == 0) {
 			$spirits .="<red>There were no matches for Ql $ql $name";
@@ -268,7 +268,7 @@ elseif (ereg("^spirits ([0-9]+)-([0-9]+) (.+)$", $message, $arr)) {
 	}
 	else {
 	$spirits = "<header>  :::::  Search for $name Spirits QL $qllorange to $qlhirange  :::::  <end>\n\n";
-	$db->query("SELECT * FROM spiritsdb where spot= '$name' AND ql >= $qllorange AND ql <= $qlhirange ORDER BY ql");
+	$db->query("SELECT * FROM spiritsdb where spot = '".str_replace("'", "''", $name)."' AND ql >= $qllorange AND ql <= $qlhirange ORDER BY ql");
 		$matches = $db->numrows();
 	if ($matches == 0) {
 	$spirits .="<red>There were no matches for Ql $qllorange-$qlhirange $name";
@@ -405,7 +405,7 @@ elseif (ereg ("^spiritslvl ([0-9]+) (.+)$", $message, $arr)) {
 	else {
 	$spirits = "<header>  :::::  Search for $name Spirits Level $lvl  :::::  <end>\n\n";
 	$lolvl = $lvl-10;
-	$db->query("SELECT * FROM spiritsdb where spot= '$name' AND level < $lvl AND level > $lolvl ORDER BY level");
+	$db->query("SELECT * FROM spiritsdb where spot = '".str_replace("'", "''", $name)."' AND level < $lvl AND level > $lolvl ORDER BY level");
 	$matches = $db->numrows();
 	if ($matches == 0) {
 	$spirits .="<red>There were no matches for Minimum Level $lvl $name";
@@ -468,7 +468,7 @@ elseif (ereg("^spiritslvl ([0-9]+)-([0-9]+) (.+)$", $message, $arr)) {
 	}	
 	else {
 	$spirits = "<header>  :::::  Search for $name Spirits Level $lvllorange to $lvlhirange  :::::  <end>\n\n";
-	$db->query("SELECT * FROM spiritsdb where spot = '$name' AND level >= $lvllorange AND level <= $lvlhirange ORDER BY level");
+	$db->query("SELECT * FROM spiritsdb where spot = '".str_replace("'", "''", $name)."' AND level >= $lvllorange AND level <= $lvlhirange ORDER BY level");
 		$matches = $db->numrows();
 	if ($matches == 0) {
 	$spirits .="<red>There were no matches for Minimum Level $lvllorange-$lvlhirange $name";
@@ -563,7 +563,7 @@ elseif (ereg ("^spiritsagi ([0-9]+) (.+)$", $message, $arr)) {
 	}
 	else  {
 	$spirits = "<header>  :::::  Search for $name Spirits With Agility Req of $agility  :::::  <end>\n\n";
-	$db->query("SELECT * FROM spiritsdb where spot = '$name' AND agility < $agility AND agility > $loagility ORDER BY ql");
+	$db->query("SELECT * FROM spiritsdb where spot = '".str_replace("'", "''", $name)."' AND agility < $agility AND agility > $loagility ORDER BY ql");
 	$matches = $db->numrows();
 	if ($matches == 0) {
 	$spirits .="<red>There were no matches for $name with an Agility Requirement of $agility";
@@ -657,7 +657,7 @@ elseif (ereg ("^spiritssen ([0-9]+) (.+)$", $message, $arr)) {
 	}
 	else  {
 	$spirits = "<header>  :::::  Search for $name Spirits With Sense Req of $sense  :::::  <end>\n\n";
-	$db->query("SELECT * FROM spiritsdb where spot = '$name' AND sense < $sense AND sense > $losense ORDER BY ql");
+	$db->query("SELECT * FROM spiritsdb where spot = '".str_replace("'", "''", $name)."' AND sense < $sense AND sense > $losense ORDER BY ql");
 	$matches = $db->numrows();
 	if ($matches == 0) {
 	$spirits .="<red>There were no matches for $name with a Sense Requirement of $sense";

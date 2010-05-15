@@ -13,7 +13,7 @@ bot::command("", "$MODULE_NAME/count.php", "doc", "all", "Shows Doctors in PrivC
 bot::command("", "$MODULE_NAME/count.php", "enf", "all", "Shows Enforcers in PrivChan");
 bot::command("", "$MODULE_NAME/count.php", "eng", "all", "Shows Engineers in PrivChan");
 bot::command("", "$MODULE_NAME/count.php", "fix", "all", "Shows Fixers in PrivChan");
-bot::command("", "$MODULE_NAME/count.php", "keep", "all", "Shows Keeper�s in PrivChan");
+bot::command("", "$MODULE_NAME/count.php", "keep", "all", "Shows Keepers in PrivChan");
 bot::command("", "$MODULE_NAME/count.php", "ma", "all", "Shows Martial-Artists in PrivChan");
 bot::command("", "$MODULE_NAME/count.php", "mp", "all", "Shows Meta-Physicists in PrivChan");
 bot::command("", "$MODULE_NAME/count.php", "nt", "all", "Shows Nano-Technicians in PrivChan");
