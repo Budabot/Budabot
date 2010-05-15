@@ -351,7 +351,7 @@ class bot extends AOChat{
 		  			AOChat::send_group($group, "</font>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}{$this->vars["name"]}</font>: {$this->settings["default priv color"]}$value</font>");
 		} else {
 			AOChat::send_privgroup($group,$this->settings["default priv color"].$message);
-			if(($this->settings["guest_relay"] == 1 $this->settings["guest_relay_commands"] == 1 && !$disable_relay))
+			if(($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1 && !$disable_relay))
 	  			AOChat::send_group($group, "</font>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}{$this->vars["name"]}</font>: {$this->settings["default priv color"]}$message</font>");
 		}
 	}
