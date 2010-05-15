@@ -8,10 +8,10 @@
    **
    ** Date(created): 23.11.2005
    ** Date(last modified): 26.11.2006
-   ** 
+   **
    ** Copyright (C) 2005, 2006 Carsten Lohmann
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -37,9 +37,9 @@ if(isset($this->guildmembers[$sender])) {
 		if($this->settings["bot_notify"] != 0) {
 			bot::send("<highlight>$sender<end> logged off", "guild", true);
 			
-			//Guestchannel part       	
-			if($this->settings["guest_relay"] == 1 || (isset($this->vars["guestchannel_enabled"]) && $this->vars["guestchannel_enabled"] && $this->settings["guest_relay"] == 2))
-				bot::send("<highlight>$sender<end> logged off", NULL, true);
+			//Guestchannel part
+			if($this->settings["guest_relay"] == 1)
+				bot::send("<highlight>$sender<end> logged off", "priv", true);
 		}
     }
     //$this->vars["IgnoreLog"][$sender] if it is 2 then log modules didn't executed yet

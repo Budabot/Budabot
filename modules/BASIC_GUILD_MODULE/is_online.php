@@ -8,10 +8,10 @@
    **
    ** Date(created): 23.11.2005
    ** Date(last modified): 21.11.2006
-   ** 
+   **
    ** Copyright (C) 2005, 2006 Carsten Lohmann
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -30,7 +30,7 @@
    */
 
 $msg = "";
-if(eregi("^is (.+)$", $message, $arr)) {
+if(preg_match("/^is (.+)$/i", $message, $arr)) {
     // Get User id
     $uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
@@ -53,8 +53,8 @@ if(eregi("^is (.+)$", $message, $arr)) {
         // else add him
         } else {
             $this->vars["IgnoreLog"][$name] = $type;
-			if($type == "msg")
-	            $this->vars["IgnoreLogSender"][$name] = $sender;
+						if($type == "msg")
+	            	$this->vars["IgnoreLogSender"][$name] = $sender;
             bot::send("addbuddy", $uid);
             bot::send("rembuddy", $uid);
         }
@@ -70,7 +70,7 @@ if(eregi("^is (.+)$", $message, $arr)) {
     }
 } elseif (($type == "logOn") || ($type == "logOff")) {
     //If $sender is marked as player to check online status
-    if($this->vars["IgnoreLog"][$sender] == "priv" || $this->vars["IgnoreLog"][$sender] == "guild") {
+    if($this->vars["IgnoreLog"][$sender]) {
         if($this->buddyList[$sender] == "0")
             $status = "<red>offline<end>";
         else
@@ -82,8 +82,8 @@ if(eregi("^is (.+)$", $message, $arr)) {
         elseif($this->vars["IgnoreLog"][$sender] == "guild")
         	bot::send($msg, "guild");
         elseif($this->vars["IgnoreLog"][$sender] == "msg") {
-        	bot::send($msg, $this->vars["IgnoreLogSender"][$name]);
-            unset($this->vars["IgnoreLogSender"][$name]);        	
+        	bot::send($msg, $this->vars["IgnoreLogSender"][$sender]);
+            unset($this->vars["IgnoreLogSender"][$sender]);
         }
         	
         unset($this->vars["IgnoreLog"][$sender]);

@@ -55,7 +55,7 @@ class bot extends AOChat{
 		$db->query("UPDATE cmdcfg_<myname> SET `verify` = 0");
 		$db->query("UPDATE hlpcfg_<myname> SET `verify` = 0");
 		$db->query("UPDATE cmdcfg_<myname> SET `status` = 0 WHERE `cmdevent` = 'event' AND `type` = 'setup'");
-		$db->query("UPDATE cmdcfg_<myname> SET `grp` = 'none'");		
+		$db->query("UPDATE cmdcfg_<myname> SET `grp` = 'none'");
 		$db->query("DELETE FROM cmdcfg_<myname> WHERE `module` = 'none'");
 
 		//To reduce Query's save the current commands/events in an array
@@ -106,7 +106,7 @@ class bot extends AOChat{
 		$curMod = "";
 
 		// Load Plugin Modules
-		if($this->settings['debug'] > 0) print("\n:::::::PLUGIN MODULES::::::::\n");	
+		if($this->settings['debug'] > 0) print("\n:::::::PLUGIN MODULES::::::::\n");
 		//Start Transaction
 		$db->beginTransaction();
 		//Load modules
@@ -346,12 +346,12 @@ class bot extends AOChat{
 		  	foreach($message as $key => $value)
 		  		AOChat::send_privgroup($group, $this->settings["default priv color"].$value);
 
-		  	if(($this->settings["guest_relay"] == 1 || (isset($this->vars[guestchannel_enabled]) && $this->vars["guestchannel_enabled"] && $this->settings["guest_relay"] == 2)) && $this->settings["guest_relay_commands"] == 1)
+		  	if(($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1 && !$disable_relay))
 				foreach($message as $key => $value)
 		  			AOChat::send_group($group, "</font>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}{$this->vars["name"]}</font>: {$this->settings["default priv color"]}$value</font>");
 		} else {
 			AOChat::send_privgroup($group,$this->settings["default priv color"].$message);
-			if(($this->settings["guest_relay"] == 1 || (isset($this->vars["guestchannel_enabled"]) && $this->vars["guestchannel_enabled"] && $this->settings["guest_relay"] == 2)) && $this->settings["guest_relay_commands"] == 1 && $disable_relay === false)
+			if(($this->settings["guest_relay"] == 1 && $disable_relay === false))
 	  			AOChat::send_group($group, "</font>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}{$this->vars["name"]}</font>: {$this->settings["default priv color"]}$message</font>");
 		}
 	}
@@ -386,14 +386,14 @@ class bot extends AOChat{
 			  		AOChat::send_privgroup($this->vars["name"],$this->settings["default priv color"].$value);
 				}
 			  	
-			  	if ($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1) {
+			  	if ($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1 && !$disable_relay) {
 					forEach ($message as $key => $value) {
 			  			AOChat::send_group($this->vars["my guild"], "</font>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}".bot::makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default priv color"]}$value</font>");
 					}
 				}
 			} else {
 				AOChat::send_privgroup($this->vars["name"],$this->settings["default priv color"].$message);
-				if ($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1) {
+				if ($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1 && !$disable_relay) {
 		  			AOChat::send_group($this->vars["my guild"], "</font>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}".bot::makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default priv color"]}$message</font>");
 				}
 			}
@@ -403,15 +403,15 @@ class bot extends AOChat{
 			  		AOChat::send_group($this->vars["my guild"],$this->settings["default guild color"].$value);
 				}
 
-  			  	if ($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1) {
+  			  	if ($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1 && !$disable_relay) {
 					forEach ($message as $key => $value) {
-			  			AOChat::send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my guild"]}]<end> {$this->settings["guest_color_username"]}".bot::makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default guild color"]}$value</font>");		  
+			  			AOChat::send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my guild"]}]<end> {$this->settings["guest_color_username"]}".bot::makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default guild color"]}$value</font>");
 					}
 				}
 			} else {
 				AOChat::send_group($this->vars["my guild"],$this->settings["default guild color"].$message);
-				if ($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1) {
-		  			AOChat::send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my guild"]}]<end> {$this->settings["guest_color_username"]}".bot::makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default guild color"]}$message</font>");		  
+				if ($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1 && !$disable_relay) {
+		  			AOChat::send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my guild"]}]<end> {$this->settings["guest_color_username"]}".bot::makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default guild color"]}$message</font>");
 				}
 			}
 		} elseif(AOChat::get_uid($who) != NULL) {// Target is a player.
@@ -419,20 +419,20 @@ class bot extends AOChat{
 			  	forEach ($message as $key => $value) {
 			  		AOChat::send_tell($who,$this->settings["default tell color"].$value);
 
-					// Echo	
+					// Echo
 					if ($this->settings['echo'] >= 1) newLine("Out. Msg.", $who, $value, $this->settings['echo']);
 			  	}
 			} else {
 				AOChat::send_tell($who,$this->settings["default tell color"].$message);
 
-				// Echo	
+				// Echo
 				if ($this->settings['echo'] >= 1) newLine("Out. Msg.", $who, $message, $this->settings['echo']);
 
 			}
 		} else { // Public channels that are not myguild.
 	    	if (is_array($message)) {
 			  	forEach ($message as $key => $value) {
-			  		AOChat::send_group($who,$this->settings["default guild color"].$value);			  
+			  		AOChat::send_group($who,$this->settings["default guild color"].$value);
 				}
 			} else {
 				AOChat::send_group($who,$this->settings["default guild color"].$message);
@@ -547,7 +547,7 @@ class bot extends AOChat{
 		$module = strtoupper($module[0]);
 
 		//Check if the file exists
-		if(($actual_filename = bot::verifyFilename($filename)) != '') { 
+		if(($actual_filename = bot::verifyFilename($filename)) != '') {
     		$filename = $actual_filename;
 		} else {
 			echo "Error in registering the File $filename for command $command. The file doesn't exists!\n";
@@ -756,7 +756,7 @@ class bot extends AOChat{
 		if($this->settings['debug'] > 2) sleep(1);
 
 		//Check if the file exists
-		if(($actual_filename = bot::verifyFilename($filename)) != '') { 
+		if(($actual_filename = bot::verifyFilename($filename)) != '') {
     		$filename = $actual_filename;
 		} else {
 			echo "Error in registering the File $filename for Eventtype $type. The file doesn't exists!\n";
@@ -816,7 +816,7 @@ class bot extends AOChat{
 					$this->extJoinPriv[] = $filename;
 			break;
 			case "leavePriv":
-				if(!in_array($filename, leavePriv))	
+				if(!in_array($filename, leavePriv))
 					$this->leavePriv[] = $filename;
 			break;
 			case "extLeavePriv":
@@ -877,7 +877,7 @@ class bot extends AOChat{
 		if($this->settings['debug'] > 2) sleep(1);
 
 		//Check if the file exists
-		if(($actual_filename = bot::verifyFilename($filename)) != '') { 
+		if(($actual_filename = bot::verifyFilename($filename)) != '') {
     		$filename = $actual_filename;
 		} else {
 			echo "Error in unregistering the File $filename for Event $type. The file doesn't exists!\n";
@@ -1056,7 +1056,7 @@ class bot extends AOChat{
 		$name = strtolower($name);
 
 		//Check if the file exists
-		if(($actual_filename = bot::verifyFilename($help)) != '' && $help != "") { 
+		if(($actual_filename = bot::verifyFilename($help)) != '' && $help != "") {
     		$filename = $actual_filename;
 		} elseif($help != "") {
 			echo "Error in registering the File $filename for Setting $name. The file doesn't exists!\n";
@@ -1141,7 +1141,7 @@ class bot extends AOChat{
 		}
 
 		if(isset($this->existing_helps[$command]))
-			$db->query("UPDATE hlpcfg_<myname> SET `verify` = 1, `description` = '$info', `cat` = '$cat' WHERE `name` = '$command'");		
+			$db->query("UPDATE hlpcfg_<myname> SET `verify` = 1, `description` = '$info', `cat` = '$cat' WHERE `name` = '$command'");
 		else
 			$db->query("INSERT INTO hlpcfg_<myname> VALUES ('$command', '$module[0]', '$cat', '$info', '$admin', 1)");
 
@@ -1195,7 +1195,7 @@ class bot extends AOChat{
 
 				// Remove from Chatlist array.
 				unset($this->chatlist[$sender]);
-				// Remove sender if they are /ignored or /banned or They gone above spam filter				
+				// Remove sender if they are /ignored or /banned or They gone above spam filter
 				if($this->settings["Ignore"][$sender] == true || $this->banlist["$sender"]["name"] == "$sender" || $this->spam[$sender] > 100)
 					return;
 				// Check files, for all 'player left channel events'.
@@ -1218,7 +1218,7 @@ class bot extends AOChat{
 				if ($status == 0) {
 					$type = "logOff"; // Set message type
 					
-					// Echo 
+					// Echo
 					//if ($this->settings['echo'] >= 1) newLine("Buddy", $sender, "logged off", $this->settings['echo']);
 
 					// Check files, for all 'player logged off events'
@@ -1231,10 +1231,10 @@ class bot extends AOChat{
 				} else if ($status == 1) {
 					$type = "logOn"; // Set Message Type
 					
-					// Echo 
+					// Echo
 					if ($this->settings['echo'] >= 1) newLine("Buddy", $sender, "logged on", $this->settings['echo']);
 
-					// Check files, for all 'player logged on events'.					
+					// Check files, for all 'player logged on events'.
 					if ($this->logOn != NULL) {
 						forEach ($this->logOn as $filename) {
 						  	$msg = "";
@@ -1248,7 +1248,7 @@ class bot extends AOChat{
 				$sender	= AOChat::get_uname($args[0]);
 				$sendto = $sender;
 				
-				// Removing tell color 
+				// Removing tell color
 				if(eregi("^<font color='#([0-9a-f]+)'>(.+)$", $args[1], $arr))
 					$message = $arr[2];
 				else
@@ -1256,7 +1256,7 @@ class bot extends AOChat{
 				
 				$message = html_entity_decode($message, ENT_QUOTES);
 
-				// Echo	
+				// Echo
 				if($this->settings['echo'] >= 1) newLine("Inc. Msg.", $sender, $message, $this->settings['echo']);
 
                 if($this->settings["Ignore"][$sender] == true || $this->banlist["$sender"]["name"] == "$sender" || ($this->spam[$sender] > 100 && $this->vars['spam protection'] == 1)){
@@ -1265,7 +1265,7 @@ class bot extends AOChat{
 				}
 
 				// AFk check
-				if(eregi("^$sender is afk (.+)$", $message, $arr))				
+				if(eregi("^$sender is afk (.+)$", $message, $arr))
 					return;
 				elseif(eregi("^I am away from my keyboard right now, (.*)your message has been logged.$", $message))
 					return;
@@ -1334,7 +1334,7 @@ class bot extends AOChat{
 					include $filename;
 					if($syntax_error == true)
 						bot::send("Syntax error! for more info try /tell <myname> help", $sender);
-					$this->spam[$sender] = $this->spam[$sender] + 10; 
+					$this->spam[$sender] = $this->spam[$sender] + 10;
 				}
 			break;
 			case AOCP_PRIVGRP_MESSAGE: // 57, Incoming priv message
@@ -1383,7 +1383,7 @@ class bot extends AOChat{
 						$admin 		= $this->privCmds[$words[0]]["admin level"];
 						$filename 	= $this->privCmds[$words[0]]["filename"];
 
-						//Check if a subcommands for this exists			
+						//Check if a subcommands for this exists
 						if($this->subcommands[$filename][$type])
 							if(eregi("^{$this->subcommands[$filename][$type]["cmd"]}$", $message))
 								$admin = $this->subcommands[$filename][$type]["admin"];
@@ -1424,7 +1424,7 @@ class bot extends AOChat{
 					if($this->extPrivChat != NULL) {
 						foreach($this->extPrivChat as $file) {
 						  	$msg = "";
-							include $file; 	
+							include $file;
 						}
 					}
 				}
@@ -1435,7 +1435,7 @@ class bot extends AOChat{
 				$message = $args[2];
 				$channel = AOChat::get_gname($args[0]);
 			
-				//Ignore Messages from Vicinity/IRRK New Wire/OT OOC/OT Newbie OOC...	
+				//Ignore Messages from Vicinity/IRRK New Wire/OT OOC/OT Newbie OOC...
 				$channelsToIgnore = array("", 'IRRK News Wire', 'OT OOC', 'OT Newbie OOC', 'OT Jpn OOC', 'OT shopping 11-50',
 					'Tour Announcements', 'Neu. Newbie OOC', 'Neu. Jpn OOC', 'Neu. shopping 11-50', 'Neu. OOC', 'Clan OOC',
 					'Clan Newbie OOC', 'Clan Jpn OOC', 'Clan shopping 11-50', 'OT German OOC', 'Clan German OOC', 'Neu. German OOC');
@@ -1696,7 +1696,7 @@ class bot extends AOChat{
 		
 		if ($file === false) {
 			echo "No SQL file found with name '$name'!\n";
-		} else if ($forceUpdate || compareVersionNumbers($maxFileVersion, $currentVersion) > 0) {		
+		} else if ($forceUpdate || compareVersionNumbers($maxFileVersion, $currentVersion) > 0) {
 			$fileArray = file("$dir/$file", FILE_TEXT | FILE_SKIP_EMPTY_LINES | FILE_IGNORE_NEW_LINES);
 
 			// if the file had a version, tell them the start and end version

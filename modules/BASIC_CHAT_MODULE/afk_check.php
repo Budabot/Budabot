@@ -8,10 +8,10 @@
    **
    ** Date(created): 23.11.2005
    ** Date(last modified): 26.01.2007
-   ** 
+   **
    ** Copyright (C) 2005, 2006, 2007 Carsten Lohmann
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -38,14 +38,14 @@ if(!eregi("^afk(.*)$", $message, $arr)) {
 	        $msg = "<highlight>$sender<end> is back";
 	        bot::send($msg);
 	    }
-	} 
+	}
 	$name = split(" ", $message, 2);
 	$name = $name[0];
 	$name = ucfirst(strtolower($name));
     $uid = AoChat::get_uid($name);
    	if($uid) {
 		$db->query("SELECT afk FROM priv_chatlist_<myname> WHERE `name` = '$name'");
-		if($db->numrows() == 0 && $this->settings["guest_relay"] == 1 || (isset($this->vars["guestchannel_enabled"]) && $this->vars["guestchannel_enabled"] && $this->settings["guest_relay"] == 2))
+		if($db->numrows() == 0 && $this->settings["guest_relay"] == 1)
 			$db->query("SELECT afk FROM guild_chatlist_<myname> WHERE `name` = '$name'");
 
 		if($db->numrows() != 0) {

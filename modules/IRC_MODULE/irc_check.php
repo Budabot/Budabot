@@ -30,10 +30,10 @@ if(($data = fgets($socket)) && ($this->settings['irc_status'] = "1")) {
 	}
 	elseif($ex[1] == "QUIT") {
 		if($this->vars['my guild'] != "") {
-			bot::send("<yellow>[IRC]<end><green> $nick quit IRC.<end>","guild");
+			bot::send("<yellow>[IRC]<end><green> $nick quit IRC.<end>","guild",true);
 		}
-		if($this->vars['my guild'] == "" ||$this->settings["guest_relay"] == 1 || (isset($this->vars["guestchannel_enabled"]) && $this->vars["guestchannel_enabled"] && $this->settings["guest_relay"] == 2)) {
-			bot::send("<yellow>[IRC]<end><white> $nick quit IRC.<end>");
+		if($this->vars['my guild'] == "" ||$this->settings["guest_relay"] == 1) {
+			bot::send("<yellow>[IRC]<end><white> $nick quit IRC.<end>","priv",true);
 		}
 	}
 	elseif($channel == trim(strtolower($this->settings['irc_channel']))) {
@@ -105,18 +105,18 @@ if(($data = fgets($socket)) && ($this->settings['irc_status'] = "1")) {
 		}
 		elseif($ex[1] == "JOIN") {
 			if($this->vars['my guild'] != "") {
-				bot::send("<yellow>[IRC]<end><green> $nick joined the channel.<end>","guild");
+				bot::send("<yellow>[IRC]<end><green> $nick joined the channel.<end>","guild",true);
 			}
-			if($this->vars['my guild'] == "" ||$this->settings["guest_relay"] == 1 || (isset($this->vars["guestchannel_enabled"]) && $this->vars["guestchannel_enabled"] && $this->settings["guest_relay"] == 2)) {
-				bot::send("<yellow>[IRC]<end><white> $nick joined the channel.<end>");
+			if($this->vars['my guild'] == "" ||$this->settings["guest_relay"] == 1) {
+				bot::send("<yellow>[IRC]<end><white> $nick joined the channel.<end>","priv",true);
 			}
 		}
 		elseif($ex[1] == "PART") {
 			if($this->vars['my guild'] != "") {
-				bot::send("<yellow>[IRC]<end><green> $nick left the channel.<end>","guild");
+				bot::send("<yellow>[IRC]<end><green> $nick left the channel.<end>","guild",true);
 			}
-			if($this->vars['my guild'] == "" ||$this->settings["guest_relay"] == 1 || (isset($this->vars["guestchannel_enabled"]) && $this->vars["guestchannel_enabled"] && $this->settings["guest_relay"] == 2)) {
-				bot::send("<yellow>[IRC]<end><white> $nick left the channel.<end>");
+			if($this->vars['my guild'] == "" ||$this->settings["guest_relay"] == 1) {
+				bot::send("<yellow>[IRC]<end><white> $nick left the channel.<end>","priv",true);
 			}
 		}
 		else {
@@ -124,10 +124,10 @@ if(($data = fgets($socket)) && ($this->settings['irc_status'] = "1")) {
 				echo("[".date('H:i')."] [Inc. IRC Msg.] $nick: $ircmessage\n");
 			}
 			if($this->vars['my guild'] != "") {
-				bot::send("<yellow>[IRC]<end><green> $nick: $ircmessage<end>","guild");
+				bot::send("<yellow>[IRC]<end><green> $nick: $ircmessage<end>","guild",true);
 			}
-			if($this->vars['my guild'] == "" ||$this->settings["guest_relay"] == 1 || (isset($this->vars["guestchannel_enabled"]) && $this->vars["guestchannel_enabled"] && $this->settings["guest_relay"] == 2)) {
-				bot::send("<yellow>[IRC]<end><white> $nick: $ircmessage<end>");
+			if($this->vars['my guild'] == "" ||$this->settings["guest_relay"] == 1) {
+				bot::send("<yellow>[IRC]<end><white> $nick: $ircmessage<end>","priv",true);
 			}
 			flush();
 		}

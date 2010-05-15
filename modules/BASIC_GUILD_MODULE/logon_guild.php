@@ -8,10 +8,10 @@
    **
    ** Date(created): 23.11.2005
    ** Date(last modified): 26.11.2006
-   ** 
+   **
    ** Copyright (C) 2005, 2006 Carsten Lohmann
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -36,7 +36,7 @@ $row = $db->fObject();
 if($row->mode != "del" && $numrows == 1) {
   	$db->query("SELECT * FROM guild_chatlist_<myname> WHERE `name` = '$sender'");
 	if($db->numrows() != 0)
-	    $db->query("UPDATE guild_chatlist_<myname> SET `profession` = '".$row->profession."', `guild` = '".$row->guild."', `rank` = '".$row->rank."', `breed` = '".$row->breed."', `level` = '".$row->level."', `ai_level` = '".$row->ai_level."' WHERE `name` = '$sender'");  
+	    $db->query("UPDATE guild_chatlist_<myname> SET `profession` = '".$row->profession."', `guild` = '".$row->guild."', `rank` = '".$row->rank."', `breed` = '".$row->breed."', `level` = '".$row->level."', `ai_level` = '".$row->ai_level."' WHERE `name` = '$sender'");
 	else
 	    $db->query("INSERT INTO guild_chatlist_<myname> (`name`, `profession`, `guild`, `rank`, `breed`, `level`, `ai_level`) VALUES ('".$row->name."', '".$row->profession."', '".$row->guild."', '".$row->rank."', '".$row->breed."', '".$row->level."', '".$row->ai_level."')");
 
@@ -102,7 +102,7 @@ if($row->mode != "del" && $numrows == 1) {
 			$msg .= "Main: <highlight>$main<end> ($alts) ";
 		} elseif($main != false) {
   			$alts = bot::makeLink("Alts of $main", $list);
-			$msg .= "$alts ";  
+			$msg .= "$alts ";
 		}
 
 
@@ -111,11 +111,11 @@ if($row->mode != "del" && $numrows == 1) {
 
        	bot::send($msg, "guild", true);
 
-		//Guestchannel part       	
-		if($this->settings["guest_relay"] == 1 || (isset($this->vars["guestchannel_enabled"]) && $this->vars["guestchannel_enabled"] && $this->settings["guest_relay"] == 2))
-			bot::send($msg, NULL, true);
+		//Guestchannel part
+		if($this->settings["guest_relay"] == 1)
+			bot::send($msg, "priv", true);
     }
-    //$this->vars["IgnoreLog"][$sender] if it is 2 then other modules didn´t executed yet
+    //$this->vars["IgnoreLog"][$sender] if it is 2 then other modules didnï¿½t executed yet
     if($this->vars["IgnoreLog"][$sender] == 2)
         $this->vars["IgnoreLog"][$sender] = 1;
     //log module is executed

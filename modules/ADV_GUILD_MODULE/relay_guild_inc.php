@@ -8,10 +8,10 @@
    **
    ** Date(created): 23.11.2005
    ** Date(last modified): 27.11.2006
-   ** 
+   **
    ** Copyright (C) 2005, 2006 Carsten Lohmann
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -33,7 +33,7 @@ if($sender == $this->settings["relaybot"]) {
     $msg = substr($message, 4);
     bot::send($msg, "guild", true);
 
-	if($this->settings["guest_relay"] == 1 || (isset($this->vars["guestchannel_enabled"]) && $this->vars["guestchannel_enabled"] && $this->settings["guest_relay"] == 2))
-		bot::send($msg, NULL, true);
+	if($this->settings["guest_relay"] == 1)
+		bot::send($msg, "priv", true);
 }
 ?>
