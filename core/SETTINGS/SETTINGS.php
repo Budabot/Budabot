@@ -4,6 +4,8 @@ $PLUGIN_VERSION = 0.1;
 
 	//Commands
 	bot::regcommand("msg", "$MODULE_NAME/bot_settings.php", "settings", "mod");
+	bot::regcommand("priv", "$MODULE_NAME/bot_settings.php", "settings", "mod");
+	bot::regcommand("guild", "$MODULE_NAME/bot_settings.php", "settings", "mod");
 
 	//Setup
 	bot::regevent("setup", "$MODULE_NAME/setup.php");

@@ -66,7 +66,7 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 		}
 		
 		//Get Guestlistbuddys
-		$db->query("SELECT * FROM guests_<myname>");
+		$db->query("SELECT * FROM members_<myname>");
 		while($row = $db->fObject())
 			$guests[$row->name] = true;
 		
@@ -138,8 +138,8 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 		echo "Org Roster Update is done. \n";
 		
 		if($restart == true) {
-		  	echo "The bot needs to be restarted so be able to see who is online in your org.\n";
-		  	echo "Automatically restarting in 10seconds.\n";
+		  	bot::send("The bot needs to be restarted to be able to see who is online in your org. Automatically restarting in 10 seconds.", "org");
+			echo "The bot needs to be restarted to be able to see who is online in your org. Automatically restarting in 10 seconds.\n";
 		  	sleep(10);
 		  	die("The bot is restarting");
 		}

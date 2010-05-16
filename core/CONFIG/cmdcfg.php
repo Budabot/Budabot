@@ -80,7 +80,7 @@ if (preg_match("/^config$/i", $message)) {
 	}
 
 	$msg = bot::makeLink("Module Config", $list);
-	bot::send($msg, $sender);  
+	bot::send($msg, $sendto);  
 } else if (preg_match("/^config cmd (enable|disable) (all|guild|priv|msg)$/i", $message, $arr)) {
 	$status = ($arr[1] == "enable" ? 1 : 0);
 	$typeSql = ($arr[2] == "all" ? "`type` = 'guild' OR `type` = 'priv' OR `type` = 'msg'" : "`type` = '{$arr[2]}'");
@@ -147,7 +147,7 @@ if (preg_match("/^config$/i", $message)) {
 			$msg = "Could not find the Group <highlight>$cmdmod<end>";
 		elseif($arr[1] == "event" && $file != "")
 			$msg = "Could not find the Event <highlight>$cmdmod<end> for File <highlight>$file<end>";
-		bot::send($msg, $sender);
+		bot::send($msg, $sendto);
 		return;
 	}
 
@@ -167,7 +167,7 @@ if (preg_match("/^config$/i", $message)) {
 		$msg = "Updated status of event <highlight>$cmdmod<end> to <highlight>".$arr[3]."d<end>";
 	}
 
-	bot::send($msg, $sender);
+	bot::send($msg, $sendto);
 
 	$data = $db->fObject("all");
 	foreach($data as $row) {
@@ -230,7 +230,7 @@ if (preg_match("/^config$/i", $message)) {
 				$msg = "Could not find the command <highlight>$command<end>";
 			else
 				$msg = "Could not find the command <highlight>$command<end> for Channel <highlight>$type<end>";
-		  	bot::send($msg, $sender);
+		  	bot::send($msg, $sendto);
 		  	return;
 		}
 			
@@ -272,7 +272,7 @@ if (preg_match("/^config$/i", $message)) {
 				$msg = "Could not find the group <highlight>$command<end>";
 			else
 				$msg = "Could not find the group <highlight>$command<end> for Channel <highlight>$type<end>";
-		  	bot::send($msg, $sender);
+		  	bot::send($msg, $sendto);
 		  	return;
 		}
 		while($row = $db->fObject()) {
@@ -308,7 +308,7 @@ if (preg_match("/^config$/i", $message)) {
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `type` = '$type' AND `cmdevent` = 'subcmd' AND `cmd` = '$command'");
 		if($db->numrows() == 0) {
 			$msg = "Could not find the subcmd <highlight>$command<end> for Channel <highlight>$type<end>";
-		  	bot::send($msg, $sender);
+		  	bot::send($msg, $sendto);
 		  	return;
 		}
 		$row = $db->fObject();
@@ -316,7 +316,7 @@ if (preg_match("/^config$/i", $message)) {
 		$db->query("UPDATE cmdcfg_<myname> SET `admin` = '$admin' WHERE `type` = '$type' AND `cmdevent` = 'subcmd' AND `cmd` = '$command'");
 		$msg = "Updated access of sub command <highlight>$command<end> in Channel <highlight>$type<end> to <highlight>$arr[4]<end>";
 	}
-	bot::send($msg, $sender);
+	bot::send($msg, $sendto);
 } elseif(eregi("^config cmd ([a-z0-9_]+) (.+)$", $message, $arr)) {
 	$cmd = strtolower($arr[1]);
 	$module = strtoupper($arr[2]);
@@ -523,7 +523,7 @@ if (preg_match("/^config$/i", $message)) {
 		}		
 		$msg = bot::makeLink(ucfirst($cmd)." config", $list);
 	}
-	bot::send($msg, $sender);
+	bot::send($msg, $sendto);
 } elseif(eregi("^config grp (.+)$", $message, $arr)) {
 	$grp = strtolower($arr[1]);
 
@@ -575,7 +575,7 @@ if (preg_match("/^config$/i", $message)) {
 		
 		$msg = bot::makeLink(ucfirst($grp)." group config", $list);
 	} 
-	bot::send($msg, $sender);
+	bot::send($msg, $sendto);
 } elseif(eregi("^config mod (.+)$", $message, $arr)) {
   	$mod = strtolower($arr[1]);
 	$list = "<header>::::: Config for module $mod :::::<end>\n";
@@ -635,7 +635,7 @@ if (preg_match("/^config$/i", $message)) {
 	}
 
 	$msg = bot::makeLink("Configuration for module $mod", $list);
-	bot::send($msg, $sender);
+	bot::send($msg, $sendto);
 } elseif(eregi("^config help (.+) admin (all|leader|rl|mod|guildadmin|guild)$", $message, $arr)) {
   	$help = strtolower($arr[1]);
 	$admin = $arr[2];
@@ -654,13 +654,13 @@ if (preg_match("/^config$/i", $message)) {
 	
 	$db->query("SELECT * FROM hlpcfg_<myname> WHERE `name` = '$help' ORDER BY `name`");
 	if($db->numrows() == 0) {
-		bot::send("The helpfile <highlight>$help<end> doesn't exists!", $sender);		  	
+		bot::send("The helpfile <highlight>$help<end> doesn't exists!", $sendto);		  	
 		return;
 	}
 	$row = $db->fObject();
 	$db->query("UPDATE hlpcfg_<myname> SET `admin` = '$admin' WHERE `name` = '$help'");
 	$this->helpfiles[$row->cat][$row->name]["admin level"] = $admin;
-	bot::send("Updated access for helpfile <highlight>$help<end> to <highlight>".ucfirst(strtolower($arr[2]))."<end>.", $sender);
+	bot::send("Updated access for helpfile <highlight>$help<end> to <highlight>".ucfirst(strtolower($arr[2]))."<end>.", $sendto);
 } elseif(eregi("^config help (.+)$", $message, $arr)) {
   	$mod = strtoupper($arr[1]);
 	$list = "<header>::::: Configure helpfiles for module $mod :::::<end>\n\n";
@@ -682,7 +682,7 @@ if (preg_match("/^config$/i", $message)) {
 	}
 
 	$msg = bot::makeLink("Configurate helpfiles for module $mod", $list);
-	bot::send($msg, $sender);	
+	bot::send($msg, $sendto);	
 } else if (preg_match("/^config (.*)$/i", $message, $arr)) {
 	$module = $arr[1];
 	$list  = "<header>::::: Bot Settings :::::<end>\n\n";
@@ -776,7 +776,7 @@ if (preg_match("/^config$/i", $message)) {
 	}
 
   	$msg = bot::makeLink("Bot Settings", $list);
- 	bot::send($msg, $sender);
+ 	bot::send($msg, $sendto);
 } else
 	$syntax_error = true;
 

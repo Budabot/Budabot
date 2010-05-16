@@ -86,12 +86,8 @@ if(eregi("^adminlist$", $message)){
 	}
 	
 	$link = bot::makeLink('Adminlist', $list);	
-	if($type == "msg")
-		bot::send($link, $sender);
-	elseif($type == "priv")
-		bot::send($link);
-    elseif($type == "guild")
-       	bot::send($link, "guild");		
-} else
+	bot::send($link, $sendto);
+} else {
 	$syntax_error = true;
+}
 ?>

@@ -3,11 +3,29 @@ $MODULE_NAME = "ADMIN";
 
 	//Commands	
 	bot::regcommand("msg", "$MODULE_NAME/addadmin.php", "addadmin", "admin");
+	bot::regcommand("priv", "$MODULE_NAME/addadmin.php", "addadmin", "admin");
+	bot::regcommand("guild", "$MODULE_NAME/addadmin.php", "addadmin", "admin");
+	
 	bot::regcommand("msg", "$MODULE_NAME/kickadmin.php", "kickadmin", "admin");
+	bot::regcommand("priv", "$MODULE_NAME/kickadmin.php", "kickadmin", "admin");
+	bot::regcommand("guild", "$MODULE_NAME/kickadmin.php", "kickadmin", "admin");
+	
 	bot::regcommand("msg", "$MODULE_NAME/addmod.php", "addmod", "admin");
-	bot::regcommand("msg", "$MODULE_NAME/kickmod.php", "kickmod", "admin");	
+	bot::regcommand("priv", "$MODULE_NAME/addmod.php", "addmod", "admin");
+	bot::regcommand("guild", "$MODULE_NAME/addmod.php", "addmod", "admin");
+	
+	bot::regcommand("msg", "$MODULE_NAME/kickmod.php", "kickmod", "admin");
+	bot::regcommand("priv", "$MODULE_NAME/kickmod.php", "kickmod", "admin");
+	bot::regcommand("guild", "$MODULE_NAME/kickmod.php", "kickmod", "admin");
+	
 	bot::regcommand("msg", "$MODULE_NAME/raidleader.php", "raidleader", "mod");
-	bot::regcommand("msg", "$MODULE_NAME/kickraidleader.php", "kickraidleader", "mod");	
+	bot::regcommand("priv", "$MODULE_NAME/raidleader.php", "raidleader", "mod");
+	bot::regcommand("guild", "$MODULE_NAME/raidleader.php", "raidleader", "mod");
+	
+	bot::regcommand("msg", "$MODULE_NAME/kickraidleader.php", "kickraidleader", "mod");
+	bot::regcommand("priv", "$MODULE_NAME/kickraidleader.php", "kickraidleader", "mod");
+	bot::regcommand("guild", "$MODULE_NAME/kickraidleader.php", "kickraidleader", "mod");
+
 	bot::regcommand("msg", "$MODULE_NAME/adminlist.php", "adminlist");
 	bot::regcommand("priv", "$MODULE_NAME/adminlist.php", "adminlist");	
 	bot::regcommand("guild", "$MODULE_NAME/adminlist.php", "adminlist");	

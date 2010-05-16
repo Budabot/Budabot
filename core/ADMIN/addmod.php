@@ -33,32 +33,32 @@ if(eregi("^addmod (.+)$", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
 
 	if(AOChat::get_uid($who) == NULL){
-		bot::send("<red>Sorry the player you wish to add doesn´t exist.<end>", $sender);
+		bot::send("<red>Sorry the player you wish to add doesn´t exist.<end>", $sendto);
 		return;	
 	}
 	
 	if($who == $sender) {
-		bot::send("<red>You can´t add yourself to another group.<end>", $sender);
+		bot::send("<red>You can´t add yourself to another group.<end>", $sendto);
 		return;		
 	}
 
 
 	if($this->admins[$who]["level"] == 3) {
-		bot::send("<red>Sorry but $who is already a moderator.<end>", $sender);
+		bot::send("<red>Sorry but $who is already a moderator.<end>", $sendto);
 		return;	
 	}
 	
 	if((int)$this->admins[$sender]["level"] <= (int)$this->admins[$who]["level"]){
-		bot::send("<red>You must have a rank higher then $who.<end>", $sender);
+		bot::send("<red>You must have a rank higher then $who.<end>", $sendto);
 		return;	
 	}
 
 	if(isset($this->admins[$who]["level"]) && $this->admins[$who]["level"] >= 2) {
 		if($this->admins[$who]["level"] > 3) {
-			bot::send("<highlight>$who<end> has been demoted to the rank of a Moderator.", $sender);
+			bot::send("<highlight>$who<end> has been demoted to the rank of a Moderator.", $sendto);
 			bot::send("You have been demoted to the rank of a Moderator on {$this->vars["name"]}", $who);
 		} else {
-			bot::send("<highlight>$who<end> has been promoted to the rank of a Moderator.", $sender);
+			bot::send("<highlight>$who<end> has been promoted to the rank of a Moderator.", $sendto);
 			bot::send("You have been promoted to the rank of a Moderator on {$this->vars["name"]}", $who);			
 		}
 		$db->query("UPDATE admin_<myname> SET `adminlevel` = 3 WHERE `name` = '$who'");
@@ -66,12 +66,13 @@ if(eregi("^addmod (.+)$", $message, $arr)){
 	} else {
 		$db->query("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (3, '$who')");
 		$this->admins[$who]["level"] = 3;
-		bot::send("<highlight>$who<end> has been added to the Moderatorgroup", $sender);
+		bot::send("<highlight>$who<end> has been added to the Moderatorgroup", $sendto);
 		bot::send("You got moderator access to <myname>", $who);
 	}
 
 	if(!isset($this->buddyList[$sender]))
 		bot::send("addbuddy", $who);
-} else
+} else {
 	$syntax_error = true;
+}
 ?>

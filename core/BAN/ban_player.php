@@ -34,29 +34,29 @@ if(eregi("^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+) (for|reason
 	if(($arr[2] == "w" || $arr[2] == "week" || $arr[2] == "weeks") && $arr[1] <= 50 && $arr[1] > 0)
 	    $ban_end = time() + ($arr[1] * 604800);
 	elseif (($arr[2] == "w" || $arr[2] == "week" || $arr[2] == "weeks") && $arr[1] > 50) {
-	  	bot::send("You can´t ban a player for more then 50weeks!", $sender);
+	  	bot::send("You can´t ban a player for more then 50weeks!", $sendto);
 	  	return;
 	} elseif(($arr[2] == "d" || $arr[2] == "day" || $arr[2] == "days") && $arr[1] <= 100 && $arr[1] > 0)
 	    $ban_end = time() + ($arr[1] * 86400);
 	elseif (($arr[2] == "d" || $arr[2] == "day" || $arr[2] == "days") && $arr[1] > 100) {
-	  	bot::send("You can´t ban a player for more then 100days!", $sender);
+	  	bot::send("You can´t ban a player for more then 100days!", $sendto);
 	  	return;
 	} elseif(($arr[2] == "m" || $arr[2] == "month" || $arr[2] == "months") && $arr[1] <= 12 && $arr[1] > 0)
 	    $ban_end = time() + ($arr[1] * 18144000);
 	else {
-	  	bot::send("You can´t ban a player for more then 12months!", $sender);
+	  	bot::send("You can´t ban a player for more then 12months!", $sendto);
 	  	return;
 	}
 	
 	$who = ucfirst(strtolower($arr[3]));
 	
 	if(AOChat::get_uid($who) == NULL){
-		bot::send("<red>Sorry the player you wish to ban does not exist.", $sender);
+		bot::send("<red>Sorry the player you wish to ban does not exist.", $sendto);
 		return;	
 	}
 	
 	if($this->banlist[$who]["name"] == $who) {
-	  	bot::send("<red>Player $who is already banned.<end>", $sender);
+	  	bot::send("<red>Player $who is already banned.<end>", $sendto);
 		return;
 	}
 	
@@ -74,34 +74,34 @@ if(eregi("^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+) (for|reason
 	else
 		$value = "month(s)";
 
-	bot::send("You have banned <highlight>$who<end> for {$arr[1]}$value from this bot.", $sender);
+	bot::send("You have banned <highlight>$who<end> for {$arr[1]}$value from this bot.", $sendto);
 } elseif(eregi("^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+)$", $message, $arr)) {
 	if(($arr[2] == "w" || $arr[2] == "week" || $arr[2] == "weeks") && $arr[1] <= 50 && $arr[1] > 0)
 	    $ban_end = time() + ($arr[1] * 604800);
 	elseif (($arr[2] == "w" || $arr[2] == "week" || $arr[2] == "weeks") && $arr[1] > 50) {
-	  	bot::send("You can´t ban a player for more then 50weeks!", $sender);
+	  	bot::send("You can´t ban a player for more then 50weeks!", $sendto);
 	  	return;
 	} elseif(($arr[2] == "d" || $arr[2] == "day" || $arr[2] == "days") && $arr[1] <= 100 && $arr[1] > 0)
 	    $ban_end = time() + ($arr[1] * 86400);
 	elseif (($arr[2] == "d" || $arr[2] == "day" || $arr[2] == "days") && $arr[1] > 100) {
-	  	bot::send("You can´t ban a player for more then 100days!", $sender);
+	  	bot::send("You can´t ban a player for more then 100days!", $sendto);
 	  	return;
 	} elseif(($arr[2] == "m" || $arr[2] == "month" || $arr[2] == "months") && $arr[1] <= 12 && $arr[1] > 0)
 	    $ban_end = time() + ($arr[1] * 18144000);
 	else {
-	  	bot::send("You can´t ban a player for more then 12months!", $sender);
+	  	bot::send("You can´t ban a player for more then 12months!", $sendto);
 	  	return;
 	}
 	
 	$who = ucfirst(strtolower($arr[3]));
 	
 	if(AOChat::get_uid($who) == NULL){
-		bot::send("<red>Sorry the player you wish to ban does not exist.", $sender);
+		bot::send("<red>Sorry the player you wish to ban does not exist.", $sendto);
 		return;	
 	}
 	
 	if($this->banlist[$who]["name"] == $who) {
-	  	bot::send("<red>Player $who is already banned.<end>", $sender);
+	  	bot::send("<red>Player $who is already banned.<end>", $sendto);
 		return;
 	}
 	
@@ -116,17 +116,17 @@ if(eregi("^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+) (for|reason
 	else
 		$value = "month(s)";
 
-	bot::send("You have banned <highlight>$who<end> for {$arr[1]}$value from this bot.", $sender);
+	bot::send("You have banned <highlight>$who<end> for {$arr[1]}$value from this bot.", $sendto);
 } elseif(eregi("^ban (.+) (for|reason) (.+)$", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
 	
 	if(AOChat::get_uid($who) == NULL){
-		bot::send("<red>Sorry player you wish to ban does not exist.", $sender);
+		bot::send("<red>Sorry player you wish to ban does not exist.", $sendto);
 		return;	
 	}
 
 	if($this->banlist[$who]["name"] == $who) {
-	  	bot::send("<red>Player $who is already banned.<end>", $sender);
+	  	bot::send("<red>Player $who is already banned.<end>", $sendto);
 		return;
 	}
 		
@@ -138,17 +138,17 @@ if(eregi("^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+) (for|reason
 	$this->banlist["$who"]["reason"] = $why;
 	$db->query("INSERT INTO banlist_<myname> (`name`, `admin`, `time`, `why`) VALUES ('$who', '$sender', '".date("m-d-y")."', '$why')");
 
-	bot::send("You have banned <highlight>$who<end> from this bot", $sender);
+	bot::send("You have banned <highlight>$who<end> from this bot", $sendto);
 } elseif(eregi("^ban (.+)$", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
 	
 	if(AOChat::get_uid($who) == NULL){
-		bot::send("<red>Sorry player you wish to ban does not exist.", $sender);
+		bot::send("<red>Sorry player you wish to ban does not exist.", $sendto);
 		return;	
 	}
 
 	if($this->banlist[$who]["name"] == $who) {
-	  	bot::send("<red>Player $who is already banned.<end>", $sender);
+	  	bot::send("<red>Player $who is already banned.<end>", $sendto);
 		return;
 	}
 	
@@ -157,7 +157,8 @@ if(eregi("^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+) (for|reason
 	$this->banlist["$who"]["when"] = date("m-d-y");
 
 	$db->query("INSERT INTO banlist_<myname> (`name`, `admin`, `time`) VALUES ('$who', '$sender', '".date("m-d-y")."')");
-	bot::send("You have banned <highlight>$who<end> from this bot", $sender);
-} else
+	bot::send("You have banned <highlight>$who<end> from this bot", $sendto);
+} else {
 	$syntax_error = true;
+}
 ?>

@@ -33,13 +33,14 @@ if(eregi("^unban (.+)$", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
 	
 	if(!isset($this->banlist[$who])) {
-		bot::send("<red>Sorry the player you wish to remove doesn´t exist or isn´t on the banlist.", $sender);
+		bot::send("<red>Sorry the player you wish to remove doesn´t exist or isn´t on the banlist.", $sendto);
 		return;		  
 	}
 		
 	unset($this->banlist[$who]);
 	$db->query("DELETE FROM banlist_<myname> WHERE name = '$who'");	
-	bot::send("You have revomed the ban for <highlight>$who<end>", $sender);
-} else
+	bot::send("You have revomed the ban for <highlight>$who<end>", $sendto);
+} else {
 	$syntax_error = true;
+}
 ?>

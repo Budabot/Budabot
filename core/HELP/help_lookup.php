@@ -46,7 +46,7 @@ foreach($this->helpfiles as $key1 => $value1) {
 }
 
 if($found == false) {
-	bot::send("No help found on this topic.", $sender);
+	bot::send("No help found on this topic.", $sendto);
 	return;
 }
 
@@ -78,8 +78,9 @@ if(($help = fopen($filename, "r")) && ($restricted == false)){
 	fclose($help);
 	$arr[1] = ucfirst($arr[1]);	
 	$msg = bot::makeLink("Help($arr[1])", $data);
-} else 
+} else {
 	$msg = "No help found on this topic.";
+}
 
-bot::send($msg, $sender);
+bot::send($msg, $sendto);
 ?>

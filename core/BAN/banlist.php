@@ -31,7 +31,7 @@
 
 if(eregi("^banlist$", $message)){
   	if(count($this->banlist) == 0) {
-	    bot::send("No one is banned of this bot atm.", $sender);
+	    bot::send("No one is banned of this bot atm.", $sendto);
 	    return;
 	}
 	
@@ -48,12 +48,8 @@ if(eregi("^banlist$", $message)){
 		$list.= "\n";	
 	}
 	$link = bot::makeLink('Banlist', $list);
-	if($type == "msg")
-		bot::send($link, $sender);
-	elseif($type == "priv")
-		bot::send($link);
-    elseif($type == "guild")
-       	bot::send($link, "guild");
-} else
+	bot::send($link, $sendto);
+} else {
 	$syntax_error = true;
+}
 ?>

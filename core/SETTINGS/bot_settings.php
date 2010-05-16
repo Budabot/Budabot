@@ -81,7 +81,7 @@ if(eregi("^settings$", $message)) {
 	}
 
   	$msg = bot::makeLink("Bot Settings", $link);
- 	bot::send($msg, $sender);
+ 	bot::send($msg, $sendto);
 } elseif(eregi("^settings change ($names)$", $message, $arr)) {
     $link = "<header>::::: Settings for $arr[1] :::::<end>\n\n";
  	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '$arr[1]'");
@@ -144,7 +144,7 @@ if(eregi("^settings$", $message)) {
 		}
 	}
   	$msg = bot::makeLink("Settings Info for $arr[1]", $link);
- 	bot::send($msg, $sender);
+ 	bot::send($msg, $sendto);
 } elseif(eregi("^settings save ($names) (.+)$", $message, $arr)) {
   	$name_setting = strtolower($arr[1]);
   	$change_to_setting = $arr[2];
@@ -217,7 +217,7 @@ if(eregi("^settings$", $message)) {
 			file_put_contents("config.php", $lines);
 		}
 	}
- 	bot::send($msg, $sender);
+ 	bot::send($msg, $sendto);
 } elseif(eregi("^settings help (.+)$", $message, $arr)) {
   	$name = $arr[1];
  	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '$name'");  
@@ -233,7 +233,7 @@ if(eregi("^settings$", $message)) {
 	} else
 		$msg = "No help for this setting found.";
 
- 	bot::send($msg, $sender);
+ 	bot::send($msg, $sendto);
 } else
 	$syntax_error = true;
 ?>

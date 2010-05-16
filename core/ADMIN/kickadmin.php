@@ -32,22 +32,22 @@
 if(eregi("^kickadmin (.+)$", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
 	if(AOChat::get_uid($who) == NULL){
-		bot::send("<red>Sorry player you wish to remove does not exist.", $sender);
+		bot::send("<red>Sorry player you wish to remove does not exist.", $sendto);
 		return;	
 	}	
 
 	if($who == $sender) {
-		bot::send("<red>You can´t kick yourself.<end>", $sender);
+		bot::send("<red>You can´t kick yourself.<end>", $sendto);
 		return;		
 	}
 
 	if($this->admins[$who]["level"] != 4) {
-		bot::send("<red>Sorry $who is not a Administrator of this Bot.<end>", $sender);
+		bot::send("<red>Sorry $who is not a Administrator of this Bot.<end>", $sendto);
 		return;	
 	}
 	
 	if($this->settings["Super Admin"] != $sender){
-		bot::send("<red>You need to be Super-Administrator to kick a Administrator<end>", $sender);
+		bot::send("<red>You need to be Super-Administrator to kick a Administrator<end>", $sendto);
 		return;	
 	}
 	
@@ -57,8 +57,9 @@ if(eregi("^kickadmin (.+)$", $message, $arr)){
 	$db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$who'");
 	if($db->numrows() == 0)
 		bot::send("rembuddy", $who);
-	bot::send("<highlight>$who<end> has been removed as Administrator of this Bot.", $sender);
+	bot::send("<highlight>$who<end> has been removed as Administrator of this Bot.", $sendto);
 	bot::send("Your Administrator access to <myname> has been removed.", $who);
-} else
+} else {
 	$syntax_error = true;
+}
 ?>

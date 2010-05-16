@@ -87,12 +87,7 @@ if(eregi("^about$", $message)) {
 
 	$link = bot::makeLink("Help(main)", $data.$msg);	
 
-	if($type == "msg")
-		bot::send($link, $sender);
-	elseif($type == "priv")
-		bot::send($link);
-	elseif($type == "guild")
-		bot::send($link, "guild");
+	bot::send($link, $sendto);
 } elseif(eregi("^help (.+)$", $message, $arr) && $type == "msg")
 	include("help_lookup.php");
 ?>

@@ -31,7 +31,7 @@
 
 $msg = "Bot is restarting.";
 bot::send($msg, $sender);
-bot::send($msg, NULL, true);
+bot::send($msg, "prv", true);
 bot::send($msg, "guild", true);
 
 AOChat::disconnect();
