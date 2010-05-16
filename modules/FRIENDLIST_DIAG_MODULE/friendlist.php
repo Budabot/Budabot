@@ -23,10 +23,6 @@ if (preg_match("/^friendlist(.+)?$/i", $message, $arg)) {
 			$nickinfo[$key] .="<red>".$this->admins[$key]["level"]."<end>, ";
 		}
 		
-		// Checking for Guestlist access
-		$db->query("SELECT * FROM guests_<myname> WHERE `name` = '$key'");
-		if($db->numrows() > 0) {$nickinfo[$key] .="<yellow>G<end>, ";}
-		
 		// Checking for Org
 		if (isset($this->guildmembers[$key])) {
 			$nickinfo[$key] .="<green>".$this->guildmembers[$key]."<end>, ";

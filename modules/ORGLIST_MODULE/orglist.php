@@ -247,7 +247,8 @@ if(eregi("^(orglist|onlineorg) (.+)$", $message, $arr)) {
 			$this->vars["orglist_module"]["markpage"] = 0;
 
 			while ($this->vars["orglist_module"]["check"][0][$i]) {
-				bot::send("addbuddy", $this->vars["orglist_module"]["check"][0][$i]);	
+				bot::send("addbuddy", $this->vars["orglist_module"]["check"][0][$i]);
+				bot::send("rembuddy", $sender);
 				$i++; 
 			}
 
@@ -280,7 +281,6 @@ if(eregi("^(orglist|onlineorg) (.+)$", $message, $arr)) {
 	if (($key = array_search($sender, $this->vars["orglist_module"]["check"][$page])) !== false) {
 		$this->vars["orglist_module"]["result"][$sender]["online"] = $this->buddyList[$sender];
 		unset($this->vars["orglist_module"]["check"][$page][$key]);
-		bot::send("rembuddy", $sender);
 		if (current($this->vars["orglist_module"]["check"][$page]) === false) {
 			$page++; $this->vars["orglist_module"]["markpage"]++;
 			
@@ -288,7 +288,8 @@ if(eregi("^(orglist|onlineorg) (.+)$", $message, $arr)) {
 				
 				$i = 0;
 				while ($this->vars["orglist_module"]["check"][$page][$i]) {
-					bot::send("addbuddy", $this->vars["orglist_module"]["check"][$page][$i]);	
+					bot::send("addbuddy", $this->vars["orglist_module"]["check"][$page][$i]);
+					bot::send("rembuddy", $sender);
 					$i++;
 				}
 			} else {

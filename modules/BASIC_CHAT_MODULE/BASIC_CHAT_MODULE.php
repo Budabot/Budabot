@@ -23,10 +23,6 @@
 	bot::event("priv", "$MODULE_NAME/afk_check.php", "afk");
 	bot::command("priv", "$MODULE_NAME/afk.php", "afk", "all", "Sets a member afk");
 
-	//Show Char infos on privjoin
-	bot::event("joinPriv", "$MODULE_NAME/notify.php", "none", "Show Infos about a Char when he joins the channel");
-	bot::event("leavePriv", "$MODULE_NAME/notify.php", "none", "Show a msg when someone leaves the channel");
-	
 	//Leader
 	bot::command("priv", "$MODULE_NAME/leader.php", "leader", "all", "Sets the Leader of the raid");
 	bot::subcommand("priv", "$MODULE_NAME/leader.php", "leader (.+)", "raidleader", "leader", "Set a specific Leader");

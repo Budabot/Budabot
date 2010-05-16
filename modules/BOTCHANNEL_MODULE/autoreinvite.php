@@ -31,7 +31,7 @@
 global $db;	// declare $db as global, else function calls will fail
 //$db->query("SELECT * FROM members_<myname>");
 //$data = $db->fObject('all');
-$db->exec("DELETE FROM members_<myname>");
+$db->exec("DELETE FROM priv_chatlist_<myname>");
 //forEach ($data as $row) {
 //	AOChat::privategroup_invite($row->name);
 //}
