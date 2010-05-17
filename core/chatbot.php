@@ -1698,8 +1698,6 @@ class bot extends AOChat{
 		if ($file === false) {
 			echo "No SQL file found with name '$name'!\n";
 		} else if ($forceUpdate || compareVersionNumbers($maxFileVersion, $currentVersion) > 0) {
-			$fileArray = file("$dir/$file", FILE_TEXT | FILE_SKIP_EMPTY_LINES | FILE_IGNORE_NEW_LINES);
-
 			// if the file had a version, tell them the start and end version
 			// otherwise, just tell them we're updating the database
 			if ($maxFileVersion != 0) {
@@ -1708,10 +1706,12 @@ class bot extends AOChat{
 				echo "Updating '$name' database...";
 			}
 
+			$fileArray = file("$dir/$file", FILE_TEXT);
 			//$db->beginTransaction();
 			forEach ($fileArray as $num => $line) {
-				// don't process comment lines
-				if (substr($line, 0, 1) != "#") {
+				$line = trim($line);
+				// don't process comment lines or blank lines
+				if (substr($line, 0, 1) != "#" && $line != '') {
 					$db->query($line);
 				}
 			}
