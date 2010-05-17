@@ -35,19 +35,20 @@ while($row = $db->fObject())
 	$names .= $row->name."|";
 	
 $names = substr($names, 0, -1);
-if(eregi("^settings$", $message)) {
+if (preg_match("/^settings$/i", $message)) {
   	$link  = "<header>::::: Bot Settings :::::<end>\n\n";
  	$link .= "<highlight>You can see here a list of all Settings that can be changed without a restart of the bot. Please note that not all can be changed only the ones that have a 'Change this' behind their name, on the rest you can see only the current setting but can't change it. When you click on 'Change it' a new poopup cames up and you see a list of allowed options for this setting. \n\n<end>";
  	$db->query("SELECT * FROM settings_<myname> WHERE `mode` != 'hide' ORDER BY `module`");
 	$data	 = $db->fObject("all");
- 	foreach($data as $row){
-		if($row->module != "" && $row->module != "Basic Settings"){
+ 	forEach ($data as $row) {
+		if ($row->module != "" && $row->module != "Basic Settings") {
 			$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '".strtoupper($row->module)."' AND `status` = 1");
 			$num = $db->numrows();
-		} else 
+		} else {
 			$num = 1;
+		}
 			
-		if($num	> 0){
+		if ($num	> 0) {
 			if($row->module == "Basic Settings" && $row->module != $cur) {
 				$link .= "\n<highlight><u>Basic Settings</u><end>\n";
 			} elseif($row->module != "" && $row->module != $cur) {
@@ -57,26 +58,31 @@ if(eregi("^settings$", $message)) {
 			$cur = $row->module;	
 			$link .= "  *";
 			
-			if($row->help != "")
-				$link .= "$row->description (<a href='chatcmd:///tell <myname> settings help $row->name'>Help</a>)";
-			else
+			if ($row->help != "") {
+				$helpLink = bot::makeLink('Help', "/tell <myname> settings help $row->name", 'chatcmd');
+				$link .= "$row->description ($helpLink)";
+			} else {
 				$link .= $row->description;
+			}
 	
-			if($row->mode == "edit")
-				$link .= " (<a href='chatcmd:///tell <myname> settings change $row->name'>Change this</a>)";
+			if ($row->mode == "edit") {
+				$editLink = bot::makeLink('Modify', "/tell <myname> settings change $row->name", 'chatcmd');
+				$link .= " ($editLink)";
+			}
 		
 			$link .= ":  ";
 	
 			$options = explode(";", $row->options);
-			if($options[0] == "color")
+			if ($options[0] == "color") {
 				$link .= $row->setting."Current Color</font>\n";
-			elseif($row->intoptions != "0") {
+			} elseif ($row->intoptions != "0") {
 				$intoptions = explode(";", $row->intoptions);
 				$intoptions2 = array_flip($intoptions);
 				$key = $intoptions2[$row->setting];
 				$link .= "<highlight>{$options[$key]}<end>\n";
-			} else
-				$link .= "<highlight>$row->setting<end>\n";	
+			} else {
+				$link .= "<highlight>$row->setting<end>\n";
+			}
 		}	
 	}
 
