@@ -122,7 +122,7 @@ function createList(&$data, &$sender, &$list, &$type, &$bot, $show_alts = false)
 				$list .= "<img src=rdb://16289>";
 				elseif($row->profession == "Meta-Physicist")
 				$list .= "<img src=rdb://16283>";
-				elseif($row->profession == "Nanotechnician")
+				elseif($row->profession == "Nano-Technician")
 				$list .= "<img src=rdb://16283>";
 				elseif($row->profession == "Soldier")
 				$list .= "<img src=rdb://16195>";
