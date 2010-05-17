@@ -9,13 +9,6 @@
 	$shad_dmg_list	= array(   1,  920,  921, 1872, 1873, 2750);
 	$shad_rec_list	= array(  70,   70,   70,   75,   75,   80);
 	$keep_heal_list = array(   1, 3000, 3001,10500,10501,30000);
-	
-	if($type == "msg")
-		$sendto = $sender;
-	elseif($type == "priv")
-		$sendto = "";
-	elseif($type == "guild")
-		$sendto = "guild";
 
 	$header = "<header>::::: Dimach Calculator - Version 1.00 :::::<end>\n\n";
 	$footer = "\n\nby Imoutochan, RK1";
@@ -90,5 +83,7 @@
 		
 		$windowlink = bot::makeLink("::Your Dimach skill results::", $inside);
 		bot::send($windowlink, $sendto);
-	} else bot::send($helplink, $sendto);	
+	} else {
+		bot::send($helplink, $sendto);
+	}
 ?>

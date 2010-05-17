@@ -2,13 +2,6 @@
 $info = explode(" ", $message);
 list($msg, $AttTim, $RechT, $InitS) = $info;
 
-if($type == "msg")
-    $sendto = $sender;
-elseif($type == "priv")
-	$sendto = "";
-elseif($type == "guild")
-	$sendto = "guild";
-
 $header = "<header>::::: Aimed Shot Calculator - Version 1.00 :::::<end>\n\n";
 $footer = "";
 
@@ -26,12 +19,14 @@ $help .= $footer;
 
 $helplink = bot::makeLink("::How to use Aimed Shot::", $help);
 
-if((!$AttTim) || (!$RechT) || (!$InitS))
+if ((!$AttTim) || (!$RechT) || (!$InitS)) {
 	bot::send($helplink, $sendto);
-else{
+} else {
 	$cap = floor($AttTim+10);
 	$ASRech	= ceil(($RechT*40) - ($InitS*3/100) + $AttTim - 1);
-	if($ASRech < $cap) $ASRech = $cap; 
+	if ($ASRech < $cap) {
+		$ASRech = $cap;
+	}
 	$MultiP	= round($InitS/95,0);
 	$ASCap = ceil(((4000 * $RechT) - 1100)/3);
 
@@ -48,4 +43,4 @@ else{
 
 	$windowlink = bot::makeLink("::Your Aimed Shot Results::", $inside);
 	bot::send($windowlink, $sendto);
-	}
+}

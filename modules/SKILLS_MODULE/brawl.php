@@ -6,13 +6,6 @@
 	$max_list 	= array( 2,  500,  501,  850,  851, 1145);
 	$crit_list 	= array( 3,  500,  501,  600,  601,  725);
 	
-	if($type == "msg")
-		$sendto = $sender;
-	elseif($type == "priv")
-		$sendto = "";
-	elseif($type == "guild")
-		$sendto = "guild";
-
 	$header = "<header>::::: Brawl Calculator - Version 1.00 :::::<end>\n\n";
 	$footer = "\n\nby Imoutochan, RK1";
 	
@@ -68,5 +61,7 @@
 		
 		$windowlink = bot::makeLink("::Your Brawl skill results::", $inside);
 		bot::send($windowlink, $sendto);
-	} else bot::send($helplink, $sendto);	
+	} else {
+		bot::send($helplink, $sendto);
+	}
 ?>

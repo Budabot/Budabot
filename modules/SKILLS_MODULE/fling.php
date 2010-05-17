@@ -1,13 +1,4 @@
 <?php
-/* $info = explode(" ", $message);
-list($msg, $AttTim, $FlingSkill) = $info; */
-
-if($type == "msg")
-    $sendto = $sender;
-elseif($type == "priv")
-	$sendto = "";
-elseif($type == "guild")
-	$sendto = "guild";
 
 $header = "\n<header>::::: Fling Calculator - Version 1.00 :::::<end>\n\n";
 $footer = "";
@@ -25,10 +16,6 @@ $help .= $footer;
 
 $helplink = bot::makeLink("::How to use Fling::", $help);
 
-/* if((!$AttTim) || (!$FlingSkill))
-	bot::send($helplink, $sendto); 
-else{*/
-//eregi("^fling ([0-9]+) ([0-9]+)", $message, $arr)
 if (eregi("^fling ([0-9]*\.?[0-9]+) ([0-9]+)$", $message, $arr)) {
 	$AttTim = trim($arr[1]);
 	$FlingSkill = trim($arr[2]);
@@ -52,4 +39,6 @@ if (eregi("^fling ([0-9]*\.?[0-9]+) ([0-9]+)$", $message, $arr)) {
 
 	$windowlink = bot::makeLink("::Your Fling Results::", $inside);
 	bot::send($windowlink, $sendto);
-} else bot::send($helplink, $sendto); 
+} else {
+	bot::send($helplink, $sendto);
+}

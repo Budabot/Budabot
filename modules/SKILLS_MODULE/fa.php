@@ -2,13 +2,6 @@
 $info = explode(" ", $message);
 list($msg, $AttTim, $RechT, $FARecharge, $FullAutoSkill) = $info;
 
-if($type == "msg")
-    $sendto = $sender;
-elseif($type == "priv")
-	$sendto = "";
-elseif($type == "guild")
-	$sendto = "guild";
-
 $header = "<header>::::: Full Auto Calculator - Version 1.00 :::::<end>\n\n";
 $footer = "";
 
@@ -28,13 +21,15 @@ $help .= $footer;
 
 $helplink = bot::makeLink("::How to use Full Auto::", $help);
 
-if((!$AttTim) || (!$RechT) || (!$FARecharge) || (!$FullAutoSkill))
+if((!$AttTim) || (!$RechT) || (!$FARecharge) || (!$FullAutoSkill)) {
 	bot::send($helplink, $sendto);
-else{
+} else {
 	$FACap = floor(10+$AttTim);
 
 	$FA_Recharge = ceil(($RechT*40)+($FARecharge/100)-($FullAutoSkill/25) + $AttTim - 1);
-	if ($FA_Recharge<$FACap) $FA_Recharge = $FACap;
+	if ($FA_Recharge<$FACap) {
+		$FA_Recharge = $FACap;
+	}
 	$FA_Skill_Cap = ceil((40*$RechT + $FARecharge/100 - 11))*25;
 	
 	$MaxBullets = 5 + floor($FullAutoSkill/100);
@@ -57,4 +52,4 @@ else{
 
 	$windowlink = bot::makeLink("::Your Full Auto Recharge Results::", $inside);
 	bot::send($windowlink, $sendto);
-	}
+}

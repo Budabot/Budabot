@@ -32,16 +32,7 @@
 
 	$helplink = bot::makeLink("::How to use MA::", $help);
 
-	// sendto
-	if($type == "msg")
-		$sendto = $sender;
-	elseif($type == "priv")
-		$sendto = "";
-	elseif($type == "guild")
-		$sendto = "guild";
-	
-	
-	if(eregi("^mafist ([A-Za-z]+) ([0-9]+)$", $message, $arr)) {
+	if (preg_match("/^mafist ([a-z]+) ([0-9]+)$/i", $message, $arr)) {
 		$MaSkill = trim($arr[2]);
 		
 		if ($MaSkill < 200) 
@@ -59,13 +50,13 @@
 		
 		$class = substr(strtolower(trim($arr[1])), 0, 2);
 		switch ($class) {
-			case "ma";
+			case "ma":
 				$min_list = $MA_min_list; $max_list = $MA_max_list; $crit_list = $MA_crit_list; $class_name = "Martial Artist";
 			break;
-			case "sh";
+			case "sh":
 				$min_list = $shade_min_list; $max_list = $shade_max_list; $crit_list = $shade_crit_list; $class_name = "Shade";
 			break;
-			default;
+			default:
 				$min_list = $gen_min_list; $max_list = $gen_max_list; $crit_list = $gen_crit_list; $class_name = "All classes besides MA and Shade";
 			break;
 		}
@@ -99,5 +90,7 @@
 		$windowlink = bot::makeLink("::Your MA skill results::", $inside);
 		bot::send($windowlink, $sendto);
 		
-	} else bot::send($helplink, $sendto);
+	} else {
+		bot::send($helplink, $sendto);
+	}
 ?>

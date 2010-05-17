@@ -40,14 +40,14 @@ Example:
 Your weapon has an attack and recharge time of <orange>1<end> second and a 
 Full Auto recharge value* of <orange>5000<end>.  You have <orange>1200<end> Full Auto skill.
 <a href='chatcmd:///tell <myname> <symbol>fa 1 1 5000 1200'>/tell <myname> <symbol>fa 1 1 5000 1200</a>
-* Your Full Auto recharge value (5000) can be found on <a href='chatcmd:///start http://www.auno.org'>auno.org</a> as FullAuto Cycle.
+* Your Full Auto recharge value (5000) can be found on <a href='chatcmd:///start http://www.auno.org'>auno.org</a> as FullAuto Cycle and <a href='chatcmd:///start http://aomainframe.net'>aomainframe.net</a> as FullAutoRecharge.
 
 <font color=#3333CC>Fling Usage:</font>
 /tell <myname> <symbol>fling [<orange>A<end>] [<orange>FS<end>]
 [<orange>A<end>] = Weapon Attack Time
 [<orange>FS<end>] = Fling Skill
 Example:
-Your weapon has an attack and recharge time of <orange>1<end> second and you have a 
+Your weapon has an attack of <orange>1<end> second and you have a 
 Fling Skill of <orange>900<end>.
 <a href='chatcmd:///tell <myname> <symbol>fling 1 900'>/tell <myname> <symbol>fling 1 900</a>
 
@@ -62,14 +62,14 @@ Your weapon has an attack time of <orange>1.2<end> seconds and a recharge time
 of <orange>1.5<end> seconds.  Your weapon has a Burst Delay* of <orange>1600<end>.
 You have <orange>900<end> Burst Skill.
 <a href='chatcmd:///tell <myname> <symbol>burst 1.2 1.5 1600 900'>/tell <myname> <symbol>burst 1.2 1.5 1600 900</a>
-* Your Burst Delay value (1600) can be found on <a href='chatcmd:///start http://www.auno.org'>auno.org</a> as Burst Cycle.
+* Your Burst Delay value (1600) can be found on <a href='chatcmd:///start http://www.auno.org'>auno.org</a> as Burst Cycle and <a href='chatcmd:///start http://aomainframe.net'>aomainframe.net</a> as BurstRecharge.
 
-<font color=#3333CC>MAFist Usage:</font>
-/tell <myname> <symbol>mafist [<orange>MA<end>]
+<font color=#3333CC>MA Usage:</font>
+/tell <myname> <symbol>ma [<orange>MA<end>]
 [<orange>MA<end>] = MA Skill
 Example:
 You have 750 MA Skill.
-<a href='chatcmd:///tell <myname> <symbol>mafist 750'>/tell <myname> <symbol>mafist 750</a>
+<a href='chatcmd:///tell <myname> <symbol>ma 750'>/tell <myname> <symbol>ma 750</a>
 
 
 

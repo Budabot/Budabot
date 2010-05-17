@@ -1,13 +1,4 @@
 <?php
-/* $info = explode(" ", $message);
-list($msg, $AttTim, $fastSkill) = $info; */
-
-if($type == "msg")
-    $sendto = $sender;
-elseif($type == "priv")
-	$sendto = "";
-elseif($type == "guild")
-	$sendto = "guild";
 
 $header = "\n<header>::::: Fast Attack Calculator - Version 1.00 :::::<end>\n\n";
 $footer = "";
@@ -25,11 +16,7 @@ $help .= $footer;
 
 $helplink = bot::makeLink("::How to use fast attack::", $help);
 
-/* if((!$AttTim) || (!$fastSkill))
-	bot::send($helplink, $sendto); 
-else{*/
-//eregi("^fast ([0-9]+) ([0-9]+)", $message, $arr)
-if (eregi("^fast ([0-9]*\.?[0-9]+) ([0-9]+)$", $message, $arr)) {
+if (preg_match("/^(fast|fastattack) ([0-9]*\.?[0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	$AttTim = trim($arr[1]);
 	$fastSkill = trim($arr[2]);
 	
@@ -52,4 +39,6 @@ if (eregi("^fast ([0-9]*\.?[0-9]+) ([0-9]+)$", $message, $arr)) {
 
 	$windowlink = bot::makeLink("::Your Fast Attack Results::", $inside);
 	bot::send($windowlink, $sendto);
-} else bot::send($helplink, $sendto); 
+} else {
+	bot::send($helplink, $sendto);
+}
