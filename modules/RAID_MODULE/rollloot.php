@@ -34,7 +34,7 @@ global $loot_winners;
 global $residual;
 
 
-if(eregi("^flatroll$", $message) || eregi("^roll$", $message) || eregi("^result$", $message) || eregi("^win$", $message)) {
+if(eregi("^flatroll$", $message) || eregi("^rollloot$", $message) || eregi("^result$", $message) || eregi("^win$", $message)) {
 	//Check if a loot list exits
   	if(!is_array($loot)) {
 	    $msg = "There is nothing to roll atm.";

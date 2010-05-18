@@ -30,6 +30,7 @@ bot::addsetting("count_tell", "Mode for Count Cmd in tells", "edit", "1", "Shows
 bot::addsetting("chatlist_tell", "Mode for Chatlist Cmd in tells", "edit", "1", "Shows online privatechat members;Shows online guild members", "1;0");
 bot::addsetting("logonline_tell", "Enables the Online tell on logon", "edit", "0", "On;Off", "1;0");
 bot::addsetting("fancy_online", "Enables the fancy delimiters for the online display", "edit", "1", "On;Off", "1;0");
+bot::addsetting("icon_fancy_online", "Enables the use of icons in fancy delimiter mode", "edit", "1", "On;Off", "1;0");
 
 bot::event("logOn", "$MODULE_NAME/logonline.php", "none", "Sends a tell to players on logon showing who is online in org");
 

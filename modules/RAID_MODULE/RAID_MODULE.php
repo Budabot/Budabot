@@ -9,7 +9,7 @@ $MODULE_NAME = "RAID_MODULE";
 	bot::command("", "$MODULE_NAME/multiloot.php", "multiloot", "leader", "Adds items using multiloot");
 	bot::command("", "$MODULE_NAME/loot.php", "clear", "leader", "Clears the loot list");
 	bot::command("", "$MODULE_NAME/rollloot.php", "flatroll", "leader", "Rolls the loot list");
-	bot::command("", "$MODULE_NAME/rollloot.php", "roll", "leader", "Rolls the loot list");
+	bot::command("", "$MODULE_NAME/rollloot.php", "rollloot", "leader", "Rolls the loot list");
 	bot::command("", "$MODULE_NAME/rollloot.php", "result", "leader", "Rolls the loot list");
 	bot::command("", "$MODULE_NAME/rollloot.php", "win", "leader", "Rolls the loot list");
 	bot::command("", "$MODULE_NAME/remloot.php", "remloot", "leader", "Remove item from loot list");

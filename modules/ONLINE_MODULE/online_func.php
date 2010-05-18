@@ -102,35 +102,37 @@ function createList(&$data, &$sender, &$list, &$type, &$bot, $show_alts = false)
 			{
 				// fancy delimiters
 				$list .= "<br><img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER><br>";
-				if($row->profession == "Adventurer")
-				$list .= "<img src=rdb://84203>";
-				elseif($row->profession == "Agent")
-				$list .= "<img src=rdb://16186>";
-				elseif($row->profession == "Bureaucrat")
-				$list .= "<img src=rdb://46271>";
-				elseif($row->profession == "Doctor")
-				$list .= "<img src=rdb://44235>";
-				elseif($row->profession == "Enforcer")
-				$list .= "<img src=rdb://117926>";
-				elseif($row->profession == "Engineer")
-				$list .= "<img src=rdb://16307>";
-				elseif($row->profession == "Fixer")
-				$list .= "<img src=rdb://16300>";
-				elseif($row->profession == "Keeper")
-				$list .= "<img src=rdb://38911>";
-				elseif($row->profession == "Martial Artist")
-				$list .= "<img src=rdb://16289>";
-				elseif($row->profession == "Meta-Physicist")
-				$list .= "<img src=rdb://16283>";
-				elseif($row->profession == "Nano-Technician")
-				$list .= "<img src=rdb://16283>";
-				elseif($row->profession == "Soldier")
-				$list .= "<img src=rdb://16195>";
-				elseif($row->profession == "Shade")
-				$list .= "<img src=rdb://39290>";
-				elseif($row->profession == "Trader")
-
-				$list .= "<img src=rdb://118049>";
+				if (bot->settings["icon_fancy_online"] == 1)
+				{
+					if($row->profession == "Adventurer")
+					$list .= "<img src=rdb://84203>";
+					elseif($row->profession == "Agent")
+					$list .= "<img src=rdb://16186>";
+					elseif($row->profession == "Bureaucrat")
+					$list .= "<img src=rdb://46271>";
+					elseif($row->profession == "Doctor")
+					$list .= "<img src=rdb://44235>";
+					elseif($row->profession == "Enforcer")
+					$list .= "<img src=rdb://117926>";
+					elseif($row->profession == "Engineer")
+					$list .= "<img src=rdb://16307>";
+					elseif($row->profession == "Fixer")
+					$list .= "<img src=rdb://16300>";
+					elseif($row->profession == "Keeper")
+					$list .= "<img src=rdb://38911>";
+					elseif($row->profession == "Martial Artist")
+					$list .= "<img src=rdb://16289>";
+					elseif($row->profession == "Meta-Physicist")
+					$list .= "<img src=rdb://16283>";
+					elseif($row->profession == "Nano-Technician")
+					$list .= "<img src=rdb://45190>";
+					elseif($row->profession == "Soldier")
+					$list .= "<img src=rdb://16195>";
+					elseif($row->profession == "Shade")
+					$list .= "<img src=rdb://39290>";
+					elseif($row->profession == "Trader")
+					$list .= "<img src=rdb://118049>";
+				}
 				$list .= " <highlight>$row->profession<end>";
 				$oldprof = $row->profession;
 

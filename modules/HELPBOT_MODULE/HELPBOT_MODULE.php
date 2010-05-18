@@ -48,6 +48,7 @@
 
 	//Flip or Roll command
 	bot::command("", "$MODULE_NAME/roll.php", "flip", "all", "Flip a coin"); 
+	bot::command("", "$MODULE_NAME/roll.php", "roll", "all", "Roll a random number"); 
 
 	//Player History
 	bot::command("", "$MODULE_NAME/player_history.php", "history", "guild", "Show a history of a player");	
