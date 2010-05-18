@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^flip$", $message)) {
+if(preg_match("/^flip$/i", $message)) {
 	$db->query("SELECT * FROM roll_<myname> WHERE `type` = 0 AND `name` = '$sender' ORDER BY `time`");
 	if($db->numrows() == 0) {
 	  	$flip = rand(1, 2);
@@ -60,7 +60,7 @@ if(eregi("^flip$", $message)) {
     	bot::send($msg);
     elseif($type == "guild")
     	bot::send($msg, "guild");
-} elseif(eregi("^roll ([0-9]+)$", $message, $arr)) {
+} elseif(preg_match("/^roll ([0-9]+)$/i", $message, $arr)) {
   	if($arr[1] > getrandmax())
 		$msg = "Can't use the number you have given me. Maximum is <highlight>".getrandmax()."<end>";
 	else {  		
@@ -89,7 +89,7 @@ if(eregi("^flip$", $message)) {
     	bot::send($msg);
     elseif($type == "guild")
     	bot::send($msg, "guild");
-} elseif(eregi("^roll ([0-9]+) ([0-9]+)$", $message, $arr)) {
+} elseif(preg_match("/^roll ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
   	if($arr[2] >= getrandmax())
 		$msg = "Can't use the number you have given me. Maximum is <highlight>".getrandmax()."<end>";
 	elseif($arr[1] >= $arr[2])
@@ -120,7 +120,7 @@ if(eregi("^flip$", $message)) {
     	bot::send($msg);
     elseif($type == "guild")
     	bot::send($msg, "guild");
-} elseif(eregi("^verify ([0-9]+)$", $message, $arr)) {
+} elseif(preg_match("/^verify ([0-9]+)$/i", $message, $arr)) {
 	$db->query("SELECT * FROM roll_<myname> WHERE `id` = $arr[1] ORDER BY `time`");
 	if($db->numrows() == 0)
 		$msg = "Sry but your verify number doesn't exist.";

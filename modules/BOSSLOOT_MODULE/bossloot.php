@@ -3,7 +3,7 @@
   Bossloot Module Ver 1.1
   Written By Jaqueme
    For Budabot
-   Database Adapted From One Originally 
+   Database Adapted From One Originally
    Compiled by Malosar For BeBot
    Boss Drop Table Database Module
    Written 5/11/07
@@ -13,7 +13,7 @@
     $links = array("Help;chatcmd:///tell <myname> help boss");
 
 $output = '';
-if(ereg ("^bossloot (.+)$", $message, $arr)) {
+if(preg_match ("/^bossloot (.+)$/i", $message, $arr)) {
 
 	$search = $arr[1];
 	$search = ucwords(strtolower($search));
@@ -21,7 +21,7 @@ if(ereg ("^bossloot (.+)$", $message, $arr)) {
 	if (method_exists('bot', 'makeHeader')) {
 		$boss = bot::makeHeader("Mobs that drop $search", $links);
 	} else {
-		$boss = "<header>::::: Mobs that drop $search :::::<end>\n";	
+		$boss = "<header>::::: Mobs that drop $search :::::<end>\n";
 	}
 	
 	$db->query("SELECT * FROM boss_lootdb WHERE itemname LIKE '%".str_replace("'", "''", $search)."%'");
@@ -54,13 +54,13 @@ if(ereg ("^bossloot (.+)$", $message, $arr)) {
 		}
 		$output = bot::makelink("BossLoot", $boss);
 	}
-	else { 
+	else {
 		$output .= "<yellow>There were no matches for your search.</end>";
 	}
 }
 else {
 	$output .="<yellow>You must add a search criteria after the command.</end>";
-}	
+}
 
 bot::send($output, $sendto);
 

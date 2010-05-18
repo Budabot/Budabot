@@ -3,7 +3,7 @@
 global $loot;
 global $residual;
 
-if(eregi("^reroll$", $message)) {
+if(preg_match("/^reroll$/i", $message)) {
 
 	//Check if a residual list exits
   	if(!is_array($residual)) {

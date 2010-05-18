@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^lastseen (.+)$", $message, $arr)) {
+if(preg_match("/^lastseen (.+)$/i", $message, $arr)) {
 	// Get User id
     $uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));

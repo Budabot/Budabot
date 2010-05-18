@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^history (.+)$", $message, $arr)) {
+if(preg_match("/^history (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 	if(!bot::get_uid($name))
 		$msg = "Player <highlight>$name<end> doesn't exist.";

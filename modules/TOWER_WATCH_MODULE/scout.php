@@ -20,11 +20,11 @@
    **
    */
 
-if(eregi("^scout (.*)$", $message)) {
+if(preg_match("/^scout (.*)$/i", $message)) {
 
 	$msg = "";
 
-  	if (eregi("^scout ([A-Za-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[0-9]{2}) ([0-9]+) ([A-Za-z]+) (.*)$", $message, $arr)) {
+  	if (preg_match("/^scout ([A-Za-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[0-9]{2}) ([0-9]+) ([A-Za-z]+) (.*)$/i", $message, $arr)) {
 
 	  	$zone = strtoupper($arr[1]);
 	  	$base_number = $arr[2];

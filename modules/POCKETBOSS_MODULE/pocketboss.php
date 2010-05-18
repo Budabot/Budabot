@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^pb (.+)$", $message, $arr)) {
+if(preg_match("/^pb (.+)$/i", $message, $arr)) {
 	$search = str_replace(" ", "%", $arr[1]);
 	$pb = ucfirst(strtolower($arr[1]));
   	$db->query("SELECT * FROM pbdb WHERE `pb` LIKE '%$search%' GROUP BY `pb` ORDER BY `pb`");
@@ -58,7 +58,7 @@ if(eregi("^pb (.+)$", $message, $arr)) {
 	}
 	
     bot::send($msg, $sendto);
-} elseif(eregi("^symb (eye|ocular|head|brain|ear|rarm|chest|larm|rwrist|waist|lwrist|rhand|legs|leg|thigh|lhand|feet) (s(u(p(p(o(r(t)?)?)?)?)?)?|c(o(n(t(r(o(l)?)?)?)?)?)?|i(n(f(a(n(t(r(y)?)?)?)?)?)?)?|a(r(t(i(l(l(e(r(y)?)?)?)?)?)?)?)?|e(x(t(e(r(m(i(n(a(t(i(o(n)?)?)?)?)?)?)?)?)?)?)?)?)$", $message, $arr)) {
+} elseif(preg_match("/^symb (eye|ocular|head|brain|ear|rarm|chest|larm|rwrist|waist|lwrist|rhand|legs|leg|thigh|lhand|feet) (s(u(p(p(o(r(t)?)?)?)?)?)?|c(o(n(t(r(o(l)?)?)?)?)?)?|i(n(f(a(n(t(r(y)?)?)?)?)?)?)?|a(r(t(i(l(l(e(r(y)?)?)?)?)?)?)?)?|e(x(t(e(r(m(i(n(a(t(i(o(n)?)?)?)?)?)?)?)?)?)?)?)?)$/i", $message, $arr)) {
   	switch($arr[1]) {
 	    case "eye":
 	    	$arr[1] = "ocular";
@@ -92,15 +92,15 @@ if(eregi("^pb (.+)$", $message, $arr)) {
 	    break;
   	}
 	
-	if(eregi("^a",$arr[2])) {
+	if(preg_match("/^a/i",$arr[2])) {
 		$arr[2] = "artillery";
-	} else if(eregi("^s",$arr[2])) {
+	} else if(preg_match("/^s/i",$arr[2])) {
 		$arr[2] = "support";
-	} else if(eregi("^i",$arr[2])) {
+	} else if(preg_match("/^i/i",$arr[2])) {
 		$arr[2] = "infantry";
-	} else if(eregi("^e",$arr[2])) {
+	} else if(preg_match("/^e/i",$arr[2])) {
 		$arr[2] = "extermination";
-	} else if(eregi("^c",$arr[2])) {
+	} else if(preg_match("/^c/i",$arr[2])) {
 		$arr[2] = "control";
 	}
 
@@ -124,7 +124,7 @@ if(eregi("^pb (.+)$", $message, $arr)) {
 
 	
     bot::send($msg, $sendto);
-} elseif(eregi("^symb (s(u(p(p(o(r(t)?)?)?)?)?)?|c(o(n(t(r(o(l)?)?)?)?)?)?|i(n(f(a(n(t(r(y)?)?)?)?)?)?)?|a(r(t(i(l(l(e(r(y)?)?)?)?)?)?)?)?|e(x(t(e(r(m(i(n(a(t(i(o(n)?)?)?)?)?)?)?)?)?)?)?)?) (eye|ocular|head|brain|ear|rarm|chest|larm|rwrist|waist|lwrist|rhand|legs|leg|thigh|lhand|feet)$", $message, $arr)) {
+} elseif(preg_match("/^symb (s(u(p(p(o(r(t)?)?)?)?)?)?|c(o(n(t(r(o(l)?)?)?)?)?)?|i(n(f(a(n(t(r(y)?)?)?)?)?)?)?|a(r(t(i(l(l(e(r(y)?)?)?)?)?)?)?)?|e(x(t(e(r(m(i(n(a(t(i(o(n)?)?)?)?)?)?)?)?)?)?)?)?) (eye|ocular|head|brain|ear|rarm|chest|larm|rwrist|waist|lwrist|rhand|legs|leg|thigh|lhand|feet)$/i", $message, $arr)) {
   	$index = count($arr) - 1;
 	switch($arr[$index]) {
 	    case "eye":
@@ -159,15 +159,15 @@ if(eregi("^pb (.+)$", $message, $arr)) {
 	    break;
 	}
 	
-	if(eregi("^a",$arr[1])) {
+	if(preg_match("/^a/i",$arr[1])) {
 		$arr[1] = "artillery";
-	} else if(eregi("^s",$arr[1])) {
+	} else if(preg_match("/^s/i",$arr[1])) {
 		$arr[1] = "support";
-	} else if(eregi("^i",$arr[1])) {
+	} else if(preg_match("/^i/i",$arr[1])) {
 		$arr[1] = "infantry";
-	} else if(eregi("^e",$arr[1])) {
+	} else if(preg_match("/^e/i",$arr[1])) {
 		$arr[1] = "extermination";
-	} else if(eregi("^c",$arr[1])) {
+	} else if(preg_match("/^c/i",$arr[1])) {
 		$arr[1] = "control";
 	}
 	

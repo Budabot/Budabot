@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
    
-if(eregi("^check (all|prof|org)$", $message, $arr)) {
+if(preg_match("/^check (all|prof|org)$/i", $message, $arr)) {
 	if($arr[1] == "all") {
 	  	$list = "<header>::::: Check for all members :::::<end>\n\n";
 	  	$db->query("SELECT * FROM priv_chatlist_<myname>");

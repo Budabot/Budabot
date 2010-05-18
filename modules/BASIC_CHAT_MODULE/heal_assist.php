@@ -30,7 +30,7 @@
    */
 
 global $heal_assist;
-if(eregi("heal$", $message)) {
+if(preg_match("/heal$/i", $message)) {
   	if(isset($heal_assist)) {
 		$link = "<header>::::: Healassist Macro on $heal_assist :::::\n\n";
 	  	$link .= "<a href='chatcmd:///macro $heal_assist /assist $heal_assist'>Click here to make an healassist on $heal_assist macro</a>";
@@ -38,7 +38,7 @@ if(eregi("heal$", $message)) {
 	} else
 		$msg = "No Healassist set atm.";
 	bot::send($msg);
-} elseif(eregi("^heal (.+)$", $message, $arr)) {
+} elseif(preg_match("/^heal (.+)$/i", $message, $arr)) {
     $name = $arr[1];
     $uid = AoChat::get_uid(ucfirst(strtolower($name)));
     if($uid) {

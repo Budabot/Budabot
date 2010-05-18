@@ -29,22 +29,22 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+) (for|reason) (.+)$", $message, $arr)) {
+if(preg_match("/^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+) (for|reason) (.+)$/i", $message, $arr)) {
   	$why = $arr[5];
 	if(($arr[2] == "w" || $arr[2] == "week" || $arr[2] == "weeks") && $arr[1] <= 50 && $arr[1] > 0)
 	    $ban_end = time() + ($arr[1] * 604800);
 	elseif (($arr[2] == "w" || $arr[2] == "week" || $arr[2] == "weeks") && $arr[1] > 50) {
-	  	bot::send("You can´t ban a player for more then 50weeks!", $sendto);
+	  	bot::send("You canï¿½t ban a player for more then 50weeks!", $sendto);
 	  	return;
 	} elseif(($arr[2] == "d" || $arr[2] == "day" || $arr[2] == "days") && $arr[1] <= 100 && $arr[1] > 0)
 	    $ban_end = time() + ($arr[1] * 86400);
 	elseif (($arr[2] == "d" || $arr[2] == "day" || $arr[2] == "days") && $arr[1] > 100) {
-	  	bot::send("You can´t ban a player for more then 100days!", $sendto);
+	  	bot::send("You canï¿½t ban a player for more then 100days!", $sendto);
 	  	return;
 	} elseif(($arr[2] == "m" || $arr[2] == "month" || $arr[2] == "months") && $arr[1] <= 12 && $arr[1] > 0)
 	    $ban_end = time() + ($arr[1] * 18144000);
 	else {
-	  	bot::send("You can´t ban a player for more then 12months!", $sendto);
+	  	bot::send("You canï¿½t ban a player for more then 12months!", $sendto);
 	  	return;
 	}
 	
@@ -75,21 +75,21 @@ if(eregi("^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+) (for|reason
 		$value = "month(s)";
 
 	bot::send("You have banned <highlight>$who<end> for {$arr[1]}$value from this bot.", $sendto);
-} elseif(eregi("^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+)$", $message, $arr)) {
+} elseif(preg_match("/^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+)$/i", $message, $arr)) {
 	if(($arr[2] == "w" || $arr[2] == "week" || $arr[2] == "weeks") && $arr[1] <= 50 && $arr[1] > 0)
 	    $ban_end = time() + ($arr[1] * 604800);
 	elseif (($arr[2] == "w" || $arr[2] == "week" || $arr[2] == "weeks") && $arr[1] > 50) {
-	  	bot::send("You can´t ban a player for more then 50weeks!", $sendto);
+	  	bot::send("You canï¿½t ban a player for more then 50weeks!", $sendto);
 	  	return;
 	} elseif(($arr[2] == "d" || $arr[2] == "day" || $arr[2] == "days") && $arr[1] <= 100 && $arr[1] > 0)
 	    $ban_end = time() + ($arr[1] * 86400);
 	elseif (($arr[2] == "d" || $arr[2] == "day" || $arr[2] == "days") && $arr[1] > 100) {
-	  	bot::send("You can´t ban a player for more then 100days!", $sendto);
+	  	bot::send("You canï¿½t ban a player for more then 100days!", $sendto);
 	  	return;
 	} elseif(($arr[2] == "m" || $arr[2] == "month" || $arr[2] == "months") && $arr[1] <= 12 && $arr[1] > 0)
 	    $ban_end = time() + ($arr[1] * 18144000);
 	else {
-	  	bot::send("You can´t ban a player for more then 12months!", $sendto);
+	  	bot::send("You canï¿½t ban a player for more then 12months!", $sendto);
 	  	return;
 	}
 	
@@ -117,7 +117,7 @@ if(eregi("^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+) (for|reason
 		$value = "month(s)";
 
 	bot::send("You have banned <highlight>$who<end> for {$arr[1]}$value from this bot.", $sendto);
-} elseif(eregi("^ban (.+) (for|reason) (.+)$", $message, $arr)){
+} elseif(preg_match("/^ban (.+) (for|reason) (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
 	
 	if(AOChat::get_uid($who) == NULL){
@@ -139,7 +139,7 @@ if(eregi("^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+) (for|reason
 	$db->query("INSERT INTO banlist_<myname> (`name`, `admin`, `time`, `why`) VALUES ('$who', '$sender', '".date("m-d-y")."', '$why')");
 
 	bot::send("You have banned <highlight>$who<end> from this bot", $sendto);
-} elseif(eregi("^ban (.+)$", $message, $arr)){
+} elseif(preg_match("/^ban (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
 	
 	if(AOChat::get_uid($who) == NULL){

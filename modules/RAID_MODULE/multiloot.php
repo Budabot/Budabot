@@ -8,10 +8,10 @@
    **
    ** Date(created): 01.03.2006
    ** Date(last modified): 30.01.2007
-   ** 
+   **
    ** Copyright (C) 2006, 2007 Carsten Lohmann
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -32,10 +32,10 @@
 global $loot;
 global $residual;
 	
-if(eregi("^multiloot (.+)$", $message, $arr)) {
+if(preg_match("/^multiloot (.+)$/i", $message, $arr)) {
 
 	//Check if it is a valid multiloot
-	if(eregi("^([0-9]+)x (.+)$", $arr[1], $lewt) || eregi("^([0-9]+) (.+)$", $arr[1], $lewt)){
+	if(preg_match("/^([0-9]+)x (.+)$/i", $arr[1], $lewt) || preg_match("/^([0-9]+) (.+)$/i", $arr[1], $lewt)){
 		$multiloot = $lewt[1];
 	} else {
 		bot::send("The data you entered is not a multiloot. Please check <highlight>/tell <myname> <symbol>help multiloot<end> for the correct syntax.");
@@ -43,12 +43,12 @@ if(eregi("^multiloot (.+)$", $message, $arr)) {
 	}
 
 	//Check if the item is a link
-  	if(eregi("^<a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">(.+)<\/a>(.*)$", $lewt[2], $item)) {
+  	if(preg_match("/^<a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">(.+)<\/a>(.*)$/i", $lewt[2], $item)) {
 	    $item_ql = $item[3];
 	    $item_highid = $item[1];
 	    $item_lowid = $item[2];
 	    $item_name = $item[4];
-	} elseif(eregi("^(.+)<a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">(.+)<\/a>(.*)$", $lewt[2], $item)){
+	} elseif(preg_match("/^(.+)<a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">(.+)<\/a>(.*)$/i", $lewt[2], $item)){
 	    $item_ql = $item[4];
 	    $item_highid = $item[2];
 	    $item_lowid = $item[3];
@@ -107,7 +107,7 @@ if(eregi("^multiloot (.+)$", $message, $arr)) {
 		if(!isset($item_highid)) {
 			$item_lowid = $row->lowid;
 			$item_highid = $row->highid;
-			$item_ql = $row->highql;	  
+			$item_ql = $row->highql;
 		}
 	}
 	
@@ -115,7 +115,7 @@ if(eregi("^multiloot (.+)$", $message, $arr)) {
 	//Save item
 	if(!$dontadd){
 		if(isset($item_highid)) {
-			$loot[$num_loot]["linky"] = "<a href='itemref://$item_lowid/$item_highid/$item_ql'>$item_name</a>";	
+			$loot[$num_loot]["linky"] = "<a href='itemref://$item_lowid/$item_highid/$item_ql'>$item_name</a>";
 		}
 			
 		$loot[$num_loot]["name"] = $item_name;

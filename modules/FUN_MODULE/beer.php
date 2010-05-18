@@ -44,7 +44,7 @@ $beer[11] = "NO!! First pay off your bar tab. You still owe me *creds* credits *
 $beer[12] = "YEAH! Let's start gathering for a Pub raid!!";
 $beer[13] = "Only Leet's are drinking beer! We need harder stuff like Wodka!";
 	
-if(eregi("^beer", $message)) {
+if(preg_match("/^beer/i", $message)) {
 	$dmg = rand(100,999);
     $cred = rand(10000,9999999);
 	$randval = rand(1, sizeof($beer) - 1);

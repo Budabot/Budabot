@@ -34,7 +34,7 @@ if (preg_match("/^note( (.*))?$/i", $message)) {
 	$usage = "Usage:\n<symbol>note add &lt;note&gt;\n<symbol>note rem &lt;note_id&gt;";
 	$msg = "";
 
-  	if (eregi("^note (rem|add) (.*)$", $message, $arr)) {
+  	if (preg_match("/^note (rem|add) (.*)$/i", $message, $arr)) {
 	  	$action = strtolower($arr[1]);
 	  	$parm2 = $arr[2];
   	

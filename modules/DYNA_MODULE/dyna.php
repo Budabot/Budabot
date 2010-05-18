@@ -12,7 +12,7 @@
 	$links = array("Help;chatcmd:///tell <myname> help dyna");
  
 	$dynacamps = '';
-	if (ereg ("^dyna ([0-2]?[0-9]?[0-9])$", $message, $arr)) {
+	if (preg_macth ("/^dyna ([0-2]?[0-9]?[0-9])$/i", $message, $arr)) {
 		$search = str_replace(" ", "%", $arr[1]);
 		$range1 = $search - 25;
 		$range2 = $search + 25;
@@ -22,7 +22,7 @@
 		if (method_exists('bot', 'makeHeader')) {
 			$dynacamps = bot::makeHeader("Results Of Dynacamp Search For $search", $links);
 		} else {
-			$dynacamps = "<header>::::: Results Of Dynacamp Search For $search :::::<end>\n";	
+			$dynacamps = "<header>::::: Results Of Dynacamp Search For $search :::::<end>\n";
 		}
 		$dynacamps .= "There are $dyna_found locations matching your query\n\n";
 		$data = $db->fObject("all");
@@ -33,7 +33,7 @@
 		}
 		
 		$dynacamps = bot::makeLink("Dynacamps", $dynacamps);
-	} elseif (ereg ("^dyna (.+)$", $message, $arr)) {
+	} elseif (preg_match ("/^dyna (.+)$/i", $message, $arr)) {
 		$search = str_replace(" ", "%", $arr[1]);
 		$search = ucfirst(strtolower($search));
 		$search = str_replace("'", "''", $arr[1]);
@@ -43,14 +43,14 @@
 		if (method_exists('bot', 'makeHeader')) {
 			$dynacamps = bot::makeHeader("Results Of Dynacamp Search For $search", $links);
 		} else {
-			$dynacamps = "<header>::::: Results Of Dynacamp Search For $search :::::<end>\n";	
+			$dynacamps = "<header>::::: Results Of Dynacamp Search For $search :::::<end>\n";
 		}
 		$dynacamps .= "There are $dyna_found locations matching your query\n\n";
 		$data = $db->fObject("all");
 		foreach($data as $row) {
 			$dynacamps .="<yellow>$row->zone:  Co-ordinates <blue>$row->cX<yellow>x<blue>$row->cY<end>\n";
 			$dynacamps .="<green>Mob Type:  $row->mob\n";
-			$dynacamps .="<blue>Level: $row->minQl<yellow>-<blue>$row->maxQl\n\n";   
+			$dynacamps .="<blue>Level: $row->minQl<yellow>-<blue>$row->maxQl\n\n";
 		}
 		
 		$dynacamps = bot::makeLink("Dynacamps", $dynacamps);

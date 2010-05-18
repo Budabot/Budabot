@@ -33,7 +33,7 @@ global $loot;
 global $raidlist;
 global $raidloot;
 
-if(eregi("^add$", $message)) {
+if(preg_match("/^add$/i", $message)) {
 	//Check if a flat(multiroll) or pts roll is going on
 	if($this->vars["raid_pts"] > 0) {
 		$msg = "<red>This raid is pts rolled. Use instead bid.<end>";
@@ -82,7 +82,7 @@ if(eregi("^add$", $message)) {
 	
 	$msg = "<highlight>$sender<end> has been added for this roll.";
 	bot::send($msg);
-} elseif(eregi("^add 0$", $message)) {
+} elseif(preg_match("/^add 0$/i", $message)) {
  	//Raid with flatrolls
 	if($this->vars["raid_status"] != "" && $this->vars["raid_pts"] == 0) {
 	  	foreach($raidloot as $key => $value)
@@ -101,7 +101,7 @@ if(eregi("^add$", $message)) {
 	  	bot::send($msg, $sender);	   
 	} else
 		bot::send("There is nothing where you could add in.", $sender);
-} elseif(eregi("^add ([0-9]+)$", $message, $arr)) {
+} elseif(preg_match("/^add ([0-9]+)$/i", $message, $arr)) {
   	$slot = $arr[1];
   	$found = false;
   	//Raid with flatrolls

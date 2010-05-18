@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(!eregi("^afk(.*)$", $message, $arr)) {
+if(!preg_match("/^afk(.*)$/i", $message, $arr)) {
 	$db->query("SELECT afk FROM priv_chatlist_<myname> WHERE `name` = '$sender'");
 	if($db->numrows() != 0) {
 	    $row = $db->fObject();

@@ -60,7 +60,7 @@ $axp[27] = 4608707;
 $axp[28] = 5023490;
 $axp[29] = 5475604;
 $axp[30] = 5968409;
-if(eregi("^axp$", $message)) {
+if(preg_match("/^axp$/i", $message)) {
     $msg = "<header>::::: Alien Experience List :::::<end>\n\n";
     $msg .= "<u>AI Lvl - AXP   - Rank         - Lvl Req.</u>\n";
     $msg .= " 1 -      1.500 - Fledgling - 5\n";
@@ -103,7 +103,7 @@ if(eregi("^axp$", $message)) {
        	bot::send($msg);
     elseif($type == "guild")
        	bot::send($msg, "guild");
-} elseif(eregi("^axp ([0-9]+)$", $message, $arr)) {
+} elseif(preg_match("/^axp ([0-9]+)$/i", $message, $arr)) {
     if($arr[1] >= 1 && $arr[1] <= 30) {
         $msg = "With ailvl <highlight>".$arr[1]."<end> you need <highlight>".number_format($axp[$arr[1]])."<end> AXP to level up.";
     } else
@@ -116,7 +116,7 @@ if(eregi("^axp$", $message)) {
        	bot::send($msg);
     elseif($type == "guild")
        	bot::send($msg, "guild");
-} elseif(eregi("^axp ([0-9]+) ([0-9]+)$", $message, $arr)) {
+} elseif(preg_match("/^axp ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
     if($arr[1] >= 0 && $arr[1] <= 30 && $arr[2] >= 1 && $arr[2] <= 30) {
         if($arr[1] < $arr[2]) {
             for($i = $arr[1]+1; $i <= $arr[2]; $i++)

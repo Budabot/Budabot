@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^tell (.+)$", $message, $arr)) {
+if(preg_match("/^tell (.+)$/i", $message, $arr)) {
   	bot::send("<yellow>".$arr[1]."<end>");
   	bot::send("<yellow>".$arr[1]."<end>");
   	bot::send("<yellow>".$arr[1]."<end>");

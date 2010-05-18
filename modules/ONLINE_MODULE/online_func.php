@@ -102,7 +102,7 @@ function createList(&$data, &$sender, &$list, &$type, &$bot, $show_alts = false)
 			{
 				// fancy delimiters
 				$list .= "<br><img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER><br>";
-				if (bot->settings["icon_fancy_online"] == 1)
+				if ($bot->settings["icon_fancy_online"] == 1)
 				{
 					if($row->profession == "Adventurer")
 					$list .= "<img src=rdb://84203>";

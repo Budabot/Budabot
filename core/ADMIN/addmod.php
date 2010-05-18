@@ -29,16 +29,16 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^addmod (.+)$", $message, $arr)){
+if(preg_match("/^addmod (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
 
 	if(AOChat::get_uid($who) == NULL){
-		bot::send("<red>Sorry the player you wish to add doesn´t exist.<end>", $sendto);
+		bot::send("<red>Sorry the player you wish to add doesnï¿½t exist.<end>", $sendto);
 		return;	
 	}
 	
 	if($who == $sender) {
-		bot::send("<red>You can´t add yourself to another group.<end>", $sendto);
+		bot::send("<red>You canï¿½t add yourself to another group.<end>", $sendto);
 		return;		
 	}
 

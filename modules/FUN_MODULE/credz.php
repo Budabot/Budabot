@@ -44,7 +44,7 @@ $credz = array(
 	"No I don't think so. You still owe me *creds* credits from last time *name*!",
 	"Sorry, I don't have any credits left. Would you like a RBP instead?");
 	
-if(eregi("^credz", $message)) {
+if(preg_match("/^credz/i", $message)) {
 	$dmg = rand(100,999);
     $cred = rand(10000,9999999);
 	$randval = rand(1, sizeof($credz) - 1);

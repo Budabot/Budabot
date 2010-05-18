@@ -3,7 +3,7 @@
 $header = "<header>::::: Nano Delta :::::<end>\n\n"	;
 $footer = "<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n\nby Imoutochan, RK1";
 	
-if (eregi("^nd$", $message)) {
+if (preg_match("/^nd$/i", $message)) {
 	$inside = $header;
 	$inside .= "Psychic  -> nd tick delay\n<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
 	for ($i = 0; $i < 14; $i++) {
@@ -12,7 +12,7 @@ if (eregi("^nd$", $message)) {
 				   ($i % 3 == 2 ? "<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n" : "");
 	}
 	$msg = bot::makeLink("Nano delta tick info", $inside.$footer);
-} elseif (eregi("^nd ([0-9]+)$", $message, $arr)) {
+} elseif (preg_match("/^nd ([0-9]+)$/i", $message, $arr)) {
 	$tick = (28-floor($arr[1]/30)); 
 	if ($tick < 2) $tick = 2;
 	$msg = "\nWith <highlight>".$arr[1]." psychic<end> your nano delta will tick every <highlight>".$tick."s<end>.";

@@ -31,21 +31,21 @@
 
 global $loot;
 global $residual;
-if(eregi("^(loot clear|clear)$", $message)) {
+if(preg_match("/^(loot clear|clear)$/i", $message)) {
   	$loot = "";
 	$residual = "";
   	$msg = "Loot has been cleared by <highlight>$sender<end>.";
   	bot::send($msg);	
-} elseif(eregi("^loot (.+)$", $message, $arr)) {
+} elseif(preg_match("/^loot (.+)$/i", $message, $arr)) {
 
 	//Check if the item is a link
-  	if(eregi("^<a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">(.+)<\/a>(.*)$", $arr[1], $item)) {
+  	if(preg_match("/^<a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">(.+)<\/a>(.*)$/i", $arr[1], $item)) {
 	    $item_ql = $item[3];
 	    $item_highid = $item[1];
 	    $item_lowid = $item[2];
 	    $item_name = $item[4];
 		}
-	elseif(eregi("^(.+)<a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">(.+)<\/a>(.*)$", $arr[1], $item)){
+	elseif(preg_match("/^(.+)<a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">(.+)<\/a>(.*)$/i", $arr[1], $item)){
 	    $item_ql = $item[4];
 	    $item_highid = $item[2];
 	    $item_lowid = $item[3];

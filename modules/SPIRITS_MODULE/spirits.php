@@ -3,7 +3,7 @@
    Spirits Module Ver 1.1
    Written By Jaqueme
    For Budabot
-   Database Adapted From One Originally 
+   Database Adapted From One Originally
    Compiled by Wolfbiter For BeBot
    Spirits Database Module
    Written 5/11/07
@@ -174,8 +174,8 @@ else if (preg_match("/^spirits ([0-9]+)-([0-9]+)$/i", $message, $arr)) {
 		}
 		$spirits .= "<img src=rdb://".$icon."> ";
 		$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
-		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";    
-	}	
+		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";
+	}
 }
 	// If searched by ql and slot
 else if (preg_match("/^spirits ([0-9]+) (.+)$/i", $message, $arr)) {
@@ -233,7 +233,7 @@ else if (preg_match("/^spirits ([0-9]+) (.+)$/i", $message, $arr)) {
 	}
 }
 	// If searched by ql range and slot
-elseif (ereg("^spirits ([0-9]+)-([0-9]+) (.+)$", $message, $arr)) {
+elseif (preg_macth("/^spirits ([0-9]+)-([0-9]+) (.+)$/i", $message, $arr)) {
 	$qllorange = $arr[1];
 	$qlhirange = $arr[2];
 	$name = $arr[3];
@@ -248,7 +248,7 @@ elseif (ereg("^spirits ([0-9]+)-([0-9]+) (.+)$", $message, $arr)) {
         	bot::send($msg, "guild");
         return;
     }
-	elseif (eregi("[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]",$name)) {
+	elseif (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i",$name)) {
 		$spirits = "<header>  :::::  Search Spirits Database <red>Error<end>  :::::  <end>\n\n";
 		$spirits .= "<red>Invalid Input\n\n";
 		$spirits .="If searching by QL Range and Slot valid slot types are:\n";
@@ -291,12 +291,12 @@ elseif (ereg("^spirits ([0-9]+)-([0-9]+) (.+)$", $message, $arr)) {
 			}
 		$spirits .= "<img src=rdb://".$icon."> ";
 		$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
-		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";    
+		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";
 		}
 	}
 }
 	// If searched by minimum level
-elseif (ereg ("^spiritslvl ([0-9]+)$", $message, $arr)) {
+elseif (preg_match ("/^spiritslvl ([0-9]+)$/i", $message, $arr)) {
 	$lvl = $arr[1];
     if($lvl < 1 OR $lvl > 219) {
         $msg = "<red>No valid Level specified(1-219)";
@@ -329,11 +329,11 @@ elseif (ereg ("^spiritslvl ([0-9]+)$", $message, $arr)) {
 			}
 		$spirits .= "<img src=rdb://".$icon."> ";
 		$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
-		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";    
+		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";
 		}
 }
 	// If searched by minimum level range
-elseif (ereg("^spiritslvl ([0-9]+)-([0-9]+)$", $message, $arr)) {
+elseif (preg_match("/^spiritslvl ([0-9]+)-([0-9]+)$/i", $message, $arr)) {
 	$lvllorange = $arr[1];
 	$lvlhirange = $arr[2];
 	if ($lvllorange < 1 OR $lvlhirange > 219 OR $lvllorange >= $lvlhirange) {
@@ -366,11 +366,11 @@ elseif (ereg("^spiritslvl ([0-9]+)-([0-9]+)$", $message, $arr)) {
 			}
 		$spirits .= "<img src=rdb://".$icon."> ";
 		$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
-		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";    
+		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";
 		}
 }
-	// If searched by minimum level and slot 
-elseif (ereg ("^spiritslvl ([0-9]+) (.+)$", $message, $arr)) {
+	// If searched by minimum level and slot
+elseif (ereg ("/^spiritslvl ([0-9]+) (.+)$/i", $message, $arr)) {
 	$lvl = $arr[1];
 	$name = $arr[2];
 	$name = ucwords(strtolower($name));
@@ -384,7 +384,7 @@ elseif (ereg ("^spiritslvl ([0-9]+) (.+)$", $message, $arr)) {
         	bot::send($msg, "guild");
         return;
     }
-	elseif (eregi("[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]",$name)) {
+	elseif (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i",$name)) {
 		$spirits = "<header>  :::::  Search Spirits Database <red>Error<end>  :::::  <end>\n\n";
 		$spirits .= "<red>Invalid Input\n\n";
 		$spirits .="If searching by Minimum Level and Slot valid slot types are:\n";
@@ -428,12 +428,12 @@ elseif (ereg ("^spiritslvl ([0-9]+) (.+)$", $message, $arr)) {
 			}
 		$spirits .= "<img src=rdb://".$icon."> ";
 		$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
-		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";    
+		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";
 		}
 	}
 }
 	// If searched by minimum level range and slot
-elseif (ereg("^spiritslvl ([0-9]+)-([0-9]+) (.+)$", $message, $arr)) {
+elseif (preg_match("/^spiritslvl ([0-9]+)-([0-9]+) (.+)$/i", $message, $arr)) {
 	$lvllorange = $arr[1];
 	$lvlhirange = $arr[2];
 	$name = $arr[3];
@@ -448,7 +448,7 @@ elseif (ereg("^spiritslvl ([0-9]+)-([0-9]+) (.+)$", $message, $arr)) {
         	bot::send($msg, "guild");
         return;
     }
-	elseif (eregi("[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]",$name)) {
+	elseif (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i",$name)) {
 		$spirits = "<header>  :::::  Search Spirits Database <red>Error<end>  :::::  <end>\n\n";
 		$spirits .= "<red>Invalid Input\n\n";
 		$spirits .="If searching by Minimum Level and Slot valid slot types are:\n";
@@ -465,7 +465,7 @@ elseif (ereg("^spiritslvl ([0-9]+)-([0-9]+) (.+)$", $message, $arr)) {
 		$spirits .="Lhand\n";
 		$spirits .="Rhand\n";
 		$spirits .="Feet\n";
-	}	
+	}
 	else {
 	$spirits = "<header>  :::::  Search for $name Spirits Level $lvllorange to $lvlhirange  :::::  <end>\n\n";
 	$db->query("SELECT * FROM spiritsdb where spot = '".str_replace("'", "''", $name)."' AND level >= $lvllorange AND level <= $lvlhirange ORDER BY level");
@@ -491,12 +491,12 @@ elseif (ereg("^spiritslvl ([0-9]+)-([0-9]+) (.+)$", $message, $arr)) {
 			}
 		$spirits .= "<img src=rdb://".$icon."> ";
 		$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
-		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";    
+		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";
 		}
 	}
 }
 	//Search by Agility
-elseif (ereg ("^spiritsagi ([0-9,]+)$", $message, $arr)) {
+elseif (preg_match ("/^spiritsagi ([0-9,]+)$/i", $message, $arr)) {
 	$agility = $arr[1];
 	$loagility = $agility - 10;
 	$spirits = "<header>::::Search Spirits Database for Agility Requirement of $agility::::<end>\n\n";
@@ -523,11 +523,11 @@ elseif (ereg ("^spiritsagi ([0-9,]+)$", $message, $arr)) {
 			}
 		$spirits .= "<img src=rdb://".$icon."> ";
 		$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
-		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility Needed=$agi<end>\n\n";    
+		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility Needed=$agi<end>\n\n";
 		}
 }
 	// If searched by Agility and slot
-elseif (ereg ("^spiritsagi ([0-9]+) (.+)$", $message, $arr)) {
+elseif (preg_match ("/^spiritsagi ([0-9]+) (.+)$/i", $message, $arr)) {
 	$agility = $arr[1];
 	$loagility = $agility - 10;
 	var_dump($loagility,$agility);
@@ -543,7 +543,7 @@ elseif (ereg ("^spiritsagi ([0-9]+) (.+)$", $message, $arr)) {
         	bot::send($msg, "guild");
         return;
     }
-	elseif (eregi("[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]",$name)) {
+	elseif (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i",$name)) {
 		$spirits = "<header>  :::::  Search Spirits Database <red>Error<end>  :::::  <end>\n\n";
 		$spirits .= "<red>Invalid Input\n\n";
 		$spirits .="If searching by Agility and Slot valid slot types are:\n";
@@ -586,12 +586,12 @@ elseif (ereg ("^spiritsagi ([0-9]+) (.+)$", $message, $arr)) {
 			}
 		$spirits .= "<img src=rdb://".$icon."> ";
 		$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
-		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility Needed=$agi<end>\n\n";    
+		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility Needed=$agi<end>\n\n";
 		}
 	}
 }
 	//Search By Sense
-elseif (ereg ("^spiritssen ([0-9,]+)$", $message, $arr)) {
+elseif (preg_match ("/^spiritssen ([0-9,]+)$/i", $message, $arr)) {
 	$sense = $arr[1];
 	$losense = $sense - 10;
 	$spirits = "<header>::::Search Spirits Database for Sense Requirement of $sense::::<end>\n\n";
@@ -618,11 +618,11 @@ elseif (ereg ("^spiritssen ([0-9,]+)$", $message, $arr)) {
 			}
 		$spirits .= "<img src=rdb://".$icon."> ";
 		$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
-		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Sense Needed=$sen<end>\n\n";    
+		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Sense Needed=$sen<end>\n\n";
 		}
 }
 	// If searched by Sensel and slot
-elseif (ereg ("^spiritssen ([0-9]+) (.+)$", $message, $arr)) {
+elseif (preg_match ("/^spiritssen ([0-9]+) (.+)$/i", $message, $arr)) {
 	$sense = $arr[1];
 	$losense = $sense - 10;
 	$name = $arr[2];
@@ -637,7 +637,7 @@ elseif (ereg ("^spiritssen ([0-9]+) (.+)$", $message, $arr)) {
         	bot::send($msg, "guild");
         return;
     }
-	elseif (eregi("[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]",$name)) {
+	elseif (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i",$name)) {
 		$spirits = "<header>  :::::  Search Spirits Database <red>Error<end>  :::::  <end>\n\n";
 		$spirits .= "<red>Invalid Input\n\n";
 		$spirits .="If searching by Sense and Slot valid slot types are:\n";
@@ -680,7 +680,7 @@ elseif (ereg ("^spiritssen ([0-9]+) (.+)$", $message, $arr)) {
 			}
 		$spirits .= "<img src=rdb://".$icon."> ";
 		$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
-		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility Needed=$agi<end>\n\n";    
+		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility Needed=$agi<end>\n\n";
 		}
 	}
 }
@@ -689,7 +689,7 @@ else {
 	$spirits .= "<red>Invalid search criteria entered";
 }
 		
-$spirits = bot::makeLink("Spirits", $spirits); 
+$spirits = bot::makeLink("Spirits", $spirits);
 		
-bot::send($spirits, $sendto); 
+bot::send($spirits, $sendto);
 ?>

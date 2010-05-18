@@ -37,7 +37,7 @@
 // create a timer for 15m when an OS/AS is launched (so org knows when they can launch again)
 // [Org Msg] Blammo! Player has launched an orbital attack!
 
-if(eregi("^Blammo! (.+) has launched an orbital attack!$", $message, $array)) {
+if(preg_match("/^Blammo! (.+) has launched an orbital attack!$/i", $message, $array)) {
 	bot::send("OS !timer was set for 15 minutes", "guild");
 	$orgName = $this->vars["my guild"];
 

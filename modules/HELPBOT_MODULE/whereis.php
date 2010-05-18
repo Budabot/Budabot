@@ -36,7 +36,7 @@
 //|help|
 //////////////// make your code below this point
 
-if(eregi("^whereis (.+)$", $message, $arr)) {
+if(preg_match("/^whereis (.+)$/i", $message, $arr)) {
 	$query = strtolower($arr[1]);
 	$reply = "";
 

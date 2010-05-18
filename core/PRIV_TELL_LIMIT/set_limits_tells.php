@@ -30,7 +30,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^tminlvl$", $message)) {
+if(preg_match("/^tminlvl$/i", $message)) {
  	if($this->settings["tell_req_lvl"] == 0)
  		$msg = "No Level Limit has been set for responding on tells.";
  	else
@@ -42,7 +42,7 @@ if(eregi("^tminlvl$", $message)) {
        	bot::send($msg);
     elseif($type == "guild")
        	bot::send($msg, "guild");
-} elseif(eregi("^tminlvl ([0-9]+)$", $message, $arr)) {
+} elseif(preg_match("/^tminlvl ([0-9]+)$/i", $message, $arr)) {
 	$minlvl = strtolower($arr[1]);
 	
 	if($minlvl > 220 || $minlvl < 0) {
@@ -65,7 +65,7 @@ if(eregi("^tminlvl$", $message)) {
        	bot::send($msg);
     elseif($type == "guild")
        	bot::send($msg, "guild");     	
-} elseif(eregi("^topen$", $message)) {
+} elseif(preg_match("/^topen$/i", $message)) {
  	if($this->settings["tell_req_open"] == "all")
  		$msg = "No General Limit is set for responding on tells.";
  	elseif($this->settings["tell_req_open"] == "org")
@@ -79,7 +79,7 @@ if(eregi("^tminlvl$", $message)) {
        	bot::send($msg);
     elseif($type == "guild")
        	bot::send($msg, "guild");
-} elseif(eregi("^topen (org|all|members)$", $message, $arr)) {
+} elseif(preg_match("/^topen (org|all|members)$/i", $message, $arr)) {
 	$open = strtolower($arr[1]);
 	
 	bot::savesetting("tell_req_open", $open);
@@ -98,7 +98,7 @@ if(eregi("^tminlvl$", $message)) {
        	bot::send($msg);
     elseif($type == "guild")
        	bot::send($msg, "guild");
-} elseif(eregi("^tfaction$", $message)) {
+} elseif(preg_match("/^tfaction$/i", $message)) {
  	if($this->settings["tell_req_faction"] == "all")
  		$msg = "No Faction Limit is set for responding on tells.";
 	else
@@ -110,7 +110,7 @@ if(eregi("^tminlvl$", $message)) {
        	bot::send($msg);
     elseif($type == "guild")
        	bot::send($msg, "guild"); 	
-} elseif(eregi("^tfaction (omni|clan|neutral|all)$", $message, $arr)) {
+} elseif(preg_match("/^tfaction (omni|clan|neutral|all)$/i", $message, $arr)) {
 	$faction = ucfirst(strtolower($arr[1]));
 	
 	bot::savesetting("tell_req_faction", $faction);
@@ -127,7 +127,7 @@ if(eregi("^tminlvl$", $message)) {
        	bot::send($msg);
     elseif($type == "guild")
        	bot::send($msg, "guild");
-} elseif(eregi("^tfaction not (omni|clan|neutral)$", $message, $arr)) {
+} elseif(preg_match("/^tfaction not (omni|clan|neutral)$/i", $message, $arr)) {
 	$faction = ucfirst(strtolower($arr[1]));
 	
 	bot::savesetting("tell_req_faction", "not ".$faction);

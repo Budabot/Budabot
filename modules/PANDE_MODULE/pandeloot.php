@@ -330,7 +330,7 @@ global $raidloot;
 global $vote;
 $msg = '';
 
-if( eregi("^pande$", $message)){
+if( preg_match("/^pande$/i", $message)){
 	$list = "<header>::::: Pandemonium Loot :::::<end>\n\n\n";
 	$list .= "The Beast\n";
 	$newlink = bot::makeLink("Beast Armor\n", "/tell <myname> <symbol>beastarmor", "chatcmd");
@@ -378,7 +378,7 @@ if( eregi("^pande$", $message)){
 	$msg = bot::makeLink("Pandemonium Loot", $list);
 }
 
-elseif( eregi("^pandeloot ([0-9]+)$", $message, $arr)) {
+elseif( preg_match("/^pandeloot ([0-9]+)$/i", $message, $arr)) {
 	$val = $arr[1];
 	$itemname = $pandeloot[$val]["name"];
 	$dontadd = 0;
@@ -415,7 +415,7 @@ elseif( eregi("^pandeloot ([0-9]+)$", $message, $arr)) {
 	$msg .= "\nTo add use !add ".$nextloot.", or !add 0 to remove yourself";
 }
 
-elseif( eregi("^beastarmor$", $message)){
+elseif( preg_match("/^beastarmor$/i", $message)){
 	$list = "<header>::::: Beast Armor :::::<end>\n\n\n";
 	$loop = 1;
 	while($loop <= 10) {
@@ -428,7 +428,7 @@ elseif( eregi("^beastarmor$", $message)){
 	}
 	$msg = bot::makeLink("Beast Armor", $list);
 }
-elseif( eregi("^beastweaps$", $message)){
+elseif( preg_match("/^beastweaps$/i", $message)){
 	$list = "<header>::::: Beast Weapons :::::<end>\n\n\n";
 	$loop = 11;
 	while($loop <= 24) {
@@ -441,7 +441,7 @@ elseif( eregi("^beastweaps$", $message)){
 	}
 	$msg = bot::makeLink("Beast Weapons", $list);
 }
-elseif( eregi("^beaststars$", $message)){
+elseif( preg_match("/^beaststars$/i", $message)){
 	$list = "<header>::::: Beast Stars :::::<end>\n\n\n";
 	$loop = 25;
 	while($loop <= 38) {
@@ -454,7 +454,7 @@ elseif( eregi("^beaststars$", $message)){
 	}
 	$msg = bot::makeLink("Beast Stars", $list);
 }
-elseif( eregi("^sb$", $message)){
+elseif( preg_match("/^sb$/i", $message)){
 	$list = "<header>::::: Shadowbreeds :::::<end>\n\n\n";
 	$loop = 39;
 	while($loop <= 41) {
@@ -467,7 +467,7 @@ elseif( eregi("^sb$", $message)){
 	}
 	$msg = bot::makeLink("Shadowbreeds", $list);
 }
-elseif( eregi("^tnh$", $message)){
+elseif( preg_match("/^tnh$/i", $message)){
 	$list = "<header>::::: The Night Heart :::::<end>\n\n\n";
 	$loop = 42;
 	while($loop <= 46) {
@@ -480,7 +480,7 @@ elseif( eregi("^tnh$", $message)){
 	}
 	$msg = bot::makeLink("The Night Heart Loot", $list);
 }
-elseif( eregi("^aries$", $message)){
+elseif( preg_match("/^aries$/i", $message)){
 	$list = "<header>::::: Aries :::::<end>\n\n\n";
 	$loop = 47;
 	while($loop <= 51) {
@@ -493,7 +493,7 @@ elseif( eregi("^aries$", $message)){
 	}
 	$msg = bot::makeLink("Aries Loot", $list);
 }
-elseif( eregi("^leo$", $message)){
+elseif( preg_match("/^leo$/i", $message)){
 	$list = "<header>::::: Leo :::::<end>\n\n\n";
 	$loop = 52;
 	while($loop <= 55) {
@@ -506,7 +506,7 @@ elseif( eregi("^leo$", $message)){
 	}
 	$msg = bot::makeLink("Leo Loot", $list);
 }
-elseif( eregi("^virgo$", $message)){
+elseif( preg_match("/^virgo$/i", $message)){
 	$list = "<header>::::: Virgo :::::<end>\n\n\n";
 	$loop = 56;
 	while($loop <= 59) {
@@ -519,7 +519,7 @@ elseif( eregi("^virgo$", $message)){
 	}
 	$msg = bot::makeLink("Virgo Loot", $list);
 }
-elseif( eregi("^aquarius$", $message)){
+elseif( preg_match("/^aquarius$/i", $message)){
 	$list = "<header>::::: Aquarius :::::<end>\n\n\n";
 	$loop = 60;
 	while($loop <= 63) {
@@ -532,7 +532,7 @@ elseif( eregi("^aquarius$", $message)){
 	}
 	$msg = bot::makeLink("Aquarius Loot", $list);
 }
-elseif( eregi("^cancer$", $message)){
+elseif( preg_match("/^cancer$/i", $message)){
 	$list = "<header>::::: Cancer :::::<end>\n\n\n";
 	$loop = 64;
 	while($loop <= 67) {
@@ -545,7 +545,7 @@ elseif( eregi("^cancer$", $message)){
 	}
 	$msg = bot::makeLink("Cancer Loot", $list);
 }
-elseif( eregi("^gemini$", $message)){
+elseif( preg_match("/^gemini$/i", $message)){
 	$list = "<header>::::: Gemini :::::<end>\n\n\n";
 	$loop = 68;
 	while($loop <= 71) {
@@ -558,7 +558,7 @@ elseif( eregi("^gemini$", $message)){
 	}
 	$msg = bot::makeLink("Gemini Loot", $list);
 }
-elseif( eregi("^libra$", $message)){
+elseif( preg_match("/^libra$/i", $message)){
 	$list = "<header>::::: Libra :::::<end>\n\n\n";
 	$loop = 72;
 	while($loop <= 76) {
@@ -571,7 +571,7 @@ elseif( eregi("^libra$", $message)){
 	}
 	$msg = bot::makeLink("Libra Loot", $list);
 }
-elseif( eregi("^pisces$", $message)){
+elseif( preg_match("/^pisces$/i", $message)){
 	$list = "<header>::::: Pisces :::::<end>\n\n\n";
 	$loop = 77;
 	while($loop <= 80) {
@@ -584,7 +584,7 @@ elseif( eregi("^pisces$", $message)){
 	}
 	$msg = bot::makeLink("Pisces Loot", $list);
 }
-elseif( eregi("^taurus$", $message)){
+elseif( preg_match("/^taurus$/i", $message)){
 	$list = "<header>::::: Taurus :::::<end>\n\n\n";
 	$loop = 81;
 	while($loop <= 84) {
@@ -597,7 +597,7 @@ elseif( eregi("^taurus$", $message)){
 	}
 	$msg = bot::makeLink("Taurus Loot", $list);
 }
-elseif( eregi("^capricorn$", $message)){
+elseif( preg_match("/^capricorn$/i", $message)){
 	$list = "<header>::::: Capricorn :::::<end>\n\n\n";
 	$loop = 85;
 	while($loop <= 88) {
@@ -610,7 +610,7 @@ elseif( eregi("^capricorn$", $message)){
 	}
 	$msg = bot::makeLink("Capricorn Loot", $list);
 }
-elseif( eregi("^sagittarius$", $message)){
+elseif( preg_match("/^sagittarius$/i", $message)){
 	$list = "<header>::::: Sagittarius :::::<end>\n\n\n";
 	$loop = 89;
 	while($loop <= 92) {
@@ -623,7 +623,7 @@ elseif( eregi("^sagittarius$", $message)){
 	}
 	$msg = bot::makeLink("Sagittarius Loot", $list);
 }
-elseif( eregi("^scorpio$", $message)){
+elseif( preg_match("/^scorpio$/i", $message)){
 	$list = "<header>::::: Scorpio :::::<end>\n\n\n";
 	$loop = 93;
 	while($loop <= 96) {

@@ -7,7 +7,7 @@
    ** Healnjoo RK2
    */
    
-if(eregi("^nano ([0-9]+) (.+)$", $message, $arr)){
+if(preg_match("/^nano ([0-9]+) (.+)$/i", $message, $arr)){
     $ql = $arr[1];
     if(!($ql >= 1 && $ql <= 500)) {
         $msg = "No valid Ql specified(1-500)";
@@ -15,7 +15,7 @@ if(eregi("^nano ([0-9]+) (.+)$", $message, $arr)){
         return;
     }
     $name = $arr[2];
-} else if(eregi("^nano (.+)$", $message, $arr)){
+} else if(preg_match("/^nano (.+)$/i", $message, $arr)){
     $name = $arr[1];
     $ql = false;
 } else {

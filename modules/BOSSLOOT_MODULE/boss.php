@@ -3,7 +3,7 @@
    Bossloot Module Ver 1.1
    Written By Jaqueme
    For Budabot
-   Database Adapted From One Originally 
+   Database Adapted From One Originally
    Compiled by Malosar For BeBot
    Boss Drop Table Database Module
    Written 5/11/07
@@ -13,7 +13,7 @@
     $links = array("Help;chatcmd:///tell <myname> help Boss");
 
 $output = '';
-if (ereg ("^boss (.+)$", $message, $arr)) {
+if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 
 	$search = $arr[1];
 	$search = ucwords(strtolower($search));
@@ -22,7 +22,7 @@ if (ereg ("^boss (.+)$", $message, $arr)) {
 	if (method_exists('bot', 'makeHeader')) {
 		$boss = bot::makeHeader("Results of Search for $search", $links);
 	} else {
-		$boss = "<header>::::: Results of Search for $search :::::<end>\n";	
+		$boss = "<header>::::: Results of Search for $search :::::<end>\n";
 	}
 	
 	// Find bossname or Boss key
@@ -38,7 +38,7 @@ if (ereg ("^boss (.+)$", $message, $arr)) {
 			$bossname = $row->bossname;
 			$bossid = $row->bossid;
 			$db->query("SELECT * FROM whereis WHERE name = '".str_replace("'", "''", $bossname)."'");
-			$data = $db->fobject("all"); 
+			$data = $db->fobject("all");
 			foreach ($data as $row) {
 				$bossname = $row->name;
 				$boss .= "\n\n<a href='chatcmd:///tell <myname> !boss $bossname'>$bossname</a>\n";
@@ -77,7 +77,7 @@ if (ereg ("^boss (.+)$", $message, $arr)) {
 			}
 		$db->query("SELECT * FROM boss_lootdb, aodb WHERE boss_lootdb.bossid = $name_id AND boss_lootdb.itemid = aodb.lowid");
 		$data = $db->fobject("all");
-		foreach ($data as $row) { 
+		foreach ($data as $row) {
 			$loid = $row->itemid;
 			$hiid = $row->highid;
 			$ql = $row->highql;
@@ -89,7 +89,7 @@ if (ereg ("^boss (.+)$", $message, $arr)) {
 		}
 		$output = bot::makelink("Boss", $boss);
 	}
-	else { 
+	else {
 		$output .= "<yellow>There were no matches for your search.</end>";
 	}
 }

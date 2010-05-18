@@ -8,10 +8,10 @@
    **
    ** Date(created): 05.03.2008
    ** Date(last modified): 05.03.2008
-   ** 
+   **
    ** Copyright (C) 2005, 2006 Carsten Lohmann
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-// Hate doing functions in plugins, but it's necessary 
+// Hate doing functions in plugins, but it's necessary
 // because this is called in 2 completely different sections.
 
 if (!function_exists(orgmatesformat)){
@@ -70,7 +70,7 @@ if (!function_exists(orgmatesformat)){
 				$fullist .= $onlinelist;
 			}
 			if ($offlinelist) {
-				$fullist .= $color["offline"].$offlinelist."</font>\n";				
+				$fullist .= $color["offline"].$offlinelist."</font>\n";
 			}
 		}
 		$totaltime = time()-$timestart;
@@ -113,10 +113,10 @@ $orgcolor["offline"] = "<font color=#555555>";		// Offline names
 
 
 // No options? Target the $sender
-if(eregi("^(orglist|onlineorg)$", $message, $arr)) {$message = "orglist $sender";}
+if(preg_match("/^(orglist|onlineorg)$/i", $message, $arr)) {$message = "orglist $sender";}
 
 // Now we hopefully have either an org memeber, or org ID.
-if(eregi("^(orglist|onlineorg) (.+)$", $message, $arr)) {
+if(preg_match("/^(orglist|onlineorg) (.+)$/i", $message, $arr)) {
 
 	// Check if we are already doing a list.
 	if ($this->vars["orglist_module"]["start"]) {
@@ -222,7 +222,7 @@ if(eregi("^(orglist|onlineorg) (.+)$", $message, $arr)) {
 		}
 
 		if (!$this->vars["orglist_module"]["orgtype"] && !$msg) {
-			// If we haven't found the org yet, it can only be 
+			// If we haven't found the org yet, it can only be
 			// Department or Republic with only a president.
 			$this->vars["orglist_module"]["orgtype"] = "Republic";
 		}
@@ -231,14 +231,14 @@ if(eregi("^(orglist|onlineorg) (.+)$", $message, $arr)) {
 
 		// If we didn't have to add people to the buddylist, then post results now
 		if (!$this->vars["orglist_module"]["check"] && !$msg) {
-			// Everyone was already on the buddylist, so we are done.			
+			// Everyone was already on the buddylist, so we are done.
 			$msg = orgmatesformat($this->vars["orglist_module"], $orgrankmap, $orgcolor, $this->vars["orglist_module"]["start"],$this->vars["orglist_module"]["org"]);
 			$msg = bot::makeLink("Orglist for '".$this->vars["orglist_module"]["org"]."'", $msg);
 		} elseif (!$msg) {
 
-			// We have people we need to plug into the buddylist, 
+			// We have people we need to plug into the buddylist,
 			// then remove after we get thier online status.
-			$msg = "Now checking online status...."; 
+			$msg = "Now checking online status....";
 			if      ($type == "msg")   {$this->vars["orglist_module"]["target"] = $sender;}
 			elseif  ($type == "guild") {$this->vars["orglist_module"]["target"] = "org";}
 			elseif  ($type == "priv")  {$this->vars["orglist_module"]["target"] = "prv";}
@@ -249,11 +249,11 @@ if(eregi("^(orglist|onlineorg) (.+)$", $message, $arr)) {
 			while ($this->vars["orglist_module"]["check"][0][$i]) {
 				bot::send("addbuddy", $this->vars["orglist_module"]["check"][0][$i]);
 				bot::send("rembuddy", $sender);
-				$i++; 
+				$i++;
 			}
 
 			$this->vars["orglist_module"]["marker"] = $i;
-		}	  
+		}
 	}
 
 
@@ -300,9 +300,9 @@ if(eregi("^(orglist|onlineorg) (.+)$", $message, $arr)) {
 				elseif ($this->vars["orglist_module"]["target"] == "prv") {bot::send($msg);}
 				else   {bot::send($msg, $this->vars["orglist_module"]["target"]);}
 			
-				unset($this->vars["orglist_module"]);				
+				unset($this->vars["orglist_module"]);
 			}
-		}	
+		}
 	}
 }
 ?>

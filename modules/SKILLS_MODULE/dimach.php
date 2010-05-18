@@ -25,7 +25,7 @@
 
 	$helplink = bot::makeLink("::How to use Dimach::", $help);
 			
-	if (eregi("^dimach (ma|martial artist|keep|keeper|shad|shade|other|gen) ([0-9]+)$", $message, $arr)) {
+	if (preg_match("/^dimach (ma|martial artist|keep|keeper|shad|shade|other|gen) ([0-9]+)$/i", $message, $arr)) {
 		$dim_skill = trim($arr[2]);
 
 		if ($dim_skill < 1001)

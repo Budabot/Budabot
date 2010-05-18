@@ -8,10 +8,10 @@
    **
    ** Date(created): 01.10.2005
    ** Date(last modified): 21.11.2006
-   ** 
+   **
    ** Copyright (C) 2005, 2006 J. Gracik
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -29,14 +29,14 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^about$", $message)) {
+if(preg_match("/^about$/i", $message)) {
 	$about = fopen("./core/HELP/about.txt", "r");
 	while(!feof ($about))
 		$data .= fgets ($about, 4096);
 	fclose($about);
 	$msg = bot::makeLink("About", $data);
 	bot::send($msg, $sender);
-} elseif(eregi("^help$", $message)) {
+} elseif(preg_match("/^help$/i", $message)) {
 	if($help = fopen("./data/help.txt", "r")){
 		while (!feof ($help))
 			$data .= fgets ($help, 4096);
@@ -85,9 +85,9 @@ if(eregi("^about$", $message)) {
 	if($msg == "")
 		$msg = "<red>No Helpfiles found.<end>";
 
-	$link = bot::makeLink("Help(main)", $data.$msg);	
+	$link = bot::makeLink("Help(main)", $data.$msg);
 
 	bot::send($link, $sendto);
-} elseif(eregi("^help (.+)$", $message, $arr) && $type == "msg")
+} elseif(preg_match("/^help (.+)$/i", $message, $arr) && $type == "msg")
 	include("help_lookup.php");
 ?>

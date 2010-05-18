@@ -8,10 +8,10 @@
    **
    ** Date(created): 23.11.2005
    ** Date(last modified): 13.01.2007
-   ** 
+   **
    ** Copyright (C) 2005, 2006 Carsten Lohmann
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^chatlist$", $message) || eregi("^sm$", $message)){
+if(preg_match("/^chatlist$/i", $message) || preg_match("/^sm$/i", $message)){
 	if($type == "priv" || ($this->settings["online_tell"] == 1 && $type == "msg")) {
 		$db->query("SELECT * FROM priv_chatlist_<myname> ORDER BY `level` DESC");
 	} elseif($type == "guild" || ($this->settings["online_tell"] == 0 && $type == "msg")) {

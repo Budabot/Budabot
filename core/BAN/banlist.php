@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^banlist$", $message)){
+if(preg_match("/^banlist$/i", $message)){
   	if(count($this->banlist) == 0) {
 	    bot::send("No one is banned of this bot atm.", $sendto);
 	    return;

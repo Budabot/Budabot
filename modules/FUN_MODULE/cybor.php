@@ -108,7 +108,7 @@ $cybor = array("I touch you on your lettuce, you massage my spinach... sexily.",
 	"You're wet already. I can smell your womanhood from here.",
 	"Your pants are off. I kiss you passionately-our naked bodies pressing each other.");
 		
-if(eregi("^cybor", $message)) {
+if(preg_match("/^cybor/i", $message)) {
     $cred = rand(10000,9999999);
 	$randval = rand(1, sizeof($cybor) - 1);
 	$msg = $cybor[$randval];

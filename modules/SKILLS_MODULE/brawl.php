@@ -28,7 +28,7 @@
 		}
 	}
 				
-	if (eregi("^brawl ([0-9]+)$", $message, $arr)) {
+	if (preg_match("/^brawl ([0-9]+)$/i", $message, $arr)) {
 		$brawl_skill = trim($arr[1]);
 
 		if ($brawl_skill < 1001)

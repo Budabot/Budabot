@@ -8,10 +8,10 @@
    **
    ** Date(created): 01.03.2006
    ** Date(last modified): 05.02.2007
-   ** 
+   **
    ** Copyright (C) 2006, 2007 Carsten Lohmann
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -34,7 +34,7 @@ global $loot_winners;
 global $residual;
 
 
-if(eregi("^flatroll$", $message) || eregi("^rollloot$", $message) || eregi("^result$", $message) || eregi("^win$", $message)) {
+if(preg_match("/^flatroll$/i", $message) || preg_match("/^rollloot$/i", $message) || preg_match("/^result$(i", $message) || preg_match("/^win$/i", $message)) {
 	//Check if a loot list exits
   	if(!is_array($loot)) {
 	    $msg = "There is nothing to roll atm.";

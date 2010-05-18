@@ -88,7 +88,7 @@ if (preg_match("/^settings$/i", $message)) {
 
   	$msg = bot::makeLink("Bot Settings", $link);
  	bot::send($msg, $sendto);
-} elseif(eregi("^settings change ($names)$", $message, $arr)) {
+} elseif(preg_match("/^settings change ($names)$/i", $message, $arr)) {
     $link = "<header>::::: Settings for $arr[1] :::::<end>\n\n";
  	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '$arr[1]'");
 	if($db->numrows() == 0)
@@ -151,7 +151,7 @@ if (preg_match("/^settings$/i", $message)) {
 	}
   	$msg = bot::makeLink("Settings Info for $arr[1]", $link);
  	bot::send($msg, $sendto);
-} elseif(eregi("^settings save ($names) (.+)$", $message, $arr)) {
+} elseif(preg_match("/^settings save ($names) (.+)$/i", $message, $arr)) {
   	$name_setting = strtolower($arr[1]);
   	$change_to_setting = $arr[2];
  	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '$name_setting'");
@@ -162,7 +162,7 @@ if (preg_match("/^settings$/i", $message)) {
 		$options = explode(";", $row->options);
 		$new_setting = "";
 		if($options[0] == "color") {
-			if(eregi("^#([0-9a-f]{6})$", $change_to_setting, $col)) 
+			if(preg_match("/^#([0-9a-f]{6})$/i", $change_to_setting, $col)) 
 				$new_setting = "<font color='$col[0]'>";
 			else
 				$msg = "<highlight>$change_to_setting<end> this isn't an correct HTML-Color.";
@@ -211,20 +211,20 @@ if (preg_match("/^settings$/i", $message)) {
 		if($row->source == "cfg") {
 			$lines = file("config.php");
 			foreach($lines as $key => $line) {
-			  	if(eregi("^(.+)vars\[('|\")(.+)('|\")](.*)=(.*)\"(.*)\";(.*)$", $line, $arr) && ($arr[3] == $name_setting))
+			  	if(preg_match("/^(.+)vars\[('|\")(.+)('|\")](.*)=(.*)\"(.*)\";(.*)$/i", $line, $arr) && ($arr[3] == $name_setting))
   					$lines[$key] = "$arr[1]vars['$arr[3]']$arr[5]=$arr[6]\"{$this->vars[$arr[3]]}\"; $arr[8]";
-				elseif(eregi("^(.+)vars\[('|\")(.+)('|\")](.*)=(.*)([0-9]+)(.*);(.*)$", $line, $arr) && ($arr[3] == $name_setting))
+				elseif(preg_match("/^(.+)vars\[('|\")(.+)('|\")](.*)=(.*)([0-9]+)(.*);(.*)$/i", $line, $arr) && ($arr[3] == $name_setting))
   					$lines[$key] = "$arr[1]vars['$arr[3]']$arr[5]=$arr[6]{$this->vars[$arr[3]]}; $arr[9]";
-			  	elseif(eregi("^(.+)settings\[('|\")(.+)('|\")](.*)=(.*)\"(.*)\";(.*)$", $line, $arr)  && ($arr[3] == $name_setting))
+			  	elseif(preg_match("/^(.+)settings\[('|\")(.+)('|\")](.*)=(.*)\"(.*)\";(.*)$/i", $line, $arr)  && ($arr[3] == $name_setting))
 					$lines[$key] = "$arr[1]settings['$arr[3]']$arr[5]=$arr[6]\"{$this->settings[$arr[3]]}\"; $arr[8]";
-				elseif(eregi("^(.+)settings\[('|\")(.+)('|\")](.*)=([ 	]+)([0-9]+);(.*)$", $line, $arr)  && ($arr[3] == $name_setting))
+				elseif(preg_match("/^(.+)settings\[('|\")(.+)('|\")](.*)=([ 	]+)([0-9]+);(.*)$/i", $line, $arr)  && ($arr[3] == $name_setting))
 					$lines[$key] = "$arr[1]settings['$arr[3]']$arr[5]=$arr[6]{$this->settings[$arr[3]]}; $arr[8]";
 			}
 			file_put_contents("config.php", $lines);
 		}
 	}
  	bot::send($msg, $sendto);
-} elseif(eregi("^settings help (.+)$", $message, $arr)) {
+} elseif(preg_match("/^settings help (.+)$/i", $message, $arr)) {
   	$name = $arr[1];
  	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '$name'");  
 	if($db->numrows() != 0) {

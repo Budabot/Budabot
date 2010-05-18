@@ -156,7 +156,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
     // Send info back
     bot::send($msg, $sendto);
 } elseif (preg_match("/^timer (([0-9]*)[d|day|days]*).(([0-9]*)[h|hr|hrs]*).(([0-9]*)[m|min|mins]*)$/i", $message, $arr)) {
-	if(eregi("([0-9]+)(d|day|days)", $message, $day)) {
+	if(preg_match("/([0-9]+)(d|day|days)/i", $message, $day)) {
 		if($day[1] < 1 || $day[1] > 10) {
 			$msg = "No valid time specified!";
 			
@@ -168,7 +168,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 	} else
 		$days = 0;
 	
-	if(eregi("([0-9]+)(h|hr|hrs)", $message, $hours)) {
+	if(preg_match("/([0-9]+)(h|hr|hrs)/i", $message, $hours)) {
 		if($hours[1] < 1 || $hours[1] > 50) {
 			$msg = "No valid time specified!";
 			
@@ -180,7 +180,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 	} else
 		$hours = 0;	
 
-	if(eregi("([0-9]+)(m|min|mins)", $message, $mins)) {
+	if(preg_match("/([0-9]+)(m|min|mins)/i", $message, $mins)) {
 		if($mins[1] < 1 || $mins[1] > 300) {
 			$msg = "No valid time specified!";
 			
@@ -237,7 +237,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 	$last_item = count($arr);
 	$timer_name = trim($arr[$last_item - 1]);
 	
-	if(eregi("([0-9]+)(d|day|days)", $message, $day)) {
+	if(preg_match("/([0-9]+)(d|day|days)/i", $message, $day)) {
 		if($day[1] < 1 || $day[1] > 14) {
 			$msg = "No valid time specified!";
 			
@@ -250,7 +250,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 	} else
 		$days = 0;
 	
-	if(eregi("([0-9]+)(h|hr|hrs)", $message, $hours)) {
+	if(preg_match("/([0-9]+)(h|hr|hrs)/i", $message, $hours)) {
 		if($hours[1] < 1 || $hours[1] > 50) {
 			$msg = "No valid time specified!";
 			
@@ -263,7 +263,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 	} else
 		$hours = 0;	
 
-	if(eregi("([0-9]+)(m|min|mins)", $message, $mins)) {
+	if(preg_match("/([0-9]+)(m|min|mins)/i", $message, $mins)) {
 		if($mins[1] < 1 || $mins[1] > 300) {
 			$msg = "No valid time specified!";
 			

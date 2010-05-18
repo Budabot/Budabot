@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^pvp ([0-9]+)$", $message, $arr)) {
+if(preg_match("/^pvp ([0-9]+)$/i", $message, $arr)) {
     if($arr[1] <= 220 && $arr[1] >= 1) {
         $pvp[1]="1-1";
         $pvp[2]="2-3";

@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^adminlist$", $message)){
+if(preg_match("/^adminlist$/i", $message)){
 	$list.=	"<header>::::: Adminlist :::::<end>\n\n";
 
 	$list.= "<highlight>Administrators<end>\n";	

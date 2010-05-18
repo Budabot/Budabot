@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^calc (.+)$", $message, $arr)) {
+if(preg_match("/^calc (.+)$/i", $message, $arr)) {
     $calc = strtolower($arr[1]);
 
     //check if the calc string includes not allowed chars

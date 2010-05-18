@@ -29,13 +29,13 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
    
-if(eregi("^leaderecho on$", $message)) {
+if(preg_match("/^leaderecho on$/i", $message)) {
 	bot::savesetting("leaderecho", "1");
 	bot::send("Raidleader echo has been <green>enabled<end>");
-} elseif(eregi("^leaderecho off$", $message)) {
+} elseif(preg_match("/^leaderecho off$/i", $message)) {
 	bot::savesetting("leaderecho", "0");
 	bot::send("Raidleader echo has been <green>disabled<end>");	
-} elseif(eregi("^leaderecho$", $message)) {
+} elseif(preg_match("/^leaderecho$/i", $message)) {
 	if($this->settings["leaderecho"] == 1)
 		$msg = "Leaderecho is currently <green>enabled<end>";
 	else

@@ -3,7 +3,7 @@
 global $loot;
 global $residual;
 
-if(eregi("^28$", $message)) {
+if(preg_match("/^28$/i", $message)) {
 
 	// clearing loot list
 	$loot = "";

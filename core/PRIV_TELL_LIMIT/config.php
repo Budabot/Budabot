@@ -28,7 +28,7 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-if(eregi("^limits$", $message)) {
+if(preg_match("/^limits$/i", $message)) {
 	$list = "<header>::::: Limits on using the Bot :::::<end>\n\n";
 	$list .= "The bot offers limits that apply to the privategroup(like faction or lvl limi) and responding to tells. Click behind a setting on Change this to set it to a new value.\n\n";
 	$list .= "<u>Responding to Tells</u>\n";
@@ -86,7 +86,7 @@ if(eregi("^limits$", $message)) {
 
 	$msg = bot::makeLink("Limits for privGroup and Tells", $list);
 	bot::send($msg, $sender);
-} elseif(eregi("^limit (priv|tell) faction$", $message, $arr)) {
+} elseif(preg_match("/^limit (priv|tell) faction$/i", $message, $arr)) {
  	$list .= "<header>::::: Faction Limit :::::<end>\n\n";
  	$list .= "Current Setting: <highlight>";
  	if($arr[1] == "priv") {
@@ -110,7 +110,7 @@ if(eregi("^limits$", $message)) {
 	$list .= bot::makeLink("Not Omni", "/tell <myname> limit {$arr[1]} faction not omni", "chatcmd")."\n";
 	$msg = bot::makeLink("Faction Limit", $list);
 	bot::send($msg, $sender);
-} elseif(eregi("^limit (priv|tell) faction (omni|clan|neutral|all)$", $message, $arr)) {
+} elseif(preg_match("/^limit (priv|tell) faction (omni|clan|neutral|all)$/i", $message, $arr)) {
 	$faction = ucfirst(strtolower($arr[2]));
 	$channel = strtolower($arr[1]);
 	
@@ -129,7 +129,7 @@ if(eregi("^limits$", $message)) {
  		$msg = "Responding on tells will be done only for players with the Faction $faction.";
  	}
  	bot::send($msg, $sender);
-} elseif(eregi("^limit (priv|tell) faction not (omni|clan|neutral)$", $message, $arr)) {
+} elseif(preg_match("/^limit (priv|tell) faction not (omni|clan|neutral)$/i", $message, $arr)) {
 	$faction = ucfirst(strtolower($arr[2]));
 	$channel = strtolower($arr[1]);
 	
@@ -144,7 +144,7 @@ if(eregi("^limits$", $message)) {
  		$msg = "Responding on tells will be done for players that are not $faction.";
  	}
  	bot::send($msg, $sender);
-} elseif(eregi("^limit (priv|tell) minlvl$", $message, $arr)) {
+} elseif(preg_match("/^limit (priv|tell) minlvl$/i", $message, $arr)) {
  	$list .= "<header>::::: Level Limit :::::<end>\n\n";
  	$list .= "Current Setting: <highlight>";
  	if($arr[1] == "priv") {
@@ -165,7 +165,7 @@ if(eregi("^limits$", $message)) {
 
 	$msg = bot::makeLink("Level Limit", $list);
 	bot::send($msg, $sender);
-} elseif(eregi("^limit (priv|tell) minlvl ([0-9]+)$", $message, $arr)) {
+} elseif(preg_match("/^limit (priv|tell) minlvl ([0-9]+)$/i", $message, $arr)) {
 	$minlvl = strtolower($arr[2]);
 	$channel = strtolower($arr[1]);
 	
@@ -190,7 +190,7 @@ if(eregi("^limits$", $message)) {
  		$msg = "Responding on tells will be done for the Minimumlevel of $minlvl.";
  	}
  	bot::send($msg, $sender);
-} elseif(eregi("^limit (priv|tell) open$", $message, $arr)) {
+} elseif(preg_match("/^limit (priv|tell) open$/i", $message, $arr)) {
  	$list .= "<header>::::: General Limit :::::<end>\n\n";
  	$list .= "Current Setting: <highlight>";
  	if($arr[1] == "priv") {
@@ -215,7 +215,7 @@ if(eregi("^limits$", $message)) {
 
 	$msg = bot::makeLink("General Limit", $list);
 	bot::send($msg, $sender);
-} elseif(eregi("^limit (priv|tell) open (all|org|members)$", $message, $arr)) {
+} elseif(preg_match("/^limit (priv|tell) open (all|org|members)$/i", $message, $arr)) {
 	$open = strtolower($arr[2]);
 	$channel = strtolower($arr[1]);
 	
@@ -238,7 +238,7 @@ if(eregi("^limits$", $message)) {
  		$msg = "Responding on tells will be done only for Members of this Bot.";
  	}
  	bot::send($msg, $sender);
-} elseif(eregi("^limit priv maxplayers$", $message, $arr)) {
+} elseif(preg_match("/^limit priv maxplayers$/i", $message, $arr)) {
  	$list .= "<header>::::: Limit of Players in the Bot :::::<end>\n\n";
  	$list .= "Current Setting: <highlight>";
 	if($this->settings["priv_req_maxplayers"] == 0)
@@ -253,7 +253,7 @@ if(eregi("^limits$", $message)) {
 
 	$msg = bot::makeLink("Limit of Players in the Bot", $list);
 	bot::send($msg, $sender);
-} elseif(eregi("^limit priv maxplayers ([0-9]+)$", $message, $arr)) {
+} elseif(preg_match("/^limit priv maxplayers ([0-9]+)$/i", $message, $arr)) {
 	$maxplayers = strtolower($arr[1]);
 	
 	if($maxplayers > 120) {

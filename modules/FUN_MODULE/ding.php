@@ -11,12 +11,12 @@
    ** 
    */
    
-if(eregi("^ding$", $message)) {
+if(preg_match("/^ding$/i", $message)) {
 	$msg = "Yeah yeah gratz\nI would give you a better response\nbut you didn't say what you dinged\nUsage: ding 'level'";
  	bot::send($msg, "guild");
 }
 
-elseif(eregi("^ding ([0-9]+)$", $message, $arr)) {
+elseif(preg_match("/^ding ([0-9]+)$/i", $message, $arr)) {
 	if($arr[1]==100) {
 		$msg = "Congratz! <red>100<end> ".$sender." you rock!\n";
 	}

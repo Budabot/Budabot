@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
    
-if(eregi("^orgmembers$", $message)) {
+if(preg_match("/^orgmembers$/i", $message)) {
 	if($this->vars["my guild id"] == "") {
 	  	$msg = "The Bot needs to be in a org to show the orgmembers.";
 	  	// Send info back
@@ -132,7 +132,7 @@ if(eregi("^orgmembers$", $message)) {
        	bot::send($msg);
     elseif($type == "guild")
        	bot::send($msg, "guild");
-} elseif(eregi("^orgmembers (.*)$", $message, $arr)) {
+} elseif(preg_match("/^orgmembers (.*)$/i", $message, $arr)) {
 	if($this->vars["my guild id"] == "") {
 	  	$msg = "The Bot needs to be in a org to show the orgmembers.";
 	  	// Send info back

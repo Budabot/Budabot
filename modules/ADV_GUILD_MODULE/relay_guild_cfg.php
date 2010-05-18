@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (eregi("^guildrelay off$", $message)) {
+if (preg_match("/^guildrelay off$/i", $message)) {
     if($this->settings["relaybot"] != "0") {
 		bot::savesetting("relaybot", "0");
 		$msg = "<highlight>Guildrelay<end> has been turned <red>off<end>";      
@@ -44,7 +44,7 @@ if (eregi("^guildrelay off$", $message)) {
     elseif($type == "guild")
       	bot::send($msg, "guild");
 
-} else if(eregi("^guildrelay (.+)$", $message, $arr)){
+} else if(preg_match("/^guildrelay (.+)$/i", $message, $arr)){
     $uid = AoChat::get_uid($arr[1]);
     $bot = ucfirst(strtolower($arr[1]));
 	

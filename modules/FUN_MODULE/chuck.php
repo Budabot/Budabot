@@ -182,7 +182,7 @@ $chuck = array(
     "Chuck Norris is Luke Skywalker's real father.",
     "Chuck Norris once visited the Virgin Islands. They are now The Islands. "); 
 
-if(eregi("^chuck", $message)) {
+if(preg_match("/^chuck/i", $message)) {
 	$randval = rand(1, sizeof($chuck) - 1);
 	$msg = $chuck[$randval];
 if($type == "guild")

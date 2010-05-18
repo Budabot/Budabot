@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
    
-if(eregi("^lca ([0-9]+)$", $message, $arr)) {
+if(preg_match("/^lca ([0-9]+)$/i", $message, $arr)) {
 	$ql = $arr[1];
 	if($ql < 10 || $ql > 300) {
 		$msg = "Invalid QL. Please use a QL between 10 and 300.";
@@ -79,7 +79,7 @@ if(eregi("^lca ([0-9]+)$", $message, $arr)) {
    	   	bot::send($msg);
     elseif($type == "guild")
    	   	bot::send($msg, "guild");
-} elseif(eregi("^lca ([a-z ]+)$", $message, $arr)) {
+} elseif(preg_match("/^lca ([a-z ]+)$/i", $message, $arr)) {
 	$name = $arr[1];
 
 	$db->query("SELECT * FROM `towerranges` WHERE `playfield` LIKE '$name' ORDER BY `low_level` LIMIT 0, 40");
@@ -118,7 +118,7 @@ if(eregi("^lca ([0-9]+)$", $message, $arr)) {
    	   	bot::send($msg);
     elseif($type == "guild")
    	   	bot::send($msg, "guild");
-} elseif(eregi("^lca ([0-9]+) ([a-z ]+)$", $message, $arr)) {
+} elseif(preg_match("/^lca ([0-9]+) ([a-z ]+)$/i", $message, $arr)) {
 	$name = $arr[2];
 	$ql = $arr[1];
 	if($ql < 10 || $ql > 300) {

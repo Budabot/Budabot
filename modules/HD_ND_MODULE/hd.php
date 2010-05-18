@@ -3,7 +3,7 @@
 $header = "<header>::::: Heal Delta :::::<end>\n\n"	;
 $footer = "<tab><img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n\nby Imoutochan, RK1";
 	
-if (eregi("^hd$", $message)) {
+if (preg_match("/^hd$/i", $message)) {
 	$inside = $header;
 	$inside .= "Stamina  -> HD tick standing/sitting\n<tab><img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
 	for ($i = 0; $i < 28; $i++) {
@@ -12,7 +12,7 @@ if (eregi("^hd$", $message)) {
 				   ($i % 3 == 2 ? "<tab><img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n" : "");
 	}
 	$msg = bot::makeLink("Heal delta tick info", $inside.$footer);
-} elseif (eregi("^hd ([0-9]+)$", $message, $arr)) {
+} elseif (preg_match("/^hd ([0-9]+)$/i", $message, $arr)) {
 	$tick = (29-floor($arr[1]/30)); 
 	if ($tick < 2) $tick = 2;
 	$msg = "\nWith <highlight>".$arr[1]." stamina<end> you will have <highlight>".$tick."s<end> standing and <highlight>".floor($tick/2)."s<end> sitting HD tick.";

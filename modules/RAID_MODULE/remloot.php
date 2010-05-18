@@ -27,7 +27,7 @@
    */
 	global $loot;
 
-	if(eregi("^remloot ([0-9]+)$", $message, $arr)) {
+	if(preg_match("/^remloot ([0-9]+)$/i", $message, $arr)) {
 		$key = $arr[1];
 		// validate item existance on loot list
 		if($key > 0 && $key <= count($loot)){

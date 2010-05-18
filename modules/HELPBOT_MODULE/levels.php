@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^(level|lvl) ([0-9]+)$", $message, $arr)) {
+if(preg_match("/^(level|lvl) ([0-9]+)$/i", $message, $arr)) {
     if($arr[2] <= 220 && $arr[2] >= 1) {
         $level[1]="<white>L 1: team 1-5<highlight> | <red> PvP 1-1 <highlight> | <yellow>1,450 XP<highlight> |<orange>  Missions 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 <highlight>|<blue> 1 token(s)<highlight>";
         $level[2]="<white>L 2: team 2-5<highlight> | <red> PvP 2-3 <highlight> | <yellow>2,600 XP<highlight> |<orange>  Missions 3, 3, 2, 2, 2, 2, 1, 1, 1, 1, 1 <highlight>|<blue> 1 token(s)<highlight>";

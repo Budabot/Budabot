@@ -33,7 +33,7 @@
    **
    */
 
-if (eregi("^nanolines$", $message, $arr)) {
+if (preg_match("/^nanolines$/i", $message, $arr)) {
 
 	$sql = "SELECT DISTINCT profession FROM aonanos_nanolines ORDER BY profession ASC";
 	$db->query($sql);

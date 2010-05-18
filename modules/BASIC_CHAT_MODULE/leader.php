@@ -37,7 +37,7 @@ if($this->settings["leaderecho"] == 1) {
 	$cmd = "on";
 }
 
-if(eregi("^leader (.+)$", $message, $arr)) {
+if(preg_match("/^leader (.+)$/i", $message, $arr)) {
     $uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
 	if(!$uid)
@@ -49,7 +49,7 @@ if(eregi("^leader (.+)$", $message, $arr)) {
 	  	$msg = "$name is now Raidleader. Raidleader echo is currently $status. You can change it with <symbol>leaderecho $cmd";	    	
 	}
   	bot::send($msg);
-} elseif(eregi("^leader$", $message)) {
+} elseif(preg_match("/^leader$/i", $message)) {
   	if($this->vars["leader"] == $sender) {
 		unset($this->vars["leader"]);
 	  	$msg = "Raidleader is cleared.";

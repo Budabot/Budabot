@@ -249,7 +249,7 @@ class bot extends AOChat{
 		}
 		if (strtolower($links) != "none") {
 			foreach ($links as $thislink){
-				eregi("^(.+);(.+)$", $thislink, $arr);
+				preg_match("/^(.+);(.+)$/i", $thislink, $arr);
 				if ($arr[1] && $arr[2]) {
 					$header .= $color4.":".$color3.":".$color2.":";
 					$header .= "<a style='text-decoration:none' href='$arr[2]'>".$color."$arr[1]</font></a>";
@@ -1250,7 +1250,7 @@ class bot extends AOChat{
 				$sendto = $sender;
 				
 				// Removing tell color
-				if(eregi("^<font color='#([0-9a-f]+)'>(.+)$", $args[1], $arr))
+				if(preg_match("/^<font color='#([0-9a-f]+)'>(.+)$/i", $args[1], $arr))
 					$message = $arr[2];
 				else
 					$message = $args[1];
@@ -1266,9 +1266,9 @@ class bot extends AOChat{
 				}
 
 				// AFk check
-				if(eregi("^$sender is afk (.+)$", $message, $arr))
+				if(preg_match("/^$sender is afk (.+)$/i", $message, $arr))
 					return;
-				elseif(eregi("^I am away from my keyboard right now, (.*)your message has been logged.$", $message))
+				elseif(preg_match("/^I am away from my keyboard right now, (.*)your message has been logged.$/i", $message))
 					return;
 
 				//Remove the prefix infront if there is one
@@ -1296,7 +1296,7 @@ class bot extends AOChat{
 
 				  	//Check if a subcommands for this exists
 				  	if($this->subcommands[$filename][$type])
-					    if(eregi("^{$this->subcommands[$filename][$type]["cmd"]}$", $message))
+					    if(preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message))
 							$admin = $this->subcommands[$filename][$type]["admin"];
 
 					// Admin Check
@@ -1376,7 +1376,7 @@ class bot extends AOChat{
 					}
 
 					$msg = "";
-					if (!$restriced && (($message[0] == $this->settings["symbol"] && strlen($message) >= 2) || eregi("^(afk|brb)", $message, $arr))) {
+					if (!$restriced && (($message[0] == $this->settings["symbol"] && strlen($message) >= 2) || preg_match("/^(afk|brb)/i", $message, $arr))) {
 						if($message[0] == $this->settings["symbol"]) {
 							$message 	= substr($message, 1);
 						}
@@ -1386,7 +1386,7 @@ class bot extends AOChat{
 
 						//Check if a subcommands for this exists
 						if($this->subcommands[$filename][$type])
-							if(eregi("^{$this->subcommands[$filename][$type]["cmd"]}$", $message))
+							if(preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message))
 								$admin = $this->subcommands[$filename][$type]["admin"];
 
 
@@ -1499,7 +1499,7 @@ class bot extends AOChat{
 						}
 
 					$msg = "";
-					if(!$restriced && (($message[0] == $this->settings["symbol"] && strlen($message) >= 2) || eregi("^(afk|brb)", $message, $arr))) {
+					if(!$restriced && (($message[0] == $this->settings["symbol"] && strlen($message) >= 2) || preg_match("/^(afk|brb)/i", $message, $arr))) {
 						if($message[0] == $this->settings["symbol"]) {
 							$message 	= substr($message, 1);
 						}
@@ -1509,7 +1509,7 @@ class bot extends AOChat{
 
 					  	//Check if a subcommands for this exists
 					  	if($this->subcommands[$filename][$type])
-						    if(eregi("^{$this->subcommands[$filename][$type]["cmd"]}$", $message))
+						    if(preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message))
 								$admin = $this->subcommands[$filename][$type]["admin"];
 
 
@@ -1631,7 +1631,7 @@ class bot extends AOChat{
 	}
 
 	function verifyNameConvention($filename) {
-		eregi("^(.+)/([0-9a-z_]+).php$", $filename, $arr);
+		preg_match("/^(.+)/([0-9a-z_]+).php$/i", $filename, $arr);
 		if($arr[2] == strtolower($arr[2])) {
 			return true;
 		} else {

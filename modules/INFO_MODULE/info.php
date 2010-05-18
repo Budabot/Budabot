@@ -13,14 +13,14 @@
    */
 
 require_once('info_functions.php');
-if(eregi("^info(.*)$", $message))
+if(preg_match("/^info(.*)$/i", $message))
 {
 	$path = getcwd() . "/modules/INFO_MODULE/info/";
 	$fileExt = ".txt";
 	$msg = "";
 	
 	// if they want the list of topics
-	if(eregi("^info$", $message))
+	if(preg_match("/^info$/i", $message))
 	{
 		if ($handle = opendir($path))
 		{
@@ -62,7 +62,7 @@ if(eregi("^info(.*)$", $message))
 		}
 	}
 	// if they want a certain topic
-	else if(eregi("^info (.*)$", $message, $arr))
+	else if(preg_match("/^info (.*)$/i", $message, $arr))
 	{
 		// get the filename and read in the file
 		$fileName = $arr[1];

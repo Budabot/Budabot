@@ -250,7 +250,7 @@ $level[217] = 1774889;
 $level[218] = 2129867;
 $level[219] = 2555840;
 
-if(eregi("^(xp|sk) ([0-9]+)$", $message, $arr)) {
+if(preg_match("/^(xp|sk) ([0-9]+)$/i", $message, $arr)) {
     if($arr[2] >= 1 && $arr[2] < 200) {
         $msg = "With lvl <highlight>".$arr[2]."<end> you need <highlight>".number_format($level[$arr[2]])."<end> XP to level up.";
     } elseif($arr[2] >= 200 && $arr[2] < 220) {
@@ -265,7 +265,7 @@ if(eregi("^(xp|sk) ([0-9]+)$", $message, $arr)) {
       	bot::send($msg);
     elseif($type == "guild")
       	bot::send($msg, "guild");
-} elseif(eregi("^(xp|sk) ([0-9]+) ([0-9]+)$", $message, $arr)) {
+} elseif(preg_match("/^(xp|sk) ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
     if($arr[2] >= 1 && $arr[2] <= 220 && $arr[3] >= 1 && $arr[3] <= 220) {
         if($arr[2] < $arr[3]) {      	
             for($i = $arr[2]; $i < $arr[3]; $i++) {

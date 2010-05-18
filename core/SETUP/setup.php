@@ -39,13 +39,13 @@ function read_input ($output = "") {
 function savecfg($vars, $settings) {
 	$lines = file("config.php");
 	foreach($lines as $key => $line) {
-	  	if(eregi("^(.+)vars\[('|\")(.+)('|\")](.*)=(.*)\"(.*)\";(.*)$", $line, $arr))
+	  	if(preg_match("/^(.+)vars\[('|\")(.+)('|\")](.*)=(.*)\"(.*)\";(.*)$/i", $line, $arr))
 			$lines[$key] = "$arr[1]vars['$arr[3]']$arr[5]=$arr[6]\"{$vars[$arr[3]]}\"; $arr[8]";
-		elseif(eregi("^(.+)vars\[('|\")(.+)('|\")](.*)=([ 	]+)([0-9]+);(.*)$", $line, $arr))
+		elseif(preg_match("/^(.+)vars\[('|\")(.+)('|\")](.*)=([ 	]+)([0-9]+);(.*)$/i", $line, $arr))
 			$lines[$key] = "$arr[1]vars['$arr[3]']$arr[5]=$arr[6]{$vars[$arr[3]]}; $arr[8]";
-	  	elseif(eregi("^(.+)settings\[('|\")(.+)('|\")](.*)=(.*)\"(.*)\";(.*)$", $line, $arr))
+	  	elseif(preg_match("/^(.+)settings\[('|\")(.+)('|\")](.*)=(.*)\"(.*)\";(.*)$/i", $line, $arr))
 			$lines[$key] = "$arr[1]settings['$arr[3]']$arr[5]=$arr[6]\"{$settings[$arr[3]]}\"; $arr[8]";
-		elseif(eregi("^(.+)settings\[('|\")(.+)('|\")](.*)=([ 	]+)([0-9]+);(.*)$", $line, $arr))
+		elseif(preg_match("/^(.+)settings\[('|\")(.+)('|\")](.*)=([ 	]+)([0-9]+);(.*)$/i", $line, $arr))
 			$lines[$key] = "$arr[1]settings['$arr[3]']$arr[5]=$arr[6]{$settings[$arr[3]]}; $arr[8]";
 	}
 	file_put_contents("config.php", $lines);

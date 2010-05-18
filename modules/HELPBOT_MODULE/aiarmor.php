@@ -1,5 +1,5 @@
 <?php
-if(eregi("^aiarmor (cc|cm|co|cp|cs|ss)$", $message, $arr) || eregi("^aiarmor (cc|cm|co|cp|cs|ss) ([0-9]+)$", $message, $arr)) {
+if(preg_match("/^aiarmor (cc|cm|co|cp|cs|ss)$/i", $message, $arr) || preg_match("/^aiarmor (cc|cm|co|cp|cs|ss) ([0-9]+)$/i", $message, $arr)) {
 	$armortype = strtolower($arr[1]);
 	if($arr[2] >= 1 && $arr[2] <= 300)
 		$ql = $arr[2];
@@ -22,8 +22,8 @@ if(eregi("^aiarmor (cc|cm|co|cp|cs|ss)$", $message, $arr) || eregi("^aiarmor (cc
 	    	$lowid_armor_src = 247139;
 	    	$highid_armor_src = 247139;
 
-			//Target	   
-			$icon_armor_trg = 256296; 	
+			//Target
+			$icon_armor_trg = 256296;
 	    	$name_armor_trg = "Supple";
 	    	$lowid_armor_trg = 247140;
 	    	$highid_armor_trg = 247141;
@@ -41,8 +41,8 @@ if(eregi("^aiarmor (cc|cm|co|cp|cs|ss)$", $message, $arr) || eregi("^aiarmor (cc
 	    	$lowid_armor_src = 247139;
 	    	$highid_armor_src = 247139;
 
-			//Target	   
-			$icon_armor_trg = 256344; 	
+			//Target
+			$icon_armor_trg = 256344;
 	    	$name_armor_trg = "Enduring";
 	    	$lowid_armor_trg = 247137;
 	    	$highid_armor_trg = 247137;
@@ -60,8 +60,8 @@ if(eregi("^aiarmor (cc|cm|co|cp|cs|ss)$", $message, $arr) || eregi("^aiarmor (cc
 	    	$lowid_armor_src = 247146;
 	    	$highid_armor_src = 247146;
 
-			//Target	   
-			$icon_armor_trg = 256314; 	
+			//Target
+			$icon_armor_trg = 256314;
 	    	$name_armor_trg = "Arithmetic";
 	    	$lowid_armor_trg = 247145;
 	    	$highid_armor_trg = 247145;
@@ -79,11 +79,11 @@ if(eregi("^aiarmor (cc|cm|co|cp|cs|ss)$", $message, $arr) || eregi("^aiarmor (cc
 	    	$lowid_armor_src = 247146;
 	    	$highid_armor_src = 247146;
 
-			//Target	   
-			$icon_armor_trg = 256344; 	
+			//Target
+			$icon_armor_trg = 256344;
 	    	$name_armor_trg = "Enduring";
 	    	$lowid_armor_trg = 247137;
-	    	$highid_armor_trg = 247137;	    
+	    	$highid_armor_trg = 247137;
 	    break;
 	    case 'cs':
 	    	//Result
@@ -98,8 +98,8 @@ if(eregi("^aiarmor (cc|cm|co|cp|cs|ss)$", $message, $arr) || eregi("^aiarmor (cc
 	    	$lowid_armor_src = 247142;
 	    	$highid_armor_src = 247143;
 
-			//Target	   
-			$icon_armor_trg = 256314; 	
+			//Target
+			$icon_armor_trg = 256314;
 	    	$name_armor_trg = "Arithmetic";
 	    	$lowid_armor_trg = 247145;
 	    	$highid_armor_trg = 247145;
@@ -117,8 +117,8 @@ if(eregi("^aiarmor (cc|cm|co|cp|cs|ss)$", $message, $arr) || eregi("^aiarmor (cc
 	    	$lowid_armor_src = 247142;
 	    	$highid_armor_src = 247143;
 
-			//Target	   
-			$icon_armor_trg = 256296; 	
+			//Target
+			$icon_armor_trg = 256296;
 	    	$name_armor_trg = "Supple";
 	    	$lowid_armor_trg = 247140;
 	    	$highid_armor_trg = 247141;
@@ -137,7 +137,7 @@ if(eregi("^aiarmor (cc|cm|co|cp|cs|ss)$", $message, $arr) || eregi("^aiarmor (cc
 	$list .= "<u>Target Armor</u>\n";
 	$list .= "<img src=rdb://$icon_armor_trg>\n";
 	$list .= "<a href='itemref://$lowid_armor_trg/$highid_armor_trg/$trg_ql'>QL$trg_ql $name_armor_trg</a> (";
-	$list .= bot::makeLink("Tradeskill process for this item", "/tell <myname> aiarmor $name_armor_trg $trg_ql", "chatcmd").")";	
+	$list .= bot::makeLink("Tradeskill process for this item", "/tell <myname> aiarmor $name_armor_trg $trg_ql", "chatcmd").")";
 	$msg = bot::makeLink("Building process for $ql $name_armor_result", $list);
 	if($type == "msg")
 		bot::send($msg, $sender);
@@ -145,7 +145,7 @@ if(eregi("^aiarmor (cc|cm|co|cp|cs|ss)$", $message, $arr) || eregi("^aiarmor (cc
 		bot::send($msg, "guild");
 	else
 		bot::send($msg);
-} elseif(eregi("^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual)$", $message, $arr) || eregi("^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual) ([0-9]+)", $message, $arr)) {
+} elseif(preg_match("/^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual)$/i", $message, $arr) || preg_macth("/^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual) ([0-9]+)/i", $message, $arr)) {
 	$armortype = ucfirst(strtolower($arr[1]));
 	if($arr[2] >= 1 && $arr[2] <= 300)
 		$ql = $arr[2];
@@ -287,6 +287,6 @@ if(eregi("^aiarmor (cc|cm|co|cp|cs|ss)$", $message, $arr) || eregi("^aiarmor (cc
 	elseif($type == "guild")
 		bot::send($msg, "guild");
 	else
-		bot::send($msg);	
+		bot::send($msg);
 }
 ?>

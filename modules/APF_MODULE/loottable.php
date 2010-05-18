@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^loottable (13|28|35)$", $message, $arr)) {
+if(preg_match("/^loottable (13|28|35)$/i", $message, $arr)) {
 	$sector = $arr[1];
 
 	$tradelink["ICE"] = "<a href='chatcmd:///tell <myname> guide Hacker ICE-Breaker Source'>Click here</a>";

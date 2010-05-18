@@ -20,11 +20,11 @@
    **
    */
 
-if(eregi("^remscout( (.*))?$", $message)) {
+if(preg_match("/^remscout( (.*))?$/i", $message)) {
 	
 	$msg = "";
 
-  	if (eregi("^remscout ([A-Za-z0-9]+) ([0-9]+)", $message, $arr)) {
+  	if (preg_match("/^remscout ([A-Za-z0-9]+) ([0-9]+)/i", $message, $arr)) {
 
 	  	$zone = strtoupper($arr[1]);
 	  	$base_number = $arr[2];

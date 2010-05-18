@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
    
-if(eregi("^fight (.+) vs (.+)$", $message, $arr)) {
+if(preg_match("/^fight (.+) vs (.+)$/i", $message, $arr)) {
   	$player1 = $arr[1];
   	$player2 = $arr[2];
   	$hp1 = 10000;

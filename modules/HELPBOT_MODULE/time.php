@@ -91,11 +91,11 @@ $timezone["AEDT"]["name"] = "Australian Eastern Daylight Time (GMT+11)";
 $timezone["AEDT"]["time"] = gmdate("dS M, H:i", $time + (3600*11));
 
 
-if(eregi("^time$", $message)) {
+if(preg_match("/^time$/i", $message)) {
 	$msg = "<highlight>".gmdate("dS M, H:i", $time)."<end> (GMT/AO)";
 	
 	$link = "<header>::::: Timezones :::::<end>\n\n";
-	$link .= "The following includes most of the timezones that exists but notice that this list doesn't show all countrys within the timezones and also that some country´s have 2 timezones. \nTo see the time in a special timezone use time 'timezone' for example time CET\n\n";
+	$link .= "The following includes most of the timezones that exists but notice that this list doesn't show all countrys within the timezones and also that some countryï¿½s have 2 timezones. \nTo see the time in a special timezone use time 'timezone' for example time CET\n\n";
 	$link .= "<u>Australia</u>\n";
 	$link .= "<tab><highlight>Northern Territory/South Australia<end>\n";
 	$link .= "<tab><tab>Standart Time (ACST = GMT+9:30): {$timezone["ACST"]["time"]}\n";
@@ -114,7 +114,7 @@ if(eregi("^time$", $message)) {
 	$link .= "<tab><highlight>Germany/France/Netherlands/Italy/Austria<end>\n";
 	$link .= "<tab><tab>Standart Time (CET = GMT+1): {$timezone["CET"]["time"]}\n";
 	$link .= "<tab><tab>Summer Time (CEST = GMT+2): {$timezone["CEST"]["time"]}\n";
-	$link .= "<tab><highlight>Ägypten/Bulgarien/Finnland/Griechenland<end>\n";
+	$link .= "<tab><highlight>ï¿½gypten/Bulgarien/Finnland/Griechenland<end>\n";
 	$link .= "<tab><tab>Standart Time (EET = GMT+2): {$timezone["EET"]["time"]}\n";
 	$link .= "<tab><tab>Summer Time (EEST/EEDT = GMT+3): {$timezone["EEST"]["time"]}\n";
 	$link .= "<tab><highlight>Bahrain/Irak/Russland/Saudi Arabien<end>\n";
@@ -153,7 +153,7 @@ if(eregi("^time$", $message)) {
       	bot::send($msg);
     elseif($type == "guild")
       	bot::send($msg, "guild");
-} elseif(eregi("^time (.+)$", $message, $arr)) {
+} elseif(preg_match("/^time (.+)$/i", $message, $arr)) {
   	$zone = strtoupper($arr[1]);
   	if($timezone[$zone]["name"])
 		$msg = $timezone[$zone]["name"]." is <highlight>".$timezone[$zone]["time"]."<end>";

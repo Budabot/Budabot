@@ -8,10 +8,10 @@
    **
    ** Date(created): 15.10.2006
    ** Date(last modified): 23.01.2007
-   ** 
+   **
    ** Copyright (C) 2006, 2007 Carsten Lohmann
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -30,7 +30,7 @@
    */
    
 //If the incoming message was a join request
-if((eregi("^join$", $message) || eregi("^invite$", $message)) && !isset($this->admins[$sender])) {
+if((preg_match("/^join$/i", $message) || preg_match("/^invite$/i", $message)) && !isset($this->admins[$sender])) {
 	//Chek if he is a member of the Bot
 	$is_member = false;
 	if($this->settings["priv_req_open"] == "members") {
@@ -76,14 +76,14 @@ if((eregi("^join$", $message) || eregi("^invite$", $message)) && !isset($this->a
 	  	$msg = "<red>Only Members of the Faction {$this->settings["priv_req_faction"]} can join this Bot.<end>";
 	    bot::send($msg, $sender);
 	  	$restricted = true;
-	    return;	
+	    return;
 	} elseif($this->settings["priv_req_faction"] == "not Omni" || $this->settings["priv_req_faction"] == "not Clan" || $this->settings["priv_req_faction"] == "not Neutral") {
 		$tmp = explode(" ", $this->settings["priv_req_faction"]);
 		if($tmp[1] == $whois->faction) {
 			$msg = "<red>Only Members that are not in the Faction {$tmp[1]} can join this Bot.<end>";
 		    bot::send($msg, $sender);
 		  	$restricted = true;
-		    return;			
+		    return;
 		}
 	}
 
@@ -94,7 +94,7 @@ if((eregi("^join$", $message) || eregi("^invite$", $message)) && !isset($this->a
 	  	$restricted = true;
 	    return;
 	}
-} elseif(!isset($this->admins[$sender]) && $sender != $this->settings["relaybot"] && $sender != $this->settings["apftimerbot"] && !eregi("^guestjoin", $message) && !eregi("^verify", $message)) {
+} elseif(!isset($this->admins[$sender]) && $sender != $this->settings["relaybot"] && $sender != $this->settings["apftimerbot"] && !preg_match("/^guestjoin/i", $message) && !preg_match("/^verify/i", $message)) {
 	//Chek if he is a member of the Bot
 	if($this->settings["tell_req_open"] == "members") {
 	  	$db->query("SELECT * FROM members_<myname> WHERE `name` = '$sender'");
@@ -138,14 +138,14 @@ if((eregi("^join$", $message) || eregi("^invite$", $message)) && !isset($this->a
 	  	$msg = "<red>I am only responding to Members of the Faction {$this->settings["tell_req_faction"]}.<end>";
 	    bot::send($msg, $sender);
 	  	$restricted = true;
-	    return;	
+	    return;
 	} elseif($this->settings["tell_req_faction"] == "not Omni" || $this->settings["tell_req_faction"] == "not Clan" || $this->settings["tell_req_faction"] == "not Neutral") {
 		$tmp = explode(" ", $this->settings["tell_req_faction"]);
 		if($tmp[1] == $whois->faction) {
 			$msg = "<red>I am responding only to Members that are not in the Faction {$tmp[1]}.<end>";
 		    bot::send($msg, $sender);
     	  	$restricted = true;
-		    return;			
+		    return;
 		}
 	}
 }

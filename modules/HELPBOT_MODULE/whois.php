@@ -30,7 +30,7 @@
    */
 
 $msg = "";
-if(eregi("^whois (.+)$", $message, $arr)) {
+if(preg_match("/^whois (.+)$/i", $message, $arr)) {
     $uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     if($uid) {
@@ -68,7 +68,7 @@ if(eregi("^whois (.+)$", $message, $arr)) {
 
     // Send info back
     bot::send($msg, $sendto);
-} elseif(eregi("^whoisall (.+)$", $message, $arr)){
+} elseif(preg_match("/^whoisall (.+)$/i", $message, $arr)){
     $name = ucfirst(strtolower($arr[1]));
     for($i = 1; $i <= 3; $i ++) {
         if($i == 1)
@@ -108,7 +108,7 @@ if(eregi("^whois (.+)$", $message, $arr)) {
         // Send info back
         bot::send($msg, $sendto);
     }
-} elseif(eregi("^whoisorg ([0-9]+)$", $message, $arr)) {
+} elseif(preg_match("/^whoisorg ([0-9]+)$/i", $message, $arr)) {
 	$org_id = $arr[1];
 
   	$msg = "Getting Org info. Please standby.";

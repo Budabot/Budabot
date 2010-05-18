@@ -23,7 +23,7 @@ set_time_limit(0);
 	$nick = $this->settings['irc_nickname'];
 	 
 	// Connection
-	if(eregi("^startirc$", $message)) {
+	if(preg_match("/^startirc$/i", $message)) {
 		bot::send("Intialized IRC connection. Please wait...",$sender);
 	}
 	echo("Intialized IRC connection. Please wait...\n");
@@ -58,7 +58,7 @@ set_time_limit(0);
 		}
 		flush();
 	}
-	if(eregi("^startirc$", $message)) {
+	if(preg_match("/^startirc$/i", $message)) {
 		bot::send("Finished connecting to IRC",$sender);
 	}
 	echo("Finished connecting to IRC\n");

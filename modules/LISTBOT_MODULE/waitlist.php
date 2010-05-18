@@ -30,7 +30,7 @@
    */
    
 global $listbot_waitlist;
-if(eregi("^waitlist next$", $message, $arr)) {
+if(preg_match("/^waitlist next$/i", $message, $arr)) {
 	if(count($listbot_waitlist[$sender]) == 0) {
 	  	$msg = "There is no one on your waitlist atm!";
 	  	// Send info back
@@ -59,7 +59,7 @@ if(eregi("^waitlist next$", $message, $arr)) {
 
 	$msg = "<highlight>$name<end> has been called to come now.";
 	bot::send($msg, $sendto);
-} elseif(eregi("^waitlist add (.+)$", $message, $arr)) {
+} elseif(preg_match("/^waitlist add (.+)$/i", $message, $arr)) {
   	$uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     if(!$uid) {
@@ -99,7 +99,7 @@ if(eregi("^waitlist next$", $message, $arr)) {
 	bot::send($msg, $sendto);
 	  	
 	bot::send("You have been added to the waitlist of <highlight>$sender<end> at Pos. <highlight>$pos<end>. You will be notified everytime you get one position up.", $name);
-} elseif(eregi("^waitlist rem all$", $message, $arr)) {
+} elseif(preg_match("/^waitlist rem all$/i", $message, $arr)) {
   	if(count($listbot_waitlist[$sender]) == 0) {
 	  	$msg = "There is no one on your waitlist atm!";
 	  	// Send info back
@@ -112,7 +112,7 @@ if(eregi("^waitlist next$", $message, $arr)) {
 	
 	$msg = "<highlight>$sender<end> your waitlist has been cleared.";
     bot::send($msg, $sendto);
-} elseif(eregi("^waitlist rem (.+)$", $message, $arr)) {
+} elseif(preg_match("/^waitlist rem (.+)$/i", $message, $arr)) {
   	$uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     if(!$uid) {
@@ -153,7 +153,7 @@ if(eregi("^waitlist next$", $message, $arr)) {
 	
 	$msg = "<highlight>$name<end> has been removed from your waitlist.";
     bot::send($msg, $sendto);
-} elseif(eregi("^waitlist$", $message)) {
+} elseif(preg_match("/^waitlist$/i", $message)) {
   	if(count($listbot_waitlist[$sender]) == 0) {
 	 	$msg = "You don't have any waitlist created yet!";
 	  	// Send info back

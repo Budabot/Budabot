@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^news del ([0-9]+)$", $message, $arr)) {
+if(preg_match("/^news del ([0-9]+)$/i", $message, $arr)) {
 	$rows = $db->exec("DELETE FROM news_<myname> WHERE `id` = {$arr[1]}");
 	if($rows == 0)
 		$msg = "No newsentry found with the ID <highlight>{$arr[1]}<end>.";
@@ -37,13 +37,13 @@ if(eregi("^news del ([0-9]+)$", $message, $arr)) {
 		$msg = "Newsentry with the ID <highlight>{$arr[1]}<end> was successfully deleted.";
 
     bot::send($msg, $sendto);
-} elseif(eregi("^news (.+)$", $message, $arr)) {
+} elseif(preg_match("/^news (.+)$/i", $message, $arr)) {
 	$news = str_replace("'", "''", $arr[1]);
 	$db->query("INSERT INTO news_<myname> (`time`, `name`, `news`) VALUES (".time().", '".$sender."', '$news')"); 
 	$msg = "News has been added.";
 
     bot::send($msg, $sendto);
-} elseif(eregi("^news$", $message, $arr)) {
+} elseif(preg_match("/^news$/i", $message, $arr)) {
 	$db->query("SELECT * FROM news_<myname> ORDER BY `time` DESC LIMIT 0, 10");
 	if($db->numrows() != 0) {
 		$link = "<header>::::: News :::::<end>\n\n";

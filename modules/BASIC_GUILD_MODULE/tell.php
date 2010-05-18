@@ -29,11 +29,11 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^tell (.+)$", $message, $arr)) {
+if(preg_match("/^tell (.+)$/i", $message, $arr)) {
   	bot::send("<yellow>".$arr[1]."<end>", "guild");
   	bot::send("<yellow>".$arr[1]."<end>", "guild");
   	bot::send("<yellow>".$arr[1]."<end>", "guild");
-} elseif(eregi("^tellall (.+)$", $message, $arr)) {
+} elseif(preg_match("/^tellall (.+)$/i", $message, $arr)) {
 	$db->query("SELECT * FROM guild_chatlist_<myname>");
 	while($row = $db->fObject())
 		bot::send("Tell from $sender: <yellow>".$arr[1]."<end>", $row->name);

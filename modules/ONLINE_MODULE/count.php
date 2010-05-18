@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader)$", $message, $arr)) {
+if(preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader)$/i", $message, $arr)) {
     switch(strtolower($arr[1])) {
         case "adv":
             $prof = "Adventurer";
@@ -95,7 +95,7 @@ if(eregi("^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader)$", $m
         $msg .= " [<highlight>$row->name<end> - ".$row->level.$afk."]";
     }
     bot::send($msg, $sendto);  	
-} elseif(eregi("^count (level|lvl)$", $message, $arr)) {
+} elseif(preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 	$tl1 = 0;
 	$tl2 = 0;
 	$tl3 = 0;
@@ -130,7 +130,7 @@ if(eregi("^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader)$", $m
     }	
     $msg = "<highlight>$numonline<end> in total: TL1 <highlight>$tl1<end>, TL2 <highlight>$tl2<end>, TL3 <highlight>$tl3<end>, TL4 <highlight>$tl4<end>, TL5 <highlight>$tl5<end>, TL6 <highlight>$tl6<end>, TL7 <highlight>$tl7<end>";
     bot::send($msg, $sendto);
-} else if(eregi("^count (.*)$", $message, $arr)) {
+} else if(preg_match("/^count (.*)$/i", $message, $arr)) {
     switch(strtolower($arr[1])) {
         case "all":
             $prof = "all";

@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^oe ([0-9]+)$", $message, $arr)) {
+if(preg_match("/^oe ([0-9]+)$/i", $message, $arr)) {
     if($arr[1] <= 4000) {
      $oe = $arr[1]; 
         $oevalue = (int)round($oe/0.8); 

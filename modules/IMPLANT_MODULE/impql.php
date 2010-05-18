@@ -36,7 +36,7 @@
 require_once('implant_functions.php');
 
 {
-	eregi("^impql (.*)$", $message, $arr);
+	preg_match("/^impql (.*)$/i", $message, $arr);
 
 	// get the argument and set the ql variable
 	$ql = $arr[1];
@@ -44,7 +44,7 @@ require_once('implant_functions.php');
 	$msg = "";
 
 	// make sure the $ql is an integer between 1 and 300
-	if (!ereg("^[0-9]+$", $ql, $p) || ($ql < 1) || ($ql > 300)) {
+	if (!preg_macth("/^[0-9]+$/i", $ql, $p) || ($ql < 1) || ($ql > 300)) {
 		$msg = "<br />Usage: <symbol>impql &lt;implant_ql&gt;<br />You must enter a value between 1 and 300.";
 	} else {
 		$obj = getRequirements($ql);

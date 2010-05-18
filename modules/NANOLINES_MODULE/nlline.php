@@ -33,7 +33,7 @@
    **
    */
 
-if (eregi("^nlline ([0-9]*)$", $message, $arr)) {
+if (preg_match("/^nlline ([0-9]*)$/i", $message, $arr)) {
 
 	$nanoline_id = $arr[1];
 

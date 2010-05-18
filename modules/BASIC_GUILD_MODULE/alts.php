@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^alts add (.+)$", $message, $arr)) {
+if(preg_match("/^alts add (.+)$/i", $message, $arr)) {
     $name = ucfirst(strtolower($arr[1]));
     $uid = AoChat::get_uid($arr[1]);
     if(!$uid)
@@ -58,7 +58,7 @@ if(eregi("^alts add (.+)$", $message, $arr)) {
             }
         }
     }
-} else if(eregi("^alts (rem|del|remove|delete) (.+)$", $message, $arr)) {
+} else if(preg_match("/^alts (rem|del|remove|delete) (.+)$/i", $message, $arr)) {
     $name = ucfirst(strtolower($arr[2]));
     $uid = AoChat::get_uid($arr[2]);
     if(!$uid)
@@ -86,7 +86,7 @@ if(eregi("^alts add (.+)$", $message, $arr)) {
 			}
         }
     }
-} else if(eregi("^alts (.+)$", $message, $arr)) {
+} else if(preg_match("/^alts (.+)$/i", $message, $arr)) {
     $name = ucfirst(strtolower($arr[1]));
     $uid = AoChat::get_uid($arr[1]);
     if(!$uid)
@@ -132,7 +132,7 @@ if(eregi("^alts add (.+)$", $message, $arr)) {
             $msg = bot::makeLink($main."`s Alts", $list);
         }
     }
-} elseif(eregi("^alts$", $message)) {
+} elseif(preg_match("/^alts$/i", $message)) {
     $main = false;
     // Check if $sender is himself the main
     $db->query("SELECT * FROM alts WHERE `main` = '$sender'");
@@ -174,8 +174,8 @@ if(eregi("^alts add (.+)$", $message, $arr)) {
         }
         $msg = bot::makeLink($sender."`s Alts", $list);
     }
-} elseif (eregi("^altsadmin (.+)$", $message, $arr)) {
-	if (eregi("^add (.+) (.+)$", $arr[1], $names)) {
+} elseif (preg_match("/^altsadmin (.+)$/i", $message, $arr)) {
+	if (preg_match("/^add (.+) (.+)$/i", $arr[1], $names)) {
 		if ($names[1] != '' && $names[2] != '') {
 			$name_alt = ucfirst(strtolower($names[1]));
 			$name_main = ucfirst(strtolower($names[2]));
@@ -202,7 +202,7 @@ if(eregi("^alts add (.+)$", $message, $arr)) {
 			}
 		}
 	}
-	elseif (eregi("^rem (.+) (.+)$", $arr[1], $names)) {
+	elseif (preg_match("/^rem (.+) (.+)$/i", $arr[1], $names)) {
 		if ($names[1] != '' && $names[2] != '') {
 			$name_alt = ucfirst(strtolower($names[1]));
 			$name_main = ucfirst(strtolower($names[2]));

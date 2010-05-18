@@ -36,7 +36,7 @@
 //|help| 
 ////////////////;
 
-if(eregi("^aigen (ankari|ilari|rimah|jaax|xoch|cha)$", $message, $arr)) {
+if(preg_match("/^aigen (ankari|ilari|rimah|jaax|xoch|cha)$/i", $message, $arr)) {
 	$gen = ucfirst(strtolower($arr[1]));
 	
 	$msg = "<header>::::: Info about General $gen :::::<end>\n\n";

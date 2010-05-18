@@ -21,7 +21,7 @@
    */
 
 require_once('functions.php');
-if(eregi("^opentimes$", $message)) {
+if(preg_match("/^opentimes$/i", $message)) {
 	
     if($type == "msg") {
         bot::send(getTowerInfoMsg(), $sender);

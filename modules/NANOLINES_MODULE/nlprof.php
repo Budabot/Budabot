@@ -33,7 +33,7 @@
    **
    */
 
-if (eregi("^nlprof (.*)$", $message, $arr)) {
+if (preg_match("/^nlprof (.*)$/i", $message, $arr)) {
 
 	$profession = $arr[1];
 

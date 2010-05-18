@@ -7,11 +7,11 @@
    **
    */
    
-if(eregi("^setirc server (.+)$", $message, $arr)) {
+if(preg_match("/^setirc server (.+)$/i", $message, $arr)) {
 	bot::savesetting("irc_server", trim($arr[1]));
 	bot::send("Setting saved.  Bot will connect to IRC server: {$arr[1]}.", $sender);
 }
-elseif(eregi("^setirc port (.+)$", $message, $arr)) {
+elseif(preg_match("/^setirc port (.+)$/i", $message, $arr)) {
 	if(is_numeric($arr[1])) {
 		bot::savesetting("irc_port", trim($arr[1]));
 		bot::send("Setting saved.  Bot will use port {$arr[1]} to connect to the IRC server.", $sender);
@@ -20,11 +20,11 @@ elseif(eregi("^setirc port (.+)$", $message, $arr)) {
 		bot::send("Please check again.  The port should be a number.", $sender);
 	}
 }
-elseif(eregi("^setirc nickname (.+)$", $message, $arr)) {
+elseif(preg_match("/^setirc nickname (.+)$/i", $message, $arr)) {
 	bot::savesetting("irc_nickname", trim($arr[1]));
 	bot::send("Setting saved.  Bot will use {$arr[1]} as its nickname while in IRC.", $sender);
 }
-elseif(eregi("^setirc channel (.+)$", $message, $arr)) {
+elseif(preg_match("/^setirc channel (.+)$/i", $message, $arr)) {
 	if(strpos($arr[1]," ")) {
 		bot::send("IRC channels cannot have spaces in them",$sender);
 		$sandbox = explode(" ",$arr[1]);

@@ -374,7 +374,7 @@ $homer = array(
     "Default! The two sweetest words in the English language.", 
     "Back you robots! Nobody ruins my family vacation but me! And maybe the boy.", 
     "Burns : And this must be ... (reading card) little Brat. \n Bart : Bart. \n Homer : Don't correct the man, Brat.", 
-    "Kent : Well what do you say to the accusation that your group has been causing more crimes than it's been preventing? \n Homer : Oh, Kent I'd be lying if I said my men weren't committing crimes. \n Kent : (pause) Mmm, touché.", 
+    "Kent : Well what do you say to the accusation that your group has been causing more crimes than it's been preventing? \n Homer : Oh, Kent I'd be lying if I said my men weren't committing crimes. \n Kent : (pause) Mmm, touchï¿½.", 
     "Homer no function beer well without.", 
     "Bart : We were just planning the father-son river rafting trip. \n Homer : He he. You don't have a son. ", 
     "No offence Apu, but when they were handing out religions you must have been out taking a whizz.", 
@@ -393,7 +393,7 @@ $homer = array(
     "You changed me too. I am not the same money-driven workaholic that I once was. [nanny Sherry Bobbins]. ", 
     "Homer : I'll have this sweet blood pudding. \n Bart : The secret ingredient is blood. \n Homer : Blood!?! Olakkkk ... instead I'll have this sweet brain and kidney pie. "); 
 
-if(eregi("^homer", $message)) {
+if(preg_match("/^homer/i", $message)) {
 	$randval = rand(1, sizeof($homer) - 1);
 	$msg = $homer[$randval];
 	bot::send($msg, "guild");

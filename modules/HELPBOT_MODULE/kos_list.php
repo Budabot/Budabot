@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(eregi("^kos$", $message)) {
+if(preg_match("/^kos$/i", $message)) {
   	$db->query("SELECT * FROM koslist_<myname>");
   	if($db->numrows() == 0)
   		$msg = "No list exists yet.";
@@ -51,7 +51,7 @@ if(eregi("^kos$", $message)) {
 	}  	
 
     bot::send($msg, $sendto);
-} elseif(eregi("^kos add (.+) reason (.+)$", $message, $arr)) {
+} elseif(preg_match("/^kos add (.+) reason (.+)$/i", $message, $arr)) {
     $name = ucfirst(strtolower($arr[1]));
 	$reason = str_replace("'", "''", $arr[2]);
   	$uid = AoChat::get_uid($name);
@@ -64,7 +64,7 @@ if(eregi("^kos$", $message)) {
 		$msg = "The Player you want to add doesn't exists.";
 
     bot::send($msg, $sendto);
-} elseif(eregi("^kos add (.+)$", $message, $arr)) {
+} elseif(preg_match("/^kos add (.+)$/i", $message, $arr)) {
     $name = ucfirst(strtolower($arr[1]));
   	$uid = AoChat::get_uid($name);
 	if($uid) {
@@ -80,7 +80,7 @@ if(eregi("^kos$", $message)) {
 	}
 
     bot::send($msg, $sendto);
-} elseif(eregi("^kos rem (.+)$", $message, $arr)) {
+} elseif(preg_match("/^kos rem (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 	$db->query("SELECT * FROM koslist_<myname> WHERE `sender` = '$sender' AND `name` = '".str_replace("'", "''", $name)."'");
 	if($db->numrows() == 1) {
@@ -99,7 +99,7 @@ if(eregi("^kos$", $message)) {
 	}
 
     bot::send($msg, $sendto);
-} elseif(eregi("^kos (.+)$", $message, $arr)) {
+} elseif(preg_match("/^kos (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 	$db->query("SELECT * FROM koslist_<myname> WHERE `name` = '".str_replace("'", "''", $name)."' LIMIT 0, 40");
 	if($db->numrows() >= 1) {

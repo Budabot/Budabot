@@ -30,7 +30,7 @@
    */
 
 $msg = "";
-if(eregi("^ts$", $message)) {
+if(preg_match("/^ts$/i", $message)) {
 	//TS Server Info
     $ip 			= $this->settings["ts_ip"];
     $queryport 		= $this->settings["ts_queryport"];

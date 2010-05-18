@@ -41,7 +41,7 @@ require_once('implant_functions.php');
 	$msg = "";
 	$arr = array();
 
-	if (!eregi("^impreq ([0-9]+) ([0-9]+)$", $message, $arr)) {
+	if (!preg_match("/^impreq ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
 		$msg = $invalidInputMsg;
 	} else {
 		// get the argument and set the ability and treatment variables

@@ -16,7 +16,7 @@ $help .= $footer;
 
 $helplink = bot::makeLink("::How to use Fling::", $help);
 
-if (eregi("^fling ([0-9]*\.?[0-9]+) ([0-9]+)$", $message, $arr)) {
+if (preg_match("/^fling ([0-9]*\.?[0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	$AttTim = trim($arr[1]);
 	$FlingSkill = trim($arr[2]);
 	

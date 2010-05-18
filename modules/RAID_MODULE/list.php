@@ -32,7 +32,7 @@
 global $loot;
 global $raidloot;
 global $vote;
-if(eregi("^list$", $message)) {
+if(preg_match("/^list$/i", $message)) {
 	if($this->vars["raid_status"] == "") {
 	  	if(is_array($loot)) {
 		  	$list = "<header>::::: Loot List :::::<end>\n\nUse <symbol>flatroll or <symbol>roll to roll.\n\n";

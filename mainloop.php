@@ -47,7 +47,7 @@ $config_file = $argv[1];
 
 while(true) { 
     $last_line = system("$php_exec -f $php_file -- $config_file"); 
-    if(eregi("^The bot is shutting down.$", $last_line)) 
+    if(preg_match("/^The bot is shutting down.$/i", $last_line)) 
         die(); 
 }
 ?>

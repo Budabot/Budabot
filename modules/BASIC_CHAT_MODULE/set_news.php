@@ -29,14 +29,14 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
    
-if(eregi("^privnews clear$", $message)) {
+if(preg_match("/^privnews clear$/i", $message)) {
 	bot::savesetting("news", "Not set.");
 	$msg = "News has been cleared.";
 	if($type == "priv")
 		bot::send($msg);
 	elseif($type == "msg")
 		bot::send($msg, $sender);
-} elseif(eregi("^privnews (.+)$", $message, $arr)) {
+} elseif(preg_match("/^privnews (.+)$/i", $message, $arr)) {
 	$news = $arr[1];
  	if(strlen($news) > 300) {
 		$msg = "News can't be longer than 300chars.";
@@ -48,14 +48,14 @@ if(eregi("^privnews clear$", $message)) {
 		bot::send($msg);
 	elseif($type == "msg")
 		bot::send($msg, $sender);	
-} elseif(eregi("^adminnews clear$", $message)) {
+} elseif(preg_match("/^adminnews clear$/i", $message)) {
  	bot::savesetting("adminnews", "Not set.");
 	$msg = "Adminnews has been cleared.";
 	if($type == "priv")
 		bot::send($msg);
 	elseif($type == "msg")
 		bot::send($msg, $sender);
-} elseif(eregi("^adminnews (.+)$", $message, $arr)) {
+} elseif(preg_match("/^adminnews (.+)$/i", $message, $arr)) {
 	$news = $arr[1];
  	if(strlen($news) > 300) {
 		$msg = "News can't be longer than 300chars.";
