@@ -5,6 +5,7 @@
     
     bot::command("", "$MODULE_NAME/members.php", "members", "all", "Guest Channel Auto-Invitelist");
     bot::command("", "$MODULE_NAME/onlineguests.php", "onlineguests", "all", "Guest Channellist");
+	bot::command("", "$MODULE_NAME/autoinvite.php", "autoinvite", "all", "Allows member to set whether he should be auto-invited to guest channel on logon or not");
     bot::command("guild msg", "$MODULE_NAME/join.php", "join", "all", "Join command for guests");
 	bot::command("priv msg", "$MODULE_NAME/leave.php", "leave", "all", "Enables Privatechat Kick");
 
