@@ -65,7 +65,7 @@ class xml {
 		if(!strstr($url, '/'))
 			$url .= '/';
 				
-		preg_match("/^(.+)(\.de|\.biz|\.com|\.org|\.info)/(.*)$/i", $url, $tmp);
+		preg_match("/^(.+)(\.de|\.biz|\.com|\.org|\.info)\/(.*)$/i", $url, $tmp);
 		$host = $tmp[1].$tmp[2];
 		$uri = "/".$tmp[3];
 		$fp = @fsockopen($host, 80, $errno, $errstr, 10);
@@ -133,7 +133,7 @@ class whois extends xml{
 		$data_save = false;
 		$name = ucfirst(strtolower($name));
 		
-		//Check if a xml file of the person exists, that it isn�t older then 24hrs and correct
+		//Check if a xml file of the person exists, that it isn't older then 24hrs and correct
 		if(file_exists("$cache/$name.$rk_num.xml")) {
 	        $mins = (time() - filemtime("$cache/$name.$rk_num.xml")) / 60;
             $hours = floor($mins/60);
@@ -203,7 +203,7 @@ class whois extends xml{
 		  	$this->gender = "Unknown";
 		  	$this->breed = "Unknown";
            	$this->errorCode = 1;
-           	$this->errorInfo = "Couldn�t get Character infos for $name";
+           	$this->errorInfo = "Couldn't get Character infos for $name";
            	return;
 		}
 
@@ -318,7 +318,7 @@ class org extends xml {
 		//if there is still no valid data available give an error back
 		if(!$data_found) {
            	$this->errorCode = 1;
-           	$this->errorInfo = "Couldn�t get infos for the organization";
+           	$this->errorInfo = "Couldn't get infos for the organization";
            	return;
 		}
 
@@ -440,7 +440,7 @@ class history extends xml{
 		//if there is still no valid data available give an error back
 		if(!$data_found) {
            	$this->errorCode = 1;
-           	$this->errorInfo = "Couldn�t get History of $name";
+           	$this->errorInfo = "Couldn't get History of $name";
            	return;
 		}
 
@@ -496,7 +496,7 @@ class server extends xml{
 			         
         if($serverstat == NULL) {
           	$this->errorCode = 1;
-           	$this->errorInfo = "Couldn�t get Serverstatus for Dimension $rk_num";
+           	$this->errorInfo = "Couldn't get Serverstatus for Dimension $rk_num";
 			return;
         }
 
@@ -507,18 +507,18 @@ class server extends xml{
 		preg_match("/locked=\"(0|1)\"/i", $data, $tmp);
 		$this->locked = $tmp[1];
 
-		preg_match("/<omni percent=\"([0-9.]+)\"/>/i", $data, $tmp);
+		preg_match("/<omni percent=\"([0-9.]+)\"\/>/i", $data, $tmp);
 		$this->omni = $tmp[1];
-		preg_match("/<neutral percent=\"([0-9.]+)\"/>/i", $data, $tmp);
+		preg_match("/<neutral percent=\"([0-9.]+)\"\/>/i", $data, $tmp);
 	    $this->neutral = $tmp[1];
-		preg_match("/<clan percent=\"([0-9.]+)\"/>/i", $data, $tmp);
+		preg_match("/<clan percent=\"([0-9.]+)\"\/>/i", $data, $tmp);
 	    $this->clan = $tmp[1];
 
-		preg_match("/<servermanager status=\"([0-9]+)\"/>/i", $data, $tmp);
+		preg_match("/<servermanager status=\"([0-9]+)\"\/>/i", $data, $tmp);
 	    $this->servermanager = $tmp[1];
-		preg_match("/<clientmanager status=\"([0-9]+)\"/>/i", $data, $tmp);
+		preg_match("/<clientmanager status=\"([0-9]+)\"\/>/i", $data, $tmp);
 	    $this->clientmanager = $tmp[1];
-		preg_match("/<chatserver status=\"([0-9]+)\"/>/i", $data, $tmp);
+		preg_match("/<chatserver status=\"([0-9]+)\"\/>/i", $data, $tmp);
 	    $this->chatserver = $tmp[1];
               	
 		preg_match("/display-name=\"(.+)\" loadmax/i", $data, $tmp);

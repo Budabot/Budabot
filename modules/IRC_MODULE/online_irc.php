@@ -26,13 +26,7 @@ if(preg_match("/^onlineirc$/i", $message, $arr)) {
 			
 			$msg = bot::makeLink("$numusers online in IRC",$list);
 			
-			
-			if($type == "msg")
-				bot::send($msg, $sender);
-			elseif($type == "priv")
-				bot::send($msg);
-			elseif($type == "guild")
-				bot::send($msg, "guild"); 
+			bot::send($msg, $sendto);
 		}
 		flush();
 	}
