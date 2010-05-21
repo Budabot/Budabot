@@ -7,7 +7,7 @@
 	 * Author: Mindrila (RK1)
 	 * Date: 21.05.2010
 	 */
-global $db;
+
 if (preg_match("/^searchcmd (.*)/i", $message, $arr))
 {
 	$sqlquery = "SELECT DISTINCT module FROM cmdcfg_<myname> WHERE `cmd` = '".strtolower($arr[1])."' ;";
@@ -21,14 +21,22 @@ if (preg_match("/^searchcmd (.*)/i", $message, $arr))
 	}
 	
 	$data = $db->fObject("all");
-	
+	$blob = '';
+	$msg = '';
 	foreach ($data as $row)
 	{
 		$foundmodule = strtoupper($row->module);
-		$msg = "<highlight>".strtolower($arr[1]) . "<end> was found in <orange>" . $foundmodule . "<end>. ";
-		$link = bot::makeLink($foundmodule.' configuration', '/tell <myname> config '.$foundmodule, 'chatcmd');
-		bot::send($msg.$link,$sendto);
+		$blob .= bot::makeLink($foundmodule.' configuration', '/tell <myname> config '.$foundmodule, 'chatcmd') . "\n";
 	}
+	if (count($data) == 0)
+	{
+		$msg = "No results found.";
+	}
+	else
+	{
+		$msg = bot::makeLink(count($data) . ' results found.', $blob);
+	}
+	bot::send($msg, $sendto);
 }
 
 
