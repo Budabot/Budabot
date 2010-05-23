@@ -17,9 +17,9 @@
 if (preg_match("/^inspect (.+)$/i", $message, $arr)) {
 	$realword = $arr[1];
 	if (
-		preg_match("/<a href=\"itemref://[0-9]{6}/[0-9]{6}/[0-9]{1,3}\">Christmas Gift</a>/i",$realword) ||
-		preg_match("/<a href=\"itemref://[0-9]{6}/[0-9]{6}/[0-9]{1,3}\">Expensive Gift from Earth</a>/i",$realword) ||
-		preg_match("/<a href=\"itemref://[0-9]{6}/[0-9]{6}/[0-9]{1,3}\">Light Perennium Container</a>/i",$realword)) {
+		preg_match("/<a href=\"itemref:\/\/[0-9]{6}/[0-9]{6}/[0-9]{1,3}\">Christmas Gift</a>/i",$realword) ||
+		preg_match("/<a href=\"itemref:\/\/[0-9]{6}/[0-9]{6}/[0-9]{1,3}\">Expensive Gift from Earth</a>/i",$realword) ||
+		preg_match("/<a href=\"itemref:\/\/[0-9]{6}/[0-9]{6}/[0-9]{1,3}\">Light Perennium Container</a>/i",$realword)) {
 		$idql = str_replace("<a href=\"itemref://","",$realword);
 		$idql = str_replace("\">Christmas Gift</a>","",$idql);
 		$idql = str_replace("\">Expensive Gift from Earth</a>","",$idql);
