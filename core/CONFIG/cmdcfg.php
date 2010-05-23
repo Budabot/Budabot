@@ -80,7 +80,7 @@ if (preg_match("/^config$/i", $message)) {
 	}
 
 	$msg = bot::makeLink("Module Config", $list);
-	bot::send($msg, $sendto);  
+	bot::send($msg, $sendto);
 } else if (preg_match("/^config cmd (enable|disable) (all|guild|priv|msg)$/i", $message, $arr)) {
 	$status = ($arr[1] == "enable" ? 1 : 0);
 	$typeSql = ($arr[2] == "all" ? "`type` = 'guild' OR `type` = 'priv' OR `type` = 'msg'" : "`type` = '{$arr[2]}'");
