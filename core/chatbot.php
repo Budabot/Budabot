@@ -1266,9 +1266,9 @@ class bot extends AOChat{
 				}
 
 				// AFk check
-				if(preg_match("/^$sender is afk (.+)$/i", $message, $arr))
+				if(preg_match("/^$sender is AFK (.+)$/si", $message, $arr))
 					return;
-				elseif(preg_match("/^I am away from my keyboard right now, (.*)your message has been logged.$/i", $message))
+				elseif(preg_match("/^I am away from my keyboard right now, (.*)your message has been logged.$/si", $message))
 					return;
 
 				//Remove the prefix infront if there is one
