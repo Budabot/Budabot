@@ -50,7 +50,7 @@ At the same time as receiving the other mission, you will have received one to f
 
 When you kill each of them, three <a href='itemref://263641/263641/1'>Beit Bones</a> will spawn in your inventory. (Please note: These mobs might not be at the exact spot the map shows, since they start roaming around once spawned.)
 
-Once you return, he wants another set of Bones, this time <a href='itemref://263642/263642/1'>Old Beit Bones</a>, which are located in The Plundge – Facility Entrance.  
+Once you return, he wants another set of Bones, this time <a href='itemref://263642/263642/1'>Old Beit Bones</a>, which are located in The Plundge - Facility Entrance.  
 
 The mission requires you to find the item in dungeon, pick it up and bring it back.
 .. not really like bones at all from first glance huh!

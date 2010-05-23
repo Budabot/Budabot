@@ -92,7 +92,7 @@ You can find this Yutto at <font color = yellow>1360x1915</font>. And she is so 
 
 Fortunately though for you, with a little assistance from you, she will be able to get it finished. Armed with a <a href='itemref://263571/263571/1'>Radio Chipped Collar</a>, she sends you to herd back Sickly Chimera. Finding them shouldn't be hard, since you passed quite a few of them on your way to her. 
 
-Once Sickly Chimera is located, open chat with it and trade <a href='itemref://263571/263571/1'>Radio Chipped Collar</a>. Then you need to follow it back to Yutto. She'll heal it (Sickly Chimera despawns and Exhausted Chimera spawns in same place) and you should target this one and start chat with One Who is Full of Compasion. And she'll send you to bring in Sickly Chimera again…Finally, after you helped her for third time, she'll give you <a href='itemref://263182/263182/1'>Animal Status List</a> to bring back to One Who Never Stops Looking. He'll then send you to find One Who Fears Corruption.
+Once Sickly Chimera is located, open chat with it and trade <a href='itemref://263571/263571/1'>Radio Chipped Collar</a>. Then you need to follow it back to Yutto. She'll heal it (Sickly Chimera despawns and Exhausted Chimera spawns in same place) and you should target this one and start chat with One Who is Full of Compasion. And she'll send you to bring in Sickly Chimera again. Finally, after you helped her for third time, she'll give you <a href='itemref://263182/263182/1'>Animal Status List</a> to bring back to One Who Never Stops Looking. He'll then send you to find One Who Fears Corruption.
 
 <font color = green>One Who Fears Corruption</font>
 

@@ -1,4 +1,4 @@
-<?php 
+<?php
    /*
    ** Author: Sebuda, Derroylo (RK2)
    ** Description: Adds a RL to the adminlist
@@ -8,10 +8,10 @@
    **
    ** Date(created): 01.10.2005
    ** Date(last modified): 30.01.2007
-   ** 
+   **
    ** Copyright (C) 2005, 2006, 2007 J. Gracik, C. Lohmann
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -33,23 +33,23 @@ if(preg_match("/^raidleader (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
 	
 	if(AOChat::get_uid($who) == NULL){
-		bot::send("<red>Sorry player you wish to add doesn�t exist.<end>", $sendto);
-		return;	
+		bot::send("<red>Sorry player you wish to add doesn't exist.<end>", $sendto);
+		return;
 	}
 	
 	if($who == $sender) {
-		bot::send("<red>You can�t add yourself to another group.<end>", $sendto);
-		return;		
+		bot::send("<red>You can't add yourself to another group.<end>", $sendto);
+		return;
 	}
 
 	if($this->admins[$who]["level"] == 2) {
 		bot::send("<red>Sorry but $who is already a raidleader.<end>", $sendto);
-		return;	
+		return;
 	}
 	
 	if((int)$this->admins[$sender]["level"] <= (int)$this->admins[$who]["level"]){
 		bot::send("<red>You must have a rank higher then $who.<end>", $sendto);
-		return;	
+		return;
 	}
 
 	if(isset($this->admins[$who]["level"]) && $this->admins[$who]["level"] > 2) {

@@ -1,6 +1,6 @@
 <header>::::: Whereis command :::::<end>
 
-<blue>This command shows you infos about different locations or NPC´s
+<blue>This command shows you infos about different locations or NPCs
 <tab><yellow><symbol>whereis 'location or NPC'<end>
 
 for example

@@ -47,29 +47,29 @@
 	bot::regGroup("EXP", $MODULE_NAME, "Calculate needed XP/SK/AXP", "sk", "xp", "axp");
 
 	//Flip or Roll command
-	bot::command("", "$MODULE_NAME/roll.php", "flip", "all", "Flip a coin"); 
-	bot::command("", "$MODULE_NAME/roll.php", "roll", "all", "Roll a random number"); 
+	bot::command("", "$MODULE_NAME/roll.php", "flip", "all", "Flip a coin");
+	bot::command("", "$MODULE_NAME/roll.php", "roll", "all", "Roll a random number");
 
 	//Player History
-	bot::command("", "$MODULE_NAME/player_history.php", "history", "guild", "Show a history of a player");	
+	bot::command("", "$MODULE_NAME/player_history.php", "history", "guild", "Show a history of a player");
 	
 	//Whereis
-	bot::command("", "$MODULE_NAME/whereis.php", "whereis", "guild", "Show where places/uniques are on RK");	
+	bot::command("", "$MODULE_NAME/whereis.php", "whereis", "guild", "Show where places/uniques are on RK");
 	
 	//Title Levels
-	bot::command("", "$MODULE_NAME/title.php", "title", "guild", "Show the Titlelevels and how much IP/Level");	
+	bot::command("", "$MODULE_NAME/title.php", "title", "guild", "Show the Titlelevels and how much IP/Level");
 
 	//Smileys
-	bot::command("", "$MODULE_NAME/smileys.php", "smileys", "guild", "The meaning of different Smileys");	
+	bot::command("", "$MODULE_NAME/smileys.php", "smileys", "guild", "The meaning of different Smileys");
 	
 	//Inspect
-	bot::command("", "$MODULE_NAME/inspect.php", "inspect", "guild", "Inspects Christmas/Eart Gifts and Peren. Containers");	
+	bot::command("", "$MODULE_NAME/inspect.php", "inspect", "guild", "Inspects Christmas/Eart Gifts and Peren. Containers");
 	
 	//Alien City Generals
-	bot::command("", "$MODULE_NAME/aigen.php", "aigen", "guild", "Info about Alien City Generals(which VB´s they drop)");	
+	bot::command("", "$MODULE_NAME/aigen.php", "aigen", "guild", "Info about Alien City Generals(which VBs they drop)");
 	
 	//Alien Armor
-	bot::command("", "$MODULE_NAME/aiarmor.php", "aiarmor", "guild", "Tradeskillprocess for Alien Armor");	
+	bot::command("", "$MODULE_NAME/aiarmor.php", "aiarmor", "guild", "Tradeskillprocess for Alien Armor");
 
 	//Setup
 	bot::event("setup", "$MODULE_NAME/setup.php");
@@ -79,8 +79,8 @@
 	bot::help("pvpranges", "$MODULE_NAME/pvpranges.txt", "guild", "Pvp ranges", "Helpbot");
     bot::help("level", "$MODULE_NAME/level.txt", "guild", "Levelinfos", "Helpbot");
     bot::help("title_level", "$MODULE_NAME/title.txt", "guild", "Infos about TitleLevels", "Helpbot");
-    bot::help("whereis", "$MODULE_NAME/whereis.txt", "guild", "Show infos about NPC´s and Locations", "Helpbot");
-    bot::help("missions", "$MODULE_NAME/missions.txt", "guild", "Who can roll a specific QL of a mission", "Helpbot");    
+    bot::help("whereis", "$MODULE_NAME/whereis.txt", "guild", "Show infos about NPCs and Locations", "Helpbot");
+    bot::help("missions", "$MODULE_NAME/missions.txt", "guild", "Who can roll a specific QL of a mission", "Helpbot");
     bot::help("biomat", "$MODULE_NAME/biomat.txt", "guild", "Identify an Biomaterial", "Helpbot");
     bot::help("calculator", "$MODULE_NAME/calculator.txt", "guild", "Calculator", "Helpbot");
     bot::help("oe", "$MODULE_NAME/oe.txt", "guild", "Calculating the OE ranges", "Helpbot");
@@ -91,5 +91,5 @@
     bot::help("kos_list", "$MODULE_NAME/kos_list.txt", "guild", "Kill On Sight List", "Helpbot");
     bot::help("smiley_title_inspect", "$MODULE_NAME/smiley_title_inspect.txt", "guild", "Help for Smiley,Title Level and Inspect", "Helpbot");
     bot::help("alien_armor", "$MODULE_NAME/alien_armor.txt", "guild", "Alien armor Tradeskillprocess", "Helpbot");
-	bot::help("alien_generals", "$MODULE_NAME/alien_generals.txt", "guild", "Alien City Generals Info", "Helpbot");    
+	bot::help("alien_generals", "$MODULE_NAME/alien_generals.txt", "guild", "Alien City Generals Info", "Helpbot");
 ?>

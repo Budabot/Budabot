@@ -8,10 +8,10 @@
    **
    ** Date(created): 28.01.2006
    ** Date(last modified): 28.01.2006
-   ** 
+   **
    ** Copyright (C) 2006 Carsten Lohmann
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -95,7 +95,7 @@ if(preg_match("/^time$/i", $message)) {
 	$msg = "<highlight>".gmdate("dS M, H:i", $time)."<end> (GMT/AO)";
 	
 	$link = "<header>::::: Timezones :::::<end>\n\n";
-	$link .= "The following includes most of the timezones that exists but notice that this list doesn't show all countrys within the timezones and also that some country�s have 2 timezones. \nTo see the time in a special timezone use time 'timezone' for example time CET\n\n";
+	$link .= "The following includes most of the timezones that exists but notice that this list doesn't show all countrys within the timezones and also that some country's have 2 timezones. \nTo see the time in a special timezone use time 'timezone' for example time CET\n\n";
 	$link .= "<u>Australia</u>\n";
 	$link .= "<tab><highlight>Northern Territory/South Australia<end>\n";
 	$link .= "<tab><tab>Standart Time (ACST = GMT+9:30): {$timezone["ACST"]["time"]}\n";
@@ -114,14 +114,14 @@ if(preg_match("/^time$/i", $message)) {
 	$link .= "<tab><highlight>Germany/France/Netherlands/Italy/Austria<end>\n";
 	$link .= "<tab><tab>Standart Time (CET = GMT+1): {$timezone["CET"]["time"]}\n";
 	$link .= "<tab><tab>Summer Time (CEST = GMT+2): {$timezone["CEST"]["time"]}\n";
-	$link .= "<tab><highlight>�gypten/Bulgarien/Finnland/Griechenland<end>\n";
+	$link .= "<tab><highlight>Ägypten/Bulgarien/Finnland/Griechenland<end>\n";
 	$link .= "<tab><tab>Standart Time (EET = GMT+2): {$timezone["EET"]["time"]}\n";
 	$link .= "<tab><tab>Summer Time (EEST/EEDT = GMT+3): {$timezone["EEST"]["time"]}\n";
 	$link .= "<tab><highlight>Bahrain/Irak/Russland/Saudi Arabien<end>\n";
 	$link .= "<tab><tab>Standart Time (MSK = GMT+3): {$timezone["MSK"]["time"]}\n";
 	$link .= "<tab><tab>Summer Time (MSD = GMT+4): {$timezone["MSD"]["time"]}\n\n";
-	$link .= "<highlight>Indien (GMT+5:30)<end>: {$timezone["IST"]["time"]}\n\n";		
-	$link .= "<highlight>Iran (GMT+3:30)<end>: {$timezone["IRT"]["time"]}\n\n";		
+	$link .= "<highlight>Indien (GMT+5:30)<end>: {$timezone["IST"]["time"]}\n\n";
+	$link .= "<highlight>Iran (GMT+3:30)<end>: {$timezone["IRT"]["time"]}\n\n";
 
 	$link .= "<u>Kanada</u>\n";
 	$link .= "<tab>Standart Time (NST = GMT-3:30): {$timezone["NST"]["time"]}\n";
@@ -133,10 +133,10 @@ if(preg_match("/^time$/i", $message)) {
 	$link .= "<tab><tab>Summer Time (EDT = GMT-4): {$timezone["EDT"]["time"]}\n";
 	$link .= "<tab><highlight>Alaska<end>\n";
 	$link .= "<tab><tab>Standart Time (AKST = GMT-9): {$timezone["AKST"]["time"]}\n";
-	$link .= "<tab><tab>Summer Time (AKDT = GMT-8): {$timezone["AKDT"]["time"]}\n";		
+	$link .= "<tab><tab>Summer Time (AKDT = GMT-8): {$timezone["AKDT"]["time"]}\n";
 	$link .= "<tab><highlight>Mexico/Kanada/Kalifornien/Nevada/Washington<end>\n";
 	$link .= "<tab><tab>Standart Time (PST = GMT-8): {$timezone["PST"]["time"]}\n";
-	$link .= "<tab><tab>Summer Time (PDT = GMT-7): {$timezone["PDT"]["time"]}\n";		
+	$link .= "<tab><tab>Summer Time (PDT = GMT-7): {$timezone["PDT"]["time"]}\n";
 	$link .= "<tab><highlight>Colorado/Montana/New Mexico/Utah<end>\n";
 	$link .= "<tab><tab>Standart Time (MST = GMT-7): {$timezone["MST"]["time"]}\n";
 	$link .= "<tab><tab>Summer Time (MDT = GMT-6): {$timezone["MDT"]["time"]}\n";

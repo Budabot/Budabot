@@ -1,104 +1,104 @@
-<? 
-$enforcer_txt = "<header>::::: Guide to Enforcers :::::<end>\n\n"; 
-$enforcer_txt = " Basic Attributes 
+<?
+$enforcer_txt = "<header>::::: Guide to Enforcers :::::<end>\n\n";
+$enforcer_txt = " Basic Attributes
 
-Strength, Stamina, Body Development are your friends. Max these three attributes always and forever! Agility is an important part of many of your skills, try to keep it at ~66% of your maximum. The rest of the attributes are not your priority, raise them enough to meet minimum skill requirements as necessary, like Melee Initiative. 
+Strength, Stamina, Body Development are your friends. Max these three attributes always and forever! Agility is an important part of many of your skills, try to keep it at ~66% of your maximum. The rest of the attributes are not your priority, raise them enough to meet minimum skill requirements as necessary, like Melee Initiative.
 
-But wait! What's that? You want to concentrate on STR and AGI and wear some sort of sissy armor? Hold it right there, cowboy! The best armors in this game (forget cyber, cause it ain't gonna happen) are STR/STA armors. In addition, Tank Armor requires serious STR and STA. And, you will want Tank Armor. AGI is something you raise only because it trickles down into skill points for many of your melee skills. It should never receive the same priority as STR and STA. 
+But wait! What's that? You want to concentrate on STR and AGI and wear some sort of sissy armor? Hold it right there, cowboy! The best armors in this game (forget cyber, cause it ain't gonna happen) are STR/STA armors. In addition, Tank Armor requires serious STR and STA. And, you will want Tank Armor. AGI is something you raise only because it trickles down into skill points for many of your melee skills. It should never receive the same priority as STR and STA.
 
- Body Skills: 
+ Body Skills:
 
-Brawling, Brawling, and Brawling. Max it, use it, love it! When you start getting Brawling criticals, you'll thank your instructor. 
+Brawling, Brawling, and Brawling. Max it, use it, love it! When you start getting Brawling criticals, you'll thank your instructor.
 
-Dimach? It's too darned expensive. Most melee weapons require some skill in Dimach, so raise it a little here and there as necessary. Strongly consider using implants instead of IP's at higher levels. 
+Dimach? It's too darned expensive. Most melee weapons require some skill in Dimach, so raise it a little here and there as necessary. Strongly consider using implants instead of IP's at higher levels.
 
-Martial Arts, Riposte, Adventuring, Swim: Whatever! Very few melee weapons allow you to use Martial Arts, so it's a waste of time to train in my opinion. Riposte, too complicated (see Parry). Adventuring (whee! I can wear a backpack! but not if I have tank armor in my back slot). Swimming (what the heck are you doing in the water?). 
+Martial Arts, Riposte, Adventuring, Swim: Whatever! Very few melee weapons allow you to use Martial Arts, so it's a waste of time to train in my opinion. Riposte, too complicated (see Parry). Adventuring (whee! I can wear a backpack! but not if I have tank armor in my back slot). Swimming (what the heck are you doing in the water?).
 
- Melee Skills: 
+ Melee Skills:
 
 As far as the basic melee skills go, pick one weapon style and stick with it. 1hb, 2hb or even the edged weapons- just stay with it. Each has its own advantages
 
-Energy Melee: This is sort of expensive, but many of the weapons requiring this skill have lower primary skill requirements. For instance, the Stun Baton relies on 67% 1HB skill and 33% Energy Melee skill, so it has lower 1HB requirements than a comparable QL Mace. This generally allows you to equip a significantly higher QL Stun Baton, than you could a Mace. One thing to keep in mind, if you decide to use a weapon that has a secondary Energy Melee skill requirement, keep Energy Melee as high as possible. Otherwise, your damage output will suffer. 
+Energy Melee: This is sort of expensive, but many of the weapons requiring this skill have lower primary skill requirements. For instance, the Stun Baton relies on 67% 1HB skill and 33% Energy Melee skill, so it has lower 1HB requirements than a comparable QL Mace. This generally allows you to equip a significantly higher QL Stun Baton, than you could a Mace. One thing to keep in mind, if you decide to use a weapon that has a secondary Energy Melee skill requirement, keep Energy Melee as high as possible. Otherwise, your damage output will suffer.
 
-Parry: I don't use it. This is an area where you may want to tread your own path. I have my AGG/DEF Slider adjusted to max Aggression at all times to optimize offensive output. I've found that Parry is a non-factor for me. The faster the monster dies, the less damage I take. If the monster is tough enough to scare me, then I probably won't successfully Parry it anyway. Deflection Shields? Bah! Not worth the trouble, if you ask me. But I'm willing to admit I haven't put in the effort to truly rule out this skill. If you want to, be my guest. 
+Parry: I don't use it. This is an area where you may want to tread your own path. I have my AGG/DEF Slider adjusted to max Aggression at all times to optimize offensive output. I've found that Parry is a non-factor for me. The faster the monster dies, the less damage I take. If the monster is tough enough to scare me, then I probably won't successfully Parry it anyway. Deflection Shields? Bah! Not worth the trouble, if you ask me. But I'm willing to admit I haven't put in the effort to truly rule out this skill. If you want to, be my guest.
 
-Sneak Attack: It's real tempting to put a lot of points into this skill, because many melee weapons allow you to use it. Don't be fooled. Eventually, you won't be able to sneak up on anything worth sneaking up on, so just put as many points into this as are necessary to equip your weapon. (also see Concealment) 
+Sneak Attack: It's real tempting to put a lot of points into this skill, because many melee weapons allow you to use it. Don't be fooled. Eventually, you won't be able to sneak up on anything worth sneaking up on, so just put as many points into this as are necessary to equip your weapon. (also see Concealment)
 
-Multi Melee: Make a choice. You wanna use two weapons? Then raise this as much as you need to get your second weapon in your hand. Going for the two-hander? Then don't. Simple enough. 
+Multi Melee: Make a choice. You wanna use two weapons? Then raise this as much as you need to get your second weapon in your hand. Going for the two-hander? Then don't. Simple enough.
 
-Fast Attack: This is a handy little bit of damage. Doesn't seem like much at low levels, but keep it trained if your weapon of choice uses it. When you start getting Fast Attack criticals, you'll thank your instructor. Many people will say only raise it as high as you must for equipping your weapon, but you'll do more damage with higher skill. Your decision. 
+Fast Attack: This is a handy little bit of damage. Doesn't seem like much at low levels, but keep it trained if your weapon of choice uses it. When you start getting Fast Attack criticals, you'll thank your instructor. Many people will say only raise it as high as you must for equipping your weapon, but you'll do more damage with higher skill. Your decision.
 
-Misc Weapon Skills: Thrown? Grenades? NO. Some people may think they would be nice for pulling monsters, yada yada yada. Bottom line is they are expensive, they would require swapping weapons, and they aren't worth the trouble. 
+Misc Weapon Skills: Thrown? Grenades? NO. Some people may think they would be nice for pulling monsters, yada yada yada. Bottom line is they are expensive, they would require swapping weapons, and they aren't worth the trouble.
 
-Heavy Weapons: There are a few weapons out there that require Heavy Weapons skill (for instance rare Concrete Cushions that have STR/STA buffs, and the popular Rider line of edged weapons), but this skill is expensive. Think carefully before taking the plunge. If you do decide to use a weapon with a Heavy Weapons secondary attack skill requirement, you will want to keep this skill as high as possible. Otherwise, your damage output will suffer. 
+Heavy Weapons: There are a few weapons out there that require Heavy Weapons skill (for instance rare Concrete Cushions that have STR/STA buffs, and the popular Rider line of edged weapons), but this skill is expensive. Think carefully before taking the plunge. If you do decide to use a weapon with a Heavy Weapons secondary attack skill requirement, you will want to keep this skill as high as possible. Otherwise, your damage output will suffer.
 
- Ranged Weapons: 
-If you wanna be a Soldier, go buy a gun. Nuff said! 
+ Ranged Weapons:
+If you wanna be a Soldier, go buy a gun. Nuff said!
 
- Speed and Evades: 
- YOU ARE SLOW!  Look at your evasion skills, they are expensive! Max them for as long as you can, if you want. It will probably help you at low level, but at higher level it won't make a bit of difference. You simply can't keep them high enough to make high level monsters miss you. You will get hit all the time! 
+ Speed and Evades:
+ YOU ARE SLOW!  Look at your evasion skills, they are expensive! Max them for as long as you can, if you want. It will probably help you at low level, but at higher level it won't make a bit of difference. You simply can't keep them high enough to make high level monsters miss you. You will get hit all the time!
 
-The key is having high enough AC that you only get hit for minimum damage and that your hitpoints are high enough that minimum damage is not significant. The evasion skills are expensive and you are slow. Deal with it. 
+The key is having high enough AC that you only get hit for minimum damage and that your hitpoints are high enough that minimum damage is not significant. The evasion skills are expensive and you are slow. Deal with it.
 
 Think you'll ever Resist Nano formulas at high level?  Forget it, because you will get it anyway. Waste of IP.
 
-But, if you want to make a serious commitment to keeping Evade Close Combat skill maxed, be my guest. It's the only one you have even a slight chance of keeping meaningfully high for your level. 
+But, if you want to make a serious commitment to keeping Evade Close Combat skill maxed, be my guest. It's the only one you have even a slight chance of keeping meaningfully high for your level.
 
-PvP ALERT: Evasion skills are much more important when being attacked by other players. If you want to partake seriously in PvP combat, plan on paying through the nose for at least Dodged Range skill. 
+PvP ALERT: Evasion skills are much more important when being attacked by other players. If you want to partake seriously in PvP combat, plan on paying through the nose for at least Dodged Range skill.
 
-Melee Initiative is the only star in this constellation. Raise it and swing faster. This is harder on the atrox, because you will quickly bang your head against the stat requirements. Raise your mental stats as needed to keep this skill reasonably high, but don't count on max'ing it forever. 
+Melee Initiative is the only star in this constellation. Raise it and swing faster. This is harder on the atrox, because you will quickly bang your head against the stat requirements. Raise your mental stats as needed to keep this skill reasonably high, but don't count on max'ing it forever.
 
-Run Speed is also expensive, raising it early to avoid critters is all fine and good, but it will take a serious commitment to keep it maxed forever. Plan on buying a vehicle instead. 
+Run Speed is also expensive, raising it early to avoid critters is all fine and good, but it will take a serious commitment to keep it maxed forever. Plan on buying a vehicle instead.
 
-  Trade & Repair Skills: 
-Plan on getting to about around 150 skill in Comp Literacy as soon as possible. This skill will allow you to equip good enough computer gear to hold buffs, also it's necessary for travel through the Grid. Once you get up in the 150-200 range for good Grid travel, you can let it slide for awhile, and only upgrade it when you need more NCU gear. 
+  Trade & Repair Skills:
+Plan on getting to about around 150 skill in Comp Literacy as soon as possible. This skill will allow you to equip good enough computer gear to hold buffs, also it's necessary for travel through the Grid. Once you get up in the 150-200 range for good Grid travel, you can let it slide for awhile, and only upgrade it when you need more NCU gear.
 
-Psychology is important for using aggression enhancers. Raise this if you have problems keeping monsters off your teammates. They will thank you for it. 
+Psychology is important for using aggression enhancers. Raise this if you have problems keeping monsters off your teammates. They will thank you for it.
 
-Ignore the rest. 
+Ignore the rest.
 
-  Nano and Aiding Skills: 
-Nano skills can be a vitally important part of your enforcer's repertoire. 
+  Nano and Aiding Skills:
+Nano skills can be a vitally important part of your enforcer's repertoire.
 
-Nano skills are expensive, and eventually they will suck you dry of IP's faster than you can blink. So, choose carefully. The easiest to dispense with is Time&Space. None of your Enforcer nanos require it, and none of the important generic nanos require it, so don't spend IP's on it. The only problem with this is that Nano Recharger kits require T&S skill...oh well, learn to deal with it. You can always use the Simple Nano Kits that rely on First Aid skill instead. They should suffice. 
+Nano skills are expensive, and eventually they will suck you dry of IP's faster than you can blink. So, choose carefully. The easiest to dispense with is Time&Space. None of your Enforcer nanos require it, and none of the important generic nanos require it, so don't spend IP's on it. The only problem with this is that Nano Recharger kits require T&S skill...oh well, learn to deal with it. You can always use the Simple Nano Kits that rely on First Aid skill instead. They should suffice.
 
-Sensory Improvement is the next easiest one to live without. If you are going to solo a lot and want to be able to cast the generic +20 skill Expertise nanos on yourself, then raise it to about 66 skill. If you are going to use blunt weapons, plan on raising it to 129 (+20 from Expertise = 149) for the Headcracker buff, which gives +46 to 1HB and 2HB skill. Beyond that, this skill offers diminishing returns. The Brutal Thug blunt weapon buff doesn't come till skill 366. There are also some high level nanos that increase initiative, but the skill requirements may not be worth it. You be the judge. 
+Sensory Improvement is the next easiest one to live without. If you are going to solo a lot and want to be able to cast the generic +20 skill Expertise nanos on yourself, then raise it to about 66 skill. If you are going to use blunt weapons, plan on raising it to 129 (+20 from Expertise = 149) for the Headcracker buff, which gives +46 to 1HB and 2HB skill. Beyond that, this skill offers diminishing returns. The Brutal Thug blunt weapon buff doesn't come till skill 366. There are also some high level nanos that increase initiative, but the skill requirements may not be worth it. You be the judge.
 
-Now let's consider Psychological Modification. Again, if you want to cast the generic Expertise nanos yourself, take this to 66. And also, if you use blunt weapons, take it 129-149 for Headcracker. Beyond this is a judgment call and will depend on your character and your role. This skill is necessary for the taunting nano line. If you find you need to provoke monsters into beating on you, instead of your teammates, raise this as necessary. Psychology skill is cheaper and the Aggression Enhancer equipment may suffice depending on your goals. 
+Now let's consider Psychological Modification. Again, if you want to cast the generic Expertise nanos yourself, take this to 66. And also, if you use blunt weapons, take it 129-149 for Headcracker. Beyond this is a judgment call and will depend on your character and your role. This skill is necessary for the taunting nano line. If you find you need to provoke monsters into beating on you, instead of your teammates, raise this as necessary. Psychology skill is cheaper and the Aggression Enhancer equipment may suffice depending on your goals.
 
-The last three are your meat and potatoes. Material Metamorphose, Material Creation and Biological Metamorphose. Put points into them when you can. If you are an atrox and find yourself less interested in such nonsense, try sticking to BioMet and MatCrea skill. These two skills are necessary for the 'Essence of Blank' nanos, which give STR/STA buffs important for equipping better armor. How much you spend on these will depend on your breed, character style, and play style. Plan on scrimping elsewhere if you want these skills high. 
+The last three are your meat and potatoes. Material Metamorphose, Material Creation and Biological Metamorphose. Put points into them when you can. If you are an atrox and find yourself less interested in such nonsense, try sticking to BioMet and MatCrea skill. These two skills are necessary for the 'Essence of Blank' nanos, which give STR/STA buffs important for equipping better armor. How much you spend on these will depend on your breed, character style, and play style. Plan on scrimping elsewhere if you want these skills high.
 
-First Aid and Treatment are essential skills for soloing, but less so if grouped with healers. In my opinion, max out First Aid every level. You can often use it twice in a fight and add serious amounts of hitpoints to your total health. A real lifesaver. Also, as mentioned above, the simple nano kits run off First Aid skill and are a welcome replacement to the Nano Rechargers. As for Treatment, plan on raising it gradually, or in bursts whenever you find you can't add your new implants or your downtime is too long using weaker Treatment Kits. 
+First Aid and Treatment are essential skills for soloing, but less so if grouped with healers. In my opinion, max out First Aid every level. You can often use it twice in a fight and add serious amounts of hitpoints to your total health. A real lifesaver. Also, as mentioned above, the simple nano kits run off First Aid skill and are a welcome replacement to the Nano Rechargers. As for Treatment, plan on raising it gradually, or in bursts whenever you find you can't add your new implants or your downtime is too long using weaker Treatment Kits.
 
- Spy Skills: 
-What are you? An agent or fixer? Bah, leave sneaking to the sneaks. 
+ Spy Skills:
+What are you? An agent or fixer? Bah, leave sneaking to the sneaks.
 
-I know what you're thinking...'but my weapon has Sneak Attack, so I should raise Concealment'. Nope. There are two kinds of adversaries: those that you have no need to hide from and those that will always find you. I guarantee that at high level, the only ones you'll fool  are ones too weak to care about. The really tough monsters will see right through your attempts, and you'll be kicking yourself for wasting your IPs on Concealment. 
+I know what you're thinking...'but my weapon has Sneak Attack, so I should raise Concealment'. Nope. There are two kinds of adversaries: those that you have no need to hide from and those that will always find you. I guarantee that at high level, the only ones you'll fool  are ones too weak to care about. The really tough monsters will see right through your attempts, and you'll be kicking yourself for wasting your IPs on Concealment.
 
-Ignore Trap Disarming and only raise B&E when you try a dozen times to open a chest and still can't get it open. 
+Ignore Trap Disarming and only raise B&E when you try a dozen times to open a chest and still can't get it open.
 
-Perception? Bah! Who are you kidding? 
+Perception? Bah! Who are you kidding?
 
-  Navigation: 
-When it comes to Vehicles, there are two schools of thought. Raise Ground cause it's cheap. Save it all for Air, because at higher level the planes are nicer. You decide. I went the compromise route; I raised my Ground Vehicles to 139 and bought a cheap car. Then started working slowly on Air Vehicles for the future. 
+  Navigation:
+When it comes to Vehicles, there are two schools of thought. Raise Ground cause it's cheap. Save it all for Air, because at higher level the planes are nicer. You decide. I went the compromise route; I raised my Ground Vehicles to 139 and bought a cheap car. Then started working slowly on Air Vehicles for the future.
 
-Map Navigation is very important. If you're new to the game, let me clue you in. There are additions to your map-reader that turn it from a useless hunk of garbage into an essential tool. But they require Map Navigation skill to install. At skill 130, you will be able to see machines/doors, people, and monsters on your map. You should plan on that skill as a minimum. Remember, you will be pointman when in groups, and it is essential that you know where you are going and what lies ahead. Temporarily raising your skill through implants is a viable alternative. But be warned, later in the game some of the zones require huge amounts of skill just to upload a map of the area. If you stop at skill 130, you will one day be without the map you have become so addicted to when out is the wilderness. 
+Map Navigation is very important. If you're new to the game, let me clue you in. There are additions to your map-reader that turn it from a useless hunk of garbage into an essential tool. But they require Map Navigation skill to install. At skill 130, you will be able to see machines/doors, people, and monsters on your map. You should plan on that skill as a minimum. Remember, you will be pointman when in groups, and it is essential that you know where you are going and what lies ahead. Temporarily raising your skill through implants is a viable alternative. But be warned, later in the game some of the zones require huge amounts of skill just to upload a map of the area. If you stop at skill 130, you will one day be without the map you have become so addicted to when out is the wilderness.
 
-Enforcer Nanos 
+Enforcer Nanos
 
-Weapon Buffs 
-All in all, your damage should go up a lot using these nanos, even at lower levels the 1hb and 2hb can add +45 to your skills, this allows you to use much better QL weapons. 
+Weapon Buffs
+All in all, your damage should go up a lot using these nanos, even at lower levels the 1hb and 2hb can add +45 to your skills, this allows you to use much better QL weapons.
 
-Mongo Slam! (Bash!, Smash!, Crush!) 
-These are probably the defining nano for Enforcers. They’re the only way, aside from First Aid, for you to heal yourself in a fight. They also agro mobs nearby and can thus be used to draw agro away from your fellow team members. 
+Mongo Slam! (Bash!, Smash!, Crush!)
+These are probably the defining nano for Enforcers. They're the only way, aside from First Aid, for you to heal yourself in a fight. They also agro mobs nearby and can thus be used to draw agro away from your fellow team members.
 
-Rage 
-These are great line of nanos, often underrated due to their low durations, but they buff extra initiatives, huge runspeed buff and have a chance of breaking debuffs. 
+Rage
+These are great line of nanos, often underrated due to their low durations, but they buff extra initiatives, huge runspeed buff and have a chance of breaking debuffs.
 
-Essences 
-The most sought after buff that Enforcers can provide for others - these buffs add to both strength and stamina as well as significantly boosting Hit Points. 
+Essences
+The most sought after buff that Enforcers can provide for others - these buffs add to both strength and stamina as well as significantly boosting Hit Points.
 
-The Other Lines 
+The Other Lines
 The various shields and damage boosters are nice, adding a little extra HP, more damage is always helpful
 
 --------------------------------------------------------------------------
@@ -172,11 +172,11 @@ We, in this form, are the closest you get to a walking Pinyata. We expect to tak
 
 On the positive side.. as an enforcer, you have more HP than god, bigger hammers than Thor and not many want to pick a fight with you once you stand there 3 times their height."
 ;
-$enforcer_txt = bot::makeLink("Guide To Enforcers", $enforcer_txt); 
-if($type == "msg") 
-bot::send($enforcer_txt, $sender); 
-elseif($type == "all") 
-bot::send($enforcer_txt); 
-else 
-bot::send($enforcer_txt, "guild"); 
+$enforcer_txt = bot::makeLink("Guide To Enforcers", $enforcer_txt);
+if($type == "msg")
+bot::send($enforcer_txt, $sender);
+elseif($type == "all")
+bot::send($enforcer_txt);
+else
+bot::send($enforcer_txt, "guild");
 ?>

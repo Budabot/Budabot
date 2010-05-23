@@ -1,5 +1,5 @@
-<? 
-$money_txt = "<header>::::: Guide to Making Money  :::::<end>\n\n"; 
+<?
+$money_txt = "<header>::::: Guide to Making Money  :::::<end>\n\n";
 $money_txt = "Credits...you can never have enough of them can you? They are also quite hard to get and keep at lower levels or when you are new to the game. That in mind some of the posters in our forum put together the following guide with some advice on how to buff your bank balance on Rubi-Ka. The guide is in three main parts. Firstly Jetsirus goes through some of the ways he makes credits, then Revelat0r takes us through his thoughts on blitzing and finally Fenster explains the ins and outs of taking up a trade in AO, before I add my own pearls of wisdom about using the in game market channels
 
 Contents
@@ -15,31 +15,31 @@ First off getting credits is work no matter what anyone tells you. Some methods 
 
 Now a word about Shadowlands and how this affects your ability to make money. Some will suggest that there is a lot of money to be had in Shadowlands and they are mostly correct. The difference is that a lot of the items that pay really well are restricted to higher levels. They also are on a very slow drop rate. What this does is lower your income by quite a bit.
 
-The other great thing about Shadowlands is that it has lowered the amount of people on Rubi-Ka by a large number as well. More and more I find that people go straight to Shadowlands and level like mad. Often with little or no regard to getting a lot of essential buffing items. This creates a gap for us (the poor) to step in and provide a service that pays extremely well for both parties. They get their item and we get some credits. Works well don’t you think?
+The other great thing about Shadowlands is that it has lowered the amount of people on Rubi-Ka by a large number as well. More and more I find that people go straight to Shadowlands and level like mad. Often with little or no regard to getting a lot of essential buffing items. This creates a gap for us (the poor) to step in and provide a service that pays extremely well for both parties. They get their item and we get some credits. Works well don't you think?
 
 QL 1-5 Second-Hand Old English Trading Co: Level: 2-10 Income: 100k-350k Time: 15-30 Min
 At second through tenth level you can make a fortune by blitzing missions for these pistols. These little pistols sell for around 100k-350k for a pair depending on who you sell them to and what server you are on. Another good thing about these pistols is that they come up in missions as the reward frequently! Edit: You can also get these pistols in shops from time to time. Thanks Vengful_Assassin!
 
-QL10 Concrete Cushions: Level: 5-15 Income: 250k-550k Time: 45 – 120 Min
+QL10 Concrete Cushions: Level: 5-15 Income: 250k-550k Time: 45 - 120 Min
 You can blitz QL10 Concrete Cushions for good money. Only go for QL10 ones because they are all people really want. You will have to sell them in pairs. The bad thing with them is they can take forever to come up as a mission reward. If you can hack it though they are generally worth around 250k-550k depending on whom you sell them two.
 
 OT-Windchaser M06 Quartz: Level: All Income: 250k-600k Time: Varies
 These little beauties are a great source of income. There are a few good ways to get them. You can blitz for them from 20th level till about 30th level. This can be time consuming but it works. The other option is to just buy them from Omni-Tek shops! Just make sure to get QL25 ones. If you get lucky and have some cash on hand when you find them in the store you can make a fortune!
 
 Omni-Med Suit: Level: Any Income: 50k-100k Time: 10-25 Min
-Med suits rock! You need two characters or an Omni friend to do this though. Basically just go to any OT basic store and buy these suits from the clothing stores. They will cost around 7k each and you can sell them pretty quick in general. Sell them to Clanners because they can’t buy them any other way.
+Med suits rock! You need two characters or an Omni friend to do this though. Basically just go to any OT basic store and buy these suits from the clothing stores. They will cost around 7k each and you can sell them pretty quick in general. Sell them to Clanners because they can't buy them any other way.
 
 QL 50 Full Suits of Armor: Level: 45+ Income: 500k-2mill Time: 2-3 Hours
-Lots of great armor starts showing up as mission rewards around QL 50. So lots of people that want to twink or just look fashionable will want a full set of armor. Take advantage of this by either gathering full sets of it up by blitzing. Or you can do it on demand. I don’t like doing that because you can blitz it for selling at a later date anytime you want. When you take orders for it you have to stop everything you are doing and blitz until you get it.
+Lots of great armor starts showing up as mission rewards around QL 50. So lots of people that want to twink or just look fashionable will want a full set of armor. Take advantage of this by either gathering full sets of it up by blitzing. Or you can do it on demand. I don't like doing that because you can blitz it for selling at a later date anytime you want. When you take orders for it you have to stop everything you are doing and blitz until you get it.
 
 Tank Armor: Level: 45+ Income: 1k per QL Time: 15-25 Min
-People love their tank armor. It looks great and provides nice protections. It starts at QL 50 and goes up from there. Your best bet would be to over-tune it before selling it. You can go to Anarchy Arcanum for info on how to over-tune this. And Omni people like the OT armor much better because it doesn’t have as many bad effects as the plain. Also it sells decent to the shop terminals.
+People love their tank armor. It looks great and provides nice protections. It starts at QL 50 and goes up from there. Your best bet would be to over-tune it before selling it. You can go to Anarchy Arcanum for info on how to over-tune this. And Omni people like the OT armor much better because it doesn't have as many bad effects as the plain. Also it sells decent to the shop terminals.
 
 Making Carbonum Armor: Level: 25+ Income: Varies Wildly Time: 5 Min
-If you are an engineer I would recommend you make carbonum armor for people. It’s very popular for low level twinks. It will take about 200k to get all the tools to do it with though. Just advertise you are making it and people will come to you looking for it.
+If you are an engineer I would recommend you make carbonum armor for people. It's very popular for low level twinks. It will take about 200k to get all the tools to do it with though. Just advertise you are making it and people will come to you looking for it.
 
 Grid Armor: Level: 60+ Income: 10 MillTime: 1-10 Hours
-Good old grid armor. It may not sell as quick as it used to but it still sells. If you can find the right place to go for it you can get it fairly quickly. A tip is to find monsters as close to level 60 as possible and ones that drop instruction disk a lot. I don’t recommend missions for it. There are places it can be readily found. Most are kept hush though.
+Good old grid armor. It may not sell as quick as it used to but it still sells. If you can find the right place to go for it you can get it fairly quickly. A tip is to find monsters as close to level 60 as possible and ones that drop instruction disk a lot. I don't recommend missions for it. There are places it can be readily found. Most are kept hush though.
 
 Sell to Trader Shop: Level: 25+ Income: Varies Time: Varies
 Trader shops offer the best cash for just about all items. If you are a trader or you know one have him sell your loot in the trader specific shops.
@@ -201,11 +201,11 @@ That's the way I approach my Trading sessions, and I do go out regularly and sto
 
 So there you go, what are you waiting for? Get out there and shop! ";
 
-$money_txt = bot::makeLink("Guide to Making Money", $money_txt); 
-if($type == "msg") 
-bot::send($money_txt, $sender); 
-elseif($type == "all") 
-bot::send($money_txt); 
-else 
-bot::send($money_txt, "guild"); 
+$money_txt = bot::makeLink("Guide to Making Money", $money_txt);
+if($type == "msg")
+bot::send($money_txt, $sender);
+elseif($type == "all")
+bot::send($money_txt);
+else
+bot::send($money_txt, "guild");
 ?>

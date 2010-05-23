@@ -34,6 +34,6 @@ The Base_Change and Change_Modifier depend on your current rating, like this:
 
 2401 and up => 8 / 0.02
 
-This generally means that while having a rating below 2100 you will gain 16 points from winning against somebody of equal rating. This is then modified by one point for each 25 in rating difference between the two of you. Since there’s a cap at 100 in difference to have the rating change, you will get between 12 and 20 points per kill, if any. 
+This generally means that while having a rating below 2100 you will gain 16 points from winning against somebody of equal rating. This is then modified by one point for each 25 in rating difference between the two of you. Since there's a cap at 100 in difference to have the rating change, you will get between 12 and 20 points per kill, if any. 
 
 Taken from http://aovault.ign.com/View.php?view=Guides.Detail&id=88

@@ -1,5 +1,5 @@
-<? 
-$nanotech_txt = "<header>::::: Guide to Nano Technicians :::::<end>\n\n"; 
+<?
+$nanotech_txt = "<header>::::: Guide to Nano Technicians :::::<end>\n\n";
 $nanotech_txt = "<font color = yellow>Nano Technician</font>
 
 <font color = green>* Main Weapons: Poor with all weapons, but Pistol is default</font>
@@ -8,7 +8,7 @@ $nanotech_txt = "<font color = yellow>Nano Technician</font>
 * Tradeskills: Average
 * Overall Difficulty: Medium
 
-<font color = yellow>Chapter One. What’s a Nano-Technician?</font>
+<font color = yellow>Chapter One. What's a Nano-Technician?</font>
 
 <font color = green>We are the direct damage specialists in Rubi-Ka. We take those little nanoparticles floating around in the air, and turn them into streams of acid, flying knives, blasts of fire... you get the picture? Our defense though is a bit 'lacking'. What else can we do, we can keep people vanpools refilling and we are one of the 3 'calming' classes in the game. Have a look at the nanolines father down and you'll get the picture. Also we spend time in labs, doing nanoprogramming making implants and such, basically, we're techies with ATTITUDE!</font>
 
@@ -21,9 +21,9 @@ $nanotech_txt = "<font color = yellow>Nano Technician</font>
 
 * Solitus - Ok these guys, they are average, not that its a bad thing, they got average life, average nanopool, decent nanoskills. You want an all rounder, these are your guys and gals! Not much in the way of breed specific items I'm afraid. Couple of bits and pieces, I'll let you do the research!
 
-* Atrox - LARGE! Its the word that springs to mind. These guys (ok their neutered, but I have to call em something) have massive health levels, this really helps to overcome one of the main down sides to our profession. What’s this guys downside? Lack of intelligence, they aint the sharpest knife in the box, if you get my drift. They do get some access to nice kit though, just look at these babies! First, for those 'subtle' atrox out there a beam and for those pistol using NTs, take a look at this pistol.
+* Atrox - LARGE! Its the word that springs to mind. These guys (ok their neutered, but I have to call em something) have massive health levels, this really helps to overcome one of the main down sides to our profession. What's this guys downside? Lack of intelligence, they aint the sharpest knife in the box, if you get my drift. They do get some access to nice kit though, just look at these babies! First, for those 'subtle' atrox out there a beam and for those pistol using NTs, take a look at this pistol.
 
-* Opifex - These guys are agility freaks, I mean, you watch them move they don’t have bones these guys they FLOW! Pump their evades, blind the target and this NTs survival chances have got to be better than most! Couple of bits and pieces that could help you, but nothing that springs majorly to mind.
+* Opifex - These guys are agility freaks, I mean, you watch them move they don't have bones these guys they FLOW! Pump their evades, blind the target and this NTs survival chances have got to be better than most! Couple of bits and pieces that could help you, but nothing that springs majorly to mind.
 
 Endnote
 
@@ -33,7 +33,7 @@ You want to be a caster, go Nanomage, you want to be a generalist, go Solitus, y
 
 <font color = green>Abilities.</font>
 
-The prime ability for all NTs no matter what breed is intelligence. Its trickledown is 80% of ALL nano-skills, it affects Nano Pool to. You will want to max this every level. The main affecter of Nanopool though is Psychic so that to will need to be maxed every level. By doing this it allows you to use int/psy armor, so it works out nicely. Other abilities will depend on that you want to do. Mixing stamina not only maxed bodydevs trickledown it also is the other 20% of MC, your main nanoskill. This I would recommend maxing to. Depending on what armor you want to wear then means you will max other abilities. The choice on those is your, and will come down to your breed mainly. You will always want to max nano pool, its our ammo after all, and NOT maxing Body Dev on an NT is plain foolish, we don’t have much life with it maxed!
+The prime ability for all NTs no matter what breed is intelligence. Its trickledown is 80% of ALL nano-skills, it affects Nano Pool to. You will want to max this every level. The main affecter of Nanopool though is Psychic so that to will need to be maxed every level. By doing this it allows you to use int/psy armor, so it works out nicely. Other abilities will depend on that you want to do. Mixing stamina not only maxed bodydevs trickledown it also is the other 20% of MC, your main nanoskill. This I would recommend maxing to. Depending on what armor you want to wear then means you will max other abilities. The choice on those is your, and will come down to your breed mainly. You will always want to max nano pool, its our ammo after all, and NOT maxing Body Dev on an NT is plain foolish, we don't have much life with it maxed!
 To sum. Max INT, PSY, Nano pool and Body dev. You will also want to max stamina I believe.
 
 Skills.
@@ -42,7 +42,7 @@ There are some skills I feel are of major importance and you should max at every
 
 <font color = yellow>Chapter Four. Concepts</font>
 
-<font color = green>NTs are the masters of nano lines.</font> While other professions control pets, other equip large guns or weapons, or hit things with their fists, we use the very notum in the environment for our affects. So there are naturally a couple of concepts that go with this. First nano-resistance, our bane. Whenever you cast a nano at a target it has a chance of resisting our affects. Unlike the combat evades that scale damage down from crits to normal to missing, NR is an on off thing, it either works or it doesn’t. And that’s another thing, nukes don’t crit. The damage you see on the nukes is the damage you will do, normally towards the low end if not minimum regularly.
+<font color = green>NTs are the masters of nano lines.</font> While other professions control pets, other equip large guns or weapons, or hit things with their fists, we use the very notum in the environment for our affects. So there are naturally a couple of concepts that go with this. First nano-resistance, our bane. Whenever you cast a nano at a target it has a chance of resisting our affects. Unlike the combat evades that scale damage down from crits to normal to missing, NR is an on off thing, it either works or it doesn't. And that's another thing, nukes don't crit. The damage you see on the nukes is the damage you will do, normally towards the low end if not minimum regularly.
 
 Nano Init is vital to NTs, one thing you NEVER want to be is slow. Here is how it works, up to 1200 nano init every 200 points knocks 1 second off the casting time at full agg. Recharge is never affected.
 
@@ -51,7 +51,7 @@ Another important thing to NTs is the agg/def bar. If you are at full agg then y
 Nano Resistance works in a simple way. Your nano 'attack skill' (normally MC but can be PM IS for nanotech on calms) is compared and rolled against the targets NR, the nano will then land or not.
 
 The NT as damage dealer. If our nanos are landing we do considerable damage, plus we can choose the damage type we do. Later on there are only a few viable nukes, but we do have the option to do any damage type in the game.
-The NT as tank. We can get aggro VERY easy. But with our defenses we are a bit unsuited for it. If you got good healers around that’s fine, but on the whole at low levels if you get aggro STOP NUKING, plus there are a few tactics I'll discuss below.
+The NT as tank. We can get aggro VERY easy. But with our defenses we are a bit unsuited for it. If you got good healers around that's fine, but on the whole at low levels if you get aggro STOP NUKING, plus there are a few tactics I'll discuss below.
 The NT as buff machine. Ok bad news here, HE is wanted by most profs, this is a GOOD thing, shame about the messages that will spam you <you increase nano on X> etc etc, pain in the bum
 The NT as calmer. We are good at it, no doubt, crats are better, a drained trader can be, but we get the job done well.. just remember if your calming reflect shields make things harder.
 
@@ -63,7 +63,7 @@ Fumble - The bane of all NTs, this is where you cast a nano but it fails.
 Buff - A nano that resides in the persons NCUs improving their abilities.
 Debuff - A nano that decreases a persons abilities
 Nuke - A direct damage nano
-LoS – Line of Sight
+LoS - Line of Sight
 AR - Attack Rating
 NR - Nano Resist
 DoT- Damage over Time
@@ -82,11 +82,11 @@ SI - Sensory Improvement and Modifications
 	
 <font color = yellow>Chapter Five. Nano Lines</font>
 
-<font color = green>Ok this is going to take awhile, you KNOW how many nanos lines we got? </font>OK stupid question, you wouldn’t be reading most of this if you knew the answers. Ok I just going to thro a BIG thanks at Jayde! This guy is the tops, he’s got all these things categorized and sorted in this database of his, even down to the profession level. No nanos can be bought in shops above ql 125, these have to be missioner for, bought of the trade channel found or drop off specific mobs.
+<font color = green>Ok this is going to take awhile, you KNOW how many nanos lines we got? </font>OK stupid question, you wouldn't be reading most of this if you knew the answers. Ok I just going to thro a BIG thanks at Jayde! This guy is the tops, he's got all these things categorized and sorted in this database of his, even down to the profession level. No nanos can be bought in shops above ql 125, these have to be missioner for, bought of the trade channel found or drop off specific mobs.
 
 Explanation of what the numbers mean.
 
-Lets take a nano Solar Wind, that’s right boot up the link, and I'll explain what all the important numbers mean.
+Lets take a nano Solar Wind, that's right boot up the link, and I'll explain what all the important numbers mean.
 
 Nanopoints: How much of your pool its going to take to cast - 178
 NCU cost: How many NCUs its going to take up on the target - 47 (not relevant unless the nano is friendly or has a debuff effect)
@@ -104,11 +104,11 @@ Now you wont find this in the shop and hey until recently this nanoline was most
 
 Absorb Shield Line. (BM MC)
 
-Now this guys and gals is a superb line. Doesn’t look much to start with but hey lets explain it. What it does it causes a load of nanobots to shield you, they first absorb the damage before you (or whoever you have cast it on) take it. So-so you may say until you realize each type of damage has it OWN set of nanobots protecting you. So you get shot, that’s one set, you get stabbed that’s another, someone hits you with a fireball, that’s another. Main gripe about this line is you don’t know how many of each layer you got left, but them-the-breaks. What also makes this rock is cause you can cast it on other during combat to absorb damage, ok not as good as a doc, its expensive to do this nano wise, but it can make a MASSIVE difference to the tank plus it doesn’t seem to add to a mobs hate list like real heals do, discuss this tactic with your teams, its amazing how much they like you for it after! Ok the best one of these is Fleeting Immunity only it ain't that fleeting used properly!
+Now this guys and gals is a superb line. Doesn't look much to start with but hey lets explain it. What it does it causes a load of nanobots to shield you, they first absorb the damage before you (or whoever you have cast it on) take it. So-so you may say until you realize each type of damage has it OWN set of nanobots protecting you. So you get shot, that's one set, you get stabbed that's another, someone hits you with a fireball, that's another. Main gripe about this line is you don't know how many of each layer you got left, but them-the-breaks. What also makes this rock is cause you can cast it on other during combat to absorb damage, ok not as good as a doc, its expensive to do this nano wise, but it can make a MASSIVE difference to the tank plus it doesn't seem to add to a mobs hate list like real heals do, discuss this tactic with your teams, its amazing how much they like you for it after! Ok the best one of these is Fleeting Immunity only it ain't that fleeting used properly!
 
 Nano Programming. (PM SI)
 
-Ignore what the others say, you want a Nano Programmer, you see us. Not only are we techies, we got these two beautiful buffs for it. Now these things have unfortunately been stolen by the dynacamp bosses, so your going to have to strap on yer boots and do some outdoor hunting. Now the first one is Enfraam's Toolkit, nice 75 bonus to your nano-programming. The other one though is a thing of BEAUTY. Izgimmer (and why do I get the feeling Izgimmer and Enfraam don’t get on) wrote is Living Codex of Izgimmer, now THIS is an amazing piece of coding. It looks at your skill, brain power, dedication to Nano-Research, and it unlocks more and more potential. At my rank it gives me like 140 points. Izgimmer, nice coding, I’ve looked at the structure of it and WOW, the code and simple lets just leave it there!
+Ignore what the others say, you want a Nano Programmer, you see us. Not only are we techies, we got these two beautiful buffs for it. Now these things have unfortunately been stolen by the dynacamp bosses, so your going to have to strap on yer boots and do some outdoor hunting. Now the first one is Enfraam's Toolkit, nice 75 bonus to your nano-programming. The other one though is a thing of BEAUTY. Izgimmer (and why do I get the feeling Izgimmer and Enfraam don't get on) wrote is Living Codex of Izgimmer, now THIS is an amazing piece of coding. It looks at your skill, brain power, dedication to Nano-Research, and it unlocks more and more potential. At my rank it gives me like 140 points. Izgimmer, nice coding, I've looked at the structure of it and WOW, the code and simple lets just leave it there!
 
 Nano Range Increasers. (MM TS SI)
 
@@ -118,7 +118,7 @@ Hint guys and gals, NTs are RANGE based, keep it, you will be a lot more effecti
 
 Nano Cost Reducers. (MM PM SI)
 
-These are one of our most VITAL lines. These do a simple task, they cut down the amount of nano you use when you cast something. Simple, easy, clean, effective, need I say more? Top one is Izgimmer's Obfuscated Recomplier, 28% cost reducer, now tell me that isn’t useful and I'll nuke you into next week!
+These are one of our most VITAL lines. These do a simple task, they cut down the amount of nano you use when you cast something. Simple, easy, clean, effective, need I say more? Top one is Izgimmer's Obfuscated Recomplier, 28% cost reducer, now tell me that isn't useful and I'll nuke you into next week!
 
 Nanopoint Regeneration. (MM TS)
 
@@ -126,7 +126,7 @@ Also known as Humidity Extractors, HE for short, these are the buddy for our red
 	
 Calms. (PM SI)
 
-Ok now THIS is one of my expertise areas, so prepare to be bored Calms, what do they do, they stop mobs attacking and destroy their hate list. Very powerful when used right. Lets see what can you do with it, calm 2 mobs and fight a 3rd? Calm the adds so the doc don’t get dead? Or how about this, mobs nearly dead, but so the tank, throw a calm at it and then throw a high aggro nuke (see the nuke sections for details of this) mob doesn’t 'hate' the tank any more, but hates you lots, prepare to tank NT! OK and how about this, AGGRESIVE calming. Run ahead of the party, calming all possible adds, seen it done and it can be VERY effective. Plus, the last, but damm important one. You got aggro, your going down, CALM THE DAMM MOB, it will switch aggro, just pray it ain’t onto the doc...
+Ok now THIS is one of my expertise areas, so prepare to be bored Calms, what do they do, they stop mobs attacking and destroy their hate list. Very powerful when used right. Lets see what can you do with it, calm 2 mobs and fight a 3rd? Calm the adds so the doc don't get dead? Or how about this, mobs nearly dead, but so the tank, throw a calm at it and then throw a high aggro nuke (see the nuke sections for details of this) mob doesn't 'hate' the tank any more, but hates you lots, prepare to tank NT! OK and how about this, AGGRESIVE calming. Run ahead of the party, calming all possible adds, seen it done and it can be VERY effective. Plus, the last, but damm important one. You got aggro, your going down, CALM THE DAMM MOB, it will switch aggro, just pray it ain't onto the doc...
 
 Now the coding on the calms is a bit weird, I've looked at it and it gave me a splitting headache. Basically the more important your target is the harder it is to calm, WAIT you shout thats normal, yes but it ACTUALLY figures in the targets rank! This means that you REALLY need to upgrade this line as fast as possible, as the high level calms figure the targets level in less, the higher the calm, the longer it lasts and the easier it lands. Trust me, I know these things Ok the top calm is url=http://www.aodb.info/showitem.asp?AOID=100443]Peaceful Intentions[/url] and you really have until you nuke their ass into the ground Another use for them is against your fellow inhabitants of Rubi-Ka (PvP), its makes them feel a bit slow and tired, giving you more time to kill em! We also have another nano in this line called Neural Stunner, now it sounds a good deal, a nano that stuns, but it ONLY stuns for 4 seconds and takes 9 seconds to recharge, on top of that its got a 120% NR factor, not a great nano in my humble opinion.
 
@@ -154,36 +154,36 @@ This line of nanos is so badly underused its unbelievable. It directly debuffs a
 
 Damage Over Time (MC TS)
 
-Hate to say this, but pretty useless. I think I’ve got them uploaded... yes its that bad. The top one is Eye of Light but I haven’t heard of anyone finding it recently. Plus lets do some maths. 145 damage, 9 times. That’s 1305 over 45 seconds... I mean come on...
+Hate to say this, but pretty useless. I think I've got them uploaded... yes its that bad. The top one is Eye of Light but I haven't heard of anyone finding it recently. Plus lets do some maths. 145 damage, 9 times. That's 1305 over 45 seconds... I mean come on...
 
 Nullity Sphere (MM MC)
 
-Ok you aren’t going to find these in shops... infact its now probably easier to find is Nullity Sphere II, which drops quite regularly off a mob in DAV at a place called Drill island on the map. Nullity Sphere drops of random mobs, but your BEST chance of getting it is in the claw camp in SW Pleasant Meadows. Now what do these babies do... weeeeelllllll, imagine a bubble of folded space around you, but better than that, you can shoot and nuke through it but no damage can get through to you, THATS what these do. You can’t move while you got it up, but for 14 and 19 seconds you aren’t going to drop. Nullity I take a while to recharge, nullity II is quite fast, with lead a good friend of mine, Naraya to describes them like this. 'Nullity saves your ass, Nullity II KICKS their ass!'. A way with words that girl!
+Ok you aren't going to find these in shops... infact its now probably easier to find is Nullity Sphere II, which drops quite regularly off a mob in DAV at a place called Drill island on the map. Nullity Sphere drops of random mobs, but your BEST chance of getting it is in the claw camp in SW Pleasant Meadows. Now what do these babies do... weeeeelllllll, imagine a bubble of folded space around you, but better than that, you can shoot and nuke through it but no damage can get through to you, THATS what these do. You can't move while you got it up, but for 14 and 19 seconds you aren't going to drop. Nullity I take a while to recharge, nullity II is quite fast, with lead a good friend of mine, Naraya to describes them like this. 'Nullity saves your ass, Nullity II KICKS their ass!'. A way with words that girl!
 
 Warp (MM MC TS)
 
-Ok these are cool, your miles from anywhere, cast this and rather than going into the grid, we head for the REAL world and warp ourselves or our team there! Now don’t look like a idiot, when you roll missions for these (you ain’t finding these in no shop) make sure you get the one that matches your side.... and when you try and use it, if you use the team one, make sure you ain’t teamed with the opposition!
+Ok these are cool, your miles from anywhere, cast this and rather than going into the grid, we head for the REAL world and warp ourselves or our team there! Now don't look like a idiot, when you roll missions for these (you ain't finding these in no shop) make sure you get the one that matches your side.... and when you try and use it, if you use the team one, make sure you ain't teamed with the opposition!
 
 Root Breakers (PM TS or MC TS)
 
-Ok these are a bit odd, your rooted, you cant move, you can hit yourself with one of these (or another person) and it reduces how long the roots going to last for, the first one is available in the shops, after that its back to the great outdoors! As an nanotech here’s Sunder Constraints
+Ok these are a bit odd, your rooted, you cant move, you can hit yourself with one of these (or another person) and it reduces how long the roots going to last for, the first one is available in the shops, after that its back to the great outdoors! As an nanotech here's Sunder Constraints
 
 Combat Nano (MC)
 
-Ok ladies, gentlemen and atroxes, these are what we do. When it comes down to it an NT without their nuke is like a doc without their heals. We nuke. We Nuke. We NUKE some more. If you don’t understand this, well I'd recommend finding a new profession.
+Ok ladies, gentlemen and atroxes, these are what we do. When it comes down to it an NT without their nuke is like a doc without their heals. We nuke. We Nuke. We NUKE some more. If you don't understand this, well I'd recommend finding a new profession.
 
 There are different kinds of nukes, based on damage and casting times. Remembering that Nano Init affects casting but not recharge, be wary of nukes that have a long recharge time. Do look at a nuke NR value, a nuke that looks to good to be true might have a high NR.
 
-Different nukes are good in different situations, some even have secondary effects. Try to keep your nukes upgraded as much as possible, if you have increased for MC then it may be time to look for a new nuke. When you are looking at nukes, check the Anarchy Mainframe (where all the links go to) to see if the nuke has any extra aggro attached to it. What this means is, not only does it cause aggro from the mob due to the damage, it causes EXTRA for free! The two favorite nukes for this are Izgimmers Enveloping Flame, one of THE best nukes an NT can get that’s not level locked (by that I mean you have to be of a certain level or better to cast it) and Electrifying Containment, now EC ain’t as good damage as IEF but I STILL love this nuke, and why... because it does damage AND has a chance of stunning your target, rock on baby!
+Different nukes are good in different situations, some even have secondary effects. Try to keep your nukes upgraded as much as possible, if you have increased for MC then it may be time to look for a new nuke. When you are looking at nukes, check the Anarchy Mainframe (where all the links go to) to see if the nuke has any extra aggro attached to it. What this means is, not only does it cause aggro from the mob due to the damage, it causes EXTRA for free! The two favorite nukes for this are Izgimmers Enveloping Flame, one of THE best nukes an NT can get that's not level locked (by that I mean you have to be of a certain level or better to cast it) and Electrifying Containment, now EC ain't as good damage as IEF but I STILL love this nuke, and why... because it does damage AND has a chance of stunning your target, rock on baby!
 
-Another type of nuke is the AoE version, that’s Area of Effect to those who cant stand abbreviations. These are brilliant, why hit one target when you can hit many... well OK sometimes one target is enough but you got to let loose with these! The best on is Kels Neutronium Playething, used mainly against our fellow people (PvP), its still excellent for clearing out those pesky mobs!
+Another type of nuke is the AoE version, that's Area of Effect to those who cant stand abbreviations. These are brilliant, why hit one target when you can hit many... well OK sometimes one target is enough but you got to let loose with these! The best on is Kels Neutronium Playething, used mainly against our fellow people (PvP), its still excellent for clearing out those pesky mobs!
 
-Now there are a number of nukes that cant be found in the shop or missions. Kels Neutronium Plaything can't be, nor Izgimmer's Last Joke... erm I mean Word (as far as the NT community can tell, he programmed this on his one bad off day), or Izgimmer's Little Nuke which is a nice finishing nuke but that’s it. However there are 3 nukes that are found off specific mobs.
-Resonace Blast is our most powerful nuke to date, and I ain’t got it yet! Found on Special Agent Lamb in DAV 1240 x 1970, need a major team for this and I ain’t talking six people!
-CandyCane, didn’t mommy always tell you sweets weren't good for you? Well here is the proof, it hits the target with 540 points of EACH damage type AT THE SAME TIME! That’s got to hurt! Found on Ljotur the Lunatic in DAV 1103 x 722.
+Now there are a number of nukes that cant be found in the shop or missions. Kels Neutronium Plaything can't be, nor Izgimmer's Last Joke... erm I mean Word (as far as the NT community can tell, he programmed this on his one bad off day), or Izgimmer's Little Nuke which is a nice finishing nuke but that's it. However there are 3 nukes that are found off specific mobs.
+Resonace Blast is our most powerful nuke to date, and I ain't got it yet! Found on Special Agent Lamb in DAV 1240 x 1970, need a major team for this and I ain't talking six people!
+CandyCane, didn't mommy always tell you sweets weren't good for you? Well here is the proof, it hits the target with 540 points of EACH damage type AT THE SAME TIME! That's got to hurt! Found on Ljotur the Lunatic in DAV 1103 x 722.
 Corruption of the Pest, a nasty stream of chemicals here, very suited to who drops it, The Pest, Dav, 1270 x 2320. The Pest also drops Lick of the Pest, a nasty debuff for us that drops the targets chemical AC by loads, but just look at how hard it is to cast!
 
-OK the last type of nukes we have are not popular at all with smurfs... yeah that’s right the blues guys and gals you see running around. You see what they REALLY are, is a projection from a holo transmitter that’s patched between them and the grid. If you the fluctuate the space ar... Ok I lost you, don’t matter, TRUST me this HURTS them like its a hot poker in the eye. Outdoor camping only for things like Partial Gridspace Inversion. these are PvP only nukes (bar one mob).
+OK the last type of nukes we have are not popular at all with smurfs... yeah that's right the blues guys and gals you see running around. You see what they REALLY are, is a projection from a holo transmitter that's patched between them and the grid. If you the fluctuate the space ar... Ok I lost you, don't matter, TRUST me this HURTS them like its a hot poker in the eye. Outdoor camping only for things like Partial Gridspace Inversion. these are PvP only nukes (bar one mob).
 	
 <font color = yellow>Chapter Six. Nano Programming</font>
 
@@ -199,16 +199,16 @@ Now all implants can hold three clusters, shining, bright and faded. A bright cl
 
 <font color = yellow>Chapter Seven. NTs and Other Professions</font>
 
-<font color = green>Ok lets look at each profession</font>, now, I'll state now I’m no PvP guru, in fact I've been owned by a GA fixer (OK so I wasn’t paying attention, I was reading that months nano-Programming Monthly). I'll make a few observations, but PvP I'll leave to the experts. So in alphabetical order...
+<font color = green>Ok lets look at each profession</font>, now, I'll state now I'm no PvP guru, in fact I've been owned by a GA fixer (OK so I wasn't paying attention, I was reading that months nano-Programming Monthly). I'll make a few observations, but PvP I'll leave to the experts. So in alphabetical order...
 
 Adventurers
 Hey these guys are plain cool! They can morph your into different creatures, I love being a leet! These guy have good perception buffs you might want sometimes, and if you cant find a doc for a SFA they have Rhobust Treatment, not quite as good but still very handy. These guys love HE and some like CC to. If its a melee adventurer root them, its their weakness. Whatever you do DONT candycane one, OMG it hurts!
 
 Agents.
-These guys can be great. They have the ability to morph themselves to any profession. The downside to this is they lose out on most of their high damage self-buff lines. Most agents don’t morph at raids to buff people as it takes 20mins or so to unmorph, but the occasional one will. The agent buffs that people tend to want are Feline Grace, for agility and Enhanced Senses for well sense! Now in PvP you never know what they are going to do! Some change profs, some stay agent. If they are in agent expect massive damage against you, if you see the word concentration above their head NS or run and don’t come back! Whats REALLY scary about them is experienced agents learn and adapt very fast, opponents to fear.
+These guys can be great. They have the ability to morph themselves to any profession. The downside to this is they lose out on most of their high damage self-buff lines. Most agents don't morph at raids to buff people as it takes 20mins or so to unmorph, but the occasional one will. The agent buffs that people tend to want are Feline Grace, for agility and Enhanced Senses for well sense! Now in PvP you never know what they are going to do! Some change profs, some stay agent. If they are in agent expect massive damage against you, if you see the word concentration above their head NS or run and don't come back! Whats REALLY scary about them is experienced agents learn and adapt very fast, opponents to fear.
 
 Bureaucrats.
-Hey these guys are rare. You don’t see many around so be NICE to 'em, you hear! they like our HE and CC, and like the range increasers to. Now these guys are the crowd control masters, we're good, they are the BEST. In teams they got a nice thing called Batons that increase your learning ability, nice.... PvP wise you don’t see many at all... they tend to like messing with your speeds and then shooting you with a rifle while you move at about 1cm every 3 years....
+Hey these guys are rare. You don't see many around so be NICE to 'em, you hear! they like our HE and CC, and like the range increasers to. Now these guys are the crowd control masters, we're good, they are the BEST. In teams they got a nice thing called Batons that increase your learning ability, nice.... PvP wise you don't see many at all... they tend to like messing with your speeds and then shooting you with a rifle while you move at about 1cm every 3 years....
 
 Doctors.
 I love these guys and gals. An NT and a doc is a great partnership, its two professions that complement each other nicely. Buff wise they can help your strength and stamina with things like Iron Circle. They LOVE our HE and CC, and at camps love our range increasers. And what do we love about them? Lets see, their heals! Plus they got the groovy nano Superior First Aid, gives like +80 to your treatment, great for getting implants in, and to top things off, they make you nuke faster with Instinctive Control . In PvP, you see a doc, run. You will die. Our nanos do less damage in PvP, and are also hard-capped at 40% of a targets life, heals work like normal... you do the maths, and it just comes up plain bad...
@@ -217,7 +217,7 @@ Enforcers.
 The meat shields of the world. If they are around they WILL be in front of you, they WILL do their best to protect you. Only problem is sometimes out high aggro nukes pull the mob of them, so choose wisely. Got a lovely buff called Essence which gives you life, strength and stamina and some other nice ones to! In PvP these guys use something called Rage, this massive NR bonus they gets makes them very very very hard to kill.
 
 Engineers.
-Another rare breed, nice guys, you want something built, these are the people that can do it. Not many buffs that they offer that help us NTs I'm afraid and same from us, we don’t often help engies with buffs. Occasionally one of them running their blind aura wants a HE, and Dark Movement is always helpful. You might want Extreme Prejudice, a nice 120 pistol buff though In PvP, root the bot, get out of range of it, nuke the engie.
+Another rare breed, nice guys, you want something built, these are the people that can do it. Not many buffs that they offer that help us NTs I'm afraid and same from us, we don't often help engies with buffs. Occasionally one of them running their blind aura wants a HE, and Dark Movement is always helpful. You might want Extreme Prejudice, a nice 120 pistol buff though In PvP, root the bot, get out of range of it, nuke the engie.
 
 Fixers.
 We used to have a great relationship with fixers, but then someone wrote the anti-grid armor nuke line, and the relationship went a bit down hill. These guys are FAST. I love them! Not only can they make you move so fast its unbelievable with nanos like Grid Space Freedom, they can also increase the number of NCUs you have with Sentient Viral Recoder, tis very nice! In PvP they dash in and out using snares and SMGs mainly. If they glow blue, nuke with an anti-GA nuke. Some fixers who wear GA go get turned into wolves and such by adventurers to hide this, so beware!
@@ -226,17 +226,17 @@ Martial Artist.
 Veryyyyy fast and deadly these peps! So root em! Some very nice evade buffs like Reduce Inertia, and they tend to like our HE.
 
 Meta-Physicists.
-Our BEST friends and our WORST enemies, but that’s about normal if you think about it, what one person can make they can destroy. These guys buff you nanoskills, yeah clear your ears, ain’t that great! You get this matter creation, you become VERY deadly, and yes they can do the same to all your nano skills! They do like our HE, helps them out alot! On the other hand imagine being hit by THIS, its really going to spoil your day!
+Our BEST friends and our WORST enemies, but that's about normal if you think about it, what one person can make they can destroy. These guys buff you nanoskills, yeah clear your ears, ain't that great! You get this matter creation, you become VERY deadly, and yes they can do the same to all your nano skills! They do like our HE, helps them out alot! On the other hand imagine being hit by THIS, its really going to spoil your day!
 
 Soldiers.
-Ok these guys are cool, they can make you nuke faster like docs can with Offensive Steamroller and if your not calming then a nice reflect shield like RRFE is really cool. In PvP these guys alpha you (that’s lots of specials to use) this tends to HURT. Plus they can also do something similar to our NS. All in all, be wary of these guys.
+Ok these guys are cool, they can make you nuke faster like docs can with Offensive Steamroller and if your not calming then a nice reflect shield like RRFE is really cool. In PvP these guys alpha you (that's lots of specials to use) this tends to HURT. Plus they can also do something similar to our NS. All in all, be wary of these guys.
 
 Traders.
-These peps have got a very odd reputation, some love em, some loath em. Might be something to do with draining all your skills and giving it your back on the end of a shotgun.. hmmm just maybe These guys main thing for us is something called a wrangle. In PvP don’t expect to have any skills left, make sure you have a second bar with lower MC req nanos on it ready.
+These peps have got a very odd reputation, some love em, some loath em. Might be something to do with draining all your skills and giving it your back on the end of a shotgun.. hmmm just maybe These guys main thing for us is something called a wrangle. In PvP don't expect to have any skills left, make sure you have a second bar with lower MC req nanos on it ready.
 
 <font color = yellow>Chapter Eight. NT Items.</font>
 
-<font color = green>OK there are a few NT items only in game</font>, I mentioned earlier what the breeds can use and I’m not going to mention all the NT items here.
+<font color = green>OK there are a few NT items only in game</font>, I mentioned earlier what the breeds can use and I'm not going to mention all the NT items here.
 
 * Full Nanomage Omni Special Suit - From the OT Tailor.  If you are a Nanomage, give him a Rollerrat Flesh for a piece. The full suit gives nice bonuses to all nanoskills.
 * Hood of Wicked Inspiration - Found off the Awakened Pit Demon in Crypt of Home.  Probably one of the best early level Head slot armor items that you can use. Many bonuses.
@@ -248,11 +248,11 @@ These peps have got a very odd reputation, some love em, some loath em. Might be
 * Viral Triumverate Eggs - AKA VTEs You wont get these anytime soon but two Viral Eggs will really help you out.
 * Gaily Painted Hood - Last but not least by any means must be the Gaily Painted Hood you get this and WOW, drops off the Tarasque in Camelot. ";
 
-$nanotech_txt = bot::makeLink("Guide to Nano Technicians", $nanotech_txt); 
-if($type == "msg") 
-bot::send($nanotech_txt, $sender); 
-elseif($type == "all") 
-bot::send($nanotech_txt); 
-else 
-bot::send($nanotech_txt, "guild"); 
+$nanotech_txt = bot::makeLink("Guide to Nano Technicians", $nanotech_txt);
+if($type == "msg")
+bot::send($nanotech_txt, $sender);
+elseif($type == "all")
+bot::send($nanotech_txt);
+else
+bot::send($nanotech_txt, "guild");
 ?>

@@ -8,10 +8,10 @@
    **
    ** Date(created): 01.10.2005
    ** Date(last modified): 30.01.2007
-   ** 
+   **
    ** Copyright (C) 2005,2006 J. Gracik, C. Lohmann
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -33,23 +33,23 @@ if(preg_match("/^kickraidleader (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
 	if(AOChat::get_uid($who) == NULL){
 		bot::send("<red>Sorry player you wish to remove does not exist.", $sendto);
-		return;	
+		return;
 	}
 	
 	if($who == $sender) {
-		bot::send("<red>You can�t kick yourself.<end>", $sendto);
-		return;		
+		bot::send("<red>You can't kick yourself.<end>", $sendto);
+		return;
 	}
 
 
 	if($this->admins[$who]["level"] != 2) {
 		bot::send("<red>Sorry $who is not a Raidleader of this Bot.<end>", $sendto);
-		return;	
+		return;
 	}
 	
 	if((int)$this->admins[$sender]["level"] <= (int)$this->admins[$who]["level"]){
 		bot::send("<red>You must have a rank higher then $who.", $sendto);
-		return;	
+		return;
 	}
 	
 	unset($this->admins[$who]);

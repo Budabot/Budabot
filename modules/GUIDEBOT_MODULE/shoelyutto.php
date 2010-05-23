@@ -1,4 +1,4 @@
-<? 
+<?
  /*
    ** Author: Plugsz (RK1)
    ** Description: Guides
@@ -8,10 +8,10 @@
    **
    ** Date(created): 03.18.2007
    ** Date(last modified): 03.18.2007
-   ** 
+   **
    ** Copyright (C) 2007 Donald Vanatta
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is for use with Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -29,14 +29,14 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-$shoelyutto_txt = "<header>::::: Shoel Quests: Knowledge Of The Yuttos  :::::<end>\n\n"; 
+$shoelyutto_txt = "<header>::::: Shoel Quests: Knowledge Of The Yuttos  :::::<end>\n\n";
 $shoelyutto_txt = "
 Level Range: All Levels
 
 Any special reward for completing parts of this questline will be mentioned in guide. With few exceptions, the order of quests is set as continuing line. This quest line isn't level locked.
 
 <font color = green>Clear Thought Three</font>
-We start our journey close to the portal from Elysium, at <font color = yellow>1150x120</font>, with Clear Thought Three. 
+We start our journey close to the portal from Elysium, at <font color = yellow>1150x120</font>, with Clear Thought Three.
 
 He's concerned about recent traffic in Scheol and wants you to hunt down some predators. He wants you to kill 5 Valirash's and 5 Gluarash's and then return to him. Those mobs are located just below his location (You can simply jump over the cliff, but please be warned that there are mobs below and might agro you).
 
@@ -49,17 +49,17 @@ This Yutto also wants you to kill some mobs for him. This time it's 10 Mossy Gir
 After you return to One with Developing Words, he'll send you to Scouting Panorama.
 
 <font color = green>Scouting Panorama</font>
-Scouting Panorama is located at <font color = yellow>1255x315</font> (while most quests named 'Find Yutto so-and-so' include a waypoint on the map, once you need to return to them, you will have to remember the way on your own. So it surely helps to memorize the location of your last quest NPC). 
+Scouting Panorama is located at <font color = yellow>1255x315</font> (while most quests named 'Find Yutto so-and-so' include a waypoint on the map, once you need to return to them, you will have to remember the way on your own. So it surely helps to memorize the location of your last quest NPC).
 
-Scouting Panorama is excited about a <a href='itemref://263312/263312/1'>Topographic Interferometer Specification Unit</a>. Apparently it is used to input geographic changes, measurements and in the analysis of precision surfaces and transmitted wavefronts. 
+Scouting Panorama is excited about a <a href='itemref://263312/263312/1'>Topographic Interferometer Specification Unit</a>. Apparently it is used to input geographic changes, measurements and in the analysis of precision surfaces and transmitted wavefronts.
 
-After showing our shared excitement about this tool, he wants you to determine the altitude of 3 hilltops, with the help of his marvellous tool of course, and bring him back measurement reports. 
+After showing our shared excitement about this tool, he wants you to determine the altitude of 3 hilltops, with the help of his marvellous tool of course, and bring him back measurement reports.
 
-You will find the Altitude Plates on those hilltops, simply target them and right click them with the <a href='itemref://263312/263312/1'>Topographic Interferometer Specification Unit</a>, in order to get quest updated. 
+You will find the Altitude Plates on those hilltops, simply target them and right click them with the <a href='itemref://263312/263312/1'>Topographic Interferometer Specification Unit</a>, in order to get quest updated.
 
-To receive the reports, you will need to target the plates themselves and right click on them without the tool. 
+To receive the reports, you will need to target the plates themselves and right click on them without the tool.
 
-The plates are located at the coordinates <font color = green> 
+The plates are located at the coordinates <font color = green>
 870x705
 1045x800
 1390x690</font>
@@ -78,9 +78,9 @@ The One Who is Like the Other will send you in the catacombs to collect some vis
 When chatting with your quest Yutto, you can ask him about the Xan rituals and he'll even give you a <a href='itemref://225987/225987/1'>Bracer of the First Pact</a>, a <a href='itemref://225989/225989/1'>Ring of the Second Pact</a> and a <a href='itemref://225991/225991/1'> Band of the Third Pact</a> as a gift, all ql 1. The next topic about the Xan society to discover is their religion, and asked about that he will direct you towards Halcyon Creed, who is apparently the specialist in this field.
 
 <font color = green>Halcyon Creed</font>
-Halcyon Creed, located at <font color = yellow>1255x860</font>, sends you out to kill sided mobs. 
+Halcyon Creed, located at <font color = yellow>1255x860</font>, sends you out to kill sided mobs.
 
-Redeemed aligned people have to kill 3 Cama-Els, 3 Calan-Curs and 3 Sun-Lens, and Unredeemeds have to kill 3 El-Karats, 3 Or-Modas and 3 Cur-Mans.  You can find those creatures outside the Temples. 
+Redeemed aligned people have to kill 3 Cama-Els, 3 Calan-Curs and 3 Sun-Lens, and Unredeemeds have to kill 3 El-Karats, 3 Or-Modas and 3 Cur-Mans.  You can find those creatures outside the Temples.
 
 Neutral people at this point will get to choose between killing Unredeemed or Redeemed.  If you choose 'Goodbye'; or press escape when presented with Ocra/Roch choices, you cannot talk to this yutto again and may need to request assistance via /petition.
 
@@ -95,34 +95,34 @@ Once you complete that and return to Halcyon Creed, he will reward you with a <a
 If you bring this item with 3 unasembled pattern pieces of  'Weary Empath Min-Ji Liu' to Clear Thought Three, he'll give you a <a href='itemref://242658/242658/135'>Complete Blueprint Pattern of 'Weary Empath Min-Ji Liu'</a> in return.  This is needed for Scheol garden and sanctuary key quest. It doesn't matter which 3 pattern pieces you bring.
 
 <font color = green>One Whose Words are Jumbled</font>
-This Yutto, located at 1585x685, will send you to locate (target) 3 traces of Xan technology. 
+This Yutto, located at 1585x685, will send you to locate (target) 3 traces of Xan technology.
 
 Since you only have a few minutes for tagging one of them, finding their location in advance might be good idea. What you need to do is to find and target the Scrapped Alien Technology, to which the Yutto gives just general directions (north, southeast and in-betwen). The order in which you need to target those matters, and their coordinates in the correct order are : <font color = yellow>1530x890, 1770x550 and 1765x800</font>.
 
 Once you return to One Whose Words are Jumbled, he will present you with a simple logical riddle <font color = yellow>(Answer: It's a picture of his son)</font>. For this little run around the block, he will now give you a lecture about the limited abilities of the Xan to shape non living matter. After that you'll have to find One Who will Always Listen.
 
 <font color = green>One Who will Always Listen</font>
-One Who will Always Listen, located at <font color = yellow>1640x875</font>, sends you out to listen to stories. 
+One Who will Always Listen, located at <font color = yellow>1640x875</font>, sends you out to listen to stories.
 
-Strangely enough, he wants you to listen to humans and you better pay attention, since he'll ask some questions after. 
-The first person you should talk to is Kira Quinn, located at <font color = yellow>810x1535</font>. 
-Secondly is Shawn Ramsey at <font color = yellow>1445x1125</font> 
-and third Miya Okuma at <font color = yellow>1970x1325</font>. 
+Strangely enough, he wants you to listen to humans and you better pay attention, since he'll ask some questions after.
+The first person you should talk to is Kira Quinn, located at <font color = yellow>810x1535</font>.
+Secondly is Shawn Ramsey at <font color = yellow>1445x1125</font>
+and third Miya Okuma at <font color = yellow>1970x1325</font>.
 After you chatted with all of them, return to Yutto.
 
 Now it's his turn to listen, since he'll pose you a series of questions (No, noone was kiding about that part). Correct answers are : Shawn Ramsey, The King, A log, Her husband, Twenty, Three, Sling. Should you prove you have keen ear and patience to endure all the conversations, he'll reward you with QL 150 <a href='itemref://238914/238915/150'>Ring of Divine Teardrops</a> and send you to One Who Never Stops Looking.
 
 <font color = green>One Who Never Stops Looking</font>
-One Who Never Stops Looking is standing at <font color = yellow>1475x1450</font>. 
+One Who Never Stops Looking is standing at <font color = yellow>1475x1450</font>.
 
 His task for you is to find his mate, One Who is Full of Compasion and bring back a report. Since she doesn't trust strangers, he gives you <a href='itemref://263183/263183/1'>Stained Chimera Fang</a>Stained Chimera Fang as a way of indentification.
 
 <font color = green>One Who is Full of Compasion</font>
-You can find this Yutto at <font color = yellow>1360x1915</font>. And she is so busy, she didn't have time to finish report. 
+You can find this Yutto at <font color = yellow>1360x1915</font>. And she is so busy, she didn't have time to finish report.
 
-Fortunately though for you, with a little assistance from you, she will be able to get it finished. Armed with a <a href='itemref://263571/263571/1'>Radio Chipped Collar</a>, she sends you to herd back Sickly Chimera. Finding them shouldn't be hard, since you passed quite a few of them on your way to her. 
+Fortunately though for you, with a little assistance from you, she will be able to get it finished. Armed with a <a href='itemref://263571/263571/1'>Radio Chipped Collar</a>, she sends you to herd back Sickly Chimera. Finding them shouldn't be hard, since you passed quite a few of them on your way to her.
 
-Once Sickly Chimera is located, open chat with it and trade <a href='itemref://263571/263571/1'>Radio Chipped Collar</a>. Then you need to follow it back to Yutto. She'll heal it (Sickly Chimera despawns and Exhausted Chimera spawns in same place) and you should target this one and start chat with One Who is Full of Compasion. And she'll send you to bring in Sickly Chimera again…Finally, after you helped her for third time, she'll give you <a href='itemref://263182/263182/1'>Animal Status List</a> to bring back to One Who Never Stops Looking. He'll then send you to find One Who Fears Corruption.
+Once Sickly Chimera is located, open chat with it and trade <a href='itemref://263571/263571/1'>Radio Chipped Collar</a>. Then you need to follow it back to Yutto. She'll heal it (Sickly Chimera despawns and Exhausted Chimera spawns in same place) and you should target this one and start chat with One Who is Full of Compasion. And she'll send you to bring in Sickly Chimera again. Finally, after you helped her for third time, she'll give you <a href='itemref://263182/263182/1'>Animal Status List</a> to bring back to One Who Never Stops Looking. He'll then send you to find One Who Fears Corruption.
 
 <font color = green>One Who Fears Corruption</font>
 
@@ -134,11 +134,11 @@ Yet again it's time to travel in team, this time even for higher characters. Unf
 
 <font color = green>Vanward Four</font>
 
-Before this Yutto, located at <font color = yellow>1115x1360</font>, allows you to help him, he demands you comple whole line of quests from <a href='chatcmd:///tell <myname> indieshoel'</a>Jobe Scientists</a>. 
+Before this Yutto, located at <font color = yellow>1115x1360</font>, allows you to help him, he demands you comple whole line of quests from <a href='chatcmd:///tell <myname> indieshoel'</a>Jobe Scientists</a>.
 
-Should you already done it, he gives you <a href='itemref://264071/264071/1'>Glowing Bark</a> to use on Firekeeper Argoth, located at <font color = yellow>840x1150</font>. 
+Should you already done it, he gives you <a href='itemref://264071/264071/1'>Glowing Bark</a> to use on Firekeeper Argoth, located at <font color = yellow>840x1150</font>.
 
-For those level 150 and below, a team is advised at this point.  To fulfill your mission you need to open chat with this NPC and trade it the Bark that the Yuttos gave you. This will enable you to attack and kill it. 
+For those level 150 and below, a team is advised at this point.  To fulfill your mission you need to open chat with this NPC and trade it the Bark that the Yuttos gave you. This will enable you to attack and kill it.
 
 Unfortunatly, the NPC will heal itself during combat (yes, when it's close to dying), before you'll be able to take it down. Victorious, you can return to Vanward Four, to receive your profession specific reward:
 
@@ -165,9 +165,9 @@ Additional Information and Images provided by Uragon and Ukblizzard
 Guide found at AO Universe"
 ;
 $shoelyutto_txt = bot::makeLink("Knowledge Of The Yuttos - Shoel", $shoelyutto_txt);
-if($type == "msg") 
-bot::send($shoelyutto_txt, $sender); 
-elseif($type == "all") 
-bot::send($shoelyutto_txt); 
-else 
-bot::send($shoelyutto_txt, "guild"); 
+if($type == "msg")
+bot::send($shoelyutto_txt, $sender);
+elseif($type == "all")
+bot::send($shoelyutto_txt);
+else
+bot::send($shoelyutto_txt, "guild");

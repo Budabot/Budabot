@@ -2,7 +2,7 @@
 
 The <symbol>Nano command will search for the given nano and return where the Nano can be obtained.
 
-Note: You don´t need to insert the full name to do an successfull search but the words need to be in the same order as in the original nanos name.
+Note: You don't need to insert the full name to do an successfull search but the words need to be in the same order as in the original nanos name.
 
 <highlight>To search for a nano:<end>
 <tab><symbol>nano 'Insert nano name here'

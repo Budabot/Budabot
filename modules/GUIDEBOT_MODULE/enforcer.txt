@@ -88,7 +88,7 @@ Weapon Buffs
 All in all, your damage should go up a lot using these nanos, even at lower levels the 1hb and 2hb can add +45 to your skills, this allows you to use much better QL weapons. 
 
 Mongo Slam! (Bash!, Smash!, Crush!) 
-These are probably the defining nano for Enforcers. They’re the only way, aside from First Aid, for you to heal yourself in a fight. They also agro mobs nearby and can thus be used to draw agro away from your fellow team members. 
+These are probably the defining nano for Enforcers. They're the only way, aside from First Aid, for you to heal yourself in a fight. They also agro mobs nearby and can thus be used to draw agro away from your fellow team members. 
 
 Rage 
 These are great line of nanos, often underrated due to their low durations, but they buff extra initiatives, huge runspeed buff and have a chance of breaking debuffs. 

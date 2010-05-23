@@ -1,4 +1,4 @@
-<? 
+<?
 $adogarn_txt = "<header>::::: Adonis Garden Nanos  :::::<end>\n\n
 <font color='#69E61E'>
 <a href='itemref://218073/218073/103'>LINK </a> Aegis of Stone - MA
@@ -20,11 +20,8 @@ $adogarn_txt = "<header>::::: Adonis Garden Nanos  :::::<end>\n\n
 <a href='itemref://223328/223328/180'>LINK </a> Upgraded Predator M-30 - Engie
 <a href='itemref://226414/226414/100'>LINK </a> Waves of Jarring - Agent</font> ";
 
-$adogarn_txt = bot::makeLink("Adonis Garden Nanos", $adogarn_txt); 
-if($type == "msg") 
-bot::send($adogarn_txt, $sender); 
-elseif($type == "all") 
-bot::send($adogarn_txt); 
-else 
-bot::send($adogarn_txt, "guild"); 
+$adogarn_txt = bot::makeLink("Adonis Garden Nanos", $adogarn_txt);
+ 
+bot::send($adogarn_txt, $sendto);
+
 ?>

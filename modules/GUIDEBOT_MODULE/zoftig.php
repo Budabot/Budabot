@@ -1,5 +1,5 @@
-<? 
-$zoftig_txt = "<header>::::: Guide to Zoftig Blimp :::::<end>\n\n"; 
+<?
+$zoftig_txt = "<header>::::: Guide to Zoftig Blimp :::::<end>\n\n";
 $zoftig_txt = " A new trader with quite the personality, one Mr. Zoftig Blimp, currently resides in the northern little town of Hope. Why anyone would set up shop at the edge of the world is beyond me, but considering the wares he peddles are in high demand, it has to be said that traffic through Mort has trippled the last day.
 
 Mr. Blimp, besides being a colorful chap, is quite talkative too if you want to get into the finer points of right or wrong. However, that is hardly what we are here for at the moment - rather look for a chat with this chap later, and let's get down to business.
@@ -12,7 +12,7 @@ The things he currently offer at hugely inflated prices - supply and demand I gu
 These sunglasses all require you to be atleast be level 20 before putting on, and add +1 to the three skills mentioned above. They are also quite expensive, around half a million credits depending on how your barter skills are with Blimp. Aside from the stats, these sunglasses are also somewhat transparen't - something not seen before on clothing in AO - so you can actually see through them now. Technology in the 30th century never seem to amaze me. Being designer glasses as they are however, they might not rest very good on everyone's noses. So far, the Solitus race seems to have most trouble with these.
 
 
-Finally the ciché and intellectual can have their looks! Next off, Mr. Blimp have something entirely new on Rubi-Ka - a few pieces of headgear that isn't three sizes too small and looks like it had to be welded on!
+Finally the cichÃ© and intellectual can have their looks! Next off, Mr. Blimp have something entirely new on Rubi-Ka - a few pieces of headgear that isn't three sizes too small and looks like it had to be welded on!
 
 <font color = YELLOW>Original Mentor's Straw Hat</font> - Adds 5 to Dimach
 <font color = YELLOW>Rhysen's Carrier Cap</font> - Adds 20 to Runspeed & Swim
@@ -29,11 +29,11 @@ Modern breeds are not normally able to get a sun tan - because of their extended
 The sunglasses looks damn nice on those models they fit, like for the previously sunglass-deprieved opifexes, and really adds some to the diversity all around (here's to hoping the solitus skewering gets fixed too). The hats might seem a bit silly to some, but for most it's a funny addition along the lines of more is good! Overall a good job and very nice new trinkets, with the promise of more to come.
  ";
 
-$zoftig_txt = bot::makeLink("Guide to Zoftig Blimp", $zoftig_txt); 
-if($type == "msg") 
-bot::send($zoftig_txt, $sender); 
-elseif($type == "all") 
-bot::send($zoftig_txt); 
-else 
-bot::send($zoftig_txt, "guild"); 
+$zoftig_txt = bot::makeLink("Guide to Zoftig Blimp", $zoftig_txt);
+if($type == "msg")
+bot::send($zoftig_txt, $sender);
+elseif($type == "all")
+bot::send($zoftig_txt);
+else
+bot::send($zoftig_txt, "guild");
 ?>

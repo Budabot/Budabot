@@ -48,13 +48,13 @@
 - Fixed a problem with using " in a timer name
 - Added support for adding/kicking admins
 - On Adminlist the superadmin will be highlighted
-- Fixed that you can´t add/kick yourself to a admingroup
+- Fixed that you can't add/kick yourself to a admingroup
 - Fixed a problem with ' in itemsnames while adding it to a raid
 - Fixed a problem with deleting a raid
 - Added commands to set/show points of a specific player(Raidmodule stuff)
 - The lock command will nolonger kick everyone out of the privategroup
 - Fixed a few problems regarding the check of required accesslevels on commands
-- Fixed that in the config command some access levels wasn´t shown correctly
+- Fixed that in the config command some access levels wasn't shown correctly
 - Added a few missing items to the ItemsDatabase(all platinum filigree rings were missing)
 - You can set now if the text of a raidleader will be repeated and the color of the repeated text
 - Made the tell command available for guildchannel
@@ -63,7 +63,7 @@
 - Fixed that the battle command had a wrong starter access level
 - Fixed typos
 - Smiley command will now correctly be send back to the right channel
-- Fixed that the profession of guestchannel members wasn´t shown always
+- Fixed that the profession of guestchannel members wasn't shown always
 - Added subcommands for the Newscommand so that the accesslevel for showing and adding/deleting news is different
 - Fixed a problem with using + as symbol
 - Added - as new Symbol
@@ -78,11 +78,11 @@
 *****************************
 - Added a shellscript for Linux
 - Changed all filenames to lower cases except the Loading script for Modules
-- changed all path´s that they are only including / instead of \. For Linux compatibility
+- changed all paths that they are only including / instead of \. For Linux compatibility
 - Changed some SQL Statements that has not been changed in the last version(for MySQL)
 - The title command was sending the output only to guild channel and not to the channel where the user used the command for it
 - Chatbot.bat is starting the php.exe with a reference to the new php-win.ini
-- Fixed some references to wrong files(no affect on windows as it isn´t case-sensitive)
+- Fixed some references to wrong files(no affect on windows as it isn't case-sensitive)
 - Fixed an SQL Select Statement error in the count command
 - Fixed an rounding mistake in the oe command
 - Fixed that the sender name of tells was shown instead of the recievers one at the console
@@ -98,12 +98,12 @@
 - On the adminlist it is now shown too if he is in the private group  
 - Removed an old Tower debuge message that was shown on the console  
 - Corrected some itemlinks in the bio material script  
-- Some old helpfile descriptions weren´t stored correctly in the Database  
+- Some old helpfile descriptions weren't stored correctly in the Database  
 - The log functions(file and console) are put now into one function to. Also the format of the output has been changed a bit.  
 - Messages from the Bot itself are shown in the logfiles and the console now too.  
-- Added that you can set in which channel you want to see the city attacks.(usefull when you have 2bots(1raidbot and 1 orgbot) so they don´t show both the attack in your guild channel)  
+- Added that you can set in which channel you want to see the city attacks.(usefull when you have 2bots(1raidbot and 1 orgbot) so they don't show both the attack in your guild channel)  
 - Fixed a problem when assigning some to a team when he had a number in his name  
-- Fixed that players that left the Bot couldn´t be removed from a team  
+- Fixed that players that left the Bot couldn't be removed from a team  
 - Using a command with prefix(like # or !) in tells will work now too  
 - Added a AI Raidhoster Module(used to roll for a AI Raid sponsor)  
 - Added a little countdown command to the timers module  
@@ -144,10 +144,10 @@
 - Fixed a problem with the clear command and when a text is infront of a item ref(when adding an item with loot)
 - Fixed a problem with disabling of pwinners
 - All public channels are now from default on ignore
-- Fixed a problem with the helpfiles(!help wasn´t available in guild/priv and admin check wasn´t correct)
+- Fixed a problem with the helpfiles(!help wasn't available in guild/priv and admin check wasn't correct)
 - Updated the itemsmodule so it is compatible with the new table
 - Fixed an error in the guest channel. If the player that has been added is an orgmember his logon was shown.
-- Players in the guest channel can´t use the afk command anymore(was showing that he is back only)
+- Players in the guest channel can't use the afk command anymore(was showing that he is back only)
 - Updated the loot module for the new itemstable
 - gueslist is showing if the user is online/in chat or offline
 - Memberslist shows now if the user is online/offline and in chat
@@ -171,14 +171,14 @@
 - Updated Helpfiles
 - Fixed a problem with the newplugins command
 - Fixed a problem with the timer syntax
-- The minlvl for a lootspot wasn´t checked correctly 
+- The minlvl for a lootspot wasn't checked correctly 
 - Fixed a bug in the calc command that has shown an error when the result was zero 
 - Added that persons can be banned for an specific amount of time 
 - Added a listbot module
 - Logons are now relayed to the relayorg
 - Guestchannel messages are send over guildrelay too now 
 - Fixed a bug in the tower messages.(instead of attacker side was attacker guild save into the DB) 
-- Did a little overwork on the timer module. Some old timers didn´t got deleted in the DB and you can now use as time 2days 18hr 15min instead of setting it with the time in minutes. [color=red]THIS CHANGES REQUIRES A DELETE OF THE OLD TIMERS TABLE.[/color] 
+- Did a little overwork on the timer module. Some old timers didn't got deleted in the DB and you can now use as time 2days 18hr 15min instead of setting it with the time in minutes. [color=red]THIS CHANGES REQUIRES A DELETE OF THE OLD TIMERS TABLE.[/color] 
 - Added an Healassist Macro 
 - Added a command so that player can force an update of their characters stats for private channel 
 

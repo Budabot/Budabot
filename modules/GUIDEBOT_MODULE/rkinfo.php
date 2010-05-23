@@ -1,5 +1,5 @@
-<? 
-$rkinfo_txt = "<header>::::: Rubi-Ka's Little Instruction Book - Guide to AO  :::::<end>\n\n"; 
+<?
+$rkinfo_txt = "<header>::::: Rubi-Ka's Little Instruction Book - Guide to AO  :::::<end>\n\n";
 $rkinfo_txt = "<font color = blue>Rubi-Ka's Little Instruction Book</font>
 
 OR
@@ -51,7 +51,7 @@ Things you get can disappear at a moment's notice, and without warning, but a go
 
 Sometimes, sitting down and doing a good old fashioned restart can fix almost anything.
 
-Patches don't always “fix” things.
+Patches don't always 'fix' things.
 
 Anger and Love are both from the energy of passion. It is your choice where you choose to focus that energy. Choose wisely.
 
@@ -117,7 +117,7 @@ Never give up, and never stop striving for more. There will always be something 
 
 Some people never learn from their mistakes. Don't be one of those people.
 
-Hugs are über.
+Hugs are Ã¼ber.
 
 Most arguments are simple misunderstandings.
 
@@ -129,7 +129,7 @@ True friends are NODROP UNIQUE
 
 People will do anything to protect their own ignorance. Don't be afraid to learn.
 
-Even the best roleplayers can't hide forever. We all “leak through the keyboard.”
+Even the best roleplayers can't hide forever. We all 'leak through the keyboard.'
 
 Just when you get used to the way things are, something always changes.
 
@@ -161,11 +161,11 @@ How fast you can run matters at times.
 
 At the end of a long tiring day, nothing is better than enjoying a nice sunset and a cup of ice cream with a close friend. ";
 
-$rkinfo_txt = bot::makeLink("Rubi-Ka's Little Instruction Book - Guide to AO", $rkinfo_txt); 
-if($type == "msg") 
-bot::send($rkinfo_txt, $sender); 
-elseif($type == "all") 
-bot::send($rkinfo_txt); 
-else 
-bot::send($rkinfo_txt, "guild"); 
+$rkinfo_txt = bot::makeLink("Rubi-Ka's Little Instruction Book - Guide to AO", $rkinfo_txt);
+if($type == "msg")
+bot::send($rkinfo_txt, $sender);
+elseif($type == "all")
+bot::send($rkinfo_txt);
+else
+bot::send($rkinfo_txt, "guild");
 ?>

@@ -1,7 +1,6 @@
-<? 
-$infsanckey_txt = "<header>::::: Inferno Sanctuary Key Quest - Omni :::::<end>\n\n"; 
-$infsanckey_txt = "Inferno Sanctuary Key Quest - Omni
-<font color=#dddddd><a href="text://<a href='itemref://229063/229063/1'><img src='rdb://234681'></a><font color='#ffff00'>Lord Mordeth Sanctuary Key Quest Guide(<a href='chatcmd:///macro Mordeth /tell <botname> infsanckey'>Make Macro</a>):
+<?
+$infsanckey_txt = "<header>::::: Inferno Sanctuary Key Quest - Omni :::::<end>\n\n";
+$infsanckey_txt .= "<font color=#dddddd><a href='text://<a href='itemref://229063/229063/1'><img src='rdb://234681'></a><font color='#ffff00'>Lord Mordeth Sanctuary Key Quest Guide(<a href='chatcmd:///macro Mordeth /tell <botname> infsanckey'>Make Macro</a>):
  
  </font><font color='#ffff00'>1) </font><font color='#00ff00'>You should get sanctuary key quest when you finish garden key quest. If you don't, talk to <font color='#ff9900'>Garboil Hes Mord</font> in Garden. He'll give you the quest.
  
@@ -34,14 +33,9 @@ $infsanckey_txt = "Inferno Sanctuary Key Quest - Omni
  </font><font color='#ffff00'>8) </font><font color='#00ff00'>Target 7-9 - <font color='#ff9900'>Venerable Ecclesiast Gal Bala</font>, <font color='#ff9900'>Empath Sir Gawain</font>, <font color='#ff9900'>Redeemed Lord Galahad</font>
 Redeemed temple in Inferno.</font><font color='#00ff00'> When you kill </font><font color='#00ff00'><font color='#ff9900'>Redeemed Lord Galahad</font></font><font color='#00ff00'> and get loot, You get <a href='itemref://229063/229063/1'>Lord Mordeth Sanctuary Key</a> as reward.
  
-</font><font color='#ff0000'>NOTE: Step 9 has <a href='itemref://239759/239760/220'>Box of Nanocrystals</a> as item reward. If you already have one, use it or transfer to someone befor finishing step 9, or you'll miss it.</font>">Lord Mordeths Sanctuary Key</a></font>
+</font><font color='#ff0000'>NOTE: Step 9 has <a href='itemref://239759/239760/220'>Box of Nanocrystals</a> as item reward. If you already have one, use it or transfer to someone befor finishing step 9, or you'll miss it.</font>'>Lord Mordeths Sanctuary Key</a></font>
  ";
 
-$infsanckey_txt = bot::makeLink("Inferno Sanctuary Garden Key - Omni", $infsanckey_txt); 
-if($type == "msg") 
-bot::send($infsanckey_txt, $sender); 
-elseif($type == "all") 
-bot::send($infsanckey_txt); 
-else 
-bot::send($infsanckey_txt, "guild"); 
+$infsanckey_txt = bot::makeLink("Inferno Sanctuary Garden Key - Omni", $infsanckey_txt);
+bot::send($infsanckey_txt, $sendto);
 ?>

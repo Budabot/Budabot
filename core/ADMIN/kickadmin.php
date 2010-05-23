@@ -8,10 +8,10 @@
    **
    ** Date(created): 30.01.2007
    ** Date(last modified): 30.01.2007
-   ** 
+   **
    ** Copyright (C) 2007 C. Lohmann
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -33,22 +33,22 @@ if(preg_match("/^kickadmin (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
 	if(AOChat::get_uid($who) == NULL){
 		bot::send("<red>Sorry player you wish to remove does not exist.", $sendto);
-		return;	
-	}	
+		return;
+	}
 
 	if($who == $sender) {
-		bot::send("<red>You can�t kick yourself.<end>", $sendto);
-		return;		
+		bot::send("<red>You can't kick yourself.<end>", $sendto);
+		return;
 	}
 
 	if($this->admins[$who]["level"] != 4) {
 		bot::send("<red>Sorry $who is not a Administrator of this Bot.<end>", $sendto);
-		return;	
+		return;
 	}
 	
 	if($this->settings["Super Admin"] != $sender){
 		bot::send("<red>You need to be Super-Administrator to kick a Administrator<end>", $sendto);
-		return;	
+		return;
 	}
 	
 	unset($this->admins[$who]);
