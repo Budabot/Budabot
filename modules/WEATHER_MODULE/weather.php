@@ -1,4 +1,5 @@
-<?
+<?php
+
 //  getweatherdata("api.wunderground.com", 80, $url);
 if (!function_exists(getweatherdata)){
 	function getweatherdata ($host, $port, $url) {
@@ -60,12 +61,6 @@ if (!function_exists(fix_num_space)){
 	}
 }
 
-
-//Send Itemslist
-if($type == "msg") {$sendto = $sender;}
-elseif($type == "priv") {$sendto = "";}
-elseif($type == "guild"){$sendto = "guild";}
-	
 if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 	
 	$host      = "api.wunderground.com";
