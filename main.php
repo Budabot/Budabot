@@ -126,6 +126,14 @@ unset($settings["DB Host"]);
 unset($settings["DB username"]);
 unset($settings["DB password"]);
 
+if(isWindows()) {
+	define("LINE_ENDING", "\r\n");
+} else {
+	define("LINE_ENDING", "\n");
+}
+
+// make sure logging directory exists
+mkdir("./logs/{$vars['name']}.{$vars['dimension']}");
 
 // Call Main Loop
 main(true, $chatBot);
@@ -191,23 +199,13 @@ main(true, $chatBot);
 		$today =  date("m.d");
 
         /*
-        * Correct line-ending, depending on OS.
-        * Should probably be made global for performance.
-        */
-        if(isWindows()) {
-            $nl = "\r\n";
-        } else {
-            $nl = "\n";
-        }
-        
-        /*
         * Open and append to log-file. Complain on failure.
         */
-        $filename = "./logs/$today.$channel.txt";
+        $filename = "./logs/{$vars['name']}.{$vars['dimension']}/$today.$channel.txt";
         if(($fp = fopen($filename, "a")) === FALSE) {
             echo "    *** Failed to open log-file $filename for writing ***\n";
         } else {
-            fwrite($fp, $line.$nl);
+            fwrite($fp, $line . LINE_ENDING);
             fclose($fp);
         }
         
