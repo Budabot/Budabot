@@ -600,18 +600,8 @@ class bot extends AOChat{
 		//Activate Events that are needed for this command
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `dependson` = '$command' AND `cmdevent` = 'event' AND `type` != 'setup'");
 		$data = $db->fObject("all");
-  		foreach($data as $row)
+  		forEach ($data as $row) {
   		  	bot::regevent($row->type, $row->file);
-
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$module' AND `cmdevent` = 'event' AND `type` = 'setup'");
-		if($db->numrows() != 0) {
-			$data = $db->fObject("all");
-	  		foreach($data as $row) {
-			  	if($row->status == 0) {
-				    bot::regevent($row->type, $row->file);
-				    $db->query("UPDATE cmdcfg_<myname> SET `status` = 1 WHERE `module` = '$module' AND `cmdevent` = 'event' AND `type` = 'setup'");
-				}
-			}
 		}
 	}
 
