@@ -29,21 +29,21 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(preg_match("/^adminlist$/i", $message)){
+if (preg_match("/^adminlist$/i", $message)){
 	$list.=	"<header>::::: Adminlist :::::<end>\n\n";
 
 	$list.= "<highlight>Administrators<end>\n";	
-	foreach($this->admins as $who => $data){
-		if($this->admins[$who]["level"] == 4){
+	forEach ($this->admins as $who => $data){
+		if ($this->admins[$who]["level"] == 4){
 			if($who != ""){ 
 				$list.= "<tab>$who ";
 				
-				if($this->settings["Super Admin"] == $who)
+				if ($this->settings["Super Admin"] == $who)
 					$list .= "(<orange>Super Administrator<end>) ";
 					
-				if($this->admins[$who]["online"] == "online" && isset($this->chatlist[$who]))
+				if ($this->admins[$who]["online"] == "online" && isset($this->chatlist[$who]))
 					$list.="(<green>Online and in chat<end>)";
-				elseif($this->admins[$who]["online"] == "online")
+				elseif ($this->admins[$who]["online"] == "online")
 					$list.="(<green>Online<end>)";
 				else
 					$list.="(<red>Offline<end>)";
@@ -54,13 +54,13 @@ if(preg_match("/^adminlist$/i", $message)){
 	}
 
 	$list.="<highlight>Moderators<end>\n";	
-	foreach($this->admins as $who => $data){
-		if($this->admins[$who]["level"] == 3){
-			if($who != ""){ 
+	forEach ($this->admins as $who => $data){
+		if ($this->admins[$who]["level"] == 3){
+			if ($who != ""){ 
 				$list.= "<tab>$who ";
-				if($this->admins[$who]["online"] == "online" && isset($this->chatlist[$who]))
+				if ($this->admins[$who]["online"] == "online" && isset($this->chatlist[$who]))
 					$list.="(<green>Online and in chat<end>)";
-				elseif($this->admins[$who]["online"] == "online")
+				elseif ($this->admins[$who]["online"] == "online")
 					$list.="(<green>Online<end>)";
 				else
 					$list.="(<red>Offline<end>)";
@@ -70,13 +70,13 @@ if(preg_match("/^adminlist$/i", $message)){
 	}
 
 	$list.=	"<highlight>Raidleaders<end>\n";	
-	foreach($this->admins as $who => $data){
-		if($this->admins[$who]["level"] == 2){
-			if($who != ""){ 
+	forEach ($this->admins as $who => $data){
+		if ($this->admins[$who]["level"] == 2){
+			if ($who != ""){ 
 				$list.= "<tab>$who ";
-				if($this->admins[$who]["online"] == "online" && isset($this->chatlist[$who]))
+				if ($this->admins[$who]["online"] == "online" && isset($this->chatlist[$who]))
 					$list.="(<green>Online and in chat<end>)";
-				elseif($this->admins[$who]["online"] == "online")
+				elseif ($this->admins[$who]["online"] == "online")
 					$list.="(<green>Online<end>)";
 				else
 					$list.="(<red>Offline<end>)";

@@ -29,25 +29,25 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(preg_match("/^kickmod (.+)$/i", $message, $arr)){
+if (preg_match("/^kickmod (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
-	if(AOChat::get_uid($who) == NULL){
+	if (AOChat::get_uid($who) == NULL){
 		bot::send("<red>Sorry player you wish to remove does not exist.", $sendto);
 		return;
 	}
 	
-	if($who == $sender) {
+	if ($who == $sender) {
 		bot::send("<red>You can't kick yourself.<end>", $sendto);
 		return;
 	}
 
 
-	if($this->admins[$who]["level"] != 3) {
+	if ($this->admins[$who]["level"] != 3) {
 		bot::send("<red>Sorry $who is not a Moderator of this Bot.<end>", $sendto);
 		return;
 	}
 	
-	if((int)$this->admins[$sender]["level"] <= (int)$this->admins[$who]["level"]){
+	if ((int)$this->admins[$sender]["level"] <= (int)$this->admins[$who]["level"]){
 		bot::send("<red>You must have a rank higher then $who.", $sendto);
 		return;
 	}
@@ -56,7 +56,7 @@ if(preg_match("/^kickmod (.+)$/i", $message, $arr)){
 	$db->query("DELETE FROM admin_<myname> WHERE `name` = '$who'");
 	
 	$db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$who'");
-	if($db->numrows() == 0)
+	if ($db->numrows() == 0)
 		bot::send("rembuddy", $who);
 	bot::send("<highlight>$who<end> has been removed as Moderator of this Bot.", $sendto);
 	bot::send("Your moderator access to <myname> has been removed.", $who);

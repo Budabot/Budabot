@@ -29,30 +29,30 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(preg_match("/^addadmin (.+)$/i", $message, $arr)){
+if (preg_match("/^addadmin (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
 
-	if(AOChat::get_uid($who) == NULL){
+	if (AOChat::get_uid($who) == NULL){
 		bot::send("<red>Sorry the player you wish to add doesn't exist.<end>", $sendto);
 		return;
 	}
 	
-	if($who == $sender) {
+	if ($who == $sender) {
 		bot::send("<red>You can't add yourself to another group.<end>", $sendto);
 		return;
 	}
 
-	if($this->admins[$who]["level"] == 4) {
+	if ($this->admins[$who]["level"] == 4) {
 		bot::send("<red>Sorry but $who is already a Administrator.<end>", $sendto);
 		return;
 	}
 	
-	if($this->settings["Super Admin"] != $sender){
+	if ($this->settings["Super Admin"] != $sender){
 		bot::send("<red>You need to be Super-Administrator to add a Administrator<end>", $sendto);
 		return;
 	}
 
-	if(isset($this->admins[$who]["level"]) && $this->admins[$who]["level"] >= 2) {
+	if (isset($this->admins[$who]["level"]) && $this->admins[$who]["level"] >= 2) {
 		if($this->admins[$who]["level"] > 4) {
 			bot::send("<highlight>$who<end> has been demoted to the rank of a Administrator.", $sendto);
 			bot::send("You have been demoted to the rank of a Administrator on {$this->vars["name"]}", $who);
@@ -69,7 +69,7 @@ if(preg_match("/^addadmin (.+)$/i", $message, $arr)){
 		bot::send("You got Administrator access to <myname>", $who);
 	}
 
-	if(!isset($this->buddyList[$sender]))
+	if (!isset($this->buddyList[$sender]))
 		bot::send("addbuddy", $who);
 } else {
 	$syntax_error = true;
