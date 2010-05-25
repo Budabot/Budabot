@@ -169,5 +169,4 @@ elseif($type == "priv")
 bot::send($adoquest_text); 
 else 
 bot::send($adoquest_txt, "guild");
-?>  
-  
+?>

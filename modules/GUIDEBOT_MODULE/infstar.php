@@ -57,5 +57,4 @@ elseif($type == "priv")
 bot::send($infstar_text); 
 else 
 bot::send($infstar_txt, "guild");
-?>  
-  
+?>

@@ -203,4 +203,4 @@ elseif($type == "priv")
 bot::send($albainfo_text); 
 else 
 bot::send($albainfo_txt, "guild");
-?>  
+?>

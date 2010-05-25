@@ -8,4 +8,4 @@ if(!isset($this->vars["Timers"])) {
 	while($row = $db->fObject())
 	  	$this->vars["Timers"][] = array("name" => $row->name, "owner" => $row->owner, "mode" => $row->mode, "timer" => $row->timer, "settime" => $row->settime);
 }
-?> 
+?>

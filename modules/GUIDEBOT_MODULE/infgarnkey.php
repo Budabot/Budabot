@@ -61,5 +61,4 @@ elseif($type == "priv")
 bot::send($infgarnkey_text); 
 else 
 bot::send($infgarnkey_txt, "guild");
-?>  
-  
+?>

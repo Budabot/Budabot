@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 $MODULE_NAME = "WEATHER_MODULE";
 $PLUGIN_VERSION = 0.1;
 

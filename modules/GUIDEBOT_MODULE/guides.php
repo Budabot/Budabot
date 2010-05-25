@@ -55,7 +55,7 @@ These are some basic guides put together for new players. Most of this informati
 <a href='chatcmd:///tell <myname> <symbol>implants'> Guide to Implants What they are, and how to use them</a>
 <a href='chatcmd:///tell <myname> <symbol>terms'> AO Terminology - Everything you ever wanted to know,but were afraid to ask</a>
 <a href='chatcmd:///tell <myname> <symbol>buffs'> Buffs - Guide to Skill buffs</a>
-<a href='chatcmd:///tell <myname> <symbol>armor'> Armor Guide - Guide to Armors?></a>
+<a href='chatcmd:///tell <myname> <symbol>armor'> Armor Guide - Guide to Armors</a>
 <a href='chatcmd:///tell <myname> <symbol>ipreset'> IP Reset Points - Guide to IP reset points</a>
 <a href='chatcmd:///tell <myname> <symbol>mishsets'> Guide to Missions - Guide to Mission Settings</a>
 <a href='chatcmd:///tell <myname> <symbol>tradenpc'> Special Shops - Guide to NPCs that sell unusual things</a>
