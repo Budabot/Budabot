@@ -54,7 +54,7 @@ class bot extends AOChat{
 		//Prepare command/event settings table
 		$db->query("UPDATE cmdcfg_<myname> SET `verify` = 0");
 		$db->query("UPDATE hlpcfg_<myname> SET `verify` = 0");
-		$db->query("UPDATE cmdcfg_<myname> SET `status` = 0 WHERE `cmdevent` = 'event' AND `type` = 'setup'");
+		$db->query("UPDATE cmdcfg_<myname> SET `status` = 1 WHERE `cmdevent` = 'event' AND `type` = 'setup'");
 		$db->query("UPDATE cmdcfg_<myname> SET `grp` = 'none'");
 		$db->query("DELETE FROM cmdcfg_<myname> WHERE `module` = 'none'");
 
@@ -753,26 +753,7 @@ class bot extends AOChat{
 			echo "Error in registering the File $filename for Eventtype $type. The file doesn't exists!\n";
 			return;
 		}
-		
-		if ($type != "setup") {
-			$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$module' AND `cmdevent` = 'event' AND `type` = 'setup'");
-			if ($db->numrows() != 0) {
-				$data = $db->fObject("all");
-		  		forEach ($data as $row) {
-				  	if ($row->status == 0) {
-						if (file_exists("./modules/$row->file"))  {
-							$file = "./modules/$row->file";
-						}
-						
-						if (file_exists("./core/$row->file"))  {
-							$file = "./core/$row->file";
-						}
-				  	  	include($file);
-					    $db->query("UPDATE cmdcfg_<myname> SET `status` = 1 WHERE `module` = '$curMod' AND `cmdevent` = 'event' AND `type` = 'setup'");
-					}
-				}
-			}
-		}
+
 		switch ($type){
 			case "towers":
 				if(!in_array($filename, $this->towers))
