@@ -126,12 +126,6 @@ unset($settings["DB Host"]);
 unset($settings["DB username"]);
 unset($settings["DB password"]);
 
-if(isWindows()) {
-	define("LINE_ENDING", "\r\n");
-} else {
-	define("LINE_ENDING", "\n");
-}
-
 // make sure logging directory exists
 mkdir("./logs/{$vars['name']}.{$vars['dimension']}");
 
@@ -205,7 +199,7 @@ main(true, $chatBot);
         if(($fp = fopen($filename, "a")) === FALSE) {
             echo "    *** Failed to open log-file $filename for writing ***\n";
         } else {
-            fwrite($fp, $line . LINE_ENDING);
+            fwrite($fp, $line . PHP_EOL);
             fclose($fp);
         }
         
