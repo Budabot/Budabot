@@ -1677,10 +1677,10 @@ class bot extends AOChat{
 				echo "Updating '$name' database...";
 			}
 
-			$fileArray = file("$dir/$file", FILE_TEXT);
+			$fileArray = file("$dir/$file");
 			//$db->beginTransaction();
 			forEach ($fileArray as $num => $line) {
-				$line = rtrim($line);
+				$line = trim($line);
 				// don't process comment lines or blank lines
 				if ($line != '' && substr($line, 0, 1) != "#") {
 					$db->query($line);
