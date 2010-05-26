@@ -49,7 +49,9 @@ unset($this->logOn);
 unset($this->logOff);
 unset($this->_2sec);
 unset($this->_1min);
-unset($this->_15min);
+unset($this->_10mins);
+unset($this->_15mins);
+unset($this->_30mins);
 unset($this->_1hour);
 unset($this->_24hrs);
 unset($this->_connect);
@@ -104,9 +106,7 @@ if($this->settings['debug'] > 0) print("MODULE_NAME:(BASIC_CONNECTED_EVENTS.php)
 	include "./core/BASIC_CONNECTED_EVENTS/BASIC_CONNECTED_EVENTS.php";
 if($this->settings['debug'] > 0) print("MODULE_NAME:(PRIV_TELL_LIMIT.php)\n");
 	include "./core/PRIV_TELL_LIMIT/PRIV_TELL_LIMIT.php";
-if($this->settings['debug'] > 0) print("MODULE_NAME:(NEWCONFIG.php)\n");
-	include "./core/NEWCONFIG/NEWCONFIG.php";
-				
+
 // Load Plugin Modules
 if($this->settings['debug'] > 0) print("\n:::::::PLUGIN MODULES::::::::\n");	
 
