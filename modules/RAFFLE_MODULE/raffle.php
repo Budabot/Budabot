@@ -2,6 +2,7 @@
 //if (eregi ("^raffle (<a href=\"itemref:\/\/[0-9]+\/[0-9]+\/[0-9]+\">.+<\/a>)$", $message, $arr)) {
 if (preg_match("/^raffle (.+) ([0-9]+)$/i", $message, $arr) || preg_match("/^raffle (.+)$/i", $message, $arr)) {
 	if (!$this->vars["Raffles"]["inprog"]) {
+		$item = $arr[1];
 	    $minutes = $this->settings["defaultraffletime"];
 	    if ($arr[2]) {
 			$minutes = $arr[2];
