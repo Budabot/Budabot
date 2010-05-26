@@ -725,16 +725,16 @@ class bot extends AOChat{
 
 		$module = explode("/", strtolower($filename));
 
-		// force dependson to be 'none' regardless
-		$dependson = 'none';
-
 	  	if($this->settings['debug'] > 1) print("Adding Event to list:($type) File:($filename)\n");
 		if($this->settings['debug'] > 2) sleep(1);
 
-		if($dependson == "none" && $this->settings["default module status"] == 1)
+		if($dependson == "none" && $this->settings["default module status"] == 1) {
 			$status = 1;
-		else
+		} else {
+			// TODO look up the command it depends on and see if the command is
+			// enabled, to know whether this event should be enabled
 			$status = 0;
+		}
 
 		if($this->existing_events[$type][$filename] == true) {
 		  	$db->query("UPDATE cmdcfg_<myname> SET `dependson` = '$dependson', `verify` = 1, `description` = '$desc' WHERE `type` = '$type' AND `cmdevent` = 'event' AND `file` = '$filename' AND `module` = '$curMod'");
