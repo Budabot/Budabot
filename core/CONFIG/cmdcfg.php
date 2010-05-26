@@ -100,7 +100,7 @@ if (preg_match("/^config$/i", $message)) {
 	$db->exec($sql);
 	
 	bot::send("Commands(s) updated successfully.", $sendto);	
-} elseif(preg_match("/^config (mod|cmd|grp|event) (.+) (enable|disable) (priv|msg|guild|all)$/i", $message, $arr)) {
+} else if (preg_match("/^config (mod|cmd|grp|event) (.+) (enable|disable) (priv|msg|guild|all)$/i", $message, $arr)) {
 	if($arr[1] == "event") {
 		$temp = explode(" ", $arr[2]);
 	  	$cmdmod = $temp[0];
@@ -201,7 +201,7 @@ if (preg_match("/^config$/i", $message)) {
 	} elseif($arr[1] == "event" && $file != "") {
 		$db->query("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `type` = '$cmdmod' AND `cmdevent` = 'event' AND `file` = '$file'");
 	}
-} elseif(preg_match("/^config (subcmd|cmd|grp) ([a-z0-9_]+) admin (msg|priv|guild|all) (rl|mod|guildadmin|guild|leader|all)$/i", $message, $arr)) {
+} else if (preg_match("/^config (subcmd|cmd|grp) ([a-z0-9_]+) admin (msg|priv|guild|all) (rl|mod|guildadmin|guild|leader|all)$/i", $message, $arr)) {
 	$channel = strtolower($arr[1]);
 	$command = strtolower($arr[2]);
 	$type = strtolower($arr[3]);
@@ -317,7 +317,7 @@ if (preg_match("/^config$/i", $message)) {
 		$msg = "Updated access of sub command <highlight>$command<end> in Channel <highlight>$type<end> to <highlight>$arr[4]<end>";
 	}
 	bot::send($msg, $sendto);
-} elseif(preg_match("/^config cmd ([a-z0-9_]+) (.+)$/i", $message, $arr)) {
+} else if (preg_match("/^config cmd ([a-z0-9_]+) (.+)$/i", $message, $arr)) {
 	$cmd = strtolower($arr[1]);
 	$module = strtoupper($arr[2]);
 	$found_msg = 0;
@@ -524,7 +524,7 @@ if (preg_match("/^config$/i", $message)) {
 		$msg = bot::makeLink(ucfirst($cmd)." config", $list);
 	}
 	bot::send($msg, $sendto);
-} elseif(preg_match("/^config grp (.+)$/i", $message, $arr)) {
+} else if (preg_match("/^config grp (.+)$/i", $message, $arr)) {
 	$grp = strtolower($arr[1]);
 
 	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `grp` = '$grp' AND `cmdevent` = 'cmd' ORDER BY `cmd`");
@@ -576,7 +576,7 @@ if (preg_match("/^config$/i", $message)) {
 		$msg = bot::makeLink(ucfirst($grp)." group config", $list);
 	} 
 	bot::send($msg, $sendto);
-} elseif(preg_match("/^config mod (.+)$/i", $message, $arr)) {
+} else if (preg_match("/^config mod (.+)$/i", $message, $arr)) {
   	$mod = strtolower($arr[1]);
 	$list = "<header>::::: Config for module $mod :::::<end>\n";
 	$list .= "Here can you disable or enable Commandos/Events and also changing their Access Level\n";
@@ -636,7 +636,7 @@ if (preg_match("/^config$/i", $message)) {
 
 	$msg = bot::makeLink("Configuration for module $mod", $list);
 	bot::send($msg, $sendto);
-} elseif(preg_match("/^config help (.+) admin (all|leader|rl|mod|guildadmin|guild)$/i", $message, $arr)) {
+} else if (preg_match("/^config help (.+) admin (all|leader|rl|mod|guildadmin|guild)$/i", $message, $arr)) {
   	$help = strtolower($arr[1]);
 	$admin = $arr[2];
 
@@ -661,7 +661,7 @@ if (preg_match("/^config$/i", $message)) {
 	$db->query("UPDATE hlpcfg_<myname> SET `admin` = '$admin' WHERE `name` = '$help'");
 	$this->helpfiles[$row->cat][$row->name]["admin level"] = $admin;
 	bot::send("Updated access for helpfile <highlight>$help<end> to <highlight>".ucfirst(strtolower($arr[2]))."<end>.", $sendto);
-} elseif(preg_match("/^config help (.+)$/i", $message, $arr)) {
+} else if (preg_match("/^config help (.+)$/i", $message, $arr)) {
   	$mod = strtoupper($arr[1]);
 	$list = "<header>::::: Configure helpfiles for module $mod :::::<end>\n\n";
 
@@ -682,7 +682,64 @@ if (preg_match("/^config$/i", $message)) {
 	}
 
 	$msg = bot::makeLink("Configurate helpfiles for module $mod", $list);
-	bot::send($msg, $sendto);	
+	bot::send($msg, $sendto);
+} else if (preg_match("/^config cmd$/i", $message, $arr)) {
+	$list  = "<header>::::: Bot Settings -- Command List :::::<end>\n\n";
+
+	$sql = "
+		SELECT
+			cmd, description, module,
+			sum(type ='guild') guild_avail, sum(type = 'guild' AND status = 1) guild_status,
+			sum(type ='priv') priv_avail, sum(type = 'priv' AND status = 1) priv_status,
+			sum(type ='msg') msg_avail, sum(type = 'msg' AND status = 1) msg_status
+		FROM
+			cmdcfg_aodevs
+		WHERE
+			cmdevent = 'cmd'
+			OR cmdevent = 'subcmd'
+		GROUP BY
+			cmd, description, module";
+	$db->query($sql);
+	while ($row = $db->fObject()) {
+		$guild = '';
+		$priv = '';
+		$msg = '';
+		
+		if ($row->guild_avail == 0) {
+			$guild = '_';
+		} else if ($row->guild_status == 0) {
+			$guild = '<red>G<end>';
+		} else if ($row->guild_status > 0) {
+			$guild = '<green>G<end>';
+		} else {
+			$guild = '<yellow>G<end>';
+		}
+		
+		if ($row->priv_avail == 0) {
+			$priv = '_';
+		} else if ($row->priv_status == 0) {
+			$priv = '<red>P<end>';
+		} else if ($row->priv_status > 0) {
+			$priv = '<green>P<end>';
+		} else {
+			$priv = '<yellow>P<end>';
+		}
+		
+		if ($row->msg_avail == 0) {
+			$msg = '_';
+		} else if ($row->msg_status == 0) {
+			$msg = '<red>M<end>';
+		} else if ($row->msg_status > 0) {
+			$msg = '<green>M<end>';
+		} else {
+			$msg = '<yellow>M<end>';
+		}
+		
+		$list .= "<highlight>($row->cmd)<end> ($row->module) $row->description  ($guild|$priv|$msg)\n";
+	}
+
+	$msg = bot::makeLink("Bot Settings -- Command List", $list);
+ 	bot::send($msg, $sendto);
 } else if (preg_match("/^config (.*)$/i", $message, $arr)) {
 	$module = $arr[1];
 	$list  = "<header>::::: Bot Settings :::::<end>\n\n";
@@ -694,7 +751,7 @@ if (preg_match("/^config$/i", $message)) {
 	if ($db->numrows() > 0) {
 		$list .= "\n<i>Settings</i>\n";
 	}
- 	while ($row = $db->fObject()){
+ 	while ($row = $db->fObject()) {
 		$cur = $row->mod;	
 		
 		if($row->help != "")
