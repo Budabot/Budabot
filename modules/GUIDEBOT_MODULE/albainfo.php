@@ -1,6 +1,6 @@
 <?php
 $albainfo_txt = "<header>::::: Information about Adonis Quests :::::<end>\n\n"; 
-$albainfo_txt ="
+$albainfo_txt .= "
 
 Guide suited for: All Classes
 Faction: All Factions
@@ -197,10 +197,7 @@ Guide courtesy of AO Universe
 "
 ;
 $albainfo_txt = bot::makeLink("Guide to Albtraum playfield", $albainfo_txt); 
-if($type == "msg") 
-bot::send($albainfo_txt, $sender); 
-elseif($type == "priv") 
-bot::send($albainfo_text); 
-else 
-bot::send($albainfo_txt, "guild");
+
+bot::send($albainfo_txt, $sendto);
+
 ?>

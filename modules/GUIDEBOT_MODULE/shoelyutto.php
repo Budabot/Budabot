@@ -1,4 +1,4 @@
-<?
+<?php
  /*
    ** Author: Plugsz (RK1)
    ** Description: Guides
@@ -30,7 +30,7 @@
    */
 
 $shoelyutto_txt = "<header>::::: Shoel Quests: Knowledge Of The Yuttos  :::::<end>\n\n";
-$shoelyutto_txt = "
+$shoelyutto_txt .= "
 Level Range: All Levels
 
 Any special reward for completing parts of this questline will be mentioned in guide. With few exceptions, the order of quests is set as continuing line. This quest line isn't level locked.
@@ -165,9 +165,7 @@ Additional Information and Images provided by Uragon and Ukblizzard
 Guide found at AO Universe"
 ;
 $shoelyutto_txt = bot::makeLink("Knowledge Of The Yuttos - Shoel", $shoelyutto_txt);
-if($type == "msg")
-bot::send($shoelyutto_txt, $sender);
-elseif($type == "all")
-bot::send($shoelyutto_txt);
-else
-bot::send($shoelyutto_txt, "guild");
+
+bot::send($shoelyutto_txt, $sendto);
+
+?>

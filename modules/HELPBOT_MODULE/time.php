@@ -147,23 +147,14 @@ if(preg_match("/^time$/i", $message)) {
 
 	
 	$msg .= " ".bot::makeLink("All Timezones", $link);
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-      	bot::send($msg);
-    elseif($type == "guild")
-      	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 } elseif(preg_match("/^time (.+)$/i", $message, $arr)) {
   	$zone = strtoupper($arr[1]);
   	if($timezone[$zone]["name"])
 		$msg = $timezone[$zone]["name"]." is <highlight>".$timezone[$zone]["time"]."<end>";
 	else
 		$msg = "This timezone doesn't exist or isn't known by this bot.";
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-      	bot::send($msg);
-    elseif($type == "guild")
-      	bot::send($msg, "guild");
+
+    bot::send($msg, $sendto);
 }
 ?>

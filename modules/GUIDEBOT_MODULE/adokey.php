@@ -1,4 +1,4 @@
-<?
+<?php
 $adokey_txt = "<header>::::: Adonis: Dalja Garden Key Quest :::::<end>\n\n";
 $adokey_txt .= "
 

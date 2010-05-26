@@ -9,7 +9,7 @@ if(preg_match('/^inits \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\"\>
 	$url .= "ql={$arr[3]}&";
 	$url .= "output=aoml";
 
-        $ctx - stream_context_create( array( 'http' => array( 'timeout' => 60 ) ) );
+    $ctx - stream_context_create( array( 'http' => array( 'timeout' => 60 ) ) );
 
 	$msg = "Calculating Inits... Please wait.";
 	if($type == "msg")

@@ -9,7 +9,7 @@
    
 global $socket;
 stream_set_blocking($socket, 0);
-if(preg_match("/^onlineirc$/i", $message, $arr)) {
+if (preg_match("/^onlineirc$/i", $message, $arr)) {
 	fputs($socket, "NAMES :".$this->settings['irc_channel']."\n");
 	sleep(1);
 	while($data = fgets($socket)) {

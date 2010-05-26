@@ -30,7 +30,7 @@
    */
    
 //If the incoming message was a join request
-if((preg_match("/^join$/i", $message) || preg_match("/^invite$/i", $message)) && !isset($this->admins[$sender])) {
+if ((preg_match("/^join$/i", $message) || preg_match("/^invite$/i", $message)) && !isset($this->admins[$sender])) {
 	//Chek if he is a member of the Bot
 	$is_member = false;
 	if($this->settings["priv_req_open"] == "members") {
@@ -94,7 +94,7 @@ if((preg_match("/^join$/i", $message) || preg_match("/^invite$/i", $message)) &&
 	  	$restricted = true;
 	    return;
 	}
-} elseif(!isset($this->admins[$sender]) && $sender != $this->settings["relaybot"] && $sender != $this->settings["apftimerbot"] && !preg_match("/^guestjoin/i", $message) && !preg_match("/^verify/i", $message)) {
+} else if (!isset($this->admins[$sender]) && $sender != $this->settings["relaybot"] && $sender != $this->settings["apftimerbot"] && !preg_match("/^guestjoin/i", $message) && !preg_match("/^verify/i", $message)) {
 	//Chek if he is a member of the Bot
 	if($this->settings["tell_req_open"] == "members") {
 	  	$db->query("SELECT * FROM members_<myname> WHERE `name` = '$sender'");

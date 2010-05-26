@@ -28,7 +28,7 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-if(preg_match("/^minlvl$/i", $message)) {
+if (preg_match("/^minlvl$/i", $message)) {
  	if($this->settings["priv_req_lvl"] == 0)
  		$msg = "No Level Limit has been set for privategroup Invites.";
  	else
@@ -40,7 +40,7 @@ if(preg_match("/^minlvl$/i", $message)) {
        	bot::send($msg);
     elseif($type == "guild")
        	bot::send($msg, "guild");
-} elseif(preg_match("/^minlvl ([0-9]+)$/i", $message, $arr)) {
+} else if (preg_match("/^minlvl ([0-9]+)$/i", $message, $arr)) {
 	$minlvl = strtolower($arr[1]);
 	
 	if($minlvl > 220 || $minlvl < 0) {
@@ -62,7 +62,7 @@ if(preg_match("/^minlvl$/i", $message)) {
        	bot::send($msg);
     elseif($type == "guild")
        	bot::send($msg, "guild");
-} elseif(preg_match("/^open$/i", $message)) {
+} else if (preg_match("/^open$/i", $message)) {
  	if($this->settings["oriv_req_open"] == "all")
  		$msg = "No General Limit is set for privategroup Invites.";
  	elseif($this->settings["priv_req_open"] == "org")
@@ -76,7 +76,7 @@ if(preg_match("/^minlvl$/i", $message)) {
        	bot::send($msg);
     elseif($type == "guild")
        	bot::send($msg, "guild");	
-} elseif(preg_match("/^open (org|all|members)$/i", $message, $arr)) {
+} else if (preg_match("/^open (org|all|members)$/i", $message, $arr)) {
 	$open = ucfirst(strtolower($arr[1]));
 	
 	if($open == "all") {
@@ -94,7 +94,7 @@ if(preg_match("/^minlvl$/i", $message)) {
        	bot::send($msg);
     elseif($type == "guild")
        	bot::send($msg, "guild");
-} elseif(preg_match("/^faction/i", $message)) {
+} else if (preg_match("/^faction/i", $message)) {
  	if($this->settings["pirv_req_faction"] == "all")
  		$msg = "No Faction Limit is set for privategroup Invites.";
 	else
@@ -106,7 +106,7 @@ if(preg_match("/^minlvl$/i", $message)) {
        	bot::send($msg);
     elseif($type == "guild")
        	bot::send($msg, "guild"); 	
-} elseif(preg_match("/^faction (omni|clan|neutral|all)$/i", $message, $arr)) {
+} else if (preg_match("/^faction (omni|clan|neutral|all)$/i", $message, $arr)) {
 	$faction = ucfirst(strtolower($arr[1]));
 	bot::savesetting("priv_req_faction", $faction);
 	
@@ -122,7 +122,7 @@ if(preg_match("/^minlvl$/i", $message)) {
        	bot::send($msg);
     elseif($type == "guild")
        	bot::send($msg, "guild");
-} elseif(preg_match("/^faction not (omni|clan|neutral)$/i", $message, $arr)) {
+} else if (preg_match("/^faction not (omni|clan|neutral)$/i", $message, $arr)) {
 	$faction = "not ".ucfirst(strtolower($arr[1]));
 	bot::savesetting("priv_req_faction", $faction);
 	$msg = "Invites are limited to <highlight>$faction<end> only now.";
@@ -133,7 +133,7 @@ if(preg_match("/^minlvl$/i", $message)) {
        	bot::send($msg);
     elseif($type == "guild")
        	bot::send($msg, "guild");
-} elseif(preg_match("/^maxplayers$/i", $message)) {
+} else if (preg_match("/^maxplayers$/i", $message)) {
  	if($this->settings["priv_req_faction"] == "all")
  		$msg = "No Faction Limit is set for privategroup Invites.";
 	else
@@ -145,7 +145,7 @@ if(preg_match("/^minlvl$/i", $message)) {
        	bot::send($msg);
     elseif($type == "guild")
        	bot::send($msg, "guild"); 	 
-} elseif(preg_match("/^maxplayer ([0-9]+)$/i", $message, $arr)) {
+} else if (preg_match("/^maxplayer ([0-9]+)$/i", $message, $arr)) {
 	$maxplayers = strtolower($arr[1]);
 	
 	if($maxplayers > 120) {

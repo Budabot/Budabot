@@ -1,6 +1,6 @@
 <?php
 $infstar_txt = "<header>::::: Inferno: Profession Star Quest:::::<end>\n\n"; 
-$infstar_txt ="
+$infstar_txt .= "
 
 <img src=rdb://131260>
 <font color = yellow>Guarding the source:</font>
@@ -51,10 +51,7 @@ nce that's completed, just return to Ergo and you'll be awarded with :
 "
 ;
 $infstar_txt = bot::makeLink("Inferno: Profession Star Quest", $infstar_txt); 
-if($type == "msg") 
-bot::send($infstar_txt, $sender); 
-elseif($type == "priv") 
-bot::send($infstar_text); 
-else 
-bot::send($infstar_txt, "guild");
+
+bot::send($infstar_txt, $sendto);
+
 ?>

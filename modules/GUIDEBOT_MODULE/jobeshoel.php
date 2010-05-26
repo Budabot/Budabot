@@ -1,4 +1,4 @@
-<?
+<?php
  /*
    ** Author: Plugsz (RK1)
    ** Description: Guides
@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 $jobeshoel_txt = "<header>::::: Shoel Quests: Scientists Of Jobe  :::::<end>\n\n";
-$jobeshoel_txt =
+$jobeshoel_txt .=
 "Guide suited for: All Classes
 Faction: All
 Level Range: All Levels</span>
@@ -221,9 +221,7 @@ Additional Information and Images provided by Ukblizzard and Uragon
 Guide Courtesy of AO Universe"
 ;
 $jobeshoel_txt = bot::makeLink("Shoel Quests : Jobe Scientists", $jobeshoel_txt);
-if($type == "msg")
-bot::send($jobeshoel_txt, $sender);
-elseif($type == "all")
-bot::send($jobeshoel_txt);
-else
-bot::send($jobeshoel_txt, "guild");
+
+bot::send($jobeshoel_txt, $sendto);
+
+?>

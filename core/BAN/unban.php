@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(preg_match("/^unban (.+)$/i", $message, $arr)){
+if (preg_match("/^unban (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
 	
 	if(!isset($this->banlist[$who])) {

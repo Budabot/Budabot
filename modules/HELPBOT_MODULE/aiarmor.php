@@ -139,12 +139,7 @@ if(preg_match("/^aiarmor (cc|cm|co|cp|cs|ss)$/i", $message, $arr) || preg_match(
 	$list .= "<a href='itemref://$lowid_armor_trg/$highid_armor_trg/$trg_ql'>QL$trg_ql $name_armor_trg</a> (";
 	$list .= bot::makeLink("Tradeskill process for this item", "/tell <myname> aiarmor $name_armor_trg $trg_ql", "chatcmd").")";
 	$msg = bot::makeLink("Building process for $ql $name_armor_result", $list);
-	if($type == "msg")
-		bot::send($msg, $sender);
-	elseif($type == "guild")
-		bot::send($msg, "guild");
-	else
-		bot::send($msg);
+	bot::send($msg, $sendto);
 } elseif(preg_match("/^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual)$/i", $message, $arr) || preg_macth("/^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual) ([0-9]+)/i", $message, $arr)) {
 	$armortype = ucfirst(strtolower($arr[1]));
 	if($arr[2] >= 1 && $arr[2] <= 300)
@@ -274,19 +269,9 @@ if(preg_match("/^aiarmor (cc|cm|co|cp|cs|ss)$/i", $message, $arr) || preg_match(
 	$list .= "- ".($ql * 6)." Psychology\n\n";
 		
 	$msg = bot::makeLink("Building process for $ql $armortype", $list);
-	if($type == "msg")
-		bot::send($msg, $sender);
-	elseif($type == "guild")
-		bot::send($msg, "guild");
-	else
-		bot::send($msg);
+	bot::send($msg, $sendto);
 } else {
  	$msg = "<red>Unknown Syntax or wrong Armor specified<end>! Use one of the following: <highlight>cc<end>, <highlight>cm<end>, <highlight>co<end>, <highlight>cp<end>, <highlight>cs<end>, <highlight>ss<end>, <highlight>strong<end>, <highlight>supple<end>, <highlight>enduring<end>, <highlight>observant<end>, <highlight>arithmetic<end> or <highlight>spiritual.<end>";
-	if($type == "msg")
-		bot::send($msg, $sender);
-	elseif($type == "guild")
-		bot::send($msg, "guild");
-	else
-		bot::send($msg);
+	bot::send($msg, $sendto);
 }
 ?>

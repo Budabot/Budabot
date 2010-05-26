@@ -2,13 +2,6 @@
 $info = explode(" ", $message);
 list($msg, $AttTim, $RechT, $BurstDelay, $BurstSkill) = $info;
 
-if($type == "msg")
-    $sendto = $sender;
-elseif($type == "priv")
-	$sendto = "";
-elseif($type == "guild")
-	$sendto = "guild";
-
 $header = "<header>::::: Burst Calculator - Version 1.00 :::::<end>\n\n";
 $footer = "";
 
@@ -51,4 +44,4 @@ else{
 
 	$windowlink = bot::makeLink("::Your Burst Results::", $inside);
 	bot::send($windowlink, $sendto);
-	}
+}

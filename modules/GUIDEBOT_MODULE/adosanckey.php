@@ -1,4 +1,4 @@
-<?
+<?php
 $adosanckey_txt = "<header>::::: Adonis: Dalja Sanctuary Garden Key Quest :::::<end>\n\n";
 $adosanckey_txt .= "
 Show your Dalja Garden Key to Visionist Bhotaar-Hes Dal in Garden. He tells you to hunt ghosts and find blueprint for a demon.

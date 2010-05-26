@@ -1,6 +1,6 @@
-<?
+<?php
 $nanotech_txt = "<header>::::: Guide to Nano Technicians :::::<end>\n\n";
-$nanotech_txt = "<font color = yellow>Nano Technician</font>
+$nanotech_txt .= "<font color = yellow>Nano Technician</font>
 
 <font color = green>* Main Weapons: Poor with all weapons, but Pistol is default</font>
 * Alternate Weapons: Shotgun
@@ -249,10 +249,7 @@ These peps have got a very odd reputation, some love em, some loath em. Might be
 * Gaily Painted Hood - Last but not least by any means must be the Gaily Painted Hood you get this and WOW, drops off the Tarasque in Camelot. ";
 
 $nanotech_txt = bot::makeLink("Guide to Nano Technicians", $nanotech_txt);
-if($type == "msg")
-bot::send($nanotech_txt, $sender);
-elseif($type == "all")
-bot::send($nanotech_txt);
-else
-bot::send($nanotech_txt, "guild");
+
+bot::send($nanotech_txt, $sendto);
+
 ?>

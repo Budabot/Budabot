@@ -1,4 +1,4 @@
-<?
+<?php
 $adosancclan_txt = "<header>::::: Adonis Sanctuary Garden Key Quest CLAN :::::<end>\n\n";
 $adosancclan_txt .= "
 Gilthar Sanctuary Garden Key Quest

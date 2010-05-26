@@ -1,4 +1,4 @@
-<?
+<?php
 $adokeyclan_txt = "<header>::::: Adonis Sanctuary Garden Key Quest CLAN :::::<end>\n\n";
 $adokeyclan_txt .= "
 <font color='#ff9933'><highlight>Gilthar Garden Key Quest</font></end>

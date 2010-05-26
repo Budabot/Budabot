@@ -1,6 +1,6 @@
-<? 
+<?php
 $shoelyutto_txt = "<header>::::: Shoel Quests: Independants  :::::<end>\n\n"; 
-$shoelyutto_txt = "
+$shoelyutto_txt .= "
 Level Range: All Levels
 
 Any special reward for completing parts of this questline will be mentioned in guide. With few exceptions, the order of quests is set as continuing line. This quest line isn't level locked.
@@ -136,9 +136,7 @@ Guide found at AO Universe
 ;
 
 $shoelyutto_txt = bot::makeLink("Shoel Quests : Independants", $shoelyutto_txt); 
-if($type == "msg") 
-bot::send($shoelyutto_txt, $sender); 
-elseif($type == "all") 
-bot::send($shoelyutto_txt); 
-else 
-bot::send($shoelyutto_txt, "guild"); 
+
+bot::send($shoelyutto_txt, $sendto);
+
+?>

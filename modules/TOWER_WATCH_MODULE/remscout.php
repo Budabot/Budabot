@@ -40,12 +40,6 @@ if(preg_match("/^remscout( (.*))?$/i", $message)) {
 		$msg = "Usage: <symbol>remscout &lt;zone&gt; &lt;base number&gt;";
 	}
 
-    if($type == "msg") {
-        bot::send($msg, $sender);
-    } elseif($type == "priv") {
-       	bot::send($msg);
-	} elseif($type == "guild") {
-       	bot::send($msg, "guild");
-   	}
+    bot::send($msg, $sendto);
 }
 ?>

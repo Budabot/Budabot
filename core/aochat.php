@@ -267,7 +267,7 @@
       }
       return $data;
     }
-    
+
     function get_packet()
     {
       $head = $this->read_data(4);
@@ -887,13 +887,12 @@
 
       for($i=1; $i<=sizeof($dataarr); $i+=2)
       {
+		$now[0] = (int)$this -> ReduceTo32Bit($dataarr[$i]) ^ (int)$this -> ReduceTo32Bit($prev[0]);
+		$now[1] = (int)$this -> ReduceTo32Bit($dataarr[$i+1]) ^ (int)$this -> ReduceTo32Bit($prev[1]);
+		$prev   = $this -> aocrypt_permute($now, $keyarr);
 
-	$now[0] = (int)$this -> ReduceTo32Bit($dataarr[$i]) ^ (int)$this -> ReduceTo32Bit($prev[0]);
-	$now[1] = (int)$this -> ReduceTo32Bit($dataarr[$i+1]) ^ (int)$this -> ReduceTo32Bit($prev[1]);
-	$prev   = $this -> aocrypt_permute($now, $keyarr);
-
-	$ret .= $this -> SafeDecHexReverseEndian($prev[0]);
-	$ret .= $this -> SafeDecHexReverseEndian($prev[1]);
+		$ret .= $this -> SafeDecHexReverseEndian($prev[0]);
+		$ret .= $this -> SafeDecHexReverseEndian($prev[1]);
 
       }
 
@@ -1131,44 +1130,6 @@
    * F: recursive encoding
    * ~: end of message
    *
-   * Message categories:
-   *  501 : More org messages
-   *        0xad0ae9b : Organization leave because of alignment change
-   *                    s(Char)
-   *  506 : NW messages
-   *        0x0c299d4 : Tower attack
-   *                    R(Faction), s(Org), s(Char),
-   *                    R(Faction), s(Org),
-   *                    s(Zone), i(Zone-X), i(Zone-Y)
-   *        0x8cac524 : Area abandoned
-   *                    R(Faction), s(Org), s(Zone)
-   *  508 : Org messages
-   *        0x04e87e7 : Character joined the organization
-   *                    s(Inviter), s(Char)
-   *        0x2360067 : Character was kicked
-   *                    s(Kicker), s(Kicked)
-   *        0x2bd9377 : Character has left
-   *                    s(Char)
-   *        0x8487156 : Change of governing form
-   *                    s(Char), s(Form)
-   *        0x88cc2e7 : Organization disbanded
-   *                    s(Char)
-   *        0xc477095 : Vote begins
-   *                    s(Vote text), u(Minutes), s(Choices)
-   * 1001 : AI messages
-   *        0x01 : Cloak
-   *               s(Char), s(Cloak status)
-   *        0x02 : Radar alert
-   *        0x03 : Alien attack
-   *               s(Zone)
-   *        0x04 : Org HQ removed
-   *               s(Char), s(Zone)
-   *        0x05 : Building removal initiated
-   *               s(Char), R(House type), s(Zone)
-   *        0x06 : Building removed
-   *               s(Char), R(House type), s(Zone)
-   *        0x07 : Org HQ remove initiated
-   *               s(Char), s(Zone)
    *
    * Reference categories:
    *  509 : House types (?)

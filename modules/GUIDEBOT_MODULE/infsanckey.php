@@ -1,4 +1,4 @@
-<?
+<?php
 $infsanckey_txt = "<header>::::: Inferno Sanctuary Key Quest - Omni :::::<end>\n\n";
 $infsanckey_txt .= "<font color=#dddddd><a href='text://<a href='itemref://229063/229063/1'><img src='rdb://234681'></a><font color='#ffff00'>Lord Mordeth Sanctuary Key Quest Guide(<a href='chatcmd:///macro Mordeth /tell <botname> infsanckey'>Make Macro</a>):
  

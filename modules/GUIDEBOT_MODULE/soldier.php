@@ -1,6 +1,6 @@
-<?
+<?php
 $soldier_txt = "<header>::::: Guide to Soldiers :::::<end>\n\n";
-$soldier_txt = "<font color = yellow>-= Soldier =-
+$soldier_txt .= "<font color = yellow>-= Soldier =-
 
 <font color = yellow>At a glance</font>
 <font color = red>* Main Weapons: Ranged Energy, Assault Rifle, Pistol, Shotgun</font>
@@ -635,10 +635,7 @@ After that, you'll find that there are Proficiency (+10) and Expertise (+20) nan
  ";
 
 $soldier_txt = bot::makeLink("Guide to Soldiers", $soldier_txt);
-if($type == "msg")
-bot::send($soldier_txt, $sender);
-elseif($type == "all")
-bot::send($soldier_txt);
-else
-bot::send($soldier_txt, "guild");
+
+bot::send($soldier_txt, $sendto);
+
 ?>

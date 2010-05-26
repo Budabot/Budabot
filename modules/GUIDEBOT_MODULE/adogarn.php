@@ -1,4 +1,4 @@
-<?
+<?php
 $adogarn_txt = "<header>::::: Adonis Garden Nanos  :::::<end>\n\n
 <font color='#69E61E'>
 <a href='itemref://218073/218073/103'>LINK </a> Aegis of Stone - MA

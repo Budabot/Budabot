@@ -21,14 +21,8 @@
    */
 
 require_once('functions.php');
-if(preg_match("/^opentimes$/i", $message)) {
+if (preg_match("/^opentimes$/i", $message)) {
 	
-    if($type == "msg") {
-        bot::send(getTowerInfoMsg(), $sender);
-    } elseif($type == "priv") {
-       	bot::send(getTowerInfoMsg());
-    } elseif($type == "guild") {
-       	bot::send(getTowerInfoMsg(), "guild");
-    }
+    bot::send(getTowerInfoMsg(), $sendto);
 }
 ?>

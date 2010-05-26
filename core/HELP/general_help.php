@@ -29,14 +29,14 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(preg_match("/^about$/i", $message)) {
+if (preg_match("/^about$/i", $message)) {
 	$about = fopen("./core/HELP/about.txt", "r");
 	while(!feof ($about))
 		$data .= fgets ($about, 4096);
 	fclose($about);
 	$msg = bot::makeLink("About", $data);
 	bot::send($msg, $sender);
-} elseif(preg_match("/^help$/i", $message)) {
+} else if (preg_match("/^help$/i", $message)) {
 	if($help = fopen("./data/help.txt", "r")){
 		while (!feof ($help))
 			$data .= fgets ($help, 4096);
@@ -88,6 +88,6 @@ if(preg_match("/^about$/i", $message)) {
 	$link = bot::makeLink("Help(main)", $data.$msg);
 
 	bot::send($link, $sendto);
-} elseif(preg_match("/^help (.+)$/i", $message, $arr) && $type == "msg")
+} else if (preg_match("/^help (.+)$/i", $message, $arr) && $type == "msg")
 	include("help_lookup.php");
 ?>

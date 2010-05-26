@@ -48,7 +48,7 @@ if (preg_match("/^settings$/i", $message)) {
 			$num = 1;
 		}
 			
-		if ($num	> 0) {
+		if ($num > 0) {
 			if($row->module == "Basic Settings" && $row->module != $cur) {
 				$link .= "\n<highlight><u>Basic Settings</u><end>\n";
 			} elseif($row->module != "" && $row->module != $cur) {

@@ -1,6 +1,6 @@
-<?
+<?php
 $money_txt = "<header>::::: Guide to Making Money  :::::<end>\n\n";
-$money_txt = "Credits...you can never have enough of them can you? They are also quite hard to get and keep at lower levels or when you are new to the game. That in mind some of the posters in our forum put together the following guide with some advice on how to buff your bank balance on Rubi-Ka. The guide is in three main parts. Firstly Jetsirus goes through some of the ways he makes credits, then Revelat0r takes us through his thoughts on blitzing and finally Fenster explains the ins and outs of taking up a trade in AO, before I add my own pearls of wisdom about using the in game market channels
+$money_txt .= "Credits...you can never have enough of them can you? They are also quite hard to get and keep at lower levels or when you are new to the game. That in mind some of the posters in our forum put together the following guide with some advice on how to buff your bank balance on Rubi-Ka. The guide is in three main parts. Firstly Jetsirus goes through some of the ways he makes credits, then Revelat0r takes us through his thoughts on blitzing and finally Fenster explains the ins and outs of taking up a trade in AO, before I add my own pearls of wisdom about using the in game market channels
 
 Contents
 
@@ -202,10 +202,7 @@ That's the way I approach my Trading sessions, and I do go out regularly and sto
 So there you go, what are you waiting for? Get out there and shop! ";
 
 $money_txt = bot::makeLink("Guide to Making Money", $money_txt);
-if($type == "msg")
-bot::send($money_txt, $sender);
-elseif($type == "all")
-bot::send($money_txt);
-else
-bot::send($money_txt, "guild");
+
+bot::send($money_txt, $sendto);
+
 ?>

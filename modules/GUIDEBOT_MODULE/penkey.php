@@ -1,6 +1,6 @@
 <?php
 $infgarnkey_txt = "<header>::::: Information about Inferno Garden Key - Omni :::::<end>\n\n"; 
-$infgarnkey_txt ="
+$infgarnkey_txt .="
 
 <img src=rdb://234681>
 <font color = yellow>Vanya (Omni)Garden Key Quest Guide:</font>
@@ -58,10 +58,7 @@ You have to fill 5 scanners with fragments. So you need 35 Fragment of the Sourc
 "
 ;
 $infgarnkey_txt = bot::makeLink("Inferno Garden Key - Omni", $infgarnkey_txt); 
-if($type == "msg") 
-bot::send($infgarnkey_txt, $sender); 
-elseif($type == "priv") 
-bot::send($infgarnkey_text); 
-else 
-bot::send($infgarnkey_txt, "guild");
+
+bot::send($infgarnkey_txt, $sendto);
+
 ?>

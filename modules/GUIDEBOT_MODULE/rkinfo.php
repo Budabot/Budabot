@@ -1,6 +1,6 @@
-<?
+<?php
 $rkinfo_txt = "<header>::::: Rubi-Ka's Little Instruction Book - Guide to AO  :::::<end>\n\n";
-$rkinfo_txt = "<font color = blue>Rubi-Ka's Little Instruction Book</font>
+$rkinfo_txt .= "<font color = blue>Rubi-Ka's Little Instruction Book</font>
 
 OR
 
@@ -117,7 +117,7 @@ Never give up, and never stop striving for more. There will always be something 
 
 Some people never learn from their mistakes. Don't be one of those people.
 
-Hugs are Ã¼ber.
+Hugs are über.
 
 Most arguments are simple misunderstandings.
 
@@ -162,10 +162,7 @@ How fast you can run matters at times.
 At the end of a long tiring day, nothing is better than enjoying a nice sunset and a cup of ice cream with a close friend. ";
 
 $rkinfo_txt = bot::makeLink("Rubi-Ka's Little Instruction Book - Guide to AO", $rkinfo_txt);
-if($type == "msg")
-bot::send($rkinfo_txt, $sender);
-elseif($type == "all")
-bot::send($rkinfo_txt);
-else
-bot::send($rkinfo_txt, "guild");
+
+bot::send($rkinfo_txt, $sendto);
+
 ?>

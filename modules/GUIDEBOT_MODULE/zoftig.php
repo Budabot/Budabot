@@ -1,6 +1,6 @@
-<?
+<?php
 $zoftig_txt = "<header>::::: Guide to Zoftig Blimp :::::<end>\n\n";
-$zoftig_txt = " A new trader with quite the personality, one Mr. Zoftig Blimp, currently resides in the northern little town of Hope. Why anyone would set up shop at the edge of the world is beyond me, but considering the wares he peddles are in high demand, it has to be said that traffic through Mort has trippled the last day.
+$zoftig_txt .= " A new trader with quite the personality, one Mr. Zoftig Blimp, currently resides in the northern little town of Hope. Why anyone would set up shop at the edge of the world is beyond me, but considering the wares he peddles are in high demand, it has to be said that traffic through Mort has trippled the last day.
 
 Mr. Blimp, besides being a colorful chap, is quite talkative too if you want to get into the finer points of right or wrong. However, that is hardly what we are here for at the moment - rather look for a chat with this chap later, and let's get down to business.
 
@@ -30,10 +30,7 @@ The sunglasses looks damn nice on those models they fit, like for the previously
  ";
 
 $zoftig_txt = bot::makeLink("Guide to Zoftig Blimp", $zoftig_txt);
-if($type == "msg")
-bot::send($zoftig_txt, $sender);
-elseif($type == "all")
-bot::send($zoftig_txt);
-else
-bot::send($zoftig_txt, "guild");
+
+bot::send($zoftig_txt, $sendto);
+
 ?>
