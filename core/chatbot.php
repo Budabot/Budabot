@@ -58,7 +58,7 @@ class bot extends AOChat{
 		$db->query("UPDATE cmdcfg_<myname> SET `grp` = 'none'");
 		$db->query("DELETE FROM cmdcfg_<myname> WHERE `module` = 'none'");
 
-		//To reduce Query's save the current commands/events in an array
+		//To reduce query's save the current commands/events in an array
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd'");
 		while($row = $db->fObject())
 		  	$this->existing_commands[$row->type][$row->cmd] = true;
@@ -101,8 +101,6 @@ class bot extends AOChat{
 				include "./core/BASIC_CONNECTED_EVENTS/BASIC_CONNECTED_EVENTS.php";
 		if($this->settings['debug'] > 0) print("MODULE_NAME:(PRIV_TELL_LIMIT.php)\n");
 				include "./core/PRIV_TELL_LIMIT/PRIV_TELL_LIMIT.php";
-		if($this->settings['debug'] > 0) print("MODULE_NAME:(NEWCONFIG.php)\n");
-				include "./core/NEWCONFIG/NEWCONFIG.php";
 		$curMod = "";
 
 		// Load Plugin Modules
@@ -162,7 +160,7 @@ class bot extends AOChat{
 			$server = "chat.dt.funcom.com";
 			$port = 7109;
 		} else {
-			echo "No valid Server to connect with! Available dimensions are 0, 1, 2 and 3.\n";
+			echo "No valid Server to connect with! Available dimensions are 1, 2, 3 and 4.\n";
 		  	sleep(10);
 		  	die();
 		}
@@ -201,6 +199,9 @@ class bot extends AOChat{
 		// Set cron timers
 		$this->vars["2sec"] 			= time() + $this->settings["CronDelay"];
 		$this->vars["1min"] 			= time() + $this->settings["CronDelay"];
+		$this->vars["10mins"] 			= time() + $this->settings["CronDelay"];
+		$this->vars["15mins"] 			= time() + $this->settings["CronDelay"];
+		$this->vars["30mins"] 			= time() + $this->settings["CronDelay"];
 		$this->vars["1hour"] 			= time() + $this->settings["CronDelay"];
 		$this->vars["24hours"]			= time() + $this->settings["CronDelay"];
 		$this->vars["15min"] 			= time() + $this->settings["CronDelay"];
@@ -330,6 +331,8 @@ class bot extends AOChat{
 		$message = str_replace("<red>", "<font color='#ff0000'>", $message);
 		$message = str_replace("<orange>", "<font color='#FCA712'>", $message);
 		$message = str_replace("<grey>", "<font color='#C3C3C3'>", $message);
+		$message = str_replace("<cyan>", "<font color='#00FFFF'>", $message);
+
 		$message = str_replace("<myname>", "{$this->vars["name"]}", $message);
 		$message = str_replace("<tab>", "    ", $message);
 		$message = str_replace("<end>", "</font>", $message);
@@ -668,6 +671,10 @@ class bot extends AOChat{
 
 		$command = strtolower($command);
 		$module = explode("/", strtolower($filename));
+	  	
+		if($this->settings['debug'] > 1) print("Adding Subcommand to list:($command) File:($filename)\n");
+		if($this->settings['debug'] > 1) print("                    Admin:($admin) Type:($type)\n");
+		if($this->settings['debug'] > 2) sleep(1);
 
 		//Check if the file exists
 		if(($actual_filename = bot::verifyFilename($filename)) != '') {
@@ -815,13 +822,21 @@ class bot extends AOChat{
 				if(!in_array($filename, $this->_2sec))
 					$this->_2sec[] = $filename;
 			break;
-			case "1min":
-				if(!in_array($filename, $this->_1min))
-					$this->_1min[] = $filename;
+			case "1min":	
+				if(!in_array($filename, $this->_1min)) 	
+					$this->_1min[] = $filename;	
 			break;
-			case "15min":
-				if(!in_array($filename, $this->_15min))
-					$this->_15min[] = $filename;
+			case "10mins":	
+				if(!in_array($filename, $this->_10mins)) 	
+					$this->_10mins[] = $filename;	
+			break;
+			case "15mins":	
+				if(!in_array($filename, $this->_15mins))	
+					$this->_15mins[] = $filename;	
+			break;
+			case "30mins":	
+				if(!in_array($filename, $this->_30mins))	
+					$this->_30mins[] = $filename;	
 			break;
 			case "1hour":
 				if(!in_array($filename, $this->_1hour))
@@ -953,11 +968,23 @@ class bot extends AOChat{
 					unset($this->_1min[$temp[$filename]]);
 				}
 			break;
-			case "15min":
-				if(in_array($filename, $this->_15min)) {
-					$temp = array_flip($this->_15min);
-					unset($this->_15min[$temp[$filename]]);
-				}
+			case "10mins":	
+				if(in_array($filename, $this->_10mins)) {
+					$temp = array_flip($this->_10mins);
+					unset($this->_10mins[$temp[$filename]]);
+				}	
+			break;
+			case "15mins":	
+				if(in_array($filename, $this->_15mins)) {
+					$temp = array_flip($this->_15mins);
+					unset($this->_15mins[$temp[$filename]]);
+				}	
+			break;
+			case "30mins":	
+				if(in_array($filename, $this->_30mins)) {
+					$temp = array_flip($this->_30mins);
+					unset($this->_30mins[$temp[$filename]]);
+				}	
 			break;
 			case "1hour":
 				if(in_array($filename, $this->_1hour)) {
@@ -1112,10 +1139,11 @@ class bot extends AOChat{
 			return;
 		}
 
-		if(isset($this->existing_helps[$command]))
+		if (isset($this->existing_helps[$command])) {
 			$db->query("UPDATE hlpcfg_<myname> SET `verify` = 1, `description` = '$info', `cat` = '$cat' WHERE `name` = '$command'");
-		else
+		} else {
 			$db->query("INSERT INTO hlpcfg_<myname> VALUES ('$command', '$module[0]', '$cat', '$info', '$admin', 1)");
+		}
 
 		$db->query("SELECT * FROM hlpcfg_<myname> WHERE `name` = '$command'");
 		$row = $db->fObject();
@@ -1225,22 +1253,28 @@ class bot extends AOChat{
 					$message = $arr[2];
 				else
 					$message = $args[1];
-				
+
 				$message = html_entity_decode($message, ENT_QUOTES);
 
 				// Echo
 				if($this->settings['echo'] >= 1) newLine("Inc. Msg.", $sender, $message, $this->settings['echo']);
 
-                if($this->settings["Ignore"][$sender] == true || $this->banlist["$sender"]["name"] == "$sender" || ($this->spam[$sender] > 100 && $this->vars['spam protection'] == 1)){
+				// AFk check
+				if (preg_match("/^$sender is AFK (.+)$/si", $message, $arr))
+					return;
+				else if (preg_match("/^I am away from my keyboard right now, (.*)your message has been logged.$/si", $message))
+					return;
+				else if (preg_match("/^Unknown command(.+)$/si", $message, $arr))
+					return;
+				else if (preg_match("/^I am resp(.+)$/si", $message, $arr))
+					return;
+				else if (preg_match("/^I only listen (.+)$/si", $message, $arr))
+					return;
+
+				if($this->settings["Ignore"][$sender] == true || $this->banlist["$sender"]["name"] == "$sender" || ($this->spam[$sender] > 100 && $this->vars['spam protection'] == 1)){
 					$this->spam[$sender] += 20;
 					return;
 				}
-
-				// AFk check
-				if(preg_match("/^$sender is AFK (.+)$/si", $message, $arr))
-					return;
-				elseif(preg_match("/^I am away from my keyboard right now, (.*)your message has been logged.$/si", $message))
-					return;
 
 				//Remove the prefix infront if there is one
 				if($message[0] == $this->settings["symbol"] && strlen($message) > 1)
@@ -1267,7 +1301,7 @@ class bot extends AOChat{
 
 				  	//Check if a subcommands for this exists
 				  	if($this->subcommands[$filename][$type])
-					    if(preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message))
+					    if (preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message))
 							$admin = $this->subcommands[$filename][$type]["admin"];
 
 					// Admin Check
@@ -1406,7 +1440,7 @@ class bot extends AOChat{
 				$sender	 = AOChat::get_uname($args[1]);
 				$message = $args[2];
 				$channel = AOChat::get_gname($args[0]);
-			
+
 				//Ignore Messages from Vicinity/IRRK New Wire/OT OOC/OT Newbie OOC...
 				$channelsToIgnore = array("", 'IRRK News Wire', 'OT OOC', 'OT Newbie OOC', 'OT Jpn OOC', 'OT shopping 11-50',
 					'Tour Announcements', 'Neu. Newbie OOC', 'Neu. Jpn OOC', 'Neu. shopping 11-50', 'Neu. OOC', 'Clan OOC',
@@ -1455,7 +1489,7 @@ class bot extends AOChat{
                 } elseif($channel == "Org Msg"){
                     $type = "orgmsg";
     				if($this->orgmsg != NULL)
-    					foreach($this->orgmsg as $file) {
+						foreach($this->orgmsg as $file) {
     						$msg = "";
 							include $file;
     					}
@@ -1485,24 +1519,31 @@ class bot extends AOChat{
 
 
 						// Admin Check
-						if(is_numeric($admin)){
-							if($this->admins[$sender]["level"] >= $admin && $this->admins[$sender]["level"] != "")
+						if (is_numeric($admin)) {
+							if($this->admins[$sender]["level"] >= $admin && $this->admins[$sender]["level"] != "") {
 								if($filename != "")
 									include $filename;
-						}
-						elseif($admin == "guild"){
-							if(isset($this->guildmembers[$sender]))
+							} else {
+								bot::send("You do not have access to this command.", "guild");
+							}
+						} else if ($admin == "guild") {
+							if(isset($this->guildmembers[$sender])) {
 								if($filename != "")
 									include $filename;
-						}
-						elseif($admin == "guildadmin"){
-							if($this->guildmembers[$sender] <= $this->settings['guild admin level'])
+							} else {
+								bot::send("You do not have access to this command.", "guild");
+							}
+						} else if ($admin == "guildadmin") {
+							if($this->guildmembers[$sender] <= $this->settings['guild admin level']) {
 								if($filename != "")
 									include $filename;
-						}
-						elseif($admin == "all")
+							} else {
+								bot::send("You do not have access to this command.", "guild");													
+							}
+						} else if ($admin == "all") {
 							if($filename != "")
 								include $filename;
+						}
 
 						//Shows syntax errors to the user
 						if($syntax_error == true)
@@ -1560,10 +1601,24 @@ class bot extends AOChat{
 						include $filename;
 
 				break;
-			case $this->vars["15min"] < time();
-				$this->vars["15min"] 	= time() + (60 * 15);
-				if($this->_15min != NULL)
-					foreach($this->_15min as $filename)
+			case $this->vars["10mins"] < time();
+				$this->vars["10mins"] 	= time() + (60 * 10);
+				if($this->_10mins != NULL)
+					foreach($this->_10mins as $filename)
+						include $filename;
+
+				break;
+			case $this->vars["15mins"] < time();
+				$this->vars["15mins"] 	= time() + (60 * 15);
+				if($this->_15mins != NULL)
+					foreach($this->_15mins as $filename)
+						include $filename;
+
+				break;
+			case $this->vars["30mins"] < time();
+				$this->vars["30mins"] 	= time() + (60 * 30);
+				if($this->_30mins != NULL)
+					foreach($this->_30mins as $filename)
 						include $filename;
 
 				break;
