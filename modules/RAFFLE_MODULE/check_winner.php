@@ -80,6 +80,5 @@ Click <a href='chatcmd:///tell <myname> leaveRaffle'>here</a> if you wish to lea
 	if ($msg != "") {
 	    $this->vars["Raffles"]["lastmsgtime"] = time();
 	    bot::send($msg, "org");
-		bot::send($msg, "prv");
 	}
 ?>

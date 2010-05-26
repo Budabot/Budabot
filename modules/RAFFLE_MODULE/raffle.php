@@ -27,7 +27,6 @@ A raffle for $item has been started by $sender!
 Click $link to join the raffle. Raffle will end in '$minutes Minutes'.
 -----------------------------------------------------------------------";
         bot::send($msg, "org");
-		bot::send($msg, "prv");
     }
     else {
         $msg = "There is already a raffle in progress.";

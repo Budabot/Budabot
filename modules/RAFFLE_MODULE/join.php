@@ -11,7 +11,6 @@ if (preg_match("/^joinRaffle/i", $message, $arr)) {
 		$this->vars["Raffles"]["rafflees"][] = $sender;
 		$msg = "$sender has entered the raffle.";
 		bot::send($msg, "org");
-		bot::send($msg, "prv");
 	}
 }
 ?>
