@@ -256,12 +256,8 @@ if(preg_match("/^(level|lvl) ([0-9]+)$/i", $message, $arr)) {
         $msg = "The level must be between <highlight>1<end> and <highlight>220<end>";
     }
     // Send info back
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-      	bot::send($msg);
-    elseif($type == "guild")
-      	bot::send($msg, "guild");
-} else
+    bot::send($msg, $sender);
+} else {
 	$syntax_error = true;
+}
 ?>

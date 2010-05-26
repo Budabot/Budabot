@@ -41,12 +41,8 @@ if(preg_match("/^oe ([0-9]+)$/i", $message, $arr)) {
     }
     
     // Send info back
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-      	bot::send($msg);
-    elseif($type == "guild")
-      	bot::send($msg, "guild");
-} else
+    bot::send($msg, $sendto);
+} else {
 	$syntax_error = true;
+}
 ?>

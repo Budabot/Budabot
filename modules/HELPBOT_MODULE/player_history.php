@@ -31,21 +31,16 @@
 
 if(preg_match("/^history (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
-	if(!bot::get_uid($name))
+	if(!bot::get_uid($name)) {
 		$msg = "Player <highlight>$name<end> doesn't exist.";
-	else {
+	} else {
 	  	$msg = "Getting History of player <highlight>$name<end>. Please standby.";
-	    if($type == "msg")
-	        bot::send($msg, $sender);
-	    elseif($type == "priv")
-	   	    bot::send($msg);
-	    elseif($type == "guild")
-	      	bot::send($msg, "guild");		  	
+        bot::send($msg, $sendto);
 
 		$history = new history($name);
-		if($history->errorCode != 0)
+		if($history->errorCode != 0) {
 			$msg = $history->errorInfo;
-		else {
+		} else {
 			$link  = "<header>::::: History from $name ::::::<end>\n\n";
 			$link .= "<highlight>Options:<end>\n";
 			$link .= "<tab><tab><a href='chatcmd:///start $url_orig'>Show History in your browser</a>\n";
@@ -58,10 +53,12 @@ if(preg_match("/^history (.+)$/i", $message, $arr)) {
 		    $link .= "________________________________________________ \n";
 		    foreach($history->data as $key => $data) {
 		      	$level = $data["level"];
-		      	if($data["ailevel"] == "")
+		      	
+				if($data["ailevel"] == "")
 			      	$ailevel = "<green>0<end>";
 			    else
 			    	$ailevel = "<green>".$data["ailevel"]."<end>";
+				
 				if($data["faction"] == "Omni")
 			      	$faction = "<blue>Omni<end>";
 			    elseif($data["faction"] == "Clan")
@@ -79,11 +76,7 @@ if(preg_match("/^history (.+)$/i", $message, $arr)) {
 			$msg = bot::makeLink("History of $name", $link);
 		}
 	}
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-   	    bot::send($msg);
-    elseif($type == "guild")
-      	bot::send($msg, "guild");
+
+    bot::send($msg, $sendto);
 }
 ?>

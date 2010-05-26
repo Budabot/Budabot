@@ -127,15 +127,7 @@ if(preg_match("/^smileys$/i", $message)) {
 	$basiclink = bot::makeLink("Basic Smileys", $basic) ;
 	$widelink = bot::makeLink("Widely Used Smileys", $wide);
 
-	if($type == "msg") {
-		bot::send($basiclink, $sender);
-		bot::send($widelink, $sender);
-	} elseif($type == "guild") {
-		bot::send($basiclink, "guild");
-		bot::send($widelink, "guild");
- 	} else {
-		bot::send($basiclink);
-		bot::send($widelink);
-	}
+	bot::send($basiclink, $sendto);
+	bot::send($widelink, $sendto);
 }
 ?>

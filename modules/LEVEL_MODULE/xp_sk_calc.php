@@ -259,12 +259,7 @@ if(preg_match("/^(xp|sk) ([0-9]+)$/i", $message, $arr)) {
         $msg = "You need to specify a lvl between 1 and 219.";
 
     // Send info back
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-      	bot::send($msg);
-    elseif($type == "guild")
-      	bot::send($msg, "guild");
+    bot::send($msg, $sender);
 } elseif(preg_match("/^(xp|sk) ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
     if($arr[2] >= 1 && $arr[2] <= 220 && $arr[3] >= 1 && $arr[3] <= 220) {
         if($arr[2] < $arr[3]) {      	
@@ -286,12 +281,8 @@ if(preg_match("/^(xp|sk) ([0-9]+)$/i", $message, $arr)) {
         $msg = "You need to specify a lvl between 1 and 220.";
 
     // Send info back
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-       	bot::send($msg, "guild");
-} else
+    bot::send($msg, $sendto);
+} else {
 	$syntax_error = true;
+}
 ?>

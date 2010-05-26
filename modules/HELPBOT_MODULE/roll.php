@@ -54,12 +54,7 @@ if(preg_match("/^flip$/i", $message)) {
 		}		
 	}
 
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-    	bot::send($msg);
-    elseif($type == "guild")
-    	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 } elseif(preg_match("/^roll ([0-9]+)$/i", $message, $arr)) {
   	if($arr[1] > getrandmax())
 		$msg = "Can't use the number you have given me. Maximum is <highlight>".getrandmax()."<end>";
@@ -83,12 +78,7 @@ if(preg_match("/^flip$/i", $message)) {
 		}
 	}
 	  	
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-    	bot::send($msg);
-    elseif($type == "guild")
-    	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 } elseif(preg_match("/^roll ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
   	if($arr[2] >= getrandmax())
 		$msg = "Can't use the number you have given me. Maximum is <highlight>".getrandmax()."<end>";
@@ -114,12 +104,7 @@ if(preg_match("/^flip$/i", $message)) {
 		}
 	}
 	
-	if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-    	bot::send($msg);
-    elseif($type == "guild")
-    	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 } elseif(preg_match("/^verify ([0-9]+)$/i", $message, $arr)) {
 	$db->query("SELECT * FROM roll_<myname> WHERE `id` = $arr[1] ORDER BY `time`");
 	if($db->numrows() == 0)
@@ -137,12 +122,8 @@ if(preg_match("/^flip$/i", $message)) {
 	  		$msg .= "Between $row->start and $row->end i rolled a <highlight>$row->result<end>";
 	}
 	
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-    	bot::send($msg);
-    elseif($type == "guild")
-    	bot::send($msg, "guild");
-} else
+    bot::send($msg, $sendto);
+} else {
 	$syntax_error = true;
+}
 ?>
