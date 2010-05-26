@@ -79,7 +79,7 @@ if (preg_match("/^vote$/i", $message)) {
 	//////////////////////////////////////
 	if (count($sect) == 1) { // Show vote
 		
-		$db->query("SELECT * FROM $table WHERE `question` == '".str_replace("'", "''", $sect[0])."'");
+		$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[0])."'");
 		
 		if ($db->numrows() <= 0) { $msg = "Couldn't find any votes with this topic.";} 
 		
@@ -160,9 +160,9 @@ if (preg_match("/^vote$/i", $message)) {
 		if (!isset($this->vars["Vote"][$sect[1]])) {
 			$msg = "There is no such topic available.";
 		} else {
-			$db->query("SELECT * FROM $table WHERE `question` == '".str_replace("'", "''", $sect[1])."' AND `author` = '$sender' AND `duration` IS NULL");
+			$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[1])."' AND `author` = '$sender' AND `duration` IS NULL");
 			if ($db->numrows() > 0) {
-				$db->query("DELETE FROM $table WHERE `question` == '".str_replace("'", "''", $sect[1])."' AND `author` = '$sender' AND `duration` IS NULL");
+				$db->query("DELETE FROM $table WHERE `question` = '".str_replace("'", "''", $sect[1])."' AND `author` = '$sender' AND `duration` IS NULL");
 				$msg = "Your vote has been removed.";
 			} else {
 				$msg = "I don't see your vote to delete.";
@@ -172,13 +172,13 @@ if (preg_match("/^vote$/i", $message)) {
 	} elseif (count($sect) == 2 && strtolower($sect[0]) == "kill") {     // Kill vote
 		
 		if ($this->admins[$sender]["level"] >= 4) {
-			$db->query("SELECT * FROM $table WHERE `question` == '".str_replace("'", "''", $sect[1])."'");
+			$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[1])."'");
 		} else {
-			$db->query("SELECT * FROM $table WHERE `question` == '".str_replace("'", "''", $sect[1])."' AND `author` = '$sender' AND `duration` IS NOT NULL");
+			$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[1])."' AND `author` = '$sender' AND `duration` IS NOT NULL");
 		}
 		
 		if ($db->numrows() > 0) {
-			$db->query("DELETE FROM $table WHERE `question` == '".str_replace("'", "''", $sect[1])."'");
+			$db->query("DELETE FROM $table WHERE `question` = '".str_replace("'", "''", $sect[1])."'");
 			unset($this->vars["Vote"][$sect[1]]);
 			$msg = "'$sect[1]' has been removed.";
 		} else {
@@ -188,7 +188,7 @@ if (preg_match("/^vote$/i", $message)) {
 	/////////////////////////////////////////////////////////////////////////////////
 	} elseif (count($sect) == 2 && strtolower($sect[0]) == "end") {      // End vote
 
-		$db->query("SELECT * FROM $table WHERE `question` == '".str_replace("'", "''", $sect[1])."' AND `author` = '$sender' AND `duration` IS NOT NULL");
+		$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[1])."' AND `author` = '$sender' AND `duration` IS NOT NULL");
 		
 		if ($db->numrows() == 0) {$msg = "Either this vote doesn't exist, or you didn't create it.";}
 		else {
@@ -199,7 +199,7 @@ if (preg_match("/^vote$/i", $message)) {
 		
 			if ($timeleft > 60) {
 				$duration = (time()-$started)+61;
-				$db->query("UPDATE $table SET `duration` = '$duration' WHERE `author` = '$sender' AND `duration` IS NOT NULL AND `question` == '".str_replace("'", "''", $sect[1])."'");
+				$db->query("UPDATE $table SET `duration` = '$duration' WHERE `author` = '$sender' AND `duration` IS NOT NULL AND `question` = '".str_replace("'", "''", $sect[1])."'");
 				$this->vars["Vote"][$sect[1]]["duration"] = $duration;
 			} else {
 				$msg = "There is only $timeleft seconds left.";
@@ -221,7 +221,7 @@ if (preg_match("/^vote$/i", $message)) {
 		}
 
 		
-		$db->query("SELECT * FROM $table WHERE `question` == '".str_replace("'", "''", $sect[1])."' AND `duration` IS NOT NULL");
+		$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[1])."' AND `duration` IS NOT NULL");
 		$row = $db->fObject();
 		$question = $row->question; $author = $row->author; $started = $row->started;
 		$duration = $row->duration; $status = $row->status; $answer = $row->answer;
