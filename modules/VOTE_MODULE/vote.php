@@ -56,7 +56,7 @@ if (preg_match("/^vote$/i", $message)) {
 	if ($db->numrows() > 0) {
 		while($row = $db->fObject()) {
 			$question = $row->question; $started = $row->started; $duration = $row->duration;
-			$line = "<tab><a href='chatcmd:///tell <myname> vote $question'>$question</a>";
+			$line = "<tab>" . bot::makeLink($question, "/tell <myname> vote $question", 'chatcmd');
 			
 			$timeleft = $started+$duration-time();
 			if ($timeleft>0) {$running .= $line."\n(".timeLeft($timeleft)." left)\n";}
@@ -122,8 +122,7 @@ if (preg_match("/^vote$/i", $message)) {
 				else {$msg .= "$val% ";}
 				
 				if ($timeleft > 0) {
-					$msg .= "<a href='chatcmd:///tell <myname> vote " . $question;
-					$msg .= "$delimiter".$key."'>$key</a> (Votes: $value)\n";
+					$msg .= bot::makeLink($key, "/tell <myname> vote $question$delimiter$key", 'chatcmd') . "(Votes: $value)\n";
 				} else {
 					$msg .= "<highlight>$key<end> (Votes: $value)\n";
 				}
@@ -131,8 +130,8 @@ if (preg_match("/^vote$/i", $message)) {
 			
 			//if ($didvote && $timeleft > 0) {
 			if ($timeleft > 0) { // Want this option avaiable for everyone if its run from org/priv chat.
-				$msg .= "\n<black>___%<end> <a href='chatcmd:///tell <myname> vote remove";
-				$msg .= $delimiter.$question."'>Remove yourself from this vote</a>.\n";
+				$msg .= "\n<black>___%<end> ";
+				$msg .= bot::makeLink('Remove yourself from this vote', "/tell <myname> vote remove$delimiter$question", 'chatcmd') . "\n";
 			}
 			
 			if ($timeleft > 0 && $this->settings["vote_add_new_choices"] == 1 && $status == 0) {
@@ -140,9 +139,9 @@ if (preg_match("/^vote$/i", $message)) {
 			}
 			
 			$msg .="\n<highlight>If you started this vote, you can:<end>\n";
-			$msg .="<tab><a href='chatcmd:///tell <myname> vote kill$delimiter$question'>Kill</a> the vote completely.\n";
+			$msg .="<tab>" . bot::makeLink('Kill the vote completely', "/tell <myname> vote kill$delimiter$question", 'chatcmd') . "\n";
 			if ($timeleft > 0) {
-				$msg .="<tab><a href='chatcmd:///tell <myname> vote end$delimiter$question'>End</a> the vote early.";
+				$msg .="<tab>" . bot::makeLink('End the vote early', "/tell <myname> vote end$delimiter$question" , 'chatcmd');
 			}
 			
 			$db->query("SELECT * FROM $table WHERE `author` = '$sender' AND `question` = '$question' AND `duration` IS NULL");
