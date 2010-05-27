@@ -1738,7 +1738,7 @@ class bot extends AOChat{
 				$line = trim($line);
 				// don't process comment lines or blank lines
 				if ($line != '' && substr($line, 0, 1) != "#") {
-					$db->query($line);
+					$db->exec($line);
 				}
 			}
 			//$db->Commit();
