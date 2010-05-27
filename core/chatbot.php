@@ -1152,6 +1152,65 @@ class bot extends AOChat{
 		$this->helpfiles[$cat][$command]["info"] = $info;
 		$this->helpfiles[$cat][$command]["module"] = $module[0];
 	}
+	
+/*===========================================================================================
+** Name: help_lookup
+** Find a help topic for a command if it exists
+*/	function help_lookup($helpcmd) {
+		$helpcmd = strtolower($helpcmd);
+		$found = false;
+		foreach($this->helpfiles as $key1 => $value1) {
+			foreach($value1 as $key2 => $value2){  
+				if($key2 == $helpcmd) {
+					$filename = $this->helpfiles[$key1][$key2]["filename"];
+					$admin = $this->helpfiles[$key1][$key2]["admin level"];
+					$found = true;
+					break;	    
+				}
+			}
+			
+			if($found == true)
+				break;
+		}
+
+		if ($found == false) {
+			return FALSE;
+		}
+
+		$restricted = true;
+		switch($admin) {
+			case "guild":
+				if(isset($this->guildmembers[$sender]))
+					$restricted = false;
+			break;
+			case "guildadmin":
+				if($this->guildmembers[$sender] <= $this->settings['guild admin level'])
+					$restricted = false;	
+			break;
+			case "1":
+			case "2":
+			case "3":
+				if($this->admins[$sender]["level"] >= $admin)
+					$restricted = false;
+			break;
+			default:
+			case "all":
+				$restricted = false;
+			break;
+		}
+
+		if(($help = fopen($filename, "r")) && ($restricted == false)){
+			while (!feof ($help))
+				$data .= fgets ($help, 4096);
+			fclose($help);
+			$helpcmd = ucfirst($helpcmd);	
+			$msg = bot::makeLink("Help($helpcmd)", $data);
+		} else {
+			return FALSE;
+		}
+
+		return $msg;
+	}
 
 
 /*===========================================================================================
@@ -1333,13 +1392,17 @@ class bot extends AOChat{
 					$this->send("Unknown command or Access denied! for more info try /tell <myname> help", $sender);
 					$this->spam[$sender] = $this->spam[$sender] + 20;
 					return;
-				}
-				else{
+				} else {
  				    $syntax_error = false;
  				    $msg = "";
 					include $filename;
-					if($syntax_error == true)
-						bot::send("Syntax error! for more info try /tell <myname> help", $sender);
+					if ($syntax_error == true) {
+						if (($output = bot::help_lookup($message) !== FALSE) {
+							bot::send($output, $sendto);
+						} else {
+							bot::send("Syntax error! for more info try /tell <myname> help", $sendto);
+						}
+					}
 					$this->spam[$sender] = $this->spam[$sender] + 10;
 				}
 			break;
@@ -1546,8 +1609,13 @@ class bot extends AOChat{
 						}
 
 						//Shows syntax errors to the user
-						if($syntax_error == true)
-							bot::send("Syntax error! for more info try /tell <myname> help", "guild");
+						if ($syntax_error == true) {
+							if (($output = bot::help_lookup($message) !== FALSE) {
+								bot::send($output, $sendto);
+							} else {
+								bot::send("Syntax error! for more info try /tell <myname> help", $sendto);
+							}
+						}
 					}
 				}
 			break;
