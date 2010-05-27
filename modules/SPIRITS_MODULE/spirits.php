@@ -233,7 +233,7 @@ else if (preg_match("/^spirits ([0-9]+) (.+)$/i", $message, $arr)) {
 	}
 }
 	// If searched by ql range and slot
-elseif (preg_macth("/^spirits ([0-9]+)-([0-9]+) (.+)$/i", $message, $arr)) {
+elseif (preg_match("/^spirits ([0-9]+)-([0-9]+) (.+)$/i", $message, $arr)) {
 	$qllorange = $arr[1];
 	$qlhirange = $arr[2];
 	$name = $arr[3];

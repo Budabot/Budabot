@@ -140,7 +140,7 @@ if(preg_match("/^aiarmor (cc|cm|co|cp|cs|ss)$/i", $message, $arr) || preg_match(
 	$list .= bot::makeLink("Tradeskill process for this item", "/tell <myname> aiarmor $name_armor_trg $trg_ql", "chatcmd").")";
 	$msg = bot::makeLink("Building process for $ql $name_armor_result", $list);
 	bot::send($msg, $sendto);
-} elseif(preg_match("/^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual)$/i", $message, $arr) || preg_macth("/^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual) ([0-9]+)/i", $message, $arr)) {
+} elseif(preg_match("/^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual)$/i", $message, $arr) || preg_match("/^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual) ([0-9]+)/i", $message, $arr)) {
 	$armortype = ucfirst(strtolower($arr[1]));
 	if($arr[2] >= 1 && $arr[2] <= 300)
 		$ql = $arr[2];

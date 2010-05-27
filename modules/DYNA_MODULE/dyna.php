@@ -12,7 +12,7 @@
 	$links = array("Help;chatcmd:///tell <myname> help dyna");
  
 	$dynacamps = '';
-	if (preg_macth ("/^dyna ([0-2]?[0-9]?[0-9])$/i", $message, $arr)) {
+	if (preg_match ("/^dyna ([0-2]?[0-9]?[0-9])$/i", $message, $arr)) {
 		$search = str_replace(" ", "%", $arr[1]);
 		$range1 = $search - 25;
 		$range2 = $search + 25;

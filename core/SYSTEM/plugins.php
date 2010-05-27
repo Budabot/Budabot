@@ -140,6 +140,6 @@ unset($this->existing_helps);
 $db->query("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0");
 $db->query("DELETE FROM hlpcfg_<myname> WHERE `verify` = 0");
 
-bot::send("Reload of the Modules completed.", $sender);
+bot::send("Reload of the Modules completed.", $sendto);
 print("!!!Reload of all Modules is done!!!\n");
 ?>
