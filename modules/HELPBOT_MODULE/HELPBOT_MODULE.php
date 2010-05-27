@@ -34,9 +34,6 @@
 	//Player History
 	bot::command("", "$MODULE_NAME/player_history.php", "history", "guild", "Show a history of a player");
 	
-	//Whereis
-	bot::command("", "$MODULE_NAME/whereis.php", "whereis", "guild", "Show where places/uniques are on RK");
-	
 	//Smileys
 	bot::command("", "$MODULE_NAME/smileys.php", "smileys", "guild", "The meaning of different Smileys");
 	
@@ -54,7 +51,6 @@
 
 	//Helpfiles
 	bot::help("whois", "$MODULE_NAME/whois.txt", "guild", "Show char stats at current and all dimensions", "Helpbot");
-    bot::help("whereis", "$MODULE_NAME/whereis.txt", "guild", "Show infos about NPCs and Locations", "Helpbot");
     bot::help("biomat", "$MODULE_NAME/biomat.txt", "guild", "Identify an Biomaterial", "Helpbot");
     bot::help("calculator", "$MODULE_NAME/calculator.txt", "guild", "Calculator", "Helpbot");
     bot::help("oe", "$MODULE_NAME/oe.txt", "guild", "Calculating the OE ranges", "Helpbot");

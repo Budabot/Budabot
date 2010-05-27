@@ -3,7 +3,7 @@
 	$PLUGIN_VERSION = 0.1;
 	$FOLDER = $dir;
 	
-	bot::loadSQLFile('levels');
+	bot::loadSQLFile($MODULE_NAME, 'levels');
 
     //PVP Ranges
 	bot::command("", "$MODULE_NAME/pvp_ranges.php", "pvp", "all", "Show PVP ranges");
