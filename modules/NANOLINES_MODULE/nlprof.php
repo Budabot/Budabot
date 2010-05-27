@@ -35,9 +35,14 @@
 
 if (preg_match("/^nlprof (.*)$/i", $message, $arr)) {
 
-	$profession = $arr[1];
+	$profession = strtolower($arr[1]);
+	if ($profession == 'nt') {
+		$profession = 'nano';
+	} else if ($profession == 'mp') {
+		$profession = 'meta';
+	}
 
-	$sql = "SELECT * FROM aonanos_nanolines WHERE profession LIKE '$profession%' ORDER BY name ASC";
+	$sql = "SELECT * FROM aonanos_nanolines WHERE profession LIKE '%$profession%' ORDER BY name ASC";
 	$db->query($sql);
 
 	$count = 0;
