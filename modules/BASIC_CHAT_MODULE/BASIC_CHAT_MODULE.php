@@ -14,7 +14,7 @@
 	bot::event("joinPriv", "$MODULE_NAME/topic.php", "topic", "Show Topic when someone joins PrivChat");
 	bot::event("logOn", "$MODULE_NAME/topic_logon.php", "none", "Show Topic on logon of members");
 	bot::command("", "$MODULE_NAME/topic.php", "topic", "all", "Show Topic");
-	bot::subcommand("msg", "$MODULE_NAME/topic.php", "topic (.+)", "leader", "topic", "Change Topic");
+	bot::subcommand("", "$MODULE_NAME/topic.php", "topic (.+)", "leader", "topic", "Change Topic");
 	bot::addsetting("topic", "Topic for Priv Channel", "noedit", "No Topic set.");	
 	bot::addsetting("topic_setby", "no", "hide", "none");
 	bot::addsetting("topic_time", "no", "hide", time());
@@ -41,11 +41,11 @@
 	bot::command("priv", "$MODULE_NAME/tell.php", "tell", "all", "Repeats a Message 3times");
 	
 	//updateme
-	bot::command("msg", "$MODULE_NAME/updateme.php", "updateme", "all", "Updates Charinfos from a player");
+	bot::command("", "$MODULE_NAME/updateme.php", "updateme", "all", "Updates Charinfos from a player");
 
 	//Set admin and user news
-	bot::command("msg", "$MODULE_NAME/set_news.php", "privnews", "rl", "Set news that are shown on privjoin");
-	bot::command("msg", "$MODULE_NAME/set_news.php", "adminnews", "mod", "Set adminnews that are shown on privjoin");
+	bot::command("", "$MODULE_NAME/set_news.php", "privnews", "rl", "Set news that are shown on privjoin");
+	bot::command("", "$MODULE_NAME/set_news.php", "adminnews", "mod", "Set adminnews that are shown on privjoin");
 	bot::addsetting("news", "no", "hide", "Not set.");
 	bot::addsetting("adminnews", "no", "hide", "Not set.");	
 	

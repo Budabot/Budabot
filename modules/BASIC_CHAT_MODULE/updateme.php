@@ -29,29 +29,32 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(preg_match("/^updateme$/i", $message)) {
+if (preg_match("/^updateme$/i", $message)) {
   	$rk_num = $this->vars["dimension"];
   	$cache = $this->vars["cachefolder"];
-  	if(file_exists("$cache/$sender.$rk_num.xml")) {
-	    if(!unlink("$cache/$sender.$rk_num.xml")) {
-		  	bot::send("An Error occurred while trying to update your infos. Please try again laters.", $sender);
+  	if (file_exists("$cache/$sender.$rk_num.xml")) {
+	    if (!unlink("$cache/$sender.$rk_num.xml")) {
+		  	bot::send("An Error occurred while trying to update your infos. Please try again laters.", $sendto);
 		  	return;
 		}
 	    
 	    $info = new whois($sender);
-	    if($info->errorCode != 0) {
-		  	bot::send("An Error occurred while trying to update your infos. Please try again laters.", $sender);
+	    if ($info->errorCode != 0) {
+		  	bot::send("An Error occurred while trying to update your infos. Please try again laters.", $sendto);
 		  	return;
 		}
 		
 		$db->query("SELECT * FROM priv_chatlist_<myname> WHERE `name` = '$sender'");
 
-		if($db->numrows() != 0)
+		if ($db->numrows() != 0) {
 		    $db->query("UPDATE priv_chatlist_<myname> SET `faction` = '{$info->faction}', `profession` = '{$info->prof}', `guild` = '{$info->org}', `breed` = '{$info->breed}', `level` = {$info->level}, `ai_level` = {$info->ai_level} WHERE `name` = '$sender'");
+		}
 
-		bot::send("Update successfull.", $sender);
-	} else
-		bot::send("No update needed.", $sender);
-} else
+		bot::send("Update successfull.", $sendto);
+	} else {
+		bot::send("No update needed.", $sendto);
+	}
+} else {
 	$syntax_error = true;
+}
 ?>

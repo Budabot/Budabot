@@ -36,7 +36,7 @@ if($this->settings["topic"] != "" && $type == "joinPriv") {
 	$mins = floor($mins - ($hours * 60));
 	$days = floor($hours / 24);
 	$hours = floor($hours - ($days * 24));
-  	bot::send("<highlight>Topic:<end> {$this->settings["topic"]} [set by <highlight>{$this->settings["topic_setby"]}<end>][<highlight>{$days}days, {$hours}hrs and {$mins}mins ago<end>]", $sender);
+  	bot::send("<highlight>Topic:<end> {$this->settings["topic"]} [set by <highlight>{$this->settings["topic_setby"]}<end>][<highlight>{$days}days, {$hours}hrs and {$mins}mins ago<end>]", $sendto);
 } elseif(preg_match("/^topic$/i", $message, $arr)) {
 	$time = time() - $this->settings["topic_time"];
 	$mins = floor($time / 60);
@@ -45,35 +45,18 @@ if($this->settings["topic"] != "" && $type == "joinPriv") {
 	$days = floor($hours / 24);
 	$hours = floor($hours - ($days * 24));
 	$msg = "<highlight>Topic:<end> {$this->settings["topic"]} [set by <highlight>{$this->settings["topic_setby"]}<end>][<highlight>{$days}days, {$hours}hrs and {$mins}mins ago<end>]";
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-       	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 } elseif(preg_match("/^topic clear$/i", $message, $arr)) {
   	bot::savesetting("topic_time", time());
   	bot::savesetting("topic_setby", $sender);
   	bot::savesetting("topic", "No Topic set atm.");
 	$msg = "Topic has been cleared.";
-
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-       	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 } elseif(preg_match("/^topic (.+)$/i", $message, $arr)) {
   	bot::savesetting("topic_time", time());
   	bot::savesetting("topic_setby", $sender);
   	bot::savesetting("topic", $arr[1]);
 	$msg = "Topic has been updated.";
-
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-       	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 }
 ?>

@@ -32,10 +32,7 @@
 if(preg_match("/^privnews clear$/i", $message)) {
 	bot::savesetting("news", "Not set.");
 	$msg = "News has been cleared.";
-	if($type == "priv")
-		bot::send($msg);
-	elseif($type == "msg")
-		bot::send($msg, $sender);
+	bot::send($msg, $sendto);
 } elseif(preg_match("/^privnews (.+)$/i", $message, $arr)) {
 	$news = $arr[1];
  	if(strlen($news) > 300) {
@@ -44,17 +41,11 @@ if(preg_match("/^privnews clear$/i", $message)) {
 		bot::savesetting("news", $news);	
 		$msg = "News has been set.";
 	}
-	if($type == "priv")
-		bot::send($msg);
-	elseif($type == "msg")
-		bot::send($msg, $sender);	
+	bot::send($msg, $sendto);
 } elseif(preg_match("/^adminnews clear$/i", $message)) {
  	bot::savesetting("adminnews", "Not set.");
 	$msg = "Adminnews has been cleared.";
-	if($type == "priv")
-		bot::send($msg);
-	elseif($type == "msg")
-		bot::send($msg, $sender);
+	bot::send($msg, $sendto);
 } elseif(preg_match("/^adminnews (.+)$/i", $message, $arr)) {
 	$news = $arr[1];
  	if(strlen($news) > 300) {
@@ -63,9 +54,6 @@ if(preg_match("/^privnews clear$/i", $message)) {
 		bot::savesetting("adminnews", $news);	
 		$msg = "Adminnews has been set.";
 	}
-	if($type == "priv")
-		bot::send($msg);
-	elseif($type == "msg")
-		bot::send($msg, $sender);	
+	bot::send($msg, $sendto);
 }
 ?>
