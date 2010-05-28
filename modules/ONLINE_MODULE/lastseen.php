@@ -29,29 +29,30 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(preg_match("/^lastseen (.+)$/i", $message, $arr)) {
+if (preg_match("/^lastseen (.+)$/i", $message, $arr)) {
 	// Get User id
     $uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
-    if(!$uid)
+    if (!$uid) {
         $msg = "Player <highlight>$name<end> does not exist.";
-    else {
+    } else {
 	    $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$name' AND `mode` != 'del'");
-        if($db->numrows() == 1) {
+        if ($db->numrows() == 1) {
     	    $row = $db->fObject();
-    	    if($this->buddyList[$name] == 1)
+    	    if ($this->buddyList[$name] == 1) {
     	    	$msg = "This player is currently <green>online<end>.";
-            elseif($row->logged_off != "0")
+            } else if ($row->logged_off != "0") {
         	    $msg = "Logged off at ".gmdate("l F d, Y - H:i", $row->logged_off)."(GMT)";
-        	else
+        	} else {
         		$msg = "No Record for this player.";
-        } else
+			}
+        } else {
         	$msg = "This player is not a member of this Org.";
+		}
 	}
-    if($type == "msg")
- 	   bot::send($msg, $sender);
-    elseif($type == "guild")
-	   bot::send($msg, "guild");
-} else
+
+	bot::send($msg, $sendto);
+} else {
 	$syntax_error = true;
+}
 ?>

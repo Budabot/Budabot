@@ -1,7 +1,6 @@
 <?php
 
 if (preg_match("/^svn update/i", $message)) {
-	
 	$command = "svn update --non-interactive";
 	$output = array();
 	$return_var = '';
@@ -16,7 +15,6 @@ if (preg_match("/^svn update/i", $message)) {
 	
 	bot::send($msg, $sendto);
 } else if (preg_match("/^svn info/i", $message)) {
-	
 	$command = "svn info";
 	$output = array();
 	$return_var = '';
