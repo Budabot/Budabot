@@ -822,21 +822,21 @@ class bot extends AOChat{
 				if(!in_array($filename, $this->_2sec))
 					$this->_2sec[] = $filename;
 			break;
-			case "1min":	
-				if(!in_array($filename, $this->_1min)) 	
-					$this->_1min[] = $filename;	
+			case "1min":
+				if(!in_array($filename, $this->_1min))
+					$this->_1min[] = $filename;
 			break;
-			case "10mins":	
-				if(!in_array($filename, $this->_10mins)) 	
-					$this->_10mins[] = $filename;	
+			case "10mins":
+				if(!in_array($filename, $this->_10mins))
+					$this->_10mins[] = $filename;
 			break;
-			case "15mins":	
-				if(!in_array($filename, $this->_15mins))	
-					$this->_15mins[] = $filename;	
+			case "15mins":
+				if(!in_array($filename, $this->_15mins))
+					$this->_15mins[] = $filename;
 			break;
-			case "30mins":	
-				if(!in_array($filename, $this->_30mins))	
-					$this->_30mins[] = $filename;	
+			case "30mins":
+				if(!in_array($filename, $this->_30mins))
+					$this->_30mins[] = $filename;
 			break;
 			case "1hour":
 				if(!in_array($filename, $this->_1hour))
@@ -968,23 +968,23 @@ class bot extends AOChat{
 					unset($this->_1min[$temp[$filename]]);
 				}
 			break;
-			case "10mins":	
+			case "10mins":
 				if(in_array($filename, $this->_10mins)) {
 					$temp = array_flip($this->_10mins);
 					unset($this->_10mins[$temp[$filename]]);
-				}	
+				}
 			break;
-			case "15mins":	
+			case "15mins":
 				if(in_array($filename, $this->_15mins)) {
 					$temp = array_flip($this->_15mins);
 					unset($this->_15mins[$temp[$filename]]);
-				}	
+				}
 			break;
-			case "30mins":	
+			case "30mins":
 				if(in_array($filename, $this->_30mins)) {
 					$temp = array_flip($this->_30mins);
 					unset($this->_30mins[$temp[$filename]]);
-				}	
+				}
 			break;
 			case "1hour":
 				if(in_array($filename, $this->_1hour)) {
@@ -1160,12 +1160,12 @@ class bot extends AOChat{
 		$helpcmd = strtolower($helpcmd);
 		$found = false;
 		foreach($this->helpfiles as $key1 => $value1) {
-			foreach($value1 as $key2 => $value2){  
+			foreach($value1 as $key2 => $value2){
 				if($key2 == $helpcmd) {
 					$filename = $this->helpfiles[$key1][$key2]["filename"];
 					$admin = $this->helpfiles[$key1][$key2]["admin level"];
 					$found = true;
-					break;	    
+					break;
 				}
 			}
 			
@@ -1185,7 +1185,7 @@ class bot extends AOChat{
 			break;
 			case "guildadmin":
 				if($this->guildmembers[$sender] <= $this->settings['guild admin level'])
-					$restricted = false;	
+					$restricted = false;
 			break;
 			case "1":
 			case "2":
@@ -1203,7 +1203,7 @@ class bot extends AOChat{
 			while (!feof ($help))
 				$data .= fgets ($help, 4096);
 			fclose($help);
-			$helpcmd = ucfirst($helpcmd);	
+			$helpcmd = ucfirst($helpcmd);
 			$msg = bot::makeLink("Help($helpcmd)", $data);
 		} else {
 			return FALSE;
@@ -1397,7 +1397,7 @@ class bot extends AOChat{
  				    $msg = "";
 					include $filename;
 					if ($syntax_error == true) {
-						if (($output = bot::help_lookup($message) !== FALSE) {
+						if (($output = bot::help_lookup($message) !== FALSE)) {
 							bot::send($output, $sendto);
 						} else {
 							bot::send("Syntax error! for more info try /tell <myname> help", $sendto);
@@ -1601,7 +1601,7 @@ class bot extends AOChat{
 								if($filename != "")
 									include $filename;
 							} else {
-								bot::send("You do not have access to this command.", "guild");													
+								bot::send("You do not have access to this command.", "guild");
 							}
 						} else if ($admin == "all") {
 							if($filename != "")
@@ -1610,7 +1610,7 @@ class bot extends AOChat{
 
 						//Shows syntax errors to the user
 						if ($syntax_error == true) {
-							if (($output = bot::help_lookup($message) !== FALSE) {
+							if (($output = bot::help_lookup($message) !== FALSE)) {
 								bot::send($output, $sendto);
 							} else {
 								bot::send("Syntax error! for more info try /tell <myname> help", $sendto);
