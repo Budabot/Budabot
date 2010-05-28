@@ -1,5 +1,5 @@
 <?php
-	$MODULE_NAME = "ADV_GUILD_MODULE";
+	$MODULE_NAME = "NEWS_MODULE";
 	$PLUGIN_VERSION = 1.0;
 
 	//News
