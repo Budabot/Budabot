@@ -32,43 +32,9 @@
 if(!$sender) {
     if(preg_match("/^(.+) turned the cloaking device in your city (on|off).$/i", $message, $arr)) {
         $msg = "<highlight>".$arr[1]." turned the cloaking device in your city ".$arr[2];
-        if($arr[2] == "on" && $this->settings["city_attack_spam"] == 0) {
-            bot::send($msg, NULL, true);
-		} elseif($arr[2] == "on" && $this->settings["city_attack_spam"] == 1) {
-            bot::send($msg, "guild", true);
-		} elseif($arr[2] == "on" && $this->settings["city_attack_spam"] == 2) {
-            bot::send($msg, "guild", true);
-            bot::send($msg, NULL, true);            
-        } elseif($arr[2] == "off" && $this->settings["city_attack_spam"] == 0) {
-            bot::send($msg, NULL, true);
-		} elseif($arr[2] == "off" && $this->settings["city_attack_spam"] == 1) {
-            bot::send($msg, "guild", true);
-		} elseif($arr[2] == "off" && $this->settings["city_attack_spam"] == 2) {
-            bot::send($msg, "guild", true);
-            bot::send($msg, NULL, true);
-        }
         $db->query("INSERT INTO org_city_<myname> (`time`, `action`, `player`) VALUES ('".time()."', '".$arr[2]."', '".$arr[1]."')");
     } else if(preg_match("/^Your city in (.+) has been targeted by hostile forces.$/i", $message, $arr)) {
-        $msg = "Alien attack incoming! Beware!";
-		if($this->settings["city_attack_spam"] == 0) {
-            bot::send($msg, NULL, true);
-		} elseif($this->settings["city_attack_spam"] == 1) {
-            bot::send($msg, "guild", true);
-		} elseif($this->settings["city_attack_spam"] == 2) {
-            bot::send($msg, "guild", true);
-            bot::send($msg, NULL, true);
-        }
         $db->query("INSERT INTO org_city_<myname> (`time`, `action`) VALUES ('".time()."', 'Attack')");
-    } else if(preg_match("/^Your radar station is picking up alien activity in the area surrounding your city.$/i", $message, $arr))        {
-        $msg = "Our city is under attack!!! RUN!!!!";
-		if($this->settings["city_attack_spam"] == 0) {
-            bot::send($msg, NULL, true);
-		} elseif($this->settings["city_attack_spam"] == 1) {
-            bot::send($msg, "guild", true);
-		} elseif($this->settings["city_attack_spam"] == 2) {
-            bot::send($msg, "guild", true);
-            bot::send($msg, NULL, true);
-        }
     }
 } elseif(preg_match("/^city$/i", $message)) {
     $db->query("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 0, 20 ");

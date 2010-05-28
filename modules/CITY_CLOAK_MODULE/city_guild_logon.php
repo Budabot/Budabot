@@ -55,9 +55,7 @@ if (isset($this->guildmembers[$sender])) {
 			$case = 2;
 		}
 		
-		if ($this->settings["showcloakstatus"] >= $case) {
-			bot::send($msg, $sender);
-		}
+		bot::send($msg, $sender);
     }
 }
 

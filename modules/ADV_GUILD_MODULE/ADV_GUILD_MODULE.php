@@ -8,12 +8,6 @@
 	bot::subcommand("", "$MODULE_NAME/news.php", "news (.+)", "guildadmin", "news", "Add News");
 	bot::subcommand("", "$MODULE_NAME/news.php", "news del (.+)", "guildadmin", "news", "Delete a Newsentry");
 
-	//Citycloak
-    bot::command("guild", "$MODULE_NAME/city_guild.php", "city", "all", "Shows the status of the Citycloak");
-    bot::event("guild", "$MODULE_NAME/city_guild.php", "city");
-    bot::event("1min", "$MODULE_NAME/city_guild_timer.php", "city");
-	bot::addsetting("city_attack_spam", "Showing City Attacks in", "edit", "2", "PrivateGroup;Guild;PrivateGroup and Guild", "0;1;2", "mod");
-
 	//Guildrelay
   	bot::event("guild", "$MODULE_NAME/relay_guild_out.php", "grc", "Send Guildrelay messages");
 	bot::event("logOn", "$MODULE_NAME/relay_guild_logon.php", "grc", "Sends Logon messages");
@@ -28,7 +22,6 @@
 	bot::event("setup", "$MODULE_NAME/setup.php");
 
 	//Helpfiles
-	bot::help("citycloak", "$MODULE_NAME/citycloak.txt", "guild", "Status of the citycloak", "Org Commands");
 	bot::help("guildrelay", "$MODULE_NAME/guildrelay.txt", "guild", "How to relay chats between two guilds", "Org Commands");
 	bot::help("news", "$MODULE_NAME/news.txt", "guild", "News", "Org Commands");
 ?>
