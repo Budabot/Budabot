@@ -6,8 +6,6 @@
 	bot::event("setup", "$MODULE_NAME/setup.php");
     
 	// Logon Handling
-	bot::event("logOn", "$MODULE_NAME/logon_guild.php", "none", "Shows a logon from a member");
-	bot::event("logOff", "$MODULE_NAME/logoff_guild.php", "none", "Shows a logoff from a member");
 	bot::command("", "$MODULE_NAME/logon_msg.php", "logon", "all", "Sets a Logon Msg");
 
     // Afk Check
