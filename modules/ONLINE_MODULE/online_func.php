@@ -73,9 +73,51 @@ function online($type, $sender, $sendto, &$bot, $prof = "all")
 	}
 	$numonline += $numguest;
 
-	$msg .= "<highlight>".$numonline."<end> members are online ";
+	$msg .= "<highlight>".$numonline."<end> members are online.";
+
+	// BBIN part
+	if ($bot->settings["bbin_status"] == 1)
+	{
+		// members
+		$db->query("SELECT * FROM bbin_chatlist_<myname> WHERE (`guest` = 0) ORDER BY `profession`, `level` DESC");
+		$numbbinmembers = $db->numrows();
+		$data = $db->fObject("all");
+		if ($numbbinmembers == 1)
+		{
+			$list .= "\n\n<highlight><u>1 member in BBIN<end></u>\n";
+		}
+		else
+		{
+			$list .= "\n\n<highlight><u>$numbbinmembers members in BBIN<end></u>\n";
+		}
+		createList($data, $sender, $list, $type, $bot);
+		
+		// guests
+		$db->query("SELECT * FROM bbin_chatlist_<myname> WHERE (`guest` = 1) ORDER BY `profession`, `level` DESC");
+		$numbbinguests = $db->numrows();
+		$data = $db->fObject("all");
+		if ($numbbinguests == 1)
+		{
+			$list .= "\n\n<highlight><u>1 guest in BBIN<end></u>\n";
+		}
+		else
+		{
+			$list .= "\n\n<highlight><u>$numbbinguests guests in BBIN<end></u>\n";
+		}
+		createList($data, $sender, $list, $type, $bot);
+		
+		$numonline += $numbbinguests + $numbbinmembers;
+		
+		$msg .= " <green>BBIN<end>:".($numbbinguests + $numbbinmembers)." online";
+	}
+	else
+	{
+		$msg .= " <red>BBIN: NC<end>";
+	}
 
 
+
+	$msg .= ".";
 	return array ($numonline, $msg, $list);
 
 }
@@ -87,7 +129,7 @@ function createList(&$data, &$sender, &$list, &$type, &$bot, $show_alts = false)
 	$oldprof = "";
 	foreach($data as $row) {
 		$name = bot::makeLink($row->name, "/tell $row->name", "chatcmd");
-	  
+		 
 		if($row->profession == "")
 		$row->profession = "Unknown";
 		if($oldprof != $row->profession)
@@ -185,3 +227,4 @@ function createList(&$data, &$sender, &$list, &$type, &$bot, $show_alts = false)
 }
 
 ?>
+
