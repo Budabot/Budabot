@@ -16,7 +16,10 @@ stream_set_blocking($bbin_socket, 0);
 if(($data = fgets($bbin_socket)) && ($this->settings['bbin_status'] = "1")) {
 	$ex = explode(' ', $data);
 	$ex[3] = substr($ex[3],1,strlen($ex[3]));
-	echo $data;
+	if($this->settings['bbin_debug_messages'] == 1) 
+	{
+		echo $data."\n";
+	}
 	$channel = rtrim(strtolower($ex[2]));
 	$nicka = explode('@', $ex[0]);
 	$nickb = explode('!', $nicka[0]);
