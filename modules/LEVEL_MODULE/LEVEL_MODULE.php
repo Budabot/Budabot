@@ -9,8 +9,8 @@
 	bot::command("", "$MODULE_NAME/pvp_ranges.php", "pvp", "all", "Show PVP ranges");
 
     //Level Infos
-	bot::command("", "$MODULE_NAME/levels.php", "level", "all", "Show level ranges");
-	bot::command("", "$MODULE_NAME/levels.php", "lvl", "all", "Show level ranges");
+	bot::command("", "$MODULE_NAME/level.php", "level", "all", "Show level ranges");
+	bot::command("", "$MODULE_NAME/level.php", "lvl", "all", "Show level ranges");
 	bot::regGroup("lvlrng", $MODULE_NAME, "Show level ranges", "lvl", "level");
 
 	//Missions
