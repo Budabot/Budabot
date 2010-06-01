@@ -5,7 +5,9 @@ if (!function_exists(getweatherdata)){
 	function getweatherdata ($host, $port, $url) {
 		
 		$ip = gethostbyname($host); $port = 80;
-		if ($ip == $host) {return -1;} // Failed to get host
+		if ($ip == $host) {
+			return -1;
+		} // Failed to get host
 		
 		if (!($server = @fsockopen($ip, $port, $errno, $errstr, 5))) { // we connect?
 			return -2;
@@ -13,7 +15,9 @@ if (!function_exists(getweatherdata)){
 		
 		$request = "GET $url HTTP/1.1\r\nHost: $host\r\nUser-Agent: Mozilla/4.0 (compatible; MSIE 7.0b; Windows NT 6.0)\r\nAccept: text/xml,application/xml,application/xhtml+xml,text/html\r\nAccept-Language: en-us,en;q=0.5\r\nAccept-Encoding: gzip,deflate\r\nKeep-Alive: 300\r\nConnection: Keep-Alive\r\nCache-Control: max-age=0\r\n\r\n";
 		fputs($server, $request);
-		while (!feof($server)) { $stream .= fread($server, 8192); }
+		while (!feof($server)) { 
+			$stream .= fread($server, 8192);
+		}
 		fclose($server);
 		
 		$stream = substr($stream, strpos( $stream, "\r\n\r\n") +4); //remove packet info
@@ -125,9 +129,17 @@ if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 	$visibilitykm = xml::spliceData($current, "<visibility_km>", "</visibility_km>");
 	
 	$latlonstr  = number_format(abs($lat), 1);
-	if (abs($lat) == $lat) { $latlonstr .= "N ";} else { $latlonstr .= "S ";}
+	if (abs($lat) == $lat) {
+		$latlonstr .= "N ";
+	} else {
+		$latlonstr .= "S ";
+	}
 	$latlonstr .= number_format(abs($lon), 1);
-	if (abs($lon) == $lon) { $latlonstr .= "E ";} else { $latlonstr .= "W ";}
+	if (abs($lon) == $lon) {
+		$latlonstr .= "E ";
+	} else {
+		$latlonstr .= "W ";
+	}
 	$latlonstr .= bot::makeLink("Google Map", "/start http://maps.google.com/maps?q=$lat,$lon", "chatcmd")." ";
 	$latlonstr .= bot::makeLink("Wunder Map", "/start http://www.wunderground.com/wundermap/?lat=$lat&lon=$lon&zoom=10", "chatcmd")."\n\n";
 	$blob  = "<highlight>Credit:<end> ".bot::makeLink($credit, "/start $crediturl", "chatcmd")."\n";
@@ -139,9 +151,17 @@ if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 	$blob .= "<highlight>Humidity:<end> $humidity\n";
 	$blob .= "<highlight>Dew Point:<end> $dewstr\n";
 	$blob .= "<highlight>Wind:<end> $windstr";
-	if ($windgust) {$blob .= " (Gust:$windgust mph)\n";} else {$blob .= "\n";}
-	if ($heatstr != "NA") {$blob .= "<highlight>Heat Index:<end> $heatstr\n";}
-	if ($windchillstr != "NA") {$blob .= "<highlight>Windchill:<end> $windchillstr\n";}
+	if ($windgust) {
+		$blob .= " (Gust:$windgust mph)\n";
+	} else {
+		$blob .= "\n";
+	}
+	if ($heatstr != "NA") {
+		$blob .= "<highlight>Heat Index:<end> $heatstr\n";
+	}
+	if ($windchillstr != "NA") {
+		$blob .= "<highlight>Windchill:<end> $windchillstr\n";
+	}
 	$blob .= "<highlight>Pressure:<end> $pressurestr\n";
 	$blob .= "<highlight>Visibility:<end> $visibilitymi miles, $visibilitykm km\n";
 	$blob .= "<highlight>Elevation:<end> $elevation\n";
@@ -153,7 +173,7 @@ if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 	if (count($alertitems) == 0) {
 		$blob .= "\n<header>Alerts:<end> None reported.\n";
 	} else {
-		foreach ($alertitems as $thisalert) {
+		forEach ($alertitems as $thisalert) {
 
 			$blob .= "\n<header>Alert: ".xml::spliceData($thisalert, "<description>", "</description>")."<end>\n\n";
 			// gotta find date/expire manually.
@@ -174,9 +194,11 @@ if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 	$forecastday = xml::spliceMultiData($simpleforecast, "<forecastday>", "</forecastday>");
 	if (count($forecastday)>0) {
 		$blob .= "\n<header>Forecast:<end>\n\n";
-		foreach ($forecastday as $day) {
+		forEach ($forecastday as $day) {
 			
-			if (!($condition = xml::spliceData($day, "<conditions>", "</conditions>"))) {break;}
+			if (!($condition = xml::spliceData($day, "<conditions>", "</conditions>"))) {
+				break;
+			}
 			
 			$low[0] = xml::spliceData($day, "<low>", "</low>");
 			$low[1] = xml::spliceData($low[0], "<fahrenheit>", "</fahrenheit");
@@ -187,7 +209,11 @@ if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 			$pop = xml::spliceData($day, "<pop>", "</pop>");
 			
 			$blob .= "<highlight>".xml::spliceData($day, "<weekday>", "</weekday>").":<end> $condition";
-			if (0 == $pop) {$blob .= "\n";} else {$blob .= " ($pop% Precip)\n";}
+			if (0 == $pop) {
+				$blob .= "\n";
+			} else {
+				$blob .= " ($pop% Precip)\n";
+			}
 			
 			$blob .= "<highlight>High:<end> ";
 			$blob .= fix_num_space($high[1],3)."F";
