@@ -1,6 +1,0 @@
-<header>::::: Help on PVP range Command. :::::<end>
-
-<red>Since the PVP ranges has been changed the shown ranges are maybe not totally correct<end>
-
-<highlight>Shows the ranges with that the given lvl can pvp<end>
-<tab><symbol>pvp 'insert level here'

@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (preg_match("/^(level|lvl) ([0-9]+)$/i", $message, $arr)) {
+if (preg_match("/^(level|lvl|pvp) ([0-9]+)$/i", $message, $arr)) {
 	$db->query("SELECT * FROM levels WHERE level = $arr[2]");
 	if (($row == $db->fObject()) !== FALSE)
         "<white>L $row->level: team {$row->teamMin}-{$row->teamMax}<end><highlight> | <end><red> PvP {$row->pvpMin}-{$row->pvpMax} <end><highlight> | <end><yellow>{$row->xpsk} XP/SK<end><highlight> | <end><orange>  Missions {$row->missions} <end><highlight> | <end><blue>{$row->tokens} token(s)<end>";
