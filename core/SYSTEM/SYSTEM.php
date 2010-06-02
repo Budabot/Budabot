@@ -18,9 +18,9 @@
 	bot::regcommand("priv", "$MODULE_NAME/shutdown.php", "shutdown", "admin");
 	bot::regcommand("guild", "$MODULE_NAME/shutdown.php", "shutdown", "admin");
 	
-	bot::regcommand("msg", "$MODULE_NAME/uptime.php", "uptime", "rl");
-	bot::regcommand("priv", "$MODULE_NAME/uptime.php", "uptime", "rl");
-	bot::regcommand("guild", "$MODULE_NAME/uptime.php", "uptime", "guild");
+	bot::regcommand("msg", "$MODULE_NAME/uptime.php", "uptime", "all");
+	bot::regcommand("priv", "$MODULE_NAME/uptime.php", "uptime", "all");
+	bot::regcommand("guild", "$MODULE_NAME/uptime.php", "uptime", "all");
 
 	//Help Files
 	bot::help("systemhelp", "$MODULE_NAME/system.txt", "admin", "Admin System Help file.", "Administration");
