@@ -32,37 +32,18 @@
 if(preg_match("/^orgranks$/i", $message)) {
 	if($this->vars["my guild id"] == "") {
 	  	$msg = "The Bot needs to be in a org to show the orgmembers.";
-	  	// Send info back
-	    if($type == "msg")
-	        bot::send($msg, $sender);
-	    elseif($type == "priv")
-	       	bot::send($msg);
-	    elseif($type == "guild")
-	       	bot::send($msg, "guild");
+        bot::send($msg, $sendto);
 	}
 	
 	$db->query("SELECT * FROM org_members_<myname> WHERE `mode` != 'del' ORDER BY `rank_id`");  
 	$members = $db->numrows();
   	if($members == 0) {
 	  	$msg = "No members recorded.";
-	  	// Send info back
-	    if($type == "msg")
-	        bot::send($msg, $sender);
-	    elseif($type == "priv")
-	       	bot::send($msg);
-	    elseif($type == "guild")
-	       	bot::send($msg, "guild");	    
+        bot::send($msg, $sendto);
 	}
-	
-	
+
 	$msg = "Processing orgmember list. This can take a few seconds.";
-  	// Send info back
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-       	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
        	
 	$list = "<header>::::: Members of the org {$this->vars["my guild"]}(Sorted by orgrank) :::::<end>\n\n";
 	while($row = $db->fObject()) {
@@ -75,13 +56,8 @@ if(preg_match("/^orgranks$/i", $message)) {
 	}
 	
 	$msg = bot::makeLink("{$this->vars["my guild"]} has $members members currently.", $list);
- 	// Send info back
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-       	bot::send($msg, "guild");
-} else
+    bot::send($msg, $sendto);
+} else {
 	$syntax_error = true;
+}
 ?>
