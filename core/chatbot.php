@@ -352,7 +352,15 @@ class bot extends AOChat{
 /*===============================
 ** Name: send
 ** Send chat messages back to aochat servers thru aochat.
-*/	function send($message, $who = 'prv', $disable_relay = false){
+*/	function send($message, $who = 'prv', $disable_relay = false) {
+		// for when makeLink generates several pages
+		if (is_array($message)) {
+			forEach ($message as $page) {
+				$this->send($page, $who, $disable_relay);
+			}
+			return;
+		}
+
 		if ($who == 'guild') {
 			$who = 'org';
 		}
