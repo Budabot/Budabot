@@ -13,6 +13,7 @@
 
 	//Missions
 	bot::command("", "$MODULE_NAME/missions.php", "mission", "all");
+	bot::command("", "$MODULE_NAME/missions.php", "missions", "all");
 	
 	//XP/SK/AXP Calculator
 	bot::command("", "$MODULE_NAME/xp_sk_calc.php", "sk", "all", "SK Calculator");

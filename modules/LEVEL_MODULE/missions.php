@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (preg_match("/^mission ([0-9]+)$/i", $message, $arr)) {
+if (preg_match("/^(mission|missions) ([0-9]+)$/i", $message, $arr)) {
 	if ($arr[1] > 0 && $arr[1] <= 250) {
 		$msg = "QL{$arr[1]} missions can be rolled from these level players:";
 	
