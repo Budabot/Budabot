@@ -36,23 +36,23 @@ foreach($bior as $key => $value) {
 	  	$rem = $bior[$key]["b"] - time();
 	  	if($rem >= 319 && $rem <= 321) {
 	  		$msg = "<blue>20sec remaining on Bio Regrowth.<end>";
-	  		bot::send($msg);
+	  		bot::send($msg, $sendto);
 	  	} elseif($rem >= 305 && $rem <= 307) {
 	  	  	$pos = array_search($key, $blist);
 	  	  	if(isset($blist[$pos + 1]))
 	  	  		$next = " <yellow>Next is {$blist[$pos + 1]}<end>";
 	  		$msg = "<blue>6sec remaining on Bio Regrowth.$next<end>";  		
-	  		bot::send($msg);
+	  		bot::send($msg, $sendto);
 	  	} elseif($rem >= 299 && $rem <= 301) {
 	  	  	$pos = array_search($key, $blist);
 	  	  	if(isset($blist[$pos + 1]))
 	  	  		$next = " <yellow>Next is {$blist[$pos + 1]}<end>";
 	  		$msg = "<blue>Bio Regrowth has terminated.$next<end>";
-	  		bot::send($msg);
+	  		bot::send($msg, $sendto);
 	  	} elseif($rem <= 0) {
 	  		$msg = "<blue>Bio Regrowth is ready on $key.<end>";
 	  		$bior[$key]["b"] = "ready";
-	  		bot::send($msg);
+	  		bot::send($msg, $sendto);
 	  	}
 	}
 }

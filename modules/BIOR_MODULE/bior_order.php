@@ -79,5 +79,5 @@ else {
   	foreach($blist as $player)
 		bot::send($msg, $player);
 }
-bot::send($msg);
+bot::send($msg, $sendto);
 ?>
