@@ -39,9 +39,6 @@
 	bot::event("logOn", "$MODULE_NAME/logon_guild.php", "none", "Shows a logon from a member");
 	bot::event("logOff", "$MODULE_NAME/logoff_guild.php", "none", "Shows a logoff from a member");
 
-	//Setup
-	bot::event("setup", "$MODULE_NAME/setup.php");
-
 	//Helpfiles
 	bot::help("chatlist", "$MODULE_NAME/chatlist.txt", "all", "Showing who is in the private group", "Raidbot");
 	bot::help("online", "$MODULE_NAME/online.txt", "guild", "Show who is on from the guild", "Basic Guild Commands");
