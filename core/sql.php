@@ -39,6 +39,7 @@ class db {
 	private $pass;
 	private $host;
 	private $botname;
+	private $lastQuery;
 	public $errorCode = 0;
 	public $errorInfo;
 	
@@ -88,7 +89,8 @@ class db {
 			$this->CreateTable($stmt);
 			return;
 		}
-	
+
+		$this->lastQuery = $stmt;
       	$result = $this->sql->query($stmt);
       	
 		if(is_object($result)) {
@@ -125,6 +127,7 @@ class db {
 			return;
 		}
 		
+		$this->lastQuery = $stmt;
       	$aff_rows = $this->sql->exec($stmt);
 
 		$error = $this->sql->errorInfo();
@@ -148,6 +151,7 @@ class db {
 			$stmt = str_ireplace(" INT ", " INTEGER ", $stmt);
         }
 		
+		$this->lastQuery = $stmt;
 		$this->sql->exec($stmt);
 
 		$error = $this->sql->errorInfo();
@@ -243,6 +247,10 @@ class db {
 			}
 			return $table_info;
 		}
+	}
+	
+	function getLastQuery() {
+		return $this->lastQuery;
 	}
 }
 ?>
