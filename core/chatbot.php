@@ -375,9 +375,11 @@ class bot extends AOChat{
 		// Send
 		if($message == 'addbuddy') // Addbuddy
 			AOChat::buddy_add($who);
+			if ($this->settings['echo'] >= 1) newLine("Buddy", $who, "buddy added", $this->settings['echo']);
 		elseif($message == 'rembuddy') { // Rembuddy
 			AOChat::buddy_remove($who);
 			unset($this->buddyList[$who]);
+			if ($this->settings['echo'] >= 1) newLine("Buddy", $who, "buddy removed", $this->settings['echo']);
 		} elseif($message == 'isbuddy') {
             if(AoChat::buddy_exists($who))
                 return true;
