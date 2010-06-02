@@ -33,7 +33,7 @@ if (preg_match("/^mission ([0-9]+)$/i", $message, $arr)) {
 	if ($arr[1] > 0 && $arr[1] <= 250) {
 		$msg = "QL{$arr[1]} missions can be rolled from these level players:";
 	
-		$db->query("SELECT * FROM levels WHERE level = $arr[2]");
+		$db->query("SELECT * FROM levels WHERE level = $arr[1]");
 		while (($row == $db->fObject()) !== FALSE) {
 			$array = explode(",", $row->missions);
 			if (in_array($arr[1], $array)) {
