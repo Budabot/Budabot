@@ -60,5 +60,5 @@ else {
 		bot::send($msg, $player);
   	}
 }
-bot::send($msg);
+bot::send($msg, $sendto);
 ?>
