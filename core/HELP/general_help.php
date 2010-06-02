@@ -35,7 +35,7 @@ if (preg_match("/^about$/i", $message)) {
 		$data .= fgets ($about, 4096);
 	fclose($about);
 	$msg = bot::makeLink("About", $data);
-	bot::send($msg, $sender);
+	bot::send($msg, $sendto);
 } else if (preg_match("/^help$/i", $message)) {
 	if($help = fopen("./data/help.txt", "r")){
 		while (!feof ($help))
@@ -95,4 +95,5 @@ if (preg_match("/^about$/i", $message)) {
 		bot::send("No help found on this topic.", $sendto);
 	}
 }
+
 ?>
