@@ -31,8 +31,12 @@
 
 if (preg_match("/^(xp|sk) ([0-9]+)$/i", $message, $arr)) {
 	$db->query("SELECT * FROM levels WHERE level = $arr[2]");
-	if (($row == $db->fObject()) !== FALSE) {
-        $msg = "With lvl <highlight>{$row->level}<end> you need <highlight>".number_format($row->)."<end> XP/SK to level up.";
+	if (($row = $db->fObject()) != FALSE) {
+		if ($arr[2] >= 200) {
+			$msg = "With lvl <highlight>{$row->level}<end> you need <highlight>".number_format($row->xpsk)."<end> SK to level up.";
+		} else {
+			$msg = "With lvl <highlight>{$row->level}<end> you need <highlight>".number_format($row->xpsk)."<end> XP to level up.";
+		}
     } else {
         $msg = "You need to specify a lvl between 1 and 219.";
 	}
@@ -43,18 +47,20 @@ if (preg_match("/^(xp|sk) ([0-9]+)$/i", $message, $arr)) {
     if ($arr[2] >= 1 && $arr[2] <= 220 && $arr[3] >= 1 && $arr[3] <= 220) {
         if ($arr[2] < $arr[3]) {
 			$db->query("SELECT * FROM levels WHERE level >= $arr[2] AND level < $arr[3]");
-			while (($row == $db->fObject()) !== FALSE) {
+			$xp = 0;
+			$sk = 0;
+			while (($row = $db->fObject()) != FALSE) {
                 if ($row->level < 200) {
                     $xp += $row->xpsk;
                 } else {
                     $sk += $row->xpsk;
 				}
             }
-            if ($sk && $xp) {
+            if ($sk > 0 && $xp > 0) {
                 $msg = "From the beginning of <highlight>".$arr[2]."<end> to <highlight>".$arr[3]."<end>, you need <highlight>".number_format($xp)."<end> XP and <highlight>".number_format($sk)."<end> SK.";
-            } else if ($sk && !$xp) {
+            } else if ($sk > 0) {
                 $msg = "From the beginning of <highlight>".$arr[2]."<end> to <highlight>".$arr[3]."<end>, you need <highlight>" .number_format($sk)."<end> SK.";
-            } else if (!$sk && $xp) {
+            } else if ($xp > 0) {
                 $msg = "From the beginning of <highlight>".$arr[2]."<end> to <highlight>".$arr[3]."<end>, you need <highlight>".number_format($xp)."<end> XP.";
 			}
         } else {
