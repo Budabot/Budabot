@@ -32,7 +32,7 @@
 if (preg_match("/^(level|lvl|pvp) ([0-9]+)$/i", $message, $arr)) {
 	$db->query("SELECT * FROM levels WHERE level = $arr[2]");
 	if (($row == $db->fObject()) !== FALSE)
-        "<white>L $row->level: team {$row->teamMin}-{$row->teamMax}<end><highlight> | <end><red> PvP {$row->pvpMin}-{$row->pvpMax} <end><highlight> | <end><yellow>{$row->xpsk} XP/SK<end><highlight> | <end><orange>  Missions {$row->missions} <end><highlight> | <end><blue>{$row->tokens} token(s)<end>";
+        $msg = "<white>L $row->level: team {$row->teamMin}-{$row->teamMax}<end><highlight> | <end><red> PvP {$row->pvpMin}-{$row->pvpMax} <end><highlight> | <end><yellow>{$row->xpsk} XP/SK<end><highlight> | <end><orange>  Missions {$row->missions} <end><highlight> | <end><blue>{$row->tokens} token(s)<end>";
     } else{
         $msg = "The level must be between <highlight>1<end> and <highlight>220<end>";
     }

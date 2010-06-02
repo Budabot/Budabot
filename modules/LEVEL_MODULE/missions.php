@@ -36,7 +36,7 @@ if (preg_match("/^mission ([0-9]+)$/i", $message, $arr)) {
 		$db->query("SELECT * FROM levels WHERE level = $arr[2]");
 		while (($row == $db->fObject()) !== FALSE) {
 			$array = explode(",", $row->missions);
-			if (in_array($arr[1], $array) {
+			if (in_array($arr[1], $array)) {
 				$msg .= " " . $row->level;
 			}
 		}
