@@ -33,7 +33,7 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot)
 				"VALUES ('$name', '$character->faction', '$character->prof', '$character->org', '$character->breed', '$character->level', '$character->ai_level', $guest, $servernum, '$nick')");
 
 		// send notification to channels
-		$msg = "<highlight>$name<end> (<highlight>{$character->level}<end>/<green>{$character->ai_level}<end>, <highlight>{$character->prof}<end>, $character->faction) has joined the network";
+		$msg = "<highlight>$name<end> (<highlight>{$character->level}<end>/<green>{$character->ai_level}<end>, <highlight>{$character->prof}<end>, $character->faction) {$character->rank} of {$character->org} has joined the network";
 		if ($guest == 1)
 		{
 			$msg .= " as a guest";
@@ -124,7 +124,7 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot)
 		$db->query("DELETE FROM bbin_chatlist_<myname> WHERE `ircrelay` = '$nick'");
 		
 		// Format: [BBIN:ONLINELIST:dimension:name,isguest,name,isguest....]
-		$dimension = $arr[1];	
+		$dimension = $arr[1];
 		$listplode = explode(',', $arr[2]);
 
 		// listplode should be: {name,isguest,name,isguest ...}
