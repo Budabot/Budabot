@@ -108,16 +108,9 @@ function online($type, $sender, $sendto, &$bot, $prof = "all")
 		
 		$numonline += $numbbinguests + $numbbinmembers;
 		
-		$msg .= " <green>BBIN<end>:".($numbbinguests + $numbbinmembers)." online";
-	}
-	else
-	{
-		$msg .= " <red>BBIN: NC<end>";
+		$msg .= " <green>BBIN<end>:".($numbbinguests + $numbbinmembers)." online.";
 	}
 
-
-
-	$msg .= ".";
 	return array ($numonline, $msg, $list);
 
 }
