@@ -8,7 +8,7 @@
    */
    
 global $socket;
-if($this->settings['irc_status'] = "1") {
+if("1" == $this->settings['irc_status']) {
 	if($type == "leavePriv") {
 		flush();
 		fputs($socket, "PRIVMSG ".$this->settings['irc_channel']." :$sender has left the private chat.\n");

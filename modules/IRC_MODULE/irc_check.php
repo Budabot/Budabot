@@ -10,7 +10,7 @@
 global $socket;
 
 stream_set_blocking($socket, 0);
-if(($data = fgets($socket)) && ($this->settings['irc_status'] = "1")) {
+if(($data = fgets($socket)) && ("1" == $this->settings['irc_status'])) {
 	$ex = explode(' ', $data);
 	$ex[3] = substr($ex[3],1,strlen($ex[3]));
 	$rawcmd = rtrim(htmlspecialchars($ex[3]));

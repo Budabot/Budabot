@@ -8,7 +8,7 @@
    */
    
 global $socket;
-if($this->settings['irc_status'] = "1") {
+if("1" == $this->settings['irc_status']) {
 	$whois = new whois($sender);
 	if($whois->org == "")
 		$whois->org = "Not in a guild";

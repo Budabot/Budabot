@@ -9,7 +9,7 @@
    */
    
 global $bbin_socket;
-if($this->settings['bbin_status'] = "1") {
+if("1" == $this->settings['bbin_status']) {
 	// do not relay commands and ignored chars
 	if($args[2][0] != $this->settings["symbol"] && !$this->settings["Ignore"][$sender]) {
 		

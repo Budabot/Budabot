@@ -8,7 +8,7 @@
    */
    
 global $socket;
-if($this->settings['irc_status'] = "1") {
+if("1" == $this->settings['irc_status']) {
 	if($args[2][0] != $this->settings["symbol"] && !$this->settings["Ignore"][$sender] && $irc = "active") {
 		
 		$patterns = array(

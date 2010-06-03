@@ -13,10 +13,10 @@ global $db;
 require_once("bbin_func.php");
 
 stream_set_blocking($bbin_socket, 0);
-if(($data = fgets($bbin_socket)) && ($this->settings['bbin_status'] = "1")) {
+if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
 	$ex = explode(' ', $data);
 	$ex[3] = substr($ex[3],1,strlen($ex[3]));
-	if($this->settings['bbin_debug_messages'] == 1) 
+	if($this->settings['bbin_debug_messages'] == 1)
 	{
 		echo $data."\n";
 	}

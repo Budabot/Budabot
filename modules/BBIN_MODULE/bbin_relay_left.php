@@ -9,7 +9,7 @@
    */
    
 global $bbin_socket;
-if($this->settings['bbin_status'] = "1") {
+if("1" == $this->settings['bbin_status']) {
 	
 	$msg = "[BBIN:LOGOFF:".$sender.",".$this->vars["dimension"].",";
 	
