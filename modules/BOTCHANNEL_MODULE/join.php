@@ -30,15 +30,11 @@
    */
    
 if (preg_match("/^join$/i", $message)) {
- 	$db->query("SELECT * FROM members_<myname> WHERE `name` = '$sender'");
-	$on_guest_list = $db->numrows();
+ 	$db->query("SELECT * FROM members_<myname> WHERE `name` = '$sender' UNION SELECT * FROM org_members_<myname> WHERE `name` = '$sender'");
 	
-	if ($this->settings["guest_man_join"] == 1 && $on_guest_list == 1) {
+	// if user is on guest list, or user is an org member, or manual join mode is open for everyone, then invite them
+	if ($db->numrows() > 0 || $this->settings["guest_man_join"] == 0) {
 		$this->vars["Guest"][$sender] = false;
-		AOChat::privategroup_kick($sender);
-		AOChat::privategroup_invite($sender);
-	} else if($this->settings["guest_man_join"] == 0) {
- 	    $this->vars["Guest"][$sender] = false;
 		AOChat::privategroup_kick($sender);
 		AOChat::privategroup_invite($sender);
 	} else {

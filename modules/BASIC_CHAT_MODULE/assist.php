@@ -41,7 +41,7 @@ if (preg_match("/^assist$/i", $message)) {
 	if (count($nameArray) == 1) {
 		$name = ucfirst(strtolower($arr[1]));
 		$uid = AoChat::get_uid($name);
-		if($type == "priv" &&!isset($this->chatlist[$name])) {
+		if ($type == "priv" &&!isset($this->chatlist[$name])) {
 			$msg = "Player <highlight>$name<end> isn't in this bot.";
 			bot::send($msg, $sendto);
 		}
@@ -57,12 +57,12 @@ if (preg_match("/^assist$/i", $message)) {
 	} else {
 		forEach ($nameArray as $key => $name) {
 			$name = ucfirst(strtolower($name));
-			if($type == "priv" &&!isset($this->chatlist[$name])) {
+			if ($type == "priv" &&!isset($this->chatlist[$name])) {
 				$msg = "Player <highlight>$name<end> isn't in this bot.";
 				bot::send($msg, $sendto);
 			}
 			
-			if(!$uid) {
+			if (!$uid) {
 				$msg = "Player <highlight>$name<end> does not exist.";
 				bot::send($msg, $sendto);
 			}
