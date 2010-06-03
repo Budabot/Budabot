@@ -15,7 +15,6 @@ require_once("bbin_func.php");
 stream_set_blocking($bbin_socket, 0);
 if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
 	$ex = explode(' ', $data);
-	$ex[3] = substr($ex[3],1,strlen($ex[3]));
 	if($this->settings['bbin_debug_messages'] == 1)
 	{
 		echo $data."\n";
@@ -75,13 +74,14 @@ if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
 		else
 		{
 			// yay someone else was kicked
+			$db->query("DELETE FROM bbin_chatlist_<myname> WHERE `ircrelay` = '$ex[3]'");
 			if($this->vars['my guild'] != "")
 			{
-				bot::send("<yellow>[BBIN]<end> The uplink".$ex[3]." was kicked from the server:".$extendedinfo,"guild",true);
+				bot::send("<yellow>[BBIN]<end> The uplink ".$ex[3]." was kicked from the server:".$extendedinfo,"guild",true);
 			}
 			if($this->vars['my guild'] == "" ||$this->settings["guest_relay"] == 1)
 			{
-				bot::send("<yellow>[BBIN]<end> The uplink".$ex[3]." was kicked from the server:".$extendedinfo,"priv",true);
+				bot::send("<yellow>[BBIN]<end> The uplink ".$ex[3]." was kicked from the server:".$extendedinfo,"priv",true);
 			}
 		}
 	}
@@ -110,6 +110,8 @@ if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
 	}
 	elseif($channel == trim(strtolower($this->settings['bbin_channel'])))
 	{
+		// tweak the third message a bit to remove beginning ":"
+		$ex[3] = substr($ex[3],1,strlen($ex[3]));
 		for ($i = 3; $i < count($ex); $i++)
 		{
 			$bbinmessage .= rtrim(htmlspecialchars_decode($ex[$i]))." ";
