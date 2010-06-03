@@ -66,9 +66,10 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 		}
 		
 		//Get Guestlistbuddys
+		unset($this->members);
 		$db->query("SELECT * FROM members_<myname>");
 		while($row = $db->fObject())
-			$guests[$row->name] = true;
+			$this->members[$row->name] = true;
 		
 		//Start the transaction
 		$db->beginTransaction();
@@ -131,7 +132,7 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 
 		// Removing buddies that are still left and not otherwise used
 		foreach($buddies as $key => $value) {
-		    if((!isset($guests[$key])) && (!isset($this->admins[$key])) && (!isset($this->members)) && ($dbentrys[$key]["mode"] != "man"))
+		    if((!isset($this->members[$key])) && (!isset($this->admins[$key])) && ($dbentrys[$key]["mode"] != "man"))
 				bot::send("rembuddy", $key);
 		}
 			
