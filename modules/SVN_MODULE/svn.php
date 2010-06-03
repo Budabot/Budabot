@@ -1,7 +1,7 @@
 <?php
 
 if (preg_match("/^svn update/i", $message)) {
-	$command = "svn update --non-interactive";
+	$command = "svn update --accept " . $this->settings['svnconflict'];
 	$output = array();
 	$return_var = '';
 	exec($command, $output, $return_var);
