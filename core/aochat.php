@@ -598,10 +598,6 @@
 
       return $this->send_packet(new AOChatPacket("out", AOCP_PRIVGRP_JOIN, $gid));
     }
-    function join_privgroup($group) /* Deprecated - 2004/Mar/26 - auno@auno.org */
-    {
-      return $this->privategroup_join($group);
-    }
 
     function privategroup_invite($user)
     {
