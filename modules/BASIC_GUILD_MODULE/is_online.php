@@ -38,17 +38,18 @@ if (preg_match("/^is (.+)$/i", $message, $arr)) {
         $msg = "Player <highlight>$name<end> does not exist.";
     else {
         //if the player is a buddy then
-        if(bot::send("isbuddy", $name)) {
+        if ($this->isBuddy($name, NULL)) {
             $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$name' AND `mode` != 'del'");
             if($db->numrows() == 1) {
                 $row = $db->fObject();
                 if($row->logged_off != "0")
                     $logged_off = "\nLogged off at ".gmdate("l F d, Y - H:i", $row->logged_off)."(GMT)";
             }
-            if($this->buddyList[$name] == "0")
-                $status = "<red>offline<end>".$logged_off;
-            else
+            if ($this->buddy_online($name)) {
                 $status = "<green>online<end>";
+            } else {
+                $status = "<red>offline<end>".$logged_off;
+			}
             $msg = "Player <highlight>$name<end> is $status";
         // else add him
         } else {
@@ -56,20 +57,21 @@ if (preg_match("/^is (.+)$/i", $message, $arr)) {
 			if ($type == "msg") {
 	        	$this->vars["IgnoreLogSender"][$name] = $sender;
 			}
-            bot::send("addbuddy", $uid);
-            bot::send("rembuddy", $uid);
+            $this->buddy_add($name);
+            $this->buddy_remove($name);
         }
     }
-    if($msg) {
+    if ($msg) {
         bot::send($msg, $sendto);
     }
 } elseif (($type == "logOn") || ($type == "logOff")) {
     //If $sender is marked as player to check online status
     if($this->vars["IgnoreLog"][$sender]) {
-        if($this->buddyList[$sender] == "0")
-            $status = "<red>offline<end>";
-        else
+        if ($this->buddy_online($sender)) {
             $status = "<green>online<end>";
+        } else {
+            $status = "<red>offline<end>";
+		}
         $msg = "Player <highlight>$sender<end> is $status";
 
         if($this->vars["IgnoreLog"][$sender] == "priv")

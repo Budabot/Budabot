@@ -112,22 +112,24 @@ if(preg_match("/^alts add (.+)$/i", $message, $arr)) {
             $list = "<header>::::: Alternative Character List :::::<end> \n \n";
             $list .= ":::::: Main Character\n";
             $list .= "<tab><tab>".bot::makeLink($main, "/tell ".$this->vars["name"]." whois $main", "chatcmd")." - ";
-            if(!isset($this->buddyList[$main]))
+            if (!isset($this->buddyList[$main])) {
                 $list .= "No status.\n";
-            elseif($this->buddyList[$main] == 1)
+            } else if ($this->buddy_online($main)) {
                 $list .= "<green>Online<end>\n";
-            else
+            } else {
                 $list .= "<red>Offline<end>\n";
+			}
             $list .= ":::::: Alt Character(s)\n";
             $db->query("SELECT * FROM alts WHERE `main` = '$main'");
             while($row = $db->fObject()) {
                 $list .= "<tab><tab>".bot::makeLink($row->alt, "/tell ".$this->vars["name"]." whois $row->alt", "chatcmd")." - ";
-                if(!isset($this->buddyList[$row->alt]))
+                if (!isset($this->buddyList[$row->alt])) {
                     $list .= "No status.\n";
-                elseif($this->buddyList[$row->alt] == 1)
+                } else if ($this->buddy_online($row->alt)) {
                     $list .= "<green>Online<end>\n";
-                else
+                } else {
                     $list .= "<red>Offline<end>\n";
+				}
             }
             $msg = bot::makeLink($main."`s Alts", $list);
         }
@@ -154,23 +156,25 @@ if(preg_match("/^alts add (.+)$/i", $message, $arr)) {
         $list = "<header>::::: Alternative Character List :::::<end> \n \n";
         $list .= ":::::: Main Character\n";
         $list .= "<tab><tab>".bot::makeLink($main, "/tell ".$this->vars["name"]." whois $main", "chatcmd")." - ";
-        if(!isset($this->buddyList[$main]))
+        if (!isset($this->buddyList[$main])) {
             $list .= "No status.\n";
-        elseif($this->buddyList[$main] == 1)
+        } else if ($this->buddy_online($main)) {
             $list .= "<green>Online<end>\n";
-        else
+        } else {
             $list .= "<red>Offline<end>\n";
+		}
             
         $list .= ":::::: Alt Character(s)\n";
         $db->query("SELECT * FROM alts WHERE `main` = '$main'");
         while($row = $db->fObject()) {
             $list .= "<tab><tab>".bot::makeLink($row->alt, "/tell ".$this->vars["name"]." whois $row->alt", "chatcmd")." - ";
-            if(!isset($this->buddyList[$row->alt]))
+            if (!isset($this->buddyList[$row->alt])) {
                 $list .= "No status.\n";
-            elseif($this->buddyList[$row->alt] == 1)
+            } else if ($this->buddy_online($row->alt)) {
                 $list .= "<green>Online<end>\n";
-            else
+            } else {
                 $list .= "<red>Offline<end>\n";
+			}
         }
         $msg = bot::makeLink($sender."`s Alts", $list);
     }

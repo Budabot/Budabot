@@ -33,7 +33,7 @@
 	// valid states for action are: 'on', 'off', 'Attack'
     $db->query("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 1 ");
 
-    if($db->numrows() != 0)
+    if ($db->numrows() != 0)
     {
 	    $msg = "";
         $row = $db->fObject();
@@ -60,16 +60,16 @@
 	        if ($msg)
 	        {
 		        // send message to main if he/she is online
-		        if($this->buddyList[$row->player] == 1)
+		        if ($this->buddy_online($row->player))
 		        {
 					bot::send($msg, $row->player);
 				}
 				
 				// send message to any online alts
 		        $db->query("SELECT * FROM `alts` WHERE `main` = (SELECT `main` FROM `alts` WHERE `main` = '$row->player' or `alt` = '$row->player' LIMIT 1)");
-		        while($nextAlt = $db->fObject())
+		        while ($nextAlt = $db->fObject())
 		        {
-			        if($this->buddyList[$nextAlt->alt] == 1)
+			        if ($this->buddy_online($nextAlt->alt))
 			        {
 						bot::send($msg, $nextAlt->alt);
 					}

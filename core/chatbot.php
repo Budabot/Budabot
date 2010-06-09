@@ -31,6 +31,8 @@
 
 class bot extends AOChat{
 
+	var $buddyTypes = array();
+
 /*===============================
 ** Name: __construct
 ** Constructor of this class.
@@ -340,8 +342,50 @@ class bot extends AOChat{
 
 		return $message;
 	}
+	
+/*===============================
+** Name: send
+** Send chat messages back to aochat servers thru aochat.
+*/	function addBuddy($name, $type) {
+		$this->buddyTypes[$name]['types'][$type] = 1;
+		AOChat::buddy_add($who);
+		if ($this->settings['echo'] >= 1) newLine("Buddy", $who, "buddy added (type: $type)", $this->settings['echo']);
+	}
+	
+/*===============================
+** Name: send
+** Send chat messages back to aochat servers thru aochat.
+*/	function removeBuddy($name, $type) {
+		unset($this->buddyList[$name]['types'][$type]);
+		if ($this->settings['echo'] >= 1) newLine("Buddy", $who, "buddy type removed (type: $type)", $this->settings['echo']);
+		
+		if (count($this->buddyList[$name]['types']) == 0) {
+			AOChat::buddy_remove($who);
+			unset($this->buddyList[$who]);
+			if ($this->settings['echo'] >= 1) newLine("Buddy", $who, "buddy removed", $this->settings['echo']);
+		}
+	}
+	
+/*===============================
+** Name: send
+** Send chat messages back to aochat servers thru aochat.
+*/	function isBuddy($name, $type) {
+		if ($type == null || $type == false) {
+			return isset($this->buddyTypes[$name])
+		} else {
+			return isset($this->buddyTypes[$name]['types'][$type])
+		}
+	}
 
 	function sendPrivate($message, $group, $disable_relay = false) {
+		// for when makeLink generates several pages
+		if (is_array($message)) {
+			forEach ($message as $page) {
+				$this->send($page, $group, $disable_relay);
+			}
+			return;
+		}
+	
 		$message = bot::formatMessage($message);
 		AOChat::send_privgroup($group,$this->settings["default priv color"].$message);
 		if (($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1 && !$disable_relay)) {
@@ -371,20 +415,7 @@ class bot extends AOChat{
 		$message = bot::formatMessage($message);
 
 		// Send
-		if ($message == 'addbuddy') {// Addbuddy
-			AOChat::buddy_add($who);
-			if ($this->settings['echo'] >= 1) newLine("Buddy", $who, "buddy added", $this->settings['echo']);
-		} else if ($message == 'rembuddy') { // Rembuddy
-			AOChat::buddy_remove($who);
-			unset($this->buddyList[$who]);
-			if ($this->settings['echo'] >= 1) newLine("Buddy", $who, "buddy removed", $this->settings['echo']);
-		} else if ($message == 'isbuddy') {
-            if (AoChat::buddy_exists($who)) {
-                return true;
-            } else {
-                return false;
-			}
-        } else if ($who == 'prv') { // Target is private chat by defult.
+		if ($who == 'prv') { // Target is private chat by defult.
 			AOChat::send_privgroup($this->vars["name"],$this->settings["default priv color"].$message);
 			if ($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1 && !$disable_relay) {
 				AOChat::send_group($this->vars["my guild"], "</font>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}".bot::makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default priv color"]}$message</font>");
@@ -1230,9 +1261,6 @@ class bot extends AOChat{
                 if($this->settings["Ignore"][$sender] == true || $sender == "")
 					return;
 
-				// Update buddylist array
-				$this->buddyList[$sender] = $status;
-
 				// If Status == 0(logoff) if Status == 1(logon)
 				if ($status == 0) {
 					$type = "logOff"; // Set message type
@@ -1278,16 +1306,18 @@ class bot extends AOChat{
 				// Echo
 				if($this->settings['echo'] >= 1) newLine("Inc. Msg.", $sender, $message, $this->settings['echo']);
 
-				// AFk check
-				if (preg_match("/^$sender is AFK (.+)$/si", $message, $arr))
+				// AFK/bot check
+				if (preg_match("/^$sender is AFK/si", $message, $arr))
 					return;
-				else if (preg_match("/^I am away from my keyboard right now, (.*)your message has been logged.$/si", $message))
+				else if (preg_match("/^I am away from my keyboard right now/si", $message))
 					return;
-				else if (preg_match("/^Unknown command(.+)$/si", $message, $arr))
+				else if (preg_match("/^Unknown command/si", $message, $arr))
 					return;
-				else if (preg_match("/^I am resp(.+)$/si", $message, $arr))
+				else if (preg_match("/^I am responding/si", $message, $arr))
 					return;
-				else if (preg_match("/^I only listen (.+)$/si", $message, $arr))
+				else if (preg_match("/^I only listen/si", $message, $arr))
+					return;
+				else if (preg_match("/^Error!/si", $message, $arr))
 					return;
 
 				if($this->settings["Ignore"][$sender] == true || $this->banlist["$sender"]["name"] == "$sender" || ($this->spam[$sender] > 100 && $this->vars['spam protection'] == 1)){
@@ -1349,7 +1379,7 @@ class bot extends AOChat{
 				}
 				// Upload Command File or return error message
 				if($restricted == true || $filename == ""){
-					$this->send("Unknown command or Access denied! for more info try /tell <myname> help", $sender);
+					$this->send("Error! Unknown command or Access denied! for more info try /tell <myname> help", $sender);
 					$this->spam[$sender] = $this->spam[$sender] + 20;
 					return;
 				} else {
@@ -1360,7 +1390,7 @@ class bot extends AOChat{
 						if (($output = bot::help_lookup($message) !== FALSE)) {
 							bot::send($output, $sendto);
 						} else {
-							bot::send("Syntax error! for more info try /tell <myname> help", $sendto);
+							bot::send("Error! Check your syntax or for more info try /tell <myname> help", $sendto);
 						}
 					}
 					$this->spam[$sender] = $this->spam[$sender] + 10;
@@ -1380,12 +1410,12 @@ class bot extends AOChat{
 					return;
 
 				if($this->vars['spam protection'] == 1) {
-					if($this->spam[$sender] == 40) $this->send("Your client is sending a high frequency of chat messages. Stop or be kicked.", $sender);
+					if($this->spam[$sender] == 40) $this->send("Error! Your client is sending a high frequency of chat messages. Stop or be kicked.", $sender);
 					if($this->spam[$sender] > 60) AOChat::privategroup_kick($sender);
 					if(strlen($args[1]) > 400){
 						$this->largespam[$sender] = $this->largespam[$sender] + 1;
 						if ($this->largespam[$sender] > 1) AOChat::privategroup_kick($sender);
-						if ($this->largespam[$sender] > 0) $this->send("Your client is sending large chat messages. Stop or be kicked.", $sender);
+						if ($this->largespam[$sender] > 0) $this->send("Error! Your client is sending large chat messages. Stop or be kicked.", $sender);
 					}
 				}
 
@@ -1547,21 +1577,21 @@ class bot extends AOChat{
 								if($filename != "")
 									include $filename;
 							} else {
-								bot::send("You do not have access to this command.", "guild");
+								bot::send("Error! You do not have access to this command.", "guild");
 							}
 						} else if ($admin == "guild") {
 							if(isset($this->guildmembers[$sender])) {
 								if($filename != "")
 									include $filename;
 							} else {
-								bot::send("You do not have access to this command.", "guild");
+								bot::send("Error! You do not have access to this command.", "guild");
 							}
 						} else if ($admin == "guildadmin") {
 							if($this->guildmembers[$sender] <= $this->settings['guild admin level']) {
 								if($filename != "")
 									include $filename;
 							} else {
-								bot::send("You do not have access to this command.", "guild");
+								bot::send("Error! You do not have access to this command.", "guild");
 							}
 						} else if ($admin == "all") {
 							if($filename != "")
@@ -1573,7 +1603,7 @@ class bot extends AOChat{
 							if (($output = bot::help_lookup($message) !== FALSE)) {
 								bot::send($output, $sendto);
 							} else {
-								bot::send("Syntax error! for more info try /tell <myname> help", $sendto);
+								bot::send("Error! Check your syntax or for more info try /tell <myname> help", $sendto);
 							}
 						}
 					}

@@ -49,7 +49,7 @@ if (preg_match("/^friendlist(.+)?$/i", $message, $arg)) {
 				$msg .= "$key ($value)\n";
 			} else {
 				if ($cleanup) {
-					bot::send("rembuddy",$key);
+					$this->buddy_remove($key);
 				} else {
 					$unknown .="$key\n";
 				}

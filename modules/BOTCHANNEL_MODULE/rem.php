@@ -40,10 +40,8 @@ if (preg_match("/^remuser (.+)$/i", $message, $arr)) {
 	  		$msg = "<highlight>$name<end> is not on the guestlist.";
 	  	} else {
 		    $db->query("DELETE FROM members_<myname> WHERE `name` = '$name'");
-		    $msg = "<highlight>$name<end> has been removed to the guestlist.";
-			if (!isset($this->buddList[$name])) {
-		        bot::send("rembuddy", $uid);
-			}
+		    $msg = "<highlight>$name<end> has been removed from the guestlist.";
+			$this->remBuddy($name, 'member');
 		}
 	}
 

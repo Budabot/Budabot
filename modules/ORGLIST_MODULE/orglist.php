@@ -165,8 +165,8 @@ if(preg_match("/^(orglist|onlineorg) (.+)$/i", $message, $arr)) {
 		// Check each name if they are already on the buddylist (and get online status now)
 		// Or make note of the name so we can add it to the buddylist later.
 		foreach($orgmate->member as $amember) {
-			if(bot::send("isbuddy", $amember)) {
-				$this->vars["orglist_module"]["result"][$amember]["online"] = $this->buddyList[$amember];
+			if ($this->isBuddy($amember, NULL)) {
+				$this->vars["orglist_module"]["result"][$amember]["online"] = ($this->buddy_online($amember) ? 1 : 0);
 			} elseif ($this->vars["name"] != $amember) { // If the name being checked ISNT the bot.
 				// check if they exist, (They might be deleted)
 				if (AoChat::get_uid($amember)) {
@@ -247,8 +247,8 @@ if(preg_match("/^(orglist|onlineorg) (.+)$/i", $message, $arr)) {
 			$this->vars["orglist_module"]["markpage"] = 0;
 
 			while ($this->vars["orglist_module"]["check"][0][$i]) {
-				bot::send("addbuddy", $this->vars["orglist_module"]["check"][0][$i]);
-				bot::send("rembuddy", $sender);
+				$this->buddy_add($this->vars["orglist_module"]["check"][0][$i]);
+				$this->buddy_remove($sender);
 				$i++;
 			}
 
@@ -279,7 +279,7 @@ if(preg_match("/^(orglist|onlineorg) (.+)$/i", $message, $arr)) {
 	
 	//If $sender is marked in the list, get status and remove from buddylist.
 	if (($key = array_search($sender, $this->vars["orglist_module"]["check"][$page])) !== false) {
-		$this->vars["orglist_module"]["result"][$sender]["online"] = $this->buddyList[$sender];
+		$this->vars["orglist_module"]["result"][$sender]["online"] = ($this->buddy_online($sender) ? 1 : 0);
 		unset($this->vars["orglist_module"]["check"][$page][$key]);
 		if (current($this->vars["orglist_module"]["check"][$page]) === false) {
 			$page++; $this->vars["orglist_module"]["markpage"]++;
@@ -288,8 +288,8 @@ if(preg_match("/^(orglist|onlineorg) (.+)$/i", $message, $arr)) {
 				
 				$i = 0;
 				while ($this->vars["orglist_module"]["check"][$page][$i]) {
-					bot::send("addbuddy", $this->vars["orglist_module"]["check"][$page][$i]);
-					bot::send("rembuddy", $sender);
+					$this->buddy_add($this->vars["orglist_module"]["check"][$page][$i]);
+					$this->buddy_remove($this->vars["orglist_module"]["check"][$page][$i]);
 					$i++;
 				}
 			} else {

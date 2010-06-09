@@ -173,7 +173,7 @@
       $this->gid         = array();
       $this->grp         = array();
       $this->chars       = array();
-      $this->buddies     = array();
+      $this->buddyList     = array();
       $this->tellqueue   = NULL;
       $this->groupqueue  = NULL;
     }
@@ -325,12 +325,12 @@
 
         case AOCP_BUDDY_ADD :
           list($bid, $bonline, $btype) = $packet->args;
-          $this->buddies[$bid] = ($bonline    ? AOC_BUDDY_ONLINE : 0)|
-                                 (ord($btype) ? AOC_BUDDY_KNOWN  : 0);
+          $this->buddyList[$bid]['online'] = ($bonline ? AOC_BUDDY_ONLINE : 0) | (ord($btype) ? AOC_BUDDY_KNOWN : 0);
+		  $this->buddyList[$bid]['types'] = array();
           break;
 
         case AOCP_BUDDY_REMOVE :
-          unset($this->buddies[$packet->args[0]]);
+          unset($this->buddyList[$packet->args[0]]);
           break;
       }
 
@@ -651,7 +651,7 @@
     {
       if(($uid = $this->get_uid($who)) === false)
         return false;
-      return (int)$this->buddies[$uid];
+      return (int)$this->buddyList[$uid]['online'];
     }
 
     function buddy_online($who)

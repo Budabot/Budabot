@@ -35,10 +35,11 @@ if (preg_match("/^members$/i", $message)) {
 	if ($autoguests != 0) {
 	  	$list .= "<header>::::: Users on Autoinvitelist :::::<end>\n\n";
 	  	while ($row = $db->fObject()) {
-	  	  	if ($this->buddyList[$row->name] == 1) {
+	  	  	if ($this->buddy_online($row->name)) {
 				$status = "<green>Online";
-				if($this->vars["Guest"][$row->name] == true)
+				if ($this->vars["Guest"][$row->name] == true) {
 			    	$status .= " and in Guestchannel";
+				}
 			} else {
 				$status = "<red>Offline";
 			}

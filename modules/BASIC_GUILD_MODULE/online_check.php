@@ -31,8 +31,10 @@
 
 $db->query("SELECT * FROM guild_chatlist_<myname>");
 $data = $db->fObject("all");
-foreach($data as $row)
-  	if($this->buddyList[$row->name] == 0)
+forEach ($data as $row) {
+  	if (!$this->buddy_online($row->name)) {
   		$db->query("DELETE FROM guild_chatlist_<myname> WHERE `name` = '$row->name'");
+	}
+}
 
 ?>

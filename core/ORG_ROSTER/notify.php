@@ -45,7 +45,7 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
     } elseif ($numrows != 0 && $row->mode == "del") {
         $db->query("UPDATE org_members_<myname> SET `mode` = 'man' WHERE `name` = '$name'");
 	    if (!isset($this->buddyList[$name])) {
-	        bot::send("addbuddy", $name);
+	        $this->addBuddy($name, 'org');
 		}
 	    
 	    $this->vars["IgnoreLog"][$name] = 2;
@@ -53,11 +53,11 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
     // Is the player name valid?
     } elseif($uid) {
         // Getting Player infos
-        $whois = new whois($arr[2]);
+        $whois = new whois($name);
         // Set global Ignore Logon/Logoff for this player(will not show the first logon/off msg)
         $this->vars["IgnoreLog"][$name] = 2;
         // Add him as a buddy and put his infos into the DB
-        bot::send("addbuddy", $uid);
+		$this->addBuddy($name, 'org');
         if($whois->errorCode != 0) {
 		  	$whois -> firstname = "";
 		  	$whois -> lastname = "";

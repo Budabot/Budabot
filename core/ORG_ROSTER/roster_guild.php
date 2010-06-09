@@ -77,8 +77,9 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 		// Going through each member of the org and add his data's
 		foreach($org->member as $amember) {
 			//If the orgmembers isn't on buddylist add him
-		    if(!isset($this->buddyList[$amember]))
-		        bot::send("addbuddy", $amember);
+		    if(!isset($this->buddyList[$amember])) {
+		        $this->addBuddy($who, 'org');
+			}
 		    
 		    //If there exists already data about the player just update hum
 			if($dbentrys[$amember]["mode"] != "") {
@@ -125,17 +126,11 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 		while($row = $db->fObject()) {
 		    if(!$org->members[$row->name]) {
 		        $db->query("DELETE FROM org_members_<myname> WHERE `name` = '".$row->name."'");
-		        bot::send("rembuddy", $row->name);
+		        $this->remBuddy($row->name, 'org');
 		        unset($buddies[$row->name]);
 		    }
 		}
 
-		// Removing buddies that are still left and not otherwise used
-		foreach($buddies as $key => $value) {
-		    if((!isset($this->members[$key])) && (!isset($this->admins[$key])) && ($dbentrys[$key]["mode"] != "man"))
-				bot::send("rembuddy", $key);
-		}
-			
 		echo "Org Roster Update is done. \n";
 		
 		if($restart == true) {

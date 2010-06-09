@@ -30,8 +30,9 @@
    */
    
 $db->query("SELECT * FROM admin_<myname>");
-while($row = $db->fObject()) {
-	if(!isset($this->buddyList[$row->name]))
-		bot::send("addbuddy", $row->name);
+while ($row = $db->fObject()) {
+	if (!isset($this->buddyList[$row->name])) {
+		bot::addBuddy($who, 'admin');
+	}
 }	
 ?>

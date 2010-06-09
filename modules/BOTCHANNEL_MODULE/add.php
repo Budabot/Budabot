@@ -42,7 +42,7 @@ if (preg_match("/^adduser (.+)$/i", $message, $arr)) {
 		    $db->query("INSERT INTO members_<myname> (`name`, `autoinv`) VALUES ('$name', 1)");
 		    $msg = "<highlight>$name<end> has been added to the guestlist.";
 			if (!isset($this->buddList[$name])) {
-		        bot::send("addbuddy", $uid);
+		        $this->addBuddy($name, 'member');
 			}
 		}
 	}

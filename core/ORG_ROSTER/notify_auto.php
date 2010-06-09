@@ -65,8 +65,9 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
                     '".$whois -> gender."', '".$whois -> breed."',
                     '".$whois -> ai_level."',
                     '".$whois -> ai_rank."')");                            
-		if(!isset($this->buddList[$name]))
-	        bot::send("addbuddy", $uid);
+		if (!isset($this->buddList[$name])) {
+			$this->addBuddy($name, 'org');
+		}
     	$msg = "<highlight>".$name."<end> has been added to the Notify list.";
     	$this->guildmembers[$name] = 6;
     }
@@ -87,6 +88,7 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
     $db -> query("DELETE FROM guild_chatlist_<myname> WHERE `name` = '$name'");
     $msg = "Removed <highlight>".$name."<end> from the Notify list.";
     unset($this->guildmembers[$name]);
+	$this->removeBuddy($name, 'org');
     bot::send($msg, "guild");
 } else if(preg_match("/^(.+) just left your organization.$/", $message, $arr) || preg_match("/^(.+) kicked from organization (alignment changed).$/", $message, $arr)) {
     $uid = AoChat::get_uid($arr[1]);
@@ -95,6 +97,7 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
     $db -> query("DELETE FROM guild_chatlist_<myname> WHERE `name` = '$name'");
     $msg = "Removed <highlight>".$name."<end> from the Notify list.";
     unset($this->guildmembers[$name]);
+	$this->removeBuddy($name, 'org');
     bot::send($msg, "guild");
 } elseif(($type == "logOn" || $type == "logOff")  && ($this->vars["IgnoreLog"][$sender] == 2 || $this->vars["IgnoreLog"][$sender] == 1)) {
     //$this->vars["IgnoreLog"][$sender] if it is 2 then log modules didn't executed yet

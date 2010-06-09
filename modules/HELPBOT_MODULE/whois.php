@@ -30,70 +30,79 @@
    */
 
 $msg = "";
-if(preg_match("/^whois (.+)$/i", $message, $arr)) {
+if (preg_match("/^whois (.+)$/i", $message, $arr)) {
     $uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
-    if($uid) {
+    if ($uid) {
         $whois = new whois($arr[1]);
-        if($whois->errorCode != 0)
+        if ($whois->errorCode != 0) {
         	$msg = $whois->errorInfo;
-        else {
-	        if($whois->firstname)
+        } else {
+	        if ($whois->firstname) {
 	            $msg = $whois->firstname." ";
+			}
 	
 	        $msg .= "<highlight>\"".$whois->name."\"<end> ";
 	
-	        if($whois->lastname)
+	        if ($whois->lastname) {
 	            $msg .= $whois->lastname." ";
+			}
 	
 	        $msg .= "(Level <highlight>$whois->level<end>/<green>$whois->ai_level - $whois->ai_rank<end>, $whois->gender $whois->breed <highlight>$whois->prof<end>, $whois->faction,";
 	
-	        if($whois->org)
+	        if ($whois->org) {
 	            $msg .= " $whois->rank of <highlight>$whois->org<end>) ";
-	        else
+	        } else {
 	            $msg .= " Not in a guild.) ";
+			}
 	
 	        $list = "<header>::::: Detailed infos :::::<end>\n\n";
 	        $list .= "<u>Options for ".$name."</u>\n \n";
 	        $list .= "<a href='chatcmd:///tell <myname> history ".$name."'>Check ".$name."'s History</a>\n";
 	        $list .= "<a href='chatcmd:///tell <myname> is ".$name."'>Check ".$name."'s online status</a>\n";
-	        if($whois->org)
+	        if ($whois->org) {
 		        $list .= "<a href='chatcmd:///tell <myname> whoisorg ".$whois->org_id."'>Show infos about $whois->org</a>\n";
+			}
 	        $list .= "<a href='chatcmd:///cc addbuddy ".$name."'>Add to buddylist</a>\n";
 	        $list .= "<a href='chatcmd:///cc rembuddy ".$name."'>Remove from buddylist</a>\n";
 	        $msg .= " :: ".bot::makeLink("click for more options", $list);
 	    }
-    } else
+    } else {
         $msg = "Player <highlight>".$name."<end> does not exist.";
+	}
 
     // Send info back
     bot::send($msg, $sendto);
-} elseif(preg_match("/^whoisall (.+)$/i", $message, $arr)){
+} else if (preg_match("/^whoisall (.+)$/i", $message, $arr)) {
     $name = ucfirst(strtolower($arr[1]));
-    for($i = 1; $i <= 3; $i ++) {
-        if($i == 1)
+    for ($i = 1; $i <= 3; $i ++) {
+        if ($i == 1) {
             $server = "Atlantean";
-        elseif($i == 2)
+        } else if ($i == 2) {
             $server = "Rimor";
-        else
+        } else {
             $server = "Die Neue Welt";
+		}
         $msg = "";
         $whois = new whois($name, $i);
-        if($whois->name != "") {
-            if($whois->firstname)
+        if ($whois->name != "") {
+            if ($whois->firstname) {
                 $msg = $whois->firstname." ";
+			}
 
             $msg .= "<highlight>\"".$whois->name."\"<end> ";
 
-            if($whois->lastname)
+            if ($whois->lastname) {
                 $msg .= $whois->lastname." ";
+			}
 
             $msg .= "(Level <highlight>$whois->level<end>/<green>$whois->ai_level - $whois->ai_rank<end>, <highlight>$whois->prof<end>, $whois->faction,";
 
-            if($whois->org)
+            if ($whois->org) {
                 $msg .= " $whois->rank of <highlight>$whois->org<end>) ";
-            else
+            } else {
                 $msg .= " Not in a guild.) ";
+			}
 
             $list = "<header>::::: Detailed infos :::::<end>\n\n";
             $list .= "<u>Options for ".$name."</u>\n \n";
@@ -103,19 +112,20 @@ if(preg_match("/^whois (.+)$/i", $message, $arr)) {
             $list .= "<a href='chatcmd:///cc rembuddy ".$name."'>Remove from buddylist</a>\n";
             $msg .= " :: ".bot::makeLink("click for more options", $list);
             $msg = "<highlight>Server $server:<end> ".$msg;
-        } else
+        } else {
             $msg = "Server $server: Player <highlight>".$name."<end> does not exist.";
+		}
         // Send info back
         bot::send($msg, $sendto);
     }
-} elseif(preg_match("/^whoisorg ([0-9]+)$/i", $message, $arr)) {
+} else if (preg_match("/^whoisorg ([0-9]+)$/i", $message, $arr)) {
 	$org_id = $arr[1];
 
   	$msg = "Getting Org info. Please standby.";
     bot::send($msg, $sendto);
 	
     $org = new org($org_id);
-	if($org->errorCode == 0) {
+	if ($org->errorCode == 0) {
   		$num_adv = 0;
   		$num_agent = 0;
   		$num_crat = 0;
@@ -134,8 +144,8 @@ if(preg_match("/^whois (.+)$/i", $message, $arr)) {
   		$lvl_max = 1;
 
 	  	$num_members = count($org->member);
-	  	foreach($org->member as $amember) {
-	  	  	if($org->members[$amember]["rank_id"] == 0) {
+	  	foreach ($org->member as $amember) {
+	  	  	if ($org->members[$amember]["rank_id"] == 0) {
 				$president_name = $org->members[$amember]["name"];
 				$president_prof = $org->members[$amember]["profession"];
 				$president_lvl = $org->members[$amember]["level"];
@@ -145,13 +155,15 @@ if(preg_match("/^whois (.+)$/i", $message, $arr)) {
 			}
 			$lvl_tot += $org->members[$amember]["level"];
 			
-			if($lvl_min > $org->members[$amember]["level"])
+			if ($lvl_min > $org->members[$amember]["level"]) {
 				$lvl_min = $org->members[$amember]["level"];
+			}
 
-			if($lvl_max < $org->members[$amember]["level"])
+			if ($lvl_max < $org->members[$amember]["level"]) {
 				$lvl_max = $org->members[$amember]["level"];
-					
-			switch($org->members[$amember]["profession"]) {
+			}
+
+			switch ($org->members[$amember]["profession"]) {
 			  	case "Adventurer":
 			  		$num_adv++;
 			  	break;
