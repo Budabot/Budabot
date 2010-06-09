@@ -65,9 +65,7 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
                     '".$whois -> gender."', '".$whois -> breed."',
                     '".$whois -> ai_level."',
                     '".$whois -> ai_rank."')");                            
-		if (!isset($this->buddList[$name])) {
-			$this->addBuddy($name, 'org');
-		}
+		$this->add_buddy($name, 'org');
     	$msg = "<highlight>".$name."<end> has been added to the Notify list.";
     	$this->guildmembers[$name] = 6;
     }
@@ -75,12 +73,6 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
                 VALUES ('".$name."', '".$whois->prof."', '".$this->vars["my guild"]."',
                    '".$whois->breed."', '".$whois->level."', '".$whois->ai_level."')");     
     bot::send($msg, "guild");
-	$msg = "Welcome to <highlight>".$this->vars["my guild"]."<end>.";
-    bot::send($msg, $name);
-	$msg = "I am the Org bot for <highlight>".$this->vars["my guild"]."<end>. You may wanna learn what i can do for you, so just do /tell <myname> help.";
-    bot::send($msg, $name);
-	$msg = "And you will see all my commands that are only there to make your life easier.";
-    bot::send($msg, $name); 
 } else if (preg_match("/^(.+) kicked (.+) from your organization.$/", $message, $arr) || preg_match("/^(.+) removed inactive character (.+) from your organization.$/", $message, $arr)) {
     $uid = AoChat::get_uid($arr[2]);
     $name = ucfirst(strtolower($arr[2]));

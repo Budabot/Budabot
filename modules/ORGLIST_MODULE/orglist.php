@@ -247,8 +247,8 @@ if(preg_match("/^(orglist|onlineorg) (.+)$/i", $message, $arr)) {
 			$this->vars["orglist_module"]["markpage"] = 0;
 
 			while ($this->vars["orglist_module"]["check"][0][$i]) {
-				$this->buddy_add($this->vars["orglist_module"]["check"][0][$i]);
-				$this->buddy_remove($sender);
+				$this->add_buddy($this->vars["orglist_module"]["check"][0][$i], 'onlineorg');
+				$this->remove_buddy($sender, 'onlineorg');
 				$i++;
 			}
 
@@ -288,8 +288,8 @@ if(preg_match("/^(orglist|onlineorg) (.+)$/i", $message, $arr)) {
 				
 				$i = 0;
 				while ($this->vars["orglist_module"]["check"][$page][$i]) {
-					$this->buddy_add($this->vars["orglist_module"]["check"][$page][$i]);
-					$this->buddy_remove($this->vars["orglist_module"]["check"][$page][$i]);
+					$this->add_buddy($this->vars["orglist_module"]["check"][$page][$i], 'onlineorg');
+					$this->remove_buddy($this->vars["orglist_module"]["check"][$page][$i], 'onlineorg');
 					$i++;
 				}
 			} else {

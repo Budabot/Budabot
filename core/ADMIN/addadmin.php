@@ -69,9 +69,7 @@ if (preg_match("/^addadmin (.+)$/i", $message, $arr)){
 		bot::send("You got Administrator access to <myname>", $who);
 	}
 
-	if (!isset($this->buddy[$sender])) {
-		bot::addBuddy($who, 'admin');
-	}
+	$this->add_buddy($who, 'admin');
 } else {
 	$syntax_error = true;
 }

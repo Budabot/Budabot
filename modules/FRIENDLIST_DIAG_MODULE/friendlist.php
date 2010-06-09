@@ -49,7 +49,9 @@ if (preg_match("/^friendlist(.+)?$/i", $message, $arg)) {
 				$msg .= "$key ($value)\n";
 			} else {
 				if ($cleanup) {
-					$this->buddy_remove($key);
+					$uid = $this->get_uid($key);
+					$this->buddy_remove($uid);
+					unset($this->buddyList[$uid]);
 				} else {
 					$unknown .="$key\n";
 				}

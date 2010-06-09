@@ -70,9 +70,7 @@ if (preg_match("/^addmod (.+)$/i", $message, $arr)){
 		bot::send("You got moderator access to <myname>", $who);
 	}
 
-	if (!isset($this->buddyList[$sender])) {
-		bot::addBuddy($who, 'admin');
-	}
+	$this->add_buddy($who, 'admin');
 } else {
 	$syntax_error = true;
 }

@@ -55,7 +55,7 @@ if (preg_match("/^kickmod (.+)$/i", $message, $arr)){
 	unset($this->admins[$who]);
 	$db->query("DELETE FROM admin_<myname> WHERE `name` = '$who'");
 	
-	$this->remBuddy($who, 'admin');
+	$this->rem_buddy($who, 'admin');
 
 	bot::send("<highlight>$who<end> has been removed as Moderator of this Bot.", $sendto);
 	bot::send("Your moderator access to <myname> has been removed.", $who);

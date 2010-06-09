@@ -57,8 +57,8 @@ if (preg_match("/^is (.+)$/i", $message, $arr)) {
 			if ($type == "msg") {
 	        	$this->vars["IgnoreLogSender"][$name] = $sender;
 			}
-            $this->buddy_add($name);
-            $this->buddy_remove($name);
+            $this->add_buddy($name, 'is_online');
+            $this->remove_buddy($name, 'is_online');
         }
     }
     if ($msg) {

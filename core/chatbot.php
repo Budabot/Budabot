@@ -31,7 +31,7 @@
 
 class bot extends AOChat{
 
-	var $buddyTypes = array();
+	var $buddyList = array();
 
 /*===============================
 ** Name: __construct
@@ -145,6 +145,9 @@ class bot extends AOChat{
 */	function connectAO($login, $password){
 		//Create Aochat
 		AOChat::AOchat("callback");
+		
+		// remove any old entries on buddy list
+		$buddyList = array();
 
 		echo "\n\n";
 
@@ -207,6 +210,62 @@ class bot extends AOChat{
 		$this->vars["1hour"] 			= time() + $this->settings["CronDelay"];
 		$this->vars["24hours"]			= time() + $this->settings["CronDelay"];
 		$this->vars["15min"] 			= time() + $this->settings["CronDelay"];
+	}
+	
+	function get_buddy($name)
+    {
+		if (($uid = $this->get_uid($name)) === false || !isset($this->buddyList[$uid])) {
+			return null;
+		} else {
+			return $this->buddyList[$uid];
+		}
+    }
+
+    function buddy_online($name)
+    {
+		$buddy = $this->get_buddy($name);
+		return ($buddy === null ? null : $buddy['online']);
+    }
+	
+	function add_buddy($name, $type) {
+		if (($uid = $this->get_uid($name)) === false || $type === null || $type == '') {
+			return null;
+		} else {
+			if (!isset($this->buddyList[$uid]) {
+				if ($this->settings['echo'] >= 1) newLine("Buddy", $name, "buddy added", $this->settings['echo']);
+				$this->buddy_add($uid);
+			}
+			
+			$this->buddyTypes[$uid]['types'][$type] = 1;
+			if ($this->settings['echo'] >= 1) newLine("Buddy", $name, "buddy type added (type: $type)", $this->settings['echo']);
+		}
+	}
+	
+	function remove_buddy($name, $type) {
+		if(($uid = $this->get_uid($name)) === false || $type === null || $type == '') {
+			return null;
+		} else if (isset($this->buddyList[$uid])) {
+			unset($this->buddyList[$uid]['types'][$type]);
+			if ($this->settings['echo'] >= 1) newLine("Buddy", $name, "buddy type removed (type: $type)", $this->settings['echo']);
+
+			if (count($this->buddyList[$uid]['types']) == 0) {
+				unset($this->buddyList[$uid])
+				if ($this->settings['echo'] >= 1) newLine("Buddy", $name, "buddy removed", $this->settings['echo']);
+				$this->buddy_remove($uid);
+			}
+		}
+	}
+
+	function is_buddy($name, $type) {
+		if(($uid = $this->get_uid($name)) === false) {
+			return null;
+		} else {
+			if ($type == null || $type == false) {
+				return isset($this->buddyTypes[$uid])
+			} else {
+				return isset($this->buddyTypes[$uid]['types'][$type])
+			}
+		}
 	}
 
 /*===============================
@@ -343,40 +402,6 @@ class bot extends AOChat{
 		return $message;
 	}
 	
-/*===============================
-** Name: send
-** Send chat messages back to aochat servers thru aochat.
-*/	function addBuddy($name, $type) {
-		$this->buddyTypes[$name]['types'][$type] = 1;
-		AOChat::buddy_add($who);
-		if ($this->settings['echo'] >= 1) newLine("Buddy", $who, "buddy added (type: $type)", $this->settings['echo']);
-	}
-	
-/*===============================
-** Name: send
-** Send chat messages back to aochat servers thru aochat.
-*/	function removeBuddy($name, $type) {
-		unset($this->buddyList[$name]['types'][$type]);
-		if ($this->settings['echo'] >= 1) newLine("Buddy", $who, "buddy type removed (type: $type)", $this->settings['echo']);
-		
-		if (count($this->buddyList[$name]['types']) == 0) {
-			AOChat::buddy_remove($who);
-			unset($this->buddyList[$who]);
-			if ($this->settings['echo'] >= 1) newLine("Buddy", $who, "buddy removed", $this->settings['echo']);
-		}
-	}
-	
-/*===============================
-** Name: send
-** Send chat messages back to aochat servers thru aochat.
-*/	function isBuddy($name, $type) {
-		if ($type == null || $type == false) {
-			return isset($this->buddyTypes[$name])
-		} else {
-			return isset($this->buddyTypes[$name]['types'][$type])
-		}
-	}
-
 	function sendPrivate($message, $group, $disable_relay = false) {
 		// for when makeLink generates several pages
 		if (is_array($message)) {
@@ -1256,6 +1281,13 @@ class bot extends AOChat{
 				// Basic packet data
 				$sender	= AOChat::get_uname($args[0]);
 				$status	= 0 + $args[1];
+				
+				// store buddy info
+				list($bid, $bonline, $btype) = $args;
+				$this->buddyList[$bid]['uid'] = $bid;
+				$this->buddyList[$bid]['name'] = $sender;
+				$this->buddyList[$bid]['online'] = ($bonline ? 1 : 0);
+				$this->buddyList[$bid]['known'] = (ord($btype) ? 1 : 0);
 
 				//Ignore Logon/Logoff from other bots or phantom logon/offs
                 if($this->settings["Ignore"][$sender] == true || $sender == "")

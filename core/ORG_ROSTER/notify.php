@@ -44,9 +44,7 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
     // If the member was deleted set him as manual added again
     } elseif ($numrows != 0 && $row->mode == "del") {
         $db->query("UPDATE org_members_<myname> SET `mode` = 'man' WHERE `name` = '$name'");
-	    if (!isset($this->buddyList[$name])) {
-	        $this->addBuddy($name, 'org');
-		}
+        $this->add_buddy($name, 'org');
 	    
 	    $this->vars["IgnoreLog"][$name] = 2;
     	$msg = "<highlight>$name<end> has been added to the Notify list.";
@@ -57,7 +55,7 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
         // Set global Ignore Logon/Logoff for this player(will not show the first logon/off msg)
         $this->vars["IgnoreLog"][$name] = 2;
         // Add him as a buddy and put his infos into the DB
-		$this->addBuddy($name, 'org');
+		$this->add_buddy($name, 'org');
         if($whois->errorCode != 0) {
 		  	$whois -> firstname = "";
 		  	$whois -> lastname = "";

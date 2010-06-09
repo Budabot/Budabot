@@ -31,8 +31,6 @@
    
 $db->query("SELECT * FROM admin_<myname>");
 while ($row = $db->fObject()) {
-	if (!isset($this->buddyList[$row->name])) {
-		bot::addBuddy($who, 'admin');
-	}
+	$this->add_buddy($who, 'admin');
 }	
 ?>

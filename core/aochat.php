@@ -112,9 +112,6 @@
   define('AOC_GROUP_MUTE',		0x01010000);
   define('AOC_GROUP_LOG',		0x02020000);
 
-  define('AOC_BUDDY_KNOWN',		0x01);
-  define('AOC_BUDDY_ONLINE',		0x02);
-
   define('AOC_FLOOD_LIMIT',		7);
   define('AOC_FLOOD_INC',		2);
 
@@ -173,7 +170,6 @@
       $this->gid         = array();
       $this->grp         = array();
       $this->chars       = array();
-      $this->buddyList     = array();
       $this->tellqueue   = NULL;
       $this->groupqueue  = NULL;
     }
@@ -321,16 +317,6 @@
               $packet->args['extended_message'] = $em;
             }
           }
-          break;
-
-        case AOCP_BUDDY_ADD :
-          list($bid, $bonline, $btype) = $packet->args;
-          $this->buddyList[$bid]['online'] = ($bonline ? AOC_BUDDY_ONLINE : 0) | (ord($btype) ? AOC_BUDDY_KNOWN : 0);
-		  $this->buddyList[$bid]['types'] = array();
-          break;
-
-        case AOCP_BUDDY_REMOVE :
-          unset($this->buddyList[$packet->args[0]]);
           break;
       }
 
@@ -621,42 +607,23 @@
     }
 
     /* Buddies */
-    function buddy_add($user, $type="\1")
+    function buddy_add($uid, $type="\1")
     {
-      if(($uid = $this->get_uid($user)) === false)
-        return false;
-
-      if($uid === $this->char['id'])
-        return false;
-
-      return $this->send_packet(new AOChatPacket("out", AOCP_BUDDY_ADD,
-        array($uid, $type)));
+		if ($uid == $this->char['id']) {
+			return false;
+		} else {
+			return $this->send_packet(new AOChatPacket("out", AOCP_BUDDY_ADD, array($uid, $type)));
+		}
     }
 
-    function buddy_remove($user)
+    function buddy_remove($uid)
     {
-      if(($uid = $this->get_uid($user)) === false)
-        return false;
-
-      return $this->send_packet(new AOChatPacket("out", AOCP_BUDDY_REMOVE, $uid));
+		return $this->send_packet(new AOChatPacket("out", AOCP_BUDDY_REMOVE, $uid));
     }
 
     function buddy_remove_unknown()
     {
-      return $this->send_packet(new AOChatPacket("out", AOCP_CC,
-        array(array("rembuddy", "?"))));
-    }
-
-    function buddy_exists($who)
-    {
-      if(($uid = $this->get_uid($who)) === false)
-        return false;
-      return (int)$this->buddyList[$uid]['online'];
-    }
-
-    function buddy_online($who)
-    {
-      return ($this->buddy_exists($who) & AOC_BUDDY_ONLINE) ? true : false;
+		return $this->send_packet(new AOChatPacket("out", AOCP_CC, array(array("rembuddy", "?"))));
     }
 
     /* Login key generation and encryption */

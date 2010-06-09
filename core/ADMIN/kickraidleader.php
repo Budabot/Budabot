@@ -55,7 +55,7 @@ if (preg_match("/^kickraidleader (.+)$/i", $message, $arr)){
 	unset($this->admins[$who]);
 	$db->query("DELETE FROM admin_<myname> WHERE `name` = '$who'");
 		
-	$this->remBuddy($who, 'admin');
+	$this->rem_buddy($who, 'admin');
 
 	bot::send("<highlight>$who<end> has been removed as Raidleader of this Bot.", $sendto);
 	bot::send("Your raidleader access to <myname> has been removed.", $who);

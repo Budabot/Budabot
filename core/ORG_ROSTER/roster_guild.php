@@ -44,11 +44,14 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 		// Get Buddylist
 		$buddies = $this->buddyList;
 		
-		// Remove the Data about the bot itself
+		// Remove the Data about the bot itself from members
 		$copy = array_flip($org->member);
 		unset($copy[ucfirst(strtolower($this->vars["name"]))]);
-		unset($buddies[ucfirst(strtolower($this->vars["name"]))]);
 		$org->member = array_flip($copy);
+		
+		// Remove the Data about the bot itself from buddy list
+		$bot_uid = $this->get_uid(ucfirst(strtolower($this->vars["name"])));
+		unset($buddies[$bot_uid]);
 		
 		//Delete old Memberslist
 		unset($this->guildmembers);
@@ -75,14 +78,12 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 		$db->beginTransaction();
 		
 		// Going through each member of the org and add his data's
-		foreach($org->member as $amember) {
+		forEach ($org->member as $amember) {
 			//If the orgmembers isn't on buddylist add him
-		    if(!isset($this->buddyList[$amember])) {
-		        $this->addBuddy($who, 'org');
-			}
+	        $this->add_buddy($amember, 'org');
 		    
 		    //If there exists already data about the player just update hum
-			if($dbentrys[$amember]["mode"] != "") {
+			if ($dbentrys[$amember]["mode"] != "") {
 			  	if($dbentrys[$amember]["mode"] == "man" || $dbentrys[$amember]["mode"] == "org") {
 			        $mode = "org";
 		            $this->guildmembers[$amember] = $org->members[$amember]["rank_id"];
@@ -121,19 +122,15 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 		//End the transaction
 		$db->Commit();
 		
-		//Removing old data's in the db and remove buddies if they exist
-		$db->query("SELECT name FROM org_members_<myname> WHERE `mode` != 'man'");
-		while($row = $db->fObject()) {
-		    if(!$org->members[$row->name]) {
-		        $db->query("DELETE FROM org_members_<myname> WHERE `name` = '".$row->name."'");
-		        $this->remBuddy($row->name, 'org');
-		        unset($buddies[$row->name]);
-		    }
+		// remove buddies who used to be org members, but are no longer
+		forEach ($buddies as $buddy) {
+			$db->exec("DELETE FROM org_members_<myname> WHERE `name` = '".$buddy['name']."'");
+			$this->rem_buddy($buddy['name'], 'org');
 		}
 
 		echo "Org Roster Update is done. \n";
 		
-		if($restart == true) {
+		if ($restart == true) {
 		  	bot::send("The bot needs to be restarted to be able to see who is online in your org. Automatically restarting in 10 seconds.", "org");
 			echo "The bot needs to be restarted to be able to see who is online in your org. Automatically restarting in 10 seconds.\n";
 		  	sleep(10);
