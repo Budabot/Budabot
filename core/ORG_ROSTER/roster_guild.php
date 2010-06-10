@@ -41,54 +41,46 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 	if($org->errorCode != 0) {
 	  	echo "Error in getting the org roster xmlfile.\nPlease try again later.\n";
 	} else {
-		// Get Buddylist
-		$buddies = $this->buddyList;
-		
-		// Remove the Data about the bot itself from members
-		$copy = array_flip($org->member);
-		unset($copy[ucfirst(strtolower($this->vars["name"]))]);
-		$org->member = array_flip($copy);
-		
-		// Remove the Data about the bot itself from buddy list
-		$bot_uid = $this->get_uid(ucfirst(strtolower($this->vars["name"])));
-		unset($buddies[$bot_uid]);
+		// clear $this->members and reload from the database
+		unset($this->members);
+		$db->query("SELECT * FROM members_<myname>");
+		while ($row = $db->fObject()) {
+			$this->members[$row->name] = true;
+		}
 		
 		//Delete old Memberslist
 		unset($this->guildmembers);
 		
 		//Save the current org_members table in a var
 		$db->query("SELECT * FROM org_members_<myname>");
-		if($db->numrows() == 0 && (count($org->member) > 0))
+		if ($db->numrows() == 0 && (count($org->member) > 0)) {
 			$restart = true;
-		else {
+		} else {
 			$restart = false;
-			while($row = $db->fObject()) {
+			while ($row = $db->fObject()) {
 				$dbentrys[$row->name]["name"] = $row->name;
 				$dbentrys[$row->name]["mode"] = $row->mode;
 			}
 		}
-		
-		//Get Guestlistbuddys
-		unset($this->members);
-		$db->query("SELECT * FROM members_<myname>");
-		while($row = $db->fObject())
-			$this->members[$row->name] = true;
 		
 		//Start the transaction
 		$db->beginTransaction();
 		
 		// Going through each member of the org and add his data's
 		forEach ($org->member as $amember) {
-			//If the orgmembers isn't on buddylist add him
-	        $this->add_buddy($amember, 'org');
-		    
+			// don't do anything if $amember is the bot
+			if (strtolower($amember) == strtolower($this->vars["name"])) {
+				continue;
+			}
+		
 		    //If there exists already data about the player just update hum
 			if ($dbentrys[$amember]["mode"] != "") {
-			  	if($dbentrys[$amember]["mode"] == "man" || $dbentrys[$amember]["mode"] == "org") {
+			  	if ($dbentrys[$amember]["mode"] == "man" || $dbentrys[$amember]["mode"] == "org") {
 			        $mode = "org";
 		            $this->guildmembers[$amember] = $org->members[$amember]["rank_id"];
-			  	} else 
+			  	} else {
 		            $mode = "del";
+				}
 		
 		        $db->query("UPDATE org_members_<myname> SET `mode` = '".$mode."',
 		                    `firstname` = '".str_replace("'", "''", $org->members[$amember]["firstname"])."',
@@ -114,18 +106,21 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 		                        '".$org -> members[$amember]["gender"]."', '".$org->members[$amember]["breed"]."',
 		                        '".$org -> members[$amember]["ai_level"]."',
 		                        '".$org -> members[$amember]["ai_rank"]."')");
-				$this->guildmembers[$amember] = $org->members[$amember]["rank_id"];                        
+				$this->guildmembers[$amember] = $org->members[$amember]["rank_id"];
+				
+				// only add buddy for new org members, in case a previous member has notify off
+				$this->add_buddy($amember, 'org');
 		    }
-		    unset($buddies[$amember]);    
+		    unset($dbentrys[$amember]);    
 		}
 		
 		//End the transaction
 		$db->Commit();
 		
 		// remove buddies who used to be org members, but are no longer
-		forEach ($buddies as $buddy) {
+		forEach ($dbentrys as $buddy) {
 			$db->exec("DELETE FROM org_members_<myname> WHERE `name` = '".$buddy['name']."'");
-			$this->rem_buddy($buddy['name'], 'org');
+			$this->remove_buddy($buddy['name'], 'org');
 		}
 
 		echo "Org Roster Update is done. \n";
