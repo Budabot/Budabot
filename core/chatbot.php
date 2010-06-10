@@ -229,7 +229,7 @@ class bot extends AOChat{
 	
 	function add_buddy($name, $type) {
 		if (($uid = $this->get_uid($name)) === false || $type === null || $type == '') {
-			return null;
+			return false;
 		} else {
 			if (!isset($this->buddyList[$uid]) {
 				if ($this->settings['echo'] >= 1) newLine("Buddy", $name, "buddy added", $this->settings['echo']);
@@ -238,12 +238,14 @@ class bot extends AOChat{
 			
 			$this->buddyTypes[$uid]['types'][$type] = 1;
 			if ($this->settings['echo'] >= 1) newLine("Buddy", $name, "buddy type added (type: $type)", $this->settings['echo']);
+			
+			return true;
 		}
 	}
 	
 	function remove_buddy($name, $type) {
 		if(($uid = $this->get_uid($name)) === false || $type === null || $type == '') {
-			return null;
+			return false;
 		} else if (isset($this->buddyList[$uid])) {
 			unset($this->buddyList[$uid]['types'][$type]);
 			if ($this->settings['echo'] >= 1) newLine("Buddy", $name, "buddy type removed (type: $type)", $this->settings['echo']);
@@ -253,12 +255,14 @@ class bot extends AOChat{
 				if ($this->settings['echo'] >= 1) newLine("Buddy", $name, "buddy removed", $this->settings['echo']);
 				$this->buddy_remove($uid);
 			}
+			
+			return true;
 		}
 	}
 
 	function is_buddy($name, $type) {
 		if(($uid = $this->get_uid($name)) === false) {
-			return null;
+			return false;
 		} else {
 			if ($type == null || $type == false) {
 				return isset($this->buddyTypes[$uid])
