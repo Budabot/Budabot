@@ -21,7 +21,7 @@
   	bot::command("msg", "$MODULE_NAME/relay_guild_cfg.php", "guildrelay", "all", "Relay between guildchats.");
   	bot::command("priv", "$MODULE_NAME/relay_guild_cfg.php", "guildrelay", "all", "Relay between guildchats.");
 	bot::regGroup("Guild_Relay", $MODULE_NAME, "Relay Chat between guilds", "grc", "guildrelay");
-	bot::addsetting("relaybot", "Bot for Guildrelay", "noedit", "0", "none", '0', "mod", "");
+	bot::addsetting("relaybot", "Bot for Guildrelay", "noedit", "0", "none", '0', "mod", "$MODULE_NAME/relaybot_help.txt");
 	
 	// Helpfiles
 	bot::help("guildrelay", "$MODULE_NAME/guildrelay.txt", "guild", "How to relay chats between two guilds", "Org Commands");
