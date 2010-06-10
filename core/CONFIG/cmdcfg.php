@@ -46,12 +46,11 @@ if (preg_match("/^config$/i", $message)) {
 	
 	$sql = "
 		SELECT
-			module
+			c.module
+			(SELECT COUNT(*) FROM cmdcfg_whizbot WHERE module = c.module AND status = 1) count_enabled,
+			(SELECT COUNT(*) FROM cmdcfg_whizbot WHERE module = c.module AND status = 0) count_disabled
 		FROM
-			(SELECT module FROM settings_<myname> WHERE module <> 'Basic Settings'
-				UNION
-			SELECT module AS module FROM cmdcfg_<myname> WHERE module <> 'none')
-			AS t1
+			cmdcfg_<myname> c
 		GROUP BY module
 		ORDER BY module ASC";
 
@@ -65,12 +64,13 @@ if (preg_match("/^config$/i", $message)) {
 		else
 			$b = "";
 			
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$row->module' AND `status` = 1");
-		$num = $db->numrows();
-		if($num > 0)
+		if ($row->count_enabled > 0 && $row->count_disabled > 0) {
+			$a = "(<yellow>Partial<end>)";
+		} else if ($row->count_disabled == 0) {
 			$a = "(<green>Running<end>)";
-		else
+		} else {
 			$a = "(<red>Disabled<end>)";
+		}
 			
 		$c = "(<a href='chatcmd:///tell <myname> config $row->module'>Configure</a>)";
 	
