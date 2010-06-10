@@ -242,8 +242,6 @@ class bot extends AOChat{
 			}
 			
 			return true;
-		} else {
-			return false;
 		}
 	}
 	
@@ -251,7 +249,7 @@ class bot extends AOChat{
 		if(($uid = $this->get_uid($name)) === false) {
 			return false;
 		} else if (isset($this->buddyList[$uid])) {
-			if (isset($this->buddyList[$uid]['types'][$type]) {
+			if (isset($this->buddyList[$uid]['types'][$type])) {
 				unset($this->buddyList[$uid]['types'][$type]);
 				if ($this->settings['echo'] >= 1) newLine("Buddy", $name, "buddy type removed (type: $type)", $this->settings['echo']);
 			}
