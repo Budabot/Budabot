@@ -236,19 +236,25 @@ class bot extends AOChat{
 				$this->buddy_add($uid);
 			}
 			
-			$this->buddyTypes[$uid]['types'][$type] = 1;
-			if ($this->settings['echo'] >= 1) newLine("Buddy", $name, "buddy type added (type: $type)", $this->settings['echo']);
+			if (!isset($this->buddyList[$uid]['types'][$type])) {
+				$this->buddyTypes[$uid]['types'][$type] = 1;
+				if ($this->settings['echo'] >= 1) newLine("Buddy", $name, "buddy type added (type: $type)", $this->settings['echo']);
+			}
 			
 			return true;
+		} else {
+			return false;
 		}
 	}
 	
-	function remove_buddy($name, $type) {
-		if(($uid = $this->get_uid($name)) === false || $type === null || $type == '') {
+	function remove_buddy($name, $type = '') {
+		if(($uid = $this->get_uid($name)) === false) {
 			return false;
 		} else if (isset($this->buddyList[$uid])) {
-			unset($this->buddyList[$uid]['types'][$type]);
-			if ($this->settings['echo'] >= 1) newLine("Buddy", $name, "buddy type removed (type: $type)", $this->settings['echo']);
+			if (isset($this->buddyList[$uid]['types'][$type]) {
+				unset($this->buddyList[$uid]['types'][$type]);
+				if ($this->settings['echo'] >= 1) newLine("Buddy", $name, "buddy type removed (type: $type)", $this->settings['echo']);
+			}
 
 			if (count($this->buddyList[$uid]['types']) == 0) {
 				unset($this->buddyList[$uid]);
@@ -257,6 +263,8 @@ class bot extends AOChat{
 			}
 			
 			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -284,8 +292,9 @@ class bot extends AOChat{
 ** Execute Events that needs to be executed right after login
 */	function connectedEvents(){
 		// Check files, for all 'connect events'.
-		foreach($this->_connect as $filename)
+		forEach ($this->_connect as $filename) {
 			include $filename;
+		}
 	}
 
 /*===============================
