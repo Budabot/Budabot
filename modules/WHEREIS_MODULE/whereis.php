@@ -12,19 +12,13 @@
 
 $links = array("Help;chatcmd:///tell <myname> help whereis");
 
-$output = '';
+$msg = '';
 if (preg_match("/^whereis (.+)$/i", $message, $arr)) {
 	$search = $arr[1];
 	$search = ucwords(strtolower($search));
 	$db->query("SELECT * FROM whereis WHERE name LIKE '%".str_replace("'", "''", $search)."%'");
 	$whereis_found = $db->numrows();
 	$whereis = '';
-	if (method_exists('bot', 'makeHeader')) {
-		$whereis = bot::makeHeader("Result of Whereis Search For $search", $links);
-	} else {
-		$whereis = "<header>::::: Result of Whereis Search For $search :::::<end>\n";	
-	}
-	$whereis .= "There are $whereis_found matches to your query.\n\n";
 	
 	$data = $db->fobject("all");
 	foreach($data as $row)
@@ -32,16 +26,27 @@ if (preg_match("/^whereis (.+)$/i", $message, $arr)) {
 		$whereis .= "<yellow>$row->name \n <green>Can be found $row->answer\n";
 	}
 	
-	if ($db->numrows() > 0) {
-		$output = bot::makelink("Whereis", $whereis);
+	if ($whereis_found > 1) {
+		if (method_exists('bot', 'makeHeader')) {
+			$header = bot::makeHeader("Result of Whereis Search For $search", $links);
+		} else {
+			$header = "<header>::::: Result of Whereis Search For $search :::::<end>\n";	
+		}
+		$header .= "There are $whereis_found matches to your query.\n\n";
+		
+		$whereis = $header . $whereis;
+	
+		$msg = bot::makelink("Whereis", $whereis);
+	} else if ($whereis_found == 1) {
+		$msg = $whereis;
 	} else {
-		$output .= "<yellow>There were no matches for your search.</end>";
+		$msg = "<yellow>There were no matches for your search.</end>";
 	}
 }
 else {
-	$output .= "<yellow>You must enter valid search criteria.</end>\n";
+	$msg = "<yellow>You must enter valid search criteria.</end>\n";
 }
 
-bot::send($output, $sendto);
+bot::send($msg , $sendto);
 
 ?>
