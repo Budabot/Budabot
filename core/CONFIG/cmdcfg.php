@@ -46,7 +46,7 @@ if (preg_match("/^config$/i", $message)) {
 	
 	$sql = "
 		SELECT
-			c.module
+			c.module,
 			(SELECT COUNT(*) FROM cmdcfg_whizbot WHERE module = c.module AND status = 1) count_enabled,
 			(SELECT COUNT(*) FROM cmdcfg_whizbot WHERE module = c.module AND status = 0) count_disabled
 		FROM
