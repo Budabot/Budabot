@@ -47,8 +47,8 @@ if (preg_match("/^config$/i", $message)) {
 	$sql = "
 		SELECT
 			c.module,
-			(SELECT COUNT(*) FROM cmdcfg_whizbot WHERE module = c.module AND status = 1) count_enabled,
-			(SELECT COUNT(*) FROM cmdcfg_whizbot WHERE module = c.module AND status = 0) count_disabled
+			(SELECT COUNT(*) FROM cmdcfg_<myname> WHERE module = c.module AND status = 1) count_enabled,
+			(SELECT COUNT(*) FROM cmdcfg_<myname> WHERE module = c.module AND status = 0) count_disabled
 		FROM
 			cmdcfg_<myname> c
 		GROUP BY module
