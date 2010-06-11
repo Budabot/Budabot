@@ -46,13 +46,17 @@ if (preg_match("/^config$/i", $message)) {
 	
 	$sql = "
 		SELECT
-			c.module,
+			module,
 			(SELECT COUNT(*) FROM cmdcfg_<myname> WHERE module = c.module AND status = 1) count_enabled,
 			(SELECT COUNT(*) FROM cmdcfg_<myname> WHERE module = c.module AND status = 0) count_disabled
 		FROM
 			cmdcfg_<myname> c
-		GROUP BY module
-		ORDER BY module ASC";
+		WHERE
+			module <> 'none'
+		GROUP BY
+			module
+		ORDER BY
+			module ASC";
 
 	$db->query($sql);
 	$data = $db->fObject("all");
