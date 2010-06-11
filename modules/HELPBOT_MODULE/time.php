@@ -114,7 +114,7 @@ if(preg_match("/^time$/i", $message)) {
 	$link .= "<tab><highlight>Germany/France/Netherlands/Italy/Austria<end>\n";
 	$link .= "<tab><tab>Standart Time (CET = GMT+1): {$timezone["CET"]["time"]}\n";
 	$link .= "<tab><tab>Summer Time (CEST = GMT+2): {$timezone["CEST"]["time"]}\n";
-	$link .= "<tab><highlight>Ã„gypten/Bulgarien/Finnland/Griechenland<end>\n";
+	$link .= "<tab><highlight>Ägypten/Bulgarien/Finnland/Griechenland<end>\n";
 	$link .= "<tab><tab>Standart Time (EET = GMT+2): {$timezone["EET"]["time"]}\n";
 	$link .= "<tab><tab>Summer Time (EEST/EEDT = GMT+3): {$timezone["EEST"]["time"]}\n";
 	$link .= "<tab><highlight>Bahrain/Irak/Russland/Saudi Arabien<end>\n";

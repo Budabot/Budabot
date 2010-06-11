@@ -69,13 +69,13 @@ Finally, your breed affects your maximum Nanocost Reduction statistic. Each nano
 
 Nanocost Reduction Breed Caps:
 
-Â·        Nanomage: 55% reduction
+·        Nanomage: 55% reduction
 
-Â·        Solitus:                   50% reduction
+·        Solitus:                   50% reduction
 
-Â·        Opifex:                   50% reduction
+·        Opifex:                   50% reduction
 
-Â·        Atrox:                     45% reduction
+·        Atrox:                     45% reduction
 
 
 How does Breed affect your basic Abilities?
@@ -457,13 +457,13 @@ Once you have chosen your side - walk through the gateway corresponding to your 
 
 Camera modes
 You enter the Arrival Hall with a first-person view of the world, i.e. looking through your character's eyes. If you prefer a third-person view, there are three different versions available. You can locate the different camera modes on the Action Menu, opened by clicking the "Action" button on the left-hand menu. Click the "Camera" button on the action menu to get access to the four camera modes (or use Ctrl-F8):
-Â·        1st Person: 
+·        1st Person: 
 Looking through your character's eyes.
-Â·        3rd Person Locked: 
+·        3rd Person Locked: 
 The camera will follow the character as if tied to the character by an invisible line.
-Â·        3rd Person Trailing: 
+·        3rd Person Trailing: 
 The camera shows your character from the same angle all the time. Default position is straight behind you.
-Â·        3rd Person Rubber: 
+·        3rd Person Rubber: 
 As 3rd Person Trailing above, but the camera moves more softly, taking some time to adjust after you make sharp turns. Default position is straight behind you.
 The 3rd person camera's position can be adjusted by using the Num Pad. The even numbers (except 0) move the camera around, and you can zoom with + and -. Pressing 5 will bring the camera to its default position.
 
@@ -494,45 +494,45 @@ Your Inventory
 
 When you arrive in the Training Ground you'll find yourself in a safe area, protected by Guards and a Guide. When you hit the letter I on your keyboard, you'll bring up your inventory in which you'll find the following basic MP Items:
 
-Â·        Meta-Physicist: Startup Crystal - Lesser Anger Manifestation
+·        Meta-Physicist: Startup Crystal - Lesser Anger Manifestation
             
 This Crystal contains a Nano Formula for your first attack pet.
             
-Â·        Meta-Physicist: Startup Crystal - Mind Pain
+·        Meta-Physicist: Startup Crystal - Mind Pain
             
 This Crystal contains a Nano Formula for your first 'nuke' (a nano that you cast to cause direct damage to your opponent)
             
-Â·        Meta Shield
+·        Meta Shield
             
 This is your first weapon. It is a melee weapon wielded primarily in your right hand.
 
             
 The following general items will be in your inventory if you began in Rubika:
             
-Â·        Startup First-Aid Kit (Stack of 300)
+·        Startup First-Aid Kit (Stack of 300)
             
 This is an item that you will use by targeting yourself (F1) and right clicking on it. It will refill your nanopool and hitpoints by a small amount. You can use this item while you are under attack as well as while you are not fighting.
             
-Â·        Startup Treatment Laboratory (Stack of 200)
+·        Startup Treatment Laboratory (Stack of 200)
             
 This is an item that you will use by sitting down (X key), targeting yourself (F1) and then right clicking on the item. It will refill your nanopool and hitpoints by a larger amount. You cannot use this item while you are under attack.
             
 
 The following general items will be in your inventory if you began in Jobe:
             
-Â·        Startup Health Spindle (stack of 300)
+·        Startup Health Spindle (stack of 300)
 
 This is an item that you will use by targeting yourself (F1) and right clicking on it. It will refill your nanopool and hitpoints by a small amount over 2 hits. You can use this item while you are under attack as well as while you are not fighting.
             
-Â·        Startup Coil of Health (stack of 250)
+·        Startup Coil of Health (stack of 250)
 
 This is an item that you will use by sitting down (X key), targeting yourself (F1) and then right clicking on the item. It will refill your nanopool and hitpoints by a larger amount and will continue healing them until they are full again. You cannot use this item while you are under attack.
 
-Â·        Holographic Recording (stack of 3)
+·        Holographic Recording (stack of 3)
 
 This item can be used by right clicking on it and it will then explain to you how to go about choosing your side as a Jobe Trainee.
 
-Â·        Bracer of Jobe
+·        Bracer of Jobe
 
 This bracer was given to you by Drake Rodriguez and is used to measure your perfomance in various tests. If you are below level 10 you can also use this item to get teleported back to Drake Rodriguez. Right click on the bracer in your inventory or hold down the right mouse button over the bracer and select the use button to be teleported.
             
@@ -541,32 +541,32 @@ And also the following Side specific items:
             
             For Omni:
             
-Â·        Omni-Tek Shirt
+·        Omni-Tek Shirt
             
 This shirt can be worn to increase your Melee Armour Class (AC) by a small amount.
             
-Â·        Omni-Tek Award - Basic Board
+·        Omni-Tek Award - Basic Board
             
 These boards are used to collect your tokens. Once you have earned some tokens you can right click on them to 'upload' them. When you have enough tokens to improve your board, you right click on the Token Board in your inventory and it will upgrade. Each upgrade will make the board give you better and new 'buffs' (increases in skills or stats).
             
-Â·        Startup Maps - Omni-Tek
+·        Startup Maps - Omni-Tek
 
 You have also been given a Map Crystal that contains some basic maps for the most visited cities of your side.
 
 For Clan:
 
-Â·        Clan Merits - Basic Board
+·        Clan Merits - Basic Board
             
 These boards are used to collect your tokens. Once you have earned some tokens you can right click on them to 'upload' them. When you have enough tokens to improve your board, you right click on the Token Board in your inventory and it will upgrade. Each upgrade will make the board give you better and new 'buffs' (increases in skills or stats).
             
-Â·        Startup Maps - Clans
+·        Startup Maps - Clans
 
 You have also been given a Map Crystal that contains some basic maps for the most visited cities of your side.
 
 
 For Neutrals:
 
-Â·        Startup Maps - Neutrals
+·        Startup Maps - Neutrals
 
 You have also been given a Map Crystal that contains some basic maps for the most visited cities of your side.
 
@@ -575,7 +575,7 @@ Setting-up your MP for Battle: Basic IP Distribution
 
 When you begin a new character in AO, you come to life with 1500 IP ready to distribute amongst your skills and abilities. The first thing to do is to use them. In the first few levels, the choices about IP Distribution are fairly straight-forward. 
 
-Â·        Open the skill window by hitting U on your keyboard or clicking on the second button from the top on the left hand side of your chat window (the icon is like a graduation cap). 
+·        Open the skill window by hitting U on your keyboard or clicking on the second button from the top on the left hand side of your chat window (the icon is like a graduation cap). 
 
 In the skills window you see the Categories of skills as buttons on the left hand side. When you first open the window, the Abilities section is highlighted. By clicking on the other category buttons on the left hand side you can see all of the skills available in that category.
 
@@ -684,7 +684,7 @@ Uploading your nanos
 
 The MP starts off with two nano formula crystals. One is a nuke and one is an attack pet.
 
-Â·        Click on the 3rd button down on the left of your chat window 'Nanos'
+·        Click on the 3rd button down on the left of your chat window 'Nanos'
 
 You should see a window open called 'Programs'. There are five buttons at the top of the window:
 
@@ -696,45 +696,45 @@ Space
 
 These are the five different categories of Nanos in the game. Clicking on each of these buttons will reveal the different nanos available to you in that category. For now there are no nanos because you have not uploaded any yet.
 
-Â·        Right click on the nano crystal Â·Meta-Physicist: Startup Crystal - Lesser Anger Manifestation.
+·        Right click on the nano crystal ·Meta-Physicist: Startup Crystal - Lesser Anger Manifestation.
 
 You should see the crystal disappear from your inventory. At the same time, a symbol will appear in one of the spaces in your Programs window and the view will automatically change to the 'Space' view. All MP pet nanos belong to the Space Category of nanos.
 
-Â·        Stand up (you must be standing to cast a nano)
-Â·        Right click on the symbol in the Space Category
+·        Stand up (you must be standing to cast a nano)
+·        Right click on the symbol in the Space Category
 
 You will see a progress bar moving from left to right in the top left corner of your window. This is the nano casting. You will then see the bar disappear from right to left. This is the nano recharging. You must wait for each nano to recharge fully before you can cast another nano.
 
 If you look around above your head somewhere now, you should see a bobbing brown-orange ball above your head with the name Anger Manifestation above its head. You have successfully cast your first pet!
 
-Â·        Right click on the nano crystal Â·Meta-Physicist: Startup Crystal - Mind Pain
+·        Right click on the nano crystal ·Meta-Physicist: Startup Crystal - Mind Pain
 
 You should see another symbol pop up in your Programs window and the view should change to 'Combat'. The Mind Pain nano is a nuke. When you target an opponent and cast this nano, it will do damage to the opponent as long as it lands its attack. If you'd like to see it work do the following:
 
-Â·        Stand Up
-Â·        Target yourself by hitting the F1 key
-Â·        Right click on the Mind Pain icon in the programs window
+·        Stand Up
+·        Target yourself by hitting the F1 key
+·        Right click on the Mind Pain icon in the programs window
 
 Ouch! The damage done to you when you nuke yourself is approximately half the damage you would do to a mob. This is because in PvP the damage of a nuke is halved.
 
 To heal your hitpoints and your nano do the following:
 
-Â·        Sit down
-Â·        Right click on your Treatment Lab (Rubika)
-Â·        Right click on your Health Coil (Jobe)
+·        Sit down
+·        Right click on your Treatment Lab (Rubika)
+·        Right click on your Health Coil (Jobe)
 
 At the top of the Programs Window, you can see on more button called 'Favorites'. Clicking on this button brings up a new view. You can move nanos from the other five sections into your Favourites window so that you organise your most used nanos into one area.
 
-Â·        Click on the Space Button
-Â·        Click on the Anger Manifestation nano icon (the icon should stick to your cursor)
-Â·        Click on the Favorites Button
-Â·        Click on an empty space (the icon should drop into the space)
+·        Click on the Space Button
+·        Click on the Anger Manifestation nano icon (the icon should stick to your cursor)
+·        Click on the Favorites Button
+·        Click on an empty space (the icon should drop into the space)
 
 Equipping your items
 
 In your basic inventory you got a Meta Shield, possibly a map crystal and possibly a Shirt. Now it's time to equip them.
 
-Â·        Hold down Ctrl key and hit the numeral 1 
+·        Hold down Ctrl key and hit the numeral 1 
 
 You should see your 'Wear' window open. Along the top of the window there are three 'tabs':
 
@@ -752,18 +752,18 @@ In this section, you can equip implants.
 
 There are two ways to equip an item. We'll use both to equip your Meta Shield.
 
-Â·        Click on the Weapons tab in the Wear window
-Â·        Right click on the Meta Shield in your inventory
+·        Click on the Weapons tab in the Wear window
+·        Right click on the Meta Shield in your inventory
 
 You should see a progress bar run from left to right in the top left corner of your window and the Shield will appear in your Right Hand slot on the weapons tab. When you equip an item by right clicking it, the item will go to its default slot.
 
-Â·        Right Click on the Meta Shield in your Weapons tab
+·        Right Click on the Meta Shield in your Weapons tab
 
 You should see a progress bar again and the Shield will appear in your inventory.
 
-Â·        Left click on the Meta Shield in your inventory (the shield should stick to your cursor)
-Â·        Move the shield to the Right Hand Slot in the Weapons Tab
-Â·        Left Click the Right Hand Slot
+·        Left click on the Meta Shield in your inventory (the shield should stick to your cursor)
+·        Move the shield to the Right Hand Slot in the Weapons Tab
+·        Left Click the Right Hand Slot
 
 You should see a progress bar run from left to right in the top left corner of your window and the Shield will appear in your Right Hand slot on the weapons tab. When you equip an item by moving it to a slot, you can choose which slot the item will go to - as long as the item is allowed to be equipped in that slot. To check which slots an item can equip to, shift-Left click on the item and you'll find the correct slot(s) listed next to the 'Loc:' heading.
 
@@ -779,22 +779,22 @@ Setting up your shortcut bar
 
 When you first begin a character the following icons are shown in your Number 1 shortcut bar.
 
-Â·        Start Combat    (you can also hit the Q key)
-Â·        Walk                (you can also hit the Backspace key)
-Â·        Stand               (you can also hit the X key)
-Â·        Follow              (this is useful for following other players)
-Â·        Exit                  (this exits the game)
+·        Start Combat    (you can also hit the Q key)
+·        Walk                (you can also hit the Backspace key)
+·        Stand               (you can also hit the X key)
+·        Follow              (this is useful for following other players)
+·        Exit                  (this exits the game)
 
 The MP generally needs as many slots available as possible on the first bar. To clear up this bar you can either delete the icon (they can be replaced later if needed):
 
-Â·        Pick the icon up by left clicking it and then delete the icon by right clicking somewhere on the screen outside the shortcut bar.
+·        Pick the icon up by left clicking it and then delete the icon by right clicking somewhere on the screen outside the shortcut bar.
 
 Or you can move the icons to the Number 2 shortcut bar:
 
-Â·        Pick the icon up by left clicking it
-Â·        Hold down the Shift key and press the number 2 
-Â·        Then left click an empty slot to drop the icon onto that bar
-Â·        To return to Number 1 shortcut bar - hold shift down and hit the number 1 key 
+·        Pick the icon up by left clicking it
+·        Hold down the Shift key and press the number 2 
+·        Then left click an empty slot to drop the icon onto that bar
+·        To return to Number 1 shortcut bar - hold shift down and hit the number 1 key 
 
 If your shortcut bar is not visible, hit the Y key on your keyboard.
 
@@ -802,40 +802,40 @@ Once you have cleared you Number 1 Shortcut bar, it's time to put your own icons
 
 First we put your nanos onto the bar:
 
-Â·        Open the Programs Window
-Â·        Click on Combat
-Â·        Left Click on Mind Pain icon to pick it up
-Â·        Move to the Shortcut bar
-Â·        Drop the icon onto the first slot
-Â·        Click on Space in the Programs Window
-Â·        Pick up the Anger Manifestation icon
-Â·        Move to the Shortcut bar
-Â·        Drop the icon onto the second slot
+·        Open the Programs Window
+·        Click on Combat
+·        Left Click on Mind Pain icon to pick it up
+·        Move to the Shortcut bar
+·        Drop the icon onto the first slot
+·        Click on Space in the Programs Window
+·        Pick up the Anger Manifestation icon
+·        Move to the Shortcut bar
+·        Drop the icon onto the second slot
 
 Then we put your healing items onto the shortcut bar:
 
-Â·        Go to your inventory
-Â·        Left Click on the Treatment Lab to pick it up (Coil in Jobe)
-Â·        Move to the shortcut bar 
-Â·        Drop the icon on the last slot
-Â·        Left Click on the Startup First Aid Kit to pick it up
-Â·        Drop the icon on the next to last slot on the bar
+·        Go to your inventory
+·        Left Click on the Treatment Lab to pick it up (Coil in Jobe)
+·        Move to the shortcut bar 
+·        Drop the icon on the last slot
+·        Left Click on the Startup First Aid Kit to pick it up
+·        Drop the icon on the next to last slot on the bar
 
 Now to try some of them out:
 
-Â·        Stand up (hit X key)
-Â·        Target yourself with F1
-Â·        Hit the number 1 key 
+·        Stand up (hit X key)
+·        Target yourself with F1
+·        Hit the number 1 key 
 
 By hitting the number 1 key, you activated the icon in the first slot of your shortcut bar and nuked yourself.
 
-Â·        Target yourself with F1
-Â·        Hit the number 9 key 
+·        Target yourself with F1
+·        Hit the number 9 key 
 
 By hitting the number 9 key you activated the last but one icon on your shortcut bar. Each slot on the bar corresponds to a number key from 1 to 0.
 
-Â·        Sit Down (hit X Key)
-Â·        Hit the number 0 key 
+·        Sit Down (hit X Key)
+·        Hit the number 0 key 
 
 This time you activated the Treatment Lab on the last slot of the bar.
 
@@ -845,30 +845,30 @@ Earlier you cast your first pet - Anger Manifestation. He just sat next to you a
 
 First Cast the Anger Manifestation pet:
 
-Â·        Stand up (with X key)
-Â·        Either hit the number 2 key - or right click on the icon for the Anger Manifestation nano (this should cast your pet)
-Â·        Now click on the Actions Button (top left button next to your chat window)
-Â·        Next Click on the 'Pets' button in the sub-menu
-Â·        Next Click on the 'Pet Info' button in the next menu.
+·        Stand up (with X key)
+·        Either hit the number 2 key - or right click on the icon for the Anger Manifestation nano (this should cast your pet)
+·        Now click on the Actions Button (top left button next to your chat window)
+·        Next Click on the 'Pets' button in the sub-menu
+·        Next Click on the 'Pet Info' button in the next menu.
 
 You should see a new window open up on your screen. In the window you can see the Hitpoints bar of your pet with the pet's name written in the red bar.
 
 Next to the hitpoints bar of the pet, there are three buttons, which can be used to give commands to your pet:
 
-Â·        The Attack Button will tell your pet to attack the currently selected target
-Â·        The Follow Button will tell your pet to follow you
-Â·        The Wait Button will tell your pet to wait where it is until you give it a new command
+·        The Attack Button will tell your pet to attack the currently selected target
+·        The Follow Button will tell your pet to follow you
+·        The Wait Button will tell your pet to wait where it is until you give it a new command
 
 Try the following test:
 
-Â·        Left click on the 'Wait' button
-Â·        Run a small distance away from your pet
-Â·        Turn round to look at the pet
-Â·        Left click on the 'Follow' button
+·        Left click on the 'Wait' button
+·        Run a small distance away from your pet
+·        Turn round to look at the pet
+·        Left click on the 'Follow' button
 
 You can also put a series of pet commands onto your shortcut bar.
 
-Â·        Open the Actions => Pets Menu again.
+·        Open the Actions => Pets Menu again.
 
 You'll see a series of commands there:
 
@@ -905,31 +905,31 @@ This command tells the pet to heal your currently selected target. You'll need t
 
 To move one of these commands to your shortcut bar:
 
-Â·        Left click and hold down on the command you want
-Â·        Drag the mouse away from the menu
-Â·        After a second or two an icon for the command will appear on your cursor
-Â·        Drop the icon onto the desired slot on the shortcut bar
+·        Left click and hold down on the command you want
+·        Drag the mouse away from the menu
+·        After a second or two an icon for the command will appear on your cursor
+·        Drop the icon onto the desired slot on the shortcut bar
 
 For now the most important commands that you might want on your shortcut bar are:
 
-Â·        Attack
-Â·        Follow
-Â·        Guard
-Â·        Report
+·        Attack
+·        Follow
+·        Guard
+·        Report
 
 You can also use all of the above listed commands by simply typing them into the chat window. You need to precede each of the commands with /pet [command].
 
-Â·        Hit Enter key to open a chat entry box
-Â·        Type /pet guard
-Â·        The pet should respond in the chat that he is guarding
+·        Hit Enter key to open a chat entry box
+·        Type /pet guard
+·        The pet should respond in the chat that he is guarding
 
 You can also put a command on your shortcut bar by typing a command into the chat window. This time, you preced the command with /macro ButtonName [command]
 
-Â·        Hit Enter key to open a chat entry box
-Â·        Type /macro GuardMe /pet guard
-Â·        An icon called 'Guardme' should appear at your cursor
-Â·        Drop the icon onto the shortcut bar
-Â·        Clicking the shortcut will now run the command /pet guard
+·        Hit Enter key to open a chat entry box
+·        Type /macro GuardMe /pet guard
+·        An icon called 'Guardme' should appear at your cursor
+·        Drop the icon onto the shortcut bar
+·        Clicking the shortcut will now run the command /pet guard
 
 Also, hit F10 to get into Options. Then select Chat section. Ensure that you have enabled 'My pets hit by/hitting others'. This allows you to see the damage done by and to your pets in the chat window.
 
@@ -1004,29 +1004,29 @@ Your Agg/Def Bar sets your aggressiveness and defensiveness. It is a slider in t
 
 At the Defensive end of the scale:
 
-Â·        Your nanos will cast slower
+·        Your nanos will cast slower
 
-Â·        Your weapons will attack more slowly
+·        Your weapons will attack more slowly
 
-Â·        You will be less likely to be attacked by a mob
+·        You will be less likely to be attacked by a mob
 
-Â·        You will be less likely to get hit for very high damage (Critical Hits)
+·        You will be less likely to get hit for very high damage (Critical Hits)
 
-Â·        You will be less likely to hit the mob for very high damage (Critical Hits)
+·        You will be less likely to hit the mob for very high damage (Critical Hits)
 
 
 
 At the Aggressive end of the scale:
 
-Â·        Your nanos will cast faster
+·        Your nanos will cast faster
 
-Â·        Your weapons will attack more quickly
+·        Your weapons will attack more quickly
 
-Â·        You will be more likely to be attacked by a mob
+·        You will be more likely to be attacked by a mob
 
-Â·        You will be more likely to get hit for very high damage (Critical Hits)
+·        You will be more likely to get hit for very high damage (Critical Hits)
 
-Â·        You will be more likely to hit the mob for very high damage (Critical Hits)
+·        You will be more likely to hit the mob for very high damage (Critical Hits)
 
 
 
@@ -1034,33 +1034,33 @@ Aggro and Mob Hatelists
 
 Basically, whenever you tell your pet to attack a mob (monster), you'll get onto his hatelist. This is a list of targets that the mob keeps track of and will want to attack. The mob will check from time to time to see you he hates the most and will then attack the target he decides that he hates most. Some of the things that can affect your position on the mob's hatelist are:
 
-Â·        How much damage you have done to the mob
+·        How much damage you have done to the mob
 
-Â·        What nanos you have cast at the mob
+·        What nanos you have cast at the mob
 
-Â·        How close you are to the mob
+·        How close you are to the mob
 
-Â·        Whether you are in Line of Sight (LoS) of the mob.
+·        Whether you are in Line of Sight (LoS) of the mob.
 
-Â·        Your Agg/Def setting
+·        Your Agg/Def setting
 
-Â·        How strong or weak you are compared to your pets. Sometimes the mob will cleverly choose to attack the weakest of its opponents!
+·        How strong or weak you are compared to your pets. Sometimes the mob will cleverly choose to attack the weakest of its opponents!
 
-Â·        How many times you have hit the mob
+·        How many times you have hit the mob
 
 So, if you get attacked by a mob and need to make the aggro go back to your pet there are several options:
 
-Â·        stop doing damage with your own weapon, 
+·        stop doing damage with your own weapon, 
 
-Â·        stop casting nanos, 
+·        stop casting nanos, 
 
-Â·        move away from and if possible out of sight of the mob, 
+·        move away from and if possible out of sight of the mob, 
 
-Â·        reduce your Agg/Def setting
+·        reduce your Agg/Def setting
 
-Â·        Use pet buffs to make your attack pet do more damage
+·        Use pet buffs to make your attack pet do more damage
 
-Â·        etc
+·        etc
 
 Some mobs will attack you on sight. Usually, if a mob is grey they won't attack you on sight. But other types of mobs will aggro you the moment you come in range of them. You'll soon grow to learn which types of mobs will aggro you and which will let you pass by without even noticing you.
 
@@ -1109,21 +1109,21 @@ To form a team, it's generally a good idea to ask the player if they'd like to j
 
 To start a team:
 
-Â·        Open your Team window by clicking on the 5th button from the top on the right hand side of your chat window.
+·        Open your Team window by clicking on the 5th button from the top on the right hand side of your chat window.
 
-Â·        Target the player you'd like to invite to a team
+·        Target the player you'd like to invite to a team
 
-Â·        Click on the 'Recruit' button in your team window
+·        Click on the 'Recruit' button in your team window
 
-Â·        The player will get a text message that he's been invited to a team
+·        The player will get a text message that he's been invited to a team
 
-Â·        When the player opens his team window he'll have 3 options: Accept, Refuse or Ignore
+·        When the player opens his team window he'll have 3 options: Accept, Refuse or Ignore
 
-Â·        By clicking Accept he will join the team. You will see his name, health bar and nanopool bar appear in your team window
+·        By clicking Accept he will join the team. You will see his name, health bar and nanopool bar appear in your team window
 
-Â·        By clicking Refuse a text message is sent to the Recruiter to say you've refused
+·        By clicking Refuse a text message is sent to the Recruiter to say you've refused
 
-Â·        By clicking Ignore he will set the Recruiter in question to ignore and no longer receive any messages or invites that he tries to send.
+·        By clicking Ignore he will set the Recruiter in question to ignore and no longer receive any messages or invites that he tries to send.
 
 When teaming, you should try to work together as a team to kill the same mob. It's usually a good idea for everybody in the team to concentrate on killing the same mob. You'll find some detailed team tactics later in this guide. For now though, simply working together to kill one mob at a time should be enough of a tactic in the Training Ground.
 
@@ -1138,38 +1138,38 @@ Startup Shop
 
 The Startup Shop sells some basic items which may be of use to you once you have made some money. Importantly, you can also sell any items you may loot from mobs to this shop in order to make some money. The Startup Shop should sell
 
-Â·        Basic Nano Recharger (QL 1)
+·        Basic Nano Recharger (QL 1)
 
 This kit is similar to your sit-down start-up treatment lab, but it only heals your nanopool. Instead of healing your nano for only 15 points, it will heal for 30 points. Since nano is the source of your nuke power and your pets, purchasing a stack of these may well be a good idea as you will find that you are able to kill mobs in the training ground more efficiently and with less waiting time between mobs.
 
-Â·        Simple First-Aid Kit (QL 1)
+·        Simple First-Aid Kit (QL 1)
 
 This is similar to your start up First Aid kit, but it will only heal your HP. Instead of healing for 5 to 7 points while in combat, it will heal your HP for 10 to 12 points.
 
-Â·        Treatment Laboratory (QL 1)
+·        Treatment Laboratory (QL 1)
 
 This is simlar to the Basic Nano Recharger but heals your HP while sitting in peace for 30 points.
 
-Â·        Omni-Tek Application Form
+·        Omni-Tek Application Form
 
 This can be used to change your side to an Omni-Tek - but you should be very careful to use this only in a safe place, otherwise the Clan guards may well kill you.
 
-Â·        Clan Application Form
+·        Clan Application Form
 This can be used to change your side to Clan - but you should be very careful to use this in a safe place otherwise Omni guards may kill you.
 
-Â·        Floating Torch
+·        Floating Torch
 
 Floating torches can be equipped and shine weak light around you for a short distance. They are near useless in nearly all situations.
 
-Â·        Lockpick
+·        Lockpick
 
 A lockpick is a useful item that opens Doors, chests and other things using the Breaking and Entry skill. 
 
-Â·        Mission Key Duplicator
+·        Mission Key Duplicator
 
 A mission key duplicator can be very handy. It allows you to copy a mission key given only to yourself and pass the keys to other members of your team so that they can enter the same mission as you.
 
-Â·        Nano Programming Interface
+·        Nano Programming Interface
 
 The nano programming interface is a useful tool that can be equipped to give you a small nano programming buff and can be used in some tradeskill processes.
 
@@ -1185,27 +1185,27 @@ Combat Areas
 
 The Clan training ground is essentially made up of 3 combat areas. The first area, where the Guard is, is a large rectangular area with a waterfall and pond in it. You'll find the following mobs in this section:
 
-Â·        Leets
-Â·        Reets of Paradise
-Â·        Viviparous Lizard
-Â·        Rollerrats
+·        Leets
+·        Reets of Paradise
+·        Viviparous Lizard
+·        Rollerrats
 
 This section should be fine for you to fight mobs until you reach level 3. They are  not 'social' which means that the mobs will not help each other to try to kill you. In the northern end of this section you may find Rollerrats though. These mobs here are 'aggro' which means they will attack you if you get close to them, even if you do not attack them first. They should still be pretty easy for you to kill though.
 
 To the East of the guarded area where you appear, through a stone doorway, you'll find a second area. This one is square and has slightly harder mobs to kill. You might want to head this way once you are level 3. The following mobs can be found in this area:
 
-Â·        Grain Blubbag
-Â·        Daft Raider
-Â·        Eleet
+·        Grain Blubbag
+·        Daft Raider
+·        Eleet
 
 You'll also find a deep red non-player character (NPC) called the 'Second Hand Peddler'. If you right click on the peddler you will bring up a conversation dialogue where you can choose questions and get information about weapons, ammunition, armour and some gadgets. The peddler can also sell you some of these items if you have enough money. You can also sell your items to the peddler.
 
 To the North of this section, in the North East corner of the training ground you'll find the most difficult mobs to fight:
 
-Â·        Reet Warbler
-Â·        Grecko
-Â·        Contagious Rollerrat
-Â·        Dayflare the Inferno
+·        Reet Warbler
+·        Grecko
+·        Contagious Rollerrat
+·        Dayflare the Inferno
 
 The last mob in this list 'Dayflare the Inferno' is a Boss Mob. Boss mobs are very tough mobs that are difficult to kill alone. They have special loot that can be very nice indeed. In general, mobs with 'special' names like this will be boss mobs and you should be very careful indeed when trying to kill them - especially if you are alone and not in a team.
 
@@ -1221,7 +1221,7 @@ At the paved area where the Guard is, you will also find a stone doorway with a 
 
 In this section you'll find several useful machines.
 
-Â·        Clan Mission Booth
+·        Clan Mission Booth
 
 The mission booth is a machine that allows you to pull 'missions' which are like small quests. Right click on the machine to use it.
 
@@ -1229,21 +1229,21 @@ Each time you ask for missions, you'll need to pay an amount of credits equal to
 
 Missions are often a good source of both XP and loot, so it's a good idea to do at least a few missions from this terminal before leaving the training ground areas.
 
-Â·        Federated Cell Structure Scanner
+·        Federated Cell Structure Scanner
 
 At the very early levels, there are no real penalties to dying. All of your experience and items are 'saved' for you. As you increase in level though, you'll find that dying can potentially lose you XP and that you have to wait a certain period of time after dying before you can reclaim most of your inventory items.
 
 The Cell Structure Scanner is a machine that you use to 'save' your present state. Where you save will also determine where you resurrect after dying. Each usage of this machine costs you credits. Certainly for the time when you are in the training ground you are unlikely to really need to save.
 
-Â·        Stationary Automated Surgery Clinic
+·        Stationary Automated Surgery Clinic
 
 The Surgery Clinic is a machine which when used (cost is 300 credits) allows you to put in and remove implants. Using it also gives you a +100 buff to your treatment skill allowing you to more easily put in higher quality implants.
 
-Â·        Bank Terminal
+·        Bank Terminal
 
 The bank is where you can keep items that you wish to save but cannot fit into your inventory. Simply access it by right clicking on it and you'll see a Ban k Window open. Move items from your inventory to the bank window by picking them up and dropping them into the window. Recover items from the bank by simply clicking on them.
 
-Â·        Reclaim Terminal
+·        Reclaim Terminal
 
 As mentioned earlier, when you die at higher levels, the items from your inventory are not immediately available to you. You can recover these items by finding a reclaim terminal and right clicking on it to open it and retrieve your items.
 
@@ -1263,38 +1263,38 @@ Startup Shop
 
 The Startup Shop sells some basic items which may be of use to you once you have made some money. Importantly, you can also sell any items you may loot from mobs to this shop in order to make some money. The Startup Shop should sell
 
-Â·        Basic Nano Recharger (QL 1)
+·        Basic Nano Recharger (QL 1)
 
 This kit is similar to your sit-down start-up treatment lab, but it only heals your nanopool. Instead of healing your nano for only 15 points, it will heal for 30 points. Since nano is the source of your nuke power and your pets, purchasing a stack of these may well be a good idea as you will find that you are able to kill mobs in the training ground more efficiently and with less waiting time between mobs.
 
-Â·        Simple First-Aid Kit (QL 1)
+·        Simple First-Aid Kit (QL 1)
 
 This is similar to your start up First Aid kit, but it will only heal your HP. Instead of healing for 5 to 7 points while in combat, it will heal your HP for 10 to 12 points.
 
-Â·        Treatment Laboratory (QL 1)
+·        Treatment Laboratory (QL 1)
 
 This is simlar to the Basic Nano Recharger but heals your HP while sitting in peace for 30 points.
 
-Â·        Omni-Tek Application Form
+·        Omni-Tek Application Form
 
 This can be used to change your side to an Omni-Tek - but you should be very careful to use this only in a safe place, otherwise the Clan guards may well kill you.
 
-Â·        Clan Application Form
+·        Clan Application Form
 This can be used to change your side to Clan - but you should be very careful to use this in a safe place otherwise Omni guards may kill you.
 
-Â·        Floating Torch
+·        Floating Torch
 
 Floating torches can be equipped and shine weak light around you for a short distance. They are near useless in nearly all situations.
 
-Â·        Lockpick
+·        Lockpick
 
 A lockpick is a useful item that opens Doors, chests and other things using the Breaking and Entry skill. 
 
-Â·        Mission Key Duplicator
+·        Mission Key Duplicator
 
 A mission key duplicator can be very handy. It allows you to copy a mission key given only to yourself and pass the keys to other members of your team so that they can enter the same mission as you.
 
-Â·        Nano Programming Interface
+·        Nano Programming Interface
 
 The nano programming interface is a useful tool that can be equipped to give you a small nano programming buff and can be used in some tradeskill processes.
 
@@ -1310,27 +1310,27 @@ Combat Areas
 
 The Omni training ground is essentially made up of 1 large combat area and one small one. The first area is immediately around the Guide area without going over water You'll find the following mobs in this section:
 
-Â·        Leets
-Â·        Reets of Paradise
-Â·        Grass Snake
-Â·        Fresh Clan Functionary
+·        Leets
+·        Reets of Paradise
+·        Grass Snake
+·        Fresh Clan Functionary
 
 This section should be fine for you to fight mobs until you reach level 3. They are  not 'social' which means that the mobs will not help each other to try to kill you. In the northern end of this section you may find Fresh Clan Functionaries though. These mobs are 'aggro' which means they will attack you if you get close to them, even if you do not attack them first. They should still be pretty easy for you to kill though.
 
 To the East of the guarded area where you appear, around the side of a water area, you'll find some tougher mobs. This one is square and has slightly harder mobs to kill. You might want to head this way once you are level 3. The following mobs can be found in this area:
 
-Â·        Daft Clan Diversionist
-Â·        Eleet
+·        Daft Clan Diversionist
+·        Eleet
 
 You'll also find a deep red non-player character (NPC) called the 'Second Hand Peddler'. If you right click on the peddler you will bring up a conversation dialogue where you can choose questions and get information about weapons, ammunition, armour and some gadgets. The peddler can also sell you some of these items if you have enough money. You can also sell your items to the peddler.
 
 To the North of this section, in the North East corner of the training ground you'll find the most difficult mobs to fight. To get there either swim across the water or work your way around the water northwards until you reach the bridge. The following mobs can be found in this section:
 
-Â·        Tiny Stalker
-Â·        Daft Clan Informer
-Â·        Young Malle
-Â·        Smooth Snake
-Â·        Examiner Nosolea the Elder
+·        Tiny Stalker
+·        Daft Clan Informer
+·        Young Malle
+·        Smooth Snake
+·        Examiner Nosolea the Elder
 
 The last mob in this list 'Examiner Nosolea the Elder' is a Boss Mob. Boss mobs are very tough mobs that are difficult to kill alone. They have special loot that can be very nice indeed. In general, mobs with 'special' names like this will be boss mobs and you should be very careful indeed when trying to kill them - especially if you are alone and not in a team.
 
@@ -1346,7 +1346,7 @@ At the paved area where the Guide and Guard are, you will also find a blue light
 
 In this section you'll find several useful machines.
 
-Â·        OmniTek Mission Booth
+·        OmniTek Mission Booth
 
 The mission booth is a machine that allows you to pull 'missions' which are like small quests. Right click on the machine to use it.
 
@@ -1354,21 +1354,21 @@ Each time you ask for missions, you'll need to pay an amount of credits equal to
 
 Missions are often a good source of both XP and loot, so it's a good idea to do at least a few missions from this terminal before leaving the training ground areas.
 
-Â·        OmniTek Cell Structure Scanner
+·        OmniTek Cell Structure Scanner
 
 At the very early levels, there are no real penalties to dying. All of your experience and items are 'saved' for you. As you increase in level though, you'll find that dying can potentially lose you XP and that you have to wait a certain period of time after dying before you can reclaim most of your inventory items.
 
 The Cell Structure Scanner is a machine that you use to 'save' your present state. Where you save will also determine where you resurrect after dying. Each usage of this machine costs you credits. Certainly for the time when you are in the training ground you are unlikely to really need to save.
 
-Â·        Stationary Automated Surgery Clinic
+·        Stationary Automated Surgery Clinic
 
 The Surgery Clinic is a machine which when used (cost is 300 credits) allows you to put in and remove implants. Using it also gives you a +100 buff to your treatment skill allowing you to more easily put in higher quality implants.
 
-Â·        Bank Terminal
+·        Bank Terminal
 
 The bank is where you can keep items that you wish to save but cannot fit into your inventory. Simply access it by right clicking on it and you'll see a Ban k Window open. Move items from your inventory to the bank window by picking them up and dropping them into the window. Recover items from the bank by simply clicking on them.
 
-Â·        Reclaim Terminal
+·        Reclaim Terminal
 
 As mentioned earlier, when you die at higher levels, the items from your inventory are not immediately available to you. You can recover these items by finding a reclaim terminal and right clicking on it to open it and retrieve your items.
 
@@ -1388,38 +1388,38 @@ Startup Shop
 
 The Startup Shop sells some basic items which may be of use to you once you have made some money. Importantly, you can also sell any items you may loot from mobs to this shop in order to make some money. The Startup Shop should sell
 
-Â·        Basic Nano Recharger (QL 1)
+·        Basic Nano Recharger (QL 1)
 
 This kit is similar to your sit-down start-up treatment lab, but it only heals your nanopool. Instead of healing your nano for only 15 points, it will heal for 30 points. Since nano is the source of your nuke power and your pets, purchasing a stack of these may well be a good idea as you will find that you are able to kill mobs in the training ground more efficiently and with less waiting time between mobs.
 
-Â·        Simple First-Aid Kit (QL 1)
+·        Simple First-Aid Kit (QL 1)
 
 This is similar to your start up First Aid kit, but it will only heal your HP. Instead of healing for 5 to 7 points while in combat, it will heal your HP for 10 to 12 points.
 
-Â·        Treatment Laboratory (QL 1)
+·        Treatment Laboratory (QL 1)
 
 This is simlar to the Basic Nano Recharger but heals your HP while sitting in peace for 30 points.
 
-Â·        Omni-Tek Application Form
+·        Omni-Tek Application Form
 
 This can be used to change your side to an Omni-Tek - but you should be very careful to use this only in a safe place, otherwise the Clan guards may well kill you.
 
-Â·        Clan Application Form
+·        Clan Application Form
 This can be used to change your side to Clan - but you should be very careful to use this in a safe place otherwise Omni guards may kill you.
 
-Â·        Floating Torch
+·        Floating Torch
 
 Floating torches can be equipped and shine weak light around you for a short distance. They are near useless in nearly all situations.
 
-Â·        Lockpick
+·        Lockpick
 
 A lockpick is a useful item that opens Doors, chests and other things using the Breaking and Entry skill. 
 
-Â·        Mission Key Duplicator
+·        Mission Key Duplicator
 
 A mission key duplicator can be very handy. It allows you to copy a mission key given only to yourself and pass the keys to other members of your team so that they can enter the same mission as you.
 
-Â·        Nano Programming Interface
+·        Nano Programming Interface
 
 The nano programming interface is a useful tool that can be equipped to give you a small nano programming buff and can be used in some tradeskill processes.
 
@@ -1435,8 +1435,8 @@ Combat Areas
 
 The Neutral training ground is essentially made up of 3 combat areas. The first area, where the Guide is, is a large area surrounding a pond of water. You'll find the following mobs in this section:
 
-Â·        34-I Helper
-Â·        Biofreak Carcass
+·        34-I Helper
+·        Biofreak Carcass
 
 This section should be fine for you to fight mobs until you reach level 3. They are not 'social' which means that the mobs will not help each other to try to kill you. They should still be pretty easy for you to kill though.
 
@@ -1444,20 +1444,20 @@ You'll also find a deep red non-player character (NPC) called the 'Second Hand P
 
 To the West of the area around the pool, you'll find a second area. This area is much more populated with mobs of varying difficulty. The further west you go in this area the more difficult the mobs will become. You might want to head this way once you are level 3. The following mobs can be found in this area:
 
-Â·        Biofreak Cadaver
-Â·        Eleets
-Â·        Clawfinger Bully
-Â·        Contagious Rollerrat
-Â·        Clawfinger Ruffian
-Â·        Eyemutant Ruffian
+·        Biofreak Cadaver
+·        Eleets
+·        Clawfinger Bully
+·        Contagious Rollerrat
+·        Clawfinger Ruffian
+·        Eyemutant Ruffian
 
 
 To the far west of this section, you'll find a walled fort with the hardest mobs in it:
 
-Â·        Fresh Highwayman
-Â·        Diseased Rollerrat
-Â·        Contagious Rollerrat
-Â·        High Voltage the Sentient
+·        Fresh Highwayman
+·        Diseased Rollerrat
+·        Contagious Rollerrat
+·        High Voltage the Sentient
 
 The last mob in this list 'High Voltage the Sentient' is a Boss Mob. Boss mobs are very tough mobs that are difficult to kill alone. They have special loot that can be very nice indeed. In general, mobs with 'special' names like this will be boss mobs and you should be very careful indeed when trying to kill them - especially if you are alone and not in a team.
 
@@ -1473,7 +1473,7 @@ At the paved area where the Guard is, you will also find a stone doorway with a 
 
 In this section you'll find several useful machines.
 
-Â·        Mission Booth
+·        Mission Booth
 
 The mission booth is a machine that allows you to pull 'missions' which are like small quests. Right click on the machine to use it.
 
@@ -1481,21 +1481,21 @@ Each time you ask for missions, you'll need to pay an amount of credits equal to
 
 Missions are often a good source of both XP and loot, so it's a good idea to do at least a few missions from this terminal before leaving the training ground areas.
 
-Â·        Cell Structure Scanner
+·        Cell Structure Scanner
 
 At the very early levels, there are no real penalties to dying. All of your experience and items are 'saved' for you. As you increase in level though, you'll find that dying can potentially lose you XP and that you have to wait a certain period of time after dying before you can reclaim most of your inventory items.
 
 The Cell Structure Scanner is a machine that you use to 'save' your present state. Where you save will also determine where you resurrect after dying. Each usage of this machine costs you credits. Certainly for the time when you are in the training ground you are unlikely to really need to save.
 
-Â·        Stationary Automated Surgery Clinic
+·        Stationary Automated Surgery Clinic
 
 The Surgery Clinic is a machine which when used (cost is 300 credits) allows you to put in and remove implants. Using it also gives you a +100 buff to your treatment skill allowing you to more easily put in higher quality implants.
 
-Â·        Bank Terminal
+·        Bank Terminal
 
 The bank is where you can keep items that you wish to save but cannot fit into your inventory. Simply access it by right clicking on it and you'll see a Ban k Window open. Move items from your inventory to the bank window by picking them up and dropping them into the window. Recover items from the bank by simply clicking on them.
 
-Â·        Reclaim Terminal
+·        Reclaim Terminal
 
 As mentioned earlier, when you die at higher levels, the items from your inventory are not immediately available to you. You can recover these items by finding a reclaim terminal and right clicking on it to open it and retrieve your items.
 
@@ -1515,19 +1515,19 @@ When you appear in the Jobe Training Ground you are high up in the sky on a plat
 
 Mobs you will find in the Jobe Training Ground are listed below along with their levels which will give you an idea of how difficult they are to kill:
 
-Â·        Deceitful Weaver (level 1-3)
-Â·        Shining Collier (level 1-3)
-Â·        Beit Gras (level 4)
-Â·        Hungry Predator (level 3)
-Â·        Lurking Chimera (level 4)
-Â·        Pond Dryad (level 6)
-Â·        Silvertail Mare (level 2)
-Â·        Young Silvertail (level 5)
-Â·        Heckler of Evolution (level 5)
-Â·        Crippler (level 6) 
-Â·        Heckler of Nature (level 8) 
-Â·        Waggler (level 4) 
-Â·        Swift Silvertail (level 2-3)
+·        Deceitful Weaver (level 1-3)
+·        Shining Collier (level 1-3)
+·        Beit Gras (level 4)
+·        Hungry Predator (level 3)
+·        Lurking Chimera (level 4)
+·        Pond Dryad (level 6)
+·        Silvertail Mare (level 2)
+·        Young Silvertail (level 5)
+·        Heckler of Evolution (level 5)
+·        Crippler (level 6) 
+·        Heckler of Nature (level 8) 
+·        Waggler (level 4) 
+·        Swift Silvertail (level 2-3)
 
 Some of the mobs in the training ground will attack you on sight even if you don't attack them. These kinds of mobs will begin their attack based on how close you come to them:
 
@@ -1575,59 +1575,59 @@ This guide cannot begin to detail the very complex Faction System and all of the
 
 Also in the guarded area just over the bridge is a Non-Player Character (NPC) called Sundance Smith J.A.M.E. Depot. This character is a vendor and is able to sell you many very useful items, most in three different quality levels. Below you'll find a listing of some of the items available from this vendor. Please refer to the next section of this guide where the 'First Shopping Lists' are discussed and explained in order to get an idea of what you may need to buy.
 
-Â·        NCU Chips
+·        NCU Chips
 
 These very important items can be equipped into the slots on Belt Component Platforms to increase the number of NCU that you have available. NCU is a key element for the MP.
 
-Â·        Advanced Hacker Tool
+·        Advanced Hacker Tool
 
 Advanced Hacker Tools can be used to break open items as part of tradeskill (crafting) processes. These processes usually use Breaking and Entry as their skill which is not a strength of MPs.
 
-Â·        Ammunition
+·        Ammunition
 
-Â·        Belt Component Platform Ti-100x
+·        Belt Component Platform Ti-100x
 
 The Belt Component Platform is equipped by a player in order to carry various items in its 'slots'. For the MP this is of particular interest for increasing NCU by equipping NCU chips into the slots.
 
-Â·        Bomb Disarmament Tool
+·        Bomb Disarmament Tool
 
 This tool is used in disarming bombs and booby trapped items.
 
-Â·        Floating Torch
+·        Floating Torch
 
 Floating torches can be equipped and shine weak light around you for a short distance. They are near useless in nearly all situations.
 
-Â·        Lockpick
+·        Lockpick
 
 A lockpick is a useful item that opens Doors, chests and other things using the Breaking and Entry skill. 
 
-Â·        Medium Backpack
+·        Medium Backpack
 
 Backpacks are items which take up a single slot in your inventory. By opening the backpack by right clicking on it and moving items to the backpack you are able to carry many more items around with you.
 
-Â·        Nano Programming Interface
+·        Nano Programming Interface
 
 The nano programming interface is a useful tool that can be equipped to give you a small nano programming buff and can be used in some tradeskill processes.
 
-Â·        Screwdriver
+·        Screwdriver
 
 A screwdriver is an item that is used in several tradeskill processes to create other items. 
 
-Â·        Small Backpack
+·        Small Backpack
 
 Backpacks are items which take up a single slot in your inventory. By opening the backpack by right clicking on it and moving items to the backpack you are able to carry many more items around with you.
 
-Â·        Sundance Armour pieces
+·        Sundance Armour pieces
 
 This special armour is specially made for beginners. The armour only requires a certain level in order to be able to wear it and is available up to Quality Level 15 which has a level 15 requirement to equip it. Sundance Armour increases your armour class and also adds a small amount of NCU to your available space.
 
 
 Just near to your beginning point is a Non-Player Character (NPC) called Scientist Drake Rodriguez. By moving close to him you will automatically begin a conversation with him in which he wants to get started on several tests with you. These tests are essentially 'learning quests' which help you to learn the basics of Shadowlands elements and gameplay. There are 6 tests to complete, each of which will reward you with useful items, experience and loot.
 
-Â·        Test of Strength 
+·        Test of Strength 
 
 Kill 3 mobs: 
-Â·
+·
 Deceitful Weaver (level 1-3)
 Shining Coiler (level 1-3)
 Beit Gras (level 4) 
@@ -1635,33 +1635,33 @@ Beit Gras (level 4)
 Reward: Bracer of Strength
 
 
-Â·        Test of Agility and Stamina 
+·        Test of Agility and Stamina 
 
 Find 3 different mobs and use a bio scanner (supplied) on them.
-Â·
+·
 Hungry Predator (level 3) 
 Lurking Chimera (level 4) 
 Pond Dryad (level 6) 
-Â·
+·
 The mission is in 3 parts, and you only have 2 minutes for each section. 
 
 
 Reward:
-Â·
+·
 Protective Shirt of Exploration (Non Shades)
 Tattoo of Inner Peace (Shades)
 
 
 
-Â·        Test of Sense: 
+·        Test of Sense: 
 
 Go to the other end of the bridge in the training area and use Search action to find a hidden Shadowleet. Target it, then return for your reward. 
-Â·
+·
 Reward: Overview of Nascence Map Nano Crystal
 
 
 
-Â·        Test of Psychic 
+·        Test of Psychic 
 
 
 You will get 2 quests and must choose to do one or the other: 
@@ -1675,7 +1675,7 @@ Reward: Ring of Enhanced Psychic
 
 
 
-Â·        Test of Intelligence 
+·        Test of Intelligence 
 
 
 Take some supplies to Scientist Sarah Willis who is hidden in a cave. 
@@ -1685,11 +1685,11 @@ Reward: Bonfire Kit
 
 
 
-Â·        Final Test 
-Â·
+·        Final Test 
+·
 Find some information out in the Brink and bring it back. The item you are looking for is dropped by a Heckler of Evolution (level 5). 
 
-Reward: Â·Smart Backpack 
+Reward: ·Smart Backpack 
 
 Exit to Jobe Research and Jobe
 
@@ -1737,13 +1737,13 @@ Making Buying Decisions
 
 In general, whatever you are buying there is a process you need to think through:
 
-Â·        Check your skill levels for uploading nanos or equipping items that you would like to have
+·        Check your skill levels for uploading nanos or equipping items that you would like to have
 
 This is done simply by looking in your skills window. If you haven't maxed the skill that you'll need and you have some IP left over, then you might want to check how high you could reach by investing those IP.
 
 If you're looking forward a few levels, then you can use tools such as the Rustot Skill Emulator to predict what your maximum skill levels will be.
 
-Â·        Find out how much you can increase your skills 
+·        Find out how much you can increase your skills 
 
 For some items and nanos you may be able to increase your skills temporarily in order to be able to equip them. Buffs from other players, implants that you put in for a short period and items that you equip for a short period of time may all help you to equip an item that you need.
 
@@ -1751,27 +1751,27 @@ On the whole, this doesn't work well for nanos. You'll usually want to use nanos
 
 For some key equipment such as NCU Chips and Armour, there are no problems with using temporary buffs to equip them.
 
-Â·        Research which nanos and items you can actually use at this time based on the maximum skills you can reach
+·        Research which nanos and items you can actually use at this time based on the maximum skills you can reach
 
 Once you've worked out the maximum skills you can reach, then it's time to find out which items you actually want to get. Sometimes you'll find that you can skip nanos because you will already be able to reach a more powerful version of the type of nano. Sometimes you'll have a choice of different QLs (quality levels) of an item and you can upgrade to a higher version than you thought.
 
 Using online databases (such as Anarchy Mainframe ) which detail all of the items and nanos in the game is often a good way of working out which items you actually want and in which QL. 
 
-Â·        Find out where to buy or find the nanos and items
+·        Find out where to buy or find the nanos and items
 
 Many items are available in the shops. Some items can be earned as rewards for completing missions or quests. Other items must be looted from the corpses of special mobs. Once you know which item you actually want, then it's time to find out where to actually get the item.
 
 It's often possible to buy, barter, beg or borrow the items you want from other players too. 
 
-Â·        Check that you have enough money
+·        Check that you have enough money
 
 When buying items from shops or from other players you'll need to get an idea of how much the items are going to cost and try to make sure that you'll have enough funds. In particular, when you are shopping for a specific QL of an item, you may have only a limited window of opportunity to buy it when you find it - so it's best to have the money all ready just in case the specific item you want turns up.
 
-Â·        Acquire the items
+·        Acquire the items
 
 Go get the item. J
 
-Â·        Upload the nanos or equip the items
+·        Upload the nanos or equip the items
 
 According to your plan, get the equipment and buffs that you'll need to be able to equip the items and then equip them.
 
@@ -1779,11 +1779,11 @@ Getting Nanos
 
 Nanos are the lifeblood of the MP. As a beginning MP, most of the nanos you might need can be found in the Nano Department of Basic Shops in the cities. There are two shop machines that will be important for you:
 
-Â·        The Meta-Physicist Nano machine
+·        The Meta-Physicist Nano machine
 
 The MP machine sells only specifically MP nanos. It's here that you'll find most of the important nanos throughout your life as an MP.
 
-Â·        The General Nano machine
+·        The General Nano machine
 
 The General Nano machine sells a whole range of low level nanos that can be used to buff nearly all of the skills in the game by a small amount. Most of these buffs are available in two different versions:
 
@@ -1795,19 +1795,19 @@ Shadowlands nanos which can only be used once you've completed special quests in
 
 Some MP nanos cannot be purchased at the shops. To get these nanos you may have to purchase them from another player or go out and hunt and kill mobs in order to acquire them. There are a few general ways of getting these nanos:
 
-Â·        Missions
+·        Missions
 
 When you pull missions from a mission terminal it's possible to see what the reward is for completing the mission. Some MP nanos that are not available in the shops can be earned as a mission reward. It can be time consuming pulling a mission for the exact item you want though, so many players use a special utility that will help automate the search process called Clicksaver. 
 
-Â·        Normal Mob Loot
+·        Normal Mob Loot
 
 Many MP nanos can be looted from normal mobs. These can save you the cost of buying them at the store and some of the nanos lootable from normal mobs are also not available in the shops. On the whole though this is the least reliable way of getting hold of nanos that you want - but if you find them ahead of the time you need them it's the most cost efficient way of getting nanos.
 
-Â·        Special Boss Mob Loot
+·        Special Boss Mob Loot
 
 Several MP nanos can only be found by killing special boss mobs. These tend to be particularly powerful nanos and are the exception rather than being the rule.
 
-Â·        Quests
+·        Quests
 
 At present only a very few nanos are available as a Quest reward. Some Shadowlands MP nanos can only be used when you have completed quests though and can only be bought from Vendors in special places in the Shadowlands. Details of these nanos and vendors can be found in the MP Toolset section of this guide.
 
@@ -1815,21 +1815,21 @@ Extending your NCU
 
 You start life with 8 NCU. In order to extend this, you need to equip a Belt Component Platform. There are 6 different types of NCU Belt or Belt Deck:
 
-Â·        Belt Component Platform Ti-100X (gives 1 belt slot)
-Â·        Belt Component Platform Ti-200X   (gives 2 belt slots)
-Â·        Belt Component Platform 300X  (gives 3 belt slots)
-Â·        Belt Component Platform 4IX    (gives 4 belt slots)
-Â·        Belt Component Platform 5000  (gives 5 belt slots)
-Â·        Belt Component Platform 6K-X     (gives 6 belt slots)
+·        Belt Component Platform Ti-100X (gives 1 belt slot)
+·        Belt Component Platform Ti-200X   (gives 2 belt slots)
+·        Belt Component Platform 300X  (gives 3 belt slots)
+·        Belt Component Platform 4IX    (gives 4 belt slots)
+·        Belt Component Platform 5000  (gives 5 belt slots)
+·        Belt Component Platform 6K-X     (gives 6 belt slots)
 
 Each of the slots in a belt can hold a single item. There are several items that can be equipped into these slots, the most important of which are NCU chips which extend your available NCU. There are several different types of NCU chip but the basic ones come in various sizes:
 
-Â·        2 - 3 NCU Memory 
-Â·        4 - 7 NCU Memory 
-Â·        8 - 15 NCU Memory  
-Â·        16 - 31 NCU Memory
-Â·        32 - 63 NCU Memory 
-Â·        64 NCU Memory 
+·        2 - 3 NCU Memory 
+·        4 - 7 NCU Memory 
+·        8 - 15 NCU Memory  
+·        16 - 31 NCU Memory
+·        32 - 63 NCU Memory 
+·        64 NCU Memory 
 
 The different quality levels of the NCU chips will define exactly how much NCU each chip will give you. You'll want to make sure you get enough chips to fill the available slots in your belt.
 
@@ -1840,11 +1840,11 @@ Buying, Building and Looting Implants/Symbiants
 
 Implants (and symbiants for Shadowlands MPs) are key ways for MPs to increase their skills. There are three ways to get hold of implants:
 
-Â·        Buy Pre-Made implants
+·        Buy Pre-Made implants
 
 In the basic shops in AO, there is a special department with machines for each profession that sells pre-made implants up to QL100. These ready made implants are designed with most of the important skills built in. This is the easiest way for a beginner to get hold of some implants but has the drawback that you cannot choose which skills you want to boost. 
 
-Â·        Design and Build Implants
+·        Design and Build Implants
 
 In the shops in AO it's possible to buy empty implants and the separate skills clusters that need to be built into them. Basic implants can be found in the augmentation machines in general stores. The clusters can be found in the Trade department in the Shining Cluster, Bright Cluster and Faded Cluster machines.
 
@@ -1853,7 +1853,7 @@ Building implants this way can be a little cheaper than buying ready made implan
 On the whole, if you're going to be designing and building your own implants you'll get somebody else of a higher level to actually build them. Usually an MP is able to equip higher QLs of implants than he can build for himself. Still, for some temporary implants the MP is often able to build his own implants. There are several tools that can help you to design your implants such as Nano Nanny and Anti Guardians Implant Designer.
 
 
-Â·        Loot Implants from Mobs
+·        Loot Implants from Mobs
 
 You'll find quite a lot of blank and ready made implants as loot on mobs. Unfortunately, the ready made implants rarely have the skills built into them that you'll need. It does happen sometimes though, so if you happen to come across an implant that has exactly the right skills for you, then it's worth keeping hold of them. The blank implants can save you some money if you happen to find the right QLs for you.
 
@@ -1940,13 +1940,13 @@ First, let's take the example of trying to get the best possible attack pet that
 
 Attack Pets have casting requirements that use two skills:
 
-Â·        Matter Creation (MatCre)
-Â·        Time and Space (T&S)
+·        Matter Creation (MatCre)
+·        Time and Space (T&S)
 
 In order to cast the very best pet possible, we will need to increase our MatCre and T&S skill as high as we possibly can. For the Level 20 Nanomage MP in our example, he can raise his MatCre and T&S to the following amounts using IP alone:
 
-Â·        108 Matter Creation
-Â·        108 Time and Space
+·        108 Matter Creation
+·        108 Time and Space
 
 That skill level would allow him to cast the QL17 'Inferior Fury Externalisation' attack pet. To have an attack pet that is lower in QL than your own level though would make you a very weak MP indeed. By the end of the optimisation process, our MP will be able to self-cast a QL33 attack pet - an attack pet almost twice as powerful as before! With the help of others, our MP can be more powerful still - reaching up to a QL40 attack pet that is twice his own level and the deepest of deep reds!
 
@@ -1954,25 +1954,25 @@ Adding in Buffs
 
 In the shopping lists given in Section 3, we recommended buying the general nanos: 'Matter Creation Expertise' and 'Time and Space Expertise'. Expertises are buffs which you cast on yourself that will raise your skill by 20 points for as long as they are running in our NCU. Casting these on yourself will raise your MatCre and T&S skill levels to:
 
-Â·        128 Matter Creation 
-Â·        128 Time and Space
+·        128 Matter Creation 
+·        128 Time and Space
 
 That skill level will allow you to cast a 'QL24 Superior Fury Externalisation' attack pet. So by simply buffing ourselves with the relevant Expertise nanos we've improved the QL of our attack pet from 17 to 24, making the attack pet QL higher than our own level.
 
 The MP is a profession that has its own special nanos which will buff the nanoskills still further. The lowest versions of these are called the Teachings which raise the nanoskills by 25 points each. For MatCre and T&S these are:
 
-Â·          Teachings of Material Creation
-Â·          Teachings of Time and Space
-Â·
+·          Teachings of Material Creation
+·          Teachings of Time and Space
+·
 In order to cast both of these nanos, the MP will need 108 skill in both Psych Mod and Sense Imp nanoskills. Unfortunately, the level 20 Nanomage MP has only:
 
-Â·        94 Psych Mod
-Â·        94 Sense Imp
+·        94 Psych Mod
+·        94 Sense Imp
 
 But remember the general Expertise nanos? They raise skills by 20 points each! By first casting the Psych Mod Expertise and Sense Imp Expertise nanos on himself, the MP can reach:
 
-Â·        114 Psych Mod
-Â·        114 Sense Imp
+·        114 Psych Mod
+·        114 Sense Imp
 
 which will be enough to cast the Teachings of MatCre and T&S. By first buffing with the expertises, the MP is able to get his Psych Mod and Sense Imp high enough to then improve his MatCre and T&S still further by buffing with the Teachings. So the MP does the following:
 
@@ -1983,8 +1983,8 @@ which will be enough to cast the Teachings of MatCre and T&S. By first buffing w
 
 The Teachings work together with the Expertises - so their buffs add together. This is called 'Stacking'. As long as you have enough NCU available, you'll be able to have both Teachings (+25) and Expertise (+20) for MatCre running in your NCU at the same time adding up to give you +45 for that skill. So by using the above buffs, our level 20 Nanomage MP will have:
 
-Â·        153 Matter Creation
-Â·        153 Time and Space
+·        153 Matter Creation
+·        153 Time and Space
 
 This is enough skill to cast the 'QL30 Supreme Fury Externalisation' attack pet. So by adding on the Expertise and Teachings buffs, our level 20 MP is now able to use a QL30 pet instead of a QL17 pet - a very big improvement.
 
@@ -1995,15 +1995,15 @@ T&S: which is based on Intelligence and Agility
 
 So by casting the Intelligence Boost (+12 Int), Stamina Boost  (+12 Sta) and Agility Boost (+12 Agi) nanos on ourselves we can add a few more points to MatCre and T&S. These three will add +3 points to both MatCre and T&S allowing us to reach:
 
-Â·        156 Matter Creation 
-Â·        156 Time and Space
+·        156 Matter Creation 
+·        156 Time and Space
 
 Stacking Buffs
 
 Not all buffs will stack together. For example, there are two groups of General Nanos which buff the same skills:
 
-Â·        The Proficiencies (+10 skill)
-Â·        The Expertises (+20 skill)
+·        The Proficiencies (+10 skill)
+·        The Expertises (+20 skill)
 
 If you buff yourself with a proficiency buff for a skill and then try to buff yourself with an Expertise for the same skill, the proficiency will be 'overwritten' by the Expertise. That means that the Proficiency buff will terminate and be replaced by the larger Expertise buff. 
 
@@ -2011,22 +2011,22 @@ If you buff yourself with an Expertise buff for a skill and then try to buff you
 
 Similarly, there are several groups of MP-cast buffs for the nanoskills which do not 'stack together':
 
-Â·        The Teachings (+25 skill)
-Â·        The Masteries (+50 skill)
-Â·        The Infuses (+90 skill)
-Â·        The Mocham's Gifts (+140 skill)
+·        The Teachings (+25 skill)
+·        The Masteries (+50 skill)
+·        The Infuses (+90 skill)
+·        The Mocham's Gifts (+140 skill)
 
 The MatCre Mastery will overwrite the MatCre Teaching. The MatCre Infuses will overwrite the MatCre Mastery and Teaching etc. 
 
 But the MP-Cast nanoskills buffs will 'stack' together with a general buff for the same skill. This allows us to buff like the following examples:
 
-Â·        MatCre Proficiency (+10) and MatCre Teaching (+25) = +35 MatCre
-Â·        MatCre Expertise (+20) and MatCre Teaching (+25) = +45 MatCre
+·        MatCre Proficiency (+10) and MatCre Teaching (+25) = +35 MatCre
+·        MatCre Expertise (+20) and MatCre Teaching (+25) = +45 MatCre
 
 But we can never buff:
 
-Â·        MatCre Proficiency and MatCre Expertise
-Â·        MatCre Teaching and MatCre Mastery
+·        MatCre Proficiency and MatCre Expertise
+·        MatCre Teaching and MatCre Mastery
 
 In order to learn which groups of buffs will 'stack' together and which will not, it's best to ask a friend or in the forums. You'll also learn from experience which ones will go together and which will not.
 
@@ -2034,15 +2034,15 @@ Improving NCU to fit in the Buffs
 
 By now, our level 20 Nanomage MP has the following buffs running in his NCU in order to reach 156 MatCre and T&S skill:
 
-Â·        MatCre Expertise: 4 NCU req
-Â·        T&S Expertise: 4 NCU req
-Â·        Psych Mod Expertise: 4 NCU req
-Â·        Sense Imp Expertise: 4 NCU req
-Â·        MatCre Teaching: 7 NCU req
-Â·        T&S Teaching: 7 NCU req
-Â·        Intelligence Boost: 3 NCU req
-Â·        Stamina Boost: 3 NCU req
-Â·        Agility Boost: 3 NCU req
+·        MatCre Expertise: 4 NCU req
+·        T&S Expertise: 4 NCU req
+·        Psych Mod Expertise: 4 NCU req
+·        Sense Imp Expertise: 4 NCU req
+·        MatCre Teaching: 7 NCU req
+·        T&S Teaching: 7 NCU req
+·        Intelligence Boost: 3 NCU req
+·        Stamina Boost: 3 NCU req
+·        Agility Boost: 3 NCU req
 
 Total NCU Required for all these buffs = 39 NCU
 
@@ -2050,11 +2050,11 @@ Each player starts life with 8 NCU only, so in order to fit in all of these buff
 
 In Section 3, we included some basic information about extending NCU. You'll need an NCU Belt Deck and some NCU Chips in order to do this. The Belt and Chips both have a Computer Literacy (Comp. Lit.) requirement in order to equip them. Our level 20 Nanomage MP has 108 Comp. Lit. if he has maxed it with IP. By adding a 'Computer Literacy Expertise' buff, he can reach 128 Comp. Lit. This level of Comp Lit will allow him to equip:
 
-Â·        Belt Component Platform 300X
+·        Belt Component Platform 300X
 
 Which will give him 3 slots in which to equip NCU Chips. His 128 Comp Lit will allow him to equip 
 
-Â·        QL50 16 - 31 NCU Memory-chips
+·        QL50 16 - 31 NCU Memory-chips
 
 Which will give the MP 16 extra NCU per chip. Together, the Belt Deck and the 3 QL50 N CU Chips will add +48 NCU to the MP's basic 8 NCU making a total of 56 NCU. This will be enough to fit in the buffs for the attack pet.
 
@@ -2064,31 +2064,31 @@ Implants are items that are equipped into your Implant slots. As long as the imp
 
 The MP Start-Up implants that will affect Matter Creation and Time and Space in order for us to cast a better attack pet are:
 
-Â·        Head Implant: adds MatCre
-Â·        Eye Impant: adds T&S
-Â·        Right Hand: adds T&S
+·        Head Implant: adds MatCre
+·        Eye Impant: adds T&S
+·        Right Hand: adds T&S
 
 Implants have two requirements to equip them. Treatment and an ability which may vary according to the implant. The three pre-made implants we'll need all have Intelligence as their ability requirement. You also need to use a Surgery Station in order to equip implants - you'll find one in every general store. By right clicking on the Surgery Station you are enabled to change you implants and also receive a +100 Treatment buff.
 
 We might start by buying the QL30 pre-made implants from the MP machine in the General Basic Store. The QL30 Head, Eye and Right Hand implants all have the following requirements to equip them:
 
-Â·        Treatment: 148
-Â·        Intelligence: 64
+·        Treatment: 148
+·        Intelligence: 64
 
 Our level 20 Nanomage MP has:
 
-Â·        88 Treatment
-Â·        75 Intelligence
+·        88 Treatment
+·        75 Intelligence
 
 So once he has right clicked on the Surgery Station and received his +100 Treatment buff, he'll be easily able to equip the QL30 pre-made implants. That will add an extra:
 
-Â·        +20 MatCre
-Â·        +20 T&S
+·        +20 MatCre
+·        +20 T&S
 
 which along with the buffs we already added will bring our skills levels to:
 
-Â·        176 MatCre
-Â·        176 T&S
+·        176 MatCre
+·        176 T&S
 
 With this skill level our MP can now use the QL33 'Transcendent Fury Externalisation' attack pet. Now we have nearly doubled the QL of the attack pet we can use by including Buffs and Implants.
 
@@ -2099,13 +2099,13 @@ Our level 20 Nanomage MP also has the Shadowlands Expansion pack and is able to 
 
 In order to improve his MatCre and T&S directly with his perks, the MP has two perk lines to choose from:
 
-Â·        Channel Rage
-Â·        Nano Doctorate
+·        Channel Rage
+·        Nano Doctorate
 
 Unfortunately, at level 20 he only meets the requirements for adding a single perk point to Channel Rage. By doing so the MP raises MatCre and T&S by 3 points each. Along with the buffs and implants, that gives our MP
 
-Â·        179 MatCre
-Â·        179 T&S
+·        179 MatCre
+·        179 T&S
 
 Adding in External Buffs
 
@@ -2115,20 +2115,20 @@ Apart from the general Proficiency and Expertise nanos, there are only two profe
 
 Our level 20 MP might team with a Trader who can cast 'Wrangles'. These are buffs that increase all of the nanoskills and also many weapon skills for a short period of time. He might ask the Trader to cast a 'Skill Wrangler (Minor)' on him which would add 13 points to all of his nanoskills. This nano only has a 7 NCU cost and so our MP could fit it in quite easily. The extra 13 points would then bring our MP's skills up to:
 
-Â·        192 MatCre
-Â·        192 T&S
+·        192 MatCre
+·        192 T&S
 
 This would enable our MP to cast a QL37 'Lesser Rage Materialization' attack pet - more than twice as powerful as the QL17 pet he could cast before optimisation began!
 
 Or our level 20 MP might ask a higher level MP to buff him with the MatCre and T&S Masteries. Because the Masteries do not stack with the Teachings that our MP had already cast on him, they will 'overwrite' the Teachings. So the 14 NCU taken up by the teachings will be freed up giving our MP a total of 31 free NCU. Into this free NCU, the higher level MP that we asked to cast the masteries can now fit:
 
-Â·        MatCre Mastery (+50 skill)
-Â·        T&S Mastery (+50 skill)
+·        MatCre Mastery (+50 skill)
+·        T&S Mastery (+50 skill)
 
 So we lost the +25 from our teachings but gained instead +50 from the Masteries. That works out as an extra 25 points on our score giving us:
 
-Â·        217 MatCre
-Â·        217 T&S
+·        217 MatCre
+·        217 T&S
 
 which allows our level 20 MP to cast a QL40 'Inferior Rage Materialization' nano, giving him an extremely powerful pet with a QL twice that of his own level. He's managed to do this by optimising his skills with buffs, implants, perks and buffs from friends.
 
@@ -2157,8 +2157,8 @@ The basic set-up for an MP is usually around the attack and heal pets. The attac
 
 Second priority is usually the Mez pets and the nukes. The Mez pets need TS and Mat Met (MM). and the nukes need Psych Mod (PM) and MC. 
 
-Â·        Top priority would be: TS - MC - BM 
-Â·        Second priority would be: PM and MM 
+·        Top priority would be: TS - MC - BM 
+·        Second priority would be: PM and MM 
 
 There is one exception to this general rule: The MP has very good nanoskills buffs which use PM and SI. Sometimes, it will work out better for you overall to prioritise PM and SI in your implants so that you can reach the next highest nanoskills buffs. That enables you to buff all of your nanoskills much higher. 
 
@@ -2284,7 +2284,7 @@ As a result of the very impressive skills buffs these Symbiants give, these are 
 
 There are three basic types of Symbiant for the MP:
 
-Â·        Extermination Unit Aban
+·        Extermination Unit Aban
 
 This type is the most basic type and buffs the fewest skills beyond nanoskills and treatment. 
 
@@ -2292,7 +2292,7 @@ Above Treatment, Profession and Level requirements, Extermination Unit Symbiants
 
 Extermination Symbiants have a mix of defensive and offensive skills and include basic Pistol and Flingshot skill buffs for weaponry.
 
-Â·        Support Unit Aban
+·        Support Unit Aban
 
 This type is the second best and buffs a lot of skills. 
 
@@ -2300,7 +2300,7 @@ Above Treatment, Profession and Level requirements, Support Unit Symbiants are b
 
 Support Unit symbiants include strong defensive skills with extensive AC, Heal Delta, Add All Def, parry and riposte skills buffs. They also add a few tradeskills and ability buffs on top. Offensively, these symbiants offer some Phys Init, Bow and Martial Arts buffs.
 
-Â·        Control Unit Aban
+·        Control Unit Aban
 
 This type includes the most skills buffs for the MP. 
 
@@ -2329,21 +2329,21 @@ If you want the game to help you simply type in "/help pet" and click on each of
 
 If you'd like to create your own then each of the following typed into the command line will create an icon for you
 
-Â·        /macro Attack /pet attack 
+·        /macro Attack /pet attack 
 
-Â·        /macro Report /pet report 
+·        /macro Report /pet report 
 
-Â·        /macro Wait /pet wait 
+·        /macro Wait /pet wait 
 
-Â·        /macro Follow /pet follow 
+·        /macro Follow /pet follow 
 
-Â·        /macro Behind /pet behind 
+·        /macro Behind /pet behind 
 
-Â·        /macro Hunt /pet hunt 
+·        /macro Hunt /pet hunt 
 
-Â·        /macro Rename /pet "<petname after casting>" rename "<intended name>"
+·        /macro Rename /pet "<petname after casting>" rename "<intended name>"
 
-Â·        /macro Heal /pet heal 
+·        /macro Heal /pet heal 
 
 
 With regard to the command "/pet hunt" - Pet hunt uses an algorithm that chooses the next target by shortest line distance. This means it has a tendency to choose targets in a fairly unpredictable fashion. That is it won't follow a logical room to room path if a mob in another room is closer even if it has to run through 4 rooms to get to the "closer" mob. Its highly recommended that you use this command with extreme caution.
@@ -2356,13 +2356,13 @@ When using pet commands you can make them apply to a specific pet by naming the 
 Just a quick couple of notes on pet names: 
 
 
-Â·        They must be at least 4 characters long. 
+·        They must be at least 4 characters long. 
 
-Â·        If you have a space in the name you must enclose the name in quotation marks ("name here"). 
+·        If you have a space in the name you must enclose the name in quotation marks ("name here"). 
 
-Â·        According to the terms you agree to play the game you cannot name the pet to the same name as an NPC character or static mob.
+·        According to the terms you agree to play the game you cannot name the pet to the same name as an NPC character or static mob.
 
-Â·        According to the terms you agree to play the game you cannot use rude, insulting or inflammatory names.
+·        According to the terms you agree to play the game you cannot use rude, insulting or inflammatory names.
 
 
 Unless you name the pet correctly then you will receive some odd responses from the pets. If you use "/pet attack" when you have a heal pet, then the heal pet will tell you it cannot attack. If you use "/pet heal" when you have an attack pet or mez pet, then they will tell you that is beyond their ability. 
@@ -2371,11 +2371,11 @@ Also, if you have an attack pet and a mez pet at the same time, they will both r
 
 To rename a pet, either target the pet you wish to rename and type: 
 
-Â·        /pet rename "My pet Name Here" 
+·        /pet rename "My pet Name Here" 
 
 Or take a look at the name above the pet after you cast it and use the following: 
 
-Â·        /pet "<name over head>" rename "<new name>" 
+·        /pet "<name over head>" rename "<new name>" 
 
 Notice in particular the quotation marks (") at the beginning and end of the names. Pets with a single word as a name don't need these quotation marks included. Pets with spaces, colours or more than one word in their name may need to be put in quotation marks. As a rule, it's a good idea to just always use the ""s to be on the safe side. 
 
@@ -2383,7 +2383,7 @@ Using Pet Names in commands
 
 All pet commands you use take the form: 
 
-Â·        /pet "<pet name>" <command> 
+·        /pet "<pet name>" <command> 
 
 eg /pet "Mighty Meatball" Attack 
 
@@ -2416,7 +2416,7 @@ Keep in mind that Windows XP often hides the extensions on filenames for you - s
 
 Scripts can also be added to the Shortcut bar, by using the same Macro technique: 
 
-Â·        /macro ButtonName /scriptfilename 
+·        /macro ButtonName /scriptfilename 
 
 These files are basically command lists and are fairly versatile. 
 
@@ -2447,9 +2447,9 @@ This script would be run by entering it as a command into AO (ie "/Attack") whic
 
 Variables are useful things that allow us to name things in chat or commands without typing the full name. 
 
-Â·        %t is replaced with the name of your target 
+·        %t is replaced with the name of your target 
 
-Â·        %m is replaced by your own name 
+·        %m is replaced by your own name 
 
 One very useful script command is /selectself. This command will make you the selected target. It's particularly useful for a common script: 
 

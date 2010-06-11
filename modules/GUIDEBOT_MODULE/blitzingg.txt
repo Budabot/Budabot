@@ -11,21 +11,21 @@ It takes practice and lots of it. Even though the placement of items is more ran
 The only hard and fast rules we can give you is, get as much speed as possible, as much HoT as possible and as much evade as possible and then keep a simple pattern of running as possible (make every right turn or make every left turn, etc). Only with practice will you get good.
 
 And here is what Seraphael wrote in the same thread:
-â€¢ Clicksaver is your most valued tool, use it.
-â€¢ Finding mission/item: Repair or find person type missions are the easiest as the objectives are larger and easier to discover (find person can often also be seen on map if you have sufficient map upgrade). In most cases the objectives are located in either far end corner in the mission area. Accept a good amount of blitz missions and some will be in the same zone. Fixer grid is a must.
-â€¢ Mission setting: I prefer max money (you will never get xp for pure blitzes). Max open (for less locked doors/traps). If animas is your thing, pick up missions are a very easy and fast way to get the mission (you loose out on mission completion creds though, because the anima is most often the item you'll have to pick up and not the actual reward). Order is good for more ranged mobs, these can't run while hitting you as melee mobs do. Generally order mission areas are larger but more easily navigated. Experiment to find what setting gives most of the particular type of missions you want (this changes as you accept more missions though).
-â€¢ Blitzing for creds: All ql200 battle suits except the desert and probably enhanced one sell for a fair amount of cash. Anima of the Abomination (ql239) is the second best direct cred blitz items and the ql212 anima is also a good bet. Save the items in a bag and get a highlevel trader to sell them for you at the trader shop for much better yield.
-â€¢ Blitzing items for sale: Just ask youself what is attractive to others (this will change with every few patches and more attractive items are implemented). Some evergreens are NCUs ql130-200, ql200 recompilers, blitzable top profession weapons.
+• Clicksaver is your most valued tool, use it.
+• Finding mission/item: Repair or find person type missions are the easiest as the objectives are larger and easier to discover (find person can often also be seen on map if you have sufficient map upgrade). In most cases the objectives are located in either far end corner in the mission area. Accept a good amount of blitz missions and some will be in the same zone. Fixer grid is a must.
+• Mission setting: I prefer max money (you will never get xp for pure blitzes). Max open (for less locked doors/traps). If animas is your thing, pick up missions are a very easy and fast way to get the mission (you loose out on mission completion creds though, because the anima is most often the item you'll have to pick up and not the actual reward). Order is good for more ranged mobs, these can't run while hitting you as melee mobs do. Generally order mission areas are larger but more easily navigated. Experiment to find what setting gives most of the particular type of missions you want (this changes as you accept more missions though).
+• Blitzing for creds: All ql200 battle suits except the desert and probably enhanced one sell for a fair amount of cash. Anima of the Abomination (ql239) is the second best direct cred blitz items and the ql212 anima is also a good bet. Save the items in a bag and get a highlevel trader to sell them for you at the trader shop for much better yield.
+• Blitzing items for sale: Just ask youself what is attractive to others (this will change with every few patches and more attractive items are implemented). Some evergreens are NCUs ql130-200, ql200 recompilers, blitzable top profession weapons.
 
 Blitz preparation:
-â€¢ Buffs: Get the best run and Hot you can (generally your own should do though). Essence and reflect could help you untill you get more comfortable blitzing.
-â€¢ Get your bearings: Remember what direction the exit is (if you can't find the mission objective, running out and loosing pursuit is often the best course of action).
-â€¢ Double check: Turn off mob auto attack. Cast short Hot just before you run, Go full def.
+• Buffs: Get the best run and Hot you can (generally your own should do though). Essence and reflect could help you untill you get more comfortable blitzing.
+• Get your bearings: Remember what direction the exit is (if you can't find the mission objective, running out and loosing pursuit is often the best course of action).
+• Double check: Turn off mob auto attack. Cast short Hot just before you run, Go full def.
 
 Inside:
-â€¢ Extra loot: Check for loot if you still haven't been aggroed, sometimes you can find some random goodies. If you run fast enough away you can often loose aggro.
-â€¢ Have key, stims on the ready. If you run in the wrong direction dont hesitate to use area snare on the pursuing horde. Evac only as a last resort.
-â€¢ Mission completed: Wait for the mission completion sound before evacing, otherwise the reward item will be lost. Do not evac at all if you have more missions in the same zone.
+• Extra loot: Check for loot if you still haven't been aggroed, sometimes you can find some random goodies. If you run fast enough away you can often loose aggro.
+• Have key, stims on the ready. If you run in the wrong direction dont hesitate to use area snare on the pursuing horde. Evac only as a last resort.
+• Mission completed: Wait for the mission completion sound before evacing, otherwise the reward item will be lost. Do not evac at all if you have more missions in the same zone.
 
 Grid Armor is a good asset, but if you know your stuff then it really isn't needed. I have blitzed ql250 missions without much difficulty naked. Which reminds me; if you do use GA then check if its still on before running
 
