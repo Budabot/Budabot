@@ -41,7 +41,7 @@ if (preg_match("/^remuser (.+)$/i", $message, $arr)) {
 	  	} else {
 		    $db->query("DELETE FROM members_<myname> WHERE `name` = '$name'");
 		    $msg = "<highlight>$name<end> has been removed from the guestlist.";
-			$this->rem_buddy($name, 'member');
+			$this->remove_buddy($name, 'member');
 		}
 	}
 
