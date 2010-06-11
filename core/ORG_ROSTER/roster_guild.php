@@ -46,6 +46,11 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 		$db->query("SELECT * FROM members_<myname>");
 		while ($row = $db->fObject()) {
 			$this->members[$row->name] = true;
+			if ($row->autoinv == 1) {
+				$this->add_buddy($row->name, "member");
+			} else {
+				$this->remove_buddy($row->name, "member");
+			}
 		}
 		
 		//Delete old Memberslist
@@ -78,6 +83,9 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 			  	if ($dbentrys[$amember]["mode"] == "man" || $dbentrys[$amember]["mode"] == "org") {
 			        $mode = "org";
 		            $this->guildmembers[$amember] = $org->members[$amember]["rank_id"];
+					
+					// add org members who are on notify to buddy list
+					$this->add_buddy($row->name, 'org');
 			  	} else {
 		            $mode = "del";
 				}
@@ -97,6 +105,9 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 		                    WHERE `name` = '".$org->members[$amember]["name"]."'");	  		
 			//Else insert his data
 			} else {
+				// add new org members to buddy list
+				$this->add_buddy($row->name, 'org');
+			
 			    $db->query("INSERT INTO org_members_<myname> (`name`, `mode`, `firstname`, `lastname`, `guild`, `rank_id`, `rank`, `level`, `profession`, `gender`, `breed`, `ai_level`, `ai_rank`)
 		                        VALUES ('".$org -> members[$amember]["name"]."', 'org',
 		                        '".str_replace("'", "''", $org->members[$amember]["firstname"])."',
@@ -107,9 +118,6 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 		                        '".$org -> members[$amember]["ai_level"]."',
 		                        '".$org -> members[$amember]["ai_rank"]."')");
 				$this->guildmembers[$amember] = $org->members[$amember]["rank_id"];
-				
-				// only add buddy for new org members, in case a previous member has notify off
-				$this->add_buddy($amember, 'org');
 		    }
 		    unset($dbentrys[$amember]);    
 		}

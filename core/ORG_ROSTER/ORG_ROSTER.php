@@ -1,6 +1,6 @@
 <?php
-$MODULE_NAME = "ORG_ROSTER";
-$PLUGIN_VERSION = 0.1;
+	$MODULE_NAME = "ORG_ROSTER";
+	$PLUGIN_VERSION = 0.1;
 
 	//Setup of the Basic Guild Modules
 	bot::regevent("setup", "$MODULE_NAME/setup.php");

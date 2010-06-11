@@ -237,7 +237,7 @@ class bot extends AOChat{
 			}
 			
 			if (!isset($this->buddyList[$uid]['types'][$type])) {
-				$this->buddyTypes[$uid]['types'][$type] = 1;
+				$this->buddyList[$uid]['types'][$type] = 1;
 				if ($this->settings['echo'] >= 1) newLine("Buddy", $name, "buddy type added (type: $type)", $this->settings['echo']);
 			}
 			
@@ -271,9 +271,9 @@ class bot extends AOChat{
 			return false;
 		} else {
 			if ($type == null || $type == false) {
-				return isset($this->buddyTypes[$uid]);
+				return isset($this->buddyList[$uid]);
 			} else {
-				return isset($this->buddyTypes[$uid]['types'][$type]);
+				return isset($this->buddyList[$uid]['types'][$type]);
 			}
 		}
 	}
@@ -289,6 +289,8 @@ class bot extends AOChat{
 ** Name: connectedEvents
 ** Execute Events that needs to be executed right after login
 */	function connectedEvents(){
+		global $db;
+
 		// Check files, for all 'connect events'.
 		forEach ($this->_connect as $filename) {
 			include $filename;

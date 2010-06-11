@@ -38,7 +38,7 @@ if (preg_match("/^is (.+)$/i", $message, $arr)) {
         $msg = "Player <highlight>$name<end> does not exist.";
     else {
         //if the player is a buddy then
-        if ($this->isBuddy($name, NULL)) {
+        if ($this->is_buddy($name, NULL)) {
             $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$name' AND `mode` != 'del'");
             if($db->numrows() == 1) {
                 $row = $db->fObject();

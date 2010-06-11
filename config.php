@@ -33,7 +33,7 @@
 	$settings['echo'] 			= 1;
 	
     // Default Delay for crons after bot is connected
-    $settings['CronDelay']      = 30;
+    $settings['CronDelay']      = 0;
 	
     // Default Colors that should be used
 	$settings['default guild color']     = "<font color='#84FFFF'>";
@@ -58,13 +58,13 @@
     $vars['cachefolder'] = "./cache/";          
     
     //Set lowest needed rank for guild admin
-    //President = 0
-    //General = 1
-    //Squad Commander = 2
-    //Unit Commander = 3
-    //Unit Leader = 4
-    //Unit Member = 5
-    //Applicant = 6
+    //President         Director       = 0
+    //General           Board Member   = 1 
+    //Squad Commander   Executive      = 2
+    //Unit Commander    Member         = 3
+    //Unit Leader       Applicant      = 4
+    //Unit Member                      = 5
+    //Applicant                        = 6
     $settings['guild admin level'] = 3;      
     
     // Spam Protection

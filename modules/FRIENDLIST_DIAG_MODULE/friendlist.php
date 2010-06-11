@@ -37,7 +37,10 @@ if (preg_match("/^friendlist(.+)?$/i", $message, $arg)) {
 		if ($cleanup) {
 			$blob .="\n\nRemoved: ($orphanCount)";
 		} else {
-			$blob .= "\n\nUnknown: ($orphanCount) " . $this->makeLink('Remove Orphans', '/tell <myname> <symbol>friendlist clean', 'chatcmd');
+			$blob .= "\n\nUnknown: ($orphanCount) ";
+			if ($orphanCount > 0) {
+				$blob .= $this->makeLink('Remove Orphans', '/tell <myname> <symbol>friendlist clean', 'chatcmd');
+			}
 		}
 		bot::send(bot::makeLink("Friendlist Details", $blob), $sendto);
 	}

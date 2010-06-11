@@ -40,6 +40,8 @@ else
 	$db->query("UPDATE admin_<myname> SET `adminlevel` = 4 WHERE `name` = '{$this->settings["Super Admin"]}'");
 
 $db->query("SELECT * FROM admin_<myname>");
-while($row = $db->fObject())
+while($row = $db->fObject()) {
 	$this->admins[$row->name]["level"] = $row->adminlevel;
+}
+
 ?>

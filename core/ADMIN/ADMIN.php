@@ -27,13 +27,13 @@ $MODULE_NAME = "ADMIN";
 	bot::regcommand("guild", "$MODULE_NAME/kickraidleader.php", "kickraidleader", "mod");
 
 	bot::regcommand("msg", "$MODULE_NAME/adminlist.php", "adminlist");
-	bot::regcommand("priv", "$MODULE_NAME/adminlist.php", "adminlist");	
-	bot::regcommand("guild", "$MODULE_NAME/adminlist.php", "adminlist");	
+	bot::regcommand("priv", "$MODULE_NAME/adminlist.php", "adminlist");
+	bot::regcommand("guild", "$MODULE_NAME/adminlist.php", "adminlist");
 
 	//Events
-	bot::regevent("logOn", "$MODULE_NAME/admin_logon.php");	
-	bot::regevent("logOff", "$MODULE_NAME/admin_logoff.php");			
-	bot::regevent("24hrs", "$MODULE_NAME/check_admins.php");				
+	bot::regevent("logOn", "$MODULE_NAME/admin_logon.php");
+	bot::regevent("logOff", "$MODULE_NAME/admin_logoff.php");
+	bot::regevent("24hrs", "$MODULE_NAME/check_admins.php");
 
 	//Setup
 	bot::regevent("setup", "$MODULE_NAME/upload_admins.php");
