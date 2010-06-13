@@ -1187,33 +1187,27 @@ class bot extends AOChat{
 ** Find a help topic for a command if it exists
 */	function help_lookup($helpcmd) {
 		$helpcmd = strtolower($helpcmd);
-		$found = false;
-		foreach($this->helpfiles as $key1 => $value1) {
-			foreach($value1 as $key2 => $value2){
-				if($key2 == $helpcmd) {
-					$filename = $this->helpfiles[$key1][$key2]["filename"];
-					$admin = $this->helpfiles[$key1][$key2]["admin level"];
-					$found = true;
-					break;
-				}
-			}
-			
-			if($found == true)
+		foreach($this->helpfiles as $cat => $commands) {
+			if (isset($commands[$helpcmd])) {
+				$filename = $this->helpfiles[$cat][$helpcmd]["filename"];
+				$admin = $this->helpfiles[$cat][$helpcmd]["admin level"];
 				break;
+			}
 		}
 
-		if ($found == false) {
+		// if help isn't found
+		if ($filename == '') {
 			return FALSE;
 		}
 
 		$restricted = true;
-		switch($admin) {
+		switch ($admin) {
 			case "guild":
-				if(isset($this->guildmembers[$sender]))
+				if(isset($this->guildmembers[$sender]) || isset($this->admins[$sender]))
 					$restricted = false;
 			break;
 			case "guildadmin":
-				if($this->guildmembers[$sender] <= $this->settings['guild admin level'])
+				if($this->guildmembers[$sender] <= $this->settings['guild admin level'] || isset($this->admins[$sender]))
 					$restricted = false;
 			break;
 			case "1":

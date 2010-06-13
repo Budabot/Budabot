@@ -22,6 +22,6 @@ $PLUGIN_VERSION = 0.1;
 	bot::loadSQLFile($MODULE_NAME, "towerranges");
 	
 	//Helpfiles
-	bot::help("towers", "$MODULE_NAME/towers.txt", "guild", "Show Tower messages", "Towers");
-	bot::help("lca", "$MODULE_NAME/lca.txt", "guild", "Show Infos about Land Control Areas", "Towers");
+	bot::help("towers", "$MODULE_NAME/towers.txt", "all", "Show Tower messages", "Towers");
+	bot::help("lca", "$MODULE_NAME/lca.txt", "all", "Show Infos about Land Control Areas", "Towers");
 ?>
