@@ -1,7 +1,0 @@
-These NPCs may not be the easiest to find, but their wares are out of the ordinary and certainly worth the trip,if at least to get a refreshing change of scenery.
-
-#L 'Zoftig Blimp' '/tell chunkbot info zoftig' 
-#L 'The Tsunayoshi Smith' '/tell chunkbot info meleesmith'
-#L 'The Fixer Shop' '/tell chunkbot info fshop'
-#L 'Thin Bernice' '/tell chunkbot info bernice'
-#L 'Trader Shops' '/tell chunkbot info tshop'

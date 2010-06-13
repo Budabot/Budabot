@@ -1,6 +1,0 @@
-        A Guide to the Quests of Rubi-ka
-
-#L 'Sided Shoulderpads Pt 1' '/tell chunkbot info sided1' - A nice shoulderpad
-#L 'Sided Shoulderpads Pt 2' '/tell chunkbot info sided2' - The first upgrade for your shoulderpad
-#L 'Sided Shoulderpads Pt 3' '/tell chunkbot info sided3' - The second upgrade for your shoulderpad
-#L 'A Tailor's Woe' '/tell chunkbot info tailor' - A quest for some armor with nice modifiers
