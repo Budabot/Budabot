@@ -687,63 +687,6 @@ if (preg_match("/^config$/i", $message)) {
 
 	$msg = bot::makeLink("Configurate helpfiles for module $mod", $list);
 	bot::send($msg, $sendto);
-} else if (preg_match("/^config cmd$/i", $message, $arr)) {
-	$list  = "<header>::::: Bot Settings -- Command List :::::<end>\n\n";
-
-	$sql = "
-		SELECT
-			cmd, description, module,
-			sum(type ='guild') guild_avail, sum(type = 'guild' AND status = 1) guild_status,
-			sum(type ='priv') priv_avail, sum(type = 'priv' AND status = 1) priv_status,
-			sum(type ='msg') msg_avail, sum(type = 'msg' AND status = 1) msg_status
-		FROM
-			cmdcfg_aodevs
-		WHERE
-			cmdevent = 'cmd'
-			OR cmdevent = 'subcmd'
-		GROUP BY
-			cmd, description, module";
-	$db->query($sql);
-	while ($row = $db->fObject()) {
-		$guild = '';
-		$priv = '';
-		$msg = '';
-		
-		if ($row->guild_avail == 0) {
-			$guild = '_';
-		} else if ($row->guild_status == 0) {
-			$guild = '<red>G<end>';
-		} else if ($row->guild_status > 0) {
-			$guild = '<green>G<end>';
-		} else {
-			$guild = '<yellow>G<end>';
-		}
-		
-		if ($row->priv_avail == 0) {
-			$priv = '_';
-		} else if ($row->priv_status == 0) {
-			$priv = '<red>P<end>';
-		} else if ($row->priv_status > 0) {
-			$priv = '<green>P<end>';
-		} else {
-			$priv = '<yellow>P<end>';
-		}
-		
-		if ($row->msg_avail == 0) {
-			$msg = '_';
-		} else if ($row->msg_status == 0) {
-			$msg = '<red>M<end>';
-		} else if ($row->msg_status > 0) {
-			$msg = '<green>M<end>';
-		} else {
-			$msg = '<yellow>M<end>';
-		}
-		
-		$list .= "<highlight>($row->cmd)<end> ($row->module) $row->description  ($guild|$priv|$msg)\n";
-	}
-
-	$msg = bot::makeLink("Bot Settings -- Command List", $list);
- 	bot::send($msg, $sendto);
 } else if (preg_match("/^config (.*)$/i", $message, $arr)) {
 	$module = $arr[1];
 	$list  = "<header>::::: Bot Settings :::::<end>\n\n";
@@ -780,38 +723,59 @@ if (preg_match("/^config$/i", $message)) {
 			$list .= "<highlight>$row->setting<end>\n";	
 	}
 
-	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' AND `type` != 'setup' AND `module` = '$module' GROUP BY cmd");
+	$sql = 
+		"SELECT
+			*,
+			(SELECT count(*) FROM cmdcfg_<myname> WHERE cmd = c.cmd AND type = 'guild') guild_avail,
+			(SELECT count(*) FROM cmdcfg_<myname> WHERE cmd = c.cmd AND type = 'guild' AND status = 1) guild_status,
+			(SELECT count(*) FROM cmdcfg_<myname> WHERE cmd = c.cmd AND type ='priv') priv_avail,
+			(SELECT count(*) FROM cmdcfg_<myname> WHERE cmd = c.cmd AND type = 'priv' AND status = 1) priv_status,
+			(SELECT count(*) FROM cmdcfg_<myname> WHERE cmd = c.cmd AND type ='msg') msg_avail,
+			(SELECT count(*) FROM cmdcfg_<myname> WHERE cmd = c.cmd AND type = 'msg' AND status = 1) msg_status
+		FROM
+			cmdcfg_<myname>
+		WHERE
+			(`cmdevent` = 'cmd' OR `cmdevent` = 'subcmd')
+			AND `module` = '$module'
+		GROUP BY
+			cmd";
+	$db->query($sql);
 	if ($db->numrows() > 0) {
 		$list .= "\n<i>Commands</i>\n";
 	}
 	$data = $db->fObject("all");
 	forEach ($data as $row) {
-		$priv = "";
-        $guild = "";
-        $tell = "";
+		$guild = '';
+		$priv = '';
+		$msg = '';
 
 		$on = "<a href='chatcmd:///tell <myname> config cmd $row->cmd enable all'>ON</a>";
 		$off = "<a href='chatcmd:///tell <myname> config cmd $row->cmd disable all'>OFF</a>";
 		$adv = "<a href='chatcmd:///tell <myname> config cmd $row->cmd $row->module'>Adv.</a>";
 
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$row->module' AND `cmd` = '$row->cmd'");
-		while($row1 = $db->fObject()) {
-			if($row1->type == "msg" && $row->status == 1)
-				$tell = "|<green>T<end>";
-			elseif($row1->type == "msg" && $row->status == 0)
-				$tell = "|<red>T<end>";
-			elseif($row1->type == "guild" && $row->status == 1)
-				$guild = "|<green>G<end>";
-			elseif($row1->type == "guild" && $row->status == 0)
-				$guild = "|<red>G<end>";
-			elseif($row1->type == "priv" && $row->status == 1)
-				$priv = "|<green>P<end>";
-			elseif($row1->type == "priv" && $row->status == 0)
-				$priv = "|<red>P<end>";
-		}
+		if ($row->msg_avail == 0)
+			$tell = "|_";
+		else if ($row->msg_status == 1)
+			$tell = "|<green>T<end>";
+		else
+			$tell = "|<red>T<end>";
+		
+		if ($row->guild_avail == 0)
+			$guild = "|_";
+		else if ($row->guild_status == 1)
+			$guild = "|<green>G<end>";
+		else
+			$guild = "|<red>G<end>";
+		
+		if ($row->priv_avail == 0)
+			$priv = "|_";
+		else if ($row->priv_status == 1)
+			$priv = "|<green>P<end>";
+		else
+			$priv = "|<red>P<end>";
 
 		if ($row->description != "none") {
-			$list .= "$row->cmd ($row->description) - ($adv$tell$guild$priv): $on  $off\n";
+			$list .= "$row->cmd ($adv$tell$guild$priv): $on  $off - ($row->description)\n";
 		} else {
 			$list .= "$row->cmd - ($adv$tell$guild$priv): $on  $off\n";
 		}
