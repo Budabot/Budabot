@@ -28,6 +28,8 @@ if (preg_match("/^svn update/i", $message)) {
 	$msg = bot::makeLink('svn info output', $window);
 	
 	bot::send($msg, $sendto);
+} else {
+	$syntaxt_error = true;
 }
 
 ?>

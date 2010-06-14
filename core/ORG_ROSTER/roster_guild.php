@@ -42,10 +42,8 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 	  	echo "Error in getting the org roster xmlfile.\nPlease try again later.\n";
 	} else {
 		// clear $this->members and reload from the database
-		unset($this->members);
 		$db->query("SELECT * FROM members_<myname>");
 		while ($row = $db->fObject()) {
-			$this->members[$row->name] = true;
 			if ($row->autoinv == 1) {
 				$this->add_buddy($row->name, "member");
 			} else {
@@ -73,13 +71,13 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 		
 		// Going through each member of the org and add his data's
 		forEach ($org->member as $amember) {
-			// don't do anything if $amember is the bot
+			// don't do anything if $amember is the bot itself
 			if (strtolower($amember) == strtolower($this->vars["name"])) {
 				continue;
 			}
 		
 		    //If there exists already data about the player just update hum
-			if ($dbentrys[$amember]["mode"] != "") {
+			if (isset($dbentrys[$amember])) {
 			  	if ($dbentrys[$amember]["mode"] == "man" || $dbentrys[$amember]["mode"] == "org") {
 			        $mode = "org";
 		            $this->guildmembers[$amember] = $org->members[$amember]["rank_id"];
@@ -88,6 +86,7 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 					$this->add_buddy($row->name, 'org');
 			  	} else {
 		            $mode = "del";
+					$this->remove_buddy($row->name, 'org');
 				}
 		
 		        $db->query("UPDATE org_members_<myname> SET `mode` = '".$mode."',
