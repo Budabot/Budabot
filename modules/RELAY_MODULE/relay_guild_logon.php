@@ -35,7 +35,7 @@ if($this->settings["relaybot"] != "0") {
 	$numrows = $db->numrows();
 	$row = $db->fObject();
 	if($row->mode != "del" && $numrows == 1) {
-        if(time() >= $this->vars["onlinedelay"] && !($this->vars["IgnoreLog"][$sender])) {
+        if(time() >= $this->vars["onlinedelay"]) {
             if($row->firstname)
                 $msg = $row->firstname." ";
 

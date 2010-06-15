@@ -53,8 +53,7 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
 		  	$whois -> gender = "Unknown";
 		  	$whois -> breed = "Unknown";
 		}
-        // Set global Ignore Logon/Logoff for this player(will not show the first logon/off msg)
-        $this->vars["IgnoreLog"][$name] = 2;
+
         // Add him as a buddy and put his infos into the DB
         $db->query("INSERT INTO org_members_<myname> (`mode`, `name`, `firstname`, `lastname`, `guild`, `rank_id`, `rank`, `level`, `profession`, `gender`, `breed`, `ai_level`, `ai_rank`)
                     VALUES ('man',
@@ -91,12 +90,6 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
     unset($this->guildmembers[$name]);
 	$this->remove_buddy($name, 'org');
     bot::send($msg, "guild");
-} elseif(($type == "logOn" || $type == "logOff")  && ($this->vars["IgnoreLog"][$sender] == 2 || $this->vars["IgnoreLog"][$sender] == 1)) {
-    //$this->vars["IgnoreLog"][$sender] if it is 2 then log modules didn't executed yet
-    if($this->vars["IgnoreLog"][$sender] == 2)
-        $this->vars["IgnoreLog"][$sender] = 1;
-    //log module is executed
-    elseif($this->vars["IgnoreLog"][$sender] == 1)
-        unset($this->vars["IgnoreLog"][$sender]);
 }
+
 ?>

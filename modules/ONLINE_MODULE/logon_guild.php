@@ -40,7 +40,7 @@ if($row->mode != "del" && $numrows == 1) {
 	else
 	    $db->query("INSERT INTO guild_chatlist_<myname> (`name`, `profession`, `guild`, `rank`, `breed`, `level`, `ai_level`) VALUES ('".$row->name."', '".$row->profession."', '".$row->guild."', '".$row->rank."', '".$row->breed."', '".$row->level."', '".$row->ai_level."')");
 
-    if((time() >= $this->vars["onlinedelay"]) && !($this->vars["IgnoreLog"][$sender])) {
+    if(time() >= $this->vars["onlinedelay"]) {
         if($row->firstname)
             $msg = $row->firstname." ";
 
@@ -105,7 +105,6 @@ if($row->mode != "del" && $numrows == 1) {
 			$msg .= "$alts ";
 		}
 
-
         if ($row->logon_msg != '0') {
             $msg .= " - " . $row->logon_msg;
 		}
@@ -116,11 +115,5 @@ if($row->mode != "del" && $numrows == 1) {
 		if($this->settings["guest_relay"] == 1)
 			bot::send($msg, "priv", true);
     }
-    //$this->vars["IgnoreLog"][$sender] if it is 2 then other modules didn't executed yet
-    if($this->vars["IgnoreLog"][$sender] == 2)
-        $this->vars["IgnoreLog"][$sender] = 1;
-    //log module is executed
-    elseif($this->vars["IgnoreLog"][$sender] == 1)
-        unset($this->vars["IgnoreLog"][$sender]);
 }
 ?>

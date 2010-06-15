@@ -29,12 +29,12 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(isset($this->guildmembers[$sender])) {
+if (isset($this->guildmembers[$sender])) {
     $db->query("DELETE FROM guild_chatlist_<myname> WHERE `name` = '$sender'");
-    if(time() >= $this->vars["onlinedelay"] && !($this->vars["IgnoreLog"][$sender])) {
+    if (time() >= $this->vars["onlinedelay"]) {
         $db->query("UPDATE org_members_<myname> SET `logged_off` = '".time()."' WHERE `name` = '$sender'");
 		
-		if($this->settings["bot_notify"] != 0) {
+		if ($this->settings["bot_notify"] != 0) {
 			bot::send("<highlight>$sender<end> logged off", "guild", true);
 			
 			//Guestchannel part
@@ -42,11 +42,5 @@ if(isset($this->guildmembers[$sender])) {
 				bot::send("<highlight>$sender<end> logged off", "priv", true);
 		}
     }
-    //$this->vars["IgnoreLog"][$sender] if it is 2 then log modules didn't executed yet
-    if($this->vars["IgnoreLog"][$sender] == 2)
-        $this->vars["IgnoreLog"][$sender] = 1;
-    //log module is executed
-    elseif($this->vars["IgnoreLog"][$sender] == 1)
-        unset($this->vars["IgnoreLog"][$sender]);
 }
 ?>

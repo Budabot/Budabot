@@ -46,14 +46,12 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
         $db->query("UPDATE org_members_<myname> SET `mode` = 'man' WHERE `name` = '$name'");
         $this->add_buddy($name, 'org');
 	    
-	    $this->vars["IgnoreLog"][$name] = 2;
     	$msg = "<highlight>$name<end> has been added to the Notify list.";
     // Is the player name valid?
     } elseif($uid) {
         // Getting Player infos
         $whois = new whois($name);
-        // Set global Ignore Logon/Logoff for this player(will not show the first logon/off msg)
-        $this->vars["IgnoreLog"][$name] = 2;
+
         // Add him as a buddy and put his infos into the DB
 		$this->add_buddy($name, 'org');
         if($whois->errorCode != 0) {
