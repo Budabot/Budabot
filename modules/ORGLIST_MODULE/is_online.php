@@ -53,37 +53,26 @@ if (preg_match("/^is (.+)$/i", $message, $arr)) {
             $msg = "Player <highlight>$name<end> is $status";
         // else add him
         } else {
-            $this->vars["IgnoreLog"][$name] = $type;
-			if ($type == "msg") {
-	        	$this->vars["IgnoreLogSender"][$name] = $sender;
-			}
-            $this->add_buddy($name, 'is_online');
-            $this->remove_buddy($name, 'is_online');
+			$this->data["ONLINE_MODULE"]['playername'] = $name;
+			$this->data["ONLINE_MODULE"]['sendto'] = $sendto;
+			$this->add_buddy($name, 'is_online');
+			$this->remove_buddy($name, 'is_online');
         }
     }
     if ($msg) {
         bot::send($msg, $sendto);
     }
-} elseif (($type == "logOn") || ($type == "logOff")) {
-    //If $sender is marked as player to check online status
-    if($this->vars["IgnoreLog"][$sender]) {
-        if ($this->buddy_online($sender)) {
-            $status = "<green>online<end>";
-        } else {
-            $status = "<red>offline<end>";
-		}
-        $msg = "Player <highlight>$sender<end> is $status";
+} elseif ($type == "logOn" || $type == "logOff" && $sender == $this->data["ONLINE_MODULE"]['playername']) {
+    if ($type == "logOn") {
+		$status = "<green>online<end>";
+	} else if ($type == "logOff") {
+		$status = "<red>offline<end>";
+	}
+	$msg = "Player <highlight>$sender<end> is $status";
 
-        if($this->vars["IgnoreLog"][$sender] == "priv")
-        	bot::send($msg);
-        elseif($this->vars["IgnoreLog"][$sender] == "guild")
-        	bot::send($msg, "guild");
-        elseif($this->vars["IgnoreLog"][$sender] == "msg") {
-        	bot::send($msg, $this->vars["IgnoreLogSender"][$sender]);
-            unset($this->vars["IgnoreLogSender"][$sender]);
-        }
-        	
-        unset($this->vars["IgnoreLog"][$sender]);
-    }
+	bot::send($msg, $this->data["ONLINE_MODULE"]['sendto']);
+		
+	unset($this->data["ONLINE_MODULE"]['playername']);
+	unset($this->data["ONLINE_MODULE"]['sendto']);
 }
 ?>

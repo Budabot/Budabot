@@ -20,11 +20,6 @@
 	bot::command("", "$MODULE_NAME/alts.php", "alts", "all", "Alt Char handling");
 	bot::command("", "$MODULE_NAME/alts.php", "altsadmin", "mod", "Alt Char handling (admin)");
 
-    // Checks if a player is online
-	bot::command("", "$MODULE_NAME/is_online.php", "is", "all", "Checks if a player is online");
-	bot::event("logOn", "$MODULE_NAME/is_online.php", "is");
-	bot::event("logOff", "$MODULE_NAME/is_online.php", "is");
-
     // Show orgmembers
 	bot::command("", "$MODULE_NAME/orgmembers.php", "orgmembers", "all", "Show the Members(sorted by name) of the org");
 	bot::command("", "$MODULE_NAME/orgranks.php", "orgranks", "all", "Show the Members(sorted by rank) of the org");
@@ -40,7 +35,6 @@
     bot::help("afk_kiting", "$MODULE_NAME/afk_kiting.txt", "guild", "Set yourself AFK/Kiting", "Basic Guild Commands");
     bot::help("alts", "$MODULE_NAME/alts.txt", "guild", "How to set alts", "Basic Guild Commands");
 	bot::help("altsadmin", "$MODULE_NAME/altsadmin.txt", "guild", "How to set alts (admins)", "Basic Guild Commands");
-    bot::help("IsOnline", "$MODULE_NAME/isonline.txt", "guild", "Checking if a player is online", "Basic Guild Commands");
     bot::help("LogOnMsg", "$MODULE_NAME/logonmsg.txt", "guild", "Changing your logon message", "Basic Guild Commands");
     bot::help("OrgMembers", "$MODULE_NAME/orgmembers_orgranks.txt", "guild", "Show current OrgMembers", "Basic Guild Commands");    
     bot::help("tell_guild", "$MODULE_NAME/tell.txt", "guild", "Repeat a msg 3times/Send a tell to online members", "Basic Guild Commands");

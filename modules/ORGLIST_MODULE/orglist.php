@@ -88,12 +88,12 @@ if (!function_exists(orgmatesformat)){
 
 
 // Some globals we are using for this plugin
-// $this->vars["orglist_module"]["check"][page]	// list of each name that still needs to be checked. (in groups)
-// $this->vars["orglist_module"]["result"] 	// list of names that have completed thier check.
-// $this->vars["orglist_module"]["target"]	// who gets this info?  org, prv, or a user?
-// $this->vars["orglist_module"]["org"]		// org name
-// $this->vars["orglist_module"]["start"]     	// time when the search started
-// $this->vars["orglist_module"]["markpage"]  	// current page being read. (names are sent out in blocks to buddylist)
+// $this->data["ORGLIST_MODULE"]["check"][page]	// list of each name that still needs to be checked. (in groups)
+// $this->data["ORGLIST_MODULE"]["result"] 	// list of names that have completed thier check.
+// $this->data["ORGLIST_MODULE"]["sendto"]	// who gets this info?  org, prv, or a user?
+// $this->data["ORGLIST_MODULE"]["org"]		// org name
+// $this->data["ORGLIST_MODULE"]["start"]     	// time when the search started
+// $this->data["ORGLIST_MODULE"]["markpage"]  	// current page being read. (names are sent out in blocks to buddylist)
 
 // Some rankings (Will be used to help distinguish which org type is used.)
 $orgrankmap["Anarchism"]  = array("Anarchist");
@@ -119,13 +119,15 @@ if(preg_match("/^(orglist|onlineorg)$/i", $message, $arr)) {$message = "orglist 
 if(preg_match("/^(orglist|onlineorg) (.+)$/i", $message, $arr)) {
 
 	// Check if we are already doing a list.
-	if ($this->vars["orglist_module"]["start"]) {
+	if ($this->data["ORGLIST_MODULE"]["start"]) {
 		$msg = "I'm already doing a list!";
+		$this->send($msg, $sendto);
+		return;
 	} else {
-		$this->vars["orglist_module"]["start"] = time();
+		$this->data["ORGLIST_MODULE"]["start"] = time();
 	}
 
-	if (!ctype_digit($arr[2]) && !$msg) {
+	if (!ctype_digit($arr[2])) {
 		// Someone's name.  Doing a whois to get an orgID.
 		$name = ucfirst(strtolower($arr[2]));
 		$whois = new whois($name);
@@ -137,172 +139,119 @@ if(preg_match("/^(orglist|onlineorg) (.+)$/i", $message, $arr)) {
 			$msg = "Player <highlight>$name<end> does not seem to be in any org?";
 		}
 		unset($whois);
+		$this->send($msg, $sendto);
+		unset($this->data["ORGLIST_MODULE"]);
+		return;
 
-	} elseif (!$msg) {
+	} else {
 		// We got only numbers, can't be a name.  Maybe org id?
 		$orgid = $arr[1];
 	}
 	
-	if (!$msg) {  // Checking if we can get info on this org.
-        bot::send("Searching and reading org list....", $sendto);
-	
-		$orgmate = new org($orgid);
+	$this->send("Searching and reading org list....", $sendto);
 
-		if($orgmate->errorCode != 0) {
-			$msg = "Error in getting the Org info. Either org does not exist or AO's server was too slow to respond.";
-		}
+	$orgmate = new org($orgid);
+
+	if($orgmate->errorCode != 0) {
+		$msg = "Error in getting the Org info. Either org does not exist or AO's server was too slow to respond.";
+		$this->send($msg, $sendto);
+		unset($this->data["ORGLIST_MODULE"]);
+		return;
 	}
 	
-	if (!$msg) {  // Org ID checked out ok, continue
+	$this->data["ORGLIST_MODULE"]["org"] = $orgmate->orgname;
+	$buddy_list_full = (1000 <= count($this->buddyList));
 	
-		$this->vars["orglist_module"]["org"]	= $orgmate->orgname;
+	// Check each name if they are already on the buddylist (and get online status now)
+	// Or make note of the name so we can add it to the buddylist later.
+	forEach ($orgmate->member as $amember) {
+		// Writing the whois info for all names
+		// Name (Level 1/1, Sex Breed Profession)
+		$thismember  = '<highlight>'.$orgmate->members[$amember]["name"].'<end>';
+		$thismember .= ' (Level '.$orgcolor["onlineH"].$orgmate->members[$amember]["level"]."<end>";
+		if ($orgmate->members[$amember]["ai_level"] > 0) { $thismember .= "<green>/".$orgmate->members[$amember]["ai_level"]."<end>";}
+		$thismember .= ", ".$orgmate->members[$amember]["gender"];
+		$thismember .= " ".$orgmate->members[$amember]["breed"];
+		$thismember .= " ".$orgcolor["onlineH"].$orgmate->members[$amember]["profession"]."<end>)";
 		
-		// Figure out max room on buddylist now
-		$pagemax = 995-count($this->buddyList); // (adding some wiggle room)
-		$thispage = 0;
-		$thisname = 0;
+		$this->data["ORGLIST_MODULE"]["result"][$amember]["post"] = $thismember;
+
+		$this->data["ORGLIST_MODULE"]["result"][$amember]["name"] = $amember;
+		$this->data["ORGLIST_MODULE"]["result"][$amember]["rank_id"] = $orgmate->members[$amember]["rank_id"];
+
+		// If we havent found an org type yet, check this member if they have a unique rank.
+		if (!$this->data["ORGLIST_MODULE"]["orgtype"]) {
+
+			if (($orgmate->members[$amember]["rank_id"] == 0 && $orgmate->members[$amember]["rank"] == "President") ||
+				($orgmate->members[$amember]["rank_id"] == 3 && $orgmate->members[$amember]["rank"] == "Member") ||
+				($orgmate->members[$amember]["rank_id"] == 4 && $orgmate->members[$amember]["rank"] == "Applicant")) {
+				// Dont do anything. Can't do a match cause this rank is in multiple orgtypes.
+			} elseif ($orgmate->members[$amember]["rank"] == $orgrankmap["Anarchism"][$orgmate->members[$amember]["rank_id"]]) {
+				$this->data["ORGLIST_MODULE"]["orgtype"]= "Anarchism";
+			} elseif ($orgmate->members[$amember]["rank"] == $orgrankmap["Monarchy"][$orgmate->members[$amember]["rank_id"]]) {
+				$this->data["ORGLIST_MODULE"]["orgtype"]= "Monarchy";
+			} elseif ($orgmate->members[$amember]["rank"] == $orgrankmap["Feudalism"][$orgmate->members[$amember]["rank_id"]]) {
+				$this->data["ORGLIST_MODULE"]["orgtype"]= "Feudalism";
+			} elseif ($orgmate->members[$amember]["rank"] == $orgrankmap["Republic"][$orgmate->members[$amember]["rank_id"]]) {
+				$this->data["ORGLIST_MODULE"]["orgtype"]= "Republic";
+			} elseif ($orgmate->members[$amember]["rank"] == $orgrankmap["Faction"][$orgmate->members[$amember]["rank_id"]]) {
+				$this->data["ORGLIST_MODULE"]["orgtype"]= "Faction";
+			} elseif ($orgmate->members[$amember]["rank"] == $orgrankmap["Department"][$orgmate->members[$amember]["rank_id"]]) {
+				$this->data["ORGLIST_MODULE"]["orgtype"]= "Department";
+			}
+		}
 		
-		// Check each name if they are already on the buddylist (and get online status now)
-		// Or make note of the name so we can add it to the buddylist later.
-		foreach($orgmate->member as $amember) {
-			if ($this->isBuddy($amember, NULL)) {
-				$this->vars["orglist_module"]["result"][$amember]["online"] = ($this->buddy_online($amember) ? 1 : 0);
-			} elseif ($this->vars["name"] != $amember) { // If the name being checked ISNT the bot.
-				// check if they exist, (They might be deleted)
-				if (AoChat::get_uid($amember)) {
-					if ($pagemax < 5) {
-						$msg = "No room on the buddy-list!";
-						break;
-					}
-					
-					$this->vars["orglist_module"]["check"][$thispage][$thisname]=$amember;
-					$thisname++;
-					if ($thisname >= $pagemax) { $thisname = 0; $thispage++;}
+		$buddy_online_status = $this->buddy_online($amember);
+		if ($buddy_online_status !== null) {
+			$this->data["ORGLIST_MODULE"]["result"][$amember]["online"] = $buddy_online_status;
+		} elseif ($this->vars["name"] != $amember) { // If the name being checked ISNT the bot.
+			// check if they exist, (They might be deleted)
+			if (AoChat::get_uid($amember)) {
+				if ($buddy_list_full) {
+					$msg = "No room on the buddy-list!";
+					$this->send($msg, $sendto);
+					unset($this->data["ORGLIST_MODULE"]);
+					return;
 				}
 				
-			} elseif ($this->vars["name"] == $amember) { // Yes, this bot is online. Don't need a buddylist to tell me.
-				$this->vars["orglist_module"]["result"][$amember]["online"] = 1;
+				$this->data["ORGLIST_MODULE"]["check"][$amember] = 1;
+				$this->add_buddy($amember, 'onlineorg');
+				$this->remove_buddy($amember, 'onlineorg');
 			}
-
-			// Writing the whois info for all names
-			// Name (Level 1/1, Sex Breed Profession)
-			$thismember  = '<highlight>'.$orgmate->members[$amember]["name"].'<end>';
-			$thismember .= ' (Level '.$orgcolor["onlineH"].$orgmate->members[$amember]["level"]."<end>";
-			if ($orgmate->members[$amember]["ai_level"] > 0) { $thismember .= "<green>/".$orgmate->members[$amember]["ai_level"]."<end>";}
-			$thismember .= ", ".$orgmate->members[$amember]["gender"];
-			$thismember .= " ".$orgmate->members[$amember]["breed"];
-			$thismember .= " ".$orgcolor["onlineH"].$orgmate->members[$amember]["profession"]."<end>)";
-			
-			$this->vars["orglist_module"]["result"][$amember]["post"] = $thismember;
-
-			$this->vars["orglist_module"]["result"][$amember]["name"] = $amember;
-			$this->vars["orglist_module"]["result"][$amember]["rank_id"] = $orgmate->members[$amember]["rank_id"];
-
-			// If we havent found an org type yet, check this member if they have a unique rank.
-			if (!$this->vars["orglist_module"]["orgtype"]) {
-
-				if (($orgmate->members[$amember]["rank_id"] == 0 && $orgmate->members[$amember]["rank"] == "President") ||
-				    ($orgmate->members[$amember]["rank_id"] == 3 && $orgmate->members[$amember]["rank"] == "Member") ||
-				    ($orgmate->members[$amember]["rank_id"] == 4 && $orgmate->members[$amember]["rank"] == "Applicant")) {
-					// Dont do anything. Can't do a match cause this rank is in multiple orgtypes.
-				} elseif ($orgmate->members[$amember]["rank"] == $orgrankmap["Anarchism"][$orgmate->members[$amember]["rank_id"]]) {
-					$this->vars["orglist_module"]["orgtype"]= "Anarchism";
-				} elseif ($orgmate->members[$amember]["rank"] == $orgrankmap["Monarchy"][$orgmate->members[$amember]["rank_id"]]) {
-					$this->vars["orglist_module"]["orgtype"]= "Monarchy";
-				} elseif ($orgmate->members[$amember]["rank"] == $orgrankmap["Feudalism"][$orgmate->members[$amember]["rank_id"]]) {
-					$this->vars["orglist_module"]["orgtype"]= "Feudalism";
-				} elseif ($orgmate->members[$amember]["rank"] == $orgrankmap["Republic"][$orgmate->members[$amember]["rank_id"]]) {
-					$this->vars["orglist_module"]["orgtype"]= "Republic";
-				} elseif ($orgmate->members[$amember]["rank"] == $orgrankmap["Faction"][$orgmate->members[$amember]["rank_id"]]) {
-					$this->vars["orglist_module"]["orgtype"]= "Faction";
-				} elseif ($orgmate->members[$amember]["rank"] == $orgrankmap["Department"][$orgmate->members[$amember]["rank_id"]]) {
-					$this->vars["orglist_module"]["orgtype"]= "Department";
-				}
-			}
-		}
-
-		if (!$this->vars["orglist_module"]["orgtype"] && !$msg) {
-			// If we haven't found the org yet, it can only be
-			// Department or Republic with only a president.
-			$this->vars["orglist_module"]["orgtype"] = "Republic";
-		}
-
-		unset($orgmate);
-
-		// If we didn't have to add people to the buddylist, then post results now
-		if (!$this->vars["orglist_module"]["check"] && !$msg) {
-			// Everyone was already on the buddylist, so we are done.
-			$msg = orgmatesformat($this->vars["orglist_module"], $orgrankmap, $orgcolor, $this->vars["orglist_module"]["start"],$this->vars["orglist_module"]["org"]);
-			$msg = bot::makeLink("Orglist for '".$this->vars["orglist_module"]["org"]."'", $msg);
-		} elseif (!$msg) {
-
-			// We have people we need to plug into the buddylist,
-			// then remove after we get thier online status.
-			$msg = "Now checking online status....";
-			if      ($type == "msg")   {$this->vars["orglist_module"]["target"] = $sender;}
-			elseif  ($type == "guild") {$this->vars["orglist_module"]["target"] = "org";}
-			elseif  ($type == "priv")  {$this->vars["orglist_module"]["target"] = "prv";}
-			
-			$i = 0;
-			$this->vars["orglist_module"]["markpage"] = 0;
-
-			while ($this->vars["orglist_module"]["check"][0][$i]) {
-				$this->add_buddy($this->vars["orglist_module"]["check"][0][$i], 'onlineorg');
-				$this->remove_buddy($sender, 'onlineorg');
-				$i++;
-			}
-
-			$this->vars["orglist_module"]["marker"] = $i;
+		} elseif ($this->vars["name"] == $amember) { // Yes, this bot is online. Don't need a buddylist to tell me.
+			$this->data["ORGLIST_MODULE"]["result"][$amember]["online"] = 1;
 		}
 	}
 
-
-
-	if($msg) {
-		// Send info back
-		bot::send($msg, $sendto);
+	if (!$this->data["ORGLIST_MODULE"]["orgtype"] && !$msg) {
+		// If we haven't found the org yet, it can only be
+		// Department or Republic with only a president.
+		$this->data["ORGLIST_MODULE"]["orgtype"] = "Republic";
 	}
 
-	// If we arent plugging names into the buddylist, then we are done.
-	if (!$this->vars["orglist_module"]["check"]) {unset($this->vars["orglist_module"]);}
-
-
-
-
-
+	unset($orgmate);
+	
+	$this->data["ORGLIST_MODULE"]["sendto"] == $sendto;
 
 // If we added names to the buddylist, this will kick in to determine if they are online or not.
 // If no more names need to be checked, then post results.
-} elseif (($type == "logOn") || ($type == "logOff")) {
+} elseif (($type == "logOn" || $type == "logOff") && isset($this->data["ORGLIST_MODULE"]["check"][$sender])) {
 
-	$page = $this->vars["orglist_module"]["markpage"];
-	
-	//If $sender is marked in the list, get status and remove from buddylist.
-	if (($key = array_search($sender, $this->vars["orglist_module"]["check"][$page])) !== false) {
-		$this->vars["orglist_module"]["result"][$sender]["online"] = ($this->buddy_online($sender) ? 1 : 0);
-		unset($this->vars["orglist_module"]["check"][$page][$key]);
-		if (current($this->vars["orglist_module"]["check"][$page]) === false) {
-			$page++; $this->vars["orglist_module"]["markpage"]++;
-			
-			if (current($this->vars["orglist_module"]["check"][$page]) !== false) {
-				
-				$i = 0;
-				while ($this->vars["orglist_module"]["check"][$page][$i]) {
-					$this->add_buddy($this->vars["orglist_module"]["check"][$page][$i], 'onlineorg');
-					$this->remove_buddy($this->vars["orglist_module"]["check"][$page][$i], 'onlineorg');
-					$i++;
-				}
-			} else {
-				$msg = orgmatesformat($this->vars["orglist_module"], $orgrankmap, $orgcolor, $this->vars["orglist_module"]["start"],$this->vars["orglist_module"]["org"]);
-				$msg = bot::makeLink("Orglist for '".$this->vars["orglist_module"]["org"]."'", $msg);
-			
-				if     ($this->vars["orglist_module"]["target"] == "org") {bot::send($msg, "guild");}
-				elseif ($this->vars["orglist_module"]["target"] == "prv") {bot::send($msg);}
-				else   {bot::send($msg, $this->vars["orglist_module"]["target"]);}
-			
-				unset($this->vars["orglist_module"]);
-			}
-		}
+	if ($type == "logOn") {
+		$this->data["ORGLIST_MODULE"]["result"][$sender]["online"] = 1;
+	} else if ($type == "logOff") {
+		$this->data["ORGLIST_MODULE"]["result"][$sender]["online"] = 0;
 	}
+	
+	unset($this->data["ORGLIST_MODULE"]["check"][$sender]);
 }
+
+if (count($this->data["ORGLIST_MODULE"]["check"]) == 0) {
+	$msg = orgmatesformat($this->data["ORGLIST_MODULE"], $orgrankmap, $orgcolor, $this->data["ORGLIST_MODULE"]["start"],$this->data["ORGLIST_MODULE"]["org"]);
+	$msg = bot::makeLink("Orglist for '".$this->data["ORGLIST_MODULE"]["org"]."'", $msg);
+	bot::send($msg, $this->data["ORGLIST_MODULE"]["sendto"]);}
+
+	unset($this->data["ORGLIST_MODULE"]);
+}
+
 ?>
