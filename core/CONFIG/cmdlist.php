@@ -54,7 +54,7 @@ if (preg_match("/^cmdlist$/i", $message, $arr)) {
 		else
 			$priv = "|<red>P<end>";
 		
-		if ($row->description != "none") {
+		if ($row->description != "") {
 			$list .= "$row->cmd ($adv$tell$guild$priv): $on  $off - ($row->description)\n";
 		} else {
 			$list .= "$row->cmd - ($adv$tell$guild$priv): $on  $off\n";
@@ -63,5 +63,6 @@ if (preg_match("/^cmdlist$/i", $message, $arr)) {
 
 	$msg = bot::makeLink("Bot Settings -- Command List", $list);
  	bot::send($msg, $sendto);
+}
 
 ?>

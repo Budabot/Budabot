@@ -30,7 +30,7 @@
    */
 
 //Sending Notify about the reload
-bot::send("Reloading all Modules. This can take a few seconds depending on your config.", $sender);
+bot::send("Reloading all Modules. This can take a few seconds depending on your config.", $sendto);
 print("!!!Reloading all Modules!!!\n");
 
 //Delete old vars

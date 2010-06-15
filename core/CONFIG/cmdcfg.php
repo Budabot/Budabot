@@ -733,7 +733,7 @@ if (preg_match("/^config$/i", $message)) {
 			(SELECT count(*) FROM cmdcfg_<myname> WHERE cmd = c.cmd AND type ='msg') msg_avail,
 			(SELECT count(*) FROM cmdcfg_<myname> WHERE cmd = c.cmd AND type = 'msg' AND status = 1) msg_status
 		FROM
-			cmdcfg_<myname>
+			cmdcfg_<myname> c
 		WHERE
 			(`cmdevent` = 'cmd' OR `cmdevent` = 'subcmd')
 			AND `module` = '$module'
@@ -774,7 +774,7 @@ if (preg_match("/^config$/i", $message)) {
 		else
 			$priv = "|<red>P<end>";
 
-		if ($row->description != "none") {
+		if ($row->description != "") {
 			$list .= "$row->cmd ($adv$tell$guild$priv): $on  $off - ($row->description)\n";
 		} else {
 			$list .= "$row->cmd - ($adv$tell$guild$priv): $on  $off\n";

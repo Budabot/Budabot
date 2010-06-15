@@ -83,10 +83,10 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 		            $this->guildmembers[$amember] = $org->members[$amember]["rank_id"];
 					
 					// add org members who are on notify to buddy list
-					$this->add_buddy($row->name, 'org');
+					$this->add_buddy($amember, 'org');
 			  	} else {
 		            $mode = "del";
-					$this->remove_buddy($row->name, 'org');
+					$this->remove_buddy($amember, 'org');
 				}
 		
 		        $db->query("UPDATE org_members_<myname> SET `mode` = '".$mode."',
@@ -105,7 +105,7 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 			//Else insert his data
 			} else {
 				// add new org members to buddy list
-				$this->add_buddy($row->name, 'org');
+				$this->add_buddy($amember, 'org');
 			
 			    $db->query("INSERT INTO org_members_<myname> (`name`, `mode`, `firstname`, `lastname`, `guild`, `rank_id`, `rank`, `level`, `profession`, `gender`, `breed`, `ai_level`, `ai_rank`)
 		                        VALUES ('".$org -> members[$amember]["name"]."', 'org',
