@@ -23,6 +23,7 @@ if (preg_match("/^friendlist(.+)?$/i", $message, $arg)) {
 	} else {
 		$blob = "Buddy List\n\n";
 		forEach ($this->buddyList as $key => $value) {
+			$removed = '';
 			if (count($value['types']) == 0) {
 				$orphanCount++;
 				if ($cleanup) {
