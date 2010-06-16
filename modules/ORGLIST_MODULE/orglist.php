@@ -150,7 +150,7 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 		$orgid = $arr[1];
 	}
 	
-	$this->send("Searching and reading org list....", $sendto);
+	$this->send("Searching and reading org list...", $sendto);
 
 	$orgmate = new org($orgid);
 
@@ -163,6 +163,8 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 	
 	$this->data["ORGLIST_MODULE"]["org"] = $orgmate->orgname;
 	$buddy_list_full = (1000 <= count($this->buddyList));
+	
+	$this->send("Checking online status for '$orgmate->orgname'...", $sendto);
 	
 	// Check each name if they are already on the buddylist (and get online status now)
 	// Or make note of the name so we can add it to the buddylist later.

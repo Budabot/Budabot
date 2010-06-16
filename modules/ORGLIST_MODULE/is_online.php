@@ -61,7 +61,7 @@ if (preg_match("/^is (.+)$/i", $message, $arr)) {
 			$this->add_buddy($name, 'is_online');
         }
     }
-} elseif ($type == "logOn" || $type == "logOff" && $sender == $this->data["ONLINE_MODULE"]['playername']) {
+} elseif (($type == "logOn" || $type == "logOff") && $sender == $this->data["ONLINE_MODULE"]['playername']) {
     if ($type == "logOn") {
 		$status = "<green>online<end>";
 	} else if ($type == "logOff") {
@@ -70,7 +70,6 @@ if (preg_match("/^is (.+)$/i", $message, $arr)) {
 	$msg = "Player <highlight>$sender<end> is $status";
 	bot::send($msg, $this->data["ONLINE_MODULE"]['sendto']);
 	$this->remove_buddy($sender, 'is_online');
-	unset($this->data["ONLINE_MODULE"]['playername']);
-	unset($this->data["ONLINE_MODULE"]['sendto']);
+	unset($this->data["ONLINE_MODULE"]);
 }
 ?>
