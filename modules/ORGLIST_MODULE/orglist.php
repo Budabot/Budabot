@@ -93,7 +93,6 @@ if (!function_exists(orgmatesformat)){
 // $this->data["ORGLIST_MODULE"]["sendto"]	// who gets this info?  org, prv, or a user?
 // $this->data["ORGLIST_MODULE"]["org"]		// org name
 // $this->data["ORGLIST_MODULE"]["start"]     	// time when the search started
-// $this->data["ORGLIST_MODULE"]["markpage"]  	// current page being read. (names are sent out in blocks to buddylist)
 
 // Some rankings (Will be used to help distinguish which org type is used.)
 $orgrankmap["Anarchism"]  = array("Anarchist");
@@ -108,15 +107,14 @@ $orgcolor["header"]  = "<font color=#FFFFFF>";		// Org Rank title
 $orgcolor["onlineH"] = "<highlight>";			// Highlights on whois info
 $orgcolor["offline"] = "<font color=#555555>";		// Offline names
 
-
-
-
-
 // No options? Target the $sender
-if(preg_match("/^(orglist|onlineorg)$/i", $message, $arr)) {$message = "orglist $sender";}
+if (preg_match("/^(orglist|onlineorg)$/i", $message, $arr)) {$message = "orglist $sender";}
 
-// Now we hopefully have either an org memeber, or org ID.
-if(preg_match("/^(orglist|onlineorg) (.+)$/i", $message, $arr)) {
+$end = false;
+if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
+	$end = true;
+} else if (preg_match("/^(orglist|onlineorg) (.+)$/i", $message, $arr)) {
+	// Now we hopefully have either an org memeber, or org ID.
 
 	// Check if we are already doing a list.
 	if ($this->data["ORGLIST_MODULE"]["start"]) {
@@ -125,6 +123,7 @@ if(preg_match("/^(orglist|onlineorg) (.+)$/i", $message, $arr)) {
 		return;
 	} else {
 		$this->data["ORGLIST_MODULE"]["start"] = time();
+		$this->data["ORGLIST_MODULE"]["sendto"] = $sendto;
 	}
 
 	if (!ctype_digit($arr[2])) {
@@ -135,14 +134,17 @@ if(preg_match("/^(orglist|onlineorg) (.+)$/i", $message, $arr)) {
 
 		if (!$whois->name) {
 			$msg = "Player <highlight>$name<end> does not exist on this dimension.";
+			unset($whois);
+			$this->send($msg, $sendto);
+			unset($this->data["ORGLIST_MODULE"]);
+			return;
 		} elseif (!$orgid) {
 			$msg = "Player <highlight>$name<end> does not seem to be in any org?";
+			unset($whois);
+			$this->send($msg, $sendto);
+			unset($this->data["ORGLIST_MODULE"]);
+			return;
 		}
-		unset($whois);
-		$this->send($msg, $sendto);
-		unset($this->data["ORGLIST_MODULE"]);
-		return;
-
 	} else {
 		// We got only numbers, can't be a name.  Maybe org id?
 		$orgid = $arr[1];
@@ -216,7 +218,6 @@ if(preg_match("/^(orglist|onlineorg) (.+)$/i", $message, $arr)) {
 				
 				$this->data["ORGLIST_MODULE"]["check"][$amember] = 1;
 				$this->add_buddy($amember, 'onlineorg');
-				$this->remove_buddy($amember, 'onlineorg');
 			}
 		} elseif ($this->vars["name"] == $amember) { // Yes, this bot is online. Don't need a buddylist to tell me.
 			$this->data["ORGLIST_MODULE"]["result"][$amember]["online"] = 1;
@@ -230,8 +231,6 @@ if(preg_match("/^(orglist|onlineorg) (.+)$/i", $message, $arr)) {
 	}
 
 	unset($orgmate);
-	
-	$this->data["ORGLIST_MODULE"]["sendto"] == $sendto;
 
 // If we added names to the buddylist, this will kick in to determine if they are online or not.
 // If no more names need to be checked, then post results.
@@ -243,14 +242,19 @@ if(preg_match("/^(orglist|onlineorg) (.+)$/i", $message, $arr)) {
 		$this->data["ORGLIST_MODULE"]["result"][$sender]["online"] = 0;
 	}
 	
+	$this->remove_buddy($sender, 'onlineorg');
 	unset($this->data["ORGLIST_MODULE"]["check"][$sender]);
 }
 
-if (count($this->data["ORGLIST_MODULE"]["check"]) == 0) {
+if (count($this->data["ORGLIST_MODULE"]["check"]) == 0 || $end) {
 	$msg = orgmatesformat($this->data["ORGLIST_MODULE"], $orgrankmap, $orgcolor, $this->data["ORGLIST_MODULE"]["start"],$this->data["ORGLIST_MODULE"]["org"]);
 	$msg = bot::makeLink("Orglist for '".$this->data["ORGLIST_MODULE"]["org"]."'", $msg);
-	bot::send($msg, $this->data["ORGLIST_MODULE"]["sendto"]);}
+	bot::send($msg, $this->data["ORGLIST_MODULE"]["sendto"]);
 
+	// in case it was ended early
+	forEach ($this->data["ORGLIST_MODULE"]["check"] as $name => $value) {
+		$this->remove_buddy($name, 'onlineorg');
+	}
 	unset($this->data["ORGLIST_MODULE"]);
 }
 

@@ -34,16 +34,18 @@ if (preg_match("/^is (.+)$/i", $message, $arr)) {
     // Get User id
     $uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
-    if(!$uid)
+    if (!$uid) {
         $msg = "Player <highlight>$name<end> does not exist.";
-    else {
+		bot::send($msg, $sendto);
+    } else {
         //if the player is a buddy then
         if ($this->is_buddy($name, NULL)) {
             $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$name' AND `mode` != 'del'");
-            if($db->numrows() == 1) {
+            if ($db->numrows() == 1) {
                 $row = $db->fObject();
-                if($row->logged_off != "0")
+                if($row->logged_off != "0") {
                     $logged_off = "\nLogged off at ".gmdate("l F d, Y - H:i", $row->logged_off)."(GMT)";
+				}
             }
             if ($this->buddy_online($name)) {
                 $status = "<green>online<end>";
@@ -51,16 +53,13 @@ if (preg_match("/^is (.+)$/i", $message, $arr)) {
                 $status = "<red>offline<end>".$logged_off;
 			}
             $msg = "Player <highlight>$name<end> is $status";
+			bot::send($msg, $sendto);
         // else add him
         } else {
 			$this->data["ONLINE_MODULE"]['playername'] = $name;
 			$this->data["ONLINE_MODULE"]['sendto'] = $sendto;
 			$this->add_buddy($name, 'is_online');
-			$this->remove_buddy($name, 'is_online');
         }
-    }
-    if ($msg) {
-        bot::send($msg, $sendto);
     }
 } elseif ($type == "logOn" || $type == "logOff" && $sender == $this->data["ONLINE_MODULE"]['playername']) {
     if ($type == "logOn") {
@@ -69,9 +68,8 @@ if (preg_match("/^is (.+)$/i", $message, $arr)) {
 		$status = "<red>offline<end>";
 	}
 	$msg = "Player <highlight>$sender<end> is $status";
-
 	bot::send($msg, $this->data["ONLINE_MODULE"]['sendto']);
-		
+	$this->remove_buddy($sender, 'is_online');
 	unset($this->data["ONLINE_MODULE"]['playername']);
 	unset($this->data["ONLINE_MODULE"]['sendto']);
 }
