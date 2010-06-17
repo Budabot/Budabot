@@ -137,7 +137,6 @@ main(true, $chatBot);
 ** Inputs: (bool)$forever
 ** Outputs: None
 */	function main($forever = true,&$chatBot){
-		global $AoChat;
 		$start = time();
 		
 		// Create infinite loop

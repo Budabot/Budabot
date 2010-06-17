@@ -234,12 +234,15 @@ if (preg_match("/^settings$/i", $message)) {
 				$data .= fgets($help, 4096);
 			fclose($help);
 			$msg = bot::makeLink("Help on setting $name", $data);
-		} else
+		} else {
 			$msg = "No help for this setting found.";
-	} else
+		}
+	} else {
 		$msg = "No help for this setting found.";
+	}
 
  	bot::send($msg, $sendto);
-} else
+} else {
 	$syntax_error = true;
+}
 ?>

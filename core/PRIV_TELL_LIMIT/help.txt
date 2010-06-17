@@ -45,7 +45,7 @@ Show the current faction Limit for Tells
 Set a faction Limit for Tells(only one faction is allowed)
 <tab><symbol>tfaction 'clan, omni or neutral'
 
-Set a faction Limit for Tells(set the faction you don't wanna allow)
+Set a faction Limit for Tells(set the faction you don't want to allow)
 <tab><symbol>tfaction not 'clan, omni or neutral'
 
 Remove the faction Limit for Tells
@@ -79,7 +79,7 @@ Show the current faction Limit for the privategroup
 Set a faction Limit for the privategroup(only one faction is allowed)
 <tab><symbol>faction 'clan, omni or neutral'
 
-Set a faction Limit for the privategroup(set the faction you don't wanna allow)
+Set a faction Limit for the privategroup(set the faction you don't want to allow)
 <tab><symbol>faction not 'clan, omni or neutral'
 
 Remove the general Limit for the privategroup

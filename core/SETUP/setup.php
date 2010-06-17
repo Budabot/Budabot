@@ -85,7 +85,7 @@ if($answer == "yes") {
 		echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		echo "             ***************************************************\n";
 		echo "             First you need to enter your Accountname on \n";
-		echo "             that you wanna run the bot. \n";
+		echo "             that you want to run the bot. \n";
 		echo "             Remember this name is case-sensitive!\n";
 		echo "             ***************************************************\n";
 		echo "             \n\n\n\n\n\n\n\n\n";
@@ -97,7 +97,7 @@ if($answer == "yes") {
 		echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 	    echo "             ************************************************\n";	
 		echo "             Now you need to enter the Password for the  \n";
-		echo "             Account you wanna use\n";
+		echo "             Account you want to use\n";
 		echo "             Remember this is also case-sensitive!\n";
 		echo "             ************************************************\n";
 		echo "             \n\n\n\n\n\n\n\n\n";
@@ -108,7 +108,7 @@ if($answer == "yes") {
 	do {
 		echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";		
 	    echo "             **************************************************\n";
-		echo "             On which Dimension do you wanna run the bot?\n";
+		echo "             On which Dimension do you want to run the bot?\n";
 		echo "             Look below to see what you need to enter for\n";
 		echo "             which dimension.\n";
 		echo "             **************************************************\n";
@@ -127,7 +127,7 @@ if($answer == "yes") {
 		echo "             (bots can read vicinity chats too).\n";
 		echo "             *******************************************************\n";
 		echo "             \n\n\n\n\n\n\n\n";
-		$msg = "Enter the Character you wanna use as bot: \n";
+		$msg = "Enter the Character you want to use as bot: \n";
 		$vars["name"] = read_input($msg);
 	} while($vars["name"] == "");
 
@@ -177,12 +177,12 @@ if($answer == "yes") {
 		echo "             stored. You have 2Options now. Either you can\n";
 		echo "             set it up manually or the bot does it.\n";
 		echo "             The last option is recommended for normal\n";
-		echo "             Users. When you wanna set it up manually\n";
+		echo "             Users. When you want to set it up manually\n";
 		echo "             you can choose between 2 different database\n";
 		echo "              systems: Mysql and Sqlite.\n";
 		echo "             *********************************************************\n";
 		echo "             \n\n\n\n\n\n\n";
-		$msg = "Do you wanna setup the database manually(yes/no(recommended)): \n";
+		$msg = "Do you want to setup the database manually(yes/no(recommended)): \n";
 		$mansetupdb = strtolower(read_input($msg));
 	} while($mansetupdb == "" || ($mansetupdb != "no" && $mansetupdb != "yes"));
 	
@@ -274,7 +274,7 @@ if($answer == "yes") {
 			echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 			echo "             **********************************************\n";			
 			echo "             Where is the Sqlite Database stored?\n";
-			echo "             Only enter a path when you dont wanna have\n";
+			echo "             Only enter a path when you dont want to have\n";
 			echo "             the Database in the Data dir of your bot folder.\n";
 			echo "             The Database will be created in that dir if does\n";
 			echo "             not exists there.\n";
@@ -293,7 +293,7 @@ if($answer == "yes") {
 		echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		echo "             **********************************************\n";	
 		echo "             Really last question now :)\n";
-		echo "             Do you wanna have all modules/commands enabled\n";
+		echo "             Do you want to have all modules/commands enabled\n";
 		echo "             by default?\n";
 		echo "             This is usefull when you are using this bot the\n";
 		echo "             first time so that all commands are available\n";

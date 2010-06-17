@@ -36,18 +36,13 @@ if(preg_match("/^tminlvl$/i", $message)) {
  	else
  		$msg = "Level Limit for responding on tells is set to Lvl {$this->settings["tell_req_lvl"]}";
 
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-       	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 } elseif(preg_match("/^tminlvl ([0-9]+)$/i", $message, $arr)) {
 	$minlvl = strtolower($arr[1]);
 	
 	if($minlvl > 220 || $minlvl < 0) {
 		$msg = "<red>Minimum Level can be only set between 1-220<end>";
-		bot::send($msg, $sender);
+		bot::send($msg, $sendto);
 		return;
 	}
 	
@@ -59,12 +54,7 @@ if(preg_match("/^tminlvl$/i", $message)) {
  		$msg = "Responding on tells will be done for the Minimumlevel of $minlvl.";
  	}
  	
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-       	bot::send($msg, "guild");     	
+    bot::send($msg, $sendto);     	
 } elseif(preg_match("/^topen$/i", $message)) {
  	if($this->settings["tell_req_open"] == "all")
  		$msg = "No General Limit is set for responding on tells.";
@@ -73,12 +63,7 @@ if(preg_match("/^tminlvl$/i", $message)) {
 	else
 		$msg = "General Limit for responding on tells is set to Bot members only.";
 		
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-       	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 } elseif(preg_match("/^topen (org|all|members)$/i", $message, $arr)) {
 	$open = strtolower($arr[1]);
 	
@@ -92,24 +77,14 @@ if(preg_match("/^tminlvl$/i", $message)) {
  		$msg = "Responding on tells will be done only for Members of this Bot.";
  	}
  	
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-       	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 } elseif(preg_match("/^tfaction$/i", $message)) {
  	if($this->settings["tell_req_faction"] == "all")
  		$msg = "No Faction Limit is set for responding on tells.";
 	else
 		$msg = "Faction Limit for responding on tells is set to {$this->settings["tell_req_faction"]}.";
 		
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-       	bot::send($msg, "guild"); 	
+    bot::send($msg, $sendto);	
 } elseif(preg_match("/^tfaction (omni|clan|neutral|all)$/i", $message, $arr)) {
 	$faction = ucfirst(strtolower($arr[1]));
 	
@@ -121,12 +96,7 @@ if(preg_match("/^tminlvl$/i", $message)) {
  		$msg = "Responding on tells will be done only for players with the Faction $faction.";
  	}
  	
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-       	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 } elseif(preg_match("/^tfaction not (omni|clan|neutral)$/i", $message, $arr)) {
 	$faction = ucfirst(strtolower($arr[1]));
 	
@@ -134,13 +104,8 @@ if(preg_match("/^tminlvl$/i", $message)) {
 	
 	$msg = "Responding on tells will be done for players that are not $faction.";
 
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-       	bot::send($msg, "guild");
-} else
+    bot::send($msg, $sendto);
+} else {
 	$syntax_error = true;
-
+}
 ?>

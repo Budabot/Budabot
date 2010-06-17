@@ -109,7 +109,6 @@ class db {
 			echo "Error msg: $error[2]\n";
 			echo "Query: $stmt\n\n";
 			newLine("SqlError", "Error in: $stmt");
-			//sleep(5);
 		}
 
 		return($result);				
@@ -136,7 +135,6 @@ class db {
 			echo "Error msg: $error[2]\n";
 			echo "Query: $stmt\n\n";
 			newLine("SqlError", "Error in: $stmt");
-			//sleep(5);
 		}
 
 		return($aff_rows);		
@@ -160,7 +158,6 @@ class db {
 			echo "Error msg: $error[2]\n";
 			echo "Query: $stmt\n\n";
 			newLine("SqlError", "Error in: $stmt");
-			//sleep(5);
 		}
 	}
 
