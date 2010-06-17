@@ -1,5 +1,0 @@
-<header>::::: Help on Relaybot :::::<end>
-
-This is the bot with which the bot is relaying his chat. If it shows 0 guildrelay isn't enabled.
-
-<a href='chatcmd:///tell <myname> help guildrelay'>Click here to find out how use the guildrelay</a>

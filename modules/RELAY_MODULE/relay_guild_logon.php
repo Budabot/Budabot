@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if($this->settings["relaybot"] != "0") {
+if ($this->settings["relaybot"] != "Off" && isset($this->guildmembers[$sender])) {
     $msg = "";
     $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$sender'");
 	$numrows = $db->numrows();
@@ -106,10 +106,11 @@ if($this->settings["relaybot"] != "0") {
 				$msg .= "$alts ";  
 			}
 		
-            if($logon_msg != '0')
+            if($logon_msg != '0') {
                 $msg .= " - ".$logon_msg;
+			}
 
-            bot::send("grc ".$msg, $this->settings["relaybot"]);
+			send_message_to_relay("grc ".$msg);
         }
     }
 }
