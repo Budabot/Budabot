@@ -29,7 +29,6 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-global $db;
 $db->exec("DELETE FROM priv_chatlist_<myname>");
 
 ?>

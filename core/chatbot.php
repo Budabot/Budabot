@@ -539,7 +539,7 @@ class bot extends AOChat{
 /*===============================
 ** Name: Command
 ** 	Register a command
-*/	function command($type, $filename, $command, $admin = 'all', $description = 'none'){
+*/	function command($type, $filename, $command, $admin = 'all', $description = ''){
 		global $curMod;
 		global $db;
 
