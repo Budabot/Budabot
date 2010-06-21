@@ -1,7 +1,7 @@
 <?php
 	$MODULE_NAME = "RELAY_MODULE";
 	$PLUGIN_VERSION = 1.0;
-	
+	require_once("functions.php");
 	// Sending messages to relay
 	bot::event("guild", "$MODULE_NAME/send_relay_message.php", "none");
 	
