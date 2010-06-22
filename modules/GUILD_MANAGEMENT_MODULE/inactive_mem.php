@@ -3,7 +3,7 @@
    ** Author: Legendadv (RK2)
    ** Description: Lookup inactive org members
    */
-$table = "org_members_llowbot";  //org_members_<myname>
+$table = "org_members_<myname>";  //org_members_<myname>
 if(preg_match("/^inactivemem ([0-9]+)/i", $message, $arr)) {
 	
 	if($this->vars["my guild id"] == "") {
