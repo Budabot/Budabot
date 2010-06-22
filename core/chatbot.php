@@ -37,6 +37,8 @@ class bot extends AOChat{
 ** Name: __construct
 ** Constructor of this class.
 */	function __construct($vars, $settings){
+		$this->__construct("callback");
+
 		global $db;
 		global $curMod;
 
@@ -143,9 +145,6 @@ class bot extends AOChat{
 ** Name: connect
 ** Connect to AO chat servers.
 */	function connectAO($login, $password){
-		//Create Aochat
-		AOChat::AOchat("callback");
-		
 		// remove any old entries on buddy list
 		$buddyList = array();
 
@@ -635,6 +634,17 @@ class bot extends AOChat{
   		forEach ($data as $row) {
   		  	bot::regevent($row->type, $row->file);
 		}
+
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$module' AND `cmdevent` = 'event' AND `type` = 'setup'");
+		if($db->numrows() != 0) {
+			$data = $db->fObject("all");
+	  		foreach($data as $row) {
+			  	if($row->status == 0) {
+				    bot::regevent($row->type, $row->file);
+				    $db->query("UPDATE cmdcfg_<myname> SET `status` = 1 WHERE `module` = '$module' AND `cmdevent` = 'event' AND `type` = 'setup'");
+				}
+			}
+		}
 	}
 
 /*===============================
@@ -760,8 +770,6 @@ class bot extends AOChat{
 		if($dependson == "none" && $this->settings["default module status"] == 1) {
 			$status = 1;
 		} else {
-			// TODO look up the command it depends on and see if the command is
-			// enabled, to know whether this event should be enabled
 			$status = 0;
 		}
 

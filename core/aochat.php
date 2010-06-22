@@ -148,7 +148,7 @@
     var $serverseed, $tellqueue;
 
     /* Initialization */
-    function AOChat($cb, $args = NULL)
+    function __construct($cb, $args = NULL)
     {
       $this->callback = $cb;
       $this->cbargs   = $args;
