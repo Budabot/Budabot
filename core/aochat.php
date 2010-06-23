@@ -464,7 +464,7 @@
 	    } 
 
 	    return (int)$num; 
-    } 
+    }
 
     function is_really_numeric($num) 
     { 
