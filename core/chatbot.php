@@ -37,7 +37,7 @@ class bot extends AOChat{
 ** Name: __construct
 ** Constructor of this class.
 */	function __construct($vars, $settings){
-		$this->__construct("callback");
+		parent::__construct("callback");
 
 		global $db;
 		global $curMod;
