@@ -248,7 +248,7 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 	unset($this->data["ORGLIST_MODULE"]["check"][$sender]);
 }
 
-if (count($this->data["ORGLIST_MODULE"]["check"]) == 0 || $end) {
+if (isset($this->data["ORGLIST_MODULE"]) && count($this->data["ORGLIST_MODULE"]["check"]) == 0 || $end) {
 	$msg = orgmatesformat($this->data["ORGLIST_MODULE"], $orgrankmap, $orgcolor, $this->data["ORGLIST_MODULE"]["start"],$this->data["ORGLIST_MODULE"]["org"]);
 	$msg = bot::makeLink("Orglist for '".$this->data["ORGLIST_MODULE"]["org"]."'", $msg);
 	bot::send($msg, $this->data["ORGLIST_MODULE"]["sendto"]);

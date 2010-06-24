@@ -112,8 +112,9 @@ if($row->mode != "del" && $numrows == 1) {
        	bot::send($msg, "guild", true);
 
 		//Guestchannel part
-		if($this->settings["guest_relay"] == 1)
+		if($this->settings["guest_relay"] == 1) {
 			bot::send($msg, "priv", true);
+		}
     }
 }
 ?>

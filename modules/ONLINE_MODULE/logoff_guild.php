@@ -38,8 +38,9 @@ if (isset($this->guildmembers[$sender])) {
 			bot::send("<highlight>$sender<end> logged off", "guild", true);
 			
 			//Guestchannel part
-			if($this->settings["guest_relay"] == 1)
+			if($this->settings["guest_relay"] == 1) {
 				bot::send("<highlight>$sender<end> logged off", "priv", true);
+			}
 		}
     }
 }
