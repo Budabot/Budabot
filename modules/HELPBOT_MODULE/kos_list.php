@@ -51,23 +51,20 @@ if(preg_match("/^kos$/i", $message)) {
 	}
 
 	bot::send($msg, $sendto);
-} elseif(preg_match("/^kos add (.+) reason (.+)$/i", $message, $arr)) {
-	$name = ucfirst(strtolower($arr[1]));
-	$reason = str_replace("'", "''", $arr[2]);
-	$uid = AoChat::get_uid($name);
-	if(strlen($reason) >= 50)
-	$msg = "The reason can't be longer than 50 characters.";
-	elseif($uid) {
-		$db->query("INSERT INTO koslist_<myname> (`time`, `name`, `sender`, `reason`) VALUES (".time().", '".str_replace("'", "''", $name)."', '$sender', '".str_replace("'", "''", $reason)."')");
-		$msg = "You have successfull added <highlight>$name<end> to the KOS List.";
-	} else
-	$msg = "The Player you want to add doesn't exists.";
-
-	bot::send($msg, $sendto);
-} elseif(preg_match("/^kos add (.+)$/i", $message, $arr)) {
-	$explodemsg = explode(' ', $arr[1], 2);
+}
+elseif(preg_match("/^kos add (.+)$/i", $message, $arr)) {
+	$explodemsg = explode(' ', $arr[1], 3);
 	$name = ucfirst(strtolower($explodemsg[0]));
-	$reason = $explodemsg[1];
+	if ('reason' == $explodemsg[1])
+	{
+		// compatibility for old style syntax add X reason Y
+		$reason = $explodemsg[2];
+	}
+	else
+	{
+		// otherwise stitch the reason back together
+		$reason = $explodemsg[1] . ' ' . $explodemsg[2];
+	}
 	$uid = AoChat::get_uid($name);
 	if(strlen($reason) >= 50)
 	{
@@ -112,7 +109,8 @@ elseif(preg_match("/^kos rem (.+)$/i", $message, $arr)) {
 	}
 
 	bot::send($msg, $sendto);
-} elseif(preg_match("/^kos (.+)$/i", $message, $arr)) {
+}
+elseif(preg_match("/^kos (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 	$db->query("SELECT * FROM koslist_<myname> WHERE `name` = '".str_replace("'", "''", $name)."' LIMIT 0, 40");
 	if($db->numrows() >= 1) {
@@ -121,8 +119,13 @@ elseif(preg_match("/^kos rem (.+)$/i", $message, $arr)) {
 		while($row = $db->fObject()) {
 			$link .= "Name: <highlight>$row->sender<end>\n";
 			$link .= "Date: <highlight>".gmdate("dS F Y, H:i", $row->time)."<end>\n";
-			if($row->reason != "0")
-			$link .= "Reason: <highlight>$row->reason<end>\n";
+			if($row->reason != "0" && "" != $row->reason)
+			{
+				// only show the reason if there is one
+				// old style would be zero as reason
+				// new style is an empty string
+				$link .= "Reason: <highlight>$row->reason<end>\n";
+			}
 
 			$link .= "\n";
 		}
