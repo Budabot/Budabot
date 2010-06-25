@@ -1,6 +1,6 @@
 <?php
 
-if (($sender == $this->settings['relaybot'] || $channel == $this->settings['relaybot']) && preg_match("/^grc (.+)$/", $message, $arr)) {
+if (($sender == ucfirst(strtolower($this->settings['relaybot'])) || $channel == ucfirst(strtolower($this->settings['relaybot']))) && preg_match("/^grc (.+)$/", $message, $arr)) {
 	$msg = $arr[1];
     bot::send($msg, "guild", true);
 
