@@ -1258,7 +1258,7 @@ class bot extends AOChat{
 			break;
 			case AOCP_PRIVGRP_CLIJOIN: // 55, Incoming player joined private chat
 				$type = "joinPriv"; // Set message type.
-				$sender	= AOChat::get_uname($args[1]);// Get Name
+				$sender	= $this->lookup_user($args[1]);// Get Name
 				// Add sender to the chatlist.
 				$this->chatlist[$sender] = true;
 				// Echo
@@ -1279,7 +1279,7 @@ class bot extends AOChat{
 			break;
 			case AOCP_PRIVGRP_CLIPART: // 56, Incoming player left private chat
 				$type = "leavePriv"; // Set message type.
-				$sender	= AOChat::get_uname($args[1]); // Get Name
+				$sender	= $this->lookup_user($args[1]); // Get Name
 				// Echo
 				if($this->settings['echo'] >= 1) newLine("Priv Group", $sender, "left the channel.", $this->settings['echo']);
 
@@ -1294,7 +1294,7 @@ class bot extends AOChat{
 			break;
 			case AOCP_BUDDY_ADD: // 40, Incoming buddy logon or off
 				// Basic packet data
-				$sender	= AOChat::get_uname($args[0]);
+				$sender	= $this->lookup_user($args[0]);
 				$status	= 0 + $args[1];
 				
 				// store buddy info
@@ -1339,7 +1339,7 @@ class bot extends AOChat{
 			break;
 			case AOCP_MSG_PRIVATE: // 30, Incoming Msg
 				$type = "msg"; // Set message type.
-				$sender	= AOChat::get_uname($args[0]);
+				$sender	= $this->lookup_user($args[0]);
 				$sendto = $sender;
 				
 				// Removing tell color
@@ -1444,9 +1444,9 @@ class bot extends AOChat{
 				}
 			break;
 			case AOCP_PRIVGRP_MESSAGE: // 57, Incoming priv message
-				$sender	= AOChat::get_uname($args[1]);
+				$sender	= $this->lookup_user($args[1]);
 				$sendto = 'prv';
-				$channel = AOChat::get_uname($args[0]);
+				$channel = $this->lookup_user($args[0]);
 				$message = $args[2];
 				$restricted = false;
 				if($sender == $this->vars["name"]) {
@@ -1537,9 +1537,9 @@ class bot extends AOChat{
 			break;
 			case AOCP_GROUP_MESSAGE: // 65, Public and guild channels
 				$syntax_error = false;
-				$sender	 = AOChat::get_uname($args[1]);
+				$sender	 = $this->lookup_user($args[1]);
 				$message = $args[2];
-				$channel = AOChat::get_gname($args[0]);
+				$channel = $this->get_gname($args[0]);
 
 				//Ignore Messages from Vicinity/IRRK New Wire/OT OOC/OT Newbie OOC...
 				$channelsToIgnore = array("", 'IRRK News Wire', 'OT OOC', 'OT Newbie OOC', 'OT Jpn OOC', 'OT shopping 11-50',
@@ -1659,7 +1659,7 @@ class bot extends AOChat{
 			case AOCP_PRIVGRP_INVITE:  // 50, private group invite
 				$type = "extJoinPrivRequest"; // Set message type.
 				$uid = $args[0];
-				$sender = AOChat::get_uname($uid);
+				$sender = $this->lookup_user($uid);
 
 				// Echo
 				if($this->settings['echo'] >= 1) newLine("Priv Group Invitation", $sender, " channel invited.", $this->settings['echo']);

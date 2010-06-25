@@ -474,14 +474,6 @@
 	    return false; 
     }
 
-    function get_uname($user)
-    {
-      if(!($uid = (int)$user))
-        return $user;
-      else
-        return $this->lookup_user($uid);
-    }
-
     function lookup_group($arg, $type=0)
     {
       if($type && ($is_gid = (strlen($arg) === 5 && (ord($arg[0])&~0x80) < 0x10)))
