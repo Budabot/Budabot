@@ -61,5 +61,5 @@
 	bot::addsetting("irc_debug_messages", "IRC Debug Option: Show events in console", "edit", "0", "Off;On", "0;1", "mod", "$MODULE_NAME/irc_help.txt");
 	
 	//Helpfiles
-	bot::help("irc", "$MODULE_NAME/irc_help.txt", "all", "How to use the IRC plugin", "IRC Relay v$version");
+	bot::help("irc", "$MODULE_NAME/irc_help.txt", "all", "How to use the IRC plugin", "IRC Relay");
 ?>

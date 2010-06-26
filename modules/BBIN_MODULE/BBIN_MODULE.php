@@ -63,5 +63,5 @@
 	bot::addsetting("bbin_debug_messages", "IRC Debug Option: Show events in console", "edit", "0", "Off;On", "0;1", "mod", "$MODULE_NAME/bbin_help.txt");
 	
 	//Helpfiles
-	bot::help("bbin", "$MODULE_NAME/bbin_help.txt", "all", "How to use the BBIN plugin", "BBIN v$version");
+	bot::help("bbin", "$MODULE_NAME/bbin_help.txt", "all", "How to use the BBIN plugin", "BBIN");
 ?>
