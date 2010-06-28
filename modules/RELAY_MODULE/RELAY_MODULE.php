@@ -18,6 +18,9 @@
 	bot::event("logOn", "$MODULE_NAME/relay_guild_logon.php", "grc", "Sends Logon messages");
 	bot::event("logOff", "$MODULE_NAME/relay_guild_logoff.php", "grc", "Sends Logoff messages");
 	
+	// Relay org messages between orgs
+	bot::event("orgmsg", "$MODULE_NAME/org_messages.php", "none", "Relay Org Messages");
+	
 	// Settings
 	bot::addsetting("relaytype", "Type of relay", "edit", "1", "tell;pgroup", '1;2', "mod", "");
 	bot::addsetting("relaysymbol", "Symbol for external relay", "edit", "@", "!;#;*;@;$;+;-;Always relay", '0', "mod", "");
