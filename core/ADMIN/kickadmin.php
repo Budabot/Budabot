@@ -41,7 +41,7 @@ if (preg_match("/^kickadmin (.+)$/i", $message, $arr)){
 		return;
 	}
 
-	if ($this->admins[$who]["level"] != 4) {
+	if ($this->admins[$who]["level"] != ADMIN) {
 		bot::send("<red>Sorry $who is not a Administrator of this Bot.<end>", $sendto);
 		return;
 	}

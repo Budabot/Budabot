@@ -42,25 +42,25 @@ if(preg_match("/^raidleader (.+)$/i", $message, $arr)){
 		return;
 	}
 
-	if($this->admins[$who]["level"] == 2) {
+	if($this->admins[$who]["level"] == RAIDLEADER) {
 		bot::send("<red>Sorry but $who is already a raidleader.<end>", $sendto);
 		return;
 	}
 	
-	if((int)$this->admins[$sender]["level"] <= (int)$this->admins[$who]["level"]){
+	if((int)$this->admins[$sender]["level"] >= (int)$this->admins[$who]["level"]){
 		bot::send("<red>You must have a rank higher then $who.<end>", $sendto);
 		return;
 	}
 
-	if(isset($this->admins[$who]["level"]) && $this->admins[$who]["level"] > 2) {
+	if(isset($this->admins[$who]["level"]) && $this->admins[$who]["level"] < RAIDLEADER) {
 		bot::send("<highlight>$who<end> has been demoted to the rank of a Raidleader.", $sendto);
 		bot::send("You have been demoted to the rank of a Raidleader on {$this->vars["name"]}", $who);
-		$db->query("UPDATE admin_<myname> SET `adminlevel` = 2 WHERE `name` = '$who'");
-		$this->admins[$who]["level"] = 3;
+		$db->query("UPDATE admin_<myname> SET `adminlevel` = " . RAIDLEADER . " WHERE `name` = '$who'");
+		$this->admins[$who]["level"] = RAIDLEADER;
 	} else {
-		$db->query("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (2, '$who')");
-		$this->admins[$who]["level"] = 2;
-		bot::send("<highlight>$who<end> has been added to the Raidleadergroup", $sendto);
+		$db->query("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (" . RAIDLEADER . ", '$who')");
+		$this->admins[$who]["level"] = RAIDLEADER;
+		bot::send("<highlight>$who<end> has been added to the Raidleader group", $sendto);
 		bot::send("You got raidleader access to <myname>", $who);
 	}
 		

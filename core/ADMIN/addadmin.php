@@ -42,7 +42,7 @@ if (preg_match("/^addadmin (.+)$/i", $message, $arr)){
 		return;
 	}
 
-	if ($this->admins[$who]["level"] == 4) {
+	if ($this->admins[$who]["level"] == ADMIN) {
 		bot::send("<red>Sorry but $who is already a Administrator.<end>", $sendto);
 		return;
 	}
@@ -52,20 +52,15 @@ if (preg_match("/^addadmin (.+)$/i", $message, $arr)){
 		return;
 	}
 
-	if (isset($this->admins[$who]["level"]) && $this->admins[$who]["level"] >= 2) {
-		if($this->admins[$who]["level"] > 4) {
-			bot::send("<highlight>$who<end> has been demoted to the rank of a Administrator.", $sendto);
-			bot::send("You have been demoted to the rank of a Administrator on {$this->vars["name"]}", $who);
-		} else {
-			bot::send("<highlight>$who<end> has been promoted to the rank of a Administrator.", $sendto);
-			bot::send("You have been promoted to the rank of a Administrator on {$this->vars["name"]}", $who);
-		}
-		$db->query("UPDATE admin_<myname> SET `adminlevel` = 4 WHERE `name` = '$who'");
-		$this->admins[$who]["level"] = 4;
+	if (isset($this->admins[$who]["level"])) {
+		bot::send("<highlight>$who<end> has been promoted to the rank of a Administrator.", $sendto);
+		bot::send("You have been promoted to the rank of a Administrator on {$this->vars["name"]}", $who);
+		$db->query("UPDATE admin_<myname> SET `adminlevel` = ". ADMIN . " WHERE `name` = '$who'");
+		$this->admins[$who]["level"] = ADMIN;
 	} else {
-		$db->query("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (4, '$who')");
-		$this->admins[$who]["level"] = 4;
-		bot::send("<highlight>$who<end> has been added to the Administratorgroup", $sendto);
+		$db->query("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (" . ADMIN . ", '$who')");
+		$this->admins[$who]["level"] = ADMIN;
+		bot::send("<highlight>$who<end> has been added to the Administrator group", $sendto);
 		bot::send("You got Administrator access to <myname>", $who);
 	}
 

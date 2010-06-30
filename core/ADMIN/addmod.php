@@ -43,30 +43,30 @@ if (preg_match("/^addmod (.+)$/i", $message, $arr)){
 	}
 
 
-	if ($this->admins[$who]["level"] == 3) {
+	if ($this->admins[$who]["level"] == MODERATOR) {
 		bot::send("<red>Sorry but $who is already a moderator.<end>", $sendto);
 		return;
 	}
 	
-	if ((int)$this->admins[$sender]["level"] <= (int)$this->admins[$who]["level"]){
+	if ((int)$this->admins[$sender]["level"] >= (int)$this->admins[$who]["level"]){
 		bot::send("<red>You must have a rank higher then $who.<end>", $sendto);
 		return;
 	}
 
-	if (isset($this->admins[$who]["level"]) && $this->admins[$who]["level"] >= 2) {
-		if($this->admins[$who]["level"] > 3) {
+	if (isset($this->admins[$who]["level"]) && $this->admins[$who]["level"] < MODERATOR) {
+		if($this->admins[$who]["level"] > MODERATOR) {
 			bot::send("<highlight>$who<end> has been demoted to the rank of a Moderator.", $sendto);
 			bot::send("You have been demoted to the rank of a Moderator on {$this->vars["name"]}", $who);
 		} else {
 			bot::send("<highlight>$who<end> has been promoted to the rank of a Moderator.", $sendto);
 			bot::send("You have been promoted to the rank of a Moderator on {$this->vars["name"]}", $who);
 		}
-		$db->query("UPDATE admin_<myname> SET `adminlevel` = 3 WHERE `name` = '$who'");
-		$this->admins[$who]["level"] = 3;
+		$db->query("UPDATE admin_<myname> SET `adminlevel` = " . MODERATOR . " WHERE `name` = '$who'");
+		$this->admins[$who]["level"] = MODERATOR;
 	} else {
-		$db->query("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (3, '$who')");
-		$this->admins[$who]["level"] = 3;
-		bot::send("<highlight>$who<end> has been added to the Moderatorgroup", $sendto);
+		$db->query("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (" . MODERATOR . ", '$who')");
+		$this->admins[$who]["level"] = MODERATOR;
+		bot::send("<highlight>$who<end> has been added to the Moderator group", $sendto);
 		bot::send("You got moderator access to <myname>", $who);
 	}
 

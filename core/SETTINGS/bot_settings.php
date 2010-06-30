@@ -229,14 +229,8 @@ if (preg_match("/^settings$/i", $message)) {
  	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '$name'");  
 	if($db->numrows() != 0) {
 	  	$row = $db->fObject();
-		if($help = fopen($row->help, "r")) {
-			while(!feof($help))
-				$data .= fgets($help, 4096);
-			fclose($help);
-			$msg = bot::makeLink("Help on setting $name", $data);
-		} else {
-			$msg = "No help for this setting found.";
-		}
+		$data = file_get_contents($row->help);
+		$msg = bot::makeLink("Help on setting $name", $data);
 	} else {
 		$msg = "No help for this setting found.";
 	}

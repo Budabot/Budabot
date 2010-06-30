@@ -84,12 +84,15 @@ if(preg_match("/^add$/i", $message)) {
 	bot::send($msg);
 } elseif(preg_match("/^add 0$/i", $message)) {
  	//Raid with flatrolls
-	if($this->vars["raid_status"] != "" && $this->vars["raid_pts"] == 0) {
-	  	foreach($raidloot as $key => $value)
-			foreach($value as $key1 => $value1)
-				if($raidloot[$key][$key1]["users"][$sender] == true)
-					unset($raidloot[$key][$key1]["users"][$sender]);		 		
-	
+	if ($this->vars["raid_status"] != "" && $this->vars["raid_pts"] == 0) {
+	  	foreach($raidloot as $key => $value) {
+			foreach($value as $key1 => $value1) {
+				if($raidloot[$key][$key1]["users"][$sender] == true) {
+					unset($raidloot[$key][$key1]["users"][$sender]);
+				}
+			}
+		}
+
 		$msg = "You have been removed from all rolls";
 	  	bot::send($msg, $sender);	  
 	} elseif(count($loot) > 0) {
@@ -178,16 +181,16 @@ if(preg_match("/^add$/i", $message)) {
   	  	$slot = $arr[1];
 
 		//Check if the slot exists
-	  	if(!isset($loot[$slot])) {
+	  	if (!isset($loot[$slot])) {
 	  		$msg = "The slot you trying to add in doesn't exists";
 		  	bot::send($msg, $sender);
 		  	return;
 	  	}
 	
 		//Check if minlvl is set and if the player is higher then it
-		if(isset($loot[$slot]["minlvl"])) {
+		if (isset($loot[$slot]["minlvl"])) {
 		  	$whois = new whois($sender);
-		  	if($whois->lvl < $loot[$slot]["minlvl"]) {
+		  	if ($whois->lvl < $loot[$slot]["minlvl"]) {
 			    $msg = "You need to be at least lvl<highlight>{$loot[$slot]["minlvl"]}<end> to join this roll.";
 		  		bot::send($msg, $sender);
 		  		return;
@@ -196,11 +199,12 @@ if(preg_match("/^add$/i", $message)) {
 	  	
 	  	//Remove the player from other slots if set
 	  	$found = false;
-	  	foreach($loot as $key => $item)
-			if($loot[$key]["users"][$sender] == true) {
+	  	forEach ($loot as $key => $item) {
+			if ($loot[$key]["users"][$sender] == true) {
 				unset($loot[$key]["users"][$sender]);
 				$found = true;
-			}		 		
+			}
+		}
 	
 		//Add the player to the choosen slot
 	    $loot[$slot]["users"][$sender] = true;
