@@ -7,6 +7,7 @@ if (preg_match("/^svn update/i", $message)) {
 	exec($command, $output, $return_var);
 	
 	$window = "::: SVN UPDATE output :::\n\n";
+	$window .= $command . "\n\n";
 	forEach ($output as $line) {
 		$window .= $line . "\n";
 	}
