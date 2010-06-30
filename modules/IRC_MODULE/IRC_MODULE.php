@@ -59,6 +59,7 @@
 	bot::addsetting("irc_autoconnect", "Connect to IRC at bootup", "edit", "0", "No;Yes", "0;1", "mod", "$MODULE_NAME/irc_help.txt");
 	bot::addsetting("irc_debug_ping", "IRC Debug Option: Show pings in console", "edit", "0", "Off;On", "0;1", "mod", "$MODULE_NAME/irc_help.txt");
 	bot::addsetting("irc_debug_messages", "IRC Debug Option: Show events in console", "edit", "0", "Off;On", "0;1", "mod", "$MODULE_NAME/irc_help.txt");
+	bot::addsetting("irc_debug_all", "IRC Debug Option: Log everything", "edit", "0", "Off;On", "0;1", "mod", "$MODULE_NAME/irc_help.txt");
 	
 	//Helpfiles
 	bot::help("irc", "$MODULE_NAME/irc_help.txt", "all", "How to use the IRC plugin", "IRC Relay");
