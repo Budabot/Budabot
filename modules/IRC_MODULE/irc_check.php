@@ -21,7 +21,7 @@ if(($data = fgets($socket)) && ("1" == $this->settings['irc_status'])) {
 	$nickc = explode(':', $nickb[0]);
 	if($this->settings['irc_debug_all'] == 1)
 	{
-		newLine("IRC"," ",$data,0);
+		newLine("IRC"," ",trim($data),0);
 	}
 	$host = $nicka[1];
 	$nick = $nickc[1];

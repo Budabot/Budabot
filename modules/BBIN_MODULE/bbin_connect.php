@@ -30,7 +30,7 @@ while($logincount < 10) {
 	$data = fgets($bbin_socket, 128);
 	if($this->settings['bbin_debug_all'] == 1)
 	{
-		newLine("BBIN"," ",$data,0);
+		newLine("BBIN"," ",trim($data),0);
 	}
 	// Separate all data
 	$ex = explode(' ', $data);
@@ -47,10 +47,10 @@ fputs($bbin_socket,"JOIN ".$this->settings['bbin_channel']."\n");
 while($data = fgets($bbin_socket)) {
 	if($this->settings['bbin_debug_all'] == 1)
 	{
-		newLine("BBIN"," ",$data,0);
+		newLine("BBIN"," ",trim($data),0);
 	}
 	if(preg_match("/(ERROR)(.+)/", $data, $sandbox)) {
-		newLine("BBIN","bbin error",$data,0);
+		newLine("BBIN","bbin error",trim($data),0);
 		if(preg_match("/^startbbin$/i", $message)) {
 			bot::send("[red]Could not connect to BBIN",$sender);
 		}

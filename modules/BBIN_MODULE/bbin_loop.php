@@ -17,7 +17,7 @@ if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
 	$ex = explode(' ', $data);
 	if($this->settings['bbin_debug_all'] == 1)
 	{
-		newLine("BBIN"," ",$data,0);
+		newLine("BBIN"," ",trim($data),0);
 	}
 	$channel = rtrim(strtolower($ex[2]));
 	$nicka = explode('@', $ex[0]);

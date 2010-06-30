@@ -26,7 +26,7 @@ set_time_limit(0);
 	if(preg_match("/^startirc$/i", $message)) {
 		bot::send("Intialized IRC connection. Please wait...",$sender);
 	}
-	newLine("IRC"," ","Intialized IRC connection. Please wait...\n",0);
+	newLine("IRC"," ","Intialized IRC connection. Please wait...",0);
 	$socket = fsockopen($this->settings['irc_server'], $this->settings['irc_port']);
 	fputs($socket,"USER $nick $nick $nick $nick :$nick\n");
 	fputs($socket,"NICK $nick\n");
@@ -35,7 +35,7 @@ set_time_limit(0);
 		$data = fgets($socket, 128);
 		if($this->settings['irc_debug_all'] == 1)
 		{
-			newLine("IRC"," ",$data,0);
+			newLine("IRC"," ",trim($data),0);
 		}
 		// Separate all data
 		$ex = explode(' ', $data);
@@ -52,13 +52,13 @@ set_time_limit(0);
 	while($data = fgets($socket)) {
 		if($this->settings['irc_debug_all'] == 1)
 		{
-			newLine("IRC"," ",$data,0);
+			newLine("IRC"," ",trim($data),0);
 		}
 		if(preg_match("/(ERROR)(.+)/", $data, $sandbox)) {
 			if(preg_match("/^startirc$/i", $message)) {
 				bot::send("[red]Could not connect to IRC",$sender);
 			}
-			newLine("IRC","irc error",$data,0);
+			newLine("IRC","irc error",trim($data),0);
 			return;
 		}
 		if($ex[0] == "PING") {
@@ -72,6 +72,6 @@ set_time_limit(0);
 	if(preg_match("/^startirc$/i", $message)) {
 		bot::send("Finished connecting to IRC",$sender);
 	}
-	newLine("IRC"," ","Finished connecting to IRC\n",0);
+	newLine("IRC"," ","Finished connecting to IRC",0);
 	bot::savesetting("irc_status", "1");
 ?>
