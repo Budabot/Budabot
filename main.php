@@ -164,6 +164,7 @@ main(true, $chatBot);
 ** Name: log
 ** Record incoming info into the chatbot's log.
 */	function newLine($channel, $sender, $message, $target){
+		global $vars;
 		if($channel == "")
 			return;
 			
