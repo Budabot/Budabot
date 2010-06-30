@@ -35,9 +35,9 @@ if (preg_match("/^server(.*)$/i", $message, $arr)) {
         bot::send($msg, $sendto);
 
 		$server = new server(trim($arr[1]));
-	  	if($server->errorCode != 0)
+	  	if ($server->errorCode != 0) {
 	  		$msg = $server->errorInfo;
-	  	else {
+	  	} else {
 		    $link  = "<header>::::: $server->name Server Status :::::<end>\n\n";
 
 			if($server->servermanager == 1)
@@ -63,7 +63,7 @@ if (preg_match("/^server(.*)$/i", $message, $arr)) {
 			}	    
 		    $link .= "<highlight>Player distribution in % of total players online.<end>\n";
    		    ksort($server->data);
-		    foreach($server->data as $zone => $proz)
+		    forEach ($server->data as $zone => $proz)
 		    	$link .= "<highlight>$zone<end>: {$proz["players"]} \n";
 			
 			$msg = bot::makeLink("Status of $server->name", $link);	    
@@ -73,5 +73,7 @@ if (preg_match("/^server(.*)$/i", $message, $arr)) {
 	}
 
 	bot::send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
 ?>
