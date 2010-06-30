@@ -15,9 +15,9 @@ require_once("bbin_func.php");
 stream_set_blocking($bbin_socket, 0);
 if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
 	$ex = explode(' ', $data);
-	if($this->settings['bbin_debug_messages'] == 1)
+	if($this->settings['bbin_debug_all'] == 1)
 	{
-		echo $data."\n";
+		newLine("BBIN"," ",$data,0);
 	}
 	$channel = rtrim(strtolower($ex[2]));
 	$nicka = explode('@', $ex[0]);
@@ -31,7 +31,7 @@ if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
 		fputs($bbin_socket, "PONG ".$ex[1]."\n");
 		if($this->settings['bbin_debug_ping'] == 1)
 		{
-			echo("[".date('H:i')."] [bbin] PING received. PONG sent.\n");
+			newLine("BBIN"," ","PING received. PONG sent.",0);
 		}
 	}
 	elseif ($ex[1] == "NOTICE")
@@ -118,7 +118,7 @@ if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
 		}
 		if($this->settings['bbin_debug_messages'] == 1)
 		{
-			echo("[".date('H:i')."] [Inc. IRC Msg.] $nick: $bbinmessage\n");
+			newLine("BBIN"," ","[Inc. IRC Msg.] $nick: $bbinmessage",0);
 		}
 		parse_incoming_bbin($bbinmessage, $nick, $this);
 

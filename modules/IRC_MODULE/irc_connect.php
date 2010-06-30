@@ -55,7 +55,11 @@ set_time_limit(0);
 			newLine("IRC"," ",$data,0);
 		}
 		if(preg_match("/(ERROR)(.+)/", $data, $sandbox)) {
+			if(preg_match("/^startirc$/i", $message)) {
+				bot::send("[red]Could not connect to IRC",$sender);
+			}
 			newLine("IRC","irc error",$data,0);
+			return;
 		}
 		if($ex[0] == "PING") {
 			fputs($socket, "PONG ".$ex[1]."\n");
