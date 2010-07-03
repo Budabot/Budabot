@@ -33,7 +33,12 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot)
 				"VALUES ('$name', '$character->faction', '$character->prof', '$character->org', '$character->breed', '$character->level', '$character->ai_level', $guest, $servernum, '$nick')");
 
 		// send notification to channels
-		$msg = "<highlight>$name<end> (<highlight>{$character->level}<end>/<green>{$character->ai_level}<end>, <highlight>{$character->prof}<end>, $character->faction) {$character->rank} of {$character->org} has joined the network";
+		$msg = "<highlight>$name<end> (<highlight>{$character->level}<end>/<green>{$character->ai_level}<end>, <highlight>{$character->prof}<end>, $character->faction)";
+		if ($character->org != "")
+		{
+			$msg .=	" {$character->rank} of {$character->org}";
+		}
+		$msg .= " has joined the network";
 		if ($guest == 1)
 		{
 			$msg .= " as a guest";
