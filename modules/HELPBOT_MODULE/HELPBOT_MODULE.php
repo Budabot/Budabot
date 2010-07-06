@@ -32,7 +32,7 @@
 	bot::command("", "$MODULE_NAME/roll.php", "roll", "all", "Roll a random number");
 
 	//Player History
-	bot::command("", "$MODULE_NAME/player_history.php", "history", "guild", "Show a history of a player");
+	bot::command("", "$MODULE_NAME/player_history.php", "history", "all", "Show a history of a player");
 	
 	//Smileys
 	bot::command("", "$MODULE_NAME/smileys.php", "smileys", "guild", "The meaning of different Smileys");
