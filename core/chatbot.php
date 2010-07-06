@@ -663,9 +663,7 @@ class bot extends AOChat{
 		$module = strtoupper($module[0]);
 
 		//Check if the file exists
-		if (($actual_filename = $this->verifyFilename($filename)) != '') {
-    		$filename = $actual_filename;
-		} else {
+		if (($filename = $this->verifyFilename($filename)) === FALSE) {
 			echo "Error in registering the File $filename for command $command. The file doesn't exists!\n";
 			return;
 		}
@@ -780,9 +778,7 @@ class bot extends AOChat{
 		$module = explode("/", strtolower($filename));
 	  	
 		//Check if the file exists
-		if(($actual_filename = $this->verifyFilename($filename)) != '') {
-			$filename = $actual_filename;
-		} else {
+		if(($filename = $this->verifyFilename($filename)) === FALSE) {
 			echo "Error in registering the file $filename for Subcommand $command. The file doesn't exists!\n";
 			return;
 		}
@@ -839,9 +835,7 @@ class bot extends AOChat{
 		if($this->settings['debug'] > 2) sleep(1);
 
 		//Check if the file exists
-		if (($actual_filename = $this->verifyFilename($filename)) != '') {
-    		$filename = $actual_filename;
-		} else {
+		if (($filename = $this->verifyFilename($filename)) === FALSE) {
 			echo "Error in registering the File $filename for Eventtype $type. The file doesn't exists!\n";
 			return;
 		}
@@ -947,14 +941,6 @@ class bot extends AOChat{
 */	function unregevent($type, $filename) {
 		if($this->settings['debug'] > 1) print("Deactivating Event:($type) File:($filename)\n");
 		if($this->settings['debug'] > 2) sleep(1);
-
-		//Check if the file exists
-		if (($actual_filename = $this->verifyFilename($filename)) != '') {
-    		$filename = $actual_filename;
-		} else {
-			echo "Error in unregistering the File $filename for Event $type. The file doesn't exists!\n";
-			return;
-		}
 
 		switch ($type){
 			case "towers":
@@ -1139,14 +1125,6 @@ class bot extends AOChat{
 		global $curMod;
 		$name = strtolower($name);
 
-		//Check if the file exists
-		if (($actual_filename = $this->verifyFilename($help)) != '' && $help != "") {
-    		$filename = $actual_filename;
-		} elseif($help != "") {
-			echo "Error in registering the File $filename for Setting $name. The file doesn't exists!\n";
-			return;
-		}
-
 		if ($this->existing_settings[$name] != true) {
 			$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `access_level`, `help`) VALUES ('$name', '$curMod', '$mode', '$setting', '$options', '$intoptions', '$description', 'db', $access_level, '$help')");
 		  	$this->settings[$name] = $setting;
@@ -1189,7 +1167,7 @@ class bot extends AOChat{
 /*===============================
 ** Name: help
 ** Add a help command and display text file in a link.
-*/	function help($command, $filename, $access_level = ALL, $description = "", $cat = "Unknown Category") {
+*/	function help($command, $filename, $access_level = ALL, $description = "") {
 	  	global $db;
 		if($this->settings['debug'] > 1) print("Registering Helpfile:($filename) Cmd:($command)\n");
 		if($this->settings['debug'] > 2) sleep(1);
@@ -1199,9 +1177,7 @@ class bot extends AOChat{
 		$module = explode("/", $filename);
 
 		//Check if the file exists
-		if (($filename = $this->verifyFilename($filename)) != '') {
-    		// do nothing
-		} else {
+		if (($filename = $this->verifyFilename($filename)) === FALSE) {
 			echo "Error in registering the File $filename for Helpcommand $command. The file doesn't exists!\n";
 			return;
 		}
@@ -1250,6 +1226,8 @@ class bot extends AOChat{
 			case AOCP_PRIVGRP_CLIJOIN: // 55, Incoming player joined private chat
 				$type = "joinPriv"; // Set message type.
 				$sender	= $this->lookup_user($args[1]);// Get Name
+				$char_id = $args[1];
+
 				// Add sender to the chatlist.
 				$this->chatlist[$sender] = true;
 				// Echo
@@ -1271,6 +1249,8 @@ class bot extends AOChat{
 			case AOCP_PRIVGRP_CLIPART: // 56, Incoming player left private chat
 				$type = "leavePriv"; // Set message type.
 				$sender	= $this->lookup_user($args[1]); // Get Name
+				$char_id = $args[1];
+
 				// Echo
 				if($this->settings['echo'] >= 1) newLine("Priv Group", $sender, "left the channel.", $this->settings['echo']);
 
@@ -1286,6 +1266,7 @@ class bot extends AOChat{
 			case AOCP_BUDDY_ADD: // 40, Incoming buddy logon or off
 				// Basic packet data
 				$sender	= $this->lookup_user($args[0]);
+				$char_id = $args[0];
 				$status	= 0 + $args[1];
 				
 				// store buddy info
@@ -1331,6 +1312,7 @@ class bot extends AOChat{
 			case AOCP_MSG_PRIVATE: // 30, Incoming Msg
 				$type = "msg"; // Set message type.
 				$sender	= $this->lookup_user($args[0]);
+				$char_id = $args[0];
 				$sendto = $sender;
 				
 				// Removing tell color
@@ -1422,6 +1404,7 @@ class bot extends AOChat{
 			break;
 			case AOCP_PRIVGRP_MESSAGE: // 57, Incoming priv message
 				$sender	= $this->lookup_user($args[1]);
+				$char_id = $args[1];
 				$sendto = 'prv';
 				$channel = $this->lookup_user($args[0]);
 				$message = $args[2];
@@ -1503,6 +1486,7 @@ class bot extends AOChat{
 			case AOCP_GROUP_MESSAGE: // 65, Public and guild channels
 				$syntax_error = false;
 				$sender	 = $this->lookup_user($args[1]);
+				$char_id = $args[1];
 				$message = $args[2];
 				$channel = $this->get_gname($args[0]);
 
@@ -1606,8 +1590,8 @@ class bot extends AOChat{
 			break;
 			case AOCP_PRIVGRP_INVITE:  // 50, private group invite
 				$type = "extJoinPrivRequest"; // Set message type.
-				$uid = $args[0];
-				$sender = $this->lookup_user($uid);
+				$sender = $this->lookup_user($args[0]);
+				$char_id = $args[0];
 
 				// Echo
 				if ($this->settings['echo'] >= 1) newLine("Priv Group Invitation", $sender, " channel invited.", $this->settings['echo']);
@@ -1696,27 +1680,27 @@ class bot extends AOChat{
 		//Replace all \ characters with /
 		$filename = str_replace("\\", "/", $filename);
 
-		if(!$this->verifyNameConvention($filename))
-			return "";
+		if (!$this->verifyNameConvention($filename)) {
+			return FALSE;
+		}
 
 		//check if the file exists
-	    if(file_exists("./core/$filename")) {
+	    if (file_exists("./core/$filename")) {
 	        return "./core/$filename";
-    	} else if(file_exists("./modules/$filename")) {
+    	} else if (file_exists("./modules/$filename")) {
         	return "./modules/$filename";
 	    } else {
-	     	return "";
+	     	return FALSE;
 	    }
 	}
 
 	function verifyNameConvention($filename) {
 		preg_match("/^(.+)/([0-9a-z_]+).php$/i", $filename, $arr);
 		if($arr[2] == strtolower($arr[2])) {
-			return true;
+			return TRUE;
 		} else {
 			echo "Warning: $filename does not match the nameconvention(All php files needs to be in lowercases except loading files)!\n";
-			sleep(2);
-			return false;
+			return FALSE;
 		}
 	}
 
