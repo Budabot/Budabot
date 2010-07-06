@@ -3,11 +3,11 @@
 	
 	bot::loadSQLFile($MODULE_NAME, "spirits");
 	
-	bot::command("", "$MODULE_NAME/spirits.php", "spirits", "all", "Search for Spirits");
-	bot::command("", "$MODULE_NAME/spirits.php", "spiritslvl", "all", "Search for Spirits");
-	bot::command("", "$MODULE_NAME/spirits.php", "spiritsagi", "all", "Search for Spirits");
-	bot::command("", "$MODULE_NAME/spirits.php", "spiritssen", "all", "Search for Spirits");
+	bot::command("", "$MODULE_NAME/spirits.php", "spirits", ALL, "Search for Spirits");
+	bot::command("", "$MODULE_NAME/spirits.php", "spiritslvl", ALL, "Search for Spirits");
+	bot::command("", "$MODULE_NAME/spirits.php", "spiritsagi", ALL, "Search for Spirits");
+	bot::command("", "$MODULE_NAME/spirits.php", "spiritssen", ALL, "Search for Spirits");
 	
-	bot::help("Spirits", "$MODULE_NAME/spirits.txt", "all", "Search for Spirits", "spirits");
+	bot::help("Spirits", "$MODULE_NAME/spirits.txt", ALL, "Search for Spirits");
 	
 ?>

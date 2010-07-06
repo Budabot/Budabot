@@ -62,11 +62,11 @@ if (preg_match("/^config$/i", $message)) {
 	$data = $db->fObject("all");
 	forEach ($data as $row) {
 		$db->query("SELECT * FROM hlpcfg_<myname> WHERE `module` = '".strtoupper($row->module)."'");
-		$num = $db->numrows();
-		if($num > 0)
-			$b = "(<a href='chatcmd:///tell <myname> config help $row->module'>Helpfiles</a>)";
-		else
+		if ($db->numrows() > 0) {
+			$b = "(<a href='chatcmd:///tell <myname> config help $row->module'>Help files</a>)";
+		} else {
 			$b = "";
+		}
 			
 		if ($row->count_enabled > 0 && $row->count_disabled > 0) {
 			$a = "(<yellow>Partial<end>)";
@@ -94,7 +94,7 @@ if (preg_match("/^config$/i", $message)) {
 	$data = $db->fObject('all');
 	forEach ($data as $row) {
 	  	if ($status == 1) {
-			bot::regcommand($row->type, $row->file, $row->cmd, $row->admin);
+			bot::regcommand($row->type, $row->file, $row->cmd, $row->access_level);
 		} else {
 			bot::unregcommand($row->type, $row->file, $row->cmd);
 		}
@@ -174,17 +174,19 @@ if (preg_match("/^config$/i", $message)) {
 	bot::send($msg, $sendto);
 
 	$data = $db->fObject("all");
-	foreach($data as $row) {
-	  	if($row->cmdevent != "event") {
-		  	if($status == 1)
-				bot::regcommand($row->type, $row->file, $row->cmd, $row->admin);
-			else
-				bot::unregcommand($row->type, $row->file, $row->cmd, $row->admin);
+	forEach ($data as $row) {
+	  	if ($row->cmdevent != "event") {
+		  	if ($status == 1) {
+				bot::regcommand($row->type, $row->file, $row->cmd, $row->access_level);
+			} else {
+				bot::unregcommand($row->type, $row->file, $row->cmd, $row->access_level);
+			}
 		} else {
-		  	if($status == 1)
+		  	if ($status == 1) {
 				bot::regevent($row->type, $row->file);
-			else
+			} else {
 				bot::unregevent($row->type, $row->file);
+			}
 		}
 	}
 
@@ -209,7 +211,7 @@ if (preg_match("/^config$/i", $message)) {
 	$channel = strtolower($arr[1]);
 	$command = strtolower($arr[2]);
 	$type = strtolower($arr[3]);
-	$admin_level = $arr[4];
+	$access_level = $arr[4];
 
 	if($channel == "cmd") {
 		if($type == "all")
@@ -229,28 +231,28 @@ if (preg_match("/^config$/i", $message)) {
 		switch($type) {
 			case "all":
 				if($this->tellCmds[$command])
-					$this->tellCmds[$command]["admin level"] = $admin_level;
+					$this->tellCmds[$command]["access_level"] = $access_level;
 				if($this->privCmds[$command])
-					$this->privCmds[$command]["admin level"] = $admin_level;
+					$this->privCmds[$command]["access_level"] = $access_level;
 				if($this->guildCmds[$command])
-					$this->guildCmds[$command]["admin level"] = $admin_level;
+					$this->guildCmds[$command]["access_level"] = $access_level;
 			break;
 		  	case "msg":	
-				$this->tellCmds[$command]["admin level"] = $admin_level;
+				$this->tellCmds[$command]["access_level"] = $access_level;
 		  	break;
 		  	case "priv":
-				$this->privCmds[$command]["admin level"] = $admin_level;
+				$this->privCmds[$command]["access_level"] = $access_level;
 		  	break;
 		  	case "guild":
-				$this->guildCmds[$command]["admin level"] = $admin_level;
+				$this->guildCmds[$command]["access_level"] = $access_level;
 		  	break;
 		}
 		
 		if($type == "all") {
-			$db->query("UPDATE cmdcfg_<myname> SET `admin` = $admin_level WHERE `cmd` = '$command' AND `cmdevent` = 'cmd'");
+			$db->query("UPDATE cmdcfg_<myname> SET `access_level` = $access_level WHERE `cmd` = '$command' AND `cmdevent` = 'cmd'");
 			$msg = "Updated access of command <highlight>$command<end> to <highlight>$arr[4]<end>";
 		} else {
-			$db->query("UPDATE cmdcfg_<myname> SET `admin` = $admin_level WHERE `cmd` = '$command' AND `type` = '$type' AND `cmdevent` = 'cmd'");
+			$db->query("UPDATE cmdcfg_<myname> SET `access_level` = $access_level WHERE `cmd` = '$command' AND `type` = '$type' AND `cmdevent` = 'cmd'");
 			$msg = "Updated access of command <highlight>$command<end> in Channel <highlight>$type<end> to <highlight>$arr[4]<end>";
 		}
 	} elseif($channel == "grp") {
@@ -271,29 +273,29 @@ if (preg_match("/^config$/i", $message)) {
 			switch($arr[3]) {
 				case "all":
 					if($this->tellCmds[$row->cmd])
-						$this->tellCmds[$row->cmd]["admin level"] = $admin_level;
+						$this->tellCmds[$row->cmd]["access_level"] = $access_level;
 					if($this->privCmds[$row->cmd])
-						$this->privCmds[$row->cmd]["admin level"] = $admin_level;
+						$this->privCmds[$row->cmd]["access_level"] = $access_level;
 					if($this->guildCmds[$row->cmd])
-						$this->guildCmds[$row->cmd]["admin level"] = $admin_level;
+						$this->guildCmds[$row->cmd]["access_level"] = $access_level;
 				break;
 			  	case "msg":	
-					$this->tellCmds[$row->cmd]["admin level"] = $admin_level;
+					$this->tellCmds[$row->cmd]["access_level"] = $access_level;
 			  	break;
 			  	case "priv":
-					$this->privCmds[$row->cmd]["admin level"] = $admin_level;
+					$this->privCmds[$row->cmd]["access_level"] = $access_level;
 			  	break;
 			  	case "guild":
-					$this->guildCmds[$row->cmd]["admin level"] = $admin_level;
+					$this->guildCmds[$row->cmd]["access_level"] = $access_level;
 			  	break;
 			}
 		}
 		
 		if($arr[3] == "all") {
-			$db->query("UPDATE cmdcfg_<myname> SET `admin` = $admin_level WHERE `grp` = '$command' AND `cmdevent` = 'cmd'");
+			$db->query("UPDATE cmdcfg_<myname> SET `access_level` = $access_level WHERE `grp` = '$command' AND `cmdevent` = 'cmd'");
 			$msg = "Updated access of group <highlight>$command<end> to <highlight>$arr[4]<end>";
 		} else {
-			$db->query("UPDATE cmdcfg_<myname> SET `admin` = $admin_level WHERE `grp` = '$command' AND `type` = '$type' AND `cmdevent` = 'cmd'");
+			$db->query("UPDATE cmdcfg_<myname> SET `access_level` = $access_level WHERE `grp` = '$command' AND `type` = '$type' AND `cmdevent` = 'cmd'");
 			$msg = "Updated access of group <highlight>$command<end> in Channel <highlight>$type<end> to <highlight>$arr[4]<end>";
 		}
 	} else {
@@ -304,8 +306,8 @@ if (preg_match("/^config$/i", $message)) {
 		  	return;
 		}
 		$row = $db->fObject();
-		$this->subcommands[$row->file][$row->type]["admin"] = $admin_level;		
-		$db->query("UPDATE cmdcfg_<myname> SET `admin` = $admin_level WHERE `type` = '$type' AND `cmdevent` = 'subcmd' AND `cmd` = '$command'");
+		$this->subcommands[$row->file][$row->type]["access_level"] = $access_level;		
+		$db->query("UPDATE cmdcfg_<myname> SET `access_level` = $access_level WHERE `type` = '$type' AND `cmdevent` = 'subcmd' AND `cmd` = '$command'");
 		$msg = "Updated access of sub command <highlight>$command<end> in Channel <highlight>$type<end> to <highlight>$arr[4]<end>";
 	}
 	bot::send($msg, $sendto);
@@ -327,22 +329,15 @@ if (preg_match("/^config$/i", $message)) {
 			$row = $db->fObject();
 
 			$found_msg = 1;
-			
-			if($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
-				$row->admin = "Raidleader";
-			elseif ($row->admin == 2 || $row->admin == "mod")
-				$row->admin = "Moderator";
-			elseif ($row->admin == 3 || $row->admin == "admin")
-				$row->admin = "Administrator";
-			else
-				$row->admin = ucfirst(strtolower($row->admin));
 		
 			if($row->status == 1)
 				$status = "<green>Enabled<end>";
 			else
 				$status = "<red>Disabled<end>";
+				
+			$admin = $this->getAccessDescription($row->access_level);
 			
-			$list .= "Current Status: $status (Access: $row->admin) \n";
+			$list .= "Current Status: $status (Access: $admin) \n";
 			$list .= "Enable or Disable Command: ";
 			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." enable msg'>ON</a>  ";
 			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." disable msg'>OFF</a>\n";
@@ -366,21 +361,14 @@ if (preg_match("/^config$/i", $message)) {
 
 			$found_priv = 1;
 
-			if($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
-				$row->admin = "Raidleader";
-			elseif ($row->admin == 2 || $row->admin == "mod")
-				$row->admin = "Moderator";
-			elseif ($row->admin == 3 || $row->admin == "admin")
-				$row->admin = "Administrator";
-			else
-				$row->admin = ucfirst(strtolower($row->admin));
-
 			if($row->status == 1)
 				$status = "<green>Enabled<end>";
 			else
 				$status = "<red>Disabled<end>";
+				
+			$admin = $this->getAccessDescription($row->access_level);
 
-			$list .= "Current Status: $status (Access: $row->admin) \n";
+			$list .= "Current Status: $status (Access: $admin) \n";
 			$list .= "Enable or Disable Command: ";
 			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." enable priv'>ON</a>  ";
 			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." disable priv'>OFF</a>\n";
@@ -403,22 +391,15 @@ if (preg_match("/^config$/i", $message)) {
 			$row = $db->fObject();
 			
 			$found_guild = 1;
-			
-			if($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
-				$row->admin = "Raidleader";
-			elseif ($row->admin == 2 || $row->admin == "mod")
-				$row->admin = "Moderator";
-			elseif ($row->admin == 3 || $row->admin == "admin")
-				$row->admin = "Administrator";
-			else
-				$row->admin = ucfirst(strtolower($row->admin));
-				
+
 			if($row->status == 1)
 				$status = "<green>Enabled<end>";
 			else
 				$status = "<red>Disabled<end>";
+				
+			$admin = $this->getAccessDescription($row->access_level);
 
-			$list .= "Current Status: $status (Access: $row->admin) \n";
+			$list .= "Current Status: $status (Access: $admin) \n";
 			$list .= "Enable or Disable Command: ";
 			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." enable guild'>ON</a>  ";
 			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." disable guild'>OFF</a>\n";
@@ -445,16 +426,9 @@ if (preg_match("/^config$/i", $message)) {
 				else
 					$list .= "Command: $row->cmd\n";
 					
-				if($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
-					$row->admin = "Raidleader";
-				elseif ($row->admin == 2 || $row->admin == "mod")
-					$row->admin = "Moderator";
-				elseif ($row->admin == 3 || $row->admin == "admin")
-					$row->admin = "Administrator";
-				else
-					$row->admin = ucfirst(strtolower($row->admin));
-				
-				$list .= "Current Access: <highlight>$row->admin<end> \n";
+				$admin = $this->getAccessDescription($row->access_level);
+					
+				$list .= "Current Access: <highlight>$admin<end> \n";
 				$list .= "Set min. access lvl to use this command: ";
 				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg " . ALL . "'>All</a>  ";
 				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg " . MEMBER . "'>Guest</a>  ";
@@ -476,16 +450,9 @@ if (preg_match("/^config$/i", $message)) {
 				else
 					$list .= "Command: $row->cmd\n";
 					
-				if($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
-					$row->admin = "Raidleader";
-				elseif ($row->admin == 2 || $row->admin == "mod")
-					$row->admin = "Moderator";
-				elseif ($row->admin == 3 || $row->admin == "admin")
-					$row->admin = "Administrator";
-				else
-					$row->admin = ucfirst(strtolower($row->admin));
+				$admin = $this->getAccessDescription($row->access_level);
 				
-				$list .= "Current Access: <highlight>$row->admin<end> \n";
+				$list .= "Current Access: <highlight>$admin<end> \n";
 				$list .= "Set min. access lvl to use this command: ";
 				$list .= "<a href='chatcmd:///tell <myname> subcmd ".$row->cmd." admin priv " . ALL . "'>All</a>  ";
 				$list .= "<a href='chatcmd:///tell <myname> subcmd ".$row->cmd." admin priv " . MEMBER . "'>Guest</a>  ";
@@ -507,16 +474,9 @@ if (preg_match("/^config$/i", $message)) {
 				else
 					$list .= "Command: $row->cmd\n";
 					
-				if($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
-					$row->admin = "Raidleader";
-				elseif ($row->admin == 2 || $row->admin == "mod")
-					$row->admin = "Moderator";
-				elseif ($row->admin == 3 || $row->admin == "admin")
-					$row->admin = "Administrator";
-				else
-					$row->admin = ucfirst(strtolower($row->admin));
+				$admin = $this->getAccessDescription($row->access_level);
 				
-				$list .= "Current Access: <highlight>$row->admin<end> \n";
+				$list .= "Current Access: <highlight>$admin<end> \n";
 				$list .= "Set min. access lvl to use this command: ";
 				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild " . ALL . "'>All</a>  ";
 				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild " . MEMBER . "'>Guest</a>  ";
@@ -658,24 +618,23 @@ if (preg_match("/^config$/i", $message)) {
 	bot::send($msg, $sendto);
 } else if (preg_match("/^config help (.+) admin (\\d)$/i", $message, $arr)) {
   	$help = strtolower($arr[1]);
-	$admin_level = $arr[2];
+	$access_level = $arr[2];
 	
 	$db->query("SELECT * FROM hlpcfg_<myname> WHERE `name` = '$help' ORDER BY `name`");
-	if($db->numrows() == 0) {
+	if ($db->numrows() == 0) {
 		bot::send("The helpfile <highlight>$help<end> doesn't exists!", $sendto);		  	
 		return;
+	} else {
+		$db->exec("UPDATE hlpcfg_<myname> SET `access_level` = $access_level WHERE `name` = '$help'");
+		bot::send("Updated access for helpfile <highlight>$help<end> to <highlight>".ucfirst(strtolower($arr[2]))."<end>.", $sendto);
 	}
-	$row = $db->fObject();
-	$db->query("UPDATE hlpcfg_<myname> SET `admin` = $admin_level WHERE `name` = '$help'");
-	$this->helpfiles[$row->cat][$row->name]["admin level"] = $admin_level;
-	bot::send("Updated access for helpfile <highlight>$help<end> to <highlight>".ucfirst(strtolower($arr[2]))."<end>.", $sendto);
 } else if (preg_match("/^config help (.+)$/i", $message, $arr)) {
   	$mod = strtoupper($arr[1]);
-	$list = "<header>::::: Configure helpfiles for module $mod :::::<end>\n\n";
+	$list = "<header>::::: Configure help files for module $mod :::::<end>\n\n";
 
 	$db->query("SELECT * FROM hlpcfg_<myname> WHERE module = '$mod' ORDER BY name");
 	$data = $db->fObject("all");
-	foreach($data as $row) {
+	forEach ($data as $row) {
 	  	$list .= "<highlight><u>Helpfile</u><end>: $row->name\n";
 	  	$list .= "<highlight><u>Description</u><end>: $row->description\n";
 	  	$list .= "<highlight><u>Category</u><end>: $row->cat\n";
@@ -691,7 +650,7 @@ if (preg_match("/^config$/i", $message)) {
 	  	$list .= "\n\n";
 	}
 
-	$msg = bot::makeLink("Configurate helpfiles for module $mod", $list);
+	$msg = bot::makeLink("Configurate help files for module $mod", $list);
 	bot::send($msg, $sendto);
 } else if (preg_match("/^config (.*)$/i", $message, $arr)) {
 	$module = $arr[1];

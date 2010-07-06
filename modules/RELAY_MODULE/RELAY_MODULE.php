@@ -8,7 +8,7 @@
 	bot::event("guild", "$MODULE_NAME/send_relay_message.php", "none");
 	
 	// Receiving messages to relay
-	bot::command("msg", "$MODULE_NAME/receive_relay_message.php", "grc", "all", "Relays incoming messages to guildchat");
+	bot::command("msg", "$MODULE_NAME/receive_relay_message.php", "grc", ALL, "Relays incoming messages to guildchat");
 	bot::event("extPriv", "$MODULE_NAME/receive_relay_message.php", "none", "");
 
 	// Inivite for pgroup
@@ -22,7 +22,7 @@
 	bot::event("orgmsg", "$MODULE_NAME/org_messages.php", "none", "Relay Org Messages");
 	
 	// Settings
-	bot::addsetting("relaytype", "Type of relay", "edit", "1", "tell;pgroup", '1;2', "mod", "");
-	bot::addsetting("relaysymbol", "Symbol for external relay", "edit", "@", "!;#;*;@;$;+;-;Always relay", '0', "mod", "");
-	bot::addsetting("relaybot", "Bot for Guildrelay", "edit", "Off", "text", '0', "mod");
+	bot::addsetting("relaytype", "Type of relay", "edit", "1", "tell;pgroup", '1;2', MODERATOR, "");
+	bot::addsetting("relaysymbol", "Symbol for external relay", "edit", "@", "!;#;*;@;$;+;-;Always relay", '0', MODERATOR, "");
+	bot::addsetting("relaybot", "Bot for Guildrelay", "edit", "Off", "text", '0', MODERATOR);
 ?>

@@ -14,9 +14,9 @@
 	bot::loadSQLFile($MODULE_NAME, "boss_namedb");
 	bot::loadSQLFile($MODULE_NAME, "boss_lootdb");
 	
-	bot::command("", "$MODULE_NAME/boss.php", "boss", "all", "Bossloot Tables");
-	bot::command("", "$MODULE_NAME/bossloot.php", "bossloot", "all", "Bossloot Search");
+	bot::command("", "$MODULE_NAME/boss.php", "boss", ALL, "Bossloot Tables");
+	bot::command("", "$MODULE_NAME/bossloot.php", "bossloot", ALL, "Bossloot Search");
 	
-	bot::help("Boss", "$MODULE_NAME/boss.txt", "all", "Bossloot Tables", "Boss");
+	bot::help("Boss", "$MODULE_NAME/boss.txt", ALL, "Bossloot Tables", "Boss");
 	
 ?>

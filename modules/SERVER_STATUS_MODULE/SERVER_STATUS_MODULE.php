@@ -5,8 +5,8 @@
 	bot::addsetting("server_status", "no", "hide", "up");
 
 	//Server Status
-	bot::command("", "$MODULE_NAME/server_status.php", "server", "all", "Shows the Server status");	
+	bot::command("", "$MODULE_NAME/server_status.php", "server", ALL, "Shows the Server status");	
 
-	//Helpfiles
-    bot::help("serverstatus", "$MODULE_NAME/serverstatus.txt", "guild", "Show Serverstatus", "Serverstatus");
+	//Help files
+    bot::help("serverstatus", "$MODULE_NAME/serverstatus.txt", ALL, "Show Serverstatus");
 ?>

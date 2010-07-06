@@ -3,8 +3,8 @@
 	
 	bot::loadSQLFile($MODULE_NAME, "whereis");
 	
-	bot::command("", "$MODULE_NAME/whereis.php", "whereis", "all", "Whereis Database");
+	bot::command("", "$MODULE_NAME/whereis.php", "whereis", ALL, "Whereis Database");
 	
-	bot::help("whereis", "$MODULE_NAME/whereis.txt", "all", "Whereis Database", "Whereis");
+	bot::help("whereis", "$MODULE_NAME/whereis.txt", ALL, "Whereis Database");
 	
 ?>

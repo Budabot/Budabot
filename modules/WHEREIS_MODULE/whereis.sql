@@ -488,4 +488,10 @@ INSERT INTO `whereis`  Values (515,'Uklesh The Frozen','Temple Of The Three Wind
 INSERT INTO `whereis`  Values (516,'Aztur The Immortal','Temple Of The Three Winds Greater Tir County',NULL);
 INSERT INTO `whereis`  Values (517,'Gartua The Doorkeeper','Temple Of The Three Winds Greater Tir County',NULL);
 INSERT INTO `whereis`  Values (518,'Windcaller Yatilla','Temple Of The Three Winds Greater Tir County',NULL);
-INSERT INTO `whereis`  Values (519,'Den Smuggler Pilot','Smugglers Den, 1755x872, SFH.',NULL);
+INSERT INTO `whereis`  Values (519,'Den Smuggler Pilot','Smugglers Den, 1755 x 872, SFH.',NULL);
+INSERT INTO `whereis`  Values (520,'Lacerator Gunbeetle','Pleasant Meadows, 2405 x 633 (within a fairly large area of)', 'Bronto');
+INSERT INTO `whereis`  Values (521,'Pendpod Trapper','Pleasant Meadows, 890 x 1689 (within a fairly large area of)', 'Bronto');
+INSERT INTO `whereis`  Values (522,'Gouger Scorpiod','Pleasant Meadows, 2188 x 1938 (within a fairly large area of)', 'Bronto');
+INSERT INTO `whereis`  Values (523,'Fly Agaric','Clondyke, 588 x 3441', 'Bronto Amanita Muscaria');
+INSERT INTO `whereis`  Values (524,'Angel''s Trumpet','Clondyke, 2359 x 3656 (seems to be in multiple locations nearby)', 'Bronto Datura Inoxia');
+INSERT INTO `whereis`  Values (524,'Cardboard Palm','Clondyke, 1684 x 1516', 'Bronto Zamia Furfuracea');

@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-// Admin levels
+// Access levels
 define('SUPERADMIN', 0);
 define('ADMIN', 1);
 define('MODERATOR', 2);
@@ -62,9 +62,9 @@ class bot extends AOChat{
 		$this->vars["startup"] = time();
 
 		//Create command/event settings table if not exists
-		$db->query("CREATE TABLE IF NOT EXISTS cmdcfg_<myname> (`module` VARCHAR(50), `cmdevent` VARCHAR(5), `type` VARCHAR(10), `file` VARCHAR(255), `cmd` VARCHAR(25), `admin` INT DEFAULT 0, `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT 0, `status` INT DEFAULT '0', `dependson` VARCHAR(25) DEFAULT 'none', `grp` VARCHAR(25) DEFAULT 'none')");
-		$db->query("CREATE TABLE IF NOT EXISTS settings_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `mode` VARCHAR(10), `setting` VARCHAR(50) Default '0', `options` VARCHAR(50) Default '0', `intoptions` VARCHAR(50) DEFAULT '0', `description` VARCHAR(50), `source` VARCHAR(5), `admin` INT DEFAULT 0, `help` VARCHAR(60))");
-		$db->query("CREATE TABLE IF NOT EXISTS hlpcfg_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `description` VARCHAR(50), `admin` INT DEFAULT 0, `verify` INT Default '0')");
+		$db->query("CREATE TABLE IF NOT EXISTS cmdcfg_<myname> (`module` VARCHAR(50), `cmdevent` VARCHAR(5), `type` VARCHAR(10), `file` VARCHAR(255), `cmd` VARCHAR(25), `access_level` INT DEFAULT 0, `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT 0, `status` INT DEFAULT '0', `dependson` VARCHAR(25) DEFAULT 'none', `grp` VARCHAR(25) DEFAULT 'none')");
+		$db->query("CREATE TABLE IF NOT EXISTS settings_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `mode` VARCHAR(10), `setting` VARCHAR(50) Default '0', `options` VARCHAR(50) Default '0', `intoptions` VARCHAR(50) DEFAULT '0', `description` VARCHAR(50), `source` VARCHAR(5), `access_level` INT DEFAULT 0, `help` VARCHAR(60))");
+		$db->query("CREATE TABLE IF NOT EXISTS hlpcfg_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `description` VARCHAR(50), `file` VARCHAR(255), `access_level` INT DEFAULT 0, `verify` INT Default '0')");
 
 		//Prepare command/event settings table
 		$db->query("UPDATE cmdcfg_<myname> SET `verify` = 0");
@@ -120,12 +120,9 @@ class bot extends AOChat{
 
 		// Load Plugin Modules
 		if($this->settings['debug'] > 0) print("\n:::::::PLUGIN MODULES::::::::\n");
-		//Start Transaction
-		$db->beginTransaction();
+		
 		//Load modules
 		$this->loadModules();
-		//Submit the Transactions
-		$db->Commit();
 
 		//Load active commands
 		if($this->settings['debug'] > 0) print("\nSetting up commands.\n");
@@ -308,9 +305,9 @@ class bot extends AOChat{
 	}
 	
 /*===============================
-** Name: getUserAdminLevel
-** Returns the integer value that corresponds to an admin level for the specified user
-*/	function getUserAdminLevel($user) {
+** Name: getUserAccessLevel
+** Returns the integer value that corresponds to an access level for the specified user
+*/	function getUserAccessLevel($user) {
 		$user = ucfirst(strtolower($user));
 
 		// covers superadmin, admin, moderator, raidleader
@@ -342,51 +339,44 @@ class bot extends AOChat{
 		// covers all
 		return ALL;
 	}
-
+	
 /*===============================
-** Name: getAdminInteger
-** Returns the integer value that corresponds to an admin level
-*/	function getAdminInteger($admin) {
-		$level = 0;
-		if (is_numeric($admin)) {
-			return $admin;
-		}
-		switch (strtolower($admin)) {
-			case 'superadmin':
-				$admin_level = SUPERADMIN;
+** Name: getAccessDescription
+** Returns the string value that corresponds to an access level
+*/	function getAccessDescription($access_level) {
+		$desc = '';
+		switch ($access_level) {
+			case SUPERADMIN:
+				$desc = "SuperAdmin";
 				break;
-			case 'admin':
-				$admin_level = ADMIN;
+			case ADMIN:
+				$desc = "Admin";
 				break;
-			case 'mod':
-			case 'moderator':
-				$admin_level = MODERATOR;
+			case MODERATOR:
+				$desc = "Moderator";
 				break;
-			case 'rl':
-			case 'raidleader':
-				$admin_level = RAIDLEADER;
+			case RAIDLEADER:
+				$desc = 'Raidleader';
 				break;
-			case 'guildadmin':
-				$admin_level = GUILDADMIN;
+			case GUILDADMIN:
+				$desc = "GuildAdmin";
 				break;
-			case 'leader':
-				$admin_level = LEADER;
+			case LEADER:
+				$desc = "Leader";
 				break;
-			case 'guild':
-			case 'guildmember':
-				$admin_level = GUILDMEMBER;
+			case GUILDMEMBER:
+				$desc = "GuildMember";
 				break;
-			case 'guest':
-			case 'member':
-				$admin_level = MEMBER;
+			case MEMBER:
+				$desc = "Member";
 				break;
-			case 'all':
-				$admin_level = ALL;
+			case ALL:
+				$desc = "All";
 				break;
 			default:
-				echo "Error! Invalid admin value specified: '$admin'\b";
+				echo "Error! Invalid access_level value specified: '$access_level'\b";
 		}
-		return $admin_level;
+		return $desc;
 	}
 
 /*===============================
@@ -597,7 +587,7 @@ class bot extends AOChat{
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'cmd'");
 		$data = $db->fObject("all");
 		forEach ($data as $row) {
-			$this->regcommand($row->type, $row->file, $row->cmd, $row->admin);
+			$this->regcommand($row->type, $row->file, $row->cmd, $row->access_level);
 		}
 	}
 
@@ -612,7 +602,7 @@ class bot extends AOChat{
 		$data = $db->fObject("all");
 		forEach ($data as $row) {
 			$this->subcommands[$row->file][$row->type]["cmd"] = $row->cmd;
-			$this->subcommands[$row->file][$row->type]["admin"] = $row->admin;
+			$this->subcommands[$row->file][$row->type]["access_level"] = $row->access_level;
 		}
 	}
 
@@ -633,11 +623,11 @@ class bot extends AOChat{
 /*===============================
 ** Name: Command
 ** 	Register a command
-*/	function command($type, $filename, $command, $admin = 'all', $description = ''){
+*/	function command($type, $filename, $command, $access_level = ALL, $description = ''){
 		global $curMod;
 		global $db;
 
-		if (!$this->processCommandArgs($type, $admin)) {
+		if (!$this->processCommandArgs($type, $access_level)) {
 			echo "invalid args for command '$command'!!\n";
 			return;
 		}
@@ -648,14 +638,13 @@ class bot extends AOChat{
 
 		for ($i = 0; $i < count($type); $i++) {
 			if($this->settings['debug'] > 1) print("Adding Command to list:($command) File:($filename)\n");
-			if($this->settings['debug'] > 1) print("                 Admin:({$admin[$i]}) Type:({$type[$i]})\n");
+			if($this->settings['debug'] > 1) print("                 Admin:({$access_level[$i]}) Type:({$type[$i]})\n");
 			if($this->settings['debug'] > 2) sleep(1);
 			
 			if($this->existing_commands[$type[$i]][$command] == true) {
 				$db->query("UPDATE cmdcfg_<myname> SET `module` = '$curMod', `verify` = 1, `file` = '$filename', `description` = '$description' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
 			} else {
-				$admin_level = $this->getAdminInteger($admin[$i]);
-				$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`) VALUES ('$curMod', '{$type[$i]}', '$filename', '$command', '$admin_level', '$description', 1, 'cmd', '".$this->settings["default module status"]."')");
+				$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `access_level`, `description`, `verify`, `cmdevent`, `status`) VALUES ('$curMod', '{$type[$i]}', '$filename', '$command', $access_level, '$description', 1, 'cmd', '".$this->settings["default module status"]."')");
 			}
 		}
 	}
@@ -663,10 +652,10 @@ class bot extends AOChat{
 /*===============================
 ** Name: regcommand
 **  Sets an command as active
-*/	function regcommand($type, $filename, $command, $admin = 'all') {
+*/	function regcommand($type, $filename, $command, $access_level = ALL) {
 		global $db;
 
-	  	if($this->settings['debug'] > 1) print("Activate Command:($command) Admin Type:($admin)\n");
+	  	if($this->settings['debug'] > 1) print("Activate Command:($command) Admin Type:($access_level)\n");
 		if($this->settings['debug'] > 1) print("            File:($filename) Type:($type)\n");
 		if($this->settings['debug'] > 2) sleep(1);
 
@@ -685,25 +674,23 @@ class bot extends AOChat{
 			$command = strtolower($command);
 		}
 
-		$admin_level = $this->getAdminInteger($admin);
-
 		switch ($type){
 			case "msg":
 				if($this->tellCmds[$command]["filename"] == ""){
 					$this->tellCmds[$command]["filename"] = $filename;
-					$this->tellCmds[$command]["admin level"] = $admin_level;
+					$this->tellCmds[$command]["access_level"] = $access_level;
 				}
 			break;
 			case "priv":
 				if($this->privCmds[$command]["filename"] == ""){
 					$this->privCmds[$command]["filename"] = $filename;
-					$this->privCmds[$command]["admin level"] = $admin_level;
+					$this->privCmds[$command]["access_level"] = $access_level;
 				}
 			break;
 			case "guild":
 				if($this->guildCmds[$command]["filename"] == ""){
 					$this->guildCmds[$command]["filename"] = $filename;
-					$this->guildCmds[$command]["admin level"] = $admin_level;
+					$this->guildCmds[$command]["access_level"] = $access_level;
 				}
 			break;
 		}
@@ -752,21 +739,22 @@ class bot extends AOChat{
 
 		//Deactivate Events that are asssigned to this command
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `dependson` = '$command' AND `cmdevent` = 'event' AND `type` != 'setup'");
-  		while($row = $db->fObject())
+  		while ($row = $db->fObject()) {
   		  	$this->unregevent($row->type, $row->file);
+		}
 	}
 
 /*===============================
 ** Name: processCommandType
 ** 	Returns a command type in the proper format
-*/	function processCommandArgs(&$type, &$admin) {
+*/	function processCommandArgs(&$type, &$access_level) {
 		if ($type == "") {
 			$type = array("msg", "priv", "guild");
 		} else {
 			$type = explode(' ', $type);
 		}
 
-		$admin = explode(' ', $admin);
+		$admin = explode(' ', $access_level);
 		if (count($admin) == 1) {
 			$admin = array_fill(0, count($type), $admin[0]);
 		} else if (count($admin) != count($type)) {
@@ -779,11 +767,11 @@ class bot extends AOChat{
 /*===============================
 ** Name: Subcommand
 ** 	Register a subcommand
-*/	function subcommand($type, $filename, $command, $admin = 'all', $dependson, $description = 'none'){
+*/	function subcommand($type, $filename, $command, $access_level = ALL, $dependson, $description = 'none'){
 		global $db;
 		global $curMod;
 
-		if (!$this->processCommandArgs($type, $admin)) {
+		if (!$this->processCommandArgs($type, $access_level)) {
 			echo "invalid args for subcommand '$command'!!\n";
 			return;
 		}
@@ -804,14 +792,13 @@ class bot extends AOChat{
 
 		for ($i = 0; $i < count($type); $i++) {
 			if($this->settings['debug'] > 1) print("Adding Subcommand to list:($command) File:($filename)\n");
-			if($this->settings['debug'] > 1) print("                    Admin:($admin[$i]) Type:({$type[$i]})\n");
+			if($this->settings['debug'] > 1) print("                    Admin:($access_level[$i]) Type:({$type[$i]})\n");
 			if($this->settings['debug'] > 2) sleep(1);
 			
 			if($this->existing_subcmds[$type[$i]][$command] == true) {
 				$db->query("UPDATE cmdcfg_<myname> SET `module` = '$curMod', `verify` = 1, `file` = '$filename', `description` = '$description', `dependson` = '$dependson' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
 			} else {
-				$admin_level = $this->getAdminInteger($admin[$i]);
-				$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `dependson`) VALUES ('$curMod', '{$type[$i]}', '$filename', '$command', '$admin_level', '$description', 1, 'subcmd', '$dependson')");
+				$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `access_level`, `description`, `verify`, `cmdevent`, `dependson`) VALUES ('$curMod', '{$type[$i]}', '$filename', '$command', $access_level, '$description', 1, 'subcmd', '$dependson')");
 			}
 		}
 	}
@@ -1147,7 +1134,7 @@ class bot extends AOChat{
 /*===============================
 ** Name: addsetting
 ** Adds a setting to the list
-*/	function addsetting($name = 'none', $description = 'none', $mode = 'hide', $setting = 'none', $options = 'none', $intoptions = '0', $admin = 'mod', $help = '') {
+*/	function addsetting($name = 'none', $description = 'none', $mode = 'hide', $setting = 'none', $options = 'none', $intoptions = '0', $access_level = MODERATOR, $help = '') {
 		global $db;
 		global $curMod;
 		$name = strtolower($name);
@@ -1159,14 +1146,12 @@ class bot extends AOChat{
 			echo "Error in registering the File $filename for Setting $name. The file doesn't exists!\n";
 			return;
 		}
-		
-		$admin_level = $this->getAdminInteger($admin);
 
 		if ($this->existing_settings[$name] != true) {
-			$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('$name', '$curMod', '$mode', '$setting', '$options', '$intoptions', '$description', 'db', $admin_level, '$help')");
+			$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `access_level`, `help`) VALUES ('$name', '$curMod', '$mode', '$setting', '$options', '$intoptions', '$description', 'db', $access_level, '$help')");
 		  	$this->settings[$name] = $setting;
 	  	} else {
-			$db->query("UPDATE settings_<myname> SET `mode` = '$mode', `options` = '$options', `intoptions` = '$intoptions', `description` = '$description', `admin` = $admin_level, `help` = '$help' WHERE `name` = '$name'");
+			$db->query("UPDATE settings_<myname> SET `mode` = '$mode', `options` = '$options', `intoptions` = '$intoptions', `description` = '$description', `access_level` = $access_level, `help` = '$help' WHERE `name` = '$name'");
 		}
 	}
 
@@ -1204,40 +1189,30 @@ class bot extends AOChat{
 /*===============================
 ** Name: help
 ** Add a help command and display text file in a link.
-*/	function help($command, $filename, $admin = 'all', $info = "", $cat = "Unknown Category") {
+*/	function help($command, $filename, $access_level = ALL, $description = "", $cat = "Unknown Category") {
 	  	global $db;
 		if($this->settings['debug'] > 1) print("Registering Helpfile:($filename) Cmd:($command)\n");
 		if($this->settings['debug'] > 2) sleep(1);
 
 		$command = strtolower($command);
 
-		$admin_level = $this->getAdminInteger($admin);
-
 		$module = explode("/", $filename);
 
 		//Check if the file exists
-		if (($actual_filename = $this->verifyFilename($filename)) != '') {
-    		$filename = $actual_filename;
-    		if (substr($filename, 0, 7) == "./core/") {
-	    		$this->helpfiles[$command]["status"] = "enabled";
-			}
+		if (($filename = $this->verifyFilename($filename)) != '') {
+    		// do nothing
 		} else {
 			echo "Error in registering the File $filename for Helpcommand $command. The file doesn't exists!\n";
 			return;
 		}
 
-		if (isset($this->existing_helps[$command])) {
-			$db->query("UPDATE hlpcfg_<myname> SET `verify` = 1, `description` = '$info' WHERE `name` = '$command'");
+		$sql = "SELECT * FROM hlpcfg_<myname> WHERE name = '$command'";
+		$db->query($sql);
+		if ($db->numrows() == 0) {
+			$db->query("INSERT INTO hlpcfg_<myname> (name, module, file, description, access_level, verify) VALUES ('$command', '$module[0]', '$filename', '$description', $access_level, 1)");
 		} else {
-			$db->query("INSERT INTO hlpcfg_<myname> VALUES ('$command', '$module[0]', '$info', $admin_level, 1)");
+			$db->query("UPDATE hlpcfg_<myname> SET `verify` = 1, `description` = '$description', file = '$filename' WHERE `name` = '$command'");
 		}
-
-		$db->query("SELECT * FROM hlpcfg_<myname> WHERE `name` = '$command'");
-		$row = $db->fObject();
-		$this->helpfiles[$command]["filename"] = $filename;
-		$this->helpfiles[$command]["admin level"] = $row->admin;
-		$this->helpfiles[$command]["info"] = $info;
-		$this->helpfiles[$command]["module"] = $module[0];
 	}
 	
 /*===========================================================================================
@@ -1245,21 +1220,17 @@ class bot extends AOChat{
 ** Find a help topic for a command if it exists
 */	function help_lookup($sender, $helpcmd) {
 		$helpcmd = strtolower($helpcmd);
-		if (isset($this->helpfiles[$helpcmd])) {
-			$filename = $this->helpfiles[$helpcmd]["filename"];
-			$admin_level = $this->helpfiles[$helpcmd]["admin level"];
-		} else {
+		$user_access_level = $this->getUserAccessLevel($sender);
+		$sql = "SELECT name, module, description, file FROM hlpcfg_<myname> WHERE access_level >= $user_access_level AND name = '$helpcmd' ORDER BY module ASC";
+		$db->query($sql);
+		if ($db->numrows() == 0) {
 			return FALSE;
-		}
-
-		$user_admin_level = $this->getUserAdminLevel($sender);
-		if ($user_admin_level <= $admin_level) {
-			$data = file_get_contents($filename);
+		} else {
+			$row = $db->fObject();
+			$data = file_get_contents($row->file);
 			$helpcmd = ucfirst($helpcmd);
 			$msg = $this->makeLink("Help($helpcmd)", $data);
 			return $msg;
-		} else {
-			return FALSE;
 		}
 	}
 
@@ -1414,18 +1385,18 @@ class bot extends AOChat{
 				if ($restricted != true) {
 					// Break down in to words.
 					$words	= split(' ', strtolower($message));
-					$admin_level 	= $this->tellCmds[$words[0]]["admin level"];
+					$access_level = $this->tellCmds[$words[0]]["access_level"];
 					$filename = $this->tellCmds[$words[0]]["filename"];
 
 				  	//Check if a subcommands for this exists
 				  	if ($this->subcommands[$filename][$type]) {
 					    if (preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message)) {
-							$admin_level = $this->subcommands[$filename][$type]["admin"];
+							$access_level = $this->subcommands[$filename][$type]["access_level"];
 						}
 					}
 
-					$user_admin_level = $this->getUserAdminLevel($sender);
-					if ($user_admin_level > $admin_level) {
+					$user_access_level = $this->getUserAccessLevel($sender);
+					if ($user_access_level > $access_level) {
 						$restricted = true;
 					}
 				}
@@ -1492,19 +1463,19 @@ class bot extends AOChat{
 							$message 	= substr($message, 1);
 						}
 						$words		= split(' ', strtolower($message));
-						$admin_level= $this->privCmds[$words[0]]["admin level"];
+						$access_level= $this->privCmds[$words[0]]["access_level"];
 						$filename 	= $this->privCmds[$words[0]]["filename"];
 
 						//Check if a subcommands for this exists
 						if ($this->subcommands[$filename][$type]) {
 							if (preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message)) {
-								$admin_level = $this->subcommands[$filename][$type]["admin"];
+								$access_level = $this->subcommands[$filename][$type]["access_level"];
 							}
 						}
 
 
-						$user_admin_level = $this->getUserAdminLevel($sender);
-						if ($user_admin_level > $admin_level) {
+						$user_access_level = $this->getUserAccessLevel($sender);
+						if ($user_access_level > $access_level) {
 							$restricted = true;
 						} else {
 							if ($filename != "") {
@@ -1603,18 +1574,18 @@ class bot extends AOChat{
 							$message 	= substr($message, 1);
 						}
     					$words		= split(' ', strtolower($message));
-						$admin_level= $this->guildCmds[$words[0]]["admin level"];
+						$access_level= $this->guildCmds[$words[0]]["access_level"];
 						$filename 	= $this->guildCmds[$words[0]]["filename"];
 
 					  	//Check if a subcommands for this exists
 					  	if ($this->subcommands[$filename][$type]) {
 						    if (preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message)) {
-								$admin_level = $this->subcommands[$filename][$type]["admin"];
+								$access_level = $this->subcommands[$filename][$type]["access_level"];
 							}
 						}
 
-						$user_admin_level = $this->getUserAdminLevel($sender);
-						if ($user_admin_level > $admin_level) {
+						$user_access_level = $this->getUserAccessLevel($sender);
+						if ($user_access_level > $access_level) {
 							$this->send("Error! You do not have access to this command.", "guild");
 						} else {
 							if ($filename != "") {

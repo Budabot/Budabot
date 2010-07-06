@@ -3,8 +3,8 @@
 	
 	bot::loadSQLFile($MODULE_NAME, "research");
 	
-	bot::command("", "$MODULE_NAME/research.php", "research", "all", "Info on Research");
+	bot::command("", "$MODULE_NAME/research.php", "research", ALL, "Info on Research");
 	
-	bot::help("Research", "$MODULE_NAME/research.txt","all","Info on Research","Research");
+	bot::help("Research", "$MODULE_NAME/research.txt", ALL, "Info on Research");
 
 ?>

@@ -6,8 +6,8 @@
 		Jan 19, 2010
 	*/
 
-	$MN = "INITS_MODULE";
+	$MODULE_NAME = "INITS_MODULE";
 
-	bot::command("", "$MN/inits.php", "inits", "all", "");
+	bot::command("", "$MODULE_NAME/inits.php", "inits", ALL, "shows how much inits you need for 1/1");
 
 ?>

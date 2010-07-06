@@ -6,22 +6,22 @@
 	bot::loadSQLFile($MODULE_NAME, "mmdb");
 
 	//Commands
-	bot::regcommand("msg", "$MODULE_NAME/plugins.php", "newplugins", "admin");
-	bot::regcommand("priv", "$MODULE_NAME/plugins.php", "newplugins", "admin");
-	bot::regcommand("guild", "$MODULE_NAME/plugins.php", "newplugins", "admin");
+	bot::regcommand("msg", "$MODULE_NAME/plugins.php", "newplugins", ADMIN);
+	bot::regcommand("priv", "$MODULE_NAME/plugins.php", "newplugins", ADMIN);
+	bot::regcommand("guild", "$MODULE_NAME/plugins.php", "newplugins", ADMIN);
 	
-	bot::regcommand("msg", "$MODULE_NAME/reboot.php", "reboot", "admin");
-	bot::regcommand("priv", "$MODULE_NAME/reboot.php", "reboot", "admin");
-	bot::regcommand("guild", "$MODULE_NAME/reboot.php", "reboot", "admin");	
+	bot::regcommand("msg", "$MODULE_NAME/reboot.php", "reboot", ADMIN);
+	bot::regcommand("priv", "$MODULE_NAME/reboot.php", "reboot", ADMIN);
+	bot::regcommand("guild", "$MODULE_NAME/reboot.php", "reboot", ADMIN);	
 	
-	bot::regcommand("msg", "$MODULE_NAME/shutdown.php", "shutdown", "admin");
-	bot::regcommand("priv", "$MODULE_NAME/shutdown.php", "shutdown", "admin");
-	bot::regcommand("guild", "$MODULE_NAME/shutdown.php", "shutdown", "admin");
+	bot::regcommand("msg", "$MODULE_NAME/shutdown.php", "shutdown", ADMIN);
+	bot::regcommand("priv", "$MODULE_NAME/shutdown.php", "shutdown", ADMIN);
+	bot::regcommand("guild", "$MODULE_NAME/shutdown.php", "shutdown", ADMIN);
 	
-	bot::regcommand("msg", "$MODULE_NAME/uptime.php", "uptime", "all");
-	bot::regcommand("priv", "$MODULE_NAME/uptime.php", "uptime", "all");
-	bot::regcommand("guild", "$MODULE_NAME/uptime.php", "uptime", "all");
+	bot::regcommand("msg", "$MODULE_NAME/uptime.php", "uptime", MEMBER);
+	bot::regcommand("priv", "$MODULE_NAME/uptime.php", "uptime", MEMBER);
+	bot::regcommand("guild", "$MODULE_NAME/uptime.php", "uptime", MEMBER);
 
 	//Help Files
-	bot::help("systemhelp", "$MODULE_NAME/system.txt", "admin", "Admin System Help file.", "Administration");
+	bot::help("systemhelp", "$MODULE_NAME/system.txt", ADMIN, "Admin System Help file.");
 ?>

@@ -34,7 +34,7 @@
 $symbol = str_replace("'", "''", $this->settings["symbol"]);
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'symbol'");
 if($db->numrows() == 0)
-  	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `admin`) VALUES ('symbol', 'Basic Settings', 'edit', '$symbol', '!;#;*;@;$;+;-', 'Prefix for Guild- or Privatechat Commands', 'cfg', 'mod')");
+  	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `access_level`) VALUES ('symbol', 'Basic Settings', 'edit', '$symbol', '!;#;*;@;$;+;-', 'Prefix for Guild- or Privatechat Commands', 'cfg', 'mod')");
 else 
   	$db->query("UPDATE settings_<myname> SET `setting` = '$symbol' WHERE `name` = 'symbol'");
 
@@ -42,7 +42,7 @@ else
 $debug = str_replace("'", "''", $this->settings["debug"]);
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'debug'");
 if($db->numrows() == 0)
-  	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`) VALUES ('debug', 'Basic Settings', 'edit', '$debug', 'Disabled;Show basic msg''s;Show enhanced debug msg''s;Show enhanced debug msg''s + 1s Delay', '0;1;2;3', 'Show debug messages', 'cfg', 'admin')");
+  	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `access_level`) VALUES ('debug', 'Basic Settings', 'edit', '$debug', 'Disabled;Show basic msg''s;Show enhanced debug msg''s;Show enhanced debug msg''s + 1s Delay', '0;1;2;3', 'Show debug messages', 'cfg', " . ADMIN . ")");
 else 
   	$db->query("UPDATE settings_<myname> SET `setting` = '$debug' WHERE `name` = 'debug'");
 
@@ -50,7 +50,7 @@ else
 $echo = str_replace("'", "''", $this->settings["echo"]);
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'echo'");
 if($db->numrows() == 0)
-  	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`) VALUES ('echo', 'Basic Settings', 'edit', '$echo', 'Disabled;Only Console;Console and Logfiles','0;1;2' ,'Show messages in console and log them to files', 'cfg', 'admin')");
+  	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `access_level`) VALUES ('echo', 'Basic Settings', 'edit', '$echo', 'Disabled;Only Console;Console and Logfiles','0;1;2' ,'Show messages in console and log them to files', 'cfg', " . ADMIN . ")");
 else 
   	$db->query("UPDATE settings_<myname> SET `setting` = '$echo' WHERE `name` = 'echo'");
 
@@ -58,7 +58,7 @@ else
 $guild_admin_level = str_replace("'", "''", $this->settings["guild admin level"]);
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'guild admin level'");
 if($db->numrows() == 0)
-  	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`) VALUES ('guild admin level', 'Basic Settings', 'edit', '$guild_admin_level', 'President;General;Squad Commander;Unit Commander;Unit Leader;Unit Member;Applicant', '0;1;2;3;4;5;6', 'Min Level for Rank Guildadmin', 'cfg', 'admin')");
+  	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `access_level`) VALUES ('guild admin level', 'Basic Settings', 'edit', '$guild_admin_level', 'President;General;Squad Commander;Unit Commander;Unit Leader;Unit Member;Applicant', '0;1;2;3;4;5;6', 'Min Level for Rank Guildadmin', 'cfg', " . ADMIN . ")");
 else 
   	$db->query("UPDATE settings_<myname> SET `setting` = '$guild_admin_level' WHERE `name` = 'guild admin level'");
 
@@ -66,7 +66,7 @@ else
 $default_guild_color = str_replace("'", "''", $this->settings["default guild color"]);
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'default guild color'");
 if($db->numrows() == 0)
-  	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `admin`) VALUES ('default guild color', 'Basic Settings', 'edit', '$default_guild_color', 'color', 'Default Guild Color', 'cfg', 'admin')");
+  	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `access_level`) VALUES ('default guild color', 'Basic Settings', 'edit', '$default_guild_color', 'color', 'Default Guild Color', 'cfg', " . ADMIN . ")");
 else 
   	$db->query("UPDATE settings_<myname> SET `setting` = '$default_guild_color' WHERE `name` = 'default guild color'");
 
@@ -74,7 +74,7 @@ else
 $default_priv_color = str_replace("'", "''", $this->settings["default priv color"]);
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'default priv color'");
 if($db->numrows() == 0)
- 	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `admin`) VALUES ('default priv color', 'Basic Settings', 'edit', '$default_priv_color', 'color', 'Default Private Color', 'cfg', 'admin')");
+ 	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `access_level`) VALUES ('default priv color', 'Basic Settings', 'edit', '$default_priv_color', 'color', 'Default Private Color', 'cfg', " . ADMIN . ")");
 else 
   	$db->query("UPDATE settings_<myname> SET `setting` = '$default_priv_color' WHERE `name` = 'default priv color'");
 
@@ -82,7 +82,7 @@ else
 $default_window_color = str_replace("'", "''", $this->settings["default window color"]);
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'default window color'");
 if($db->numrows() == 0)
-	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `admin`) VALUES ('default window color', 'Basic Settings', 'edit', '$default_window_color', 'color', 'Default Window Color', 'cfg', 'admin')"); 	
+	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `access_level`) VALUES ('default window color', 'Basic Settings', 'edit', '$default_window_color', 'color', 'Default Window Color', 'cfg', " . ADMIN . ")"); 	
 else 
   	$db->query("UPDATE settings_<myname> SET `setting` = '$default_window_color' WHERE `name` = 'default window color'");
 
@@ -90,7 +90,7 @@ else
 $default_tell_color = str_replace("'", "''", $this->settings["default tell color"]);
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'default tell color'");
 if($db->numrows() == 0)
-	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `admin`) VALUES ('default tell color', 'Basic Settings', 'edit', '$default_tell_color', 'color', 'Default Tell Color', 'cfg', 'admin')"); 	
+	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `access_level`) VALUES ('default tell color', 'Basic Settings', 'edit', '$default_tell_color', 'color', 'Default Tell Color', 'cfg', " . ADMIN . ")"); 	
 else 
   	$db->query("UPDATE settings_<myname> SET `setting` = '$default_tell_color' WHERE `name` = 'default tell color'");
 
@@ -98,7 +98,7 @@ else
 $default_highlight_color = str_replace("'", "''", $this->settings["default highlight color"]);
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'default highlight color'");
 if($db->numrows() == 0)
-	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `admin`) VALUES ('default highlight color', 'Basic Settings', 'edit', '$default_highlight_color', 'color', 'Default Highlight Color', 'cfg', 'admin')"); 	
+	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `access_level`) VALUES ('default highlight color', 'Basic Settings', 'edit', '$default_highlight_color', 'color', 'Default Highlight Color', 'cfg', " . ADMIN . ")"); 	
 else 
   	$db->query("UPDATE settings_<myname> SET `setting` = '$default_highlight_color' WHERE `name` = 'default highlight color'");
 
@@ -106,7 +106,7 @@ else
 $default_header_color = str_replace("'", "''", $this->settings["default header color"]);
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'default header color'");
 if($db->numrows() == 0)
-	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `admin`) VALUES ('default header color', 'Basic Settings', 'edit', '$default_header_color', 'color', 'Default Header Color', 'cfg', 'admin')"); 	
+	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `access_level`) VALUES ('default header color', 'Basic Settings', 'edit', '$default_header_color', 'color', 'Default Header Color', 'cfg', " . ADMIN . ")"); 	
 else 
   	$db->query("UPDATE settings_<myname> SET `setting` = '$default_header_color' WHERE `name` = 'default header color'");
 
@@ -114,7 +114,7 @@ else
 $spam_protection = str_replace("'", "''", $this->settings["spam protection"]);
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'spam protection'");
 if($db->numrows() == 0)
-	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('spam protection', 'Basic Settings', 'edit', '$spam_protection', 'ON;OFF', '1;0', 'Spam Protection for Private Chat', 'cfg', 'admin', './core/SETTINGS/spam_help.txt')"); 	
+	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `access_level`, `help`) VALUES ('spam protection', 'Basic Settings', 'edit', '$spam_protection', 'ON;OFF', '1;0', 'Spam Protection for Private Chat', 'cfg', " . ADMIN . ", './core/SETTINGS/spam_help.txt')"); 	
 else 
   	$db->query("UPDATE settings_<myname> SET `setting` = '$spam_protection' WHERE `name` = 'spam protection'");
 
@@ -122,7 +122,7 @@ else
 $default_module_status = str_replace("'", "''", $this->settings["default module status"]);
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'default module status'");
 if($db->numrows() == 0)
-	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('default module status', 'Basic Settings', 'edit', '$default_module_status', 'ON;OFF', '1;0', 'Default Status for new Modules', 'cfg', 'admin', './core/SETTINGS/module_status_help.txt')"); 	
+	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `access_level`, `help`) VALUES ('default module status', 'Basic Settings', 'edit', '$default_module_status', 'ON;OFF', '1;0', 'Default Status for new Modules', 'cfg', " . ADMIN . ", './core/SETTINGS/module_status_help.txt')"); 	
 else 
   	$db->query("UPDATE settings_<myname> SET `setting` = '$default_module_status' WHERE `name` = 'default module status'");
 
@@ -130,7 +130,7 @@ else
 $max_blob_size = str_replace("'", "''", $this->settings["max_blob_size"]);
 $db->query("SELECT * FROM settings_<myname> WHERE `name` = 'max_blob_size'");
 if($db->numrows() == 0)
-	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `admin`, `help`) VALUES ('max_blob_size', 'Basic Settings', 'edit', '$max_blob_size', 'number', 'Max chars for a window', 'cfg', 'admin', './core/SETTINGS/max_blob_size_help.txt')"); 	
+	$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `description`, `source`, `access_level`, `help`) VALUES ('max_blob_size', 'Basic Settings', 'edit', '$max_blob_size', 'number', 'Max chars for a window', 'cfg', " . ADMIN . ", './core/SETTINGS/max_blob_size_help.txt')"); 	
 else 
   	$db->query("UPDATE settings_<myname> SET `setting` = '$max_blob_size' WHERE `name` = 'max_blob_size'");
 

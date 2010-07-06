@@ -34,15 +34,15 @@
 	
 	bot::loadSQLFile($MODULE_NAME, 'org_city');
 
-    bot::command("guild", "$MODULE_NAME/city_guild.php", "city", "all", "Shows the status of the Citycloak");
+    bot::command("guild", "$MODULE_NAME/city_guild.php", "city", ALL, "Shows the status of the Citycloak");
 
     bot::event("guild", "$MODULE_NAME/city_guild.php", "city");
     bot::event("1min", "$MODULE_NAME/city_guild_timer.php", "city");
 	bot::event("1min", "$MODULE_NAME/city_guild_raise_cloak.php", "city", "Reminds the player who lowered cloak to raise it when it can be raised.");
 	bot::event("logOn", "$MODULE_NAME/city_guild_logon.php", "city", "Displays summary of city status.");
 	
-	// Helpfiles
-	bot::help("citycloak", "$MODULE_NAME/citycloak.txt", "guild", "Status of the citycloak", "Org Commands");
+	// Help files
+	bot::help("citycloak", "$MODULE_NAME/citycloak.txt", GUILDMEMBER, "Status of the citycloak");
 	
 	// Auto Wave
 	bot::command("guild","$MODULE_NAME/start.php", "startraid");

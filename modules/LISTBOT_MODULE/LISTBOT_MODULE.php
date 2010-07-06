@@ -1,12 +1,12 @@
 <?php
 	$MODULE_NAME = "LISTBOT_MODULE";
-
-	//Commands
-	bot::command("", "$MODULE_NAME/waitlist.php", "waitlist", "all", "Show/Add the Waitlist");
 	
 	//Setup
 	bot::event("setup", "$MODULE_NAME/setup.php");
 
+	//Commands
+	bot::command("", "$MODULE_NAME/waitlist.php", "waitlist", ALL, "Show/Add the Waitlist");
+
 	//Helpfile
-    bot::help("waitlist", "$MODULE_NAME/waitlist.txt", "guild", "How to use the ListBot", "Listbot");
+    bot::help("waitlist", "$MODULE_NAME/waitlist.txt", ALL, "How to use the ListBot");
 ?>

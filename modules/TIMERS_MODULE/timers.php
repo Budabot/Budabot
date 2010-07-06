@@ -193,7 +193,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 		$mins = 0;	
 
 	if($days == 0 && $hours == 0 && $mins == 0) {
-	  	$msg = "No valid Time specified! Please check the helpfiles how to use this command!";
+	  	$msg = "No valid Time specified! Please check the help files how to use this command!";
 	    // Send info back
 	    bot::send($msg, $sendto);
 	    return;		  	
@@ -277,7 +277,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 		$mins = 0;	
 
 	if($days == 0 && $hours == 0 && $mins == 0) {
-	  	$msg = "No valid Time specified! Please check the helpfiles how to use this command!";
+	  	$msg = "No valid Time specified! Please check the help files how to use this command!";
 	    // Send info back
 	    bot::send($msg, $sendto);
 	    return;		  	

@@ -1,7 +1,7 @@
 <?php
    /*
    ** Author: Sebuda (RK2)
-   ** Description: General Help/Shows all helpfiles
+   ** Description: General Help/Shows all help files
    ** Version: 0.3
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
@@ -36,21 +36,25 @@ if (preg_match("/^about$/i", $message)) {
 } else if (preg_match("/^help$/i", $message)) {
 	global $version;
 	$data .= "\nBudabot version: $version\n\n";
-	ksort($this->helpfiles);
-	forEach ($this->helpfiles as $key => $file){
-		$access = false;
-		$admin_level = $file["admin level"];
-		$user_admin_level = $this->getUserAdminLevel($sender);
-		if ($user_admin_level <= $admin_level) {
-			if ($access && $file["info"] != "") {
-				$list .= "  *{$file["info"]} <a href='chatcmd:///tell <myname> help $key'>Click here</a>\n";
-			} else if ($access) {
-				$list .= "  *Basic Help. <a href='chatcmd:///tell <myname> help $key'>Click here</a>\n";
-			}
+	$user_access_level = $this->getUserAccessLevel($sender);
+	
+	$sql = "SELECT name, module, description FROM hlpcfg_<myname> WHERE access_level >= $user_access_level ORDER BY module ASC";
+	$db->query($sql);
+	$current_module = '';
+	while (($row = $db->fObject()) != FALSE) {
+		if ($row->module != $current_module) {
+			$list .= "\n<green>$row->module<end>\n";
+			$current_module = $row->module;
+		}
+	
+		if ($row->name != "") {
+			$list .= "  *$row->name ($row->description) <a href='chatcmd:///tell <myname> help $row->name'>Click here</a>\n";
+		} else {
+			$list .= "  *$row->name <a href='chatcmd:///tell <myname> help $row->name'>Click here</a>\n";
 		}
 	}
 	if ($list == "") {
-		$msg = "<red>No Helpfiles found.<end>";
+		$msg = "<orange>No Help files found.<end>";
 	} else {
 		$msg = bot::makeLink("Help(main)", $data.$list);
 	}

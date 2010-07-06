@@ -29,17 +29,11 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-$db->query("CREATE TABLE IF NOT EXISTS banlist_<myname> (name VARCHAR(25) NOT NULL PRIMARY KEY, admin VARCHAR(25), time VARCHAR(10), why TEXT, banend INT)");
+$db->query("CREATE TABLE IF NOT EXISTS banlist_<myname> (name VARCHAR(25) NOT NULL PRIMARY KEY, banned_by VARCHAR(25), time VARCHAR(10), reason TEXT NOT NULL, banend INT)");
 
-$db->query("SELECT * FROM banlist_<myname>");
-while($row = $db->fObject()) {
-	$this->banlist[$row->name]["name"] = $row->name;
-	$this->banlist[$row->name]["admin"] = $row->admin;
-	$this->banlist[$row->name]["when"] = $row->time;
-	if($row->banend != 0 || $row->banend != NULL)
-		$this->banlist[$row->name]["banend"] = $row->banend;
-
-	if($row->why != "" || $row->why != NULL)
-		$this->banlist[$row->name]["reason"] = $row->why; 
+unset($this->banlist);
+$db->query("SELECT name, banned_by, time, reason, banend FROM banlist_<myname>");
+while ($row = $db->fObject()) {
+	$this->banlist[$row->name] = $row;
 }
 ?>

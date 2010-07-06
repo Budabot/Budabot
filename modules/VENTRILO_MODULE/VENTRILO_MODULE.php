@@ -1,7 +1,7 @@
 <?php
 	$MODULE_NAME = "VENTRILO_MODULE"; 
 
-	bot::command("", "$MODULE_NAME/vent.php", "vent", "guild", "Ventrilo Server Info");
+	bot::command("", "$MODULE_NAME/vent.php", "vent", GUILDMEMBER, "Ventrilo Server Info");
 	
 	bot::addsetting("ventaddress", "Ventrilo Server Address", "edit", "unknown", "text");
 	bot::addsetting("ventport", "Ventrilo Server Port", "edit", "unknown", "text");

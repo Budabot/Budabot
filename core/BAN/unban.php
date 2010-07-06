@@ -32,7 +32,7 @@
 if (preg_match("/^unban (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
 	
-	if(!isset($this->banlist[$who])) {
+	if (!isset($this->banlist[$who])) {
 		bot::send("<red>Sorry the player you wish to remove doesn't exist or isn't on the banlist.", $sendto);
 		return;
 	}

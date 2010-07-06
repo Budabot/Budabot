@@ -30,22 +30,25 @@
    */
 
 if (preg_match("/^banlist$/i", $message)){
-  	if(count($this->banlist) == 0) {
-	    bot::send("No one is banned of this bot atm.", $sendto);
+
+	$sql = "SELECT name, banned_by, time, reason, banend FROM banlist_<myname>";
+	$db->query($sql);
+	if ($db->numrows() == 0) {
+	    bot::send("No one is banned from this bot currently.", $sendto);
 	    return;
 	}
-	
+
 	$list.= "<header>::::: Banlist :::::<end>\n\n";
-	forEach ($this->banlist as $key => $data){
-		$list.= "<highlight>Name:<end> {$this->banlist["$key"]["name"]}\n";
-		$list.= "<highlight><tab>Date:<end> {$this->banlist["$key"]["when"]}\n";
-		$list.= "<highlight><tab>By:<end> {$this->banlist["$key"]["admin"]}\n";
-		if (isset($this->banlist[$key]["banend"])) {
-			$list.= "<highlight><tab>Ban ends at:<end> ".date("m-d-y", $this->banlist["$key"]["banend"])."\n";
+	while (($row = $db->fObject()) != FALSE) {
+		$list.= "<highlight>Name:<end> {$row->name}\n";
+		$list.= "<highlight><tab>Date:<end> {$row->time}\n";
+		$list.= "<highlight><tab>By:<end> {$row->banned_by}\n";
+		if ($row->banend != null) {
+			$list.= "<highlight><tab>Ban ends at:<end> ".date("m-d-y", $row->banend)."\n";
 		}
 		
-		if (isset($this->banlist["$key"]["reason"])) {
-			$list.= "<highlight><tab>Reason:<end> {$this->banlist["$key"]["reason"]}\n";
+		if ($row->reason != '') {
+			$list.= "<highlight><tab>Reason:<end> {$row->reason}\n";
 		}
 		$list.= "\n";	
 	}
