@@ -3,6 +3,6 @@
 	$PLUGIN_VERSION = 0.1;
 
 	//Breedcap
-	bot::command("", "$MODULE_NAME/breed.php", "breed", ALL, "Shows Breedcaps.");
+	$this->command("", "$MODULE_NAME/breed.php", "breed", ALL, "Shows Breedcaps.");
 
 ?>

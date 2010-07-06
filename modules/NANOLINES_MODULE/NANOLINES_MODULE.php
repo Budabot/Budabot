@@ -36,16 +36,16 @@
 	$MODULE_NAME = "NANOLINES_MODULE";
 	
 	//Setup
-	bot::loadSQLFile($MODULE_NAME, "nanolines");
+	$this->loadSQLFile($MODULE_NAME, "nanolines");
 
 	//Private
-	bot::command("", "$MODULE_NAME/nanolines.php", "nanolines", ALL, "Shows a list of professions to choose from");
-	bot::command("", "$MODULE_NAME/nlprof.php", "nlprof", ALL, "Shows a list of nanolines given a profession");
-	bot::command("", "$MODULE_NAME/nlline.php", "nlline", ALL, "Shows a list of nanos given a nanoline");
+	$this->command("", "$MODULE_NAME/nanolines.php", "nanolines", ALL, "Shows a list of professions to choose from");
+	$this->command("", "$MODULE_NAME/nlprof.php", "nlprof", ALL, "Shows a list of nanolines given a profession");
+	$this->command("", "$MODULE_NAME/nlline.php", "nlline", ALL, "Shows a list of nanos given a nanoline");
 
 	//Help
-	bot::help("Nanolines", "$MODULE_NAME/nanolines.txt", ALL, "Nanolines help");
+	$this->help("Nanolines", "$MODULE_NAME/nanolines.txt", ALL, "Nanolines help");
 
 	//Settings
-	bot::addsetting("shownanolineicons", "Show icons for the nanolines", "edit", "0", "true;false", "1;0");
+	$this->addsetting("shownanolineicons", "Show icons for the nanolines", "edit", "0", "true;false", "1;0");
 ?>

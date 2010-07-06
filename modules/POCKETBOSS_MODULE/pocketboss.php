@@ -47,9 +47,9 @@ if(preg_match("/^pb (.+)$/i", $message, $arr)) {
 			$db->query("SELECT * FROM pbdb WHERE pb = '$row->pb' ORDER BY ql");
 			while($symb = $db->fObject()){
 			  	$name = "QL $symb->ql $symb->line $symb->slot Symbiant, $symb->type Unit Aban";
-			  	$link .= bot::makeItem($symb->itemid, $symb->itemid, $symb->ql, $name)."\n";
+			  	$link .= $this->makeItem($symb->itemid, $symb->itemid, $symb->ql, $name)."\n";
 			}
-			$msg .= "\n".bot::makeLink("Remains of $row->pb", $link);
+			$msg .= "\n".$this->makeLink("Remains of $row->pb", $link);
 		}
 	} elseif($pb_found > 5) {
 		$msg = "Too many results.";
@@ -57,7 +57,7 @@ if(preg_match("/^pb (.+)$/i", $message, $arr)) {
 		$msg = "Couldn't find the Pocketboss <highlight>".$pb."<end>";
 	}
 	
-    bot::send($msg, $sendto);
+    $this->send($msg, $sendto);
 } elseif(preg_match("/^symb (eye|ocular|head|brain|ear|rarm|chest|larm|rwrist|waist|lwrist|rhand|legs|leg|thigh|lhand|feet) (s(u(p(p(o(r(t)?)?)?)?)?)?|c(o(n(t(r(o(l)?)?)?)?)?)?|i(n(f(a(n(t(r(y)?)?)?)?)?)?)?|a(r(t(i(l(l(e(r(y)?)?)?)?)?)?)?)?|e(x(t(e(r(m(i(n(a(t(i(o(n)?)?)?)?)?)?)?)?)?)?)?)?)$/i", $message, $arr)) {
   	switch($arr[1]) {
 	    case "eye":
@@ -114,16 +114,16 @@ if(preg_match("/^pb (.+)$/i", $message, $arr)) {
 	  	$link = "<header>::::: Result of your search :::::<end>";
 		foreach($data as $row) {
 		  	$name = "\n\nQL $row->ql $row->line $row->slot Symbiant, $row->type Unit Aban";
-		  	$link .= bot::makeItem($row->itemid, $row->itemid, $row->ql, $name)."\n";
-		  	$link .= "Found on ".bot::makeLink($row->pb, "/tell <myname> pb $row->pb", "chatcmd");
+		  	$link .= $this->makeItem($row->itemid, $row->itemid, $row->ql, $name)."\n";
+		  	$link .= "Found on ".$this->makeLink($row->pb, "/tell <myname> pb $row->pb", "chatcmd");
 		}
-		$msg .= bot::makeLink("Found $numrows matches", $link);
+		$msg .= $this->makeLink("Found $numrows matches", $link);
 	} else {
 		$msg = "Couldn't find any symbs";
 	}
 
 	
-    bot::send($msg, $sendto);
+    $this->send($msg, $sendto);
 } elseif(preg_match("/^symb (s(u(p(p(o(r(t)?)?)?)?)?)?|c(o(n(t(r(o(l)?)?)?)?)?)?|i(n(f(a(n(t(r(y)?)?)?)?)?)?)?|a(r(t(i(l(l(e(r(y)?)?)?)?)?)?)?)?|e(x(t(e(r(m(i(n(a(t(i(o(n)?)?)?)?)?)?)?)?)?)?)?)?) (eye|ocular|head|brain|ear|rarm|chest|larm|rwrist|waist|lwrist|rhand|legs|leg|thigh|lhand|feet)$/i", $message, $arr)) {
   	$index = count($arr) - 1;
 	switch($arr[$index]) {
@@ -181,15 +181,15 @@ if(preg_match("/^pb (.+)$/i", $message, $arr)) {
 	  	$link = "<header>::::: Result of your search :::::<end>";
 		foreach($data as $row) {
 		  	$name = "\n\nQL $row->ql $row->line $row->slot Symbiant, $row->type Unit Aban";
-		  	$link .= bot::makeItem($row->itemid, $row->itemid, $row->ql, $name)."\n";
-		  	$link .= "Found on ".bot::makeLink($row->pb, "/tell <myname> pb $row->pb", "chatcmd");
+		  	$link .= $this->makeItem($row->itemid, $row->itemid, $row->ql, $name)."\n";
+		  	$link .= "Found on ".$this->makeLink($row->pb, "/tell <myname> pb $row->pb", "chatcmd");
 		}
-		$msg .= bot::makeLink("Found $numrows matches", $link);
+		$msg .= $this->makeLink("Found $numrows matches", $link);
 	} else {
 		$msg = "Couldn't find any symbs";
 	}
 
-	bot::send($msg, $sendto);
+	$this->send($msg, $sendto);
 } else
 	$syntax_error = true;
 ?>

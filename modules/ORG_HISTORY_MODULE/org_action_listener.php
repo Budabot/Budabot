@@ -72,7 +72,7 @@ if (preg_match("/^(.+) just left your organization.$/", $message, $arr)) {
 	$actor = $arr[1];
 	$actee = $arr[2];
 	$action = "removed";
-	$organization = bot::$vars['my guild'];
+	$organization = $this->$vars['my guild'];
 	$time = time();
 	
 	$sql = "INSERT INTO org_history ( actor, actee, action, organization, time ) VALUES ( '$actor', '$actee', '$action', '$organization', $time ) ";

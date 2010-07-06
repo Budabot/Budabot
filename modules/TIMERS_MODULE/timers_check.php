@@ -73,11 +73,11 @@ foreach($this->vars["Timers"] as $key => $value) {
 	{
 		if ('msg' == $mode)
 		{
-			bot::send($msg, $owner);
+			$this->send($msg, $owner);
 		}
 		else
 		{
-			bot::send($msg, $mode);
+			$this->send($msg, $mode);
 		}
 	}
 }

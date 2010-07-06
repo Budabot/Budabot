@@ -43,11 +43,11 @@ Agents are long-range assassins, with the ability to hide in the shadows and str
 * Levels 50-80 - Shadowfade Armor from ToTW
 * Levels 81+ - Take a look at #L 'Sense/Agility Armors' 'SEN AGI Armor'</font> ";
 
-$agent_txt = bot::makeLink("Guide To Agents", $agent_txt); 
+$agent_txt = $this->makeLink("Guide To Agents", $agent_txt); 
 if($type == "msg") 
-bot::send($agent_txt, $sender); 
+$this->send($agent_txt, $sender); 
 elseif($type == "all") 
-bot::send($agent_txt); 
+$this->send($agent_txt); 
 else 
-bot::send($agent_txt, "guild"); 
+$this->send($agent_txt, "guild"); 
 ?>

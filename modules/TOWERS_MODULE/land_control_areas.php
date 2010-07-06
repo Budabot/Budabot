@@ -35,18 +35,18 @@ if (preg_match("/^lca ([0-9]+)$/i", $message, $arr)) {
 		$msg = "Invalid QL. Please use a QL between 10 and 300.";
 		
 		if($type == "msg")
-        	bot::send($msg, $sender);
+        	$this->send($msg, $sender);
 	    elseif($type == "priv")
-    	   	bot::send($msg);
+    	   	$this->send($msg);
 	    elseif($type == "guild")
-    	   	bot::send($msg, "guild");
+    	   	$this->send($msg, "guild");
     	return;
 	}
 
 	$db->query("SELECT * FROM `towerranges` WHERE `low_level` <= $ql AND `high_level` >= $ql ORDER BY `playfield` LIMIT 0, 40");
 	if($db->numrows() == 0) {
 		$msg = "No matches.";
-		bot::send($msg, $sendto);
+		$this->send($msg, $sendto);
     	return;
 	}
 	
@@ -67,15 +67,15 @@ if (preg_match("/^lca ([0-9]+)$/i", $message, $arr)) {
 		$list .= "Location: <highlight>$row->location<end>\n\n";
 	}
 	
-	$msg = bot::makeLink("Land Control Areas", $list);
-	bot::send($msg, $sendto);
+	$msg = $this->makeLink("Land Control Areas", $list);
+	$this->send($msg, $sendto);
 } elseif(preg_match("/^lca ([a-z ]+)$/i", $message, $arr)) {
 	$name = $arr[1];
 
 	$db->query("SELECT * FROM `towerranges` WHERE `playfield` LIKE '$name' ORDER BY `low_level` LIMIT 0, 40");
 	if($db->numrows() == 0) {
 		$msg = "No matches.";
-		bot::send($msg, $sendto);
+		$this->send($msg, $sendto);
     	return;
 	}
 	
@@ -96,22 +96,22 @@ if (preg_match("/^lca ([0-9]+)$/i", $message, $arr)) {
 		$list .= "Location: <highlight>$row->location<end>\n\n";
 	}
 	
-	$msg = bot::makeLink("Land Control Areas", $list);
-	bot::send($msg, $sendto);
+	$msg = $this->makeLink("Land Control Areas", $list);
+	$this->send($msg, $sendto);
 } elseif(preg_match("/^lca ([0-9]+) ([a-z ]+)$/i", $message, $arr)) {
 	$name = $arr[2];
 	$ql = $arr[1];
 	if($ql < 10 || $ql > 300) {
 		$msg = "Invalid QL. Please use a QL between 10 and 300.";
 		
-		bot::send($msg, $sendto);
+		$this->send($msg, $sendto);
     	return;
 	}
 	
 	$db->query("SELECT * FROM `towerranges` WHERE `playfield` LIKE '$name' AND `low_level` <= $ql AND `high_level` >= $ql ORDER BY `low_level` LIMIT 0, 40");
 	if($db->numrows() == 0) {
 		$msg = "No matches.";
-		bot::send($msg, $sendto);
+		$this->send($msg, $sendto);
     	return;
 	}
 	
@@ -132,8 +132,8 @@ if (preg_match("/^lca ([0-9]+)$/i", $message, $arr)) {
 		$list .= "Location: <highlight>$row->location<end>\n\n";
 	}
 	
-	$msg = bot::makeLink("Land Control Areas", $list);
-	bot::send($msg, $sendto);
+	$msg = $this->makeLink("Land Control Areas", $list);
+	$this->send($msg, $sendto);
 
 } else {
 	$syntax_error = true;

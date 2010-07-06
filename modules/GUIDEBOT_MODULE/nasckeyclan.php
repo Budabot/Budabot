@@ -46,11 +46,11 @@ Information originally provided by Silq at the Official AO Forums. Additional in
 Courtesy of AO Universe
 "
 ;
-$nasckeyclan_txt = bot::makeLink("Elysium: Garden Key Quest Clan", $nasckeyclan_txt); 
+$nasckeyclan_txt = $this->makeLink("Elysium: Garden Key Quest Clan", $nasckeyclan_txt); 
 if($type == "msg") 
-bot::send($nasckeyclan_txt, $sender); 
+$this->send($nasckeyclan_txt, $sender); 
 elseif($type == "all") 
-bot::send($nasckeyclan_txt); 
+$this->send($nasckeyclan_txt); 
 else 
-bot::send($nasckeyclan_txt, "guild"); 
+$this->send($nasckeyclan_txt, "guild"); 
 ?>

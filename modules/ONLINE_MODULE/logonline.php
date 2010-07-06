@@ -37,11 +37,11 @@ if($this->settings["logonline_tell"] && (isset($this->guildmembers[$sender]) || 
 	$msg = "";
 	$type = "msg";
 	list($numonline, $msg, $list) = online($type, $sender, $sendto, $this);
-	$link = ":: ".bot::makeLink('Click here', $list);
+	$link = ":: ".$this->makeLink('Click here', $list);
 	if($numonline != 0) {
-		bot::send($msg.$link, $sender);
+		$this->send($msg.$link, $sender);
 	} else {
-		bot::send($msg, $sender);
+		$this->send($msg, $sender);
 	}
 }
 ?>

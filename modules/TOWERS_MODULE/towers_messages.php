@@ -162,7 +162,7 @@ if ($def_guild) {
 		$link .= "<highlight>Playfield:<end> ".$colorvalue.$data[$key]["playfield"]." (<highlight>#".$data[$key]["hugemaploc"]."<end> : ".$data[$key]["level"].")<end>\n";
 		$link .= $colorlabel."Location:<end> ".$colorvalue.$data[$key]["location"]." (".$coordx." x ".$coordy.")<end>\n";
 
-		$more = "[".bot::makeLink("more", $link)."]";
+		$more = "[".$this->makeLink("more", $link)."]";
 	}
 	
 	// Prep for if our org is being attacked.
@@ -228,8 +228,8 @@ if ($def_guild) {
 		$msg = str_replace("<clan>", "<font color='#F79410'>", $msg);
 		$msg = str_replace("<unknown>", "<font color='#FF0000'>", $msg);
 
-    	bot::send($msg, "guild", true);
-    	bot::send($msg, NULL, true);
+    	$this->send($msg, "guild", true);
+    	$this->send($msg, NULL, true);
 	}
 
 	$sql = "INSERT INTO tower_attack_<myname> (`time`, `att_guild`, `att_side`, `att_player`, `att_level`, `att_profession`,

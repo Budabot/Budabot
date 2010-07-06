@@ -46,7 +46,7 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 
 	$window = "";
 	if (method_exists('bot', 'makeHeader')) {
-		$window .= bot::makeHeader("Org History", "none");
+		$window .= $this->makeHeader("Org History", "none");
 	} else {
 		$window .= "<header>::::: Org History :::::<end>\n";	
 	}
@@ -58,16 +58,16 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 		$window .= "$row->actor $row->action $row->actee in $row->organization at " . gmdate("M j, Y, G:i", $row->time)." (GMT)\n";
 	}
 
-	$msg = bot::makeLink('Org History', $window, 'blob');
+	$msg = $this->makeLink('Org History', $window, 'blob');
 
-	bot::send($msg, $sendto);
+	$this->send($msg, $sendto);
 } else if (preg_match("/^orghistory (.+)$/i", $message, $arr)) {
 	
 	$character = $arr[1];
 
 	$window = "";
 	if (method_exists('bot', 'makeHeader')) {
-		$window .= bot::makeHeader("Org History", "none");
+		$window .= $this->makeHeader("Org History", "none");
 	} else {
 		$window .= "<header>::::: Org History :::::<end>\n";	
 	}
@@ -88,9 +88,9 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 		$window .= "$row->actor $row->action $row->actee in $row->organization at " . gmdate("M j, Y, G:i", $row->time)." (GMT)\n";
 	}
 
-	$msg = bot::makeLink('Org History', $window, 'blob');
+	$msg = $this->makeLink('Org History', $window, 'blob');
 
-	bot::send($msg, $sendto);
+	$this->send($msg, $sendto);
 
 }
 

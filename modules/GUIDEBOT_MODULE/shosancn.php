@@ -21,11 +21,11 @@ $shosancn_txt = "Scheol Sanctuary Nanos
 <a href='itemref://227662/227662/88'>LINK </a> Weaponsmithing Knowledge - Engie
 <a href='itemref://218101/218101/83'>LINK </a> Ziana's Energy Wave - NT</font> ";
 
-$shosancn_txt = bot::makeLink("Shoel Sanctuary Garden Nanos", $shosancn_txt); 
+$shosancn_txt = $this->makeLink("Shoel Sanctuary Garden Nanos", $shosancn_txt); 
 if($type == "msg") 
-bot::send($shosancn_txt, $sender); 
+$this->send($shosancn_txt, $sender); 
 elseif($type == "all") 
-bot::send($shosancn_txt); 
+$this->send($shosancn_txt); 
 else 
-bot::send($shosancn_txt, "guild"); 
+$this->send($shosancn_txt, "guild"); 
 ?>

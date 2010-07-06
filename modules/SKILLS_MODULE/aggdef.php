@@ -27,10 +27,10 @@ $help .= "Your weapon has an attack time of <orange>1.2<end> seconds and a recha
 $help .= "of <orange>1.5<end> seconds.  Your melee/ranged init is <orange>1200<end>.\n";
 $help .= "<a href='chatcmd:///tell <myname> <symbol>aggdef 1.2 1.5 1200'>/tell <myname> <symbol>aggdef 1.2 1.5 1200</a>\n\n";	$help .= $footer;
 
-$helplink = bot::makeLink("::How to use Agg/Def::", $help);
+$helplink = $this->makeLink("::How to use Agg/Def::", $help);
 
 if((!$AttTim) || (!$RechT) || (!$InitS))
-	bot::send($helplink, $sendto);
+	$this->send($helplink, $sendto);
 else{
 	if( $InitS < 1200 ) 
 		{
@@ -81,7 +81,7 @@ else{
 	$inside	.= "Init needed for max speed at Full Def: <orange>". $Init3 ." <end>inits.";	
 	$inside .= $footer;
 
-	$windowlink = bot::makeLink("::Your Agg/Def Settings::", $inside);
-	bot::send($windowlink, $sendto); 
+	$windowlink = $this->makeLink("::Your Agg/Def Settings::", $inside);
+	$this->send($windowlink, $sendto); 
 	}
 ?>

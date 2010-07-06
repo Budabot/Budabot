@@ -60,6 +60,6 @@ if(preg_match("/^scout (.*)$/i", $message)) {
 	  	$msg = "Usage: <symbol>scout &lt;zone&gt; &lt;base number&gt; &lt;closing time&gt; &lt;CT QL&gt; &lt;Omni|Clan|Neutral&gt; &lt;org name&gt;";
 	}
 
-    bot::send($msg, $sendto);
+    $this->send($msg, $sendto);
 }
 ?>

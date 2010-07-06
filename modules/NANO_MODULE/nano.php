@@ -11,7 +11,7 @@ if(preg_match("/^nano ([0-9]+) (.+)$/i", $message, $arr)){
     $ql = $arr[1];
     if(!($ql >= 1 && $ql <= 500)) {
         $msg = "No valid Ql specified(1-500)";
-        bot::send($msg, $sendto);
+        $this->send($msg, $sendto);
         return;
     }
     $name = $arr[2];
@@ -20,7 +20,7 @@ if(preg_match("/^nano ([0-9]+) (.+)$/i", $message, $arr)){
     $ql = false;
 } else {
   	$msg = "You need to specify a nano to search for!";
-   	bot::send($msg, $sendto);
+   	$this->send($msg, $sendto);
 	return;  	
 }
 
@@ -49,7 +49,7 @@ if($num == 0) {
 	    $msg = "No nanos found with QL <highlight>$ql<end>. Maybe try fewer keywords.";
 	else
 	    $msg = "No nanos found. Maybe try fewer keywords.";
-   	bot::send($msg, $sendto);
+   	$this->send($msg, $sendto);
 	return;
 }
 
@@ -80,7 +80,7 @@ if($countitems == 0) {
 	    $msg = "No nanos found with QL <highlight>$ql<end>. Maybe try fewer keywords.";
 	else
 	    $msg = "No nanos found. Maybe try fewer keywords.";
-   	bot::send($msg, $sendto);
+   	$this->send($msg, $sendto);
 	return;
 }
 
@@ -91,9 +91,9 @@ if($countitems > 1) {
 			$name = str_replace("&amp;", "&", $name);
 //	        $list .= "<img src=rdb://".$item["icon"]."> \n";
 	        if($ql) {
-		        $list .= "QL $ql ".bot::makeItem($item["lowid"], $item["highid"], $ql, $name);
+		        $list .= "QL $ql ".$this->makeItem($item["lowid"], $item["highid"], $ql, $name);
 			} else {
-		        $list .= bot::makeItem($item["lowid"], $item["highid"], $item["highql"], $name);		  
+		        $list .= $this->makeItem($item["lowid"], $item["highid"], $item["highql"], $name);		  
 			}
 	
 	        if($item["lowql"] != $item["highql"])
@@ -108,13 +108,13 @@ if($countitems > 1) {
 	    }
     }
     $list = "<header>::::: Nano Search Result :::::<end>\n\n".$list;
-    $link = bot::makeLink("$countitems results in total", $list);
-    bot::send($link, $sendto);
+    $link = $this->makeLink("$countitems results in total", $list);
+    $this->send($link, $sendto);
       	
 	//Show a warning if the maxnano are reached
 	if($countitems == $this->settings["maxnano"]) {
 	    $msg = "The output has been limited to <highlight>{$this->settings["maxnano"]}<end> items. Specify your search more if your item isn't listed.";
-	    bot::send($msg, $sendto);
+	    $this->send($msg, $sendto);
 	}
 } 
 
@@ -124,9 +124,9 @@ else {
 			$name = str_replace("&#58;", ":", $name);
 			$name = str_replace("&amp;", "&", $name); 
 	        if($ql)
-		        $link .= "\n QL $ql ".bot::makeItem($item["lowid"], $item["highid"], $ql, $name);
+		        $link .= "\n QL $ql ".$this->makeItem($item["lowid"], $item["highid"], $ql, $name);
 			else
-		        $link .= "\n".bot::makeItem($item["lowid"], $item["highid"], $item["highql"], $name);
+		        $link .= "\n".$this->makeItem($item["lowid"], $item["highid"], $item["highql"], $name);
 	        
 	        if($item["lowql"] != $item["highql"])
 		        $link .= " (QL".$item["lowql"]." - ".$item["highql"].")";
@@ -141,7 +141,7 @@ else {
     }
 
 	// Send info back
-	bot::send($link, $sendto);
+	$this->send($link, $sendto);
 }
 
 ?>

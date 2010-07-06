@@ -40,35 +40,35 @@ if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
 		{
 			// the irc server shut down (i guess)
 			// set bot to disconnected
-			bot::savesetting("bbin_status","0");
+			$this->savesetting("bbin_status","0");
 
 
 			// send notification to channel
-			$extendedinfo = bot::makelink("Extended informations",$data);
+			$extendedinfo = $this->makelink("Extended informations",$data);
 			if($this->vars['my guild'] != "")
 			{
-				bot::send("<yellow>[BBIN]<end> Lost connection with server:".$extendedinfo,"guild",true);
+				$this->send("<yellow>[BBIN]<end> Lost connection with server:".$extendedinfo,"guild",true);
 			}
 			if($this->vars['my guild'] == "" ||$this->settings["guest_relay"] == 1)
 			{
-				bot::send("<yellow>[BBIN]<end> Lost connection with server:".$extendedinfo,"priv",true);
+				$this->send("<yellow>[BBIN]<end> Lost connection with server:".$extendedinfo,"priv",true);
 			}
 		}
 	}
 	elseif ("KICK" == $ex[1])
 	{
-		$extendedinfo = bot::makelink("Extended informations",$data);
+		$extendedinfo = $this->makelink("Extended informations",$data);
 		if ($ex[3] == $this->settings['bbin_nickname'])
 		{
 			// oh noez, I was kicked !
-			bot::savesetting("bbin_status","0");
+			$this->savesetting("bbin_status","0");
 			if($this->vars['my guild'] != "")
 			{
-				bot::send("<yellow>[BBIN]<end> Our uplink was kicked from the server:".$extendedinfo,"guild",true);
+				$this->send("<yellow>[BBIN]<end> Our uplink was kicked from the server:".$extendedinfo,"guild",true);
 			}
 			if($this->vars['my guild'] == "" ||$this->settings["guest_relay"] == 1)
 			{
-				bot::send("<yellow>[BBIN]<end> Our uplink was kicked from the server:".$extendedinfo,"priv",true);
+				$this->send("<yellow>[BBIN]<end> Our uplink was kicked from the server:".$extendedinfo,"priv",true);
 			}
 		}
 		else
@@ -77,11 +77,11 @@ if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
 			$db->query("DELETE FROM bbin_chatlist_<myname> WHERE `ircrelay` = '$ex[3]'");
 			if($this->vars['my guild'] != "")
 			{
-				bot::send("<yellow>[BBIN]<end> The uplink ".$ex[3]." was kicked from the server:".$extendedinfo,"guild",true);
+				$this->send("<yellow>[BBIN]<end> The uplink ".$ex[3]." was kicked from the server:".$extendedinfo,"guild",true);
 			}
 			if($this->vars['my guild'] == "" ||$this->settings["guest_relay"] == 1)
 			{
-				bot::send("<yellow>[BBIN]<end> The uplink ".$ex[3]." was kicked from the server:".$extendedinfo,"priv",true);
+				$this->send("<yellow>[BBIN]<end> The uplink ".$ex[3]." was kicked from the server:".$extendedinfo,"priv",true);
 			}
 		}
 	}
@@ -90,22 +90,22 @@ if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
 		$db->query("DELETE FROM bbin_chatlist_<myname> WHERE `ircrelay` = '$nick'");
 		if($this->vars['my guild'] != "")
 		{
-			bot::send("<yellow>[BBIN]<end> Lost uplink with $nick","guild",true);
+			$this->send("<yellow>[BBIN]<end> Lost uplink with $nick","guild",true);
 		}
 		if($this->vars['my guild'] == "" ||$this->settings["guest_relay"] == 1)
 		{
-			bot::send("<yellow>[BBIN]<end> Lost uplink with $nick","priv",true);
+			$this->send("<yellow>[BBIN]<end> Lost uplink with $nick","priv",true);
 		}
 	}
 	elseif($ex[1] == "JOIN")
 	{
 		if($this->vars['my guild'] != "")
 		{
-			bot::send("<yellow>[BBIN]<end> Uplink established with $nick.","guild",true);
+			$this->send("<yellow>[BBIN]<end> Uplink established with $nick.","guild",true);
 		}
 		if($this->vars['my guild'] == "" || $this->settings["guest_relay"] == 1)
 		{
-			bot::send("<yellow>[BBIN]<end> Uplink established with $nick.","priv",true);
+			$this->send("<yellow>[BBIN]<end> Uplink established with $nick.","priv",true);
 		}
 	}
 	elseif($channel == trim(strtolower($this->settings['bbin_channel'])))

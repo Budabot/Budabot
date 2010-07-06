@@ -36,8 +36,8 @@ $window = "::: Lag Tweaks :::
 <a href='chatcmd:///option CharDist 5'>Min</a> <a href='chatcmd:///option CharDist 30'>Low</a> <a href='chatcmd:///option CharDist 50'>Medium</a> <a href='chatcmd:///option CharDist 75'>High</a> <a href='chatcmd:///option CharDist 100'>Max</a> Character View Distance
 ";
 
-$msg = bot::makeLink("Lag Tweaks", $window);
+$msg = $this->makeLink("Lag Tweaks", $window);
 
-bot::send($msg, $sendto);   
+$this->send($msg, $sendto);   
 
 ?>

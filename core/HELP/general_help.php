@@ -31,8 +31,8 @@
 
 if (preg_match("/^about$/i", $message)) {
 	$data = file_get_contents("./core/HELP/about.txt");
-	$msg = bot::makeLink("About", $data);
-	bot::send($msg, $sendto);
+	$msg = $this->makeLink("About", $data);
+	$this->send($msg, $sendto);
 } else if (preg_match("/^help$/i", $message)) {
 	global $version;
 	$data .= "\nBudabot version: $version\n\n";
@@ -56,14 +56,14 @@ if (preg_match("/^about$/i", $message)) {
 	if ($list == "") {
 		$msg = "<orange>No Help files found.<end>";
 	} else {
-		$msg = bot::makeLink("Help(main)", $data.$list);
+		$msg = $this->makeLink("Help(main)", $data.$list);
 	}
-	bot::send($msg, $sendto);
+	$this->send($msg, $sendto);
 } else if (preg_match("/^help (.+)$/i", $message, $arr)) {
 	if (($output = $this->help_lookup($sender, $arr[1])) !== FALSE) {
-		bot::send($output, $sendto);
+		$this->send($output, $sendto);
 	} else {
-		bot::send("No help found on this topic.", $sendto);
+		$this->send("No help found on this topic.", $sendto);
 	}
 }
 

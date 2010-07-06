@@ -179,7 +179,7 @@ class bot extends AOChat{
 
 		// Begin the login process
 		echo "Connecting to AO Server...($server)\n";
-		AOChat::connect($server, $port);
+		$this->connect($server, $port);
 		sleep(2);
 		if($this->state != "auth") {
 			echo "Connection failed! Please check your Internet connection and firewall.\n";
@@ -188,7 +188,7 @@ class bot extends AOChat{
 		}
 
 		echo "Authenticate login data...\n";
-		AOChat::authenticate($login, $password);
+		$this->authenticate($login, $password);
 		sleep(2);
 		if($this->state != "login") {
 			echo "Authentication failed! Please check your username and password.\n";
@@ -197,7 +197,7 @@ class bot extends AOChat{
 		}
 
 		echo "Logging in {$this->vars["name"]}...\n";
-		AOChat::login($this->vars["name"]);
+		$this->login($this->vars["name"]);
 		sleep(2);
 		if($this->state != "ok") {
 			echo "Logging in of {$this->vars["name"]} failed! Please check the character name and dimension.\n";
@@ -289,7 +289,7 @@ class bot extends AOChat{
 ** Name: ping
 ** Get next packet info from AOChat
 */	function ping(){
-		return AOChat::wait_for_packet();
+		return $this->wait_for_packet();
 	}
 
 /*===============================
@@ -507,9 +507,9 @@ class bot extends AOChat{
 		}
 	
 		$message = $this->formatMessage($message);
-		AOChat::send_privgroup($group,$this->settings["default priv color"].$message);
+		$this->send_privgroup($group,$this->settings["default priv color"].$message);
 		if (($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1 && !$disable_relay)) {
-			AOChat::send_group($group, "</font>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}{$this->vars["name"]}</font>: {$this->settings["default priv color"]}$message</font>");
+			$this->send_group($group, "</font>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}{$this->vars["name"]}</font>: {$this->settings["default priv color"]}$message</font>");
 		}
 	}
 
@@ -536,21 +536,21 @@ class bot extends AOChat{
 
 		// Send
 		if ($who == 'prv') { // Target is private chat by defult.
-			AOChat::send_privgroup($this->vars["name"],$this->settings["default priv color"].$message);
+			$this->send_privgroup($this->vars["name"],$this->settings["default priv color"].$message);
 			if ($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1 && !$disable_relay) {
-				AOChat::send_group($this->vars["my guild"], "</font>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}".$this->makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default priv color"]}$message</font>");
+				$this->send_group($this->vars["my guild"], "</font>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}".$this->makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default priv color"]}$message</font>");
 			}
 		} else if ($who == $this->vars["my guild"] || $who == 'org') {// Target is guild chat.
-    		AOChat::send_group($this->vars["my guild"],$this->settings["default guild color"].$message);
+    		$this->send_group($this->vars["my guild"],$this->settings["default guild color"].$message);
 			if ($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1 && !$disable_relay) {
-				AOChat::send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my guild"]}]<end> {$this->settings["guest_color_username"]}".$this->makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default guild color"]}$message</font>");
+				$this->send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my guild"]}]<end> {$this->settings["guest_color_username"]}".$this->makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default guild color"]}$message</font>");
 			}
-		} else if (AOChat::get_uid($who) != NULL) {// Target is a player.
-    		AOChat::send_tell($who,$this->settings["default tell color"].$message);
+		} else if ($this->get_uid($who) != NULL) {// Target is a player.
+    		$this->send_tell($who,$this->settings["default tell color"].$message);
 			// Echo
 			if ($this->settings['echo'] >= 1) newLine("Out. Msg.", $who, $message, $this->settings['echo']);
 		} else { // Public channels that are not myguild.
-	    	AOChat::send_group($who,$this->settings["default guild color"].$message);
+	    	$this->send_group($who,$this->settings["default guild color"].$message);
 		}
 	}
 
@@ -1235,7 +1235,7 @@ class bot extends AOChat{
 
 				// Remove sender if they are /ignored or /banned or They gone above spam filter
                 if($this->settings["Ignore"][$sender] == true || $this->banlist["$sender"]["name"] == "$sender" || $this->spam[$sender] > 100){
-					AOChat::privategroup_kick($sender);
+					$this->privategroup_kick($sender);
 					return;
 				}
 				// Check files, for all 'player joined channel events'.
@@ -1244,7 +1244,7 @@ class bot extends AOChat{
 						include $filename;
 				// Kick if there access is restricted.
 				if($restricted === true)
-					AOChat::privategroup_kick($sender);
+					$this->privategroup_kick($sender);
 			break;
 			case AOCP_PRIVGRP_CLIPART: // 56, Incoming player left private chat
 				$type = "leavePriv"; // Set message type.
@@ -1418,10 +1418,10 @@ class bot extends AOChat{
 
 				if ($this->vars['spam protection'] == 1) {
 					if ($this->spam[$sender] == 40) $this->send("Error! Your client is sending a high frequency of chat messages. Stop or be kicked.", $sender);
-					if ($this->spam[$sender] > 60) AOChat::privategroup_kick($sender);
+					if ($this->spam[$sender] > 60) $this->privategroup_kick($sender);
 					if (strlen($args[1]) > 400){
 						$this->largespam[$sender] = $this->largespam[$sender] + 1;
-						if ($this->largespam[$sender] > 1) AOChat::privategroup_kick($sender);
+						if ($this->largespam[$sender] > 1) $this->privategroup_kick($sender);
 						if ($this->largespam[$sender] > 0) $this->send("Error! Your client is sending large chat messages. Stop or be kicked.", $sender);
 					}
 				}

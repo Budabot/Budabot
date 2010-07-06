@@ -9,7 +9,7 @@ if (($this->settings["relaybot"] != "Off") && ($args[2][0] != $this->settings["s
 	}
 
 	if ($relayMessage != '') {
-		$msg = "grc <grey>[".$this->vars["my guild"]."] ".bot::makeLink($sender,$sender,"user").": ".$relayMessage."</font>";
+		$msg = "grc <grey>[".$this->vars["my guild"]."] ".$this->makeLink($sender,$sender,"user").": ".$relayMessage."</font>";
         send_message_to_relay($msg);
 	}
 }

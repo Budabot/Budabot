@@ -114,11 +114,11 @@ Last updated on 03.19.2007 by Windkeeper
 Written by Tepamina. Additonal information provided by Windkeeper.ddreadloch";
 
  
-$clandreadloch_txt = bot::makeLink("Clan Dreadloch Camps", $clandreadloch_txt); 
+$clandreadloch_txt = $this->makeLink("Clan Dreadloch Camps", $clandreadloch_txt); 
 if($type == "msg") 
-bot::send($clandreadloch_txt, $sender); 
+$this->send($clandreadloch_txt, $sender); 
 elseif($type == "priv") 
-bot::send($clandreadloch_text); 
+$this->send($clandreadloch_text); 
 else 
-bot::send($clandreadloch_txt, "guild");
+$this->send($clandreadloch_txt, "guild");
 ?>

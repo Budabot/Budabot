@@ -26,11 +26,11 @@ $shogar_txt = "Scheol Garden
 <a href='itemref://224407/2244707/75'>LINK </a> Summon Shadowweb Spinner MK II - Fixer
 <a href='itemref://218107/218107/75'>LINK </a> Vital Corruptor - NT</FONT> ";
 
-$shogar_txt = bot::makeLink("Shoel Garden Nanos", $shogar_txt); 
+$shogar_txt = $this->makeLink("Shoel Garden Nanos", $shogar_txt); 
 if($type == "msg") 
-bot::send($shogar_txt, $sender); 
+$this->send($shogar_txt, $sender); 
 elseif($type == "all") 
-bot::send($shogar_txt); 
+$this->send($shogar_txt); 
 else 
-bot::send($shogar_txt, "guild"); 
+$this->send($shogar_txt, "guild"); 
 ?>

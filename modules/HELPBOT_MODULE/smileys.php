@@ -124,10 +124,10 @@ User is braindead.
 User just died. ";
 	
 if(preg_match("/^smileys$/i", $message)) {
-	$basiclink = bot::makeLink("Basic Smileys", $basic) ;
-	$widelink = bot::makeLink("Widely Used Smileys", $wide);
+	$basiclink = $this->makeLink("Basic Smileys", $basic) ;
+	$widelink = $this->makeLink("Widely Used Smileys", $wide);
 
-	bot::send($basiclink, $sendto);
-	bot::send($widelink, $sendto);
+	$this->send($basiclink, $sendto);
+	$this->send($widelink, $sendto);
 }
 ?>

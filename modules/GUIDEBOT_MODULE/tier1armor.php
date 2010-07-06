@@ -158,11 +158,11 @@ Note: I suggest you check Anarchy Mainframe and see what QL Tier 1 armor you are
 
 You will use the set for a while before you'll need to upgrading your Tier 1 armor set to the Tier 2 version, enjoy! ";
 
-$tier1armor = bot::makeLink("Making Tier 1 Armor", $tier1armor); 
+$tier1armor = $this->makeLink("Making Tier 1 Armor", $tier1armor); 
 if($type == "msg") 
-bot::send($tier1armor, $sender); 
+$this->send($tier1armor, $sender); 
 elseif($type == "all") 
-bot::send($tier1armor); 
+$this->send($tier1armor); 
 else 
-bot::send($tier1armor, "guild"); 
+$this->send($tier1armor, "guild"); 
 ?>

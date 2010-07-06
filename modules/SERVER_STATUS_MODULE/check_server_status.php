@@ -34,7 +34,7 @@ if($server->errorCode != 0)
 	return;
 
 if($server->locked == "1" && $this->settings["server_status"] == "up")
-	bot::savesetting("server_status", "down");
+	$this->savesetting("server_status", "down");
 elseif($server->locked == "0" && $this->settings["server_status"] == "down")
-	bot::savesetting("server_status", "up");
+	$this->savesetting("server_status", "up");
 ?>

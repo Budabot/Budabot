@@ -96,11 +96,11 @@ Last updated on 01.03.2007 by Tepamina
 Written by Tepamina";
 
 
-$lemish_txt = bot::makeLink("Information On LE Alien Missions", $lemish_txt); 
+$lemish_txt = $this->makeLink("Information On LE Alien Missions", $lemish_txt); 
 if($type == "msg") 
-bot::send($lemish_txt, $sender); 
+$this->send($lemish_txt, $sender); 
 elseif($type == "all") 
-bot::send($lemish_txt); 
+$this->send($lemish_txt); 
 else 
-bot::send($lemish_txt, "guild"); 
+$this->send($lemish_txt, "guild"); 
 ?>

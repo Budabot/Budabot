@@ -74,11 +74,11 @@ Fixers also get their special Cluster Bullets from this shop for their special a
 
 And that was pretty much it. Some items from this shop have questionable usefulness, and some are highly useful for the right profession, level or side, so be sure to enlist your local fixer if you need anything from here. ";
 
-$fshop_txt = bot::makeLink("Guide to The Fixer Shop", $fshop_txt); 
+$fshop_txt = $this->makeLink("Guide to The Fixer Shop", $fshop_txt); 
 if($type == "msg") 
-bot::send($fshop_txt, $sender); 
+$this->send($fshop_txt, $sender); 
 elseif($type == "all") 
-bot::send($fshop_txt); 
+$this->send($fshop_txt); 
 else 
-bot::send($fshop_txt, "guild"); 
+$this->send($fshop_txt, "guild"); 
 ?>

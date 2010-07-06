@@ -12,11 +12,11 @@ stream_set_blocking($socket, 0);
 set_time_limit(0);
 	//settings
 	if($this->settings['irc_server'] == "") {
-		bot::send("The IRC <highlight>server address<end> seems to be missing. Please <highlight>/tell <myname> <symbol>help irc<end> for details on setting this");
+		$this->send("The IRC <highlight>server address<end> seems to be missing. Please <highlight>/tell <myname> <symbol>help irc<end> for details on setting this");
 		return;
 	}
 	if($this->settings['irc_port'] == "") {
-		bot::send("The IRC <highlight>server port<end> seems to be missing. Please <highlight>/tell <myname> <symbol>help irc<end> for details on setting this");
+		$this->send("The IRC <highlight>server port<end> seems to be missing. Please <highlight>/tell <myname> <symbol>help irc<end> for details on setting this");
 		return;
 	}
 	
@@ -24,7 +24,7 @@ set_time_limit(0);
 	 
 	// Connection
 	if(preg_match("/^startirc$/i", $message)) {
-		bot::send("Intialized IRC connection. Please wait...",$sender);
+		$this->send("Intialized IRC connection. Please wait...",$sender);
 	}
 	newLine("IRC"," ","Intialized IRC connection. Please wait...",0);
 	$socket = fsockopen($this->settings['irc_server'], $this->settings['irc_port']);
@@ -56,7 +56,7 @@ set_time_limit(0);
 		}
 		if(preg_match("/(ERROR)(.+)/", $data, $sandbox)) {
 			if(preg_match("/^startirc$/i", $message)) {
-				bot::send("[red]Could not connect to IRC",$sender);
+				$this->send("[red]Could not connect to IRC",$sender);
 			}
 			newLine("IRC","irc error",trim($data),0);
 			return;
@@ -70,8 +70,8 @@ set_time_limit(0);
 		flush();
 	}
 	if(preg_match("/^startirc$/i", $message)) {
-		bot::send("Finished connecting to IRC",$sender);
+		$this->send("Finished connecting to IRC",$sender);
 	}
 	newLine("IRC"," ","Finished connecting to IRC",0);
-	bot::savesetting("irc_status", "1");
+	$this->savesetting("irc_status", "1");
 ?>

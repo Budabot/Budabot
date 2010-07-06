@@ -20,7 +20,7 @@
 		$dyna_found = $db->numrows();
 		$dynacamps = '';
 		if (method_exists('bot', 'makeHeader')) {
-			$dynacamps = bot::makeHeader("Results Of Dynacamp Search For $search", $links);
+			$dynacamps = $this->makeHeader("Results Of Dynacamp Search For $search", $links);
 		} else {
 			$dynacamps = "<header>::::: Results Of Dynacamp Search For $search :::::<end>\n";
 		}
@@ -32,7 +32,7 @@
 			$dynacamps .="<blue>Level:  $row->minQl<yellow>-<blue>$row->maxQl\n\n";
 		}
 		
-		$dynacamps = bot::makeLink("Dynacamps", $dynacamps);
+		$dynacamps = $this->makeLink("Dynacamps", $dynacamps);
 	} elseif (preg_match ("/^dyna (.+)$/i", $message, $arr)) {
 		$search = str_replace(" ", "%", $arr[1]);
 		$search = ucfirst(strtolower($search));
@@ -41,7 +41,7 @@
 		$dyna_found = $db->numrows();
 		$dynacamps = '';
 		if (method_exists('bot', 'makeHeader')) {
-			$dynacamps = bot::makeHeader("Results Of Dynacamp Search For $search", $links);
+			$dynacamps = $this->makeHeader("Results Of Dynacamp Search For $search", $links);
 		} else {
 			$dynacamps = "<header>::::: Results Of Dynacamp Search For $search :::::<end>\n";
 		}
@@ -53,11 +53,11 @@
 			$dynacamps .="<blue>Level: $row->minQl<yellow>-<blue>$row->maxQl\n\n";
 		}
 		
-		$dynacamps = bot::makeLink("Dynacamps", $dynacamps);
+		$dynacamps = $this->makeLink("Dynacamps", $dynacamps);
 	} else {
 		$dynacamps = "<red>Could not locate a Dynacamp related to information provided.<end>";
 	}
 
-	bot::send($dynacamps, $sendto);
+	$this->send($dynacamps, $sendto);
 
 ?>

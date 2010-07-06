@@ -9,6 +9,6 @@
 	$PLUGIN_VERSION = 1.0;
 
 	//Breedcap
-	bot::command("", "$MODULE_NAME/lag.php", "lag", ALL, "Shows options you can use to reduce lag");
+	$this->command("", "$MODULE_NAME/lag.php", "lag", ALL, "Shows options you can use to reduce lag");
 
 ?>

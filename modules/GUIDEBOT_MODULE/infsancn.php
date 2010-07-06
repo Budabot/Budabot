@@ -73,11 +73,11 @@ $infsancn_txt = "Inferno Sanctuary
 <a href='itemref://218065/218065/181/'>LINK </a> Ward Blow - MA
 <a href='itemref://226418/226418/195/'>LINK </a> Waves of Illness - Agent</font> ";
 
-$infsancn_txt = bot::makeLink("Inferno Sanctuary Garden Nanos", $infsancn_txt); 
+$infsancn_txt = $this->makeLink("Inferno Sanctuary Garden Nanos", $infsancn_txt); 
 if($type == "msg") 
-bot::send($infsancn_txt, $sender); 
+$this->send($infsancn_txt, $sender); 
 elseif($type == "all") 
-bot::send($infsancn_txt); 
+$this->send($infsancn_txt); 
 else 
-bot::send($infsancn_txt, "guild"); 
+$this->send($infsancn_txt, "guild"); 
 ?>

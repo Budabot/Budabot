@@ -47,11 +47,11 @@ Adonis Sanctuary Garden Nanos
 <a href='itemref://235280/235280/127'>Link</a> Umbral Wrangler</a> </font"
 ;
 
-$adosancn_txt = bot::makeLink("Adonis Sanctuary Garden Nanos", $adosancn_txt); 
+$adosancn_txt = $this->makeLink("Adonis Sanctuary Garden Nanos", $adosancn_txt); 
 if($type == "msg") 
-bot::send($adosancn_txt, $sender); 
+$this->send($adosancn_txt, $sender); 
 elseif($type == "all") 
-bot::send($adosancn_txt); 
+$this->send($adosancn_txt); 
 else 
-bot::send($adosancn_txt, "guild"); 
+$this->send($adosancn_txt, "guild"); 
 ?>

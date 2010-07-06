@@ -11,12 +11,12 @@
    */
 	$MODULE_NAME = "BOSSLOOT_MODULE";
 	
-	bot::loadSQLFile($MODULE_NAME, "boss_namedb");
-	bot::loadSQLFile($MODULE_NAME, "boss_lootdb");
+	$this->loadSQLFile($MODULE_NAME, "boss_namedb");
+	$this->loadSQLFile($MODULE_NAME, "boss_lootdb");
 	
-	bot::command("", "$MODULE_NAME/boss.php", "boss", ALL, "Bossloot Tables");
-	bot::command("", "$MODULE_NAME/bossloot.php", "bossloot", ALL, "Bossloot Search");
+	$this->command("", "$MODULE_NAME/boss.php", "boss", ALL, "Bossloot Tables");
+	$this->command("", "$MODULE_NAME/bossloot.php", "bossloot", ALL, "Bossloot Search");
 	
-	bot::help("Boss", "$MODULE_NAME/boss.txt", ALL, "Bossloot Tables", "Boss");
+	$this->help("Boss", "$MODULE_NAME/boss.txt", ALL, "Bossloot Tables", "Boss");
 	
 ?>

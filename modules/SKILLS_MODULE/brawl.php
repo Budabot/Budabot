@@ -18,7 +18,7 @@
 	$help .= "<a href='chatcmd:///tell <myname> <symbol>brawl 750'>/tell <myname> <symbol>brawl MA 750</a>\n\n";
 	$help .= $footer;
 
-	$helplink = bot::makeLink("::How to use brawl::", $help);
+	$helplink = $this->makeLink("::How to use brawl::", $help);
 	
 	if (!function_exists(interpolate)){
 		function interpolate($x1, $x2, $y1, $y2, $x) {
@@ -38,7 +38,7 @@
 		elseif ($brawl_skill < 3001)
 			$i = 4; 
 		else { 
-			bot::send("Skill entered is out of range... please enter a number between <highlight>1 and 3000<end>.",$sendto);
+			$this->send("Skill entered is out of range... please enter a number between <highlight>1 and 3000<end>.",$sendto);
 			return;
 		}
 		
@@ -59,9 +59,9 @@
 		$inside .= "Stun duration: ".$stunD."\n";
 		$inside .= $footer;
 		
-		$windowlink = bot::makeLink("::Your Brawl skill results::", $inside);
-		bot::send($windowlink, $sendto);
+		$windowlink = $this->makeLink("::Your Brawl skill results::", $inside);
+		$this->send($windowlink, $sendto);
 	} else {
-		bot::send($helplink, $sendto);
+		$this->send($helplink, $sendto);
 	}
 ?>

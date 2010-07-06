@@ -48,11 +48,11 @@ Now once you hit level 150ish the role of a Doctor becomes fairly obsolete. It's
 
 As far as weapon choice? Well since you haven't touched any of these skills you shouldn't have random ip's scattered throughout the board. And you should have a healthy supply of ip's (hopefully) to make whatever choice you want. A doctor is equally horrible with any choice of weapon. The only weapon skill that is even remotely easy for a Doc to progress in is Pistol. I would avoid it if I were you. Do some research into what kind of weapon you want to use and go for it. However do not choose a weapon that requires more then 3 skills tops. After all you don't have THAT many ip's to play with. I would recommend Shotguns. Vektor's to start out with, Waltzing Queens as your eventual upgrade and finally ending it with an Ithaca Snakemaster. This is ip conservative as well as getting a pretty good bang for your buck. But this is completely up to the taste of the player. ";
 
-$doctor_txt = bot::makeLink("Guide To Doctors", $doctor_txt); 
+$doctor_txt = $this->makeLink("Guide To Doctors", $doctor_txt); 
 if($type == "msg") 
-bot::send($doctor_txt, $sender); 
+$this->send($doctor_txt, $sender); 
 elseif($type == "all") 
-bot::send($doctor_txt); 
+$this->send($doctor_txt); 
 else 
-bot::send($doctor_txt, "guild"); 
+$this->send($doctor_txt, "guild"); 
 ?>

@@ -17,11 +17,11 @@ Click <a href='chatcmd:///tell <myname> leaveRaffle'>here</a> if you wish to lea
 		$tleft = $this->vars["Raffles"]["time"] - time();
 		$msg .= "\n\n Time left: $tleft seconds.";
 
-		$link = bot::makeLink("Raffle Status", $msg);
-		bot::send($link, $sendto);
+		$link = $this->makeLink("Raffle Status", $msg);
+		$this->send($link, $sendto);
 	} else {
 		$msg = "A raffle is not in progress.";
-		bot::send($msg, $sendto);
+		$this->send($msg, $sendto);
 	}
 }
 ?>

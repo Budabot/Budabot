@@ -220,8 +220,8 @@ Information originally provided by Trgeorge.
 Additional Information and Images provided by Ukblizzard and Uragon
 Guide Courtesy of AO Universe"
 ;
-$jobeshoel_txt = bot::makeLink("Shoel Quests : Jobe Scientists", $jobeshoel_txt);
+$jobeshoel_txt = $this->makeLink("Shoel Quests : Jobe Scientists", $jobeshoel_txt);
 
-bot::send($jobeshoel_txt, $sendto);
+$this->send($jobeshoel_txt, $sendto);
 
 ?>

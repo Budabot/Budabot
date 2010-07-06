@@ -164,8 +164,8 @@ Neutral quest information provided by Kryyn
 Additional Information and Images provided by Uragon and Ukblizzard
 Guide found at AO Universe"
 ;
-$shoelyutto_txt = bot::makeLink("Knowledge Of The Yuttos - Shoel", $shoelyutto_txt);
+$shoelyutto_txt = $this->makeLink("Knowledge Of The Yuttos - Shoel", $shoelyutto_txt);
 
-bot::send($shoelyutto_txt, $sendto);
+$this->send($shoelyutto_txt, $sendto);
 
 ?>

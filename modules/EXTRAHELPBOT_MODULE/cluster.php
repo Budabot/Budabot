@@ -15,7 +15,7 @@
 	$help .= "<a href='chatcmd:///tell <myname> <symbol>cluster comp lit'>/tell <myname> <symbol>cluster comp lit</a>\n\n";
 	$help .= $footer;
 
-	$helplink = bot::makeLink("::How to use cluster::", $help);
+	$helplink = $this->makeLink("::How to use cluster::", $help);
 
 	if (preg_match("/^cluster (.+)$/i", $message, $arr)) {
 		$name = trim($arr[1]);
@@ -31,7 +31,7 @@
 			}
 		}
 		if ($found == 0) { 
-			bot::send("No matches, sorry.", $sendto); return; 
+			$this->send("No matches, sorry.", $sendto); return; 
 		} elseif ($found == 1) {
 			$windowlink = str_replace("--", "", $info);
 		} else {
@@ -40,12 +40,12 @@
 			$inside .= str_replace("--", "\n\n", $info);
 			$inside .= $footer;
 		
-			$windowlink = bot::makeLink("::Cluster search results::", $inside);
+			$windowlink = $this->makeLink("::Cluster search results::", $inside);
 		}
-		bot::send($windowlink, $sendto);
-		if ($found >= 10) { bot::send("<highlight>More than 10 matches found!<end>\n<tab>Please specify your key words for better results.", $sendto);}
-		elseif ($found > 1) bot::send("<highlight>$found<end> matches in total.", $sendto);
+		$this->send($windowlink, $sendto);
+		if ($found >= 10) { $this->send("<highlight>More than 10 matches found!<end>\n<tab>Please specify your key words for better results.", $sendto);}
+		elseif ($found > 1) $this->send("<highlight>$found<end> matches in total.", $sendto);
 	} else {
-		bot::send($helplink, $sendto);
+		$this->send($helplink, $sendto);
 	}
 ?>

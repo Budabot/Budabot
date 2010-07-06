@@ -133,7 +133,7 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 		echo "Org Roster Update is done. \n";
 		
 		if ($restart == true) {
-		  	bot::send("The bot needs to be restarted to be able to see who is online in your org. Automatically restarting in 10 seconds.", "org");
+		  	$this->send("The bot needs to be restarted to be able to see who is online in your org. Automatically restarting in 10 seconds.", "org");
 			echo "The bot needs to be restarted to be able to see who is online in your org. Automatically restarting in 10 seconds.\n";
 		  	sleep(10);
 		  	die("The bot is restarting");

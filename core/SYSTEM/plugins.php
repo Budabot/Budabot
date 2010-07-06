@@ -30,7 +30,7 @@
    */
 
 //Sending Notify about the reload
-bot::send("Reloading all Modules. This can take a few seconds depending on your config.", $sendto);
+$this->send("Reloading all Modules. This can take a few seconds depending on your config.", $sendto);
 print("!!!Reloading all Modules!!!\n");
 
 //Delete old vars
@@ -129,6 +129,6 @@ unset($this->existing_settings);
 $db->query("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0");
 $db->query("DELETE FROM hlpcfg_<myname> WHERE `verify` = 0");
 
-bot::send("Reload of the Modules completed.", $sendto);
+$this->send("Reload of the Modules completed.", $sendto);
 print("!!!Reload of all Modules is done!!!\n");
 ?>

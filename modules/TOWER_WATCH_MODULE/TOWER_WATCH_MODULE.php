@@ -23,24 +23,24 @@
 	$MODULE_NAME = "TOWER_WATCH_MODULE";
 	
 	//Setup
-	bot::loadSQLFile($MODULE_NAME, "tower_watch");
+	$this->loadSQLFile($MODULE_NAME, "tower_watch");
 
 	//adds tower info to 'watch' list
-	bot::command("", "$MODULE_NAME/scout.php", "scout", GUILDMEMBER, "adds tower info to watch list");
+	$this->command("", "$MODULE_NAME/scout.php", "scout", GUILDMEMBER, "adds tower info to watch list");
 	
 	// removes tower info from 'watch' list
-	bot::command("", "$MODULE_NAME/remscout.php", "remscout", GUILDMEMBER, "removes tower info from watch list");
+	$this->command("", "$MODULE_NAME/remscout.php", "remscout", GUILDMEMBER, "removes tower info from watch list");
 	
 	//shows the open times for each tower site on the 'watch' list
-	bot::command("", "$MODULE_NAME/opentimes.php", "opentimes", GUILDMEMBER, "shows status of towers");
+	$this->command("", "$MODULE_NAME/opentimes.php", "opentimes", GUILDMEMBER, "shows status of towers");
 	
 	//Help files
-	bot::help("Tower Watch", "$MODULE_NAME/tower_watch.txt", GUILDMEMBER, "Tower Watch Help");
+	$this->help("Tower Watch", "$MODULE_NAME/tower_watch.txt", GUILDMEMBER, "Tower Watch Help");
 	
 	//Settings for this module	
-	bot::addsetting("alarmpreview", "Sets how early alarm should sound for gas change in minutes.", "edit", 5, "number");
+	$this->addsetting("alarmpreview", "Sets how early alarm should sound for gas change in minutes.", "edit", 5, "number");
 	
-	bot::event("2sec", "$MODULE_NAME/show_gas_change.php", "scout", "Shows gas changes for tower sites on watch list in org chat");
-	bot::event("logOn", "$MODULE_NAME/logon.php", "scout", "Displays summary of tower sites and gas levels on logon.");
+	$this->event("2sec", "$MODULE_NAME/show_gas_change.php", "scout", "Shows gas changes for tower sites on watch list in org chat");
+	$this->event("logOn", "$MODULE_NAME/logon.php", "scout", "Displays summary of tower sites and gas levels on logon.");
 	
 ?>

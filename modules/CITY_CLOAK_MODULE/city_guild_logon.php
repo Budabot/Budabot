@@ -55,7 +55,7 @@ if (isset($this->guildmembers[$sender])) {
 			$case = 2;
 		}
 		
-		bot::send($msg, $sender);
+		$this->send($msg, $sender);
     }
 }
 

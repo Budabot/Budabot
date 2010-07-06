@@ -42,11 +42,11 @@ QL 160 Jobe Armor
 Jobe Armor can be upgraded to your specific profession, chat with your professional representative and he will tell you about Tier 1, Tier 2 and the Tier 3 upgrades of the Jobe Armor. 
  ";
 
-$jobearmor_txt = bot::makeLink("Making Jobe Armor", $jobearmor_txt); 
+$jobearmor_txt = $this->makeLink("Making Jobe Armor", $jobearmor_txt); 
 if($type == "msg") 
-bot::send($jobearmor_txt, $sender); 
+$this->send($jobearmor_txt, $sender); 
 elseif($type == "all") 
-bot::send($jobearmor_txt); 
+$this->send($jobearmor_txt); 
 else 
-bot::send($jobearmor_txt, "guild"); 
+$this->send($jobearmor_txt, "guild"); 
 ?>

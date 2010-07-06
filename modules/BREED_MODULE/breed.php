@@ -42,9 +42,9 @@ Psychic       400 / 600';
 if (preg_match("/^breed/i", $message, $arr)) {
 	$list = "               .:| Breed Caps |:.\n\n";
 	$list.=" $s \n\n $n \n\n $o \n\n $a ";
-	$msg = bot::makeLink("Results of Breedcap Inquiry.", $list);
+	$msg = $this->makeLink("Results of Breedcap Inquiry.", $list);
 }
 
-bot::send($msg, $sendto);
+$this->send($msg, $sendto);
 
 ?>

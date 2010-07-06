@@ -210,7 +210,7 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 			$this->data["ORGLIST_MODULE"]["result"][$amember]["online"] = $buddy_online_status;
 		} elseif ($this->vars["name"] != $amember) { // If the name being checked ISNT the bot.
 			// check if they exist, (They might be deleted)
-			if (AoChat::get_uid($amember)) {
+			if ($this->get_uid($amember)) {
 				if ($buddy_list_full) {
 					$msg = "No room on the buddy-list!";
 					$this->send($msg, $sendto);
@@ -250,8 +250,8 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 
 if (isset($this->data["ORGLIST_MODULE"]) && count($this->data["ORGLIST_MODULE"]["check"]) == 0 || $end) {
 	$msg = orgmatesformat($this->data["ORGLIST_MODULE"], $orgrankmap, $orgcolor, $this->data["ORGLIST_MODULE"]["start"],$this->data["ORGLIST_MODULE"]["org"]);
-	$msg = bot::makeLink("Orglist for '".$this->data["ORGLIST_MODULE"]["org"]."'", $msg);
-	bot::send($msg, $this->data["ORGLIST_MODULE"]["sendto"]);
+	$msg = $this->makeLink("Orglist for '".$this->data["ORGLIST_MODULE"]["org"]."'", $msg);
+	$this->send($msg, $this->data["ORGLIST_MODULE"]["sendto"]);
 
 	// in case it was ended early
 	forEach ($this->data["ORGLIST_MODULE"]["check"] as $name => $value) {

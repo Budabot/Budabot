@@ -60,6 +60,6 @@ if (preg_match("/^note( (.*))?$/i", $message)) {
 		$msg = $usage;
 	}
 
-    bot::send($msg, $sendto);
+    $this->send($msg, $sendto);
 }
 ?>

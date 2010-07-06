@@ -113,11 +113,11 @@ Modifiers
 
  As you can clearly see, the suits are definately geared towards the different breeds, although in no way are you forced to use one suit. As mentioned before, they are not nodrop so can be sold or traded. As far as the individual suits goes - the AC's are low, although so are the requirements. It is a nice enough armor to get started in but lack of true protection and upgradeability keeps the judges from holding up all 10's. The life-expentancy of this armor we would say is mostly geared towards level 1-5 people, which is odd since the average rollerrat will steamroll people around that level. Nevertheless, it should hold you until you can get your hands on some real armor. ";
 
-$atailor_txt = bot::makeLink("Guide to A Tailor's Woe", $atailor_txt); 
+$atailor_txt = $this->makeLink("Guide to A Tailor's Woe", $atailor_txt); 
 if($type == "msg") 
-bot::send($atailor_txt, $sender); 
+$this->send($atailor_txt, $sender); 
 elseif($type == "all") 
-bot::send($atailor_txt); 
+$this->send($atailor_txt); 
 else 
-bot::send($atailor_txt, "guild"); 
+$this->send($atailor_txt, "guild"); 
 ?>

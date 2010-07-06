@@ -29,11 +29,11 @@ $elygar_txt = "Elysium Garden
 <a href='itemref://210513/210513/39'>LINK </a> Ward - Keeper
 <a href='itemref://226412/226412/25'>LINK </a> Waves of Anger - Agent</font> ";
 
-$elygar_txt = bot::makeLink("Elysium Garden Nanos", $elygar_txt); 
+$elygar_txt = $this->makeLink("Elysium Garden Nanos", $elygar_txt); 
 if($type == "msg") 
-bot::send($elygar_txt, $sender); 
+$this->send($elygar_txt, $sender); 
 elseif($type == "all") 
-bot::send($elygar_txt); 
+$this->send($elygar_txt); 
 else 
-bot::send($elygar_txt, "guild"); 
+$this->send($elygar_txt, "guild"); 
 ?>

@@ -36,7 +36,7 @@
 if($this->settings["relaybot"] != "0") {
 
 	$orgName = $this->vars["my guild"];
-	bot::send("grc <grey>[$orgName] $message<end>", $this->settings["relaybot"]);
+	$this->send("grc <grey>[$orgName] $message<end>", $this->settings["relaybot"]);
 }
 
 ?>

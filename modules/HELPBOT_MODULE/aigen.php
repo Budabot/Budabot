@@ -61,20 +61,20 @@ if(preg_match("/^aigen (ankari|ilari|rimah|jaax|xoch|cha)$/i", $message, $arr)) 
 		break;
 	}
 	
-	$msg = bot::makeLink("Info for General ".ucfirst($gen), $msg);
+	$msg = $this->makeLink("Info for General ".ucfirst($gen), $msg);
 	if($type == "msg")
-		bot::send($msg, $sender);
+		$this->send($msg, $sender);
 	elseif($type == "guild")
-		bot::send($msg, "guild");
+		$this->send($msg, "guild");
 	else
-		bot::send($msg);
+		$this->send($msg);
 } else {
 	$msg = "<red>This boss doesn't exist!<end> Try using: ilari, rimah, jaax, ankari, xoch or cha to get a result.";
 	if($type == "msg")
-		bot::send($msg, $sender);
+		$this->send($msg, $sender);
 	elseif($type == "guild")
-		bot::send($msg, "guild");
+		$this->send($msg, "guild");
 	else
-		bot::send($msg);
+		$this->send($msg);
 }	
 ?>

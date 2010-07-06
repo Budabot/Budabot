@@ -30,12 +30,12 @@
    foreach ($xml->children() as $base_container) {// Loops through inventory and bank
 		foreach ($base_container->children() as $base_slot) {// Loops through items and backpacks
 			if($base_slot->getName() == "item" && preg_match("/\b".$base_slot['id']."\b/i", $arr)){
-				$msg .= bot::makeItem($base_slot['lowid'], $base_slot['highid'], $base_slot['ql'], $base_slot['name'])."\nItem ID: ".$base_slot['id']."\nLocation: ".ucwords($base_container->getName())."\n\n";
+				$msg .= $this->makeItem($base_slot['lowid'], $base_slot['highid'], $base_slot['ql'], $base_slot['name'])."\nItem ID: ".$base_slot['id']."\nLocation: ".ucwords($base_container->getName())."\n\n";
 				$item_count++;
 			}elseif($base_slot->getName() == "backpack"){
 				foreach ($base_slot->children() as $item) {// Loops through items in backpacks
 					if(preg_match("/\b".$item['id']."\b/i", $arr)){
-						$msg .= bot::makeItem($item['lowid'], $item['highid'], $item['ql'], $item['name'])."\nItem ID: ".$item['id']."\nLocation: ".ucwords($base_container->getName())." > Backpack #".$base_slot['id']."\n\n";
+						$msg .= $this->makeItem($item['lowid'], $item['highid'], $item['ql'], $item['name'])."\nItem ID: ".$item['id']."\nLocation: ".ucwords($base_container->getName())." > Backpack #".$base_slot['id']."\n\n";
 						$item_count++;
 					}
 				}
@@ -46,30 +46,30 @@
 	$link = "No items found.";
 	}else{
     $msg = $item_count." items found.\n\n".$msg;
-    $link = bot::makeLink($item_count." items found", $msg);
+    $link = $this->makeLink($item_count." items found", $msg);
 	}
        if($type == "msg")
-        bot::send($link, $sender);
+        $this->send($link, $sender);
     elseif($type == "priv")
-        bot::send($link);
+        $this->send($link);
 	elseif($type == "guild")
-		bot::send($link, "guild");
+		$this->send($link, "guild");
    }else{
    $msg = "Incorrect syntax! For more information /tell <myname> help.";
     if($type == "msg")
-        bot::send($msg, $sender);
+        $this->send($msg, $sender);
     elseif($type == "priv")
-        bot::send($msg);
+        $this->send($msg);
 	elseif($type == "guild")
-		bot::send($msg, "guild");
+		$this->send($msg, "guild");
    }
    }else{
       $msg = "File not found! Please contact an administrator.";
     if($type == "msg")
-        bot::send($msg, $sender);
+        $this->send($msg, $sender);
     elseif($type == "priv")
-        bot::send($msg);
+        $this->send($msg);
 	elseif($type == "guild")
-		bot::send($msg, "guild");
+		$this->send($msg, "guild");
    }
    ?>

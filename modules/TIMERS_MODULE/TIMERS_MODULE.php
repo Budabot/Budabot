@@ -2,18 +2,18 @@
 	$MODULE_NAME = "TIMERS_MODULE";
 	$PLUGIN_VERSION = 0.1;
 
-	bot::event("setup", "$MODULE_NAME/setup.php");
+	$this->event("setup", "$MODULE_NAME/setup.php");
 
 	// Timer Module
-	bot::command("", "$MODULE_NAME/timers.php", "timer", GUILDMEMBER, "Set Personal Timers");
-	bot::command("", "$MODULE_NAME/timers.php", "timers", GUILDMEMBER, "Shows running Timers");
-	bot::command("", "$MODULE_NAME/countdown.php", "countdown", GUILDMEMBER, "Set a countdown");
+	$this->command("", "$MODULE_NAME/timers.php", "timer", GUILDMEMBER, "Set Personal Timers");
+	$this->command("", "$MODULE_NAME/timers.php", "timers", GUILDMEMBER, "Shows running Timers");
+	$this->command("", "$MODULE_NAME/countdown.php", "countdown", GUILDMEMBER, "Set a countdown");
 
-	bot::event("2sec", "$MODULE_NAME/timers_check.php", "timer");
-	bot::regGroup("timers", $MODULE_NAME, "Set/Show Personal Timer", "timer", "timers");
+	$this->event("2sec", "$MODULE_NAME/timers_check.php", "timer");
+	$this->regGroup("timers", $MODULE_NAME, "Set/Show Personal Timer", "timer", "timers");
 	
-	bot::addsetting("timers_window", "Show running timers in a window or directly", "edit", "1", "window only;chat only;window after 3;window after 4;window after 5", '1;2;3;4;5', MODERATOR);
+	$this->addsetting("timers_window", "Show running timers in a window or directly", "edit", "1", "window only;chat only;window after 3;window after 4;window after 5", '1;2;3;4;5', MODERATOR);
 
 	//Help files
-	bot::help("Timer", "$MODULE_NAME/timer.txt", GUILDMEMBER, "Set/Show Timers.");
+	$this->help("Timer", "$MODULE_NAME/timer.txt", GUILDMEMBER, "Set/Show Timers.");
 ?>

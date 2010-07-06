@@ -11,7 +11,7 @@ if (preg_match("/^hd$/i", $message)) {
 				   "<tab><tab>-><tab>".(strlen(29 - $i) < 2 ? "0" : "").(29 - $i)."s / ".(strlen(floor((29 - $i)/2)) < 2 ? "0" : "").floor((29 - $i)/2)."s</font>\n".
 				   ($i % 3 == 2 ? "<tab><img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n" : "");
 	}
-	$msg = bot::makeLink("Heal delta tick info", $inside.$footer);
+	$msg = $this->makeLink("Heal delta tick info", $inside.$footer);
 } elseif (preg_match("/^hd ([0-9]+)$/i", $message, $arr)) {
 	$tick = (29-floor($arr[1]/30)); 
 	if ($tick < 2) $tick = 2;
@@ -22,6 +22,6 @@ if (preg_match("/^hd$/i", $message)) {
 	$msg = "Correct !hd usage:\n <highlight>!hd &lt;your stamina><end>, e.g. <highlight>!hd 350<end>.";
 }
 
-bot::send($msg, $sendto);
+$this->send($msg, $sendto);
 
 ?>

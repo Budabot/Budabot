@@ -30,7 +30,7 @@
    */
 
 if (preg_match("/^leave$/i", $message)) {
-	AOChat::privategroup_kick($sender);
+	$this->privategroup_kick($sender);
 }
 
 ?>

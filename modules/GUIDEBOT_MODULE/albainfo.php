@@ -196,8 +196,8 @@ Additional information provided by Trgeorge
 Guide courtesy of AO Universe
 "
 ;
-$albainfo_txt = bot::makeLink("Guide to Albtraum playfield", $albainfo_txt); 
+$albainfo_txt = $this->makeLink("Guide to Albtraum playfield", $albainfo_txt); 
 
-bot::send($albainfo_txt, $sendto);
+$this->send($albainfo_txt, $sendto);
 
 ?>

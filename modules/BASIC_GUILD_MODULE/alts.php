@@ -31,7 +31,7 @@
 
 if(preg_match("/^alts add (.+)$/i", $message, $arr)) {
     $name = ucfirst(strtolower($arr[1]));
-    $uid = AoChat::get_uid($arr[1]);
+    $uid = $this->get_uid($arr[1]);
     if(!$uid)
         $msg = "Player <highlight>$name<end> does not exist.";
     else {
@@ -60,7 +60,7 @@ if(preg_match("/^alts add (.+)$/i", $message, $arr)) {
     }
 } else if(preg_match("/^alts (rem|del|remove|delete) (.+)$/i", $message, $arr)) {
     $name = ucfirst(strtolower($arr[2]));
-    $uid = AoChat::get_uid($arr[2]);
+    $uid = $this->get_uid($arr[2]);
     if(!$uid)
         $msg = "Player <highlight>".$name."<end> does not exist.";
     else {
@@ -88,7 +88,7 @@ if(preg_match("/^alts add (.+)$/i", $message, $arr)) {
     }
 } else if(preg_match("/^alts (.+)$/i", $message, $arr)) {
     $name = ucfirst(strtolower($arr[1]));
-    $uid = AoChat::get_uid($arr[1]);
+    $uid = $this->get_uid($arr[1]);
     if(!$uid)
         $msg = "Player <highlight>".$name."<end> does not exist.";
     else {
@@ -111,7 +111,7 @@ if(preg_match("/^alts add (.+)$/i", $message, $arr)) {
         if($main) {
             $list = "<header>::::: Alternative Character List :::::<end> \n \n";
             $list .= ":::::: Main Character\n";
-            $list .= "<tab><tab>".bot::makeLink($main, "/tell ".$this->vars["name"]." whois $main", "chatcmd")." - ";
+            $list .= "<tab><tab>".$this->makeLink($main, "/tell ".$this->vars["name"]." whois $main", "chatcmd")." - ";
 			$online = $this->buddy_online($main);
             if ($online === null) {
                 $list .= "No status.\n";
@@ -123,7 +123,7 @@ if(preg_match("/^alts add (.+)$/i", $message, $arr)) {
             $list .= ":::::: Alt Character(s)\n";
             $db->query("SELECT * FROM alts WHERE `main` = '$main'");
             while($row = $db->fObject()) {
-                $list .= "<tab><tab>".bot::makeLink($row->alt, "/tell ".$this->vars["name"]." whois $row->alt", "chatcmd")." - ";
+                $list .= "<tab><tab>".$this->makeLink($row->alt, "/tell ".$this->vars["name"]." whois $row->alt", "chatcmd")." - ";
 				$online = $this->buddy_online($row->alt);
                 if ($online === null) {
                     $list .= "No status.\n";
@@ -133,7 +133,7 @@ if(preg_match("/^alts add (.+)$/i", $message, $arr)) {
                     $list .= "<red>Offline<end>\n";
 				}
             }
-            $msg = bot::makeLink($main."`s Alts", $list);
+            $msg = $this->makeLink($main."`s Alts", $list);
         }
     }
 } elseif(preg_match("/^alts$/i", $message)) {
@@ -157,7 +157,7 @@ if(preg_match("/^alts add (.+)$/i", $message, $arr)) {
     if($main) {
         $list = "<header>::::: Alternative Character List :::::<end> \n \n";
         $list .= ":::::: Main Character\n";
-        $list .= "<tab><tab>".bot::makeLink($main, "/tell ".$this->vars["name"]." whois $main", "chatcmd")." - ";
+        $list .= "<tab><tab>".$this->makeLink($main, "/tell ".$this->vars["name"]." whois $main", "chatcmd")." - ";
 		$online = $this->buddy_online($main);
         if ($online === null) {
             $list .= "No status.\n";
@@ -170,7 +170,7 @@ if(preg_match("/^alts add (.+)$/i", $message, $arr)) {
         $list .= ":::::: Alt Character(s)\n";
         $db->query("SELECT * FROM alts WHERE `main` = '$main'");
         while($row = $db->fObject()) {
-            $list .= "<tab><tab>".bot::makeLink($row->alt, "/tell ".$this->vars["name"]." whois $row->alt", "chatcmd")." - ";
+            $list .= "<tab><tab>".$this->makeLink($row->alt, "/tell ".$this->vars["name"]." whois $row->alt", "chatcmd")." - ";
 			$online = $this->buddy_online($row->alt);
             if ($online === null) {
                 $list .= "No status.\n";
@@ -180,15 +180,15 @@ if(preg_match("/^alts add (.+)$/i", $message, $arr)) {
                 $list .= "<red>Offline<end>\n";
 			}
         }
-        $msg = bot::makeLink($sender."`s Alts", $list);
+        $msg = $this->makeLink($sender."`s Alts", $list);
     }
 } elseif (preg_match("/^altsadmin (.+)$/i", $message, $arr)) {
 	if (preg_match("/^add (.+) (.+)$/i", $arr[1], $names)) {
 		if ($names[1] != '' && $names[2] != '') {
 			$name_alt = ucfirst(strtolower($names[1]));
 			$name_main = ucfirst(strtolower($names[2]));
-			$uid1 = AoChat::get_uid($names[1]);
-			$uid2 = AoChat::get_uid($names[2]);
+			$uid1 = $this->get_uid($names[1]);
+			$uid2 = $this->get_uid($names[2]);
 			if (!$uid1) 
 				$msg = "Player <highlight>$name_alt<end> does not exist.";
 			if (!$uid2)
@@ -214,8 +214,8 @@ if(preg_match("/^alts add (.+)$/i", $message, $arr)) {
 		if ($names[1] != '' && $names[2] != '') {
 			$name_alt = ucfirst(strtolower($names[1]));
 			$name_main = ucfirst(strtolower($names[2]));
-			$uid1 = AoChat::get_uid($names[1]);
-			$uid2 = AoChat::get_uid($names[2]);
+			$uid1 = $this->get_uid($names[1]);
+			$uid2 = $this->get_uid($names[2]);
 			if (!$uid1) 
 				$msg = "Player <highlight>$name_alt<end> does not exist.";
 			if (!$uid2)
@@ -241,9 +241,9 @@ if(preg_match("/^alts add (.+)$/i", $message, $arr)) {
 
 // Send info back
 if($type == "msg")
-    bot::send($msg, $sender);
+    $this->send($msg, $sender);
 elseif($type == "priv")
-   	bot::send($msg);
+   	$this->send($msg);
 elseif($type == "guild")
-   	bot::send($msg, "guild");
+   	$this->send($msg, "guild");
 ?>

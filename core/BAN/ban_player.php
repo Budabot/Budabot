@@ -36,17 +36,17 @@ if(preg_match("/^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+) (for|
 	if(($arr[2] == "w" || $arr[2] == "week" || $arr[2] == "weeks") && $arr[1] <= 50 && $arr[1] > 0)
 	    $ban_end = time() + ($arr[1] * 604800);
 	elseif (($arr[2] == "w" || $arr[2] == "week" || $arr[2] == "weeks") && $arr[1] > 50) {
-	  	bot::send("You can't ban a player for more then 50weeks!", $sendto);
+	  	$this->send("You can't ban a player for more then 50weeks!", $sendto);
 	  	return;
 	} elseif(($arr[2] == "d" || $arr[2] == "day" || $arr[2] == "days") && $arr[1] <= 100 && $arr[1] > 0)
 	    $ban_end = time() + ($arr[1] * 86400);
 	elseif (($arr[2] == "d" || $arr[2] == "day" || $arr[2] == "days") && $arr[1] > 100) {
-	  	bot::send("You can't ban a player for more then 100days!", $sendto);
+	  	$this->send("You can't ban a player for more then 100days!", $sendto);
 	  	return;
 	} elseif(($arr[2] == "m" || $arr[2] == "month" || $arr[2] == "months") && $arr[1] <= 12 && $arr[1] > 0)
 	    $ban_end = time() + ($arr[1] * 18144000);
 	else {
-	  	bot::send("You can't ban a player for more then 12months!", $sendto);
+	  	$this->send("You can't ban a player for more then 12months!", $sendto);
 	  	return;
 	}
 } elseif(preg_match("/^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+)$/i", $message, $arr)) {
@@ -56,17 +56,17 @@ if(preg_match("/^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+) (for|
 	if(($arr[2] == "w" || $arr[2] == "week" || $arr[2] == "weeks") && $arr[1] <= 50 && $arr[1] > 0)
 	    $ban_end = time() + ($arr[1] * 604800);
 	elseif (($arr[2] == "w" || $arr[2] == "week" || $arr[2] == "weeks") && $arr[1] > 50) {
-	  	bot::send("You can't ban a player for more then 50weeks!", $sendto);
+	  	$this->send("You can't ban a player for more then 50weeks!", $sendto);
 	  	return;
 	} elseif(($arr[2] == "d" || $arr[2] == "day" || $arr[2] == "days") && $arr[1] <= 100 && $arr[1] > 0)
 	    $ban_end = time() + ($arr[1] * 86400);
 	elseif (($arr[2] == "d" || $arr[2] == "day" || $arr[2] == "days") && $arr[1] > 100) {
-	  	bot::send("You can't ban a player for more then 100days!", $sendto);
+	  	$this->send("You can't ban a player for more then 100days!", $sendto);
 	  	return;
 	} elseif(($arr[2] == "m" || $arr[2] == "month" || $arr[2] == "months") && $arr[1] <= 12 && $arr[1] > 0)
 	    $ban_end = time() + ($arr[1] * 18144000);
 	else {
-	  	bot::send("You can't ban a player for more then 12months!", $sendto);
+	  	$this->send("You can't ban a player for more then 12months!", $sendto);
 	  	return;
 	}
 } elseif(preg_match("/^ban (.+) (for|reason) (.+)$/i", $message, $arr)){
@@ -82,18 +82,18 @@ if(preg_match("/^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+) (for|
 	return;
 }
 
-if(AOChat::get_uid($who) == NULL){
-	bot::send("<red>Sorry player you wish to ban does not exist.", $sendto);
+if($this->get_uid($who) == NULL){
+	$this->send("<red>Sorry player you wish to ban does not exist.", $sendto);
 	return;
 }
 
 if (isset($this->banlist[$who])) {
-	bot::send("<red>Player $who is already banned.<end>", $sendto);
+	$this->send("<red>Player $who is already banned.<end>", $sendto);
 	return;
 }
 
 $db->exec("INSERT INTO banlist_<myname> (`name`, `banned_by`, `time`, `reason`, `banend`) VALUES ('".str_replace("'", "''", $name)."', '$sender', '".date("m-d-y")."', '".str_replace("'", "''", $reason)."', $banend)");
 include 'upload_banlist.php';
-bot::send("You have banned <highlight>$name<end> from this bot", $sendto);
+$this->send("You have banned <highlight>$name<end> from this bot", $sendto);
 
 ?>

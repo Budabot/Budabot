@@ -59,11 +59,11 @@ Thanks to Turk021 for his APF Guides
 http://forums.anarchy-online.com/showthread.php?t=392937
 ";
 
-$apf13guide_txt = bot::makeLink("Guide to Apf Sector 13", $apf13guide_txt);
+$apf13guide_txt = $this->makeLink("Guide to Apf Sector 13", $apf13guide_txt);
 if($type == "msg")
-bot::send($apf13guide_txt, $sender);
+$this->send($apf13guide_txt, $sender);
 elseif($type == "all")
-bot::send($apf13guide_txt);
+$this->send($apf13guide_txt);
 else
-bot::send($apf13guide_txt, "guild");
+$this->send($apf13guide_txt, "guild");
 ?>

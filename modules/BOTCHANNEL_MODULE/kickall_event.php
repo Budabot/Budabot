@@ -30,8 +30,8 @@
    */
 
 if (time() >= $this->vars["priv_kickall"]) {
-	AOChat::privategroup_kick_all();
-	bot::unregevent("2sec", "BOTCHANNEL_MODULE/kickall_event.php");
+	$this->privategroup_kick_all();
+	$this->unregevent("2sec", "BOTCHANNEL_MODULE/kickall_event.php");
 	unset($this->vars["priv_kickall"]);
 }
 ?>

@@ -59,13 +59,13 @@ if(preg_match("/^chatlist$/i", $message) || preg_match("/^sm$/i", $message)){
 	if($this->vars["topic"] != "")
 		$topic = "Topic: {$this->settings["topic"]}<br><br>";
 	$list = "<yellow>Chatlist<br><br><green>$topic<lgreen>".$list;
-	$link = bot::makeLink('Chatlist', $list);
+	$link = $this->makeLink('Chatlist', $list);
 
     if($type == "msg")
-        bot::send($link, $sender);
+        $this->send($link, $sender);
     elseif($type == "priv")
-       	bot::send($link);
+       	$this->send($link);
     elseif($type == "guild")
-       	bot::send($link, "guild");
+       	$this->send($link, "guild");
 }
 ?>

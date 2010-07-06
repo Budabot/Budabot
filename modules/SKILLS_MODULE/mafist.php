@@ -30,7 +30,7 @@
 	$help .= "<a href='chatcmd:///tell <myname> <symbol>mafist shade 750'>/tell <myname> <symbol>mafist shade 750</a>\n\n";
 	$help .= $footer;
 
-	$helplink = bot::makeLink("::How to use MA::", $help);
+	$helplink = $this->makeLink("::How to use MA::", $help);
 
 	if (preg_match("/^mafist ([a-z]+) ([0-9]+)$/i", $message, $arr)) {
 		$MaSkill = trim($arr[2]);
@@ -44,7 +44,7 @@
 		elseif ($MaSkill < 3001)
 			$i = 5; 
 		else { 
-			bot::send("Skill entered is out of range... please enter a number between <highlight>1 and 3000<end>.",$sendto);
+			$this->send("Skill entered is out of range... please enter a number between <highlight>1 and 3000<end>.",$sendto);
 			return;
 		}
 		
@@ -87,10 +87,10 @@
 		$inside .= "Fist speed: <orange>".$speed."<end>s/<orange>".$speed."<end>s\n";
 		$inside .= $footer;
 		
-		$windowlink = bot::makeLink("::Your MA skill results::", $inside);
-		bot::send($windowlink, $sendto);
+		$windowlink = $this->makeLink("::Your MA skill results::", $inside);
+		$this->send($windowlink, $sendto);
 		
 	} else {
-		bot::send($helplink, $sendto);
+		$this->send($helplink, $sendto);
 	}
 ?>

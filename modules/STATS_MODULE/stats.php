@@ -37,7 +37,7 @@ if (preg_match("/^stats$/i", $message, $arr)) {
 
 	$window = '';
 	if (method_exists('bot', 'makeHeader')) {
-		$window = bot::makeHeader("Stats", "none");
+		$window = $this->makeHeader("Stats", "none");
 	} else {
 		$window = "<header>::::: Stats :::::<end>\n";	
 	}
@@ -132,9 +132,9 @@ if (preg_match("/^stats$/i", $message, $arr)) {
 		<a href=skillid://202>Char stability</a> (unknown)
 		<a href=skillid://203>Char extroverty</a> (unknown)";
 
-	$msg = bot::makeLink('Stats', $window, 'blob');
+	$msg = $this->makeLink('Stats', $window, 'blob');
 
-	bot::send($msg, $sendto);
+	$this->send($msg, $sendto);
 }
 
 ?>

@@ -323,11 +323,11 @@ Last updated on 08.22.2006 by Stillian
 Information originally provided by Windguaerd.
 http://www.ao-universe.com/main.php?site=knowledge&link=0&id=153 ";
 
-$cryptinfo_txt = bot::makeLink("Guide to Crypt Of Home", $cryptinfo_txt); 
+$cryptinfo_txt = $this->makeLink("Guide to Crypt Of Home", $cryptinfo_txt); 
 if($type == "msg") 
-bot::send($cryptinfo_txt, $sender); 
+$this->send($cryptinfo_txt, $sender); 
 elseif($type == "all") 
-bot::send($cryptinfo_txt); 
+$this->send($cryptinfo_txt); 
 else 
-bot::send($cryptinfo_txt, "guild"); 
+$this->send($cryptinfo_txt, "guild"); 
 ?>

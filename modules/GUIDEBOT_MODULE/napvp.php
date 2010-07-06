@@ -87,11 +87,11 @@ And please, post your twinks or twinks project in <a href='chatcmd:///start http
 
 And remember : <font color=#ff0000>TURN AUTO ATTACK : OFF and Pet on /follow !</font>";
 
-$napvp_txt = bot::makeLink("Newcomers Alliance PvP Rules", $napvp_txt);
+$napvp_txt = $this->makeLink("Newcomers Alliance PvP Rules", $napvp_txt);
 if($type == "msg")
-bot::send($napvp_txt, $sender);
+$this->send($napvp_txt, $sender);
 elseif($type == "all")
-bot::send($napvp_txt);
+$this->send($napvp_txt);
 else
-bot::send($napvp_txt, "guild");
+$this->send($napvp_txt, "guild");
 ?>

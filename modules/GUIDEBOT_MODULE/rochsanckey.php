@@ -21,11 +21,11 @@ You will have to respawn her if someone killed it while you where doing the othe
 
 IMPORTANT: You will have be the one doing the majority of damage on the Empath. You won't get a mission update if you don't get loot rights. I highly recommend you bring some friends to keep you healed.  ";
 
-$rochsanckey_txt = bot::makeLink("Scheol: Roch Sanctuary Garden Key Quest", $rochsanckey_txt); 
+$rochsanckey_txt = $this->makeLink("Scheol: Roch Sanctuary Garden Key Quest", $rochsanckey_txt); 
 if($type == "msg") 
-bot::send($rochsanckey_txt, $sender); 
+$this->send($rochsanckey_txt, $sender); 
 elseif($type == "all") 
-bot::send($rochsanckey_txt); 
+$this->send($rochsanckey_txt); 
 else 
-bot::send($rochsanckey_txt, "guild"); 
+$this->send($rochsanckey_txt, "guild"); 
 ?>

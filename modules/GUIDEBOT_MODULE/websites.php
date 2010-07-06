@@ -67,8 +67,8 @@ Shadowlands Related
 
 <font color = yellow>Note: These links will be automatically opened in your web browser.</font> "; 
 
-$websites_txt = bot::makeLink("Anarchy Online Websites", $websites_txt); 
+$websites_txt = $this->makeLink("Anarchy Online Websites", $websites_txt); 
 
-bot::send($websites_txt, $sendto);
+$this->send($websites_txt, $sendto);
 
 ?>

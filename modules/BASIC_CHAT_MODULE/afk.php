@@ -48,5 +48,5 @@ if(preg_match("/^afk$/i", $message, $arr)) {
         $msg = "<highlight>$sender<end> is back";
     }
 }
-bot::send($msg);
+$this->send($msg);
 ?>

@@ -12,9 +12,9 @@ if (preg_match("/^svn update/i", $message)) {
 		$window .= $line . "\n";
 	}
 	
-	$msg = bot::makeLink('svn update output', $window);
+	$msg = $this->makeLink('svn update output', $window);
 	
-	bot::send($msg, $sendto);
+	$this->send($msg, $sendto);
 } else if (preg_match("/^svn info/i", $message)) {
 	$command = "svn info";
 	$output = array();
@@ -26,9 +26,9 @@ if (preg_match("/^svn update/i", $message)) {
 		$window .= $line . "\n";
 	}
 	
-	$msg = bot::makeLink('svn info output', $window);
+	$msg = $this->makeLink('svn info output', $window);
 	
-	bot::send($msg, $sendto);
+	$this->send($msg, $sendto);
 } else {
 	$syntaxt_error = true;
 }

@@ -20,7 +20,7 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 	
 	$boss = '';
 	if (method_exists('bot', 'makeHeader')) {
-		$boss = bot::makeHeader("Results of Search for $search", $links);
+		$boss = $this->makeHeader("Results of Search for $search", $links);
 	} else {
 		$boss = "<header>::::: Results of Search for $search :::::<end>\n";
 	}
@@ -55,7 +55,7 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 				}
 			}
 		}
-		$output = bot::makelink("Boss", $boss);
+		$output = $this->makelink("Boss", $boss);
 	}
 	//If single match found, output full loot table
 	elseif ($name_found  == 1) {
@@ -87,7 +87,7 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 			$boss .= "<img src=rdb://".$icon.">\n";
 			$boss .= "<a href='itemref://$loid/$hiid/$ql.'>$loot_name</a>\n\n";
 		}
-		$output = bot::makelink("Boss", $boss);
+		$output = $this->makelink("Boss", $boss);
 	}
 	else {
 		$output .= "<yellow>There were no matches for your search.</end>";
@@ -97,6 +97,6 @@ else {
 	$output .="<yellow>You must enter search criteria after the command.<end>";
 }
 	
-bot::send($output, $sendto);
+$this->send($output, $sendto);
 
 ?>

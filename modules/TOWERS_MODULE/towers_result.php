@@ -70,7 +70,7 @@ if (preg_match("/^battle(s?)$/i", $message) || preg_match("/^battle(s?) (.+)$/i"
 			$list .= $colorlabel."Defender:<end> <$def_side>".$row->def_guild."<end> (".ucfirst($def_side).")\n";
 			$list .= $colorlabel."Zone:<end> ".$row->zone." (".$row->x."x".$row->y.")\n\n";
  		}
-		$msg = bot::makeLink("Tower Battle: click to view", $list);
+		$msg = $this->makeLink("Tower Battle: click to view", $list);
 	}
 
 } else if (preg_match("/^victory$/i", $message) || preg_match("/^victory (.+)$/i", $message, $arr)) {
@@ -94,7 +94,7 @@ if (preg_match("/^battle(s?)$/i", $message) || preg_match("/^battle(s?) (.+)$/i"
 			$list .= $colorlabel."Winner:<end> <$win_side>".$row->win_guild."<end> (".ucfirst($win_side).")\n";
 			$list .= $colorlabel."Loser:<end> <$lose_side>".$row->lose_guild."<end> (".ucfirst($lose_side).")\n\n";
 		}
-		$msg = "Tower Battle Results: ".bot::makeLink("click to view", $list);
+		$msg = "Tower Battle Results: ".$this->makeLink("click to view", $list);
 	}
  
 } else {
@@ -110,7 +110,7 @@ if ($msg) {
 	$msg = str_replace("<unknown>", "<font color='#FF0000'>", $msg);
 
 	// Send info back
-	bot::send($msg, $sendto);
+	$this->send($msg, $sendto);
 }
 
 ?>

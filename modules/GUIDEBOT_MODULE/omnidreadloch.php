@@ -113,11 +113,11 @@ Last updated on 04.02.2007 by Windkeeper
 Written by Ukblizzard and Uragon. 
 Additional firepower provided by Omni-Pol."
 ;
-$omnidreadloch_txt = bot::makeLink("Omni Dreadloch Camps", $omnidreadloch_txt); 
+$omnidreadloch_txt = $this->makeLink("Omni Dreadloch Camps", $omnidreadloch_txt); 
 if($type == "msg") 
-bot::send($omnidreadloch_txt, $sender); 
+$this->send($omnidreadloch_txt, $sender); 
 elseif($type == "priv") 
-bot::send($omnidreadloch_text); 
+$this->send($omnidreadloch_text); 
 else 
-bot::send($omnidreadloch_txt, "guild");
+$this->send($omnidreadloch_txt, "guild");
 ?>

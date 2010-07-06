@@ -43,13 +43,13 @@ if(preg_match("/^info(.*)$/i", $message))
 		    $linkContents = '';
 		    foreach($topicList as $topic)
 		    {
-				$linkContents .= bot::makeLink($topic, "/tell " . $vars['name'] . " " . $settings['symbol'] . "info $topic", 'chatcmd') . "\n";  
-				//$linkContents .= bot::makeLink($topic, getTopicContents($path, $topic, $fileExt), "blob") . "\n";  
+				$linkContents .= $this->makeLink($topic, "/tell " . $vars['name'] . " " . $settings['symbol'] . "info $topic", 'chatcmd') . "\n";  
+				//$linkContents .= $this->makeLink($topic, getTopicContents($path, $topic, $fileExt), "blob") . "\n";  
 		    }
 		    
 		    if($linkContents)
 		    {
-				$msg = bot::makeLink('Topics (' . count($topicList) . ')', count($topicList) . " Topics Available\n==========\n\n$linkContents", "blob");
+				$msg = $this->makeLink('Topics (' . count($topicList) . ')', count($topicList) . " Topics Available\n==========\n\n$linkContents", "blob");
 		    }
 		    else
 		    {
@@ -75,11 +75,11 @@ if(preg_match("/^info(.*)$/i", $message))
 		}
 		else
 		{	
-			$msg = bot::makeLink($fileName, $info);
+			$msg = $this->makeLink($fileName, $info);
 		}
 	}
 	
-	bot::send($msg, $sendto);
+	$this->send($msg, $sendto);
 }
 
 ?>

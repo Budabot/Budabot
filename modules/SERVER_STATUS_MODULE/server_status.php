@@ -32,7 +32,7 @@
 if (preg_match("/^server(.*)$/i", $message, $arr)) {
 	if (!$arr[1] || $arr[1] == 1 || $arr[1] == 2 || $arr[1] == 3 || $arr[1] == 4) {
 	 	$msg = "Getting Server status. Please standby.";
-        bot::send($msg, $sendto);
+        $this->send($msg, $sendto);
 
 		$server = new server(trim($arr[1]));
 	  	if ($server->errorCode != 0) {
@@ -70,13 +70,13 @@ if (preg_match("/^server(.*)$/i", $message, $arr)) {
 		    	$link .= "<highlight>$zone<end>: {$proz["players"]} \n";
 			}
 			
-			$msg = bot::makeLink("Status of $server->name", $link);	    
+			$msg = $this->makeLink("Status of $server->name", $link);	    
 		}
 	} else {
 		$msg = "Choose a server between 1 and 4";
 	}
 
-	bot::send($msg, $sendto);
+	$this->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

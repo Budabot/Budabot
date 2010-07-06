@@ -12,13 +12,13 @@
 	$help .= "<a href='chatcmd:///tell <myname> <symbol>mobloot 150'>/tell <myname> <symbol>mobloot 150</a>\n\n";
 	$help .= $footer;
 
-	$helplink = bot::makeLink("::How to use mobloot::", $help);
+	$helplink = $this->makeLink("::How to use mobloot::", $help);
 
 	if (preg_match("/^mobloot ([0-9]+)$/i", $message, $arr)) {
 		$lvl = trim($arr[1]);
 		
 		if ($lvl > 300 || $lvl < 1) {
-			bot::send("Level entered is out of range... please enter a number between <highlight>1 and 300<end>.",$sendto);
+			$this->send("Level entered is out of range... please enter a number between <highlight>1 and 300<end>.",$sendto);
 		} else {
 			$high = floor($lvl * 1.25); $low = ceil($lvl * 0.75);
 			
@@ -28,12 +28,12 @@
 			$inside .= "Loot QL range: <orange>".$low."<end> - <orange>".$high."<end>\n";
 			$inside .= $footer;
 			
-			$windowlink = bot::makeLink("::Your loot QL results::", $inside);
-			bot::send($windowlink, $sendto);
+			$windowlink = $this->makeLink("::Your loot QL results::", $inside);
+			$this->send($windowlink, $sendto);
 		}
 	
 	} else {
-		bot::send($helplink, $sendto);
+		$this->send($helplink, $sendto);
 	}
 
 ?>

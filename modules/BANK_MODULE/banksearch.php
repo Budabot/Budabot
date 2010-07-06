@@ -35,7 +35,7 @@
 			$hitlimit=true;
 			break 2;
 			}else{
-				$msg .= bot::makeItem($base_slot['lowid'], $base_slot['highid'], $base_slot['ql'], $base_slot['name'])."\nItem ID: ".$base_slot['id']."\nLocation: ".ucwords($base_container->getName())."\n\n";
+				$msg .= $this->makeItem($base_slot['lowid'], $base_slot['highid'], $base_slot['ql'], $base_slot['name'])."\nItem ID: ".$base_slot['id']."\nLocation: ".ucwords($base_container->getName())."\n\n";
 				$item_count++;
 				}
 			}else{
@@ -45,7 +45,7 @@
 			$hitlimit=true;
 			break 3;
 			}else{
-					$msg .= bot::makeItem($item['lowid'], $item['highid'], $item['ql'], $item['name'])."\nItem ID: ".$item['id']."\nLocation: ".ucwords($base_container->getName())." > Backpack #".$base_slot['id']."\n\n";
+					$msg .= $this->makeItem($item['lowid'], $item['highid'], $item['ql'], $item['name'])."\nItem ID: ".$item['id']."\nLocation: ".ucwords($base_container->getName())." > Backpack #".$base_slot['id']."\n\n";
 					$item_count++;
 					}
 					}
@@ -56,26 +56,26 @@
 	
 	if($hitlimit){
 	$msg = "Item search limited to 40 items.\n\n".$msg;
-	$link = bot::makeLink("Item search limited to 40 items", $msg);
+	$link = $this->makeLink("Item search limited to 40 items", $msg);
 	}elseif($item_count == 0){
 	$link = "No items found.";
 	}else{
     $msg = $item_count." items found.\n\n".$msg;
-    $link = bot::makeLink($item_count." items found", $msg);
+    $link = $this->makeLink($item_count." items found", $msg);
 	}
 	if($type == "msg")
-       bot::send($link, $sender);
+       $this->send($link, $sender);
     elseif($type == "priv")
-        bot::send($link);
+        $this->send($link);
 	elseif($type == "guild")
-		bot::send($link, "guild");
+		$this->send($link, "guild");
 	}else{
    $msg = "File not found! Please contact an administrator.";
     if($type == "msg")
-        bot::send($msg, $sender);
+        $this->send($msg, $sender);
     elseif($type == "priv")
-        bot::send($msg);
+        $this->send($msg);
 	elseif($type == "guild")
-		bot::send($msg, "guild");
+		$this->send($msg, "guild");
    }
 ?>

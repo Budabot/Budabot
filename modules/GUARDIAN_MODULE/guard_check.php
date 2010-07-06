@@ -36,23 +36,23 @@ foreach($guard as $key => $value) {
 	  	$rem = $guard[$key]["g"] - time();
 	  	if($rem >= 319 && $rem < 321) {
 	  		$msg = "<blue>20sec remaining on Guardian.<end>";
-	  		bot::send($msg, $sendto);
+	  		$this->send($msg, $sendto);
 	  	} elseif($rem >= 305 && $rem <= 307) {
 	  	  	$pos = array_search($key, $glist);
 	  	  	if(isset($glist[$pos + 1]))
 	  	  		$next = " <yellow>Next is {$glist[$pos + 1]}<end>";
 	  		$msg = "<blue>6sec remaining on Guardian.$next<end>";  		
-	  		bot::send($msg, $sendto);
+	  		$this->send($msg, $sendto);
 	  	} elseif($rem >= 299 && $rem <= 301) {
 	  	  	$pos = array_search($key, $glist);
 	  	  	if(isset($glist[$pos + 1]))
 	  	  		$next = " <yellow>Next is {$glist[$pos + 1]}<end>";
 	  		$msg = "<blue>Guardian has terminated.$next<end>";
-	  		bot::send($msg, $sendto);
+	  		$this->send($msg, $sendto);
 	  	} elseif($rem <= 0) {
 	  		$msg = "<blue>Guardian is ready on $key.<end>";
 	  		$guard[$key]["g"] = "ready";
-	  		bot::send($msg, $sendto);
+	  		$this->send($msg, $sendto);
 	  	}
 	}
 }

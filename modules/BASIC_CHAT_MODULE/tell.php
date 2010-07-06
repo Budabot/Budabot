@@ -31,16 +31,16 @@
 
 if (preg_match("/^tell (.+)$/i", $message, $arr)) {
 	if ($type == "msg") {
-		bot::send("<yellow>".$arr[1]."<end>", "guild", true);
-		bot::send("<yellow>".$arr[1]."<end>", "guild", true);
-		bot::send("<yellow>".$arr[1]."<end>", "guild", true);
-		bot::send("<yellow>".$arr[1]."<end>", "priv", true);
-		bot::send("<yellow>".$arr[1]."<end>", "priv", true);
-		bot::send("<yellow>".$arr[1]."<end>", "priv", true);
+		$this->send("<yellow>".$arr[1]."<end>", "guild", true);
+		$this->send("<yellow>".$arr[1]."<end>", "guild", true);
+		$this->send("<yellow>".$arr[1]."<end>", "guild", true);
+		$this->send("<yellow>".$arr[1]."<end>", "priv", true);
+		$this->send("<yellow>".$arr[1]."<end>", "priv", true);
+		$this->send("<yellow>".$arr[1]."<end>", "priv", true);
 	} else {
-		bot::send("<yellow>".$arr[1]."<end>", $sendto, true);
-		bot::send("<yellow>".$arr[1]."<end>", $sendto, true);
-		bot::send("<yellow>".$arr[1]."<end>", $sendto, true);
+		$this->send("<yellow>".$arr[1]."<end>", $sendto, true);
+		$this->send("<yellow>".$arr[1]."<end>", $sendto, true);
+		$this->send("<yellow>".$arr[1]."<end>", $sendto, true);
 	}
 }
 ?>

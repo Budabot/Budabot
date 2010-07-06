@@ -67,11 +67,11 @@ Yet another spawn area with occasional contention from higher toons for pb's, yo
 ";
 
 
-$slpower_txt = bot::makeLink("Shadowlands Powerleveling Solo Guide", $slpower_txt); 
+$slpower_txt = $this->makeLink("Shadowlands Powerleveling Solo Guide", $slpower_txt); 
 if($type == "msg") 
-bot::send($slpower_txt, $sender); 
+$this->send($slpower_txt, $sender); 
 elseif($type == "all") 
-bot::send($slpower_txt); 
+$this->send($slpower_txt); 
 else 
-bot::send($slpower_txt, "guild"); 
+$this->send($slpower_txt, "guild"); 
 ?>

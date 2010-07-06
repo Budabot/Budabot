@@ -30,10 +30,10 @@
    */
 
 $msg = "Bot is restarting.";
-bot::send($msg, $sender);
-bot::send($msg, "prv", true);
-bot::send($msg, "guild", true);
+$this->send($msg, $sender);
+$this->send($msg, "prv", true);
+$this->send($msg, "guild", true);
 
-AOChat::disconnect();
+$this->disconnect();
 die("The Bot is restarting.");
 ?>

@@ -73,7 +73,7 @@ if ($this->settings["relaybot"] != "Off" && isset($this->guildmembers[$sender]))
             if($main) {
                 $list = "<header>::::: Alternative Character List :::::<end> \n \n";
                 $list .= ":::::::: Main Character\n";
-                $list .= "<tab><tab>".bot::makeLink($row->main, "/tell ".$this->vars["name"]." whois $main", "chatcmd")." - ";
+                $list .= "<tab><tab>".$this->makeLink($row->main, "/tell ".$this->vars["name"]." whois $main", "chatcmd")." - ";
 				$online = $this->buddy_online($main);
 				if ($online === null) {
 				   $list .= "No status.\n";
@@ -86,7 +86,7 @@ if ($this->settings["relaybot"] != "Off" && isset($this->guildmembers[$sender]))
                 $list .= ":::::::: Alt Character(s)\n";
                 $db->query("SELECT * FROM alts WHERE `main` = '$main'");
                 while($row = $db->fObject()) {
-                    $list .= "<tab><tab>".bot::makeLink($row->alt, "/tell ".$this->vars["name"]." whois $row->alt", "chatcmd")." - ";
+                    $list .= "<tab><tab>".$this->makeLink($row->alt, "/tell ".$this->vars["name"]." whois $row->alt", "chatcmd")." - ";
 					$online = $this->buddy_online($row->alt);
                     if ($online === null) {
                        $list .= "No status.\n";
@@ -99,10 +99,10 @@ if ($this->settings["relaybot"] != "Off" && isset($this->guildmembers[$sender]))
             }
 
 			if($main != $sender && $main != false) {
-				$alts = bot::makeLink("Alts", $list);
+				$alts = $this->makeLink("Alts", $list);
 				$msg .= "Main: <highlight>$main<end> ($alts) ";
 			} elseif($main != false) {
-	  			$alts = bot::makeLink("Alts of $main", $list);
+	  			$alts = $this->makeLink("Alts of $main", $list);
 				$msg .= "$alts ";  
 			}
 		

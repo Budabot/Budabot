@@ -78,6 +78,6 @@ if (preg_match("/^premade (.*)$/i", $message, $arr)) {
 	  	}
   	}
   
-    bot::send($msg, $sendto);
+    $this->send($msg, $sendto);
 }
 ?>

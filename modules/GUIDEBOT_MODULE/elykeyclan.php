@@ -68,11 +68,11 @@ Information originally provided by Roedran and Herodotus to the SL Library Forum
 Courtesy of AO Universe
 "
 ;
-$elykeyclan_txt = bot::makeLink("Elysium: Garden Key Quest Clan", $elykeyclan_txt); 
+$elykeyclan_txt = $this->makeLink("Elysium: Garden Key Quest Clan", $elykeyclan_txt); 
 if($type == "msg") 
-bot::send($elykeyclan_txt, $sender); 
+$this->send($elykeyclan_txt, $sender); 
 elseif($type == "all") 
-bot::send($elykeyclan_txt); 
+$this->send($elykeyclan_txt); 
 else 
-bot::send($elykeyclan_txt, "guild"); 
+$this->send($elykeyclan_txt, "guild"); 
 ?>

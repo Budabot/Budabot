@@ -19,7 +19,7 @@ if(preg_match ("/^bossloot (.+)$/i", $message, $arr)) {
 	$search = ucwords(strtolower($search));
 	$boss = '';
 	if (method_exists('bot', 'makeHeader')) {
-		$boss = bot::makeHeader("Mobs that drop $search", $links);
+		$boss = $this->makeHeader("Mobs that drop $search", $links);
 	} else {
 		$boss = "<header>::::: Mobs that drop $search :::::<end>\n";
 	}
@@ -52,7 +52,7 @@ if(preg_match ("/^bossloot (.+)$/i", $message, $arr)) {
 				}
 			}
 		}
-		$output = bot::makelink("BossLoot", $boss);
+		$output = $this->makelink("BossLoot", $boss);
 	}
 	else {
 		$output .= "<yellow>There were no matches for your search.</end>";
@@ -62,7 +62,7 @@ else {
 	$output .="<yellow>You must add a search criteria after the command.</end>";
 }
 
-bot::send($output, $sendto);
+$this->send($output, $sendto);
 
 ?>
 

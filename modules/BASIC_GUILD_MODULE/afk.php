@@ -40,7 +40,7 @@ if(preg_match("/^afk$/i", $message, $arr) && $numrows != 0) {
         $db->query("UPDATE guild_chatlist_<myname> SET `afk` = 0 WHERE `name` = '$sender'");
         $msg = "<highlight>$sender<end> is back";
     }
-    bot::send($msg, "guild");
+    $this->send($msg, "guild");
 } elseif(preg_match("/^afk (.*)$/i", $message, $arr) && $numrows != 0) {
     if($row->afk == '0') {
         $db->query("UPDATE guild_chatlist_<myname> SET `afk` = '$arr[1]' WHERE `name` = '$sender'");
@@ -49,6 +49,6 @@ if(preg_match("/^afk$/i", $message, $arr) && $numrows != 0) {
         $db->query("UPDATE guild_chatlist_<myname> SET `afk` = 0 WHERE `name` = '$sender'");
         $msg = "<highlight>$sender<end> is back";
     }
-    bot::send($msg, "guild");
+    $this->send($msg, "guild");
 }
 ?>

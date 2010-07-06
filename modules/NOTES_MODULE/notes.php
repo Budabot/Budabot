@@ -37,7 +37,7 @@ if (preg_match("/^notes$/i", $message)) {
   	$db->query($sql);
   	while($note = $db->fObject()) {
 		
-	  	$remove = bot::makeLink('Remove', "/tell <myname> <symbol>note rem $note->id" , 'chatcmd');
+	  	$remove = $this->makeLink('Remove', "/tell <myname> <symbol>note rem $note->id" , 'chatcmd');
 	  	$moreInfoMsg .= "$remove $note->note\n\n";
 	}
 	
@@ -47,8 +47,8 @@ if (preg_match("/^notes$/i", $message)) {
 	
 	$moreInfoMsg = "Notes for $sender\n\n" . $moreInfoMsg;
 	
-	$msg = bot::makeLink('Notes', $moreInfoMsg, 'blob');
+	$msg = $this->makeLink('Notes', $moreInfoMsg, 'blob');
   	
-	bot::send($msg, $sendto);
+	$this->send($msg, $sendto);
 }
 ?>

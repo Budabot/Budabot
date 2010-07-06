@@ -35,11 +35,11 @@ Head back to the garden, then to Nero, then talk to Prophet Nar Shere.
 Talk to the prophet and select option: 'I completed my assignment and I am concerned, Prophet.' Continue the conversation about the Briefing item you looted and the Prophet will ask to see it. You'll be rewarded for your efforts with 'The Key to Shere's Sanctuary'. 
  ";
 
-$elysanckey_txt = bot::makeLink("Elysium: Shere Sanctuary Garden Key Quest", $elysanckey_txt); 
+$elysanckey_txt = $this->makeLink("Elysium: Shere Sanctuary Garden Key Quest", $elysanckey_txt); 
 if($type == "msg") 
-bot::send($elysanckey_txt, $sender); 
+$this->send($elysanckey_txt, $sender); 
 elseif($type == "all") 
-bot::send($elysanckey_txt); 
+$this->send($elysanckey_txt); 
 else 
-bot::send($elysanckey_txt, "guild"); 
+$this->send($elysanckey_txt, "guild"); 
 ?>

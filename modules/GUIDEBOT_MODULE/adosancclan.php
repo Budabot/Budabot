@@ -35,8 +35,8 @@ Information originally provided by tcollings to the SL Library Forums. Additiona
 Guide Courtesy of AO Universe
 "
 ;
-$adosancclan_txt = bot::makeLink("Adonis: Sanctuary Garden Key Quest CLAN", $adosancclan_txt);
+$adosancclan_txt = $this->makeLink("Adonis: Sanctuary Garden Key Quest CLAN", $adosancclan_txt);
 
-bot::send($adosancclan_txt, $sendto);
+$this->send($adosancclan_txt, $sendto);
 
 ?>

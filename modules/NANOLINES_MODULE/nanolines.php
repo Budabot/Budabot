@@ -39,21 +39,21 @@ if (preg_match("/^nanolines$/i", $message, $arr)) {
 	$db->query($sql);
 
 	if (method_exists('bot', 'makeHeader')) {
-		$window = bot::makeHeader("Nanolines - Professions", "none");
+		$window = $this->makeHeader("Nanolines - Professions", "none");
 	} else {
 		$window = "<header>::::: Nanolines - Professions :::::<end>\n";	
 	}
 	while($row = $db->fObject()) {
 
-		$window .= bot::makeLink($row->profession, "/tell <myname> <symbol>nlprof $row->profession", 'chatcmd');
+		$window .= $this->makeLink($row->profession, "/tell <myname> <symbol>nlprof $row->profession", 'chatcmd');
 		$window .= "\n";
 	}
 
 	$window .= "\n\nAO Nanos by Voriuste";
 
-	$msg = bot::makeLink('Nanolines', $window, 'blob');
+	$msg = $this->makeLink('Nanolines', $window, 'blob');
 
-	bot::send($msg, $sendto);
+	$this->send($msg, $sendto);
 }
 
 ?>

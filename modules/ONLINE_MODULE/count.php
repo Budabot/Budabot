@@ -94,7 +94,7 @@ if(preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader)
             $afk = "";
         $msg .= " [<highlight>$row->name<end> - ".$row->level.$afk."]";
     }
-    bot::send($msg, $sendto);  	
+    $this->send($msg, $sendto);  	
 } elseif(preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 	$tl1 = 0;
 	$tl2 = 0;
@@ -129,7 +129,7 @@ if(preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader)
       		$tl7++;
     }	
     $msg = "<highlight>$numonline<end> in total: TL1 <highlight>$tl1<end>, TL2 <highlight>$tl2<end>, TL3 <highlight>$tl3<end>, TL4 <highlight>$tl4<end>, TL5 <highlight>$tl5<end>, TL6 <highlight>$tl6<end>, TL7 <highlight>$tl7<end>";
-    bot::send($msg, $sendto);
+    $this->send($msg, $sendto);
 } else if(preg_match("/^count (.*)$/i", $message, $arr)) {
     switch(strtolower($arr[1])) {
         case "all":
@@ -209,7 +209,7 @@ if(preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader)
     }
     if(!$prof) {
         $msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, trader or all";
-	    bot::send($msg, $sendto);
+	    $this->send($msg, $sendto);
 	    return;
 	}
 	if($type == "guild" || ($this->settings["count_tell"] == 0 && $type == "msg") || ($type == "priv" && $this->vars["Guest"][$sender] == true)) {
@@ -264,6 +264,6 @@ if(preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader)
 	    $msg .= "<highlight>".$online['Adventurer']."<end> Adv, <highlight>".$online['Agent']."<end> Agent, <highlight>".$online['Bureaucrat']."<end> Crat, <highlight>".$online['Doctor']."<end> Doc, <highlight>".$online['Enforcer']."<end> Enf, <highlight>".$online['Engineer']."<end> Eng, <highlight>".$online['Fixer']."<end> Fix, <highlight>".$online['Keeper']."<end> Keeper, <highlight>".$online['Martial Artist']."<end> MA, <highlight>".$online['Meta-Physicist']."<end> MP, <highlight>".$online['Nano-Technician']."<end> NT, <highlight>".$online['Soldier']."<end> Sol, <highlight>".$online['Shade']."<end> Shade, <highlight>".$online['Trader']."<end> Trader";
     }
 
-  	bot::send($msg, $sendto);
+  	$this->send($msg, $sendto);
 }
 ?>

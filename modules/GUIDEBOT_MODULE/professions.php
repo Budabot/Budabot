@@ -18,11 +18,11 @@ Please note: all this information was taken from the official AO forums and shou
 <a href='chatcmd:///tell <myname> traders>Guide to Traders</a>
 </end>"
 ;
-$prof_txt = bot::makeLink("Guide to Professions", $prof_txt); 
+$prof_txt = $this->makeLink("Guide to Professions", $prof_txt); 
 if($type == "msg") 
-bot::send($prof_txt, $sender); 
+$this->send($prof_txt, $sender); 
 elseif($type == "all") 
-bot::send($prof_txt); 
+$this->send($prof_txt); 
 else 
-bot::send($prof_txt, "guild"); 
+$this->send($prof_txt, "guild"); 
 ?>

@@ -18,11 +18,11 @@ It is not my wish to make up a bunch of rules or anything. Just please try to sh
 Also, We have been given a place in AOFroobs.com: http://www.aofroobs.com/
 to talk about Newcomers Alliance! Signup for the forums and post a hello! .And remember we have guides for AO <a href='chatcmd:///tell <myname> guides'</a>Guides</a>";
 
-$message1_txt = bot::makeLink("A Message from Plugsz", $message1_txt); 
+$message1_txt = $this->makeLink("A Message from Plugsz", $message1_txt); 
 if($type == "msg") 
-bot::send($message1_txt, $sender); 
+$this->send($message1_txt, $sender); 
 elseif($type == "all") 
-bot::send($message1_txt); 
+$this->send($message1_txt); 
 else 
-bot::send($message1_txt, "guild"); 
+$this->send($message1_txt, "guild"); 
 ?>

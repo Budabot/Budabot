@@ -47,10 +47,10 @@ if(preg_match("/^kos$/i", $message)) {
 			$link .= "$i. $key <highlight>(Voted {$value}times)<end>\n";
 		}
 			
-		$msg = bot::makeLink("KOS-List", $link);
+		$msg = $this->makeLink("KOS-List", $link);
 	}
 
-	bot::send($msg, $sendto);
+	$this->send($msg, $sendto);
 }
 elseif(preg_match("/^kos add (.+)$/i", $message, $arr)) {
 	$explodemsg = explode(' ', $arr[1], 3);
@@ -65,7 +65,7 @@ elseif(preg_match("/^kos add (.+)$/i", $message, $arr)) {
 		// otherwise stitch the reason back together
 		$reason = $explodemsg[1] . ' ' . $explodemsg[2];
 	}
-	$uid = AoChat::get_uid($name);
+	$uid = $this->get_uid($name);
 	if(strlen($reason) >= 50)
 	{
 		$msg = "The reason can't be longer than 50 characters.";
@@ -88,7 +88,7 @@ elseif(preg_match("/^kos add (.+)$/i", $message, $arr)) {
 		$msg = "The Player you want to add doesn't exists.";
 	}
 
-	bot::send($msg, $sendto);
+	$this->send($msg, $sendto);
 }
 elseif(preg_match("/^kos rem (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
@@ -108,7 +108,7 @@ elseif(preg_match("/^kos rem (.+)$/i", $message, $arr)) {
 		$msg = "You don't have this player on your KOS List.";
 	}
 
-	bot::send($msg, $sendto);
+	$this->send($msg, $sendto);
 }
 elseif(preg_match("/^kos (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
@@ -129,11 +129,11 @@ elseif(preg_match("/^kos (.+)$/i", $message, $arr)) {
 
 			$link .= "\n";
 		}
-		$msg = bot::makeLink("KOS-List from $name", $link);
+		$msg = $this->makeLink("KOS-List from $name", $link);
 	} else
 	$msg = "The player <highlight>$name<end> isn't on the KOS List.";
 
-	bot::send($msg, $sendto);
+	$this->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

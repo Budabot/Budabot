@@ -30,7 +30,7 @@
    */
 
 if (preg_match("/^kickuser (.+)$/i", $message, $arr)) {
-    $uid = AoChat::get_uid($arr[1]);
+    $uid = $this->get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     if ($uid) {
         if ($this->chatlist[$name] == true) {
@@ -39,12 +39,12 @@ if (preg_match("/^kickuser (.+)$/i", $message, $arr)) {
 			$msg = "<highlight>$name<end> is not in private channel.";
 		}
 		// we kick whether they are in the channel or not incase the channel list is bugged
-		AOChat::privategroup_kick($name);
+		$this->privategroup_kick($name);
     } else {
 		$msg = "Player <highlight>".$name."<end> does not exist.";
 	}
 	
-	bot::send($msg, $sendto);
+	$this->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

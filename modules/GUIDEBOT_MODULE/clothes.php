@@ -43,11 +43,11 @@ Last updated on 03.13.2007
 Information originally provided by Jexai.co.uk/anarchy";
 
 
-$clothes_txt = bot::makeLink("Social Clothes", $clothes_txt); 
+$clothes_txt = $this->makeLink("Social Clothes", $clothes_txt); 
 if($type == "msg") 
-bot::send($clothes_txt, $sender); 
+$this->send($clothes_txt, $sender); 
 elseif($type == "all") 
-bot::send($clothes_txt); 
+$this->send($clothes_txt); 
 else 
-bot::send($clothes_txt, "guild"); 
+$this->send($clothes_txt, "guild"); 
 ?>

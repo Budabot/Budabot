@@ -31,6 +31,6 @@
 
 if($this->settings["leaderecho"] == 1 && $this->vars["leader"] == $sender && $message[0] != $this->settings["symbol"]) {
   	$msg = "{$this->settings["leaderecho_color"]}$message<end>";
-  	bot::send($msg);
+  	$this->send($msg);
 }
 ?>

@@ -22,11 +22,11 @@ Trade your data cores with the Unicorn Administrator and he will give you one of
 The rest of this quest has not yet been added to the game. :)
 ";
 
-$apf42guide_txt = bot::makeLink("Guide to Apf Sector 42", $apf42guide_txt);
+$apf42guide_txt = $this->makeLink("Guide to Apf Sector 42", $apf42guide_txt);
 if($type == "msg")
-bot::send($apf42guide_txt, $sender);
+$this->send($apf42guide_txt, $sender);
 elseif($type == "all")
-bot::send($apf42guide_txt);
+$this->send($apf42guide_txt);
 else
-bot::send($apf42guide_txt, "guild");
+$this->send($apf42guide_txt, "guild");
 ?>

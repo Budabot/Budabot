@@ -88,11 +88,11 @@ To see a description of an item you can either hold shift+left click over the it
 <FONT COLOR = Yellow>What about socializing and parties?</FONT>
 There are several nightclubs, bars and coffee shops available for each faction. Reet's Retreat, Baboon's, The Cup and others often hold player or guild-hosted parties, contests and get togethers. Some guilds broadcast music that you can tune into via your Internet connection. Keep an eye on the player events calendar for some of the public events. 
 ";
-$beginners_txt = bot::makeLink("Beginner's FAQs", $beginners_txt); 
+$beginners_txt = $this->makeLink("Beginner's FAQs", $beginners_txt); 
 if($type == "msg") 
-bot::send($beginners_txt, $sender); 
+$this->send($beginners_txt, $sender); 
 elseif($type == "all") 
-bot::send($beginners_txt); 
+$this->send($beginners_txt); 
 else 
-bot::send($beginners_txt, "guild"); 
+$this->send($beginners_txt, "guild"); 
 ?>

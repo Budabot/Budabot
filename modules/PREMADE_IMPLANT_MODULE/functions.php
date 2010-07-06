@@ -57,7 +57,7 @@ function formatResults($implants) {
 		
 	if ($count > 3) {
 		
-		$msg = bot::makeLink('Results', $msg, 'text');
+		$msg = $this->makeLink('Results', $msg, 'text');
 	}
 	
 	return $msg;

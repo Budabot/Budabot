@@ -30,19 +30,19 @@
    */
 
 if (preg_match("/^inviteuser (.+)$/i", $message, $arr)) {
-    $uid = AoChat::get_uid($arr[1]);
+    $uid = $this->get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     if ($uid) {
       	$msg = "Invited <highlight>$name<end> to this channel.";      	
-	  	AOChat::privategroup_kick($name);
-	  	AOChat::privategroup_invite($name);
+	  	$this->privategroup_kick($name);
+	  	$this->privategroup_invite($name);
 		$msg2 = "You have been invited to the Privategroup <highlight>{$this->vars["name"]}<end> by <highlight>$sender<end>";
-		bot::send($msg2, $name);
+		$this->send($msg2, $name);
     } else {
 		$msg = "Player <highlight>".$name."<end> does not exist.";
 	}
 	
-	bot::send($msg, $sendto);
+	$this->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

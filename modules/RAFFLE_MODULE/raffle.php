@@ -21,21 +21,21 @@ if (preg_match("/^raffle (.+) ([0-9]+)$/i", $message, $arr) || preg_match("/^raf
 
 Click <a href='chatcmd:///tell <myname> joinRaffle'>here</a> to join the raffle!
 Click <a href='chatcmd:///tell <myname> leaveRaffle'>here</a> if you wish to leave the raffle.";
-        $link = bot::makeLink("here", $jnRflMsg);
+        $link = $this->makeLink("here", $jnRflMsg);
         $msg = "
 -----------------------------------------------------------------------
 A raffle for $item has been started by $sender!
 Click $link to join the raffle. Raffle will end in '$minutes Minutes'.
 -----------------------------------------------------------------------";
-        bot::send($msg, "org");
+        $this->send($msg, "org");
     }
     else {
         $msg = "There is already a raffle in progress.";
-        bot::send($msg, $sendto);
+        $this->send($msg, $sendto);
     }
 }
 else {
     $msg = "You need to specify an item to be raffled!";
-    bot::send($msg, $sendto);
+    $this->send($msg, $sendto);
 }
 ?>

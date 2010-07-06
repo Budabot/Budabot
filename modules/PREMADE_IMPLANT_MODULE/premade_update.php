@@ -25,7 +25,7 @@ require_once('functions.php');
 if (preg_match("/^premadeupdate$/i", $message)) {
 	
 	$msg = '';
-	$currentVersion = bot::getsetting('premade_implant_db_version');
+	$currentVersion = $this->getsetting('premade_implant_db_version');
 	$newVersion = checkForUpdate($currentVersion, true);
 	
 	if ($newVersion > $currentVersion) {
@@ -35,6 +35,6 @@ if (preg_match("/^premadeupdate$/i", $message)) {
 		$msg = "Premade Implant Database is already up to date. Version: $newVersion.";
 	}
 
-    bot::send($msg, $sendto);
+    $this->send($msg, $sendto);
 }
 ?>

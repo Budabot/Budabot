@@ -106,11 +106,11 @@ $adventurer_txt = "-= The Adventurer's Handbook =-
     Customized IMI Desert Reet 1000 (VERY good pistol for level 41-100. Special drop in Foreman's/Biomare dungeon. A must-have for that level range.)
     Reign/Pain of Patricia (Both drop off Patricia Johnson in EFP Mercs raid, Reign is better than Pain and Adventurer-specific) ";
 
-$adventurer_txt = bot::makeLink("Guide To Adventurers", $adventurer_txt); 
+$adventurer_txt = $this->makeLink("Guide To Adventurers", $adventurer_txt); 
 if($type == "msg") 
-bot::send($adventurer_txt, $sender); 
+$this->send($adventurer_txt, $sender); 
 elseif($type == "all") 
-bot::send($adventurer_txt); 
+$this->send($adventurer_txt); 
 else 
-bot::send($adventurer_txt, "guild"); 
+$this->send($adventurer_txt, "guild"); 
 ?>

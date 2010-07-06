@@ -34,7 +34,7 @@ if (preg_match("/^banlist$/i", $message)){
 	$sql = "SELECT name, banned_by, time, reason, banend FROM banlist_<myname>";
 	$db->query($sql);
 	if ($db->numrows() == 0) {
-	    bot::send("No one is banned from this bot currently.", $sendto);
+	    $this->send("No one is banned from this bot currently.", $sendto);
 	    return;
 	}
 
@@ -52,8 +52,8 @@ if (preg_match("/^banlist$/i", $message)){
 		}
 		$list.= "\n";	
 	}
-	$link = bot::makeLink('Banlist', $list);
-	bot::send($link, $sendto);
+	$link = $this->makeLink('Banlist', $list);
+	$this->send($link, $sendto);
 } else {
 	$syntax_error = true;
 }

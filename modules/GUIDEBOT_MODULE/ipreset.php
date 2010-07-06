@@ -24,11 +24,11 @@ To do this you have to remove all weapons, equipment, armour and implants.
 
 The Map Navigation skill cannot be reset. ";
 
-$ipreset_txt = bot::makeLink("Guide to IP Reset Points", $ipreset_txt); 
+$ipreset_txt = $this->makeLink("Guide to IP Reset Points", $ipreset_txt); 
 if($type == "msg") 
-bot::send($ipreset_txt, $sender); 
+$this->send($ipreset_txt, $sender); 
 elseif($type == "all") 
-bot::send($ipreset_txt); 
+$this->send($ipreset_txt); 
 else 
-bot::send($ipreset_txt, "guild"); 
+$this->send($ipreset_txt, "guild"); 
 ?>

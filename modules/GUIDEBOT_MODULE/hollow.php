@@ -93,11 +93,11 @@ The Brood Mother:
 <a href='itemref://216277/216277/150'>Lion's Leather Vest </a>
 <a href='itemref://216282/216282/150'>Professional Marksman's Kit </font> </a>  ";
 
-$hollow_txt = bot::makeLink("Guide to Hollow Island", $hollow_txt); 
+$hollow_txt = $this->makeLink("Guide to Hollow Island", $hollow_txt); 
 if($type == "msg") 
-bot::send($hollow_txt, $sender); 
+$this->send($hollow_txt, $sender); 
 elseif($type == "all") 
-bot::send($hollow_txt); 
+$this->send($hollow_txt); 
 else 
-bot::send($hollow_txt, "guild"); 
+$this->send($hollow_txt, "guild"); 
 ?>

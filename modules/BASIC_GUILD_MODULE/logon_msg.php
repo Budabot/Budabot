@@ -38,7 +38,7 @@ if (preg_match("/^logon clear$/i", $message)) {
     } else
         $msg = "You are not on the Notify list of this bot.";
 
-    bot::send($msg, $sendto);
+    $this->send($msg, $sendto);
 } else if (preg_match("/^logon (.+)$/i", $message, $arr)) {
     if($row->name == $sender) {
         $arr[1] = str_replace("'", "''", $arr[1]);
@@ -50,6 +50,6 @@ if (preg_match("/^logon clear$/i", $message)) {
     } else
         $msg = "You are not on the Notify list of this bot.";
 
-    bot::send($msg, $sendto);
+    $this->send($msg, $sendto);
 }
 ?>

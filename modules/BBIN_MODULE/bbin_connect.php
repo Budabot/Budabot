@@ -18,7 +18,7 @@ $nick = $this->settings['bbin_nickname'];
  
 // Connection
 if(preg_match("/^startbbin$/i", $message)) {
-	bot::send("Intialized BBIN connection. Please wait...",$sender);
+	$this->send("Intialized BBIN connection. Please wait...",$sender);
 }
 
 newLine("BBIN"," ","Intialized BBIN connection. Please wait...",0);
@@ -52,7 +52,7 @@ while($data = fgets($bbin_socket)) {
 	if(preg_match("/(ERROR)(.+)/", $data, $sandbox)) {
 		newLine("BBIN","bbin error",trim($data),0);
 		if(preg_match("/^startbbin$/i", $message)) {
-			bot::send("[red]Could not connect to BBIN",$sender);
+			$this->send("[red]Could not connect to BBIN",$sender);
 		}
 		return;
 	}
@@ -72,9 +72,9 @@ fputs($bbin_socket, "PRIVMSG ".$this->settings['bbin_channel']." :[BBIN:SYNCHRON
 parse_incoming_bbin("[BBIN:SYNCHRONIZE]", $nick, $this);
 
 if(preg_match("/^startbbin$/i", $message)) {
-	bot::send("Finished connecting to bbin",$sender);
+	$this->send("Finished connecting to bbin",$sender);
 }
 newLine("BBIN"," ","Finished connecting to bbin",0);
 
-bot::savesetting("bbin_status", "1");
+$this->savesetting("bbin_status", "1");
 ?>

@@ -63,11 +63,11 @@ Half-Finished Perennium Sniper   +  Perennium Bolts   =   Perennium Sniper (Agen
 Half-Finished Perennium Beamer   +  Perennium Bolts   =   Perennium Beamer (Fixer Only
 ";
 
-$pernweps_txt = bot::makeLink("Making Perennium Weapons", $pernweps_txt); 
+$pernweps_txt = $this->makeLink("Making Perennium Weapons", $pernweps_txt); 
 if($type == "msg") 
-bot::send($pernweps_txt, $sender); 
+$this->send($pernweps_txt, $sender); 
 elseif($type == "all") 
-bot::send($pernweps_txt); 
+$this->send($pernweps_txt); 
 else 
-bot::send($pernweps_txt, "guild"); 
+$this->send($pernweps_txt, "guild"); 
 ?>

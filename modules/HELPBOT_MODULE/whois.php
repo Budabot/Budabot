@@ -31,7 +31,7 @@
 
 $msg = "";
 if (preg_match("/^whois (.+)$/i", $message, $arr)) {
-    $uid = AoChat::get_uid($arr[1]);
+    $uid = $this->get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     if ($uid) {
         $whois = new whois($arr[1]);
@@ -65,14 +65,14 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 			}
 	        $list .= "<a href='chatcmd:///cc addbuddy ".$name."'>Add to buddylist</a>\n";
 	        $list .= "<a href='chatcmd:///cc rembuddy ".$name."'>Remove from buddylist</a>\n";
-	        $msg .= " :: ".bot::makeLink("click for more options", $list);
+	        $msg .= " :: ".$this->makeLink("click for more options", $list);
 	    }
     } else {
         $msg = "Player <highlight>".$name."<end> does not exist.";
 	}
 
     // Send info back
-    bot::send($msg, $sendto);
+    $this->send($msg, $sendto);
 } else if (preg_match("/^whoisall (.+)$/i", $message, $arr)) {
     $name = ucfirst(strtolower($arr[1]));
     for ($i = 1; $i <= 3; $i ++) {
@@ -110,19 +110,19 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
             $list .= "<a href='chatcmd:///tell <myname> is ".$name."'>Check ".$name."'s online status</a>\n";
             $list .= "<a href='chatcmd:///cc addbuddy ".$name."'>Add to buddylist</a>\n";
             $list .= "<a href='chatcmd:///cc rembuddy ".$name."'>Remove from buddylist</a>\n";
-            $msg .= " :: ".bot::makeLink("click for more options", $list);
+            $msg .= " :: ".$this->makeLink("click for more options", $list);
             $msg = "<highlight>Server $server:<end> ".$msg;
         } else {
             $msg = "Server $server: Player <highlight>".$name."<end> does not exist.";
 		}
         // Send info back
-        bot::send($msg, $sendto);
+        $this->send($msg, $sendto);
     }
 } else if (preg_match("/^whoisorg ([0-9]+)$/i", $message, $arr)) {
 	$org_id = $arr[1];
 
   	$msg = "Getting Org info. Please standby.";
-    bot::send($msg, $sendto);
+    $this->send($msg, $sendto);
 	
     $org = new org($org_id);
 	if ($org->errorCode == 0) {
@@ -239,11 +239,11 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 	  	$link .= "<highlight>Shades:<end> $num_shade (".round(($num_shade*100)/$num_members, 1)."% of total)\n";
 	  	$link .= "<highlight>Soldiers:<end> $num_sol (".round(($num_sol*100)/$num_members, 1)."% of total)\n";
 	  	$link .= "<highlight>Traders:<end> $num_trad (".round(($num_trad*100)/$num_members, 1)."% of total)\n";		  			  			  	
-	  	$msg = bot::makeLink("Org Info $org->orgname", $link);
+	  	$msg = $this->makeLink("Org Info $org->orgname", $link);
 	} else {
 		$msg = "Error in getting the Org infos. Either that org doesn't exist or the AO server was too slow to responce.";
 	}
 
-    bot::send($msg, $sendto);
+    $this->send($msg, $sendto);
 }
 ?>

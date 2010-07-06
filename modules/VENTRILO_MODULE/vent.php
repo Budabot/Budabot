@@ -105,13 +105,13 @@ if ($error === FALSE) {
 	}
 	
 	$page .= "\n\n*Please note that sometimes the server will not return the right information, if this happens, please try again.\n";
-	$msg = bot::makeLink("Vent Status", $page, 'blob');
+	$msg = $this->makeLink("Vent Status", $page, 'blob');
 
 } else {
 
 	$msg = "<orange>$error<end>";
 }
 
-bot::send($msg, $sendto);
+$this->send($msg, $sendto);
 
 ?>

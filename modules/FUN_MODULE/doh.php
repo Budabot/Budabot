@@ -20,6 +20,6 @@ $doh[4]="Doh you say..I say Doh!!!";
 if(preg_match("/^doh$/i", $message)) {
 	$randval = rand(1, sizeof($beer) - 1);
 	$msg = $doh[$randval];
-	bot::send($msg, "guild");
+	$this->send($msg, "guild");
 }
 ?>

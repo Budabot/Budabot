@@ -43,7 +43,7 @@ if(preg_match("/^28$/i", $message)) {
 
 	$msg = "Sector 28 loot table was added to the loot list by <highlight>$sender<end>.";
 
-	bot::send($msg);
+	$this->send($msg);
 
 
 	// Displaying new list
@@ -52,8 +52,8 @@ if(preg_match("/^28$/i", $message)) {
 	  	if(is_array($loot)) {
 		  	$list = "<header>::::: Sector28 Loot List :::::<end>\n\nUse <symbol>flatroll or <symbol>roll to roll.\n\n";
 			foreach($loot as $key => $item) {
-				$add = bot::makeLink("Add", "/tell <myname> add $key", "chatcmd");
-				$rem = bot::makeLink("Remove", "/tell <myname> add 0", "chatcmd");
+				$add = $this->makeLink("Add", "/tell <myname> add $key", "chatcmd");
+				$rem = $this->makeLink("Remove", "/tell <myname> add 0", "chatcmd");
 				$added_players = count($item["users"]);
 	
 				$list .= "<u>Slot #<font color='#FF00AA'>$key</font></u>\n";
@@ -88,15 +88,15 @@ if(preg_match("/^28$/i", $message)) {
 				
 				$list .= "\n\n";
 			}
-			$msg = bot::makeLink("Sector28 loot List", $list);
+			$msg = $this->makeLink("Sector28 loot List", $list);
 		} else
 			$msg = "No List exists yet.";
 	
 	} else {
-		bot::send("No list available!");
+		$this->send("No list available!");
 		return;
 	}
 
-	bot::send($msg);
+	$this->send($msg);
 }
 ?>

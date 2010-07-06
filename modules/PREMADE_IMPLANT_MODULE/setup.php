@@ -32,14 +32,14 @@ $tempCurMod = $curMod;
 $curMod = "PREMADE_IMPLANT_MODULE";
 
 $settingName = 'premade_implant_db_version';
-if (!bot::getsetting($settingName)) {
-	bot::addsetting($settingName, $settingName, 'noedit', 0);
+if (!$this->getsetting($settingName)) {
+	$this->addsetting($settingName, $settingName, 'noedit', 0);
 }
 
-$currentVersion = bot::getsetting($settingName);
+$currentVersion = $this->getsetting($settingName);
 $newVersion = checkForUpdate($currentVersion, false);
 if ($newVersion > $currentVersion) {
-	bot::savesetting($settingName, $newVersion);
+	$this->savesetting($settingName, $newVersion);
 	echo "Updating '$settingName' database from '$currentVersion' to '$newVersion'...Finished!\n";
 } else {
 	echo "Updating '$settingName' database...already up to date! version: '$currentVersion'\n";

@@ -102,11 +102,11 @@ Trader
  
  ";
 
-$tier3armor_txt = bot::makeLink("Making Tier 3 Chosen/Faithful Armor", $tier3armor_txt); 
+$tier3armor_txt = $this->makeLink("Making Tier 3 Chosen/Faithful Armor", $tier3armor_txt); 
 if($type == "msg") 
-bot::send($tier3armor_txt, $sender); 
+$this->send($tier3armor_txt, $sender); 
 elseif($type == "all") 
-bot::send($tier3armor_txt); 
+$this->send($tier3armor_txt); 
 else 
-bot::send($tier3armor_txt, "guild"); 
+$this->send($tier3armor_txt, "guild"); 
 ?>

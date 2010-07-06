@@ -17,10 +17,10 @@ $help .= "You have <orange>1200<end> Aimed Shot.\n";
 $help .= "<a href='chatcmd:///tell <myname> <symbol>as 1.5 1200'>/tell <myname> <symbol>as 1.5 1200</a>\n\n";
 $help .= $footer;
 
-$helplink = bot::makeLink("::How to use Aimed Shot::", $help);
+$helplink = $this->makeLink("::How to use Aimed Shot::", $help);
 
 if ((!$AttTim) || (!$RechT) || (!$InitS)) {
-	bot::send($helplink, $sendto);
+	$this->send($helplink, $sendto);
 } else {
 	$cap = floor($AttTim+10);
 	$ASRech	= ceil(($RechT*40) - ($InitS*3/100) + $AttTim - 1);
@@ -41,6 +41,6 @@ if ((!$AttTim) || (!$RechT) || (!$InitS)) {
 	$inside	.= "You need <orange>".$ASCap."<end> AS skill to cap your recharge.";
 	$inside .= $footer;
 
-	$windowlink = bot::makeLink("::Your Aimed Shot Results::", $inside);
-	bot::send($windowlink, $sendto);
+	$windowlink = $this->makeLink("::Your Aimed Shot Results::", $inside);
+	$this->send($windowlink, $sendto);
 }

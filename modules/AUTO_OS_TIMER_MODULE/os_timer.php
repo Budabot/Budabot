@@ -38,7 +38,7 @@
 // [Org Msg] Blammo! Player has launched an orbital attack!
 
 if(preg_match("/^Blammo! (.+) has launched an orbital attack!$/i", $message, $array)) {
-	bot::send("OS !timer was set for 15 minutes", "guild");
+	$this->send("OS !timer was set for 15 minutes", "guild");
 	$orgName = $this->vars["my guild"];
 
 	$launcher = $array[1];

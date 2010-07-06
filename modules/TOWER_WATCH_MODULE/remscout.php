@@ -40,6 +40,6 @@ if(preg_match("/^remscout( (.*))?$/i", $message)) {
 		$msg = "Usage: <symbol>remscout &lt;zone&gt; &lt;base number&gt;";
 	}
 
-    bot::send($msg, $sendto);
+    $this->send($msg, $sendto);
 }
 ?>

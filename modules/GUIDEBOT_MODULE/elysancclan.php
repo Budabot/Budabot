@@ -31,11 +31,11 @@ Last updated on 12.03.2006 by Windkeeper
 Courtesy of AO Universe
 "
 ;
-$elysancclan_txt = bot::makeLink("Elysium: Sanctuary Garden Key Quest Clan", $elysancclan_txt); 
+$elysancclan_txt = $this->makeLink("Elysium: Sanctuary Garden Key Quest Clan", $elysancclan_txt); 
 if($type == "msg") 
-bot::send($elysancclan_txt, $sender); 
+$this->send($elysancclan_txt, $sender); 
 elseif($type == "all") 
-bot::send($elysancclan_txt); 
+$this->send($elysancclan_txt); 
 else 
-bot::send($elysancclan_txt, "guild"); 
+$this->send($elysancclan_txt, "guild"); 
 ?>

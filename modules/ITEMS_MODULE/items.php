@@ -33,7 +33,7 @@ if (preg_match("/^items ([0-9]+) (.+)$/i", $message, $arr)) {
     $ql = $arr[1];
     if (!($ql >= 1 && $ql <= 500)) {
         $msg = "Invalid Ql specified(1-500)";
-        bot::send($msg, $sendto);
+        $this->send($msg, $sendto);
         return;
     }
     $name = $arr[2];
@@ -42,7 +42,7 @@ if (preg_match("/^items ([0-9]+) (.+)$/i", $message, $arr)) {
     $ql = false;
 } else {
   	$msg = "You need to specify an item to be searched for!";
-	bot::send($msg, $sendto);
+	$this->send($msg, $sendto);
 	return;  	
 }
 
@@ -73,7 +73,7 @@ if ($num == 0) {
 	} else {
 	    $msg = "No items found. Maybe try fewer keywords.";
 	}
-   	bot::send($msg, $sendto);
+   	$this->send($msg, $sendto);
 	return;
 }
 
@@ -105,7 +105,7 @@ if ($countitems == 0) {
 	} else {
 	    $msg = "No items found. Maybe try fewer keywords.";
 	}
-   	bot::send($msg, $sendto);
+   	$this->send($msg, $sendto);
 	return;
 }
 
@@ -114,9 +114,9 @@ if ($countitems > 3) {
 	 	forEach ($item1 as $key => $item) {
 	        $list .= "<img src=rdb://".$item["icon"]."> \n";
 	        if ($ql) {
-		        $list .= "QL $ql ".bot::makeItem($item["lowid"], $item["highid"], $ql, $name);
+		        $list .= "QL $ql ".$this->makeItem($item["lowid"], $item["highid"], $ql, $name);
 			} else {
-		        $list .= bot::makeItem($item["lowid"], $item["highid"], $item["highql"], $name);		  
+		        $list .= $this->makeItem($item["lowid"], $item["highid"], $item["highql"], $name);		  
 			}
 	
 	        if ($item["lowql"] != $item["highql"]) {
@@ -127,21 +127,21 @@ if ($countitems > 3) {
 	    }
     }
     $list = "<header>::::: Item Search Result :::::<end>\n\n".$list;
-    $link = bot::makeLink("$countitems results in total", $list);
-    bot::send($link, $sendto);
+    $link = $this->makeLink("$countitems results in total", $list);
+    $this->send($link, $sendto);
 
 	//Show a warning if the maxitems are reached
 	if ($countitems == $this->settings["maxitems"]) {
 	    $msg = "The output has been limited to <highlight>{$this->settings["maxitems"]}<end> items. Specify your search more if your item isn't listed.";
-	    bot::send($msg, $sendto);
+	    $this->send($msg, $sendto);
 	}
 } else {
     forEach ($itemlist as $name => $item1) {
    	 	forEach ($item1 as $key => $item) {
 	        if ($ql) {
-		        $link .= "\n QL $ql ".bot::makeItem($item["lowid"], $item["highid"], $ql, $name);
+		        $link .= "\n QL $ql ".$this->makeItem($item["lowid"], $item["highid"], $ql, $name);
 			} else {
-		        $link .= "\n".bot::makeItem($item["lowid"], $item["highid"], $item["highql"], $name);
+		        $link .= "\n".$this->makeItem($item["lowid"], $item["highid"], $item["highql"], $name);
 	        }
 			
 	        if ($item["lowql"] != $item["highql"]) {
@@ -153,6 +153,6 @@ if ($countitems > 3) {
     }
 
 	// Send info back
-    bot::send($link, $sendto);
+    $this->send($link, $sendto);
 }
 ?>
