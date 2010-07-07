@@ -41,6 +41,13 @@
 	bot::event("1min", "$MODULE_NAME/city_guild_raise_cloak.php", "city", "Reminds the player who lowered cloak to raise it when it can be raised.");
 	bot::event("logOn", "$MODULE_NAME/city_guild_logon.php", "city", "Displays summary of city status.");
 	
-	//Helpfiles
+	// Helpfiles
 	bot::help("citycloak", "$MODULE_NAME/citycloak.txt", "guild", "Status of the citycloak", "Org Commands");
+	
+	// Auto Wave
+	bot::command("guild","$MODULE_NAME/start.php", "startraid");
+	bot::command("guild","$MODULE_NAME/stopraid.php", "stopraid");
+	bot::event("setup", "$MODULE_NAME/setup.php");
+	bot::event("guild", "$MODULE_NAME/start.php");
+	bot::event("2sec", "$MODULE_NAME/counter.php");
 ?>
