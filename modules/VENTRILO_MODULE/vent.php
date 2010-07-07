@@ -77,7 +77,6 @@ if ($error === FALSE) {
 		$uptime .= "<white>".$secs."<end><grey>sec(s)<end>";
 	}
     
-    $page = "<header>Ventrilo Server Information<end>\n\n";
     $page .= "This is a <orange>PRIVATE<end> Ventrilo server.\n";
     $page .= "Please DO NOT give out this information without permission.\n\n";
     $page .= "Hostname: <white>{$stat->m_cmdhost}<end>\n";
@@ -105,7 +104,7 @@ if ($error === FALSE) {
 	}
 	
 	$page .= "\n\n*Please note that sometimes the server will not return the right information, if this happens, please try again.\n";
-	$msg = $this->makeLink("Vent Status", $page, 'blob');
+	$msg = $this->makeBlob("Vent Status", $page);
 
 } else {
 

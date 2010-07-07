@@ -79,153 +79,148 @@ if(preg_match("/^loottable (13|28|35)$/i", $message, $arr)) {
 	$itemlink["EPP"] = $this->makeItem(258345, 258345, 300, "Explosif's Polychromatic Pillows");	
 	$tradelink["VLRD"] = "<a href='chatcmd:///tell <myname> guide Visible Light Remodulation Device'>Click here</a>";
 	$itemlink["VNGW"] = $this->makeItem(257123, 257123, 300, "Vektor ND Grand Wyrm");	
-	$list = "<header>::::: Loottable for Sector $sector :::::<end>\n\n";
 	
+	$blob = '';
 	switch($sector) {
 	  	case "13":
 	  		//CRU
-			$list .= "<img src=rdb://257196> \n";
-			$list .= "<highlight>Name:<end> {$itemlink["ICE"]}\n";
-			$list .= "<highlight>Purpose:<end> {$itemlink["ICEU"]}\n";
-			$list .= "<highlight>Guide:<end> {$tradelink["ICE"]}\n";
-			$list .= "<highlight>Note:<end> Drops on all Alien Playfield 5 times from the Boss.\n\n";
+			$blob .= "<img src=rdb://257196> \n";
+			$blob .= "<highlight>Name:<end> {$itemlink["ICE"]}\n";
+			$blob .= "<highlight>Purpose:<end> {$itemlink["ICEU"]}\n";
+			$blob .= "<highlight>Guide:<end> {$tradelink["ICE"]}\n";
+			$blob .= "<highlight>Note:<end> Drops on all Alien Playfield 5 times from the Boss.\n\n";
 
 			//Token Credit Items
-			$list .= "<img src=rdb://218775> \n";
-			$list .= "<highlight>Name:<end> {$itemlink["KBAP"]}\n";
-			$list .= "<img src=rdb://218758> \n";
-			$list .= "<highlight>Name:<end> {$itemlink["KVPU"]}\n";
-			$list .= "<img src=rdb://218768> \n";
-			$list .= "<highlight>Name:<end> {$itemlink["KRI"]}\n";
-			$list .= "<highlight>Purpose:<end> Kyr'Ozch Rank Identification, Kyr'Ozch Video Processing Unit and Kyr'Ozch Battlesuit Audio Processor can be traded at your faction vendor at the Alien Playfield Bar for Tokens or Credits.\n";
-			$list .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss(One from each type).\n\n";
+			$blob .= "<img src=rdb://218775> \n";
+			$blob .= "<highlight>Name:<end> {$itemlink["KBAP"]}\n";
+			$blob .= "<img src=rdb://218758> \n";
+			$blob .= "<highlight>Name:<end> {$itemlink["KVPU"]}\n";
+			$blob .= "<img src=rdb://218768> \n";
+			$blob .= "<highlight>Name:<end> {$itemlink["KRI"]}\n";
+			$blob .= "<highlight>Purpose:<end> Kyr'Ozch Rank Identification, Kyr'Ozch Video Processing Unit and Kyr'Ozch Battlesuit Audio Processor can be traded at your faction vendor at the Alien Playfield Bar for Tokens or Credits.\n";
+			$blob .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss(One from each type).\n\n";
 			
 			//Token Board
-			$list .= "<img src=rdb://230855> \n";
-			$list .= "<highlight>Name:<end> {$itemlink["BOARD"]}\n";
-			$list .= "<highlight>Purpose:<end> - {$itemlink["OTAE"]}\n";
-			$list .= "<tab><tab>     - {$itemlink["CMP"]}\n";
-			$list .= "<highlight>Guide:<end> {$tradelink["BOARD"]}\n";
-			$list .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss.\n\n";
+			$blob .= "<img src=rdb://230855> \n";
+			$blob .= "<highlight>Name:<end> {$itemlink["BOARD"]}\n";
+			$blob .= "<highlight>Purpose:<end> - {$itemlink["OTAE"]}\n";
+			$blob .= "<tab><tab>     - {$itemlink["CMP"]}\n";
+			$blob .= "<highlight>Guide:<end> {$tradelink["BOARD"]}\n";
+			$blob .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss.\n\n";
 			
 			//Action Probability Estimator
-			$list .= "<img src=rdb://203502> \n";
-			$list .= "<highlight>Name:<end> {$itemlink["APE"]}\n";
-			$list .= "<highlight>Purpose:<end> - {$itemlink["EMCH"]}\n";
-			$list .= "<tab><tab>     - {$itemlink["CKCNH"]}\n";
-			$list .= "<tab><tab>     - {$itemlink["SKCGH"]}\n";
-			$list .= "<tab><tab>     - {$itemlink["BCOH"]}\n";
-			$list .= "<tab><tab>     - {$itemlink["GCCH"]}\n";			
-			$list .= "<tab><tab>     - {$itemlink["HCSH"]}\n";			
-			$list .= "<tab><tab>     - {$itemlink["OCPH"]}\n";			
-			$list .= "<tab><tab>     - {$itemlink["SCMH"]}\n";			
-			$list .= "<tab><tab>     - {$itemlink["YCSH"]}\n";			
-			$list .= "<highlight>Guide:<end> {$tradelink["APE"]}\n\n";
+			$blob .= "<img src=rdb://203502> \n";
+			$blob .= "<highlight>Name:<end> {$itemlink["APE"]}\n";
+			$blob .= "<highlight>Purpose:<end> - {$itemlink["EMCH"]}\n";
+			$blob .= "<tab><tab>     - {$itemlink["CKCNH"]}\n";
+			$blob .= "<tab><tab>     - {$itemlink["SKCGH"]}\n";
+			$blob .= "<tab><tab>     - {$itemlink["BCOH"]}\n";
+			$blob .= "<tab><tab>     - {$itemlink["GCCH"]}\n";			
+			$blob .= "<tab><tab>     - {$itemlink["HCSH"]}\n";			
+			$blob .= "<tab><tab>     - {$itemlink["OCPH"]}\n";			
+			$blob .= "<tab><tab>     - {$itemlink["SCMH"]}\n";			
+			$blob .= "<tab><tab>     - {$itemlink["YCSH"]}\n";			
+			$blob .= "<highlight>Guide:<end> {$tradelink["APE"]}\n\n";
 
 			//Dynamic Gas Redistribution Valves
-			$list .= "<img src=rdb://205508> \n";
-			$list .= "<highlight>Name:<end> {$itemlink["DGRV"]}\n";
-			$list .= "<highlight>Purpose:<end> - {$itemlink["HLOA"]}\n";
-			$list .= "<tab><tab>     - {$itemlink["SKR2"]}\n";			
-			$list .= "<tab><tab>     - {$itemlink["SKR3"]}\n";
-			$list .= "<tab><tab>     - {$itemlink["ASC"]}\n";
-			$list .= "<highlight>Guide:<end> {$tradelink["DGRV"]}\n\n";
+			$blob .= "<img src=rdb://205508> \n";
+			$blob .= "<highlight>Name:<end> {$itemlink["DGRV"]}\n";
+			$blob .= "<highlight>Purpose:<end> - {$itemlink["HLOA"]}\n";
+			$blob .= "<tab><tab>     - {$itemlink["SKR2"]}\n";			
+			$blob .= "<tab><tab>     - {$itemlink["SKR3"]}\n";
+			$blob .= "<tab><tab>     - {$itemlink["ASC"]}\n";
+			$blob .= "<highlight>Guide:<end> {$tradelink["DGRV"]}\n\n";
 	  	break;
 	  	case "28":
 	  		//CRU
-			$list .= "<img src=rdb://257196> \n";
-			$list .= "<highlight>Name:<end> {$itemlink["ICE"]}\n";
-			$list .= "<highlight>Purpose:<end> {$itemlink["ICEU"]}\n";
-			$list .= "<highlight>Guide:<end> {$tradelink["ICE"]}\n";
-			$list .= "<highlight>Note:<end> Drops on all Alien Playfield 5 times from the Boss.\n\n";
+			$blob .= "<img src=rdb://257196> \n";
+			$blob .= "<highlight>Name:<end> {$itemlink["ICE"]}\n";
+			$blob .= "<highlight>Purpose:<end> {$itemlink["ICEU"]}\n";
+			$blob .= "<highlight>Guide:<end> {$tradelink["ICE"]}\n";
+			$blob .= "<highlight>Note:<end> Drops on all Alien Playfield 5 times from the Boss.\n\n";
 
 			//Token Credit Items
-			$list .= "<img src=rdb://218775> \n";
-			$list .= "<highlight>Name:<end> {$itemlink["KBAP"]}\n";
-			$list .= "<img src=rdb://218758> \n";
-			$list .= "<highlight>Name:<end> {$itemlink["KVPU"]}\n";
-			$list .= "<img src=rdb://218768> \n";
-			$list .= "<highlight>Name:<end> {$itemlink["KRI"]}\n";
-			$list .= "<highlight>Purpose:<end> Kyr'Ozch Rank Identification, Kyr'Ozch Video Processing Unit and Kyr'Ozch Battlesuit Audio Processor can be traded at your faction vendor at the Alien Playfield Bar for Tokens or Credits.\n";
-			$list .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss(One from each type).\n\n";
+			$blob .= "<img src=rdb://218775> \n";
+			$blob .= "<highlight>Name:<end> {$itemlink["KBAP"]}\n";
+			$blob .= "<img src=rdb://218758> \n";
+			$blob .= "<highlight>Name:<end> {$itemlink["KVPU"]}\n";
+			$blob .= "<img src=rdb://218768> \n";
+			$blob .= "<highlight>Name:<end> {$itemlink["KRI"]}\n";
+			$blob .= "<highlight>Purpose:<end> Kyr'Ozch Rank Identification, Kyr'Ozch Video Processing Unit and Kyr'Ozch Battlesuit Audio Processor can be traded at your faction vendor at the Alien Playfield Bar for Tokens or Credits.\n";
+			$blob .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss(One from each type).\n\n";
 			
 			//Token Board
-			$list .= "<img src=rdb://230855> \n";
-			$list .= "<highlight>Name:<end> {$itemlink["BOARD"]}\n";
-			$list .= "<highlight>Purpose:<end> - {$itemlink["OTAE"]}\n";
-			$list .= "<tab><tab>     - {$itemlink["CMP"]}\n";
-			$list .= "<highlight>Guide:<end> {$tradelink["BOARD"]}\n";
-			$list .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss.\n\n";
+			$blob .= "<img src=rdb://230855> \n";
+			$blob .= "<highlight>Name:<end> {$itemlink["BOARD"]}\n";
+			$blob .= "<highlight>Purpose:<end> - {$itemlink["OTAE"]}\n";
+			$blob .= "<tab><tab>     - {$itemlink["CMP"]}\n";
+			$blob .= "<highlight>Guide:<end> {$tradelink["BOARD"]}\n";
+			$blob .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss.\n\n";
 			
 			//APF Belt
-			$list .= "<img src=rdb://11618> \n";
-			$list .= "<highlight>Name:<end> {$itemlink["IAPU"]}\n";
-			$list .= "<highlight>Purpose:<end> - {$itemlink["HVBCP"]}\n";
-			$list .= "<highlight>Guide:<end> {$tradelink["BELT"]}\n\n";			
+			$blob .= "<img src=rdb://11618> \n";
+			$blob .= "<highlight>Name:<end> {$itemlink["IAPU"]}\n";
+			$blob .= "<highlight>Purpose:<end> - {$itemlink["HVBCP"]}\n";
+			$blob .= "<highlight>Guide:<end> {$tradelink["BELT"]}\n\n";			
 
 			//Notum coil
-			$list .= "<img src=rdb://257195> \n";
-			$list .= "<highlight>Name:<end> {$itemlink["NAC"]}\n";
-			$list .= "<highlight>Purpose:<end> - {$itemlink["TAHSC"]}\n";
-			$list .= "<tab><tab>     - {$itemlink["ONC"]}\n";
-			$list .= "<tab><tab>     - {$itemlink["AKC12"]}\n";			
-			$list .= "<tab><tab>     - {$itemlink["AKC13"]}\n";
-			$list .= "<tab><tab>     - {$itemlink["AKC5"]}\n";			
-			$list .= "<highlight>Guide:<end> {$tradelink["NAC"]}\n";
+			$blob .= "<img src=rdb://257195> \n";
+			$blob .= "<highlight>Name:<end> {$itemlink["NAC"]}\n";
+			$blob .= "<highlight>Purpose:<end> - {$itemlink["TAHSC"]}\n";
+			$blob .= "<tab><tab>     - {$itemlink["ONC"]}\n";
+			$blob .= "<tab><tab>     - {$itemlink["AKC12"]}\n";			
+			$blob .= "<tab><tab>     - {$itemlink["AKC13"]}\n";
+			$blob .= "<tab><tab>     - {$itemlink["AKC5"]}\n";			
+			$blob .= "<highlight>Guide:<end> {$tradelink["NAC"]}\n";
 	  	break;
 	  	case "35":
 	  		//CRU
-			$list .= "<img src=rdb://257196> \n";
-			$list .= "<highlight>Name:<end> {$itemlink["ICE"]}\n";
-			$list .= "<highlight>Purpose:<end> {$itemlink["ICEU"]}\n";
-			$list .= "<highlight>Guide:<end> {$tradelink["ICE"]}\n";
-			$list .= "<highlight>Note:<end> Drops on all Alien Playfield 5 times from the Boss.\n\n";
+			$blob .= "<img src=rdb://257196> \n";
+			$blob .= "<highlight>Name:<end> {$itemlink["ICE"]}\n";
+			$blob .= "<highlight>Purpose:<end> {$itemlink["ICEU"]}\n";
+			$blob .= "<highlight>Guide:<end> {$tradelink["ICE"]}\n";
+			$blob .= "<highlight>Note:<end> Drops on all Alien Playfield 5 times from the Boss.\n\n";
 
 			//Token Credit Items
-			$list .= "<img src=rdb://218775> \n";
-			$list .= "<highlight>Name:<end> {$itemlink["KBAP"]}\n";
-			$list .= "<img src=rdb://218758> \n";
-			$list .= "<highlight>Name:<end> {$itemlink["KVPU"]}\n";
-			$list .= "<img src=rdb://218768> \n";
-			$list .= "<highlight>Name:<end> {$itemlink["KRI"]}\n";
-			$list .= "<highlight>Purpose:<end> Kyr'Ozch Rank Identification, Kyr'Ozch Video Processing Unit and Kyr'Ozch Battlesuit Audio Processor can be traded at your faction vendor at the Alien Playfield Bar for Tokens or Credits.\n";
-			$list .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss(One from each type).\n\n";
+			$blob .= "<img src=rdb://218775> \n";
+			$blob .= "<highlight>Name:<end> {$itemlink["KBAP"]}\n";
+			$blob .= "<img src=rdb://218758> \n";
+			$blob .= "<highlight>Name:<end> {$itemlink["KVPU"]}\n";
+			$blob .= "<img src=rdb://218768> \n";
+			$blob .= "<highlight>Name:<end> {$itemlink["KRI"]}\n";
+			$blob .= "<highlight>Purpose:<end> Kyr'Ozch Rank Identification, Kyr'Ozch Video Processing Unit and Kyr'Ozch Battlesuit Audio Processor can be traded at your faction vendor at the Alien Playfield Bar for Tokens or Credits.\n";
+			$blob .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss(One from each type).\n\n";
 			
 			//Token Board
-			$list .= "<img src=rdb://230855> \n";
-			$list .= "<highlight>Name:<end> {$itemlink["BOARD"]}\n";
-			$list .= "<highlight>Purpose:<end> - {$itemlink["OTAE"]}\n";
-			$list .= "<tab><tab>     - {$itemlink["CMP"]}\n";
-			$list .= "<highlight>Guide:<end> {$tradelink["BOARD"]}\n";
-			$list .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss.\n\n";
+			$blob .= "<img src=rdb://230855> \n";
+			$blob .= "<highlight>Name:<end> {$itemlink["BOARD"]}\n";
+			$blob .= "<highlight>Purpose:<end> - {$itemlink["OTAE"]}\n";
+			$blob .= "<tab><tab>     - {$itemlink["CMP"]}\n";
+			$blob .= "<highlight>Guide:<end> {$tradelink["BOARD"]}\n";
+			$blob .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss.\n\n";
 
 			//Energy Redistribution Unit
-			$list .= "<img src=rdb://257197> \n";
-			$list .= "<highlight>Name:<end> {$itemlink["ERU"]}\n";
-			$list .= "<highlight>Purpose:<end> - {$itemlink["BOB"]}\n";
-			$list .= "<tab><tab>     - {$itemlink["DVLPR"]}\n";
-			$list .= "<tab><tab>     - {$itemlink["VNGW"]}\n";
-			$list .= "<highlight>Guide:<end> {$tradelink["ERU"]}\n\n";
+			$blob .= "<img src=rdb://257197> \n";
+			$blob .= "<highlight>Name:<end> {$itemlink["ERU"]}\n";
+			$blob .= "<highlight>Purpose:<end> - {$itemlink["BOB"]}\n";
+			$blob .= "<tab><tab>     - {$itemlink["DVLPR"]}\n";
+			$blob .= "<tab><tab>     - {$itemlink["VNGW"]}\n";
+			$blob .= "<highlight>Guide:<end> {$tradelink["ERU"]}\n\n";
 			
 			//Visible Light Remodulation Device
-			$list .= "<img src=rdb://235270> \n";
-			$list .= "<highlight>Name:<end> {$itemlink["VLRD"]}\n";
-			$list .= "<highlight>Purpose:<end> - {$itemlink["DVRPR"]}\n";
-			$list .= "<tab><tab>     - {$itemlink["SSSS"]}\n";
-			$list .= "<tab><tab>     - {$itemlink["EPP"]}\n";
-			$list .= "<highlight>Guide:<end> {$tradelink["VLRD"]}\n";
+			$blob .= "<img src=rdb://235270> \n";
+			$blob .= "<highlight>Name:<end> {$itemlink["VLRD"]}\n";
+			$blob .= "<highlight>Purpose:<end> - {$itemlink["DVRPR"]}\n";
+			$blob .= "<tab><tab>     - {$itemlink["SSSS"]}\n";
+			$blob .= "<tab><tab>     - {$itemlink["EPP"]}\n";
+			$blob .= "<highlight>Guide:<end> {$tradelink["VLRD"]}\n";
 	  	break;
 	}
 
-	$msg = $this->makeLink("Loottable for sector $sector", $list);
+	$msg = $this->makeBlob("Loottable for sector $sector", $blob);
 
-    // Send info back
-    if($type == "msg")
-        $this->send($msg, $sender);
-    elseif($type == "priv")
-       	$this->send($msg);
-    elseif($type == "guild")
-       	$this->send($msg, "guild");
-} else
-	$syntax_error = treu;
+    $this->send($msg, $sendto);
+} else {
+	$syntax_error = true;
+}
 ?>

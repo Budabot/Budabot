@@ -38,11 +38,6 @@ if (preg_match("/^nanolines$/i", $message, $arr)) {
 	$sql = "SELECT DISTINCT profession FROM aonanos_nanolines ORDER BY profession ASC";
 	$db->query($sql);
 
-	if (method_exists('bot', 'makeHeader')) {
-		$window = $this->makeHeader("Nanolines - Professions", "none");
-	} else {
-		$window = "<header>::::: Nanolines - Professions :::::<end>\n";	
-	}
 	while($row = $db->fObject()) {
 
 		$window .= $this->makeLink($row->profession, "/tell <myname> <symbol>nlprof $row->profession", 'chatcmd');
@@ -51,7 +46,7 @@ if (preg_match("/^nanolines$/i", $message, $arr)) {
 
 	$window .= "\n\nAO Nanos by Voriuste";
 
-	$msg = $this->makeLink('Nanolines', $window, 'blob');
+	$msg = $this->makeBlob('Nanolines', $window);
 
 	$this->send($msg, $sendto);
 }

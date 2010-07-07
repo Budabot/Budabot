@@ -58,14 +58,9 @@ if(preg_match("/^chatlist$/i", $message) || preg_match("/^sm$/i", $message)){
 	$list = "Players(1-209): $below<br>".$list;
 	if($this->vars["topic"] != "")
 		$topic = "Topic: {$this->settings["topic"]}<br><br>";
-	$list = "<yellow>Chatlist<br><br><green>$topic<lgreen>".$list;
-	$link = $this->makeLink('Chatlist', $list);
+	$list = "<green>$topic<lgreen>".$list;
+	$link = $this->makeBlob('Chatlist', $list);
 
-    if($type == "msg")
-        $this->send($link, $sender);
-    elseif($type == "priv")
-       	$this->send($link);
-    elseif($type == "guild")
-       	$this->send($link, "guild");
+	$this->send($link, $sender);
 }
 ?>

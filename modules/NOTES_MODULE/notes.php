@@ -31,23 +31,20 @@
 
 if (preg_match("/^notes$/i", $message)) {
 
-	$moreInfoMsg = "";
+	$moreInfoMsg = '';
 
 	$sql = "SELECT * FROM notes_<myname> WHERE name LIKE '$sender'";
   	$db->query($sql);
   	while($note = $db->fObject()) {
-		
 	  	$remove = $this->makeLink('Remove', "/tell <myname> <symbol>note rem $note->id" , 'chatcmd');
 	  	$moreInfoMsg .= "$remove $note->note\n\n";
 	}
 	
-	if ($moreInfoMsg == "") {
-		$moreInfoMsg = "No notes.";	
+	if ($moreInfoMsg == '') {
+		$msg = "No notes for $sender.";	
+	} else {
+		$msg = $this->makeBlob("Notes for $sender", $moreInfoMsg);
 	}
-	
-	$moreInfoMsg = "Notes for $sender\n\n" . $moreInfoMsg;
-	
-	$msg = $this->makeLink('Notes', $moreInfoMsg, 'blob');
   	
 	$this->send($msg, $sendto);
 }

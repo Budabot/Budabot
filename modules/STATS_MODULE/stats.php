@@ -35,14 +35,7 @@
 
 if (preg_match("/^stats$/i", $message, $arr)) {
 
-	$window = '';
-	if (method_exists('bot', 'makeHeader')) {
-		$window = $this->makeHeader("Stats", "none");
-	} else {
-		$window = "<header>::::: Stats :::::<end>\n";	
-	}
-	
-	$window .= "
+	$window = "
 		<font color=#FFF000>::: Offense / Defense :::</font>
 		<a href=skillid://276>Offense (Addall-Off)</a>
 		<a href=skillid://277>Defense (Addall-Def)</a>
@@ -132,7 +125,7 @@ if (preg_match("/^stats$/i", $message, $arr)) {
 		<a href=skillid://202>Char stability</a> (unknown)
 		<a href=skillid://203>Char extroverty</a> (unknown)";
 
-	$msg = $this->makeLink('Stats', $window, 'blob');
+	$msg = $this->makeBlob('Stats', $window);
 
 	$this->send($msg, $sendto);
 }

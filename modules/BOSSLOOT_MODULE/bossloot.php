@@ -18,11 +18,6 @@ if(preg_match ("/^bossloot (.+)$/i", $message, $arr)) {
 	$search = $arr[1];
 	$search = ucwords(strtolower($search));
 	$boss = '';
-	if (method_exists('bot', 'makeHeader')) {
-		$boss = $this->makeHeader("Mobs that drop $search", $links);
-	} else {
-		$boss = "<header>::::: Mobs that drop $search :::::<end>\n";
-	}
 	
 	$db->query("SELECT * FROM boss_lootdb WHERE itemname LIKE '%".str_replace("'", "''", $search)."%'");
 	$loot_found = $db->numrows();
@@ -52,17 +47,15 @@ if(preg_match ("/^bossloot (.+)$/i", $message, $arr)) {
 				}
 			}
 		}
-		$output = $this->makelink("BossLoot", $boss);
-	}
-	else {
+		$output = $this->makeBlob("Mobs that drop $search", $boss);
+	} else {
 		$output .= "<yellow>There were no matches for your search.</end>";
 	}
+	
+	$this->send($output, $sendto);
+} else {
+	$syntax_error = true;
 }
-else {
-	$output .="<yellow>You must add a search criteria after the command.</end>";
-}
-
-$this->send($output, $sendto);
 
 ?>
 

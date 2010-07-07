@@ -64,7 +64,7 @@ if (!$syntax_error) {
 	$tables = $doc->getElementsByTagName('table');
 	$rows = $tables->item(0)->getElementsByTagName('tr');
 	
-	$title = 'Search Results for ' . $postFields['search'];
+	$title = 'Shopping Results for ' . $postFields['search'];
 	$items = '';
 	foreach ($rows as $row){
 		$childNodes = $row->childNodes;
@@ -87,8 +87,8 @@ if (!$syntax_error) {
 	}
 	
 	if ($items != '') {
-		$items = $title . "\n\n" . $items . "\n\nSearch results provided by http://www.aojunkyard.com/";
-		$msg = $this->makeLink($title, $items, 'blob');
+		$items .= "\n\nSearch results provided by http://www.aojunkyard.com/";
+		$msg = $this->makeBlob($title, $items);
 	} else {
 		$msg = 'No items found. Maybe try fewer keywords.';
 	}

@@ -382,7 +382,7 @@ class bot extends AOChat{
 /*===============================
 ** Name: makeHeader
 ** Make header.
-*/	function makeHeader($title, $links = NULL) {
+*/	function makeHeader($title, $links = null) {
 		// if !$links, then makeHeader function will show default links:  Help, About, Download.
 	        // if $links = "none", then makeHeader wont show ANY links.
 		// if $links = array("Help;chatcmd:///tell <myname> help"),  slap in your own array for your own links.
@@ -396,22 +396,19 @@ class bot extends AOChat{
 		//Title
 		$header = $color4.":::".$color3.":::".$color2.":::".$color;
 		$header .= "$title";
-		$header .= "</font>:::</font>:::</font>:::</font> ";
+		$header .= "</font>:::</font>:::</font>:::</font>\n";
 
 
-		if (!$links) {
-			$links = array( "Help;chatcmd:///tell ".$this->vars["name"]." help",
-					"About;chatcmd:///tell ".$this->vars["name"]." about",
-					"Download;chatcmd:///start http://budabot.aodevs.com/index.php?page=14");
+		if ($links == TRUE) {
+			$links = array( 'Help' => "chatcmd:///tell ".$this->vars["name"]." help",
+					'About' => "chatcmd:///tell ".$this->vars["name"]." about",
+					'Download' => "chatcmd:///start http://budabot.aodevs.com/index.php?page=14");
 		}
 		if (strtolower($links) != "none") {
-			foreach ($links as $thislink){
-				preg_match("/^(.+);(.+)$/i", $thislink, $arr);
-				if ($arr[1] && $arr[2]) {
-					$header .= $color4.":".$color3.":".$color2.":";
-					$header .= "<a style='text-decoration:none' href='$arr[2]'>".$color."$arr[1]</font></a>";
-					$header .= ":</font>:</font>:</font>";
-				}
+			foreach ($links as $key => $value){
+				$header .= "$color4:$color3:$color2:";
+				$header .= "<a style='text-decoration:none' href='$value'>$color$key</font></a>";
+				$header .= ":</font>:</font>:</font>";
 			}
 		}
 
@@ -419,48 +416,51 @@ class bot extends AOChat{
 
 		return $header;
 	}
+	
+/*===============================
+** Name: makeBlob
+** Make click link reference.
+*/	function makeBlob($name, $content, $links = null) {
+		$content = str_replace('"', '&quot;', $content);
+		$content = explode("\n", $content);
+		$page = 1;
+		forEach ($content as $line) {
+			$result[$page] .= $line."\n";
+			if (strlen($result[$page]) >= $this->settings["max_blob_size"]) {
+				$page++;
+			}
+		}
+		$pages = count($result);
+		if ($pages == 1) {
+			$result[$page] = "<a href=\"text://".$this->makeHeader($name, $links).$this->settings["default window color"].$result[$page]."\">$name</a>";
+		} else {
+			forEach ($result as $page => $content) {
+				$result[$page] = "<a href=\"text://".$this->makeHeader("$name Page $page / $pages", $links).$this->settings["default window color"].$result[$page]."\">$name</a> (Page <highlight>$page / $pages<end>)";
+			}
+		}
+		return $result;
+	}
 
 /*===============================
 ** Name: makeLink
 ** Make click link reference.
-*/	function makeLink($name, $content, $type = "blob"){
+*/	function makeLink($name, $content, $type) {
 		// escape double quotes
-		if ($type != 'blob') {
+		if ($type == 'blob' || $type == '') {
+			return $this->makeBlob($name, $content);
+		} else {
 			$content = str_replace('"', '&quote;', $content);
+			$content = str_replace("'", '&#39;', $content);
 		}
 
-		if ($type == "blob") { // Normal link.
-			$content = str_replace('"', '&quot;', $content);
-			if (strlen($content) > $this->settings["max_blob_size"]) {  //Split the windows if they are too big
-				$pages = ceil(strlen($content) / $this->settings["max_blob_size"]);
-			  	$content = explode("\n", $content);
-				$page = 1;
-			  	forEach ($content as $line) {
-					if ($page > 1 && $display) {
-						$result[$page] .= "<header>::::: $name Page $page :::::<end>\n";
-					}
-					$display = false;
-				    $result[$page] .= $line."\n";
-				    if (strlen($result[$page]) >= $this->settings["max_blob_size"]) {
-						$result[$page] = "<a href=\"text://".$this->settings["default window color"].$result[$page]."\">$name</a> (Page <highlight>$page<end> of <highlight>$pages<end>)";
-				    	$page++;
-						$display = true;
-					}
-				}
-				$result[$pages] = "<a href=\"text://".$this->settings["default window color"].$result[$pages]."\">$name</a> (Page <highlight>$pages<end> of <highlight>$pages<end>)";
-				return $result;
-			} else {
-				return "<a href=\"text://".$this->settings["default window color"].$content."\">$name</a>";
-			}
-		} else if ($type == "text") { // Majic link.
-			$content = str_replace("'", '&#39;', $content);
+		if ($type == "text") { // Majic link.
 			return "<a href='text://$content'>$name</a>";
 		} else if ($type == "chatcmd") { // Chat command.
-			$content = str_replace("'", '&#39;', $content);
 			return "<a href='chatcmd://$content'>$name</a>";
 		} else if ($type == "user") { // Adds support for right clicking usernames in chat, providing you with a menu of options (ignore etc.) (see 18.1 AO patchnotes)
-			$content = str_replace("'", '&#39;', $content);
 			return "<a href='user://$content'>$name</a>";
+		} else {
+			echo "Invalid type: '$type' \n";
 		}
 	}
 	
@@ -527,8 +527,7 @@ class bot extends AOChat{
 
 		if ($who == 'guild') {
 			$who = 'org';
-		}
-		if ($who == 'priv') {
+		} else if ($who == 'priv') {
 			$who = 'prv';
 		}
 
@@ -560,11 +559,11 @@ class bot extends AOChat{
 */	function loadModules(){
 		global $db;
 		global $curMod;
-		if($d = dir("./modules")){
+		if ($d = dir("./modules")){
 			while (false !== ($entry = $d->read())){
-				if(!is_dir("$entry")){
+				if (!is_dir("$entry")){
 					// Look for the plugin's ... setup file
-					if(file_exists("./modules/$entry/$entry.php")){
+					if (file_exists("./modules/$entry/$entry.php")){
 						$curMod = $entry;
 						if($this->settings['debug'] > 0) print("MODULE_NAME:($entry.php)\n");
 						include "./modules/$entry/$entry.php";
@@ -794,7 +793,7 @@ class bot extends AOChat{
 			if($this->existing_subcmds[$type[$i]][$command] == true) {
 				$db->query("UPDATE cmdcfg_<myname> SET `module` = '$curMod', `verify` = 1, `file` = '$filename', `description` = '$description', `dependson` = '$dependson' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
 			} else {
-				$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `access_level`, `description`, `verify`, `cmdevent`, `dependson`) VALUES ('$curMod', '{$type[$i]}', '$filename', '$command', $access_level, '$description', 1, 'subcmd', '$dependson')");
+				$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `access_level`, `description`, `verify`, `cmdevent`, `dependson`, `status`) VALUES ('$curMod', '{$type[$i]}', '$filename', '$command', $access_level, '$description', 1, 'subcmd', '$dependson', '".$this->settings["default module status"]."')");
 			}
 		}
 	}
@@ -811,7 +810,7 @@ class bot extends AOChat{
 	  	if($this->settings['debug'] > 1) print("Adding Event to list:($type) File:($filename)\n");
 		if($this->settings['debug'] > 2) sleep(1);
 
-		if($dependson == "none" && $this->settings["default module status"] == 1) {
+		if ($dependson == "none" && $this->settings["default module status"] == 1) {
 			$status = 1;
 		} else {
 			$status = 0;

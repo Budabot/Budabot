@@ -45,12 +45,6 @@ if (preg_match("/^nlline ([0-9]*)$/i", $message, $arr)) {
 
 		$header = "$row->profession $row->name Nanos";
 
-		if (method_exists('bot', 'makeHeader')) {
-			$window = $this->makeHeader($header, "none");
-		} else {
-			$window = "<header>::::: $header :::::<end>\n";	
-		}
-
 		$sql = "
 		SELECT
 			a.low_id,
@@ -77,7 +71,7 @@ if (preg_match("/^nlline ([0-9]*)$/i", $message, $arr)) {
 
 		$window .= "\n\nAO Nanos by Voriuste";
 
-		$msg = $this->makeLink($header, $window, 'blob');
+		$msg = $this->makeBlob($header, $window);
 
 	} else {
 

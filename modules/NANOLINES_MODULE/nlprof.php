@@ -61,13 +61,8 @@ if (preg_match("/^nlprof (.*)$/i", $message, $arr)) {
 
 	$msg = '';
 	if ($count > 0) {
-		if (method_exists('bot', 'makeHeader')) {
-			$window = $this->makeHeader("$profession Nanolines", "none") . $window;
-		} else {
-			$window = "<header>::::: $profession Nanolines :::::<end>\n" . $window;	
-		}
 		$window .= "\n\nAO Nanos by Voriuste";
-		$msg = $this->makeLink("$profession Nanolines", $window, 'blob');
+		$msg = $this->makeBlob("$profession Nanolines", $window);
 	} else {
 		$msg = "Profession not found.";
 	}

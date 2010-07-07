@@ -45,11 +45,6 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 	$startingRecord = ($page - 1) * $pageSize;
 
 	$window = "";
-	if (method_exists('bot', 'makeHeader')) {
-		$window .= $this->makeHeader("Org History", "none");
-	} else {
-		$window .= "<header>::::: Org History :::::<end>\n";	
-	}
 	
 	$sql = "SELECT actor, actee, action, organization, time FROM org_history ORDER BY time DESC LIMIT $startingRecord, $pageSize";
 	$db->query($sql);
@@ -58,7 +53,7 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 		$window .= "$row->actor $row->action $row->actee in $row->organization at " . gmdate("M j, Y, G:i", $row->time)." (GMT)\n";
 	}
 
-	$msg = $this->makeLink('Org History', $window, 'blob');
+	$msg = $this->makeBlob('Org History', $window);
 
 	$this->send($msg, $sendto);
 } else if (preg_match("/^orghistory (.+)$/i", $message, $arr)) {
@@ -66,11 +61,6 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 	$character = $arr[1];
 
 	$window = "";
-	if (method_exists('bot', 'makeHeader')) {
-		$window .= $this->makeHeader("Org History", "none");
-	} else {
-		$window .= "<header>::::: Org History :::::<end>\n";	
-	}
 	
 	$window .= "\n  Actions on $character\n";
 	$sql = "SELECT actor, actee, action, organization, time FROM org_history WHERE actee LIKE '$character' ORDER BY time DESC";
@@ -88,7 +78,7 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 		$window .= "$row->actor $row->action $row->actee in $row->organization at " . gmdate("M j, Y, G:i", $row->time)." (GMT)\n";
 	}
 
-	$msg = $this->makeLink('Org History', $window, 'blob');
+	$msg = $this->makeBlob('Org History', $window);
 
 	$this->send($msg, $sendto);
 

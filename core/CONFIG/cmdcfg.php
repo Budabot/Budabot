@@ -30,8 +30,7 @@
    */
 
 if (preg_match("/^config$/i", $message)) {
-	$list = "<header>::::: Module Config :::::<end>\n\n";
-	$list .= "Org Commands - " . 
+	$list = "Org Commands - " . 
 		$this->makeLink('Enable All', '/tell <myname> config cmd enable guild', 'chatcmd') . " " . 
 		$this->makeLink('Disable All', '/tell <myname> config cmd disable guild', 'chatcmd') . "\n";
 	$list .= "Private Group Commands - " . 

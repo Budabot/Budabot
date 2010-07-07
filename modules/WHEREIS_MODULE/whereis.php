@@ -27,16 +27,10 @@ if (preg_match("/^whereis (.+)$/i", $message, $arr)) {
 	}
 	
 	if ($whereis_found > 1) {
-		if (method_exists('bot', 'makeHeader')) {
-			$header = $this->makeHeader("Result of Whereis Search For $search", $links);
-		} else {
-			$header = "<header>::::: Result of Whereis Search For $search :::::<end>\n";	
-		}
-		$header .= "There are $whereis_found matches to your query.\n\n";
 		
-		$whereis = $header . $whereis;
+		$whereis = "There are $whereis_found matches to your query.\n\n" . $whereis;
 	
-		$msg = $this->makelink("Whereis", $whereis);
+		$msg = $this->makeBlob("Result of Whereis Search For $search", $whereis);
 	} else if ($whereis_found == 1) {
 		$msg = $whereis;
 	} else {
