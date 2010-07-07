@@ -8,11 +8,11 @@ $tradenpc_txt = "These NPCs may not be the easiest to find, but their wares are 
 <a href='chatcmd:///tell <myname> bernice'>'Thin Bernice'</a> 
 <a href='chatcmd:///tell <myname> tshop'>'Trader Shops'</a>  
 ";
-$tradenpc_txt = $this->makeLink("Guide to Unique NPCs", $tradenpc_txt); 
+$tradenpc_txt = bot::makeLink("Guide to Unique NPCs", $tradenpc_txt); 
 if($type == "msg") 
-$this->send($tradenpc_txt, $sender); 
+bot::send($tradenpc_txt, $sender); 
 elseif($type == "all") 
-$this->send($tradenpc_txt); 
+bot::send($tradenpc_txt); 
 else 
-$this->send($tradenpc_txt, "guild"); 
+bot::send($tradenpc_txt, "guild"); 
 ?>

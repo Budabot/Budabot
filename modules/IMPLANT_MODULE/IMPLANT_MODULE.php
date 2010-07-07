@@ -34,14 +34,14 @@
    */
 
 	$MODULE_NAME = "IMPLANT_MODULE";
-	
-	//Setup
-	$this->loadSQLFile($MODULE_NAME, "implant");
 
 	//Private
-	$this->command("", "$MODULE_NAME/impql.php", "impql", ALL, "Shows stats for implant at given ql");
-	$this->command("", "$MODULE_NAME/impreq.php", "impreq", ALL, "Shows the highest ql implant that can be worn given treatment and ability");
+	bot::command("", "$MODULE_NAME/impql.php", "impql", "all", "Shows stats for implant at given ql");
+	bot::command("", "$MODULE_NAME/impreq.php", "impreq", "all", "Shows the highest ql implant that can be worn given treatment and ability");
 
 	//Help
-	$this->help("Implant", "$MODULE_NAME/implant.txt", ALL, "Implant help");
+	bot::help("Implant", "$MODULE_NAME/implant.txt", "all", "Implant help", "Implant");
+
+	//Setup
+	bot::loadSQLFile($MODULE_NAME, "implant");
 ?>

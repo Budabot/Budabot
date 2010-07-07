@@ -91,11 +91,11 @@ Team wrangles are in <font color = white>WHITE</font> (requires teaming with Tra
 <font color = yellow>+131 Bonus / 58 NCU - Skill Wrangler (Premium)</font>
 <font color = white>+132 Bonus / 58 NCU - Team Skill Wrangler (Premium)</font> ";
 
-$wrangle_txt = $this->makeLink("Guide to Wrangles", $wrangle_txt); 
+$wrangle_txt = bot::makeLink("Guide to Wrangles", $wrangle_txt); 
 if($type == "msg") 
-$this->send($wrangle_txt, $sender); 
+bot::send($wrangle_txt, $sender); 
 elseif($type == "all") 
-$this->send($wrangle_txt); 
+bot::send($wrangle_txt); 
 else 
-$this->send($wrangle_txt, "guild"); 
+bot::send($wrangle_txt, "guild"); 
 ?>

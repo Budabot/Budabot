@@ -8,7 +8,7 @@
    **
    */
    
-$this->savesetting("bbin_status", 0);
+bot::savesetting("bbin_status", 0);
 if($this->settings['bbin_autoconnect'] == 1) {
 	include 'bbin_connect.php';
 }

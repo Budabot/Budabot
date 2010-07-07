@@ -25,11 +25,11 @@ To our disappointment we have to report that the Tsunayoshi Smith doesnt sell we
 The shop is really placed in the middle of nowhere and its use for the people not used to traverse these parts questionable. However, it is a really nice place to pick up weapons for your lowerlevel friends.
  ";
 
-$meleesmith_txt = $this->makeLink("Guide to Melee Smith", $meleesmith_txt); 
+$meleesmith_txt = bot::makeLink("Guide to Melee Smith", $meleesmith_txt); 
 if($type == "msg") 
-$this->send($meleesmith_txt, $sender); 
+bot::send($meleesmith_txt, $sender); 
 elseif($type == "all") 
-$this->send($meleesmith_txt); 
+bot::send($meleesmith_txt); 
 else 
-$this->send($meleesmith_txt, "guild"); 
+bot::send($meleesmith_txt, "guild"); 
 ?>

@@ -26,11 +26,11 @@ $pensancn_txt = "Penumbra Sanctuary (Vanya)
 <a href='itemref://235284/235284/170'>LINK </a> Umbral Wrangler (Advanced) - Trader
 <a href='itemref://226416/226416/170'>LINK </a> Waves of Numbing - Agent</FONT> ";
 
-$pensancn_txt = $this->makeLink("Penumbra Sanctuary Garden Nanos", $pensancn_txt); 
+$pensancn_txt = bot::makeLink("Penumbra Sanctuary Garden Nanos", $pensancn_txt); 
 if($type == "msg") 
-$this->send($pensancn_txt, $sender); 
+bot::send($pensancn_txt, $sender); 
 elseif($type == "all") 
-$this->send($pensancn_txt); 
+bot::send($pensancn_txt); 
 else 
-$this->send($pensancn_txt, "guild"); 
+bot::send($pensancn_txt, "guild"); 
 ?>

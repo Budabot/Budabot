@@ -38,7 +38,7 @@ if($this->settings["leaderecho"] == 1) {
 }
 
 if(preg_match("/^leader (.+)$/i", $message, $arr)) {
-    $uid = $this->get_uid($arr[1]);
+    $uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
 	if(!$uid)
 		$msg = "Player <highlight>".$name."<end> does not exist.";
@@ -48,7 +48,7 @@ if(preg_match("/^leader (.+)$/i", $message, $arr)) {
 		$this->vars["leader"] = $name;
 	  	$msg = "$name is now Raidleader. Raidleader echo is currently $status. You can change it with <symbol>leaderecho $cmd";	    	
 	}
-  	$this->send($msg);
+  	bot::send($msg);
 } elseif(preg_match("/^leader$/i", $message)) {
   	if($this->vars["leader"] == $sender) {
 		unset($this->vars["leader"]);
@@ -63,7 +63,7 @@ if(preg_match("/^leader (.+)$/i", $message, $arr)) {
 		$this->vars["leader"] = $sender;
 	  	$msg = "$sender is now Raidleader. Raidleader echo is currently $status. You can change it with <symbol>leaderecho $cmd";
 	}
-  	$this->send($msg);
+  	bot::send($msg);
 
 } else
 	$syntax_error = true;

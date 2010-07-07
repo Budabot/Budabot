@@ -50,8 +50,8 @@ nce that's completed, just return to Ergo and you'll be awarded with :
 (Clickable Link included for easy search)  
 "
 ;
-$infstar_txt = $this->makeLink("Inferno: Profession Star Quest", $infstar_txt); 
+$infstar_txt = bot::makeLink("Inferno: Profession Star Quest", $infstar_txt); 
 
-$this->send($infstar_txt, $sendto);
+bot::send($infstar_txt, $sendto);
 
 ?>

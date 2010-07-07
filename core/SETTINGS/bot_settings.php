@@ -59,14 +59,14 @@ if (preg_match("/^settings$/i", $message)) {
 			$link .= "  *";
 			
 			if ($row->help != "") {
-				$helpLink = $this->makeLink('Help', "/tell <myname> settings help $row->name", 'chatcmd');
+				$helpLink = bot::makeLink('Help', "/tell <myname> settings help $row->name", 'chatcmd');
 				$link .= "$row->description ($helpLink)";
 			} else {
 				$link .= $row->description;
 			}
 	
 			if ($row->mode == "edit") {
-				$editLink = $this->makeLink('Modify', "/tell <myname> settings change $row->name", 'chatcmd');
+				$editLink = bot::makeLink('Modify', "/tell <myname> settings change $row->name", 'chatcmd');
 				$link .= " ($editLink)";
 			}
 		
@@ -86,8 +86,8 @@ if (preg_match("/^settings$/i", $message)) {
 		}	
 	}
 
-  	$msg = $this->makeLink("Bot Settings", $link);
- 	$this->send($msg, $sendto);
+  	$msg = bot::makeLink("Bot Settings", $link);
+ 	bot::send($msg, $sendto);
 } elseif(preg_match("/^settings change ($names)$/i", $message, $arr)) {
     $link = "<header>::::: Settings for $arr[1] :::::<end>\n\n";
  	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '$arr[1]'");
@@ -149,8 +149,8 @@ if (preg_match("/^settings$/i", $message)) {
 		  		$link .= "<tab> <highlight>$char<end> (<a href='chatcmd:///tell <myname> settings save $row->name $char'>Save it</a>)\n";
 		}
 	}
-  	$msg = $this->makeLink("Settings Info for $arr[1]", $link);
- 	$this->send($msg, $sendto);
+  	$msg = bot::makeLink("Settings Info for $arr[1]", $link);
+ 	bot::send($msg, $sendto);
 } elseif(preg_match("/^settings save ($names) (.+)$/i", $message, $arr)) {
   	$name_setting = strtolower($arr[1]);
   	$change_to_setting = $arr[2];
@@ -223,19 +223,25 @@ if (preg_match("/^settings$/i", $message)) {
 			file_put_contents("config.php", $lines);
 		}
 	}
- 	$this->send($msg, $sendto);
+ 	bot::send($msg, $sendto);
 } elseif(preg_match("/^settings help (.+)$/i", $message, $arr)) {
   	$name = $arr[1];
  	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '$name'");  
 	if($db->numrows() != 0) {
 	  	$row = $db->fObject();
-		$data = file_get_contents($row->help);
-		$msg = $this->makeLink("Help on setting $name", $data);
+		if($help = fopen($row->help, "r")) {
+			while(!feof($help))
+				$data .= fgets($help, 4096);
+			fclose($help);
+			$msg = bot::makeLink("Help on setting $name", $data);
+		} else {
+			$msg = "No help for this setting found.";
+		}
 	} else {
 		$msg = "No help for this setting found.";
 	}
 
- 	$this->send($msg, $sendto);
+ 	bot::send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

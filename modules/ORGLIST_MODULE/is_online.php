@@ -32,11 +32,11 @@
 $msg = "";
 if (preg_match("/^is (.+)$/i", $message, $arr)) {
     // Get User id
-    $uid = $this->get_uid($arr[1]);
+    $uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     if (!$uid) {
         $msg = "Player <highlight>$name<end> does not exist.";
-		$this->send($msg, $sendto);
+		bot::send($msg, $sendto);
     } else {
         //if the player is a buddy then
         if ($this->is_buddy($name, NULL)) {
@@ -53,7 +53,7 @@ if (preg_match("/^is (.+)$/i", $message, $arr)) {
                 $status = "<red>offline<end>".$logged_off;
 			}
             $msg = "Player <highlight>$name<end> is $status";
-			$this->send($msg, $sendto);
+			bot::send($msg, $sendto);
         // else add him
         } else {
 			$this->data["ONLINE_MODULE"]['playername'] = $name;
@@ -68,7 +68,7 @@ if (preg_match("/^is (.+)$/i", $message, $arr)) {
 		$status = "<red>offline<end>";
 	}
 	$msg = "Player <highlight>$sender<end> is $status";
-	$this->send($msg, $this->data["ONLINE_MODULE"]['sendto']);
+	bot::send($msg, $this->data["ONLINE_MODULE"]['sendto']);
 	$this->remove_buddy($sender, 'is_online');
 	unset($this->data["ONLINE_MODULE"]);
 }

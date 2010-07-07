@@ -10,11 +10,11 @@ $rkdung_txt = "<font color = red> Guide To Rubi-Ka Static Dungeons </font>
 <a href='chatcmd:///tell <myname> <symbol>smugden'><font color = yellow>Smuggler's Den</font>  - for Levels 125+</a>
 <a href='chatcmd:///tell <myname> <symbol>hollow'><font color = yellow>Hollow Island</font> - For Level 190+ teams</a>";
 
-$rkdung_txt = $this->makeLink("Guide To Rubi-Ka Static Dungeons", $rkdung_txt); 
+$rkdung_txt = bot::makeLink("Guide To Rubi-Ka Static Dungeons", $rkdung_txt); 
 if($type == "msg") 
-$this->send($rkdung_txt, $sender); 
+bot::send($rkdung_txt, $sender); 
 elseif($type == "all") 
-$this->send($rkdung_txt); 
+bot::send($rkdung_txt); 
 else 
-$this->send($rkdung_txt, "guild"); 
+bot::send($rkdung_txt, "guild"); 
 ?>

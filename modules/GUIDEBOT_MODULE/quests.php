@@ -10,11 +10,11 @@ $quests_txt = " NPC Quest Guide
 <a href='chatcmd:///tell <myname> fgrid2>LINK</a> Fixer Grid 2 TeamFgrid
 <a href='chatcmd:///tell <myname> jacksrings>LINK</a> Jacks Professionals Rings
 ";
-$quests_txt = $this->makeLink("NPC Quest Guides", $quests_txt); 
+$quests_txt = bot::makeLink("NPC Quest Guides", $quests_txt); 
 if($type == "msg") 
-$this->send($quests_txt, $sender); 
+bot::send($quests_txt, $sender); 
 elseif($type == "all") 
-$this->send($quests_txt); 
+bot::send($quests_txt); 
 else 
-$this->send($quests_txt, "guild"); 
+bot::send($quests_txt, "guild"); 
 ?>

@@ -57,11 +57,11 @@ $locations_txt = "Locations Of Rubi Ka
 
 'Enjoy It While It Lasts' ";
 
-$locations_txt = $this->makeLink("Locations of Rubi Ka", $locations_txt); 
+$locations_txt = bot::makeLink("Locations of Rubi Ka", $locations_txt); 
 if($type == "msg") 
-$this->send($locations_txt, $sender); 
+bot::send($locations_txt, $sender); 
 elseif($type == "all") 
-$this->send($locations_txt); 
+bot::send($locations_txt); 
 else 
-$this->send($locations_txt, "guild"); 
+bot::send($locations_txt, "guild"); 
 ?>

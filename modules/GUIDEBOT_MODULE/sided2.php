@@ -47,11 +47,11 @@ Additionally, you will again be presented with a card. And if you didn't keep yo
 
  ";
 
-$sided2_txt = $this->makeLink("Guide to Sided Pads Part 2", $sided2_txt); 
+$sided2_txt = bot::makeLink("Guide to Sided Pads Part 2", $sided2_txt); 
 if($type == "msg") 
-$this->send($sided2_txt, $sender); 
+bot::send($sided2_txt, $sender); 
 elseif($type == "all") 
-$this->send($sided2_txt); 
+bot::send($sided2_txt); 
 else 
-$this->send($sided2_txt, "guild"); 
+bot::send($sided2_txt, "guild"); 
 ?>

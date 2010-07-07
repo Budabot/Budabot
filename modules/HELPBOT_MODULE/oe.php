@@ -41,7 +41,7 @@ if(preg_match("/^oe ([0-9]+)$/i", $message, $arr)) {
     }
     
     // Send info back
-    $this->send($msg, $sendto);
+    bot::send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

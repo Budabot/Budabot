@@ -204,9 +204,9 @@ Special thanks to Lenith for filling up the Unredeem part of quest.
 Creative reposting and recomposition by Plugsz
 "
 ;
-$adoquest_txt = $this->makeLink("Adonis Quests", $adoquest_txt);
+$adoquest_txt = bot::makeLink("Adonis Quests", $adoquest_txt);
 
-$this->send($adoquest_txt, $sendto);
+bot::send($adoquest_txt, $sendto);
 
 ?>
   

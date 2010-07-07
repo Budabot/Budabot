@@ -55,7 +55,7 @@ if (preg_match("/^inspect (.+)$/i", $message, $arr)) {
 			$type = "Unidentified";
 		}
 		$msg = "QL ".$ql." of ".$type;
-		$this->send($msg, $sendto);
+		bot::send($msg, $sendto);
 	}
 } else {
 	$syntax_error = true;

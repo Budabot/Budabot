@@ -55,7 +55,7 @@ Click <a href='chatcmd:///tell <myname> leaveRaffle'>here</a> if you wish to lea
 
 	$linkMsg .= "\n\n Time left: $tleft seconds.";
 
-    $link = $this->makeLink("here", $linkMsg);
+    $link = bot::makeLink("here", $linkMsg);
         
 	if ($tleft < 0 && $timesincelastmsg > 15) {
 		$memNum = count($this->vars["Raffles"]["rafflees"]);
@@ -79,6 +79,6 @@ Click <a href='chatcmd:///tell <myname> leaveRaffle'>here</a> if you wish to lea
 
 	if ($msg != "") {
 	    $this->vars["Raffles"]["lastmsgtime"] = time();
-	    $this->send($msg, "org");
+	    bot::send($msg, "org");
 	}
 ?>

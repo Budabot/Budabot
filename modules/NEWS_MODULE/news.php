@@ -36,13 +36,13 @@ if(preg_match("/^news del ([0-9]+)$/i", $message, $arr)) {
 	else
 		$msg = "Newsentry with the ID <highlight>{$arr[1]}<end> was successfully deleted.";
 
-    $this->send($msg, $sendto);
+    bot::send($msg, $sendto);
 } elseif(preg_match("/^news (.+)$/i", $message, $arr)) {
 	$news = str_replace("'", "''", $arr[1]);
 	$db->query("INSERT INTO news_<myname> (`time`, `name`, `news`) VALUES (".time().", '".$sender."', '$news')"); 
 	$msg = "News has been added.";
 
-    $this->send($msg, $sendto);
+    bot::send($msg, $sendto);
 } elseif(preg_match("/^news$/i", $message, $arr)) {
 	$db->query("SELECT * FROM news_<myname> ORDER BY `time` DESC LIMIT 0, 10");
 	if($db->numrows() != 0) {
@@ -53,14 +53,14 @@ if(preg_match("/^news del ([0-9]+)$/i", $message, $arr)) {
 			
 		  	$link .= "<highlight>Date:<end> ".gmdate("dS M, H:i", $row->time)."\n";
 		  	$link .= "<highlight>Author:<end> $row->name\n";
-		  	$link .= "<highlight>Options:<end> ".$this->makeLink("Delete this newsentry", "/tell <myname> news del $row->id", "chatcmd")."\n";
+		  	$link .= "<highlight>Options:<end> ".bot::makeLink("Delete this newsentry", "/tell <myname> news del $row->id", "chatcmd")."\n";
 		  	$link .= "<highlight>Message:<end> $row->news\n\n";
 		}
-		$msg = $this->makeLink("Click to view the latest News", $link)." [Last updated at ".gmdate("dS M, H:i", $updated)."]";
+		$msg = bot::makeLink("Click to view the latest News", $link)." [Last updated at ".gmdate("dS M, H:i", $updated)."]";
 	} else
 		$msg = "No News recorded yet.";
 
 		
-    $this->send($msg, $sendto);
+    bot::send($msg, $sendto);
 }
 ?>

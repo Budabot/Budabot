@@ -66,11 +66,11 @@ Last updated on 06.09.2006 by Windkeeper
 Information originally provided by Fixerben.
  ";
 
-$fgridone_txt = $this->makeLink("Guide to Fixer Grid Part 1", $fgridone_txt); 
+$fgridone_txt = bot::makeLink("Guide to Fixer Grid Part 1", $fgridone_txt); 
 if($type == "msg") 
-$this->send($fgridone_txt, $sender); 
+bot::send($fgridone_txt, $sender); 
 elseif($type == "all") 
-$this->send($fgridone_txt); 
+bot::send($fgridone_txt); 
 else 
-$this->send($fgridone_txt, "guild"); 
+bot::send($fgridone_txt, "guild"); 
 ?>

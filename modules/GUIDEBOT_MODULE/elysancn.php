@@ -20,11 +20,11 @@ $elysancn_txt = "Elysium Sanctuary Nanos
 <a href='itemref://223128/223128/50'>LINK </a> Shadow Step - Fixer
 <a href='itemref://218093/210893/50'>LINK </a> Spark Shower - NT </font> ";
 
-$elysancn_txt = $this->makeLink("Elysium Sanctuary Garden Nanos", $elysancn_txt); 
+$elysancn_txt = bot::makeLink("Elysium Sanctuary Garden Nanos", $elysancn_txt); 
 if($type == "msg") 
-$this->send($elysancn_txt, $sender); 
+bot::send($elysancn_txt, $sender); 
 elseif($type == "all") 
-$this->send($elysancn_txt); 
+bot::send($elysancn_txt); 
 else 
-$this->send($elysancn_txt, "guild"); 
+bot::send($elysancn_txt, "guild"); 
 ?>

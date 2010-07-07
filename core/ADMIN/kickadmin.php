@@ -31,23 +31,23 @@
 
 if (preg_match("/^kickadmin (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
-	if($this->get_uid($who) == NULL){
-		$this->send("<red>Sorry player you wish to remove does not exist.", $sendto);
+	if(AOChat::get_uid($who) == NULL){
+		bot::send("<red>Sorry player you wish to remove does not exist.", $sendto);
 		return;
 	}
 
 	if ($who == $sender) {
-		$this->send("<red>You can't kick yourself.<end>", $sendto);
+		bot::send("<red>You can't kick yourself.<end>", $sendto);
 		return;
 	}
 
-	if ($this->admins[$who]["level"] != ADMIN) {
-		$this->send("<red>Sorry $who is not a Administrator of this Bot.<end>", $sendto);
+	if ($this->admins[$who]["level"] != 4) {
+		bot::send("<red>Sorry $who is not a Administrator of this Bot.<end>", $sendto);
 		return;
 	}
 	
 	if ($this->settings["Super Admin"] != $sender){
-		$this->send("<red>You need to be Super-Administrator to kick a Administrator<end>", $sendto);
+		bot::send("<red>You need to be Super-Administrator to kick a Administrator<end>", $sendto);
 		return;
 	}
 	
@@ -56,8 +56,8 @@ if (preg_match("/^kickadmin (.+)$/i", $message, $arr)){
 	
 	$this->remove_buddy($who, 'admin');
 	
-	$this->send("<highlight>$who<end> has been removed as Administrator of this Bot.", $sendto);
-	$this->send("Your Administrator access to <myname> has been removed.", $who);
+	bot::send("<highlight>$who<end> has been removed as Administrator of this Bot.", $sendto);
+	bot::send("Your Administrator access to <myname> has been removed.", $who);
 } else {
 	$syntax_error = true;
 }

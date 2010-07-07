@@ -143,10 +143,10 @@ foreach($this->vars["Vote"] as $key => $value) {
 			$msg .="<tab><a href='chatcmd:///tell ".$this->vars["name"]." vote end$delimiter$question'>End</a> the vote early.";
 		}
 		
-		$msg = $this->makeLink($title, $msg);
+		$msg = bot::makeLink($title, $msg);
 		
-		if ($this->settings["vote_channel_spam"] == 0 || $this->settings["vote_channel_spam"] == 2) {$this->send($msg, "guild");}
-	   	if ($this->settings["vote_channel_spam"] == 1 || $this->settings["vote_channel_spam"] == 2) {$this->send($msg);}
+		if ($this->settings["vote_channel_spam"] == 0 || $this->settings["vote_channel_spam"] == 2) {bot::send($msg, "guild");}
+	   	if ($this->settings["vote_channel_spam"] == 1 || $this->settings["vote_channel_spam"] == 2) {bot::send($msg);}
 	}
 }
 ?>

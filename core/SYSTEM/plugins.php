@@ -30,7 +30,7 @@
    */
 
 //Sending Notify about the reload
-$this->send("Reloading all Modules. This can take a few seconds depending on your config.", $sendto);
+bot::send("Reloading all Modules. This can take a few seconds depending on your config.", $sendto);
 print("!!!Reloading all Modules!!!\n");
 
 //Delete old vars
@@ -55,9 +55,9 @@ unset($this->_30mins);
 unset($this->_1hour);
 unset($this->_24hrs);
 unset($this->_connect);
+unset($this->helpfiles);
 
 //Prepare DB
-$db->query("UPDATE hlpcfg_<myname> SET verify = 0");
 $db->query("UPDATE cmdcfg_<myname> SET `verify` = 0");
 $db->query("UPDATE cmdcfg_<myname> SET `status` = 0 WHERE `cmdevent` = 'event' AND `type` = 'setup'");
 $db->query("UPDATE cmdcfg_<myname> SET `grp` = 'none'");
@@ -76,6 +76,10 @@ $db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'event'");
 while($row = $db->fObject())
   	$this->existing_events[$row->type][$row->file] = true;
 
+$db->query("SELECT * FROM hlpcfg_<myname>");
+while($row = $db->fObject())
+  	$this->existing_helps[$row->name] = true;
+		  	
 $db->query("SELECT * FROM settings_<myname>");
 while($row = $db->fObject())
   	$this->existing_settings[$row->name] = true;
@@ -86,6 +90,8 @@ if($this->settings['debug'] > 0) print("MODULE_NAME:(SETTINGS.php)\n");
 	include "./core/SETTINGS/SETTINGS.php";
 if($this->settings['debug'] > 0) print("MODULE_NAME:(SYSTEM.php)\n");
 	include "./core/SYSTEM/SYSTEM.php";
+	$curMod = "";
+
 if($this->settings['debug'] > 0) print("MODULE_NAME:(ADMIN.php)\n");
 	include "./core/ADMIN/ADMIN.php";		
 if($this->settings['debug'] > 0) print("MODULE_NAME:(BAN.php)\n");
@@ -104,8 +110,12 @@ if($this->settings['debug'] > 0) print("MODULE_NAME:(PRIV_TELL_LIMIT.php)\n");
 // Load Plugin Modules
 if($this->settings['debug'] > 0) print("\n:::::::PLUGIN MODULES::::::::\n");	
 
+//Start Transaction
+$db->beginTransaction();
 //Load modules
 $this->loadModules();
+//Submit the Transactions
+$db->Commit();
 
 //Load active commands
 if($this->settings['debug'] > 0) print("\nSetting up commands.\n");
@@ -124,11 +134,12 @@ unset($this->existing_commands);
 unset($this->existing_events);
 unset($this->existing_subcmds);
 unset($this->existing_settings);
+unset($this->existing_helps);
 
 //Delete old entrys in the DB
 $db->query("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0");
 $db->query("DELETE FROM hlpcfg_<myname> WHERE `verify` = 0");
 
-$this->send("Reload of the Modules completed.", $sendto);
+bot::send("Reload of the Modules completed.", $sendto);
 print("!!!Reload of all Modules is done!!!\n");
 ?>

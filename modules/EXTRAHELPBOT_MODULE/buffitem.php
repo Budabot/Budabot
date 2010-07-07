@@ -15,7 +15,7 @@
 	$help .= "<a href='chatcmd:///tell <myname> <symbol>buffitem nova dil'>/tell <myname> <symbol>buffitem nova dil</a>\n\n";
 	$help .= $footer;
 
-	$helplink = $this->makeLink("::How to use buffitem::", $help);
+	$helplink = bot::makeLink("::How to use buffitem::", $help);
 
 	if (preg_match("/^buffitem (.+)$/i", $message, $arr)) {
 		$name = $arr[1];
@@ -45,7 +45,7 @@
 		}
 		
 		if ($found == 0) {
-			$this->send("No matches, sorry.", $sendto);
+			bot::send("No matches, sorry.", $sendto);
 			return;
 		} else {
 			$inside = $header;
@@ -60,12 +60,12 @@
 				$inside .= "\n".sizeof($results)." results found, please pick one by clicking it\n\n";
 			}
 			$inside .= $footer;
-			$windowlink = $this->makeLink("Buff item search results", $inside);
+			$windowlink = bot::makeLink("Buff item search results", $inside);
 		}
-		$this->send($windowlink, $sendto);
-		$this->send("<highlight>$found<end> result(s) in total", $sendto);
+		bot::send($windowlink, $sendto);
+		bot::send("<highlight>$found<end> result(s) in total", $sendto);
 	} else {
-		$this->send($helplink, $sendto);
+		bot::send($helplink, $sendto);
 	}
 	
 ?>

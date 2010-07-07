@@ -106,12 +106,12 @@ You can run one of each mission at a time. Once you complete the mission, you ca
 
 ";
 
-$halloween_txt = $this->makeLink("Ferrel_s Halloween Guide", $halloween_txt); 
+$halloween_txt = bot::makeLink("Ferrel_s Halloween Guide", $halloween_txt); 
 if($type == "msg") 
-$this->send($halloween_txt, $sender); 
+bot::send($halloween_txt, $sender); 
 elseif($type == "all") 
-$this->send($halloween_txt); 
+bot::send($halloween_txt); 
 else 
-$this->send($halloween_txt, "guild"); 
+bot::send($halloween_txt, "guild"); 
 ?>
 

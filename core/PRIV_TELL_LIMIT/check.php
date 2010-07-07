@@ -37,7 +37,7 @@ if ((preg_match("/^join$/i", $message) || preg_match("/^invite$/i", $message)) &
 	  	$db->query("SELECT * FROM members_<myname> WHERE `name` = '$sender'");
 		if ($db->numrows() == 0) {
 		  	$msg = "<red>Error! Only Members of this bot can join this bot.<end>";
-		  	$this->send($msg, $sender);
+		  	bot::send($msg, $sender);
   		  	$restricted = true;
 		  	return;
 		} else {
@@ -48,7 +48,7 @@ if ((preg_match("/^join$/i", $message) || preg_match("/^invite$/i", $message)) &
 	//Check if he is a org Member
 	if ($this->settings["priv_req_open"] == "org" && !isset($this->guildmembers)) {
 	  	$msg = "<red>Error! Only members of the org {$this->vars["my guild"]} can join this bot.<end>";
-	  	$this->send($msg, $sender);
+	  	bot::send($msg, $sender);
 	  	$restricted = true;
 	  	return;
 	}
@@ -58,7 +58,7 @@ if ((preg_match("/^join$/i", $message) || preg_match("/^invite$/i", $message)) &
 		$whois = new whois($sender);
 	   	if ($whois->errorCode != 0) {
 		    $msg = "<red>Error! Unable to get your character info. Please try again later.<end>";
-		    $this->send($msg, $sender);
+		    bot::send($msg, $sender);
 		  	$restricted = true;
 		    return;
 		}
@@ -67,7 +67,7 @@ if ((preg_match("/^join$/i", $message) || preg_match("/^invite$/i", $message)) &
 	//Check the Minlvl
 	if ($this->settings["priv_req_lvl"] != 0 && $this->settings["priv_req_lvl"] > $whois->level) {
 	  	$msg = "<red>Error! You need to be at least {$this->settings["priv_req_lvl"]} to join this bot.<end>";
-	    $this->send($msg, $sender);
+	    bot::send($msg, $sender);
 	  	$restricted = true;
 	    return;
 	}
@@ -75,14 +75,14 @@ if ((preg_match("/^join$/i", $message) || preg_match("/^invite$/i", $message)) &
 	//Check the Faction Limit
 	if (($this->settings["priv_req_faction"] == "Omni" || $this->settings["priv_req_faction"] == "Clan" || $this->settings["priv_req_faction"] == "Neutral") && $this->settings["priv_req_faction"] != $whois->faction) {
 	  	$msg = "<red>Error! Only Members of the Faction {$this->settings["priv_req_faction"]} can join this bot.<end>";
-	    $this->send($msg, $sender);
+	    bot::send($msg, $sender);
 	  	$restricted = true;
 	    return;
 	} else if ($this->settings["priv_req_faction"] == "not Omni" || $this->settings["priv_req_faction"] == "not Clan" || $this->settings["priv_req_faction"] == "not Neutral") {
 		$tmp = explode(" ", $this->settings["priv_req_faction"]);
 		if($tmp[1] == $whois->faction) {
 			$msg = "<red>Error! Only members that are not in the Faction {$tmp[1]} can join this bot.<end>";
-		    $this->send($msg, $sender);
+		    bot::send($msg, $sender);
 		  	$restricted = true;
 		    return;
 		}
@@ -91,7 +91,7 @@ if ((preg_match("/^join$/i", $message) || preg_match("/^invite$/i", $message)) &
 	//Check the Maximum Limit for the PrivateGroup
 	if ($this->settings["priv_req_maxplayers"] != 0 && count($this->chatlist) > $this->settings["priv_req_maxplayers"]) {
 	  	$msg = "<red>Error! Only players who are at least level {$this->settings["priv_req_lvl"]} can join this bot.<end>";
-	    $this->send($msg, $sender);
+	    bot::send($msg, $sender);
 	  	$restricted = true;
 	    return;
 	}
@@ -101,7 +101,7 @@ if ((preg_match("/^join$/i", $message) || preg_match("/^invite$/i", $message)) &
 	  	$db->query("SELECT * FROM members_<myname> WHERE `name` = '$sender'");
 		if ($db->numrows() == 0) {
 		  	$msg = "<red>Error! I am only responding to members of this bot!<end>.";
-		  	$this->send($msg, $sender);
+		  	bot::send($msg, $sender);
   		  	$restricted = true;
 		  	return;
 		}
@@ -110,7 +110,7 @@ if ((preg_match("/^join$/i", $message) || preg_match("/^invite$/i", $message)) &
 	//Check if he is a org Member
 	if ($this->settings["tell_req_open"] == "org" && !isset($this->guildmembers[$sender])) {
 	  	$msg = "<red>Error! I am only respondling to members of the org {$this->vars["my guild"]}.<end>";
-	  	$this->send($msg, $sender);
+	  	bot::send($msg, $sender);
 	  	$restricted = true;
 	  	return;
 	}
@@ -120,7 +120,7 @@ if ((preg_match("/^join$/i", $message) || preg_match("/^invite$/i", $message)) &
 		$whois = new whois($sender);
 	   	if ($whois->errorCode != 0) {
 		    $msg = "<red>Error! Sorry, I was unable to get your char infos. Please try again later.<end>";
-		    $this->send($msg, $sender);
+		    bot::send($msg, $sender);
 		  	$restricted = true;
 		    return;
 		}
@@ -129,7 +129,7 @@ if ((preg_match("/^join$/i", $message) || preg_match("/^invite$/i", $message)) &
 	//Check the Minlvl
 	if ($this->settings["tell_req_lvl"] != 0 && $this->settings["tell_req_lvl"] > $whois->level) {
 	  	$msg = "<red>Error! I am only responding to players that are higher then Level {$this->settings["tell_req_lvl"]}.<end>";
-	    $this->send($msg, $sender);
+	    bot::send($msg, $sender);
    	  	$restricted = true;
 	    return;
 	}
@@ -137,14 +137,14 @@ if ((preg_match("/^join$/i", $message) || preg_match("/^invite$/i", $message)) &
 	//Check the Faction Limit
 	if (($this->settings["tell_req_faction"] == "Omni" || $this->settings["tell_req_faction"] == "Clan" || $this->settings["tell_req_faction"] == "Neutral") && $this->settings["tell_req_faction"] != $whois->faction) {
 	  	$msg = "<red>Error! I am only responding to members of the Faction {$this->settings["tell_req_faction"]}.<end>";
-	    $this->send($msg, $sender);
+	    bot::send($msg, $sender);
 	  	$restricted = true;
 	    return;
 	} else if ($this->settings["tell_req_faction"] == "not Omni" || $this->settings["tell_req_faction"] == "not Clan" || $this->settings["tell_req_faction"] == "not Neutral") {
 		$tmp = explode(" ", $this->settings["tell_req_faction"]);
 		if ($tmp[1] == $whois->faction) {
 			$msg = "<red>Error! I am responding only to members that are not in the Faction {$tmp[1]}.<end>";
-		    $this->send($msg, $sender);
+		    bot::send($msg, $sender);
     	  	$restricted = true;
 		    return;
 		}

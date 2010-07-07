@@ -35,7 +35,7 @@ if(preg_match("/^(loot clear|clear)$/i", $message)) {
   	$loot = "";
 	$residual = "";
   	$msg = "Loot has been cleared by <highlight>$sender<end>.";
-  	$this->send($msg);	
+  	bot::send($msg);	
 } elseif(preg_match("/^loot (.+)$/i", $message, $arr)) {
 
 	//Check if the item is a link
@@ -88,7 +88,7 @@ if(preg_match("/^(loot clear|clear)$/i", $message)) {
 	//Check if max slots is reached
   	if($num_loot >= 30) {
 	    $msg = "You can only roll 30 items max at one time!";
-	    $this->send($msg);
+	    bot::send($msg);
 	    return;
 	}
 
@@ -127,22 +127,22 @@ if(preg_match("/^(loot clear|clear)$/i", $message)) {
 
 		//Send info
 		if($multiloot){
-			$this->send($multiloot."x <highlight>{$loot[$num_loot]["name"]}<end> will be rolled in Slot <highlight>#$num_loot<end>");
+			bot::send($multiloot."x <highlight>{$loot[$num_loot]["name"]}<end> will be rolled in Slot <highlight>#$num_loot<end>");
 			}
 		else{
-			$this->send("<highlight>{$loot[$num_loot]["name"]}<end> will be rolled in Slot <highlight>#$num_loot<end>");
+			bot::send("<highlight>{$loot[$num_loot]["name"]}<end> will be rolled in Slot <highlight>#$num_loot<end>");
 			}
-		$this->send("To add use <symbol>add $num_loot, or <symbol>add 0 to remove yourself");
+		bot::send("To add use <symbol>add $num_loot, or <symbol>add 0 to remove yourself");
 		}
 	else{
 		//Send info in case of SMART
 		if($multiloot){
-			$this->send($multiloot."x <highlight>{$loot[$itmref]["name"]}<end> added to Slot <highlight>#$itmref<end> as multiloot. Total: <yellow>{$loot[$itmref]["multiloot"]}<end>");
+			bot::send($multiloot."x <highlight>{$loot[$itmref]["name"]}<end> added to Slot <highlight>#$itmref<end> as multiloot. Total: <yellow>{$loot[$itmref]["multiloot"]}<end>");
 			}
 		else{
-			$this->send("<highlight>{$loot[$itmref]["name"]}<end> added to Slot <highlight>#$itmref<end> as multiloot. Total: <yellow>{$loot[$itmref]["multiloot"]}<end>");
+			bot::send("<highlight>{$loot[$itmref]["name"]}<end> added to Slot <highlight>#$itmref<end> as multiloot. Total: <yellow>{$loot[$itmref]["multiloot"]}<end>");
 			}
-		$this->send("To add use <symbol>add $itmref, or <symbol>add 0 to remove yourself");
+		bot::send("To add use <symbol>add $itmref, or <symbol>add 0 to remove yourself");
 		$dontadd = 0;
 		$itmref = 0;
 		if(is_array($residual)){

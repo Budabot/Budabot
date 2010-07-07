@@ -1,14 +1,14 @@
 <?php
 	$MODULE_NAME = "NOTES_MODULE";
-	
-	//Setup
-	$this->loadSQLFile($MODULE_NAME, "notes");
 
 	//adds tower info to 'watch' list
-	$this->command("", "$MODULE_NAME/note.php", "note", GUILDMEMBER, "adds or removes a note from your list");
-	$this->command("", "$MODULE_NAME/notes.php", "notes", GUILDMEMBER, "displays notes in your list");
+	bot::command("", "$MODULE_NAME/note.php", "note", "all", "adds or removes a note from your list");
+	bot::command("", "$MODULE_NAME/notes.php", "notes", "all", "displays notes in your list");
 
-	//Help files
-	$this->help("Notes", "$MODULE_NAME/notes.txt", GUILDMEMBER, "Notes Help");
+	//Helpfiles
+	bot::help("Notes", "$MODULE_NAME/notes.txt", "guild", "Notes Help", "Notes");
+	
+	//Setup
+	bot::loadSQLFile($MODULE_NAME, "notes");
 	
 ?>

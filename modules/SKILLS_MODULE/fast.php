@@ -14,7 +14,7 @@ $help .= "You have <orange>900<end> fast attack Skill.\n";
 $help .= "<a href='chatcmd:///tell <myname> <symbol>fast 1.2 900'>/tell <myname> <symbol>fast 1.2 900</a>\n\n";
 $help .= $footer;
 
-$helplink = $this->makeLink("::How to use fast attack::", $help);
+$helplink = bot::makeLink("::How to use fast attack::", $help);
 
 if (preg_match("/^(fast|fastattack) ([0-9]*\.?[0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	$AttTim = trim($arr[1]);
@@ -37,8 +37,8 @@ if (preg_match("/^(fast|fastattack) ([0-9]*\.?[0-9]+) ([0-9]+)$/i", $message, $a
 	$inside	.= "You need <orange>".$fastskillcap."<end> Fast Atk Skill to cap your fast attack at: <orange>".$fasthardcap."<end>s";
 	$inside .= $footer;
 
-	$windowlink = $this->makeLink("::Your Fast Attack Results::", $inside);
-	$this->send($windowlink, $sendto);
+	$windowlink = bot::makeLink("::Your Fast Attack Results::", $inside);
+	bot::send($windowlink, $sendto);
 } else {
-	$this->send($helplink, $sendto);
+	bot::send($helplink, $sendto);
 }

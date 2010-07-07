@@ -15,11 +15,11 @@ if (preg_match("/^friendlist(.+)?$/i", $message, $arg)) {
 		$cleanup = true;
 	}
 	
-	$this->send("One momment... (".count($this->buddyList)." names to check.)", $sendto);
+	bot::send("One momment... (".count($this->buddyList)." names to check.)", $sendto);
 	
 	$orphanCount = 0;
 	if (count($this->buddyList) == 0) {
-		$this->send("Didn't find any names in the friendlist.", $sendto);
+		bot::send("Didn't find any names in the friendlist.", $sendto);
 	} else {
 		$blob = "Buddy List\n\n";
 		forEach ($this->buddyList as $key => $value) {
@@ -43,7 +43,7 @@ if (preg_match("/^friendlist(.+)?$/i", $message, $arg)) {
 				$blob .= $this->makeLink('Remove Orphans', '/tell <myname> <symbol>friendlist clean', 'chatcmd');
 			}
 		}
-		$this->send($this->makeLink("Friendlist Details", $blob), $sendto);
+		bot::send(bot::makeLink("Friendlist Details", $blob), $sendto);
 	}
 }
 ?>

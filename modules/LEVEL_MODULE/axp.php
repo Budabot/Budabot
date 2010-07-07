@@ -94,10 +94,10 @@ if(preg_match("/^axp$/i", $message)) {
     $msg .= "29 - 5.475.604 - Vanquisher - 195\n";
     $msg .= "30 - 5.968.409 - Vindicator - 200\n";
 
-    $msg = $this->makeLink("AXP Table", $msg);
+    $msg = bot::makeLink("AXP Table", $msg);
 
     // Send info back
-    $this->send($msg, $sendto);
+    bot::send($msg, $sendto);
 } elseif(preg_match("/^axp ([0-9]+)$/i", $message, $arr)) {
     if($arr[1] >= 1 && $arr[1] <= 30) {
         $msg = "With ailvl <highlight>".$arr[1]."<end> you need <highlight>".number_format($axp[$arr[1]])."<end> AXP to level up.";
@@ -105,7 +105,7 @@ if(preg_match("/^axp$/i", $message)) {
         $msg = "You need to specify a lvl between 1 and 30.";
 
     // Send info back
-    $this->send($msg, $sendto);
+    bot::send($msg, $sendto);
 } elseif(preg_match("/^axp ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
     if($arr[1] >= 0 && $arr[1] <= 30 && $arr[2] >= 1 && $arr[2] <= 30) {
         if($arr[1] < $arr[2]) {
@@ -121,7 +121,7 @@ if(preg_match("/^axp$/i", $message)) {
 	}
 
     // Send info back
-    $this->send($msg, $sendto);
+    bot::send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

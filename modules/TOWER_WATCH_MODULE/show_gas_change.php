@@ -56,21 +56,21 @@ while($site = $db->fObject()) {
 			$msg = '<red>' . $site->zone . ' ' . $site->base_number .
 			' goes to 25% in <highlight>' . $minutes . '<end> minutes!!';
 			
-		$this->send($msg, "guild", true);
+		bot::send($msg, "guild", true);
 		
 	} else if ($timePastCloseTime > 3600 * 23 - $variance && $timePastCloseTime < 3600 * 23 + $variance) {
 		
 		$msg = '<red>' . $site->zone . ' ' . $site->base_number .
 			' goes to 5% in <highlight>' . $minutes . '<end> minutes!!';
 			
-		$this->send($msg, "guild", true);
+		bot::send($msg, "guild", true);
 	
 	} else if ($timePastCloseTime > 3600 * 24 - $variance && $timePastCloseTime < 3600 * 24 + $variance) {
 		
 		$msg = '<red>' . $site->zone . ' ' . $site->base_number .
 			' goes to 75% in <highlight>' . $minutes . '<end> minutes!!';
 			
-		$this->send($msg, "guild", true);
+		bot::send($msg, "guild", true);
 	}
 }
 

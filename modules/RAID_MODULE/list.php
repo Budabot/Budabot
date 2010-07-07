@@ -37,8 +37,8 @@ if(preg_match("/^list$/i", $message)) {
 	  	if(is_array($loot)) {
 		  	$list = "<header>::::: Loot List :::::<end>\n\nUse <symbol>flatroll or <symbol>roll to roll.\n\n";
 			foreach($loot as $key => $item) {
-				$add = $this->makeLink("Add", "/tell <myname> add $key", "chatcmd");
-				$rem = $this->makeLink("Remove", "/tell <myname> add 0", "chatcmd");
+				$add = bot::makeLink("Add", "/tell <myname> add $key", "chatcmd");
+				$rem = bot::makeLink("Remove", "/tell <myname> add 0", "chatcmd");
 				$added_players = count($item["users"]);
 	
 				$list .= "<u>Slot #<font color='#FF00AA'>$key</font></u>\n";
@@ -72,15 +72,15 @@ if(preg_match("/^list$/i", $message)) {
 				
 				$list .= "\n\n";
 			}
-			$msg = $this->makeLink("Loot List", $list);
+			$msg = bot::makeLink("Loot List", $list);
 		} else
 			$msg = "No List exists yet.";
 	} elseif($this->vars["raid_status"] != "" && $this->vars["raid_loot_pts"] == 0) {
 	  	if(is_array($raidloot)) {
 		  	$list = "<header>::::: Raidloot List :::::<end>\n\n";
 			foreach($raidloot as $key => $item) {
-				$add = $this->makeLink("Add", "/tell <myname> add $key", "chatcmd");
-				$rem = $this->makeLink("Remove", "/tell <myname> add 0", "chatcmd");
+				$add = bot::makeLink("Add", "/tell <myname> add $key", "chatcmd");
+				$rem = bot::makeLink("Remove", "/tell <myname> add 0", "chatcmd");
 				$added_players = count($item["users"]);
 	
 				$list .= "<u>Slot #$key</u>\n";
@@ -100,15 +100,15 @@ if(preg_match("/^list$/i", $message)) {
 				
 				$list .= "\n\n";
 			}
-			$msg = $this->makeLink("Raidloot List", $list);
+			$msg = bot::makeLink("Raidloot List", $list);
 		} else
 			$msg = "No List exists yet.";	
 	} else {
-		$this->send("No list available!");
+		bot::send("No list available!");
 		return;
 	}
 
-	$this->send($msg, $sendto);
+	bot::send($msg, $sendto);
 } else
 	$syntax_error = true;
 ?>

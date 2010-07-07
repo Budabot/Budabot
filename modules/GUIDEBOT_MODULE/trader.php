@@ -319,11 +319,11 @@ How many times have you heard people ask you for the 'highest wrangle' or a '132
 
 A good tips for those who get caught wandering in public is to drain up, then cast a 131 wrangle on yourself. Now you'll get both the debuff and the buff. That amounts to a loss in nanoskills at 11 .. Enough so that most traders through TL4 to TL5 and up should be able to recast 131 wrangles as long as they still have their drains going. So until then, just keep handing out those 131s. The debuffs won't stack with the one you have going from wrangling yourself. ";
 
-$trader_txt = $this->makeLink("Guide to Traders", $trader_txt); 
+$trader_txt = bot::makeLink("Guide to Traders", $trader_txt); 
 if($type == "msg") 
-$this->send($trader_txt, $sender); 
+bot::send($trader_txt, $sender); 
 elseif($type == "all") 
-$this->send($trader_txt); 
+bot::send($trader_txt); 
 else 
-$this->send($trader_txt, "guild"); 
+bot::send($trader_txt, "guild"); 
 ?>

@@ -39,15 +39,15 @@ if($this->vars["raid_status"] != "" && $this->vars["raid_pts"] == 0) {
 					unset($raidloot[$key][$key1]["users"][$sender]);		 		
 	
 		$msg = "You have been removed from all rolls";
-	  	$this->send($msg, $sender);	  
+	  	bot::send($msg, $sender);	  
 	} elseif(count($loot) > 0) {
 	  	foreach($loot as $key => $item)
 			if($loot[$key]["users"][$sender] == true)
 				unset($loot[$key]["users"][$sender]);		 		
 	
 		$msg = "You have been removed from all rolls";
-	  	$this->send($msg, $sender);	   
+	  	bot::send($msg, $sender);	   
 	} else
-		$this->send("There is nothing where you could add in.", $sender);
+		bot::send("There is nothing where you could add in.", $sender);
 }
 ?>

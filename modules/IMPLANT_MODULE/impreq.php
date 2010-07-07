@@ -53,13 +53,13 @@ require_once('implant_functions.php');
 		} else {
 			$obj = findMaxImplantQlByReqs($ability, $treatment);
 			$clusterInfo = formatClusterBonuses($obj);
-			$link = $this->makeLink("ql $obj->ql", $clusterInfo, 'text');
+			$link = bot::makeLink("ql $obj->ql", $clusterInfo, 'text');
 
 			$msg = "\nThe highest ql implant you can wear is $link which requires:\nTreatment: $obj->treatment\nAbility: $obj->ability";
 		}
 	}
 
-	$this->send($msg, $sendto);
+	bot::send($msg, $sendto);
 }
 
 ?>

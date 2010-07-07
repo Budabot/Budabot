@@ -186,8 +186,8 @@ if(preg_match("/^chuck/i", $message)) {
 	$randval = rand(1, sizeof($chuck) - 1);
 	$msg = $chuck[$randval];
 if($type == "guild")
-	$this->send($msg, "guild");
+	bot::send($msg, "guild");
 elseif($type == "msg")
-  $this->send($msg, $sender);
+  bot::send($msg, $sender);
 }
 ?>

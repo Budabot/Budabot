@@ -76,7 +76,7 @@ if($row->mode != "del" && $numrows == 1) {
         if($main) {
             $list = "<header>::::: Alternative Character List :::::<end> \n \n";
             $list .= ":::::: Main Character\n";
-            $list .= "<tab><tab>".$this->makeLink($main, "/tell ".$this->vars["name"]." whois $main", "chatcmd")." - ";
+            $list .= "<tab><tab>".bot::makeLink($main, "/tell ".$this->vars["name"]." whois $main", "chatcmd")." - ";
             if(!isset($this->buddyList[$main]))
                 $list .= "No status.\n";
             elseif($this->buddyList[$main] == 1)
@@ -87,7 +87,7 @@ if($row->mode != "del" && $numrows == 1) {
             $list .= ":::::: Alt Character(s)\n";
             $db->query("SELECT * FROM alts WHERE `main` = '$main'");
             while($row = $db->fObject()) {
-                $list .= "<tab><tab>".$this->makeLink($row->alt, "/tell ".$this->vars["name"]." whois $row->alt", "chatcmd")." - ";
+                $list .= "<tab><tab>".bot::makeLink($row->alt, "/tell ".$this->vars["name"]." whois $row->alt", "chatcmd")." - ";
                 if(!isset($this->buddyList[$row->alt]))
                     $list .= "No status.\n";
                 elseif($this->buddyList[$row->alt] == 1)
@@ -98,10 +98,10 @@ if($row->mode != "del" && $numrows == 1) {
         }
 
 		if($main != $sender && $main != false) {
-			$alts = $this->makeLink("Alts", $list);
+			$alts = bot::makeLink("Alts", $list);
 			$msg .= "Main: <highlight>$main<end> ($alts) ";
 		} elseif($main != false) {
-  			$alts = $this->makeLink("Alts of $main", $list);
+  			$alts = bot::makeLink("Alts of $main", $list);
 			$msg .= "$alts ";
 		}
 
@@ -109,11 +109,11 @@ if($row->mode != "del" && $numrows == 1) {
             $msg .= " - " . $row->logon_msg;
 		}
 
-       	$this->send($msg, "guild", true);
+       	bot::send($msg, "guild", true);
 
 		//Guestchannel part
 		if($this->settings["guest_relay"] == 1) {
-			$this->send($msg, "priv", true);
+			bot::send($msg, "priv", true);
 		}
     }
 }

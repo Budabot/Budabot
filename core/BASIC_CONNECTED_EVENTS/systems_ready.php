@@ -34,11 +34,11 @@ foreach($this->admins as $who => $data){
 	if($this->admins[$who]["level"] == 4){
 		if($who != "")
 			if($this->admins[$who]["online"] == "online") {
-				$this->send("The bot is online and ready to use. For updates or help use the Budabot Forum <highlight>http://budabot.com<end>", $who);
+				bot::send("The bot is online and ready to use. For updates or help use the Budabot Forum <highlight>http://budabot.com<end>", $who);
 			}
 	}
 }
 
 //Send a message to guild channel
-$this->send("Logon Complete :: All systems ready to use.", "guild");
+bot::send("Logon Complete :: All systems ready to use.", "guild");
 ?>

@@ -21,15 +21,15 @@
    */
 
 	$MODULE_NAME = "PREMADE_IMPLANT_MODULE";
-	
-	//Setup
-	$this->event("setup", "$MODULE_NAME/setup.php");
 
 	//adds tower info to 'watch' list
-	$this->command("", "$MODULE_NAME/premade.php", "premade", ALL, "Searches for implants out of the premade implants booths");
-	$this->command("", "$MODULE_NAME/premade_update.php", "premadeupdate", ALL, "Checks the premade imp db for updates");
+	bot::command("", "$MODULE_NAME/premade.php", "premade", "all", "Searches for implants out of the premade implants booths");
+	bot::command("", "$MODULE_NAME/premade_update.php", "premadeupdate", "all", "Checks the premade imp db for updates");
 	
-	//Help files
-	$this->help("Premade Implants", "$MODULE_NAME/premade_implant.txt", ALL, "Premade Implant Help");
+	//Helpfiles
+	bot::help("Premade Implants", "$MODULE_NAME/premade_implant.txt", "guild", "Premade Implant Help", "Premade Implant");
+
+	//Setup
+	bot::event("setup", "$MODULE_NAME/setup.php");
 	
 ?>

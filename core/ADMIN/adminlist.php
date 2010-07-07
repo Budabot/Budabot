@@ -85,8 +85,8 @@ if (preg_match("/^adminlist$/i", $message)){
 		}
 	}
 	
-	$link = $this->makeLink('Adminlist', $list);	
-	$this->send($link, $sendto);
+	$link = bot::makeLink('Adminlist', $list);	
+	bot::send($link, $sendto);
 } else {
 	$syntax_error = true;
 }

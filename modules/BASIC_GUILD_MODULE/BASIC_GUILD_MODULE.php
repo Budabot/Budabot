@@ -3,40 +3,40 @@
 	$PLUGIN_VERSION = 1.0;
 
 	//Setup of the Basic Guild Modules
-	$this->event("setup", "$MODULE_NAME/setup.php");
+	bot::event("setup", "$MODULE_NAME/setup.php");
     
 	// Logon Handling
-	$this->command("", "$MODULE_NAME/logon_msg.php", "logon", ALL, "Sets a Logon Msg");
+	bot::command("", "$MODULE_NAME/logon_msg.php", "logon", "all", "Sets a Logon Msg");
 
     // Afk Check
-	$this->event("guild", "$MODULE_NAME/afk_check.php", "afk");
-	$this->command("guild", "$MODULE_NAME/afk.php", "afk", ALL, "Sets a member afk");
-	$this->command("guild", "$MODULE_NAME/kiting.php", "kiting", ALL, "Sets a member afk kiting");
+	bot::event("guild", "$MODULE_NAME/afk_check.php", "afk");
+	bot::command("guild", "$MODULE_NAME/afk.php", "afk", "all", "Sets a member afk");
+	bot::command("guild", "$MODULE_NAME/kiting.php", "kiting", "all", "Sets a member afk kiting");
 
 	//Verifies the Onlinelist every 1hour
-	$this->event("1hour", "$MODULE_NAME/online_check.php", "online");
+	bot::event("1hour", "$MODULE_NAME/online_check.php", "online");
 
     // Alternative Characters
-	$this->command("", "$MODULE_NAME/alts.php", "alts", ALL, "Alt Char handling");
-	$this->command("", "$MODULE_NAME/alts.php", "altsadmin", MODERATOR, "Alt Char handling (admin)");
+	bot::command("", "$MODULE_NAME/alts.php", "alts", "all", "Alt Char handling");
+	bot::command("", "$MODULE_NAME/alts.php", "altsadmin", "mod", "Alt Char handling (admin)");
 
     // Show orgmembers
-	$this->command("", "$MODULE_NAME/orgmembers.php", "orgmembers", ALL, "Show the Members(sorted by name) of the org");
-	$this->command("", "$MODULE_NAME/orgranks.php", "orgranks", ALL, "Show the Members(sorted by rank) of the org");
+	bot::command("", "$MODULE_NAME/orgmembers.php", "orgmembers", "all", "Show the Members(sorted by name) of the org");
+	bot::command("", "$MODULE_NAME/orgranks.php", "orgranks", "all", "Show the Members(sorted by rank) of the org");
 
 	//Force an update of the org roster
-	$this->command("msg", "$MODULE_NAME/updateorg.php", "updateorg", MODERATOR, "Forcing an update of the org roster");
+	bot::command("msg", "$MODULE_NAME/updateorg.php", "updateorg", "mod", "Forcing an update of the org roster");
 	
 	//Tell and Tellall
-	$this->command("guild msg", "$MODULE_NAME/tell.php", "tell", LEADER, "Repeats an message 3 times in Orgchat");
-	$this->command("guild msg", "$MODULE_NAME/tell.php", "tellall", LEADER, "Sends a tell to all online guildmembers");
+	bot::command("guild msg", "$MODULE_NAME/tell.php", "tell", "rl", "Repeats an message 3 times in Orgchat");
+	bot::command("guild msg", "$MODULE_NAME/tell.php", "tellall", "rl", "Sends a tell to all online guildmembers");
 		
 	//Helpfile
-    $this->help("afk_kiting", "$MODULE_NAME/afk_kiting.txt", GUILDMEMBER, "Set yourself AFK/Kiting");
-    $this->help("alts", "$MODULE_NAME/alts.txt", GUILDMEMBER, "How to set alts");
-	$this->help("altsadmin", "$MODULE_NAME/altsadmin.txt", GUILDMEMBER, "How to set alts (admins)");
-    $this->help("LogOnMsg", "$MODULE_NAME/logonmsg.txt", GUILDMEMBER, "Changing your logon message");
-    $this->help("OrgMembers", "$MODULE_NAME/orgmembers_orgranks.txt", GUILDMEMBER, "Show current OrgMembers");
-    $this->help("tell_guild", "$MODULE_NAME/tell.txt", GUILDMEMBER, "Repeat a msg 3times/Send a tell to online members");
-    $this->help("updateorg", "$MODULE_NAME/updateorg.txt", MODERATOR, "Force an update of orgrooster");
+    bot::help("afk_kiting", "$MODULE_NAME/afk_kiting.txt", "guild", "Set yourself AFK/Kiting", "Basic Guild Commands");
+    bot::help("alts", "$MODULE_NAME/alts.txt", "guild", "How to set alts", "Basic Guild Commands");
+	bot::help("altsadmin", "$MODULE_NAME/altsadmin.txt", "guild", "How to set alts (admins)", "Basic Guild Commands");
+    bot::help("LogOnMsg", "$MODULE_NAME/logonmsg.txt", "guild", "Changing your logon message", "Basic Guild Commands");
+    bot::help("OrgMembers", "$MODULE_NAME/orgmembers_orgranks.txt", "guild", "Show current OrgMembers", "Basic Guild Commands");    
+    bot::help("tell_guild", "$MODULE_NAME/tell.txt", "guild", "Repeat a msg 3times/Send a tell to online members", "Basic Guild Commands");
+    bot::help("updateorg", "$MODULE_NAME/updateorg.txt", "mod", "Force an update of orgrooster", "Basic Guild Commands");    
 ?>

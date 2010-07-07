@@ -24,9 +24,9 @@ if (preg_match("/^onlineirc$/i", $message, $arr)) {
 				$list .= "$value<br>";
 			}
 			
-			$msg = $this->makeLink("$numusers online in IRC",$list);
+			$msg = bot::makeLink("$numusers online in IRC",$list);
 			
-			$this->send($msg, $sendto);
+			bot::send($msg, $sendto);
 		}
 		flush();
 	}

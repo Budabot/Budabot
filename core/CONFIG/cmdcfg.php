@@ -30,18 +30,19 @@
    */
 
 if (preg_match("/^config$/i", $message)) {
-	$list = "Org Commands - " . 
-		$this->makeLink('Enable All', '/tell <myname> config cmd enable guild', 'chatcmd') . " " . 
-		$this->makeLink('Disable All', '/tell <myname> config cmd disable guild', 'chatcmd') . "\n";
+	$list = "<header>::::: Module Config :::::<end>\n\n";
+	$list .= "Org Commands - " . 
+		bot::makeLink('Enable All', '/tell <myname> config cmd enable guild', 'chatcmd') . " " . 
+		bot::makeLink('Disable All', '/tell <myname> config cmd disable guild', 'chatcmd') . "\n";
 	$list .= "Private Group Commands - " . 
-		$this->makeLink('Enable All', '/tell <myname> config cmd enable priv', 'chatcmd') . " " . 
-		$this->makeLink('Disable All', '/tell <myname> config cmd disable priv', 'chatcmd') . "\n";
+		bot::makeLink('Enable All', '/tell <myname> config cmd enable priv', 'chatcmd') . " " . 
+		bot::makeLink('Disable All', '/tell <myname> config cmd disable priv', 'chatcmd') . "\n";
 	$list .= "Private Message Commands - " . 
-		$this->makeLink('Enable All', '/tell <myname> config cmd enable msg', 'chatcmd') . " " . 
-		$this->makeLink('Disable All', '/tell <myname> config cmd disable msg', 'chatcmd') . "\n";
+		bot::makeLink('Enable All', '/tell <myname> config cmd enable msg', 'chatcmd') . " " . 
+		bot::makeLink('Disable All', '/tell <myname> config cmd disable msg', 'chatcmd') . "\n";
 	$list .= "ALL Commands - " . 
-		$this->makeLink('Enable All', '/tell <myname> config cmd enable all', 'chatcmd') . " " . 
-		$this->makeLink('Disable All', '/tell <myname> config cmd disable all', 'chatcmd') . "\n\n\n";
+		bot::makeLink('Enable All', '/tell <myname> config cmd enable all', 'chatcmd') . " " . 
+		bot::makeLink('Disable All', '/tell <myname> config cmd disable all', 'chatcmd') . "\n\n\n";
 	
 	$sql = "
 		SELECT
@@ -61,11 +62,11 @@ if (preg_match("/^config$/i", $message)) {
 	$data = $db->fObject("all");
 	forEach ($data as $row) {
 		$db->query("SELECT * FROM hlpcfg_<myname> WHERE `module` = '".strtoupper($row->module)."'");
-		if ($db->numrows() > 0) {
-			$b = "(<a href='chatcmd:///tell <myname> config help $row->module'>Help files</a>)";
-		} else {
+		$num = $db->numrows();
+		if($num > 0)
+			$b = "(<a href='chatcmd:///tell <myname> config help $row->module'>Helpfiles</a>)";
+		else
 			$b = "";
-		}
 			
 		if ($row->count_enabled > 0 && $row->count_disabled > 0) {
 			$a = "(<yellow>Partial<end>)";
@@ -82,8 +83,8 @@ if (preg_match("/^config$/i", $message)) {
 		$list .= strtoupper($row->module)." $a ($on/$off) $c $b\n";
 	}
 
-	$msg = $this->makeLink("Module Config", $list);
-	$this->send($msg, $sendto);
+	$msg = bot::makeLink("Module Config", $list);
+	bot::send($msg, $sendto);
 } else if (preg_match("/^config cmd (enable|disable) (all|guild|priv|msg)$/i", $message, $arr)) {
 	$status = ($arr[1] == "enable" ? 1 : 0);
 	$typeSql = ($arr[2] == "all" ? "`type` = 'guild' OR `type` = 'priv' OR `type` = 'msg'" : "`type` = '{$arr[2]}'");
@@ -93,16 +94,16 @@ if (preg_match("/^config$/i", $message)) {
 	$data = $db->fObject('all');
 	forEach ($data as $row) {
 	  	if ($status == 1) {
-			$this->regcommand($row->type, $row->file, $row->cmd, $row->access_level);
+			bot::regcommand($row->type, $row->file, $row->cmd, $row->admin);
 		} else {
-			$this->unregcommand($row->type, $row->file, $row->cmd);
+			bot::unregcommand($row->type, $row->file, $row->cmd);
 		}
 	}
 	
 	$sql = "UPDATE cmdcfg_<myname> SET `status` = $status WHERE (`cmdevent` = 'cmd' OR `cmdevent` = 'subcmd') AND ($typeSql)";
 	$db->exec($sql);
 	
-	$this->send("Commands(s) updated successfully.", $sendto);	
+	bot::send("Commands(s) updated successfully.", $sendto);	
 } else if (preg_match("/^config (mod|cmd|grp|event) (.+) (enable|disable) (priv|msg|guild|all)$/i", $message, $arr)) {
 	if($arr[1] == "event") {
 		$temp = explode(" ", $arr[2]);
@@ -150,7 +151,7 @@ if (preg_match("/^config$/i", $message)) {
 			$msg = "Could not find the Group <highlight>$cmdmod<end>";
 		elseif($arr[1] == "event" && $file != "")
 			$msg = "Could not find the Event <highlight>$cmdmod<end> for File <highlight>$file<end>";
-		$this->send($msg, $sendto);
+		bot::send($msg, $sendto);
 		return;
 	}
 
@@ -170,22 +171,20 @@ if (preg_match("/^config$/i", $message)) {
 		$msg = "Updated status of event <highlight>$cmdmod<end> to <highlight>".$arr[3]."d<end>";
 	}
 
-	$this->send($msg, $sendto);
+	bot::send($msg, $sendto);
 
 	$data = $db->fObject("all");
-	forEach ($data as $row) {
-	  	if ($row->cmdevent != "event") {
-		  	if ($status == 1) {
-				$this->regcommand($row->type, $row->file, $row->cmd, $row->access_level);
-			} else {
-				$this->unregcommand($row->type, $row->file, $row->cmd, $row->access_level);
-			}
+	foreach($data as $row) {
+	  	if($row->cmdevent != "event") {
+		  	if($status == 1)
+				bot::regcommand($row->type, $row->file, $row->cmd, $row->admin);
+			else
+				bot::unregcommand($row->type, $row->file, $row->cmd, $row->admin);
 		} else {
-		  	if ($status == 1) {
-				$this->regevent($row->type, $row->file);
-			} else {
-				$this->unregevent($row->type, $row->file);
-			}
+		  	if($status == 1)
+				bot::regevent($row->type, $row->file);
+			else
+				bot::unregevent($row->type, $row->file);
 		}
 	}
 
@@ -206,12 +205,24 @@ if (preg_match("/^config$/i", $message)) {
 	} elseif($arr[1] == "event" && $file != "") {
 		$db->query("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `type` = '$cmdmod' AND `cmdevent` = 'event' AND `file` = '$file'");
 	}
-} else if (preg_match("/^config (subcmd|cmd|grp) ([a-z0-9_]+) admin (msg|priv|guild|all) (\\d)$/i", $message, $arr)) {
+} else if (preg_match("/^config (subcmd|cmd|grp) ([a-z0-9_]+) admin (msg|priv|guild|all) (rl|mod|guildadmin|guild|leader|all)$/i", $message, $arr)) {
 	$channel = strtolower($arr[1]);
 	$command = strtolower($arr[2]);
 	$type = strtolower($arr[3]);
-	$access_level = $arr[4];
+	$admin = $arr[4];
 
+	switch($admin) {
+	  	case "leader":
+	  		$admin = 1;
+	  	break;
+	  	case "rl":
+	  		$admin = 2;
+	  	break;
+	  	case "mod":
+	  		$admin = 3;
+	  	break;
+	}
+	
 	if($channel == "cmd") {
 		if($type == "all")
 			$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$command' AND `cmdevent` = 'cmd'");
@@ -223,35 +234,35 @@ if (preg_match("/^config$/i", $message)) {
 				$msg = "Could not find the command <highlight>$command<end>";
 			else
 				$msg = "Could not find the command <highlight>$command<end> for Channel <highlight>$type<end>";
-		  	$this->send($msg, $sendto);
+		  	bot::send($msg, $sendto);
 		  	return;
 		}
 			
 		switch($type) {
 			case "all":
 				if($this->tellCmds[$command])
-					$this->tellCmds[$command]["access_level"] = $access_level;
+					$this->tellCmds[$command]["admin level"] = $admin;
 				if($this->privCmds[$command])
-					$this->privCmds[$command]["access_level"] = $access_level;
+					$this->privCmds[$command]["admin level"] = $admin;
 				if($this->guildCmds[$command])
-					$this->guildCmds[$command]["access_level"] = $access_level;
+					$this->guildCmds[$command]["admin level"] = $admin;
 			break;
 		  	case "msg":	
-				$this->tellCmds[$command]["access_level"] = $access_level;
+				$this->tellCmds[$command]["admin level"] = $admin;
 		  	break;
 		  	case "priv":
-				$this->privCmds[$command]["access_level"] = $access_level;
+				$this->privCmds[$command]["admin level"] = $admin;
 		  	break;
 		  	case "guild":
-				$this->guildCmds[$command]["access_level"] = $access_level;
+				$this->guildCmds[$command]["admin level"] = $admin;
 		  	break;
 		}
 		
 		if($type == "all") {
-			$db->query("UPDATE cmdcfg_<myname> SET `access_level` = $access_level WHERE `cmd` = '$command' AND `cmdevent` = 'cmd'");
+			$db->query("UPDATE cmdcfg_<myname> SET `admin` = '$admin' WHERE `cmd` = '$command' AND `cmdevent` = 'cmd'");
 			$msg = "Updated access of command <highlight>$command<end> to <highlight>$arr[4]<end>";
 		} else {
-			$db->query("UPDATE cmdcfg_<myname> SET `access_level` = $access_level WHERE `cmd` = '$command' AND `type` = '$type' AND `cmdevent` = 'cmd'");
+			$db->query("UPDATE cmdcfg_<myname> SET `admin` = '$admin' WHERE `cmd` = '$command' AND `type` = '$type' AND `cmdevent` = 'cmd'");
 			$msg = "Updated access of command <highlight>$command<end> in Channel <highlight>$type<end> to <highlight>$arr[4]<end>";
 		}
 	} elseif($channel == "grp") {
@@ -265,51 +276,51 @@ if (preg_match("/^config$/i", $message)) {
 				$msg = "Could not find the group <highlight>$command<end>";
 			else
 				$msg = "Could not find the group <highlight>$command<end> for Channel <highlight>$type<end>";
-		  	$this->send($msg, $sendto);
+		  	bot::send($msg, $sendto);
 		  	return;
 		}
 		while($row = $db->fObject()) {
 			switch($arr[3]) {
 				case "all":
 					if($this->tellCmds[$row->cmd])
-						$this->tellCmds[$row->cmd]["access_level"] = $access_level;
+						$this->tellCmds[$row->cmd]["admin level"] = $admin;
 					if($this->privCmds[$row->cmd])
-						$this->privCmds[$row->cmd]["access_level"] = $access_level;
+						$this->privCmds[$row->cmd]["admin level"] = $admin;
 					if($this->guildCmds[$row->cmd])
-						$this->guildCmds[$row->cmd]["access_level"] = $access_level;
+						$this->guildCmds[$row->cmd]["admin level"] = $admin;
 				break;
 			  	case "msg":	
-					$this->tellCmds[$row->cmd]["access_level"] = $access_level;
+					$this->tellCmds[$row->cmd]["admin level"] = $admin;
 			  	break;
 			  	case "priv":
-					$this->privCmds[$row->cmd]["access_level"] = $access_level;
+					$this->privCmds[$row->cmd]["admin level"] = $admin;
 			  	break;
 			  	case "guild":
-					$this->guildCmds[$row->cmd]["access_level"] = $access_level;
+					$this->guildCmds[$row->cmd]["admin level"] = $admin;
 			  	break;
 			}
 		}
 		
 		if($arr[3] == "all") {
-			$db->query("UPDATE cmdcfg_<myname> SET `access_level` = $access_level WHERE `grp` = '$command' AND `cmdevent` = 'cmd'");
+			$db->query("UPDATE cmdcfg_<myname> SET `admin` = '$admin' WHERE `grp` = '$command' AND `cmdevent` = 'cmd'");
 			$msg = "Updated access of group <highlight>$command<end> to <highlight>$arr[4]<end>";
 		} else {
-			$db->query("UPDATE cmdcfg_<myname> SET `access_level` = $access_level WHERE `grp` = '$command' AND `type` = '$type' AND `cmdevent` = 'cmd'");
+			$db->query("UPDATE cmdcfg_<myname> SET `admin` = '$admin' WHERE `grp` = '$command' AND `type` = '$type' AND `cmdevent` = 'cmd'");
 			$msg = "Updated access of group <highlight>$command<end> in Channel <highlight>$type<end> to <highlight>$arr[4]<end>";
 		}
 	} else {
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `type` = '$type' AND `cmdevent` = 'subcmd' AND `cmd` = '$command'");
 		if($db->numrows() == 0) {
 			$msg = "Could not find the subcmd <highlight>$command<end> for Channel <highlight>$type<end>";
-		  	$this->send($msg, $sendto);
+		  	bot::send($msg, $sendto);
 		  	return;
 		}
 		$row = $db->fObject();
-		$this->subcommands[$row->file][$row->type]["access_level"] = $access_level;		
-		$db->query("UPDATE cmdcfg_<myname> SET `access_level` = $access_level WHERE `type` = '$type' AND `cmdevent` = 'subcmd' AND `cmd` = '$command'");
+		$this->subcommands[$row->file][$row->type]["admin"] = $admin;		
+		$db->query("UPDATE cmdcfg_<myname> SET `admin` = '$admin' WHERE `type` = '$type' AND `cmdevent` = 'subcmd' AND `cmd` = '$command'");
 		$msg = "Updated access of sub command <highlight>$command<end> in Channel <highlight>$type<end> to <highlight>$arr[4]<end>";
 	}
-	$this->send($msg, $sendto);
+	bot::send($msg, $sendto);
 } else if (preg_match("/^config cmd ([a-z0-9_]+) (.+)$/i", $message, $arr)) {
 	$cmd = strtolower($arr[1]);
 	$module = strtoupper($arr[2]);
@@ -328,28 +339,33 @@ if (preg_match("/^config$/i", $message)) {
 			$row = $db->fObject();
 
 			$found_msg = 1;
+			
+			if($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
+				$row->admin = "Raidleader";
+			elseif ($row->admin == 2 || $row->admin == "mod")
+				$row->admin = "Moderator";
+			elseif ($row->admin == 3 || $row->admin == "admin")
+				$row->admin = "Administrator";
+			else
+				$row->admin = ucfirst(strtolower($row->admin));
 		
 			if($row->status == 1)
 				$status = "<green>Enabled<end>";
 			else
 				$status = "<red>Disabled<end>";
-				
-			$admin = $this->getAccessDescription($row->access_level);
 			
-			$list .= "Current Status: $status (Access: $admin) \n";
+			$list .= "Current Status: $status (Access: $row->admin) \n";
 			$list .= "Enable or Disable Command: ";
 			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." enable msg'>ON</a>  ";
 			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." disable msg'>OFF</a>\n";
 
-			$list .= "Set minimum access lvl to use this command:\n";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg " . ALL . "'>All</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg " . MEMBER . "'>Guest</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg " . GUILDMEMBER . "'>Guild</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg " . LEADER . "'>Leader</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg " . GUILDADMIN . "'>Guildadmin</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg " . RAIDLEADER . "'>RL</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg " . MODERATOR . "'>Mod</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg " . ADMIN . "'>Admin</a>\n";
+			$list .= "Set minimum access lvl to use this command: ";
+			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg all'>All</a>  ";
+			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg leader'>Leader</a>  ";
+			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg rl'>RL</a>  ";
+			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg mod'>Mod</a>  ";
+			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg guildadmin'>Guildadmin</a>  ";
+			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg guild'>Guildmembers</a>\n";
 		} else 
 			$list .= "Current Status: <red>Unused<end>. \n";
 
@@ -360,27 +376,32 @@ if (preg_match("/^config$/i", $message)) {
 
 			$found_priv = 1;
 
+			if($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
+				$row->admin = "Raidleader";
+			elseif ($row->admin == 2 || $row->admin == "mod")
+				$row->admin = "Moderator";
+			elseif ($row->admin == 3 || $row->admin == "admin")
+				$row->admin = "Administrator";
+			else
+				$row->admin = ucfirst(strtolower($row->admin));
+
 			if($row->status == 1)
 				$status = "<green>Enabled<end>";
 			else
 				$status = "<red>Disabled<end>";
-				
-			$admin = $this->getAccessDescription($row->access_level);
 
-			$list .= "Current Status: $status (Access: $admin) \n";
+			$list .= "Current Status: $status (Access: $row->admin) \n";
 			$list .= "Enable or Disable Command: ";
 			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." enable priv'>ON</a>  ";
 			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." disable priv'>OFF</a>\n";
 
-			$list .= "Set minimum access lvl to use this command:\n";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv " . ALL . "'>All</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv " . MEMBER . "'>Guest</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv " . GUILDMEMBER . "'>Guild</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv " . LEADER . "'>Leader</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv " . GUILDADMIN . "'>Guildadmin</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv " . RAIDLEADER . "'>RL</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv " . MODERATOR . "'>Mod</a>  ";		
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv " . ADMIN . "'>Admin</a>\n";
+			$list .= "Set minimum access lvl to use this command: ";
+			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv all'>All</a>  ";
+			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv leader'>Leader</a>  ";
+			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv rl'>RL</a>  ";
+			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv mod'>Mod</a>  ";		
+			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv guildadmin'>Guildadmin</a>  ";
+			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv guild'>Guildmembers</a>\n";
 		} else 
 			$list .= "Current Status: <red>Unused<end>. \n";
 
@@ -390,28 +411,31 @@ if (preg_match("/^config$/i", $message)) {
 			$row = $db->fObject();
 			
 			$found_guild = 1;
-
+			
+			if($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
+				$row->admin = "Raidleader";
+			elseif ($row->admin == 2 || $row->admin == "mod")
+				$row->admin = "Moderator";
+			elseif ($row->admin == 3 || $row->admin == "admin")
+				$row->admin = "Administrator";
+			else
+				$row->admin = ucfirst(strtolower($row->admin));
+				
 			if($row->status == 1)
 				$status = "<green>Enabled<end>";
 			else
 				$status = "<red>Disabled<end>";
-				
-			$admin = $this->getAccessDescription($row->access_level);
 
-			$list .= "Current Status: $status (Access: $admin) \n";
+			$list .= "Current Status: $status (Access: $row->admin) \n";
 			$list .= "Enable or Disable Command: ";
 			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." enable guild'>ON</a>  ";
 			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." disable guild'>OFF</a>\n";
 
-			$list .= "Set minimum access lvl to use this command:\n";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild " . ALL . "'>All</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild " . MEMBER . "'>Guest</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild " . GUILDMEMBER . "'>Guild</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild " . LEADER . "'>Leader</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild " . GUILDADMIN . "'>Guildadmin</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild " . RAIDLEADER . "'>RL</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild " . MODERATOR . "'>Mod</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild " . ADMIN . "'>Admin</a>  ";
+			$list .= "Set minimum access lvl to use this command: ";
+			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild all'>All</a>  ";
+			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild rl'>RL</a>  ";
+			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild mod'>Mod</a>  ";
+			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild guildadmin'>Guildadmin</a>  ";
 		} else 
 			$list .= "Current Status: <red>Unused<end>. \n";
 
@@ -425,18 +449,23 @@ if (preg_match("/^config$/i", $message)) {
 				else
 					$list .= "Command: $row->cmd\n";
 					
-				$admin = $this->getAccessDescription($row->access_level);
-					
-				$list .= "Current Access: <highlight>$admin<end> \n";
+				if($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
+					$row->admin = "Raidleader";
+				elseif ($row->admin == 2 || $row->admin == "mod")
+					$row->admin = "Moderator";
+				elseif ($row->admin == 3 || $row->admin == "admin")
+					$row->admin = "Administrator";
+				else
+					$row->admin = ucfirst(strtolower($row->admin));
+				
+				$list .= "Current Access: <highlight>$row->admin<end> \n";
 				$list .= "Set min. access lvl to use this command: ";
-				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg " . ALL . "'>All</a>  ";
-				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg " . MEMBER . "'>Guest</a>  ";
-				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg " . GUILDMEMBER . "'>Guild</a>  ";
-				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg " . LEADER . "'>Leader</a>  ";
-				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg " . GUILDADMIN . "'>Guildadmin</a>  ";
-				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg " . RAIDLEADER . "'>RL</a>  ";
-				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg " . MODERATOR . "'>Mod</a>  ";
-				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg " . ADMIN . "'>Admin</a>\n\n";
+				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg all'>All</a>  ";
+				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg leader'>Leader</a>  ";
+				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg rl'>RL</a>  ";
+				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg mod'>Mod</a>  ";
+				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg guildadmin'>Guildadmin</a>  ";
+				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg guild'>Guildmembers</a>\n\n";
 			}
 		}
 
@@ -449,18 +478,23 @@ if (preg_match("/^config$/i", $message)) {
 				else
 					$list .= "Command: $row->cmd\n";
 					
-				$admin = $this->getAccessDescription($row->access_level);
+				if($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
+					$row->admin = "Raidleader";
+				elseif ($row->admin == 2 || $row->admin == "mod")
+					$row->admin = "Moderator";
+				elseif ($row->admin == 3 || $row->admin == "admin")
+					$row->admin = "Administrator";
+				else
+					$row->admin = ucfirst(strtolower($row->admin));
 				
-				$list .= "Current Access: <highlight>$admin<end> \n";
+				$list .= "Current Access: <highlight>$row->admin<end> \n";
 				$list .= "Set min. access lvl to use this command: ";
-				$list .= "<a href='chatcmd:///tell <myname> subcmd ".$row->cmd." admin priv " . ALL . "'>All</a>  ";
-				$list .= "<a href='chatcmd:///tell <myname> subcmd ".$row->cmd." admin priv " . MEMBER . "'>Guest</a>  ";
-				$list .= "<a href='chatcmd:///tell <myname> subcmd ".$row->cmd." admin priv " . GUILDMEMBER . "'>Guild</a>  ";
-				$list .= "<a href='chatcmd:///tell <myname> subcmd ".$row->cmd." admin priv " . LEADER . "'>Leader</a>  ";
-				$list .= "<a href='chatcmd:///tell <myname> subcmd ".$row->cmd." admin priv " . GUILDADMIN . "'>Guildadmin</a>  ";
-				$list .= "<a href='chatcmd:///tell <myname> subcmd ".$row->cmd." admin priv " . RAIDLEADER . "'>RL</a>  ";
-				$list .= "<a href='chatcmd:///tell <myname> subcmd ".$row->cmd." admin priv " . MODERATOR . "'>Mod</a>  ";
-				$list .= "<a href='chatcmd:///tell <myname> subcmd ".$row->cmd." admin priv " . ADMIN . "'>Admin</a>\n\n";
+				$list .= "<a href='chatcmd:///tell <myname> subcmd ".$row->cmd." admin priv all'>All</a>  ";
+				$list .= "<a href='chatcmd:///tell <myname> subcmd ".$row->cmd." admin priv leader'>Leader</a>  ";
+				$list .= "<a href='chatcmd:///tell <myname> subcmd ".$row->cmd." admin priv rl'>RL</a>  ";
+				$list .= "<a href='chatcmd:///tell <myname> subcmd ".$row->cmd." admin priv mod'>Mod</a>  ";
+				$list .= "<a href='chatcmd:///tell <myname> subcmd ".$row->cmd." admin priv guildadmin'>Guildadmin</a>  ";
+				$list .= "<a href='chatcmd:///tell <myname> subcmd ".$row->cmd." admin priv guild'>Guildmembers</a>\n\n";
 			}
 		}
 
@@ -473,23 +507,27 @@ if (preg_match("/^config$/i", $message)) {
 				else
 					$list .= "Command: $row->cmd\n";
 					
-				$admin = $this->getAccessDescription($row->access_level);
+				if($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
+					$row->admin = "Raidleader";
+				elseif ($row->admin == 2 || $row->admin == "mod")
+					$row->admin = "Moderator";
+				elseif ($row->admin == 3 || $row->admin == "admin")
+					$row->admin = "Administrator";
+				else
+					$row->admin = ucfirst(strtolower($row->admin));
 				
-				$list .= "Current Access: <highlight>$admin<end> \n";
+				$list .= "Current Access: <highlight>$row->admin<end> \n";
 				$list .= "Set min. access lvl to use this command: ";
-				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild " . ALL . "'>All</a>  ";
-				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild " . MEMBER . "'>Guest</a>  ";
-				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild " . GUILDMEMBER . "'>Guildmembers</a>  ";
-				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild " . LEADER . "'>Leader</a>  ";
-				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild " . GUILDADMIN . "'>Guildadmin</a>  ";
-				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild " . RAIDLEADER . "'>RL</a>  ";
-				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild " . MODERATOR . "'>Mod</a>  ";
-				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild " . ADMIN . "'>Admin</a>\n\n";
+				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild all'>All</a>  ";
+				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild rl'>RL</a>  ";
+				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild mod'>Mod</a>  ";
+				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild guildadmin'>Guildadmin</a>  ";
+				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild guild'>Guildmembers</a>\n\n";
 			}
 		}		
-		$msg = $this->makeLink(ucfirst($cmd)." config", $list);
+		$msg = bot::makeLink(ucfirst($cmd)." config", $list);
 	}
-	$this->send($msg, $sendto);
+	bot::send($msg, $sendto);
 } else if (preg_match("/^config grp (.+)$/i", $message, $arr)) {
 	$grp = strtolower($arr[1]);
 
@@ -511,50 +549,37 @@ if (preg_match("/^config$/i", $message)) {
 		}
 			
 		$list .= "\n\n<u><highlight>Enable or disable group for seperate Channels</u><end> \n";	
-		$list .= "Tells: <a href='chatcmd:///tell <myname> config grp $grp enable msg'>ON</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp $grp disable msg'>OFF</a>\n";
+		$list .= "Tells: <a href='chatcmd:///tell <myname> config grp ".$grp." enable msg'>ON</a>  ";
+		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." disable msg'>OFF</a>\n";
 	
-		$list .= "Private Channel: <a href='chatcmd:///tell <myname> config grp $grp enable priv'>ON</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp $grp disable priv'>OFF</a>\n";
+		$list .= "Private Channel: <a href='chatcmd:///tell <myname> config grp ".$grp." enable priv'>ON</a>  ";
+		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." disable priv'>OFF</a>\n";
 		
-		$list .= "Guild Channel: <a href='chatcmd:///tell <myname> config grp $grp enable guild'>ON</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp $grp disable guild'>OFF</a>\n";
+		$list .= "Guild Channel: <a href='chatcmd:///tell <myname> config grp ".$grp." enable guild'>ON</a>  ";
+		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." disable guild'>OFF</a>\n";
 		$list .= "\n\n";
 		$list .= "<highlight><u>Set permissions for the group</u><end>\n";
-		$list .= "Tells: ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin msg " . ALL . "'>All</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin msg " . MEMBER . "'>Guest</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin msg " . GUILDMEMBER . "'>Guild</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin msg " . LEADER . "'>Leader</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin msg " . GUILDADMIN . "'>Guildadmin</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin msg " . RAIDLEADER . "'>RL</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin msg " . MODERATOR . "'>Mod</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin msg " . ADMIN . "'>Admin</a>\n";
-		
+		$list .= "Tells: <a href='chatcmd:///tell <myname> config grp ".$grp." admin msg all'>All</a>  ";
+		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin msg leader'>Leader</a>  ";
+		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin msg rl'>RL</a>  ";
+		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin msg mod'>Mod</a>  ";
+		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin msg guildadmin'>Guildadmin</a>  ";
+		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin msg guild'>Guildmembers</a>\n";
 	
-		$list .= "Private Channel: ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin priv " . ALL . "'>All</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin priv " . MEMBER . "'>Guest</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin priv " . GUILDMEMBER . "'>Guild</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin priv " . LDEADER . "'>Leader</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin priv " . GUILDADMIN . "'>Guildadmin</a>";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin priv " . RAIDLEADER . "'>RL</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin priv " . MODERATOR . "'>Mod</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin priv " . ADMIN . "'>Admin</a>\n";
+		$list .= "Private Channel: <a href='chatcmd:///tell <myname> config grp ".$grp." admin priv all'>All</a>  ";
+		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin priv leader'>Leader</a>  ";
+		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin priv rl'>RL</a>  ";
+		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin priv mod'>Mod</a>  ";
+		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin priv ga'>Guildadmin</a>\n";
 	
-		$list .= "Guild Channel: ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin guild " . ALL . "'>All</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin guild " . MEMBER . "'>Guest</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin guild " . GUILDMEMBER . "'>Guild</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin guild " . LEADER . "'>Leader</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin guild " . GUILDADMIN . "'>Guildadmin</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin guild " . RAIDLEADER . "'>RL</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin guild " . MODERATOR . "'>Mod</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin guild " . ADMIN . "'>Admin</a>\n";
+		$list .= "Guild Channel: <a href='chatcmd:///tell <myname> config grp ".$grp." admin guild all'>All</a>  ";
+		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin guild rl'>RL</a>  ";
+		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin guild mod'>Mod</a>  ";
+		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin guild ga'>Guildadmin</a>  ";
 		
-		$msg = $this->makeLink(ucfirst($grp)." group config", $list);
+		$msg = bot::makeLink(ucfirst($grp)." group config", $list);
 	} 
-	$this->send($msg, $sendto);
+	bot::send($msg, $sendto);
 } else if (preg_match("/^config mod (.+)$/i", $message, $arr)) {
   	$mod = strtolower($arr[1]);
 	$list = "<header>::::: Config for module $mod :::::<end>\n";
@@ -613,44 +638,55 @@ if (preg_match("/^config$/i", $message)) {
 		}
 	}
 
-	$msg = $this->makeLink("Configuration for module $mod", $list);
-	$this->send($msg, $sendto);
-} else if (preg_match("/^config help (.+) admin (\\d)$/i", $message, $arr)) {
+	$msg = bot::makeLink("Configuration for module $mod", $list);
+	bot::send($msg, $sendto);
+} else if (preg_match("/^config help (.+) admin (all|leader|rl|mod|guildadmin|guild)$/i", $message, $arr)) {
   	$help = strtolower($arr[1]);
-	$access_level = $arr[2];
+	$admin = $arr[2];
+
+	switch($admin) {
+	  	case "leader":
+	  		$admin = 1;
+	  	break;
+	  	case "rl":
+	  		$admin = 2;
+	  	break;
+	  	case "mod":
+	  		$admin = 3;
+	  	break;
+	}
 	
 	$db->query("SELECT * FROM hlpcfg_<myname> WHERE `name` = '$help' ORDER BY `name`");
-	if ($db->numrows() == 0) {
-		$this->send("The helpfile <highlight>$help<end> doesn't exists!", $sendto);		  	
+	if($db->numrows() == 0) {
+		bot::send("The helpfile <highlight>$help<end> doesn't exists!", $sendto);		  	
 		return;
-	} else {
-		$db->exec("UPDATE hlpcfg_<myname> SET `access_level` = $access_level WHERE `name` = '$help'");
-		$this->send("Updated access for helpfile <highlight>$help<end> to <highlight>".ucfirst(strtolower($arr[2]))."<end>.", $sendto);
 	}
+	$row = $db->fObject();
+	$db->query("UPDATE hlpcfg_<myname> SET `admin` = '$admin' WHERE `name` = '$help'");
+	$this->helpfiles[$row->cat][$row->name]["admin level"] = $admin;
+	bot::send("Updated access for helpfile <highlight>$help<end> to <highlight>".ucfirst(strtolower($arr[2]))."<end>.", $sendto);
 } else if (preg_match("/^config help (.+)$/i", $message, $arr)) {
   	$mod = strtoupper($arr[1]);
-	$list = "<header>::::: Configure help files for module $mod :::::<end>\n\n";
+	$list = "<header>::::: Configure helpfiles for module $mod :::::<end>\n\n";
 
 	$db->query("SELECT * FROM hlpcfg_<myname> WHERE module = '$mod' ORDER BY name");
 	$data = $db->fObject("all");
-	forEach ($data as $row) {
+	foreach($data as $row) {
 	  	$list .= "<highlight><u>Helpfile</u><end>: $row->name\n";
 	  	$list .= "<highlight><u>Description</u><end>: $row->description\n";
 	  	$list .= "<highlight><u>Category</u><end>: $row->cat\n";
 	  	$list .= "<highlight><u>Set Permission</u><end>: ";
-		$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin " . ALL . "'>All</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin " . MEMBER . "'>Guest</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin " . GUILDMEMBER . "'>Guild</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin " . LEADER . "'>Leader</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin " . GUILDADMIN . "'>Guildadmin</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin " . RAIDLEADER . "'>RL</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin " . MODERATOR . "'>Mod</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin " . ADMIN . "'>Admin</a>\n";
+		$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin all'>All</a>  ";
+		$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin leader'>Leader</a>  ";
+		$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin rl'>RL</a>  ";
+		$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin mod'>Mod</a>  ";
+		$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin guildadmin'>Guildadmin</a>  ";
+		$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin guild'>Guildmembers</a>\n";	  
 	  	$list .= "\n\n";
 	}
 
-	$msg = $this->makeLink("Configurate help files for module $mod", $list);
-	$this->send($msg, $sendto);
+	$msg = bot::makeLink("Configurate helpfiles for module $mod", $list);
+	bot::send($msg, $sendto);
 } else if (preg_match("/^config (.*)$/i", $message, $arr)) {
 	$module = $arr[1];
 	$list  = "<header>::::: Bot Settings :::::<end>\n\n";
@@ -764,10 +800,9 @@ if (preg_match("/^config$/i", $message)) {
 			$list .= "$row->type - ($status): $on  $off \n";
 	}
 
-  	$msg = $this->makeLink("Bot Settings", $list);
- 	$this->send($msg, $sendto);
-} else {
+  	$msg = bot::makeLink("Bot Settings", $list);
+ 	bot::send($msg, $sendto);
+} else
 	$syntax_error = true;
-}
 
 ?>

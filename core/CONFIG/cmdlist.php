@@ -61,8 +61,8 @@ if (preg_match("/^cmdlist$/i", $message, $arr)) {
 		}
 	}
 
-	$msg = $this->makeLink("Bot Settings -- Command List", $list);
- 	$this->send($msg, $sendto);
+	$msg = bot::makeLink("Bot Settings -- Command List", $list);
+ 	bot::send($msg, $sendto);
 }
 
 ?>

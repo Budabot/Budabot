@@ -54,8 +54,8 @@ In essence, all the nano skills need love, except the MC that you don't need if 
 
 Updated Fixer Guide on the Ao forums (warning:will open your web browser) #L 'Click here' '/start http://forums.anarchy-online.com/showthread.php?t=391085&highlight=updated+fixer' ";
 
-$fixer_txt = $this->makeLink("Guide to Fixer", $fixer_txt);
+$fixer_txt = bot::makeLink("Guide to Fixer", $fixer_txt);
 
-$this->send($fixer_txt, $sendto);
+bot::send($fixer_txt, $sendto);
 
 ?>

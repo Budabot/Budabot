@@ -64,7 +64,7 @@ if (!$syntax_error) {
 	$tables = $doc->getElementsByTagName('table');
 	$rows = $tables->item(0)->getElementsByTagName('tr');
 	
-	$title = 'Shopping Results for ' . $postFields['search'];
+	$title = 'Search Results for ' . $postFields['search'];
 	$items = '';
 	foreach ($rows as $row){
 		$childNodes = $row->childNodes;
@@ -81,19 +81,19 @@ if (!$syntax_error) {
 		
 		//echo $childNodes->item(1)->getElementsByTagName('a')->item(0)->getAttribute('href') . "\n\n";
 		
-		$lookup = $this->makeLink('Lookup', "/tell <myname> items $ql $item", 'chatcmd');
+		$lookup = bot::makeLink('Lookup', "/tell <myname> items $ql $item", 'chatcmd');
 
-		$items .= $this->makeLink($seller, "/tell $seller", 'chatcmd') . ": $item (ql $ql) [" . $time . "] $lookup \n";
+		$items .= bot::makeLink($seller, "/tell $seller", 'chatcmd') . ": $item (ql $ql) [" . $time . "] $lookup \n";
 	}
 	
 	if ($items != '') {
-		$items .= "\n\nSearch results provided by http://www.aojunkyard.com/";
-		$msg = $this->makeBlob($title, $items);
+		$items = $title . "\n\n" . $items . "\n\nSearch results provided by http://www.aojunkyard.com/";
+		$msg = bot::makeLink($title, $items, 'blob');
 	} else {
 		$msg = 'No items found. Maybe try fewer keywords.';
 	}
 	
-	$this->send($msg, $sendto);
+	bot::send($msg, $sendto);
 }
 
 ?>

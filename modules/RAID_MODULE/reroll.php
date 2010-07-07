@@ -8,7 +8,7 @@ if(preg_match("/^reroll$/i", $message)) {
 	//Check if a residual list exits
   	if(!is_array($residual)) {
 	    $msg = "There are no remaining items to re-add.";
-	    $this->send($msg);
+	    bot::send($msg);
 	    return;
 	}
   	
@@ -25,12 +25,12 @@ if(preg_match("/^reroll$/i", $message)) {
 	$residual = "";
 	//Show winner list
 	$msg = "All remaining items have been re-added by <highlight>$sender<end>. Check <symbol>list.";
-	$this->send($msg);
+	bot::send($msg);
 	if(is_array($loot)) {
 		  	$list = "<header>::::: Loot List :::::<end>\n\nUse <symbol>flatroll or <symbol>roll to roll.\n\n";
 			foreach($loot as $key => $item) {
-				$add = $this->makeLink("Add", "/tell <myname> add $key", "chatcmd");
-				$rem = $this->makeLink("Remove", "/tell <myname> add 0", "chatcmd");
+				$add = bot::makeLink("Add", "/tell <myname> add $key", "chatcmd");
+				$rem = bot::makeLink("Remove", "/tell <myname> add 0", "chatcmd");
 				$added_players = count($item["users"]);
 	
 				$list .= "<u>Slot #<font color='#FF00AA'>$key</font></u>\n";
@@ -65,10 +65,10 @@ if(preg_match("/^reroll$/i", $message)) {
 				
 				$list .= "\n\n";
 			}
-			$msg2 = $this->makeLink("New loot List", $list);
+			$msg2 = bot::makeLink("New loot List", $list);
 		} else{
 			$msg2 = "No List exists yet.";
 			}
-		$this->send($msg2);
+		bot::send($msg2);
 }
 ?>

@@ -61,11 +61,11 @@ At the moment there is no way to check how many PvP points you have. The ranks a
 
 <font color=white>from http://ao.stratics.com</font>";
 
-$pvpguide_txt = $this->makeLink("Guide to PVP", $pvpguide_txt);
+$pvpguide_txt = bot::makeLink("Guide to PVP", $pvpguide_txt);
 if($type == "msg")
-$this->send($pvpguide_txt, $sender);
+bot::send($pvpguide_txt, $sender);
 elseif($type == "all")
-$this->send($pvpguide_txt);
+bot::send($pvpguide_txt);
 else
-$this->send($pvpguide_txt, "guild");
+bot::send($pvpguide_txt, "guild");
 ?>

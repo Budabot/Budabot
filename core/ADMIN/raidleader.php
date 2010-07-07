@@ -32,36 +32,36 @@
 if(preg_match("/^raidleader (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
 	
-	if($this->get_uid($who) == NULL){
-		$this->send("<red>Sorry player you wish to add doesn't exist.<end>", $sendto);
+	if(AOChat::get_uid($who) == NULL){
+		bot::send("<red>Sorry player you wish to add doesn't exist.<end>", $sendto);
 		return;
 	}
 	
 	if($who == $sender) {
-		$this->send("<red>You can't add yourself to another group.<end>", $sendto);
+		bot::send("<red>You can't add yourself to another group.<end>", $sendto);
 		return;
 	}
 
-	if($this->admins[$who]["level"] == RAIDLEADER) {
-		$this->send("<red>Sorry but $who is already a raidleader.<end>", $sendto);
+	if($this->admins[$who]["level"] == 2) {
+		bot::send("<red>Sorry but $who is already a raidleader.<end>", $sendto);
 		return;
 	}
 	
-	if((int)$this->admins[$sender]["level"] >= (int)$this->admins[$who]["level"]){
-		$this->send("<red>You must have a rank higher then $who.<end>", $sendto);
+	if((int)$this->admins[$sender]["level"] <= (int)$this->admins[$who]["level"]){
+		bot::send("<red>You must have a rank higher then $who.<end>", $sendto);
 		return;
 	}
 
-	if(isset($this->admins[$who]["level"]) && $this->admins[$who]["level"] < RAIDLEADER) {
-		$this->send("<highlight>$who<end> has been demoted to the rank of a Raidleader.", $sendto);
-		$this->send("You have been demoted to the rank of a Raidleader on {$this->vars["name"]}", $who);
-		$db->query("UPDATE admin_<myname> SET `adminlevel` = " . RAIDLEADER . " WHERE `name` = '$who'");
-		$this->admins[$who]["level"] = RAIDLEADER;
+	if(isset($this->admins[$who]["level"]) && $this->admins[$who]["level"] > 2) {
+		bot::send("<highlight>$who<end> has been demoted to the rank of a Raidleader.", $sendto);
+		bot::send("You have been demoted to the rank of a Raidleader on {$this->vars["name"]}", $who);
+		$db->query("UPDATE admin_<myname> SET `adminlevel` = 2 WHERE `name` = '$who'");
+		$this->admins[$who]["level"] = 3;
 	} else {
-		$db->query("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (" . RAIDLEADER . ", '$who')");
-		$this->admins[$who]["level"] = RAIDLEADER;
-		$this->send("<highlight>$who<end> has been added to the Raidleader group", $sendto);
-		$this->send("You got raidleader access to <myname>", $who);
+		$db->query("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (2, '$who')");
+		$this->admins[$who]["level"] = 2;
+		bot::send("<highlight>$who<end> has been added to the Raidleadergroup", $sendto);
+		bot::send("You got raidleader access to <myname>", $who);
 	}
 		
 	$this->add_buddy($who, 'admin');

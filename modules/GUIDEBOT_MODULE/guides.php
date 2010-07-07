@@ -152,11 +152,11 @@ Special Thanks to all the great AO websites, their creators, and the folks that 
 "
  ;
 
-$guides_txt = $this->makeLink("Guides To Anarchy Online", $guides_txt); 
+$guides_txt = bot::makeLink("Guides To Anarchy Online", $guides_txt); 
 if($type == "msg") 
-$this->send($guides_txt, $sender); 
+bot::send($guides_txt, $sender); 
 elseif($type == "all") 
-$this->send($guides_txt); 
+bot::send($guides_txt); 
 else 
-$this->send($guides_txt, "guild"); 
+bot::send($guides_txt, "guild"); 
 ?>

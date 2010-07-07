@@ -29,11 +29,11 @@ The Enhanced one is actually everything but enhanced compared to the rest. It ha
 Of course, all of the Battle Suits suffer from the same drawback, namely the nano% cost penalty. The penalty at low levels can really be painful, especially if you are playing a class that relies to it or if you have a really low nanopool.
  ";
 
-$bernice_txt = $this->makeLink("Guide to Thin Bernice", $bernice_txt); 
+$bernice_txt = bot::makeLink("Guide to Thin Bernice", $bernice_txt); 
 if($type == "msg") 
-$this->send($bernice_txt, $sender); 
+bot::send($bernice_txt, $sender); 
 elseif($type == "all") 
-$this->send($bernice_txt); 
+bot::send($bernice_txt); 
 else 
-$this->send($bernice_txt, "guild"); 
+bot::send($bernice_txt, "guild"); 
 ?>

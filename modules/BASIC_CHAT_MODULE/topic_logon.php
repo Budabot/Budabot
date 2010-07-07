@@ -37,6 +37,6 @@ if(isset($this->guildmembers[$sender]) && (time() >= $this->vars["topicdelay"]))
 	$days = floor($hours / 24);
 	$hours = floor($hours - ($days * 24));
 	$msg = "<highlight>Topic:<end> {$this->settings["topic"]} [set by <highlight>{$this->settings["topic_setby"]}<end>][<highlight>{$days}days, {$hours}hrs and {$mins}mins ago<end>]";
-    $this->send($msg, $sender);
+    bot::send($msg, $sender);
 }
 ?>

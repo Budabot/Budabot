@@ -13,11 +13,11 @@ if(preg_match('/^inits \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\"\>
 
 	$msg = "Calculating Inits... Please wait.";
 	if($type == "msg")
-		$this->send($msg, $sender);
+		bot::send($msg, $sender);
 	elseif($type == "priv")
-		$this->send($msg);
+		bot::send($msg);
 	elseif($type == "guild")
-		$this->send($msg, "guild");
+		bot::send($msg, "guild");
 
 	$msg = file_get_contents($url, 0, $ctx);
 	if(empty($msg)) { $msg = "Unable to query Central Items Database."; }
@@ -28,6 +28,6 @@ if(preg_match('/^inits \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\"\>
 	// . <br>" . 	str_replace(array('<', '>'), array('&ltl', '&gt;'), $message);;
 }
 
-$this->send($msg, $sendto);
+bot::send($msg, $sendto);
 
 ?>

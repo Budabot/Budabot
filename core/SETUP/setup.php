@@ -35,12 +35,9 @@ function read_input ($output = "") {
 	return trim(fgets(STDIN));
 }
 
-global $config_file;
-
 
 function savecfg($vars, $settings) {
-	global $config_file;
-	$lines = file($config_file);
+	$lines = file("config.php");
 	foreach($lines as $key => $line) {
 	  	if(preg_match("/^(.+)vars\[('|\")(.+)('|\")](.*)=(.*)\"(.*)\";(.*)$/i", $line, $arr))
 			$lines[$key] = "$arr[1]vars['$arr[3]']$arr[5]=$arr[6]\"{$vars[$arr[3]]}\"; $arr[8]";
@@ -51,17 +48,17 @@ function savecfg($vars, $settings) {
 		elseif(preg_match("/^(.+)settings\[('|\")(.+)('|\")](.*)=([ 	]+)([0-9]+);(.*)$/i", $line, $arr))
 			$lines[$key] = "$arr[1]settings['$arr[3]']$arr[5]=$arr[6]{$settings[$arr[3]]}; $arr[8]";
 	}
-	file_put_contents($config_file, $lines);
+	file_put_contents("config.php", $lines);
 }
 
-//Check current $config_file settings(if they are manually inserted)
+//Check current config.php settings(if they are manually inserted)
 if($vars["login"] != "" && $vars["password"] != "" && $vars["dimension"] != "" && $vars["name"] != "" && $settings["Super Admin"] != "" && $settings["DB Type"] != "") {
 	do {
 	    echo "             **********************************************\n";		
 		echo "             All needed informations are already entered\n";
-		echo "             from the $config_file.\n";
+		echo "             from the config.php.\n";
 		echo "             Do you want to re-enter them or use the ones\n";
-		echo "             from the $config_file file?\n";
+		echo "             from the config.php file?\n";
 		echo "             **********************************************\n";
 		echo "             \n\n\n\n\n\n\n\n\n";
 
@@ -332,7 +329,7 @@ if($answer == "yes") {
 	$msg = "Press any key to continue.\n";
 	read_input($msg);
 
-	//Save the entered infos to $config_file
+	//Save the entered infos to config.php
 	savecfg($vars, $settings);
 }
 //Create file

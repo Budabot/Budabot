@@ -128,10 +128,10 @@ if(preg_match("/^bio <a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">Solid 
 	}
 
     //Create the output message
-    $msg = $this->makeItem($low_id, $high_id, $arr[3], "QL ".$arr[3]." ".$name)." ".$use;
+    $msg = bot::makeItem($low_id, $high_id, $arr[3], "QL ".$arr[3]." ".$name)." ".$use;
 
     // Send info back
-    $this->send($msg, $sendto);
+    bot::send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

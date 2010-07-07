@@ -820,11 +820,11 @@ Most of this is taken from Lyricia's guide at the Tir School of Engineering
     * Crystalized Medusa Queen Hippocampus - Common drop at Hollow Island from the 4th Brood Champion upwards.
  ";
 
-$engineers_txt = $this->makeLink("Guide to Engineers", $engineers_txt); 
+$engineers_txt = bot::makeLink("Guide to Engineers", $engineers_txt); 
 if($type == "msg") 
-$this->send($engineers_txt, $sender); 
+bot::send($engineers_txt, $sender); 
 elseif($type == "all") 
-$this->send($engineers_txt); 
+bot::send($engineers_txt); 
 else 
-$this->send($engineers_txt, "guild"); 
+bot::send($engineers_txt, "guild"); 
 ?>

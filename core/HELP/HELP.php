@@ -1,15 +1,15 @@
 <?php 
-	$MODULE_NAME = "HELP";
-	$PLUGIN_VERSION = 0.1;
+$MODULE_NAME = "HELP";
+$PLUGIN_VERSION = 0.1;
 
 	//Commands
-	$this->regcommand("msg", "$MODULE_NAME/general_help.php", "about", ALL);
-	$this->regcommand("guild", "$MODULE_NAME/general_help.php", "about", ALL);
-	$this->regcommand("priv", "$MODULE_NAME/general_help.php", "about", ALL);
-	$this->regcommand("msg", "$MODULE_NAME/general_help.php", "help", ALL);
-	$this->regcommand("guild", "$MODULE_NAME/general_help.php", "help", ALL);
-	$this->regcommand("priv", "$MODULE_NAME/general_help.php", "help", ALL);
+	bot::regcommand("msg", "$MODULE_NAME/general_help.php", "about");
+	bot::regcommand("guild", "$MODULE_NAME/general_help.php", "about");
+	bot::regcommand("priv", "$MODULE_NAME/general_help.php", "about");
+	bot::regcommand("msg", "$MODULE_NAME/general_help.php", "help");
+	bot::regcommand("guild", "$MODULE_NAME/general_help.php", "help");
+	bot::regcommand("priv", "$MODULE_NAME/general_help.php", "help");
 	
 	//Help Files
-	$this->help("about", "$MODULE_NAME/about.txt", ALL, "Some Basic infos about the bot.");
+	bot::help("about", "$MODULE_NAME/about.txt", "all", "Some Basic infos about the bot.", "General");
 ?>

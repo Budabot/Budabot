@@ -56,11 +56,11 @@ Essence of Pure Jealousy
 Emotional Sponge 
 ";
 
-$stepsm_txt = $this->makeLink("Guide to Steps Of Madness", $stepsm_txt); 
+$stepsm_txt = bot::makeLink("Guide to Steps Of Madness", $stepsm_txt); 
 if($type == "msg") 
-$this->send($stepsm_txt, $sender); 
+bot::send($stepsm_txt, $sender); 
 elseif($type == "all") 
-$this->send($stepsm_txt); 
+bot::send($stepsm_txt); 
 else 
-$this->send($stepsm_txt, "guild"); 
+bot::send($stepsm_txt, "guild"); 
 ?>

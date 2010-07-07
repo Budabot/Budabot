@@ -7,11 +7,11 @@ $martialartists_txt = "Please see the following website for an excellent, yet so
 This guide is quite excellent in giving you information all about the MA class and how to play them
  ";
 
-$martialartists_txt = $this->makeLink("Guide to Martialartists", $martialartists_txt); 
+$martialartists_txt = bot::makeLink("Guide to Martialartists", $martialartists_txt); 
 if($type == "msg") 
-$this->send($martialartists_txt, $sender); 
+bot::send($martialartists_txt, $sender); 
 elseif($type == "all") 
-$this->send($martialartists_txt); 
+bot::send($martialartists_txt); 
 else 
-$this->send($martialartists_txt, "guild"); 
+bot::send($martialartists_txt, "guild"); 
 ?>

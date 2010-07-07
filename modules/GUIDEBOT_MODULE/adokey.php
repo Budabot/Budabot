@@ -22,8 +22,8 @@ The other one is located at Ancient Control Panel - 1670x3021 on the biggest isl
 
 Once completed, your mission will turn into a return item type mission where you should return the note to a Visionary in the garden of Dalja. Grats, you should now have The Key to the Garden of Dalja!  ";
 
-$adokey_txt = $this->makeLink("Adonis: Dalja Garden Key Quest", $adokey_txt);
+$adokey_txt = bot::makeLink("Adonis: Dalja Garden Key Quest", $adokey_txt);
 
-$this->send($adokey_txt, $sendto);
+bot::send($adokey_txt, $sendto);
 
 ?>

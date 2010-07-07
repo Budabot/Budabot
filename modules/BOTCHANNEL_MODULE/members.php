@@ -48,14 +48,14 @@ if (preg_match("/^members$/i", $message)) {
 	  	}
 	  	
 	    $msg = "<highlight>".$autoguests."<end> players on the Autoinvitelist ";
-	    $link = ":: ".$this->makeLink('Click here', $list);
+	    $link = ":: ".bot::makeLink('Click here', $list);
 	    if ($autoguests != 0) {
-           	$this->send($msg.$link, $sendto);
+           	bot::send($msg.$link, $sendto);
         } else {
-           	$this->send($msg, $sendto);
+           	bot::send($msg, $sendto);
 		}
 	} else {
-       	$this->send("No player is on this list.", $sendto);
+       	bot::send("No player is on this list.", $sendto);
 	}
 } else {
 	$syntax_error = true;

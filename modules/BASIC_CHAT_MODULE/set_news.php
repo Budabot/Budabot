@@ -30,30 +30,30 @@
    */
    
 if(preg_match("/^privnews clear$/i", $message)) {
-	$this->savesetting("news", "Not set.");
+	bot::savesetting("news", "Not set.");
 	$msg = "News has been cleared.";
-	$this->send($msg, $sendto);
+	bot::send($msg, $sendto);
 } elseif(preg_match("/^privnews (.+)$/i", $message, $arr)) {
 	$news = $arr[1];
  	if(strlen($news) > 300) {
 		$msg = "News can't be longer than 300chars.";
 	} else {
-		$this->savesetting("news", $news);	
+		bot::savesetting("news", $news);	
 		$msg = "News has been set.";
 	}
-	$this->send($msg, $sendto);
+	bot::send($msg, $sendto);
 } elseif(preg_match("/^adminnews clear$/i", $message)) {
- 	$this->savesetting("adminnews", "Not set.");
+ 	bot::savesetting("adminnews", "Not set.");
 	$msg = "Adminnews has been cleared.";
-	$this->send($msg, $sendto);
+	bot::send($msg, $sendto);
 } elseif(preg_match("/^adminnews (.+)$/i", $message, $arr)) {
 	$news = $arr[1];
  	if(strlen($news) > 300) {
 		$msg = "News can't be longer than 300chars.";
 	} else {
-		$this->savesetting("adminnews", $news);	
+		bot::savesetting("adminnews", $news);	
 		$msg = "Adminnews has been set.";
 	}
-	$this->send($msg, $sendto);
+	bot::send($msg, $sendto);
 }
 ?>

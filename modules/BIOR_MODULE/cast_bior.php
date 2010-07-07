@@ -33,6 +33,6 @@ global $bior;
 if($bior[$sender]["b"] == "ready") {
   	$msg = "<blue>$sender casted Bio Regrowth on tank. 30sec remaining.<end>";
   	$bior[$sender]["b"] = time() + 330;
-  	$this->send($msg, $sendto);
+  	bot::send($msg, $sendto);
 }
 ?>

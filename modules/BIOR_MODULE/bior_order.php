@@ -41,7 +41,7 @@ else {
 	$info .= "The bot has it's own Bio Regrowth macro to use it just do ";
 	$info .= "<symbol>b in the chat. \n\n";
 	$info .= "<a href='chatcmd:///macro BR_Macro /g <myname> <symbol>b'>Click here to make an Bio Regrowth macro </a>";
-	$info = $this->makeLink("Info", $info);
+	$info = bot::makeLink("Info", $info);
 
   	//Create Bio Regrowth Order
 	foreach($bior as $key => $value) {
@@ -77,7 +77,7 @@ else {
 
   	//Send Blist
   	foreach($blist as $player)
-		$this->send($msg, $player);
+		bot::send($msg, $player);
 }
-$this->send($msg, $sendto);
+bot::send($msg, $sendto);
 ?>

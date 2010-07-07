@@ -31,11 +31,11 @@
 
 if(preg_match("/^history (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
-	if(!$this->get_uid($name)) {
+	if(!bot::get_uid($name)) {
 		$msg = "Player <highlight>$name<end> doesn't exist.";
 	} else {
 	  	$msg = "Getting History of player <highlight>$name<end>. Please standby.";
-        $this->send($msg, $sendto);
+        bot::send($msg, $sendto);
 
 		$history = new history($name);
 		if($history->errorCode != 0) {
@@ -73,12 +73,10 @@ if(preg_match("/^history (.+)$/i", $message, $arr)) {
 	
 			  	$link .= "$key |  $level  | $ailevel | $faction | $guild\n";
 			}
-			$msg = $this->makeLink("History of $name", $link);
+			$msg = bot::makeLink("History of $name", $link);
 		}
 	}
 
-    $this->send($msg, $sendto);
-} else {
-	$syntax_error = true;
+    bot::send($msg, $sendto);
 }
 ?>

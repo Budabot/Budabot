@@ -19,6 +19,11 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 	$search = ucwords(strtolower($search));
 	
 	$boss = '';
+	if (method_exists('bot', 'makeHeader')) {
+		$boss = bot::makeHeader("Results of Search for $search", $links);
+	} else {
+		$boss = "<header>::::: Results of Search for $search :::::<end>\n";
+	}
 	
 	// Find bossname or Boss key
 	$db->query("SELECT * FROM boss_namedb WHERE bossname LIKE '%".str_replace("'", "''", $search)."%' OR keyname LIKE '%".str_replace("'", "''", $search)."%'");
@@ -50,8 +55,10 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 				}
 			}
 		}
-		$output = $this->makelink("Boss", $boss);
-	} elseif ($name_found  == 1) { //If single match found, output full loot table
+		$output = bot::makelink("Boss", $boss);
+	}
+	//If single match found, output full loot table
+	elseif ($name_found  == 1) {
 		$db->query("SELECT * FROM boss_namedb WHERE bossname LIKE  '%".str_replace("'", "''", $search)."%' OR keyname LIKE '%".str_replace("'", "''", $search)."%'");
 		$data = $db->fobject("all");
 		foreach ($data as $row)
@@ -80,14 +87,16 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 			$boss .= "<img src=rdb://".$icon.">\n";
 			$boss .= "<a href='itemref://$loid/$hiid/$ql.'>$loot_name</a>\n\n";
 		}
-		$output = $this->makeBlob("Results of Search for $search", $boss);
-	} else {
+		$output = bot::makelink("Boss", $boss);
+	}
+	else {
 		$output .= "<yellow>There were no matches for your search.</end>";
 	}
-	
-	$this->send($output, $sendto);
-} else {
-	$syntax_error = true;
 }
+else {
+	$output .="<yellow>You must enter search criteria after the command.<end>";
+}
+	
+bot::send($output, $sendto);
 
 ?>

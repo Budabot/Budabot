@@ -35,7 +35,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 		$msg = "No valid time specified!";
 		
 	    // Send info back
-        $this->send($msg, $sendto);
+        bot::send($msg, $sendto);
 	    return;
 	}
 
@@ -54,7 +54,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 	  	$msg = "<highlight>$sender<end> you have already a primary Timer running.";
 
   	    // Send info back
-	    $this->send($msg, $sendto);
+	    bot::send($msg, $sendto);
 		return;
 	}
 
@@ -72,7 +72,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 	$msg = "Timer has been set for $timerset.";
 		
     // Send info back
-    $this->send($msg, $sendto);
+    bot::send($msg, $sendto);
 } elseif (preg_match("/^timer ([0-9]+) (.+)$/i", $message, $arr)) {
   	$timer_name = trim($arr[2]);
 	
@@ -80,7 +80,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 		$msg = "No valid time specified!";
 		
 	    // Send info back
-	    $this->send($msg, $sendto);
+	    bot::send($msg, $sendto);
 	    return;
 	}
 
@@ -99,7 +99,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 	  	$msg = "A Timer with the name <highlight>$timer_name<end> is already running.";
 
   	    // Send info back
-	    $this->send($msg, $sendto);
+	    bot::send($msg, $sendto);
 		return;
 	}
 	
@@ -122,7 +122,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 	$msg = "Timer <highlight>$timer_name<end> has been set for $timerset.";
 		
     // Send info back
-    $this->send($msg, $sendto);
+    bot::send($msg, $sendto);
 } elseif (preg_match("/^timer (rem|del) (.+)$/i", $message, $arr)) {
 	$timer_name = strtolower($arr[2]);
 	
@@ -154,14 +154,14 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 	}
 
     // Send info back
-    $this->send($msg, $sendto);
+    bot::send($msg, $sendto);
 } elseif (preg_match("/^timer (([0-9]*)[d|day|days]*).(([0-9]*)[h|hr|hrs]*).(([0-9]*)[m|min|mins]*)$/i", $message, $arr)) {
 	if(preg_match("/([0-9]+)(d|day|days)/i", $message, $day)) {
 		if($day[1] < 1 || $day[1] > 10) {
 			$msg = "No valid time specified!";
 			
 		    // Send info back
-		    $this->send($msg, $sendto);
+		    bot::send($msg, $sendto);
 		    return;		  	
 		}
 		$days = $day[1] * 86400;
@@ -173,7 +173,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 			$msg = "No valid time specified!";
 			
 		    // Send info back
-		    $this->send($msg, $sendto);
+		    bot::send($msg, $sendto);
 		    return;		  	
 		}
 		$hours = $hours[1] * 3600;
@@ -185,7 +185,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 			$msg = "No valid time specified!";
 			
 		    // Send info back
-		    $this->send($msg, $sendto);
+		    bot::send($msg, $sendto);
 		    return;		  	
 		}
 		$mins = $mins[1] * 60;
@@ -193,9 +193,9 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 		$mins = 0;	
 
 	if($days == 0 && $hours == 0 && $mins == 0) {
-	  	$msg = "No valid Time specified! Please check the help files how to use this command!";
+	  	$msg = "No valid Time specified! Please check the helpfiles how to use this command!";
 	    // Send info back
-	    $this->send($msg, $sendto);
+	    bot::send($msg, $sendto);
 	    return;		  	
 	}
 
@@ -214,7 +214,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 	  	$msg = "<highlight>$sender<end> you have already a primary Timer running.";
 
   	    // Send info back
-	    $this->send($msg, $sendto);
+	    bot::send($msg, $sendto);
 		return;
 	}
 
@@ -232,7 +232,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 	$msg = "Timer has been set for $timerset.";
 		
     // Send info back
-    $this->send($msg, $sendto);
+    bot::send($msg, $sendto);
 } elseif (preg_match("/^timer (([0-9]*)[d|day|days]*).(([0-9]*)[h|hr|hrs]*).(([0-9]*)[m|min|mins]*) (.+)$/i", $message, $arr)) {
 	$last_item = count($arr);
 	$timer_name = trim($arr[$last_item - 1]);
@@ -242,7 +242,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 			$msg = "No valid time specified!";
 			
 		    // Send info back
-		    $this->send($msg, $sendto);
+		    bot::send($msg, $sendto);
 		    return;		  	
 		}
 
@@ -255,7 +255,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 			$msg = "No valid time specified!";
 			
 		    // Send info back
-		    $this->send($msg, $sendto);
+		    bot::send($msg, $sendto);
 		    return;		  	
 		}
 
@@ -268,7 +268,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 			$msg = "No valid time specified!";
 			
 		    // Send info back
-		    $this->send($msg, $sendto);
+		    bot::send($msg, $sendto);
 		    return;		  	
 		}
 
@@ -277,9 +277,9 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 		$mins = 0;	
 
 	if($days == 0 && $hours == 0 && $mins == 0) {
-	  	$msg = "No valid Time specified! Please check the help files how to use this command!";
+	  	$msg = "No valid Time specified! Please check the helpfiles how to use this command!";
 	    // Send info back
-	    $this->send($msg, $sendto);
+	    bot::send($msg, $sendto);
 	    return;		  	
 	}
 
@@ -297,7 +297,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 	  	$msg = "A Timer with the name <highlight>$timer_name<end> is already running.";
 
   	    // Send info back
-	    $this->send($msg, $sendto);
+	    bot::send($msg, $sendto);
 		return;
 	}
 
@@ -317,17 +317,17 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 		
     // Send info back
     if($type == "msg")
-        $this->send($msg, $sender);
+        bot::send($msg, $sender);
     elseif($type == "priv")
-   	    $this->send($msg);
+   	    bot::send($msg);
     elseif($type == "guild")
-      	$this->send($msg, "guild");      	      	      	
+      	bot::send($msg, "guild");      	      	      	
 } elseif (preg_match("/^timers$/i", $message, $arr)) {
 	$num_timers = count($this->vars["Timers"]);
 	if($num_timers == 0) {
 		$msg = "No Timers running atm.";
 	    // Send info back
-	    $this->send($msg, $sendto);
+	    bot::send($msg, $sendto);
 	    return;
 	}
 
@@ -441,12 +441,12 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 			$msg = "No Timers running atm.";
 		else {
 			$list = "<header>::::: Currently running Timers :::::<end>\n\n".$list;
-		  	$msg = $this->makeLink("Timers currently running", $list);
+		  	$msg = bot::makeLink("Timers currently running", $list);
 		}
 	}
 
     // Send info back
-    $this->send($msg, $sendto);
+    bot::send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

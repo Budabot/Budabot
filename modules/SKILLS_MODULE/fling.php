@@ -14,7 +14,7 @@ $help .= "You have <orange>900<end> Fling Skill.\n";
 $help .= "<a href='chatcmd:///tell <myname> <symbol>fling 1.2 900'>/tell <myname> <symbol>fling 1.2 900</a>\n\n";
 $help .= $footer;
 
-$helplink = $this->makeLink("::How to use Fling::", $help);
+$helplink = bot::makeLink("::How to use Fling::", $help);
 
 if (preg_match("/^fling ([0-9]*\.?[0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	$AttTim = trim($arr[1]);
@@ -37,8 +37,8 @@ if (preg_match("/^fling ([0-9]*\.?[0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	$inside	.= "You need <orange>".$flingskillcap."<end> Fling Skill to cap your fling at: <orange>".$flinghardcap."<end>s";
 	$inside .= $footer;
 
-	$windowlink = $this->makeLink("::Your Fling Results::", $inside);
-	$this->send($windowlink, $sendto);
+	$windowlink = bot::makeLink("::Your Fling Results::", $inside);
+	bot::send($windowlink, $sendto);
 } else {
-	$this->send($helplink, $sendto);
+	bot::send($helplink, $sendto);
 }

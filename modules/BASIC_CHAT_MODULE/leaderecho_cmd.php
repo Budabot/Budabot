@@ -30,17 +30,17 @@
    */
    
 if(preg_match("/^leaderecho on$/i", $message)) {
-	$this->savesetting("leaderecho", "1");
-	$this->send("Raidleader echo has been <green>enabled<end>");
+	bot::savesetting("leaderecho", "1");
+	bot::send("Raidleader echo has been <green>enabled<end>");
 } elseif(preg_match("/^leaderecho off$/i", $message)) {
-	$this->savesetting("leaderecho", "0");
-	$this->send("Raidleader echo has been <green>disabled<end>");	
+	bot::savesetting("leaderecho", "0");
+	bot::send("Raidleader echo has been <green>disabled<end>");	
 } elseif(preg_match("/^leaderecho$/i", $message)) {
 	if($this->settings["leaderecho"] == 1)
 		$msg = "Leaderecho is currently <green>enabled<end>";
 	else
 		$msg = "Leaderecho is currently <red>disabled<end>";
-	$this->send($msg);
+	bot::send($msg);
 } else
 	$syntax_error = true;
 ?>

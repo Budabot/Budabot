@@ -41,8 +41,8 @@ if(isset($this->guildmembers[$sender]) && (time() >= $this->vars["newsdelay"])) 
 		  	$link .= "<highlight>Author:<end> $row->name\n";
 		  	$link .= "<highlight>Message:<end> $row->news\n\n";
 		}
-		$msg = $this->makeLink("Click to view the latest News", $link)." [Last updated at ".gmdate("dS M, H:i", $updated)."]";
-        $this->send($msg, $sender);
+		$msg = bot::makeLink("Click to view the latest News", $link)." [Last updated at ".gmdate("dS M, H:i", $updated)."]";
+        bot::send($msg, $sender);
 	}	
 }
 ?>

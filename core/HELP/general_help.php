@@ -1,7 +1,7 @@
 <?php
    /*
    ** Author: Sebuda (RK2)
-   ** Description: General Help/Shows all help files
+   ** Description: General Help/Shows all helpfiles
    ** Version: 0.3
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
@@ -30,40 +30,69 @@
    */
 
 if (preg_match("/^about$/i", $message)) {
-	$data = file_get_contents("./core/HELP/about.txt");
-	$msg = $this->makeLink("About", $data);
-	$this->send($msg, $sendto);
+	$about = fopen("./core/HELP/about.txt", "r");
+	while(!feof ($about))
+		$data .= fgets ($about, 4096);
+	fclose($about);
+	$msg = bot::makeLink("About", $data);
+	bot::send($msg, $sendto);
 } else if (preg_match("/^help$/i", $message)) {
+	if($help = fopen("./data/help.txt", "r")){
+		while (!feof ($help))
+			$data .= fgets ($help, 4096);
+		fclose($help);
+	}
 	global $version;
 	$data .= "\nBudabot version: $version\n\n";
-	$user_access_level = $this->getUserAccessLevel($sender);
-	
-	$sql = "SELECT name, module, description FROM hlpcfg_<myname> WHERE access_level >= $user_access_level ORDER BY module ASC";
-	$db->query($sql);
-	$current_module = '';
-	while (($row = $db->fObject()) != FALSE) {
-		if ($row->module != $current_module) {
-			$list .= "\n<green>$row->module<end>\n";
-			$current_module = $row->module;
+	ksort($this->helpfiles);
+	foreach($this->helpfiles as $cat => $value) {
+		foreach($value as $key => $file){
+		  	$access = false;
+			$admin = $file["admin level"];
+
+			if($file["status"] == "enabled")
+				$num = 1;
+			else {
+				$module = strtolower($file["module"]);
+				$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$module' AND `status` = 1");
+				$num = $db->numrows();
+			}
+
+			if($admin == "guild" && isset($this->guildmembers[$sender]) && $type == "msg") {
+			  	$access = true;
+			} elseif($admin == "guildadmin" && ($this->guildmembers[$sender] <= $this->settings['guild admin level']) && $type == "msg") {
+				$access = true;
+			} elseif(is_numeric($admin) && ($this->admins[$sender]["level"] >= $admin) && $type == "msg") {
+				$access = true;
+			} elseif(($admin == "all" || $admin == "") && $type == "msg") {
+				$access = true;
+			} elseif($admin == "all" || $admin == "") {
+				$access = true;
+			} elseif($admin == "guild" && $type == "guild")
+				$access = true;
+				
+			if(($access == true && $file["info"] != "" && $num > 0) || ($this->admins[$sender]["level"] == 4 && $file["info"] != "" && $type == "msg"))
+				$list .= "  *{$file["info"]} <a href='chatcmd:///tell <myname> help $key'>Click here</a>\n";
+			elseif(($access == true && $num > 0) || ($this->admins[$sender]["level"] == 4 && $type == "msg"))
+				$list .= "  *Basic Help. <a href='chatcmd:///tell <myname> help $key'>Click here</a>\n";
 		}
-	
-		if ($row->name != "") {
-			$list .= "  *$row->name ($row->description) <a href='chatcmd:///tell <myname> help $row->name'>Click here</a>\n";
-		} else {
-			$list .= "  *$row->name <a href='chatcmd:///tell <myname> help $row->name'>Click here</a>\n";
+		if($list != "") {
+		  	$msg .= "<highlight><u>$cat:</u><end>\n$list\n";
+		  	$list = "";
 		}
+		
 	}
-	if ($list == "") {
-		$msg = "<orange>No Help files found.<end>";
-	} else {
-		$msg = $this->makeLink("Help(main)", $data.$list);
-	}
-	$this->send($msg, $sendto);
+	if($msg == "")
+		$msg = "<red>No Helpfiles found.<end>";
+
+	$link = bot::makeLink("Help(main)", $data.$msg);
+
+	bot::send($link, $sendto);
 } else if (preg_match("/^help (.+)$/i", $message, $arr)) {
-	if (($output = $this->help_lookup($sender, $arr[1])) !== FALSE) {
-		$this->send($output, $sendto);
+	if (($output = bot::help_lookup($arr[1])) !== FALSE) {
+		bot::send($output, $sendto);
 	} else {
-		$this->send("No help found on this topic.", $sendto);
+		bot::send("No help found on this topic.", $sendto);
 	}
 }
 

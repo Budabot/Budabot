@@ -34,372 +34,372 @@
 	$FOLDER = $dir;
 
 	//A Message From Organization's Leader
-	$this->command("", "$MODULE_NAME/message4org.php", "MESSAGE4ORG", ALL, "A MESSAGE FROM PLUGSZ");
+	bot::command("", "$MODULE_NAME/message4org.php", "MESSAGE4ORG", "ALL", "A MESSAGE FROM PLUGSZ");
 
 	//Org Depts 
-	$this->command("", "$MODULE_NAME/orgdepts.php",  "ORGDEPTS", ALL, "GUIDE TO ORGDEPTS");
+	bot::command("", "$MODULE_NAME/orgdepts.php",  "ORGDEPTS", "ALL", "GUIDE TO ORGDEPTS");
 	
 	//Official Code Of Conduct 
-	$this->command("", "$MODULE_NAME/official.php",  "OFFICIAL", ALL, "OFFICIAL CODE OF CONDUCT");
+	bot::command("", "$MODULE_NAME/official.php",  "OFFICIAL", "ALL", "OFFICIAL CODE OF CONDUCT");
 	
 	//Wrangles 
-	$this->command("", "$MODULE_NAME/wrangle.php",   "WRANGLE", ALL, "INFO ON WRANGLES");
+	bot::command("", "$MODULE_NAME/wrangle.php",   "WRANGLE", "ALL", "INFO ON WRANGLES");
 
 	//Guide To Making Money 
-	$this->command("", "$MODULE_NAME/makemoney.php", "MAKEMONEY", ALL, "GUIDE TO MAKING MONEY");
+	bot::command("", "$MODULE_NAME/makemoney.php", "MAKEMONEY", "ALL", "GUIDE TO MAKING MONEY");
 	
 	//Beginners FAQs
-	$this->command("", "$MODULE_NAME/beginnersg.php", "BEGINNERSG", ALL, "BEGINNERS FAQS");
+	bot::command("", "$MODULE_NAME/beginnersg.php", "BEGINNERSG", "ALL", "BEGINNERS FAQS");
 	
 	//Blitzing 
-	$this->command("", "$MODULE_NAME/blitzingg.php", "BLITZINGG", ALL, "GUIDE TO BLITZING");
+	bot::command("", "$MODULE_NAME/blitzingg.php", "BLITZINGG", "ALL", "GUIDE TO BLITZING");
 	
 	//Locations 
-	$this->command("", "$MODULE_NAME/locations.php", "LOCATIONS", ALL, "LOCATIONS LIST");
+	bot::command("", "$MODULE_NAME/locations.php", "LOCATIONS", "ALL", "LOCATIONS LIST");
 	
 	//AO Terms 
-	$this->command("", "$MODULE_NAME/terms.php",     "TERMS", ALL, "GUIDE TO AO TERMINOLOGY");
+	bot::command("", "$MODULE_NAME/terms.php",     "TERMS", "ALL", "GUIDE TO AO TERMINOLOGY");
 	
 	//The Grid 
-	$this->command("", "$MODULE_NAME/infogrid.php",  "INFOGRID", ALL, "GUIDE TO THE GRID");
+	bot::command("", "$MODULE_NAME/infogrid.php",  "INFOGRID", "ALL", "GUIDE TO THE GRID");
 	
 	//Jacks Rings 
-	$this->command("", "$MODULE_NAME/jacksrings.php",  "jacksrings", ALL, "Jacks Professionals Rings RK");
+	bot::command("", "$MODULE_NAME/jacksrings.php",  "jacksrings", "ALL", "Jacks Professionals Rings RK");
 	
 	//Halloween 
-	$this->command("", "$MODULE_NAME/halloween.php",  "halloween", ALL, "Ferrel_s Halloween Guide");
+	bot::command("", "$MODULE_NAME/halloween.php",  "halloween", "ALL", "Ferrel_s Halloween Guide");
 	
 	//IP Reset 
-	$this->command("", "$MODULE_NAME/ipreset.php",   "IPRESET", ALL, "GUIDE TO IP RESET");
+	bot::command("", "$MODULE_NAME/ipreset.php",   "IPRESET", "ALL", "GUIDE TO IP RESET");
 	
 	//Smugglers Den 
-	$this->command("", "$MODULE_NAME/smugden.php",   "SMUGDEN", ALL, "GUIDE TO SMUGGLER DEN");
+	bot::command("", "$MODULE_NAME/smugden.php",   "SMUGDEN", "ALL", "GUIDE TO SMUGGLER DEN");
 	
 	//Guides 
-	$this->command("", "$MODULE_NAME/guides.php",    "GUIDES", ALL, "GUIDE TO AO");
+	bot::command("", "$MODULE_NAME/guides.php",    "GUIDES", "ALL", "GUIDE TO AO");
 	
 	//Temple of Three Winds
-	$this->command("", "$MODULE_NAME/totw.php",      "TOTW", ALL, "GUIDE TO TEMPLE OF THREE WINDS");
+	bot::command("", "$MODULE_NAME/totw.php",      "TOTW", "ALL", "GUIDE TO TEMPLE OF THREE WINDS");
 
 	//Buffs
-	$this->command("", "$MODULE_NAME/buffs.php",     "BUFFS", ALL, "INFORMATION ABOUT ALL THE IN GAME BUFFS");
+	bot::command("", "$MODULE_NAME/buffs.php",     "BUFFS", "ALL", "INFORMATION ABOUT ALL THE IN GAME BUFFS");
 	
 	//Foremans Biomare
-	$this->command("", "$MODULE_NAME/biomare.php",   "BIOMARE", ALL, "GUIDE TO FOREMANS AKA BIOMARE QUESTS");
+	bot::command("", "$MODULE_NAME/biomare.php",   "BIOMARE", "ALL", "GUIDE TO FOREMANS AKA BIOMARE QUESTS");
 	
 	//Armor
-	$this->command("", "$MODULE_NAME/armor.php",     "ARMOR", ALL, "INFORMATION ABOUT ARMORS BY STAT AND TYPES");
+	bot::command("", "$MODULE_NAME/armor.php",     "ARMOR", "ALL", "INFORMATION ABOUT ARMORS BY STAT AND TYPES");
 	
 	//Advy Guide
-	$this->command("", "$MODULE_NAME/adventurer.php", "ADVYS", ALL, "GUIDE TO ADVENTURERS");
+	bot::command("", "$MODULE_NAME/adventurer.php", "ADVYS", "ALL", "GUIDE TO ADVENTURERS");
 
 	//Agent Guide
-	$this->command("", "$MODULE_NAME/agent.php",     "AGENTS", ALL, "GUIDE TO AGENTS");
+	bot::command("", "$MODULE_NAME/agent.php",     "AGENTS", "ALL", "GUIDE TO AGENTS");
 	
 	//Doctor Guide
-	$this->command("", "$MODULE_NAME/doctor.php",    "DOCTORS", ALL, "GUIDE TO DOCTORS");
+	bot::command("", "$MODULE_NAME/doctor.php",    "DOCTORS", "ALL", "GUIDE TO DOCTORS");
 	
 	//Bureaucrat Guide
-	$this->command("", "$MODULE_NAME/bureaucrat.php", "BUREAUCRATS", ALL, "GUIDE TO BUREAUCRAT");
+	bot::command("", "$MODULE_NAME/bureaucrat.php", "BUREAUCRATS", "ALL", "GUIDE TO BUREAUCRAT");
 	
 	//Enforcer Guide
-	$this->command("", "$MODULE_NAME/enforcer.php",  "ENFORCERS", ALL, "GUIDE TO ENFORCER");
+	bot::command("", "$MODULE_NAME/enforcer.php",  "ENFORCERS", "ALL", "GUIDE TO ENFORCER");
 	
 	//ENGINEER Guide
-	$this->command("", "$MODULE_NAME/engineers.php",  "ENGINEERS", ALL, "GUIDE TO ENGINEERS");
+	bot::command("", "$MODULE_NAME/engineers.php",  "ENGINEERS", "ALL", "GUIDE TO ENGINEERS");
 	
 	//FIXER Guide
-	$this->command("", "$MODULE_NAME/fixer.php",     "FIXERS", ALL, "GUIDE TO FIXER");
+	bot::command("", "$MODULE_NAME/fixer.php",     "FIXERS", "ALL", "GUIDE TO FIXER");
 	
 	//MARTIAL ARTIST Guide
-	$this->command("", "$MODULE_NAME/martialartist.php", "MARTIALARTISTS", ALL, "GUIDE TO MARTIALARTIST");
+	bot::command("", "$MODULE_NAME/martialartist.php", "MARTIALARTISTS", "ALL", "GUIDE TO MARTIALARTIST");
 	
 	//META PHYSICIST Guide
-	$this->command("", "$MODULE_NAME/metaphysicists.php", "METAPHYSICISTS", ALL, "GUIDE TO METAPHYSICIST");
+	bot::command("", "$MODULE_NAME/metaphysicists.php", "METAPHYSICISTS", "ALL", "GUIDE TO METAPHYSICIST");
 	
 	//SOLDIER Guide
-	$this->command("", "$MODULE_NAME/soldier.php",   "SOLDIERS", ALL, "GUIDE TO SOLDIER");
+	bot::command("", "$MODULE_NAME/soldier.php",   "SOLDIERS", "ALL", "GUIDE TO SOLDIER");
 	
 	//TRADER Guide
-	$this->command("", "$MODULE_NAME/traders.php",    "TRADERS", ALL, "GUIDE TO TRADER");
+	bot::command("", "$MODULE_NAME/traders.php",    "TRADERS", "ALL", "GUIDE TO TRADER");
 	
 	//NANOTECH Guide
-	$this->command("", "$MODULE_NAME/nanotech.php",  "NANOTECHS", ALL, "GUIDE TO NANOTECHS");
+	bot::command("", "$MODULE_NAME/nanotech.php",  "NANOTECHS", "ALL", "GUIDE TO NANOTECHS");
 	
 	//Professions Guide
-	$this->command("", "$MODULE_NAME/professions.php", "PROFESSIONS", ALL, "GUIDE TO ALL PROFESSIONS");
+	bot::command("", "$MODULE_NAME/professions.php", "PROFESSIONS", "ALL", "GUIDE TO ALL PROFESSIONS");
 
 	//Guides 
-	$this->command("", "$MODULE_NAME/guides.php",    "GUIDES", ALL, "GUIDE TO AO");
+	bot::command("", "$MODULE_NAME/guides.php",    "GUIDES", "ALL", "GUIDE TO AO");
 	
 	//Trade NPCs 
-	$this->command("", "$MODULE_NAME/tradenpc.php",   "TRADENPC", ALL, "GUIDE TO UNIQUE RK NPCS");
+	bot::command("", "$MODULE_NAME/tradenpc.php",   "TRADENPC", "ALL", "GUIDE TO UNIQUE RK NPCS");
 	
 	//Fixer Shop 
-	$this->command("", "$MODULE_NAME/fshop.php",      "FSHOP", ALL, "GUIDE TO FIXER SHOP");
+	bot::command("", "$MODULE_NAME/fshop.php",      "FSHOP", "ALL", "GUIDE TO FIXER SHOP");
 	
 	//Thin Bernice 
-	$this->command("", "$MODULE_NAME/bernice.php",    "BERNICE", ALL, "GUIDE TO THIN BERNICE");
+	bot::command("", "$MODULE_NAME/bernice.php",    "BERNICE", "ALL", "GUIDE TO THIN BERNICE");
 	
 	//Trader Shop 
-	$this->command("", "$MODULE_NAME/tshop.php",      "TSHOP", ALL, "GUIDE TO TRADER SHOP");
+	bot::command("", "$MODULE_NAME/tshop.php",      "TSHOP", "ALL", "GUIDE TO TRADER SHOP");
 	
 	//Zoftig Blimp 
-	$this->command("", "$MODULE_NAME/zoftig.php",     "ZOFTIG", ALL, "GUIDE TO ZOFTIG BLIMP");
+	bot::command("", "$MODULE_NAME/zoftig.php",     "ZOFTIG", "ALL", "GUIDE TO ZOFTIG BLIMP");
 	
 	//MELEE SMITH 
-	$this->command("", "$MODULE_NAME/meleesmith.php", "MELEESMITH", ALL, "GUIDE TO MELEE SMITH");
+	bot::command("", "$MODULE_NAME/meleesmith.php", "MELEESMITH", "ALL", "GUIDE TO MELEE SMITH");
 	
 	//TRADER SHOP 
-	$this->command("", "$MODULE_NAME/tshop.php",      "TSHOP", ALL, "GUIDE TO TRADER SHOP");
+	bot::command("", "$MODULE_NAME/tshop.php",      "TSHOP", "ALL", "GUIDE TO TRADER SHOP");
 	
 	//YALM SHOP 
-	$this->command("", "$MODULE_NAME/infoyalm.php",      "INFOYALM", ALL, "Locations of Yalms");
+	bot::command("", "$MODULE_NAME/infoyalm.php",      "INFOYALM", "ALL", "Locations of Yalms");
 	
 	//RK Info 
-	$this->command("", "$MODULE_NAME/rkinfo.php",     "RKINFO", ALL, "RUBI-KA LITTLE INSTRUCTION BOOK");
+	bot::command("", "$MODULE_NAME/rkinfo.php",     "RKINFO", "ALL", "RUBI-KA LITTLE INSTRUCTION BOOK");
 	
 	//SL powerleveling guide 
-	$this->command("", "$MODULE_NAME/slpower.php",     "SLPOWER", ALL, "Solo Powerleveling guide for SL");
+	bot::command("", "$MODULE_NAME/slpower.php",     "SLPOWER", "ALL", "Solo Powerleveling guide for SL");
 	
 	//Implants 
-	$this->command("", "$MODULE_NAME/implants.php",   "IMPLANTS", ALL, "BASIC GUIDE TO IMPLANTS");
+	bot::command("", "$MODULE_NAME/implants.php",   "IMPLANTS", "ALL", "BASIC GUIDE TO IMPLANTS");
 	
 	//Hollow Island 
-	$this->command("", "$MODULE_NAME/hollow.php",     "HOLLOW", ALL, "GUIDE TO HOLLOW ISLAND");
+	bot::command("", "$MODULE_NAME/hollow.php",     "HOLLOW", "ALL", "GUIDE TO HOLLOW ISLAND");
 	
 	//Rk Dungeon Guides 
-	$this->command("", "$MODULE_NAME/rkdung.php",     "RKDUNG", ALL, "RK DUNGEON GUIDES");
+	bot::command("", "$MODULE_NAME/rkdung.php",     "RKDUNG", "ALL", "RK DUNGEON GUIDES");
 	
 	//Steps Of Madness 
-	$this->command("", "$MODULE_NAME/stepsm.php",     "STEPSM", ALL, "GUIDE TO STEPS OF MADNESS");
+	bot::command("", "$MODULE_NAME/stepsm.php",     "STEPSM", "ALL", "GUIDE TO STEPS OF MADNESS");
 	
 	//Crypt Of Home 
-	$this->command("", "$MODULE_NAME/cryptinfo.php",  "CRYPTINFO", ALL, "GUIDE TO CRYPT OF HOME");
+	bot::command("", "$MODULE_NAME/cryptinfo.php",  "CRYPTINFO", "ALL", "GUIDE TO CRYPT OF HOME");
 	
 	//Inner Sanctum 
-	$this->command("", "$MODULE_NAME/inners.php",     "INNERS", ALL, "GUIDE TO INNER SANCTUM");
+	bot::command("", "$MODULE_NAME/inners.php",     "INNERS", "ALL", "GUIDE TO INNER SANCTUM");
 		
 	//NPC QUESTS 
-	$this->command("", "$MODULE_NAME/quests.php",     "QUESTS", ALL, "GUIDE TO NPC QUEST GUIDE");
+	bot::command("", "$MODULE_NAME/quests.php",     "QUESTS", "ALL", "GUIDE TO NPC QUEST GUIDE");
 		
 	//Sided1 
-	$this->command("", "$MODULE_NAME/sided1.php",     "SIDED1", ALL, "GUIDE TO SIDED1");
+	bot::command("", "$MODULE_NAME/sided1.php",     "SIDED1", "ALL", "GUIDE TO SIDED1");
 	
 	//Sided2 
-	$this->command("", "$MODULE_NAME/sided2.php",     "SIDED2", ALL, "GUIDE TO SIDED2");
+	bot::command("", "$MODULE_NAME/sided2.php",     "SIDED2", "ALL", "GUIDE TO SIDED2");
 		
 	//Sided3 
-	$this->command("", "$MODULE_NAME/sided3.php",     "SIDED3", ALL, "GUIDE TO SIDED3");
+	bot::command("", "$MODULE_NAME/sided3.php",     "SIDED3", "ALL", "GUIDE TO SIDED3");
 	
 	//Tailor Quest 
-	$this->command("", "$MODULE_NAME/atailor.php",      "ATAILOR", ALL, "GUIDE TO A TAILOR WOE");
+	bot::command("", "$MODULE_NAME/atailor.php",      "ATAILOR", "ALL", "GUIDE TO A TAILOR WOE");
 	
 	//Cloak Quest 
-	$this->command("", "$MODULE_NAME/cloakr.php",    "cloakr", ALL, "GUIDE TO Cloak of The Reanimated Upgrades");
+	bot::command("", "$MODULE_NAME/cloakr.php",    "cloakr", "ALL", "GUIDE TO Cloak of The Reanimated Upgrades");
 	
 	//Fixer Grid Part 1 
-	$this->command("", "$MODULE_NAME/fgridone.php",   "FGRIDONE", ALL, "GUIDE TO FIXER GRID PART 1");
+	bot::command("", "$MODULE_NAME/fgridone.php",   "FGRIDONE", "ALL", "GUIDE TO FIXER GRID PART 1");
 		
 	//Fixer Grid Part 2 
-	$this->command("", "$MODULE_NAME/fgrid2.php",     "FGRID2", ALL, "GUIDE TO FIXER GRID PART 2");
+	bot::command("", "$MODULE_NAME/fgrid2.php",     "FGRID2", "ALL", "GUIDE TO FIXER GRID PART 2");
 		
 	//Mission Settings 
-	$this->command("", "$MODULE_NAME/mishsets.php",   "MISHSETS", ALL, "GUIDE TO MISSION SETTINGS");
+	bot::command("", "$MODULE_NAME/mishsets.php",   "MISHSETS", "ALL", "GUIDE TO MISSION SETTINGS");
 		
 	//SL Garden Nanos 
-	$this->command("", "$MODULE_NAME/slnano.php",      "SLNANO", ALL, "SHADOWLANDS GARDEN NANOS");
+	bot::command("", "$MODULE_NAME/slnano.php",      "SLNANO", "ALL", "SHADOWLANDS GARDEN NANOS");
 	
 	//Compact DataDisc Guide 
-	$this->command("", "$MODULE_NAME/compact.php",     "COMPACT", ALL, "GUIDE TO COMPACT DATA DISC QUESTS");
+	bot::command("", "$MODULE_NAME/compact.php",     "COMPACT", "ALL", "GUIDE TO COMPACT DATA DISC QUESTS");
 
 	//Shoel Quests Independants 
-	$this->command("", "$MODULE_NAME/indieshoel.php",     "indieshoel", ALL, "GUIDE TO Shoel Quests Independants");
+	bot::command("", "$MODULE_NAME/indieshoel.php",     "indieshoel", "ALL", "GUIDE TO Shoel Quests Independants");
 	
 	//Shoel Quests Independants 
-	$this->command("", "$MODULE_NAME/shoelyutto.php",     "shoelyutto", ALL, "GUIDE TO Shoel Quests Yuttos");
+	bot::command("", "$MODULE_NAME/shoelyutto.php",     "shoelyutto", "ALL", "GUIDE TO Shoel Quests Yuttos");
 	
 	//Shoel Quests Jobe 
-	$this->command("", "$MODULE_NAME/jobeshoel.php",     "jobeshoel", ALL, "GUIDE TO Shoel Quests Jobe Scientists");
+	bot::command("", "$MODULE_NAME/jobeshoel.php",     "jobeshoel", "ALL", "GUIDE TO Shoel Quests Jobe Scientists");
 		
 	//Inferno Star Quest 
-	$this->command("", "$MODULE_NAME/infstar.php",     "infstar", ALL, "Inferno: Professions Star Quest");
+	bot::command("", "$MODULE_NAME/infstar.php",     "infstar", "ALL", "Inferno: Professions Star Quest");
 			
 	//Nascense Garden Nanos 
-	$this->command("", "$MODULE_NAME/nascgar.php",     "NASCGAR", ALL, "NASCENSE GARDEN NANOS");
+	bot::command("", "$MODULE_NAME/nascgar.php",     "NASCGAR", "ALL", "NASCENSE GARDEN NANOS");
 	
 	//Ely Garden Nanos 
-	$this->command("", "$MODULE_NAME/elygar.php",      "ELYGAR", ALL, "ELY GARDEN NANOS");
+	bot::command("", "$MODULE_NAME/elygar.php",      "ELYGAR", "ALL", "ELY GARDEN NANOS");
 	
 	//Ely Sanc Garden Nanos 
-	$this->command("", "$MODULE_NAME/elysancn.php",    "ELYSANCN", ALL, "ELY SANC GARDEN NANOS");
+	bot::command("", "$MODULE_NAME/elysancn.php",    "ELYSANCN", "ALL", "ELY SANC GARDEN NANOS");
 	
 	//Shoel Garden Nanos 
-	$this->command("", "$MODULE_NAME/shogar.php",      "SHOGAR", ALL, "SHOEL GARDEN NANOS");
+	bot::command("", "$MODULE_NAME/shogar.php",      "SHOGAR", "ALL", "SHOEL GARDEN NANOS");
 	
 	//Shoel Sanc Garden Nanos 
-	$this->command("", "$MODULE_NAME/shosancn.php",    "SHOSANCN", ALL, "ELY SANC GARDEN NANOS");
+	bot::command("", "$MODULE_NAME/shosancn.php",    "SHOSANCN", "ALL", "ELY SANC GARDEN NANOS");
 	
 	//ADONIS Quests 
-	$this->command("", "$MODULE_NAME/adoquest.php",     "ADOQUEST", ALL, "ADONIS Quests");
+	bot::command("", "$MODULE_NAME/adoquest.php",     "ADOQUEST", "ALL", "ADONIS Quests");
 	
 	//ADO Garden Nanos 
-	$this->command("", "$MODULE_NAME/adogarn.php",     "ADOGARN", ALL, "ADONIS GARDEN NANOS");
+	bot::command("", "$MODULE_NAME/adogarn.php",     "ADOGARN", "ALL", "ADONIS GARDEN NANOS");
 	
 	//ADO Sanc Garden Nanos 
-	$this->command("", "$MODULE_NAME/adosancn.php",    "ADOSANCN", ALL, "ADONIS SANC GARDEN NANOS");
+	bot::command("", "$MODULE_NAME/adosancn.php",    "ADOSANCN", "ALL", "ADONIS SANC GARDEN NANOS");
 
 	//PENUMBRA Garden Nanos 
-	$this->command("", "$MODULE_NAME/pengarn.php",     "PENGARN", ALL, "PENUMBRA GARDEN NANOS");
+	bot::command("", "$MODULE_NAME/pengarn.php",     "PENGARN", "ALL", "PENUMBRA GARDEN NANOS");
 	
 	//PENUMBRA Sanc Garden Nanos 
-	$this->command("", "$MODULE_NAME/pensancn.php",    "PENSANCN", ALL, "PENUMBRA SANC GARDEN NANOS");
+	bot::command("", "$MODULE_NAME/pensancn.php",    "PENSANCN", "ALL", "PENUMBRA SANC GARDEN NANOS");
 
 	//INFERNO Garden Nanos 
-	$this->command("", "$MODULE_NAME/infgarn.php",     "INFGARN", ALL, "INFERNO GARDEN NANOS");
+	bot::command("", "$MODULE_NAME/infgarn.php",     "INFGARN", "ALL", "INFERNO GARDEN NANOS");
 	
 	//INFERNO Sanc Garden Nanos 
-	$this->command("", "$MODULE_NAME/infsancn.php",    "INFSANCN", ALL, "INFERNO SANC GARDEN NANOS");
+	bot::command("", "$MODULE_NAME/infsancn.php",    "INFSANCN", "ALL", "INFERNO SANC GARDEN NANOS");
 	
 	//Pandemonium Vendor Nanos 
-	$this->command("", "$MODULE_NAME/panven.php",      "PANVEN", ALL, "PANDEMONIUM VENDOR NANOS");
+	bot::command("", "$MODULE_NAME/panven.php",      "PANVEN", "ALL", "PANDEMONIUM VENDOR NANOS");
 
 	//Nascence Garden Key Omni Quest
-	$this->command("", "$MODULE_NAME/nasckey.php",     "NASCKEY", ALL, "ELYSIUM GARDEN KEY OMNI QUEST");
+	bot::command("", "$MODULE_NAME/nasckey.php",     "NASCKEY", "ALL", "ELYSIUM GARDEN KEY OMNI QUEST");
 
 	//Elysium Garden Key Omni Quest 
-	$this->command("", "$MODULE_NAME/elykey.php",      "ELYKEY", ALL, "ELYSIUM GARDEN KEY OMNI QUEST");
+	bot::command("", "$MODULE_NAME/elykey.php",      "ELYKEY", "ALL", "ELYSIUM GARDEN KEY OMNI QUEST");
 
 	//Elysium Sanctuary Garden Key Omni quest 
-	$this->command("", "$MODULE_NAME/elysanckey.php",  "ELYSANCKEY", ALL, "ELYSIUM SANCTUARY GARDEN KEY OMNI QUEST");
+	bot::command("", "$MODULE_NAME/elysanckey.php",  "ELYSANCKEY", "ALL", "ELYSIUM SANCTUARY GARDEN KEY OMNI QUEST");
 
 	//Shoel Garden Key Omni Quest 
-	$this->command("", "$MODULE_NAME/rochkey.php",     "ROCHKEY", ALL, "SHOEL GARDEN KEY OMNI QUEST");
+	bot::command("", "$MODULE_NAME/rochkey.php",     "ROCHKEY", "ALL", "SHOEL GARDEN KEY OMNI QUEST");
 
 	//Shoel Sanctuary Garden Key Omni Quest 
-	$this->command("", "$MODULE_NAME/rochsanckey.php", "ROCHSANCKEY", ALL, "SHOEL SANCTUARY GARDEN KEY OMNI QUEST");
+	bot::command("", "$MODULE_NAME/rochsanckey.php", "ROCHSANCKEY", "ALL", "SHOEL SANCTUARY GARDEN KEY OMNI QUEST");
 
 	//Adonis Garden Key Omni Quest 
-	$this->command("", "$MODULE_NAME/adokey.php",  "ADOKEY", ALL, "ADONIS GARDEN KEY OMNI QUEST");
+	bot::command("", "$MODULE_NAME/adokey.php",  "ADOKEY", "ALL", "ADONIS GARDEN KEY OMNI QUEST");
 
 	//Adonis Sanctuary Garden Key Omni Quest 
-	$this->command("", "$MODULE_NAME/adosanckey.php", "ADOSANCKEY", ALL, "ADONIS SANCTUARY GARDEN KEY OMNI QUEST");
+	bot::command("", "$MODULE_NAME/adosanckey.php", "ADOSANCKEY", "ALL", "ADONIS SANCTUARY GARDEN KEY OMNI QUEST");
   
 	//Adonis Sanctuary Garden Key Omni Quest 
-	$this->command("", "$MODULE_NAME/adosancclan.php", "ADOSANCCLAN", ALL, "ADONIS SANCTUARY GARDEN KEY CLAN QUEST");
+	bot::command("", "$MODULE_NAME/adosancclan.php", "ADOSANCCLAN", "ALL", "ADONIS SANCTUARY GARDEN KEY CLAN QUEST");
 		
 	//Penumbra Sanctuary Garden Key Omni Quest 
-	$this->command("", "$MODULE_NAME/pensancg.php", "pensancg", ALL, "Penumbra Sanctuary Garden Key Omni Quest");
+	bot::command("", "$MODULE_NAME/pensancg.php", "pensancg", "ALL", "Penumbra Sanctuary Garden Key Omni Quest");
 		
 	//Inferno Garden Key Omni Quest 
-	$this->command("", "$MODULE_NAME/infgarnkey.php", "infgarnkey", ALL, "Inferno Garden Key Omni Quest");
+	bot::command("", "$MODULE_NAME/infgarnkey.php", "infgarnkey", "ALL", "Inferno Garden Key Omni Quest");
 		
 	//Inferno Spirit Quest 
-	$this->command("", "$MODULE_NAME/spiritquest.php", "spiritquest", ALL, "Inferno Spirits Quest");
+	bot::command("", "$MODULE_NAME/spiritquest.php", "spiritquest", "ALL", "Inferno Spirits Quest");
 		
 	//Nascence Garden Key Clan Quest
-	$this->command("", "$MODULE_NAME/nasckeyclan.php",     "NASCKEYCLAN", ALL, "ELYSIUM GARDEN KEY Clan Quest");
+	bot::command("", "$MODULE_NAME/nasckeyclan.php",     "NASCKEYCLAN", "ALL", "ELYSIUM GARDEN KEY Clan Quest");
 
 	//Elysium Garden Key Clan Quest 
-	$this->command("", "$MODULE_NAME/elykeyclan.php",      "ELYKEYCLAN", ALL, "ELYSIUM GARDEN KEY Clan Quest");
+	bot::command("", "$MODULE_NAME/elykeyclan.php",      "ELYKEYCLAN", "ALL", "ELYSIUM GARDEN KEY Clan Quest");
 
 	//Elysium Sanctuary Garden Key Clan Quest 
-	$this->command("", "$MODULE_NAME/elysancclan.php",  "ELYSANCCLAN", ALL, "ELYSIUM SANCTUARY GARDEN KEY Clan Quest");
+	bot::command("", "$MODULE_NAME/elysancclan.php",  "ELYSANCCLAN", "ALL", "ELYSIUM SANCTUARY GARDEN KEY Clan Quest");
 
 	//Shoel Garden Key Clan Quest 
-	$this->command("", "$MODULE_NAME/shoelkeyclan.php",     "SHOELKEYCLAN", ALL, "SHOEL GARDEN KEY Clan Quest");
+	bot::command("", "$MODULE_NAME/shoelkeyclan.php",     "SHOELKEYCLAN", "ALL", "SHOEL GARDEN KEY Clan Quest");
 
 	//Shoel Sanctuary Garden Key Clan Quest 
-	$this->command("", "$MODULE_NAME/shoelsancclan.php", "SHOELSANCCLAN", ALL, "SHOEL SANCTUARY GARDEN KEY Clan Quest");
+	bot::command("", "$MODULE_NAME/shoelsancclan.php", "SHOELSANCCLAN", "ALL", "SHOEL SANCTUARY GARDEN KEY Clan Quest");
 
 	//Adonis Garden Key Clan Quest 
-	$this->command("", "$MODULE_NAME/adokeyclan.php",  "ADOKEYCLAN", ALL, "ADONIS GARDEN KEY Clan Quest");
+	bot::command("", "$MODULE_NAME/adokeyclan.php",  "ADOKEYCLAN", "ALL", "ADONIS GARDEN KEY Clan Quest");
 
 	//Adonis Sanctuary Garden Key Clan Quest 
-	$this->command("", "$MODULE_NAME/adosancclan.php", "ADOSANCCLAN", ALL, "ADONIS SANCTUARY GARDEN KEY Clan Quest");
+	bot::command("", "$MODULE_NAME/adosancclan.php", "ADOSANCCLAN", "ALL", "ADONIS SANCTUARY GARDEN KEY Clan Quest");
   
 	//Penumbra Sanctuary Garden Key Clan Quest 
-	$this->command("", "$MODULE_NAME/pensancclan.php", "pensancclan", ALL, "Penumbra Sanctuary Garden Key CLAN Quest");
+	bot::command("", "$MODULE_NAME/pensancclan.php", "pensancclan", "ALL", "Penumbra Sanctuary Garden Key CLAN Quest");
 	
 	//Inferno Sanctuary Garden Key Omni Quest 
-	$this->command("", "$MODULE_NAME/infsanckeyo.php", "infsanckeyo", ALL, "Inferno Sanctuary Garden Key OMNI Quest");
+	bot::command("", "$MODULE_NAME/infsanckeyo.php", "infsanckeyo", "ALL", "Inferno Sanctuary Garden Key OMNI Quest");
 	
 	//Making Perennium Weapons 
-	$this->command("", "$MODULE_NAME/pernweps.php",  "PERNWEPS", ALL, "MAKING PERENNIUM WEAPONS ");
+	bot::command("", "$MODULE_NAME/pernweps.php",  "PERNWEPS", "ALL", "MAKING PERENNIUM WEAPONS ");
 
 	//Making Jobe Armor 
-	$this->command("", "$MODULE_NAME/jobearmor.php",  "JOBEARMOR", ALL, "MAKING JOBE ARMOR ");
+	bot::command("", "$MODULE_NAME/jobearmor.php",  "JOBEARMOR", "ALL", "MAKING JOBE ARMOR ");
 
 	//Making Tier 1 Armor 
-	$this->command("", "$MODULE_NAME/tier1armor.php", "TIER1ARMOR", ALL, "MAKING TIER 1 ARMOR ");
+	bot::command("", "$MODULE_NAME/tier1armor.php", "TIER1ARMOR", "ALL", "MAKING TIER 1 ARMOR ");
 
 	//Making Tier 2 Armor 
-	$this->command("", "$MODULE_NAME/tier2armor.php", "TIER2ARMOR", ALL, "MAKING TIER 2 ARMOR ");
+	bot::command("", "$MODULE_NAME/tier2armor.php", "TIER2ARMOR", "ALL", "MAKING TIER 2 ARMOR ");
 
 	//Making Tier 3 Armor 
-	$this->command("", "$MODULE_NAME/tier3armor.php", "TIER3ARMOR", ALL, "MAKING TIER 3 ARMOR ");
+	bot::command("", "$MODULE_NAME/tier3armor.php", "TIER3ARMOR", "ALL", "MAKING TIER 3 ARMOR ");
 
 	//Websites 
-	$this->command("", "$MODULE_NAME/websites.php",   "WEBSITES", ALL, "WEBSITES ");
+	bot::command("", "$MODULE_NAME/websites.php",   "WEBSITES", "ALL", "WEBSITES ");
 	
 	//Penumbra Guide 
-	$this->command("", "$MODULE_NAME/penguide.php",   "PENGUIDE", ALL, "Guide To Penumbra ");
+	bot::command("", "$MODULE_NAME/penguide.php",   "PENGUIDE", "ALL", "Guide To Penumbra ");
 	
 	//Bazzit's Quest
-	$this->command("", "$MODULE_NAME/bazzit.php",   "BAZZIT", ALL, "Uncle Bazzit Quest");
+	bot::command("", "$MODULE_NAME/bazzit.php",   "BAZZIT", "ALL", "Uncle Bazzit Quest");
 
 	//PVP Guide
-	$this->command("", "$MODULE_NAME/pvp.php",   "pvpguide", ALL, "PVP Guide");
+	bot::command("", "$MODULE_NAME/pvp.php",   "pvpguide", "ALL", "PVP Guide");
 
 	//APF 13 Guide
-	$this->command("", "$MODULE_NAME/apf13.php",   "APF13GUIDE", ALL, "APF 13 Guide");
+	bot::command("", "$MODULE_NAME/apf13.php",   "APF13GUIDE", "ALL", "APF 13 Guide");
 
 	//APF 28 Guide
-	$this->command("", "$MODULE_NAME/apf28.php",   "APF28GUIDE", ALL, "APF 28 Guide");
+	bot::command("", "$MODULE_NAME/apf28.php",   "APF28GUIDE", "ALL", "APF 28 Guide");
 
 	//APF 35 Guide
-	$this->command("", "$MODULE_NAME/apf35.php",   "APF35GUIDE", ALL, "APF 35 Guide");
+	bot::command("", "$MODULE_NAME/apf35.php",   "APF35GUIDE", "ALL", "APF 35 Guide");
 
 	//APF 42 Guide
-	$this->command("", "$MODULE_NAME/apf42.php",   "APF42GUIDE", ALL, "APF 42 Guide");
+	bot::command("", "$MODULE_NAME/apf42.php",   "APF42GUIDE", "ALL", "APF 42 Guide");
 
   //Social Clothes
-	$this->command("", "$MODULE_NAME/clothes.php",   "CLOTHES", ALL, "AI Social Clothing");
+	bot::command("", "$MODULE_NAME/clothes.php",   "CLOTHES", "ALL", "AI Social Clothing");
 	
 	//Dreadloch Camps - Clan
-	$this->command("", "$MODULE_NAME/clandreadloch.php",   "clandreadloch", ALL, "Dreadloch Camps - Clan");
+	bot::command("", "$MODULE_NAME/clandreadloch.php",   "clandreadloch", "ALL", "Dreadloch Camps - Clan");
 
 	//Dreadloch Camps - Omni
-	$this->command("", "$MODULE_NAME/omnidreadloch.php",   "omnidreadloch", ALL, "Dreadloch Camps - Omni");
+	bot::command("", "$MODULE_NAME/omnidreadloch.php",   "omnidreadloch", "ALL", "Dreadloch Camps - Omni");
 	
   //Battle Stations
-	$this->command("", "$MODULE_NAME/bsinfo.php",   "bsinfo", ALL, "Battle Stations");
+	bot::command("", "$MODULE_NAME/bsinfo.php",   "bsinfo", "ALL", "Battle Stations");
 
   //LE Alien Missions
-	$this->command("", "$MODULE_NAME/lemish.php",   "lemish", ALL, "LE Alien Missions");
+	bot::command("", "$MODULE_NAME/lemish.php",   "lemish", "ALL", "LE Alien Missions");
 	
 	//Newcomers Alliance PvP Rules
-	$this->command("", "$MODULE_NAME/napvp.php",   "napvp", ALL, "Newcomers Alliance PvP Rules");
+	bot::command("", "$MODULE_NAME/napvp.php",   "napvp", "ALL", "Newcomers Alliance PvP Rules");
 	
 	//Albtraum
-	$this->command("", "$MODULE_NAME/albainfo.php", "albainfo", ALL, "Guide to Albtraum");
+	bot::command("", "$MODULE_NAME/albainfo.php", "albainfo", "ALL", "Guide to Albtraum");
 	
 	//Arid Rift
-	$this->command("", "$MODULE_NAME/aridrift.php", "aridrift", ALL, "Guide to aridrift");
+	bot::command("", "$MODULE_NAME/aridrift.php", "aridrift", "ALL", "Guide to aridrift");
 	
-	$this->regGroup("prof_guides", $MODULE_NAME, "Guides for all Professions", "advys", "agents", "doctors", "bureaucrats", "enforcers", "engineers", "fixers", "martialartists", "metaphysicists", "soldiers", "traders", "nanotechs", "professions");
-	$this->regGroup("slomni_guides", $MODULE_NAME, "Guides for various SL Garden Keys Omni", "nasckey", "elykey", "elysanckey", "rochkey", "rochsanckey", "adokey", "adosanckey", "penguide", "pensancg", "infgarnkey");
-	$this->regGroup("slclan_guides", $MODULE_NAME, "Guides for various SL Garden Keys Clan", "nasckeyclan", "elykeyclan", "elysancclan", "shoelkeyclan", "shoelsancclan", "adokeyclan", "adosancclan", "pensancclan");
-	$this->regGroup("slkey_guides", $MODULE_NAME, "Guides for various SL Garden Keys", "compact", "indieshoel", "shoelyutto", "jobeshoel", "slnano");
-	$this->regGroup("quests", $MODULE_NAME, "Guides for RK Quests", "quests", "sided1", "sided2", "sided3", "atailor", "fgridone", "fgrid2");
-	$this->regGroup("slts_guides", $MODULE_NAME, "Guides for SL Tradeskills","pernweps", "jobearmor", "tier1armor", "tier2armor", "tier3armor");
-	$this->regGroup("slnano_guides", $MODULE_NAME, "Guides for SL Nanos", "nascgar", "elygar", "elysancn", "shogar", "shosancn", "adogarn", "adosancn", "pengarn", "pensancn", "infgarn", "infsancn", "panven");
-	$this->regGroup("basicinfo_guides", $MODULE_NAME, "Basic AO Information Guides", "wrangle", "makemoney", "beginnersg", "blitzingg", "locations", "terms", "infogrid", "ipreset", "buffs", "armor", "rkinfo", "implants", "mishsets");
-	$this->regGroup("rkdung_guides", $MODULE_NAME, "RK Static Dungeon Guides", "smugden", "totw", "biomare", "hollow", "rkdung", "stepsm", "cryptinfo", "inners");
-	$this->regGroup("orgsinfo_guides", $MODULE_NAME, "Basic Org Information", "message4org", "orgdepts", "official");
-	$this->regGroup("rkinfo_guides", $MODULE_NAME, "RK NPC Information", "zoftig", "meleesmith", "tshop", "fshop", "bernice", "tradenpc", "websites", "infoyalm");
-	$this->regGroup("aiinfo_guides", $MODULE_NAME, "Alien Invasion Information", "bazzit", "clothes");
-	$this->regGroup("leinfo_guides", $MODULE_NAME, "Lost Eden Information", "clandreadloch", "omnidreadloch", "bsinfo", "lemish" );
-	$this->regGroup("alieninvasion_guides", $MODULE_NAME, "pvpguide", "apf13guide", "apf28guide", "apf35guide", "apf42guide", "aridrift"  );
-	$this->regGroup("slinfo_guides", $MODULE_NAME, "SL Quest Guides", "infstar", "albainfo", "penguide", "spiritquest", "adoquest", "jobeshoel", "shoelyutto", "compact");
+	bot::regGroup("prof_guides", $MODULE_NAME, "Guides for all Professions", "advys", "agents", "doctors", "bureaucrats", "enforcers", "engineers", "fixers", "martialartists", "metaphysicists", "soldiers", "traders", "nanotechs", "professions");
+	bot::regGroup("slomni_guides", $MODULE_NAME, "Guides for various SL Garden Keys Omni", "nasckey", "elykey", "elysanckey", "rochkey", "rochsanckey", "adokey", "adosanckey", "penguide", "pensancg", "infgarnkey");
+	bot::regGroup("slclan_guides", $MODULE_NAME, "Guides for various SL Garden Keys Clan", "nasckeyclan", "elykeyclan", "elysancclan", "shoelkeyclan", "shoelsancclan", "adokeyclan", "adosancclan", "pensancclan");
+	bot::regGroup("slkey_guides", $MODULE_NAME, "Guides for various SL Garden Keys", "compact", "indieshoel", "shoelyutto", "jobeshoel", "slnano");
+	bot::regGroup("quests", $MODULE_NAME, "Guides for RK Quests", "quests", "sided1", "sided2", "sided3", "atailor", "fgridone", "fgrid2");
+	bot::regGroup("slts_guides", $MODULE_NAME, "Guides for SL Tradeskills","pernweps", "jobearmor", "tier1armor", "tier2armor", "tier3armor");
+	bot::regGroup("slnano_guides", $MODULE_NAME, "Guides for SL Nanos", "nascgar", "elygar", "elysancn", "shogar", "shosancn", "adogarn", "adosancn", "pengarn", "pensancn", "infgarn", "infsancn", "panven");
+	bot::regGroup("basicinfo_guides", $MODULE_NAME, "Basic AO Information Guides", "wrangle", "makemoney", "beginnersg", "blitzingg", "locations", "terms", "infogrid", "ipreset", "buffs", "armor", "rkinfo", "implants", "mishsets");
+	bot::regGroup("rkdung_guides", $MODULE_NAME, "RK Static Dungeon Guides", "smugden", "totw", "biomare", "hollow", "rkdung", "stepsm", "cryptinfo", "inners");
+	bot::regGroup("orgsinfo_guides", $MODULE_NAME, "Basic Org Information", "message4org", "orgdepts", "official");
+	bot::regGroup("rkinfo_guides", $MODULE_NAME, "RK NPC Information", "zoftig", "meleesmith", "tshop", "fshop", "bernice", "tradenpc", "websites", "infoyalm");
+	bot::regGroup("aiinfo_guides", $MODULE_NAME, "Alien Invasion Information", "bazzit", "clothes");
+	bot::regGroup("leinfo_guides", $MODULE_NAME, "Lost Eden Information", "clandreadloch", "omnidreadloch", "bsinfo", "lemish" );
+	bot::regGroup("alieninvasion_guides", $MODULE_NAME, "pvpguide", "apf13guide", "apf28guide", "apf35guide", "apf42guide", "aridrift"  );
+	bot::regGroup("slinfo_guides", $MODULE_NAME, "SL Quest Guides", "infstar", "albainfo", "penguide", "spiritquest", "adoquest", "jobeshoel", "shoelyutto", "compact");
 ?>

@@ -34,11 +34,11 @@ The grid is a fast way to teleport to other locations within Rubi-Ka.  Fixers ha
 <font color = red>*</font> denotes CompLit needed to use the exit.
  ";
 
-$grid_txt = $this->makeLink("Guide to The Grid", $grid_txt); 
+$grid_txt = bot::makeLink("Guide to The Grid", $grid_txt); 
 if($type == "msg") 
-$this->send($grid_txt, $sender); 
+bot::send($grid_txt, $sender); 
 elseif($type == "all") 
-$this->send($grid_txt); 
+bot::send($grid_txt); 
 else 
-$this->send($grid_txt, "guild"); 
+bot::send($grid_txt, "guild"); 
 ?>

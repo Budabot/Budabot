@@ -13,8 +13,8 @@ if(preg_match("/^eventlist ([0-9]+)$/i", $message, $arr)) {
 	$row = $db->fObject();
 	$link = "<header>::::: Player Signed Up :::::<end>\n\n";
 	
-	$link .= $this->makeLink("Join this event", "/tell <myname> joinEvent $arr[1]", "chatcmd")."\n";
-	$link .= $this->makeLink("Leave this event", "/tell <myname> leaveEvent $arr[1]", "chatcmd")."\n\n";
+	$link .= bot::makeLink("Join this event", "/tell <myname> joinEvent $arr[1]", "chatcmd")."\n";
+	$link .= bot::makeLink("Leave this event", "/tell <myname> leaveEvent $arr[1]", "chatcmd")."\n\n";
 	
 	
 		$eventlist = explode(",", $row->event_attendees);
@@ -42,12 +42,12 @@ if(preg_match("/^eventlist ([0-9]+)$/i", $message, $arr)) {
 		}
 		else
 			$link .= "Eventlist is empty\n";
-		$msg = $this->makeLink("Eventlist", $link);
+		$msg = bot::makeLink("Eventlist", $link);
 	}
 	else
 		$msg = "That event doesn't exist";
 }
 if($msg) {
-	$this->send($msg, $sendto);
+	bot::send($msg, $sendto);
 }
 ?>

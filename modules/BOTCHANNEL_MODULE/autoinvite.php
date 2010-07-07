@@ -43,7 +43,7 @@ if (preg_match("/^autoinvite (on|off)$/i", $message, $arr)) {
 		$msg = "Your auto invite preference has been updated.";
 	}
 	
-	$this->send($msg, $sendto);
+	bot::send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

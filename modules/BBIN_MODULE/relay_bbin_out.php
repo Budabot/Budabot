@@ -17,7 +17,7 @@ if("1" == $this->settings['bbin_status']) {
 		
 		fputs($bbin_socket, "PRIVMSG ".$this->settings['bbin_channel']." :$sender: $message\n");
 		if($this->settings['bbin_debug_messages'] == 1) {
-			newLine("BBIN"," ","[Out. BBIN Msg.] $sender: $message",0);
+			echo("[".date('H:i')."] [Out. BBIN Msg.] $sender: $message\n");
 		}
 	}
 }

@@ -22,13 +22,13 @@ if("1" == $this->settings['bbin_status']) {
 	if($type == "joinPriv") {
 		fputs($bbin_socket, "PRIVMSG ".$this->settings['bbin_channel']." :$msg\n");
 		if($this->settings['bbin_debug_messages'] == 1) {
-			newLine("BBIN"," ","[Out. bbin Msg.] $msg",0);
+			echo("[".date('H:i')."] [Out. bbin Msg.] $msg \n");
 		}
 	}
 	elseif(isset($this->guildmembers[$sender])) {
 		fputs($bbin_socket, "PRIVMSG ".$this->settings['bbin_channel']." :$msg\n");
 		if($this->settings['bbin_debug_messages'] == 1) {
-			newLine("BBIN"," ","[Out. bbin Msg.] $msg",0);
+			echo("[".date('H:i')."] [Out. bbin Msg.] $msg \n");
 		}
 	}
 }

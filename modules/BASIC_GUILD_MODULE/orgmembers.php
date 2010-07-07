@@ -32,19 +32,19 @@
 if(preg_match("/^orgmembers$/i", $message)) {
 	if($this->vars["my guild id"] == "") {
 	  	$msg = "The Bot needs to be in a org to show the orgmembers.";
-	    $this->send($msg, $sendto);
+	    bot::send($msg, $sendto);
 	}
 	
 	$db->query("SELECT * FROM org_members_<myname> WHERE `mode` != 'del' ORDER BY name");  
 	$members = $db->numrows();
   	if($members == 0) {
 	  	$msg = "No members recorded.";
-	    $this->send($msg, $sendto);    
+	    bot::send($msg, $sendto);    
 	}
 	
 	
 	$msg = "Processing orgmember list. This can take a few seconds.";
-    $this->send($msg, $sendto);
+    bot::send($msg, $sendto);
     
     $first_char = "A";
 	$list = "<header>::::: Members of the org {$this->vars["my guild"]} :::::<end>";
@@ -106,12 +106,12 @@ if(preg_match("/^orgmembers$/i", $message)) {
 		$list .= "<tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end>/$prof/<highlight>$row->rank<end>)$logged_off\n";	    
 	}
 	
-	$msg = $this->makeLink("{$this->vars["my guild"]} has $members members currently.", $list);
- 	$this->send($msg, $sendto);
+	$msg = bot::makeLink("{$this->vars["my guild"]} has $members members currently.", $list);
+ 	bot::send($msg, $sendto);
 } elseif(preg_match("/^orgmembers (.*)$/i", $message, $arr)) {
 	if($this->vars["my guild id"] == "") {
 	  	$msg = "The Bot needs to be in a org to show the orgmembers.";
-	  	$this->send($msg, $sendto);
+	  	bot::send($msg, $sendto);
 	}
 	
 	switch(strtolower($arr[1])) {
@@ -161,7 +161,7 @@ if(preg_match("/^orgmembers$/i", $message)) {
     
     if(!$prof) {
         $msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade or trad";
-	    $this->send($msg, $sendto);
+	    bot::send($msg, $sendto);
 	    return;
     }
     
@@ -170,13 +170,13 @@ if(preg_match("/^orgmembers$/i", $message)) {
 	$members = $db->numrows();
   	if($members == 0) {
 		$msg = "No <highlight>$prof<end>'s as member recorded";		
-	  	$this->send($msg, $sendto);
+	  	bot::send($msg, $sendto);
 		return; 
 	}
 	
 	
 	$msg = "Processing orgmember list. This can take a few seconds.";
-  	$this->send($msg, $sendto);
+  	bot::send($msg, $sendto);
        	
 	$list = "<header>::::: Members of the org {$this->vars["my guild"]}:Profession: $prof :::::<end>\n\n";
 	while($row = $db->fObject()) {
@@ -188,8 +188,8 @@ if(preg_match("/^orgmembers$/i", $message)) {
 	  	$list .= "<tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end> $row->profession) (<highlight>$row->rank<end>) <highlight>::<end> Last logoff: $logged_off\n";
 	}
 	
-	$msg = $this->makeLink("{$this->vars["my guild"]} has $members members currently.", $list);
- 	$this->send($msg, $sendto);
+	$msg = bot::makeLink("{$this->vars["my guild"]} has $members members currently.", $list);
+ 	bot::send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

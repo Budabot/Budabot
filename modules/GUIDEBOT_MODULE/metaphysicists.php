@@ -37,11 +37,11 @@ Guide is too large to load into the bot, so I have included the link on AOForums
 "
 ;
 
-$Metaphysicists_txt = $this->makeLink("Guide to Meta Physicists", $Metaphysicists_txt); 
+$Metaphysicists_txt = bot::makeLink("Guide to Meta Physicists", $Metaphysicists_txt); 
 if($type == "msg") 
-$this->send($Metaphysicists_txt, $sender); 
+bot::send($Metaphysicists_txt, $sender); 
 elseif($type == "all") 
-$this->send($Metaphysicists_txt); 
+bot::send($Metaphysicists_txt); 
 else 
-$this->send($Metaphysicists_txt, "guild"); 
+bot::send($Metaphysicists_txt, "guild"); 
 ?>

@@ -4,61 +4,61 @@
 	$FOLDER = $dir;
 
 	//KOS-List Part
-	$this->command("", "$MODULE_NAME/kos_list.php", "kos", ALL, "Shows the Kill On Sight List");
+	bot::command("", "$MODULE_NAME/kos_list.php", "kos", "all", "Shows the Kill On Sight List");
 
 	//Time Part
-	$this->command("", "$MODULE_NAME/time.php", "time", ALL, "Shows the time in the different timezones");
+	bot::command("", "$MODULE_NAME/time.php", "time", "all", "Shows the time in the different timezones");
 
     //Whois Part
-	$this->command("", "$MODULE_NAME/whois.php", "whois", ALL, "Char Infos (only current dim)");
+	bot::command("", "$MODULE_NAME/whois.php", "whois", "all", "Char Infos (only current dim)");
 
     //Whoisall Part
-	$this->command("", "$MODULE_NAME/whois.php", "whoisall", ALL, "Char Infos (all dim)");
+	bot::command("", "$MODULE_NAME/whois.php", "whoisall", "all", "Char Infos (all dim)");
 
 	//Whoisorg Part
-	$this->command("", "$MODULE_NAME/whois.php", "whoisorg", ALL, "Org Infos");
+	bot::command("", "$MODULE_NAME/whois.php", "whoisorg", "all", "Org Infos");
 
 	//Biomaterial identification
-	$this->command("", "$MODULE_NAME/biomat_identify.php", "bio", ALL, "Biomaterial Identify");
+	bot::command("", "$MODULE_NAME/biomat_identify.php", "bio", "all", "Biomaterial Identify");
 	
 	//Calculator
-	$this->command("", "$MODULE_NAME/calc.php", "calc", ALL, "Calculator");
+	bot::command("", "$MODULE_NAME/calc.php", "calc", "all", "Calculator");
 
 	//OE Calculator
-	$this->command("", "$MODULE_NAME/oe.php", "oe", ALL, "OE");
+	bot::command("", "$MODULE_NAME/oe.php", "oe", "all", "OE");
 
 	//Flip or Roll command
-	$this->command("", "$MODULE_NAME/roll.php", "flip", ALL, "Flip a coin");
-	$this->command("", "$MODULE_NAME/roll.php", "roll", ALL, "Roll a random number");
+	bot::command("", "$MODULE_NAME/roll.php", "flip", "all", "Flip a coin");
+	bot::command("", "$MODULE_NAME/roll.php", "roll", "all", "Roll a random number");
 
 	//Player History
-	$this->command("", "$MODULE_NAME/player_history.php", "history", ALL, "Show a history of a player");
+	bot::command("", "$MODULE_NAME/player_history.php", "history", "guild", "Show a history of a player");
 	
 	//Smileys
-	$this->command("", "$MODULE_NAME/smileys.php", "smileys", ALL, "The meaning of different Smileys");
+	bot::command("", "$MODULE_NAME/smileys.php", "smileys", "guild", "The meaning of different Smileys");
 	
 	//Inspect
-	$this->command("", "$MODULE_NAME/inspect.php", "inspect", ALL, "Inspects Christmas/Eart Gifts and Peren. Containers");
+	bot::command("", "$MODULE_NAME/inspect.php", "inspect", "guild", "Inspects Christmas/Eart Gifts and Peren. Containers");
 	
 	//Alien City Generals
-	$this->command("", "$MODULE_NAME/aigen.php", "aigen", ALL, "Info about Alien City Generals(which VBs they drop)");
+	bot::command("", "$MODULE_NAME/aigen.php", "aigen", "guild", "Info about Alien City Generals(which VBs they drop)");
 	
 	//Alien Armor
-	$this->command("", "$MODULE_NAME/aiarmor.php", "aiarmor", ALL, "Tradeskillprocess for Alien Armor");
+	bot::command("", "$MODULE_NAME/aiarmor.php", "aiarmor", "guild", "Tradeskillprocess for Alien Armor");
 
 	//Setup
-	$this->event("setup", "$MODULE_NAME/setup.php");
+	bot::event("setup", "$MODULE_NAME/setup.php");
 
-	//Help files
-	$this->help("whois", "$MODULE_NAME/whois.txt", ALL, "Show char stats at current and all dimensions");
-    $this->help("biomat", "$MODULE_NAME/biomat.txt", ALL, "Identify an Biomaterial");
-    $this->help("calculator", "$MODULE_NAME/calculator.txt", ALL, "Calculator");
-    $this->help("oe", "$MODULE_NAME/oe.txt", ALL, "Calculating the OE ranges");
-    $this->help("fliproll", "$MODULE_NAME/fliproll.txt", ALL, "How to use the flip and roll command");
-    $this->help("history", "$MODULE_NAME/history.txt", ALL, "History of a player");
-    $this->help("time", "$MODULE_NAME/time.txt", ALL, "Timezones");
-    $this->help("kos_list", "$MODULE_NAME/kos_list.txt", ALL, "Kill On Sight List");
-    $this->help("smiley_title_inspect", "$MODULE_NAME/smiley_title_inspect.txt", ALL, "Help for Smiley,Title Level and Inspect");
-    $this->help("alien_armor", "$MODULE_NAME/alien_armor.txt", ALL, "Alien armor Tradeskillprocess");
-	$this->help("alien_generals", "$MODULE_NAME/alien_generals.txt", ALL, "Alien City Generals Info");
+	//Helpfiles
+	bot::help("whois", "$MODULE_NAME/whois.txt", "guild", "Show char stats at current and all dimensions", "Helpbot");
+    bot::help("biomat", "$MODULE_NAME/biomat.txt", "guild", "Identify an Biomaterial", "Helpbot");
+    bot::help("calculator", "$MODULE_NAME/calculator.txt", "guild", "Calculator", "Helpbot");
+    bot::help("oe", "$MODULE_NAME/oe.txt", "guild", "Calculating the OE ranges", "Helpbot");
+    bot::help("fliproll", "$MODULE_NAME/fliproll.txt", "guild", "How to use the flip and roll command", "Helpbot");
+    bot::help("history", "$MODULE_NAME/history.txt", "guild", "History of a player", "Helpbot");
+    bot::help("time", "$MODULE_NAME/time.txt", "guild", "Timezones", "Helpbot");
+    bot::help("kos_list", "$MODULE_NAME/kos_list.txt", "guild", "Kill On Sight List", "Helpbot");
+    bot::help("smiley_title_inspect", "$MODULE_NAME/smiley_title_inspect.txt", "guild", "Help for Smiley,Title Level and Inspect", "Helpbot");
+    bot::help("alien_armor", "$MODULE_NAME/alien_armor.txt", "guild", "Alien armor Tradeskillprocess", "Helpbot");
+	bot::help("alien_generals", "$MODULE_NAME/alien_generals.txt", "guild", "Alien City Generals Info", "Helpbot");
 ?>

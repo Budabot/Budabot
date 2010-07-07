@@ -189,11 +189,11 @@ Huge, huge thanks to Herodotus2 for allowing us to use the material and screensh
 Credit: AOVault.com
  ";
 
-$penguide_txt = $this->makeLink("Guide To Penumbra", $penguide_txt); 
+$penguide_txt = bot::makeLink("Guide To Penumbra", $penguide_txt); 
 if($type == "msg") 
-$this->send($penguide_txt, $sender); 
+bot::send($penguide_txt, $sender); 
 elseif($type == "all") 
-$this->send($penguide_txt); 
+bot::send($penguide_txt); 
 else 
-$this->send($penguide_txt, "guild"); 
+bot::send($penguide_txt, "guild"); 
 ?>

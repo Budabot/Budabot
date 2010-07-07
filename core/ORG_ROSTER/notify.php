@@ -31,7 +31,7 @@
 
 if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
     // Get User id
-    $uid = $this->get_uid($arr[2]);
+    $uid = AoChat::get_uid($arr[2]);
 	$name = ucfirst(strtolower($arr[2]));
     $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$name'");
 	$numrows = $db->numrows();
@@ -80,7 +80,7 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
 	}
 
     // Send info back
-    $this->send($msg, $sendto);
+    bot::send($msg, $sendto);
 } else if (preg_match("/^notify (off|rem) (.+)$/i", $message, $arr)) {
     $name = ucfirst(strtolower($arr[2]));
     $query = $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$name'");
@@ -99,7 +99,7 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
 	}
 
     // Send info back
-    $this->send($msg, $sendto);
+    bot::send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

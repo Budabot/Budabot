@@ -32,11 +32,6 @@
 if(preg_match("/^cmd (.+)$/i", $message, $arr)) {
   	$msg = "<br><yellow>---------------------<br><red>".$arr[1]."<end><br><yellow>---------------------";
 	
-	if ($type == "msg") {
-		$this->send($msg, "guild", true);
-		$this->send($msg, "priv", true);
-	} else {
-		$this->send($msg, $sendto, true);
-	}
+	bot::send($msg, $sendto);
 }
 ?>

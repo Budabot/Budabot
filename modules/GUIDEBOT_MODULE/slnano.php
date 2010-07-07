@@ -16,11 +16,11 @@ Please notify your bot developer of any changes, errors, or discrepencies.
 <a href='chatcmd:///tell <myname> infsancn'> - Inferno Sanctuary Garden Nanos.</a>
 <a href='chatcmd:///tell <myname> panven'> - Pandemonium Vendors Nanos.</font></a> ";
 
-$slnano_txt = $this->makeLink("Shadowlands Garden Nanos", $slnano_txt); 
+$slnano_txt = bot::makeLink("Shadowlands Garden Nanos", $slnano_txt); 
 if($type == "msg") 
-$this->send($slnano_txt, $sender); 
+bot::send($slnano_txt, $sender); 
 elseif($type == "all") 
-$this->send($slnano_txt); 
+bot::send($slnano_txt); 
 else 
-$this->send($slnano_txt, "guild"); 
+bot::send($slnano_txt, "guild"); 
 ?>

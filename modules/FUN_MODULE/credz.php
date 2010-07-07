@@ -52,6 +52,6 @@ if(preg_match("/^credz/i", $message)) {
     $msg = str_replace("*name*", $sender, $msg);
     $msg = str_replace("*dmg*", $dmg, $msg);
     $msg = str_replace("*creds*", $cred, $msg);
-	$this->send($msg, "guild");
+	bot::send($msg, "guild");
 }	
 ?>

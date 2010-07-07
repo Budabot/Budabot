@@ -16,11 +16,11 @@ $prof_txt = "
 <a href='chatcmd:///tell <myname> soldiers'>Guide To Soldiers</a> 
 <a href='chatcmd:///tell <myname> traders'>Guide To Traders</a>  ";
 
-$prof_txt = $this->makeLink("Guide to Professions", $prof_txt); 
+$prof_txt = bot::makeLink("Guide to Professions", $prof_txt); 
 if($type == "msg") 
-$this->send($prof_txt, $sender); 
+bot::send($prof_txt, $sender); 
 elseif($type == "all") 
-$this->send($prof_txt); 
+bot::send($prof_txt); 
 else 
-$this->send($prof_txt, "guild"); 
+bot::send($prof_txt, "guild"); 
 ?>

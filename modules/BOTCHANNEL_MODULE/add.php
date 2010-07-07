@@ -30,7 +30,7 @@
    */
 
 if (preg_match("/^adduser (.+)$/i", $message, $arr)) {
-    $uid = $this->get_uid($arr[1]);
+    $uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     if (!$uid) {
         $msg = "Player <highlight>$name<end> does not exist.";
@@ -45,7 +45,7 @@ if (preg_match("/^adduser (.+)$/i", $message, $arr)) {
 		}
 	}
 
-	$this->send($msg, $sendto);
+	bot::send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

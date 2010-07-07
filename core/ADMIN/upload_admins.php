@@ -33,16 +33,14 @@ $db->query("CREATE TABLE IF NOT EXISTS admin_<myname> (`name` VARCHAR(25) NOT NU
 
 $this->settings["Super Admin"] = ucfirst(strtolower($this->settings["Super Admin"]));
 
-$db->query("SELECT * FROM admin_<myname> WHERE `adminlevel` = " . SUPERADMIN);
-if ($db->numrows() == 0) {
-	$db->query("DELETE FROM admin_<myname> WHERE `name` = '{$this->settings["Super Admin"]}'");
-	$db->query("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (" . SUPERADMIN . ", '{$this->settings["Super Admin"]}')");
-} else {
-	$db->query("UPDATE admin_<myname> SET `name` = '{$this->settings["Super Admin"]}' WHERE `adminlevel` = " . SUPERADMIN);
-}
+$db->query("SELECT * FROM admin_<myname> WHERE `name` = '{$this->settings["Super Admin"]}'");
+if($db->numrows() == 0)
+	$db->query("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (4, '{$this->settings["Super Admin"]}')");
+else
+	$db->query("UPDATE admin_<myname> SET `adminlevel` = 4 WHERE `name` = '{$this->settings["Super Admin"]}'");
 
 $db->query("SELECT * FROM admin_<myname>");
-while ($row = $db->fObject()) {
+while($row = $db->fObject()) {
 	$this->admins[$row->name]["level"] = $row->adminlevel;
 }
 

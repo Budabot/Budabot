@@ -38,7 +38,7 @@ if(preg_match("/^flatroll$/i", $message) || preg_match("/^rollloot$/i", $message
 	//Check if a loot list exits
   	if(!is_array($loot)) {
 	    $msg = "There is nothing to roll atm.";
-	    $this->send($msg);
+	    bot::send($msg);
 	    return;
 	}
   	
@@ -93,13 +93,13 @@ if(preg_match("/^flatroll$/i", $message) || preg_match("/^rollloot$/i", $message
 	$arrolnum = "";
 	$loot = "";
 	//Show winner list
-	$msg = $this->makeLink("Winner List", $list);
+	$msg = bot::makeLink("Winner List", $list);
 	if(is_array($residual)){
 		$rerollmsg = " (There are item(s) left to be rolled. To re-add, type <symbol>reroll)";
 		}
 	else{
 		$rerollmsg = "";
 		}
-	$this->send($msg.$rerollmsg);
+	bot::send($msg.$rerollmsg);
 }
 ?>

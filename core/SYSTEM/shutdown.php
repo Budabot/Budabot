@@ -30,10 +30,10 @@
    */
 
 $msg = "The Bot is shutting down.";
-$this->send($msg, $sender);
-$this->send($msg, "prv", true);
-$this->send($msg, "guild", true);
+bot::send($msg, $sender);
+bot::send($msg, "prv", true);
+bot::send($msg, "guild", true);
 
-$this->disconnect();
+AOChat::disconnect();
 die("The Bot is shutting down.");
 ?>

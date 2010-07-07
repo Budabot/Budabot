@@ -17,15 +17,15 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 		$requirement = $this->settings["quote_add_min"];
 		if ($requirement >= 0) {
 			if (!$this->guildmembers[$sender]) {
-				$this->send("Only org members can add a new quote.", $sendto);
+				bot::send("Only org members can add a new quote.", $sendto);
 				return;
 			} else if ($requirement < $this->guildmembers[$sender]) {
 				$rankdiff = $this->guildmembers[$sender]-$requirement;
-				$this->send("You need $rankdiff promotion(s) in order to add a quote.", $sendto);
+				bot::send("You need $rankdiff promotion(s) in order to add a quote.", $sendto);
 				return;
 			}
 		}else if (($requirement == -1 && !isset($this->chatlist[$sender])) && !$this->guildmembers[$sender]) {
-			$this->send("You need to at least be in the private chat in order to add a quote.", $sendto);
+			bot::send("You need to at least be in the private chat in order to add a quote.", $sendto);
 			return;
 		}
 	}
@@ -152,7 +152,7 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 		$msg .= substr($list,0,strlen($list)-2);
 	}
 	
-	if ($msg) {$msg = $this->makeLink("Results for: '$search'", "<header>::::: Quote Info :::::<end><br><br>$msg");} 
+	if ($msg) {$msg = bot::makeLink("Results for: '$search'", "<header>::::: Quote Info :::::<end><br><br>$msg");} 
 	else {$msg = "Couldn't find any matches for this search.";}
 	
 	
@@ -208,7 +208,7 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 		}
 		$msg .= substr($list,0,strlen($list)-2);
 
-		$msg = $this->makeLink("Quote", $msg).': "'.$quoteMSG.'"';
+		$msg = bot::makeLink("Quote", $msg).': "'.$quoteMSG.'"';
 		
 	} else {
 		$msg = "No quote found with that ID.";
@@ -267,7 +267,7 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 		}
 		$msg .= substr($list,0,strlen($list)-2);
 		
-		$msg = $this->makeLink("Quote", $msg).': "'.$quoteMSG.'"';
+		$msg = bot::makeLink("Quote", $msg).': "'.$quoteMSG.'"';
 		
 	} else {
 		$msg = "I dont have any quotes to show!";
@@ -279,6 +279,6 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 // Send info back
 
 if ($msg) {
-	$this->send($msg, $sendto);
+	bot::send($msg, $sendto);
 }
 ?>

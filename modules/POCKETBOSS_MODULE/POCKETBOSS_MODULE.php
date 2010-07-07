@@ -3,14 +3,14 @@
 	$PLUGIN_VERSION = 1.0;
 
 	//Setup
-	$this->loadSQLFile($MODULE_NAME, "pocketboss");
+	bot::loadSQLFile($MODULE_NAME, "pocketboss");
 
 	//Pocketboss module
-	$this->command("", "$MODULE_NAME/pocketboss.php", "pb", ALL, "Shows what symbs a PB drops");
-	$this->command("", "$MODULE_NAME/pocketboss.php", "symb", ALL, "Shows what PB drops a symb");
+	bot::command("", "$MODULE_NAME/pocketboss.php", "pb", "guild", "Shows what symbs a PB drops");
+	bot::command("", "$MODULE_NAME/pocketboss.php", "symb", "guild", "Shows what PB drops a symb");
 
-	$this->regGroup("PB_SYMB", $MODULE_NAME, "PocketBoss List and Symb search", "symb", "pb");
+	bot::regGroup("PB_SYMB", $MODULE_NAME, "PocketBoss List and Symb search", "symb", "pb");
 
 	//Helpiles
-    $this->help("pocketboss", "$MODULE_NAME/pocketboss.txt", ALL, "See what drops which Pocketboss");
+    bot::help("pocketboss", "$MODULE_NAME/pocketboss.txt", "guild", "See what drops which Pocketboss", "Helpbot");
 ?>

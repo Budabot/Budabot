@@ -27,7 +27,7 @@ if(preg_match("/^leprocs? (.+)$/i", $message, $arr)) {
 
 		$msg = $this->makeLink('LE Proc results', $blob);
 	}
-	$this->send($msg, $sendto);
+	bot::send($msg, $sendto);
 }
 
 ?>

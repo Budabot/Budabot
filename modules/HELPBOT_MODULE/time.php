@@ -146,8 +146,8 @@ if(preg_match("/^time$/i", $message)) {
 
 
 	
-	$msg .= " ".$this->makeLink("All Timezones", $link);
-    $this->send($msg, $sendto);
+	$msg .= " ".bot::makeLink("All Timezones", $link);
+    bot::send($msg, $sendto);
 } elseif(preg_match("/^time (.+)$/i", $message, $arr)) {
   	$zone = strtoupper($arr[1]);
   	if($timezone[$zone]["name"])
@@ -155,6 +155,6 @@ if(preg_match("/^time$/i", $message)) {
 	else
 		$msg = "This timezone doesn't exist or isn't known by this bot.";
 
-    $this->send($msg, $sendto);
+    bot::send($msg, $sendto);
 }
 ?>

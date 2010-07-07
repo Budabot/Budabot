@@ -31,9 +31,9 @@
    
 if (preg_match("/^kickall$/", $message)) {
   	$msg = "All will be kicked out of this group in 10seconds. [by <highlight>$sender<end>]";
-  	$this->send($msg);
+  	bot::send($msg);
   	$this->vars["priv_kickall"] = time() + 10;
-	$this->regevent("2sec", "BOTCHANNEL_MODULE/kickall_event.php");
+	bot::regevent("2sec", "BOTCHANNEL_MODULE/kickall_event.php");
 } else {
 	$syntax_error = true;
 }

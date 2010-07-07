@@ -31,6 +31,6 @@ else {
 }
 
 if($msg) {
-	$this->send($msg, $sendto);
+	bot::send($msg, $sendto);
 }
 ?>

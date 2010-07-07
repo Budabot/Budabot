@@ -36,6 +36,6 @@
 	$PLUGIN_VERSION = 1.0;
 
 	//Org messages
-    $this->event("orgmsg", "$MODULE_NAME/os_timer.php", "none", "Sets a timer when an OS/AS is launched");
+    bot::event("orgmsg", "$MODULE_NAME/os_timer.php", "none", "Sets a timer when an OS/AS is launched");
 
 ?>

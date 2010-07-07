@@ -1,43 +1,43 @@
 <?php 
-	$MODULE_NAME = "ADMIN";
-	
-	//Setup
-	$this->regevent("setup", "$MODULE_NAME/upload_admins.php");
+$MODULE_NAME = "ADMIN";
 
 	//Commands	
-	$this->regcommand("msg", "$MODULE_NAME/addadmin.php", "addadmin", ADMIN);
-	$this->regcommand("priv", "$MODULE_NAME/addadmin.php", "addadmin", ADMIN);
-	$this->regcommand("guild", "$MODULE_NAME/addadmin.php", "addadmin", ADMIN);
+	bot::regcommand("msg", "$MODULE_NAME/addadmin.php", "addadmin", "admin");
+	bot::regcommand("priv", "$MODULE_NAME/addadmin.php", "addadmin", "admin");
+	bot::regcommand("guild", "$MODULE_NAME/addadmin.php", "addadmin", "admin");
 	
-	$this->regcommand("msg", "$MODULE_NAME/kickadmin.php", "kickadmin", ADMIN);
-	$this->regcommand("priv", "$MODULE_NAME/kickadmin.php", "kickadmin", ADMIN);
-	$this->regcommand("guild", "$MODULE_NAME/kickadmin.php", "kickadmin", ADMIN);
+	bot::regcommand("msg", "$MODULE_NAME/kickadmin.php", "kickadmin", "admin");
+	bot::regcommand("priv", "$MODULE_NAME/kickadmin.php", "kickadmin", "admin");
+	bot::regcommand("guild", "$MODULE_NAME/kickadmin.php", "kickadmin", "admin");
 	
-	$this->regcommand("msg", "$MODULE_NAME/addmod.php", "addmod", ADMIN);
-	$this->regcommand("priv", "$MODULE_NAME/addmod.php", "addmod", ADMIN);
-	$this->regcommand("guild", "$MODULE_NAME/addmod.php", "addmod", ADMIN);
+	bot::regcommand("msg", "$MODULE_NAME/addmod.php", "addmod", "admin");
+	bot::regcommand("priv", "$MODULE_NAME/addmod.php", "addmod", "admin");
+	bot::regcommand("guild", "$MODULE_NAME/addmod.php", "addmod", "admin");
 	
-	$this->regcommand("msg", "$MODULE_NAME/kickmod.php", "kickmod", ADMIN);
-	$this->regcommand("priv", "$MODULE_NAME/kickmod.php", "kickmod", ADMIN);
-	$this->regcommand("guild", "$MODULE_NAME/kickmod.php", "kickmod", ADMIN);
+	bot::regcommand("msg", "$MODULE_NAME/kickmod.php", "kickmod", "admin");
+	bot::regcommand("priv", "$MODULE_NAME/kickmod.php", "kickmod", "admin");
+	bot::regcommand("guild", "$MODULE_NAME/kickmod.php", "kickmod", "admin");
 	
-	$this->regcommand("msg", "$MODULE_NAME/raidleader.php", "raidleader", MODERATOR);
-	$this->regcommand("priv", "$MODULE_NAME/raidleader.php", "raidleader", MODERATOR);
-	$this->regcommand("guild", "$MODULE_NAME/raidleader.php", "raidleader", MODERATOR);
+	bot::regcommand("msg", "$MODULE_NAME/raidleader.php", "raidleader", "mod");
+	bot::regcommand("priv", "$MODULE_NAME/raidleader.php", "raidleader", "mod");
+	bot::regcommand("guild", "$MODULE_NAME/raidleader.php", "raidleader", "mod");
 	
-	$this->regcommand("msg", "$MODULE_NAME/kickraidleader.php", "kickraidleader", MODERATOR);
-	$this->regcommand("priv", "$MODULE_NAME/kickraidleader.php", "kickraidleader", MODERATOR);
-	$this->regcommand("guild", "$MODULE_NAME/kickraidleader.php", "kickraidleader", MODERATOR);
+	bot::regcommand("msg", "$MODULE_NAME/kickraidleader.php", "kickraidleader", "mod");
+	bot::regcommand("priv", "$MODULE_NAME/kickraidleader.php", "kickraidleader", "mod");
+	bot::regcommand("guild", "$MODULE_NAME/kickraidleader.php", "kickraidleader", "mod");
 
-	$this->regcommand("msg", "$MODULE_NAME/adminlist.php", "adminlist");
-	$this->regcommand("priv", "$MODULE_NAME/adminlist.php", "adminlist");
-	$this->regcommand("guild", "$MODULE_NAME/adminlist.php", "adminlist");
+	bot::regcommand("msg", "$MODULE_NAME/adminlist.php", "adminlist");
+	bot::regcommand("priv", "$MODULE_NAME/adminlist.php", "adminlist");
+	bot::regcommand("guild", "$MODULE_NAME/adminlist.php", "adminlist");
 
 	//Events
-	$this->regevent("logOn", "$MODULE_NAME/admin_logon.php");
-	$this->regevent("logOff", "$MODULE_NAME/admin_logoff.php");
-	$this->regevent("24hrs", "$MODULE_NAME/check_admins.php");
+	bot::regevent("logOn", "$MODULE_NAME/admin_logon.php");
+	bot::regevent("logOff", "$MODULE_NAME/admin_logoff.php");
+	bot::regevent("24hrs", "$MODULE_NAME/check_admins.php");
+
+	//Setup
+	bot::regevent("setup", "$MODULE_NAME/upload_admins.php");
 
 	//Help Files
-	$this->help("adminhelp", "$MODULE_NAME/admin.txt", MODERATOR, "Mod/Admin Help file.");
+	bot::help("adminhelp", "$MODULE_NAME/admin.txt", "mod", "Mod/Admin Help file.", "Administration");
 ?>

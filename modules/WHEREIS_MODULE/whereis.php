@@ -27,10 +27,16 @@ if (preg_match("/^whereis (.+)$/i", $message, $arr)) {
 	}
 	
 	if ($whereis_found > 1) {
+		if (method_exists('bot', 'makeHeader')) {
+			$header = bot::makeHeader("Result of Whereis Search For $search", $links);
+		} else {
+			$header = "<header>::::: Result of Whereis Search For $search :::::<end>\n";	
+		}
+		$header .= "There are $whereis_found matches to your query.\n\n";
 		
-		$whereis = "There are $whereis_found matches to your query.\n\n" . $whereis;
+		$whereis = $header . $whereis;
 	
-		$msg = $this->makeBlob("Result of Whereis Search For $search", $whereis);
+		$msg = bot::makelink("Whereis", $whereis);
 	} else if ($whereis_found == 1) {
 		$msg = $whereis;
 	} else {
@@ -41,6 +47,6 @@ else {
 	$msg = "<yellow>You must enter valid search criteria.</end>\n";
 }
 
-$this->send($msg , $sendto);
+bot::send($msg , $sendto);
 
 ?>

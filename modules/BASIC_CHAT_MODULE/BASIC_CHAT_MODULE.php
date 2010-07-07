@@ -3,60 +3,60 @@
 	$PLUGIN_VERSION = 0.1;
 
 	//Invite/Leave/lock commands
-	$this->addsetting("topic_guild_join", "Show Topic in guild on join", "edit", "0", "ON;OFF", "1;0", MODERATOR, "$MODULE_NAME/topic_show_guild.txt");
-	$this->addsetting("priv_status", "no", "hide", "open");
-	$this->addsetting("priv_status_reason", "no", "hide", "not set");	
+	bot::addsetting("topic_guild_join", "Show Topic in guild on join", "edit", "0", "ON;OFF", "1;0", "mod", "$MODULE_NAME/topic_show_guild.txt");
+	bot::addsetting("priv_status", "no", "hide", "open");
+	bot::addsetting("priv_status_reason", "no", "hide", "not set");	
 
 	//Check macros
-	$this->command("priv", "$MODULE_NAME/check.php", "check", RAIDLEADER, "Checks who of the raidgroup is in the area");	
+	bot::command("priv", "$MODULE_NAME/check.php", "check", "rl", "Checks who of the raidgroup is in the area");	
 	
 	//Topic set/show
-	$this->event("joinPriv", "$MODULE_NAME/topic.php", "topic", "Show Topic when someone joins PrivChat");
-	$this->event("logOn", "$MODULE_NAME/topic_logon.php", "none", "Show Topic on logon of members");
-	$this->command("", "$MODULE_NAME/topic.php", "topic", ALL, "Show Topic");
-	$this->subcommand("", "$MODULE_NAME/topic.php", "topic (.+)", LEADER, "topic", "Change Topic");
-	$this->addsetting("topic", "Topic for Priv Channel", "noedit", "No Topic set.");	
-	$this->addsetting("topic_setby", "no", "hide", "none");
-	$this->addsetting("topic_time", "no", "hide", time());
+	bot::event("joinPriv", "$MODULE_NAME/topic.php", "topic", "Show Topic when someone joins PrivChat");
+	bot::event("logOn", "$MODULE_NAME/topic_logon.php", "none", "Show Topic on logon of members");
+	bot::command("", "$MODULE_NAME/topic.php", "topic", "all", "Show Topic");
+	bot::subcommand("", "$MODULE_NAME/topic.php", "topic (.+)", "leader", "topic", "Change Topic");
+	bot::addsetting("topic", "Topic for Priv Channel", "noedit", "No Topic set.");	
+	bot::addsetting("topic_setby", "no", "hide", "none");
+	bot::addsetting("topic_time", "no", "hide", time());
 
-    //Afk Check
-	$this->event("priv", "$MODULE_NAME/afk_check.php", "afk");
-	$this->command("priv", "$MODULE_NAME/afk.php", "afk", ALL, "Sets a member afk");
+    // Afk Check
+	bot::event("priv", "$MODULE_NAME/afk_check.php", "afk");
+	bot::command("priv", "$MODULE_NAME/afk.php", "afk", "all", "Sets a member afk");
 
 	//Leader
-	$this->command("priv", "$MODULE_NAME/leader.php", "leader", ALL, "Sets the Leader of the raid");
-	$this->subcommand("priv", "$MODULE_NAME/leader.php", "leader (.+)", LEADER, "leader", "Set a specific Leader");
-	$this->command("priv", "$MODULE_NAME/leaderecho_cmd.php", "leaderecho", LEADER, "Set if the text of the leader will be repeated");
-	$this->event("priv", "$MODULE_NAME/leaderecho.php", "leader");
-	$this->addsetting("leaderecho", "Repeat the text of the raidleader", "edit", "1", "ON;OFF", "1;0");
-	$this->addsetting("leaderecho_color", "Color for Raidleader echo", "edit", "<font color=#FFFF00>", "color");
+	bot::command("priv", "$MODULE_NAME/leader.php", "leader", "all", "Sets the Leader of the raid");
+	bot::subcommand("priv", "$MODULE_NAME/leader.php", "leader (.+)", "raidleader", "leader", "Set a specific Leader");
+	bot::command("priv", "$MODULE_NAME/leaderecho_cmd.php", "leaderecho", "leader", "Set if the text of the leader will be repeated");
+	bot::event("priv", "$MODULE_NAME/leaderecho.php", "leader");
+	bot::addsetting("leaderecho", "Repeat the text of the raidleader", "edit", "1", "ON;OFF", "1;0");
+	bot::addsetting("leaderecho_color", "Color for Raidleader echo", "edit", "<font color=#FFFF00>", "color");
 
 	//Assist
-	$this->command("", "$MODULE_NAME/assist.php", "assist", ALL, "Creates/shows an Assist macro");
-	$this->subcommand("", "$MODULE_NAME/assist.php", "assist (.+)", LEADER, "assist", "Set a new assist");
-	$this->command("", "$MODULE_NAME/heal_assist.php", "heal", ALL, "Creates/showes an Doc Assist macro");
-	$this->subcommand("", "$MODULE_NAME/heal_assist.php", "heal (.+)", LEADER, "heal", "Set a new Doc assist");
+	bot::command("", "$MODULE_NAME/assist.php", "assist", "all", "Creates/shows an Assist macro");
+	bot::subcommand("", "$MODULE_NAME/assist.php", "assist (.+)", "leader", "assist", "Set a new assist");
+	bot::command("", "$MODULE_NAME/heal_assist.php", "heal", "all", "Creates/showes an Doc Assist macro");
+	bot::subcommand("", "$MODULE_NAME/heal_assist.php", "heal (.+)", "leader", "heal", "Set a new Doc assist");
 
 	//Tell
-	$this->command("priv", "$MODULE_NAME/tell.php", "tell", ALL, "Repeats a Message 3times");
+	bot::command("priv", "$MODULE_NAME/tell.php", "tell", "all", "Repeats a Message 3times");
 	
 	//updateme
-	$this->command("", "$MODULE_NAME/updateme.php", "updateme", ALL, "Updates Charinfos from a player");
+	bot::command("", "$MODULE_NAME/updateme.php", "updateme", "all", "Updates Charinfos from a player");
 
 	//Set admin and user news
-	$this->command("", "$MODULE_NAME/set_news.php", "privnews", RAIDLEADER, "Set news that are shown on privjoin");
-	$this->command("", "$MODULE_NAME/set_news.php", "adminnews", MODERATOR, "Set adminnews that are shown on privjoin");
-	$this->addsetting("news", "no", "hide", "Not set.");
-	$this->addsetting("adminnews", "no", "hide", "Not set.");	
+	bot::command("", "$MODULE_NAME/set_news.php", "privnews", "rl", "Set news that are shown on privjoin");
+	bot::command("", "$MODULE_NAME/set_news.php", "adminnews", "mod", "Set adminnews that are shown on privjoin");
+	bot::addsetting("news", "no", "hide", "Not set.");
+	bot::addsetting("adminnews", "no", "hide", "Not set.");	
 	
-	//Help files
-	$this->help("afk_priv", "$MODULE_NAME/afk.txt", ALL, "Going AFK");
-	$this->help("assist", "$MODULE_NAME/assist.txt", ALL, "Creating an Assist Macro");
-	$this->help("check", "$MODULE_NAME/check.txt", ALL, "See of the ppls are in the area");
-	$this->help("heal_assist", "$MODULE_NAME/healassist.txt", ALL, "Creating an Healassist Macro");
-	$this->help("leader", "$MODULE_NAME/leader.txt", ALL, "Set a Leader of a Raid/Echo on/off");
-	$this->help("priv_news", "$MODULE_NAME/priv_news.txt", RAIDLEADER, "Set Privategroup News");
-	$this->help("tell", "$MODULE_NAME/tell.txt", LEADER, "Repeating of a msg 3times");
-	$this->help("topic", "$MODULE_NAME/topic.txt", RAIDLEADER, "Set the Topic of the raid");
-	$this->help("updateme", "$MODULE_NAME/updateme.txt", ALL, "Update your character infos");
+	//Helpfiles
+	bot::help("afk_priv", "$MODULE_NAME/afk.txt", "all", "Going AFK", "Raidbot");
+	bot::help("assist", "$MODULE_NAME/assist.txt", "all", "Creating an Assist Macro", "Raidbot");
+	bot::help("check", "$MODULE_NAME/check.txt", "all", "See of the ppls are in the area", "Raidbot");
+	bot::help("heal_assist", "$MODULE_NAME/healassist.txt", "all", "Creating an Healassist Macro", "Raidbot");
+	bot::help("leader", "$MODULE_NAME/leader.txt", "all", "Set a Leader of a Raid/Echo on/off", "Raidbot");	
+	bot::help("priv_news", "$MODULE_NAME/priv_news.txt", "raidleader", "Set Privategroup News", "Raidbot");			
+	bot::help("tell", "$MODULE_NAME/tell.txt", "leader", "Repeating of a msg 3times", "Raidbot");
+	bot::help("topic", "$MODULE_NAME/topic.txt", "raidleader", "Set the Topic of the raid", "Raidbot");			
+	bot::help("updateme", "$MODULE_NAME/updateme.txt", "all", "Update your character infos", "Raidbot");
 ?>

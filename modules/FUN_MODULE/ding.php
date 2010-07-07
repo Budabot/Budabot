@@ -13,7 +13,7 @@
    
 if(preg_match("/^ding$/i", $message)) {
 	$msg = "Yeah yeah gratz\nI would give you a better response\nbut you didn't say what you dinged\nUsage: ding 'level'";
- 	$this->send($msg, "guild");
+ 	bot::send($msg, "guild");
 }
 
 elseif(preg_match("/^ding ([0-9]+)$/i", $message, $arr)) {
@@ -40,6 +40,6 @@ elseif(preg_match("/^ding ([0-9]+)$/i", $message, $arr)) {
 	else {
 		$msg = "Ding ding ding..now ding some more!";
 	}
- 	$this->send($msg, "guild");
+ 	bot::send($msg, "guild");
 }
 ?>

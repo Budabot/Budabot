@@ -45,6 +45,12 @@ if (preg_match("/^nlline ([0-9]*)$/i", $message, $arr)) {
 
 		$header = "$row->profession $row->name Nanos";
 
+		if (method_exists('bot', 'makeHeader')) {
+			$window = bot::makeHeader($header, "none");
+		} else {
+			$window = "<header>::::: $header :::::<end>\n";	
+		}
+
 		$sql = "
 		SELECT
 			a.low_id,
@@ -71,14 +77,14 @@ if (preg_match("/^nlline ([0-9]*)$/i", $message, $arr)) {
 
 		$window .= "\n\nAO Nanos by Voriuste";
 
-		$msg = $this->makeBlob($header, $window);
+		$msg = bot::makeLink($header, $window, 'blob');
 
 	} else {
 
 		$msg = "No nanoline found.";
 	}
 
-	$this->send($msg, $sendto);
+	bot::send($msg, $sendto);
 }
 
 ?>

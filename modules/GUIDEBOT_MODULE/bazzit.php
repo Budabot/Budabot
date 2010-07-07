@@ -104,11 +104,11 @@ Last updated on 03.13.2007
 Information originally provided by Jexai.co.uk/anarchy";
 
 
-$bazzit_txt = $this->makeLink("Uncle Bazzit's Quest", $bazzit_txt); 
+$bazzit_txt = bot::makeLink("Uncle Bazzit's Quest", $bazzit_txt); 
 if($type == "msg") 
-$this->send($bazzit_txt, $sender); 
+bot::send($bazzit_txt, $sender); 
 elseif($type == "all") 
-$this->send($bazzit_txt); 
+bot::send($bazzit_txt); 
 else 
-$this->send($bazzit_txt, "guild"); 
+bot::send($bazzit_txt, "guild"); 
 ?>

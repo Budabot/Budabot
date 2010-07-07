@@ -39,11 +39,11 @@ Redeemed temple in Inferno.</font><font color='#00ff00'> When you kill </font><f
 </font><font color='#ff0000'>NOTE: Step 9 has <a href='itemref://239759/239760/220'>Box of Nanocrystals</a> as item reward. If you already have one, use it or transfer to someone befor finishing step 9, or you'll miss it.</font><a href='itemref://229063/229063/1'>Lord Mordeth Sanctuary Key</a> is your final quest reward</a></font>
  ";
 
-$infsanckeyo_txt = $this->makeLink("Inferno Sanctuary Garden Key - Omni", $infsanckeyo_txt); 
+$infsanckeyo_txt = bot::makeLink("Inferno Sanctuary Garden Key - Omni", $infsanckeyo_txt); 
 if($type == "msg") 
-$this->send($infsanckeyo_txt, $sender); 
+bot::send($infsanckeyo_txt, $sender); 
 elseif($type == "all") 
-$this->send($infsanckeyo_txt); 
+bot::send($infsanckeyo_txt); 
 else 
-$this->send($infsanckeyo_txt, "guild"); 
+bot::send($infsanckeyo_txt, "guild"); 
 ?>

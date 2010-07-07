@@ -49,11 +49,11 @@ require_once('implant_functions.php');
 	} else {
 		$obj = getRequirements($ql);
 		$clusterInfo = formatClusterBonuses($obj);
-		$link = $this->makeLink('More info', $clusterInfo, 'text');
+		$link = bot::makeLink('More info', $clusterInfo, 'text');
 		$msg = "\nFor ql $ql imps\nTreatment required: $obj->treatment.\nAbility Required: $obj->ability\n$link";
 	}
 
-	$this->send($msg, $sendto);
+	bot::send($msg, $sendto);
 }
 
 ?>

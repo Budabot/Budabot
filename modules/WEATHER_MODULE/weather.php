@@ -78,22 +78,22 @@ if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 // Geolookup
 	
 	if (xml::spliceData($geolookup, "<wui_error>", "</wui_error>") != ""){
-		$this->send("No information is available for <highlight>".$arr[1]."<end>.", $sendto);
+		bot::send("No information is available for <highlight>".$arr[1]."<end>.", $sendto);
 		return;
 	}
 	
 	$locations = xml::spliceMultiData($geolookup, "<name>", "</name>");
 	if (count($locations) > 1){
 		foreach ($locations as $spot) {
-			$blob .= $this->makeLink($spot, "/tell <myname> weather $spot", "chatcmd")."\n";
+			$blob .= bot::makeLink($spot, "/tell <myname> weather $spot", "chatcmd")."\n";
 		}
 
-		$msg = $this->makeLink('Multiple hits for '.$arr[1].'.', $blob);
-		$this->send($msg, $sendto);
+		$msg = bot::makeLink('Multiple hits for '.$arr[1].'.', $blob);
+		bot::send($msg, $sendto);
 		return;
 	}
 	
-	$this->send("Collecting data for <highlight>".$arr[1]."<end>.", $sendto);
+	bot::send("Collecting data for <highlight>".$arr[1]."<end>.", $sendto);
 	
 	$current   = getweatherdata("api.wunderground.com", 80, $current);
 	$forecast  = getweatherdata("api.wunderground.com", 80, $forecast);
@@ -104,7 +104,7 @@ if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 	$updated = xml::spliceData($current, "<observation_time_rfc822>", "</observation_time_rfc822>");
 
 	if ($updated == ", :: GMT") {
-		$this->send("No information is available for <highlight>".$arr[1]."<end>.", $sendto);
+		bot::send("No information is available for <highlight>".$arr[1]."<end>.", $sendto);
 		return;
 	}
 	
@@ -140,9 +140,9 @@ if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 	} else {
 		$latlonstr .= "W ";
 	}
-	$latlonstr .= $this->makeLink("Google Map", "/start http://maps.google.com/maps?q=$lat,$lon", "chatcmd")." ";
-	$latlonstr .= $this->makeLink("Wunder Map", "/start http://www.wunderground.com/wundermap/?lat=$lat&lon=$lon&zoom=10", "chatcmd")."\n\n";
-	$blob  = "<highlight>Credit:<end> ".$this->makeLink($credit, "/start $crediturl", "chatcmd")."\n";
+	$latlonstr .= bot::makeLink("Google Map", "/start http://maps.google.com/maps?q=$lat,$lon", "chatcmd")." ";
+	$latlonstr .= bot::makeLink("Wunder Map", "/start http://www.wunderground.com/wundermap/?lat=$lat&lon=$lon&zoom=10", "chatcmd")."\n\n";
+	$blob  = "<highlight>Credit:<end> ".bot::makeLink($credit, "/start $crediturl", "chatcmd")."\n";
 	$blob .= "<highlight>Last Updated:<end> $updated\n\n";
 	$blob .= "<highlight>Location:<end> $fullLoc, $country\n";
 	$blob .= "<highlight>Lat/Lon:<end> $latlonstr";
@@ -225,9 +225,9 @@ if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 		}
 	}
 
-	$msg = $this->makeLink('Weather: '.$arr[1].'.', $blob);
+	$msg = bot::makeLink('Weather: '.$arr[1].'.', $blob);
 	
-	$this->send($msg, $sendto);
+	bot::send($msg, $sendto);
 
 }
 ?>

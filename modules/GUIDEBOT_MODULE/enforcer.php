@@ -172,8 +172,8 @@ We, in this form, are the closest you get to a walking Pinyata. We expect to tak
 
 On the positive side.. as an enforcer, you have more HP than god, bigger hammers than Thor and not many want to pick a fight with you once you stand there 3 times their height."
 ;
-$enforcer_txt = $this->makeLink("Guide To Enforcers", $enforcer_txt);
+$enforcer_txt = bot::makeLink("Guide To Enforcers", $enforcer_txt);
 
-$this->send($enforcer_txt, $sendto);
+bot::send($enforcer_txt, $sendto);
 
 ?>

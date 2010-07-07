@@ -44,11 +44,11 @@ The leaders:
    (West) Northwest redeemed temple. Kill the Ecclesiast, give the shady guy 6 Cama Insignias. He will spawn the Empath. Kill the Empath, redeemed Cama will spawn. Kill Cama, and you have the key.
 ";
 
-$pensancg_txt = $this->makeLink("Penumbra: Sanctuary Garden Key Quest OMNI", $pensancg_txt); 
+$pensancg_txt = bot::makeLink("Penumbra: Sanctuary Garden Key Quest OMNI", $pensancg_txt); 
 if($type == "msg") 
-$this->send($pensancg_txt, $sender); 
+bot::send($pensancg_txt, $sender); 
 elseif($type == "all") 
-$this->send($pensancg_txt); 
+bot::send($pensancg_txt); 
 else 
-$this->send($pensancg_txt, "guild"); 
+bot::send($pensancg_txt, "guild"); 
 ?>

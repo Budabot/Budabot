@@ -3,19 +3,19 @@
 	$PLUGIN_VERSION = 0.1;
 
 	// Bank browse
-	$this->command("", "$MODULE_NAME/bankbrowse.php", "bank", ALL, "Browse the Org Bank.");
+	bot::command("", "$MODULE_NAME/bankbrowse.php", "bank", "all", "Browse the Org Bank.");
 	
 	// Backpack browse
-	$this->command("", "$MODULE_NAME/backpackbrowse.php", "pack", ALL, "Browse an Org Bank backpack.");
+	bot::command("", "$MODULE_NAME/backpackbrowse.php", "pack", "all", "Browse an Org Bank backpack.");
 	
 	// Bank lookup
-	$this->command("", "$MODULE_NAME/banklookup.php", "id", ALL, "Look up an item.");
+	bot::command("", "$MODULE_NAME/banklookup.php", "id", "all", "Look up an item.");
 	
 	// Bank search
-	$this->command("", "$MODULE_NAME/banksearch.php", "find", ALL, "Search the Org Bank for an item you need.");
+	bot::command("", "$MODULE_NAME/banksearch.php", "find", "all", "Search the Org Bank for an item you need.");
 	
 	// Help
-	$this->help("bank", "$MODULE_NAME/bank.txt", ALL, "How to search for an item.");
+	bot::help("bank", "$MODULE_NAME/bank.txt", "all", "How to search for an item.", "Bank Search Module"); 
 
 
 	// Thanks to Xyphos (RK1) for helping me bugfix

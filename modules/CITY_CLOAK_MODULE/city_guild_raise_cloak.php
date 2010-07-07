@@ -62,7 +62,7 @@
 		        // send message to main if he/she is online
 		        if ($this->buddy_online($row->player))
 		        {
-					$this->send($msg, $row->player);
+					bot::send($msg, $row->player);
 				}
 				
 				// send message to any online alts
@@ -71,7 +71,7 @@
 		        {
 			        if ($this->buddy_online($nextAlt->alt))
 			        {
-						$this->send($msg, $nextAlt->alt);
+						bot::send($msg, $nextAlt->alt);
 					}
 				}
 			}
@@ -81,7 +81,7 @@
 			$interval = 5;
 			if ((time() - $row->time) >= 65*60 && ((time() - $row->time) % (60 * $interval) >= 0 && (time() - $row->time) % (60 * $interval) <= 60 ))
         	{
-	        	$this->send("The cloaking device is disabled. It is possible to enable it.", 'guild');
+	        	bot::send("The cloaking device is disabled. It is possible to enable it.", 'guild');
         	}
     	}
     }

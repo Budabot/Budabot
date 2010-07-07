@@ -53,7 +53,7 @@ if (preg_match("/^nlprof (.*)$/i", $message, $arr)) {
 		if ($this->settings["shownanolineicons"] == "1") {
 			$window .= "<img src='rdb://$row->image_id'><br>";
 		}
-		$window .= $this->makeLink("$row->name", "/tell <myname> <symbol>nlline $row->id", 'chatcmd');
+		$window .= bot::makeLink("$row->name", "/tell <myname> <symbol>nlline $row->id", 'chatcmd');
 		$window .= "\n";
 
 		$profession = $row->profession;
@@ -61,13 +61,18 @@ if (preg_match("/^nlprof (.*)$/i", $message, $arr)) {
 
 	$msg = '';
 	if ($count > 0) {
+		if (method_exists('bot', 'makeHeader')) {
+			$window = bot::makeHeader("$profession Nanolines", "none") . $window;
+		} else {
+			$window = "<header>::::: $profession Nanolines :::::<end>\n" . $window;	
+		}
 		$window .= "\n\nAO Nanos by Voriuste";
-		$msg = $this->makeBlob("$profession Nanolines", $window);
+		$msg = bot::makeLink("$profession Nanolines", $window, 'blob');
 	} else {
 		$msg = "Profession not found.";
 	}
 
-	$this->send($msg, $sendto);
+	bot::send($msg, $sendto);
 }
 
 ?>

@@ -29,17 +29,6 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-// Access levels
-define('SUPERADMIN', 0);
-define('ADMIN', 1);
-define('MODERATOR', 2);
-define('RAIDLEADER', 3);
-define('GUILDADMIN', 4);
-define('LEADER', 5);
-define('GUILDMEMBER', 6);
-define('MEMBER', 7);
-define('ALL', 8);
-
 class bot extends AOChat{
 
 	var $buddyList = array();
@@ -62,9 +51,9 @@ class bot extends AOChat{
 		$this->vars["startup"] = time();
 
 		//Create command/event settings table if not exists
-		$db->query("CREATE TABLE IF NOT EXISTS cmdcfg_<myname> (`module` VARCHAR(50), `cmdevent` VARCHAR(5), `type` VARCHAR(10), `file` VARCHAR(255), `cmd` VARCHAR(25), `access_level` INT DEFAULT 0, `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT 0, `status` INT DEFAULT '0', `dependson` VARCHAR(25) DEFAULT 'none', `grp` VARCHAR(25) DEFAULT 'none')");
-		$db->query("CREATE TABLE IF NOT EXISTS settings_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `mode` VARCHAR(10), `setting` VARCHAR(50) Default '0', `options` VARCHAR(50) Default '0', `intoptions` VARCHAR(50) DEFAULT '0', `description` VARCHAR(50), `source` VARCHAR(5), `access_level` INT DEFAULT 0, `help` VARCHAR(60))");
-		$db->query("CREATE TABLE IF NOT EXISTS hlpcfg_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `description` VARCHAR(50), `file` VARCHAR(255), `access_level` INT DEFAULT 0, `verify` INT Default '0')");
+		$db->query("CREATE TABLE IF NOT EXISTS cmdcfg_<myname> (`module` VARCHAR(50), `cmdevent` VARCHAR(5), `type` VARCHAR(10), `file` VARCHAR(255), `cmd` VARCHAR(25), `admin` VARCHAR(10), `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0', `dependson` VARCHAR(25) DEFAULT 'none', `grp` VARCHAR(25) DEFAULT 'none')");
+		$db->query("CREATE TABLE IF NOT EXISTS settings_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `mode` VARCHAR(10), `setting` VARCHAR(50) Default '0', `options` VARCHAR(50) Default '0', `intoptions` VARCHAR(50) DEFAULT '0', `description` VARCHAR(50), `source` VARCHAR(5), `admin` VARCHAR(25), `help` VARCHAR(60))");
+		$db->query("CREATE TABLE IF NOT EXISTS hlpcfg_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `cat` VARCHAR(50), `description` VARCHAR(50), `admin` VARCHAR(10), `verify` INT Default '0')");
 
 		//Prepare command/event settings table
 		$db->query("UPDATE cmdcfg_<myname> SET `verify` = 0");
@@ -84,7 +73,7 @@ class bot extends AOChat{
 
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'event'");
 		while($row = $db->fObject()) {
-			if($this->verifyNameConvention($row->file))
+			if(bot::verifyNameConvention($row->file))
 			  	$this->existing_events[$row->type][$row->file] = true;
 		}
 
@@ -120,9 +109,12 @@ class bot extends AOChat{
 
 		// Load Plugin Modules
 		if($this->settings['debug'] > 0) print("\n:::::::PLUGIN MODULES::::::::\n");
-		
+		//Start Transaction
+		$db->beginTransaction();
 		//Load modules
 		$this->loadModules();
+		//Submit the Transactions
+		$db->Commit();
 
 		//Load active commands
 		if($this->settings['debug'] > 0) print("\nSetting up commands.\n");
@@ -179,7 +171,7 @@ class bot extends AOChat{
 
 		// Begin the login process
 		echo "Connecting to AO Server...($server)\n";
-		$this->connect($server, $port);
+		AOChat::connect($server, $port);
 		sleep(2);
 		if($this->state != "auth") {
 			echo "Connection failed! Please check your Internet connection and firewall.\n";
@@ -188,7 +180,7 @@ class bot extends AOChat{
 		}
 
 		echo "Authenticate login data...\n";
-		$this->authenticate($login, $password);
+		AOChat::authenticate($login, $password);
 		sleep(2);
 		if($this->state != "login") {
 			echo "Authentication failed! Please check your username and password.\n";
@@ -197,7 +189,7 @@ class bot extends AOChat{
 		}
 
 		echo "Logging in {$this->vars["name"]}...\n";
-		$this->login($this->vars["name"]);
+		AOChat::login($this->vars["name"]);
 		sleep(2);
 		if($this->state != "ok") {
 			echo "Logging in of {$this->vars["name"]} failed! Please check the character name and dimension.\n";
@@ -289,7 +281,7 @@ class bot extends AOChat{
 ** Name: ping
 ** Get next packet info from AOChat
 */	function ping(){
-		return $this->wait_for_packet();
+		return AOChat::wait_for_packet();
 	}
 
 /*===============================
@@ -303,86 +295,11 @@ class bot extends AOChat{
 			include $filename;
 		}
 	}
-	
-/*===============================
-** Name: getUserAccessLevel
-** Returns the integer value that corresponds to an access level for the specified user
-*/	function getUserAccessLevel($user) {
-		$user = ucfirst(strtolower($user));
-
-		// covers superadmin, admin, moderator, raidleader
-		if (isset($this->admins[$user])) {
-			return $this->admins[$user]['level'];
-		}
-		
-		// covers guildadmin
-		if (isset($this->guildmembers[$user]) && $this->guildmembers[$sender] <= $this->settings['guild admin level']) {
-			return GUILDADMIN;
-		}
-		
-		// covers leader
-		if ($this->vars["leader"] = $user) {
-			return LEADER;
-		}
-		
-		// covers guildmember
-		if (isset($this->guildmembers[$user])) {
-			return GUILDMEMBER;
-		}
-
-		// covers member
-		$db->query("SELECT * FROM members_<myname> WHERE `name` = '$user'");
-	  	if ($db->numrows() != 0) {
-	  		return MEMBER;
-	  	}
-		
-		// covers all
-		return ALL;
-	}
-	
-/*===============================
-** Name: getAccessDescription
-** Returns the string value that corresponds to an access level
-*/	function getAccessDescription($access_level) {
-		$desc = '';
-		switch ($access_level) {
-			case SUPERADMIN:
-				$desc = "SuperAdmin";
-				break;
-			case ADMIN:
-				$desc = "Admin";
-				break;
-			case MODERATOR:
-				$desc = "Moderator";
-				break;
-			case RAIDLEADER:
-				$desc = 'Raidleader';
-				break;
-			case GUILDADMIN:
-				$desc = "GuildAdmin";
-				break;
-			case LEADER:
-				$desc = "Leader";
-				break;
-			case GUILDMEMBER:
-				$desc = "GuildMember";
-				break;
-			case MEMBER:
-				$desc = "Member";
-				break;
-			case ALL:
-				$desc = "All";
-				break;
-			default:
-				echo "Error! Invalid access_level value specified: '$access_level'\b";
-		}
-		return $desc;
-	}
 
 /*===============================
 ** Name: makeHeader
 ** Make header.
-*/	function makeHeader($title, $links = null) {
+*/	function makeHeader($title, $links = NULL){
 		// if !$links, then makeHeader function will show default links:  Help, About, Download.
 	        // if $links = "none", then makeHeader wont show ANY links.
 		// if $links = array("Help;chatcmd:///tell <myname> help"),  slap in your own array for your own links.
@@ -396,19 +313,22 @@ class bot extends AOChat{
 		//Title
 		$header = $color4.":::".$color3.":::".$color2.":::".$color;
 		$header .= "$title";
-		$header .= "</font>:::</font>:::</font>:::</font>\n";
+		$header .= "</font>:::</font>:::</font>:::</font> ";
 
 
-		if ($links == TRUE) {
-			$links = array( 'Help' => "chatcmd:///tell ".$this->vars["name"]." help",
-					'About' => "chatcmd:///tell ".$this->vars["name"]." about",
-					'Download' => "chatcmd:///start http://budabot.aodevs.com/index.php?page=14");
+		if(!$links) {
+			$links = array( "Help;chatcmd:///tell ".$this->vars["name"]." help",
+					"About;chatcmd:///tell ".$this->vars["name"]." about",
+					"Download;chatcmd:///start http://budabot.aodevs.com/index.php?page=14");
 		}
 		if (strtolower($links) != "none") {
-			foreach ($links as $key => $value){
-				$header .= "$color4:$color3:$color2:";
-				$header .= "<a style='text-decoration:none' href='$value'>$color$key</font></a>";
-				$header .= ":</font>:</font>:</font>";
+			foreach ($links as $thislink){
+				preg_match("/^(.+);(.+)$/i", $thislink, $arr);
+				if ($arr[1] && $arr[2]) {
+					$header .= $color4.":".$color3.":".$color2.":";
+					$header .= "<a style='text-decoration:none' href='$arr[2]'>".$color."$arr[1]</font></a>";
+					$header .= ":</font>:</font>:</font>";
+				}
 			}
 		}
 
@@ -416,51 +336,48 @@ class bot extends AOChat{
 
 		return $header;
 	}
-	
-/*===============================
-** Name: makeBlob
-** Make click link reference.
-*/	function makeBlob($name, $content, $links = null) {
-		$content = str_replace('"', '&quot;', $content);
-		$content = explode("\n", $content);
-		$page = 1;
-		forEach ($content as $line) {
-			$result[$page] .= $line."\n";
-			if (strlen($result[$page]) >= $this->settings["max_blob_size"]) {
-				$page++;
-			}
-		}
-		$pages = count($result);
-		if ($pages == 1) {
-			$result[$page] = "<a href=\"text://".$this->makeHeader($name, $links).$this->settings["default window color"].$result[$page]."\">$name</a>";
-		} else {
-			forEach ($result as $page => $content) {
-				$result[$page] = "<a href=\"text://".$this->makeHeader("$name Page $page / $pages", $links).$this->settings["default window color"].$result[$page]."\">$name</a> (Page <highlight>$page / $pages<end>)";
-			}
-		}
-		return $result;
-	}
 
 /*===============================
 ** Name: makeLink
 ** Make click link reference.
-*/	function makeLink($name, $content, $type) {
+*/	function makeLink($name, $content, $type = "blob", $style = NULL){
 		// escape double quotes
-		if ($type == 'blob' || $type == '') {
-			return $this->makeBlob($name, $content);
-		} else {
+		if ($type != 'blob') {
 			$content = str_replace('"', '&quote;', $content);
-			$content = str_replace("'", '&#39;', $content);
 		}
 
-		if ($type == "text") { // Majic link.
-			return "<a href='text://$content'>$name</a>";
+		if ($type == "blob") { // Normal link.
+			$content = str_replace('"', '&quot;', $content);
+			if (strlen($content) > $this->settings["max_blob_size"]) {  //Split the windows if they are too big
+				$pages = ceil(strlen($content) / $this->settings["max_blob_size"]);
+			  	$content = explode("\n", $content);
+				$page = 1;
+			  	forEach ($content as $line) {
+					if ($page > 1 && $display) {
+						$result[$page] .= "<header>::::: $name Page $page :::::<end>\n";
+					}
+					$display = false;
+				    $result[$page] .= $line."\n";
+				    if (strlen($result[$page]) >= $this->settings["max_blob_size"]) {
+						$result[$page] = "<a $style href=\"text://".$this->settings["default window color"].$result[$page]."\">$name</a> (Page <highlight>$page<end> of <highlight>$pages<end>)";
+				    	$page++;
+						$display = true;
+					}
+				}
+				$result[$pages] = "<a $style href=\"text://".$this->settings["default window color"].$result[$pages]."\">$name</a> (Page <highlight>$pages<end> of <highlight>$pages<end>)";
+				return $result;
+			} else {
+				return "<a $style href=\"text://".$this->settings["default window color"].$content."\">$name</a>";
+			}
+		} else if ($type == "text") { // Majic link.
+			$content = str_replace("'", '&#39;', $content);
+			return "<a $style href='text://$content'>$name</a>";
 		} else if ($type == "chatcmd") { // Chat command.
-			return "<a href='chatcmd://$content'>$name</a>";
+			$content = str_replace("'", '&#39;', $content);
+			return "<a $style href='chatcmd://$content'>$name</a>";
 		} else if ($type == "user") { // Adds support for right clicking usernames in chat, providing you with a menu of options (ignore etc.) (see 18.1 AO patchnotes)
-			return "<a href='user://$content'>$name</a>";
-		} else {
-			echo "Invalid type: '$type' \n";
+			$content = str_replace("'", '&#39;', $content);
+			return "<a $style href='user://$content'>$name</a>";
 		}
 	}
 	
@@ -496,20 +413,20 @@ class bot extends AOChat{
 
 		return $message;
 	}
-
+	
 	function sendPrivate($message, $group, $disable_relay = false) {
 		// for when makeLink generates several pages
 		if (is_array($message)) {
 			forEach ($message as $page) {
-				$this->sendPrivate($page, $group, $disable_relay);
+				$this->send($page, $group, $disable_relay);
 			}
 			return;
 		}
 	
-		$message = $this->formatMessage($message);
-		$this->send_privgroup($group,$this->settings["default priv color"].$message);
+		$message = bot::formatMessage($message);
+		AOChat::send_privgroup($group,$this->settings["default priv color"].$message);
 		if (($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1 && !$disable_relay)) {
-			$this->send_group($group, "</font>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}{$this->vars["name"]}</font>: {$this->settings["default priv color"]}$message</font>");
+			AOChat::send_group($group, "</font>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}{$this->vars["name"]}</font>: {$this->settings["default priv color"]}$message</font>");
 		}
 	}
 
@@ -527,29 +444,30 @@ class bot extends AOChat{
 
 		if ($who == 'guild') {
 			$who = 'org';
-		} else if ($who == 'priv') {
+		}
+		if ($who == 'priv') {
 			$who = 'prv';
 		}
 
-		$message = $this->formatMessage($message);
+		$message = bot::formatMessage($message);
 
 		// Send
 		if ($who == 'prv') { // Target is private chat by defult.
-			$this->send_privgroup($this->vars["name"],$this->settings["default priv color"].$message);
+			AOChat::send_privgroup($this->vars["name"],$this->settings["default priv color"].$message);
 			if ($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1 && !$disable_relay) {
-				$this->send_group($this->vars["my guild"], "</font>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}".$this->makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default priv color"]}$message</font>");
+				AOChat::send_group($this->vars["my guild"], "</font>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}".bot::makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default priv color"]}$message</font>");
 			}
 		} else if ($who == $this->vars["my guild"] || $who == 'org') {// Target is guild chat.
-    		$this->send_group($this->vars["my guild"],$this->settings["default guild color"].$message);
+    		AOChat::send_group($this->vars["my guild"],$this->settings["default guild color"].$message);
 			if ($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1 && !$disable_relay) {
-				$this->send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my guild"]}]<end> {$this->settings["guest_color_username"]}".$this->makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default guild color"]}$message</font>");
+				AOChat::send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my guild"]}]<end> {$this->settings["guest_color_username"]}".bot::makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default guild color"]}$message</font>");
 			}
-		} else if ($this->get_uid($who) != NULL) {// Target is a player.
-    		$this->send_tell($who,$this->settings["default tell color"].$message);
+		} else if (AOChat::get_uid($who) != NULL) {// Target is a player.
+    		AOChat::send_tell($who,$this->settings["default tell color"].$message);
 			// Echo
 			if ($this->settings['echo'] >= 1) newLine("Out. Msg.", $who, $message, $this->settings['echo']);
 		} else { // Public channels that are not myguild.
-	    	$this->send_group($who,$this->settings["default guild color"].$message);
+	    	AOChat::send_group($who,$this->settings["default guild color"].$message);
 		}
 	}
 
@@ -559,11 +477,11 @@ class bot extends AOChat{
 */	function loadModules(){
 		global $db;
 		global $curMod;
-		if ($d = dir("./modules")){
+		if($d = dir("./modules")){
 			while (false !== ($entry = $d->read())){
-				if (!is_dir("$entry")){
+				if(!is_dir("$entry")){
 					// Look for the plugin's ... setup file
-					if (file_exists("./modules/$entry/$entry.php")){
+					if(file_exists("./modules/$entry/$entry.php")){
 						$curMod = $entry;
 						if($this->settings['debug'] > 0) print("MODULE_NAME:($entry.php)\n");
 						include "./modules/$entry/$entry.php";
@@ -585,9 +503,8 @@ class bot extends AOChat{
 		$db->query("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'cmd'");
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'cmd'");
 		$data = $db->fObject("all");
-		forEach ($data as $row) {
-			$this->regcommand($row->type, $row->file, $row->cmd, $row->access_level);
-		}
+		foreach($data as $row)
+			bot::regcommand($row->type, $row->file, $row->cmd, $row->admin);
 	}
 
 /*===============================
@@ -599,9 +516,9 @@ class bot extends AOChat{
 		$db->query("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'subcmd'");
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd'");
 		$data = $db->fObject("all");
-		forEach ($data as $row) {
+		foreach($data as $row) {
 			$this->subcommands[$row->file][$row->type]["cmd"] = $row->cmd;
-			$this->subcommands[$row->file][$row->type]["access_level"] = $row->access_level;
+			$this->subcommands[$row->file][$row->type]["admin"] = $row->admin;
 		}
 	}
 
@@ -614,19 +531,18 @@ class bot extends AOChat{
 		$db->query("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'event'");
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'event' AND `dependson` = 'none'");
 		$data = $db->fObject("all");
-		forEach ($data as $row) {
-			$this->regevent($row->type, $row->file);
-		}
+		foreach($data as $row)
+			bot::regevent($row->type, $row->file);
 	}
 
 /*===============================
 ** Name: Command
 ** 	Register a command
-*/	function command($type, $filename, $command, $access_level = ALL, $description = ''){
+*/	function command($type, $filename, $command, $admin = 'all', $description = ''){
 		global $curMod;
 		global $db;
 
-		if (!$this->processCommandArgs($type, $access_level)) {
+		if (!bot::processCommandArgs($type, $admin)) {
 			echo "invalid args for command '$command'!!\n";
 			return;
 		}
@@ -637,13 +553,13 @@ class bot extends AOChat{
 
 		for ($i = 0; $i < count($type); $i++) {
 			if($this->settings['debug'] > 1) print("Adding Command to list:($command) File:($filename)\n");
-			if($this->settings['debug'] > 1) print("                 Admin:({$access_level[$i]}) Type:({$type[$i]})\n");
+			if($this->settings['debug'] > 1) print("                 Admin:({$admin[$i]}) Type:({$type[$i]})\n");
 			if($this->settings['debug'] > 2) sleep(1);
 			
 			if($this->existing_commands[$type[$i]][$command] == true) {
 				$db->query("UPDATE cmdcfg_<myname> SET `module` = '$curMod', `verify` = 1, `file` = '$filename', `description` = '$description' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
 			} else {
-				$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `access_level`, `description`, `verify`, `cmdevent`, `status`) VALUES ('$curMod', '{$type[$i]}', '$filename', '$command', $access_level, '$description', 1, 'cmd', '".$this->settings["default module status"]."')");
+				$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`) VALUES ('$curMod', '{$type[$i]}', '$filename', '$command', '{$admin[$i]}', '$description', 1, 'cmd', '".$this->settings["default module status"]."')");
 			}
 		}
 	}
@@ -651,10 +567,10 @@ class bot extends AOChat{
 /*===============================
 ** Name: regcommand
 **  Sets an command as active
-*/	function regcommand($type, $filename, $command, $access_level = ALL) {
+*/	function regcommand($type, $filename, $command, $admin = 'all') {
 		global $db;
 
-	  	if($this->settings['debug'] > 1) print("Activate Command:($command) Admin Type:($access_level)\n");
+	  	if($this->settings['debug'] > 1) print("Activate Command:($command) Admin Type:($admin)\n");
 		if($this->settings['debug'] > 1) print("            File:($filename) Type:($type)\n");
 		if($this->settings['debug'] > 2) sleep(1);
 
@@ -662,7 +578,9 @@ class bot extends AOChat{
 		$module = strtoupper($module[0]);
 
 		//Check if the file exists
-		if (($filename = $this->verifyFilename($filename)) === FALSE) {
+		if (($actual_filename = bot::verifyFilename($filename)) != '') {
+    		$filename = $actual_filename;
+		} else {
 			echo "Error in registering the File $filename for command $command. The file doesn't exists!\n";
 			return;
 		}
@@ -671,23 +589,41 @@ class bot extends AOChat{
 			$command = strtolower($command);
 		}
 
+		$admin = strtolower($admin);
+
+		//Check if the admin status exists
+		if (!is_numeric($admin)) {
+			if($admin == "leader")
+				$admin = 1;
+			elseif($admin == "raidleader" || $admin == "rl")
+				$admin = 2;
+			elseif($admin == "mod" || $admin == "moderator")
+				$admin = 3;
+			elseif($admin == "admin")
+				$admin = 4;
+			elseif($admin != "all" && $admin != "guild" && $admin != "guildadmin") {
+				echo "Error in registrating the command $command for channel $type. Reason Unknown Admintype: $admin. Admintype is set to all now.\n";
+				$admin = "all";
+			}
+		}
+
 		switch ($type){
 			case "msg":
 				if($this->tellCmds[$command]["filename"] == ""){
 					$this->tellCmds[$command]["filename"] = $filename;
-					$this->tellCmds[$command]["access_level"] = $access_level;
+					$this->tellCmds[$command]["admin level"] = $admin;
 				}
 			break;
 			case "priv":
 				if($this->privCmds[$command]["filename"] == ""){
 					$this->privCmds[$command]["filename"] = $filename;
-					$this->privCmds[$command]["access_level"] = $access_level;
+					$this->privCmds[$command]["admin level"] = $admin;
 				}
 			break;
 			case "guild":
 				if($this->guildCmds[$command]["filename"] == ""){
 					$this->guildCmds[$command]["filename"] = $filename;
-					$this->guildCmds[$command]["access_level"] = $access_level;
+					$this->guildCmds[$command]["admin level"] = $admin;
 				}
 			break;
 		}
@@ -696,7 +632,7 @@ class bot extends AOChat{
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `dependson` = '$command' AND `cmdevent` = 'event' AND `type` != 'setup'");
 		$data = $db->fObject("all");
   		forEach ($data as $row) {
-  		  	$this->regevent($row->type, $row->file);
+  		  	bot::regevent($row->type, $row->file);
 		}
 
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$module' AND `cmdevent` = 'event' AND `type` = 'setup'");
@@ -704,7 +640,7 @@ class bot extends AOChat{
 			$data = $db->fObject("all");
 	  		foreach($data as $row) {
 			  	if($row->status == 0) {
-				    $this->regevent($row->type, $row->file);
+				    bot::regevent($row->type, $row->file);
 				    $db->query("UPDATE cmdcfg_<myname> SET `status` = 1 WHERE `module` = '$module' AND `cmdevent` = 'event' AND `type` = 'setup'");
 				}
 			}
@@ -736,22 +672,21 @@ class bot extends AOChat{
 
 		//Deactivate Events that are asssigned to this command
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `dependson` = '$command' AND `cmdevent` = 'event' AND `type` != 'setup'");
-  		while ($row = $db->fObject()) {
-  		  	$this->unregevent($row->type, $row->file);
-		}
+  		while($row = $db->fObject())
+  		  	bot::unregevent($row->type, $row->file);
 	}
 
 /*===============================
 ** Name: processCommandType
 ** 	Returns a command type in the proper format
-*/	function processCommandArgs(&$type, &$access_level) {
+*/	function processCommandArgs(&$type, &$admin) {
 		if ($type == "") {
 			$type = array("msg", "priv", "guild");
 		} else {
 			$type = explode(' ', $type);
 		}
 
-		$admin = explode(' ', $access_level);
+		$admin = explode(' ', $admin);
 		if (count($admin) == 1) {
 			$admin = array_fill(0, count($type), $admin[0]);
 		} else if (count($admin) != count($type)) {
@@ -764,11 +699,11 @@ class bot extends AOChat{
 /*===============================
 ** Name: Subcommand
 ** 	Register a subcommand
-*/	function subcommand($type, $filename, $command, $access_level = ALL, $dependson, $description = 'none'){
+*/	function subcommand($type, $filename, $command, $admin = 'all', $dependson, $description = 'none'){
 		global $db;
 		global $curMod;
 
-		if (!$this->processCommandArgs($type, $access_level)) {
+		if (!bot::processCommandArgs($type, $admin)) {
 			echo "invalid args for subcommand '$command'!!\n";
 			return;
 		}
@@ -776,8 +711,14 @@ class bot extends AOChat{
 		$command = strtolower($command);
 		$module = explode("/", strtolower($filename));
 	  	
+		if($this->settings['debug'] > 1) print("Adding Subcommand to list:($command) File:($filename)\n");
+		if($this->settings['debug'] > 1) print("                    Admin:($admin) Type:($type)\n");
+		if($this->settings['debug'] > 2) sleep(1);
+
 		//Check if the file exists
-		if(($filename = $this->verifyFilename($filename)) === FALSE) {
+		if(($actual_filename = bot::verifyFilename($filename)) != '') {
+			$filename = $actual_filename;
+		} else {
 			echo "Error in registering the file $filename for Subcommand $command. The file doesn't exists!\n";
 			return;
 		}
@@ -787,13 +728,29 @@ class bot extends AOChat{
 
 		for ($i = 0; $i < count($type); $i++) {
 			if($this->settings['debug'] > 1) print("Adding Subcommand to list:($command) File:($filename)\n");
-			if($this->settings['debug'] > 1) print("                    Admin:($access_level[$i]) Type:({$type[$i]})\n");
+			if($this->settings['debug'] > 1) print("                    Admin:($admin) Type:({$type[$i]})\n");
 			if($this->settings['debug'] > 2) sleep(1);
 			
+			//Check if the admin status exists
+			if(!is_numeric($admin[$i])) {
+				if($admin[$i] == "leader")
+					$admin[$i] = 1;
+				elseif($admin[$i] == "raidleader" || $admin[$i] == "rl")
+					$admin = 2;
+				elseif($admin[$i] == "mod" || $admin[$i] == "moderator")
+					$admin[$i] = 3;
+				elseif($admin[$i] == "admin")
+					$admin[$i] = 4;
+				elseif($admin[$i] != "all" && $admin[$i] != "guild" && $admin[$i] != "guildadmin") {
+					echo "Error in registrating the command $command for channel {$type[$i]}. Reason Unknown Admintype: {$admin[$i]}. Admintype is set to all now.\n";
+					$admin[$i] = "all";
+				}
+			}
+
 			if($this->existing_subcmds[$type[$i]][$command] == true) {
 				$db->query("UPDATE cmdcfg_<myname> SET `module` = '$curMod', `verify` = 1, `file` = '$filename', `description` = '$description', `dependson` = '$dependson' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
 			} else {
-				$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `access_level`, `description`, `verify`, `cmdevent`, `dependson`, `status`) VALUES ('$curMod', '{$type[$i]}', '$filename', '$command', $access_level, '$description', 1, 'subcmd', '$dependson', '".$this->settings["default module status"]."')");
+				$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `dependson`) VALUES ('$curMod', '{$type[$i]}', '$filename', '$command', '{$admin[$i]}', '$description', 1, 'subcmd', '$dependson')");
 			}
 		}
 	}
@@ -810,7 +767,7 @@ class bot extends AOChat{
 	  	if($this->settings['debug'] > 1) print("Adding Event to list:($type) File:($filename)\n");
 		if($this->settings['debug'] > 2) sleep(1);
 
-		if ($dependson == "none" && $this->settings["default module status"] == 1) {
+		if($dependson == "none" && $this->settings["default module status"] == 1) {
 			$status = 1;
 		} else {
 			$status = 0;
@@ -834,7 +791,9 @@ class bot extends AOChat{
 		if($this->settings['debug'] > 2) sleep(1);
 
 		//Check if the file exists
-		if (($filename = $this->verifyFilename($filename)) === FALSE) {
+		if (($actual_filename = bot::verifyFilename($filename)) != '') {
+    		$filename = $actual_filename;
+		} else {
 			echo "Error in registering the File $filename for Eventtype $type. The file doesn't exists!\n";
 			return;
 		}
@@ -940,6 +899,14 @@ class bot extends AOChat{
 */	function unregevent($type, $filename) {
 		if($this->settings['debug'] > 1) print("Deactivating Event:($type) File:($filename)\n");
 		if($this->settings['debug'] > 2) sleep(1);
+
+		//Check if the file exists
+		if (($actual_filename = bot::verifyFilename($filename)) != '') {
+    		$filename = $actual_filename;
+		} else {
+			echo "Error in unregistering the File $filename for Event $type. The file doesn't exists!\n";
+			return;
+		}
 
 		switch ($type){
 			case "towers":
@@ -1119,16 +1086,24 @@ class bot extends AOChat{
 /*===============================
 ** Name: addsetting
 ** Adds a setting to the list
-*/	function addsetting($name = 'none', $description = 'none', $mode = 'hide', $setting = 'none', $options = 'none', $intoptions = '0', $access_level = MODERATOR, $help = '') {
+*/	function addsetting($name = 'none', $description = 'none', $mode = 'hide', $setting = 'none', $options = 'none', $intoptions = '0', $admin = 'mod', $help = '') {
 		global $db;
 		global $curMod;
 		$name = strtolower($name);
 
+		//Check if the file exists
+		if (($actual_filename = bot::verifyFilename($help)) != '' && $help != "") {
+    		$filename = $actual_filename;
+		} elseif($help != "") {
+			echo "Error in registering the File $filename for Setting $name. The file doesn't exists!\n";
+			return;
+		}
+
 		if ($this->existing_settings[$name] != true) {
-			$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `access_level`, `help`) VALUES ('$name', '$curMod', '$mode', '$setting', '$options', '$intoptions', '$description', 'db', $access_level, '$help')");
+			$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('$name', '$curMod', '$mode', '$setting', '$options', '$intoptions', '$description', 'db', '$admin', '$help')");
 		  	$this->settings[$name] = $setting;
 	  	} else {
-			$db->query("UPDATE settings_<myname> SET `mode` = '$mode', `options` = '$options', `intoptions` = '$intoptions', `description` = '$description', `access_level` = $access_level, `help` = '$help' WHERE `name` = '$name'");
+			$db->query("UPDATE settings_<myname> SET `mode` = '$mode', `options` = '$options', `intoptions` = '$intoptions', `description` = '$description', `admin` = '$admin', `help` = '$help' WHERE `name` = '$name'");
 		}
 	}
 
@@ -1166,47 +1141,106 @@ class bot extends AOChat{
 /*===============================
 ** Name: help
 ** Add a help command and display text file in a link.
-*/	function help($command, $filename, $access_level = ALL, $description = "") {
+*/	function help($command, $filename, $admin = 'all', $info = "", $cat = "Unknown Category") {
 	  	global $db;
 		if($this->settings['debug'] > 1) print("Registering Helpfile:($filename) Cmd:($command)\n");
 		if($this->settings['debug'] > 2) sleep(1);
 
 		$command = strtolower($command);
 
+		//Check if the admin status exists
+		if(!is_numeric($admin)) {
+			if($admin == "leader")
+				$admin = 1;
+			elseif($admin == "raidleader" || $admin == "rl")
+				$admin = 2;
+			elseif($admin == "mod" || $admin == "moderator")
+				$admin = 3;
+			elseif($admin == "admin")
+				$admin = 4;
+			elseif($admin != "all" && $admin != "guild" && $admin != "guildadmin") {
+				echo "Error in registrating the command $command for channel $type. Reason Unknown Admintype: $admin. Admintype is set to all now.\n";
+				$admin = "all";
+			}
+		}
+
 		$module = explode("/", $filename);
 
 		//Check if the file exists
-		if (($filename = $this->verifyFilename($filename)) === FALSE) {
+		if(($actual_filename = bot::verifyFilename($filename)) != '') {
+    		$filename = $actual_filename;
+    		if(substr($filename, 0, 7) == "./core/")
+	    		$this->helpfiles[$cat][$command]["status"] = "enabled";
+		} else {
 			echo "Error in registering the File $filename for Helpcommand $command. The file doesn't exists!\n";
 			return;
 		}
 
-		$sql = "SELECT * FROM hlpcfg_<myname> WHERE name = '$command'";
-		$db->query($sql);
-		if ($db->numrows() == 0) {
-			$db->query("INSERT INTO hlpcfg_<myname> (name, module, file, description, access_level, verify) VALUES ('$command', '$module[0]', '$filename', '$description', $access_level, 1)");
+		if (isset($this->existing_helps[$command])) {
+			$db->query("UPDATE hlpcfg_<myname> SET `verify` = 1, `description` = '$info', `cat` = '$cat' WHERE `name` = '$command'");
 		} else {
-			$db->query("UPDATE hlpcfg_<myname> SET `verify` = 1, `description` = '$description', file = '$filename' WHERE `name` = '$command'");
+			$db->query("INSERT INTO hlpcfg_<myname> VALUES ('$command', '$module[0]', '$cat', '$info', '$admin', 1)");
 		}
+
+		$db->query("SELECT * FROM hlpcfg_<myname> WHERE `name` = '$command'");
+		$row = $db->fObject();
+		$this->helpfiles[$cat][$command]["filename"] = $filename;
+		$this->helpfiles[$cat][$command]["admin level"] = $row->admin;
+		$this->helpfiles[$cat][$command]["info"] = $info;
+		$this->helpfiles[$cat][$command]["module"] = $module[0];
 	}
 	
 /*===========================================================================================
 ** Name: help_lookup
 ** Find a help topic for a command if it exists
-*/	function help_lookup($sender, $helpcmd) {
+*/	function help_lookup($helpcmd) {
 		$helpcmd = strtolower($helpcmd);
-		$user_access_level = $this->getUserAccessLevel($sender);
-		$sql = "SELECT name, module, description, file FROM hlpcfg_<myname> WHERE access_level >= $user_access_level AND name = '$helpcmd' ORDER BY module ASC";
-		$db->query($sql);
-		if ($db->numrows() == 0) {
-			return FALSE;
-		} else {
-			$row = $db->fObject();
-			$data = file_get_contents($row->file);
-			$helpcmd = ucfirst($helpcmd);
-			$msg = $this->makeLink("Help($helpcmd)", $data);
-			return $msg;
+		foreach($this->helpfiles as $cat => $commands) {
+			if (isset($commands[$helpcmd])) {
+				$filename = $this->helpfiles[$cat][$helpcmd]["filename"];
+				$admin = $this->helpfiles[$cat][$helpcmd]["admin level"];
+				break;
+			}
 		}
+
+		// if help isn't found
+		if ($filename == '') {
+			return FALSE;
+		}
+
+		$restricted = true;
+		switch ($admin) {
+			case "guild":
+				if(isset($this->guildmembers[$sender]) || isset($this->admins[$sender]))
+					$restricted = false;
+			break;
+			case "guildadmin":
+				if($this->guildmembers[$sender] <= $this->settings['guild admin level'] || isset($this->admins[$sender]))
+					$restricted = false;
+			break;
+			case "1":
+			case "2":
+			case "3":
+				if($this->admins[$sender]["level"] >= $admin)
+					$restricted = false;
+			break;
+			default:
+			case "all":
+				$restricted = false;
+			break;
+		}
+
+		if(($help = fopen($filename, "r")) && ($restricted == false)){
+			while (!feof ($help))
+				$data .= fgets ($help, 4096);
+			fclose($help);
+			$helpcmd = ucfirst($helpcmd);
+			$msg = bot::makeLink("Help($helpcmd)", $data);
+		} else {
+			return FALSE;
+		}
+
+		return $msg;
 	}
 
 
@@ -1225,8 +1259,6 @@ class bot extends AOChat{
 			case AOCP_PRIVGRP_CLIJOIN: // 55, Incoming player joined private chat
 				$type = "joinPriv"; // Set message type.
 				$sender	= $this->lookup_user($args[1]);// Get Name
-				$char_id = $args[1];
-
 				// Add sender to the chatlist.
 				$this->chatlist[$sender] = true;
 				// Echo
@@ -1234,7 +1266,7 @@ class bot extends AOChat{
 
 				// Remove sender if they are /ignored or /banned or They gone above spam filter
                 if($this->settings["Ignore"][$sender] == true || $this->banlist["$sender"]["name"] == "$sender" || $this->spam[$sender] > 100){
-					$this->privategroup_kick($sender);
+					AOChat::privategroup_kick($sender);
 					return;
 				}
 				// Check files, for all 'player joined channel events'.
@@ -1243,13 +1275,11 @@ class bot extends AOChat{
 						include $filename;
 				// Kick if there access is restricted.
 				if($restricted === true)
-					$this->privategroup_kick($sender);
+					AOChat::privategroup_kick($sender);
 			break;
 			case AOCP_PRIVGRP_CLIPART: // 56, Incoming player left private chat
 				$type = "leavePriv"; // Set message type.
 				$sender	= $this->lookup_user($args[1]); // Get Name
-				$char_id = $args[1];
-
 				// Echo
 				if($this->settings['echo'] >= 1) newLine("Priv Group", $sender, "left the channel.", $this->settings['echo']);
 
@@ -1265,7 +1295,6 @@ class bot extends AOChat{
 			case AOCP_BUDDY_ADD: // 40, Incoming buddy logon or off
 				// Basic packet data
 				$sender	= $this->lookup_user($args[0]);
-				$char_id = $args[0];
 				$status	= 0 + $args[1];
 				
 				// store buddy info
@@ -1311,7 +1340,6 @@ class bot extends AOChat{
 			case AOCP_MSG_PRIVATE: // 30, Incoming Msg
 				$type = "msg"; // Set message type.
 				$sender	= $this->lookup_user($args[0]);
-				$char_id = $args[0];
 				$sendto = $sender;
 				
 				// Removing tell color
@@ -1345,18 +1373,16 @@ class bot extends AOChat{
 				}
 
 				//Remove the prefix infront if there is one
-				if ($message[0] == $this->settings["symbol"] && strlen($message) > 1) {
+				if($message[0] == $this->settings["symbol"] && strlen($message) > 1)
 					$message = substr($message, 1);
-				}
 
 				// Check privatejoin and tell Limits
-				if (file_exists("./core/PRIV_TELL_LIMIT/check.php")) {
+				if(file_exists("./core/PRIV_TELL_LIMIT/check.php"))
 					include("./core/PRIV_TELL_LIMIT/check.php");
-				}
 
 				// Events
-				if ($this->privMsgs != NULL) {
-					forEach ($this->privMsgs as $file) {
+				if($this->privMsgs != NULL) {
+					foreach($this->privMsgs as $file) {
 						$msg = "";
 						include $file;
 					}
@@ -1366,25 +1392,41 @@ class bot extends AOChat{
 				if ($restricted != true) {
 					// Break down in to words.
 					$words	= split(' ', strtolower($message));
-					$access_level = $this->tellCmds[$words[0]]["access_level"];
+					$admin 	= $this->tellCmds[$words[0]]["admin level"];
 					$filename = $this->tellCmds[$words[0]]["filename"];
 
 				  	//Check if a subcommands for this exists
-				  	if ($this->subcommands[$filename][$type]) {
-					    if (preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message)) {
-							$access_level = $this->subcommands[$filename][$type]["access_level"];
-						}
-					}
+				  	if($this->subcommands[$filename][$type])
+					    if (preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message))
+							$admin = $this->subcommands[$filename][$type]["admin"];
 
-					$user_access_level = $this->getUserAccessLevel($sender);
-					if ($user_access_level > $access_level) {
-						$restricted = true;
+					// Admin Check
+					if(is_numeric($admin)){
+						if($this->admins[$sender]["level"] >= $admin && $this->admins[$sender]["level"] != "")
+							$restricted = false;
+						elseif($this->admins[$sender]["level"] == "" && $this->vars["leader"] == $sender && $admin == 1)
+							$restricted = false;
+						else
+							$restricted = true;
 					}
+					elseif($admin == "guild"){
+						if(isset($this->guildmembers[$sender]))
+							$restricted = false;
+						else
+							$restricted = true;
+					}
+					elseif($admin == "guildadmin"){
+						if($this->guildmembers[$sender] <= $this->settings['guild admin level'])
+							$restricted = false;
+						else
+							$restricted = true;
+					}
+					else
+						$restricted = false;
 				}
-
 				// Upload Command File or return error message
-				if ($restricted == true || $filename == ""){
-					$this->send("Error! Unknown command or Access denied! for more info try /tell <myname> help", $sendto);
+				if($restricted == true || $filename == ""){
+					$this->send("Error! Unknown command or Access denied! for more info try /tell <myname> help", $sender);
 					$this->spam[$sender] = $this->spam[$sender] + 20;
 					return;
 				} else {
@@ -1392,10 +1434,10 @@ class bot extends AOChat{
  				    $msg = "";
 					include $filename;
 					if ($syntax_error == true) {
-						if (($output = $this->help_lookup($sender, $words[0])) !== FALSE) {
-							$this->send("Error! Check your syntax " . $output, $sendto);
+						if (($output = bot::help_lookup($message) !== FALSE)) {
+							bot::send($output, $sendto);
 						} else {
-							$this->send("Error! Check your syntax or for more info try /tell <myname> help", $sendto);
+							bot::send("Error! Check your syntax or for more info try /tell <myname> help", $sendto);
 						}
 					}
 					$this->spam[$sender] = $this->spam[$sender] + 10;
@@ -1403,24 +1445,23 @@ class bot extends AOChat{
 			break;
 			case AOCP_PRIVGRP_MESSAGE: // 57, Incoming priv message
 				$sender	= $this->lookup_user($args[1]);
-				$char_id = $args[1];
 				$sendto = 'prv';
 				$channel = $this->lookup_user($args[0]);
 				$message = $args[2];
 				$restricted = false;
-				if ($sender == $this->vars["name"]) {
+				if($sender == $this->vars["name"]) {
 					if($this->settings['echo'] >= 1) newLine("Priv Group", $sender, $message, $this->settings['echo']);
 					return;
 				}
-				if ($this->banlist["$sender"]["name"] == "$sender")
+				if($this->banlist["$sender"]["name"] == "$sender")
 					return;
 
-				if ($this->vars['spam protection'] == 1) {
-					if ($this->spam[$sender] == 40) $this->send("Error! Your client is sending a high frequency of chat messages. Stop or be kicked.", $sender);
-					if ($this->spam[$sender] > 60) $this->privategroup_kick($sender);
-					if (strlen($args[1]) > 400){
+				if($this->vars['spam protection'] == 1) {
+					if($this->spam[$sender] == 40) $this->send("Error! Your client is sending a high frequency of chat messages. Stop or be kicked.", $sender);
+					if($this->spam[$sender] > 60) AOChat::privategroup_kick($sender);
+					if(strlen($args[1]) > 400){
 						$this->largespam[$sender] = $this->largespam[$sender] + 1;
-						if ($this->largespam[$sender] > 1) $this->privategroup_kick($sender);
+						if ($this->largespam[$sender] > 1) AOChat::privategroup_kick($sender);
 						if ($this->largespam[$sender] > 0) $this->send("Error! Your client is sending large chat messages. Stop or be kicked.", $sender);
 					}
 				}
@@ -1430,10 +1471,10 @@ class bot extends AOChat{
 					$type = "priv";
 
 					// Echo
-					if ($this->settings['echo'] >= 1) newLine("Priv Group", $sender, $message, $this->settings['echo']);
+					if($this->settings['echo'] >= 1) newLine("Priv Group", $sender, $message, $this->settings['echo']);
 
-					if ($this->privChat != NULL) {
-						forEach ($this->privChat as $file) {
+					if($this->privChat != NULL) {
+						foreach($this->privChat as $file) {
 						  	$msg = "";
 							include $file;
 						}
@@ -1445,37 +1486,49 @@ class bot extends AOChat{
 							$message 	= substr($message, 1);
 						}
 						$words		= split(' ', strtolower($message));
-						$access_level= $this->privCmds[$words[0]]["access_level"];
+						$admin 		= $this->privCmds[$words[0]]["admin level"];
 						$filename 	= $this->privCmds[$words[0]]["filename"];
 
 						//Check if a subcommands for this exists
-						if ($this->subcommands[$filename][$type]) {
-							if (preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message)) {
-								$access_level = $this->subcommands[$filename][$type]["access_level"];
-							}
+						if($this->subcommands[$filename][$type])
+							if(preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message))
+								$admin = $this->subcommands[$filename][$type]["admin"];
+
+
+						if(is_numeric($admin)){
+							if($this->admins[$sender]["level"] >= $admin && $this->admins[$sender]["level"] != "")
+								if($filename != "")
+									include $filename;
+
+							if($this->admins[$sender]["level"] == "" && $this->vars["leader"] == $sender && $admin == 1)
+								if($filename != "")
+									include $filename;
 						}
-
-
-						$user_access_level = $this->getUserAccessLevel($sender);
-						if ($user_access_level > $access_level) {
-							$restricted = true;
-						} else {
-							if ($filename != "") {
+						elseif($admin == "guild"){
+							if(isset($this->guildmembers[$sender]))
+								if($filename != "")
+									include $filename;
+						}
+						elseif($admin == "guildadmin"){
+							if($this->guildmembers[$sender] <= $this->settings['guild admin level'])
+								if($filename != "")
+									include $filename;
+						}
+						elseif($admin == "all")
+							if($filename != "")
 								include $filename;
-							}
-						}
-					} else {
-						$this->spam[$sender] = $this->spam[$sender] + 10;
 					}
+					else
+						$this->spam[$sender] = $this->spam[$sender] + 10;
 				
 				} else {  // ext priv group message
 					
 					$type = "extPriv";
 					
-					if ($this->settings['echo'] >= 1) newLine("Ext Priv Group $channel", $sender, $message, $this->settings['echo']);
+					if($this->settings['echo'] >= 1) newLine("Ext Priv Group $channel", $sender, $message, $this->settings['echo']);
 					
-					if ($this->extPrivChat != NULL) {
-						forEach ($this->extPrivChat as $file) {
+					if($this->extPrivChat != NULL) {
+						foreach($this->extPrivChat as $file) {
 						  	$msg = "";
 							include $file;
 						}
@@ -1485,7 +1538,6 @@ class bot extends AOChat{
 			case AOCP_GROUP_MESSAGE: // 65, Public and guild channels
 				$syntax_error = false;
 				$sender	 = $this->lookup_user($args[1]);
-				$char_id = $args[1];
 				$message = $args[2];
 				$channel = $this->get_gname($args[0]);
 
@@ -1510,31 +1562,31 @@ class bot extends AOChat{
 					}
 				}
 
-				if ($this->settings['echo'] >= 1) newLine($channel, $sender, $message, $this->settings['echo']);
+				if($this->settings['echo'] >= 1) newLine($channel, $sender, $message, $this->settings['echo']);
 
-				if ($sender) {
+				if($sender) {
 					//Ignore Message that are sent from the bot self
-					if ($sender == $this->vars["name"]) {
+					if($sender == $this->vars["name"]) {
 						return;
 					}
 
 					//Ignore tells from other bots
-	                if ($this->settings["Ignore"][$sender] == true)
+	                if($this->settings["Ignore"][$sender] == true)
 						return;
 
-					if ($this->banlist["$sender"]["name"] == "$sender")
+					if($this->banlist["$sender"]["name"] == "$sender")
 						return;
 				}
 
-				if ($channel == "All Towers" || $channel == "Tower Battle Outcome"){
+				if($channel == "All Towers" || $channel == "Tower Battle Outcome"){
                     $type = "towers";
-    				if ($this->towers != NULL)
-    					forEach ($this->towers as $file) {
+    				if($this->towers != NULL)
+    					foreach($this->towers as $file) {
     						$msg = "";
 							include $file;
     					}
                     return;
-                } else if ($channel == "Org Msg"){
+                } elseif($channel == "Org Msg"){
                     $type = "orgmsg";
     				if($this->orgmsg != NULL)
 						foreach($this->orgmsg as $file) {
@@ -1542,46 +1594,63 @@ class bot extends AOChat{
 							include $file;
     					}
                     return;
-                } else if ($channel == $this->vars["my guild"]){
+                } elseif($channel == $this->vars["my guild"]){
                     $type = "guild";
 					$sendto = 'org';
-					if ($this->guildChat != NULL)
+					if($this->guildChat != NULL)
     					foreach($this->guildChat as $file) {
 							$msg = "";
 							include $file;
 						}
 
 					$msg = "";
-					if (!$restriced && (($message[0] == $this->settings["symbol"] && strlen($message) >= 2) || preg_match("/^(afk|brb)/i", $message, $arr))) {
-						if ($message[0] == $this->settings["symbol"]) {
+					if(!$restriced && (($message[0] == $this->settings["symbol"] && strlen($message) >= 2) || preg_match("/^(afk|brb)/i", $message, $arr))) {
+						if($message[0] == $this->settings["symbol"]) {
 							$message 	= substr($message, 1);
 						}
     					$words		= split(' ', strtolower($message));
-						$access_level= $this->guildCmds[$words[0]]["access_level"];
+						$admin 		= $this->guildCmds[$words[0]]["admin level"];
 						$filename 	= $this->guildCmds[$words[0]]["filename"];
 
 					  	//Check if a subcommands for this exists
-					  	if ($this->subcommands[$filename][$type]) {
-						    if (preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message)) {
-								$access_level = $this->subcommands[$filename][$type]["access_level"];
-							}
-						}
+					  	if($this->subcommands[$filename][$type])
+						    if(preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message))
+								$admin = $this->subcommands[$filename][$type]["admin"];
 
-						$user_access_level = $this->getUserAccessLevel($sender);
-						if ($user_access_level > $access_level) {
-							$this->send("Error! You do not have access to this command.", "guild");
-						} else {
-							if ($filename != "") {
-								include $filename;
+
+						// Admin Check
+						if (is_numeric($admin)) {
+							if($this->admins[$sender]["level"] >= $admin && $this->admins[$sender]["level"] != "") {
+								if($filename != "")
+									include $filename;
+							} else {
+								bot::send("Error! You do not have access to this command.", "guild");
 							}
+						} else if ($admin == "guild") {
+							if(isset($this->guildmembers[$sender])) {
+								if($filename != "")
+									include $filename;
+							} else {
+								bot::send("Error! You do not have access to this command.", "guild");
+							}
+						} else if ($admin == "guildadmin") {
+							if($this->guildmembers[$sender] <= $this->settings['guild admin level']) {
+								if($filename != "")
+									include $filename;
+							} else {
+								bot::send("Error! You do not have access to this command.", "guild");
+							}
+						} else if ($admin == "all") {
+							if($filename != "")
+								include $filename;
 						}
 
 						//Shows syntax errors to the user
 						if ($syntax_error == true) {
-							if (($output = $this->help_lookup($sender, $words[0])) !== FALSE) {
-								$this->send("Error! " . $output, $sendto);
+							if (($output = bot::help_lookup($message) !== FALSE)) {
+								bot::send($output, $sendto);
 							} else {
-								$this->send("Error! Check your syntax or for more info try /tell <myname> help", $sendto);
+								bot::send("Error! Check your syntax or for more info try /tell <myname> help", $sendto);
 							}
 						}
 					}
@@ -1589,14 +1658,14 @@ class bot extends AOChat{
 			break;
 			case AOCP_PRIVGRP_INVITE:  // 50, private group invite
 				$type = "extJoinPrivRequest"; // Set message type.
-				$sender = $this->lookup_user($args[0]);
-				$char_id = $args[0];
+				$uid = $args[0];
+				$sender = $this->lookup_user($uid);
 
 				// Echo
-				if ($this->settings['echo'] >= 1) newLine("Priv Group Invitation", $sender, " channel invited.", $this->settings['echo']);
+				if($this->settings['echo'] >= 1) newLine("Priv Group Invitation", $sender, " channel invited.", $this->settings['echo']);
 
-				if ($this->extJoinPrivRequest != NULL) {
-					forEach ($this->extJoinPrivRequest as $file) {
+				if($this->extJoinPrivRequest != NULL) {
+					foreach($this->extJoinPrivRequest as $file) {
 						$msg = "";
 						include $file;
 					}
@@ -1679,27 +1748,27 @@ class bot extends AOChat{
 		//Replace all \ characters with /
 		$filename = str_replace("\\", "/", $filename);
 
-		if (!$this->verifyNameConvention($filename)) {
-			return FALSE;
-		}
+		if(!bot::verifyNameConvention($filename))
+			return "";
 
 		//check if the file exists
-	    if (file_exists("./core/$filename")) {
+	    if(file_exists("./core/$filename")) {
 	        return "./core/$filename";
-    	} else if (file_exists("./modules/$filename")) {
+    	} else if(file_exists("./modules/$filename")) {
         	return "./modules/$filename";
 	    } else {
-	     	return FALSE;
+	     	return "";
 	    }
 	}
 
 	function verifyNameConvention($filename) {
 		preg_match("/^(.+)/([0-9a-z_]+).php$/i", $filename, $arr);
 		if($arr[2] == strtolower($arr[2])) {
-			return TRUE;
+			return true;
 		} else {
 			echo "Warning: $filename does not match the nameconvention(All php files needs to be in lowercases except loading files)!\n";
-			return FALSE;
+			sleep(2);
+			return false;
 		}
 	}
 
@@ -1731,7 +1800,7 @@ class bot extends AOChat{
 			$dir = $core_dir;
 		}
 		
-		$currentVersion = $this->getsetting($settingName);
+		$currentVersion = bot::getsetting($settingName);
 		if ($currentVersion === false) {
 			$currentVersion = 0;
 		}
@@ -1780,8 +1849,8 @@ class bot extends AOChat{
 			//$db->Commit();
 			echo "Finished!\n";
 		
-			if (!$this->savesetting($settingName, $maxFileVersion)) {
-				$this->addsetting($settingName, $settingName, 'noedit', $maxFileVersion);
+			if (!bot::savesetting($settingName, $maxFileVersion)) {
+				bot::addsetting($settingName, $settingName, 'noedit', $maxFileVersion);
 			}
 		} else {
 			echo "Updating '$name' database...already up to date! version: '$currentVersion'\n";

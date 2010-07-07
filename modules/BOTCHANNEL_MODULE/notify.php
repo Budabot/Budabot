@@ -36,22 +36,22 @@ if ($type == "joinPriv") {
 				"VALUES ('$sender', '$whois->faction', '$whois->prof', '$whois->org', '$whois->breed', '$whois->level', '$whois->ai_level', 1)");
 	$msg = "<highlight>$sender<end> (<highlight>{$whois->level}<end>/<green>{$whois->ai_level}<end>, <highlight>{$whois->prof}<end>, $whois->faction) has joined the guestchannel";
     if ($this->settings['relaybot'] != '0') {
-	   	$this->send("grc <grey>[".$this->vars["my guild"]."] ".$msg, $this->settings["relaybot"]);
+	   	bot::send("grc <grey>[".$this->vars["my guild"]."] ".$msg, $this->settings["relaybot"]);
 	} elseif ( $this->settings["guest_relay"] == 1 ) {
-		$this->send($msg, "guild", true);
+		bot::send($msg, "guild", true);
 	}
-	$this->send($msg, "priv", true);
+	bot::send($msg, "priv", true);
 } else if ($type == "leavePriv") {
 	$db->query("DELETE FROM priv_chatlist_<myname> WHERE `name` = '$sender'");
 	unset($this->vars["Guest"][$sender]);
     $msg = "<highlight>$sender<end> left the Guestchannel.";
 	
     if ($this->settings['relaybot'] != '0') {
-		$this->send("grc <grey>[".$this->vars['my guild']."] ".$msg, $this->settings['relaybot']);
+		bot::send("grc <grey>[".$this->vars['my guild']."] ".$msg, $this->settings['relaybot']);
 	} elseif ( $this->settings["guest_relay"] == 1 ) {
-		$this->send($msg, "guild", true);
+		bot::send($msg, "guild", true);
 	}
-	$this->send($msg, "priv", true);
+	bot::send($msg, "priv", true);
 }
 
 ?>

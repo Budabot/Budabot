@@ -48,11 +48,11 @@ when reinforcements arrived from Omni Prime
 And there you are. Though a few of these weapons remain good, it has been a while since they landed on Rubi-Ka and the quality stagnates as new ones arrive. So it could be hoped that this store would also get some new entries one of these days. Perhaps something other than weapons, perhaps something for Traders themselves.
 ";
 
-$tshop_txt = $this->makeLink("Guide to Trader Shops", $tshop_txt); 
+$tshop_txt = bot::makeLink("Guide to Trader Shops", $tshop_txt); 
 if($type == "msg") 
-$this->send($tshop_txt, $sender); 
+bot::send($tshop_txt, $sender); 
 elseif($type == "all") 
-$this->send($tshop_txt); 
+bot::send($tshop_txt); 
 else 
-$this->send($tshop_txt, "guild"); 
+bot::send($tshop_txt, "guild"); 
 ?>

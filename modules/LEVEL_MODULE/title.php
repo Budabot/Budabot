@@ -22,7 +22,7 @@ $title="<header>::::: Title Levels :::::<end>
 	
 if (preg_match("/^title$/i", $message)) {
 	$text = $title;
-	$windowlink = $this->makeLink("Title levels", $text);
-	$this->send($windowlink, $sendto);
+	$windowlink = bot::makeLink("Title levels", $text);
+	bot::send($windowlink, $sendto);
 }
 ?>

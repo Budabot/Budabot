@@ -79,11 +79,11 @@ Last updated on 02.07.2007 by Tepamina
 Written by Tepamina";
 
  
-$bsinfo_txt = $this->makeLink("Information On Battlestations", $bsinfo_txt); 
+$bsinfo_txt = bot::makeLink("Information On Battlestations", $bsinfo_txt); 
 if($type == "msg") 
-$this->send($bsinfo_txt, $sender); 
+bot::send($bsinfo_txt, $sender); 
 elseif($type == "priv") 
-$this->send($bs_text); 
+bot::send($bs_text); 
 else 
-$this->send($bsinfo_txt, "guild");
+bot::send($bsinfo_txt, "guild");
 ?>

@@ -3,14 +3,14 @@
 	$PLUGIN_VERSION = 1.0;
 
 	//Search for Database Updates
-	$this->loadSQLFile($MODULE_NAME, "nanos");
+	bot::loadSQLFile($MODULE_NAME, "nanos");
 
     //nano Search
-	$this->command("", "$MODULE_NAME/nano.php", "nano", ALL, "Searches for a nano and tells you were to get it.");
+	bot::command("", "$MODULE_NAME/nano.php", "nano", "all", "Searches for a nano and tells you were to get it.");
 
 	//Settings
-    $this->addsetting('maxnano', 'Number of Nanos shown on the list', 'edit', '40', '30;40;50;60', "0", MODERATOR, "$MODULE_NAME/maxnano_help.txt");
+    bot::addsetting('maxnano', 'Number of Nanos shown on the list', 'edit', '40', '30;40;50;60', "0", "mod", "$MODULE_NAME/maxnano_help.txt");
 
-	//Help files
-    $this->help("nano", "$MODULE_NAME/nano.txt", ALL, "How to search for a nano."); 
+	//Helpfiles
+    bot::help("nano", "$MODULE_NAME/nano.txt", "guild", "How to search for a nano.", "Nano Search Module"); 
 ?>

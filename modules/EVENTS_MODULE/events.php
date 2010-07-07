@@ -27,7 +27,7 @@ if(preg_match("/^events$/i", $message, $arr)) {
 				$upcoming .= "<highlight>Event Date:<end> ".gmdate("F d, Y H:i:s", $row->event_date)." GMT\n";
 				$upcoming .= "<highlight>Event Name:<end> $row->event_name     [Event ID $row->id]\n";
 				$upcoming .= "<highlight>Author:<end> $row->submitter_name\n";
-				$upcoming .= "<highlight>Attendance:<end> ".$this->makeLink("$attendance signed up", "/tell <myname> eventlist $row->id", "chatcmd")." [".$this->makeLink("Join", "/tell <myname> joinEvent $row->id", "chatcmd")."/".$this->makeLink("Leave", "/tell <myname> leaveEvent $row->id", "chatcmd")."]\n";
+				$upcoming .= "<highlight>Attendance:<end> ".bot::makeLink("$attendance signed up", "/tell <myname> eventlist $row->id", "chatcmd")." [".bot::makeLink("Join", "/tell <myname> joinEvent $row->id", "chatcmd")."/".bot::makeLink("Leave", "/tell <myname> leaveEvent $row->id", "chatcmd")."]\n";
 				$upcoming .= "<highlight>Description:<end> ".stripslashes($row->event_desc)."\n\n";
 				$upcoming_events = $upcoming.$upcoming_events;
 			}
@@ -36,7 +36,7 @@ if(preg_match("/^events$/i", $message, $arr)) {
 				$past .= "<highlight>Event Date:<end> ".gmdate("F d, Y H:i:s", $row->event_date)." GMT\n";
 				$past .= "<highlight>Event Name:<end> $row->event_name     [Event ID $row->id]\n";
 				$past .= "<highlight>Author:<end> $row->submitter_name\n";
-				$past .= "<highlight>Attendance:<end> ".$this->makeLink("$attendance signed up", "/tell <myname> eventlist $row->id", "chatcmd")."\n";
+				$past .= "<highlight>Attendance:<end> ".bot::makeLink("$attendance signed up", "/tell <myname> eventlist $row->id", "chatcmd")."\n";
 				$past .= "<highlight>Description:<end> ".stripslashes($row->event_desc)."\n\n";
 				$past_events .= $past;
 			}
@@ -46,7 +46,7 @@ if(preg_match("/^events$/i", $message, $arr)) {
 			$upcoming_events = "<i>More to come.  Check back soon!</i>\n\n";
 		$link = $upcoming_title.$upcoming_events.$past_title.$past_events;
 		
-		$msg = $this->makeLink("Latest Events", $link)." [Last updated at ".gmdate("dS M, H:i", $updated)."]";
+		$msg = bot::makeLink("Latest Events", $link)." [Last updated at ".gmdate("dS M, H:i", $updated)."]";
 	} else
 		$msg = "No events entered yet.";
 }
@@ -55,7 +55,7 @@ if(preg_match("/^joinevent ([0-9]+)$/i", $message, $arr)) {
 	$row = $db->fObject();
 	if(time() < (($row->event_date)+(3600*3))) { // cannot join an event after 3 hours past its starttime
 		if (strpos($row->event_attendees,$sender) !== false) {
-			$this->send("<highlight>$sender<end> is already on the event list.",$sender);
+			bot::send("<highlight>$sender<end> is already on the event list.",$sender);
 			return;
 		}
 		else {
@@ -89,7 +89,7 @@ elseif(preg_match("/^leaveevent ([0-9]+)$/i", $message, $arr)) {
 			$msg = "You have been removed from the event.";
 		}
 		else {
-			$this->send("<highlist>$sender<end> is not on the event list.",$sender);
+			bot::send("<highlist>$sender<end> is not on the event list.",$sender);
 			return;
 		}
 	}
@@ -98,6 +98,6 @@ elseif(preg_match("/^leaveevent ([0-9]+)$/i", $message, $arr)) {
 }
 
 if($msg) {
-	$this->send($msg, $sendto);
+	bot::send($msg, $sendto);
 }
 ?>

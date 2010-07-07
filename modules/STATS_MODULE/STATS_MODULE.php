@@ -35,6 +35,6 @@
 
 	$MODULE_NAME = "STATS_MODULE";
 
-	$this->command("", "$MODULE_NAME/stats.php", "stats", ALL, "Shows links that you can click on to see your stats for certain, unseen skills");
+	bot::command("", "$MODULE_NAME/stats.php", "stats", "all", "Shows links that you can click on to see your stats for certain, unseen skills");
 
 ?>

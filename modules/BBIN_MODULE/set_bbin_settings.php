@@ -9,25 +9,25 @@
    */
    
 if(preg_match("/^setbbin server (.+)$/i", $message, $arr)) {
-	$this->savesetting("bbin_server", trim($arr[1]));
-	$this->send("Setting saved.  Bot will connect to IRC server: {$arr[1]}.", $sender);
+	bot::savesetting("bbin_server", trim($arr[1]));
+	bot::send("Setting saved.  Bot will connect to IRC server: {$arr[1]}.", $sender);
 }
 elseif(preg_match("/^setbbin port (.+)$/i", $message, $arr)) {
 	if(is_numeric($arr[1])) {
-		$this->savesetting("bbin_port", trim($arr[1]));
-		$this->send("Setting saved.  Bot will use port {$arr[1]} to connect to the IRC server.", $sender);
+		bot::savesetting("bbin_port", trim($arr[1]));
+		bot::send("Setting saved.  Bot will use port {$arr[1]} to connect to the IRC server.", $sender);
 	}
 	else {
-		$this->send("Please check again.  The port should be a number.", $sender);
+		bot::send("Please check again.  The port should be a number.", $sender);
 	}
 }
 elseif(preg_match("/^setbbin nickname (.+)$/i", $message, $arr)) {
-	$this->savesetting("bbin_nickname", trim($arr[1]));
-	$this->send("Setting saved.  Bot will use {$arr[1]} as its nickname while in IRC.", $sender);
+	bot::savesetting("bbin_nickname", trim($arr[1]));
+	bot::send("Setting saved.  Bot will use {$arr[1]} as its nickname while in IRC.", $sender);
 }
 elseif(preg_match("/^setbbin channel (.+)$/i", $message, $arr)) {
 	if(strpos($arr[1]," ")) {
-		$this->send("IRC channels cannot have spaces in them",$sender);
+		bot::send("IRC channels cannot have spaces in them",$sender);
 		$sandbox = explode(" ",$arr[1]);
 		for ($i = 0; $i < count($sandbox); $i++) {
 			$channel .= ucfirst(strtolower($sandbox[$i]));
@@ -39,10 +39,10 @@ elseif(preg_match("/^setbbin channel (.+)$/i", $message, $arr)) {
 	if(strpos($channel,"#") !== 0) {
 		$channel = "#".$channel;
 	}
-	$this->savesetting("bbin_channel", trim($channel));
-	$this->send("Setting saved.  Bot will join $channel when it connects to IRC.", $sender);
+	bot::savesetting("bbin_channel", trim($channel));
+	bot::send("Setting saved.  Bot will join $channel when it connects to IRC.", $sender);
 }
 else {
-	$this->send("<symbol>tell <myname> <symbol>help bbin",$sender);
+	bot::send("<symbol>tell <myname> <symbol>help bbin",$sender);
 }
 ?>

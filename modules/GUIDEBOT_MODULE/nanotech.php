@@ -248,8 +248,8 @@ These peps have got a very odd reputation, some love em, some loath em. Might be
 * Viral Triumverate Eggs - AKA VTEs You wont get these anytime soon but two Viral Eggs will really help you out.
 * Gaily Painted Hood - Last but not least by any means must be the Gaily Painted Hood you get this and WOW, drops off the Tarasque in Camelot. ";
 
-$nanotech_txt = $this->makeLink("Guide to Nano Technicians", $nanotech_txt);
+$nanotech_txt = bot::makeLink("Guide to Nano Technicians", $nanotech_txt);
 
-$this->send($nanotech_txt, $sendto);
+bot::send($nanotech_txt, $sendto);
 
 ?>

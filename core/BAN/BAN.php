@@ -2,22 +2,22 @@
 $MODULE_NAME = "BAN";
 
 	//Commands
-	$this->regcommand("msg", "$MODULE_NAME/ban_player.php", "ban", MODERATOR);
-	$this->regcommand("msg", "$MODULE_NAME/unban.php", "unban", MODERATOR);
-	$this->regcommand("msg", "$MODULE_NAME/banlist.php", "banlist", MODERATOR);
-	$this->regcommand("priv", "$MODULE_NAME/ban_player.php", "ban", MODERATOR);
-	$this->regcommand("priv", "$MODULE_NAME/unban.php", "unban", MODERATOR);
-	$this->regcommand("priv", "$MODULE_NAME/banlist.php", "banlist", MODERATOR);
-	$this->regcommand("guild", "$MODULE_NAME/ban_player.php", "ban", MODERATOR);
-	$this->regcommand("guild", "$MODULE_NAME/unban.php", "unban", MODERATOR);
-	$this->regcommand("guild", "$MODULE_NAME/banlist.php", "banlist", MODERATOR);
+	bot::regcommand("msg", "$MODULE_NAME/ban_player.php", "ban","mod");
+	bot::regcommand("msg", "$MODULE_NAME/unban.php", "unban","mod");
+	bot::regcommand("msg", "$MODULE_NAME/banlist.php", "banlist");
+	bot::regcommand("priv", "$MODULE_NAME/ban_player.php", "ban","mod");
+	bot::regcommand("priv", "$MODULE_NAME/unban.php", "unban","mod");
+	bot::regcommand("priv", "$MODULE_NAME/banlist.php", "banlist");
+	bot::regcommand("guild", "$MODULE_NAME/ban_player.php", "ban","mod");
+	bot::regcommand("guild", "$MODULE_NAME/unban.php", "unban","mod");
+	bot::regcommand("guild", "$MODULE_NAME/banlist.php", "banlist");
 
 	//Events
-	$this->regevent("1hour", "$MODULE_NAME/check_tempban.php");
+	bot::regevent("1hour", "$MODULE_NAME/check_tempban.php");
 
 	//Setup
-	$this->regevent("setup", "$MODULE_NAME/upload_banlist.php");
+	bot::regevent("setup", "$MODULE_NAME/upload_banlist.php");
 	
 	//Help Files
-	$this->help("banhelp", "$MODULE_NAME/banhelp.txt", MODERATOR, "Ban a person from the bot.");
+	bot::help("banhelp", "$MODULE_NAME/banhelp.txt", "mod", "Ban a person from the bot.", "Administration");
 ?>

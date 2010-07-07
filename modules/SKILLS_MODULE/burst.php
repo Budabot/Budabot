@@ -19,10 +19,10 @@ $help .= "<a href='chatcmd:///tell <myname> <symbol>burst 1.2 1.5 1600 900'>/tel
 $help .= "* Your Burst Delay value (1600) can be found on <a href='chatcmd:///start http://www.auno.org'>auno.org</a> as Burst Cycle.";
 $help .= $footer;
 
-$helplink = $this->makeLink("::How to use Burst::", $help);
+$helplink = bot::makeLink("::How to use Burst::", $help);
 
 if((!$AttTim) || (!$RechT) || (!$BurstDelay) || (!$BurstSkill))
-	$this->send($helplink, $sendto);
+	bot::send($helplink, $sendto);
 else{
 	$cap = round($AttTim+8,0);
 	$burstrech = floor(($RechT*20) + ($BurstDelay/100) - ($BurstSkill/25) + $AttTim);
@@ -42,6 +42,6 @@ else{
 	$inside	.= "You need <orange>".$burstskillcap."<end> Burst Skill to cap your recharge.";
 	$inside .= $footer;
 
-	$windowlink = $this->makeLink("::Your Burst Results::", $inside);
-	$this->send($windowlink, $sendto);
+	$windowlink = bot::makeLink("::Your Burst Results::", $inside);
+	bot::send($windowlink, $sendto);
 }

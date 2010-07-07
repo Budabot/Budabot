@@ -56,7 +56,7 @@ if (preg_match("/^vote$/i", $message)) {
 	if ($db->numrows() > 0) {
 		while($row = $db->fObject()) {
 			$question = $row->question; $started = $row->started; $duration = $row->duration;
-			$line = "<tab>" . $this->makeLink($question, "/tell <myname> vote $question", 'chatcmd');
+			$line = "<tab>" . bot::makeLink($question, "/tell <myname> vote $question", 'chatcmd');
 			
 			$timeleft = $started+$duration-time();
 			if ($timeleft>0) {$running .= $line."\n(".timeLeft($timeleft)." left)\n";}
@@ -66,7 +66,7 @@ if (preg_match("/^vote$/i", $message)) {
 		if ($running && $over) $msg .= "\n";
 		if ($over) {$msg .= " <red>Finshed:<end>\n".$over;}
 
-		$msg = $this->makeLink("Vote Listing", $msg);
+		$msg = bot::makeLink("Vote Listing", $msg);
 	} else {
 		$msg = "There are currently no votes to view.";
 	}
@@ -122,7 +122,7 @@ if (preg_match("/^vote$/i", $message)) {
 				else {$msg .= "$val% ";}
 				
 				if ($timeleft > 0) {
-					$msg .= $this->makeLink($key, "/tell <myname> vote $question$delimiter$key", 'chatcmd') . "(Votes: $value)\n";
+					$msg .= bot::makeLink($key, "/tell <myname> vote $question$delimiter$key", 'chatcmd') . "(Votes: $value)\n";
 				} else {
 					$msg .= "<highlight>$key<end> (Votes: $value)\n";
 				}
@@ -131,7 +131,7 @@ if (preg_match("/^vote$/i", $message)) {
 			//if ($didvote && $timeleft > 0) {
 			if ($timeleft > 0) { // Want this option avaiable for everyone if its run from org/priv chat.
 				$msg .= "\n<black>___%<end> ";
-				$msg .= $this->makeLink('Remove yourself from this vote', "/tell <myname> vote remove$delimiter$question", 'chatcmd') . "\n";
+				$msg .= bot::makeLink('Remove yourself from this vote', "/tell <myname> vote remove$delimiter$question", 'chatcmd') . "\n";
 			}
 			
 			if ($timeleft > 0 && $this->settings["vote_add_new_choices"] == 1 && $status == 0) {
@@ -139,9 +139,9 @@ if (preg_match("/^vote$/i", $message)) {
 			}
 			
 			$msg .="\n<highlight>If you started this vote, you can:<end>\n";
-			$msg .="<tab>" . $this->makeLink('Kill the vote completely', "/tell <myname> vote kill$delimiter$question", 'chatcmd') . "\n";
+			$msg .="<tab>" . bot::makeLink('Kill the vote completely', "/tell <myname> vote kill$delimiter$question", 'chatcmd') . "\n";
 			if ($timeleft > 0) {
-				$msg .="<tab>" . $this->makeLink('End the vote early', "/tell <myname> vote end$delimiter$question" , 'chatcmd');
+				$msg .="<tab>" . bot::makeLink('End the vote early', "/tell <myname> vote end$delimiter$question" , 'chatcmd');
 			}
 			
 			$db->query("SELECT * FROM $table WHERE `author` = '$sender' AND `question` = '$question' AND `duration` IS NULL");
@@ -149,8 +149,8 @@ if (preg_match("/^vote$/i", $message)) {
 			if ($row->answer && $timeleft > 0) {$privmsg = "On this vote, you already selected: <highlight>(".$row->answer.")<end>.";}
 			elseif ($timeleft > 0){$privmsg = "You haven't voted on this one yet.";}
 			
-			$msg = $this->makeLink("Vote: $question",$msg);
-			if ($privmsg) {$this->send($privmsg, $sender);}			
+			$msg = bot::makeLink("Vote: $question",$msg);
+			if ($privmsg) {bot::send($privmsg, $sender);}			
 		}
 		
 		
@@ -211,11 +211,11 @@ if (preg_match("/^vote$/i", $message)) {
 		$requirement = $this->settings["vote_use_min"];
 		if ($requirement >= 0) {
 			if (!$this->guildmembers[$sender]) {
-				$this->send("Only org members can start a new vote.", $sender);
+				bot::send("Only org members can start a new vote.", $sender);
 				return;
 			}elseif ($requirement < $this->guildmembers[$sender]) {
 				$rankdiff = $this->guildmembers[$sender]-$requirement;
-				$this->send("You need $rankdiff promotion(s) in order to vote.", $sender);
+				bot::send("You need $rankdiff promotion(s) in order to vote.", $sender);
 				return;
 			}
 		}
@@ -251,11 +251,11 @@ if (preg_match("/^vote$/i", $message)) {
 		$requirement = $this->settings["vote_create_min"];
 		if ($requirement >= 0) {
 			if (!$this->guildmembers[$sender]) {
-				$this->send("Only org members can start a new vote.", $sender);
+				bot::send("Only org members can start a new vote.", $sender);
 				return;
 			}elseif ($requirement < $this->guildmembers[$sender]) {
 				$rankdiff = $this->guildmembers[$sender]-$requirement;
-				$this->send("You need $rankdiff promotion(s) in order to start a new vote.", $sender);
+				bot::send("You need $rankdiff promotion(s) in order to start a new vote.", $sender);
 				return;
 			}
 		}
@@ -308,6 +308,6 @@ if (preg_match("/^vote$/i", $message)) {
 // we have a message after all that? post it
 /////////////////////////////////////////////////
 if ($msg){	// Send info back
-	$this->send($msg, $sendto);
+	bot::send($msg, $sendto);
 }
 ?>

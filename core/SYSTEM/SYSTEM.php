@@ -3,25 +3,25 @@
 	$PLUGIN_VERSION = 0.1;
 
 	//Load extended messages
-	$this->loadSQLFile($MODULE_NAME, "mmdb");
+	bot::loadSQLFile($MODULE_NAME, "mmdb");
 
 	//Commands
-	$this->regcommand("msg", "$MODULE_NAME/plugins.php", "newplugins", ADMIN);
-	$this->regcommand("priv", "$MODULE_NAME/plugins.php", "newplugins", ADMIN);
-	$this->regcommand("guild", "$MODULE_NAME/plugins.php", "newplugins", ADMIN);
+	bot::regcommand("msg", "$MODULE_NAME/plugins.php", "newplugins", "admin");
+	bot::regcommand("priv", "$MODULE_NAME/plugins.php", "newplugins", "admin");
+	bot::regcommand("guild", "$MODULE_NAME/plugins.php", "newplugins", "admin");
 	
-	$this->regcommand("msg", "$MODULE_NAME/reboot.php", "reboot", ADMIN);
-	$this->regcommand("priv", "$MODULE_NAME/reboot.php", "reboot", ADMIN);
-	$this->regcommand("guild", "$MODULE_NAME/reboot.php", "reboot", ADMIN);	
+	bot::regcommand("msg", "$MODULE_NAME/reboot.php", "reboot", "admin");
+	bot::regcommand("priv", "$MODULE_NAME/reboot.php", "reboot", "admin");
+	bot::regcommand("guild", "$MODULE_NAME/reboot.php", "reboot", "admin");	
 	
-	$this->regcommand("msg", "$MODULE_NAME/shutdown.php", "shutdown", ADMIN);
-	$this->regcommand("priv", "$MODULE_NAME/shutdown.php", "shutdown", ADMIN);
-	$this->regcommand("guild", "$MODULE_NAME/shutdown.php", "shutdown", ADMIN);
+	bot::regcommand("msg", "$MODULE_NAME/shutdown.php", "shutdown", "admin");
+	bot::regcommand("priv", "$MODULE_NAME/shutdown.php", "shutdown", "admin");
+	bot::regcommand("guild", "$MODULE_NAME/shutdown.php", "shutdown", "admin");
 	
-	$this->regcommand("msg", "$MODULE_NAME/uptime.php", "uptime", MEMBER);
-	$this->regcommand("priv", "$MODULE_NAME/uptime.php", "uptime", MEMBER);
-	$this->regcommand("guild", "$MODULE_NAME/uptime.php", "uptime", MEMBER);
+	bot::regcommand("msg", "$MODULE_NAME/uptime.php", "uptime", "all");
+	bot::regcommand("priv", "$MODULE_NAME/uptime.php", "uptime", "all");
+	bot::regcommand("guild", "$MODULE_NAME/uptime.php", "uptime", "all");
 
 	//Help Files
-	$this->help("systemhelp", "$MODULE_NAME/system.txt", ADMIN, "Admin System Help file.");
+	bot::help("systemhelp", "$MODULE_NAME/system.txt", "admin", "Admin System Help file.", "Administration");
 ?>

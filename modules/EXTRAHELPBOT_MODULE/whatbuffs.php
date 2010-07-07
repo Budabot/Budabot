@@ -15,7 +15,7 @@
 	$help .= "<a href='chatcmd:///tell <myname> <symbol>whatbuffs comp lit'>/tell <myname> <symbol>whatbuffs comp lit</a>\n\n";
 	$help .= $footer;
 
-	$helplink = $this->makeLink("::How to use 'what buffs what?'::", $help);
+	$helplink = bot::makeLink("::How to use 'what buffs what?'::", $help);
 
 	if (preg_match("/^whatbuffs (.+)$/i", $message, $arr)) {
 		$name = trim($arr[1]);
@@ -29,7 +29,7 @@
 		}
 
 		switch (sizeof($skills)) {
-			case 0: $this->send("There is no such skill, or at least no twink relevant skill going by that name.", $sendto); 	// skill does not exist
+			case 0: bot::send("There is no such skill, or at least no twink relevant skill going by that name.", $sendto); 	// skill does not exist
 					return;
 			case 1: $info = "";										// exactly one matching skill
 					$found = 0;
@@ -45,12 +45,12 @@
 						$inside .= "Items that buff ".$skills[0].":\n\n";
 						$inside .= $info;
 						$inside .= "\n\nClick the item(s) for more info\n\n".$footer;
-						$windowlink = $this->makeLink(":: Your \"What buffs ...?\" results ::", $inside);
-						$this->send($windowlink, $sendto); 
-						$this->send("<highlight>$found<end> result(s) in total", $sendto);
+						$windowlink = bot::makeLink(":: Your \"What buffs ...?\" results ::", $inside);
+						bot::send($windowlink, $sendto); 
+						bot::send("<highlight>$found<end> result(s) in total", $sendto);
 						return;
 					} else {
-						$this->send("Nothing that buffs ".$skills[0]." in my database, sorry.", $sendto); return; 
+						bot::send("Nothing that buffs ".$skills[0]." in my database, sorry.", $sendto); return; 
 					}
 			default: $info = ""; 									// found more than 1 matching skill
 					foreach ($skills as $skill) {
@@ -61,12 +61,12 @@
 					$inside .= $info."\n";
 					$inside .= "Which of those skills did you mean?\n\n";
 					$inside .= $footer;
-					$windowlink = $this->makeLink(":: Your \"What buffs ...?\" results ::", $inside);
-					$this->send($windowlink, $sendto); 
-					$this->send("Found several skills matching your key words.", $sendto);
+					$windowlink = bot::makeLink(":: Your \"What buffs ...?\" results ::", $inside);
+					bot::send($windowlink, $sendto); 
+					bot::send("Found several skills matching your key words.", $sendto);
 					return;
 		}
 	} else {
-		$this->send($helplink, $sendto);
+		bot::send($helplink, $sendto);
 	}
 ?>

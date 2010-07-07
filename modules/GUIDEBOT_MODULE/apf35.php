@@ -71,11 +71,11 @@ Thanks to Valvs for the Sector 35 Layout
 http://forums.anarchy-online.com/showthread.php?t=435953
 ";
 
-$apf35guide_txt = $this->makeLink("Guide to Apf Sector 35", $apf35guide_txt);
+$apf35guide_txt = bot::makeLink("Guide to Apf Sector 35", $apf35guide_txt);
 if($type == "msg")
-$this->send($apf35guide_txt, $sender);
+bot::send($apf35guide_txt, $sender);
 elseif($type == "all")
-$this->send($apf35guide_txt);
+bot::send($apf35guide_txt);
 else
-$this->send($apf35guide_txt, "guild");
+bot::send($apf35guide_txt, "guild");
 ?>

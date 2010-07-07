@@ -20,8 +20,8 @@ $adogarn_txt = "<header>::::: Adonis Garden Nanos  :::::<end>\n\n
 <a href='itemref://223328/223328/180'>LINK </a> Upgraded Predator M-30 - Engie
 <a href='itemref://226414/226414/100'>LINK </a> Waves of Jarring - Agent</font> ";
 
-$adogarn_txt = $this->makeLink("Adonis Garden Nanos", $adogarn_txt);
+$adogarn_txt = bot::makeLink("Adonis Garden Nanos", $adogarn_txt);
  
-$this->send($adogarn_txt, $sendto);
+bot::send($adogarn_txt, $sendto);
 
 ?>

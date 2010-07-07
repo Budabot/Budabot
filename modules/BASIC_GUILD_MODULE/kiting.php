@@ -41,7 +41,7 @@ if($type == "guild") {
 	        $db->query("UPDATE guild_chatlist_<myname> SET `afk` = '0' WHERE `name` = '$sender'");
 	        $msg = "<highlight>$sender<end> is back";
 	    }
-	    $this->send($msg, "guild");
+	    bot::send($msg, "guild");
 	} else
 		$syntax_error = true;
 } else {
@@ -56,7 +56,7 @@ if($type == "guild") {
 	        $db->query("UPDATE priv_chatlist_<myname> SET `afk` = '0' WHERE `name` = '$sender'");
 	        $msg = "<highlight>$sender<end> is back";
 	    }
-	    $this->send($msg);
+	    bot::send($msg);
 	} else
 		$syntax_error = true;
 }

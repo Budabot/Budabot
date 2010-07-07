@@ -396,6 +396,6 @@ $homer = array(
 if(preg_match("/^homer/i", $message)) {
 	$randval = rand(1, sizeof($homer) - 1);
 	$msg = $homer[$randval];
-	$this->send($msg, "guild");
+	bot::send($msg, "guild");
 }
 ?>

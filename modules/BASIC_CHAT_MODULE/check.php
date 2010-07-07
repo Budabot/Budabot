@@ -37,7 +37,7 @@ if(preg_match("/^check (all|prof|org)$/i", $message, $arr)) {
 			$content .= " \\n /assist $row->name";
 
 	  	$list .= "<a href='chatcmd:///text AssistAll: $content'>Click here to check who is here</a>";
-	  	$msg = $this->makeLink("Check on all", $list);
+	  	$msg = bot::makeLink("Check on all", $list);
 	} elseif($arr[1] == "prof") {
 	  	$list = "<header>::::: Check for all professions :::::<end>\n\n";
 	  	$db->query("SELECT * FROM priv_chatlist_<myname> ORDER BY `profession` DESC");
@@ -49,7 +49,7 @@ if(preg_match("/^check (all|prof|org)$/i", $message, $arr)) {
 		foreach($prof as $key => $value)
 			$list .= "<a href='chatcmd:///text AssistProf: $value'>Click here to check $key</a>\n";
 
-	  	$msg = $this->makeLink("Check on professions", $list);
+	  	$msg = bot::makeLink("Check on professions", $list);
 	} elseif($arr[1] == "org") {
 	  	$list = "<header>::::: Check for all organisations :::::<end>\n\n";
 	  	$db->query("SELECT * FROM priv_chatlist_<myname> ORDER BY `guild` DESC");
@@ -65,9 +65,9 @@ if(preg_match("/^check (all|prof|org)$/i", $message, $arr)) {
 		foreach($org as $key => $value)
 			$list .= "<a href='chatcmd:///text AssistOrg: $value'>Click here to check $key</a>\n";
 
-	  	$msg = $this->makeLink("Check on Organisations", $list);
+	  	$msg = bot::makeLink("Check on Organisations", $list);
 	}
-	$this->send($msg);
+	bot::send($msg);
 } else
 	$syntax_error = true;
 ?>

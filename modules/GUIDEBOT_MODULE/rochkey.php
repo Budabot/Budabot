@@ -25,11 +25,11 @@ Also just like all other PB you will be reduced to 1 point of health when you sp
 
 Kill the Empath and from her corpse loot the Old piece of cloth sparkling with notum. Head back to the garden and give it to Hypnagogic Urga-Xum Roch and you will be rewarded with The Key to the Garden of Roch! ";
 
-$rochkey_txt = $this->makeLink("Scheol: Roch Garden Key Quest", $rochkey_txt); 
+$rochkey_txt = bot::makeLink("Scheol: Roch Garden Key Quest", $rochkey_txt); 
 if($type == "msg") 
-$this->send($rochkey_txt, $sender); 
+bot::send($rochkey_txt, $sender); 
 elseif($type == "all") 
-$this->send($rochkey_txt); 
+bot::send($rochkey_txt); 
 else 
-$this->send($rochkey_txt, "guild"); 
+bot::send($rochkey_txt, "guild"); 
 ?>

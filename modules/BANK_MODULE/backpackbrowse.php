@@ -43,7 +43,7 @@
 				}
 				$msg .= "   - Backpack #".$backpack['id']."\n";
 					foreach ($backpack->children() as $item) {// Loops through items
-						$msg .= "<tab><tab>> ".$this->makeItem($item['lowid'], $item['highid'], $item['ql'], $item['name'])." Item ID: ".$item['id']."\n";
+						$msg .= "<tab><tab>> ".bot::makeItem($item['lowid'], $item['highid'], $item['ql'], $item['name'])." Item ID: ".$item['id']."\n";
 						$item_count++;
 					}
 				if($location == "inventory")
@@ -58,30 +58,30 @@
 	$link = "No items found in Backpack#".$arr." in ".ucwords($location);
 	}else{
 	$msg = $item_count." Items in Backpack#".$arr." in ".ucwords($location)."\n\n".$msg;
-    $link = $this->makeLink($item_count." items found in \"Backpack #".$arr."\" in ".ucwords($location), $msg);
+    $link = bot::makeLink($item_count." items found in \"Backpack #".$arr."\" in ".ucwords($location), $msg);
 	}
           if($type == "msg")
-        $this->send($link, $sender);
+        bot::send($link, $sender);
     elseif($type == "priv")
-        $this->send($link);
+        bot::send($link);
 	elseif($type == "guild")
-		$this->send($link, "guild");
+		bot::send($link, "guild");
    }else{
          $msg = "Incorrect syntax! For more information /tell <myname> help.";
     if($type == "msg")
-        $this->send($msg, $sender);
+        bot::send($msg, $sender);
     elseif($type == "priv")
-        $this->send($msg);
+        bot::send($msg);
 	elseif($type == "guild")
-		$this->send($msg, "guild");   
+		bot::send($msg, "guild");   
    }
    }else{
       $msg = "File not found! Please contact an administrator.";
     if($type == "msg")
-        $this->send($msg, $sender);
+        bot::send($msg, $sender);
     elseif($type == "priv")
-        $this->send($msg);
+        bot::send($msg);
 	elseif($type == "guild")
-		$this->send($msg, "guild");
+		bot::send($msg, "guild");
    }   
    ?>

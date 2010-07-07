@@ -433,11 +433,11 @@ After speaking with the Kyr'Ozch Envoy, a few things will start to fit together.
 
 ";
 
-$aridrift_txt = $this->makeLink("Guide to Arid Rift Quests", $aridrift_txt); 
+$aridrift_txt = bot::makeLink("Guide to Arid Rift Quests", $aridrift_txt); 
 if($type == "msg") 
-$this->send($aridrift_txt, $sender); 
+bot::send($aridrift_txt, $sender); 
 elseif($type == "all") 
-$this->send($aridrift_txt); 
+bot::send($aridrift_txt); 
 else 
-$this->send($aridrift_txt, "guild"); 
+bot::send($aridrift_txt, "guild"); 
 ?>

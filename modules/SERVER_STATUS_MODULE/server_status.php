@@ -32,33 +32,30 @@
 if (preg_match("/^server(.*)$/i", $message, $arr)) {
 	if (!$arr[1] || $arr[1] == 1 || $arr[1] == 2 || $arr[1] == 3 || $arr[1] == 4) {
 	 	$msg = "Getting Server status. Please standby.";
-        $this->send($msg, $sendto);
+        bot::send($msg, $sendto);
 
 		$server = new server(trim($arr[1]));
-	  	if ($server->errorCode != 0) {
+	  	if($server->errorCode != 0)
 	  		$msg = $server->errorInfo;
-	  	} else {
+	  	else {
 		    $link  = "<header>::::: $server->name Server Status :::::<end>\n\n";
 
-			if ($server->servermanager == 1) {
+			if($server->servermanager == 1)
 				$link .= "<highlight>Servermanager<end> is <green>UP<end>\n";
-			} else {
+			else
 				$link .= "<highlight>Servermanager<end> is <red>DOWN<end>\n";
-			}
 				
-			if ($server->clientmanager == 1) {
+			if($server->clientmanager == 1)
 				$link .= "<highlight>Clientmanager<end> is <green>UP<end>\n";
-			} else {
+			else
 				$link .= "<highlight>Clientmanager<end> is <red>DOWN<end>\n";
-			}
 
-			if ($server->chatserver == 1) {
+			if($server->chatserver == 1)
 				$link .= "<highlight>Chatserver<end> is <green>UP<end>\n\n";
-			} else {
+			else
 				$link .= "<highlight>Chatserver<end> is <red>DOWN<end>\n\n";
-			}
 		
-	   	    if ($arr[1] != 4) {
+	   	    if($arr[1] != 4) {
 			    $link .= "<highlight>Faction distribution in % of total players online.<end>\n";
 			    $link .= "<blue>Omni<end>: $server->omni%\n";
 			    $link .= "<white>Neutral<end>: $server->neutral%\n";
@@ -66,18 +63,15 @@ if (preg_match("/^server(.*)$/i", $message, $arr)) {
 			}	    
 		    $link .= "<highlight>Player distribution in % of total players online.<end>\n";
    		    ksort($server->data);
-		    forEach ($server->data as $zone => $proz) {
+		    foreach($server->data as $zone => $proz)
 		    	$link .= "<highlight>$zone<end>: {$proz["players"]} \n";
-			}
 			
-			$msg = $this->makeLink("Status of $server->name", $link);	    
+			$msg = bot::makeLink("Status of $server->name", $link);	    
 		}
 	} else {
 		$msg = "Choose a server between 1 and 4";
 	}
 
-	$this->send($msg, $sendto);
-} else {
-	$syntax_error = true;
+	bot::send($msg, $sendto);
 }
 ?>

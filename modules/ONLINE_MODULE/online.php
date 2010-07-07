@@ -36,11 +36,11 @@ require_once("online_func.php");
 if (preg_match("/^online$/i", $message)){
 	$msg = "";
 	list($numonline, $msg, $list) = online($type, $sender, $sendto, $this);
-	$link = ":: ".$this->makeLink('Click here', $list);
+	$link = ":: ".bot::makeLink('Click here', $list);
 	if($numonline != 0) {
-		$this->send($msg.$link, $sendto);
+		bot::send($msg.$link, $sendto);
 	} else {
-		$this->send($msg, $sendto);
+		bot::send($msg, $sendto);
 	}
 } else if (preg_match("/^online (.*)$/i", $message, $arr)) {
 	$msg = "";
@@ -93,15 +93,15 @@ if (preg_match("/^online$/i", $message)){
 	}
 	if(!$prof) {
 		$msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, trad or all";
-		$this->send($msg, $sendto);
+		bot::send($msg, $sendto);
 		return;
 	}
 	list($numonline, $msg, $list) = online($type, $sender, $sendto, $this);
-	$link = ":: ".$this->makeLink('Click here', $list);
+	$link = ":: ".bot::makeLink('Click here', $list);
 	if($numonline != 0) {
-		$this->send($msg.$link, $sendto);
+		bot::send($msg.$link, $sendto);
 	} else {
-		$this->send($msg, $sendto);
+		bot::send($msg, $sendto);
 	}
 }
 ?>

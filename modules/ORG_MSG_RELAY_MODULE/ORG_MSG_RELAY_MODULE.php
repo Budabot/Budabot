@@ -32,11 +32,10 @@
    **
    */
 
-// relay org messages between linked orgs
-if($this->settings["relaybot"] != "0") {
+	$MODULE_NAME = "ORG_MSG_RELAY_MODULE";
+	$PLUGIN_VERSION = 1.0;
 
-	$orgName = $this->vars["my guild"];
-	$this->send("grc <grey>[$orgName] $message<end>", $this->settings["relaybot"]);
-}
+	//Org messages
+    bot::event("orgmsg", "$MODULE_NAME/org_messages.php", "none", "Capture Org Messages");
 
 ?>

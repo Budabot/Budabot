@@ -66,11 +66,11 @@ Hunting for robot-parts:
 Mechdogs are typically around level 40, Probes around 30, Buzzsaws around level 10. The levels on the A-500's to A-4000's vary greatly but the lower end of the scale starts around level 60 and they end up at around level 130. Mechdogs are considered to be the ones most 'worth the time and effort' though.
  ";
 
-$sided1_txt = $this->makeLink("Guide to Sided Pads Part 1", $sided1_txt); 
+$sided1_txt = bot::makeLink("Guide to Sided Pads Part 1", $sided1_txt); 
 if($type == "msg") 
-$this->send($sided1_txt, $sender); 
+bot::send($sided1_txt, $sender); 
 elseif($type == "all") 
-$this->send($sided1_txt); 
+bot::send($sided1_txt); 
 else 
-$this->send($sided1_txt, "guild"); 
+bot::send($sided1_txt, "guild"); 
 ?>

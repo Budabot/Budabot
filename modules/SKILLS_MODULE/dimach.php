@@ -23,7 +23,7 @@
 	$help .= "<a href='chatcmd:///tell <myname> <symbol>dimach keeper 750'>/tell <myname> <symbol>dimach keeper 750</a>\n\n";
 	$help .= $footer;
 
-	$helplink = $this->makeLink("::How to use Dimach::", $help);
+	$helplink = bot::makeLink("::How to use Dimach::", $help);
 			
 	if (preg_match("/^dimach (ma|martial artist|keep|keeper|shad|shade|other|gen) ([0-9]+)$/i", $message, $arr)) {
 		$dim_skill = trim($arr[2]);
@@ -35,7 +35,7 @@
 		elseif ($dim_skill < 3001)
 			$i = 4; 
 		else { 
-			$this->send("Skill entered is out of range... please enter a number between <highlight>1 and 3000<end>.",$sendto);
+			bot::send("Skill entered is out of range... please enter a number between <highlight>1 and 3000<end>.",$sendto);
 			return;
 		}
 		
@@ -81,9 +81,9 @@
 		$inside .= $info;
 		$inside .= $footer;
 		
-		$windowlink = $this->makeLink("::Your Dimach skill results::", $inside);
-		$this->send($windowlink, $sendto);
+		$windowlink = bot::makeLink("::Your Dimach skill results::", $inside);
+		bot::send($windowlink, $sendto);
 	} else {
-		$this->send($helplink, $sendto);
+		bot::send($helplink, $sendto);
 	}
 ?>

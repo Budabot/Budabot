@@ -52,10 +52,10 @@ if(preg_match("/^calc (.+)$/i", $message, $arr)) {
 
     // Send info back
     if($type == "msg")
-        $this->send($msg, $sender);
+        bot::send($msg, $sender);
     elseif($type == "priv")
-      	$this->send($msg);
+      	bot::send($msg);
     elseif($type == "guild")
-      	$this->send($msg, "guild");
+      	bot::send($msg, "guild");
 }
 ?>

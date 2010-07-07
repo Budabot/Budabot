@@ -36,13 +36,13 @@ if(!preg_match("/^afk(.*)$/i", $message, $arr)) {
 	    if($row->afk != '0') {
 	        $db->query("UPDATE guild_chatlist_<myname> SET `afk` = 0 WHERE `name` = '$sender'");
 	        $msg = "<highlight>$sender<end> is back";
-	        $this->send($msg, "guild");
+	        bot::send($msg, "guild");
 	    }
 	}
 	$name = split(" ", $message, 2);
 	$name = $name[0];
 	$name = ucfirst(strtolower($name));
-    $uid = $this->get_uid($name);
+    $uid = AoChat::get_uid($name);
    	if($uid) {
 		$db->query("SELECT afk FROM guild_chatlist_<myname> WHERE `name` = '$name'");
 		if($db->numrows() == 0 && $this->settings["guest_relay"] == 1)
@@ -57,7 +57,7 @@ if(!preg_match("/^afk(.*)$/i", $message, $arr)) {
 			elseif($row->afk != "0")
 				$msg = "<highlight>$name<end> is currently AFK: <highlight>$row->afk<end>";
 			if($msg != "")
-				$this->send($msg, "guild");
+				bot::send($msg, "guild");
 		}
 	}
 }
