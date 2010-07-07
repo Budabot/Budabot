@@ -30,8 +30,17 @@
    */
 
 if (preg_match("/^tell (.+)$/i", $message, $arr)) {
-  	bot::send("<yellow>".$arr[1]."<end>");
-  	bot::send("<yellow>".$arr[1]."<end>");
-  	bot::send("<yellow>".$arr[1]."<end>");
+	if ($type == "msg") {
+		bot::send("<yellow>".$arr[1]."<end>", "guild", true);
+		bot::send("<yellow>".$arr[1]."<end>", "guild", true);
+		bot::send("<yellow>".$arr[1]."<end>", "guild", true);
+		bot::send("<yellow>".$arr[1]."<end>", "priv", true);
+		bot::send("<yellow>".$arr[1]."<end>", "priv", true);
+		bot::send("<yellow>".$arr[1]."<end>", "priv", true);
+	} else {
+		bot::send("<yellow>".$arr[1]."<end>", $sendto, true);
+		bot::send("<yellow>".$arr[1]."<end>", $sendto, true);
+		bot::send("<yellow>".$arr[1]."<end>", $sendto, true);
+	}
 }
 ?>
