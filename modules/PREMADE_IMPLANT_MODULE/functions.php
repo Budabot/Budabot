@@ -33,7 +33,6 @@ function searchBySlot($slot) {
 
 	global $db;
 	$sql = "SELECT * FROM premade_implant WHERE slot = '$slot' ORDER BY shiny, bright, faded";
-	echo $sql;
 	$db->query($sql);
 	return $db->fObject("all");
 }
@@ -46,6 +45,7 @@ function searchByModifier($modifier) {
 }
 
 function formatResults($implants) {
+	global $chatBot;
 	
 	$msg = "\n";
 	
@@ -57,7 +57,7 @@ function formatResults($implants) {
 		
 	if ($count > 3) {
 		
-		$msg = $this->makeLink('Results', $msg, 'text');
+		$msg = $chatBot->makeLink('Results', $msg, 'text');
 	}
 	
 	return $msg;
