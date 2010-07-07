@@ -49,13 +49,13 @@ if("1" == $this->settings['irc_status']) {
 	if($type == "joinPriv") {
 		fputs($socket, "PRIVMSG ".$this->settings['irc_channel']." :$msg\n");
 		if($this->settings['irc_debug_messages'] == 1) {
-			echo("[".date('H:i')."] [Out. IRC Msg.] $sender has joined the private chat\n");
+			newLine("IRC"," ","[Out. IRC Msg.] $sender has joined the private chat",0);
 		}
 	}
 	elseif($type == "logOn" && isset($this->guildmembers[$sender])) {
 		fputs($socket, "PRIVMSG ".$this->settings['irc_channel']." :$msg\n");
 		if($this->settings['irc_debug_messages'] == 1) {
-			echo("[".date('H:i')."] [Out. IRC Msg.] $sender has logged on\n");
+			newLine("IRC"," ","[Out. IRC Msg.] $sender has logged on",0);
 		}
 	}
 }

@@ -25,7 +25,7 @@ if ("1" == $this->settings['irc_status']) {
 
 		fputs($socket, "PRIVMSG ".$this->settings['irc_channel']." :$sender: $msg\n");
 		if ($this->settings['irc_debug_messages'] == 1) {
-			echo("[".date('H:i')."] [Out. IRC Msg.] $sender: $msg\n");
+			newLine("IRC"," ","[Out. IRC Msg.] $sender: $msg",0);
 		}
 	}
 }

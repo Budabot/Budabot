@@ -19,13 +19,16 @@ if(($data = fgets($socket)) && ("1" == $this->settings['irc_status'])) {
 	$nicka = explode('@', $ex[0]);
 	$nickb = explode('!', $nicka[0]);
 	$nickc = explode(':', $nickb[0]);
-
+	if($this->settings['irc_debug_all'] == 1)
+	{
+		newLine("IRC"," ",trim($data),0);
+	}
 	$host = $nicka[1];
 	$nick = $nickc[1];
 	if($ex[0] == "PING"){
 		fputs($socket, "PONG ".$ex[1]."\n");
 		if($this->settings['irc_debug_ping'] == 1) {
-			echo("[".date('H:i')."] [IRC] PING received. PONG sent.\n");
+			newLine("IRC"," ","PING received. PONG sent",0);
 		}
 	}
 	elseif($ex[1] == "QUIT") {
@@ -121,7 +124,7 @@ if(($data = fgets($socket)) && ("1" == $this->settings['irc_status'])) {
 		}
 		else {
 			if($this->settings['irc_debug_messages'] == 1) {
-				echo("[".date('H:i')."] [Inc. IRC Msg.] $nick: $ircmessage\n");
+				newLine("IRC"," ","[Inc. IRC Msg.] $nick: $ircmessage",0);
 			}
 			if($this->vars['my guild'] != "") {
 				bot::send("<yellow>[IRC]<end><green> $nick: $ircmessage<end>","guild",true);
