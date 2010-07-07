@@ -28,7 +28,7 @@
 		}
 	}
 	// Setup
-	bot::regevent("setup", "$MODULE_NAME/bbin_setup.php");
+	bot::loadSQLFile($MODULE_NAME, "bbin_chatlist");
 	
 	//Auto start BBIN connection, or turn it off
 	bot::event("connect", "$MODULE_NAME/set_bbin_link.php", "none", "Sets BBIN status at bootup.");
