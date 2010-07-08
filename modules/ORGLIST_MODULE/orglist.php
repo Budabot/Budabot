@@ -220,6 +220,9 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 				
 				$this->data["ORGLIST_MODULE"]["check"][$amember] = 1;
 				$this->add_buddy($amember, 'onlineorg');
+				
+				// wait 1 millisecond so the buddy list doesn't fill up too quickly
+				usleep(10000);
 			}
 		} elseif ($this->vars["name"] == $amember) { // Yes, this bot is online. Don't need a buddylist to tell me.
 			$this->data["ORGLIST_MODULE"]["result"][$amember]["online"] = 1;
