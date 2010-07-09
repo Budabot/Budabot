@@ -29,41 +29,41 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(!$sender) {
+if (-1 == $sender) {
     if(preg_match("/^(.+) turned the cloaking device in your city (on|off).$/i", $message, $arr)) {
         $db->query("INSERT INTO org_city_<myname> (`time`, `action`, `player`) VALUES ('".time()."', '".$arr[2]."', '".$arr[1]."')");
     } else if(preg_match("/^Your city in (.+) has been targeted by hostile forces.$/i", $message, $arr)) {
         $db->query("INSERT INTO org_city_<myname> (`time`, `action`) VALUES ('".time()."', 'Attack')");
     }
-} elseif(preg_match("/^city$/i", $message)) {
+} elseif (preg_match("/^city$/i", $message)) {
     $db->query("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 0, 20 ");
     if($db->numrows() == 0)
         $msg = "<highlight>Unknown status on city cloak!<end>";
     else {
         $row = $db->fObject();
-        if(((time() - $row->time) >= 60*60) && ($row->action == "off"))
+        if (((time() - $row->time) >= 60*60) && ($row->action == "off"))
             $msg = "The cloaking device is disabled. It is possible to enable it.";
-        elseif(((time() - $row->time) < 60*60) && ($row->action == "off"))
+        elseif (((time() - $row->time) < 60*60) && ($row->action == "off"))
             $msg = "The cloaking device is disabled. It is possible in ".round((($row->time + 60*60) - time())/60, 0)."min to enable it.";
-        elseif(((time() - $row->time) >= 60*60) && ($row->action == "on"))
+        elseif (((time() - $row->time) >= 60*60) && ($row->action == "on"))
             $msg = "The cloaking device is enabled. It is possible to disable it.";
-        elseif(((time() - $row->time) < 60*60) && ($row->action == "on"))
+        elseif (((time() - $row->time) < 60*60) && ($row->action == "on"))
             $msg = "The cloaking device is <green>enabled<end>. It is possible in ".round((($row->time + 60*60) - time())/60, 0)."min to disable it.";
 
         $list = "<header>::::: City History :::::<end>\n\n";
         $list .= "Time: <highlight>".gmdate("M j, Y, G:i", $row->time)." (GMT)<end>\n";
-        if($row->action == "Attack")
+        if ($row->action == "Attack")
             $list .= "Action: <highlight>City was under attack.<end>\n\n";
-        elseif($row->action == "on" || $row->action == "off") {
+        elseif ($row->action == "on" || $row->action == "off") {
             $list .= "Action: <highlight>Cloaking Device has been turned ".$row->action."<end>\n";
             $list .= "Player: <highlight>".$row->player."<end>\n\n";
         }
         
-        while($row = $db->fObject()) {
+        while ($row = $db->fObject()) {
             $list .= "Time: <highlight>".gmdate("M j, Y, G:i", $row->time)." (GMT)<end>\n";
-            if($row->action == "Attack")
+            if ($row->action == "Attack")
                 $list .= "Action: <highlight>City was under attack.<end>\n\n";
-            elseif($row->action == "on" || $row->action == "off") {
+            elseif ($row->action == "on" || $row->action == "off") {
                 $list .= "Action: <highlight>Cloaking Device has been turned ".$row->action."<end>\n";
                 $list .= "Player: <highlight>".$row->player."<end>\n\n";
             }
