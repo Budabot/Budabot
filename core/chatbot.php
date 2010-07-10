@@ -453,17 +453,17 @@ class bot extends AOChat{
 
 		// Send
 		if ($who == 'prv') { // Target is private chat by defult.
-			AOChat::send_privgroup($this->vars["name"],$this->settings["default priv color"].$message);
+			AOChat::send_privgroup($this->vars["name"], $this->settings["default priv color"].$message);
 			if ($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1 && !$disable_relay) {
 				AOChat::send_group($this->vars["my guild"], "</font>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}".bot::makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default priv color"]}$message</font>");
 			}
 		} else if ($who == $this->vars["my guild"] || $who == 'org') {// Target is guild chat.
-    		AOChat::send_group($this->vars["my guild"],$this->settings["default guild color"].$message);
+    		AOChat::send_group($this->vars["my guild"], $this->settings["default guild color"].$message);
 			if ($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1 && !$disable_relay) {
 				AOChat::send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my guild"]}]<end> {$this->settings["guest_color_username"]}".bot::makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default guild color"]}$message</font>");
 			}
 		} else if (AOChat::get_uid($who) != NULL) {// Target is a player.
-    		AOChat::send_tell($who,$this->settings["default tell color"].$message);
+    		AOChat::send_tell($who, $this->settings["default tell color"].$message);
 			// Echo
 			if ($this->settings['echo'] >= 1) newLine("Out. Msg.", $who, $message, $this->settings['echo']);
 		} else { // Public channels that are not myguild.
