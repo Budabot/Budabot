@@ -34,7 +34,6 @@
    */
 
 if (preg_match("/^(.+) just left your organization.$/", $message, $arr)) {
-
 	$actor = $arr[1];
 	$actee = "";
 	$action = "left";
@@ -43,9 +42,7 @@ if (preg_match("/^(.+) just left your organization.$/", $message, $arr)) {
 	
 	$sql = "INSERT INTO org_history ( actor, actee, action, organization, time ) VALUES ( '$actor', '$actee', '$action', '$organization', $time ) ";
 	$db->query($sql);
-
 } else if (preg_match("/^(.+) kicked (.+) from your organization.$/", $message, $arr)) {
-	echo "hi\n";
 	$actor = $arr[1];
 	$actee = $arr[2];
 	$action = "kicked";
@@ -53,11 +50,8 @@ if (preg_match("/^(.+) just left your organization.$/", $message, $arr)) {
 	$time = time();
 	
 	$sql = "INSERT INTO org_history ( actor, actee, action, organization, time ) VALUES ( '$actor', '$actee', '$action', '$organization', $time ) ";
-	echo $sql . "\n";
 	$db->query($sql);
-
 } else if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
-	
 	$actor = $arr[1];
 	$actee = $arr[2];
 	$action = "invited";
@@ -66,9 +60,7 @@ if (preg_match("/^(.+) just left your organization.$/", $message, $arr)) {
 	
 	$sql = "INSERT INTO org_history ( actor, actee, action, organization, time ) VALUES ( '$actor', '$actee', '$action', '$organization', $time ) ";
 	$db->query($sql);
-
 } else if (preg_match("/^(.+) removed inactive character (.+) from your organization.$/", $message, $arr)) {
-	
 	$actor = $arr[1];
 	$actee = $arr[2];
 	$action = "removed";
@@ -77,7 +69,6 @@ if (preg_match("/^(.+) just left your organization.$/", $message, $arr)) {
 	
 	$sql = "INSERT INTO org_history ( actor, actee, action, organization, time ) VALUES ( '$actor', '$actee', '$action', '$organization', $time ) ";
 	$db->query($sql);
-
 }
 
 ?>
