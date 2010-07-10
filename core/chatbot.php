@@ -1104,7 +1104,7 @@ class bot extends AOChat{
 			$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('$name', '$curMod', '$mode', '$setting', '$options', '$intoptions', '" . str_replace("'", "''", $description) . "', 'db', '$admin', '$help')");
 		  	$this->settings[$name] = $setting;
 	  	} else {
-			$db->query("UPDATE settings_<myname> SET `module` = '$module', `mode` = '$mode', `options` = '$options', `intoptions` = '$intoptions', `description` = '" . str_replace("'", "''", $description) . "', `admin` = '$admin', `help` = '$help' WHERE `name` = '$name'");
+			$db->query("UPDATE settings_<myname> SET `module` = '$curMod', `mode` = '$mode', `options` = '$options', `intoptions` = '$intoptions', `description` = '" . str_replace("'", "''", $description) . "', `admin` = '$admin', `help` = '$help' WHERE `name` = '$name'");
 		}
 	}
 
