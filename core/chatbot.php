@@ -1086,13 +1086,13 @@ class bot extends AOChat{
 /*===============================
 ** Name: addsetting
 ** Adds a setting to the list
-*/	function addsetting($name = 'none', $description = 'none', $mode = 'hide', $setting = 'none', $options = 'none', $intoptions = '0', $admin = 'mod', $help = '') {
+*/	function addsetting($name, $description = 'none', $mode = 'hide', $setting = 'none', $options = 'none', $intoptions = '0', $admin = 'mod', $help = '') {
 		global $db;
 		global $curMod;
 		$name = strtolower($name);
 
 		//Check if the file exists
-		if (($actual_filename = bot::verifyFilename($help)) != '' && $help != "") {
+		if ($help != '' && ($actual_filename = bot::verifyFilename($help)) != '') {
     		$filename = $actual_filename;
 		} elseif($help != "") {
 			echo "Error in registering the File $filename for Setting $name. The file doesn't exists!\n";
@@ -1100,17 +1100,17 @@ class bot extends AOChat{
 		}
 
 		if ($this->existing_settings[$name] != true) {
-			$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('$name', '$curMod', '$mode', '$setting', '$options', '$intoptions', '$description', 'db', '$admin', '$help')");
+			$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('$name', '$curMod', '$mode', '$setting', '$options', '$intoptions', '" . str_replace("'", "''", $description) . "', 'db', '$admin', '$help')");
 		  	$this->settings[$name] = $setting;
 	  	} else {
-			$db->query("UPDATE settings_<myname> SET `mode` = '$mode', `options` = '$options', `intoptions` = '$intoptions', `description` = '$description', `admin` = '$admin', `help` = '$help' WHERE `name` = '$name'");
+			$db->query("UPDATE settings_<myname> SET `mode` = '$mode', `options` = '$options', `intoptions` = '$intoptions', `description` = '" . str_replace("'", "''", $description) . "', `admin` = '$admin', `help` = '$help' WHERE `name` = '$name'");
 		}
 	}
 
 /*===============================
 ** Name: getsetting
 ** Gets an loaded setting
-*/	function getsetting($name = "none") {
+*/	function getsetting($name) {
 		$name = strtolower($name);
 		if (isset($this->settings[$name])) {
 	  		return $this->settings[$name];
@@ -1122,7 +1122,7 @@ class bot extends AOChat{
 /*===============================
 ** Name: savesetting
 ** Saves a setting to the db
-*/	function savesetting($name = "none", $newsetting = null) {
+*/	function savesetting($name, $newsetting = null) {
 		global $db;
 		$name = strtolower($name);
 		if ($newsetting === null) {
@@ -1130,7 +1130,7 @@ class bot extends AOChat{
 		}
 
 		if (isset($this->settings[$name])) {
-			$db->query("UPDATE settings_<myname> SET `setting` = '$newsetting' WHERE `name` = '$name'");
+			$db->query("UPDATE settings_<myname> SET `setting` = '" . str_replace("'", "''", $newsetting) . "' WHERE `name` = '$name'");
 			$this->settings[$name] = $newsetting;
 		} else {
 			return false;
