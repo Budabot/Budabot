@@ -29,6 +29,9 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-$db->exec("DELETE FROM priv_chatlist_<myname>");
+// only delete guest list when bot is starting up, not after it's started (when someone does !newplugins)
+if ($this->state != "ok") {
+	$db->exec("DELETE FROM priv_chatlist_<myname>");
+}
 
 ?>
