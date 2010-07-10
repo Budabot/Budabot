@@ -32,29 +32,33 @@
 $msg = "";
 $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$sender'");
 $numrows = $db->numrows();
-$row = $db->fObject();
-if($row->mode != "del" && $numrows == 1) {
+$org_member = $db->fObject();
+if ($org_member->mode != "del" && $numrows == 1) {
   	$db->query("SELECT * FROM guild_chatlist_<myname> WHERE `name` = '$sender'");
-	if($db->numrows() != 0)
-	    $db->query("UPDATE guild_chatlist_<myname> SET `profession` = '".$row->profession."', `guild` = '".$row->guild."', `rank` = '".$row->rank."', `breed` = '".$row->breed."', `level` = '".$row->level."', `ai_level` = '".$row->ai_level."' WHERE `name` = '$sender'");
-	else
-	    $db->query("INSERT INTO guild_chatlist_<myname> (`name`, `profession`, `guild`, `rank`, `breed`, `level`, `ai_level`) VALUES ('".$row->name."', '".$row->profession."', '".$row->guild."', '".$row->rank."', '".$row->breed."', '".$row->level."', '".$row->ai_level."')");
+	if ($db->numrows() != 0) {
+	    $db->exec("UPDATE guild_chatlist_<myname> SET `profession` = '$org_member->profession', `guild` = '$org_member->guild', `rank` = '$org_member->rank', `breed` = '$org_member->breed', `level` = '$org_member->level', `ai_level` = '$org_member->ai_level' WHERE `name` = '$sender'");
+	} else {
+	    $db->exec("INSERT INTO guild_chatlist_<myname> (`name`, `profession`, `guild`, `rank`, `breed`, `level`, `ai_level`) VALUES ('$org_member->name', '$org_member->profession', '$org_member->guild', '$org_member->rank', '$org_member->breed', '$org_member->level', '$org_member->ai_level')");
+	}
 
-    if(time() >= $this->vars["onlinedelay"]) {
-        if($row->firstname)
-            $msg = $row->firstname." ";
+    if (time() >= $this->vars["onlinedelay"]) {
+        if ($org_member->firstname) {
+            $msg = $org_member->firstname." ";
+		}
 
-        $msg .= "<highlight>\"".$row->name."\"<end> ";
+        $msg .= "<highlight>\"".$org_member->name."\"<end> ";
 
-        if($row->lastname)
-            $msg .= $row->lastname." ";
+        if ($org_member->lastname) {
+            $msg .= $org_member->lastname." ";
+		}
 
-        $msg .= "(Level <highlight>$row->level<end>/<green>$row->ai_level - $row->ai_rank<end>, $row->gender $row->breed <highlight>$row->profession<end>,";
+        $msg .= "(Level <highlight>$org_member->level<end>/<green>$org_member->ai_level - $org_member->ai_rank<end>, $org_member->gender $org_member->breed <highlight>$org_member->profession<end>,";
 
-        if($row->guild)
-            $msg .= " $row->rank of <highlight>$row->guild<end>) ";
-        else
+        if ($org_member->guild) {
+            $msg .= " $org_member->rank of <highlight>$org_member->guild<end>) ";
+        } else {
             $msg .= " Not in a guild.) ";
+		}
 
         $msg .= "logged on. ";
 
@@ -62,57 +66,60 @@ if($row->mode != "del" && $numrows == 1) {
         $main = false;
         // Check if $sender is hisself the main
         $db->query("SELECT * FROM alts WHERE `main` = '$sender'");
-        if($db->numrows() == 0){
+        if ($db->numrows() == 0) {
             // Check if $sender is an alt
             $db->query("SELECT * FROM alts WHERE `alt` = '$sender'");
-            if($db->numrows() != 0) {
+            if ($db->numrows() != 0) {
                 $row = $db->fObject();
                 $main = $row->main;
             }
-        } else
+        } else {
             $main = $sender;
+		}
 
         // If a main was found create the list
-        if($main) {
+        if ($main) {
             $list = "<header>::::: Alternative Character List :::::<end> \n \n";
             $list .= ":::::: Main Character\n";
             $list .= "<tab><tab>".bot::makeLink($main, "/tell ".$this->vars["name"]." whois $main", "chatcmd")." - ";
-            if(!isset($this->buddyList[$main]))
+            if (!isset($this->buddyList[$main])) {
                 $list .= "No status.\n";
-            elseif($this->buddyList[$main] == 1)
+            } else if ($this->buddyList[$main] == 1) {
                 $list .= "<green>Online<end>\n";
-            else
+            } else {
                 $list .= "<red>Offline<end>\n";
+			}
 
             $list .= ":::::: Alt Character(s)\n";
             $db->query("SELECT * FROM alts WHERE `main` = '$main'");
-            while($row = $db->fObject()) {
+            while ($row = $db->fObject()) {
                 $list .= "<tab><tab>".bot::makeLink($row->alt, "/tell ".$this->vars["name"]." whois $row->alt", "chatcmd")." - ";
-                if(!isset($this->buddyList[$row->alt]))
+                if (!isset($this->buddyList[$row->alt])) {
                     $list .= "No status.\n";
-                elseif($this->buddyList[$row->alt] == 1)
+                } else if ($this->buddyList[$row->alt] == 1) {
                     $list .= "<green>Online<end>\n";
-                else
+                } else {
                     $list .= "<red>Offline<end>\n";
+				}
             }
         }
 
-		if($main != $sender && $main != false) {
+		if ($main != $sender && $main != false) {
 			$alts = bot::makeLink("Alts", $list);
 			$msg .= "Main: <highlight>$main<end> ($alts) ";
-		} elseif($main != false) {
+		} else if ($main != false) {
   			$alts = bot::makeLink("Alts of $main", $list);
 			$msg .= "$alts ";
 		}
 
-        if ($row->logon_msg != '0') {
-            $msg .= " - " . $row->logon_msg;
+        if ($org_member->logon_msg != '0') {
+            $msg .= " - " . $org_member->logon_msg;
 		}
 
        	bot::send($msg, "guild", true);
 
 		//Guestchannel part
-		if($this->settings["guest_relay"] == 1) {
+		if ($this->settings["guest_relay"] == 1) {
 			bot::send($msg, "priv", true);
 		}
     }

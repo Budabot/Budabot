@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(isset($this->guildmembers[$sender]) && (time() >= $this->vars["topicdelay"])) {
+if (isset($this->guildmembers[$sender]) && (time() >= $this->vars["topicdelay"])) {
 	$time = time() - $this->settings["topic_time"];
 	$mins = floor($time / 60);
 	$hours = floor($mins / 60);
