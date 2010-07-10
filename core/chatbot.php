@@ -211,8 +211,7 @@ class bot extends AOChat{
 		$this->vars["15min"] 			= time() + $this->settings["CronDelay"];
 	}
 	
-	function get_buddy($name)
-    {
+	function get_buddy($name) {
 		if (($uid = $this->get_uid($name)) === false || !isset($this->buddyList[$uid])) {
 			return null;
 		} else {
@@ -220,8 +219,10 @@ class bot extends AOChat{
 		}
     }
 
-    function buddy_online($name)
-    {
+/*===============================
+** Name: buddy_online
+** Returns null when online status is unknown, 1 when buddy is online, 0 when buddy is offline
+*/	function buddy_online($name) {
 		$buddy = $this->get_buddy($name);
 		return ($buddy === null ? null : $buddy['online']);
     }
@@ -245,7 +246,7 @@ class bot extends AOChat{
 	}
 	
 	function remove_buddy($name, $type = '') {
-		if(($uid = $this->get_uid($name)) === false) {
+		if (($uid = $this->get_uid($name)) === false) {
 			return false;
 		} else if (isset($this->buddyList[$uid])) {
 			if (isset($this->buddyList[$uid]['types'][$type])) {
@@ -266,7 +267,7 @@ class bot extends AOChat{
 	}
 
 	function is_buddy($name, $type) {
-		if(($uid = $this->get_uid($name)) === false) {
+		if (($uid = $this->get_uid($name)) === false) {
 			return false;
 		} else {
 			if ($type == null || $type == false) {
