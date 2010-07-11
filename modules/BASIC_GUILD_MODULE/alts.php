@@ -99,6 +99,9 @@ elseif(preg_match("/^alts main (.+)$/i", $message, $arr)
 		$db->query("SELECT * FROM alts WHERE `main` = '$name_alt'");
 		if($db->numrows() != 0)
 			$msg = "You are already registered as main from someone.";
+		$db->query("SELECT * FROM alts WHERE `alt` = '$name_main'");
+		$row = $db->fObject();
+		$name_main = $row->main;
 		else 
 		{
 			$db->query("INSERT INTO alts (`alt`, `main`) VALUES ('$name_alt', '$name_main')");
