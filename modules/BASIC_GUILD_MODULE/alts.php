@@ -98,12 +98,14 @@ elseif(preg_match("/^alts main (.+)$/i", $message, $arr))
 		$db->query("REMOVE * FROM alts WHERE `alt` = '$name_alt'");
 		$db->query("SELECT * FROM alts WHERE `main` = '$name_alt'");
 		if($db->numrows() != 0)
+		{
 			$msg = "You are already registered as main from someone.";
-		$db->query("SELECT * FROM alts WHERE `alt` = '$name_main'");
-		$row = $db->fObject();
-		$name_main = $row->main;
+		}
 		else 
 		{
+			$db->query("SELECT * FROM alts WHERE `alt` = '$name_main'");
+			$row = $db->fObject();
+			$name_main = $row->main;
 			$db->query("INSERT INTO alts (`alt`, `main`) VALUES ('$name_alt', '$name_main')");
 			$msg = "You have been registered as an alt of $name_main.";
 		}
