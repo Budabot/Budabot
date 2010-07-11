@@ -87,7 +87,7 @@ if(preg_match("/^alts add (.+)$/i", $message, $arr)) {
         }
     }
 }
-elseif(preg_match("/^alts main (.+)$/i", $message, $arr)
+elseif(preg_match("/^alts main (.+)$/i", $message, $arr))
 {
 	$name_alt = $sender;
 	$name_main = ucfirst(strtolower($arr[1]));
