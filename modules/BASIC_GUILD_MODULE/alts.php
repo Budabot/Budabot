@@ -86,7 +86,28 @@ if(preg_match("/^alts add (.+)$/i", $message, $arr)) {
 			}
         }
     }
-} else if(preg_match("/^alts (.+)$/i", $message, $arr)) {
+}
+elseif(preg_match("/^alts main (.+)$/i", $message, $arr)
+{
+	$name_alt = $sender;
+	$name_main = ucfirst(strtolower($arr[1]));
+	$uid = $this->get_uid($name_main);
+	if (!$uid)
+		$msg .= " Player <highlight>$name_main<end> does not exist.";
+	if ($uid) {
+		$db->query("REMOVE * FROM alts WHERE `alt` = '$name_alt'");
+		$db->query("SELECT * FROM alts WHERE `main` = '$name_alt'");
+		if($db->numrows() != 0)
+			$msg = "You are already registered as main from someone.";
+		else 
+		{
+			$db->query("INSERT INTO alts (`alt`, `main`) VALUES ('$name_alt', '$name_main')");
+			$msg = "You have been registered as an alt of $name_main.";
+		}
+		
+	}
+}
+ else if(preg_match("/^alts (.+)$/i", $message, $arr)) {
     $name = ucfirst(strtolower($arr[1]));
     $uid = AoChat::get_uid($arr[1]);
     if(!$uid)
