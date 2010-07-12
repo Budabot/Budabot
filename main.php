@@ -42,6 +42,8 @@ echo "		****          http://www.budabot.com/         ****\n";
 echo "		**************************************************\n";
 echo "\n";
 
+date_default_timezone_set("UTC");
+
 if(isWindows()) {
     // Load Extention 
     dl("php_sockets.dll");
