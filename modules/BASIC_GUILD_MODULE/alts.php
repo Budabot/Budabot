@@ -95,7 +95,7 @@ elseif(preg_match("/^alts main (.+)$/i", $message, $arr))
 	if (!$uid)
 		$msg .= " Player <highlight>$name_main<end> does not exist.";
 	if ($uid) {
-		$db->query("REMOVE * FROM alts WHERE `alt` = '$name_alt'");
+		$db->query("REMOVE FROM alts WHERE `alt` = '$name_alt'");
 		$db->query("SELECT * FROM alts WHERE `main` = '$name_alt'");
 		if($db->numrows() != 0)
 		{
