@@ -2,29 +2,35 @@
 
 if (preg_match("/^raffle start (\d+) (.+)$/i", $message, $arr))
 {
-        if ($this->vars["Raffles"]["running"])
-        {
-            $msg = "<highlight>There is already a raffle in progress.";
-            bot::send($msg, $sendto);
-            return;
-        }
-        
-        $item = $arr[2];
-        $count = $arr[1];
-        $minutes = $this->settings["defaultraffletime"];
-        
-        $this->vars["Raffles"] = array(
-            "running" => true,
-            "owner" => $sender,
-            "item" => $item,
-            "count" => $count,
-            "time" => time() +  $minutes * 60,
-            "rafflees" => array(),
-            "lastresult" => NULL,
-            "sendto" => $sendto
-        );
-        
-        $jnRflMsg = "<header>:::::Raffle Controls:::::<end>
+    if ("msg" == $type)
+    {
+        $msg = "You can't start a raffle in tells, please use org-chat or private channel.";
+        bot::send($msg, $sendto);
+        return;
+    }
+    if ($this->vars["Raffles"]["running"])
+    {
+        $msg = "<highlight>There is already a raffle in progress.";
+        bot::send($msg, $sendto);
+        return;
+    }
+
+    $item = $arr[2];
+    $count = $arr[1];
+    $minutes = $this->settings["defaultraffletime"];
+
+    $this->vars["Raffles"] = array(
+        "running" => true,
+        "owner" => $sender,
+        "item" => $item,
+        "count" => $count,
+        "time" => time() +  $minutes * 60,
+        "rafflees" => array(),
+        "lastresult" => NULL,
+        "sendto" => $sendto
+    );
+
+    $jnRflMsg = "<header>:::::Raffle Controls:::::<end>
 <white>A raffle for $item (count: $count) has been started by $sender!<end>
 
 Click <a href='chatcmd:///tell <myname> <symbol>raffle join'>here</a> to join the raffle!
@@ -42,29 +48,35 @@ Click $link to join the raffle. Raffle will end in '$minutes Minutes'.
 
 elseif (preg_match("/^raffle start (.+)$/i", $message, $arr))
 {
-        if ($this->vars["Raffles"]["running"])
-        {
-            $msg = "<highlight>There is already a raffle in progress.";
-            bot::send($msg, $sendto);
-            return;
-        }
+    if ("msg" == $type)
+    {
+        $msg = "You can't start a raffle in tells, please use org-chat or private channel.";
+        bot::send($msg, $sendto);
+        return;
+    }
+    if ($this->vars["Raffles"]["running"])
+    {
+        $msg = "<highlight>There is already a raffle in progress.";
+        bot::send($msg, $sendto);
+        return;
+    }
 
-        $item = $arr[1];
-        $count = 1;
-        $minutes = $this->settings["defaultraffletime"];
+    $item = $arr[1];
+    $count = 1;
+    $minutes = $this->settings["defaultraffletime"];
 
-        $this->vars["Raffles"] = array(
-            "running" => true,
-            "owner" => $sender,
-            "item" => $item,
-            "count" => $count,
-            "time" => time() +  $minutes * 60,
-            "rafflees" => array(),
-            "lastresult" => NULL,
-            "sendto" => $sendto
-        );
+    $this->vars["Raffles"] = array(
+        "running" => true,
+        "owner" => $sender,
+        "item" => $item,
+        "count" => $count,
+        "time" => time() +  $minutes * 60,
+        "rafflees" => array(),
+        "lastresult" => NULL,
+        "sendto" => $sendto
+    );
 
-        $jnRflMsg = "<header>:::::Raffle Controls:::::<end>
+    $jnRflMsg = "<header>:::::Raffle Controls:::::<end>
 <white>A raffle for $item has been started by $sender!<end>
 
 Click <a href='chatcmd:///tell <myname> <symbol>raffle join'>here</a> to join the raffle!

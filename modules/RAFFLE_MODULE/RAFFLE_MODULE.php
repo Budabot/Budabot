@@ -6,7 +6,7 @@
 	bot::event("setup", "$MODULE_NAME/setup.php");
 
 	//raffle message
-	bot::command("priv guild", "$MODULE_NAME/raffle.php", "raffle", "all");
+	bot::command("", "$MODULE_NAME/raffle.php", "raffle", "all");
 	
 	//timer
 	bot::event("2sec", "$MODULE_NAME/check_raffle.php", "raffle", "Checks to see if raffle is over");

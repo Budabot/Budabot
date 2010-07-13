@@ -52,7 +52,7 @@ if (0 >= $tleft)
 }
 
 // at least 15 seconds should be between messages
-if (15 <= $timesincelastmsg)
+if (15 >= $timesincelastmsg)
 {
     return;
 }
