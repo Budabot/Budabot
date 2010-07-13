@@ -1,7 +1,17 @@
 <?php
 
 if (!isset($this->vars["Raffles"])) {
-    $this->vars["Raffles"] = array("inprog" => 0, "owner" => NULL, "lowid" => NULL, "highid" => NULL, "ql" => NULL, "time" => NULL, "rafflees" => NULL);
+    $this->vars["Raffles"] = array(
+        "running" => false,
+        "owner" => NULL,
+        "item" => NULL,
+        "count" => NULL,
+        "time" => NULL,
+        "rafflees" => NULL,
+        "lastresult" => NULL,
+        "lastmsgtime" => NULL,
+        "sendto" => NULL
+        );
 }
 
 ?>
