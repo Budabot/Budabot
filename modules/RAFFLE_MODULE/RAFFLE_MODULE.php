@@ -1,4 +1,14 @@
 <?php
+   /*
+   ** Author: Mindrila (RK1)
+   ** Description: Raffle module, inspired by the implementation in BeBot
+   ** Version: 1.0
+   **
+   ** Developed for: Budabot(http://budabot.com/)
+   **
+   ** Date(created): 13.07.2010
+   ** Date(last modified): 13.07.2010
+   */
 
 	$MODULE_NAME = "RAFFLE_MODULE";
         require_once 'raffle_func.php';

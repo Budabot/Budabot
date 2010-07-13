@@ -1,13 +1,22 @@
 <header>::::: Help on Raffle Commands. :::::<end>
 
-<highlight>Raffle off an item to orgmates (Tell or Guild Chat)<end>
-<tab><symbol>raffle 'insert your item here'
+<highlight>Raffle off items (if count is given, else one item is raffled)<end>
+<tab><symbol>raffle start (count) 'item'
 
-<highlight>Join the raffle (Tell)<end>
-<tab><symbol>joinRaffle
+<highlight>Cancel the raffle immediately<end>
+<tab><symbol>raffle cancel
 
-<highlight>Leave the raffle (Tell)<end>
-<tab><symbol>leaveRaffle
+<highlight>End the raffle immediately and post the result<end>
+<tab><symbol>raffle end
 
-<highlight>Check members who have entered the raffle (Tell or Guild Chat)<end>
-<tab><symbol>raffleStatus
+<highlight>Display the last result again<end>
+<tab><symbol>raffle result
+
+<highlight>Join the raffle<end>
+<tab><symbol>raffle join
+
+<highlight>Leave the raffle<end>
+<tab><symbol>raffle leave
+
+<highlight>To change the raffle duration in minutes:<end>
+<tab>/tell <myname> settings save defaultraffletime 'duration'

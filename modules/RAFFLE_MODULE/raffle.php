@@ -40,7 +40,7 @@ Click <a href='chatcmd:///tell <myname> <symbol>raffle leave'>here</a> if you wi
         $msg = "
 -----------------------------------------------------------------------
 A raffle for $item (count: $count) has been started by $sender!
-Click $link to join the raffle. Raffle will end in '$minutes Minutes'.
+Click $link to join the raffle. Raffle will end in $minutes minutes.
 -----------------------------------------------------------------------";
 
         $this->vars["Raffles"]["lastmsgtime"] = time();
@@ -86,7 +86,7 @@ Click <a href='chatcmd:///tell <myname> <symbol>raffle leave'>here</a> if you wi
         $msg = "
 -----------------------------------------------------------------------
 A raffle for $item has been started by $sender!
-Click $link to join the raffle. Raffle will end in '$minutes Minutes'.
+Click $link to join the raffle. Raffle will end in $minutes minutes'.
 -----------------------------------------------------------------------";
 
         $this->vars["Raffles"]["lastmsgtime"] = time();
