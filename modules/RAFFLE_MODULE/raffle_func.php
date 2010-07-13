@@ -79,8 +79,12 @@ function endraffle(&$bot)
         {
             $msg .= ", ";
         }
+        else
+        {
+            break;
+        }
     }
-    $msg .= " Congratulations. $link";
+    $msg .= " Congratulations. $results";
     $bot->vars["Raffles"]["lastresult"] = $msg;
     $bot->send($msg, $bot->vars["Raffles"]["sendto"]);
 }
