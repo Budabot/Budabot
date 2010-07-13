@@ -108,7 +108,7 @@ elseif (preg_match("/^raffle cancel$/i", $message, $arr))
          bot::send($msg, $sendto);
          return;
     }
-
+    $sendtobuffer = $this->vars["Raffles"]["sendto"];
     $this->vars["Raffles"] = array(
         "running" => false,
         "owner" => NULL,
@@ -117,7 +117,8 @@ elseif (preg_match("/^raffle cancel$/i", $message, $arr))
         "time" => NULL,
         "rafflees" => NULL,
         "lastresult" => "The last raffle was cancelled.",
-        "lastmsgtime" => NULL
+        "lastmsgtime" => NULL,
+        "sendto" => $sendtobuffer
         );
 
     $msg = "<highlight>The raffle was cancelled.<end>";
