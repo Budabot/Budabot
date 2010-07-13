@@ -8,6 +8,7 @@ if (preg_match("/^raffle start (\d+) (.+)$/i", $message, $arr))
         bot::send($msg, $sendto);
         return;
     }
+
     if ($this->vars["Raffles"]["running"])
     {
         $msg = "<highlight>There is already a raffle in progress.";
@@ -101,6 +102,13 @@ elseif (preg_match("/^raffle cancel$/i", $message, $arr))
         return;
     }
 
+    if (($this->vars["Raffles"]["owner"] != $sender) && (!isset($this->admins[$sender])))
+    {
+         $msg = "<highlight>Only the owner or admins may cancel the raffle.";
+         bot::send($msg, $sendto);
+         return;
+    }
+
     $this->vars["Raffles"] = array(
         "running" => false,
         "owner" => NULL,
@@ -113,7 +121,7 @@ elseif (preg_match("/^raffle cancel$/i", $message, $arr))
         );
 
     $msg = "<highlight>The raffle was cancelled.<end>";
-    bot::send($msg, $sendto);
+    bot::send($msg, $this->vars["Raffles"]["sendto"]);
 }
 
 elseif (preg_match("/^raffle end$/i", $message, $arr))
@@ -125,6 +133,13 @@ elseif (preg_match("/^raffle end$/i", $message, $arr))
         return;
     }
 
+    if (($this->vars["Raffles"]["owner"] != $sender) && (!isset($this->admins[$sender])))
+    {
+         $msg = "<highlight>Only the owner or admins may end the raffle.";
+         bot::send($msg, $sendto);
+         return;
+    }
+    
     endraffle($this);
     
 }
@@ -138,7 +153,7 @@ elseif (preg_match("/^raffle result$/i", $message, $arr))
         return;
     }
 
-    bot::send($this->vars["Raffles"]["lastresult"], $sendto);
+    bot::send("Last raffle result: ".$this->vars["Raffles"]["lastresult"], $sendto);
 }
 
 elseif (preg_match("/^raffle join$/i", $message, $arr))
