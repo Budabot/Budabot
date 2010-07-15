@@ -42,7 +42,7 @@ foreach($tmp as $key => $value) {
 if($ql)
 	$query .= " AND `lowql` <= $ql AND `highql` >= $ql";
 
-$db->query("SELECT * FROM nanos WHERE $query ORDER BY name, lowql  LIMIT 0, {$this->settings["maxnano"]}");
+$db->query("SELECT * FROM nanos WHERE $query ORDER BY lowql, name LIMIT 0, {$this->settings["maxnano"]}");
 $num = $db->numrows();
 if($num == 0) {
   	if($ql)
