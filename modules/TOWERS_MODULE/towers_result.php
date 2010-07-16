@@ -38,8 +38,8 @@ $listcount = 20;
 if (preg_match("/^battle(s?)$/i", $message) || preg_match("/^battle(s?) (.+)$/i", $message, $arr)) {
 
 	$search = '';
-	if ($arr[1] != "") {
-		$search = " WHERE `att_guild` LIKE '".str_replace("'", "''", $arr[1])."' OR `att_player` LIKE '".str_replace("'", "''", $arr[1])."' OR `def_guild` LIKE '".str_replace("'", "''", $arr[1])."' OR `zone` LIKE '".str_replace("'", "''", $arr[1])."' ";
+	if ($arr[2] != "") {
+		$search = " WHERE `att_guild` LIKE '".str_replace("'", "''", $arr[2])."' OR `att_player` LIKE '".str_replace("'", "''", $arr[2])."' OR `def_guild` LIKE '".str_replace("'", "''", $arr[2])."' OR `zone` LIKE '".str_replace("'", "''", $arr[2])."' ";
 	}
 
 	$db->query("SELECT * FROM tower_attack_<myname> $search ORDER BY `time` DESC LIMIT 0, $listcount");
@@ -75,17 +75,20 @@ if (preg_match("/^battle(s?)$/i", $message) || preg_match("/^battle(s?) (.+)$/i"
 
 } else if (preg_match("/^victory$/i", $message) || preg_match("/^victory (.+)$/i", $message, $arr)) {
 
-	if ($arr[1] == "") {$search = " ";}
-	else {$search = " WHERE `win_guild` LIKE '".str_replace("'", "''", $arr[1])."' OR `lose_guild` LIKE '".str_replace("'", "''", $arr[1])."' ";}
+	if ($arr[1] == "") {
+		$search = " ";
+	} else {
+		$search = " WHERE `win_guild` LIKE '".str_replace("'", "''", $arr[1])."' OR `lose_guild` LIKE '".str_replace("'", "''", $arr[1])."' ";
+	}
 
 	$db->query("SELECT * FROM tower_result_<myname>".$search."ORDER BY `time` DESC LIMIT 0, $listcount");
-	if($db->numrows() == 0 && $search == " ")
+	if ($db->numrows() == 0 && $search == " ") {
 		$msg = "No Tower results recorded yet.";
-	elseif($db->numrows() == 0)
+	} else if ($db->numrows() == 0) {
 		$msg = "No Tower results found within this search.";
-	else {
+	} else {
 		$list = "<header>::::: The last $listcount Tower Results :::::<end>\n\n".$colorvalue;
-        	while($row = $db->fObject()) {
+        while ($row = $db->fObject()) {
  			$list .= $colorlabel."Time:<end> ".gmdate("M j, Y, G:i", $row->time)." (GMT)\n";
 
 			if (!$win_side = strtolower($row->win_side)) {$win_side = "unknown";}
