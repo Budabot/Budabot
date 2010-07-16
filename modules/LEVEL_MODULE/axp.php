@@ -100,7 +100,7 @@ if(preg_match("/^axp$/i", $message)) {
     bot::send($msg, $sendto);
 } elseif(preg_match("/^axp ([0-9]+)$/i", $message, $arr)) {
     if($arr[1] >= 1 && $arr[1] <= 30) {
-        $msg = "With ailvl <highlight>".$arr[1]."<end> you need <highlight>".number_format($axp[$arr[1]])."<end> AXP to level up.";
+        $msg = "With ai lvl <highlight>".$arr[1]."<end> you need <highlight>".number_format($axp[$arr[1]])."<end> AXP to level up.";
     } else
         $msg = "You need to specify a lvl between 1 and 30.";
 
@@ -112,9 +112,9 @@ if(preg_match("/^axp$/i", $message)) {
             for($i = $arr[1]+1; $i <= $arr[2]; $i++)
                 $axp_comp += $axp[$i];
 
-            $msg = "From the beginning of ailvl <highlight>".$arr[1]."<end> to ailvl <highlight>".$arr[2]."<end> you need <highlight>".number_format($axp_comp)."<end> AXP to level up.";
+            $msg = "From the beginning of ai lvl <highlight>".$arr[1]."<end> to ai lvl <highlight>".$arr[2]."<end> you need <highlight>".number_format($axp_comp)."<end> AXP to level up.";
         } else {
-            $msg = "The startlevel can't be higher then the endlevel.";
+            $msg = "The start level can't be higher then the endlevel.";
 		}
     } else {
         $msg = "You need to specify a lvl between 1 and 30.";
