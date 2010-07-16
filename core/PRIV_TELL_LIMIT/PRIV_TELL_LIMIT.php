@@ -1,37 +1,49 @@
 <?php
-$MODULE_NAME = "PRIV_TELL_LIMIT";
+	$MODULE_NAME = "PRIV_TELL_LIMIT";
+	
+	require_once 'Whitelist.class.php';
+	
+	bot::loadSqlFile($MODULE_NAME, 'whitelist');
 	
 	//Set/Show Limits
-	bot::regcommand("msg", "$MODULE_NAME/config.php", "limits", "mod");	
+	bot::regcommand("msg", "$MODULE_NAME/config.php", "limits", "mod");
 	bot::regcommand("msg", "$MODULE_NAME/config.php", "limit", "mod");
+	bot::regcommand("msg", "$MODULE_NAME/whitelist.php", "whitelist", "mod");
+	
+	bot::regcommand("priv", "$MODULE_NAME/config.php", "limits", "mod");
+	bot::regcommand("priv", "$MODULE_NAME/config.php", "limit", "mod");
+	bot::regcommand("priv", "$MODULE_NAME/whitelist.php", "whitelist", "mod");
+	
+	bot::regcommand("guild", "$MODULE_NAME/config.php", "limits", "mod");
+	bot::regcommand("guild", "$MODULE_NAME/config.php", "limit", "mod");
+	bot::regcommand("guild", "$MODULE_NAME/whitelist.php", "whitelist", "mod");
 
 	//Set/Show minlvl for Tells
-	bot::regcommand("msg", "$MODULE_NAME/set_limits_tells.php", "tminlvl", "mod");	
+	bot::regcommand("msg", "$MODULE_NAME/set_limits_tells.php", "tminlvl", "mod");
 	bot::regcommand("priv", "$MODULE_NAME/set_limits_tells.php", "tminlvl", "mod");
 
 	//Set/Show general limit for Tells
-	bot::regcommand("msg", "$MODULE_NAME/set_limits_tells.php", "topen", "mod");	
+	bot::regcommand("msg", "$MODULE_NAME/set_limits_tells.php", "topen", "mod");
 	bot::regcommand("priv", "$MODULE_NAME/set_limits_tells.php", "topen", "mod");
 
 	//Set/Show faction limit for Tells
-	bot::regcommand("msg", "$MODULE_NAME/set_limits_tells.php", "tfaction", "mod");	
+	bot::regcommand("msg", "$MODULE_NAME/set_limits_tells.php", "tfaction", "mod");
 	bot::regcommand("priv", "$MODULE_NAME/set_limits_tells.php", "tfaction", "mod");
 
-
 	//Set/Show minlvl for privategroup
-	bot::regcommand("msg", "$MODULE_NAME/set_limits_priv.php", "minlvl", "mod");	
+	bot::regcommand("msg", "$MODULE_NAME/set_limits_priv.php", "minlvl", "mod");
 	bot::regcommand("priv", "$MODULE_NAME/set_limits_priv.php", "minlvl", "mod");
 
 	//Set/Show general limit for privategroup
-	bot::regcommand("msg", "$MODULE_NAME/set_limits_priv.php", "open", "mod");	
+	bot::regcommand("msg", "$MODULE_NAME/set_limits_priv.php", "open", "mod");
 	bot::regcommand("priv", "$MODULE_NAME/set_limits_priv.php", "open", "mod");
 
 	//Set/Show faction limit for privategroup
-	bot::regcommand("msg", "$MODULE_NAME/set_limits_priv.php", "faction", "mod");	
+	bot::regcommand("msg", "$MODULE_NAME/set_limits_priv.php", "faction", "mod");
 	bot::regcommand("priv", "$MODULE_NAME/set_limits_priv.php", "faction", "mod");
 
 	//Set/Show faction limit for privategroup
-	bot::regcommand("msg", "$MODULE_NAME/set_limits_priv.php", "faction", "mod");	
+	bot::regcommand("msg", "$MODULE_NAME/set_limits_priv.php", "faction", "mod");
 	bot::regcommand("priv", "$MODULE_NAME/set_limits_priv.php", "faction", "mod");
 
 	//Settings

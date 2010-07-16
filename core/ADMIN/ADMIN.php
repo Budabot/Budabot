@@ -1,5 +1,5 @@
 <?php 
-$MODULE_NAME = "ADMIN";
+	$MODULE_NAME = "ADMIN";
 
 	//Commands	
 	bot::regcommand("msg", "$MODULE_NAME/addadmin.php", "addadmin", "admin");
