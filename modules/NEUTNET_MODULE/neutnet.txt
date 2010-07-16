@@ -1,0 +1,18 @@
+Bots
+You can register your bot to Neutnet and it gets the spam first. However, there are some limitations to this:
+
+    * Person registering the bot has to be at least level 150
+    * The bot needs to be member of an organization
+    * Person registering and the bot need to be in same organization
+    * If the registered owner of the bot joins a different organization or there is a mismatch between the organization of the bot and the owner, the subscription will be automatically removed.
+    * Bot cannot have alts
+
+
+/tell neutnet !registerbot <botname>
+Registers the bot with the system
+
+/tell neutnet !unregisterbot <botname>
+Removes the bot registration
+
+/tell neutnet !statusbot <botname>
+Shows control panel for the bot. With the control panel, you can subscribe and unsubscribe channels.
