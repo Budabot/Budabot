@@ -45,11 +45,9 @@ if (preg_match("/^battle(s?)$/i", $message) || preg_match("/^battle(s?) (.+)$/i"
 	$db->query("SELECT * FROM tower_attack_<myname> $search ORDER BY `time` DESC LIMIT 0, $listcount");
 
 	if($db->numrows() == 0 && $search == " ") {
-        	$msg = "No Tower messages recorded yet.";
-
-    	} elseif($db->numrows() == 0) {
+        $msg = "No Tower messages recorded yet.";
+    } elseif($db->numrows() == 0) {
 		$msg = "No Tower messages found within this search.";
-
 	} else {
 		$list = "<header>::::: The last $listcount Tower Attacks :::::<end>\n\n".$colorvalue;
 
