@@ -17,17 +17,12 @@
 if (preg_match("/^inspect (.+)$/i", $message, $arr)) {
 	$realword = $arr[1];
 	if (
-		preg_match("/<a href=\"itemref:\/\/[0-9]{6}/[0-9]{6}/[0-9]{1,3}\">Christmas Gift</a>/i",$realword) ||
-		preg_match("/<a href=\"itemref:\/\/[0-9]{6}/[0-9]{6}/[0-9]{1,3}\">Expensive Gift from Earth</a>/i",$realword) ||
-		preg_match("/<a href=\"itemref:\/\/[0-9]{6}/[0-9]{6}/[0-9]{1,3}\">Light Perennium Container</a>/i",$realword)) {
-		$idql = str_replace("<a href=\"itemref://","",$realword);
-		$idql = str_replace("\">Christmas Gift</a>","",$idql);
-		$idql = str_replace("\">Expensive Gift from Earth</a>","",$idql);
-		$idql = str_replace("\">Light Perennium Container</a>","",$idql);
-		$splitidql = split('/',$idql);
-		$lid = $splitidql[0];
-		$hid = $splitidql[1];
-		$ql = $splitidql[2];
+		preg_match("/<a href=\"itemref:\/\/(\d{6})\/(\d{6})\/(\d{1,3})\">Christmas Gift<\/a>/i",$realword,$idql) ||
+		preg_match("/<a href=\"itemref:\/\/(\d{6})\/(\d{6})\/(\d{1,3})\">Expensive Gift from Earth<\/a>/i",$realword,$idql) ||
+		preg_match("/<a href=\"itemref:\/\/(\d{6})\/(\d{6})\/(\d{1,3})\">Light Perennium Container<\/a>/i",$realword,$idql)) {
+		$lid = $idql[1];
+		$hid = $idql[2];
+		$ql = $idql[3];
 		
 		switch ($hid) {
 		 case 205842:
