@@ -1109,9 +1109,9 @@
 		),
       
 		2005 => array(
-			0x00 => "Neutral",
-            0x01 => "Clan",
-            0x02 => "Omni"
+			0x00 => "neutral",
+            0x01 => "clan",
+            0x02 => "omni"
 		),
     );
     public $type, $args, $category, $instance;
