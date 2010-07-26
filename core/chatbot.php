@@ -1370,22 +1370,24 @@ class bot extends AOChat{
 				else if (preg_match("/^Error!/si", $message, $arr))
 					return;
 
-				if($this->settings["Ignore"][$sender] == true || $this->banlist["$sender"]["name"] == "$sender" || ($this->spam[$sender] > 100 && $this->vars['spam protection'] == 1)){
+				if ($this->settings["Ignore"][$sender] == true || $this->banlist["$sender"]["name"] == "$sender" || ($this->spam[$sender] > 100 && $this->vars['spam protection'] == 1)){
 					$this->spam[$sender] += 20;
 					return;
 				}
 
 				//Remove the prefix infront if there is one
-				if($message[0] == $this->settings["symbol"] && strlen($message) > 1)
+				if ($message[0] == $this->settings["symbol"] && strlen($message) > 1) {
 					$message = substr($message, 1);
+				}
 
 				// Check privatejoin and tell Limits
-				if(file_exists("./core/PRIV_TELL_LIMIT/check.php"))
+				if (file_exists("./core/PRIV_TELL_LIMIT/check.php")) {
 					include("./core/PRIV_TELL_LIMIT/check.php");
+				}
 
 				// Events
-				if($this->privMsgs != NULL) {
-					foreach($this->privMsgs as $file) {
+				if ($restricted != true && $this->privMsgs != NULL) {
+					forEach ($this->privMsgs as $file) {
 						$msg = "";
 						include $file;
 					}
