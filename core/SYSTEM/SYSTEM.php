@@ -21,6 +21,10 @@
 	bot::regcommand("msg", "$MODULE_NAME/uptime.php", "uptime", "all");
 	bot::regcommand("priv", "$MODULE_NAME/uptime.php", "uptime", "all");
 	bot::regcommand("guild", "$MODULE_NAME/uptime.php", "uptime", "all");
+	
+	bot::regcommand("msg", "$MODULE_NAME/memory.php", "memory", "all");
+	bot::regcommand("priv", "$MODULE_NAME/memory.php", "memory", "all");
+	bot::regcommand("guild", "$MODULE_NAME/memory.php", "memory", "all");
 
 	//Help Files
 	bot::help("systemhelp", "$MODULE_NAME/system.txt", "admin", "Admin System Help file.", "Administration");
