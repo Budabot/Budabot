@@ -131,7 +131,8 @@ if (preg_match("/^stats$/i", $message, $arr)) {
 		<a href=skillid://676>Profession Duel Kills</a>
 		<a href=skillid://677>Profession Duel Deaths</a>
 		<a href=skillid://679>Solo Deaths</a>
-		<a href=skillid://681>Team Deaths</a>";
+		<a href=skillid://681>Team Deaths</a>
+		<a href=skillid://410>Number of fighting opponents</a>";
 
 	$msg = bot::makeLink('Stats', $window, 'blob');
 
