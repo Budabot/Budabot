@@ -128,9 +128,10 @@ if (preg_match("/^stats$/i", $message, $arr)) {
 		<a href=skillid://517>Special Attack Blockers</a>
 		<a href=skillid://199>Reset Points</a>
 		<a href=skillid://360>Scale</a>
-		<a href=skillid://201>Char base aggro</a> (unknown)
-		<a href=skillid://202>Char stability</a> (unknown)
-		<a href=skillid://203>Char extroverty</a> (unknown)";
+		<a href=skillid://676>Profession Duel Kills</a>
+		<a href=skillid://677>Profession Duel Deaths</a>
+		<a href=skillid://679>Solo Deaths</a>
+		<a href=skillid://681>Team Deaths</a>";
 
 	$msg = bot::makeLink('Stats', $window, 'blob');
 
