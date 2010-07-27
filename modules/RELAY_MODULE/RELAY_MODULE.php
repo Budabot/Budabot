@@ -1,6 +1,5 @@
 <?php
 	$MODULE_NAME = "RELAY_MODULE";
-	$PLUGIN_VERSION = 1.0;
 	
 	require_once("functions.php");
 	

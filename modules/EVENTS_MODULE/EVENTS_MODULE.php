@@ -1,6 +1,5 @@
 <?php 
 	$MODULE_NAME = "EVENTS_MODULE";
-	$PLUGIN_VERSION = 1.0;
 
 	//Commands
 	bot::command("", "$MODULE_NAME/events.php", "events", "all", "Views events");

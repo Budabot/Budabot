@@ -1,6 +1,5 @@
 <?php
 	$MODULE_NAME = "NEWS_MODULE";
-	$PLUGIN_VERSION = 1.0;
 
 	//News
     bot::event("logOn", "$MODULE_NAME/news_logon.php", "none", "Show News on logon of members");  	

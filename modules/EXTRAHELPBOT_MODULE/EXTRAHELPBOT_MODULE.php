@@ -1,6 +1,5 @@
 <?php
 	$MODULE_NAME = "EXTRAHELPBOT_MODULE";
-	$PLUGIN_VERSION = 0.1;
  
 	bot::command("", "$MODULE_NAME/mobloot.php", "mobloot", "all", "loot QL Infos ");
 	bot::command("", "$MODULE_NAME/random.php", "random", "all", "Random order");

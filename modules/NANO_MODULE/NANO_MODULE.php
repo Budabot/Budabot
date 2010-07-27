@@ -1,6 +1,5 @@
 <?php
 	$MODULE_NAME = "NANO_MODULE";
-	$PLUGIN_VERSION = 1.0;
 
 	//Search for Database Updates
 	bot::loadSQLFile($MODULE_NAME, "nanos");

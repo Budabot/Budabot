@@ -33,7 +33,6 @@
    */
 
 	$MODULE_NAME = "ORG_MSG_RELAY_MODULE";
-	$PLUGIN_VERSION = 1.0;
 
 	//Org messages
     bot::event("orgmsg", "$MODULE_NAME/org_messages.php", "none", "Capture Org Messages");

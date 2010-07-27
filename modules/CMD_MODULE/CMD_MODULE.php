@@ -1,6 +1,5 @@
 <?php 
 	$MODULE_NAME = "CMD_MODULE";
-	$PLUGIN_VERSION = 1.0;
 
 	//Tell
 	bot::command("", "$MODULE_NAME/cmd.php", "cmd", "rl", "Creates a highly visible messaage");

@@ -1,6 +1,5 @@
 <?php
 	$MODULE_NAME = "BASIC_GUILD_MODULE";
-	$PLUGIN_VERSION = 1.0;
 
 	//Setup of the Basic Guild Modules
 	bot::event("setup", "$MODULE_NAME/setup.php");

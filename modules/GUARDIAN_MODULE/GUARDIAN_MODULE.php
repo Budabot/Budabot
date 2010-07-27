@@ -1,6 +1,5 @@
 <?php
 	$MODULE_NAME = "GUARDIAN_MODULE";
-	$PLUGIN_VERSION = 1.0;
 
 	//Guardian module
 	bot::event("leavePriv", "$MODULE_NAME/left_chat.php", "guard");

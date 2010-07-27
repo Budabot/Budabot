@@ -1,6 +1,5 @@
 <?php
-$MODULE_NAME = "TIMERS_MODULE";
-$PLUGIN_VERSION = 0.1;
+	$MODULE_NAME = "TIMERS_MODULE";
 
 	bot::event("setup", "$MODULE_NAME/setup.php");
 

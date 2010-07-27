@@ -1,6 +1,5 @@
 <?php
-$MODULE_NAME = "CAP_XP_MODULE";
-$PLUGIN_VERSION = 0.1;
+	$MODULE_NAME = "CAP_XP_MODULE";
 
 	//Max XP calculator
 	bot::command("", "$MODULE_NAME/cap_xp.php", "capsk", "all", "Max SK Calculator");

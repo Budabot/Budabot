@@ -1,6 +1,5 @@
 <?php
 	$MODULE_NAME = "BANK_MODULE";
-	$PLUGIN_VERSION = 0.1;
 
 	// Bank browse
 	bot::command("", "$MODULE_NAME/bankbrowse.php", "bank", "all", "Browse the Org Bank.");

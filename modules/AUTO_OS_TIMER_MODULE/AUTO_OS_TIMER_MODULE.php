@@ -33,7 +33,6 @@
    */
 
 	$MODULE_NAME = "AUTO_OS_TIMER_MODULE";
-	$PLUGIN_VERSION = 1.0;
 
 	//Org messages
     bot::event("orgmsg", "$MODULE_NAME/os_timer.php", "none", "Sets a timer when an OS/AS is launched");

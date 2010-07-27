@@ -1,6 +1,5 @@
 <?php 
-$MODULE_NAME = "HELP";
-$PLUGIN_VERSION = 0.1;
+	$MODULE_NAME = "HELP";
 
 	//Commands
 	bot::regcommand("msg", "$MODULE_NAME/general_help.php", "about");

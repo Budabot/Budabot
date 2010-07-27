@@ -1,6 +1,5 @@
 <?php
 	$MODULE_NAME = "BIOR_MODULE";
-	$PLUGIN_VERSION = 1.0;
 
 	//Bio Regrowth module
 	bot::event("leavePriv", "$MODULE_NAME/left_chat.php", "bior");

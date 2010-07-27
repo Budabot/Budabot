@@ -1,6 +1,5 @@
 <?php 
 	$MODULE_NAME = "SYSTEM";
-	$PLUGIN_VERSION = 0.1;
 
 	//Load extended messages
 	bot::loadSQLFile($MODULE_NAME, "mmdb");

@@ -1,7 +1,5 @@
 <?php
 	$MODULE_NAME = "LEVEL_MODULE";
-	$PLUGIN_VERSION = 0.1;
-	$FOLDER = $dir;
 	
 	bot::loadSQLFile($MODULE_NAME, 'levels');
 

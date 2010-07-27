@@ -1,6 +1,5 @@
 <?php
-$MODULE_NAME = "CONFIG";
-$PLUGIN_VERSION = 0.1;
+	$MODULE_NAME = "CONFIG";
 
 	//Commands
 	bot::regcommand("msg", "$MODULE_NAME/cmdcfg.php", "config", "mod");

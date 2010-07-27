@@ -1,6 +1,5 @@
 <?php
 	$MODULE_NAME = "SKILLS_MODULE";
-	$PLUGIN_VERSION = 1.0;
 
 	//Skills module
 
@@ -18,5 +17,4 @@
 
 	//Helpiles
 	bot::help("skills", "$MODULE_NAME/skills.txt", "all", "Explains the various Skill commands", "Skills");
-
 ?>

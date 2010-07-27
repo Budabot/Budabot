@@ -1,6 +1,5 @@
 <?php
 	$MODULE_NAME = "FUN_MODULE";
-	$PLUGIN_VERSION = 1.0;
 
 	// Ding
 	bot::command("", "$MODULE_NAME/ding.php", "ding", "all", "Shows a random ding gratz message.");

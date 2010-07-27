@@ -30,18 +30,17 @@
    */
    
 	$MODULE_NAME = "CITY_CLOAK_MODULE";
-	$PLUGIN_VERSION = 0.1;
 	
 	bot::loadSQLFile($MODULE_NAME, 'org_city');
 
-    bot::command("guild", "$MODULE_NAME/city_guild.php", "city", "all", "Shows the status of the Citycloak");
+    bot::command("", "$MODULE_NAME/city_guild.php", "city", "guild", "Shows the status of the Citycloak");
 
-    bot::event("guild", "$MODULE_NAME/city_guild.php", "city");
+	bot::event("guild", "$MODULE_NAME/city_guild.php", "city");
     bot::event("1min", "$MODULE_NAME/city_guild_timer.php", "city");
 	bot::event("1min", "$MODULE_NAME/city_guild_raise_cloak.php", "city", "Reminds the player who lowered cloak to raise it when it can be raised.");
 	bot::event("logOn", "$MODULE_NAME/city_guild_logon.php", "city", "Displays summary of city status.");
 	
-	bot::addsetting("showcloakstatus","Show cloak status to players at logon","edit","1","Never;When cloak is down;Always","0;1;2");
+	bot::addsetting("showcloakstatus", "Show cloak status to players at logon", "edit", "1", "Never;When cloak is down;Always", "0;1;2");
 	
 	// Helpfiles
 	bot::help("citycloak", "$MODULE_NAME/citycloak.txt", "guild", "Status of the citycloak", "Org Commands");

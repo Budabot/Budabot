@@ -1,7 +1,5 @@
 <?php
-
 	$MODULE_NAME = "PANDE_MODULE";
-	$PLUGIN_VERSION = 1.0;
 	
 	// Pande loot manager
 	bot::command("", "$MODULE_NAME/pandeloot.php", "beastarmor", "all", "Shows Possible Beast Armor Loot");
@@ -26,5 +24,4 @@
 
 	//Helpfiles
 	bot::help("pande", "$MODULE_NAME/pande.txt", "all", "Loot manager for Pandemonium Raid loot", "Pandemonium Loot Manager");
-
 ?>

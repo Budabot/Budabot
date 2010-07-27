@@ -1,6 +1,5 @@
 <?php
-$MODULE_NAME = "TOWERS_MODULE";
-$PLUGIN_VERSION = 0.1;
+	$MODULE_NAME = "TOWERS_MODULE";
 
 	//Tower messages
     bot::event("towers", "$MODULE_NAME/towers_messages.php", "none", "Show Attack Messages"); 

@@ -30,8 +30,6 @@
    */
    
 	$MODULE_NAME = "GUIDEBOT_MODULE";
-	$PLUGIN_VERSION = 1.0;
-	$FOLDER = $dir;
 
 	//A Message From Organization's Leader
 	bot::command("", "$MODULE_NAME/message4org.php", "MESSAGE4ORG", "ALL", "A MESSAGE FROM PLUGSZ");

@@ -1,6 +1,5 @@
 <?php
 	$MODULE_NAME = "POCKETBOSS_MODULE";
-	$PLUGIN_VERSION = 1.0;
 
 	//Setup
 	bot::loadSQLFile($MODULE_NAME, "pocketboss");
