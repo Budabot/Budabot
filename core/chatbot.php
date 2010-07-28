@@ -1382,7 +1382,7 @@ class bot extends AOChat{
 
 				// Check privatejoin and tell Limits
 				if (file_exists("./core/PRIV_TELL_LIMIT/check.php")) {
-					include("./core/PRIV_TELL_LIMIT/check.php");
+					include "./core/PRIV_TELL_LIMIT/check.php";
 				}
 
 				// Events

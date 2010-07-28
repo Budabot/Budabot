@@ -1,4 +1,4 @@
 <?php
-$db->query("DELETE FROM wave_counter_<myname>");
+unset($this->data["CITY_WAVE"]);
 bot::send("Raid stopped.", "guild");
 ?>

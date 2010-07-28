@@ -1,10 +1,9 @@
 <?php
-$db->query("SELECT * FROM wave_counter_<myname>");
-if ($db->numrows() == 1) {
-	$row = $db->fObject();
-	$stime = $row->time;
+
+if (isset($this->data["CITY_WAVE"])) {
+	$stime = $this->data["CITY_WAVE"]['time'];
 	$now = time();
-	$wave = $row->wave;
+	$wave = $this->data["CITY_WAVE"]['wave'];
 	if ($wave != 2) {
 		if ($stime >= $now + 13 - $wave * 120 && $stime <= $now + 17 - $wave * 120) {
 			if ($wave != 9) {
@@ -13,22 +12,22 @@ if ($db->numrows() == 1) {
 				$this->send("General Incoming.", "guild");
 			}
 			$wave++;
-			$db->query("UPDATE `wave_counter_<myname>` SET `wave` = $wave");
+			$this->data["CITY_WAVE"]['wave'] = $wave;
 			if ($wave == 10) {
 				// if raid is over, delete wave data
-				$db->query("DELETE FROM wave_counter_<myname>");
+				unset($this->data["CITY_WAVE"]);
 			}
 		}
 	} elseif ($stime >= $now + 13 - 270 && $stime <= $now + 17 - 270) {
 		$this->send("Wave $wave Incoming.", "guild");
 		$wave++;
-		$db->query("UPDATE `wave_counter_<myname>` SET `wave` = $wave");
+		$this->data["CITY_WAVE"]['wave'] = $wave;
 	}
 	if ($stime < $now - 10 * 120) {
-		$db->query("DELETE FROM wave_counter_<myname> WHERE `wave` = $wave");
+		unset($this->data["CITY_WAVE"]);
 	}
 } else {
-	$db->query("DELETE FROM wave_counter_<myname>");
+	unset($this->data["CITY_WAVE"]);
 }
 
 ?>
