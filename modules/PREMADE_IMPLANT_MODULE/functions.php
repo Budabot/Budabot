@@ -57,6 +57,7 @@ function formatResults($implants) {
 		
 	if ($count > 3) {
 		
+		$msg .= "\n\nProvided by Demoder(RK2)";
 		$msg = bot::makeLink('Results', $msg, 'text');
 	}
 	
