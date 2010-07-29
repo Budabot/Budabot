@@ -5,7 +5,7 @@
 		// add neutnet bots to whitelist
 		$NUM_BOTS = 14;
 		for ($i = 0; $i <= $NUM_BOTS; $i++) {
-			Whitelist::add($MODULE_NAME, "Neutnet$i");
+			Whitelist::add("Neutnet$i", $MODULE_NAME);
 		}
 		
 		bot::event("msg", "$MODULE_NAME/neutnet.php", 'none', 'Relays neutnet shopping messages to a channel/player');
