@@ -14,8 +14,8 @@
 	bot::event("extJoinPrivRequest", "$MODULE_NAME/invite.php", "none", "");
 	
 	// Logon and Logoff messages
-	bot::event("logOn", "$MODULE_NAME/relay_guild_logon.php", "grc", "Sends Logon messages");
-	bot::event("logOff", "$MODULE_NAME/relay_guild_logoff.php", "grc", "Sends Logoff messages");
+	bot::event("logOn", "$MODULE_NAME/relay_guild_logon.php", "none", "Sends Logon messages");
+	bot::event("logOff", "$MODULE_NAME/relay_guild_logoff.php", "none", "Sends Logoff messages");
 	
 	// Settings
 	bot::addsetting("relaytype", "Type of relay", "edit", "1", "tell;pgroup", '1;2', "mod", "");
