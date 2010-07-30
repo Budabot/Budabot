@@ -4,7 +4,7 @@
    ** Description: Lookup inactive org members
    */
 $table = "org_members_<myname>";  //org_members_<myname>
-if(preg_match("/^inactivemem ([0-9]+)/i", $message, $arr)) {
+if (preg_match("/^inactivemem ([0-9]+)/i", $message, $arr)) {
 	
 	if($this->vars["my guild id"] == "") {
 	    bot::send("The Bot needs to be in an org to show the orgmembers.", $sender);
@@ -70,5 +70,7 @@ if(preg_match("/^inactivemem ([0-9]+)/i", $message, $arr)) {
 	$msg = bot::makeLink("$numinactive Inactive Org Members (Since {$arr[1]} months)",$list);
 	if($msg != "")
 		bot::send($msg, $sender);
+} else {
+	$syntax_error = true;
 }
 ?>
