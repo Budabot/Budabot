@@ -24,6 +24,14 @@
 	bot::regcommand("msg", "$MODULE_NAME/memory.php", "memory", "all");
 	bot::regcommand("priv", "$MODULE_NAME/memory.php", "memory", "all");
 	bot::regcommand("guild", "$MODULE_NAME/memory.php", "memory", "all");
+	
+	bot::regcommand("msg", "$MODULE_NAME/cmdlist.php", "cmdlist", "mod");
+	bot::regcommand("priv", "$MODULE_NAME/cmdlist.php", "cmdlist", "mod");
+	bot::regcommand("guild", "$MODULE_NAME/cmdlist.php", "cmdlist", "mod");
+	
+	bot::regcommand("msg", "$MODULE_NAME/eventlist.php", "eventlist", "mod");
+	bot::regcommand("priv", "$MODULE_NAME/eventlist.php", "eventlist", "mod");
+	bot::regcommand("guild", "$MODULE_NAME/eventlist.php", "eventlist", "mod");
 
 	//Help Files
 	bot::help("systemhelp", "$MODULE_NAME/system.txt", "admin", "Admin System Help file.", "Administration");
