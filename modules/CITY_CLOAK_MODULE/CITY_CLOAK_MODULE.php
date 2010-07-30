@@ -35,8 +35,8 @@
 
     bot::command("", "$MODULE_NAME/city_guild.php", "city", "guild", "Shows the status of the Citycloak");
 
-	bot::event("guild", "$MODULE_NAME/city_guild.php", "city");
-    bot::event("1min", "$MODULE_NAME/city_guild_timer.php", "city");
+	bot::event("guild", "$MODULE_NAME/city_guild.php", "city", "Records when the cloak is raised or lowered");
+    bot::event("1min", "$MODULE_NAME/city_guild_timer.php", "city", "Checks timer to see if cloak can be raised or lowered");
 	bot::event("1min", "$MODULE_NAME/city_guild_raise_cloak.php", "city", "Reminds the player who lowered cloak to raise it when it can be raised.");
 	bot::event("logOn", "$MODULE_NAME/city_guild_logon.php", "city", "Displays summary of city status.");
 	
@@ -48,6 +48,6 @@
 	// Auto Wave
 	bot::command("guild","$MODULE_NAME/start.php", "startraid");
 	bot::command("guild","$MODULE_NAME/stopraid.php", "stopraid");
-	bot::event("guild", "$MODULE_NAME/start.php");
-	bot::event("2sec", "$MODULE_NAME/counter.php");
+	bot::event("guild", "$MODULE_NAME/start.php", "none", "Starts a wave counter when cloak is lowered");
+	bot::event("2sec", "$MODULE_NAME/counter.php", "none", "Checks timer to see when next wave should come");
 ?>
