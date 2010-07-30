@@ -313,7 +313,7 @@ class bot extends AOChat{
 
 		//Title
 		$header = $color4.":::".$color3.":::".$color2.":::".$color;
-		$header .= "$title";
+		$header .= $title;
 		$header .= "</font>:::</font>:::</font>:::</font> ";
 
 
@@ -480,7 +480,7 @@ class bot extends AOChat{
 		global $curMod;
 		if($d = dir("./modules")){
 			while (false !== ($entry = $d->read())){
-				if(!is_dir("$entry")){
+				if(!is_dir($entry)){
 					// Look for the plugin's ... setup file
 					if(file_exists("./modules/$entry/$entry.php")){
 						$curMod = $entry;
@@ -1260,40 +1260,58 @@ class bot extends AOChat{
 					$this->vars["my guild id"] = $b[2]*256*256*256 + $b[3]*256*256 + $b[4]*256 + $b[5];
 			break;
 			case AOCP_PRIVGRP_CLIJOIN: // 55, Incoming player joined private chat
-				$type = "joinPriv"; // Set message type.
-				$sender	= $this->lookup_user($args[1]);// Get Name
-				// Add sender to the chatlist.
-				$this->chatlist[$sender] = true;
-				// Echo
-				if($this->settings['echo'] >= 1) newLine("Priv Group", $sender, "joined the channel.", $this->settings['echo']);
+				$sender = $this->lookup_user($args[1]);// Get Name
+				$channel = $this->lookup_user($args[2]);// Get Name
+				
+				if ($channel == $this->vars['name']) {
+					$type = "joinPriv";
 
-				// Remove sender if they are /ignored or /banned or They gone above spam filter
-                if($this->settings["Ignore"][$sender] == true || $this->banlist["$sender"]["name"] == "$sender" || $this->spam[$sender] > 100){
-					AOChat::privategroup_kick($sender);
-					return;
+					// Add sender to the chatlist.
+					$this->chatlist[$sender] = true;
+					// Echo
+					if($this->settings['echo'] >= 1) newLine("Priv Group", $sender, "joined the channel.", $this->settings['echo']);
+
+					// Remove sender if they are /ignored or /banned or They gone above spam filter
+					if($this->settings["Ignore"][$sender] == true || $this->banlist[$sender]["name"] == $sender || $this->spam[$sender] > 100){
+						AOChat::privategroup_kick($sender);
+						return;
+					}
+					// Check files, for all 'player joined channel events'.
+					if ($this->joinPriv != NULL) {
+						forEach ($this->joinPriv as $filename) {
+							include $filename;
+						}
+					}
+					// Kick if there access is restricted.
+					if ($restricted === true) {
+						AOChat::privategroup_kick($sender);
+					}
+				} else {
+					$type = "extJoinPriv";
 				}
-				// Check files, for all 'player joined channel events'.
-				if($this->joinPriv != NULL)
-					foreach($this->joinPriv as $filename)
-						include $filename;
-				// Kick if there access is restricted.
-				if($restricted === true)
-					AOChat::privategroup_kick($sender);
 			break;
 			case AOCP_PRIVGRP_CLIPART: // 56, Incoming player left private chat
-				$type = "leavePriv"; // Set message type.
 				$sender	= $this->lookup_user($args[1]); // Get Name
-				// Echo
-				if($this->settings['echo'] >= 1) newLine("Priv Group", $sender, "left the channel.", $this->settings['echo']);
+				$channel = $this->lookup_user($args[2]);// Get Name
+				
+				if ($channel == $this->vars['name']) {
+					$type = "leavePriv";
+				
+					// Echo
+					if($this->settings['echo'] >= 1) newLine("Priv Group", $sender, "left the channel.", $this->settings['echo']);
 
-				// Remove from Chatlist array.
-				unset($this->chatlist[$sender]);
-				// Remove sender if they are /ignored or /banned or They gone above spam filter
-				if($this->settings["Ignore"][$sender] == true || $this->banlist["$sender"]["name"] == "$sender" || $this->spam[$sender] > 100)
-					return;
-				// Check files, for all 'player left channel events'.
-				foreach($this->leavePriv as $filename)
-					include $filename;
+					// Remove from Chatlist array.
+					unset($this->chatlist[$sender]);
+					// Remove sender if they are /ignored or /banned or They gone above spam filter
+					if($this->settings["Ignore"][$sender] == true || $this->banlist[$sender]["name"] == $sender || $this->spam[$sender] > 100)
+						return;
+					// Check files, for all 'player left channel events'.
+					forEach ($this->leavePriv as $filename) {
+						include $filename;
+					}
+				} else {
+					$type = "extLeavePriv";
+				}
 			break;
 			case AOCP_BUDDY_ADD: // 40, Incoming buddy logon or off
 				// Basic packet data
@@ -1370,7 +1388,7 @@ class bot extends AOChat{
 				else if (preg_match("/^Error!/si", $message, $arr))
 					return;
 
-				if ($this->settings["Ignore"][$sender] == true || $this->banlist["$sender"]["name"] == "$sender" || ($this->spam[$sender] > 100 && $this->vars['spam protection'] == 1)){
+				if ($this->settings["Ignore"][$sender] == true || $this->banlist[$sender]["name"] == $sender || ($this->spam[$sender] > 100 && $this->vars['spam protection'] == 1)){
 					$this->spam[$sender] += 20;
 					return;
 				}
@@ -1458,7 +1476,7 @@ class bot extends AOChat{
 					if($this->settings['echo'] >= 1) newLine("Priv Group", $sender, $message, $this->settings['echo']);
 					return;
 				}
-				if($this->banlist["$sender"]["name"] == "$sender")
+				if($this->banlist[$sender]["name"] == $sender)
 					return;
 
 				if($this->vars['spam protection'] == 1) {
@@ -1579,7 +1597,7 @@ class bot extends AOChat{
 	                if($this->settings["Ignore"][$sender] == true)
 						return;
 
-					if($this->banlist["$sender"]["name"] == "$sender")
+					if($this->banlist[$sender]["name"] == $sender)
 						return;
 				}
 
