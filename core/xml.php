@@ -153,7 +153,7 @@ class whois extends xml{
         
         //If no file was found or it is outdated try to update it from anarchyonline.com
         if(!$data_found) {
-			$playerbio = xml::getUrl("http://people.anarchyonline.com/character/bio/d/$rk_num/name/$name/bio.xml");
+			$playerbio = xml::getUrl("http://people.anarchy-online.com/character/bio/d/$rk_num/name/$name/bio.xml");
 			if(xml::spliceData($playerbio, '<nick>', '</nick>') == $name) {
 				$data_found = true;
 				$data_save = true;
