@@ -112,13 +112,7 @@ if(preg_match("/^guide Hacker ICE-Breaker Source$/i", $message)) {
 
 	$msg = bot::makeLink("Guide for Hacker ICE-Breaker Source", $list);
 
-    // Send info back
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-       	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 } elseif(preg_match("/^guide KyrOzch Helmet$/i", $message)) {
 	$list = "<header>::::: Guide for Kyr'Ozch Helmet :::::<end>\n\n";
 	$list .= "Handing this item to your faction Vendor at the Alien Playfield Bar it will give you one of these 2500Token Boards back:\n\n";
@@ -130,13 +124,7 @@ if(preg_match("/^guide Hacker ICE-Breaker Source$/i", $message)) {
 
 	$msg = bot::makeLink("Guide for Kyr'Ozch Helmet", $list);
 
-    // Send info back
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-       	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 } elseif(preg_match("/^guide Action Probability Estimator$/i", $message)) {
 	$list = "<header>::::: Guide for Action Probability Estimator :::::<end>\n\n";
 
@@ -192,13 +180,7 @@ if(preg_match("/^guide Hacker ICE-Breaker Source$/i", $message)) {
 
 	$msg = bot::makeLink("Guide for Action Probability Estimator", $list);
 
-    // Send info back
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-       	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 } elseif(preg_match("/^guide Dynamic Gas Redistribution Valves$/i", $message)) {
 	$list = "<header>::::: Guide for Dynamic Gas Redistribution Valves :::::<end>\n\n";
 
@@ -246,13 +228,7 @@ if(preg_match("/^guide Hacker ICE-Breaker Source$/i", $message)) {
 		
 	$msg = bot::makeLink("Guide for Dynamic Gas Redistribution Valves", $list);
 
-    // Send info back
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-       	bot::send($msg, "guild");
+    bot::send($msg, $sendto);
 } elseif(preg_match("/^guide Inertial Adjustment Processing Unit$/i", $message)) {
 	$list = "<header>::::: Guide for Inertial Adjustment Processing Unit :::::<end>\n\n";
 	$list .= "<u>Hadrulf's Viral Belt Component Platform</u>\n\n";
@@ -304,14 +280,7 @@ if(preg_match("/^guide Hacker ICE-Breaker Source$/i", $message)) {
 			
 	$msg = bot::makeLink("Guide for Inertial Adjustment Processing Unit", $list);
 
-    // Send info back
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-       	bot::send($msg, "guild");
-
+    bot::send($msg, $sendto);
 } elseif(preg_match("/^guide Notum Amplification Coil$/i", $message)) {
 	$list = "<header>::::: Guide for Notum Amplification Coil :::::<end>\n\n";
 
@@ -349,13 +318,7 @@ if(preg_match("/^guide Hacker ICE-Breaker Source$/i", $message)) {
 		
 	$msg = bot::makeLink("Guide for Notum Amplification Coil", $list);
 
-    // Send info back
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-       	bot::send($msg, "guild");       	
+    bot::send($msg, $sendto);
 } elseif(preg_match("/^guide Energy Redistribution Unit$/i", $message)) {
 	$list = "<header>::::: Guide for Energy Redistribution Unit :::::<end>\n\n";
 
@@ -392,13 +355,7 @@ if(preg_match("/^guide Hacker ICE-Breaker Source$/i", $message)) {
 			
 	$msg = bot::makeLink("Guide for Energy Redistribution Unit", $list);
 
-    // Send info back
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-       	bot::send($msg, "guild");  
+    bot::send($msg, $sendto);
 } elseif(preg_match("/^guide Visible Light Remodulation Device$/i", $message)) {
 	$list = "<header>::::: Guide for Visible Light Remodulation Device :::::<end>\n\n";
 
@@ -440,13 +397,9 @@ if(preg_match("/^guide Hacker ICE-Breaker Source$/i", $message)) {
 			
 	$msg = bot::makeLink("Guide for Visible Light Remodulation Device", $list);
 
-    // Send info back
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-       	bot::send($msg, "guild");        	
-} else
+    bot::send($msg, $sendto);
+} else {
 	$syntax_error = true;
+}
+
 ?>
