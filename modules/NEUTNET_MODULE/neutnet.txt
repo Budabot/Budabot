@@ -8,11 +8,11 @@ You can register your bot to Neutnet and it gets the spam first. However, there 
     * Bot cannot have alts
 
 
-/tell neutnet !registerbot <botname>
+/tell neutnet !registerbot &lt;botname&gt;
 Registers the bot with the system
 
-/tell neutnet !unregisterbot <botname>
+/tell neutnet !unregisterbot &lt;botname&gt;
 Removes the bot registration
 
-/tell neutnet !statusbot <botname>
+/tell neutnet !statusbot &lt;botname&gt;
 Shows control panel for the bot. With the control panel, you can subscribe and unsubscribe channels.
