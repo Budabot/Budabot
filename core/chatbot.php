@@ -1364,7 +1364,7 @@ class bot extends AOChat{
 				$sendto = $sender;
 				
 				// Removing tell color
-				if(preg_match("/^<font color='#([0-9a-f]+)'>(.+)$/i", $args[1], $arr))
+				if (preg_match("/^<font color='#([0-9a-f]+)'>(.+)$/i", $args[1], $arr))
 					$message = $arr[2];
 				else
 					$message = $args[1];
@@ -1540,18 +1540,18 @@ class bot extends AOChat{
 						elseif($admin == "all")
 							if($filename != "")
 								include $filename;
-					}
-					else
+					} else {
 						$this->spam[$sender] = $this->spam[$sender] + 10;
+					}
 				
 				} else {  // ext priv group message
 					
 					$type = "extPriv";
 					
-					if($this->settings['echo'] >= 1) newLine("Ext Priv Group $channel", $sender, $message, $this->settings['echo']);
+					if ($this->settings['echo'] >= 1) newLine("Ext Priv Group $channel", $sender, $message, $this->settings['echo']);
 					
-					if($this->extPrivChat != NULL) {
-						foreach($this->extPrivChat as $file) {
+					if ($this->extPrivChat != NULL) {
+						forEach ($this->extPrivChat as $file) {
 						  	$msg = "";
 							include $file;
 						}
@@ -1587,48 +1587,53 @@ class bot extends AOChat{
 
 				if($this->settings['echo'] >= 1) newLine($channel, $sender, $message, $this->settings['echo']);
 
-				if($sender) {
+				if ($sender) {
 					//Ignore Message that are sent from the bot self
-					if($sender == $this->vars["name"]) {
+					if ($sender == $this->vars["name"]) {
 						return;
 					}
 
-					//Ignore tells from other bots
-	                if($this->settings["Ignore"][$sender] == true)
+					//Ignore messages from other bots
+	                if ($this->settings["Ignore"][$sender] == true) {
 						return;
+					}
 
-					if($this->banlist[$sender]["name"] == $sender)
+					if ($this->banlist[$sender]["name"] == $sender) {
 						return;
+					}
 				}
 
-				if($channel == "All Towers" || $channel == "Tower Battle Outcome"){
+				if ($channel == "All Towers" || $channel == "Tower Battle Outcome"){
                     $type = "towers";
-    				if($this->towers != NULL)
-    					foreach($this->towers as $file) {
+    				if ($this->towers != NULL) {
+    					forEach ($this->towers as $file) {
     						$msg = "";
 							include $file;
     					}
+					}
                     return;
-                } elseif($channel == "Org Msg"){
+                } else if ($channel == "Org Msg"){
                     $type = "orgmsg";
-    				if($this->orgmsg != NULL)
-						foreach($this->orgmsg as $file) {
+    				if ($this->orgmsg != NULL) {
+						forEach ($this->orgmsg as $file) {
     						$msg = "";
 							include $file;
     					}
+					}
                     return;
-                } elseif($channel == $this->vars["my guild"]){
+                } else if ($channel == $this->vars["my guild"]) {
                     $type = "guild";
 					$sendto = 'org';
-					if($this->guildChat != NULL)
-    					foreach($this->guildChat as $file) {
+					if ($this->guildChat != NULL) {
+    					forEach ($this->guildChat as $file) {
 							$msg = "";
 							include $file;
 						}
+					}
 
 					$msg = "";
-					if(!$restriced && (($message[0] == $this->settings["symbol"] && strlen($message) >= 2) || preg_match("/^(afk|brb)/i", $message, $arr))) {
-						if($message[0] == $this->settings["symbol"]) {
+					if (!$restriced && (($message[0] == $this->settings["symbol"] && strlen($message) >= 2) || preg_match("/^(afk|brb)/i", $message, $arr))) {
+						if ($message[0] == $this->settings["symbol"]) {
 							$message 	= substr($message, 1);
 						}
     					$words		= split(' ', strtolower($message));
@@ -1636,36 +1641,42 @@ class bot extends AOChat{
 						$filename 	= $this->guildCmds[$words[0]]["filename"];
 
 					  	//Check if a subcommands for this exists
-					  	if($this->subcommands[$filename][$type])
-						    if(preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message))
+					  	if ($this->subcommands[$filename][$type]) {
+						    if (preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message)) {
 								$admin = $this->subcommands[$filename][$type]["admin"];
+							}
+						}
 
 
 						// Admin Check
 						if (is_numeric($admin)) {
-							if($this->admins[$sender]["level"] >= $admin && $this->admins[$sender]["level"] != "") {
-								if($filename != "")
+							if ($this->admins[$sender]["level"] >= $admin && $this->admins[$sender]["level"] != "") {
+								if ($filename != "") {
 									include $filename;
+								}
 							} else {
 								bot::send("Error! You do not have access to this command.", "guild");
 							}
 						} else if ($admin == "guild") {
-							if(isset($this->guildmembers[$sender])) {
-								if($filename != "")
+							if (isset($this->guildmembers[$sender])) {
+								if ($filename != "") {
 									include $filename;
+								}
 							} else {
 								bot::send("Error! You do not have access to this command.", "guild");
 							}
 						} else if ($admin == "guildadmin") {
-							if($this->guildmembers[$sender] <= $this->settings['guild admin level']) {
-								if($filename != "")
+							if ($this->guildmembers[$sender] <= $this->settings['guild admin level']) {
+								if($filename != "") {
 									include $filename;
+								}
 							} else {
 								bot::send("Error! You do not have access to this command.", "guild");
 							}
 						} else if ($admin == "all") {
-							if($filename != "")
+							if ($filename != "") {
 								include $filename;
+							}
 						}
 
 						//Shows syntax errors to the user
@@ -1687,8 +1698,8 @@ class bot extends AOChat{
 				// Echo
 				if($this->settings['echo'] >= 1) newLine("Priv Group Invitation", $sender, " channel invited.", $this->settings['echo']);
 
-				if($this->extJoinPrivRequest != NULL) {
-					foreach($this->extJoinPrivRequest as $file) {
+				if ($this->extJoinPrivRequest != NULL) {
+					forEach ($this->extJoinPrivRequest as $file) {
 						$msg = "";
 						include $file;
 					}
@@ -1771,13 +1782,14 @@ class bot extends AOChat{
 		//Replace all \ characters with /
 		$filename = str_replace("\\", "/", $filename);
 
-		if(!bot::verifyNameConvention($filename))
+		if (!bot::verifyNameConvention($filename)) {
 			return "";
+		}
 
 		//check if the file exists
-	    if(file_exists("./core/$filename")) {
+	    if (file_exists("./core/$filename")) {
 	        return "./core/$filename";
-    	} else if(file_exists("./modules/$filename")) {
+    	} else if (file_exists("./modules/$filename")) {
         	return "./modules/$filename";
 	    } else {
 	     	return "";
@@ -1786,7 +1798,7 @@ class bot extends AOChat{
 
 	function verifyNameConvention($filename) {
 		preg_match("/^(.+)/([0-9a-z_]+).php$/i", $filename, $arr);
-		if($arr[2] == strtolower($arr[2])) {
+		if ($arr[2] == strtolower($arr[2])) {
 			return true;
 		} else {
 			echo "Warning: $filename does not match the nameconvention(All php files needs to be in lowercases except loading files)!\n";
