@@ -628,24 +628,6 @@ class bot extends AOChat{
 				}
 			break;
 		}
-
-		//Activate Events that are needed for this command
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `dependson` = '$command' AND `cmdevent` = 'event' AND `type` != 'setup'");
-		$data = $db->fObject("all");
-  		forEach ($data as $row) {
-  		  	bot::regevent($row->type, $row->file);
-		}
-
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$module' AND `cmdevent` = 'event' AND `type` = 'setup'");
-		if($db->numrows() != 0) {
-			$data = $db->fObject("all");
-	  		foreach($data as $row) {
-			  	if($row->status == 0) {
-				    bot::regevent($row->type, $row->file);
-				    $db->query("UPDATE cmdcfg_<myname> SET `status` = 1 WHERE `module` = '$module' AND `cmdevent` = 'event' AND `type` = 'setup'");
-				}
-			}
-		}
 	}
 
 /*===============================
@@ -670,11 +652,6 @@ class bot extends AOChat{
 				unset($this->guildCmds[$command]);
 			break;
 		}
-
-		//Deactivate Events that are asssigned to this command
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `dependson` = '$command' AND `cmdevent` = 'event' AND `type` != 'setup'");
-  		while($row = $db->fObject())
-  		  	bot::unregevent($row->type, $row->file);
 	}
 
 /*===============================
@@ -700,7 +677,7 @@ class bot extends AOChat{
 /*===============================
 ** Name: Subcommand
 ** 	Register a subcommand
-*/	function subcommand($type, $filename, $command, $admin = 'all', $dependson, $description = 'none'){
+*/	function subcommand($type, $filename, $command, $admin = 'all', $dependson, $description = 'none') {
 		global $db;
 		global $curMod;
 
@@ -762,6 +739,9 @@ class bot extends AOChat{
 */	function event($type, $filename, $dependson = 'none', $desc = 'none'){
 		global $db;
 		global $curMod;
+		
+		// disable depends on
+		$dependson = 'none';
 
 		$module = explode("/", strtolower($filename));
 
