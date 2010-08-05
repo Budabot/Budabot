@@ -127,6 +127,7 @@ if ($countitems > 3) {
 	    }
     }
     $list = "<header>::::: Item Search Result :::::<end>\n\n".$list;
+	$list .= "\n\nItem DB Rips provided by MajorOutage";
     $link = bot::makeLink("$countitems results in total", $list);
     bot::send($link, $sendto);
 
