@@ -48,7 +48,7 @@ if (preg_match("/^addmod (.+)$/i", $message, $arr)){
 		return;
 	}
 	
-	if ((int)$this->admins[$sender]["level"] <= (int)$this->admins[$who]["level"]){
+	if ($this->settings["Super Admin"] != $sender && (int)$this->admins[$sender]["level"] <= (int)$this->admins[$who]["level"]){
 		bot::send("<red>You must have a rank higher then $who.<end>", $sendto);
 		return;
 	}
