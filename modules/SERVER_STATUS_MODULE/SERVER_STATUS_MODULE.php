@@ -1,7 +1,7 @@
 <?php
 	$MODULE_NAME = "SERVER_STATUS_MODULE";
 	
-	bot::regevent("1min", "$MODULE_NAME/check_server_status.php");
+	bot::event("1min", "$MODULE_NAME/check_server_status.php", 'none', "Checks the status of the server and updates bot with new status if it's changed");
 	bot::addsetting("server_status", "no", "hide", "up");
 
 	//Server Status

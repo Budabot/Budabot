@@ -2,13 +2,13 @@
 	$MODULE_NAME = "TOWERS_MODULE";
 
 	//Tower messages
-    bot::event("towers", "$MODULE_NAME/towers_messages.php", "none", "Show Attack Messages"); 
+    bot::event("towers", "$MODULE_NAME/towers_messages.php", "none", "Show Attack Messages in chat"); 
 	
 	bot::command("", "$MODULE_NAME/towers_result.php", "battle", "all", "Shows the last Tower Attack messages");
 	bot::command("", "$MODULE_NAME/towers_result.php", "battles", "all", "Shows the last Tower Attack messages");  // alias for !battle
   	bot::command("", "$MODULE_NAME/towers_result.php", "victory", "all", "Shows the last Tower Battle results");
 
-	bot::regGroup("Tower_Battle", $MODULE_NAME, "Show Tower Attack Results", "battle", "victory");
+	bot::regGroup("Tower_Battle", $MODULE_NAME, "Show Tower Attack Results", "battle", "victory", "battles");
 	
 	//Land Control Areas
   	bot::command("", "$MODULE_NAME/land_control_areas.php", "lca", "all", "Shows Infos about Land Control Areas");

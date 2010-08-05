@@ -229,7 +229,7 @@ if ($def_guild) {
 		$msg = str_replace("<unknown>", "<font color='#FF0000'>", $msg);
 
     	bot::send($msg, "guild", true);
-    	bot::send($msg, NULL, true);
+    	bot::send($msg, "priv", true);
 	}
 
 	$sql = "INSERT INTO tower_attack_<myname> (`time`, `att_guild`, `att_side`, `att_player`, `att_level`, `att_profession`,

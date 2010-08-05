@@ -8,7 +8,7 @@
 	bot::command("", "$MODULE_NAME/timers.php", "timers", "all", "Shows running Timers");
 	bot::command("", "$MODULE_NAME/countdown.php", "countdown", "all", "Set a countdown");
 
-	bot::event("2sec", "$MODULE_NAME/timers_check.php", "timer");
+	bot::event("2sec", "$MODULE_NAME/timers_check.php", "timer", "Checks timers and periodically updates chat with time left");
 	bot::regGroup("timers", $MODULE_NAME, "Set/Show Personal Timer", "timer", "timers");
 	
 	bot::addsetting("timers_window", "Show running timers in a window or directly", "edit", "1", "window only;chat only;window after 3;window after 4;window after 5", '1;2;3;4;5', "mod");
