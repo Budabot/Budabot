@@ -29,16 +29,16 @@
 	//Autoreinvite Players after a botrestart or crash
 	bot::event("setup", "$MODULE_NAME/autoreinvite.php", "none", "Reinvites the players that were in the privgrp before restart/crash");
 	
-	bot::event("guild", "$MODULE_NAME/guest_channel_relay.php", "none");
-	bot::event("priv", "$MODULE_NAME/guest_channel_relay.php", "none");
-	bot::event("logOn", "$MODULE_NAME/logon_autoinvite.php", "none");
+	bot::event("guild", "$MODULE_NAME/guest_channel_relay.php", "none", "Guest channel relay from guild channel");
+	bot::event("priv", "$MODULE_NAME/guest_channel_relay.php", "none", "Guest channel relay from priv channel");
+	bot::event("logOn", "$MODULE_NAME/logon_autoinvite.php", "none", "Auto-invite members on logon");
 	
 	//Show Char infos on privjoin
 	bot::event("joinPriv", "$MODULE_NAME/notify.php", "none", "Show Infos about a Char when he joins the channel");
 	bot::event("leavePriv", "$MODULE_NAME/notify.php", "none", "Show a msg when someone leaves the channel");
 	
 	//Verifies the Guestchannellist every 1hour
-	bot::event("1hour", "$MODULE_NAME/guest_channel_check.php", "guest");
+	bot::event("1hour", "$MODULE_NAME/guest_channel_check.php", "guest", "Guest channel check");
 
     bot::help("GuestChannel", "$MODULE_NAME/guestchannel.txt", "guild", "Guestchannel", "Basic Guild Commands");
 	bot::help("join_leave", "$MODULE_NAME/joinleave.txt", "all", "Joining and leaving the bot", "Raidbot");

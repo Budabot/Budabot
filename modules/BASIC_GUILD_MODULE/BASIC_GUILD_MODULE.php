@@ -8,12 +8,12 @@
 	bot::command("", "$MODULE_NAME/logon_msg.php", "logon", "all", "Sets a Logon Msg");
 
     // Afk Check
-	bot::event("guild", "$MODULE_NAME/afk_check.php", "afk");
+	bot::event("guild", "$MODULE_NAME/afk_check.php", "afk", "Afk check");
 	bot::command("guild", "$MODULE_NAME/afk.php", "afk", "all", "Sets a member afk");
 	bot::command("guild", "$MODULE_NAME/kiting.php", "kiting", "all", "Sets a member afk kiting");
 
 	//Verifies the Onlinelist every 1hour
-	bot::event("1hour", "$MODULE_NAME/online_check.php", "online");
+	bot::event("1hour", "$MODULE_NAME/online_check.php", "online", "Online check");
 
     // Alternative Characters
 	bot::command("", "$MODULE_NAME/alts.php", "alts", "all", "Alt Char handling");

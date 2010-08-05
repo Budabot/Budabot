@@ -19,14 +19,14 @@
 	bot::addsetting("topic_time", "no", "hide", time());
 
     // Afk Check
-	bot::event("priv", "$MODULE_NAME/afk_check.php", "afk");
+	bot::event("priv", "$MODULE_NAME/afk_check.php", "afk", "Afk check");
 	bot::command("priv", "$MODULE_NAME/afk.php", "afk", "all", "Sets a member afk");
 
 	//Leader
 	bot::command("priv", "$MODULE_NAME/leader.php", "leader", "all", "Sets the Leader of the raid");
 	bot::subcommand("priv", "$MODULE_NAME/leader.php", "leader (.+)", "raidleader", "leader", "Set a specific Leader");
 	bot::command("priv", "$MODULE_NAME/leaderecho_cmd.php", "leaderecho", "leader", "Set if the text of the leader will be repeated");
-	bot::event("priv", "$MODULE_NAME/leaderecho.php", "leader");
+	bot::event("priv", "$MODULE_NAME/leaderecho.php", "leader", "leader echo");
 	bot::addsetting("leaderecho", "Repeat the text of the raidleader", "edit", "1", "ON;OFF", "1;0");
 	bot::addsetting("leaderecho_color", "Color for Raidleader echo", "edit", "<font color=#FFFF00>", "color");
 
