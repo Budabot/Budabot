@@ -7,7 +7,7 @@ $table = "org_members_<myname>";  //org_members_<myname>
 if (preg_match("/^inactivemem ([0-9]+)/i", $message, $arr)) {
 	
 	if($this->vars["my guild id"] == "") {
-	    bot::send("The Bot needs to be in an org to show the orgmembers.", $sender);
+	    bot::send("The Bot needs to be in an org to show the orgmembers.", $sendto);
 		return;
 	}
 	
@@ -15,7 +15,7 @@ if (preg_match("/^inactivemem ([0-9]+)/i", $message, $arr)) {
 	$db->query("SELECT * FROM $table LEFT JOIN alts ON name=alt WHERE `mode` != 'del' AND `logged_off` != '0' AND `logged_off` < $inactive_deadline  ORDER BY name");  
 	$members = $db->numrows();
   	if($members == 0) {
-	    bot::send("No members recorded.", $sender);    
+	    bot::send("No members recorded.", $sendto);    
 		return;
 	}
 	$numinactive = 0;
@@ -68,8 +68,7 @@ if (preg_match("/^inactivemem ([0-9]+)/i", $message, $arr)) {
 		}
 	}
 	$msg = bot::makeLink("$numinactive Inactive Org Members (Since {$arr[1]} months)",$list);
-	if($msg != "")
-		bot::send($msg, $sender);
+	bot::send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }
