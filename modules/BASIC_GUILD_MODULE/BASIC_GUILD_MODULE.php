@@ -8,7 +8,7 @@
 	bot::command("", "$MODULE_NAME/logon_msg.php", "logon", "all", "Sets a Logon Msg");
 
     // Afk Check
-	bot::event("guild", "$MODULE_NAME/afk_check.php", "afk", "Afk check");
+	bot::event("guild", "$MODULE_NAME/afk_check.php", "none", "Afk check");
 	bot::command("guild", "$MODULE_NAME/afk.php", "afk", "all", "Sets a member afk");
 	bot::command("guild", "$MODULE_NAME/kiting.php", "kiting", "all", "Sets a member afk kiting");
 

@@ -19,7 +19,7 @@
 	bot::addsetting("topic_time", "no", "hide", time());
 
     // Afk Check
-	bot::event("priv", "$MODULE_NAME/afk_check.php", "afk", "Afk check");
+	bot::event("priv", "$MODULE_NAME/afk_check.php", "none", "Afk check");
 	bot::command("priv", "$MODULE_NAME/afk.php", "afk", "all", "Sets a member afk");
 
 	//Leader
