@@ -1241,39 +1241,43 @@ class bot extends AOChat{
 					$this->vars["my guild id"] = $b[2]*256*256*256 + $b[3]*256*256 + $b[4]*256 + $b[5];
 			break;
 			case AOCP_PRIVGRP_CLIJOIN: // 55, Incoming player joined private chat
-				$sender = $this->lookup_user($args[1]);// Get Name
-				$channel = $this->lookup_user($args[2]);// Get Name
+				$channel = $this->lookup_user($args[0]);
+				$sender = $this->lookup_user($args[1]);
 				
 				if ($channel == $this->vars['name']) {
 					$type = "joinPriv";
-
-					// Add sender to the chatlist.
-					$this->chatlist[$sender] = true;
+					
 					// Echo
 					if($this->settings['echo'] >= 1) newLine("Priv Group", $sender, "joined the channel.", $this->settings['echo']);
 
-					// Remove sender if they are /ignored or /banned or They gone above spam filter
+					// Remove sender if they are /ignored or /banned or if spam filter is blocking them
 					if($this->settings["Ignore"][$sender] == true || $this->banlist[$sender]["name"] == $sender || $this->spam[$sender] > 100){
 						AOChat::privategroup_kick($sender);
 						return;
 					}
+					
+					// Add sender to the chatlist.
+					$this->chatlist[$sender] = true;
+					
 					// Check files, for all 'player joined channel events'.
 					if ($this->joinPriv != NULL) {
 						forEach ($this->joinPriv as $filename) {
 							include $filename;
 						}
 					}
-					// Kick if there access is restricted.
+					
+					// Kick if their access is restricted.
 					if ($restricted === true) {
 						AOChat::privategroup_kick($sender);
 					}
 				} else {
 					$type = "extJoinPriv";
+					// TODO
 				}
 			break;
 			case AOCP_PRIVGRP_CLIPART: // 56, Incoming player left private chat
-				$sender	= $this->lookup_user($args[1]); // Get Name
-				$channel = $this->lookup_user($args[2]);// Get Name
+				$channel = $this->lookup_user($args[0]);
+				$sender	= $this->lookup_user($args[1]);
 				
 				if ($channel == $this->vars['name']) {
 					$type = "leavePriv";
@@ -1283,15 +1287,14 @@ class bot extends AOChat{
 
 					// Remove from Chatlist array.
 					unset($this->chatlist[$sender]);
-					// Remove sender if they are /ignored or /banned or They gone above spam filter
-					if($this->settings["Ignore"][$sender] == true || $this->banlist[$sender]["name"] == $sender || $this->spam[$sender] > 100)
-						return;
+					
 					// Check files, for all 'player left channel events'.
 					forEach ($this->leavePriv as $filename) {
 						include $filename;
 					}
 				} else {
 					$type = "extLeavePriv";
+					// TODO
 				}
 			break;
 			case AOCP_BUDDY_ADD: // 40, Incoming buddy logon or off
