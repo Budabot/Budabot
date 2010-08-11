@@ -504,8 +504,9 @@ class bot extends AOChat{
 		$db->query("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'cmd'");
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'cmd'");
 		$data = $db->fObject("all");
-		foreach($data as $row)
+		forEach ($data as $row) {
 			bot::regcommand($row->type, $row->file, $row->cmd, $row->admin);
+		}
 	}
 
 /*===============================
@@ -517,7 +518,7 @@ class bot extends AOChat{
 		$db->query("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'subcmd'");
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd'");
 		$data = $db->fObject("all");
-		foreach($data as $row) {
+		forEach ($data as $row) {
 			$this->subcommands[$row->file][$row->type]["cmd"] = $row->cmd;
 			$this->subcommands[$row->file][$row->type]["admin"] = $row->admin;
 		}
@@ -530,10 +531,11 @@ class bot extends AOChat{
 	  	global $db;
 		//Delete events that are not verified
 		$db->query("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'event'");
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'event' AND `dependson` = 'none'");
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'event'");
 		$data = $db->fObject("all");
-		foreach($data as $row)
+		forEach ($data as $row) {
 			bot::regevent($row->type, $row->file);
+		}
 	}
 
 /*===============================
@@ -557,7 +559,7 @@ class bot extends AOChat{
 			if($this->settings['debug'] > 1) print("                 Admin:({$admin[$i]}) Type:({$type[$i]})\n");
 			if($this->settings['debug'] > 2) sleep(1);
 			
-			if($this->existing_commands[$type[$i]][$command] == true) {
+			if ($this->existing_commands[$type[$i]][$command] == true) {
 				$db->query("UPDATE cmdcfg_<myname> SET `module` = '$curMod', `verify` = 1, `file` = '$filename', `description` = '$description' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
 			} else {
 				$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`) VALUES ('$curMod', '{$type[$i]}', '$filename', '$command', '{$admin[$i]}', '$description', 1, 'cmd', '".$this->settings["default module status"]."')");
@@ -695,7 +697,7 @@ class bot extends AOChat{
 		if($this->settings['debug'] > 2) sleep(1);
 
 		//Check if the file exists
-		if(($actual_filename = bot::verifyFilename($filename)) != '') {
+		if (($actual_filename = bot::verifyFilename($filename)) != '') {
 			$filename = $actual_filename;
 		} else {
 			echo "Error in registering the file $filename for Subcommand $command. The file doesn't exists!\n";
@@ -711,22 +713,22 @@ class bot extends AOChat{
 			if($this->settings['debug'] > 2) sleep(1);
 			
 			//Check if the admin status exists
-			if(!is_numeric($admin[$i])) {
-				if($admin[$i] == "leader")
+			if (!is_numeric($admin[$i])) {
+				if ($admin[$i] == "leader") {
 					$admin[$i] = 1;
-				elseif($admin[$i] == "raidleader" || $admin[$i] == "rl")
+				} else if ($admin[$i] == "raidleader" || $admin[$i] == "rl") {
 					$admin = 2;
-				elseif($admin[$i] == "mod" || $admin[$i] == "moderator")
+				} else if ($admin[$i] == "mod" || $admin[$i] == "moderator") {
 					$admin[$i] = 3;
-				elseif($admin[$i] == "admin")
+				} else if ($admin[$i] == "admin") {
 					$admin[$i] = 4;
-				elseif($admin[$i] != "all" && $admin[$i] != "guild" && $admin[$i] != "guildadmin") {
+				} else if ($admin[$i] != "all" && $admin[$i] != "guild" && $admin[$i] != "guildadmin") {
 					echo "Error in registrating the command $command for channel {$type[$i]}. Reason Unknown Admintype: {$admin[$i]}. Admintype is set to all now.\n";
 					$admin[$i] = "all";
 				}
 			}
 
-			if($this->existing_subcmds[$type[$i]][$command] == true) {
+			if ($this->existing_subcmds[$type[$i]][$command] == true) {
 				$db->query("UPDATE cmdcfg_<myname> SET `module` = '$curMod', `verify` = 1, `file` = '$filename', `description` = '$description', `dependson` = '$dependson' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
 			} else {
 				$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `dependson`) VALUES ('$curMod', '{$type[$i]}', '$filename', '$command', '{$admin[$i]}', '$description', 1, 'subcmd', '$dependson')");
@@ -742,23 +744,22 @@ class bot extends AOChat{
 		global $curMod;
 		
 		// disable depends on
-		$dependson = 'none';
 		$description = str_replace("'", "''", $description);
 		$module = explode("/", strtolower($filename));
 
 	  	if($this->settings['debug'] > 1) print("Adding Event to list:($type) File:($filename)\n");
 		if($this->settings['debug'] > 2) sleep(1);
 
-		if($dependson == "none" && $this->settings["default module status"] == 1) {
+		if ($this->settings["default module status"] == 1) {
 			$status = 1;
 		} else {
 			$status = 0;
 		}
 
-		if($this->existing_events[$type][$filename] == true) {
-		  	$db->query("UPDATE cmdcfg_<myname> SET `dependson` = '$dependson', `verify` = 1, `description` = '$description' WHERE `type` = '$type' AND `cmdevent` = 'event' AND `file` = '$filename' AND `module` = '$curMod'");
+		if ($this->existing_events[$type][$filename] == true) {
+		  	$db->query("UPDATE cmdcfg_<myname> SET `verify` = 1, `description` = '$description' WHERE `type` = '$type' AND `cmdevent` = 'event' AND `file` = '$filename' AND `module` = '$curMod'");
 		} else {
-		  	$db->query("INSERT INTO cmdcfg_<myname> (`module`, `cmdevent`, `type`, `file`, `verify`, `dependson`, `description`, `status`) VALUES ('$curMod', 'event', '$type', '$filename', '1', '$dependson', '$description', '$status')");
+		  	$db->query("INSERT INTO cmdcfg_<myname> (`module`, `cmdevent`, `type`, `file`, `verify`, `description`, `status`) VALUES ('$curMod', 'event', '$type', '$filename', '1', '$description', '$status')");
 		}
 	}
 

@@ -35,7 +35,7 @@
 	$settings['echo'] = 1;
 
 	// Default Delay for crons after bot is connected
-	$settings['CronDelay']      = 0;
+	$settings['CronDelay'] = 0;
 
 	// Default Colors that should be used
 	$settings['default guild color']	= "<font color='#84FFFF'>";
