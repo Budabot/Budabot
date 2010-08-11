@@ -96,21 +96,21 @@ if(preg_match("/^axp$/i", $message)) {
 
     $msg = bot::makeLink("AXP Table", $msg);
 
-    // Send info back
     bot::send($msg, $sendto);
-} elseif(preg_match("/^axp ([0-9]+)$/i", $message, $arr)) {
-    if($arr[1] >= 1 && $arr[1] <= 30) {
+} else if (preg_match("/^axp ([0-9]+)$/i", $message, $arr)) {
+    if ($arr[1] >= 1 && $arr[1] <= 30) {
         $msg = "With ai lvl <highlight>".$arr[1]."<end> you need <highlight>".number_format($axp[$arr[1]])."<end> AXP to level up.";
-    } else
+    } else {
         $msg = "You need to specify a lvl between 1 and 30.";
+	}
 
-    // Send info back
     bot::send($msg, $sendto);
-} elseif(preg_match("/^axp ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
-    if($arr[1] >= 0 && $arr[1] <= 30 && $arr[2] >= 1 && $arr[2] <= 30) {
-        if($arr[1] < $arr[2]) {
-            for($i = $arr[1]+1; $i <= $arr[2]; $i++)
+} else if (preg_match("/^axp ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
+    if ($arr[1] >= 0 && $arr[1] <= 30 && $arr[2] >= 1 && $arr[2] <= 30) {
+        if ($arr[1] < $arr[2]) {
+            for ($i = $arr[1]+1; $i <= $arr[2]; $i++) {
                 $axp_comp += $axp[$i];
+			}
 
             $msg = "From the beginning of ai lvl <highlight>".$arr[1]."<end> to ai lvl <highlight>".$arr[2]."<end> you need <highlight>".number_format($axp_comp)."<end> AXP to level up.";
         } else {
@@ -120,7 +120,6 @@ if(preg_match("/^axp$/i", $message)) {
         $msg = "You need to specify a lvl between 1 and 30.";
 	}
 
-    // Send info back
     bot::send($msg, $sendto);
 } else {
 	$syntax_error = true;

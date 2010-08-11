@@ -35,8 +35,7 @@ if (preg_match("/^(mission|missions) ([0-9]+)$/i", $message, $arr)) {
 	if ($missionQl > 0 && $missionQl <= 250) {
 		$msg = "QL{$missionQl} missions can be rolled from these level players:";
 	
-		$db->query("SELECT * FROM levels");
-		while (($row = $db->fObject()) != FALSE) {
+		forEach (Level:get_all_levels() as $row) {
 			$array = explode(",", $row->missions);
 			if (in_array($missionQl, $array)) {
 				$msg .= " " . $row->level;
@@ -46,7 +45,6 @@ if (preg_match("/^(mission|missions) ([0-9]+)$/i", $message, $arr)) {
 		$msg = "Missions are only available between QL1 and QL250";
 	}
 
-    // Send info back
     bot::send($msg, $sendto);
 } else {
 	$syntax_error = true;

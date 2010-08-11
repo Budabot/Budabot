@@ -21,8 +21,7 @@ $title="<header>::::: Title Levels :::::<end>
 <red>7:<end> Level 205 (400K IP/level)";
 	
 if (preg_match("/^title$/i", $message)) {
-	$text = $title;
-	$windowlink = bot::makeLink("Title levels", $text);
+	$windowlink = bot::makeLink("Title levels", $title);
 	bot::send($windowlink, $sendto);
 }
 ?>

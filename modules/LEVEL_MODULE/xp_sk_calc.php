@@ -30,9 +30,9 @@
    */
 
 if (preg_match("/^(xp|sk) ([0-9]+)$/i", $message, $arr)) {
-	$db->query("SELECT * FROM levels WHERE level = $arr[2]");
-	if (($row = $db->fObject()) != FALSE) {
-		if ($arr[2] >= 200) {
+	$level = $arr[2];
+	if (($row = Level::get_level_info($level)) != FALSE) {
+		if ($level >= 200) {
 			$msg = "With lvl <highlight>{$row->level}<end> you need <highlight>".number_format($row->xpsk)."<end> SK to level up.";
 		} else {
 			$msg = "With lvl <highlight>{$row->level}<end> you need <highlight>".number_format($row->xpsk)."<end> XP to level up.";
@@ -41,12 +41,13 @@ if (preg_match("/^(xp|sk) ([0-9]+)$/i", $message, $arr)) {
         $msg = "You need to specify a lvl between 1 and 219.";
 	}
 
-    // Send info back
     bot::send($msg, $sendto);
 } else if (preg_match("/^(xp|sk) ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
-    if ($arr[2] >= 1 && $arr[2] <= 220 && $arr[3] >= 1 && $arr[3] <= 220) {
-        if ($arr[2] < $arr[3]) {
-			$db->query("SELECT * FROM levels WHERE level >= $arr[2] AND level < $arr[3]");
+	$minLevel = $arr[2];
+	$maxLevel = $arr[3];
+    if ($minLevel >= 1 && $minLevel <= 220 && $maxLevel >= 1 && $maxLevel <= 220) {
+        if ($minLevel < $maxLevel) {
+			$db->query("SELECT * FROM levels WHERE level >= $minLevel AND level < $maxLevel");
 			$xp = 0;
 			$sk = 0;
 			while (($row = $db->fObject()) != FALSE) {
@@ -57,11 +58,11 @@ if (preg_match("/^(xp|sk) ([0-9]+)$/i", $message, $arr)) {
 				}
             }
             if ($sk > 0 && $xp > 0) {
-                $msg = "From the beginning of <highlight>".$arr[2]."<end> to <highlight>".$arr[3]."<end>, you need <highlight>".number_format($xp)."<end> XP and <highlight>".number_format($sk)."<end> SK.";
+                $msg = "From the beginning of <highlight>$minLevel<end> to <highlight>$maxLevel<end>, you need <highlight>".number_format($xp)."<end> XP and <highlight>".number_format($sk)."<end> SK.";
             } else if ($sk > 0) {
-                $msg = "From the beginning of <highlight>".$arr[2]."<end> to <highlight>".$arr[3]."<end>, you need <highlight>" .number_format($sk)."<end> SK.";
+                $msg = "From the beginning of <highlight>$minLevel<end> to <highlight>$maxLevel<end>, you need <highlight>" .number_format($sk)."<end> SK.";
             } else if ($xp > 0) {
-                $msg = "From the beginning of <highlight>".$arr[2]."<end> to <highlight>".$arr[3]."<end>, you need <highlight>".number_format($xp)."<end> XP.";
+                $msg = "From the beginning of <highlight>$minLevel<end> to <highlight>$maxLevel<end>, you need <highlight>".number_format($xp)."<end> XP.";
 			}
         } else {
             $msg = "The start level can't be higher then the end level.";
@@ -70,7 +71,6 @@ if (preg_match("/^(xp|sk) ([0-9]+)$/i", $message, $arr)) {
         $msg = "You need to specify a lvl between 1 and 220.";
 	}
 
-    // Send info back
     bot::send($msg, $sendto);
 } else {
 	$syntax_error = true;
