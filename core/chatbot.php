@@ -549,7 +549,7 @@ class bot extends AOChat{
 		}
 
 		$command = strtolower($command);
-		$description = str_replace("'", "''", $desription);
+		$description = str_replace("'", "''", $description);
 		$module = explode("/", strtolower($filename));
 
 		for ($i = 0; $i < count($type); $i++) {
@@ -687,6 +687,7 @@ class bot extends AOChat{
 		}
 
 		$command = strtolower($command);
+		$description = str_replace("'", "''", $description);
 		$module = explode("/", strtolower($filename));
 	  	
 		if($this->settings['debug'] > 1) print("Adding Subcommand to list:($command) File:($filename)\n");
@@ -736,13 +737,13 @@ class bot extends AOChat{
 /*===============================
 ** Name: event
 **  Registers an event
-*/	function event($type, $filename, $dependson = 'none', $desc = 'none'){
+*/	function event($type, $filename, $dependson = 'none', $description = 'none'){
 		global $db;
 		global $curMod;
 		
 		// disable depends on
 		$dependson = 'none';
-
+		$description = str_replace("'", "''", $description);
 		$module = explode("/", strtolower($filename));
 
 	  	if($this->settings['debug'] > 1) print("Adding Event to list:($type) File:($filename)\n");
@@ -755,9 +756,9 @@ class bot extends AOChat{
 		}
 
 		if($this->existing_events[$type][$filename] == true) {
-		  	$db->query("UPDATE cmdcfg_<myname> SET `dependson` = '$dependson', `verify` = 1, `description` = '$desc' WHERE `type` = '$type' AND `cmdevent` = 'event' AND `file` = '$filename' AND `module` = '$curMod'");
+		  	$db->query("UPDATE cmdcfg_<myname> SET `dependson` = '$dependson', `verify` = 1, `description` = '$description' WHERE `type` = '$type' AND `cmdevent` = 'event' AND `file` = '$filename' AND `module` = '$curMod'");
 		} else {
-		  	$db->query("INSERT INTO cmdcfg_<myname> (`module`, `cmdevent`, `type`, `file`, `verify`, `dependson`, `description`, `status`) VALUES ('$curMod', 'event', '$type', '$filename', '1', '$dependson', '$desc', '$status')");
+		  	$db->query("INSERT INTO cmdcfg_<myname> (`module`, `cmdevent`, `type`, `file`, `verify`, `dependson`, `description`, `status`) VALUES ('$curMod', 'event', '$type', '$filename', '1', '$dependson', '$description', '$status')");
 		}
 	}
 
@@ -1028,9 +1029,11 @@ class bot extends AOChat{
 /*===============================
 ** Name: reggroup
 **  Register a group of commands
-*/	function regGroup($group, $module = 'none', $desc = 'none'){
+*/	function regGroup($group, $module = 'none', $description = 'none'){
 		global $db;
 		global $curMod;
+		
+		$description = str_replace("'", "''", $description);
 
 		$group = strtolower($group);
 		//Check if the module is correct
@@ -1060,7 +1063,7 @@ class bot extends AOChat{
 			  	echo "Error in creating group $group for module $curMod. Command ".$arg_list[$i]." doesn't exists.\n";
 			}
 		}
-	  	$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `cmdevent`, `verify`, `description`) VALUES ('none', '$group', 'group', '1', '$desc')");
+	  	$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `cmdevent`, `verify`, `description`) VALUES ('none', '$group', 'group', '1', '$description')");
 	}
 
 
