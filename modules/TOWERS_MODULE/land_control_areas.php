@@ -31,20 +31,15 @@
    
 if (preg_match("/^lca ([0-9]+)$/i", $message, $arr)) {
 	$ql = $arr[1];
-	if($ql < 10 || $ql > 300) {
+	if ($ql < 10 || $ql > 300) {
 		$msg = "Invalid QL. Please use a QL between 10 and 300.";
 		
-		if($type == "msg")
-        	bot::send($msg, $sender);
-	    elseif($type == "priv")
-    	   	bot::send($msg);
-	    elseif($type == "guild")
-    	   	bot::send($msg, "guild");
+       	bot::send($msg, $sendto);
     	return;
 	}
 
 	$db->query("SELECT * FROM `towerranges` WHERE `low_level` <= $ql AND `high_level` >= $ql ORDER BY `playfield` LIMIT 0, 40");
-	if($db->numrows() == 0) {
+	if ($db->numrows() == 0) {
 		$msg = "No matches.";
 		bot::send($msg, $sendto);
     	return;
@@ -52,13 +47,14 @@ if (preg_match("/^lca ([0-9]+)$/i", $message, $arr)) {
 	
 	$playfield = "";
 	$list = "<header>::::: Land Control Areas with the QL$ql(Matches ".$db->numrows().") :::::<end>\n";
-	if($db->numrows() == 40) {
+	if ($db->numrows() == 40) {
 		$list .= "<red>Note: Output has been limited to 40fields!<end>\n\n";
-	} else
+	} else {
 		$list .= "\n";
+	}
 
-	while($row = $db->fObject()) {
-	 	if($playfield != $row->playfield) {
+	while ($row = $db->fObject()) {
+	 	if ($playfield != $row->playfield) {
 	 	 	$playfield = $row->playfield;
 	 		$list .= "<highlight><u>$row->playfield</u><end>\n";
 	 	}
@@ -69,11 +65,11 @@ if (preg_match("/^lca ([0-9]+)$/i", $message, $arr)) {
 	
 	$msg = bot::makeLink("Land Control Areas", $list);
 	bot::send($msg, $sendto);
-} elseif(preg_match("/^lca ([a-z ]+)$/i", $message, $arr)) {
+} else if (preg_match("/^lca ([a-z ]+)$/i", $message, $arr)) {
 	$name = $arr[1];
 
 	$db->query("SELECT * FROM `towerranges` WHERE `playfield` LIKE '$name' ORDER BY `low_level` LIMIT 0, 40");
-	if($db->numrows() == 0) {
+	if ($db->numrows() == 0) {
 		$msg = "No matches.";
 		bot::send($msg, $sendto);
     	return;
@@ -81,13 +77,14 @@ if (preg_match("/^lca ([0-9]+)$/i", $message, $arr)) {
 	
 	$playfield = "";
 	$list = "<header>::::: Land Control Areas with the name $name(Matches ".$db->numrows().") :::::<end>\n";
-	if($db->numrows() == 40) {
+	if ($db->numrows() == 40) {
 		$list .= "<red>Note: Output has been limited to 40fields!<end>\n\n";
-	} else
+	} else {
 		$list .= "\n";
+	}
 
-	while($row = $db->fObject()) {
-	 	if($playfield != $row->playfield) {
+	while ($row = $db->fObject()) {
+	 	if ($playfield != $row->playfield) {
 	 	 	$playfield = $row->playfield;
 	 		$list .= "<highlight><u>$row->playfield</u><end>\n";
 	 	}
@@ -98,10 +95,10 @@ if (preg_match("/^lca ([0-9]+)$/i", $message, $arr)) {
 	
 	$msg = bot::makeLink("Land Control Areas", $list);
 	bot::send($msg, $sendto);
-} elseif(preg_match("/^lca ([0-9]+) ([a-z ]+)$/i", $message, $arr)) {
+} else if (preg_match("/^lca ([0-9]+) ([a-z ]+)$/i", $message, $arr)) {
 	$name = $arr[2];
 	$ql = $arr[1];
-	if($ql < 10 || $ql > 300) {
+	if ($ql < 10 || $ql > 300) {
 		$msg = "Invalid QL. Please use a QL between 10 and 300.";
 		
 		bot::send($msg, $sendto);
@@ -109,7 +106,7 @@ if (preg_match("/^lca ([0-9]+)$/i", $message, $arr)) {
 	}
 	
 	$db->query("SELECT * FROM `towerranges` WHERE `playfield` LIKE '$name' AND `low_level` <= $ql AND `high_level` >= $ql ORDER BY `low_level` LIMIT 0, 40");
-	if($db->numrows() == 0) {
+	if ($db->numrows() == 0) {
 		$msg = "No matches.";
 		bot::send($msg, $sendto);
     	return;
@@ -117,13 +114,14 @@ if (preg_match("/^lca ([0-9]+)$/i", $message, $arr)) {
 	
 	$playfield = "";
 	$list = "<header>::::: Land Control Areas with the name $name and ql$ql(Matches ".$db->numrows().") :::::<end>\n";
-	if($db->numrows() == 40) {
+	if ($db->numrows() == 40) {
 		$list .= "<red>Note: Output has been limited to 40fields!<end>\n\n";
-	} else
+	} else {
 		$list .= "\n";
+	}
 
-	while($row = $db->fObject()) {
-	 	if($playfield != $row->playfield) {
+	while ($row = $db->fObject()) {
+	 	if ($playfield != $row->playfield) {
 	 	 	$playfield = $row->playfield;
 	 		$list .= "<highlight><u>$row->playfield</u><end>\n";
 	 	}

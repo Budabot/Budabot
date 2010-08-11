@@ -1,4 +1,6 @@
 <?php
+	require_once 'Towers.class.php';
+
 	$MODULE_NAME = "TOWERS_MODULE";
 
 	//Tower messages
