@@ -4,7 +4,7 @@
 		
 		// add neutnet bots to whitelist
 		$NUM_BOTS = 14;
-		for ($i = 0; $i <= $NUM_BOTS; $i++) {
+		for ($i = 1; $i <= $NUM_BOTS; $i++) {
 			Whitelist::add("Neutnet$i", $MODULE_NAME);
 		}
 		
