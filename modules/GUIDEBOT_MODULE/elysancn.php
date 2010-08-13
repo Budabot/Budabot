@@ -1,4 +1,4 @@
-<? 
+<?php
 $elysancn_txt = "<header>::::: Elysium Sanctuary Garden Nanos :::::<end>\n\n"; 
 $elysancn_txt = "Elysium Sanctuary Nanos
 <font color ='#69E61E'>

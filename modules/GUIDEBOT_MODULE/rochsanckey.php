@@ -1,4 +1,4 @@
-<? 
+<?php
 $rochsanckey_txt = "<header>::::: Scheol: Roch Sanctuary Garden Key Quest :::::<end>\n\n"; 
 $rochsanckey_txt = "Scheol: Roch Sanctuary Garden Key Quest
 

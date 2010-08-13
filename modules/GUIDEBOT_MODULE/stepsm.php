@@ -1,4 +1,4 @@
-<? 
+<?php
 $stepsm_txt = "<header>::::: Guide to Steps Of Madness :::::<end>\n\n"; 
 $stepsm_txt = " <font color = red>The Steps Of Madness </font>
 

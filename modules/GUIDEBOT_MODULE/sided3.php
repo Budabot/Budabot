@@ -1,4 +1,4 @@
-<? 
+<?php
 $sided3_txt = "<header>::::: Guide to Sided Pads Quest Part 3 :::::<end>\n\n"; 
 $sided3_txt = "This is where things get rough - part 3 of the sided shoulderpads. With your card II ready, you can head back to your agent of choice and turn it in for the third and final part of this mission. But hold on just a sec - like in the first part, you do not need to have this part running to accomplish the task, and with the normally difficult nature of this, it could be a good idea to wait to return the card until you have the items needed and/or know you can finish in the time given. Should you start this quest and fail to finish in time, you will need another card II - often meaning you have to complete part 1 and 2 all over again. Once turned in, you have 30 days real-time to complete the quest.
 

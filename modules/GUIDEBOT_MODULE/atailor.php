@@ -1,4 +1,4 @@
-<? 
+<?php
 $atailor_txt = "<header>::::: Guide to A Tailor's Woe  :::::<end>\n\n"; 
 $atailor_txt = " 	
 This is Edgar. Well. Actually, the OT Tailors have no names, but reliable sources tells us this one is called Edgar. Okay, so fine, we made it up. Anyway. The OT Tailors have been having a problem lately, it seems that they are in dire need of some Rollerrat flesh in order to make the Omni-Tek clothes they sell, and it so happens that they could use your help. Now fancy that, eh?

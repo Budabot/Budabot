@@ -1,4 +1,4 @@
-<? 
+<?php
 $penguide_txt = "<header>::::: Penumbra Guide: Key Quests Included :::::<end>\n\n"; 
 $penguide_txt = "
 <img src=rdb://234681>

@@ -1,4 +1,4 @@
-<? 
+<?php
 $pensancn_txt = "<header>::::: Penumbra Sanctuary Garden Nanos  :::::<end>\n\n"; 
 $pensancn_txt = "Penumbra Sanctuary (Vanya)
 <font color='#69E61E'>

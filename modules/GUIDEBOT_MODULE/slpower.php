@@ -1,4 +1,4 @@
-<? 
+<?php
 $slpower_txt = "<header>::::: Solo Leveling Guide for the Shadowlands  :::::<end>\n\n"; 
 $slpower_txt = "
 Guide suited for: All Classes

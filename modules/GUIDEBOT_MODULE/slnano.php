@@ -1,4 +1,4 @@
-<? 
+<?php
 $slnano_txt = "<header>::::: Shadowlands Garden Nanos:::::<end>\n\n"; 
 $slnano_txt = "Here is an updated list of Nano Crystals sold in Gardens and Sanctuaries. 
 Please notify your bot developer of any changes, errors, or discrepencies. 

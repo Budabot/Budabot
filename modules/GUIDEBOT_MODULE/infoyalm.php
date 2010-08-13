@@ -1,4 +1,4 @@
-<? 
+<?php
 $infoyalm_txt = "<header>::::: Locations of Yalms  :::::<end>\n\n"; 
 $infoyalm_txt = " 	
 

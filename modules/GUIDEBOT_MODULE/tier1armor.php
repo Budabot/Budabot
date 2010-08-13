@@ -1,4 +1,4 @@
-<? 
+<?php
 $tier1armor = "<header>::::: Making Tier 1 Armor :::::<end>\n\n"; 
 $tier1armor = "Jobe Armor Tier One
 

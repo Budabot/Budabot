@@ -1,4 +1,4 @@
-<? 
+<?php
 $adventurer_txt = "<header>::::: Guide To Adventurers :::::<end>\n\n"; 
 $adventurer_txt = "-= The Adventurer's Handbook =-
 

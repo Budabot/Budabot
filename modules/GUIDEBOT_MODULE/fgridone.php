@@ -1,4 +1,4 @@
-<? 
+<?php
 $fgridone_txt = "<header>::::: Guide to Fixer Grid Part 1 :::::<end>\n\n"; 
 $fgridone_txt = "Fixer Grid Quest Part 1
 

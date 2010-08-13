@@ -1,4 +1,4 @@
-<? 
+<?php
  /*
    ** Author: Plugsz (RK1)
    ** Description: Guides

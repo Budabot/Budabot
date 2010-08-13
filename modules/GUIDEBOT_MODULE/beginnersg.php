@@ -1,4 +1,4 @@
-<? 
+<?php
 $beginners_txt = "<header>::::: Beginners Questions - Good place for beginners to start  :::::<end>\n\n"; 
 $beginners_txt = "Beginner's Guide - Frequent Asked Questions
 

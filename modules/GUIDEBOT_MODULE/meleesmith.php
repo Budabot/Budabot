@@ -1,4 +1,4 @@
-<? 
+<?php
 $meleesmith_txt = "<header>::::: Guide to Melee Smith :::::<end>\n\n"; 
 $meleesmith_txt = "Contrary to common belief, the store is open to anyone wanting to drop by, provided they can actually get there. Its easiest for Omni personell no doubt though since the Whompa to Southern Artery Valleys Outpost 10-3 is just closeby. Clans might want to go through Wine in order to get here safely, although it is possible to whompa from the 2HO outpost as well, it depends on how much of a beating from the unsympathetic Omni Guards you think you can handle.
 

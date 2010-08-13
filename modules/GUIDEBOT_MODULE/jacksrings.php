@@ -1,4 +1,4 @@
-<? 
+<?php
 $jacksrings_txt = "<header>::::: Information about LE Alien Missions :::::<end>\n\n"; 
 $jacksrings_txt ="<font color = yellow>::::: Information about LE Alien Missions :::::</font>
 

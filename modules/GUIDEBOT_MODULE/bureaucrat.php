@@ -1,4 +1,4 @@
-<? 
+<?php
 $bureaucrat_txt = "<header>::::: Guide to Bureaucrat :::::<end>\n\n"; 
 $bureaucrat_txt = "Skills are abilities like Matter Creation or Time & Space in nanoskills, or pistol skill in weapon skills. Stats are the abilities of your character on the body side. Those are: Strength, Stamina, Agility, Intelligence, Psychic, Sense, Nanopool and Body Development.
 

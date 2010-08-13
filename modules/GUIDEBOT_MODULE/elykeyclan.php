@@ -1,4 +1,4 @@
-<? 
+<?php
 $elykeyclan_txt = "<header>::::: Elysium Garden Key Quest CLAN :::::<end>\n\n"; 
 $elykeyclan_txt = "
 <font color='#ff9933'><highlight>Enel Garden Key Quest</font></end>

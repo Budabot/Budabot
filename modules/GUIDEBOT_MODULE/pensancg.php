@@ -1,4 +1,4 @@
-<? 
+<?php
 $pensancg_txt = "<header>::::: Penumbra Sanctuary Garden Key Quest OMNI :::::<end>\n\n"; 
 $pensancg_txt = "Penumbra Sanctuary Garden Key Quest OMNI
 

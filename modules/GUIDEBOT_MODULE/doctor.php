@@ -1,4 +1,4 @@
-<? 
+<?php
 $doctor_txt = "<header>::::: Guide to Doctors :::::<end>\n\n"; 
 $doctor_txt = "Now on to the good stuff that really matters.
 

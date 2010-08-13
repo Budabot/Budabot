@@ -1,4 +1,4 @@
-<? 
+<?php
 $martialartists_txt = "<header>::::: Guide to Martial Artists :::::<end>\n\n"; 
 $martialartists_txt = "Please see the following website for an excellent, yet somewhat outdated, Martial Artist Guide
 

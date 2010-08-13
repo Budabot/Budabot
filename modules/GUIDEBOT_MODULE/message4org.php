@@ -1,4 +1,4 @@
-<? 
+<?php
 $message1_txt = "<header>::::: A Message From Plugsz  :::::<end>\n\n"; 
 $message1_txt = "Newcomers Alliance is dedicated to helping new players and having fun. We may be a growing org, but our reputation does preceed us. Each member is expected to act as a representative of the org, and act accordingly. With that in mind:
 

@@ -1,4 +1,4 @@
-<? 
+<?php
 $sanctum_txt = "<header>::::: Guide to The Inner Sanctum :::::<end>\n\n"; 
 $sanctum_txt = "The Inner Sanctum dungeon is a high level dungeon geared towards players of level 125+ (though, rest assured that level 125+ players won't last very long in there). As the 'extension' of the 'Temple of Three Winds', this dungeon is similar in theme to the TotW, housing a mysterious cult of Hezak. Great adventures and treasures can be found inside the Inner Sanctum.
 

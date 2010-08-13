@@ -1,4 +1,4 @@
-<? 
+<?php
 $terms_txt = "<header>::::: Guide to AO Terminology :::::<end>\n\n"; 
 $terms_txt = "Guide to AO terminology
 

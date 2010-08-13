@@ -1,4 +1,4 @@
-<? 
+<?php
 $plugszpb_txt = "<header>::::: Plugsz's Pocketbosses  :::::<end>\n\n"; 
 $plugszpb_txt = "Here is a compiled list of the PBs we'll be popping and what they drop
 

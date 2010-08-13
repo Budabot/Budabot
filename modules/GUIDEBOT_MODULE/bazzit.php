@@ -1,4 +1,4 @@
-<? 
+<?php
 $bazzit_txt = "<header>::::: Guide to Bazzit's Quest  :::::<end>\n\n"; 
 $bazzit_txt = "
 Guide suited for: All Classes

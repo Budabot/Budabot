@@ -1,4 +1,4 @@
-<? 
+<?php
 $ipreset_txt = "<header>::::: Guide to IP Reset Points :::::<end>\n\n"; 
 $ipreset_txt = "<font color = blue>-= IP Resets =-</font>
 

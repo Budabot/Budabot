@@ -1,4 +1,4 @@
-<? 
+<?php
 $elykey_txt = "<header>::::: Elysium Shere Garden Key Quest :::::<end>\n\n"; 
 $elykey_txt = "Elysium: Shere Garden Key Quest
 

@@ -1,4 +1,4 @@
-<? 
+<?php
 $grid_txt = "<header>::::: Guide to The Grid  :::::<end>\n\n"; 
 $grid_txt = "<font color = blue>-= The Grid =-</font>
 

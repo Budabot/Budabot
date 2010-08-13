@@ -1,4 +1,4 @@
-<? 
+<?php
 $shoelkeyclan_txt = "<header>::::: Shoel Garden Key Quest CLAN :::::<end>\n\n"; 
 $shoelkeyclan_txt = "Shoel Garden Key Quest CLAN
 

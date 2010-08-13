@@ -1,4 +1,4 @@
-<? 
+<?php
 $tradenpc_txt = "<header>::::: Guide to Unique NPCs :::::<end>\n\n"; 
 $tradenpc_txt = "These NPCs may not be the easiest to find, but their wares are out of the ordinary and certainly worth the trip,if at least to get a refreshing change of scenery.
 

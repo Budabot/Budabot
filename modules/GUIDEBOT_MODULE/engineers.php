@@ -1,4 +1,4 @@
-<? 
+<?php
 $engineers_txt = "<header>::::: Guide to Engineers :::::<end>\n\n"; 
 $engineers_txt = " Starting to Play
 

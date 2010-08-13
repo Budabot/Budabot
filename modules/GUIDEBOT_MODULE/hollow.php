@@ -1,4 +1,4 @@
-<? 
+<?php
 $hollow_txt = "<header>::::: Guide to Hollow Island :::::<end>\n\n"; 
 $hollow_txt = "South of Wine in Belial Forest, you can find the 'Hollow Island'. A small patch of sand enclosed by rocky cliffs. This is where a very special sapling has decided to stick its roots into the sand and wait for someone to fertilize it. To enter the Hollow Island, you need to find the entrance, since you cannot fly/run over the cliffs. You can't get in anywhere except at the entrance... and you can't get out easily either once the action starts... hehe
 

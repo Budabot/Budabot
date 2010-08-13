@@ -1,4 +1,4 @@
-<? 
+<?php
 $halloween_txt = "<header>::::: Halloween/Uncle Pumpkinhead Hunting  :::::<end>\n\n"; 
 $halloween_txt = "
 

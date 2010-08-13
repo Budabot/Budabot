@@ -1,4 +1,4 @@
-<? 
+<?php
 $indieshoel_txt = "<header>::::: Shoel Quests: Independants  :::::<end>\n\n"; 
 $indieshoel_txt = "
 Guide suited for: All Classes

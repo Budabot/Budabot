@@ -1,4 +1,4 @@
-<? 
+<?php
 $pernweps_txt = "<header>::::: Perennium Weapons :::::<end>\n\n"; 
 $pernweps_txt = "Perennium Weapons
 

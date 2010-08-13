@@ -1,4 +1,4 @@
-<? 
+<?php
 $biomare_txt = "<header>::::: Foremans aka Biomare Quests :::::<end>\n\n"; 
 $biomare_txt .= "Biomare Quests
 

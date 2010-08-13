@@ -1,4 +1,4 @@
-<? 
+<?php
 $implants_txt = "<header>::::: Guide to Implants :::::<end>\n\n"; 
 $implants_txt = "<font color = green>Saetos's Guide to Implants ... for the Newbie in All of Us </font>
 

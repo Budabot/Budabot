@@ -1,4 +1,4 @@
-<? 
+<?php
 $prof_txt = "<header>::::: Guide to The AO Professions  :::::<end>\n\n"; 
 $prof_txt = " Listing of Character Classes as follows:
 

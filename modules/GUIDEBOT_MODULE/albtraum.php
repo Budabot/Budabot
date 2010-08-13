@@ -1,4 +1,4 @@
-<? 
+<?php
 $albtraum_txt = "<header>::::: Albtraum, new Inferno Quests :::::<end>\n\n"; 
 $albtraum_txt = "Guide To Albtraum
 <font color = green>Guide for Albtraum</font>

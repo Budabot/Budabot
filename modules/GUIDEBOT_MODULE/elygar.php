@@ -1,4 +1,4 @@
-<? 
+<?php
 $elygar_txt = "<header>::::: Elysium Garden Nanos  :::::<end>\n\n"; 
 $elygar_txt = "Elysium Garden    
 

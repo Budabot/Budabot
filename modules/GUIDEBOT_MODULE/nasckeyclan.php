@@ -1,4 +1,4 @@
-<? 
+<?php
 $nasckeyclan_txt = "<header>::::: Nascence Garden Key Quest CLAN :::::<end>\n\n"; 
 $nasckeyclan_txt = "
 <font color='#ff9933'><highlight>Nascence (Aban) Garden Key Quest</font></end>

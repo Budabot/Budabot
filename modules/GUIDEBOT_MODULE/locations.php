@@ -1,4 +1,4 @@
-<? 
+<?php
 $locations_txt = "<header>::::: Locations of Rubi Ka  :::::<end>\n\n"; 
 $locations_txt = "Locations Of Rubi Ka
 

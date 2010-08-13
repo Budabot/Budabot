@@ -1,4 +1,4 @@
-<? 
+<?php
 $rkdung_txt = "<header>::::: Guide To Rubi-Ka Static Dungeons  :::::<end>\n\n"; 
 $rkdung_txt = "<font color = red> Guide To Rubi-Ka Static Dungeons </font> 
 

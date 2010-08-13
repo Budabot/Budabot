@@ -1,4 +1,4 @@
-<? 
+<?php
 $fgrid2_txt = "<header>::::: Guide to Fixer Grid Part 2 :::::<end>\n\n"; 
 $fgrid2_txt = "Fixer Grid Part 2 
 Faction  All 

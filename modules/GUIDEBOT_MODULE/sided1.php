@@ -1,4 +1,4 @@
-<? 
+<?php
 $sided1_txt = "<header>::::: Guide to Sided Pads Quest Part 1 :::::<end>\n\n"; 
 $sided1_txt = " It wouldn't be quite right to do this quest so late after it showing up without going into a few of the nightmares that has followed it's birth and seeing how the designers went back and forth before everything was finally in place.
 

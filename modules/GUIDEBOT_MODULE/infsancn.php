@@ -1,4 +1,4 @@
-<? 
+<?php
 $infsancn_txt = "<header>::::: Inferno Sanctuary Garden Nanos :::::<end>\n\n"; 
 $infsancn_txt = "Inferno Sanctuary
 <font color='#69E61E'>

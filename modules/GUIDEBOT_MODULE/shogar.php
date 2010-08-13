@@ -1,4 +1,4 @@
-<? 
+<?php
 $shogar_txt = "<header>::::: Shoel Garden Nanos  :::::<end>\n\n"; 
 $shogar_txt = "Scheol Garden
 <font color = #69E61E>

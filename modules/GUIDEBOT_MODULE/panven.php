@@ -1,4 +1,4 @@
-<? 
+<?php
 $panven_txt = "<header>::::: Pandemonium Vendor Nanos :::::<end>\n\n"; 
 $panven_txt = "Pandemonium Vendors
 <font color='#69E61E'>

@@ -1,4 +1,4 @@
-<? 
+<?php
 $bernice_txt = "<header>::::: Guide to Thin Bernice :::::<end>\n\n"; 
 $bernice_txt = "In Perpetual Wastelands in the outpost at 1050 x 2500 you can find a peddler called Thin Bernice selling her wares at discount prices. In her case, discount means expensive. Very expensive. But hey - nobody is perfect. You can also grab some ammunition from her if you should want to restock on that, but the real gems are the selections of tanks and Battlesuits.
 

@@ -1,4 +1,4 @@
-<? 
+<?php
 $tier2armor_txt = "<header>::::: Making Tier2 Armor :::::<end>\n\n"; 
 $tier2armor_txt = "Jobe Armor Tier Two
 

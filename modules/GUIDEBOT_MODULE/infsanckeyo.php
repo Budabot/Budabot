@@ -1,4 +1,4 @@
-<? 
+<?php
 $infsanckeyo_txt = "<header>::::: Inferno Sanctuary Key Quest - Omni :::::<end>\n\n"; 
 $infsanckeyo_txt = "Inferno Sanctuary Key Quest - Omni
  

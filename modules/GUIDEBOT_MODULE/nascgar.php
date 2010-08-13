@@ -1,4 +1,4 @@
-<? 
+<?php
 $nascgar_txt = "<header>::::: Nascense Garden Nanos  :::::<end>\n\n"; 
 $nascgar_txt = "Nascence Garden
 

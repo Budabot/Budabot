@@ -1,4 +1,4 @@
-<? 
+<?php
 $cryptinfo_txt = "<header>::::: Guide to Crypt Of Home :::::<end>\n\n"; 
 $cryptinfo_txt = "The Crypt aka Crypt Of Home(window)(green)
 

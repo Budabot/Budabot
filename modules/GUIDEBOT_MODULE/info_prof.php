@@ -1,4 +1,4 @@
-<? 
+<?php
 $prof_txt = "<header>:::::: Professions Guides :::::<end>\n\n"; 
 $prof_txt = "
 (note: all this information was taken from the official AO forums and should not be taken as a absolute rulebook. These are people's opinions,and you should play your character however you want. Just have fun. :P )

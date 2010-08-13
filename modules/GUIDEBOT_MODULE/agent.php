@@ -1,4 +1,4 @@
-<? 
+<?php
 $agent_txt = "<header>::::: Guide to Agents :::::<end>\n\n"; 
 $agent_txt = "-= Agent =-
 

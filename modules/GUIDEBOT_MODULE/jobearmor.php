@@ -1,4 +1,4 @@
-<? 
+<?php
 $jobearmor_txt = "<header>::::: Making Jobe Arbor :::::<end>\n\n"; 
 $jobearmor_txt = "Jobe Armor
 

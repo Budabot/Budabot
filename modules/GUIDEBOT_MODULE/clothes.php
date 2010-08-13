@@ -1,4 +1,4 @@
-<? 
+<?php
 $clothes_txt = "<header>::::: Guide to Social Clothes  :::::<end>\n\n"; 
 $clothes_txt = "
 Guide suited for: All Classes

@@ -1,4 +1,4 @@
-<? 
+<?php
 $nasckey_txt = "<header>::::: Guide to Nascence Garden Key :::::<end>\n\n"; 
 $nasckey_txt = "Nascence: Thrak (Omni) Garden Key Quest
 

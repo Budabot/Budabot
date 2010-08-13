@@ -1,4 +1,4 @@
-<? 
+<?php
 $adosancn_txt = "<header>::::: Adonis Sanctuary Garden Nanos  :::::<end>\n\n"; 
 $adosancn_txt = "
 Adonis Sanctuary Garden Nanos

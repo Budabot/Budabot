@@ -1,4 +1,4 @@
-<? 
+<?php
 $Buffs_txt = "<header>::::: Information about all the In Game Buffs :::::<end>\n\n"; 
 $Buffs_txt ="<font color = yellow> Work in Progress
 

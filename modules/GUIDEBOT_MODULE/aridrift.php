@@ -1,4 +1,4 @@
-<? 
+<?php
 $aridrift_txt = "<header>::::: Arid Rift Guide::<end>\n\n"; 
 $aridrift_txt = "
 

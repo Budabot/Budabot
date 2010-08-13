@@ -1,4 +1,4 @@
-<? 
+<?php
 $smugden_txt = "<header>::::: Guide to Smuggler's Den :::::<end>\n\n"; 
 $smugden_txt = "Located in the south east corner of Rubi-Ka, we have the Smuggler's Den. Home to the Den Mantis species and the smugglers - humanoids who like to hoard great treasure and smuggle stuff from and to Rubi-Ka. The dungeon is located in a small 25% area, so you need to enter quickly, in case someone is waiting for you outside ;)
 

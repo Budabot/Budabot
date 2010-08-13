@@ -1,4 +1,4 @@
-<? 
+<?php
 $pengarn_txt = "<header>::::: Penumbra Garden Nanos  :::::<end>\n\n"; 
 $pengarn_txt = "Penumbra Garden
 <font color='#69E61E'>

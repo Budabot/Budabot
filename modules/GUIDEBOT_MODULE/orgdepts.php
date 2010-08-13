@@ -1,4 +1,4 @@
-<? 
+<?php
 $orgdepts_txt = "<header>::::: Organizational Departments  :::::<end>\n\n"; 
 $orgdepts_txt = "<font color = blue>-= Organization Departments =-</font>
 

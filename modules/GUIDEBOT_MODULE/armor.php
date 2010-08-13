@@ -1,4 +1,4 @@
-<? 
+<?php
 $Armot_txt = "<header>::::: Armor Information :::::<end>\n\n"; 
 $Armor_txt = " Information on Armor by stats and type
 

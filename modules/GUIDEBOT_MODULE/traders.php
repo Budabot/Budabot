@@ -1,4 +1,4 @@
-<? 
+<?php
 $traders_txt = "<header>::::: Guide to Traders :::::<end>\n\n"; 
 $traders_txt = "<font color = yellow> -= Trader Guide =-</font>
 

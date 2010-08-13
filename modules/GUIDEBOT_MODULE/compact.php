@@ -1,4 +1,4 @@
-<? 
+<?php
 $compact_txt = "<header>::::: Guide to SL Compact Discs Quests  :::::<end>\n\n"; 
 $compact_txt = "
 Guide suited for: All Classes

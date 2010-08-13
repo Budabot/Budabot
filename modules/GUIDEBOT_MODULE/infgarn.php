@@ -1,4 +1,4 @@
-<? 
+<?php
 $infgarn_txt = "<header>::::: Inferno Garden Nanos  :::::<end>\n\n"; 
 $infgarn_txt = "Inferno Garden
 <font color='#69E61E'>

@@ -1,4 +1,4 @@
-<? 
+<?php
 $wrangle_txt = "<header>::::: Guide to Wrangles :::::<end>\n\n"; 
 $wrangle_txt = "<font color = blue>-= Guide to Wrangles =-</font>
 

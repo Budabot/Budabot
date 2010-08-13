@@ -1,4 +1,4 @@
-<? 
+<?php
 $pensancclan_txt = "<header>::::: Penumbra Sanctuary Garden Key Quest CLAN :::::<end>\n\n"; 
 $pensancclan_txt = "Penumbra Sanctuary Garden Key Quest CLAN
 

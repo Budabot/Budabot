@@ -1,4 +1,4 @@
-<? 
+<?php
 $shosancn_txt = "<header>::::: Shoel Sanctuary Garden Nanos  :::::<end>\n\n"; 
 $shosancn_txt = "Scheol Sanctuary Nanos
 <font color='#69E61E'>

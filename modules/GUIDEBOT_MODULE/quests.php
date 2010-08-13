@@ -1,4 +1,4 @@
-<? 
+<?php
 $quests_txt = "<header>::::: NPC Quest Guides  :::::<end>\n\n"; 
 $quests_txt = " NPC Quest Guide
 

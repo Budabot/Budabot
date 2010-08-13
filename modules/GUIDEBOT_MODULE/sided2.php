@@ -1,4 +1,4 @@
-<? 
+<?php
 $sided2_txt = "<header>::::: Guide to Sided Pads Quest Part 2 :::::<end>\n\n"; 
 $sided2_txt = "Happily running around with your first shoulderpads now? Let's kick it up a notch and add some more juice to them with part 2 of this quest.
 

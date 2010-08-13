@@ -1,4 +1,4 @@
-<? 
+<?php
 $lemish_txt = "<font color =#DDDD44>:::::  Guide to LE Alien Missions  :::::</font>\n\n"; 
 $lemish_txt = "
 <font color =#DDDD44>:::::  Guide to LE Alien Missions  :::::</font>

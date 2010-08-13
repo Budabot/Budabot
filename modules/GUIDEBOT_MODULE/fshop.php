@@ -1,4 +1,4 @@
-<? 
+<?php
 $fshop_txt = "<header>::::: Guide to The Fixer Shop :::::<end>\n\n"; 
 $fshop_txt = "The shop connection is well hidden, but make your way to the neutral city of Borealis first. The easiest way should be through the Wompa in Newland City. Once there, head South-West over the city walls and you will come to a mountain, circled by a road and some small shack settlements along it. Probably where the workers of the various Omni-Mines in the area live.
 

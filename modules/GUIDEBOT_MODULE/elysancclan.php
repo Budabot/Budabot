@@ -1,4 +1,4 @@
-<? 
+<?php
 $elysancclan_txt = "<header>::::: Elysium Sanctuary Garden Key Quest CLAN :::::<end>\n\n"; 
 $elysancclan_txt = "
 <font color='#ff9933'><highlight>Enel Sanctuary Garden Key Quest</font></end>

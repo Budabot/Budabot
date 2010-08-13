@@ -1,4 +1,4 @@
-<? 
+<?php
 $rochkey_txt = "<header>::::: Scheol: Roch Garden Key Quest :::::<end>\n\n"; 
 $rochkey_txt = "Scheol: Roch Garden Key Quest
 

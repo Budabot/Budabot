@@ -1,4 +1,4 @@
-<? 
+<?php
 $tshop_txt = "<header>::::: Guide to Trader Shops :::::<end>\n\n"; 
 $tshop_txt = "The shop is an easily overlooked terminal marked Specialist Commerce found in each special quality superstore around Rubi-Ka. The terminal can only be accessed by Traders of at least level 25. The security is too tight for even the finest undercover Agents. In fact, the security grid seemed embarassed at our attempts.
   The shop holds a selection of items not found in the common stores. The items are in no way meant for Traders however. Rather, they are meant for other professions that need a Trader to act as the middleman and access the shop for them.
