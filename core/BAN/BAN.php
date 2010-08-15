@@ -1,5 +1,5 @@
 <?php 
-$MODULE_NAME = "BAN";
+	$MODULE_NAME = "BAN";
 
 	//Commands
 	bot::regcommand("msg", "$MODULE_NAME/ban_player.php", "ban","mod");

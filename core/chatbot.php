@@ -1178,7 +1178,7 @@ class bot extends AOChat{
 /*===========================================================================================
 ** Name: help_lookup
 ** Find a help topic for a command if it exists
-*/	function help_lookup($helpcmd) {
+*/	function help_lookup($helpcmd, $sender) {
 		$helpcmd = explode(' ', $helpcmd, 2);
 		$helpcmd = $helpcmd[0];
 		$helpcmd = strtolower($helpcmd);
@@ -1445,7 +1445,7 @@ class bot extends AOChat{
  				    $msg = "";
 					include $filename;
 					if ($syntax_error == true) {
-						if (($output = bot::help_lookup($message)) !== FALSE) {
+						if (($output = bot::help_lookup($message, $sender)) !== FALSE) {
 							bot::send($output, $sendto);
 						} else {
 							bot::send("Error! Check your syntax or for more info try /tell <myname> help", $sendto);
@@ -1669,7 +1669,7 @@ class bot extends AOChat{
 
 						//Shows syntax errors to the user
 						if ($syntax_error == true) {
-							if (($output = bot::help_lookup($message)) !== FALSE) {
+							if (($output = bot::help_lookup($message, $sender)) !== FALSE) {
 								bot::send($output, $sendto);
 							} else {
 								bot::send("Error! Check your syntax or for more info try /tell <myname> help", $sendto);

@@ -89,7 +89,7 @@ if (preg_match("/^about$/i", $message)) {
 
 	bot::send($link, $sendto);
 } else if (preg_match("/^help (.+)$/i", $message, $arr)) {
-	if (($output = bot::help_lookup($arr[1])) !== FALSE) {
+	if (($output = bot::help_lookup($arr[1], $sender)) !== FALSE) {
 		bot::send($output, $sendto);
 	} else {
 		bot::send("No help found on this topic.", $sendto);
