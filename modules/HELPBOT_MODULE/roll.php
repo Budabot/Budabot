@@ -108,7 +108,7 @@ if(preg_match("/^flip$/i", $message)) {
 } elseif(preg_match("/^verify ([0-9]+)$/i", $message, $arr)) {
 	$db->query("SELECT * FROM roll_<myname> WHERE `id` = $arr[1] ORDER BY `time`");
 	if($db->numrows() == 0)
-		$msg = "Sry but your verify number doesn't exist.";
+		$msg = "Your verify number doesn't exist.";
 	else {
 	  	$row = $db->fObject();
 	  	$time = time() - $row->time;
