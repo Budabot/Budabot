@@ -30,7 +30,7 @@
    */
 
 $msg = "";
-if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
+if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) ) {
   	if($arr[1] < 1 || $arr[1] > 10000) {
 		$msg = "No valid time specified!";
 		
@@ -73,7 +73,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 		
     // Send info back
     bot::send($msg, $sendto);
-} elseif (preg_match("/^timer ([0-9]+) (.+)$/i", $message, $arr)) {
+} elseif (preg_match("/^timers? ([0-9]+) (.+)$/i", $message, $arr)) {
   	$timer_name = trim($arr[2]);
 	
   	if($arr[1] < 1 || $arr[1] > 10000) {
@@ -123,7 +123,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 		
     // Send info back
     bot::send($msg, $sendto);
-} elseif (preg_match("/^timer (rem|del) (.+)$/i", $message, $arr)) {
+} elseif (preg_match("/^timers? (rem|del) (.+)$/i", $message, $arr)) {
 	$timer_name = strtolower($arr[2]);
 	
 	foreach($this->vars["Timers"] as $key => $value) {
@@ -155,7 +155,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 
     // Send info back
     bot::send($msg, $sendto);
-} elseif (preg_match("/^timer (([0-9]*)[d|day|days]*).(([0-9]*)[h|hr|hrs]*).(([0-9]*)[m|min|mins]*)$/i", $message, $arr)) {
+} elseif (preg_match("/^timers? (([0-9]*)[d|day|days]*).(([0-9]*)[h|hr|hrs]*).(([0-9]*)[m|min|mins]*)$/i", $message, $arr)) {
 	if(preg_match("/([0-9]+)(d|day|days)/i", $message, $day)) {
 		if($day[1] < 1 || $day[1] > 10) {
 			$msg = "No valid time specified!";
@@ -233,7 +233,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
 		
     // Send info back
     bot::send($msg, $sendto);
-} elseif (preg_match("/^timer (([0-9]*)[d|day|days]*).(([0-9]*)[h|hr|hrs]*).(([0-9]*)[m|min|mins]*) (.+)$/i", $message, $arr)) {
+} elseif (preg_match("/^timers? (([0-9]*)[d|day|days]*).(([0-9]*)[h|hr|hrs]*).(([0-9]*)[m|min|mins]*) (.+)$/i", $message, $arr)) {
 	$last_item = count($arr);
 	$timer_name = trim($arr[$last_item - 1]);
 	
@@ -322,7 +322,7 @@ if (preg_match("/^timer ([0-9]+)$/i", $message, $arr) ) {
    	    bot::send($msg);
     elseif($type == "guild")
       	bot::send($msg, "guild");      	      	      	
-} elseif (preg_match("/^timers$/i", $message, $arr)) {
+} elseif (preg_match("/^timers?$/i", $message, $arr)) {
 	$num_timers = count($this->vars["Timers"]);
 	if($num_timers == 0) {
 		$msg = "No Timers running atm.";
