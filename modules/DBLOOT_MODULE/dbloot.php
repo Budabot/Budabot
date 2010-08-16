@@ -132,11 +132,11 @@ if (preg_match("/^dbloot ([0-9]+)$/i", $message, $arr)) {
 		$loot[$nextloot]["linky"] = bot::makeItem($dbloot[$val]["ref"], $dbloot[$val]["ref"], 300, $dbloot[$val]["name"]);
 		$loot[$nextloot]["icon"] = $dbloot[$val]["img"];
 		$loot[$nextloot]["multiloot"] = 1;
-		bot::send("<highlight>".$itemname."<end> will be rolled in Slot <highlight>#".$nextloot, $sendto);
+		bot::send("<highlight>".$itemname."<end> will be rolled in Slot <highlight>#".$nextloot, 'priv');
 	} else {
-		bot::send("<highlight>".$itemname."<end> will be rolled in Slot <highlight>#".$slot."<end> as multiloot. Total: <yellow>".$total."<end>", $sendto);
+		bot::send("<highlight>".$itemname."<end> will be rolled in Slot <highlight>#".$slot."<end> as multiloot. Total: <yellow>".$total."<end>", 'priv');
 	}
-	bot::send("To add use !add ".$nextloot.", or !add 0 to remove yourself", $sendto);
+	bot::send("To add use !add ".$nextloot.", or !add 0 to remove yourself", 'priv');
 } else if (preg_match("/^db1$/i", $message)) {
 	$list = "<header>::::: DB1 Loot :::::<end>\n\n\n";
 	$loop = 1;
@@ -188,7 +188,7 @@ if (preg_match("/^dbloot ([0-9]+)$/i", $message, $arr)) {
 	}
 	$loot[3]["multiloot"] = 2;
 
-	bot::send("DB2 loot table was added to the loot list by <highlight>$sender<end>.", $sendto);
+	bot::send("DB2 loot table was added to the loot list by <highlight>$sender<end>.", 'priv');
 } else {
 	$syntax_error = true;
 }
