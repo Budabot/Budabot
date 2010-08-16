@@ -637,6 +637,6 @@ elseif( preg_match("/^scorpio$/i", $message)){
 	$msg = bot::makeLink("Scorpio Loot", $list);
 }
 
-bot::send($msg, $sendto);
+bot::send($msg, 'priv');
 
 ?>
