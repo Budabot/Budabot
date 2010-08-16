@@ -1,4 +1,4 @@
-<?
+<?php
 
 /*
    ** Author: Chachy (RK2), based on code for Pande Loot Bot by Marinerecon (RK2)
