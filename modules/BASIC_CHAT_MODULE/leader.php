@@ -37,34 +37,36 @@ if($this->settings["leaderecho"] == 1) {
 	$cmd = "on";
 }
 
-if(preg_match("/^leader (.+)$/i", $message, $arr)) {
+if (preg_match("/^leader (.+)$/i", $message, $arr)) {
     $uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
-	if(!$uid)
+	if (!$uid) {
 		$msg = "Player <highlight>".$name."<end> does not exist.";
-	elseif(!isset($this->chatlist[$name]))
+	} else if (!isset($this->chatlist[$name])) {
 		$msg = "Player <highlight>".$name."<end> did't joined this channel.";
-	else {
+	} else {
 		$this->vars["leader"] = $name;
 	  	$msg = "$name is now Raidleader. Raidleader echo is currently $status. You can change it with <symbol>leaderecho $cmd";	    	
 	}
-  	bot::send($msg);
-} elseif(preg_match("/^leader$/i", $message)) {
-  	if($this->vars["leader"] == $sender) {
+  	bot::send($msg, 'priv');
+} else if (preg_match("/^leader$/i", $message)) {
+  	if ($this->vars["leader"] == $sender) {
 		unset($this->vars["leader"]);
 	  	$msg = "Raidleader is cleared.";
-	} elseif($this->vars["leader"] != "") {
-		if($this->admins[$sender]["level"] >= $this->admins[$this->vars["leader"]]["level"]){
+	} else if ($this->vars["leader"] != "") {
+		if ($this->admins[$sender]["level"] >= $this->admins[$this->vars["leader"]]["level"]){
   			$this->vars["leader"] = $sender;
 		  	$msg = "$sender is now Raidleader. Raidleader echo is currently $status. You can change it with <symbol>leaderecho $cmd";
-		} else
+		} else {
 			$msg = "You can't take leader from <highlight>{$this->vars["leader"]}<end>.";
+		}
 	} else {
 		$this->vars["leader"] = $sender;
 	  	$msg = "$sender is now Raidleader. Raidleader echo is currently $status. You can change it with <symbol>leaderecho $cmd";
 	}
-  	bot::send($msg);
+  	bot::send($msg, 'priv');
 
-} else
+} else {
 	$syntax_error = true;
+}
 ?>

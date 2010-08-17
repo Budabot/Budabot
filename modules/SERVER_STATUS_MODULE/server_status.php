@@ -57,13 +57,7 @@ if (preg_match("/^server(.*)$/i", $message, $arr)) {
 			} else {
 				$link .= "<highlight>Chatserver<end> is <red>DOWN<end>\n\n";
 			}
-		
-	   	    if ($arr[1] != 4) {
-			    $link .= "<highlight>Faction distribution in % of total players online.<end>\n";
-			    $link .= "<blue>Omni<end>: $server->omni%\n";
-			    $link .= "<white>Neutral<end>: $server->neutral%\n";
-			    $link .= "<red>Clan<end>: $server->clan%\n\n";
-			}	    
+
 		    $link .= "<highlight>Player distribution in % of total players online.<end>\n";
    		    ksort($server->data);
 		    forEach ($server->data as $zone => $proz) {
