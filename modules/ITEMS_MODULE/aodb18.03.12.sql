@@ -11506,8 +11506,8 @@ INSERT INTO aodb VALUES (156080, 156081, 1, 200, "Kamikaze Robot II - Hologram D
 INSERT INTO aodb VALUES (156078, 156079, 1, 200, "Kamikaze Robot II - Nano Data", 156094);
 INSERT INTO aodb VALUES (156266, 156267, 1, 200, "Kamikaze Robot II - Template Pet", 156263);
 INSERT INTO aodb VALUES (156281, 156281, 120, 120, "Kamikaze Robot II Shell", 156283);
-INSERT INTO aodb VALUES (226266, 226266, 1, 1, "Kanel's Story - First Edition", 136332);
-INSERT INTO aodb VALUES (226269, 226269, 1, 1, "Kanel's Story - Fourth Edition", 37931);
+INSERT INTO aodb VALUES (226266, 226266, 1, 1, "Kanel's Story - First Edition", 37932);
+INSERT INTO aodb VALUES (226269, 226269, 1, 1, "Kanel's Story - Fourth Edition", 37932);
 INSERT INTO aodb VALUES (226267, 226267, 1, 1, "Kanel's Story - Second Edition", 37932);
 INSERT INTO aodb VALUES (226268, 226268, 1, 1, "Kanel's Story - Third Edition", 37932);
 INSERT INTO aodb VALUES (124557, 124558, 1, 179, "Kang Tao Spitting Cobra", 21148);
@@ -20494,6 +20494,7 @@ INSERT INTO aodb VALUES (268387, 268387, 1, 1, "Purple Adonis Recollection Shard
 INSERT INTO aodb VALUES (154273, 154274, 1, 200, "Purple Glowing Stim", 11754);
 INSERT INTO aodb VALUES (248244, 248244, 1, 1, "Purple Heart", 255692);
 INSERT INTO aodb VALUES (218344, 218344, 160, 160, "Purple Star Glyph of Bhotaar", 227628);
+INSERT INTO aodb VALUES (287709, 287709, 1, 1, "PvP Playfield Map", 287380);
 INSERT INTO aodb VALUES (203643, 203644, 160, 200, "Quadruple NotuComm Circuitry", 130731);
 INSERT INTO aodb VALUES (224437, 224437, 50, 50, "Quagmire Cloak of Nascence", 159572);
 INSERT INTO aodb VALUES (152091, 152092, 121, 150, "Quality Abigail", 13314);
