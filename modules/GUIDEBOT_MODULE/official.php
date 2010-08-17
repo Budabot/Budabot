@@ -1,6 +1,6 @@
 <?php
-$official_txt = "<header>::::: Official AO Code Of Conduct  :::::<end>\n\n";
-$official_txt .= "<font color = yellow>The following is pasted directly from Funcom.</font>
+$blob = "<header>::::: Official AO Code Of Conduct  :::::<end>\n\n
+<font color = yellow>The following is pasted directly from Funcom.</font>
 
 The following are the basic rules of conduct that govern player interaction and activity within anarchy online. Failure to act responsibly and comply with these rules may result in the termination of your account without any refund of any kind.
 
@@ -59,8 +59,7 @@ Using Threats of Retribution by GM Friends
 Note: We encourage role-playing in the game and on the role-playing conference, but remember that role-playing is no excuse for harassment. If you want to play an obnoxious role, you have a great responsibility to avoid hurting other people's feelings. These social guidelines take precedence over role-playing in a conflict.
   ";
 
-$official_txt = bot::makeLink("Official Code Of Conduct per Funcom", $official_txt);
-
-bot::send($official_txt, $sendto);
+$msg = bot::makeLink("Official Code Of Conduct per Funcom", $blob);
+bot::send($msg, $sendto);
 
 ?>

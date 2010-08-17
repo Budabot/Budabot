@@ -1,6 +1,6 @@
 <?php
-$tier1armor = "<header>::::: Making Tier 1 Armor :::::<end>\n\n"; 
-$tier1armor = "Jobe Armor Tier One
+$blob = "<header>::::: Making Tier 1 Armor :::::<end>\n\n
+Jobe Armor Tier One
 
 Guide suited for: All Classes
 Faction: All
@@ -158,11 +158,6 @@ Note: I suggest you check Anarchy Mainframe and see what QL Tier 1 armor you are
 
 You will use the set for a while before you'll need to upgrading your Tier 1 armor set to the Tier 2 version, enjoy! ";
 
-$tier1armor = bot::makeLink("Making Tier 1 Armor", $tier1armor); 
-if($type == "msg") 
-bot::send($tier1armor, $sender); 
-elseif($type == "all") 
-bot::send($tier1armor); 
-else 
-bot::send($tier1armor, "guild"); 
+$msg = bot::makeLink("Making Tier 1 Armor", $blob); 
+bot::send($msg, $sendto);
 ?>

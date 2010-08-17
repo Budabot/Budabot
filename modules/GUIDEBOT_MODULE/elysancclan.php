@@ -1,6 +1,5 @@
 <?php
-$elysancclan_txt = "<header>::::: Elysium Sanctuary Garden Key Quest CLAN :::::<end>\n\n"; 
-$elysancclan_txt = "
+$blob = "<header>::::: Elysium Sanctuary Garden Key Quest CLAN :::::<end>\n\n
 <font color='#ff9933'><highlight>Enel Sanctuary Garden Key Quest</font></end>
 
 <highlight>Guide suited for:</end> All Classes
@@ -31,11 +30,6 @@ Last updated on 12.03.2006 by Windkeeper
 Courtesy of AO Universe
 "
 ;
-$elysancclan_txt = bot::makeLink("Elysium: Sanctuary Garden Key Quest Clan", $elysancclan_txt); 
-if($type == "msg") 
-bot::send($elysancclan_txt, $sender); 
-elseif($type == "all") 
-bot::send($elysancclan_txt); 
-else 
-bot::send($elysancclan_txt, "guild"); 
+$msg = bot::makeLink("Elysium: Sanctuary Garden Key Quest Clan", $blob); 
+bot::send($msg, $sendto);
 ?>

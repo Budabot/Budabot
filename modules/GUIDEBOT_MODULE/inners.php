@@ -1,6 +1,6 @@
 <?php
-$sanctum_txt = "<header>::::: Guide to The Inner Sanctum :::::<end>\n\n"; 
-$sanctum_txt = "The Inner Sanctum dungeon is a high level dungeon geared towards players of level 125+ (though, rest assured that level 125+ players won't last very long in there). As the 'extension' of the 'Temple of Three Winds', this dungeon is similar in theme to the TotW, housing a mysterious cult of Hezak. Great adventures and treasures can be found inside the Inner Sanctum.
+$blob = "<header>::::: Guide to The Inner Sanctum :::::<end>\n\n
+The Inner Sanctum dungeon is a high level dungeon geared towards players of level 125+ (though, rest assured that level 125+ players won't last very long in there). As the 'extension' of the 'Temple of Three Winds', this dungeon is similar in theme to the TotW, housing a mysterious cult of Hezak. Great adventures and treasures can be found inside the Inner Sanctum.
 
 Location:
 The Inner Sanctum can be reached by handing an 'Exarch Robe' from the TotW to the Blind Cultist, standing next to the temple. In return she will hand you a 'Sealed Inner Sanctum Pass'. Right-clicked, this returns an 'Inner Sanctum Pass' which can in turn be used on the portal next to the Blind Cultist, to be teleported to the Inner Sanctum. Inside the Inner Sanctum, you can get 'Inner Sanctum Knowledge' parts. the top and lower half of these combined result in the permanent key 'Inner Sanctum Knowledge', which will not disappear when used on the portal, contrary to the Inner Sanctum passes, which disappear once used.
@@ -82,11 +82,6 @@ Ichor of the Immortal One
 Third Circle of the Inner Sanctum
  ";
 
-$sanctum_txt = bot::makeLink("Guide to Inner Sanctum", $sanctum_txt); 
-if($type == "msg") 
-bot::send($sanctum_txt, $sender); 
-elseif($type == "all") 
-bot::send($sanctum_txt); 
-else 
-bot::send($sanctum_txt, "guild"); 
+$msg = bot::makeLink("Guide to Inner Sanctum", $blob); 
+bot::send($msg, $sendto);
 ?>

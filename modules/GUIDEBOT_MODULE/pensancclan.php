@@ -1,6 +1,6 @@
 <?php
-$pensancclan_txt = "<header>::::: Penumbra Sanctuary Garden Key Quest CLAN :::::<end>\n\n"; 
-$pensancclan_txt = "Penumbra Sanctuary Garden Key Quest CLAN
+$blob = "<header>::::: Penumbra Sanctuary Garden Key Quest CLAN :::::<end>\n\n
+Penumbra Sanctuary Garden Key Quest CLAN
 
 To start this quest, speak to <font color = yellow>The Forrester</font>. He is in the Penumbra Garden, in the middle of the maze to the north.
 
@@ -45,11 +45,6 @@ Once Carlos is dead, kill all the mobs that spawned with him.  Once they are dea
 <font color = yellow>10. Unredeemed Vanya</font> 
    When Vanya dies, you get your key";
 
-$pensancclan_txt = bot::makeLink("Penumbra: Sanctuary Garden Key Quest CLAN", $pensancclan_txt); 
-if($type == "msg") 
-bot::send($pensancclan_txt, $sender); 
-elseif($type == "all") 
-bot::send($pensancclan_txt); 
-else 
-bot::send($pensancclan_txt, "guild"); 
+$msg = bot::makeLink("Penumbra: Sanctuary Garden Key Quest CLAN", $blob); 
+bot::send($msg, $sendto);
 ?>

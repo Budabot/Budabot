@@ -1,6 +1,6 @@
 <?php
-$clandreadloch_txt = "<header>::::: Information about Dreadloch Camps :::::<end>\n\n"; 
-$clandreadloch_txt ="<font color = yellow>::::: Information about Dreadloch Camps :::::</font>
+$blob = "<header>::::: Information about Dreadloch Camps :::::<end>\n\n
+<font color = yellow>::::: Information about Dreadloch Camps :::::</font>
 
 
 <font color = #31D6FF>Dreadloch Camps</font>
@@ -114,11 +114,6 @@ Last updated on 03.19.2007 by Windkeeper
 Written by Tepamina. Additonal information provided by Windkeeper.ddreadloch";
 
  
-$clandreadloch_txt = bot::makeLink("Clan Dreadloch Camps", $clandreadloch_txt); 
-if($type == "msg") 
-bot::send($clandreadloch_txt, $sender); 
-elseif($type == "priv") 
-bot::send($clandreadloch_text); 
-else 
-bot::send($clandreadloch_txt, "guild");
+$msg = bot::makeLink("Clan Dreadloch Camps", $blob); 
+bot::send($msg, $sendto);
 ?>

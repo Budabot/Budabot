@@ -28,9 +28,9 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-$jobeshoel_txt = "<header>::::: Shoel Quests: Scientists Of Jobe  :::::<end>\n\n";
-$jobeshoel_txt .=
-"Guide suited for: All Classes
+
+$blob = "<header>::::: Shoel Quests: Scientists Of Jobe  :::::<end>\n\n
+Guide suited for: All Classes
 Faction: All
 Level Range: All Levels</span>
 
@@ -220,8 +220,7 @@ Information originally provided by Trgeorge.
 Additional Information and Images provided by Ukblizzard and Uragon
 Guide Courtesy of AO Universe"
 ;
-$jobeshoel_txt = bot::makeLink("Shoel Quests : Jobe Scientists", $jobeshoel_txt);
-
-bot::send($jobeshoel_txt, $sendto);
+$msg = bot::makeLink("Shoel Quests : Jobe Scientists", $blob);
+bot::send($msg, $sendto);
 
 ?>

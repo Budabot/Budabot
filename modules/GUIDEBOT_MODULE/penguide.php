@@ -1,6 +1,5 @@
 <?php
-$penguide_txt = "<header>::::: Penumbra Guide: Key Quests Included :::::<end>\n\n"; 
-$penguide_txt = "
+$blob = "<header>::::: Penumbra Guide: Key Quests Included :::::<end>\n\n
 <img src=rdb://234681>
 <font color = yellow>Vanya (Omni)Garden Key Quest Guide:</font>
   
@@ -189,11 +188,6 @@ Huge, huge thanks to Herodotus2 for allowing us to use the material and screensh
 Credit: AOVault.com
  ";
 
-$penguide_txt = bot::makeLink("Guide To Penumbra", $penguide_txt); 
-if($type == "msg") 
-bot::send($penguide_txt, $sender); 
-elseif($type == "all") 
-bot::send($penguide_txt); 
-else 
-bot::send($penguide_txt, "guild"); 
+$msg = bot::makeLink("Guide To Penumbra", $blob); 
+bot::send($msg, $sendto);
 ?>

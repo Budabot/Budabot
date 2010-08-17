@@ -1,6 +1,5 @@
 <?php
-$apf35guide_txt = "<header>::::: Guide to Apf Sector 35 :::::<end>\n\n";
-$apf35guide_txt = "
+$blob = "<header>::::: Guide to Apf Sector 35 :::::<end>\n\n
 <font color=#4169e1>Objective: ASSIST THE UNICORN FIELD ENGINEER</font>
 The Unicorn Field Engineer is trying to repiar a downed Unicorn Transport Ship, but needs help defending the area. The Kyr'Ozch have left a large mine field at the beginning of the sector. If you trip a mine, you will be snared. Be wary, there is an ambush after the mine waiting to take advantage of your devided raid force. The mines can be disarmed if you have enough perception and bomb disarmment skills, as well as Bomb Disarmament Tools.
 
@@ -71,11 +70,6 @@ Thanks to Valvs for the Sector 35 Layout
 http://forums.anarchy-online.com/showthread.php?t=435953
 ";
 
-$apf35guide_txt = bot::makeLink("Guide to Apf Sector 35", $apf35guide_txt);
-if($type == "msg")
-bot::send($apf35guide_txt, $sender);
-elseif($type == "all")
-bot::send($apf35guide_txt);
-else
-bot::send($apf35guide_txt, "guild");
+$msg = bot::makeLink("Guide to Apf Sector 35", $blob);
+bot::send($msg, $sendto);
 ?>

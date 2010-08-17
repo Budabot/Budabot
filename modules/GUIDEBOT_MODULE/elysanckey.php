@@ -1,6 +1,6 @@
 <?php
-$elysanckey_txt = "<header>::::: Elysium: Shere Sanctuary Garden Key Quest :::::<end>\n\n"; 
-$elysanckey_txt = "Elysium: Shere Sanctuary Garden Key Quest
+$blob = "<header>::::: Elysium: Shere Sanctuary Garden Key Quest :::::<end>\n\n
+Elysium: Shere Sanctuary Garden Key Quest
 
 
 Beginning this guide I'll assume you're in the Elysium Shere garden. Exit to Nero and head south along the rock wall cliff. You'll see a ramp in the temple area, go up it and you'll find Prophet Nar Shere (coords 922, 397) at the top. Talk to him and select the first option 'I spoke to Garboil Chi Shere and he mentioned someone called Yuan Chi?' Continue the conversation till you get the quest. Your first mission is to kill the Watcher Enel Ulma-Thar. 
@@ -35,11 +35,6 @@ Head back to the garden, then to Nero, then talk to Prophet Nar Shere.
 Talk to the prophet and select option: 'I completed my assignment and I am concerned, Prophet.' Continue the conversation about the Briefing item you looted and the Prophet will ask to see it. You'll be rewarded for your efforts with 'The Key to Shere's Sanctuary'. 
  ";
 
-$elysanckey_txt = bot::makeLink("Elysium: Shere Sanctuary Garden Key Quest", $elysanckey_txt); 
-if($type == "msg") 
-bot::send($elysanckey_txt, $sender); 
-elseif($type == "all") 
-bot::send($elysanckey_txt); 
-else 
-bot::send($elysanckey_txt, "guild"); 
+$msg = bot::makeLink("Elysium: Shere Sanctuary Garden Key Quest", $blob); 
+bot::send($msg, $sendto);
 ?>

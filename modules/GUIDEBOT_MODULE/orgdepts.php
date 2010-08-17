@@ -1,6 +1,6 @@
 <?php
-$orgdepts_txt = "<header>::::: Organizational Departments  :::::<end>\n\n"; 
-$orgdepts_txt = "<font color = blue>-= Organization Departments =-</font>
+$blob = "<header>::::: Organizational Departments  :::::<end>\n\n
+<font color = blue>-= Organization Departments =-</font>
 
 Hello $sender    Last Updated 12-20-2007 
 
@@ -42,11 +42,6 @@ Raids Dept.
 
 If you have any questions about these departments, or would like to contribute to one, please let a General or Plugsz know. ";
 
-$orgdepts_txt = bot::makeLink("Organizational Departments", $orgdepts_txt); 
-if($type == "msg") 
-bot::send($orgdepts_txt, $sender); 
-elseif($type == "all") 
-bot::send($orgdepts_txt); 
-else 
-bot::send($orgdepts_txt, "guild"); 
+$msg = bot::makeLink("Organizational Departments", $blob); 
+bot::send($msg, $sendto);
 ?>

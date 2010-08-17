@@ -1,6 +1,6 @@
 <?php
-$tshop_txt = "<header>::::: Guide to Trader Shops :::::<end>\n\n"; 
-$tshop_txt = "The shop is an easily overlooked terminal marked Specialist Commerce found in each special quality superstore around Rubi-Ka. The terminal can only be accessed by Traders of at least level 25. The security is too tight for even the finest undercover Agents. In fact, the security grid seemed embarassed at our attempts.
+$blob = "<header>::::: Guide to Trader Shops :::::<end>\n\n
+The shop is an easily overlooked terminal marked Specialist Commerce found in each special quality superstore around Rubi-Ka. The terminal can only be accessed by Traders of at least level 25. The security is too tight for even the finest undercover Agents. In fact, the security grid seemed embarassed at our attempts.
   The shop holds a selection of items not found in the common stores. The items are in no way meant for Traders however. Rather, they are meant for other professions that need a Trader to act as the middleman and access the shop for them.
   In addition to the items that can be bought from the store, it offers Traders increased prices when selling items to the store. The increase may not seem major to the corporate types, but the clan affiliated will find that it is quite lucrative to sell the more valuable items here instead of any old regular shop.
   Most of the items available are various weapons, including the Adventurer pistol BBI Faithful and the Mark I version of the popular Nova Flow plasma series. For a full list of the contents, see below. Like regular stores, the contents of this one cycle and you might be unable to find all of the items on the list at times.
@@ -48,11 +48,6 @@ when reinforcements arrived from Omni Prime
 And there you are. Though a few of these weapons remain good, it has been a while since they landed on Rubi-Ka and the quality stagnates as new ones arrive. So it could be hoped that this store would also get some new entries one of these days. Perhaps something other than weapons, perhaps something for Traders themselves.
 ";
 
-$tshop_txt = bot::makeLink("Guide to Trader Shops", $tshop_txt); 
-if($type == "msg") 
-bot::send($tshop_txt, $sender); 
-elseif($type == "all") 
-bot::send($tshop_txt); 
-else 
-bot::send($tshop_txt, "guild"); 
+$msg = bot::makeLink("Guide to Trader Shops", $blob); 
+bot::send($msg, $sendto);
 ?>

@@ -1,6 +1,6 @@
 <?php
-$wrangle_txt = "<header>::::: Guide to Wrangles :::::<end>\n\n"; 
-$wrangle_txt = "<font color = blue>-= Guide to Wrangles =-</font>
+$blob = "<header>::::: Guide to Wrangles :::::<end>\n\n
+<font color = blue>-= Guide to Wrangles =-</font>
 
 <font color = orange>Dedicated to Ferrell and all other Traders, whose patience is extraordinary, if not legendary.</font>
 
@@ -91,11 +91,6 @@ Team wrangles are in <font color = white>WHITE</font> (requires teaming with Tra
 <font color = yellow>+131 Bonus / 58 NCU - Skill Wrangler (Premium)</font>
 <font color = white>+132 Bonus / 58 NCU - Team Skill Wrangler (Premium)</font> ";
 
-$wrangle_txt = bot::makeLink("Guide to Wrangles", $wrangle_txt); 
-if($type == "msg") 
-bot::send($wrangle_txt, $sender); 
-elseif($type == "all") 
-bot::send($wrangle_txt); 
-else 
-bot::send($wrangle_txt, "guild"); 
+$msg = bot::makeLink("Guide to Wrangles", $blob); 
+bot::send($msg, $sendto);
 ?>

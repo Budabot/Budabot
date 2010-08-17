@@ -1,6 +1,6 @@
 <?php
-$panven_txt = "<header>::::: Pandemonium Vendor Nanos :::::<end>\n\n"; 
-$panven_txt = "Pandemonium Vendors
+$blob = "<header>::::: Pandemonium Vendor Nanos :::::<end>\n\n
+Pandemonium Vendors
 <font color='#69E61E'>
 <a href='itemref://226723/226723/216'>LINK </a> Abolish Bismuth - Trader
 <a href='itemref://226725/226725/220'>LINK </a> Abolish Polonium - Trader
@@ -135,11 +135,6 @@ $panven_txt = "Pandemonium Vendors
 <a href='itemref://223324/223324/220'>LINK </a> Widowmaker Battle Drone - Engineer</font>
  ";
 
-$panven_txt = bot::makeLink("Pandemonium Vendor Nanos", $panven_txt); 
-if($type == "msg") 
-bot::send($panven_txt, $sender); 
-elseif($type == "all") 
-bot::send($panven_txt); 
-else 
-bot::send($panven_txt, "guild"); 
+$msg = bot::makeLink("Pandemonium Vendor Nanos", $blob); 
+bot::send($msg, $sendto);
 ?>

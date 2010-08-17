@@ -1,6 +1,6 @@
 <?php
-$rochsanckey_txt = "<header>::::: Scheol: Roch Sanctuary Garden Key Quest :::::<end>\n\n"; 
-$rochsanckey_txt = "Scheol: Roch Sanctuary Garden Key Quest
+$blob = "<header>::::: Scheol: Roch Sanctuary Garden Key Quest :::::<end>\n\n
+Scheol: Roch Sanctuary Garden Key Quest
 
 
 To do this quest you need at least one Novictalized Notum Crystal with 'Weary Empath Min-Ji Liu' (see Scheol: Roch Garden Key Quest walktrough for info how to obtain and create it. 
@@ -21,11 +21,6 @@ You will have to respawn her if someone killed it while you where doing the othe
 
 IMPORTANT: You will have be the one doing the majority of damage on the Empath. You won't get a mission update if you don't get loot rights. I highly recommend you bring some friends to keep you healed.  ";
 
-$rochsanckey_txt = bot::makeLink("Scheol: Roch Sanctuary Garden Key Quest", $rochsanckey_txt); 
-if($type == "msg") 
-bot::send($rochsanckey_txt, $sender); 
-elseif($type == "all") 
-bot::send($rochsanckey_txt); 
-else 
-bot::send($rochsanckey_txt, "guild"); 
+$msg = bot::makeLink("Scheol: Roch Sanctuary Garden Key Quest", $blob); 
+bot::send($msg, $sendto);
 ?>

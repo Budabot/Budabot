@@ -1,6 +1,6 @@
 <?php
-$jobearmor_txt = "<header>::::: Making Jobe Arbor :::::<end>\n\n"; 
-$jobearmor_txt = "Jobe Armor
+$blob = "<header>::::: Making Jobe Arbor :::::<end>\n\n
+Jobe Armor
 
 Guide suited for: All Classes
 Faction: All
@@ -42,11 +42,6 @@ QL 160 Jobe Armor
 Jobe Armor can be upgraded to your specific profession, chat with your professional representative and he will tell you about Tier 1, Tier 2 and the Tier 3 upgrades of the Jobe Armor. 
  ";
 
-$jobearmor_txt = bot::makeLink("Making Jobe Armor", $jobearmor_txt); 
-if($type == "msg") 
-bot::send($jobearmor_txt, $sender); 
-elseif($type == "all") 
-bot::send($jobearmor_txt); 
-else 
-bot::send($jobearmor_txt, "guild"); 
+$msg = bot::makeLink("Making Jobe Armor", $blob); 
+bot::send($msg, $sendto);
 ?>

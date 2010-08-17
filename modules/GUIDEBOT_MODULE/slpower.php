@@ -1,6 +1,5 @@
 <?php
-$slpower_txt = "<header>::::: Solo Leveling Guide for the Shadowlands  :::::<end>\n\n"; 
-$slpower_txt = "
+$blob = "<header>::::: Solo Leveling Guide for the Shadowlands  :::::<end>\n\n
 Guide suited for: All Classes
 Level Range: ?
 
@@ -67,11 +66,6 @@ Yet another spawn area with occasional contention from higher toons for pb's, yo
 ";
 
 
-$slpower_txt = bot::makeLink("Shadowlands Powerleveling Solo Guide", $slpower_txt); 
-if($type == "msg") 
-bot::send($slpower_txt, $sender); 
-elseif($type == "all") 
-bot::send($slpower_txt); 
-else 
-bot::send($slpower_txt, "guild"); 
+$msg = bot::makeLink("Shadowlands Powerleveling Solo Guide", $blob); 
+bot::send($msg, $sendto);
 ?>

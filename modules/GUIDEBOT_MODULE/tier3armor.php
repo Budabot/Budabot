@@ -1,6 +1,6 @@
 <?php
-$tier3armor_txt = "<header>::::: Making Tier 3 Armor :::::<end>\n\n"; 
-$tier3armor_txt = "Jobe Armor Tier Three
+$blob = "<header>::::: Making Tier 3 Armor :::::<end>\n\n
+Jobe Armor Tier Three
 
 Guide suited for: All Classes
 Faction: All
@@ -102,11 +102,6 @@ Trader
  
  ";
 
-$tier3armor_txt = bot::makeLink("Making Tier 3 Chosen/Faithful Armor", $tier3armor_txt); 
-if($type == "msg") 
-bot::send($tier3armor_txt, $sender); 
-elseif($type == "all") 
-bot::send($tier3armor_txt); 
-else 
-bot::send($tier3armor_txt, "guild"); 
+$msg = bot::makeLink("Making Tier 3 Chosen/Faithful Armor", $blob); 
+bot::send($msg, $sendto); 
 ?>

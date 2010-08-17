@@ -29,8 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-$shoelyutto_txt = "<header>::::: Shoel Quests: Knowledge Of The Yuttos  :::::<end>\n\n";
-$shoelyutto_txt .= "
+$blob = "<header>::::: Shoel Quests: Knowledge Of The Yuttos  :::::<end>\n\n
 Level Range: All Levels
 
 Any special reward for completing parts of this questline will be mentioned in guide. With few exceptions, the order of quests is set as continuing line. This quest line isn't level locked.
@@ -164,8 +163,7 @@ Neutral quest information provided by Kryyn
 Additional Information and Images provided by Uragon and Ukblizzard
 Guide found at AO Universe"
 ;
-$shoelyutto_txt = bot::makeLink("Knowledge Of The Yuttos - Shoel", $shoelyutto_txt);
-
-bot::send($shoelyutto_txt, $sendto);
+$msg = bot::makeLink("Knowledge Of The Yuttos - Shoel", $blob);
+bot::send($msg, $sendto);
 
 ?>

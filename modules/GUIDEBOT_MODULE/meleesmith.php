@@ -1,6 +1,6 @@
 <?php
-$meleesmith_txt = "<header>::::: Guide to Melee Smith :::::<end>\n\n"; 
-$meleesmith_txt = "Contrary to common belief, the store is open to anyone wanting to drop by, provided they can actually get there. Its easiest for Omni personell no doubt though since the Whompa to Southern Artery Valleys Outpost 10-3 is just closeby. Clans might want to go through Wine in order to get here safely, although it is possible to whompa from the 2HO outpost as well, it depends on how much of a beating from the unsympathetic Omni Guards you think you can handle.
+$blob = "<header>::::: Guide to Melee Smith :::::<end>\n\n
+Contrary to common belief, the store is open to anyone wanting to drop by, provided they can actually get there. Its easiest for Omni personell no doubt though since the Whompa to Southern Artery Valleys Outpost 10-3 is just closeby. Clans might want to go through Wine in order to get here safely, although it is possible to whompa from the 2HO outpost as well, it depends on how much of a beating from the unsympathetic Omni Guards you think you can handle.
 
 The Tsunayoshi Smith really chose an outback location to provide his services. Located in Southern Artery Valley at the Largest Soul Fragment in the world at 2600 x 2900, the Tsunayoshi Smith has put up his tent and decided to clean out place to make room for himself. His smithing skills has been long awaited and now that he has finally arrived, we set out to meet the master weaponsmith in person and see what he might have in store for us.
 
@@ -25,11 +25,6 @@ To our disappointment we have to report that the Tsunayoshi Smith doesnt sell we
 The shop is really placed in the middle of nowhere and its use for the people not used to traverse these parts questionable. However, it is a really nice place to pick up weapons for your lowerlevel friends.
  ";
 
-$meleesmith_txt = bot::makeLink("Guide to Melee Smith", $meleesmith_txt); 
-if($type == "msg") 
-bot::send($meleesmith_txt, $sender); 
-elseif($type == "all") 
-bot::send($meleesmith_txt); 
-else 
-bot::send($meleesmith_txt, "guild"); 
+$msg = bot::makeLink("Guide to Melee Smith", $blob); 
+bot::send($msg, $sendto);
 ?>

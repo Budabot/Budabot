@@ -1,6 +1,6 @@
 <?php
-$shoelsancclan_txt = "<header>::::: Shoel Sanctuary Garden Key Quest CLAN :::::<end>\n\n"; 
-$shoelsancclan_txt = "Shoel Garden Key Quest CLAN
+$blob = "<header>::::: Shoel Sanctuary Garden Key Quest CLAN :::::<end>\n\n
+Shoel Garden Key Quest CLAN
 
 <font color='#ff9933'><highlight>Ocra Sanctuary Garden Key Quest</font></end>
 
@@ -32,11 +32,6 @@ Information originally provided by Friregan to the SL Library Forums. Additional
 Courtesy of AO Universe
 "
 ;
-$shoelsancclan_txt = bot::makeLink("Shoel: Sanctuary Garden Key Quest CLAN", $shoelsancclan_txt); 
-if($type == "msg") 
-bot::send($shoelsancclan_txt, $sender); 
-elseif($type == "all") 
-bot::send($shoelsancclan_txt); 
-else 
-bot::send($shoelsancclan_txt, "guild"); 
+$msg = bot::makeLink("Shoel: Sanctuary Garden Key Quest CLAN", $blob); 
+bot::send($msg, $sendto);
 ?>

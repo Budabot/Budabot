@@ -1,6 +1,6 @@
 <?php
-$engineers_txt = "<header>::::: Guide to Engineers :::::<end>\n\n"; 
-$engineers_txt = " Starting to Play
+$blob = "<header>::::: Guide to Engineers :::::<end>\n\n
+Starting to Play
 
 When you first start any profession on Rubi-Ka you are given a small number of items to start you off.
 
@@ -820,11 +820,6 @@ Most of this is taken from Lyricia's guide at the Tir School of Engineering
     * Crystalized Medusa Queen Hippocampus - Common drop at Hollow Island from the 4th Brood Champion upwards.
  ";
 
-$engineers_txt = bot::makeLink("Guide to Engineers", $engineers_txt); 
-if($type == "msg") 
-bot::send($engineers_txt, $sender); 
-elseif($type == "all") 
-bot::send($engineers_txt); 
-else 
-bot::send($engineers_txt, "guild"); 
+$msg = bot::makeLink("Guide to Engineers", $blob); 
+bot::send($msg, $sendto);
 ?>

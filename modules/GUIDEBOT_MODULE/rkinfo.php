@@ -1,6 +1,6 @@
 <?php
-$rkinfo_txt = "<header>::::: Rubi-Ka's Little Instruction Book - Guide to AO  :::::<end>\n\n";
-$rkinfo_txt .= "<font color = blue>Rubi-Ka's Little Instruction Book</font>
+$blob = "<header>::::: Rubi-Ka's Little Instruction Book - Guide to AO  :::::<end>\n\n
+<font color = blue>Rubi-Ka's Little Instruction Book</font>
 
 OR
 
@@ -161,8 +161,7 @@ How fast you can run matters at times.
 
 At the end of a long tiring day, nothing is better than enjoying a nice sunset and a cup of ice cream with a close friend. ";
 
-$rkinfo_txt = bot::makeLink("Rubi-Ka's Little Instruction Book - Guide to AO", $rkinfo_txt);
-
-bot::send($rkinfo_txt, $sendto);
+$msg = bot::makeLink("Rubi-Ka's Little Instruction Book - Guide to AO", $blob);
+bot::send($msg, $sendto);
 
 ?>

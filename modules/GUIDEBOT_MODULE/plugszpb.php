@@ -1,6 +1,6 @@
 <?php
-$plugszpb_txt = "<header>::::: Plugsz's Pocketbosses  :::::<end>\n\n"; 
-$plugszpb_txt = "Here is a compiled list of the PBs we'll be popping and what they drop
+$blob = "<header>::::: Plugsz's Pocketbosses  :::::<end>\n\n
+Here is a compiled list of the PBs we'll be popping and what they drop
 
 <font color='#69E61E'>:::::: Remains of Marem :::::                               </FONT>
                                                             
@@ -149,12 +149,7 @@ QL 240 Effective Left Arm Symbiant, Support Unit Aban
 QL 240 Effective Thigh Symbiant, Support Unit Aban  
 </FONT> ";
 
-$plugszpb_txt = bot::makeLink("PocketBosses to Pop", $plugszpb_txt); 
-if($type == "msg") 
-bot::send($plugszpb_txt, $sender); 
-elseif($type == "all") 
-bot::send($plugszpb_txt); 
-else 
-bot::send($plugszpb_txt, "guild"); 
+$msg = bot::makeLink("PocketBosses to Pop", $blob); 
+bot::send($msg, $sendto); 
 ?>
 

@@ -1,6 +1,6 @@
 <?php
-$bsinfo_txt = "<header>::::: Information about LE Alien Missions :::::<end>\n\n"; 
-$bsinfo_txt ="<font color = yellow>::::: Information about LE Alien Missions :::::</font>
+$blob = "<header>::::: Information about LE Alien Missions :::::<end>\n\n
+<font color = yellow>::::: Information about LE Alien Missions :::::</font>
 
 
 <font color = #31D6FF>Battlestations</font>
@@ -79,11 +79,6 @@ Last updated on 02.07.2007 by Tepamina
 Written by Tepamina";
 
  
-$bsinfo_txt = bot::makeLink("Information On Battlestations", $bsinfo_txt); 
-if($type == "msg") 
-bot::send($bsinfo_txt, $sender); 
-elseif($type == "priv") 
-bot::send($bs_text); 
-else 
-bot::send($bsinfo_txt, "guild");
+$msg = bot::makeLink("Information On Battlestations", $blob); 
+bot::send($msg, $sendto);
 ?>

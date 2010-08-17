@@ -1,6 +1,5 @@
 <?php
-$adosanckey_txt = "<header>::::: Adonis: Dalja Sanctuary Garden Key Quest :::::<end>\n\n";
-$adosanckey_txt .= "
+$blob = "<header>::::: Adonis: Dalja Sanctuary Garden Key Quest :::::<end>\n\n
 Show your Dalja Garden Key to Visionist Bhotaar-Hes Dal in Garden. He tells you to hunt ghosts and find blueprint for a demon.
 
 Hunt spirits/spirit hunters and complete the blueprint for 'Infernal Demon'. You can hunt ranked unredeemed for patterns too, if you don't mind losing some unredeemed faction.
@@ -18,8 +17,7 @@ Make this pattern into a Novictalized Notum Crystal (same process as with the pr
 Your get a mission update. Bring the item the Diviner dropped to Visionist Bhotaar-Hes Dal and he will reward you with the Sanctuary Key!
  ";
 
-$adosanckey_txt = bot::makeLink("Adonis: Dalja Sanctuary Garden Key Quest", $adosanckey_txt);
-
-bot::send($adosanckey_txt, $sendto);
+$msg = bot::makeLink("Adonis: Dalja Sanctuary Garden Key Quest", $blob);
+bot::send($msg, $sendto);
  
 ?>

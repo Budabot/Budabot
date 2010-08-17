@@ -1,6 +1,6 @@
 <?php
-$enforcer_txt = "<header>::::: Guide to Enforcers :::::<end>\n\n";
-$enforcer_txt .= " Basic Attributes
+$blob = "<header>::::: Guide to Enforcers :::::<end>\n\n
+Basic Attributes
 
 Strength, Stamina, Body Development are your friends. Max these three attributes always and forever! Agility is an important part of many of your skills, try to keep it at ~66% of your maximum. The rest of the attributes are not your priority, raise them enough to meet minimum skill requirements as necessary, like Melee Initiative.
 
@@ -172,8 +172,7 @@ We, in this form, are the closest you get to a walking Pinyata. We expect to tak
 
 On the positive side.. as an enforcer, you have more HP than god, bigger hammers than Thor and not many want to pick a fight with you once you stand there 3 times their height."
 ;
-$enforcer_txt = bot::makeLink("Guide To Enforcers", $enforcer_txt);
-
-bot::send($enforcer_txt, $sendto);
+$msg = bot::makeLink("Guide To Enforcers", $blob);
+bot::send($msg, $sendto);
 
 ?>

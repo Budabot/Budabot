@@ -1,7 +1,5 @@
 <?php
-$halloween_txt = "<header>::::: Halloween/Uncle Pumpkinhead Hunting  :::::<end>\n\n"; 
-$halloween_txt = "
-
+$blob = "<header>::::: Halloween/Uncle Pumpkinhead Hunting  :::::<end>\n\n
 <font color='#69E61E'>:::::: Halloween Guide :::::                               </FONT>
                                                             
 First of all, it's really dark and foggy out. You can solve the Fog problems by using:
@@ -106,12 +104,7 @@ You can run one of each mission at a time. Once you complete the mission, you ca
 
 ";
 
-$halloween_txt = bot::makeLink("Ferrel_s Halloween Guide", $halloween_txt); 
-if($type == "msg") 
-bot::send($halloween_txt, $sender); 
-elseif($type == "all") 
-bot::send($halloween_txt); 
-else 
-bot::send($halloween_txt, "guild"); 
+$msg = bot::makeLink("Ferrel_s Halloween Guide", $blob); 
+bot::send($msg, $sendto);
 ?>
 

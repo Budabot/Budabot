@@ -1,6 +1,6 @@
 <?php
-$infsanckeyo_txt = "<header>::::: Inferno Sanctuary Key Quest - Omni :::::<end>\n\n"; 
-$infsanckeyo_txt = "Inferno Sanctuary Key Quest - Omni
+$blob = "<header>::::: Inferno Sanctuary Key Quest - Omni :::::<end>\n\n
+Inferno Sanctuary Key Quest - Omni
  
  </font><font color='#ffff00'>1) </font><font color='#00ff00'>You should get sanctuary key quest when you finish garden key quest. If you don't, talk to <font color='#ff9900'>Garboil Hes Mord</font> in Garden. He'll give you the quest.
  
@@ -39,11 +39,6 @@ Redeemed temple in Inferno.</font><font color='#00ff00'> When you kill </font><f
 </font><font color='#ff0000'>NOTE: Step 9 has <a href='itemref://239759/239760/220'>Box of Nanocrystals</a> as item reward. If you already have one, use it or transfer to someone befor finishing step 9, or you'll miss it.</font><a href='itemref://229063/229063/1'>Lord Mordeth Sanctuary Key</a> is your final quest reward</a></font>
  ";
 
-$infsanckeyo_txt = bot::makeLink("Inferno Sanctuary Garden Key - Omni", $infsanckeyo_txt); 
-if($type == "msg") 
-bot::send($infsanckeyo_txt, $sender); 
-elseif($type == "all") 
-bot::send($infsanckeyo_txt); 
-else 
-bot::send($infsanckeyo_txt, "guild"); 
+$msg = bot::makeLink("Inferno Sanctuary Garden Key - Omni", $blob); 
+bot::send($msg, $sendto);
 ?>

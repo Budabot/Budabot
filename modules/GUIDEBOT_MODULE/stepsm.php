@@ -1,6 +1,6 @@
 <?php
-$stepsm_txt = "<header>::::: Guide to Steps Of Madness :::::<end>\n\n"; 
-$stepsm_txt = " <font color = red>The Steps Of Madness </font>
+$blob = "<header>::::: Guide to Steps Of Madness :::::<end>\n\n
+<font color = red>The Steps Of Madness </font>
 
  Steps of Madness is a level 30-50 dungeon which was opened at Halloween 2001. Back then you needed a teddy bear called 'Childhood memory' which you got from an Uncle Pumpkinhead (special Halloween monster in 2001), to enter this dungeon. Nowadays you dont need an item anymore, just right-click the rolling eye at the entrance of this dungeon. The dungeon can be found in Omni Forest, not far away from Omni-1 - the capital of Omni-Tek Rubi-Ka.
 
@@ -56,11 +56,6 @@ Essence of Pure Jealousy
 Emotional Sponge 
 ";
 
-$stepsm_txt = bot::makeLink("Guide to Steps Of Madness", $stepsm_txt); 
-if($type == "msg") 
-bot::send($stepsm_txt, $sender); 
-elseif($type == "all") 
-bot::send($stepsm_txt); 
-else 
-bot::send($stepsm_txt, "guild"); 
+$msg = bot::makeLink("Guide to Steps Of Madness", $blob); 
+bot::send($msg, $sendto); 
 ?>

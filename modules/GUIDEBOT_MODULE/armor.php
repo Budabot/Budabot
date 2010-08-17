@@ -1,6 +1,6 @@
 <?php
-$Armot_txt = "<header>::::: Armor Information :::::<end>\n\n"; 
-$Armor_txt = " Information on Armor by stats and type
+$blob = "<header>::::: Armor Information :::::<end>\n\n
+Information on Armor by stats and type
 
 <font color='#69E61E'>-= Agility - Stamina Armor =-</font>
 
@@ -148,11 +148,6 @@ $Armor_txt = " Information on Armor by stats and type
    * Pilgrim Seeker
    * Pilgrim Visionary"; 
 
-$Armor_txt = bot::makeLink("Armor Information: Froob Friendly List", $Armor_txt); 
-if($type == "msg") 
-bot::send($Armor_txt, $sender); 
-elseif($type == "all") 
-bot::send($Armor_txt); 
-else 
-bot::send($Armor_txt, "guild"); 
+$msg = bot::makeLink("Armor Information: Froob Friendly List", $blob); 
+bot::send($msg, $sendto);
 ?>

@@ -1,6 +1,6 @@
 <?php
-$jacksrings_txt = "<header>::::: Information about LE Alien Missions :::::<end>\n\n"; 
-$jacksrings_txt ="<font color = yellow>::::: Information about LE Alien Missions :::::</font>
+$blob = "<header>::::: Information about LE Alien Missions :::::<end>\n\n
+<font color = yellow>::::: Information about LE Alien Missions :::::</font>
 
 
 <font color = #31D6FF>Jack's rings</font>
@@ -281,11 +281,6 @@ Ring of Magpie Tail Feathers
 ";
 
  
-$jacksrings_txt = bot::makeLink("Jacks Professionals Rings Quest RK", $jacksrings_txt); 
-if($type == "msg") 
-bot::send($jacksrings_txt, $sender); 
-elseif($type == "priv") 
-bot::send($bs_text); 
-else 
-bot::send($jacksrings_txt, "guild");
+$msg = bot::makeLink("Jacks Professionals Rings Quest RK", $blob); 
+bot::send($msg, $sendto);
 ?>

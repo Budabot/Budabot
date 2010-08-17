@@ -1,7 +1,5 @@
 <?php
-$infgarnkey_txt = "<header>::::: Information about Inferno Garden Key - Omni :::::<end>\n\n"; 
-$infgarnkey_txt .= "
-
+$blob = "<header>::::: Information about Inferno Garden Key - Omni :::::<end>\n\n
 <img src=rdb://234681>
 <font color = yellow>Lord Mordeth Garden Key Quest Guide:</font>
   
@@ -54,8 +52,7 @@ $infgarnkey_txt .= "
   <font color = red>NOTE: Step 9 has Box of Nanocrystals as item reward. If you already have one, use it or transfer to someone befor finishing step 9, or you'll miss it.</font>
 "
 ;
-$infgarnkey_txt = bot::makeLink("Inferno Garden Key - Omni", $infgarnkey_txt); 
-
-bot::send($infgarnkey_txt, $sendto);
+$msg = bot::makeLink("Inferno Garden Key - Omni", $blob); 
+bot::send($msg, $sendto);
 
 ?>

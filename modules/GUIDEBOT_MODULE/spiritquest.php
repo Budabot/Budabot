@@ -29,8 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-$spiritquest_txt = "<header>::::: Inferno Quests: Spirits Quest  :::::<end>\n\n"; 
-$spiritquest_txt = "
+$blob = "<header>::::: Inferno Quests: Spirits Quest  :::::<end>\n\n
 Spirits Quests
 
 Guide suited for: All Classes
@@ -104,10 +103,6 @@ Since Victor warps back to his spot and changes his appearance, best strategy is
 Once that is achieved and you return to Yutto to report, it will reward you with Ring of Plausibility. 
 "
 ;
-$spiritquest_txt = bot::makeLink("Inferno - Spirits Quest", $spiritquest_txt);
-if($type == "msg") 
-bot::send($spiritquest_txt, $sender); 
-elseif($type == "all") 
-bot::send($spiritquest_txt); 
-else 
-bot::send($spiritquest_txt, "guild"); 
+$msg = bot::makeLink("Inferno - Spirits Quest", $blob);
+bot::send($msg, $sendto);
+?> 

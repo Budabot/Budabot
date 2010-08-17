@@ -1,6 +1,6 @@
 <?php
-$traders_txt = "<header>::::: Guide to Traders :::::<end>\n\n"; 
-$traders_txt = "<font color = yellow> -= Trader Guide =-</font>
+$blob = "<header>::::: Guide to Traders :::::<end>\n\n
+<font color = yellow> -= Trader Guide =-</font>
 
 <font color = yellow>At a glance</font>
 <font color = red>* Main Weapons: Shotgun</font>
@@ -319,11 +319,6 @@ How many times have you heard people ask you for the 'highest wrangle' or a '132
 
 A good tips for those who get caught wandering in public is to drain up, then cast a 131 wrangle on yourself. Now you'll get both the debuff and the buff. That amounts to a loss in nanoskills at 11 .. Enough so that most traders through TL4 to TL5 and up should be able to recast 131 wrangles as long as they still have their drains going. So until then, just keep handing out those 131s. The debuffs won't stack with the one you have going from wrangling yourself. ";
 
-$traders_txt = bot::makeLink("Guide to Traders", $traders_txt); 
-if($type == "msg") 
-bot::send($traders_txt, $sender); 
-elseif($type == "all") 
-bot::send($traders_txt); 
-else 
-bot::send($traders_txt, "guild"); 
+$msg = bot::makeLink("Guide to Traders", $blob); 
+bot::send($msg, $sendto);
 ?>

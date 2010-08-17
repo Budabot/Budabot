@@ -1,6 +1,6 @@
 <?php
-$beginners_txt = "<header>::::: Beginners Questions - Good place for beginners to start  :::::<end>\n\n"; 
-$beginners_txt = "Beginner's Guide - Frequent Asked Questions
+$blob = "<header>::::: Beginners Questions - Good place for beginners to start  :::::<end>\n\n
+Beginner's Guide - Frequent Asked Questions
 
 <FONT COLOR = Yellow>How can I talk to people & keep track of buddies?</FONT>
 You can find, make, and delete buddies from your Friends menu, which can be opened via the Friends button near the lower right corner of the screen. As an alternative, you can also hit Control + 7 to bring up the window.
@@ -88,11 +88,6 @@ To see a description of an item you can either hold shift+left click over the it
 <FONT COLOR = Yellow>What about socializing and parties?</FONT>
 There are several nightclubs, bars and coffee shops available for each faction. Reet's Retreat, Baboon's, The Cup and others often hold player or guild-hosted parties, contests and get togethers. Some guilds broadcast music that you can tune into via your Internet connection. Keep an eye on the player events calendar for some of the public events. 
 ";
-$beginners_txt = bot::makeLink("Beginner's FAQs", $beginners_txt); 
-if($type == "msg") 
-bot::send($beginners_txt, $sender); 
-elseif($type == "all") 
-bot::send($beginners_txt); 
-else 
-bot::send($beginners_txt, "guild"); 
+$msg = bot::makeLink("Beginner's FAQs", $blob); 
+bot::send($msg, $sendto);
 ?>

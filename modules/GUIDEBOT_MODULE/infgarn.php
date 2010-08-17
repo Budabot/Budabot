@@ -1,6 +1,6 @@
 <?php
-$infgarn_txt = "<header>::::: Inferno Garden Nanos  :::::<end>\n\n"; 
-$infgarn_txt = "Inferno Garden
+$blob = "<header>::::: Inferno Garden Nanos  :::::<end>\n\n
+Inferno Garden
 <font color='#69E61E'>
 <a href='itemref://226717/226717/196'>LINK </a> Abolish Gallium - Trader
 <a href='itemref://218075/218075/198'>LINK </a> Aegis of Metal - MA
@@ -61,11 +61,6 @@ $infgarn_txt = "Inferno Garden
 <a href='itemref://218065/218065/181'>LINK </a> Ward Blow - MA
 <a href='itemref://226418/226418/195'>LINK </a> Waves of Illness - Agent</FONT> ";
 
-$infgarn_txt = bot::makeLink("Inferno Garden Nanos", $infgarn_txt); 
-if($type == "msg") 
-bot::send($infgarn_txt, $sender); 
-elseif($type == "all") 
-bot::send($infgarn_txt); 
-else 
-bot::send($infgarn_txt, "guild"); 
+$msg = bot::makeLink("Inferno Garden Nanos", $blob); 
+bot::send($msg, $sendto);
 ?>

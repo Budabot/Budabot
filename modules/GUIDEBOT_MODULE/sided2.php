@@ -1,6 +1,6 @@
 <?php
-$sided2_txt = "<header>::::: Guide to Sided Pads Quest Part 2 :::::<end>\n\n"; 
-$sided2_txt = "Happily running around with your first shoulderpads now? Let's kick it up a notch and add some more juice to them with part 2 of this quest.
+$blob = "<header>::::: Guide to Sided Pads Quest Part 2 :::::<end>\n\n
+Happily running around with your first shoulderpads now? Let's kick it up a notch and add some more juice to them with part 2 of this quest.
 
 Head back to your secret agent of choice, Alvin or Dodga, and tell either that you have something for them. You did save the card you got in part 1 right? Good. Turning in the this card will clear you with the agents and get you set up with the next part. You need to have the missions running to do and complete this unlike for part 1, so be sure you are ready for it. The mission has a one week timer on it, and if you don't complete it within the given time, it will dissapear. Meaning you will have to do part 1 all over again to get a new Card to initiate part 2.
 
@@ -47,11 +47,6 @@ Additionally, you will again be presented with a card. And if you didn't keep yo
 
  ";
 
-$sided2_txt = bot::makeLink("Guide to Sided Pads Part 2", $sided2_txt); 
-if($type == "msg") 
-bot::send($sided2_txt, $sender); 
-elseif($type == "all") 
-bot::send($sided2_txt); 
-else 
-bot::send($sided2_txt, "guild"); 
+$msg = bot::makeLink("Guide to Sided Pads Part 2", $blob); 
+bot::send($msg, $sendto);
 ?>

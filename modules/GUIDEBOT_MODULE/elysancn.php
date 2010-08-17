@@ -1,6 +1,6 @@
 <?php
-$elysancn_txt = "<header>::::: Elysium Sanctuary Garden Nanos :::::<end>\n\n"; 
-$elysancn_txt = "Elysium Sanctuary Nanos
+$blob = "<header>::::: Elysium Sanctuary Garden Nanos :::::<end>\n\n
+Elysium Sanctuary Nanos
 <font color ='#69E61E'>
 
 <a href='itemref://218095/218095/55'>LINK </a> Chilled Touch - NT
@@ -20,11 +20,6 @@ $elysancn_txt = "Elysium Sanctuary Nanos
 <a href='itemref://223128/223128/50'>LINK </a> Shadow Step - Fixer
 <a href='itemref://218093/210893/50'>LINK </a> Spark Shower - NT </font> ";
 
-$elysancn_txt = bot::makeLink("Elysium Sanctuary Garden Nanos", $elysancn_txt); 
-if($type == "msg") 
-bot::send($elysancn_txt, $sender); 
-elseif($type == "all") 
-bot::send($elysancn_txt); 
-else 
-bot::send($elysancn_txt, "guild"); 
+$msg = bot::makeLink("Elysium Sanctuary Garden Nanos", $blob); 
+bot::send($msg, $sendto);
 ?>

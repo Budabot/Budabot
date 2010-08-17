@@ -1,6 +1,6 @@
 <?php
-$pensancn_txt = "<header>::::: Penumbra Sanctuary Garden Nanos  :::::<end>\n\n"; 
-$pensancn_txt = "Penumbra Sanctuary (Vanya)
+$blob = "<header>::::: Penumbra Sanctuary Garden Nanos  :::::<end>\n\n
+Penumbra Sanctuary (Vanya)
 <font color='#69E61E'>
 <a href='itemref://226712/226712/166'>LINK </a> Abolish Aluminium - Trader
 <a href='itemref://229099/229099/170'>LINK </a> Aggressive Insult - Solder
@@ -26,11 +26,6 @@ $pensancn_txt = "Penumbra Sanctuary (Vanya)
 <a href='itemref://235284/235284/170'>LINK </a> Umbral Wrangler (Advanced) - Trader
 <a href='itemref://226416/226416/170'>LINK </a> Waves of Numbing - Agent</FONT> ";
 
-$pensancn_txt = bot::makeLink("Penumbra Sanctuary Garden Nanos", $pensancn_txt); 
-if($type == "msg") 
-bot::send($pensancn_txt, $sender); 
-elseif($type == "all") 
-bot::send($pensancn_txt); 
-else 
-bot::send($pensancn_txt, "guild"); 
+$msg = bot::makeLink("Penumbra Sanctuary Garden Nanos", $blob); 
+bot::send($msg, $sendto);
 ?>

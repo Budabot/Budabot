@@ -1,6 +1,6 @@
 <?php
-$totw_txt = "<header>::::: The Temple of the Three Winds - written by Ryannyel Recommend Levels: 30 - 60 :::::<end>\n\n"; 
-$totw_txt = "The Temple of Three Winds is a dungeon for players of level 60 and below. As the headquarters of a cult known 'Cult of the Immortal One', you will encounter many religious type NPCs in this dungeon. Most common are the Cultists who are guarding this temple with their lives. Many items from this dungeon have descriptions, explaining the 'Cult of the Immortal One'. Please keep in mind that you will be warped out of the dungeon after reaching a certain level and you will not be allowed to go back in again if you are higher than level 60.
+$blob = "<header>::::: The Temple of the Three Winds - written by Ryannyel Recommend Levels: 30 - 60 :::::<end>\n\n
+The Temple of Three Winds is a dungeon for players of level 60 and below. As the headquarters of a cult known 'Cult of the Immortal One', you will encounter many religious type NPCs in this dungeon. Most common are the Cultists who are guarding this temple with their lives. Many items from this dungeon have descriptions, explaining the 'Cult of the Immortal One'. Please keep in mind that you will be warped out of the dungeon after reaching a certain level and you will not be allowed to go back in again if you are higher than level 60.
 
 In the south east of Rome Green at 426 x 242 you should find several boxes and someone with the title 'Windcaller' standing next to them. Talk to the person and once you get the option to give something to him, give him 1000 credits. You will get a key which you can use on the portal (Temple of Three Winds Gateway) next to the boxes, which will transport you to the Temple of 3 Winds instantly.
 
@@ -123,11 +123,6 @@ Misc:
 Bracers:
 <a href='itemref://204756/204756/1'>Bracelet of Amplified Sound</a> ";
 
-$totw_txt = bot::makeLink("Information on The Temple of Three Winds", $totw_txt); 
-if($type == "msg") 
-bot::send($totw_txt, $sender); 
-elseif($type == "all") 
-bot::send($totw_txt); 
-else 
-bot::send($totw_txt, "guild"); 
+$msg = bot::makeLink("Information on The Temple of Three Winds", $blob); 
+bot::send($msg, $sendto);
 ?>

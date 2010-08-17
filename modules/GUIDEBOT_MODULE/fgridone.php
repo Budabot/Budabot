@@ -1,6 +1,6 @@
 <?php
-$fgridone_txt = "<header>::::: Guide to Fixer Grid Part 1 :::::<end>\n\n"; 
-$fgridone_txt = "Fixer Grid Quest Part 1
+$blob = "<header>::::: Guide to Fixer Grid Part 1 :::::<end>\n\n
+Fixer Grid Quest Part 1
 
 Guide suited for: All Classes
 Faction: All
@@ -66,11 +66,6 @@ Last updated on 06.09.2006 by Windkeeper
 Information originally provided by Fixerben.
  ";
 
-$fgridone_txt = bot::makeLink("Guide to Fixer Grid Part 1", $fgridone_txt); 
-if($type == "msg") 
-bot::send($fgridone_txt, $sender); 
-elseif($type == "all") 
-bot::send($fgridone_txt); 
-else 
-bot::send($fgridone_txt, "guild"); 
+$msg = bot::makeLink("Guide to Fixer Grid Part 1", $blob); 
+bot::send($msg, $sendto);
 ?>

@@ -1,6 +1,6 @@
 <?php
-$sided1_txt = "<header>::::: Guide to Sided Pads Quest Part 1 :::::<end>\n\n"; 
-$sided1_txt = " It wouldn't be quite right to do this quest so late after it showing up without going into a few of the nightmares that has followed it's birth and seeing how the designers went back and forth before everything was finally in place.
+$blob = "<header>::::: Guide to Sided Pads Quest Part 1 :::::<end>\n\n
+It wouldn't be quite right to do this quest so late after it showing up without going into a few of the nightmares that has followed it's birth and seeing how the designers went back and forth before everything was finally in place.
 
 First came the little robots, and there was much rejoyce. Popping up around major settlements, these little fun fellas would throw snide remarks at you before suddenly attacking, and besides just being something out of the ordinary, they also provided a good fight and some neat loot back then. It was not uncommon for each of them to drop high-level bracers and rings (and also the parts needed for the first quest), and for those who could, these bots would be hunted down on a regular basis. At first they didn't do anything though, as the quest wasn't even implemented yet.
 
@@ -66,11 +66,6 @@ Hunting for robot-parts:
 Mechdogs are typically around level 40, Probes around 30, Buzzsaws around level 10. The levels on the A-500's to A-4000's vary greatly but the lower end of the scale starts around level 60 and they end up at around level 130. Mechdogs are considered to be the ones most 'worth the time and effort' though.
  ";
 
-$sided1_txt = bot::makeLink("Guide to Sided Pads Part 1", $sided1_txt); 
-if($type == "msg") 
-bot::send($sided1_txt, $sender); 
-elseif($type == "all") 
-bot::send($sided1_txt); 
-else 
-bot::send($sided1_txt, "guild"); 
+$msg = bot::makeLink("Guide to Sided Pads Part 1", $blob); 
+bot::send($msg, $sendto);
 ?>

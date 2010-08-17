@@ -1,6 +1,6 @@
 <?php
-$terms_txt = "<header>::::: Guide to AO Terminology :::::<end>\n\n"; 
-$terms_txt = "Guide to AO terminology
+$blob = "<header>::::: Guide to AO Terminology :::::<end>\n\n
+Guide to AO terminology
 
 <font color = red>A</font>
 
@@ -1223,11 +1223,6 @@ zone - to pass from one playfield to another
 75%: a supression gas ratio, means that mobs can attack you, you can attack mobs, but no PvP is possible
  ";
 
-$terms_txt = bot::makeLink("Guide to AO Terminology", $terms_txt); 
-if($type == "msg") 
-bot::send($terms_txt, $sender); 
-elseif($type == "all") 
-bot::send($terms_txt); 
-else 
-bot::send($terms_txt, "guild"); 
+$msg = bot::makeLink("Guide to AO Terminology", $blob); 
+bot::send($msg, $sendto);
 ?>

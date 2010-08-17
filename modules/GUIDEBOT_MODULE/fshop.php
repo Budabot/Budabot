@@ -1,6 +1,6 @@
 <?php
-$fshop_txt = "<header>::::: Guide to The Fixer Shop :::::<end>\n\n"; 
-$fshop_txt = "The shop connection is well hidden, but make your way to the neutral city of Borealis first. The easiest way should be through the Wompa in Newland City. Once there, head South-West over the city walls and you will come to a mountain, circled by a road and some small shack settlements along it. Probably where the workers of the various Omni-Mines in the area live.
+$blob = "<header>::::: Guide to The Fixer Shop :::::<end>\n\n
+The shop connection is well hidden, but make your way to the neutral city of Borealis first. The easiest way should be through the Wompa in Newland City. Once there, head South-West over the city walls and you will come to a mountain, circled by a road and some small shack settlements along it. Probably where the workers of the various Omni-Mines in the area live.
 
 Behind one of the shacks you'll come across a dump of junk and old tires, but taking a closer look one of the tires has a well hidden computer interface. You can target this - named 'Wrecked Shop' - and right-click it to get in touch with the shady characters running this little outlet of illegal merchandise.
 
@@ -74,11 +74,6 @@ Fixers also get their special Cluster Bullets from this shop for their special a
 
 And that was pretty much it. Some items from this shop have questionable usefulness, and some are highly useful for the right profession, level or side, so be sure to enlist your local fixer if you need anything from here. ";
 
-$fshop_txt = bot::makeLink("Guide to The Fixer Shop", $fshop_txt); 
-if($type == "msg") 
-bot::send($fshop_txt, $sender); 
-elseif($type == "all") 
-bot::send($fshop_txt); 
-else 
-bot::send($fshop_txt, "guild"); 
+$msg = bot::makeLink("Guide to The Fixer Shop", $blob); 
+bot::send($msg, $sendto);
 ?>

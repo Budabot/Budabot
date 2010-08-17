@@ -1,6 +1,6 @@
 <?php
-$zoftig_txt = "<header>::::: Guide to Zoftig Blimp :::::<end>\n\n";
-$zoftig_txt .= " A new trader with quite the personality, one Mr. Zoftig Blimp, currently resides in the northern little town of Hope. Why anyone would set up shop at the edge of the world is beyond me, but considering the wares he peddles are in high demand, it has to be said that traffic through Mort has trippled the last day.
+$blob = "<header>::::: Guide to Zoftig Blimp :::::<end>\n\n
+A new trader with quite the personality, one Mr. Zoftig Blimp, currently resides in the northern little town of Hope. Why anyone would set up shop at the edge of the world is beyond me, but considering the wares he peddles are in high demand, it has to be said that traffic through Mort has trippled the last day.
 
 Mr. Blimp, besides being a colorful chap, is quite talkative too if you want to get into the finer points of right or wrong. However, that is hardly what we are here for at the moment - rather look for a chat with this chap later, and let's get down to business.
 
@@ -29,8 +29,7 @@ Modern breeds are not normally able to get a sun tan - because of their extended
 The sunglasses looks damn nice on those models they fit, like for the previously sunglass-deprieved opifexes, and really adds some to the diversity all around (here's to hoping the solitus skewering gets fixed too). The hats might seem a bit silly to some, but for most it's a funny addition along the lines of more is good! Overall a good job and very nice new trinkets, with the promise of more to come.
  ";
 
-$zoftig_txt = bot::makeLink("Guide to Zoftig Blimp", $zoftig_txt);
-
-bot::send($zoftig_txt, $sendto);
+$msg = bot::makeLink("Guide to Zoftig Blimp", $blob);
+bot::send($msg, $sendto);
 
 ?>

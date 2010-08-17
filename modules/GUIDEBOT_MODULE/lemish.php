@@ -1,6 +1,5 @@
 <?php
-$lemish_txt = "<font color =#DDDD44>:::::  Guide to LE Alien Missions  :::::</font>\n\n"; 
-$lemish_txt = "
+$blob = "<font color =#DDDD44>:::::  Guide to LE Alien Missions  :::::</font>\n\n
 <font color =#DDDD44>:::::  Guide to LE Alien Missions  :::::</font>
 
 Guide suited for: All Classes
@@ -96,11 +95,6 @@ Last updated on 01.03.2007 by Tepamina
 Written by Tepamina";
 
 
-$lemish_txt = bot::makeLink("Information On LE Alien Missions", $lemish_txt); 
-if($type == "msg") 
-bot::send($lemish_txt, $sender); 
-elseif($type == "all") 
-bot::send($lemish_txt); 
-else 
-bot::send($lemish_txt, "guild"); 
+$msg = bot::makeLink("Information On LE Alien Missions", $blob); 
+bot::send($msg, $sendto);
 ?>

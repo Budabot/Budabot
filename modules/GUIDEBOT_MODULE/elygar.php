@@ -1,6 +1,6 @@
 <?php
-$elygar_txt = "<header>::::: Elysium Garden Nanos  :::::<end>\n\n"; 
-$elygar_txt = "Elysium Garden    
+$blob = "<header>::::: Elysium Garden Nanos  :::::<end>\n\n
+Elysium Garden    
 
 <font color='#69E61E'>
 <a href='itemref://223224/223224/38'>LINK </a> Artillery Fire - Soldier
@@ -29,11 +29,6 @@ $elygar_txt = "Elysium Garden
 <a href='itemref://210513/210513/39'>LINK </a> Ward - Keeper
 <a href='itemref://226412/226412/25'>LINK </a> Waves of Anger - Agent</font> ";
 
-$elygar_txt = bot::makeLink("Elysium Garden Nanos", $elygar_txt); 
-if($type == "msg") 
-bot::send($elygar_txt, $sender); 
-elseif($type == "all") 
-bot::send($elygar_txt); 
-else 
-bot::send($elygar_txt, "guild"); 
+$msg = bot::makeLink("Elysium Garden Nanos", $blob); 
+bot::send($msg, $sendto);
 ?>

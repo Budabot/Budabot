@@ -1,6 +1,5 @@
 <?php
-$compact_txt = "<header>::::: Guide to SL Compact Discs Quests  :::::<end>\n\n"; 
-$compact_txt = "
+$blob = "<header>::::: Guide to SL Compact Discs Quests  :::::<end>\n\n
 Guide suited for: All Classes
 Faction: All
 Level Range: 1-50
@@ -161,11 +160,6 @@ Information originally provided by Trgeorge.
 Coordinates provided by Sorceress.
 AO Universe";
 
-$compact_txt = bot::makeLink("Guide to SL Compact Discs Quests", $compact_txt); 
-if($type == "msg") 
-bot::send($compact_txt, $sender); 
-elseif($type == "all") 
-bot::send($compact_txt); 
-else 
-bot::send($compact_txt, "guild"); 
+$msg = bot::makeLink("Guide to SL Compact Discs Quests", $blob); 
+bot::send($msg, $sendto);
 ?>

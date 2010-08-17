@@ -1,6 +1,5 @@
 <?php
-$atailor_txt = "<header>::::: Guide to A Tailor's Woe  :::::<end>\n\n"; 
-$atailor_txt = " 	
+$blob = "<header>::::: Guide to A Tailor's Woe  :::::<end>\n\n
 This is Edgar. Well. Actually, the OT Tailors have no names, but reliable sources tells us this one is called Edgar. Okay, so fine, we made it up. Anyway. The OT Tailors have been having a problem lately, it seems that they are in dire need of some Rollerrat flesh in order to make the Omni-Tek clothes they sell, and it so happens that they could use your help. Now fancy that, eh?
   The OT Tailors can be found scattered around various OT settlements and cities on Rubi-Ka, and we heartily recommend that you go look for the one located in the middle square of Omni-Trade. Strike up a conversation with him and you'll soon find out that he has a small task for you, involving the killing of a multitude of rats.
                               Mission: Bring back Undamaged Piece of Rubbery Rollerrat Flesh
@@ -113,11 +112,6 @@ Modifiers
 
  As you can clearly see, the suits are definately geared towards the different breeds, although in no way are you forced to use one suit. As mentioned before, they are not nodrop so can be sold or traded. As far as the individual suits goes - the AC's are low, although so are the requirements. It is a nice enough armor to get started in but lack of true protection and upgradeability keeps the judges from holding up all 10's. The life-expentancy of this armor we would say is mostly geared towards level 1-5 people, which is odd since the average rollerrat will steamroll people around that level. Nevertheless, it should hold you until you can get your hands on some real armor. ";
 
-$atailor_txt = bot::makeLink("Guide to A Tailor's Woe", $atailor_txt); 
-if($type == "msg") 
-bot::send($atailor_txt, $sender); 
-elseif($type == "all") 
-bot::send($atailor_txt); 
-else 
-bot::send($atailor_txt, "guild"); 
+$msg = bot::makeLink("Guide to A Tailor's Woe", $blob); 
+bot::send($msg, $sendto);
 ?>

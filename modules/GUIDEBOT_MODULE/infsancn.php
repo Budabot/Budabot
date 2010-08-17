@@ -1,6 +1,6 @@
 <?php
-$infsancn_txt = "<header>::::: Inferno Sanctuary Garden Nanos :::::<end>\n\n"; 
-$infsancn_txt = "Inferno Sanctuary
+$blob = "<header>::::: Inferno Sanctuary Garden Nanos :::::<end>\n\n
+Inferno Sanctuary
 <font color='#69E61E'>
 <a href='itemref://226719/226719/203'>LINK </a> Abolish Tin - Trader
 <a href='itemref://223025/223025/207'>LINK </a> Ambient Renaissance - Keeper
@@ -73,11 +73,6 @@ $infsancn_txt = "Inferno Sanctuary
 <a href='itemref://218065/218065/181/'>LINK </a> Ward Blow - MA
 <a href='itemref://226418/226418/195/'>LINK </a> Waves of Illness - Agent</font> ";
 
-$infsancn_txt = bot::makeLink("Inferno Sanctuary Garden Nanos", $infsancn_txt); 
-if($type == "msg") 
-bot::send($infsancn_txt, $sender); 
-elseif($type == "all") 
-bot::send($infsancn_txt); 
-else 
-bot::send($infsancn_txt, "guild"); 
+$msg = bot::makeLink("Inferno Sanctuary Garden Nanos", $blob); 
+bot::send($msg, $sendto);
 ?>

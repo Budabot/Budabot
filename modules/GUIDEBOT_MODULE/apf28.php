@@ -1,6 +1,5 @@
 <?php
-$apf28guide_txt = "<header>::::: Guide to Apf Sector 35 :::::<end>\n\n";
-$apf28guide_txt = "
+$blob = "<header>::::: Guide to Apf Sector 35 :::::<end>\n\n
 <font color=#4169e1>Objective: PROTECT THE ROOKIE ALIEN HUNTER</font>
 In this sector, you follow the NPC the Rookie Alien Hunter. Follow him through a series of canyons loaded with groups of aliens. There are also several ambushes along the way. THE ROOKIE MUST STAY ALIVE UNTIL THE END! If the rookie dies, you must go back and get a new one and follow him through his programmed path. There are several laser fences blocking your way. Do not run into these, as they will instantly kill you. When you come to these, stay behind the rookie and he will disable the fence so you can pass.
 
@@ -45,11 +44,6 @@ http://forums.anarchy-online.com/showthread.php?t=392937
 
 ";
 
-$apf28guide_txt = bot::makeLink("Guide to Apf Sector 28", $apf28guide_txt);
-if($type == "msg")
-bot::send($apf28guide_txt, $sender);
-elseif($type == "all")
-bot::send($apf28guide_txt);
-else
-bot::send($apf28guide_txt, "guild");
+$msg = bot::makeLink("Guide to Apf Sector 28", $blob);
+bot::send($msg, $sendto);
 ?>

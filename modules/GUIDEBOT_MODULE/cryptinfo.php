@@ -1,6 +1,6 @@
 <?php
-$cryptinfo_txt = "<header>::::: Guide to Crypt Of Home :::::<end>\n\n"; 
-$cryptinfo_txt = "The Crypt aka Crypt Of Home(window)(green)
+$blob = "<header>::::: Guide to Crypt Of Home :::::<end>\n\n
+The Crypt aka Crypt Of Home(window)(green)
 
 Guide suited for: All Classes
 Faction: All
@@ -323,11 +323,6 @@ Last updated on 08.22.2006 by Stillian
 Information originally provided by Windguaerd.
 http://www.ao-universe.com/main.php?site=knowledge&link=0&id=153 ";
 
-$cryptinfo_txt = bot::makeLink("Guide to Crypt Of Home", $cryptinfo_txt); 
-if($type == "msg") 
-bot::send($cryptinfo_txt, $sender); 
-elseif($type == "all") 
-bot::send($cryptinfo_txt); 
-else 
-bot::send($cryptinfo_txt, "guild"); 
+$msg = bot::makeLink("Guide to Crypt Of Home", $blob); 
+bot::send($msg, $sendto);
 ?>

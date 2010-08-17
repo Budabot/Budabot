@@ -1,6 +1,6 @@
 <?php
-$smugden_txt = "<header>::::: Guide to Smuggler's Den :::::<end>\n\n"; 
-$smugden_txt = "Located in the south east corner of Rubi-Ka, we have the Smuggler's Den. Home to the Den Mantis species and the smugglers - humanoids who like to hoard great treasure and smuggle stuff from and to Rubi-Ka. The dungeon is located in a small 25% area, so you need to enter quickly, in case someone is waiting for you outside ;)
+$blob = "<header>::::: Guide to Smuggler's Den :::::<end>\n\n
+Located in the south east corner of Rubi-Ka, we have the Smuggler's Den. Home to the Den Mantis species and the smugglers - humanoids who like to hoard great treasure and smuggle stuff from and to Rubi-Ka. The dungeon is located in a small 25% area, so you need to enter quickly, in case someone is waiting for you outside ;)
 
 Location: Southern Foul Hills (South East Rubi-Ka), 1755 x 872
 
@@ -69,11 +69,6 @@ The Mantis Egg is used for the very valuable Virral Triumvirate Egg
 
 The DeCranum's armor drops rarely and getting a whole set is difficult. It has level requirements and is one of the best armors ingame (adds NCU and HP) for medium level players. ";
 
-$smugden_txt = bot::makeLink("Guide to Smuggler's Den", $smugden_txt); 
-if($type == "msg") 
-bot::send($smugden_txt, $sender); 
-elseif($type == "all") 
-bot::send($smugden_txt); 
-else 
-bot::send($smugden_txt, "guild"); 
+$msg = bot::makeLink("Guide to Smuggler's Den", $blob); 
+bot::send($msg, $sendto);
 ?>

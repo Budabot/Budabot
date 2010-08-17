@@ -28,8 +28,9 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-$Metaphysicists_txt = "<header>::::: Guide to Meta Physicists :::::<end>\n\n"; 
-$Metaphysicists_txt = "The Meta-Physicist for Beginners Guide
+
+$blob = "<header>::::: Guide to Meta Physicists :::::<end>\n\n
+The Meta-Physicist for Beginners Guide
 Guide is too large to load into the bot, so I have included the link on AOForums for your convienance.
 
 <a href='chatcmd:///start http://forums.anarchy-online.com/showthread.php?t=466609/ '><font color = yellow>MP Guides on the AO Forums</font></a>
@@ -37,11 +38,6 @@ Guide is too large to load into the bot, so I have included the link on AOForums
 "
 ;
 
-$Metaphysicists_txt = bot::makeLink("Guide to Meta Physicists", $Metaphysicists_txt); 
-if($type == "msg") 
-bot::send($Metaphysicists_txt, $sender); 
-elseif($type == "all") 
-bot::send($Metaphysicists_txt); 
-else 
-bot::send($Metaphysicists_txt, "guild"); 
+$msg = bot::makeLink("Guide to Meta Physicists", $Metaphysicists_txt); 
+bot::send($msg, $sendto);
 ?>

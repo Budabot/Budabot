@@ -1,6 +1,6 @@
 <?php
-$locations_txt = "<header>::::: Locations of Rubi Ka  :::::<end>\n\n"; 
-$locations_txt = "Locations Of Rubi Ka
+$blob = "<header>::::: Locations of Rubi Ka  :::::<end>\n\n
+Locations Of Rubi Ka
 
 ***Please Note: All Links might not work, if you find one, please let your org leaders know***
 
@@ -57,11 +57,6 @@ $locations_txt = "Locations Of Rubi Ka
 
 'Enjoy It While It Lasts' ";
 
-$locations_txt = bot::makeLink("Locations of Rubi Ka", $locations_txt); 
-if($type == "msg") 
-bot::send($locations_txt, $sender); 
-elseif($type == "all") 
-bot::send($locations_txt); 
-else 
-bot::send($locations_txt, "guild"); 
+$msg = bot::makeLink("Locations of Rubi Ka", $blob); 
+bot::send($msg, $sendto);
 ?>

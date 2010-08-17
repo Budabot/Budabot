@@ -1,6 +1,6 @@
 <?php
-$shosancn_txt = "<header>::::: Shoel Sanctuary Garden Nanos  :::::<end>\n\n"; 
-$shosancn_txt = "Scheol Sanctuary Nanos
+$blob = "<header>::::: Shoel Sanctuary Garden Nanos  :::::<end>\n\n
+Scheol Sanctuary Nanos
 <font color='#69E61E'>
 <a href='itemref://218103/218103/95'>LINK </a> Ariu's Neutron Annihilator - NT
 <a href='itemref://239750/239750/100'>LINK </a> Build Boosted Spirit Tech Source Fountain - Adv
@@ -21,11 +21,6 @@ $shosancn_txt = "Scheol Sanctuary Nanos
 <a href='itemref://227662/227662/88'>LINK </a> Weaponsmithing Knowledge - Engie
 <a href='itemref://218101/218101/83'>LINK </a> Ziana's Energy Wave - NT</font> ";
 
-$shosancn_txt = bot::makeLink("Shoel Sanctuary Garden Nanos", $shosancn_txt); 
-if($type == "msg") 
-bot::send($shosancn_txt, $sender); 
-elseif($type == "all") 
-bot::send($shosancn_txt); 
-else 
-bot::send($shosancn_txt, "guild"); 
+$msg = bot::makeLink("Shoel Sanctuary Garden Nanos", $blob); 
+bot::send($msg, $sendto);
 ?>

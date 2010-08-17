@@ -1,6 +1,6 @@
 <?php
-$implants_txt = "<header>::::: Guide to Implants :::::<end>\n\n"; 
-$implants_txt = "<font color = green>Saetos's Guide to Implants ... for the Newbie in All of Us </font>
+$blob = "<header>::::: Guide to Implants :::::<end>\n\n
+<font color = green>Saetos's Guide to Implants ... for the Newbie in All of Us </font>
 
 This little blob of text shows you the how, the when, the why, and the who about implants and all related. Comments? Questions? Threats? Reply!!!
 
@@ -123,11 +123,6 @@ Need just a wee extra? Get some Carbonum Armor, which adds a small amount of NCU
 
 Well, nothing much else to say, other than knowing that there's another door of opportunity to go through in further leveling your character. Hey... what are you waiting for? Log on and get grafting!!! ";
 
-$implants_txt = bot::makeLink("Guide to Implants", $implants_txt); 
-if($type == "msg") 
-bot::send($implants_txt, $sender); 
-elseif($type == "all") 
-bot::send($implants_txt); 
-else 
-bot::send($implants_txt, "guild"); 
+$msg = bot::makeLink("Guide to Implants", $blob); 
+bot::send($msg, $sendto);
 ?>

@@ -1,6 +1,6 @@
 <?php
-$nasckey_txt = "<header>::::: Guide to Nascence Garden Key :::::<end>\n\n"; 
-$nasckey_txt = "Nascence: Thrak (Omni) Garden Key Quest
+$blob = "<header>::::: Guide to Nascence Garden Key :::::<end>\n\n
+Nascence: Thrak (Omni) Garden Key Quest
 
 
 This quest gives you the ability to travel between the Unredeemed transit statues of Nascense without using insignias. You need at least 5 Insignias of Thrak to complete it. Insignias drop from Redeemed mobs and creatures which are not affiliated with the Unredeemed faction. 
@@ -36,11 +36,6 @@ Go back to the Unredeemed Garden and show the device to Hypnagogic Urga-Lum Thra
 
 The Key to the Garden of Thrak ";
 
-$nasckey_txt = bot::makeLink("Guide to Nascence Garden Key", $nasckey_txt); 
-if($type == "msg") 
-bot::send($nasckey_txt, $sender); 
-elseif($type == "all") 
-bot::send($nasckey_txt); 
-else 
-bot::send($nasckey_txt, "guild"); 
+$msg = bot::makeLink("Guide to Nascence Garden Key", $blob); 
+bot::send($msg, $sendto);
 ?>

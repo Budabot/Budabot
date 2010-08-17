@@ -1,6 +1,6 @@
 <?php
-$tier2armor_txt = "<header>::::: Making Tier2 Armor :::::<end>\n\n"; 
-$tier2armor_txt = "Jobe Armor Tier Two
+$blob = "<header>::::: Making Tier2 Armor :::::<end>\n\n
+Jobe Armor Tier Two
 
 Guide suited for: All Classes
 Faction: All
@@ -98,11 +98,6 @@ Will of the Reposeful
 The visions and embryos drop in the Penumbra and higher zones (Catacombs under each Temple). 
  ";
 
-$tier2armor_txt = bot::makeLink("Making Tier2 Armor", $tier2armor_txt); 
-if($type == "msg") 
-bot::send($tier2armor_txt, $sender); 
-elseif($type == "all") 
-bot::send($tier2armor_txt); 
-else 
-bot::send($tier2armor_txt, "guild"); 
+$msg = bot::makeLink("Making Tier2 Armor", $blob); 
+bot::send($msg, $sendto);
 ?>

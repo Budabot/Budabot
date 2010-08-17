@@ -1,6 +1,6 @@
 <?php
-$shoelkeyclan_txt = "<header>::::: Shoel Garden Key Quest CLAN :::::<end>\n\n"; 
-$shoelkeyclan_txt = "Shoel Garden Key Quest CLAN
+$blob = "<header>::::: Shoel Garden Key Quest CLAN :::::<end>\n\n
+Shoel Garden Key Quest CLAN
 
 <font color='#ff9933'><highlight>Ocra Garden Key Quest</font></end>
 
@@ -47,11 +47,6 @@ Information originally provided by Windguaerd.
 Courtesy of AO Universe
 "
 ;
-$shoelkeyclan_txt = bot::makeLink("Shoel: Garden Key Quest CLAN", $shoelkeyclan_txt); 
-if($type == "msg") 
-bot::send($shoelkeyclan_txt, $sender); 
-elseif($type == "all") 
-bot::send($shoelkeyclan_txt); 
-else 
-bot::send($shoelkeyclan_txt, "guild"); 
+$msg = bot::makeLink("Shoel: Garden Key Quest CLAN", $blob); 
+bot::send($msg, $sendto);
 ?>

@@ -1,6 +1,5 @@
 <?php
-$clothes_txt = "<header>::::: Guide to Social Clothes  :::::<end>\n\n"; 
-$clothes_txt = "
+$blob = "<header>::::: Guide to Social Clothes  :::::<end>\n\n
 Guide suited for: All Classes
 Level Range: ?
 
@@ -43,11 +42,6 @@ Last updated on 03.13.2007
 Information originally provided by Jexai.co.uk/anarchy";
 
 
-$clothes_txt = bot::makeLink("Social Clothes", $clothes_txt); 
-if($type == "msg") 
-bot::send($clothes_txt, $sender); 
-elseif($type == "all") 
-bot::send($clothes_txt); 
-else 
-bot::send($clothes_txt, "guild"); 
+$msg = bot::makeLink("Social Clothes", $blob); 
+bot::send($msg, $sendto);
 ?>

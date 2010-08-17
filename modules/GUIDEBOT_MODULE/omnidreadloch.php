@@ -1,6 +1,6 @@
 <?php
-$omnidreadloch_txt = "<header>::::: Information about Dreadloch Camps For Omni :::::<end>\n\n"; 
-$omnidreadloch_txt ="<font color = yellow>::::: Information about Dreadloch Camps : Omni :::::</font>
+$blob = "<header>::::: Information about Dreadloch Camps For Omni :::::<end>\n\n
+<font color = yellow>::::: Information about Dreadloch Camps : Omni :::::</font>
 
 
 <font color = #31D6FF>Dreadloch Camps</font>
@@ -113,11 +113,6 @@ Last updated on 04.02.2007 by Windkeeper
 Written by Ukblizzard and Uragon. 
 Additional firepower provided by Omni-Pol."
 ;
-$omnidreadloch_txt = bot::makeLink("Omni Dreadloch Camps", $omnidreadloch_txt); 
-if($type == "msg") 
-bot::send($omnidreadloch_txt, $sender); 
-elseif($type == "priv") 
-bot::send($omnidreadloch_text); 
-else 
-bot::send($omnidreadloch_txt, "guild");
+$msg = bot::makeLink("Omni Dreadloch Camps", $blob); 
+bot::send($msg, $sendto);
 ?>

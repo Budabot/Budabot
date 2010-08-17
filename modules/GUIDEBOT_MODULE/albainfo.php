@@ -1,7 +1,5 @@
 <?php
-$albainfo_txt = "<header>::::: Information about Adonis Quests :::::<end>\n\n"; 
-$albainfo_txt .= "
-
+$blob = "<header>::::: Information about Adonis Quests :::::<end>\n\n
 Guide suited for: All Classes
 Faction: All Factions
 Level Range: 200-220
@@ -196,8 +194,7 @@ Additional information provided by Trgeorge
 Guide courtesy of AO Universe
 "
 ;
-$albainfo_txt = bot::makeLink("Guide to Albtraum playfield", $albainfo_txt); 
-
-bot::send($albainfo_txt, $sendto);
+$msg = bot::makeLink("Guide to Albtraum playfield", $blob); 
+bot::send($msg, $sendto);
 
 ?>

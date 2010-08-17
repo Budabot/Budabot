@@ -1,6 +1,6 @@
 <?php
-$fixer_txt = "<header>::::: Guide to Fixers :::::<end>\n\n";
-$fixer_txt .= "<font color = yellow>Fixer
+$blob = "<header>::::: Guide to Fixers :::::<end>\n\n
+<font color = yellow>Fixer
 
 <font color = yellow>At a glance</font>
 <font color = red>* Main Weapons: SMGs</font>
@@ -54,8 +54,7 @@ In essence, all the nano skills need love, except the MC that you don't need if 
 
 Updated Fixer Guide on the Ao forums (warning:will open your web browser) #L 'Click here' '/start http://forums.anarchy-online.com/showthread.php?t=391085&highlight=updated+fixer' ";
 
-$fixer_txt = bot::makeLink("Guide to Fixer", $fixer_txt);
-
-bot::send($fixer_txt, $sendto);
+$msg = bot::makeLink("Guide to Fixer", $blob);
+bot::send($msg, $sendto);
 
 ?>

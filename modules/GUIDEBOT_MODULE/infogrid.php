@@ -1,6 +1,6 @@
 <?php
-$grid_txt = "<header>::::: Guide to The Grid  :::::<end>\n\n"; 
-$grid_txt = "<font color = blue>-= The Grid =-</font>
+$blob = "<header>::::: Guide to The Grid  :::::<end>\n\n
+<font color = blue>-= The Grid =-</font>
 
 The grid is a fast way to teleport to other locations within Rubi-Ka.  Fixers have their own grid, but the public grid is available for all characters to use.  The Grid requires a certain amount of Computer Literacy to exit or enter the various grid terminals.  There are three floors to the Grid, each with different ranges of Computer Literacy needed:
 
@@ -34,11 +34,6 @@ The grid is a fast way to teleport to other locations within Rubi-Ka.  Fixers ha
 <font color = red>*</font> denotes CompLit needed to use the exit.
  ";
 
-$grid_txt = bot::makeLink("Guide to The Grid", $grid_txt); 
-if($type == "msg") 
-bot::send($grid_txt, $sender); 
-elseif($type == "all") 
-bot::send($grid_txt); 
-else 
-bot::send($grid_txt, "guild"); 
+$msg = bot::makeLink("Guide to The Grid", $blob); 
+bot::send($msg, $sendto);
 ?>

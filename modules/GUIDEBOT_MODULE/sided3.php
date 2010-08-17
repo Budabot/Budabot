@@ -1,6 +1,6 @@
 <?php
-$sided3_txt = "<header>::::: Guide to Sided Pads Quest Part 3 :::::<end>\n\n"; 
-$sided3_txt = "This is where things get rough - part 3 of the sided shoulderpads. With your card II ready, you can head back to your agent of choice and turn it in for the third and final part of this mission. But hold on just a sec - like in the first part, you do not need to have this part running to accomplish the task, and with the normally difficult nature of this, it could be a good idea to wait to return the card until you have the items needed and/or know you can finish in the time given. Should you start this quest and fail to finish in time, you will need another card II - often meaning you have to complete part 1 and 2 all over again. Once turned in, you have 30 days real-time to complete the quest.
+$blob = "<header>::::: Guide to Sided Pads Quest Part 3 :::::<end>\n\n
+This is where things get rough - part 3 of the sided shoulderpads. With your card II ready, you can head back to your agent of choice and turn it in for the third and final part of this mission. But hold on just a sec - like in the first part, you do not need to have this part running to accomplish the task, and with the normally difficult nature of this, it could be a good idea to wait to return the card until you have the items needed and/or know you can finish in the time given. Should you start this quest and fail to finish in time, you will need another card II - often meaning you have to complete part 1 and 2 all over again. Once turned in, you have 30 days real-time to complete the quest.
 
 With the help of the surveillance in part 2, we know know all about how the army of killbots operates and communicates with eachother. Time to put a stop to it for good. It's not an all out war, but rather an effective counter-attack - what you need to do is get a hold of all the communication chips the robots use to organize themselves with. This will ensure the good guys can always pose as any of the bots and disrupt them from ever devising anything in secret again. Not as easy as it sounds, this will involve dismantling all 8 lackeys and eventually also the Trash King himself to construct this device of miscommunication.
 
@@ -42,11 +42,6 @@ Since the pads can go in each of the shoulderslots, you can also wear two of the
 In addition, there is now a tradeskill process to upgrade the pads once more. Just use an Omnifier on them, and BOOM! How easy could that be?
  ";
 
-$sided3_txt = bot::makeLink("Guide to Sided Pads Part 3", $sided3_txt); 
-if($type == "msg") 
-bot::send($sided3_txt, $sender); 
-elseif($type == "all") 
-bot::send($sided3_txt); 
-else 
-bot::send($sided3_txt, "guild"); 
+$msg = bot::makeLink("Guide to Sided Pads Part 3", $blob); 
+bot::send($msg, $sendto);
 ?>

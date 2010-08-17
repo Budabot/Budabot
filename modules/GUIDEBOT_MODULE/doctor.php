@@ -1,6 +1,6 @@
 <?php
-$doctor_txt = "<header>::::: Guide to Doctors :::::<end>\n\n"; 
-$doctor_txt = "Now on to the good stuff that really matters.
+$blob = "<header>::::: Guide to Doctors :::::<end>\n\n
+Now on to the good stuff that really matters.
 
 Doctors are suited for one purpose and one purpose only. Healing your team mates. If your looking for a soloing class you've come to the wrong place. Don't get me wrong. A Doctor is a decent solo'er. But if your going to solo with a Doctor your cutting your true efficiency by alot. The Doctor is the King of Grouping from levels 10-150. Every team wants one but no one wants to play one. Why doesn't anyone want to play one? Some see the role as monotonous (this group comprises mostly of those who have played a Doc to about level 50 at most). Others quit playing a Doctor because it's too stressful (this group has yet to pass level 150 at best). The role of a Doctor is fast paced. You have 1/2 a dozen things to worry about at once and you have to be quick to get all of them done and keep the group alive. It's fast paced and energetic. If you like that then stick with it and you'll have great satisfaction with your Doc. If your looking for easy. LOL sorry bud... you picked the wrong class : )
 
@@ -48,11 +48,6 @@ Now once you hit level 150ish the role of a Doctor becomes fairly obsolete. It's
 
 As far as weapon choice? Well since you haven't touched any of these skills you shouldn't have random ip's scattered throughout the board. And you should have a healthy supply of ip's (hopefully) to make whatever choice you want. A doctor is equally horrible with any choice of weapon. The only weapon skill that is even remotely easy for a Doc to progress in is Pistol. I would avoid it if I were you. Do some research into what kind of weapon you want to use and go for it. However do not choose a weapon that requires more then 3 skills tops. After all you don't have THAT many ip's to play with. I would recommend Shotguns. Vektor's to start out with, Waltzing Queens as your eventual upgrade and finally ending it with an Ithaca Snakemaster. This is ip conservative as well as getting a pretty good bang for your buck. But this is completely up to the taste of the player. ";
 
-$doctor_txt = bot::makeLink("Guide To Doctors", $doctor_txt); 
-if($type == "msg") 
-bot::send($doctor_txt, $sender); 
-elseif($type == "all") 
-bot::send($doctor_txt); 
-else 
-bot::send($doctor_txt, "guild"); 
+$msg = bot::makeLink("Guide To Doctors", $blob); 
+bot::send($msg, $sendto);
 ?>

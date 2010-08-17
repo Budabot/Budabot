@@ -1,6 +1,6 @@
 <?php
-$bernice_txt = "<header>::::: Guide to Thin Bernice :::::<end>\n\n"; 
-$bernice_txt = "In Perpetual Wastelands in the outpost at 1050 x 2500 you can find a peddler called Thin Bernice selling her wares at discount prices. In her case, discount means expensive. Very expensive. But hey - nobody is perfect. You can also grab some ammunition from her if you should want to restock on that, but the real gems are the selections of tanks and Battlesuits.
+$blob = "<header>::::: Guide to Thin Bernice :::::<end>\n\n
+In Perpetual Wastelands in the outpost at 1050 x 2500 you can find a peddler called Thin Bernice selling her wares at discount prices. In her case, discount means expensive. Very expensive. But hey - nobody is perfect. You can also grab some ammunition from her if you should want to restock on that, but the real gems are the selections of tanks and Battlesuits.
 
 Both the regular versions as well as the Omni-Tek only versions of the Tank Armors is available in her store inside the quality range of 50 to 125. If you really don't feel like running a mission for your Tank armor, Thin Bernice might very well be the answer to your prayers.
 <FONT COLOR = YELLOW>
@@ -29,11 +29,6 @@ The Enhanced one is actually everything but enhanced compared to the rest. It ha
 Of course, all of the Battle Suits suffer from the same drawback, namely the nano% cost penalty. The penalty at low levels can really be painful, especially if you are playing a class that relies to it or if you have a really low nanopool.
  ";
 
-$bernice_txt = bot::makeLink("Guide to Thin Bernice", $bernice_txt); 
-if($type == "msg") 
-bot::send($bernice_txt, $sender); 
-elseif($type == "all") 
-bot::send($bernice_txt); 
-else 
-bot::send($bernice_txt, "guild"); 
+$msg = bot::makeLink("Guide to Thin Bernice", $blob); 
+bot::send($msg, $sendto);
 ?>

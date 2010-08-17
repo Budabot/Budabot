@@ -1,6 +1,6 @@
 <?php
-$Buffs_txt = "<header>::::: Information about all the In Game Buffs :::::<end>\n\n"; 
-$Buffs_txt ="<font color = yellow> Work in Progress
+$blob = "<header>::::: Information about all the In Game Buffs :::::<end>\n\n
+<font color = yellow> Work in Progress
 
 Here's a list of nanos you can seek to buff the base abilities. The list here does not include any that are self-only, or profession-only. These are over and above the generic boosts (+12). For weapons & nano skill buffs of the base abilities see below.
 </font>
@@ -230,11 +230,6 @@ Here's a list of nanos you can seek to buff the base abilities. The list here do
 Again, keep in mind that many of the buffs here have lesser ones available in the same line. So you may be able to get something lower if there's a level-lock involved, or you contact a lower-level profession.
 </font>"
 ; 
-$Buffs_txt = bot::makeLink("Information On Buffs", $Buffs_txt); 
-if($type == "msg") 
-bot::send($Buffs_txt, $sender); 
-elseif($type == "priv") 
-bot::send($Buffs_text); 
-else 
-bot::send($Buffs_txt, "guild");
+$msg = bot::makeLink("Information On Buffs", $blob); 
+bot::send($msg, $sendto);
 ?>

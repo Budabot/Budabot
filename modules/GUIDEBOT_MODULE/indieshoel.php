@@ -1,6 +1,5 @@
 <?php
-$indieshoel_txt = "<header>::::: Shoel Quests: Independants  :::::<end>\n\n"; 
-$indieshoel_txt = "
+$blob = "<header>::::: Shoel Quests: Independants  :::::<end>\n\n
 Guide suited for: All Classes
 Faction:  All
 Level Range: 1-150</span>
@@ -115,11 +114,6 @@ Additional Information provided by Uragon and Ukblizzard.
 Do you have questions about this guide or are looking for help? Post in the <a href='chatcmd:///start http://www.ao-universe.com/viewforum.php?f=1>General Discussion forum</a> and ask the AOU Community."
 ;
 
-$indieshoel_txt = bot::makeLink("Shoel Quests : Independants", $indieshoel_txt); 
-if($type == "msg") 
-bot::send($indieshoel_txt, $sender); 
-elseif($type == "all") 
-bot::send($indieshoel_txt); 
-else 
-bot::send($indieshoel_txt, "guild"); 
+$msg = bot::makeLink("Shoel Quests : Independants", $blob); 
+bot::send($msg, $sendto);
 ?>

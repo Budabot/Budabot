@@ -1,7 +1,5 @@
 <?php
-$infoyalm_txt = "<header>::::: Locations of Yalms  :::::<end>\n\n"; 
-$infoyalm_txt = " 	
-
+$blob = "<header>::::: Locations of Yalms  :::::<end>\n\n
 <highlight>-=Yalm Shops=-</end>
 OT Advanced Vehicle shops can be found at: 
 
@@ -15,11 +13,6 @@ OT Advanced Vehicle shops can be found at:
 <font color = #31D6FF>1526x541  </font> Lush Fields
 <font color = #31D6FF>289x315   </font> Newland City (Shop right OTW to Newland Shops) 
 <font color = #31D6FF>1190.7, 2352.4</font> Pleasant Meadows (20K) east of the shops";
-$infoyalm_txt = bot::makeLink("Locations of Yalms", $infoyalm_txt); 
-if($type == "msg") 
-bot::send($infoyalm_txt, $sender); 
-elseif($type == "all") 
-bot::send($infoyalm_txt); 
-else 
-bot::send($infoyalm_txt, "guild"); 
+$msg = bot::makeLink("Locations of Yalms", $blob); 
+bot::send($msg, $sendto);
 ?>

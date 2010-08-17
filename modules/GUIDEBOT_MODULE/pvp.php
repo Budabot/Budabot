@@ -1,6 +1,6 @@
 <?php
-$pvpguide_txt = "<header>::::: Guide to PVP :::::<end>\n\n";
-$pvpguide_txt .= "The ranks in AO are determined by 'PvP points' You get points when you win a fight (and are not too much below the rank of the enemy or too high above the rank of the enemy). You must not be in a team, if you want to win points. If you are teamed, you also won't lose any points.
+$blob = "<header>::::: Guide to PVP :::::<end>\n\n
+The ranks in AO are determined by 'PvP points' You get points when you win a fight (and are not too much below the rank of the enemy or too high above the rank of the enemy). You must not be in a team, if you want to win points. If you are teamed, you also won't lose any points.
 
 The PvP titles:
 
@@ -61,11 +61,6 @@ At the moment there is no way to check how many PvP points you have. The ranks a
 
 <font color=white>from http://ao.stratics.com</font>";
 
-$pvpguide_txt = bot::makeLink("Guide to PVP", $pvpguide_txt);
-if($type == "msg")
-bot::send($pvpguide_txt, $sender);
-elseif($type == "all")
-bot::send($pvpguide_txt);
-else
-bot::send($pvpguide_txt, "guild");
+$msg = bot::makeLink("Guide to PVP", $blob);
+bot::send($msg, $sendto);
 ?>

@@ -1,6 +1,6 @@
 <?php
-$blitzingg_txt = "<header>::::: Guide to Blitzing  :::::<end>\n\n";
-$blitzingg_txt .= "Blitzing - What it is and how to do it.
+$blob = "<header>::::: Guide to Blitzing  :::::<end>\n\n
+Blitzing - What it is and how to do it.
 
 (Note: This guide was written for Fixers, but we all can learn from it. Anyone can blitz. Fixers are just better at it. :P)
 
@@ -54,8 +54,7 @@ And Kaghelion told us that:
 
 So, there is the basics. Now all you have to do is Practice! Go out there and pull easy missions, even missions with all grey mobs, and start running. And remember, as Gene13 stated: You can have all the runspeed in the world, but if you don't know where the MOB is you're just some dude running around in a cave, waiting to get lucky.
 ";
-$blitzingg_txt = bot::makeLink("Guide to Blitzing", $blitzingg_txt);
-
-bot::send($blitzingg_txt, $sendto);
+$msg = bot::makeLink("Guide to Blitzing", $blob);
+bot::send($msg, $sendto);
 
 ?>

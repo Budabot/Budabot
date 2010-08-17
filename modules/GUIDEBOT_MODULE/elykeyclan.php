@@ -1,6 +1,5 @@
 <?php
-$elykeyclan_txt = "<header>::::: Elysium Garden Key Quest CLAN :::::<end>\n\n"; 
-$elykeyclan_txt = "
+$blob = "<header>::::: Elysium Garden Key Quest CLAN :::::<end>\n\n
 <font color='#ff9933'><highlight>Enel Garden Key Quest</font></end>
 
 <highlight>Guide suited for:</end> All Classes
@@ -68,11 +67,6 @@ Information originally provided by Roedran and Herodotus to the SL Library Forum
 Courtesy of AO Universe
 "
 ;
-$elykeyclan_txt = bot::makeLink("Elysium: Garden Key Quest Clan", $elykeyclan_txt); 
-if($type == "msg") 
-bot::send($elykeyclan_txt, $sender); 
-elseif($type == "all") 
-bot::send($elykeyclan_txt); 
-else 
-bot::send($elykeyclan_txt, "guild"); 
+$msg = bot::makeLink("Elysium: Garden Key Quest Clan", $blob); 
+bot::send($msg, $sendto);
 ?>

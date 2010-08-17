@@ -1,6 +1,6 @@
 <?php
-$rochkey_txt = "<header>::::: Scheol: Roch Garden Key Quest :::::<end>\n\n"; 
-$rochkey_txt = "Scheol: Roch Garden Key Quest
+$blob = "<header>::::: Scheol: Roch Garden Key Quest :::::<end>\n\n
+Scheol: Roch Garden Key Quest
 
 
 To start the quest you need to head to the Unredeemed Temple (take exit Temple Bog--1715x380) and find Prophet Eckel-Roch (N until you get to the second room, then take the left path and go through the door, then in the next room go right), after speaking to him he'll tell you that some underlings are searching for a certain Empath of the Redeemed side, and of course you have to help them out. 
@@ -25,11 +25,6 @@ Also just like all other PB you will be reduced to 1 point of health when you sp
 
 Kill the Empath and from her corpse loot the Old piece of cloth sparkling with notum. Head back to the garden and give it to Hypnagogic Urga-Xum Roch and you will be rewarded with The Key to the Garden of Roch! ";
 
-$rochkey_txt = bot::makeLink("Scheol: Roch Garden Key Quest", $rochkey_txt); 
-if($type == "msg") 
-bot::send($rochkey_txt, $sender); 
-elseif($type == "all") 
-bot::send($rochkey_txt); 
-else 
-bot::send($rochkey_txt, "guild"); 
+$msg = bot::makeLink("Scheol: Roch Garden Key Quest", $blob); 
+bot::send($msg, $sendto);
 ?>

@@ -1,7 +1,5 @@
 <?php
-$cloakr_txt = "<header>::::: Cloak Of The Reanimated Upgrade Process :::::<end>\n\n";
-$cloakr_txt .= "
-
+$blob = "<header>::::: Cloak Of The Reanimated Upgrade Process :::::<end>\n\n
 Guide suited for: All Classes
 Faction: All
 Level Range: All Levels
@@ -73,8 +71,7 @@ And when the Cloak is fully upgraded, it get's a special attack, which you can u
 
 Guide courtesy of AO Universe 18 June 2008
 ";
-$cloakr_txt = bot::makeLink("Cloak Of The Reanimated Upgrade Process", $cloakr_txt);
-
-bot::send($cloakr_txt, $sendto);
+$msg = bot::makeLink("Cloak Of The Reanimated Upgrade Process", $blob);
+bot::send($msg, $sendto);
 
 ?>

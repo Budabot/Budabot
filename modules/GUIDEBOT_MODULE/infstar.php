@@ -1,7 +1,5 @@
 <?php
-$infstar_txt = "<header>::::: Inferno: Profession Star Quest:::::<end>\n\n"; 
-$infstar_txt .= "
-
+$blob = "<header>::::: Inferno: Profession Star Quest:::::<end>\n\n
 <img src=rdb://131260>
 <font color = yellow>Guarding the source:</font>
 <font color = yellow>Guide suited for:</font> All Classes
@@ -50,8 +48,7 @@ nce that's completed, just return to Ergo and you'll be awarded with :
 (Clickable Link included for easy search)  
 "
 ;
-$infstar_txt = bot::makeLink("Inferno: Profession Star Quest", $infstar_txt); 
-
-bot::send($infstar_txt, $sendto);
+$msg = bot::makeLink("Inferno: Profession Star Quest", $blob); 
+bot::send($msg, $sendto);
 
 ?>

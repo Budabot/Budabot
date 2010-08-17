@@ -1,6 +1,5 @@
 <?php
-$apf13guide_txt = "<header>::::: Guide to Apf Sector 13 :::::<end>\n\n";
-$apf13guide_txt = "
+$blob = "<header>::::: Guide to Apf Sector 13 :::::<end>\n\n
 <font color=#4169e1>Objective: ASSIST THE UNICORNS IN PREVENTING THE BUGS FROM MAKING A BASE</font>
 Progress through the canyon killing all the aliens. The canyon will open up to a crater with regular aliens in the center and a group of Supports and Sentries on the far side. Kill the regular bugs. Do not attack the Advanced or Support Sentries! The mission-holder should now proceed to talk to the Unicorn Commander on top of the hill surrounding the crater (He can be found by running back throught the canyon towards the entrance until you reach a tree with large roots. Use the roots to jump onto a cliff edge on the right side of the canyon. Follow this cliff until it ends and you will find the Unicorn Commander). This will call down a large ship into the center of the crater, and a bunch of Unicorn Troopers will storm out towards the Sentries and attack them. Support Sentries can be pulled away from the Unicorns and Advanced Sentries and killed. The Advanced Sentries will kill the Unicorn Troops. Calmers can calm the Advanced Sentries until their reflect shield runs out.
 
@@ -59,11 +58,6 @@ Thanks to Turk021 for his APF Guides
 http://forums.anarchy-online.com/showthread.php?t=392937
 ";
 
-$apf13guide_txt = bot::makeLink("Guide to Apf Sector 13", $apf13guide_txt);
-if($type == "msg")
-bot::send($apf13guide_txt, $sender);
-elseif($type == "all")
-bot::send($apf13guide_txt);
-else
-bot::send($apf13guide_txt, "guild");
+$msg = bot::makeLink("Guide to Apf Sector 13", $blob);
+bot::send($msg, $sendto);
 ?>

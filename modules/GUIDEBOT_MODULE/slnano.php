@@ -1,6 +1,6 @@
 <?php
-$slnano_txt = "<header>::::: Shadowlands Garden Nanos:::::<end>\n\n"; 
-$slnano_txt = "Here is an updated list of Nano Crystals sold in Gardens and Sanctuaries. 
+$blob = "<header>::::: Shadowlands Garden Nanos:::::<end>\n\n
+Here is an updated list of Nano Crystals sold in Gardens and Sanctuaries. 
 Please notify your bot developer of any changes, errors, or discrepencies. 
 <font color = yellow>
 <a href='chatcmd:///tell <myname> nascgar'> - Nascence Garden Nanos</a>
@@ -16,11 +16,6 @@ Please notify your bot developer of any changes, errors, or discrepencies.
 <a href='chatcmd:///tell <myname> infsancn'> - Inferno Sanctuary Garden Nanos.</a>
 <a href='chatcmd:///tell <myname> panven'> - Pandemonium Vendors Nanos.</font></a> ";
 
-$slnano_txt = bot::makeLink("Shadowlands Garden Nanos", $slnano_txt); 
-if($type == "msg") 
-bot::send($slnano_txt, $sender); 
-elseif($type == "all") 
-bot::send($slnano_txt); 
-else 
-bot::send($slnano_txt, "guild"); 
+$msg = bot::makeLink("Shadowlands Garden Nanos", $blob); 
+bot::send($msg, $sendto);
 ?>

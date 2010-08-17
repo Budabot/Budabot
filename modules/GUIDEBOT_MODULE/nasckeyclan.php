@@ -1,6 +1,5 @@
 <?php
-$nasckeyclan_txt = "<header>::::: Nascence Garden Key Quest CLAN :::::<end>\n\n"; 
-$nasckeyclan_txt = "
+$blob = "<header>::::: Nascence Garden Key Quest CLAN :::::<end>\n\n
 <font color='#ff9933'><highlight>Nascence (Aban) Garden Key Quest</font></end>
 
 <highlight>Guide suited for:</end> All Classes
@@ -46,11 +45,6 @@ Information originally provided by Silq at the Official AO Forums. Additional in
 Courtesy of AO Universe
 "
 ;
-$nasckeyclan_txt = bot::makeLink("Elysium: Garden Key Quest Clan", $nasckeyclan_txt); 
-if($type == "msg") 
-bot::send($nasckeyclan_txt, $sender); 
-elseif($type == "all") 
-bot::send($nasckeyclan_txt); 
-else 
-bot::send($nasckeyclan_txt, "guild"); 
+$msg = bot::makeLink("Elysium: Garden Key Quest Clan", $blob); 
+bot::send($msg, $sendto);
 ?>

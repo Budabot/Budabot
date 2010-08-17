@@ -1,7 +1,5 @@
 <?php
-$adokey_txt = "<header>::::: Adonis: Dalja Garden Key Quest :::::<end>\n\n";
-$adokey_txt .= "
-
+$blob = "<header>::::: Adonis: Dalja Garden Key Quest :::::<end>\n\n
 Find Prophet Man Dal. He is in a temple in Adonis Abyss, yes... under water. Head to either of the following coordinates enter the Abyss:
 
 1940 2580 - Sacellum
@@ -22,8 +20,7 @@ The other one is located at Ancient Control Panel - 1670x3021 on the biggest isl
 
 Once completed, your mission will turn into a return item type mission where you should return the note to a Visionary in the garden of Dalja. Grats, you should now have The Key to the Garden of Dalja!  ";
 
-$adokey_txt = bot::makeLink("Adonis: Dalja Garden Key Quest", $adokey_txt);
-
-bot::send($adokey_txt, $sendto);
+$msg = bot::makeLink("Adonis: Dalja Garden Key Quest", $blob);
+bot::send($msg, $sendto);
 
 ?>

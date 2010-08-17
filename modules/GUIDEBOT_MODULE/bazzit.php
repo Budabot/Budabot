@@ -1,6 +1,5 @@
 <?php
-$bazzit_txt = "<header>::::: Guide to Bazzit's Quest  :::::<end>\n\n"; 
-$bazzit_txt = "
+$blob = "<header>::::: Guide to Bazzit's Quest  :::::<end>\n\n
 Guide suited for: All Classes
 Level Range: ?
 
@@ -104,11 +103,6 @@ Last updated on 03.13.2007
 Information originally provided by Jexai.co.uk/anarchy";
 
 
-$bazzit_txt = bot::makeLink("Uncle Bazzit's Quest", $bazzit_txt); 
-if($type == "msg") 
-bot::send($bazzit_txt, $sender); 
-elseif($type == "all") 
-bot::send($bazzit_txt); 
-else 
-bot::send($bazzit_txt, "guild"); 
+$msg = bot::makeLink("Uncle Bazzit's Quest", $blob); 
+bot::send($msg, $sendto);
 ?>

@@ -1,6 +1,6 @@
 <?php
-$pensancg_txt = "<header>::::: Penumbra Sanctuary Garden Key Quest OMNI :::::<end>\n\n"; 
-$pensancg_txt = "Penumbra Sanctuary Garden Key Quest OMNI
+$blob = "<header>::::: Penumbra Sanctuary Garden Key Quest OMNI :::::<end>\n\n
+Penumbra Sanctuary Garden Key Quest OMNI
 
 To start this quest, speak to <font color = yellow>Garboil Roch Van</font>. He is in the Penumbra Garden, in the middle of the maze to the north.
 
@@ -44,11 +44,6 @@ The leaders:
    (West) Northwest redeemed temple. Kill the Ecclesiast, give the shady guy 6 Cama Insignias. He will spawn the Empath. Kill the Empath, redeemed Cama will spawn. Kill Cama, and you have the key.
 ";
 
-$pensancg_txt = bot::makeLink("Penumbra: Sanctuary Garden Key Quest OMNI", $pensancg_txt); 
-if($type == "msg") 
-bot::send($pensancg_txt, $sender); 
-elseif($type == "all") 
-bot::send($pensancg_txt); 
-else 
-bot::send($pensancg_txt, "guild"); 
+$msg = bot::makeLink("Penumbra: Sanctuary Garden Key Quest OMNI", $blob); 
+bot::send($msg, $sendto);
 ?>

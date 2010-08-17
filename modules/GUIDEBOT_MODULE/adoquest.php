@@ -1,7 +1,5 @@
 <?php
-$adoquest_txt = "<header>::::: Information about Adonis Quests :::::<end>\n\n";
-$adoquest_txt .="
-
+$blob = "<header>::::: Information about Adonis Quests :::::<end>\n\n
 <img src=rdb://234681>
 <font color = yellow>Adonis Quests</font>
   
@@ -204,9 +202,8 @@ Special thanks to Lenith for filling up the Unredeem part of quest.
 Creative reposting and recomposition by Plugsz
 "
 ;
-$adoquest_txt = bot::makeLink("Adonis Quests", $adoquest_txt);
-
-bot::send($adoquest_txt, $sendto);
+$msg = bot::makeLink("Adonis Quests", $blob);
+bot::send($msg, $sendto);
 
 ?>
   

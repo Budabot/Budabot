@@ -1,6 +1,6 @@
 <?php
-$prof_txt = "<header>::::: Guide to The AO Professions  :::::<end>\n\n"; 
-$prof_txt = " Listing of Character Classes as follows:
+$blob = "<header>::::: Guide to The AO Professions  :::::<end>\n\n
+Listing of Character Classes as follows:
 
 Please note: all this information was taken from the official AO forums and should not be taken as a absolute rulebook. These are people's opinions,and you should play your character however you want. Just have fun. :P
 <green>
@@ -18,11 +18,6 @@ Please note: all this information was taken from the official AO forums and shou
 <a href='chatcmd:///tell <myname> traders>Guide to Traders</a>
 </end>"
 ;
-$prof_txt = bot::makeLink("Guide to Professions", $prof_txt); 
-if($type == "msg") 
-bot::send($prof_txt, $sender); 
-elseif($type == "all") 
-bot::send($prof_txt); 
-else 
-bot::send($prof_txt, "guild"); 
+$msg = bot::makeLink("Guide to Professions", $blob); 
+bot::send($msg, $sendto);
 ?>

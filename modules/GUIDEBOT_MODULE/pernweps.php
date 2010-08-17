@@ -1,6 +1,6 @@
 <?php
-$pernweps_txt = "<header>::::: Perennium Weapons :::::<end>\n\n"; 
-$pernweps_txt = "Perennium Weapons
+$blob = "<header>::::: Perennium Weapons :::::<end>\n\n
+Perennium Weapons
 
 Guide suited for: Agent, Fixer, Soldier
 Faction: All
@@ -63,11 +63,6 @@ Half-Finished Perennium Sniper   +  Perennium Bolts   =   Perennium Sniper (Agen
 Half-Finished Perennium Beamer   +  Perennium Bolts   =   Perennium Beamer (Fixer Only
 ";
 
-$pernweps_txt = bot::makeLink("Making Perennium Weapons", $pernweps_txt); 
-if($type == "msg") 
-bot::send($pernweps_txt, $sender); 
-elseif($type == "all") 
-bot::send($pernweps_txt); 
-else 
-bot::send($pernweps_txt, "guild"); 
+$msg = bot::makeLink("Making Perennium Weapons", $blob); 
+bot::send($msg, $sendto);
 ?>

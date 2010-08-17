@@ -1,6 +1,6 @@
 <?php
-$nascgar_txt = "<header>::::: Nascense Garden Nanos  :::::<end>\n\n"; 
-$nascgar_txt = "Nascence Garden
+$blob = "<header>::::: Nascense Garden Nanos  :::::<end>\n\n
+Nascence Garden
 
 <font color='#69E61E'>
 <a href='itemref://239740/239740/5'>LINK </a> Build Basic Spirit Tech Source Projector - Adv
@@ -12,11 +12,6 @@ $nascgar_txt = "Nascence Garden
 <a href='itemref://231014/231014/24'>LINK </a> Team Empowered Bend Will - Crat
 <a href='itemref://231020/231020/17'>LINK </a> Team Empowered Temporary Glamor - Crat</font> ";
 
-$nascgar_txt = bot::makeLink("Nascense Garden Nanos", $nascgar_txt); 
-if($type == "msg") 
-bot::send($nascgar_txt, $sender); 
-elseif($type == "all") 
-bot::send($nascgar_txt); 
-else 
-bot::send($nascgar_txt, "guild"); 
+$msg = bot::makeLink("Nascense Garden Nanos", $blob); 
+bot::send($msg, $sendto);
 ?>

@@ -29,8 +29,8 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
    
-$websites_txt = "<header>:::::Anarchy Online Websites  :::::<end>\n\n"; 
-$websites_txt = "<font color = blue>-= Valuable Anarchy Online Websites =-</font>
+$blob = "<header>:::::Anarchy Online Websites  :::::<end>\n\n
+<font color = blue>-= Valuable Anarchy Online Websites =-</font>
 
 <font color = yellow>Note: These links will be automatically opened in your web browser.</font>
 
@@ -67,8 +67,7 @@ Shadowlands Related
 
 <font color = yellow>Note: These links will be automatically opened in your web browser.</font> "; 
 
-$websites_txt = bot::makeLink("Anarchy Online Websites", $websites_txt); 
-
-bot::send($websites_txt, $sendto);
+$msg = bot::makeLink("Anarchy Online Websites", $blob); 
+bot::send($msg, $sendto);
 
 ?>

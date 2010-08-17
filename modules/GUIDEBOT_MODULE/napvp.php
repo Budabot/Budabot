@@ -1,6 +1,5 @@
 <?php
-$napvp_txt = "<header>::::: Newcomers Alliance PvP Rules :::::<end>\n\n";
-$napvp_txt = "
+$blob = "<header>::::: Newcomers Alliance PvP Rules :::::<end>\n\n
 <font color=#4169e1>Newcomers Alliance PvP rules</font>
 
 Being part of an org like Newcomers Alliance provides a certain number of advantages
@@ -87,11 +86,6 @@ And please, post your twinks or twinks project in <a href='chatcmd:///start http
 
 And remember : <font color=#ff0000>TURN AUTO ATTACK : OFF and Pet on /follow !</font>";
 
-$napvp_txt = bot::makeLink("Newcomers Alliance PvP Rules", $napvp_txt);
-if($type == "msg")
-bot::send($napvp_txt, $sender);
-elseif($type == "all")
-bot::send($napvp_txt);
-else
-bot::send($napvp_txt, "guild");
+$msg = bot::makeLink("Newcomers Alliance PvP Rules", $blob);
+bot::send($msg, $sendto);
 ?>

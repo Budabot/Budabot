@@ -29,8 +29,8 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
    
-$mishset_txt = "<header>::::: Guide to Mission Settings  :::::<end>\n\n"; 
-$mishset_txt = "There are often questions about what the mission types are and what the sliders mean. This is the information that I think I know, but I'm sure that others will disagree with certain parts of it. Please, if you have comments about this, chime in so that the differing opinions can be shared with other new characters.
+$blob = "<header>::::: Guide to Mission Settings  :::::<end>\n\n
+There are often questions about what the mission types are and what the sliders mean. This is the information that I think I know, but I'm sure that others will disagree with certain parts of it. Please, if you have comments about this, chime in so that the differing opinions can be shared with other new characters.
 
 This is the second version of my guide. The original version was posted on the New Arrivals board under the title 'Missions: Types, Sliders, and Find Item Missions' I would like to thank everyone for their helpful comments in that thread, especially Jajangmyun, Yurunn, Bufo, and Incarnadine.
 
@@ -72,11 +72,6 @@ The HeadOn-Stealth slider seems to determine the number of trapped chests and al
 The Money-XP slider should be obvious. In general, the bonus XP seems to ammount to about 1 mob's worth in the mission, so leaving it set all the way to money is my suggestion.
  ";
 
-$mishset_txt = bot::makeLink("Guide to Mission Settings", $mishset_txt); 
-if($type == "msg") 
-bot::send($mishset_txt, $sender); 
-elseif($type == "all") 
-bot::send($mishset_txt); 
-else 
-bot::send($mishset_txt, "guild"); 
+$msg = bot::makeLink("Guide to Mission Settings", $blob); 
+bot::send($msg, $sendto);
 ?>

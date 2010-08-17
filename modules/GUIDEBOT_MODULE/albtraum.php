@@ -1,6 +1,6 @@
 <?php
-$albtraum_txt = "<header>::::: Albtraum, new Inferno Quests :::::<end>\n\n"; 
-$albtraum_txt = "Guide To Albtraum
+$blob = "<header>::::: Albtraum, new Inferno Quests :::::<end>\n\n
+Guide To Albtraum
 <font color = green>Guide for Albtraum</font>
 <font color = green>Guide suited for:</font> All Classes
 <font color = green>Faction:</font> All
@@ -117,11 +117,6 @@ Written by Tepamina
 Guide Courtesy of AO Universe
 ";
 
-$albtraum_txt = bot::makeLink("Guide to Albtraum", $albtraum_txt); 
-if($type == "msg") 
-bot::send($albtraum_txt, $sender); 
-elseif($type == "all") 
-bot::send($albtraum_txt); 
-else 
-bot::send($albtraum_txt, "guild"); 
+$msg = bot::makeLink("Guide to Albtraum", $blob); 
+bot::send($msg, $sendto);
 ?>

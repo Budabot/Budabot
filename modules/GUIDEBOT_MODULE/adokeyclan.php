@@ -1,6 +1,5 @@
 <?php
-$adokeyclan_txt = "<header>::::: Adonis Sanctuary Garden Key Quest CLAN :::::<end>\n\n";
-$adokeyclan_txt .= "
+$blob = "<header>::::: Adonis Sanctuary Garden Key Quest CLAN :::::<end>
 <font color='#ff9933'><highlight>Gilthar Garden Key Quest</font></end>
 
 <highlight>Guide suited for:</end> All Classes
@@ -58,8 +57,7 @@ Information originally provided by tcollings, Roedran and stokeley to the SL Lib
 Guide courtesy of AO Universe
 "
 ;
-$adokeyclan_txt = bot::makeLink("Adonis: Garden Key Quest CLAN", $adokeyclan_txt);
-
-bot::send($adokeyclan_txt, $sendto);
+$msg = bot::makeLink("Adonis: Garden Key Quest CLAN", $blob);
+bot::send($msg, $sendto);
 
 ?>

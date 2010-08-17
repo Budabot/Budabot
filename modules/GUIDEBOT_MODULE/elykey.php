@@ -1,6 +1,6 @@
 <?php
-$elykey_txt = "<header>::::: Elysium Shere Garden Key Quest :::::<end>\n\n"; 
-$elykey_txt = "Elysium: Shere Garden Key Quest
+$blob = "<header>::::: Elysium Shere Garden Key Quest :::::<end>\n\n
+Elysium: Shere Garden Key Quest
 
 
 Beginning this guide I'll assume you're in the Elysium Shere garden. Exit to Nero and head south along the rock wall cliff. You'll see a ramp in the temple area, go up it and you'll find Prophet Nar Shere (coords 922, 397) at the top. 
@@ -56,11 +56,6 @@ He'll ask for the sealed letter, hand it to him and he'll speak some more then y
 17. Now head back to the garden and return the Ancient Tracking Device to Garboil Chi Shere and he'll give your coveted 'The Key to the Garden of Shere.' 
  ";
 
-$elykey_txt = bot::makeLink("Elysium Shere Garden Key Quest", $elykey_txt); 
-if($type == "msg") 
-bot::send($elykey_txt, $sender); 
-elseif($type == "all") 
-bot::send($elykey_txt); 
-else 
-bot::send($elykey_txt, "guild"); 
+$msg = bot::makeLink("Elysium Shere Garden Key Quest", $blob); 
+bot::send($msg, $sendto);
 ?>

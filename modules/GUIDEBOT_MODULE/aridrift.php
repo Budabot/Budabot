@@ -1,7 +1,5 @@
 <?php
-$aridrift_txt = "<header>::::: Arid Rift Guide::<end>\n\n"; 
-$aridrift_txt = "
-
+$blob = "<header>::::: Arid Rift Guide::<end>\n\n
 <font color='#69E61E'>:::::: Arid Rift Guide :::::</FONT>
 Guide suited for: All Classes
 Faction: All Factions
@@ -433,11 +431,6 @@ After speaking with the Kyr'Ozch Envoy, a few things will start to fit together.
 
 ";
 
-$aridrift_txt = bot::makeLink("Guide to Arid Rift Quests", $aridrift_txt); 
-if($type == "msg") 
-bot::send($aridrift_txt, $sender); 
-elseif($type == "all") 
-bot::send($aridrift_txt); 
-else 
-bot::send($aridrift_txt, "guild"); 
+$msg = bot::makeLink("Guide to Arid Rift Quests", $blob); 
+bot::send($msg, $sendto);
 ?>

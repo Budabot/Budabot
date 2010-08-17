@@ -104,7 +104,7 @@
 	bot::command("", "$MODULE_NAME/enforcer.php",  "ENFORCERS", "ALL", "GUIDE TO ENFORCER");
 	
 	//ENGINEER Guide
-	bot::command("", "$MODULE_NAME/engineers.php",  "ENGINEERS", "ALL", "GUIDE TO ENGINEERS");
+	bot::command("", "$MODULE_NAME/engineer.php",  "ENGINEERS", "ALL", "GUIDE TO ENGINEERS");
 	
 	//FIXER Guide
 	bot::command("", "$MODULE_NAME/fixer.php",     "FIXERS", "ALL", "GUIDE TO FIXER");

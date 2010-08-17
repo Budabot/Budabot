@@ -1,6 +1,6 @@
 <?php
-$bureaucrat_txt = "<header>::::: Guide to Bureaucrat :::::<end>\n\n"; 
-$bureaucrat_txt = "Skills are abilities like Matter Creation or Time & Space in nanoskills, or pistol skill in weapon skills. Stats are the abilities of your character on the body side. Those are: Strength, Stamina, Agility, Intelligence, Psychic, Sense, Nanopool and Body Development.
+$blob = "<header>::::: Guide to Bureaucrat :::::<end>\n\n
+Skills are abilities like Matter Creation or Time & Space in nanoskills, or pistol skill in weapon skills. Stats are the abilities of your character on the body side. Those are: Strength, Stamina, Agility, Intelligence, Psychic, Sense, Nanopool and Body Development.
 
 While many Bureaucrats prefer to raise Intelligence, Sense and Psychic, this choice is all up to you. You can play an Int/Psy/Stam Crat, who can have more HP than the Int/Psy/Sense Crat. On the other hand, most of the Bureaucrat nano skills depend on Int, Psy and Sense, so raising those stats will automatically raise your nanoskills by 1 point from time to time. I chose the Str/Stam/Agil/Int Crat and I only put little IP into Sense and Psychic. This allows me to use good armor (Omni-Pol Elite armor at my level) and with high Int, my nanoskills are also high enough for my level.
 
@@ -157,11 +157,6 @@ Another bureaucrat of the problems with innate resistance is traders saying they
 Hope that helps shed some light and why crowd controllers such as bureaucrats have problems when the mobs are immune to mez/root/stun and the psychic checks on fears render the nano inoperative.
  ";
 
-$bureaucrat_txt = bot::makeLink("Guide To Bureaucrats", $bureaucrat_txt); 
-if($type == "msg") 
-bot::send($bureaucrat_txt, $sender); 
-elseif($type == "all") 
-bot::send($bureaucrat_txt); 
-else 
-bot::send($bureaucrat_txt, "guild"); 
+$msg = bot::makeLink("Guide To Bureaucrats", $blob); 
+bot::send($msg, $sendto);
 ?>

@@ -29,8 +29,8 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
    
-$guides_txt = "<header>::::: In-Game Guides :::::<end>\n\n"; 
-$guides_txt = "<font color = yellow> -= Guides Updated August 15,2007 =-</font>
+$blob = "<header>::::: In-Game Guides :::::<end>\n\n
+<font color = yellow> -= Guides Updated August 15,2007 =-</font>
 <white>
 
 Hello $sender    Last Updated 11-21-2009 </font>
@@ -152,11 +152,6 @@ Special Thanks to all the great AO websites, their creators, and the folks that 
 "
  ;
 
-$guides_txt = bot::makeLink("Guides To Anarchy Online", $guides_txt); 
-if($type == "msg") 
-bot::send($guides_txt, $sender); 
-elseif($type == "all") 
-bot::send($guides_txt); 
-else 
-bot::send($guides_txt, "guild"); 
+$msg = bot::makeLink("Guides To Anarchy Online", $blob); 
+bot::send($msg, $sendto);
 ?>

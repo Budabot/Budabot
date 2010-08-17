@@ -1,6 +1,6 @@
 <?php
-$pengarn_txt = "<header>::::: Penumbra Garden Nanos  :::::<end>\n\n"; 
-$pengarn_txt = "Penumbra Garden
+$blob = "<header>::::: Penumbra Garden Nanos  :::::<end>\n\n
+Penumbra Garden
 <font color='#69E61E'>
 <font color='#69E61E'><a href='itemref://233850/233850/150'>LINK </a> Awaken Shadowland Soul Memory - MP
 <font color='#69E61E'><a href='itemref://226430/226430/150'>LINK </a> Blast of Neglect - Agent
@@ -28,11 +28,6 @@ $pengarn_txt = "Penumbra Garden
 <font color='#69E61E'><a href='itemref://223744/223744/159'>LINK </a> Vengeance of the Virtuous - Keeper
 <font color='#69E61E'><a href='itemref://227673/227673/140'>LINK </a> Weapon Smithing Mastery - Engie</font> ";
 
-$pengarn_txt = bot::makeLink("Pennumbra Garden Nanos", $pengarn_txt); 
-if($type == "msg") 
-bot::send($pengarn_txt, $sender); 
-elseif($type == "all") 
-bot::send($pengarn_txt); 
-else 
-bot::send($pengarn_txt, "guild"); 
+$msg = bot::makeLink("Pennumbra Garden Nanos", $blob); 
+bot::send($msg, $sendto);
 ?>

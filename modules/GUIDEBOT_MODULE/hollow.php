@@ -1,6 +1,6 @@
 <?php
-$hollow_txt = "<header>::::: Guide to Hollow Island :::::<end>\n\n"; 
-$hollow_txt = "South of Wine in Belial Forest, you can find the 'Hollow Island'. A small patch of sand enclosed by rocky cliffs. This is where a very special sapling has decided to stick its roots into the sand and wait for someone to fertilize it. To enter the Hollow Island, you need to find the entrance, since you cannot fly/run over the cliffs. You can't get in anywhere except at the entrance... and you can't get out easily either once the action starts... hehe
+$blob = "<header>::::: Guide to Hollow Island :::::<end>\n\n
+South of Wine in Belial Forest, you can find the 'Hollow Island'. A small patch of sand enclosed by rocky cliffs. This is where a very special sapling has decided to stick its roots into the sand and wait for someone to fertilize it. To enter the Hollow Island, you need to find the entrance, since you cannot fly/run over the cliffs. You can't get in anywhere except at the entrance... and you can't get out easily either once the action starts... hehe
 
 Find the sapling on the patch of sand and right click it for some story about how to have a good picnic in the desert. If the sapling is not there, then wait for it. It's spawn is somewhere at 4 hours or so - not certain yet.
 
@@ -93,11 +93,6 @@ The Brood Mother:
 <a href='itemref://216277/216277/150'>Lion's Leather Vest </a>
 <a href='itemref://216282/216282/150'>Professional Marksman's Kit </font> </a>  ";
 
-$hollow_txt = bot::makeLink("Guide to Hollow Island", $hollow_txt); 
-if($type == "msg") 
-bot::send($hollow_txt, $sender); 
-elseif($type == "all") 
-bot::send($hollow_txt); 
-else 
-bot::send($hollow_txt, "guild"); 
+$msg = bot::makeLink("Guide to Hollow Island", $blob); 
+bot::send($msg, $sendto);
 ?>

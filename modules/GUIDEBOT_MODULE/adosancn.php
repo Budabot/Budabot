@@ -1,6 +1,5 @@
 <?php
-$adosancn_txt = "<header>::::: Adonis Sanctuary Garden Nanos  :::::<end>\n\n"; 
-$adosancn_txt = "
+$blob = "<header>::::: Adonis Sanctuary Garden Nanos  :::::<end>\n\n
 Adonis Sanctuary Garden Nanos
 <font color='#69E61E'>
 <a href='itemref://218119/218119/129'>Link</a> Acidic Droplets - NT</a>
@@ -47,11 +46,6 @@ Adonis Sanctuary Garden Nanos
 <a href='itemref://235280/235280/127'>Link</a> Umbral Wrangler</a> </font"
 ;
 
-$adosancn_txt = bot::makeLink("Adonis Sanctuary Garden Nanos", $adosancn_txt); 
-if($type == "msg") 
-bot::send($adosancn_txt, $sender); 
-elseif($type == "all") 
-bot::send($adosancn_txt); 
-else 
-bot::send($adosancn_txt, "guild"); 
+$msg = bot::makeLink("Adonis Sanctuary Garden Nanos", $blob); 
+bot::send($msg, $sendto);
 ?>
