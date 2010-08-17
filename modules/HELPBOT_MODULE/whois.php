@@ -62,6 +62,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 	        $list .= "<a href='chatcmd:///tell <myname> is ".$name."'>Check ".$name."'s online status</a>\n";
 	        if ($whois->org) {
 		        $list .= "<a href='chatcmd:///tell <myname> whoisorg ".$whois->org_id."'>Show infos about $whois->org</a>\n";
+				$list .= "<a href='chatcmd:///tell <myname> orglist ".$whois->org_id."'>Orglist for $whois->org</a>\n";
 			}
 	        $list .= "<a href='chatcmd:///cc addbuddy ".$name."'>Add to buddylist</a>\n";
 	        $list .= "<a href='chatcmd:///cc rembuddy ".$name."'>Remove from buddylist</a>\n";

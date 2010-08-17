@@ -147,10 +147,10 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 		}
 	} else {
 		// We got only numbers, can't be a name.  Maybe org id?
-		$orgid = $arr[1];
+		$orgid = $arr[2];
 	}
 	
-	$this->send("Searching and reading org list...", $sendto);
+	$this->send("Searching and reading org list for org id $orgid...", $sendto);
 
 	$orgmate = new org($orgid);
 
