@@ -48,7 +48,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 	            $msg .= $whois->lastname." ";
 			}
 	
-	        $msg .= "(Level <highlight>$whois->level<end>/<green>$whois->ai_level - $whois->ai_rank<end>, $whois->gender $whois->breed <highlight>$whois->prof<end>, $whois->faction,";
+	        $msg .= "(Level <highlight>$whois->level<end>/<green>$whois->ai_level<end>, $whois->gender $whois->breed <highlight>$whois->prof<end>, $whois->faction,";
 	
 	        if ($whois->org) {
 	            $msg .= " $whois->rank of <highlight>$whois->org<end>) ";
@@ -66,10 +66,11 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 			}
 	        $list .= "<a href='chatcmd:///cc addbuddy ".$name."'>Add to buddylist</a>\n";
 	        $list .= "<a href='chatcmd:///cc rembuddy ".$name."'>Remove from buddylist</a>\n";
+			$list .= "\nSource: $whois->source\n";
 	        $msg .= " :: ".bot::makeLink("click for more options", $list);
 	    }
     } else {
-        $msg = "Player <highlight>".$name."<end> does not exist.";
+        $msg = "Player <highlight>$name<end> does not exist.";
 	}
 
     // Send info back
@@ -97,7 +98,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
                 $msg .= $whois->lastname." ";
 			}
 
-            $msg .= "(Level <highlight>$whois->level<end>/<green>$whois->ai_level - $whois->ai_rank<end>, <highlight>$whois->prof<end>, $whois->faction,";
+            $msg .= "(Level <highlight>$whois->level<end>/<green>$whois->ai_level<end>, <highlight>$whois->prof<end>, $whois->faction,";
 
             if ($whois->org) {
                 $msg .= " $whois->rank of <highlight>$whois->org<end>) ";
@@ -111,10 +112,11 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
             $list .= "<a href='chatcmd:///tell <myname> is ".$name."'>Check ".$name."'s online status</a>\n";
             $list .= "<a href='chatcmd:///cc addbuddy ".$name."'>Add to buddylist</a>\n";
             $list .= "<a href='chatcmd:///cc rembuddy ".$name."'>Remove from buddylist</a>\n";
+			$list .= "\nSource: $whois->source\n";
             $msg .= " :: ".bot::makeLink("click for more options", $list);
             $msg = "<highlight>Server $server:<end> ".$msg;
         } else {
-            $msg = "Server $server: Player <highlight>".$name."<end> does not exist.";
+            $msg = "Server $server: Player <highlight>$name<end> does not exist.";
 		}
         // Send info back
         bot::send($msg, $sendto);
