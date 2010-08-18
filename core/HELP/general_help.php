@@ -50,10 +50,10 @@ if (preg_match("/^about$/i", $message)) {
 		  	$access = false;
 			$admin = $file["admin level"];
 
-			if($file["status"] == "enabled")
+			if ($file["status"] == "enabled") {
 				$num = 1;
-			else {
-				$module = strtolower($file["module"]);
+			}else {
+				$module = $file["module"];
 				$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$module' AND `status` = 1");
 				$num = $db->numrows();
 			}
