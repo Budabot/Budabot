@@ -9,7 +9,7 @@
    
 global $socket;
 if ("1" == $this->settings['irc_status']) {
-	if ($args[2][0] != $this->settings["symbol"] && !$this->settings["Ignore"][$sender] && $irc = "active") {
+	if ($args[2][0] != $this->settings["symbol"] && !$this->settings["Ignore"][$sender] && $irc == "active") {
 		
 		$patterns = array(
 		  '/<a href="itemref:\/\/(\d+)\/\1\/(\d+)">([^<]+)<\/a>/',
