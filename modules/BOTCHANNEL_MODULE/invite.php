@@ -32,11 +32,13 @@
 if (preg_match("/^inviteuser (.+)$/i", $message, $arr)) {
     $uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
-    if ($uid) {
-      	$msg = "Invited <highlight>$name<end> to this channel.";      	
+	if ($this->vars["name"] == $name) {
+		$msg = "You cannot invite the bot to its own private group.";
+	} else if ($uid) {
+      	$msg = "Invited <highlight>$name<end> to this channel.";
 	  	AOChat::privategroup_kick($name);
 	  	AOChat::privategroup_invite($name);
-		$msg2 = "You have been invited to the Privategroup <highlight>{$this->vars["name"]}<end> by <highlight>$sender<end>";
+		$msg2 = "You have been invited to the Private group <highlight>{$this->vars["name"]}<end> by <highlight>$sender<end>";
 		bot::send($msg2, $name);
     } else {
 		$msg = "Player <highlight>".$name."<end> does not exist.";
