@@ -73,6 +73,7 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr))
 		{
 			$db->query("INSERT INTO alts (`alt`, `main`) VALUES ('$name', '$sender')");
 		}
+		$names_succeeded[] = $name;
 	}
 	$window = 'Alts added:<br>';
 	foreach ($names_succeeded as $alt)
@@ -101,37 +102,33 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr))
 elseif (preg_match("/^alts (rem|del|remove|delete) (.+)$/i", $message, $arr))
 {
 	$name = ucfirst(strtolower($arr[2]));
-	$uid = AoChat::get_uid($arr[2]);
-	if (!$uid)
-		$msg = "Player <highlight>".$name."<end> does not exist.";
+
+	$db->query("SELECT * FROM alts WHERE `main` = '$sender' AND `alt` = '$name'");
+	$row = $db->fObject();
+	if ($row->main == $sender)
+	{
+		$db->query("DELETE FROM alts WHERE `main` = '$sender' AND `alt` = '$name'");
+		$msg = "<highlight>$name<end> has been deleted from your alt list.";
+	}
 	else
 	{
-		$db->query("SELECT * FROM alts WHERE `main` = '$sender' AND `alt` = '$name'");
+		//sender was not found as a main.  checking if he himself is an alt and let him be able to modify his own alts list
+		$db->query("SELECT * FROM alts WHERE `alt` = '$sender'");
 		$row = $db->fObject();
-		if ($row->main == $sender)
+		//retrieve his main, use the main's name to do searches and modifications with
+		$main = $row->main;
+		$db->query("SELECT * FROM alts WHERE main = '$main' AND alt = '$name'");
+		if ($db->numrows() != 0)
 		{
-			$db->query("DELETE FROM alts WHERE `main` = '$sender' AND `alt` = '$name'");
-			$msg = "<highlight>$name<end> has been deleted from your alt list.";
+			$db->query("DELETE FROM alts WHERE main = '$main' AND alt = '$name'");
+			$msg = "<highlight>$name<end> has been deleted from your ($main) alt list.";
 		}
 		else
 		{
-			//sender was not found as a main.  checking if he himself is an alt and let him be able to modify his own alts list
-			$db->query("SELECT * FROM alts WHERE `alt` = '$sender'");
-			$row = $db->fObject();
-			//retrieve his main, use the main's name to do searches and modifications with
-			$main = $row->main;
-			$db->query("SELECT * FROM alts WHERE main = '$main' AND alt = '$name'");
-			if ($db->numrows() != 0)
-			{
-				$db->query("DELETE FROM alts WHERE main = '$main' AND alt = '$name'");
-				$msg = "<highlight>$name<end> has been deleted from your ($main) alt list.";
-			}
-			else
-			{
-				$msg = "<highlight>$name<end> is not registered as your alt.";
-			}
+			$msg = "<highlight>$name<end> is not registered as your alt.";
 		}
 	}
+
 }
 
 elseif (preg_match("/^alts main (.+)$/i", $message, $arr))
