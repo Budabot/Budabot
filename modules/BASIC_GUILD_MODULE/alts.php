@@ -196,12 +196,12 @@ elseif (preg_match('/^alts setmain (.+)$/i', $message, $arr))
 	$db->query("DELETE FROM alts WHERE `main` = '$current_main'");
 	
 	// add everything back with the new main
-	foreach ($all_alts as $alt)
+	foreach ($all_alts as $db_entry)
 	{
-		$alt_name = $alt->alt;
+		$alt_name = $db_entry->alt;
 		if ($alt_name != $new_main)
 		{
-			$db->query("INSERT INTO alts (`alt`, `main`) VALUES ('$alt', '$new_main')");
+			$db->query("INSERT INTO alts (`alt`, `main`) VALUES ('$alt_name', '$new_main')");
 		}
 	}
 	$db->query("INSERT INTO alts (`alt`, `main`) VALUES ('$current_main', '$new_main')");
