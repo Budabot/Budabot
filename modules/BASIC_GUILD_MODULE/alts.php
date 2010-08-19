@@ -165,6 +165,48 @@ elseif (preg_match("/^alts main (.+)$/i", $message, $arr))
 	}
 }
 
+elseif (preg_match('/^alts setmain (.+)$/i', $message, $arr))
+{
+	// check if new main exists
+	$new_main = ucfirst(strtolower($arr[1]));
+	$uid = $this->get_uid($new_main);
+	if (!$uid)
+	{
+		$msg = "Player <highlight>".$new_main."<end> does not exist.";
+		$this->send($msg, $sendto);
+		return;
+	}
+	
+	// check for the current main
+	$db->query("SELECT * FROM alts WHERE (`alt` = '$sender') OR (`main` = '$sender')");
+	if ($db->numrows() == 0)
+	{
+		$msg = "<highlight>Could not find a main for your char.<end>";
+		$this->send($msg, $sendto);
+		return;
+	}
+	$row = $db->fObject();
+	$current_main = $row->main;
+	
+	// get all alts from that main
+	$db->query("SELECT * FROM alts WHERE `main` = '$current_main'");
+	$all_alts = $db->fObject("all");
+	
+	// delete all alts from the old main
+	$db->query("DELETE FROM alts WHERE `main` = '$current_main'");
+	
+	// add everything back with the new main
+	foreach ($all_alts as $alt)
+	{
+		$db->query("INSERT INTO alts (`alt`, `main`) VALUES ('$alt', '$new_main')");
+	}
+	$db->query("INSERT INTO alts (`alt`, `main`) VALUES ('$current_main', '$new_main')");
+	
+	$msg = "Successfully set your new main as <highlight>'$new_main'<end>.";
+	$this->send($msg, $sendto);
+	return;
+}
+
 elseif (preg_match("/^alts (.+)$/i", $message, $arr))
 {
 	$name = ucfirst(strtolower($arr[1]));
@@ -235,47 +277,7 @@ elseif (preg_match("/^alts (.+)$/i", $message, $arr))
 		}
 	}
 }
-elseif (preg_match('/^alts setmain (.+)$/i', $message, $arr))
-{
-	// check if new main exists
-	$new_main = ucfirst(strtolower($arr[1]));
-	$uid = $this->get_uid($new_main);
-	if (!$uid)
-	{
-		$msg = "Player <highlight>".$new_main."<end> does not exist.";
-		$this->send($msg, $sendto);
-		return;
-	}
-	
-	// check for the current main
-	$db->query("SELECT * FROM alts WHERE (`alt` = '$sender') OR (`main` = '$sender')");
-	if ($db->numrows() == 0)
-	{
-		$msg = "<highlight>Could not find a main for your char.<end>";
-		$this->send($msg, $sendto);
-		return;
-	}
-	$row = $db->fObject();
-	$current_main = $row->main;
-	
-	// get all alts from that main
-	$db->query("SELECT * FROM alts WHERE `main` = '$current_main'");
-	$all_alts = $db->fObject("all");
-	
-	// delete all alts from the old main
-	$db->query("DELETE FROM alts WHERE `main` = '$current_main'");
-	
-	// add everything back with the new main
-	foreach ($all_alts as $alt)
-	{
-		$db->query("INSERT INTO alts (`alt`, `main`) VALUES ('$alt', '$new_main')");
-	}
-	$db->query("INSERT INTO alts (`alt`, `main`) VALUES ('$current_main', '$new_main')");
-	
-	$msg = "Successfully set your new main as <highlight>'$new_main'<end>.";
-	$this->send($msg, $sendto);
-	return;
-}
+
 elseif (preg_match("/^alts$/i", $message))
 {
 	$main = false;
