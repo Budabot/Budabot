@@ -97,6 +97,8 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr))
 		$link .= ' Failed adding '.$failed_count.' alts to your list.';
 	}
 	$msg = $this->makeLink($link, $window);
+	$this->send($msg, $sendto);
+	return;
 }
 
 elseif (preg_match("/^alts (rem|del|remove|delete) (.+)$/i", $message, $arr))
@@ -137,7 +139,9 @@ elseif (preg_match("/^alts main (.+)$/i", $message, $arr))
 	$name_main = ucfirst(strtolower($arr[1]));
 	$uid = $this->get_uid($name_main);
 	if (!$uid)
+	{
 		$msg .= " Player <highlight>$name_main<end> does not exist.";
+	}
 	if ($uid)
 	{
 		$db->query("DELETE FROM alts WHERE `alt` = '$name_alt'");
@@ -166,7 +170,9 @@ elseif (preg_match("/^alts (.+)$/i", $message, $arr))
 	$name = ucfirst(strtolower($arr[1]));
 	$uid = AoChat::get_uid($arr[1]);
 	if (!$uid)
+	{
 		$msg = "Player <highlight>".$name."<end> does not exist.";
+	}
 	else
 	{
 		$main = false;
@@ -229,7 +235,47 @@ elseif (preg_match("/^alts (.+)$/i", $message, $arr))
 		}
 	}
 }
-
+elseif (preg_match('/^alts setmain (.+)$/i', $message, $arr))
+{
+	// check if new main exists
+	$new_main = ucfirst(strtolower($arr[1]));
+	$uid = $this->get_uid($new_main);
+	if (!$uid)
+	{
+		$msg = "Player <highlight>".$new_main."<end> does not exist.";
+		$this->send($msg, $sendto);
+		return;
+	}
+	
+	// check for the current main
+	$db->query("SELECT * FROM alts WHERE (`alt` = '$sender') OR (`main` = '$sender')");
+	if ($db->numrows() == 0)
+	{
+		$msg = "<highlight>Could not find a main for your char.<end>";
+		$this->send($msg, $sendto);
+		return;
+	}
+	$row = $db->fObject();
+	$current_main = $row->main;
+	
+	// get all alts from that main
+	$db->query("SELECT * FROM alts WHERE `main` = '$current_main'");
+	$all_alts = $db->fObject("all");
+	
+	// delete all alts from the old main
+	$db->query("DELETE FROM alts WHERE `main` = '$current_main'");
+	
+	// add everything back with the new main
+	foreach ($all_alts as $alt)
+	{
+		$db->query("INSERT INTO alts (`alt`, `main`) VALUES ('$alt', '$new_main')");
+	}
+	$db->query("INSERT INTO alts (`alt`, `main`) VALUES ('$current_main', '$new_main')");
+	
+	$msg = "Successfully set your new main as <highlight>'$new_main'<end>.";
+	$this->send($msg, $sendto);
+	return;
+}
 elseif (preg_match("/^alts$/i", $message))
 {
 	$main = false;
@@ -248,7 +294,9 @@ elseif (preg_match("/^alts$/i", $message))
 		}
 	}
 	else
+	{
 		$main = $sender;
+	}
 
 	// If a main was found create the list
 	if ($main)
@@ -293,74 +341,6 @@ elseif (preg_match("/^alts$/i", $message))
 	}
 }
 
-elseif (preg_match("/^altsadmin (.+)$/i", $message, $arr))
-{
-	if (preg_match("/^add (.+) (.+)$/i", $arr[1], $names))
-	{
-		if ($names[1] != '' && $names[2] != '')
-		{
-			$name_alt = ucfirst(strtolower($names[1]));
-			$name_main = ucfirst(strtolower($names[2]));
-			$uid1 = AoChat::get_uid($names[1]);
-			$uid2 = AoChat::get_uid($names[2]);
-			if (!$uid1)
-				$msg = "Player <highlight>$name_alt<end> does not exist.";
-			if (!$uid2)
-				$msg .= " Player <highlight>$name_main<end> does not exist.";
-			if ($uid1 && $uid2)
-			{
-				$db->query("SELECT * FROM alts WHERE `alt` = '$name_alt'");
-				$row = $db->fObject();
-				if ($row->alt == $name_alt)
-					$msg = "Player <highlight>$name_alt<end> is already registered as alt from <highlight>$row->main<end>.";
-				else
-				{
-					$db->query("SELECT * FROM alts WHERE `main` = '$name_alt'");
-					if ($db->numrows() != 0)
-						$msg = "Player <highlight>$name_alt<end> is already registered as main from someone.";
-					else
-					{
-						$db->query("INSERT INTO alts (`alt`, `main`) VALUES ('$name_alt', '$name_main')");
-						$msg = "<highlight>$name_alt<end> has been registered as an alt of $name_main.";
-					}
-				}
-			}
-		}
-	}
-	elseif (preg_match("/^rem (.+) (.+)$/i", $arr[1], $names))
-	{
-		if ($names[1] != '' && $names[2] != '')
-		{
-			$name_alt = ucfirst(strtolower($names[1]));
-			$name_main = ucfirst(strtolower($names[2]));
-			$uid1 = AoChat::get_uid($names[1]);
-			$uid2 = AoChat::get_uid($names[2]);
-			if (!$uid1)
-				$msg = "Player <highlight>$name_alt<end> does not exist.";
-			if (!$uid2)
-				$msg .= " Player <highlight>$name_main<end> does not exist.";
-			if ($uid1 && $uid2)
-			{
-				$db->query("SELECT * FROM alts WHERE alt = '$name_alt' AND main = '$name_main'");
-				if ($db->numrows() != 0)
-				{
-					$db->query("DELETE FROM alts WHERE main = '$name_main' AND alt = '$name_alt'");
-					$msg = "<highlight>$name_alt<end> has been deleted from the alt list of <highlight>$name_main.<end>";
-				}
-				else
-					$msg = "Player <highlight>$name_alt<end> not listed as an alt of Player <highlight>$name_main<end>.  Please check the player's !alts listings.";
-			}
-		}
-	}
-	elseif ($names[1] == '' || $names[2] == '')
-	{
-		$msg = "Some information is missing. Please check <highlight>/tell <myname> <symbol>help altsadmin<end> for the correct syntax.";
-	}
-	else
-	{
-		$msg = "<highlight>/tell <myname> <symbol>help altsadmin<end> for the correct syntax.";
-	}
-}
 
 // Send info back
 bot::send($msg, $sendto);
