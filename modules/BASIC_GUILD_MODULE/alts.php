@@ -198,7 +198,11 @@ elseif (preg_match('/^alts setmain (.+)$/i', $message, $arr))
 	// add everything back with the new main
 	foreach ($all_alts as $alt)
 	{
-		$db->query("INSERT INTO alts (`alt`, `main`) VALUES ('$alt', '$new_main')");
+		$alt_name = $alt->alt;
+		if ($alt_name != $new_main)
+		{
+			$db->query("INSERT INTO alts (`alt`, `main`) VALUES ('$alt', '$new_main')");
+		}
 	}
 	$db->query("INSERT INTO alts (`alt`, `main`) VALUES ('$current_main', '$new_main')");
 	
