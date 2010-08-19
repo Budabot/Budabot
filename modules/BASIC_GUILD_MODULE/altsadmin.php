@@ -1,6 +1,6 @@
 <?php
 
-if (preg_match("/^altsadmin add (.+) (.+)$/i", $arr[1], $names))
+if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names))
 {
 	if ($names[1] != '' && $names[2] != '')
 	{
@@ -32,7 +32,7 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $arr[1], $names))
 		}
 	}
 }
-elseif (preg_match("/^altsadmin rem (.+) (.+)$/i", $arr[1], $names))
+elseif (preg_match("/^altsadmin rem (.+) (.+)$/i", $message, $names))
 {
 	if ($names[1] != '' && $names[2] != '')
 	{
