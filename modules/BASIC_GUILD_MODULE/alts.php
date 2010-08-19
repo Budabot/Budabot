@@ -40,6 +40,7 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr))
 	/* Pop a name from the array until none are left (checking for null) */
 	while (null != ($name = array_pop($names)))
 	{
+		$name = ucfirst(strtolower($name));
 		$uid = AoChat::get_uid($name);
 		/* check if player exists */
 		if (!$uid)
