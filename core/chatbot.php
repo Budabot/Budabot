@@ -1492,7 +1492,7 @@ class bot extends AOChat{
 					}
 
 					$msg = "";
-					if (!$restriced && (($message[0] == $this->settings["symbol"] && strlen($message) >= 2) || preg_match("/^(afk|brb)/i", $message, $arr))) {
+					if (!$restricted && (($message[0] == $this->settings["symbol"] && strlen($message) >= 2) || preg_match("/^(afk|brb)/i", $message, $arr))) {
 						if($message[0] == $this->settings["symbol"]) {
 							$message 	= substr($message, 1);
 						}
@@ -1620,7 +1620,7 @@ class bot extends AOChat{
 					}
 
 					$msg = "";
-					if (!$restriced && (($message[0] == $this->settings["symbol"] && strlen($message) >= 2) || preg_match("/^(afk|brb)/i", $message, $arr))) {
+					if (!$restricted && (($message[0] == $this->settings["symbol"] && strlen($message) >= 2) || preg_match("/^(afk|brb)/i", $message, $arr))) {
 						if ($message[0] == $this->settings["symbol"]) {
 							$message 	= substr($message, 1);
 						}
