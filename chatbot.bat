@@ -1,1 +1,1 @@
-@php -c php-win.ini -f mainloop.php config.php
+@.\php -c php-win.ini -f mainloop.php config.php
