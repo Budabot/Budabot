@@ -7,3 +7,11 @@
 <tab><symbol>altsadmin rem 'alt name' 'main toon'
 <tab>use <symbol>alts 'alt name'
 <tab>if you are unsure of who the main is.
+
+<highlight>Export all alts to a file<end>
+<tab><symbol>altsadmin export 'filename'
+<tab>the file will be placed in the bots main directory
+
+<highlight>Import alts from a file<end>
+<tab><symbol>altsadmin import 'filename'
+<tab>the file will be loaded from the bots main directory

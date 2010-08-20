@@ -97,7 +97,7 @@ elseif (preg_match("/^altsadmin export (.+)$/i", $message, $arr))
 
 	/* write it to a file */
 	$file = fopen($file_name, 'w');
-	fwrite(§file, "alt main\n");
+	fwrite($file, "alt main\n");
 	foreach ($alts_table as $row)
 	{
 		fwrite($file, $row->alt.' '.$row->main."\n");
@@ -126,16 +126,20 @@ elseif (preg_match("/^altsadmin import (.+)/i", $message, $arr))
 
 	/* get first line and check for "alt main" */
 	$firstline = fgets($file);
-	if ("alt main" != $firstline)
+	if (stripos($firstline, "alt main") === false)
 	{
 		$msg = "File didn't start with expected 'alt main', aborting import.";
 		$this->send($msg, $sendto);
 		return;
 	}
+	
 	$altcounter = 0;
-	while ($row = fscanf($handle, "%s\t%s\n"))
+	while (!feof($file))
 	{
-		list($name_alt, $name_main) = $row;
+		$line = fgets($file);
+		$explodeline = explode(' ', $line);
+		$name_alt = $explodeline[0];
+		$name_main = $explodeline[1];
 		$db->query("INSERT INTO alts (`alt`, `main`) VALUES ('$name_alt', '$name_main')");
 		++$altcounter;
 	}
