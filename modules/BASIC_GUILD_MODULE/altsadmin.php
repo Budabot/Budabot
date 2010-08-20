@@ -7,7 +7,7 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names))
 		$syntax_error = true;
 		return;
 	}
-	
+
 	$name_alt = ucfirst(strtolower($names[1]));
 	$name_main = ucfirst(strtolower($names[2]));
 	$uid_alt = AoChat::get_uid($name_alt);
@@ -82,7 +82,7 @@ elseif (preg_match("/^altsadmin rem (.+) (.+)$/i", $message, $names))
 elseif (preg_match("/^altsadmin export (.+)$/i", $message, $arr))
 {
 	/* the file may only be stored under the current directory */
-	$file_name = "./".$arr[1];
+	$file_name = "./".basename($arr[1]);
 	/* do not overwrite existing files */
 	if (file_exists($file_name))
 	{
@@ -94,11 +94,52 @@ elseif (preg_match("/^altsadmin export (.+)$/i", $message, $arr))
 	/* get the complete alts list */
 	$db->query("SELECT * FROM alts");
 	$alts_table = $db->fObject("all");
-	
+
 	/* write it to a file */
-	$written = file_put_contents($file_name, $alts_table);
-	
-	$msg = "Export completed, wrote '$written' bytes into '$file_name'";
+	$file = fopen($file_name, 'w');
+	fwrite(§file, "alt main\n");
+	foreach ($alts_table as $row)
+	{
+		fwrite($file, $row->alt.' '.$row->main."\n");
+	}
+	fclose($file);
+
+	$msg = "Export completed into '$file_name'";
+	$this->send($msg, $sendto);
+	return;
+}
+
+elseif (preg_match("/^altsadmin import (.+)/i", $message, $arr))
+{
+	/* the file may only be stored under the current directory */
+	$file_name = "./".basename($arr[1]);
+	/* check for existing file */
+	if (!file_exists($file_name))
+	{
+		$msg = "<highlight>File '$file_name' does not exist.<end>";
+		$this->send($msg, $sendto);
+		return;
+	}
+
+	/* open the file */
+	$file = fopen($file_name, 'r');
+
+	/* get first line and check for "alt main" */
+	$firstline = fgets($file);
+	if ("alt main" != $firstline)
+	{
+		$msg = "File didn't start with expected 'alt main', aborting import.";
+		$this->send($msg, $sendto);
+		return;
+	}
+	$altcounter = 0;
+	while ($row = fscanf($handle, "%s\t%s\n"))
+	{
+		list($name_alt, $name_main) = $row;
+		$db->query("INSERT INTO alts (`alt`, `main`) VALUES ('$name_alt', '$name_main')");
+		++$altcounter;
+	}
+	$msg = "Succesfully added $altcounter entries into the alts table.";
 	$this->send($msg, $sendto);
 	return;
 }
