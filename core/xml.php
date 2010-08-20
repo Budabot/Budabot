@@ -56,7 +56,7 @@ class xml {
     }
     
 	//Trys to download a file from a URL   
-	public function getUrl($url, $timeout = '10') {
+	public function getUrl($url, $timeout = '5') {
 	 	$url = strtolower($url);
 	 	
 		//Remove any http tags
@@ -153,9 +153,9 @@ class whois extends xml{
         }
         
         //If no file was found or it is outdated try to update it from anarchyonline.com
-        if(!$data_found) {
+        if (!$data_found) {
 			$playerbio = xml::getUrl("http://people.anarchy-online.com/character/bio/d/$rk_num/name/$name/bio.xml");
-			if(xml::spliceData($playerbio, '<nick>', '</nick>') == $name) {
+			if (xml::spliceData($playerbio, '<nick>', '</nick>') == $name) {
 				$this->source = 'people.anarchy-online.com';
 				$data_found = true;
 				$data_save = true;
