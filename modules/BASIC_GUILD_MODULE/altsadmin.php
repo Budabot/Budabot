@@ -79,6 +79,29 @@ elseif (preg_match("/^altsadmin rem (.+) (.+)$/i", $message, $names))
 	return;
 
 }
+elseif (preg_match("/^altsadmin export (.+)$/i", $message, $arr))
+{
+	/* the file may only be stored under the current directory */
+	$file_name = "./".$arr[1];
+	/* do not overwrite existing files */
+	if (file_exists($file_name))
+	{
+		$msg = "<highlight>File already exists, please specify another one.<end>";
+		$this->send($msg, $sendto);
+		return;
+	}
+
+	/* get the complete alts list */
+	$db->query("SELECT * FROM alts");
+	$alts_table = $db->fObject("all");
+	
+	/* write it to a file */
+	$written = file_put_contents($file_name, $alts_table);
+	
+	$msg = "Export completed, wrote '$written' bytes into '$file_name'";
+	$this->send($msg, $sendto);
+	return;
+}
 
 else
 {

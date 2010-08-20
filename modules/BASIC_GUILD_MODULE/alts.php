@@ -76,6 +76,7 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr))
 		}
 		$names_succeeded[] = $name;
 	}
+	/* create a windowmessage */
 	$window = 'Alts added:<br>';
 	foreach ($names_succeeded as $alt)
 	{
@@ -91,6 +92,7 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr))
 	{
 		$window .= $alt.' ';
 	}
+	/* create a link */
 	$link = 'Added '.count($names_succeeded).' alts to your list.';
 	$failed_count = count($names_already_registered) + count($names_not_existing);
 	if ($failed_count > 0)
@@ -98,6 +100,7 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr))
 		$link .= ' Failed adding '.$failed_count.' alts to your list.';
 	}
 	$msg = $this->makeLink($link, $window);
+
 	$this->send($msg, $sendto);
 	return;
 }
@@ -112,25 +115,27 @@ elseif (preg_match("/^alts (rem|del|remove|delete) (.+)$/i", $message, $arr))
 	{
 		$db->query("DELETE FROM alts WHERE `main` = '$sender' AND `alt` = '$name'");
 		$msg = "<highlight>$name<end> has been deleted from your alt list.";
+		$this->send($msg, $sendto);
+		return;
+	}
+
+	//sender was not found as a main.  checking if he himself is an alt and let him be able to modify his own alts list
+	$db->query("SELECT * FROM alts WHERE `alt` = '$sender'");
+	$row = $db->fObject();
+	//retrieve his main, use the main's name to do searches and modifications with
+	$main = $row->main;
+	$db->query("SELECT * FROM alts WHERE main = '$main' AND alt = '$name'");
+	if ($db->numrows() != 0)
+	{
+		$db->query("DELETE FROM alts WHERE main = '$main' AND alt = '$name'");
+		$msg = "<highlight>$name<end> has been deleted from your ($main) alt list.";
 	}
 	else
 	{
-		//sender was not found as a main.  checking if he himself is an alt and let him be able to modify his own alts list
-		$db->query("SELECT * FROM alts WHERE `alt` = '$sender'");
-		$row = $db->fObject();
-		//retrieve his main, use the main's name to do searches and modifications with
-		$main = $row->main;
-		$db->query("SELECT * FROM alts WHERE main = '$main' AND alt = '$name'");
-		if ($db->numrows() != 0)
-		{
-			$db->query("DELETE FROM alts WHERE main = '$main' AND alt = '$name'");
-			$msg = "<highlight>$name<end> has been deleted from your ($main) alt list.";
-		}
-		else
-		{
-			$msg = "<highlight>$name<end> is not registered as your alt.";
-		}
+		$msg = "<highlight>$name<end> is not registered as your alt.";
 	}
+	$this->send($msg, $sendto);
+	return;
 
 }
 
@@ -141,29 +146,31 @@ elseif (preg_match("/^alts main (.+)$/i", $message, $arr))
 	$uid = $this->get_uid($name_main);
 	if (!$uid)
 	{
-		$msg .= " Player <highlight>$name_main<end> does not exist.";
+		$msg = " Player <highlight>$name_main<end> does not exist.";
+		$this->send($msg, $sendto);
+		return;
 	}
-	if ($uid)
-	{
-		$db->query("DELETE FROM alts WHERE `alt` = '$name_alt'");
-		$db->query("SELECT * FROM alts WHERE `main` = '$name_alt'");
-		if ($db->numrows() != 0)
-		{
-			$msg = "You are already registered as main from someone.";
-		}
-		else
-		{
-			$db->query("SELECT * FROM alts WHERE `alt` = '$name_main'");
-			if ($db->numrows() != 0)
-			{
-				$row = $db->fObject();
-				$name_main = $row->main;
-			}
-			$db->query("INSERT INTO alts (`alt`, `main`) VALUES ('$name_alt', '$name_main')");
-			$msg = "You have been registered as an alt of $name_main.";
-		}
 
+	$db->query("DELETE FROM alts WHERE `alt` = '$name_alt'");
+	$db->query("SELECT * FROM alts WHERE `main` = '$name_alt'");
+	if ($db->numrows() != 0)
+	{
+		$msg = "You are already registered as main from someone.";
+		$this->send($msg, $sendto);
+		return;
 	}
+
+	$db->query("SELECT * FROM alts WHERE `alt` = '$name_main'");
+	if ($db->numrows() != 0)
+	{
+		$row = $db->fObject();
+		$name_main = $row->main;
+	}
+	$db->query("INSERT INTO alts (`alt`, `main`) VALUES ('$name_alt', '$name_main')");
+	$msg = "You have been registered as an alt of $name_main.";
+	$this->send($msg, $sendto);
+	return;
+
 }
 
 elseif (preg_match('/^alts setmain (.+)$/i', $message, $arr))
@@ -177,7 +184,7 @@ elseif (preg_match('/^alts setmain (.+)$/i', $message, $arr))
 		$this->send($msg, $sendto);
 		return;
 	}
-	
+
 	// check for the current main
 	$db->query("SELECT * FROM alts WHERE (`alt` = '$sender') OR (`main` = '$sender')");
 	if ($db->numrows() == 0)
@@ -188,14 +195,14 @@ elseif (preg_match('/^alts setmain (.+)$/i', $message, $arr))
 	}
 	$row = $db->fObject();
 	$current_main = $row->main;
-	
+
 	// get all alts from that main
 	$db->query("SELECT * FROM alts WHERE `main` = '$current_main'");
 	$all_alts = $db->fObject("all");
-	
+
 	// delete all alts from the old main
 	$db->query("DELETE FROM alts WHERE `main` = '$current_main'");
-	
+
 	// add everything back with the new main
 	foreach ($all_alts as $db_entry)
 	{
@@ -206,7 +213,7 @@ elseif (preg_match('/^alts setmain (.+)$/i', $message, $arr))
 		}
 	}
 	$db->query("INSERT INTO alts (`alt`, `main`) VALUES ('$current_main', '$new_main')");
-	
+
 	$msg = "Successfully set your new main as <highlight>'$new_main'<end>.";
 	$this->send($msg, $sendto);
 	return;
@@ -215,103 +222,61 @@ elseif (preg_match('/^alts setmain (.+)$/i', $message, $arr))
 elseif (preg_match("/^alts (.+)$/i", $message, $arr))
 {
 	$name = ucfirst(strtolower($arr[1]));
-	$uid = AoChat::get_uid($arr[1]);
+	$uid = $this->get_uid($name);
 	if (!$uid)
 	{
 		$msg = "Player <highlight>".$name."<end> does not exist.";
+		$this->send($msg, $sendto);
+		return;
 	}
-	else
-	{
-		$main = false;
-		// Check if sender is himelf the main
-		$db->query("SELECT * FROM alts WHERE `main` = '$name'");
-		if ($db->numrows() == 0)
-		{
-			// Check if sender is an alt
-			$db->query("SELECT * FROM alts WHERE `alt` = '$name'");
-			if ($db->numrows() == 0)
-				$msg = "No alts are registered for <highlight>$name<end>.";
-			else
-			{
-				$row = $db->fObject();
-				$main = $row->main;
-			}
-		}
-		else
-			$main = $name;
 
-		// If a main was found create the list
-		if ($main)
-		{
-			$list = "<header>::::: Alternative Character List :::::<end> \n \n";
-			$list .= ":::::: Main Character\n";
-			$list .= "<tab><tab>".bot::makeLink($main, "/tell ".$this->vars["name"]." whois $main", "chatcmd")." - ";
-			$online = $this->buddy_online($main);
-			if ($online === null)
-			{
-				$list .= "No status.\n";
-			}
-			elseif ($online == 1)
-			{
-				$list .= "<green>Online<end>\n";
-			}
-			else
-			{
-				$list .= "<red>Offline<end>\n";
-			}
-			$list .= ":::::: Alt Character(s)\n";
-			$db->query("SELECT * FROM alts WHERE `main` = '$main'");
-			while ($row = $db->fObject())
-			{
-				$list .= "<tab><tab>".bot::makeLink($row->alt, "/tell ".$this->vars["name"]." whois $row->alt", "chatcmd")." - ";
-				$online = $this->buddy_online($row->alt);
-				if ($online === null)
-				{
-					$list .= "No status.\n";
-				}
-				else if ($online == 1)
-				{
-					$list .= "<green>Online<end>\n";
-				}
-				else
-				{
-					$list .= "<red>Offline<end>\n";
-				}
-			}
-			$msg = bot::makeLink($main."`s Alts", $list);
-		}
-	}
-}
-
-elseif (preg_match("/^alts$/i", $message))
-{
 	$main = false;
-	// Check if $sender is himself the main
-	$db->query("SELECT * FROM alts WHERE `main` = '$sender'");
-	if ($db->numrows() == 0)
+	// Check if name is the main
+	$db->query("SELECT * FROM alts WHERE `main` = '$name'");
+	if ($db->numrows() != 0)
 	{
-		// Check if $sender is an alt
-		$db->query("SELECT * FROM alts WHERE `alt` = '$sender'");
-		if ($db->numrows() == 0)
-			$msg = "No alts are registered for <highlight>$sender<end>.";
-		else
-		{
-			$row = $db->fObject();
-			$main = $row->main;
-		}
+		$main = $name;
 	}
 	else
 	{
-		$main = $sender;
+		// Check if name is an alt
+		$db->query("SELECT * FROM alts WHERE `alt` = '$name'");
+		if ($db->numrows() == 0)
+		{
+			$msg = "No alts are registered for <highlight>$name<end>.";
+			$this->send($msg, $sendto);
+			return;
+		}
+
+		$row = $db->fObject();
+		$main = $row->main;
 	}
 
-	// If a main was found create the list
-	if ($main)
+	// a main was found, create the list
+
+	$list = "<header>::::: Alternative Character List :::::<end> \n \n";
+	$list .= ":::::: Main Character\n";
+	$list .= "<tab><tab>".$this->makeLink($main, "/tell ".$this->vars["name"]." whois $main", "chatcmd")." - ";
+	$online = $this->buddy_online($main);
+	if ($online === null)
 	{
-		$list = "<header>::::: Alternative Character List :::::<end> \n \n";
-		$list .= ":::::: Main Character\n";
-		$list .= "<tab><tab>".bot::makeLink($main, "/tell ".$this->vars["name"]." whois $main", "chatcmd")." - ";
-		$online = $this->buddy_online($main);
+		$list .= "No status.\n";
+	}
+	elseif ($online == 1)
+	{
+		$list .= "<green>Online<end>\n";
+	}
+	else
+	{
+		$list .= "<red>Offline<end>\n";
+	}
+	$list .= ":::::: Alt Character(s)\n";
+	$db->query("SELECT * FROM alts WHERE `main` = '$main'");
+	$all_rows = $db->fObject("all");
+	foreach ($all_rows as $row)
+	{
+		$list .= "<tab><tab>".$this->makeLink($row->alt, "/tell ".$this->vars["name"]." whois $row->alt", "chatcmd")." - ";
+		$online = $this->buddy_online($row->alt);
 		if ($online === null)
 		{
 			$list .= "No status.\n";
@@ -324,32 +289,84 @@ elseif (preg_match("/^alts$/i", $message))
 		{
 			$list .= "<red>Offline<end>\n";
 		}
-
-		$list .= ":::::: Alt Character(s)\n";
-		$db->query("SELECT * FROM alts WHERE `main` = '$main'");
-		while ($row = $db->fObject())
-		{
-			$list .= "<tab><tab>".bot::makeLink($row->alt, "/tell ".$this->vars["name"]." whois $row->alt", "chatcmd")." - ";
-			$online = $this->buddy_online($row->alt);
-			if ($online === null)
-			{
-				$list .= "No status.\n";
-			}
-			else if ($online == 1)
-			{
-				$list .= "<green>Online<end>\n";
-			}
-			else
-			{
-				$list .= "<red>Offline<end>\n";
-			}
-		}
-		$msg = bot::makeLink($sender."`s Alts", $list);
 	}
+	$msg = $this->makeLink($main."`s Alts", $list);
+	$this->send($msg, $sendto);
+	return;
+
 }
 
+elseif (preg_match("/^alts$/i", $message))
+{
+	$main = false;
+	// Check if $sender is himself the main
+	$db->query("SELECT * FROM alts WHERE `main` = '$sender'");
+	if ($db->numrows() != 0)
+	{
+		$main = $sender;
+	}
+	else
+	{
+		// Check if $sender is an alt
+		$db->query("SELECT * FROM alts WHERE `alt` = '$sender'");
+		if ($db->numrows() == 0)
+		{
+			$msg = "No alts are registered for <highlight>$sender<end>.";
+			$this->send($msg, $sendto);
+			return;
+		}
 
-// Send info back
-bot::send($msg, $sendto);
+		$row = $db->fObject();
+		$main = $row->main;
+
+	}
+
+	// a main was found, create the list
+
+	$list = "<header>::::: Alternative Character List :::::<end> \n \n";
+	$list .= ":::::: Main Character\n";
+	$list .= "<tab><tab>".bot::makeLink($main, "/tell ".$this->vars["name"]." whois $main", "chatcmd")." - ";
+	$online = $this->buddy_online($main);
+	if ($online === null)
+	{
+		$list .= "No status.\n";
+	}
+	else if ($online == 1)
+	{
+		$list .= "<green>Online<end>\n";
+	}
+	else
+	{
+		$list .= "<red>Offline<end>\n";
+	}
+
+	$list .= ":::::: Alt Character(s)\n";
+	$db->query("SELECT * FROM alts WHERE `main` = '$main'");
+	$all_rows = $db->fObject("all");
+	foreach ($all_rows as $row)
+	{
+		$list .= "<tab><tab>".$this->makeLink($row->alt, "/tell ".$this->vars["name"]." whois $row->alt", "chatcmd")." - ";
+		$online = $this->buddy_online($row->alt);
+		if ($online === null)
+		{
+			$list .= "No status.\n";
+		}
+		else if ($online == 1)
+		{
+			$list .= "<green>Online<end>\n";
+		}
+		else
+		{
+			$list .= "<red>Offline<end>\n";
+		}
+	}
+	$msg = $this->makeLink($sender."`s Alts", $list);
+	$this->send($msg, $sendto);
+	return;
+}
+else
+{
+	$syntax_error = true;
+}
 
 ?>
