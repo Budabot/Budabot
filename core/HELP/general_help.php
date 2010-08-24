@@ -30,10 +30,9 @@
    */
 
 if (preg_match("/^about$/i", $message)) {
-	$about = fopen("./core/HELP/about.txt", "r");
-	while(!feof ($about))
-		$data .= fgets ($about, 4096);
-	fclose($about);
+	global $version;
+	$data = file_get_contents("./core/HELP/about.txt");
+	$data = str_replace('<version>', $version, $data);
 	$msg = bot::makeLink("About", $data);
 	bot::send($msg, $sendto);
 } else if (preg_match("/^help$/i", $message)) {
