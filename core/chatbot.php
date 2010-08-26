@@ -350,7 +350,6 @@ class bot extends AOChat{
 		if ($type == "blob") { // Normal link.
 			$content = str_replace('"', '&quot;', $content);
 			if (strlen($content) > $this->settings["max_blob_size"]) {  //Split the windows if they are too big
-				$pages = ceil(strlen($content) / $this->settings["max_blob_size"]);
 			  	$content = explode("\n", $content);
 				$page = 1;
 			  	forEach ($content as $line) {
@@ -360,12 +359,12 @@ class bot extends AOChat{
 					$display = false;
 				    $result[$page] .= $line."\n";
 				    if (strlen($result[$page]) >= $this->settings["max_blob_size"]) {
-						$result[$page] = "<a $style href=\"text://".$this->settings["default window color"].$result[$page]."\">$name</a> (Page <highlight>$page<end> of <highlight>$pages<end>)";
+						$result[$page] = "<a $style href=\"text://".$this->settings["default window color"].$result[$page]."\">$name</a> (Page <highlight>$page<end>)";
 				    	$page++;
 						$display = true;
 					}
 				}
-				$result[$pages] = "<a $style href=\"text://".$this->settings["default window color"].$result[$pages]."\">$name</a> (Page <highlight>$pages<end> of <highlight>$pages<end>)";
+				$result[$page] = "<a $style href=\"text://".$chatBot->settings["default window color"].$result[$page]."\n\nEnd of $name pages\">$name</a> (Page <highlight>$page<end>)";
 				return $result;
 			} else {
 				return "<a $style href=\"text://".$this->settings["default window color"].$content."\">$name</a>";
