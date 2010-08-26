@@ -85,7 +85,7 @@ class xml {
 } //end class xml
 
 //the whois class is downloading/caching/verifying an player XML file
-class whois extends xml{
+class whois extends xml {
 	public $firstname;        
     public $name;             
     public $lastname;        

@@ -56,10 +56,10 @@ if(isWindows()) {
     * Note: These are normally present in a
     * modern Linux system. This is a safeguard.
     */
-    if(!extension_loaded('pdo_sqlite')) {
+    if (!extension_loaded('pdo_sqlite')) {
         @dl('pdo_sqlite.so');
     }
-    if(!extension_loaded('pdo_mysql')) {
+    if (!extension_loaded('pdo_mysql')) {
         @dl('pdo_mysql.so');
     }
     
@@ -67,6 +67,9 @@ if(isWindows()) {
 
 //Load Required Files
 $config_file = $argv[1];
+if (!file_exists($config_file)) {
+	copy('config.template.php', $config_file) or die("could not create config file: $config_file");
+}
 require_once $config_file;
 require_once "./core/aochat.php";
 require_once "./core/chatbot.php";
@@ -78,13 +81,17 @@ error_reporting(E_ERROR | E_PARSE);
 //error_reporting(-1);
 
 //Show setup dialog
-if(!file_exists("delete me for new setup"))
-	include("./core/SETUP/setup.php");
+if ($vars['login']		== "" ||
+	$vars['password']	== "" ||
+	$vars['name']		== "") {
+
+	include "./core/SETUP/setup.php";
+}
 
 //Bring the ignore list to a bot readable format
 $ignore = explode(";", $settings["Ignore"]);
 unset($settings["Ignore"]);
-foreach($ignore as $bot){
+forEach ($ignore as $bot){
 	$bot = ucfirst(strtolower($bot));
 	$settings["Ignore"][$bot] = true;
 }
