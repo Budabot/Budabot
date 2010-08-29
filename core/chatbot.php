@@ -364,7 +364,7 @@ class bot extends AOChat{
 						$display = true;
 					}
 				}
-				$result[$page] = "<a $style href=\"text://".$chatBot->settings["default window color"].$result[$page]."\n\nEnd of $name pages\">$name</a> (Page <highlight>$page<end>)";
+				$result[$page] = "<a $style href=\"text://".$chatBot->settings["default window color"].$result[$page]."\">$name</a> (Page <highlight>$page - End<end>)";
 				return $result;
 			} else {
 				return "<a $style href=\"text://".$this->settings["default window color"].$content."\">$name</a>";
