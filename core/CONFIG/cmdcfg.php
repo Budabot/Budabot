@@ -47,8 +47,8 @@ if (preg_match("/^config$/i", $message)) {
 	$sql = "
 		SELECT
 			module,
-			(SELECT COUNT(*) FROM cmdcfg_<myname> WHERE module = c.module AND status = 1) count_enabled,
-			(SELECT COUNT(*) FROM cmdcfg_<myname> WHERE module = c.module AND status = 0) count_disabled
+			SUM(CASE WHEN c.status = 1 THEN 1 ELSE 0 END) count_enabled,
+			SUM(CASE WHEN c.status = 0 THEN 1 ELSE 0 END) count_disabled
 		FROM
 			cmdcfg_<myname> c
 		WHERE
@@ -726,12 +726,12 @@ if (preg_match("/^config$/i", $message)) {
 	$sql = 
 		"SELECT
 			*,
-			(SELECT count(*) FROM cmdcfg_<myname> WHERE cmd = c.cmd AND type = 'guild') guild_avail,
-			(SELECT count(*) FROM cmdcfg_<myname> WHERE cmd = c.cmd AND type = 'guild' AND status = 1) guild_status,
-			(SELECT count(*) FROM cmdcfg_<myname> WHERE cmd = c.cmd AND type ='priv') priv_avail,
-			(SELECT count(*) FROM cmdcfg_<myname> WHERE cmd = c.cmd AND type = 'priv' AND status = 1) priv_status,
-			(SELECT count(*) FROM cmdcfg_<myname> WHERE cmd = c.cmd AND type ='msg') msg_avail,
-			(SELECT count(*) FROM cmdcfg_<myname> WHERE cmd = c.cmd AND type = 'msg' AND status = 1) msg_status
+			SUM(CASE WHEN type = 'guild' THEN 1 ELSE 0 END) guild_avail,
+			SUM(CASE WHEN type = 'guild' AND status = 1 THEN 1 ELSE 0 END) guild_status,
+			SUM(CASE WHEN type ='priv' THEN 1 ELSE 0 END) priv_avail,
+			SUM(CASE WHEN type = 'priv' AND status = 1 THEN 1 ELSE 0 END) priv_status,
+			SUM(CASE WHEN type ='msg' THEN 1 ELSE 0 END) msg_avail,
+			SUM(CASE WHEN type = 'msg' AND status = 1 THEN 1 ELSE 0 END) msg_status
 		FROM
 			cmdcfg_<myname> c
 		WHERE
