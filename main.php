@@ -44,7 +44,7 @@ echo "\n";
 
 date_default_timezone_set("UTC");
 
-if(isWindows()) {
+if (isWindows()) {
     // Load Extention 
     dl("php_sockets.dll");
     dl("php_pdo_sqlite.dll");

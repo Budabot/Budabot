@@ -16,7 +16,7 @@ $stat->m_cmdcode	= "2";					// Detail mode. 1=General Status, 2=Detail
 // change config below this line only
 $stat->m_cmdhost	= $this->settings["ventaddress"];	// enter your vent server ip or hostname here
 $stat->m_cmdport	= $this->settings["ventport"];		// enter your vent server port number
-$stat->m_cmdpass	= $this->settings["ventpassword"];	// Status password if necessary.
+$stat->m_cmdpass	= $this->settings["ventpass"];		// Status password if necessary.
 
 $lobby = new CVentriloChannel;
 $lobby->m_cid = 0;			// Channel ID.
@@ -84,10 +84,10 @@ if ($error === FALSE) {
     $page .= "Port Number: <white>{$stat->m_cmdport}<end>\n";
     
     if ($this->settings["showventpassword"] == 1) {
-    	$page .= "Password: <white>{$stat->m_cmdpass}<end>\n\n";
+    	$page .= "Password: <white>{$stat->m_cmdpass}<end>\n";
 	}
 
-    $page .= "Server Name: <white>{$stat->m_name}<end>\n";
+    $page .= "\nServer Name: <white>{$stat->m_name}<end>\n";
     $page .= "Users: <white>{$stat->m_clientcount} / {$stat->m_maxclients}<end>\n";
     
     if ($this->settings["showextendedinfo"] == 1) {
