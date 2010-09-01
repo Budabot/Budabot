@@ -1,9 +1,9 @@
 Heal Delta
 ----------
-0 Stamina : 29 seconds
-30 Stamina : 28 seconds
-60 Stamina : 27 seconds
-90 Stamina : 26 seconds
+  0 Stamina : 29 seconds
+ 30 Stamina : 28 seconds
+ 60 Stamina : 27 seconds
+ 90 Stamina : 26 seconds
 120 Stamina : 25 seconds
 150 Stamina : 24 seconds
 180 Stamina : 23 seconds

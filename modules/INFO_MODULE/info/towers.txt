@@ -11,7 +11,10 @@ QL Range		Type
 226 - 275		Type VII
 276 - 300		Type VIII
 
+Note the highest ql CT in game is 255.
 
+Number of towers you can plant
+=====================
 Level <15        0 towers
 Level 15-74      1 tower
 Level 75-149    2 towers

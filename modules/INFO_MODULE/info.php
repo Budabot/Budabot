@@ -13,14 +13,14 @@
    */
 
 require_once('info_functions.php');
-if(preg_match("/^info(.*)$/i", $message))
+if (preg_match("/^info(.*)$/i", $message))
 {
 	$path = getcwd() . "/modules/INFO_MODULE/info/";
 	$fileExt = ".txt";
 	$msg = "";
 	
 	// if they want the list of topics
-	if(preg_match("/^info$/i", $message))
+	if (preg_match("/^info$/i", $message))
 	{
 		if ($handle = opendir($path))
 		{
@@ -41,13 +41,13 @@ if(preg_match("/^info(.*)$/i", $message))
 		    global $vars;
 		    global $settings;
 		    $linkContents = '';
-		    foreach($topicList as $topic)
+		    forEach ($topicList as $topic)
 		    {
 				$linkContents .= bot::makeLink($topic, "/tell " . $vars['name'] . " " . $settings['symbol'] . "info $topic", 'chatcmd') . "\n";  
 				//$linkContents .= bot::makeLink($topic, getTopicContents($path, $topic, $fileExt), "blob") . "\n";  
 		    }
 		    
-		    if($linkContents)
+		    if ($linkContents)
 		    {
 				$msg = bot::makeLink('Topics (' . count($topicList) . ')', count($topicList) . " Topics Available\n==========\n\n$linkContents", "blob");
 		    }
@@ -62,7 +62,7 @@ if(preg_match("/^info(.*)$/i", $message))
 		}
 	}
 	// if they want a certain topic
-	else if(preg_match("/^info (.*)$/i", $message, $arr))
+	else if (preg_match("/^info (.*)$/i", $message, $arr))
 	{
 		// get the filename and read in the file
 		$fileName = $arr[1];
