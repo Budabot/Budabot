@@ -1,6 +1,4 @@
-<?php
-$blob = 
-"<header>Solitus<end>
+<header>Solitus<end>
 <orange>Ability    Rubi-ka  / Shadowlands<end>
  
 Strength        472 / 772  
@@ -50,11 +48,4 @@ Sense         400 / 600
 Psychic       400 / 600
 Max % Add Nano Cost   -45%
 4 max health per 1 point of bodydev
-2 max nano per 1 point of nanopool";
-
-if (preg_match("/^breed/i", $message, $arr)) {
-	$msg = bot::makeLink("Results of Breedcap Inquiry.", $blob);
-	bot::send($msg, $sendto);
-}
-
-?>
+2 max nano per 1 point of nanopool
