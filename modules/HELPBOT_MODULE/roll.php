@@ -30,7 +30,7 @@
    */
 
 if(preg_match("/^flip$/i", $message)) {
-	$db->query("SELECT * FROM roll_<myname> WHERE `type` = 0 AND `name` = '$sender' ORDER BY `time`");
+	$db->query("SELECT * FROM roll_<myname> WHERE `name` = '$sender' ORDER BY `time`");
 	if($db->numrows() == 0) {
 	  	$flip = rand(1, 2);
 		$db->query("INSERT INTO roll_<myname> (`time`, `name`, `type`, `result`) VALUES (".time().", '$sender', 0, $flip)");
@@ -42,7 +42,7 @@ if(preg_match("/^flip$/i", $message)) {
 	} else {
 	  	$row = $db->fObject();
 	  	if((time() - $row->time) <= 30)
-	  		$msg = "You can only flip once every 30 seconds.";
+	  		$msg = "You can only flip or roll once every 30 seconds.";
 	  	else {
 		  	$flip = rand(1,2);
 			$db->query("INSERT INTO roll_<myname> (`time`, `name`, `type`, `result`) VALUES (".time().", '$sender', 0, $flip)");
@@ -59,21 +59,21 @@ if(preg_match("/^flip$/i", $message)) {
   	if($arr[1] > getrandmax())
 		$msg = "Can't use the number you have given me. Maximum is <highlight>".getrandmax()."<end>";
 	else {  		
-		$db->query("SELECT * FROM roll_<myname> WHERE `type` = 1 AND `name` = '$sender' ORDER BY `time`");
+		$db->query("SELECT * FROM roll_<myname> WHERE `name` = '$sender' ORDER BY `time`");
 		if($db->numrows() == 0) {
 		  	$num = rand(1, $arr[1]);
 			$db->query("INSERT INTO roll_<myname> (`time`, `name`, `type`, `start`, `end`, `result`) VALUES (".time().", '$sender', 1, 1, $arr[1], $num)");
 		  	$ver_num = $db->lastInsertId();
-			$msg = "Between 1 and $arr[1] i rolled a $num, to verify do /tell <myname> verify $ver_num";
+			$msg = "Between 1 and $arr[1] I rolled a $num, to verify do /tell <myname> verify $ver_num";
 		} else {
 		  	$row = $db->fObject();
 		  	if((time() - $row->time) <= 30)
-		  		$msg = "You can only flip once ever 30 seconds.";
+		  		$msg = "You can only flip or roll once every 30 seconds.";
 		  	else {
 			  	$num = rand(1, $arr[1]);
 				$db->query("INSERT INTO roll_<myname> (`time`, `name`, `type`, `start`, `end`, `result`) VALUES (".time().", '$sender', 1, 1, $arr[1], $num)");
 			  	$ver_num = $db->lastInsertId();
-				$msg = "Between 1 and $arr[1] i rolled a $num, to verify do /tell <myname> verify $ver_num";
+				$msg = "Between 1 and $arr[1] I rolled a $num, to verify do /tell <myname> verify $ver_num";
 			}		
 		}
 	}
@@ -83,23 +83,23 @@ if(preg_match("/^flip$/i", $message)) {
   	if($arr[2] >= getrandmax())
 		$msg = "Can't use the number you have given me. Maximum is <highlight>".getrandmax()."<end>";
 	elseif($arr[1] >= $arr[2])
-		$msg = "The first number can't be higher then the second one.";
+		$msg = "The first number can't be higher than or equal to the second one.";
 	else {
-		$db->query("SELECT * FROM roll_<myname> WHERE `type` = 1 AND `name` = '$sender' ORDER BY `time`");
+		$db->query("SELECT * FROM roll_<myname> WHERE `name` = '$sender' ORDER BY `time`");
 		if($db->numrows() == 0) {
 		  	$num = rand($arr[1], $arr[2]);
 			$db->query("INSERT INTO roll_<myname> (`time`, `name`, `type`, `start`, `end`, `result`) VALUES (".time().", '$sender', 1, $arr[1], $arr[2], $num)");
 			$ver_num = $db->lastInsertId();
-			$msg = "Between $arr[1] and $arr[2] i rolled a $num, to verify do /tell <myname> verify $ver_num";
+			$msg = "Between $arr[1] and $arr[2] I rolled a $num, to verify do /tell <myname> verify $ver_num";
 		} else {
 		  	$row = $db->fObject();
 		  	if((time() - $row->time) <= 30)
-		  		$msg = "You can only flip once ever 30 seconds.";
+		  		$msg = "You can only flip or roll once every 30 seconds.";
 		  	else {
 			  	$num = rand($arr[1], $arr[1]);
 				$db->query("INSERT INTO roll_<myname> (`time`, `name`, `type`, `start`, `end`, `result`) VALUES (".time().", '$sender', 1, $arr[1], $arr[2], $num)");
 				$ver_num = $db->lastInsertId();
-				$msg = "Between $arr[1] and $arr[2] i rolled a $num, to verify do /tell <myname> verify $ver_num";
+				$msg = "Between $arr[1] and $arr[2] I rolled a $num, to verify do /tell <myname> verify $ver_num";
 			}
 		}
 	}
@@ -112,14 +112,14 @@ if(preg_match("/^flip$/i", $message)) {
 	else {
 	  	$row = $db->fObject();
 	  	$time = time() - $row->time;
-	  	$msg = "$time seconds ago i told <highlight>$row->name<end>: ";
+	  	$msg = "$time seconds ago I told <highlight>$row->name<end>: ";
 	  	if($row->type == 0) {
 		    if($row->result == 1)
 		    	$msg .= "The coin landed <highlight>heads<end>";
 		    else
 		    	$msg .= "The coin landed <highlight>tails<end>";
 		} else
-	  		$msg .= "Between $row->start and $row->end i rolled a <highlight>$row->result<end>";
+	  		$msg .= "Between $row->start and $row->end I rolled a <highlight>$row->result<end>";
 	}
 	
     bot::send($msg, $sendto);
