@@ -30,7 +30,7 @@
    */
 
 if(preg_match("/^flip$/i", $message)) {
-	$db->query("SELECT * FROM roll_<myname> WHERE `name` = '$sender' ORDER BY `time DESC`");
+	$db->query("SELECT * FROM roll_<myname> WHERE `name` = '$sender' ORDER BY `time` DESC");
 	if($db->numrows() == 0) {
 	  	$flip = rand(1, 2);
 		$db->query("INSERT INTO roll_<myname> (`time`, `name`, `type`, `result`) VALUES (".time().", '$sender', 0, $flip)");
