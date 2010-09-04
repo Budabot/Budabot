@@ -91,4 +91,4 @@
 <a href=skillid://681>Team Deaths</a>
 <a href=skillid://410>Number of fighting opponents</a>
 
-This version compiled by Tyrence (RK2)
+Compiled by Tyrence (RK2)
