@@ -1,4 +1,52 @@
 *****************************
+	Version 1.0_GA:
+*****************************
+
+-Added DBLOOT_MODULE contributed by Chachy, RK2 (!db1 or !db2 to use)
+-Fix for some help commands not showing
+-Now !timers and !timer are interchangeable (aliases)
+-PANDE_MODULE should now show up in the config on linux hosts
+-GUIDEBOT_MODULE should now work in org, tells, and private group channels (previously only worked in org channel)
+-!whois now displays the source of the whois lookup result (in the "click for more options" link)
+-updated items db with latest rip from MajorOutage, 18.03.12
+-help lookups should now work in private channel
+-mutliple alts can now be added with one command (!alts alt1 alt2 alt3 etc.)
+-Added ability to set which toon is the main toon (!alts setmain *sometoon*)
+-Reduced timeout bot would spend waiting for a response from people.anarchy-online.com from 10s to 5s to reduce lag time when fc xml server goes down
+-Ability to import and export alts to and from a file via a command
+-Setup will now run if username, password, or toon name is not set in config file; "delete me for new setup" file is no longer used
+-added !memory to show memory usage (not sure how accurate it is)
+-Merged ORG_MSG_RELAY_MODULE functionality into RELAY_MODULE
+-log files now saved to to /logs/<botname>.<dimension>/ and rotate every month instead of every day
+-Merged AUTO_WAVE_MODULE functionality into CITY_CLOAK_MODULE
+-RAFFLE_MODULE completely overhauled and should now work correctly now
+-Added !whitelist which allows you to add players to the "whitelist". Players on the whitelist will be able to send tells to the bot, even if they would normally be blocked due to "limits" (see !limits)
+-Config file will now be created automatically if it doesn't exist
+-support for config files named other than 'config.php' and running multiple bots from the same directory
+-Added SKILLS_MODULE (!burst, !fling etc)
+-!roll in the RAID_MODULE is now !rollloot to distinguish from !roll in the HELPBOT_MODULE
+-Added WEATHER_MODULE
+-Updated LEVEL_MODULE to give more correct data (eg, teaming range, pvp range, mission levels, etc)
+-Moved all commands, events, and settings relating to the city cloak to CITY_CLOAK_MODULE
+-Moved all commands, events, and settings relating to news to NEWS_MODULE
+-Added BBIN_MODULE for bot relay over IRC
+-Added !uptime command
+-Updated the way the bot handles the buddy list and updated FRIENDLIST_DIAG_MODULE
+-Updated ORGLIST_MODULE (!is and !onlineorg)
+-!config has been reworked and should make it easier to config the bot
+-created new BOTCHANNEL_MODULE for configuring the guest/private channel (fixes !guestjoin problems)
+-added EVENTS_MODULE for scheduling org and raid events, etc
+-made !battles as an alias for !battle
+-fixed problems with blobs breaking
+-!assist can now handle multiple assists
+-ONLINE_MODULE can now send !online message at logon to players
+-update php to version 5.2.5 for windows versions
+-added AOJUNKYARD_MODULE (!wtb item)
+-now ships with many more 3rd part modules (thanks to all who contributed)
+-added better support for mysql and linux (aokex is no longer needed)
+-removed /sql directory; sql files are stored in each module's own directory; bot::loadSQLFile() to load sql files
+
+*****************************
 	Version 0.6.5 (unofficial release):
 *****************************
 
