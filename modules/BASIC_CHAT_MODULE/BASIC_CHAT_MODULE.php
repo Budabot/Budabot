@@ -42,12 +42,6 @@
 	//updateme
 	bot::command("", "$MODULE_NAME/updateme.php", "updateme", "all", "Updates Charinfos from a player");
 
-	//Set admin and user news
-	bot::command("", "$MODULE_NAME/set_news.php", "privnews", "rl", "Set news that are shown on privjoin");
-	bot::command("", "$MODULE_NAME/set_news.php", "adminnews", "mod", "Set adminnews that are shown on privjoin");
-	bot::addsetting("news", "no", "hide", "Not set.");
-	bot::addsetting("adminnews", "no", "hide", "Not set.");	
-	
 	//Helpfiles
 	bot::help("afk_priv", "$MODULE_NAME/afk.txt", "all", "Going AFK", "Raidbot");
 	bot::help("assist", "$MODULE_NAME/assist.txt", "all", "Creating an Assist Macro", "Raidbot");
