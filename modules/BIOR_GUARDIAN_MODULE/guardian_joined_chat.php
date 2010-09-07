@@ -31,7 +31,7 @@
 
 global $guard;
 $whois = new whois($sender);
-if($whois->prof == "Soldier" && $whois->level >= 205) {
+if ($whois->prof == "Soldier" && $whois->level >= 205) {
   	$guard[$sender]["g"] = "ready";
   	$guard[$sender]["lvl"] = $whois->level;
 }

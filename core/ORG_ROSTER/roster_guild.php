@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
+if ($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 	// Set Delay for notify on/off(prevent spam from org roster module)
 	$this->vars["onlinedelay"] = time() + 60;
 	
@@ -38,7 +38,7 @@ if($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 	$org = new org($this->vars["my guild id"], $this->vars["dimension"], $force_update);
 	
 	//Check if Orgxml file is correct if not abort
-	if($org->errorCode != 0) {
+	if ($org->errorCode != 0) {
 	  	echo "Error in getting the org roster xmlfile.\nPlease try again later.\n";
 	} else {
 		// clear $this->members and reload from the database
