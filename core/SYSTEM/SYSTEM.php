@@ -32,6 +32,10 @@
 	bot::regcommand("msg", "$MODULE_NAME/eventlist.php", "eventlist", "mod");
 	bot::regcommand("priv", "$MODULE_NAME/eventlist.php", "eventlist", "mod");
 	bot::regcommand("guild", "$MODULE_NAME/eventlist.php", "eventlist", "mod");
+	
+	bot::regcommand("msg", "$MODULE_NAME/lookup.php", "lookup", "mod");
+	bot::regcommand("priv", "$MODULE_NAME/lookup.php", "lookup", "mod");
+	bot::regcommand("guild", "$MODULE_NAME/lookup.php", "lookup", "mod");
 
 	//Help Files
 	bot::help("systemhelp", "$MODULE_NAME/system.txt", "admin", "Admin System Help file.", "Administration");
