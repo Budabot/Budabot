@@ -377,19 +377,21 @@ if (preg_match("/^config$/i", $message)) {
 
 			$found_priv = 1;
 
-			if ($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
+			if ($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader") {
 				$row->admin = "Raidleader";
-			else if ($row->admin == 2 || $row->admin == "mod")
+			} else if ($row->admin == 2 || $row->admin == "mod") {
 				$row->admin = "Moderator";
-			els eif ($row->admin == 3 || $row->admin == "admin")
+			} else if ($row->admin == 3 || $row->admin == "admin") {
 				$row->admin = "Administrator";
-			else
+			} else {
 				$row->admin = ucfirst(strtolower($row->admin));
+			}
 
-			if ($row->status == 1)
+			if ($row->status == 1) {
 				$status = "<green>Enabled<end>";
-			else
+			} else {
 				$status = "<red>Disabled<end>";
+			}
 
 			$list .= "Current Status: $status (Access: $row->admin) \n";
 			$list .= "Enable or Disable Command: ";
@@ -403,8 +405,9 @@ if (preg_match("/^config$/i", $message)) {
 			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv mod'>Mod</a>  ";		
 			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv guildadmin'>Guildadmin</a>  ";
 			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv guild'>Guildmembers</a>\n";
-		} else 
+		} else {
 			$list .= "Current Status: <red>Unused<end>. \n";
+		}
 
 		$list .= "\n\n<u><highlight>Guild Channel:<end></u>\n";
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = 'guild' AND `module` = '$module'");
