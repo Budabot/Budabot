@@ -6,16 +6,18 @@ if (preg_match("/^track$/i", $message)) {
 	if ($numrows != 0) {
 	  	$blob .= "<header>::::: {$numrows} Users on Track List :::::<end>\n\n";
 	  	while ($row = $db->fObject()) {
-			$is_online = $this->buddy_online($row->name)
-	  	  	if ($is_online === true) {
+			$is_online = $this->buddy_online($row->name);
+	  	  	if ($is_online === 1) {
 				$status = "<green>Online<end>";
-			} else if ($is_online === false) {
+			} else if ($is_online === 0) {
 				$status = "<orange>Offline<end>";
 			} else {
 				$status = "<grey>Unknown<end>";
 			}
+			
+			$history = $this->makeLink('History', "/tell <myname> track $row->name", 'chatcmd');
 
-	  		$blob .= "<tab>- $row->name ($status)\n";
+	  		$blob .= "<tab>- $row->name ($status) - $history\n";
 	  	}
 	  	
 	    $msg = bot::makeLink("<highlight>{$numrows}<end> players on the Track List", $blob);
@@ -23,7 +25,43 @@ if (preg_match("/^track$/i", $message)) {
 	} else {
        	bot::send("No players are on the track list.", $sendto);
 	}
-} else if (preg_match("/^track (.+)$/i", $message)) {
+} else if (preg_match("/^track rem (.+)$/i", $message, $arr)) {
+    $uid = AoChat::get_uid($arr[1]);
+    $name = ucfirst(strtolower($arr[1]));
+    
+	if (!$uid) {
+        $msg = "Player <highlight>$name<end> does not exist.";
+    } else {
+	  	$db->query("SELECT * FROM tracked_users_<myname> WHERE `uid` = '$uid'");
+	  	if($db->numrows() == 0) {
+	  		$msg = "<highlight>$name<end> is not on the track list.";
+	  	} else {
+		    $db->query("DELETE FROM tracked_users_<myname> WHERE `uid` = '$uid'");
+		    $msg = "<highlight>$name<end> has been removed from the track list.";
+			$this->remove_buddy($name, 'tracking');
+		}
+	}
+
+	bot::send($msg, $sendto);
+} else if (preg_match("/^track add (.+)$/i", $message, $arr)) {
+    $uid = AoChat::get_uid($arr[1]);
+    $name = ucfirst(strtolower($arr[1]));
+    
+	if (!$uid) {
+        $msg = "Player <highlight>$name<end> does not exist.";
+    } else {
+	  	$db->query("SELECT * FROM tracked_users_<myname> WHERE `uid` = '$uid'");
+	  	if($db->numrows() != 0) {
+	  		$msg = "<highlight>$name<end> is already on the track list.";
+	  	} else {
+		    $db->query("INSERT INTO tracked_users_<myname> (`name`, `uid`, `added_by`, `added_dt`) VALUES ('$name', $uid, '$sender', " . time() . ")");
+		    $msg = "<highlight>$name<end> has been added to the track list.";
+	        $this->add_buddy($name, 'tracking');
+		}
+	}
+
+	bot::send($msg, $sendto);
+} else if (preg_match("/^track (.+)$/i", $message, $arr)) {
 	$uid = $this->get_uid($arr[1]);
 	$name = ucfirst(strtolower($arr[1]));
 	
