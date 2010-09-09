@@ -38,7 +38,6 @@ if (preg_match('/^specials \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)
 			case 'BurstRecharge':
 				$burst_recharge = $attribute->attributes->getNamedItem("value")->nodeValue;
 				break;
-			// TODO
 		}		
 	}
 	$flags = explode(', ', $flags);

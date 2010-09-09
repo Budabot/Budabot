@@ -329,27 +329,27 @@ if (preg_match("/^config$/i", $message)) {
 	$found_guild = 0;	
 
 	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `module` = '$module'");
-	if($db->numrows() == 0)
+	if ($db->numrows() == 0) {
 		$msg = "Could not find the command <highligh>$cmd<end> in the module <highlight>$module<end>.";
-	else {
+	} else {
 		$list = "<header>::::: Configure command $cmd :::::<end>\n\n";
 		$list .= "<u><highlight>Tells:<end></u>\n";	
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = 'msg' AND `module` = '$module'");
-		if($db->numrows() == 1) {
+		if ($db->numrows() == 1) {
 			$row = $db->fObject();
 
 			$found_msg = 1;
 			
-			if($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
+			if ($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
 				$row->admin = "Raidleader";
-			elseif ($row->admin == 2 || $row->admin == "mod")
+			else if ($row->admin == 2 || $row->admin == "mod")
 				$row->admin = "Moderator";
-			elseif ($row->admin == 3 || $row->admin == "admin")
+			else if ($row->admin == 3 || $row->admin == "admin")
 				$row->admin = "Administrator";
 			else
 				$row->admin = ucfirst(strtolower($row->admin));
 		
-			if($row->status == 1)
+			if ($row->status == 1)
 				$status = "<green>Enabled<end>";
 			else
 				$status = "<red>Disabled<end>";
@@ -366,26 +366,27 @@ if (preg_match("/^config$/i", $message)) {
 			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg mod'>Mod</a>  ";
 			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg guildadmin'>Guildadmin</a>  ";
 			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg guild'>Guildmembers</a>\n";
-		} else 
+		} else {
 			$list .= "Current Status: <red>Unused<end>. \n";
+		}
 
 		$list .= "\n\n<u><highlight>Private Channel:<end></u>\n";	
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = 'priv' AND `module` = '$module'");
-		if($db->numrows() == 1) {
+		if ($db->numrows() == 1) {
 			$row = $db->fObject();
 
 			$found_priv = 1;
 
-			if($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
+			if ($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
 				$row->admin = "Raidleader";
-			elseif ($row->admin == 2 || $row->admin == "mod")
+			else if ($row->admin == 2 || $row->admin == "mod")
 				$row->admin = "Moderator";
-			elseif ($row->admin == 3 || $row->admin == "admin")
+			els eif ($row->admin == 3 || $row->admin == "admin")
 				$row->admin = "Administrator";
 			else
 				$row->admin = ucfirst(strtolower($row->admin));
 
-			if($row->status == 1)
+			if ($row->status == 1)
 				$status = "<green>Enabled<end>";
 			else
 				$status = "<red>Disabled<end>";
@@ -407,21 +408,21 @@ if (preg_match("/^config$/i", $message)) {
 
 		$list .= "\n\n<u><highlight>Guild Channel:<end></u>\n";
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = 'guild' AND `module` = '$module'");
-		if($db->numrows() == 1) {
+		if ($db->numrows() == 1) {
 			$row = $db->fObject();
 			
 			$found_guild = 1;
 			
-			if($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
+			if ($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
 				$row->admin = "Raidleader";
-			elseif ($row->admin == 2 || $row->admin == "mod")
+			else if ($row->admin == 2 || $row->admin == "mod")
 				$row->admin = "Moderator";
-			elseif ($row->admin == 3 || $row->admin == "admin")
+			else if ($row->admin == 3 || $row->admin == "admin")
 				$row->admin = "Administrator";
 			else
 				$row->admin = ucfirst(strtolower($row->admin));
 				
-			if($row->status == 1)
+			if ($row->status == 1)
 				$status = "<green>Enabled<end>";
 			else
 				$status = "<red>Disabled<end>";
@@ -440,20 +441,20 @@ if (preg_match("/^config$/i", $message)) {
 			$list .= "Current Status: <red>Unused<end>. \n";
 
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE dependson = '$cmd' AND `type` = 'msg' AND `cmdevent` = 'subcmd' AND `module` = '$module'");
-		if($db->numrows() != 0) {
+		if ($db->numrows() != 0) {
 			
 			$list .= "\n\n<u><highlight>Available Subcommands in tells<end></u>\n";
-			while($row = $db->fObject()) {
-				if($row->description != "")
+			while ($row = $db->fObject()) {
+				if ($row->description != "")
 					$list .= "Description: $row->description\n";
 				else
 					$list .= "Command: $row->cmd\n";
 					
-				if($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
+				if ($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
 					$row->admin = "Raidleader";
-				elseif ($row->admin == 2 || $row->admin == "mod")
+				else if ($row->admin == 2 || $row->admin == "mod")
 					$row->admin = "Moderator";
-				elseif ($row->admin == 3 || $row->admin == "admin")
+				else if ($row->admin == 3 || $row->admin == "admin")
 					$row->admin = "Administrator";
 				else
 					$row->admin = ucfirst(strtolower($row->admin));
@@ -470,19 +471,19 @@ if (preg_match("/^config$/i", $message)) {
 		}
 
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `dependson` = '$cmd' AND `type` = 'priv' AND `cmdevent` = 'subcmd' AND `module` = '$module'");
-		if($db->numrows() != 0) {
+		if ($db->numrows() != 0) {
 			$list .= "\n\n<u><highlight>Available Subcommands in Private Channel<end></u>\n";
-			while($row = $db->fObject()) {
-				if($row->description != "")
+			while ($row = $db->fObject()) {
+				if ($row->description != "")
 					$list .= "Description: $row->description\n";
 				else
 					$list .= "Command: $row->cmd\n";
 					
-				if($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
+				if ($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
 					$row->admin = "Raidleader";
-				elseif ($row->admin == 2 || $row->admin == "mod")
+				else if ($row->admin == 2 || $row->admin == "mod")
 					$row->admin = "Moderator";
-				elseif ($row->admin == 3 || $row->admin == "admin")
+				else if ($row->admin == 3 || $row->admin == "admin")
 					$row->admin = "Administrator";
 				else
 					$row->admin = ucfirst(strtolower($row->admin));
@@ -499,19 +500,19 @@ if (preg_match("/^config$/i", $message)) {
 		}
 
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `dependson` = '$cmd' AND `type` = 'guild' AND `cmdevent` = 'subcmd' AND `module` = '$module'");
-		if($db->numrows() != 0) {
+		if ($db->numrows() != 0) {
 			$list .= "\n\n<u><highlight>Available Subcommands in Guild Channel<end></u>\n";
-			while($row = $db->fObject()) {
-				if($row->description != "")
+			while ($row = $db->fObject()) {
+				if ($row->description != "")
 					$list .= "Description: $row->description\n";
 				else
 					$list .= "Command: $row->cmd\n";
 					
-				if($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
+				if ($row->admin == 1 || $row->admin == "rl" || $row->admin == "raidleader")
 					$row->admin = "Raidleader";
-				elseif ($row->admin == 2 || $row->admin == "mod")
+				else if ($row->admin == 2 || $row->admin == "mod")
 					$row->admin = "Moderator";
-				elseif ($row->admin == 3 || $row->admin == "admin")
+				else if ($row->admin == 3 || $row->admin == "admin")
 					$row->admin = "Administrator";
 				else
 					$row->admin = ucfirst(strtolower($row->admin));
@@ -532,15 +533,15 @@ if (preg_match("/^config$/i", $message)) {
 	$grp = strtolower($arr[1]);
 
 	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `grp` = '$grp' AND `cmdevent` = 'cmd' ORDER BY `cmd`");
-	if($db->numrows() == 0)
+	if ($db->numrows() == 0)
 		$msg = "Could not find the group <highligh>$grp<end>";
 	else {
 		$list = "<header>::::: Configure group $grp :::::<end>\n\n";
 		$list .= "<highlight><u>Commands of this group</u><end> \n";
-		while($row = $db->fObject()) {
-	  	  	if($oldcmd != $row->cmd) {
+		while ($row = $db->fObject()) {
+	  	  	if ($oldcmd != $row->cmd) {
 				$adv = "<a href='chatcmd:///tell <myname> config cmd $row->cmd $row->module'>Adv.</a>";
-				if($row->description != "none")
+				if ($row->description != "none")
 				    $list .= "$row->description (Cmd: $row->cmd)($adv): $on  $off \n";
 				else
 				    $list .= "$row->cmd Cmd ($adv): $on  $off \n";
@@ -595,43 +596,43 @@ if (preg_match("/^config$/i", $message)) {
         ." SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'event' AND `type` != 'setup' AND `dependson` = 'none' AND `module` = '$mod'"
         ." ORDER BY `cmd`");
 	$data = $db->fObject("all");
-	foreach($data as $row) {
-        if($row->cmdevent == "cmd" && $oldcmd != $row->cmd) {
-			if($row->grp == "none") {
+	forEach ($data as $row) {
+        if ($row->cmdevent == "cmd" && $oldcmd != $row->cmd) {
+			if ($row->grp == "none") {
 				$on = "<a href='chatcmd:///tell <myname> config cmd ".$row->cmd." enable all'>ON</a>";
 				$off = "<a href='chatcmd:///tell <myname> config cmd ".$row->cmd." disable all'>OFF</a>";
 				$adv = "<a href='chatcmd:///tell <myname> config cmd ".$row->cmd."'>Adv.</a>";
 		
-				if($row->description != "none")
+				if ($row->description != "none")
 				    $list .= "$row->description ($adv): $on  $off \n";
 				else
 				    $list .= "$row->cmd Command ($adv): $on  $off \n";
 				$oldcmd = $row->cmd;
-			} elseif($group[$row->grp] == false) {
+			} else if ($group[$row->grp] == false) {
 				$on = "<a href='chatcmd:///tell <myname> config grp ".$row->grp." enable all'>ON</a>";
 				$off = "<a href='chatcmd:///tell <myname> config grp ".$row->grp." disable all'>OFF</a>";
 				$adv = "<a href='chatcmd:///tell <myname> config grp ".$row->grp."'>Adv.</a>";
 
 				$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = 'none' AND `cmdevent` = 'group' AND `type` = '$row->grp'");
-				if($db->numrows() == 1) {
+				if ($db->numrows() == 1) {
 				  	$temp = $db->fObject();
-					if($temp->description != "none")
+					if ($temp->description != "none")
 				    	$list .= "$temp->description ($adv): $on  $off \n";
 					else
 				    	$list .= "$temp->grp group ($adv): $on  $off \n";				 	 	
 				}		
 				$group[$row->grp] = true;
 			}
-		} elseif ($row->cmdevent == "event") {
+		} else if ($row->cmdevent == "event") {
 				$on = "<a href='chatcmd:///tell <myname> config event ".$row->type." ".$row->file." enable all'>ON</a>";
 				$off = "<a href='chatcmd:///tell <myname> config event ".$row->type." ".$row->file." disable all'>OFF</a>";
 
-				if($row->status == 1)
+				if ($row->status == 1)
 					$status = "<green>Enabled<end>";
 				else
 					$status = "<red>Disabled<end>";
 		
-				if($row->description != "none")
+				if ($row->description != "none")
 				    $list .= "$row->description($status): $on  $off \n";
 				else
 				    $list .= "$row->type Event($status): $on  $off \n";			  	
@@ -671,7 +672,7 @@ if (preg_match("/^config$/i", $message)) {
 
 	$db->query("SELECT * FROM hlpcfg_<myname> WHERE module = '$mod' ORDER BY name");
 	$data = $db->fObject("all");
-	foreach($data as $row) {
+	forEach ($data as $row) {
 	  	$list .= "<highlight><u>Helpfile</u><end>: $row->name\n";
 	  	$list .= "<highlight><u>Description</u><end>: $row->description\n";
 	  	$list .= "<highlight><u>Category</u><end>: $row->cat\n";
@@ -701,26 +702,29 @@ if (preg_match("/^config$/i", $message)) {
  	while ($row = $db->fObject()) {
 		$cur = $row->mod;	
 		
-		if($row->help != "")
+		if ($row->help != "") {
 			$list .= "$row->description (<a href='chatcmd:///tell <myname> settings help $row->name'>Help</a>)";
-		else
+		} else {
 			$list .= $row->description;
+		}
 
-		if($row->mode == "edit")
+		if ($row->mode == "edit") {
 			$list .= " (<a href='chatcmd:///tell <myname> settings change $row->name'>Change this</a>)";
+		}
 	
 		$list .= ":  ";
 
 		$options = explode(";", $row->options);
-		if($options[0] == "color")
+		if ($options[0] == "color") {
 			$list .= $row->setting."Current Color</font>\n";
-		elseif($row->intoptions != "0") {
+		} else if ($row->intoptions != "0") {
 			$intoptions = explode(";", $row->intoptions);
 			$intoptions2 = array_flip($intoptions);
 			$key = $intoptions2[$row->setting];
 			$list .= "<highlight>{$options[$key]}<end>\n";
-		} else
+		} else {
 			$list .= "<highlight>$row->setting<end>\n";	
+		}
 	}
 
 	$sql = 
@@ -749,30 +753,39 @@ if (preg_match("/^config$/i", $message)) {
 		$priv = '';
 		$msg = '';
 
-		$on = "<a href='chatcmd:///tell <myname> config cmd $row->cmd enable all'>ON</a>";
-		$off = "<a href='chatcmd:///tell <myname> config cmd $row->cmd disable all'>OFF</a>";
-		$adv = "<a href='chatcmd:///tell <myname> config cmd $row->cmd $row->module'>Adv.</a>";
-
-		if ($row->msg_avail == 0)
+		if ($data->cmdevent == 'cmd') {
+			$on = "<a href='chatcmd:///tell <myname> config cmd $row->cmd enable all'>ON</a>";
+			$off = "<a href='chatcmd:///tell <myname> config cmd $row->cmd disable all'>OFF</a>";
+			$adv = "<a href='chatcmd:///tell <myname> config cmd $row->cmd $row->module'>Adv.</a>";
+		} else if ($data->cmdevent == 'subcmd') {
+			$on = "<a href='chatcmd:///tell <myname> config subcmd $row->cmd enable all'>ON</a>";
+			$off = "<a href='chatcmd:///tell <myname> config subcmd $row->cmd disable all'>OFF</a>";
+			$adv = "<a href='chatcmd:///tell <myname> config subcmd $row->cmd $row->module'>Adv.</a>";
+		}
+		
+		if ($row->msg_avail == 0) {
 			$tell = "|_";
-		else if ($row->msg_status == 1)
+		} else if ($row->msg_status == 1) {
 			$tell = "|<green>T<end>";
-		else
+		} else {
 			$tell = "|<red>T<end>";
+		}
 		
-		if ($row->guild_avail == 0)
+		if ($row->guild_avail == 0) {
 			$guild = "|_";
-		else if ($row->guild_status == 1)
+		} else if ($row->guild_status == 1) {
 			$guild = "|<green>G<end>";
-		else
+		} else {
 			$guild = "|<red>G<end>";
+		}
 		
-		if ($row->priv_avail == 0)
+		if ($row->priv_avail == 0) {
 			$priv = "|_";
-		else if ($row->priv_status == 1)
+		} else if ($row->priv_status == 1) {
 			$priv = "|<green>P<end>";
-		else
+		} else {
 			$priv = "|<red>P<end>";
+		}
 
 		if ($row->description != "") {
 			$list .= "$row->cmd ($adv$tell$guild$priv): $on  $off - ($row->description)\n";
@@ -789,15 +802,17 @@ if (preg_match("/^config$/i", $message)) {
 		$on = "<a href='chatcmd:///tell <myname> config event ".$row->type." ".$row->file." enable all'>ON</a>";
 		$off = "<a href='chatcmd:///tell <myname> config event ".$row->type." ".$row->file." disable all'>OFF</a>";
 
-		if($row->status == 1)
+		if ($row->status == 1) {
 			$status = "<green>Enabled<end>";
-		else
+		} else {
 			$status = "<red>Disabled<end>";
+		}
 
-		if($row->description != "none")
+		if ($row->description != "none") {
 			$list .= "$row->type ($row->description) - ($status): $on  $off \n";
-		else
+		} else {
 			$list .= "$row->type - ($status): $on  $off \n";
+		}
 	}
 
   	$msg = bot::makeLink("Bot Settings", $list);
