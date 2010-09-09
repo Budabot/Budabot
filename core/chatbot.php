@@ -1535,7 +1535,7 @@ class bot extends AOChat{
 					
 					$type = "extPriv";
 					
-					if ($this->settings['echo'] >= 1) newLine("Ext Priv Group $channel", $sender, $message, $this->settings['echo']);
+					if ($this->settings['echo'] >= 1) newLine($channel, $sender, $message, $this->settings['echo']);
 					
 					if ($this->extPrivChat != NULL) {
 						forEach ($this->extPrivChat as $file) {
