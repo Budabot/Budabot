@@ -66,7 +66,7 @@ if (!$syntax_error) {
 	
 	$title = 'Search Results for ' . $postFields['search'];
 	$items = '';
-	foreach ($rows as $row){
+	forEach ($rows as $row) {
 		$childNodes = $row->childNodes;
 		
 		$ql = trim($childNodes->item(0)->nodeValue);

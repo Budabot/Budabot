@@ -1,6 +1,4 @@
 <?php
-	include 'utils.php';
-
 	$skill_list 	= array(   1, 1000, 1001, 2000, 2001, 3000);
 	$gen_dmg_list	= array(   1, 2000, 2001, 2500, 2501, 2850);
 	$MA_rech_list 	= array(1800, 1800, 1188,  600,  600,  300);
@@ -10,32 +8,17 @@
 	$shad_rec_list	= array(  70,   70,   70,   75,   75,   80);
 	$keep_heal_list = array(   1, 3000, 3001,10500,10501,30000);
 
-	$header = "<header>::::: Dimach Calculator - Version 1.00 :::::<end>\n\n";
-	$footer = "\n\nby Imoutochan, RK1";
-	
-	$help = $header;
-	$help .= "<font color=#3333CC>Dimach Usage:</font>\n";
-	$help .= "/tell <myname> <symbol>dimach [<orange>C<end>] [<orange>D<end>]\n";
-	$help .= "[<orange>C<end>] = Class: MA, shade, keeper, other\n";
-	$help .= "[<orange>D<end>] = Dimach Skill\n";
-	$help .= "Example:\n";
-	$help .= "You are a keeper have 750 dimach Skill.\n";
-	$help .= "<a href='chatcmd:///tell <myname> <symbol>dimach keeper 750'>/tell <myname> <symbol>dimach keeper 750</a>\n\n";
-	$help .= $footer;
-
-	$helplink = bot::makeLink("::How to use Dimach::", $help);
-			
 	if (preg_match("/^dimach (ma|martial artist|keep|keeper|shad|shade|other|gen) ([0-9]+)$/i", $message, $arr)) {
 		$dim_skill = trim($arr[2]);
 
-		if ($dim_skill < 1001)
+		if ($dim_skill < 1001) {
 			$i = 0; 
-		elseif ($dim_skill < 2001)
+		} elseif ($dim_skill < 2001) {
 			$i = 2; 
-		elseif ($dim_skill < 3001)
+		} elseif ($dim_skill < 3001) {
 			$i = 4; 
-		else { 
-			bot::send("Skill entered is out of range... please enter a number between <highlight>1 and 3000<end>.",$sendto);
+		} else { 
+			bot::send("Skill entered is out of range... please enter a number between <highlight>1 and 3000<end>.", $sendto);
 			return;
 		}
 		
@@ -74,16 +57,16 @@
 			break;
 		}
 
-		$inside = $header;
+		$inside = "<header>::::: Dimach Calculator - Version 1.00 :::::<end>\n\n";
 		$inside .= "<u>Results</u>:\n";
 		$inside .= "Class: <orange>".$class_name."<end>\n";
 		$inside .= "Dimach Skill: <orange>".$dim_skill."<end>\n";
 		$inside .= $info;
-		$inside .= $footer;
+		$inside .= "\n\nby Imoutochan, RK1";
 		
 		$windowlink = bot::makeLink("::Your Dimach skill results::", $inside);
 		bot::send($windowlink, $sendto);
 	} else {
-		bot::send($helplink, $sendto);
+		$syntax_error = true;
 	}
 ?>

@@ -1,6 +1,4 @@
 <?php
-	include 'utils.php';
-	
     // MA templates
 	$skill_list = array(1,200,1000,1001,2000,2001,3000);
 	
@@ -16,34 +14,18 @@
 	$gen_max_list = array (5,60,280,281,715,716,990);
 	$gen_crit_list = array(3,50,500,501,605,605,630);
 
-	// help screen
-	$header = "<header>::::: MA Fist Calculator - Version 1.00 :::::<end>\n\n";
-	$footer = "";
-
-	$help = $header;
-	$help .= "<font color=#3333CC>MA Usage:</font>\n";
-	$help .= "/tell <myname> <symbol>mafist [<orange>class<end>] [<orange>MA<end>]\n";
-	$help .= "[<orange>class<end>] = Class: MA, shade, other\n";
-	$help .= "[<orange>MA<end>] = MA Skill\n";
-	$help .= "Example:\n";
-	$help .= "You are a shade and have 750 MA Skill.\n";
-	$help .= "<a href='chatcmd:///tell <myname> <symbol>mafist shade 750'>/tell <myname> <symbol>mafist shade 750</a>\n\n";
-	$help .= $footer;
-
-	$helplink = bot::makeLink("::How to use MA::", $help);
-
 	if (preg_match("/^mafist ([a-z]+) ([0-9]+)$/i", $message, $arr)) {
 		$MaSkill = trim($arr[2]);
 		
-		if ($MaSkill < 200) 
+		if ($MaSkill < 200) {
 			$i = 0; 
-		elseif ($MaSkill < 1001)
+		} else if ($MaSkill < 1001) {
 			$i = 1; 
-		elseif ($MaSkill < 2001)
+		} else if ($MaSkill < 2001) {
 			$i = 3; 
-		elseif ($MaSkill < 3001)
+		} else if ($MaSkill < 3001) {
 			$i = 5; 
-		else { 
+		} else { 
 			bot::send("Skill entered is out of range... please enter a number between <highlight>1 and 3000<end>.",$sendto);
 			return;
 		}
@@ -79,18 +61,17 @@
 		}
 		$speed = round($speed,2);
 		
-		$inside = $header;
+		$inside = "<header>::::: MA Fist Calculator - Version 1.00 :::::<end>\n\n";
 		$inside .= "<u>Results</u>:\n";
 		$inside .= "Class: <orange>".$class_name."<end>\n";
 		$inside	.= "MA Skill: <orange>". $MaSkill ."<end>\n";
 		$inside	.= "Fist damage: ".$dmg."\n";
 		$inside .= "Fist speed: <orange>".$speed."<end>s/<orange>".$speed."<end>s\n";
-		$inside .= $footer;
 		
 		$windowlink = bot::makeLink("::Your MA skill results::", $inside);
 		bot::send($windowlink, $sendto);
 		
 	} else {
-		bot::send($helplink, $sendto);
+		$syntax_error = true;
 	}
 ?>

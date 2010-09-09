@@ -16,9 +16,19 @@
 	bot::command("", "$MODULE_NAME/fast.php", "fast", "all", "Fast: Calculates Fast Attack recharge.");
 	bot::command("", "$MODULE_NAME/fast.php", "fastattack", "all", "alias for: fast");
 	
-	//Inits
+	//Xyphos' tools
 	bot::command("", "$MODULE_NAME/inits.php", "inits", "all", "shows how much inits you need for 1/1");
+	bot::command("", "$MODULE_NAME/specials.php", "specials", "all", "shows how much skill you need to cap specials recycle");
 
 	//Helpiles
-	bot::help("skills", "$MODULE_NAME/skills.txt", "all", "Explains the various Skill commands", "Skills");
+	bot::help("aggdef", "$MODULE_NAME/aggdef.txt", "all", "");
+	bot::help("nanoinit", "$MODULE_NAME/nanoinit.txt", "all", "");
+	bot::help("as", "$MODULE_NAME/as.txt", "all", "");
+	bot::help("fa", "$MODULE_NAME/fa.txt", "all", "");
+	bot::help("fling", "$MODULE_NAME/fling.txt", "all", "");
+	bot::help("burst", "$MODULE_NAME/burst.txt", "all", "");
+	bot::help("mafist", "$MODULE_NAME/mafist.txt", "all", "");
+	bot::help("brawl", "$MODULE_NAME/brawl.txt", "all", "");
+	bot::help("dimach", "$MODULE_NAME/dimach.txt", "all", "");
+	bot::help("fast", "$MODULE_NAME/fast.txt", "all", "");
 ?>

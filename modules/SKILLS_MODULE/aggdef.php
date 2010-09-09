@@ -5,32 +5,8 @@
 $info = explode(" ", $message);
 list($msg, $AttTim, $RechT, $InitS) = $info;
 
-if($type == "msg")
-    $sendto = $sender;
-elseif($type == "priv")
-	$sendto = "";
-elseif($type == "guild")
-	$sendto = "guild";
-
-$header = "\n<header>::::: Agg / Deff Calculator - Version 1.00 :::::<end>\n\n";
-$footer = "\n\nBased upon a RINGBOT module made by NoGoal(RK2).\n";
-$footer .= "Modified for Budabot by Healnjoo(RK2).\n";
-
-$help = $header;
-$help .= "<font color=#3333CC>Agg/Def Weapon Init Usage:</font>\n";
-$help .= "/tell <myname> <symbol>aggdef [<orange>A<end>] [<orange>R<end>] [<orange>I<end>]\n";
-$help .= "[<orange>A<end>] = Weapon Attack Time\n";
-$help .= "[<orange>R<end>] = Weapon Recharge Time\n";
-$help .= "[<orange>I<end>] = Your weapon init skill\n\n";
-$help .= "Example:\n";
-$help .= "Your weapon has an attack time of <orange>1.2<end> seconds and a recharge time\n";
-$help .= "of <orange>1.5<end> seconds.  Your melee/ranged init is <orange>1200<end>.\n";
-$help .= "<a href='chatcmd:///tell <myname> <symbol>aggdef 1.2 1.5 1200'>/tell <myname> <symbol>aggdef 1.2 1.5 1200</a>\n\n";	$help .= $footer;
-
-$helplink = bot::makeLink("::How to use Agg/Def::", $help);
-
 if((!$AttTim) || (!$RechT) || (!$InitS))
-	bot::send($helplink, $sendto);
+	$syntax_error = true;
 else{
 	if( $InitS < 1200 ) 
 		{
@@ -70,7 +46,7 @@ else{
 		if( $Initatta3 < $Initrech3 ) $Init3 = $Initrech3;
 		else { $Init3 = $Initatta3; }
 
-	$inside  = $header;
+	$inside  = "<header>::::: Agg / Deff Calculator - Version 1.00 :::::<end>\n\n";
 	$inside	.= "Attack:<orange> ". $AttTim ." <end>second(s).\n";
 	$inside	.= "Recharge: <orange>". $RechT ." <end>second(s).\n";
 	$inside	.= "Init Skill: <orange>". $InitS ."<end>\n";
@@ -79,9 +55,10 @@ else{
 	$inside	.= "Init needed for max speed at Full Agg: <orange>". $Init1 ." <end>inits.\n";
 	$inside	.= "Init needed for max speed at neutral (88%bar): <orange>". $Init2 ." <end>inits.\n";
 	$inside	.= "Init needed for max speed at Full Def: <orange>". $Init3 ." <end>inits.";	
-	$inside .= $footer;
+	$inside .= "\n\nBased upon a RINGBOT module made by NoGoal(RK2).\n";
+	$inside .= "Modified for Budabot by Healnjoo(RK2).";
 
 	$windowlink = bot::makeLink("::Your Agg/Def Settings::", $inside);
 	bot::send($windowlink, $sendto); 
-	}
+}
 ?>

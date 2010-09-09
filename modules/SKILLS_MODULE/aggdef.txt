@@ -1,0 +1,9 @@
+<header>Agg/Def Weapon Init Usage:<end>
+/tell <myname> <symbol>aggdef [<orange>A<end>] [<orange>R<end>] [<orange>I<end>]
+[<orange>A<end>] = Weapon Attack Time
+[<orange>R<end>] = Weapon Recharge Time
+[<orange>I<end>] = Your weapon init skill
+Example:
+Your weapon has an attack time of <orange>1.2<end> seconds and a recharge time
+of <orange>1.5<end> seconds.  Your melee/ranged init is <orange>1200<end>.
+<a href='chatcmd:///tell <myname> <symbol>aggdef 1.2 1.5 1200'>/tell <myname> <symbol>aggdef 1.2 1.5 1200</a>

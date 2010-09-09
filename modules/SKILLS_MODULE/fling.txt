@@ -1,0 +1,8 @@
+<header>Fling Usage:<end>
+/tell <myname> <symbol>fling [<orange>A<end>] [<orange>FS<end>]
+[<orange>A<end>] = Weapon Attack Time
+[<orange>FS<end>] = Fling Skill
+Example:
+Your weapon has an attack of <orange>1.2<end> second and you have a 
+Fling Skill of <orange>900<end>.
+<a href='chatcmd:///tell <myname> <symbol>fling 1.2 900'>/tell <myname> <symbol>fling 1.2 900</a>
