@@ -6,9 +6,6 @@ if (preg_match('/^specials \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)
 	$url .= "id={$arr[1]}&";  // use low id for id
 	//$url .= "id={$arr[2]}&";  // use high id for id
 	$url .= "ql={$arr[3]}&";
-	
-	//$url .= "id=214212&";
-	//$url .= "ql=300&";
 
 	$msg = "Calculating Specials Recycle... Please wait.";
 	bot::send($msg, $sendto);

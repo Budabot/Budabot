@@ -52,7 +52,9 @@
 
 	function cap_aimed_shot($attack_time, $recharge_time) {
 		$hard_cap = floor($attack_time + 10);
-		$skill_cap = ceil(((4000 * $recharge_time) - 1000) / 3);
+		$skill_cap = ceil((4000 * $recharge_time - 1100) / 3);
+		//$skill_cap = round((($recharge_time * 4000) - ($attack_time * 100) - 1000) / 3);
+		//$skill_cap = ceil(((4000 * $recharge_time) - 1000) / 3);
 
 		return array($hard_cap, $skill_cap);
 	}
