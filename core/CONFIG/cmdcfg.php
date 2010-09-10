@@ -693,10 +693,12 @@ if (preg_match("/^config$/i", $message)) {
 	bot::send($msg, $sendto);
 } else if (preg_match("/^config (.*)$/i", $message, $arr)) {
 	$module = $arr[1];
-	$list  = "<header>::::: Bot Settings :::::<end>\n\n";
- 	$list .= "<highlight>You can see here a list of all Settings that can be changed without a restart of the bot. Please note that not all can be changed only the ones that have a 'Change this' behind their name, on the rest you can see only the current setting but can't change it. When you click on 'Change it' a new poopup cames up and you see a list of allowed options for this setting. \n\n<end>";
-	$list .= "\n<highlight><u>" . strtoupper($module) . "</u><end>\n";
+
+	$on = "<a href='chatcmd:///tell <myname> config mod $row->module enable all'>On</a>";
+	$off = "<a href='chatcmd:///tell <myname> config mod $row->module disable all'>Off</a>";
 	
+	$list = "<header>::::: Bot Settings :::::<end>\n\n";
+	$list .= "<highlight><u>" . strtoupper($module) . "</u><end> - Enable/disable: ($on/$off)\n";	
 
  	$db->query("SELECT * FROM settings_<myname> WHERE `mode` != 'hide' AND `module` = '$module'");
 	if ($db->numrows() > 0) {
