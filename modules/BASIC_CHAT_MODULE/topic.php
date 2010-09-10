@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if($this->settings["topic"] != "" && $type == "joinPriv") {
+if ($this->settings["topic"] != "" && $type == "joinPriv") {
 	$time = time() - $this->settings["topic_time"];
 	$mins = floor($time / 60);
 	$hours = floor($mins / 60);
@@ -37,22 +37,27 @@ if($this->settings["topic"] != "" && $type == "joinPriv") {
 	$days = floor($hours / 24);
 	$hours = floor($hours - ($days * 24));
   	bot::send("<highlight>Topic:<end> {$this->settings["topic"]} [set by <highlight>{$this->settings["topic_setby"]}<end>][<highlight>{$days}days, {$hours}hrs and {$mins}mins ago<end>]", $sendto);
-} elseif(preg_match("/^topic$/i", $message, $arr)) {
+} else if (preg_match("/^topic$/i", $message, $arr)) {
 	$time = time() - $this->settings["topic_time"];
 	$mins = floor($time / 60);
 	$hours = floor($mins / 60);
 	$mins = floor($mins - ($hours * 60));
 	$days = floor($hours / 24);
 	$hours = floor($hours - ($days * 24));
-	$msg = "<highlight>Topic:<end> {$this->settings["topic"]} [set by <highlight>{$this->settings["topic_setby"]}<end>][<highlight>{$days}days, {$hours}hrs and {$mins}mins ago<end>]";
+	if ($this->settings["topic"] == '') {
+		$topic = 'No topic set at the moment';
+	} else {
+		$topic = $this->settings["topic"];
+	}
+	$msg = "<highlight>Topic:<end> {$topic} [set by <highlight>{$this->settings["topic_setby"]}<end>][<highlight>{$days}days, {$hours}hrs and {$mins}mins ago<end>]";
     bot::send($msg, $sendto);
-} elseif(preg_match("/^topic clear$/i", $message, $arr)) {
+} else if (preg_match("/^topic clear$/i", $message, $arr)) {
   	bot::savesetting("topic_time", time());
   	bot::savesetting("topic_setby", $sender);
-  	bot::savesetting("topic", "No Topic set atm.");
+  	bot::savesetting("topic", "");
 	$msg = "Topic has been cleared.";
     bot::send($msg, $sendto);
-} elseif(preg_match("/^topic (.+)$/i", $message, $arr)) {
+} else if (preg_match("/^topic (.+)$/i", $message, $arr)) {
   	bot::savesetting("topic_time", time());
   	bot::savesetting("topic_setby", $sender);
   	bot::savesetting("topic", $arr[1]);
