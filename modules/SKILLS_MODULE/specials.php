@@ -51,28 +51,28 @@ if (preg_match('/^specials \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)
 	
 	$blob = "<header>::: Weapon Specials :::<end>\n\n";
 	if (in_array('FullAuto', $flags)) {
-		list($FACap, $FA_Skill_Cap) = cap_full_auto($attack_time, $recharge_time, $full_auto_recharge);
-		$blob .= "FullAutoRecharge: $full_auto_recharge -- You will need at least <orange>".$FA_Skill_Cap."<end> Full Auto skill to cap your recharge at: <orange>".$FACap."<end>s\n\n";
+		list($hard_cap, $skill_cap) = cap_full_auto($attack_time, $recharge_time, $full_auto_recharge);
+		$blob .= "FullAutoRecharge: $full_auto_recharge -- You will need at least <orange>".$skill_cap."<end> Full Auto skill to cap your recharge at: <orange>".$hard_cap."<end>s\n\n";
 		$found = true;
 	}
 	if (in_array('Burst', $flags)) {
-		list($cap, $burstskillcap) = cap_burst($attack_time, $recharge_time, $burst_recharge);
-		$blob .= "BurstRecharge: $burst_recharge -- You need <orange>".$burstskillcap."<end> Burst Skill to cap your burst at: <orange>".$cap."<end>s\n\n";
+		list($hard_cap, $skill_cap) = cap_burst($attack_time, $recharge_time, $burst_recharge);
+		$blob .= "BurstRecharge: $burst_recharge -- You need <orange>".$skill_cap."<end> Burst Skill to cap your burst at: <orange>".$hard_cap."<end>s\n\n";
 		$found = true;
 	}
 	if (in_array('FlingShot', $flags)) {
-		list($flinghardcap, $flingskillcap) = cap_fling_shot($attack_time);
-		$blob .= "FlingRecharge: You need <orange>".$flingskillcap."<end> Fling Skill to cap your fling at: <orange>".$flinghardcap."<end>s\n\n";
+		list($hard_cap, $skill_cap) = cap_fling_shot($attack_time);
+		$blob .= "FlingRecharge: You need <orange>".$skill_cap."<end> Fling Skill to cap your fling at: <orange>".$hard_cap."<end>s\n\n";
 		$found = true;
 	}
 	if (in_array('FastAttack', $flags)) {
-		list($fasthardcap, $fastskillcap) = cap_fast_attack($attack_time);
-		$blob .= "FastAttackRecharge: You need <orange>".$fastskillcap."<end> Fast Atk Skill to cap your fast attack at: <orange>".$fasthardcap."<end>s\n\n";
+		list($hard_cap, $skill_cap) = cap_fast_attack($attack_time);
+		$blob .= "FastAttackRecharge: You need <orange>".$skill_cap."<end> Fast Atk Skill to cap your fast attack at: <orange>".$hard_cap."<end>s\n\n";
 		$found = true;
 	}
 	if (in_array('AimedShot', $flags)) {
-		list($cap, $ASCap) = cap_aimed_shot($attack_time, $recharge_time);
-		$blob .= "AimedShotRecharge: You need <orange>".$ASCap."<end> AS skill to cap your recharge at: <orange>".$cap."<end>s.\n\n";
+		list($hard_cap, $skill_cap) = cap_aimed_shot($attack_time, $recharge_time);
+		$blob .= "AimedShotRecharge: You need <orange>".$skill_cap."<end> AS skill to cap your recharge at: <orange>".$hard_cap."<end>s.\n\n";
 		$found = true;
 	}
 	
