@@ -5,13 +5,13 @@ list($msg, $AttTim, $RechT, $InitS) = $info;
 if ((!$AttTim) || (!$RechT) || (!$InitS)) {
 	$syntax_error = true;
 } else {
-	$cap = floor($AttTim+10);
-	$ASRech	= ceil(($RechT*40) - ($InitS*3/100) + $AttTim - 1);
+	list($cap, $ASCap) = cap_aimed_shot($AttTim, $RechT);
+	
+	$ASRech	= ceil(($RechT * 40) - ($InitS * 3 / 100) + $AttTim - 1);
 	if ($ASRech < $cap) {
 		$ASRech = $cap;
 	}
-	$MultiP	= round($InitS/95,0);
-	$ASCap = ceil(((4000 * $RechT) - 1100)/3);
+	$MultiP	= round($InitS / 95,0);
 
 	$inside = "<header>::::: Aimed Shot Calculator - Version 1.00 :::::<end>\n\n";
 	$inside .= "Results:\n\n";

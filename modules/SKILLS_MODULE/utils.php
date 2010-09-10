@@ -21,4 +21,39 @@
 			$stamp .= "<orange>".$sec_value."<end> second(s)";
 		return $stamp;
 	}
+	
+	function cap_full_auto($attack_time, $recharge_time, $full_auto_recharge) {
+		$FACap = floor(10 + $attack_time);
+		$FA_Skill_Cap = ((40 * $recharge_time) + ($full_auto_recharge / 100) - 11) * 25;
+
+		return array($FACap, $FA_Skill_Cap);
+	}
+	
+	function cap_burst($attack_time, $recharge_time, $burst_recharge) {
+		$cap = round($attack_time + 8,0);
+		$burstskillcap = floor((($recharge_time * 20) + ($burst_recharge / 100) - 8) * 25);
+		
+		return array($cap, $burstskillcap);
+	}
+	
+	function cap_fling_shot($attack_time) {
+		$flinghardcap = 4 + $attack_time;
+		$flingskillcap = (($attack_time * 16) - $flinghardcap) * 100;
+
+		return array($flinghardcap, $flingskillcap);
+	}
+	
+	function cap_fast_attack($attack_time) {
+		$fasthardcap = 4 + $attack_time;
+		$fastskillcap = (($attack_time * 16) - $fasthardcap) * 100;
+
+		return array($fasthardcap, $fastskillcap);
+	}
+
+	function cap_aimed_shot($attack_time, $recharge_time) {
+		$cap = floor($attack_time + 10);
+		$ASCap = ceil(((4000 * $recharge_time) - 1000) / 3);
+
+		return array($cap, $ASCap);
+	}
 ?>

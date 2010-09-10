@@ -4,15 +4,13 @@ if (preg_match("/^(fast|fastattack) ([0-9]*\.?[0-9]+) ([0-9]+)$/i", $message, $a
 	$AttTim = trim($arr[1]);
 	$fastSkill = trim($arr[2]);
 	
-	$fasthardcap = 4 + $AttTim;
+	list($fasthardcap, $fastskillcap) = cap_fast_attack($AttTim);
 
 	$fastrech =  round(($AttTim * 16) - ($fastSkill / 100));
 
 	if ($fastrech < $fasthardcap) {
 		$fastrech = $fasthardcap;
 	}
-
-	$fastskillcap = (($AttTim * 16) - $fasthardcap) * 100;
 
 	$inside = "<header>::::: Fast Attack Calculator - Version 1.00 :::::<end>\n\n";
 	$inside .= "Results:\n";

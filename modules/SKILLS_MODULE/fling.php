@@ -4,14 +4,13 @@ if (preg_match("/^fling ([0-9]*\.?[0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	$AttTim = trim($arr[1]);
 	$FlingSkill = trim($arr[2]);
 	
-	$flinghardcap = 4+$AttTim;
+	list($flinghardcap, $flingskillcap) = cap_fling_shot($AttTim);
 
-	$flingrech =  round(($AttTim*16)-($FlingSkill/100));
+	$flingrech =  round(($AttTim * 16) - ($FlingSkill / 100));
 
-	if($flingrech < $flinghardcap)
+	if ($flingrech < $flinghardcap) {
 		$flingrech = $flinghardcap;
-
-	$flingskillcap = (($AttTim*16)-$flinghardcap)*100;
+	}
 
 	$inside = "<header>::::: Fling Calculator - Version 1.00 :::::<end>\n\n";
 	$inside .= "Results:\n";

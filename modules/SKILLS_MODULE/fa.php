@@ -5,15 +5,14 @@ list($msg, $AttTim, $RechT, $FARecharge, $FullAutoSkill) = $info;
 if((!$AttTim) || (!$RechT) || (!$FARecharge) || (!$FullAutoSkill)) {
 	$syntax_error = true;
 } else {
-	$FACap = floor(10+$AttTim);
-
-	$FA_Recharge = ceil(($RechT*40)+($FARecharge/100)-($FullAutoSkill/25) + $AttTim - 1);
-	if ($FA_Recharge<$FACap) {
+	list($FACap, $FA_Skill_Cap) = cap_full_auto($AttTim, $RechT, $FARecharge);
+	
+	$FA_Recharge = round(($RechT * 40) + ($FARecharge / 100) - ($FullAutoSkill / 25) + round($AttTim - 1));
+	if ($FA_Recharge < $FACap) {
 		$FA_Recharge = $FACap;
 	}
-	$FA_Skill_Cap = ceil((40*$RechT + $FARecharge/100 - 11))*25;
 	
-	$MaxBullets = 5 + floor($FullAutoSkill/100);
+	$MaxBullets = 5 + floor($FullAutoSkill / 100);
 	
 	$inside = "<header>::::: Full Auto Calculator - Version 1.00 :::::<end>\n\n";
 	$inside .= "Results:\n";
@@ -23,7 +22,7 @@ if((!$AttTim) || (!$RechT) || (!$FARecharge) || (!$FullAutoSkill)) {
 	$inside	.= "FA Skill: <orange>". $FullAutoSkill ."<end>\n\n";
 	$inside	.= "Your Full Auto recharge:<orange> ". $FA_Recharge ."s<end>.\n";
 	$inside .= "Your Full Auto can fire a maximum of <orange>".$MaxBullets." bullets<end>.\n";
-	$inside .= "With your weap, your Full Auto recharge will cap at <orange>".$FACap."<end>s.\n";
+	$inside .= "Full Auto recharge always caps at <orange>".$FACap."<end>s.\n";
 	$inside	.= "You will need at least <orange>".$FA_Skill_Cap."<end> Full Auto skill to cap your recharge.\n\n";
 	$inside .= "From <orange>0 to 10K<end> damage, the bullet damage is unchanged.\n";
 	$inside .= "From <orange>10K to 11.5K<end> damage, each bullet damage is halved.\n";
