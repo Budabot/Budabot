@@ -692,10 +692,10 @@ if (preg_match("/^config$/i", $message)) {
 	$msg = bot::makeLink("Configurate helpfiles for module $mod", $list);
 	bot::send($msg, $sendto);
 } else if (preg_match("/^config (.*)$/i", $message, $arr)) {
-	$module = $arr[1];
+	$module = strtoupper($arr[1]);
 
-	$on = "<a href='chatcmd:///tell <myname> config mod $row->module enable all'>On</a>";
-	$off = "<a href='chatcmd:///tell <myname> config mod $row->module disable all'>Off</a>";
+	$on = "<a href='chatcmd:///tell <myname> config mod {$module} enable all'>On</a>";
+	$off = "<a href='chatcmd:///tell <myname> config mod {$module} disable all'>Off</a>";
 	
 	$list = "<header>::::: Bot Settings :::::<end>\n\n";
 	$list .= "<highlight><u>" . strtoupper($module) . "</u><end> - Enable/disable: ($on/$off)\n";	
