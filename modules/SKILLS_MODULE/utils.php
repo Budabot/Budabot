@@ -37,14 +37,14 @@
 	}
 	
 	function cap_fling_shot($attack_time) {
-		$hard_cap = 4 + $attack_time;
+		$hard_cap = 5 + $attack_time;
 		$skill_cap = (($attack_time * 16) - $hard_cap) * 100;
 
 		return array($hard_cap, $skill_cap);
 	}
 	
 	function cap_fast_attack($attack_time) {
-		$hard_cap = 4 + $attack_time;
+		$hard_cap = 5 + $attack_time;
 		$skill_cap = (($attack_time * 16) - $hard_cap) * 100;
 
 		return array($hard_cap, $skill_cap);
