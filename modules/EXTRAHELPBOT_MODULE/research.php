@@ -58,7 +58,8 @@ If (preg_match("/^research ([0-9]+)$/i",$message, $arr)) {
 	}
 }
 else {
-	$research = "<orange> Invalid sreach criteria entered.  Please enter a required Level or Level Range.<end>";
+	$syntax_error = true;
+	return;
 }	
 
 bot::send($research, $sendto);
