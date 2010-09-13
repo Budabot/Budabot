@@ -1,0 +1,11 @@
+<header>::::: Buff item helper :::::<end>
+
+<font color=#3333CC>How to use 'what buffs what':</font>
+/tell <myname> <symbol>whatbuffs [<orange>skill<end>]
+[<orange>skill<end>] = full or partial name of the skill
+
+Example:
+You want to know what item is commonly used to get extra computer literacy skill.
+<a href='chatcmd:///tell <myname> <symbol>whatbuffs comp lit'>/tell <myname> <symbol>whatbuffs comp lit</a>
+
+by Imoutochan, RK1

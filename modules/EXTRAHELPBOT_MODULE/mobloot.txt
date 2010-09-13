@@ -1,0 +1,1 @@
+<header>::::: Mob Loot QL Calculator :::::<end><font color=#3333CC>Mob Loot Usage:</font>/tell <myname> <symbol>mobloot [<orange>lvl<end>][<orange>lvl<end>] = monster levelExample:You have Lvl 150 Monster.<a href='chatcmd:///tell <myname> <symbol>mobloot 150'>/tell <myname> <symbol>mobloot 150</a>

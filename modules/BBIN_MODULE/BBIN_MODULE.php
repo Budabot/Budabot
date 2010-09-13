@@ -40,7 +40,7 @@
 	bot::command("msg", "$MODULE_NAME/set_bbin_settings.php", "setbbin", "admin", "Manually set BBIN settings");
 	
 	//BBIN Relay
-  bot::event("2sec", "$MODULE_NAME/bbin_loop.php", "none", "The main BBIN message loop");
+	bot::event("2sec", "$MODULE_NAME/bbin_loop.php", "none", "The main BBIN message loop");
 	
 	//In-game relay
 	bot::event("priv", "$MODULE_NAME/relay_bbin_out.php", "none", "Relay (priv) messages to BBIN");
@@ -62,6 +62,7 @@
 	bot::addsetting("bbin_debug_ping", "IRC Debug Option: Show pings in console", "edit", "0", "Off;On", "0;1", "mod", "$MODULE_NAME/bbin_help.txt");
 	bot::addsetting("bbin_debug_messages", "IRC Debug Option: Show events in console", "edit", "0", "Off;On", "0;1", "mod", "$MODULE_NAME/bbin_help.txt");
 	bot::addsetting("bbin_debug_all", "IRC Debug Option: Log everything", "edit", "0", "Off;On", "0;1", "mod", "$MODULE_NAME/bbin_help.txt");
+	
 	//Helpfiles
 	bot::help("bbin", "$MODULE_NAME/bbin_help.txt", "all", "How to use the BBIN plugin", "BBIN");
 ?>
