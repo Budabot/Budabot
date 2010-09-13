@@ -317,7 +317,7 @@ class bot extends AOChat{
 		$header .= "</font>:::</font>:::</font>:::</font> ";
 
 
-		if(!$links) {
+		if (!$links) {
 			$links = array( "Help;chatcmd:///tell ".$this->vars["name"]." help",
 					"About;chatcmd:///tell ".$this->vars["name"]." about",
 					"Download;chatcmd:///start http://budabot.aodevs.com/index.php?page=14");

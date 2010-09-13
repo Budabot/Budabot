@@ -33,58 +33,26 @@
    **
    */
 
-if (preg_match("/^nlline ([0-9]*)$/i", $message, $arr)) {
+if (preg_match("/^nanolines$/i", $message, $arr)) {
 
-	$nanoline_id = $arr[1];
-
-	$sql = "SELECT * FROM aonanos_nanolines WHERE id = $nanoline_id";
+	$sql = "SELECT DISTINCT profession FROM aonanos_nanolines ORDER BY profession ASC";
 	$db->query($sql);
 
-	$msg = '';
-	if ($row = $db->fObject()) {
+	$window = bot::makeHeader("Nanolines - Professions", "none");
 
-		$header = "$row->profession $row->name Nanos";
+	while($row = $db->fObject()) {
 
-		if (method_exists('bot', 'makeHeader')) {
-			$window = bot::makeHeader($header, "none");
-		} else {
-			$window = "<header>::::: $header :::::<end>\n";	
-		}
-
-		$sql = "
-		SELECT
-			a.low_id,
-			a.high_id,
-			a.ql,
-			a.name,
-			n.location
-		FROM
-			aonanos_nanos a
-			LEFT JOIN nanos n
-				ON (a.high_id = n.highid AND a.low_id = n.lowid)
-		WHERE
-			nanoline_id = $nanoline_id
-		ORDER BY
-			a.ql DESC, a.name ASC";
-		$db->query($sql);
-		$count = 0;
-		while($row = $db->fObject()) {
-
-			$count++;
-			$window .= "<a href='itemref://" . $row->low_id . "/" . $row->high_id . "/" . $row->ql . "'>" . $row->name . "</a>";
-			$window .= " [$row->ql] $row->location\n";
-		}
-
-		$window .= "\n\nAO Nanos by Voriuste";
-
-		$msg = bot::makeLink($header, $window, 'blob');
-
-	} else {
-
-		$msg = "No nanoline found.";
+		$window .= bot::makeLink($row->profession, "/tell <myname> <symbol>nlprof $row->profession", 'chatcmd');
+		$window .= "\n";
 	}
 
+	$window .= "\n\nAO Nanos by Voriuste";
+
+	$msg = bot::makeLink('Nanolines', $window, 'blob');
+
 	bot::send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
 
 ?>
