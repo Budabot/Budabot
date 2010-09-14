@@ -424,7 +424,7 @@ class bot extends AOChat{
 		}
 	
 		$message = bot::formatMessage($message);
-		AOChat::send_privgroup($group,$this->settings["default priv color"].$message);
+		AOChat::send_privgroup($group, $this->settings["default priv color"].$message);
 		if (($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1 && !$disable_relay)) {
 			AOChat::send_group($group, "</font>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}{$this->vars["name"]}</font>: {$this->settings["default priv color"]}$message</font>");
 		}
@@ -1351,10 +1351,11 @@ class bot extends AOChat{
 				$sendto = $sender;
 				
 				// Removing tell color
-				if (preg_match("/^<font color='#([0-9a-f]+)'>(.+)$/i", $args[1], $arr))
+				if (preg_match("/^<font color='#([0-9a-f]+)'>(.+)$/si", $args[1], $arr))
 					$message = $arr[2];
-				else
+				} else {
 					$message = $args[1];
+				}
 
 				$message = html_entity_decode($message, ENT_QUOTES);
 
