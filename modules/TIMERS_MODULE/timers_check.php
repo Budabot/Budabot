@@ -49,10 +49,10 @@ foreach($this->vars["Timers"] as $key => $value) {
 			$msg = "<highlight>$owner<end> your timer named <highlight>$name<end> has gone off";
 	
 		unset($this->vars["Timers"][$key]);
-		$db->query("DELETE FROM timers_<myname> WHERE `name` = '$name' AND `owner` = '$owner'");
+		$db->query("DELETE FROM timers_<myname> WHERE `name` = '" . str_replace("'", "''", $name) . "' AND `owner` = '$owner'");
 	} elseif ($tleft <= 0) {
 		unset($this->vars["Timers"][$key]);
-		$db->query("DELETE FROM timers_<myname> WHERE `name` = '$name' AND `owner` = '$owner'");
+		$db->query("DELETE FROM timers_<myname> WHERE `name` = '" . str_replace("'", "''", $name) . "' AND `owner` = '$owner'");
 	} elseif ($tleft >= 3599 && $tleft < 3601 && ((time() - $set_time) >= 30)) {
 		if($name == "PrimTimer")
 			$msg = "Reminder: Timer has <highlight>1hour<end> left [set by <highlight>$owner<end>]";
