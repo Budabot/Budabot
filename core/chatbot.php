@@ -1400,10 +1400,10 @@ class bot extends AOChat{
 
 				// Admin Code
 				if ($restricted != true) {
-					// Break down in to words.
-					$words	= split(' ', strtolower($message));
-					$admin 	= $this->tellCmds[$words[0]]["admin level"];
-					$filename = $this->tellCmds[$words[0]]["filename"];
+					list($cmd) = explode(' ', $message, 2);
+					$cmd = strtolower($cmd);
+					$admin 	= $this->tellCmds[$cmd]["admin level"];
+					$filename = $this->tellCmds[$cmd]["filename"];
 
 				  	//Check if a subcommands for this exists
 				  	if($this->subcommands[$filename][$type])
@@ -1495,9 +1495,10 @@ class bot extends AOChat{
 						if($message[0] == $this->settings["symbol"]) {
 							$message 	= substr($message, 1);
 						}
-						$words		= split(' ', strtolower($message));
-						$admin 		= $this->privCmds[$words[0]]["admin level"];
-						$filename 	= $this->privCmds[$words[0]]["filename"];
+						list($cmd)	= explode(' ', $message, 2);
+						$cmd		= strtolower($cmd);
+						$admin 		= $this->privCmds[$cmd]["admin level"];
+						$filename 	= $this->privCmds[$cmd]["filename"];
 
 						//Check if a subcommands for this exists
 						if($this->subcommands[$filename][$type])
@@ -1623,9 +1624,10 @@ class bot extends AOChat{
 						if ($message[0] == $this->settings["symbol"]) {
 							$message 	= substr($message, 1);
 						}
-    					$words		= split(' ', strtolower($message));
-						$admin 		= $this->guildCmds[$words[0]]["admin level"];
-						$filename 	= $this->guildCmds[$words[0]]["filename"];
+    					list($cmd)	= explode(' ', $message, 2);
+						$cmd		= strtolower($cmd);
+						$admin 		= $this->guildCmds[$cmd]["admin level"];
+						$filename 	= $this->guildCmds[$cmd]["filename"];
 
 					  	//Check if a subcommands for this exists
 					  	if ($this->subcommands[$filename][$type]) {

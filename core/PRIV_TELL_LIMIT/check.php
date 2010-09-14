@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
    
-if (Whitelist::check($sender) || isset($this->admins[$sender]) || $sender == $this->settings["relaybot"]) {
+if (Whitelist::check($sender) || isset($this->admins[$sender]) || $sender == ucfirst(strtolower($this->settings["relaybot"]))) {
 	// nothing to do
 	return;
 } else if (preg_match("/^join$/i", $message)) {
