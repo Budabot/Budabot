@@ -1351,7 +1351,7 @@ class bot extends AOChat{
 				$sendto = $sender;
 				
 				// Removing tell color
-				if (preg_match("/^<font color='#([0-9a-f]+)'>(.+)$/si", $args[1], $arr))
+				if (preg_match("/^<font color='#([0-9a-f]+)'>(.+)$/si", $args[1], $arr)) {
 					$message = $arr[2];
 				} else {
 					$message = $args[1];
