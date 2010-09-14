@@ -1134,15 +1134,15 @@ class bot extends AOChat{
 
 		//Check if the admin status exists
 		if (!is_numeric($admin)) {
-			if($admin == "leader")
+			if ($admin == "leader") {
 				$admin = 1;
-			elseif($admin == "raidleader" || $admin == "rl")
+			} else if ($admin == "raidleader" || $admin == "rl") {
 				$admin = 2;
-			elseif($admin == "mod" || $admin == "moderator")
+			} else if ($admin == "mod" || $admin == "moderator") {
 				$admin = 3;
-			elseif($admin == "admin")
+			} else if ($admin == "admin") {
 				$admin = 4;
-			elseif($admin != "all" && $admin != "guild" && $admin != "guildadmin") {
+			} else if($admin != "all" && $admin != "guild" && $admin != "guildadmin") {
 				echo "Error in registrating the command $command for channel '$type'. Unknown Admin type: '$admin'. Admin type is set to 'all'.\n";
 				$admin = "all";
 			}
@@ -1181,7 +1181,7 @@ class bot extends AOChat{
 		$helpcmd = explode(' ', $helpcmd, 2);
 		$helpcmd = $helpcmd[0];
 		$helpcmd = strtolower($helpcmd);
-		foreach($this->helpfiles as $cat => $commands) {
+		forEach ($this->helpfiles as $cat => $commands) {
 			if (isset($commands[$helpcmd])) {
 				$filename = $this->helpfiles[$cat][$helpcmd]["filename"];
 				$admin = $this->helpfiles[$cat][$helpcmd]["admin level"];
@@ -1197,23 +1197,29 @@ class bot extends AOChat{
 		$restricted = true;
 		switch ($admin) {
 			case "guild":
-				if(isset($this->guildmembers[$sender]) || isset($this->admins[$sender]))
+				if (isset($this->guildmembers[$sender]) || isset($this->admins[$sender])) {
 					$restricted = false;
-			break;
+				}
+				break;
+			
 			case "guildadmin":
-				if($this->guildmembers[$sender] <= $this->settings['guild admin level'] || isset($this->admins[$sender]))
+				if ($this->guildmembers[$sender] <= $this->settings['guild admin level'] || isset($this->admins[$sender])) {
 					$restricted = false;
-			break;
+				}
+				break;
+			
 			case "1":
 			case "2":
 			case "3":
-				if($this->admins[$sender]["level"] >= $admin)
+				if ($this->admins[$sender]["level"] >= $admin) {
 					$restricted = false;
-			break;
-			default:
+				}
+				break;
+			
 			case "all":
+			default:
 				$restricted = false;
-			break;
+				break;
 		}
 
 		if (($help = fopen($filename, "r")) && ($restricted == false)) {
@@ -1240,8 +1246,9 @@ class bot extends AOChat{
 		switch ($type){
 			case AOCP_GROUP_ANNOUNCE: // 60
 				$b = unpack("C*", $args[0]);
-				if ($b[1]==3)
+				if ($b[1] == 3) {
 					$this->vars["my guild id"] = $b[2]*256*256*256 + $b[3]*256*256 + $b[4]*256 + $b[5];
+				}
 			break;
 			case AOCP_PRIVGRP_CLIJOIN: // 55, Incoming player joined private chat
 				$channel = $this->lookup_user($args[0]);
@@ -1251,10 +1258,10 @@ class bot extends AOChat{
 					$type = "joinPriv";
 					
 					// Echo
-					if($this->settings['echo'] >= 1) newLine("Priv Group", $sender, "joined the channel.", $this->settings['echo']);
+					if ($this->settings['echo'] >= 1) newLine("Priv Group", $sender, "joined the channel.", $this->settings['echo']);
 
 					// Remove sender if they are /ignored or /banned or if spam filter is blocking them
-					if($this->settings["Ignore"][$sender] == true || $this->banlist[$sender]["name"] == $sender || $this->spam[$sender] > 100){
+					if ($this->settings["Ignore"][$sender] == true || $this->banlist[$sender]["name"] == $sender || $this->spam[$sender] > 100){
 						AOChat::privategroup_kick($sender);
 						return;
 					}
@@ -1286,7 +1293,7 @@ class bot extends AOChat{
 					$type = "leavePriv";
 				
 					// Echo
-					if($this->settings['echo'] >= 1) newLine("Priv Group", $sender, "left the channel.", $this->settings['echo']);
+					if ($this->settings['echo'] >= 1) newLine("Priv Group", $sender, "left the channel.", $this->settings['echo']);
 
 					// Remove from Chatlist array.
 					unset($this->chatlist[$sender]);
@@ -1313,8 +1320,9 @@ class bot extends AOChat{
 				$this->buddyList[$bid]['known'] = (ord($btype) ? 1 : 0);
 
 				//Ignore Logon/Logoff from other bots or phantom logon/offs
-                if($this->settings["Ignore"][$sender] == true || $sender == "")
+                if ($this->settings["Ignore"][$sender] == true || $sender == "") {
 					return;
+				}
 
 				// If Status == 0(logoff) if Status == 1(logon)
 				if ($status == 0) {
@@ -1360,21 +1368,22 @@ class bot extends AOChat{
 				$message = html_entity_decode($message, ENT_QUOTES);
 
 				// Echo
-				if($this->settings['echo'] >= 1) newLine("Inc. Msg.", $sender, $message, $this->settings['echo']);
+				if ($this->settings['echo'] >= 1) newLine("Inc. Msg.", $sender, $message, $this->settings['echo']);
 
 				// AFK/bot check
-				if (preg_match("/^$sender is AFK/si", $message, $arr))
+				if (preg_match("/^$sender is AFK/si", $message, $arr)) {
 					return;
-				else if (preg_match("/^I am away from my keyboard right now/si", $message))
+				} else if (preg_match("/^I am away from my keyboard right now/si", $message)) {
 					return;
-				else if (preg_match("/^Unknown command/si", $message, $arr))
+				} else if (preg_match("/^Unknown command/si", $message, $arr)) {
 					return;
-				else if (preg_match("/^I am responding/si", $message, $arr))
+				} else if (preg_match("/^I am responding/si", $message, $arr)) {
 					return;
-				else if (preg_match("/^I only listen/si", $message, $arr))
+				} else if (preg_match("/^I only listen/si", $message, $arr)) {
 					return;
-				else if (preg_match("/^Error!/si", $message, $arr))
+				} else if (preg_match("/^Error!/si", $message, $arr)) {
 					return;
+				}
 
 				if ($this->settings["Ignore"][$sender] == true || $this->banlist[$sender]["name"] == $sender || ($this->spam[$sender] > 100 && $this->vars['spam protection'] == 1)){
 					$this->spam[$sender] += 20;
@@ -1407,36 +1416,36 @@ class bot extends AOChat{
 					$filename = $this->tellCmds[$cmd]["filename"];
 
 				  	//Check if a subcommands for this exists
-				  	if($this->subcommands[$filename][$type])
-					    if (preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message))
+				  	if ($this->subcommands[$filename][$type]) {
+					    if (preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message)) {
 							$admin = $this->subcommands[$filename][$type]["admin"];
+						}
+					}
 
 					// Admin Check
-					if(is_numeric($admin)){
-						if($this->admins[$sender]["level"] >= $admin && $this->admins[$sender]["level"] != "")
+					if (is_numeric($admin)) {
+						if ($this->admins[$sender]["level"] >= $admin && $this->admins[$sender]["level"] != "")
 							$restricted = false;
-						elseif($this->admins[$sender]["level"] == "" && $this->vars["leader"] == $sender && $admin == 1)
-							$restricted = false;
-						else
-							$restricted = true;
-					}
-					elseif($admin == "guild"){
-						if(isset($this->guildmembers[$sender]))
+						else if ($this->admins[$sender]["level"] == "" && $this->vars["leader"] == $sender && $admin == 1)
 							$restricted = false;
 						else
 							$restricted = true;
-					}
-					elseif($admin == "guildadmin"){
-						if($this->guildmembers[$sender] <= $this->settings['guild admin level'])
+					} else if ($admin == "guild") {
+						if (isset($this->guildmembers[$sender]))
 							$restricted = false;
 						else
 							$restricted = true;
-					}
-					else
+					} else if ($admin == "guildadmin") {
+						if ($this->guildmembers[$sender] <= $this->settings['guild admin level'])
+							$restricted = false;
+						else
+							$restricted = true;
+					} else {
 						$restricted = false;
+					}
 				}
 				// Upload Command File or return error message
-				if($restricted == true || $filename == ""){
+				if ($restricted == true || $filename == ""){
 					$this->send("Error! Unknown command or Access denied! for more info try /tell <myname> help", $sender);
 					$this->spam[$sender] = $this->spam[$sender] + 20;
 					return;
@@ -1460,17 +1469,18 @@ class bot extends AOChat{
 				$channel = $this->lookup_user($args[0]);
 				$message = $args[2];
 				$restricted = false;
-				if($sender == $this->vars["name"]) {
+				if ($sender == $this->vars["name"]) {
 					if($this->settings['echo'] >= 1) newLine("Priv Group", $sender, $message, $this->settings['echo']);
 					return;
 				}
-				if($this->banlist[$sender]["name"] == $sender)
+				if ($this->banlist[$sender]["name"] == $sender) {
 					return;
+				}
 
-				if($this->vars['spam protection'] == 1) {
-					if($this->spam[$sender] == 40) $this->send("Error! Your client is sending a high frequency of chat messages. Stop or be kicked.", $sender);
-					if($this->spam[$sender] > 60) AOChat::privategroup_kick($sender);
-					if(strlen($args[1]) > 400){
+				if ($this->vars['spam protection'] == 1) {
+					if ($this->spam[$sender] == 40) $this->send("Error! Your client is sending a high frequency of chat messages. Stop or be kicked.", $sender);
+					if ($this->spam[$sender] > 60) AOChat::privategroup_kick($sender);
+					if (strlen($args[1]) > 400){
 						$this->largespam[$sender] = $this->largespam[$sender] + 1;
 						if ($this->largespam[$sender] > 1) AOChat::privategroup_kick($sender);
 						if ($this->largespam[$sender] > 0) $this->send("Error! Your client is sending large chat messages. Stop or be kicked.", $sender);
@@ -1482,10 +1492,10 @@ class bot extends AOChat{
 					$type = "priv";
 
 					// Echo
-					if($this->settings['echo'] >= 1) newLine("Priv Group", $sender, $message, $this->settings['echo']);
+					if ($this->settings['echo'] >= 1) newLine("Priv Group", $sender, $message, $this->settings['echo']);
 
-					if($this->privChat != NULL) {
-						foreach($this->privChat as $file) {
+					if ($this->privChat != NULL) {
+						forEach ($this->privChat as $file) {
 						  	$msg = "";
 							include $file;
 						}
@@ -1502,29 +1512,37 @@ class bot extends AOChat{
 						$filename 	= $this->privCmds[$cmd]["filename"];
 
 						//Check if a subcommands for this exists
-						if($this->subcommands[$filename][$type])
-							if(preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message))
+						if ($this->subcommands[$filename][$type]) {
+							if (preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message)) {
 								$admin = $this->subcommands[$filename][$type]["admin"];
-
-
-						if(is_numeric($admin)){
-							if($this->admins[$sender]["level"] >= $admin && $this->admins[$sender]["level"] != "")
-								if($filename != "")
-									include $filename;
-
-							if($this->admins[$sender]["level"] == "" && $this->vars["leader"] == $sender && $admin == 1)
-								if($filename != "")
-									include $filename;
+							}
 						}
-						elseif($admin == "guild"){
-							if(isset($this->guildmembers[$sender]))
-								if($filename != "")
+
+
+						if (is_numeric($admin)) {
+							if ($this->admins[$sender]["level"] >= $admin && $this->admins[$sender]["level"] != "") {
+								if ($filename != "") {
 									include $filename;
-						}
-						elseif($admin == "guildadmin"){
-							if($this->guildmembers[$sender] <= $this->settings['guild admin level'])
-								if($filename != "")
+								}
+							}
+
+							if ($this->admins[$sender]["level"] == "" && $this->vars["leader"] == $sender && $admin == 1) {
+								if ($filename != "") {
 									include $filename;
+								}
+							}
+						} else if ($admin == "guild") {
+							if (isset($this->guildmembers[$sender])) {
+								if ($filename != "") {
+									include $filename;
+								}
+							}
+						} else if ($admin == "guildadmin") {
+							if ($this->guildmembers[$sender] <= $this->settings['guild admin level']) {
+								if ($filename != "") {
+									include $filename;
+								}
+							}
 						}
 						elseif($admin == "all")
 							if($filename != "")
@@ -1574,7 +1592,7 @@ class bot extends AOChat{
 					}
 				}
 
-				if($this->settings['echo'] >= 1) newLine($channel, $sender, $message, $this->settings['echo']);
+				if ($this->settings['echo'] >= 1) newLine($channel, $sender, $message, $this->settings['echo']);
 
 				if ($sender) {
 					//Ignore Message that are sent from the bot self
@@ -1686,7 +1704,7 @@ class bot extends AOChat{
 				$sender = $this->lookup_user($uid);
 
 				// Echo
-				if($this->settings['echo'] >= 1) newLine("Priv Group Invitation", $sender, " channel invited.", $this->settings['echo']);
+				if ($this->settings['echo'] >= 1) newLine("Priv Group Invitation", $sender, " channel invited.", $this->settings['echo']);
 
 				if ($this->extJoinPrivRequest != NULL) {
 					forEach ($this->extJoinPrivRequest as $file) {
