@@ -50,4 +50,7 @@
 	bot::command("guild","$MODULE_NAME/stopraid.php", "stopraid");
 	bot::event("guild", "$MODULE_NAME/start.php", "none", "Starts a wave counter when cloak is lowered");
 	bot::event("2sec", "$MODULE_NAME/counter.php", "none", "Checks timer to see when next wave should come");
+	
+	// OS/AS timer
+	bot::event("orgmsg", "$MODULE_NAME/os_timer.php", "none", "Sets a timer when an OS/AS is launched");
 ?>
