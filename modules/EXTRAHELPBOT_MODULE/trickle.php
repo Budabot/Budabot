@@ -33,8 +33,6 @@
    **
    */
 
-require_once('trickle_functions.php');
-
 $usageMsg = "Usage: <symbol>trickle &lt;ability&gt; &lt;amount&gt;\n<tab>ex: <symbol>trickle agi 20\nValid abilites are: agi, int, psy, sta, str, sen";
 
 $msg = "";
