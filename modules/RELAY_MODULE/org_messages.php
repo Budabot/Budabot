@@ -32,9 +32,10 @@
    **
    */
 
-	$MODULE_NAME = "ORG_MSG_RELAY_MODULE";
-
-	//Org messages
-    bot::event("orgmsg", "$MODULE_NAME/org_messages.php", "none", "Capture Org Messages");
+if ($this->settings["relaybot"] != "Off") {
+	$orgName = $this->vars["my guild"];
+	$msg = "grc <grey>[$orgName] $message<end>";
+    send_message_to_relay($msg);
+}
 
 ?>
