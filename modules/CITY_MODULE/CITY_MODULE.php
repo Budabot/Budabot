@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
    
-	$MODULE_NAME = "CITY_CLOAK_MODULE";
+	$MODULE_NAME = "CITY_MODULE";
 	
 	bot::loadSQLFile($MODULE_NAME, 'org_city');
 
