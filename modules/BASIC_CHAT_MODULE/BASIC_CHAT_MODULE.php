@@ -37,18 +37,20 @@
 	bot::subcommand("", "$MODULE_NAME/heal_assist.php", "heal (.+)", "leader", "heal", "Set a new Doc assist");
 
 	//Tell
-	bot::command("priv", "$MODULE_NAME/tell.php", "tell", "all", "Repeats a Message 3times");
+	bot::command("priv", "$MODULE_NAME/tell.php", "tell", "all", "Repeats a message 3 times");
+	bot::command("", "$MODULE_NAME/cmd.php", "cmd", "rl", "Creates a highly visible messaage");
 	
 	//updateme
 	bot::command("", "$MODULE_NAME/updateme.php", "updateme", "all", "Updates Charinfos from a player");
 
 	//Helpfiles
-	bot::help("afk_priv", "$MODULE_NAME/afk.txt", "all", "Going AFK", "Raidbot");
-	bot::help("assist", "$MODULE_NAME/assist.txt", "all", "Creating an Assist Macro", "Raidbot");
-	bot::help("check", "$MODULE_NAME/check.txt", "all", "See of the ppls are in the area", "Raidbot");
-	bot::help("heal_assist", "$MODULE_NAME/healassist.txt", "all", "Creating an Healassist Macro", "Raidbot");
-	bot::help("leader", "$MODULE_NAME/leader.txt", "all", "Set a Leader of a Raid/Echo on/off", "Raidbot");
-	bot::help("tell", "$MODULE_NAME/tell.txt", "leader", "Repeating of a msg 3times", "Raidbot");
-	bot::help("topic", "$MODULE_NAME/topic.txt", "raidleader", "Set the Topic of the raid", "Raidbot");
-	bot::help("updateme", "$MODULE_NAME/updateme.txt", "all", "Update your character infos", "Raidbot");
+	bot::help("afk_priv", "$MODULE_NAME/afk.txt", "all", "Going AFK");
+	bot::help("assist", "$MODULE_NAME/assist.txt", "all", "Creating an Assist Macro");
+	bot::help("check", "$MODULE_NAME/check.txt", "all", "See of the ppls are in the area");
+	bot::help("heal_assist", "$MODULE_NAME/healassist.txt", "all", "Creating an Healassist Macro");
+	bot::help("leader", "$MODULE_NAME/leader.txt", "all", "Set a Leader of a Raid/Echo on/off");
+	bot::help("tell", "$MODULE_NAME/tell.txt", "leader", "How to use tell");
+	bot::help("topic", "$MODULE_NAME/topic.txt", "raidleader", "Set the Topic of the raid");
+	bot::help("updateme", "$MODULE_NAME/updateme.txt", "all", "Update your character infos");
+	bot::help("cmd", "$MODULE_NAME/cmd.txt", "leader", "How to use cmd");
 ?>
