@@ -1,5 +1,5 @@
 <?php
-	$MODULE_NAME = "ORG_ROSTER";
+	$MODULE_NAME = "GUILD_MODULE";
 
 	//Setup of the Basic Guild Modules
 	bot::regevent("setup", "$MODULE_NAME/setup.php");
