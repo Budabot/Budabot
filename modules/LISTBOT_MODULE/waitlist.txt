@@ -9,5 +9,8 @@
 <highlight>Remove a player from your list<end>
 <tab><symbol>waitlist rem 'player name'
 
+<highlight>Remove all players from your list<end>
+<tab><symbol>waitlist rem all
+
 <highlight>Calling the next one from your list<end>
 <tab><symbol>waitlist next
