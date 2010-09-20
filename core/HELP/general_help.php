@@ -36,53 +36,51 @@ if (preg_match("/^about$/i", $message)) {
 	$msg = bot::makeLink("About", $data);
 	bot::send($msg, $sendto);
 } else if (preg_match("/^help$/i", $message)) {
-	if($help = fopen("./data/help.txt", "r")){
-		while (!feof ($help))
-			$data .= fgets ($help, 4096);
-		fclose($help);
-	}
 	global $version;
-	$data .= "\nBudabot version: $version\n\n";
+	$data = "\nBudabot version: $version\n\n";
 	ksort($this->helpfiles);
-	foreach($this->helpfiles as $cat => $value) {
-		foreach($value as $key => $file){
+	forEach ($this->helpfiles as $cat => $value) {
+		forEach ($value as $key => $file) {
 		  	$access = false;
 			$admin = $file["admin level"];
 
 			if ($file["status"] == "enabled") {
 				$num = 1;
-			}else {
+			} else {
 				$module = $file["module"];
 				$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$module' AND `status` = 1");
 				$num = $db->numrows();
 			}
 
-			if($admin == "guild" && isset($this->guildmembers[$sender]) && $type == "msg") {
+			if ($admin == "guild" && isset($this->guildmembers[$sender]) && $type == "msg") {
 			  	$access = true;
-			} elseif($admin == "guildadmin" && ($this->guildmembers[$sender] <= $this->settings['guild admin level']) && $type == "msg") {
+			} else if ($admin == "guildadmin" && ($this->guildmembers[$sender] <= $this->settings['guild admin level']) && $type == "msg") {
 				$access = true;
-			} elseif(is_numeric($admin) && ($this->admins[$sender]["level"] >= $admin) && $type == "msg") {
+			} else if (is_numeric($admin) && ($this->admins[$sender]["level"] >= $admin) && $type == "msg") {
 				$access = true;
-			} elseif(($admin == "all" || $admin == "") && $type == "msg") {
+			} else if (($admin == "all" || $admin == "") && $type == "msg") {
 				$access = true;
-			} elseif($admin == "all" || $admin == "") {
+			} else if ($admin == "all" || $admin == "") {
 				$access = true;
-			} elseif($admin == "guild" && $type == "guild")
+			} else if ($admin == "guild" && $type == "guild") {
 				$access = true;
+			}
 				
-			if(($access == true && $file["info"] != "" && $num > 0) || ($this->admins[$sender]["level"] == 4 && $file["info"] != "" && $type == "msg"))
+			if (($access == true && $file["info"] != "" && $num > 0) || ($this->admins[$sender]["level"] == 4 && $file["info"] != "" && $type == "msg")) {
 				$list .= "  *{$file["info"]} <a href='chatcmd:///tell <myname> help $key'>Click here</a>\n";
-			elseif(($access == true && $num > 0) || ($this->admins[$sender]["level"] == 4 && $type == "msg"))
+			} else if (($access == true && $num > 0) || ($this->admins[$sender]["level"] == 4 && $type == "msg")) {
 				$list .= "  *Basic Help. <a href='chatcmd:///tell <myname> help $key'>Click here</a>\n";
+			}
 		}
-		if($list != "") {
+		if ($list != "") {
 		  	$msg .= "<highlight><u>$cat:</u><end>\n$list\n";
 		  	$list = "";
 		}
 		
 	}
-	if($msg == "")
+	if ($msg == "") {
 		$msg = "<red>No Helpfiles found.<end>";
+	}
 
 	$link = bot::makeLink("Help(main)", $data.$msg);
 

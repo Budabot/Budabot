@@ -31,16 +31,16 @@
 
 $version = "1.0_GA";
 
-echo "\n\n\n\n\n";
-echo "		**************************************************\n";
-echo "		****         Budabot Version: $version           ****\n";
-echo "		****    written by Sebuda & Derroylo(RK2)     ****\n";
-echo "		****                Project Site:             ****\n";
-echo "		****    http://code.google.com/p/budabot2/    ****\n";
-echo "		****               Support Forum:             ****\n";
-echo "		****          http://www.budabot.com/         ****\n";
-echo "		**************************************************\n";
-echo "\n";
+echo "\n\n\n\n\n
+		**************************************************
+		****         Budabot Version: $version           ****
+		****    written by Sebuda & Derroylo(RK2)     ****
+		****                Project Site:             ****
+		****    http://code.google.com/p/budabot2/    ****
+		****               Support Forum:             ****
+		****          http://www.budabot.com/         ****
+		**************************************************
+\n";
 
 date_default_timezone_set("UTC");
 
@@ -108,7 +108,7 @@ unset($vars['password']);
 // Create new objects
 	global $db;
 	$db = new db($settings["DB Type"], $settings["DB Name"], $settings["DB Host"], $settings["DB username"], $settings["DB password"]);
-	if($db->errorCode != 0) {
+	if ($db->errorCode != 0) {
 	  	echo "Error in creating Database Object\n";
 	  	echo "ErrorMsg: $db->errorInfo";
 	  	sleep(5);
@@ -116,8 +116,9 @@ unset($vars['password']);
 	}
 	
 	$chatBot = new bot($vars, $settings);
-	if(!$chatBot)
+	if (!$chatBot) {
 		die("No Chatbot.....");
+	}
 
 /////////////////////////////////////////////
 // log on aoChat, msnChat                  //
@@ -149,10 +150,10 @@ main(true, $chatBot);
 		$start = time();
 		
 		// Create infinite loop
-		while($forever==true){					
+		while ($forever==true){					
 			$chatBot->ping();
 			$chatBot->crons();
-			if($exec_connected_events == false && ((time() - $start) > 5))	{
+			if ($exec_connected_events == false && ((time() - $start) > 5))	{
 			  	$chatBot->connectedEvents();
 			  	$exec_connected_events = true;
 			}
@@ -174,14 +175,6 @@ main(true, $chatBot);
 ** Record incoming info into the chatbot's log.
 */	function newLine($channel, $sender, $message, $target){
 		global $vars;
-
-		if ($channel == "") {
-			return;
-		}
-			
-		if ($sender == "") {
-			return;
-		}
 		
 		if ($channel == "Buddy") {
 			$line = "[".date("Ymd H:i", time())."] [$channel] $sender $message";
@@ -197,11 +190,13 @@ main(true, $chatBot);
         
 		echo "$line\n";
 		
-		if ($target == 1 || $channel == "logOn" || $channel == "logOff" || $channel == "Buddy")
+		if ($target == 1 || $channel == "logOn" || $channel == "logOff" || $channel == "Buddy") {
 			return;
+		}
 		
-		if ($channel == "Inc. Msg." || $channel == "Out. Msg.")
+		if ($channel == "Inc. Msg." || $channel == "Out. Msg.") {
 			$channel = "Tells";
+		}
 
 		$today =  date("Ym");
 
@@ -309,7 +304,7 @@ main(true, $chatBot);
 	function bytesConvert($bytes) {
 		$ext = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
 		$unitCount = 0;
-		for(; $bytes > 1024; $unitCount++) {
+		for (; $bytes > 1024; $unitCount++) {
 			$bytes /= 1024;
 		}
 		return round($bytes, 2) ." ". $ext[$unitCount];
