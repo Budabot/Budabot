@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (preg_match("/^about$/i", $message)) {
+if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message)) {
 	global $version;
 	$data = file_get_contents("./core/HELP/about.txt");
 	$data = str_replace('<version>', $version, $data);
