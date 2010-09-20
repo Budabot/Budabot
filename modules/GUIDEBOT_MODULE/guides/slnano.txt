@@ -1,0 +1,17 @@
+<header>::::: Shadowlands Garden Nanos:::::<end>
+
+Here is an updated list of Nano Crystals sold in Gardens and Sanctuaries. 
+Please notify your bot developer of any changes, errors, or discrepencies. 
+<font color = yellow>
+<a href='chatcmd:///tell <myname> guides nascgar'> - Nascence Garden Nanos</a>
+<a href='chatcmd:///tell <myname> guides elygar'> - Elysium Garden Nanos.</a>
+<a href='chatcmd:///tell <myname> guides elysancn'> - Elysium Sanctuary Garden.</a>
+<a href='chatcmd:///tell <myname> guides shogar'> - Shoel Garden Nanos.</a>
+<a href='chatcmd:///tell <myname> guides shosancn'> - Shoel Sanctuary Garden Nanos.</a>
+<a href='chatcmd:///tell <myname> guides adogarn'> - Adonis Garden Nanos.</a>
+<a href='chatcmd:///tell <myname> guides adosancn'> - Adonis Sanctuary Garden Nanos.</a>
+<a href='chatcmd:///tell <myname> guides pengarn'> - Penumbra Garden Nanos.</a>
+<a href='chatcmd:///tell <myname> guides pensancn'> -  Penumbra Sanctuary Garden Nanos.</a>
+<a href='chatcmd:///tell <myname> guides infgarn'> - Inferno Garden Nanos.</a>
+<a href='chatcmd:///tell <myname> guides infsancn'> - Inferno Sanctuary Garden Nanos.</a>
+<a href='chatcmd:///tell <myname> guides panven'> - Pandemonium Vendors Nanos.</font></a>

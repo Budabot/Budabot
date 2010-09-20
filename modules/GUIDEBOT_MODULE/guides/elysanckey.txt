@@ -1,0 +1,35 @@
+<header>::::: Elysium: Shere Sanctuary Garden Key Quest :::::<end>
+
+Elysium: Shere Sanctuary Garden Key Quest
+
+
+Beginning this guide I'll assume you're in the Elysium Shere garden. Exit to Nero and head south along the rock wall cliff. You'll see a ramp in the temple area, go up it and you'll find Prophet Nar Shere (coords 922, 397) at the top. Talk to him and select the first option 'I spoke to Garboil Chi Shere and he mentioned someone called Yuan Chi?' Continue the conversation till you get the quest. Your first mission is to kill the Watcher Enel Ulma-Thar. 
+
+NOTE: It really helps to upload the mission's coords to the map so you can find where to go more easily after each kill. 
+
+<font color = green>Mob #1-3 to kill: 540, 1778</font> 
+Go back into the garden and exit out of the garden at <font color = yellow>The Jagged Coast</font> and go northwest to the Redeemed temple grounds.
+You will see them in the distance. Enter into the white 'hut' just inside the temple grounds.
+<font color = Red>Kill in the following Order:
+Watcher Enel Ulma-Thar 
+Sipius Enel Lux-Mara 
+Devoted Enel Ilad-Ulma</font>
+
+<font color = green>Mob #4-7 to kill: 873, 1226</font> 
+Exit Spade, return to the Redeemed temple from the key quest Kill in the following order:
+Your mission updates after the 3rd mob is killed and you go to kill Watcher Enel Hume-Yeol who is at the southwest temple. Head back to the garden and exit to Spade and head northwest around the mountain then head north to coords 873, 1226. 
+<font color = red>Kill in the following order:
+Watcher Enel Hume-yeol
+Sipius Enel Gil-Gil
+Diviner Enel Thar-Thar
+Devoted Enel Cama-Lux</font> 
+who are all near each other in the same area. 
+
+<font color = green>Mob #8 to kill: 760, 936</font> 
+Head back to the garden and exit to Shunpike and kill <font color = red>Watcher Enel Mara-Cama</font> which usually wanders on the bridge at 760, 936. 
+
+<font color = green>Mob #9 to kill: 819, 824</font> 
+Next kill <font color = red>Devoted Enel Thar-Ilad</font> who is slightly southeast at coords 819, 824. Loot the <font color = yellow>Briefing</font> item (which is NODROP UNIQUE).
+Head back to the garden, then to Nero, then talk to Prophet Nar Shere. 
+
+Talk to the prophet and select option: 'I completed my assignment and I am concerned, Prophet.' Continue the conversation about the Briefing item you looted and the Prophet will ask to see it. You'll be rewarded for your efforts with 'The Key to Shere's Sanctuary'. 

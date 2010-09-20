@@ -1,0 +1,58 @@
+<header>::::: Guide to Apf Sector 13 :::::<end>
+
+<font color=#4169e1>Objective: ASSIST THE UNICORNS IN PREVENTING THE BUGS FROM MAKING A BASE</font>
+Progress through the canyon killing all the aliens. The canyon will open up to a crater with regular aliens in the center and a group of Supports and Sentries on the far side. Kill the regular bugs. Do not attack the Advanced or Support Sentries! The mission-holder should now proceed to talk to the Unicorn Commander on top of the hill surrounding the crater (He can be found by running back throught the canyon towards the entrance until you reach a tree with large roots. Use the roots to jump onto a cliff edge on the right side of the canyon. Follow this cliff until it ends and you will find the Unicorn Commander). This will call down a large ship into the center of the crater, and a bunch of Unicorn Troopers will storm out towards the Sentries and attack them. Support Sentries can be pulled away from the Unicorns and Advanced Sentries and killed. The Advanced Sentries will kill the Unicorn Troops. Calmers can calm the Advanced Sentries until their reflect shield runs out.
+
+<font color=#ff0000>Once the Sentries are dead, the Biological Transceiver will appear. Everyone must follow these instructions:</font>
+ 1. Make sure you have 10 NCU free.
+ 2. Stand by the Biological Transceiver.
+ 3. Right Click (Use) the Biological Transceiver.
+ 4. Do not move for 10 seconds.
+ 5. Check your NCU for the the protection nano (yellow shield)
+
+<font color=#ff0000>If you do not have the protection nano, do not continue or you will die on the laser fence!!!</font>
+<font color=#ff0000>ENFORCERS: Rage will overwrite the protection nano. Do not use rage until you clear the laser fence!!!</font>
+
+<font color=#ff0000>BOSS: Master Genesplicer Cha'Khaz</font>
+This boss also spawns many adds. Adds spawned include support aliens, regular aliens, and alien vectors. <font color=#ff0000>Alien Vectors should be killed quickly!</font> Vectors spawn large amounts of alien larvae that can quickly decimate a raid force. Master Genesplicer Cha'Khaz does wipe aggro once he is nearing death.
+
+<font color=#ff0000>BOSS LOOT:</font>
+
+<a href='itemref://257960/257960/250'>Action Probability Estimator</a>
+ Used to make:
+  * <a href='itemref://257379/257379/200'>Extruder's Molybdenum Crash Helmet</a>
+  * <a href='itemref://257378/257378/200'>Nophex's Molybdenum Crash Helmet</a>
+  * <a href='itemref://257114/257114/200'>Sworn Knight Commander Genevra's Helmet</a>
+  * <a href='itemref://257115/257115/200'>Conscientious Knight Commander Nizno's Helmet</a>
+  * <a href='itemref://257383/257383/300'>Blackmane's Combined Officer's Headwear</a>
+  * <a href='itemref://257381/257381/300'>Gannondorf's Combined Commando's Headwear</a>
+  * <a href='itemref://257384/257384/300'>Haitte's Combined Sharpshooter's Headwear</a>
+  * <a href='itemref://257377/257377/300'>Odum's Combined Paramedic's Headwear</a>
+  * <a href='itemref://257380/257380/300'>Sillum's Combined Mercenary's Headwear</a>
+  * <a href='itemref://257382/257382/300'>Yakomo's Combined Scout's Headwear</a>
+
+<a href='itemref://257962/257962/250'>Dynamic Gas Redistribution Valves</a>
+ Used to make:
+  * <a href='itemref://257126/257126/300'>Amplified Sleek Cannon</a>
+  * <a href='itemref://257128/257128/300'>High Lord of Angst</a>
+  * <a href='itemref://257967/257967/300'>Silenced Kyr'Ozch Rifle - Type 2</a>
+  * <a href='itemref://257131/257131/300'>Silenced Kyr'Ozch Rifle - Type 3</a>
+
+<a href='itemref://257706/257706/1'>Kyr'Ozch Helmet</a>
+  * Give to Omni-Tek Observer for <a href='itemref://257112/257112/1'>Omni-Tek Award - Exemplar</a>
+  * Give to Clan Liaison for <a href='itemref://257113/257113/1'>Clan Merits - Paragon</a>
+
+Give the following items to Omni-Tek Observer or Clan Liaison for 10 tokens or 4 million credits.
+  * <a href='itemref://257533/257533/1'>Kyr'Ozch Video Processing Unit</a>
+  * <a href='itemref://257529/257529/1'>Kyr'Ozch Battlesuit Audio Processor</a>
+  * <a href='itemref://257531/257531/1'>Kyr'Ozch Rank Identification</a>
+  * <a href='itemref://257530/257530/1'>Kyr'Ozch Battlesuit Water Processing Unit</a>
+  * <a href='itemref://257044/257044/1'>Kyr'Ozch Battlesuit Gauntlet</a>
+
+Combine <a href='itemref://257968/257968/1'>Hacker ICE-Breaker Source</a> with a <a href='itemref://161699/161699/1'>Nano Programming Interface</a> (1,000 Nano Programming skill required) to make an <a href='itemref://257110/257110/1'>Intrusion Countermeasure Electronics Upgrade</a> (100% CRU).
+
+Kyr'Ozch Data Cores can be traded to Unicorn Administrator for an Encrypted Kyr'Ozch Key. You need one Data Core from Sectors 13, 28, and 35 to make the key needed to access Sector 42.
+
+
+Thanks to Turk021 for his APF Guides
+http://forums.anarchy-online.com/showthread.php?t=392937
