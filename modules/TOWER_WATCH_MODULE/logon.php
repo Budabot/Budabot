@@ -22,6 +22,9 @@
 
 require_once('functions.php');
 if (isset($this->guildmembers[$sender])) {
-    bot::send(getTowerInfoMsg(), $sender);
+	$msg = getTowerInfoMsg();
+	if ($msg != 'No sites in watch list.') {
+		bot::send($msg, $sender);
+	}
 }
 ?>
