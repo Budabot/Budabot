@@ -21,14 +21,14 @@
 	bot::command("", "$MODULE_NAME/specials.php", "specials", "all", "shows how much skill you need to cap specials recycle");
 
 	//Helpiles
-	bot::help("aggdef", "$MODULE_NAME/aggdef.txt", "all", "");
-	bot::help("nanoinit", "$MODULE_NAME/nanoinit.txt", "all", "");
-	bot::help("as", "$MODULE_NAME/as.txt", "all", "");
-	bot::help("fa", "$MODULE_NAME/fa.txt", "all", "");
-	bot::help("fling", "$MODULE_NAME/fling.txt", "all", "");
-	bot::help("burst", "$MODULE_NAME/burst.txt", "all", "");
-	bot::help("mafist", "$MODULE_NAME/mafist.txt", "all", "");
-	bot::help("brawl", "$MODULE_NAME/brawl.txt", "all", "");
-	bot::help("dimach", "$MODULE_NAME/dimach.txt", "all", "");
-	bot::help("fast", "$MODULE_NAME/fast.txt", "all", "");
+	bot::help("aggdef", "$MODULE_NAME/aggdef.txt", "all", "How to use aggdef");
+	bot::help("nanoinit", "$MODULE_NAME/nanoinit.txt", "all", "How to use nanoinit");
+	bot::help("as", "$MODULE_NAME/as.txt", "all", "How to use as");
+	bot::help("fa", "$MODULE_NAME/fa.txt", "all", "How to use as");
+	bot::help("fling", "$MODULE_NAME/fling.txt", "all", "How to use fling");
+	bot::help("burst", "$MODULE_NAME/burst.txt", "all", "How to use burst");
+	bot::help("mafist", "$MODULE_NAME/mafist.txt", "all", "How to use mafist");
+	bot::help("brawl", "$MODULE_NAME/brawl.txt", "all", "How to use brawl");
+	bot::help("dimach", "$MODULE_NAME/dimach.txt", "all", "How to use dimach");
+	bot::help("fast", "$MODULE_NAME/fast.txt", "all", "How to use fast");
 ?>
