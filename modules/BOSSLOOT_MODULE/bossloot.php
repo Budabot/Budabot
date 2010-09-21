@@ -13,7 +13,7 @@
     $links = array("Help;chatcmd:///tell <myname> help boss");
 
 $output = '';
-if(preg_match ("/^bossloot (.+)$/i", $message, $arr)) {
+if (preg_match ("/^bossloot (.+)$/i", $message, $arr)) {
 
 	$search = $arr[1];
 	$search = ucwords(strtolower($search));
@@ -31,7 +31,7 @@ if(preg_match ("/^bossloot (.+)$/i", $message, $arr)) {
 		//Find loot item and associated boss and his location
 		$db->query("SELECT * FROM boss_lootdb, boss_namedb, whereis WHERE boss_lootdb.itemname LIKE '%".str_replace("'", "''", $search)."%' AND boss_namedb.bossid = boss_lootdb.bossid AND whereis.name = boss_namedb.bossname");
 		$data = $db->fobject("all");
-		foreach ($data as $row) {
+		forEach ($data as $row) {
 			$bossname = $row->bossname;
 			$bossid = $row->bossid;
 			$where = $row->answer;
@@ -43,7 +43,7 @@ if(preg_match ("/^bossloot (.+)$/i", $message, $arr)) {
 				//output bossloot as many times as necessary
 				$db->query("SELECT * FROM boss_lootdb, aodb WHERE boss_lootdb.itemname LIKE '%".str_replace("'", "''", $search)."%' AND boss_lootdb.bossid = $bossid AND boss_lootdb.itemid = aodb.lowid");
 				$data = $db->fobject("all");
-				foreach ($data as $row) {
+				forEach ($data as $row) {
 					$lowid = $row->lowid;
 					$highid = $row->highid;
 					$ql = $row->highql;
@@ -53,20 +53,13 @@ if(preg_match ("/^bossloot (.+)$/i", $message, $arr)) {
 			}
 		}
 		$output = bot::makelink("BossLoot", $boss);
-	}
-	else {
+	} else {
 		$output .= "<yellow>There were no matches for your search.</end>";
 	}
-}
-else {
-	$output .="<yellow>You must add a search criteria after the command.</end>";
+} else {
+	$output .= "<yellow>You must add a search criteria after the command.</end>";
 }
 
 bot::send($output, $sendto);
 
 ?>
-
-
-
-
-

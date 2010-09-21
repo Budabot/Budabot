@@ -34,12 +34,12 @@
    */
 
 	$MODULE_NAME = "ORG_HISTORY_MODULE";
+	
+	bot::loadSQLFile($MODULE_NAME, "org_history");
 
 	bot::command("msg guild", "$MODULE_NAME/org_history.php", "orghistory", "all", "Shows the org history (invites and kicks and leaves) for a player");
 	
-	// events
 	bot::event("orgmsg", "$MODULE_NAME/org_action_listener.php", "none", "Capture Org Invite/Kick/Leave messages");
-
-	//Setup
-	bot::loadSQLFile($MODULE_NAME, "org_history");
+	
+	bot::help("orghistory", "$MODULE_NAME/org_history.txt", "guild", "How to use orghistory");
 ?>

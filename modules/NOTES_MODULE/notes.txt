@@ -1,4 +1,4 @@
-<header>::::: Online Commands :::::<end>
+<header>::::: Notes Commands :::::<end>
 
 <highlight>Shows all yours notes
 <tab><symbol>notes

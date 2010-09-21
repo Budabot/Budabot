@@ -40,8 +40,8 @@
 	//Verifies the Guestchannellist every 1hour
 	bot::event("1hour", "$MODULE_NAME/guest_channel_check.php", "guest", "Guest channel check");
 
-    bot::help("GuestChannel", "$MODULE_NAME/guestchannel.txt", "guild", "Guestchannel", "Basic Guild Commands");
-	bot::help("join_leave", "$MODULE_NAME/joinleave.txt", "all", "Joining and leaving the bot", "Raidbot");
-	bot::help("kickall", "$MODULE_NAME/kickall.txt", "raidleader", "Kick all players from the Bot", "Raidbot");
-	bot::help("lock", "$MODULE_NAME/lock.txt", "raidleader", "Lock the privategroup", "Raidbot");
+    bot::help("GuestChannel", "$MODULE_NAME/guestchannel.txt", "guild", "Guestchannel");
+	bot::help("join_leave", "$MODULE_NAME/joinleave.txt", "all", "Joining and leaving the bot");
+	bot::help("kickall", "$MODULE_NAME/kickall.txt", "raidleader", "Kick all players from the Bot");
+	bot::help("lock", "$MODULE_NAME/lock.txt", "raidleader", "Lock the privategroup");
 ?>

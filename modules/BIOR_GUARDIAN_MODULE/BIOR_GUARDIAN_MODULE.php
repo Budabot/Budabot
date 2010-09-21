@@ -14,7 +14,7 @@
 	bot::addsetting("bior_max", "Max Persons that are shown on BioR list", "edit", "10", "10;15;20;25;30", '0', "mod", "$MODULE_NAME/bior_help.txt");
 
 	//Helpfiles
-	bot::help("bior", "$MODULE_NAME/bior.txt", "all", "Bio Regrowth Macro and List", "Guardian and Bior R. Commands");
+	bot::help("bior", "$MODULE_NAME/bior.txt", "all", "Bio Regrowth Macro and List");
 	
 	//Guardian module
 	bot::event("leavePriv", "$MODULE_NAME/guardian_left_chat.php", "guard", "Remove player who leaves chat from guardian list if he was on it");
@@ -29,5 +29,5 @@
 	bot::addsetting("guard_max", "Max Persons that are shown on Guard list", "edit", "10", "10;15;20;25;30", '0', "mod", "$MODULE_NAME/guard_help.txt");
 
 	//Helpfiles
-	bot::help("guard", "$MODULE_NAME/guard.txt", "all", "Guardian Macro and List", "Guardian and Bior R. Commands");
+	bot::help("guard", "$MODULE_NAME/guard.txt", "all", "Guardian Macro and List");
 ?>
