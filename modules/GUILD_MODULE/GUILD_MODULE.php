@@ -12,9 +12,12 @@
 	bot::command("guild", "$MODULE_NAME/notify.php", "notify", "mod", "Adding a member man. to the notify list");
 	bot::command("msg", "$MODULE_NAME/notify.php", "notify", "mod", "Adding a member man. to the notify list");
 	bot::command("priv", "$MODULE_NAME/notify.php", "notify", "mod", "Adding a member man. to the notify list");
+	
+	bot::command("", "$MODULE_NAME/inactive_mem.php", "inactivemem", "admin", "Check for inactive members");
 
 	bot::addsetting("bot_notify", "Show/Hide Logoffs in Org Chat (Spam Prevention)", "edit", "1", "Show Logoffs;Hide Logoffs", '1;0', "mod", "$MODULE_NAME/botnotify.txt");
 	
 	//Helpfile
-    bot::help("notify", "$MODULE_NAME/notify.txt", "mod", "Add or remove a player from the notify list.", "Notify List");
+    bot::help("notify", "$MODULE_NAME/notify.txt", "mod", "Add or remove a player from the notify list.");
+	bot::help("inactivemem", "$MODULE_NAME/manage_guild.txt", "all", "Help on Checking for Inactive Members");
 ?>
