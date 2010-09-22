@@ -46,14 +46,13 @@ if(preg_match("/^orgmembers$/i", $message)) {
 	$msg = "Processing orgmember list. This can take a few seconds.";
     bot::send($msg, $sendto);
     
-    $first_char = "A";
+    $first_char = "";
 	$list = "<header>::::: Members of the org {$this->vars["my guild"]} :::::<end>";
-	$list .= "\n\n<highlight><u>$first_char</u><end>\n";
 	while($row = $db->fObject()) {
         if($row->logged_off != "0")
 	        $logged_off = " :: <highlight>Last logoff:<end> ".gmdate("D F d, Y - H:i", $row->logged_off)."(GMT)";
 	    
-	    if($row->name[0] != $first_char) {
+	    if ($row->name[0] != $first_char) {
 	     	$first_char = $row->name[0];
 			$list .= "\n\n<highlight><u>$first_char</u><end>\n";
 		}
