@@ -7,6 +7,8 @@ if (($sender == ucfirst(strtolower($this->settings['relaybot'])) || $channel == 
 	if ($this->settings["guest_relay"] == 1) {
 		bot::send($msg, "priv", true);
 	}
+} else {
+	$syntax_error = true;
 }
 
 ?>
