@@ -3,7 +3,7 @@
 <font color = yellow> -= Guides Updated August 15,2007 =-</font>
 <white>
 
-Hello $sender    Last Updated 11-21-2009 </font>
+Last Updated 11-21-2009 </font>
 <highlight>Latest Additions:<end>
 <highlight>Added 10-04-2009<end>
 
@@ -99,8 +99,6 @@ Shadowlands Tradeskills:
 Legacy of Xan Guides
 <a href='chatcmd:///tell <myname> <symbol>guides aridrift'> Information about The base Arid Rift Quests</a>
 
-<font color = RED>
-Can you think of any changes or additions? Send feedback to <a href='chatcmd:///tell Tyrence'>Tyrence</a> (RK 1 and 2)
-</font>
-Many, many thanks to Plugz, the original creator of this plugin.
-And Special Thanks to all the great AO websites, their creators, and the folks that take time to develop these guides
+Special Thanks to all the great AO websites, their creators, and the folks that take time to develop these guides
+
+Compiled by Plugz, RK1
