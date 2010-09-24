@@ -685,8 +685,8 @@ elseif (preg_match ("/^spiritssen ([0-9]+) (.+)$/i", $message, $arr)) {
 	}
 }
 else {
-	$spirits = "<header>  :::::  Result for Search of Spirits Databae  :::::<end>\n\n";
-	$spirits .= "<red>Invalid search criteria entered";
+	$syntax_error = true;
+	return;
 }
 		
 $spirits = bot::makeLink("Spirits", $spirits);
