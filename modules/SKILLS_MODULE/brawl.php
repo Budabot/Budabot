@@ -9,9 +9,9 @@
 
 		if ($brawl_skill < 1001) {
 			$i = 0; 
-		} else if ($brawl_skill < 2001)
+		} else if ($brawl_skill < 2001) {
 			$i = 2; 
-		} else if ($brawl_skill < 3001)
+		} else if ($brawl_skill < 3001) {
 			$i = 4; 
 		} else { 
 			bot::send("Skill entered is out of range... please enter a number between <highlight>1 and 3000<end>.",$sendto);
