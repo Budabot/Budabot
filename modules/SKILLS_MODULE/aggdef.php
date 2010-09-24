@@ -60,5 +60,8 @@ else{
 
 	$windowlink = bot::makeLink("::Your Agg/Def Settings::", $inside);
 	bot::send($windowlink, $sendto); 
+} else {
+	$syntax_error = true;
 }
+
 ?>
