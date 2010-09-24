@@ -5,9 +5,9 @@
 $info = explode(" ", $message);
 list($msg, $AttTim, $RechT, $InitS) = $info;
 
-if((!$AttTim) || (!$RechT) || (!$InitS))
+if ((!$AttTim) || (!$RechT) || (!$InitS)) {
 	$syntax_error = true;
-else{
+} else {
 	if( $InitS < 1200 ) 
 		{
 		$AttCalc	= round(((($AttTim - ($InitS / 600)) - 1)/0.02) + 87.5, 0);
@@ -60,8 +60,5 @@ else{
 
 	$windowlink = bot::makeLink("::Your Agg/Def Settings::", $inside);
 	bot::send($windowlink, $sendto); 
-} else {
-	$syntax_error = true;
 }
-
 ?>
