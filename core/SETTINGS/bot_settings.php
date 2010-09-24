@@ -91,12 +91,12 @@ if (preg_match("/^settings$/i", $message)) {
 } elseif(preg_match("/^settings change ($names)$/i", $message, $arr)) {
     $link = "<header>::::: Settings for $arr[1] :::::<end>\n\n";
  	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '$arr[1]'");
-	if($db->numrows() == 0)
+	if ($db->numrows() == 0) {
 		$msg = "This setting doesn't exists.";
-	else {
+	} else {
 		$row = $db->fObject();
 		$options = explode(";", $row->options);
-		if($options[0] == "color") {
+		if ($options[0] == "color") {
 		  	$link .= "For this setting you can set any Color in the HTML Hexadecimal Color Format.\n";
 		  	$link .= "You can change it manual with the command: \n";
 		  	$link .= "/tell <myname> settings save $row->name 'HTML-Color'\n";
@@ -120,14 +120,14 @@ if (preg_match("/^settings$/i", $message)) {
 		  	$link .= "Cyan: <font color='#00FFFF'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save $row->name #00FFFF'>Save it</a>) \n";
 		  	$link .= "Navy Blue: <font color='#000080'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save $row->name #000080'>Save it</a>) \n";
 		  	$link .= "Dark Orange: <font color='#FF8C00'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save $row->name #FF8C00'>Save it</a>) \n";
-		} elseif($options[0] == "text") {
+		} else if($options[0] == "text") {
 		  	if($options[1] <= 50 && $options[1] != "")
 		  		$link .= "For this setting you can enter any text you want(max. $options[1]chararacters).\n";
 		  	else
 		  		$link .= "For this setting you can enter any text you want(max. 50chararacters).\n";
 		  	$link .= "To change this setting do:\n";
 		  	$link .= "/tell <myname> settings save $row->name 'Your text'";
-		} elseif($options[0] == "number") {
+		} else if($options[0] == "number") {
 		  	if($options[1] != "") {
 			  	$num = explode("-", $options[1]);
 			  	$link .= "For this setting you can set any number from <highlight>$num[0]<end> to <highlight>$num[1]<end>.\n";
@@ -135,18 +135,22 @@ if (preg_match("/^settings$/i", $message)) {
 				$link .= "For this setting you can set any number.\n";
 		  	$link .= "You can change it manual with the command: \n";
 		  	$link .= "/tell <myname> settings save $row->name 'Number'\n";
-			if($options[1] != "") {
+			if ($options[1] != "") {
 			  	$link .= "Or you can use also simply click on one of the following Numbers\n";
-			  	for($i = $num[0];$i <= $num[1];$i++)
-					$link .= "<tab>- <highlight>$i<end> (<a href='chatcmd:///tell <myname> settings save $row->name $i'>Save it</a>)\n";
+			  	for ($i = $num[0]; $i <= $num[1]; $i++) {
+					$save_link = bot::makeLink('Save it', "/tell <myname> settings save $row->name $i", 'chatcmd');
+					$link .= "<tab>- <highlight>$i<end> ($save_link)\n";
+				}
 			}
 		} else {
 		  	$link .= "For this setting you can set only a range of allowed chars.\n";
 		  	$link .= "You can change it manual with the command: \n";
 		  	$link .= "/tell <myname> settings save $row->name 'Option'\n";
 		  	$link .= "Or you can use also simply click on one of the following Options\n";
-		  	foreach($options as $char)
-		  		$link .= "<tab> <highlight>$char<end> (<a href='chatcmd:///tell <myname> settings save $row->name $char'>Save it</a>)\n";
+		  	forEach ($options as $char) {
+				$save_link = bot::makeLink('Save it', "/tell <myname> settings save $row->name $char", 'chatcmd');
+		  		$link .= "<tab> <highlight>$char<end> ($save_link)\n";
+			}
 		}
 	}
   	$msg = bot::makeLink("Settings Info for $arr[1]", $link);
@@ -155,18 +159,18 @@ if (preg_match("/^settings$/i", $message)) {
   	$name_setting = strtolower($arr[1]);
   	$change_to_setting = $arr[2];
  	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '$name_setting'");
-	if($db->numrows() == 0)
+	if ($db->numrows() == 0) {
 		$msg = "This setting doesn't exists.";
-	else {
+	} else {
 		$row = $db->fObject();
 		$options = explode(";", $row->options);
 		$new_setting = "";
-		if($options[0] == "color") {
+		if ($options[0] == "color") {
 			if(preg_match("/^#([0-9a-f]{6})$/i", $change_to_setting, $col)) 
 				$new_setting = "<font color='$col[0]'>";
 			else
 				$msg = "<highlight>$change_to_setting<end> this isn't an correct HTML-Color.";
-		} elseif($options[0] == "text") {
+		} else if ($options[0] == "text") {
 		  	if($options[1] <= 50 && $options[1] != "") {
 			 	if(strlen($change_to_setting) > $options[1]) {
 				   	$msg = "Sorry but your text is longer then $options[1]characters.";
@@ -178,7 +182,7 @@ if (preg_match("/^settings$/i", $message)) {
 				} else
 					$new_setting = $change_to_setting;	  	
 			}
-		} elseif($options[0] == "number") {
+		} else if ($options[0] == "number") {
 		  	if($options[1] != "") {
 			  	$num = explode("-", $options[1]);
 				if($change_to_setting >= $num[0] && $change_to_setting <= $num[1])
@@ -187,7 +191,7 @@ if (preg_match("/^settings$/i", $message)) {
 					$msg = "Only Numbers between <highlight>$num[0]<end> and <highlight>$num[1]<end> are allowed.";
 			} else
 				$new_setting = $change_to_setting;
-		} elseif($row->intoptions != "0") {
+		} else if ($row->intoptions != "0") {
 			$options2 = array_flip($options);
 			$key = $options2[$change_to_setting];
 		  	$intoptions = explode(";", $row->intoptions);

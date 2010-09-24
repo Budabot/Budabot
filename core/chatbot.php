@@ -1076,7 +1076,7 @@ class bot extends AOChat{
 		//Check if the file exists
 		if ($help != '' && ($actual_filename = bot::verifyFilename($help)) != '') {
     		$filename = $actual_filename;
-		} elseif($help != "") {
+		} else if ($help != "") {
 			echo "Error in registering the File $filename for Setting $name. The file doesn't exists!\n";
 			return;
 		}
