@@ -9,9 +9,9 @@ function send_message_to_relay($message) {
 	$message = $chatBot->formatMessage($message);
 
 	if ($chatBot->settings['relaytype'] == 2) {
-		AOChat::send_privgroup($chatBot->settings['relaybot'], $message);
+		$chatBot->send_privgroup($chatBot->settings['relaybot'], $message);
 	} else if ($chatBot->settings['relaytype'] == 1) {
-		AOChat::send_tell($chatBot->settings["relaybot"], $message);
+		$chatBot->send_tell($chatBot->settings["relaybot"], $message);
 	}
 }
 
