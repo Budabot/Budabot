@@ -1241,6 +1241,9 @@ class bot extends AOChat{
 */	function processCallback($type, $args){
 		global $db;
 
+		// modules can set this to true to stop execution after they are called
+		$stop_execution = false;
+
 		switch ($type){
 			case AOCP_GROUP_ANNOUNCE: // 60
 				$b = unpack("C*", $args[0]);
@@ -1271,6 +1274,9 @@ class bot extends AOChat{
 					if ($this->joinPriv != NULL) {
 						forEach ($this->joinPriv as $filename) {
 							include $filename;
+							if ($stop_execution) {
+								return;
+							}
 						}
 					}
 					
@@ -1299,6 +1305,9 @@ class bot extends AOChat{
 					// Check files, for all 'player left channel events'.
 					forEach ($this->leavePriv as $filename) {
 						include $filename;
+						if ($stop_execution) {
+							return;
+						}
 					}
 				} else {
 					$type = "extLeavePriv";
@@ -1334,6 +1343,9 @@ class bot extends AOChat{
 						forEach ($this->logOff as $filename) {
 							$msg = "";
 							include $filename;
+							if ($stop_execution) {
+								return;
+							}
 						}
 					}
 				} else if ($status == 1) {
@@ -1347,6 +1359,9 @@ class bot extends AOChat{
 						forEach ($this->logOn as $filename) {
 						  	$msg = "";
 						  	include $filename;
+							if ($stop_execution) {
+								return;
+							}
 						}
 					}
 				}
@@ -1403,6 +1418,9 @@ class bot extends AOChat{
 					forEach ($this->privMsgs as $file) {
 						$msg = "";
 						include $file;
+						if ($stop_execution) {
+							return;
+						}
 					}
 				}
 
@@ -1443,8 +1461,8 @@ class bot extends AOChat{
 					}
 				}
 				// Upload Command File or return error message
-				if ($restricted == true || $filename == ""){
-					$this->send("Error! Unknown command or Access denied! for more info try /tell <myname> help", $sender);
+				if ($restricted == true || $filename == "") {
+					$this->send("Error! Unknown command or Access denied! for more info try /tell <myname> help", $sendto);
 					$this->spam[$sender] = $this->spam[$sender] + 20;
 					return;
 				} else {
@@ -1496,6 +1514,9 @@ class bot extends AOChat{
 						forEach ($this->privChat as $file) {
 						  	$msg = "";
 							include $file;
+							if ($stop_execution) {
+								return;
+							}
 						}
 					}
 
@@ -1559,6 +1580,9 @@ class bot extends AOChat{
 						forEach ($this->extPrivChat as $file) {
 						  	$msg = "";
 							include $file;
+							if ($stop_execution) {
+								return;
+							}
 						}
 					}
 				}
@@ -1614,6 +1638,9 @@ class bot extends AOChat{
     					forEach ($this->towers as $file) {
     						$msg = "";
 							include $file;
+							if ($stop_execution) {
+								return;
+							}
     					}
 					}
                     return;
@@ -1623,6 +1650,9 @@ class bot extends AOChat{
 						forEach ($this->orgmsg as $file) {
     						$msg = "";
 							include $file;
+							if ($stop_execution) {
+								return;
+							}
     					}
 					}
                     return;
@@ -1633,6 +1663,9 @@ class bot extends AOChat{
     					forEach ($this->guildChat as $file) {
 							$msg = "";
 							include $file;
+							if ($stop_execution) {
+								return;
+							}
 						}
 					}
 
@@ -1708,6 +1741,9 @@ class bot extends AOChat{
 					forEach ($this->extJoinPrivRequest as $file) {
 						$msg = "";
 						include $file;
+						if ($stop_execution) {
+							return;
+						}
 					}
 				}
                 return;
