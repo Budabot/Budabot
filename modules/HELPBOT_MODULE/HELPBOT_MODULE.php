@@ -44,7 +44,7 @@
 	// Help files
 	bot::help("whois", "$MODULE_NAME/whois.txt", "all", "Show char stats at current and all dimensions", "Helpbot");
     bot::help("biomat", "$MODULE_NAME/biomat.txt", "all", "Identify an Biomaterial", "Helpbot");
-    bot::help("calculator", "$MODULE_NAME/calculator.txt", "all", "Calculator", "Helpbot");
+    bot::help("calc", "$MODULE_NAME/calculator.txt", "all", "Calculator", "Helpbot");
     bot::help("oe", "$MODULE_NAME/oe.txt", "all", "Calculating the OE ranges", "Helpbot");
     bot::help("fliproll", "$MODULE_NAME/fliproll.txt", "all", "How to use the flip and roll command", "Helpbot");
     bot::help("history", "$MODULE_NAME/history.txt", "all", "History of a player", "Helpbot");

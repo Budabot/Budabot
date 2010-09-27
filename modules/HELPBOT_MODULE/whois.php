@@ -55,7 +55,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 	        } else {
 	            $msg .= " Not in a guild.) ";
 			}
-	
+
 	        $list = "<header>::::: Detailed infos :::::<end>\n\n";
 	        $list .= "<u>Options for ".$name."</u>\n \n";
 	        $list .= "<a href='chatcmd:///tell <myname> history ".$name."'>Check ".$name."'s History</a>\n";

@@ -17,6 +17,6 @@
 	bot::event("setup", "$MODULE_NAME/setup.php");
 
 	//Helpfiles
-	bot::help("news", "$MODULE_NAME/news.txt", "guild", "News", "Org Commands");
-	bot::help("priv_news", "$MODULE_NAME/priv_news.txt", "raidleader", "Set Privategroup News", "Raidbot");
+	bot::help("news", "$MODULE_NAME/news.txt", "guild", "News");
+	bot::help("priv_news", "$MODULE_NAME/priv_news.txt", "raidleader", "Set Privategroup News");
 ?>

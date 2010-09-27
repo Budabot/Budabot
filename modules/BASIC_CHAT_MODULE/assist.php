@@ -31,9 +31,10 @@
 
 global $assist;
 if (preg_match("/^assist$/i", $message)) {
-  	if(!isset($assist)) {
+  	if (!isset($assist)) {
 		$msg = "No assist set atm.";
 		bot::send($msg, $sendto);
+		return;
 	}
 } else if (preg_match("/^assist (.+)$/i", $message, $arr)) {
     $nameArray = explode(' ', $arr[1]);
@@ -46,7 +47,7 @@ if (preg_match("/^assist$/i", $message)) {
 			bot::send($msg, $sendto);
 		}
 		
-		if(!$uid) {
+		if (!$uid) {
 			$msg = "Player <highlight>$name<end> does not exist.";
 			bot::send($msg, $sendto);
 		}
@@ -57,6 +58,7 @@ if (preg_match("/^assist$/i", $message)) {
 	} else {
 		forEach ($nameArray as $key => $name) {
 			$name = ucfirst(strtolower($name));
+			$uid = AoChat::get_uid($name);
 			if ($type == "priv" && !isset($this->chatlist[$name])) {
 				$msg = "Player <highlight>$name<end> isn't in this bot.";
 				bot::send($msg, $sendto);

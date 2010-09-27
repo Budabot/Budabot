@@ -15,6 +15,8 @@
 	
 	bot::command("", "$MODULE_NAME/invite.php", "inviteuser", "all", "Enables Privatechat Join");
 	bot::command("", "$MODULE_NAME/kick.php", "kickuser", "all", "kick command for guests");
+	bot::command("", "$MODULE_NAME/invite.php", "invite", "all", "Enables Privatechat Join");
+	bot::command("", "$MODULE_NAME/kick.php", "kick", "all", "kick command for guests");
 	bot::command("", "$MODULE_NAME/add.php", "adduser", "all", "Enables Privatechat Join");
 	bot::command("", "$MODULE_NAME/rem.php", "remuser", "all", "Enables Privatechat Join");
 	
@@ -34,8 +36,8 @@
 	bot::event("logOn", "$MODULE_NAME/logon_autoinvite.php", "none", "Auto-invite members on logon");
 	
 	//Show Char infos on privjoin
-	bot::event("joinPriv", "$MODULE_NAME/notify.php", "none", "Show Infos about a Char when he joins the channel");
-	bot::event("leavePriv", "$MODULE_NAME/notify.php", "none", "Show a msg when someone leaves the channel");
+	bot::event("joinPriv", "$MODULE_NAME/notify.php", "none", "Records people who have joined the channel");
+	bot::event("leavePriv", "$MODULE_NAME/notify.php", "none", "Records people who have left the channel");
 	
 	//Verifies the Guestchannellist every 1hour
 	bot::event("1hour", "$MODULE_NAME/guest_channel_check.php", "guest", "Guest channel check");

@@ -42,7 +42,6 @@ if (Whitelist::check($sender) || isset($this->admins[$sender]) || $sender == ucf
 		  	$msg = "<orange>Error! Only Members of this bot can join this bot.<end>";
 		  	bot::send($msg, $sender);
   		  	$restricted = true;
-			$sender = null;
 		  	return;
 		} else {
 			$is_member = true;
@@ -54,7 +53,6 @@ if (Whitelist::check($sender) || isset($this->admins[$sender]) || $sender == ucf
 	  	$msg = "<orange>Error! Only members of the org {$this->vars["my guild"]} can join this bot.<end>";
 	  	bot::send($msg, $sender);
 	  	$restricted = true;
-		$sender = null;
 	  	return;
 	}
 	
@@ -65,7 +63,6 @@ if (Whitelist::check($sender) || isset($this->admins[$sender]) || $sender == ucf
 		    $msg = "<orange>Error! Unable to get your character info. Please try again later.<end>";
 		    bot::send($msg, $sender);
 		  	$restricted = true;
-			$sender = null;
 		    return;
 		}
 	}
@@ -75,7 +72,6 @@ if (Whitelist::check($sender) || isset($this->admins[$sender]) || $sender == ucf
 	  	$msg = "<orange>Error! You need to be at least {$this->settings["priv_req_lvl"]} to join this bot.<end>";
 	    bot::send($msg, $sender);
 	  	$restricted = true;
-		$sender = null;
 	    return;
 	}
 	
@@ -84,7 +80,6 @@ if (Whitelist::check($sender) || isset($this->admins[$sender]) || $sender == ucf
 	  	$msg = "<orange>Error! Only Members of the Faction {$this->settings["priv_req_faction"]} can join this bot.<end>";
 	    bot::send($msg, $sender);
 	  	$restricted = true;
-		$sender = null;
 	    return;
 	} else if ($this->settings["priv_req_faction"] == "not Omni" || $this->settings["priv_req_faction"] == "not Clan" || $this->settings["priv_req_faction"] == "not Neutral") {
 		$tmp = explode(" ", $this->settings["priv_req_faction"]);
@@ -92,7 +87,6 @@ if (Whitelist::check($sender) || isset($this->admins[$sender]) || $sender == ucf
 			$msg = "<orange>Error! Only members that are not in the Faction {$tmp[1]} can join this bot.<end>";
 		    bot::send($msg, $sender);
 		  	$restricted = true;
-			$sender = null;
 		    return;
 		}
 	}
@@ -102,7 +96,6 @@ if (Whitelist::check($sender) || isset($this->admins[$sender]) || $sender == ucf
 	  	$msg = "<orange>Error! Only players who are at least level {$this->settings["priv_req_lvl"]} can join this bot.<end>";
 	    bot::send($msg, $sender);
 	  	$restricted = true;
-		$sender = null;
 	    return;
 	}
 } else {
@@ -113,7 +106,6 @@ if (Whitelist::check($sender) || isset($this->admins[$sender]) || $sender == ucf
 		  	$msg = "<orange>Error! I am only responding to members of this bot!<end>.";
 		  	bot::send($msg, $sender);
   		  	$restricted = true;
-			$sender = null;
 		  	return;
 		}
 	}
@@ -123,7 +115,6 @@ if (Whitelist::check($sender) || isset($this->admins[$sender]) || $sender == ucf
 	  	$msg = "<orange>Error! I am only respondling to members of the org {$this->vars["my guild"]}.<end>";
 	  	bot::send($msg, $sender);
 	  	$restricted = true;
-		$sender = null;
 	  	return;
 	}
 	
@@ -134,7 +125,6 @@ if (Whitelist::check($sender) || isset($this->admins[$sender]) || $sender == ucf
 		    $msg = "<orange>Error! I was unable to get your char infos. Please try again later.<end>";
 		    bot::send($msg, $sender);
 		  	$restricted = true;
-			$sender = null;
 		    return;
 		}
 	}
@@ -144,7 +134,6 @@ if (Whitelist::check($sender) || isset($this->admins[$sender]) || $sender == ucf
 	  	$msg = "<orange>Error! I am only responding to players that are higher then Level {$this->settings["tell_req_lvl"]}.<end>";
 	    bot::send($msg, $sender);
    	  	$restricted = true;
-		$sender = null;
 	    return;
 	}
 	
@@ -153,7 +142,6 @@ if (Whitelist::check($sender) || isset($this->admins[$sender]) || $sender == ucf
 	  	$msg = "<orange>Error! I am only responding to members of the Faction {$this->settings["tell_req_faction"]}.<end>";
 	    bot::send($msg, $sender);
 	  	$restricted = true;
-		$sender = null;
 	    return;
 	} else if ($this->settings["tell_req_faction"] == "not Omni" || $this->settings["tell_req_faction"] == "not Clan" || $this->settings["tell_req_faction"] == "not Neutral") {
 		$tmp = explode(" ", $this->settings["tell_req_faction"]);
@@ -161,7 +149,6 @@ if (Whitelist::check($sender) || isset($this->admins[$sender]) || $sender == ucf
 			$msg = "<orange>Error! I am responding only to members that are not in the Faction {$tmp[1]}.<end>";
 		    bot::send($msg, $sender);
     	  	$restricted = true;
-			$sender = null;
 		    return;
 		}
 	}
