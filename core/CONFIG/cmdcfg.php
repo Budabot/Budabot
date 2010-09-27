@@ -542,7 +542,7 @@ if (preg_match("/^config$/i", $message)) {
 		$list .= "<highlight><u>Commands of this group</u><end> \n";
 		while ($row = $db->fObject()) {
 	  	  	if ($oldcmd != $row->cmd) {
-				$adv = "<a href='chatcmd:///tell <myname> config cmd $row->cmd $row->module'>Adv.</a>";
+				$adv = "<a href='chatcmd:///tell <myname> config cmd $row->cmd'>Adv.</a>";
 				if ($row->description != "none")
 				    $list .= "$row->description (Cmd: $row->cmd)($adv): $on  $off \n";
 				else
@@ -703,11 +703,11 @@ if (preg_match("/^config$/i", $message)) {
 		if ($row->cmdevent == 'cmd') {
 			$on = "<a href='chatcmd:///tell <myname> config cmd $row->cmd enable all'>ON</a>";
 			$off = "<a href='chatcmd:///tell <myname> config cmd $row->cmd disable all'>OFF</a>";
-			$adv = "<a href='chatcmd:///tell <myname> config cmd $row->cmd $row->module'>Adv.</a>";
+			$adv = "<a href='chatcmd:///tell <myname> config cmd $row->cmd'>Adv.</a>";
 		} else if ($row->cmdevent == 'subcmd') {
 			$on = "<a href='chatcmd:///tell <myname> config subcmd $row->cmd enable all'>ON</a>";
 			$off = "<a href='chatcmd:///tell <myname> config subcmd $row->cmd disable all'>OFF</a>";
-			$adv = "<a href='chatcmd:///tell <myname> config subcmd $row->cmd $row->module'>Adv.</a>";
+			$adv = "<a href='chatcmd:///tell <myname> config subcmd $row->cmd'>Adv.</a>";
 		}
 		
 		if ($row->msg_avail == 0) {
