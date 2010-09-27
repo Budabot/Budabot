@@ -321,20 +321,19 @@ if (preg_match("/^config$/i", $message)) {
 		$msg = "Updated access of sub command <highlight>$command<end> in Channel <highlight>$type<end> to <highlight>$arr[4]<end>";
 	}
 	bot::send($msg, $sendto);
-} else if (preg_match("/^config cmd ([a-z0-9_]+) (.+)$/i", $message, $arr)) {
+} else if (preg_match("/^config cmd ([a-z0-9_]+)$/i", $message, $arr)) {
 	$cmd = strtolower($arr[1]);
-	$module = strtoupper($arr[2]);
 	$found_msg = 0;
 	$found_priv = 0;
 	$found_guild = 0;	
 
-	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `module` = '$module'");
+	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd'");
 	if ($db->numrows() == 0) {
-		$msg = "Could not find the command <highligh>$cmd<end> in the module <highlight>$module<end>.";
+		$msg = "Could not find the command <highligh>$cmd<end>.";
 	} else {
 		$list = "<header>::::: Configure command $cmd :::::<end>\n\n";
 		$list .= "<u><highlight>Tells:<end></u>\n";	
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = 'msg' AND `module` = '$module'");
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = 'msg'");
 		if ($db->numrows() == 1) {
 			$row = $db->fObject();
 
@@ -371,7 +370,7 @@ if (preg_match("/^config$/i", $message)) {
 		}
 
 		$list .= "\n\n<u><highlight>Private Channel:<end></u>\n";	
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = 'priv' AND `module` = '$module'");
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = 'priv'");
 		if ($db->numrows() == 1) {
 			$row = $db->fObject();
 
@@ -410,7 +409,7 @@ if (preg_match("/^config$/i", $message)) {
 		}
 
 		$list .= "\n\n<u><highlight>Guild Channel:<end></u>\n";
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = 'guild' AND `module` = '$module'");
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = 'guild'");
 		if ($db->numrows() == 1) {
 			$row = $db->fObject();
 			
@@ -443,7 +442,7 @@ if (preg_match("/^config$/i", $message)) {
 		} else 
 			$list .= "Current Status: <red>Unused<end>. \n";
 
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE dependson = '$cmd' AND `type` = 'msg' AND `cmdevent` = 'subcmd' AND `module` = '$module'");
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE dependson = '$cmd' AND `type` = 'msg' AND `cmdevent` = 'subcmd'");
 		if ($db->numrows() != 0) {
 			
 			$list .= "\n\n<u><highlight>Available Subcommands in tells<end></u>\n";
@@ -473,7 +472,7 @@ if (preg_match("/^config$/i", $message)) {
 			}
 		}
 
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `dependson` = '$cmd' AND `type` = 'priv' AND `cmdevent` = 'subcmd' AND `module` = '$module'");
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `dependson` = '$cmd' AND `type` = 'priv' AND `cmdevent` = 'subcmd'");
 		if ($db->numrows() != 0) {
 			$list .= "\n\n<u><highlight>Available Subcommands in Private Channel<end></u>\n";
 			while ($row = $db->fObject()) {
@@ -502,7 +501,7 @@ if (preg_match("/^config$/i", $message)) {
 			}
 		}
 
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `dependson` = '$cmd' AND `type` = 'guild' AND `cmdevent` = 'subcmd' AND `module` = '$module'");
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `dependson` = '$cmd' AND `type` = 'guild' AND `cmdevent` = 'subcmd'");
 		if ($db->numrows() != 0) {
 			$list .= "\n\n<u><highlight>Available Subcommands in Guild Channel<end></u>\n";
 			while ($row = $db->fObject()) {
@@ -584,66 +583,6 @@ if (preg_match("/^config$/i", $message)) {
 		$msg = bot::makeLink(ucfirst($grp)." group config", $list);
 	} 
 	bot::send($msg, $sendto);
-} else if (preg_match("/^config mod (.+)$/i", $message, $arr)) {
-  	$mod = strtolower($arr[1]);
-	$list = "<header>::::: Config for module $mod :::::<end>\n";
-	$list .= "Here can you disable or enable Commandos/Events and also changing their Access Level\n";
-	$list .= "The following options are available:\n";
-	$list .= " - Click ON or Off behind the Modulename to Enable or Disable them completly.\n";
-	$list .= " - Click ON or Off behind the Command/Eventname to Enable or Disable them.\n";
-	$list .= " - Click Adv. behind the name to change their Status for the single Channels \n";
-	$list .= "   and to change their Access Limit\n\n";
-
-	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' AND `type` != 'setup' AND `dependson` = 'none' AND `module` = '$mod'"
-        ." UNION ALL"
-        ." SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'event' AND `type` != 'setup' AND `dependson` = 'none' AND `module` = '$mod'"
-        ." ORDER BY `cmd`");
-	$data = $db->fObject("all");
-	forEach ($data as $row) {
-        if ($row->cmdevent == "cmd" && $oldcmd != $row->cmd) {
-			if ($row->grp == "none") {
-				$on = "<a href='chatcmd:///tell <myname> config cmd ".$row->cmd." enable all'>ON</a>";
-				$off = "<a href='chatcmd:///tell <myname> config cmd ".$row->cmd." disable all'>OFF</a>";
-				$adv = "<a href='chatcmd:///tell <myname> config cmd ".$row->cmd."'>Adv.</a>";
-		
-				if ($row->description != "none")
-				    $list .= "$row->description ($adv): $on  $off \n";
-				else
-				    $list .= "$row->cmd Command ($adv): $on  $off \n";
-				$oldcmd = $row->cmd;
-			} else if ($group[$row->grp] == false) {
-				$on = "<a href='chatcmd:///tell <myname> config grp ".$row->grp." enable all'>ON</a>";
-				$off = "<a href='chatcmd:///tell <myname> config grp ".$row->grp." disable all'>OFF</a>";
-				$adv = "<a href='chatcmd:///tell <myname> config grp ".$row->grp."'>Adv.</a>";
-
-				$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = 'none' AND `cmdevent` = 'group' AND `type` = '$row->grp'");
-				if ($db->numrows() == 1) {
-				  	$temp = $db->fObject();
-					if ($temp->description != "none")
-				    	$list .= "$temp->description ($adv): $on  $off \n";
-					else
-				    	$list .= "$temp->grp group ($adv): $on  $off \n";				 	 	
-				}		
-				$group[$row->grp] = true;
-			}
-		} else if ($row->cmdevent == "event") {
-				$on = "<a href='chatcmd:///tell <myname> config event ".$row->type." ".$row->file." enable all'>ON</a>";
-				$off = "<a href='chatcmd:///tell <myname> config event ".$row->type." ".$row->file." disable all'>OFF</a>";
-
-				if ($row->status == 1)
-					$status = "<green>Enabled<end>";
-				else
-					$status = "<red>Disabled<end>";
-		
-				if ($row->description != "none")
-				    $list .= "$row->description($status): $on  $off \n";
-				else
-				    $list .= "$row->type Event($status): $on  $off \n";			  	
-		}
-	}
-
-	$msg = bot::makeLink("Configuration for module $mod", $list);
-	bot::send($msg, $sendto);
 } else if (preg_match("/^config help (.+) admin (all|leader|rl|mod|guildadmin|guild)$/i", $message, $arr)) {
   	$help = strtolower($arr[1]);
 	$admin = $arr[2];
@@ -691,8 +630,9 @@ if (preg_match("/^config$/i", $message)) {
 
 	$msg = bot::makeLink("Configurate helpfiles for module $mod", $list);
 	bot::send($msg, $sendto);
-} else if (preg_match("/^config (.*)$/i", $message, $arr)) {
+} else if (preg_match("/^config ([a-z0-9_]*)$/i", $message, $arr)) {
 	$module = strtoupper($arr[1]);
+	$found = false;
 
 	$on = "<a href='chatcmd:///tell <myname> config mod {$module} enable all'>On</a>";
 	$off = "<a href='chatcmd:///tell <myname> config mod {$module} disable all'>Off</a>";
@@ -702,6 +642,7 @@ if (preg_match("/^config$/i", $message)) {
 
  	$db->query("SELECT * FROM settings_<myname> WHERE `mode` != 'hide' AND `module` = '$module'");
 	if ($db->numrows() > 0) {
+		$found = true;
 		$list .= "\n<i>Settings</i>\n";
 	}
  	while ($row = $db->fObject()) {
@@ -750,6 +691,7 @@ if (preg_match("/^config$/i", $message)) {
 			cmd";
 	$db->query($sql);
 	if ($db->numrows() > 0) {
+		$found = true;
 		$list .= "\n<i>Commands</i>\n";
 	}
 	$data = $db->fObject("all");
@@ -758,11 +700,11 @@ if (preg_match("/^config$/i", $message)) {
 		$priv = '';
 		$msg = '';
 
-		if ($data->cmdevent == 'cmd') {
+		if ($row->cmdevent == 'cmd') {
 			$on = "<a href='chatcmd:///tell <myname> config cmd $row->cmd enable all'>ON</a>";
 			$off = "<a href='chatcmd:///tell <myname> config cmd $row->cmd disable all'>OFF</a>";
 			$adv = "<a href='chatcmd:///tell <myname> config cmd $row->cmd $row->module'>Adv.</a>";
-		} else if ($data->cmdevent == 'subcmd') {
+		} else if ($row->cmdevent == 'subcmd') {
 			$on = "<a href='chatcmd:///tell <myname> config subcmd $row->cmd enable all'>ON</a>";
 			$off = "<a href='chatcmd:///tell <myname> config subcmd $row->cmd disable all'>OFF</a>";
 			$adv = "<a href='chatcmd:///tell <myname> config subcmd $row->cmd $row->module'>Adv.</a>";
@@ -801,6 +743,7 @@ if (preg_match("/^config$/i", $message)) {
 	
 	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'event' AND `type` != 'setup' AND `module` = '$module'");
 	if ($db->numrows() > 0) {
+		$found = true;
 		$list .= "\n<i>Events</i>\n";
 	}
 	while ($row = $db->fObject()) {
@@ -820,7 +763,11 @@ if (preg_match("/^config$/i", $message)) {
 		}
 	}
 
-  	$msg = bot::makeLink("Bot Settings", $list);
+	if ($found) {
+		$msg = bot::makeLink("Bot Settings", $list);
+	} else {
+		$msg = "Could not find module '$module'";
+	}
  	bot::send($msg, $sendto);
 } else
 	$syntax_error = true;

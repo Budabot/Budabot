@@ -1,17 +1,7 @@
 <header>::::: Configuring the Bot :::::<end>
 
-With the command config you can access the config
-module of this bot. First you see a list with all
-modules and commands that the bot can provide. When
-you go through the list you see behind every module
-a ON and OFF link. These are enabling or disabling
-all commands within this module. The same links can
-you see behind the different commands but also a link
-to Adv. which means simple you have access to the
-advanced Settings. Depending if you looking at command
-groups or single commands you see 2 different windows.
-When you look at the group window you see the different
-commands within these group. Looking at a single command
-shows you the current status of it. At this window the
-command can be enabled/disabled for single channels and
-also the needed min access lvl can be changed.
+<symbol>config  -- shows a list of all the modules to configure
+
+<symbol>config 'MODULE_NAME' -- shows the config page for the specified module
+
+<symbol>config cmd 'cmd_name' -- shows the config page for the specified command
