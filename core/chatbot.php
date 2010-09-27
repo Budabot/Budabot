@@ -1243,6 +1243,7 @@ class bot extends AOChat{
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
+		$restricted = false;
 
 		switch ($type){
 			case AOCP_GROUP_ANNOUNCE: // 60
@@ -1410,7 +1411,10 @@ class bot extends AOChat{
 
 				// Check privatejoin and tell Limits
 				if (file_exists("./core/PRIV_TELL_LIMIT/check.php")) {
-					include "./core/PRIV_TELL_LIMIT/check.php";
+					include './core/PRIV_TELL_LIMIT/check.php';
+					if ($restricted) {
+						return;
+					}
 				}
 
 				// Events
