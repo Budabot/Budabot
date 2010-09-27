@@ -37,7 +37,7 @@
 * name for the Windows-specific ini-file.) 
 */ 
 if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') { 
-    $php_exec = "php.exe -c php-win.ini"; 
+    $php_exec = ".\win32\php.exe -c php-win.ini"; 
 } else { 
     $php_exec = "php"; 
 } 
