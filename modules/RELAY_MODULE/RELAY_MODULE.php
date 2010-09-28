@@ -1,10 +1,12 @@
 <?php
 	$MODULE_NAME = "RELAY_MODULE";
 	
-	require_once("functions.php");
+	require_once 'functions.php';
 	
 	// Sending messages to relay
 	bot::event("guild", "$MODULE_NAME/send_relay_message.php", "none");
+	
+	bot::command("", "$MODULE_NAME/tellrelay.php", "tellrelay", "admin", "Convenience command to quickly set up org relay over tells between two orgs");
 	
 	// Receiving messages to relay
 	bot::command("msg", "$MODULE_NAME/receive_relay_message.php", "grc", "all", "Relays incoming messages to guildchat");
@@ -24,4 +26,6 @@
 	bot::addsetting("relaytype", "Type of relay", "edit", "1", "tell;pgroup", '1;2', "mod", "");
 	bot::addsetting("relaysymbol", "Symbol for external relay", "edit", "@", "!;#;*;@;$;+;-;Always relay", '0', "mod", "");
 	bot::addsetting("relaybot", "Bot for Guildrelay", "edit", "Off", "text", '0', "mod");
+	
+	bot::help("tellrelay", "$MODULE_NAME/tellrelay.txt", "admin", "How to setup an org relay between two orgs using tells");
 ?>
