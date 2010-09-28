@@ -36,6 +36,8 @@
 	bot::regcommand("msg", "$MODULE_NAME/lookup.php", "lookup", "mod");
 	bot::regcommand("priv", "$MODULE_NAME/lookup.php", "lookup", "mod");
 	bot::regcommand("guild", "$MODULE_NAME/lookup.php", "lookup", "mod");
+	
+	bot::regevent("1hour", "$MODULE_NAME/ping_db.php");
 
 	//Help Files
 	bot::help("systemhelp", "$MODULE_NAME/system.txt", "admin", "Admin System Help file.", "Administration");
