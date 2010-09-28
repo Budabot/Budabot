@@ -11,5 +11,5 @@
 	bot::regevent("setup", "$MODULE_NAME/upload_settings.php");
 		
 	//Help Files
-	bot::help("settings", "$MODULE_NAME/settings.txt", "mod", "Change Settings of the Bot.", "Configuration of the Bot");
+	bot::help("settings", "$MODULE_NAME/settings.txt", "mod", "Change Settings of the Bot");
 ?>

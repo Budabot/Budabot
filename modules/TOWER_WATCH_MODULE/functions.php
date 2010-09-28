@@ -131,7 +131,6 @@ function getTowerInfoMsg() {
 }
 
 function getTowerType($ql) {
-
 	$towerType = '';
 	
 	if ($ql >= 276) {

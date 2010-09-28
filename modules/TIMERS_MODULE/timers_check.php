@@ -30,10 +30,11 @@
  */
 
 //Check if at least one timer is running
-if(count($this->vars["Timers"]) == 0)
+if (count($this->vars["Timers"]) == 0) {
 	return;
+}
 
-foreach($this->vars["Timers"] as $key => $value) {
+forEach ($this->vars["Timers"] as $key => $value) {
 	$msg = "";
 
 	$tleft = $this->vars["Timers"][$key]["timer"] - time();
@@ -42,43 +43,42 @@ foreach($this->vars["Timers"] as $key => $value) {
 	$owner = $this->vars["Timers"][$key]["owner"];
 	$mode = $this->vars["Timers"][$key]["mode"];
 
-	if($tleft <= 0 && $tleft >= -600) {
-		if($name == "PrimTimer")
+	if ($tleft <= 0 && $tleft >= -600) {
+		if ($name == "PrimTimer") {
 			$msg = "<highlight>$owner<end> your timer has gone off";
-		else
+		} else {
 			$msg = "<highlight>$owner<end> your timer named <highlight>$name<end> has gone off";
+		}
 	
 		unset($this->vars["Timers"][$key]);
 		$db->query("DELETE FROM timers_<myname> WHERE `name` = '" . str_replace("'", "''", $name) . "' AND `owner` = '$owner'");
-	} elseif ($tleft <= 0) {
+	} else if ($tleft <= 0) {
 		unset($this->vars["Timers"][$key]);
 		$db->query("DELETE FROM timers_<myname> WHERE `name` = '" . str_replace("'", "''", $name) . "' AND `owner` = '$owner'");
-	} elseif ($tleft >= 3599 && $tleft < 3601 && ((time() - $set_time) >= 30)) {
+	} else if ($tleft >= 3599 && $tleft < 3601 && ((time() - $set_time) >= 30)) {
 		if($name == "PrimTimer")
 			$msg = "Reminder: Timer has <highlight>1hour<end> left [set by <highlight>$owner<end>]";
 		else
 			$msg = "Reminder: Timer <highlight>$name<end> has <highlight>1hour<end> left [set by <highlight>$owner<end>]";
-	} elseif ($tleft >= 899 && $tleft < 901 && ((time() - $set_time) >= 30)) {
+	} else if ($tleft >= 899 && $tleft < 901 && ((time() - $set_time) >= 30)) {
 		if($name == "PrimTimer")
 			$msg = "Reminder: Timer has <highlight>15minutes<end> left [set by <highlight>$owner<end>]";
 		else
 			$msg = "Reminder: Timer <highlight>$name<end> has <highlight>15minutes<end> left [set by <highlight>$owner<end>]";
-	} elseif ($tleft >= 59 && $tleft < 61 && ((time() - $set_time) >= 30)) {
-		if($name == "PrimTimer")
+	} else if ($tleft >= 59 && $tleft < 61 && ((time() - $set_time) >= 30)) {
+		if ($name == "PrimTimer") {
 			$msg = "Reminder: Timer has <highlight>1minute<end> left [set by <highlight>$owner<end>]";
-		else
+		} else {
 			$msg = "Reminder: Timer <highlight>$name<end> has <highlight>1minute<end> left [set by <highlight>$owner<end>]";
-	}
-	if ('' != $msg)
-	{
-		if ('msg' == $mode)
-		{
-			bot::send($msg, $owner);
 		}
-		else
-		{
+	}
+	if ('' != $msg) {
+		if ('msg' == $mode) {
+			bot::send($msg, $owner);
+		} else {
 			bot::send($msg, $mode);
 		}
 	}
 }
+
 ?>

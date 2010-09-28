@@ -35,8 +35,8 @@
 	bot::regcommand("priv", "$MODULE_NAME/set_limits_priv.php", "minlvl", "mod");
 
 	//Set/Show general limit for privategroup
-	bot::regcommand("msg", "$MODULE_NAME/set_limits_priv.php", "open", "mod");
-	bot::regcommand("priv", "$MODULE_NAME/set_limits_priv.php", "open", "mod");
+	bot::regcommand("msg", "$MODULE_NAME/set_limits_priv.php", "openchannel", "mod");
+	bot::regcommand("priv", "$MODULE_NAME/set_limits_priv.php", "openchannel", "mod");
 
 	//Set/Show faction limit for privategroup
 	bot::regcommand("msg", "$MODULE_NAME/set_limits_priv.php", "faction", "mod");
@@ -57,5 +57,5 @@
 	bot::addsetting("tell_req_open", "Tell General Limit", "noedit", "all", "none", "0", "mod", "$MODULE_NAME/help_topen.txt");
 
 	//Help File
-	bot::help("priv_tell_limits", "$MODULE_NAME/help.txt", "mod", "Set Limits for tells and PrivGroup.", "Configuration of the Bot");
+	bot::help("priv_tell_limits", "$MODULE_NAME/help.txt", "mod", "Set Limits for tells and PrivGroup");
 ?>

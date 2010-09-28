@@ -52,7 +52,7 @@ if (preg_match("/^minlvl$/i", $message)) {
  		$msg = "Privategroup Invites are accepted from the level $minlvl and above.";
 
     bot::send($msg, $sendto);
-} else if (preg_match("/^open$/i", $message)) {
+} else if (preg_match("/^openchannel$/i", $message)) {
  	if($this->settings["oriv_req_open"] == "all")
  		$msg = "No General Limit is set for privategroup Invites.";
  	elseif($this->settings["priv_req_open"] == "org")
@@ -61,7 +61,7 @@ if (preg_match("/^minlvl$/i", $message)) {
 		$msg = "General Limit for privategroup Invites is set to Bot members only.";
 	
     bot::send($msg, $sendto);	
-} else if (preg_match("/^open (org|all|members)$/i", $message, $arr)) {
+} else if (preg_match("/^openchannel (org|all|members)$/i", $message, $arr)) {
 	$open = ucfirst(strtolower($arr[1]));
 	
 	if($open == "all") {

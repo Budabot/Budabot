@@ -37,7 +37,7 @@ if ($this->settings["topic"] != "" && $type == "joinPriv") {
 	$days = floor($hours / 24);
 	$hours = floor($hours - ($days * 24));
 	$msg = "<highlight>Topic:<end> {$this->settings["topic"]} [set by <highlight>{$this->settings["topic_setby"]}<end>][<highlight>{$days}days, {$hours}hrs and {$mins}mins ago<end>]";
-  	bot::send($msg, $sendto);
+  	bot::send($msg, $sender);
 } else if (preg_match("/^topic$/i", $message, $arr)) {
 	$time = time() - $this->settings["topic_time"];
 	$mins = floor($time / 60);
