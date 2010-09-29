@@ -40,8 +40,8 @@
 	bot::command("priv", "$MODULE_NAME/tell.php", "tell", "all", "Repeats a message 3 times");
 	bot::command("", "$MODULE_NAME/cmd.php", "cmd", "rl", "Creates a highly visible messaage");
 	
-	//updateme
-	bot::command("", "$MODULE_NAME/updateme.php", "updateme", "all", "Updates Charinfos from a player");
+	//Updateme
+	bot::command("", "$MODULE_NAME/updateme.php", "updateme", "all", "Updates char info for a player");
 
 	//Helpfiles
 	bot::help("afk_priv", "$MODULE_NAME/afk.txt", "all", "Going AFK");

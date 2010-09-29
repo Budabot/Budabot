@@ -78,12 +78,14 @@ class bot extends AOChat{
 		}
 
 		$db->query("SELECT * FROM hlpcfg_<myname>");
-		while($row = $db->fObject())
+		while ($row = $db->fObject()) {
 		  	$this->existing_helps[$row->name] = true;
+		}
 
 		$db->query("SELECT * FROM settings_<myname>");
-		while($row = $db->fObject())
+		while($row = $db->fObject()) {
 		  	$this->existing_settings[$row->name] = true;
+		}
 
 		// Load the Core Modules -- SETINGS must be first in case the other modules have settings
 		if($this->settings['debug'] > 0) print("\n:::::::CORE MODULES::::::::\n");
