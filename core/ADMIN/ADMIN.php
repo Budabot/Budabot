@@ -39,5 +39,5 @@
 	bot::regevent("setup", "$MODULE_NAME/upload_admins.php");
 
 	//Help Files
-	bot::help("adminhelp", "$MODULE_NAME/admin.txt", "mod", "Mod/Admin Help file");
+	bot::help("admin", "$MODULE_NAME/admin.txt", "mod", "Mod/Admin Help file");
 ?>
