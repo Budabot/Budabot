@@ -29,43 +29,42 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(preg_match("/^chatlist$/i", $message) || preg_match("/^sm$/i", $message)){
-	if($type == "priv" || ($this->settings["online_tell"] == 1 && $type == "msg")) {
+if (preg_match("/^sm$/i", $message)) {
+	if ($type == "priv" || ($this->settings["online_tell"] == 1 && $type == "msg")) {
 		$db->query("SELECT * FROM priv_chatlist_<myname> ORDER BY `level` DESC");
-	} elseif($type == "guild" || ($this->settings["online_tell"] == 0 && $type == "msg")) {
-	  	if($this->settings["relaydb"] != "0")
+	} else if ($type == "guild" || ($this->settings["online_tell"] == 0 && $type == "msg")) {
+	  	if ($this->settings["relaydb"] != "0") {
 			$db->query("SELECT * FROM guild_chatlist_<myname> UNION ALL SELECT * FROM guild_chatlist_".strtolower($this->settings["relaydb"])." ORDER BY `level` DESC");
-		else
+		} else {
 			$db->query("SELECT * FROM guild_chatlist_<myname> ORDER BY `level` DESC");
+		}
 	}
-	while($row = $db->fObject()){
+	while ($row = $db->fObject()) {
 		$list = $list."$row->name ".
 			  "<br>   $row->level/$row->ai_level $row->profession";
-		if($row->org)
+		if ($row->org) {
 			$list = $list." ($row->guild)";
+		}
 		$list = $list."<br>";
 		$total++;
-		if($row->level >= 220)
+		if ($row->level >= 220) {
 			$at220++;
-		if($row->level >= 210 && $row->level <= 219)
+		} else if ($row->level >= 210 && $row->level <= 219) {
 			$above210++;
-		if($row->level <= 209)
+		} else if ($row->level <= 209) {
 			$below++;
+		}
 	}
 	$list = "Total: $total<br><br>".$list;
 	$list = "Players(220): $at220<br>".$list;
 	$list = "Players(210-219): $above210<br>".$list;
 	$list = "Players(1-209): $below<br>".$list;
-	if($this->vars["topic"] != "")
+	if ($this->vars["topic"] != "") {
 		$topic = "Topic: {$this->settings["topic"]}<br><br>";
+	}
 	$list = "<yellow>Chatlist<br><br><green>$topic<lgreen>".$list;
 	$link = bot::makeLink('Chatlist', $list);
 
-    if($type == "msg")
-        bot::send($link, $sender);
-    elseif($type == "priv")
-       	bot::send($link);
-    elseif($type == "guild")
-       	bot::send($link, "guild");
+	bot::send($link, $sendto);
 }
 ?>

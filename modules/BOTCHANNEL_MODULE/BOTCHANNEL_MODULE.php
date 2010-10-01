@@ -4,7 +4,7 @@
 	bot::loadSQLFile($MODULE_NAME, "private_chat");
     
     bot::command("", "$MODULE_NAME/members.php", "members", "all", "Guest Channel Auto-Invitelist");
-    bot::command("", "$MODULE_NAME/onlineguests.php", "onlineguests", "all", "Guest Channellist");
+    bot::command("", "$MODULE_NAME/sm.php", "sm", "all", "Shows who is the private channel");
 	bot::command("", "$MODULE_NAME/autoinvite.php", "autoinvite", "all", "Allows member to set whether he should be auto-invited to guest channel on logon or not");
     bot::command("guild msg", "$MODULE_NAME/join.php", "join", "all", "Join command for guests");
 	bot::command("priv msg", "$MODULE_NAME/leave.php", "leave", "all", "Enables Privatechat Kick");
@@ -42,8 +42,9 @@
 	//Verifies the Guestchannellist every 1hour
 	bot::event("1hour", "$MODULE_NAME/guest_channel_check.php", "guest", "Guest channel check");
 
-    bot::help("GuestChannel", "$MODULE_NAME/guestchannel.txt", "guild", "Guestchannel");
+    bot::help("botchannel", "$MODULE_NAME/guestchannel.txt", "guild", "Private channel commands");
 	bot::help("join_leave", "$MODULE_NAME/joinleave.txt", "all", "Joining and leaving the bot");
 	bot::help("kickall", "$MODULE_NAME/kickall.txt", "raidleader", "Kick all players from the Bot");
 	bot::help("lock", "$MODULE_NAME/lock.txt", "raidleader", "Lock the privategroup");
+	bot::help("sm", "$MODULE_NAME/sm.txt", "all", "Showing who is in the private group");
 ?>

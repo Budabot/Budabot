@@ -70,7 +70,7 @@ function online($type, $sender, $sendto, &$bot, $prof = "all") {
 	}
 	$numonline += $numguest;
 
-	$msg .= "<highlight>".$numonline."<end> members are online.";
+	$msg .= "<highlight>".$numonline."<end> members are online";
 
 	// BBIN part
 	if ($bot->settings["bbin_status"] == 1) {
@@ -98,7 +98,7 @@ function online($type, $sender, $sendto, &$bot, $prof = "all") {
 		
 		$numonline += $numbbinguests + $numbbinmembers;
 		
-		$msg .= " <green>BBIN<end>:".($numbbinguests + $numbbinmembers)." online.";
+		$msg .= " <green>BBIN<end>:".($numbbinguests + $numbbinmembers)." online";
 	}
 
 	return array ($numonline, $msg, $list);

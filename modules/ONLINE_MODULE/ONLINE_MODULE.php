@@ -6,8 +6,6 @@
 
 	//Online
 	bot::command("", "$MODULE_NAME/online.php", "online", "all", "Shows who is the PrivChan");
-	bot::command("", "$MODULE_NAME/chatlist.php", "sm", "all", "Shows who is the PrivChan");
-	bot::command("", "$MODULE_NAME/chatlist.php", "chatlist", "all", "Shows who is the PrivChan");
 	bot::command("", "$MODULE_NAME/count.php", "count", "all", "Shows who is the PrivChan");
 	bot::command("", "$MODULE_NAME/count.php", "adv", "all", "Shows Adventurers in PrivChan");
 	bot::command("", "$MODULE_NAME/count.php", "agent", "all", "Shows Agents in PrivChan");
@@ -25,7 +23,7 @@
 	bot::command("", "$MODULE_NAME/count.php", "trader", "all", "Shows Traders in PrivChan");
 
 	//Group
-	bot::regGroup("online", $MODULE_NAME, "Show who is online(guild or privatechat)", "adv", "agent", "crat", "doc", "enf", "eng", "fix", "keep", "ma", "mp", "nt", "sol", "shade", "trader", "sm", "chatlist", "online", "count");
+	bot::regGroup("online", $MODULE_NAME, "Show who is online(guild or privatechat)", "adv", "agent", "crat", "doc", "enf", "eng", "fix", "keep", "ma", "mp", "nt", "sol", "shade", "trader", "online", "count");
 
 	//Settings
 	bot::addsetting("relaydb", "Database for merging online lists", "edit", "0", "text", '0', "mod");
@@ -41,7 +39,6 @@
 	bot::event("logOff", "$MODULE_NAME/logoff_guild.php", "none", "Shows a logoff from a member in chat and records in db");
 
 	//Helpfiles
-	bot::help("chatlist", "$MODULE_NAME/chatlist.txt", "all", "Showing who is in the private group", "Raidbot");
-	bot::help("online", "$MODULE_NAME/online.txt", "guild", "Show who is on from the guild", "Basic Guild Commands");
-	bot::help("lastseen", "$MODULE_NAME/lastseen.txt", "guild", "Check when an orgmember was online", "Basic Guild Commands");
+	bot::help("online", "$MODULE_NAME/online.txt", "guild", "Show who is on from the guild");
+	bot::help("lastseen", "$MODULE_NAME/lastseen.txt", "guild", "Check when an orgmember was online");
 ?>
