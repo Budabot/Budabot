@@ -406,10 +406,10 @@ class bot extends AOChat{
 		$message = str_replace("<grey>", "<font color='#C3C3C3'>", $message);
 		$message = str_replace("<cyan>", "<font color='#00FFFF'>", $message);
 		
-		$message = str_replace("<neutral>", "<font color='#EEEEEE'>", $msg);
-		$message = str_replace("<omni>", "<font color='#00FFFF'>", $msg);
-		$message = str_replace("<clan>", "<font color='#F79410'>", $msg);
-		$message = str_replace("<unknown>", "<font color='#FF0000'>", $msg);
+		$message = str_replace("<neutral>", "<font color='#EEEEEE'>", $message);
+		$message = str_replace("<omni>", "<font color='#00FFFF'>", $message);
+		$message = str_replace("<clan>", "<font color='#F79410'>", $message);
+		$message = str_replace("<unknown>", "<font color='#FF0000'>", $message);
 
 		$message = str_replace("<myname>", $this->vars["name"], $message);
 		$message = str_replace("<tab>", "    ", $message);
