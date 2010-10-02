@@ -1578,7 +1578,10 @@ class bot extends AOChat{
 	}
 	
 	function handle_message($type, &$events, $message, $sender, $sendto) {
+		global $db;
+		
 		$restricted = false;
+		$stop_execution = false;
 		
 		// Events
 		forEach ($events as $file) {
