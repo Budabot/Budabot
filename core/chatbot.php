@@ -1423,72 +1423,9 @@ class bot extends AOChat{
 						return;
 					}
 				}
+				
+				$this->handle_message($type, $this->privMsgs, $message, $sender, $sendto);
 
-				// Events
-				if ($restricted != true && $this->privMsgs != NULL) {
-					forEach ($this->privMsgs as $file) {
-						$msg = "";
-						include $file;
-						if ($stop_execution) {
-							return;
-						}
-					}
-				}
-
-				// Admin Code
-				if ($restricted != true) {
-					list($cmd) = explode(' ', $message, 2);
-					$cmd = strtolower($cmd);
-					$admin 	= $this->tellCmds[$cmd]["admin level"];
-					$filename = $this->tellCmds[$cmd]["filename"];
-
-				  	//Check if a subcommands for this exists
-				  	if ($this->subcommands[$filename][$type]) {
-					    if (preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message)) {
-							$admin = $this->subcommands[$filename][$type]["admin"];
-						}
-					}
-
-					// Admin Check
-					if (is_numeric($admin)) {
-						if ($this->admins[$sender]["level"] >= $admin && $this->admins[$sender]["level"] != "")
-							$restricted = false;
-						else if ($this->admins[$sender]["level"] == "" && $this->vars["leader"] == $sender && $admin == 1)
-							$restricted = false;
-						else
-							$restricted = true;
-					} else if ($admin == "guild") {
-						if (isset($this->guildmembers[$sender]))
-							$restricted = false;
-						else
-							$restricted = true;
-					} else if ($admin == "guildadmin") {
-						if ($this->guildmembers[$sender] <= $this->settings['guild admin level'])
-							$restricted = false;
-						else
-							$restricted = true;
-					} else {
-						$restricted = false;
-					}
-				}
-				// Upload Command File or return error message
-				if ($restricted == true || $filename == "") {
-					$this->send("Error! Unknown command or Access denied! for more info try /tell <myname> help", $sendto);
-					$this->spam[$sender] = $this->spam[$sender] + 20;
-					return;
-				} else {
- 				    $syntax_error = false;
- 				    $msg = "";
-					include $filename;
-					if ($syntax_error == true) {
-						if (($output = bot::help_lookup($message, $sender)) !== FALSE) {
-							bot::send($output, $sendto);
-						} else {
-							bot::send("Error! Check your syntax or for more info try /tell <myname> help", $sendto);
-						}
-					}
-					$this->spam[$sender] = $this->spam[$sender] + 10;
-				}
 			break;
 			case AOCP_PRIVGRP_MESSAGE: // 57, Incoming priv message
 				$sender	= $this->lookup_user($args[1]);
@@ -1496,10 +1433,12 @@ class bot extends AOChat{
 				$channel = $this->lookup_user($args[0]);
 				$message = $args[2];
 				$restricted = false;
+				
 				if ($sender == $this->vars["name"]) {
 					if($this->settings['echo'] >= 1) newLine("Priv Group", $sender, $message, $this->settings['echo']);
 					return;
 				}
+				
 				if ($this->banlist[$sender]["name"] == $sender) {
 					return;
 				}
@@ -1520,66 +1459,8 @@ class bot extends AOChat{
 
 					// Echo
 					if ($this->settings['echo'] >= 1) newLine("Priv Group", $sender, $message, $this->settings['echo']);
-
-					if ($this->privChat != NULL) {
-						forEach ($this->privChat as $file) {
-						  	$msg = "";
-							include $file;
-							if ($stop_execution) {
-								return;
-							}
-						}
-					}
-
-					$msg = "";
-					if (!$restricted && (($message[0] == $this->settings["symbol"] && strlen($message) >= 2) || preg_match("/^(afk|brb)/i", $message, $arr))) {
-						if($message[0] == $this->settings["symbol"]) {
-							$message 	= substr($message, 1);
-						}
-						list($cmd)	= explode(' ', $message, 2);
-						$cmd		= strtolower($cmd);
-						$admin 		= $this->privCmds[$cmd]["admin level"];
-						$filename 	= $this->privCmds[$cmd]["filename"];
-
-						//Check if a subcommands for this exists
-						if ($this->subcommands[$filename][$type]) {
-							if (preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message)) {
-								$admin = $this->subcommands[$filename][$type]["admin"];
-							}
-						}
-
-
-						if (is_numeric($admin)) {
-							if ($this->admins[$sender]["level"] >= $admin && $this->admins[$sender]["level"] != "") {
-								if ($filename != "") {
-									include $filename;
-								}
-							}
-
-							if ($this->admins[$sender]["level"] == "" && $this->vars["leader"] == $sender && $admin == 1) {
-								if ($filename != "") {
-									include $filename;
-								}
-							}
-						} else if ($admin == "guild") {
-							if (isset($this->guildmembers[$sender])) {
-								if ($filename != "") {
-									include $filename;
-								}
-							}
-						} else if ($admin == "guildadmin") {
-							if ($this->guildmembers[$sender] <= $this->settings['guild admin level']) {
-								if ($filename != "") {
-									include $filename;
-								}
-							}
-						}
-						elseif($admin == "all")
-							if($filename != "")
-								include $filename;
-					} else {
-						$this->spam[$sender] = $this->spam[$sender] + 10;
-					}
+					
+					$this->handle_message($type, $this->privChat, $message, $sender, $sendto);
 				
 				} else {  // ext priv group message
 					
@@ -1670,74 +1551,8 @@ class bot extends AOChat{
                 } else if ($channel == $this->vars["my guild"]) {
                     $type = "guild";
 					$sendto = 'org';
-					if ($this->guildChat != NULL) {
-    					forEach ($this->guildChat as $file) {
-							$msg = "";
-							include $file;
-							if ($stop_execution) {
-								return;
-							}
-						}
-					}
-
-					$msg = "";
-					if (!$restricted && (($message[0] == $this->settings["symbol"] && strlen($message) >= 2) || preg_match("/^(afk|brb)/i", $message, $arr))) {
-						if ($message[0] == $this->settings["symbol"]) {
-							$message 	= substr($message, 1);
-						}
-    					list($cmd)	= explode(' ', $message, 2);
-						$cmd		= strtolower($cmd);
-						$admin 		= $this->guildCmds[$cmd]["admin level"];
-						$filename 	= $this->guildCmds[$cmd]["filename"];
-
-					  	//Check if a subcommands for this exists
-					  	if ($this->subcommands[$filename][$type]) {
-						    if (preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message)) {
-								$admin = $this->subcommands[$filename][$type]["admin"];
-							}
-						}
-
-
-						// Admin Check
-						if (is_numeric($admin)) {
-							if ($this->admins[$sender]["level"] >= $admin && $this->admins[$sender]["level"] != "") {
-								if ($filename != "") {
-									include $filename;
-								}
-							} else {
-								bot::send("Error! You do not have access to this command.", "guild");
-							}
-						} else if ($admin == "guild") {
-							if (isset($this->guildmembers[$sender])) {
-								if ($filename != "") {
-									include $filename;
-								}
-							} else {
-								bot::send("Error! You do not have access to this command.", "guild");
-							}
-						} else if ($admin == "guildadmin") {
-							if ($this->guildmembers[$sender] <= $this->settings['guild admin level']) {
-								if($filename != "") {
-									include $filename;
-								}
-							} else {
-								bot::send("Error! You do not have access to this command.", "guild");
-							}
-						} else if ($admin == "all") {
-							if ($filename != "") {
-								include $filename;
-							}
-						}
-
-						//Shows syntax errors to the user
-						if ($syntax_error == true) {
-							if (($output = bot::help_lookup($message, $sender)) !== FALSE) {
-								bot::send($output, $sendto);
-							} else {
-								bot::send("Error! Check your syntax or for more info try /tell <myname> help", $sendto);
-							}
-						}
-					}
+					
+					$this->handle_message($type, $this->guildChat, $message, $sender, $sendto);
 				}
 			break;
 			case AOCP_PRIVGRP_INVITE:  // 50, private group invite
@@ -1759,6 +1574,74 @@ class bot extends AOChat{
 				}
                 return;
 			break;
+		}
+	}
+	
+	function handle_message($type, &$events, $message, $sender, $sendto) {
+		$restricted = false;
+		
+		// Events
+		forEach ($events as $file) {
+			$msg = "";
+			include $file;
+			if ($stop_execution) {
+				return;
+			}
+		}
+		
+		// Admin Code
+		if ($restricted != true) {
+			list($cmd) = explode(' ', $message, 2);
+			$cmd = strtolower($cmd);
+			$admin 	= $this->tellCmds[$cmd]["admin level"];
+			$filename = $this->tellCmds[$cmd]["filename"];
+
+			//Check if a subcommands for this exists
+			if ($this->subcommands[$filename][$type]) {
+				if (preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message)) {
+					$admin = $this->subcommands[$filename][$type]["admin"];
+				}
+			}
+
+			// Admin Check
+			if (is_numeric($admin)) {
+				if ($this->admins[$sender]["level"] >= $admin && $this->admins[$sender]["level"] != "")
+					$restricted = false;
+				else if ($this->admins[$sender]["level"] == "" && $this->vars["leader"] == $sender && $admin == 1)
+					$restricted = false;
+				else
+					$restricted = true;
+			} else if ($admin == "guild") {
+				if (isset($this->guildmembers[$sender]))
+					$restricted = false;
+				else
+					$restricted = true;
+			} else if ($admin == "guildadmin") {
+				if ($this->guildmembers[$sender] <= $this->settings['guild admin level'])
+					$restricted = false;
+				else
+					$restricted = true;
+			} else {
+				$restricted = false;
+			}
+		}
+
+		if ($restricted == true || $filename == "") {
+			$this->send("Error! Unknown command or Access denied! for more info try /tell <myname> help", $sendto);
+			$this->spam[$sender] = $this->spam[$sender] + 20;
+			return;
+		} else {
+			$syntax_error = false;
+			$msg = "";
+			include $filename;
+			if ($syntax_error == true) {
+				if (($output = bot::help_lookup($message, $sender)) !== FALSE) {
+					bot::send($output, $sendto);
+				} else {
+					bot::send("Error! Check your syntax or for more info try /tell <myname> help", $sendto);
+				}
+			}
+			$this->spam[$sender] = $this->spam[$sender] + 10;
 		}
 	}
 
