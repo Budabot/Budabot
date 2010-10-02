@@ -9,7 +9,7 @@ if (preg_match("/^eventlist$/i", $message, $arr) || preg_match("/^eventlist (tow
 
 	$sql = "
 		SELECT
-			c.type
+			c.type,
 			c.description,
 			c.module,
 			c.file,

@@ -20,7 +20,7 @@
    **
    */
 
-if(preg_match("/^scout (.*)$/i", $message)) {
+if (preg_match("/^scout (.*)$/i", $message)) {
 
 	$msg = "";
 
@@ -61,5 +61,8 @@ if(preg_match("/^scout (.*)$/i", $message)) {
 	}
 
     bot::send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
+
 ?>
