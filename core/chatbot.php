@@ -1460,7 +1460,10 @@ class bot extends AOChat{
 					// Echo
 					if ($this->settings['echo'] >= 1) newLine("Priv Group", $sender, $message, $this->settings['echo']);
 					
-					$this->handle_message($type, $this->privChat, $message, $sender, $sendto);
+					if ($message[0] == $this->settings["symbol"] && strlen($message) > 1) {
+						$message = substr($message, 1);
+						$this->handle_message($type, $this->privChat, $message, $sender, $sendto);
+					}
 				
 				} else {  // ext priv group message
 					
@@ -1552,7 +1555,10 @@ class bot extends AOChat{
                     $type = "guild";
 					$sendto = 'org';
 					
-					$this->handle_message($type, $this->guildChat, $message, $sender, $sendto);
+					if ($message[0] == $this->settings["symbol"] && strlen($message) > 1) {
+						$message = substr($message, 1);
+						$this->handle_message($type, $this->guildChat, $message, $sender, $sendto);
+					}
 				}
 			break;
 			case AOCP_PRIVGRP_INVITE:  // 50, private group invite
