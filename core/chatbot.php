@@ -1410,6 +1410,15 @@ class bot extends AOChat{
 					$this->spam[$sender] += 20;
 					return;
 				}
+				
+				// Events
+				forEach ($this->privMsgs as $file) {
+					$msg = "";
+					include $file;
+					if ($stop_execution) {
+						return;
+					}
+				}
 
 				//Remove the prefix infront if there is one
 				if ($message[0] == $this->settings["symbol"] && strlen($message) > 1) {
@@ -1424,7 +1433,7 @@ class bot extends AOChat{
 					}
 				}
 				
-				$this->handle_message($type, $this->privMsgs, $message, $sender, $sendto);
+				$this->handle_command($type, $message, $sender, $sendto);
 
 			break;
 			case AOCP_PRIVGRP_MESSAGE: // 57, Incoming priv message
@@ -1460,9 +1469,18 @@ class bot extends AOChat{
 					// Echo
 					if ($this->settings['echo'] >= 1) newLine("Priv Group", $sender, $message, $this->settings['echo']);
 					
+					// Events
+					forEach ($this->privChat as $file) {
+						$msg = "";
+						include $file;
+						if ($stop_execution) {
+							return;
+						}
+					}
+					
 					if ($message[0] == $this->settings["symbol"] && strlen($message) > 1) {
 						$message = substr($message, 1);
-						$this->handle_message($type, $this->privChat, $message, $sender, $sendto);
+						$this->handle_command($type, $message, $sender, $sendto);
 					}
 				
 				} else {  // ext priv group message
@@ -1555,9 +1573,18 @@ class bot extends AOChat{
                     $type = "guild";
 					$sendto = 'org';
 					
+					// Events
+					forEach ($this->guildChat as $file) {
+						$msg = "";
+						include $file;
+						if ($stop_execution) {
+							return;
+						}
+					}
+					
 					if ($message[0] == $this->settings["symbol"] && strlen($message) > 1) {
 						$message = substr($message, 1);
-						$this->handle_message($type, $this->guildChat, $message, $sender, $sendto);
+						$this->handle_command($type, $message, $sender, $sendto);
 					}
 				}
 			break;
@@ -1583,20 +1610,11 @@ class bot extends AOChat{
 		}
 	}
 	
-	function handle_message($type, &$events, $message, $sender, $sendto) {
+	function handle_command($type, $message, $sender, $sendto) {
 		global $db;
 		
 		$restricted = false;
 		$stop_execution = false;
-		
-		// Events
-		forEach ($events as $file) {
-			$msg = "";
-			include $file;
-			if ($stop_execution) {
-				return;
-			}
-		}
 		
 		// Admin Code
 		if ($restricted != true) {
