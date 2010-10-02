@@ -4,7 +4,7 @@ if (preg_match("/^eventlist$/i", $message, $arr) || preg_match("/^eventlist (tow
 	$list  = "<header>::::: Bot Settings -- Command List :::::<end>\n\n";
 
 	if ($arr[1] != '') {
-		$cmdSearchSql = "AND c.type LIKE '%{$arr[1]}%'";
+		$cmdSearchSql = "AND c.type LIKE '{$arr[1]}'";
 	}
 
 	$sql = "

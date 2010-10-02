@@ -1654,8 +1654,11 @@ class bot extends AOChat{
 		}
 
 		if ($restricted == true || $filename == "") {
-			$this->send("Error! Unknown command or Access denied! for more info try /tell <myname> help", $sendto);
-			$this->spam[$sender] = $this->spam[$sender] + 20;
+			if ($type != 'guild') {
+				// don't notify user of unknown command in org chat, in case they are running more than one bot
+				$this->send("Error! Unknown command or Access denied! for more info try /tell <myname> help", $sendto);
+				$this->spam[$sender] = $this->spam[$sender] + 20;
+			}
 			return;
 		} else {
 			$syntax_error = false;
