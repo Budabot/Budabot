@@ -1616,12 +1616,24 @@ class bot extends AOChat{
 		$restricted = false;
 		$stop_execution = false;
 		
+		switch ($type){
+			case "msg":
+				$cmds  = &$this->tellCmds;
+				break;
+			case "priv":
+				$cmds  = &$this->privCmds;
+				break;
+			case "guild":
+				$cmds =  &$this->guildCmds;
+				break;
+		}
+		
 		// Admin Code
 		if ($restricted != true) {
 			list($cmd) = explode(' ', $message, 2);
 			$cmd = strtolower($cmd);
-			$admin 	= $this->tellCmds[$cmd]["admin level"];
-			$filename = $this->tellCmds[$cmd]["filename"];
+			$admin 	= $cmds[$cmd]["admin level"];
+			$filename = $cmds[$cmd]["filename"];
 
 			//Check if a subcommands for this exists
 			if ($this->subcommands[$filename][$type]) {
