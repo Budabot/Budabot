@@ -30,13 +30,8 @@
    */
 
 if ($this->settings["topic"] != '' && isset($this->guildmembers[$sender]) && (time() >= $this->vars["topicdelay"])) {
-	$time = time() - $this->settings["topic_time"];
-	$mins = floor($time / 60);
-	$hours = floor($mins / 60);
-	$mins = floor($mins - ($hours * 60));
-	$days = floor($hours / 24);
-	$hours = floor($hours - ($days * 24));
-	$msg = "<highlight>Topic:<end> {$this->settings["topic"]} [set by <highlight>{$this->settings["topic_setby"]}<end>][<highlight>{$days}days, {$hours}hrs and {$mins}mins ago<end>]";
+	$date_string = unixtime_to_readable($this->settings["topic_time"], false);
+	$msg = "<highlight>Topic:<end> {$this->settings["topic"]} [set by <highlight>{$this->settings["topic_setby"]}<end>][<highlight>{$date_string} ago<end>]";
     bot::send($msg, $sender);
 }
 ?>

@@ -30,27 +30,17 @@
    */
 
 if ($this->settings["topic"] != "" && $type == "joinPriv") {
-	$time = time() - $this->settings["topic_time"];
-	$mins = floor($time / 60);
-	$hours = floor($mins / 60);
-	$mins = floor($mins - ($hours * 60));
-	$days = floor($hours / 24);
-	$hours = floor($hours - ($days * 24));
-	$msg = "<highlight>Topic:<end> {$this->settings["topic"]} [set by <highlight>{$this->settings["topic_setby"]}<end>][<highlight>{$days}days, {$hours}hrs and {$mins}mins ago<end>]";
+	$date_string = unixtime_to_readable(time() - $this->settings["topic_time"], false);
+	$msg = "<highlight>Topic:<end> {$this->settings["topic"]} [set by <highlight>{$this->settings["topic_setby"]}<end>][<highlight>{$date_string} ago<end>]";
   	bot::send($msg, $sender);
 } else if (preg_match("/^topic$/i", $message, $arr)) {
-	$time = time() - $this->settings["topic_time"];
-	$mins = floor($time / 60);
-	$hours = floor($mins / 60);
-	$mins = floor($mins - ($hours * 60));
-	$days = floor($hours / 24);
-	$hours = floor($hours - ($days * 24));
+	$date_string = unixtime_to_readable(time() - $this->settings["topic_time"], false);
 	if ($this->settings["topic"] == '') {
 		$topic = 'No topic set at the moment';
 	} else {
 		$topic = $this->settings["topic"];
 	}
-	$msg = "<highlight>Topic:<end> {$topic} [set by <highlight>{$this->settings["topic_setby"]}<end>][<highlight>{$days}days, {$hours}hrs and {$mins}mins ago<end>]";
+	$msg = "<highlight>Topic:<end> {$topic} [set by <highlight>{$this->settings["topic_setby"]}<end>][<highlight>{$date_string} ago<end>]";
     bot::send($msg, $sendto);
 } else if (preg_match("/^topic clear$/i", $message, $arr)) {
   	bot::savesetting("topic_time", time());

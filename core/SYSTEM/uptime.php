@@ -1,8 +1,8 @@
 <?php
 
 if (preg_match("/^uptime$/i", $message, $arr)) {
-	$datediff = date_difference($this->vars['startup'], time());
-	$msg = "The bot has been online for $datediff.";
+	$date_string = unixtime_to_readable(time() - $this->vars['startup']);
+	$msg = "The bot has been online for $date_string.";
 	bot::send($msg, $sendto);
 }
 

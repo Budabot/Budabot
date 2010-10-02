@@ -61,7 +61,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	$this->vars["Timers"][] = array("name" => $timer_name, "owner" => $sender, "mode" => $type, "timer" => $timer, "settime" => time());
     $db->query("INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`) VALUES ('".str_replace("'", "''", $timer_name)."', '$sender', '$type', $timer, ".time().")");
 
-	$timerset = date_difference(0, $run_time);
+	$timerset = unixtime_to_readable($run_time);
 	$msg = "Timer has been set for $timerset.";
 		
     bot::send($msg, $sendto);
@@ -149,7 +149,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	$this->vars["Timers"][] = array("name" => $timer_name, "owner" => $sender, "mode" => $type, "timer" => $timer, "settime" => time());
 	$db->query("INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`) VALUES ('".str_replace("'", "''", $timer_name) ."', '$sender', '$type', $timer, ".time().")");
 
-	$timerset = date_difference(0, $run_time);
+	$timerset = unixtime_to_readable($run_time);
 	$msg = "Timer has been set for $timerset.";
 		
     // Send info back
