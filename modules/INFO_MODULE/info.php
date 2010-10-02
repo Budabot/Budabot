@@ -65,7 +65,7 @@ else if (preg_match("/^info ([a-z0-9_-]+)$/i", $message, $arr) || preg_match("/^
 	$fileName = strtolower($arr[1]);
 	$info = getTopicContents($path, $fileName, $fileExt);
 	
-	if (is_empty($info))
+	if (empty($info))
 	{
 		$msg = "No info for $fileName could be found";
 	}
