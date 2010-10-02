@@ -56,22 +56,25 @@ forEach ($this->vars["Timers"] as $key => $value) {
 		unset($this->vars["Timers"][$key]);
 		$db->query("DELETE FROM timers_<myname> WHERE `name` = '" . str_replace("'", "''", $name) . "' AND `owner` = '$owner'");
 	} else if ($tleft >= 3599 && $tleft < 3601 && ((time() - $set_time) >= 30)) {
-		if($name == "PrimTimer")
-			$msg = "Reminder: Timer has <highlight>1hour<end> left [set by <highlight>$owner<end>]";
-		else
-			$msg = "Reminder: Timer <highlight>$name<end> has <highlight>1hour<end> left [set by <highlight>$owner<end>]";
+		if ($name == "PrimTimer") {
+			$msg = "Reminder: Timer has <highlight>1 hour<end> left [set by <highlight>$owner<end>]";
+		} else {
+			$msg = "Reminder: Timer <highlight>$name<end> has <highlight>1 hour<end> left [set by <highlight>$owner<end>]";
+		}
 	} else if ($tleft >= 899 && $tleft < 901 && ((time() - $set_time) >= 30)) {
-		if($name == "PrimTimer")
-			$msg = "Reminder: Timer has <highlight>15minutes<end> left [set by <highlight>$owner<end>]";
-		else
-			$msg = "Reminder: Timer <highlight>$name<end> has <highlight>15minutes<end> left [set by <highlight>$owner<end>]";
+		if ($name == "PrimTimer") {
+			$msg = "Reminder: Timer has <highlight>15 minutes<end> left [set by <highlight>$owner<end>]";
+		} else {
+			$msg = "Reminder: Timer <highlight>$name<end> has <highlight>15 minutes<end> left [set by <highlight>$owner<end>]";
+		}
 	} else if ($tleft >= 59 && $tleft < 61 && ((time() - $set_time) >= 30)) {
 		if ($name == "PrimTimer") {
-			$msg = "Reminder: Timer has <highlight>1minute<end> left [set by <highlight>$owner<end>]";
+			$msg = "Reminder: Timer has <highlight>1 minute<end> left [set by <highlight>$owner<end>]";
 		} else {
-			$msg = "Reminder: Timer <highlight>$name<end> has <highlight>1minute<end> left [set by <highlight>$owner<end>]";
+			$msg = "Reminder: Timer <highlight>$name<end> has <highlight>1 minute<end> left [set by <highlight>$owner<end>]";
 		}
 	}
+
 	if ('' != $msg) {
 		if ('msg' == $mode) {
 			bot::send($msg, $owner);
