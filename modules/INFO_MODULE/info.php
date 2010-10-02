@@ -67,12 +67,15 @@ else if (preg_match("/^info ([a-z0-9_-]+)$/i", $message, $arr) || preg_match("/^
 	
 	if (empty($info))
 	{
-		$msg = "No info for $fileName could be found";
+		$msg = "No info for <highlight>$fileName<end> could be found";
 	}
 	else
 	{	
 		$msg = bot::makeLink(ucfirst($fileName), $info);
 	}
+} else {
+	$syntax_error = true;
+	return;
 }
 
 bot::send($msg, $sendto);

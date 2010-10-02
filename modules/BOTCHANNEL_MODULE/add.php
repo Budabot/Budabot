@@ -30,18 +30,18 @@
    */
 
 if (preg_match("/^adduser (.+)$/i", $message, $arr)) {
-    $uid = AoChat::get_uid($arr[1]);
-    $name = ucfirst(strtolower($arr[1]));
-    if (!$uid) {
-        $msg = "Player <highlight>$name<end> does not exist.";
-    } else {
-	  	$db->query("SELECT * FROM members_<myname> WHERE `name` = '$name'");
-	  	if ($db->numrows() != 0) {
-	  		$msg = "<highlight>$name<end> is already on the guestlist.";
-	  	} else {
-		    $db->query("INSERT INTO members_<myname> (`name`, `autoinv`) VALUES ('$name', 1)");
-		    $msg = "<highlight>$name<end> has been added to the guestlist.";
-	        $this->add_buddy($name, 'member');
+	$uid = AoChat::get_uid($arr[1]);
+	$name = ucfirst(strtolower($arr[1]));
+	if (!$uid) {
+		$msg = "Player <highlight>$name<end> does not exist.";
+	} else {
+		$db->query("SELECT * FROM members_<myname> WHERE `name` = '$name'");
+		if ($db->numrows() != 0) {
+			$msg = "<highlight>$name<end> is already on the guestlist.";
+		} else {
+			$db->query("INSERT INTO members_<myname> (`name`, `autoinv`) VALUES ('$name', 1)");
+			$msg = "<highlight>$name<end> has been added to the guestlist.";
+			$this->add_buddy($name, 'member');
 		}
 	}
 

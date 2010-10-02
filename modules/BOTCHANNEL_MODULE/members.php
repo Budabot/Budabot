@@ -33,12 +33,12 @@ if (preg_match("/^members$/i", $message)) {
 	$db->query("SELECT * FROM members_<myname> ORDER BY `name`");
 	$autoguests = $db->numrows();
 	if ($autoguests != 0) {
-	  	$list .= "<header>::::: Users on Autoinvitelist :::::<end>\n\n";
+	  	$list .= "<header>::::: Users on Autoinvite list :::::<end>\n\n";
 	  	while ($row = $db->fObject()) {
 	  	  	if ($this->buddy_online($row->name)) {
 				$status = "<green>Online";
 				if ($this->vars["Guest"][$row->name] == true) {
-			    	$status .= " and in Guestchannel";
+			    	$status .= " and in Guest channel";
 				}
 			} else {
 				$status = "<red>Offline";
@@ -47,7 +47,7 @@ if (preg_match("/^members$/i", $message)) {
 	  		$list .= "<tab>- $row->name ($status<end>)\n";
 	  	}
 	  	
-	    $msg = "<highlight>".$autoguests."<end> players on the Autoinvitelist ";
+	    $msg = "<highlight>".$autoguests."<end> players on the Autoinvite list ";
 	    $link = ":: ".bot::makeLink('Click here', $list);
 	    if ($autoguests != 0) {
            	bot::send($msg.$link, $sendto);

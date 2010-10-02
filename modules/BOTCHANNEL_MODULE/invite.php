@@ -41,7 +41,7 @@ if (preg_match("/^inviteuser (.+)$/i", $message, $arr) || preg_match("/^invite (
 		$msg2 = "You have been invited to the Private group <highlight>{$this->vars["name"]}<end> by <highlight>$sender<end>";
 		bot::send($msg2, $name);
     } else {
-		$msg = "Player <highlight>".$name."<end> does not exist.";
+		$msg = "Player <highlight>{$name}<end> does not exist.";
 	}
 	
 	bot::send($msg, $sendto);
