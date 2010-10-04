@@ -28,7 +28,7 @@ if (preg_match("/^whatbuffs (.+)$/i", $message, $arr)) {
 				}
 			}
 			if ($found > 0) {								// found items that modify this skill
-				$inside = "<header>::::: Buff item helper :::::<end>\n\n"
+				$inside = "<header>::::: Buff item helper :::::<end>\n\n";
 				$inside .= "Your query of <yellow>$name<end> yielded the following results:\n\n";
 				$inside .= "Items that buff ".$skills[0].":\n\n";
 				$inside .= $info;
