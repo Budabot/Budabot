@@ -53,7 +53,7 @@ if (preg_match("/^addadmin (.+)$/i", $message, $arr)){
 	}
 
 	if (isset($this->admins[$who]["level"]) && $this->admins[$who]["level"] >= 2) {
-		if($this->admins[$who]["level"] > 4) {
+		if ($this->admins[$who]["level"] > 4) {
 			bot::send("<highlight>$who<end> has been demoted to the rank of a Administrator.", $sendto);
 			bot::send("You have been demoted to the rank of a Administrator on {$this->vars["name"]}", $who);
 		} else {

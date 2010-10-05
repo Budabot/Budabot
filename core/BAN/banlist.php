@@ -30,13 +30,13 @@
    */
 
 if (preg_match("/^banlist$/i", $message)){
-  	if(count($this->banlist) == 0) {
+  	if (count($this->banlist) == 0) {
 	    bot::send("No one is banned of this bot atm.", $sendto);
 	    return;
 	}
 	
 	$list.= "<header>::::: Banlist :::::<end>\n\n";
-	forEach ($this->banlist as $key => $data){
+	forEach ($this->banlist as $key => $data) {
 		$list.= "<highlight>Name:<end> {$this->banlist["$key"]["name"]}\n";
 		$list.= "<highlight><tab>Date:<end> {$this->banlist["$key"]["when"]}\n";
 		$list.= "<highlight><tab>By:<end> {$this->banlist["$key"]["admin"]}\n";

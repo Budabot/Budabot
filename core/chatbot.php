@@ -1394,15 +1394,15 @@ class bot extends AOChat{
 				// AFK/bot check
 				if (preg_match("/^$sender is AFK/si", $message, $arr)) {
 					return;
-				} else if (preg_match("/^I am away from my keyboard right now/si", $message)) {
+				} else if (preg_match("/I am away from my keyboard right now/si", $message)) {
 					return;
-				} else if (preg_match("/^Unknown command/si", $message, $arr)) {
+				} else if (preg_match("/Unknown command or access denied!/si", $message, $arr)) {
 					return;
-				} else if (preg_match("/^I am responding/si", $message, $arr)) {
+				} else if (preg_match("/I am responding/si", $message, $arr)) {
 					return;
-				} else if (preg_match("/^I only listen/si", $message, $arr)) {
+				} else if (preg_match("/I only listen/si", $message, $arr)) {
 					return;
-				} else if (preg_match("/^Error!/si", $message, $arr)) {
+				} else if (preg_match("/Error!/si", $message, $arr)) {
 					return;
 				}
 
