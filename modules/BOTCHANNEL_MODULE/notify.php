@@ -32,7 +32,7 @@
 if ($type == "joinPriv") {
 	$this->vars["Guest"][$sender] = true;
 	$whois = new whois($sender);
-	$db->query("INSERT INTO priv_chatlist_<myname> (`name`, `faction`, `profession`, `guild`, `breed`, `level`, `ai_level`, `guest`) ".
+	$db->query("INSERT INTO priv_chatlist (`name`, `faction`, `profession`, `guild`, `breed`, `level`, `ai_level`, `guest`) ".
 				"VALUES ('$sender', '$whois->faction', '$whois->prof', '$whois->org', '$whois->breed', '$whois->level', '$whois->ai_level', 1)");
 	$msg = "<highlight>$sender<end> (<highlight>{$whois->level}<end>/<green>{$whois->ai_level}<end>, <highlight>{$whois->prof}<end>, $whois->faction) has joined the channel";
 	if ($this->settings['relaybot'] != 'Off') {
@@ -43,7 +43,7 @@ if ($type == "joinPriv") {
 	}
 	bot::send($msg, "priv", true);
 } else if ($type == "leavePriv") {
-	$db->query("DELETE FROM priv_chatlist_<myname> WHERE `name` = '$sender'");
+	$db->query("DELETE FROM priv_chatlist WHERE `name` = '$sender'");
 	unset($this->vars["Guest"][$sender]);
 	$msg = "<highlight>$sender<end> left the Guestchannel.";
 	

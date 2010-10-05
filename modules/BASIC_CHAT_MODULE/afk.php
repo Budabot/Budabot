@@ -29,22 +29,22 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-$db->query("SELECT afk FROM priv_chatlist_<myname> WHERE `name` = '$sender'");
+$db->query("SELECT afk FROM priv_chatlist WHERE `name` = '$sender'");
 $row = $db->fObject();
 if(preg_match("/^afk$/i", $message, $arr)) {
     if($row->afk == '0') {
-        $db->query("UPDATE priv_chatlist_<myname> SET `afk` = 1 WHERE `name` = '$sender'");
+        $db->query("UPDATE priv_chatlist SET `afk` = 1 WHERE `name` = '$sender'");
         $msg = "<highlight>$sender<end> is now AFK";
     } else if($row->afk != '0') {
-        $db->query("UPDATE priv_chatlist_<myname> SET `afk` = 0 WHERE `name` = '$sender'");
+        $db->query("UPDATE priv_chatlist SET `afk` = 0 WHERE `name` = '$sender'");
         $msg = "<highlight>$sender<end> is back";
     }
 } else if(preg_match("/^afk (.*)$/i", $message, $arr)) {
     if($row->afk == '0') {
-        $db->query("UPDATE priv_chatlist_<myname> SET `afk` = '$arr[1]' WHERE `name` = '$sender'");
+        $db->query("UPDATE priv_chatlist SET `afk` = '$arr[1]' WHERE `name` = '$sender'");
         $msg = "<highlight>$sender<end> is now AFK";
     } else if($row->afk != '0') {
-        $db->query("UPDATE priv_chatlist_<myname> SET `afk` = 0 WHERE `name` = '$sender'");
+        $db->query("UPDATE priv_chatlist SET `afk` = 0 WHERE `name` = '$sender'");
         $msg = "<highlight>$sender<end> is back";
     }
 }

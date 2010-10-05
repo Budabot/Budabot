@@ -31,7 +31,7 @@
 
 if (preg_match("/^onlineguests$/i", $message)) {
 	if (count($this->vars["Guest"]) > 0) {
-		$db->query("SELECT * FROM priv_chatlist_<myname> WHERE `guest` = 1 ORDER BY `profession`, `level` DESC");
+		$db->query("SELECT * FROM priv_chatlist WHERE `guest` = 1 ORDER BY `profession`, `level` DESC");
 		$numguest = $db->numrows();
 
 		$list = "<header>::::: $numguest User(s) in Guestchannel<end>\n";

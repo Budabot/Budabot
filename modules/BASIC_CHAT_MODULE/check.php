@@ -32,7 +32,7 @@
 if(preg_match("/^check (all|prof|org)$/i", $message, $arr)) {
 	if($arr[1] == "all") {
 	  	$list = "<header>::::: Check for all members :::::<end>\n\n";
-	  	$db->query("SELECT * FROM priv_chatlist_<myname>");
+	  	$db->query("SELECT * FROM priv_chatlist");
 		while($row = $db->fObject())
 			$content .= " \\n /assist $row->name";
 
@@ -40,7 +40,7 @@ if(preg_match("/^check (all|prof|org)$/i", $message, $arr)) {
 	  	$msg = bot::makeLink("Check on all", $list);
 	} elseif($arr[1] == "prof") {
 	  	$list = "<header>::::: Check for all professions :::::<end>\n\n";
-	  	$db->query("SELECT * FROM priv_chatlist_<myname> ORDER BY `profession` DESC");
+	  	$db->query("SELECT * FROM priv_chatlist ORDER BY `profession` DESC");
 		while($row = $db->fObject())
 			$prof[$row->profession] .= " \\n /assist $row->name";
 
@@ -52,7 +52,7 @@ if(preg_match("/^check (all|prof|org)$/i", $message, $arr)) {
 	  	$msg = bot::makeLink("Check on professions", $list);
 	} elseif($arr[1] == "org") {
 	  	$list = "<header>::::: Check for all organisations :::::<end>\n\n";
-	  	$db->query("SELECT * FROM priv_chatlist_<myname> ORDER BY `guild` DESC");
+	  	$db->query("SELECT * FROM priv_chatlist ORDER BY `guild` DESC");
 		while($row = $db->fObject()) {
 		  	if($row->guild == "")
 	  			$org["Non orged"] .= " \\n /assist $row->name";

@@ -44,10 +44,10 @@ if (preg_match("/^updateme$/i", $message)) {
 		  	return;
 		}
 		
-		$db->query("SELECT * FROM priv_chatlist_<myname> WHERE `name` = '$sender'");
+		$db->query("SELECT * FROM priv_chatlist WHERE `name` = '$sender'");
 
 		if ($db->numrows() != 0) {
-		    $db->query("UPDATE priv_chatlist_<myname> SET `faction` = '{$info->faction}', `profession` = '{$info->prof}', `guild` = '{$info->org}', `breed` = '{$info->breed}', `level` = {$info->level}, `ai_level` = {$info->ai_level} WHERE `name` = '$sender'");
+		    $db->query("UPDATE priv_chatlist SET `faction` = '{$info->faction}', `profession` = '{$info->prof}', `guild` = '{$info->org}', `breed` = '{$info->breed}', `level` = {$info->level}, `ai_level` = {$info->ai_level} WHERE `name` = '$sender'");
 		}
 
 		bot::send("Update successfull.", $sendto);

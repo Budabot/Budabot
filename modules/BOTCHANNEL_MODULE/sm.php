@@ -31,13 +31,9 @@
 
 if (preg_match("/^sm$/i", $message)) {
 	if ($type == "priv" || ($this->settings["online_tell"] == 1 && $type == "msg")) {
-		$db->query("SELECT * FROM priv_chatlist_<myname> ORDER BY `level` DESC");
+		$db->query("SELECT * FROM priv_chatlist ORDER BY `level` DESC");
 	} else if ($type == "guild" || ($this->settings["online_tell"] == 0 && $type == "msg")) {
-	  	if ($this->settings["relaydb"] != "0") {
-			$db->query("SELECT * FROM guild_chatlist_<myname> UNION ALL SELECT * FROM guild_chatlist_".strtolower($this->settings["relaydb"])." ORDER BY `level` DESC");
-		} else {
-			$db->query("SELECT * FROM guild_chatlist_<myname> ORDER BY `level` DESC");
-		}
+	  	$db->query("SELECT * FROM guild_chatlist ORDER BY `level` DESC");
 	}
 	while ($row = $db->fObject()) {
 		$list = $list."$row->name ".

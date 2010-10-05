@@ -68,7 +68,7 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
     	$msg = "<highlight>".$name."<end> has been added to the Notify list.";
     	$this->guildmembers[$name] = 6;
     }
-    $db->query("INSERT INTO guild_chatlist_<myname> (`name`, `profession`, `guild`, `breed`, `level`, `ai_level`)
+    $db->query("INSERT INTO guild_chatlist (`name`, `profession`, `guild`, `breed`, `level`, `ai_level`)
                 VALUES ('".$name."', '".$whois->prof."', '".$this->vars["my guild"]."',
                    '".$whois->breed."', '".$whois->level."', '".$whois->ai_level."')");     
     bot::send($msg, "guild");
@@ -76,7 +76,7 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
     $uid = AoChat::get_uid($arr[2]);
     $name = ucfirst(strtolower($arr[2]));
     $db -> query("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '$name'");
-    $db -> query("DELETE FROM guild_chatlist_<myname> WHERE `name` = '$name'");
+    $db -> query("DELETE FROM guild_chatlist WHERE `name` = '$name'");
     $msg = "Removed <highlight>".$name."<end> from the Notify list.";
     unset($this->guildmembers[$name]);
 	$this->remove_buddy($name, 'org');
@@ -85,7 +85,7 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
     $uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     $db -> query("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '$name'");
-    $db -> query("DELETE FROM guild_chatlist_<myname> WHERE `name` = '$name'");
+    $db -> query("DELETE FROM guild_chatlist WHERE `name` = '$name'");
     $msg = "Removed <highlight>".$name."<end> from the Notify list.";
     unset($this->guildmembers[$name]);
 	$this->remove_buddy($name, 'org');

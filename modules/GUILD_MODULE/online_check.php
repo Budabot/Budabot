@@ -29,11 +29,11 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-$db->query("SELECT * FROM guild_chatlist_<myname>");
+$db->query("SELECT * FROM guild_chatlist");
 $data = $db->fObject("all");
 forEach ($data as $row) {
   	if (!$this->buddy_online($row->name)) {
-  		$db->query("DELETE FROM guild_chatlist_<myname> WHERE `name` = '$row->name'");
+  		$db->query("DELETE FROM guild_chatlist WHERE `name` = '$row->name'");
 	}
 }
 

@@ -91,7 +91,7 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
     // Is the player a member of this bot?
     if($numrows != 0 && $row->mode != "del") {
         $db->query("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '$name'");
-        $db->query("DELETE FROM guild_chatlist_<myname> WHERE `name` = '$name'");
+        $db->query("DELETE FROM guild_chatlist WHERE `name` = '$name'");
         $msg = "Removed <highlight>$name<end> from the Notify list.";
     // Player is not a member of this bot
     } else {

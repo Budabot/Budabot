@@ -34,7 +34,7 @@ if(preg_match("/^tell (.+)$/i", $message, $arr)) {
   	bot::send("<yellow>".$arr[1]."<end>", "guild");
   	bot::send("<yellow>".$arr[1]."<end>", "guild");
 } elseif(preg_match("/^tellall (.+)$/i", $message, $arr)) {
-	$db->query("SELECT * FROM guild_chatlist_<myname>");
+	$db->query("SELECT * FROM guild_chatlist");
 	while($row = $db->fObject())
 		bot::send("Tell from $sender: <yellow>".$arr[1]."<end>", $row->name);
 	
