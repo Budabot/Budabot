@@ -176,7 +176,9 @@ main(true, $chatBot);
 */	function newLine($channel, $sender, $message, $target){
 		global $vars;
 		
-		if ($channel == "Buddy") {
+		if ($sender == -1) {
+			$line = "[".date("Ymd H:i", time())."] [$channel] $message";
+		} else if ($channel == "Buddy") {
 			$line = "[".date("Ymd H:i", time())."] [$channel] $sender $message";
 		} else {
 			$line = "[".date("Ymd H:i", time())."] [$channel] $sender: $message";
