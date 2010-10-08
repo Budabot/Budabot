@@ -25,7 +25,7 @@ if (preg_match("/^guides list$/i", $message)) {
 
 		$linkContents = '';
 		forEach ($topicList as $topic) {
-			$linkContents .= $this->makeLink($topic, "/tell <myname> <symbol>info $topic", 'chatcmd') . "\n";  
+			$linkContents .= $this->makeLink($topic, "/tell <myname> <symbol>guides $topic", 'chatcmd') . "\n";  
 		}
 		
 		if ($linkContents) {
