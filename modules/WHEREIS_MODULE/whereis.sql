@@ -497,3 +497,10 @@ INSERT INTO `whereis` VALUES (524,'Angel''s Trumpet','Clondyke, 2359 x 3656 (see
 INSERT INTO `whereis` VALUES (524,'Cardboard Palm','Clondyke, 1684 x 1516', 'Bronto Zamia Furfuracea');
 INSERT INTO `whereis` VALUES (525,'Bahirae Serugiusu','Omni Trade, 411 x 394.', 'Token');
 INSERT INTO `whereis` VALUES (526,'Technologist Frank Jobin','Lower Scheol, 1066 x 1813', NULL);
+INSERT INTO `whereis` VALUES (527,'Karl Berth','Lower Scheol, 1172 x 2051', NULL);
+INSERT INTO `whereis` VALUES (528,'One Who Is Full Of Compassion','Lower Scheol, 1359 x 1917', NULL);
+INSERT INTO `whereis` VALUES (529,'Dr.Hestyia - Archaeologist','Lower Scheol, 799 x 595', NULL);
+INSERT INTO `whereis` VALUES (530,'Dr.Curry - Linguistic Anthropologist','Upper Scheol, 1089 x 1137', NULL);
+INSERT INTO `whereis` VALUES (531,'Kira Quinn','Lower Scheol, 817 x 1528', NULL);
+INSERT INTO `whereis` VALUES (532,'Leading Blossom','Upper Scheol, 304 x 1114', NULL);
+INSERT INTO `whereis` VALUES (533,'Dr.Darnell - Social Anthropologist','Upper Scheol, 305 x 1111', NULL);
