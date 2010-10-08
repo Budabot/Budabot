@@ -496,3 +496,4 @@ INSERT INTO `whereis` VALUES (523,'Fly Agaric','Clondyke, 588 x 3441', 'Bronto A
 INSERT INTO `whereis` VALUES (524,'Angel''s Trumpet','Clondyke, 2359 x 3656 (seems to be in multiple locations nearby)', 'Bronto Datura Inoxia');
 INSERT INTO `whereis` VALUES (524,'Cardboard Palm','Clondyke, 1684 x 1516', 'Bronto Zamia Furfuracea');
 INSERT INTO `whereis` VALUES (525,'Bahirae Serugiusu','Omni Trade, 411 x 394.', 'Token');
+INSERT INTO `whereis` VALUES (526,'Technologist Frank Jobin','Lower Scheol, 1066 x 1813', NULL);
