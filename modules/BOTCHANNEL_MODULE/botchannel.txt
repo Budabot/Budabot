@@ -1,7 +1,7 @@
 <header>::::: Help on guestchannel :::::<end>
 
 <highlight>To show who is in the guest channel do<end>
-<tab><symbol>onlineguests
+<tab><symbol>sm
 
 <highlight>To invite someone to guestchannel<end>
 <tab><symbol>inviteuser 'insert name here'

@@ -37,10 +37,10 @@ if (preg_match("/^adduser (.+)$/i", $message, $arr)) {
 	} else {
 		$db->query("SELECT * FROM members_<myname> WHERE `name` = '$name'");
 		if ($db->numrows() != 0) {
-			$msg = "<highlight>$name<end> is already on the guestlist.";
+			$msg = "<highlight>$name<end> is already a member of this bot.";
 		} else {
 			$db->query("INSERT INTO members_<myname> (`name`, `autoinv`) VALUES ('$name', 1)");
-			$msg = "<highlight>$name<end> has been added to the guestlist.";
+			$msg = "<highlight>$name<end> has been added as a member of this bot.";
 			$this->add_buddy($name, 'member');
 		}
 	}

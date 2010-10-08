@@ -36,11 +36,11 @@ if (preg_match("/^remuser (.+)$/i", $message, $arr)) {
         $msg = "Player <highlight>$name<end> does not exist.";
     } else {
 	  	$db->query("SELECT * FROM members_<myname> WHERE `name` = '$name'");
-	  	if($db->numrows() == 0) {
-	  		$msg = "<highlight>$name<end> is not on the guestlist.";
+	  	if ($db->numrows() == 0) {
+	  		$msg = "<highlight>$name<end> is not a member of this bot.";
 	  	} else {
 		    $db->query("DELETE FROM members_<myname> WHERE `name` = '$name'");
-		    $msg = "<highlight>$name<end> has been removed from the guestlist.";
+		    $msg = "<highlight>$name<end> has been removed as a member of this bot.";
 			$this->remove_buddy($name, 'member');
 		}
 	}

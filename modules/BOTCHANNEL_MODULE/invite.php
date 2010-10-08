@@ -38,7 +38,7 @@ if (preg_match("/^inviteuser (.+)$/i", $message, $arr) || preg_match("/^invite (
       	$msg = "Invited <highlight>$name<end> to this channel.";
 	  	AOChat::privategroup_kick($name);
 	  	AOChat::privategroup_invite($name);
-		$msg2 = "You have been invited to the Private group <highlight>{$this->vars["name"]}<end> by <highlight>$sender<end>";
+		$msg2 = "You have been invited to the <highlight><myname><end> channel by <highlight>$sender<end>";
 		bot::send($msg2, $name);
     } else {
 		$msg = "Player <highlight>{$name}<end> does not exist.";

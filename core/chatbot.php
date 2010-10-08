@@ -1392,7 +1392,7 @@ class bot extends AOChat{
 				if ($this->settings['echo'] >= 1) newLine("Inc. Msg.", $sender, $message, $this->settings['echo']);
 
 				// AFK/bot check
-				if (preg_match("/^$sender is AFK/si", $message, $arr)) {
+				if (preg_match("/$sender is AFK/si", $message, $arr)) {
 					return;
 				} else if (preg_match("/I am away from my keyboard right now/si", $message)) {
 					return;

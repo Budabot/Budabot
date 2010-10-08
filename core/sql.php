@@ -54,7 +54,7 @@ class db {
 		$this->botname = strtolower($vars["name"]);
 		$this->dim = $vars["dimension"];
 			
-		if($type == 'Mysql') {
+		if ($type == 'Mysql') {
 			try {
 				$this->sql = new PDO("mysql:host=$host", $user, $pass);
 				$this->query("CREATE DATABASE IF NOT EXISTS $dbName");
@@ -65,12 +65,13 @@ class db {
 			  	$this->errorCode = 1;
 			  	$this->errorInfo = $e->getMessage();
 			}
-		}
-		elseif($type == 'Sqlite'){
-			if($host == NULL || $host == "" || $host == "localhost")
+		} else if ($type == 'Sqlite') {
+			if ($host == NULL || $host == "" || $host == "localhost") {
 				$this->dbName = "./data/$this->dbName";
-			else
+			} else {
 				$this->dbName = "$host/$this->dbName";
+			}
+
 			try {
 				$this->sql = new PDO("sqlite:".$this->dbName);  
 			} catch(PDOException $e) {
@@ -81,31 +82,34 @@ class db {
 	}
 	
 	//Sends a query to the Database and gives the result back
-	function query($stmt, $type = "object"){
+	function query($stmt, $type = "object") {
 		$this->result = NULL;
 		$stmt = str_replace("<myname>", $this->botname, $stmt);
 		$stmt = str_replace("<dim>", $this->dim, $stmt);
 		
-		if(substr_compare($stmt, "create", 0, 6, true) == 0) {
+		if (substr_compare($stmt, "create", 0, 6, true) == 0) {
 			$this->CreateTable($stmt);
 			return;
 		}
 
 		$this->lastQuery = $stmt;
+		//newLine("Sql", $stmt);
       	$result = $this->sql->query($stmt);
       	
-		if(is_object($result)) {
-		  	if($type == "object")
+		if (is_object($result)) {
+		  	if ($type == "object") {
 	  			$this->result = $result->fetchALL(PDO::FETCH_OBJ);
-		  	elseif($type == "assoc")
+		  	} else if ($type == "assoc") {
 		  		$this->result = $result->fetchALL(PDO::FETCH_ASSOC);
-		  	elseif($type == "num")
+		  	} else if ($type == "num") {
 		  		$this->result = $result->fetchALL(PDO::FETCH_NUM);
-		} else
+			}
+		} else {
 			$this->result = NULL;
+		}
 
 		$error = $this->sql->errorInfo();
-		if($error[0] != "00000") {
+		if ($error[0] != "00000") {
 			echo "\nCould not run query: \n";
 			echo "Error msg: $error[2]\n";
 			echo "Query: $stmt\n\n";
@@ -122,16 +126,17 @@ class db {
 		$stmt = str_replace("<myname>", $this->botname, $stmt);
 		$stmt = str_replace("<dim>", $this->dim, $stmt);
 		
-		if(substr_compare($stmt, "create", 0, 6, true) == 0) {
+		if (substr_compare($stmt, "create", 0, 6, true) == 0) {
 			$this->CreateTable($stmt);
 			return;
 		}
 		
 		$this->lastQuery = $stmt;
+		//newLine("Sql", $stmt);
       	$aff_rows = $this->sql->exec($stmt);
 
 		$error = $this->sql->errorInfo();
-		if($error[0] != "00000") {
+		if ($error[0] != "00000") {
 			echo "\nCould not run query: \n";
 			echo "Error msg: $error[2]\n";
 			echo "Query: $stmt\n\n";
@@ -143,18 +148,19 @@ class db {
 
 	//Function for creating the table. Main reason is that some SQL commands are not compatible with sqlite for example the autoincrement field
 	function CreateTable($stmt) {
-		if($this->type == "Mysql") {
+		if ($this->type == "Mysql") {
             $stmt = str_ireplace("AUTOINCREMENT", "AUTO_INCREMENT", $stmt);
-        } elseif($this->type == "Sqlite") {
+        } else if ($this->type == "Sqlite") {
             $stmt = str_ireplace("AUTO_INCREMENT", "AUTOINCREMENT", $stmt);
 			$stmt = str_ireplace(" INT ", " INTEGER ", $stmt);
         }
 		
 		$this->lastQuery = $stmt;
+		//newLine("Sql", $stmt);
 		$this->sql->exec($stmt);
 
 		$error = $this->sql->errorInfo();
-		if($error[0] != "00000") {
+		if ($error[0] != "00000") {
 			echo "\nCould not run query: \n";
 			echo "Error msg: $error[2]\n";
 			echo "Query: $stmt\n\n";
@@ -167,28 +173,28 @@ class db {
 		$this->sql = NULL;
 		$this->dbName = $dbName;			
 		
-		if($this->type == 'Mysql'){
+		if ($this->type == 'Mysql'){
 			try {
 				$this->sql = new PDO("mysql:dbname=$dbName;host=$this->host", $this->user, $this->pass);
 			} catch(PDOException $e) {
 			  	die($e->getMessage());
 			}			
-		}
-		elseif($this->type == 'Sqlite'){
+		} else if ($this->type == 'Sqlite') {
 			try {
 				$this->sql = new PDO("sqlite:".$dbName);  
 			} catch(PDOException $e) {
-			  die($e->getMessage());
+				die($e->getMessage());
 			}			
 		}	
 	}
 	
 	//Return the result of an Select statement
 	function fObject($mode = "single") {
-		if($mode == "single")
+		if ($mode == "single") {
 	  		return array_shift($this->result);
-		elseif($mode == "all")
+		} else if ($mode == "all") {
 			return $this->result;
+		}
 	}
 
 	//Give the affected rows back from an select statement
@@ -213,13 +219,15 @@ class db {
 
 	//Gives a list with all tablenames back
 	function getTables() {
-		if($this->type == "Sqlite") {
+		if ($this->type == "Sqlite") {
 			$tables = array();
 			$this->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'");
-			if($this->numrows() == 0)
+			if ($this->numrows() == 0) {
 				return $tables;
-			while($row = $this->fObject())
+			}
+			while ($row = $this->fObject()) {
 				$tables[$row->tbl_name] = true;
+			}
 			
 			return $tables;
 		}
@@ -227,17 +235,18 @@ class db {
 
 	//Gives infos back about the tables	
 	function getTableInfos($tbl_name) {
-		if($this->type == "Sqlite") {
+		if ($this->type == "Sqlite") {
 		 	$table_info = array();
 			$this->query("SELECT tbl_name, sql FROM sqlite_master WHERE `type` = 'table' AND `tbl_name` = '$tbl_name'");
-			if($this->numrows() == 0)
+			if ($this->numrows() == 0) {
 				return $table_info;
+			}
 			
 			$tbl_sql = $this->fObject();
 			$table_info["sql"] = $tbl_sql->sql;
 			
 		 	$tmp = $this->sql->query("SELECT * FROM $tbl_name LIMIT 0, 1");
-			for($i = 0; $i < $tmp->columnCount(); $i++) {
+			for ($i = 0; $i < $tmp->columnCount(); $i++) {
 				$temp = $tmp->getColumnMeta($i);
 				$table_info["columns"]["name"] = $temp["name"];
 				$table_info["columns"]["type"] = $temp["native_type"];

@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-$db->query("SELECT * FROM priv_chatlist WHERE `guest` = 1");
+$db->query("SELECT * FROM priv_chatlist");
 $data = $db->fObject("all");
 forEach ($data as $row) {
   	if (!isset($this->chatlist[$row->name])) {
