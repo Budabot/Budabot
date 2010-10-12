@@ -9,6 +9,7 @@
 	bot::loadSQLFile($MODULE_NAME, "dyna");
 	bot::loadSQLFile($MODULE_NAME, "research");
 	bot::loadSQLFile($MODULE_NAME, "trickle");
+	bot::loadSQLFile($MODULE_NAME, "playfields");
 
 	bot::command("", "$MODULE_NAME/kos_list.php", "kos", "all", "Shows the Kill On Sight List");
 	bot::command("", "$MODULE_NAME/time.php", "time", "all", "Shows the time in the different timezones");
@@ -31,6 +32,7 @@
 	bot::command("", "$MODULE_NAME/dyna.php", "dyna", "all", "Search for RK Dynaboss");
 	bot::command("", "$MODULE_NAME/research.php", "research", "all", "Info on Research");
 	bot::command("", "$MODULE_NAME/trickle.php", "trickle", "all", "Shows how much skills you will gain by increasing an ability");
+	bot::command("", "$MODULE_NAME/waypoint.php", "waypoint", "all", "Creats a waypoint link");
 
 	// Flip or Roll command
 	bot::command("", "$MODULE_NAME/roll.php", "flip", "all", "Flip a coin");
