@@ -1855,7 +1855,7 @@ class bot extends AOChat{
 			forEach ($fileArray as $num => $line) {
 				$line = trim($line);
 				// don't process comment lines or blank lines
-				if ($line != '' && substr($line, 0, 1) != "#") {
+				if ($line != '' && substr($line, 0, 1) != "#" && substr($line, 0, 2) != "--") {
 					$db->exec($line);
 				}
 			}
