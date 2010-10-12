@@ -13,7 +13,7 @@ if (preg_match("/^sm$/i", $message)) {
 		$msg = bot::makeLink("Chatlist ({$numguest} players)", $list);
 		bot::send($msg, $sendto);
 	} else {
-		bot::send("No players in the channel.", $sendto);
+		bot::send("No players are in the channel.", $sendto);
 	}
 } else {
 	$syntax_error = true;
