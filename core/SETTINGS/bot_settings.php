@@ -132,9 +132,18 @@ if (preg_match("/^settings$/i", $message)) {
 		  	$link .= "You can change it manually with the command: \n";
 		  	$link .= "/tell <myname> settings save {$row->name} 'Option'\n";
 		  	$link .= "Or you can use also simply click on one of the following Options\n";
-		  	forEach ($options as $char) {
-				$save_link = bot::makeLink('Save it', "/tell <myname> settings save {$row->name} {$char}", 'chatcmd');
-		  		$link .= "<tab> <highlight>{$char}<end> ({$save_link})\n";
+			if ($row->intoptions != 0) {
+				$intoptions = explode(";", $row->intoptions);
+				$options_map = array_combine($intoptions, $options);
+				forEach ($options as $key => $label) {
+					$save_link = bot::makeLink('Save it', "/tell <myname> settings save {$row->name} {$key}", 'chatcmd');
+					$link .= "<tab> <highlight>{$label}<end> ({$save_link})\n";
+				}
+			} else {
+				forEach ($options as $char) {
+					$save_link = bot::makeLink('Save it', "/tell <myname> settings save {$row->name} {$char}", 'chatcmd');
+					$link .= "<tab> <highlight>{$char}<end> ({$save_link})\n";
+				}
 			}
 		}
 	}
@@ -145,7 +154,7 @@ if (preg_match("/^settings$/i", $message)) {
   	$change_to_setting = $arr[2];
  	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '$name_setting'");
 	if ($db->numrows() == 0) {
-		$msg = "This setting doesn't exists.";
+		$msg = "This setting doesn't exist.";
 	} else {
 		$row = $db->fObject();
 		$options = explode(";", $row->options);
@@ -154,16 +163,16 @@ if (preg_match("/^settings$/i", $message)) {
 			if(preg_match("/^#([0-9a-f]{6})$/i", $change_to_setting, $col)) 
 				$new_setting = "<font color='$col[0]'>";
 			else
-				$msg = "<highlight>$change_to_setting<end> this isn't an correct HTML-Color.";
+				$msg = "<highlight>{$change_to_setting}<end> this isn't a valid HTML-Color.";
 		} else if ($options[0] == "text") {
 		  	if($options[1] <= 50 && $options[1] != "") {
 			 	if(strlen($change_to_setting) > $options[1]) {
-				   	$msg = "Sorry but your text is longer then $options[1]characters.";
+				   	$msg = "Your text can't be longer than {$options[1]} characters.";
 				} else
 					$new_setting = $change_to_setting;
 			} else {
 			 	if(strlen($change_to_setting) > 50) {
-				   	$msg = "Sorry but your text is longer then 50characters.";
+				   	$msg = "Your text can't be longer than 50 characters.";
 				} else
 					$new_setting = $change_to_setting;	  	
 			}
@@ -173,23 +182,20 @@ if (preg_match("/^settings$/i", $message)) {
 				if($change_to_setting >= $num[0] && $change_to_setting <= $num[1])
 					$new_setting = $change_to_setting;
 				else
-					$msg = "Only Numbers between <highlight>$num[0]<end> and <highlight>$num[1]<end> are allowed.";
+					$msg = "Only numbers between <highlight>{$num[0]}<end> and <highlight>{$num[1]}<end> are allowed.";
 			} else
 				$new_setting = $change_to_setting;
 		} else if ($row->intoptions != "0") {
-			$options2 = array_flip($options);
-			$key = $options2[$change_to_setting];
 		  	$intoptions = explode(";", $row->intoptions);
-			if(array_key_exists($key, $intoptions))
-				$new_setting = $intoptions[$key];
-			else
-				$msg = "This isn't an correct option for this setting.";
-		} else {
-			$options2 = array_flip($options);
-			if(array_key_exists($change_to_setting, $options2))
+			if(in_array($change_to_setting, $intoptions))
 				$new_setting = $change_to_setting;
 			else
-				$msg = "This isn't an correct option for this setting.";
+				$msg = "This isn't a correct option for this setting.";
+		} else {
+			if(in_array($change_to_setting, $options))
+				$new_setting = $change_to_setting;
+			else
+				$msg = "This isn't a correct option for this setting.";
 		}
 	}
 	if ($new_setting != "") {
@@ -216,18 +222,18 @@ if (preg_match("/^settings$/i", $message)) {
 } else if (preg_match("/^settings help (.+)$/i", $message, $arr)) {
   	$name = $arr[1];
  	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '{$name}'");  
-	if($db->numrows() != 0) {
+	if ($db->numrows() != 0) {
 	  	$row = $db->fObject();
-		if($help = fopen($row->help, "r")) {
+		if ($help = fopen($row->help, "r")) {
 			while(!feof($help))
 				$data .= fgets($help, 4096);
 			fclose($help);
 			$msg = bot::makeLink("Help on setting {$name}", $data);
 		} else {
-			$msg = "No help for this setting found.";
+			$msg = "No help found for this setting.";
 		}
 	} else {
-		$msg = "No help for this setting found.";
+		$msg = "This setting doesn't exist.";
 	}
 
  	bot::send($msg, $sendto);
