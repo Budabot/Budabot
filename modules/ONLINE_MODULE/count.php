@@ -75,7 +75,7 @@ if(preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader)
             break;
     }
     if($type == "guild" || ($this->settings["count_tell"] == 0 && $type == "msg") || ($type == "priv" && $this->vars["Guest"][$sender] == true)) {
-	    $db->query("SELECT name, profession, level, afk FROM guild_chatlist WHERE `profession` = '$prof' UNION ALL SELECT name, profession, level, afk FROM priv_chatlist WHERE `profession` = '$prof' AND `guest` = 1 ORDER BY level"); 
+	    $db->query("SELECT name, profession, level, afk FROM guild_chatlist WHERE `profession` = '$prof' UNION ALL SELECT name, profession, level, afk FROM priv_chatlist WHERE `profession` = '$prof' ORDER BY level"); 
 	} elseif($type == "priv" || ($this->settings["count_tell"] == 1 && $type == "msg")) {
 	  	$db->query("SELECT * FROM priv_chatlist WHERE `profession` = '$prof' ORDER BY `level`");
 	}
@@ -101,7 +101,7 @@ if(preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader)
 	$tl6 = 0;
 	$tl7 = 0;
 	if ($type == "guild" || ($this->settings["count_tell"] == 0 && $type == "msg") || ($type == "priv" && $this->vars["Guest"][$sender] == true)) {							
-	    $db->query("SELECT name, profession, level, afk FROM guild_chatlist UNION ALL SELECT name, profession, level, afk FROM priv_chatlist WHERE `guest` = 1 ORDER BY level"); 
+	    $db->query("SELECT name, profession, level, afk FROM guild_chatlist UNION ALL SELECT name, profession, level, afk FROM priv_chatlist ORDER BY level"); 
  	} elseif($type == "priv"  || ($this->settings["count_tell"] == 1 && $type == "msg")) {
 	  	$db->query("SELECT * FROM priv_chatlist");
 	} 
@@ -208,11 +208,11 @@ if(preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader)
 	}
 	if ($type == "guild" || ($this->settings["count_tell"] == 0 && $type == "msg") || ($type == "priv" && $this->vars["Guest"][$sender] == true)) {
 	    if ($prof == "all") {
-			$db->query("SELECT name, profession, level, afk FROM guild_chatlist UNION ALL SELECT name, profession, level, afk FROM priv_chatlist WHERE `guest` = 1 ORDER BY profession");
+			$db->query("SELECT name, profession, level, afk FROM guild_chatlist UNION ALL SELECT name, profession, level, afk FROM priv_chatlist ORDER BY profession");
 			$numonline = $db->numrows();
 			$msg = "<highlight>$numonline<end> in total: ";
 		} else {
-			$db->query("SELECT name, profession, level, afk FROM guild_chatlist WHERE `profession` = '$prof' UNION ALL SELECT name, profession, level, afk FROM priv_chatlist WHERE `profession` = '$prof' AND `guest`= 1 ORDER BY level");
+			$db->query("SELECT name, profession, level, afk FROM guild_chatlist WHERE `profession` = '$prof' UNION ALL SELECT name, profession, level, afk FROM priv_chatlist WHERE `profession` = '$prof' ORDER BY level");
 			$numonline = $db->numrows();
 			$msg = "<highlight>$numonline<end> $prof:";
 		}
