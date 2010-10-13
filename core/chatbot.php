@@ -1227,11 +1227,8 @@ class bot extends AOChat{
 				break;
 		}
 
-		if (($help = fopen($filename, "r")) && ($restricted == false)) {
-			while (!feof ($help)) {
-				$data .= fgets ($help, 4096);
-			}
-			fclose($help);
+		if ($restricted === false && file_exists($filename)) {
+			$data = file_get_contents($filename);
 			$helpcmd = ucfirst($helpcmd);
 			$msg = bot::makeLink("Help($helpcmd)", $data);
 		} else {

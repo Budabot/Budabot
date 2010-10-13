@@ -224,13 +224,15 @@ if (preg_match("/^settings$/i", $message)) {
  	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '{$name}'");  
 	if ($db->numrows() != 0) {
 	  	$row = $db->fObject();
-		if ($help = fopen($row->help, "r")) {
-			while(!feof($help))
-				$data .= fgets($help, 4096);
-			fclose($help);
-			$msg = bot::makeLink("Help on setting {$name}", $data);
-		} else {
+		if ($row->help == '') {
 			$msg = "No help found for this setting.";
+		} else {
+			$data = file_get_contents($row->help);
+			if ($data === false) {
+				$msg = "Help file specified but doesn't exist for this setting.";
+			} else {
+				$msg = bot::makeLink("Help on setting {$name}", $data);
+			}
 		}
 	} else {
 		$msg = "This setting doesn't exist.";

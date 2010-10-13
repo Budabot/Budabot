@@ -137,10 +137,8 @@ class whois extends xml {
 		if(file_exists("$cache/$name.$rk_num.xml")) {
 	        $mins = (time() - filemtime("$cache/$name.$rk_num.xml")) / 60;
             $hours = floor($mins/60);
-            if($hours < 24 && $fp = fopen("$cache/$name.$rk_num.xml", "r")) {
-				while(!feof ($fp))
-					$playerbio .= fgets ($fp, 4096);
-				fclose($fp);
+            if ($hours < 24) {
+				$playerbio = file_get_contents("$cache/$name.$rk_num.xml");
 				if(xml::spliceData($playerbio, '<nick>', '</nick>') == $name) {
 					$this->source = 'cache-current';
 					$data_found = true;
@@ -166,9 +164,9 @@ class whois extends xml {
 		}
 		
 		//If ao.com was too slow to respond or got wrong data back try to update it from auno.org
-		if(!$data_found) {
+		if (!$data_found) {
 			$playerbio = xml::getUrl("http://auno.org/ao/char.php?output=xml&dimension=$rk_num&name=$name");
-			if(xml::spliceData($playerbio, '<nick>', '</nick>') == $name) {
+			if (xml::spliceData($playerbio, '<nick>', '</nick>') == $name) {
 				$this->source = 'auno.org';
 				$data_found = true;
 				$data_save = true;
@@ -179,20 +177,15 @@ class whois extends xml {
 		}
 		
 		//If both site were not responding or the data was invalid and a xml file exists get that one
-		if(!$data_found && file_exists("$cache/$name.$rk_num.xml")) {
-			if ($fp = fopen("$cache/$name.$rk_num.xml", "r")) {
-				while(!feof ($fp))
-					$playerbio .= fgets ($fp, 4096);
-				fclose($fp);
-
-				if(xml::spliceData($playerbio, '<nickname>', '</nickname>') == $name) {
-					$this->source = 'cache-old';
-					$data_found = true;
-				} else {
-					$data_found = false;
-					unset($playerbio);
-					@unlink("$cache/$name.$rk_num.xml");
-				}
+		if (!$data_found && file_exists("$cache/$name.$rk_num.xml")) {
+			$playerbio = file_get_contents("$cache/$name.$rk_num.xml");
+			if (xml::spliceData($playerbio, '<nickname>', '</nickname>') == $name) {
+				$this->source = 'cache-old';
+				$data_found = true;
+			} else {
+				$data_found = false;
+				unset($playerbio);
+				@unlink("$cache/$name.$rk_num.xml");
 			}
 		}
 		
@@ -279,10 +272,7 @@ class org extends xml {
             $hours = floor($mins/60);
             //if the file is not older then 24hrs and it is not the roster of the bot guild then use the cache one, when it the xml file from the org bot guild and not older then 6hrs use it
             if(($hours < 24 && $vars["my guild id"] != $organization_id) || ($hours < 6 && $vars["my guild id"] == $organization_id)) {
-             	$fp = fopen("$cache/$organization_id.$rk_num.xml", "r"); 
-				while(!feof($fp))
-					$orgxml .= fgets($fp, 4096);
-				fclose($fp);
+             	$orgxml = file_get_contents("$cache/$organization_id.$rk_num.xml");
 				if(xml::spliceData($orgxml, '<id>', '</id>') == $organization_id) {
 					$data_found = true;
 				} else {
@@ -307,17 +297,13 @@ class org extends xml {
 		
 		//If the site was not responding or the data was invalid and a xml file exists get that one
 		if(!$data_found && file_exists("$cache/$organization_id.$rk_num.xml")) {
-			if($fp = fopen("$cache/$organization_id.$rk_num.xml", "r")) {
-				while(!feof($fp))
-					$orgxml .= fgets($fp, 4096);
-				fclose($fp);
-				if(xml::spliceData($orgxml, '<id>', '</id>') == $name) {
-					$data_found = true;
-				} else {
-					$data_found = false;
-					unset($orgxml);
-					@unlink("$cache/$organization_id.$rk_num.xml");
-				}
+			$orgxml = file_get_contents("$cache/$organization_id.$rk_num.xml");
+			if(xml::spliceData($orgxml, '<id>', '</id>') == $name) {
+				$data_found = true;
+			} else {
+				$data_found = false;
+				unset($orgxml);
+				@unlink("$cache/$organization_id.$rk_num.xml");
 			}
 		}
 		//if there is still no valid data available give an error back
@@ -396,16 +382,14 @@ class history extends xml{
 		$name = ucfirst(strtolower($name));
 		
 		//Check if a xml file of the person exists and if it is uptodate
-		if(file_exists("$cache/$name.$rk_num.history.xml")) {
+		if (file_exists("$cache/$name.$rk_num.history.xml")) {
 	        $mins = (time() - filemtime("$cache/$name.$rk_num.history.xml")) / 60;
             $hours = floor($mins/60);
-            if($hours < 24 && $fp = fopen("$cache/$name.$rk_num.history.xml", "r")) {
-				while(!feof ($fp))
-					$playerhistory .= fgets ($fp, 4096);
-				fclose($fp);
-				if(xml::spliceData($playerhistory, '<nick>', '</nick>') == $name)
+            if ($hours < 24) {
+				$playerhistory = file_get_contents("$cache/$name.$rk_num.history.xml");
+				if (xml::spliceData($playerhistory, '<nick>', '</nick>') == $name) {
 					$data_found = true;
-				else {
+				} else {
 					$data_found = false;
 					unset($playerhistory);
 					@unlink("$cache/$name.$rk_num.history.xml");
@@ -426,19 +410,14 @@ class history extends xml{
 		}
 		
 		//If the site was not responding or the data was invalid and a xml file exists get that one
-		if(!$data_found && file_exists("$cache/$name.$rk_num.history.xml")) {
-			if ($fp = fopen("$cache/$name.$rk_num.history.xml", "r")) {
-				while(!feof($fp))
-					$playerhistory .= fgets($fp, 4096);
-				fclose($fp);
-
-				if(xml::spliceData($playerhistory, '<nick>', '</nick>') == $name)
-					$data_found = true;
-				else {
-					$data_found = false;
-					unset($playerhistory);
-					@unlink("$cache/$name.$rk_num.history.xml");
-				}
+		if (!$data_found && file_exists("$cache/$name.$rk_num.history.xml")) {
+			$playerhistory = file_get_contents("$cache/$name.$rk_num.history.xml");
+			if (xml::spliceData($playerhistory, '<nick>', '</nick>') == $name) {
+				$data_found = true;
+			} else {
+				$data_found = false;
+				unset($playerhistory);
+				@unlink("$cache/$name.$rk_num.history.xml");
 			}
 		}
 		
