@@ -185,7 +185,7 @@ if (preg_match("/^settings$/i", $message)) {
 					$msg = "Only numbers between <highlight>{$num[0]}<end> and <highlight>{$num[1]}<end> are allowed.";
 			} else
 				$new_setting = $change_to_setting;
-		} else if ($row->intoptions != "0") {
+		} else if ($row->intoptions != "0" && $row->intoptions != '') {
 		  	$intoptions = explode(";", $row->intoptions);
 			if(in_array($change_to_setting, $intoptions))
 				$new_setting = $change_to_setting;
