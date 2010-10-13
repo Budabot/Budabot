@@ -15,7 +15,7 @@ INSERT INTO playfields (id, long_name, short_name) VALUES (670, 'Clondyke', 'Clo
 INSERT INTO playfields (id, long_name, short_name) VALUES (556, 'Coast of Peace', 'CP');
 INSERT INTO playfields (id, long_name, short_name) VALUES (656, 'Coast of Tranquility', 'CT');
 INSERT INTO playfields (id, long_name, short_name) VALUES (595, 'Deep Artery Valley', 'DAV');
-INSERT INTO playfields (id, long_name, short_name) VALUES (620, 'Eastern Fouls Plains', 'EFP');
+INSERT INTO playfields (id, long_name, short_name) VALUES (620, 'Eastern Fouls Plain', 'EFP');
 INSERT INTO playfields (id, long_name, short_name) VALUES (685, 'Galway County', 'GC');
 INSERT INTO playfields (id, long_name, short_name) VALUES (687, 'Galway Shire', 'GS');
 INSERT INTO playfields (id, long_name, short_name) VALUES (717, 'Greater Omni Forest', 'GOF');
