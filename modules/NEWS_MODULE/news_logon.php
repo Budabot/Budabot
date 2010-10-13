@@ -29,8 +29,8 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(isset($this->guildmembers[$sender]) && (time() >= $this->vars["newsdelay"])) {
-	$db->query("SELECT * FROM news_<myname> ORDER BY `time` DESC LIMIT 0, 10");
+if (isset($this->guildmembers[$sender])) {
+	$db->query("SELECT * FROM news ORDER BY `time` DESC LIMIT 0, 10");
 	if($db->numrows() != 0) {
 		$link = "<header>::::: News :::::<end>\n\n";
 		while($row = $db->fObject()) {
