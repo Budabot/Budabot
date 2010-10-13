@@ -504,3 +504,6 @@ INSERT INTO `whereis` VALUES (530,'Dr.Curry - Linguistic Anthropologist','Upper 
 INSERT INTO `whereis` VALUES (531,'Kira Quinn','Lower Scheol, 817 x 1528', NULL);
 INSERT INTO `whereis` VALUES (532,'Leading Blossom','Upper Scheol, 304 x 1114', NULL);
 INSERT INTO `whereis` VALUES (533,'Dr.Darnell - Social Anthropologist','Upper Scheol, 305 x 1111', NULL);
+INSERT INTO `whereis` VALUES (534,'Operator Bhotaar-Bhotaar Roch','The Garden of Roch, 320 x 341', NULL);
+INSERT INTO `whereis` VALUES (535,'Dana McCoy','Lower Scheol, 1220 x 110', NULL);
+INSERT INTO `whereis` VALUES (536,'Dr. Jones - Physical Anthropologist','Lower Scheol, 1180 x 83', NULL);

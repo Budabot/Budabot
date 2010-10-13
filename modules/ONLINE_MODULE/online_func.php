@@ -56,7 +56,7 @@ function online($type, $sender, $sendto, &$bot, $prof = "all") {
 	}
 	$numonline += $numguest;
 
-	$msg .= "<highlight>".$numonline."<end> members are online";
+	$msg .= "{$numonline} member(s) online";
 
 	// BBIN part
 	if ($bot->settings["bbin_status"] == 1) {

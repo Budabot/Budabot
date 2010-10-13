@@ -31,7 +31,7 @@
 
 if (preg_match("/^banlist$/i", $message)){
   	if (count($this->banlist) == 0) {
-	    bot::send("No one is banned of this bot atm.", $sendto);
+	    bot::send("No one is currently banned from this bot.", $sendto);
 	    return;
 	}
 	
