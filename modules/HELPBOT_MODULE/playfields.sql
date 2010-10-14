@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS playfields;
-CREATE TABLE playfields (`id` int(11) PRIMARY KEY NOT NULL, `long_name` varchar(250) NOT NULL UNIQUE, `short_name` varchar(10) UNIQUE);
+CREATE TABLE playfields (`id` int(11) PRIMARY KEY NOT NULL, `long_name` varchar(250) NOT NULL UNIQUE, `short_name` varchar(30) UNIQUE);
 INSERT INTO playfields (id, long_name, short_name) VALUES (760, '4 Holes', '4HO');
 INSERT INTO playfields (id, long_name, short_name) VALUES (655, 'Andromeda', 'Andromeda');
 INSERT INTO playfields (id, long_name, short_name) VALUES (585, 'Aegean', 'Aegean');

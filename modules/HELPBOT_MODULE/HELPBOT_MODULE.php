@@ -1,4 +1,5 @@
 <?php
+	require_once 'Playfields.class.php';
 	require_once 'db_utils.php';
 	require_once 'trickle_functions.php';
 
@@ -32,6 +33,7 @@
 	bot::command("", "$MODULE_NAME/dyna.php", "dyna", "all", "Search for RK Dynaboss");
 	bot::command("", "$MODULE_NAME/research.php", "research", "all", "Info on Research");
 	bot::command("", "$MODULE_NAME/trickle.php", "trickle", "all", "Shows how much skills you will gain by increasing an ability");
+	bot::command("", "$MODULE_NAME/playfields.php", "playfields", "all", "Shows all the playfields including IDs and short names");
 	bot::command("", "$MODULE_NAME/waypoint.php", "waypoint", "all", "Creats a waypoint link");
 
 	// Flip or Roll command
