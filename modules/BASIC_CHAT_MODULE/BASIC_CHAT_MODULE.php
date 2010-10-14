@@ -2,7 +2,6 @@
 	$MODULE_NAME = "BASIC_CHAT_MODULE";
 
 	//Invite/Leave/lock commands
-	bot::addsetting("topic_guild_join", "Show Topic in guild on join", "edit", "0", "ON;OFF", "1;0", "mod", "$MODULE_NAME/topic_show_guild.txt");
 	bot::addsetting("priv_status", "no", "hide", "open");
 	bot::addsetting("priv_status_reason", "no", "hide", "not set");	
 
@@ -27,6 +26,7 @@
 	bot::subcommand("priv", "$MODULE_NAME/leader.php", "leader (.+)", "raidleader", "leader", "Set a specific Leader");
 	bot::command("priv", "$MODULE_NAME/leaderecho_cmd.php", "leaderecho", "leader", "Set if the text of the leader will be repeated");
 	bot::event("priv", "$MODULE_NAME/leaderecho.php", "leader", "leader echo");
+	bot::event("leavePriv", "$MODULE_NAME/leader.php", "none", "Removes leader when the leader leaves the channel");
 	bot::addsetting("leaderecho", "Repeat the text of the raidleader", "edit", "1", "ON;OFF", "1;0");
 	bot::addsetting("leaderecho_color", "Color for Raidleader echo", "edit", "<font color=#FFFF00>", "color");
 

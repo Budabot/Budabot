@@ -37,7 +37,13 @@ if($this->settings["leaderecho"] == 1) {
 	$cmd = "on";
 }
 
-if (preg_match("/^leader (.+)$/i", $message, $arr)) {
+if ($type == "leavePriv") {
+	if ($this->vars["leader"] == $sender) {
+		unset($this->vars["leader"]);
+	  	$msg = "Raid leader cleared.";
+		bot::send($msg, 'priv');
+	}
+} else if (preg_match("/^leader (.+)$/i", $message, $arr)) {
     $uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
 	if (!$uid) {
