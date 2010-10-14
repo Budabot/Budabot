@@ -36,10 +36,6 @@ if ($this->settings["guest_relay"] == 1) {
 		//Relay the message to the guild channel
         $msg = "<end>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}".bot::makeLink($sender,$sender,"user")."<end>: {$this->settings["guest_color_guild"]}".$message."<end>";
         bot::send($msg, 'org', true);
-        //If a guildrelay bot is set do
-        if ($this->settings["relaybot"] != "0") {
-        	bot::send("grc {$this->settings["guest_color"]}[".$this->vars["my guild"]."] ".$msg, $this->settings["relaybot"]);
-		}
 	//If the message comes from the guild, and there's at least 1 player in pgroup, and the message is not a command or a bot response (or relay commands is enabled)
 	} else if ($type == "guild" && (count($this->vars["Guest"]) > 0) && ($args[2][0] != $this->settings["symbol"] || ($args[2][0] == $this->settings["symbol"] && $this->settings["guest_relay_commands"] == 1))) {
 		//Relay the message to the guest channel
