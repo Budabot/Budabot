@@ -1611,7 +1611,6 @@ class bot extends AOChat{
 		global $db;
 		
 		$restricted = false;
-		$stop_execution = false;
 		
 		switch ($type){
 			case "msg":

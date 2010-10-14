@@ -42,10 +42,6 @@
 	bot::regcommand("msg", "$MODULE_NAME/set_limits_priv.php", "faction", "mod");
 	bot::regcommand("priv", "$MODULE_NAME/set_limits_priv.php", "faction", "mod");
 
-	//Set/Show faction limit for privategroup
-	bot::regcommand("msg", "$MODULE_NAME/set_limits_priv.php", "faction", "mod");
-	bot::regcommand("priv", "$MODULE_NAME/set_limits_priv.php", "faction", "mod");
-
 	//Settings
 	bot::addsetting("priv_req_lvl", "Private Channel Min Level Limit", "noedit", "0", "none", "0", "mod", "$MODULE_NAME/help_minlvl.txt");
 	bot::addsetting("priv_req_faction", "Private Channel Faction Limit", "noedit", "all", "none", "0", "mod", "$MODULE_NAME/help_faction.txt");

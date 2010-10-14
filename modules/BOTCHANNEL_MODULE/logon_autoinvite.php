@@ -32,7 +32,7 @@
 $db->query("SELECT * FROM members_<myname> WHERE name = '$sender' AND autoinv = 1");
 if ($db->numrows() != 0) {
  	$this->vars["Guest"][$sender] = false;
-    $msg = "You have been autoinvited to the <highlight><myname><end> channel.";
+    $msg = "You have been auto invited to the <highlight><myname><end> channel.";
     AOChat::privategroup_invite($sender);
     bot::send($msg, $sender);
 }

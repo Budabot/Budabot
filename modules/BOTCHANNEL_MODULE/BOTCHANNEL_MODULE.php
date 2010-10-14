@@ -5,7 +5,7 @@
     
     bot::command("", "$MODULE_NAME/members.php", "members", "all", "Member list");
 	bot::command("", "$MODULE_NAME/sm.php", "sm", "all", "Shows who is in the private channel");
-	bot::command("msg priv", "$MODULE_NAME/count.php", "count", "all", "Shows who is in the private channel");
+	bot::command("", "$MODULE_NAME/count.php", "count", "all", "Shows who is in the private channel");
 	bot::command("", "$MODULE_NAME/autoinvite.php", "autoinvite", "all", "Allows member to set whether he should be auto-invited to guest channel on logon or not");
     bot::command("guild msg", "$MODULE_NAME/join.php", "join", "all", "Join command for guests");
 	bot::command("priv msg", "$MODULE_NAME/leave.php", "leave", "all", "Enables Privatechat Kick");
