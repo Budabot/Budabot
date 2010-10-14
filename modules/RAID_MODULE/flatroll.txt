@@ -17,7 +17,7 @@ or
 <tab><symbol>list
 
 <highlight>Rolling the items<end>
-<tab><symbol>roll or <symbol>flatroll or <symbol>result
+<tab><symbol>rollloot or <symbol>flatroll or <symbol>result
 
 <highlight>Re-adding remaining items after a roll<end>
 <tab><symbol>reroll
