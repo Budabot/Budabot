@@ -7,11 +7,15 @@ function send_message_to_relay($message) {
 	
 	// since we are using the aochat methods, we have to call formatMessage manually to handle colors and bot name replacement
 	$message = $chatBot->formatMessage($message);
+	$relayBot = $chatBot->settings['relaybot'];
 
 	if ($chatBot->settings['relaytype'] == 2) {
-		$chatBot->send_privgroup($chatBot->settings['relaybot'], $message);
+		$chatBot->send_privgroup($relayBot, $message);
 	} else if ($chatBot->settings['relaytype'] == 1) {
-		$chatBot->send_tell($chatBot->settings["relaybot"], $message);
+		$chatBot->send_tell($relayBot, $message);
+		
+		// manual logging is only needed for tell relay
+		if ($chatBot->settings['echo'] >= 1) newLine("Out. Msg.", $relayBot, $message, $chatBot->settings['echo']);
 	}
 }
 
