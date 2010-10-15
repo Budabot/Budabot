@@ -132,10 +132,10 @@ if (preg_match("/^settings$/i", $message)) {
 		  	$link .= "You can change it manually with the command: \n";
 		  	$link .= "/tell <myname> settings save {$row->name} 'Option'\n";
 		  	$link .= "Or you can use also simply click on one of the following Options\n";
-			if ($row->intoptions != 0) {
+			if ($row->intoptions != '0') {
 				$intoptions = explode(";", $row->intoptions);
 				$options_map = array_combine($intoptions, $options);
-				forEach ($options as $key => $label) {
+				forEach ($options_map as $key => $label) {
 					$save_link = bot::makeLink('Save it', "/tell <myname> settings save {$row->name} {$key}", 'chatcmd');
 					$link .= "<tab> <highlight>{$label}<end> ({$save_link})\n";
 				}
