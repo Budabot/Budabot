@@ -73,7 +73,7 @@ if (preg_match("/^settings$/i", $message)) {
 
   	$msg = bot::makeLink("Bot Settings", $link);
  	bot::send($msg, $sendto);
-} else if (preg_match("/^settings change ([a-z0-9]+)$/i", $message, $arr)) {
+} else if (preg_match("/^settings change ([a-z0-9_]+)$/i", $message, $arr)) {
     $link = "<header>::::: Settings for {$arr[1]} :::::<end>\n\n";
  	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '{$arr[1]}'");
 	if ($db->numrows() == 0) {
@@ -149,7 +149,7 @@ if (preg_match("/^settings$/i", $message)) {
 	}
   	$msg = bot::makeLink("Settings Info for $arr[1]", $link);
  	bot::send($msg, $sendto);
-} else if (preg_match("/^settings save ([a-z0-9]+) (.+)$/i", $message, $arr)) {
+} else if (preg_match("/^settings save ([a-z0-9_]+) (.+)$/i", $message, $arr)) {
   	$name_setting = strtolower($arr[1]);
   	$change_to_setting = $arr[2];
  	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '$name_setting'");
