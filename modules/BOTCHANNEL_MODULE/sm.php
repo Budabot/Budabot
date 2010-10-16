@@ -10,7 +10,7 @@ if (preg_match("/^sm$/i", $message)) {
 			$list .= "<white>$row->name - $row->level<end><green>/$row->ai_level<end><white> $row->profession, $row->guild<end>\n";
 	    }
 
-		$msg = bot::makeLink("Chatlist ({$numguest} player(s))", $list);
+		$msg = bot::makeLink("Chatlist ({$numguest})", $list);
 		bot::send($msg, $sendto);
 	} else {
 		bot::send("No players are in the channel.", $sendto);

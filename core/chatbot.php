@@ -482,17 +482,15 @@ class bot extends AOChat{
 */	function loadModules(){
 		global $db;
 		global $curMod;
-		if($d = dir("./modules")){
-			while (false !== ($entry = $d->read())){
-				if(!is_dir($entry)){
+		if ($d = dir("./modules")) {
+			while (false !== ($entry = $d->read())) {
+				if (!is_dir($entry)) {
 					// Look for the plugin's ... setup file
-					if(file_exists("./modules/$entry/$entry.php")){
+					if (file_exists("./modules/$entry/$entry.php")) {
 						$curMod = $entry;
 						if($this->settings['debug'] > 0) print("MODULE_NAME:($entry.php)\n");
 						include "./modules/$entry/$entry.php";
 					}
-					else // else add entry as a single file.
-						include "./modules/$entry";
 				}
 			}
 			$d->close();
