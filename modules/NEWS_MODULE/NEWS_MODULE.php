@@ -1,6 +1,9 @@
 <?php
 	$MODULE_NAME = "NEWS_MODULE";
 
+	//Setup
+	Event::register("setup", $MODULE_NAME, "setup.php");
+
 	//News
     bot::event("logOn", "$MODULE_NAME/news_logon.php", "none", "Sends a tell with news to players logging in");
 	bot::command("", "$MODULE_NAME/news.php", "news", "all", "Show News");
@@ -13,10 +16,7 @@
 	bot::addsetting("news", "no", "hide", "Not set.");
 	bot::addsetting("adminnews", "no", "hide", "Not set.");
 
-	//Setup
-	bot::event("setup", "$MODULE_NAME/setup.php");
-
-	//Helpfiles
-	bot::help("news", "$MODULE_NAME/news.txt", "guild", "News");
+	//Help files
+	bot::help("news", "$MODULE_NAME/news.txt", "guild", "How to use news");
 	bot::help("priv_news", "$MODULE_NAME/priv_news.txt", "raidleader", "Set Privategroup News");
 ?>

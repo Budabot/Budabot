@@ -29,27 +29,29 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(preg_match("/^news del ([0-9]+)$/i", $message, $arr)) {
+if (preg_match("/^news del ([0-9]+)$/i", $message, $arr)) {
 	$rows = $db->exec("DELETE FROM news WHERE `id` = {$arr[1]}");
-	if($rows == 0)
+	if ($rows == 0) {
 		$msg = "No newsentry found with the ID <highlight>{$arr[1]}<end>.";
-	else
+	} else {
 		$msg = "Newsentry with the ID <highlight>{$arr[1]}<end> was successfully deleted.";
+	}
 
     bot::send($msg, $sendto);
-} elseif(preg_match("/^news (.+)$/i", $message, $arr)) {
+} else if (preg_match("/^news (.+)$/i", $message, $arr)) {
 	$news = str_replace("'", "''", $arr[1]);
 	$db->query("INSERT INTO news (`time`, `name`, `news`) VALUES (".time().", '".$sender."', '$news')"); 
 	$msg = "News has been added.";
 
     bot::send($msg, $sendto);
-} elseif(preg_match("/^news$/i", $message, $arr)) {
+} else if (preg_match("/^news$/i", $message, $arr)) {
 	$db->query("SELECT * FROM news ORDER BY `time` DESC LIMIT 0, 10");
-	if($db->numrows() != 0) {
+	if ($db->numrows() != 0) {
 		$link = "<header>::::: News :::::<end>\n\n";
-		while($row = $db->fObject()) {
-		  	if(!$updated)
+		while ($row = $db->fObject()) {
+		  	if (!$updated) {
 				$updated = $row->time;
+			}
 			
 		  	$link .= "<highlight>Date:<end> ".gmdate("dS M, H:i", $row->time)."\n";
 		  	$link .= "<highlight>Author:<end> $row->name\n";
@@ -57,9 +59,9 @@ if(preg_match("/^news del ([0-9]+)$/i", $message, $arr)) {
 		  	$link .= "<highlight>Message:<end> $row->news\n\n";
 		}
 		$msg = bot::makeLink("Click to view the latest News", $link)." [Last updated at ".gmdate("dS M, H:i", $updated)."]";
-	} else
+	} else {
 		$msg = "No News recorded yet.";
-
+	}
 		
     bot::send($msg, $sendto);
 }

@@ -20,8 +20,6 @@
    **
    */
 
-require_once('functions.php');
-
 if (preg_match("/^premade (.*)$/i", $message, $arr)) {
 
 	$msg = "";

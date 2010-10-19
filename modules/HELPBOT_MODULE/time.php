@@ -91,8 +91,7 @@ $timezone["AEDT"]["name"] = "Australian Eastern Daylight Time (GMT+11)";
 $timezone["AEDT"]["time"] = gmdate("dS M, H:i", $time + (3600*11));
 
 
-if(preg_match("/^time$/i", $message)) {
-	$msg = "<highlight>".gmdate("dS M, H:i", $time)."<end> (GMT/AO)";
+if (preg_match("/^time$/i", $message)) {
 	
 	$link = "<header>::::: Timezones :::::<end>\n\n";
 	$link .= "The following includes most of the timezones that exists but notice that this list doesn't show all countrys within the timezones and also that some country's have 2 timezones. \nTo see the time in a special timezone use time 'timezone' for example time CET\n\n";
@@ -143,15 +142,17 @@ if(preg_match("/^time$/i", $message)) {
 	$link .= "<tab><highlight>Alabama/Illinois/Iowa/Michigan/Minnesota/Oklahoma<end>\n";
 	$link .= "<tab><tab>Standard Time (CST = GMT-6): {$timezone["CST"]["time"]}\n";
 	$link .= "<tab><tab>Summer Time (CDT = GMT-5): {$timezone["CDT"]["time"]}\n";
-	
+
+	$msg = "<highlight>".gmdate("dS M, H:i", $time)."<end> (GMT/AO)";
 	$msg .= " ".bot::makeLink("All Timezones", $link);
     bot::send($msg, $sendto);
-} elseif(preg_match("/^time (.+)$/i", $message, $arr)) {
+} else if (preg_match("/^time (.+)$/i", $message, $arr)) {
   	$zone = strtoupper($arr[1]);
-  	if($timezone[$zone]["name"])
+  	if ($timezone[$zone]["name"]) {
 		$msg = $timezone[$zone]["name"]." is <highlight>".$timezone[$zone]["time"]."<end>";
-	else
+	} else {
 		$msg = "This timezone doesn't exist or isn't known by this bot.";
+	}
 
     bot::send($msg, $sendto);
 }

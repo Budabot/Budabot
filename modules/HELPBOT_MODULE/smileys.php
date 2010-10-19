@@ -123,7 +123,7 @@ User is braindead.
 <yellow>X-(<end>
 User just died. ";
 	
-if(preg_match("/^smileys$/i", $message)) {
+if (preg_match("/^smileys$/i", $message)) {
 	$basiclink = bot::makeLink("Basic Smileys", $basic) ;
 	$widelink = bot::makeLink("Widely Used Smileys", $wide);
 

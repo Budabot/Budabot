@@ -22,7 +22,7 @@ if (preg_match("/^guides list$/i", $message)) {
 		}
 
 		closedir($handle);
-		
+
 		sort($topicList);
 
 		$linkContents = '';

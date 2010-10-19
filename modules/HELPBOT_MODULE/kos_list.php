@@ -29,20 +29,21 @@
  ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-if(preg_match("/^kos$/i", $message)) {
+if (preg_match("/^kos$/i", $message)) {
 	$db->query("SELECT * FROM koslist_<myname>");
-	if($db->numrows() == 0)
-	$msg = "No list exists yet.";
-	else {
-		while($row = $db->fObject())
-		$list[$row->name]++;
+	if ($db->numrows() == 0) {
+		$msg = "No list exists yet.";
+	} else {
+		while ($row = $db->fObject()) {
+			$list[$row->name]++;
+		}
 
 		arsort($list);
 		$list = array_slice($list, 0, 25, true);
 		$link  = "<header>::::: Kill On Sight list :::::<end>\n\n";
 		$link .= "This list shows the top25 of added Players\n\n";
 		$i = 0;
-		foreach($list as $key => $value) {
+		forEach ($list as $key => $value) {
 			$i++;
 			$link .= "$i. $key <highlight>(Voted {$value}times)<end>\n";
 		}
@@ -51,52 +52,39 @@ if(preg_match("/^kos$/i", $message)) {
 	}
 
 	bot::send($msg, $sendto);
-}
-elseif(preg_match("/^kos add (.+)$/i", $message, $arr)) {
+} else if (preg_match("/^kos add (.+)$/i", $message, $arr)) {
 	$explodemsg = explode(' ', $arr[1], 3);
 	$name = ucfirst(strtolower($explodemsg[0]));
-	if ('reason' == $explodemsg[1])
-	{
+	if ('reason' == $explodemsg[1]) {
 		// compatibility for old style syntax add X reason Y
 		$reason = $explodemsg[2];
-	}
-	else
-	{
+	} else {
 		// otherwise stitch the reason back together
 		$reason = $explodemsg[1] . ' ' . $explodemsg[2];
 	}
 	$uid = AoChat::get_uid($name);
-	if(strlen($reason) >= 50)
-	{
+	if (strlen($reason) >= 50) {
 		$msg = "The reason can't be longer than 50 characters.";
-	}
-	elseif($uid)
-	{
+	} else if ($uid) {
 		$db->query("SELECT * FROM koslist_<myname> WHERE `sender` = '$sender' AND `name` = '".str_replace("'", "''", $name)."'");
-		if($db->numrows() == 1)
-		{
+		if($db->numrows() == 1) {
 			$msg = "You have already <highlight>$name<end> on your KOS List.";
-		}
-		else
-		{
+		} else {
 			$db->query("INSERT INTO koslist_<myname> (`time`, `name`, `sender`, `reason`) VALUES (".time().", '".str_replace("'", "''", $name)."', '$sender', '".str_replace("'", "''", $reason)."')");
 			$msg = "You have successfull added <highlight>$name<end> to the KOS List.";
 		}
-	}
-	else
-	{
+	} else {
 		$msg = "The Player you want to add doesn't exists.";
 	}
 
 	bot::send($msg, $sendto);
-}
-elseif(preg_match("/^kos rem (.+)$/i", $message, $arr)) {
+} else if (preg_match("/^kos rem (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 	$db->query("SELECT * FROM koslist_<myname> WHERE `sender` = '$sender' AND `name` = '".str_replace("'", "''", $name)."'");
-	if($db->numrows() == 1) {
+	if ($db->numrows() == 1) {
 		$db->query("DELETE FROM koslist_<myname> WHERE `sender` = '$sender' AND `name` = '".str_replace("'", "''", $name)."'");
 		$msg = "You have successfull removed <highlight>$name<end> from the KOS List.";
-	} elseif($this->guildmembers[$sender] < $this->vars['guild admin level']) {
+	} else if ($this->guildmembers[$sender] < $this->vars['guild admin level']) {
 		$db->query("SELECT * FROM koslist_<myname> WHERE `name` = '".str_replace("'", "''", $name)."'");
 		if($db->numrows() != 0) {
 			$db->query("DELETE FROM koslist_<myname> WHERE `name` = '$".str_replace("'", "''", $name)."'");
@@ -109,18 +97,16 @@ elseif(preg_match("/^kos rem (.+)$/i", $message, $arr)) {
 	}
 
 	bot::send($msg, $sendto);
-}
-elseif(preg_match("/^kos (.+)$/i", $message, $arr)) {
+} else if (preg_match("/^kos (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 	$db->query("SELECT * FROM koslist_<myname> WHERE `name` = '".str_replace("'", "''", $name)."' LIMIT 0, 40");
-	if($db->numrows() >= 1) {
+	if ($db->numrows() >= 1) {
 		$link  = "<header>::::: Kill On Sight list :::::<end>\n\n";
 		$link .= "The following Players has added <highlight>$name<end> to his list\n\n";
-		while($row = $db->fObject()) {
+		while ($row = $db->fObject()) {
 			$link .= "Name: <highlight>$row->sender<end>\n";
 			$link .= "Date: <highlight>".gmdate("dS F Y, H:i", $row->time)."<end>\n";
-			if($row->reason != "0" && "" != $row->reason)
-			{
+			if ($row->reason != "0" && "" != $row->reason) {
 				// only show the reason if there is one
 				// old style would be zero as reason
 				// new style is an empty string
@@ -130,8 +116,9 @@ elseif(preg_match("/^kos (.+)$/i", $message, $arr)) {
 			$link .= "\n";
 		}
 		$msg = bot::makeLink("KOS-List from $name", $link);
-	} else
-	$msg = "The player <highlight>$name<end> isn't on the KOS List.";
+	} else {
+		$msg = "The player <highlight>$name<end> isn't on the KOS List.";
+	}
 
 	bot::send($msg, $sendto);
 } else {

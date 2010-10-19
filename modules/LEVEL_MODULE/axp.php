@@ -60,7 +60,8 @@ $axp[27] = 4608707;
 $axp[28] = 5023490;
 $axp[29] = 5475604;
 $axp[30] = 5968409;
-if(preg_match("/^axp$/i", $message)) {
+
+if (preg_match("/^axp$/i", $message)) {
     $msg = "<header>::::: Alien Experience List :::::<end>\n\n";
     $msg .= "<u>AI Lvl - AXP   - Rank         - Lvl Req.</u>\n";
     $msg .= " 1 -      1.500 - Fledgling - 5\n";

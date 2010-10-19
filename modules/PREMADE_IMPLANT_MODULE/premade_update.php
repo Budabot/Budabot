@@ -19,8 +19,6 @@
    ** This module may be obtained at: http://www.box.net/shared/bgl3cx1c3z
    **
    */
-   
-require_once('functions.php');
 
 if (preg_match("/^premadeupdate$/i", $message)) {
 	

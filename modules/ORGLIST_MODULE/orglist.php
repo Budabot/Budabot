@@ -190,17 +190,17 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 				($orgmate->members[$amember]["rank_id"] == 3 && $orgmate->members[$amember]["rank"] == "Member") ||
 				($orgmate->members[$amember]["rank_id"] == 4 && $orgmate->members[$amember]["rank"] == "Applicant")) {
 				// Dont do anything. Can't do a match cause this rank is in multiple orgtypes.
-			} elseif ($orgmate->members[$amember]["rank"] == $orgrankmap["Anarchism"][$orgmate->members[$amember]["rank_id"]]) {
+			} else if ($orgmate->members[$amember]["rank"] == $orgrankmap["Anarchism"][$orgmate->members[$amember]["rank_id"]]) {
 				$this->data["ORGLIST_MODULE"]["orgtype"]= "Anarchism";
-			} elseif ($orgmate->members[$amember]["rank"] == $orgrankmap["Monarchy"][$orgmate->members[$amember]["rank_id"]]) {
+			} else if ($orgmate->members[$amember]["rank"] == $orgrankmap["Monarchy"][$orgmate->members[$amember]["rank_id"]]) {
 				$this->data["ORGLIST_MODULE"]["orgtype"]= "Monarchy";
-			} elseif ($orgmate->members[$amember]["rank"] == $orgrankmap["Feudalism"][$orgmate->members[$amember]["rank_id"]]) {
+			} else if ($orgmate->members[$amember]["rank"] == $orgrankmap["Feudalism"][$orgmate->members[$amember]["rank_id"]]) {
 				$this->data["ORGLIST_MODULE"]["orgtype"]= "Feudalism";
-			} elseif ($orgmate->members[$amember]["rank"] == $orgrankmap["Republic"][$orgmate->members[$amember]["rank_id"]]) {
+			} else if ($orgmate->members[$amember]["rank"] == $orgrankmap["Republic"][$orgmate->members[$amember]["rank_id"]]) {
 				$this->data["ORGLIST_MODULE"]["orgtype"]= "Republic";
-			} elseif ($orgmate->members[$amember]["rank"] == $orgrankmap["Faction"][$orgmate->members[$amember]["rank_id"]]) {
+			} else if ($orgmate->members[$amember]["rank"] == $orgrankmap["Faction"][$orgmate->members[$amember]["rank_id"]]) {
 				$this->data["ORGLIST_MODULE"]["orgtype"]= "Faction";
-			} elseif ($orgmate->members[$amember]["rank"] == $orgrankmap["Department"][$orgmate->members[$amember]["rank_id"]]) {
+			} else if ($orgmate->members[$amember]["rank"] == $orgrankmap["Department"][$orgmate->members[$amember]["rank_id"]]) {
 				$this->data["ORGLIST_MODULE"]["orgtype"]= "Department";
 			}
 		}
@@ -208,7 +208,7 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 		$buddy_online_status = $this->buddy_online($amember);
 		if ($buddy_online_status !== null) {
 			$this->data["ORGLIST_MODULE"]["result"][$amember]["online"] = $buddy_online_status;
-		} elseif ($this->vars["name"] != $amember) { // If the name being checked ISNT the bot.
+		} else if ($this->vars["name"] != $amember) { // If the name being checked ISNT the bot.
 			// check if they exist, (They might be deleted)
 			if (AoChat::get_uid($amember)) {
 				if ($buddy_list_full) {
@@ -217,14 +217,14 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 					unset($this->data["ORGLIST_MODULE"]);
 					return;
 				}
-				
+
 				$this->data["ORGLIST_MODULE"]["check"][$amember] = 1;
 				$this->add_buddy($amember, 'onlineorg');
 				
 				// wait 1 millisecond so the buddy list doesn't fill up too quickly
 				usleep(10000);
 			}
-		} elseif ($this->vars["name"] == $amember) { // Yes, this bot is online. Don't need a buddylist to tell me.
+		} else if ($this->vars["name"] == $amember) { // Yes, this bot is online. Don't need a buddylist to tell me.
 			$this->data["ORGLIST_MODULE"]["result"][$amember]["online"] = 1;
 		}
 	}
@@ -239,14 +239,14 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 
 // If we added names to the buddylist, this will kick in to determine if they are online or not.
 // If no more names need to be checked, then post results.
-} elseif (($type == "logOn" || $type == "logOff") && isset($this->data["ORGLIST_MODULE"]["check"][$sender])) {
+} else if (($type == "logOn" || $type == "logOff") && isset($this->data["ORGLIST_MODULE"]["check"][$sender])) {
 
 	if ($type == "logOn") {
 		$this->data["ORGLIST_MODULE"]["result"][$sender]["online"] = 1;
 	} else if ($type == "logOff") {
 		$this->data["ORGLIST_MODULE"]["result"][$sender]["online"] = 0;
 	}
-	
+
 	$this->remove_buddy($sender, 'onlineorg');
 	unset($this->data["ORGLIST_MODULE"]["check"][$sender]);
 }

@@ -1,15 +1,16 @@
 <?php
-if(preg_match("/^aiarmor (cc|cm|co|cp|cs|ss)$/i", $message, $arr) || preg_match("/^aiarmor (cc|cm|co|cp|cs|ss) ([0-9]+)$/i", $message, $arr)) {
+if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) || preg_match("/^aiarmor (cc|cm|co|cp|cs|ss) ([0-9]+)$/i", $message, $arr)) {
 	$armortype = strtolower($arr[1]);
-	if($arr[2] >= 1 && $arr[2] <= 300)
+	if ($arr[2] >= 1 && $arr[2] <= 300) {
 		$ql = $arr[2];
-	else
+	} else {
 		$ql = 300;
+	}
 		
 	$trg_ql = $ql;
   	$src_ql = ceil($trg_ql * 0.8);
   	
-	switch($armortype) {
+	switch ($armortype) {
 	    case 'cc':
 	    	//Result
 	    	$icon_armor_result = 256308;
@@ -27,7 +28,7 @@ if(preg_match("/^aiarmor (cc|cm|co|cp|cs|ss)$/i", $message, $arr) || preg_match(
 	    	$name_armor_trg = "Supple";
 	    	$lowid_armor_trg = 247140;
 	    	$highid_armor_trg = 247141;
-	    break;
+	    	break;
 	    case 'cm':
 	    	//Result
 	    	$icon_armor_result = 256356;
@@ -46,7 +47,7 @@ if(preg_match("/^aiarmor (cc|cm|co|cp|cs|ss)$/i", $message, $arr) || preg_match(
 	    	$name_armor_trg = "Enduring";
 	    	$lowid_armor_trg = 247137;
 	    	$highid_armor_trg = 247137;
-	    break;
+	    	break;
 	    case 'co':
 	    	//Result
 	    	$icon_armor_result = 256320;
@@ -65,7 +66,7 @@ if(preg_match("/^aiarmor (cc|cm|co|cp|cs|ss)$/i", $message, $arr) || preg_match(
 	    	$name_armor_trg = "Arithmetic";
 	    	$lowid_armor_trg = 247145;
 	    	$highid_armor_trg = 247145;
-	    break;
+	    	break;
 	    case 'cp':
 	    	//Result
 	    	$icon_armor_result = 256350;
@@ -84,7 +85,7 @@ if(preg_match("/^aiarmor (cc|cm|co|cp|cs|ss)$/i", $message, $arr) || preg_match(
 	    	$name_armor_trg = "Enduring";
 	    	$lowid_armor_trg = 247137;
 	    	$highid_armor_trg = 247137;
-	    break;
+	    	break;
 	    case 'cs':
 	    	//Result
 	    	$icon_armor_result = 256326;
@@ -103,7 +104,8 @@ if(preg_match("/^aiarmor (cc|cm|co|cp|cs|ss)$/i", $message, $arr) || preg_match(
 	    	$name_armor_trg = "Arithmetic";
 	    	$lowid_armor_trg = 247145;
 	    	$highid_armor_trg = 247145;
-	    break;
+	    	break;
+		case 'css':
 	    case 'ss':
 	    	//Result
 	    	$icon_armor_result = 256302;
@@ -140,13 +142,14 @@ if(preg_match("/^aiarmor (cc|cm|co|cp|cs|ss)$/i", $message, $arr) || preg_match(
 	$list .= bot::makeLink("Tradeskill process for this item", "/tell <myname> aiarmor $name_armor_trg $trg_ql", "chatcmd").")";
 	$msg = bot::makeLink("Building process for $ql $name_armor_result", $list);
 	bot::send($msg, $sendto);
-} elseif(preg_match("/^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual)$/i", $message, $arr) || preg_match("/^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual) ([0-9]+)/i", $message, $arr)) {
+} else if (preg_match("/^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual)$/i", $message, $arr) || preg_match("/^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual) ([0-9]+)/i", $message, $arr)) {
 	$armortype = ucfirst(strtolower($arr[1]));
-	if($arr[2] >= 1 && $arr[2] <= 300)
+	if ($arr[2] >= 1 && $arr[2] <= 300) {
 		$ql = $arr[2];
-	else
+	} else {
 		$ql = 300;
-	
+	}
+
 	$list = "<header>::::: Building process for $ql $armortype :::::<end>\n\n";
 	
 	$list .= "You need the following items to build $armortype Armor\n";
@@ -222,48 +225,48 @@ if(preg_match("/^aiarmor (cc|cm|co|cp|cs|ss)$/i", $message, $arr) || preg_match(
 	$list .= "<tab><img src=rdb://100337>\n";
 	
 	$vb_ql = ceil($ql*0.8);
-	switch($armortype) {
+	switch ($armortype) {
 		case "Arithmetic":
 			$list .= "<a href='itemref://247144/247145/$vb_ql'>QL$vb_ql Arithmetic Lead Viralbots</a> (<highlight>Rare Drop off Alien City Generals<end>)\n";
-		break;
+			break;
 		case "Supple":
 			$list .= "<a href='itemref://247140/247141/$vb_ql'>QL$vb_ql Supple Lead Viralbots</a> (<highlight>Rare Drop off Alien City Generals<end>)\n";
-		break;
+			break;
 		case "Enduring":
 			$list .= "<a href='itemref://247136/247137/$vb_ql'>QL$vb_ql Enduring Lead Viralbots</a> (<highlight>Rare Drop off Alien City Generals<end>)\n";
-		break;
+			break;
 		case "Observant":
 			$list .= "<a href='itemref://247142/247143/$vb_ql'>QL$vb_ql Observant Lead Viralbots</a> (<highlight>Rare Drop off Alien City Generals<end>)\n";
-		break;
+			break;
 		case "Strong":
 			$list .= "<a href='itemref://247138/247139/$vb_ql'>QL$vb_ql Strong Lead Viralbots</a> (<highlight>Rare Drop off Alien City Generals<end>)\n";
-		break;
+			break;
 		case "Spiritual":
 			$list .= "<a href='itemref://247146/247147/$vb_ql'>QL$vb_ql Spiritual Lead Viralbots</a> (<highlight>Rare Drop off Alien City Generals<end>)\n";
-		break;
+			break;
 	}
 	$list .= "<tab><tab>+\n";
 	$list .= "<tab><img src=rdb://245924>\n<a href='itemref://247172/247173/$ql'>Formatted Viralbot Vest</a></a>\n";
 	$list .= "<tab><tab>=\n";
-	switch($armortype) {
+	switch ($armortype) {
 		case "Arithmetic":
 			$list .= "<tab><img src=rdb://256314>\n<a href='itemref://246559/246560/$ql'>QL$ql Arithmetic Body Armor</a>\n";
-		break;
+			break;
 		case "Supple":
 			$list .= "<tab><img src=rdb://256296>\n<a href='itemref://246621/246622/$ql'>QL$ql Supple Body Armor</a>\n";
-		break;
+			break;
 		case "Enduring":
 			$list .= "<tab><img src=rdb://256344>\n<a href='itemref://246579/246580/$ql'>QL$ql Enduring Body Armor</a>\n";
-		break;
+			break;
 		case "Observant":
 			$list .= "<tab><img src=rdb://256338>\n<a href='itemref://246591/246592/$ql'>QL$ql Observant Body Armor</a></a>\n";
-		break;
+			break;
 		case "Strong":
 			$list .= "<tab><img src=rdb://256362>\n<a href='itemref://246616/246617/$ql'>QL$ql Strong Body Armor</a>\n";
-		break;
+			break;
 		case "Spiritual":
 			$list .= "<tab><img src=rdb://256332>\n<a href='itemref://246600/246601/$ql'>QL$ql Spiritual Body Armor</a>\n";
-		break;
+			break;
 	}
 	$list .= "<highlight>Required Skills:<end>\n";
 	$list .= "- ".($ql * 6)." Psychology\n\n";

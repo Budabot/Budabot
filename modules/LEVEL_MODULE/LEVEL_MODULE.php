@@ -26,9 +26,9 @@
 	//Title Levels
 	bot::command("", "$MODULE_NAME/title.php", "title", "guild", "Show the Titlelevels and how much IP/Level");
 
-	//Helpfiles
-    bot::help("level", "$MODULE_NAME/level.txt", "guild", "Levelinfos", "Level");
-    bot::help("title_level", "$MODULE_NAME/title.txt", "guild", "Infos about TitleLevels", "Level");
-    bot::help("missions", "$MODULE_NAME/missions.txt", "guild", "Who can roll a specific QL of a mission", "Level");
-	bot::help("experience", "$MODULE_NAME/experience.txt", "guild", "XP/SK/AXP Infos", "Level");
+	//Help files
+    bot::help("level", "$MODULE_NAME/level.txt", "guild", "How to use level");
+    bot::help("title_level", "$MODULE_NAME/title.txt", "guild", "How to use title");
+    bot::help("missions", "$MODULE_NAME/missions.txt", "guild", "Who can roll a specific QL of a mission");
+	bot::help("experience", "$MODULE_NAME/experience.txt", "guild", "XP/SK/AXP Info");
 ?>

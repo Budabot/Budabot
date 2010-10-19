@@ -5,12 +5,11 @@ For Budabot
 5/11/07
 */
 
-If (preg_match("/^research ([0-9]+)$/i",$message, $arr)) {
+if (preg_match("/^research ([0-9]+)$/i",$message, $arr)) {
 	$level = $arr[1];
 	if ($level < 1 OR $level > 10) {
 		$research .= "<orange>Invalid Research Level Input. Valid reserch levels are from 1-10.<end>";
-	}
-	else {
+	} else {
 		$sql = "SELECT * FROM research WHERE level = $level";
 		$db->query($sql);
 		$row = $db->fObject();
@@ -31,20 +30,20 @@ If (preg_match("/^research ([0-9]+)$/i",$message, $arr)) {
 	$hilevel = $arr[2];
 	if ($lolevel < 1 OR $lolevel > 10 OR $hilevel < 1 OR $hilevel > 10) {
 		$research .= "<orange>Invalid Research Level Input. Valid reserch levels are from 1-10.<end>";
-	}
-	else {
-		$sql = "SELECT 
-			r1.level lolevel,
-			r1.sk losk,
-			r1.levelcap lolevelcap,
-			r2.level hilevel,
-			r2.sk hisk,
-			r2.levelcap hilevelcap
-		FROM
-			research r1,
-			research r2
-		WHERE
-			r1.level = $lolevel AND r2.level = $hilevel";
+	} else {
+		$sql = 
+			"SELECT 
+				r1.level lolevel,
+				r1.sk losk,
+				r1.levelcap lolevelcap,
+				r2.level hilevel,
+				r2.sk hisk,
+				r2.levelcap hilevelcap
+			FROM
+				research r1,
+				research r2
+			WHERE
+				r1.level = $lolevel AND r2.level = $hilevel";
 		$db->query($sql);
 		$row = $db->fobject();
 		$range = $row->hisk - $row->losk;
@@ -56,8 +55,7 @@ If (preg_match("/^research ([0-9]+)$/i",$message, $arr)) {
 		$research .= "This equals <orange>$xp XP.<end>";
 		$research = bot::makeLink("Research", $research);
 	}
-}
-else {
+} else {
 	$syntax_error = true;
 	return;
 }	

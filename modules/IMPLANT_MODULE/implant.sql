@@ -1,5 +1,5 @@
-CREATE TABLE IF NOT EXISTS implant_requirements (	ql INTEGER NOT NULL PRIMARY KEY,	treatment INTEGER NOT NULL,	ability INTEGER NOT NULL,	abilityShiny INTEGER NOT NULL,	abilityBright INTEGER NOT NULL,	abilityFaded INTEGER NOT NULL,	skillShiny INTEGER NOT NULL,	skillBright INTEGER NOT NULL,	skillFaded INTEGER NOT NULL );
-DELETE FROM implant_requirements;
+DROP TABLE IF EXISTS implant_requirements;
+CREATE TABLE implant_requirements (	ql INTEGER NOT NULL PRIMARY KEY,	treatment INTEGER NOT NULL,	ability INTEGER NOT NULL,	abilityShiny INTEGER NOT NULL,	abilityBright INTEGER NOT NULL,	abilityFaded INTEGER NOT NULL,	skillShiny INTEGER NOT NULL,	skillBright INTEGER NOT NULL,	skillFaded INTEGER NOT NULL );
 INSERT INTO implant_requirements (ql, treatment, ability, abilityShiny, abilityBright, abilityFaded, skillShiny, skillBright, skillFaded) VALUES(1, 11, 6, 5, 3, 2, 6, 3, 2);
 INSERT INTO implant_requirements (ql, treatment, ability, abilityShiny, abilityBright, abilityFaded, skillShiny, skillBright, skillFaded) VALUES(2, 16, 8, 5, 3, 2, 6, 3, 2);
 INSERT INTO implant_requirements (ql, treatment, ability, abilityShiny, abilityBright, abilityFaded, skillShiny, skillBright, skillFaded) VALUES(3, 20, 10, 6, 3, 2, 7, 4, 2);

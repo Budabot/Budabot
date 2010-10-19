@@ -48,7 +48,7 @@ if(preg_match("/^Blammo! (.+) has launched an orbital attack!$/i", $message, $ar
 		$unique = true;
 
 		$newTimerName = "$orgName OS/AS $i";
-		foreach($this->vars["Timers"] as $key => $timer) {
+		forEach ($this->vars["Timers"] as $key => $timer) {
 		  	if($timer["name"] == $newTimerName) {
 			  	$unique = false;
 			    break;

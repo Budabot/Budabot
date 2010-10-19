@@ -48,23 +48,23 @@ if (preg_match("/^nlline ([0-9]*)$/i", $message, $arr)) {
 		$window = bot::makeHeader($header, "none");
 
 		$sql = "
-		SELECT
-			a.low_id,
-			a.high_id,
-			a.ql,
-			a.name,
-			n.location
-		FROM
-			aonanos_nanos a
-			LEFT JOIN nanos n
-				ON (a.high_id = n.highid AND a.low_id = n.lowid)
-		WHERE
-			nanoline_id = $nanoline_id
-		ORDER BY
-			a.ql DESC, a.name ASC";
+			SELECT
+				a.low_id,
+				a.high_id,
+				a.ql,
+				a.name,
+				n.location
+			FROM
+				aonanos_nanos a
+				LEFT JOIN nanos n
+					ON (a.high_id = n.highid AND a.low_id = n.lowid)
+			WHERE
+				nanoline_id = $nanoline_id
+			ORDER BY
+				a.ql DESC, a.name ASC";
 		$db->query($sql);
 		$count = 0;
-		while($row = $db->fObject()) {
+		while ($row = $db->fObject()) {
 
 			$count++;
 			$window .= "<a href='itemref://" . $row->low_id . "/" . $row->high_id . "/" . $row->ql . "'>" . $row->name . "</a>";

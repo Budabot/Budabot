@@ -33,8 +33,6 @@
    **
    */
 
-require_once('Implant.class.php');
-
 function getRequirements($ql) {
 
 	global $db;

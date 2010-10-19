@@ -43,11 +43,11 @@
 	bot::addsetting("showcloakstatus", "Show cloak status to players at logon", "edit", "1", "Never;When cloak is down;Always", "0;1;2");
 	
 	// Helpfiles
-	bot::help("citycloak", "$MODULE_NAME/citycloak.txt", "guild", "Status of the citycloak", "Org Commands");
+	bot::help("citycloak", "$MODULE_NAME/citycloak.txt", "guild", "Status of the citycloak");
 	
 	// Auto Wave
-	bot::command("guild","$MODULE_NAME/start.php", "startraid");
-	bot::command("guild","$MODULE_NAME/stopraid.php", "stopraid");
+	bot::command("guild","$MODULE_NAME/start.php", "startraid", "guild", "manually starts wave counter");
+	bot::command("guild","$MODULE_NAME/stopraid.php", "stopraid", "guild", "manually stops wave counter");
 	bot::event("guild", "$MODULE_NAME/start.php", "none", "Starts a wave counter when cloak is lowered");
 	bot::event("2sec", "$MODULE_NAME/counter.php", "none", "Checks timer to see when next wave should come");
 	

@@ -29,9 +29,9 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(preg_match("/^oe ([0-9]+)$/i", $message, $arr)) {
-    if($arr[1] <= 4000) {
-     $oe = $arr[1]; 
+if (preg_match("/^oe ([0-9]+)$/i", $message, $arr)) {
+    if ($arr[1] <= 4000) {
+		$oe = $arr[1]; 
         $oevalue = (int)round($oe/0.8); 
         $lowoevalue = (int)round($oe*0.8); 
         $msg = "With a skill of <highlight>${oe}<end>, you will be OE above <highlight>${oevalue}<end> requirement. " . 
@@ -40,7 +40,6 @@ if(preg_match("/^oe ([0-9]+)$/i", $message, $arr)) {
         $msg = "A skill can't get so high!";
     }
     
-    // Send info back
     bot::send($msg, $sendto);
 } else {
 	$syntax_error = true;

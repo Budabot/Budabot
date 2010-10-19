@@ -62,7 +62,7 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 
 	bot::send($msg, $sendto);
 } else if (preg_match("/^orghistory (.+)$/i", $message, $arr)) {
-	
+
 	$character = $arr[1];
 
 	$window = "";
@@ -91,7 +91,6 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 	$msg = bot::makeLink('Org History', $window, 'blob');
 
 	bot::send($msg, $sendto);
-
 }
 
 ?>

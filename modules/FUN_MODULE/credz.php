@@ -44,7 +44,7 @@ $credz = array(
 	"No I don't think so. You still owe me *creds* credits from last time *name*!",
 	"Sorry, I don't have any credits left. Would you like a RBP instead?");
 	
-if(preg_match("/^credz/i", $message)) {
+if (preg_match("/^credz/i", $message)) {
 	$dmg = rand(100,999);
     $cred = rand(10000,9999999);
 	$randval = rand(1, sizeof($credz) - 1);
@@ -52,6 +52,6 @@ if(preg_match("/^credz/i", $message)) {
     $msg = str_replace("*name*", $sender, $msg);
     $msg = str_replace("*dmg*", $dmg, $msg);
     $msg = str_replace("*creds*", $cred, $msg);
-	bot::send($msg, "guild");
+	bot::send($msg, $sendto);
 }	
 ?>

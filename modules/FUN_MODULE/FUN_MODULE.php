@@ -25,6 +25,6 @@
 	//fight
 	bot::command("", "$MODULE_NAME/fight.php", "fight", "all", "Let two persons fight against each other.");
 
-	//Helpfiles
-	bot::help("fun_module", "$MODULE_NAME/fun_module.txt", "guild", 'Fun commands', "Fun Module");
+	//Help files
+	bot::help("fun_module", "$MODULE_NAME/fun_module.txt", "guild", 'Fun commands');
 ?>

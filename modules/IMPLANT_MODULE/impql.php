@@ -33,27 +33,23 @@
    **
    */
 
-require_once('implant_functions.php');
+preg_match("/^impql (.*)$/i", $message, $arr);
 
-{
-	preg_match("/^impql (.*)$/i", $message, $arr);
+// get the argument and set the ql variable
+$ql = $arr[1];
 
-	// get the argument and set the ql variable
-	$ql = $arr[1];
+$msg = "";
 
-	$msg = "";
-
-	// make sure the $ql is an integer between 1 and 300
-	if (!preg_match("/^[0-9]+$/i", $ql, $p) || ($ql < 1) || ($ql > 300)) {
-		$msg = "<br />Usage: <symbol>impql &lt;implant_ql&gt;<br />You must enter a value between 1 and 300.";
-	} else {
-		$obj = getRequirements($ql);
-		$clusterInfo = formatClusterBonuses($obj);
-		$link = bot::makeLink('More info', $clusterInfo, 'text');
-		$msg = "\nFor ql $ql imps\nTreatment required: $obj->treatment.\nAbility Required: $obj->ability\n$link";
-	}
-
-	bot::send($msg, $sendto);
+// make sure the $ql is an integer between 1 and 300
+if (!preg_match("/^[0-9]+$/i", $ql, $p) || ($ql < 1) || ($ql > 300)) {
+	$msg = "<br />Usage: <symbol>impql &lt;implant_ql&gt;<br />You must enter a value between 1 and 300.";
+} else {
+	$obj = getRequirements($ql);
+	$clusterInfo = formatClusterBonuses($obj);
+	$link = bot::makeLink('Impql $ql', $clusterInfo, 'blob');
+	$msg = "\nFor ql $ql imps\nTreatment required: $obj->treatment.\nAbility Required: $obj->ability\n$link";
 }
+
+bot::send($msg, $sendto);
 
 ?>

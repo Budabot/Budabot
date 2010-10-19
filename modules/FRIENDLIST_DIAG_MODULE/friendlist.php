@@ -14,9 +14,9 @@ if (preg_match("/^friendlist(.+)?$/i", $message, $arg)) {
 	if ($arg[1] == " clean") {
 		$cleanup = true;
 	}
-	
+
 	bot::send("One momment... (".count($this->buddyList)." names to check.)", $sendto);
-	
+
 	$orphanCount = 0;
 	if (count($this->buddyList) == 0) {
 		bot::send("Didn't find any names in the friendlist.", $sendto);

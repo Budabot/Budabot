@@ -29,9 +29,9 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (preg_match("/^notes$/i", $message)) {
+if (preg_match("/^notes?$/i", $message)) {
 
-	$moreInfoMsg = "";
+	$moreInfoMsg = '';
 
 	$sql = "SELECT * FROM notes_<myname> WHERE name LIKE '$sender'";
   	$db->query($sql);
@@ -41,14 +41,38 @@ if (preg_match("/^notes$/i", $message)) {
 	  	$moreInfoMsg .= "$remove $note->note\n\n";
 	}
 	
-	if ($moreInfoMsg == "") {
-		$moreInfoMsg = "No notes.";	
+	if ($moreInfoMsg == '') {
+		$msg = "No notes for $sender.";	
+	} else {
+		$moreInfoMsg = "Notes for $sender\n\n" . $moreInfoMsg;
+		$msg = bot::makeLink('Notes', $moreInfoMsg, 'blob');
 	}
-	
-	$moreInfoMsg = "Notes for $sender\n\n" . $moreInfoMsg;
-	
-	$msg = bot::makeLink('Notes', $moreInfoMsg, 'blob');
   	
 	bot::send($msg, $sendto);
+} else if (preg_match("/^notes? (rem|add) (.*)$/i", $message)) {
+	$action = strtolower($arr[1]);
+	$parm2 = $arr[2];
+
+	// if side isn't omni, neutral or clan
+	if ($action == 'rem') {
+		$numRows = $db->query("DELETE FROM notes_<myname> WHERE id = $parm2 AND name LIKE '$sender'");
+		
+		if ($numRows) {
+			$msg = "Note deleted successfully.";
+		} else {
+			$msg = "Note could not be found.";
+		}
+	} else if ($action == 'add') {
+		$note = str_replace("'", "''", $parm2);
+		
+		$query = "INSERT INTO notes_<myname> (name, note) VALUES('$sender', '$note')";
+		$db->query($query);
+		$msg = "Note added successfully.";
+	} else {
+		$msg = $usage;		
+	}
+
+    bot::send($msg, $sendto);
 }
+
 ?>

@@ -33,33 +33,26 @@
    **
    */
 
-require_once('implant_functions.php');
+$invalidInputMsg = "<br />Usage: <symbol>impreq &lt;ability_skill&gt; &lt;treatment_skill&gt;<br />You must enter values between 1 and 3000.";
+$msg = "";
+if (!preg_match("/^impreq ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
+	$msg = $invalidInputMsg;
+} else {
+	// get the argument and set the ability and treatment variables
+	$ability = $arr[1];
+	$treatment = $arr[2];
 
-// curly braces keep module variables from becoming global
-{
-	$invalidInputMsg = "<br />Usage: <symbol>impreq &lt;ability_skill&gt; &lt;treatment_skill&gt;<br />You must enter values between 1 and 3000.";
-	$msg = "";
-	$arr = array();
-
-	if (!preg_match("/^impreq ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
-		$msg = $invalidInputMsg;
+	if ($treatment < 11 || $ability < 6) {
+		$msg = "You do not have enough requirements to wear an implant.";
 	} else {
-		// get the argument and set the ability and treatment variables
-		$ability = $arr[1];
-		$treatment = $arr[2];
+		$obj = findMaxImplantQlByReqs($ability, $treatment);
+		$clusterInfo = formatClusterBonuses($obj);
+		$link = $this->makeLink("ql $obj->ql", $clusterInfo, 'blob');
 
-		if ($treatment < 11 || $ability < 6) {
-			$msg = "You do not have enough requirements to wear an implant.";
-		} else {
-			$obj = findMaxImplantQlByReqs($ability, $treatment);
-			$clusterInfo = formatClusterBonuses($obj);
-			$link = bot::makeLink("ql $obj->ql", $clusterInfo, 'text');
-
-			$msg = "\nThe highest ql implant you can wear is $link which requires:\nTreatment: $obj->treatment\nAbility: $obj->ability";
-		}
+		$msg = "\nThe highest ql implant you can wear is $link which requires:\nTreatment: $obj->treatment\nAbility: $obj->ability";
 	}
-
-	bot::send($msg, $sendto);
 }
+
+bot::send($msg, $sendto);
 
 ?>

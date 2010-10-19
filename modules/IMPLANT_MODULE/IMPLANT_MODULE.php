@@ -32,16 +32,19 @@
    ** This module may be obtained at: http://www.box.net/shared/bgl3cx1c3z
    **
    */
+   
+	require_once('implant_functions.php');
+	require_once('Implant.class.php');
 
 	$MODULE_NAME = "IMPLANT_MODULE";
+
+	//Setup
+	DB::loadSQLFile($MODULE_NAME, "implant");
 
 	//Private
 	bot::command("", "$MODULE_NAME/impql.php", "impql", "all", "Shows stats for implant at given ql");
 	bot::command("", "$MODULE_NAME/impreq.php", "impreq", "all", "Shows the highest ql implant that can be worn given treatment and ability");
 
 	//Help
-	bot::help("Implant", "$MODULE_NAME/implant.txt", "all", "Implant help", "Implant");
-
-	//Setup
-	bot::loadSQLFile($MODULE_NAME, "implant");
+	bot::help("implant", "$MODULE_NAME/implant.txt", "all", "Implant help");
 ?>

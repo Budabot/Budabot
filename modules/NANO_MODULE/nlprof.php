@@ -47,7 +47,7 @@ if (preg_match("/^nlprof (.*)$/i", $message, $arr)) {
 
 	$count = 0;
 	$profession = '';
-	while($row = $db->fObject()) {
+	while ($row = $db->fObject()) {
 
 		$count++;
 		if ($this->settings["shownanolineicons"] == "1") {

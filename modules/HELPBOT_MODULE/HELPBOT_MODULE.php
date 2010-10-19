@@ -46,17 +46,17 @@
 	bot::command("", "$MODULE_NAME/cap_xp.php", "capxp", "all", "Max XP Calculator");
 
 	// Help files
-	bot::help("whois", "$MODULE_NAME/whois.txt", "all", "Show char stats at current and all dimensions", "Helpbot");
-    bot::help("biomat", "$MODULE_NAME/biomat.txt", "all", "Identify an Biomaterial", "Helpbot");
-    bot::help("calc", "$MODULE_NAME/calculator.txt", "all", "Calculator", "Helpbot");
-    bot::help("oe", "$MODULE_NAME/oe.txt", "all", "Calculating the OE ranges", "Helpbot");
-    bot::help("fliproll", "$MODULE_NAME/fliproll.txt", "all", "How to use the flip and roll command", "Helpbot");
-    bot::help("history", "$MODULE_NAME/history.txt", "all", "History of a player", "Helpbot");
-    bot::help("time", "$MODULE_NAME/time.txt", "all", "Timezones", "Helpbot");
-    bot::help("kos_list", "$MODULE_NAME/kos_list.txt", "all", "Kill On Sight List", "Helpbot");
-    bot::help("smiley_title_inspect", "$MODULE_NAME/smiley_title_inspect.txt", "all", "Help for Smiley,Title Level and Inspect", "Helpbot");
-    bot::help("alien_armor", "$MODULE_NAME/alien_armor.txt", "all", "Alien armor Tradeskillprocess", "Helpbot");
-	bot::help("alien_generals", "$MODULE_NAME/alien_generals.txt", "all", "Alien City Generals Info", "Helpbot");
+	bot::help("whois", "$MODULE_NAME/whois.txt", "all", "Show char stats at current and all dimensions");
+    bot::help("biomat", "$MODULE_NAME/biomat.txt", "all", "Identify an Biomaterial");
+    bot::help("calc", "$MODULE_NAME/calculator.txt", "all", "Calculator");
+    bot::help("oe", "$MODULE_NAME/oe.txt", "all", "Calculating the OE ranges");
+    bot::help("fliproll", "$MODULE_NAME/fliproll.txt", "all", "How to use the flip and roll command");
+    bot::help("history", "$MODULE_NAME/history.txt", "all", "History of a player");
+    bot::help("time", "$MODULE_NAME/time.txt", "all", "Timezones");
+    bot::help("kos_list", "$MODULE_NAME/kos_list.txt", "all", "Kill On Sight List");
+    bot::help("smiley_title_inspect", "$MODULE_NAME/smiley_title_inspect.txt", "all", "Help for Smiley,Title Level and Inspect");
+    bot::help("aiarmor", "$MODULE_NAME/aiarmor.txt", "all", "Alien armor Tradeskillprocess");
+	bot::help("alien_generals", "$MODULE_NAME/alien_generals.txt", "all", "Alien City Generals Info");
 	bot::help("buffitem", "$MODULE_NAME/buffitem.txt", "all", "How to use buffitem");
 	bot::help("cluster", "$MODULE_NAME/cluster.txt", "all", "How to use cluster");
 	bot::help("mobloot", "$MODULE_NAME/mobloot.txt", "all", "How to use mobloot");

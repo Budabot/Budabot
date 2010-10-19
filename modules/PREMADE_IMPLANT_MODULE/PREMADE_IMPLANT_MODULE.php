@@ -20,16 +20,19 @@
    **
    */
 
+	require_once('Implant.class.php');
+	require_once('functions.php');
+
 	$MODULE_NAME = "PREMADE_IMPLANT_MODULE";
+
+	//Setup
+	Event::register("setup", $MODULE_NAME, "setup.php");
 
 	//adds tower info to 'watch' list
 	bot::command("", "$MODULE_NAME/premade.php", "premade", "all", "Searches for implants out of the premade implants booths");
 	bot::command("", "$MODULE_NAME/premade_update.php", "premadeupdate", "all", "Checks the premade imp db for updates");
 	
-	//Helpfiles
-	bot::help("Premade Implants", "$MODULE_NAME/premade_implant.txt", "guild", "Premade Implant Help", "Premade Implant");
-
-	//Setup
-	bot::event("setup", "$MODULE_NAME/setup.php");
+	//Help files
+	bot::help("premade", "$MODULE_NAME/premade_implant.txt", "guild", "Premade Implant Help");
 	
 ?>

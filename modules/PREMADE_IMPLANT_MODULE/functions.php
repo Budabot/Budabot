@@ -20,8 +20,6 @@
    **
    */
    
-require_once('Implant.class.php');
-
 function searchByProfession($profession) {
 	
 	global $db;
@@ -33,7 +31,6 @@ function searchBySlot($slot) {
 
 	global $db;
 	$sql = "SELECT * FROM premade_implant WHERE slot = '$slot' ORDER BY shiny, bright, faded";
-	echo $sql;
 	$db->query($sql);
 	return $db->fObject("all");
 }
@@ -50,13 +47,12 @@ function formatResults($implants) {
 	$msg = "\n";
 	
 	$count = 0;
-	foreach ($implants as $implant) {
+	forEach ($implants as $implant) {
 		$msg .= getFormattedLine($implant);
 		$count++;
 	}
 		
 	if ($count > 3) {
-		
 		$msg .= "\n\nProvided by Demoder(RK2)";
 		$msg = bot::makeLink('Results', $msg, 'text');
 	}
@@ -85,7 +81,7 @@ function checkForUpdate($currentVersion, $forceUpdate) {
 		$csv = file_get_contents($downloadUrl);
 		$rows = explode("\r\n", $csv);
 		$count = 0;
-		foreach ($rows as $row) {
+		forEach ($rows as $row) {
 			
 			$count++;
 			

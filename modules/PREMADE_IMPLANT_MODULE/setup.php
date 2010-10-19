@@ -20,8 +20,6 @@
    **
    */
    
-require_once('functions.php');
-
 $filearray = file("./modules/PREMADE_IMPLANT_MODULE/premade_implant.sql", FILE_TEXT | FILE_SKIP_EMPTY_LINES | FILE_IGNORE_NEW_LINES);
 forEach ($filearray as $num => $line) {
 	$db->query($line);

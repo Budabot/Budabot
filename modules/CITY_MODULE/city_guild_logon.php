@@ -33,41 +33,29 @@ if (isset($this->guildmembers[$sender])) {
     $db->query("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 0, 20 ");
     
     $case = 0;
-    if($db->numrows() > 0) 
-	{
+    if ($db->numrows() > 0) {
         $row = $db->fObject();
-        if(((time() - $row->time) >= 60*60) && ($row->action == "off")) 
-		{
+        if (((time() - $row->time) >= 60*60) && ($row->action == "off")) {
 	        $case = 1;
             $msg = "The cloaking device is disabled. It is possible to enable it.";
-    	} 
-		elseif(((time() - $row->time) < 60*30) && ($row->action == "off")) 
-		{
+    	} else if (((time() - $row->time) < 60*30) && ($row->action == "off")) {
 	    	$case = 1;
             $msg = "<red>RAID IN PROGRESS!  DO NOT ENTER CITY!</red>";
-    	} 
-		elseif(((time() - $row->time) < 60*60) && ($row->action == "off")) 
-		{
+    	} else if (((time() - $row->time) < 60*60) && ($row->action == "off")) {
             $msg = "Cloaking device is disabled. It is possible in ".round((($row->time + 60*60) - time())/60, 0)."min to enable it.";
             $case = 1;
-    	} 
-		elseif(((time() - $row->time) >= 60*60) && ($row->action == "on")) 
-		{
+    	} else if (((time() - $row->time) >= 60*60) && ($row->action == "on")) {
             $msg = "The cloaking device is enabled. It is possible to disable it.";
             $case = 2;
-    	} 
-		elseif(((time() - $row->time) < 60*60) && ($row->action == "on")) 
-		{
+    	} else if (((time() - $row->time) < 60*60) && ($row->action == "on")) {
             $msg = "The cloaking device is <green>enabled<end>. It is possible in ".round((($row->time + 60*60) - time())/60, 0)."min to disable it.";
             $case = 2;
-    	} 
-		else 
-		{
+    	} else {
 			$msg = "<highlight>Unknown status on city cloak!<end>";
 			$case = 1;
 		}
-		if ( $case <= $this->settings["showcloakstatus"])
-		{
+
+		if ($case <= $this->settings["showcloakstatus"]) {
 			bot::send($msg, $sender);
 		}
     }

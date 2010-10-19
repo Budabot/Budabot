@@ -393,9 +393,9 @@ $homer = array(
     "You changed me too. I am not the same money-driven workaholic that I once was. [nanny Sherry Bobbins]. ",
     "Homer : I'll have this sweet blood pudding. \n Bart : The secret ingredient is blood. \n Homer : Blood!?! Olakkkk ... instead I'll have this sweet brain and kidney pie. ");
 
-if(preg_match("/^homer/i", $message)) {
+if (preg_match("/^homer/i", $message)) {
 	$randval = rand(1, sizeof($homer) - 1);
 	$msg = $homer[$randval];
-	bot::send($msg, "guild");
+	bot::send($msg, $sendto);
 }
 ?>

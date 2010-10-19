@@ -177,17 +177,14 @@ $chuck = array(
     "Chuck Norris eats transformer toys in vehicle mode and poos them out transformed into a robot. ",
     "Ironically, Chuck Norris' hidden talent is invisibility. ",
     "Chuck Norris invented water.",
-    "Chuck Norris went looking for a bar but couldn't find one. He walked to a vacant lot and sat there. Sure enough within an hour an a half someone constructed a bar around him. He then ordered a shot, drank it, and then burned the place to the ground. Chuck Norris yelled over the roar of the flames, always leave things the way you found em.",
+    "Chuck Norris went looking for a bar but couldn't find one. He walked to a vacant lot and sat there. Sure enough within an hour and a half someone constructed a bar around him. He then ordered a shot, drank it, and then burned the place to the ground. Chuck Norris yelled over the roar of the flames, always leave things the way you found em.",
     "One time while sparring with Wolverine, Chuck Norris accidentally lost his left testicle. You might be familiar with it to this very day by its technical term: Jupiter. ",
     "Chuck Norris is Luke Skywalker's real father.",
     "Chuck Norris once visited the Virgin Islands. They are now The Islands. "); 
 
-if(preg_match("/^chuck/i", $message)) {
+if (preg_match("/^chuck/i", $message)) {
 	$randval = rand(1, sizeof($chuck) - 1);
 	$msg = $chuck[$randval];
-if($type == "guild")
-	bot::send($msg, "guild");
-elseif($type == "msg")
-  bot::send($msg, $sender);
+	bot::send($msg, $sendto);
 }
 ?>

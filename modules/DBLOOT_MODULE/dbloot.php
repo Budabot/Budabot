@@ -92,17 +92,6 @@ global $residual;
 global $raidloot;
 global $vote;
 
-//if((eregi("^db$", $message)) || (eregi("^DB$", $message))){
-//	$list = "<header>::::: DB1/DB2 Loot :::::<end>\n\n\n";
-//	$newlink = bot::makeLink("DB1 Armor/Programs/NCUs\n", "/tell <myname> <symbol>db1", "chatcmd");
-//	$list .= "<tab>".$newlink;
-//	$newlink = bot::makeLink("DB2 Loot/Armor\n", "/tell <myname> <symbol>db2", "chatcmd");
-//	$list .= "<tab>".$newlink;
-//
-//	$msg = bot::makeLink("DB1/DB2 Loot", $list);
-//	bot::send($msg);
-//	//bot::send("hi", $sender);
-//}
 if (preg_match("/^dbloot ([0-9]+)$/i", $message, $arr)) {
 	$val = $arr[1];
 	$itemname = $dbloot[$val]["name"];
@@ -170,7 +159,7 @@ if (preg_match("/^dbloot ([0-9]+)$/i", $message, $arr)) {
 	$residual = "";
 
 	//Add armor item in first loot slot
-	$nextloot=1;
+	$nextloot = 1;
 
 	$loot[$nextloot]["name"] = $dbloot[$val]["name"];
 	$loot[$nextloot]["linky"] =  bot::makeItem($dbloot[$val]["ref"], $dbloot[$val]["ref"], 300, $dbloot[$val]["name"]);

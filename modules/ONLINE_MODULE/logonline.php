@@ -30,15 +30,14 @@
  */
 
 // include online_func.php for the actual working functions
-require_once("online_func.php");
+require_once "online_func.php";
 
-if($this->settings["logonline_tell"] && (isset($this->guildmembers[$sender]) || isset($this->vars["Guest"][$sender])))
-{
+if ($this->settings["logonline_tell"] && (isset($this->guildmembers[$sender]) || isset($this->vars["Guest"][$sender]))) {
 	$msg = "";
 	$type = "msg";
 	list($numonline, $msg, $list) = online($type, $sender, $sendto, $this);
 	$link = ":: ".bot::makeLink('Click here', $list);
-	if($numonline != 0) {
+	if ($numonline != 0) {
 		bot::send($msg.$link, $sender);
 	} else {
 		bot::send($msg, $sender);

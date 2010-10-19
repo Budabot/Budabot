@@ -154,7 +154,6 @@ if ($countitems > 3) {
 	    }
     }
 
-	// Send info back
     bot::send($link, $sendto);
 }
 ?>

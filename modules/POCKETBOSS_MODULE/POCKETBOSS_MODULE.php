@@ -11,5 +11,5 @@
 	bot::regGroup("PB_SYMB", $MODULE_NAME, "PocketBoss List and Symb search", "symb", "pb");
 
 	//Helpiles
-    bot::help("pocketboss", "$MODULE_NAME/pocketboss.txt", "all", "See what drops which Pocketboss", "Helpbot");
+    bot::help("pocketboss", "$MODULE_NAME/pocketboss.txt", "all", "See what drops which Pocketboss");
 ?>

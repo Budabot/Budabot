@@ -9,7 +9,7 @@ class Level {
 		return $db->fObject();
 	}
 	
-	public static function get_all_levels() {
+	public static function find_all_levels() {
 		global $db;
 		
 		$sql = "SELECT * FROM levels ORDER BY level";

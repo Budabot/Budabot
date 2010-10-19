@@ -16,18 +16,15 @@ $path = getcwd() . "/modules/INFO_MODULE/info/";
 $fileExt = ".txt";
 $msg = "";
 
-if (preg_match("/^info$/i", $message))
-{
-	if ($handle = opendir($path))
-	{
+// if they want the list of topics
+if (preg_match("/^info$/i", $message)) {
+	if ($handle = opendir($path)) {
 		$topicList = array();
 
 		/* This is the correct way to loop over the directory. */
-		while (false !== ($fileName = readdir($handle)))
-		{
+		while (false !== ($fileName = readdir($handle))) {
 			// if file has the correct extension, it's a topic file
-			if (strpos($fileName, $fileExt))
-			{
+			if (strpos($fileName, $fileExt)) {
 				$topicList[] =  str_replace($fileExt, '', $fileName);
 			}
 		}
@@ -37,40 +34,28 @@ if (preg_match("/^info$/i", $message))
 		global $vars;
 		global $settings;
 		$linkContents = '';
-		forEach ($topicList as $topic)
-		{
-			$linkContents .= bot::makeLink($topic, "/tell " . $vars['name'] . " " . $settings['symbol'] . "info $topic", 'chatcmd') . "\n";  
-			//$linkContents .= bot::makeLink($topic, getTopicContents($path, $topic, $fileExt), "blob") . "\n";  
+		forEach ($topicList as $topic) {
+			$linkContents .= bot::makeLink($topic, "/tell <myname> " . $settings['symbol'] . "info $topic", 'chatcmd') . "\n";  
 		}
 		
-		if ($linkContents)
-		{
+		if ($linkContents) {
 			$msg = bot::makeLink('Topics (' . count($topicList) . ')', count($topicList) . " Topics Available\n==========\n\n$linkContents", "blob");
-		}
-		else
-		{
+		} else {
 			$msg = "No topics available.";   
 		}
-	}
-	else
-	{
+	} else {
 		$msg = "Error reading topics.";	
 	}
-}
-// if they want a certain topic
-// 2nd form matches the aliases
-else if (preg_match("/^info ([a-z0-9_-]+)$/i", $message, $arr) || preg_match("/^([a-z0-9_-]+)$/i", $message, $arr))
-{
+} else if (preg_match("/^info ([a-z0-9_-]+)$/i", $message, $arr) || preg_match("/^([a-z0-9_-]+)$/i", $message, $arr)) {
+	// if they want a certain topic
+	// second form is for the aliases
 	// get the filename and read in the file
 	$fileName = strtolower($arr[1]);
 	$info = getTopicContents($path, $fileName, $fileExt);
 	
-	if (empty($info))
-	{
+	if (empty($info)) {
 		$msg = "No info for <highlight>$fileName<end> could be found";
-	}
-	else
-	{	
+	} else {
 		$msg = bot::makeLink(ucfirst($fileName), $info);
 	}
 } else {

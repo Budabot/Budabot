@@ -22,6 +22,6 @@
 	bot::command("", "$MODULE_NAME/pandeloot.php", "pandeloot", "leader", "used to add pande loot to the loot list");
 	bot::command("", "$MODULE_NAME/pandeloot.php", "pande", "all", "shows Initial list of pande bosses");
 
-	//Helpfiles
-	bot::help("pande", "$MODULE_NAME/pande.txt", "all", "Loot manager for Pandemonium Raid loot", "Pandemonium Loot Manager");
+	//Help files
+	bot::help("pande", "$MODULE_NAME/pande.txt", "all", "Loot manager for Pandemonium Raid loot");
 ?>

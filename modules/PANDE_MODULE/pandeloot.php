@@ -26,6 +26,7 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+
 //:::: Beast Armor ::::
 $pandeloot[1]["name"] = "Sigil of Bahomet";
 $pandeloot[1]["img"] = "131259";
@@ -57,6 +58,7 @@ $pandeloot[9]["ref"] = "244715";
 $pandeloot[10]["name"] = "Boots of Concourse";
 $pandeloot[10]["img"] = "245032";
 $pandeloot[10]["ref"] = "244714";
+
 //:::: Beast Weapons ::::
 $pandeloot[11]["name"] = "Lord/Lady of Abandonment";
 $pandeloot[11]["img"] = "245083";
@@ -100,6 +102,7 @@ $pandeloot[23]["ref"] = "246813";
 $pandeloot[24]["name"] = "Sunset Hilt";
 $pandeloot[24]["img"] = "235341";
 $pandeloot[24]["ref"] = "246814";
+
 //:::: Beast Stars ::::
 $pandeloot[25]["name"] = "Star of Ardency (NT)";
 $pandeloot[25]["img"] = "131260";
@@ -143,6 +146,7 @@ $pandeloot[37]["ref"] = "244699";
 $pandeloot[38]["name"] = "Star of Stealth (Agent)";
 $pandeloot[38]["img"] = "131260";
 $pandeloot[38]["ref"] = "244694";
+
 //:::: Shadowbreed ::::
 $pandeloot[39]["name"] = "The Lighter Side (Clan SB)";
 $pandeloot[39]["img"] = "136594";
@@ -153,6 +157,7 @@ $pandeloot[40]["ref"] = "215445";
 $pandeloot[41]["name"] = "The Unknown Path (Neut SB)";
 $pandeloot[41]["img"] = "136596";
 $pandeloot[41]["ref"] = "215443";
+
 //:::: TNH ::::
 $pandeloot[42]["name"] = "Maar's Blue Belt of Double Prudence";
 $pandeloot[42]["img"] = "244991";
@@ -169,6 +174,7 @@ $pandeloot[45]["ref"] = "246818";
 $pandeloot[46]["name"] = "Novictum Seed";
 $pandeloot[46]["img"] = "246816";
 $pandeloot[46]["ref"] = "246817";
+
 //:::: West Zods ::::
 $pandeloot[47]["name"] = "Dynamic Sleeve of Aries (Melee)";
 $pandeloot[47]["img"] = "22953";
@@ -209,6 +215,7 @@ $pandeloot[58]["ref"] = "244663";
 $pandeloot[59]["name"] = "Virgo's Modest Spirit of Faith";
 $pandeloot[59]["img"] = "20411";
 $pandeloot[59]["ref"] = "244664";
+
 //:::: East Zods ::::
 $pandeloot[60]["name"] = "Aquarius' Boots of Small Steps";
 $pandeloot[60]["img"] = "37596";
@@ -246,6 +253,7 @@ $pandeloot[70]["ref"] = "244567";
 $pandeloot[71]["name"] = "Gemini's Green Scope of Variety";
 $pandeloot[71]["img"] = "130891";
 $pandeloot[71]["ref"] = "244565";
+
 //:::: Middle Zods ::::
 $pandeloot[72]["name"] = "Libra's Charming Assistant";
 $pandeloot[72]["img"] = "213659";
@@ -286,6 +294,7 @@ $pandeloot[83]["ref"] = "244660";
 $pandeloot[84]["name"] = "Taurus' Spirit of Reflection";
 $pandeloot[84]["img"] = "149940";
 $pandeloot[84]["ref"] = "244658";
+
 //:::: Middle Zods ::::
 $pandeloot[85]["name"] = "Capricorn Bracer of Toxication";
 $pandeloot[85]["img"] = "205519";
@@ -330,7 +339,7 @@ global $raidloot;
 global $vote;
 $msg = '';
 
-if( preg_match("/^pande$/i", $message)){
+if (preg_match("/^pande$/i", $message)){
 	$list = "<header>::::: Pandemonium Loot :::::<end>\n\n\n";
 	$list .= "The Beast\n";
 	$newlink = bot::makeLink("Beast Armor\n", "/tell <myname> <symbol>beastarmor", "chatcmd");
@@ -376,9 +385,7 @@ if( preg_match("/^pande$/i", $message)){
 
 
 	$msg = bot::makeLink("Pandemonium Loot", $list);
-}
-
-elseif( preg_match("/^pandeloot ([0-9]+)$/i", $message, $arr)) {
+} else if (preg_match("/^pandeloot ([0-9]+)$/i", $message, $arr)) {
 	$val = $arr[1];
 	$itemname = $pandeloot[$val]["name"];
 	$dontadd = 0;
@@ -413,9 +420,7 @@ elseif( preg_match("/^pandeloot ([0-9]+)$/i", $message, $arr)) {
 		$msg = "<highlight>".$itemname."<end> will be rolled in Slot <highlight>#".$slot."<end> as multiloot. Total: <yellow>".$total."<end>";
 	}
 	$msg .= "\nTo add use !add ".$nextloot.", or !add 0 to remove yourself";
-}
-
-elseif( preg_match("/^beastarmor$/i", $message)){
+} else if (preg_match("/^beastarmor$/i", $message)){
 	$list = "<header>::::: Beast Armor :::::<end>\n\n\n";
 	$loop = 1;
 	while($loop <= 10) {
@@ -427,8 +432,7 @@ elseif( preg_match("/^beastarmor$/i", $message)){
 		$loop++;
 	}
 	$msg = bot::makeLink("Beast Armor", $list);
-}
-elseif( preg_match("/^beastweaps$/i", $message)){
+} else if (preg_match("/^beastweaps$/i", $message)){
 	$list = "<header>::::: Beast Weapons :::::<end>\n\n\n";
 	$loop = 11;
 	while($loop <= 24) {
@@ -440,8 +444,7 @@ elseif( preg_match("/^beastweaps$/i", $message)){
 		$loop++;
 	}
 	$msg = bot::makeLink("Beast Weapons", $list);
-}
-elseif( preg_match("/^beaststars$/i", $message)){
+} else if (preg_match("/^beaststars$/i", $message)){
 	$list = "<header>::::: Beast Stars :::::<end>\n\n\n";
 	$loop = 25;
 	while($loop <= 38) {
@@ -453,8 +456,7 @@ elseif( preg_match("/^beaststars$/i", $message)){
 		$loop++;
 	}
 	$msg = bot::makeLink("Beast Stars", $list);
-}
-elseif( preg_match("/^sb$/i", $message)){
+} else if (preg_match("/^sb$/i", $message)){
 	$list = "<header>::::: Shadowbreeds :::::<end>\n\n\n";
 	$loop = 39;
 	while($loop <= 41) {
@@ -466,8 +468,7 @@ elseif( preg_match("/^sb$/i", $message)){
 		$loop++;
 	}
 	$msg = bot::makeLink("Shadowbreeds", $list);
-}
-elseif( preg_match("/^tnh$/i", $message)){
+} else if (preg_match("/^tnh$/i", $message)){
 	$list = "<header>::::: The Night Heart :::::<end>\n\n\n";
 	$loop = 42;
 	while($loop <= 46) {
@@ -479,8 +480,7 @@ elseif( preg_match("/^tnh$/i", $message)){
 		$loop++;
 	}
 	$msg = bot::makeLink("The Night Heart Loot", $list);
-}
-elseif( preg_match("/^aries$/i", $message)){
+} else if (preg_match("/^aries$/i", $message)){
 	$list = "<header>::::: Aries :::::<end>\n\n\n";
 	$loop = 47;
 	while($loop <= 51) {
@@ -492,8 +492,7 @@ elseif( preg_match("/^aries$/i", $message)){
 		$loop++;
 	}
 	$msg = bot::makeLink("Aries Loot", $list);
-}
-elseif( preg_match("/^leo$/i", $message)){
+} else if (preg_match("/^leo$/i", $message)){
 	$list = "<header>::::: Leo :::::<end>\n\n\n";
 	$loop = 52;
 	while($loop <= 55) {
@@ -505,8 +504,7 @@ elseif( preg_match("/^leo$/i", $message)){
 		$loop++;
 	}
 	$msg = bot::makeLink("Leo Loot", $list);
-}
-elseif( preg_match("/^virgo$/i", $message)){
+} else if (preg_match("/^virgo$/i", $message)){
 	$list = "<header>::::: Virgo :::::<end>\n\n\n";
 	$loop = 56;
 	while($loop <= 59) {
@@ -518,8 +516,7 @@ elseif( preg_match("/^virgo$/i", $message)){
 		$loop++;
 	}
 	$msg = bot::makeLink("Virgo Loot", $list);
-}
-elseif( preg_match("/^aquarius$/i", $message)){
+} else if (preg_match("/^aquarius$/i", $message)){
 	$list = "<header>::::: Aquarius :::::<end>\n\n\n";
 	$loop = 60;
 	while($loop <= 63) {
@@ -531,8 +528,7 @@ elseif( preg_match("/^aquarius$/i", $message)){
 		$loop++;
 	}
 	$msg = bot::makeLink("Aquarius Loot", $list);
-}
-elseif( preg_match("/^cancer$/i", $message)){
+} else if (preg_match("/^cancer$/i", $message)){
 	$list = "<header>::::: Cancer :::::<end>\n\n\n";
 	$loop = 64;
 	while($loop <= 67) {
@@ -544,8 +540,7 @@ elseif( preg_match("/^cancer$/i", $message)){
 		$loop++;
 	}
 	$msg = bot::makeLink("Cancer Loot", $list);
-}
-elseif( preg_match("/^gemini$/i", $message)){
+} else if (preg_match("/^gemini$/i", $message)){
 	$list = "<header>::::: Gemini :::::<end>\n\n\n";
 	$loop = 68;
 	while($loop <= 71) {
@@ -557,8 +552,7 @@ elseif( preg_match("/^gemini$/i", $message)){
 		$loop++;
 	}
 	$msg = bot::makeLink("Gemini Loot", $list);
-}
-elseif( preg_match("/^libra$/i", $message)){
+} else if (preg_match("/^libra$/i", $message)){
 	$list = "<header>::::: Libra :::::<end>\n\n\n";
 	$loop = 72;
 	while($loop <= 76) {
@@ -570,8 +564,7 @@ elseif( preg_match("/^libra$/i", $message)){
 		$loop++;
 	}
 	$msg = bot::makeLink("Libra Loot", $list);
-}
-elseif( preg_match("/^pisces$/i", $message)){
+} else if (preg_match("/^pisces$/i", $message)){
 	$list = "<header>::::: Pisces :::::<end>\n\n\n";
 	$loop = 77;
 	while($loop <= 80) {
@@ -583,8 +576,7 @@ elseif( preg_match("/^pisces$/i", $message)){
 		$loop++;
 	}
 	$msg = bot::makeLink("Pisces Loot", $list);
-}
-elseif( preg_match("/^taurus$/i", $message)){
+} else if (preg_match("/^taurus$/i", $message)){
 	$list = "<header>::::: Taurus :::::<end>\n\n\n";
 	$loop = 81;
 	while($loop <= 84) {
@@ -596,8 +588,7 @@ elseif( preg_match("/^taurus$/i", $message)){
 		$loop++;
 	}
 	$msg = bot::makeLink("Taurus Loot", $list);
-}
-elseif( preg_match("/^capricorn$/i", $message)){
+} else if (preg_match("/^capricorn$/i", $message)){
 	$list = "<header>::::: Capricorn :::::<end>\n\n\n";
 	$loop = 85;
 	while($loop <= 88) {
@@ -609,8 +600,7 @@ elseif( preg_match("/^capricorn$/i", $message)){
 		$loop++;
 	}
 	$msg = bot::makeLink("Capricorn Loot", $list);
-}
-elseif( preg_match("/^sagittarius$/i", $message)){
+} else if (preg_match("/^sagittarius$/i", $message)){
 	$list = "<header>::::: Sagittarius :::::<end>\n\n\n";
 	$loop = 89;
 	while($loop <= 92) {
@@ -622,8 +612,7 @@ elseif( preg_match("/^sagittarius$/i", $message)){
 		$loop++;
 	}
 	$msg = bot::makeLink("Sagittarius Loot", $list);
-}
-elseif( preg_match("/^scorpio$/i", $message)){
+} else if (preg_match("/^scorpio$/i", $message)){
 	$list = "<header>::::: Scorpio :::::<end>\n\n\n";
 	$loop = 93;
 	while($loop <= 96) {
