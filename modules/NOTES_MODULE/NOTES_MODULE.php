@@ -4,7 +4,7 @@
 	//Setup
 	bot::loadSQLFile($MODULE_NAME, "notes");
 
-	bot::command("", "$MODULE_NAME/note.php", "note", "all", "displays, adds, or removes a note from your list");
+	bot::command("", "$MODULE_NAME/notes.php", "note", "all", "displays, adds, or removes a note from your list");
 	bot::command("", "$MODULE_NAME/notes.php", "notes", "all", "displays, adds, or removes a note from your list");
 
 	//Help files
