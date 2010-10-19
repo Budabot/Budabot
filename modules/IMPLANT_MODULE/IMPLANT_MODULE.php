@@ -39,7 +39,7 @@
 	$MODULE_NAME = "IMPLANT_MODULE";
 
 	//Setup
-	DB::loadSQLFile($MODULE_NAME, "implant");
+	bot::loadSQLFile($MODULE_NAME, "implant");
 
 	//Private
 	bot::command("", "$MODULE_NAME/impql.php", "impql", "all", "Shows stats for implant at given ql");
