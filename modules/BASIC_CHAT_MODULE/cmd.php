@@ -29,8 +29,8 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(preg_match("/^cmd (.+)$/i", $message, $arr)) {
-  	$msg = "<br><yellow>---------------------<br><red>".$arr[1]."<end><br><yellow>---------------------";
+if (preg_match("/^cmd (.+)$/i", $message, $arr)) {
+	$msg = "<br><yellow>---------------------<br><red>".$arr[1]."<end><br><yellow>---------------------";
 	
 	if ($type == "msg") {
 		bot::send($msg, "guild", true);

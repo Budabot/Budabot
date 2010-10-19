@@ -91,7 +91,7 @@ if ($vars['login']		== "" ||
 //Bring the ignore list to a bot readable format
 $ignore = explode(";", $settings["Ignore"]);
 unset($settings["Ignore"]);
-forEach ($ignore as $bot){
+forEach ($ignore as $bot) {
 	$bot = ucfirst(strtolower($bot));
 	$settings["Ignore"][$bot] = true;
 }
@@ -106,23 +106,22 @@ unset($vars['password']);
 
 //////////////////////////////////////////////////////////////
 // Create new objects
-	global $db;
-	$db = new db($settings["DB Type"], $settings["DB Name"], $settings["DB Host"], $settings["DB username"], $settings["DB password"]);
-	if ($db->errorCode != 0) {
-	  	echo "Error in creating Database Object\n";
-	  	echo "ErrorMsg: $db->errorInfo";
-	  	sleep(5);
-	  	die();
-	}
-	
-	$chatBot = new bot($vars, $settings);
-	if (!$chatBot) {
-		die("No Chatbot.....");
-	}
+$db = new db($settings["DB Type"], $settings["DB Name"], $settings["DB Host"], $settings["DB username"], $settings["DB password"]);
+if ($db->errorCode != 0) {
+  	echo "Error in creating Database Object\n";
+  	echo "ErrorMsg: $db->errorInfo";
+  	sleep(5);
+  	die();
+}
+
+$chatBot = new bot($vars, $settings);
+if (!$chatBot) {
+	die("No Chatbot.....");
+}
 
 /////////////////////////////////////////////
 // log on aoChat, msnChat                  //
-	$chatBot->connectAO($login, $password);//		
+$chatBot->connectAO($login, $password);//		
 /////////////////////////////////////////////
 
 //Clear the login and the password	
@@ -146,11 +145,11 @@ main(true, $chatBot);
 ** Main Loop
 ** Inputs: (bool)$forever
 ** Outputs: None
-*/	function main($forever = true,&$chatBot){
+*/	function main($forever, &$chatBot) {
 		$start = time();
 		
 		// Create infinite loop
-		while ($forever==true){					
+		while ($forever === true) {					
 			$chatBot->ping();
 			$chatBot->crons();
 			if ($exec_connected_events == false && ((time() - $start) > 5))	{
@@ -164,12 +163,11 @@ main(true, $chatBot);
 ** Function called by Aochat each time a incoming packet is received.
 ** Inputs: (int)$type, (array)$arguments, (object)&$incBot
 ** Outputs: None
-*/	function callback($type, $args){
+*/	function callback($type, $args) {
 		global $chatBot;
 		$chatBot->processCallback($type, $args);	
-	}// End function
-  
-  
+	}
+
  /*===============================
 ** Name: log
 ** Record incoming info into the chatbot's log.

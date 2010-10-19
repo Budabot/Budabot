@@ -97,7 +97,7 @@ $itemlink["HRPSAG"] = bot::makeItem(231236, 231236, 1, "Hyper-Radiation Protecti
 $itemlink["VTS"] = bot::makeItem(251240, 251240, 250, "Viral Targeting Subunit");	
 $itemlink["SS"] = bot::makeItem(253235, 253235, 250, "Salabim Shotgun");	
 
-if(preg_match("/^guide Hacker ICE-Breaker Source$/i", $message)) {
+if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 	$list .= "<header>::::: Guide for Hacker ICE-Breaker Source :::::<end>\n\n";
 	$list .= "<u>Process for 100% CRU</u>\n\n";
 	$list .= "<tab><tab><tab><tab><img src=rdb://99279>\n";
@@ -113,7 +113,7 @@ if(preg_match("/^guide Hacker ICE-Breaker Source$/i", $message)) {
 	$msg = bot::makeLink("Guide for Hacker ICE-Breaker Source", $list);
 
     bot::send($msg, $sendto);
-} elseif(preg_match("/^guide KyrOzch Helmet$/i", $message)) {
+} elseif(preg_match("/^apfloot KyrOzch Helmet$/i", $message)) {
 	$list = "<header>::::: Guide for Kyr'Ozch Helmet :::::<end>\n\n";
 	$list .= "Handing this item to your faction Vendor at the Alien Playfield Bar it will give you one of these 2500Token Boards back:\n\n";
 	$list .= "<tab><tab><tab><tab><img src=rdb://82982>\n";
@@ -125,7 +125,7 @@ if(preg_match("/^guide Hacker ICE-Breaker Source$/i", $message)) {
 	$msg = bot::makeLink("Guide for Kyr'Ozch Helmet", $list);
 
     bot::send($msg, $sendto);
-} elseif(preg_match("/^guide Action Probability Estimator$/i", $message)) {
+} elseif(preg_match("/^apfloot Action Probability Estimator$/i", $message)) {
 	$list = "<header>::::: Guide for Action Probability Estimator :::::<end>\n\n";
 
 	$list .= "<u>Extruder's Molybdenum Crash Helmet</u>\n\n";
@@ -181,7 +181,7 @@ if(preg_match("/^guide Hacker ICE-Breaker Source$/i", $message)) {
 	$msg = bot::makeLink("Guide for Action Probability Estimator", $list);
 
     bot::send($msg, $sendto);
-} elseif(preg_match("/^guide Dynamic Gas Redistribution Valves$/i", $message)) {
+} elseif(preg_match("/^apfloot Dynamic Gas Redistribution Valves$/i", $message)) {
 	$list = "<header>::::: Guide for Dynamic Gas Redistribution Valves :::::<end>\n\n";
 
 	$list .= "<u>High Lord of Angst</u>\n\n";
@@ -229,7 +229,7 @@ if(preg_match("/^guide Hacker ICE-Breaker Source$/i", $message)) {
 	$msg = bot::makeLink("Guide for Dynamic Gas Redistribution Valves", $list);
 
     bot::send($msg, $sendto);
-} elseif(preg_match("/^guide Inertial Adjustment Processing Unit$/i", $message)) {
+} elseif(preg_match("/^apfloot Inertial Adjustment Processing Unit$/i", $message)) {
 	$list = "<header>::::: Guide for Inertial Adjustment Processing Unit :::::<end>\n\n";
 	$list .= "<u>Hadrulf's Viral Belt Component Platform</u>\n\n";
 	$list .= "<tab><tab><tab><tab><img src=rdb://11618>\n";
@@ -281,7 +281,7 @@ if(preg_match("/^guide Hacker ICE-Breaker Source$/i", $message)) {
 	$msg = bot::makeLink("Guide for Inertial Adjustment Processing Unit", $list);
 
     bot::send($msg, $sendto);
-} elseif(preg_match("/^guide Notum Amplification Coil$/i", $message)) {
+} elseif(preg_match("/^apfloot Notum Amplification Coil$/i", $message)) {
 	$list = "<header>::::: Guide for Notum Amplification Coil :::::<end>\n\n";
 
 	$list .= "<u>Twice Augmented Hellspinner Shock Cannon</u>\n\n";
@@ -319,7 +319,7 @@ if(preg_match("/^guide Hacker ICE-Breaker Source$/i", $message)) {
 	$msg = bot::makeLink("Guide for Notum Amplification Coil", $list);
 
     bot::send($msg, $sendto);
-} elseif(preg_match("/^guide Energy Redistribution Unit$/i", $message)) {
+} elseif(preg_match("/^apfloot Energy Redistribution Unit$/i", $message)) {
 	$list = "<header>::::: Guide for Energy Redistribution Unit :::::<end>\n\n";
 
 	$list .= "<u>Blades of Boltar</u>\n\n";
@@ -356,7 +356,7 @@ if(preg_match("/^guide Hacker ICE-Breaker Source$/i", $message)) {
 	$msg = bot::makeLink("Guide for Energy Redistribution Unit", $list);
 
     bot::send($msg, $sendto);
-} elseif(preg_match("/^guide Visible Light Remodulation Device$/i", $message)) {
+} elseif(preg_match("/^apfloot Visible Light Remodulation Device$/i", $message)) {
 	$list = "<header>::::: Guide for Visible Light Remodulation Device :::::<end>\n\n";
 
 	$list .= "<u>Explosif's Polychromatic Pillows</u>\n\n";

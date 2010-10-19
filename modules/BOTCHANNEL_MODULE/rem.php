@@ -30,10 +30,10 @@
    */
 
 if (preg_match("/^remuser (.+)$/i", $message, $arr)) {
-    $uid = AoChat::get_uid($arr[1]);
-    $name = ucfirst(strtolower($arr[1]));
+	$uid = AoChat::get_uid($arr[1]);
+	$name = ucfirst(strtolower($arr[1]));
     if (!$uid) {
-        $msg = "Player <highlight>$name<end> does not exist.";
+        $msg = "Player <highlight>{$name}<end> does not exist.";
     } else {
 	  	$db->query("SELECT * FROM members_<myname> WHERE `name` = '$name'");
 	  	if ($db->numrows() == 0) {

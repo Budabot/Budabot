@@ -38,10 +38,10 @@ if (preg_match("/^kickuser (.+)$/i", $message, $arr) || preg_match("/^kick (.+)$
 		} else {
 			$msg = "<highlight>$name<end> is not in the private channel.";
 		}
-		// we kick whether they are in the channel or not incase the channel list is bugged
+		// we kick whether they are in the channel or not in case the channel list is bugged
 		AOChat::privategroup_kick($name);
     } else {
-		$msg = "Player <highlight>".$name."<end> does not exist.";
+		$msg = "Player <highlight>$name<end> does not exist.";
 	}
 	
 	bot::send($msg, $sendto);

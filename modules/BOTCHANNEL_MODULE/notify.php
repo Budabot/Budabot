@@ -44,7 +44,7 @@ if ($type == "joinPriv") {
 	$db->query("DELETE FROM priv_chatlist WHERE `name` = '$sender'");
 	unset($this->vars["Guest"][$sender]);
 	$msg = "<highlight>{$sender}<end> has left the private channel.";
-	
+
 	if ($this->settings["guest_relay"] == 1) {
 		bot::send($msg, "guild", true);
 	}

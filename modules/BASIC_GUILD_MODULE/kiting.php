@@ -29,35 +29,37 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if($type == "guild") {
+if ($type == "guild") {
 	$db->query("SELECT afk FROM guild_chatlist WHERE `name` = '$sender'");
 	$numrows = $db->numrows();
 	$row = $db->fObject();
-	if(preg_match("/^kiting$/i", $message, $arr) && $numrows != 0) {
-	    if($row->afk != 'kiting') {
+	if (preg_match("/^kiting$/i", $message, $arr) && $numrows != 0) {
+	    if ($row->afk != 'kiting') {
 	        $db->query("UPDATE guild_chatlist SET `afk` = 'kiting' WHERE `name` = '$sender'");
 	        $msg = "<highlight>$sender<end> is now kiting";
-	    } elseif($row->afk != '0') {
+	    } else if ($row->afk != '0') {
 	        $db->query("UPDATE guild_chatlist SET `afk` = '0' WHERE `name` = '$sender'");
 	        $msg = "<highlight>$sender<end> is back";
 	    }
 	    bot::send($msg, "guild");
-	} else
+	} else {
 		$syntax_error = true;
+	}
 } else {
 	$db->query("SELECT afk FROM priv_chatlist WHERE `name` = '$sender'");
 	$numrows = $db->numrows();
 	$row = $db->fObject();
-	if(preg_match("/^kiting$/i", $message, $arr) && $numrows != 0) {
-	    if($row->afk != 'kiting') {
+	if (preg_match("/^kiting$/i", $message, $arr) && $numrows != 0) {
+	    if ($row->afk != 'kiting') {
 	        $db->query("UPDATE priv_chatlist SET `afk` = 'kiting' WHERE `name` = '$sender'");
 	        $msg = "<highlight>$sender<end> is now kiting";
-	    } elseif($row->afk != '0') {
+	    } else if ($row->afk != '0') {
 	        $db->query("UPDATE priv_chatlist SET `afk` = '0' WHERE `name` = '$sender'");
 	        $msg = "<highlight>$sender<end> is back";
 	    }
 	    bot::send($msg);
-	} else
+	} else {
 		$syntax_error = true;
+	}
 }
 ?>

@@ -29,15 +29,16 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(preg_match("/^tell (.+)$/i", $message, $arr)) {
+if (preg_match("/^tell (.+)$/i", $message, $arr)) {
   	bot::send("<yellow>".$arr[1]."<end>", "guild");
   	bot::send("<yellow>".$arr[1]."<end>", "guild");
   	bot::send("<yellow>".$arr[1]."<end>", "guild");
-} elseif(preg_match("/^tellall (.+)$/i", $message, $arr)) {
+} else if (preg_match("/^tellall (.+)$/i", $message, $arr)) {
 	$db->query("SELECT * FROM guild_chatlist");
-	while($row = $db->fObject())
+	while ($row = $db->fObject()) {
 		bot::send("Tell from $sender: <yellow>".$arr[1]."<end>", $row->name);
+	}
 	
-	bot::send("A tell has been send to all online Orgmembers.", "guild");
+	bot::send("A tell has been sent to all online Orgmembers.", $sendto);
 }
 ?>

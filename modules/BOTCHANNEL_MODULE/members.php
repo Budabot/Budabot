@@ -47,13 +47,8 @@ if (preg_match("/^members$/i", $message)) {
 	  		$list .= "<tab>- $row->name ($status<end>)\n";
 	  	}
 	  	
-	    $msg = "<highlight>".$autoguests."<end> members ";
-	    $link = ":: ".bot::makeLink('Click here', $list);
-	    if ($autoguests != 0) {
-           	bot::send($msg.$link, $sendto);
-        } else {
-           	bot::send($msg, $sendto);
-		}
+	    $msg = bot::makeLink("$autoguests member(s)", $list);
+		bot::send($msg, $sendto);
 	} else {
        	bot::send("There are no members of this bot.", $sendto);
 	}

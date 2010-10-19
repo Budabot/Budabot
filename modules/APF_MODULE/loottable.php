@@ -219,13 +219,8 @@ if(preg_match("/^loottable (13|28|35)$/i", $message, $arr)) {
 
 	$msg = bot::makeLink("Loottable for sector $sector", $list);
 
-    // Send info back
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-       	bot::send($msg);
-    elseif($type == "guild")
-       	bot::send($msg, "guild");
-} else
-	$syntax_error = treu;
+	bot::send($msg, $sendto);
+} else {
+	$syntax_error = true;
+}
 ?>

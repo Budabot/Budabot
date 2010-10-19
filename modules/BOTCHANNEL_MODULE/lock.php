@@ -1,7 +1,7 @@
 <?php
   /*
    ** Author: Derroylo (RK2)
-   ** Description: Locking the privategroup
+   ** Description: Locking the private channel
    ** Version: 1.0
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
@@ -31,13 +31,13 @@
    
 if (preg_match("/^lock$/i", $message)) {
   	if($this->settings["priv_status"] == "closed") {
-	    $msg = "Private group is already locked.";
+	    $msg = "Private channel is already locked.";
 		bot::send($msg, $sendto);
 		return;
 	}
-	$msg = "The private group has been locked by <highlight>$sender<end>.";
+	$msg = "The private channel has been locked by <highlight>$sender<end>.";
 	bot::send($msg, 'priv');
-	$msg = "You have locked the private group.";
+	$msg = "You have locked the private channel.";
 	if ($type == "msg") {
 		bot::send($msg, $sender);
 	}
@@ -46,13 +46,13 @@ if (preg_match("/^lock$/i", $message)) {
 } else if (preg_match("/^lock (.+)$/i", $message, $arr)) {
   	$reason = $arr[1];
 	if($this->settings["priv_status"] == "closed") {
-	    $msg = "Private group is already locked.";
+	    $msg = "Private channel is already locked.";
     	bot::send($msg, $sendto);
 		return;
 	}
-	$msg = "The private group has been locked by <highlight>$sender<end> - Reason: <highlight>$reason<end>.";
+	$msg = "The private channel has been locked by <highlight>$sender<end> - Reason: <highlight>$reason<end>.";
 	bot::send($msg, 'priv');
-	$msg = "You have locked the private group.";
+	$msg = "You have locked the private channel.";
 	if ($type == "msg") {
 		bot::send($msg, $sender);
 	}
@@ -61,19 +61,19 @@ if (preg_match("/^lock$/i", $message)) {
 	bot::savesetting("priv_status_reason", $reason);
 } else if (preg_match("/^unlock$/i", $message)) {
   	if($this->settings["priv_status"] == "open") {
-	    $msg = "Private group is already opened.";
+	    $msg = "Private channel is already opened.";
     	bot::send($msg, $sendto);
 		return;
 	}
-	$msg = "The private group has been opened by <highlight>$sender<end>.";
+	$msg = "The private channel has been opened by <highlight>$sender<end>.";
 	bot::send($msg, 'priv');
-	$msg = "You have opened the private group.";
+	$msg = "You have opened the private channel.";
 	if ($type == "msg") {
 		bot::send($msg, $sender);
 	}
 	
 	bot::savesetting("priv_status", "open");
-	bot::savesetting("priv_status_reason", "not set");	
+	bot::savesetting("priv_status_reason", "not set");
 } else {
 	$syntax_error = true;
 }

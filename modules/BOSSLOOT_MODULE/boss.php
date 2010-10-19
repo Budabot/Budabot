@@ -34,19 +34,19 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 		$db->query("SELECT * FROM boss_namedb WHERE bossname LIKE '%".str_replace("'", "''", $search)."%' OR keyname LIKE '%".str_replace("'", "''", $search)."%'");
 		$data = $db->fobject("all");
 		$bosses = $data;
-		foreach ($bosses as $row) {
+		forEach ($bosses as $row) {
 			$bossname = $row->bossname;
 			$bossid = $row->bossid;
 			$db->query("SELECT * FROM whereis WHERE name = '".str_replace("'", "''", $bossname)."'");
 			$data = $db->fobject("all");
-			foreach ($data as $row) {
+			forEach ($data as $row) {
 				$bossname = $row->name;
 				$boss .= "\n\n<a href='chatcmd:///tell <myname> !boss $bossname'>$bossname</a>\n";
 				$where = $row->answer;
 				$boss .= "<green>Can be found $where<end>\nDrops:";
 				$db->query("SELECT * FROM boss_lootdb, aodb WHERE boss_lootdb.bossid = '$bossid' AND boss_lootdb.itemid = aodb.lowid");
 				$data = $db->fobject("all");
-				foreach ($data as $row) {
+				forEach ($data as $row) {
 					$lowid = $row->lowid;
 					$highid = $row->highid;
 					$ql = $row->highql;

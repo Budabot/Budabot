@@ -29,18 +29,21 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
    
-if(preg_match("/^leaderecho on$/i", $message)) {
+if (preg_match("/^leaderecho on$/i", $message)) {
 	bot::savesetting("leaderecho", "1");
-	bot::send("Raidleader echo has been <green>enabled<end>");
-} elseif(preg_match("/^leaderecho off$/i", $message)) {
+	bot::send("Leader echo has been <green>enabled<end>");
+} else if (preg_match("/^leaderecho off$/i", $message)) {
 	bot::savesetting("leaderecho", "0");
-	bot::send("Raidleader echo has been <green>disabled<end>");	
-} elseif(preg_match("/^leaderecho$/i", $message)) {
-	if($this->settings["leaderecho"] == 1)
-		$msg = "Leaderecho is currently <green>enabled<end>";
-	else
-		$msg = "Leaderecho is currently <red>disabled<end>";
-	bot::send($msg);
-} else
+	bot::send("Leader echo has been <green>disabled<end>");	
+} else if (preg_match("/^leaderecho$/i", $message)) {
+	if ($this->settings["leaderecho"] == 1) {
+		$msg = "Leader echo is currently <green>enabled<end>";
+	} else {
+		$msg = "Leader echo is currently <red>disabled<end>";
+	}
+	bot::send($msg, 'priv'););
+} else {
 	$syntax_error = true;
+}
+
 ?>

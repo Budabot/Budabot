@@ -64,9 +64,9 @@ if (!$syntax_error) {
 	$tables = $doc->getElementsByTagName('table');
 	$rows = $tables->item(0)->getElementsByTagName('tr');
 	
-	$title = 'Search Results for ' . $postFields['search'];
+	$title = 'Shopping Results for ' . $postFields['search'];
 	$items = '';
-	forEach ($rows as $row) {
+	forEach ($rows as $row){
 		$childNodes = $row->childNodes;
 		
 		$ql = trim($childNodes->item(0)->nodeValue);

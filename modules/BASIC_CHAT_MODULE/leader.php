@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if($this->settings["leaderecho"] == 1) {
+if ($this->settings["leaderecho"] == 1) {
 	$status = "<green>Enabled<end>";
 	$cmd = "off";
 } else {
@@ -47,32 +47,33 @@ if ($type == "leavePriv") {
     $uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
 	if (!$uid) {
-		$msg = "Player <highlight>$name<end> does not exist.";
+		$msg = "Player <highlight>{$name}<end> does not exist.";
 	} else if (!isset($this->chatlist[$name])) {
-		$msg = "Player <highlight>$name<end> isn't in this channel.";
+		$msg = "Player <highlight>{$name}<end> isn't in this channel.";
 	} else {
 		$this->vars["leader"] = $name;
-	  	$msg = "$name is now raid leader. Raid leader echo is currently $status. You can change it with <symbol>leaderecho $cmd";	    	
+	  	$msg = "{$name} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
 	}
   	bot::send($msg, 'priv');
 } else if (preg_match("/^leader$/i", $message)) {
   	if ($this->vars["leader"] == $sender) {
 		unset($this->vars["leader"]);
-	  	$msg = "Raid leader cleared.";
+	  	$msg = "Leader cleared.";
 	} else if ($this->vars["leader"] != "") {
 		if ($this->admins[$sender]["level"] >= $this->admins[$this->vars["leader"]]["level"]){
   			$this->vars["leader"] = $sender;
-		  	$msg = "$sender is now raid leader. Raid leader echo is currently $status. You can change it with <symbol>leaderecho $cmd";
+		  	$msg = "{$sender} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
 		} else {
 			$msg = "You can't take leader from <highlight>{$this->vars["leader"]}<end>.";
 		}
 	} else {
 		$this->vars["leader"] = $sender;
-	  	$msg = "$sender is now raid leader. Raid leader echo is currently $status. You can change it with <symbol>leaderecho $cmd";
+	  	$msg = "{$sender} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
 	}
   	bot::send($msg, 'priv');
 
 } else {
 	$syntax_error = true;
 }
+
 ?>

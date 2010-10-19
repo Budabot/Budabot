@@ -6,7 +6,7 @@
 	bot::addsetting("priv_status_reason", "no", "hide", "not set");	
 
 	//Check macros
-	bot::command("priv", "$MODULE_NAME/check.php", "check", "rl", "Checks who of the raidgroup is in the area");	
+	bot::command("priv", "$MODULE_NAME/check.php", "check", "rl", "Checks who of the raidgroup is in the area");
 	
 	//Topic set/show
 	bot::event("joinPriv", "$MODULE_NAME/topic.php", "topic", "Show Topic when someone joins PrivChat");
@@ -47,7 +47,7 @@
 	bot::help("afk_priv", "$MODULE_NAME/afk.txt", "all", "Going AFK");
 	bot::help("assist", "$MODULE_NAME/assist.txt", "all", "Creating an Assist Macro");
 	bot::help("check", "$MODULE_NAME/check.txt", "all", "See of the ppls are in the area");
-	bot::help("heal_assist", "$MODULE_NAME/healassist.txt", "all", "Creating an Healassist Macro");
+	bot::help("heal", "$MODULE_NAME/healassist.txt", "all", "Creating an Healassist Macro");
 	bot::help("leader", "$MODULE_NAME/leader.txt", "all", "Set a Leader of a Raid/Echo on/off");
 	bot::help("tell", "$MODULE_NAME/tell.txt", "leader", "How to use tell");
 	bot::help("topic", "$MODULE_NAME/topic.txt", "raidleader", "Set the Topic of the raid");

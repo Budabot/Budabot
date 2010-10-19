@@ -31,22 +31,22 @@
 
 $db->query("SELECT afk FROM priv_chatlist WHERE `name` = '$sender'");
 $row = $db->fObject();
-if(preg_match("/^afk$/i", $message, $arr)) {
-    if($row->afk == '0') {
+if (preg_match("/^afk$/i", $message, $arr)) {
+    if ($row->afk == '0') {
         $db->query("UPDATE priv_chatlist SET `afk` = 1 WHERE `name` = '$sender'");
         $msg = "<highlight>$sender<end> is now AFK";
-    } else if($row->afk != '0') {
+    } else if ($row->afk != '0') {
         $db->query("UPDATE priv_chatlist SET `afk` = 0 WHERE `name` = '$sender'");
         $msg = "<highlight>$sender<end> is back";
     }
-} else if(preg_match("/^afk (.*)$/i", $message, $arr)) {
-    if($row->afk == '0') {
+} else if (preg_match("/^afk (.*)$/i", $message, $arr)) {
+    if ($row->afk == '0') {
         $db->query("UPDATE priv_chatlist SET `afk` = '$arr[1]' WHERE `name` = '$sender'");
         $msg = "<highlight>$sender<end> is now AFK";
-    } else if($row->afk != '0') {
+    } else if ($row->afk != '0') {
         $db->query("UPDATE priv_chatlist SET `afk` = 0 WHERE `name` = '$sender'");
         $msg = "<highlight>$sender<end> is back";
     }
 }
-bot::send($msg);
+bot::send($msg, 'priv');
 ?>

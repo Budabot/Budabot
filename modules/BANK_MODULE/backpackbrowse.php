@@ -60,28 +60,13 @@
 	$msg = $item_count." Items in Backpack#".$arr." in ".ucwords($location)."\n\n".$msg;
     $link = bot::makeLink($item_count." items found in \"Backpack #".$arr."\" in ".ucwords($location), $msg);
 	}
-          if($type == "msg")
-        bot::send($link, $sender);
-    elseif($type == "priv")
-        bot::send($link);
-	elseif($type == "guild")
-		bot::send($link, "guild");
+    bot::send($link, $sendto);
    }else{
          $msg = "Incorrect syntax! For more information /tell <myname> help.";
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-        bot::send($msg);
-	elseif($type == "guild")
-		bot::send($msg, "guild");   
+    bot::send($msg, $sendto);
    }
    }else{
       $msg = "File not found! Please contact an administrator.";
-    if($type == "msg")
-        bot::send($msg, $sender);
-    elseif($type == "priv")
-        bot::send($msg);
-	elseif($type == "guild")
-		bot::send($msg, "guild");
+    bot::send($msg, $sendto);
    }   
    ?>
