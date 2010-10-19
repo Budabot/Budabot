@@ -2,7 +2,7 @@
 	$MODULE_NAME = "NEWS_MODULE";
 
 	//Setup
-	Event::register("setup", $MODULE_NAME, "setup.php");
+	bot::event("setup", "$MODULE_NAME/setup.php");
 
 	//News
     bot::event("logOn", "$MODULE_NAME/news_logon.php", "none", "Sends a tell with news to players logging in");
