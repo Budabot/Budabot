@@ -26,7 +26,7 @@
 	$MODULE_NAME = "PREMADE_IMPLANT_MODULE";
 
 	//Setup
-	Event::register("setup", $MODULE_NAME, "setup.php");
+	bot::event("setup", "$MODULE_NAME/setup.php");
 
 	//adds tower info to 'watch' list
 	bot::command("", "$MODULE_NAME/premade.php", "premade", "all", "Searches for implants out of the premade implants booths");
