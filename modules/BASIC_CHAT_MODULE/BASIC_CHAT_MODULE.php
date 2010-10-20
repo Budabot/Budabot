@@ -6,7 +6,7 @@
 	bot::addsetting("priv_status_reason", "no", "hide", "not set");	
 
 	//Check macros
-	bot::command("priv", "$MODULE_NAME/check.php", "check", "rl", "Checks who of the raidgroup is in the area");
+	bot::command("", "$MODULE_NAME/check.php", "check", "rl", "Checks who of the raidgroup is in the area");
 	
 	//Topic set/show
 	bot::event("joinPriv", "$MODULE_NAME/topic.php", "topic", "Show Topic when someone joins PrivChat");
@@ -24,7 +24,7 @@
 	//Leader
 	bot::command("priv", "$MODULE_NAME/leader.php", "leader", "all", "Sets the Leader of the raid");
 	bot::subcommand("priv", "$MODULE_NAME/leader.php", "leader (.+)", "raidleader", "leader", "Set a specific Leader");
-	bot::command("priv", "$MODULE_NAME/leaderecho_cmd.php", "leaderecho", "leader", "Set if the text of the leader will be repeated");
+	bot::command("", "$MODULE_NAME/leaderecho_cmd.php", "leaderecho", "leader", "Set if the text of the leader will be repeated");
 	bot::event("priv", "$MODULE_NAME/leaderecho.php", "leader", "leader echo");
 	bot::event("leavePriv", "$MODULE_NAME/leader.php", "none", "Removes leader when the leader leaves the channel");
 	bot::addsetting("leaderecho", "Repeat the text of the raidleader", "edit", "1", "ON;OFF", "1;0");
@@ -37,7 +37,7 @@
 	bot::subcommand("", "$MODULE_NAME/heal_assist.php", "heal (.+)", "leader", "heal", "Set a new Doc assist");
 
 	//Tell
-	bot::command("priv", "$MODULE_NAME/tell.php", "tell", "all", "Repeats a message 3 times");
+	bot::command("", "$MODULE_NAME/tell.php", "tell", "all", "Repeats a message 3 times");
 	bot::command("", "$MODULE_NAME/cmd.php", "cmd", "rl", "Creates a highly visible messaage");
 	
 	//Updateme
