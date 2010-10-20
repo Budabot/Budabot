@@ -54,7 +54,7 @@ if (preg_match("/^The (Clan|Neutral|Omni) organization (.+) just entered a state
 
 if ($def_guild) {
 
-	$whois = new whois($att_player, $this->vars["dimension"]);
+	$whois = new whois($att_player);
 	if (!$att_side) {
 		$att_side = $whois->faction;
 	}
@@ -78,11 +78,11 @@ if ($def_guild) {
 			$link .= $whois->firstname." ";
 		}
 		$link .= "&quot;".$att_player."&quot; ";
-		if ($whois->lastname)  {
+		if ($whois->lastname) {
 			$link .= $whois->lastname." ";
 		}
 		$link .= "<end>\n";
-		
+
 		if ($whois->breed) {
 			$link .= $colorlabel."Breed:<end> ".$colorvalue.$whois->breed."<end>\n";
 		}
@@ -119,7 +119,9 @@ if ($def_guild) {
 			} else {
 				$link .= $colorlabel."Clan:<end> ".$colorvalue.$att_guild."<end>\n";
 			}
-			if ($whois->rank) {$link .= $colorlabel."Organization Rank:<end> <white>".$whois->rank."<end>\n";}
+			if ($whois->rank) {
+				$link .= $colorlabel."Organization Rank:<end> <white>".$whois->rank."<end>\n";
+			}
 		}
 
 
@@ -136,7 +138,7 @@ if ($def_guild) {
 	}
 	
 	// Prep for if our org is being attacked.
-	if(strtolower($def_guild) == strtolower($this->vars["my guild"])) {
+	if (strtolower($def_guild) == strtolower($this->vars["my guild"])) {
 		$wedefend = true;
 		$msg = "<red>We are under attack!<end> ";
 	} else {
@@ -152,8 +154,9 @@ if ($def_guild) {
 	// tower_attack_spam >= 2 (normal) includes attacker stats
 	if ($this->settings["tower_attack_spam"] >= 2) {
 
-		if ($whois->prof == "Unknown") {$msg .= "<".strtolower($att_side).">$att_player<end> (Unknown";}
-		else {
+		if ($whois->prof == "Unknown") {
+			$msg .= "<".strtolower($att_side).">$att_player<end> (Unknown";
+		} else {
 			if(!$att_guild){
 				$msg .= "<".strtolower($att_side).">$att_player<end>";
 			} else {
@@ -166,7 +169,7 @@ if ($def_guild) {
 			$msg .= ", $whois->breed <font color=#AAAAAA>$whois->prof<end>";
 		}
 
-		if(!$att_guild) {
+		if (!$att_guild) {
 			$msg .= ")";
 		} else if (!$whois->rank) {
 			$msg .= "<".strtolower($att_side).">$att_guild<end>)";
@@ -203,12 +206,6 @@ if ($def_guild) {
         (strtolower($att_side) == "clan"    && ($a & 1)) ||
 	    (strtolower($att_side) == "neutral" && ($a & 2)) ||
         (strtolower($att_side) == "omni"    && ($a & 4)) ))) {
-
-		// Won't need these 4 lines for 0.7.0
-		$msg = str_replace("<neutral>", "<font color='#EEEEEE'>", $msg);
-		$msg = str_replace("<omni>", "<font color='#00FFFF'>", $msg);
-		$msg = str_replace("<clan>", "<font color='#F79410'>", $msg);
-		$msg = str_replace("<unknown>", "<font color='#FF0000'>", $msg);
 
     	bot::send($msg, "guild", true);
 	}

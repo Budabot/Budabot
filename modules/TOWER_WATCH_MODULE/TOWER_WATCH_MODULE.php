@@ -20,7 +20,12 @@
    **
    */
 
+	require_once 'functions.php';
+
 	$MODULE_NAME = "TOWER_WATCH_MODULE";
+
+	//Setup
+	bot::loadSQLFile($MODULE_NAME, "tower_watch");
 
 	//adds tower info to 'watch' list
 	bot::command("", "$MODULE_NAME/scout.php", "scout", "all", "adds tower info to watch list");
@@ -31,16 +36,13 @@
 	//shows the open times for each tower site on the 'watch' list
 	bot::command("", "$MODULE_NAME/opentimes.php", "opentimes", "all", "shows status of towers");
 	
-	//Helpfiles
-	bot::help("Tower Watch", "$MODULE_NAME/tower_watch.txt", "guild", "Tower Watch Help", "Tower Watch");
-	
 	//Settings for this module	
 	bot::addsetting("alarmpreview", "Sets how early alarm should sound for gas change in minutes.", "edit", 5, "number");
-	
+
 	bot::event("2sec", "$MODULE_NAME/show_gas_change.php", "none", "Shows gas changes for tower sites on watch list in org chat");
 	bot::event("logOn", "$MODULE_NAME/logon.php", "none", "Displays summary of tower sites and gas levels on logon.");
-	
-	//Setup
-	bot::loadSQLFile($MODULE_NAME, "tower_watch");
+
+	//Help files
+	bot::help("Tower Watch", "$MODULE_NAME/tower_watch.txt", "guild", "Tower Watch Help");
 	
 ?>

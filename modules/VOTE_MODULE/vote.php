@@ -54,7 +54,7 @@ if (preg_match("/^vote$/i", $message)) {
 	$db->query("SELECT * FROM $table WHERE `duration` IS NOT NULL ORDER BY `started`");
 	
 	if ($db->numrows() > 0) {
-		while($row = $db->fObject()) {
+		while ($row = $db->fObject()) {
 			$question = $row->question; $started = $row->started; $duration = $row->duration;
 			$line = "<tab>" . bot::makeLink($question, "/tell <myname> vote $question", 'chatcmd');
 			
@@ -85,7 +85,7 @@ if (preg_match("/^vote$/i", $message)) {
 		
 		else {
 			$results = array();
-			while($row = $db->fObject()) {
+			while ($row = $db->fObject()) {
 				if ($row->duration) {
 					$question = $row->question; $author = $row->author; $started = $row->started;
 					$duration = $row->duration; $status = $row->status;
@@ -190,8 +190,9 @@ if (preg_match("/^vote$/i", $message)) {
 
 		$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[1])."' AND `author` = '$sender' AND `duration` IS NOT NULL");
 		
-		if ($db->numrows() == 0) {$msg = "Either this vote doesn't exist, or you didn't create it.";}
-		else {
+		if ($db->numrows() == 0) {
+			$msg = "Either this vote doesn't exist, or you didn't create it.";
+		} else {
 			$row = $db->fObject();
 			$question = $row->question; $author = $row->author; $started = $row->started;
 			$duration = $row->duration; $status = $row->status;
@@ -227,10 +228,13 @@ if (preg_match("/^vote$/i", $message)) {
 		$duration = $row->duration; $status = $row->status; $answer = $row->answer;
 		$timeleft = $started+$duration-time();	
 		
-		if (!$duration) {$msg = "Couldn't find any votes with this topic.";} 
-		elseif ($timeleft <= 0) {$msg = "No longer accepting votes for this topic.";} 
-		elseif (($this->settings["vote_add_new_choices"] == 0 || ($this->settings["vote_add_new_choices"] == 1 && $status == 1)) && strpos($delimiter.$answer.$delimiter, $delimiter.$sect[1].$delimiter) === false){$msg = "Cannot accept this choice.  Please choose one from the menu.";}
-		else {
+		if (!$duration) {
+			$msg = "Couldn't find any votes with this topic.";
+		} else if ($timeleft <= 0) {
+			$msg = "No longer accepting votes for this topic.";
+		} else if (($this->settings["vote_add_new_choices"] == 0 || ($this->settings["vote_add_new_choices"] == 1 && $status == 1)) && strpos($delimiter.$answer.$delimiter, $delimiter.$sect[1].$delimiter) === false) {
+			$msg = "Cannot accept this choice.  Please choose one from the menu.";
+		} else {
 			$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[0])."' AND `duration` IS NULL AND `author` = '$sender'");
 			if ($db->numrows() > 0) {
 				$db->query("UPDATE $table SET `answer` = '".str_replace("'", "''", $sect[1])."' WHERE `author` = '$sender' AND `duration` IS NULL AND `question` = '".str_replace("'", "''", $sect[0])."'");
@@ -253,7 +257,7 @@ if (preg_match("/^vote$/i", $message)) {
 			if (!$this->guildmembers[$sender]) {
 				bot::send("Only org members can start a new vote.", $sender);
 				return;
-			}elseif ($requirement < $this->guildmembers[$sender]) {
+			} else if ($requirement < $this->guildmembers[$sender]) {
 				$rankdiff = $this->guildmembers[$sender]-$requirement;
 				bot::send("You need $rankdiff promotion(s) in order to start a new vote.", $sender);
 				return;
@@ -281,9 +285,11 @@ if (preg_match("/^vote$/i", $message)) {
 			$msg = "Need to have at least a 30 second span for duration of votes.";
 		} else {
 			$answer = explode($delimiter,$answers);
-			if (count($answer) < 2) {$msg = "Need to have at least 2 options for this vote.";}
-			elseif (!$question) {$msg = "What are we voting on?";}
-			else {
+			if (count($answer) < 2) {
+				$msg = "Need to have at least 2 options for this vote.";
+			} else if (!$question) {
+				$msg = "What are we voting on?";
+			} else {
 				if (substr($question,0,1) == "@") {
 					$question = substr($question,1);
 					$status = 1;

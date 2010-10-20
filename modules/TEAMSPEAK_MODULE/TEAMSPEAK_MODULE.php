@@ -8,6 +8,6 @@
 	bot::addsetting("ts_serverport", "Serverport for the TS Server", "edit", "8767", "number", '0', "mod");
 	bot::addsetting("ts_servername", "Name of the TS Server", "edit", "Not set yet.", "text", '0', "mod");
 
-	//Helpfiles	
-    bot::help("teamspeak", "$MODULE_NAME/ts.txt", "guild", "Using the Teamspeak plugin", "Teamspeak");
+	//Help files	
+    bot::help("teamspeak", "$MODULE_NAME/ts.txt", "guild", "Using the Teamspeak plugin");
 ?>

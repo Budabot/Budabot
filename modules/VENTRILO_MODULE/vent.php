@@ -6,9 +6,6 @@
  *
  */
 
-require_once("vent.inc.php");
-require_once("ventrilostatus.php");
-
 $stat = new CVentriloStatus;
 $stat->m_cmdprog	= '"' . getcwd() . '/modules/VENTRILO_MODULE/ventrilo_status.exe"';
 $stat->m_cmdcode	= "2";					// Detail mode. 1=General Status, 2=Detail
@@ -61,19 +58,19 @@ if ($error === FALSE) {
 	$uptime = '';
 	$unixtime = $stat->m_uptime;
     $days = floor($unixtime / 86400);
-	if($days != 0) {
+	if ($days != 0) {
 		$uptime .= "<white>".$days."<end><grey>day(s) <end>";
 	}
     $hours = floor(($unixtime-($days*86400))/3600);
-	if($hours != 0) {
+	if ($hours != 0) {
 		$uptime .= "<white>".$hours."<end><grey>hr(s) <end>";
 	}
     $mins = floor(($unixtime-($days*86400)-$hours*3600)/60);
-	if($mins != 0) {
+	if ($mins != 0) {
 		$uptime .= "<white>".$mins."<end><grey>min(s) <end>";
 	}
     $secs = $unixtime-($days*86400)-($hours*3600)-$mins*60;
-	if($secs != 0) {
+	if ($secs != 0) {
 		$uptime .= "<white>".$secs."<end><grey>sec(s)<end>";
 	}
     
@@ -100,7 +97,7 @@ if ($error === FALSE) {
 	}
     $page .= "\nChannels:\n";
 
-    foreach($stat->m_channellist as $channel) {
+    forEach ($stat->m_channellist as $channel) {
 		displayChannel($channel, $stat->m_clientlist, "", $page);
 	}
 	
@@ -108,7 +105,6 @@ if ($error === FALSE) {
 	$msg = bot::makeLink("Vent Status", $page, 'blob');
 
 } else {
-
 	$msg = "<orange>$error<end>";
 }
 

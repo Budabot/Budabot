@@ -38,7 +38,7 @@ $seconds = $minutes * 60;
 
 $secondsPastMidnight = time() % 86400;
 
-while($site = $db->fObject()) {
+while ($site = $db->fObject()) {
 
 	$msg = "";
 	$variance = 2;
@@ -51,7 +51,7 @@ while($site = $db->fObject()) {
 
 	$timePastCloseTime = $currentTime - $closeTime;
 	
-	if($timePastCloseTime > 3600 * 18 - $variance && $timePastCloseTime < 3600 * 18 + $variance) {
+	if ($timePastCloseTime > 3600 * 18 - $variance && $timePastCloseTime < 3600 * 18 + $variance) {
 	
 			$msg = '<red>' . $site->zone . ' ' . $site->base_number .
 			' goes to 25% in <highlight>' . $minutes . '<end> minutes!!';

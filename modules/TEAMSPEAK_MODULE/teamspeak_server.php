@@ -30,7 +30,7 @@
    */
 
 $msg = "";
-if(preg_match("/^ts$/i", $message)) {
+if (preg_match("/^ts$/i", $message)) {
 	//TS Server Info
     $ip 			= $this->settings["ts_ip"];
     $queryport 		= $this->settings["ts_queryport"];
@@ -38,7 +38,7 @@ if(preg_match("/^ts$/i", $message)) {
     $servername 	= $this->settings["ts_servername"];
 
 	//If IP isn't set show error msg
-	if($ip == "Not set yet.") {
+	if ($ip == "Not set yet.") {
 	  	$msg = "You need to configure your TS Server before you can use this!";
 	    bot::send($msg, $sendto);
 		return;
@@ -48,13 +48,13 @@ if(preg_match("/^ts$/i", $message)) {
     $timeToEnd = (time() + 5);
 	$connection = fsockopen($ip, $queryport, $errno, $errstr, 30);
 
-	if($connection) {
+	if ($connection) {
 		$infolines = "";
     	fputs($connection,"sel ".$serverport."\n");
         fputs($connection,"si\n");
         fputs($connection,"quit\n");
 
-        while(!feof($connection)){
+        while (!feof($connection)){
 	        $infolines .= fgets($connection, 1024);
         }
 		fclose($connection);
@@ -87,9 +87,13 @@ if(preg_match("/^ts$/i", $message)) {
 	    $hours = floor($uptime/3600);
        	$minutes = floor(($uptime%3600)/60);
        	$seconds = floor(($uptime%3600)%60);
-        if($hours>0) $uptime = $hours."h ".$minutes."m ".$seconds."s";
-        else if($minutes>0) $uptime = $minutes."m ".$seconds."s";
-        else $uptime = $seconds."s";        
+        if ($hours>0) {
+			$uptime = $hours."h ".$minutes."m ".$seconds."s";
+		} else if ($minutes>0) {
+			$uptime = $minutes."m ".$seconds."s";
+		} else {
+			$uptime = $seconds."s";
+		}
         
         //Serverplatform
 		$indexof = strpos($infolines, "server_platform=") + strlen("server_platform=");
@@ -129,22 +133,24 @@ if(preg_match("/^ts$/i", $message)) {
 		$connection = fsockopen($ip, $queryport, $errno, $errstr, 30);
 		fputs($connection, "pl ".$serverport."\n");		
 		fputs($connection, "quit\n");
-		while(!feof($connection))
+		while (!feof($connection)) {
 			$out .= fgets($connection, 1024);
+		}
 
 		$out   = str_replace("[TS]", "", $out);
 		$out   = str_replace("loginname", "loginname\t", $out);		
 		$data 	= explode("\t", $out);
 		$num 	= count($data);				
 			
-		for($i = 0; $i < count($data); $i++) {
+		for ($i = 0; $i < count($data); $i++) {
 			$innerArray[$j] = $data[$i];
-			if($j >= 15) {
+			if ($j >= 15) {
 				$player_array[$k] = $innerArray;
 				$j = 0;
 				$k = $k + 1;
-			} else
+			} else {
 				$j++;
+			}
 		}			
 		fclose($connection);
 
@@ -158,7 +164,7 @@ if(preg_match("/^ts$/i", $message)) {
 		$connection = fsockopen($ip, $queryport, $errno, $errstr, 30);
 		fputs($connection, "cl ".$serverport."\n");		
 		fputs($connection, "quit\n");
-		while(!feof($connection)) {
+		while (!feof($connection)) {
 			$out .= fgets($connection, 1024);
 		}
 		$out   = str_replace("[TS]", "", $out);
@@ -166,27 +172,28 @@ if(preg_match("/^ts$/i", $message)) {
 		$data 	= explode("\t", $out);
 		$num 	= count($data);				
 		
-		for($i=0;$i<count($data);$i++) {
-			if($i>=10) {
+		for ($i = 0; $i < count($data); $i++) {
+			if ($i >= 10) {
 				$innerArray[$j] = $data[$i];
-				if($j>=8) {
+				if ($j>=8) {
 					$cArray[$k]=$innerArray;
 					$j = 0;
 					$k = $k+1;
-				} else
+				} else {
 					$j++;
+				}
 			}			
 		}			
         fclose($connection);
 
 		//Give Channels and their users out		
-		foreach($cArray as $channel) {
+		forEach ($cArray as $channel) {
 		  	$channel[5] = str_replace("\"", "", $channel[5]);
 		  	$link .= "<u>Channel: {$channel[5]}</u>\n";
 		  	$c_id = $channel[0];
 			$num_players = 0;
-		  	foreach($player_array as $player) {
-			    if($player[1] == $c_id) {
+		  	forEach ($player_array as $player) {
+			    if ($player[1] == $c_id) {
 					$num_players++;
 				  	$name = $player[14];
   	                $name = str_replace("\"","",$name);
@@ -197,14 +204,19 @@ if(preg_match("/^ts$/i", $message)) {
 			        $minutes = floor(($time%3600)/60);
 			        $seconds = floor(($time%3600)%60);
 			
-			        if($hours>0) $time = $hours."h ".$minutes."m ".$seconds."s";
-			        else if($minutes>0) $time = $minutes."m ".$seconds."s";
-			        else $time = $seconds."s";
+			        if ($hours>0) {
+						$time = $hours."h ".$minutes."m ".$seconds."s";
+					} else if ($minutes>0) {
+						$time = $minutes."m ".$seconds."s";
+					} else {
+						$time = $seconds."s";
+					}
 	                $link .= "<tab>- <highlight>$name<end>($time)\n";
 				}
 			}
-			if($num_players == 0)
+			if ($num_players == 0) {
 				$link .= "<tab>- <highlight>None<end>\n";
+			}
 		}
 
 		$msg = bot::makeLink("Teamspeak Server Status", $link);

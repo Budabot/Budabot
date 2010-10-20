@@ -22,7 +22,7 @@
 	//Setup
 	bot::loadSQLFile($MODULE_NAME, "towerranges");
 	
-	//Helpfiles
+	//Help files
 	bot::help("towers", "$MODULE_NAME/towers.txt", "all", "Show Tower messages", "Towers");
-	bot::help("lca", "$MODULE_NAME/lca.txt", "all", "Show Infos about Land Control Areas", "Towers");
+	bot::help("lca", "$MODULE_NAME/lca.txt", "all", "Show Info about Land Control Areas", "Towers");
 ?>

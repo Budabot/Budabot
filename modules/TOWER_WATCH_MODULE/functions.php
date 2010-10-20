@@ -29,7 +29,7 @@ function getAllSitesInfo() {
 
 	$secondsPastMidnight = time() % 86400;
 	
-	while($site = $db->fObject()) {
+	while ($site = $db->fObject()) {
 
 		$time = $secondsPastMidnight;
 		if ($site->close_time > $secondsPastMidnight) {
@@ -38,7 +38,7 @@ function getAllSitesInfo() {
 
 		$timePastCloseTime = $time - $site->close_time;
 		
-		if($timePastCloseTime < 3600 * 18) {
+		if ($timePastCloseTime < 3600 * 18) {
 			$site->gas_change = 3600 * 18 - $timePastCloseTime;
 			$site->gas_level = '75%';
 		} else if ($timePastCloseTime < 3600 * 23) {

@@ -20,7 +20,7 @@
    **
    */
 
-if(preg_match("/^remscout( (.*))?$/i", $message)) {
+if (preg_match("/^remscout( (.*))?$/i", $message)) {
 	
 	$msg = "";
 

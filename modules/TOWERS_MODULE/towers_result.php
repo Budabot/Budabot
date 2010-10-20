@@ -51,7 +51,7 @@ if (preg_match("/^battle(s?)$/i", $message) || preg_match("/^battle(s?) (.+)$/i"
 	} else {
 		$list = "<header>::::: The last $listcount Tower Attacks :::::<end>\n\n".$colorvalue;
 
- 		while($row = $db->fObject()) {
+ 		while ($row = $db->fObject()) {
 			$list .= $colorlabel."Attacktime:<end> ".gmdate("M j, Y, G:i", $row->time)." (GMT)\n";
 			if (!$att_side = strtolower($row->att_side)) {$att_side = "unknown";}
 			if (!$def_side = strtolower($row->def_side)) {$def_side = "unknown";}
@@ -103,14 +103,6 @@ if (preg_match("/^battle(s?)$/i", $message) || preg_match("/^battle(s?) (.+)$/i"
 }
 
 if ($msg) {
-
-	// Won't need these 4 lines for 0.7.0
-	$msg = str_replace("<neutral>", "<font color='#EEEEEE'>", $msg);
-	$msg = str_replace("<omni>", "<font color='#00FFFF'>", $msg);
-	$msg = str_replace("<clan>", "<font color='#F79410'>", $msg);
-	$msg = str_replace("<unknown>", "<font color='#FF0000'>", $msg);
-
-	// Send info back
 	bot::send($msg, $sendto);
 }
 

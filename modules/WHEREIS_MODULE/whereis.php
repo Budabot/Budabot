@@ -21,8 +21,7 @@ if (preg_match("/^whereis (.+)$/i", $message, $arr)) {
 	$whereis = '';
 	
 	$data = $db->fobject("all");
-	foreach($data as $row)
-	{
+	forEach ($data as $row) {
 		$whereis .= "<yellow>$row->name \n <green>Can be found $row->answer\n";
 	}
 	

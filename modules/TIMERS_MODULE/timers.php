@@ -47,7 +47,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 		}
 	}
 
-  	if ($arr[1] < 1) {
+	if ($arr[1] < 1) {
 		$msg = "No valid time specified!";
 		
 	    // Send info back
@@ -152,7 +152,6 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	$timerset = unixtime_to_readable($run_time);
 	$msg = "Timer has been set for $timerset.";
 		
-    // Send info back
     bot::send($msg, $sendto);
 } else if (preg_match("/^timers? (rem|del) (.+)$/i", $message, $arr)) {
 	$timer_name = strtolower($arr[2]);
@@ -184,7 +183,6 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 		$msg = "A timer with this name is not running.";
 	}
 
-    // Send info back
     bot::send($msg, $sendto);
 } else if (preg_match("/^timers?$/i", $message, $arr)) {
 	$num_timers = count($this->vars["Timers"]);
@@ -205,52 +203,63 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 
 			if ($mode == "msg" && $type == "msg" && ($sender == $owner)) {
 				$days = floor($tleft/86400);
-				if($days != 0)
+				if ($days != 0) {
 					$timer .= $days."day(s) ";
+				}
 
 				$hours = floor(($tleft-($days*86400))/3600);
-				if($hours != 0)
+				if ($hours != 0) {
 					$timer .= $hours."hr(s) ";
+				}
 
 				$mins = floor(($tleft-($days*86400)-$hours*3600)/60);
-				if($mins != 0)
+				if ($mins != 0) {
 					$timer .= $mins."min(s) ";
+				}
 
 				$secs = $tleft-($days*86400)-($hours*3600)-$mins*60;
-				if($secs != 0)
+				if ($secs != 0) {
 					$timer .= $secs."sec(s)";
+				}
 				
-				if($name == "PrimTimer")
+				if ($name == "PrimTimer") {
 					$msg .= "\n Timer has <highlight>$timer<end> left [set by <highlight>$owner<end>]";
-				else
+				} else {
 					$msg .= "\n Timer <highlight>$name<end> has <highlight>$timer<end> left [set by <highlight>$owner<end>]";  	
+				}
 			} else if ($mode == $type || ($type == "msg" && $mode != "msg")) {
 				$days = floor($tleft/86400);
-				if($days != 0)
+				if ($days != 0) {
 					$timer .= $days."day(s) ";
+				}
 
 				$hours = floor(($tleft-($days*86400))/3600);
-				if($hours != 0)
+				if ($hours != 0) {
 					$timer .= $hours."hr(s) ";
+				}
 
 				$mins = floor(($tleft-($days*86400)-$hours*3600)/60);
-				if($mins != 0)
+				if ($mins != 0) {
 					$timer .= $mins."min(s) ";
+				}
 
 				$secs = $tleft-($days*86400)-($hours*3600)-$mins*60;
-				if($secs != 0)
+				if ($secs != 0) {
 					$timer .= $secs."sec(s)";
+				}
 				
-				if($name == "PrimTimer")
+				if ($name == "PrimTimer") {
 					$msg .= "\n Timer has <highlight>$timer<end> left [set by <highlight>$owner<end>]";
-				else
+				} else {
 					$msg .= "\n Timer <highlight>$name<end> has <highlight>$timer<end> left [set by <highlight>$owner<end>]";  	
+				}
 			}
 		}
-		if ($msg == "")
+		if ($msg == "") {
 			$msg = "No Timers running atm.";
-		else
+		} else {
 		  	$msg = "Timers currently running:".$msg;
+		}
 	} else {
 		foreach($this->vars["Timers"] as $key => $value) {
 			$timer = "";
@@ -261,55 +270,62 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 
 			if ($mode == "msg" && $type == "msg" && ($sender == $owner)) {
 				$days = floor($tleft/86400);
-				if($days != 0)
+				if ($days != 0) {
 					$timer .= $days."day(s) ";
+				}
 
 				$hours = floor(($tleft-($days*86400))/3600);
-				if($hours != 0)
+				if ($hours != 0) {
 					$timer .= $hours."hr(s) ";
+				}
 
 				$mins = floor(($tleft-($days*86400)-$hours*3600)/60);
-				if($mins != 0)
+				if ($mins != 0) {
 					$timer .= $mins."min(s) ";
+				}
 
 				$secs = $tleft-($days*86400)-($hours*3600)-$mins*60;
-				if($secs != 0)
+				if ($secs != 0) {
 					$timer .= $secs."sec(s)";
+				}
 				
 				$list .= "Timername: <highlight>$name<end>\n";
 				$list .= "Timeleft: <highlight>$timer<end>\n";
 				$list .= "Set by: <highlight>$owner<end>\n\n";
 			} else if ($mode == $type  || ($type == "msg" && $mode != "msg")) {
 				$days = floor($tleft/86400);
-				if($days != 0)
+				if ($days != 0) {
 					$timer .= $days."day(s) ";
+				}
 
 				$hours = floor(($tleft-($days*86400))/3600);
-				if($hours != 0)
+				if ($hours != 0) {
 					$timer .= $hours."hr(s) ";
+				}
 
 				$mins = floor(($tleft-($days*86400)-$hours*3600)/60);
-				if($mins != 0)
+				if ($mins != 0) {
 					$timer .= $mins."min(s) ";
+				}
 
 				$secs = $tleft-($days*86400)-($hours*3600)-$mins*60;
-				if($secs != 0)
+				if ($secs != 0) {
 					$timer .= $secs."sec(s)";
+				}
 				
 				$list .= "Timername: <highlight>$name<end>\n";
 				$list .= "Timeleft: <highlight>$timer<end>\n";
 				$list .= "Set by: <highlight>$owner<end>\n\n";
 			}
 		}
-		if ($list == "")
+		if ($list == "") {
 			$msg = "No Timers running atm.";
-		else {
+		} else {
 			$list = "<header>::::: Currently running Timers :::::<end>\n\n".$list;
 		  	$msg = bot::makeLink("Timers currently running", $list);
 		}
 	}
 
-    // Send info back
     bot::send($msg, $sendto);
 } else {
 	$syntax_error = true;

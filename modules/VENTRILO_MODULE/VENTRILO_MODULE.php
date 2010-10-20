@@ -1,4 +1,7 @@
 <?php
+	require_once "vent.inc.php";
+	require_once "ventrilostatus.php";
+
 	$MODULE_NAME = "VENTRILO_MODULE"; 
 
 	bot::command("", "$MODULE_NAME/vent.php", "vent", "guild", "Ventrilo Server Info");
