@@ -36,7 +36,7 @@ if (preg_match("/^loot clear|clear$/i", $message)) {
 	$residual = "";
   	$msg = "Loot has been cleared by <highlight>$sender<end>.";
   	bot::send($msg, "priv");
-	
+
 	if ($type != 'priv') {
 		bot::send($msg, $sendto);
 	}
@@ -143,7 +143,7 @@ if (preg_match("/^loot clear|clear$/i", $message)) {
 		bot::send("To add use <symbol>add $itmref, or <symbol>add 0 to remove yourself");
 		$dontadd = 0;
 		$itmref = 0;
-		if (is_array($residual)){
+		if (is_array($residual)) {
 			$residual = "";
 		}
 	}

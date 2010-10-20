@@ -25,35 +25,34 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-	global $loot;
 
-	if(preg_match("/^remloot ([0-9]+)$/i", $message, $arr)) {
-		$key = $arr[1];
-		// validate item existance on loot list
-		if($key > 0 && $key <= count($loot)){
-		
-			// if removing this item empties the list, clear the loot list properly
-			if(count($loot) <= 1){
-				$loot = "";
-				bot::send("Item in slot <highlight>#".$key."<end> was the last item in the list. The list has been cleared.");
-				return;
-			}
+global $loot;
+
+if (preg_match("/^remloot ([0-9]+)$/i", $message, $arr)) {
+	$key = $arr[1];
+	// validate item existance on loot list
+	if ($key > 0 && $key <= count($loot)) {
+	
+		// if removing this item empties the list, clear the loot list properly
+		if (count($loot) <= 1) {
+			$loot = "";
+			bot::send("Item in slot <highlight>#".$key."<end> was the last item in the list. The list has been cleared.");
+			return;
+		} else {
 			// remove the item by shifting lower items up one slot and remove last slot
-			else{
-				$loop = $key;
-				while($loop < count($loot)){
-					$loot[$loop] = $loot[$loop+1];
-					$loop++;
-				}
+			$loop = $key;
+			while($loop < count($loot)){
+				$loot[$loop] = $loot[$loop+1];
+				$loop++;
+			}
 			unset($loot[count($loot)]);
 			bot::send("Deleting item in slot <highlight>#".$key."<end>");
 			return;
-			}
 		}
-		else{
-			bot::send("There is no item at slot <highlight>#".$key."<end>");
-			return;
-		}
+	} else {
+		bot::send("There is no item at slot <highlight>#".$key."<end>");
+		return;
 	}
+}
 
 ?>

@@ -24,7 +24,7 @@
 	bot::help("aggdef", "$MODULE_NAME/aggdef.txt", "all", "How to use aggdef");
 	bot::help("nanoinit", "$MODULE_NAME/nanoinit.txt", "all", "How to use nanoinit");
 	bot::help("as", "$MODULE_NAME/as.txt", "all", "How to use as");
-	bot::help("fa", "$MODULE_NAME/fa.txt", "all", "How to use as");
+	bot::help("fa", "$MODULE_NAME/fa.txt", "all", "How to use fa");
 	bot::help("fling", "$MODULE_NAME/fling.txt", "all", "How to use fling");
 	bot::help("burst", "$MODULE_NAME/burst.txt", "all", "How to use burst");
 	bot::help("mafist", "$MODULE_NAME/mafist.txt", "all", "How to use mafist");

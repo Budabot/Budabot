@@ -3,16 +3,12 @@
 global $loot;
 global $residual;
 
-if(preg_match("/^reroll$/i", $message)) {
+if (preg_match("/^reroll$/i", $message)) {
 
 	//Check if a residual list exits
   	if (!is_array($residual)) {
 	    $msg = "There are no remaining items to re-add.";
-	    bot::send($msg, 'priv');
-		
-		if ($type != 'priv') {
-			bot::send($msg, $sendto);
-		}
+	    bot::send($msg, $sendto);
 	    return;
 	}
   	
@@ -45,11 +41,13 @@ if(preg_match("/^reroll$/i", $message)) {
 				$list .= "<img src=rdb://{$item["icon"]}>\n";
 			}
 
-			if ($item["multiloot"]>1) {
+			if ($item["multiloot"] > 1) {
 				$ml = " <yellow>(x".$item["multiloot"].")<end>";
 			} else {
 				$ml = "";
-			} if($item["linky"]) {
+			}
+
+			if ($item["linky"]) {
 				$itmnm = $item["linky"];
 			} else {
 				$itmnm = $item["name"];
@@ -76,9 +74,8 @@ if(preg_match("/^reroll$/i", $message)) {
 	} else {
 		$msg2 = "No List exists yet.";
 	}
-	bot::send($msg2);
-	if ($type != 'priv') {
-		bot::send($msg2, $sendto);
-	}
+	bot::send($msg2, $sendto);
+} else {
+	$syntax_error = true;
 }
 ?>

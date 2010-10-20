@@ -131,7 +131,7 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 	// Search for victim:
 	$list = "";
 	$db->query("SELECT * FROM quote WHERE `OfWho` LIKE '".str_replace("'", "''", $search)."'");
-	while($row = $db->fObject()) {
+	while ($row = $db->fObject()) {
 		$list .= "<a href='chatcmd:///tell <myname> quote $row->IDNumber'>$row->IDNumber</a>, ";
 	}
 	if ($list) {

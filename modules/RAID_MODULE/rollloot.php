@@ -33,16 +33,11 @@ global $loot;
 global $loot_winners;
 global $residual;
 
-
 if (preg_match("/^flatroll$/i", $message) || preg_match("/^rollloot$/i", $message) || preg_match("/^result$(i", $message) || preg_match("/^win$/i", $message)) {
 	//Check if a loot list exits
   	if (!is_array($loot)) {
 	    $msg = "There is nothing to roll atm.";
-	    bot::send($msg, 'priv');
-		
-		if ($type != 'priv') {
-			bot::send($msg, $sendto);
-		}
+	    bot::send($msg, $sendto);
 	    return;
 	}
   	
@@ -67,6 +62,7 @@ if (preg_match("/^flatroll$/i", $message) || preg_match("/^rollloot$/i", $messag
 				} else {
 					$arrolnum = $item["multiloot"];
 				}
+
 				for ($i = 0; $i < $arrolnum; $i++) {
 					$winner = array_rand($item["users"], 1);
 					unset($item["users"][$winner]);
@@ -85,7 +81,6 @@ if (preg_match("/^flatroll$/i", $message) || preg_match("/^rollloot$/i", $messag
             	$winner = array_rand($item["users"], 1);
 				$list .= "<red>$winner<end>";
 			}
-
 			$list .= "\n\n";
 		}
 	}
@@ -100,9 +95,9 @@ if (preg_match("/^flatroll$/i", $message) || preg_match("/^rollloot$/i", $messag
 	} else {
 		$rerollmsg = "";
 	}
-	
-	bot::send($msg.$rerollmsg);
-	
+
+	bot::send($msg.$rerollmsg, 'priv');
+
 	if ($type != 'priv') {
 		bot::send($msg.$rerollmsg, $sendto);
 	}

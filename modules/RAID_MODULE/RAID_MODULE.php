@@ -1,8 +1,5 @@
 <?php
-$MODULE_NAME = "RAID_MODULE";
-
-	/* Commands used only for flatroll of items */
-	//Set requirements for the loot roll		
+	$MODULE_NAME = "RAID_MODULE";
 
 	//Loot list and adding/removing of players	
 	bot::command("", "$MODULE_NAME/loot.php", "loot", "leader", "Adds an item to the loot list");
@@ -26,15 +23,15 @@ $MODULE_NAME = "RAID_MODULE";
 	
 	//Settings
 	bot::addsetting("add_on_loot", "Adding to loot show on", "edit", "1", "tells;privatechat;privatechat and tells", '1;2;3', "mod");
-	
+
 	bot::regGroup("basic_loot", $MODULE_NAME, "Handles a basic flatrolled loot system", "loot", "add", "clear", "list", "flatroll");
 
-	//Helpfiles
-	bot::help("add", "$MODULE_NAME/add_rem.txt", "all", "Adding to a lootitem", "Raid");
-	bot::help("rem", "$MODULE_NAME/add_rem.txt", "all", "Removing your bid on a lootitem", "Raid");
-	bot::help("loot", "$MODULE_NAME/flatroll.txt", "leader", "Adding an item to be flatrolled", "Raid");
-	bot::help("remloot", "$MODULE_NAME/flatroll.txt", "leader", "Removing an item from a flatroll list", "Raid");
-	bot::help("flatroll", "$MODULE_NAME/flatroll.txt", "leader", "Flatroll an item", "Raid");
-	bot::help("multiloot", "$MODULE_NAME/flatroll.txt", "leader", "Adding multiple of an item to be rolled", "Raid");
+	//Help files
+	bot::help("add", "$MODULE_NAME/add_rem.txt", "all", "Adding to a lootitem");
+	bot::help("rem", "$MODULE_NAME/add_rem.txt", "all", "Removing your bid on a lootitem");
+	bot::help("loot", "$MODULE_NAME/flatroll.txt", "leader", "Adding an item to be flatrolled");
+	bot::help("remloot", "$MODULE_NAME/flatroll.txt", "leader", "Removing an item from a flatroll list");
+	bot::help("flatroll", "$MODULE_NAME/flatroll.txt", "leader", "Flatroll an item");
+	bot::help("multiloot", "$MODULE_NAME/flatroll.txt", "leader", "Adding multiple of an item to be rolled");
 
 ?>

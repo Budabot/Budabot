@@ -2,7 +2,7 @@
 $info = explode(" ", $message);
 list($msg, $AttTim, $RechT, $FARecharge, $FullAutoSkill) = $info;
 
-if((!$AttTim) || (!$RechT) || (!$FARecharge) || (!$FullAutoSkill)) {
+if ((!$AttTim) || (!$RechT) || (!$FARecharge) || (!$FullAutoSkill)) {
 	$syntax_error = true;
 } else {
 	list($FACap, $FA_Skill_Cap) = cap_full_auto($AttTim, $RechT, $FARecharge);

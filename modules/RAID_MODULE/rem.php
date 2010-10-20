@@ -31,23 +31,30 @@
 
 global $loot;
 global $raidloot;
-if(preg_match("/^rem$/i", $message)) {
-if($this->vars["raid_status"] != "" && $this->vars["raid_pts"] == 0) {
-	  	foreach($raidloot as $key => $value)
-			foreach($value as $key1 => $value1)
-				if($raidloot[$key][$key1]["users"][$sender] == true)
-					unset($raidloot[$key][$key1]["users"][$sender]);		 		
+if (preg_match("/^rem$/i", $message)) {
+	if ($this->vars["raid_status"] != "" && $this->vars["raid_pts"] == 0) {
+	  	forEach ($raidloot as $key => $value) {
+			forEach ($value as $key1 => $value1) {
+				if ($raidloot[$key][$key1]["users"][$sender] == true) {
+					unset($raidloot[$key][$key1]["users"][$sender]);
+				}
+			}
+		}
 	
 		$msg = "You have been removed from all rolls";
-	  	bot::send($msg, $sender);	  
-	} elseif(count($loot) > 0) {
-	  	foreach($loot as $key => $item)
-			if($loot[$key]["users"][$sender] == true)
-				unset($loot[$key]["users"][$sender]);		 		
+	  	bot::send($msg, $sender);
+	} else if (count($loot) > 0) {
+	  	forEach ($loot as $key => $item) {
+			if ($loot[$key]["users"][$sender] == true) {
+				unset($loot[$key]["users"][$sender]);
+			}
+		}
 	
 		$msg = "You have been removed from all rolls";
-	  	bot::send($msg, $sender);	   
-	} else
+	  	bot::send($msg, $sender);
+	} else {
 		bot::send("There is nothing where you could add in.", $sender);
+	}
 }
+
 ?>
