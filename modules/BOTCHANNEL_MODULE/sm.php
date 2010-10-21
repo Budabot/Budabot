@@ -2,7 +2,7 @@
 
 if (preg_match("/^sm$/i", $message)) {
 	if (count($this->vars["Guest"]) > 0) {
-		$db->query("SELECT * FROM priv_chatlist ORDER BY `profession`, `level` DESC");
+		$db->query("SELECT * FROM priv_chatlist_<myname> ORDER BY `profession`, `level` DESC");
 		$numguest = $db->numrows();
 
 		$list = "<header> {$numguest} player(s) currently in chat<end>\n\n";
@@ -18,4 +18,5 @@ if (preg_match("/^sm$/i", $message)) {
 } else {
 	$syntax_error = true;
 }
+
 ?>

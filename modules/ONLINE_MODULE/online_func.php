@@ -12,16 +12,24 @@ function online($type, $sender, $sendto, &$bot, $prof = "all") {
 
 	$list = "";
 	if ($type == "guild" || ($bot->settings["online_tell"] == 0 && $type == "msg")  || ($type == "priv" && $bot->vars["Guest"][$sender] == true)) {
-		if ($prof == "all") {
-			$db->query("SELECT * FROM guild_chatlist ORDER BY `profession`, `level` DESC");
+		if ($bot->settings["relaydb"]) {
+			if ($prof == "all") {
+				$db->query("SELECT * FROM guild_chatlist_<myname> UNION ALL SELECT * FROM guild_chatlist_".strtolower($bot->settings["relaydb"])." ORDER BY `profession`, `level` DESC");
+			} else {
+				$db->query("SELECT * FROM guild_chatlist_<myname> WHERE `profession` = '$prof' UNION ALL SELECT * FROM guild_chatlist_".strtolower($bot->settings["relaydb"])." WHERE `profession` = '$prof'");
+			}
 		} else {
-			$db->query("SELECT * FROM guild_chatlist WHERE `profession` = '$prof'");
+			if ($prof == "all") {
+				$db->query("SELECT * FROM guild_chatlist_<myname> ORDER BY `profession`, `level` DESC");
+			} else {
+				$db->query("SELECT * FROM guild_chatlist_<myname> WHERE `profession` = '$prof'");
+			}
 		}
 	} else if ($type == "priv" || ($bot->settings["online_tell"] == 1 && $type == "msg")) {
 		if ($prof == "all") {
-			$db->query("SELECT * FROM priv_chatlist ORDER BY `profession`, `level` DESC");
+			$db->query("SELECT * FROM priv_chatlist_<myname> ORDER BY `profession`, `level` DESC");
 		} else {
-			$db->query("SELECT * FROM priv_chatlist WHERE `profession` = '$prof'");
+			$db->query("SELECT * FROM priv_chatlist_<myname> WHERE `profession` = '$prof'");
 		}
 	}
 
@@ -39,9 +47,15 @@ function online($type, $sender, $sendto, &$bot, $prof = "all") {
 	// Guest Channel Part
 	if ((count($bot->vars["Guest"]) > 0 || $bot->settings["relaydb"]) && ($type == "guild" || ($bot->settings["online_tell"] == 0 && $type == "msg")  || ($type == "priv" && $bot->vars["Guest"][$sender] == true))) {
 		if ($prof == "all") {
-			$db->query("SELECT * FROM priv_chatlist ORDER BY `profession`, `level` DESC");
+			if ($bot->settings["relaydb"]) {
+				$db->query("SELECT * FROM priv_chatlist_<myname> UNION ALL SELECT * FROM priv_chatlist_".strtolower($bot->settings["relaydb"])." ORDER BY `profession`, `level` DESC");
+			} else {
+				$db->query("SELECT * FROM priv_chatlist_<myname> ORDER BY `profession`, `level` DESC");
+			}
+		} else if ($bot->settings["relaydb"]) {
+			$db->query("SELECT * FROM priv_chatlist_<myname> UNION ALL SELECT * FROM priv_chatlist_".strtolower($bot->settings["relaydb"])." WHERE `profession` = '$prof' ORDER BY `level` DESC");
 		} else {
-			$db->query("SELECT * FROM priv_chatlist WHERE `profession` = '$prof' ORDER BY `level` DESC");
+			$db->query("SELECT * FROM priv_chatlist_<myname> WHERE `profession` = '$prof' ORDER BY `level` DESC");
 		}
 
 		$numguest = $db->numrows();

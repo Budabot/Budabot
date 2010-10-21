@@ -55,7 +55,7 @@ if(($data = fgets($socket)) && ("1" == $this->settings['irc_status'])) {
 			$numguest = 0;
 			//guild listing
 			if($this->vars['my guild'] != "") {
-				$db->query("SELECT * FROM guild_chatlist");
+				$db->query("SELECT * FROM guild_chatlist_<myname>");
 				$numonline = $db->numrows();
 				if($numonline != 0) {
 					$data = $db->fObject("all");
@@ -79,7 +79,7 @@ if(($data = fgets($socket)) && ("1" == $this->settings['irc_status'])) {
 				}
 			}
 			//priv listing
-			$db->query("SELECT * FROM priv_chatlist");
+			$db->query("SELECT * FROM priv_chatlist_<myname>");
 			$numguest = $db->numrows();
 			if($db->numrows() != 0) {
 				$data = $db->fObject("all");
