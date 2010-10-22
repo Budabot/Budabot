@@ -35,7 +35,7 @@ global $vote;
 if (preg_match("/^list$/i", $message)) {
 	if ($this->vars["raid_status"] == "") {
 	  	if (is_array($loot)) {
-		  	$list = "<header>::::: Loot List :::::<end>\n\nUse <symbol>flatroll or <symbol>roll to roll.\n\n";
+		  	$list = "<header>::::: Loot List :::::<end>\n\nUse <symbol>flatroll or <symbol>rollloot to roll.\n\n";
 			forEach ($loot as $key => $item) {
 				$add = bot::makeLink("Add", "/tell <myname> add $key", "chatcmd");
 				$rem = bot::makeLink("Remove", "/tell <myname> add 0", "chatcmd");
