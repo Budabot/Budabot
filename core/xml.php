@@ -1,4 +1,4 @@
-<?php 
+<?php
    /*
    ** Author: Sebuda, Derroylo (RK2)
    ** Description: AO xml abstaction layer for guild info, whois, player history and server status.
@@ -8,10 +8,10 @@
    **
    ** Date(created): 01.10.2005
    ** Date(last modified): 16.01.2007
-   ** 
+   **
    ** Copyright (C) 2005, 2006, 2007 Carsten Lohmann and J. Gracik
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -27,7 +27,7 @@
    ** You should have received a copy of the GNU General Public License
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-   */ 
+   */
 
 //class provide some basic function to splice XML Files or getting an XML file from a URL
 class xml {
@@ -40,10 +40,10 @@ class xml {
 	 	$data = explode($end, $data, 2);
 	 	if(!$data || (is_array($data) && count($data) < 2))
 	 		return "";
-		return $data[0]; 
+		return $data[0];
 	}
-     
-	//Extracts more then one entry of the XML file       
+
+	//Extracts more then one entry of the XML file
     public function spliceMultiData($sourcefile, $start, $end){
 		$targetdata = array();
 		$sourcedata = explode($start, $sourcefile);
@@ -52,10 +52,10 @@ class xml {
         	$target = explode($end, $indsplit, 2);
             $targetdata[] = $target[0];
         }
-		return $targetdata; 
+		return $targetdata;
     }
-    
-	//Trys to download a file from a URL   
+
+	//Trys to download a file from a URL
 	public function getUrl($url, $timeout = '5') {
 	 	$url = strtolower($url);
 	 	
@@ -73,7 +73,7 @@ class xml {
 		if($fp) {
 			@fputs($fp, "GET $uri HTTP/1.0\nHost: $host\r\n\r\n");				
 			while($indata = fread($fp,1024))
-				$data .= $indata;  
+				$data .= $indata;
 	
 			fclose($fp);
 			return $data;
@@ -84,153 +84,6 @@ class xml {
 	}
 } //end class xml
 
-//the whois class is downloading/caching/verifying an player XML file
-class whois extends xml {
-	public $firstname;        
-    public $name;             
-    public $lastname;        
-    public $level;             
-    public $breed;            
-    public $gender;            
-    public $faction;            
-    public $prof;    
-    public $prof_title;    
-    public $ai_rank;    
-    public $ai_level;    
-    public $organization_id;
-    public $org;
-    public $rank;                
-    public $rank_id;
-	public $between;
-	public $errorInfo;
-	public $errorCode = 0;
-	
-	//construktor of the class
-	function __construct($name, $rk_num = 0, $cache = 0){
-		//if no server number is specified use the one on which the bot is logged in
-		if($rk_num == 0) {
-		  	global $vars;
-			$rk_num = $vars["dimension"];
-		}
-
-		//if no specific cachefolder is defined use the one from config.php
-		if($cache == 0) {
-		  	global $vars;
-			$cache = $vars["cachefolder"];  
-		}
-
-		//Making sure that the cache folder exists
-        if(!dir($cache))
-	        mkdir($cache, 0777);
-
-		//Character lookup        		
-        $this->lookup($name, $rk_num, $cache);                
-    }
-
-	//the player lookup itself
-	function lookup($name, $rk_num, $cache) {
-	 	$data_found = false;
-		$data_save = false;
-		$name = ucfirst(strtolower($name));
-		
-		//Check if a xml file of the person exists, that it isn't older then 24hrs and correct
-		if(file_exists("$cache/$name.$rk_num.xml")) {
-	        $mins = (time() - filemtime("$cache/$name.$rk_num.xml")) / 60;
-            $hours = floor($mins/60);
-            if ($hours < 24) {
-				$playerbio = file_get_contents("$cache/$name.$rk_num.xml");
-				if(xml::spliceData($playerbio, '<nick>', '</nick>') == $name) {
-					$this->source = 'cache-current';
-					$data_found = true;
-				} else {
-					$data_found = false;
-					unset($playerbio);
-					@unlink("$cache/$name.$rk_num.xml");
-				}
-			}
-        }
-        
-        //If no file was found or it is outdated try to update it from anarchyonline.com
-        if (!$data_found) {
-			$playerbio = xml::getUrl("http://people.anarchy-online.com/character/bio/d/$rk_num/name/$name/bio.xml");
-			if (xml::spliceData($playerbio, '<nick>', '</nick>') == $name) {
-				$this->source = 'people.anarchy-online.com';
-				$data_found = true;
-				$data_save = true;
-			} else {
-				$data_found = false;
-				unset($playerbio);
-			}
-		}
-		
-		//If ao.com was too slow to respond or got wrong data back try to update it from auno.org
-		if (!$data_found) {
-			$playerbio = xml::getUrl("http://auno.org/ao/char.php?output=xml&dimension=$rk_num&name=$name");
-			if (xml::spliceData($playerbio, '<nick>', '</nick>') == $name) {
-				$this->source = 'auno.org';
-				$data_found = true;
-				$data_save = true;
-			} else {
-				$data_found = false;
-				unset($playerbio);
-			}
-		}
-		
-		//If both site were not responding or the data was invalid and a xml file exists get that one
-		if (!$data_found && file_exists("$cache/$name.$rk_num.xml")) {
-			$playerbio = file_get_contents("$cache/$name.$rk_num.xml");
-			if (xml::spliceData($playerbio, '<nickname>', '</nickname>') == $name) {
-				$this->source = 'cache-old';
-				$data_found = true;
-			} else {
-				$data_found = false;
-				unset($playerbio);
-				@unlink("$cache/$name.$rk_num.xml");
-			}
-		}
-		
-		//if there is still no valid data available give an error back
-		if(!$data_found) {
-   		  	$this->firstname = "";
-		  	$this->lastname = "";
-		  	$this->rank_id = 6;
-		  	$this->rank = "Applicant";
-	  		$this->level = "1";
-		  	$this->prof = "Unknown";
-		  	$this->gender = "Unknown";
-		  	$this->breed = "Unknown";
-           	$this->errorCode = 1;
-           	$this->errorInfo = "Couldn't get Character infos for $name";
-			$this->source = 'none';
-           	return;
-		}
-
-		//parsing of the player data		
-        $this->firstname	= xml::spliceData($playerbio, '<firstname>', '</firstname>');
-        $this->name         = xml::spliceData($playerbio, '<nick>', '</nick>');
-        $this->lastname     = xml::spliceData($playerbio, '<lastname>', '</lastname>');
-        $this->level        = xml::spliceData($playerbio, '<level>', '</level>');
-        $this->breed        = xml::spliceData($playerbio, '<breed>', '</breed>');
-        $this->gender       = xml::spliceData($playerbio, '<gender>', '</gender>');
-        $this->faction      = xml::spliceData($playerbio, '<faction>', '</faction>');
-        $this->prof         = xml::spliceData($playerbio, '<profession>', '</profession>');
-        $this->prof_title   = xml::spliceData($playerbio, '<profession_title>', '</profession_title>');
-        $this->ai_rank      = xml::spliceData($playerbio, '<defender_rank>', '</defender_rank>');
-        $this->ai_level     = xml::spliceData($playerbio, '<defender_rank_id>', '</defender_rank_id>');
-        $this->org_id       = xml::spliceData($playerbio, '<organization_id>', '</organization_id>');
-        $this->org          = xml::spliceData($playerbio, '<organization_name>', '</organization_name>');
-        $this->rank         = xml::spliceData($playerbio, '<rank>', '</rank>');
-        $this->rank_id      = xml::spliceData($playerbio, '<rank_id>', '</rank_id>');
-
-		//if a new xml file is downloaded save it		
-		if ($data_save) {
-	        $fp = fopen("$cache/$name.$rk_num.xml", "w");
-	        fwrite($fp, $playerbio);
-	        fclose($fp);
-	    }
-    }
-} //end of whois
-
 //the org class is downloading/caching/verifying an org XML file
 class org extends xml {
     public $members;
@@ -239,7 +92,7 @@ class org extends xml {
     public $errorInfo;
 
 	//contructor of the class
-	function __construct($organization_id = 0, $rk_num = 0, $cache = 0, $force_update = false){ 
+	function __construct($organization_id = 0, $rk_num = 0, $cache = 0, $force_update = false){
 		//if no server number is specified use the one on which the bot is logged in
 		if($rk_num == 0) {
 		  	global $vars;
@@ -249,7 +102,7 @@ class org extends xml {
 		//if no specific cachefolder is defined use the one from config.php
 		if($cache == 0) {
 		  	global $vars;
-			$cache = $vars["cachefolder"];  
+			$cache = $vars["cachefolder"];
 		}
 
 		//Making sure that the cache folder exists
@@ -257,9 +110,9 @@ class org extends xml {
 	        @mkdir($cache, 0777);
 		
 		//organisation lookup
-        $this->lookup($organization_id, $rk_num, $cache, $force_update);            
+        $this->lookup($organization_id, $rk_num, $cache, $force_update);
 	} //end of contructor
-    
+
     //the organisation lookup function
 	function lookup($organization_id, $rk_num, $cache, $force_update) {
 	 	global $vars;
@@ -282,7 +135,7 @@ class org extends xml {
 				}
 			}
         }
-        
+
         //If no file was found or it is outdated try to update it from anarchyonline.com
         if(!$data_found) {
 			$orgxml = xml::getUrl("http://people.anarchy-online.com/org/stats/d/$rk_num/name/$organization_id/basicstats.xml", 30);
@@ -321,7 +174,7 @@ class org extends xml {
         global $chatBot;
         foreach($members as $amember) {
 			$name								= xml::splicedata($amember,"<nickname>", "</nickname>");
-            $this->member[]						= $name;                    
+            $this->member[]						= $name;
             $this->members[$name]["firstname"]	= xml::spliceData($amember, '<firstname>', '</firstname>');
             $this->members[$name]["firstname"]	= xml::spliceData($amember, '<firstname>', '</firstname>');
             $this->members[$name]["name"] 		= xml::spliceData($amember, '<nickname>', '</nickname>');
@@ -343,13 +196,13 @@ class org extends xml {
 	        $fp = fopen("$cache/$organization_id.$rk_num.xml", "w");
 	        fwrite($fp, $orgxml);
 	        fclose($fp);
-	    }	 
+	    }	
 	} //end lookup
 } //end class org
 
 //the history class is downloading/caching/verifying an player history XML file
-class history extends xml{     
-	public $name;             
+class history extends xml{
+	public $name;
 	public $data;
 	public $errorInfo;
 	public $errorCode = 0;
@@ -365,14 +218,14 @@ class history extends xml{
 		//if no specific cachefolder is defined use the one from config.php
 		if($cache == 0) {
 		  	global $vars;
-			$cache = $vars["cachefolder"];  
+			$cache = $vars["cachefolder"];
 		}
 
 		//Making sure that the cache folder exists
         if(!dir($cache))
 	        mkdir($cache, 0777);
 
-        $this->lookup($name, $rk_num, $cache);                
+        $this->lookup($name, $rk_num, $cache);
     } //end constructor
 
 	//the lookup function
@@ -446,11 +299,11 @@ class history extends xml{
 	        fwrite($fp, $playerbio);
 	        fclose($fp);
 	    }    	
-	} //end of lookup    
+	} //end of lookup
 } //end of history class
 
 //class to get and parse the server statistics
-class server extends xml{     
+class server extends xml{
 	public $data;
 	public $servermanager;
 	public $clientmanager;
@@ -477,7 +330,7 @@ class server extends xml{
 
     function lookup($rk_num) {
 	  	$serverstat = xml::getUrl("probes.funcom.com/ao.xml", 30);
-			         
+			
         if($serverstat == NULL) {
           	$this->errorCode = 1;
            	$this->errorInfo = "Couldn't get Serverstatus for Dimension $rk_num";
