@@ -34,28 +34,21 @@ if (count($this->vars["Timers"]) == 0) {
 	return;
 }
 
-forEach ($this->vars["Timers"] as $key => $value) {
+forEach ($this->vars["Timers"] as $key => $timer) {
 	$msg = "";
 
-	$tleft = $this->vars["Timers"][$key]["timer"] - time();
-	$set_time = $this->vars["Timers"][$key]["settime"];
-	$name = $this->vars["Timers"][$key]["name"];
-	$owner = $this->vars["Timers"][$key]["owner"];
-	$mode = $this->vars["Timers"][$key]["mode"];
-
-	if ($tleft <= 0 && $tleft >= -600) {
-		if ($name == "PrimTimer") {
-			$msg = "<highlight>$owner<end> your timer has gone off";
-		} else {
-			$msg = "<highlight>$owner<end> your timer named <highlight>$name<end> has gone off";
-		}
+	$tleft = $timer->timer - time();
+	$set_time = $timer->settime;
+	$name = $timer->name;
+	$owner = $timer->owner;
+	$mode = $timer->mode;
 	
-		unset($this->vars["Timers"][$key]);
-		$db->query("DELETE FROM timers_<myname> WHERE `name` = '" . str_replace("'", "''", $name) . "' AND `owner` = '$owner'");
-	} else if ($tleft <= 0) {
-		unset($this->vars["Timers"][$key]);
-		$db->query("DELETE FROM timers_<myname> WHERE `name` = '" . str_replace("'", "''", $name) . "' AND `owner` = '$owner'");
-	} else if ($tleft >= 3599 && $tleft < 3601 && ((time() - $set_time) >= 30)) {
+	if ($timer->callback != '') {
+		call_user_func($timer->callback, $timer->callback_param);
+		return;
+	}
+
+	if ($tleft >= 3599 && $tleft < 3601 && ((time() - $set_time) >= 30)) {
 		if ($name == "PrimTimer") {
 			$msg = "Reminder: Timer has <highlight>1 hour<end> left [set by <highlight>$owner<end>]";
 		} else {
@@ -73,6 +66,17 @@ forEach ($this->vars["Timers"] as $key => $value) {
 		} else {
 			$msg = "Reminder: Timer <highlight>$name<end> has <highlight>1 minute<end> left [set by <highlight>$owner<end>]";
 		}
+	} else if ($tleft <= 0) {
+		if ($tleft >= -600) {
+			if ($name == "PrimTimer") {
+				$msg = "<highlight>$owner<end> your timer has gone off";
+			} else {
+				$msg = "<highlight>$owner<end> your timer named <highlight>$name<end> has gone off";
+			}
+		}
+	
+		unset($this->vars["Timers"][$key]);
+		$db->query("DELETE FROM timers_<myname> WHERE `name` = '" . str_replace("'", "''", $name) . "' AND `owner` = '$owner'");
 	}
 
 	if ('' != $msg) {

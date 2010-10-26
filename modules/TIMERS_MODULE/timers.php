@@ -37,11 +37,9 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 		$timer_name = trim($arr[2]);
 	}
 	
-	forEach ($this->vars["Timers"] as $key => $value) {
-		if ($this->vars["Timers"][$key]["name"] == $timer_name) {
+	forEach ($this->vars["Timers"] as $timer) {
+		if ($timer->name == $timer_name) {
 			$msg = "A Timer with the name <highlight>$timer_name<end> is already running.";
-
-			// Send info back
 			bot::send($msg, $sendto);
 			return;
 		}
@@ -49,8 +47,6 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 
 	if ($arr[1] < 1) {
 		$msg = "No valid time specified!";
-		
-	    // Send info back
         bot::send($msg, $sendto);
 	    return;
 	}
@@ -58,7 +54,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	$run_time = $arr[1] * 60;
     $timer = time() + $run_time;
 
-	$this->vars["Timers"][] = array("name" => $timer_name, "owner" => $sender, "mode" => $type, "timer" => $timer, "settime" => time());
+	$this->vars["Timers"][] = (object)array("name" => $timer_name, "owner" => $sender, "mode" => $type, "timer" => $timer, "settime" => time());
     $db->query("INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`) VALUES ('".str_replace("'", "''", $timer_name)."', '$sender', '$type', $timer, ".time().")");
 
 	$timerset = unixtime_to_readable($run_time);
@@ -74,11 +70,9 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 		$timer_name = 'PrimTimer';
 	}
 	
-	forEach ($this->vars["Timers"] as $key => $value) {
-		if ($this->vars["Timers"][$key]["name"] == $timer_name) {
+	forEach ($this->vars["Timers"] as $timer) {
+		if ($timer->name == $timer_name) {
 			$msg = "A Timer with the name <highlight>$timer_name<end> is already running.";
-
-			// Send info back
 			bot::send($msg, $sendto);
 			return;
 		}
@@ -87,8 +81,6 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	if (preg_match("/([0-9]+)(d|day|days)/i", $message, $day)) {
 		if ($day[1] < 1) {
 			$msg = "No valid time specified!";
-			
-		    // Send info back
 		    bot::send($msg, $sendto);
 		    return;		  	
 		}
@@ -100,8 +92,6 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	if (preg_match("/([0-9]+)(h|hr|hrs)/i", $message, $hours)) {
 		if ($hours[1] < 1) {
 			$msg = "No valid time specified!";
-			
-		    // Send info back
 		    bot::send($msg, $sendto);
 		    return;		  	
 		}
@@ -113,8 +103,6 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	if (preg_match("/([0-9]+)(m|min|mins)/i", $message, $mins)) {
 		if ($mins[1] < 1) {
 			$msg = "No valid time specified!";
-			
-		    // Send info back
 		    bot::send($msg, $sendto);
 		    return;		  	
 		}
@@ -126,8 +114,6 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	if (preg_match("/([0-9]+)(s|sec|secs)/i", $message, $secs)) {
 		if ($secs[1] < 1) {
 			$msg = "No valid time specified!";
-			
-		    // Send info back
 		    bot::send($msg, $sendto);
 		    return;		  	
 		}
@@ -138,7 +124,6 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 
 	if ($days == 0 && $hours == 0 && $mins == 0 && $secs == 0) {
 	  	$msg = "No valid Time specified! Please check the helpfiles how to use this command!";
-	    // Send info back
 	    bot::send($msg, $sendto);
 	    return;		  	
 	}
@@ -146,7 +131,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	$run_time = $days + $hours + $mins + $secs;
     $timer = time() + $run_time;
 
-	$this->vars["Timers"][] = array("name" => $timer_name, "owner" => $sender, "mode" => $type, "timer" => $timer, "settime" => time());
+	$this->vars["Timers"][] = (object)array("name" => $timer_name, "owner" => $sender, "mode" => $type, "timer" => $timer, "settime" => time());
 	$db->query("INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`) VALUES ('".str_replace("'", "''", $timer_name) ."', '$sender', '$type', $timer, ".time().")");
 
 	$timerset = unixtime_to_readable($run_time);
@@ -156,9 +141,9 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 } else if (preg_match("/^timers? (rem|del) (.+)$/i", $message, $arr)) {
 	$timer_name = strtolower($arr[2]);
 	
-	forEach ($this->vars["Timers"] as $key => $value) {
-		$name = $this->vars["Timers"][$key]["name"];
-		$owner = $this->vars["Timers"][$key]["owner"];
+	forEach ($this->vars["Timers"] as $key => $timer) {
+		$name = $timer->name;
+		$owner = $timer->owner;
 
 		if (strtolower($name) == $timer_name) {
 			if ($owner == $sender) {
@@ -188,18 +173,17 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	$num_timers = count($this->vars["Timers"]);
 	if ($num_timers == 0) {
 		$msg = "No Timers running atm.";
-	    // Send info back
 	    bot::send($msg, $sendto);
 	    return;
 	}
 
   	if ($this->settings["timers_window"] == 2 || ($this->settings["timers_window"] >= 3 && $num_timers <= $this->settings["timers_window"])) {
-		forEach ($this->vars["Timers"] as $key => $value) {
+		forEach ($this->vars["Timers"] as $key => $timer) {
 			$timer = "";
-			$tleft = $this->vars["Timers"][$key]["timer"] - time();
-			$name = $this->vars["Timers"][$key]["name"];
-			$owner = $this->vars["Timers"][$key]["owner"];
-			$mode = $this->vars["Timers"][$key]["mode"];
+			$tleft = $timer->timer - time();
+			$name = $timer->name;
+			$owner = $timer->owner;
+			$mode = $timer->mode;
 
 			if ($mode == "msg" && $type == "msg" && ($sender == $owner)) {
 				$days = floor($tleft/86400);
@@ -261,12 +245,12 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 		  	$msg = "Timers currently running:".$msg;
 		}
 	} else {
-		foreach($this->vars["Timers"] as $key => $value) {
+		forEach ($this->vars["Timers"] as $key => $timer) {
 			$timer = "";
-			$tleft = $this->vars["Timers"][$key]["timer"] - time();
-			$name = $this->vars["Timers"][$key]["name"];
-			$owner = $this->vars["Timers"][$key]["owner"];
-			$mode = $this->vars["Timers"][$key]["mode"];
+			$tleft = $timer->timer - time();
+			$name = $timer->name;
+			$owner = $timer->owner;
+			$mode = $timer->mode;
 
 			if ($mode == "msg" && $type == "msg" && ($sender == $owner)) {
 				$days = floor($tleft/86400);
