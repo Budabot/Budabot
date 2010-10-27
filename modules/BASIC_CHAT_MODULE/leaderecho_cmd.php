@@ -41,7 +41,7 @@ if (preg_match("/^leaderecho on$/i", $message)) {
 	} else {
 		$msg = "Leader echo is currently <red>disabled<end>";
 	}
-	bot::send($msg, 'priv'););
+	bot::send($msg, 'priv');
 } else {
 	$syntax_error = true;
 }

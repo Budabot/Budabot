@@ -38,7 +38,7 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 	$tl6 = 0;
 	$tl7 = 0;
 	
-	$db->query("SELECT * FROM priv_chatlist");
+	$db->query("SELECT * FROM priv_chatlist_<myname>");
 	$numonline = $db->numrows();
     while ($row = $db->fObject()) {
       	if ($row->level > 1 && $row->level <= 14) {
@@ -75,7 +75,7 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 	$online["Trader"] = 0;
 	$online["Shade"] = 0;
 
-	$db->query("SELECT count(*) AS count, profession FROM priv_chatlist GROUP BY `profession`");
+	$db->query("SELECT count(*) AS count, profession FROM priv_chatlist_<myname> GROUP BY `profession`");
 	$numonline = $db->numrows();
 	$msg = "<highlight>$numonline<end> in total: ";	
 
@@ -95,7 +95,7 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 
   	bot::send($msg, $sendto);
 } else if (preg_match("/^count org$/i", $message, $arr)) {
-	$sql = "SELECT * FROM priv_chatlist";
+	$sql = "SELECT * FROM priv_chatlist_<myname>";
 	$db->query($sql);
 	$numonline = $db->numrows();
 	
@@ -105,7 +105,7 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 		return;
 	}
 
-	$sql = "SELECT `guild`, count(*) AS cnt, AVG(level) AS avg_level FROM priv_chatlist WHERE `guild` <> '' GROUP BY `guild` ORDER BY `cnt` DESC, `avg_level` DESC";
+	$sql = "SELECT `guild`, count(*) AS cnt, AVG(level) AS avg_level FROM priv_chatlist_<myname> WHERE `guild` <> '' GROUP BY `guild` ORDER BY `cnt` DESC, `avg_level` DESC";
 	$db->query($sql);
 	$numorgs = $db->numrows();
 	
@@ -168,7 +168,7 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 			return;
     }
    
-	$db->query("SELECT * FROM priv_chatlist WHERE `profession` = '$prof' ORDER BY `level`");
+	$db->query("SELECT * FROM priv_chatlist_<myname> WHERE `profession` = '$prof' ORDER BY `level`");
     $numonline = $db->numrows();
     $msg = "<highlight>$numonline<end> $prof:";
 

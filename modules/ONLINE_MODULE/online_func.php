@@ -11,25 +11,17 @@ function online($type, $sender, $sendto, &$bot, $prof = "all") {
 	global $db;
 
 	$list = "";
-	if ($type == "guild" || ($bot->settings["online_tell"] == 0 && $type == "msg")  || ($type == "priv" && $bot->vars["Guest"][$sender] == true)) {
-		if ($bot->settings["relaydb"]) {
-			if ($prof == "all") {
-				$db->query("SELECT * FROM guild_chatlist_<myname> UNION ALL SELECT * FROM guild_chatlist_".strtolower($bot->settings["relaydb"])." ORDER BY `profession`, `level` DESC");
-			} else {
-				$db->query("SELECT * FROM guild_chatlist_<myname> WHERE `profession` = '$prof' UNION ALL SELECT * FROM guild_chatlist_".strtolower($bot->settings["relaydb"])." WHERE `profession` = '$prof'");
-			}
-		} else {
-			if ($prof == "all") {
-				$db->query("SELECT * FROM guild_chatlist_<myname> ORDER BY `profession`, `level` DESC");
-			} else {
-				$db->query("SELECT * FROM guild_chatlist_<myname> WHERE `profession` = '$prof'");
-			}
-		}
-	} else if ($type == "priv" || ($bot->settings["online_tell"] == 1 && $type == "msg")) {
+	if ($bot->settings["relaydb"]) {
 		if ($prof == "all") {
-			$db->query("SELECT * FROM priv_chatlist_<myname> ORDER BY `profession`, `level` DESC");
+			$db->query("SELECT * FROM guild_chatlist_<myname> UNION ALL SELECT * FROM guild_chatlist_".strtolower($bot->settings["relaydb"])." ORDER BY `profession`, `level` DESC");
 		} else {
-			$db->query("SELECT * FROM priv_chatlist_<myname> WHERE `profession` = '$prof'");
+			$db->query("SELECT * FROM guild_chatlist_<myname> WHERE `profession` = '$prof' UNION ALL SELECT * FROM guild_chatlist_".strtolower($bot->settings["relaydb"])." WHERE `profession` = '$prof'");
+		}
+	} else {
+		if ($prof == "all") {
+			$db->query("SELECT * FROM guild_chatlist_<myname> ORDER BY `profession`, `level` DESC");
+		} else {
+			$db->query("SELECT * FROM guild_chatlist_<myname> WHERE `profession` = '$prof'");
 		}
 	}
 
@@ -45,29 +37,29 @@ function online($type, $sender, $sendto, &$bot, $prof = "all") {
 	createList($data, $sender, $list, $type, $bot, true);
 
 	// Guest Channel Part
-	if ((count($bot->vars["Guest"]) > 0 || $bot->settings["relaydb"]) && ($type == "guild" || ($bot->settings["online_tell"] == 0 && $type == "msg")  || ($type == "priv" && $bot->vars["Guest"][$sender] == true))) {
+	if ($bot->settings["relaydb"]) {
 		if ($prof == "all") {
-			if ($bot->settings["relaydb"]) {
-				$db->query("SELECT * FROM priv_chatlist_<myname> UNION ALL SELECT * FROM priv_chatlist_".strtolower($bot->settings["relaydb"])." ORDER BY `profession`, `level` DESC");
-			} else {
-				$db->query("SELECT * FROM priv_chatlist_<myname> ORDER BY `profession`, `level` DESC");
-			}
-		} else if ($bot->settings["relaydb"]) {
+			$db->query("SELECT * FROM priv_chatlist_<myname> UNION ALL SELECT * FROM priv_chatlist_".strtolower($bot->settings["relaydb"])." ORDER BY `profession`, `level` DESC");
+		} else {
 			$db->query("SELECT * FROM priv_chatlist_<myname> UNION ALL SELECT * FROM priv_chatlist_".strtolower($bot->settings["relaydb"])." WHERE `profession` = '$prof' ORDER BY `level` DESC");
+		}
+	} else {
+		if ($prof == "all") {
+			$db->query("SELECT * FROM priv_chatlist_<myname> ORDER BY `profession`, `level` DESC");
 		} else {
 			$db->query("SELECT * FROM priv_chatlist_<myname> WHERE `profession` = '$prof' ORDER BY `level` DESC");
 		}
-
-		$numguest = $db->numrows();
-		if ($numguest == 1) {
-			$list .= "\n\n<highlight><u>1 User in Guestchannel<end></u>\n";
-		} else {
-			$list .= "\n\n<highlight><u>$numguest Users in Guestchannel<end></u>\n";
-		}
-		$data = $db->fObject("all");
-		// create the list of guests, without showing alts
-		createList($data, $sender, $list, $type, $bot);
 	}
+
+	$numguest = $db->numrows();
+	if ($numguest == 1) {
+		$list .= "\n\n<highlight><u>1 User in Guestchannel<end></u>\n";
+	} else {
+		$list .= "\n\n<highlight><u>$numguest Users in Guestchannel<end></u>\n";
+	}
+	$data = $db->fObject("all");
+	// create the list of guests, without showing alts
+	createList($data, $sender, $list, $type, $bot);
 	$numonline += $numguest;
 
 	$msg .= "{$numonline} member(s) online";
@@ -105,30 +97,26 @@ function online($type, $sender, $sendto, &$bot, $prof = "all") {
 
 }
 
-function createList(&$data, &$sender, &$list, &$type, &$bot, $show_alts = false)
-{
+function createList(&$data, &$sender, &$list, &$type, &$bot, $show_alts = false) {
 	global $db;
 
 	$oldprof = "";
-	foreach($data as $row) {
+	forEach ($data as $row) {
 		$name = bot::makeLink($row->name, "/tell $row->name", "chatcmd");
 		 
-		if($row->profession == "")
-		$row->profession = "Unknown";
-		if($oldprof != $row->profession)
-		{
-			if($bot->settings["fancy_online"] == 0)
-			{
+		if ($row->profession == "") {
+			$row->profession = "Unknown";
+		}
+		
+		if ($oldprof != $row->profession) {
+			if($bot->settings["fancy_online"] == 0) {
 				// old style delimiters
 				$list .= "\n<tab><highlight>$row->profession<end>\n";
 				$oldprof = $row->profession;
-			}
-			else
-			{
+			} else {
 				// fancy delimiters
 				$list .= "<br><img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER><br>";
-				if ($bot->settings["icon_fancy_online"] == 1)
-				{
+				if ($bot->settings["icon_fancy_online"] == 1) {
 					if($row->profession == "Adventurer")
 						$list .= "<img src=rdb://84203>";
 					elseif($row->profession == "Agent")
@@ -165,45 +153,35 @@ function createList(&$data, &$sender, &$list, &$type, &$bot, $show_alts = false)
 			}
 		}
 
-		if($row->afk == "kiting")
+		if ($row->afk == "kiting") {
 			$afk = " <highlight>::<end> <red>KITING<end>";
-		elseif($row->afk != "0")
+		} else if ($row->afk != "0") {
 			$afk = " <highlight>::<end> <red>AFK<end>";
-		else
+		} else {
 			$afk = "";
-
-		if ($show_alts == true)
-		{
-			if($type == "guild" || ($bot->settings["online_tell"] == 0 && $type == "msg") || ($type == "priv" && $bot->vars["Guest"][$sender] == true))
-			{
-				$db->query("SELECT * FROM alts WHERE `alt` = '$row->name'");
-				if($db->numrows() == 0)
-					$alt = "<highlight>::<end> <a href='chatcmd:///tell <myname> alts $row->name'>Alts</a>";
-				else {
-					$row1 = $db->fObject();
-					$alt = "<highlight>::<end> <a href='chatcmd:///tell <myname> alts $row->name'>Alts of $row1->main</a>";
-				}
-					
-				if($row->guild == "")
-					$guild = "Not in a guild";
-				else
-					$guild = $row->guild." (<highlight>$row->rank<end>)";
-				$list .= "<tab><tab><highlight>$name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk $alt\n";
-					
-			}
-			else {
-				if($row->guild == "")
-					$guild = "Not in a guild";
-				else
-					$guild = $row->guild;
-				$list .= "<tab><tab><highlight>$name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk\n";
-			}
 		}
-		else {
-			if($row->guild == "")
+
+		if ($show_alts == true) {
+			$db->query("SELECT * FROM alts WHERE `alt` = '$row->name'");
+			if ($db->numrows() == 0) {
+				$alt = "<highlight>::<end> <a href='chatcmd:///tell <myname> alts $row->name'>Alts</a>";
+			} else {
+				$row1 = $db->fObject();
+				$alt = "<highlight>::<end> <a href='chatcmd:///tell <myname> alts $row->name'>Alts of $row1->main</a>";
+			}
+				
+			if ($row->guild == "") {
 				$guild = "Not in a guild";
-			else
+			} else {
+				$guild = $row->guild." (<highlight>$row->rank<end>)";
+			}
+			$list .= "<tab><tab><highlight>$name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk $alt\n";
+		} else {
+			if ($row->guild == "") {
+				$guild = "Not in a guild";
+			} else {
 				$guild = $row->guild;
+			}
 			$list .= "<tab><tab><highlight>$name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk\n";
 		}
 	}

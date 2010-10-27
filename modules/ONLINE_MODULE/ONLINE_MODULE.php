@@ -27,10 +27,7 @@
 
 	//Settings
 	bot::addsetting("relaydb", "Database for merging online lists", "edit", "0", "text", '0', "mod");
-	bot::addsetting("online_tell", "Mode for Online Cmd in tells", "edit", "0", "Shows online privatechat members;Shows online guild members", "1;0");
-	bot::addsetting("count_tell", "Mode for Count Cmd in tells", "edit", "1", "Shows online privatechat members;Shows online guild members", "1;0");
 	bot::addsetting("chatlist_tell", "Mode for Chatlist Cmd in tells", "edit", "1", "Shows online privatechat members;Shows online guild members", "1;0");
-	bot::addsetting("logonline_tell", "Enables the Online tell on logon", "edit", "0", "On;Off", "1;0");
 	bot::addsetting("fancy_online", "Enables the fancy delimiters for the online display", "edit", "1", "On;Off", "1;0");
 	bot::addsetting("icon_fancy_online", "Enables the use of icons in fancy delimiter mode", "edit", "1", "On;Off", "1;0");
 
