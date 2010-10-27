@@ -8,7 +8,7 @@ Usage:
 
 That's it.
 
-Not that each command is equivalent to:
+Note that each command is equivalent to:
 /tell bot1 settings save relaytype tell
 /tell bot1 settings save relaysymbol Always relay
 /tell bot1 settings save relaybot Bot2
@@ -16,3 +16,4 @@ Not that each command is equivalent to:
 To turn relay off:
 
 /tell bot1 settings save relaybot Off
+/tell bot2 settings save relaybot Off

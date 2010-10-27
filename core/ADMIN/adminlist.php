@@ -92,4 +92,5 @@ if (preg_match("/^adminlist$/i", $message) || preg_match("/^admins$/i", $message
 } else {
 	$syntax_error = true;
 }
+
 ?>
