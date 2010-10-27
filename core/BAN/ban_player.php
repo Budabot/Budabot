@@ -76,6 +76,7 @@ if (preg_match("/^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+) (for
 	}
 
 	bot::send("You have banned <highlight>$who<end> for {$arr[1]}$value from this bot.", $sendto);
+	bot::send("You have been banned from this bot by $sender for {$arr[1]}$value.\n Reason: $why", $who);
 } else if (preg_match("/^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+)$/i", $message, $arr)) {
 	if (($arr[2] == "w" || $arr[2] == "week" || $arr[2] == "weeks") && $arr[1] <= 50 && $arr[1] > 0) {
 	    $ban_end = time() + ($arr[1] * 604800);
@@ -141,6 +142,7 @@ if (preg_match("/^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+) (for
 	$db->query("INSERT INTO banlist_<myname> (`name`, `admin`, `time`, `why`) VALUES ('$who', '$sender', '".date("m-d-y")."', '$why')");
 
 	bot::send("You have banned <highlight>$who<end> from this bot", $sendto);
+	bot::send("You have been banned from this bot by $sender.\n Reason: $why", $who);
 } else if (preg_match("/^ban (.+)$/i", $message, $arr)) {
 	$who = ucfirst(strtolower($arr[1]));
 	
@@ -160,7 +162,22 @@ if (preg_match("/^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+) (for
 
 	$db->query("INSERT INTO banlist_<myname> (`name`, `admin`, `time`) VALUES ('$who', '$sender', '".date("m-d-y")."')");
 	bot::send("You have banned <highlight>$who<end> from this bot", $sendto);
+} else if (preg_match("/^banorg (.+)$/i", $message, $arr)) {
+	$who = $arr[1];
+	
+	if ($this->banlist[$who]["name"] == $who) {
+	  	bot::send("<red>The organisation $who is already banned.<end>", $sender);
+		return;
+	}
+	
+	$this->banlist["$who"]["name"] = $who;
+	$this->banlist["$who"]["admin"] = $sender;
+	$this->banlist["$who"]["when"] = date("m-d-y");
+
+	$db->query("INSERT INTO banlist_<myname> (`name`, `admin`, `time`) VALUES ('$who', '$sender', '".date("m-d-y")."')");
+	bot::send("You have banned ALL members of <highlight>$who<end> from this bot", $sendto);
 } else {
 	$syntax_error = true;
 }
+
 ?>

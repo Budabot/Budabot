@@ -108,10 +108,10 @@ unset($vars['password']);
 // Create new objects
 $db = new db($settings["DB Type"], $settings["DB Name"], $settings["DB Host"], $settings["DB username"], $settings["DB password"]);
 if ($db->errorCode != 0) {
-  	echo "Error in creating Database Object\n";
-  	echo "ErrorMsg: $db->errorInfo";
-  	sleep(5);
-  	die();
+	echo "Error in creating Database Object\n";
+	echo "ErrorMsg: $db->errorInfo";
+	sleep(5);
+	die();
 }
 
 $chatBot = new bot($vars, $settings);

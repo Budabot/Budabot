@@ -65,4 +65,5 @@ if (preg_match("/^news del ([0-9]+)$/i", $message, $arr)) {
 		
     bot::send($msg, $sendto);
 }
+
 ?>

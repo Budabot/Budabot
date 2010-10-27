@@ -34,6 +34,7 @@ if ($type == "joinPriv") {
 	$whois = new whois($sender);
 	$db->query("INSERT INTO priv_chatlist_<myname> (`name`, `faction`, `profession`, `guild`, `breed`, `level`, `ai_level`) ".
 				"VALUES ('$sender', '$whois->faction', '$whois->prof', '$whois->org', '$whois->breed', '$whois->level', '$whois->ai_level')");
+
 	$msg = "<highlight>{$sender}<end> (<highlight>{$whois->level}<end>/<green>{$whois->ai_level}<end>, <highlight>{$whois->prof}<end>, {$whois->faction}) has joined the private channel";
 
 	if ($this->settings["guest_relay"] == 1) {

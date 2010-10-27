@@ -31,10 +31,6 @@
 
 if (preg_match("/^kickadmin (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
-	if(AOChat::get_uid($who) == NULL){
-		bot::send("<red>Sorry player you wish to remove does not exist.", $sendto);
-		return;
-	}
 
 	if ($who == $sender) {
 		bot::send("<red>You can't kick yourself.<end>", $sendto);
@@ -53,12 +49,13 @@ if (preg_match("/^kickadmin (.+)$/i", $message, $arr)){
 	
 	unset($this->admins[$who]);
 	$db->query("DELETE FROM admin_<myname> WHERE `name` = '$who'");
-	
+
 	$this->remove_buddy($who, 'admin');
-	
+
 	bot::send("<highlight>$who<end> has been removed as Administrator of this Bot.", $sendto);
 	bot::send("Your Administrator access to <myname> has been removed.", $who);
 } else {
 	$syntax_error = true;
 }
+
 ?>

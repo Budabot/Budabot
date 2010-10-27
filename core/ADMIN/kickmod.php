@@ -31,16 +31,11 @@
 
 if (preg_match("/^kickmod (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
-	if (AOChat::get_uid($who) == NULL){
-		bot::send("<red>Sorry player you wish to remove does not exist.", $sendto);
-		return;
-	}
 	
 	if ($who == $sender) {
 		bot::send("<red>You can't kick yourself.<end>", $sendto);
 		return;
 	}
-
 
 	if ($this->admins[$who]["level"] != 3) {
 		bot::send("<red>Sorry $who is not a Moderator of this Bot.<end>", $sendto);
@@ -62,4 +57,5 @@ if (preg_match("/^kickmod (.+)$/i", $message, $arr)){
 } else {
 	$syntax_error = true;
 }
+
 ?>

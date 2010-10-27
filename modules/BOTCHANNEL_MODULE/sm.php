@@ -18,5 +18,4 @@ if (preg_match("/^sm$/i", $message)) {
 } else {
 	$syntax_error = true;
 }
-
 ?>

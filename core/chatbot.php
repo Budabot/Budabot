@@ -145,9 +145,6 @@ class bot extends AOChat{
 ** Name: connect
 ** Connect to AO chat servers.
 */	function connectAO($login, $password){
-		// remove any old entries on buddy list
-		$buddyList = array();
-
 		echo "\n\n";
 
 		// Choose Server
@@ -212,7 +209,8 @@ class bot extends AOChat{
 	}
 	
 	function get_buddy($name) {
-		if (($uid = $this->get_uid($name)) === false || !isset($this->buddyList[$uid])) {
+		$uid = $this->get_uid($name);
+		if ($uid === false || !isset($this->buddyList[$uid])) {
 			return null;
 		} else {
 			return $this->buddyList[$uid];
@@ -228,7 +226,8 @@ class bot extends AOChat{
     }
 	
 	function add_buddy($name, $type) {
-		if (($uid = $this->get_uid($name)) === false || $type === null || $type == '') {
+		$uid = $this->get_uid($name);
+		if ($uid === false || $type === null || $type == '') {
 			return false;
 		} else {
 			if (!isset($this->buddyList[$uid])) {
@@ -246,7 +245,8 @@ class bot extends AOChat{
 	}
 	
 	function remove_buddy($name, $type = '') {
-		if (($uid = $this->get_uid($name)) === false) {
+		$uid = $this->get_uid($name);
+		if ($uid === false) {
 			return false;
 		} else if (isset($this->buddyList[$uid])) {
 			if (isset($this->buddyList[$uid]['types'][$type])) {
@@ -267,7 +267,8 @@ class bot extends AOChat{
 	}
 
 	function is_buddy($name, $type) {
-		if (($uid = $this->get_uid($name)) === false) {
+		$uid = $this->get_uid($name);
+		if ($uid === false) {
 			return false;
 		} else {
 			if ($type == null || $type == false) {
@@ -323,7 +324,7 @@ class bot extends AOChat{
 					"Download;chatcmd:///start http://budabot.aodevs.com/index.php?page=14");
 		}
 		if (strtolower($links) != "none") {
-			foreach ($links as $thislink){
+			forEach ($links as $thislink){
 				preg_match("/^(.+);(.+)$/i", $thislink, $arr);
 				if ($arr[1] && $arr[2]) {
 					$header .= $color4.":".$color3.":".$color2.":";
@@ -598,15 +599,15 @@ class bot extends AOChat{
 
 		//Check if the admin status exists
 		if (!is_numeric($admin)) {
-			if($admin == "leader")
+			if ($admin == "leader") {
 				$admin = 1;
-			elseif($admin == "raidleader" || $admin == "rl")
+			} else if($admin == "raidleader" || $admin == "rl") {
 				$admin = 2;
-			elseif($admin == "mod" || $admin == "moderator")
+			} else if($admin == "mod" || $admin == "moderator") {
 				$admin = 3;
-			elseif($admin == "admin")
+			} else if($admin == "admin") {
 				$admin = 4;
-			elseif($admin != "all" && $admin != "guild" && $admin != "guildadmin") {
+			} else if($admin != "all" && $admin != "guild" && $admin != "guildadmin") {
 				echo "Error in registrating the command $command for channel $type. Reason Unknown Admintype: $admin. Admintype is set to all now.\n";
 				$admin = "all";
 			}
@@ -618,19 +619,19 @@ class bot extends AOChat{
 					$this->tellCmds[$command]["filename"] = $filename;
 					$this->tellCmds[$command]["admin level"] = $admin;
 				}
-			break;
+				break;
 			case "priv":
 				if($this->privCmds[$command]["filename"] == ""){
 					$this->privCmds[$command]["filename"] = $filename;
 					$this->privCmds[$command]["admin level"] = $admin;
 				}
-			break;
+				break;
 			case "guild":
 				if($this->guildCmds[$command]["filename"] == ""){
 					$this->guildCmds[$command]["filename"] = $filename;
 					$this->guildCmds[$command]["admin level"] = $admin;
 				}
-			break;
+				break;
 		}
 	}
 
@@ -648,13 +649,13 @@ class bot extends AOChat{
 		switch ($type){
 			case "msg":
 				unset($this->tellCmds[$command]);
-			break;
+				break;
 			case "priv":
 				unset($this->privCmds[$command]);
-			break;
+				break;
 			case "guild":
 				unset($this->guildCmds[$command]);
-			break;
+				break;
 		}
 	}
 
@@ -787,94 +788,94 @@ class bot extends AOChat{
 			case "towers":
 				if(!in_array($filename, $this->towers))
 					$this->towers[] = $filename;
-			break;
+				break;
 			case "orgmsg":
 				if(!in_array($filename, $this->orgmsg))
 					$this->orgmsg[] = $filename;
-			break;
+				break;
 			case "msg":
 				if(!in_array($filename, $this->privMsgs))
 					$this->privMsgs[] = $filename;
-			break;
+				break;
 			case "priv":
 				if(!in_array($filename, $this->privChat))
 					$this->privChat[] = $filename;
-			break;
+				break;
 			case "extPriv":
 				if(!in_array($filename, $this->extPrivChat))
 					$this->extPrivChat[] = $filename;
-			break;
+				break;
 			case "guild":
 				if(!in_array($filename, $this->guildChat))
 					$this->guildChat[] = $filename;
-			break;
+				break;
 			case "joinPriv":
 				if(!in_array($filename, $this->joinPriv))
 					$this->joinPriv[] = $filename;
-			break;
+				break;
 			case "extJoinPriv":
 				if(!in_array($filename, $this->extJoinPriv))
 					$this->extJoinPriv[] = $filename;
-			break;
+				break;
 			case "leavePriv":
 				if(!in_array($filename, leavePriv))
 					$this->leavePriv[] = $filename;
-			break;
+				break;
 			case "extLeavePriv":
 				if(!in_array($filename, extLeavePriv))
 					$this->extLeavePriv[] = $filename;
-			break;
+				break;
 			case "extJoinPrivRequest":
 				if(!in_array($filename, $this->extJoinPrivRequest))
 					$this->extJoinPrivRequest[] = $filename;
-			break;
+				break;
 			case "extKickPriv":
 				if(!in_array($filename, $this->extKickPriv))
 					$this->extKickPriv[] = $filename;
-			break;
+				break;
 			case "logOn":
 				if(!in_array($filename, $this->logOn))
 					$this->logOn[] = $filename;
-			break;
+				break;
 			case "logOff":
 				if(!in_array($filename, $this->logOff))
 					$this->logOff[] = $filename;
-			break;
+				break;
 			case "2sec":
 				if(!in_array($filename, $this->_2sec))
 					$this->_2sec[] = $filename;
-			break;
+				break;
 			case "1min":
 				if(!in_array($filename, $this->_1min))
 					$this->_1min[] = $filename;
-			break;
+				break;
 			case "10mins":
 				if(!in_array($filename, $this->_10mins))
 					$this->_10mins[] = $filename;
-			break;
+				break;
 			case "15mins":
 				if(!in_array($filename, $this->_15mins))
 					$this->_15mins[] = $filename;
-			break;
+				break;
 			case "30mins":
 				if(!in_array($filename, $this->_30mins))
 					$this->_30mins[] = $filename;
-			break;
+				break;
 			case "1hour":
 				if(!in_array($filename, $this->_1hour))
 					$this->_1hour[] = $filename;
-			break;
+				break;
 			case "24hrs":
 				if(!in_array($filename, $this->_24hrs))
 					$this->_24hrs[] = $filename;
-			break;
+				break;
 			case "connect":
 				if(!in_array($filename, $this->_connect))
 					$this->_connect[] = $filename;
-			break;
+				break;
 			case "setup":
 				include $filename;
-			break;
+				break;
 		}
 	}
 
@@ -899,133 +900,133 @@ class bot extends AOChat{
 					$temp = array_flip($this->towers);
 					unset($this->towers[$temp[$filename]]);
 				}
-			break;
+				break;
 			case "orgmsg":
 				if(in_array($filename, $this->orgmsg)) {
 					$temp = array_flip($this->orgmsg);
 					unset($this->orgmsg[$temp[$filename]]);
 				}
-			break;
+				break;
 			case "msg":
 				if(in_array($filename, $this->privMsgs)) {
 					$temp = array_flip($this->privMsgs);
 					unset($this->privMsgs[$temp[$filename]]);
 				}
-			break;
+				break;
 			case "priv":
 				if(in_array($filename, $this->privChat)) {
 					$temp = array_flip($this->privChat);
 					unset($this->privChat[$temp[$filename]]);
 				}
-			break;
+				break;
 			case "extPriv":
 				if(in_array($filename, $this->extPrivChat)) {
 					$temp = array_flip($this->extPrivChat);
 					unset($this->extPrivChat[$temp[$filename]]);
 				}
-			break;
+				break;
 			case "guild":
 				if(in_array($filename, $this->guildChat)) {
 					$temp = array_flip($this->guildChat);
 					unset($this->guildChat[$temp[$filename]]);
 				}
-			break;
+				break;
 			case "joinPriv":
 				if(in_array($filename, $this->joinPriv)) {
 					$temp = array_flip($this->joinPriv);
 					unset($this->joinPriv[$temp[$filename]]);
 				}
-			break;
+				break;
 			case "extJoinPriv":
 				if(in_array($filename, $this->extJoinPriv)) {
 					$temp = array_flip($this->extJoinPriv);
 					unset($this->extJoinPriv[$temp[$filename]]);
 				}
-			break;
+				break;
 			case "leavePriv":
 				if(in_array($filename, $this->leavePriv)) {
 					$temp = array_flip($this->leavePriv);
 					unset($this->leavePriv[$temp[$filename]]);
 				}
-			break;
+				break;
 			case "extLeavePriv":
 				if(in_array($filename, $this->extLeavePriv)) {
 					$temp = array_flip($this->extLeavePriv);
 					unset($this->extLeavePriv[$temp[$filename]]);
 				}
-			break;
+				break;
 			case "extJoinPrivRequest":
 				if(in_array($filename, $this->extJoinPrivRequest)) {
 					$temp = array_flip($this->extJoinPrivRequest);
 					unset($this->extJoinPrivRequest[$temp[$filename]]);
 				}
-			break;
+				break;
 			case "extKickPriv":
 				if(in_array($filename, $this->extKickPriv)) {
 					$temp = array_flip($this->extKickPriv);
 					unset($this->extKickPriv[$temp[$filename]]);
 				}
-			break;
+				break;
 			case "logOn":
 				if(in_array($filename, $this->logOn)) {
 					$temp = array_flip($this->logOn);
 					unset($this->logOn[$temp[$filename]]);
 				}
-			break;
+				break;
 			case "logOff":
 				if(in_array($filename, $this->logOff)) {
 					$temp = array_flip($this->logOff);
 					unset($this->logOff[$temp[$filename]]);
 				}
-			break;
+				break;
 			case "2sec":
 				if(in_array($filename, $this->_2sec)) {
 					$temp = array_flip($this->_2sec);
 					unset($this->_2sec[$temp[$filename]]);
 				}
-			break;
+				break;
 			case "1min":
 				if(in_array($filename, $this->_1min)) {
 					$temp = array_flip($this->_1min);
 					unset($this->_1min[$temp[$filename]]);
 				}
-			break;
+				break;
 			case "10mins":
 				if(in_array($filename, $this->_10mins)) {
 					$temp = array_flip($this->_10mins);
 					unset($this->_10mins[$temp[$filename]]);
 				}
-			break;
+				break;
 			case "15mins":
 				if(in_array($filename, $this->_15mins)) {
 					$temp = array_flip($this->_15mins);
 					unset($this->_15mins[$temp[$filename]]);
 				}
-			break;
+				break;
 			case "30mins":
 				if(in_array($filename, $this->_30mins)) {
 					$temp = array_flip($this->_30mins);
 					unset($this->_30mins[$temp[$filename]]);
 				}
-			break;
+				break;
 			case "1hour":
 				if(in_array($filename, $this->_1hour)) {
 					$temp = array_flip($this->_1hour);
 					unset($this->_1hour[$temp[$filename]]);
 				}
-			break;
+				break;
 			case "24hrs":
 				if(in_array($filename, $this->_24hrs)) {
 					$temp = array_flip($this->_24hrs);
 					unset($this->_24hrs[$temp[$filename]]);
 				}
-			break;
+				break;
 			case "connect":
 				if(in_array($filename, $this->_connect)) {
 					$temp = array_flip($this->_connect);
 					unset($this->_connect[$temp[$filename]]);
 				}
-			break;
+				break;
 		}
 	}
 
@@ -1040,27 +1041,27 @@ class bot extends AOChat{
 
 		$group = strtolower($group);
 		//Check if the module is correct
-		if($module == "none") {
+		if ($module == "none") {
 			echo "Error in creating group $group. You need to specify a module for the group.\n";
 			return;
 		}
 		//Check if the group already exists
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `grp` = '$group'");
-		if($db->numrows() != 0) {
+		if ($db->numrows() != 0) {
 			echo "Error in creating group $group. This group already exists.\n";
 			return;
 		}
     	$numargs = func_num_args();
     	$arg_list = func_get_args();
 		//Check if enough commands are given for the group
-		if($numargs < 5) {
+		if ($numargs < 5) {
 			echo "Not enough commands to build group $group(must be at least 2commands)";
 			return;
 		}
 		//Go through the arg list and assign it to the group
-		for($i = 3;$i < $numargs; $i++) {
+		for ($i = 3;$i < $numargs; $i++) {
 		  	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '".$arg_list[$i]."' AND `module` = '$curMod'");
-		  	if($db->numrows() != 0) {
+		  	if ($db->numrows() != 0) {
 			    $db->query("UPDATE cmdcfg_<myname> SET `grp` = '$group' WHERE `cmd` = '".$arg_list[$i]."' AND `module` = '$curMod'");
 			} else {
 			  	echo "Error in creating group $group for module $curMod. Command ".$arg_list[$i]." doesn't exists.\n";
@@ -1156,8 +1157,9 @@ class bot extends AOChat{
 		//Check if the file exists
 		if (($actual_filename = bot::verifyFilename($filename)) != '') {
     		$filename = $actual_filename;
-    		if(substr($filename, 0, 7) == "./core/")
+    		if (substr($filename, 0, 7) == "./core/") {
 	    		$this->helpfiles[$module[0]][$command]["status"] = "enabled";
+			}
 		} else {
 			echo "Error in registering the File $filename for Help command $command. The file doesn't exists!\n";
 			return;
@@ -1253,7 +1255,7 @@ class bot extends AOChat{
 				if ($b[1] == 3) {
 					$this->vars["my guild id"] = $b[2]*256*256*256 + $b[3]*256*256 + $b[4]*256 + $b[5];
 				}
-			break;
+				break;
 			case AOCP_PRIVGRP_CLIJOIN: // 55, Incoming player joined private chat
 				$channel = $this->lookup_user($args[0]);
 				$sender = $this->lookup_user($args[1]);
@@ -1291,7 +1293,7 @@ class bot extends AOChat{
 					$type = "extJoinPriv";
 					// TODO
 				}
-			break;
+				break;
 			case AOCP_PRIVGRP_CLIPART: // 56, Incoming player left private chat
 				$channel = $this->lookup_user($args[0]);
 				$sender	= $this->lookup_user($args[1]);
@@ -1316,7 +1318,7 @@ class bot extends AOChat{
 					$type = "extLeavePriv";
 					// TODO
 				}
-			break;
+				break;
 			case AOCP_BUDDY_ADD: // 40, Incoming buddy logon or off
 				// Basic packet data
 				$sender	= $this->lookup_user($args[0]);
@@ -1368,7 +1370,7 @@ class bot extends AOChat{
 						}
 					}
 				}
-			break;
+				break;
 			case AOCP_MSG_PRIVATE: // 30, Incoming Msg
 				$type = "msg"; // Set message type.
 				$sender	= $this->lookup_user($args[0]);
@@ -1430,7 +1432,7 @@ class bot extends AOChat{
 				
 				$this->handle_command($type, $message, $sender, $sendto);
 
-			break;
+				break;
 			case AOCP_PRIVGRP_MESSAGE: // 57, Incoming priv message
 				$sender	= $this->lookup_user($args[1]);
 				$sendto = 'prv';
@@ -1494,7 +1496,7 @@ class bot extends AOChat{
 						}
 					}
 				}
-			break;
+				break;
 			case AOCP_GROUP_MESSAGE: // 65, Public and guild channels
 				$syntax_error = false;
 				$sender	 = $this->lookup_user($args[1]);
@@ -1582,7 +1584,7 @@ class bot extends AOChat{
 						$this->handle_command($type, $message, $sender, $sendto);
 					}
 				}
-			break;
+				break;
 			case AOCP_PRIVGRP_INVITE:  // 50, private group invite
 				$type = "extJoinPrivRequest"; // Set message type.
 				$uid = $args[0];
@@ -1601,7 +1603,7 @@ class bot extends AOChat{
 					}
 				}
                 return;
-			break;
+				break;
 		}
 	}
 	
@@ -1689,63 +1691,61 @@ class bot extends AOChat{
 		switch($this->vars){
 			case $this->vars["2sec"] < time();
 				$this->vars["2sec"] 	= time() + 2;
-				foreach($this->spam as $key => $value){
-					if($value > 0)
+				forEach ($this->spam as $key => $value){
+					if ($value > 0) {
 						$this->spam[$key] = $value - 10;
-					else
+					} else {
 						$this->spam[$key] = 0;
+					}
 				}
-				if($this->_2sec != NULL)
-					foreach($this->_2sec as $filename)
-						include $filename;
+				
+				forEach ($this->_2sec as $filename) {
+					include $filename;
+				}
 				break;
 			case $this->vars["1min"] < time();
-				foreach($this->largespam as $key => $value){
-					if($value > 0)
+				forEach ($this->largespam as $key => $value){
+					if ($value > 0) {
 						$this->largespam[$key] = $value - 1;
-					else
+					} else {
 						$this->largespam[$key] = 0;
+					}
 				}
-				$this->vars["1min"] 	= time() + 60;
-				if($this->_1min != NULL)
-					foreach($this->_1min as $filename)
-						include $filename;
-
+				
+				$this->vars["1min"] = time() + 60;
+				forEach ($this->_1min as $filename) {
+					include $filename;
+				}
 				break;
 			case $this->vars["10mins"] < time();
 				$this->vars["10mins"] 	= time() + (60 * 10);
-				if($this->_10mins != NULL)
-					foreach($this->_10mins as $filename)
-						include $filename;
-
+				forEach ($this->_10mins as $filename) {
+					include $filename;
+				}
 				break;
 			case $this->vars["15mins"] < time();
 				$this->vars["15mins"] 	= time() + (60 * 15);
-				if($this->_15mins != NULL)
-					foreach($this->_15mins as $filename)
-						include $filename;
-
+				forEach ($this->_15mins as $filename) {
+					include $filename;
+				}
 				break;
 			case $this->vars["30mins"] < time();
 				$this->vars["30mins"] 	= time() + (60 * 30);
-				if($this->_30mins != NULL)
-					foreach($this->_30mins as $filename)
-						include $filename;
-
+				forEach ($this->_30mins as $filename) {
+					include $filename;
+				}
 				break;
 			case $this->vars["1hour"] < time();
 				$this->vars["1hour"] 	= time() + (60 * 60);
-				if($this->_1hour != NULL)
-					foreach($this->_1hour as $filename)
-						include $filename;
-
+				forEach ($this->_1hour as $filename) {
+					include $filename;
+				}
 				break;
 			case $this->vars["24hours"] < time();
 				$this->vars["24hours"] 	= time() + ((60 * 60) * 24);
-				if($this->_24hrs != NULL)
-					foreach($this->_24hrs as $filename)
-						include $filename;
-
+				forEach ($this->_24hrs as $filename) {
+					include $filename;
+				}
 				break;
 		}
 	}

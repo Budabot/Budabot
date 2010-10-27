@@ -125,4 +125,5 @@ if (preg_match("/^minlvl$/i", $message)) {
 } else {
 	$syntax_error = true;
 }
+
 ?>

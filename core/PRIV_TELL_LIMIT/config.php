@@ -273,4 +273,5 @@ if (preg_match("/^limits$/i", $message)) {
 } else {
 	$syntax_error = true;
 }
+
 ?>

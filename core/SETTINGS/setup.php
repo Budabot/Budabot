@@ -24,6 +24,4 @@ admin = Rank that is needed for this setting (admin or mod)
 help = Helpfile for this setting
 */
 
-// the table is already created in chatbot.php line 51
-//$db->query("CREATE TABLE IF NOT EXISTS settings_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `mode` VARCHAR(10), `setting` VARCHAR(50) Default '0', `options` VARCHAR(50) Default '0', `intoptions` VARCHAR(50) DEFAULT '0', `description` VARCHAR(50), `source` VARCHAR(5), `admin` VARCHAR(25), `help` VARCHAR(60))");
 ?>

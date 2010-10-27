@@ -30,9 +30,9 @@
    */
 
 if (preg_match("/^adminlist$/i", $message) || preg_match("/^admins$/i", $message)) {
-	$list.=	"<header>::::: Adminlist :::::<end>\n\n";
+	$list = "<header>::::: Adminlist :::::<end>\n\n";
 
-	$list.= "<highlight>Administrators<end>\n";	
+	$list .= "<highlight>Administrators<end>\n";	
 	forEach ($this->admins as $who => $data){
 		if ($this->admins[$who]["level"] == 4){
 			if($who != ""){ 
@@ -53,7 +53,7 @@ if (preg_match("/^adminlist$/i", $message) || preg_match("/^admins$/i", $message
 		}
 	}
 
-	$list.="<highlight>Moderators<end>\n";	
+	$list .= "<highlight>Moderators<end>\n";
 	forEach ($this->admins as $who => $data){
 		if ($this->admins[$who]["level"] == 3){
 			if ($who != "") {
@@ -70,7 +70,7 @@ if (preg_match("/^adminlist$/i", $message) || preg_match("/^admins$/i", $message
 		}
 	}
 
-	$list.=	"<highlight>Raidleaders<end>\n";	
+	$list .= "<highlight>Raidleaders<end>\n";	
 	forEach ($this->admins as $who => $data){
 		if ($this->admins[$who]["level"] == 2){
 			if ($who != "") {
@@ -86,8 +86,8 @@ if (preg_match("/^adminlist$/i", $message) || preg_match("/^admins$/i", $message
 			}
 		}
 	}
-	
-	$link = bot::makeLink('Adminlist', $list);	
+
+	$link = bot::makeLink('Bot Administrators', $list);	
 	bot::send($link, $sendto);
 } else {
 	$syntax_error = true;

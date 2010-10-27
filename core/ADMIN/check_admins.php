@@ -28,7 +28,7 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-   
+
 $db->query("SELECT * FROM admin_<myname>");
 while ($row = $db->fObject()) {
 	$this->add_buddy($row->name, 'admin');

@@ -54,4 +54,5 @@ if (preg_match("/^banlist$/i", $message)){
 } else {
 	$syntax_error = true;
 }
+
 ?>

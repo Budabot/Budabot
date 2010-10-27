@@ -343,7 +343,7 @@ class org extends xml {
 	        $fp = fopen("$cache/$organization_id.$rk_num.xml", "w");
 	        fwrite($fp, $orgxml);
 	        fclose($fp);
-	    }	
+	    }
 	} //end lookup
 } //end class org
 
@@ -477,7 +477,7 @@ class server extends xml{
 
     function lookup($rk_num) {
 	  	$serverstat = xml::getUrl("probes.funcom.com/ao.xml", 30);
-			
+
         if($serverstat == NULL) {
           	$this->errorCode = 1;
            	$this->errorInfo = "Couldn't get Serverstatus for Dimension $rk_num";

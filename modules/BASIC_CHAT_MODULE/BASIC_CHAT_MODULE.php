@@ -1,4 +1,4 @@
-<?php 
+<?php
 	$MODULE_NAME = "BASIC_CHAT_MODULE";
 
 	//Invite/Leave/lock commands

@@ -108,4 +108,5 @@ if(preg_match("/^tminlvl$/i", $message)) {
 } else {
 	$syntax_error = true;
 }
+
 ?>

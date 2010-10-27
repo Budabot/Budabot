@@ -7,7 +7,6 @@
 	bot::regcommand("guild", "$MODULE_NAME/bot_settings.php", "settings", "mod");
 
 	//Setup
-	bot::regevent("setup", "$MODULE_NAME/setup.php");
 	bot::regevent("setup", "$MODULE_NAME/upload_settings.php");
 		
 	//Help Files

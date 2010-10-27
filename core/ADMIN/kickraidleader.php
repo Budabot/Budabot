@@ -29,18 +29,13 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (preg_match("/^kickraidleader (.+)$/i", $message, $arr)){
+if (preg_match("/^kickraidleader (.+)$/i", $message, $arr)) {
 	$who = ucfirst(strtolower($arr[1]));
-	if (AOChat::get_uid($who) == NULL){
-		bot::send("<red>Sorry player you wish to remove does not exist.", $sendto);
-		return;
-	}
 	
 	if ($who == $sender) {
 		bot::send("<red>You can't kick yourself.<end>", $sendto);
 		return;
 	}
-
 
 	if ($this->admins[$who]["level"] != 2) {
 		bot::send("<red>Sorry $who is not a Raidleader of this Bot.<end>", $sendto);
@@ -62,4 +57,5 @@ if (preg_match("/^kickraidleader (.+)$/i", $message, $arr)){
 } else {
 	$syntax_error = true;
 }
+
 ?>

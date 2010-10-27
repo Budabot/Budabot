@@ -84,8 +84,7 @@ class db {
 	//Sends a query to the Database and gives the result back
 	function query($stmt, $type = "object") {
 		$this->result = NULL;
-		$stmt = str_replace("<myname>", $this->botname, $stmt);
-		$stmt = str_replace("<dim>", $this->dim, $stmt);
+		$stmt = $this->formatSql($stmt);
 		
 		if (substr_compare($stmt, "create", 0, 6, true) == 0) {
 			$this->CreateTable($stmt);
@@ -122,9 +121,7 @@ class db {
 	//Does Basicly the same thing just don't gives the result back(used for create table, Insert, delete etc), a bit faster as normal querys 
 	function exec($stmt) {
 		$this->result = NULL;
-		
-		$stmt = str_replace("<myname>", $this->botname, $stmt);
-		$stmt = str_replace("<dim>", $this->dim, $stmt);
+		$stmt = $this->formatSql($stmt);
 		
 		if (substr_compare($stmt, "create", 0, 6, true) == 0) {
 			$this->CreateTable($stmt);
@@ -154,6 +151,8 @@ class db {
             $stmt = str_ireplace("AUTO_INCREMENT", "AUTOINCREMENT", $stmt);
 			$stmt = str_ireplace(" INT ", " INTEGER ", $stmt);
         }
+
+		$stmt = $this->formatSql($stmt);
 		
 		$this->lastQuery = $stmt;
 		//newLine("Sql", $stmt);
@@ -254,6 +253,14 @@ class db {
 			}
 			return $table_info;
 		}
+	}
+
+	function formatSql($sql) {
+
+		$sql = str_replace("<dim>", $this->dim, $sql);
+		$sql = str_replace("<myname>", $this->botname, $sql);
+
+		return $sql;
 	}
 	
 	function getLastQuery() {
