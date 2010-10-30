@@ -48,7 +48,7 @@ if (preg_match("/^whatbuffs (.+)$/i", $message, $arr)) {
 			forEach ($skills as $skill) {
 				$info .= "- <a href='chatcmd:///tell <myname> <symbol>whatbuffs ".$skill."'>$skill</a>\n";
 			}
-			$inside = "<header>::::: Buff item helper :::::<end>\n\n"
+			$inside = "<header>::::: Buff item helper :::::<end>\n\n";
 			$inside .= "Your query of <yellow>$name<end> matches more than one skill:\n\n";
 			$inside .= $info."\n";
 			$inside .= "Which of those skills did you mean?\n\n";
