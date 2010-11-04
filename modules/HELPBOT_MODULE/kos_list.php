@@ -41,11 +41,11 @@ if (preg_match("/^kos$/i", $message)) {
 		arsort($list);
 		$list = array_slice($list, 0, 25, true);
 		$link  = "<header>::::: Kill On Sight list :::::<end>\n\n";
-		$link .= "This list shows the top25 of added Players\n\n";
+		$link .= "This list shows the top 25 of added Players\n\n";
 		$i = 0;
 		forEach ($list as $key => $value) {
 			$i++;
-			$link .= "$i. $key <highlight>(Voted {$value}times)<end>\n";
+			$link .= "$i. $key <highlight>(Voted {$value} times)<end>\n";
 		}
 			
 		$msg = bot::makeLink("KOS-List", $link);
@@ -62,10 +62,10 @@ if (preg_match("/^kos$/i", $message)) {
 		// otherwise stitch the reason back together
 		$reason = $explodemsg[1] . ' ' . $explodemsg[2];
 	}
-	$uid = AoChat::get_uid($name);
+
 	if (strlen($reason) >= 50) {
 		$msg = "The reason can't be longer than 50 characters.";
-	} else if ($uid) {
+	} else {
 		$db->query("SELECT * FROM koslist_<myname> WHERE `sender` = '$sender' AND `name` = '".str_replace("'", "''", $name)."'");
 		if($db->numrows() == 1) {
 			$msg = "You have already <highlight>$name<end> on your KOS List.";
@@ -73,8 +73,6 @@ if (preg_match("/^kos$/i", $message)) {
 			$db->query("INSERT INTO koslist_<myname> (`time`, `name`, `sender`, `reason`) VALUES (".time().", '".str_replace("'", "''", $name)."', '$sender', '".str_replace("'", "''", $reason)."')");
 			$msg = "You have successfull added <highlight>$name<end> to the KOS List.";
 		}
-	} else {
-		$msg = "The Player you want to add doesn't exists.";
 	}
 
 	bot::send($msg, $sendto);
