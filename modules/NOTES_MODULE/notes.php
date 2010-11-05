@@ -49,7 +49,7 @@ if (preg_match("/^notes?$/i", $message)) {
 	}
   	
 	bot::send($msg, $sendto);
-} else if (preg_match("/^notes? (rem|add) (.*)$/i", $message)) {
+} else if (preg_match("/^notes? (rem|add) (.*)$/i", $message, $arr)) {
 	$action = strtolower($arr[1]);
 	$parm2 = $arr[2];
 
