@@ -17,14 +17,14 @@ if (preg_match("/^research ([0-9]+)$/i",$message, $arr)) {
 		$levelcap = $row->levelcap;
 		$sk = $row->sk;
 		$xp = $sk * 1000;
-		$xp = number_format($xp);
-		$sk = number_format($sk);
 		$capxp = round($xp * .04);
 		$capsk = round($sk * .04);
+		$xp = number_format($xp);
+		$sk = number_format($sk);
 		$research = "<header>  ::::: XP/SK NEEDED FOR RESEARCH LEVELS  :::::<end>\n\n";
 		$research .= "<green>You must be <blue>Level $levelcap<end> to reach <blue>Research Level $level<end>.\n";
 		$research .= "You need <blue>$sk SK<end> to reach <blue>Research Level $level<end>.\n\n";
-		$research .= "This equals <range>$xp XP.<end>";
+		$research .= "This equals <range>$xp XP.<end>\n\n";
 		$research .= "Your research will cap at <yellow>$capxp<end> XP or <yellow>$capsk<end> SK.";
 		$research = bot::makeLink("Research", $research);
 	}	
