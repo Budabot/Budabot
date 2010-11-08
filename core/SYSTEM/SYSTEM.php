@@ -1,9 +1,6 @@
 <?php 
 	$MODULE_NAME = "SYSTEM";
 
-	//Load extended messages
-	bot::loadSQLFile($MODULE_NAME, "mmdb");
-
 	//Commands
 	bot::regcommand("msg", "$MODULE_NAME/plugins.php", "newplugins", "admin");
 	bot::regcommand("priv", "$MODULE_NAME/plugins.php", "newplugins", "admin");

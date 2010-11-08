@@ -1512,18 +1512,6 @@ class bot extends AOChat{
 					return;
 				}
 
-				// if it's an extended message
-				$em = null;
-				if (isset($args['extended_message'])) {
-					$em = $args['extended_message'];
-					$db->query("SELECT category, entry, message FROM mmdb_data WHERE category = $em->category AND entry = $em->instance");
-					if ($row = $db->fObject()) {
-						$message = vsprintf($row->message, $em->args);
-					} else {
-						echo "Error: cannot find extended message with category: '$em->category' and instance: '$em->instance'\n";
-					}
-				}
-
 				if ($this->settings['echo'] >= 1) newLine($channel, $sender, $message, $this->settings['echo']);
 
 				if ($sender) {

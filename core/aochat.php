@@ -311,11 +311,8 @@
           if($packet->args[1] === 0 && substr($packet->args[2], 0, 2) == "~&")
           {
             $em = new AOExtMsg($packet->args[2]);
-            if($em->type != AOEM_UNKNOWN)
-            {
-              $packet->args[2] = '';
-              $packet->args['extended_message'] = $em;
-            }
+			$packet->args[2] = $em->message;
+			$packet->args['extended_message'] = $em;
           }
           break;
       }
@@ -1098,6 +1095,45 @@
    
   class AOExtMsg
   {
+	public static $mmdb = array(
+		501 = > array (
+			181448347 => '%s kicked from organization (alignment changed).',
+			192568104 => 'WARNING: City upkeep (%d credits) is due in %d hours but the org bank only contains %d credits. If the bank does not contain enough credits by the due date, your city will be demolished.',
+			193456776 => 'The organization has a tax of %u #1{1: credit | credits}.',
+			220373365 => 'The organization tax has been changed to %u #1{1: credit. | credits. }  Do you wish to leave your organization?'
+		),
+		506 => array (
+			12753364 => 'The %s organization %s just entered a state of war! %s attacked the %s organization %s''s tower in %s at location (%d,%d).',
+			24174231 => '%s just initiated an attack on playfield %i at location (%d,%d). That area is controlled by %s. All districts controlled by your organization are open to attack! You are in a state of war. Leader chat informed.',
+			94492169 => 'The tower %s in %s was just reduced to %d %% health by %s from the %s organization!',
+			118352306 => '%s just initiated an attack in %s at location (%d,%d). That area is controlled by %s. All districts controlled by your organization are open to attack! You are in a state of war. Leader chat informed.',
+			147506468 => 'Notum Wars Update: The %s organization %s lost their base in %s.',
+			224009576 => 'The tower %s in %s was just reduced to %d %% health by %s!',
+			265658836 => 'The tower %s in %s was just reduced to %d %% health!',
+			17467336 => 'Your controller tower in %s in %s has had its defense shield disabled by %s (%s).',
+			20908201 => '%s removed inactive character %s from your organization.',
+			37093479 => '%s kicked %s from your organization.',
+			45978487 => '%s just left your organization.',
+			134643352 => 'Governing form changed to ''%s''.',
+			138965334 => '%s changed governing form to ''%s''.',
+			147071208 => 'GM removed character %s from your organization.',
+			173558247 => '%s invited %s to your organization.',
+			176308692 => 'Blammo! %s has launched an orbital attack!',
+			192652356 => '%d credits have been deducted from the organization bank for the upkeep of your city. Next payment is due in %d days.',
+			196585349 => 'Your city upkeep payment of %d credits is due in %d hour(s). Please make sure the full upkeep amount is available in the organization bank or you will lose your city.',
+			241047288 => 'Leadership has been given to %s.'
+		),
+		1001 => array (
+			1 => '%s turned the cloaking device in your city %s.',
+			2 => 'Your radar station is picking up alien activity in the area surrounding your city.',
+			3 => 'Your city in %s has been targeted by hostile forces.',
+			4 => '%s removed the organization headquarters in %s!  All personal belongings or houses in the city were instantly destroyed!',
+			5 => '%s has initiated removal of a %s in %s!  The house and all belongings in the house will be destroyed in 2 minutes.',
+			6 => '%s removed a %s in %s!  All benefits from this house and all belongings in the house were instantly destroyed!',
+			7 => '%s has initiated removal of the HQ in %s!  The house and all belongings in the house will be destroyed in 2 minutes. This will also cause the other houses in the city to be deleted!'
+		)
+	);
+  
     private static $ref_cat = array(
 		509 => array(
 			0x00 => "Normal House",
@@ -1114,156 +1150,163 @@
             0x02 => "omni"
 		),
     );
-    public $type, $args, $category, $instance;
-
-    function AOExtMsg($str=NULL)
-    {
-      $this->type = AOEM_UNKNOWN;
-      if(!empty($str))
-        $this->read($str);
-    }
     
-    function arg($n)
-    {
-      $key = "{".strtoupper($n)."}";
-      if(isset($this->args[$key]))
-        return $this->args[$key];
-      return NULL;
-    }
+	public $args, $category, $instance, $message;
 
-    function read($msg)
-    {
-      if(substr($msg, 0, 2) !== "~&")
-        return false;
-      $msg = substr($msg, 2);
-      $this->category = $this->b85g($msg);
-      $this->instance = $this->b85g($msg);
-      
-      $args = array();
-      while($msg != '')
-      {
-		$data_type = $msg[0];
-        $msg = substr($msg, 1); // skip the data type id
-        switch($data_type)
-        {
-          case "s":
-            $len = ord($msg[0])-1;
-            $str = substr($msg, 1, $len);
-            $msg = substr($msg, $len +1);
-            $args[] = $str;
-            break;
+	function AOExtMsg($str=NULL)
+	{
+		if(!empty($str)) {
+			$this->read($str);
+		}
+	}
+	
+	function arg($n)
+	{
+		$key = "{".strtoupper($n)."}";
+		if(isset($this->args[$key])) {
+			return $this->args[$key];
+		}
+		return NULL;
+	}
 
-          case "i":
-          case "u":
-            $num = $this->b85g($msg);
-            $args[] = $num;
-            break;
-          
-          case "R":
-            $cat = $this->b85g($msg);
-            $ins = $this->b85g($msg);
-            if(!isset(self::$ref_cat[$cat]) || !isset(self::$ref_cat[$cat][$ins]))
-              $str = "Unknown ($cat, $ins)";
-            else
-              $str = self::$ref_cat[$cat][$ins];
-            $args[] = $str;
-            break;
-		  case "~":
-			// the last iteration is the closing tilde
-			// for which we need to do nothing
-			break;
-		  default:
-			echo "Error! could not parse argument: '$data_type' for category: '$this->category' and instance: '$this->instance'\n";
-			break;
-        }
-      }
-	  
-	  $this->type = '';  // remove AOEM_UNKNOWN value
-      $this->args = $args;
-    }
+	function read($msg)
+	{
+		if(substr($msg, 0, 2) !== "~&") {
+			return false;
+		}
+		$msg = substr($msg, 2);
+		$this->category = $this->b85g($msg);
+		$this->instance = $this->b85g($msg);
+		
+		$args = array();
+		while ($msg != '') {
+			$data_type = $msg[0];
+			$msg = substr($msg, 1); // skip the data type id
+			switch ($data_type) {
+				case "s":
+					$len = ord($msg[0])-1;
+					$str = substr($msg, 1, $len);
+					$msg = substr($msg, $len +1);
+					$args[] = $str;
+					break;
 
-    function b85g(&$str)
-    {
-      $n = 0;
-      for($i=0; $i<5; $i++)
-        $n = $n*85 + ord($str[$i])-33;
-      $str = substr($str, 5);
-      return $n;
-    }
-  }
+				case "i":
+				case "u":
+					$num = $this->b85g($msg);
+					$args[] = $num;
+					break;
+					
+				case "R":
+					$cat = $this->b85g($msg);
+					$ins = $this->b85g($msg);
+					if(!isset(self::$ref_cat[$cat]) || !isset(self::$ref_cat[$cat][$ins])) {
+						$str = "Unknown ($cat, $ins)";
+					} else {
+						$str = self::$ref_cat[$cat][$ins];
+					}
+					$args[] = $str;
+					break;
+				case "~":
+					// the last iteration is the closing tilde
+					// for which we need to do nothing
+					break;
+				default:
+					echo "Error! could not parse argument: '$data_type' for category: '$this->category' and instance: '$this->instance'\n";
+					break;
+			}
+		}
+		
+		$this->args = $args;
+		if (isset(AOExtMsg::mmdb[$this->category][$this->instance])) {
+			$this->message = vsprintf(AOExtMsg::mmdb[$this->category][$this->instance], $args);
+		}
+	}
 
-  /* Prioritized chat message queue. */
+	function b85g(&$str)
+	{
+		$n = 0;
+		for($i=0; $i<5; $i++) {
+			$n = $n*85 + ord($str[$i])-33;
+		}
+		$str = substr($str, 5);
+		return $n;
+	}
+}
 
-  class AOChatQueue
-  {
-    var $dfunc, $queue, $qsize;
-    var $point, $limit, $inc;
+/* Prioritized chat message queue. */
 
-    function AOChatQueue($cb, $limit, $inc)
-    {
-      $this->dfunc = $cb;
-      $this->limit = $limit;
-      $this->inc = $inc;
-      $this->point = 0;
-      $this->queue = array();
-      $this->qsize = 0;
-    }
+class AOChatQueue
+{
+	var $dfunc, $queue, $qsize;
+	var $point, $limit, $inc;
 
-    function push($priority)
-    {
-      $args = array_slice(func_get_args(), 1);
-      $now = time();
-      if($this->point <= ($now+$this->limit))
-      {
-        call_user_func_array($this->dfunc, $args);
-        $this->point = (($this->point<$now) ? $now : $this->point)+$this->inc;
-        return 1;
-      }
-      if(isset($this->queue[$priority]))
-      {
-        $this->queue[$priority][] = $args;
-      }
-      else
-      {
-        $this->queue[$priority] = array($args);
-        krsort($this->queue);
-      }
-      $this->qsize ++;
-      return 2;
-    }
+	function AOChatQueue($cb, $limit, $inc)
+	{
+		$this->dfunc = $cb;
+		$this->limit = $limit;
+		$this->inc = $inc;
+		$this->point = 0;
+		$this->queue = array();
+		$this->qsize = 0;
+	}
 
-    function run()
-    {
-      if($this->qsize === 0)
-        return 0;
-      $now = time();
-      if($this->point < $now)
-        $this->point = $now;
-      else if($this->point > ($now + $this->limit))
-        return 0;
-      $processed = 0;
-      foreach(array_keys($this->queue) as $priority)
-      {
-        for(;;)
-        {
-          $item = array_shift($this->queue[$priority]);
-          if($item === NULL)
-          {
-            unset($this->queue[$priority]);
-            break;
-          }
-          call_user_func_array($this->dfunc, $item);
-          $this->point += $this->inc;
-          $processed ++;
-          if($this->point > ($now + $this->limit))
-          {
-            break(2);
-          }
-        }
-      }
-      $this->qsize -= $processed;
-      return $processed;
-    }
-  }
+	function push($priority)
+	{
+		$args = array_slice(func_get_args(), 1);
+		$now = time();
+		if($this->point <= ($now+$this->limit))
+		{
+			call_user_func_array($this->dfunc, $args);
+			$this->point = (($this->point<$now) ? $now : $this->point)+$this->inc;
+			return 1;
+		}
+		if(isset($this->queue[$priority]))
+		{
+			$this->queue[$priority][] = $args;
+		}
+		else
+		{
+			$this->queue[$priority] = array($args);
+			krsort($this->queue);
+		}
+		$this->qsize ++;
+		return 2;
+	}
+
+	function run()
+	{
+		if($this->qsize === 0) {
+			return 0;
+		}
+		$now = time();
+		if($this->point < $now) {
+			$this->point = $now;
+		} else if($this->point > ($now + $this->limit)) {
+			return 0;
+		}
+		$processed = 0;
+		foreach(array_keys($this->queue) as $priority)
+		{
+			for(;;)
+			{
+				$item = array_shift($this->queue[$priority]);
+				if($item === NULL)
+				{
+					unset($this->queue[$priority]);
+					break;
+				}
+				call_user_func_array($this->dfunc, $item);
+				$this->point += $this->inc;
+				$processed ++;
+				if($this->point > ($now + $this->limit))
+				{
+					break(2);
+				}
+			}
+		}
+		$this->qsize -= $processed;
+		return $processed;
+	}
+}
 
 ?>
