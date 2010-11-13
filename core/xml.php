@@ -133,7 +133,7 @@ class whois extends xml {
 		$data_save = false;
 		$name = ucfirst(strtolower($name));
 		
-		//Check if a xml file of the person exists, that it isn't older then 24hrs and correct
+		//check if a xml file of the person exists, that it isn't older then 24hrs and correct
 		if(file_exists("$cache/$name.$rk_num.xml")) {
 	        $mins = (time() - filemtime("$cache/$name.$rk_num.xml")) / 60;
             $hours = floor($mins/60);
@@ -150,7 +150,7 @@ class whois extends xml {
 			}
         }
 
-        //If no file was found or it is outdated try to update it from anarchyonline.com
+        //if no file was found or it is outdated try to update it from anarchyonline.com
         if (!$data_found) {
 			$playerbio = xml::getUrl("http://people.anarchy-online.com/character/bio/d/$rk_num/name/$name/bio.xml");
 			if (xml::spliceData($playerbio, '<nick>', '</nick>') == $name) {
@@ -163,7 +163,7 @@ class whois extends xml {
 			}
 		}
 		
-		//If ao.com was too slow to respond or got wrong data back try to update it from auno.org
+		//if people.anarchy-online.com was too slow to respond or got wrong data back try to update it from auno.org
 		if (!$data_found) {
 			$playerbio = xml::getUrl("http://auno.org/ao/char.php?output=xml&dimension=$rk_num&name=$name");
 			if (xml::spliceData($playerbio, '<nick>', '</nick>') == $name) {
@@ -176,7 +176,7 @@ class whois extends xml {
 			}
 		}
 		
-		//If both site were not responding or the data was invalid and a xml file exists get that one
+		//if both site were not responding or the data was invalid and a xml file exists get that one
 		if (!$data_found && file_exists("$cache/$name.$rk_num.xml")) {
 			$playerbio = file_get_contents("$cache/$name.$rk_num.xml");
 			if (xml::spliceData($playerbio, '<nickname>', '</nickname>') == $name) {
@@ -190,7 +190,7 @@ class whois extends xml {
 		}
 		
 		//if there is still no valid data available give an error back
-		if(!$data_found) {
+		if (!$data_found) {
    		  	$this->firstname = "";
 		  	$this->lastname = "";
 		  	$this->rank_id = 6;
@@ -200,7 +200,7 @@ class whois extends xml {
 		  	$this->gender = "Unknown";
 		  	$this->breed = "Unknown";
            	$this->errorCode = 1;
-           	$this->errorInfo = "Couldn't get Character infos for $name";
+           	$this->errorInfo = "Couldn't get Character info for $name";
 			$this->source = 'none';
            	return;
 		}
