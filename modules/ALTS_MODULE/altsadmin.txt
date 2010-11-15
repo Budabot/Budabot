@@ -5,8 +5,6 @@
 
 <highlight>Remove alts from a character<end>
 <tab><symbol>altsadmin rem 'alt name' 'main toon'
-<tab>use <symbol>alts 'alt name'
-<tab>if you are unsure of who the main is.
 
 <highlight>Export all alts to a file<end>
 <tab><symbol>altsadmin export 'filename'

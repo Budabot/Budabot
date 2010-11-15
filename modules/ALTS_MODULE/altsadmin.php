@@ -44,9 +44,7 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names))
 
 	}
 	$this->send($msg, $sendto);
-	return;
 }
-
 elseif (preg_match("/^altsadmin rem (.+) (.+)$/i", $message, $names))
 {
 	if ($names[1] == '' || $names[2] == '')
@@ -57,18 +55,11 @@ elseif (preg_match("/^altsadmin rem (.+) (.+)$/i", $message, $names))
 
 	$name_alt = ucfirst(strtolower($names[1]));
 	$name_main = ucfirst(strtolower($names[2]));
-	$uid_main = $this->get_uid($name_main);
-	if (!$uid_main)
-	{
-		$msg = " Player <highlight>$name_main<end> does not exist.";
-		$this->send($msg, $sendto);
-		return;
-	}
 
 	$db->query("SELECT * FROM alts WHERE alt = '$name_alt' AND main = '$name_main'");
 	if ($db->numrows() != 0)
 	{
-		$db->query("DELETE FROM alts WHERE main = '$name_main' AND alt = '$name_alt'");
+		Alts::rem_alt($name_main, $name_alt);
 		$msg = "<highlight>$name_alt<end> has been deleted from the alt list of <highlight>$name_main.<end>";
 	}
 	else
@@ -76,8 +67,6 @@ elseif (preg_match("/^altsadmin rem (.+) (.+)$/i", $message, $names))
 		$msg = "Player <highlight>$name_alt<end> not listed as an alt of Player <highlight>$name_main<end>.  Please check the player's !alts listings.";
 	}
 	$this->send($msg, $sendto);
-	return;
-
 }
 elseif (preg_match("/^altsadmin export (.+)$/i", $message, $arr))
 {
