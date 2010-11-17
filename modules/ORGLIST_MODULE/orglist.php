@@ -121,6 +121,11 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 		$msg = "I'm already doing a list!";
 		$this->send($msg, $sendto);
 		return;
+	} else if (995 <= count($this->buddyList)) {
+		$msg = "No room on the buddy-list!";
+		$this->send($msg, $sendto);
+		unset($this->data["ORGLIST_MODULE"]);
+		return;
 	} else {
 		$this->data["ORGLIST_MODULE"]["start"] = time();
 		$this->data["ORGLIST_MODULE"]["sendto"] = $sendto;
@@ -162,7 +167,6 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 	}
 	
 	$this->data["ORGLIST_MODULE"]["org"] = $orgmate->orgname;
-	$buddy_list_full = (1000 <= count($this->buddyList));
 	
 	$this->send("Checking online status for '$orgmate->orgname'...", $sendto);
 	
@@ -209,23 +213,21 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 		if ($buddy_online_status !== null) {
 			$this->data["ORGLIST_MODULE"]["result"][$amember]["online"] = $buddy_online_status;
 		} else if ($this->vars["name"] != $amember) { // If the name being checked ISNT the bot.
-			// check if they exist, (They might be deleted)
+			// check if they exist
 			if (AoChat::get_uid($amember)) {
-				if ($buddy_list_full) {
-					$msg = "No room on the buddy-list!";
-					$this->send($msg, $sendto);
-					unset($this->data["ORGLIST_MODULE"]);
-					return;
-				}
-
 				$this->data["ORGLIST_MODULE"]["check"][$amember] = 1;
-				$this->add_buddy($amember, 'onlineorg');
-				
-				// wait 1 millisecond so the buddy list doesn't fill up too quickly
-				usleep(10000);
 			}
 		} else if ($this->vars["name"] == $amember) { // Yes, this bot is online. Don't need a buddylist to tell me.
 			$this->data["ORGLIST_MODULE"]["result"][$amember]["online"] = 1;
+		}
+	}
+	
+	// add five members to the buddy list to prime the list and get things rolling
+	$i = 0;
+	forEach ($this->data["ORGLIST_MODULE"]["check"] as $name => $value) {
+		$this->add_buddy($name, 'onlineorg');
+		if (++$i == 5) {
+			break;
 		}
 	}
 
