@@ -61,6 +61,37 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	$msg = "Timer has been set for $timerset.";
 		
     bot::send($msg, $sendto);
+} else if (preg_match("/^timers? (rem|del) (.+)$/i", $message, $arr)) {
+	$timer_name = strtolower($arr[2]);
+	
+	forEach ($this->vars["Timers"] as $key => $timer) {
+		$name = $timer->name;
+		$owner = $timer->owner;
+
+		if (strtolower($name) == $timer_name) {
+			if ($owner == $sender) {
+				unset($this->vars["Timers"][$key]);
+				$db->query("DELETE FROM timers_<myname> WHERE `name` = '".str_replace("'", "''", $name)."' AND `owner` = '$sender'");
+					
+			  	$msg = "Removed timer <highlight>$name<end>.";
+			  	break;
+			} else if (($this->guildmembers[$sender] <= $this->settings['guild admin level']) || isset($this->admins[$sender])) {
+				unset($this->vars["Timers"][$key]);
+				$db->query("DELETE FROM timers_<myname> WHERE `name` = '".str_replace("'", "''", $name)."'");
+
+			  	$msg = "Removed timer <highlight>$name<end>.";
+			  	break;			  	
+			} else {
+				$msg = "You don't have the right to remove this timer.";
+			}
+		}
+	}
+
+	if (!$msg) {
+		$msg = "A timer with this name is not running.";
+	}
+
+    bot::send($msg, $sendto);
 } else if (preg_match("/^timers? (([0-9]*)[d|day|days]*).(([0-9]*)[h|hr|hrs]*).(([0-9]*)[m|min|mins]*).(([0-9]*)[s|sec|secs]*)$/i", $message, $arr) || preg_match("/^timers? (([0-9]*)[d|day|days]*).(([0-9]*)[h|hr|hrs]*).(([0-9]*)[m|min|mins]*) (.+)$/i", $message, $arr2)) {
 	if ($arr2) {
 		$arr = $arr2;
@@ -137,37 +168,6 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	$timerset = unixtime_to_readable($run_time);
 	$msg = "Timer has been set for $timerset.";
 		
-    bot::send($msg, $sendto);
-} else if (preg_match("/^timers? (rem|del) (.+)$/i", $message, $arr)) {
-	$timer_name = strtolower($arr[2]);
-	
-	forEach ($this->vars["Timers"] as $key => $timer) {
-		$name = $timer->name;
-		$owner = $timer->owner;
-
-		if (strtolower($name) == $timer_name) {
-			if ($owner == $sender) {
-				unset($this->vars["Timers"][$key]);
-				$db->query("DELETE FROM timers_<myname> WHERE `name` = '".str_replace("'", "''", $name)."' AND `owner` = '$sender'");
-					
-			  	$msg = "Removed timer <highlight>$name<end>.";
-			  	break;
-			} else if (($this->guildmembers[$sender] <= $this->settings['guild admin level']) || isset($this->admins[$sender])) {
-				unset($this->vars["Timers"][$key]);
-				$db->query("DELETE FROM timers_<myname> WHERE `name` = '".str_replace("'", "''", $name)."'");
-
-			  	$msg = "Removed timer <highlight>$name<end>.";
-			  	break;			  	
-			} else {
-				$msg = "You don't have the right to remove this timer.";
-			}
-		}
-	}
-
-	if (!$msg) {
-		$msg = "A timer with this name is not running.";
-	}
-
     bot::send($msg, $sendto);
 } else if (preg_match("/^timers?$/i", $message, $arr)) {
 	$num_timers = count($this->vars["Timers"]);
