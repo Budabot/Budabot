@@ -1095,15 +1095,15 @@
    
   class AOExtMsg
   {
-	public static $mmdb = array(
-		501 = > array (
+	public static $mmdb = array (
+		501 => array (
 			181448347 => '%s kicked from organization (alignment changed).',
 			192568104 => 'WARNING: City upkeep (%d credits) is due in %d hours but the org bank only contains %d credits. If the bank does not contain enough credits by the due date, your city will be demolished.',
 			193456776 => 'The organization has a tax of %u #1{1: credit | credits}.',
 			220373365 => 'The organization tax has been changed to %u #1{1: credit. | credits. }  Do you wish to leave your organization?'
 		),
 		506 => array (
-			12753364 => 'The %s organization %s just entered a state of war! %s attacked the %s organization %s''s tower in %s at location (%d,%d).',
+			12753364 => 'The %s organization %s just entered a state of war! %s attacked the %s organization %s\'s tower in %s at location (%d,%d).',
 			24174231 => '%s just initiated an attack on playfield %i at location (%d,%d). That area is controlled by %s. All districts controlled by your organization are open to attack! You are in a state of war. Leader chat informed.',
 			94492169 => 'The tower %s in %s was just reduced to %d %% health by %s from the %s organization!',
 			118352306 => '%s just initiated an attack in %s at location (%d,%d). That area is controlled by %s. All districts controlled by your organization are open to attack! You are in a state of war. Leader chat informed.',
@@ -1114,8 +1114,8 @@
 			20908201 => '%s removed inactive character %s from your organization.',
 			37093479 => '%s kicked %s from your organization.',
 			45978487 => '%s just left your organization.',
-			134643352 => 'Governing form changed to ''%s''.',
-			138965334 => '%s changed governing form to ''%s''.',
+			134643352 => 'Governing form changed to \'%s\'.',
+			138965334 => '%s changed governing form to \'%s\'.',
 			147071208 => 'GM removed character %s from your organization.',
 			173558247 => '%s invited %s to your organization.',
 			176308692 => 'Blammo! %s has launched an orbital attack!',
@@ -1123,7 +1123,7 @@
 			196585349 => 'Your city upkeep payment of %d credits is due in %d hour(s). Please make sure the full upkeep amount is available in the organization bank or you will lose your city.',
 			241047288 => 'Leadership has been given to %s.'
 		),
-		509 => array(
+		509 => array (
 			0x00 => "Normal House",
 			0x02 => "Market",
 			0x03 => "Grid",
@@ -1140,7 +1140,7 @@
 			6 => '%s removed a %s in %s!  All benefits from this house and all belongings in the house were instantly destroyed!',
 			7 => '%s has initiated removal of the HQ in %s!  The house and all belongings in the house will be destroyed in 2 minutes. This will also cause the other houses in the city to be deleted!'
 		),
-		2005 => array(
+		2005 => array (
 			0x00 => "neutral",
             0x01 => "clan",
             0x02 => "omni"
@@ -1213,8 +1213,8 @@
 		}
 		
 		$this->args = $args;
-		if (isset(AOExtMsg::mmdb[$this->category][$this->instance])) {
-			$this->message = vsprintf(AOExtMsg::mmdb[$this->category][$this->instance], $args);
+		if (isset(AOExtMsg::$mmdb[$this->category][$this->instance])) {
+			$this->message = vsprintf(AOExtMsg::$mmdb[$this->category][$this->instance], $args);
 		}
 	}
 

@@ -1,9 +1,6 @@
 <?php
 	$MODULE_NAME = "BASIC_GUILD_MODULE";
 	
-	//Setup of the Basic Guild Modules
-	bot::event("setup", "$MODULE_NAME/setup.php");
-	
 	// Afk Check
 	bot::event("guild", "$MODULE_NAME/afk_check.php", "none", "Afk check");
 	bot::command("guild", "$MODULE_NAME/afk.php", "afk", "all", "Sets a member afk");

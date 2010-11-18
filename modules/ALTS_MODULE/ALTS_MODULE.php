@@ -1,5 +1,5 @@
 <?php
-	$MODULE_NAME = "BASIC_GUILD_MODULE";
+	$MODULE_NAME = "ALTS_MODULE";
 	
 	bot::loadSQLFile($MODULE_NAME, "alts");
 	
