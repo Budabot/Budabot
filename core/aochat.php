@@ -1123,18 +1123,6 @@
 			196585349 => 'Your city upkeep payment of %d credits is due in %d hour(s). Please make sure the full upkeep amount is available in the organization bank or you will lose your city.',
 			241047288 => 'Leadership has been given to %s.'
 		),
-		1001 => array (
-			1 => '%s turned the cloaking device in your city %s.',
-			2 => 'Your radar station is picking up alien activity in the area surrounding your city.',
-			3 => 'Your city in %s has been targeted by hostile forces.',
-			4 => '%s removed the organization headquarters in %s!  All personal belongings or houses in the city were instantly destroyed!',
-			5 => '%s has initiated removal of a %s in %s!  The house and all belongings in the house will be destroyed in 2 minutes.',
-			6 => '%s removed a %s in %s!  All benefits from this house and all belongings in the house were instantly destroyed!',
-			7 => '%s has initiated removal of the HQ in %s!  The house and all belongings in the house will be destroyed in 2 minutes. This will also cause the other houses in the city to be deleted!'
-		)
-	);
-  
-    private static $ref_cat = array(
 		509 => array(
 			0x00 => "Normal House",
 			0x02 => "Market",
@@ -1143,13 +1131,21 @@
 			0x05 => "Radar Station",
 			0x06 => "Cloaking Device"
 		),
-      
+		1001 => array (
+			1 => '%s turned the cloaking device in your city %s.',
+			2 => 'Your radar station is picking up alien activity in the area surrounding your city.',
+			3 => 'Your city in %s has been targeted by hostile forces.',
+			4 => '%s removed the organization headquarters in %s!  All personal belongings or houses in the city were instantly destroyed!',
+			5 => '%s has initiated removal of a %s in %s!  The house and all belongings in the house will be destroyed in 2 minutes.',
+			6 => '%s removed a %s in %s!  All benefits from this house and all belongings in the house were instantly destroyed!',
+			7 => '%s has initiated removal of the HQ in %s!  The house and all belongings in the house will be destroyed in 2 minutes. This will also cause the other houses in the city to be deleted!'
+		),
 		2005 => array(
 			0x00 => "neutral",
             0x01 => "clan",
             0x02 => "omni"
-		),
-    );
+		)
+	);
     
 	public $args, $category, $instance, $message;
 
@@ -1199,10 +1195,10 @@
 				case "R":
 					$cat = $this->b85g($msg);
 					$ins = $this->b85g($msg);
-					if(!isset(self::$ref_cat[$cat]) || !isset(self::$ref_cat[$cat][$ins])) {
+					if(!isset(self::$mmdb[$cat]) || !isset(self::$mmdb[$cat][$ins])) {
 						$str = "Unknown ($cat, $ins)";
 					} else {
-						$str = self::$ref_cat[$cat][$ins];
+						$str = self::$mmdb[$cat][$ins];
 					}
 					$args[] = $str;
 					break;
