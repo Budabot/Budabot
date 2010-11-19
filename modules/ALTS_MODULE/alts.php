@@ -32,10 +32,6 @@
 if (preg_match("/^alts add (.+)$/i", $message, $arr)) {
 	/* get all names in an array */
 	$names = explode(' ', $arr[1]);
-	/* initialize some arrays for different outcomes */
-	$names_not_existing = array();
-	$names_already_registered = array();
-	$names_succeeded = array();
 	
 	$sender = ucfirst(strtolower($sender));
 	
@@ -43,56 +39,52 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr)) {
 	$alts = Alts::get_alts($main);
 	
 	/* Pop a name from the array until none are left (checking for null) */
-	while (null != ($name = array_pop($names)))
-	{
+	while (null != ($name = array_pop($names))) {
 		$name = ucfirst(strtolower($name));
 		$uid = AoChat::get_uid($name);
 		/* check if player exists */
-		if (!$uid)
-		{
-			$names_not_existing[] = $name;
+		if (!$uid) {
+			$names_not_existing .= $name . ' ';
 			continue;
 		}
 		
-		/* check if player is already a main */
-		if ($sender == $main)
-		{
-			$names_already_registered = $name.' (as main)';
+		/* check if player is already a main or assigned to someone else */
+		$temp_alts = Alts::get_alts($main);
+		$temp_main = Alts::get_main($sender);
+		if ($temp_alts != null || $temp_main != null) {
+			$other_registered .= $name . ' ';
 			continue;
 		}
 		
 		/* check if player is already an alt */
-		if (in_array($name, $alts))
-		{
-			$names_already_registered[] = $name.' (as alt)';
+		if (in_array($name, $alts)) {
+			$self_registered .= $name . ' ';
 			continue;
 		}
 
 		/* insert into database */
 		Alts::alt_add($main, $name);
-		$names_succeeded[] = $name;
+		$names_succeeded .= $name . ' ';
 	}
-	/* create a windowmessage */
-	$window = 'Alts added:<br>';
-	foreach ($names_succeeded as $alt)
-	{
-		$window .= $alt.' ';
+	
+	$window = '';
+	if ($succeeded) {
+		$window .= "Alts added:\n" . $succeeded;
 	}
-	$window .= '<br><br>Alts already registered:<br>';
-	foreach ($names_already_registered as $alt)
-	{
-		$window .= $alt.' ';
+	if ($self_registered) {
+		$window .= "\n\nAlts already registered to yourself:\n" . $self_registered;
 	}
-	$window .= '<br><br>Alts not existing :<br>';
-	foreach ($names_not_existing as $alt)
-	{
-		$window .= $alt.' ';
+	if ($other_registered) {
+		$window .= "\n\nAlts already registered to someone else:\n" . $other_registered;
 	}
+	if ($names_not_existing) {
+		$window .= "\n\nAlts not existing:\n" . $names_not_existing;
+	}
+	
 	/* create a link */
 	$link = 'Added '.count($names_succeeded).' alts to your list.';
 	$failed_count = count($names_already_registered) + count($names_not_existing);
-	if ($failed_count > 0)
-	{
+	if ($failed_count > 0) {
 		$link .= ' Failed adding '.$failed_count.' alts to your list.';
 	}
 	$msg = $this->makeLink($link, $window);
