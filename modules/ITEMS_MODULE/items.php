@@ -36,124 +36,24 @@ if (preg_match("/^items ([0-9]+) (.+)$/i", $message, $arr)) {
         bot::send($msg, $sendto);
         return;
     }
-    $name = $arr[2];
+    $search = $arr[2];
 } else if (preg_match("/^items (.+)$/i", $message, $arr)) {
-    $name = $arr[1];
+    $search = $arr[1];
     $ql = false;
 } else {
-  	$msg = "You need to specify an item to be searched for!";
-	bot::send($msg, $sendto);
-	return;  	
+  	$syntax_error = true;
+	return;
 }
 
 // ao automatically converts '&' to '&amp;', so we convert it back
-$name = str_replace("&amp;", "&", $name);
+$search = str_replace("&amp;", "&", $search);
 
-$tmp = explode(" ", $name);
-$first = true;
-forEach ($tmp as $key => $value) {
-	// escape single quotes to prevent sql injection
-	$value = str_replace("'", "''", $value);
-	if ($first) {
-		$query .= "`name` LIKE '%$value%'";
-		$first = false;
-	} else {
-		$query .= " AND `name` LIKE '%$value%'";
-	}
-}
-
-if ($ql) {
-	$query .= " AND `lowql` <= $ql AND `highql` >= $ql";
-}
-
-$db->query("SELECT * FROM aodb WHERE $query ORDER BY `name` LIMIT 0, {$this->settings["maxitems"]}");
-$num = $db->numrows();
-if ($num == 0) {
-  	if ($ql) {
-	    $msg = "No items found with QL <highlight>$ql<end>. Maybe try fewer keywords.";
-	} else {
-	    $msg = "No items found. Maybe try fewer keywords.";
-	}
-   	bot::send($msg, $sendto);
-	return;
-}
-
-$countitems = 0;
-
-while ($row = $db->fObject()) {
-	if (!isset($itemlist[$row->name])) {
-		$itemlist[$row->name] = array(array("lowid" => $row->lowid, "highid" => $row->highid, "lowql" => $row->lowql, "highql" => $row->highql, "icon" => $row->icon));
-		$countitems++;
-	} else if (isset($itemlist[$row->name])) {
-	  	if ($itemlist[$row->name][0]["lowql"] > $row->lowql) {
-		    $itemlist[$row->name][0]["lowql"] = $row->lowql;
-		    $itemlist[$row->name][0]["lowid"] = $row->lowid;
-		} else if ($itemlist[$row->name][0]["highql"] < $row->highql) {
-		    $itemlist[$row->name][0]["highql"] = $row->highql;
-		    $itemlist[$row->name][0]["highid"] = $row->highid;		    
-		} else {
-			$tmp = $itemlist[$row->name];
-			$tmp[] = array("lowid" => $row->lowid, "highid" => $row->highid, "lowql" => $row->lowql, "highql" => $row->highql, "icon" => $row->icon);
-			$itemlist[$row->name] = $tmp;
-			$countitems++;
-		}
-	}
-}
-
-if ($countitems == 0) {
-  	if ($ql) {
-	    $msg = "No items found with QL <highlight>$ql<end>. Maybe try fewer keywords.";
-	} else {
-	    $msg = "No items found. Maybe try fewer keywords.";
-	}
-   	bot::send($msg, $sendto);
-	return;
-}
-
-if ($countitems > 3) {
-	forEach ($itemlist as $name => $item1) {
-	 	forEach ($item1 as $key => $item) {
-	        $list .= "<img src=rdb://".$item["icon"]."> \n";
-	        if ($ql) {
-		        $list .= "QL $ql ".bot::makeItem($item["lowid"], $item["highid"], $ql, $name);
-			} else {
-		        $list .= bot::makeItem($item["lowid"], $item["highid"], $item["highql"], $name);		  
-			}
-	
-	        if ($item["lowql"] != $item["highql"]) {
-		        $list .= " (QL".$item["lowql"]." - ".$item["highql"].")\n\n";
-	        } else {
-	    	    $list .= " (QL".$item["lowql"].")\n\n";
-			}
-	    }
-    }
-    $list = "<header>::::: Item Search Result :::::<end>\n\n".$list;
-	$list .= "\n\nItem DB Rips provided by MajorOutage";
-    $link = bot::makeLink("$countitems results in total", $list);
-    bot::send($link, $sendto);
-
-	//Show a warning if the maxitems are reached
-	if ($countitems == $this->settings["maxitems"]) {
-	    $msg = "The output has been limited to <highlight>{$this->settings["maxitems"]}<end> items. Specify your search more if your item isn't listed.";
-	    bot::send($msg, $sendto);
-	}
+if ($this->settings["itemdb_location"] == 'Xyphos.com') {
+	$msg = find_items_from_xyphos($search, $ql);
 } else {
-    forEach ($itemlist as $name => $item1) {
-   	 	forEach ($item1 as $key => $item) {
-	        if ($ql) {
-		        $link .= "\n QL $ql ".bot::makeItem($item["lowid"], $item["highid"], $ql, $name);
-			} else {
-		        $link .= "\n".bot::makeItem($item["lowid"], $item["highid"], $item["highql"], $name);
-	        }
-			
-	        if ($item["lowql"] != $item["highql"]) {
-		        $link .= " (QL".$item["lowql"]." - ".$item["highql"].")";
-	        } else {
-	            $link .= " (QL".$item["lowql"].")";
-			}
-	    }
-    }
-
-    bot::send($link, $sendto);
+	// default to local
+	$msg = find_items_from_local($search, $ql);
 }
+bot::send($msg, $sendto);
+
 ?>
