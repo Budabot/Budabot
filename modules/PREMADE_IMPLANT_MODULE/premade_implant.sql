@@ -1,1 +1,0 @@
-CREATE TABLE IF NOT EXISTS premade_implant ( slot CHAR(20) NOT NULL, profession CHAR(20) NOT NULL, ability CHAR(20) NOT NULL, shiny char(30) NOT NULL, bright char(30) NOT NULL, faded CHAR(30) NOT NULL );

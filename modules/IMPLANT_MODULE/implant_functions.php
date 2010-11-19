@@ -33,6 +33,53 @@
    **
    */
 
+// premade implant functions
+function searchByProfession($profession) {
+	global $db;
+
+	$sql = "SELECT * FROM premade_implant WHERE profession = '$profession' ORDER BY slot";
+	$db->query($sql);
+	return $db->fObject("all");
+}
+
+function searchBySlot($slot) {
+	global $db;
+
+	$sql = "SELECT * FROM premade_implant WHERE slot = '$slot' ORDER BY shiny, bright, faded";
+	$db->query($sql);
+	return $db->fObject("all");
+}
+
+function searchByModifier($modifier) {
+	global $db;
+
+	$sql = "SELECT * FROM premade_implant WHERE shiny LIKE '%$modifier%' OR bright LIKE '%$modifier%' OR faded LIKE '%$modifier%'";
+	$db->query($sql);
+	return $db->fObject("all");
+}
+
+function formatResults($implants) {
+	$msg = "\n";
+	
+	$count = 0;
+	forEach ($implants as $implant) {
+		$msg .= getFormattedLine($implant);
+		$count++;
+	}
+		
+	if ($count > 3) {
+		$msg .= "\n\nWritten by Tyrence(RK2)";
+		$msg = bot::makeLink('Results', $msg, 'text');
+	}
+	
+	return $msg;
+}
+
+function getFormattedLine($implant) {
+	return "$implant->slot $implant->profession $implant->ability $implant->shiny $implant->bright $implant->faded\n";
+}
+
+// implant functions
 function getRequirements($ql) {
 
 	global $db;
@@ -50,7 +97,7 @@ function rowMapper($row) {
 		return null;
 	}
 
-	$implant = new Implant2($row->ql, $row->treatment, $row->ability, $row->abilityShiny, $row->abilityBright, $row->abilityFaded, $row->skillShiny, $row->skillBright, $row->skillFaded);
+	$implant = new Implant($row->ql, $row->treatment, $row->ability, $row->abilityShiny, $row->abilityBright, $row->abilityFaded, $row->skillShiny, $row->skillBright, $row->skillFaded);
 
 	$implant = setHighestAndLowestQls($implant);
 

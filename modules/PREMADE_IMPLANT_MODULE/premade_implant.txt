@@ -1,8 +1,0 @@
-<header>::::: Online Commands :::::<end>
-
-<highlight>Shows searches for implants in the premade implant booths that boost skill or ability
-<tab><symbol>premade &lt;ability or skill&gt;
-
-
-<highlight>Checks for updates to the premade implant database
-<tab><symbol>updatepremade

@@ -33,18 +33,21 @@
    **
    */
    
-	require_once('implant_functions.php');
-	require_once('Implant.class.php');
+	require_once 'implant_functions.php';
+	require_once 'Implant.class.php';
 
 	$MODULE_NAME = "IMPLANT_MODULE";
 
 	//Setup
 	bot::loadSQLFile($MODULE_NAME, "implant");
+	bot::loadSQLFile($MODULE_NAME, "premade_implant");
 
 	//Private
 	bot::command("", "$MODULE_NAME/impql.php", "impql", "all", "Shows stats for implant at given ql");
 	bot::command("", "$MODULE_NAME/impreq.php", "impreq", "all", "Shows the highest ql implant that can be worn given treatment and ability");
+	bot::command("", "$MODULE_NAME/premade.php", "premade", "all", "Searches for implants out of the premade implants booths");
 
 	//Help
 	bot::help("implant", "$MODULE_NAME/implant.txt", "all", "Implant help");
+	bot::help("premade", "$MODULE_NAME/premade_implant.txt", "guild", "Premade Implant Help");
 ?>

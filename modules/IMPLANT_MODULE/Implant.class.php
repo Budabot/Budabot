@@ -33,7 +33,7 @@
    **
    */
 
-class Implant2 {
+class Implant {
 
 	public $ql;
 	public $treatment;
