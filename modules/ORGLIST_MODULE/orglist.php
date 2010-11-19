@@ -251,6 +251,11 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 
 	$this->remove_buddy($sender, 'onlineorg');
 	unset($this->data["ORGLIST_MODULE"]["check"][$sender]);
+	
+	forEach ($this->data["ORGLIST_MODULE"]["check"] as $name => $value) {
+		$this->add_buddy($name, 'onlineorg');
+		break;
+	}
 }
 
 if (isset($this->data["ORGLIST_MODULE"]) && count($this->data["ORGLIST_MODULE"]["check"]) == 0 || $end) {
