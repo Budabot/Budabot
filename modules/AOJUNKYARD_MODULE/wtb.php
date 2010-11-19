@@ -29,8 +29,6 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-require_once 'mycurl.class.php';
-
 $postFields = array();
 $postFields['lowql'] = 'MinQL';
 $postFields['highql'] = 'MaxQL';
@@ -53,7 +51,7 @@ if (preg_match("/^wtb (\\d+) (\\d+) (.+)$/i", $message, $arr)) {
 }
 
 if (!$syntax_error) {
-	$myCurl = new mycurl("http://www.aojunkyard.com/suche.php");
+	$myCurl = new MyCurl("http://www.aojunkyard.com/suche.php");
 	$myCurl->setPost($postFields);
 	$myCurl->createCurl();
 

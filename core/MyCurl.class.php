@@ -1,7 +1,7 @@
 <?php
 // taken from http://www.php.net/manual/en/book.curl.php#90821
 
-class mycurl {
+class MyCurl {
 	protected $_useragent = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1';
 	protected $_url;
 	protected $_followlocation;
