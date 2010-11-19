@@ -178,8 +178,8 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	}
 
   	if ($this->settings["timers_window"] == 2 || ($this->settings["timers_window"] >= 3 && $num_timers <= $this->settings["timers_window"])) {
-		forEach ($this->vars["Timers"] as $key => $timer) {
-			$timer = "";
+		forEach ($this->vars["Timers"] as $timer) {
+			$time_left = "";
 			$tleft = $timer->timer - time();
 			$name = $timer->name;
 			$owner = $timer->owner;
@@ -188,54 +188,54 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 			if ($mode == "msg" && $type == "msg" && ($sender == $owner)) {
 				$days = floor($tleft/86400);
 				if ($days != 0) {
-					$timer .= $days."day(s) ";
+					$time_left .= $days."day(s) ";
 				}
 
 				$hours = floor(($tleft-($days*86400))/3600);
 				if ($hours != 0) {
-					$timer .= $hours."hr(s) ";
+					$time_left .= $hours."hr(s) ";
 				}
 
 				$mins = floor(($tleft-($days*86400)-$hours*3600)/60);
 				if ($mins != 0) {
-					$timer .= $mins."min(s) ";
+					$time_left .= $mins."min(s) ";
 				}
 
 				$secs = $tleft-($days*86400)-($hours*3600)-$mins*60;
 				if ($secs != 0) {
-					$timer .= $secs."sec(s)";
+					$time_left .= $secs."sec(s)";
 				}
 				
 				if ($name == "PrimTimer") {
-					$msg .= "\n Timer has <highlight>$timer<end> left [set by <highlight>$owner<end>]";
+					$msg .= "\n Timer has <highlight>$time_left<end> left [set by <highlight>$owner<end>]";
 				} else {
-					$msg .= "\n Timer <highlight>$name<end> has <highlight>$timer<end> left [set by <highlight>$owner<end>]";  	
+					$msg .= "\n Timer <highlight>$name<end> has <highlight>$time_left<end> left [set by <highlight>$owner<end>]";  	
 				}
 			} else if ($mode == $type || ($type == "msg" && $mode != "msg")) {
 				$days = floor($tleft/86400);
 				if ($days != 0) {
-					$timer .= $days."day(s) ";
+					$time_left .= $days."day(s) ";
 				}
 
 				$hours = floor(($tleft-($days*86400))/3600);
 				if ($hours != 0) {
-					$timer .= $hours."hr(s) ";
+					$time_left .= $hours."hr(s) ";
 				}
 
 				$mins = floor(($tleft-($days*86400)-$hours*3600)/60);
 				if ($mins != 0) {
-					$timer .= $mins."min(s) ";
+					$time_left .= $mins."min(s) ";
 				}
 
 				$secs = $tleft-($days*86400)-($hours*3600)-$mins*60;
 				if ($secs != 0) {
-					$timer .= $secs."sec(s)";
+					$time_left .= $secs."sec(s)";
 				}
 				
 				if ($name == "PrimTimer") {
-					$msg .= "\n Timer has <highlight>$timer<end> left [set by <highlight>$owner<end>]";
+					$msg .= "\n Timer has <highlight>$time_left<end> left [set by <highlight>$owner<end>]";
 				} else {
-					$msg .= "\n Timer <highlight>$name<end> has <highlight>$timer<end> left [set by <highlight>$owner<end>]";  	
+					$msg .= "\n Timer <highlight>$name<end> has <highlight>$time_left<end> left [set by <highlight>$owner<end>]";  	
 				}
 			}
 		}
@@ -245,8 +245,8 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 		  	$msg = "Timers currently running:".$msg;
 		}
 	} else {
-		forEach ($this->vars["Timers"] as $key => $timer) {
-			$timer = "";
+		forEach ($this->vars["Timers"] as $timer) {
+			$time_left = "";
 			$tleft = $timer->timer - time();
 			$name = $timer->name;
 			$owner = $timer->owner;
@@ -255,50 +255,50 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 			if ($mode == "msg" && $type == "msg" && ($sender == $owner)) {
 				$days = floor($tleft/86400);
 				if ($days != 0) {
-					$timer .= $days."day(s) ";
+					$time_left .= $days."day(s) ";
 				}
 
 				$hours = floor(($tleft-($days*86400))/3600);
 				if ($hours != 0) {
-					$timer .= $hours."hr(s) ";
+					$time_left .= $hours."hr(s) ";
 				}
 
 				$mins = floor(($tleft-($days*86400)-$hours*3600)/60);
 				if ($mins != 0) {
-					$timer .= $mins."min(s) ";
+					$time_left .= $mins."min(s) ";
 				}
 
 				$secs = $tleft-($days*86400)-($hours*3600)-$mins*60;
 				if ($secs != 0) {
-					$timer .= $secs."sec(s)";
+					$time_left .= $secs."sec(s)";
 				}
 				
 				$list .= "Timername: <highlight>$name<end>\n";
-				$list .= "Timeleft: <highlight>$timer<end>\n";
+				$list .= "Timeleft: <highlight>$time_left<end>\n";
 				$list .= "Set by: <highlight>$owner<end>\n\n";
 			} else if ($mode == $type  || ($type == "msg" && $mode != "msg")) {
 				$days = floor($tleft/86400);
 				if ($days != 0) {
-					$timer .= $days."day(s) ";
+					$time_left .= $days."day(s) ";
 				}
 
 				$hours = floor(($tleft-($days*86400))/3600);
 				if ($hours != 0) {
-					$timer .= $hours."hr(s) ";
+					$time_left .= $hours."hr(s) ";
 				}
 
 				$mins = floor(($tleft-($days*86400)-$hours*3600)/60);
 				if ($mins != 0) {
-					$timer .= $mins."min(s) ";
+					$time_left .= $mins."min(s) ";
 				}
 
 				$secs = $tleft-($days*86400)-($hours*3600)-$mins*60;
 				if ($secs != 0) {
-					$timer .= $secs."sec(s)";
+					$time_left .= $secs."sec(s)";
 				}
 				
 				$list .= "Timername: <highlight>$name<end>\n";
-				$list .= "Timeleft: <highlight>$timer<end>\n";
+				$list .= "Timeleft: <highlight>$time_left<end>\n";
 				$list .= "Set by: <highlight>$owner<end>\n\n";
 			}
 		}
