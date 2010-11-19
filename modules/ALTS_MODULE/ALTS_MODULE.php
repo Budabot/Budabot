@@ -1,4 +1,6 @@
 <?php
+	require_once 'Alts.class.php';
+
 	$MODULE_NAME = "ALTS_MODULE";
 	
 	bot::loadSQLFile($MODULE_NAME, "alts");
