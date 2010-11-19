@@ -49,8 +49,8 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr)) {
 		}
 		
 		/* check if player is already a main or assigned to someone else */
-		$temp_alts = Alts::get_alts($main);
-		$temp_main = Alts::get_main($sender);
+		$temp_alts = Alts::get_alts($name);
+		$temp_main = Alts::get_main($name);
 		if ($temp_alts != null || $temp_main != null) {
 			$other_registered .= $name . ' ';
 			continue;
@@ -220,7 +220,7 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr)) {
 			$list .= "<red>Offline<end>\n";
 		}
 	}
-	$msg = $this->makeLink($main."`s Alts", $list);
+	$msg = $this->makeLink($main."'s Alts", $list);
 	$this->send($msg, $sendto);
 } else {
 	$syntax_error = true;
