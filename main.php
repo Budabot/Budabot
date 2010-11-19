@@ -32,14 +32,14 @@
 $version = "1.0_GA";
 
 echo "\n\n\n\n\n
-		**************************************************
-		****         Budabot Version: $version           ****
-		****    written by Sebuda & Derroylo(RK2)     ****
-		****                Project Site:             ****
-		****    http://code.google.com/p/budabot2/    ****
-		****               Support Forum:             ****
-		****          http://www.budabot.com/         ****
-		**************************************************
+	**************************************************
+	****         Budabot Version: $version          ****
+	****    written by Sebuda & Derroylo(RK2)     ****
+	****                Project Site:             ****
+	****    http://code.google.com/p/budabot2/    ****
+	****               Support Forum:             ****
+	****          http://www.budabot.com/         ****
+	**************************************************
 \n";
 
 date_default_timezone_set("UTC");

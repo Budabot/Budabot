@@ -41,6 +41,7 @@
    *
    */
 
+  include 'core/MMDBParser.class.php';
 
   if((float)phpversion() < 5.0)
   {
@@ -1195,10 +1196,9 @@
 				case "R":
 					$cat = $this->b85g($msg);
 					$ins = $this->b85g($msg);
-					if(!isset(self::$mmdb[$cat]) || !isset(self::$mmdb[$cat][$ins])) {
+					$str = MMDBParser::get_message_string($cat, $ins);
+					if ($str === null) {
 						$str = "Unknown ($cat, $ins)";
-					} else {
-						$str = self::$mmdb[$cat][$ins];
 					}
 					$args[] = $str;
 					break;
@@ -1213,8 +1213,9 @@
 		}
 		
 		$this->args = $args;
-		if (isset(AOExtMsg::$mmdb[$this->category][$this->instance])) {
-			$this->message = vsprintf(AOExtMsg::$mmdb[$this->category][$this->instance], $args);
+		$message_string = MMDBParser::get_message_string($cat, $ins);
+		if ($message_string !== null) {
+			$this->message = vsprintf($message_string, $args);
 		}
 	}
 

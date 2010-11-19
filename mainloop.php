@@ -40,7 +40,7 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
     $php_exec = ".\win32\php.exe -c php-win.ini"; 
 } else { 
     $php_exec = "php"; 
-} 
+}
 
 $php_file = "main.php";
 $config_file = $argv[1];
@@ -51,4 +51,5 @@ while (true) {
         die();
 	}
 }
+
 ?>
