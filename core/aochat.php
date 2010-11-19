@@ -41,7 +41,7 @@
    *
    */
 
-  include 'core/MMDBParser.class.php';
+  include 'MMDBParser.class.php';
 
   if((float)phpversion() < 5.0)
   {
