@@ -355,16 +355,19 @@ class bot extends AOChat{
 			if (strlen($content) > $this->settings["max_blob_size"]) {  //Split the windows if they are too big
 			  	$content = explode("\n", $content);
 				$page = 1;
+				$page_size = 0;
 			  	forEach ($content as $line) {
-					if ($page > 1 && $display) {
-						$result[$page] .= "<header>::::: $name Page $page :::::<end>\n";
-					}
-					$display = false;
-				    $result[$page] .= $line."\n";
-				    if (strlen($result[$page]) >= $this->settings["max_blob_size"]) {
+					$line .= "\n";  // preserve newline char
+					$line_length = strlen($line);
+					if ($page_size + $line_length < $this->settings["max_blob_size"]) {
+						$result[$page] .= $line;
+						$page_size += $line_length;
+				    } else {
 						$result[$page] = "<a $style href=\"text://".$this->settings["default window color"].$result[$page]."\">$name</a> (Page <highlight>$page<end>)";
 				    	$page++;
-						$display = true;
+						
+						$result[$page] .= "<header>::::: $name Page $page :::::<end>\n";
+						$page_size = strlen($result[$page]);
 					}
 				}
 				$result[$page] = "<a $style href=\"text://".$chatBot->settings["default window color"].$result[$page]."\">$name</a> (Page <highlight>$page - End<end>)";
