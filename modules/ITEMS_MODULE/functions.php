@@ -19,6 +19,9 @@ function find_items_from_xyphos($search, $ql = null) {
 }
 
 function find_items_from_local($search, $ql) {
+	global $chatBot;
+	global $db;
+
 	$tmp = explode(" ", $search);
 	$first = true;
 	forEach ($tmp as $key => $value) {
@@ -36,7 +39,7 @@ function find_items_from_local($search, $ql) {
 		$query .= " AND `lowql` <= $ql AND `highql` >= $ql";
 	}
 
-	$db->query("SELECT * FROM aodb WHERE $query ORDER BY `name` LIMIT 0, {$this->settings["maxitems"]}");
+	$db->query("SELECT * FROM aodb WHERE $query ORDER BY `name` LIMIT 0, {$chatBot->settings["maxitems"]}");
 	$num = $db->numrows();
 	if ($num == 0) {
 		if ($ql) {
@@ -83,9 +86,9 @@ function find_items_from_local($search, $ql) {
 			forEach ($item1 as $key => $item) {
 				$list .= "<img src=rdb://".$item["icon"]."> \n";
 				if ($ql) {
-					$list .= "QL $ql ".bot::makeItem($item["lowid"], $item["highid"], $ql, $name);
+					$list .= "QL $ql ".$chatBot->makeItem($item["lowid"], $item["highid"], $ql, $name);
 				} else {
-					$list .= bot::makeItem($item["lowid"], $item["highid"], $item["highql"], $name);		  
+					$list .= $chatBot->makeItem($item["lowid"], $item["highid"], $item["highql"], $name);		  
 				}
 		
 				if ($item["lowql"] != $item["highql"]) {
@@ -99,16 +102,16 @@ function find_items_from_local($search, $ql) {
 		$blob = "<header>::::: Item Search Result :::::<end>\n\n";
 		$blob .= $list;
 		$blob .= "\n\nItem DB Rips provided by MajorOutage";
-		$link = bot::makeLink("$countitems results in total", $blob);
+		$link = $chatBot->makeLink("$countitems results in total", $blob);
 
 		return $link;
 	} else {
 		forEach ($itemlist as $name => $item1) {
 			forEach ($item1 as $key => $item) {
 				if ($ql) {
-					$link .= "\n QL $ql ".bot::makeItem($item["lowid"], $item["highid"], $ql, $name);
+					$link .= "\n QL $ql ".$chatBot->makeItem($item["lowid"], $item["highid"], $ql, $name);
 				} else {
-					$link .= "\n".bot::makeItem($item["lowid"], $item["highid"], $item["highql"], $name);
+					$link .= "\n".$chatBot->makeItem($item["lowid"], $item["highid"], $item["highql"], $name);
 				}
 				
 				if ($item["lowql"] != $item["highql"]) {
