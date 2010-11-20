@@ -1,28 +1,33 @@
 <?php
 	require_once 'Towers.class.php';
+	require_once 'functions.php';
 
 	$MODULE_NAME = "TOWERS_MODULE";
 
-	//Tower messages
-    bot::event("towers", "$MODULE_NAME/towers_messages.php", "none", "Show Attack Messages in chat"); 
-	
-	bot::command("", "$MODULE_NAME/towers_result.php", "battle", "all", "Shows the last Tower Attack messages");
-	bot::command("", "$MODULE_NAME/towers_result.php", "battles", "all", "Shows the last Tower Attack messages");  // alias for !battle
-  	bot::command("", "$MODULE_NAME/towers_result.php", "victory", "all", "Shows the last Tower Battle results");
+	bot::loadSQLFile($MODULE_NAME, "tower_attack");
+	bot::loadSQLFile($MODULE_NAME, "scout_info");
+	bot::loadSQLFile($MODULE_NAME, "tower_site");
 
-	bot::regGroup("Tower_Battle", $MODULE_NAME, "Show Tower Attack Results", "battle", "victory", "battles");
-	
-	//Land Control Areas
-  	bot::command("", "$MODULE_NAME/land_control_areas.php", "lca", "all", "Shows Infos about Land Control Areas");
+	bot::command("", "$MODULE_NAME/scout.php", "forcescout", "all", "adds tower info to watch list (bypasses some of the checks)");
+	bot::command("", "$MODULE_NAME/scout.php", "scout", "all", "adds tower info to watch list");
+
+	bot::command("", "$MODULE_NAME/opentimes.php", "opentimes", "all", "shows status of towers");
+	bot::command("", "$MODULE_NAME/lc.php", "lc", "all", "shows status of towers");
+
+	bot::command("", "$MODULE_NAME/attacks.php", "attacks", "all", "Shows the last Tower Attack messages");
+	bot::command("", "$MODULE_NAME/attacks.php", "battle", "all", "Shows the last Tower Attack messages");
+	bot::command("", "$MODULE_NAME/attacks.php", "battles", "all", "Shows the last Tower Attack messages");
+
+  	bot::command("", "$MODULE_NAME/victory.php", "victory", "all", "Shows the last Tower Battle results");
 
 	bot::addsetting("tower_attack_spam", "Layout types when displaying tower attacks", "edit", "1", "off;compact;normal;full", '0;1;2;3', "mod");
 	bot::addsetting("tower_faction_def", "Display certain factions defending", "edit", "7", "none;clan;neutral;clan+neutral;omni;clan+omni;neutral+omni;all", '0;1;2;3;4;5;6;7', "mod");
 	bot::addsetting("tower_faction_atk", "Display certain factions attacking", "edit", "7", "none;clan;neutral;clan+neutral;omni;clan+omni;neutral+omni;all", '0;1;2;3;4;5;6;7', "mod");
 
-	//Setup
-	bot::loadSQLFile($MODULE_NAME, "towerranges");
-	
-	//Help files
-	bot::help("towers", "$MODULE_NAME/towers.txt", "all", "Show Tower messages", "Towers");
-	bot::help("lca", "$MODULE_NAME/lca.txt", "all", "Show Info about Land Control Areas", "Towers");
+	bot::event("towers", "$MODULE_NAME/attack_messages.php", "none", "Record attack messages");
+	bot::event("towers", "$MODULE_NAME/victory_messages.php", "none", "Record victory messages");
+
+	//Helpfiles
+	bot::help("towers", "$MODULE_NAME/towers.txt", "guild", "Show tower commands");
+	bot::help("lc", "$MODULE_NAME/lc.txt", "all", "How to use land control commands");
 ?>

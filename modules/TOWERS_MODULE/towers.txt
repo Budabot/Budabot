@@ -3,13 +3,13 @@
 <red>Remember that the bot needs at least Squad Commander to be able to see Tower Messages<end>
 
 <highlight>To see the last attack messages:<end>
-<tab><symbol>battle
+<tab><symbol>attacks
 
 <highlight>To see the last attack messages for specific person/org/zone:<end>
-<tab><symbol>battle lucier
+<tab><symbol>attacks lucier
 
 <highlight>To see the last attack messages with a wildcard search:<end>
-<tab><symbol>battle lucier%
+<tab><symbol>attacks lucier%
 
 <highlight>To see the last tower battle result messages:<end>
 <tab><symbol>victory
