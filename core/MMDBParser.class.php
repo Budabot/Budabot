@@ -3,12 +3,79 @@
 class MMDBParser {
 	private static $mmdb = array();
 
-	public static function get_message_string($categoryId, $instanceId, $filename = "data/text.mdb") {
+	public static function get_message_string($categoryId, $instanceId) {
 		// check for entry in cache
 		if (isset(MMDBParser::$mmdb[$categoryId][$instanceId])) {
 			return MMDBParser::$mmdb[$categoryId][$instanceId];
 		}
+		
+		$in = MMDBParser::open_file();
+		if ($in === null) {
+			return null;
+		}
 
+		// start at offset = 8 since that is where the categories start
+		// find the category
+		$category = MMDBParser::find_entry($in, $categoryId, 8);
+		if ($category === null) {
+			echo "Could not find categoryID: '{$categoryId}'\n";
+			fclose($in);
+			return null;
+		}
+
+		// find the instance
+		$instance = MMDBParser::find_entry($in, $instanceId, $category['offset']);
+		if ($instance === null) {
+			echo "Could not find instance id: '{$instanceId}' for categoryId: '{$categoryId}'\n";
+			fclose($in);
+			return null;
+		}
+
+		fseek($in, $instance['offset']);
+		$message = MMDBParser::read_string($in);
+		MMDBParser::$mmdb[$categoryId][$instanceId] = $message;
+
+		fclose($in);
+
+		return $message;
+	}
+	
+	public static function find_all_instances_in_category($categoryId, $filename = "data/text.mdb") {
+		$in = MMDBParser::open_file();
+		if ($in === null) {
+			return null;
+		}
+		
+		// start at offset = 8 since that is where the categories start
+		// find the category
+		$category = MMDBParser::find_entry($in, $categoryId, 8);
+		if ($category === null) {
+			echo "Could not find categoryID: '{$categoryId}'\n";
+			fclose($in);
+			return null;
+		}
+
+		// find all instances
+		$instances = array();
+		fseek($in, $category['offset']);
+		do {
+			$previousInstance = $instance;
+			$instance = MMDBParser::read_entry($in);
+			$instances[] = $instance;
+		} while ($previousInstance == null || $instance['id'] > $previousInstance['id']);
+		
+		// for each instance found, get the message and add to array (instanceId => message)
+		$array = array();
+		forEach ($instances as $instance) {
+			fseek($in, $instance['offset']);
+			$message = MMDBParser::read_string($in);
+			$array[$instance['id']] = $message;
+		}
+		
+		return $array;
+	}
+	
+	private static function open_file($filename = "data/text.mdb") {
 		$in = fopen($filename, 'rb');
 		if (!$in) {
 			echo "Could not open {$filename} file\n";
@@ -23,31 +90,8 @@ class MMDBParser {
 			fclose($in);
 			return null;
 		}
-
-		// start at offset = 8 since that is where the categories start
-		// find the category
-		$entry = MMDBParser::find_entry($in, $categoryId, 8);
-		if ($entry == null) {
-			echo "Could not find categoryID: '{$categoryId}'\n";
-			fclose($in);
-			return null;
-		}
-
-		// find the instance
-		$entry = MMDBParser::find_entry($in, $instanceId, $entry['offset']);
-		if ($entry == null) {
-			echo "Could not find instance id: '{$instanceId}' for categoryId: '{$categoryId}'\n";
-			fclose($in);
-			return null;
-		}
-
-		fseek($in, $entry['offset']);
-		$message = MMDBParser::read_string($in);
-		MMDBParser::$mmdb[$categoryId][$instanceId] = $message;
-
-		fclose($in);
-
-		return $message;
+		
+		return $in;
 	}
 	
 	private static function find_entry(&$in, $id, $offset) {

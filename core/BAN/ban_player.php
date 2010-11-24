@@ -166,7 +166,7 @@ if (preg_match("/^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+) (for
 	$who = $arr[1];
 	
 	if ($this->banlist[$who]["name"] == $who) {
-	  	bot::send("<red>The organisation $who is already banned.<end>", $sender);
+	  	bot::send("<red>The organization $who is already banned.<end>", $sendto);
 		return;
 	}
 	
