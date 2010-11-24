@@ -1152,7 +1152,7 @@
 		}
 		
 		$this->args = $args;
-		$message_string = MMDBParser::get_message_string($cat, $ins);
+		$message_string = MMDBParser::get_message_string($this->category, $this->instance);
 		if ($message_string !== null) {
 			$this->message = vsprintf($message_string, $args);
 		}
