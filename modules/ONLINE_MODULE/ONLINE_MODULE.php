@@ -1,6 +1,9 @@
 <?php
 	$MODULE_NAME = "ONLINE_MODULE";
 
+	//Setup of the Online Modules
+	bot::event("setup", "$MODULE_NAME/setup.php");
+
 	//Lastseen
 	bot::command("", "$MODULE_NAME/lastseen.php", "lastseen", "guild", "Shows the logoff time of a player");
 
