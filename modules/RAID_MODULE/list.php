@@ -32,6 +32,7 @@
 global $loot;
 global $raidloot;
 global $vote;
+
 if (preg_match("/^list$/i", $message)) {
 	if ($this->vars["raid_status"] == "") {
 	  	if (is_array($loot)) {

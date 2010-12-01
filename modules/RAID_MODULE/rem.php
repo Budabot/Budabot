@@ -31,6 +31,7 @@
 
 global $loot;
 global $raidloot;
+
 if (preg_match("/^rem$/i", $message)) {
 	if ($this->vars["raid_status"] != "" && $this->vars["raid_pts"] == 0) {
 	  	forEach ($raidloot as $key => $value) {

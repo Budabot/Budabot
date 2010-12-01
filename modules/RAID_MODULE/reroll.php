@@ -78,4 +78,5 @@ if (preg_match("/^reroll$/i", $message)) {
 } else {
 	$syntax_error = true;
 }
+
 ?>

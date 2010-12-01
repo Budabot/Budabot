@@ -102,4 +102,5 @@ if (preg_match("/^flatroll$/i", $message) || preg_match("/^rollloot$/i", $messag
 		bot::send($msg.$rerollmsg, $sendto);
 	}
 }
+
 ?>

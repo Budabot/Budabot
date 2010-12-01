@@ -139,17 +139,16 @@ unset($settings["DB password"]);
 mkdir("./logs/{$vars['name']}.{$vars['dimension']}");
 
 // Call Main Loop
-main(true, $chatBot);
+main($chatBot);
 /*
 ** Name: main
 ** Main Loop
 ** Inputs: (bool)$forever
 ** Outputs: None
-*/	function main($forever, &$chatBot) {
+*/	function main(&$chatBot) {
 		$start = time();
 		
-		// Create infinite loop
-		while ($forever === true) {					
+		while (true) {
 			$chatBot->ping();
 			$chatBot->crons();
 			if ($exec_connected_events == false && ((time() - $start) > 5))	{
