@@ -1,4 +1,4 @@
-<header>::::: Changing of Botsettings :::::<end>
+<header>::::: Changing of Bot Settings :::::<end>
 
 You can change the settings of this bot with this bot. Which settings you are getting depends on which modules you have installed on the bot but there are some basic ones too which every bot has. For example you can change the color for the different channels here easy.
 

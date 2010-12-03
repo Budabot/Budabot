@@ -146,7 +146,12 @@ if (preg_match("/^settings$/i", $message)) {
 				}
 			}
 		}
+		
+		if ($row->help != '') {
+			$link .= "\n\n" . file_get_contents($row->help);
+		}
 	}
+	
   	$msg = bot::makeLink("Settings Info for $arr[1]", $link);
  	bot::send($msg, $sendto);
 } else if (preg_match("/^settings save ([a-z0-9_]+) (.+)$/i", $message, $arr)) {
@@ -160,42 +165,49 @@ if (preg_match("/^settings$/i", $message)) {
 		$options = explode(";", $row->options);
 		$new_setting = "";
 		if ($options[0] == "color") {
-			if(preg_match("/^#([0-9a-f]{6})$/i", $change_to_setting, $col)) 
+			if (preg_match("/^#([0-9a-f]{6})$/i", $change_to_setting, $col)) {
 				$new_setting = "<font color='$col[0]'>";
-			else
-				$msg = "<highlight>{$change_to_setting}<end> this isn't a valid HTML-Color.";
-		} else if ($options[0] == "text") {
-		  	if($options[1] <= 50 && $options[1] != "") {
-			 	if(strlen($change_to_setting) > $options[1]) {
-				   	$msg = "Your text can't be longer than {$options[1]} characters.";
-				} else
-					$new_setting = $change_to_setting;
 			} else {
-			 	if(strlen($change_to_setting) > 50) {
+				$msg = "<highlight>{$change_to_setting}<end> isn't a valid HTML-Color.";
+			}
+		} else if ($options[0] == "text") {
+		  	if ($options[1] <= 50 && $options[1] != "") {
+			 	if (strlen($change_to_setting) > $options[1]) {
+				   	$msg = "Your text can't be longer than {$options[1]} characters.";
+				} else {
+					$new_setting = $change_to_setting;
+				}
+			} else {
+			 	if (strlen($change_to_setting) > 50) {
 				   	$msg = "Your text can't be longer than 50 characters.";
-				} else
-					$new_setting = $change_to_setting;	  	
+				} else {
+					$new_setting = $change_to_setting;
+				}
 			}
 		} else if ($options[0] == "number") {
-		  	if($options[1] != "") {
+		  	if ($options[1] != "") {
 			  	$num = explode("-", $options[1]);
-				if($change_to_setting >= $num[0] && $change_to_setting <= $num[1])
+				if ($change_to_setting >= $num[0] && $change_to_setting <= $num[1]) {
 					$new_setting = $change_to_setting;
-				else
+				} else {
 					$msg = "Only numbers between <highlight>{$num[0]}<end> and <highlight>{$num[1]}<end> are allowed.";
-			} else
+				}
+			} else {
 				$new_setting = $change_to_setting;
+			}
 		} else if ($row->intoptions != "0" && $row->intoptions != '') {
 		  	$intoptions = explode(";", $row->intoptions);
-			if(in_array($change_to_setting, $intoptions))
+			if (in_array($change_to_setting, $intoptions)) {
 				$new_setting = $change_to_setting;
-			else
+			} else {
 				$msg = "This isn't a correct option for this setting.";
+			}
 		} else {
-			if(in_array($change_to_setting, $options))
+			if (in_array($change_to_setting, $options)) {
 				$new_setting = $change_to_setting;
-			else
+			} else {
 				$msg = "This isn't a correct option for this setting.";
+			}
 		}
 	}
 	if ($new_setting != "") {
@@ -206,14 +218,15 @@ if (preg_match("/^settings$/i", $message)) {
 		if ($row->source == "cfg") {
 			$lines = file("config.php");
 			forEach ($lines as $key => $line) {
-			  	if(preg_match("/^(.+)vars\[('|\")(.+)('|\")](.*)=(.*)\"(.*)\";(.*)$/i", $line, $arr) && ($arr[3] == $name_setting))
+			  	if (preg_match("/^(.+)vars\[('|\")(.+)('|\")](.*)=(.*)\"(.*)\";(.*)$/i", $line, $arr) && ($arr[3] == $name_setting)) {
   					$lines[$key] = "$arr[1]vars['$arr[3]']$arr[5]=$arr[6]\"{$this->vars[$arr[3]]}\"; $arr[8]";
-				elseif(preg_match("/^(.+)vars\[('|\")(.+)('|\")](.*)=(.*)([0-9]+)(.*);(.*)$/i", $line, $arr) && ($arr[3] == $name_setting))
+				} else if (preg_match("/^(.+)vars\[('|\")(.+)('|\")](.*)=(.*)([0-9]+)(.*);(.*)$/i", $line, $arr) && ($arr[3] == $name_setting)) {
   					$lines[$key] = "$arr[1]vars['$arr[3]']$arr[5]=$arr[6]{$this->vars[$arr[3]]}; $arr[9]";
-			  	elseif(preg_match("/^(.+)settings\[('|\")(.+)('|\")](.*)=(.*)\"(.*)\";(.*)$/i", $line, $arr)  && ($arr[3] == $name_setting))
+			  	} else if (preg_match("/^(.+)settings\[('|\")(.+)('|\")](.*)=(.*)\"(.*)\";(.*)$/i", $line, $arr)  && ($arr[3] == $name_setting)) {
 					$lines[$key] = "$arr[1]settings['$arr[3]']$arr[5]=$arr[6]\"{$this->settings[$arr[3]]}\"; $arr[8]";
-				elseif(preg_match("/^(.+)settings\[('|\")(.+)('|\")](.*)=([ 	]+)([0-9]+);(.*)$/i", $line, $arr)  && ($arr[3] == $name_setting))
+				} else if (preg_match("/^(.+)settings\[('|\")(.+)('|\")](.*)=([ 	]+)([0-9]+);(.*)$/i", $line, $arr)  && ($arr[3] == $name_setting)) {
 					$lines[$key] = "$arr[1]settings['$arr[3]']$arr[5]=$arr[6]{$this->settings[$arr[3]]}; $arr[8]";
+				}
 			}
 			file_put_contents("config.php", $lines);
 		}
