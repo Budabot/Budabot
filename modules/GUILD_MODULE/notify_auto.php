@@ -57,11 +57,16 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
         // Add him as a buddy and put his infos into the DB
         $db->query("INSERT INTO org_members_<myname> (`mode`, `name`, `firstname`, `lastname`, `guild`, `rank_id`, `rank`, `level`, `profession`, `gender`, `breed`, `ai_level`, `ai_rank`)
                     VALUES ('man',
-                    '".$name."', '".$whois -> firstname."',
-                    '".$whois -> lastname."', '".$this->vars["my guild"]."',
-                    '".$whois -> rank_id."', '".$whois -> rank."',
-                    '".$whois -> level."', '".$whois -> prof."',
-                    '".$whois -> gender."', '".$whois -> breed."',
+                    '".$name."',
+					'".str_replace("'", "''", $whois -> firstname)."',
+                    '".str_replace("'", "''", $whois -> lastname)."',
+					'".str_replace("'", "''", $this -> vars["my guild"])."',
+                    '".$whois -> rank_id."',
+					'".$whois -> rank."',
+                    '".$whois -> level."',
+					'".$whois -> prof."',
+                    '".$whois -> gender."',
+					'".$whois -> breed."',
                     '".$whois -> ai_level."',
                     '".$whois -> ai_rank."')");                            
 		$this->add_buddy($name, 'org');
@@ -69,7 +74,7 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
     	$this->guildmembers[$name] = 6;
     }
     $db->query("INSERT INTO guild_chatlist_<myname> (`name`, `profession`, `guild`, `breed`, `level`, `ai_level`)
-                VALUES ('".$name."', '".$whois->prof."', '".$this->vars["my guild"]."',
+                VALUES ('".$name."', '".$whois->prof."', '".str_replace("'", "''", $this->vars["my guild"])."',
                    '".$whois->breed."', '".$whois->level."', '".$whois->ai_level."')");     
     bot::send($msg, "guild");
 } else if (preg_match("/^(.+) kicked (.+) from your organization.$/", $message, $arr) || preg_match("/^(.+) removed inactive character (.+) from your organization.$/", $message, $arr)) {

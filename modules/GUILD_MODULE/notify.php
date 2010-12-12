@@ -66,11 +66,16 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
 		}
         $db->query("INSERT INTO org_members_<myname> (`mode`, `name`, `firstname`, `lastname`, `guild`, `rank_id`, `rank`, `level`, `profession`, `gender`, `breed`, `ai_level`, `ai_rank`)
                     VALUES ('man',
-                    '".$name."', '".$whois -> firstname."',
-                    '".$whois -> lastname."', '".$whois -> org."',
-                    '".$whois -> rank_id."', '".$whois -> rank."',
-                    '".$whois -> level."', '".$whois -> prof."',
-                    '".$whois -> gender."', '".$whois -> breed."',
+                    '".$name."',
+					'".str_replace("'", "''", $whois -> firstname)."',
+                    '".str_replace("'", "''", $whois -> lastname)."',
+					'".str_replace("'", "''", $whois -> org)."',
+                    '".$whois -> rank_id."',
+					'".$whois -> rank."',
+                    '".$whois -> level."',
+					'".$whois -> prof."',
+                    '".$whois -> gender."',
+					'".$whois -> breed."',
                     '".$whois -> ai_level."',
                     '".$whois -> ai_rank."')");
     	$msg = "<highlight>".$name."<end> has been added to the Notify list.";
