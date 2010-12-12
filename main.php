@@ -136,7 +136,7 @@ unset($settings["DB username"]);
 unset($settings["DB password"]);
 
 // make sure logging directory exists
-mkdir("./logs/{$vars['name']}.{$vars['dimension']}");
+mkdir("./logs/{$vars['name']}.{$vars['dimension']}", 0775, true);
 
 // Call Main Loop
 main($chatBot);
