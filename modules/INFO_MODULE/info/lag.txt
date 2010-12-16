@@ -9,6 +9,7 @@
 <a href='chatcmd:///option Wildlife 1'>Enable</a> <a href='chatcmd:///option Wildlife 0'>Disable</a> Show wildlife
 <a href='chatcmd:///option IsSpaceShipsShown 1'>Enable</a> <a href='chatcmd:///option IsSpaceShipsShown 0'>Disable</a> Show Sace Ships
 <a href='chatcmd:///option Shadows 1'>Enable</a> <a href='chatcmd:///option Shadows 0'>Disable</a> Show Ground Shadows
+<a href='chatcmd:///fxscript Tweak_Shadowlands_SunLight_Penumbra #'>Enable</a> Tweak Shadowlands Sunlight Penumbra
 <a href='chatcmd:///fxscript Tweak_Rubi-Ka_SunLight #'>Enable</a> (zone to disable) Disable glowing in alien ships
 
 <tab> ::: Environment and Visual (Zoning Required) :::
