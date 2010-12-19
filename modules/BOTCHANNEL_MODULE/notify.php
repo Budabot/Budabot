@@ -31,7 +31,7 @@
 
 if ($type == "joinPriv") {
 	$this->vars["Guest"][$sender] = true;
-	$whois = new whois($sender);
+	$whois = Player::get_by_name($sender);
 	$db->query("INSERT INTO priv_chatlist_<myname> (`name`, `faction`, `profession`, `guild`, `breed`, `level`, `ai_level`) ".
 				"VALUES ('$sender', '$whois->faction', '$whois->prof', '$whois->org', '$whois->breed', '$whois->level', '$whois->ai_level')");
 

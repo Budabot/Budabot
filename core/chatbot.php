@@ -66,17 +66,20 @@ class bot extends AOChat{
 
 		//To reduce query's save the current commands/events in an array
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd'");
-		while($row = $db->fObject())
+		while ($row = $db->fObject()) {
 		  	$this->existing_commands[$row->type][$row->cmd] = true;
+		}
 
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd'");
-		while($row = $db->fObject())
+		while ($row = $db->fObject()) {
 		  	$this->existing_subcmds[$row->type][$row->cmd] = true;
+		}
 
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'event'");
-		while($row = $db->fObject()) {
-			if(bot::verifyNameConvention($row->file))
+		while ($row = $db->fObject()) {
+			if (bot::verifyNameConvention($row->file)) {
 			  	$this->existing_events[$row->type][$row->file] = true;
+			}
 		}
 
 		$db->query("SELECT * FROM hlpcfg_<myname>");
@@ -85,32 +88,35 @@ class bot extends AOChat{
 		}
 
 		$db->query("SELECT * FROM settings_<myname>");
-		while($row = $db->fObject()) {
+		while ($row = $db->fObject()) {
 		  	$this->existing_settings[$row->name] = true;
 		}
 
 		// Load the Core Modules -- SETINGS must be first in case the other modules have settings
-		if($this->settings['debug'] > 0) print("\n:::::::CORE MODULES::::::::\n");
-		if($this->settings['debug'] > 0) print("MODULE_NAME:(SETTINGS.php)\n");
-				include "./core/SETTINGS/SETTINGS.php";
-		if($this->settings['debug'] > 0) print("MODULE_NAME:(SYSTEM.php)\n");
-				include "./core/SYSTEM/SYSTEM.php";
-		if($this->settings['debug'] > 0) print("MODULE_NAME:(ADMIN.php)\n");
-				include "./core/ADMIN/ADMIN.php";
-		if($this->settings['debug'] > 0) print("MODULE_NAME:(BAN.php)\n");
-				include "./core/BAN/BAN.php";
-		if($this->settings['debug'] > 0) print("MODULE_NAME:(HELP.php)\n");
-				include "./core/HELP/HELP.php";
-		if($this->settings['debug'] > 0) print("MODULE_NAME:(CONFIG.php)\n");
-				include "./core/CONFIG/CONFIG.php";
-		if($this->settings['debug'] > 0) print("MODULE_NAME:(BASIC_CONNECTED_EVENTS.php)\n");
-				include "./core/BASIC_CONNECTED_EVENTS/BASIC_CONNECTED_EVENTS.php";
-		if($this->settings['debug'] > 0) print("MODULE_NAME:(PRIV_TELL_LIMIT.php)\n");
-				include "./core/PRIV_TELL_LIMIT/PRIV_TELL_LIMIT.php";
+		if ($this->settings['debug'] > 0) print("\n:::::::CORE MODULES::::::::\n");
+		if ($this->settings['debug'] > 0) print("MODULE_NAME:(SETTINGS.php)\n");
+		include "./core/SETTINGS/SETTINGS.php";
+		if ($this->settings['debug'] > 0) print("MODULE_NAME:(SYSTEM.php)\n");
+		include "./core/SYSTEM/SYSTEM.php";
+		if ($this->settings['debug'] > 0) print("MODULE_NAME:(ADMIN.php)\n");
+		include "./core/ADMIN/ADMIN.php";
+		if ($this->settings['debug'] > 0) print("MODULE_NAME:(BAN.php)\n");
+		include "./core/BAN/BAN.php";
+		if ($this->settings['debug'] > 0) print("MODULE_NAME:(HELP.php)\n");
+		include "./core/HELP/HELP.php";
+		if ($this->settings['debug'] > 0) print("MODULE_NAME:(CONFIG.php)\n");
+		include "./core/CONFIG/CONFIG.php";
+		if ($this->settings['debug'] > 0) print("MODULE_NAME:(BASIC_CONNECTED_EVENTS.php)\n");
+		include "./core/BASIC_CONNECTED_EVENTS/BASIC_CONNECTED_EVENTS.php";
+		if ($this->settings['debug'] > 0) print("MODULE_NAME:(PRIV_TELL_LIMIT.php)\n");
+		include "./core/PRIV_TELL_LIMIT/PRIV_TELL_LIMIT.php";
+		if ($this->settings['debug'] > 0) print("MODULE_NAME:(PLAYER_LOOKUP.php)\n");
+		include "./core/PLAYER_LOOKUP/PLAYER_LOOKUP.php";
+
 		$curMod = "";
 
 		// Load Plugin Modules
-		if($this->settings['debug'] > 0) print("\n:::::::PLUGIN MODULES::::::::\n");
+		if ($this->settings['debug'] > 0) print("\n:::::::PLUGIN MODULES::::::::\n");
 		//Start Transaction
 		$db->beginTransaction();
 		//Load modules
@@ -119,15 +125,15 @@ class bot extends AOChat{
 		$db->Commit();
 
 		//Load active commands
-		if($this->settings['debug'] > 0) print("\nSetting up commands.\n");
+		if ($this->settings['debug'] > 0) print("\nSetting up commands.\n");
 		$this->loadCommands();
 
 		//Load active subcommands
-		if($this->settings['debug'] > 0) print("\nSetting up subcommands.\n");
+		if ($this->settings['debug'] > 0) print("\nSetting up subcommands.\n");
 		$this->loadSubcommands();
 
 		//Load active events
-		if($this->settings['debug'] > 0) print("\nSetting up events.\n");
+		if ($this->settings['debug'] > 0) print("\nSetting up events.\n");
 		$this->loadEvents();
 
 		//kill unused vars
@@ -1772,15 +1778,13 @@ class bot extends AOChat{
 		}
 	}
 
-	/*===============================
+/*===============================
 ** Name: loadSQLFile
 ** Loads an sql file if there is an update
 ** Will load the sql file with name $namexx.xx.xx.xx.sql if xx.xx.xx.xx is greater
 ** than settings[$name . "_sql_version"]
 */	function loadSQLFile($module, $name, $forceUpdate = false) {
 		global $db;
-		global $curMod;
-		$curMod = $module;
 		$name = strtolower($name);
 		
 		// only letters, numbers, underscores are allowed

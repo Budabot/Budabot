@@ -34,7 +34,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
     $uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     if ($uid) {
-        $whois = new whois($arr[1]);
+        $whois = Player::get_by_name($arr[1]);
         if ($whois->errorCode != 0) {
         	$msg = $whois->errorInfo;
         } else {
@@ -86,7 +86,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
             $server = "Die Neue Welt";
 		}
         $msg = "";
-        $whois = new whois($name, $i);
+        $whois = Player::get_by_name($name, $i);
         if ($whois->name != "") {
             if ($whois->firstname) {
                 $msg = $whois->firstname." ";

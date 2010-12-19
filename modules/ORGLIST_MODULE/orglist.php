@@ -134,7 +134,7 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 	if (!ctype_digit($arr[2])) {
 		// Someone's name.  Doing a whois to get an orgID.
 		$name = ucfirst(strtolower($arr[2]));
-		$whois = new whois($name);
+		$whois = Player::get_by_name($name);
 		$orgid = $whois->org_id;
 
 		if (!$whois->name) {

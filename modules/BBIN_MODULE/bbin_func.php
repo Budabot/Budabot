@@ -26,7 +26,7 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot)
 		$guest = $arr[3];
 
 		// get character informations
-		$character = new whois($name, $servernum);
+		$character = Player::get_by_name($name, $servernum);
 
 		// add user to bbin_chatlist_<myname>
 		$db->query("INSERT INTO bbin_chatlist_<myname> (`name`, `faction`, `profession`, `guild`, `breed`, `level`, `ai_level`, `guest`, `dimension`, `ircrelay`) ".
@@ -151,7 +151,7 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot)
 			}
 				
 			// get character data
-			$character = new whois($name, $dimension);
+			$character = Player::get_by_name($name, $dimension);
 				
 			// add user to bbin_chatlist_<myname>
 			$db->query("INSERT INTO bbin_chatlist_<myname> (`name`, `faction`, `profession`, `guild`, `breed`, `level`, `ai_level`, `guest`, `dimension`, `ircrelay`) ".

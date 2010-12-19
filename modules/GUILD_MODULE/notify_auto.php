@@ -42,7 +42,7 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
     // Is the player name valid?
     } else {
         // Getting Player infos
-        $whois = new whois($arr[2]);
+        $whois = Player::get_by_name($arr[2]);
         if($whois->errorCode != 0) {
 		  	$whois -> firstname = "";
 		  	$whois -> lastname = "";

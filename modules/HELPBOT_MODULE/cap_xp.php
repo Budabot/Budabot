@@ -30,7 +30,7 @@
 if (preg_match("/^(capxp|capsk) ([0-9]+)/i$", $message, $arr)) {
 	//get player lvl
 	$rk_num = $this->vars["dimension"];
-	$info = new whois($sender);
+	$info = Player::get_by_name($sender);
 	$reward = $arr[2];
 
 	if ($info->errorCode != 0) {

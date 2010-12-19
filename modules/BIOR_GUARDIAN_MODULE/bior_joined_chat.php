@@ -30,7 +30,7 @@
    */
 
 global $bior;
-$whois = new whois($sender);
+$whois = Player::get_by_name($sender);
 if(($whois->prof == "Adventurer" || $whois->prof == "Keeper" || $whois->prof == "Enforcer" || $whois->prof == "Engineer") && $whois->level >= 201) {
   	$bior[$sender]["b"] = "ready";
   	$bior[$sender]["lvl"] = $whois->level;

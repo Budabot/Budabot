@@ -50,7 +50,7 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
     // Is the player name valid?
     } elseif($uid) {
         // Getting Player infos
-        $whois = new whois($name);
+        $whois = Player::get_by_name($name);
 
         // Add him as a buddy and put his infos into the DB
 		$this->add_buddy($name, 'org');

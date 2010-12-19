@@ -23,7 +23,7 @@ if (preg_match("/^The (Clan|Neutral|Omni) organization (.+) just entered a state
 	return;
 }
 
-$whois = new whois($att_player);
+$whois = Player::get_by_name($att_player);
 if ($att_side) {
 	$whois->faction = $att_side;
 }

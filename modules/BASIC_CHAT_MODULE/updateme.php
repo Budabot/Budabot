@@ -38,7 +38,7 @@ if (preg_match("/^updateme$/i", $message)) {
 		  	return;
 		}
 	    
-	    $info = new whois($sender);
+	    $info = Player::get_by_name($sender);
 	    if ($info->errorCode != 0) {
 		  	bot::send("An Error occurred while trying to update your infos. Please try again laters.", $sendto);
 		  	return;
