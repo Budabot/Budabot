@@ -146,9 +146,9 @@ if (preg_match("/^settings$/i", $message)) {
 				}
 			}
 		}
-		
+
 		if ($row->help != '') {
-			$link .= "\n\n" . file_get_contents($row->help);
+			$link .= "\n\n" . file_get_contents('./core/' . $row->help) . file_get_contents('./modules/' . $row->help);
 		}
 	}
 	
@@ -240,7 +240,7 @@ if (preg_match("/^settings$/i", $message)) {
 		if ($row->help == '') {
 			$msg = "No help found for this setting.";
 		} else {
-			$data = file_get_contents($row->help);
+			$data = file_get_contents('./core/' . $row->help) . file_get_contents('./modules/' . $row->help);
 			if ($data === false) {
 				$msg = "Help file specified but doesn't exist for this setting.";
 			} else {

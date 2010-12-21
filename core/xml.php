@@ -92,7 +92,7 @@ class org extends xml {
 	private $org_id;
 
 	//contructor of the class
-	function __construct($org_id = 0, $rk_num = 0, $cache = 0, $force_update = false){
+	function __construct($org_id = 0, $rk_num = 0, $cache = null, $force_update = false){
 		$this->org_id = $org_id;
 	
 		//if no server number is specified use the one on which the bot is logged in
@@ -102,7 +102,7 @@ class org extends xml {
 		}
 
 		//if no specific cachefolder is defined use the one from config.php
-		if($cache == 0) {
+		if($cache == null) {
 		  	global $vars;
 			$cache = $vars["cachefolder"];
 		}
