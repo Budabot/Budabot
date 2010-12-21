@@ -41,7 +41,7 @@ class bot extends AOChat{
 */	function __construct($vars, $settings){
 		parent::__construct("callback");
 
-		global $db;
+		$db = db::get_instance();
 		global $curMod;
 
 		$curMod = "Basic Settings";
@@ -298,7 +298,7 @@ class bot extends AOChat{
 ** Name: connectedEvents
 ** Execute Events that needs to be executed right after login
 */	function connectedEvents(){
-		global $db;
+		$db = db::get_instance();
 
 		// Check files, for all 'connect events'.
 		forEach ($this->_connect as $filename) {
@@ -492,7 +492,7 @@ class bot extends AOChat{
 ** Name: loadModules
 ** Load all Modules
 */	function loadModules(){
-		global $db;
+		$db = db::get_instance();
 		global $curMod;
 		if ($d = dir("./modules")) {
 			while (false !== ($entry = $d->read())) {
@@ -513,7 +513,7 @@ class bot extends AOChat{
 ** Name: loadCommands
 **  Load the Commands that are set as active
 */	function loadCommands() {
-	  	global $db;
+	  	$db = db::get_instance();
 		//Delete commands that are not verified
 		$db->query("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'cmd'");
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'cmd'");
@@ -527,7 +527,7 @@ class bot extends AOChat{
 ** Name: loadSubcommands
 **  Load the Commands that are set as active
 */	function loadSubcommands() {
-	  	global $db;
+	  	$db = db::get_instance();
 		//Delete subcommands that are not verified
 		$db->query("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'subcmd'");
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd'");
@@ -542,7 +542,7 @@ class bot extends AOChat{
 ** Name: loadEvents
 **  Load the Events that are set as active
 */	function loadEvents() {
-	  	global $db;
+	  	$db = db::get_instance();
 		//Delete events that are not verified
 		$db->query("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'event'");
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'event'");
@@ -557,7 +557,7 @@ class bot extends AOChat{
 ** 	Register a command
 */	function command($type, $filename, $command, $admin = 'all', $description = ''){
 		global $curMod;
-		global $db;
+		$db = db::get_instance();
 
 		if (!bot::processCommandArgs($type, $admin)) {
 			echo "invalid args for command '$command'!!\n";
@@ -585,7 +585,7 @@ class bot extends AOChat{
 ** Name: regcommand
 **  Sets an command as active
 */	function regcommand($type, $filename, $command, $admin = 'all') {
-		global $db;
+		$db = db::get_instance();
 
 	  	if($this->settings['debug'] > 1) print("Activate Command:($command) Admin Type:($admin)\n");
 		if($this->settings['debug'] > 1) print("            File:($filename) Type:($type)\n");
@@ -650,7 +650,7 @@ class bot extends AOChat{
 ** Name: unregcommand
 ** 	Deactivates an command
 */	function unregcommand($type, $filename, $command) {
-  		global $db;
+  		$db = db::get_instance();
 		$command = strtolower($command);
 
 	  	if($this->settings['debug'] > 1) print("Deactivate Command:($command) File:($filename)\n");
@@ -694,7 +694,7 @@ class bot extends AOChat{
 ** Name: Subcommand
 ** 	Register a subcommand
 */	function subcommand($type, $filename, $command, $admin = 'all', $dependson, $description = 'none') {
-		global $db;
+		$db = db::get_instance();
 		global $curMod;
 
 		if (!bot::processCommandArgs($type, $admin)) {
@@ -754,7 +754,7 @@ class bot extends AOChat{
 ** Name: event
 **  Registers an event
 */	function event($type, $filename, $dependson = 'none', $description = 'none'){
-		global $db;
+		$db = db::get_instance();
 		global $curMod;
 		
 		// disable depends on
@@ -781,7 +781,7 @@ class bot extends AOChat{
 ** Name: regevent
 **  Sets an event as active
 */	function regevent($type, $filename){
-		global $db;
+		$db = db::get_instance();
 		global $curMod;
 
 	  	if($this->settings['debug'] > 1) print("Activating Event:($type) File:($filename)\n");
@@ -1045,7 +1045,7 @@ class bot extends AOChat{
 ** Name: reggroup
 **  Register a group of commands
 */	function regGroup($group, $module = 'none', $description = 'none'){
-		global $db;
+		$db = db::get_instance();
 		global $curMod;
 		
 		$description = str_replace("'", "''", $description);
@@ -1086,7 +1086,7 @@ class bot extends AOChat{
 ** Name: addsetting
 ** Adds a setting to the list
 */	function addsetting($name, $description = 'none', $mode = 'hide', $setting = 'none', $options = 'none', $intoptions = '0', $admin = 'mod', $help = '') {
-		global $db;
+		$db = db::get_instance();
 		global $curMod;
 		$name = strtolower($name);
 
@@ -1122,7 +1122,7 @@ class bot extends AOChat{
 ** Name: savesetting
 ** Saves a setting to the db
 */	function savesetting($name, $newsetting = null) {
-		global $db;
+		$db = db::get_instance();
 		$name = strtolower($name);
 		if ($newsetting === null) {
 			return false;
@@ -1141,7 +1141,7 @@ class bot extends AOChat{
 ** Name: help
 ** Add a help command and display text file in a link.
 */	function help($command, $filename, $admin, $description, $cat) {
-	  	global $db;
+	  	$db = db::get_instance();
 		if($this->settings['debug'] > 1) print("Registering Helpfile:($filename) Cmd:($command)\n");
 		if($this->settings['debug'] > 2) sleep(1);
 
@@ -1254,7 +1254,7 @@ class bot extends AOChat{
 ** Name: processCallback
 ** Proccess all incoming messages that bot recives
 */	function processCallback($type, $args){
-		global $db;
+		$db = db::get_instance();
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -1607,7 +1607,7 @@ class bot extends AOChat{
 	}
 	
 	function handle_command($type, $message, $sender, $sendto) {
-		global $db;
+		$db = db::get_instance();
 		
 		$restricted = false;
 		
@@ -1686,7 +1686,7 @@ class bot extends AOChat{
 ** Name: crons()
 ** Call php-Scripts at certin time intervals. 2 sec, 1 min, 15 min, 1 hour, 24 hours
 */	function crons(){
-		global $db;
+		$db = db::get_instance();
 		switch($this->vars){
 			case $this->vars["2sec"] < time();
 				$this->vars["2sec"] 	= time() + 2;
@@ -1784,7 +1784,7 @@ class bot extends AOChat{
 ** Will load the sql file with name $namexx.xx.xx.xx.sql if xx.xx.xx.xx is greater
 ** than settings[$name . "_sql_version"]
 */	function loadSQLFile($module, $name, $forceUpdate = false) {
-		global $db;
+		$db = db::get_instance();
 		$name = strtolower($name);
 		
 		// only letters, numbers, underscores are allowed

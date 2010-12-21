@@ -2,7 +2,7 @@
 
 class Playfields {
 	public static function get_playfield_by_name($playfield_name) {
-		global $db;
+		$db = db::get_instance();
 		
 		$sql = "SELECT * FROM playfields WHERE `long_name` LIKE '{$playfield_name}' OR `short_name` LIKE '{$playfield_name}' LIMIT 1";
 		
@@ -11,7 +11,7 @@ class Playfields {
 	}
 	
 	public static function get_playfield_by_id($playfield_id) {
-		global $db;
+		$db = db::get_instance();
 		
 		$sql = "SELECT * FROM playfields WHERE `id` = {$playfield_id}";
 

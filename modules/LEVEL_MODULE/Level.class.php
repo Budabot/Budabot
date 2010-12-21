@@ -2,7 +2,7 @@
 
 class Level {
 	public static function get_level_info($level) {
-		global $db;
+		$db = db::get_instance();
 		
 		$sql = "SELECT * FROM levels WHERE level = $level";
 		$db->query($sql);
@@ -10,7 +10,7 @@ class Level {
 	}
 	
 	public static function find_all_levels() {
-		global $db;
+		$db = db::get_instance();
 		
 		$sql = "SELECT * FROM levels ORDER BY level";
 		$db->query($sql);

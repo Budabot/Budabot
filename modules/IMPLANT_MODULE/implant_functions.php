@@ -35,7 +35,7 @@
 
 // premade implant functions
 function searchByProfession($profession) {
-	global $db;
+	$db = db::get_instance();
 
 	$sql = "SELECT * FROM premade_implant WHERE profession = '$profession' ORDER BY slot";
 	$db->query($sql);
@@ -43,7 +43,7 @@ function searchByProfession($profession) {
 }
 
 function searchBySlot($slot) {
-	global $db;
+	$db = db::get_instance();
 
 	$sql = "SELECT * FROM premade_implant WHERE slot = '$slot' ORDER BY shiny, bright, faded";
 	$db->query($sql);
@@ -51,7 +51,7 @@ function searchBySlot($slot) {
 }
 
 function searchByModifier($modifier) {
-	global $db;
+	$db = db::get_instance();
 
 	$sql = "SELECT * FROM premade_implant WHERE shiny LIKE '%$modifier%' OR bright LIKE '%$modifier%' OR faded LIKE '%$modifier%'";
 	$db->query($sql);
@@ -81,8 +81,7 @@ function getFormattedLine($implant) {
 
 // implant functions
 function getRequirements($ql) {
-
-	global $db;
+	$db = db::get_instance();
 
 	$sql = "SELECT * FROM implant_requirements WHERE ql = $ql";
 
@@ -92,7 +91,6 @@ function getRequirements($ql) {
 }
 
 function rowMapper($row) {
-
 	if ($row == null) {
 		return null;
 	}
@@ -105,8 +103,7 @@ function rowMapper($row) {
 }
 
 function findMaxImplantQlByReqs($ability, $treatment) {
-
-	global $db;
+	$db = db::get_instance();
 
 	$sql = "SELECT * FROM implant_requirements WHERE ability <= $ability AND treatment <= $treatment ORDER BY ql DESC LIMIT 1";
 
@@ -116,7 +113,6 @@ function findMaxImplantQlByReqs($ability, $treatment) {
 }
 
 function formatClusterBonuses(&$obj) {
-
 	$msg = "\n For ql $obj->ql clusters,\n\n";
 
 	$msg .= "You will gain for most skills:\n" .
@@ -154,7 +150,6 @@ function formatClusterBonuses(&$obj) {
 }
 
 function setHighestAndLowestQls(&$obj) {
-
 	$obj = _setHighestAndLowestQls($obj, 'abilityShiny');
 	$obj = _setHighestAndLowestQls($obj, 'abilityBright');
 	$obj = _setHighestAndLowestQls($obj, 'abilityFaded');
@@ -187,8 +182,7 @@ function setHighestAndLowestQls(&$obj) {
 }
 
 function _setHighestAndLowestQls(&$obj, $var) {
-
-	global $db;
+	$db = db::get_instance();
 
 	$varValue = $obj->$var;
 

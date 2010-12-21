@@ -2,7 +2,7 @@
 
 class Player {
 	public static function get_by_name($name, $forceUpdate = false) {
-		global $db;
+		$db = db::get_instance();
 		global $vars;
 		
 		$name = ucfirst(strtolower($name));
@@ -58,31 +58,29 @@ class Player {
 		$xml = new stdClass;
 	
 		// parsing of the player data		
-		$xml->firstname    = xml::spliceData($playerbio, '<firstname>', '</firstname>');
-		$xml->name         = xml::spliceData($playerbio, '<nick>', '</nick>');
-		$xml->lastname     = xml::spliceData($playerbio, '<lastname>', '</lastname>');
-		$xml->level        = xml::spliceData($playerbio, '<level>', '</level>');
-		$xml->breed        = xml::spliceData($playerbio, '<breed>', '</breed>');
-		$xml->gender       = xml::spliceData($playerbio, '<gender>', '</gender>');
-		$xml->faction      = xml::spliceData($playerbio, '<faction>', '</faction>');
-		$xml->profession   = xml::spliceData($playerbio, '<profession>', '</profession>');
-		$xml->prof_title   = xml::spliceData($playerbio, '<profession_title>', '</profession_title>');
-		$xml->ai_rank      = xml::spliceData($playerbio, '<defender_rank>', '</defender_rank>');
-		$xml->ai_level     = xml::spliceData($playerbio, '<defender_rank_id>', '</defender_rank_id>');
+		$xml->firstname      = xml::spliceData($playerbio, '<firstname>', '</firstname>');
+		$xml->name           = xml::spliceData($playerbio, '<nick>', '</nick>');
+		$xml->lastname       = xml::spliceData($playerbio, '<lastname>', '</lastname>');
+		$xml->level          = xml::spliceData($playerbio, '<level>', '</level>');
+		$xml->breed          = xml::spliceData($playerbio, '<breed>', '</breed>');
+		$xml->gender         = xml::spliceData($playerbio, '<gender>', '</gender>');
+		$xml->faction        = xml::spliceData($playerbio, '<faction>', '</faction>');
+		$xml->profession     = xml::spliceData($playerbio, '<profession>', '</profession>');
+		$xml->prof_title     = xml::spliceData($playerbio, '<profession_title>', '</profession_title>');
+		$xml->ai_rank        = xml::spliceData($playerbio, '<defender_rank>', '</defender_rank>');
+		$xml->ai_level       = xml::spliceData($playerbio, '<defender_rank_id>', '</defender_rank_id>');
 		$xml->guild_id       = xml::spliceData($playerbio, '<organization_id>', '</organization_id>');
-		$xml->guild        = xml::spliceData($playerbio, '<organization_name>', '</organization_name>');
-		$xml->guild_rank         = xml::spliceData($playerbio, '<rank>', '</rank>');
-		$xml->guild_rank_id      = xml::spliceData($playerbio, '<rank_id>', '</rank_id>');
+		$xml->guild          = xml::spliceData($playerbio, '<organization_name>', '</organization_name>');
+		$xml->guild_rank     = xml::spliceData($playerbio, '<rank>', '</rank>');
+		$xml->guild_rank_id  = xml::spliceData($playerbio, '<rank_id>', '</rank_id>');
 		
 		return $xml;
 	}
 	
-	private static function update(&$xml) {
-		global $db;
-		
-		$db->beginTransaction();
+	public static function update(&$char) {
+		$db = db::get_instance();
 	
-		$sql = "DELETE FROM players WHERE `name` LIKE '$xml->name'";
+		$sql = "DELETE FROM players WHERE `name` LIKE '$char->name'";
 		$db->exec($sql);
 	
 		$sql = "INSERT INTO players (
@@ -105,29 +103,27 @@ class Player {
 			source,
 			last_update
 		) VALUES (
-			'{$xml->firstname}',
-			'{$xml->name}',
-			'{$xml->lastname}',
-			'{$xml->level}',
-			'{$xml->breed}',
-			'{$xml->gender}',
-			'{$xml->faction}',
-			'{$xml->profession}',
-			'{$xml->prof_title}',
-			'{$xml->ai_rank}',
-			'{$xml->ai_level}',
-			'{$xml->guild_id}',
-			'{$xml->guild}',
-			'{$xml->guild_rank}',
-			'{$xml->guild_rank_id}',
-			'{$xml->dimension}',
-			'{$xml->source}',
+			'{$char->firstname}',
+			'{$char->name}',
+			'{$char->lastname}',
+			'{$char->level}',
+			'{$char->breed}',
+			'{$char->gender}',
+			'{$char->faction}',
+			'{$char->profession}',
+			'{$char->prof_title}',
+			'{$char->ai_rank}',
+			'{$char->ai_level}',
+			'{$char->guild_id}',
+			'{$char->guild}',
+			'{$char->guild_rank}',
+			'{$char->guild_rank_id}',
+			'{$char->dimension}',
+			'{$char->source}',
 			'" . time() . "'
 		)";
 		
 		$db->exec($sql);
-		
-		$db->Commit();
 	}
 }
 

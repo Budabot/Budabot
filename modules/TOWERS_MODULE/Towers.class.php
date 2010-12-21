@@ -2,7 +2,7 @@
 
 class Towers {
 	public static function get_tower_info($playfield_id, $site_number) {
-		global $db;
+		$db = db::get_instance();
 
 		$sql = "
 			SELECT
@@ -19,7 +19,7 @@ class Towers {
 	}
 	
 	public static function find_sites_in_playfield($playfield_id) {
-		global $db;
+		$db = db::get_instance();
 
 		$sql = "SELECT * FROM tower_site WHERE `playfield_id` = {$playfield_id}";
 
@@ -28,7 +28,7 @@ class Towers {
 	}
 	
 	public static function get_closest_site($playfield_id, $x_coords, $y_coords) {
-		global $db;
+		$db = db::get_instance();
 
 		$sql = "
 			SELECT
@@ -58,7 +58,7 @@ class Towers {
 	}
 
 	public static function get_last_attack($att_faction, $att_org_name, $def_faction, $def_org_name, $playfield_id) {
-		global $db;
+		$db = db::get_instance();
 		
 		$att_org_name = str_replace("'", "''", $att_org_name);
 		$def_org_name = str_replace("'", "''", $def_org_name);
@@ -86,7 +86,7 @@ class Towers {
 	}
 	
 	public static function record_attack($whois, $def_faction, $def_org_name, $x_coords, $y_coords, $closest_site) {
-		global $db;
+		$db = db::get_instance();
 		
 		$att_org_name = str_replace("'", "''", $whois->guild);
 		$def_org_name = str_replace("'", "''", $def_org_name);
@@ -124,7 +124,7 @@ class Towers {
 	}
 	
 	public static function find_all_scouted_sites() {
-		global $db;
+		$db = db::get_instance();
 		
 		$sql = 
 			"SELECT
@@ -143,7 +143,7 @@ class Towers {
 	}
 	
 	public static function get_last_victory($playfield_id, $site_number) {
-		global $db;
+		$db = db::get_instance();
 		
 		$sql = "
 			SELECT
@@ -163,7 +163,7 @@ class Towers {
 	}
 	
 	public static function record_victory($last_attack) {
-		global $db;
+		$db = db::get_instance();
 		
 		$win_org_name = str_replace("'", "''", $last_attack->att_org_name);
 		$lose_org_name = str_replace("'", "''", $last_attack->def_org_name);
@@ -193,7 +193,7 @@ class Towers {
 	}
 	
 	public static function scout_site($playfield_id, $site_number, $close_time, $ct_ql, $faction, $org_name, $scouted_by) {
-		global $db;
+		$db = db::get_instance();
 		
 		$org_name = str_replace("'", "''", $org_name);
 		
@@ -222,7 +222,7 @@ class Towers {
 	}
 	
 	public static function check_org_name($org_name) {
-		global $db;
+		$db = db::get_instance();
 		
 		$org_name = str_replace("'", "''", $org_name);
 	

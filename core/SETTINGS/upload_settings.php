@@ -31,7 +31,7 @@
    
 if (!function_exists("save_setting_to_db")) {
 	function save_setting_to_db($name, $value, $options, $intoptions, $description, $help) {
-		global $db;
+		$db = db::get_instance();
 	
 		$name = str_replace("'", "''", $name);
 		$value = str_replace("'", "''", $value);

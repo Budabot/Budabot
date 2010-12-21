@@ -37,7 +37,6 @@ global $abilities;
 $abilities = array('agi', 'int', 'psy', 'sta', 'str', 'sen');
 
 function getAbility($ability) {
-	
 	global $abilities;
 
 	$ability = strtolower(substr($ability, 0, 3));
@@ -50,8 +49,7 @@ function getAbility($ability) {
 }
 
 function getTrickleResults($agi, $int, $psy, $sta, $str, $sen) {
-
-	global $db;
+	$db = db::get_instance();
 
 	$sql = "
 		SELECT 
@@ -92,7 +90,6 @@ function getTrickleResults($agi, $int, $psy, $sta, $str, $sen) {
 }
 
 function formatOutput($results, $amount) {
-	
 	global $abilities;
 
 	$msg = "";

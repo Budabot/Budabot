@@ -43,6 +43,11 @@ class db {
 	public $errorCode = 0;
 	public $errorInfo;
 	
+	public static function get_instance() {
+		global $db;
+		return $db;
+	}
+	
 	//Constructor(opens the connection to the Database)
 	function __construct($type, $dbName, $host = NULL, $user = NULL, $pass = NULL) {
 		global $vars;
