@@ -158,68 +158,67 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 	
 	$this->send("Searching and reading org list for org id $orgid...", $sendto);
 
-	$orgmate = new org($orgid);
+	$org = new org($orgid);
 
-	if($orgmate->errorCode != 0) {
+	if ($org->errorCode != 0) {
 		$msg = "Error in getting the Org info. Either org does not exist or AO's server was too slow to respond.";
 		$this->send($msg, $sendto);
 		unset($this->data["ORGLIST_MODULE"]);
 		return;
 	}
 	
-	$this->data["ORGLIST_MODULE"]["org"] = $orgmate->orgname;
+	$this->data["ORGLIST_MODULE"]["org"] = $org->orgname;
 	
-	$this->send("Checking online status for '$orgmate->orgname'...", $sendto);
+	$this->send("Checking online status for '$org->orgname'...", $sendto);
 	
 	// Check each name if they are already on the buddylist (and get online status now)
 	// Or make note of the name so we can add it to the buddylist later.
-	forEach ($orgmate->member as $amember) {
+	forEach ($org->members as $member) {
 		// Writing the whois info for all names
 		// Name (Level 1/1, Sex Breed Profession)
-		$thismember  = '<highlight>'.$orgmate->members[$amember]["name"].'<end>';
-		$thismember .= ' (Level '.$orgcolor["onlineH"].$orgmate->members[$amember]["level"]."<end>";
-		if ($orgmate->members[$amember]["ai_level"] > 0) { $thismember .= "<green>/".$orgmate->members[$amember]["ai_level"]."<end>";}
-		$thismember .= ", ".$orgmate->members[$amember]["gender"];
-		$thismember .= " ".$orgmate->members[$amember]["breed"];
-		$thismember .= " ".$orgcolor["onlineH"].$orgmate->members[$amember]["profession"]."<end>)";
+		$thismember  = '<highlight>'.$member->name.'<end>';
+		$thismember .= ' (Level '.$orgcolor["onlineH"].$member->level."<end>";
+		if ($member->ai_level > 0) { $thismember .= "<green>/".$member->ai_level."<end>";}
+		$thismember .= ", ".$member->gender;
+		$thismember .= " ".$member->breed;
+		$thismember .= " ".$orgcolor["onlineH"].$member->profession."<end>)";
 		
-		$this->data["ORGLIST_MODULE"]["result"][$amember]["post"] = $thismember;
+		$this->data["ORGLIST_MODULE"]["result"][$member->name]["post"] = $thismember;
 
-		$this->data["ORGLIST_MODULE"]["result"][$amember]["name"] = $amember;
-		$this->data["ORGLIST_MODULE"]["result"][$amember]["rank_id"] = $orgmate->members[$amember]["rank_id"];
+		$this->data["ORGLIST_MODULE"]["result"][$member->name]["name"] = $member->name;
+		$this->data["ORGLIST_MODULE"]["result"][$member->name]["rank_id"] = $member->rank_id;
 
 		// If we havent found an org type yet, check this member if they have a unique rank.
 		if (!$this->data["ORGLIST_MODULE"]["orgtype"]) {
-
-			if (($orgmate->members[$amember]["rank_id"] == 0 && $orgmate->members[$amember]["rank"] == "President") ||
-				($orgmate->members[$amember]["rank_id"] == 3 && $orgmate->members[$amember]["rank"] == "Member") ||
-				($orgmate->members[$amember]["rank_id"] == 4 && $orgmate->members[$amember]["rank"] == "Applicant")) {
+			if (($member->rank_id == 0 && $member->rank == "President") ||
+				($member->rank_id == 3 && $member->rank == "Member") ||
+				($member->rank_id == 4 && $member->rank == "Applicant")) {
 				// Dont do anything. Can't do a match cause this rank is in multiple orgtypes.
-			} else if ($orgmate->members[$amember]["rank"] == $orgrankmap["Anarchism"][$orgmate->members[$amember]["rank_id"]]) {
+			} else if ($member->rank == $orgrankmap["Anarchism"][$member->rank_id]) {
 				$this->data["ORGLIST_MODULE"]["orgtype"]= "Anarchism";
-			} else if ($orgmate->members[$amember]["rank"] == $orgrankmap["Monarchy"][$orgmate->members[$amember]["rank_id"]]) {
+			} else if ($member->rank == $orgrankmap["Monarchy"][$member->rank_id]) {
 				$this->data["ORGLIST_MODULE"]["orgtype"]= "Monarchy";
-			} else if ($orgmate->members[$amember]["rank"] == $orgrankmap["Feudalism"][$orgmate->members[$amember]["rank_id"]]) {
+			} else if ($member->rank == $orgrankmap["Feudalism"][$member->rank_id]) {
 				$this->data["ORGLIST_MODULE"]["orgtype"]= "Feudalism";
-			} else if ($orgmate->members[$amember]["rank"] == $orgrankmap["Republic"][$orgmate->members[$amember]["rank_id"]]) {
+			} else if ($member->rank == $orgrankmap["Republic"][$member->rank_id]) {
 				$this->data["ORGLIST_MODULE"]["orgtype"]= "Republic";
-			} else if ($orgmate->members[$amember]["rank"] == $orgrankmap["Faction"][$orgmate->members[$amember]["rank_id"]]) {
+			} else if ($member->rank == $orgrankmap["Faction"][$member->rank_id]) {
 				$this->data["ORGLIST_MODULE"]["orgtype"]= "Faction";
-			} else if ($orgmate->members[$amember]["rank"] == $orgrankmap["Department"][$orgmate->members[$amember]["rank_id"]]) {
+			} else if ($member->rank == $orgrankmap["Department"][$member->rank_id]) {
 				$this->data["ORGLIST_MODULE"]["orgtype"]= "Department";
 			}
 		}
 		
-		$buddy_online_status = $this->buddy_online($amember);
+		$buddy_online_status = $this->buddy_online($member->name);
 		if ($buddy_online_status !== null) {
-			$this->data["ORGLIST_MODULE"]["result"][$amember]["online"] = $buddy_online_status;
-		} else if ($this->vars["name"] != $amember) { // If the name being checked ISNT the bot.
+			$this->data["ORGLIST_MODULE"]["result"][$member->name]["online"] = $buddy_online_status;
+		} else if ($this->vars["name"] != $member->name) { // If the name being checked ISNT the bot.
 			// check if they exist
-			if (AoChat::get_uid($amember)) {
-				$this->data["ORGLIST_MODULE"]["check"][$amember] = 1;
+			if (AoChat::get_uid($member->name)) {
+				$this->data["ORGLIST_MODULE"]["check"][$member->name] = 1;
 			}
-		} else if ($this->vars["name"] == $amember) { // Yes, this bot is online. Don't need a buddylist to tell me.
-			$this->data["ORGLIST_MODULE"]["result"][$amember]["online"] = 1;
+		} else if ($this->vars["name"] == $member->name) { // Yes, this bot is online. Don't need a buddylist to tell me.
+			$this->data["ORGLIST_MODULE"]["result"][$member->name]["online"] = 1;
 		}
 	}
 	
@@ -238,7 +237,7 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 		$this->data["ORGLIST_MODULE"]["orgtype"] = "Republic";
 	}
 
-	unset($orgmate);
+	unset($org);
 
 // If we added names to the buddylist, this will kick in to determine if they are online or not.
 // If no more names need to be checked, then post results.

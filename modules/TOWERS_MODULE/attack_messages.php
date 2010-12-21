@@ -31,7 +31,7 @@ if ($att_side) {
 	$whois->faction = $att_side;
 }
 if ($att_guild) {
-	$whois->org = $att_guild;
+	$whois->guild = $att_guild;
 }
 // in case it's not a player who causes attack message (pet, mob, etc)
 if ($att_player) {

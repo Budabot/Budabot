@@ -28,7 +28,7 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-
+$this->vars["my guild id"] = 4915202;
 if ($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 	// Set Delay for notify on/off(prevent spam from org roster module)
 	$this->vars["onlinedelay"] = time() + 60;
@@ -56,7 +56,7 @@ if ($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 		
 		//Save the current org_members table in a var
 		$db->query("SELECT * FROM org_members_<myname>");
-		if ($db->numrows() == 0 && (count($org->member) > 0)) {
+		if ($db->numrows() == 0 && (count($org->members) > 0)) {
 			$restart = true;
 		} else {
 			$restart = false;
@@ -70,35 +70,35 @@ if ($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 		$db->beginTransaction();
 		
 		// Going through each member of the org and add his data's
-		forEach ($org->member as $amember) {
-			// don't do anything if $amember is the bot itself
-			if (strtolower($amember) == strtolower($this->vars["name"])) {
+		forEach ($org->members as $member) {
+			// don't do anything if $member is the bot itself
+			if (strtolower($member->name) == strtolower($this->vars["name"])) {
 				continue;
 			}
 		
 		    //If there exists already data about the player just update hum
-			if (isset($dbentrys[$amember])) {
-			  	if ($dbentrys[$amember]["mode"] == "man" || $dbentrys[$amember]["mode"] == "org") {
+			if (isset($dbentrys[$member->name])) {
+			  	if ($dbentrys[$member->name]["mode"] == "man" || $dbentrys[$member->name]["mode"] == "org") {
 			        $mode = "org";
-		            $this->guildmembers[$amember] = $org->members[$amember]["rank_id"];
+		            $this->guildmembers[$member->name] = $member->rank_id;
 					
 					// add org members who are on notify to buddy list
-					$this->add_buddy($amember, 'org');
+					$this->add_buddy($member->name, 'org');
 			  	} else {
 		            $mode = "del";
-					$this->remove_buddy($amember, 'org');
+					$this->remove_buddy($member->name, 'org');
 				}
 		
-		        $db->query("UPDATE org_members_<myname> SET `mode` = '".$mode."' WHERE `name` = '".$org->members[$amember]["name"]."'");	  		
+		        $db->query("UPDATE org_members_<myname> SET `mode` = '{$mode}' WHERE `name` = '{$member->name}'");	  		
 			//Else insert his data
 			} else {
 				// add new org members to buddy list
-				$this->add_buddy($amember, 'org');
-			
-			    $db->query("INSERT INTO org_members_<myname> (`name`, `mode`) VALUES ('".$org -> members[$amember]["name"]."', 'org')");
-				$this->guildmembers[$amember] = $org->members[$amember]["rank_id"];
+				$this->add_buddy($member->name, 'org');
+
+			    $db->query("INSERT INTO org_members_<myname> (`name`, `mode`) VALUES ('{$member->name}', 'org')");
+				$this->guildmembers[$member->name] = $member->rank_id;
 		    }
-		    unset($dbentrys[$amember]);    
+		    unset($dbentrys[$member->name]);    
 		}
 		
 		//End the transaction

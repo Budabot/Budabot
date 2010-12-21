@@ -50,10 +50,10 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 	
 	        $msg .= "(Level <highlight>{$whois->level}<end>/<green>{$whois->ai_level}<end>, {$whois->gender} {$whois->breed} <highlight>{$whois->profession}<end>, {$whois->faction},";
 	
-	        if ($whois->org) {
-	            $msg .= " {$whois->guild_rank} of <highlight>{$whois->guild}<end>) ";
+	        if ($whois->guild) {
+	            $msg .= " {$whois->guild_rank} of <highlight>{$whois->guild}<end>)";
 	        } else {
-	            $msg .= " Not in a guild.) ";
+	            $msg .= " Not in a guild)";
 			}
 
 	        $list = "<header>::::: Detailed info :::::<end>\n\n";
@@ -61,8 +61,8 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 	        $list .= "<a href='chatcmd:///tell <myname> history $name'>Check $name's History</a>\n";
 	        $list .= "<a href='chatcmd:///tell <myname> is $name'>Check $name's online status</a>\n";
 	        if ($whois->guild) {
-		        $list .= "<a href='chatcmd:///tell <myname> whoisorg $whois->guild_id'>Show info about {$whois->org}</a>\n";
-				$list .= "<a href='chatcmd:///tell <myname> orglist $whois->guild_id'>Orglist for {$whois->org}</a>\n";
+		        $list .= "<a href='chatcmd:///tell <myname> whoisorg $whois->guild_id'>Show info about {$whois->guild}</a>\n";
+				$list .= "<a href='chatcmd:///tell <myname> orglist $whois->guild_id'>Orglist for {$whois->guild}</a>\n";
 			}
 	        $list .= "<a href='chatcmd:///cc addbuddy $name'>Add to buddylist</a>\n";
 	        $list .= "<a href='chatcmd:///cc rembuddy $name'>Remove from buddylist</a>\n";
@@ -146,27 +146,27 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
   		$lvl_min = 220;
   		$lvl_max = 1;
 
-	  	$num_members = count($org->member);
-	  	forEach ($org->member as $amember) {
-	  	  	if ($org->members[$amember]["rank_id"] == 0) {
-				$president_name = $org->members[$amember]["name"];
-				$president_prof = $org->members[$amember]["profession"];
-				$president_lvl = $org->members[$amember]["level"];
-				$president_gender = $org->members[$amember]["gender"];
-				$president_breed = $org->members[$amember]["breed"];
-				$faction = $org->members[$amember]["faction"];
+	  	$num_members = count($org->members);
+	  	forEach ($org->members as $member) {
+	  	  	if ($member->rank_id == 0) {
+				$president_name = $member->name;
+				$president_prof = $member->profession;
+				$president_lvl = $member->level;
+				$president_gender = $member->gender;
+				$president_breed = $member->breed;
+				$faction = $member->faction;
 			}
-			$lvl_tot += $org->members[$amember]["level"];
+			$lvl_tot += $member->level;
 			
-			if ($lvl_min > $org->members[$amember]["level"]) {
-				$lvl_min = $org->members[$amember]["level"];
+			if ($lvl_min > $member->level) {
+				$lvl_min = $member->level;
 			}
 
-			if ($lvl_max < $org->members[$amember]["level"]) {
-				$lvl_max = $org->members[$amember]["level"];
+			if ($lvl_max < $member->level) {
+				$lvl_max = $member->level;
 			}
 
-			switch ($org->members[$amember]["profession"]) {
+			switch ($member->profession) {
 			  	case "Adventurer":
 			  		$num_adv++;
 					break;
