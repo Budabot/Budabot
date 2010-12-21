@@ -57,7 +57,7 @@ if(($data = fgets($socket)) && ("1" == $this->settings['irc_status'])) {
 			if($this->vars['my guild'] != "") {
 				$db->query("SELECT * FROM guild_chatlist_<myname>");
 				$numonline = $db->numrows();
-				if($numonline != 0) {
+				if ($numonline != 0) {
 					$data = $db->fObject("all");
 					foreach($data as $row) {
 						if($row->afk == "kiting")

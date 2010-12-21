@@ -30,15 +30,13 @@
    */
 
 $msg = "";
-$db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$sender'");
+$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.name = p.name WHERE o.`name` = '$sender'");
 $numrows = $db->numrows();
 $org_member = $db->fObject();
 if ($org_member->mode != "del" && $numrows == 1) {
-  	$db->query("SELECT * FROM guild_chatlist_<myname> WHERE `name` = '$sender'");
-	if ($db->numrows() != 0) {
-	    $db->exec("UPDATE guild_chatlist_<myname> SET `profession` = '$org_member->profession', `guild` = '$org_member->guild', `rank` = '$org_member->rank', `breed` = '$org_member->breed', `level` = '$org_member->level', `ai_level` = '$org_member->ai_level' WHERE `name` = '$sender'");
-	} else {
-	    $db->exec("INSERT INTO guild_chatlist_<myname> (`name`, `profession`, `guild`, `rank`, `breed`, `level`, `ai_level`) VALUES ('$org_member->name', '$org_member->profession', '$org_member->guild', '$org_member->rank', '$org_member->breed', '$org_member->level', '$org_member->ai_level')");
+  	$db->query("SELECT name FROM guild_chatlist_<myname> WHERE `name` = '$sender'");
+	if ($db->numrows() == 0) {
+	    $db->exec("INSERT INTO guild_chatlist_<myname> (`name`) VALUES ('$org_member->name')");
 	}
 
     if (time() >= $this->vars["onlinedelay"]) {
@@ -46,16 +44,16 @@ if ($org_member->mode != "del" && $numrows == 1) {
             $msg = $org_member->firstname." ";
 		}
 
-        $msg .= "<highlight>\"".$org_member->name."\"<end> ";
+        $msg .= "<highlight>\"{$org_member->name}\"<end> ";
 
         if ($org_member->lastname) {
             $msg .= $org_member->lastname." ";
 		}
 
-        $msg .= "(Level <highlight>$org_member->level<end>/<green>$org_member->ai_level - $org_member->ai_rank<end>, $org_member->gender $org_member->breed <highlight>$org_member->profession<end>,";
+        $msg .= "(Level <highlight>{$org_member->level}<end>/<green>{$org_member->ai_level} - {$org_member->ai_rank}<end>, {$org_member->gender} {$org_member->breed} <highlight>{$org_member->profession}<end>,";
 
         if ($org_member->guild) {
-            $msg .= " $org_member->rank of <highlight>$org_member->guild<end>) ";
+            $msg .= " {$org_member->guild_rank} of <highlight>{$org_member->guild}<end>) ";
         } else {
             $msg .= " Not in a guild.) ";
 		}
@@ -124,6 +122,9 @@ if ($org_member->mode != "del" && $numrows == 1) {
 		if ($this->settings["guest_relay"] == 1) {
 			bot::send($msg, "priv", true);
 		}
+		
+		// update info for player
+		Player::get_by_name($sender);
     }
 }
 ?>

@@ -31,7 +31,7 @@
    
 if (preg_match("/^check$/i", $message) || preg_match("/^check all$/i", $message)) {
 	$list = "<header>::::: Check for all members :::::<end>\n\n";
-	$db->query("SELECT * FROM priv_chatlist_<myname>");
+	$db->query("SELECT name FROM priv_chatlist_<myname>");
 	while ($row = $db->fObject()) {
 		$content .= " \\n /assist $row->name";
 	}
@@ -41,7 +41,7 @@ if (preg_match("/^check$/i", $message) || preg_match("/^check all$/i", $message)
 	bot::send($msg, $sendto);
 } else if (preg_match("/^check prof$/i", $message)) {
 	$list = "<header>::::: Check for all professions :::::<end>\n\n";
-	$db->query("SELECT * FROM priv_chatlist_<myname> ORDER BY `profession` DESC");
+	$db->query("SELECT p2.name, p2.profession FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY `profession` DESC");
 	while ($row = $db->fObject()) {
 		$prof[$row->profession] .= " \\n /assist $row->name";
 	}
@@ -56,7 +56,7 @@ if (preg_match("/^check$/i", $message) || preg_match("/^check all$/i", $message)
 	bot::send($msg, $sendto);
 } else if (preg_match("/^check org$/i", $message)) {
 	$list = "<header>::::: Check for all organizations :::::<end>\n\n";
-	$db->query("SELECT * FROM priv_chatlist_<myname> ORDER BY `guild` DESC");
+	$db->query("SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY `guild` DESC");
 	while ($row = $db->fObject()) {
 		if ($row->guild == "") {
 			$org["Non orged"] .= " \\n /assist $row->name";

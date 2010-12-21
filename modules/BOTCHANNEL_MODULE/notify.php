@@ -32,10 +32,9 @@
 if ($type == "joinPriv") {
 	$this->vars["Guest"][$sender] = true;
 	$whois = Player::get_by_name($sender);
-	$db->query("INSERT INTO priv_chatlist_<myname> (`name`, `faction`, `profession`, `guild`, `breed`, `level`, `ai_level`) ".
-				"VALUES ('$sender', '$whois->faction', '$whois->prof', '$whois->org', '$whois->breed', '$whois->level', '$whois->ai_level')");
+	$db->query("INSERT INTO priv_chatlist_<myname> (`name`) VALUES ('$sender')");
 
-	$msg = "<highlight>{$sender}<end> (<highlight>{$whois->level}<end>/<green>{$whois->ai_level}<end>, <highlight>{$whois->prof}<end>, {$whois->faction}) has joined the private channel";
+	$msg = "<highlight>{$sender}<end> (<highlight>{$whois->level}<end>/<green>{$whois->ai_level}<end>, <highlight>{$whois->profession}<end>, {$whois->faction}) has joined the private channel";
 
 	if ($this->settings["guest_relay"] == 1) {
 		bot::send($msg, "guild", true);

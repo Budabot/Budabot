@@ -75,9 +75,9 @@ if(preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader)
             break;
     }
     if ($type == "guild" || ($this->settings["count_tell"] == 0 && $type == "msg") || ($type == "priv" && $this->vars["Guest"][$sender] == true)) {
-		$db->query("SELECT name, profession, level, afk FROM guild_chatlist_<myname> WHERE `profession` = '$prof' UNION ALL SELECT name, profession, level, afk FROM priv_chatlist_<myname> WHERE `profession` = '$prof' ORDER BY level"); 
+		$db->query("SELECT p.name, profession, level, afk FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name WHERE `profession` = '$prof' UNION ALL SELECT name, profession, level, afk FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE `profession` = '$prof' ORDER BY level"); 
 	} else if ($type == "priv" || ($this->settings["count_tell"] == 1 && $type == "msg")) {
-	  	$db->query("SELECT * FROM priv_chatlist_<myname> WHERE `profession` = '$prof' ORDER BY `level`");
+	  	$db->query("SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE `profession` = '$prof' ORDER BY `level`");
 	}
     $numonline = $db->numrows();
     $msg = "<highlight>$numonline<end> $prof:";
@@ -101,9 +101,9 @@ if(preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader)
 	$tl6 = 0;
 	$tl7 = 0;
 	if ($type == "guild" || ($this->settings["count_tell"] == 0 && $type == "msg") || ($type == "priv" && $this->vars["Guest"][$sender] == true)) {							
-		$db->query("SELECT name, profession, level, afk FROM guild_chatlist_<myname> UNION ALL SELECT name, profession, level, afk FROM priv_chatlist_<myname> ORDER BY level"); 
+		$db->query("SELECT p.name, profession, level, afk FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name UNION ALL SELECT name, profession, level, afk FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY level"); 
  	} else if ($type == "priv"  || ($this->settings["count_tell"] == 1 && $type == "msg")) {
-	  	$db->query("SELECT * FROM priv_chatlist_<myname>");
+	  	$db->query("SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name");
 	} 
 	$numonline = $db->numrows();
     while ($row = $db->fObject()) {
@@ -208,21 +208,21 @@ if(preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader)
 	}
 	if ($type == "guild" || ($this->settings["count_tell"] == 0 && $type == "msg") || ($type == "priv" && $this->vars["Guest"][$sender] == true)) {
 	    if ($prof == "all") {
-			$db->query("SELECT name, profession, level, afk FROM guild_chatlist_<myname> UNION ALL SELECT name, profession, level, afk FROM priv_chatlist_<myname> ORDER BY profession");
+			$db->query("SELECT p.name, profession, level, afk FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name UNION ALL SELECT name, profession, level, afk FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY profession");
 			$numonline = $db->numrows();
 			$msg = "<highlight>$numonline<end> in total: ";
 		} else {
-			$db->query("SELECT name, profession, level, afk FROM guild_chatlist_<myname> WHERE `profession` = '$prof' UNION ALL SELECT name, profession, level, afk FROM priv_chatlist_<myname> WHERE `profession` = '$prof' ORDER BY level");
+			$db->query("SELECT p.name, profession, level, afk FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name WHERE `profession` = '$prof' UNION ALL SELECT name, profession, level, afk FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE `profession` = '$prof' ORDER BY level");
 			$numonline = $db->numrows();
 			$msg = "<highlight>$numonline<end> $prof:";
 		}
  	} else if ($type == "priv" || ($this->settings["count_tell"] == 1 && $type == "msg")) {
         if ($prof == "all") {
-            $db->query("SELECT * FROM priv_chatlist_<myname> ORDER BY `profession`");
+            $db->query("SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY `profession`");
             $numonline = $db->numrows();
             $msg = "<highlight>$numonline<end> in total: ";
         } else {
-            $db->query("SELECT * FROM priv_chatlist_<myname> WHERE `profession` = '$prof' ORDER BY `level`");
+            $db->query("SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE `profession` = '$prof' ORDER BY `level`");
             $numonline = $db->numrows();
             $msg = "<highlight>$numonline<end> $prof:";
         }

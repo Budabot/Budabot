@@ -35,8 +35,8 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
     $name = ucfirst(strtolower($arr[1]));
     if ($uid) {
         $whois = Player::get_by_name($arr[1]);
-        if ($whois->errorCode != 0) {
-        	$msg = $whois->errorInfo;
+        if ($whois === null) {
+        	$msg = "Could not find character info for {$arr[1]}.";
         } else {
 	        if ($whois->firstname) {
 	            $msg = $whois->firstname." ";
@@ -48,21 +48,21 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 	            $msg .= $whois->lastname." ";
 			}
 	
-	        $msg .= "(Level <highlight>$whois->level<end>/<green>$whois->ai_level<end>, $whois->gender $whois->breed <highlight>$whois->prof<end>, $whois->faction,";
+	        $msg .= "(Level <highlight>{$whois->level}<end>/<green>{$whois->ai_level}<end>, {$whois->gender} {$whois->breed} <highlight>{$whois->profession}<end>, {$whois->faction},";
 	
 	        if ($whois->org) {
-	            $msg .= " $whois->rank of <highlight>$whois->org<end>) ";
+	            $msg .= " {$whois->guild_rank} of <highlight>{$whois->guild}<end>) ";
 	        } else {
 	            $msg .= " Not in a guild.) ";
 			}
 
-	        $list = "<header>::::: Detailed infos :::::<end>\n\n";
+	        $list = "<header>::::: Detailed info :::::<end>\n\n";
 	        $list .= "<u>Options for ".$name."</u>\n \n";
 	        $list .= "<a href='chatcmd:///tell <myname> history $name'>Check $name's History</a>\n";
 	        $list .= "<a href='chatcmd:///tell <myname> is $name'>Check $name's online status</a>\n";
-	        if ($whois->org) {
-		        $list .= "<a href='chatcmd:///tell <myname> whoisorg $whois->org_id'>Show info about {$whois->org}</a>\n";
-				$list .= "<a href='chatcmd:///tell <myname> orglist $whois->org_id'>Orglist for {$whois->org}</a>\n";
+	        if ($whois->guild) {
+		        $list .= "<a href='chatcmd:///tell <myname> whoisorg $whois->guild_id'>Show info about {$whois->org}</a>\n";
+				$list .= "<a href='chatcmd:///tell <myname> orglist $whois->guild_id'>Orglist for {$whois->org}</a>\n";
 			}
 	        $list .= "<a href='chatcmd:///cc addbuddy $name'>Add to buddylist</a>\n";
 	        $list .= "<a href='chatcmd:///cc rembuddy $name'>Remove from buddylist</a>\n";
@@ -86,22 +86,22 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
             $server = "Die Neue Welt";
 		}
         $msg = "";
-        $whois = Player::get_by_name($name, $i);
-        if ($whois->name != "") {
+        $whois = Player::lookup($name, $i);
+        if ($whois !== null) {
             if ($whois->firstname) {
                 $msg = $whois->firstname." ";
 			}
 
-            $msg .= "<highlight>\"$whois->name\"<end> ";
+            $msg .= "<highlight>\"{$whois->name}\"<end> ";
 
             if ($whois->lastname) {
                 $msg .= $whois->lastname." ";
 			}
 
-            $msg .= "(Level <highlight>$whois->level<end>/<green>$whois->ai_level<end>, <highlight>$whois->prof<end>, $whois->faction,";
+            $msg .= "(Level <highlight>{$whois->level}<end>/<green>{$whois->ai_level}<end>, <highlight>{$whois->profession}<end>, {$whois->faction},";
 
-            if ($whois->org) {
-                $msg .= " $whois->rank of <highlight>$whois->org<end>) ";
+            if ($whois->guild) {
+                $msg .= " {$whois->guild_rank} of <highlight>{$whois->guild}<end>) ";
             } else {
                 $msg .= " Not in a guild.) ";
 			}

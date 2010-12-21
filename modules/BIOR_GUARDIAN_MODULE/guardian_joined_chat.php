@@ -31,7 +31,7 @@
 
 global $guard;
 $whois = Player::get_by_name($sender);
-if ($whois->prof == "Soldier" && $whois->level >= 205) {
+if ($whois !== null && $whois->profession == "Soldier" && $whois->level >= 205) {
   	$guard[$sender]["g"] = "ready";
   	$guard[$sender]["lvl"] = $whois->level;
 }

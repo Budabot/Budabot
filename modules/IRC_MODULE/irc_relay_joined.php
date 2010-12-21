@@ -10,9 +10,12 @@
 global $socket;
 if("1" == $this->settings['irc_status']) {
 	$whois = Player::get_by_name($sender);
-	if($whois->org == "")
-		$whois->org = "Not in a guild";
-	$msg = "$sender ({$whois->level}/{$whois->ai_level}, {$whois->prof}, {$whois->org})";
+	if ($whois === null) {
+		$whois = new stdClass;
+	}
+	if ($whois->guild == "")
+		$whois->guild = "Not in a guild";
+	$msg = "$sender ({$whois->level}/{$whois->ai_level}, {$whois->profession}, {$whois->guild})";
 	
 	if($type == "joinPriv") {
 		$msg .= " has joined {$this->vars["name"]}.";

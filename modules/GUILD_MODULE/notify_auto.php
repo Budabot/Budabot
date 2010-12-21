@@ -41,41 +41,16 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
     	$msg = "<highlight>".$name."<end> has been added to the Notify list.";
     // Is the player name valid?
     } else {
-        // Getting Player infos
-        $whois = Player::get_by_name($arr[2]);
-        if($whois->errorCode != 0) {
-		  	$whois -> firstname = "";
-		  	$whois -> lastname = "";
-		  	$whois -> rank_id = 6;
-		  	$whois -> rank = "Applicant";
-		  	$whois -> level = "1";
-		  	$whois -> prof = "Unknown";
-		  	$whois -> gender = "Unknown";
-		  	$whois -> breed = "Unknown";
-		}
+        // update character info
+        Player::get_by_name($arr[2]);
 
         // Add him as a buddy and put his infos into the DB
-        $db->query("INSERT INTO org_members_<myname> (`mode`, `name`, `firstname`, `lastname`, `guild`, `rank_id`, `rank`, `level`, `profession`, `gender`, `breed`, `ai_level`, `ai_rank`)
-                    VALUES ('man',
-                    '".$name."',
-					'".str_replace("'", "''", $whois -> firstname)."',
-                    '".str_replace("'", "''", $whois -> lastname)."',
-					'".str_replace("'", "''", $this -> vars["my guild"])."',
-                    '".$whois -> rank_id."',
-					'".$whois -> rank."',
-                    '".$whois -> level."',
-					'".$whois -> prof."',
-                    '".$whois -> gender."',
-					'".$whois -> breed."',
-                    '".$whois -> ai_level."',
-                    '".$whois -> ai_rank."')");                            
+        $db->query("INSERT INTO org_members_<myname> (`mode`, `name`) VALUES ('man', '".$name."')");
 		$this->add_buddy($name, 'org');
     	$msg = "<highlight>".$name."<end> has been added to the Notify list.";
     	$this->guildmembers[$name] = 6;
     }
-    $db->query("INSERT INTO guild_chatlist_<myname> (`name`, `profession`, `guild`, `breed`, `level`, `ai_level`)
-                VALUES ('".$name."', '".$whois->prof."', '".str_replace("'", "''", $this->vars["my guild"])."',
-                   '".$whois->breed."', '".$whois->level."', '".$whois->ai_level."')");     
+    $db->query("INSERT INTO guild_chatlist_<myname> (`name`) VALUES ('".$name."')");     
     bot::send($msg, "guild");
 } else if (preg_match("/^(.+) kicked (.+) from your organization.$/", $message, $arr) || preg_match("/^(.+) removed inactive character (.+) from your organization.$/", $message, $arr)) {
     $uid = AoChat::get_uid($arr[2]);

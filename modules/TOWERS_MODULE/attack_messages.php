@@ -24,6 +24,9 @@ if (preg_match("/^The (Clan|Neutral|Omni) organization (.+) just entered a state
 }
 
 $whois = Player::get_by_name($att_player);
+if ($whois === null) {
+	$whois = new stdClass;
+}
 if ($att_side) {
 	$whois->faction = $att_side;
 }
@@ -66,12 +69,12 @@ if ($closest_site === null) {
 		$link .= $colorlabel."Gender:<end> ".$colorvalue.$whois->gender."<end>\n";
 	}
 
-	if ($whois->prof) {
-		$link .= $colorlabel."Profession:<end> ".$colorvalue.$whois->prof."<end>\n";
+	if ($whois->profession) {
+		$link .= $colorlabel."Profession:<end> ".$colorvalue.$whois->profession."<end>\n";
 	}
 	if ($whois->level) {
 		$link .= $colorlabel."Level:<end> $colorvalue";
-		if ($whois->prof == "Unknown") {
+		if ($whois->profession == "") {
 			$link .= "Unknown<end>\n";
 		} else {
 			$level_info = Level::get_level_info($whois->level);
@@ -89,14 +92,14 @@ if ($closest_site === null) {
 		
 	$link .= $colorlabel."Alignment:<end> ".$colorvalue.$whois->faction."<end>\n";
 	
-	if ($whois->org) {
+	if ($whois->guild) {
 		if ($whois->faction == "Omni") {
-			$link .= $colorlabel."Detachment:<end> ".$colorvalue.$whois->org."<end>\n";
+			$link .= $colorlabel."Detachment:<end> ".$colorvalue.$whois->guild."<end>\n";
 		} else {
-			$link .= $colorlabel."Clan:<end> ".$colorvalue.$whois->org."<end>\n";
+			$link .= $colorlabel."Clan:<end> ".$colorvalue.$whois->guild."<end>\n";
 		}
-		if ($whois->rank) {
-			$link .= $colorlabel."Organization Rank:<end> <white>".$whois->rank."<end>\n";
+		if ($whois->guild_rank) {
+			$link .= $colorlabel."Organization Rank:<end> <white>".$whois->guild_rank."<end>\n";
 		}
 	}
 
@@ -124,10 +127,10 @@ $msg .= "<font color=#FF67FF>[";
 // tower_attack_spam >= 2 (normal) includes attacker stats
 if ($this->settings["tower_attack_spam"] >= 2) {
 
-	if ($whois->prof == "Unknown") {
+	if ($whois->profession == "") {
 		$msg .= "<".strtolower($whois->faction).">$att_player<end> (Unknown";
 	} else {
-		if (!$whois->org){
+		if (!$whois->guild){
 			$msg .= "<".strtolower($whois->faction).">$att_player<end>";
 		} else {
 			$msg .= "<font color=#AAAAAA>$att_player<end>";
@@ -136,19 +139,19 @@ if ($this->settings["tower_attack_spam"] >= 2) {
 		if ($whois->ai_level) {
 			$msg .= "/<green>$whois->ai_level<end>";
 		}
-		$msg .= ", $whois->breed <font color=#AAAAAA>$whois->prof<end>";
+		$msg .= ", $whois->breed <font color=#AAAAAA>$whois->profession<end>";
 	}
 
-	if (!$whois->org) {
+	if (!$whois->guild) {
 		$msg .= ")";
-	} else if (!$whois->rank) {
-		$msg .= "<".strtolower($whois->faction).">$whois->org<end>)";
+	} else if (!$whois->guild_rank) {
+		$msg .= "<".strtolower($whois->faction).">$whois->guild<end>)";
 	} else {
-		$msg .= ", $whois->rank of <".strtolower($whois->faction).">$whois->org<end>)";
+		$msg .= ", $whois->guild_rank of <".strtolower($whois->faction).">$whois->guild<end>)";
 	}
 	
-} else if ($whois->org) {
-	$msg .= "<".strtolower($whois->faction).">$whois->org<end>";
+} else if ($whois->guild) {
+	$msg .= "<".strtolower($whois->faction).">$whois->guild<end>";
 } else {
 	$msg .= "<".strtolower($whois->faction).">$att_player<end>";
 }

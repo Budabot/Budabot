@@ -31,7 +31,7 @@
 
 if ($this->settings["relaybot"] != "Off" && isset($this->guildmembers[$sender])) {
     $msg = "";
-    $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$sender'");
+    $db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.name = p.name WHERE o.`name` = '$sender'");
 	$numrows = $db->numrows();
 	$row = $db->fObject();
 	if ($row->mode != "del" && $numrows == 1) {
@@ -40,16 +40,16 @@ if ($this->settings["relaybot"] != "Off" && isset($this->guildmembers[$sender]))
                 $msg = $row->firstname." ";
 			}
 
-            $msg .= "<highlight>\"".$row->name."\"<end> ";
+            $msg .= "<highlight>\"{$row->name}\"<end> ";
 
             if ($row->lastname) {
                 $msg .= $row->lastname." ";
 			}
 
-            $msg .= "(Level <highlight>$row->level<end>/<green>$row->ai_level - $row->ai_rank<end>, <highlight>$row->profession<end>,";
+            $msg .= "(Level <highlight>{$row->level}<end>/<green>{$row->ai_level} - {$row->ai_rank}<end>, <highlight>{$row->profession}<end>,";
 
             if ($row->guild) {
-                $msg .= " $row->rank of <highlight>$row->guild<end>) ";
+                $msg .= " {$row->guild_rank} of <highlight>{$row->guild}<end>) ";
             } else {
                 $msg .= " Not in a guild.) ";
 			}

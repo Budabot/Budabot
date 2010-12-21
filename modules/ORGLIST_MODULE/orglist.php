@@ -135,20 +135,21 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 		// Someone's name.  Doing a whois to get an orgID.
 		$name = ucfirst(strtolower($arr[2]));
 		$whois = Player::get_by_name($name);
-		$orgid = $whois->org_id;
 
-		if (!$whois->name) {
-			$msg = "Player <highlight>$name<end> does not exist on this dimension.";
+		if ($whois === null) {
+			$msg = "Could not find character info for $name.";
 			unset($whois);
 			$this->send($msg, $sendto);
 			unset($this->data["ORGLIST_MODULE"]);
 			return;
-		} elseif (!$orgid) {
+		} elseif (!$whois->guild_id) {
 			$msg = "Player <highlight>$name<end> does not seem to be in any org?";
 			unset($whois);
 			$this->send($msg, $sendto);
 			unset($this->data["ORGLIST_MODULE"]);
 			return;
+		} else {
+			$orgid = $whois->guild_id;
 		}
 	} else {
 		// We got only numbers, can't be a name.  Maybe org id?

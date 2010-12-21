@@ -1,7 +1,7 @@
 <?php
 
 class Player {
-	public static function get_by_name($name, $dimension = null) {
+	public static function get_by_name($name, $forceUpdate = false) {
 		global $db;
 		global $vars;
 		
@@ -15,25 +15,27 @@ class Player {
 		$db->query($sql);
 		$player = $db->fObject();
 
-		if ($player === null) {
+		if ($player === null || $forceUpdate) {
 			$player = Player::lookup($name, $dimension);
+			if ($player !== null) {
+				Player::update($player);
+			}
 		} else if ($player->last_update < (time() - 86400)) {
 			$player2 = Player::lookup($name, $dimension);
 			if ($player2 !== null) {
 				$player = $player2;
+				Player::update($player);
 			}
 		}
 		
 		return $player;
 	}
 	
-	private static function lookup($name, $dimension) {
+	public static function lookup($name, $dimension) {
 		$xml = Player::lookup_url("http://people.anarchy-online.com/character/bio/d/$dimension/name/$name/bio.xml");
 		if ($xml->name == $name) {
 			$xml->source = 'people.anarchy-online.com';
 			$xml->dimension = $dimension;
-
-			Player::update($xml);
 
 			return $xml;
 		}
@@ -43,8 +45,6 @@ class Player {
 		if ($xml->name == $name) {
 			$xml->source = 'auno.org';
 			$xml->dimension = $dimension;
-
-			Player::update($xml);
 
 			return $xml;
 		}
@@ -65,12 +65,12 @@ class Player {
 		$xml->breed        = xml::spliceData($playerbio, '<breed>', '</breed>');
 		$xml->gender       = xml::spliceData($playerbio, '<gender>', '</gender>');
 		$xml->faction      = xml::spliceData($playerbio, '<faction>', '</faction>');
-		$xml->prof         = xml::spliceData($playerbio, '<profession>', '</profession>');
+		$xml->profession   = xml::spliceData($playerbio, '<profession>', '</profession>');
 		$xml->prof_title   = xml::spliceData($playerbio, '<profession_title>', '</profession_title>');
 		$xml->ai_rank      = xml::spliceData($playerbio, '<defender_rank>', '</defender_rank>');
 		$xml->ai_level     = xml::spliceData($playerbio, '<defender_rank_id>', '</defender_rank_id>');
 		$xml->org_id       = xml::spliceData($playerbio, '<organization_id>', '</organization_id>');
-		$xml->org          = xml::spliceData($playerbio, '<organization_name>', '</organization_name>');
+		$xml->guild        = xml::spliceData($playerbio, '<organization_name>', '</organization_name>');
 		$xml->rank         = xml::spliceData($playerbio, '<rank>', '</rank>');
 		$xml->rank_id      = xml::spliceData($playerbio, '<rank_id>', '</rank_id>');
 		
@@ -93,14 +93,14 @@ class Player {
 			breed,
 			gender,
 			faction,
-			prof,
+			profession,
 			prof_title,
 			ai_rank,
 			ai_level,
-			org_id,
-			org,
-			org_rank,
-			org_rank_id,
+			guild_id,
+			guild,
+			guild_rank,
+			guild_rank_id,
 			dimension,
 			source,
 			last_update
@@ -112,14 +112,14 @@ class Player {
 			'{$xml->breed}',
 			'{$xml->gender}',
 			'{$xml->faction}',
-			'{$xml->prof}',
+			'{$xml->profession}',
 			'{$xml->prof_title}',
 			'{$xml->ai_rank}',
 			'{$xml->ai_level}',
-			'{$xml->org_id}',
-			'{$xml->org}',
-			'{$xml->rank}',
-			'{$xml->rank_id}',
+			'{$xml->guild_id}',
+			'{$xml->guild}',
+			'{$xml->guild_rank}',
+			'{$xml->guild_rank_id}',
 			'{$xml->dimension}',
 			'{$xml->source}',
 			'" . time() . "'

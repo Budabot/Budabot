@@ -59,7 +59,7 @@ if (Whitelist::check($sender) || isset($this->admins[$sender]) || $sender == ucf
 	//Get his character infos if minlvl or faction is set
 	if ($this->settings["priv_req_lvl"] != 0 || $this->settings["priv_req_faction"] != "all") {
 		$whois = Player::get_by_name($sender);
-	   	if ($whois->errorCode != 0) {
+	   	if ($whois === null) {
 		    $msg = "<orange>Error! Unable to get your character info. Please try again later.<end>";
 		    bot::send($msg, $sender);
 		  	$restricted = true;
@@ -121,8 +121,8 @@ if (Whitelist::check($sender) || isset($this->admins[$sender]) || $sender == ucf
 	//Get his character infos if minlvl or faction is set
 	if ($this->settings["tell_req_lvl"] != 0 || $this->settings["tell_req_faction"] != "all") {
 		$whois = Player::get_by_name($sender);
-	   	if ($whois->errorCode != 0) {
-		    $msg = "<orange>Error! I was unable to get your char infos. Please try again later.<end>";
+	   	if ($whois === null) {
+		    $msg = "<orange>Error! Unable to get your character info. Please try again later.<end>";
 		    bot::send($msg, $sender);
 		  	$restricted = true;
 		    return;

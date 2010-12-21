@@ -89,38 +89,13 @@ if ($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 					$this->remove_buddy($amember, 'org');
 				}
 		
-		        $db->query("UPDATE org_members_<myname> SET `mode` = '".$mode."',
-		                    `firstname` = '".str_replace("'", "''", $org->members[$amember]["firstname"])."',
-		                    `lastname` = '".str_replace("'", "''", $org->members[$amember]["lastname"])."',
-		                    `guild` = '".str_replace("'", "''", $org->orgname)."',
-		                    `profession` = '".$org->members[$amember]["profession"]."', 
-		                    `rank_id`  = '".$org->members[$amember]["rank_id"]."',
-		                    `rank` = '".$org->members[$amember]["rank"]."',
-		                    `level` = '".$org->members[$amember]["level"]."',
-		                    `ai_level` = '".$org->members[$amember]["ai_level"]."',
-		                    `ai_rank` = '".$org->members[$amember]["ai_rank"]."',
-		                    `gender` = '".$org->members[$amember]["gender"]."',
-		                    `breed` = '".$org->members[$amember]["breed"]."'
-		                    WHERE `name` = '".$org->members[$amember]["name"]."'");	  		
+		        $db->query("UPDATE org_members_<myname> SET `mode` = '".$mode."' WHERE `name` = '".$org->members[$amember]["name"]."'");	  		
 			//Else insert his data
 			} else {
 				// add new org members to buddy list
 				$this->add_buddy($amember, 'org');
 			
-			    $db->query("INSERT INTO org_members_<myname> (`name`, `mode`, `firstname`, `lastname`, `guild`, `rank_id`, `rank`, `level`, `profession`, `gender`, `breed`, `ai_level`, `ai_rank`)
-		                        VALUES ('".$org -> members[$amember]["name"]."',
-								'org',
-		                        '".str_replace("'", "''", $org->members[$amember]["firstname"])."',
-		                        '".str_replace("'", "''", $org->members[$amember]["lastname"])."',
-								'".str_replace("'", "''", $org->orgname)."',
-		                        '".$org -> members[$amember]["rank_id"]."',
-								'".$org -> members[$amember]["rank"]."',
-		                        '".$org -> members[$amember]["level"]."',
-								'".$org -> members[$amember]["profession"]."',
-		                        '".$org -> members[$amember]["gender"]."',
-								'".$org -> members[$amember]["breed"]."',
-		                        '".$org -> members[$amember]["ai_level"]."',
-		                        '".$org -> members[$amember]["ai_rank"]."')");
+			    $db->query("INSERT INTO org_members_<myname> (`name`, `mode`) VALUES ('".$org -> members[$amember]["name"]."', 'org')");
 				$this->guildmembers[$amember] = $org->members[$amember]["rank_id"];
 		    }
 		    unset($dbentrys[$amember]);    

@@ -88,7 +88,7 @@ class Towers {
 	public static function record_attack($whois, $def_faction, $def_org_name, $x_coords, $y_coords, $closest_site) {
 		global $db;
 		
-		$att_org_name = str_replace("'", "''", $whois->org);
+		$att_org_name = str_replace("'", "''", $whois->guild);
 		$def_org_name = str_replace("'", "''", $def_org_name);
 		
 		$sql = "
@@ -111,7 +111,7 @@ class Towers {
 				'{$whois->faction}',
 				'{$whois->name}',
 				'{$whois->level}',
-				'{$whois->prof}',
+				'{$whois->profession}',
 				'{$def_org_name}',
 				'{$def_faction}',
 				{$closest_site->playfield_id},

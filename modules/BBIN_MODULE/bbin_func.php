@@ -29,14 +29,13 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot)
 		$character = Player::get_by_name($name, $servernum);
 
 		// add user to bbin_chatlist_<myname>
-		$db->query("INSERT INTO bbin_chatlist_<myname> (`name`, `faction`, `profession`, `guild`, `breed`, `level`, `ai_level`, `guest`, `dimension`, `ircrelay`) ".
-				"VALUES ('$name', '$character->faction', '$character->prof', '$character->org', '$character->breed', '$character->level', '$character->ai_level', $guest, $servernum, '$nick')");
+		$db->query("INSERT INTO bbin_chatlist_<myname> (`name`, `guest`, `ircrelay`) VALUES ('$name', $guest, '$nick')");
 
 		// send notification to channels
-		$msg = "<highlight>$name<end> (<highlight>{$character->level}<end>/<green>{$character->ai_level}<end>, <highlight>{$character->prof}<end>, $character->faction)";
-		if ($character->org != "")
+		$msg = "<highlight>$name<end> (<highlight>{$character->level}<end>/<green>{$character->ai_level}<end>, <highlight>{$character->profession}<end>, {$character->faction})";
+		if ($character->guild != "")
 		{
-			$msg .=	" {$character->rank} of {$character->org}";
+			$msg .=	" {$character->guild_rank} of {$character->guild}";
 		}
 		$msg .= " has joined the network";
 		if ($guest == 1)
@@ -90,7 +89,7 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot)
 		// send actual online members
 
 		$msg = "[BBIN:ONLINELIST:".$bot->vars["dimension"].":";
-		$db->query("SELECT * FROM guild_chatlist_<myname>");
+		$db->query("SELECT name FROM guild_chatlist_<myname>");
 		$numrows = $db->numrows();
 		$data = $db->fObject("all");
 
@@ -150,12 +149,11 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot)
 				break;
 			}
 				
-			// get character data
+			// update character info
 			$character = Player::get_by_name($name, $dimension);
 				
 			// add user to bbin_chatlist_<myname>
-			$db->query("INSERT INTO bbin_chatlist_<myname> (`name`, `faction`, `profession`, `guild`, `breed`, `level`, `ai_level`, `guest`, `dimension`, `ircrelay`) ".
-				"VALUES ('$name', '$character->faction', '$character->prof', '$character->org', '$character->breed', '$character->level', '$character->ai_level', $isguest, $dimension, '$nick')");
+			$db->query("INSERT INTO bbin_chatlist_<myname> (`name`, `guest`, `ircrelay`) VALUES ('$name', $isguest, '$nick')");
 		}
 	}
 	else

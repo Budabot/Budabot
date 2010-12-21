@@ -3,6 +3,8 @@
 
 	//Setup of the Online Modules
 	bot::event("setup", "$MODULE_NAME/setup.php");
+	
+	bot::loadSQLFile($MODULE_NAME, "guild_chatlist");
 
 	//Lastseen
 	bot::command("", "$MODULE_NAME/lastseen.php", "lastseen", "guild", "Shows the logoff time of a player");

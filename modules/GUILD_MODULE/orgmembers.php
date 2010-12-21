@@ -35,9 +35,9 @@ if(preg_match("/^orgmembers$/i", $message)) {
 	    bot::send($msg, $sendto);
 	}
 	
-	$db->query("SELECT * FROM org_members_<myname> WHERE `mode` != 'del' ORDER BY name");  
+	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.name = p.name WHERE `mode` != 'del' ORDER BY o.name");  
 	$members = $db->numrows();
-  	if($members == 0) {
+  	if ($members == 0) {
 	  	$msg = "No members recorded.";
 	    bot::send($msg, $sendto);    
 	}
@@ -48,7 +48,7 @@ if(preg_match("/^orgmembers$/i", $message)) {
     
     $first_char = "";
 	$list = "<header>::::: Members of the org {$this->vars["my guild"]} :::::<end>";
-	while($row = $db->fObject()) {
+	while ($row = $db->fObject()) {
         if($row->logged_off != "0")
 	        $logged_off = " :: <highlight>Last logoff:<end> ".gmdate("D F d, Y - H:i", $row->logged_off)."(GMT)";
 	    
@@ -57,7 +57,7 @@ if(preg_match("/^orgmembers$/i", $message)) {
 			$list .= "\n\n<highlight><u>$first_char</u><end>\n";
 		}
 		
-		switch($row->profession) {
+		switch ($row->profession) {
         case "Adventurer":
             $prof = "Advy";
             break;
@@ -164,7 +164,7 @@ if(preg_match("/^orgmembers$/i", $message)) {
 	    return;
     }
     
-	$db->query("SELECT * FROM org_members_<myname> WHERE `mode` != 'del' AND `profession` = '$prof' ORDER BY name");
+	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.name = p.name WHERE `mode` != 'del' AND `profession` = '$prof' ORDER BY o.name");
 
 	$members = $db->numrows();
   	if($members == 0) {
@@ -184,7 +184,7 @@ if(preg_match("/^orgmembers$/i", $message)) {
 	    else
 	    	$logged_off = "<red>Not set yet.<end>";
 	    	
-	  	$list .= "<tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end> $row->profession) (<highlight>$row->rank<end>) <highlight>::<end> Last logoff: $logged_off\n";
+	  	$list .= "<tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end> $row->profession) (<highlight>$row->guild_rank<end>) <highlight>::<end> Last logoff: $logged_off\n";
 	}
 	
 	$msg = bot::makeLink("{$this->vars["my guild"]} has $members members currently.", $list);

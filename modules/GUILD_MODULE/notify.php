@@ -48,36 +48,14 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
 	    
     	$msg = "<highlight>$name<end> has been added to the Notify list.";
     // Is the player name valid?
-    } elseif($uid) {
-        // Getting Player infos
-        $whois = Player::get_by_name($name);
+    } else if ($uid) {
+        // update player info
+        Player::get_by_name($name);
 
         // Add him as a buddy and put his infos into the DB
 		$this->add_buddy($name, 'org');
-        if($whois->errorCode != 0) {
-		  	$whois -> firstname = "";
-		  	$whois -> lastname = "";
-		  	$whois -> rank_id = 6;
-		  	$whois -> rank = "Applicant";
-		  	$whois -> level = "1";
-		  	$whois -> prof = "Unknown";
-		  	$whois -> gender = "Unknown";
-		  	$whois -> breed = "Unknown";
-		}
-        $db->query("INSERT INTO org_members_<myname> (`mode`, `name`, `firstname`, `lastname`, `guild`, `rank_id`, `rank`, `level`, `profession`, `gender`, `breed`, `ai_level`, `ai_rank`)
-                    VALUES ('man',
-                    '".$name."',
-					'".str_replace("'", "''", $whois -> firstname)."',
-                    '".str_replace("'", "''", $whois -> lastname)."',
-					'".str_replace("'", "''", $whois -> org)."',
-                    '".$whois -> rank_id."',
-					'".$whois -> rank."',
-                    '".$whois -> level."',
-					'".$whois -> prof."',
-                    '".$whois -> gender."',
-					'".$whois -> breed."',
-                    '".$whois -> ai_level."',
-                    '".$whois -> ai_rank."')");
+
+        $db->query("INSERT INTO org_members_<myname> (`mode`, `name`) VALUES ('man', '".$name."')");
     	$msg = "<highlight>".$name."<end> has been added to the Notify list.";
     // Player name is not valid
     } else {
@@ -94,7 +72,7 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
 	    $row = $db->fObject();
 	    
     // Is the player a member of this bot?
-    if($numrows != 0 && $row->mode != "del") {
+    if ($numrows != 0 && $row->mode != "del") {
         $db->query("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '$name'");
         $db->query("DELETE FROM guild_chatlist_<myname> WHERE `name` = '$name'");
         $msg = "Removed <highlight>$name<end> from the Notify list.";

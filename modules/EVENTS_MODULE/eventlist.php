@@ -20,7 +20,7 @@ if (preg_match("/^eventlist ([0-9]+)$/i", $message, $arr)) {
 		sort($eventlist);
 		if ($row->event_attendees != "") {
 			forEach ($eventlist as $key => $value) {
-				$db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$value'");
+				$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.name = p.name WHERE `o.name` = '$value'");
 				if ($db->numrows() != 0) {
 					$row = $db->fObject();
 					$level = $row->level;

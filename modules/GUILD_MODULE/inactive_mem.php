@@ -3,7 +3,7 @@
    ** Author: Legendadv (RK2)
    ** Description: Lookup inactive org members
    */
-$table = "org_members_<myname>";  //org_members_<myname>
+
 if (preg_match("/^inactivemem ([0-9]+)/i", $message, $arr)) {
 	
 	if($this->vars["my guild id"] == "") {
@@ -12,9 +12,9 @@ if (preg_match("/^inactivemem ([0-9]+)/i", $message, $arr)) {
 	}
 	
 	$inactive_deadline = time() - (2592000*$arr[1]);
-	$db->query("SELECT * FROM $table LEFT JOIN alts ON name=alt WHERE `mode` != 'del' AND `logged_off` != '0' AND `logged_off` < $inactive_deadline  ORDER BY name");  
+	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN alts a ON o.name = a.alt WHERE `mode` != 'del' AND `logged_off` != '0' AND `logged_off` < $inactive_deadline  ORDER BY o.name");  
 	$members = $db->numrows();
-  	if($members == 0) {
+  	if ($members == 0) {
 	    bot::send("No members recorded.", $sendto);    
 		return;
 	}
@@ -27,15 +27,15 @@ if (preg_match("/^inactivemem ([0-9]+)/i", $message, $arr)) {
 	$list .="<u>Name [Main], Last seen, Options</u>\n";
 	
 	$data = $db->fObject("all");
-	foreach($data as $row) {
+	forEach ($data as $row) {
 		$kick = 1;
 		$logged = 0;
 		$main = $row->main;
-		if($row->main != "") {
-			$db->query("SELECT * FROM alts LEFT JOIN $table ON alt = name WHERE `main` = '{$row->main}'");
+		if ($row->main != "") {
+			$db->query("SELECT * FROM alts a LEFT JOIN org_members_<myname> o ON a.alt = o.name WHERE `main` = '{$row->main}'");
 	
-			while($row1 = $db->fObject()) {
-				if($row1->logged_off > $logged) {
+			while ($row1 = $db->fObject()) {
+				if ($row1->logged_off > $logged) {
 					$logged = $row1->logged_off;
 					$lasttoon = $row1->name;
 				}

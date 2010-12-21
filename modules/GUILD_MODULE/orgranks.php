@@ -35,9 +35,9 @@ if(preg_match("/^orgranks$/i", $message)) {
         bot::send($msg, $sendto);
 	}
 	
-	$db->query("SELECT * FROM org_members_<myname> WHERE `mode` != 'del' ORDER BY `rank_id`");  
+	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.name = p.name WHERE `mode` != 'del' ORDER BY `rank_id`");  
 	$members = $db->numrows();
-  	if($members == 0) {
+  	if ($members == 0) {
 	  	$msg = "No members recorded.";
         bot::send($msg, $sendto);
 	}
@@ -46,13 +46,14 @@ if(preg_match("/^orgranks$/i", $message)) {
     bot::send($msg, $sendto);
        	
 	$list = "<header>::::: Members of the org {$this->vars["my guild"]}(Sorted by orgrank) :::::<end>\n\n";
-	while($row = $db->fObject()) {
-        if($row->logged_off != "0")
+	while ($row = $db->fObject()) {
+        if ($row->logged_off != "0") {
 	        $logged_off = gmdate("l F d, Y - H:i", $row->logged_off)."(GMT)";
-	    else
+	    } else {
 	    	$logged_off = "<red>Not set yet.<end>";
+		}
 	    	
-	  	$list .= "<tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end> $row->profession) (<highlight>$row->rank<end>) <highlight>::<end> Last logoff: $logged_off\n";
+	  	$list .= "<tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end> $row->profession) (<highlight>$row->guild_rank<end>) <highlight>::<end> Last logoff: $logged_off\n";
 	}
 	
 	$msg = bot::makeLink("{$this->vars["my guild"]} has $members members currently.", $list);

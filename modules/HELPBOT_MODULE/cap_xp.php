@@ -33,7 +33,7 @@ if (preg_match("/^(capxp|capsk) ([0-9]+)/i$", $message, $arr)) {
 	$info = Player::get_by_name($sender);
 	$reward = $arr[2];
 
-	if ($info->errorCode != 0) {
+	if ($info === null) {
 		bot::send("An Error occurred while trying to get your level. Please input it manually via <highlight><symbol>capxp 'mission reward' 'your lvl'<end> or try again later.", $sendto);
 		return;
 	} else {
