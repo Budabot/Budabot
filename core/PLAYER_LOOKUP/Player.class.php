@@ -5,6 +5,8 @@ class Player {
 		global $db;
 		global $vars;
 		
+		$name = ucfirst(strtolower($name));
+		
 		if ($dimension === null) {
 			$dimension = $vars['dimension'];
 		}
@@ -13,7 +15,7 @@ class Player {
 		$db->query($sql);
 		$player = $db->fObject();
 
-		if ($player === null)
+		if ($player === null) {
 			$player = Player::lookup($name, $dimension);
 		} else if ($player->last_update < (time() - 86400)) {
 			$player2 = Player::lookup($name, $dimension);
@@ -27,7 +29,7 @@ class Player {
 	
 	private static function lookup($name, $dimension) {
 		$xml = Player::lookup_url("http://people.anarchy-online.com/character/bio/d/$dimension/name/$name/bio.xml");
-		if ($xml !== null) {
+		if ($xml->name == $name) {
 			$xml->source = 'people.anarchy-online.com';
 			$xml->dimension = $dimension;
 
@@ -38,7 +40,7 @@ class Player {
 		
 		// if people.anarchy-online.com was too slow to respond or returned invalid data then try to update from auno.org
 		$xml = Player::lookup_url("http://auno.org/ao/char.php?output=xml&dimension=$dimension&name=$name");
-		if ($xml !== null) {
+		if ($xml->name == $name) {
 			$xml->source = 'auno.org';
 			$xml->dimension = $dimension;
 
@@ -52,36 +54,33 @@ class Player {
 	
 	private static function lookup_url($url) {
 		$playerbio = xml::getUrl($url);
-		if (xml::spliceData($playerbio, '<nick>', '</nick>') == $name) {
-			$xml = new stdObject;
 		
-			// parsing of the player data		
-			$xml->firstname    = xml::spliceData($playerbio, '<firstname>', '</firstname>');
-			$xml->name         = xml::spliceData($playerbio, '<nick>', '</nick>');
-			$xml->lastname     = xml::spliceData($playerbio, '<lastname>', '</lastname>');
-			$xml->level        = xml::spliceData($playerbio, '<level>', '</level>');
-			$xml->breed        = xml::spliceData($playerbio, '<breed>', '</breed>');
-			$xml->gender       = xml::spliceData($playerbio, '<gender>', '</gender>');
-			$xml->faction      = xml::spliceData($playerbio, '<faction>', '</faction>');
-			$xml->prof         = xml::spliceData($playerbio, '<profession>', '</profession>');
-			$xml->prof_title   = xml::spliceData($playerbio, '<profession_title>', '</profession_title>');
-			$xml->ai_rank      = xml::spliceData($playerbio, '<defender_rank>', '</defender_rank>');
-			$xml->ai_level     = xml::spliceData($playerbio, '<defender_rank_id>', '</defender_rank_id>');
-			$xml->org_id       = xml::spliceData($playerbio, '<organization_id>', '</organization_id>');
-			$xml->org          = xml::spliceData($playerbio, '<organization_name>', '</organization_name>');
-			$xml->rank         = xml::spliceData($playerbio, '<rank>', '</rank>');
-			$xml->rank_id      = xml::spliceData($playerbio, '<rank_id>', '</rank_id>');
-			
-			return $xml;
-		}
+		$xml = new stdClass;
+	
+		// parsing of the player data		
+		$xml->firstname    = xml::spliceData($playerbio, '<firstname>', '</firstname>');
+		$xml->name         = xml::spliceData($playerbio, '<nick>', '</nick>');
+		$xml->lastname     = xml::spliceData($playerbio, '<lastname>', '</lastname>');
+		$xml->level        = xml::spliceData($playerbio, '<level>', '</level>');
+		$xml->breed        = xml::spliceData($playerbio, '<breed>', '</breed>');
+		$xml->gender       = xml::spliceData($playerbio, '<gender>', '</gender>');
+		$xml->faction      = xml::spliceData($playerbio, '<faction>', '</faction>');
+		$xml->prof         = xml::spliceData($playerbio, '<profession>', '</profession>');
+		$xml->prof_title   = xml::spliceData($playerbio, '<profession_title>', '</profession_title>');
+		$xml->ai_rank      = xml::spliceData($playerbio, '<defender_rank>', '</defender_rank>');
+		$xml->ai_level     = xml::spliceData($playerbio, '<defender_rank_id>', '</defender_rank_id>');
+		$xml->org_id       = xml::spliceData($playerbio, '<organization_id>', '</organization_id>');
+		$xml->org          = xml::spliceData($playerbio, '<organization_name>', '</organization_name>');
+		$xml->rank         = xml::spliceData($playerbio, '<rank>', '</rank>');
+		$xml->rank_id      = xml::spliceData($playerbio, '<rank_id>', '</rank_id>');
 		
-		return null;
+		return $xml;
 	}
 	
 	private static function update(&$xml) {
 		global $db;
 		
-		$db->beingTransaction();
+		$db->beginTransaction();
 	
 		$sql = "DELETE FROM players WHERE `name` LIKE '$xml->name'";
 		$db->exec($sql);
@@ -123,7 +122,7 @@ class Player {
 			'{$xml->rank_id}',
 			'{$xml->dimension}',
 			'{$xml->source}',
-			NOW()
+			'" . time() . "'
 		)";
 		
 		$db->exec($sql);
