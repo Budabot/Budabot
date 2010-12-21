@@ -69,10 +69,10 @@ class Player {
 		$xml->prof_title   = xml::spliceData($playerbio, '<profession_title>', '</profession_title>');
 		$xml->ai_rank      = xml::spliceData($playerbio, '<defender_rank>', '</defender_rank>');
 		$xml->ai_level     = xml::spliceData($playerbio, '<defender_rank_id>', '</defender_rank_id>');
-		$xml->org_id       = xml::spliceData($playerbio, '<organization_id>', '</organization_id>');
+		$xml->guild_id       = xml::spliceData($playerbio, '<organization_id>', '</organization_id>');
 		$xml->guild        = xml::spliceData($playerbio, '<organization_name>', '</organization_name>');
-		$xml->rank         = xml::spliceData($playerbio, '<rank>', '</rank>');
-		$xml->rank_id      = xml::spliceData($playerbio, '<rank_id>', '</rank_id>');
+		$xml->guild_rank         = xml::spliceData($playerbio, '<rank>', '</rank>');
+		$xml->guild_rank_id      = xml::spliceData($playerbio, '<rank_id>', '</rank_id>');
 		
 		return $xml;
 	}
