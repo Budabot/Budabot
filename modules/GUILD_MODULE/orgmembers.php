@@ -30,16 +30,18 @@
    */
    
 if(preg_match("/^orgmembers$/i", $message)) {
-	if($this->vars["my guild id"] == "") {
+	if ($this->vars["my guild id"] == "") {
 	  	$msg = "The Bot needs to be in a org to show the orgmembers.";
 	    bot::send($msg, $sendto);
+		return;
 	}
 	
 	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.name = p.name WHERE `mode` != 'del' ORDER BY o.name");  
 	$members = $db->numrows();
   	if ($members == 0) {
 	  	$msg = "No members recorded.";
-	    bot::send($msg, $sendto);    
+	    bot::send($msg, $sendto);
+		return;
 	}
 	
 	
@@ -49,7 +51,7 @@ if(preg_match("/^orgmembers$/i", $message)) {
     $first_char = "";
 	$list = "<header>::::: Members of the org {$this->vars["my guild"]} :::::<end>";
 	while ($row = $db->fObject()) {
-        if($row->logged_off != "0")
+        if ($row->logged_off != "0")
 	        $logged_off = " :: <highlight>Last logoff:<end> ".gmdate("D F d, Y - H:i", $row->logged_off)."(GMT)";
 	    
 	    if ($row->name[0] != $first_char) {
@@ -107,10 +109,11 @@ if(preg_match("/^orgmembers$/i", $message)) {
 	
 	$msg = bot::makeLink("{$this->vars["my guild"]} has $members members currently.", $list);
  	bot::send($msg, $sendto);
-} elseif(preg_match("/^orgmembers (.*)$/i", $message, $arr)) {
-	if($this->vars["my guild id"] == "") {
+} else if (preg_match("/^orgmembers (.*)$/i", $message, $arr)) {
+	if ($this->vars["my guild id"] == "") {
 	  	$msg = "The Bot needs to be in a org to show the orgmembers.";
 	  	bot::send($msg, $sendto);
+		return;
 	}
 	
 	switch(strtolower($arr[1])) {
@@ -158,7 +161,7 @@ if(preg_match("/^orgmembers$/i", $message)) {
             break;
     }
     
-    if(!$prof) {
+    if (!$prof) {
         $msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade or trad";
 	    bot::send($msg, $sendto);
 	    return;
@@ -167,7 +170,7 @@ if(preg_match("/^orgmembers$/i", $message)) {
 	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.name = p.name WHERE `mode` != 'del' AND `profession` = '$prof' ORDER BY o.name");
 
 	$members = $db->numrows();
-  	if($members == 0) {
+  	if ($members == 0) {
 		$msg = "No <highlight>$prof<end>'s as member recorded";		
 	  	bot::send($msg, $sendto);
 		return; 
@@ -178,11 +181,12 @@ if(preg_match("/^orgmembers$/i", $message)) {
   	bot::send($msg, $sendto);
        	
 	$list = "<header>::::: Members of the org {$this->vars["my guild"]}:Profession: $prof :::::<end>\n\n";
-	while($row = $db->fObject()) {
-        if($row->logged_off != "0")
+	while ($row = $db->fObject()) {
+        if ($row->logged_off != "0") {
 	        $logged_off = gmdate("l F d, Y - H:i", $row->logged_off)."(GMT)";
-	    else
+	    } else {
 	    	$logged_off = "<red>Not set yet.<end>";
+		}
 	    	
 	  	$list .= "<tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end> $row->profession) (<highlight>$row->guild_rank<end>) <highlight>::<end> Last logoff: $logged_off\n";
 	}
