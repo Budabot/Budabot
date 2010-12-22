@@ -186,25 +186,25 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 		$this->data["ORGLIST_MODULE"]["result"][$member->name]["post"] = $thismember;
 
 		$this->data["ORGLIST_MODULE"]["result"][$member->name]["name"] = $member->name;
-		$this->data["ORGLIST_MODULE"]["result"][$member->name]["rank_id"] = $member->rank_id;
+		$this->data["ORGLIST_MODULE"]["result"][$member->name]["rank_id"] = $member->guild_rank_id;
 
 		// If we havent found an org type yet, check this member if they have a unique rank.
 		if (!$this->data["ORGLIST_MODULE"]["orgtype"]) {
-			if (($member->rank_id == 0 && $member->rank == "President") ||
-				($member->rank_id == 3 && $member->rank == "Member") ||
-				($member->rank_id == 4 && $member->rank == "Applicant")) {
+			if (($member->guild_rank_id == 0 && $member->guild_rank == "President") ||
+				($member->guild_rank_id == 3 && $member->guild_rank == "Member") ||
+				($member->guild_rank_id == 4 && $member->guild_rank == "Applicant")) {
 				// Dont do anything. Can't do a match cause this rank is in multiple orgtypes.
-			} else if ($member->rank == $orgrankmap["Anarchism"][$member->rank_id]) {
+			} else if ($member->guild_rank == $orgrankmap["Anarchism"][$member->guild_rank_id]) {
 				$this->data["ORGLIST_MODULE"]["orgtype"]= "Anarchism";
-			} else if ($member->rank == $orgrankmap["Monarchy"][$member->rank_id]) {
+			} else if ($member->guild_rank == $orgrankmap["Monarchy"][$member->guild_rank_id]) {
 				$this->data["ORGLIST_MODULE"]["orgtype"]= "Monarchy";
-			} else if ($member->rank == $orgrankmap["Feudalism"][$member->rank_id]) {
+			} else if ($member->guild_rank == $orgrankmap["Feudalism"][$member->guild_rank_id]) {
 				$this->data["ORGLIST_MODULE"]["orgtype"]= "Feudalism";
-			} else if ($member->rank == $orgrankmap["Republic"][$member->rank_id]) {
+			} else if ($member->guild_rank == $orgrankmap["Republic"][$member->guild_rank_id]) {
 				$this->data["ORGLIST_MODULE"]["orgtype"]= "Republic";
-			} else if ($member->rank == $orgrankmap["Faction"][$member->rank_id]) {
+			} else if ($member->guild_rank == $orgrankmap["Faction"][$member->guild_rank_id]) {
 				$this->data["ORGLIST_MODULE"]["orgtype"]= "Faction";
-			} else if ($member->rank == $orgrankmap["Department"][$member->rank_id]) {
+			} else if ($member->guild_rank == $orgrankmap["Department"][$member->guild_rank_id]) {
 				$this->data["ORGLIST_MODULE"]["orgtype"]= "Department";
 			}
 		}
