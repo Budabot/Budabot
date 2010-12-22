@@ -114,10 +114,7 @@ class db {
 
 		$error = $this->sql->errorInfo();
 		if ($error[0] != "00000") {
-			echo "\nCould not run query: \n";
-			echo "Error msg: $error[2]\n";
-			echo "Query: $stmt\n\n";
-			newLine("SqlError", "Error in: $stmt");
+			newLine("SqlError", "{$error[2]} in: $stmt");
 		}
 
 		return($result);				
@@ -139,10 +136,7 @@ class db {
 
 		$error = $this->sql->errorInfo();
 		if ($error[0] != "00000") {
-			echo "\nCould not run query: \n";
-			echo "Error msg: $error[2]\n";
-			echo "Query: $stmt\n\n";
-			newLine("SqlError", "Error in: $stmt");
+			newLine("SqlError", "{$error[2]} in: $stmt");
 		}
 
 		return($aff_rows);		
@@ -165,10 +159,7 @@ class db {
 
 		$error = $this->sql->errorInfo();
 		if ($error[0] != "00000") {
-			echo "\nCould not run query: \n";
-			echo "Error msg: $error[2]\n";
-			echo "Query: $stmt\n\n";
-			newLine("SqlError", "Error in: $stmt");
+			newLine("SqlError", "{$error[2]} in: $stmt");
 		}
 	}
 
