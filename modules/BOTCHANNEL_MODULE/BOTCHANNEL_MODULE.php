@@ -40,6 +40,8 @@
 	bot::event("joinPriv", "$MODULE_NAME/notify.php", "none", "Records people who have joined the channel");
 	bot::event("leavePriv", "$MODULE_NAME/notify.php", "none", "Records people who have left the channel");
 	
+	bot::event("joinPriv", "$MODULE_NAME/send_online_list.php", "none", "Sends the online list to people as they join the private channel");
+	
 	//Verifies the Guestchannellist every 1hour
 	bot::event("1hour", "$MODULE_NAME/guest_channel_check.php", "guest", "Guest channel check");
 
