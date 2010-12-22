@@ -121,7 +121,7 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 		$msg = "I'm already doing a list!";
 		$this->send($msg, $sendto);
 		return;
-	} else if (995 <= count($this->buddyList)) {
+	} else if (990 <= count($this->buddyList)) {
 		$msg = "No room on the buddy-list!";
 		$this->send($msg, $sendto);
 		unset($this->data["ORGLIST_MODULE"]);
@@ -156,9 +156,9 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 		$orgid = $arr[2];
 	}
 	
-	$this->send("Searching and reading org list for org id $orgid...", $sendto);
+	$this->send("Downloading org list for org id $orgid...", $sendto);
 
-	$org = new org($orgid);
+	$org = Guild::get_by_id($orgid);
 
 	if ($org->errorCode != 0) {
 		$msg = "Error in getting the Org info. Either org does not exist or AO's server was too slow to respond.";
@@ -169,7 +169,14 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 	
 	$this->data["ORGLIST_MODULE"]["org"] = $org->orgname;
 	
-	$this->send("Checking online status for '$org->orgname'...", $sendto);
+	$this->send("Parsing xml for '$org->orgname'...", $sendto);
+	
+	// pre fetch the charIds...this speeds things up immensely
+	forEach ($org->members as $member) {
+		if (!isset($this->id[$member->name])) {
+			$this->send_packet(new AOChatPacket("out", AOCP_CLIENT_LOOKUP, $member->name));
+		}
+	}
 	
 	// Check each name if they are already on the buddylist (and get online status now)
 	// Or make note of the name so we can add it to the buddylist later.
@@ -222,11 +229,15 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 		}
 	}
 	
-	// add five members to the buddy list to prime the list and get things rolling
+	$this->send("Checking online status for '$org->orgname'...", $sendto);
+
+	// prime the list and get things rolling by adding some buddies
 	$i = 0;
 	forEach ($this->data["ORGLIST_MODULE"]["check"] as $name => $value) {
+		$this->data["ORGLIST_MODULE"]["added"][$name] = 1;
+		unset($this->data["ORGLIST_MODULE"]["check"][$name]);
 		$this->add_buddy($name, 'onlineorg');
-		if (++$i == 5) {
+		if (++$i == 10) {
 			break;
 		}
 	}
@@ -241,7 +252,7 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 
 // If we added names to the buddylist, this will kick in to determine if they are online or not.
 // If no more names need to be checked, then post results.
-} else if (($type == "logOn" || $type == "logOff") && isset($this->data["ORGLIST_MODULE"]["check"][$sender])) {
+} else if (($type == "logOn" || $type == "logOff") && isset($this->data["ORGLIST_MODULE"]["added"][$sender])) {
 
 	if ($type == "logOn") {
 		$this->data["ORGLIST_MODULE"]["result"][$sender]["online"] = 1;
@@ -250,21 +261,23 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 	}
 
 	$this->remove_buddy($sender, 'onlineorg');
-	unset($this->data["ORGLIST_MODULE"]["check"][$sender]);
+	unset($this->data["ORGLIST_MODULE"]["added"][$sender]);
 	
 	forEach ($this->data["ORGLIST_MODULE"]["check"] as $name => $value) {
+		$this->data["ORGLIST_MODULE"]["added"][$name] = 1;
+		unset($this->data["ORGLIST_MODULE"]["check"][$name]);
 		$this->add_buddy($name, 'onlineorg');
 		break;
 	}
 }
 
-if (isset($this->data["ORGLIST_MODULE"]) && count($this->data["ORGLIST_MODULE"]["check"]) == 0 || $end) {
+if (isset($this->data["ORGLIST_MODULE"]) && count($this->data["ORGLIST_MODULE"]["added"]) == 0 || $end) {
 	$msg = orgmatesformat($this->data["ORGLIST_MODULE"], $orgrankmap, $orgcolor, $this->data["ORGLIST_MODULE"]["start"],$this->data["ORGLIST_MODULE"]["org"]);
 	$msg = bot::makeLink("Orglist for '".$this->data["ORGLIST_MODULE"]["org"]."'", $msg);
 	bot::send($msg, $this->data["ORGLIST_MODULE"]["sendto"]);
 
 	// in case it was ended early
-	forEach ($this->data["ORGLIST_MODULE"]["check"] as $name => $value) {
+	forEach ($this->data["ORGLIST_MODULE"]["added"] as $name => $value) {
 		$this->remove_buddy($name, 'onlineorg');
 	}
 	unset($this->data["ORGLIST_MODULE"]);

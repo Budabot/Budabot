@@ -35,7 +35,7 @@ if ($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 	
 	echo "\n \nStarting Roster Update \n";
 	//Get the org infos
-	$org = new org($this->vars["my guild id"], $this->vars["dimension"], $force_update);
+	$org = Guild::get_by_id($this->vars["my guild id"], $this->vars["dimension"], true);
 	
 	//Check if Orgxml file is correct if not abort
 	if ($org->errorCode != 0) {

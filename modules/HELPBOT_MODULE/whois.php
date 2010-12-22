@@ -127,7 +127,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
   	$msg = "Getting Org info. Please standby.";
     bot::send($msg, $sendto);
 	
-    $org = new org($org_id);
+    $org = Guild::get_by_id($org_id);
 	if ($org->errorCode == 0) {
   		$num_adv = 0;
   		$num_agent = 0;
