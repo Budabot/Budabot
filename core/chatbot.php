@@ -1193,7 +1193,7 @@ class bot extends AOChat{
 /*===========================================================================================
 ** Name: help_lookup
 ** Find a help topic for a command if it exists
-*/	function help_lookup($helpcmd, $sender) {
+*/	function help_lookup($helpcmd, $sender, $return_as_bloblink = true) {
 		$helpcmd = explode(' ', $helpcmd, 2);
 		$helpcmd = $helpcmd[0];
 		$helpcmd = strtolower($helpcmd);
@@ -1240,8 +1240,12 @@ class bot extends AOChat{
 
 		if ($restricted === false && file_exists($filename)) {
 			$data = file_get_contents($filename);
-			$helpcmd = ucfirst($helpcmd);
-			$msg = bot::makeLink("Help($helpcmd)", $data);
+			if ($return_as_bloblink) {
+				$helpcmd = ucfirst($helpcmd);
+				$msg = bot::makeLink("Help($helpcmd)", $data);
+			} else {
+				$msg = $data;
+			}
 		} else {
 			return FALSE;
 		}

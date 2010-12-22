@@ -524,7 +524,13 @@ if (preg_match("/^config$/i", $message)) {
 				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild guildadmin'>Guildadmin</a>  ";
 				$list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild guild'>Guild</a>\n\n";
 			}
-		}		
+		}
+		
+		$help = $this->help_lookup($cmd, $sender, false);
+		if ($help) {
+			$list .= "\n\n" . $help;
+		}
+		
 		$msg = bot::makeLink(ucfirst($cmd)." config", $list);
 	}
 	bot::send($msg, $sendto);
