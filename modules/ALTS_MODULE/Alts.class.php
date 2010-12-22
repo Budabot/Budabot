@@ -6,12 +6,12 @@ class Alts {
 		
 		$sql = "SELECT `alt`, `main` FROM `alts` WHERE `alt` LIKE '$player'";
 		$db->query($sql);
-		$main = $db->fObject();
+		$row = $db->fObject();
 
-		if ($main === null) {
+		if ($row === null) {
 			return $player;
 		} else {
-			return $main;
+			return $row->main;
 		}
 	}
 	
@@ -20,7 +20,13 @@ class Alts {
 		
 		$sql = "SELECT `alt`, `main` FROM `alts` WHERE `main` LIKE '$main'";
 		$db->query($sql);
-		return $db->fObject('all');
+		
+		$data = $db->fObject('all');
+		$array = array();
+		forEach ($data as $row) {
+			$array[] = $row->alt;
+		}
+		return $array;
 	}
 	
 	public static function add_alt($main, $alt) {

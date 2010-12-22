@@ -44,48 +44,53 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr)) {
 		$uid = AoChat::get_uid($name);
 		/* check if player exists */
 		if (!$uid) {
-			$names_not_existing .= $name . ' ';
+			$names_not_existing []= $name;
+			continue;
+		}
+		
+		/* check if player is already an alt */
+		if (in_array($name, $alts)) {
+			$self_registered []= $name;
 			continue;
 		}
 		
 		/* check if player is already a main or assigned to someone else */
 		$temp_alts = Alts::get_alts($name);
 		$temp_main = Alts::get_main($name);
-		if ($temp_alts != null || $temp_main != null) {
-			$other_registered .= $name . ' ';
-			continue;
-		}
-		
-		/* check if player is already an alt */
-		if (in_array($name, $alts)) {
-			$self_registered .= $name . ' ';
+		if (count($temp_alts) != 0 || $temp_main != $name) {
+			$other_registered []= $name;
 			continue;
 		}
 
 		/* insert into database */
-		Alts::alt_add($main, $name);
-		$names_succeeded .= $name . ' ';
+		Alts::add_alt($main, $name);
+		$names_succeeded []= $name;
+		
+		// update character info
+		Player::get_by_name($name);
 	}
 	
 	$window = '';
-	if ($succeeded) {
-		$window .= "Alts added:\n" . $succeeded;
+	if ($names_succeeded) {
+		$window .= "Alts added:\n" . implode(' ', $names_succeeded) . "\n\n";
 	}
 	if ($self_registered) {
-		$window .= "\n\nAlts already registered to yourself:\n" . $self_registered;
+		$window .= "Alts already registered to yourself:\n" . implode(' ', $self_registered) . "\n\n";
 	}
 	if ($other_registered) {
-		$window .= "\n\nAlts already registered to someone else:\n" . $other_registered;
+		$window .= "Alts already registered to someone else:\n" . implode(' ', $other_registered) . "\n\n";
 	}
 	if ($names_not_existing) {
-		$window .= "\n\nAlts not existing:\n" . $names_not_existing;
+		$window .= "Alts not existing:\n" . implode(' ', $names_not_existing) . "\n\n";
 	}
 	
 	/* create a link */
-	$link = 'Added '.count($names_succeeded).' alts to your list.';
-	$failed_count = count($names_already_registered) + count($names_not_existing);
+	if (count($names_succeeded) > 0) {
+		$link = 'Added '.count($names_succeeded).' alts to your list. ';
+	}
+	$failed_count = count($other_registered) + count($names_not_existing) + count($self_registered);
 	if ($failed_count > 0) {
-		$link .= ' Failed adding '.$failed_count.' alts to your list.';
+		$link .= 'Failed adding '.$failed_count.' alts to your list.';
 	}
 	$msg = $this->makeLink($link, $window);
 
@@ -97,10 +102,10 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr)) {
 	$alts = Alts::get_alts($main);
 	
 	if (!in_array($name, $alts)) {
-		$msg = "<highlight>$name<end> is not registered as your alt.";
+		$msg = "<highlight>{$name}<end> is not registered as your alt.";
 	} else {
 		Alts::rem_alt($main, $name);
-		$msg = "<highlight>$name<end> has been deleted from your alt list.";
+		$msg = "<highlight>{$name}<end> has been deleted from your alt list.";
 	}
 } else if (preg_match("/^alts main (.+)$/i", $message, $arr)) {
 	$alt = $sender;
@@ -130,7 +135,7 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr)) {
 	}
 
 	Alts::add_alt($new_main, $sender);
-	$msg = "You have been registered as an alt of $main.";
+	$msg = "You have been registered as an alt of {$new_main}.";
 	$this->send($msg, $sendto);
 } else if (preg_match('/^alts setmain (.+)$/i', $message, $arr)) {
 	// check if new main exists
@@ -143,7 +148,7 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr)) {
 	}
 	
 	$current_main = Alts::get_main($sender);
-	$alts = Alts::get_alts($main);
+	$alts = Alts::get_alts($current_main);
 	
 	if (!in_array($new_main, $alts)) {
 		$msg = "<highlight>{$new_main}<end> must first be registered as your alt.";
@@ -154,21 +159,21 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr)) {
 	$db->beginTransaction();
 
 	// remove all the old alt information
-	$db->exec("DELETE FROM `alts` WHERE `main` = '$current_main'");
+	$db->exec("DELETE FROM `alts` WHERE `main` = '{$current_main}'");
 
 	// add current main to new main as an alt
-	Alts::add_alt($name_main, $current_main);
+	Alts::add_alt($new_main, $current_main);
 	
 	// add current alts to new main
 	forEach ($alts as $alt) {
-		if ($alt_name != $new_main) {
-			Alts::add_alt($new_main, $alt->alt);
+		if ($alt != $new_main) {
+			Alts::add_alt($new_main, $alt);
 		}
 	}
 	
 	$db->commit();
 
-	$msg = "Successfully set your new main as <highlight>'$new_main'<end>.";
+	$msg = "Successfully set your new main as <highlight>{$new_main}<end>.";
 	$this->send($msg, $sendto);
 } else if (preg_match("/^alts (.+)$/i", $message, $arr) || preg_match("/^alts$/i", $message, $arr)) {
 	if (isset($arr[1])) {
@@ -188,39 +193,47 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr)) {
 
 	$list = "<header>::::: Alternative Character List :::::<end> \n \n";
 	$list .= ":::::: Main Character\n";
-	$list .= "<tab><tab>".$this->makeLink($main, "/tell ".$this->vars["name"]." whois $main", "chatcmd")." - ";
+	$list .= "<tab><tab>{$main}";
+	$character = Player::get_by_name($main);
+	if ($character !== null) {
+		$list .= " (Level <highlight>{$character->level}<end>/<green>{$character->ai_level}<end> <highlight>{$character->profession}<end>)";
+	}
 	$online = $this->buddy_online($main);
 	if ($online === null)
 	{
-		$list .= "No status.\n";
+		$list .= " - No status.\n";
 	}
 	elseif ($online == 1)
 	{
-		$list .= "<green>Online<end>\n";
+		$list .= " - <green>Online<end>\n";
 	}
 	else
 	{
-		$list .= "<red>Offline<end>\n";
+		$list .= " - <red>Offline<end>\n";
 	}
 	$list .= ":::::: Alt Character(s)\n";
-	foreach ($alts as $alt)
+	forEach ($alts as $alt)
 	{
-		$list .= "<tab><tab>".$this->makeLink($alt->alt, "/tell ".$this->vars["name"]." whois $alt->alt", "chatcmd")." - ";
-		$online = $this->buddy_online($alt->alt);
+		$list .= "<tab><tab>{$alt}";
+		$character = Player::get_by_name($alt);
+		if ($character !== null) {
+			$list .= " (Level <highlight>{$character->level}<end>/<green>{$character->ai_level}<end> <highlight>{$character->profession}<end>)";
+		}
+		$online = $this->buddy_online($alt);
 		if ($online === null)
 		{
-			$list .= "No status.\n";
+			$list .= " - No status.\n";
 		}
 		else if ($online == 1)
 		{
-			$list .= "<green>Online<end>\n";
+			$list .= " - <green>Online<end>\n";
 		}
 		else
 		{
-			$list .= "<red>Offline<end>\n";
+			$list .= " - <red>Offline<end>\n";
 		}
 	}
-	$msg = $this->makeLink($main."'s Alts", $list);
+	$msg = $this->makeLink($name."'s Alts", $list);
 	$this->send($msg, $sendto);
 } else {
 	$syntax_error = true;
