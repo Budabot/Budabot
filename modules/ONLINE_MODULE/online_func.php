@@ -188,4 +188,3 @@ function createList(&$data, &$sender, &$list, &$type, &$bot, $show_alts = false)
 }
 
 ?>
-

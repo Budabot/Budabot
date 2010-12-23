@@ -1095,7 +1095,7 @@ class bot extends AOChat{
 /*===============================
 ** Name: addsetting
 ** Adds a setting to the list
-*/	function addsetting($module, $name, $description = 'none', $mode = 'hide', $setting = 'none', $options = 'none', $intoptions = '0', $admin = 'mod', $help = '') {
+*/	function addsetting($module, $name, $description = 'none', $mode = 'hide', $value = 'none', $options = 'none', $intoptions = '0', $admin = 'mod', $help = '') {
 		$db = db::get_instance();
 		$name = strtolower($name);
 
@@ -1106,10 +1106,14 @@ class bot extends AOChat{
 			echo "Error in registering the File $filename for Setting $name. The file doesn't exists!\n";
 			return;
 		}
+		
+		$value = str_replace("'", "''", $value);
+		$options = str_replace("'", "''", $options);
+		$description = str_replace("'", "''", $description);
 
 		if ($this->existing_settings[$name] != true) {
-			$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('$name', '$module', '$mode', '$setting', '$options', '$intoptions', '" . str_replace("'", "''", $description) . "', 'db', '$admin', '$help')");
-		  	$this->settings[$name] = $setting;
+			$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('$name', '$module', '$mode', '$value', '$options', '$intoptions', '" . str_replace("'", "''", $description) . "', 'db', '$admin', '$help')");
+		  	$this->settings[$name] = $value;
 	  	} else {
 			$db->query("UPDATE settings_<myname> SET `module` = '$module', `mode` = '$mode', `options` = '$options', `intoptions` = '$intoptions', `description` = '" . str_replace("'", "''", $description) . "', `admin` = '$admin', `help` = '$help' WHERE `name` = '$name'");
 		}
@@ -1173,13 +1177,13 @@ class bot extends AOChat{
 		}
 
 		//Check if the file exists
-		if (($actual_filename = bot::verifyFilename($filename)) != '') {
+		if (($actual_filename = bot::verifyFilename($module . '/' . $filename)) != '') {
     		$filename = $actual_filename;
     		if (substr($filename, 0, 7) == "./core/") {
 	    		$this->helpfiles[$module[0]][$command]["status"] = "enabled";
 			}
 		} else {
-			echo "Error in registering the File $filename for Help command $command. The file doesn't exists!\n";
+			echo "Error in registering the File $filename for Help command $command. The file doesn't exist!\n";
 			return;
 		}
 
@@ -1793,7 +1797,6 @@ class bot extends AOChat{
 			return true;
 		} else {
 			echo "Warning: $filename does not match the nameconvention(All php files needs to be in lowercases except loading files)!\n";
-			sleep(2);
 			return false;
 		}
 	}
