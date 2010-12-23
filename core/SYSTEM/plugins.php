@@ -84,29 +84,38 @@ $db->query("SELECT * FROM settings_<myname>");
 while($row = $db->fObject())
   	$this->existing_settings[$row->name] = true;
 
-//Load the Core Modules
-if($this->settings['debug'] > 0) print("\n:::::::CORE MODULES::::::::\n");
-if($this->settings['debug'] > 0) print("MODULE_NAME:(SETTINGS.php)\n");
-	include "./core/SETTINGS/SETTINGS.php";
-if($this->settings['debug'] > 0) print("MODULE_NAME:(SYSTEM.php)\n");
-	include "./core/SYSTEM/SYSTEM.php";
-	$curMod = "";
+// Load the Core Modules -- SETINGS must be first in case the other modules have settings
+Logger::log('debug', 'Core', ":::::::CORE MODULES::::::::");
 
-if($this->settings['debug'] > 0) print("MODULE_NAME:(ADMIN.php)\n");
-	include "./core/ADMIN/ADMIN.php";		
-if($this->settings['debug'] > 0) print("MODULE_NAME:(BAN.php)\n");
-	include "./core/BAN/BAN.php";	
-if($this->settings['debug'] > 0) print("MODULE_NAME:(HELP.php)\n");
-	include "./core/HELP/HELP.php";	
-if($this->settings['debug'] > 0) print("MODULE_NAME:(CONFIG.php)\n");
-	include "./core/CONFIG/CONFIG.php";	
-if($this->settings['debug'] > 0) print("MODULE_NAME:(BASIC_CONNECTED_EVENTS.php)\n");
-	include "./core/BASIC_CONNECTED_EVENTS/BASIC_CONNECTED_EVENTS.php";
-if($this->settings['debug'] > 0) print("MODULE_NAME:(PRIV_TELL_LIMIT.php)\n");
-	include "./core/PRIV_TELL_LIMIT/PRIV_TELL_LIMIT.php";
+Logger::log('debug', 'Core', "MODULE_NAME:(SETTINGS.php)");
+include "./core/SETTINGS/SETTINGS.php";
+
+Logger::log('debug', 'Core', "MODULE_NAME:(SYSTEM.php)");
+include "./core/SYSTEM/SYSTEM.php";
+
+Logger::log('debug', 'Core', "MODULE_NAME:(ADMIN.php)");
+include "./core/ADMIN/ADMIN.php";
+
+Logger::log('debug', 'Core', "MODULE_NAME:(BAN.php)");
+include "./core/BAN/BAN.php";
+
+Logger::log('debug', 'Core', "MODULE_NAME:(HELP.php)");
+include "./core/HELP/HELP.php";
+
+Logger::log('debug', 'Core', "MODULE_NAME:(CONFIG.php)");
+include "./core/CONFIG/CONFIG.php";
+
+Logger::log('debug', 'Core', "MODULE_NAME:(BASIC_CONNECTED_EVENTS.php)\n");
+include "./core/BASIC_CONNECTED_EVENTS/BASIC_CONNECTED_EVENTS.php";
+
+Logger::log('debug', 'Core', "MODULE_NAME:(PRIV_TELL_LIMIT.php)\n");
+include "./core/PRIV_TELL_LIMIT/PRIV_TELL_LIMIT.php";
+
+Logger::log('debug', 'Core', "MODULE_NAME:(PLAYER_LOOKUP.php)\n");
+include "./core/PLAYER_LOOKUP/PLAYER_LOOKUP.php";
 
 // Load Plugin Modules
-if($this->settings['debug'] > 0) print("\n:::::::PLUGIN MODULES::::::::\n");	
+Logger::log('debug', 'Core', ":::::::USER MODULES::::::::");
 
 //Start Transaction
 $db->beginTransaction();
@@ -116,15 +125,15 @@ $this->loadModules();
 $db->Commit();
 
 //Load active commands
-if($this->settings['debug'] > 0) print("\nSetting up commands.\n");
+Logger::log('debug', 'Core', "Setting up commands");
 $this->loadCommands();
 
 //Load active subcommands
-if($this->settings['debug'] > 0) print("\nSetting up subcommands.\n");
+Logger::log('debug', 'Core', "Setting up subcommands");
 $this->loadSubcommands();
 
 //Load active events
-if($this->settings['debug'] > 0) print("\nSetting up events.\n");
+Logger::log('debug', 'Core', "Setting up events");
 $this->loadEvents();
 
 //kill unused vars

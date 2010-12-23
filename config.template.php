@@ -20,19 +20,6 @@ $vars['dimension']	= 1;
 //Insert the Administratorname here
 $settings['Super Admin'] = "";
 
-// Debug Messages
-// 0 = Show no message
-// 1 = Show basic debug messages
-// 2 = Show enhanced debug messages
-// 3 = Show enhanced debug messages + 1sec delay
-$settings['debug'] = 0;
-
-// Log Messages
-// 0 = Show nothing
-// 1 = Show them only on the console
-// 2 = Show them on the console and log them to files	
-$settings['echo'] = 1;
-
 // Default Delay for crons after bot is connected
 $settings['CronDelay'] = 0;
 

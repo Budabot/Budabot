@@ -93,30 +93,40 @@ class bot extends AOChat{
 		}
 
 		// Load the Core Modules -- SETINGS must be first in case the other modules have settings
-		if ($this->settings['debug'] > 0) print("\n:::::::CORE MODULES::::::::\n");
-		if ($this->settings['debug'] > 0) print("MODULE_NAME:(SETTINGS.php)\n");
+		Logger::log('debug', 'Core', ":::::::CORE MODULES::::::::");
+		
+		Logger::log('debug', 'Core', "MODULE_NAME:(SETTINGS.php)");
 		include "./core/SETTINGS/SETTINGS.php";
-		if ($this->settings['debug'] > 0) print("MODULE_NAME:(SYSTEM.php)\n");
+		
+		Logger::log('debug', 'Core', "MODULE_NAME:(SYSTEM.php)");
 		include "./core/SYSTEM/SYSTEM.php";
-		if ($this->settings['debug'] > 0) print("MODULE_NAME:(ADMIN.php)\n");
+		
+		Logger::log('debug', 'Core', "MODULE_NAME:(ADMIN.php)");
 		include "./core/ADMIN/ADMIN.php";
-		if ($this->settings['debug'] > 0) print("MODULE_NAME:(BAN.php)\n");
+		
+		Logger::log('debug', 'Core', "MODULE_NAME:(BAN.php)");
 		include "./core/BAN/BAN.php";
-		if ($this->settings['debug'] > 0) print("MODULE_NAME:(HELP.php)\n");
+		
+		Logger::log('debug', 'Core', "MODULE_NAME:(HELP.php)");
 		include "./core/HELP/HELP.php";
-		if ($this->settings['debug'] > 0) print("MODULE_NAME:(CONFIG.php)\n");
+		
+		Logger::log('debug', 'Core', "MODULE_NAME:(CONFIG.php)");
 		include "./core/CONFIG/CONFIG.php";
-		if ($this->settings['debug'] > 0) print("MODULE_NAME:(BASIC_CONNECTED_EVENTS.php)\n");
+		
+		Logger::log('debug', 'Core', "MODULE_NAME:(BASIC_CONNECTED_EVENTS.php)\n");
 		include "./core/BASIC_CONNECTED_EVENTS/BASIC_CONNECTED_EVENTS.php";
-		if ($this->settings['debug'] > 0) print("MODULE_NAME:(PRIV_TELL_LIMIT.php)\n");
+		
+		Logger::log('debug', 'Core', "MODULE_NAME:(PRIV_TELL_LIMIT.php)\n");
 		include "./core/PRIV_TELL_LIMIT/PRIV_TELL_LIMIT.php";
-		if ($this->settings['debug'] > 0) print("MODULE_NAME:(PLAYER_LOOKUP.php)\n");
+		
+		Logger::log('debug', 'Core', "MODULE_NAME:(PLAYER_LOOKUP.php)\n");
 		include "./core/PLAYER_LOOKUP/PLAYER_LOOKUP.php";
 
 		$curMod = "";
 
 		// Load Plugin Modules
-		if ($this->settings['debug'] > 0) print("\n:::::::PLUGIN MODULES::::::::\n");
+		Logger::log('debug', 'Core', ":::::::USER MODULES::::::::");
+
 		//Start Transaction
 		$db->beginTransaction();
 		//Load modules
@@ -125,15 +135,15 @@ class bot extends AOChat{
 		$db->Commit();
 
 		//Load active commands
-		if ($this->settings['debug'] > 0) print("\nSetting up commands.\n");
+		Logger::log('debug', 'Core', "Setting up commands");
 		$this->loadCommands();
 
 		//Load active subcommands
-		if ($this->settings['debug'] > 0) print("\nSetting up subcommands.\n");
+		Logger::log('debug', 'Core', "Setting up subcommands");
 		$this->loadSubcommands();
 
 		//Load active events
-		if ($this->settings['debug'] > 0) print("\nSetting up events.\n");
+		Logger::log('debug', 'Core', "Setting up events");
 		$this->loadEvents();
 
 		//kill unused vars
@@ -500,7 +510,7 @@ class bot extends AOChat{
 					// Look for the plugin's ... setup file
 					if (file_exists("./modules/$entry/$entry.php")) {
 						$curMod = $entry;
-						if($this->settings['debug'] > 0) print("MODULE_NAME:($entry.php)\n");
+						Logger::log('debug', 'Core', "MODULE_NAME:($entry.php)");
 						include "./modules/$entry/$entry.php";
 					}
 				}
@@ -569,9 +579,8 @@ class bot extends AOChat{
 		$module = explode("/", strtolower($filename));
 
 		for ($i = 0; $i < count($type); $i++) {
-			if($this->settings['debug'] > 1) print("Adding Command to list:($command) File:($filename)\n");
-			if($this->settings['debug'] > 1) print("                 Admin:({$admin[$i]}) Type:({$type[$i]})\n");
-			if($this->settings['debug'] > 2) sleep(1);
+			Logger::log('debug', 'Core', "Adding Command to list:($command) File:($filename)");
+			Logger::log('debug', 'Core', "                 Admin:({$admin[$i]}) Type:({$type[$i]})");
 			
 			if ($this->existing_commands[$type[$i]][$command] == true) {
 				$db->query("UPDATE cmdcfg_<myname> SET `module` = '$curMod', `verify` = 1, `file` = '$filename', `description` = '$description' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
@@ -587,9 +596,8 @@ class bot extends AOChat{
 */	function regcommand($type, $filename, $command, $admin = 'all') {
 		$db = db::get_instance();
 
-	  	if($this->settings['debug'] > 1) print("Activate Command:($command) Admin Type:($admin)\n");
-		if($this->settings['debug'] > 1) print("            File:($filename) Type:($type)\n");
-		if($this->settings['debug'] > 2) sleep(1);
+	  	Logger::log('debug', 'Core', "Activate Command:($command) Admin Type:($admin)");
+		Logger::log('debug', 'Core', "            File:($filename) Type:($type)");
 
 		$module = explode("/", strtolower($filename));
 		$module = strtoupper($module[0]);
@@ -653,9 +661,8 @@ class bot extends AOChat{
   		$db = db::get_instance();
 		$command = strtolower($command);
 
-	  	if($this->settings['debug'] > 1) print("Deactivate Command:($command) File:($filename)\n");
-		if($this->settings['debug'] > 1) print("              Type:($type)\n");
-		if($this->settings['debug'] > 2) sleep(1);
+	  	Logger::log('debug', 'Core', "Deactivate Command:($command) File:($filename)");
+		Logger::log('debug', 'Core', "              Type:($type)");
 
 		switch ($type){
 			case "msg":
@@ -706,9 +713,8 @@ class bot extends AOChat{
 		$description = str_replace("'", "''", $description);
 		$module = explode("/", strtolower($filename));
 	  	
-		if($this->settings['debug'] > 1) print("Adding Subcommand to list:($command) File:($filename)\n");
-		if($this->settings['debug'] > 1) print("                    Admin:($admin) Type:($type)\n");
-		if($this->settings['debug'] > 2) sleep(1);
+		Logger::log('debug', 'Core', "Adding Subcommand to list:($command) File:($filename)");
+		Logger::log('debug', 'Core', "                    Admin:($admin) Type:($type)");
 
 		//Check if the file exists
 		if (($actual_filename = bot::verifyFilename($filename)) != '') {
@@ -722,9 +728,8 @@ class bot extends AOChat{
 			$command = strtolower($command);
 
 		for ($i = 0; $i < count($type); $i++) {
-			if($this->settings['debug'] > 1) print("Adding Subcommand to list:($command) File:($filename)\n");
-			if($this->settings['debug'] > 1) print("                    Admin:($admin) Type:({$type[$i]})\n");
-			if($this->settings['debug'] > 2) sleep(1);
+			Logger::log('debug', 'Core', "Adding Subcommand to list:($command) File:($filename)");
+			Logger::log('debug', 'Core', "                    Admin:($admin) Type:({$type[$i]})");
 			
 			//Check if the admin status exists
 			if (!is_numeric($admin[$i])) {
@@ -761,8 +766,7 @@ class bot extends AOChat{
 		$description = str_replace("'", "''", $description);
 		$module = explode("/", strtolower($filename));
 
-	  	if($this->settings['debug'] > 1) print("Adding Event to list:($type) File:($filename)\n");
-		if($this->settings['debug'] > 2) sleep(1);
+	  	Logger::log('debug', 'Core', "Adding Event to list:($type) File:($filename)");
 
 		if ($this->settings["default module status"] == 1) {
 			$status = 1;
@@ -784,8 +788,7 @@ class bot extends AOChat{
 		$db = db::get_instance();
 		global $curMod;
 
-	  	if($this->settings['debug'] > 1) print("Activating Event:($type) File:($filename)\n");
-		if($this->settings['debug'] > 2) sleep(1);
+	  	Logger::log('debug', 'Core', "Activating Event:($type) File:($filename)");
 
 		//Check if the file exists
 		if (($actual_filename = bot::verifyFilename($filename)) != '') {
@@ -898,8 +901,7 @@ class bot extends AOChat{
 ** Name: unregevent
 **  Disables an event
 */	function unregevent($type, $filename) {
-		if($this->settings['debug'] > 1) print("Deactivating Event:($type) File:($filename)\n");
-		if($this->settings['debug'] > 2) sleep(1);
+		Logger::log('debug', 'Core', "Deactivating Event:($type) File:($filename)");
 
 		//Check if the file exists
 		if (($actual_filename = bot::verifyFilename($filename)) != '') {
@@ -1155,8 +1157,7 @@ class bot extends AOChat{
 ** Add a help command and display text file in a link.
 */	function help($module, $command, $filename, $admin, $description, $cat) {
 	  	$db = db::get_instance();
-		if($this->settings['debug'] > 1) print("Registering Helpfile:($filename) Cmd:($command)\n");
-		if($this->settings['debug'] > 2) sleep(1);
+		Logger::log('debug', 'Core', "Registering Helpfile:($filename) Cmd:($command)");
 
 		$command = strtolower($command);
 
