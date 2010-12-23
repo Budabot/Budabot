@@ -43,14 +43,14 @@
 	bot::regcommand("priv", "$MODULE_NAME/set_limits_priv.php", "faction", "mod");
 
 	//Settings
-	bot::addsetting("priv_req_lvl", "Private Channel Min Level Limit", "noedit", "0", "none", "0", "mod", "$MODULE_NAME/help_minlvl.txt");
-	bot::addsetting("priv_req_faction", "Private Channel Faction Limit", "noedit", "all", "none", "0", "mod", "$MODULE_NAME/help_faction.txt");
-	bot::addsetting("priv_req_open", "Private Channel General Limit", "noedit", "all", "none", "0", "mod", "$MODULE_NAME/help_open.txt");
-	bot::addsetting("priv_req_maxplayers", "Maximum Players in the PrivGroup", "noedit", "0", "none", "0", "mod", "$MODULE_NAME/help_maxplayers.txt");
+	bot::addsetting($MODULE_NAME, "priv_req_lvl", "Private Channel Min Level Limit", "noedit", "0", "none", "0", "mod", "$MODULE_NAME/help_minlvl.txt");
+	bot::addsetting($MODULE_NAME, "priv_req_faction", "Private Channel Faction Limit", "noedit", "all", "none", "0", "mod", "$MODULE_NAME/help_faction.txt");
+	bot::addsetting($MODULE_NAME, "priv_req_open", "Private Channel General Limit", "noedit", "all", "none", "0", "mod", "$MODULE_NAME/help_open.txt");
+	bot::addsetting($MODULE_NAME, "priv_req_maxplayers", "Maximum Players in the PrivGroup", "noedit", "0", "none", "0", "mod", "$MODULE_NAME/help_maxplayers.txt");
 
-	bot::addsetting("tell_req_lvl", "Tells Min Level", "noedit", "0", "none", "0", "mod", "$MODULE_NAME/help_tminlvl.txt");
-	bot::addsetting("tell_req_faction", "Tell Faction Limit", "noedit", "all", "none", "0", "mod", "$MODULE_NAME/help_tfaction.txt");
-	bot::addsetting("tell_req_open", "Tell General Limit", "noedit", "all", "none", "0", "mod", "$MODULE_NAME/help_topen.txt");
+	bot::addsetting($MODULE_NAME, "tell_req_lvl", "Tells Min Level", "noedit", "0", "none", "0", "mod", "$MODULE_NAME/help_tminlvl.txt");
+	bot::addsetting($MODULE_NAME, "tell_req_faction", "Tell Faction Limit", "noedit", "all", "none", "0", "mod", "$MODULE_NAME/help_tfaction.txt");
+	bot::addsetting($MODULE_NAME, "tell_req_open", "Tell General Limit", "noedit", "all", "none", "0", "mod", "$MODULE_NAME/help_topen.txt");
 
 	//Help File
 	bot::help("priv_tell_limits", "$MODULE_NAME/help.txt", "mod", "Set Limits for tells and PrivGroup");

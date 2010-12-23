@@ -33,10 +33,10 @@
 	bot::regGroup("online", $MODULE_NAME, "Show who is online(guild or privatechat)", "adv", "agent", "crat", "doc", "enf", "eng", "fix", "keep", "ma", "mp", "nt", "sol", "shade", "trader", "online", "count");
 
 	//Settings
-	bot::addsetting("relaydb", "Database for merging online lists", "edit", "0", "text", '0', "mod");
-	bot::addsetting("chatlist_tell", "Mode for Chatlist Cmd in tells", "edit", "1", "Shows online privatechat members;Shows online guild members", "1;0");
-	bot::addsetting("fancy_online", "Enables the fancy delimiters for the online display", "edit", "1", "On;Off", "1;0");
-	bot::addsetting("icon_fancy_online", "Enables the use of icons in fancy delimiter mode", "edit", "1", "On;Off", "1;0");
+	bot::addsetting($MODULE_NAME, "relaydb", "Database for merging online lists", "edit", "0", "text", '0', "mod");
+	bot::addsetting($MODULE_NAME, "chatlist_tell", "Mode for Chatlist Cmd in tells", "edit", "1", "Shows online privatechat members;Shows online guild members", "1;0");
+	bot::addsetting($MODULE_NAME, "fancy_online", "Enables the fancy delimiters for the online display", "edit", "1", "On;Off", "1;0");
+	bot::addsetting($MODULE_NAME, "icon_fancy_online", "Enables the use of icons in fancy delimiter mode", "edit", "1", "On;Off", "1;0");
 
 	bot::event("logOn", "$MODULE_NAME/logonline.php", "none", "Sends a tell to players on logon showing who is online in org");
 	bot::event("logOn", "$MODULE_NAME/logon_guild.php", "none", "Shows a logon from a member in chat and records in db");

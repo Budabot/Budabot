@@ -28,9 +28,9 @@
 	bot::event("orgmsg", "$MODULE_NAME/org_messages.php", "none", "Relay Org Messages");
 	
 	// Settings
-	bot::addsetting("relaytype", "Type of relay", "edit", "1", "tell;pgroup", '1;2', "mod", "");
-	bot::addsetting("relaysymbol", "Symbol for external relay", "edit", "@", "!;#;*;@;$;+;-;Always relay", '0', "mod", "");
-	bot::addsetting("relaybot", "Bot for Guildrelay", "edit", "Off", "text", '0', "mod");
+	bot::addsetting($MODULE_NAME, "relaytype", "Type of relay", "edit", "1", "tell;pgroup", '1;2', "mod", "");
+	bot::addsetting($MODULE_NAME, "relaysymbol", "Symbol for external relay", "edit", "@", "!;#;*;@;$;+;-;Always relay", '0', "mod", "");
+	bot::addsetting($MODULE_NAME, "relaybot", "Bot for Guildrelay", "edit", "Off", "text", '0', "mod");
 	
 	bot::help("tellrelay", "$MODULE_NAME/tellrelay.txt", "admin", "How to setup an org relay between two orgs using tells");
 ?>

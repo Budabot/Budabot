@@ -2,8 +2,8 @@
 	$MODULE_NAME = "BASIC_CHAT_MODULE";
 
 	//Invite/Leave/lock commands
-	bot::addsetting("priv_status", "no", "hide", "open");
-	bot::addsetting("priv_status_reason", "no", "hide", "not set");	
+	bot::addsetting($MODULE_NAME, "priv_status", "no", "hide", "open");
+	bot::addsetting($MODULE_NAME, "priv_status_reason", "no", "hide", "not set");	
 
 	//Check macros
 	bot::command("", "$MODULE_NAME/check.php", "check", "rl", "Checks who of the raidgroup is in the area");
@@ -13,9 +13,9 @@
 	bot::event("logOn", "$MODULE_NAME/topic_logon.php", "none", "Show Topic on logon of members");
 	bot::command("", "$MODULE_NAME/topic.php", "topic", "all", "Show Topic");
 	bot::subcommand("", "$MODULE_NAME/topic.php", "topic (.+)", "leader", "topic", "Change Topic");
-	bot::addsetting("topic", "Topic for Priv Channel", "noedit", "No Topic set.");	
-	bot::addsetting("topic_setby", "no", "hide", "none");
-	bot::addsetting("topic_time", "no", "hide", time());
+	bot::addsetting($MODULE_NAME, "topic", "Topic for Priv Channel", "noedit", "No Topic set.");	
+	bot::addsetting($MODULE_NAME, "topic_setby", "no", "hide", "none");
+	bot::addsetting($MODULE_NAME, "topic_time", "no", "hide", time());
 
     // Afk Check
 	bot::event("priv", "$MODULE_NAME/afk_check.php", "none", "Afk check");
@@ -27,8 +27,8 @@
 	bot::command("", "$MODULE_NAME/leaderecho_cmd.php", "leaderecho", "leader", "Set if the text of the leader will be repeated");
 	bot::event("priv", "$MODULE_NAME/leaderecho.php", "leader", "leader echo");
 	bot::event("leavePriv", "$MODULE_NAME/leader.php", "none", "Removes leader when the leader leaves the channel");
-	bot::addsetting("leaderecho", "Repeat the text of the raidleader", "edit", "1", "ON;OFF", "1;0");
-	bot::addsetting("leaderecho_color", "Color for Raidleader echo", "edit", "<font color=#FFFF00>", "color");
+	bot::addsetting($MODULE_NAME, "leaderecho", "Repeat the text of the raidleader", "edit", "1", "ON;OFF", "1;0");
+	bot::addsetting($MODULE_NAME, "leaderecho_color", "Color for Raidleader echo", "edit", "<font color=#FFFF00>", "color");
 
 	//Assist
 	bot::command("", "$MODULE_NAME/assist.php", "assist", "all", "Shows an Assist macro");

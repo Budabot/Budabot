@@ -21,13 +21,13 @@
 	bot::command("", "$MODULE_NAME/add.php", "adduser", "all", "Enables Privatechat Join");
 	bot::command("", "$MODULE_NAME/rem.php", "remuser", "all", "Enables Privatechat Join");
 	
-	bot::addsetting("guest_man_join", "Mode of manual guestchannel join", "edit", "1", "Only for members of guestlist;Everyone", "1;0");
-	bot::addsetting("guest_color_channel", "Color for Guestchannelrelay(ChannelName)", "edit", "<font color=#C3C3C3>", "color");
-	bot::addsetting("guest_color_username", "Color for Guestchannelrelay(UserName)", "edit", "<font color=#C3C3C3>", "color");
-	bot::addsetting("guest_color_guild", "Color for Guestchannelrelay(Text in Guild)", "edit", "<font color=#C3C3C3>", "color");
-	bot::addsetting("guest_color_guest", "Color for Guestchannelrelay(Text in Guestchannel)", "edit", "<font color=#C3C3C3>", "color");
-	bot::addsetting("guest_relay", "Relay of the Guestchannel", "edit", "1", "ON;OFF", "1;0");
-	bot::addsetting("guest_relay_commands", "Relay commands and results from/to guestchannel", "edit", "0", "ON;OFF", "1;0");
+	bot::addsetting($MODULE_NAME, "guest_man_join", "Mode of manual guestchannel join", "edit", "1", "Only for members of guestlist;Everyone", "1;0");
+	bot::addsetting($MODULE_NAME, "guest_color_channel", "Color for Guestchannelrelay(ChannelName)", "edit", "<font color=#C3C3C3>", "color");
+	bot::addsetting($MODULE_NAME, "guest_color_username", "Color for Guestchannelrelay(UserName)", "edit", "<font color=#C3C3C3>", "color");
+	bot::addsetting($MODULE_NAME, "guest_color_guild", "Color for Guestchannelrelay(Text in Guild)", "edit", "<font color=#C3C3C3>", "color");
+	bot::addsetting($MODULE_NAME, "guest_color_guest", "Color for Guestchannelrelay(Text in Guestchannel)", "edit", "<font color=#C3C3C3>", "color");
+	bot::addsetting($MODULE_NAME, "guest_relay", "Relay of the Guestchannel", "edit", "1", "ON;OFF", "1;0");
+	bot::addsetting($MODULE_NAME, "guest_relay_commands", "Relay commands and results from/to guestchannel", "edit", "0", "ON;OFF", "1;0");
 	
 	//Autoreinvite Players after a botrestart or crash
 	bot::event("setup", "$MODULE_NAME/autoreinvite.php", "none", "Reinvites the players that were in the privgrp before restart/crash");

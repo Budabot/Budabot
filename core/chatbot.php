@@ -1095,9 +1095,8 @@ class bot extends AOChat{
 /*===============================
 ** Name: addsetting
 ** Adds a setting to the list
-*/	function addsetting($name, $description = 'none', $mode = 'hide', $setting = 'none', $options = 'none', $intoptions = '0', $admin = 'mod', $help = '') {
+*/	function addsetting($module, $name, $description = 'none', $mode = 'hide', $setting = 'none', $options = 'none', $intoptions = '0', $admin = 'mod', $help = '') {
 		$db = db::get_instance();
-		global $curMod;
 		$name = strtolower($name);
 
 		//Check if the file exists
@@ -1109,10 +1108,10 @@ class bot extends AOChat{
 		}
 
 		if ($this->existing_settings[$name] != true) {
-			$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('$name', '$curMod', '$mode', '$setting', '$options', '$intoptions', '" . str_replace("'", "''", $description) . "', 'db', '$admin', '$help')");
+			$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('$name', '$module', '$mode', '$setting', '$options', '$intoptions', '" . str_replace("'", "''", $description) . "', 'db', '$admin', '$help')");
 		  	$this->settings[$name] = $setting;
 	  	} else {
-			$db->query("UPDATE settings_<myname> SET `module` = '$curMod', `mode` = '$mode', `options` = '$options', `intoptions` = '$intoptions', `description` = '" . str_replace("'", "''", $description) . "', `admin` = '$admin', `help` = '$help' WHERE `name` = '$name'");
+			$db->query("UPDATE settings_<myname> SET `module` = '$module', `mode` = '$mode', `options` = '$options', `intoptions` = '$intoptions', `description` = '" . str_replace("'", "''", $description) . "', `admin` = '$admin', `help` = '$help' WHERE `name` = '$name'");
 		}
 	}
 
@@ -1877,7 +1876,7 @@ class bot extends AOChat{
 			echo "Finished!\n";
 		
 			if (!bot::savesetting($settingName, $maxFileVersion)) {
-				bot::addsetting($settingName, $settingName, 'noedit', $maxFileVersion);
+				bot::addsetting($module, $settingName, $settingName, 'noedit', $maxFileVersion);
 			}
 		} else {
 			echo "Updating '$name' database...already up to date! version: '$currentVersion'\n";

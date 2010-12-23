@@ -10,8 +10,10 @@
    ** Date(last modified): 13.07.2010
    */
 
+	require_once 'raffle_func.php';
+
 	$MODULE_NAME = "RAFFLE_MODULE";
-        require_once 'raffle_func.php';
+
 	//Setup
 	bot::event("setup", "$MODULE_NAME/setup.php");
 
@@ -25,6 +27,6 @@
 	bot::help("Raffle", "$MODULE_NAME/raffle.txt", "all", "Start/Join/Leave Raffles", "Raffles");
 
 	//Settings
-	bot::addsetting("defaultraffletime", "Sets how long the raffle should go for in minutes.", "edit", 3, "number");
+	bot::addsetting($MODULE_NAME, "defaultraffletime", "Sets how long the raffle should go for in minutes.", "edit", 3, "number");
 
 ?>

@@ -11,7 +11,7 @@
 	
 	bot::regGroup("bior", $MODULE_NAME, "Create a Bio Regrowth List", "bior", "b");
 	
-	bot::addsetting("bior_max", "Max Persons that are shown on BioR list", "edit", "10", "10;15;20;25;30", '0', "mod", "$MODULE_NAME/bior_help.txt");
+	bot::addsetting($MODULE_NAME, "bior_max", "Max Persons that are shown on BioR list", "edit", "10", "10;15;20;25;30", '0', "mod", "$MODULE_NAME/bior_help.txt");
 
 	//Helpfiles
 	bot::help("bior", "$MODULE_NAME/bior.txt", "all", "Bio Regrowth Macro and List");
@@ -26,7 +26,7 @@
 	
 	bot::regGroup("guardian", $MODULE_NAME, "Create a Guardian List", "guard", "g");
 	
-	bot::addsetting("guard_max", "Max Persons that are shown on Guard list", "edit", "10", "10;15;20;25;30", '0', "mod", "$MODULE_NAME/guard_help.txt");
+	bot::addsetting($MODULE_NAME, "guard_max", "Max Persons that are shown on Guard list", "edit", "10", "10;15;20;25;30", '0', "mod", "$MODULE_NAME/guard_help.txt");
 
 	//Helpfiles
 	bot::help("guard", "$MODULE_NAME/guard.txt", "all", "Guardian Macro and List");

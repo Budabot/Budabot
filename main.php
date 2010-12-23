@@ -98,7 +98,7 @@ forEach ($ignore as $bot) {
 unset($ignore);
 
 
-//Remove the account infos from the global var
+//Remove the account info from the global var
 $login = $vars['login'];
 $password = $vars['password'];
 unset($vars['login']);
