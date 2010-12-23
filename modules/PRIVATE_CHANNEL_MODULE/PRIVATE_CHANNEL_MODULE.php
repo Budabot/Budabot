@@ -37,8 +37,11 @@
 	bot::event("logOn", "$MODULE_NAME/logon_autoinvite.php", "none", "Auto-invite members on logon");
 	
 	//Show Char infos on privjoin
-	bot::event("joinPriv", "$MODULE_NAME/notify.php", "none", "Records people who have joined the channel");
-	bot::event("leavePriv", "$MODULE_NAME/notify.php", "none", "Records people who have left the channel");
+	bot::event("joinPriv", "$MODULE_NAME/notify_priv_join.php", "none", "Displays a message when a character joins the private channel");
+	bot::event("leavePriv", "$MODULE_NAME/notify_priv_leave.php", "none", "Displays a message when a character leaves the private channel");
+	
+	bot::event("joinPriv", "$MODULE_NAME/record_priv_join.php", "none", "Updates the database when a character joins the private channel");
+	bot::event("leavePriv", "$MODULE_NAME/record_priv_leave.php", "none", "Updates the database when a character leaves the private channel");
 	
 	bot::event("joinPriv", "$MODULE_NAME/send_online_list.php", "none", "Sends the online list to people as they join the private channel");
 	
