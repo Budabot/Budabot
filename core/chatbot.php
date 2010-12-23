@@ -239,13 +239,13 @@ class bot extends AOChat{
 			return false;
 		} else {
 			if (!isset($this->buddyList[$uid])) {
-				if ($this->settings['echo'] >= 1) newLine("Buddy", $name, "buddy added", $this->settings['echo']);
+				Logger::log('debug', "Buddy", "$name buddy added");
 				$this->buddy_add($uid);
 			}
 			
 			if (!isset($this->buddyList[$uid]['types'][$type])) {
 				$this->buddyList[$uid]['types'][$type] = 1;
-				if ($this->settings['echo'] >= 1) newLine("Buddy", $name, "buddy type added (type: $type)", $this->settings['echo']);
+				Logger::log('debug', "Buddy", "$name buddy added (type: $type)");
 			}
 			
 			return true;
@@ -259,12 +259,12 @@ class bot extends AOChat{
 		} else if (isset($this->buddyList[$uid])) {
 			if (isset($this->buddyList[$uid]['types'][$type])) {
 				unset($this->buddyList[$uid]['types'][$type]);
-				if ($this->settings['echo'] >= 1) newLine("Buddy", $name, "buddy type removed (type: $type)", $this->settings['echo']);
+				Logger::log('debug', "Buddy", "$name buddy type removed (type: $type)");
 			}
 
 			if (count($this->buddyList[$uid]['types']) == 0) {
 				unset($this->buddyList[$uid]);
-				if ($this->settings['echo'] >= 1) newLine("Buddy", $name, "buddy removed", $this->settings['echo']);
+				Logger::log('debug', "Buddy", "$name buddy removed");
 				$this->buddy_remove($uid);
 			}
 			
@@ -482,7 +482,7 @@ class bot extends AOChat{
 		} else if (AOChat::get_uid($who) != NULL) {// Target is a player.
     		AOChat::send_tell($who, $this->settings["default_tell_color"].$message);
 			// Echo
-			if ($this->settings['echo'] >= 1) newLine("Out. Msg.", $who, $message, $this->settings['echo']);
+			Logger::log_chat("Out. Msg.", $who, $message);
 		} else { // Public channels that are not myguild.
 	    	AOChat::send_group($who,$this->settings["default_guild_color"].$message);
 		}
@@ -1286,7 +1286,7 @@ class bot extends AOChat{
 					$type = "joinPriv";
 					
 					// Echo
-					if ($this->settings['echo'] >= 1) newLine("Priv Group", $sender, "joined the channel.", $this->settings['echo']);
+					Logger::log_chat("Priv Group", -1, "$sender joined the channel.");
 
 					// Remove sender if they are /ignored or /banned or if spam filter is blocking them
 					if ($this->settings["Ignore"][$sender] == true || $this->banlist[$sender]["name"] == $sender || $this->spam[$sender] > 100){
@@ -1324,7 +1324,7 @@ class bot extends AOChat{
 					$type = "leavePriv";
 				
 					// Echo
-					if ($this->settings['echo'] >= 1) newLine("Priv Group", $sender, "left the channel.", $this->settings['echo']);
+					Logger::log_chat("Priv Group", -1, "$sender left the channel.");
 
 					// Remove from Chatlist array.
 					unset($this->chatlist[$sender]);
@@ -1363,7 +1363,7 @@ class bot extends AOChat{
 					$type = "logOff"; // Set message type
 					
 					// Echo
-					//if ($this->settings['echo'] >= 1) newLine("Buddy", $sender, "logged off", $this->settings['echo']);
+					Logger::log('debug', "Buddy", "$sender logged off");
 
 					// Check files, for all 'player logged off events'
 					if ($this->logOff != NULL) {
@@ -1379,7 +1379,7 @@ class bot extends AOChat{
 					$type = "logOn"; // Set Message Type
 					
 					// Echo
-					if ($this->settings['echo'] >= 1) newLine("Buddy", $sender, "logged on", $this->settings['echo']);
+					Logger::log('info', "Buddy", "$sender logged on");
 
 					// Check files, for all 'player logged on events'.
 					if ($this->logOn != NULL) {
@@ -1408,7 +1408,7 @@ class bot extends AOChat{
 				$message = html_entity_decode($message, ENT_QUOTES);
 
 				// Echo
-				if ($this->settings['echo'] >= 1) newLine("Inc. Msg.", $sender, $message, $this->settings['echo']);
+				Logger::log_chat("Inc. Msg.", $sender, $message);
 
 				// AFK/bot check
 				if (preg_match("/$sender is AFK/si", $message, $arr)) {
@@ -1463,7 +1463,7 @@ class bot extends AOChat{
 				$restricted = false;
 				
 				if ($sender == $this->vars["name"]) {
-					if($this->settings['echo'] >= 1) newLine("Priv Group", $sender, $message, $this->settings['echo']);
+					Logger::log_chat("Priv Group", $sender, $message);
 					return;
 				}
 				
@@ -1486,7 +1486,7 @@ class bot extends AOChat{
 					$type = "priv";
 
 					// Echo
-					if ($this->settings['echo'] >= 1) newLine("Priv Group", $sender, $message, $this->settings['echo']);
+					Logger::log_chat("Priv Group", $sender, $message);
 					
 					// Events
 					forEach ($this->privChat as $file) {
@@ -1506,7 +1506,7 @@ class bot extends AOChat{
 					
 					$type = "extPriv";
 					
-					if ($this->settings['echo'] >= 1) newLine($channel, $sender, $message, $this->settings['echo']);
+					Logger::log_chat($channel, $sender, $message);
 					
 					if ($this->extPrivChat != NULL) {
 						forEach ($this->extPrivChat as $file) {
@@ -1534,7 +1534,7 @@ class bot extends AOChat{
 					return;
 				}
 
-				if ($this->settings['echo'] >= 1) newLine($channel, $sender, $message, $this->settings['echo']);
+				Logger::log_chat($channel, $sender, $message);
 
 				if ($sender) {
 					//Ignore Message that are sent from the bot self
@@ -1610,7 +1610,7 @@ class bot extends AOChat{
 				$sender = $this->lookup_user($uid);
 
 				// Echo
-				if ($this->settings['echo'] >= 1) newLine("Priv Group Invitation", $sender, " channel invited.", $this->settings['echo']);
+				Logger::log_chat("Priv Group Invitation", -1, "$sender channel invited.");
 
 				if ($this->extJoinPrivRequest != NULL) {
 					forEach ($this->extJoinPrivRequest as $file) {

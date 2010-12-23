@@ -24,14 +24,14 @@ if("1" == $this->settings['bbin_status']) {
 		flush();
 		fputs($bbin_socket, "PRIVMSG ".$this->settings['bbin_channel']." :$msg\n");
 		if($this->settings['bbin_debug_messages'] == 1) {
-			newLine("BBIN"," ","[Out. bbin Msg.] $msg",0);
+			Logger::log('debug', "BBIN Outgoing", $msg);
 		}
 	}
 	elseif($type == "logOff" && isset($this->guildmembers[$sender])) {
 		flush();
 		fputs($bbin_socket, "PRIVMSG ".$this->settings['bbin_channel']." :$msg\n");
 		if($this->settings['bbin_debug_messages'] == 1) {
-			newLine("BBIN"," ","[Out. bbin Msg.] $msg",0);
+			Logger::log('debug', "BBIN Outgoing", $msg);
 		}
 	}
 }

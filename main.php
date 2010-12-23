@@ -167,51 +167,6 @@ main($chatBot);
 		$chatBot->processCallback($type, $args);	
 	}
 
- /*===============================
-** Name: log
-** Record incoming info into the chatbot's log.
-*/	function newLine($channel, $sender, $message, $target){
-		global $vars;
-		
-		if ($sender == -1) {
-			$line = "[".date("Ymd H:i", time())."] [$channel] $message";
-		} else if ($channel == "Buddy") {
-			$line = "[".date("Ymd H:i", time())."] [$channel] $sender $message";
-		} else {
-			$line = "[".date("Ymd H:i", time())."] [$channel] $sender: $message";
-		}
-
-        $line = preg_replace("/<font(.+)>/U", "", $line);
-        $line = preg_replace("/<\/font>/U", "", $line);
-        $line = preg_replace("/<a(\\s+)href=\"(.+)\">/sU", "[link]", $line);
-        $line = preg_replace("/<a(\\s+)href='(.+)'>/sU", "[link]", $line);
-        $line = preg_replace("/<\/a>/U", "[/link]", $line);
-        
-		echo "$line\n";
-		
-		if ($target == 1 || $channel == "logOn" || $channel == "logOff" || $channel == "Buddy") {
-			return;
-		}
-		
-		if ($channel == "Inc. Msg." || $channel == "Out. Msg.") {
-			$channel = "Tells";
-		}
-
-		$today =  date("Ym");
-
-        /*
-        * Open and append to log-file. Complain on failure.
-        */
-        $filename = "./logs/{$vars['name']}.{$vars['dimension']}/$today.$channel.txt";
-        if (($fp = fopen($filename, "a")) === FALSE) {
-            echo "    *** Failed to open log-file $filename for writing ***\n";
-        } else {
-            fwrite($fp, $line . PHP_EOL);
-            fclose($fp);
-        }
-        
-	}
-    
     /**
     * isWindows is a little utility function to check
     * whether the bot is running Windows or something

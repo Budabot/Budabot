@@ -41,12 +41,12 @@ if ($att_player) {
 $playfield = Playfields::get_playfield_by_name($playfield_name);
 $closest_site = Towers::get_closest_site($playfield->id, $x_coords, $y_coords);
 if ($closest_site === null) {
-	newLine("TowerInfo", "ERROR! Could not find closest site: ({$playfield_name}) '{$playfield->id}' '{$x_coords}' '{$y_coords}'");
+	Logger::log('error', "TowerInfo", "ERROR! Could not find closest site: ({$playfield_name}) '{$playfield->id}' '{$x_coords}' '{$y_coords}'");
 	$more = "[<red>UNKNOWN AREA!<end>]";
 } else {
 
 	Towers::record_attack($whois, $def_side, $def_guild, $x_coords, $y_coords, $closest_site);
-	newLine("TowerInfo", "Site being attacked: ({$playfield_name}) '{$closest_site->playfield_id}' '{$closest_site->site_number}'");
+	Logger::log('error', "TowerInfo", "Site being attacked: ({$playfield_name}) '{$closest_site->playfield_id}' '{$closest_site->site_number}'");
 
 	// Beginning of the 'more' window
 	$link  = "<header>:::::: Advanced Tower Info :::::<end>\n\n";

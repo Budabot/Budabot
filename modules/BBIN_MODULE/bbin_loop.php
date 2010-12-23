@@ -17,7 +17,7 @@ if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
 	$ex = explode(' ', $data);
 	if($this->settings['bbin_debug_all'] == 1)
 	{
-		newLine("BBIN"," ",trim($data),0);
+		Logger::log('debug', "BBIN", trim($data));
 	}
 	$channel = rtrim(strtolower($ex[2]));
 	$nicka = explode('@', $ex[0]);
@@ -31,7 +31,7 @@ if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
 		fputs($bbin_socket, "PONG ".$ex[1]."\n");
 		if($this->settings['bbin_debug_ping'] == 1)
 		{
-			newLine("BBIN"," ","PING received. PONG sent.",0);
+			Logger::log('debug', "BBIN", "PING received. PONG sent.");
 		}
 	}
 	elseif ($ex[1] == "NOTICE")
@@ -118,7 +118,7 @@ if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
 		}
 		if($this->settings['bbin_debug_messages'] == 1)
 		{
-			newLine("BBIN"," ","[Inc. IRC Msg.] $nick: $bbinmessage",0);
+			Logger::log_chat("Inc. IRC Msg.", $nick, $bbinmessage);
 		}
 		parse_incoming_bbin($bbinmessage, $nick, $this);
 

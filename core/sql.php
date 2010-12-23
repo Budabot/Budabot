@@ -97,7 +97,7 @@ class db {
 		}
 
 		$this->lastQuery = $stmt;
-		//newLine("Sql", $stmt);
+		Logger::log('query', "SQL", $stmt);
       	$result = $this->sql->query($stmt);
       	
 		if (is_object($result)) {
@@ -114,7 +114,7 @@ class db {
 
 		$error = $this->sql->errorInfo();
 		if ($error[0] != "00000") {
-			newLine("SqlError", "{$error[2]} in: $stmt");
+			Logger::log('error', "SqlError", "{$error[2]} in: $stmt");
 		}
 
 		return($result);				
@@ -131,12 +131,12 @@ class db {
 		}
 		
 		$this->lastQuery = $stmt;
-		//newLine("Sql", $stmt);
+		Logger::log('query', "SQL", $stmt);
       	$aff_rows = $this->sql->exec($stmt);
 
 		$error = $this->sql->errorInfo();
 		if ($error[0] != "00000") {
-			newLine("SqlError", "{$error[2]} in: $stmt");
+			Logger::log('error', "SqlError", "{$error[2]} in: $stmt");
 		}
 
 		return($aff_rows);		
@@ -154,12 +154,12 @@ class db {
 		$stmt = $this->formatSql($stmt);
 		
 		$this->lastQuery = $stmt;
-		//newLine("Sql", $stmt);
+		Logger::log('query', "SQL", $stmt);
 		$this->sql->exec($stmt);
 
 		$error = $this->sql->errorInfo();
 		if ($error[0] != "00000") {
-			newLine("SqlError", "{$error[2]} in: $stmt");
+			Logger::log('error', "SqlError", "{$error[2]} in: $stmt");
 		}
 	}
 
