@@ -1,0 +1,22 @@
+<header>::::: Help on Raffle Commands. :::::<end>
+
+<highlight>Raffle off items (if count is given, else one item is raffled)<end>
+<tab><symbol>raffle start (count) 'item'
+
+<highlight>Cancel the raffle immediately<end>
+<tab><symbol>raffle cancel
+
+<highlight>End the raffle immediately and post the result<end>
+<tab><symbol>raffle end
+
+<highlight>Display the last result again<end>
+<tab><symbol>raffle result
+
+<highlight>Join the raffle<end>
+<tab><symbol>raffle join
+
+<highlight>Leave the raffle<end>
+<tab><symbol>raffle leave
+
+<highlight>To change the raffle duration in minutes:<end>
+<tab>/tell <myname> settings save defaultraffletime 'duration'

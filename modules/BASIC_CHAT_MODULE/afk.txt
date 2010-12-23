@@ -1,0 +1,7 @@
+<header>::::: Help on AFK command :::::<end>
+
+<header>If you want to let know other players that you are currently not available you can use this command(prefix is not required):<end>
+<tab>afk
+
+or with a reason
+<tab>afk 'reason'

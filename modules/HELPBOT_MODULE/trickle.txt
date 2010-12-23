@@ -1,0 +1,6 @@
+<header>::::: Trickle Commands :::::<end>
+
+<highlight>Shows how much skills you will gain by increasing an ability<end>
+<tab>Usage: <symbol>trickle &lt;ability&gt; &lt;amount&gt;
+
+<tab>eg: <symbol>trickle agi 20

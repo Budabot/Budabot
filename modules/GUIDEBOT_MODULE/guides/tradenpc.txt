@@ -1,0 +1,9 @@
+<header>::::: Guide to Unique NPCs :::::<end>
+
+These NPCs may not be the easiest to find, but their wares are out of the ordinary and certainly worth the trip, if at least to get a refreshing change of scenery.
+
+<a href='chatcmd:///tell <myname> guides zoftig'>'Zoftig Blimp'</a> 
+<a href='chatcmd:///tell <myname> guides meleesmith'>'The Tsunayoshi Smith'</a> 
+<a href='chatcmd:///tell <myname> guides fshop'>'The Fixer Shop'</a> 
+<a href='chatcmd:///tell <myname> guides bernice'>'Thin Bernice'</a> 
+<a href='chatcmd:///tell <myname> guides tshop'>'Trader Shops'</a>  

@@ -1,0 +1,28 @@
+Control Tower Qls mapped to Types
+
+QL Range		Type
+=====================
+1   - 33		Type I
+34  - 81		Type II
+82  - 128		Type III
+129 - 176		Type IV
+177 - 200		Type V
+201 - 225		Type VI
+226 - 275		Type VII
+276 - 300		Type VIII
+
+Note the highest ql CT in game is 255.
+
+Number of towers you can plant
+=====================
+Level <15        0 towers
+Level 15-74      1 tower
+Level 75-149    2 towers
+Level 150-199  3 towers
+Level 200         4 towers
+
+You must wait an hour to re-plant a tower site you have lost.
+
+All your sites open for 1 hour after you plant a site.
+
+You must wait 20 minutes to plant a tower site unless your org took the site.

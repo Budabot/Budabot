@@ -1,0 +1,124 @@
+<header>::::: Guide to Implants :::::<end>
+
+<font color = green>Saetos's Guide to Implants ... for the Newbie in All of Us </font>
+
+This little blob of text shows you the how, the when, the why, and the who about implants and all related. Comments? Questions? Threats? Reply!!!
+
+<font color = green>= Introduction =</font>
+
+Implants. The backbone of many a player who wants to get their butt off the ground and start leveling without feeling like a total gimp. The tool to squeeze into that next heal, that next nuke, next weapon, next insert-item-here. And this guide will show you the ropes, the know-how, the knowledge you need to acquire to get those things under your skin.
+
+<font color = green>= 'wtf are implants?' =</font>
+
+Implants are items used to further increase your skills. They are placed under the skin and augment the body's abilities. In your wear window (CTRL-1) you have thirteen seperate slots for implants, named after certain body parts they would go in. To install them, you use a Surgery Clinic, found in almost all major shops scattered around Rubi-Ka.
+
+When you first find an implant, they usually have no clusters in them. 'Clusters' are the main items that fit into implants to increase your skills. One of each type (Shining, Bright, and Faded) can go into the implant depicted on the cluster (so a 1h Edged Weapon Cluster - Bright (Right-Wrist) would go into the 'Bright' slot of a Right-Wrist implant). All implants require Treatment skill and one of the six main abilities (Strength, Agility, Stamina, Sense, Psychic, and Intelligence).
+
+<font color = green>= how to find implants =</font>
+
+Implants (and clusters) can all be bought in major basic shops, such as Rome Blue Basic (or Fair Trade for you clan- or neutral-sided players). In the basic shop, implants you buy there already have clusters inside them, so there is no need to install the clusters . Empty ones and clusters can be looted off of random mobs in some cases. The basic shops that sell filled implants have them sorted into booths based on the profession that would best use it. However, this does not mean it would be impossible for your enforcer to nick a max-health chest implant from the doctor booth and install it, because all filled implants have only the Treatment + main ability requirements; they are never profession specific.
+
+Filled implants are sorted not only by body part but by quality level, ranging from 10 to 20 to 30, 50, 75, and ql100. After that, you must make/hunt your own implants.
+
+There is a formula for main ability requirements, dependant on the ql of the implant. It goes like such: [ req = QL x 2 + 4 ]. So a ql20 needs (20x2+4), or 44 of a main ability, and a ql150 would need 304. This is helpful in gauging what level you could get your implant on.
+
+<font color = green>= 'but my skills are too low!' =</font>
+
+Luckily, there are a ton of ways to bring your skills up.
+
+<font color = green>+ Treatment +</font>
+
+The granddaddy of them all, the maestro of the treatment raisers is this beauty: Superior First Aid. This ql119 Doctor nano takes up 37 NCU and buffs treatment by a whopping eighty. That's right. Eighty. Eight zero. Veterans take this nano to such high stantards that doctors are asked almost constantly for this piece of implant nirvana.
+
+A lesser-known nano is an adventurer nano, called Robust Treatment. It takes 42 NCU. I wouldn't consider using this unless you seem to find hoards of adventures in your search spots, because, even though you can have both this and Treatment Expertise (+20) in your NCU to achieve the +80 that SFA gives, that's a total of 46 NCU for the same amount SFA can increase. And SFA takes 37. And SFA stacks with TE for +100 Treatment.
+
+Another famous item - or rather set of items - is the Omni-Med Suit (known as the medsuit.) They can only be bought in Omni Basic Shops, so for you clan-aligned people, you will need to go to somewhere like Borealis and hunt one of these down from people, because this thing is golden. This suit has no helmet.
+<font color = Yellow>
+The Omni-Med Suit Boots add [ 6 ] to Treatment
+The Omni-Med Suit Gloves add [ 10 ] to Treatment
+The Omni-Med Suit Shirt (female and ... otherwise version) add [ 20 ] to Treatment
+The Omni-Med Suit Skirt/Trousers add [ 14 ] to Treatment
+The Omni-Med Suit Sleeves each add [ 14 ] to Treatment
+adding 78 total treatment.</font>
+Sometimes you will see low-level docs using this as their first armor set. While adding no AC's, this suit also adds First Aid, equal to Treatment bonuses (so Shirt will add 20 First Aid), which helps them in most cases give them the ability to use ql20 stims at level two, which at that level would refill the entire HP bar.
+
+Speaking of armor, the Biomech Helmet also adds to Treatment, and is availible from ql75 to 200. ql75 needs 211 Psychic and 193 Stamina to wield, while ql200 needs 551/500 to PSY and STA, respectively. 
+
+And then you get OT-Windchaser M06 Quartz.
+
+In the description it says that it is 'a fairly average weapon.' Psh. Average? 8 Stamina and 10 Treatment, in this world, is NOT average to me.
+
+Treatment Expertise, of course, adds 20 Treatment. It stacks with all treatment buffs, as do all expertises (except for Composite Ranged/Nano/Melee Expertise for example. If Composite Nano Expertise [+20 to all nanoskills for one hour] was cast, all individual nanoskill boosts that increase the skill equal-to-or-less-than 20 will be terminated)
+
+Lastly, Surgery Clinic adds 100 Treatment.
+
+For more information on buffing your treatment skills, turn to Pyro's Treatment Guide.
+{ Credits to HurfBurf }
+
+<font color = green>+ Strength +</font>
+
+Prodigious Strength. Omgzorz. If you think you can live without this, good luck. +40 Strength is ev0l, pure and simple. 42 NCU.
+
+<font color = green>+ Strength & Stamina +</font>
+
+Another piece of Enforcer nirvana, coming this time in the form of Essence of Behemoth. Only needs 47 NCU, to add 27 to both STR and STA. Godly, and most would agree. This is actually part of an entire nanoline for the enforcer profession, with behemoth being the highest.
+
+Another nano for this category is Iron Circle. Right now, they take 23 NCU, due to an error, but at patch 16, they will require 26 as descripted. Gives +20 to STR and STA, but requires you to be in the doctor's team. Does not stack with Prodigious Strength.
+
+Now we delve into items. Concrete Cushion (warning: while it looks like a pillow, sleeping on it is considered idiotic). These add 8 Stamina and Strength each (can be dual-wielded). Best ones are ql10, so find a method to get these babies, because they eschange hands fast!
+
+<font color = green>+ Agility +</font>
+
+Now we get into some agent lub with this 17 NCU nano, known as Feline Grace. Find the tiniest person in Borealis and start asking away
+
+This rifle gives a hearty 15 Rifle skill... and 8 Agility. Hopefully you've spared some nice IP for the 121 Rifle it needs.
+
+<font color = green>+ Intelligence & Psychic +</font>
+
+For intelligence, we'll start off with a nice little pistol named Second-Hand Old English Trading Co.. This indeed goes all the way down to ql1, and no matter the QL they will give a nice 5 intelligence. They can also be dual-wielded.
+
+Nano-Technicians get some lub in this category with Neuronal Stimulator. Find an NT that isn't kiting in Elysium (good luck! j/k) and ask them for this if you need the +20. You need the Shadowlands expansion for this to land on you, plus 7 free NCU.
+
+For items, we get into a very popular one named Virral Triumvirate Egg. You may wield two of these, in the shoulder slots. Adding to INT and PSY (and requiring it as well), this is one of the most expensive items in the game. If you want to do it yourself, head on over to this guide that will show you how to make one if you can't fork over the X million credits you'll need to buy one.
+
+The Shades of Lucubration add 30 each to Intelligence and Psychic. You must be nanomage and have a CompLit rating of 166 to equip these. Either you can buy them ... or wait for Mick McMullet to reset his 18-hour spawntimer, and kill him (which has been proven extremely tough) for a 5-10% droprate of these shades. If you have money to burn and no ammo, I'd recommend buying it. Now. ^.^
+
+<font color = green>+ Sense +</font>
+
+Lastly, we have Enhanced Senses, which adds 15 to sense and also adds an opportunity to get that implant smacked in. Agents can cast this, so, once again, find a midget in Borealis and ask away (the midget thing is due to Agent's Ruse of Taren line, which reduces their size and adds concealment skill)
+
+<font color = green>+ All Six +</font>
+
+A technique veteran players use is called laddering, which is the process of putting implants to buff your abilities (or so anarchyarcanum says, 'implanting implants to implant implants'). This process is, however, tricky, and involves quite a bit of planning out so you don't miss out on your next implant. A sort of mini-guide to this process (created by Covenant] is here.
+
+Don't forget your normal ability boosts that add twelve each. But that's a lot of NCU if you want to do all six. Did you say you have shadowlands?!?
+
+Cause if you do...
+Welcome to the world of a nano us AO'ers love to call Composite Attribute Boost.
+This nano comes in four flavors: 1, 2, 4, and 8 hours. It adds 12 to ALL SIX of your abilities... for at least ONE HOUR... for only FOUR NCU. Very, very, very handy for twinking implants in at low levels... and even beyond
+
+<font color = green>= '42 ncu?!? I don't even have 9!!!' =</font>
+
+This section is devoted to raising your NCU to fit all these buffs.
+This is where we call upon the Fixer profession to serve ... I mean ... help us with our goal, via their NCU buff line. 
+
+Anyways... the listings.
+
+Retool NCU adds 40 NCU. You need to be LVL 25 for this to be casted on you.
+Jury-Rigged NCU Analyzer adds 60 NCU. You need to be LVL 50 for this to be casted on you.
+Deck Recoder adds 85 NCU. You need to be LVL 75 for this to be casted on you.
+Recompiling NCU Analyzer adds 110 NCU. You need to be LVL 125 for this to be casted on you.
+QuarkStor NCU Core adds 150 NCU. You need to be LVL 145 for this to be casted on you.
+Active Viral Compressor adds 195 NCU. You need to be LVL 175 for this to be casted on you.
+And finally:
+Sentinent Viral Recoder adds 250 NCU. You need to be LVL 195 for this to be casted on you.
+
+The level requirements for all these nanos are equivalent to the level requirement of the Fixer casting it (sans Quarkstor NCU Core and higher; level requirements for the caster are ten levels lower than what you need to be). So don't ask a lvl24 Fixer for Retool NCU, as it just won't work.
+
+Each of these nanos take up one NCU space, so you'd really get +249 NCU for the higher one for example.
+
+Need just a wee extra? Get some Carbonum Armor, which adds a small amount of NCU per piece, and has some decent AC's if you permanently want to walk around in it.
+
+<font color = green>= conclusion =</font>
+
+Well, nothing much else to say, other than knowing that there's another door of opportunity to go through in further leveling your character. Hey... what are you waiting for? Log on and get grafting!!!

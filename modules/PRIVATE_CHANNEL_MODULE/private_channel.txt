@@ -1,0 +1,19 @@
+<header>::::: Help on Private Channel :::::<end>
+
+<highlight>To show who is in the private channel<end>
+<tab><symbol>sm
+
+<highlight>To invite someone to private channel<end>
+<tab><symbol>inviteuser 'insert name here'
+
+<highlight>To kick someone from private channel<end>
+<tab><symbol>kickuser 'insert name here'
+
+<highlight>To add someone to the guestlist(he will get auto-invited after he logs on)<end>
+<tab><symbol>adduser 'insert name here'
+
+<highlight>To remove someone from the guestlist<end>
+<tab><symbol>remuser 'insert name here'
+
+<highlight>To show who is on the guestlist<end>
+<tab><symbol>members

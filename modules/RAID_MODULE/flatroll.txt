@@ -1,0 +1,23 @@
+<header>::::: Rolling an item flat :::::<end>
+
+<highlight>Adding an item to the list<end>
+<tab><symbol>loot 'item name'
+or
+<tab><symbol>loot 'item reference'
+
+<tab><symbol>multiloot #x 'item reference' (e.g.: <symbol>multiloot 3x Lockpick)
+
+<highlight>Removing an item from the list<end>
+<tab><symbol>remloot 'item number'
+
+<highlight>Clearing the list<end>
+<tab><symbol>loot clear
+
+<highlight>Show the loot list<end>
+<tab><symbol>list
+
+<highlight>Rolling the items<end>
+<tab><symbol>rollloot or <symbol>flatroll or <symbol>result
+
+<highlight>Re-adding remaining items after a roll<end>
+<tab><symbol>reroll

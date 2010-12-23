@@ -1,0 +1,9 @@
+<header>::::: NPC Quest Guides  :::::<end>
+
+<a href='chatcmd:///tell <myname> guides sided1>LINK</a> Sided Shoulderpads Pt 1
+<a href='chatcmd:///tell <myname> guides sided2>LINK</a> Sided Shoulderpads Pt 2
+<a href='chatcmd:///tell <myname> guides sided3>LINK</a> Sided Shoulderpads Pt 3
+<a href='chatcmd:///tell <myname> guides atailor>LINK</a> A Tailor's Woe
+<a href='chatcmd:///tell <myname> guides fgridone>LINK</a> Fixer Grid 1
+<a href='chatcmd:///tell <myname> guides fgrid2>LINK</a> Fixer Grid 2 TeamFgrid
+<a href='chatcmd:///tell <myname> guides jacksrings>LINK</a> Jacks Professionals Rings

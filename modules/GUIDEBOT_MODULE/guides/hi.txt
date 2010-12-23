@@ -1,0 +1,94 @@
+<header>::::: Guide to Hollow Island :::::<end>
+
+South of Wine in Belial Forest, you can find the 'Hollow Island'. A small patch of sand enclosed by rocky cliffs. This is where a very special sapling has decided to stick its roots into the sand and wait for someone to fertilize it. To enter the Hollow Island, you need to find the entrance, since you cannot fly/run over the cliffs. You can't get in anywhere except at the entrance... and you can't get out easily either once the action starts... hehe
+
+Find the sapling on the patch of sand and right click it for some story about how to have a good picnic in the desert. If the sapling is not there, then wait for it. It's spawn is somewhere at 4 hours or so - not certain yet.
+
+Sometime during this story, you will hopefully find out that this sapling needs to be fertilized. Now what else would make a good fertilizer than animal droppings (eww).
+
+Go west of the Hollow Island a few meters and you should end up on a vertical patch of land. On this patch of land, several groups of 'Stinking Scorpoids' wander around. These are level 205, quite aggressive and hit for a respectable amount of damage (600-800 melee doublehits, depending on your armor). Kill them and look for 'Scorpiod Droppings' as loot. This is a rather rare drop, so don't give up. Eventually you should get one of these.
+
+Take this ... stinking mess back to the sapling and give it to it once you have the option for giving an item to it.. but....
+
+Before you do this, you should be prepared for at least 10 rounds (unconfirmed end) of fights against eremites of ever increasing levels. Unless you have a decent group (30+ people) and a load of doctors, you won't survive this for very long.
+
+After handing the Scorpiod Droppings to the sapling, it will grow to 'a fast growing sapling'
+
+Shortly after, the first round of 'Brood' eremites will spawn. Appropriately named 'First Brood Eremites' (level 150ish), you should see a few of these pop up and make the run for you. Apparently eremites have found out by now that human flesh is tasty. Kill them all and rinse, repeat until the 'First Brood Champion' (level 160ish) appears. At this very early stage of the battle, the fight should be over rather quickly. Notice the AOE nukes and dots. These grow increasingly dangerous to the point that the nukes do 4k+ damage and the dots 3k+ damage at the Eigth Brood wave and more specifically, the Eigth Brood Champion. That's what you need LOTS of doctors for (at least 2 for each team is recommended!)
+
+The reward for this sub-boss is the Nelly's Chip, which is not nodrop and used on the 'Nelly Johnsons Little Black Dress' to get a 'Meister's Reinforced Suit'. Good luck to my fellow Bureaucrats!
+
+After killing this first boss, you just wait until the sapling grows to the next stage. It increases it's level by 25 each time (starts at 25, then 50, 75, 100, 125, 150 etc.) Once it has grown to the next stage, the next wave of eremites will spawn. Appropriately named 'Second Brood Eremites' and later on also 'Second Brood Eremite Brutes' which are a tad higher level than their normal brethren. Just kill them all again until the 'Second Brood Champion' spawns. Rinse, repeat until you are dead, which should happen at around the 8th or 9th wave of eremites when they reach insane levels of 225 or 230 and appear in waves of 10 at once. The Tenth Brood Champion has an added Nano dot which takes away 500 nano pool per second. And the Hollow Island Suzerain (the last boss) casts a 10k area nuke when he dies, which will most likely kill everyone, except Nanotechnicians in Nullity Sphere and Adventurers in Parrot form.
+
+To avoid getting overly aggroed by the eremites, try standing close together at the wall next to the water on the far side of the sand patch, so you can just barely target the sapling. That way the eremites won't jump you as soon as they spawn, since they appear around the sapling in groups of 3 and later on more. MPs should use 'Nano Shutdown' on the champions to avoid the massive dots they can cast, especially right when they die. Works well to kill the highest bosses with this tactics: Stay away from the spawns by standing as far away from the sapling (but still on the beach) as possible, let someone pull the mobs and have the champions NSD'd. Happy hunting :)
+
+If you die and come back to the island entrance, you will notice the 'Psionic Eremites' in the water. Those little buggers are spawned to make it a tad harder (or impossible?) for players to return to the raid. They are level 230, spawn in groups of 5 or more and can warp you to them, even when you are in Yalmaha above. Their melee hits kill you in 2 hits or instantly, depending if you have more than 7k HP or not ;) To get back in, try flying as high over them as possible, so they don't aggro you. If they aggro you, then you are dead, no matter what, since they will warp you sooner or later and finish you off like a fly.
+
+Item Droplist
+
+Here is the item drop list of the entire raid (as far as I know it at this time). The items may drop at different QLs than listed and in different order or another item may drop instead of one listed. 
+<font color = blue>
+First Brood Champion:  	
+<a href='itemref://216341/216341/200'> Nelly's Chip </a>
+<a href='itemref://163696/163696/200'>Liquid Notum Ring </font></a>
+<font color = red>
+Second Brood Champion: 	
+<a href='itemref://216272/216272/150'>Remains of AESA 10</a>
+<a href='itemref://163712/163712/200'>Soft Ring with Fluff </font></a>
+<font color = green>
+Third Brood Champion: 	
+<a href='itemref://216276/216276/150'>Notum Miner's Hard Hat</a>
+<a href='itemref://163710/163710/200'>Glimmering Magnetic Ring </font></a>
+<font color = pink>
+Fourth Brood Champion: 	
+<a href='itemref://216271/216271/150'>Mutated Eremite Leg</a>
+<a href='itemref://163706/163706/200'>Luminous Copper Band </font></a>
+<font color = orange>
+Fifth Brood Champion: 	
+<a href='itemref://163704/163704/200'>Ring of the endless Depths</a>
+<a href='itemref://216281/216281/150'>Lion's Leather Boots</a>
+<a href='itemref://216280/216280/150'>Lion's Leather Pants</a>
+<a href='itemref://216283/216283/150'>Thick Leather Wristband </font></a>
+<font color = maroon>
+Sixth Brood Champion: 	
+
+I am the Eel
+<a href='itemref://216450/216450/200'>Suzerain's Spiritual Chief Headwear </font></a>
+<font color = blue>
+Seventh Brood Champion: 	
+
+I am the Bear
+<a href='itemref://216449/216449/200'>Suzerain's Military Chief Headwear</a>
+<a href='itemref://216286/216286/1'>Expensive Gift from Earth</a>
+    the gift contains:
+			<a href='itemref://216274/216274/150'>Funk Flamingo Sunglasses </a> or
+			<a href='itemref://216273/216273/150'>Disco Duck Sunglasses </a> or
+			<a href='itemref://216275/216275/150'>Electric Boogie Sunglasses </a>
+      <a href='itemref://216268/216268/200'>Gurgling River Sprite </font> </a>
+<font color = yellow>
+Eighth Brood Champion: 	
+ I am the Owl
+ 
+<a href='itemref://216381/216381/150'>Chip of the Eight </a>
+<a href='itemref://216448/216448/200'>Suzerain's Political Chief Headwear </a>
+<a href='itemref://164598/164598/200'>Crystalized Medusa Queen Hippocampus </font> </a>
+<font color = red>
+Nineth Brood Champion: 	
+ 
+<a href='itemref://163699/163699/200'>Smooth Gold Alloy Ring </a>
+<a href='itemref://216278/216278/150'>Lion's Leather Armor Sleeve </a>
+<a href='itemref://216270/216270/150'>Mutated Eremite Foetus </a>
+<a href='itemref://216279/216279/150'>Lion's Leather Gloves </font> </a>
+<font color = green>
+Tenth Brood Champion: 	
+<a href='itemref://163701/163701/200'>Hammered Gold Ring </a>
+<a href='itemref://216281/216281/150'>Lion's Leather Boots </font> </a>
+<font color = white>
+The Hollow Island Suzerain: 	
+
+<a href='itemref://216273/216273/150'>Brood Champion Gauntlets </a>
+<a href='itemref://163641/163641/200'>Clan Ring of Salvation </font> </a>
+<font color = red>
+The Brood Mother: 	
+<a href='itemref://216277/216277/150'>Lion's Leather Vest </a>
+<a href='itemref://216282/216282/150'>Professional Marksman's Kit </font> </a>

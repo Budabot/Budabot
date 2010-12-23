@@ -1,0 +1,26 @@
+<header>::::: Different Fun Commands :::::<end>
+
+<highlight>Show a ding gratz message<end>
+<tab><symbol>ding 'insert you new level here'
+<tab><symbol>ding
+
+<highlight>Show a random doh message<end>
+<tab><symbol>doh
+
+<highlight>Show a random beer message<end>
+<tab><symbol>beer
+
+<highlight>Show a random credits message<end>
+<tab><symbol>credz
+
+<highlight>Show a random Chuck Norris joke<end>
+<tab><symbol>chuck
+
+<highlight>Show a random cybor message<end>
+<tab><symbol>cybor
+
+<highlight>Show a random homer quote<end>
+<tab><symbol>homer
+
+<highlight>Letting 2ppls fight against each other<end>
+<tab><symbol>fight 'Person1' vs 'Person2'

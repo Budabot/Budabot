@@ -1,0 +1,26 @@
+<header>::::: Help on Timer Commands. :::::<end>
+
+<red>Note: When you are setting an timer in a tell they will no shown on the timers list in org or priv channel.<end>
+
+<highlight>Show current Timers running<end>
+<tab><symbol>timers
+
+<highlight>Set a personal Timer(only 1 allowed!)<end>
+<tab><symbol>timer 'time'
+
+<highlight>Set a named timer<end>
+<tab><symbol>timer 'Timername' 'time'
+
+<highlight>Remove a timer(only your owns)<end>
+<tab><symbol>timer rem 'Timername'
+
+<highlight>The time for the timer needs to be written in one of these formats<end>
+<tab>- Time in minutes
+<tab>- Time in minutes(with a min at the end)
+<tab>- Time in hours(with a hour at the end)
+<tab>- Time in days(with a day at the end)
+
+Examples
+<tab><symbol>timer 2days 20hours 2min
+<tab><symbol>timer 1days 25min
+<tab><symbol>timer 18hours 20mins

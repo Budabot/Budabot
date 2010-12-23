@@ -1,0 +1,21 @@
+<header>::::: Adonis: Dalja Garden Key Quest :::::<end>
+
+Find Prophet Man Dal. He is in a temple in Adonis Abyss, yes... under water. Head to either of the following coordinates enter the Abyss:
+
+1940 2580 - Sacellum
+1407 2080 - The Prominence
+2314 1438 - Lament Lagoon
+
+Once under water you will be moving quite slower, be aware of your surroundings since you are unlikely to outrun any creature there that could harm you. Make your way to 1898 1265 while watching the nice fishes, I recommend entering at 2314 1438 Lamnent Lagoon and head SW once zoned into water.
+
+When you find the temple, zone in and head to the 2nd room, take the stairs to your left and go through a door. At the end of the room is Prophet Man Dal. Talk to him and start the quest. He will ask you to get a note.
+
+Head to the Redeemed village in east Adonis, NE from where you zoned into Adonis, the lush green place on map in the eastern section of The Outmost Yard, next to a island. Inside the village kill a mob named with the prefix 'Watcher'. He/she drops a Note.
+
+Now go back to Prophet Man Dal saying you have the note. He will then want you to locate 2 Redeemed Ark artifacts (Ancient Control Panel), these are boxes that should be targetted, treated as a locate mission on Rubika (although you can't pick them up ).
+
+One is located at Ancient Control Panel - 2801x2533 in east Adonis, at the 2 huge black weird looking things on map, north of the Redeemed village where you got the note.
+
+The other one is located at Ancient Control Panel - 1670x3021 on the biggest island in the middle (the one next to 3 small ones).
+
+Once completed, your mission will turn into a return item type mission where you should return the note to a Visionary in the garden of Dalja. Grats, you should now have The Key to the Garden of Dalja!

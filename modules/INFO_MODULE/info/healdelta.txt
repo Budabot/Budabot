@@ -1,0 +1,48 @@
+Heal Delta
+----------
+  0 Stamina : 29 seconds
+ 30 Stamina : 28 seconds
+ 60 Stamina : 27 seconds
+ 90 Stamina : 26 seconds
+120 Stamina : 25 seconds
+150 Stamina : 24 seconds
+180 Stamina : 23 seconds
+210 Stamina : 22 seconds
+240 Stamina : 21 seconds
+270 Stamina : 20 seconds
+300 Stamina : 19 seconds
+330 Stamina : 18 seconds
+360 Stamina : 17 seconds
+390 Stamina : 16 seconds
+420 Stamina : 15 seconds
+450 Stamina : 14 seconds
+480 Stamina : 13 seconds
+510 Stamina : 12 seconds
+540 Stamina : 11 seconds
+570 Stamina : 10 seconds
+600 Stamina : 9 seconds
+630 Stamina : 8 seconds
+660 Stamina : 7 seconds
+690 Stamina : 6 seconds
+720 Stamina : 5 seconds
+750 Stamina : 4 seconds
+780 Stamina : 3 seconds
+810 Stamina : 2 seconds
+
+hitpoints for breeds
+
+atrox 4 hitpoints from each point in bodydev
+opifex 3 hitpoints
+solitus 3 hitpoints
+nanomage 2 hitpoints
+
+The amount of healdelta you get is:
+base + (bodydev / 100) + healdelta items
+Base is 4 for atrox, 3 for opi/sol, 2 for mage
+
+healdelta tickrate formula ; (870-stam)/30=tickrate
+
+example (870-810)/30=2 secs  
+
+http://forums.anarchy-online.com/showthread.php?t=525410
+http://forums.anarchy-online.com/showthread.php?t=435274

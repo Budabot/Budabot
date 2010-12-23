@@ -1,0 +1,3 @@
+Jump height is based on Agility, with a cap based on level. The level cap is a leftover from the fall damage days.
+
+--Commanderbtz

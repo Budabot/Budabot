@@ -1,0 +1,16 @@
+<header>::::: Help on Items Commands. :::::<end>
+
+Note: You don't need to insert the full name todo an successfull search but the words needs to be in the same order as in the original itemsname.
+
+<highlight>To search for an item:<end>
+<tab><symbol>items 'Insert itemname here'
+
+<highlight>To search for an specific QL of an item:<end>
+<tab><symbol>items 'Insert QL here' 'Insert itemname here'
+
+<highlight>For example:<end>
+<tab><symbol>items first tier nano
+<tab>Shows the First tier Armor for the Nano-Technician
+
+<tab><symbol>items 133 first tier nano
+<tab>Shows the First tier Armor for the Nano-Technician with the QL133

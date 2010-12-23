@@ -1,0 +1,23 @@
+<header>::::: Implant Commands :::::<end>
+
+<highlight>Shows stats for implants at given ql<end>
+<tab>Usage: <symbol>impql &lt;implant_ql&gt;
+
+<tab>eg: <symbol>impql 255
+
+
+<highlight>Shows implant for a given ability and treatment<end>
+<tab>Usage: <symbol>impreq &lt;ability_skill&gt; &lt;treatment_skill&gt;
+
+<tab>eg: <symbol>impreq 404 951
+
+
+Does normal and refined imps(not jobe imps) from ql 1 up to ql 300.
+
+When you view more info on an implant ql, the range of numbers next to the modifier tells you the range of quality levels that will give you the same modifier.
+
+For instance,
+
+<tab>Faded   22 (196 - 208)
+
+means that you will get 22 points (of ability, in this case) from the faded cluster slot starting with ql 196 on up to ql 208.

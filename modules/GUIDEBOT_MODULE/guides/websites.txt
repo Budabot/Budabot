@@ -1,0 +1,38 @@
+<header>:::::Anarchy Online Websites  :::::<end>
+
+<font color = blue>-= Valuable Anarchy Online Websites =-</font>
+
+<font color = yellow>Note: These links will be automatically opened in your web browser.</font>
+
+General/Overall Information
+ - <a href='chatcmd:///start http://naers.forumer.com/ '><font color = yellow>Newcomers Alliance Forums</font></a>
+ 
+ - <a href='chatcmd:///start http://forums.anarchy-online.com/ '><font color = yellow>Official Forums</font></a>
+ - <a href='chatcmd:///start http://www.aofroobs.com/ '><font color = yellow>AO Froobs.com</font></a>
+ - <a href='chatcmd:///start http://www.ao-universe.com/ '><font color = yellow>AO Universe</font></a>
+ - <a href='chatcmd:///start http://arcanum.aodevs.com/index.html '><font color = yellow>Anarchy Arcanum</font></a>
+ - <a href='chatcmd:///start http://www.auno.org '><font color = yellow>Auno</font></a>
+ - <a href='chatcmd:///start http://ao.stratics.com/index.php '><font color = yellow>AO Stratics</font></a>
+ - <a href='chatcmd:///start http://gridstream.org/ '><font color = yellow>Gridstream Productions</font></a>
+ - <a href='chatcmd:///start http://wiki.flw.nu/tiki-index.php?page=Atlas%20of%20Rubi-Ka '><font color = yellow>Atlas of Rubi-Ka</font></a>
+ - <a href='chatcmd:///start http://travel.to/rubi-ka/ '><font color = yellow>Huge Map</font></a>
+ - <a href='chatcmd:///start http://wiki.aodevs.com/wiki/Main_Page '><font color = yellow>AO Wiki</font></a>
+ - <a href='chatcmd:///start http://www.creativestudent.com/ao/ '>CSP Map</a>
+ - <a href='chatcmd:///start http://www.tirschool.com/ '><font color = yellow>Tir School Of Engineering</font></a>
+ - <a href='chatcmd:///start http://www.unimob.aomarket.com/ '><font color = yellow>Unique Mobs and their Loot</font></a>
+ - <a href='chatcmd:///start http://www.aotradeskills.streamlinenettrial.co.uk/index.htm '>AO Tradeskills (AOTS)</a>
+ - <a href='chatcmd:///start http://www.anarchy-online.com/content/game/notumwars/map/atlantean.html '>Land Control Status</a>
+ - <a href='chatcmd:///start http://arpa3.net/anarchy-online/ '>Kimi's AO Resources</a>
+ - <a href='chatcmd:///start http://forums.vhabot.net/ '>Vhabot.net</a>
+ - <a href='chatcmd:///start http://aovault.ign.com/ '>The Vault</a>
+ - <a href='chatcmd:///start http://www.unityoftherose.com/tools/aggdefcalc.htm '><font color = yellow>Agg/Def Calculator </font></a>
+ - <a href='chatcmd:///start http://www.aogms.com/default.aspx'><font color = yellow>AOGMS</font></a>
+ - <a href='chatcmd:///start http://www.zanthyna.com/implant_clusters.htm'><font color = yellow>Premade Implants Listing</font></a>
+Shadowlands Related
+
+ - <a href='chatcmd:///start http://www.jexai.co.uk/anarchy/index.php '><font color = yellow>Jexai's AO Site</font></a>
+ - <a href='chatcmd:///start http://aopocket.tngk.com/ '><font color = yellow>AO Pocket Symbiant Information</font></a>
+ - <a href='chatcmd:///start http://www.forsaken.no/forums/viewtopic.php?t=1428 '>Spheremap</a> 
+
+
+<font color = yellow>Note: These links will be automatically opened in your web browser.</font>

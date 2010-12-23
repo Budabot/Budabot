@@ -1,0 +1,42 @@
+<header>::::: Guide to Social Clothes  :::::<end>
+
+Guide suited for: All Classes
+Level Range: ?
+
+<font color = yellow>Master Divenchy</font>
+<font color = blue>Newland 900x863 Crashed Ship NW of he city</font>
+First you need to talk to Master Divenchy about making the Bio Mesh. He will ask you if you want light or heavy and then give you a Meta Roentgen Scanner and a mission, if you chose light then you will need to scan 2 Igruanas and 1 Mornitor if you choose the heavy then it will be 3 Igruanas and 3 Mornitor. (lizards should be tagged in order - Igruana / Mornitor / Igruana so on, and can be found quite close by to the south)
+Tip: Collect all the Bio Mesh you need before doing some major traveling to find the other people that need speaking to
+
+<font color = yellow>Herbalist Gerard</font>
+<font color = blue>Newland Desert 2800x1670 Rhinoman Valley</font>
+First see Master Divenchy again, and this time talk about the Anti-Perspiring Padding, he will ask you to collect some Extract of Bodan-Minor from Herbalist Gerard. Travel to Gerard and give him 1000 credits and he will give you Extract of Bodan-Minor to take to Divenchy (you have 20min), Divenchy will take the Extract and turn it into an Anti-Perspiring Padding for you
+
+<font color = yellow>Penelope</font>
+<font color = blue>Newland Desert 790x2310 Nw of Rhinoman Camp</font>
+Penelope will give you a Letter From Penelope to give to Gilbert and you have a 30min to get it to him. He will give you Boots For Penelope, take these back to Penelope and she will give you her old shoes, which you guessed it are Multi-Grip Soles!
+
+<font color = yellow>Gilbert</font>
+<font color = blue>Newland Desert 3110x550, Guard Post</font>
+While you are talking to Gilbert he drops his Little Red Book, tell him he has and give it back, he will then give you a bottle to take to the bartender at Neuters 'R Us. If you are nice he'll give you a flimsy barstool, now go back to Gilbert and tell him that you have given the bottle to the bartender. Gilbert will then give you some pass codes and a mission. The pass codes are on a piece of paper ( 4 and 2 ) but are only half, for the other half you must talk to Penelope and Inspector Marciello and get 2 colours (don't let them know what your asking for). Now off to the mission, once in you need to find and talk to a white trash can and enter your pass codes ( 4 / 2 / colour / colour) it will give you a list of items to choose from, select the Fingertips. <font color = red>**Important - you must activate the Fingertips before you leave, if not you will not be able to re-enter mission, and you will have to start over**</font> To do this pick up the Fingertips and use them on the machine. Now you have your Sensitive Cybernetic Fingertips
+
+<font color = yellow>Fritz</font>
+<font color = blue>Newland City, Neuts R Us</font>
+All Fritz wants is for you to go find him a pair of Blue Boots, which can be found on the general clothes terminal, but they aren't always there so just keep checking. Give Fritz the Blue Boots and he gives you the Hair Care Contraption
+
+<font color = yellow>Mary-Ann</font>
+<font color = blue>Newland 1440x380, Guard Post south of city</font>
+She will ask you to find an ID chip and find Brb (her leet) for her. For the ID chip you need to speak to Maud Stevens (Borealis 490x390, east of Radar Dish). Maud will give you a quest to mark Scorpoid's (you can pay her 15k credit or even haggle her down to 10k to skip this) She will give you a Scorpoid Scent Masker and a Meta Roentgen Scanner. You must tag a Pinner, a Tingler, and a Twinger in that order, they can be found in Newland Desert or near Wailing Wastes whom-pa exit. Once tagged take the Scanner back to Maud and she will give you an ID chip. Now to find Brb (Newland City 400x320) and give him the ID chip, then return to Mary-Ann for your reward, a Transparent Thermostatic Vest!
+
+<font color = yellow>Simon Stark</font>
+<font color = blue>Newland Desert 1150x1750, Guard Post</font>
+Simon will first ask you to find Ethel Anthony (Newland Desert 2170x1550 next to Whom-pa's) and retrieve his pills, unfortunately Ethel has given the pills to Filthy Luca and you will now have to kill him to get them back. An assassination mission will now appear and you need to enter and find Filthy, kill him and loot the Antiseptic Pills from his body. Take the pills back to Simon and you are now the proud owner of a jock strap aka Antiseptic Protector
+
+<font color = yellow>Inspector Marciello</font>
+<font color = blue>Meetmedere, Grid Exit</font>
+Marciello wants you to help him with a murder mystery, but first he wants you to sign a contract with him.  He gives you a scanner, which you need to combine with your ID data to get the contract.  (Combine an ID extractor with an Expendable Hologram Camera which can both be bought from general store to get your ID data).  Once you have done this hand the Scanner and the contract to him. He will give you a copy and the quest.  (45mins to complete).  Head to Neuters 'R Us and speak to the bartender who will give you a list of four people that were drinking whiskey.  Then speak to Misa Ramirez, in the side room by the door and she will give you four names that were wearing red.  You should now have one female and one male who were wearing red and drinking whiskey.  Outside of Neuters you will find the Good Time Party Mixer, after a few words he will tell you the gender of your suspect. Now go tag that suspect (talk to them and click the 'give item' icon, then give them the ID disk) and return to the Inspector.  If you chose the right person he will reward you with Body Heat Pattern Analyzer, if you tagged the wrong person he will say something like 'No news on the suspects? I thought as much', you will then have to re-do the mission
+
+<font color = yellow>Tip: You will only have to do this quest once, as all the items are re-useable</font>
+
+Last updated on 03.13.2007 
+Information originally provided by Jexai.co.uk/anarchy

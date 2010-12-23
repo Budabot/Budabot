@@ -1,0 +1,117 @@
+<header>::::: Albtraum, new Inferno Quests :::::<end>
+
+Guide To Albtraum
+<font color = green>Guide for Albtraum</font>
+<font color = green>Guide suited for:</font> All Classes
+<font color = green>Faction:</font> All
+<font color = green>Level Range:</font> 200-220
+
+**Under Construction.  The information below is from experiences in the test server.  More information, as well as corrections will be added as we experience them further on live**
+
+<font color = green>Introduction</font>
+
+Welcome to <font color = green>Albtraum</font>, a new zone introduced in 17.3.  This zone is special, as is it an instanced zone, set for a single team only, from 2-6 people.  Anything less than a full team will make this zone really hard however.  Make sure you designate at least a couple of hours for this, as it is not a short mission.
+
+This zone is also particular, as it does not contain any keys (as of yet).  This means that <font color = yellow> if the whole team leaves the playfield (or wipes), you will have to start in a new playfield</font>.  While you won't have to restart the mission, the playfield will be reset, so that means all the mobs will be reset.  While this can be nice to get any missed mobs, it will be annoying later on, when you'd rather just run straight to the bosses.   Please keep this in mind.  If you see that your team is about to wipe, or someone does a really bad pull, it would be wise to run, and keep the playfield open.  As long as one person survives, the team will be able to re-enter the playfield.
+
+<font color = yellow>Loot</font>
+
+Albtraum will have many new drops, most of which are used for tradeskill processes, and MOST are not nodrop (beware, some are).  There are a variety of drops, some are common, and some are much rarer.  The rarer ones seem to drop more often from bosses, however, they still drop from mobs from time to time.  The processes for these items can be found in our Shadowlands tradeskill section.
+
+<font color = yellow>Pocket Bosses</font>
+
+Among the loot of this zone will be new Pocket Bosses.  These will drop inside the zone, ready to pop.  You will need to pop them at the statue at the end of the zone.  Beware, they are not easy, and have many AoE attacks, including some harsh AoE DoTs.
+
+<font color = yellow>Location</font>
+
+The portal to Albtraum is located in inferno.  From the entrance to Inferno from Penumbra, instead of taking the left path that takes you to the jump-off, take the lower right path.  Here you will find some stairs.  The portal and yutto are located here.
+
+
+<font color = yellow>Map of Albtraum</font>
+
+Below is a map of the new zone, as well as the location of the Bosses that you will find in the later part of the mission.
+
+<font color = yellow>Albtraum Quests</font>
+
+<font color = yellow>Finding answers</font>
+
+You will need to chat with <font color = yellow>The One that Sees Dead People</font>. He will give you the mission that is needed to enter the portal.  
+He senses a great evil inside Albtraum, and will have you investigate it.  He will ask that you kill a number of creatures for him, and return some of their parts for him (which you will receive once you get the required number of kills).  You will need to kill 4 Shadow Eremites, 12 Soul Stealers, 15 Shadowy Wings and 20 Voracious Horrors.  There are plenty of horrors, wings, and eremites. 
+The Soul Stealers however are the rarest of the zone, and you might need to kill every one inside the zone to reach the required 12.  
+The yuttos asks you to return to him the following parts : a Morphing Eremite Spinal Section, a Crystallizd Residue, a Dark Tooth and a Trasparaent muscle strands.  You will get these automatically when you complete the kills.
+
+
+You must be teamed in order to receive the mission.  
+Each member of the team will also need to get the quest, as each will need to reward from it.  
+Once everyone has the mission, it will be time to enter Albtraum.  Simply walk on the portal.
+
+Once inside, you will need to start to kill your required mobs.  This should be straightforward enough.  
+With a decent team, you don't need to worry about adds too much.  
+One thing to keep in mind is that the horrors and Soul Stealers have a chance of spawning an extra spirit mob once you kill them.  
+This can be dangerous if you're in a hurry and pull some more before it spawns.  
+It may be a good idea to wait after you kill any horrow or soul stealer.
+
+Once you kill all the required mobs and get your items, return to <font color = yellow>The One that Sees Dead People</font>.  
+Make sure that at least one person stays inside the playfield, as you do not want it to reset.  
+If this happens, you will have to re-kill the mobs that you killed previously.  
+While you won't have to redo the mission, it will still be bothersome to have to kill everything again.
+
+<font color = yellow>Preparing for the Final Battle</font>
+
+<Font color = yellow>The One that Sees Dead People</font> will tell you to go talk to <font color = white>One Whose Courage Fails His Heart</font>.  This yutto can be found at the entrance of Albtraum.  Only one person needs to talk to the him.  He will instruct you to go collect 3 parts to make a novictum bomb : a perennium shell, a vial of highly volatile novictum and a detonator.  You will find these on 3 bosses that have just spawned inside the playfield.  
+If you kept the playfield, you will be able to walk straight to the bosses without having to fight any mobs.  
+If you lost the playfield, you will have to fight your way through.
+
+
+When you kill the bosses, they will drop a variety of items, as well as 2 identical parts needed to make the bomb.  
+That means only 2 people will be able to make the bomb for each playfield.  If you want the entire team to receive the bomb (which *might* be needed) you will have to clear 3 playfields.
+
+
+<font color = yellow>Mutant Shadow Eremite</font>
+
+This first boss is located on the east side of the zone.  If you stay on the east wall, you will come to a opening.  
+He is hidden in the ground just at the entrance of that opening.  
+Make sure that your team is ready before going near it.
+
+This boss shouldn't pose too many problems, he has an AoE stun, which can be annoying.  
+Have your doc and any ranged non-tankers stay back.  The rest, just have plenty of Free Movement Stims ready, and you should be fine.
+
+<font color = yellow>Wings of Despair</font>
+
+Further north from the eremite, you will find the Wings of Despair.  
+This Boss will be a bit harder than the Eremite.  He has an AoE nano drain.  
+It appears to be quite vast, as we couldn't get the doc far enough to get out of its range.  
+Keep some nano stims handy, and make sure to stim your doc when needed.  He will need them.
+
+<font color = yellow>Overwhelming Horror</font>
+
+This will be your most difficult challenge yet.  This horror is very difficult.  
+He has a nasty 18k nuke, which will decimate your team quickly if you're not careful.  
+It would be a good idea to have your tank on him, and have everyone else way back, attacking him from afar.  
+Unless he has been tuned down since test (this will remain to be seen), he nukes often enough.  
+So it may be a good idea to have your melee classes sit this one out, with the exception of you enforcer if he is tanking of course.
+
+Again, let me remind you that you need to have 1 person alive in order to keep the playfield.  
+If your entire team wipes, while you won't have to start the mission over, you will have to start on a new playfield, with all mobs spawned.  
+If you see that this battle is not going well, it may be a good idea run away to escape his aggro, this will enable your team to return to the same playfield and try again.  
+Do not take this boss lightly.
+
+Once you receive your 3 bomb parts, return to <font color = yellow>The One Who Sees Dead People</font>.  
+He will make a Novictum Bomb for you, and instruct you to talk to the yuttos inside the playfield again.  
+
+<font color = red>Warning!</font> Do not right click the bomb, it will explode, and will be used up.  If you do this, you will have to start over.
+
+**The yuttos may also mention something about a necklace, this part was bugged on test when we tried it.  
+We will put more information once we try it on live**
+
+<font color = white>The Final Battle </font>
+
+Once you talk to the Yuttos inside the playfield, the last boss, The Keeper of Tortured Souls, will appear.  
+You will find him at the end of the playfield, near the statue.  This boss is extremelly difficult, at least without the aid of the bombs.  
+
+We have tried a few things with the bomb on the test server to beat him, including exploding the bomb near the boss, near the statue, as well as trading him the bomb.  None seem to have done much, and the team wiped too quickly to notice anything.  We have heard rumour that 6 bombs are needed.  This is as of yet unconfirmed.  All we know until now is that the boss seems to have all 3 of the previous bosses specials, including an AoE stun, AoE nano drain, and AoE 18k nuke.  Really nasty.  This also comes from the test server, we will need to confirm this on live of course.  More information on this last part of the mission will be put up as we get it.
+
+
+Last updated on 04.26.2007 by Tepamina
+Written by Tepamina
+Guide Courtesy of AO Universe

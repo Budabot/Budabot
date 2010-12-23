@@ -1,0 +1,58 @@
+<header>::::: Locations of Rubi Ka  :::::<end>
+
+Locations Of Rubi Ka
+
+***Please Note: All Links might not work, if you find one, please let your org leaders know***
+
+<font color = blue>Omni Locations-</font>
+
+<a href='chatcmd:///tell <myname> whereis rome red'><font color = blue>Rome Red</font></a>
+<a href='chatcmd:///tell <myname> whereis rome green'><font color = blue>Rome Green</font></a>
+<a href='chatcmd:///tell <myname> whereis trade'><font color = blue>Trade District</font></a>
+<a href='chatcmd:///tell <myname> whereis ent'><font color = blue>Omni Entertainment</font></a>
+<a href='chatcmd:///tell <myname> whereis lush'><font color = blue>Lush Fields</font></a>
+<a href='chatcmd:///tell <myname> whereis clondyke'><font color = blue>Clondyke</font></a>
+<a href='chatcmd:///tell <myname> whereis lroad'><font color = blue>The Longest Road</font></a>
+<a href='chatcmd:///tell <myname> guides Biomare'><font color = blue>Biomare (aka Foremans)</font></a>
+<a href='chatcmd:///tell <myname> whereis omni hq'><font color = blue>Omni HQ</font></a>
+<a href='chatcmd:///tell <myname> whereis pleasant'><font color = blue>Pleasant Meadows (aka 20k)</font></a>
+<a href='chatcmd:///tell <myname> whereis omni forest'><font color = blue>Omni Forest</font></a>
+<a href='chatcmd:///tell <myname> whereis greater omni forest'><font color = blue>Greater Omni Forest</font></a>
+<a href='chatcmd:///tell <myname> whereis broken shores><font color = blue>Broken Shores</font></a>
+<a href='chatcmd:///tell <myname> whereis milky way'><font color = blue>Milky Way</font></a>
+<a href='chatcmd:///tell <myname> whereis mutant domain'><font color = blue>Mutant Domain</font></a>
+<a href='chatcmd:///tell <myname> whereis galway shire'><font color = blue>Galway Shire</font></a>
+<a href='chatcmd:///tell <myname> whereis galway county'><font color = blue>Galway County</font></a>
+<a href='chatcmd:///tell <myname> whereis 2ho'><font color = blue>2HO</font></a>
+<a href='chatcmd:///tell <myname> whereis Outpost 10-3'><font color = blue>Outpost 10-3</font></a>
+
+<font color = red>Clan Locations-</font>
+
+<a href='chatcmd:///tell <myname> whereis 4 holes'><font color = red>4 Holes</font></a>
+<a href='chatcmd:///tell <myname> whereis tir'><font color = red>Tir</font></a>
+<a href='chatcmd:///tell <myname> whereis tir county'><font color = red>Greater Tir County</font></a>
+<a href='chatcmd:///tell <myname> whereis old athens'><font color = red>Old Athens</font></a>
+<a href='chatcmd:///tell <myname> whereis west athens'><font color = red>West Athens</font></a>
+<a href='chatcmd:///tell <myname> whereis mort'><font color = red>Mort</font></a>
+<a href='chatcmd:///tell <myname> whereis hope'><font color = red>Hope</font></a>
+<a href='chatcmd:///tell <myname> whereis aegean'><font color = red>Aegean</font></a>
+<a href='chatcmd:///tell <myname> whereis holes in the wall'><font color = red>Holes In The Wall</font></a>
+<a href='chatcmd:///tell <myname> whereis athen shire'><font color = red>Athen Shire</font></a>
+<a href='chatcmd:///tell <myname> whereis wailing wastes'><font color = red>Wailing Wastes</font></a>
+<a href='chatcmd:///tell <myname> whereis avalon'><font color = red>Avalon</font></a>
+<a href='chatcmd:///tell <myname> whereis camelot'><font color = red>Camelot</font></a>
+
+<font color = yellow>Neutral Locations-</font>
+
+<a href='chatcmd:///tell <myname> whereis borealis'><font color = yellow>Borealis</font></a>
+<a href='chatcmd:///tell <myname> whereis newland city'><font color = yellow>Newland City</font></a>
+<a href='chatcmd:///tell <myname> whereis newland'><font color = yellow>Newland</font></a>
+<a href='chatcmd:///tell <myname> whereis stret west bank'><font color = yellow>Stret West Bank</font></a>
+<a href='chatcmd:///tell <myname> whereis upper stret west bank'><font color = yellow>Upper Stret West Bank</font></a>
+<a href='chatcmd:///tell <myname> whereis stret east bank'><font color = yellow>Stret East Bank</font></a>
+<a href='chatcmd:///tell <myname> whereis newland desert'><font color = yellow>Newland Desert</font></a>
+<a href='chatcmd:///tell <myname> whereis andromeda'><font color = yellow>Andromeda</font></a>
+<a href='chatcmd:///tell <myname> whereis ICC'><font color = yellow>ICC</font></a>
+<a href='chatcmd:///tell <myname> whereis meetmedere'><font color = yellow>Meetmedere</font></a>
+
+'Enjoy It While It Lasts'

@@ -1,0 +1,19 @@
+<header>::::: Help on Flip and Roll Commands. :::::<end>
+
+<highlight>Flip Command<end>
+
+To Flip a coin do:
+<tab><symbol>flip
+
+<highlight>Roll Command<end>
+
+To roll a number between 1 and a endnumber:
+<tab><symbol>roll 'Insert number'
+
+To roll a number between a startvalue and a endvalue:
+<tab><symbol>roll 'Insert startvalue' 'Insert endvalue'
+
+<highlight>Verify Command<end>
+
+To verify a roll
+<tab><symbol>verify 'Insert Verifynumber'

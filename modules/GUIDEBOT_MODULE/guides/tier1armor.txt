@@ -1,0 +1,159 @@
+<header>::::: Making Tier 1 Armor :::::<end>
+
+Jobe Armor Tier One
+
+Guide suited for: All Classes
+Faction: All
+Level Range: All Levels
+
+You've finished the Jobe Armor Quest and you're wearing your nice white armor set, what next? 
+
+Well, your professional IPS representative will tell you that you can actually upgrade your Jobe Armor, giving you all the information you'll need to do it. Not only you find that it can be upgraded to it's Tier 1 form, but also that it can also be upgraded to Tier 2 and Tier 3 versions. In this guide I will cover how to upgrade your armor to Tier 1. Your representative will want 3 Visions and 1 Embryo to give you a Glyph for each piece you want to upgrade. 
+
+Note: I recommend you be at least level 150 to do this quest, and have a few friends along in a team. 
+
+You will need the following items (type of visions depend on your profession) to make the complete upgrade: 
+
+
+18x Visions of The Reposeful for Adventurer, Doctor, Fixer, Meta-Physicist, Trader 
+18x Visions of the Tempestuous for Agent, Bureaucrat, Nano-Technician, Soldier 
+18x Visions of the Unshakable for Enforcer, Engineer, Keeper, Martial Artist, Shade 
+6x Consanguineal Embryo of Annwn'Guinee 6x 
+Canister of Pure Liquid Notum ql 50+
+
+You will also need 6 Novictum, type depend on your profession: 
+ 
+for Adventurer: Novictum Mud 
+for Agent: Transparent Novictum Gas 
+for Bureaucrat: Radiant Novictum Gas 
+for Doctor: Pure Novictum Liquid 
+for Enforcer: Compact Novictum Stone 
+for Engineer: Crystalized Novictum 
+for Fixer: Mist of Novictum 
+for Keeper: Spongy Novictum 
+for Martial Artist: Novictum Sand 
+for Meta-Physicist: Plastic Novictum 
+for Nano-Technician: Caustic Novictum 
+for Shade: Carbonized Novictum Stone 
+for Soldier: Porous Novictum Stone 
+for Trader: Fragmented Novictum Crystals
+
+
+Just to review, you'll need exactly 18 Visions, 6 Embryos, 6 Canisters of Pure Liquid Notum and 6 Novictum for a total of 36 items. It is important you do not get the wrong type of Visions of Novictum or you will very likely end up with the wrong Glyph. 
+Now you must be wondering where can I get all this stuff? 
+
+Let's start with the Visions, which only drop in Elysium and Scheol catacombs located inside each faction's temple. It won't matter which faction's temple you go into, both have the same exact set of catacombs. In the Redeemed Temple you will have to run up a spiral tower to the top to find an entrance into a room with spirits. In the Unredeemed Temple just head straight forward to the entrance toward the spirits area. 
+As soon as you're in the room, go either left or right where you will find a corridor leading to a set of stairs going down to a dead end with 1 or 2 pits on the ground. The pit will be your way into the catacombs. 
+Note: If you go left, the dead end will have two pits, if you use the pit to the left you will end up on the entrance on the left side shown in the map, same goes for the pit on the right. 
+
+Each temple has 2 separate catacombs (left and right at the spirit area), which means that you can choose from 4 different places to farm visions and embryos in Elysium and Scheol. 
+The easiest catacomb is in Elysium, where you will find that any mob drops the Visions, while only named mobs have a good chance of dropping an Embryo (they also drop Visions). Here are the mobs you will encounter in the depts of those catacombs that will drop the Visions you need. 
+
+
+Now to get your hands on some embryos. Slaugh and Bean Sidhe will be your first two named mobs you will encounter, with some luck you may have 2 embryos by the time they're taken down. 
+
+Blood of Acheron and Emmisary of Annwn will be the next two mobs which are in the largest room in the catacombs. 
+
+Herne is the main boss in the catacombs, and he won't go down without a good fight. Having a healer in your team will be crucial against him. 
+
+If you and your friends have managed to survive Herne, you still have 2 mobs to take down on your way out (assuming you got all your visions already). Arawn and his brother Mare await for you, and they won't shake your hand, that's for sure. 
+
+The named mobs besides dropping Embryos and Visions they also sometimes carry a Ring of Divine Teardrops (increases Agility and Sense abilties) or a Ring of Computing (increases Intelligence and Psychic abilities) which can come in handy. 
+Note: In the Scheol catacombs any mob can drop either Embryos or Visions, but you will need a team of 200+ players to survive down there. 
+
+Your next stop should be Scheol for the remaining parts. To find Canisters of Liquid Notum (QL 50 or higher) your best bet is taking on Hiathlins. Lucky for you that I know a great spot with a lot of them. Head to the Halls of Scheol which you can reach through your faction's garden exits. 
+
+You will find a few places where Hiathlins are in groups, waiting for you to grab their canisters. The droprate on the canisters is random, so you may take 15 minutes or 2 hours to get all 6 of them. 
+
+The next place to go is not too far, just head north toward Ergo (as displayed in the map below) where named mobs (Spirits, Mynxes, Imps and Spirit Hunters) may drop the specific novictum you need. This will almost certainly take a while, so you may want to check the Rubi-Ka Market at the Official AO Forums where players may have some for sale. If you have the Alien Invasion expansion you could also shop using Global Market terminals. 
+After a lot of time and effort, you will have all the items needed for a full upgrade of your Jobe Armor set. Head back to your professional representative and chat a bit, and be sure to pick the 'Yellow Glyph' option, at which point he will ask for 3 Visions and 1 Embryo per Glyph. Trade all of the ones you have gathered and you should end up with 6 Glyphs. 
+
+
+
+Yellow Glyph of Aban
+Enforcer, Engineer, Keeper, Martial Artist, Shade 
+
+Yellow Glyph of Enel
+Agent, Bureaucrat, Nano-Technician, Soldier 
+
+Yellow Glyph of Ocra
+Adventurer, Doctor, Fixer, Meta-Physicist, Trader
+
+
+Now it's time to activate your Glyphs, you may want to find a tradeskiller for these last steps. Right-click your Canister of Liquid Notum on each Glyph, this requires 550 in Quantum FT. 
+
+
+
+Yellow Glyph of Aban   +   Canister of Pure Liquid Notum   =   Yellow Glyph of Aban - Awakened 
+Yellow Glyph of Enel   +   Canister of Pure Liquid Notum   =   Yellow Glyph of Enel - Awakened 
+Yellow Glyph of Ocra   +   Canister of Pure Liquid Notum   =   Yellow Glyph of Ocra - Awakened 
+
+The last step is for you to right-click your novictum on each Glyph, this requires 600 in Psychology. 
+
+
+Adventurer 
+
+Yellow Glyph of Ocra - Awakened   +   Novictum Mud   =   Glyph of the Four 
+
+Agent 
+
+Yellow Glyph of Enel - Awakened   +   Transparent Novictum Gas   =   Glyph of the Eight 
+
+Bureaucrat 
+
+Yellow Glyph of Enel - Awakened   +   Radiant Novictum Gas   =   Glyph of the King 
+
+Doctor 
+
+Yellow Glyph of Ocra - Awakened   +   Pure Novictum Liquid   =   Glyph of the Nine 
+
+Enforcer 
+
+Yellow Glyph of Aban - Awakened   +   Compact Novictum Stone   =   Glyph of the Page 
+
+Engineer 
+
+Yellow Glyph of Aban - Awakened   +   Crystalized Novictum   =   Glyph of the Ten 
+
+Fixer 
+
+Yellow Glyph of Ocra - Awakened   +   Mist of Novictum   =   Glyph of the Two 
+
+Keeper 
+
+Yellow Glyph of Aban - Awakened   +   Spongy Novictum   =   Glyph of the Knight 
+
+Martial Artist 
+
+Yellow Glyph of Aban - Awakened   +   Novictum Sand   =   Glyph of the Six 
+
+Meta-Physicist 
+
+Yellow Glyph of Ocra - Awakened   +   Plastic Novictum   =   Glyph of the One 
+
+Nano-Technician 
+
+Yellow Glyph of Enel - Awakened   +   Caustic Novictum   =   Glyph of the Queen 
+
+Shade 
+
+Yellow Glyph of Aban - Awakened   +   Carbonized Novictum Stone   =   Glyph of the Seven 
+
+Soldier 
+
+Yellow Glyph of Enel - Awakened   +   Porous Novictum Stone   =   Glyph of the Three 
+
+Trader 
+
+Yellow Glyph of Ocra - Awakened   +   Fragmented Novictum Crystals   =   Glyph of the Five 
+
+All Glyphs are sellable, average price 4-5m each! 
+
+Give yourself a pat on the back, because here comes the grand finale! 
+
+Take off your armor and right-click each Glyph on the following parts: Gloves, Sleeves, Pants, Boots, Body. This will upgrade your Jobe Armor to Tier 1 Armor specific to your profession. This last step requires that you have 450 in Computer Literacy. 
+The set will be QL 100 but you can level your armor up to QL 160 by right-clicking on each piece. Be careful to not overdo it or you will level it past the point in which you are currently able to equip your armor. 
+
+Note: I suggest you check Anarchy Mainframe and see what QL Tier 1 armor you are able to equip. Get yourself buffed to get your main abilities as high as possible for this. 
+
+You will use the set for a while before you'll need to upgrading your Tier 1 armor set to the Tier 2 version, enjoy!

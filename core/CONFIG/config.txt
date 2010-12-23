@@ -1,0 +1,7 @@
+<header>::::: Configuring the Bot :::::<end>
+
+<symbol>config  -- shows a list of all the modules to configure
+
+<symbol>config 'MODULE_NAME' -- shows the config page for the specified module
+
+<symbol>config cmd 'cmd_name' -- shows the config page for the specified command

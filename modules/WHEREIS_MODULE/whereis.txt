@@ -1,0 +1,12 @@
+<header>::::: Whereis command :::::<end>
+
+<blue>This command shows you infos about different locations or NPCs
+<tab><yellow><symbol>whereis 'location or NPC'<end>
+
+for example
+<tab><symbol>whereis elmer ragg
+
+<tab><yellow><symbol>whereistell 'Request for update of whereis database'<end>  Use this command if you find something missing or incorrect in the Whereis Database  If confirmed the info will be added to the database updates.
+
+for example
+<tab><symbol>whereistell 'Newmobname is not listed.  He is in zonename at xx xx.  He dropped itemsdropped' 

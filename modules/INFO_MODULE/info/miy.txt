@@ -1,0 +1,8 @@
+Miy Armor for Buffing Abilities
+----------
+Helmet -- Int Psy (Nano)
+Body -- Sta Str (Ranged or Tank)
+Sleeve -- Psy Int (Nano or Scary)
+Gloves -- Agi Sen (Melee or Ranged)
+Legs -- Agi Sen (Melee or Scary)
+Boots -- Str Sta (Scary or Tank)

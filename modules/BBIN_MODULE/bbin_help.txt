@@ -1,0 +1,31 @@
+<header>::::: Help on BBIN :::::<end>
+
+To start the Budabot IRC network, a moderator or higher needs to do <highlight>/tell <myname> <symbol>startbbin<end>, or you can set it to auto-connect on bot-startup in the <symbol>config.
+
+...but before you do, please read these important setup instructions:
+
+In the bots <symbol>config, you will find the details that lets you control how and when you connect to BBIN.  If the BBIN-status reads 0 you are not currently connected to BBIN.  When it reads 1, it means a connection was successful.
+
+There are various settings you need to set in order to connect to BBIN (All of them have been set by default, but you may customize them).  They are: the server address, the server port, the nickname the bot will use, and the irc channel it should connect to.
+
+By default, your bot will use these settings:
+
+<tab>Server = irc.funcom.com
+<tab>Port = 6667
+<tab>Nickname = <myname>
+<tab>Channel = #GuildName
+
+If the bot is not in a guild, it will join #<myname>
+To manually set on of these settings <highlight>/tell <myname> <symbol>setbbin [irc-setting] [data]<end>
+ie. <symbol>setbbin nickname my-bots-irc-name
+<symbol>setbbin port 6666
+
+<highlight>/tell Mindrila<end> (RK1) if you have any questions/comments/concerns/suggestions.
+Thanks and enjoy.
+
+**Features:**
+<tab>Relays everything like it would be posted ingame
+<tab>Relays member joins / leaves
+<tab>Gives feedback if on established uplinks
+<tab><highlight><symbol>online<end> will show all members in the network
+<tab>Can autoconnect at bot start-up. Check <symbol>config.

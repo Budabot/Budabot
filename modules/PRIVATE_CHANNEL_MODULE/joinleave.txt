@@ -1,0 +1,7 @@
+<header>::::: Joining and leaving the Bot :::::<end>
+
+<highlight>Join the Bot<end>
+<tab>/tell <myname> join
+
+<highlight>Leave the bot<end>
+<tab><symbol>leave

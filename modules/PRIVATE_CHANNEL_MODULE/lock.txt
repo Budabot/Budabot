@@ -1,0 +1,10 @@
+<header>::::: Locking the Private Channel :::::<end>
+
+<highlight>Lock the private channel<end>
+<tab><symbol>lock
+
+<highlight>Lock the private channel, set a reason for it<end>
+<tab><symbol>lock 'reason'
+
+<highlight>Open the private channel<end>
+<tab><symbol>unlock
