@@ -35,9 +35,9 @@ if (isset($this->guildmembers[$sender])) {
 	list($numonline, $msg, $list) = online($type, $sender, $sendto, $this);
 	if ($numonline != 0) {
 		$blob = bot::makeLink($msg, $list);
-		bot::send($blob, $sendto);
+		bot::send($blob, $sender);
 	} else {
-		bot::send($msg, $sendto);
+		bot::send($msg, $sender);
 	}
 }
 ?>

@@ -884,6 +884,10 @@ class bot extends AOChat{
 				if(!in_array($filename, $this->_connect))
 					$this->_connect[] = $filename;
 				break;
+			case "shopping":
+				if(!in_array($filename, $this->shopping))
+					$this->shopping[] = $filename;
+				break;
 			case "setup":
 				include $filename;
 				break;
@@ -1036,6 +1040,12 @@ class bot extends AOChat{
 				if(in_array($filename, $this->_connect)) {
 					$temp = array_flip($this->_connect);
 					unset($this->_connect[$temp[$filename]]);
+				}
+				break;
+			case "shopping":
+				if(in_array($filename, $this->shopping)) {
+					$temp = array_flip($this->shopping);
+					unset($this->shopping[$temp[$filename]]);
 				}
 				break;
 		}
@@ -1585,6 +1595,15 @@ class bot extends AOChat{
 					if ($message[0] == $this->settings["symbol"] && strlen($message) > 1) {
 						$message = substr($message, 1);
 						$this->handle_command($type, $message, $sender, $sendto);
+					}
+				} else if ($channel == 'OT shopping 11-50' || $channel == 'OT shopping 50-100' || $channel == 'OT shopping 100+' || $channel == 'Neu. shopping 11-50' || $channel == 'Neu. shopping 50-100' || $channel == 'Neu. shopping 100+' || $channel == 'Clan shopping 11-50' || $channel == 'Clan shopping 50-100' || $channel == 'Clan shopping 100+') {
+					$type = "shopping";
+    				foreach($this->shopping as $file) {
+						$msg = "";
+						include $file;
+						if ($stop_execution) {
+							return;
+						}
 					}
 				}
 				break;

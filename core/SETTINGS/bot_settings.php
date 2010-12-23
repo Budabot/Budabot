@@ -151,7 +151,7 @@ if (preg_match("/^settings$/i", $message)) {
 			$link .= "\n\n" . file_get_contents('./core/' . $row->help) . file_get_contents('./modules/' . $row->help);
 		}
 	}
-	
+
   	$msg = bot::makeLink("Settings Info for $arr[1]", $link);
  	bot::send($msg, $sendto);
 } else if (preg_match("/^settings save ([a-z0-9_]+) (.+)$/i", $message, $arr)) {
