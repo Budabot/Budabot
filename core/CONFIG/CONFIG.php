@@ -11,5 +11,5 @@
 	bot::regcommand("priv", "$MODULE_NAME/searchcmd.php", "searchcmd", "mod");
 
 	//Help Files
-	bot::help("config", "$MODULE_NAME/config.txt", "mod", "Configure Commands/Events of the Bot");
+	bot::help($MODULE_NAME, "config", "config.txt", "mod", "Configure Commands/Events of the Bot");
 ?>

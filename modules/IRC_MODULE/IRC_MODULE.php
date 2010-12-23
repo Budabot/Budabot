@@ -62,5 +62,5 @@
 	bot::addsetting($MODULE_NAME, "irc_debug_all", "IRC Debug Option: Log everything", "edit", "0", "Off;On", "0;1", "mod", "$MODULE_NAME/irc_help.txt");
 	
 	//Helpfiles
-	bot::help("irc", "$MODULE_NAME/irc_help.txt", "all", "How to use the IRC plugin", "IRC Relay");
+	bot::help($MODULE_NAME, "irc", "irc_help.txt", "all", "How to use the IRC plugin", "IRC Relay");
 ?>

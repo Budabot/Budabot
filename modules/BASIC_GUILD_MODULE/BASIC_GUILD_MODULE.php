@@ -11,6 +11,6 @@
 	bot::command("guild msg", "$MODULE_NAME/tell.php", "tellall", "leader", "Sends a tell to all online guildmembers");
 	
 	//Helpfile
-	bot::help("afk_kiting", "$MODULE_NAME/afk_kiting.txt", "guild", "Set yourself AFK/Kiting");
-	bot::help("tell", "$MODULE_NAME/tell.txt", "guild", "How to use tell and tellall");
+	bot::help($MODULE_NAME, "afk_kiting", "afk_kiting.txt", "guild", "Set yourself AFK/Kiting");
+	bot::help($MODULE_NAME, "tell", "tell.txt", "guild", "How to use tell and tellall");
 ?>

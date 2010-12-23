@@ -41,5 +41,5 @@
 	
 	bot::event("orgmsg", "$MODULE_NAME/org_action_listener.php", "none", "Capture Org Invite/Kick/Leave messages for orghistory");
 	
-	bot::help("orghistory", "$MODULE_NAME/org_history.txt", "guild", "How to use orghistory");
+	bot::help($MODULE_NAME, "orghistory", "org_history.txt", "guild", "How to use orghistory");
 ?>

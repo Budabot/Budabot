@@ -3,5 +3,5 @@
 
 	bot::command("", "$MODULE_NAME/weather.php", "weather", "all", "View Weather");
 
-	bot::help("weather", "$MODULE_NAME/weather.txt", "guild", "Get weather info.");
+	bot::help($MODULE_NAME, "weather", "weather.txt", "guild", "Get weather info.");
 ?>

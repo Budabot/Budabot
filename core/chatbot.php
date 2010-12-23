@@ -1149,7 +1149,7 @@ class bot extends AOChat{
 /*===============================
 ** Name: help
 ** Add a help command and display text file in a link.
-*/	function help($command, $filename, $admin, $description, $cat) {
+*/	function help($module, $command, $filename, $admin, $description, $cat) {
 	  	$db = db::get_instance();
 		if($this->settings['debug'] > 1) print("Registering Helpfile:($filename) Cmd:($command)\n");
 		if($this->settings['debug'] > 2) sleep(1);
@@ -1171,8 +1171,6 @@ class bot extends AOChat{
 				$admin = "all";
 			}
 		}
-
-		$module = explode("/", $filename);
 
 		//Check if the file exists
 		if (($actual_filename = bot::verifyFilename($filename)) != '') {

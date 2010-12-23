@@ -48,6 +48,6 @@
 	bot::command("", "$MODULE_NAME/premade.php", "premade", "all", "Searches for implants out of the premade implants booths");
 
 	//Help
-	bot::help("implant", "$MODULE_NAME/implant.txt", "all", "Implant help");
-	bot::help("premade", "$MODULE_NAME/premade_implant.txt", "guild", "Premade Implant Help");
+	bot::help($MODULE_NAME, "implant", "implant.txt", "all", "Implant help");
+	bot::help($MODULE_NAME, "premade", "premade_implant.txt", "guild", "Premade Implant Help");
 ?>

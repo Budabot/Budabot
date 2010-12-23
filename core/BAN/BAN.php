@@ -19,5 +19,5 @@
 	bot::regevent("setup", "$MODULE_NAME/upload_banlist.php");
 	
 	//Help Files
-	bot::help("ban", "$MODULE_NAME/ban.txt", "mod", "Ban a person from the bot");
+	bot::help($MODULE_NAME, "ban", "ban.txt", "mod", "Ban a person from the bot");
 ?>

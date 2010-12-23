@@ -21,5 +21,5 @@
 	bot::addsetting($MODULE_NAME, 'spam_protection', '', 'edit', 0, 'ON;OFF', '1;0', "$MODULE_NAME/spam_help.txt");
 
 	//Help Files
-	bot::help("settings", "$MODULE_NAME/settings.txt", "mod", "Change Settings of the Bot");
+	bot::help($MODULE_NAME, "settings", "settings.txt", "mod", "Change Settings of the Bot");
 ?>

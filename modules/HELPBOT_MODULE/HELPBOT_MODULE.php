@@ -46,23 +46,23 @@
 	bot::command("", "$MODULE_NAME/cap_xp.php", "capxp", "all", "Max XP Calculator");
 
 	// Help files
-	bot::help("whois", "$MODULE_NAME/whois.txt", "all", "Show char stats at current and all dimensions");
-    bot::help("biomat", "$MODULE_NAME/biomat.txt", "all", "Identify an Biomaterial");
-    bot::help("calc", "$MODULE_NAME/calculator.txt", "all", "Calculator");
-    bot::help("oe", "$MODULE_NAME/oe.txt", "all", "Calculating the OE ranges");
-    bot::help("fliproll", "$MODULE_NAME/fliproll.txt", "all", "How to use the flip and roll command");
-    bot::help("history", "$MODULE_NAME/history.txt", "all", "History of a player");
-    bot::help("time", "$MODULE_NAME/time.txt", "all", "Timezones");
-    bot::help("kos_list", "$MODULE_NAME/kos_list.txt", "all", "Kill On Sight List");
-    bot::help("smiley_title_inspect", "$MODULE_NAME/smiley_title_inspect.txt", "all", "Help for Smiley,Title Level and Inspect");
-    bot::help("aiarmor", "$MODULE_NAME/aiarmor.txt", "all", "Alien armor Tradeskillprocess");
-	bot::help("alien_generals", "$MODULE_NAME/alien_generals.txt", "all", "Alien City Generals Info");
-	bot::help("buffitem", "$MODULE_NAME/buffitem.txt", "all", "How to use buffitem");
-	bot::help("cluster", "$MODULE_NAME/cluster.txt", "all", "How to use cluster");
-	bot::help("mobloot", "$MODULE_NAME/mobloot.txt", "all", "How to use mobloot");
-	bot::help("whatbuffs", "$MODULE_NAME/whatbuffs.txt", "all", "How to use whatbuffs");
-	bot::help("dyna", "$MODULE_NAME/dyna.txt", "all", "Search for RK Dynaboss");
-	bot::help("research", "$MODULE_NAME/research.txt", "all", "Info on Research");
-	bot::help("capxp", "$MODULE_NAME/capxp.txt", "all", "Set your reasearch bar for max xp/sk");
-	bot::help("trickle", "$MODULE_NAME/trickle.txt", "all", "How to use trickle");
+	bot::help($MODULE_NAME, "whois", "whois.txt", "all", "Show char stats at current and all dimensions");
+    bot::help($MODULE_NAME, "biomat", "biomat.txt", "all", "Identify an Biomaterial");
+    bot::help($MODULE_NAME, "calc", "calculator.txt", "all", "Calculator");
+    bot::help($MODULE_NAME, "oe", "oe.txt", "all", "Calculating the OE ranges");
+    bot::help($MODULE_NAME, "fliproll", "fliproll.txt", "all", "How to use the flip and roll command");
+    bot::help($MODULE_NAME, "history", "history.txt", "all", "History of a player");
+    bot::help($MODULE_NAME, "time", "time.txt", "all", "Timezones");
+    bot::help($MODULE_NAME, "kos_list", "kos_list.txt", "all", "Kill On Sight List");
+    bot::help($MODULE_NAME, "smiley_title_inspect", "smiley_title_inspect.txt", "all", "Help for Smiley,Title Level and Inspect");
+    bot::help($MODULE_NAME, "aiarmor", "aiarmor.txt", "all", "Alien armor Tradeskillprocess");
+	bot::help($MODULE_NAME, "alien_generals", "alien_generals.txt", "all", "Alien City Generals Info");
+	bot::help($MODULE_NAME, "buffitem", "buffitem.txt", "all", "How to use buffitem");
+	bot::help($MODULE_NAME, "cluster", "cluster.txt", "all", "How to use cluster");
+	bot::help($MODULE_NAME, "mobloot", "mobloot.txt", "all", "How to use mobloot");
+	bot::help($MODULE_NAME, "whatbuffs", "whatbuffs.txt", "all", "How to use whatbuffs");
+	bot::help($MODULE_NAME, "dyna", "dyna.txt", "all", "Search for RK Dynaboss");
+	bot::help($MODULE_NAME, "research", "research.txt", "all", "Info on Research");
+	bot::help($MODULE_NAME, "capxp", "capxp.txt", "all", "Set your reasearch bar for max xp/sk");
+	bot::help($MODULE_NAME, "trickle", "trickle.txt", "all", "How to use trickle");
 ?>

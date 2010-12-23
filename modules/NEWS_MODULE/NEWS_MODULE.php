@@ -17,6 +17,6 @@
 	bot::addsetting($MODULE_NAME, "adminnews", "no", "hide", "Not set.");
 
 	//Help files
-	bot::help("news", "$MODULE_NAME/news.txt", "guild", "How to use news");
-	bot::help("priv_news", "$MODULE_NAME/priv_news.txt", "raidleader", "Set Privategroup News");
+	bot::help($MODULE_NAME, "news", "news.txt", "guild", "How to use news");
+	bot::help($MODULE_NAME, "priv_news", "priv_news.txt", "raidleader", "Set Privategroup News");
 ?>

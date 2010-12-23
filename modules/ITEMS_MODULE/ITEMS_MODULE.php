@@ -14,5 +14,5 @@
 	bot::addsetting($MODULE_NAME, 'itemdb_location', 'Where to search for items', 'edit', 'local', 'local;Xyphos.com', "0", "mod");
 
 	//Help files
-    bot::help("items", "$MODULE_NAME/items.txt", "guild", "How to search for an item.");
+    bot::help($MODULE_NAME, "items", "items.txt", "guild", "How to search for an item.");
 ?>

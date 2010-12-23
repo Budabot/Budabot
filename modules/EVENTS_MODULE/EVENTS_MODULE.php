@@ -12,5 +12,5 @@
 	bot::command("", "$MODULE_NAME/eventlist.php", "eventlist", "all", "View event attendees");
 	
 	//Helpfile
-	bot::help("events", "$MODULE_NAME/events.txt", "all", "Adding/editing/removing events");
+	bot::help($MODULE_NAME, "events", "events.txt", "all", "Adding/editing/removing events");
 ?>

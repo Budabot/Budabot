@@ -43,6 +43,6 @@
 	bot::event("logOff", "$MODULE_NAME/logoff_guild.php", "none", "Shows a logoff from a member in chat and records in db");
 
 	//Help files
-	bot::help("online", "$MODULE_NAME/online.txt", "guild", "Show who is on from the guild");
-	bot::help("lastseen", "$MODULE_NAME/lastseen.txt", "guild", "Check when an orgmember was online");
+	bot::help($MODULE_NAME, "online", "online.txt", "guild", "Show who is on from the guild");
+	bot::help($MODULE_NAME, "lastseen", "lastseen.txt", "guild", "Check when an orgmember was online");
 ?>

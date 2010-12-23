@@ -27,11 +27,11 @@
 	bot::regGroup("basic_loot", $MODULE_NAME, "Handles a basic flatrolled loot system", "loot", "add", "clear", "list", "flatroll");
 
 	//Help files
-	bot::help("add", "$MODULE_NAME/add_rem.txt", "all", "Adding to a lootitem");
-	bot::help("rem", "$MODULE_NAME/add_rem.txt", "all", "Removing your bid on a lootitem");
-	bot::help("loot", "$MODULE_NAME/flatroll.txt", "leader", "Adding an item to be flatrolled");
-	bot::help("remloot", "$MODULE_NAME/flatroll.txt", "leader", "Removing an item from a flatroll list");
-	bot::help("flatroll", "$MODULE_NAME/flatroll.txt", "leader", "Flatroll an item");
-	bot::help("multiloot", "$MODULE_NAME/flatroll.txt", "leader", "Adding multiple of an item to be rolled");
+	bot::help($MODULE_NAME, "add", "add_rem.txt", "all", "Adding to a lootitem");
+	bot::help($MODULE_NAME, "rem", "add_rem.txt", "all", "Removing your bid on a lootitem");
+	bot::help($MODULE_NAME, "loot", "flatroll.txt", "leader", "Adding an item to be flatrolled");
+	bot::help($MODULE_NAME, "remloot", "flatroll.txt", "leader", "Removing an item from a flatroll list");
+	bot::help($MODULE_NAME, "flatroll", "flatroll.txt", "leader", "Flatroll an item");
+	bot::help($MODULE_NAME, "multiloot", "flatroll.txt", "leader", "Adding multiple of an item to be rolled");
 
 ?>

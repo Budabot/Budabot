@@ -37,5 +37,5 @@
 	bot::regevent("1hour", "$MODULE_NAME/ping_db.php");
 
 	//Help Files
-	bot::help("system", "$MODULE_NAME/system.txt", "admin", "Admin System Help file");
+	bot::help($MODULE_NAME, "system", "system.txt", "admin", "Admin System Help file");
 ?>

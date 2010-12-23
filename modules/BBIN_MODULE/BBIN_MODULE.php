@@ -64,5 +64,5 @@
 	bot::addsetting($MODULE_NAME, "bbin_debug_all", "IRC Debug Option: Log everything", "edit", "0", "Off;On", "0;1", "mod", "$MODULE_NAME/bbin_help.txt");
 	
 	//Helpfiles
-	bot::help("bbin", "$MODULE_NAME/bbin_help.txt", "all", "How to use the BBIN plugin", "BBIN");
+	bot::help($MODULE_NAME, "bbin", "bbin_help.txt", "all", "How to use the BBIN plugin", "BBIN");
 ?>

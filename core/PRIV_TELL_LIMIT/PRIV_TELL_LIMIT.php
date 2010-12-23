@@ -53,5 +53,5 @@
 	bot::addsetting($MODULE_NAME, "tell_req_open", "Tell General Limit", "noedit", "all", "none", "0", "mod", "$MODULE_NAME/help_topen.txt");
 
 	//Help File
-	bot::help("priv_tell_limits", "$MODULE_NAME/help.txt", "mod", "Set Limits for tells and PrivGroup");
+	bot::help($MODULE_NAME, "priv_tell_limits", "help.txt", "mod", "Set Limits for tells and PrivGroup");
 ?>

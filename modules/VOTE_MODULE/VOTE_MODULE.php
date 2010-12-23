@@ -12,5 +12,5 @@
 	
 	bot::event("2sec", "$MODULE_NAME/votes_check.php", 'none', "Checks timer and periodically updates chat with time left on vote");
 	
-	bot::help("vote", "$MODULE_NAME/vote.txt", "all", "Vote/Polling");
+	bot::help($MODULE_NAME, "vote", "vote.txt", "all", "Vote/Polling");
 ?>

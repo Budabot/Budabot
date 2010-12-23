@@ -14,7 +14,7 @@
 	bot::command("", "$MODULE_NAME/banksearch.php", "find", "all", "Search the Org Bank for an item you need.");
 	
 	// Help
-	bot::help("bank", "$MODULE_NAME/bank.txt", "all", "How to search for an item.");
+	bot::help($MODULE_NAME, "bank", "bank.txt", "all", "How to search for an item.");
 
 	// Thanks to Xyphos (RK1) for helping me bugfix
 ?>

@@ -9,5 +9,5 @@
 	bot::addsetting($MODULE_NAME, "ts_servername", "Name of the TS Server", "edit", "Not set yet.", "text", '0', "mod");
 
 	//Help files	
-    bot::help("teamspeak", "$MODULE_NAME/ts.txt", "guild", "Using the Teamspeak plugin");
+    bot::help($MODULE_NAME, "teamspeak", "ts.txt", "guild", "Using the Teamspeak plugin");
 ?>

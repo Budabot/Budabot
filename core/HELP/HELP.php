@@ -10,5 +10,5 @@
 	bot::regcommand("priv", "$MODULE_NAME/general_help.php", "help");
 	
 	//Help Files
-	bot::help("about", "$MODULE_NAME/about.txt", "all", "Some Basic info about the bot");
+	bot::help($MODULE_NAME, "about", "about.txt", "all", "Some Basic info about the bot");
 ?>

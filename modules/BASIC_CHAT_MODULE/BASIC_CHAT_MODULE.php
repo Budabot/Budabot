@@ -45,13 +45,13 @@
 	bot::command("", "$MODULE_NAME/updateme.php", "updateme", "all", "Updates char info for a player");
 
 	//Helpfiles
-	bot::help("afk_priv", "$MODULE_NAME/afk.txt", "all", "Going AFK");
-	bot::help("assist", "$MODULE_NAME/assist.txt", "all", "Creating an Assist Macro");
-	bot::help("check", "$MODULE_NAME/check.txt", "all", "See of the ppls are in the area");
-	bot::help("heal", "$MODULE_NAME/healassist.txt", "all", "Creating an Healassist Macro");
-	bot::help("leader", "$MODULE_NAME/leader.txt", "all", "Set a Leader of a Raid/Echo on/off");
-	bot::help("tell", "$MODULE_NAME/tell.txt", "leader", "How to use tell");
-	bot::help("topic", "$MODULE_NAME/topic.txt", "raidleader", "Set the Topic of the raid");
-	bot::help("updateme", "$MODULE_NAME/updateme.txt", "all", "Update your character infos");
-	bot::help("cmd", "$MODULE_NAME/cmd.txt", "leader", "How to use cmd");
+	bot::help($MODULE_NAME, "afk_priv", "afk.txt", "all", "Going AFK");
+	bot::help($MODULE_NAME, "assist", "assist.txt", "all", "Creating an Assist Macro");
+	bot::help($MODULE_NAME, "check", "check.txt", "all", "See of the ppls are in the area");
+	bot::help($MODULE_NAME, "heal", "healassist.txt", "all", "Creating an Healassist Macro");
+	bot::help($MODULE_NAME, "leader", "leader.txt", "all", "Set a Leader of a Raid/Echo on/off");
+	bot::help($MODULE_NAME, "tell", "tell.txt", "leader", "How to use tell");
+	bot::help($MODULE_NAME, "topic", "topic.txt", "raidleader", "Set the Topic of the raid");
+	bot::help($MODULE_NAME, "updateme", "updateme.txt", "all", "Update your character infos");
+	bot::help($MODULE_NAME, "cmd", "cmd.txt", "leader", "How to use cmd");
 ?>

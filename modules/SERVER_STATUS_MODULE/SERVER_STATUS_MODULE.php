@@ -5,5 +5,5 @@
 	bot::command("", "$MODULE_NAME/server_status.php", "server", "all", "Shows the Server status");	
 
 	//Help files
-    bot::help("serverstatus", "$MODULE_NAME/serverstatus.txt", "guild", "Show Serverstatus");
+    bot::help($MODULE_NAME, "serverstatus", "serverstatus.txt", "guild", "Show Serverstatus");
 ?>

@@ -29,9 +29,9 @@
 	bot::addsetting($MODULE_NAME, "bot_notify", "Show/Hide Logoffs in Org Chat (Spam Prevention)", "edit", "1", "Show Logoffs;Hide Logoffs", '1;0', "mod", "$MODULE_NAME/botnotify.txt");
 	
 	//Helpfile
-    bot::help("notify", "$MODULE_NAME/notify.txt", "mod", "Add or remove a player from the notify list.");
-	bot::help("inactivemem", "$MODULE_NAME/manage_guild.txt", "all", "Help on Checking for Inactive Members");
-	bot::help("updateorg", "$MODULE_NAME/updateorg.txt", "mod", "Force an update of org roster");
-	bot::help("logonmsg", "$MODULE_NAME/logonmsg.txt", "guild", "Changing your logon message");
-	bot::help("orgmembers", "$MODULE_NAME/orgmembers_orgranks.txt", "guild", "Show current OrgMembers");
+    bot::help($MODULE_NAME, "notify", "notify.txt", "mod", "Add or remove a player from the notify list.");
+	bot::help($MODULE_NAME, "inactivemem", "manage_guild.txt", "all", "Help on Checking for Inactive Members");
+	bot::help($MODULE_NAME, "updateorg", "updateorg.txt", "mod", "Force an update of org roster");
+	bot::help($MODULE_NAME, "logonmsg", "logonmsg.txt", "guild", "Changing your logon message");
+	bot::help($MODULE_NAME, "orgmembers", "orgmembers_orgranks.txt", "guild", "Show current OrgMembers");
 ?>

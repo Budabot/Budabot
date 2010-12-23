@@ -17,6 +17,6 @@
 	bot::command("", "$MODULE_NAME/boss.php", "boss", "all", "Bossloot Tables");
 	bot::command("", "$MODULE_NAME/bossloot.php", "bossloot", "all", "Bossloot Search");
 	
-	bot::help("Boss", "$MODULE_NAME/boss.txt", "all", "Bossloot Tables", "Boss");
+	bot::help($MODULE_NAME, "Boss", "boss.txt", "all", "Bossloot Tables", "Boss");
 	
 ?>
