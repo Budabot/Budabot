@@ -29,8 +29,8 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if(preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader)$/i", $message, $arr)) {
-    switch(strtolower($arr[1])) {
+if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader)$/i", $message, $arr)) {
+    switch (strtolower($arr[1])) {
         case "adv":
             $prof = "Adventurer";
             break;

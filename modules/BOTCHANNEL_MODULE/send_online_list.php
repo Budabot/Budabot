@@ -29,17 +29,14 @@
  ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-// include online_func.php for the actual working functions
-require_once "online_func.php";
-
 $msg = "";
 $type = "msg";
 list($numonline, $msg, $list) = online($type, $sender, $sendto, $this);
 if ($numonline != 0) {
 	$blob = bot::makeLink($msg, $list);
-	bot::send($blob, $sendto);
+	bot::send($blob, $sender);
 } else {
-	bot::send($msg, $sendto);
+	bot::send($msg, $sender);
 }
 
 ?>

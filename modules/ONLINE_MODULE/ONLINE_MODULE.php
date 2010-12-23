@@ -1,4 +1,6 @@
 <?php
+	require_once "online_func.php";
+
 	$MODULE_NAME = "ONLINE_MODULE";
 
 	//Setup of the Online Modules
