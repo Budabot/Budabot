@@ -47,19 +47,10 @@ if (!function_exists("save_setting_to_db")) {
 	}
 }
 
-save_setting_to_db('symbol', $this->settings["symbol"], '!;#;*;@;$;+;-', null, 'Prefix for Guild- or Privatechat Commands', null);
 save_setting_to_db('debug', $this->settings["debug"], "Disabled;Show basic msgs;Show enhanced debug msgs;Show enhanced debug msgs + 1s Delay", '0;1;2;3', 'Show debug messages', null);
 save_setting_to_db('echo', $this->settings["echo"], 'Disabled;Only Console;Console and Logfiles', '0;1;2' , 'Show messages in console and log them to files', null);
-save_setting_to_db('guild admin level', $this->settings["guild admin level"], 'President;General;Squad Commander;Unit Commander;Unit Leader;Unit Member;Applicant', '0;1;2;3;4;5;6', 'Min Level for Rank Guildadmin', null);
-save_setting_to_db('default guild color', $this->settings["default guild color"], 'color', null, 'Default Guild Color', null);
-save_setting_to_db('default priv color', $this->settings["default priv color"], 'color', null, 'Default Private Color', null);
-save_setting_to_db('default window color', $this->settings["default window color"], 'color', null, 'Default Window Color', null);
-save_setting_to_db('default tell color', $this->settings["default tell color"], 'color', null, 'Default Tell Color', null);
-save_setting_to_db('default highlight color', $this->settings["default highlight color"], 'color', null, 'Default Highlight Color', null);
-save_setting_to_db('default header color', $this->settings["default header color"], 'color', null, 'Default Header Color', null);
-save_setting_to_db('spam protection', $this->settings["spam protection"], 'ON;OFF', '1;0', 'Spam Protection for Private Chat', './core/SETTINGS/spam_help.txt');
-save_setting_to_db('default module status', $this->settings["default module status"], 'ON;OFF', '1;0', 'Default Status for new Modules', './core/SETTINGS/module_status_help.txt');
-save_setting_to_db('max_blob_size', $this->settings["max_blob_size"], 'number', null, 'Max chars for a window', './core/SETTINGS/max_blob_size_help.txt');
+save_setting_to_db('default module status', $this->settings["default module status"], 'ON;OFF', '1;0', 'Default Status for new Modules', 'SETTINGS/module_status_help.txt');
+save_setting_to_db('max_blob_size', $this->settings["max_blob_size"], 'number', null, 'Max chars for a window', 'SETTINGS/max_blob_size_help.txt');
 
 //Upload Settings from the db that are set by modules
 $db->query("SELECT * FROM settings_<myname>");

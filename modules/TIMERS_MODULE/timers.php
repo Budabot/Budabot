@@ -75,7 +75,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 					
 			  	$msg = "Removed timer <highlight>$name<end>.";
 			  	break;
-			} else if (($this->guildmembers[$sender] <= $this->settings['guild admin level']) || isset($this->admins[$sender])) {
+			} else if (($this->guildmembers[$sender] <= $this->settings['guild_admin_level']) || isset($this->admins[$sender])) {
 				unset($this->vars["Timers"][$key]);
 				$db->query("DELETE FROM timers_<myname> WHERE `name` = '".str_replace("'", "''", $name)."'");
 

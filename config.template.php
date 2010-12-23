@@ -20,9 +20,6 @@ $vars['dimension']	= 1;
 //Insert the Administratorname here
 $settings['Super Admin'] = "";
 
-// What prefix should be used for private/Guild channel
-$settings['symbol'] = "!";
-
 // Debug Messages
 // 0 = Show no message
 // 1 = Show basic debug messages
@@ -52,21 +49,6 @@ $settings['DB password'] = "";		// Mysql Password
 
 //Cache folder for storing org xml files
 $vars['cachefolder'] = "./cache/";
-
-//Set lowest needed rank for guild admin
-//President		Director	= 0
-//General		Board Member	= 1
-//Squad Commander	Executive	= 2
-//Unit Commander	Member		= 3
-//Unit Leader		Applicant	= 4
-//Unit Member				= 5
-//Applicant				= 6
-$settings['guild admin level'] = 3;
-
-// Spam Protection
-// 1 = Spam Protection is enabled
-// 0 = Spam Protection is disabled
-$settings['spam protection'] = 0;
 
 // Default Status for modules
 // 0 = Modules are disabled by default

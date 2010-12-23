@@ -54,7 +54,7 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 
 			if ($admin == "guild" && isset($this->guildmembers[$sender]) && $type == "msg") {
 			  	$access = true;
-			} else if ($admin == "guildadmin" && ($this->guildmembers[$sender] <= $this->settings['guild admin level']) && $type == "msg") {
+			} else if ($admin == "guildadmin" && ($this->guildmembers[$sender] <= $this->settings['guild_admin_level']) && $type == "msg") {
 				$access = true;
 			} else if (is_numeric($admin) && ($this->admins[$sender]["level"] >= $admin) && $type == "msg") {
 				$access = true;
