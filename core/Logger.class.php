@@ -14,13 +14,24 @@ global $vars;
 
 class Logger {
 	public static function log($category, $tag, $message) {
+		global $vars;
+		
+		if ($vars[strtolower($category) . "_console"] != 1 && $vars[strtolower($category) . "_file"] != 1) {
+			return;
+		}
+	
 		$timestamp = date("Ymd H:i");
 		$category = strtoupper($category);
 
 		$line = str_pad($timestamp, 14) . ' ' .  str_pad($category, 5) . ' ' . "[$tag]" . ' ' . $message;
 
-		echo "$line\n";
-		Logger::append_to_log_file($category, $line);
+		if ($vars[strtolower($category) . "_console"]) {
+			echo "$line\n";
+		}
+		
+		if ($vars[strtolower($category) . "_file"]) {
+			Logger::append_to_log_file($category, $line);
+		}
 
 		/*
 			00:00 DEBUG [/modules/TOWER_MODULE/towers.php] [timer check]

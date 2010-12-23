@@ -8,33 +8,48 @@
 /* know what you are doing.			*/
 /* ********************************************	*/
 
-// enter your Account info here
+// Enter your Account info here
 $vars['login']		= "";
 $vars['password']	= "";
 $vars['name']		= "";
 $vars['my guild']	= "";
 
-// enter 1 for Atlantean, 2 for Rimor, 3 for Die Nueue Welt
+// Enter 1 for Atlantean, 2 for Rimor, 3 for Die Nueue Welt
 $vars['dimension']	= 1;
 
-//Insert the Administratorname here
+// Insert the Administratorname here
 $settings['Super Admin'] = "";
 
 // Default Delay for crons after bot is connected
 $settings['CronDelay'] = 0;
 
-// Replace "Insert Name here" with the bot that
-// tells should be ignored by default
+// List of characters the bot should ignore (multiple names should be separated by semicolons ';')
 $settings['Ignore'] = "";
 
-//Database Informations	
+// Database Information
 $settings['DB Type'] = "Sqlite";	// What type of Database should be used? (Sqlite or Mysql)
 $settings['DB Name'] = "budabot.db";	// Database Name
 $settings['DB Host'] = "./data/";	// Hostname or File location.
 $settings['DB username'] = "";		// Mysql User name
 $settings['DB password'] = "";		// Mysql Password
 
-//Cache folder for storing org xml files
+// Logging options.  1 for enabled, 2 for disabled
+$vars['error_console'] = 1;
+$vars['error_file'] = 1;
+
+$vars['info_console'] = 1;
+$vars['info_file'] = 0;
+
+$vars['query_console'] = 0;
+$vars['query_file'] = 0;
+
+$vars['debug_console'] = 0;
+$vars['debug_file'] = 0;
+
+$vars['chat_console'] = 1;
+$vars['chat_file'] = 0;
+
+// Cache folder for storing org xml files
 $vars['cachefolder'] = "./cache/";
 
 // Default Status for modules
