@@ -71,6 +71,7 @@ if (!file_exists($config_file)) {
 	copy('config.template.php', $config_file) or die("could not create config file: $config_file");
 }
 require_once $config_file;
+require_once "./core/Logger.class.php";
 require_once "./core/aochat.php";
 require_once "./core/chatbot.php";
 require_once "./core/sql.php";
