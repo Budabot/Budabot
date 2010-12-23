@@ -39,14 +39,6 @@ $settings['echo'] = 1;
 // Default Delay for crons after bot is connected
 $settings['CronDelay'] = 0;
 
-// Default Colors that should be used
-$settings['default guild color']	= "<font color='#84FFFF'>";
-$settings['default priv color']		= "<font color='#84FFFF'>";
-$settings['default window color']	= "<font color='#84FFFF'>";
-$settings['default tell color']		= "<font color='#DDDDDD'>";
-$settings['default highlight color']	= "<font color='#9CC6E7'>";
-$settings['default header color']	= "<font color='#FFFF00'>";
-
 // Replace "Insert Name here" with the bot that
 // tells should be ignored by default
 $settings['Ignore'] = "";
