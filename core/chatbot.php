@@ -1608,13 +1608,13 @@ class bot extends AOChat{
 					}
 				}
 				break;
-			case AOCP_PRIVGRP_INVITE:  // 50, private group invite
+			case AOCP_PRIVGRP_INVITE:  // 50, private channel invite
 				$type = "extJoinPrivRequest"; // Set message type.
 				$uid = $args[0];
 				$sender = $this->lookup_user($uid);
 
 				// Echo
-				Logger::log_chat("Priv Group Invitation", -1, "$sender channel invited.");
+				Logger::log_chat("Priv Channel Invitation", -1, "$sender channel invited.");
 
 				if ($this->extJoinPrivRequest != NULL) {
 					forEach ($this->extJoinPrivRequest as $file) {

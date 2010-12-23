@@ -68,7 +68,7 @@ if (preg_match("/^config$/i", $message)) {
 	$list .= "Org Commands - " . 
 		bot::makeLink('Enable All', '/tell <myname> config cmd enable guild', 'chatcmd') . " " . 
 		bot::makeLink('Disable All', '/tell <myname> config cmd disable guild', 'chatcmd') . "\n";
-	$list .= "Private Group Commands - " . 
+	$list .= "Private Channel Commands - " . 
 		bot::makeLink('Enable All', '/tell <myname> config cmd enable priv', 'chatcmd') . " " . 
 		bot::makeLink('Disable All', '/tell <myname> config cmd disable priv', 'chatcmd') . "\n";
 	$list .= "Private Message Commands - " . 

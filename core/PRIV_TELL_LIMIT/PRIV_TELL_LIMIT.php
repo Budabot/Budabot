@@ -30,15 +30,15 @@
 	bot::regcommand("msg", "$MODULE_NAME/set_limits_tells.php", "tfaction", "mod");
 	bot::regcommand("priv", "$MODULE_NAME/set_limits_tells.php", "tfaction", "mod");
 
-	//Set/Show minlvl for privategroup
+	//Set/Show minlvl for private channel
 	bot::regcommand("msg", "$MODULE_NAME/set_limits_priv.php", "minlvl", "mod");
 	bot::regcommand("priv", "$MODULE_NAME/set_limits_priv.php", "minlvl", "mod");
 
-	//Set/Show general limit for privategroup
+	//Set/Show general limit for private channel
 	bot::regcommand("msg", "$MODULE_NAME/set_limits_priv.php", "openchannel", "mod");
 	bot::regcommand("priv", "$MODULE_NAME/set_limits_priv.php", "openchannel", "mod");
 
-	//Set/Show faction limit for privategroup
+	//Set/Show faction limit for private channel
 	bot::regcommand("msg", "$MODULE_NAME/set_limits_priv.php", "faction", "mod");
 	bot::regcommand("priv", "$MODULE_NAME/set_limits_priv.php", "faction", "mod");
 

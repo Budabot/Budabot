@@ -30,7 +30,7 @@
    */
 if (preg_match("/^minlvl$/i", $message)) {
  	if($this->settings["priv_req_lvl"] == 0)
- 		$msg = "No Level Limit has been set for privategroup Invites.";
+ 		$msg = "No Level Limit has been set for private channel Invites.";
  	else
  		$msg = "Level Limit for responding on tells has been set to Lvl {$this->settings["tell_req_lvl"]}";
 
@@ -47,38 +47,38 @@ if (preg_match("/^minlvl$/i", $message)) {
 	bot::savesetting("priv_req_lvl", $minlvl);
 	
 	if($minlvl == 0)
-		$msg = "Player min level limit has been removed from privategroup Invites.";
+		$msg = "Player min level limit has been removed from private channel Invites.";
 	else
- 		$msg = "Privategroup Invites are accepted from the level $minlvl and above.";
+ 		$msg = "Private channel Invites are accepted from the level $minlvl and above.";
 
     bot::send($msg, $sendto);
 } else if (preg_match("/^openchannel$/i", $message)) {
  	if($this->settings["oriv_req_open"] == "all")
- 		$msg = "No General Limit is set for privategroup Invites.";
+ 		$msg = "No General Limit is set for private channel Invites.";
  	elseif($this->settings["priv_req_open"] == "org")
- 		$msg = "General Limit for privategroup Invites is set to Organisation members only.";
+ 		$msg = "General Limit for private channel Invites is set to Organisation members only.";
 	else
-		$msg = "General Limit for privategroup Invites is set to Bot members only.";
+		$msg = "General Limit for private channel Invites is set to Bot members only.";
 	
     bot::send($msg, $sendto);	
 } else if (preg_match("/^openchannel (org|all|members)$/i", $message, $arr)) {
 	$open = ucfirst(strtolower($arr[1]));
 	
 	if($open == "all") {
-		$msg = "General restrictions for privategroup invites has been removed.";
+		$msg = "General restrictions for private channel invites has been removed.";
 	} elseif($open == "org") {
-		$msg = "Privategroup invites will be accepted only from Members of your Organisation";
+		$msg = "Private channel invites will be accepted only from Members of your Organisation";
 	} else
-		$msg = "Privategroup Invites will be accepted only from Members of this Bot";
+		$msg = "Private channel Invites will be accepted only from Members of this Bot";
 	
 	bot::savesetting("priv_req_open", $open);
 
     bot::send($msg, $sendto);
 } else if (preg_match("/^faction/i", $message)) {
  	if($this->settings["pirv_req_faction"] == "all")
- 		$msg = "No Faction Limit is set for privategroup Invites.";
+ 		$msg = "No Faction Limit is set for private channel Invites.";
 	else
-		$msg = "Faction Limit for privategroup Invits is set to {$this->settings["priv_req_faction"]}.";
+		$msg = "Faction Limit for private channel Invits is set to {$this->settings["priv_req_faction"]}.";
 		
     bot::send($msg, $sendto); 	
 } else if (preg_match("/^faction (omni|clan|neutral|all)$/i", $message, $arr)) {
@@ -86,9 +86,9 @@ if (preg_match("/^minlvl$/i", $message)) {
 	bot::savesetting("priv_req_faction", $faction);
 	
 	if($faction == "all") {
-		$msg = "Faction limit removed from privategroup invites.";
+		$msg = "Faction limit removed from private channel invites.";
 	} else {
-		$msg = "Privategroup Invites are accepted only from the Faction $faction.";
+		$msg = "Private channel Invites are accepted only from the Faction $faction.";
 	}
 	
     bot::send($msg, $sendto);
@@ -100,9 +100,9 @@ if (preg_match("/^minlvl$/i", $message)) {
     bot::send($msg, $sendto);
 } else if (preg_match("/^maxplayers$/i", $message)) {
  	if($this->settings["priv_req_faction"] == "all")
- 		$msg = "No Faction Limit is set for privategroup Invites.";
+ 		$msg = "No Faction Limit is set for private channel Invites.";
 	else
-		$msg = "Faction Limit for privategroup Invits is set to {$this->settings["priv_req_maxplayers"]}.";
+		$msg = "Faction Limit for private channel Invits is set to {$this->settings["priv_req_maxplayers"]}.";
 	
     bot::send($msg, $sendto); 	 
 } else if (preg_match("/^maxplayer ([0-9]+)$/i", $message, $arr)) {
@@ -117,9 +117,9 @@ if (preg_match("/^minlvl$/i", $message)) {
 	bot::savesetting("priv_req_maxplayers", $maxplayers);
 	
 	if($maxplayers == 0) {
-		$msg = "The Limit of the Amount of players in the privategroup has been removed.";
+		$msg = "The Limit of the Amount of players in the private channel has been removed.";
 	} else {
-		$msg = "The Limit of the Amount of players in the privategroup has been set to $maxplayers.";
+		$msg = "The Limit of the Amount of players in the private channel has been set to $maxplayers.";
 	}
     bot::send($msg, $sendto);
 } else {

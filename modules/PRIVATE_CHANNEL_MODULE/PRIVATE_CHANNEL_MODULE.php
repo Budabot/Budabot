@@ -48,5 +48,5 @@
     bot::help($MODULE_NAME, "botchannel", "botchannel.txt", "guild", "Private channel commands");
 	bot::help($MODULE_NAME, "join_leave", "joinleave.txt", "all", "Joining and leaving the bot");
 	bot::help($MODULE_NAME, "kickall", "kickall.txt", "raidleader", "Kick all players from the Bot");
-	bot::help($MODULE_NAME, "lock", "lock.txt", "raidleader", "Lock the privategroup");
+	bot::help($MODULE_NAME, "lock", "lock.txt", "raidleader", "Lock the private channel");
 ?>

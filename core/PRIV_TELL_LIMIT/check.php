@@ -91,7 +91,7 @@ if (Whitelist::check($sender) || isset($this->admins[$sender]) || $sender == ucf
 		}
 	}
 
-	//Check the Maximum Limit for the PrivateGroup
+	//Check the Maximum Limit for the Private Channel
 	if ($this->settings["priv_req_maxplayers"] != 0 && count($this->chatlist) > $this->settings["priv_req_maxplayers"]) {
 	  	$msg = "<orange>Error! Only players who are at least level {$this->settings["priv_req_lvl"]} can join this bot.<end>";
 	    bot::send($msg, $sender);
