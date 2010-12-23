@@ -1,46 +1,13 @@
 <?php
-   /*
-   ** Author: Derroylo (RK2)
-   ** Description: Shows logon from Guildmembers
-   ** Version: 1.1
-   **
-   ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
-   **
-   ** Date(created): 23.11.2005
-   ** Date(last modified): 26.11.2006
-   **
-   ** Copyright (C) 2005, 2006 Carsten Lohmann
-   **
-   ** Licence Infos:
-   ** This file is part of Budabot.
-   **
-   ** Budabot is free software; you can redistribute it and/or modify
-   ** it under the terms of the GNU General Public License as published by
-   ** the Free Software Foundation; either version 2 of the License, or
-   ** (at your option) any later version.
-   **
-   ** Budabot is distributed in the hope that it will be useful,
-   ** but WITHOUT ANY WARRANTY; without even the implied warranty of
-   ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   ** GNU General Public License for more details.
-   **
-   ** You should have received a copy of the GNU General Public License
-   ** along with Budabot; if not, write to the Free Software
-   ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-   */
 
-$msg = "";
-$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.name = p.name WHERE o.`name` = '$sender'");
-$numrows = $db->numrows();
-$org_member = $db->fObject();
-if ($org_member->mode != "del" && $numrows == 1) {
-  	$db->query("SELECT name FROM guild_chatlist_<myname> WHERE `name` = '$sender'");
-	if ($db->numrows() == 0) {
-	    $db->exec("INSERT INTO guild_chatlist_<myname> (`name`) VALUES ('$org_member->name')");
-	}
-
-    if (time() >= $this->vars["onlinedelay"]) {
-        if ($org_member->firstname) {
+if (isset($this->guildmembers[$sender]) && time() >= $this->vars["onlinedelay"] && $this->settings["bot_notify"] != 0) {
+	$org_member = Player::get_by_name($sender);
+	
+	$msg = '';
+	if ($org_member === null) {
+		$msg = "$sender logged on.";
+	} else {
+		if ($org_member->firstname) {
             $msg = $org_member->firstname." ";
 		}
 
@@ -115,16 +82,14 @@ if ($org_member->mode != "del" && $numrows == 1) {
         if ($org_member->logon_msg != '0') {
             $msg .= " - " . $org_member->logon_msg;
 		}
+	}
 
-       	bot::send($msg, "guild", true);
+	bot::send($msg, "guild", true);
 
-		//Guestchannel part
-		if ($this->settings["guest_relay"] == 1) {
-			bot::send($msg, "priv", true);
-		}
-		
-		// update info for player
-		Player::get_by_name($sender);
-    }
+	//private channel part
+	if ($this->settings["guest_relay"] == 1) {
+		bot::send($msg, "priv", true);
+	}
 }
+
 ?>

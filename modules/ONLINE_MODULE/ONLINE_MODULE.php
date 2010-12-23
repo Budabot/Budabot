@@ -39,8 +39,12 @@
 	bot::addsetting($MODULE_NAME, "icon_fancy_online", "Enables the use of icons in fancy delimiter mode", "edit", "1", "On;Off", "1;0");
 
 	bot::event("logOn", "$MODULE_NAME/logonline.php", "none", "Sends a tell to players on logon showing who is online in org");
-	bot::event("logOn", "$MODULE_NAME/logon_guild.php", "none", "Shows a logon from a member in chat and records in db");
-	bot::event("logOff", "$MODULE_NAME/logoff_guild.php", "none", "Shows a logoff from a member in chat and records in db");
+	
+	bot::event("logOn", "$MODULE_NAME/notify_logon_guild.php", "none", "Shows an org member login in chat");
+	bot::event("logOff", "$MODULE_NAME/notify_logoff_guild.php", "none", "Shows an org member logoff in chat");
+	
+	bot::event("logOn", "$MODULE_NAME/record_logon_guild.php", "none", "Records an org member login in db");
+	bot::event("logOff", "$MODULE_NAME/record_logoff_guild.php", "none", "Records an org member logoff in db");
 
 	//Help files
 	bot::help($MODULE_NAME, "online", "online.txt", "guild", "Show who is on from the guild");
