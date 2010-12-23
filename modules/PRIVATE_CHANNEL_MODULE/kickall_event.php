@@ -1,7 +1,7 @@
 <?php
    /*
    ** Author: Derroylo (RK2)
-   ** Description: Kicks everyone out of the privategroup
+   ** Description: Kicks everyone out of the privategroup(event))
    ** Version: 1.0
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
@@ -28,13 +28,10 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-   
-if (preg_match("/^kickall$/", $message)) {
-  	$msg = "Everyone will be kicked from this channel in 10 seconds. [by <highlight>$sender<end>]";
-  	bot::send($msg, 'priv');
-  	$this->vars["priv_kickall"] = time() + 10;
-	bot::regevent("2sec", "BOTCHANNEL_MODULE/kickall_event.php");
-} else {
-	$syntax_error = true;
+
+if (time() >= $this->vars["priv_kickall"]) {
+	AOChat::privategroup_kick_all();
+	bot::unregevent("2sec", "PRIVATE_CHANNEL_MODULE/kickall_event.php");
+	unset($this->vars["priv_kickall"]);
 }
 ?>
