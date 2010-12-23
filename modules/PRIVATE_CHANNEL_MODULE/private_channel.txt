@@ -1,12 +1,12 @@
-<header>::::: Help on guestchannel :::::<end>
+<header>::::: Help on Private Channel :::::<end>
 
-<highlight>To show who is in the guest channel do<end>
+<highlight>To show who is in the private channel<end>
 <tab><symbol>sm
 
-<highlight>To invite someone to guestchannel<end>
+<highlight>To invite someone to private channel<end>
 <tab><symbol>inviteuser 'insert name here'
 
-<highlight>To kick someone from guestchannel<end>
+<highlight>To kick someone from private channel<end>
 <tab><symbol>kickuser 'insert name here'
 
 <highlight>To add someone to the guestlist(he will get auto-invited after he logs on)<end>
@@ -15,5 +15,5 @@
 <highlight>To remove someone from the guestlist<end>
 <tab><symbol>remuser 'insert name here'
 
-<highlight>To show the ones that are auto-invited after their logon<end>
+<highlight>To show who is on the guestlist<end>
 <tab><symbol>members

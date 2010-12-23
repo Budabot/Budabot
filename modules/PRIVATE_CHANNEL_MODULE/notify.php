@@ -1,7 +1,7 @@
 <?php
    /*
    ** Author: Derroylo (RK2)
-   ** Description: Guestchannel (Notify on Join)
+   ** Description: Private Channel (Notify on Join)
    ** Version: 1.0
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)

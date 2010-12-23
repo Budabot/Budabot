@@ -1,7 +1,7 @@
 <?php
    /*
    ** Author: Derroylo (RK2)
-   ** Description: Guestchannel (Auto-Invite)
+   ** Description: Private Channel (Auto-Invite)
    ** Version: 1.0
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)

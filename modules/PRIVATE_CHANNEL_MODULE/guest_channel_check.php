@@ -1,7 +1,7 @@
 <?php
    /*
    ** Author: Derroylo (RK2)
-   ** Description: Checks the Guestchannel List
+   ** Description: Checks the Private Channel List
    ** Version: 1.0
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)

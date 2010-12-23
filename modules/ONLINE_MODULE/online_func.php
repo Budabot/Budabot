@@ -36,7 +36,7 @@ function online($type, $sender, $sendto, &$bot, $prof = "all") {
 	// create the list with alts shown
 	createList($data, $sender, $list, $type, $bot, true);
 
-	// Guest Channel Part
+	// Private Channel Part
 	if ($bot->settings["relaydb"]) {
 		if ($prof == "all") {
 			$db->query("SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name UNION ALL SELECT * FROM priv_chatlist_".strtolower($bot->settings["relaydb"])." p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY `profession`, `level` DESC");
@@ -53,9 +53,9 @@ function online($type, $sender, $sendto, &$bot, $prof = "all") {
 
 	$numguest = $db->numrows();
 	if ($numguest == 1) {
-		$list .= "\n\n<highlight><u>1 User in Guestchannel<end></u>\n";
+		$list .= "\n\n<highlight><u>1 User in Private Channel<end></u>\n";
 	} else {
-		$list .= "\n\n<highlight><u>$numguest Users in Guestchannel<end></u>\n";
+		$list .= "\n\n<highlight><u>$numguest Users in Private Channel<end></u>\n";
 	}
 	$data = $db->fObject("all");
 	// create the list of guests, without showing alts
