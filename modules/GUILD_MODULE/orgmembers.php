@@ -104,7 +104,7 @@ if(preg_match("/^orgmembers$/i", $message)) {
             break;
 	    }
 	    
-		$list .= "<tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end>/$prof/<highlight>$row->rank<end>)$logged_off\n";	    
+		$list .= "<tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end>/$prof/<highlight>$row->guild_rank<end>)$logged_off\n";	    
 	}
 	
 	$msg = bot::makeLink("{$this->vars["my guild"]} has $members members currently.", $list);

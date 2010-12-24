@@ -173,7 +173,7 @@ function createList(&$data, &$sender, &$list, &$type, &$bot, $show_alts = false)
 			if ($row->guild == "") {
 				$guild = "Not in a guild";
 			} else {
-				$guild = $row->guild." (<highlight>$row->rank<end>)";
+				$guild = $row->guild." (<highlight>$row->guild_rank<end>)";
 			}
 			$list .= "<tab><tab><highlight>$name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk $alt\n";
 		} else {

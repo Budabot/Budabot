@@ -80,7 +80,7 @@ if ($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 			if (isset($dbentrys[$member->name])) {
 			  	if ($dbentrys[$member->name]["mode"] == "man" || $dbentrys[$member->name]["mode"] == "org") {
 			        $mode = "org";
-		            $this->guildmembers[$member->name] = $member->rank_id;
+		            $this->guildmembers[$member->name] = $member->guild_rank_id;
 					
 					// add org members who are on notify to buddy list
 					$this->add_buddy($member->name, 'org');
@@ -96,7 +96,7 @@ if ($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 				$this->add_buddy($member->name, 'org');
 
 			    $db->query("INSERT INTO org_members_<myname> (`name`, `mode`) VALUES ('{$member->name}', 'org')");
-				$this->guildmembers[$member->name] = $member->rank_id;
+				$this->guildmembers[$member->name] = $member->guild_rank_id;
 		    }
 		    unset($dbentrys[$member->name]);    
 		}

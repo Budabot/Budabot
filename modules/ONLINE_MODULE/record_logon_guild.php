@@ -11,4 +11,5 @@ if ($org_member !== null && $org_member->mode != "del") {
 	// update info for player
 	Player::get_by_name($sender);
 }
+
 ?>

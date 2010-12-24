@@ -148,7 +148,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 
 	  	$num_members = count($org->members);
 	  	forEach ($org->members as $member) {
-	  	  	if ($member->rank_id == 0) {
+	  	  	if ($member->guild_rank_id == 0) {
 				$president_name = $member->name;
 				$president_prof = $member->profession;
 				$president_lvl = $member->level;

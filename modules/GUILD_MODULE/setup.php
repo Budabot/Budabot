@@ -8,7 +8,7 @@ unset($this->guildmembers);
 $db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.name = p.name");
 if ($db->numrows() != 0) {
 	while ($row = $db->fObject()) {
-		$this->guildmembers[$row->name] = $row->rank_id;
+		$this->guildmembers[$row->name] = $row->guild_rank_id;
 	}
 }
 ?>
