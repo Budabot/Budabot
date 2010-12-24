@@ -17,7 +17,7 @@ $vars['my guild']	= "";
 // Enter 1 for Atlantean, 2 for Rimor, 3 for Die Nueue Welt
 $vars['dimension']	= 1;
 
-// Insert the Administratorname here
+// Insert the Administrator name here
 $settings['Super Admin'] = "";
 
 // Default Delay for crons after bot is connected

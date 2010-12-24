@@ -38,6 +38,8 @@ class Logger {
 ** Name: log
 ** Record incoming info into the chatbot's log.
 */	public static function log_chat($channel, $sender, $message) {
+		global $vars;
+		
 		$timestamp = date("Ymd H:i");
 		
 		$message = preg_replace("/<font(.+)>/U", "", $message);
