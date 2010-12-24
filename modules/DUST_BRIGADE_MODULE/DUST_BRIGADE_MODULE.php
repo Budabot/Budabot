@@ -1,5 +1,5 @@
 <?php
-	$MODULE_NAME = "DBLOOT_MODULE";
+	$MODULE_NAME = "DUST_BRIGADE_MODULE";
 
 	// DB loot manager
 	bot::command("", "$MODULE_NAME/dbloot.php", "dbloot", "leader", "Used to add DB loot to the loot list");
