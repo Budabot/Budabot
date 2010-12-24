@@ -83,7 +83,7 @@ $sql = "
 		LEFT JOIN tower_site s ON (a.playfield_id = s.playfield_id AND a.site_number = s.site_number)
 	{$search}
 	ORDER BY
-		v.`time` DESC
+		`victory_time` DESC
 	LIMIT
 		$page, $listcount";
 

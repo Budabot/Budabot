@@ -21,7 +21,6 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 	}
 
 	$sql = "SELECT * FROM tower_site t1
-		JOIN scout_info s ON (t1.playfield_id = s.playfield_id AND t1.site_number = s.site_number)
 		JOIN playfields p ON (t1.playfield_id = p.id)
 		WHERE t1.playfield_id = $playfield->id";
 
@@ -47,7 +46,6 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 
 	$site_number = $arr[2];
 	$sql = "SELECT * FROM tower_site t1
-		JOIN scout_info s ON (t1.playfield_id = s.playfield_id AND t1.site_number = s.site_number)
 		JOIN playfields p ON (t1.playfield_id = p.id)
 		WHERE t1.playfield_id = $playfield->id AND t1.site_number = $site_number";
 
@@ -71,7 +69,6 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 	
 	$org = str_replace("'", "''", $org);
 	$sql = "SELECT * FROM tower_site t1
-		JOIN scout_info s ON (t1.playfield_id = s.playfield_id AND t1.site_number = s.site_number)
 		JOIN playfields p ON (t1.playfield_id = p.id)
 		WHERE s.org_name LIKE '$org'";
 
