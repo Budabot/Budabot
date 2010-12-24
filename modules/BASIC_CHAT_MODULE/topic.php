@@ -36,7 +36,7 @@ if ($this->settings["topic"] != "" && $type == "joinPriv") {
 } else if (preg_match("/^topic$/i", $message, $arr)) {
 	$date_string = unixtime_to_readable(time() - $this->settings["topic_time"], false);
 	if ($this->settings["topic"] == '') {
-		$topic = 'No topic set at the moment';
+		$topic = 'No topic set';
 	} else {
 		$topic = $this->settings["topic"];
 	}

@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if ($this->settings["relaybot"] != "Off" && isset($this->guildmembers[$sender])) {
+if (isset($this->guildmembers[$sender])) {
     $msg = "";
     $db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.name = p.name WHERE o.`name` = '$sender'");
 	$numrows = $db->numrows();

@@ -32,7 +32,7 @@
    **
    */
 
-if ($this->settings["relaybot"] != "Off") {
+if ($type == 'guild') {
 	$orgName = $this->vars["my guild"];
 	$msg = "grc <grey>[$orgName] $message<end>";
     send_message_to_relay($msg);

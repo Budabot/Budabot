@@ -490,9 +490,8 @@ class bot extends AOChat{
 				AOChat::send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my guild"]}]<end> {$this->settings["guest_color_username"]}".bot::makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default_guild_color"]}$message</font>");
 			}
 		} else if (AOChat::get_uid($who) != NULL) {// Target is a player.
-    		AOChat::send_tell($who, $this->settings["default_tell_color"].$message);
-			// Echo
 			Logger::log_chat("Out. Msg.", $who, $message);
+    		AOChat::send_tell($who, $this->settings["default_tell_color"].$message);
 		} else { // Public channels that are not myguild.
 	    	AOChat::send_group($who,$this->settings["default_guild_color"].$message);
 		}

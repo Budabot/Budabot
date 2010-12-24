@@ -15,7 +15,7 @@ function send_message_to_relay($message) {
 		$chatBot->send_tell($relayBot, $message);
 		
 		// manual logging is only needed for tell relay
-		Logger::log_chat('chat', "Out. Msg.", $relayBot, $message);
+		Logger::log_chat("Out. Msg.", $relayBot, $message);
 	}
 }
 

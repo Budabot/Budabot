@@ -32,17 +32,6 @@ class Logger {
 		if ($vars[strtolower($category) . "_file"]) {
 			Logger::append_to_log_file($category, $line);
 		}
-
-		/*
-			00:00 DEBUG [/modules/TOWER_MODULE/towers.php] [timer check]
-			00:00 INFO  [/modules/TOWER_MODULE/towers.php] [tower site added]
-			00:00 WARN  [/modules/TOWER_MODULE/towers.php] [could not connect to twinknet]
-			00:00 ERROR [/modules/TOWER_MODULE/towers.php] [sql error]
-			
-			201008.DEBUG.txt
-			201008.INFO.txt
-			201008.ERROR.txt
-		*/
 	}
 	
 /*===============================
@@ -65,9 +54,13 @@ class Logger {
 			$line = "$timestamp INFO  [$channel] $sender: $message";
 		}
 
-		echo "$line\n";
-
-		Logger::append_to_log_file('chat', $line);
+		if ($vars["chat_console"]) {
+			echo "$line\n";
+		}
+		
+		if ($vars["chat_file"]) {
+			Logger::append_to_log_file('CHAT', $line);
+		}
 	}
 
 	private static function append_to_log_file($channel, $line) {
