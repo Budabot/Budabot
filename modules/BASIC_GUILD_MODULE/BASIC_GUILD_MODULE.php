@@ -2,7 +2,7 @@
 	$MODULE_NAME = "BASIC_GUILD_MODULE";
 	
 	// Afk Check
-	bot::event("guild", "$MODULE_NAME/afk_check.php", "none", "Afk check");
+	bot::event($MODULE_NAME, "guild", "afk_check.php", "none", "Afk check");
 	bot::command("guild", "$MODULE_NAME/afk.php", "afk", "all", "Sets a member afk");
 	bot::command("guild", "$MODULE_NAME/kiting.php", "kiting", "all", "Sets a member afk kiting");
 	

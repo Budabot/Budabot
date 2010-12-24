@@ -9,8 +9,8 @@
 	bot::command("", "$MODULE_NAME/check.php", "check", "rl", "Checks who of the raidgroup is in the area");
 	
 	//Topic set/show
-	bot::event("joinPriv", "$MODULE_NAME/topic.php", "topic", "Show Topic when someone joins PrivChat");
-	bot::event("logOn", "$MODULE_NAME/topic_logon.php", "none", "Show Topic on logon of members");
+	bot::event($MODULE_NAME, "joinPriv", "topic.php", "topic", "Show Topic when someone joins PrivChat");
+	bot::event($MODULE_NAME, "logOn", "topic_logon.php", "none", "Show Topic on logon of members");
 	bot::command("", "$MODULE_NAME/topic.php", "topic", "all", "Show Topic");
 	bot::subcommand("", "$MODULE_NAME/topic.php", "topic (.+)", "leader", "topic", "Change Topic");
 	bot::addsetting($MODULE_NAME, "topic", "Topic for Priv Channel", "noedit", "No Topic set.");	
@@ -18,15 +18,15 @@
 	bot::addsetting($MODULE_NAME, "topic_time", "no", "hide", time());
 
     // Afk Check
-	bot::event("priv", "$MODULE_NAME/afk_check.php", "none", "Afk check");
+	bot::event($MODULE_NAME, "priv", "afk_check.php", "none", "Afk check");
 	bot::command("priv", "$MODULE_NAME/afk.php", "afk", "all", "Sets a member afk");
 
 	//Leader
 	bot::command("priv", "$MODULE_NAME/leader.php", "leader", "all", "Sets the Leader of the raid");
 	bot::subcommand("priv", "$MODULE_NAME/leader.php", "leader (.+)", "raidleader", "leader", "Set a specific Leader");
 	bot::command("", "$MODULE_NAME/leaderecho_cmd.php", "leaderecho", "leader", "Set if the text of the leader will be repeated");
-	bot::event("priv", "$MODULE_NAME/leaderecho.php", "leader", "leader echo");
-	bot::event("leavePriv", "$MODULE_NAME/leader.php", "none", "Removes leader when the leader leaves the channel");
+	bot::event($MODULE_NAME, "priv", "leaderecho.php", "leader", "leader echo");
+	bot::event($MODULE_NAME, "leavePriv", "leader.php", "none", "Removes leader when the leader leaves the channel");
 	bot::addsetting($MODULE_NAME, "leaderecho", "Repeat the text of the raidleader", "edit", "1", "ON;OFF", "1;0");
 	bot::addsetting($MODULE_NAME, "leaderecho_color", "Color for Raidleader echo", "edit", "<font color=#FFFF00>", "color");
 

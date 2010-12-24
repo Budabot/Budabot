@@ -2,8 +2,8 @@
 	$MODULE_NAME = "QUOTE_MODULE";
 
 	//Setup
-	bot::event("setup", "$MODULE_NAME/setup.php");
-	bot::event("24hrs", "$MODULE_NAME/quotestats.php", "none", "Update Quote Stats");
+	bot::event($MODULE_NAME, "setup", "setup.php");
+	bot::event($MODULE_NAME, "24hrs", "quotestats.php", "none", "Update Quote Stats");
 
 	//Commands
 	bot::command("", "$MODULE_NAME/quotestats.php", "quoteupdate", "mod", "Update Quote Stats");

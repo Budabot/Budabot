@@ -30,23 +30,23 @@
 	bot::addsetting($MODULE_NAME, "guest_relay_commands", "Relay commands and results from/to Private Channel", "edit", "0", "ON;OFF", "1;0");
 	
 	//Autoreinvite Players after a botrestart or crash
-	bot::event("setup", "$MODULE_NAME/autoreinvite.php", "none", "Reinvites the players that were in the privgrp before restart/crash");
+	bot::event($MODULE_NAME, "setup", "autoreinvite.php", "none", "Reinvites the players that were in the privgrp before restart/crash");
 	
-	bot::event("guild", "$MODULE_NAME/guest_channel_relay.php", "none", "Private channel relay from guild channel");
-	bot::event("priv", "$MODULE_NAME/guest_channel_relay.php", "none", "Private channel relay from priv channel");
-	bot::event("logOn", "$MODULE_NAME/logon_autoinvite.php", "none", "Auto-invite members on logon");
+	bot::event($MODULE_NAME, "guild", "guest_channel_relay.php", "none", "Private channel relay from guild channel");
+	bot::event($MODULE_NAME, "priv", "guest_channel_relay.php", "none", "Private channel relay from priv channel");
+	bot::event($MODULE_NAME, "logOn", "logon_autoinvite.php", "none", "Auto-invite members on logon");
 	
 	//Show Char infos on privjoin
-	bot::event("joinPriv", "$MODULE_NAME/notify_priv_join.php", "none", "Displays a message when a character joins the private channel");
-	bot::event("leavePriv", "$MODULE_NAME/notify_priv_leave.php", "none", "Displays a message when a character leaves the private channel");
+	bot::event($MODULE_NAME, "joinPriv", "notify_priv_join.php", "none", "Displays a message when a character joins the private channel");
+	bot::event($MODULE_NAME, "leavePriv", "notify_priv_leave.php", "none", "Displays a message when a character leaves the private channel");
 	
-	bot::event("joinPriv", "$MODULE_NAME/record_priv_join.php", "none", "Updates the database when a character joins the private channel");
-	bot::event("leavePriv", "$MODULE_NAME/record_priv_leave.php", "none", "Updates the database when a character leaves the private channel");
+	bot::event($MODULE_NAME, "joinPriv", "record_priv_join.php", "none", "Updates the database when a character joins the private channel");
+	bot::event($MODULE_NAME, "leavePriv", "record_priv_leave.php", "none", "Updates the database when a character leaves the private channel");
 	
-	bot::event("joinPriv", "$MODULE_NAME/send_online_list.php", "none", "Sends the online list to people as they join the private channel");
+	bot::event($MODULE_NAME, "joinPriv", "send_online_list.php", "none", "Sends the online list to people as they join the private channel");
 	
 	//Verifies the Private Channel list every 1hour
-	bot::event("1hour", "$MODULE_NAME/guest_channel_check.php", "guest", "Private channel check");
+	bot::event($MODULE_NAME, "1hour", "guest_channel_check.php", "guest", "Private channel check");
 
     bot::help($MODULE_NAME, "private_channel", "private_channel.txt", "guild", "Private channel commands");
 	bot::help($MODULE_NAME, "join_leave", "joinleave.txt", "all", "Joining and leaving the bot");

@@ -4,7 +4,7 @@
 	$MODULE_NAME = "ONLINE_MODULE";
 
 	//Setup of the Online Modules
-	bot::event("setup", "$MODULE_NAME/setup.php");
+	bot::event($MODULE_NAME, "setup", "setup.php");
 	
 	bot::loadSQLFile($MODULE_NAME, "guild_chatlist");
 
@@ -38,13 +38,13 @@
 	bot::addsetting($MODULE_NAME, "fancy_online", "Enables the fancy delimiters for the online display", "edit", "1", "On;Off", "1;0");
 	bot::addsetting($MODULE_NAME, "icon_fancy_online", "Enables the use of icons in fancy delimiter mode", "edit", "1", "On;Off", "1;0");
 
-	bot::event("logOn", "$MODULE_NAME/logonline.php", "none", "Sends a tell to players on logon showing who is online in org");
+	bot::event($MODULE_NAME, "logOn", "logonline.php", "none", "Sends a tell to players on logon showing who is online in org");
 	
-	bot::event("logOn", "$MODULE_NAME/notify_logon_guild.php", "none", "Shows an org member login in chat");
-	bot::event("logOff", "$MODULE_NAME/notify_logoff_guild.php", "none", "Shows an org member logoff in chat");
+	bot::event($MODULE_NAME, "logOn", "notify_logon_guild.php", "none", "Shows an org member login in chat");
+	bot::event($MODULE_NAME, "logOff", "notify_logoff_guild.php", "none", "Shows an org member logoff in chat");
 	
-	bot::event("logOn", "$MODULE_NAME/record_logon_guild.php", "none", "Records an org member login in db");
-	bot::event("logOff", "$MODULE_NAME/record_logoff_guild.php", "none", "Records an org member logoff in db");
+	bot::event($MODULE_NAME, "logOn", "record_logon_guild.php", "none", "Records an org member login in db");
+	bot::event($MODULE_NAME, "logOff", "record_logoff_guild.php", "none", "Records an org member logoff in db");
 
 	//Help files
 	bot::help($MODULE_NAME, "online", "online.txt", "guild", "Show who is on from the guild");

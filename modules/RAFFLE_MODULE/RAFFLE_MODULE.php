@@ -15,13 +15,13 @@
 	$MODULE_NAME = "RAFFLE_MODULE";
 
 	//Setup
-	bot::event("setup", "$MODULE_NAME/setup.php");
+	bot::event($MODULE_NAME, "setup", "setup.php");
 
 	//raffle message
 	bot::command("", "$MODULE_NAME/raffle.php", "raffle", "all");
 	
 	//timer
-	bot::event("2sec", "$MODULE_NAME/check_raffle.php", "raffle", "Checks to see if raffle is over");
+	bot::event($MODULE_NAME, "2sec", "check_raffle.php", "raffle", "Checks to see if raffle is over");
 
 	//Help files
 	bot::help($MODULE_NAME, "raffle", "raffle.txt", "all", "Start/Join/Leave Raffles", "Raffles");

@@ -758,13 +758,11 @@ class bot extends AOChat{
 /*===============================
 ** Name: event
 **  Registers an event
-*/	function event($type, $filename, $dependson = 'none', $description = 'none'){
+*/	function event($module, $type, $filename, $dependson = 'none', $description = 'none'){
 		$db = db::get_instance();
-		global $curMod;
 		
 		// disable depends on
 		$description = str_replace("'", "''", $description);
-		$module = explode("/", strtolower($filename));
 
 	  	Logger::log('debug', 'Core', "Adding Event to list:($type) File:($filename)");
 
@@ -775,9 +773,9 @@ class bot extends AOChat{
 		}
 
 		if ($this->existing_events[$type][$filename] == true) {
-		  	$db->query("UPDATE cmdcfg_<myname> SET `verify` = 1, `description` = '$description' WHERE `type` = '$type' AND `cmdevent` = 'event' AND `file` = '$filename' AND `module` = '$curMod'");
+		  	$db->query("UPDATE cmdcfg_<myname> SET `verify` = 1, `description` = '$description' WHERE `type` = '$type' AND `cmdevent` = 'event' AND `file` = '$filename' AND `module` = '$module'");
 		} else {
-		  	$db->query("INSERT INTO cmdcfg_<myname> (`module`, `cmdevent`, `type`, `file`, `verify`, `description`, `status`) VALUES ('$curMod', 'event', '$type', '$filename', '1', '$description', '$status')");
+		  	$db->query("INSERT INTO cmdcfg_<myname> (`module`, `cmdevent`, `type`, `file`, `verify`, `description`, `status`) VALUES ('$module', 'event', '$type', '$filename', '1', '$description', '$status')");
 		}
 	}
 

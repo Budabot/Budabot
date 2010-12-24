@@ -5,7 +5,7 @@
 
 	$MODULE_NAME = "HELPBOT_MODULE";
 	
-	bot::event("setup", "$MODULE_NAME/setup.php");
+	bot::event($MODULE_NAME, "setup", "setup.php");
 	
 	bot::loadSQLFile($MODULE_NAME, "dyna");
 	bot::loadSQLFile($MODULE_NAME, "research");

@@ -24,8 +24,8 @@
 	bot::addsetting($MODULE_NAME, "tower_faction_def", "Display certain factions defending", "edit", "7", "none;clan;neutral;clan+neutral;omni;clan+omni;neutral+omni;all", '0;1;2;3;4;5;6;7', "mod");
 	bot::addsetting($MODULE_NAME, "tower_faction_atk", "Display certain factions attacking", "edit", "7", "none;clan;neutral;clan+neutral;omni;clan+omni;neutral+omni;all", '0;1;2;3;4;5;6;7', "mod");
 
-	bot::event("towers", "$MODULE_NAME/attack_messages.php", "none", "Record attack messages");
-	bot::event("towers", "$MODULE_NAME/victory_messages.php", "none", "Record victory messages");
+	bot::event($MODULE_NAME, "towers", "attack_messages.php", "none", "Record attack messages");
+	bot::event($MODULE_NAME, "towers", "victory_messages.php", "none", "Record victory messages");
 
 	//Helpfiles
 	bot::help($MODULE_NAME, "towers", "towers.txt", "guild", "Show tower commands");

@@ -35,10 +35,10 @@
 
     bot::command("", "$MODULE_NAME/city_guild.php", "city", "guild", "Shows the status of the Citycloak");
 
-	bot::event("guild", "$MODULE_NAME/city_guild.php", "city", "Records when the cloak is raised or lowered");
-    bot::event("1min", "$MODULE_NAME/city_guild_timer.php", "city", "Checks timer to see if cloak can be raised or lowered");
-	bot::event("1min", "$MODULE_NAME/city_guild_raise_cloak.php", "city", "Reminds the player who lowered cloak to raise it when it can be raised.");
-	bot::event("logOn", "$MODULE_NAME/city_guild_logon.php", "city", "Displays summary of city status.");
+	bot::event($MODULE_NAME, "guild", "city_guild.php", "city", "Records when the cloak is raised or lowered");
+    bot::event($MODULE_NAME, "1min", "city_guild_timer.php", "city", "Checks timer to see if cloak can be raised or lowered");
+	bot::event($MODULE_NAME, "1min", "city_guild_raise_cloak.php", "city", "Reminds the player who lowered cloak to raise it when it can be raised.");
+	bot::event($MODULE_NAME, "logOn", "city_guild_logon.php", "city", "Displays summary of city status.");
 	
 	bot::addsetting($MODULE_NAME, "showcloakstatus", "Show cloak status to players at logon", "edit", "1", "Never;When cloak is down;Always", "0;1;2");
 	
@@ -48,9 +48,9 @@
 	// Auto Wave
 	bot::command("guild","$MODULE_NAME/start.php", "startraid", "guild", "manually starts wave counter");
 	bot::command("guild","$MODULE_NAME/stopraid.php", "stopraid", "guild", "manually stops wave counter");
-	bot::event("guild", "$MODULE_NAME/start.php", "none", "Starts a wave counter when cloak is lowered");
-	bot::event("2sec", "$MODULE_NAME/counter.php", "none", "Checks timer to see when next wave should come");
+	bot::event($MODULE_NAME, "guild", "start.php", "none", "Starts a wave counter when cloak is lowered");
+	bot::event($MODULE_NAME, "2sec", "counter.php", "none", "Checks timer to see when next wave should come");
 	
 	// OS/AS timer
-	bot::event("orgmsg", "$MODULE_NAME/os_timer.php", "none", "Sets a timer when an OS/AS is launched");
+	bot::event($MODULE_NAME, "orgmsg", "os_timer.php", "none", "Sets a timer when an OS/AS is launched");
 ?>

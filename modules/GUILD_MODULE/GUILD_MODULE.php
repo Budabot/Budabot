@@ -5,7 +5,7 @@
 	bot::regevent("setup", "$MODULE_NAME/setup.php");
 	
 	//Verifies the Onlinelist every hour
-	bot::event("1hour", "$MODULE_NAME/online_check.php", "online", "Online check");
+	bot::event($MODULE_NAME, "1hour", "online_check.php", "online", "Online check");
 	
 	// Logon Handling
 	bot::command("", "$MODULE_NAME/logon_msg.php", "logon", "all", "Sets a Logon Msg");
