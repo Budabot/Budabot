@@ -763,8 +763,10 @@ class bot extends AOChat{
 		
 		// disable depends on
 		$description = str_replace("'", "''", $description);
-
-	  	Logger::log('debug', 'Core', "Adding Event to list:($type) File:($filename)");
+		
+		$actual_filename = $module . '/' . $filename;
+		
+		Logger::log('debug', 'Core', "Adding Event to list:($type) File:($filename)");
 
 		if ($this->settings["default module status"] == 1) {
 			$status = 1;
@@ -773,9 +775,9 @@ class bot extends AOChat{
 		}
 
 		if ($this->existing_events[$type][$filename] == true) {
-		  	$db->query("UPDATE cmdcfg_<myname> SET `verify` = 1, `description` = '$description' WHERE `type` = '$type' AND `cmdevent` = 'event' AND `file` = '$filename' AND `module` = '$module'");
+		  	$db->query("UPDATE cmdcfg_<myname> SET `verify` = 1, `description` = '$description' WHERE `type` = '$type' AND `cmdevent` = 'event' AND `file` = '$actual_filename' AND `module` = '$module'");
 		} else {
-		  	$db->query("INSERT INTO cmdcfg_<myname> (`module`, `cmdevent`, `type`, `file`, `verify`, `description`, `status`) VALUES ('$module', 'event', '$type', '$filename', '1', '$description', '$status')");
+		  	$db->query("INSERT INTO cmdcfg_<myname> (`module`, `cmdevent`, `type`, `file`, `verify`, `description`, `status`) VALUES ('$module', 'event', '$type', '$actual_filename', '1', '$description', '$status')");
 		}
 	}
 
@@ -786,111 +788,109 @@ class bot extends AOChat{
 		$db = db::get_instance();
 		global $curMod;
 
-	  	Logger::log('debug', 'Core', "Activating Event:($type) File:($filename)");
-
 		//Check if the file exists
-		if (($actual_filename = bot::verifyFilename($filename)) != '') {
-    		$filename = $actual_filename;
-		} else {
-			echo "Error in registering the File $filename for Eventtype $type. The file doesn't exists!\n";
+		if (($actual_filename = bot::verifyFilename($filename)) == '') {
+			Logger::log('error', 'Core', "Error in registering File '{$filename}' for Event type {$type}. The file doesn't exist!");
 			return;
 		}
+		
+		Logger::log('debug', 'Core', "Activating Event:($type) File:($actual_filename)");
 
 		switch ($type){
 			case "towers":
-				if(!in_array($filename, $this->towers))
-					$this->towers[] = $filename;
+				if(!in_array($actual_filename, $this->towers))
+					$this->towers[] = $actual_filename;
 				break;
 			case "orgmsg":
-				if(!in_array($filename, $this->orgmsg))
-					$this->orgmsg[] = $filename;
+				if(!in_array($actual_filename, $this->orgmsg))
+					$this->orgmsg[] = $actual_filename;
 				break;
 			case "msg":
-				if(!in_array($filename, $this->privMsgs))
-					$this->privMsgs[] = $filename;
+				if(!in_array($actual_filename, $this->privMsgs))
+					$this->privMsgs[] = $actual_filename;
 				break;
 			case "priv":
-				if(!in_array($filename, $this->privChat))
-					$this->privChat[] = $filename;
+				if(!in_array($actual_filename, $this->privChat))
+					$this->privChat[] = $actual_filename;
 				break;
 			case "extPriv":
-				if(!in_array($filename, $this->extPrivChat))
-					$this->extPrivChat[] = $filename;
+				if(!in_array($actual_filename, $this->extPrivChat))
+					$this->extPrivChat[] = $actual_filename;
 				break;
 			case "guild":
-				if(!in_array($filename, $this->guildChat))
-					$this->guildChat[] = $filename;
+				if(!in_array($actual_filename, $this->guildChat))
+					$this->guildChat[] = $actual_filename;
 				break;
 			case "joinPriv":
-				if(!in_array($filename, $this->joinPriv))
-					$this->joinPriv[] = $filename;
+				if(!in_array($actual_filename, $this->joinPriv))
+					$this->joinPriv[] = $actual_filename;
 				break;
 			case "extJoinPriv":
-				if(!in_array($filename, $this->extJoinPriv))
-					$this->extJoinPriv[] = $filename;
+				if(!in_array($actual_filename, $this->extJoinPriv))
+					$this->extJoinPriv[] = $actual_filename;
 				break;
 			case "leavePriv":
-				if(!in_array($filename, leavePriv))
-					$this->leavePriv[] = $filename;
+				if(!in_array($actual_filename, leavePriv))
+					$this->leavePriv[] = $actual_filename;
 				break;
 			case "extLeavePriv":
-				if(!in_array($filename, extLeavePriv))
-					$this->extLeavePriv[] = $filename;
+				if(!in_array($actual_filename, extLeavePriv))
+					$this->extLeavePriv[] = $actual_filename;
 				break;
 			case "extJoinPrivRequest":
-				if(!in_array($filename, $this->extJoinPrivRequest))
-					$this->extJoinPrivRequest[] = $filename;
+				if(!in_array($actual_filename, $this->extJoinPrivRequest))
+					$this->extJoinPrivRequest[] = $actual_filename;
 				break;
 			case "extKickPriv":
-				if(!in_array($filename, $this->extKickPriv))
-					$this->extKickPriv[] = $filename;
+				if(!in_array($actual_filename, $this->extKickPriv))
+					$this->extKickPriv[] = $actual_filename;
 				break;
 			case "logOn":
-				if(!in_array($filename, $this->logOn))
-					$this->logOn[] = $filename;
+				if(!in_array($actual_filename, $this->logOn))
+					$this->logOn[] = $actual_filename;
 				break;
 			case "logOff":
-				if(!in_array($filename, $this->logOff))
-					$this->logOff[] = $filename;
+				if(!in_array($actual_filename, $this->logOff))
+					$this->logOff[] = $actual_filename;
 				break;
 			case "2sec":
-				if(!in_array($filename, $this->_2sec))
-					$this->_2sec[] = $filename;
+				if(!in_array($actual_filename, $this->_2sec))
+					$this->_2sec[] = $actual_filename;
 				break;
 			case "1min":
-				if(!in_array($filename, $this->_1min))
-					$this->_1min[] = $filename;
+				if(!in_array($actual_filename, $this->_1min))
+					$this->_1min[] = $actual_filename;
 				break;
 			case "10mins":
-				if(!in_array($filename, $this->_10mins))
-					$this->_10mins[] = $filename;
+				if(!in_array($actual_filename, $this->_10mins))
+					$this->_10mins[] = $actual_filename;
 				break;
 			case "15mins":
-				if(!in_array($filename, $this->_15mins))
-					$this->_15mins[] = $filename;
+				if(!in_array($actual_filename, $this->_15mins))
+					$this->_15mins[] = $actual_filename;
 				break;
 			case "30mins":
-				if(!in_array($filename, $this->_30mins))
-					$this->_30mins[] = $filename;
+				if(!in_array($actual_filename, $this->_30mins))
+					$this->_30mins[] = $actual_filename;
 				break;
 			case "1hour":
-				if(!in_array($filename, $this->_1hour))
-					$this->_1hour[] = $filename;
+				if(!in_array($actual_filename, $this->_1hour))
+					$this->_1hour[] = $actual_filename;
 				break;
 			case "24hrs":
-				if(!in_array($filename, $this->_24hrs))
-					$this->_24hrs[] = $filename;
+				if(!in_array($actual_filename, $this->_24hrs))
+					$this->_24hrs[] = $actual_filename;
 				break;
 			case "connect":
-				if(!in_array($filename, $this->_connect))
-					$this->_connect[] = $filename;
+				if(!in_array($actual_filename, $this->_connect))
+					$this->_connect[] = $actual_filename;
 				break;
 			case "shopping":
-				if(!in_array($filename, $this->shopping))
-					$this->shopping[] = $filename;
+				if(!in_array($actual_filename, $this->shopping))
+					$this->shopping[] = $actual_filename;
 				break;
 			case "setup":
-				include $filename;
+				include $actual_filename;
 				break;
 		}
 	}
