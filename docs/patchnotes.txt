@@ -1,4 +1,48 @@
 *****************************
+	Version 2.0_RC1:
+*****************************
+-can now set seconds on a timer
+-added a TRACKER_MODULE for silently keeping track of when people sign on and off
+-added !lookup command so you can find the userid of a player
+-added !specials command
+-can now set commands as requiring admin privileges (before the highest u could set was moderator)
+-entire modules can now be enabled/disabled from their individual config pages
+-removed NEUTNET_MODULE since it's RK2 specific and put it in the module repo (link in sig)
+-updated help commands and event and command descriptions for a number of modules (most commands should have a help entry now)
+-moved ORG_ROSTER from a core module to a user module and renamed to GUILD_MODULE
+-updated syntax for the GUIDEBOT_MODULE (eg, instead of !elykey it's now !guides elykey) to reduce command name space pollution
+-can now use !config cmd 'cmd_name' to display config options for an individual command
+-moved doc files to /docs and windows binaries to /win32
+-added convenience method for setting up tell relay between two orgs (/tell bot1 !tellrelay bot2 /tell bot2 !tellrelay bot1)
+-bot will respond with syntax error and unknown error for commands in the private channel
+-added some entries to !whereis; also added waypoints for a few of the existing entries
+-!guides list now returns the guides sorted alphabetically
+-!waypoint command for setting waypoints (ex: !waypoing 300 400 pw)
+-!playfields will show you a list of playfields, playfield ids, and shortnames for use with !waypoint and the TOWERS_MODULE
+-fixed some issues with !settings where some settings couldn't be modified
+-!callers is now an alias for !assist
+-fixed items db entry for "Targeting Scope - Vision Enhancer"
+-added cap info for !research
+-moved alts character handling to new module ALTS_MODULE (will work with existing alts lists)
+-fixed issue where timers weren't able to be removed
+-updated aochat.php to use text.mdb file for extended message lookups
+-fixed some issues with the ALTS_MODULE
+-fixed issue with !premade so it works again
+-added setting for ITEMS_MODULE to either look in local db or to use xyphos.com
+-added some more options to the !lag command output
+-help info will now be included in pages for cmd config and settings if a help file exists
+-fix for org names with single quotes in them
+-moved player info cache into the database
+-improved logging for sql errors
+-!alts now shows level and prof
+-there is an event to control whether the online list is sent to people joining the private channel
+-renamed BOTCHANNEL_MODULE to PRIVATE_CHANNEL_MODULE
+-updated items db to 18.04.02
+-rewrote (yet again)!orglist so that it can do lookups MUCH faster and is much less likely to bug
+-renamed DBLOOT_MODULE to DUST_BRIGADE_MODULE
+-removed the readme docs since they were out of date
+
+*****************************
 	Version 1.0_GA:
 *****************************
 
