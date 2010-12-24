@@ -168,10 +168,6 @@ class Towers {
 		$win_org_name = str_replace("'", "''", $last_attack->att_org_name);
 		$lose_org_name = str_replace("'", "''", $last_attack->def_org_name);
 		
-		if ($last_attack->site_number == '') {
-			$last_attack->site_number = 'NULL';
-		}
-		
 		$sql = "
 			INSERT INTO tower_victory (
 				`time`,

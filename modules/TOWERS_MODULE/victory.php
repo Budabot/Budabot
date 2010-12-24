@@ -73,7 +73,9 @@ if (preg_match("/^victory (\\d+)$/i", $message, $arr) || preg_match("/^victory$/
 $page = $page_label - 1;
 $sql = "
 	SELECT
-		*
+		*,
+		v.time AS victory_time,
+		a.time AS attack_time
 	FROM
 		tower_victory v
 		LEFT JOIN tower_attack a ON (v.attack_id = a.id)
@@ -91,7 +93,7 @@ if ($db->numrows() == 0) {
 } else {
 	$list = "<header>::::: The last $listcount Tower Results (page $page_label) :::::<end>\n\n".$colorvalue;
 	while ($row = $db->fObject()) {
-		$list .= $colorlabel."Time:<end> ".gmdate("M j, Y, G:i", $row->time)." (GMT)\n";
+		$list .= $colorlabel."Time:<end> ".gmdate("M j, Y, G:i", $row->victory_time)." (GMT)\n";
 
 		if (!$win_side = strtolower($row->win_faction)) {
 			$win_side = "unknown";
