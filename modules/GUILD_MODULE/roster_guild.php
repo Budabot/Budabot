@@ -28,7 +28,7 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-$this->vars["my guild id"] = 4915202;
+
 if ($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 	// Set Delay for notify on/off(prevent spam from org roster module)
 	$this->vars["onlinedelay"] = time() + 60;
