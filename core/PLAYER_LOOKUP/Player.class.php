@@ -115,7 +115,7 @@ class Player {
 			'{$char->ai_rank}',
 			'{$char->ai_level}',
 			'{$char->guild_id}',
-			'{$char->guild}',
+			'" . str_replace("'", "''", $char->guild) . "',
 			'{$char->guild_rank}',
 			'{$char->guild_rank_id}',
 			'{$char->dimension}',
