@@ -4,10 +4,10 @@ $colorlabel = "<font color=#00DE42>";
 $colorvalue = "<font color=#63AD63>";
 
 if (preg_match("/^The (Clan|Neutral|Omni) organization (.+) just entered a state of war! (.+) attacked the (Clan|Neutral|Omni) organization (.+)'s tower in (.+) at location \\((\\d+),(\\d+)\\)\\.$/i", $message, $arr)) {
-	$att_side = ucfirst(strtolower($arr[1]);  // comes across as a string instead of a reference, so convert to title case
+	$att_side = ucfirst(strtolower($arr[1]));  // comes across as a string instead of a reference, so convert to title case
 	$att_guild = $arr[2];
 	$att_player = $arr[3];
-	$def_side = ucfirst(strtolower($arr[4]);  // comes across as a string instead of a reference, so convert to title case
+	$def_side = ucfirst(strtolower($arr[4]));  // comes across as a string instead of a reference, so convert to title case
 	$def_guild = $arr[5];
 	$playfield_name = $arr[6];
 	$x_coords = $arr[7];
