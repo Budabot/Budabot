@@ -17,6 +17,11 @@ if (preg_match("/^The (Clan|Neutral|Omni) organization (.+) attacked the (Clan|N
 }
 	
 $playfield = Playfields::get_playfield_by_name($playfield_name);
+if ($playfield === null) {
+	Logger::log('error', 'Towers', "Could not find playfield for name '$playfield_name'");
+	return;
+}
+
 $last_attack = Towers::get_last_attack($win_faction, $win_org_name, $lose_faction, $lose_org_name, $playfield->id);
 if ($last_attack !== null) {
 	$sql = "DELETE FROM scout_info WHERE `playfield_id` = {$last_attack->playfield_id} AND `site_number` = {$last_attack->site_number}";

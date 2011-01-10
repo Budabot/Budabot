@@ -82,7 +82,8 @@ if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader
 			ORDER BY level";
 		$db->query($sql); 
 	} else if ($type == "priv" || ($this->settings["count_tell"] == 1 && $type == "msg")) {
-	  	$db->query("SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE `profession` = '$prof' ORDER BY `level`");
+		$sql = "SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE `profession` = '$prof' ORDER BY `level`";
+	  	$db->query($sql);
 	}
     $numonline = $db->numrows();
     $msg = "<highlight>$numonline<end> $prof:";
