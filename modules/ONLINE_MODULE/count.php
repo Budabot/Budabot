@@ -75,7 +75,12 @@ if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader
             break;
     }
     if ($type == "guild" || ($this->settings["count_tell"] == 0 && $type == "msg") || ($type == "priv" && $this->vars["Guest"][$sender] == true)) {
-		$db->query("SELECT p.name, profession, level, afk FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name WHERE `profession` = '$prof' UNION ALL SELECT name, profession, level, afk FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE `profession` = '$prof' ORDER BY level"); 
+		$sql = "
+			SELECT p2.name, p2.profession, p2.level, g.afk FROM guild_chatlist_<myname> g LEFT JOIN players p2 ON g.name = p2.name WHERE p2.`profession` = '$prof'
+			UNION ALL
+			SELECT p2.name, p2.profession, p2.level, p1.afk FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE p2.`profession` = '$prof'
+			ORDER BY level";
+		$db->query($sql); 
 	} else if ($type == "priv" || ($this->settings["count_tell"] == 1 && $type == "msg")) {
 	  	$db->query("SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE `profession` = '$prof' ORDER BY `level`");
 	}
