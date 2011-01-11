@@ -1,5 +1,4 @@
 <?php
-	require_once 'Playfields.class.php';
 	require_once 'db_utils.php';
 	require_once 'trickle_functions.php';
 

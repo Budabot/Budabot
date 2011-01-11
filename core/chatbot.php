@@ -30,6 +30,7 @@
    */
 
 require_once 'MyCurl.class.php';
+require_once 'Playfields.class.php';
 
 class bot extends AOChat{
 
