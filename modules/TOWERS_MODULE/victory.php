@@ -40,7 +40,7 @@ if (preg_match("/^victory (\\d+)$/i", $message, $arr) || preg_match("/^victory$/
 		return;
 	}
 
-	$search = "WHERE `a.playfield_id` = {$tower_info->playfield_id} AND `a.site_number` = {$tower_info->site_number}";
+	$search = "WHERE a.`playfield_id` = {$tower_info->playfield_id} AND a.`site_number` = {$tower_info->site_number}";
 } else if (preg_match("/^victory org (.+) (\\d+)$/i", $message) || preg_match("/^victory org (.+)$/i", $message)) {
 	if (isset($arr[2])) {
 		$page_label = $arr[2];
