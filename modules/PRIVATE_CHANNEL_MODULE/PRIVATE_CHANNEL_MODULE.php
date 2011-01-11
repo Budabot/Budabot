@@ -31,7 +31,7 @@
 	
 	//Autoreinvite Players after a botrestart or crash
 	bot::event($MODULE_NAME, "setup", "setup.php", "none", "Clears the private channel list of players");
-	bot::event($MODULE_NAME, "connected", "add_members_as_buddies.php", "none", "Adds all members as buddies who have auto-invite enabled");
+	bot::event($MODULE_NAME, "connected", "connected.php", "none", "Adds all members as buddies who have auto-invite enabled");
 	
 	bot::event($MODULE_NAME, "guild", "guest_channel_relay.php", "none", "Private channel relay from guild channel");
 	bot::event($MODULE_NAME, "priv", "guest_channel_relay.php", "none", "Private channel relay from priv channel");
