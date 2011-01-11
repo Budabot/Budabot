@@ -31,16 +31,27 @@
 
 $db->query("SELECT name, logon_msg FROM org_members_<myname> WHERE `name` = '$sender'");
 $row = $db->fObject();
-if (preg_match("/^logon clear$/i", $message)) {
-    if ($row->name == $sender) {
+if (preg_match("/^logon$/i", $message)) {
+	if ($row !== null) {
+		if ($row->logon_msg == '' || $row->logon_msg == '0') {
+			$msg = "Your logon message has not been set.";
+		} else {
+			$msg = "{$sender} logon: {$row->logon_msg}";
+		}
+    } else {
+        $msg = "You are not on the notify list.";
+	}
+    bot::send($msg, $sendto);
+} else if (preg_match("/^logon clear$/i", $message)) {
+    if ($row !== null) {
         $db->query("UPDATE org_members_<myname> SET `logon_msg` = 0 WHERE `name` = '$sender'");
         $msg = "Logon message cleared.";
     } else {
-        $msg = "You are not on the notify list of this bot.";
+        $msg = "You are not on the notify list.";
 	}
     bot::send($msg, $sendto);
 } else if (preg_match("/^logon (.+)$/i", $message, $arr)) {
-    if ($row->name == $sender) {
+    if ($row !== null) {
         $arr[1] = str_replace("'", "''", $arr[1]);
         if (strlen($arr[1]) <= 200) {
             $db->query("UPDATE org_members_<myname> SET `logon_msg` = '$arr[1]' WHERE `name` = '$sender'");
@@ -49,8 +60,11 @@ if (preg_match("/^logon clear$/i", $message)) {
             $msg = "Your logon message is too long. Please choose a shorter one.";
 		}
     } else {
-        $msg = "You are not on the Notify list of this bot.";
+        $msg = "You are not on the notify list.";
 	}
     bot::send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
+
 ?>
