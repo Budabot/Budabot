@@ -77,7 +77,8 @@ function formatSiteInfo($row) {
 <font color=#66aa66>Long name:</font> <white>{$row->site_name}, {$row->long_name}<end>
 <font color=#66aa66>Level range:</font> <white>{$row->min_ql}-{$row->max_ql}<end>
 <font color=#66aa66>Centre coordinates:</font> <a href='chatcmd:///waypoint {$row->x_coord} {$row->y_coord} {$row->playfield_id}'>{$row->x_coord}x{$row->y_coord}</a>
-<a href='chatcmd:///tell <myname> attacks {$row->short_name} {$row->site_number}'>Recent attacks on this base</a>";
+<a href='chatcmd:///tell <myname> attacks {$row->short_name} {$row->site_number}'>Recent attacks on this base</a>
+<a href='chatcmd:///tell <myname> victory {$row->short_name} {$row->site_number}'>Recent victories on this base</a>";
 	
 	return $blob;
 }
