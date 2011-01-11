@@ -27,7 +27,7 @@
 	bot::event($MODULE_NAME, "towers", "attack_messages.php", "none", "Record attack messages");
 	bot::event($MODULE_NAME, "towers", "victory_messages.php", "none", "Record victory messages");
 
-	//Helpfiles
+	// help files
 	bot::help($MODULE_NAME, "towers", "towers.txt", "guild", "Show tower commands");
 	bot::help($MODULE_NAME, "lc", "lc.txt", "all", "How to use land control commands");
 ?>

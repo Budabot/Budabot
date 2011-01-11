@@ -41,8 +41,10 @@ if (preg_match("/^adduser (.+)$/i", $message, $arr)) {
 		} else {
 			$db->query("INSERT INTO members_<myname> (`name`, `autoinv`) VALUES ('$name', 1)");
 			$msg = "<highlight>$name<end> has been added as a member of this bot.";
-			$this->add_buddy($name, 'member');
 		}
+
+		// always add in case 
+		$this->add_buddy($name, 'member');
 	}
 
 	bot::send($msg, $sendto);

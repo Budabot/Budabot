@@ -33,6 +33,9 @@ if (preg_match("/^autoinvite (on|off)$/i", $message, $arr)) {
 	$onOrOff = 0;
 	if ($arr[1] == 'on') {
 		$onOrOff = 1;
+		$this->add_buddy($sender, 'member');
+	} else {
+		$this->remove_buddy($sender, 'member');
 	}
 
    $db->query("SELECT * FROM members_<myname> WHERE `name` = '$sender'");
