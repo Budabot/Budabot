@@ -1,7 +1,7 @@
 <?php
    /*
    ** Author: Lucier (RK1)
-   ** Description: Friendlist_Diag_Module (Shows why a name is on the friendslist)
+   ** Description: Friendlist_Module (Shows why a name is on the friendslist)
    ** Version: 0.1
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
@@ -9,9 +9,9 @@
    ** Date(created): 30.06.2007
    ** Date(last modified): 30.06.2007
    */
- 
-if (preg_match("/^friendlist(.+)?$/i", $message, $arg)) {
-	if ($arg[1] == " clean") {
+   
+if (preg_match("/^friendlist$/i", $message, $arg) || preg_match("/^friendlist (clean)$/i", $message, $arg)) {
+	if ($arg[1] == "clean") {
 		$cleanup = true;
 	}
 
@@ -19,9 +19,9 @@ if (preg_match("/^friendlist(.+)?$/i", $message, $arg)) {
 
 	$orphanCount = 0;
 	if (count($this->buddyList) == 0) {
-		bot::send("Didn't find any names in the friendlist.", $sendto);
+		bot::send("Didn't find any names in the friends list.", $sendto);
 	} else {
-		$blob = "Buddy List\n\n";
+		$blob = "Friends List\n\n";
 		forEach ($this->buddyList as $key => $value) {
 			$removed = '';
 			if (count($value['types']) == 0) {
@@ -45,5 +45,30 @@ if (preg_match("/^friendlist(.+)?$/i", $message, $arg)) {
 		}
 		bot::send(bot::makeLink("Friendlist Details", $blob), $sendto);
 	}
+} else if (preg_match("/^friendlist (.*)$/i", $message, $arg)) {
+	$search = $arg[1];
+	
+	bot::send("One momment... (".count($this->buddyList)." names to check.)", $sendto);
+
+	if (count($this->buddyList) == 0) {
+		bot::send("Didn't find any names in the friends list.", $sendto);
+	} else {
+		$count = 0;
+		$blob = "Friends Search: '{$search}'\n\n";
+		forEach ($this->buddyList as $key => $value) {
+			$removed = '';
+			if (preg_match("/$search/i", $value['name'])) {
+				$count++;
+				$blob .= $value['name'] . " " . implode(' ', array_keys($value['types'])) . "\n";
+			}
+		}
+
+		if ($count > 0) {
+			bot::send(bot::makeLink("Friendlist Search Details", $blob), $sendto);
+		} else {
+			bot::send("No friends on the friends list found containing '$search'", $sendto);
+		}
+	}
 }
+
 ?>
