@@ -10,7 +10,7 @@ if (preg_match("/^leprocs? (.+)$/i", $message, $arr)) {
 	} else {
 		$blob = '';
 		$type = '';
-		while (($row = $db->fObject()) != FALSE) {
+		while (($row = $db->fObject()) != false) {
 			if ($type != $row->proc_type) {
 				$type = $row->proc_type;
 				$blob .= "\n<tab>$type\n";

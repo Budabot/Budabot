@@ -31,7 +31,7 @@
 
 if (preg_match("/^(xp|sk) ([0-9]+)$/i", $message, $arr)) {
 	$level = $arr[2];
-	if (($row = Level::get_level_info($level)) != FALSE) {
+	if (($row = Level::get_level_info($level)) != false) {
 		if ($level >= 200) {
 			$msg = "With lvl <highlight>{$row->level}<end> you need <highlight>".number_format($row->xpsk)."<end> SK to level up.";
 		} else {
@@ -50,7 +50,7 @@ if (preg_match("/^(xp|sk) ([0-9]+)$/i", $message, $arr)) {
 			$db->query("SELECT * FROM levels WHERE level >= $minLevel AND level < $maxLevel");
 			$xp = 0;
 			$sk = 0;
-			while (($row = $db->fObject()) != FALSE) {
+			while (($row = $db->fObject()) != false) {
                 if ($row->level < 200) {
                     $xp += $row->xpsk;
                 } else {

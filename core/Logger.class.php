@@ -72,7 +72,7 @@ class Logger {
 
 		// Open and append to log-file. Complain on failure.
         $filename = "./logs/{$vars['name']}.{$vars['dimension']}/$today.$channel.log";
-        if (($fp = fopen($filename, "a")) === FALSE) {
+        if (($fp = fopen($filename, "a")) === false) {
             echo "    *** Failed to open log-file $filename for writing ***\n";
         } else {
             fwrite($fp, $line . PHP_EOL);

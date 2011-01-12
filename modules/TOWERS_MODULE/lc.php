@@ -5,7 +5,7 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 	$db->query($sql);
 	
 	$blob = "Land Control Index\n\n";
-	while (($row = $db->fObject()) != FALSE) {
+	while (($row = $db->fObject()) != false) {
 		$baseLink = $this->makeLink($row->long_name, "/tell <myname> lc $row->short_name", 'chatcmd');
 		$blob .= "$baseLink <highlight>($row->short_name)<end>\n";
 	}
@@ -27,7 +27,7 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 	$db->query($sql);
 	$numrows = $db->numrows();
 	$blob = "All bases in $playfield->long_name\n\n";
-	while (($row = $db->fObject()) != FALSE) {
+	while (($row = $db->fObject()) != false) {
 		$gas_level = getGasLevel($row->close_time);
 		$blob .= formatSiteInfo($row) . "\n\n";
 	}
@@ -52,7 +52,7 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 	$db->query($sql);
 	$numrows = $db->numrows();
 	$blob = "$playfield->short_name $site_number\n\n";
-	while (($row = $db->fObject()) != FALSE) {
+	while (($row = $db->fObject()) != false) {
 		$gas_level = getGasLevel($row->close_time);
 		$blob .= formatSiteInfo($row) . "\n\n";
 	}
@@ -74,7 +74,7 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 
 	$db->query($sql);
 	$numrows = $db->numrows();
-	while (($row = $db->fObject()) != FALSE) {
+	while (($row = $db->fObject()) != false) {
 		$gas_level = getGasLevel($row->close_time);
 		$blob .= formatSiteInfo($row) . "\n\n";
 	}

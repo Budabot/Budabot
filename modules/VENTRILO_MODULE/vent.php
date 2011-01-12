@@ -24,7 +24,7 @@ $lobby->m_comm = "This is the lobby";	// Channel comment.
 $stat->m_channellist[] = $lobby;
 
 $msg = '';
-$error = FALSE;
+$error = false;
 if ($this->settings["ventimplementation"] == 1) {
 
 	$rc = $stat->Request();
@@ -53,7 +53,7 @@ if ($this->settings["ventimplementation"] == 1) {
 	}
 }
 
-if ($error === FALSE) {
+if ($error === false) {
 	
 	$uptime = '';
 	$unixtime = $stat->m_uptime;
