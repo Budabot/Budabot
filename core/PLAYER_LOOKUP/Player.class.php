@@ -25,7 +25,11 @@ class Player {
 			if ($player2 !== null) {
 				$player = $player2;
 				Player::update($player);
+			} else {
+				$player->source .= ' (old-cache)';
 			}
+		} else {
+			$player->source .= ' (current-cache)';
 		}
 		
 		return $player;
