@@ -42,7 +42,7 @@ $msg = "";
 
 // make sure the $ql is an integer between 1 and 300
 if (!preg_match("/^[0-9]+$/i", $ql, $p) || ($ql < 1) || ($ql > 300)) {
-	$msg = "<br />Usage: <symbol>impql &lt;implant_ql&gt;<br />You must enter a value between 1 and 300.";
+	$msg = "\nUsage: <symbol>impql &lt;implant_ql&gt;\nYou must enter a value between 1 and 300.";
 } else {
 	$obj = getRequirements($ql);
 	$clusterInfo = formatClusterBonuses($obj);

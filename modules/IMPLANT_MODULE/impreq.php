@@ -33,7 +33,7 @@
    **
    */
 
-$invalidInputMsg = "<br />Usage: <symbol>impreq &lt;ability_skill&gt; &lt;treatment_skill&gt;<br />You must enter values between 1 and 3000.";
+$invalidInputMsg = "\nUsage: <symbol>impreq &lt;ability_skill&gt; &lt;treatment_skill&gt;\nYou must enter values between 1 and 3000.";
 $msg = "";
 if (!preg_match("/^impreq ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	$msg = $invalidInputMsg;
