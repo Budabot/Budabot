@@ -42,7 +42,7 @@
 	   	break;
    }
 
-   $msg .= "<br><highlight>Top $top Quoted:<end> (".count($victims)." total)\n";
+   $msg .= "\n<highlight>Top $top Quoted:<end> (".count($victims)." total)\n";
    $listnum = 0;
    foreach ($victims as $key => $val) {
 	   $listnum++;

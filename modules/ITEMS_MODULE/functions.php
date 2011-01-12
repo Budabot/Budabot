@@ -84,7 +84,7 @@ function find_items_from_local($search, $ql) {
 	if ($countitems > 3) {
 		forEach ($itemlist as $name => $item1) {
 			forEach ($item1 as $key => $item) {
-				$list .= "<img src=rdb://".$item["icon"]."> \n";
+				$list .= "<img src='rdb://".$item["icon"]."'> \n";
 				if ($ql) {
 					$list .= "QL $ql ".$chatBot->makeItem($item["lowid"], $item["highid"], $ql, $name);
 				} else {
@@ -102,7 +102,7 @@ function find_items_from_local($search, $ql) {
 		$blob = "<header>::::: Item Search Result :::::<end>\n\n";
 		$blob .= $list;
 		$blob .= "\n\nItem DB Rips provided by MajorOutage";
-		$link = $chatBot->makeLink("$countitems results in total", $blob);
+		$link = $chatBot->makeLink("$countitems results in total", $blob, 'blob');
 
 		return $link;
 	} else {

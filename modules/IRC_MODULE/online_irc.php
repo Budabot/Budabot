@@ -21,7 +21,7 @@ if (preg_match("/^onlineirc$/i", $message, $arr)) {
 			$names = explode(' ',substr($data,$start,strlen($data)));
 			$numusers = count($names);
 			foreach($names as $value) {
-				$list .= "$value<br>";
+				$list .= "$value\n";
 			}
 			
 			$msg = bot::makeLink("$numusers online in IRC",$list);

@@ -74,7 +74,7 @@ if ($reward >= 300) {
 		$msg = "At lvl <highlight>".number_format($lvl)."<end> you need <highlight>".number_format($sk)."<end> sk to level. With a mission reward of <highlight>".number_format($reward)."<end> sk, set your research bar to <highlight>".ceil($research)."%<end> to receive maximum sk from this mission reward.";
 	}
 } else {
-	 $msg = "Usage: <highlight><symbol>capxp 'mission reward amount' 'custom level'<end><br><tab>ex: !capxp 165000 215<br>If no level is specified, it will use your current level.";
+	 $msg = "Usage: <highlight><symbol>capxp 'mission reward amount' 'custom level'<end>\n<tab>ex: !capxp 165000 215\nIf no level is specified, it will use your current level.";
 }
 	
 bot::send($msg, $sendto);

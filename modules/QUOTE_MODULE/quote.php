@@ -136,7 +136,7 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 	}
 	if ($list) {
 		if ($msg) {
-			$msg .="<br><br>";
+			$msg .="\n\n";
 		}
 		$msg .="<tab>Quotes <highlight>$search<end> said: ";
 		$msg .= substr($list,0,strlen($list)-2);
@@ -191,11 +191,11 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 		$quoteDATE = $row->When;
 		$quoteMSG = $row->What;
 		
-		$msg = "<header>::::: Quote Info :::::<end><br><br>";
-		$msg .="<tab>ID: (<highlight>$quoteID<end> of $count)<br>";
-		$msg .="<tab>Poster: <highlight>$quoteWHO<end><br>";
-		$msg .="<tab>Quoting: <highlight>$quoteOfWHO<end><br>";
-		$msg .="<tab>Date: <highlight>$quoteDATE<end><br><br>";
+		$msg = "<header>::::: Quote Info :::::<end>\n\n";
+		$msg .="<tab>ID: (<highlight>$quoteID<end> of $count)\n";
+		$msg .="<tab>Poster: <highlight>$quoteWHO<end>\n";
+		$msg .="<tab>Quoting: <highlight>$quoteOfWHO<end>\n";
+		$msg .="<tab>Date: <highlight>$quoteDATE<end>\n\n";
 		
 		$msg .="<tab>Quotes posted by <highlight>$quoteWHO<end>: ";
 		$db->query("SELECT * FROM quote WHERE `Who` = '$quoteWHO'");
@@ -203,7 +203,7 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 		while ($row = $db->fObject()) {
 			$list .= "<a href='chatcmd:///tell ".$this->vars["name"]." quote $row->IDNumber>$row->IDNumber</a>, ";
 		}
-		$msg .= substr($list,0,strlen($list)-2)."<br><br>";
+		$msg .= substr($list,0,strlen($list)-2)."\n\n";
 		
 		$msg .="<tab>Quotes <highlight>$quoteOfWHO<end> said: ";
 		$db->query("SELECT * FROM quote WHERE `OfWho` = '".str_replace("'", "''", $quoteOfWHO)."'");
@@ -247,11 +247,11 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 			}
 		} while (1);
 		
-		$msg = "<header>::::: Quote Info :::::<end><br><br>";
-		$msg .="<tab>ID: (<highlight>$quoteID<end> of $count)<br>";
-		$msg .="<tab>Poster: <highlight>$quoteWHO<end><br>";
-		$msg .="<tab>Quoting: <highlight>$quoteOfWHO<end><br>";
-		$msg .="<tab>Date: <highlight>$quoteDATE<end><br><br>";
+		$msg = "<header>::::: Quote Info :::::<end>\n\n";
+		$msg .="<tab>ID: (<highlight>$quoteID<end> of $count)\n";
+		$msg .="<tab>Poster: <highlight>$quoteWHO<end>\n";
+		$msg .="<tab>Quoting: <highlight>$quoteOfWHO<end>\n";
+		$msg .="<tab>Date: <highlight>$quoteDATE<end>\n\n";
 		
 		$msg .="<tab>Quotes posted by <highlight>$quoteWHO<end>: ";
 		$db->query("SELECT * FROM quote WHERE `Who` = '".str_replace("'", "''", $quoteWHO)."'");
@@ -259,7 +259,7 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 		while ($row = $db->fObject()) {
 			$list .= "<a href='chatcmd:///tell ".$this->vars["name"]." quote $row->IDNumber>$row->IDNumber</a>, ";
 		}
-		$msg .= substr($list,0,strlen($list)-2)."<br><br>";
+		$msg .= substr($list,0,strlen($list)-2)."\n\n";
 		
 		$msg .="<tab>Quotes <highlight>$quoteOfWHO<end> said: ";
 		$db->query("SELECT * FROM quote WHERE `OfWho` = '".str_replace("'", "''", $quoteOfWHO)."'");

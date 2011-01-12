@@ -115,7 +115,7 @@ function createList(&$data, &$sender, &$list, &$type, &$bot, $show_alts = false)
 				$oldprof = $row->profession;
 			} else {
 				// fancy delimiters
-				$list .= "<br><img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER><br>";
+				$list .= "\n<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
 				if ($bot->settings["icon_fancy_online"] == 1) {
 					if($row->profession == "Adventurer")
 						$list .= "<img src=rdb://84203>";
@@ -149,7 +149,7 @@ function createList(&$data, &$sender, &$list, &$type, &$bot, $show_alts = false)
 				$list .= " <highlight>$row->profession<end>";
 				$oldprof = $row->profession;
 
-				$list .= "<br><img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER><br>";
+				$list .= "\n<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
 			}
 		}
 
