@@ -1,11 +1,11 @@
 <?php
 /////////////////////////////////////////////////
 /* ********************************************	*/
-/* Config file for the bot.			*/
-/* To change this settings you can use the	*/
-/* Ingame Commands(config/settings) for it	*/
-/* but change these file only when you		*/
-/* know what you are doing.			*/
+/* Config file for the bot.                     */
+/* To change this settings you can use the      */
+/* Ingame Commands(config/settings) for it      */
+/* but change these file only when you          */
+/* know what you are doing.                     */
 /* ********************************************	*/
 
 // Enter your Account info here
