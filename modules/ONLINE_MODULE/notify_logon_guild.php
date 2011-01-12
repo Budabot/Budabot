@@ -44,43 +44,46 @@ if (isset($this->guildmembers[$sender]) && time() >= $this->vars["onlinedelay"] 
 
         // If a main was found create the list
         if ($main) {
-            $list = "<header>::::: Alternative Character List :::::<end> \n \n";
-            $list .= ":::::: Main Character\n";
-            $list .= "<tab><tab>".bot::makeLink($main, "/tell ".$this->vars["name"]." whois $main", "chatcmd")." - ";
+            $blob = "<header>::::: Alternative Character List :::::<end> \n \n";
+            $blob .= ":::::: Main Character\n";
+            $blob .= "<tab><tab>".bot::makeLink($main, "/tell ".$this->vars["name"]." whois $main", "chatcmd")." - ";
             $online = $this->buddy_online($main);
             if ($online === null) {
-                $list .= "No status.\n";
+                $blob .= "No status.\n";
             } else if ($online == 1) {
-                $list .= "<green>Online<end>\n";
+                $blob .= "<green>Online<end>\n";
             } else { // if ($online == 0)
-                $list .= "<red>Offline<end>\n";
+                $blob .= "<red>Offline<end>\n";
 			}
 
-            $list .= ":::::: Alt Character(s)\n";
+            $blob .= ":::::: Alt Character(s)\n";
             $db->query("SELECT * FROM alts WHERE `main` = '$main'");
             while ($row = $db->fObject()) {
-                $list .= "<tab><tab>".bot::makeLink($row->alt, "/tell ".$this->vars["name"]." whois $row->alt", "chatcmd")." - ";
+                $blob .= "<tab><tab>".bot::makeLink($row->alt, "/tell ".$this->vars["name"]." whois $row->alt", "chatcmd")." - ";
                 $online = $this->buddy_online($row->alt);
                 if ($online === null) {
-                    $list .= "No status.\n";
+                    $blob .= "No status.\n";
                 } else if ($online == 1) {
-                    $list .= "<green>Online<end>\n";
+                    $blob .= "<green>Online<end>\n";
                 } else { // if ($online == 0)
-                    $list .= "<red>Offline<end>\n";
+                    $blob .= "<red>Offline<end>\n";
 				}
             }
         }
 
 		if ($main != $sender && $main != false) {
-			$alts = bot::makeLink("Alts", $list);
+			$alts = bot::makeLink("Alts", $blob);
 			$msg .= "Main: <highlight>$main<end> ($alts) ";
 		} else if ($main != false) {
-  			$alts = bot::makeLink("Alts of $main", $list);
+  			$alts = bot::makeLink("Alts of $main", $blob);
 			$msg .= "$alts ";
 		}
 
-        if ($org_member->logon_msg != '0') {
-            $msg .= " - " . $org_member->logon_msg;
+		$sql = "SELECT logon_msg FROM org_members_<myname> WHERE name = '{$sender}'";
+		$db->query($sql);
+		$row = $db->fObject();
+        if ($row !== null && $row->logon_msg != '' ) {
+            $msg .= " - " . $row->logon_msg;
 		}
 	}
 

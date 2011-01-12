@@ -117,7 +117,7 @@ class db {
 			Logger::log('error', "SqlError", "{$error[2]} in: $stmt");
 		}
 
-		return($result);				
+		return $result;
 	}
 	
 	//Does Basicly the same thing just don't gives the result back(used for create table, Insert, delete etc), a bit faster as normal querys 
@@ -139,7 +139,7 @@ class db {
 			Logger::log('error', "SqlError", "{$error[2]} in: $stmt");
 		}
 
-		return($aff_rows);		
+		return $aff_rows;
 	}
 
 	//Function for creating the table. Main reason is that some SQL commands are not compatible with sqlite for example the autoincrement field

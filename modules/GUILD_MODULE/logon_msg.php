@@ -33,7 +33,7 @@ $db->query("SELECT name, logon_msg FROM org_members_<myname> WHERE `name` = '$se
 $row = $db->fObject();
 if (preg_match("/^logon$/i", $message)) {
 	if ($row !== null) {
-		if ($row->logon_msg == '' || $row->logon_msg == '0') {
+		if ($row->logon_msg == '') {
 			$msg = "Your logon message has not been set.";
 		} else {
 			$msg = "{$sender} logon: {$row->logon_msg}";
@@ -44,7 +44,7 @@ if (preg_match("/^logon$/i", $message)) {
     bot::send($msg, $sendto);
 } else if (preg_match("/^logon clear$/i", $message)) {
     if ($row !== null) {
-        $db->query("UPDATE org_members_<myname> SET `logon_msg` = 0 WHERE `name` = '$sender'");
+        $db->query("UPDATE org_members_<myname> SET `logon_msg` = '' WHERE `name` = '$sender'");
         $msg = "Logon message cleared.";
     } else {
         $msg = "You are not on the notify list.";

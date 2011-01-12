@@ -104,9 +104,9 @@ if ($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 		//End the transaction
 		$db->Commit();
 		
-		// remove buddies who used to be org members, but are no longer
+		// remove buddies who are no longer org members
 		forEach ($dbentrys as $buddy) {
-			$db->exec("DELETE FROM org_members_<myname> WHERE `name` = '".$buddy['name']."'");
+			$db->exec("DELETE FROM org_members_<myname> WHERE `name` = '{$buddy['name']}'");
 			$this->remove_buddy($buddy['name'], 'org');
 		}
 
