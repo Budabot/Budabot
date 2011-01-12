@@ -1,5 +1,5 @@
 *****************************
-	Version 2.0_RC1:
+	Version 2.0:
 *****************************
 -can now set seconds on a timer
 -added a TRACKER_MODULE for silently keeping track of when people sign on and off
@@ -41,6 +41,14 @@
 -rewrote (yet again)!orglist so that it can do lookups MUCH faster and is much less likely to bug
 -renamed DBLOOT_MODULE to DUST_BRIGADE_MODULE
 -removed the readme docs since they were out of date
+-fixed TOWERS_MODULE
+-fixed autoinviting guests
+-fixed logon message not showing
+-renamed FRIENDLIST_DIAG_MODULE to FRIENDLIST_MODULE
+-added search option to !friendlist command
+-added !addbuddy so you can now manually add friends to the friends list
+-!logon with no params now shows your current logon message
+-made !oe more succinct
 
 *****************************
 	Version 1.0_GA:
