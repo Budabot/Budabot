@@ -1180,7 +1180,7 @@ class bot extends AOChat{
 		if (($actual_filename = bot::verifyFilename($module . '/' . $filename)) != '') {
     		$filename = $actual_filename;
     		if (substr($filename, 0, 7) == "./core/") {
-	    		$this->helpfiles[$module[0]][$command]["status"] = "enabled";
+	    		$this->helpfiles[$module][$command]["status"] = "enabled";
 			}
 		} else {
 			echo "Error in registering the File $filename for Help command $command. The file doesn't exist!\n";
@@ -1188,17 +1188,17 @@ class bot extends AOChat{
 		}
 
 		if (isset($this->existing_helps[$command])) {
-			$db->query("UPDATE hlpcfg_<myname> SET `verify` = 1, `description` = '$description', `cat` = '$module[0]' WHERE `name` = '$command'");
+			$db->query("UPDATE hlpcfg_<myname> SET `verify` = 1, `description` = '$description', `cat` = '$module' WHERE `name` = '$command'");
 		} else {
-			$db->query("INSERT INTO hlpcfg_<myname> VALUES ('$command', '$module[0]', '$module[0]', '$description', '$admin', 1)");
+			$db->query("INSERT INTO hlpcfg_<myname> VALUES ('$command', '$module', '$module', '$description', '$admin', 1)");
 		}
 
 		$db->query("SELECT * FROM hlpcfg_<myname> WHERE `name` = '$command'");
 		$row = $db->fObject();
-		$this->helpfiles[$module[0]][$command]["filename"] = $filename;
-		$this->helpfiles[$module[0]][$command]["admin level"] = $row->admin;
-		$this->helpfiles[$module[0]][$command]["info"] = $description;
-		$this->helpfiles[$module[0]][$command]["module"] = $module[0];
+		$this->helpfiles[$module][$command]["filename"] = $filename;
+		$this->helpfiles[$module][$command]["admin level"] = $row->admin;
+		$this->helpfiles[$module][$command]["info"] = $description;
+		$this->helpfiles[$module][$command]["module"] = $module;
 	}
 	
 /*===========================================================================================
