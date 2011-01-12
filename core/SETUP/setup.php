@@ -41,13 +41,13 @@ function savecfg($vars, $settings) {
 	$lines = file($config_file);
 	forEach ($lines as $key => $line) {
 	  	if (preg_match("/^(.+)vars\[('|\")(.+)('|\")](.*)=(.*)\"(.*)\";(.*)$/i", $line, $arr)) {
-			$lines[$key] = "$arr[1]vars['$arr[3]']$arr[5]=$arr[6]\"{$vars[$arr[3]]}\"; $arr[8]";
+			$lines[$key] = "$arr[1]vars['$arr[3]']$arr[5]=$arr[6]\"{$vars[$arr[3]]}\";$arr[8]";
 		} else if (preg_match("/^(.+)vars\[('|\")(.+)('|\")](.*)=([ 	]+)([0-9]+);(.*)$/i", $line, $arr)) {
-			$lines[$key] = "$arr[1]vars['$arr[3]']$arr[5]=$arr[6]{$vars[$arr[3]]}; $arr[8]";
+			$lines[$key] = "$arr[1]vars['$arr[3]']$arr[5]=$arr[6]{$vars[$arr[3]]};$arr[8]";
 	  	} else if (preg_match("/^(.+)settings\[('|\")(.+)('|\")](.*)=(.*)\"(.*)\";(.*)$/i", $line, $arr)) {
-			$lines[$key] = "$arr[1]settings['$arr[3]']$arr[5]=$arr[6]\"{$settings[$arr[3]]}\"; $arr[8]";
+			$lines[$key] = "$arr[1]settings['$arr[3]']$arr[5]=$arr[6]\"{$settings[$arr[3]]}\";$arr[8]";
 		} else if (preg_match("/^(.+)settings\[('|\")(.+)('|\")](.*)=([ 	]+)([0-9]+);(.*)$/i", $line, $arr)) {
-			$lines[$key] = "$arr[1]settings['$arr[3]']$arr[5]=$arr[6]{$settings[$arr[3]]}; $arr[8]";
+			$lines[$key] = "$arr[1]settings['$arr[3]']$arr[5]=$arr[6]{$settings[$arr[3]]};$arr[8]";
 		}
 	}
 	file_put_contents($config_file, $lines);
