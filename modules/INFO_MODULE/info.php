@@ -46,6 +46,7 @@ if (preg_match("/^info$/i", $message)) {
 	} else {
 		$msg = "Error reading topics.";	
 	}
+	bot::send($msg, $sendto);
 } else if (preg_match("/^info ([a-z0-9_-]+)$/i", $message, $arr) || preg_match("/^([a-z0-9_-]+)$/i", $message, $arr)) {
 	// if they want a certain topic
 	// second form is for the aliases
@@ -58,11 +59,9 @@ if (preg_match("/^info$/i", $message)) {
 	} else {
 		$msg = bot::makeLink(ucfirst($fileName), $info);
 	}
+	bot::send($msg, $sendto);
 } else {
 	$syntax_error = true;
-	return;
 }
-
-bot::send($msg, $sendto);
 
 ?>
