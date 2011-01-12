@@ -40,9 +40,6 @@
 	//Tell
 	bot::command("", "$MODULE_NAME/tell.php", "tell", "all", "Repeats a message 3 times");
 	bot::command("", "$MODULE_NAME/cmd.php", "cmd", "rl", "Creates a highly visible messaage");
-	
-	//Updateme
-	bot::command("", "$MODULE_NAME/updateme.php", "updateme", "all", "Updates char info for a player");
 
 	//Helpfiles
 	bot::help($MODULE_NAME, "afk_priv", "afk.txt", "all", "Going AFK");
@@ -52,6 +49,5 @@
 	bot::help($MODULE_NAME, "leader", "leader.txt", "all", "Set a Leader of a Raid/Echo on/off");
 	bot::help($MODULE_NAME, "tell", "tell.txt", "leader", "How to use tell");
 	bot::help($MODULE_NAME, "topic", "topic.txt", "raidleader", "Set the Topic of the raid");
-	bot::help($MODULE_NAME, "updateme", "updateme.txt", "all", "Update your character infos");
 	bot::help($MODULE_NAME, "cmd", "cmd.txt", "leader", "How to use cmd");
 ?>

@@ -1,6 +1,0 @@
-<header>::::: Update your character stats :::::<end>
-
-<red>Note that there is always a delay between your ding and the update of the FC Database<end>
-
-<highlight>Update your character stats<end>
-<tab>/tell <myname> updateme
