@@ -41,35 +41,8 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 	ksort($this->helpfiles);
 	forEach ($this->helpfiles as $cat => $value) {
 		forEach ($value as $key => $file) {
-		  	$access = false;
-			$admin = $file["admin level"];
-
-			if ($file["status"] == "enabled") {
-				$num = 1;
-			} else {
-				$module = $file["module"];
-				$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$module' AND `status` = 1");
-				$num = $db->numrows();
-			}
-
-			if ($admin == "guild" && isset($this->guildmembers[$sender]) && $type == "msg") {
-			  	$access = true;
-			} else if ($admin == "guildadmin" && ($this->guildmembers[$sender] <= $this->settings['guild_admin_level']) && $type == "msg") {
-				$access = true;
-			} else if (is_numeric($admin) && ($this->admins[$sender]["level"] >= $admin) && $type == "msg") {
-				$access = true;
-			} else if (($admin == "all" || $admin == "") && $type == "msg") {
-				$access = true;
-			} else if ($admin == "all" || $admin == "") {
-				$access = true;
-			} else if ($admin == "guild" && $type == "guild") {
-				$access = true;
-			}
-				
-			if (($access == true && $file["info"] != "" && $num > 0) || ($this->admins[$sender]["level"] == 4 && $file["info"] != "" && $type == "msg")) {
-				$list .= "  *{$file["info"]} <a href='chatcmd:///tell <myname> help $key'>Click here</a>\n";
-			} else if (($access == true && $num > 0) || ($this->admins[$sender]["level"] == 4 && $type == "msg")) {
-				$list .= "  *Basic Help. <a href='chatcmd:///tell <myname> help $key'>Click here</a>\n";
+			if (AccessLevel::checkAccess($sender, $file["admin level"])) {
+				$list .= "  *{$key}: {$file["info"]} <a href='chatcmd:///tell <myname> help $key'>Click here</a>\n";
 			}
 		}
 		if ($list != "") {

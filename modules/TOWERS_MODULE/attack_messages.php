@@ -124,8 +124,6 @@ $targetorg = "<".strtolower($def_side).">".$def_guild."<end>";
 // Starting tower message to org/private chat
 $msg .= "<font color=#FF67FF>[";
 
-
-
 // tower_attack_spam >= 2 (normal) includes attacker stats
 if ($this->settings["tower_attack_spam"] >= 2) {
 

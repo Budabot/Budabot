@@ -31,6 +31,7 @@
 
 require_once 'MyCurl.class.php';
 require_once 'Playfields.class.php';
+require_once 'AccessLevel.class.php';
 
 class bot extends AOChat{
 
@@ -1217,38 +1218,11 @@ class bot extends AOChat{
 
 		// if help isn't found
 		if ($filename == '') {
-			return FALSE;
+			return false;
 		}
 
-		$restricted = true;
-		switch ($admin) {
-			case "guild":
-				if (isset($this->guildmembers[$sender]) || isset($this->admins[$sender])) {
-					$restricted = false;
-				}
-				break;
-			
-			case "guildadmin":
-				if ($this->guildmembers[$sender] <= $this->settings['guild_admin_level'] || isset($this->admins[$sender])) {
-					$restricted = false;
-				}
-				break;
-			
-			case "1":
-			case "2":
-			case "3":
-				if ($this->admins[$sender]["level"] >= $admin) {
-					$restricted = false;
-				}
-				break;
-			
-			case "all":
-			default:
-				$restricted = false;
-				break;
-		}
-
-		if ($restricted === false && file_exists($filename)) {
+		$access = AccessLevel::checkAccess($sender, $admin);
+		if ($access === TRUE && file_exists($filename)) {
 			$data = file_get_contents($filename);
 			if ($return_as_bloblink) {
 				$helpcmd = ucfirst($helpcmd);
@@ -1257,7 +1231,7 @@ class bot extends AOChat{
 				$msg = $data;
 			}
 		} else {
-			return FALSE;
+			return false;
 		}
 
 		return $msg;
@@ -1632,8 +1606,6 @@ class bot extends AOChat{
 	function handle_command($type, $message, $sender, $sendto) {
 		$db = db::get_instance();
 		
-		$restricted = false;
-		
 		switch ($type){
 			case "msg":
 				$cmds  = &$this->tellCmds;
@@ -1647,43 +1619,22 @@ class bot extends AOChat{
 		}
 		
 		// Admin Code
-		if ($restricted != true) {
-			list($cmd) = explode(' ', $message, 2);
-			$cmd = strtolower($cmd);
-			$admin 	= $cmds[$cmd]["admin level"];
-			$filename = $cmds[$cmd]["filename"];
+		list($cmd) = explode(' ', $message, 2);
+		$cmd = strtolower($cmd);
+		$admin 	= $cmds[$cmd]["admin level"];
+		$filename = $cmds[$cmd]["filename"];
 
-			//Check if a subcommands for this exists
-			if ($this->subcommands[$filename][$type]) {
-				if (preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message)) {
-					$admin = $this->subcommands[$filename][$type]["admin"];
-				}
-			}
-
-			// Admin Check
-			if (is_numeric($admin)) {
-				if ($this->admins[$sender]["level"] >= $admin && $this->admins[$sender]["level"] != "")
-					$restricted = false;
-				else if ($this->admins[$sender]["level"] == "" && $this->vars["leader"] == $sender && $admin == 1)
-					$restricted = false;
-				else
-					$restricted = true;
-			} else if ($admin == "guild") {
-				if (isset($this->guildmembers[$sender]))
-					$restricted = false;
-				else
-					$restricted = true;
-			} else if ($admin == "guildadmin") {
-				if ($this->guildmembers[$sender] <= $this->settings['guild_admin_level'])
-					$restricted = false;
-				else
-					$restricted = true;
-			} else {
-				$restricted = false;
+		//Check if a subcommands for this exists
+		if ($this->subcommands[$filename][$type]) {
+			if (preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message)) {
+				$admin = $this->subcommands[$filename][$type]["admin"];
 			}
 		}
 
-		if ($restricted == true || $filename == "") {
+		// Admin Check
+		$access = AccessLevel::checkAccess($sender, $admin);
+
+		if ($access !== true || $filename == "") {
 			if ($type != 'guild') {
 				// don't notify user of unknown command in org chat, in case they are running more than one bot
 				$this->send("Error! Unknown command or Access denied! for more info try /tell <myname> help", $sendto);
@@ -1695,7 +1646,7 @@ class bot extends AOChat{
 			$msg = "";
 			include $filename;
 			if ($syntax_error == true) {
-				if (($output = bot::help_lookup($message, $sender)) !== FALSE) {
+				if (($output = bot::help_lookup($message, $sender)) !== false) {
 					bot::send($output, $sendto);
 				} else {
 					bot::send("Error! Check your syntax or for more info try /tell <myname> help", $sendto);
