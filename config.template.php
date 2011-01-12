@@ -49,6 +49,9 @@ $vars['debug_file'] = 0;
 $vars['chat_console'] = 1;
 $vars['chat_file'] = 0;
 
+// Show aoml markup (formatting and blobs) in logs/console
+$vars['show_aoml_markup'] = 0;
+
 // Cache folder for storing org xml files
 $vars['cachefolder'] = "./cache/";
 

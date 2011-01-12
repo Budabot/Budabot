@@ -42,11 +42,13 @@ class Logger {
 		
 		$timestamp = date("Ymd H:i");
 		
-		$message = preg_replace("/<font(.+)>/U", "", $message);
-        $message = preg_replace("/<\/font>/U", "", $message);
-        $message = preg_replace("/<a(\\s+)href=\"(.+)\">/sU", "[link]", $message);
-        $message = preg_replace("/<a(\\s+)href='(.+)'>/sU", "[link]", $message);
-        $message = preg_replace("/<\/a>/U", "[/link]", $message);
+		if ($vars['show_aoml_markup'] == 0) {
+			$message = preg_replace("/<font(.+)>/U", "", $message);
+			$message = preg_replace("/<\/font>/U", "", $message);
+			$message = preg_replace("/<a(\\s+)href=\"(.+)\">/sU", "[link]", $message);
+			$message = preg_replace("/<a(\\s+)href='(.+)'>/sU", "[link]", $message);
+			$message = preg_replace("/<\/a>/U", "[/link]", $message);
+		}
 
 		if ($channel == "Buddy") {
 			$line = "$timestamp INFO  [$channel] $sender $message";
