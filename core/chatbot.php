@@ -55,16 +55,16 @@ class bot extends AOChat{
 		$this->vars["startup"] = time();
 
 		//Create command/event settings table if not exists
-		$db->query("CREATE TABLE IF NOT EXISTS cmdcfg_<myname> (`module` VARCHAR(50), `cmdevent` VARCHAR(5), `type` VARCHAR(18), `file` VARCHAR(255), `cmd` VARCHAR(25), `admin` VARCHAR(10), `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0', `dependson` VARCHAR(25) DEFAULT 'none', `grp` VARCHAR(25) DEFAULT 'none')");
-		$db->query("CREATE TABLE IF NOT EXISTS settings_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `mode` VARCHAR(10), `setting` VARCHAR(50) Default '0', `options` VARCHAR(255) Default '0', `intoptions` VARCHAR(50) DEFAULT '0', `description` VARCHAR(50), `source` VARCHAR(5), `admin` VARCHAR(25), `help` VARCHAR(60))");
-		$db->query("CREATE TABLE IF NOT EXISTS hlpcfg_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `cat` VARCHAR(50), `description` VARCHAR(50), `admin` VARCHAR(10), `verify` INT Default '0')");
+		$db->exec("CREATE TABLE IF NOT EXISTS cmdcfg_<myname> (`module` VARCHAR(50), `cmdevent` VARCHAR(5), `type` VARCHAR(18), `file` VARCHAR(255), `cmd` VARCHAR(25), `admin` VARCHAR(10), `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0', `dependson` VARCHAR(25) DEFAULT 'none', `grp` VARCHAR(25) DEFAULT 'none')");
+		$db->exec("CREATE TABLE IF NOT EXISTS settings_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `mode` VARCHAR(10), `setting` VARCHAR(50) Default '0', `options` VARCHAR(255) Default '0', `intoptions` VARCHAR(50) DEFAULT '0', `description` VARCHAR(50), `source` VARCHAR(5), `admin` VARCHAR(25), `help` VARCHAR(60))");
+		$db->exec("CREATE TABLE IF NOT EXISTS hlpcfg_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `cat` VARCHAR(50), `description` VARCHAR(50), `admin` VARCHAR(10), `verify` INT Default '0')");
 
 		//Prepare command/event settings table
-		$db->query("UPDATE cmdcfg_<myname> SET `verify` = 0");
-		$db->query("UPDATE hlpcfg_<myname> SET `verify` = 0");
-		$db->query("UPDATE cmdcfg_<myname> SET `status` = 1 WHERE `cmdevent` = 'event' AND `type` = 'setup'");
-		$db->query("UPDATE cmdcfg_<myname> SET `grp` = 'none'");
-		$db->query("DELETE FROM cmdcfg_<myname> WHERE `module` = 'none'");
+		$db->exec("UPDATE cmdcfg_<myname> SET `verify` = 0");
+		$db->exec("UPDATE hlpcfg_<myname> SET `verify` = 0");
+		$db->exec("UPDATE cmdcfg_<myname> SET `status` = 1 WHERE `cmdevent` = 'event' AND `type` = 'setup'");
+		$db->exec("UPDATE cmdcfg_<myname> SET `grp` = 'none'");
+		$db->exec("DELETE FROM cmdcfg_<myname> WHERE `module` = 'none'");
 
 		//To reduce query's save the current commands/events in an array
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd'");
@@ -156,7 +156,6 @@ class bot extends AOChat{
 		unset($this->existing_helps);
 
 		//Delete old entrys in the DB
-		$db->query("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0");
 		$db->query("DELETE FROM hlpcfg_<myname> WHERE `verify` = 0");
 	}
 
@@ -526,7 +525,7 @@ class bot extends AOChat{
 */	function loadCommands() {
 	  	$db = db::get_instance();
 		//Delete commands that are not verified
-		$db->query("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'cmd'");
+		$db->exec("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'cmd'");
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'cmd'");
 		$data = $db->fObject("all");
 		forEach ($data as $row) {
@@ -540,7 +539,7 @@ class bot extends AOChat{
 */	function loadSubcommands() {
 	  	$db = db::get_instance();
 		//Delete subcommands that are not verified
-		$db->query("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'subcmd'");
+		$db->exec("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'subcmd'");
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd'");
 		$data = $db->fObject("all");
 		forEach ($data as $row) {
@@ -555,7 +554,7 @@ class bot extends AOChat{
 */	function loadEvents() {
 	  	$db = db::get_instance();
 		//Delete events that are not verified
-		$db->query("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'event'");
+		$db->exec("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'event'");
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'event'");
 		$data = $db->fObject("all");
 		forEach ($data as $row) {
@@ -584,9 +583,9 @@ class bot extends AOChat{
 			Logger::log('debug', 'Core', "                 Admin:({$admin[$i]}) Type:({$type[$i]})");
 			
 			if ($this->existing_commands[$type[$i]][$command] == true) {
-				$db->query("UPDATE cmdcfg_<myname> SET `module` = '$curMod', `verify` = 1, `file` = '$filename', `description` = '$description' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
+				$db->exec("UPDATE cmdcfg_<myname> SET `module` = '$curMod', `verify` = 1, `file` = '$filename', `description` = '$description' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
 			} else {
-				$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`) VALUES ('$curMod', '{$type[$i]}', '$filename', '$command', '{$admin[$i]}', '$description', 1, 'cmd', '".$this->settings["default_module_status"]."')");
+				$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`) VALUES ('$curMod', '{$type[$i]}', '$filename', '$command', '{$admin[$i]}', '$description', 1, 'cmd', '".$this->settings["default_module_status"]."')");
 			}
 		}
 	}
@@ -749,9 +748,9 @@ class bot extends AOChat{
 			}
 
 			if ($this->existing_subcmds[$type[$i]][$command] == true) {
-				$db->query("UPDATE cmdcfg_<myname> SET `module` = '$curMod', `verify` = 1, `file` = '$filename', `description` = '$description', `dependson` = '$dependson' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
+				$db->exec("UPDATE cmdcfg_<myname> SET `module` = '$curMod', `verify` = 1, `file` = '$filename', `description` = '$description', `dependson` = '$dependson' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
 			} else {
-				$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `dependson`) VALUES ('$curMod', '{$type[$i]}', '$filename', '$command', '{$admin[$i]}', '$description', 1, 'subcmd', '$dependson')");
+				$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `dependson`) VALUES ('$curMod', '{$type[$i]}', '$filename', '$command', '{$admin[$i]}', '$description', 1, 'subcmd', '$dependson')");
 			}
 		}
 	}
@@ -775,10 +774,10 @@ class bot extends AOChat{
 			$status = 0;
 		}
 
-		if ($this->existing_events[$type][$filename] == true) {
-		  	$db->query("UPDATE cmdcfg_<myname> SET `verify` = 1, `description` = '$description' WHERE `type` = '$type' AND `cmdevent` = 'event' AND `file` = '$actual_filename' AND `module` = '$module'");
+		if ($this->existing_events[$type][$actual_filename] == true) {
+		  	$db->exec("UPDATE cmdcfg_<myname> SET `verify` = 1, `description` = '$description' WHERE `type` = '$type' AND `cmdevent` = 'event' AND `file` = '$actual_filename' AND `module` = '$module'");
 		} else {
-		  	$db->query("INSERT INTO cmdcfg_<myname> (`module`, `cmdevent`, `type`, `file`, `verify`, `description`, `status`) VALUES ('$module', 'event', '$type', '$actual_filename', '1', '$description', '$status')");
+		  	$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `cmdevent`, `type`, `file`, `verify`, `description`, `status`) VALUES ('$module', 'event', '$type', '$actual_filename', '1', '$description', '$status')");
 		}
 	}
 
@@ -1084,12 +1083,12 @@ class bot extends AOChat{
 		for ($i = 3;$i < $numargs; $i++) {
 		  	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '".$arg_list[$i]."' AND `module` = '$curMod'");
 		  	if ($db->numrows() != 0) {
-			    $db->query("UPDATE cmdcfg_<myname> SET `grp` = '$group' WHERE `cmd` = '".$arg_list[$i]."' AND `module` = '$curMod'");
+			    $db->exec("UPDATE cmdcfg_<myname> SET `grp` = '$group' WHERE `cmd` = '".$arg_list[$i]."' AND `module` = '$curMod'");
 			} else {
 			  	echo "Error in creating group $group for module $curMod. Command ".$arg_list[$i]." doesn't exists.\n";
 			}
 		}
-	  	$db->query("INSERT INTO cmdcfg_<myname> (`module`, `type`, `cmdevent`, `verify`, `description`) VALUES ('none', '$group', 'group', '1', '$description')");
+	  	$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `cmdevent`, `verify`, `description`) VALUES ('none', '$group', 'group', '1', '$description')");
 	}
 
 
@@ -1112,10 +1111,10 @@ class bot extends AOChat{
 		$description = str_replace("'", "''", $description);
 
 		if ($this->existing_settings[$name] != true) {
-			$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('$name', '$module', '$mode', '" . str_replace("'", "''", $value) . "', '$options', '$intoptions', '$description', 'db', '$admin', '$help')");
+			$db->exec("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('$name', '$module', '$mode', '" . str_replace("'", "''", $value) . "', '$options', '$intoptions', '$description', 'db', '$admin', '$help')");
 		  	$this->settings[$name] = $value;
 	  	} else {
-			$db->query("UPDATE settings_<myname> SET `module` = '$module', `mode` = '$mode', `options` = '$options', `intoptions` = '$intoptions', `description` = '$description', `admin` = '$admin', `help` = '$help' WHERE `name` = '$name'");
+			$db->exec("UPDATE settings_<myname> SET `module` = '$module', `mode` = '$mode', `options` = '$options', `intoptions` = '$intoptions', `description` = '$description', `admin` = '$admin', `help` = '$help' WHERE `name` = '$name'");
 		}
 	}
 
@@ -1142,7 +1141,7 @@ class bot extends AOChat{
 		}
 
 		if (isset($this->settings[$name])) {
-			$db->query("UPDATE settings_<myname> SET `setting` = '" . str_replace("'", "''", $newsetting) . "' WHERE `name` = '$name'");
+			$db->exec("UPDATE settings_<myname> SET `setting` = '" . str_replace("'", "''", $newsetting) . "' WHERE `name` = '$name'");
 			$this->settings[$name] = $newsetting;
 		} else {
 			return false;
@@ -1187,9 +1186,9 @@ class bot extends AOChat{
 		}
 
 		if (isset($this->existing_helps[$command])) {
-			$db->query("UPDATE hlpcfg_<myname> SET `verify` = 1, `description` = '$description', `cat` = '$module' WHERE `name` = '$command'");
+			$db->exec("UPDATE hlpcfg_<myname> SET `verify` = 1, `description` = '$description', `cat` = '$module' WHERE `name` = '$command'");
 		} else {
-			$db->query("INSERT INTO hlpcfg_<myname> VALUES ('$command', '$module', '$module', '$description', '$admin', 1)");
+			$db->exec("INSERT INTO hlpcfg_<myname> VALUES ('$command', '$module', '$module', '$description', '$admin', 1)");
 		}
 
 		$db->query("SELECT * FROM hlpcfg_<myname> WHERE `name` = '$command'");
