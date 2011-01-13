@@ -5,7 +5,6 @@ if (preg_match("/^join$/i", $message)) {
 
 	// if user is an admin, member, or org member, or if manual join mode is open for everyone, then invite them
 	if (isset($this->admins[$sender]) || $db->numrows() > 0 || $this->settings["guest_man_join"] == 0) {
-		$this->vars["Guest"][$sender] = false;
 		AOChat::privategroup_kick($sender);
 		AOChat::privategroup_invite($sender);
 	} else {
