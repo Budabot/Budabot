@@ -47,6 +47,8 @@ class Alts {
 	}
 	
 	public static function get_alts_blob($char) {
+		global $chatBot;
+	
 		$main = Alts::get_main($char);
 		$alts = Alts::get_alts($main);
 
@@ -61,7 +63,7 @@ class Alts {
 		if ($character !== null) {
 			$list .= " (Level <highlight>{$character->level}<end>/<green>{$character->ai_level}<end> <highlight>{$character->profession}<end>)";
 		}
-		$online = $this->buddy_online($main);
+		$online = $chatBot->buddy_online($main);
 		if ($online === null) {
 			$list .= " - No status.\n";
 		} else if ($online == 1) {
@@ -76,7 +78,7 @@ class Alts {
 			if ($character !== null) {
 				$list .= " (Level <highlight>{$character->level}<end>/<green>{$character->ai_level}<end> <highlight>{$character->profession}<end>)";
 			}
-			$online = $this->buddy_online($alt);
+			$online = $chatBot->buddy_online($alt);
 			if ($online === null) {
 				$list .= " - No status.\n";
 			} else if ($online == 1) {
