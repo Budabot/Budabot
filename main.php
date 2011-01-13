@@ -33,7 +33,7 @@ $version = "2.0";
 
 echo "\n\n\n\n\n
 	**************************************************
-	****         Budabot Version: $version          ****
+	****         Budabot Version: $version             ****
 	****    written by Sebuda & Derroylo(RK2)     ****
 	****                Project Site:             ****
 	****    http://code.google.com/p/budabot2/    ****
@@ -70,16 +70,21 @@ $config_file = $argv[1];
 if (!file_exists($config_file)) {
 	copy('config.template.php', $config_file) or Logger::log('ERROR', 'StartUp', "could not create config file: {$config_file}");
 }
+
 require_once $config_file;
 require_once "./core/Logger.class.php";
+
+//Set Error Level
+//error_reporting(-1);
+error_reporting(E_ERROR | E_PARSE);
+ini_set("log_errors", 1);
+ini_set("error_log", "./logs/{$vars['name']}.{$vars['dimension']}/php_errors.log");
+
+
 require_once "./core/aochat.php";
 require_once "./core/chatbot.php";
 require_once "./core/sql.php";
 require_once "./core/xml.php";
-
-//Set Error Level
-error_reporting(E_ERROR | E_PARSE);
-//error_reporting(-1);
 
 //Show setup dialog
 if ($vars['login']		== "" ||
@@ -133,9 +138,6 @@ unset($settings["DB Name"]);
 unset($settings["DB Host"]);
 unset($settings["DB username"]);
 unset($settings["DB password"]);
-
-// make sure logging directory exists
-mkdir("./logs/{$vars['name']}.{$vars['dimension']}", 0775, true);
 
 // Call Main Loop
 main($chatBot);
