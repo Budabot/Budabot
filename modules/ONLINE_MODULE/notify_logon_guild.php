@@ -29,7 +29,7 @@ if (isset($this->guildmembers[$sender]) && time() >= $this->vars["onlinedelay"] 
 
         // Alternative Characters Part
         $main = false;
-        // Check if $sender is hisself the main
+        // Check if $sender is the main
         $db->query("SELECT * FROM alts WHERE `main` = '$sender'");
         if ($db->numrows() == 0) {
             // Check if $sender is an alt
@@ -46,10 +46,10 @@ if (isset($this->guildmembers[$sender]) && time() >= $this->vars["onlinedelay"] 
 
 		if ($main != $sender && $main != false) {
 			$alts = bot::makeLink("Alts", $blob);
-			$msg .= "Main: <highlight>$main<end> ($alts) ";
+			$msg .= "Main: <highlight>$main<end> ($alts)";
 		} else if ($main != false) {
   			$alts = bot::makeLink("Alts of $main", $blob);
-			$msg .= "$alts ";
+			$msg .= "$alts";
 		}
 
 		$sql = "SELECT logon_msg FROM org_members_<myname> WHERE name = '{$sender}'";
