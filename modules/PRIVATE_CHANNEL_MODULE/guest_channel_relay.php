@@ -29,18 +29,29 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-//Check if the private channel relay is enabled
-if ($this->settings["guest_relay"] == 1) {
- 	//If the message comes from the privgroup(alias private channel) and the message was not a command then
-	if ($type == "priv" && ($args[2][0] != $this->settings["symbol"] || ($args[2][0] == $this->settings["symbol"] && $this->settings["guest_relay_commands"] == 1))) {
-		//Relay the message to the guild channel
-        $msg = "<end>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}".bot::makeLink($sender,$sender,"user")."<end>: {$this->settings["guest_color_guild"]}".$message."<end>";
-        bot::send($msg, 'org', true);
-	//If the message comes from the guild, and there's at least 1 player in private channel, and the message is not a command or a bot response (or relay commands is enabled)
-	} else if ($type == "guild" && (count($this->vars["Guest"]) > 0) && ($args[2][0] != $this->settings["symbol"] || ($args[2][0] == $this->settings["symbol"] && $this->settings["guest_relay_commands"] == 1))) {
-		//Relay the message to the private channel
-        $msg = "<end>{$this->settings["guest_color_channel"]}[{$this -> vars["my guild"]}]<end> {$this->settings["guest_color_username"]}".bot::makeLink($sender,$sender,"user")."<end>: {$this->settings["guest_color_guest"]}".$message."<end>";
-        bot::send($msg, 'prv', true);
-	}
+// Check if the private channel relay is enabled
+if ($this->settings["guest_relay"] != 1) {
+	return;
 }
+
+// Check that it's not a command or if it is a command, check that guest_relay_commands is not disabled
+if ($args[2][0] == $this->settings["symbol"] && $this->settings["guest_relay_commands"] != 1) {
+	return;
+}
+
+if ($type == "priv") {
+	//Relay the message to the guild channel
+	$msg = "<end>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}".bot::makeLink($sender,$sender,"user")."<end>: {$this->settings["guest_color_guild"]}{$message}<end>";
+	bot::send($msg, 'org', true);
+} else if ($type == "guild" && count($this->vars["Guest"]) > 0) {
+	//Relay the message to the private channel if there is at least 1 char in private channel
+	if ($sender == '-1') {
+		// for relaying alien attack messages where $sender == -1
+		$msg = "<end>{$this->settings["guest_color_channel"]}[{$this -> vars["my guild"]}]<end> {$this->settings["guest_color_guest"]}{$message}<end>";
+	} else {
+		$msg = "<end>{$this->settings["guest_color_channel"]}[{$this -> vars["my guild"]}]<end> {$this->settings["guest_color_username"]}".bot::makeLink($sender,$sender,"user")."<end>: {$this->settings["guest_color_guest"]}{$message}<end>";
+	}
+	bot::send($msg, 'prv', true);
+}
+
 ?>

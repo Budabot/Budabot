@@ -52,7 +52,7 @@ class Logger {
 
 		if ($channel == "Buddy") {
 			$line = "$timestamp INFO  [$channel] $sender $message";
-		} else if ($sender == -1) {
+		} else if ($sender == '-1') {
 			$line = "$timestamp INFO  [$channel] $message";
 		} else {
 			$line = "$timestamp INFO  [$channel] $sender: $message";
