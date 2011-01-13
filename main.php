@@ -68,7 +68,7 @@ if (isWindows()) {
 //Load Required Files
 $config_file = $argv[1];
 if (!file_exists($config_file)) {
-	copy('config.template.php', $config_file) or die("could not create config file: $config_file");
+	copy('config.template.php', $config_file) or Logger::log('ERROR', 'StartUp', "could not create config file: {$config_file}");
 }
 require_once $config_file;
 require_once "./core/Logger.class.php";
@@ -88,6 +88,8 @@ if ($vars['login']		== "" ||
 
 	include "./core/SETUP/setup.php";
 }
+
+Logger::log('INFO', 'StartUp', "Starting {$vars['name']}...");
 
 //Bring the ignore list to a bot readable format
 $ignore = explode(";", $settings["Ignore"]);
@@ -109,16 +111,12 @@ unset($vars['password']);
 // Create new objects
 $db = new db($settings["DB Type"], $settings["DB Name"], $settings["DB Host"], $settings["DB username"], $settings["DB password"]);
 if ($db->errorCode != 0) {
-	echo "Error in creating Database Object\n";
-	echo "ErrorMsg: $db->errorInfo";
+	Logger::log('ERROR', 'StartUp', "Error in creating Database Object: {$db->errorInfo}");
 	sleep(5);
 	die();
 }
 
 $chatBot = new bot($vars, $settings);
-if (!$chatBot) {
-	die("No Chatbot.....");
-}
 
 /////////////////////////////////////////////
 // log on aoChat, msnChat                  //

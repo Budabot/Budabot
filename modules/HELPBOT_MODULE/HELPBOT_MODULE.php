@@ -3,9 +3,9 @@
 	require_once 'trickle_functions.php';
 
 	$MODULE_NAME = "HELPBOT_MODULE";
-	
+
 	bot::event($MODULE_NAME, "setup", "setup.php");
-	
+
 	bot::loadSQLFile($MODULE_NAME, "dyna");
 	bot::loadSQLFile($MODULE_NAME, "research");
 	bot::loadSQLFile($MODULE_NAME, "trickle");
@@ -39,7 +39,7 @@
 	bot::command("", "$MODULE_NAME/roll.php", "flip", "all", "Flip a coin");
 	bot::command("", "$MODULE_NAME/roll.php", "roll", "all", "Roll a random number");
 	bot::command("", "$MODULE_NAME/roll.php", "verify", "all", "Verifies a flip/roll");
-	
+
 	// Max XP calculator
 	bot::command("", "$MODULE_NAME/cap_xp.php", "capsk", "all", "Max SK Calculator");
 	bot::command("", "$MODULE_NAME/cap_xp.php", "capxp", "all", "Max XP Calculator");

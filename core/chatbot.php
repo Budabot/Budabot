@@ -95,7 +95,7 @@ class bot extends AOChat{
 		}
 
 		// Load the Core Modules -- SETINGS must be first in case the other modules have settings
-		Logger::log('debug', 'Core', ":::::::CORE MODULES::::::::");
+		Logger::log('INFO', 'StartUp', "Loading CORE modules...");
 		
 		Logger::log('debug', 'Core', "MODULE_NAME:(SETTINGS.php)");
 		include "./core/SETTINGS/SETTINGS.php";
@@ -127,7 +127,7 @@ class bot extends AOChat{
 		$curMod = "";
 
 		// Load Plugin Modules
-		Logger::log('debug', 'Core', ":::::::USER MODULES::::::::");
+		Logger::log('INFO', 'StartUp', "Loading USER modules...");
 
 		//Start Transaction
 		$db->beginTransaction();
@@ -164,8 +164,6 @@ class bot extends AOChat{
 ** Name: connect
 ** Connect to AO chat servers.
 */	function connectAO($login, $password){
-		echo "\n\n";
-
 		// Choose Server
 		if($this->vars["dimension"] == 1) {
 			$server = "chat.d1.funcom.com";
@@ -180,40 +178,40 @@ class bot extends AOChat{
 			$server = "chat.dt.funcom.com";
 			$port = 7109;
 		} else {
-			echo "No valid Server to connect with! Available dimensions are 1, 2, 3 and 4.\n";
+			Logger::log('ERROR', 'StartUp', "No valid Server to connect with! Available dimensions are 1, 2, 3 and 4.");
 		  	sleep(10);
 		  	die();
 		}
 
 		// Begin the login process
-		echo "Connecting to AO Server...($server)\n";
+		Logger::log('INFO', 'StartUp', "Connecting to AO Server...($server)");
 		AOChat::connect($server, $port);
 		sleep(2);
 		if($this->state != "auth") {
-			echo "Connection failed! Please check your Internet connection and firewall.\n";
+			Logger::log('ERROR', 'StartUp', "Connection failed! Please check your Internet connection and firewall.");
 			sleep(10);
 			die();
 		}
 
-		echo "Authenticate login data...\n";
+		Logger::log('INFO', 'StartUp', "Authenticate login data...");
 		AOChat::authenticate($login, $password);
 		sleep(2);
 		if($this->state != "login") {
-			echo "Authentication failed! Please check your username and password.\n";
+			Logger::log('ERROR', 'StartUp', "Authentication failed! Please check your username and password.");
 			sleep(10);
 			die();
 		}
 
-		echo "Logging in {$this->vars["name"]}...\n";
+		Logger::log('INFO', 'StartUp', "Logging in {$this->vars["name"]}...");
 		AOChat::login($this->vars["name"]);
 		sleep(2);
 		if($this->state != "ok") {
-			echo "Logging in of {$this->vars["name"]} failed! Please check the character name and dimension.\n";
+			Logger::log('ERROR', 'StartUp', "Logging in of {$this->vars["name"]} failed! Please check the character name and dimension.");
 			sleep(10);
 			die();
 		}
 
-		echo "All Systems ready....\n\n\n";
+		Logger::log('INFO', 'StartUp', "All Systems ready!");
 		sleep(2);
 
 		// Set cron timers
@@ -570,7 +568,7 @@ class bot extends AOChat{
 		$db = db::get_instance();
 
 		if (!bot::processCommandArgs($type, $admin)) {
-			echo "invalid args for command '$command'!!\n";
+			Logger::log('ERROR', 'Core', "invalid args for command '$command'!!");
 			return;
 		}
 
@@ -606,7 +604,7 @@ class bot extends AOChat{
 		if (($actual_filename = bot::verifyFilename($filename)) != '') {
     		$filename = $actual_filename;
 		} else {
-			echo "Error in registering the File $filename for command $command. The file doesn't exists!\n";
+			Logger::log('ERROR', 'Core', "Error in registering the File $filename for command $command. The file doesn't exists!");
 			return;
 		}
 
@@ -627,7 +625,7 @@ class bot extends AOChat{
 			} else if($admin == "admin") {
 				$admin = 4;
 			} else if($admin != "all" && $admin != "guild" && $admin != "guildadmin") {
-				echo "Error in registrating the command $command for channel $type. Reason Unknown Admintype: $admin. Admintype is set to all now.\n";
+				Logger::log('ERROR', 'Core', "Error in registrating the command $command for channel $type. Reason Unknown Admintype: $admin. Admintype is set to all now.");
 				$admin = "all";
 			}
 		}
@@ -691,7 +689,7 @@ class bot extends AOChat{
 		if (count($admin) == 1) {
 			$admin = array_fill(0, count($type), $admin[0]);
 		} else if (count($admin) != count($type)) {
-			echo "ERROR! the number of type arguments does not equal the number of admin arguments for command/subcommand registration!";
+			Logger::log('ERROR', 'Core', "ERROR! the number of type arguments does not equal the number of admin arguments for command/subcommand registration!");
 			return false;
 		}
 		return true;
@@ -705,7 +703,7 @@ class bot extends AOChat{
 		global $curMod;
 
 		if (!bot::processCommandArgs($type, $admin)) {
-			echo "invalid args for subcommand '$command'!!\n";
+			Logger::log('ERROR', 'Core', "invalid args for subcommand '$command'!!");
 			return;
 		}
 
@@ -720,7 +718,7 @@ class bot extends AOChat{
 		if (($actual_filename = bot::verifyFilename($filename)) != '') {
 			$filename = $actual_filename;
 		} else {
-			echo "Error in registering the file $filename for Subcommand $command. The file doesn't exists!\n";
+			Logger::log('ERROR', 'Core', "Error in registering the file $filename for Subcommand $command. The file doesn't exists!");
 			return;
 		}
 
@@ -742,7 +740,7 @@ class bot extends AOChat{
 				} else if ($admin[$i] == "admin") {
 					$admin[$i] = 4;
 				} else if ($admin[$i] != "all" && $admin[$i] != "guild" && $admin[$i] != "guildadmin") {
-					echo "Error in registrating the command $command for channel {$type[$i]}. Reason Unknown Admintype: {$admin[$i]}. Admintype is set to all now.\n";
+					Logger::log('ERROR', 'Core', "Error in registrating the command $command for channel {$type[$i]}. Reason Unknown Admintype: {$admin[$i]}. Admintype is set to all now.");
 					$admin[$i] = "all";
 				}
 			}
@@ -905,7 +903,7 @@ class bot extends AOChat{
 		if (($actual_filename = bot::verifyFilename($filename)) != '') {
     		$filename = $actual_filename;
 		} else {
-			echo "Error in unregistering the File $filename for Event $type. The file doesn't exists!\n";
+			Logger::log('ERROR', 'Core', "Error in unregistering the File $filename for Event $type. The file doesn't exists!");
 			return;
 		}
 
@@ -1063,20 +1061,20 @@ class bot extends AOChat{
 		$group = strtolower($group);
 		//Check if the module is correct
 		if ($module == "none") {
-			echo "Error in creating group $group. You need to specify a module for the group.\n";
+			Logger::log('ERROR', 'Core', "Error in creating group $group. You need to specify a module for the group.");
 			return;
 		}
 		//Check if the group already exists
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `grp` = '$group'");
 		if ($db->numrows() != 0) {
-			echo "Error in creating group $group. This group already exists.\n";
+			Logger::log('ERROR', 'Core', "Error in creating group $group. This group already exists.");
 			return;
 		}
     	$numargs = func_num_args();
     	$arg_list = func_get_args();
 		//Check if enough commands are given for the group
 		if ($numargs < 5) {
-			echo "Not enough commands to build group $group(must be at least 2commands)";
+			Logger::log('ERROR', 'Core', "Not enough commands to build group $group(must be at least 2commands)");
 			return;
 		}
 		//Go through the arg list and assign it to the group
@@ -1085,7 +1083,7 @@ class bot extends AOChat{
 		  	if ($db->numrows() != 0) {
 			    $db->exec("UPDATE cmdcfg_<myname> SET `grp` = '$group' WHERE `cmd` = '".$arg_list[$i]."' AND `module` = '$curMod'");
 			} else {
-			  	echo "Error in creating group $group for module $curMod. Command ".$arg_list[$i]." doesn't exists.\n";
+			  	Logger::log('ERROR', 'Core', "Error in creating group $group for module $curMod. Command ".$arg_list[$i]." doesn't exists.");
 			}
 		}
 	  	$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `cmdevent`, `verify`, `description`) VALUES ('none', '$group', 'group', '1', '$description')");
@@ -1103,7 +1101,7 @@ class bot extends AOChat{
 		if ($help != '' && ($actual_filename = bot::verifyFilename($help)) != '') {
     		$filename = $actual_filename;
 		} else if ($help != "") {
-			echo "Error in registering the File $filename for Setting $name. The file doesn't exists!\n";
+			Logger::log('ERROR', 'Core', "Error in registering the File $filename for Setting $name. The file doesn't exists!");
 			return;
 		}
 		
@@ -1169,7 +1167,7 @@ class bot extends AOChat{
 			} else if ($admin == "admin") {
 				$admin = 4;
 			} else if($admin != "all" && $admin != "guild" && $admin != "guildadmin") {
-				echo "Error in registrating the command $command for channel '$type'. Unknown Admin type: '$admin'. Admin type is set to 'all'.\n";
+				Logger::log('ERROR', 'Core', "Error in registrating the command $command for channel '$type'. Unknown Admin type: '$admin'. Admin type is set to 'all'.");
 				$admin = "all";
 			}
 		}
@@ -1181,7 +1179,7 @@ class bot extends AOChat{
 	    		$this->helpfiles[$module][$command]["status"] = "enabled";
 			}
 		} else {
-			echo "Error in registering the File $filename for Help command $command. The file doesn't exist!\n";
+			Logger::log('ERROR', 'Core', "Error in registering the File $filename for Help command $command. The file doesn't exist!");
 			return;
 		}
 
@@ -1260,7 +1258,6 @@ class bot extends AOChat{
 				if ($channel == $this->vars['name']) {
 					$type = "joinPriv";
 					
-					// Echo
 					Logger::log_chat("Priv Group", -1, "$sender joined the channel.");
 
 					// Remove sender if they are /ignored or /banned or if spam filter is blocking them
@@ -1298,7 +1295,6 @@ class bot extends AOChat{
 				if ($channel == $this->vars['name']) {
 					$type = "leavePriv";
 				
-					// Echo
 					Logger::log_chat("Priv Group", -1, "$sender left the channel.");
 
 					// Remove from Chatlist array.
@@ -1337,7 +1333,6 @@ class bot extends AOChat{
 				if ($status == 0) {
 					$type = "logOff"; // Set message type
 					
-					// Echo
 					Logger::log('debug', "Buddy", "$sender logged off");
 
 					// Check files, for all 'player logged off events'
@@ -1353,7 +1348,6 @@ class bot extends AOChat{
 				} else if ($status == 1) {
 					$type = "logOn"; // Set Message Type
 					
-					// Echo
 					Logger::log('info', "Buddy", "$sender logged on");
 
 					// Check files, for all 'player logged on events'.
@@ -1382,7 +1376,6 @@ class bot extends AOChat{
 
 				$message = html_entity_decode($message, ENT_QUOTES);
 
-				// Echo
 				Logger::log_chat("Inc. Msg.", $sender, $message);
 
 				// AFK/bot check
@@ -1460,7 +1453,6 @@ class bot extends AOChat{
 
 					$type = "priv";
 
-					// Echo
 					Logger::log_chat("Priv Group", $sender, $message);
 					
 					// Events
@@ -1584,7 +1576,6 @@ class bot extends AOChat{
 				$uid = $args[0];
 				$sender = $this->lookup_user($uid);
 
-				// Echo
 				Logger::log_chat("Priv Channel Invitation", -1, "$sender channel invited.");
 
 				if ($this->extJoinPrivRequest != NULL) {
@@ -1744,7 +1735,7 @@ class bot extends AOChat{
 		if ($arr[2] == strtolower($arr[2])) {
 			return true;
 		} else {
-			echo "Warning: $filename does not match the nameconvention(All php files needs to be in lowercases except loading files)!\n";
+			Logger::log('ERROR', 'Core', "Warning: $filename does not match the nameconvention(All php files needs to be in lowercases except loading files)!");
 			return false;
 		}
 	}
@@ -1760,7 +1751,7 @@ class bot extends AOChat{
 		
 		// only letters, numbers, underscores are allowed
 		if (!preg_match('/^[a-z0-9_]+$/', $name)) {
-			echo "Invalid SQL file name: '$name' for module: '$module'!  Only numbers, letters, and underscores permitted!\n";
+			Logger::log('ERROR', 'Core', "Invalid SQL file name: '$name' for module: '$module'!  Only numbers, letters, and underscores permitted!");
 			return;
 		}
 		
@@ -1802,16 +1793,8 @@ class bot extends AOChat{
 		}
 		
 		if ($file === false) {
-			echo "No SQL file found with name '$name'!\n";
+			Logger::log('ERROR', 'Core', "No SQL file found with name '$name'!");
 		} else if ($forceUpdate || compareVersionNumbers($maxFileVersion, $currentVersion) > 0) {
-			// if the file had a version, tell them the start and end version
-			// otherwise, just tell them we're updating the database
-			if ($maxFileVersion != 0) {
-				echo "Updating '$name' database from '$currentVersion' to '$maxFileVersion'...";
-			} else {
-				echo "Updating '$name' database...";
-			}
-
 			$fileArray = file("$dir/$file");
 			//$db->beginTransaction();
 			forEach ($fileArray as $num => $line) {
@@ -1822,13 +1805,18 @@ class bot extends AOChat{
 				}
 			}
 			//$db->Commit();
-			echo "Finished!\n";
 		
 			if (!bot::savesetting($settingName, $maxFileVersion)) {
 				bot::addsetting($module, $settingName, $settingName, 'noedit', $maxFileVersion);
 			}
+			
+			if ($maxFileVersion != 0) {
+				Logger::log('DEBUG', 'Core', "Updated '$name' database from '$currentVersion' to '$maxFileVersion'");
+			} else {
+				Logger::log('DEBUG', 'Core', "Updated '$name' database");
+			}
 		} else {
-			echo "Updating '$name' database...already up to date! version: '$currentVersion'\n";
+			Logger::log('DEBUG', 'Core',  "'$name' database already up to date! version: '$currentVersion'");
 		}
 	}
 }

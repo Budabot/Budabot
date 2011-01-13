@@ -7,7 +7,7 @@
 
 	//Check macros
 	bot::command("", "$MODULE_NAME/check.php", "check", "rl", "Checks who of the raidgroup is in the area");
-	
+
 	//Topic set/show
 	bot::event($MODULE_NAME, "joinPriv", "topic.php", "topic", "Show Topic when someone joins PrivChat");
 	bot::event($MODULE_NAME, "logOn", "topic_logon.php", "none", "Show Topic on logon of members");
