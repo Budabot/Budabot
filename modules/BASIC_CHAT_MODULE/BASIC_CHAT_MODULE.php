@@ -13,7 +13,7 @@
 	bot::event($MODULE_NAME, "logOn", "topic_logon.php", "none", "Show Topic on logon of members");
 	bot::command("", "$MODULE_NAME/topic.php", "topic", "all", "Show Topic");
 	bot::subcommand("", "$MODULE_NAME/topic.php", "topic (.+)", "leader", "topic", "Change Topic");
-	bot::addsetting($MODULE_NAME, "topic", "Topic for Priv Channel", "noedit", "");	
+	bot::addsetting($MODULE_NAME, "topic", "Topic for Priv Channel", "noedit", "");
 	bot::addsetting($MODULE_NAME, "topic_setby", "no", "hide", "none");
 	bot::addsetting($MODULE_NAME, "topic_time", "no", "hide", time());
 
