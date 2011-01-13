@@ -47,7 +47,7 @@ if (!function_exists("save_setting_to_db")) {
 	}
 }
 
-save_setting_to_db('default module status', $this->settings["default module status"], 'ON;OFF', '1;0', 'Default Status for new Modules', 'SETTINGS/module_status_help.txt');
+save_setting_to_db('default_module_status', $this->settings["default_module_status"], 'ON;OFF', '1;0', 'Default Status for new Modules', 'SETTINGS/module_status_help.txt');
 save_setting_to_db('max_blob_size', $this->settings["max_blob_size"], 'number', null, 'Max chars for a window', 'SETTINGS/max_blob_size_help.txt');
 
 //Upload Settings from the db that are set by modules

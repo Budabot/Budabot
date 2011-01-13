@@ -58,7 +58,7 @@ $vars['cachefolder'] = "./cache/";
 // Default Status for modules
 // 0 = Modules are disabled by default
 // 1 = Modules are enabled by default
-$settings['default module status'] = 0;
+$settings['default_module_status'] = 0;
 
 // Maximum chars for one window(blob) in bytes
 $settings['max_blob_size'] = 7500;

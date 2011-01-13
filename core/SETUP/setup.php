@@ -285,14 +285,14 @@ do {
 	echo "             \n\n\n\n\n\n\n";
 
 	$msg = "Should all modules be enabled ? (yes - Recommended/no): \n";
-	$settings["default module status"] = strtolower(read_input($msg));
-} while ($settings["default module status"] != "yes" && $settings["default module status"] != "no");
+	$settings["default_module_status"] = strtolower(read_input($msg));
+} while ($settings["default_module_status"] != "yes" && $settings["default_module_status"] != "no");
 
-if ($settings["default module status"] == "yes") {
-	$settings["default module status"] = 1;
+if ($settings["default_module_status"] == "yes") {
+	$settings["default_module_status"] = 1;
 }
-if ($settings["default module status"] == "no") {
-	$settings["default module status"] = 0;
+if ($settings["default_module_status"] == "no") {
+	$settings["default_module_status"] = 0;
 }
 	
 echo "         \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
