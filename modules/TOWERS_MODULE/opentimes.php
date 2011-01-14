@@ -1,12 +1,8 @@
 <?php
 
-if (preg_match("/^opentimes (\\d+) (\\d+)$/i", $message, $arr)) {
+if (preg_match("/^opentimes$/i", $message, $arr)) {
 
-	$lowql = $arr[1];
-	$highql = $arr[2];
-
-	$title = "Scouted Clan bases with CT QL {$lowql}-{$highql}";
-	$side_sql = "AND (s.faction = 'Clan')";
+	$title = "Scouted Bases";
 	
 	$sql = "
 		SELECT
@@ -15,9 +11,6 @@ if (preg_match("/^opentimes (\\d+) (\\d+)$/i", $message, $arr)) {
 			tower_site t
 			JOIN scout_info s ON (t.playfield_id = s.playfield_id AND s.site_number = t.site_number)
 			JOIN playfields p ON (t.playfield_id = p.id)
-		WHERE
-			(s.ct_ql BETWEEN $lowql AND $highql)
-			$side_sql
 		ORDER BY
 			close_time";
 	$db->query($sql);
