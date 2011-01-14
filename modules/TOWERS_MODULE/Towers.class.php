@@ -188,7 +188,7 @@ class Towers {
 		return $db->exec($sql);
 	}
 	
-	public static function scout_site($playfield_id, $site_number, $close_time, $ct_ql, $faction, $org_name, $scouted_by) {
+	public static function add_scout_site($playfield_id, $site_number, $close_time, $ct_ql, $faction, $org_name, $scouted_by) {
 		$db = db::get_instance();
 		
 		$org_name = str_replace("'", "''", $org_name);
@@ -214,7 +214,15 @@ class Towers {
 				{$close_time}
 			)";
 
-		$db->exec($sql);
+		return $db->exec($sql);
+	}
+	
+	public static function rem_scout_site($playfield_id, $site_number) {
+		$db = db::get_instance();
+		
+		$sql = "DELETE FROM scout_info WHERE `playfield_id` = {$playfield_id} AND `site_number` = {$site_number}";
+
+		return $db->exec($sql);
 	}
 	
 	public static function check_org_name($org_name) {

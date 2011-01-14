@@ -66,7 +66,7 @@ if (preg_match("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[
 		$check_blob = "<header>:::::: Scouting problems <end>\n\n" . $check_blob . "Please correct these errors, or, if you are sure the values you entered are correct, use !forcescout to bypass these checks";
 		$msg = $this->makeLink('Scouting problems', $check_blob, 'blob');
 	} else {
-		Towers::scout_site($playfield->id, $site_number, $closing_time_seconds, $ct_ql, $faction, $org_name, $sender);
+		Towers::add_scout_site($playfield->id, $site_number, $closing_time_seconds, $ct_ql, $faction, $org_name, $sender);
 		$msg = "Tower site has been updated successfully.";
 	}
 	bot::send($msg, $sendto);
