@@ -64,28 +64,6 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 	}
 	
 	bot::send($msg, $sendto);
-} else if (preg_match("/^lc org (.+)$/i", $message, $arr)) {
-	$org = $arr[1];
-	
-	$org = str_replace("'", "''", $org);
-	$sql = "SELECT * FROM tower_site t1
-		JOIN playfields p ON (t1.playfield_id = p.id)
-		WHERE s.org_name LIKE '$org'";
-
-	$db->query($sql);
-	$numrows = $db->numrows();
-	while (($row = $db->fObject()) != false) {
-		$gas_level = getGasLevel($row->close_time);
-		$blob .= formatSiteInfo($row) . "\n\n";
-	}
-	
-	if ($numrows > 0) {
-		$msg = bot::makeLink("Bases belonging to $org", $blob, 'blob');
-	} else {
-		$msg = "Could not find any sites for org '$org'";
-	}
-	
-	bot::send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

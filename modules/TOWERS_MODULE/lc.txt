@@ -7,7 +7,3 @@
 <highlight>To see a info about a specific site<end>
 <tab><symbol>lc 'playfield' 'site_number'
 <green><tab><symbol>lc GTC 3<end>
-
-<highlight>To see a info about sites belonging to a specific org<end>
-<tab><symbol>lc org 'org_name'
-<green><tab><symbol>lc org Devil Inside<end>
