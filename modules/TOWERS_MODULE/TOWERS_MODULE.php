@@ -8,11 +8,11 @@
 	bot::loadSQLFile($MODULE_NAME, "scout_info");
 	bot::loadSQLFile($MODULE_NAME, "tower_site");
 
-	bot::command("", "$MODULE_NAME/scout.php", "forcescout", "all", "Adds tower info to watch list (bypasses some of the checks)");
-	bot::command("", "$MODULE_NAME/scout.php", "scout", "all", "Adds tower info to watch list");
-	bot::command("", "$MODULE_NAME/remscout.php", "remscout", "all", "Removes tower info to watch list");
+	bot::command("", "$MODULE_NAME/scout.php", "forcescout", "guild", "Adds tower info to watch list (bypasses some of the checks)");
+	bot::command("", "$MODULE_NAME/scout.php", "scout", "guild", "Adds tower info to watch list");
+	bot::command("", "$MODULE_NAME/remscout.php", "remscout", "guild", "Removes tower info to watch list");
 
-	bot::command("", "$MODULE_NAME/opentimes.php", "opentimes", "all", "Shows status of towers");
+	bot::command("", "$MODULE_NAME/opentimes.php", "opentimes", "guild", "Shows status of towers");
 	bot::command("", "$MODULE_NAME/lc.php", "lc", "all", "Shows status of towers");
 
 	bot::command("", "$MODULE_NAME/attacks.php", "attacks", "all", "Shows the last Tower Attack messages");
