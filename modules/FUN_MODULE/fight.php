@@ -1,7 +1,7 @@
 <?php
    /*
    ** Author: Derroylo (RK2)
-   ** Description: Let 2player fight against each other
+   ** Description: Let 2 players fight against each other
    ** Version: 1.0
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
@@ -77,4 +77,5 @@ if (preg_match("/^fight (.+) vs (.+)$/i", $message, $arr) || preg_match("/^fight
 } else {
 	$syntax_error = true;
 }
+
 ?>
