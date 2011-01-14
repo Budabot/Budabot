@@ -11,5 +11,5 @@
 	bot::command("", "$MODULE_NAME/info.php", "lag", "all", "Alias for !info lag");
 	bot::command("", "$MODULE_NAME/info.php", "nd", "all", "Alias for !info nd");
 	bot::command("", "$MODULE_NAME/info.php", "stats", "all", "Alias for !info stats");
-
+	bot::command("", "$MODULE_NAME/info.php", "buffs", "all", "Alias for !info buffs");
 ?>
