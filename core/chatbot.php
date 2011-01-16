@@ -44,9 +44,7 @@ class bot extends AOChat{
 		parent::__construct("callback");
 
 		$db = db::get_instance();
-		global $curMod;
 
-		$curMod = "Basic Settings";
 		$this->settings = $settings;
 		$this->vars = $vars;
         $this->vars["name"] = ucfirst(strtolower($this->vars["name"]));
@@ -59,106 +57,9 @@ class bot extends AOChat{
 		$db->exec("CREATE TABLE IF NOT EXISTS settings_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `mode` VARCHAR(10), `setting` VARCHAR(50) Default '0', `options` VARCHAR(255) Default '0', `intoptions` VARCHAR(50) DEFAULT '0', `description` VARCHAR(50), `source` VARCHAR(5), `admin` VARCHAR(25), `help` VARCHAR(60))");
 		$db->exec("CREATE TABLE IF NOT EXISTS hlpcfg_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `cat` VARCHAR(50), `description` VARCHAR(50), `admin` VARCHAR(10), `verify` INT Default '0')");
 
-		//Prepare command/event settings table
-		$db->exec("UPDATE cmdcfg_<myname> SET `verify` = 0");
-		$db->exec("UPDATE hlpcfg_<myname> SET `verify` = 0");
-		$db->exec("UPDATE cmdcfg_<myname> SET `status` = 1 WHERE `cmdevent` = 'event' AND `type` = 'setup'");
-		$db->exec("UPDATE cmdcfg_<myname> SET `grp` = 'none'");
-		$db->exec("DELETE FROM cmdcfg_<myname> WHERE `module` = 'none'");
-
-		//To reduce query's save the current commands/events in an array
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd'");
-		while ($row = $db->fObject()) {
-		  	$this->existing_commands[$row->type][$row->cmd] = true;
-		}
-
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd'");
-		while ($row = $db->fObject()) {
-		  	$this->existing_subcmds[$row->type][$row->cmd] = true;
-		}
-
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'event'");
-		while ($row = $db->fObject()) {
-			if (bot::verifyNameConvention($row->file)) {
-			  	$this->existing_events[$row->type][$row->file] = true;
-			}
-		}
-
-		$db->query("SELECT * FROM hlpcfg_<myname>");
-		while ($row = $db->fObject()) {
-		  	$this->existing_helps[$row->name] = true;
-		}
-
-		$db->query("SELECT * FROM settings_<myname>");
-		while ($row = $db->fObject()) {
-		  	$this->existing_settings[$row->name] = true;
-		}
-
-		// Load the Core Modules -- SETINGS must be first in case the other modules have settings
-		Logger::log('INFO', 'StartUp', "Loading CORE modules...");
-		
-		Logger::log('debug', 'Core', "MODULE_NAME:(SETTINGS.php)");
-		include "./core/SETTINGS/SETTINGS.php";
-		
-		Logger::log('debug', 'Core', "MODULE_NAME:(SYSTEM.php)");
-		include "./core/SYSTEM/SYSTEM.php";
-		
-		Logger::log('debug', 'Core', "MODULE_NAME:(ADMIN.php)");
-		include "./core/ADMIN/ADMIN.php";
-		
-		Logger::log('debug', 'Core', "MODULE_NAME:(BAN.php)");
-		include "./core/BAN/BAN.php";
-		
-		Logger::log('debug', 'Core', "MODULE_NAME:(HELP.php)");
-		include "./core/HELP/HELP.php";
-		
-		Logger::log('debug', 'Core', "MODULE_NAME:(CONFIG.php)");
-		include "./core/CONFIG/CONFIG.php";
-		
-		Logger::log('debug', 'Core', "MODULE_NAME:(BASIC_CONNECTED_EVENTS.php)\n");
-		include "./core/BASIC_CONNECTED_EVENTS/BASIC_CONNECTED_EVENTS.php";
-		
-		Logger::log('debug', 'Core', "MODULE_NAME:(PRIV_TELL_LIMIT.php)\n");
-		include "./core/PRIV_TELL_LIMIT/PRIV_TELL_LIMIT.php";
-		
-		Logger::log('debug', 'Core', "MODULE_NAME:(PLAYER_LOOKUP.php)\n");
-		include "./core/PLAYER_LOOKUP/PLAYER_LOOKUP.php";
-
-		$curMod = "";
-
-		// Load Plugin Modules
-		Logger::log('INFO', 'StartUp', "Loading USER modules...");
-
-		//Start Transaction
-		$db->beginTransaction();
-		//Load modules
-		$this->loadModules();
-		//Submit the Transactions
-		$db->Commit();
-
-		//Load active commands
-		Logger::log('debug', 'Core', "Setting up commands");
-		$this->loadCommands();
-
-		//Load active subcommands
-		Logger::log('debug', 'Core', "Setting up subcommands");
-		$this->loadSubcommands();
-
-		//Load active events
-		Logger::log('debug', 'Core', "Setting up events");
-		$this->loadEvents();
-
-		//kill unused vars
-		unset($this->existing_commands);
-		unset($this->existing_events);
-		unset($this->existing_subcmds);
-		unset($this->existing_settings);
-		unset($this->existing_helps);
-
-		//Delete old entrys in the DB
-		$db->exec("DELETE FROM hlpcfg_<myname> WHERE `verify` = 0");
+		//load core and user modules
+		$this->init();
 	}
-
 
 /*===============================
 ** Name: connect
@@ -233,6 +134,136 @@ class bot extends AOChat{
 			return $this->buddyList[$uid];
 		}
     }
+	
+	function init() {
+		Logger::log('DEBUG', 'Core', 'Initializing bot');
+		
+		$db = db::get_instance();
+		
+		global $curMod;
+		$curMod = "";
+	
+		//Delete old vars in case they exist
+		unset($this->subcommands);
+		unset($this->tellCmds);
+		unset($this->privCmds);
+		unset($this->guildCmds);
+		unset($this->towers);
+		unset($this->orgmsg);
+		unset($this->privMsgs);
+		unset($this->privChat);
+		unset($this->guildChat);
+		unset($this->joinPriv);
+		unset($this->leavePriv);
+		unset($this->logOn);
+		unset($this->logOff);
+		unset($this->_2sec);
+		unset($this->_1min);
+		unset($this->_10mins);
+		unset($this->_15mins);
+		unset($this->_30mins);
+		unset($this->_1hour);
+		unset($this->_24hrs);
+		unset($this->_connect);
+		unset($this->helpfiles);
+		
+		//Prepare command/event settings table
+		$db->exec("UPDATE cmdcfg_<myname> SET `verify` = 0");
+		$db->exec("UPDATE hlpcfg_<myname> SET `verify` = 0");
+		$db->exec("UPDATE cmdcfg_<myname> SET `status` = 1 WHERE `cmdevent` = 'event' AND `type` = 'setup'");
+		$db->exec("UPDATE cmdcfg_<myname> SET `grp` = 'none'");
+		$db->exec("DELETE FROM cmdcfg_<myname> WHERE `module` = 'none'");
+
+		//To reduce querys save the current commands/events in arrays
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd'");
+		while ($row = $db->fObject()) {
+		  	$this->existing_commands[$row->type][$row->cmd] = true;
+		}
+
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd'");
+		while ($row = $db->fObject()) {
+		  	$this->existing_subcmds[$row->type][$row->cmd] = true;
+		}
+
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'event'");
+		while ($row = $db->fObject()) {
+			if (bot::verifyNameConvention($row->file)) {
+			  	$this->existing_events[$row->type][$row->file] = true;
+			}
+		}
+
+		$db->query("SELECT * FROM hlpcfg_<myname>");
+		while ($row = $db->fObject()) {
+		  	$this->existing_helps[$row->name] = true;
+		}
+
+		$db->query("SELECT * FROM settings_<myname>");
+		while ($row = $db->fObject()) {
+		  	$this->existing_settings[$row->name] = true;
+		}
+
+		// Load the Core Modules -- SETINGS must be first in case the other modules have settings
+		Logger::log('INFO', 'Core', "Loading CORE modules...");
+		
+		Logger::log('debug', 'Core', "MODULE_NAME:(SETTINGS.php)");
+		include "./core/SETTINGS/SETTINGS.php";
+		
+		Logger::log('debug', 'Core', "MODULE_NAME:(SYSTEM.php)");
+		include "./core/SYSTEM/SYSTEM.php";
+		
+		Logger::log('debug', 'Core', "MODULE_NAME:(ADMIN.php)");
+		include "./core/ADMIN/ADMIN.php";
+		
+		Logger::log('debug', 'Core', "MODULE_NAME:(BAN.php)");
+		include "./core/BAN/BAN.php";
+		
+		Logger::log('debug', 'Core', "MODULE_NAME:(HELP.php)");
+		include "./core/HELP/HELP.php";
+		
+		Logger::log('debug', 'Core', "MODULE_NAME:(CONFIG.php)");
+		include "./core/CONFIG/CONFIG.php";
+		
+		Logger::log('debug', 'Core', "MODULE_NAME:(BASIC_CONNECTED_EVENTS.php)\n");
+		include "./core/BASIC_CONNECTED_EVENTS/BASIC_CONNECTED_EVENTS.php";
+		
+		Logger::log('debug', 'Core', "MODULE_NAME:(PRIV_TELL_LIMIT.php)\n");
+		include "./core/PRIV_TELL_LIMIT/PRIV_TELL_LIMIT.php";
+		
+		Logger::log('debug', 'Core', "MODULE_NAME:(PLAYER_LOOKUP.php)\n");
+		include "./core/PLAYER_LOOKUP/PLAYER_LOOKUP.php";
+
+		Logger::log('INFO', 'Core', "Loading USER modules...");
+
+		//Start Transaction
+		$db->beginTransaction();
+		//Load modules
+		$this->loadModules();
+		//Submit the Transactions
+		$db->Commit();
+
+		//Load active commands
+		Logger::log('debug', 'Core', "Setting up commands");
+		$this->loadCommands();
+
+		//Load active subcommands
+		Logger::log('debug', 'Core', "Setting up subcommands");
+		$this->loadSubcommands();
+
+		//Load active events
+		Logger::log('debug', 'Core', "Setting up events");
+		$this->loadEvents();
+
+		//remove arrays
+		unset($this->existing_commands);
+		unset($this->existing_events);
+		unset($this->existing_subcmds);
+		unset($this->existing_settings);
+		unset($this->existing_helps);
+
+		//Delete old entrys in the DB
+		$db->exec("DELETE FROM hlpcfg_<myname> WHERE `verify` = 0");
+		$db->exec("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0");
+	}
 
 /*===============================
 ** Name: buddy_online
