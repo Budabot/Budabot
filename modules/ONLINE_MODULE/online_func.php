@@ -7,7 +7,7 @@
  ** Under BudaBot's license.
  */
 
-function online($type, $sender, $sendto, &$bot, $prof = "all") {
+function online($sender, $sendto, &$bot, $prof = "all") {
 	$db = db::get_instance();
 
 	$list = "";
@@ -34,7 +34,7 @@ function online($type, $sender, $sendto, &$bot, $prof = "all") {
 	}
 	$data = $db->fObject("all");
 	// create the list with alts shown
-	createList($data, $sender, $list, $type, $bot, true);
+	createList($data, $sender, $list, $bot, true);
 
 	// Private Channel Part
 	if ($bot->settings["relaydb"]) {
@@ -59,7 +59,7 @@ function online($type, $sender, $sendto, &$bot, $prof = "all") {
 	}
 	$data = $db->fObject("all");
 	// create the list of guests, without showing alts
-	createList($data, $sender, $list, $type, $bot);
+	createList($data, $sender, $list, $bot);
 	$numonline += $numguest;
 
 	$msg .= "{$numonline} member(s) online";
@@ -75,7 +75,7 @@ function online($type, $sender, $sendto, &$bot, $prof = "all") {
 		} else {
 			$list .= "\n\n<highlight><u>$numbbinmembers members in BBIN<end></u>\n";
 		}
-		createList($data, $sender, $list, $type, $bot);
+		createList($data, $sender, $list, $bot);
 		
 		// guests
 		$db->query("SELECT * FROM bbin_chatlist_<myname> WHERE (`guest` = 1) ORDER BY `profession`, `level` DESC");
@@ -86,7 +86,7 @@ function online($type, $sender, $sendto, &$bot, $prof = "all") {
 		} else {
 			$list .= "\n\n<highlight><u>$numbbinguests guests in BBIN<end></u>\n";
 		}
-		createList($data, $sender, $list, $type, $bot);
+		createList($data, $sender, $list, $bot);
 		
 		$numonline += $numbbinguests + $numbbinmembers;
 		
@@ -97,7 +97,7 @@ function online($type, $sender, $sendto, &$bot, $prof = "all") {
 
 }
 
-function createList(&$data, &$sender, &$list, &$type, &$bot, $show_alts = false) {
+function createList(&$data, &$sender, &$list, &$bot, $show_alts = false) {
 	$db = db::get_instance();
 
 	$oldprof = "";

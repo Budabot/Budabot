@@ -31,7 +31,7 @@
 
 if (preg_match("/^online$/i", $message)){
 	$msg = "";
-	list($numonline, $msg, $list) = online($type, $sender, $sendto, $this);
+	list($numonline, $msg, $list) = online($sender, $sendto, $this);
 	if ($numonline != 0) {
 		$blob = bot::makeLink($msg, $list);
 		bot::send($blob, $sendto);
@@ -94,7 +94,7 @@ if (preg_match("/^online$/i", $message)){
 		return;
 	}
 
-	list($numonline, $msg, $list) = online($type, $sender, $sendto, $this);
+	list($numonline, $msg, $list) = online($sender, $sendto, $this);
 	if ($numonline != 0) {
 		$blob = bot::makeLink($msg, $list);
 		bot::send($blob, $sendto);

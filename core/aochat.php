@@ -68,57 +68,57 @@
    * they are mostly the same for same type packets, but maybe it should
    * have been done anyway..  // auno - 2004/mar/26
    */
-  define('AOCP_LOGIN_SEED',		0);
-  define('AOCP_LOGIN_REQUEST',		2);
-  define('AOCP_LOGIN_SELECT',		3);
-  define('AOCP_LOGIN_OK',		5);
-  define('AOCP_LOGIN_ERROR',		6);
-  define('AOCP_LOGIN_CHARLIST',		7);
-  define('AOCP_CLIENT_UNKNOWN',		10);
-  define('AOCP_CLIENT_NAME',		20);
-  define('AOCP_CLIENT_LOOKUP',		21);
-  define('AOCP_MSG_PRIVATE',		30);
-  define('AOCP_MSG_VICINITY',		34);
-  define('AOCP_MSG_VICINITYA',		35);
-  define('AOCP_MSG_SYSTEM',		36);
-  define('AOCP_CHAT_NOTICE',		37);
-  define('AOCP_BUDDY_ADD',		40);
-  define('AOCP_BUDDY_REMOVE',		41);
-  define('AOCP_ONLINE_SET',		42);
-  define('AOCP_PRIVGRP_INVITE',		50);
-  define('AOCP_PRIVGRP_KICK',		51);
-  define('AOCP_PRIVGRP_JOIN',		52);
-  define('AOCP_PRIVGRP_PART',		53);
-  define('AOCP_PRIVGRP_KICKALL',	54);
-  define('AOCP_PRIVGRP_CLIJOIN',	55);
-  define('AOCP_PRIVGRP_CLIPART',	56);
-  define('AOCP_PRIVGRP_MESSAGE',	57);
-  define('AOCP_PRIVGRP_REFUSE',		58);
-  define('AOCP_GROUP_ANNOUNCE',		60);
-  define('AOCP_GROUP_PART',		61);
-  define('AOCP_GROUP_DATA_SET',		64);
-  define('AOCP_GROUP_MESSAGE',		65);
-  define('AOCP_GROUP_CM_SET',		66);
-  define('AOCP_CLIENTMODE_GET',		70);
-  define('AOCP_CLIENTMODE_SET',		71);
-  define('AOCP_PING',			100);
-  define('AOCP_FORWARD',		110);
-  define('AOCP_CC',			120);
-  define('AOCP_ADM_MUX_INFO',		1100);
+  define('AOCP_LOGIN_SEED',               0);
+  define('AOCP_LOGIN_REQUEST',            2);
+  define('AOCP_LOGIN_SELECT',             3);
+  define('AOCP_LOGIN_OK',                 5);
+  define('AOCP_LOGIN_ERROR',              6);
+  define('AOCP_LOGIN_CHARLIST',           7);
+  define('AOCP_CLIENT_UNKNOWN',          10);
+  define('AOCP_CLIENT_NAME',             20);
+  define('AOCP_CLIENT_LOOKUP',           21);
+  define('AOCP_MSG_PRIVATE',             30);
+  define('AOCP_MSG_VICINITY',            34);
+  define('AOCP_MSG_VICINITYA',           35);
+  define('AOCP_MSG_SYSTEM',              36);
+  define('AOCP_CHAT_NOTICE',             37);
+  define('AOCP_BUDDY_ADD',               40);
+  define('AOCP_BUDDY_REMOVE',            41);
+  define('AOCP_ONLINE_SET',              42);
+  define('AOCP_PRIVGRP_INVITE',          50);
+  define('AOCP_PRIVGRP_KICK',            51);
+  define('AOCP_PRIVGRP_JOIN',            52);
+  define('AOCP_PRIVGRP_PART',            53);
+  define('AOCP_PRIVGRP_KICKALL',         54);
+  define('AOCP_PRIVGRP_CLIJOIN',         55);
+  define('AOCP_PRIVGRP_CLIPART',         56);
+  define('AOCP_PRIVGRP_MESSAGE',         57);
+  define('AOCP_PRIVGRP_REFUSE',          58);
+  define('AOCP_GROUP_ANNOUNCE',          60);
+  define('AOCP_GROUP_PART',              61);
+  define('AOCP_GROUP_DATA_SET',          64);
+  define('AOCP_GROUP_MESSAGE',           65);
+  define('AOCP_GROUP_CM_SET',            66);
+  define('AOCP_CLIENTMODE_GET',          70);
+  define('AOCP_CLIENTMODE_SET',          71);
+  define('AOCP_PING',                   100);
+  define('AOCP_FORWARD',                110);
+  define('AOCP_CC',                     120);
+  define('AOCP_ADM_MUX_INFO',          1100);
 
   define('AOCP_GROUP_JOIN',		AOCP_GROUP_ANNOUNCE); /* compat */
 
-  define('AOC_GROUP_NOWRITE',		0x00000002);
-  define('AOC_GROUP_NOASIAN',		0x00000020);
-  define('AOC_GROUP_MUTE',		0x01010000);
-  define('AOC_GROUP_LOG',		0x02020000);
+  define('AOC_GROUP_NOWRITE',     0x00000002);
+  define('AOC_GROUP_NOASIAN',     0x00000020);
+  define('AOC_GROUP_MUTE',        0x01010000);
+  define('AOC_GROUP_LOG',         0x02020000);
 
-  define('AOC_FLOOD_LIMIT',		7);
-  define('AOC_FLOOD_INC',		2);
+  define('AOC_FLOOD_LIMIT',                7);
+  define('AOC_FLOOD_INC',                  2);
 
-  define('AOC_PRIORITY_HIGH',		1000);
-  define('AOC_PRIORITY_MED',		 500);
-  define('AOC_PRIORITY_LOW',		 100);
+  define('AOC_PRIORITY_HIGH',           1000);
+  define('AOC_PRIORITY_MED',             500);
+  define('AOC_PRIORITY_LOW',             100);
 
   define('AOEM_UNKNOWN',                0xFF);
   define('AOEM_ORG_JOIN',               0x10);
