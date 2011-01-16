@@ -55,10 +55,10 @@ if (preg_match("/^raidleader (.+)$/i", $message, $arr)) {
 	if (isset($this->admins[$who]["level"]) && $this->admins[$who]["level"] > 2) {
 		bot::send("<highlight>$who<end> has been demoted to the rank of a Raidleader.", $sendto);
 		bot::send("You have been demoted to the rank of a Raidleader on {$this->vars["name"]}", $who);
-		$db->query("UPDATE admin_<myname> SET `adminlevel` = 2 WHERE `name` = '$who'");
+		$db->exec("UPDATE admin_<myname> SET `adminlevel` = 2 WHERE `name` = '$who'");
 		$this->admins[$who]["level"] = 3;
 	} else {
-		$db->query("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (2, '$who')");
+		$db->exec("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (2, '$who')");
 		$this->admins[$who]["level"] = 2;
 		bot::send("<highlight>$who<end> has been added to the Raidleadergroup", $sendto);
 		bot::send("You got raidleader access to <myname>", $who);

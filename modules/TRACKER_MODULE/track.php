@@ -36,7 +36,7 @@ if (preg_match("/^track$/i", $message)) {
 	  	if($db->numrows() == 0) {
 	  		$msg = "<highlight>$name<end> is not on the track list.";
 	  	} else {
-		    $db->query("DELETE FROM tracked_users_<myname> WHERE `uid` = '$uid'");
+		    $db->exec("DELETE FROM tracked_users_<myname> WHERE `uid` = '$uid'");
 		    $msg = "<highlight>$name<end> has been removed from the track list.";
 			$this->remove_buddy($name, 'tracking');
 		}
@@ -54,7 +54,7 @@ if (preg_match("/^track$/i", $message)) {
 	  	if($db->numrows() != 0) {
 	  		$msg = "<highlight>$name<end> is already on the track list.";
 	  	} else {
-		    $db->query("INSERT INTO tracked_users_<myname> (`name`, `uid`, `added_by`, `added_dt`) VALUES ('$name', $uid, '$sender', " . time() . ")");
+		    $db->exec("INSERT INTO tracked_users_<myname> (`name`, `uid`, `added_by`, `added_dt`) VALUES ('$name', $uid, '$sender', " . time() . ")");
 		    $msg = "<highlight>$name<end> has been added to the track list.";
 	        $this->add_buddy($name, 'tracking');
 		}

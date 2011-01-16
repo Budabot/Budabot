@@ -211,7 +211,7 @@ if (preg_match("/^settings$/i", $message)) {
 		}
 	}
 	if ($new_setting != "") {
-		$db->query("UPDATE settings_<myname> SET `setting` = '".str_replace("'", "''", $new_setting)."' WHERE `name` = '$name_setting'");	  	
+		$db->exec("UPDATE settings_<myname> SET `setting` = '".str_replace("'", "''", $new_setting)."' WHERE `name` = '$name_setting'");	  	
 		$this->settings[$name_setting] = $new_setting;
 		$msg = "Setting successfull saved.";
 		//If the source is the config file renew it

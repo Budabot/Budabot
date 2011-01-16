@@ -40,7 +40,7 @@ if (preg_match("/^news del ([0-9]+)$/i", $message, $arr)) {
     bot::send($msg, $sendto);
 } else if (preg_match("/^news (.+)$/i", $message, $arr)) {
 	$news = str_replace("'", "''", $arr[1]);
-	$db->query("INSERT INTO news (`time`, `name`, `news`) VALUES (".time().", '".$sender."', '$news')"); 
+	$db->exec("INSERT INTO news (`time`, `name`, `news`) VALUES (".time().", '".$sender."', '$news')"); 
 	$msg = "News has been added.";
 
     bot::send($msg, $sendto);

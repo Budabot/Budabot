@@ -70,7 +70,7 @@ if (preg_match("/^kos$/i", $message)) {
 		if($db->numrows() == 1) {
 			$msg = "You have already <highlight>$name<end> on your KOS List.";
 		} else {
-			$db->query("INSERT INTO koslist_<myname> (`time`, `name`, `sender`, `reason`) VALUES (".time().", '".str_replace("'", "''", $name)."', '$sender', '".str_replace("'", "''", $reason)."')");
+			$db->exec("INSERT INTO koslist_<myname> (`time`, `name`, `sender`, `reason`) VALUES (".time().", '".str_replace("'", "''", $name)."', '$sender', '".str_replace("'", "''", $reason)."')");
 			$msg = "You have successfull added <highlight>$name<end> to the KOS List.";
 		}
 	}
@@ -80,12 +80,12 @@ if (preg_match("/^kos$/i", $message)) {
 	$name = ucfirst(strtolower($arr[1]));
 	$db->query("SELECT * FROM koslist_<myname> WHERE `sender` = '$sender' AND `name` = '".str_replace("'", "''", $name)."'");
 	if ($db->numrows() == 1) {
-		$db->query("DELETE FROM koslist_<myname> WHERE `sender` = '$sender' AND `name` = '".str_replace("'", "''", $name)."'");
+		$db->exec("DELETE FROM koslist_<myname> WHERE `sender` = '$sender' AND `name` = '".str_replace("'", "''", $name)."'");
 		$msg = "You have successfull removed <highlight>$name<end> from the KOS List.";
 	} else if ($this->guildmembers[$sender] < $this->vars['guild_admin_level']) {
 		$db->query("SELECT * FROM koslist_<myname> WHERE `name` = '".str_replace("'", "''", $name)."'");
 		if($db->numrows() != 0) {
-			$db->query("DELETE FROM koslist_<myname> WHERE `name` = '$".str_replace("'", "''", $name)."'");
+			$db->exec("DELETE FROM koslist_<myname> WHERE `name` = '$".str_replace("'", "''", $name)."'");
 			$msg = "You have successfull removed <highlight>$name<end> from the KOS List.";
 		} else {
 			$msg = "No one with this name is on the KOS List.";

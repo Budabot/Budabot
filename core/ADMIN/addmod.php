@@ -61,10 +61,10 @@ if (preg_match("/^addmod (.+)$/i", $message, $arr)){
 			bot::send("<highlight>$who<end> has been promoted to the rank of a Moderator.", $sendto);
 			bot::send("You have been promoted to the rank of a Moderator on {$this->vars["name"]}", $who);
 		}
-		$db->query("UPDATE admin_<myname> SET `adminlevel` = 3 WHERE `name` = '$who'");
+		$db->exec("UPDATE admin_<myname> SET `adminlevel` = 3 WHERE `name` = '$who'");
 		$this->admins[$who]["level"] = 3;
 	} else {
-		$db->query("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (3, '$who')");
+		$db->exec("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (3, '$who')");
 		$this->admins[$who]["level"] = 3;
 		bot::send("<highlight>$who<end> has been added to the Moderatorgroup", $sendto);
 		bot::send("You got moderator access to <myname>", $who);

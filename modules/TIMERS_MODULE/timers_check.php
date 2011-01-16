@@ -76,7 +76,7 @@ forEach ($this->vars["Timers"] as $key => $timer) {
 		}
 	
 		unset($this->vars["Timers"][$key]);
-		$db->query("DELETE FROM timers_<myname> WHERE `name` = '" . str_replace("'", "''", $name) . "' AND `owner` = '$owner'");
+		$db->exec("DELETE FROM timers_<myname> WHERE `name` = '" . str_replace("'", "''", $name) . "' AND `owner` = '$owner'");
 	}
 
 	if ('' != $msg) {

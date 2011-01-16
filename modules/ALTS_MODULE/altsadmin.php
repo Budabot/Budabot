@@ -38,7 +38,7 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names))
 			$msg = "Player <highlight>$name_alt<end> is already registered as main from someone.";
 		else
 		{
-			$db->query("INSERT INTO alts (`alt`, `main`) VALUES ('$name_alt', '$name_main')");
+			$db->exec("INSERT INTO alts (`alt`, `main`) VALUES ('$name_alt', '$name_main')");
 			$msg = "<highlight>$name_alt<end> has been registered as an alt of $name_main.";
 		}
 
@@ -129,7 +129,7 @@ elseif (preg_match("/^altsadmin import (.+)/i", $message, $arr))
 		$explodeline = explode(' ', $line);
 		$name_alt = $explodeline[0];
 		$name_main = $explodeline[1];
-		$db->query("INSERT INTO alts (`alt`, `main`) VALUES ('$name_alt', '$name_main')");
+		$db->exec("INSERT INTO alts (`alt`, `main`) VALUES ('$name_alt', '$name_main')");
 		++$altcounter;
 	}
 	$msg = "Succesfully added $altcounter entries into the alts table.";

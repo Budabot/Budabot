@@ -32,7 +32,7 @@
 forEach ($this->banlist as $key => $data){
 	if (isset($this->banlist[$key]["banend"]) && ((time() - $this->banlist[$key]["banend"]) >= 0)) {
 	 	 unset($this->banlist[$key]);
-	 	 $db->query("DELETE FROM banlist_<myname> WHERE name = '$key'");
+	 	 $db->exec("DELETE FROM banlist_<myname> WHERE name = '$key'");
 	}	
 }
 ?>

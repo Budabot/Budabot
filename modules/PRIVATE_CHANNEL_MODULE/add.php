@@ -39,7 +39,7 @@ if (preg_match("/^adduser (.+)$/i", $message, $arr)) {
 		if ($db->numrows() != 0) {
 			$msg = "<highlight>$name<end> is already a member of this bot.";
 		} else {
-			$db->query("INSERT INTO members_<myname> (`name`, `autoinv`) VALUES ('$name', 1)");
+			$db->exec("INSERT INTO members_<myname> (`name`, `autoinv`) VALUES ('$name', 1)");
 			$msg = "<highlight>$name<end> has been added as a member of this bot.";
 		}
 

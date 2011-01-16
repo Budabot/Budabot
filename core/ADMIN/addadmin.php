@@ -60,10 +60,10 @@ if (preg_match("/^addadmin (.+)$/i", $message, $arr)){
 			bot::send("<highlight>$who<end> has been promoted to the rank of a Administrator.", $sendto);
 			bot::send("You have been promoted to the rank of a Administrator on {$this->vars["name"]}", $who);
 		}
-		$db->query("UPDATE admin_<myname> SET `adminlevel` = 4 WHERE `name` = '$who'");
+		$db->exec("UPDATE admin_<myname> SET `adminlevel` = 4 WHERE `name` = '$who'");
 		$this->admins[$who]["level"] = 4;
 	} else {
-		$db->query("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (4, '$who')");
+		$db->exec("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (4, '$who')");
 		$this->admins[$who]["level"] = 4;
 		bot::send("<highlight>$who<end> has been added to the Administratorgroup", $sendto);
 		bot::send("You got Administrator access to <myname>", $who);

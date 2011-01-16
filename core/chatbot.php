@@ -156,7 +156,7 @@ class bot extends AOChat{
 		unset($this->existing_helps);
 
 		//Delete old entrys in the DB
-		$db->query("DELETE FROM hlpcfg_<myname> WHERE `verify` = 0");
+		$db->exec("DELETE FROM hlpcfg_<myname> WHERE `verify` = 0");
 	}
 
 

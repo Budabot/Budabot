@@ -29,7 +29,7 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot)
 		$character = Player::get_by_name($name, $servernum);
 
 		// add user to bbin_chatlist_<myname>
-		$db->query("INSERT INTO bbin_chatlist_<myname> (`name`, `guest`, `ircrelay`) VALUES ('$name', $guest, '$nick')");
+		$db->exec("INSERT INTO bbin_chatlist_<myname> (`name`, `guest`, `ircrelay`) VALUES ('$name', $guest, '$nick')");
 
 		// send notification to channels
 		$msg = "<highlight>$name<end> (<highlight>{$character->level}<end>/<green>{$character->ai_level}<end>, <highlight>{$character->profession}<end>, {$character->faction})";
@@ -60,7 +60,7 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot)
 		$guest = $arr[3];
 
 		// delete user from online table
-		$db->query("DELETE FROM bbin_chatlist_<myname> WHERE (`name` = '$name') AND (`ircrelay` = '$nick')");
+		$db->exec("DELETE FROM bbin_chatlist_<myname> WHERE (`name` = '$name') AND (`ircrelay` = '$nick')");
 
 		// send notification to channels
 		$msg = "";
@@ -84,7 +84,7 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot)
 		// a new bot joined and requested a full online synchronization
 
 		// drop existing data
-		$db->query("DELETE FROM bbin_chatlist_<myname>");
+		$db->exec("DELETE FROM bbin_chatlist_<myname>");
 
 		// send actual online members
 
@@ -125,7 +125,7 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot)
 		// received a synchronization list
 		
 		// delete all buddies from that nick
-		$db->query("DELETE FROM bbin_chatlist_<myname> WHERE `ircrelay` = '$nick'");
+		$db->exec("DELETE FROM bbin_chatlist_<myname> WHERE `ircrelay` = '$nick'");
 		
 		// Format: [BBIN:ONLINELIST:dimension:name,isguest,name,isguest....]
 		$dimension = $arr[1];
@@ -153,7 +153,7 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot)
 			$character = Player::get_by_name($name, $dimension);
 				
 			// add user to bbin_chatlist_<myname>
-			$db->query("INSERT INTO bbin_chatlist_<myname> (`name`, `guest`, `ircrelay`) VALUES ('$name', $isguest, '$nick')");
+			$db->exec("INSERT INTO bbin_chatlist_<myname> (`name`, `guest`, `ircrelay`) VALUES ('$name', $isguest, '$nick')");
 		}
 	}
 	else

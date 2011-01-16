@@ -66,7 +66,7 @@ if (preg_match("/^events$/i", $message, $arr)) {
 			} else {
 				$row->event_attendees .= ",$sender";
 			}
-			$db->query("UPDATE events_<myname>_<dim> SET `event_attendees`='".$row->event_attendees."' WHERE `id` = '$arr[1]'");
+			$db->exec("UPDATE events_<myname>_<dim> SET `event_attendees`='".$row->event_attendees."' WHERE `id` = '$arr[1]'");
 			$msg = "You have been added to the event.";
 		}
 	} else {
@@ -86,7 +86,7 @@ if (preg_match("/^events$/i", $message, $arr)) {
 			}
 			$event = implode(",", $event);
 			$event = substr($event,1);
-			$db->query("UPDATE events_<myname>_<dim> SET `event_attendees`='".$event."' WHERE `id` = '$arr[1]'");
+			$db->exec("UPDATE events_<myname>_<dim> SET `event_attendees`='".$event."' WHERE `id` = '$arr[1]'");
 			$msg = "You have been removed from the event.";
 		} else {
 			bot::send("<highlist>$sender<end> is not on the event list.",$sender);

@@ -74,7 +74,7 @@ if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
 		else
 		{
 			// yay someone else was kicked
-			$db->query("DELETE FROM bbin_chatlist_<myname> WHERE `ircrelay` = '$ex[3]'");
+			$db->exec("DELETE FROM bbin_chatlist_<myname> WHERE `ircrelay` = '$ex[3]'");
 			if($this->vars['my guild'] != "")
 			{
 				bot::send("<yellow>[BBIN]<end> The uplink ".$ex[3]." was kicked from the server:".$extendedinfo,"guild",true);
@@ -87,7 +87,7 @@ if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
 	}
 	elseif(($ex[1] == "QUIT") || ($ex[1] == "PART"))
 	{
-		$db->query("DELETE FROM bbin_chatlist_<myname> WHERE `ircrelay` = '$nick'");
+		$db->exec("DELETE FROM bbin_chatlist_<myname> WHERE `ircrelay` = '$nick'");
 		if($this->vars['my guild'] != "")
 		{
 			bot::send("<yellow>[BBIN]<end> Lost uplink with $nick","guild",true);

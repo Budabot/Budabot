@@ -31,9 +31,9 @@
 
 if (-1 == $sender) {
     if (preg_match("/^(.+) turned the cloaking device in your city (on|off).$/i", $message, $arr)) {
-        $db->query("INSERT INTO org_city_<myname> (`time`, `action`, `player`) VALUES ('".time()."', '".$arr[2]."', '".$arr[1]."')");
+        $db->exec("INSERT INTO org_city_<myname> (`time`, `action`, `player`) VALUES ('".time()."', '".$arr[2]."', '".$arr[1]."')");
     } else if (preg_match("/^Your city in (.+) has been targeted by hostile forces.$/i", $message, $arr)) {
-        $db->query("INSERT INTO org_city_<myname> (`time`, `action`) VALUES ('".time()."', 'Attack')");
+        $db->exec("INSERT INTO org_city_<myname> (`time`, `action`) VALUES ('".time()."', 'Attack')");
     }
 } else if (preg_match("/^city$/i", $message)) {
     $db->query("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 0, 20 ");

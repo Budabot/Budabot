@@ -39,7 +39,7 @@ if (preg_match("/^remuser (.+)$/i", $message, $arr)) {
 	  	if ($db->numrows() == 0) {
 	  		$msg = "<highlight>$name<end> is not a member of this bot.";
 	  	} else {
-		    $db->query("DELETE FROM members_<myname> WHERE `name` = '$name'");
+		    $db->exec("DELETE FROM members_<myname> WHERE `name` = '$name'");
 		    $msg = "<highlight>$name<end> has been removed as a member of this bot.";
 			$this->remove_buddy($name, 'member');
 		}

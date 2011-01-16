@@ -43,7 +43,7 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
         $msg = "<highlight>$name<end> is already on the Notify list.";
     // If the member was deleted set him as manual added again
     } elseif ($numrows != 0 && $row->mode == "del") {
-        $db->query("UPDATE org_members_<myname> SET `mode` = 'man' WHERE `name` = '$name'");
+        $db->exec("UPDATE org_members_<myname> SET `mode` = 'man' WHERE `name` = '$name'");
         $this->add_buddy($name, 'org');
 	    
     	$msg = "<highlight>$name<end> has been added to the Notify list.";
@@ -55,7 +55,7 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
         // Add him as a buddy and put his infos into the DB
 		$this->add_buddy($name, 'org');
 
-        $db->query("INSERT INTO org_members_<myname> (`mode`, `name`) VALUES ('man', '".$name."')");
+        $db->exec("INSERT INTO org_members_<myname> (`mode`, `name`) VALUES ('man', '".$name."')");
     	$msg = "<highlight>".$name."<end> has been added to the Notify list.";
     // Player name is not valid
     } else {
@@ -66,15 +66,15 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
     bot::send($msg, $sendto);
 } else if (preg_match("/^notify (off|rem) (.+)$/i", $message, $arr)) {
     $name = ucfirst(strtolower($arr[2]));
-    $query = $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$name'");
+    $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$name'");
 	$numrows = $db->numrows();
 	if($numrows != 0)
 	    $row = $db->fObject();
 	    
     // Is the player a member of this bot?
     if ($numrows != 0 && $row->mode != "del") {
-        $db->query("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '$name'");
-        $db->query("DELETE FROM guild_chatlist_<myname> WHERE `name` = '$name'");
+        $db->exec("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '$name'");
+        $db->exec("DELETE FROM guild_chatlist_<myname> WHERE `name` = '$name'");
         $msg = "Removed <highlight>$name<end> from the Notify list.";
     // Player is not a member of this bot
     } else {

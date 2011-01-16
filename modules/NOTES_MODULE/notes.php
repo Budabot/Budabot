@@ -55,7 +55,7 @@ if (preg_match("/^notes?$/i", $message)) {
 
 	// if side isn't omni, neutral or clan
 	if ($action == 'rem') {
-		$numRows = $db->query("DELETE FROM notes_<myname> WHERE id = $parm2 AND name LIKE '$sender'");
+		$numRows = $db->exec("DELETE FROM notes_<myname> WHERE id = $parm2 AND name LIKE '$sender'");
 		
 		if ($numRows) {
 			$msg = "Note deleted successfully.";
@@ -65,7 +65,7 @@ if (preg_match("/^notes?$/i", $message)) {
 	} else if ($action == 'add') {
 		$note = str_replace("'", "''", $parm2);
 		
-		$query = "INSERT INTO notes_<myname> (name, note) VALUES('$sender', '$note')";
+		$exec = "INSERT INTO notes_<myname> (name, note) VALUES('$sender', '$note')";
 		$db->query($query);
 		$msg = "Note added successfully.";
 	} else {

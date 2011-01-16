@@ -31,7 +31,7 @@
 
 //Sending Notify about the reload
 bot::send("Reloading all Modules. This can take a few seconds depending on your config.", $sendto);
-print("!!!Reloading all Modules!!!\n");
+Logger::log('INFO', 'StartUp', "Loading USER modules...");
 
 //Delete old vars
 unset($this->subcommands);
@@ -58,10 +58,10 @@ unset($this->_connect);
 unset($this->helpfiles);
 
 //Prepare DB
-$db->query("UPDATE cmdcfg_<myname> SET `verify` = 0");
-$db->query("UPDATE cmdcfg_<myname> SET `status` = 0 WHERE `cmdevent` = 'event' AND `type` = 'setup'");
-$db->query("UPDATE cmdcfg_<myname> SET `grp` = 'none'");
-$db->query("DELETE FROM cmdcfg_<myname> WHERE `module` = 'none'");
+$db->exec("UPDATE cmdcfg_<myname> SET `verify` = 0");
+$db->exec("UPDATE cmdcfg_<myname> SET `status` = 0 WHERE `cmdevent` = 'event' AND `type` = 'setup'");
+$db->exec("UPDATE cmdcfg_<myname> SET `grp` = 'none'");
+$db->exec("DELETE FROM cmdcfg_<myname> WHERE `module` = 'none'");
 
 //Getting existing commands, events and so on
 $db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd'");
@@ -144,9 +144,9 @@ unset($this->existing_settings);
 unset($this->existing_helps);
 
 //Delete old entrys in the DB
-$db->query("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0");
-$db->query("DELETE FROM hlpcfg_<myname> WHERE `verify` = 0");
+$db->exec("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0");
+$db->exec("DELETE FROM hlpcfg_<myname> WHERE `verify` = 0");
 
 bot::send("Reload of the Modules completed.", $sendto);
-print("!!!Reload of all Modules is done!!!\n");
+Logger::log('INFO', 'StartUp', "Finished loading USER modules...");
 ?>

@@ -48,7 +48,7 @@ if (preg_match("/^kickmod (.+)$/i", $message, $arr)){
 	}
 	
 	unset($this->admins[$who]);
-	$db->query("DELETE FROM admin_<myname> WHERE `name` = '$who'");
+	$db->exec("DELETE FROM admin_<myname> WHERE `name` = '$who'");
 	
 	$this->remove_buddy($who, 'admin');
 

@@ -89,13 +89,13 @@ if ($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 					$this->remove_buddy($member->name, 'org');
 				}
 		
-		        $db->query("UPDATE org_members_<myname> SET `mode` = '{$mode}' WHERE `name` = '{$member->name}'");	  		
+		        $db->exec("UPDATE org_members_<myname> SET `mode` = '{$mode}' WHERE `name` = '{$member->name}'");	  		
 			//Else insert his data
 			} else {
 				// add new org members to buddy list
 				$this->add_buddy($member->name, 'org');
 
-			    $db->query("INSERT INTO org_members_<myname> (`name`, `mode`) VALUES ('{$member->name}', 'org')");
+			    $db->exec("INSERT INTO org_members_<myname> (`name`, `mode`) VALUES ('{$member->name}', 'org')");
 				$this->guildmembers[$member->name] = $member->guild_rank_id;
 		    }
 		    unset($dbentrys[$member->name]);    

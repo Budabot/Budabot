@@ -41,7 +41,7 @@ if (!function_exists("save_setting_to_db")) {
 		$help = str_replace("'", "''", $help);
 		$db->query("SELECT * FROM settings_<myname> WHERE `name` = '$name'");
 		if ($db->numrows() == 0) {
-			$db->query("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`)
+			$db->exec("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`)
 				VALUES ('$name', 'Basic Settings', 'edit', '$value', '$options', '$intoptions', '$description', 'cfg', 'mod', '$help')");
 		}
 	}

@@ -81,7 +81,7 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 				//without a colon.. quoting him/her/itself?
 				$quoteOfWHO = $sender;
 			}
-			$db->query("INSERT INTO quote (`IDNumber`, `Who`, `OfWho`, `When`, `What`) VALUES ($quoteID, '$quoteWHO', '$quoteOfWHO', '$quoteDATE', '".str_replace("'", "''", $quoteMSG)."')");
+			$db->exec("INSERT INTO quote (`IDNumber`, `Who`, `OfWho`, `When`, `What`) VALUES ($quoteID, '$quoteWHO', '$quoteOfWHO', '$quoteDATE', '".str_replace("'", "''", $quoteMSG)."')");
 			$msg = "Quote <highlight>$quoteID<end> has been added.";
 		} else {
 			$msg = "This quote is too big.";
@@ -103,7 +103,7 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 
 		//only author or superadmin can delete.
 		if (($quoteWHO == $sender) || ($this->admins[$sender]["level"] >= 4)) {
-			$db->query("DELETE FROM quote WHERE `IDNumber` = $quoteID");
+			$db->exec("DELETE FROM quote WHERE `IDNumber` = $quoteID");
 			$msg = "This quote has been deleted.";
 		} else {
 			$msg = "Only the Superadmin or $quoteWHO can delete this quote.";

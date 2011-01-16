@@ -68,7 +68,7 @@ if (preg_match("/^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+) (for
 	$this->banlist[$who]["banend"] = $ban_end;
 	$this->banlist["$who"]["reason"] = $why;
 
-	$db->query("INSERT INTO banlist_<myname> (`name`, `admin`, `time`, `why`, `banend`) VALUES ('$who', '$sender', '".date("m-d-y")."', '$why', $ban_end)");
+	$db->exec("INSERT INTO banlist_<myname> (`name`, `admin`, `time`, `why`, `banend`) VALUES ('$who', '$sender', '".date("m-d-y")."', '$why', $ban_end)");
 	if ($arr[2] == "w" || $arr[2] == "week" || $arr[2] == "weeks") {
 		$value = "week(s)";
 	} else {
@@ -112,7 +112,7 @@ if (preg_match("/^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+) (for
 	$this->banlist[$who]["when"] = date("m-d-y");
 	$this->banlist[$who]["banend"] = $ban_end;
 
-	$db->query("INSERT INTO banlist_<myname> (`name`, `admin`, `time`, `banend`) VALUES ('$who', '$sender', '".date("m-d-y")."', $ban_end)");
+	$db->exec("INSERT INTO banlist_<myname> (`name`, `admin`, `time`, `banend`) VALUES ('$who', '$sender', '".date("m-d-y")."', $ban_end)");
 	if ($arr[2] == "w" || $arr[2] == "week" || $arr[2] == "weeks") {
 		$value = "week(s)";
 	} else {
@@ -139,7 +139,7 @@ if (preg_match("/^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+) (for
 	$this->banlist["$who"]["admin"] = $sender;
 	$this->banlist["$who"]["when"] = date("m-d-y");
 	$this->banlist["$who"]["reason"] = $why;
-	$db->query("INSERT INTO banlist_<myname> (`name`, `admin`, `time`, `why`) VALUES ('$who', '$sender', '".date("m-d-y")."', '$why')");
+	$db->exec("INSERT INTO banlist_<myname> (`name`, `admin`, `time`, `why`) VALUES ('$who', '$sender', '".date("m-d-y")."', '$why')");
 
 	bot::send("You have banned <highlight>$who<end> from this bot", $sendto);
 	bot::send("You have been banned from this bot by $sender.\n Reason: $why", $who);
@@ -160,7 +160,7 @@ if (preg_match("/^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+) (for
 	$this->banlist["$who"]["admin"] = $sender;
 	$this->banlist["$who"]["when"] = date("m-d-y");
 
-	$db->query("INSERT INTO banlist_<myname> (`name`, `admin`, `time`) VALUES ('$who', '$sender', '".date("m-d-y")."')");
+	$db->exec("INSERT INTO banlist_<myname> (`name`, `admin`, `time`) VALUES ('$who', '$sender', '".date("m-d-y")."')");
 	bot::send("You have banned <highlight>$who<end> from this bot", $sendto);
 } else if (preg_match("/^banorg (.+)$/i", $message, $arr)) {
 	$who = $arr[1];
@@ -174,7 +174,7 @@ if (preg_match("/^ban ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (.+) (for
 	$this->banlist["$who"]["admin"] = $sender;
 	$this->banlist["$who"]["when"] = date("m-d-y");
 
-	$db->query("INSERT INTO banlist_<myname> (`name`, `admin`, `time`) VALUES ('$who', '$sender', '".date("m-d-y")."')");
+	$db->exec("INSERT INTO banlist_<myname> (`name`, `admin`, `time`) VALUES ('$who', '$sender', '".date("m-d-y")."')");
 	bot::send("You have banned ALL members of <highlight>$who<end> from this bot", $sendto);
 } else {
 	$syntax_error = true;
