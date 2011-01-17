@@ -231,6 +231,9 @@ class bot extends AOChat{
 		
 		Logger::log('debug', 'Core', "MODULE_NAME:(PLAYER_LOOKUP.php)\n");
 		include "./core/PLAYER_LOOKUP/PLAYER_LOOKUP.php";
+		
+		Logger::log('debug', 'Core', "MODULE_NAME:(FRIENDLIST.php)\n");
+		include "./core/FRIENDLIST/FRIENDLIST.php";
 
 		Logger::log('INFO', 'Core', "Loading USER modules...");
 

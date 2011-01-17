@@ -635,7 +635,7 @@ if (preg_match("/^config$/i", $message)) {
 	$off = "<a href='chatcmd:///tell <myname> config mod {$module} disable all'>Off</a>";
 	
 	$list = "<header>::::: Bot Settings :::::<end>\n\n";
-	$list .= "<highlight><u>" . strtoupper($module) . "</u><end> - Enable/disable: ($on/$off)\n";	
+	$list .= "<highlight><u>{$module}</u><end> - Enable/disable: ($on/$off)\n";	
 
  	$db->query("SELECT * FROM settings_<myname> WHERE `mode` != 'hide' AND `module` = '$module'");
 	if ($db->numrows() > 0) {
