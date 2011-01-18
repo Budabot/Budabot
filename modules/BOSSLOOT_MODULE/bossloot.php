@@ -54,10 +54,10 @@ if (preg_match ("/^bossloot (.+)$/i", $message, $arr)) {
 		}
 		$output = bot::makelink("BossLoot", $boss);
 	} else {
-		$output .= "<yellow>There were no matches for your search.</end>";
+		$output .= "<yellow>There were no matches for your search.<end>";
 	}
 } else {
-	$output .= "<yellow>You must add a search criteria after the command.</end>";
+	$output .= "<yellow>You must add a search criteria after the command.<end>";
 }
 
 bot::send($output, $sendto);

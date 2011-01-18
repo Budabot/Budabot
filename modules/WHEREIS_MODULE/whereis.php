@@ -39,11 +39,11 @@ if (preg_match("/^whereis (.+)$/i", $message, $arr)) {
 	} else if ($whereis_found == 1) {
 		$msg = $whereis;
 	} else {
-		$msg = "<yellow>There were no matches for your search.</end>";
+		$msg = "<yellow>There were no matches for your search.<end>";
 	}
 }
 else {
-	$msg = "<yellow>You must enter valid search criteria.</end>\n";
+	$msg = "<yellow>You must enter valid search criteria.<end>\n";
 }
 
 bot::send($msg , $sendto);

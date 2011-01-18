@@ -90,7 +90,7 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 		$output = bot::makelink("Boss", $boss);
 	}
 	else {
-		$output .= "<yellow>There were no matches for your search.</end>";
+		$output .= "<yellow>There were no matches for your search.<end>";
 	}
 }
 else {
