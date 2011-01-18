@@ -8,6 +8,8 @@
 	bot::command("", "$MODULE_NAME/credz.php", "credz", "all", "Shows a random credits message.");
 	bot::command("", "$MODULE_NAME/homer.php", "homer", "all", "Shows a random homer quote message.");
 	bot::command("", "$MODULE_NAME/dwight.php", "dwight", "all", "Shows a random homer quote message.");
+	bot::command("", "$MODULE_NAME/pinky_brain.php", "pinky", "all", "Shows a random homer quote message.");
+	bot::command("", "$MODULE_NAME/pinky_brain.php", "brain", "all", "Shows a random homer quote message.");
 	
 	// Ding
 	bot::command("", "$MODULE_NAME/ding.php", "ding", "all", "Shows a random ding gratz message.");

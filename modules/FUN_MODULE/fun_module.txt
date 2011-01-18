@@ -25,5 +25,9 @@
 <highlight>Show a random Dwight quote<end>
 <tab><symbol>dwight
 
+<highlight>Show a random Pink/Brain quote<end>
+<tab><symbol>pinky
+<tab><symbol>brain
+
 <highlight>Letting 2ppls fight against each other<end>
 <tab><symbol>fight 'Person1' vs 'Person2'
