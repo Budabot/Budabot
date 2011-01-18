@@ -1108,7 +1108,7 @@ class bot extends AOChat{
     	$arg_list = func_get_args();
 		//Check if enough commands are given for the group
 		if ($numargs < 5) {
-			Logger::log('ERROR', 'Core', "Not enough commands to build group $group(must be at least 2commands)");
+			Logger::log('ERROR', 'Core', "Not enough commands to build group $group(must be at least 2 commands)");
 			return;
 		}
 		//Go through the arg list and assign it to the group
@@ -1281,6 +1281,7 @@ class bot extends AOChat{
 		switch ($type){
 			case AOCP_GROUP_ANNOUNCE: // 60
 				$b = unpack("C*", $args[0]);
+				Logger::log('DEBUG', 'Packets', "AOCP_GROUP_ANNOUNCE => gid: '$args[0]'");
 				if ($b[1] == 3) {
 					$this->vars["my guild id"] = $b[2]*256*256*256 + $b[3]*256*256 + $b[4]*256 + $b[5];
 				}
@@ -1288,6 +1289,8 @@ class bot extends AOChat{
 			case AOCP_PRIVGRP_CLIJOIN: // 55, Incoming player joined private chat
 				$channel = $this->lookup_user($args[0]);
 				$sender = $this->lookup_user($args[1]);
+				
+				Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_CLIJOIN => channel: '$channel' sender: '$sender'");
 				
 				if ($channel == $this->vars['name']) {
 					$type = "joinPriv";
@@ -1326,6 +1329,8 @@ class bot extends AOChat{
 				$channel = $this->lookup_user($args[0]);
 				$sender	= $this->lookup_user($args[1]);
 				
+				Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_CLIPART => channel: '$channel' sender: '$sender'");
+				
 				if ($channel == $this->vars['name']) {
 					$type = "leavePriv";
 				
@@ -1350,6 +1355,8 @@ class bot extends AOChat{
 				// Basic packet data
 				$sender	= $this->lookup_user($args[0]);
 				$status	= 0 + $args[1];
+				
+				Logger::log('DEBUG', 'Packets', "AOCP_BUDDY_ADD => sender: '$sender' status: '$status'");
 				
 				// store buddy info
 				list($bid, $bonline, $btype) = $args;
@@ -1400,6 +1407,8 @@ class bot extends AOChat{
 				$type = "msg"; // Set message type.
 				$sender	= $this->lookup_user($args[0]);
 				$sendto = $sender;
+				
+				Logger::log('DEBUG', 'Packets', "AOCP_MSG_PRIVATE => sender: '$sender' message: '$args[1]'");
 				
 				// Removing tell color
 				if (preg_match("/^<font color='#([0-9a-f]+)'>(.+)$/si", $args[1], $arr)) {
@@ -1464,6 +1473,8 @@ class bot extends AOChat{
 				$message = $args[2];
 				$restricted = false;
 				
+				Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_MESSAGE => sender: '$sender' channel: '$channel' message: '$message'");
+				
 				if ($sender == $this->vars["name"]) {
 					Logger::log_chat("Priv Group", $sender, $message);
 					return;
@@ -1525,6 +1536,8 @@ class bot extends AOChat{
 				$sender	 = $this->lookup_user($args[1]);
 				$message = $args[2];
 				$channel = $this->get_gname($args[0]);
+				
+				Logger::log('DEBUG', 'Packets', "AOCP_GROUP_MESSAGE => sender: '$sender' channel: '$channel' message: '$message'");
 
 				//Ignore Messages from Vicinity/IRRK New Wire/OT OOC/OT Newbie OOC...
 				$channelsToIgnore = array("", 'IRRK News Wire', 'OT OOC', 'OT Newbie OOC', 'OT Jpn OOC', 'OT shopping 11-50',
@@ -1609,6 +1622,8 @@ class bot extends AOChat{
 				$type = "extJoinPrivRequest"; // Set message type.
 				$uid = $args[0];
 				$sender = $this->lookup_user($uid);
+				
+				Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_INVITE => sender: '$sender'");
 
 				Logger::log_chat("Priv Channel Invitation", -1, "$sender channel invited.");
 
@@ -1686,6 +1701,7 @@ class bot extends AOChat{
 		$db = db::get_instance();
 		switch($this->vars){
 			case $this->vars["2sec"] < time();
+				Logger::log('DEBUG', 'Cron', "2secs");
 				$this->vars["2sec"] 	= time() + 2;
 				forEach ($this->spam as $key => $value){
 					if ($value > 0) {
@@ -1700,6 +1716,7 @@ class bot extends AOChat{
 				}
 				break;
 			case $this->vars["1min"] < time();
+				Logger::log('DEBUG', 'Cron', "1min");
 				forEach ($this->largespam as $key => $value){
 					if ($value > 0) {
 						$this->largespam[$key] = $value - 1;
@@ -1714,30 +1731,35 @@ class bot extends AOChat{
 				}
 				break;
 			case $this->vars["10mins"] < time();
+				Logger::log('DEBUG', 'Cron', "10mins");
 				$this->vars["10mins"] 	= time() + (60 * 10);
 				forEach ($this->_10mins as $filename) {
 					include $filename;
 				}
 				break;
 			case $this->vars["15mins"] < time();
+				Logger::log('DEBUG', 'Cron', "15mins");
 				$this->vars["15mins"] 	= time() + (60 * 15);
 				forEach ($this->_15mins as $filename) {
 					include $filename;
 				}
 				break;
 			case $this->vars["30mins"] < time();
+				Logger::log('DEBUG', 'Cron', "30mins");
 				$this->vars["30mins"] 	= time() + (60 * 30);
 				forEach ($this->_30mins as $filename) {
 					include $filename;
 				}
 				break;
 			case $this->vars["1hour"] < time();
+				Logger::log('DEBUG', 'Cron', "1hour");
 				$this->vars["1hour"] 	= time() + (60 * 60);
 				forEach ($this->_1hour as $filename) {
 					include $filename;
 				}
 				break;
 			case $this->vars["24hours"] < time();
+				Logger::log('DEBUG', 'Cron', "24hours");
 				$this->vars["24hours"] 	= time() + ((60 * 60) * 24);
 				forEach ($this->_24hrs as $filename) {
 					include $filename;
@@ -1827,7 +1849,7 @@ class bot extends AOChat{
 		}
 		
 		if ($file === false) {
-			Logger::log('ERROR', 'Core', "No SQL file found with name '$name'!");
+			Logger::log('ERROR', 'Core', "No SQL file found with name '$name' in module '$module'!");
 		} else if ($forceUpdate || compareVersionNumbers($maxFileVersion, $currentVersion) > 0) {
 			$fileArray = file("$dir/$file");
 			//$db->beginTransaction();
