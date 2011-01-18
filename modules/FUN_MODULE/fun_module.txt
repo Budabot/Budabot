@@ -19,8 +19,11 @@
 <highlight>Show a random cybor message<end>
 <tab><symbol>cybor
 
-<highlight>Show a random homer quote<end>
+<highlight>Show a random Homer quote<end>
 <tab><symbol>homer
+
+<highlight>Show a random Dwight quote<end>
+<tab><symbol>dwight
 
 <highlight>Letting 2ppls fight against each other<end>
 <tab><symbol>fight 'Person1' vs 'Person2'
