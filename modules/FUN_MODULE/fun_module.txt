@@ -22,10 +22,10 @@
 <highlight>Show a random Homer quote<end>
 <tab><symbol>homer
 
-<highlight>Show a random Dwight quote<end>
+<highlight>Show a random Dwight quote<end> (Developed by Sicarius Legion of Amra, a Age of Conan Guild on the Hyrkania server)
 <tab><symbol>dwight
 
-<highlight>Show a random Pink/Brain quote<end>
+<highlight>Show a random Pink/Brain quote<end> (Developed by Mastura (RK2/Rimor) from Shadow Ops)
 <tab><symbol>pinky
 <tab><symbol>brain
 
