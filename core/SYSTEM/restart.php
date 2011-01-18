@@ -35,5 +35,5 @@ bot::send($msg, "prv", true);
 bot::send($msg, "guild", true);
 
 AOChat::disconnect();
-die("The Bot is restarting.");
+Logger::log('INFO', 'Core', "The Bot is restarting.");
 ?>
