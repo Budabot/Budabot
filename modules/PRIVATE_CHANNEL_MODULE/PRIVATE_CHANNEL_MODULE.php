@@ -10,16 +10,16 @@
     bot::command("guild msg", "$MODULE_NAME/join.php", "join", "all", "Join command for guests");
 	bot::command("priv msg", "$MODULE_NAME/leave.php", "leave", "all", "Enables Privatechat Kick");
 
-	bot::command("", "$MODULE_NAME/kickall.php", "kickall", "mod", "Kicks all from the privgroup");
+	bot::command("", "$MODULE_NAME/kickall.php", "kickall", "guild", "Kicks all from the privgroup");
 	bot::command("", "$MODULE_NAME/lock.php", "lock", "rl", "Locks the privgroup");
 	bot::command("", "$MODULE_NAME/lock.php", "unlock", "rl", "Unlocks the privgroup");
 	
-	bot::command("", "$MODULE_NAME/invite.php", "inviteuser", "all", "Enables Privatechat Join");
-	bot::command("", "$MODULE_NAME/kick.php", "kickuser", "all", "kick command for guests");
-	bot::command("", "$MODULE_NAME/invite.php", "invite", "all", "Enables Privatechat Join");
-	bot::command("", "$MODULE_NAME/kick.php", "kick", "all", "kick command for guests");
-	bot::command("", "$MODULE_NAME/add.php", "adduser", "all", "Enables Privatechat Join");
-	bot::command("", "$MODULE_NAME/rem.php", "remuser", "all", "Enables Privatechat Join");
+	bot::command("", "$MODULE_NAME/invite.php", "inviteuser", "guild", "Enables Privatechat Join");
+	bot::command("", "$MODULE_NAME/kick.php", "kickuser", "guild", "kick command for guests");
+	bot::command("", "$MODULE_NAME/invite.php", "invite", "guild", "Enables Privatechat Join");
+	bot::command("", "$MODULE_NAME/kick.php", "kick", "guild", "kick command for guests");
+	bot::command("", "$MODULE_NAME/add.php", "adduser", "guild", "Adds a player to the members list");
+	bot::command("", "$MODULE_NAME/rem.php", "remuser", "guild", "Removes a player from the members list");
 	
 	bot::addsetting($MODULE_NAME, "guest_man_join", "Mode of manual private channel join", "edit", "1", "Only for members of guestlist;Everyone", "1;0");
 	bot::addsetting($MODULE_NAME, "guest_color_channel", "Color for Private Channel relay(ChannelName)", "edit", "<font color=#C3C3C3>", "color");
