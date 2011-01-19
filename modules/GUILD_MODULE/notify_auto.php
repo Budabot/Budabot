@@ -38,7 +38,7 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
     if($row->name != "" && $row->mode == "del") {
         $db->exec("UPDATE org_members_<myname> SET `mode` = 'man' WHERE `name` = '".$name."'");
 	    $this->guildmembers[$name] = 6;
-    	$msg = "<highlight>".$name."<end> has been added to the Notify list.";
+    	$msg = "<highlight>{$name}<end> has been added to the Notify list.";
     // Is the player name valid?
     } else {
         // update character info
@@ -47,7 +47,7 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
         // Add him as a buddy and put his infos into the DB
         $db->exec("INSERT INTO org_members_<myname> (`mode`, `name`) VALUES ('man', '".$name."')");
 		$this->add_buddy($name, 'org');
-    	$msg = "<highlight>".$name."<end> has been added to the Notify list.";
+    	$msg = "<highlight>{$name}<end> has been added to the Notify list.";
     	$this->guildmembers[$name] = 6;
     }
     $db->exec("INSERT INTO guild_chatlist_<myname> (`name`) VALUES ('".$name."')");     
@@ -57,7 +57,7 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
     $name = ucfirst(strtolower($arr[2]));
     $db->exec("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '$name'");
     $db->exec("DELETE FROM guild_chatlist_<myname> WHERE `name` = '$name'");
-    $msg = "Removed <highlight>".$name."<end> from the Notify list.";
+    $msg = "Removed <highlight>{$name}<end> from the Notify list.";
     unset($this->guildmembers[$name]);
 	$this->remove_buddy($name, 'org');
     bot::send($msg, "guild");
@@ -66,7 +66,7 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
     $name = ucfirst(strtolower($arr[1]));
     $db->exec("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '$name'");
     $db->exec("DELETE FROM guild_chatlist_<myname> WHERE `name` = '$name'");
-    $msg = "Removed <highlight>".$name."<end> from the Notify list.";
+    $msg = "Removed <highlight>{$name}<end> from the Notify list.";
     unset($this->guildmembers[$name]);
 	$this->remove_buddy($name, 'org');
     bot::send($msg, "guild");

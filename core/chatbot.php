@@ -618,7 +618,12 @@ class bot extends AOChat{
 			if ($this->existing_commands[$type[$i]][$command] == true) {
 				$db->exec("UPDATE cmdcfg_<myname> SET `module` = '$curMod', `verify` = 1, `file` = '$filename', `description` = '$description' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
 			} else {
-				$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`) VALUES ('$curMod', '{$type[$i]}', '$filename', '$command', '{$admin[$i]}', '$description', 1, 'cmd', '".$this->settings["default_module_status"]."')");
+				if ($this->settings["default_module_status"] == 1) {
+					$status = 1;
+				} else {
+					$status = 0;
+				}
+				$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`) VALUES ('$curMod', '{$type[$i]}', '$filename', '$command', '{$admin[$i]}', '$description', 1, 'cmd', '$status')");
 			}
 		}
 	}
@@ -801,16 +806,15 @@ class bot extends AOChat{
 		
 		Logger::log('debug', 'Core', "Adding Event to list:($type) File:($filename)");
 
-		if ($this->settings["default_module_status"] == 1) {
-			$status = 1;
-		} else {
-			$status = 0;
-		}
-
 		if ($this->existing_events[$type][$actual_filename] == true) {
 		  	$db->exec("UPDATE cmdcfg_<myname> SET `verify` = 1, `description` = '$description' WHERE `type` = '$type' AND `cmdevent` = 'event' AND `file` = '$actual_filename' AND `module` = '$module'");
 		} else {
-		  	$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `cmdevent`, `type`, `file`, `verify`, `description`, `status`) VALUES ('$module', 'event', '$type', '$actual_filename', '1', '$description', '$status')");
+			if ($this->settings["default_module_status"] == 1) {
+				$status = 1;
+			} else {
+				$status = 0;
+			}
+			$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `cmdevent`, `type`, `file`, `verify`, `description`, `status`) VALUES ('$module', 'event', '$type', '$actual_filename', '1', '$description', '$status')");
 		}
 	}
 

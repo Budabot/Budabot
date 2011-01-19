@@ -5,7 +5,7 @@
 	bot::regevent("setup", "$MODULE_NAME/setup.php");
 	
 	//Verifies the Onlinelist every hour
-	bot::event($MODULE_NAME, "1hour", "online_check.php", "online", "Online check");
+	bot::event($MODULE_NAME, "1hour", "online_check.php", "none", "Online check");
 	
 	// Logon Handling
 	bot::command("", "$MODULE_NAME/logon_msg.php", "logon", "guild", "Sets a Logon Msg");
@@ -24,13 +24,11 @@
 	bot::help($MODULE_NAME, "tell", "tell.txt", "guild", "How to use tell and tellall");
 
     // Org Roster list creation and Notify on/off handling
-	bot::regevent("24hrs", "$MODULE_NAME/roster_guild.php");
-	bot::regevent("orgmsg", "$MODULE_NAME/notify_auto.php");
-    bot::regevent("logOn", "$MODULE_NAME/notify_auto.php");
-    bot::regevent("logOff", "$MODULE_NAME/notify_auto.php");
-	bot::command("guild", "$MODULE_NAME/notify.php", "notify", "mod", "Adding a member man. to the notify list");
-	bot::command("msg", "$MODULE_NAME/notify.php", "notify", "mod", "Adding a member man. to the notify list");
-	bot::command("priv", "$MODULE_NAME/notify.php", "notify", "mod", "Adding a member man. to the notify list");
+	bot::event($MODULE_NAME, "24hrs", "roster_guild.php", "none", "Download guild roster xml and update guild members");
+	bot::event($MODULE_NAME, "orgmsg", "notify_auto.php", "none", "Automatically add and remove chars from the guild roster as they leave and join the guild");
+	bot::command("guild", "$MODULE_NAME/notify.php", "notify", "mod", "Adding a char manually to the notify list");
+	bot::command("msg", "$MODULE_NAME/notify.php", "notify", "mod", "Adding a char manually to the notify list");
+	bot::command("priv", "$MODULE_NAME/notify.php", "notify", "mod", "Adding a char manually to the notify list");
 	
 	bot::command("", "$MODULE_NAME/inactive_mem.php", "inactivemem", "admin", "Check for inactive members");
 	bot::command("", "$MODULE_NAME/updateorg.php", "updateorg", "mod", "Forcing an update of the org roster");
