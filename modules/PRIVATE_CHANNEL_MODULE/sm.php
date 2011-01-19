@@ -1,7 +1,7 @@
 <?php
 
 if (preg_match("/^sm$/i", $message)) {
-	if (count($this->vars["Guest"]) > 0) {
+	if (count($this->chatlist) > 0) {
 		$db->query("SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY `profession`, `level` DESC");
 		$numguest = $db->numrows();
 
@@ -13,7 +13,7 @@ if (preg_match("/^sm$/i", $message)) {
 		$msg = bot::makeLink("Chatlist ({$numguest})", $list);
 		bot::send($msg, $sendto);
 	} else {
-		bot::send("No players are in the channel.", $sendto);
+		bot::send("No players are in the private channel.", $sendto);
 	}
 } else {
 	$syntax_error = true;

@@ -62,7 +62,11 @@ function online($sender, $sendto, &$bot, $prof = "all") {
 	createList($data, $sender, $list, $bot);
 	$numonline += $numguest;
 
-	$msg .= "{$numonline} member(s) online";
+	if ($numonline == 1) {
+		$msg .= "1 member online";
+	} else {
+		$msg .= "{$numonline} members online";
+	}
 
 	// BBIN part
 	if ($bot->settings["bbin_status"] == 1) {

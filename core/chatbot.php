@@ -36,6 +36,7 @@ require_once 'AccessLevel.class.php';
 class bot extends AOChat{
 
 	var $buddyList = array();
+	var $chatlist = array();
 
 /*===============================
 ** Name: __construct

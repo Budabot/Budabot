@@ -14,7 +14,7 @@ if ($type == "priv") {
 	//Relay the message to the guild channel
 	$msg = "<end>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}".bot::makeLink($sender,$sender,"user")."<end>: {$this->settings["guest_color_guild"]}{$message}<end>";
 	bot::send($msg, 'org', true);
-} else if ($type == "guild" && count($this->vars["Guest"]) > 0) {
+} else if ($type == "guild" && count($this->chatlist) > 0) {
 	//Relay the message to the private channel if there is at least 1 char in private channel
 	if ($sender == '-1') {
 		// for relaying city alien raid messages where $sender == -1
