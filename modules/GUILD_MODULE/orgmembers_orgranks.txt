@@ -7,8 +7,8 @@ with some basic stats and the last time they logged off<end>
 <highlight>You can also show only specific professions like the online/count command<end>
 <tab><symbol>orgmembers 'prof'
 
-For example
+<highlight>For example<end>
 <tab><symbol>orgmembers nt
 
-<highlight>Same as orgmembers just sorted after ranks
+<highlight>Same as orgmembers just sorted after ranks<end>
 <tab><symbol>orgranks
