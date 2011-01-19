@@ -6,7 +6,9 @@ if ($type == "leavePriv") {
 	if ($this->settings["guest_relay"] == 1) {
 		bot::send($msg, "guild", true);
 	}
-	bot::send($msg, "priv", true);
+	
+	// don't need this since the client tells you when someone leaves and we don't add any additional information
+	//bot::send($msg, "priv", true);
 }
 
 ?>
