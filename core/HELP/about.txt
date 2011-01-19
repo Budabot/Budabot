@@ -1,19 +1,20 @@
 <header>::::: Budabot Info :::::<end>
 
-<highlight>General:<end>
-Version: <highlight><version><end>
-Programing Language: <highlight>PHP 5.2.5<end>
-Database Management System: <highlight>MySQL or SQLite<end>
-Project Site: <highlight>http://code.google.com/p/budabot2<end>
-Project Forum and more Details: <highlight>http://budabot.com<end>
+<orange>General:<end>
+<highlight>Version:<end> <version>
+<highlight>Project Site:<end> <a href='chatcmd:///start http://code.google.com/p/budabot2'>http://code.google.com/p/budabot2</a>
+<highlight>Project Forum:<end> <a href='chatcmd:///start http://budabot.com'>http://budabot.com</a>
 
-<highlight>Coders:<end>
-<highlight>Derroylo<end> - Project Manager and Main Developer.
-<highlight>Sebuda<end> - Creator of this Project.
-<highlight>Lucier (RK1)<end> - Co-Creator
-<highlight>Tyrence (RK2)<end> - Developer
-<highlight>Etheryal (RK2)<end> - Developer
+<orange>Current Developers:<end>
+<highlight>Tyrence (RK2)<end> - Lead Developer
 <highlight>Arsenal (RK1)<end> - Developer
 
-<highlight>Special thanks to:<end>
-Sch, Kuren, Vash, Auno, Snow(die bunnie die), the Hackersquest/AODevs members, and all the people who have contributed modules to make Budabot what it is.
+<orange>Special thanks to:<end>
+<highlight>-Derroylo (RK2)<end>, <highlight>Sebuda (RK2)<end>, and <highlight>Lucier (RK1)<end> for creating the original Budabot.
+<highlight>-Etheryal (RK2)<end> for updating Budabot with needed enhancements and keeping it alive after Derroylo and Sebuda left AO.
+<highlight>-Dark Ninjas (RK2)<end> for letting me use their org to test new features.
+<highlight>-MajorOutage (RK1)<end> for all the items db rips he has provided.
+<highlight>-CaptainZero<end> and <highlight>Snakebite<end> for hosting and moderating the budabot.com website.
+-And all the people who have contributed modules to make Budabot what it is.
+
+Funcom Failure: <a href='chatcmd:///start http://www.omnihq.net/forums/topic?id=169'>http://www.omnihq.net/forums/topic?id=169</a>
