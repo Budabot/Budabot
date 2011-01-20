@@ -1,14 +1,19 @@
 <?php
 	$MODULE_NAME = "GUILD_MODULE";
-
-	//Setup of the Basic Guild Modules
-	bot::regevent("setup", "$MODULE_NAME/setup.php");
 	
-	//Verifies the Onlinelist every hour
-	bot::event($MODULE_NAME, "1hour", "online_check.php", "none", "Online check");
+	bot::loadSQLFile($MODULE_NAME, "guild_chatlist");
+
+	//Setup
+	bot::event($MODULE_NAME, "setup", "setup.php");
 	
 	// Logon Handling
 	bot::command("", "$MODULE_NAME/logon_msg.php", "logon", "guild", "Sets a Logon Msg");
+	
+	//Lastseen
+	bot::command("", "$MODULE_NAME/lastseen.php", "lastseen", "guild", "Shows the logoff time of a player");
+	
+	//Verifies the Onlinelist every hour
+	bot::event($MODULE_NAME, "1hour", "online_check.php", "none", "Online check");
 	
 	// Afk Check
 	bot::event($MODULE_NAME, "guild", "afk_check.php", "none", "Afk check");
@@ -36,13 +41,17 @@
 	// Show orgmembers
 	bot::command("", "$MODULE_NAME/orgmembers.php", "orgmembers", "guild", "Show the Members(sorted by name) of the org");
 	bot::command("", "$MODULE_NAME/orgranks.php", "orgranks", "guild", "Show the Members(sorted by rank) of the org");
-
-	bot::addsetting($MODULE_NAME, "bot_notify", "Show/Hide Logoffs in Org Chat (Spam Prevention)", "edit", "1", "Show Logoffs;Hide Logoffs", '1;0', "mod", "$MODULE_NAME/botnotify.txt");
+	
+	bot::event($MODULE_NAME, "logOn", "notify_logon_guild.php", "none", "Shows an org member login in chat");
+	bot::event($MODULE_NAME, "logOff", "notify_logoff_guild.php", "none", "Shows an org member logoff in chat");
+	
+	bot::event($MODULE_NAME, "logOff", "record_lastseen.php", "none", "Records when each member of the org logs off for lastseen command");
 	
 	//Helpfile
-    bot::help($MODULE_NAME, "notify", "notify.txt", "mod", "Add or remove a player from the notify list.");
 	bot::help($MODULE_NAME, "inactivemem", "manage_guild.txt", "admin", "Help on Checking for Inactive Members");
 	bot::help($MODULE_NAME, "updateorg", "updateorg.txt", "mod", "Force an update of org roster");
-	bot::help($MODULE_NAME, "logonmsg", "logonmsg.txt", "guild", "Changing your logon message");
 	bot::help($MODULE_NAME, "orgmembers", "orgmembers_orgranks.txt", "guild", "Show current OrgMembers");
+	bot::help($MODULE_NAME, "orgranks", "orgmembers_orgranks.txt", "guild", "Show current OrgMembers");
+	bot::help($MODULE_NAME, "lastseen", "lastseen.txt", "guild", "Check when an orgmember was online");
+	bot::help($MODULE_NAME, "logonmsg", "logonmsg.txt", "guild", "Changing your logon message");
 ?>

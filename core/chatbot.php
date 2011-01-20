@@ -37,6 +37,7 @@ class bot extends AOChat{
 
 	var $buddyList = array();
 	var $chatlist = array();
+	var $guildmembers = array();
 
 /*===============================
 ** Name: __construct

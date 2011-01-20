@@ -1,6 +1,6 @@
 <?php
 
-if (isset($this->guildmembers[$sender]) && time() >= $this->vars["onlinedelay"] && $this->settings["bot_notify"] != 0) {
+if (isset($this->guildmembers[$sender]) && time() >= $this->vars["onlinedelay"]) {
 	$org_member = Player::get_by_name($sender);
 	
 	$msg = '';

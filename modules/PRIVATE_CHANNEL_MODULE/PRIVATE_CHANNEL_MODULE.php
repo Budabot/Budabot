@@ -5,10 +5,26 @@
     
     bot::command("", "$MODULE_NAME/members.php", "members", "all", "Member list");
 	bot::command("", "$MODULE_NAME/sm.php", "sm", "all", "Shows who is in the private channel");
-	bot::command("", "$MODULE_NAME/count.php", "count", "all", "Shows who is in the private channel");
 	bot::command("", "$MODULE_NAME/autoinvite.php", "autoinvite", "all", "Allows member to set whether he should be auto-invited to private channel on logon or not");
     bot::command("guild msg", "$MODULE_NAME/join.php", "join", "all", "Join command for guests");
 	bot::command("priv msg", "$MODULE_NAME/leave.php", "leave", "all", "Enables Privatechat Kick");
+	
+	bot::command("priv", "$MODULE_NAME/count.php", "count", "all", "Shows who is in the private channel");
+	bot::command("priv", "$MODULE_NAME/count.php", "count", "all", "Shows who is the private channel");
+	bot::command("priv", "$MODULE_NAME/count.php", "adv", "all", "Shows Adventurers in private channel");
+	bot::command("priv", "$MODULE_NAME/count.php", "agent", "all", "Shows Agents in private channel");
+	bot::command("priv", "$MODULE_NAME/count.php", "crat", "all", "Shows Bureaucrats in private channel");
+	bot::command("priv", "$MODULE_NAME/count.php", "doc", "all", "Shows Doctors in private channel");
+	bot::command("priv", "$MODULE_NAME/count.php", "enf", "all", "Shows Enforcers in private channel");
+	bot::command("priv", "$MODULE_NAME/count.php", "eng", "all", "Shows Engineers in private channel");
+	bot::command("priv", "$MODULE_NAME/count.php", "fix", "all", "Shows Fixers in private channel");
+	bot::command("priv", "$MODULE_NAME/count.php", "keep", "all", "Shows Keepers in private channel");
+	bot::command("priv", "$MODULE_NAME/count.php", "ma", "all", "Shows Martial-Artists in private channel");
+	bot::command("priv", "$MODULE_NAME/count.php", "mp", "all", "Shows Meta-Physicists in private channel");
+	bot::command("priv", "$MODULE_NAME/count.php", "nt", "all", "Shows Nano-Technicians in private channel");
+	bot::command("priv", "$MODULE_NAME/count.php", "sol", "all", "Shows Soldiers in private channel");
+	bot::command("priv", "$MODULE_NAME/count.php", "shade", "all", "Shows Shades in private channel");
+	bot::command("priv", "$MODULE_NAME/count.php", "trader", "all", "Shows Traders in private channel");
 
 	bot::command("", "$MODULE_NAME/kickall.php", "kickall", "guild", "Kicks all from the privgroup");
 	bot::command("", "$MODULE_NAME/lock.php", "lock", "rl", "Locks the privgroup");
@@ -30,7 +46,6 @@
 	bot::addsetting($MODULE_NAME, "guest_relay_commands", "Relay commands and results from/to Private Channel", "edit", "0", "ON;OFF", "1;0");
 	
 	//Autoreinvite Players after a botrestart or crash
-	bot::event($MODULE_NAME, "setup", "setup.php", "none", "Clears the private channel list of players");
 	bot::event($MODULE_NAME, "connected", "connected.php", "none", "Adds all members as buddies who have auto-invite enabled");
 	
 	bot::event($MODULE_NAME, "guild", "guest_channel_relay.php", "none", "Private channel relay from guild channel");
