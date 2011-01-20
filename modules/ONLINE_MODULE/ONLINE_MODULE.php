@@ -42,6 +42,5 @@
 	bot::event($MODULE_NAME, "logOn", "logonline.php", "none", "Sends a tell to players on logon showing who is online in org");
 
 	//Help files
-	bot::help($MODULE_NAME, "notify", "notify.txt", "mod", "Add or remove a player from the notify list.");
 	bot::help($MODULE_NAME, "online", "online.txt", "guild", "Show who is on from the guild");
 ?>
