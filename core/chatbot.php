@@ -604,7 +604,7 @@ class bot extends AOChat{
 		$db = db::get_instance();
 
 		if (!bot::processCommandArgs($type, $admin)) {
-			Logger::log('ERROR', 'Core', "invalid args for command '$command'!!");
+			Logger::log('ERROR', 'Core', "invalid args for $module:command($command)");
 			return;
 		}
 
@@ -700,8 +700,7 @@ class bot extends AOChat{
   		$db = db::get_instance();
 		$command = strtolower($command);
 
-	  	Logger::log('debug', 'Core', "Deactivate Command:($command) File:($filename)");
-		Logger::log('debug', 'Core', "              Type:($type)");
+	  	Logger::log('debug', 'Core', "Deactivate Command:($command) File:($filename) Type:($type)");
 
 		switch ($type){
 			case "msg":
@@ -744,7 +743,7 @@ class bot extends AOChat{
 		global $curMod;
 
 		if (!bot::processCommandArgs($type, $admin)) {
-			Logger::log('ERROR', 'Core', "invalid args for subcommand '$command'!!");
+			Logger::log('ERROR', 'Core', "Invalid args for $module:subcommand($command)");
 			return;
 		}
 
@@ -752,8 +751,7 @@ class bot extends AOChat{
 		$description = str_replace("'", "''", $description);
 		$module = explode("/", strtolower($filename));
 	  	
-		Logger::log('debug', 'Core', "Adding Subcommand to list:($command) File:($filename)");
-		Logger::log('debug', 'Core', "                    Admin:($admin) Type:($type)");
+		Logger::log('debug', 'Core', "Adding Subcommand to list:($command) File:($filename) Admin:($admin) Type:($type)");
 
 		//Check if the file exists
 		if (($actual_filename = bot::verifyFilename($filename)) != '') {
@@ -767,8 +765,7 @@ class bot extends AOChat{
 			$command = strtolower($command);
 
 		for ($i = 0; $i < count($type); $i++) {
-			Logger::log('debug', 'Core', "Adding Subcommand to list:($command) File:($filename)");
-			Logger::log('debug', 'Core', "                    Admin:($admin) Type:({$type[$i]})");
+			Logger::log('debug', 'Core', "Adding Subcommand to list:($command) File:($filename) Admin:($admin) Type:({$type[$i]})");
 			
 			//Check if the admin status exists
 			if (!is_numeric($admin[$i])) {
@@ -781,7 +778,7 @@ class bot extends AOChat{
 				} else if ($admin[$i] == "admin") {
 					$admin[$i] = 4;
 				} else if ($admin[$i] != "all" && $admin[$i] != "guild" && $admin[$i] != "guildadmin") {
-					Logger::log('ERROR', 'Core', "Error in registrating the command $command for channel {$type[$i]}. Reason Unknown Admintype: {$admin[$i]}. Admintype is set to all now.");
+					Logger::log('ERROR', 'Core', "Error in registrating $module:subcommand($command) for channel {$type[$i]}. Reason Unknown Admintype: {$admin[$i]}. Admintype is set to all now.");
 					$admin[$i] = "all";
 				}
 			}
@@ -1094,39 +1091,38 @@ class bot extends AOChat{
 **  Register a group of commands
 */	function regGroup($group, $module = 'none', $description = 'none'){
 		$db = db::get_instance();
-		global $curMod;
 		
 		$description = str_replace("'", "''", $description);
 
 		$group = strtolower($group);
 		//Check if the module is correct
 		if ($module == "none") {
-			Logger::log('ERROR', 'Core', "Error in creating group $group. You need to specify a module for the group.");
+			Logger::log('ERROR', 'Core', "Error in creating $module:group($group). You need to specify a module for the group.");
 			return;
 		}
 		//Check if the group already exists
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `grp` = '$group'");
 		if ($db->numrows() != 0) {
-			Logger::log('ERROR', 'Core', "Error in creating group $group. This group already exists.");
+			Logger::log('ERROR', 'Core', "Error in creating $module:group($group). This group already exists.");
 			return;
 		}
     	$numargs = func_num_args();
     	$arg_list = func_get_args();
 		//Check if enough commands are given for the group
 		if ($numargs < 5) {
-			Logger::log('ERROR', 'Core', "Not enough commands to build group $group(must be at least 2 commands)");
+			Logger::log('ERROR', 'Core', "Not enough commands to build $module:group($group)(must be at least 2 commands)");
 			return;
 		}
 		//Go through the arg list and assign it to the group
 		for ($i = 3;$i < $numargs; $i++) {
-		  	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '".$arg_list[$i]."' AND `module` = '$curMod'");
+		  	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '".$arg_list[$i]."' AND `module` = '$module'");
 		  	if ($db->numrows() != 0) {
-			    $db->exec("UPDATE cmdcfg_<myname> SET `grp` = '$group' WHERE `cmd` = '".$arg_list[$i]."' AND `module` = '$curMod'");
+			    $db->exec("UPDATE cmdcfg_<myname> SET `grp` = '$group' WHERE `cmd` = '".$arg_list[$i]."' AND `module` = '$module'");
 			} else {
-			  	Logger::log('ERROR', 'Core', "Error in creating group $group for module $curMod. Command ".$arg_list[$i]." doesn't exists.");
+			  	Logger::log('ERROR', 'Core', "Error in creating $module:group($group). Command ".$arg_list[$i]." doesn't exists.");
 			}
 		}
-	  	$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `cmdevent`, `verify`, `description`) VALUES ('none', '$group', 'group', '1', '$description')");
+	  	$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `cmdevent`, `verify`, `description`) VALUES ('$module', '$group', 'group', '1', '$description')");
 	}
 
 
@@ -1141,7 +1137,7 @@ class bot extends AOChat{
 		if ($help != '' && ($actual_filename = bot::verifyFilename($help)) != '') {
     		$filename = $actual_filename;
 		} else if ($help != "") {
-			Logger::log('ERROR', 'Core', "Error in registering the File $filename for Setting $name. The file doesn't exists!");
+			Logger::log('ERROR', 'Core', "Error in registering the File $filename for Setting $module:setting($name). The file doesn't exists!");
 			return;
 		}
 		
@@ -1192,7 +1188,7 @@ class bot extends AOChat{
 ** Add a help command and display text file in a link.
 */	function help($module, $command, $filename, $admin, $description, $cat) {
 	  	$db = db::get_instance();
-		Logger::log('debug', 'Core', "Registering Helpfile:($filename) Cmd:($command)");
+		Logger::log('debug', 'Core', "Registering $module:help($command) Helpfile:($filename)");
 
 		$command = strtolower($command);
 
@@ -1207,7 +1203,7 @@ class bot extends AOChat{
 			} else if ($admin == "admin") {
 				$admin = 4;
 			} else if($admin != "all" && $admin != "guild" && $admin != "guildadmin") {
-				Logger::log('ERROR', 'Core', "Error in registrating the command $command for channel '$type'. Unknown Admin type: '$admin'. Admin type is set to 'all'.");
+				Logger::log('ERROR', 'Core', "Error in registrating the $module:help($command) for channel '$type'. Unknown Admin type: '$admin'. Admin type is set to 'all'.");
 				$admin = "all";
 			}
 		}
@@ -1219,7 +1215,7 @@ class bot extends AOChat{
 	    		$this->helpfiles[$module][$command]["status"] = "enabled";
 			}
 		} else {
-			Logger::log('ERROR', 'Core', "Error in registering the File $filename for Help command $command. The file doesn't exist!");
+			Logger::log('ERROR', 'Core', "Error in registering the File $filename for Help command $module:help($command). The file doesn't exist!");
 			return;
 		}
 
