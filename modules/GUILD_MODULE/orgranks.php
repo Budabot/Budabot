@@ -35,7 +35,7 @@ if(preg_match("/^orgranks$/i", $message)) {
         bot::send($msg, $sendto);
 	}
 	
-	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.name = p.name WHERE `mode` != 'del' ORDER BY `rank_id`");  
+	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.name = p.name WHERE `mode` != 'del' ORDER BY `guild_rank_id`");
 	$members = $db->numrows();
   	if ($members == 0) {
 	  	$msg = "No members recorded.";
@@ -45,7 +45,7 @@ if(preg_match("/^orgranks$/i", $message)) {
 	$msg = "Processing orgmember list. This can take a few seconds.";
     bot::send($msg, $sendto);
        	
-	$list = "<header>::::: Members of the org {$this->vars["my guild"]}(Sorted by orgrank) :::::<end>\n\n";
+	$list = "<header>::::: Members of the org {$this->vars["my guild"]} (Sorted by orgrank) :::::<end>\n\n";
 	while ($row = $db->fObject()) {
         if ($row->logged_off != "0") {
 	        $logged_off = gmdate("l F d, Y - H:i", $row->logged_off)."(GMT)";

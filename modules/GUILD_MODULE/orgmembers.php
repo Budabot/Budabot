@@ -36,7 +36,7 @@ if(preg_match("/^orgmembers$/i", $message)) {
 		return;
 	}
 	
-	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.name = p.name WHERE `mode` != 'del' ORDER BY o.name");  
+	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.name = p.name WHERE `mode` != 'del' ORDER BY o.name");
 	$members = $db->numrows();
   	if ($members == 0) {
 	  	$msg = "No members recorded.";
