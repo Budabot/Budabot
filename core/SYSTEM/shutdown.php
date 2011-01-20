@@ -35,5 +35,6 @@ bot::send($msg, "prv", true);
 bot::send($msg, "guild", true);
 
 AOChat::disconnect();
+Logger::log('INFO', 'Core', "The Bot is shutting down.");
 die("The Bot is shutting down.");
 ?>
