@@ -1,6 +1,7 @@
 *****************************
 	Version 2.0:
 *****************************
+-updated items db to 18.04.03
 -can now set seconds on a timer
 -added a TRACKER_MODULE for silently keeping track of when people sign on and off
 -added !lookup command so you can find the userid of a player
@@ -37,11 +38,9 @@
 -!alts now shows level and prof
 -there is an event to control whether the online list is sent to people joining the private channel
 -renamed BOTCHANNEL_MODULE to PRIVATE_CHANNEL_MODULE
--updated items db to 18.04.02
 -rewrote (yet again)!orglist so that it can do lookups MUCH faster and is much less likely to bug
 -renamed DBLOOT_MODULE to DUST_BRIGADE_MODULE
 -removed the readme docs since they were out of date
--fixed TOWERS_MODULE
 -fixed autoinviting guests
 -fixed logon message not showing
 -renamed FRIENDLIST_DIAG_MODULE to FRIENDLIST_MODULE
@@ -49,6 +48,16 @@
 -added !addbuddy so you can now manually add friends to the friends list
 -!logon with no params now shows your current logon message
 -made !oe more succinct
+-re-wrote !fight to not favor the first player
+-!buffs is back
+-removed BANK_MODULE
+-fixed TOWERS_MODULE
+-added !dwight and !pinky/!brain
+-changed !nd and !hd to !nanodelta and !healdelta
+-changed !reboot to !restart
+-updated !about
+-fixed !cmdlist
+-fixed !orgranks
 
 *****************************
 	Version 1.0_GA:

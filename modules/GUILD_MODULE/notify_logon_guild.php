@@ -1,31 +1,15 @@
 <?php
 
 if (isset($this->guildmembers[$sender]) && time() >= $this->vars["onlinedelay"]) {
-	$org_member = Player::get_by_name($sender);
+	$whois = Player::get_by_name($sender);
 	
 	$msg = '';
-	if ($org_member === null) {
+	if ($whois === null) {
 		$msg = "$sender logged on.";
 	} else {
-		if ($org_member->firstname) {
-            $msg = $org_member->firstname." ";
-		}
+		$msg = Player::get_info($whois);
 
-        $msg .= "<highlight>\"{$org_member->name}\"<end> ";
-
-        if ($org_member->lastname) {
-            $msg .= $org_member->lastname." ";
-		}
-
-        $msg .= "(Level <highlight>{$org_member->level}<end>/<green>{$org_member->ai_level} - {$org_member->ai_rank}<end>, {$org_member->gender} {$org_member->breed} <highlight>{$org_member->profession}<end>,";
-
-        if ($org_member->guild) {
-            $msg .= " {$org_member->guild_rank} of <highlight>{$org_member->guild}<end>) ";
-        } else {
-            $msg .= " Not in a guild.) ";
-		}
-
-        $msg .= "logged on. ";
+        $msg .= " logged on.";
 
         // Alternative Characters Part
         $main = false;
@@ -46,10 +30,10 @@ if (isset($this->guildmembers[$sender]) && time() >= $this->vars["onlinedelay"])
 
 		if ($main != $sender && $main != false) {
 			$alts = bot::makeLink("Alts", $blob);
-			$msg .= "Main: <highlight>$main<end> ($alts)";
+			$msg .= " Main: <highlight>$main<end> ($alts)";
 		} else if ($main != false) {
   			$alts = bot::makeLink("Alts of $main", $blob);
-			$msg .= "$alts";
+			$msg .= " $alts";
 		}
 
 		$sql = "SELECT logon_msg FROM org_members_<myname> WHERE name = '{$sender}'";
