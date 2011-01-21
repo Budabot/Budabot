@@ -143,7 +143,7 @@ class Player {
             $msg .= $whois->lastname." ";
 		}
 	
-		$msg .= "(<highlight>{$whois->level}<end>/<green>{$whois->ai_level}<end>, {$whois->gender} {$whois->breed} <highlight>{$whois->profession}<end>,";
+		$msg .= "(<highlight>{$whois->level}<end>/<green>{$whois->ai_level}<end>, {$whois->gender} {$whois->breed} <highlight>{$whois->profession}<end>, <$whois->faction>$whois->faction<end>";
 
         if ($whois->guild) {
             $msg .= " {$whois->guild_rank} of <highlight>{$whois->guild}<end>)";
