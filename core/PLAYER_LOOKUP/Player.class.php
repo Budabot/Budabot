@@ -129,6 +129,30 @@ class Player {
 		
 		$db->exec($sql);
 	}
+	
+	public static function get_info(&$whois) {
+		$msg = '';
+		
+		if ($whois->firstname) {
+            $msg = $whois->firstname." ";
+		}
+
+        $msg .= "<highlight>\"{$whois->name}\"<end> ";
+
+        if ($whois->lastname) {
+            $msg .= $whois->lastname." ";
+		}
+	
+		$msg .= "(<highlight>{$whois->level}<end>/<green>{$whois->ai_level}<end>, {$whois->gender} {$whois->breed} <highlight>{$whois->profession}<end>,";
+
+        if ($whois->guild) {
+            $msg .= " {$whois->guild_rank} of <highlight>{$whois->guild}<end>)";
+        } else {
+            $msg .= " Not in a guild)";
+		}
+		
+		return $msg;
+	}
 }
 
 ?>
