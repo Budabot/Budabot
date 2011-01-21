@@ -148,9 +148,9 @@ class Player {
 		$msg .= ", <" . strtolower($whois->faction) . ">$whois->faction<end>";
 
         if ($whois->guild) {
-            $msg .= " {$whois->guild_rank} of <highlight>{$whois->guild}<end>)";
+            $msg .= ", {$whois->guild_rank} of <highlight>{$whois->guild}<end>)";
         } else {
-            $msg .= " Not in a guild)";
+            $msg .= ", Not in a guild)";
 		}
 		
 		return $msg;
