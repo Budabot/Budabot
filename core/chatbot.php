@@ -659,33 +659,33 @@ class bot extends AOChat{
 		if (!is_numeric($admin)) {
 			if ($admin == "leader") {
 				$admin = 1;
-			} else if($admin == "raidleader" || $admin == "rl") {
+			} else if ($admin == "raidleader" || $admin == "rl") {
 				$admin = 2;
-			} else if($admin == "mod" || $admin == "moderator") {
+			} else if ($admin == "mod" || $admin == "moderator") {
 				$admin = 3;
-			} else if($admin == "admin") {
+			} else if ($admin == "admin") {
 				$admin = 4;
-			} else if($admin != "all" && $admin != "guild" && $admin != "guildadmin") {
-				Logger::log('ERROR', 'Core', "Error in registrating the command $command for channel $type. Reason Unknown Admintype: $admin. Admintype is set to all now.");
+			} else if ($admin != "all" && $admin != "guild" && $admin != "guildadmin") {
+				Logger::log('ERROR', 'Core', "Error in registering command $command for channel $type. Unknown Admintype: $admin. Admintype is set to all now.");
 				$admin = "all";
 			}
 		}
 
-		switch ($type){
+		switch ($type) {
 			case "msg":
-				if($this->tellCmds[$command]["filename"] == ""){
+				if ($this->tellCmds[$command]["filename"] == "") {
 					$this->tellCmds[$command]["filename"] = $filename;
 					$this->tellCmds[$command]["admin level"] = $admin;
 				}
 				break;
 			case "priv":
-				if($this->privCmds[$command]["filename"] == ""){
+				if ($this->privCmds[$command]["filename"] == "") {
 					$this->privCmds[$command]["filename"] = $filename;
 					$this->privCmds[$command]["admin level"] = $admin;
 				}
 				break;
 			case "guild":
-				if($this->guildCmds[$command]["filename"] == ""){
+				if ($this->guildCmds[$command]["filename"] == "") {
 					$this->guildCmds[$command]["filename"] = $filename;
 					$this->guildCmds[$command]["admin level"] = $admin;
 				}
