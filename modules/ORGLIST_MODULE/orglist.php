@@ -34,53 +34,63 @@
 
 if (!function_exists(orgmatesformat)){
 	function orgmatesformat ($memberlist, $map, $color, $timestart, $orgname) {
+		global $chatBot;
 	
 		$totalonline = 0;
 		$totalcount = 0;
-		foreach($memberlist["result"] as $amember) {
+		forEach ($memberlist["result"] as $amember) {
 			$newlist[$amember["rank_id"]][] = $amember["name"];
 		}
 		
-		for ($rankid=0; $rankid < count($map[$memberlist["orgtype"]]); $rankid++) {
+		for ($rankid = 0; $rankid < count($map[$memberlist["orgtype"]]); $rankid++) {
 			$onlinelist = "";
 			$offlinelist = "";
-			$sectonline=0;
+			$rank_online = 0;
+			$rank_total = count($newlist[$rankid]);
 			
-			for ($i=0; $i<count($newlist[$rankid]); $i++) {
-				sort($newlist[$rankid]);
+			$string_size = 0;
+			
+			sort($newlist[$rankid]);
+			for ($i = 0; $i < $rank_total; $i++) {
 				if ($memberlist["result"][$newlist[$rankid][$i]]["online"]) {
-					$sectonline++;
-					$onlinelist .= "  ".$memberlist["result"][$newlist[$rankid][$i]]["post"]."\n";
+					$rank_online++;
+					$onlinelist .= "  " . $memberlist["result"][$newlist[$rankid][$i]]["post"] . "\n";
 
 				} else {
-					$offlinelist .= $newlist[$rankid][$i].", ";
+					// handle the case when the offline members overflows the max_blob_size
+					if (strlen($offlinelist) - $string_size > $chatBot->settings["max_blob_size"]) {
+						$offlinelist .= "</font>\n" . $color["header"] . $map[$memberlist["orgtype"]][$rankid] . " continued...</font>\n". $color["offline"];
+						$string_size += strlen($offlinelist);
+					}
+					
+					$offlinelist .= $newlist[$rankid][$i] . ", ";
 				}
 			}
 			
 			if (strlen($offlinelist) > 2) {
-				$offlinelist = substr($offlinelist,0,-2).".";
+				$offlinelist = substr($offlinelist, 0, -2) . ".";
 			}
 			$totalcount += count($newlist[$rankid]);
-			$onlinecount += $sectonline;
+			$onlinecount += $rank_online;
 							
-			$fullist .=  "\n".$color["header"].$map[$memberlist["orgtype"]][$rankid]."<end> ";
-			$fullist .=  "(".$color["onlineH"]."$sectonline</font> of ".$color["onlineH"].count($newlist[$rankid])."</font>)\n";
+			$fullist .=  "\n" . $color["header"] . $map[$memberlist["orgtype"]][$rankid] . "</font> ";
+			$fullist .=  "(" . $color["onlineH"] . "{$rank_online}</font> of " . $color["onlineH"] . "{$rank_total}</font>)\n";
 
 			if ($onlinelist) {
 				$fullist .= $onlinelist;
 			}
 			if ($offlinelist) {
-				$fullist .= $color["offline"].$offlinelist."</font>\n";
+				//$fullist .= $offlinelist . "\n";
+				$fullist .= $color["offline"] . $offlinelist . "</font>\n";
 			}
 		}
-		$totaltime = time()-$timestart;
+		$totaltime = time() - $timestart;
 		$header  = $color["onlineH"].$orgname."<end> has ";
 		$header .= $color["onlineH"]."$onlinecount</font> online out of a total of ".$color["onlineH"]."$totalcount</font> members. ";
-		$header .= "(".$color["onlineH"]."$totaltime</font> seconds.)\n";
+		$header .= "(".$color["onlineH"]."$totaltime</font> seconds)\n";
 		$fullist = $header.$fullist;
 		
 		return $fullist;
-		unset($newlist);
 	}
 }
 
@@ -103,15 +113,17 @@ $orgrankmap["Faction"]    = array("Director",  "Board Member", "Executive",     
 $orgrankmap["Department"] = array("President", "General",      "Squad Commander", "Unit Commander", "Unit Leader", "Unit Member", "Applicant");
 
 // Don't want to reboot to see changes in color edits, so I'll store them in an array outside the function.
-$orgcolor["header"]  = "<font color=#FFFFFF>";		// Org Rank title
+$orgcolor["header"]  = "<font color='#FFFFFF'>";		// Org Rank title
 $orgcolor["onlineH"] = "<highlight>";			// Highlights on whois info
-$orgcolor["offline"] = "<font color=#555555>";		// Offline names
+$orgcolor["offline"] = "<font color='#555555'>";		// Offline names
 
 // No options? Target the $sender
-if (preg_match("/^(orglist|onlineorg)$/i", $message, $arr)) {$message = "orglist $sender";}
+if (preg_match("/^(orglist|onlineorg)$/i", $message)) {
+	$message = "orglist $sender";
+}
 
 $end = false;
-if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
+if (preg_match("/^(orglist|onlineorg) end$/i", $message)) {
 	$end = true;
 } else if (preg_match("/^(orglist|onlineorg) (.+)$/i", $message, $arr)) {
 	// Now we hopefully have either an org memeber, or org ID.
@@ -272,8 +284,8 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message, $arr)) {
 }
 
 if (isset($this->data["ORGLIST_MODULE"]) && count($this->data["ORGLIST_MODULE"]["added"]) == 0 || $end) {
-	$msg = orgmatesformat($this->data["ORGLIST_MODULE"], $orgrankmap, $orgcolor, $this->data["ORGLIST_MODULE"]["start"],$this->data["ORGLIST_MODULE"]["org"]);
-	$msg = bot::makeLink("Orglist for '".$this->data["ORGLIST_MODULE"]["org"]."'", $msg);
+	$blob = orgmatesformat($this->data["ORGLIST_MODULE"], $orgrankmap, $orgcolor, $this->data["ORGLIST_MODULE"]["start"], $this->data["ORGLIST_MODULE"]["org"]);
+	$msg = bot::makeLink("Orglist for '".$this->data["ORGLIST_MODULE"]["org"]."'", $blob);
 	bot::send($msg, $this->data["ORGLIST_MODULE"]["sendto"]);
 
 	// in case it was ended early
