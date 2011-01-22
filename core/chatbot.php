@@ -427,13 +427,14 @@ class bot extends AOChat{
 						$result[$page] = "<a $style href=\"text://".$this->settings["default_window_color"].$result[$page]."\">$name</a> (Page <highlight>$page<end>)";
 				    	$page++;
 						
-						$result[$page] .= "<header>::::: $name Page $page :::::<end>\n";
+						$result[$page] .= "<header>::::: $name Page $page :::::<end>\n\n";
 						$page_size = strlen($result[$page]);
 					}
 				}
 				$result[$page] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].$result[$page]."\">$name</a> (Page <highlight>$page - End<end>)";
 				return $result;
 			} else {
+				$content = str_replace('<pagebreak>', '', $content);
 				return "<a $style href=\"text://".$this->settings["default_window_color"].$content."\">$name</a>";
 			}
 		} else if ($type == "text") { // Majic link.

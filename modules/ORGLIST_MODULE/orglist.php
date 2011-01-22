@@ -37,7 +37,7 @@ if (!function_exists(orgmatesformat)){
 		global $chatBot;
 	
 		$totalonline = 0;
-		$totalcount = 0;
+		$totalcount = count($memberlist["result"]);
 		forEach ($memberlist["result"] as $amember) {
 			$newlist[$amember["rank_id"]][] = $amember["name"];
 		}
@@ -58,8 +58,7 @@ if (!function_exists(orgmatesformat)){
 				}
 			}
 			
-			$totalcount += count($newlist[$rankid]);
-			$onlinecount += $rank_online;
+			$totalonline += $rank_online;
 							
 			$blob .=  "\n" . $color["header"] . $map[$memberlist["orgtype"]][$rankid] . "</font> ";
 			$blob .=  "(" . $color["onlineH"] . "{$rank_online}</font> of " . $color["onlineH"] . "{$rank_total}</font>)\n";
@@ -74,7 +73,7 @@ if (!function_exists(orgmatesformat)){
 		
 		$totaltime = time() - $timestart;
 		$header  = $color["onlineH"].$orgname."<end> has ";
-		$header .= $color["onlineH"]."$onlinecount</font> online out of a total of ".$color["onlineH"]."$totalcount</font> members. ";
+		$header .= $color["onlineH"]."$totalonline</font> online out of a total of ".$color["onlineH"]."$totalcount</font> members. ";
 		$header .= "(".$color["onlineH"]."$totaltime</font> seconds)\n";
 		$blob = $header.$blob;
 		
@@ -229,7 +228,7 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message)) {
 		}
 	}
 	
-	$this->send("Checking online status for '$org->orgname'...", $sendto);
+	$this->send("Checking online status for " . count($org->members) ." members of '$org->orgname'...", $sendto);
 
 	// prime the list and get things rolling by adding some buddies
 	$i = 0;
