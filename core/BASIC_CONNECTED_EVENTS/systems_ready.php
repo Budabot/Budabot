@@ -34,7 +34,7 @@ forEach ($this->admins as $who => $data) {
 	if ($this->admins[$who]["level"] == 4) {
 		if ($who != "") {
 			if ($this->admins[$who]["online"] == "online") {
-				bot::send("<myname> is <green>online<end> and ready to use. For updates or help use the Budabot Forums <highlight>http://budabot.com<end>", $who);
+				bot::send("<myname> is <green>online<end>. For updates or help use the Budabot Forums <highlight>http://budabot.com<end>", $who);
 			}
 		}
 	}

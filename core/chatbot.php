@@ -404,11 +404,21 @@ class bot extends AOChat{
 		if ($type == "blob") { // Normal link.
 			$content = str_replace('"', '&quot;', $content);
 			if (strlen($content) > $this->settings["max_blob_size"]) {  //Split the windows if they are too big
-			  	$content = explode("\n", $content);
+				$array = explode("<pagebreak>", $content);
+				$pagebreak = true;
+				
+				// if the blob hasn't specified how to split it, split on linebreaks
+				if (count($array) == 1) {
+					$array = explode("\n", $content);
+					$pagebreak = false;
+				}
 				$page = 1;
 				$page_size = 0;
-			  	forEach ($content as $line) {
-					$line .= "\n";  // preserve newline char
+			  	forEach ($array as $line) {
+					// preserve newline char if we split on newlines
+					if ($pagebreak == false) {
+						$line .= "\n";
+					}
 					$line_length = strlen($line);
 					if ($page_size + $line_length < $this->settings["max_blob_size"]) {
 						$result[$page] .= $line;
