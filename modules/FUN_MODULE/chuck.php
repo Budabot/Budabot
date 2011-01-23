@@ -6,7 +6,7 @@
    ** Version: 1.0
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
-   ** Additions taken from a module written by Temar for Bebot: http://bebot.shadow-realm.org/0-3-x-customunofficial-modules/chuck-norris/msg6490/
+   ** Additions taken from a module written by Temar for Bebot: http://bebot.shadow-realm.org/0-3-x-customunofficial-modules/chuck-norris/
    ** Date(created):2.6.08
    ** Date(last modified): 2.7.08
    **
