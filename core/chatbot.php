@@ -498,9 +498,6 @@ class bot extends AOChat{
 	
 		$message = bot::formatMessage($message);
 		AOChat::send_privgroup($group, $this->settings["default_priv_color"].$message);
-		if (($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1 && !$disable_relay)) {
-			AOChat::send_group($group, "</font>{$this->settings["guest_color_channel"]}[Guest]<end> {$this->settings["guest_color_username"]}{$this->vars["name"]}</font>: {$this->settings["default_priv_color"]}$message</font>");
-		}
 	}
 
 /*===============================
@@ -935,6 +932,14 @@ class bot extends AOChat{
 				if(!in_array($actual_filename, $this->shopping))
 					$this->shopping[] = $actual_filename;
 				break;
+			case "sendGuild":
+				if(!in_array($actual_filename, $this->sendGuild))
+					$this->sendGuild[] = $actual_filename;
+				break;
+			case "sendPriv":
+				if(!in_array($actual_filename, $this->sendPriv))
+					$this->sendPriv[] = $actual_filename;
+				break;
 			case "setup":
 				include $actual_filename;
 				break;
@@ -1092,6 +1097,18 @@ class bot extends AOChat{
 				if(in_array($filename, $this->shopping)) {
 					$temp = array_flip($this->shopping);
 					unset($this->shopping[$temp[$filename]]);
+				}
+				break;
+			case "sendGuild":
+				if(in_array($filename, $this->sendGuild)) {
+					$temp = array_flip($this->sendGuild);
+					unset($this->sendGuild[$temp[$filename]]);
+				}
+				break;
+			case "sendPriv":
+				if(in_array($filename, $this->sendPriv)) {
+					$temp = array_flip($this->sendPriv);
+					unset($this->sendPriv[$temp[$filename]]);
 				}
 				break;
 		}
