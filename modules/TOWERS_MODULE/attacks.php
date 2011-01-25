@@ -83,7 +83,7 @@ $sql =
 		a.`time` DESC
 	LIMIT
 		$page, $listcount";
-echo $sql . "\n";
+
 $db->query($sql);
 
 if ($db->numrows() == 0) {

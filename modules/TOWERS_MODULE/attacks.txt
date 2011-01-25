@@ -25,3 +25,5 @@
 
 <highlight>To see page 2 of the last attack messages for specific guild:<end>
 <tab><symbol>attacks org The Pain Dealers 2
+
+Note: Use '%' as a wildcard in guild and player names
