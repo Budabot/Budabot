@@ -50,7 +50,7 @@ INSERT INTO `whereis` VALUES (50,'Brenda Diamond','at the ruins near Home in Bro
 INSERT INTO `whereis` VALUES (51,'Broken Shores','in the southwest corner of the world. It has a grid access point in City of Home at 644 x 1313. In the north is a Whompah at 1000 x 3760 to Bliss and to Wine. There is a Whompah to Rome Red and 4 Holes Trade at 2340 x 2250','Broken Shord Shore Shores Brokenshores Bs Grid');
 INSERT INTO `whereis` VALUES (52,'Brutus Leonidis','at 1550 x 300 in Athen Shire',NULL);
 INSERT INTO `whereis` VALUES (53,'Captain Lewison','at Reet retreat, Stret West Bank',NULL);
-INSERT INTO `whereis` VALUES (54,'City Of Home','in the Broken Shores zone, at 735 x 1459. It has shops, clan/neut insure terms, banks.','Cityofhome');
+INSERT INTO `whereis` VALUES (54,'City Of Home','in the Broken Shores zone, at 735 x 1459. It has shops, clan/neut insure terms, banks.','Cityofhome coh');
 INSERT INTO `whereis` VALUES (55,'Clan Modified A-4000','at Avalon at 1105 x 2520','Clan Modified A 4000 a-4000 A4000');
 INSERT INTO `whereis` VALUES (56,'Clawfinger Forefather','at Smuggler''s Den, Southern Fouls Hills at 1749 x 869','Claw Finger Forefather Clawfinger Fore Father');
 INSERT INTO `whereis` VALUES (57,'Coco','next to the bar in ''The Cup'', in West Athen',NULL);
