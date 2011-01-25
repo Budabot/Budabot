@@ -1,6 +1,6 @@
 <?php
 
-if ($args[2][0] != $this->settings["symbol"]) {
+if (($this->settings["relaybot"] != "Off") && ($args[2][0] != $this->settings["symbol"])) {
 	$relayMessage = '';
 	if ($this->settings['relaysymbol'] == 'Always relay') {
 		$relayMessage = $message;

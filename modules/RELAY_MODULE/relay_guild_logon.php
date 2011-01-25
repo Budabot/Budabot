@@ -29,93 +29,50 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (isset($this->guildmembers[$sender])) {
-    $msg = "";
-    $db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.name = p.name WHERE o.`name` = '$sender'");
-	$numrows = $db->numrows();
-	$row = $db->fObject();
-	if ($row->mode != "del" && $numrows == 1) {
-        if (time() >= $this->vars["onlinedelay"]) {
-            if ($row->firstname) {
-                $msg = $row->firstname." ";
-			}
+if ($this->settings["relaybot"] != "Off" && isset($this->guildmembers[$sender])) {
+    $whois = Player::get_by_name($sender);
+	
+	$msg = '';
+	if ($whois === null) {
+		$msg = "$sender logged on.";
+	} else {
+		$msg = Player::get_info($whois);
 
-            $msg .= "<highlight>\"{$row->name}\"<end> ";
+        $msg .= " logged on.";
 
-            if ($row->lastname) {
-                $msg .= $row->lastname." ";
-			}
-
-            $msg .= "(Level <highlight>{$row->level}<end>/<green>{$row->ai_level} - {$row->ai_rank}<end>, <highlight>{$row->profession}<end>,";
-
-            if ($row->guild) {
-                $msg .= " {$row->guild_rank} of <highlight>{$row->guild}<end>) ";
-            } else {
-                $msg .= " Not in a guild.) ";
-			}
-
-            $msg .= "logged on. ";
-
-            $logon_msg = $row->logon_msg;
-
-            // Alternative Characters Part
-            $main = false;
-            // Check if $sender is hisself the main
-            $db->query("SELECT * FROM alts WHERE `main` = '$sender'");
-            if ($db->numrows() == 0) {
-                // Check if $sender is an alt
-                $db->query("SELECT * FROM alts WHERE `alt` = '$sender'");
-                if ($db->numrows() != 0) {
-                    $row = $db->fObject();
-                    $main = $row->main;
-                }
-            } else {
-                $main = $sender;
-			}
-
-            // If a main was found create the list
-            if ($main) {
-                $list = "<header>::::: Alternative Character List :::::<end> \n \n";
-                $list .= ":::::::: Main Character\n";
-                $list .= "<tab><tab>".bot::makeLink($row->main, "/tell ".$this->vars["name"]." whois $main", "chatcmd")." - ";
-				$online = $this->buddy_online($main);
-				if ($online === null) {
-				   $list .= "No status.\n";
-				} else if ($online == 1) {
-				   $list .= "<green>Online<end>\n";
-				} else {
-				   $list .= "<red>Offline<end>\n";
-				}
-
-                $list .= ":::::::: Alt Character(s)\n";
-                $db->query("SELECT * FROM alts WHERE `main` = '$main'");
-                while ($row = $db->fObject()) {
-                    $list .= "<tab><tab>".bot::makeLink($row->alt, "/tell ".$this->vars["name"]." whois $row->alt", "chatcmd")." - ";
-					$online = $this->buddy_online($row->alt);
-                    if ($online === null) {
-                       $list .= "No status.\n";
-                    } else if ($online == 1) {
-                       $list .= "<green>Online<end>\n";
-                    } else {
-                       $list .= "<red>Offline<end>\n";
-					}
-                }
+        // Alternative Characters Part
+        $main = false;
+        // Check if $sender is the main
+        $db->query("SELECT * FROM alts WHERE `main` = '$sender'");
+        if ($db->numrows() == 0) {
+            // Check if $sender is an alt
+            $db->query("SELECT * FROM alts WHERE `alt` = '$sender'");
+            if ($db->numrows() != 0) {
+                $row = $db->fObject();
+                $main = $row->main;
             }
+        } else {
+            $main = $sender;
+		}
 
-			if ($main != $sender && $main != false) {
-				$alts = bot::makeLink("Alts", $list);
-				$msg .= "Main: <highlight>$main<end> ($alts) ";
-			} else if ($main != false) {
-	  			$alts = bot::makeLink("Alts of $main", $list);
-				$msg .= "$alts ";  
-			}
-		
-            if ($logon_msg != '0') {
-                $msg .= " - ".$logon_msg;
-			}
+        $blob = Alts::get_alts_blob($sender);
 
-			send_message_to_relay("grc <grey>[".$this->vars["my guild"]."] ".$msg);
-        }
+		if ($main != $sender && $main != false) {
+			$alts = bot::makeLink("Alts", $blob);
+			$msg .= " Main: <highlight>$main<end> ($alts)";
+		} else if ($main != false) {
+  			$alts = bot::makeLink("Alts of $main", $blob);
+			$msg .= " $alts";
+		}
+
+		$sql = "SELECT logon_msg FROM org_members_<myname> WHERE name = '{$sender}'";
+		$db->query($sql);
+		$row = $db->fObject();
+        if ($row !== null && $row->logon_msg != '') {
+            $msg .= " - " . $row->logon_msg;
+		}
+
+		send_message_to_relay("grc <grey>[".$this->vars["my guild"]."] ".$msg);
     }
 }
 ?>

@@ -107,9 +107,9 @@ if (preg_match("/^settings$/i", $message)) {
 		  	$link .= "Dark Orange: <font color='#FF8C00'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #FF8C00'>Save it</a>) \n";
 		} else if ($options[0] == "text") {
 		  	if($options[1] <= 50 && $options[1] != "")
-		  		$link .= "For this setting you can enter any text you want(max. $options[1]chararacters).\n";
+		  		$link .= "For this setting you can enter any text you want(max. {$options[1]} chararacters).\n";
 		  	else
-		  		$link .= "For this setting you can enter any text you want(max. 50chararacters).\n";
+		  		$link .= "For this setting you can enter any text you want(max. 50 chararacters).\n";
 		  	$link .= "To change this setting do:\n";
 		  	$link .= "/tell <myname> settings save {$row->name} 'Your text'";
 		} else if($options[0] == "number") {
