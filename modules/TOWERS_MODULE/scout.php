@@ -51,7 +51,8 @@ if (preg_match("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[
 			}
 			
 			if ($closing_time_seconds - $victory_time_of_day > 3600) {
-				$check_blob .= "- <green>Closing time<end> The closing time you have specified is more than 1 hour after the site was destroyed. Please verify that you are using the closing time and not the gas change time and that the closing time is correct.\n\n";
+				$check_blob .= "- <green>Closing time<end> The closing time you have specified is more than 1 hour after the site was destroyed.";
+				$check_blob .= " Please verify that you are using the closing time and not the gas change time and that the closing time is correct.\n\n";
 			}
 		}
 	}
@@ -63,7 +64,8 @@ if (preg_match("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[
 	}
 	
 	if ($check_blob) {
-		$check_blob = "<header>:::::: Scouting problems <end>\n\n" . $check_blob . "Please correct these errors, or, if you are sure the values you entered are correct, use !forcescout to bypass these checks";
+		$check_blob = "<header>:::::: Scouting problems <end>\n\n" . $check_blob;
+		$check_blob .= "Please correct these errors, or, if you are sure the values you entered are correct, use !forcescout to bypass these checks";
 		$msg = $this->makeLink('Scouting problems', $check_blob, 'blob');
 	} else {
 		Towers::add_scout_site($playfield->id, $site_number, $closing_time_seconds, $ct_ql, $faction, $org_name, $sender);

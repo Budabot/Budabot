@@ -29,6 +29,7 @@
 	bot::event($MODULE_NAME, "towers", "victory_messages.php", "none", "Record victory messages");
 
 	// help files
-	bot::help($MODULE_NAME, "towers", "towers.txt", "guild", "Show tower commands");
+	bot::help($MODULE_NAME, "attacks", "attacks.txt", "guild", "Show attack message commands and options");
+	bot::help($MODULE_NAME, "victory", "victory.txt", "guild", "Show victory message commands and options");
 	bot::help($MODULE_NAME, "lc", "lc.txt", "all", "How to use land control commands");
 ?>

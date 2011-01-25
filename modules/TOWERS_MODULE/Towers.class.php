@@ -69,7 +69,7 @@ class Towers {
 			SELECT
 				*
 			FROM
-				tower_attack
+				tower_attack_<myname>
 			WHERE
 				`att_org_name` = '{$att_org_name}'
 				AND `att_faction` = '{$att_faction}'
@@ -92,7 +92,7 @@ class Towers {
 		$def_org_name = str_replace("'", "''", $def_org_name);
 		
 		$sql = "
-			INSERT INTO tower_attack (
+			INSERT INTO tower_attack_<myname> (
 				`time`,
 				`att_org_name`,
 				`att_faction`,
@@ -149,8 +149,8 @@ class Towers {
 			SELECT
 				*
 			FROM
-				tower_victory v
-				JOIN tower_attack a ON (v.attack_id = a.id)
+				tower_victory_<myname> v
+				JOIN tower_attack_<myname> a ON (v.attack_id = a.id)
 			WHERE
 				a.`playfield_id` = {$playfield_id}
 				AND a.`site_number` >= {$site_number}
@@ -169,7 +169,7 @@ class Towers {
 		$lose_org_name = str_replace("'", "''", $last_attack->def_org_name);
 		
 		$sql = "
-			INSERT INTO tower_victory (
+			INSERT INTO tower_victory_<myname> (
 				`time`,
 				`win_org_name`,
 				`win_faction`,
@@ -230,7 +230,7 @@ class Towers {
 		
 		$org_name = str_replace("'", "''", $org_name);
 	
-		$sql = "SELECT * FROM tower_attack WHERE `att_org_name` LIKE '{$org_name}' OR `def_org_name` LIKE '{$org_name}' LIMIT 1";
+		$sql = "SELECT * FROM tower_attack_<myname> WHERE `att_org_name` LIKE '{$org_name}' OR `def_org_name` LIKE '{$org_name}' LIMIT 1";
 		
 		$db->query($sql);
 		if ($db->numrows() === 0) {

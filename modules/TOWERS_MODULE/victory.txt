@@ -1,0 +1,27 @@
+<header>::::: Victory Message Commands and Options :::::<end>
+
+<red>Remember that the bot needs at least Squad Commander to be able to see Tower Messages<end>
+
+<highlight>To see the last 20 victory messages:<end>
+<tab><symbol>victory
+
+<highlight>To see page 2 of the last victory messages:<end>
+<tab><symbol>victory 2
+
+<highlight>To see the last 20 victory messages for a certain site:<end>
+<tab><symbol>victory EFP 5
+
+<highlight>To see page 2 of the last victory messages for a certain site:<end>
+<tab><symbol>victory EFP 5 2
+
+<highlight>To see the last 20 victory messages for specific person:<end>
+<tab><symbol>victory player Tyrence
+
+<highlight>To see page 2 of the last victory messages for specific person:<end>
+<tab><symbol>victory player Tyence 2
+
+<highlight>To see the last 20 victory messages for specific guild:<end>
+<tab><symbol>victory org The Pain Dealers
+
+<highlight>To see page 2 of the last victory messages for specific guild:<end>
+<tab><symbol>victory org The Pain Dealers 2

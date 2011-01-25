@@ -3,15 +3,6 @@
 $colorlabel = "<font color=#00DE42>";
 $colorvalue = "<font color=#63AD63>";
 
-// attacks
-// attacks 2 -- page 2
-// attacks gtc 3
-// attacks gtc 3 2 -- page 2
-// attacks org the pain dealers
-// attacks org the pain dealers 2 -- page 2
-// attacks player tyrence
-// attacks player tyrence 2 -- page 2
-
 $listcount = 20;
 $page_label = 1;
 $search = '';
@@ -84,7 +75,7 @@ $sql =
 	"SELECT
 		*
 	FROM
-		tower_attack a
+		tower_attack_<myname> a
 		LEFT JOIN playfields p ON (a.playfield_id = p.id)
 		LEFT JOIN tower_site s ON (a.playfield_id = s.playfield_id AND a.site_number = s.site_number)
 	$search
