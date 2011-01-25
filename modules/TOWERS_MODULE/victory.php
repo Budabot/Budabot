@@ -41,7 +41,7 @@ if (preg_match("/^victory (\\d+)$/i", $message, $arr) || preg_match("/^victory$/
 	}
 
 	$search = "WHERE a.`playfield_id` = {$tower_info->playfield_id} AND a.`site_number` = {$tower_info->site_number}";
-} else if (preg_match("/^victory org (.+) (\\d+)$/i", $message) || preg_match("/^victory org (.+)$/i", $message)) {
+} else if (preg_match("/^victory org (.+) (\\d+)$/i", $message, $arr) || preg_match("/^victory org (.+)$/i", $message, $arr)) {
 	if (isset($arr[2])) {
 		$page_label = $arr[2];
 		if ($page_label < 1) {
@@ -53,7 +53,7 @@ if (preg_match("/^victory (\\d+)$/i", $message, $arr) || preg_match("/^victory$/
 
 	$value = str_replace("'", "''", $arr[1]);
 	$search = "WHERE v.`win_guild_name` LIKE '$value' OR v.`lose_guild_name` LIKE '$value'";
-} else if (preg_match("/^victory player (.+) (\\d+)$/i", $message) || preg_match("/^victory player (.+)$/i", $message)) {
+} else if (preg_match("/^victory player (.+) (\\d+)$/i", $message, $arr) || preg_match("/^victory player (.+)$/i", $message, $arr)) {
 	if (isset($arr[2])) {
 		$page_label = $arr[2];
 		if ($page_label < 1) {

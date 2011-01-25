@@ -41,7 +41,7 @@ if (preg_match("/^(attacks|battles?) (\\d+)$/i", $message, $arr) || preg_match("
 	}
 
 	$search = "WHERE a.`playfield_id` = {$tower_info->playfield_id} AND a.`site_number` = {$tower_info->site_number}";
-} else if (preg_match("/^(attacks|battles?) org (.+) (\\d+)$/i", $message) || preg_match("/^(attacks|battles?) org (.+)$/i", $message)) {
+} else if (preg_match("/^(attacks|battles?) org (.+) (\\d+)$/i", $message, $arr) || preg_match("/^(attacks|battles?) org (.+)$/i", $message, $arr)) {
 	if (isset($arr[3])) {
 		$page_label = $arr[3];
 		if ($page_label < 1) {
@@ -53,7 +53,7 @@ if (preg_match("/^(attacks|battles?) (\\d+)$/i", $message, $arr) || preg_match("
 
 	$value = str_replace("'", "''", $arr[2]);
 	$search = "WHERE a.`att_org_name` LIKE '$value' OR a.`def_org_name` LIKE '$value'";
-} else if (preg_match("/^(attacks|battles?) player (.+) (\\d+)$/i", $message) || preg_match("/^(attacks|battles?) player (.+)$/i", $message)) {
+} else if (preg_match("/^(attacks|battles?) player (.+) (\\d+)$/i", $message, $arr) || preg_match("/^(attacks|battles?) player (.+)$/i", $message, $arr)) {
 	if (isset($arr[3])) {
 		$page_label = $arr[3];
 		if ($page_label < 1) {
@@ -83,7 +83,7 @@ $sql =
 		a.`time` DESC
 	LIMIT
 		$page, $listcount";
-
+echo $sql . "\n";
 $db->query($sql);
 
 if ($db->numrows() == 0) {
