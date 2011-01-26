@@ -36,10 +36,18 @@ class Player {
 	}
 	
 	public static function lookup($name, $dimension) {
+		global $chatBot;
+
+		$charid = $chatBot->get_uid($char->name);
+		if ($charid == null) {
+			return null;
+		}
+
 		$xml = Player::lookup_url("http://people.anarchy-online.com/character/bio/d/$dimension/name/$name/bio.xml");
 		if ($xml->name == $name) {
 			$xml->source = 'people.anarchy-online.com';
 			$xml->dimension = $dimension;
+			$xml->charid = $charid;
 
 			return $xml;
 		}
@@ -49,6 +57,7 @@ class Player {
 		if ($xml->name == $name) {
 			$xml->source = 'auno.org';
 			$xml->dimension = $dimension;
+			$xml->charid = $charid;
 
 			return $xml;
 		}
@@ -83,49 +92,80 @@ class Player {
 	
 	public static function update(&$char) {
 		$db = db::get_instance();
-	
-		$sql = "DELETE FROM players WHERE `name` LIKE '$char->name'";
-		$db->exec($sql);
-	
-		$sql = "INSERT INTO players (
-			firstname,
-			name,
-			lastname,
-			level,
-			breed,
-			gender,
-			faction,
-			profession,
-			prof_title,
-			ai_rank,
-			ai_level,
-			guild_id,
-			guild,
-			guild_rank,
-			guild_rank_id,
-			dimension,
-			source,
-			last_update
-		) VALUES (
-			'{$char->firstname}',
-			'{$char->name}',
-			'{$char->lastname}',
-			'{$char->level}',
-			'{$char->breed}',
-			'{$char->gender}',
-			'{$char->faction}',
-			'{$char->profession}',
-			'{$char->prof_title}',
-			'{$char->ai_rank}',
-			'{$char->ai_level}',
-			'{$char->guild_id}',
-			'" . str_replace("'", "''", $char->guild) . "',
-			'{$char->guild_rank}',
-			'{$char->guild_rank_id}',
-			'{$char->dimension}',
-			'{$char->source}',
-			'" . time() . "'
-		)";
+		
+		$sql = "SELECT charid FROM players WHERE `charid` = '{$char->charid}'";
+		$db->query($sql);
+		if ($db->numrows() == 0) {
+			$sql = "
+				INSERT INTO players (
+					`charid`,
+					`firstname`,
+					`name`,
+					`lastname`,
+					`level`,
+					`breed`,
+					`gender`,
+					`faction`,
+					`profession`,
+					`prof_title`,
+					`ai_rank`,
+					`ai_level`,
+					`guild_id`,
+					`guild`,
+					`guild_rank`,
+					`guild_rank_id`,
+					`dimension`,
+					`source`,
+					`last_update`
+				) VALUES (
+					'{$char->charid}',
+					'{$char->firstname}',
+					'{$char->name}',
+					'{$char->lastname}',
+					'{$char->level}',
+					'{$char->breed}',
+					'{$char->gender}',
+					'{$char->faction}',
+					'{$char->profession}',
+					'{$char->prof_title}',
+					'{$char->ai_rank}',
+					'{$char->ai_level}',
+					'{$char->guild_id}',
+					'" . str_replace("'", "''", $char->guild) . "',
+					'{$char->guild_rank}',
+					'{$char->guild_rank_id}',
+					'{$char->dimension}',
+					'{$char->source}',
+					'" . time() . "'
+				)";
+
+			$db->exec($sql);
+		} else {
+			$sql = "
+				UPDATE players SET
+					`firstname` = '{$char->firstname}',
+					`name` = '{$char->name}',
+					`lastname` = '{$char->lastname}',
+					`level` = '{$char->level}',
+					`breed` = '{$char->breed}',
+					`gender` = '{$char->gender}',
+					`faction` = '{$char->faction}',
+					`profession` = '{$char->profession}',
+					`prof_title` = '{$char->prof_title}',
+					`ai_rank` = '{$char->ai_rank}',
+					`ai_level` = '{$char->ai_level}',
+					`guild_id` = '{$char->guild_id}',
+					`guild` = '" . str_replace("'", "''", $char->guild) . "',
+					`guild_rank` = '{$char->guild_rank}',
+					`guild_rank_id` = '{$char->guild_rank_id}',
+					`dimension` = '{$char->dimension}',
+					`source` = '{$char->source}',
+					`last_update` = '" . time() . "'
+				WHERE
+					`charid` = '{$char->charid}'";
+
+			$db->exec($sql);
+		}
 		
 		$db->exec($sql);
 	}
