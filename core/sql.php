@@ -114,7 +114,11 @@ class db {
 
 		$error = $this->sql->errorInfo();
 		if ($error[0] != "00000") {
-			Logger::log('error', "SqlError", "{$error[2]} in: $stmt");
+			// when schema changes sqlite throws an error so we retry the query
+			if ($this->type == "Sqlite" && $error[1] == 17) {
+				return $this->query($stmt, $type);
+			}
+			Logger::log('ERROR', "SqlError", "{$error[2]} in: $stmt");
 		}
 
 		return $result;
@@ -136,7 +140,11 @@ class db {
 
 		$error = $this->sql->errorInfo();
 		if ($error[0] != "00000") {
-			Logger::log('error', "SqlError", "{$error[2]} in: $stmt");
+			// when schema changes sqlite throws an error so we retry the query
+			if ($this->type == "Sqlite" && $error[1] == 17) {
+				return $this->exec($stmt);
+			}
+			Logger::log('ERROR', "SqlError", "{$error[2]} in: $stmt");
 		}
 
 		return $aff_rows;
@@ -159,7 +167,11 @@ class db {
 
 		$error = $this->sql->errorInfo();
 		if ($error[0] != "00000") {
-			Logger::log('error', "SqlError", "{$error[2]} in: $stmt");
+			// when schema changes sqlite throws an error so we retry the query
+			if ($this->type == "Sqlite" && $error[1] == 17) {
+				return $this->CreateTable($stmt, $type);
+			}
+			Logger::log('ERROR', "SqlError", "{$error[2]} in: $stmt");
 		}
 	}
 
