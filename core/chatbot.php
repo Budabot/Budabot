@@ -345,9 +345,11 @@ class bot extends AOChat{
 */	function connectedEvents(){
 		$db = db::get_instance();
 
+		Logger::log('DEBUG', 'Core', "Executing connected events");
+
 		// Check files, for all 'connect events'.
 		forEach ($this->_connect as $filename) {
-			include $filename;
+			require $filename;
 		}
 	}
 
@@ -552,7 +554,7 @@ class bot extends AOChat{
 					// Look for the plugin's ... setup file
 					if (file_exists("./modules/$entry/$entry.php")) {
 						$curMod = $entry;
-						Logger::log('debug', 'Core', "MODULE_NAME:($entry.php)");
+						Logger::log('DEBUG', 'Core', "MODULE_NAME:($entry.php)");
 						include "./modules/$entry/$entry.php";
 					}
 				}
