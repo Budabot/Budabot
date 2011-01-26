@@ -68,16 +68,16 @@ class bot extends AOChat{
 ** Connect to AO chat servers.
 */	function connectAO($login, $password){
 		// Choose Server
-		if($this->vars["dimension"] == 1) {
+		if ($this->vars["dimension"] == 1) {
 			$server = "chat.d1.funcom.com";
 			$port = 7101;
-		} elseif($this->vars["dimension"] == 2) {
+		} else if ($this->vars["dimension"] == 2) {
 			$server = "chat.d2.funcom.com";
 			$port = 7102;
-		} elseif($this->vars["dimension"] == 3) {
+		} else if ($this->vars["dimension"] == 3) {
 			$server = "chat.d3.funcom.com";
 			$port = 7103;
-		} elseif($this->vars["dimension"] == 4) {
+		} else if ($this->vars["dimension"] == 4) {
 			$server = "chat.dt.funcom.com";
 			$port = 7109;
 		} else {
@@ -90,7 +90,7 @@ class bot extends AOChat{
 		Logger::log('INFO', 'StartUp', "Connecting to AO Server...($server)");
 		AOChat::connect($server, $port);
 		sleep(2);
-		if($this->state != "auth") {
+		if ($this->state != "auth") {
 			Logger::log('ERROR', 'StartUp', "Connection failed! Please check your Internet connection and firewall.");
 			sleep(10);
 			die();
@@ -99,7 +99,7 @@ class bot extends AOChat{
 		Logger::log('INFO', 'StartUp', "Authenticate login data...");
 		AOChat::authenticate($login, $password);
 		sleep(2);
-		if($this->state != "login") {
+		if ($this->state != "login") {
 			Logger::log('ERROR', 'StartUp', "Authentication failed! Please check your username and password.");
 			sleep(10);
 			die();
@@ -108,7 +108,7 @@ class bot extends AOChat{
 		Logger::log('INFO', 'StartUp', "Logging in {$this->vars["name"]}...");
 		AOChat::login($this->vars["name"]);
 		sleep(2);
-		if($this->state != "ok") {
+		if ($this->state != "ok") {
 			Logger::log('ERROR', 'StartUp', "Logging in of {$this->vars["name"]} failed! Please check the character name and dimension.");
 			sleep(10);
 			die();
@@ -142,9 +142,6 @@ class bot extends AOChat{
 		
 		$db = db::get_instance();
 		
-		global $curMod;
-		$curMod = "";
-	
 		//Delete old vars in case they exist
 		unset($this->subcommands);
 		unset($this->tellCmds);
@@ -547,13 +544,12 @@ class bot extends AOChat{
 ** Load all Modules
 */	function loadModules(){
 		$db = db::get_instance();
-		global $curMod;
+
 		if ($d = dir("./modules")) {
 			while (false !== ($entry = $d->read())) {
 				if (!is_dir($entry)) {
 					// Look for the plugin's ... setup file
 					if (file_exists("./modules/$entry/$entry.php")) {
-						$curMod = $entry;
 						Logger::log('DEBUG', 'Core', "MODULE_NAME:($entry.php)");
 						include "./modules/$entry/$entry.php";
 					}
@@ -610,9 +606,12 @@ class bot extends AOChat{
 ** Name: Command
 ** 	Register a command
 */	function command($type, $filename, $command, $admin = 'all', $description = ''){
-		global $curMod;
 		$db = db::get_instance();
 
+		$command = strtolower($command);
+		$description = str_replace("'", "''", $description);
+		$module = explode("/", strtolower($filename));
+		
 		if (!bot::processCommandArgs($type, $admin)) {
 			Logger::log('ERROR', 'Core', "invalid args for $module:command($command)");
 			return;
@@ -624,22 +623,18 @@ class bot extends AOChat{
 			return;
 		}
 
-		$command = strtolower($command);
-		$description = str_replace("'", "''", $description);
-		$module = explode("/", strtolower($filename));
-
 		for ($i = 0; $i < count($type); $i++) {
 			Logger::log('debug', 'Core', "Adding Command to list:($command) File:($filename) Admin:({$admin[$i]}) Type:({$type[$i]})");
 			
 			if ($this->existing_commands[$type[$i]][$command] == true) {
-				$db->exec("UPDATE cmdcfg_<myname> SET `module` = '$curMod', `verify` = 1, `file` = '$filename', `description` = '$description' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
+				$db->exec("UPDATE cmdcfg_<myname> SET `module` = '$module', `verify` = 1, `file` = '$filename', `description` = '$description' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
 			} else {
 				if ($this->settings["default_module_status"] == 1) {
 					$status = 1;
 				} else {
 					$status = 0;
 				}
-				$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`) VALUES ('$curMod', '{$type[$i]}', '$filename', '$command', '{$admin[$i]}', '$description', 1, 'cmd', '$status')");
+				$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`) VALUES ('$module', '{$type[$i]}', '$filename', '$command', '{$admin[$i]}', '$description', 1, 'cmd', '$status')");
 			}
 		}
 	}
@@ -754,18 +749,17 @@ class bot extends AOChat{
 ** 	Register a subcommand
 */	function subcommand($type, $filename, $command, $admin = 'all', $dependson, $description = 'none') {
 		$db = db::get_instance();
-		global $curMod;
-
-		if (!bot::processCommandArgs($type, $admin)) {
-			Logger::log('ERROR', 'Core', "Invalid args for $module:subcommand($command)");
-			return;
-		}
 
 		$command = strtolower($command);
 		$description = str_replace("'", "''", $description);
 		$module = explode("/", strtolower($filename));
-	  	
+		
 		Logger::log('debug', 'Core', "Adding Subcommand to list:($command) File:($filename) Admin:($admin) Type:($type)");
+		
+		if (!bot::processCommandArgs($type, $admin)) {
+			Logger::log('ERROR', 'Core', "Invalid args for $module:subcommand($command)");
+			return;
+		}
 
 		//Check if the file exists
 		if (($actual_filename = bot::verifyFilename($filename)) != '') {
@@ -798,9 +792,9 @@ class bot extends AOChat{
 			}
 
 			if ($this->existing_subcmds[$type[$i]][$command] == true) {
-				$db->exec("UPDATE cmdcfg_<myname> SET `module` = '$curMod', `verify` = 1, `file` = '$filename', `description` = '$description', `dependson` = '$dependson' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
+				$db->exec("UPDATE cmdcfg_<myname> SET `module` = '$module', `verify` = 1, `file` = '$filename', `description` = '$description', `dependson` = '$dependson' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
 			} else {
-				$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `dependson`) VALUES ('$curMod', '{$type[$i]}', '$filename', '$command', '{$admin[$i]}', '$description', 1, 'subcmd', '$dependson')");
+				$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `dependson`) VALUES ('$module', '{$type[$i]}', '$filename', '$command', '{$admin[$i]}', '$description', 1, 'subcmd', '$dependson')");
 			}
 		}
 	}
@@ -835,7 +829,6 @@ class bot extends AOChat{
 **  Sets an event as active
 */	function regevent($type, $filename){
 		$db = db::get_instance();
-		global $curMod;
 
 		//Check if the file exists
 		if (($actual_filename = bot::verifyFilename($filename)) == '') {
