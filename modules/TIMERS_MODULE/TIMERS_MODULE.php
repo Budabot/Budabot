@@ -1,4 +1,6 @@
 <?php
+	require_once 'Timer.class.php';
+
 	$MODULE_NAME = "TIMERS_MODULE";
 
 	bot::event($MODULE_NAME, "setup", "setup.php");

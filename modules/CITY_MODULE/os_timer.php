@@ -61,8 +61,7 @@ if(preg_match("/^Blammo! (.+) has launched an orbital attack!$/i", $message, $ar
 	}
 
 	$timer = time() + (15*60); // set timer for 15 minutes
-	$this->vars["Timers"][] = (object)array("name" => $newTimerName, "owner" => $launcher, "mode" => 'guild', "timer" => $timer, "settime" => time());
-	$db->exec("INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`) VALUES ('$newTimerName', '$launcher', 'guild', $timer, ".time().")");
+	Timer::add_timer($newTimerName, $launcher, 'guild', $timer);
 }
 
 ?>

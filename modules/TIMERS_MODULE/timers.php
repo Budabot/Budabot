@@ -54,8 +54,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	$run_time = $arr[1] * 60;
     $timer = time() + $run_time;
 
-	$this->vars["Timers"][] = (object)array("name" => $timer_name, "owner" => $sender, "mode" => $type, "timer" => $timer, "settime" => time());
-    $db->exec("INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`) VALUES ('".str_replace("'", "''", $timer_name)."', '$sender', '$type', $timer, ".time().")");
+	Timer::add_timer($timer_name, $sender, $type, $timer);
 
 	$timerset = unixtime_to_readable($run_time);
 	$msg = "Timer has been set for $timerset.";
@@ -70,14 +69,12 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 
 		if (strtolower($name) == $timer_name) {
 			if ($owner == $sender) {
-				unset($this->vars["Timers"][$key]);
-				$db->exec("DELETE FROM timers_<myname> WHERE `name` = '".str_replace("'", "''", $name)."' AND `owner` = '$sender'");
+				Timer::remove_timer($key, $name, $sender);
 					
 			  	$msg = "Removed timer <highlight>$name<end>.";
 			  	break;
 			} else if (($this->guildmembers[$sender] <= $this->settings['guild_admin_level']) || isset($this->admins[$sender])) {
-				unset($this->vars["Timers"][$key]);
-				$db->exec("DELETE FROM timers_<myname> WHERE `name` = '".str_replace("'", "''", $name)."'");
+				Timer::remove_timer($key, $name, $owner);
 
 			  	$msg = "Removed timer <highlight>$name<end>.";
 			  	break;			  	
@@ -162,8 +159,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	$run_time = $days + $hours + $mins + $secs;
     $timer = time() + $run_time;
 
-	$this->vars["Timers"][] = (object)array("name" => $timer_name, "owner" => $sender, "mode" => $type, "timer" => $timer, "settime" => time());
-	$db->exec("INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`) VALUES ('".str_replace("'", "''", $timer_name) ."', '$sender', '$type', $timer, ".time().")");
+	Timer::add_timer($timer_name, $sender, $type, $timer);
 
 	$timerset = unixtime_to_readable($run_time);
 	$msg = "Timer has been set for $timerset.";
