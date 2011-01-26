@@ -57,11 +57,11 @@ class Towers {
 		return $db->fObject();		
 	}
 
-	public static function get_last_attack($att_faction, $att_org_name, $def_faction, $def_org_name, $playfield_id) {
+	public static function get_last_attack($att_faction, $att_guild_name, $def_faction, $def_guild_name, $playfield_id) {
 		$db = db::get_instance();
 		
-		$att_org_name = str_replace("'", "''", $att_org_name);
-		$def_org_name = str_replace("'", "''", $def_org_name);
+		$att_guild_name = str_replace("'", "''", $att_guild_name);
+		$def_guild_name = str_replace("'", "''", $def_guild_name);
 		
 		$time = time() - (7 * 3600);
 		
@@ -71,9 +71,9 @@ class Towers {
 			FROM
 				tower_attack_<myname>
 			WHERE
-				`att_org_name` = '{$att_org_name}'
+				`att_guild_name` = '{$att_guild_name}'
 				AND `att_faction` = '{$att_faction}'
-				AND `def_org_name` = '{$def_org_name}'
+				AND `def_guild_name` = '{$def_guild_name}'
 				AND `def_faction` =  '{$def_faction}'
 				AND `playfield_id` = {$playfield_id}
 				AND `time` >= {$time}
@@ -85,21 +85,21 @@ class Towers {
 		return $db->fObject();
 	}
 	
-	public static function record_attack($whois, $def_faction, $def_org_name, $x_coords, $y_coords, $closest_site) {
+	public static function record_attack($whois, $def_faction, $def_guild_name, $x_coords, $y_coords, $closest_site) {
 		$db = db::get_instance();
 		
-		$att_org_name = str_replace("'", "''", $whois->guild);
-		$def_org_name = str_replace("'", "''", $def_org_name);
+		$att_guild_name = str_replace("'", "''", $whois->guild);
+		$def_guild_name = str_replace("'", "''", $def_guild_name);
 		
 		$sql = "
 			INSERT INTO tower_attack_<myname> (
 				`time`,
-				`att_org_name`,
+				`att_guild_name`,
 				`att_faction`,
 				`att_player`,
 				`att_level`,
 				`att_profession`,
-				`def_org_name`,
+				`def_guild_name`,
 				`def_faction`,
 				`playfield_id`,
 				`site_number`,
@@ -107,12 +107,12 @@ class Towers {
 				`y_coords`
 			) VALUES (
 				".time().",
-				'{$att_org_name}',
+				'{$att_guild_name}',
 				'{$whois->faction}',
 				'{$whois->name}',
 				'{$whois->level}',
 				'{$whois->profession}',
-				'{$def_org_name}',
+				'{$def_guild_name}',
 				'{$def_faction}',
 				{$closest_site->playfield_id},
 				{$closest_site->site_number},
@@ -165,22 +165,22 @@ class Towers {
 	public static function record_victory($last_attack) {
 		$db = db::get_instance();
 		
-		$win_org_name = str_replace("'", "''", $last_attack->att_org_name);
-		$lose_org_name = str_replace("'", "''", $last_attack->def_org_name);
+		$win_guild_name = str_replace("'", "''", $last_attack->att_guild_name);
+		$lose_guild_name = str_replace("'", "''", $last_attack->def_guild_name);
 		
 		$sql = "
 			INSERT INTO tower_victory_<myname> (
 				`time`,
-				`win_org_name`,
+				`win_guild_name`,
 				`win_faction`,
-				`lose_org_name`,
+				`lose_guild_name`,
 				`lose_faction`,
 				`attack_id`
 			) VALUES (
 				".time().",
-				'{$win_org_name}',
+				'{$win_guild_name}',
 				'{$last_attack->att_faction}',
-				'{$lose_org_name}',
+				'{$lose_guild_name}',
 				'{$last_attack->def_faction}',
 				{$last_attack->id}
 			)";
@@ -230,7 +230,7 @@ class Towers {
 		
 		$org_name = str_replace("'", "''", $org_name);
 	
-		$sql = "SELECT * FROM tower_attack_<myname> WHERE `att_org_name` LIKE '{$org_name}' OR `def_org_name` LIKE '{$org_name}' LIMIT 1";
+		$sql = "SELECT * FROM tower_attack_<myname> WHERE `att_guild_name` LIKE '{$org_name}' OR `def_guild_name` LIKE '{$org_name}' LIMIT 1";
 		
 		$db->query($sql);
 		if ($db->numrows() === 0) {

@@ -109,8 +109,8 @@ if ($db->numrows() == 0) {
 			$base = "Unknown";
 		}
 
-		$list .= $colorlabel."Winner:<end> <{$win_side}>{$row->win_org_name}<end> (".ucfirst($win_side).")\n";
-		$list .= $colorlabel."Loser:<end> <{$lose_side}>{$row->lose_org_name}<end> (".ucfirst($lose_side).")\n";
+		$list .= $colorlabel."Winner:<end> <{$win_side}>{$row->win_guild_name}<end> (".ucfirst($win_side).")\n";
+		$list .= $colorlabel."Loser:<end> <{$lose_side}>{$row->lose_guild_name}<end> (".ucfirst($lose_side).")\n";
 		$list .= "Site: $base\n\n";
 	}
 	$msg = bot::makeLink("Tower Victories", $list);

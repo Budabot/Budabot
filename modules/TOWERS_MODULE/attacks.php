@@ -52,7 +52,7 @@ if (preg_match("/^(attacks|battles?) (\\d+)$/i", $message, $arr) || preg_match("
 	}
 
 	$value = str_replace("'", "''", $arr[2]);
-	$search = "WHERE a.`att_org_name` LIKE '$value' OR a.`def_org_name` LIKE '$value'";
+	$search = "WHERE a.`att_guild_name` LIKE '$value' OR a.`def_guild_name` LIKE '$value'";
 } else if (preg_match("/^(attacks|battles?) player (.+) (\\d+)$/i", $message, $arr) || preg_match("/^(attacks|battles?) player (.+)$/i", $message, $arr)) {
 	if (isset($arr[3])) {
 		$page_label = $arr[3];
@@ -107,16 +107,16 @@ if ($db->numrows() == 0) {
 
 		if ($row->att_profession == 'Unknown') {
 			$list .= $colorlabel."Attacker:<end> <{$att_faction}>{$row->att_player}<end> ({$row->att_faction})\n";
-		} else if ($row->att_org_name == '') {
+		} else if ($row->att_guild_name == '') {
 			$list .= $colorlabel."Attacker:<end> <{$att_faction}>{$row->att_player}<end> (Lvl {$row->att_level}/{$row->att_profession}) ({$row->att_faction})\n";
 		} else {
-			$list .= $colorlabel."Attacker:<end> {$row->att_player} (Lvl {$row->att_level}/{$row->att_profession}/<{$att_faction}>{$row->att_org_name}<end>) ({$row->att_faction})\n";
+			$list .= $colorlabel."Attacker:<end> {$row->att_player} (Lvl {$row->att_level}/{$row->att_profession}/<{$att_faction}>{$row->att_guild_name}<end>) ({$row->att_faction})\n";
 		}
 		
 		$base = $this->makeLink("{$row->short_name} {$row->site_number}", "/tell <myname> lc {$row->short_name} {$row->site_number}", 'chatcmd');
 		$base .= " ({$row->min_ql}-{$row->max_ql})";
 
-		$list .= $colorlabel."Defender:<end> <{$def_faction}>{$row->def_org_name}<end> ({$row->def_faction})\n";
+		$list .= $colorlabel."Defender:<end> <{$def_faction}>{$row->def_guild_name}<end> ({$row->def_faction})\n";
 		$list .= "Site: $base\n\n";
 	}
 	$msg = bot::makeLink("Tower Attacks", $list);
