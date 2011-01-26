@@ -617,14 +617,19 @@ class bot extends AOChat{
 			Logger::log('ERROR', 'Core', "invalid args for $module:command($command)");
 			return;
 		}
+		
+		//Check if the file exists
+		if (bot::verifyFilename($filename) == '') {
+			Logger::log('ERROR', 'Core', "Error in registering the File $filename for command $command. The file doesn't exists!");
+			return;
+		}
 
 		$command = strtolower($command);
 		$description = str_replace("'", "''", $description);
 		$module = explode("/", strtolower($filename));
 
 		for ($i = 0; $i < count($type); $i++) {
-			Logger::log('debug', 'Core', "Adding Command to list:($command) File:($filename)");
-			Logger::log('debug', 'Core', "                 Admin:({$admin[$i]}) Type:({$type[$i]})");
+			Logger::log('debug', 'Core', "Adding Command to list:($command) File:($filename) Admin:({$admin[$i]}) Type:({$type[$i]})");
 			
 			if ($this->existing_commands[$type[$i]][$command] == true) {
 				$db->exec("UPDATE cmdcfg_<myname> SET `module` = '$curMod', `verify` = 1, `file` = '$filename', `description` = '$description' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
@@ -645,8 +650,7 @@ class bot extends AOChat{
 */	function regcommand($type, $filename, $command, $admin = 'all') {
 		$db = db::get_instance();
 
-	  	Logger::log('debug', 'Core', "Activate Command:($command) Admin Type:($admin)");
-		Logger::log('debug', 'Core', "            File:($filename) Type:($type)");
+	  	Logger::log('debug', 'Core', "Activate Command:($command) Admin Type:($admin) File:($filename) Type:($type)");
 
 		$module = explode("/", strtolower($filename));
 		$module = strtoupper($module[0]);
@@ -655,7 +659,7 @@ class bot extends AOChat{
 		if (($actual_filename = bot::verifyFilename($filename)) != '') {
     		$filename = $actual_filename;
 		} else {
-			Logger::log('ERROR', 'Core', "Error in registering the File $filename for command $command. The file doesn't exists!");
+			Logger::log('ERROR', 'Core', "Error in activating the File $filename for command $command. The file doesn't exists!");
 			return;
 		}
 
