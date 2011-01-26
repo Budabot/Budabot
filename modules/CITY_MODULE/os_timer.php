@@ -49,7 +49,7 @@ if(preg_match("/^Blammo! (.+) has launched an orbital attack!$/i", $message, $ar
 
 		$newTimerName = "$orgName OS/AS $i";
 		forEach ($this->vars["Timers"] as $key => $timer) {
-		  	if($timer["name"] == $newTimerName) {
+		  	if ($timer->name == $newTimerName) {
 			  	$unique = false;
 			    break;
 			}
@@ -61,7 +61,7 @@ if(preg_match("/^Blammo! (.+) has launched an orbital attack!$/i", $message, $ar
 	}
 
 	$timer = time() + (15*60); // set timer for 15 minutes
-	$this->vars["Timers"][] = array("name" => $newTimerName, "owner" => $launcher, "mode" => 'guild', "timer" => $timer, "settime" => time());
+	$this->vars["Timers"][] = (object)array("name" => $newTimerName, "owner" => $launcher, "mode" => 'guild', "timer" => $timer, "settime" => time());
 	$db->exec("INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`) VALUES ('$newTimerName', '$launcher', 'guild', $timer, ".time().")");
 }
 
