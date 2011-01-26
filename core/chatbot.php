@@ -1577,7 +1577,12 @@ class bot extends AOChat{
 					return;
 				}
 
-				Logger::log_chat($channel, $sender, $message);
+				// don't log tower messages with rest of chat messages
+				if ($channel != "All Towers" && $channel != "Tower Battle Outcome") {
+					Logger::log_chat($channel, $sender, $message);
+				} else {
+					Logger::log('DEBUG', $channel, $message);
+				}
 
 				if ($sender) {
 					//Ignore Message that are sent from the bot self
@@ -1595,7 +1600,7 @@ class bot extends AOChat{
 					}
 				}
 
-				if ($channel == "All Towers" || $channel == "Tower Battle Outcome"){
+				if ($channel == "All Towers" || $channel == "Tower Battle Outcome") {
                     $type = "towers";
     				if ($this->towers != NULL) {
     					forEach ($this->towers as $file) {
