@@ -1503,9 +1503,9 @@ class bot extends AOChat{
 				$restricted = false;
 				
 				Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_MESSAGE => sender: '$sender' channel: '$channel' message: '$message'");
+				Logger::log_chat($channel, $sender, $message);
 				
 				if ($sender == $this->vars["name"]) {
-					Logger::log_chat("Priv Group", $sender, $message);
 					return;
 				}
 				
@@ -1527,8 +1527,6 @@ class bot extends AOChat{
 
 					$type = "priv";
 
-					Logger::log_chat("Priv Group", $sender, $message);
-					
 					// Events
 					forEach ($this->privChat as $file) {
 						$msg = "";
@@ -1546,8 +1544,6 @@ class bot extends AOChat{
 				} else {  // ext priv group message
 					
 					$type = "extPriv";
-					
-					Logger::log_chat($channel, $sender, $message);
 					
 					if ($this->extPrivChat != NULL) {
 						forEach ($this->extPrivChat as $file) {
