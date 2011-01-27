@@ -25,6 +25,18 @@ if (!function_exists('calc_bar_setting')) {
 	}
 }
 
+if (!function_exists('calc_inits')) {
+	function calc_inits($attack_time) {
+		if ($attack_time < 0) {
+			return 0;
+		} else if ($attack_time < 6) {
+			return round($attack_time * 200, 2);
+		} else {
+			return round(1200 + ($attack_time - 6) * 600, 2);
+		}
+	}
+}
+
 $info = explode(" ", $message);
 list($msg, $attack_time, $init_skill) = $info;
 
@@ -34,33 +46,24 @@ if (!$attack_time || !$init_skill) {
 
 	$attack_time_reduction = calc_attack_time_reduction($init_skill);
 	$effective_attack_time = $attack_time - $attack_time_reduction;
-	bot::send($effective_attack_time, $sendto);
 
 	$bar_setting = calc_bar_setting($effective_attack_time);
 	if( $bar_setting < 0 ) $bar_setting = 0;
 	if( $bar_setting > 100 ) $bar_setting = 100;
 
-	$Initatta1 = round((((100 - 87.5) * 0.02) - $attack_time) * (-200),0);
-	if($Initatta1 > 1200) { $Initatta1 = round((((((100-87.5)*0.02)-$attack_time+6)*(-600)))+1200,0); }
-	$Init1 = $Initatta1;
-		
-	$Initatta2 = round((((87.5-87.5)*0.02)-$attack_time)*(-200),0);
-	if($Initatta2 > 1200) { $Initatta2 = round((((((87.5-87.5)*0.02)-$attack_time+6)*(-600)))+1200,0); }
-	$Init2 = $Initatta2;
-			
-	$Initatta3 = round((((0-87.5)*0.02)-$attack_time)*(-200),0);
-	if($Initatta3 > 1200) { $Initatta3 = round((((((0-87.5)*0.02)-$attack_time+6)*(-600)))+1200,0); }
-	$Init3 = $Initatta3;
+	$Init1 = calc_inits($attack_time - 1);
+	$Init2 = calc_inits($attack_time);
+	$Init3 = calc_inits($attack_time + 1);
 			
 	$inside  = "<header>::::: Nano Init Calculator - Version 1.00 :::::<end>\n\n";
 	$inside .= "Results:\n";
 	$inside	.= "Attack:<orange> ". $attack_time ." <end>second(s).\n";
 	$inside	.= "Init Skill:<orange> ". $init_skill ."<end>\n";
 	$inside	.= "Def/Agg:<orange> ". $bar_setting ."%<end>\n";
-	$inside	.= "You must set your AGG bar at<orange> ". $bar_setting ."% (". round($bar_setting*8/100,2) .") <end>to instacast your nano.\n\n";
-	$inside	.= "NanoC. Init needed to instacast at Full Agg:<orange> ". $Init1 ." <end>inits.\n";
-	$inside	.= "NanoC. Init needed to instacast at neutral (88%bar):<orange> ". $Init2 ." <end>inits.\n";
-	$inside	.= "NanoC. Init needed to instacast at Full Def:<orange> ". $Init3 ." <end>inits.";
+	$inside	.= "You must set your AGG bar at<orange> ". $bar_setting ."% (". round($bar_setting * 8 / 100,2) .") <end>to instacast your nano.\n\n";
+	$inside	.= "NanoC. Init needed to instacast at Full Agg (100%):<orange> ". $Init1 ." <end>inits.\n";
+	$inside	.= "NanoC. Init needed to instacast at Neutral (88%):<orange> ". $Init2 ." <end>inits.\n";
+	$inside	.= "NanoC. Init needed to instacast at Full Def (0%):<orange> ". $Init3 ." <end>inits.";
 
 	$windowlink = bot::makeLink("::Nano Init Results::", $inside);
 	bot::send($windowlink, $sendto);
