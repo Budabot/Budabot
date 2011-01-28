@@ -31,15 +31,16 @@
 
 if ($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 	// Set Delay for notify on/off(prevent spam from org roster module)
-	$this->vars["onlinedelay"] = time() + 60;
+	$this->vars["onlinedelay"] = time() + 30;
 	
-	echo "\n \nStarting Roster Update \n";
+	Logger::log('INFO', 'GUILD_MODULE', "Starting Roster Update");
+
 	//Get the org infos
 	$org = Guild::get_by_id($this->vars["my guild id"], $this->vars["dimension"], true);
 	
 	//Check if Orgxml file is correct if not abort
 	if ($org->errorCode != 0) {
-	  	echo "Error in getting the org roster xmlfile.\nPlease try again later.\n";
+		Logger::log('ERROR', 'GUILD_MODULE', "Error downloading the org roster xml file");
 	} else {
 		// clear $this->members and reload from the database
 		$db->query("SELECT * FROM members_<myname>");
@@ -66,7 +67,6 @@ if ($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 			}
 		}
 		
-		//Start the transaction
 		$db->beginTransaction();
 		
 		// Going through each member of the org and add his data's
@@ -101,7 +101,6 @@ if ($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 		    unset($dbentrys[$member->name]);    
 		}
 		
-		//End the transaction
 		$db->Commit();
 		
 		// remove buddies who are no longer org members
@@ -110,12 +109,16 @@ if ($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 			$this->remove_buddy($buddy['name'], 'org');
 		}
 
-		echo "Org Roster Update is done. \n";
+		Logger::log('INFO', 'GUILD_MODULE', "Roster Update finished");
 		
 		if ($restart == true) {
 		  	bot::send("The bot needs to be restarted to be able to see who is online in your org. Automatically restarting in 10 seconds.", "org");
-			echo "The bot needs to be restarted to be able to see who is online in your org. Automatically restarting in 10 seconds.\n";
-		  	die("The bot is restarting");
+			
+			// wait for all buddy add/remove packets to finish sending
+			// not 100% sure this is needed
+			sleep(10);
+			Logger::log('INFO', 'GUILD_MODULE', "The bot is restarting");
+		  	die();
 		}
 	}
 }
