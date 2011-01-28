@@ -71,7 +71,7 @@ if (!file_exists($config_file)) {
 	copy('config.template.php', $config_file) or Logger::log('ERROR', 'StartUp', "could not create config file: {$config_file}");
 }
 
-require_once $config_file;
+require $config_file;
 require_once "./core/Logger.class.php";
 
 //Set Error Level

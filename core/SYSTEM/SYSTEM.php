@@ -13,6 +13,10 @@
 	bot::regcommand("msg", "$MODULE_NAME/shutdown.php", "shutdown", "admin");
 	bot::regcommand("priv", "$MODULE_NAME/shutdown.php", "shutdown", "admin");
 	bot::regcommand("guild", "$MODULE_NAME/shutdown.php", "shutdown", "admin");
+	
+	bot::regcommand("msg", "$MODULE_NAME/reload_config.php", "reloadconfig", "admin");
+	bot::regcommand("priv", "$MODULE_NAME/reload_config.php", "reloadconfig", "admin");
+	bot::regcommand("guild", "$MODULE_NAME/reload_config.php", "reloadconfig", "admin");
 
 	bot::regcommand("msg", "$MODULE_NAME/uptime.php", "uptime", "all");
 	bot::regcommand("priv", "$MODULE_NAME/uptime.php", "uptime", "all");
