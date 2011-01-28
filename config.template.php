@@ -21,7 +21,7 @@ $vars['dimension']	= 1;
 $settings['Super Admin'] = "";
 
 // Default Delay for crons after bot is connected
-$settings['CronDelay'] = 0;
+$settings['CronDelay'] = 10;
 
 // List of characters the bot should ignore (multiple names should be separated by semicolons ';')
 $settings['Ignore'] = "";

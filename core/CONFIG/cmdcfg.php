@@ -360,7 +360,7 @@ if (preg_match("/^config$/i", $message)) {
 
 	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd'");
 	if ($db->numrows() == 0) {
-		$msg = "Could not find the command <highligh>$cmd<end>.";
+		$msg = "Could not find the command <highlight>$cmd<end>.";
 	} else {
 		$list = "<header>::::: Configure command $cmd :::::<end>\n\n";
 		$list .= "<u><highlight>Tells:<end></u>\n";	

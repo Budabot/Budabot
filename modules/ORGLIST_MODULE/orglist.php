@@ -170,13 +170,6 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message)) {
 	
 	$this->send("Parsing xml for '$org->orgname'...", $sendto);
 	
-	// pre fetch the charIds...this speeds things up immensely
-	forEach ($org->members as $member) {
-		if (!isset($this->id[$member->name])) {
-			$this->send_packet(new AOChatPacket("out", AOCP_CLIENT_LOOKUP, $member->name));
-		}
-	}
-	
 	// Check each name if they are already on the buddylist (and get online status now)
 	// Or make note of the name so we can add it to the buddylist later.
 	forEach ($org->members as $member) {

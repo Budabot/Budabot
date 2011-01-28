@@ -8,6 +8,8 @@ class Guild {
     //the organisation lookup function
 	function get_by_id($guild_id, $rk_num = 0, $force_update = false) {
 	 	global $vars;
+		global $chatBot;
+
 		$data_found = false;
 		$data_save = false;
 	
@@ -79,12 +81,25 @@ class Guild {
         $guild->orgname	= xml::spliceData($orgxml, "<name>", "</name>");
         $guild->orgside	= xml::spliceData($orgxml, "<side>", "</side");
 		
+		// pre fetch the charids...this speeds things up immensely
+		forEach ($org->members as $member) {
+			if (!isset($this->id[$member->name])) {
+				$this->send_packet(new AOChatPacket("out", AOCP_CLIENT_LOOKUP, $member->name));
+			}
+		}
+		
 		$db = db::get_instance();
 		$db->beginTransaction();
 
         forEach ($members as $amember) {
 			$name                                  = xml::splicedata($amember,"<nickname>", "</nickname>");
+			$charid = $chatBot->get_uid($name);
+			if ($charid == null) {
+				$charid = 0;
+			}
+			
 			$guild->members[$name]                 = new stdClass;
+			$guild->members[$name]->charid         = $charid;
             $guild->members[$name]->firstname      = xml::spliceData($amember, '<firstname>', '</firstname>');
             $guild->members[$name]->name           = xml::spliceData($amember, '<nickname>', '</nickname>');
             $guild->members[$name]->lastname       = xml::spliceData($amember, '<lastname>', '</lastname>');
@@ -103,50 +118,7 @@ class Guild {
 			$guild->members[$name]->dimension      = $rk_num;
 			$guild->members[$name]->source         = 'org_roster';
 			
-			$sql = "DELETE FROM players WHERE `name` LIKE '{$guild->members[$name]->name}'";
-			$db->exec($sql);
-		
-			$sql = "INSERT INTO players (
-				firstname,
-				name,
-				lastname,
-				level,
-				breed,
-				gender,
-				faction,
-				profession,
-				prof_title,
-				ai_rank,
-				ai_level,
-				guild_id,
-				guild,
-				guild_rank,
-				guild_rank_id,
-				dimension,
-				source,
-				last_update
-			) VALUES (
-				'{$guild->members[$name]->firstname}',
-				'{$guild->members[$name]->name}',
-				'{$guild->members[$name]->lastname}',
-				'{$guild->members[$name]->level}',
-				'{$guild->members[$name]->breed}',
-				'{$guild->members[$name]->gender}',
-				'{$guild->members[$name]->faction}',
-				'{$guild->members[$name]->profession}',
-				'{$guild->members[$name]->prof_title}',
-				'{$guild->members[$name]->ai_rank}',
-				'{$guild->members[$name]->ai_level}',
-				'{$guild->members[$name]->guild_id}',
-				'{$guild->members[$name]->guild}',
-				'{$guild->members[$name]->guild_rank}',
-				'{$guild->members[$name]->guild_rank_id}',
-				'{$guild->members[$name]->dimension}',
-				'{$guild->members[$name]->source}',
-				'" . time() . "'
-			)";
-			
-			$db->exec($sql);
+			Player::update($guild->members[$name]);
 		}
 		
 		$db->Commit();
