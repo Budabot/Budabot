@@ -31,7 +31,7 @@ if (preg_match("/^svn update/i", $message)) {
 	
 	bot::send($msg, $sendto);
 } else {
-	$syntaxt_error = true;
+	$syntax_error = true;
 }
 
 ?>
