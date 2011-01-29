@@ -31,6 +31,7 @@
 	bot::addsetting($MODULE_NAME, "relaytype", "Type of relay", "edit", "1", "tell;private channel", '1;2', "mod", "");
 	bot::addsetting($MODULE_NAME, "relaysymbol", "Symbol for external relay", "edit", "@", "!;#;*;@;$;+;-;Always relay", '0', "mod", "");
 	bot::addsetting($MODULE_NAME, "relaybot", "Bot for Guildrelay", "edit", "Off", "text", '0', "mod", "$MODULE_NAME/relaybot.txt");
+	bot::addsetting($MODULE_NAME, "bot_relay_commands", "Relay commands and results over the bot relay", "edit", "0", "ON;OFF", "1;0");
 	
 	bot::help($MODULE_NAME, "tellrelay", "tellrelay.txt", "admin", "How to setup an org relay between two orgs using tells");
 ?>

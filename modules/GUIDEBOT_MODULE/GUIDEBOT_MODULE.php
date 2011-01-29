@@ -29,7 +29,17 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
    
+	require_once 'functions.php';
+   
 	$MODULE_NAME = "GUIDEBOT_MODULE";
 
 	bot::command("", "$MODULE_NAME/guides.php", "GUIDES", "all", "Guides for AO");
+	
+	// aliases
+	bot::command("", "$MODULE_NAME/guides.php", "breed", "all", "Alias for !guides breed");
+	bot::command("", "$MODULE_NAME/guides.php", "healdelta", "all", "Alias for !guides healdelta");
+	bot::command("", "$MODULE_NAME/guides.php", "lag", "all", "Alias for !guides lag");
+	bot::command("", "$MODULE_NAME/guides.php", "nanodelta", "all", "Alias for !guides nanodelta");
+	bot::command("", "$MODULE_NAME/guides.php", "stats", "all", "Alias for !guides stats");
+	bot::command("", "$MODULE_NAME/guides.php", "buffs", "all", "Alias for !guides buffs");
 ?>
