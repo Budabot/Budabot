@@ -136,7 +136,7 @@ class Towers {
 				JOIN playfields p
 					ON (s.playfield_id = p.id)
 			ORDER BY
-				org_name, ct_ql";
+				guild_name, ct_ql";
 
 		$db->query($sql);
 		return $db->fObject('all');
@@ -188,10 +188,10 @@ class Towers {
 		return $db->exec($sql);
 	}
 	
-	public static function add_scout_site($playfield_id, $site_number, $close_time, $ct_ql, $faction, $org_name, $scouted_by) {
+	public static function add_scout_site($playfield_id, $site_number, $close_time, $ct_ql, $faction, $guild_name, $scouted_by) {
 		$db = db::get_instance();
 		
-		$org_name = str_replace("'", "''", $org_name);
+		$guild_name = str_replace("'", "''", $guild_name);
 		
 		$sql = "
 			INSERT INTO scout_info (
@@ -200,7 +200,7 @@ class Towers {
 				`scouted_on`,
 				`scouted_by`,
 				`ct_ql`,
-				`org_name`,
+				`guild_name`,
 				`faction`,
 				`close_time`
 			) VALUES (
@@ -209,7 +209,7 @@ class Towers {
 				".time().",
 				'{$scouted_by}',
 				{$ct_ql},
-				'{$org_name}',
+				'{$guild_name}',
 				'{$faction}',
 				{$close_time}
 			)";
@@ -225,12 +225,12 @@ class Towers {
 		return $db->exec($sql);
 	}
 	
-	public static function check_org_name($org_name) {
+	public static function check_guild_name($guild_name) {
 		$db = db::get_instance();
 		
-		$org_name = str_replace("'", "''", $org_name);
+		$guild_name = str_replace("'", "''", $guild_name);
 	
-		$sql = "SELECT * FROM tower_attack_<myname> WHERE `att_guild_name` LIKE '{$org_name}' OR `def_guild_name` LIKE '{$org_name}' LIMIT 1";
+		$sql = "SELECT * FROM tower_attack_<myname> WHERE `att_guild_name` LIKE '{$guild_name}' OR `def_guild_name` LIKE '{$guild_name}' LIMIT 1";
 		
 		$db->query($sql);
 		if ($db->numrows() === 0) {

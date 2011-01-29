@@ -20,7 +20,7 @@ if (preg_match("/^opentimes$/i", $message, $arr)) {
 	while (($row = $db->fObject()) != false) {
 		$gas_level = getGasLevel($row->close_time);
 		$gas_change_string = "$gas_level->color $gas_level->gas_level - $gas_level->next_state in " . gmdate('H:i:s', $gas_level->gas_change) . "<end>";
-	
+
 		$site_link = $this->makeLink("$row->short_name $row->site_number", "/tell <myname> lc $row->short_name $row->site_number", "chatcmd");
 		$open_time = $row->close_time - (3600 * 6);
 		if ($open_time < 0) {

@@ -11,7 +11,7 @@ if (preg_match("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[
 	$closing_time = $arr[4];
 	$ct_ql = $arr[5];
 	$faction = ucfirst(strtolower($arr[6]));
-	$org_name = $arr[7];
+	$guild_name = $arr[7];
 	
 	if ($faction != 'Omni' && $faction != 'Neutral' && $faction != 'Clan') {
 		$msg = "Valid values for faction are: 'Omni', 'Neutral', and 'Clan'.";
@@ -57,8 +57,8 @@ if (preg_match("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[
 		}
 	}
 	
-	if (!$skip_checks && $this->settings['check_org_name_on_scout'] == 1) {
-		if (!Towers::check_org_name($org_name)) {
+	if (!$skip_checks && $this->settings['check_guild_name_on_scout'] == 1) {
+		if (!Towers::check_guild_name($guild_name)) {
 			$check_blob .= "- <green>Org name<end> The org name you entered has never attacked or been attacked.\n\n";
 		}
 	}
@@ -68,7 +68,7 @@ if (preg_match("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[
 		$check_blob .= "Please correct these errors, or, if you are sure the values you entered are correct, use !forcescout to bypass these checks";
 		$msg = $this->makeLink('Scouting problems', $check_blob, 'blob');
 	} else {
-		Towers::add_scout_site($playfield->id, $site_number, $closing_time_seconds, $ct_ql, $faction, $org_name, $sender);
+		Towers::add_scout_site($playfield->id, $site_number, $closing_time_seconds, $ct_ql, $faction, $guild_name, $sender);
 		$msg = "Tower site has been updated successfully.";
 	}
 	bot::send($msg, $sendto);
