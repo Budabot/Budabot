@@ -346,7 +346,7 @@ class bot extends AOChat{
 
 		// Check files, for all 'connect events'.
 		forEach ($this->_connect as $filename) {
-			require $filename;
+			include $filename;
 		}
 	}
 
@@ -753,7 +753,8 @@ class bot extends AOChat{
 
 		$command = strtolower($command);
 		$description = str_replace("'", "''", $description);
-		$module = explode("/", strtolower($filename));
+		$array = explode("/", strtolower($filename));
+		$module = $array[0];
 		
 		Logger::log('debug', 'Core', "Adding Subcommand to list:($command) File:($filename) Admin:($admin) Type:($type)");
 		

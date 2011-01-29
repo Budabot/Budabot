@@ -264,7 +264,6 @@ class db {
 	}
 
 	function formatSql($sql) {
-
 		$sql = str_replace("<dim>", $this->dim, $sql);
 		$sql = str_replace("<myname>", $this->botname, $sql);
 
