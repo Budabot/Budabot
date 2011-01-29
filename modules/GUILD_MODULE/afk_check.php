@@ -34,7 +34,7 @@ if(!preg_match("/^afk(.*)$/i", $message, $arr)) {
 	if($db->numrows() != 0) {
 	    $row = $db->fObject();
 	    if($row->afk != '0') {
-	        $db->query("UPDATE guild_chatlist_<myname> SET `afk` = 0 WHERE `name` = '$sender'");
+	        $db->exec("UPDATE guild_chatlist_<myname> SET `afk` = 0 WHERE `name` = '$sender'");
 	        $msg = "<highlight>$sender<end> is back";
 	        bot::send($msg, "guild");
 	    }
@@ -46,7 +46,7 @@ if(!preg_match("/^afk(.*)$/i", $message, $arr)) {
    	if ($uid) {
 		$db->query("SELECT afk FROM guild_chatlist_<myname> WHERE `name` = '$name'");
 		if ($db->numrows() == 0 && $this->settings["guest_relay"] == 1) {
-			$db->query("SELECT afk FROM priv_chatlist_<myname> WHERE `name` = '$name'");
+			$db->exec("SELECT afk FROM priv_chatlist_<myname> WHERE `name` = '$name'");
 		}
 
 		if ($db->numrows() != 0) {
