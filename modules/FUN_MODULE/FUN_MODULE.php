@@ -1,6 +1,7 @@
 <?php
 	$MODULE_NAME = "FUN_MODULE";
 
+	bot::command("", "$MODULE_NAME/fc.php", "fc", "all", "Shows a random FC quote.");
 	bot::command("", "$MODULE_NAME/doh.php", "doh", "all", "Shows a random doh message.");
 	bot::command("", "$MODULE_NAME/beer.php", "beer", "all", "Shows a random beer message.");
 	bot::command("", "$MODULE_NAME/cybor.php", "cybor", "all", "Shows a random cybor message.");
