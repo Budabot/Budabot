@@ -467,7 +467,6 @@ class bot extends AOChat{
 		$message = str_replace("<yellow>", "<font color='#FFFF00'>", $message);
 		$message = str_replace("<blue>", "<font color='#8CB5FF'>", $message);
 		$message = str_replace("<green>", "<font color='#00DE42'>", $message);
-		$message = str_replace("<white>", "<font color='#FFFFFF'>", $message);
 		$message = str_replace("<red>", "<font color='#ff0000'>", $message);
 		$message = str_replace("<orange>", "<font color='#FCA712'>", $message);
 		$message = str_replace("<grey>", "<font color='#C3C3C3'>", $message);
@@ -755,9 +754,9 @@ class bot extends AOChat{
 		$description = str_replace("'", "''", $description);
 		$array = explode("/", strtolower($filename));
 		$module = $array[0];
-		
-		Logger::log('debug', 'Core', "Adding Subcommand to list:($command) File:($filename) Admin:($admin) Type:($type)");
-		
+
+		Logger::log('debug', 'Core', "Adding $module:subcommand($command) File:($filename) Admin:($admin) Type:($type)");
+
 		if (!bot::processCommandArgs($type, $admin)) {
 			Logger::log('ERROR', 'Core', "Invalid args for $module:subcommand($command)");
 			return;

@@ -76,9 +76,9 @@ if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader
     }
     if ($type == "guild" || ($this->settings["count_tell"] == 0 && $type == "msg") || $type == "priv") {
 		$sql = "
-			SELECT p2.name, p2.profession, p2.level, g.afk FROM guild_chatlist_<myname> g LEFT JOIN players p2 ON g.name = p2.name WHERE p2.`profession` = '$prof'
+			SELECT * FROM guild_chatlist_<myname> g LEFT JOIN players p2 ON g.name = p2.name WHERE p2.`profession` = '$prof'
 			UNION ALL
-			SELECT p2.name, p2.profession, p2.level, p1.afk FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE p2.`profession` = '$prof'
+			SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE p2.`profession` = '$prof'
 			ORDER BY level";
 		$db->query($sql); 
 	} else if ($type == "priv" || ($this->settings["count_tell"] == 1 && $type == "msg")) {
@@ -107,7 +107,11 @@ if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader
 	$tl6 = 0;
 	$tl7 = 0;
 	if ($type == "guild" || ($this->settings["count_tell"] == 0 && $type == "msg") || $type == "priv") {
-		$db->query("SELECT p.name, profession, level, afk FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name UNION ALL SELECT name, profession, level, afk FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY level"); 
+		$sql = "
+			SELECT * FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name
+			UNION ALL
+			SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY level";
+		$db->query($sql);
  	} else if ($type == "priv"  || ($this->settings["count_tell"] == 1 && $type == "msg")) {
 	  	$db->query("SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name");
 	} 
@@ -214,11 +218,19 @@ if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader
 	}
 	if ($type == "guild" || ($this->settings["count_tell"] == 0 && $type == "msg") || $type == "priv") {
 	    if ($prof == "all") {
-			$db->query("SELECT p.name, profession, level, afk FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name UNION ALL SELECT name, profession, level, afk FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY profession");
+			$sql = "
+				SELECT * FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name
+				UNION ALL
+				SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY profession";
+			$db->query($sql);
 			$numonline = $db->numrows();
 			$msg = "<highlight>$numonline<end> in total: ";
 		} else {
-			$db->query("SELECT p.name, profession, level, afk FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name WHERE `profession` = '$prof' UNION ALL SELECT name, profession, level, afk FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE `profession` = '$prof' ORDER BY level");
+			$sql = "
+				SELECT * FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name WHERE `profession` = '$prof'
+				UNION ALL
+				SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE `profession` = '$prof' ORDER BY level";
+			$db->query($sql);
 			$numonline = $db->numrows();
 			$msg = "<highlight>$numonline<end> $prof:";
 		}
