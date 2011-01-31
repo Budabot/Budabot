@@ -7,14 +7,17 @@
 <orange>I would like to give special thanks to:<end>
 <highlight>-Derroylo (RK2)<end>, <highlight>Sebuda (RK2)<end>, and <highlight>Lucier (RK1)<end> for creating the original Budabot.
 <highlight>-Etheryal (RK2)<end> for updating Budabot with needed enhancements and keeping it alive after Derroylo and Sebuda left AO.
-<highlight>-Arsenal (RK1)<end> for his large contributions to version 1.0.
+<highlight>-Mindrila (RK1)<end> for his large contributions to version 1.0.
 <highlight>-Dark Ninjas (RK2)<end> for letting me use their org to test new features.
 <highlight>-MajorOutage (RK1)<end> for all the items db rips he has provided.
 <highlight>-CaptainZero (RK1)<end> and <highlight>Snakebite (RK2)<end> for hosting and moderating the budabot.com website.
 -All the people who have contributed modules to make Budabot what it is.
 
+To the AO Community:
+
+I played this game for several years and have really enjoyed it.  Unfortunately I was permanently banned from AO in Nov 2010.  The short of it is, my brother's friend bought credits from a credit spammer, and FC decided it was necessary to ban my brother's accounts, his friend's accounts, and my accounts.  After 3 months of trying to get my ban lifted for something that I didn't do or wasn't even involved in, I have given up.  This version 2.0 of Budabot will be my last gift to the AO Community.  Enjoy! :)
+
 <orange>Tyrence (RK2)<end>
-<highlight>The Pain Dealers<end>
 Budabot Lead Developer
 
-Funcom Failure: <a href='chatcmd:///start http://www.omnihq.net/forums/topic?id=169'>http://www.omnihq.net/forums/topic?id=169</a>
+Funcom Failure: <a href='chatcmd:///start http://www.anarchy-online.biz/Tyrence1.html'>http://www.anarchy-online.biz/Tyrence1.html</a>
