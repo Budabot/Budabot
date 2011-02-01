@@ -1464,6 +1464,8 @@ class bot extends AOChat{
 					return;
 				} else if (preg_match("/Error!/si", $message, $arr)) {
 					return;
+				} else if (preg_match("/Unknown command input/si", $message, $arr)) {
+					return;
 				}
 
 				if ($this->settings["Ignore"][$sender] == true || $this->banlist[$sender]["name"] == $sender || ($this->spam[$sender] > 100 && $this->vars['spam_protection'] == 1)){
