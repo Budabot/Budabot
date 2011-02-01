@@ -62,11 +62,11 @@ class db {
 		if ($type == 'Mysql') {
 			try {
 				$this->sql = new PDO("mysql:host=$host", $user, $pass);
-				$this->query("CREATE DATABASE IF NOT EXISTS $dbName");
+				$this->exec("CREATE DATABASE IF NOT EXISTS $dbName");
 				$this->selectDB($dbName);
 				$this->exec("SET sql_mode='NO_BACKSLASH_ESCAPES'");
 				$this->exec("SET time_zone = '+00:00'");
-			} catch(PDOException $e) {
+			} catch (PDOException $e) {
 			  	$this->errorCode = 1;
 			  	$this->errorInfo = $e->getMessage();
 			}
