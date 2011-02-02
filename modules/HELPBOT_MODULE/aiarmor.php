@@ -1,10 +1,24 @@
 <?php
-if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) || preg_match("/^aiarmor (cc|cm|co|cp|cs|ss) ([0-9]+)$/i", $message, $arr)) {
-	$armortype = strtolower($arr[1]);
-	if ($arr[2] >= 1 && $arr[2] <= 300) {
-		$ql = $arr[2];
+
+
+if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) ||
+		preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss) ([0-9]+)$/i", $message, $arr) ||
+		preg_match("/^aiarmor ([0-9]+) (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr2)) {
+
+	if ($arr2) {
+		$armortype = strtolower($arr2[2]);
+		if ($arr2[1] >= 1 && $arr2[1] <= 300) {
+			$ql = $arr2[1];
+		} else {
+			$ql = 300;
+		}
 	} else {
-		$ql = 300;
+		$armortype = strtolower($arr[1]);
+		if ($arr[2] >= 1 && $arr[2] <= 300) {
+			$ql = $arr[2];
+		} else {
+			$ql = 300;
+		}
 	}
 		
 	$trg_ql = $ql;
@@ -142,12 +156,25 @@ if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) || preg_m
 	$list .= bot::makeLink("Tradeskill process for this item", "/tell <myname> aiarmor $name_armor_trg $trg_ql", "chatcmd").")";
 	$msg = bot::makeLink("Building process for $ql $name_armor_result", $list);
 	bot::send($msg, $sendto);
-} else if (preg_match("/^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual)$/i", $message, $arr) || preg_match("/^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual) ([0-9]+)/i", $message, $arr)) {
-	$armortype = ucfirst(strtolower($arr[1]));
-	if ($arr[2] >= 1 && $arr[2] <= 300) {
-		$ql = $arr[2];
+} else if (preg_match("/^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual)$/i", $message, $arr) ||
+		preg_match("/^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual) ([0-9]+)/i", $message, $arr) ||
+		preg_match("/^aiarmor ([0-9]+) (strong|supple|enduring|observant|arithmetic|spiritual)/i", $message, $arr2)) {
+	
+	if ($arr2) {
+		$armortype = ucfirst(strtolower($arr2[2]));
+		if ($arr2[1] >= 1 && $arr2[1] <= 300) {
+			$ql = $arr2[1];
+		} else {
+			$ql = 300;
+		}
+
 	} else {
-		$ql = 300;
+		$armortype = ucfirst(strtolower($arr[1]));
+		if ($arr[2] >= 1 && $arr[2] <= 300) {
+			$ql = $arr[2];
+		} else {
+			$ql = 300;
+		}
 	}
 
 	$list = "<header>::::: Building process for $ql $armortype :::::<end>\n\n";

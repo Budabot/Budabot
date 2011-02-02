@@ -1236,7 +1236,7 @@ class bot extends AOChat{
 			}
 		}
 
-		//Check if the file exists
+		// Check if the file exists
 		if (($actual_filename = bot::verifyFilename($module . '/' . $filename)) != '') {
     		$filename = $actual_filename;
     		if (substr($filename, 0, 7) == "./core/") {
@@ -1382,7 +1382,6 @@ class bot extends AOChat{
 				}
 				break;
 			case AOCP_BUDDY_ADD: // 40, Incoming buddy logon or off
-				// Basic packet data
 				$sender	= $this->lookup_user($args[0]);
 				$status	= 0 + $args[1];
 				
@@ -1395,14 +1394,14 @@ class bot extends AOChat{
 				$this->buddyList[$bid]['online'] = ($bonline ? 1 : 0);
 				$this->buddyList[$bid]['known'] = (ord($btype) ? 1 : 0);
 
-				//Ignore Logon/Logoff from other bots or phantom logon/offs
+				// Ignore Logon/Logoff from other bots or phantom logon/offs
                 if ($this->settings["Ignore"][$sender] == true || $sender == "") {
 					return;
 				}
 
 				// If Status == 0(logoff) if Status == 1(logon)
 				if ($status == 0) {
-					$type = "logOff"; // Set message type
+					$type = "logOff";
 					
 					Logger::log('debug', "Buddy", "$sender logged off");
 
@@ -1417,7 +1416,7 @@ class bot extends AOChat{
 						}
 					}
 				} else if ($status == 1) {
-					$type = "logOn"; // Set Message Type
+					$type = "logOn";
 					
 					Logger::log('info', "Buddy", "$sender logged on");
 
@@ -1434,7 +1433,7 @@ class bot extends AOChat{
 				}
 				break;
 			case AOCP_MSG_PRIVATE: // 30, Incoming Msg
-				$type = "msg"; // Set message type.
+				$type = "msg";
 				$sender	= $this->lookup_user($args[0]);
 				$sendto = $sender;
 				
@@ -1482,7 +1481,7 @@ class bot extends AOChat{
 					}
 				}
 
-				//Remove the prefix infront if there is one
+				// Remove the prefix infront if there is one
 				if ($message[0] == $this->settings["symbol"] && strlen($message) > 1) {
 					$message = substr($message, 1);
 				}
@@ -1584,12 +1583,12 @@ class bot extends AOChat{
 				}
 
 				if ($sender) {
-					//Ignore Message that are sent from the bot self
+					// Ignore Message that are sent from the bot self
 					if ($sender == $this->vars["name"]) {
 						return;
 					}
 
-					//Ignore messages from other bots
+					// Ignore messages from other bots
 	                if ($this->settings["Ignore"][$sender] == true) {
 						return;
 					}
@@ -1695,7 +1694,7 @@ class bot extends AOChat{
 		$admin 	= $cmds[$cmd]["admin level"];
 		$filename = $cmds[$cmd]["filename"];
 
-		//Check if a subcommands for this exists
+		// Check if a subcommands for this exists
 		if ($this->subcommands[$filename][$type]) {
 			if (preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message)) {
 				$admin = $this->subcommands[$filename][$type]["admin"];
