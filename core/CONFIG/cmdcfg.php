@@ -57,7 +57,7 @@ if (!function_exists('get_admin_value')) {
 			case "admin":
 				return 4;
 			default:
-				return "UNDEFINED";
+				return $admin;
 		}
 	}
 }
