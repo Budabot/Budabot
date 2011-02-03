@@ -4,7 +4,7 @@
 	bot::loadSQLFile($MODULE_NAME, "guild_chatlist");
 
 	//Setup
-	bot::event($MODULE_NAME, "setup", "setup.php");
+	Event::register($MODULE_NAME, "setup", "setup.php");
 	
 	// Logon Handling
 	bot::command("", "$MODULE_NAME/logon_msg.php", "logon", "guild", "Sets a Logon Msg");
@@ -13,10 +13,10 @@
 	bot::command("", "$MODULE_NAME/lastseen.php", "lastseen", "guild", "Shows the logoff time of a player");
 	
 	//Verifies the Onlinelist every hour
-	bot::event($MODULE_NAME, "1hour", "online_check.php", "none", "Online check");
+	Event::register($MODULE_NAME, "1hour", "online_check.php", "none", "Online check");
 	
 	// Afk Check
-	bot::event($MODULE_NAME, "guild", "afk_check.php", "none", "Afk check");
+	Event::register($MODULE_NAME, "guild", "afk_check.php", "none", "Afk check");
 	bot::command("guild", "$MODULE_NAME/afk.php", "afk", "all", "Sets a member afk");
 	bot::command("guild", "$MODULE_NAME/kiting.php", "kiting", "all", "Sets a member afk kiting");
 	
@@ -29,8 +29,8 @@
 	bot::help($MODULE_NAME, "tell", "tell.txt", "guild", "How to use tell and tellall");
 
     // Org Roster list creation and Notify on/off handling
-	bot::event($MODULE_NAME, "24hrs", "roster_guild.php", "none", "Download guild roster xml and update guild members");
-	bot::event($MODULE_NAME, "orgmsg", "notify_auto.php", "none", "Automatically add and remove chars from the guild roster as they leave and join the guild");
+	Event::register($MODULE_NAME, "24hrs", "roster_guild.php", "none", "Download guild roster xml and update guild members");
+	Event::register($MODULE_NAME, "orgmsg", "notify_auto.php", "none", "Automatically add and remove chars from the guild roster as they leave and join the guild");
 	bot::command("guild", "$MODULE_NAME/notify.php", "notify", "mod", "Adding a char manually to the notify list");
 	bot::command("msg", "$MODULE_NAME/notify.php", "notify", "mod", "Adding a char manually to the notify list");
 	bot::command("priv", "$MODULE_NAME/notify.php", "notify", "mod", "Adding a char manually to the notify list");
@@ -42,10 +42,10 @@
 	bot::command("", "$MODULE_NAME/orgmembers.php", "orgmembers", "guild", "Show the Members(sorted by name) of the org");
 	bot::command("", "$MODULE_NAME/orgranks.php", "orgranks", "guild", "Show the Members(sorted by rank) of the org");
 	
-	bot::event($MODULE_NAME, "logOn", "notify_logon_guild.php", "none", "Shows an org member login in chat");
-	bot::event($MODULE_NAME, "logOff", "notify_logoff_guild.php", "none", "Shows an org member logoff in chat");
+	Event::register($MODULE_NAME, "logOn", "notify_logon_guild.php", "none", "Shows an org member login in chat");
+	Event::register($MODULE_NAME, "logOff", "notify_logoff_guild.php", "none", "Shows an org member logoff in chat");
 	
-	bot::event($MODULE_NAME, "logOff", "record_lastseen.php", "none", "Records when each member of the org logs off for lastseen command");
+	Event::register($MODULE_NAME, "logOff", "record_lastseen.php", "none", "Records when each member of the org logs off for lastseen command");
 	
 	//Helpfile
 	bot::help($MODULE_NAME, "inactivemem", "manage_guild.txt", "admin", "Help on Checking for Inactive Members");

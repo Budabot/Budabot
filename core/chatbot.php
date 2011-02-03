@@ -734,31 +734,6 @@ class bot extends AOChat {
 	}
 
 /*===============================
-** Name: event
-**  Registers an event
-*/	function event($module, $type, $filename, $dependson = 'none', $description = 'none'){
-		$db = db::get_instance();
-		
-		// disable depends on
-		$description = str_replace("'", "''", $description);
-		
-		$actual_filename = $module . '/' . $filename;
-		
-		Logger::log('debug', 'Core', "Adding Event to list:($type) File:($filename)");
-
-		if ($this->existing_events[$type][$actual_filename] == true) {
-		  	$db->exec("UPDATE cmdcfg_<myname> SET `verify` = 1, `description` = '$description' WHERE `type` = '$type' AND `cmdevent` = 'event' AND `file` = '$actual_filename' AND `module` = '$module'");
-		} else {
-			if ($this->settings["default_module_status"] == 1) {
-				$status = 1;
-			} else {
-				$status = 0;
-			}
-			$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `cmdevent`, `type`, `file`, `verify`, `description`, `status`) VALUES ('$module', 'event', '$type', '$actual_filename', '1', '$description', '$status')");
-		}
-	}
-
-/*===============================
 ** Name: reggroup
 **  Register a group of commands
 */	function regGroup($group, $module = 'none', $description = 'none'){

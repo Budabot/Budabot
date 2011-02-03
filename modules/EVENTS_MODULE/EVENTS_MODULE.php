@@ -2,7 +2,7 @@
 	$MODULE_NAME = "EVENTS_MODULE";
 
 	//Setup
-	bot::event($MODULE_NAME, "setup", "setup.php");
+	Event::register($MODULE_NAME, "setup", "setup.php");
 
 	//Commands
 	bot::command("", "$MODULE_NAME/events.php", "events", "all", "Views events");

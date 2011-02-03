@@ -28,7 +28,7 @@
 	}
 
 	//Auto start IRC connection, or turn it off
-	bot::event($MODULE_NAME, "connect", "set_irc_link.php", "none", "Sets IRC status at bootup.");
+	Event::register($MODULE_NAME, "connect", "set_irc_link.php", "none", "Sets IRC status at bootup.");
 	
 	//Commands
 	bot::command("msg", "$MODULE_NAME/irc_connect.php", "startirc", "admin", "Connect to IRC");
@@ -38,17 +38,17 @@
 	bot::command("msg", "$MODULE_NAME/set_irc_settings.php", "setirc", "admin", "Manually set IRC settings");
 	
 	//IRC Relay
-  	bot::event($MODULE_NAME, "2sec", "irc_check.php", "none", "Receive messages from IRC");
+  	Event::register($MODULE_NAME, "2sec", "irc_check.php", "none", "Receive messages from IRC");
 	
 	//In-game relay
-	bot::event($MODULE_NAME, "priv", "relay_irc_out.php", "none", "Relay (priv) messages to IRC");
-	bot::event($MODULE_NAME, "guild", "relay_irc_out.php", "none", "Relay (guild) messages to IRC");
+	Event::register($MODULE_NAME, "priv", "relay_irc_out.php", "none", "Relay (priv) messages to IRC");
+	Event::register($MODULE_NAME, "guild", "relay_irc_out.php", "none", "Relay (guild) messages to IRC");
 	
 	//Notifications
-	bot::event($MODULE_NAME, "joinPriv", "irc_relay_joined.php", "none", "Sends joined channel messages");
-	bot::event($MODULE_NAME, "leavePriv", "irc_relay_left.php", "none", "Sends left channel messages");
-	bot::event($MODULE_NAME, "logOn", "irc_relay_joined.php", "none", "Shows a logon from a member");
-	bot::event($MODULE_NAME, "logOff", "irc_relay_left.php", "none", "Shows a logoff from a member");
+	Event::register($MODULE_NAME, "joinPriv", "irc_relay_joined.php", "none", "Sends joined channel messages");
+	Event::register($MODULE_NAME, "leavePriv", "irc_relay_left.php", "none", "Sends left channel messages");
+	Event::register($MODULE_NAME, "logOn", "irc_relay_joined.php", "none", "Shows a logon from a member");
+	Event::register($MODULE_NAME, "logOff", "irc_relay_left.php", "none", "Shows a logoff from a member");
 	
 	//Settings
 	Setting::add($MODULE_NAME, "irc_status", "Status of IRC uplink", "noedit", "0", "Offline;Online", "0;1", "mod", "$MODULE_NAME/irc_help.txt");

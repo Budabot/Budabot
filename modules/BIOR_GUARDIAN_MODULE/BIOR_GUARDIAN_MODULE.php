@@ -2,9 +2,9 @@
 	$MODULE_NAME = "BIOR_GUARDIAN_MODULE";
 
 	//Bio Regrowth module
-	bot::event($MODULE_NAME, "leavePriv", "bior_left_chat.php", "bior", "Remove player who leaves chat from bior list if he was on it");
-	bot::event($MODULE_NAME, "joinPriv", "bior_joined_chat.php", "bior", "Add player to bior list when he joins chat if he should be on it (Keep,Adv,Enf,Eng)");
-	bot::event($MODULE_NAME, "2sec", "bior_check.php", "bior", "Timer check for bior list");
+	Event::register($MODULE_NAME, "leavePriv", "bior_left_chat.php", "bior", "Remove player who leaves chat from bior list if he was on it");
+	Event::register($MODULE_NAME, "joinPriv", "bior_joined_chat.php", "bior", "Add player to bior list when he joins chat if he should be on it (Keep,Adv,Enf,Eng)");
+	Event::register($MODULE_NAME, "2sec", "bior_check.php", "bior", "Timer check for bior list");
 	
 	bot::command("", "$MODULE_NAME/bior_order.php", "bior", "leader", "Show Bio Regrowth Order");
 	bot::command("", "$MODULE_NAME/cast_bior.php", "b", "all", "Show Bio Regrowth Cast");
@@ -17,9 +17,9 @@
 	bot::help($MODULE_NAME, "bior", "bior.txt", "all", "Bio Regrowth Macro and List");
 	
 	//Guardian module
-	bot::event($MODULE_NAME, "leavePriv", "guardian_left_chat.php", "guard", "Remove player who leaves chat from guardian list if he was on it");
-	bot::event($MODULE_NAME, "joinPriv", "guardian_joined_chat.php", "guard", "Add player to guardian list when he joins chat if he should be on it (Soldier)");
-	bot::event($MODULE_NAME, "2sec", "guard_check.php", "guard", "Timer check for guardian list");
+	Event::register($MODULE_NAME, "leavePriv", "guardian_left_chat.php", "guard", "Remove player who leaves chat from guardian list if he was on it");
+	Event::register($MODULE_NAME, "joinPriv", "guardian_joined_chat.php", "guard", "Add player to guardian list when he joins chat if he should be on it (Soldier)");
+	Event::register($MODULE_NAME, "2sec", "guard_check.php", "guard", "Timer check for guardian list");
 	
 	bot::command("", "$MODULE_NAME/guard_order.php", "guard", "leader", "Show Guardian Order");
 	bot::command("", "$MODULE_NAME/cast_guard.php", "g", "all", "Show Guardian Cast");

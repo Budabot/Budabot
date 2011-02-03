@@ -1,7 +1,7 @@
 <?php
 	$MODULE_NAME = "VOTE_MODULE";
 	
-	bot::event($MODULE_NAME, "setup", "setup.php");
+	Event::register($MODULE_NAME, "setup", "setup.php");
 
 	bot::command("", "$MODULE_NAME/vote.php", "vote", "all", "Vote/Polling");
 	
@@ -10,7 +10,7 @@
 	Setting::add($MODULE_NAME, "vote_create_min", "Minimum org level needed to create votes.", "edit", "-1", "None;0;1;2;3;4;5;6", "-1;0;1;2;3;4;5;6", "mod", "$MODULE_NAME/vote_settings.txt");
 	Setting::add($MODULE_NAME, "vote_use_min", "Minimum org level needed to vote.", "edit", "-1", "None;0;1;2;3;4;5;6", "-1;0;1;2;3;4;5;6", "mod", "$MODULE_NAME/vote_settings.txt");
 	
-	bot::event($MODULE_NAME, "2sec", "votes_check.php", 'none', "Checks timer and periodically updates chat with time left on vote");
+	Event::register($MODULE_NAME, "2sec", "votes_check.php", 'none', "Checks timer and periodically updates chat with time left on vote");
 	
 	bot::help($MODULE_NAME, "vote", "vote.txt", "all", "Vote/Polling");
 ?>

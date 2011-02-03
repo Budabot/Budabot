@@ -39,7 +39,7 @@
 
 	bot::command("msg guild", "$MODULE_NAME/org_history.php", "orghistory", "all", "Shows the org history (invites and kicks and leaves) for a player");
 	
-	bot::event($MODULE_NAME, "orgmsg", "org_action_listener.php", "none", "Capture Org Invite/Kick/Leave messages for orghistory");
+	Event::register($MODULE_NAME, "orgmsg", "org_action_listener.php", "none", "Capture Org Invite/Kick/Leave messages for orghistory");
 	
 	bot::help($MODULE_NAME, "orghistory", "org_history.txt", "guild", "How to use orghistory");
 ?>
