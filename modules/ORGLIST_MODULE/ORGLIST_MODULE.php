@@ -2,8 +2,8 @@
 	$MODULE_NAME = "ORGLIST_MODULE";
  
 	// Checks who in an org is online
-	bot::command("", "$MODULE_NAME/orglist.php", "orglist", "mod", "Check someones org roster");
-	bot::command("", "$MODULE_NAME/orglist.php", "onlineorg", "mod", "Check someones org roster");
+	bot::command("", "$MODULE_NAME/orglist.php", "orglist", "guildadmin", "Check someones org roster");
+	bot::command("", "$MODULE_NAME/orglist.php", "onlineorg", "guildadmin", "Check someones org roster");
 
 	Event::register($MODULE_NAME, "logOn", "orglist.php", "none", "Gets online status of org members");
 	Event::register($MODULE_NAME, "logOff", "orglist.php", "none", "Gets offline status of org members");

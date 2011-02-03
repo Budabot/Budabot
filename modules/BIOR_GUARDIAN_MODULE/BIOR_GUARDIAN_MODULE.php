@@ -22,8 +22,6 @@
 	bot::command("", "$MODULE_NAME/guard_order.php", "guard", "leader", "Show Guardian Order");
 	bot::command("", "$MODULE_NAME/cast_guard.php", "g", "all", "Show Guardian Cast");
 	
-	bot::regGroup("guardian", $MODULE_NAME, "Create a Guardian List", "guard", "g");
-	
 	Setting::add($MODULE_NAME, "guard_max", "Max Persons that are shown on Guard list", "edit", "10", "10;15;20;25;30", '0', "mod", "$MODULE_NAME/guard_help.txt");
 
 	//Helpfiles
