@@ -73,5 +73,5 @@ set_time_limit(0);
 		bot::send("Finished connecting to IRC",$sender);
 	}
 	Logger::log('info', "IRC", "Finished connecting to IRC");
-	bot::savesetting("irc_status", "1");
+	Setting::save("irc_status", "1");
 ?>

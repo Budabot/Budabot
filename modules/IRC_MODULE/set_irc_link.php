@@ -7,8 +7,8 @@
    **
    */
    
-bot::savesetting("irc_status", 0);
-if($this->settings['irc_autoconnect'] == 1) {
+Setting::save("irc_status", 0);
+if ($this->settings['irc_autoconnect'] == 1) {
 	include 'irc_connect.php';
 }
 ?>

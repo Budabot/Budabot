@@ -40,7 +40,7 @@ if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
 		{
 			// the irc server shut down (i guess)
 			// set bot to disconnected
-			bot::savesetting("bbin_status","0");
+			Setting::save("bbin_status","0");
 
 
 			// send notification to channel
@@ -61,7 +61,7 @@ if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
 		if ($ex[3] == $this->settings['bbin_nickname'])
 		{
 			// oh noez, I was kicked !
-			bot::savesetting("bbin_status","0");
+			Setting::save("bbin_status", "0");
 			if($this->vars['my guild'] != "")
 			{
 				bot::send("<yellow>[BBIN]<end> Our uplink was kicked from the server:".$extendedinfo,"guild",true);

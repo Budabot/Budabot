@@ -13,8 +13,8 @@
 	//Set admin and user news
 	bot::command("", "$MODULE_NAME/set_news.php", "privnews", "rl", "Set news that are shown on privjoin");
 	bot::command("", "$MODULE_NAME/set_news.php", "adminnews", "mod", "Set adminnews that are shown on privjoin");
-	bot::addsetting($MODULE_NAME, "news", "no", "hide", "Not set.");
-	bot::addsetting($MODULE_NAME, "adminnews", "no", "hide", "Not set.");
+	Setting::add($MODULE_NAME, "news", "no", "hide", "Not set.");
+	Setting::add($MODULE_NAME, "adminnews", "no", "hide", "Not set.");
 
 	//Help files
 	bot::help($MODULE_NAME, "news", "news.txt", "guild", "How to use news");

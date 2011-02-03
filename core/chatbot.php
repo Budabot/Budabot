@@ -34,8 +34,9 @@ require_once 'Playfields.class.php';
 require_once 'AccessLevel.class.php';
 require_once 'Command.class.php';
 require_once 'Event.class.php';
+require_once 'Setting.class.php';
 
-class bot extends AOChat{
+class bot extends AOChat {
 
 	var $buddyList = array();
 	var $chatlist = array();
@@ -796,64 +797,6 @@ class bot extends AOChat{
 	  	$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `cmdevent`, `verify`, `description`) VALUES ('$module', '$group', 'group', '1', '$description')");
 	}
 
-
-/*===============================
-** Name: addsetting
-** Adds a setting to the list
-*/	function addsetting($module, $name, $description = 'none', $mode = 'hide', $value = 'none', $options = 'none', $intoptions = '0', $admin = 'mod', $help = '') {
-		$db = db::get_instance();
-		$name = strtolower($name);
-
-		//Check if the file exists
-		if ($help != '' && ($actual_filename = bot::verifyFilename($help)) != '') {
-    		$filename = $actual_filename;
-		} else if ($help != "") {
-			Logger::log('ERROR', 'Core', "Error in registering the File $filename for Setting $module:setting($name). The file doesn't exists!");
-			return;
-		}
-		
-		$options = str_replace("'", "''", $options);
-		$description = str_replace("'", "''", $description);
-
-		if ($this->existing_settings[$name] != true) {
-			$db->exec("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('$name', '$module', '$mode', '" . str_replace("'", "''", $value) . "', '$options', '$intoptions', '$description', 'db', '$admin', '$help')");
-		  	$this->settings[$name] = $value;
-	  	} else {
-			$db->exec("UPDATE settings_<myname> SET `module` = '$module', `mode` = '$mode', `options` = '$options', `intoptions` = '$intoptions', `description` = '$description', `admin` = '$admin', `help` = '$help' WHERE `name` = '$name'");
-		}
-	}
-
-/*===============================
-** Name: getsetting
-** Gets an loaded setting
-*/	function getsetting($name) {
-		$name = strtolower($name);
-		if (isset($this->settings[$name])) {
-	  		return $this->settings[$name];
-	  	} else {
-	  		return false;
-		}
-	}
-
-/*===============================
-** Name: savesetting
-** Saves a setting to the db
-*/	function savesetting($name, $newsetting = null) {
-		$db = db::get_instance();
-		$name = strtolower($name);
-		if ($newsetting === null) {
-			return false;
-		}
-
-		if (isset($this->settings[$name])) {
-			$db->exec("UPDATE settings_<myname> SET `setting` = '" . str_replace("'", "''", $newsetting) . "' WHERE `name` = '$name'");
-			$this->settings[$name] = $newsetting;
-		} else {
-			return false;
-		}
-	}
-
-
 /*===============================
 ** Name: help
 ** Add a help command and display text file in a link.
@@ -1497,7 +1440,7 @@ class bot extends AOChat{
 			$dir = $core_dir;
 		}
 		
-		$currentVersion = bot::getsetting($settingName);
+		$currentVersion = Setting::get($settingName);
 		if ($currentVersion === false) {
 			$currentVersion = 0;
 		}
@@ -1537,8 +1480,8 @@ class bot extends AOChat{
 			}
 			//$db->Commit();
 		
-			if (!bot::savesetting($settingName, $maxFileVersion)) {
-				bot::addsetting($module, $settingName, $settingName, 'noedit', $maxFileVersion);
+			if (!Setting::save($settingName, $maxFileVersion)) {
+				Setting::add($module, $settingName, $settingName, 'noedit', $maxFileVersion);
 			}
 			
 			if ($maxFileVersion != 0) {

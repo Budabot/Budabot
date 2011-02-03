@@ -14,7 +14,7 @@
 
 	bot::event($MODULE_NAME, "2sec", "timers_check.php", "timer", "Checks timers and periodically updates chat with time left");
 	
-	bot::addsetting($MODULE_NAME, "timers_window", "Show running timers in a window or directly", "edit", "1", "window only;chat only;window after 3;window after 4;window after 5", '1;2;3;4;5', "mod");
+	Setting::add($MODULE_NAME, "timers_window", "Show running timers in a window or directly", "edit", "1", "window only;chat only;window after 3;window after 4;window after 5", '1;2;3;4;5', "mod");
 
 	//Help files
 	bot::help($MODULE_NAME, "timer", "timer.txt", "guild", "Set/Show Timers");

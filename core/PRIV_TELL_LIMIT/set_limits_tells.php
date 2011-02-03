@@ -46,7 +46,7 @@ if(preg_match("/^tminlvl$/i", $message)) {
 		return;
 	}
 	
-	bot::savesetting("tell_req_lvl", $minlvl);
+	Setting::save("tell_req_lvl", $minlvl);
 	
 	if($minlvl == 0) {
 		$msg = "Player min level limit has been removed from responding on tells.";
@@ -67,7 +67,7 @@ if(preg_match("/^tminlvl$/i", $message)) {
 } elseif(preg_match("/^topen (org|all|members)$/i", $message, $arr)) {
 	$open = strtolower($arr[1]);
 	
-	bot::savesetting("tell_req_open", $open);
+	Setting::save("tell_req_open", $open);
 	
 	if($open == "all") {
 		$msg = "General restriction for responding on tells has been removed.";
@@ -88,7 +88,7 @@ if(preg_match("/^tminlvl$/i", $message)) {
 } elseif(preg_match("/^tfaction (omni|clan|neutral|all)$/i", $message, $arr)) {
 	$faction = ucfirst(strtolower($arr[1]));
 	
-	bot::savesetting("tell_req_faction", $faction);
+	Setting::save("tell_req_faction", $faction);
 	
 	if($faction == "all") {
 		$msg = "Faction limit removed for tell responces.";
@@ -100,7 +100,7 @@ if(preg_match("/^tminlvl$/i", $message)) {
 } elseif(preg_match("/^tfaction not (omni|clan|neutral)$/i", $message, $arr)) {
 	$faction = ucfirst(strtolower($arr[1]));
 	
-	bot::savesetting("tell_req_faction", "not ".$faction);
+	Setting::save("tell_req_faction", "not ".$faction);
 	
 	$msg = "Responding on tells will be done for players that are not $faction.";
 

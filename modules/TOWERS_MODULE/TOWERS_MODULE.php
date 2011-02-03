@@ -21,9 +21,9 @@
 
   	bot::command("", "$MODULE_NAME/victory.php", "victory", "all", "Shows the last Tower Battle results");
 
-	bot::addsetting($MODULE_NAME, "tower_attack_spam", "Layout types when displaying tower attacks", "edit", "1", "off;compact;normal;full", '0;1;2;3', "mod");
-	bot::addsetting($MODULE_NAME, "tower_faction_def", "Display certain factions defending", "edit", "7", "none;clan;neutral;clan+neutral;omni;clan+omni;neutral+omni;all", '0;1;2;3;4;5;6;7', "mod");
-	bot::addsetting($MODULE_NAME, "tower_faction_atk", "Display certain factions attacking", "edit", "7", "none;clan;neutral;clan+neutral;omni;clan+omni;neutral+omni;all", '0;1;2;3;4;5;6;7', "mod");
+	Setting::add($MODULE_NAME, "tower_attack_spam", "Layout types when displaying tower attacks", "edit", "1", "off;compact;normal;full", '0;1;2;3', "mod");
+	Setting::add($MODULE_NAME, "tower_faction_def", "Display certain factions defending", "edit", "7", "none;clan;neutral;clan+neutral;omni;clan+omni;neutral+omni;all", '0;1;2;3;4;5;6;7', "mod");
+	Setting::add($MODULE_NAME, "tower_faction_atk", "Display certain factions attacking", "edit", "7", "none;clan;neutral;clan+neutral;omni;clan+omni;neutral+omni;all", '0;1;2;3;4;5;6;7', "mod");
 
 	bot::event($MODULE_NAME, "towers", "attack_messages.php", "none", "Record attack messages");
 	bot::event($MODULE_NAME, "towers", "victory_messages.php", "none", "Record victory messages");

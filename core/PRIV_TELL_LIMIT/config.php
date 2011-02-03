@@ -115,9 +115,9 @@ if (preg_match("/^limits$/i", $message)) {
 	$channel = strtolower($arr[1]);
 	
 	if($channel == "priv")
-		bot::savesetting("priv_req_faction", $faction);
+		Setting::save("priv_req_faction", $faction);
 	else
-		bot::savesetting("tell_req_faction", $faction);
+		Setting::save("tell_req_faction", $faction);
 	
 	if($channel == "priv" && $faction == "all") {
 		$msg = "Faction limit removed from private channel invites.";
@@ -134,9 +134,9 @@ if (preg_match("/^limits$/i", $message)) {
 	$channel = strtolower($arr[1]);
 	
 	if($channel == "priv")
-		bot::savesetting("priv_req_faction", "not ".$faction);
+		Setting::save("priv_req_faction", "not ".$faction);
 	else
-		bot::savesetting("tell_req_faction", "not ".$faction);
+		Setting::save("tell_req_faction", "not ".$faction);
 	
 	if($channel == "priv") {
 		$msg = "Private channel invites are accepted only from player that are not $faction.";
@@ -176,9 +176,9 @@ if (preg_match("/^limits$/i", $message)) {
 	}
 	
 	if($channel == "priv")
-		bot::savesetting("priv_req_lvl", $minlvl);
+		Setting::save("priv_req_lvl", $minlvl);
 	else
-		bot::savesetting("tell_req_lvl", $minlvl);
+		Setting::save("tell_req_lvl", $minlvl);
 	
 	if($channel == "priv" && $minlvl == 0) {
 		$msg = "Player min level limit has been removed from private channel invites.";
@@ -220,9 +220,9 @@ if (preg_match("/^limits$/i", $message)) {
 	$channel = strtolower($arr[1]);
 	
 	if($channel == "priv")
-		bot::savesetting("priv_req_open", $open);
+		Setting::save("priv_req_open", $open);
 	else
-		bot::savesetting("tell_req_open", $open);
+		Setting::save("tell_req_open", $open);
 	
 	if($channel == "priv" && $open == "all") {
 		$msg = "General restrictions for private channel invites has been removed.";
@@ -262,7 +262,7 @@ if (preg_match("/^limits$/i", $message)) {
 		return;
 	}
 	
-	bot::savesetting("priv_req_maxplayers", $maxplayers);
+	Setting::save("priv_req_maxplayers", $maxplayers);
 	
 	if($maxplayers == 0) {
 		$msg = "The Limit of the Amount of players in the private channel has been removed.";

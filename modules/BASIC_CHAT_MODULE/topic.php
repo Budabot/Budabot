@@ -43,15 +43,15 @@ if ($this->settings["topic"] != "" && $type == "joinPriv") {
 	$msg = "<highlight>Topic:<end> {$topic} [set by <highlight>{$this->settings["topic_setby"]}<end>][<highlight>{$date_string} ago<end>]";
     bot::send($msg, $sendto);
 } else if (preg_match("/^topic clear$/i", $message, $arr)) {
-  	bot::savesetting("topic_time", time());
-  	bot::savesetting("topic_setby", $sender);
-  	bot::savesetting("topic", "");
+  	Setting::save("topic_time", time());
+  	Setting::save("topic_setby", $sender);
+  	Setting::save("topic", "");
 	$msg = "Topic has been cleared.";
     bot::send($msg, $sendto);
 } else if (preg_match("/^topic (.+)$/i", $message, $arr)) {
-  	bot::savesetting("topic_time", time());
-  	bot::savesetting("topic_setby", $sender);
-  	bot::savesetting("topic", $arr[1]);
+  	Setting::save("topic_time", time());
+  	Setting::save("topic_setby", $sender);
+  	Setting::save("topic", $arr[1]);
 	$msg = "Topic has been updated.";
     bot::send($msg, $sendto);
 }

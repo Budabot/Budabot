@@ -42,7 +42,7 @@ if (preg_match("/^lock$/i", $message)) {
 		bot::send($msg, $sender);
 	}
 	
-	bot::savesetting("priv_status", "closed");
+	Setting::save("priv_status", "closed");
 } else if (preg_match("/^lock (.+)$/i", $message, $arr)) {
   	$reason = $arr[1];
 	if($this->settings["priv_status"] == "closed") {
@@ -57,8 +57,8 @@ if (preg_match("/^lock$/i", $message)) {
 		bot::send($msg, $sender);
 	}
 	
-	bot::savesetting("priv_status", "closed");
-	bot::savesetting("priv_status_reason", $reason);
+	Setting::save("priv_status", "closed");
+	Setting::save("priv_status_reason", $reason);
 } else if (preg_match("/^unlock$/i", $message)) {
   	if($this->settings["priv_status"] == "open") {
 	    $msg = "Private channel is already opened.";
@@ -72,8 +72,8 @@ if (preg_match("/^lock$/i", $message)) {
 		bot::send($msg, $sender);
 	}
 	
-	bot::savesetting("priv_status", "open");
-	bot::savesetting("priv_status_reason", "not set");
+	Setting::save("priv_status", "open");
+	Setting::save("priv_status_reason", "not set");
 } else {
 	$syntax_error = true;
 }

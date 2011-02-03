@@ -8,12 +8,12 @@
    */
    
 if(preg_match("/^setirc server (.+)$/i", $message, $arr)) {
-	bot::savesetting("irc_server", trim($arr[1]));
+	Setting::save("irc_server", trim($arr[1]));
 	bot::send("Setting saved.  Bot will connect to IRC server: {$arr[1]}.", $sender);
 }
 elseif(preg_match("/^setirc port (.+)$/i", $message, $arr)) {
 	if(is_numeric($arr[1])) {
-		bot::savesetting("irc_port", trim($arr[1]));
+		Setting::save("irc_port", trim($arr[1]));
 		bot::send("Setting saved.  Bot will use port {$arr[1]} to connect to the IRC server.", $sender);
 	}
 	else {
@@ -21,7 +21,7 @@ elseif(preg_match("/^setirc port (.+)$/i", $message, $arr)) {
 	}
 }
 elseif(preg_match("/^setirc nickname (.+)$/i", $message, $arr)) {
-	bot::savesetting("irc_nickname", trim($arr[1]));
+	Setting::save("irc_nickname", trim($arr[1]));
 	bot::send("Setting saved.  Bot will use {$arr[1]} as its nickname while in IRC.", $sender);
 }
 elseif(preg_match("/^setirc channel (.+)$/i", $message, $arr)) {
@@ -38,7 +38,7 @@ elseif(preg_match("/^setirc channel (.+)$/i", $message, $arr)) {
 	if(strpos($channel,"#") !== 0) {
 		$channel = "#".$channel;
 	}
-	bot::savesetting("irc_channel", trim($channel));
+	Setting::save("irc_channel", trim($channel));
 	bot::send("Setting saved.  Bot will join $channel when it connects to IRC.", $sender);
 }
 else {

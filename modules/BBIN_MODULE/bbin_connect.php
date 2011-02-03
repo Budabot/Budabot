@@ -76,5 +76,5 @@ if(preg_match("/^startbbin$/i", $message)) {
 }
 Logger::log('info', "BBIN", "Finished connecting to bbin");
 
-bot::savesetting("bbin_status", "1");
+Setting::save("bbin_status", "1");
 ?>

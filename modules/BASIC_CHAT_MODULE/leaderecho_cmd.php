@@ -30,10 +30,10 @@
    */
    
 if (preg_match("/^leaderecho on$/i", $message)) {
-	bot::savesetting("leaderecho", "1");
+	Setting::save("leaderecho", "1");
 	bot::send("Leader echo has been <green>enabled<end>");
 } else if (preg_match("/^leaderecho off$/i", $message)) {
-	bot::savesetting("leaderecho", "0");
+	Setting::save("leaderecho", "0");
 	bot::send("Leader echo has been <green>disabled<end>");	
 } else if (preg_match("/^leaderecho$/i", $message)) {
 	if ($this->settings["leaderecho"] == 1) {

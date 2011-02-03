@@ -51,15 +51,15 @@
 	bot::event($MODULE_NAME, "logOff", "irc_relay_left.php", "none", "Shows a logoff from a member");
 	
 	//Settings
-	bot::addsetting($MODULE_NAME, "irc_status", "Status of IRC uplink", "noedit", "0", "Offline;Online", "0;1", "mod", "$MODULE_NAME/irc_help.txt");
-	bot::addsetting($MODULE_NAME, "irc_server", "IRC server to connect to", "noedit", "irc.funcom.com", "none", "0", "mod", "$MODULE_NAME/irc_help.txt");
-	bot::addsetting($MODULE_NAME, "irc_port", "IRC server port to use", "noedit", "6667", "none", "0", "mod", "$MODULE_NAME/irc_help.txt");
-	bot::addsetting($MODULE_NAME, "irc_nickname", "Nickname to use while in IRC", "noedit", "{$this->vars['name']}", "none", "0", "mod", "$MODULE_NAME/irc_help.txt");
-	bot::addsetting($MODULE_NAME, "irc_channel", "Channel to join", "noedit", "$channel", "none", "0", "mod", "$MODULE_NAME/irc_help.txt");
-	bot::addsetting($MODULE_NAME, "irc_autoconnect", "Connect to IRC at bootup", "edit", "0", "No;Yes", "0;1", "mod", "$MODULE_NAME/irc_help.txt");
-	bot::addsetting($MODULE_NAME, "irc_debug_ping", "IRC Debug Option: Show pings in console", "edit", "0", "Off;On", "0;1", "mod", "$MODULE_NAME/irc_help.txt");
-	bot::addsetting($MODULE_NAME, "irc_debug_messages", "IRC Debug Option: Show events in console", "edit", "0", "Off;On", "0;1", "mod", "$MODULE_NAME/irc_help.txt");
-	bot::addsetting($MODULE_NAME, "irc_debug_all", "IRC Debug Option: Log everything", "edit", "0", "Off;On", "0;1", "mod", "$MODULE_NAME/irc_help.txt");
+	Setting::add($MODULE_NAME, "irc_status", "Status of IRC uplink", "noedit", "0", "Offline;Online", "0;1", "mod", "$MODULE_NAME/irc_help.txt");
+	Setting::add($MODULE_NAME, "irc_server", "IRC server to connect to", "noedit", "irc.funcom.com", "none", "0", "mod", "$MODULE_NAME/irc_help.txt");
+	Setting::add($MODULE_NAME, "irc_port", "IRC server port to use", "noedit", "6667", "none", "0", "mod", "$MODULE_NAME/irc_help.txt");
+	Setting::add($MODULE_NAME, "irc_nickname", "Nickname to use while in IRC", "noedit", "{$this->vars['name']}", "none", "0", "mod", "$MODULE_NAME/irc_help.txt");
+	Setting::add($MODULE_NAME, "irc_channel", "Channel to join", "noedit", "$channel", "none", "0", "mod", "$MODULE_NAME/irc_help.txt");
+	Setting::add($MODULE_NAME, "irc_autoconnect", "Connect to IRC at bootup", "edit", "0", "No;Yes", "0;1", "mod", "$MODULE_NAME/irc_help.txt");
+	Setting::add($MODULE_NAME, "irc_debug_ping", "IRC Debug Option: Show pings in console", "edit", "0", "Off;On", "0;1", "mod", "$MODULE_NAME/irc_help.txt");
+	Setting::add($MODULE_NAME, "irc_debug_messages", "IRC Debug Option: Show events in console", "edit", "0", "Off;On", "0;1", "mod", "$MODULE_NAME/irc_help.txt");
+	Setting::add($MODULE_NAME, "irc_debug_all", "IRC Debug Option: Log everything", "edit", "0", "Off;On", "0;1", "mod", "$MODULE_NAME/irc_help.txt");
 	
 	//Helpfiles
 	bot::help($MODULE_NAME, "irc", "irc_help.txt", "all", "How to use the IRC plugin", "IRC Relay");

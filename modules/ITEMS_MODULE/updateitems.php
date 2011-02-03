@@ -20,7 +20,7 @@ if (preg_match("/^updateitems$/i", $message)) {
 	}
 
 	if ($latestVersion !== null) {
-		$currentVersion = $this->getsetting("aodb_db_version");
+		$currentVersion = Setting::get("aodb_db_version");
 		
 		// if server version is greater than current version, download and load server version
 		if ($currentVersion === false || compareVersionNumbers($latestVersion, $currentVersion) > 0) {
