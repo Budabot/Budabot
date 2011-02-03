@@ -24,11 +24,11 @@
 	bot::regGroup("EXP", $MODULE_NAME, "Calculate needed XP/SK/AXP", "sk", "xp", "axp");
 
 	//Title Levels
-	bot::command("", "$MODULE_NAME/title.php", "title", "guild", "Show the Titlelevels and how much IP/Level");
+	bot::command("", "$MODULE_NAME/title.php", "title", "all", "Show the Titlelevels and how much IP/Level");
 
 	//Help files
-    bot::help($MODULE_NAME, "level", "level.txt", "guild", "How to use level");
-    bot::help($MODULE_NAME, "title", "title.txt", "guild", "How to use title");
-    bot::help($MODULE_NAME, "missions", "missions.txt", "guild", "Who can roll a specific QL of a mission");
-	bot::help($MODULE_NAME, "xp", "xp.txt", "guild", "XP/SK/AXP Info");
+    bot::help($MODULE_NAME, "level", "level.txt", "all", "How to use level");
+    bot::help($MODULE_NAME, "title", "title.txt", "all", "How to use title");
+    bot::help($MODULE_NAME, "missions", "missions.txt", "all", "Who can roll a specific QL of a mission");
+	bot::help($MODULE_NAME, "xp", "xp.txt", "all", "XP/SK/AXP Info");
 ?>
