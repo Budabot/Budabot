@@ -105,13 +105,6 @@ forEach ($ignore as $bot) {
 }
 unset($ignore);
 
-
-//Remove the account info from the global var
-$login = $vars['login'];
-$password = $vars['password'];
-unset($vars['login']);
-unset($vars['password']);
-
 //////////////////////////////////////////////////////////////
 // Create new objects
 $db = new db($settings["DB Type"], $settings["DB Name"], $settings["DB Host"], $settings["DB username"], $settings["DB password"]);
@@ -122,15 +115,12 @@ if ($db->errorCode != 0) {
 }
 
 $chatBot = new bot($vars, $settings);
-
-/////////////////////////////////////////////
-// log on aoChat, msnChat                  //
-$chatBot->connectAO($login, $password);//		
-/////////////////////////////////////////////
+$chatBot->init();
+$chatBot->connectAO($vars['login'], $vars['password']);
 
 //Clear the login and the password	
-unset($login);
-unset($password);
+unset($vars['login']);
+unset($vars['password']);
 
 //Clear database settings
 unset($settings["DB Type"]);

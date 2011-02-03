@@ -2,12 +2,12 @@
 	$MODULE_NAME = "SETTINGS";
 
 	//Commands
-	bot::regcommand("msg", "$MODULE_NAME/bot_settings.php", "settings", "mod");
-	bot::regcommand("priv", "$MODULE_NAME/bot_settings.php", "settings", "mod");
-	bot::regcommand("guild", "$MODULE_NAME/bot_settings.php", "settings", "mod");
+	Command::activate("msg", "$MODULE_NAME/bot_settings.php", "settings", "mod");
+	Command::activate("priv", "$MODULE_NAME/bot_settings.php", "settings", "mod");
+	Command::activate("guild", "$MODULE_NAME/bot_settings.php", "settings", "mod");
 
 	//Setup
-	bot::regevent("setup", "$MODULE_NAME/upload_settings.php");
+	Event::activate("setup", "$MODULE_NAME/upload_settings.php");
 
 	bot::addsetting($MODULE_NAME, 'default_guild_color', "default guild color", 'edit', "<font color='#84FFFF'>", 'color');
 	bot::addsetting($MODULE_NAME, 'default_priv_color', "default private channel color", 'edit', "<font color='#84FFFF'>", 'color');

@@ -128,9 +128,9 @@ if (preg_match("/^config$/i", $message)) {
 	$data = $db->fObject('all');
 	forEach ($data as $row) {
 	  	if ($status == 1) {
-			bot::regcommand($row->type, $row->file, $row->cmd, $row->admin);
+			Command::activate($row->type, $row->file, $row->cmd, $row->admin);
 		} else {
-			bot::unregcommand($row->type, $row->file, $row->cmd);
+			Command::deactivate($row->type, $row->file, $row->cmd);
 		}
 	}
 	
@@ -139,71 +139,74 @@ if (preg_match("/^config$/i", $message)) {
 	
 	bot::send("Command(s) updated successfully.", $sendto);	
 } else if (preg_match("/^config (mod|cmd|grp|event) (.+) (enable|disable) (priv|msg|guild|all)$/i", $message, $arr)) {
-	if($arr[1] == "event") {
+	if ($arr[1] == "event") {
 		$temp = explode(" ", $arr[2]);
-	  	$cmdmod = $temp[0];
+	  	$module = strtoupper($temp[0]);
 	  	$file = $temp[1];
 	} else {
-		$cmdmod = $arr[2];
+		$module = strtoupper($arr[2]);
 		$type = $arr[4]; 	
 	}
 		
-	if($arr[3] == "enable")
+	if ($arr[3] == "enable") {
 		$status = 1;
-	else
+	} else {
 		$status = 0;
+	}
 	
-	if($arr[1] == "mod" && $type == "all")
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$cmdmod'");
-	elseif($arr[1] == "mod" && $type != "all")
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$cmdmod' AND `type` = '$type'");
-	elseif($arr[1] == "cmd" && $type != "all")
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmdmod' AND `type` = '$type' AND `cmdevent` = 'cmd'");
-	elseif($arr[1] == "cmd" && $type == "all")
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmdmod' AND `cmdevent` = 'cmd'");
-	elseif($arr[1] == "grp" && $type != "all")
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `grp` = '$cmdmod' AND `type` = '$type' AND `cmdevent` = 'cmd'");
-	elseif($arr[1] == "grp" && $type == "all")
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `grp` = '$cmdmod' AND `cmdevent` = 'cmd'");
-	elseif($arr[1] == "event" && $file != "")
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `file` = '$file' AND `cmdevent` = 'event' AND `type` = '$cmdmod'");	
-	else
-		$msg = "Unknown Syntax for this command. Pls look into the help system for usage of this command.";
+	if ($arr[1] == "mod" && $type == "all") {
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$module'");
+	} else if ($arr[1] == "mod" && $type != "all") {
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$module' AND `type` = '$type'");
+	} else if ($arr[1] == "cmd" && $type != "all") {
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$module' AND `type` = '$type' AND `cmdevent` = 'cmd'");
+	} else if ($arr[1] == "cmd" && $type == "all") {
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$module' AND `cmdevent` = 'cmd'");
+	} else if ($arr[1] == "grp" && $type != "all") {
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `grp` = '$module' AND `type` = '$type' AND `cmdevent` = 'cmd'");
+	} else if ($arr[1] == "grp" && $type == "all") {
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `grp` = '$module' AND `cmdevent` = 'cmd'");
+	} else if ($arr[1] == "event" && $file != "") {
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `file` = '$file' AND `cmdevent` = 'event' AND `type` = '$module'");	
+	} else {
+		$syntax_error = true;
+		return;
+	}
 
 	if ($db->numrows() == 0) {
 		if ($arr[1] == "mod" && $type == "all") {
-			$msg = "Could not find the Module <highlight>$cmdmod<end>";
+			$msg = "Could not find the Module <highlight>$module<end>";
 		} else if ($arr[1] == "mod" && $type != "all") {
-			$msg = "Could not find the Module <highlight>$cmdmod<end> for Channel <highlight>$type<end>";
+			$msg = "Could not find the Module <highlight>$module<end> for Channel <highlight>$type<end>";
 		} else if ($arr[1] == "cmd" && $type != "all") {
-			$msg = "Could not find the Command <highlight>$cmdmod<end> for Channel <highlight>$type<end>";
+			$msg = "Could not find the Command <highlight>$module<end> for Channel <highlight>$type<end>";
 		} else if ($arr[1] == "cmd" && $type == "all") {
-			$msg = "Could not find the Command <highlight>$cmdmod<end>";
+			$msg = "Could not find the Command <highlight>$module<end>";
 		} else if ($arr[1] == "grp" && $type != "all") {
-			$msg = "Could not find the Group <highlight>$cmdmod<end> for Channel <highlight>$type<end>";
+			$msg = "Could not find the Group <highlight>$module<end> for Channel <highlight>$type<end>";
 		} else if ($arr[1] == "grp" && $type == "all") {
-			$msg = "Could not find the Group <highlight>$cmdmod<end>";
+			$msg = "Could not find the Group <highlight>$module<end>";
 		} else if ($arr[1] == "event" && $file != "") {
-			$msg = "Could not find the Event <highlight>$cmdmod<end> for File <highlight>$file<end>";
+			$msg = "Could not find the Event <highlight>$module<end> for File <highlight>$file<end>";
 		}
 		bot::send($msg, $sendto);
 		return;
 	}
 
 	if ($arr[1] == "mod" && $type == "all") {
-		$msg = "Updated status of the module <highlight>$cmdmod<end> to <highlight>".$arr[3]."d<end>";
+		$msg = "Updated status of the module <highlight>$module<end> to <highlight>".$arr[3]."d<end>";
 	} else if ($arr[1] == "mod" && $type != "all") {
-		$msg = "Updated status of the module <highlight>$cmdmod<end> in Channel <highlight>$type<end> to <highlight>".$arr[3]."d<end>"; 
+		$msg = "Updated status of the module <highlight>$module<end> in Channel <highlight>$type<end> to <highlight>".$arr[3]."d<end>"; 
 	} else if ($arr[1] == "cmd" && $type != "all") {
-		$msg = "Updated status of command <highlight>$cmdmod<end> to <highlight>".$arr[3]."d<end> in Channel <highlight>$type<end>";
+		$msg = "Updated status of command <highlight>$module<end> to <highlight>".$arr[3]."d<end> in Channel <highlight>$type<end>";
 	} else if ($arr[1] == "cmd" && $type == "all") {
-		$msg = "Updated status of command <highlight>$cmdmod<end> to <highlight>".$arr[3]."d<end>";
+		$msg = "Updated status of command <highlight>$module<end> to <highlight>".$arr[3]."d<end>";
 	} else if ($arr[1] == "grp" && $type != "all") {
-		$msg = "Updated status of group <highlight>$cmdmod<end> to <highlight>".$arr[3]."d<end> in Channel <highlight>$type<end>";
+		$msg = "Updated status of group <highlight>$module<end> to <highlight>".$arr[3]."d<end> in Channel <highlight>$type<end>";
 	} else if ($arr[1] == "grp" && $type == "all") {
-		$msg = "Updated status of group <highlight>$cmdmod<end> to <highlight>".$arr[3]."d<end>";
+		$msg = "Updated status of group <highlight>$module<end> to <highlight>".$arr[3]."d<end>";
 	} else if ($arr[1] == "event" && $type != "") {
-		$msg = "Updated status of event <highlight>$cmdmod<end> to <highlight>".$arr[3]."d<end>";
+		$msg = "Updated status of event <highlight>$module<end> to <highlight>".$arr[3]."d<end>";
 	}
 
 	bot::send($msg, $sendto);
@@ -212,35 +215,35 @@ if (preg_match("/^config$/i", $message)) {
 	forEach ($data as $row) {
 	  	if ($row->cmdevent != "event") {
 		  	if ($status == 1) {
-				bot::regcommand($row->type, $row->file, $row->cmd, $row->admin);
+				Command::activate($row->type, $row->file, $row->cmd, $row->admin);
 			} else {
-				bot::unregcommand($row->type, $row->file, $row->cmd, $row->admin);
+				Command::deactivate($row->type, $row->file, $row->cmd, $row->admin);
 			}
 		} else {
 		  	if ($status == 1) {
-				bot::regevent($row->type, $row->file);
+				Event::activate($row->type, $row->file);
 			} else {
-				bot::unregevent($row->type, $row->file);
+				Event::deactivate($row->type, $row->file);
 			}
 		}
 	}
 
 	if ($arr[1] == "mod" && $type == "all") {
-		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `module` = '$cmdmod' AND `cmdevent` = 'cmd'");
-		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `module` = '$cmdmod' AND `cmdevent` = 'event'");
+		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `module` = '$module' AND `cmdevent` = 'cmd'");
+		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `module` = '$module' AND `cmdevent` = 'event'");
 	} else if ($arr[1] == "mod" && $type != "all") {
-		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `module` = '$cmdmod' AND `type` = '$type' AND `cmdevent` = 'cmd'");
-		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `module` = '$cmdmod' AND `type` = '$type' AND `cmdevent` = 'event'");
+		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `module` = '$module' AND `type` = '$type' AND `cmdevent` = 'cmd'");
+		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `module` = '$module' AND `type` = '$type' AND `cmdevent` = 'event'");
 	} else if ($arr[1] == "cmd" && $type != "all") {
-		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `cmd` = '$cmdmod' AND `type` = '$type' AND `cmdevent` = 'cmd'");
+		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `cmd` = '$module' AND `type` = '$type' AND `cmdevent` = 'cmd'");
 	} else if ($arr[1] == "cmd" && $type == "all") {
-		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `cmd` = '$cmdmod' AND `cmdevent` = 'cmd'");
+		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `cmd` = '$module' AND `cmdevent` = 'cmd'");
 	} else if ($arr[1] == "grp" && $type != "all") {
-		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `grp` = '$cmdmod' AND `type` = '$type' AND `cmdevent` = 'cmd'");
+		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `grp` = '$module' AND `type` = '$type' AND `cmdevent` = 'cmd'");
 	} else if ($arr[1] == "grp" && $type == "all") {
-		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `grp` = '$cmdmod' AND `cmdevent` = 'cmd'");
+		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `grp` = '$module' AND `cmdevent` = 'cmd'");
 	} else if ($arr[1] == "event" && $file != "") {
-		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `type` = '$cmdmod' AND `cmdevent` = 'event' AND `file` = '$file'");
+		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `type` = '$module' AND `cmdevent` = 'event' AND `file` = '$file'");
 	}
 } else if (preg_match("/^config (subcmd|cmd|grp) ([a-z0-9_]+) admin (msg|priv|guild|all) (all|leader|rl|mod|admin|guildadmin|guild)$/i", $message, $arr)) {
 	$channel = strtolower($arr[1]);

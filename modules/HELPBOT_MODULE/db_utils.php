@@ -32,7 +32,6 @@
 	}
 
 	function get_alias($ary, $comp) {
-		//print_r($ary);
 		forEach ($ary as $alias) {
 			if (matches($alias, $comp)) {
 				$result = $alias;

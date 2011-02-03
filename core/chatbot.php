@@ -32,12 +32,18 @@
 require_once 'MyCurl.class.php';
 require_once 'Playfields.class.php';
 require_once 'AccessLevel.class.php';
+require_once 'Command.class.php';
+require_once 'Event.class.php';
 
 class bot extends AOChat{
 
 	var $buddyList = array();
 	var $chatlist = array();
 	var $guildmembers = array();
+	
+	var $tellCmds = array();
+	var $privCmds = array();
+	var $guildCmds = array();
 
 /*===============================
 ** Name: __construct
@@ -45,22 +51,19 @@ class bot extends AOChat{
 */	function __construct($vars, $settings){
 		parent::__construct("callback");
 
-		$db = db::get_instance();
-
 		$this->settings = $settings;
 		$this->vars = $vars;
         $this->vars["name"] = ucfirst(strtolower($this->vars["name"]));
 
-		//Set startuptime
+		// Set startup time
 		$this->vars["startup"] = time();
+		
+		$db = db::get_instance();
 
-		//Create command/event settings table if not exists
+		// Create command/event settings table if not exists
 		$db->exec("CREATE TABLE IF NOT EXISTS cmdcfg_<myname> (`module` VARCHAR(50), `cmdevent` VARCHAR(5), `type` VARCHAR(18), `file` VARCHAR(255), `cmd` VARCHAR(25), `admin` VARCHAR(10), `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0', `dependson` VARCHAR(25) DEFAULT 'none', `grp` VARCHAR(25) DEFAULT 'none')");
 		$db->exec("CREATE TABLE IF NOT EXISTS settings_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `mode` VARCHAR(10), `setting` VARCHAR(50) Default '0', `options` VARCHAR(255) Default '0', `intoptions` VARCHAR(50) DEFAULT '0', `description` VARCHAR(50), `source` VARCHAR(5), `admin` VARCHAR(25), `help` VARCHAR(60))");
 		$db->exec("CREATE TABLE IF NOT EXISTS hlpcfg_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `cat` VARCHAR(50), `description` VARCHAR(50), `admin` VARCHAR(10), `verify` INT Default '0')");
-
-		//load core and user modules
-		$this->init();
 	}
 
 /*===============================
@@ -344,7 +347,7 @@ class bot extends AOChat{
 
 		Logger::log('DEBUG', 'Core', "Executing connected events");
 
-		// Check files, for all 'connect events'.
+		// Check files, for all 'connect' events.
 		forEach ($this->_connect as $filename) {
 			include $filename;
 		}
@@ -582,7 +585,7 @@ class bot extends AOChat{
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'cmd'");
 		$data = $db->fObject("all");
 		forEach ($data as $row) {
-			bot::regcommand($row->type, $row->file, $row->cmd, $row->admin);
+			Command::activate($row->type, $row->file, $row->cmd, $row->admin);
 		}
 	}
 
@@ -611,7 +614,7 @@ class bot extends AOChat{
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'event'");
 		$data = $db->fObject("all");
 		forEach ($data as $row) {
-			bot::regevent($row->type, $row->file);
+			Event::activate($row->type, $row->file);
 		}
 	}
 
@@ -650,91 +653,6 @@ class bot extends AOChat{
 				}
 				$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`) VALUES ('$module', '{$type[$i]}', '$filename', '$command', '{$admin[$i]}', '$description', 1, 'cmd', '$status')");
 			}
-		}
-	}
-
-/*===============================
-** Name: regcommand
-**  Sets an command as active
-*/	function regcommand($type, $filename, $command, $admin = 'all') {
-		$db = db::get_instance();
-
-	  	Logger::log('debug', 'Core', "Activate Command:($command) Admin Type:($admin) File:($filename) Type:($type)");
-
-		$module = explode("/", strtolower($filename));
-		$module = strtoupper($module[0]);
-
-		//Check if the file exists
-		if (($actual_filename = bot::verifyFilename($filename)) != '') {
-    		$filename = $actual_filename;
-		} else {
-			Logger::log('ERROR', 'Core', "Error in activating the File $filename for command $command. The file doesn't exists!");
-			return;
-		}
-
-		if ($command != NULL) { // Change commands to lower case.
-			$command = strtolower($command);
-		}
-
-		$admin = strtolower($admin);
-
-		//Check if the admin status exists
-		if (!is_numeric($admin)) {
-			if ($admin == "leader") {
-				$admin = 1;
-			} else if ($admin == "raidleader" || $admin == "rl") {
-				$admin = 2;
-			} else if ($admin == "mod" || $admin == "moderator") {
-				$admin = 3;
-			} else if ($admin == "admin") {
-				$admin = 4;
-			} else if ($admin != "all" && $admin != "guild" && $admin != "guildadmin") {
-				Logger::log('ERROR', 'Core', "Error in registering command $command for channel $type. Unknown Admintype: $admin. Admintype is set to all now.");
-				$admin = "all";
-			}
-		}
-
-		switch ($type) {
-			case "msg":
-				if ($this->tellCmds[$command]["filename"] == "") {
-					$this->tellCmds[$command]["filename"] = $filename;
-					$this->tellCmds[$command]["admin level"] = $admin;
-				}
-				break;
-			case "priv":
-				if ($this->privCmds[$command]["filename"] == "") {
-					$this->privCmds[$command]["filename"] = $filename;
-					$this->privCmds[$command]["admin level"] = $admin;
-				}
-				break;
-			case "guild":
-				if ($this->guildCmds[$command]["filename"] == "") {
-					$this->guildCmds[$command]["filename"] = $filename;
-					$this->guildCmds[$command]["admin level"] = $admin;
-				}
-				break;
-		}
-	}
-
-/*===============================
-** Name: unregcommand
-** 	Deactivates an command
-*/	function unregcommand($type, $filename, $command) {
-  		$db = db::get_instance();
-		$command = strtolower($command);
-
-	  	Logger::log('debug', 'Core', "Deactivate Command:($command) File:($filename) Type:($type)");
-
-		switch ($type){
-			case "msg":
-				unset($this->tellCmds[$command]);
-				break;
-			case "priv":
-				unset($this->privCmds[$command]);
-				break;
-			case "guild":
-				unset($this->guildCmds[$command]);
-				break;
 		}
 	}
 
@@ -836,295 +754,6 @@ class bot extends AOChat{
 				$status = 0;
 			}
 			$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `cmdevent`, `type`, `file`, `verify`, `description`, `status`) VALUES ('$module', 'event', '$type', '$actual_filename', '1', '$description', '$status')");
-		}
-	}
-
-/*===============================
-** Name: regevent
-**  Sets an event as active
-*/	function regevent($type, $filename){
-		$db = db::get_instance();
-
-		//Check if the file exists
-		if (($actual_filename = bot::verifyFilename($filename)) == '') {
-			Logger::log('error', 'Core', "Error in registering File '{$filename}' for Event type {$type}. The file doesn't exist!");
-			return;
-		}
-		
-		Logger::log('debug', 'Core', "Activating Event:($type) File:($actual_filename)");
-
-		switch ($type){
-			case "towers":
-				if(!in_array($actual_filename, $this->towers))
-					$this->towers[] = $actual_filename;
-				break;
-			case "orgmsg":
-				if(!in_array($actual_filename, $this->orgmsg))
-					$this->orgmsg[] = $actual_filename;
-				break;
-			case "msg":
-				if(!in_array($actual_filename, $this->privMsgs))
-					$this->privMsgs[] = $actual_filename;
-				break;
-			case "priv":
-				if(!in_array($actual_filename, $this->privChat))
-					$this->privChat[] = $actual_filename;
-				break;
-			case "extPriv":
-				if(!in_array($actual_filename, $this->extPrivChat))
-					$this->extPrivChat[] = $actual_filename;
-				break;
-			case "guild":
-				if(!in_array($actual_filename, $this->guildChat))
-					$this->guildChat[] = $actual_filename;
-				break;
-			case "joinPriv":
-				if(!in_array($actual_filename, $this->joinPriv))
-					$this->joinPriv[] = $actual_filename;
-				break;
-			case "extJoinPriv":
-				if(!in_array($actual_filename, $this->extJoinPriv))
-					$this->extJoinPriv[] = $actual_filename;
-				break;
-			case "leavePriv":
-				if(!in_array($actual_filename, leavePriv))
-					$this->leavePriv[] = $actual_filename;
-				break;
-			case "extLeavePriv":
-				if(!in_array($actual_filename, extLeavePriv))
-					$this->extLeavePriv[] = $actual_filename;
-				break;
-			case "extJoinPrivRequest":
-				if(!in_array($actual_filename, $this->extJoinPrivRequest))
-					$this->extJoinPrivRequest[] = $actual_filename;
-				break;
-			case "extKickPriv":
-				if(!in_array($actual_filename, $this->extKickPriv))
-					$this->extKickPriv[] = $actual_filename;
-				break;
-			case "logOn":
-				if(!in_array($actual_filename, $this->logOn))
-					$this->logOn[] = $actual_filename;
-				break;
-			case "logOff":
-				if(!in_array($actual_filename, $this->logOff))
-					$this->logOff[] = $actual_filename;
-				break;
-			case "2sec":
-				if(!in_array($actual_filename, $this->_2sec))
-					$this->_2sec[] = $actual_filename;
-				break;
-			case "1min":
-				if(!in_array($actual_filename, $this->_1min))
-					$this->_1min[] = $actual_filename;
-				break;
-			case "10mins":
-				if(!in_array($actual_filename, $this->_10mins))
-					$this->_10mins[] = $actual_filename;
-				break;
-			case "15mins":
-				if(!in_array($actual_filename, $this->_15mins))
-					$this->_15mins[] = $actual_filename;
-				break;
-			case "30mins":
-				if(!in_array($actual_filename, $this->_30mins))
-					$this->_30mins[] = $actual_filename;
-				break;
-			case "1hour":
-				if(!in_array($actual_filename, $this->_1hour))
-					$this->_1hour[] = $actual_filename;
-				break;
-			case "24hrs":
-				if(!in_array($actual_filename, $this->_24hrs))
-					$this->_24hrs[] = $actual_filename;
-				break;
-			case "connect":
-				if(!in_array($actual_filename, $this->_connect))
-					$this->_connect[] = $actual_filename;
-				break;
-			case "shopping":
-				if(!in_array($actual_filename, $this->shopping))
-					$this->shopping[] = $actual_filename;
-				break;
-			case "sendGuild":
-				if(!in_array($actual_filename, $this->sendGuild))
-					$this->sendGuild[] = $actual_filename;
-				break;
-			case "sendPriv":
-				if(!in_array($actual_filename, $this->sendPriv))
-					$this->sendPriv[] = $actual_filename;
-				break;
-			case "setup":
-				include $actual_filename;
-				break;
-		}
-	}
-
-/*===============================
-** Name: unregevent
-**  Disables an event
-*/	function unregevent($type, $filename) {
-		Logger::log('debug', 'Core', "Deactivating Event:($type) File:($filename)");
-
-		//Check if the file exists
-		if (($actual_filename = bot::verifyFilename($filename)) != '') {
-    		$filename = $actual_filename;
-		} else {
-			Logger::log('ERROR', 'Core', "Error in unregistering the File $filename for Event $type. The file doesn't exists!");
-			return;
-		}
-
-		switch ($type){
-			case "towers":
-				if(in_array($filename, $this->towers)) {
-					$temp = array_flip($this->towers);
-					unset($this->towers[$temp[$filename]]);
-				}
-				break;
-			case "orgmsg":
-				if(in_array($filename, $this->orgmsg)) {
-					$temp = array_flip($this->orgmsg);
-					unset($this->orgmsg[$temp[$filename]]);
-				}
-				break;
-			case "msg":
-				if(in_array($filename, $this->privMsgs)) {
-					$temp = array_flip($this->privMsgs);
-					unset($this->privMsgs[$temp[$filename]]);
-				}
-				break;
-			case "priv":
-				if(in_array($filename, $this->privChat)) {
-					$temp = array_flip($this->privChat);
-					unset($this->privChat[$temp[$filename]]);
-				}
-				break;
-			case "extPriv":
-				if(in_array($filename, $this->extPrivChat)) {
-					$temp = array_flip($this->extPrivChat);
-					unset($this->extPrivChat[$temp[$filename]]);
-				}
-				break;
-			case "guild":
-				if(in_array($filename, $this->guildChat)) {
-					$temp = array_flip($this->guildChat);
-					unset($this->guildChat[$temp[$filename]]);
-				}
-				break;
-			case "joinPriv":
-				if(in_array($filename, $this->joinPriv)) {
-					$temp = array_flip($this->joinPriv);
-					unset($this->joinPriv[$temp[$filename]]);
-				}
-				break;
-			case "extJoinPriv":
-				if(in_array($filename, $this->extJoinPriv)) {
-					$temp = array_flip($this->extJoinPriv);
-					unset($this->extJoinPriv[$temp[$filename]]);
-				}
-				break;
-			case "leavePriv":
-				if(in_array($filename, $this->leavePriv)) {
-					$temp = array_flip($this->leavePriv);
-					unset($this->leavePriv[$temp[$filename]]);
-				}
-				break;
-			case "extLeavePriv":
-				if(in_array($filename, $this->extLeavePriv)) {
-					$temp = array_flip($this->extLeavePriv);
-					unset($this->extLeavePriv[$temp[$filename]]);
-				}
-				break;
-			case "extJoinPrivRequest":
-				if(in_array($filename, $this->extJoinPrivRequest)) {
-					$temp = array_flip($this->extJoinPrivRequest);
-					unset($this->extJoinPrivRequest[$temp[$filename]]);
-				}
-				break;
-			case "extKickPriv":
-				if(in_array($filename, $this->extKickPriv)) {
-					$temp = array_flip($this->extKickPriv);
-					unset($this->extKickPriv[$temp[$filename]]);
-				}
-				break;
-			case "logOn":
-				if(in_array($filename, $this->logOn)) {
-					$temp = array_flip($this->logOn);
-					unset($this->logOn[$temp[$filename]]);
-				}
-				break;
-			case "logOff":
-				if(in_array($filename, $this->logOff)) {
-					$temp = array_flip($this->logOff);
-					unset($this->logOff[$temp[$filename]]);
-				}
-				break;
-			case "2sec":
-				if(in_array($filename, $this->_2sec)) {
-					$temp = array_flip($this->_2sec);
-					unset($this->_2sec[$temp[$filename]]);
-				}
-				break;
-			case "1min":
-				if(in_array($filename, $this->_1min)) {
-					$temp = array_flip($this->_1min);
-					unset($this->_1min[$temp[$filename]]);
-				}
-				break;
-			case "10mins":
-				if(in_array($filename, $this->_10mins)) {
-					$temp = array_flip($this->_10mins);
-					unset($this->_10mins[$temp[$filename]]);
-				}
-				break;
-			case "15mins":
-				if(in_array($filename, $this->_15mins)) {
-					$temp = array_flip($this->_15mins);
-					unset($this->_15mins[$temp[$filename]]);
-				}
-				break;
-			case "30mins":
-				if(in_array($filename, $this->_30mins)) {
-					$temp = array_flip($this->_30mins);
-					unset($this->_30mins[$temp[$filename]]);
-				}
-				break;
-			case "1hour":
-				if(in_array($filename, $this->_1hour)) {
-					$temp = array_flip($this->_1hour);
-					unset($this->_1hour[$temp[$filename]]);
-				}
-				break;
-			case "24hrs":
-				if(in_array($filename, $this->_24hrs)) {
-					$temp = array_flip($this->_24hrs);
-					unset($this->_24hrs[$temp[$filename]]);
-				}
-				break;
-			case "connect":
-				if(in_array($filename, $this->_connect)) {
-					$temp = array_flip($this->_connect);
-					unset($this->_connect[$temp[$filename]]);
-				}
-				break;
-			case "shopping":
-				if(in_array($filename, $this->shopping)) {
-					$temp = array_flip($this->shopping);
-					unset($this->shopping[$temp[$filename]]);
-				}
-				break;
-			case "sendGuild":
-				if(in_array($filename, $this->sendGuild)) {
-					$temp = array_flip($this->sendGuild);
-					unset($this->sendGuild[$temp[$filename]]);
-				}
-				break;
-			case "sendPriv":
-				if(in_array($filename, $this->sendPriv)) {
-					$temp = array_flip($this->sendPriv);
-					unset($this->sendPriv[$temp[$filename]]);
-				}
-				break;
 		}
 	}
 
@@ -1325,7 +954,7 @@ class bot extends AOChat{
 		switch ($type){
 			case AOCP_GROUP_ANNOUNCE: // 60
 				$b = unpack("C*", $args[0]);
-				Logger::log('DEBUG', 'Packets', "AOCP_GROUP_ANNOUNCE => gid: '$args[0]'");
+				Logger::log('DEBUG', 'Packets', "AOCP_GROUP_ANNOUNCE => name: '$args[1]'");
 				if ($b[1] == 3) {
 					$this->vars["my guild id"] = $b[2]*256*256*256 + $b[3]*256*256 + $b[4]*256 + $b[5];
 				}
@@ -1333,12 +962,12 @@ class bot extends AOChat{
 			case AOCP_PRIVGRP_CLIJOIN: // 55, Incoming player joined private chat
 				$channel = $this->lookup_user($args[0]);
 				$sender = $this->lookup_user($args[1]);
-				
+
 				Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_CLIJOIN => channel: '$channel' sender: '$sender'");
 				
 				if ($channel == $this->vars['name']) {
 					$type = "joinPriv";
-					
+
 					Logger::log_chat("Priv Group", -1, "$sender joined the channel.");
 
 					// Remove sender if they are /ignored or /banned or if spam filter is blocking them
@@ -1346,10 +975,10 @@ class bot extends AOChat{
 						AOChat::privategroup_kick($sender);
 						return;
 					}
-					
+
 					// Add sender to the chatlist.
 					$this->chatlist[$sender] = true;
-					
+
 					// Check files, for all 'player joined channel events'.
 					if ($this->joinPriv != NULL) {
 						forEach ($this->joinPriv as $filename) {
