@@ -24,8 +24,6 @@
 	//Settings
 	Setting::add($MODULE_NAME, "add_on_loot", "Adding to loot show on", "edit", "1", "tells;privatechat;privatechat and tells", '1;2;3', "mod");
 
-	bot::regGroup("basic_loot", $MODULE_NAME, "Handles a basic flatrolled loot system", "loot", "add", "clear", "list", "flatroll");
-
 	//Help files
 	bot::help($MODULE_NAME, "add", "add_rem.txt", "all", "Adding to a lootitem");
 	bot::help($MODULE_NAME, "rem", "add_rem.txt", "all", "Removing your bid on a lootitem");

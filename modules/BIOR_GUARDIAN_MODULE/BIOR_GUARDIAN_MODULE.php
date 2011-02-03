@@ -9,8 +9,6 @@
 	bot::command("", "$MODULE_NAME/bior_order.php", "bior", "leader", "Show Bio Regrowth Order");
 	bot::command("", "$MODULE_NAME/cast_bior.php", "b", "all", "Show Bio Regrowth Cast");
 	
-	bot::regGroup("bior", $MODULE_NAME, "Create a Bio Regrowth List", "bior", "b");
-	
 	Setting::add($MODULE_NAME, "bior_max", "Max Persons that are shown on BioR list", "edit", "10", "10;15;20;25;30", '0', "mod", "$MODULE_NAME/bior_help.txt");
 
 	//Helpfiles

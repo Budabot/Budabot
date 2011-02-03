@@ -17,11 +17,8 @@
 	
 	//XP/SK/AXP Calculator
 	bot::command("", "$MODULE_NAME/xp_sk_calc.php", "sk", "all", "SK Calculator");
-	
 	bot::command("", "$MODULE_NAME/xp_sk_calc.php", "xp", "all", "XP Calculator");
-
 	bot::command("", "$MODULE_NAME/axp.php", "axp", "all", "AXP Calculator");
-	bot::regGroup("EXP", $MODULE_NAME, "Calculate needed XP/SK/AXP", "sk", "xp", "axp");
 
 	//Title Levels
 	bot::command("", "$MODULE_NAME/title.php", "title", "all", "Show the Titlelevels and how much IP/Level");

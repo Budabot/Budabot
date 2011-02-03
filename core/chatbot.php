@@ -734,45 +734,6 @@ class bot extends AOChat {
 	}
 
 /*===============================
-** Name: reggroup
-**  Register a group of commands
-*/	function regGroup($group, $module = 'none', $description = 'none'){
-		$db = db::get_instance();
-		
-		$description = str_replace("'", "''", $description);
-
-		$group = strtolower($group);
-		//Check if the module is correct
-		if ($module == "none") {
-			Logger::log('ERROR', 'Core', "Error in creating $module:group($group). You need to specify a module for the group.");
-			return;
-		}
-		//Check if the group already exists
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `grp` = '$group'");
-		if ($db->numrows() != 0) {
-			Logger::log('ERROR', 'Core', "Error in creating $module:group($group). This group already exists.");
-			return;
-		}
-    	$numargs = func_num_args();
-    	$arg_list = func_get_args();
-		//Check if enough commands are given for the group
-		if ($numargs < 5) {
-			Logger::log('ERROR', 'Core', "Not enough commands to build $module:group($group)(must be at least 2 commands)");
-			return;
-		}
-		//Go through the arg list and assign it to the group
-		for ($i = 3; $i < $numargs; $i++) {
-		  	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '".$arg_list[$i]."' AND `module` = '$module'");
-		  	if ($db->numrows() != 0) {
-			    $db->exec("UPDATE cmdcfg_<myname> SET `grp` = '$group' WHERE `cmd` = '".$arg_list[$i]."' AND `module` = '$module'");
-			} else {
-			  	Logger::log('ERROR', 'Core', "Error in creating $module:group($group). Command ".$arg_list[$i]." doesn't exists.");
-			}
-		}
-	  	$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `cmdevent`, `verify`, `description`) VALUES ('$module', '$group', 'group', '1', '$description')");
-	}
-
-/*===============================
 ** Name: help
 ** Add a help command and display text file in a link.
 */	function help($module, $command, $filename, $admin, $description, $cat) {

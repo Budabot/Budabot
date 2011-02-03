@@ -23,9 +23,6 @@
 	bot::command("msg guild", "$MODULE_NAME/count.php", "sol", "all", "Shows Soldiers in private channel");
 	bot::command("msg guild", "$MODULE_NAME/count.php", "shade", "all", "Shows Shades in private channel");
 	bot::command("msg guild", "$MODULE_NAME/count.php", "trader", "all", "Shows Traders in private channel");
-
-	//Group
-	bot::regGroup("online", $MODULE_NAME, "Show who is online(guild or privatechat)", "adv", "agent", "crat", "doc", "enf", "eng", "fix", "keep", "ma", "mp", "nt", "sol", "shade", "trader", "online", "count");
 	
 	Event::register($MODULE_NAME, "logOn", "record_logon_guild.php", "none", "Records an org member login in db");
 	Event::register($MODULE_NAME, "logOff", "record_logoff_guild.php", "none", "Records an org member logoff in db");

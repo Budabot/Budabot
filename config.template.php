@@ -38,7 +38,7 @@ $vars['error_console'] = 1;
 $vars['error_file'] = 1;
 
 $vars['info_console'] = 1;
-$vars['info_file'] = 0;
+$vars['info_file'] = 1;
 
 $vars['query_console'] = 0;
 $vars['query_file'] = 0;
@@ -47,7 +47,7 @@ $vars['debug_console'] = 0;
 $vars['debug_file'] = 0;
 
 $vars['chat_console'] = 1;
-$vars['chat_file'] = 0;
+$vars['chat_file'] = 1;
 
 // Show aoml markup (formatting and blobs) in logs/console
 $vars['show_aoml_markup'] = 0;

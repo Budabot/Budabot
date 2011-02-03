@@ -10,7 +10,6 @@
 	bot::command("", "$MODULE_NAME/timers.php", "timers", "all", "Shows running Timers");
 	bot::command("", "$MODULE_NAME/countdown.php", "countdown", "all", "Set a countdown");
 	bot::command("", "$MODULE_NAME/countdown.php", "cd", "all", "Set a countdown");
-	bot::regGroup("timers", $MODULE_NAME, "Set/Show Personal Timer", "timer", "timers");
 
 	Event::register($MODULE_NAME, "2sec", "timers_check.php", "timer", "Checks timers and periodically updates chat with time left");
 	
