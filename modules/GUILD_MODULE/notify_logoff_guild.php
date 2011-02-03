@@ -2,7 +2,7 @@
 
 if (isset($this->guildmembers[$sender]) && time() >= $this->vars["onlinedelay"]) {
 	$msg = "<highlight>$sender<end> logged off";
-	
+
 	bot::send($msg, "guild", true);
 
 	//private channel part

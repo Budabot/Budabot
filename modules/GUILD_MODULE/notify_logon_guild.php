@@ -2,7 +2,7 @@
 
 if (isset($this->guildmembers[$sender]) && time() >= $this->vars["onlinedelay"]) {
 	$whois = Player::get_by_name($sender);
-	
+
 	$msg = '';
 	if ($whois === null) {
 		$msg = "$sender logged on.";
