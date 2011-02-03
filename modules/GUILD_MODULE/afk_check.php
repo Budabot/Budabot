@@ -46,7 +46,7 @@ if(!preg_match("/^afk(.*)$/i", $message, $arr)) {
    	if ($uid) {
 		$db->query("SELECT afk FROM guild_chatlist_<myname> WHERE `name` = '$name'");
 		if ($db->numrows() == 0 && $this->settings["guest_relay"] == 1) {
-			$db->exec("SELECT afk FROM priv_chatlist_<myname> WHERE `name` = '$name'");
+			$db->query("SELECT afk FROM priv_chatlist_<myname> WHERE `name` = '$name'");
 		}
 
 		if ($db->numrows() != 0) {
