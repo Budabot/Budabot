@@ -1,0 +1,26 @@
+<header>::::: Symbiat Commands :::::<end>
+
+<highlight>To show a list of Symbiants and which PB it drops do<end>
+<tab><symbol>symb 'Insert Slotname' 'Insert Type'
+
+Allowed Slotnames
+<tab>- eye
+<tab>- head
+<tab>- ear
+<tab>- rarm
+<tab>- chest
+<tab>- larm
+<tab>- rwrist
+<tab>- waist
+<tab>- lwrist
+<tab>- rhand
+<tab>- legs
+<tab>- lhand
+<tab>- feet
+
+Allowed Types
+<tab>- support
+<tab>- control
+<tab>- infantry
+<tab>- artillery
+<tab>- extermination
