@@ -11,7 +11,7 @@
 	bot::loadSQLFile($MODULE_NAME, "trickle");
 	bot::loadSQLFile($MODULE_NAME, "playfields");
 
-	bot::command("", "$MODULE_NAME/kos_list.php", "kos", "all", "Shows the Kill On Sight List");
+	bot::command("", "$MODULE_NAME/kos.php", "kos", "all", "Shows the Kill On Sight List");
 	bot::command("", "$MODULE_NAME/time.php", "time", "all", "Shows the time in the different timezones");
 	bot::command("", "$MODULE_NAME/whois.php", "whois", "all", "Char Infos (only current dim)");
 	bot::command("", "$MODULE_NAME/whois.php", "whoisall", "all", "Char Infos (all dim)");
@@ -49,13 +49,14 @@
     bot::help($MODULE_NAME, "biomat", "biomat.txt", "all", "Identify an Biomaterial");
     bot::help($MODULE_NAME, "calc", "calculator.txt", "all", "Calculator");
     bot::help($MODULE_NAME, "oe", "oe.txt", "all", "Calculating the OE ranges");
-    bot::help($MODULE_NAME, "fliproll", "fliproll.txt", "all", "How to use the flip and roll command");
+    bot::help($MODULE_NAME, "roll", "roll.txt", "all", "How to use the flip and roll command");
     bot::help($MODULE_NAME, "history", "history.txt", "all", "History of a player");
     bot::help($MODULE_NAME, "time", "time.txt", "all", "Timezones");
-    bot::help($MODULE_NAME, "kos_list", "kos_list.txt", "all", "Kill On Sight List");
-    bot::help($MODULE_NAME, "smiley_title_inspect", "smiley_title_inspect.txt", "all", "Help for Smiley,Title Level and Inspect");
+    bot::help($MODULE_NAME, "kos", "kos.txt", "all", "Kill On Sight List");
+    bot::help($MODULE_NAME, "inspect", "inspect.txt", "all", "How to use inspect");
+	bot::help($MODULE_NAME, "smileys", "inspect.txt", "all", "How to use smileys");
     bot::help($MODULE_NAME, "aiarmor", "aiarmor.txt", "all", "Alien armor Tradeskillprocess");
-	bot::help($MODULE_NAME, "alien_generals", "alien_generals.txt", "all", "Alien City Generals Info");
+	bot::help($MODULE_NAME, "aigen", "aigen.txt", "all", "Alien City Generals Info");
 	bot::help($MODULE_NAME, "buffitem", "buffitem.txt", "all", "How to use buffitem");
 	bot::help($MODULE_NAME, "cluster", "cluster.txt", "all", "How to use cluster");
 	bot::help($MODULE_NAME, "mobloot", "mobloot.txt", "all", "How to use mobloot");

@@ -53,6 +53,6 @@
 	bot::help($MODULE_NAME, "orgmembers", "orgmembers_orgranks.txt", "guild", "Show current OrgMembers");
 	bot::help($MODULE_NAME, "orgranks", "orgmembers_orgranks.txt", "guild", "Show current OrgMembers");
 	bot::help($MODULE_NAME, "lastseen", "lastseen.txt", "guild", "Check when an orgmember was online");
-	bot::help($MODULE_NAME, "logonmsg", "logonmsg.txt", "guild", "Changing your logon message");
+	bot::help($MODULE_NAME, "logon", "logon_msg.txt", "guild", "Changing your logon message");
 	bot::help($MODULE_NAME, "notify", "notify.txt", "mod", "Add or remove a player from the notify list.");
 ?>

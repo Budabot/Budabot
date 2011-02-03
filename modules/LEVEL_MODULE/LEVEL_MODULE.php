@@ -28,7 +28,7 @@
 
 	//Help files
     bot::help($MODULE_NAME, "level", "level.txt", "guild", "How to use level");
-    bot::help($MODULE_NAME, "title_level", "title.txt", "guild", "How to use title");
+    bot::help($MODULE_NAME, "title", "title.txt", "guild", "How to use title");
     bot::help($MODULE_NAME, "missions", "missions.txt", "guild", "Who can roll a specific QL of a mission");
-	bot::help($MODULE_NAME, "experience", "experience.txt", "guild", "XP/SK/AXP Info");
+	bot::help($MODULE_NAME, "xp", "xp.txt", "guild", "XP/SK/AXP Info");
 ?>

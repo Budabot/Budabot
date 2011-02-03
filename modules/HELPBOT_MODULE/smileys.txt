@@ -1,0 +1,4 @@
+<header>::::: Smileys Command :::::<end>
+
+<highlight>Shows smileys and their meaning<end>
+<tab><symbol>smileys
