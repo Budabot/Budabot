@@ -527,8 +527,11 @@ class bot extends AOChat{
 			}
 		} else if ($who == $this->vars["my guild"] || $who == 'org') {// Target is guild chat.
     		AOChat::send_group($this->vars["my guild"], $this->settings["default_guild_color"].$message);
-			if ($this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1 && !$disable_relay) {
+			if (!$disable_relay && $this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1) {
 				AOChat::send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my guild"]}]</font> {$this->settings["guest_color_username"]}".bot::makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default_guild_color"]}$message</font>");
+			}
+			if (!$disable_relay && $this->settings["relaybot"] != "Off" && $this->settings["bot_relay_commands"] == 1) {
+				send_message_to_relay("grc <grey>[".$this->vars["my guild"]."] ".$message);
 			}
 		} else if (AOChat::get_uid($who) != NULL) {// Target is a player.
 			Logger::log_chat("Out. Msg.", $who, $message);
