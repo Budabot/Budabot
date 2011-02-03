@@ -30,7 +30,7 @@
  */
 
 if (preg_match("/^kos$/i", $message)) {
-	$db->query("SELECT * FROM koslist_<myname>");
+	$db->query("SELECT * FROM koslist");
 	if ($db->numrows() == 0) {
 		$msg = "No list exists yet.";
 	} else {
@@ -66,11 +66,11 @@ if (preg_match("/^kos$/i", $message)) {
 	if (strlen($reason) >= 50) {
 		$msg = "The reason can't be longer than 50 characters.";
 	} else {
-		$db->query("SELECT * FROM koslist_<myname> WHERE `sender` = '$sender' AND `name` = '".str_replace("'", "''", $name)."'");
+		$db->query("SELECT * FROM koslist WHERE `sender` = '$sender' AND `name` = '".str_replace("'", "''", $name)."'");
 		if($db->numrows() == 1) {
 			$msg = "You have already <highlight>$name<end> on your KOS List.";
 		} else {
-			$db->exec("INSERT INTO koslist_<myname> (`time`, `name`, `sender`, `reason`) VALUES (".time().", '".str_replace("'", "''", $name)."', '$sender', '".str_replace("'", "''", $reason)."')");
+			$db->exec("INSERT INTO koslist (`time`, `name`, `sender`, `reason`) VALUES (".time().", '".str_replace("'", "''", $name)."', '$sender', '".str_replace("'", "''", $reason)."')");
 			$msg = "You have successfull added <highlight>$name<end> to the KOS List.";
 		}
 	}
@@ -78,14 +78,14 @@ if (preg_match("/^kos$/i", $message)) {
 	bot::send($msg, $sendto);
 } else if (preg_match("/^kos rem (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
-	$db->query("SELECT * FROM koslist_<myname> WHERE `sender` = '$sender' AND `name` = '".str_replace("'", "''", $name)."'");
+	$db->query("SELECT * FROM koslist WHERE `sender` = '$sender' AND `name` = '".str_replace("'", "''", $name)."'");
 	if ($db->numrows() == 1) {
-		$db->exec("DELETE FROM koslist_<myname> WHERE `sender` = '$sender' AND `name` = '".str_replace("'", "''", $name)."'");
+		$db->exec("DELETE FROM koslist WHERE `sender` = '$sender' AND `name` = '".str_replace("'", "''", $name)."'");
 		$msg = "You have successfull removed <highlight>$name<end> from the KOS List.";
 	} else if ($this->guildmembers[$sender] < $this->vars['guild_admin_level']) {
-		$db->query("SELECT * FROM koslist_<myname> WHERE `name` = '".str_replace("'", "''", $name)."'");
+		$db->query("SELECT * FROM koslist WHERE `name` = '".str_replace("'", "''", $name)."'");
 		if($db->numrows() != 0) {
-			$db->exec("DELETE FROM koslist_<myname> WHERE `name` = '$".str_replace("'", "''", $name)."'");
+			$db->exec("DELETE FROM koslist WHERE `name` = '$".str_replace("'", "''", $name)."'");
 			$msg = "You have successfull removed <highlight>$name<end> from the KOS List.";
 		} else {
 			$msg = "No one with this name is on the KOS List.";
@@ -97,7 +97,7 @@ if (preg_match("/^kos$/i", $message)) {
 	bot::send($msg, $sendto);
 } else if (preg_match("/^kos (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
-	$db->query("SELECT * FROM koslist_<myname> WHERE `name` = '".str_replace("'", "''", $name)."' LIMIT 0, 40");
+	$db->query("SELECT * FROM koslist WHERE `name` = '".str_replace("'", "''", $name)."' LIMIT 0, 40");
 	if ($db->numrows() >= 1) {
 		$link  = "<header>::::: Kill On Sight list :::::<end>\n\n";
 		$link .= "The following Players has added <highlight>$name<end> to his list\n\n";
