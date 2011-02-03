@@ -1,0 +1,10 @@
+<header>::::: Scout Commands :::::<end>
+
+<highlight>To scout a base:<end>
+<tab><symbol>scout zone site_number closing_time ct_ql faction guild_name
+
+For instance:
+<tab><symbol>scout PW 4 12:34:56 190 clan Dark Ninjas
+
+<highlight>To see the list of scouted bases:<end>
+<tab><symbol>opentimes

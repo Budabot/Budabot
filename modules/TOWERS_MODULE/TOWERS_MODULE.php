@@ -31,5 +31,6 @@
 	// help files
 	bot::help($MODULE_NAME, "attacks", "attacks.txt", "guild", "Show attack message commands and options");
 	bot::help($MODULE_NAME, "victory", "victory.txt", "guild", "Show victory message commands and options");
+	bot::help($MODULE_NAME, "scout", "scout.txt", "guild", "How to add a tower site to the watch list");
 	bot::help($MODULE_NAME, "lc", "lc.txt", "all", "How to use land control commands");
 ?>

@@ -27,7 +27,7 @@ if (preg_match("/^opentimes$/i", $message, $arr)) {
 			$open_time += 86400;
 		}
 		
-		$blob .= "$site_link <white>- {$row->min_ql}-{$row->max_ql}, $row->ct_ql CT, $row->org_name, $gas_change_string [by $row->scouted_by]<end>\n";
+		$blob .= "$site_link <white>- {$row->min_ql}-{$row->max_ql}, $row->ct_ql CT, <$row->faction>$row->guild_name<end>, $gas_change_string [by $row->scouted_by]<end>\n";
 	}
 	
 	if ($numrows > 0) {
