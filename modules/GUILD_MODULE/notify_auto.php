@@ -41,7 +41,6 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
 	    $this->guildmembers[$name] = 6;
     	$msg = "<highlight>{$name}<end> has been added to the Notify list.";
     } else {
-        // Add him as a buddy and put his infos into the DB
         $db->exec("INSERT INTO org_members_<myname> (`mode`, `name`) VALUES ('man', '{$name}')");
 		$this->add_buddy($name, 'org');
     	$msg = "<highlight>{$name}<end> has been added to the Notify list.";

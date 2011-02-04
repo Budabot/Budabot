@@ -42,26 +42,17 @@ if ($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 	if ($org->errorCode != 0) {
 		Logger::log('ERROR', 'GUILD_MODULE', "Error downloading the org roster xml file");
 	} else {
-		// clear $this->members and reload from the database
-		$db->query("SELECT * FROM members_<myname>");
-		while ($row = $db->fObject()) {
-			if ($row->autoinv == 1) {
-				$this->add_buddy($row->name, "member");
-			} else {
-				$this->remove_buddy($row->name, "member");
-			}
-		}
-		
 		//Delete old Memberslist
 		unset($this->guildmembers);
 		
 		//Save the current org_members table in a var
 		$db->query("SELECT * FROM org_members_<myname>");
+		$data = $db->fObject('all');
 		if ($db->numrows() == 0 && (count($org->members) > 0)) {
 			$restart = true;
 		} else {
 			$restart = false;
-			while ($row = $db->fObject()) {
+			forEach ($data as $row) {
 				$dbentrys[$row->name]["name"] = $row->name;
 				$dbentrys[$row->name]["mode"] = $row->mode;
 			}
