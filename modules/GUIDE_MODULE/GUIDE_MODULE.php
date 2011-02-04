@@ -31,9 +31,9 @@
    
 	require_once 'functions.php';
    
-	$MODULE_NAME = "GUIDEBOT_MODULE";
+	$MODULE_NAME = "GUIDE_MODULE";
 
-	bot::command("", "$MODULE_NAME/guides.php", "GUIDES", "all", "Guides for AO");
+	bot::command("", "$MODULE_NAME/guides.php", "guides", "all", "Guides for AO");
 	
 	// aliases
 	bot::command("", "$MODULE_NAME/guides.php", "breed", "all", "Alias for !guides breed");
@@ -42,4 +42,6 @@
 	bot::command("", "$MODULE_NAME/guides.php", "nanodelta", "all", "Alias for !guides nanodelta");
 	bot::command("", "$MODULE_NAME/guides.php", "stats", "all", "Alias for !guides stats");
 	bot::command("", "$MODULE_NAME/guides.php", "buffs", "all", "Alias for !guides buffs");
+	
+	Help::register($MODULE_NAME, "guides", "guides.txt", "all", 'How to use guides');
 ?>

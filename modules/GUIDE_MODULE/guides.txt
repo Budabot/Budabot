@@ -1,0 +1,36 @@
+<header> :::::: Guides Help :::::: <end>
+
+<highlight>To see a basic overview of what guides are available<end>
+<tab><symbol>guides
+
+<highlight>To see a list of all the guides in alphabetical order<end>
+<tab><symbol>guides list
+
+<highlight>To see a specific guide<end>
+<tab><symbol>guides name_of_guide
+
+<orange>Common guides<end>
+
+<highlight>To see infomation about the different breeds<end>
+<tab><symbol>guides breed
+<tab><symbol>breed
+
+<highlight>To see infomation about healdelta<end>
+<tab><symbol>guides healdelta
+<tab><symbol>healdelta
+
+<highlight>To see infomation about nanodelta<end>
+<tab><symbol>guides nanodelta
+<tab><symbol>nanodelta
+
+<highlight>To see options for reducing client-side lag<end>
+<tab><symbol>guides lag
+<tab><symbol>lag
+
+<highlight>To see character stats not available from the skill window<end>
+<tab><symbol>guides stats
+<tab><symbol>stats
+
+<highlight>To see nanos and items that buff abilities and common skills<end>
+<tab><symbol>guides buffs
+<tab><symbol>buffs
