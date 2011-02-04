@@ -34,6 +34,7 @@
 	DB::loadSQLFile($MODULE_NAME, 'org_city');
 
     bot::command("", "$MODULE_NAME/city_guild.php", "city", "guild", "Shows the status of the Citycloak");
+	bot::command("", "$MODULE_NAME/city_guild.php", "cloak", "guild", "Shows the status of the Citycloak");
 
 	Event::register($MODULE_NAME, "guild", "city_guild.php", "city", "Records when the cloak is raised or lowered");
     Event::register($MODULE_NAME, "1min", "city_guild_timer.php", "city", "Checks timer to see if cloak can be raised or lowered");

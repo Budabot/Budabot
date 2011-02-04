@@ -108,9 +108,9 @@ if ($db->numrows() == 0) {
 		if ($row->att_profession == 'Unknown') {
 			$list .= $colorlabel."Attacker:<end> <{$att_faction}>{$row->att_player}<end> ({$row->att_faction})\n";
 		} else if ($row->att_guild_name == '') {
-			$list .= $colorlabel."Attacker:<end> <{$att_faction}>{$row->att_player}<end> (Lvl {$row->att_level}/<green>{$row->att_ai_level}<end> {$row->att_profession}) ({$row->att_faction})\n";
+			$list .= $colorlabel."Attacker:<end> <{$att_faction}>{$row->att_player}<end> ({$row->att_level}/<green>{$row->att_ai_level}<end> {$row->att_profession}) ({$row->att_faction})\n";
 		} else {
-			$list .= $colorlabel."Attacker:<end> {$row->att_player} (Lvl {$row->att_level}/<green>{$row->att_ai_level}<end> {$row->att_profession}/<{$att_faction}>{$row->att_guild_name}<end>) ({$row->att_faction})\n";
+			$list .= $colorlabel."Attacker:<end> {$row->att_player} ({$row->att_level}/<green>{$row->att_ai_level}<end> {$row->att_profession}) <{$att_faction}>{$row->att_guild_name}<end> ({$row->att_faction})\n";
 		}
 		
 		$base = $this->makeLink("{$row->short_name} {$row->site_number}", "/tell <myname> lc {$row->short_name} {$row->site_number}", 'chatcmd');

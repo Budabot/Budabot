@@ -35,7 +35,7 @@ if (-1 == $sender) {
     } else if (preg_match("/^Your city in (.+) has been targeted by hostile forces.$/i", $message, $arr)) {
         $db->exec("INSERT INTO org_city_<myname> (`time`, `action`) VALUES ('".time()."', 'Attack')");
     }
-} else if (preg_match("/^city$/i", $message)) {
+} else if (preg_match("/^city$/i", $message) || preg_match("/^cloak$/i", $message)) {
     $db->query("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 0, 20 ");
     if ($db->numrows() == 0) {
         $msg = "<highlight>Unknown status on city cloak!<end>";
