@@ -96,6 +96,36 @@ class Command {
 				break;
 		}
 	}
+
+	/**
+	 * @name: loadCommands
+	 * @description: Loads the active commands into memory and activates them
+	 */
+	function loadCommands() {
+	  	$db = DB::get_instance();
+
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'cmd'");
+		$data = $db->fObject("all");
+		forEach ($data as $row) {
+			Command::activate($row->type, $row->file, $row->cmd, $row->admin);
+		}
+	}
+	
+	/**
+	 * @name: loadSubcommands
+	 * @description: Loads the active subcommands into memory and activates them
+	 */
+	function loadSubcommands() {
+	  	$db = DB::get_instance();
+		global $chatBot;
+
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd'");
+		$data = $db->fObject("all");
+		forEach ($data as $row) {
+			$chatBot->subcommands[$row->file][$row->type]["cmd"] = $row->cmd;
+			$chatBot->subcommands[$row->file][$row->type]["admin"] = $row->admin;
+		}
+	}
 }
 
 ?>

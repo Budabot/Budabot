@@ -176,7 +176,6 @@ class bot extends AOChat {
 		$db->exec("UPDATE hlpcfg_<myname> SET `verify` = 0");
 		$db->exec("UPDATE cmdcfg_<myname> SET `status` = 1 WHERE `cmdevent` = 'event' AND `type` = 'setup'");
 		$db->exec("UPDATE cmdcfg_<myname> SET `grp` = 'none'");
-		$db->exec("DELETE FROM cmdcfg_<myname> WHERE `module` = 'none'");
 
 		//To reduce querys save the current commands/events in arrays
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd'");
@@ -247,29 +246,32 @@ class bot extends AOChat {
 		$this->loadModules();
 		//Submit the Transactions
 		$db->Commit();
-
-		//Load active commands
-		Logger::log('debug', 'Core', "Setting up commands");
-		$this->loadCommands();
-
-		//Load active subcommands
-		Logger::log('debug', 'Core', "Setting up subcommands");
-		$this->loadSubcommands();
-
-		//Load active events
-		Logger::log('debug', 'Core', "Setting up events");
-		$this->loadEvents();
-
+		
 		//remove arrays
 		unset($this->existing_commands);
 		unset($this->existing_events);
 		unset($this->existing_subcmds);
 		unset($this->existing_settings);
 		unset($this->existing_helps);
-
+		
 		//Delete old entrys in the DB
 		$db->exec("DELETE FROM hlpcfg_<myname> WHERE `verify` = 0");
 		$db->exec("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0");
+		$db->exec("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'event'");
+		$db->exec("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'cmd'");
+		$db->exec("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'subcmd'");
+
+		//Load active commands
+		Logger::log('debug', 'Core', "Loading active commands");
+		Command::loadCommands();
+
+		//Load active subcommands
+		Logger::log('debug', 'Core', "Loading active subcommands");
+		Command::loadSubcommands();
+
+		//Load active events
+		Logger::log('debug', 'Core', "Loading active events");
+		Event::loadEvents();
 	}
 
 /*===============================
@@ -574,49 +576,6 @@ class bot extends AOChat {
 				}
 			}
 			$d->close();
-		}
-	}
-
-/*===============================
-** Name: loadCommands
-**  Load the Commands that are set as active
-*/	function loadCommands() {
-	  	$db = DB::get_instance();
-		//Delete commands that are not verified
-		$db->exec("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'cmd'");
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'cmd'");
-		$data = $db->fObject("all");
-		forEach ($data as $row) {
-			Command::activate($row->type, $row->file, $row->cmd, $row->admin);
-		}
-	}
-
-/*===============================
-** Name: loadSubcommands
-**  Load the Commands that are set as active
-*/	function loadSubcommands() {
-	  	$db = DB::get_instance();
-		//Delete subcommands that are not verified
-		$db->exec("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'subcmd'");
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd'");
-		$data = $db->fObject("all");
-		forEach ($data as $row) {
-			$this->subcommands[$row->file][$row->type]["cmd"] = $row->cmd;
-			$this->subcommands[$row->file][$row->type]["admin"] = $row->admin;
-		}
-	}
-
-/*===============================
-** Name: loadEvents
-**  Load the Events that are set as active
-*/	function loadEvents() {
-	  	$db = DB::get_instance();
-		//Delete events that are not verified
-		$db->exec("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'event'");
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'event'");
-		$data = $db->fObject("all");
-		forEach ($data as $row) {
-			Event::activate($row->type, $row->file);
 		}
 	}
 

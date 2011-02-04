@@ -333,6 +333,20 @@ class Event {
 				break;
 		}
 	}
+
+	/**
+	 * @name: loadEvents
+	 * @description: Loads the active events into memory and activates them
+	 */
+	function loadEvents() {
+	  	$db = DB::get_instance();
+
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'event'");
+		$data = $db->fObject("all");
+		forEach ($data as $row) {
+			Event::activate($row->type, $row->file);
+		}
+	}
 }
 
 ?>
