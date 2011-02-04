@@ -1,3 +1,5 @@
+<header> :::::: Neutnet :::::: <end>
+
 Bots
 You can register your bot to Neutnet and it gets the spam first. However, there are some limitations to this:
 
@@ -16,3 +18,5 @@ Removes the bot registration
 
 /tell neutnet !statusbot &lt;botname&gt;
 Shows control panel for the bot. With the control panel, you can subscribe and unsubscribe channels.
+
+Note: Neutnet is currently available on RK2 only.
