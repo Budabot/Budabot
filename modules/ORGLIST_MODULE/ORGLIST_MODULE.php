@@ -15,6 +15,6 @@
 	Event::register($MODULE_NAME, "logOff", "is_online.php", "none", "Gets offline status of player");
 
 	// Help files
-	bot::help($MODULE_NAME, "orglist", "orglist.txt", "all", "See who is online from someones org.");
-	bot::help($MODULE_NAME, "is", "isonline.txt", "guild", "Checking if a player is online");
+	Help::register($MODULE_NAME, "orglist", "orglist.txt", "all", "See who is online from someones org.");
+	Help::register($MODULE_NAME, "is", "isonline.txt", "guild", "Checking if a player is online");
 ?>

@@ -17,6 +17,6 @@
 	Setting::add($MODULE_NAME, "adminnews", "no", "hide", "Not set.");
 
 	//Help files
-	bot::help($MODULE_NAME, "news", "news.txt", "guild", "How to use news");
-	bot::help($MODULE_NAME, "priv_news", "priv_news.txt", "raidleader", "Set Private channel News");
+	Help::register($MODULE_NAME, "news", "news.txt", "guild", "How to use news");
+	Help::register($MODULE_NAME, "priv_news", "priv_news.txt", "raidleader", "Set Private channel News");
 ?>

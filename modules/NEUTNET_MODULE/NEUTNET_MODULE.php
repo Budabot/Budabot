@@ -9,5 +9,5 @@
 	
 	Event::register($MODULE_NAME, "msg", "neutnet.php", 'none', 'Relays neutnet messages to a channel/player');
 	
-	bot::help($MODULE_NAME, "neutnet", "neutnet.txt", "all", "Shows the commands needed to register a bot with Neutnet");
+	Help::register($MODULE_NAME, "neutnet", "neutnet.txt", "all", "Shows the commands needed to register a bot with Neutnet");
 ?>

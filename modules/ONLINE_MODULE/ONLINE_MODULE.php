@@ -36,5 +36,5 @@
 	Event::register($MODULE_NAME, "logOn", "logonline.php", "none", "Sends a tell to players on logon showing who is online in org");
 
 	//Help files
-	bot::help($MODULE_NAME, "online", "online.txt", "guild", "Show who is on from the guild");
+	Help::register($MODULE_NAME, "online", "online.txt", "guild", "Show who is on from the guild");
 ?>

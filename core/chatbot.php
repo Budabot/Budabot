@@ -35,6 +35,7 @@ require_once 'AccessLevel.class.php';
 require_once 'Command.class.php';
 require_once 'Event.class.php';
 require_once 'Setting.class.php';
+require_once 'Help.class.php';
 
 class bot extends AOChat {
 
@@ -733,91 +734,6 @@ class bot extends AOChat {
 		}
 	}
 
-/*===============================
-** Name: help
-** Add a help command and display text file in a link.
-*/	function help($module, $command, $filename, $admin, $description) {
-	  	$db = db::get_instance();
-		Logger::log('debug', 'Core', "Registering $module:help($command) Helpfile:($filename)");
-
-		$command = strtolower($command);
-
-		//Check if the admin status exists
-		if (!is_numeric($admin)) {
-			if ($admin == "leader") {
-				$admin = 1;
-			} else if ($admin == "raidleader" || $admin == "rl") {
-				$admin = 2;
-			} else if ($admin == "mod" || $admin == "moderator") {
-				$admin = 3;
-			} else if ($admin == "admin") {
-				$admin = 4;
-			} else if($admin != "all" && $admin != "guild" && $admin != "guildadmin") {
-				Logger::log('ERROR', 'Core', "Error in registrating the $module:help($command) for channel '$type'. Unknown Admin type: '$admin'. Admin type is set to 'all'.");
-				$admin = "all";
-			}
-		}
-
-		// Check if the file exists
-		$actual_filename = bot::verifyFilename($module . '/' . $filename);
-		if ($actual_filename != '') {
-    		if (substr($actual_filename, 0, 7) == "./core/") {
-	    		$this->helpfiles[$command]["status"] = "enabled";
-
-			}
-		} else {
-			Logger::log('ERROR', 'Core', "Error in registering the File $filename for Help command $module:help($command). The file doesn't exist!");
-			return;
-		}
-
-		if (isset($this->existing_helps[$command])) {
-			$db->exec("UPDATE hlpcfg_<myname> SET `verify` = 1, `description` = '$description' WHERE `name` = '$command'");
-		} else {
-			$db->exec("INSERT INTO hlpcfg_<myname> VALUES ('$command', '$module', '$description', '$admin', 1)");
-		}
-
-		$db->query("SELECT * FROM hlpcfg_<myname> WHERE `name` = '$command'");
-		$row = $db->fObject();
-		$this->helpfiles[$command]["filename"] = $actual_filename;
-		$this->helpfiles[$command]["admin level"] = $row->admin;
-		$this->helpfiles[$command]["info"] = $description;
-		$this->helpfiles[$command]["module"] = $module;
-	}
-	
-/*===========================================================================================
-** Name: help_lookup
-** Find a help topic for a command if it exists
-*/	function help_lookup($helpcmd, $sender, $return_as_bloblink = true) {
-		$helpcmd = explode(' ', $helpcmd, 2);
-		$helpcmd = strtolower($helpcmd[0]);
-
-		if (isset($this->helpfiles[$helpcmd])) {
-			$filename = $this->helpfiles[$helpcmd]["filename"];
-			$admin = $this->helpfiles[$helpcmd]["admin level"];
-		}
-
-		// if help isn't found
-		if ($filename == '') {
-			return false;
-		}
-
-		$access = AccessLevel::checkAccess($sender, $admin);
-		if ($access === TRUE && file_exists($filename)) {
-			$data = file_get_contents($filename);
-			if ($return_as_bloblink) {
-				$helpcmd = ucfirst($helpcmd);
-				$msg = bot::makeLink("Help($helpcmd)", $data);
-			} else {
-				$msg = $data;
-			}
-		} else {
-			return false;
-		}
-
-		return $msg;
-	}
-
-
 /*===========================================================================================
 ** Name: processCallback
 ** Proccess all incoming messages that bot recives
@@ -1236,7 +1152,8 @@ class bot extends AOChat {
 			$msg = "";
 			include $filename;
 			if ($syntax_error == true) {
-				if (($output = bot::help_lookup($message, $sender)) !== false) {
+				$output = Help::find($message, $sender);
+				if ($output !== false) {
 					bot::send($output, $sendto);
 				} else {
 					bot::send("Error! Check your syntax or for more info try /tell <myname> help", $sendto);

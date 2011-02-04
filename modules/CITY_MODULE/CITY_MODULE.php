@@ -43,7 +43,7 @@
 	Setting::add($MODULE_NAME, "showcloakstatus", "Show cloak status to players at logon", "edit", "1", "Never;When cloak is down;Always", "0;1;2");
 	
 	// Helpfiles
-	bot::help($MODULE_NAME, "citycloak", "citycloak.txt", "guild", "Status of the citycloak");
+	Help::register($MODULE_NAME, "citycloak", "citycloak.txt", "guild", "Status of the citycloak");
 	
 	// Auto Wave
 	bot::command("guild","$MODULE_NAME/start.php", "startraid", "guild", "manually starts wave counter");

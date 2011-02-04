@@ -10,6 +10,6 @@
 	bot::command("", "$MODULE_NAME/altsadmin.php", "altsadmin", "mod", "Alt Char handling (admin)");
 	
 	//Helpfile
-	bot::help($MODULE_NAME, "alts", "alts.txt", "guild", "How to set alts");
-	bot::help($MODULE_NAME, "altsadmin", "altsadmin.txt", "guild", "How to set alts (admins)");
+	Help::register($MODULE_NAME, "alts", "alts.txt", "guild", "How to set alts");
+	Help::register($MODULE_NAME, "altsadmin", "altsadmin.txt", "guild", "How to set alts (admins)");
 ?>

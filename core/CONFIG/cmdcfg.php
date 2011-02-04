@@ -469,7 +469,7 @@ if (preg_match("/^config$/i", $message)) {
 			}
 		}
 		
-		$help = $this->help_lookup($cmd, $sender, false);
+		$help = Help::find($cmd, $sender, false);
 		if ($help) {
 			$list .= "\n\n" . $help;
 		}

@@ -41,5 +41,5 @@
 	Event::activate("1hour", "$MODULE_NAME/ping_db.php");
 
 	//Help Files
-	bot::help($MODULE_NAME, "system", "system.txt", "admin", "Admin System Help file");
+	Help::register($MODULE_NAME, "system", "system.txt", "admin", "Admin System Help file");
 ?>

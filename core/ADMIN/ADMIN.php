@@ -39,5 +39,5 @@
 	Event::activate("setup", "$MODULE_NAME/upload_admins.php");
 
 	//Help Files
-	bot::help($MODULE_NAME, "admin", "admin.txt", "mod", "Mod/Admin Help file");
+	Help::register($MODULE_NAME, "admin", "admin.txt", "mod", "Mod/Admin Help file");
 ?>

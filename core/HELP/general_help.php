@@ -67,7 +67,7 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 
 	bot::send($msg, $sendto);
 } else if (preg_match("/^help (.+)$/i", $message, $arr)) {
-	$output = bot::help_lookup($arr[1], $sender);
+	$output = Help::find($arr[1], $sender);
 	if ($output !== false) {
 		bot::send($output, $sendto);
 	} else {

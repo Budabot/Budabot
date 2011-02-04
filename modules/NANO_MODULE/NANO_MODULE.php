@@ -18,6 +18,6 @@
 	Setting::add($MODULE_NAME, "shownanolineicons", "Show icons for the nanolines", "edit", "0", "true;false", "1;0");
 
 	//Helpfiles
-    bot::help($MODULE_NAME, "nano", "nano.txt", "guild", "How to search for a nano.");
-	bot::help($MODULE_NAME, "nanolines", "nanolines.txt", "all", "How to use nanolines");
+    Help::register($MODULE_NAME, "nano", "nano.txt", "guild", "How to search for a nano.");
+	Help::register($MODULE_NAME, "nanolines", "nanolines.txt", "all", "How to use nanolines");
 ?>

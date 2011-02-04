@@ -64,8 +64,8 @@
 	//Verifies the Private Channel list every 1hour
 	Event::register($MODULE_NAME, "1hour", "guest_channel_check.php", "guest", "Private channel check");
 
-    bot::help($MODULE_NAME, "private_channel", "private_channel.txt", "guild", "Private channel commands");
-	bot::help($MODULE_NAME, "join_leave", "joinleave.txt", "all", "Joining and leaving the bot");
-	bot::help($MODULE_NAME, "kickall", "kickall.txt", "raidleader", "Kick all players from the Bot");
-	bot::help($MODULE_NAME, "lock", "lock.txt", "raidleader", "Lock the private channel");
+    Help::register($MODULE_NAME, "private_channel", "private_channel.txt", "guild", "Private channel commands");
+	Help::register($MODULE_NAME, "join_leave", "joinleave.txt", "all", "Joining and leaving the bot");
+	Help::register($MODULE_NAME, "kickall", "kickall.txt", "raidleader", "Kick all players from the Bot");
+	Help::register($MODULE_NAME, "lock", "lock.txt", "raidleader", "Lock the private channel");
 ?>

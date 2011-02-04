@@ -8,6 +8,6 @@
 	bot::command("", "$MODULE_NAME/dbloot.php", "db2", "leader", "Shows Possible DB2 Armor");
 
 	//Helpfiles
-	bot::help($MODULE_NAME, "dbloot", "dbloot.txt", "all", "Loot manager for DB1/DB2 Instance");
+	Help::register($MODULE_NAME, "dbloot", "dbloot.txt", "all", "Loot manager for DB1/DB2 Instance");
 
 ?>

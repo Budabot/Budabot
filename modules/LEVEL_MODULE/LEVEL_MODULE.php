@@ -23,8 +23,8 @@
 	bot::command("", "$MODULE_NAME/title.php", "title", "all", "Show the Titlelevels and how much IP/Level");
 
 	//Help files
-    bot::help($MODULE_NAME, "level", "level.txt", "all", "How to use level");
-    bot::help($MODULE_NAME, "title", "title.txt", "all", "How to use title");
-    bot::help($MODULE_NAME, "missions", "missions.txt", "all", "Who can roll a specific QL of a mission");
-	bot::help($MODULE_NAME, "xp", "xp.txt", "all", "XP/SK/AXP Info");
+    Help::register($MODULE_NAME, "level", "level.txt", "all", "How to use level");
+    Help::register($MODULE_NAME, "title", "title.txt", "all", "How to use title");
+    Help::register($MODULE_NAME, "missions", "missions.txt", "all", "Who can roll a specific QL of a mission");
+	Help::register($MODULE_NAME, "xp", "xp.txt", "all", "XP/SK/AXP Info");
 ?>

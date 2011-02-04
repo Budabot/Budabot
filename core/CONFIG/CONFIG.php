@@ -11,5 +11,5 @@
 	Command::activate("priv", "$MODULE_NAME/searchcmd.php", "searchcmd", "mod");
 
 	//Help Files
-	bot::help($MODULE_NAME, "config", "config.txt", "mod", "Configure Commands/Events of the Bot");
+	Help::register($MODULE_NAME, "config", "config.txt", "mod", "Configure Commands/Events of the Bot");
 ?>

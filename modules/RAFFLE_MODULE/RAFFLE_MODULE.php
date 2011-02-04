@@ -24,7 +24,7 @@
 	Event::register($MODULE_NAME, "2sec", "check_raffle.php", "raffle", "Checks to see if raffle is over");
 
 	//Help files
-	bot::help($MODULE_NAME, "raffle", "raffle.txt", "all", "Start/Join/Leave Raffles", "Raffles");
+	Help::register($MODULE_NAME, "raffle", "raffle.txt", "all", "Start/Join/Leave Raffles", "Raffles");
 
 	//Settings
 	Setting::add($MODULE_NAME, "defaultraffletime", "Sets how long the raffle should go for in minutes.", "edit", 3, "number");

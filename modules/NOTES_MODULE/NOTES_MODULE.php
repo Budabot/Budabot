@@ -11,6 +11,6 @@
 	bot::command("", "$MODULE_NAME/links.php", "links", "guild", "displays, adds, or removes links from the org link list");
 
 	//Help files
-	bot::help($MODULE_NAME, "notes", "notes.txt", "guild", "Notes Help", "How to use notes");
+	Help::register($MODULE_NAME, "notes", "notes.txt", "guild", "Notes Help", "How to use notes");
 	
 ?>

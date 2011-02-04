@@ -33,5 +33,5 @@
 	Setting::add($MODULE_NAME, "relaybot", "Bot for Guildrelay", "edit", "Off", "text", '0', "mod", "$MODULE_NAME/relaybot.txt");
 	Setting::add($MODULE_NAME, "bot_relay_commands", "Relay commands and results over the bot relay", "edit", "0", "ON;OFF", "1;0");
 	
-	bot::help($MODULE_NAME, "tellrelay", "tellrelay.txt", "admin", "How to setup an org relay between two orgs using tells");
+	Help::register($MODULE_NAME, "tellrelay", "tellrelay.txt", "admin", "How to setup an org relay between two orgs using tells");
 ?>

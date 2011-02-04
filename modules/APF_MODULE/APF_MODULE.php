@@ -8,5 +8,5 @@
 	bot::command("", "$MODULE_NAME/apfloot.php", "apfloot", "all", "Shows what to make from apf items");
 
 	//Help files
-	bot::help($MODULE_NAME, "apfloot", "apfloot.txt", "guild", "Show the Loots of the APF");
+	Help::register($MODULE_NAME, "apfloot", "apfloot.txt", "guild", "Show the Loots of the APF");
 ?>

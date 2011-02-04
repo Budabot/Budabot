@@ -21,14 +21,14 @@
 	bot::command("", "$MODULE_NAME/specials.php", "specials", "all", "shows how much skill you need to cap specials recycle");
 
 	//Helpiles
-	bot::help($MODULE_NAME, "aggdef", "aggdef.txt", "all", "How to use aggdef");
-	bot::help($MODULE_NAME, "nanoinit", "nanoinit.txt", "all", "How to use nanoinit");
-	bot::help($MODULE_NAME, "as", "as.txt", "all", "How to use as");
-	bot::help($MODULE_NAME, "fa", "fa.txt", "all", "How to use fa");
-	bot::help($MODULE_NAME, "fling", "fling.txt", "all", "How to use fling");
-	bot::help($MODULE_NAME, "burst", "burst.txt", "all", "How to use burst");
-	bot::help($MODULE_NAME, "mafist", "mafist.txt", "all", "How to use mafist");
-	bot::help($MODULE_NAME, "brawl", "brawl.txt", "all", "How to use brawl");
-	bot::help($MODULE_NAME, "dimach", "dimach.txt", "all", "How to use dimach");
-	bot::help($MODULE_NAME, "fast", "fast.txt", "all", "How to use fast");
+	Help::register($MODULE_NAME, "aggdef", "aggdef.txt", "all", "How to use aggdef");
+	Help::register($MODULE_NAME, "nanoinit", "nanoinit.txt", "all", "How to use nanoinit");
+	Help::register($MODULE_NAME, "as", "as.txt", "all", "How to use as");
+	Help::register($MODULE_NAME, "fa", "fa.txt", "all", "How to use fa");
+	Help::register($MODULE_NAME, "fling", "fling.txt", "all", "How to use fling");
+	Help::register($MODULE_NAME, "burst", "burst.txt", "all", "How to use burst");
+	Help::register($MODULE_NAME, "mafist", "mafist.txt", "all", "How to use mafist");
+	Help::register($MODULE_NAME, "brawl", "brawl.txt", "all", "How to use brawl");
+	Help::register($MODULE_NAME, "dimach", "dimach.txt", "all", "How to use dimach");
+	Help::register($MODULE_NAME, "fast", "fast.txt", "all", "How to use fast");
 ?>

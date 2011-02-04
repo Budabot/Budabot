@@ -13,5 +13,5 @@
 	Setting::add($MODULE_NAME, "quote_stat_count", "Number of users shown in stats.", "edit", "10", "number", "0", "mod");
 
 	//Help files
-	bot::help($MODULE_NAME, "quote", "quote.txt", "all", "Add/Remove/View Quotes");
+	Help::register($MODULE_NAME, "quote", "quote.txt", "all", "Add/Remove/View Quotes");
 ?>
