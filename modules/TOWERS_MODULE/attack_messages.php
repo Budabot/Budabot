@@ -75,21 +75,8 @@ if ($closest_site === null) {
 		$link .= $colorlabel."Profession:<end> ".$colorvalue.$whois->profession."<end>\n";
 	}
 	if ($whois->level) {
-		$link .= $colorlabel."Level:<end> $colorvalue";
-		if ($whois->profession == "") {
-			$link .= "Unknown<end>\n";
-		} else {
-			$level_info = Level::get_level_info($whois->level);
-			$link .= $whois->level."<end> <red>({$level_info->pvpMin}-{$level_info->pvpMax})<end>\n";
-		}
-	}
-	
-	if ($whois->ai_level) {
-		$link .= $colorlabel."AI Level:<end> ".$colorvalue.$whois->ai_level;
-		if ($whois->ai_rank) {
-			$link .= " - ".$whois->ai_rank;
-		}
-		$link .= "<end>\n";
+		$level_info = Level::get_level_info($whois->level);
+		$link .= $colorlabel."Level:<end> $colorvalue{$whois->level}<end>/<green>{$whois->ai_level}<end> <red>({$level_info->pvpMin}-{$level_info->pvpMax})<end>\n";
 	}
 		
 	$link .= $colorlabel."Alignment:<end> ".$colorvalue.$whois->faction."<end>\n";
