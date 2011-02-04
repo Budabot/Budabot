@@ -584,8 +584,8 @@ class bot extends AOChat {
 
 		$command = strtolower($command);
 		$description = str_replace("'", "''", $description);
-		$array = explode("/", strtolower($filename));
-		$module = $array[0];
+		$array = explode("/", $filename);
+		$module = strtoupper($array[0]);
 
 		Logger::log('debug', 'Core', "Adding $module:subcommand($command) File:($filename) Admin:($admin) Type:($type)");
 
@@ -595,9 +595,8 @@ class bot extends AOChat {
 		}
 
 		//Check if the file exists
-		if (($actual_filename = bot::verifyFilename($filename)) != '') {
-			$filename = $actual_filename;
-		} else {
+		$actual_filename = bot::verifyFilename($filename);
+		if ($actual_filename == '') {
 			Logger::log('ERROR', 'Core', "Error in registering the file $filename for Subcommand $command. The file doesn't exists!");
 			return;
 		}
@@ -606,7 +605,7 @@ class bot extends AOChat {
 			$command = strtolower($command);
 
 		for ($i = 0; $i < count($type); $i++) {
-			Logger::log('debug', 'Core', "Adding Subcommand to list:($command) File:($filename) Admin:($admin) Type:({$type[$i]})");
+			Logger::log('debug', 'Core', "Adding Subcommand to list:($command) File:($actual_filename) Admin:($admin) Type:({$type[$i]})");
 			
 			//Check if the admin status exists
 			if (!is_numeric($admin[$i])) {
@@ -625,9 +624,9 @@ class bot extends AOChat {
 			}
 
 			if ($this->existing_subcmds[$type[$i]][$command] == true) {
-				$db->exec("UPDATE cmdcfg_<myname> SET `module` = '$module', `verify` = 1, `file` = '$filename', `description` = '$description', `dependson` = '$dependson' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
+				$db->exec("UPDATE cmdcfg_<myname> SET `module` = '$module', `verify` = 1, `file` = '$actual_filename', `description` = '$description', `dependson` = '$dependson' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
 			} else {
-				$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `dependson`) VALUES ('$module', '{$type[$i]}', '$filename', '$command', '{$admin[$i]}', '$description', 1, 'subcmd', '$dependson')");
+				$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `dependson`) VALUES ('$module', '{$type[$i]}', '$actual_filename', '$command', '{$admin[$i]}', '$description', 1, 'subcmd', '$dependson')");
 			}
 		}
 	}
@@ -828,7 +827,7 @@ class bot extends AOChat {
 					}
 				}
 				
-				$this->handle_command($type, $message, $sender, $sendto);
+				$this->process_command($type, $message, $sender, $sendto);
 
 				break;
 			case AOCP_PRIVGRP_MESSAGE: // 57, Incoming priv message
@@ -874,7 +873,7 @@ class bot extends AOChat {
 					
 					if ($message[0] == $this->settings["symbol"] && strlen($message) > 1) {
 						$message = substr($message, 1);
-						$this->handle_command($type, $message, $sender, $sendto);
+						$this->process_command($type, $message, $sender, $sendto);
 					}
 				
 				} else {  // ext priv group message
@@ -971,7 +970,7 @@ class bot extends AOChat {
 					
 					if ($message[0] == $this->settings["symbol"] && strlen($message) > 1) {
 						$message = substr($message, 1);
-						$this->handle_command($type, $message, $sender, $sendto);
+						$this->process_command($type, $message, $sender, $sendto);
 					}
 				} else if ($channel == 'OT shopping 11-50' || $channel == 'OT shopping 50-100' || $channel == 'OT shopping 100+' || $channel == 'Neu. shopping 11-50' || $channel == 'Neu. shopping 50-100' || $channel == 'Neu. shopping 100+' || $channel == 'Clan shopping 11-50' || $channel == 'Clan shopping 50-100' || $channel == 'Clan shopping 100+') {
 					$type = "shopping";
@@ -1007,7 +1006,7 @@ class bot extends AOChat {
 		}
 	}
 	
-	function handle_command($type, $message, $sender, $sendto) {
+	function process_command($type, $message, $sender, $sendto) {
 		$db = DB::get_instance();
 		
 		switch ($type){
@@ -1052,9 +1051,9 @@ class bot extends AOChat {
 			if ($syntax_error == true) {
 				$output = Help::find($message, $sender);
 				if ($output !== false) {
-					bot::send($output, $sendto);
+					$this->send($output, $sendto);
 				} else {
-					bot::send("Error! Check your syntax or for more info try /tell <myname> help", $sendto);
+					$this->send("Error! Check your syntax or for more info try /tell <myname> help", $sendto);
 				}
 			}
 			$this->spam[$sender] = $this->spam[$sender] + 10;
