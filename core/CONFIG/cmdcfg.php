@@ -31,6 +31,7 @@
 
 if (!function_exists('get_admin_description')) {
 	function get_admin_description($admin) {
+		$admin = strtolower($admin);
 		if ($admin == 1 || $admin == "leader") {
 			return "Leader";
 		} else if ($admin == 2 || $admin == "rl" || $admin == "raidleader") {
@@ -138,7 +139,7 @@ if (preg_match("/^config$/i", $message)) {
 	$db->exec($sql);
 	
 	bot::send("Command(s) updated successfully.", $sendto);	
-} else if (preg_match("/^config (mod|cmd|grp|event) (.+) (enable|disable) (priv|msg|guild|all)$/i", $message, $arr)) {
+} else if (preg_match("/^config (mod|cmd|event) (.+) (enable|disable) (priv|msg|guild|all)$/i", $message, $arr)) {
 	if ($arr[1] == "event") {
 		$temp = explode(" ", $arr[2]);
 	  	$module = strtoupper($temp[0]);
@@ -162,10 +163,6 @@ if (preg_match("/^config$/i", $message)) {
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$module' AND `type` = '$type' AND `cmdevent` = 'cmd'");
 	} else if ($arr[1] == "cmd" && $type == "all") {
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$module' AND `cmdevent` = 'cmd'");
-	} else if ($arr[1] == "grp" && $type != "all") {
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `grp` = '$module' AND `type` = '$type' AND `cmdevent` = 'cmd'");
-	} else if ($arr[1] == "grp" && $type == "all") {
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `grp` = '$module' AND `cmdevent` = 'cmd'");
 	} else if ($arr[1] == "event" && $file != "") {
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `file` = '$file' AND `cmdevent` = 'event' AND `type` = '$module'");	
 	} else {
@@ -182,10 +179,6 @@ if (preg_match("/^config$/i", $message)) {
 			$msg = "Could not find the Command <highlight>$module<end> for Channel <highlight>$type<end>";
 		} else if ($arr[1] == "cmd" && $type == "all") {
 			$msg = "Could not find the Command <highlight>$module<end>";
-		} else if ($arr[1] == "grp" && $type != "all") {
-			$msg = "Could not find the Group <highlight>$module<end> for Channel <highlight>$type<end>";
-		} else if ($arr[1] == "grp" && $type == "all") {
-			$msg = "Could not find the Group <highlight>$module<end>";
 		} else if ($arr[1] == "event" && $file != "") {
 			$msg = "Could not find the Event <highlight>$module<end> for File <highlight>$file<end>";
 		}
@@ -201,10 +194,6 @@ if (preg_match("/^config$/i", $message)) {
 		$msg = "Updated status of command <highlight>$module<end> to <highlight>".$arr[3]."d<end> in Channel <highlight>$type<end>";
 	} else if ($arr[1] == "cmd" && $type == "all") {
 		$msg = "Updated status of command <highlight>$module<end> to <highlight>".$arr[3]."d<end>";
-	} else if ($arr[1] == "grp" && $type != "all") {
-		$msg = "Updated status of group <highlight>$module<end> to <highlight>".$arr[3]."d<end> in Channel <highlight>$type<end>";
-	} else if ($arr[1] == "grp" && $type == "all") {
-		$msg = "Updated status of group <highlight>$module<end> to <highlight>".$arr[3]."d<end>";
 	} else if ($arr[1] == "event" && $type != "") {
 		$msg = "Updated status of event <highlight>$module<end> to <highlight>".$arr[3]."d<end>";
 	}
@@ -238,22 +227,18 @@ if (preg_match("/^config$/i", $message)) {
 		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `cmd` = '$module' AND `type` = '$type' AND `cmdevent` = 'cmd'");
 	} else if ($arr[1] == "cmd" && $type == "all") {
 		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `cmd` = '$module' AND `cmdevent` = 'cmd'");
-	} else if ($arr[1] == "grp" && $type != "all") {
-		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `grp` = '$module' AND `type` = '$type' AND `cmdevent` = 'cmd'");
-	} else if ($arr[1] == "grp" && $type == "all") {
-		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `grp` = '$module' AND `cmdevent` = 'cmd'");
 	} else if ($arr[1] == "event" && $file != "") {
 		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `type` = '$module' AND `cmdevent` = 'event' AND `file` = '$file'");
 	}
-} else if (preg_match("/^config (subcmd|cmd|grp) ([a-z0-9_]+) admin (msg|priv|guild|all) (all|leader|rl|mod|admin|guildadmin|guild)$/i", $message, $arr)) {
-	$channel = strtolower($arr[1]);
+} else if (preg_match("/^config (subcmd|cmd) ([a-z0-9_]+) admin (msg|priv|guild|all) (all|leader|rl|mod|admin|guildadmin|guild)$/i", $message, $arr)) {
+	$category = strtolower($arr[1]);
 	$command = strtolower($arr[2]);
 	$type = strtolower($arr[3]);
 	$admin = $arr[4];
 
 	$admin = get_admin_value($admin);
 	
-	if ($channel == "cmd") {
+	if ($category == "cmd") {
 		if ($type == "all") {
 			$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$command' AND `cmdevent` = 'cmd'");
 		} else {
@@ -297,52 +282,7 @@ if (preg_match("/^config$/i", $message)) {
 			$db->exec("UPDATE cmdcfg_<myname> SET `admin` = '$admin' WHERE `cmd` = '$command' AND `type` = '$type' AND `cmdevent` = 'cmd'");
 			$msg = "Updated access of command <highlight>$command<end> in Channel <highlight>$type<end> to <highlight>$arr[4]<end>";
 		}
-	} else if ($channel == "grp") {
-	  	if ($type == "all") {
-			$db->query("SELECT * FROM cmdcfg_<myname> WHERE `grp` = '$command' AND `cmdevent` = 'cmd'");
-		} else {
-			$db->query("SELECT * FROM cmdcfg_<myname> WHERE `grp` = '$command' AND `type` = '$type' AND `cmdevent` = 'cmd'");
-		}
-	
-		if ($db->numrows() == 0) {
-			if ($arr[3] == "all") {
-				$msg = "Could not find the group <highlight>$command<end>";
-			} else {
-				$msg = "Could not find the group <highlight>$command<end> for Channel <highlight>$type<end>";
-			}
-		  	bot::send($msg, $sendto);
-		  	return;
-		}
-		while ($row = $db->fObject()) {
-			switch ($arr[3]) {
-				case "all":
-					if($this->tellCmds[$row->cmd])
-						$this->tellCmds[$row->cmd]["admin level"] = $admin;
-					if($this->privCmds[$row->cmd])
-						$this->privCmds[$row->cmd]["admin level"] = $admin;
-					if($this->guildCmds[$row->cmd])
-						$this->guildCmds[$row->cmd]["admin level"] = $admin;
-					break;
-			  	case "msg":	
-					$this->tellCmds[$row->cmd]["admin level"] = $admin;
-					break;
-			  	case "priv":
-					$this->privCmds[$row->cmd]["admin level"] = $admin;
-					break;
-			  	case "guild":
-					$this->guildCmds[$row->cmd]["admin level"] = $admin;
-					break;
-			}
-		}
-		
-		if ($arr[3] == "all") {
-			$db->exec("UPDATE cmdcfg_<myname> SET `admin` = '$admin' WHERE `grp` = '$command' AND `cmdevent` = 'cmd'");
-			$msg = "Updated access of group <highlight>$command<end> to <highlight>$arr[4]<end>";
-		} else {
-			$db->exec("UPDATE cmdcfg_<myname> SET `admin` = '$admin' WHERE `grp` = '$command' AND `type` = '$type' AND `cmdevent` = 'cmd'");
-			$msg = "Updated access of group <highlight>$command<end> in Channel <highlight>$type<end> to <highlight>$arr[4]<end>";
-		}
-	} else {  // if ($channel == 'subcmd')
+	} else {  // if ($category == 'subcmd')
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `type` = '$type' AND `cmdevent` = 'subcmd' AND `cmd` = '$command'");
 		if($db->numrows() == 0) {
 			$msg = "Could not find the subcmd <highlight>$command<end> for Channel <highlight>$type<end>";
@@ -536,61 +476,6 @@ if (preg_match("/^config$/i", $message)) {
 		
 		$msg = bot::makeLink(ucfirst($cmd)." config", $list);
 	}
-	bot::send($msg, $sendto);
-} else if (preg_match("/^config grp (.+)$/i", $message, $arr)) {
-	$grp = strtolower($arr[1]);
-
-	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `grp` = '$grp' AND `cmdevent` = 'cmd' ORDER BY `cmd`");
-	if ($db->numrows() == 0)
-		$msg = "Could not find the group <highligh>$grp<end>";
-	else {
-		$list = "<header>::::: Configure group $grp :::::<end>\n\n";
-		$list .= "<highlight><u>Commands of this group</u><end> \n";
-		while ($row = $db->fObject()) {
-	  	  	if ($oldcmd != $row->cmd) {
-				$adv = "<a href='chatcmd:///tell <myname> config cmd $row->cmd'>Adv.</a>";
-				if ($row->description != "none")
-				    $list .= "$row->description (Cmd: $row->cmd)($adv): $on  $off \n";
-				else
-				    $list .= "$row->cmd Cmd ($adv): $on  $off \n";
-	            $oldcmd = $row->cmd;
-	        }
-		}
-			
-		$list .= "\n\n<u><highlight>Enable or disable group for seperate Channels</u><end> \n";	
-		$list .= "Tells: <a href='chatcmd:///tell <myname> config grp ".$grp." enable msg'>ON</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." disable msg'>OFF</a>\n";
-	
-		$list .= "Private Channel: <a href='chatcmd:///tell <myname> config grp ".$grp." enable priv'>ON</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." disable priv'>OFF</a>\n";
-		
-		$list .= "Guild Channel: <a href='chatcmd:///tell <myname> config grp ".$grp." enable guild'>ON</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." disable guild'>OFF</a>\n";
-		$list .= "\n\n";
-		$list .= "<highlight><u>Set permissions for the group</u><end>\n";
-		$list .= "Tells: <a href='chatcmd:///tell <myname> config grp ".$grp." admin msg all'>All</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin msg leader'>Leader</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin msg rl'>RL</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin msg mod'>Mod</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin msg admin'>Admin</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin msg guildadmin'>Guildadmin</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin msg guild'>Guild</a>\n";
-	
-		$list .= "Private Channel: <a href='chatcmd:///tell <myname> config grp ".$grp." admin priv all'>All</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin priv leader'>Leader</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin priv rl'>RL</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin priv mod'>Mod</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin priv admin'>Admin</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin priv guildadmin'>Guildadmin</a>\n";
-	
-		$list .= "Guild Channel: <a href='chatcmd:///tell <myname> config grp ".$grp." admin guild all'>All</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin guild rl'>RL</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin guild mod'>Mod</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin guild admin'>Admin</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config grp ".$grp." admin guild guildadmin'>Guildadmin</a>  ";
-		
-		$msg = bot::makeLink(ucfirst($grp)." group config", $list);
-	} 
 	bot::send($msg, $sendto);
 } else if (preg_match("/^config help (.+) admin (all|leader|rl|mod|admin|guildadmin|guild)$/i", $message, $arr)) {
   	$help = strtolower($arr[1]);
