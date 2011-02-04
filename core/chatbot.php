@@ -373,6 +373,7 @@ class bot extends AOChat {
 				    	$page++;
 						
 						$result[$page] .= "<header>::::: $name Page $page :::::<end>\n\n";
+						$result[$page] .= $line;
 						$page_size = strlen($result[$page]);
 					}
 				}
