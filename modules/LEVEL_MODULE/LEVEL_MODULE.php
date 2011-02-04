@@ -3,7 +3,7 @@
 
 	$MODULE_NAME = "LEVEL_MODULE";
 	
-	bot::loadSQLFile($MODULE_NAME, 'levels');
+	DB::loadSQLFile($MODULE_NAME, 'levels');
 
     //Level Infos
 	bot::command("", "$MODULE_NAME/level.php", "pvp", "all", "Show level ranges");

@@ -4,7 +4,7 @@
 	$MODULE_NAME = "ITEMS_MODULE";
 
 	//Load items db
-	bot::loadSQLFile($MODULE_NAME, "aodb");
+	DB::loadSQLFile($MODULE_NAME, "aodb");
 	
     //Items Search
 	bot::command("", "$MODULE_NAME/items.php", "items", "all", "Searches for an item in the Database");

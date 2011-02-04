@@ -1,7 +1,7 @@
 <?php
 	$MODULE_NAME = "SPIRITS_MODULE";
 	
-	bot::loadSQLFile($MODULE_NAME, "spirits");
+	DB::loadSQLFile($MODULE_NAME, "spirits");
 	
 	bot::command("", "$MODULE_NAME/spirits.php", "spirits", "all", "Search for Spirits");
 	bot::command("", "$MODULE_NAME/spirits.php", "spiritslvl", "all", "Search for Spirits");

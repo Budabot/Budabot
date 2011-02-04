@@ -19,17 +19,17 @@ class Setting {
 
 	/**
 	 * @name: add
-	 * @description: adds a new setting
+	 * @description: Adds a new setting
 	 */	
-	function add($module, $name, $description = 'none', $mode = 'hide', $value = 'none', $options = 'none', $intoptions = '0', $admin = 'mod', $help = '') {
-		$db = db::get_instance();
+	public static function add($module, $name, $description = 'none', $mode = 'hide', $value = 'none', $options = 'none', $intoptions = '0', $admin = 'mod', $help = '') {
+		$db = DB::get_instance();
 		global $chatBot;
 		
 		$name = strtolower($name);
 
 		//Check if the help file exists
 		if ($help != '') {
-			$help_file = bot::verifyFilename($help);
+			$help_file = $chatBot->verifyFilename($help);
 			if ($help_file == '') {
 				Logger::log('ERROR', 'Core', "Error in registering the help file $help for Setting $module:setting($name). The file doesn't exists!");
 			}
@@ -48,9 +48,9 @@ class Setting {
 
 	/**
 	 * @name: get
-	 * @description: gets the value of a setting
+	 * @description: Gets the value of a setting
 	 */	
-	function get($name) {
+	public static function get($name) {
 		global $chatBot;
 	
 		$name = strtolower($name);
@@ -63,10 +63,10 @@ class Setting {
 
 	/**
 	 * @name: save
-	 * @description: saves a new value for a setting
+	 * @description: Saves a new value for a setting
 	 */	
-	function save($name, $newsetting = null) {
-		$db = db::get_instance();
+	public static function save($name, $newsetting = null) {
+		$db = DB::get_instance();
 		global $chatBot;
 
 		$name = strtolower($name);

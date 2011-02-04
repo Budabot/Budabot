@@ -49,7 +49,7 @@ function getAbility($ability) {
 }
 
 function getTrickleResults($agi, $int, $psy, $sta, $str, $sen) {
-	$db = db::get_instance();
+	$db = DB::get_instance();
 
 	$sql = "
 		SELECT 

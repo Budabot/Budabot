@@ -14,7 +14,7 @@
  */
 function parse_incoming_bbin($bbinmsg, $nick, &$bot)
 {
-	$db = db::get_instance();
+	$db = DB::get_instance();
 	global $bbin_socket;
 
 	if (preg_match("/^\[BBIN:LOGON:(.*?),(.),(.)\]/",$bbinmsg,$arr))

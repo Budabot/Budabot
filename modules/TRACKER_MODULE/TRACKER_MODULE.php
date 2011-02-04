@@ -1,8 +1,8 @@
 <?php
 	$MODULE_NAME = "TRACKER_MODULE";
 	
-	bot::loadSQLFile($MODULE_NAME, "tracked_users");
-	bot::loadSQLFile($MODULE_NAME, "tracking");
+	DB::loadSQLFile($MODULE_NAME, "tracked_users");
+	DB::loadSQLFile($MODULE_NAME, "tracking");
     
 	bot::command("", "$MODULE_NAME/track.php", "track", "mod", "Lists all users on tracking list");
 	

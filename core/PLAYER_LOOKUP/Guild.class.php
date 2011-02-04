@@ -88,7 +88,7 @@ class Guild {
 			}
 		}
 		
-		$db = db::get_instance();
+		$db = DB::get_instance();
 		$db->beginTransaction();
 
         forEach ($members as $amember) {

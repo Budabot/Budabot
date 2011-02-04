@@ -11,8 +11,8 @@
    */
 	$MODULE_NAME = "BOSSLOOT_MODULE";
 	
-	bot::loadSQLFile($MODULE_NAME, "boss_namedb");
-	bot::loadSQLFile($MODULE_NAME, "boss_lootdb");
+	DB::loadSQLFile($MODULE_NAME, "boss_namedb");
+	DB::loadSQLFile($MODULE_NAME, "boss_lootdb");
 	
 	bot::command("", "$MODULE_NAME/boss.php", "boss", "all", "Bossloot Tables");
 	bot::command("", "$MODULE_NAME/bossloot.php", "bossloot", "all", "Bossloot Search");

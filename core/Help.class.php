@@ -14,10 +14,10 @@ class Help {
 
 	/**
 	 * @name: register
-	 * @description: registers a help command
+	 * @description: Registers a help command
 	 */
-	function register($module, $command, $filename, $admin, $description) {
-	  	$db = db::get_instance();
+	public static function register($module, $command, $filename, $admin, $description) {
+	  	$db = DB::get_instance();
 		global $chatBot;
 		
 		Logger::log('debug', 'Core', "Registering $module:help($command) Helpfile:($filename)");
@@ -41,7 +41,7 @@ class Help {
 		}
 
 		// Check if the file exists
-		$actual_filename = bot::verifyFilename($module . '/' . $filename);
+		$actual_filename = $chatBot->verifyFilename($module . '/' . $filename);
 		if ($actual_filename == '') {
 			Logger::log('ERROR', 'Core', "Error in registering the File $filename for Help command $module:help($command). The file doesn't exist!");
 			return;
@@ -70,13 +70,15 @@ class Help {
 	 * @name: find
 	 * @description: Find a help topic by name if it exists and if the user has permissions to see it
 	 */
-	function find($helpcmd, $char, $return_as_bloblink = true) {
+	public static function find($helpcmd, $char, $return_as_bloblink = true) {
+		global $chatBot;
+	
 		$helpcmd = explode(' ', $helpcmd, 2);
 		$helpcmd = strtolower($helpcmd[0]);
 
-		if (isset($this->helpfiles[$helpcmd])) {
-			$filename = $this->helpfiles[$helpcmd]["filename"];
-			$admin = $this->helpfiles[$helpcmd]["admin level"];
+		if (isset($chatBot->helpfiles[$helpcmd])) {
+			$filename = $chatBot->helpfiles[$helpcmd]["filename"];
+			$admin = $chatBot->helpfiles[$helpcmd]["admin level"];
 		}
 
 		$access = AccessLevel::checkAccess($char, $admin);
@@ -84,7 +86,7 @@ class Help {
 			$data = file_get_contents($filename);
 			if ($return_as_bloblink) {
 				$helpcmd = ucfirst($helpcmd);
-				$msg = bot::makeLink("Help($helpcmd)", $data);
+				$msg = $chatBot->makeLink("Help($helpcmd)", $data);
 			} else {
 				$msg = $data;
 			}

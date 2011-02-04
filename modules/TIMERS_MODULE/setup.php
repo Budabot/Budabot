@@ -5,6 +5,6 @@ $db->query("CREATE TABLE IF NOT EXISTS timers_<myname> (`name` VARCHAR(255), `ow
 //Upload timers to global vars
 $db->query("SELECT * FROM timers_<myname>");
 $data = $db->fObject('all');
-$this->vars["Timers"] = $data;
+$chatBot->vars["Timers"] = $data;
 
 ?>

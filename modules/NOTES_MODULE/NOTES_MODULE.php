@@ -2,8 +2,8 @@
 	$MODULE_NAME = "NOTES_MODULE";
 	
 	//Setup
-	bot::loadSQLFile($MODULE_NAME, "notes");
-	bot::loadSQLFile($MODULE_NAME, "links");
+	DB::loadSQLFile($MODULE_NAME, "notes");
+	DB::loadSQLFile($MODULE_NAME, "links");
 
 	bot::command("", "$MODULE_NAME/notes.php", "note", "guild", "displays, adds, or removes a note from your list");
 	bot::command("", "$MODULE_NAME/notes.php", "notes", "guild", "displays, adds, or removes a note from your list");

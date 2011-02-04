@@ -2,8 +2,8 @@
 	$MODULE_NAME = "NANO_MODULE";
 
 	//Search for Database Updates
-	bot::loadSQLFile($MODULE_NAME, "nanos");
-	bot::loadSQLFile($MODULE_NAME, "nanolines");
+	DB::loadSQLFile($MODULE_NAME, "nanos");
+	DB::loadSQLFile($MODULE_NAME, "nanolines");
 
     //nano Search
 	bot::command("", "$MODULE_NAME/nano.php", "nano", "all", "Searches for a nano and tells you were to get it.");

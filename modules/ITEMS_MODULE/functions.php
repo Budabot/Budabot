@@ -20,7 +20,7 @@ function find_items_from_xyphos($search, $ql = null) {
 
 function find_items_from_local($search, $ql) {
 	global $chatBot;
-	$db = db::get_instance();
+	$db = DB::get_instance();
 
 	$tmp = explode(" ", $search);
 	$first = true;

@@ -8,7 +8,7 @@
  */
 
 function online($sender, $sendto, &$bot, $prof = "all") {
-	$db = db::get_instance();
+	$db = DB::get_instance();
 
 	$list = "";
 	if ($bot->settings["relaydb"]) {
@@ -102,7 +102,7 @@ function online($sender, $sendto, &$bot, $prof = "all") {
 }
 
 function createList(&$data, &$sender, &$list, &$bot, $show_alts = false) {
-	$db = db::get_instance();
+	$db = DB::get_instance();
 
 	$oldprof = "";
 	forEach ($data as $row) {

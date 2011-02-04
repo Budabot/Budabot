@@ -2,7 +2,7 @@
 
 class Player {
 	public static function get_by_name($name, $forceUpdate = false) {
-		$db = db::get_instance();
+		$db = DB::get_instance();
 		global $vars;
 		
 		$name = ucfirst(strtolower($name));
@@ -91,7 +91,7 @@ class Player {
 	}
 	
 	public static function update(&$char) {
-		$db = db::get_instance();
+		$db = DB::get_instance();
 		
 		$sql = "DELETE FROM players WHERE `name` = '{$char->name}'";
 		$db->exec($sql);

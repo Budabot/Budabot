@@ -1,7 +1,7 @@
 <?php
 	$MODULE_NAME = "GUILD_MODULE";
 	
-	bot::loadSQLFile($MODULE_NAME, "guild_chatlist");
+	DB::loadSQLFile($MODULE_NAME, "guild_chatlist");
 
 	//Setup
 	Event::register($MODULE_NAME, "setup", "setup.php");

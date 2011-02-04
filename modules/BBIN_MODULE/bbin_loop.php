@@ -9,7 +9,7 @@
  */
 
 global $bbin_socket;
-$db = db::get_instance();
+$db = DB::get_instance();
 require_once("bbin_func.php");
 
 stream_set_blocking($bbin_socket, 0);

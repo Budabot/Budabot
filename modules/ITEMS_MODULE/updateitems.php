@@ -31,7 +31,7 @@ if (preg_match("/^updateitems$/i", $message)) {
 			fclose($fh);
 			
 			// load the sql file into the db
-			bot::loadSQLFile("ITEMS_MODULE", "aodb");
+			DB::loadSQLFile("ITEMS_MODULE", "aodb");
 			
 			bot::send("The items database has been updated to the latest version.  Version: $latestVersion", $sendto);
 		} else {

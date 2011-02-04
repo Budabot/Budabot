@@ -22,9 +22,9 @@ class Command {
 	 * @name: activate
 	 * @description: Activates a command
 	 */
-	function activate($channel, $filename, $command, $admin = 'all') {
+	public static function activate($channel, $filename, $command, $admin = 'all') {
 		global $chatBot;
-		$db = db::get_instance();
+		$db = DB::get_instance();
 		
 		$command = strtolower($command);
 		$admin = strtolower($admin);
@@ -33,7 +33,7 @@ class Command {
 	  	Logger::log('debug', 'Core', "Activate Command:($command) Admin Type:($admin) File:($filename) Channel:($channel)");
 
 		//Check if the file exists
-		$actual_filename = bot::verifyFilename($filename);
+		$actual_filename = $chatBot->verifyFilename($filename);
 		if ($actual_filename == '') {
 			Logger::log('ERROR', 'Core', "Error in activating the File $filename for command $command. The file doesn't exists!");
 			return;
@@ -75,9 +75,9 @@ class Command {
 	 * @name: deactivate
 	 * @description: Deactivates an command
 	 */
-	function deactivate($channel, $filename, $command) {
+	public static function deactivate($channel, $filename, $command) {
 		global $chatBot;
-  		$db = db::get_instance();
+  		$db = DB::get_instance();
 
 		$command = strtolower($command);
 		$channel = strtolower($channel);

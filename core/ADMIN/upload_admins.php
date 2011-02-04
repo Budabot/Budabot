@@ -31,18 +31,18 @@
 
 $db->query("CREATE TABLE IF NOT EXISTS admin_<myname> (`name` VARCHAR(25) NOT NULL PRIMARY KEY, `adminlevel` INT)");
 
-$this->settings["Super Admin"] = ucfirst(strtolower($this->settings["Super Admin"]));
+$chatBot->settings["Super Admin"] = ucfirst(strtolower($chatBot->settings["Super Admin"]));
 
-$db->query("SELECT * FROM admin_<myname> WHERE `name` = '{$this->settings["Super Admin"]}'");
+$db->query("SELECT * FROM admin_<myname> WHERE `name` = '{$chatBot->settings["Super Admin"]}'");
 if ($db->numrows() == 0) {
-	$db->exec("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (4, '{$this->settings["Super Admin"]}')");
+	$db->exec("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (4, '{$chatBot->settings["Super Admin"]}')");
 } else {
-	$db->exec("UPDATE admin_<myname> SET `adminlevel` = 4 WHERE `name` = '{$this->settings["Super Admin"]}'");
+	$db->exec("UPDATE admin_<myname> SET `adminlevel` = 4 WHERE `name` = '{$chatBot->settings["Super Admin"]}'");
 }
 
 $db->query("SELECT * FROM admin_<myname>");
 while ($row = $db->fObject()) {
-	$this->admins[$row->name]["level"] = $row->adminlevel;
+	$chatBot->admins[$row->name]["level"] = $row->adminlevel;
 }
 
 ?>

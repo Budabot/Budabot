@@ -31,7 +31,7 @@
    
 	$MODULE_NAME = "CITY_MODULE";
 	
-	bot::loadSQLFile($MODULE_NAME, 'org_city');
+	DB::loadSQLFile($MODULE_NAME, 'org_city');
 
     bot::command("", "$MODULE_NAME/city_guild.php", "city", "guild", "Shows the status of the Citycloak");
 

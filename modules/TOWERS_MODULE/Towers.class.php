@@ -2,7 +2,7 @@
 
 class Towers {
 	public static function get_tower_info($playfield_id, $site_number) {
-		$db = db::get_instance();
+		$db = DB::get_instance();
 
 		$sql = "
 			SELECT
@@ -19,7 +19,7 @@ class Towers {
 	}
 	
 	public static function find_sites_in_playfield($playfield_id) {
-		$db = db::get_instance();
+		$db = DB::get_instance();
 
 		$sql = "SELECT * FROM tower_site WHERE `playfield_id` = {$playfield_id}";
 
@@ -28,7 +28,7 @@ class Towers {
 	}
 	
 	public static function get_closest_site($playfield_id, $x_coords, $y_coords) {
-		$db = db::get_instance();
+		$db = DB::get_instance();
 
 		$sql = "
 			SELECT
@@ -58,7 +58,7 @@ class Towers {
 	}
 
 	public static function get_last_attack($att_faction, $att_guild_name, $def_faction, $def_guild_name, $playfield_id) {
-		$db = db::get_instance();
+		$db = DB::get_instance();
 		
 		$att_guild_name = str_replace("'", "''", $att_guild_name);
 		$def_guild_name = str_replace("'", "''", $def_guild_name);
@@ -86,7 +86,7 @@ class Towers {
 	}
 	
 	public static function record_attack($whois, $def_faction, $def_guild_name, $x_coords, $y_coords, $closest_site) {
-		$db = db::get_instance();
+		$db = DB::get_instance();
 		
 		$att_guild_name = str_replace("'", "''", $whois->guild);
 		$def_guild_name = str_replace("'", "''", $def_guild_name);
@@ -124,7 +124,7 @@ class Towers {
 	}
 	
 	public static function find_all_scouted_sites() {
-		$db = db::get_instance();
+		$db = DB::get_instance();
 		
 		$sql = 
 			"SELECT
@@ -143,7 +143,7 @@ class Towers {
 	}
 	
 	public static function get_last_victory($playfield_id, $site_number) {
-		$db = db::get_instance();
+		$db = DB::get_instance();
 		
 		$sql = "
 			SELECT
@@ -163,7 +163,7 @@ class Towers {
 	}
 	
 	public static function record_victory($last_attack) {
-		$db = db::get_instance();
+		$db = DB::get_instance();
 		
 		$win_guild_name = str_replace("'", "''", $last_attack->att_guild_name);
 		$lose_guild_name = str_replace("'", "''", $last_attack->def_guild_name);
@@ -189,7 +189,7 @@ class Towers {
 	}
 	
 	public static function add_scout_site($playfield_id, $site_number, $close_time, $ct_ql, $faction, $guild_name, $scouted_by) {
-		$db = db::get_instance();
+		$db = DB::get_instance();
 		
 		$guild_name = str_replace("'", "''", $guild_name);
 		
@@ -218,7 +218,7 @@ class Towers {
 	}
 	
 	public static function rem_scout_site($playfield_id, $site_number) {
-		$db = db::get_instance();
+		$db = DB::get_instance();
 		
 		$sql = "DELETE FROM scout_info WHERE `playfield_id` = {$playfield_id} AND `site_number` = {$site_number}";
 
@@ -226,7 +226,7 @@ class Towers {
 	}
 	
 	public static function check_guild_name($guild_name) {
-		$db = db::get_instance();
+		$db = DB::get_instance();
 		
 		$guild_name = str_replace("'", "''", $guild_name);
 	

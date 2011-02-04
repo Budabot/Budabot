@@ -2,7 +2,7 @@
 
 class Whitelist {
 	public static function add($user, $sender) {
-		$db = db::get_instance();
+		$db = DB::get_instance();
 		$user = ucfirst(strtolower($user));
 		$sender = ucfirst(strtolower($sender));
 
@@ -20,7 +20,7 @@ class Whitelist {
 	}
 	
 	public static function remove($user) {
-		$db = db::get_instance();
+		$db = DB::get_instance();
 		$user = ucfirst(strtolower($user));
 
 		if ($user == '') {
@@ -37,7 +37,7 @@ class Whitelist {
 	}
 	
 	public static function check($user) {
-		$db = db::get_instance();
+		$db = DB::get_instance();
 		$user = ucfirst(strtolower($user));
 
 		$db->query("SELECT * FROM whitelist WHERE name = '$user'");
@@ -49,7 +49,7 @@ class Whitelist {
 	}
 	
 	public static function all() {
-		$db = db::get_instance();
+		$db = DB::get_instance();
 	
 		$db->query("SELECT * FROM whitelist ORDER BY name ASC");
 		return $db->fObject('all');

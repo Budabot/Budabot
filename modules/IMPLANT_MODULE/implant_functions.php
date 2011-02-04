@@ -35,7 +35,7 @@
 
 // premade implant functions
 function searchByProfession($profession) {
-	$db = db::get_instance();
+	$db = DB::get_instance();
 
 	$sql = "SELECT * FROM premade_implant WHERE profession = '$profession' ORDER BY slot";
 	$db->query($sql);
@@ -43,7 +43,7 @@ function searchByProfession($profession) {
 }
 
 function searchBySlot($slot) {
-	$db = db::get_instance();
+	$db = DB::get_instance();
 
 	$sql = "SELECT * FROM premade_implant WHERE slot = '$slot' ORDER BY shiny, bright, faded";
 	$db->query($sql);
@@ -51,7 +51,7 @@ function searchBySlot($slot) {
 }
 
 function searchByModifier($modifier) {
-	$db = db::get_instance();
+	$db = DB::get_instance();
 
 	$sql = "SELECT * FROM premade_implant WHERE shiny LIKE '%$modifier%' OR bright LIKE '%$modifier%' OR faded LIKE '%$modifier%'";
 	$db->query($sql);
@@ -81,7 +81,7 @@ function getFormattedLine($implant) {
 
 // implant functions
 function getRequirements($ql) {
-	$db = db::get_instance();
+	$db = DB::get_instance();
 
 	$sql = "SELECT * FROM implant_requirements WHERE ql = $ql";
 
@@ -103,7 +103,7 @@ function rowMapper($row) {
 }
 
 function findMaxImplantQlByReqs($ability, $treatment) {
-	$db = db::get_instance();
+	$db = DB::get_instance();
 
 	$sql = "SELECT * FROM implant_requirements WHERE ability <= $ability AND treatment <= $treatment ORDER BY ql DESC LIMIT 1";
 
@@ -182,7 +182,7 @@ function setHighestAndLowestQls(&$obj) {
 }
 
 function _setHighestAndLowestQls(&$obj, $var) {
-	$db = db::get_instance();
+	$db = DB::get_instance();
 
 	$varValue = $obj->$var;
 

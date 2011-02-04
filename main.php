@@ -83,7 +83,7 @@ ini_set("error_log", "./logs/{$vars['name']}.{$vars['dimension']}/php_errors.log
 
 require_once "./core/aochat.php";
 require_once "./core/chatbot.php";
-require_once "./core/sql.php";
+require_once "./core/DB.class.php";
 require_once "./core/xml.php";
 
 //Show setup dialog
@@ -107,7 +107,7 @@ unset($ignore);
 
 //////////////////////////////////////////////////////////////
 // Create new objects
-$db = new db($settings["DB Type"], $settings["DB Name"], $settings["DB Host"], $settings["DB username"], $settings["DB password"]);
+$db = new DB($settings["DB Type"], $settings["DB Name"], $settings["DB Host"], $settings["DB username"], $settings["DB password"]);
 if ($db->errorCode != 0) {
 	Logger::log('ERROR', 'StartUp', "Error in creating Database Object: {$db->errorInfo}");
 	sleep(5);

@@ -4,12 +4,11 @@
 
 	$MODULE_NAME = "HELPBOT_MODULE";
 
-	bot::loadSQLFile($MODULE_NAME, "roll_kos");
-
-	bot::loadSQLFile($MODULE_NAME, "dyna");
-	bot::loadSQLFile($MODULE_NAME, "research");
-	bot::loadSQLFile($MODULE_NAME, "trickle");
-	bot::loadSQLFile($MODULE_NAME, "playfields");
+	DB::loadSQLFile($MODULE_NAME, "roll_kos");
+	DB::loadSQLFile($MODULE_NAME, "dyna");
+	DB::loadSQLFile($MODULE_NAME, "research");
+	DB::loadSQLFile($MODULE_NAME, "trickle");
+	DB::loadSQLFile($MODULE_NAME, "playfields");
 
 	bot::command("", "$MODULE_NAME/kos.php", "kos", "guild", "Shows the Kill On Sight List");
 	bot::command("", "$MODULE_NAME/time.php", "time", "all", "Shows the time in the different timezones");

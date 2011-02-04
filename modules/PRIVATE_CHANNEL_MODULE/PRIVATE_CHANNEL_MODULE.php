@@ -1,7 +1,7 @@
 <?php
 	$MODULE_NAME = "PRIVATE_CHANNEL_MODULE";
 	
-	bot::loadSQLFile($MODULE_NAME, "private_chat");
+	DB::loadSQLFile($MODULE_NAME, "private_chat");
     
     bot::command("", "$MODULE_NAME/members.php", "members", "all", "Member list");
 	bot::command("", "$MODULE_NAME/sm.php", "sm", "all", "Shows who is in the private channel");

@@ -30,7 +30,7 @@
    */ 
 
 //Database Abstraction Class
-class db {
+class DB {
 	private $type;
 	private $sql;
 	private $dbName;
@@ -272,6 +272,87 @@ class db {
 	
 	function getLastQuery() {
 		return $this->lastQuery;
+	}
+	
+	/**
+	 * @name: loadSQLFile
+	 * @description: Loads an sql file if there is an update
+	 *    Will load the sql file with name $namexx.xx.xx.xx.sql if xx.xx.xx.xx is greater than settings[$name . "_sql_version"]
+	 *    If there is an sql file with name $name.sql it would load that one every time
+	 */
+	public static function loadSQLFile($module, $name, $forceUpdate = false) {
+		$db = DB::get_instance();
+		$name = strtolower($name);
+		
+		// only letters, numbers, underscores are allowed
+		if (!preg_match('/^[a-z0-9_]+$/', $name)) {
+			Logger::log('ERROR', 'Core', "Invalid SQL file name: '$name' for module: '$module'!  Only numbers, letters, and underscores permitted!");
+			return;
+		}
+		
+		$settingName = $name . "_db_version";
+		
+		$core_dir = "./core/$module";
+		$modules_dir = "./modules/$module";
+		$dir = '';
+		if ($d = dir($modules_dir)) {
+			$dir = $modules_dir;
+		} else if ($d = dir($core_dir)) {
+			$dir = $core_dir;
+		}
+		
+		$currentVersion = Setting::get($settingName);
+		if ($currentVersion === false) {
+			$currentVersion = 0;
+		}
+
+		$file = false;
+		$maxFileVersion = 0;  // 0 indicates no version
+		if ($d) {
+			while (false !== ($entry = $d->read())) {
+				if (is_file("$dir/$entry") && preg_match("/^" . $name . "([0-9.]*)\\.sql$/i", $entry, $arr)) {
+					// if there is no version on the file, set the version to 0, and force update every time
+					if ($arr[1] == '') {
+						$file = $entry;
+						$maxFileVersion = 0;
+						$forceUpdate = true;
+						break;
+					}
+
+					if (compareVersionNumbers($arr[1], $maxFileVersion) >= 0) {
+						$maxFileVersion = $arr[1];
+						$file = $entry;
+					}
+				}
+			}
+		}
+		
+		if ($file === false) {
+			Logger::log('ERROR', 'Core', "No SQL file found with name '$name' in module '$module'!");
+		} else if ($forceUpdate || compareVersionNumbers($maxFileVersion, $currentVersion) > 0) {
+			$fileArray = file("$dir/$file");
+			//$db->beginTransaction();
+			forEach ($fileArray as $num => $line) {
+				$line = trim($line);
+				// don't process comment lines or blank lines
+				if ($line != '' && substr($line, 0, 1) != "#" && substr($line, 0, 2) != "--") {
+					$db->exec($line);
+				}
+			}
+			//$db->Commit();
+		
+			if (!Setting::save($settingName, $maxFileVersion)) {
+				Setting::add($module, $settingName, $settingName, 'noedit', $maxFileVersion);
+			}
+			
+			if ($maxFileVersion != 0) {
+				Logger::log('DEBUG', 'Core', "Updated '$name' database from '$currentVersion' to '$maxFileVersion'");
+			} else {
+				Logger::log('DEBUG', 'Core', "Updated '$name' database");
+			}
+		} else {
+			Logger::log('DEBUG', 'Core',  "'$name' database already up to date! version: '$currentVersion'");
+		}
 	}
 }
 ?>

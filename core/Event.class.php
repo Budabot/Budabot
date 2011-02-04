@@ -14,10 +14,11 @@ class Event {
 
 	/**
 	 * @name: register
-	 * @description: registers an event on the bot so it can be configured
+	 * @description: Registers an event on the bot so it can be configured
 	 */
-	function register($module, $type, $filename, $dependson = 'none', $description = 'none') {
-		$db = db::get_instance();
+	public static function register($module, $type, $filename, $dependson = 'none', $description = 'none') {
+		$db = DB::get_instance();
+		global $chatBot;
 		
 		// disable depends on
 		$description = str_replace("'", "''", $description);
@@ -26,10 +27,10 @@ class Event {
 		
 		Logger::log('debug', 'Core', "Adding Event to list:($type) File:($filename)");
 
-		if ($this->existing_events[$type][$actual_filename] == true) {
+		if ($chatBot->existing_events[$type][$actual_filename] == true) {
 		  	$db->exec("UPDATE cmdcfg_<myname> SET `verify` = 1, `description` = '$description' WHERE `type` = '$type' AND `cmdevent` = 'event' AND `file` = '$actual_filename' AND `module` = '$module'");
 		} else {
-			if ($this->settings["default_module_status"] == 1) {
+			if ($chatBot->settings["default_module_status"] == 1) {
 				$status = 1;
 			} else {
 				$status = 0;
@@ -42,14 +43,14 @@ class Event {
 	 * @name: activate
 	 * @description: Activates an event
 	 */
-	function activate($type, $filename) {
+	public static function activate($type, $filename) {
 		global $chatBot;
-		$db = db::get_instance();
+		$db = DB::get_instance();
 		
 		Logger::log('debug', 'Core', "Activating Event:($type) File:($filename)");
 
 		//Check if the file exists
-		$actual_filename = bot::verifyFilename($filename);
+		$actual_filename = $chatBot->verifyFilename($filename);
 		if ($actual_filename == '') {
 			Logger::log('error', 'Core', "Error in registering File '{$filename}' for Event type {$type}. The file doesn't exist!");
 			return;
@@ -162,10 +163,11 @@ class Event {
 		}
 	}
 
-/*===============================
-** Name: unregevent
-**  Disables an event
-*/	function deactivate($type, $filename) {
+	/**
+	 * @name: deactivate
+	 * @description: Deactivates an event
+	 */
+	public static function deactivate($type, $filename) {
 		global $chatBot;
 
 		$type = strtolower($type);
@@ -173,7 +175,7 @@ class Event {
 		Logger::log('debug', 'Core', "Deactivating Event:($type) File:($filename)");
 
 		//Check if the file exists
-		$actual_filename = bot::verifyFilename($filename);
+		$actual_filename = $chatBot->verifyFilename($filename);
 		if ($actual_filename == '') {
 			Logger::log('ERROR', 'Core', "Error in deactivating the File $filename for Event $type. The file doesn't exist!");
 		}

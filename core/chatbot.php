@@ -60,7 +60,7 @@ class bot extends AOChat {
 		// Set startup time
 		$this->vars["startup"] = time();
 		
-		$db = db::get_instance();
+		$db = DB::get_instance();
 
 		// Create command/event settings table if not exists
 		$db->exec("CREATE TABLE IF NOT EXISTS cmdcfg_<myname> (`module` VARCHAR(50), `cmdevent` VARCHAR(5), `type` VARCHAR(18), `file` VARCHAR(255), `cmd` VARCHAR(25), `admin` VARCHAR(10), `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0', `dependson` VARCHAR(25) DEFAULT 'none', `grp` VARCHAR(25) DEFAULT 'none')");
@@ -145,7 +145,7 @@ class bot extends AOChat {
 	function init() {
 		Logger::log('DEBUG', 'Core', 'Initializing bot');
 		
-		$db = db::get_instance();
+		$db = DB::get_instance();
 		
 		//Delete old vars in case they exist
 		unset($this->subcommands);
@@ -345,7 +345,7 @@ class bot extends AOChat {
 ** Name: connectedEvents
 ** Execute Events that needs to be executed right after login
 */	function connectedEvents(){
-		$db = db::get_instance();
+		$db = DB::get_instance();
 
 		Logger::log('DEBUG', 'Core', "Executing connected events");
 
@@ -561,7 +561,7 @@ class bot extends AOChat {
 ** Name: loadModules
 ** Load all Modules
 */	function loadModules(){
-		$db = db::get_instance();
+		$db = DB::get_instance();
 
 		if ($d = dir("./modules")) {
 			while (false !== ($entry = $d->read())) {
@@ -581,7 +581,7 @@ class bot extends AOChat {
 ** Name: loadCommands
 **  Load the Commands that are set as active
 */	function loadCommands() {
-	  	$db = db::get_instance();
+	  	$db = DB::get_instance();
 		//Delete commands that are not verified
 		$db->exec("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'cmd'");
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'cmd'");
@@ -595,7 +595,7 @@ class bot extends AOChat {
 ** Name: loadSubcommands
 **  Load the Commands that are set as active
 */	function loadSubcommands() {
-	  	$db = db::get_instance();
+	  	$db = DB::get_instance();
 		//Delete subcommands that are not verified
 		$db->exec("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'subcmd'");
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd'");
@@ -610,7 +610,7 @@ class bot extends AOChat {
 ** Name: loadEvents
 **  Load the Events that are set as active
 */	function loadEvents() {
-	  	$db = db::get_instance();
+	  	$db = DB::get_instance();
 		//Delete events that are not verified
 		$db->exec("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'event'");
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'event'");
@@ -624,7 +624,7 @@ class bot extends AOChat {
 ** Name: Command
 ** 	Register a command
 */	function command($type, $filename, $command, $admin = 'all', $description = ''){
-		$db = db::get_instance();
+		$db = DB::get_instance();
 
 		$command = strtolower($command);
 		$description = str_replace("'", "''", $description);
@@ -682,7 +682,7 @@ class bot extends AOChat {
 ** Name: Subcommand
 ** 	Register a subcommand
 */	function subcommand($type, $filename, $command, $admin = 'all', $dependson, $description = 'none') {
-		$db = db::get_instance();
+		$db = DB::get_instance();
 
 		$command = strtolower($command);
 		$description = str_replace("'", "''", $description);
@@ -738,7 +738,7 @@ class bot extends AOChat {
 ** Name: processCallback
 ** Proccess all incoming messages that bot recives
 */	function processCallback($type, $args){
-		$db = db::get_instance();
+		$db = DB::get_instance();
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -1110,7 +1110,7 @@ class bot extends AOChat {
 	}
 	
 	function handle_command($type, $message, $sender, $sendto) {
-		$db = db::get_instance();
+		$db = DB::get_instance();
 		
 		switch ($type){
 			case "msg":
@@ -1167,7 +1167,7 @@ class bot extends AOChat {
 ** Name: crons()
 ** Call php-Scripts at certin time intervals. 2 sec, 1 min, 15 min, 1 hour, 24 hours
 */	function crons(){
-		$db = db::get_instance();
+		$db = DB::get_instance();
 		switch($this->vars){
 			case $this->vars["2sec"] < time();
 				Logger::log('DEBUG', 'Cron', "2secs");
@@ -1262,86 +1262,6 @@ class bot extends AOChat {
 		} else {
 			Logger::log('ERROR', 'Core', "Warning: $filename does not match the nameconvention(All php files needs to be in lowercases except loading files)!");
 			return false;
-		}
-	}
-
-/*===============================
-** Name: loadSQLFile
-** Loads an sql file if there is an update
-** Will load the sql file with name $namexx.xx.xx.xx.sql if xx.xx.xx.xx is greater
-** than settings[$name . "_sql_version"]
-*/	function loadSQLFile($module, $name, $forceUpdate = false) {
-		$db = db::get_instance();
-		$name = strtolower($name);
-		
-		// only letters, numbers, underscores are allowed
-		if (!preg_match('/^[a-z0-9_]+$/', $name)) {
-			Logger::log('ERROR', 'Core', "Invalid SQL file name: '$name' for module: '$module'!  Only numbers, letters, and underscores permitted!");
-			return;
-		}
-		
-		$settingName = $name . "_db_version";
-		
-		$core_dir = "./core/$module";
-		$modules_dir = "./modules/$module";
-		$dir = '';
-		if ($d = dir($modules_dir)) {
-			$dir = $modules_dir;
-		} else if ($d = dir($core_dir)) {
-			$dir = $core_dir;
-		}
-		
-		$currentVersion = Setting::get($settingName);
-		if ($currentVersion === false) {
-			$currentVersion = 0;
-		}
-
-		$file = false;
-		$maxFileVersion = 0;  // 0 indicates no version
-		if ($d) {
-			while (false !== ($entry = $d->read())) {
-				if (is_file("$dir/$entry") && preg_match("/^" . $name . "([0-9.]*)\\.sql$/i", $entry, $arr)) {
-					// if there is no version on the file, set the version to 0, and force update every time
-					if ($arr[1] == '') {
-						$file = $entry;
-						$maxFileVersion = 0;
-						$forceUpdate = true;
-						break;
-					}
-
-					if (compareVersionNumbers($arr[1], $maxFileVersion) >= 0) {
-						$maxFileVersion = $arr[1];
-						$file = $entry;
-					}
-				}
-			}
-		}
-		
-		if ($file === false) {
-			Logger::log('ERROR', 'Core', "No SQL file found with name '$name' in module '$module'!");
-		} else if ($forceUpdate || compareVersionNumbers($maxFileVersion, $currentVersion) > 0) {
-			$fileArray = file("$dir/$file");
-			//$db->beginTransaction();
-			forEach ($fileArray as $num => $line) {
-				$line = trim($line);
-				// don't process comment lines or blank lines
-				if ($line != '' && substr($line, 0, 1) != "#" && substr($line, 0, 2) != "--") {
-					$db->exec($line);
-				}
-			}
-			//$db->Commit();
-		
-			if (!Setting::save($settingName, $maxFileVersion)) {
-				Setting::add($module, $settingName, $settingName, 'noedit', $maxFileVersion);
-			}
-			
-			if ($maxFileVersion != 0) {
-				Logger::log('DEBUG', 'Core', "Updated '$name' database from '$currentVersion' to '$maxFileVersion'");
-			} else {
-				Logger::log('DEBUG', 'Core', "Updated '$name' database");
-			}
-		} else {
-			Logger::log('DEBUG', 'Core',  "'$name' database already up to date! version: '$currentVersion'");
 		}
 	}
 }

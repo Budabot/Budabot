@@ -3,7 +3,7 @@
 
 	$MODULE_NAME = "ALTS_MODULE";
 	
-	bot::loadSQLFile($MODULE_NAME, "alts");
+	DB::loadSQLFile($MODULE_NAME, "alts");
 	
 	// Alternative Characters
 	bot::command("", "$MODULE_NAME/alts.php", "alts", "all", "Alt Char handling");

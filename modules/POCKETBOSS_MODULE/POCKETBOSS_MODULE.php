@@ -2,7 +2,7 @@
 	$MODULE_NAME = "POCKETBOSS_MODULE";
 
 	//Setup
-	bot::loadSQLFile($MODULE_NAME, "pocketboss");
+	DB::loadSQLFile($MODULE_NAME, "pocketboss");
 
 	//Pocketboss module
 	bot::command("", "$MODULE_NAME/pb.php", "pb", "all", "Shows what symbs a PB drops");

@@ -4,9 +4,9 @@
 
 	$MODULE_NAME = "TOWERS_MODULE";
 
-	bot::loadSQLFile($MODULE_NAME, "tower_attack");
-	bot::loadSQLFile($MODULE_NAME, "scout_info");
-	bot::loadSQLFile($MODULE_NAME, "tower_site");
+	DB::loadSQLFile($MODULE_NAME, "tower_attack");
+	DB::loadSQLFile($MODULE_NAME, "scout_info");
+	DB::loadSQLFile($MODULE_NAME, "tower_site");
 
 	bot::command("", "$MODULE_NAME/scout.php", "forcescout", "guild", "Adds tower info to watch list (bypasses some of the checks)");
 	bot::command("", "$MODULE_NAME/scout.php", "scout", "guild", "Adds tower info to watch list");

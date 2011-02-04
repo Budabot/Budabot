@@ -3,7 +3,7 @@
 	
 	require_once 'Whitelist.class.php';
 	
-	bot::loadSqlFile($MODULE_NAME, 'whitelist');
+	DB::loadSqlFile($MODULE_NAME, 'whitelist');
 	
 	//Set/Show Limits
 	Command::activate("msg", "$MODULE_NAME/config.php", "limits", "mod");
