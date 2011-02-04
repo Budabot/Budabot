@@ -36,6 +36,7 @@ require_once 'Command.class.php';
 require_once 'Event.class.php';
 require_once 'Setting.class.php';
 require_once 'Help.class.php';
+require_once 'Buddylist.class.php';
 
 class bot extends AOChat {
 
@@ -272,68 +273,6 @@ class bot extends AOChat {
 		//Load active events
 		Logger::log('debug', 'Core', "Loading active events");
 		Event::loadEvents();
-	}
-
-/*===============================
-** Name: buddy_online
-** Returns null when online status is unknown, 1 when buddy is online, 0 when buddy is offline
-*/	function buddy_online($name) {
-		$buddy = $this->get_buddy($name);
-		return ($buddy === null ? null : $buddy['online']);
-    }
-	
-	function add_buddy($name, $type) {
-		$uid = $this->get_uid($name);
-		if ($uid === false || $type === null || $type == '') {
-			return false;
-		} else {
-			if (!isset($this->buddyList[$uid])) {
-				Logger::log('debug', "Buddy", "$name buddy added");
-				$this->buddy_add($uid);
-			}
-			
-			if (!isset($this->buddyList[$uid]['types'][$type])) {
-				$this->buddyList[$uid]['types'][$type] = 1;
-				Logger::log('debug', "Buddy", "$name buddy added (type: $type)");
-			}
-			
-			return true;
-		}
-	}
-	
-	function remove_buddy($name, $type = '') {
-		$uid = $this->get_uid($name);
-		if ($uid === false) {
-			return false;
-		} else if (isset($this->buddyList[$uid])) {
-			if (isset($this->buddyList[$uid]['types'][$type])) {
-				unset($this->buddyList[$uid]['types'][$type]);
-				Logger::log('debug', "Buddy", "$name buddy type removed (type: $type)");
-			}
-
-			if (count($this->buddyList[$uid]['types']) == 0) {
-				unset($this->buddyList[$uid]);
-				Logger::log('debug', "Buddy", "$name buddy removed");
-				$this->buddy_remove($uid);
-			}
-			
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	function is_buddy($name, $type) {
-		$uid = $this->get_uid($name);
-		if ($uid === false) {
-			return false;
-		} else {
-			if ($type == null || $type == false) {
-				return isset($this->buddyList[$uid]);
-			} else {
-				return isset($this->buddyList[$uid]['types'][$type]);
-			}
-		}
 	}
 
 /*===============================

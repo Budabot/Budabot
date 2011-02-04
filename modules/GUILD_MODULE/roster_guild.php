@@ -74,17 +74,17 @@ if ($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 		            $this->guildmembers[$member->name] = $member->guild_rank_id;
 					
 					// add org members who are on notify to buddy list
-					$this->add_buddy($member->name, 'org');
+					Buddylist::add($member->name, 'org');
 			  	} else {
 		            $mode = "del";
-					$this->remove_buddy($member->name, 'org');
+					Buddylist::remove($member->name, 'org');
 				}
 		
 		        $db->exec("UPDATE org_members_<myname> SET `mode` = '{$mode}' WHERE `name` = '{$member->name}'");	  		
 			//Else insert his data
 			} else {
 				// add new org members to buddy list
-				$this->add_buddy($member->name, 'org');
+				Buddylist::add($member->name, 'org');
 
 			    $db->exec("INSERT INTO org_members_<myname> (`name`, `mode`) VALUES ('{$member->name}', 'org')");
 				$this->guildmembers[$member->name] = $member->guild_rank_id;
@@ -97,7 +97,7 @@ if ($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 		// remove buddies who are no longer org members
 		forEach ($dbentrys as $buddy) {
 			$db->exec("DELETE FROM org_members_<myname> WHERE `name` = '{$buddy['name']}'");
-			$this->remove_buddy($buddy['name'], 'org');
+			Buddylist::remove($buddy['name'], 'org');
 		}
 
 		Logger::log('INFO', 'GUILD_MODULE', "Roster Update finished");

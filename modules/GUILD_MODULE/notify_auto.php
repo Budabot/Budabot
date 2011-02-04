@@ -42,7 +42,7 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
     	$msg = "<highlight>{$name}<end> has been added to the Notify list.";
     } else {
         $db->exec("INSERT INTO org_members_<myname> (`mode`, `name`) VALUES ('man', '{$name}')");
-		$this->add_buddy($name, 'org');
+		Buddylist::add($name, 'org');
     	$msg = "<highlight>{$name}<end> has been added to the Notify list.";
     	$this->guildmembers[$name] = 6;
     }
@@ -58,7 +58,7 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
     $db->exec("DELETE FROM guild_chatlist_<myname> WHERE `name` = '{$name}'");
     $msg = "Removed <highlight>{$name}<end> from the Notify list.";
     unset($this->guildmembers[$name]);
-	$this->remove_buddy($name, 'org');
+	Buddylist::remove($name, 'org');
     bot::send($msg, "guild");
 } else if(preg_match("/^(.+) just left your organization.$/", $message, $arr) || preg_match("/^(.+) kicked from organization \\(alignment changed\\).$/", $message, $arr)) {
     $uid = AoChat::get_uid($arr[1]);
@@ -67,7 +67,7 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
     $db->exec("DELETE FROM guild_chatlist_<myname> WHERE `name` = '{$name}'");
     $msg = "Removed <highlight>{$name}<end> from the Notify list.";
     unset($this->guildmembers[$name]);
-	$this->remove_buddy($name, 'org');
+	Buddylist::remove($name, 'org');
     bot::send($msg, "guild");
 }
 

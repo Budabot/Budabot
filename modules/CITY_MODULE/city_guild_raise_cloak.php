@@ -51,14 +51,14 @@ if ($db->numrows() != 0) {
 
 		if ($msg) {
 			// send message to main if he/she is online
-			if ($this->buddy_online($row->player)) {
+			if (Buddylist::is_online($row->player)) {
 				bot::send($msg, $row->player);
 			}
 			
 			// send message to any online alts
 			$db->query("SELECT * FROM `alts` WHERE `main` = (SELECT `main` FROM `alts` WHERE `main` = '$row->player' or `alt` = '$row->player' LIMIT 1)");
 			while ($nextAlt = $db->fObject()) {
-				if ($this->buddy_online($nextAlt->alt)) {
+				if (Buddylist::is_online($nextAlt->alt)) {
 					bot::send($msg, $nextAlt->alt);
 				}
 			}

@@ -27,7 +27,7 @@ if (preg_match("/^friendlist$/i", $message, $arg) || preg_match("/^friendlist (c
 			if (count($value['types']) == 0) {
 				$orphanCount++;
 				if ($cleanup) {
-					$this->remove_buddy($value['name']);
+					Buddylist::remove($value['name']);
 					$removed = "<red>REMOVED<end>";
 				}
 			}

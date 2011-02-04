@@ -6,7 +6,7 @@ if (preg_match("/^track$/i", $message)) {
 	if ($numrows != 0) {
 	  	$blob .= "<header>::::: {$numrows} Users on Track List :::::<end>\n\n";
 	  	while ($row = $db->fObject()) {
-			$is_online = $this->buddy_online($row->name);
+			$is_online = Buddylist::is_online($row->name);
 	  	  	if ($is_online === 1) {
 				$status = "<green>Online<end>";
 			} else if ($is_online === 0) {
@@ -38,7 +38,7 @@ if (preg_match("/^track$/i", $message)) {
 	  	} else {
 		    $db->exec("DELETE FROM tracked_users_<myname> WHERE `uid` = '$uid'");
 		    $msg = "<highlight>$name<end> has been removed from the track list.";
-			$this->remove_buddy($name, 'tracking');
+			Buddylist::remove($name, 'tracking');
 		}
 	}
 
@@ -56,7 +56,7 @@ if (preg_match("/^track$/i", $message)) {
 	  	} else {
 		    $db->exec("INSERT INTO tracked_users_<myname> (`name`, `uid`, `added_by`, `added_dt`) VALUES ('$name', $uid, '$sender', " . time() . ")");
 		    $msg = "<highlight>$name<end> has been added to the track list.";
-	        $this->add_buddy($name, 'tracking');
+	        Buddylist::add($name, 'tracking');
 		}
 	}
 

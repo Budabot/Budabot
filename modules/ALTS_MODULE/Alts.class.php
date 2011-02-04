@@ -63,7 +63,7 @@ class Alts {
 		if ($character !== null) {
 			$list .= " (Level <highlight>{$character->level}<end>/<green>{$character->ai_level}<end> <highlight>{$character->profession}<end>)";
 		}
-		$online = $chatBot->buddy_online($main);
+		$online = Buddylist::is_online($main);
 		if ($online === null) {
 			$list .= " - No status.\n";
 		} else if ($online == 1) {
@@ -78,7 +78,7 @@ class Alts {
 			if ($character !== null) {
 				$list .= " (Level <highlight>{$character->level}<end>/<green>{$character->ai_level}<end> <highlight>{$character->profession}<end>)";
 			}
-			$online = $chatBot->buddy_online($alt);
+			$online = Buddylist::is_online($alt);
 			if ($online === null) {
 				$list .= " - No status.\n";
 			} else if ($online == 1) {

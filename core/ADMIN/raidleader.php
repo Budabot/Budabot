@@ -64,7 +64,7 @@ if (preg_match("/^raidleader (.+)$/i", $message, $arr)) {
 		bot::send("You got raidleader access to <myname>", $who);
 	}
 
-	$this->add_buddy($who, 'admin');
+	Buddylist::add($who, 'admin');
 } else {
 	$syntax_error = true;
 }

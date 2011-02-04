@@ -39,26 +39,26 @@ if (preg_match("/^is (.+)$/i", $message, $arr)) {
 		bot::send($msg, $sendto);
     } else {
         //if the player is a buddy then
-        if ($this->is_buddy($name, NULL)) {
-            $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$name' AND `mode` != 'del'");
+		$online_status = Buddylist::is_online($name);
+		if ($online_status === null) {
+			$this->data["ONLINE_MODULE"]['playername'] = $name;
+			$this->data["ONLINE_MODULE"]['sendto'] = $sendto;
+			Buddylist::add($name, 'is_online');
+		} else {
+            $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$name'");
             if ($db->numrows() == 1) {
                 $row = $db->fObject();
                 if($row->logged_off != "0") {
                     $logged_off = "\nLogged off at ".gmdate("l F d, Y - H:i", $row->logged_off)."(GMT)";
 				}
             }
-            if ($this->buddy_online($name)) {
+            if ($online_status) {
                 $status = "<green>online<end>";
             } else {
                 $status = "<red>offline<end>".$logged_off;
 			}
             $msg = "Player <highlight>$name<end> is $status";
 			bot::send($msg, $sendto);
-        // else add him
-        } else {
-			$this->data["ONLINE_MODULE"]['playername'] = $name;
-			$this->data["ONLINE_MODULE"]['sendto'] = $sendto;
-			$this->add_buddy($name, 'is_online');
         }
     }
 } elseif (($type == "logOn" || $type == "logOff") && $sender == $this->data["ONLINE_MODULE"]['playername']) {
@@ -69,7 +69,7 @@ if (preg_match("/^is (.+)$/i", $message, $arr)) {
 	}
 	$msg = "Player <highlight>$sender<end> is $status";
 	bot::send($msg, $this->data["ONLINE_MODULE"]['sendto']);
-	$this->remove_buddy($sender, 'is_online');
+	Buddylist::remove($sender, 'is_online');
 	unset($this->data["ONLINE_MODULE"]);
 }
 ?>

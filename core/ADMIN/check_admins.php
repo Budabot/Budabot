@@ -31,7 +31,7 @@
 
 $db->query("SELECT * FROM admin_<myname>");
 while ($row = $db->fObject()) {
-	$this->add_buddy($row->name, 'admin');
+	Buddylist::add($row->name, 'admin');
 }
 
 ?>

@@ -208,7 +208,7 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message)) {
 			}
 		}
 		
-		$buddy_online_status = $this->buddy_online($member->name);
+		$buddy_online_status = Buddylist::is_online($member->name);
 		if ($buddy_online_status !== null) {
 			$this->data["ORGLIST_MODULE"]["result"][$member->name]["online"] = $buddy_online_status;
 		} else if ($this->vars["name"] != $member->name) { // If the name being checked ISNT the bot.
@@ -228,7 +228,7 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message)) {
 	forEach ($this->data["ORGLIST_MODULE"]["check"] as $name => $value) {
 		$this->data["ORGLIST_MODULE"]["added"][$name] = 1;
 		unset($this->data["ORGLIST_MODULE"]["check"][$name]);
-		$this->add_buddy($name, 'onlineorg');
+		Buddylist::add($name, 'onlineorg');
 		if (++$i == 10) {
 			break;
 		}
@@ -252,13 +252,13 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message)) {
 		$this->data["ORGLIST_MODULE"]["result"][$sender]["online"] = 0;
 	}
 
-	$this->remove_buddy($sender, 'onlineorg');
+	Buddylist::remove($sender, 'onlineorg');
 	unset($this->data["ORGLIST_MODULE"]["added"][$sender]);
 	
 	forEach ($this->data["ORGLIST_MODULE"]["check"] as $name => $value) {
 		$this->data["ORGLIST_MODULE"]["added"][$name] = 1;
 		unset($this->data["ORGLIST_MODULE"]["check"][$name]);
-		$this->add_buddy($name, 'onlineorg');
+		Buddylist::add($name, 'onlineorg');
 		break;
 	}
 }
@@ -270,7 +270,7 @@ if (isset($this->data["ORGLIST_MODULE"]) && count($this->data["ORGLIST_MODULE"][
 
 	// in case it was ended early
 	forEach ($this->data["ORGLIST_MODULE"]["added"] as $name => $value) {
-		$this->remove_buddy($name, 'onlineorg');
+		Buddylist::remove($name, 'onlineorg');
 	}
 	unset($this->data["ORGLIST_MODULE"]);
 }

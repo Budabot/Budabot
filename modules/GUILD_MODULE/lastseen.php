@@ -39,7 +39,7 @@ if (preg_match("/^lastseen (.+)$/i", $message, $arr)) {
 	    $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$name' AND `mode` != 'del'");
         if ($db->numrows() == 1) {
     	    $row = $db->fObject();
-    	    if ($this->buddy_online($name)) {
+    	    if (Buddylist::is_online($name)) {
     	    	$msg = "This player is currently <green>online<end>.";
             } else if ($row->logged_off != "0") {
         	    $msg = "Logged off at ".gmdate("l F d, Y - H:i", $row->logged_off)."(GMT)";

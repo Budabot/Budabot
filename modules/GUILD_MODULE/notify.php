@@ -44,7 +44,7 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
     // If the member was deleted set him as manual added again
     } elseif ($numrows != 0 && $row->mode == "del") {
         $db->exec("UPDATE org_members_<myname> SET `mode` = 'man' WHERE `name` = '$name'");
-        $this->add_buddy($name, 'org');
+        Buddylist::add($name, 'org');
 	    
     	$msg = "<highlight>$name<end> has been added to the Notify list.";
     // Is the player name valid?
@@ -53,7 +53,7 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
         Player::get_by_name($name);
 
         // Add him as a buddy and put his infos into the DB
-		$this->add_buddy($name, 'org');
+		Buddylist::add($name, 'org');
 
         $db->exec("INSERT INTO org_members_<myname> (`mode`, `name`) VALUES ('man', '".$name."')");
     	$msg = "<highlight>".$name."<end> has been added to the Notify list.";

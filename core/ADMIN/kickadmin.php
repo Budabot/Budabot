@@ -50,7 +50,7 @@ if (preg_match("/^kickadmin (.+)$/i", $message, $arr)){
 	unset($this->admins[$who]);
 	$db->exec("DELETE FROM admin_<myname> WHERE `name` = '$who'");
 
-	$this->remove_buddy($who, 'admin');
+	Buddylist::remove($who, 'admin');
 
 	bot::send("<highlight>$who<end> has been removed as Administrator of this Bot.", $sendto);
 	bot::send("Your Administrator access to <myname> has been removed.", $who);

@@ -44,7 +44,7 @@ if (preg_match("/^adduser (.+)$/i", $message, $arr)) {
 		}
 
 		// always add in case 
-		$this->add_buddy($name, 'member');
+		Buddylist::add($name, 'member');
 	}
 
 	bot::send($msg, $sendto);
