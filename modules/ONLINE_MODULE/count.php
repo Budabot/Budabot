@@ -265,5 +265,8 @@ if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader
     }
 
   	bot::send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
+
 ?>

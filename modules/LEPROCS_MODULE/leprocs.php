@@ -1,16 +1,17 @@
 <?php
 
 if (preg_match("/^leprocs? (.+)$/i", $message, $arr)) {
-    $profession = $arr[1];
+	$profession = strtolower($arr[1]);
 
 	$db->query("SELECT * FROM leprocs WHERE profession LIKE '%$profession%' ORDER BY proc_type ASC, research_lvl DESC");
 	$num = $db->numrows();
+	$data = $db->fObject('all');
 	if ($num == 0) {
 	    $msg = "No procs found for profession '$profession'.";
 	} else {
-		$blob = '';
+		$blob = "<header> :::::: LE Procs '$profession' :::::: <end>\n\n";
 		$type = '';
-		while (($row = $db->fObject()) != false) {
+		forEach ($data as $row) {
 			if ($type != $row->proc_type) {
 				$type = $row->proc_type;
 				$blob .= "\n<tab>$type\n";
@@ -18,9 +19,11 @@ if (preg_match("/^leprocs? (.+)$/i", $message, $arr)) {
 			$blob .= "<yellow>$row->name<end> $row->duration <orange>$row->modifiers<end>\n";
 		}
 
-		$msg = $this->makeLink('LE Proc results', $blob);
+		$msg = $this->makeLink("LE Procs '$profession'", $blob, 'blob');
 	}
 	bot::send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
 
 ?>
