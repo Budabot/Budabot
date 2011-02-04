@@ -1,0 +1,38 @@
+<header> :::::: Governing Forms :::::: <end>
+
+<highlight>Anarchism<end>
+<tab>Anarchist
+
+<highlight>Monarchy<end>
+<tab>Monarch
+<tab>Counsel
+<tab>Follower
+
+<highlight>Feudalism<end>
+<tab>Lord
+<tab>Knight
+<tab>Vassal
+<tab>Peasant
+
+<highlight>Republic<end>
+<tab>President
+<tab>Advisor
+<tab>Veteran
+<tab>Member
+<tab>Applicant
+
+<highlight>Faction<end>
+<tab>Director
+<tab>Board Member
+<tab>Executive
+<tab>Member
+<tab>Applicant
+
+<highlight>Department<end>
+<tab>President
+<tab>General
+<tab>Squad Commander
+<tab>Unit Commander
+<tab>Unit Leader
+<tab>Unit Member
+<tab>Applicant

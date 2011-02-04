@@ -1,6 +1,6 @@
 <?php
 
-$path = getcwd() . "/modules/GUIDEBOT_MODULE/guides/";
+$path = getcwd() . "/modules/GUIDE_MODULE/guides/";
 $fileExt = ".txt";
 $msg = "";
 
