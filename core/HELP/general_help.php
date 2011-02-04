@@ -37,29 +37,38 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 	bot::send($msg, $sendto);
 } else if (preg_match("/^help$/i", $message)) {
 	global $version;
-	$data = "\nBudabot version: $version\n\n";
-	ksort($this->helpfiles);
-	forEach ($this->helpfiles as $cat => $value) {
-		forEach ($value as $key => $file) {
-			if (AccessLevel::checkAccess($sender, $file["admin level"])) {
-				$list .= "  *{$key}: {$file["info"]} <a href='chatcmd:///tell <myname> help $key'>Click here</a>\n";
+
+	$sql = "SELECT * FROM hlpcfg_<myname> ORDER BY module ASC";
+	$db->query($sql);
+	$data = $db->fObject('all');
+	
+	$help_array = array();
+	forEach ($data as $row) {
+		if (AccessLevel::checkAccess($sender, $row->admin)) {
+			$help_array []= $row;
+		}
+	}
+
+	if (count($help_array) == 0) {
+		$msg = "<orange>No Helpfiles found.<end>";
+	} else {
+		$blob = "<header> :::: Help Files for Budabot {$version} ::: <end>\n\n";
+		$current_module = '';
+		forEach ($help_array as $row) {
+			if ($current_module != $row->module) {
+				$current_module = $row->module;
+				$blob .= "\n<highlight><u>{$row->module}:</u><end>\n";
 			}
-		}
-		if ($list != "") {
-		  	$msg .= "<highlight><u>$cat:</u><end>\n$list\n";
-		  	$list = "";
-		}
 		
-	}
-	if ($msg == "") {
-		$msg = "<red>No Helpfiles found.<end>";
+			$blob .= "  *{$row->name}: {$row->description} <a href='chatcmd:///tell <myname> help {$row->name}'>Click here</a>\n";
+		}
+		$msg = bot::makeLink("Help(main)", $blob, 'blob');
 	}
 
-	$link = bot::makeLink("Help(main)", $data.$msg);
-
-	bot::send($link, $sendto);
+	bot::send($msg, $sendto);
 } else if (preg_match("/^help (.+)$/i", $message, $arr)) {
-	if (($output = bot::help_lookup($arr[1], $sender)) !== false) {
+	$output = bot::help_lookup($arr[1], $sender);
+	if ($output !== false) {
 		bot::send($output, $sendto);
 	} else {
 		bot::send("No help found on this topic.", $sendto);

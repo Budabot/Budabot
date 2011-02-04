@@ -484,13 +484,13 @@ if (preg_match("/^config$/i", $message)) {
 	$admin = get_admin_value($admin);
 	
 	$db->query("SELECT * FROM hlpcfg_<myname> WHERE `name` = '$help' ORDER BY `name`");
-	if($db->numrows() == 0) {
+	if ($db->numrows() == 0) {
 		bot::send("The helpfile <highlight>$help<end> doesn't exists!", $sendto);		  	
 		return;
 	}
 	$row = $db->fObject();
 	$db->exec("UPDATE hlpcfg_<myname> SET `admin` = '$admin' WHERE `name` = '$help'");
-	$this->helpfiles[$row->cat][$row->name]["admin level"] = $admin;
+	$this->helpfiles[$row->name]["admin level"] = $admin;
 	bot::send("Updated access for helpfile <highlight>$help<end> to <highlight>".ucfirst(strtolower($arr[2]))."<end>.", $sendto);
 } else if (preg_match("/^config help (.+)$/i", $message, $arr)) {
   	$mod = strtoupper($arr[1]);
@@ -501,7 +501,7 @@ if (preg_match("/^config$/i", $message)) {
 	forEach ($data as $row) {
 	  	$list .= "<highlight><u>Helpfile</u><end>: $row->name\n";
 	  	$list .= "<highlight><u>Description</u><end>: $row->description\n";
-	  	$list .= "<highlight><u>Category</u><end>: $row->cat\n";
+	  	$list .= "<highlight><u>Module</u><end>: $row->module\n";
 	  	$list .= "<highlight><u>Set Permission</u><end>: ";
 		$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin all'>All</a>  ";
 		$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin leader'>Leader</a>  ";

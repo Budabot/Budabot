@@ -64,7 +64,7 @@ class bot extends AOChat {
 		// Create command/event settings table if not exists
 		$db->exec("CREATE TABLE IF NOT EXISTS cmdcfg_<myname> (`module` VARCHAR(50), `cmdevent` VARCHAR(5), `type` VARCHAR(18), `file` VARCHAR(255), `cmd` VARCHAR(25), `admin` VARCHAR(10), `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0', `dependson` VARCHAR(25) DEFAULT 'none', `grp` VARCHAR(25) DEFAULT 'none')");
 		$db->exec("CREATE TABLE IF NOT EXISTS settings_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `mode` VARCHAR(10), `setting` VARCHAR(50) Default '0', `options` VARCHAR(255) Default '0', `intoptions` VARCHAR(50) DEFAULT '0', `description` VARCHAR(50), `source` VARCHAR(5), `admin` VARCHAR(25), `help` VARCHAR(60))");
-		$db->exec("CREATE TABLE IF NOT EXISTS hlpcfg_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `cat` VARCHAR(50), `description` VARCHAR(50), `admin` VARCHAR(10), `verify` INT Default '0')");
+		$db->exec("CREATE TABLE IF NOT EXISTS hlpcfg_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `description` VARCHAR(50), `admin` VARCHAR(10), `verify` INT Default '0')");
 	}
 
 /*===============================
@@ -736,7 +736,7 @@ class bot extends AOChat {
 /*===============================
 ** Name: help
 ** Add a help command and display text file in a link.
-*/	function help($module, $command, $filename, $admin, $description, $cat) {
+*/	function help($module, $command, $filename, $admin, $description) {
 	  	$db = db::get_instance();
 		Logger::log('debug', 'Core', "Registering $module:help($command) Helpfile:($filename)");
 
@@ -759,10 +759,11 @@ class bot extends AOChat {
 		}
 
 		// Check if the file exists
-		if (($actual_filename = bot::verifyFilename($module . '/' . $filename)) != '') {
-    		$filename = $actual_filename;
-    		if (substr($filename, 0, 7) == "./core/") {
-	    		$this->helpfiles[$module][$command]["status"] = "enabled";
+		$actual_filename = bot::verifyFilename($module . '/' . $filename);
+		if ($actual_filename != '') {
+    		if (substr($actual_filename, 0, 7) == "./core/") {
+	    		$this->helpfiles[$command]["status"] = "enabled";
+
 			}
 		} else {
 			Logger::log('ERROR', 'Core', "Error in registering the File $filename for Help command $module:help($command). The file doesn't exist!");
@@ -770,17 +771,17 @@ class bot extends AOChat {
 		}
 
 		if (isset($this->existing_helps[$command])) {
-			$db->exec("UPDATE hlpcfg_<myname> SET `verify` = 1, `description` = '$description', `cat` = '$module' WHERE `name` = '$command'");
+			$db->exec("UPDATE hlpcfg_<myname> SET `verify` = 1, `description` = '$description' WHERE `name` = '$command'");
 		} else {
-			$db->exec("INSERT INTO hlpcfg_<myname> VALUES ('$command', '$module', '$module', '$description', '$admin', 1)");
+			$db->exec("INSERT INTO hlpcfg_<myname> VALUES ('$command', '$module', '$description', '$admin', 1)");
 		}
 
 		$db->query("SELECT * FROM hlpcfg_<myname> WHERE `name` = '$command'");
 		$row = $db->fObject();
-		$this->helpfiles[$module][$command]["filename"] = $filename;
-		$this->helpfiles[$module][$command]["admin level"] = $row->admin;
-		$this->helpfiles[$module][$command]["info"] = $description;
-		$this->helpfiles[$module][$command]["module"] = $module;
+		$this->helpfiles[$command]["filename"] = $actual_filename;
+		$this->helpfiles[$command]["admin level"] = $row->admin;
+		$this->helpfiles[$command]["info"] = $description;
+		$this->helpfiles[$command]["module"] = $module;
 	}
 	
 /*===========================================================================================
@@ -788,14 +789,11 @@ class bot extends AOChat {
 ** Find a help topic for a command if it exists
 */	function help_lookup($helpcmd, $sender, $return_as_bloblink = true) {
 		$helpcmd = explode(' ', $helpcmd, 2);
-		$helpcmd = $helpcmd[0];
-		$helpcmd = strtolower($helpcmd);
-		forEach ($this->helpfiles as $cat => $commands) {
-			if (isset($commands[$helpcmd])) {
-				$filename = $this->helpfiles[$cat][$helpcmd]["filename"];
-				$admin = $this->helpfiles[$cat][$helpcmd]["admin level"];
-				break;
-			}
+		$helpcmd = strtolower($helpcmd[0]);
+
+		if (isset($this->helpfiles[$helpcmd])) {
+			$filename = $this->helpfiles[$helpcmd]["filename"];
+			$admin = $this->helpfiles[$helpcmd]["admin level"];
 		}
 
 		// if help isn't found
