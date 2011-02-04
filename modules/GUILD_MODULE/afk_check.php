@@ -30,12 +30,12 @@
    */
 
 if(!preg_match("/^afk(.*)$/i", $message, $arr)) {
-	$db->query("SELECT afk FROM guild_chatlist_<myname> WHERE `name` = '$sender'");
+	$db->query("SELECT afk FROM guild_chatlist_<myname> WHERE `name` = '{$sender}'");
 	if($db->numrows() != 0) {
 	    $row = $db->fObject();
 	    if($row->afk != '0') {
-	        $db->exec("UPDATE guild_chatlist_<myname> SET `afk` = 0 WHERE `name` = '$sender'");
-	        $msg = "<highlight>$sender<end> is back";
+	        $db->exec("UPDATE guild_chatlist_<myname> SET `afk` = 0 WHERE `name` = '{$sender}'");
+	        $msg = "<highlight>{$sender}<end> is back";
 	        bot::send($msg, "guild");
 	    }
 	}
@@ -44,19 +44,19 @@ if(!preg_match("/^afk(.*)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($name));
     $uid = AoChat::get_uid($name);
    	if ($uid) {
-		$db->query("SELECT afk FROM guild_chatlist_<myname> WHERE `name` = '$name'");
+		$db->query("SELECT afk FROM guild_chatlist_<myname> WHERE `name` = '{$name}'");
 		if ($db->numrows() == 0 && $this->settings["guest_relay"] == 1) {
-			$db->query("SELECT afk FROM priv_chatlist_<myname> WHERE `name` = '$name'");
+			$db->query("SELECT afk FROM priv_chatlist_<myname> WHERE `name` = '{$name}'");
 		}
 
 		if ($db->numrows() != 0) {
 			$row = $db->fObject();
 			if ($row->afk == "1") {
-				$msg = "<highlight>$name<end> is currently AFK.";
+				$msg = "<highlight>{$name}<end> is currently AFK.";
 			} else if ($row->afk == "kiting") {
-				$msg = "<highlight>$name<end> is currently Kiting.";
+				$msg = "<highlight>{$name}<end> is currently Kiting.";
 			} else if ($row->afk != "0") {
-				$msg = "<highlight>$name<end> is currently AFK: <highlight>$row->afk<end>";
+				$msg = "<highlight>{$name}<end> is currently AFK: <highlight>{$row->afk}<end>";
 			}
 			if ($msg != "") {
 				bot::send($msg, "guild");

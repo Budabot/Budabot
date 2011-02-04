@@ -30,16 +30,16 @@
    */
 
 if ($type == "guild") {
-	$db->query("SELECT afk FROM guild_chatlist_<myname> WHERE `name` = '$sender'");
+	$db->query("SELECT afk FROM guild_chatlist_<myname> WHERE `name` = '{$sender}'");
 	$numrows = $db->numrows();
 	$row = $db->fObject();
 	if (preg_match("/^kiting$/i", $message, $arr) && $numrows != 0) {
 	    if ($row->afk != 'kiting') {
-	        $db->exec("UPDATE guild_chatlist_<myname> SET `afk` = 'kiting' WHERE `name` = '$sender'");
-	        $msg = "<highlight>$sender<end> is now kiting";
+	        $db->exec("UPDATE guild_chatlist_<myname> SET `afk` = 'kiting' WHERE `name` = '{$sender}'");
+	        $msg = "<highlight>{$sender}<end> is now kiting";
 	    } else if ($row->afk != '0') {
-	        $db->exec("UPDATE guild_chatlist_<myname> SET `afk` = '0' WHERE `name` = '$sender'");
-	        $msg = "<highlight>$sender<end> is back";
+	        $db->exec("UPDATE guild_chatlist_<myname> SET `afk` = '0' WHERE `name` = '{$sender}'");
+	        $msg = "<highlight>{$sender}<end> is back";
 	    }
 	    bot::send($msg, "guild");
 	} else {
