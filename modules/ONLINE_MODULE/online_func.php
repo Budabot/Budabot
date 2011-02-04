@@ -13,15 +13,15 @@ function online($sender, $sendto, &$bot, $prof = "all") {
 	$list = "";
 	if ($bot->settings["relaydb"]) {
 		if ($prof == "all") {
-			$db->query("SELECT * FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name UNION ALL SELECT * FROM guild_chatlist_".strtolower($bot->settings["relaydb"])." g LEFT JOIN players p ON g.name = p.name ORDER BY `profession`, `level` DESC");
+			$db->query("SELECT *, g.name AS name FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name UNION ALL SELECT *, g.name AS name FROM guild_chatlist_".strtolower($bot->settings["relaydb"])." g LEFT JOIN players p ON g.name = p.name ORDER BY `profession`, `level` DESC");
 		} else {
-			$db->query("SELECT * FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name WHERE `profession` = '$prof' UNION ALL SELECT * FROM guild_chatlist_".strtolower($bot->settings["relaydb"])." g LEFT JOIN players p ON g.name = p.name WHERE `profession` = '$prof'");
+			$db->query("SELECT *, g.name AS name FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name WHERE `profession` = '$prof' UNION ALL SELECT *, g.name AS name FROM guild_chatlist_".strtolower($bot->settings["relaydb"])." g LEFT JOIN players p ON g.name = p.name WHERE `profession` = '$prof'");
 		}
 	} else {
 		if ($prof == "all") {
-			$db->query("SELECT * FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name ORDER BY `profession`, `level` DESC");
+			$db->query("SELECT *, g.name AS name FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name ORDER BY `profession`, `level` DESC");
 		} else {
-			$db->query("SELECT * FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name WHERE `profession` = '$prof'");
+			$db->query("SELECT *, g.name AS name FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name WHERE `profession` = '$prof'");
 		}
 	}
 
@@ -39,15 +39,15 @@ function online($sender, $sendto, &$bot, $prof = "all") {
 	// Private Channel Part
 	if ($bot->settings["relaydb"]) {
 		if ($prof == "all") {
-			$db->query("SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name UNION ALL SELECT * FROM priv_chatlist_".strtolower($bot->settings["relaydb"])." p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY `profession`, `level` DESC");
+			$db->query("SELECT *, p1.name AS name FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name UNION ALL SELECT *, p1.name AS name FROM priv_chatlist_".strtolower($bot->settings["relaydb"])." p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY `profession`, `level` DESC");
 		} else {
-			$db->query("SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name UNION ALL SELECT * FROM priv_chatlist_".strtolower($bot->settings["relaydb"])." p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE `profession` = '$prof' ORDER BY `level` DESC");
+			$db->query("SELECT *, p1.name AS name FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name UNION ALL SELECT *, p1.name AS name FROM priv_chatlist_".strtolower($bot->settings["relaydb"])." p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE `profession` = '$prof' ORDER BY `level` DESC");
 		}
 	} else {
 		if ($prof == "all") {
-			$db->query("SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY `profession`, `level` DESC");
+			$db->query("SELECT *, p1.name AS name FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY `profession`, `level` DESC");
 		} else {
-			$db->query("SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE `profession` = '$prof' ORDER BY `level` DESC");
+			$db->query("SELECT *, p1.name AS name FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE `profession` = '$prof' ORDER BY `level` DESC");
 		}
 	}
 
@@ -121,34 +121,38 @@ function createList(&$data, &$sender, &$list, &$bot, $show_alts = false) {
 				// fancy delimiters
 				$list .= "\n<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
 				if ($bot->settings["icon_fancy_online"] == 1) {
-					if($row->profession == "Adventurer")
+					if ($row->profession == "Adventurer")
 						$list .= "<img src=rdb://84203>";
-					elseif($row->profession == "Agent")
+					else if ($row->profession == "Agent")
 						$list .= "<img src=rdb://16186>";
-					elseif($row->profession == "Bureaucrat")
+					else if ($row->profession == "Bureaucrat")
 						$list .= "<img src=rdb://46271>";
-					elseif($row->profession == "Doctor")
+					else if ($row->profession == "Doctor")
 						$list .= "<img src=rdb://44235>";
-					elseif($row->profession == "Enforcer")
+					else if ($row->profession == "Enforcer")
 						$list .= "<img src=rdb://117926>";
-					elseif($row->profession == "Engineer")
+					else if ($row->profession == "Engineer")
 						$list .= "<img src=rdb://16307>";
-					elseif($row->profession == "Fixer")
+					else if ($row->profession == "Fixer")
 						$list .= "<img src=rdb://16300>";
-					elseif($row->profession == "Keeper")
+					else if ($row->profession == "Keeper")
 						$list .= "<img src=rdb://38911>";
-					elseif($row->profession == "Martial Artist")
+					else if ($row->profession == "Martial Artist")
 						$list .= "<img src=rdb://16289>";
-					elseif($row->profession == "Meta-Physicist")
+					else if ($row->profession == "Meta-Physicist")
 						$list .= "<img src=rdb://16283>";
-					elseif($row->profession == "Nano-Technician")
+					else if ($row->profession == "Nano-Technician")
 						$list .= "<img src=rdb://45190>";
-					elseif($row->profession == "Soldier")
+					else if ($row->profession == "Soldier")
 						$list .= "<img src=rdb://16195>";
-					elseif($row->profession == "Shade")
+					else if ($row->profession == "Shade")
 						$list .= "<img src=rdb://39290>";
-					elseif($row->profession == "Trader")
+					else if ($row->profession == "Trader")
 						$list .= "<img src=rdb://118049>";
+					else {
+						// TODO need unknown icon
+						$list .= "";
+					}
 				}
 				$list .= " <highlight>$row->profession<end>";
 				$oldprof = $row->profession;
@@ -164,29 +168,33 @@ function createList(&$data, &$sender, &$list, &$bot, $show_alts = false) {
 		} else {
 			$afk = "";
 		}
-
-		if ($show_alts == true) {
-			$db->query("SELECT * FROM alts WHERE `alt` = '$row->name'");
-			if ($db->numrows() == 0) {
-				$alt = "<highlight>::<end> <a href='chatcmd:///tell <myname> alts $row->name'>Alts</a>";
-			} else {
-				$row1 = $db->fObject();
-				$alt = "<highlight>::<end> <a href='chatcmd:///tell <myname> alts $row->name'>Alts of $row1->main</a>";
-			}
-				
-			if ($row->guild == "") {
-				$guild = "Not in a guild";
-			} else {
-				$guild = $row->guild." (<highlight>$row->guild_rank<end>)";
-			}
-			$list .= "<tab><tab><highlight>$name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk $alt\n";
+		
+		if ($row->profession == "Unknown") {
+			$list .= "<tab><tab><highlight>$name<end> - Unknown\n";
 		} else {
-			if ($row->guild == "") {
-				$guild = "Not in a guild";
+			if ($show_alts == true) {
+				$db->query("SELECT * FROM alts WHERE `alt` = '$row->name'");
+				if ($db->numrows() == 0) {
+					$alt = "<highlight>::<end> <a href='chatcmd:///tell <myname> alts $row->name'>Alts</a>";
+				} else {
+					$row1 = $db->fObject();
+					$alt = "<highlight>::<end> <a href='chatcmd:///tell <myname> alts $row->name'>Alts of $row1->main</a>";
+				}
+					
+				if ($row->guild == "") {
+					$guild = "Not in a guild";
+				} else {
+					$guild = $row->guild." (<highlight>$row->guild_rank<end>)";
+				}
+				$list .= "<tab><tab><highlight>$name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk $alt\n";
 			} else {
-				$guild = $row->guild;
+				if ($row->guild == "") {
+					$guild = "Not in a guild";
+				} else {
+					$guild = $row->guild;
+				}
+				$list .= "<tab><tab><highlight>$name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk\n";
 			}
-			$list .= "<tab><tab><highlight>$name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk\n";
 		}
 	}
 }

@@ -170,9 +170,11 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
    
 	$db->query("SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE `profession` = '$prof' ORDER BY `level`");
     $numonline = $db->numrows();
+	$data = $db->fObject('all');
+	print_r($data);
     $msg = "<highlight>$numonline<end> $prof:";
 
-    while($row = $db->fObject()) {
+    forEach ($data as $row) {
 		if ($row->afk != "0") {
             $afk = "<red>*AFK*<end>";
         } else {
