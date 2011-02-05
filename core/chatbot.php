@@ -864,7 +864,7 @@ class bot extends AOChat {
 					// Events
 					forEach ($this->events[$type] as $filename) {
 						$msg = "";
-						include $file;
+						include $filename;
 						if ($stop_execution) {
 							return;
 						}
