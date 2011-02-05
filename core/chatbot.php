@@ -149,29 +149,17 @@ class bot extends AOChat {
 		$db = DB::get_instance();
 		
 		//Delete old vars in case they exist
-		unset($this->subcommands);
-		unset($this->tellCmds);
-		unset($this->privCmds);
-		unset($this->guildCmds);
-		unset($this->towers);
-		unset($this->orgmsg);
+		$this->events = array();
+		$this->helpfiles = array();
+		$this->tellCmds = array();
+		$this->privCmds = array();
+		$this->guildCmds = array();
+		$this->subcommands = array();
+		
 		unset($this->privMsgs);
 		unset($this->privChat);
 		unset($this->guildChat);
-		unset($this->joinPriv);
-		unset($this->leavePriv);
-		unset($this->logOn);
-		unset($this->logOff);
-		unset($this->_2sec);
-		unset($this->_1min);
-		unset($this->_10mins);
-		unset($this->_15mins);
-		unset($this->_30mins);
-		unset($this->_1hour);
-		unset($this->_24hrs);
-		unset($this->_connect);
-		unset($this->helpfiles);
-		
+
 		//Prepare command/event settings table
 		$db->exec("UPDATE cmdcfg_<myname> SET `verify` = 0");
 		$db->exec("UPDATE hlpcfg_<myname> SET `verify` = 0");
@@ -291,7 +279,7 @@ class bot extends AOChat {
 		Logger::log('DEBUG', 'Core', "Executing connected events");
 
 		// Check files, for all 'connect' events.
-		forEach ($this->_connect as $filename) {
+		forEach ($this->events['connect'] as $filename) {
 			include $filename;
 		}
 	}
@@ -671,12 +659,11 @@ class bot extends AOChat {
 					$this->chatlist[$sender] = true;
 
 					// Check files, for all 'player joined channel events'.
-					if ($this->joinPriv != NULL) {
-						forEach ($this->joinPriv as $filename) {
-							include $filename;
-							if ($stop_execution) {
-								return;
-							}
+					forEach ($this->events[$type] as $filename) {
+						$msg = '';
+						include $filename;
+						if ($stop_execution) {
+							return;
 						}
 					}
 					
@@ -686,7 +673,14 @@ class bot extends AOChat {
 					}
 				} else {
 					$type = "extJoinPriv";
-					// TODO
+					
+					forEach ($this->events[$type] as $filename) {
+						$msg = '';
+						include $filename;
+						if ($stop_execution) {
+							return;
+						}
+					}
 				}
 				break;
 			case AOCP_PRIVGRP_CLIPART: // 56, Incoming player left private chat
@@ -704,7 +698,8 @@ class bot extends AOChat {
 					unset($this->chatlist[$sender]);
 					
 					// Check files, for all 'player left channel events'.
-					forEach ($this->leavePriv as $filename) {
+					forEach ($this->events[$type] as $filename) {
+						$msg = '';
 						include $filename;
 						if ($stop_execution) {
 							return;
@@ -712,7 +707,14 @@ class bot extends AOChat {
 					}
 				} else {
 					$type = "extLeavePriv";
-					// TODO
+					
+					forEach ($this->events[$type] as $filename) {
+						$msg = '';
+						include $filename;
+						if ($stop_execution) {
+							return;
+						}
+					}
 				}
 				break;
 			case AOCP_BUDDY_ADD: // 40, Incoming buddy logon or off
@@ -740,13 +742,11 @@ class bot extends AOChat {
 					Logger::log('debug', "Buddy", "$sender logged off");
 
 					// Check files, for all 'player logged off events'
-					if ($this->logOff != NULL) {
-						forEach ($this->logOff as $filename) {
-							$msg = "";
-							include $filename;
-							if ($stop_execution) {
-								return;
-							}
+					forEach ($this->events[$type] as $filename) {
+						$msg = "";
+						include $filename;
+						if ($stop_execution) {
+							return;
 						}
 					}
 				} else if ($status == 1) {
@@ -755,13 +755,11 @@ class bot extends AOChat {
 					Logger::log('info', "Buddy", "$sender logged on");
 
 					// Check files, for all 'player logged on events'.
-					if ($this->logOn != NULL) {
-						forEach ($this->logOn as $filename) {
-						  	$msg = "";
-						  	include $filename;
-							if ($stop_execution) {
-								return;
-							}
+					forEach ($this->events[$type] as $filename) {
+						$msg = "";
+						include $filename;
+						if ($stop_execution) {
+							return;
 						}
 					}
 				}
@@ -807,9 +805,9 @@ class bot extends AOChat {
 				}
 				
 				// Events
-				forEach ($this->privMsgs as $file) {
+				forEach ($this->events[$type] as $filename) {
 					$msg = "";
-					include $file;
+					include $filename;
 					if ($stop_execution) {
 						return;
 					}
@@ -864,7 +862,7 @@ class bot extends AOChat {
 					$type = "priv";
 
 					// Events
-					forEach ($this->privChat as $file) {
+					forEach ($this->events[$type] as $filename) {
 						$msg = "";
 						include $file;
 						if ($stop_execution) {
@@ -881,13 +879,11 @@ class bot extends AOChat {
 					
 					$type = "extPriv";
 					
-					if ($this->extPrivChat != NULL) {
-						forEach ($this->extPrivChat as $file) {
-						  	$msg = "";
-							include $file;
-							if ($stop_execution) {
-								return;
-							}
+					forEach ($this->events[$type] as $filename) {
+						$msg = "";
+						include $filename;
+						if ($stop_execution) {
+							return;
 						}
 					}
 				}
@@ -934,26 +930,24 @@ class bot extends AOChat {
 
 				if ($channel == "All Towers" || $channel == "Tower Battle Outcome") {
                     $type = "towers";
-    				if ($this->towers != NULL) {
-    					forEach ($this->towers as $file) {
-    						$msg = "";
-							include $file;
-							if ($stop_execution) {
-								return;
-							}
-    					}
+					
+					forEach ($this->events[$type] as $filename) {
+						$msg = "";
+						include $filename;
+						if ($stop_execution) {
+							return;
+						}
 					}
                     return;
                 } else if ($channel == "Org Msg"){
                     $type = "orgmsg";
-    				if ($this->orgmsg != NULL) {
-						forEach ($this->orgmsg as $file) {
-    						$msg = "";
-							include $file;
-							if ($stop_execution) {
-								return;
-							}
-    					}
+
+					forEach ($this->events[$type] as $filename) {
+						$msg = "";
+						include $filename;
+						if ($stop_execution) {
+							return;
+						}
 					}
                     return;
                 } else if ($channel == $this->vars["my guild"]) {
@@ -961,9 +955,9 @@ class bot extends AOChat {
 					$sendto = 'org';
 					
 					// Events
-					forEach ($this->guildChat as $file) {
+					forEach ($this->events[$type] as $filename) {
 						$msg = "";
-						include $file;
+						include $filename;
 						if ($stop_execution) {
 							return;
 						}
@@ -975,9 +969,10 @@ class bot extends AOChat {
 					}
 				} else if ($channel == 'OT shopping 11-50' || $channel == 'OT shopping 50-100' || $channel == 'OT shopping 100+' || $channel == 'Neu. shopping 11-50' || $channel == 'Neu. shopping 50-100' || $channel == 'Neu. shopping 100+' || $channel == 'Clan shopping 11-50' || $channel == 'Clan shopping 50-100' || $channel == 'Clan shopping 100+') {
 					$type = "shopping";
-    				foreach($this->shopping as $file) {
+    				
+					forEach ($this->events[$type] as $filename) {
 						$msg = "";
-						include $file;
+						include $filename;
 						if ($stop_execution) {
 							return;
 						}
@@ -993,13 +988,11 @@ class bot extends AOChat {
 
 				Logger::log_chat("Priv Channel Invitation", -1, "$sender channel invited.");
 
-				if ($this->extJoinPrivRequest != NULL) {
-					forEach ($this->extJoinPrivRequest as $file) {
-						$msg = "";
-						include $file;
-						if ($stop_execution) {
-							return;
-						}
+				forEach ($this->events[$type] as $filename) {
+					$msg = "";
+					include $filename;
+					if ($stop_execution) {
+						return;
 					}
 				}
                 return;
@@ -1078,7 +1071,7 @@ class bot extends AOChat {
 					}
 				}
 				
-				forEach ($this->_2sec as $filename) {
+				forEach ($this->events['2sec'] as $filename) {
 					include $filename;
 				}
 				break;
@@ -1093,42 +1086,42 @@ class bot extends AOChat {
 				}
 				
 				$this->vars["1min"] = time() + 60;
-				forEach ($this->_1min as $filename) {
+				forEach ($this->events['1min'] as $filename) {
 					include $filename;
 				}
 				break;
 			case $this->vars["10mins"] < time();
 				Logger::log('DEBUG', 'Cron', "10mins");
 				$this->vars["10mins"] 	= time() + (60 * 10);
-				forEach ($this->_10mins as $filename) {
+				forEach ($this->events['10mins'] as $filename) {
 					include $filename;
 				}
 				break;
 			case $this->vars["15mins"] < time();
 				Logger::log('DEBUG', 'Cron', "15mins");
 				$this->vars["15mins"] 	= time() + (60 * 15);
-				forEach ($this->_15mins as $filename) {
+				forEach ($this->events['15mins'] as $filename) {
 					include $filename;
 				}
 				break;
 			case $this->vars["30mins"] < time();
 				Logger::log('DEBUG', 'Cron', "30mins");
 				$this->vars["30mins"] 	= time() + (60 * 30);
-				forEach ($this->_30mins as $filename) {
+				forEach ($this->events['30mins'] as $filename) {
 					include $filename;
 				}
 				break;
 			case $this->vars["1hour"] < time();
 				Logger::log('DEBUG', 'Cron', "1hour");
 				$this->vars["1hour"] 	= time() + (60 * 60);
-				forEach ($this->_1hour as $filename) {
+				forEach ($this->events['1hour'] as $filename) {
 					include $filename;
 				}
 				break;
 			case $this->vars["24hours"] < time();
 				Logger::log('DEBUG', 'Cron', "24hours");
 				$this->vars["24hours"] 	= time() + ((60 * 60) * 24);
-				forEach ($this->_24hrs as $filename) {
+				forEach ($this->events['24hrs'] as $filename) {
 					include $filename;
 				}
 				break;
@@ -1148,6 +1141,8 @@ class bot extends AOChat {
 	        return "./core/$filename";
     	} else if (file_exists("./modules/$filename")) {
         	return "./modules/$filename";
+		} else if (file_exists($filename)) {
+        	return $filename;
 	    } else {
 	     	return "";
 	    }
