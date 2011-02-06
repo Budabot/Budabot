@@ -33,15 +33,15 @@ $db->query("CREATE TABLE IF NOT EXISTS banlist_<myname> (name VARCHAR(25) NOT NU
 
 $db->query("SELECT * FROM banlist_<myname>");
 while ($row = $db->fObject()) {
-	$this->banlist[$row->name]["name"] = $row->name;
-	$this->banlist[$row->name]["admin"] = $row->admin;
-	$this->banlist[$row->name]["when"] = $row->time;
+	$chatBot->banlist[$row->name]["name"] = $row->name;
+	$chatBot->banlist[$row->name]["admin"] = $row->admin;
+	$chatBot->banlist[$row->name]["when"] = $row->time;
 	if ($row->banend != 0 || $row->banend != NULL) {
-		$this->banlist[$row->name]["banend"] = $row->banend;
+		$chatBot->banlist[$row->name]["banend"] = $row->banend;
 	}
 
 	if ($row->why != "" || $row->why != NULL) {
-		$this->banlist[$row->name]["reason"] = $row->why;
+		$chatBot->banlist[$row->name]["reason"] = $row->why;
 	}
 }
 
