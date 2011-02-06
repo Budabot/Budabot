@@ -1,0 +1,13 @@
+<header>::::: Track Commands :::::<end>
+
+<highlight>To see the list of users on the track list:<end>
+<tab><symbol>track
+
+<highlight>To see the track history for a specific player:<end>
+<tab><symbol>track player
+
+<highlight>To add a player to the track history:<end>
+<tab><symbol>track add player
+
+<highlight>To remove a player from the track history:<end>
+<tab><symbol>track rem player

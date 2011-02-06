@@ -65,7 +65,7 @@ if (preg_match("/^track$/i", $message)) {
 	$uid = $this->get_uid($arr[1]);
 	$name = ucfirst(strtolower($arr[1]));
 	
-	$db->query("SELECT event, dt FROM tracking_<myname> WHERE `uid` = $uid");
+	$db->query("SELECT `event`, `dt` FROM tracking_<myname> WHERE `uid` = $uid ORDER BY `dt` DESC");
 	if ($db->numrows() != 0) {
 		$blob .= "<header>::::: Track History for $name :::::<end>\n\n";
 	  	while ($row = $db->fObject()) {
