@@ -30,11 +30,11 @@
    */
 
 if ($this->settings["topic"] != "" && $type == "joinPriv") {
-	$date_string = unixtime_to_readable(time() - $this->settings["topic_time"], false);
+	$date_string = Util::unixtime_to_readable(time() - $this->settings["topic_time"], false);
 	$msg = "<highlight>Topic:<end> {$this->settings["topic"]} [set by <highlight>{$this->settings["topic_setby"]}<end>][<highlight>{$date_string} ago<end>]";
   	bot::send($msg, $sender);
 } else if (preg_match("/^topic$/i", $message, $arr)) {
-	$date_string = unixtime_to_readable(time() - $this->settings["topic_time"], false);
+	$date_string = Util::unixtime_to_readable(time() - $this->settings["topic_time"], false);
 	if ($this->settings["topic"] == '') {
 		$topic = 'No topic set';
 	} else {

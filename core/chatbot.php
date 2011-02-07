@@ -29,15 +29,6 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-require_once 'MyCurl.class.php';
-require_once 'Playfields.class.php';
-require_once 'AccessLevel.class.php';
-require_once 'Command.class.php';
-require_once 'Event.class.php';
-require_once 'Setting.class.php';
-require_once 'Help.class.php';
-require_once 'Buddylist.class.php';
-
 class bot extends AOChat {
 
 	var $buddyList = array();

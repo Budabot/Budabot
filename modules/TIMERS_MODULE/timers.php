@@ -56,7 +56,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 
 	Timer::add_timer($timer_name, $sender, $type, $timer);
 
-	$timerset = unixtime_to_readable($run_time);
+	$timerset = Util::unixtime_to_readable($run_time);
 	$msg = "Timer has been set for $timerset.";
 		
     bot::send($msg, $sendto);
@@ -161,7 +161,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 
 	Timer::add_timer($timer_name, $sender, $type, $timer);
 
-	$timerset = unixtime_to_readable($run_time);
+	$timerset = Util::unixtime_to_readable($run_time);
 	$msg = "Timer has been set for $timerset.";
 		
     bot::send($msg, $sendto);

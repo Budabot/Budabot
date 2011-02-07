@@ -13,7 +13,7 @@ if (preg_match("/^updateitems$/i", $message)) {
 		if (preg_match("/^aodb(.*)\\.sql$/i", $item->a, $arr)) {
 			if ($latestVersion === null) {
 				$latestVersion = $arr[1];
-			} else if (compareVersionNumbers($arr[1], $currentVersion)) {
+			} else if (Util::compare_version_numbers($arr[1], $currentVersion)) {
 				$latestVersion = $arr[1];
 			}
 		}
@@ -23,7 +23,7 @@ if (preg_match("/^updateitems$/i", $message)) {
 		$currentVersion = Setting::get("aodb_db_version");
 		
 		// if server version is greater than current version, download and load server version
-		if ($currentVersion === false || compareVersionNumbers($latestVersion, $currentVersion) > 0) {
+		if ($currentVersion === false || Util::compare_version_numbers($latestVersion, $currentVersion) > 0) {
 			// download server version and save to ITEMS_MODULE directory
 			$contents = file_get_contents("http://budabot2.googlecode.com/svn/trunk/modules/ITEMS_MODULE/aodb{$latestVersion}.sql");
 			$fh = fopen("./modules/ITEMS_MODULE/aodb{$latestVersion}.sql", 'w');

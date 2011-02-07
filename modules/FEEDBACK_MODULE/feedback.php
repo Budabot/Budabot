@@ -93,7 +93,7 @@ if (preg_match("/^feedback ([a-z0-9-]*) (\\+1|\\-1) (.*)$/i", $message, $arr)) {
 				$blob .= "<green>";
 			}
 
-			$time = unixtime_to_readable(time() - $row->dt);
+			$time = Util::unixtime_to_readable(time() - $row->dt);
 			$blob .= "({$row->reputation}) $row->comment <end> $row->by <white>{$time} ago<end>\n\n";
 		}
 		

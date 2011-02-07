@@ -319,7 +319,7 @@ class DB {
 						break;
 					}
 
-					if (compareVersionNumbers($arr[1], $maxFileVersion) >= 0) {
+					if (Util::compare_version_numbers($arr[1], $maxFileVersion) >= 0) {
 						$maxFileVersion = $arr[1];
 						$file = $entry;
 					}
@@ -329,7 +329,7 @@ class DB {
 		
 		if ($file === false) {
 			Logger::log('ERROR', 'Core', "No SQL file found with name '$name' in module '$module'!");
-		} else if ($forceUpdate || compareVersionNumbers($maxFileVersion, $currentVersion) > 0) {
+		} else if ($forceUpdate || Util::compare_version_numbers($maxFileVersion, $currentVersion) > 0) {
 			$fileArray = file("$dir/$file");
 			//$db->beginTransaction();
 			forEach ($fileArray as $num => $line) {

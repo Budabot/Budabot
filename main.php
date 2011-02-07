@@ -85,6 +85,15 @@ require_once "./core/aochat.php";
 require_once "./core/chatbot.php";
 require_once "./core/DB.class.php";
 require_once "./core/xml.php";
+require_once './core/MyCurl.class.php';
+require_once './core/Playfields.class.php';
+require_once './core/AccessLevel.class.php';
+require_once './core/Command.class.php';
+require_once './core/Event.class.php';
+require_once './core/Setting.class.php';
+require_once './core/Help.class.php';
+require_once './core/Buddylist.class.php';
+require_once './core/Util.class.php';
 
 //Show setup dialog
 if ($vars['login']		== "" ||
@@ -136,126 +145,42 @@ main($chatBot);
 ** Main Loop
 ** Inputs: (bool)$forever
 ** Outputs: None
-*/	function main(&$chatBot) {
-		$start = time();
-		
-		while (true) {
-			$chatBot->ping();
-			$chatBot->crons();
-			if ($exec_connected_events == false && ((time() - $start) > 5))	{
-			  	$chatBot->connectedEvents();
-			  	$exec_connected_events = true;
-			}
-		}	
+*/	
+function main(&$chatBot) {
+	$start = time();
+	
+	while (true) {
+		$chatBot->ping();
+		$chatBot->crons();
+		if ($exec_connected_events == false && ((time() - $start) > 5))	{
+			$chatBot->connectedEvents();
+			$exec_connected_events = true;
+		}
 	}	
+}	
+
 /*
 ** Name: callback
 ** Function called by Aochat each time a incoming packet is received.
 ** Inputs: (int)$type, (array)$arguments, (object)&$incBot
 ** Outputs: None
-*/	function callback($type, $args) {
-		global $chatBot;
-		$chatBot->processCallback($type, $args);	
+*/	
+function callback($type, $args) {
+	global $chatBot;
+	$chatBot->processCallback($type, $args);	
+}
+
+/**
+* isWindows is a little utility function to check
+* whether the bot is running Windows or something
+* else: returns true if under Windows, else false
+*/
+function isWindows() {
+	if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+		return true;
+	} else {
+		return false;
 	}
+}
 
-    /**
-    * isWindows is a little utility function to check
-    * whether the bot is running Windows or something
-    * else: returns true if under Windows, else false
-    */
-    function isWindows() {
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            return true;
-        } else {
-            return false;
-        }
-    }
-	
-	/**
-	 * Takes two version numbers.  Returns 1 if the first is greater than the second.
-	 * Returns -1 if the second is greater than the first.  Returns 0 if they are equal.
-	 */
-	function compareVersionNumbers($ver1, $ver2) {
-		$ver1Array = explode('.', $ver1);
-		$ver2Array = explode('.', $ver2);
-		
-		for ($i = 0; $i < count($ver1Array) && $i < count($ver2Array); $i++) {
-			if ($ver1Array[$i] > $ver2Array[$i]) {
-				return 1;
-			} else if ($ver1Array[$i] < $ver2Array[$i]) {
-				return -1;
-			}
-		}
-		
-		if (count($ver1Array) > count($ver2Array)) {
-			return 1;
-		} else if (count($ver1Array) < count($ver2Array)) {
-			return -1;
-		} else {
-			return 0;
-		}
-	}
-
-	// taken from http://www.php.net/manual/en/function.date-diff.php
-	function unixtime_to_readable($time, $show_seconds = true) {
-		if ($time >= 0 && $time <= 59) {
-			// Seconds
-			$timeshift = $time.' seconds';
-		} else if ($time >= 60 && $time <= 3599) {
-			// Minutes + Seconds
-			$pmin = $time / 60;
-			$premin = explode('.', $pmin);
-			
-			$presec = $pmin-$premin[0];
-			$sec = $presec * 60;
-			
-			$timeshift = $premin[0].' min';
-			if ($show_seconds) {
-				$timeshift .=  ' ' . round($sec, 0).' sec';
-			}
-		} else if ($time >= 3600 && $time <= 86399) {
-			// Hours + Minutes
-			$phour = $time / 3600;
-			$prehour = explode('.',$phour);
-			
-			$premin = $phour - $prehour[0];
-			$min = explode('.', $premin*60);
-			
-			$presec = '0.'.$min[1];
-			$sec = $presec * 60;
-
-			$timeshift = $prehour[0].' hrs '.$min[0].' min';
-			if ($show_seconds) {
-				$timeshift .= ' ' . round($sec, 0).' sec';
-			}
-		} else if ($time >= 86400) {
-			// Days + Hours + Minutes
-			$pday = $time / 86400;
-			$preday = explode('.',$pday);
-
-			$phour = $pday-$preday[0];
-			$prehour = explode('.',$phour*24); 
-
-			$premin = ($phour*24)-$prehour[0];
-			$min = explode('.',$premin*60);
-			
-			$presec = '0.'.$min[1];
-			$sec = $presec * 60;
-			
-			$timeshift = $preday[0].' days '.$prehour[0].' hrs '.$min[0].' min';
-			if ($show_seconds) {
-				$timeshift .= ' ' . round($sec, 0).' sec';
-			}
-		}
-		return $timeshift;
-	}
-	
-	function bytesConvert($bytes) {
-		$ext = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
-		$unitCount = 0;
-		for (; $bytes > 1024; $unitCount++) {
-			$bytes /= 1024;
-		}
-		return round($bytes, 2) ." ". $ext[$unitCount];
-	}
 ?>
