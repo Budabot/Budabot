@@ -114,6 +114,50 @@ class Event {
 			Logger::log('ERROR', 'Core', "Error deactivating event Type:($type) File:($filename). The event is not active or doesn't exist!");
 		}
 	}
+	
+	public static function update_status($type, $module, $filename, $status) {
+		$db = DB::get_instance();
+		
+		if ($type == 'all' || $type == '' || $type == null) {
+			$type_sql = '';
+		} else {
+			$type_sql = "AND `type` = '$type'";
+		}
+		
+		if ($filename == '' || $filename == null) {
+			$filename_sql = '';
+		} else {
+			$cmd_sql = "AND `filename` = '$filename'";
+		}
+		
+		if ($module == '' || $module == null) {
+			$module_sql = '';
+		} else {
+			$module_sql = "AND `module` = '$module'";
+		}
+		
+		if ($status == 0) {
+			$status_sql = "`status` = 1";
+		} else {
+			$status_sql = "`status` = 0";
+		}
+	
+		$db->query("SELECT * FROM eventcfg_<myname> WHERE $status_Sql $module_sql $filename_sql $type_sql");
+		if ($db->numrows == 0) {
+			return 0;
+		}
+		
+		$data = $db->fObject('all');
+		forEach ($data as $row) {
+			if ($status == 1) {
+				Event::activate($row->type, $row->filename);
+			} else if ($status == 0) {
+				Event::deactivate($row->type, $row->filename);
+			}
+		}
+		
+		return $db->exec("UPDATE eventcfg_<myname> SET status = '$status' WHERE $status_Sql $module_sql $filename_sql $type_sql");
+	}
 
 	/**
 	 * @name: loadEvents

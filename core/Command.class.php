@@ -70,7 +70,7 @@ class Command {
 				break;
 		}
 	}
-
+	
 	/**
 	 * @name: deactivate
 	 * @description: Deactivates an command
@@ -95,6 +95,44 @@ class Command {
 				unset($chatBot->guildCmds[$command]);
 				break;
 		}
+	}
+	
+	public static function update_status($type, $module, $cmd, $status) {
+		$db = DB::get_instance();
+		
+		if ($type == 'all' || $type == '' || $type == null) {
+			$type_sql = '';
+		} else {
+			$type_sql = "AND `type` = '$type'";
+		}
+		
+		if ($cmd == '' || $cmd == null) {
+			$cmd_sql = '';
+		} else {
+			$cmd_sql = "AND `cmd` = '$cmd'";
+		}
+		
+		if ($module == '' || $module == null) {
+			$module_sql = '';
+		} else {
+			$module_sql = "AND `module` = '$module'";
+		}
+	
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' $module_sql $cmd_sql $type_sql");
+		if ($db->numrows == 0) {
+			return 0;
+		}
+		
+		$data = $db->fObject('all');
+		forEach ($data as $row) {
+			if ($status == 1) {
+				Command::activate($row->type, $row->filename, $row->cmd, $row->admin);
+			} else if ($status == 0) {
+				Command::deactivate($row->type, $row->filename, $row->cmd);
+			}
+		}
+		
+		return $db->exec("UPDATE cmdcfg_<myname> SET status = '$status' WHERE `cmdevent` = 'cmd' $module_sql $cmd_sql $type_sql");
 	}
 
 	/**
