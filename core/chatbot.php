@@ -986,7 +986,27 @@ class bot extends AOChat {
 						return;
 					}
 				}
-                return;
+				break;
+			case AOCP_MSG_SYSTEM: // 36, simple system message
+				$message = $args[0];
+				
+				Logger::log('DEBUG', 'Packets', "AOCP_MSG_SYSTEM => message: '$message'");
+				break;
+			case AOCP_CHAT_NOTICE: // 37, system message
+				$client_id = $args[0];
+				$window_id = $args[1];
+				$message_id = $args[2];
+				$message_args = $args[3]
+				
+				Logger::log('DEBUG', 'Packets', "AOCP_CHAT_NOTICE => client_id: '$client_id' window_id: '$window_id' message_id: '$message_id' message_args: '$message_args'");
+				
+				$message_string = MMDBParser::get_message_string(20000, $message_id);
+				if ($message_string !== null) {
+					$message = vsprintf($message_string, $message_args);
+					Logger::log('DEBUG', 'Core', $message);
+				} else {
+					Logger::log('ERROR', 'Core', "Problem finding mmdb entry for category_id: '20000' message_id: '$message_id'");
+				}
 				break;
 		}
 	}
