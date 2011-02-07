@@ -85,7 +85,7 @@ class bot extends AOChat {
 
 		// Begin the login process
 		Logger::log('INFO', 'StartUp', "Connecting to AO Server...($server)");
-		AOChat::connect($server, $port);
+		$this->connect($server, $port);
 		sleep(2);
 		if ($this->state != "auth") {
 			Logger::log('ERROR', 'StartUp', "Connection failed! Please check your Internet connection and firewall.");
@@ -94,7 +94,7 @@ class bot extends AOChat {
 		}
 
 		Logger::log('INFO', 'StartUp', "Authenticate login data...");
-		AOChat::authenticate($login, $password);
+		$this->authenticate($login, $password);
 		sleep(2);
 		if ($this->state != "login") {
 			Logger::log('ERROR', 'StartUp', "Authentication failed! Please check your username and password.");
@@ -103,7 +103,7 @@ class bot extends AOChat {
 		}
 
 		Logger::log('INFO', 'StartUp', "Logging in {$this->vars["name"]}...");
-		AOChat::login($this->vars["name"]);
+		$this->login($this->vars["name"]);
 		sleep(2);
 		if ($this->state != "ok") {
 			Logger::log('ERROR', 'StartUp', "Logging in of {$this->vars["name"]} failed! Please check the character name and dimension.");
@@ -258,7 +258,7 @@ class bot extends AOChat {
 ** Name: ping
 ** Get next packet info from AOChat
 */	function ping(){
-		return AOChat::wait_for_packet();
+		return $this->wait_for_packet();
 	}
 
 /*===============================
@@ -421,7 +421,7 @@ class bot extends AOChat {
 		}
 	
 		$message = bot::formatMessage($message);
-		AOChat::send_privgroup($group, $this->settings["default_priv_color"].$message);
+		$this->send_privgroup($group, $this->settings["default_priv_color"].$message);
 	}
 
 /*===============================
@@ -447,11 +447,11 @@ class bot extends AOChat {
 
 		// Send
 		if ($who == 'prv') { // Target is private chat by defult.
-			AOChat::send_privgroup($this->vars["name"], $this->settings["default_priv_color"].$message);
+			$this->send_privgroup($this->vars["name"], $this->settings["default_priv_color"].$message);
 			
 			// relay to guild channel
 			if (!$disable_relay && $this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1) {
-				AOChat::send_group($this->vars["my guild"], "</font>{$this->settings["guest_color_channel"]}[Guest]</font> {$this->settings["guest_color_username"]}".bot::makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default_priv_color"]}$message</font>");
+				$this->send_group($this->vars["my guild"], "</font>{$this->settings["guest_color_channel"]}[Guest]</font> {$this->settings["guest_color_username"]}".bot::makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default_priv_color"]}$message</font>");
 			}
 
 			// relay to bot relay
@@ -459,22 +459,22 @@ class bot extends AOChat {
 				send_message_to_relay("grc <grey>[".$this->vars["my guild"]."] ".$message);
 			}
 		} else if ($who == $this->vars["my guild"] || $who == 'org') {// Target is guild chat.
-    		AOChat::send_group($this->vars["my guild"], $this->settings["default_guild_color"].$message);
+    		$this->send_group($this->vars["my guild"], $this->settings["default_guild_color"].$message);
 			
 			// relay to private channel
 			if (!$disable_relay && $this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1) {
-				AOChat::send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my guild"]}]</font> {$this->settings["guest_color_username"]}".bot::makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default_guild_color"]}$message</font>");
+				$this->send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my guild"]}]</font> {$this->settings["guest_color_username"]}".bot::makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default_guild_color"]}$message</font>");
 			}
 			
 			// relay to bot relay
 			if (!$disable_relay && $this->settings["relaybot"] != "Off" && $this->settings["bot_relay_commands"] == 1) {
 				send_message_to_relay("grc <grey>[".$this->vars["my guild"]."] ".$message);
 			}
-		} else if (AOChat::get_uid($who) != NULL) {// Target is a player.
+		} else if ($this->get_uid($who) != NULL) {// Target is a player.
 			Logger::log_chat("Out. Msg.", $who, $message);
-    		AOChat::send_tell($who, $this->settings["default_tell_color"].$message);
+    		$this->send_tell($who, $this->settings["default_tell_color"].$message);
 		} else { // Public channels that are not myguild.
-	    	AOChat::send_group($who,$this->settings["default_guild_color"].$message);
+	    	$this->send_group($who, $this->settings["default_guild_color"].$message);
 		}
 	}
 
@@ -642,7 +642,7 @@ class bot extends AOChat {
 
 					// Remove sender if they are /ignored or /banned or if spam filter is blocking them
 					if ($this->settings["Ignore"][$sender] == true || Ban::is_banned($sender) || $this->spam[$sender] > 100){
-						AOChat::privategroup_kick($sender);
+						$this->privategroup_kick($sender);
 						return;
 					}
 
@@ -660,7 +660,7 @@ class bot extends AOChat {
 					
 					// Kick if their access is restricted.
 					if ($restricted === true) {
-						AOChat::privategroup_kick($sender);
+						$this->privategroup_kick($sender);
 					}
 				} else {
 					$type = "extJoinPriv";
@@ -840,10 +840,10 @@ class bot extends AOChat {
 
 				if ($this->vars['spam_protection'] == 1) {
 					if ($this->spam[$sender] == 40) $this->send("Error! Your client is sending a high frequency of chat messages. Stop or be kicked.", $sender);
-					if ($this->spam[$sender] > 60) AOChat::privategroup_kick($sender);
+					if ($this->spam[$sender] > 60) $this->privategroup_kick($sender);
 					if (strlen($args[1]) > 400){
 						$this->largespam[$sender] = $this->largespam[$sender] + 1;
-						if ($this->largespam[$sender] > 1) AOChat::privategroup_kick($sender);
+						if ($this->largespam[$sender] > 1) $this->privategroup_kick($sender);
 						if ($this->largespam[$sender] > 0) $this->send("Error! Your client is sending large chat messages. Stop or be kicked.", $sender);
 					}
 				}
