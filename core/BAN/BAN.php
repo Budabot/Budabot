@@ -1,4 +1,6 @@
 <?php 
+	require_once 'Ban.class.php';
+
 	$MODULE_NAME = "BAN";
 
 	//Commands
@@ -16,7 +18,7 @@
 	Event::activate("1hour", "$MODULE_NAME/check_tempban.php");
 
 	//Setup
-	Event::activate("setup", "$MODULE_NAME/upload_banlist.php");
+	Event::activate("setup", "$MODULE_NAME/setup.php");
 	
 	//Help Files
 	Help::register($MODULE_NAME, "ban", "ban.txt", "mod", "Ban a person from the bot");

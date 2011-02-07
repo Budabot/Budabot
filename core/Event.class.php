@@ -111,7 +111,7 @@ class Event {
 			$temp = array_flip($chatBot->events[$type]);
 			unset($chatBot->events[$type][$temp[$actual_filename]]);
 		} else {
-			Logger::log('ERROR', 'Core', "Error deactivating event Type:($type) File:($filename). No event found!");
+			Logger::log('ERROR', 'Core', "Error deactivating event Type:($type) File:($filename). The event is not active or doesn't exist!");
 		}
 	}
 

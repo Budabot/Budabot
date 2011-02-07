@@ -29,10 +29,12 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-forEach ($this->banlist as $key => $data){
-	if (isset($this->banlist[$key]["banend"]) && ((time() - $this->banlist[$key]["banend"]) >= 0)) {
-	 	 unset($this->banlist[$key]);
-	 	 $db->exec("DELETE FROM banlist_<myname> WHERE name = '$key'");
+forEach ($this->banlist as $ban){
+	if ($ban->banend != null && ((time() - $ban->banend) >= 0)) {
+	 	 $db->exec("DELETE FROM banlist_<myname> WHERE name = '{$ban->name}'");
 	}	
 }
+
+Ban::upload_banlist();
+
 ?>

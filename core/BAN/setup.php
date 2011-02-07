@@ -29,20 +29,8 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-$db->query("CREATE TABLE IF NOT EXISTS banlist_<myname> (name VARCHAR(25) NOT NULL PRIMARY KEY, admin VARCHAR(25), time VARCHAR(10), why TEXT, banend INT)");
+$db->query("CREATE TABLE IF NOT EXISTS banlist_<myname> (name VARCHAR(25) NOT NULL PRIMARY KEY, admin VARCHAR(25), time INT, reason TEXT, banend INT)");
 
-$db->query("SELECT * FROM banlist_<myname>");
-while ($row = $db->fObject()) {
-	$chatBot->banlist[$row->name]["name"] = $row->name;
-	$chatBot->banlist[$row->name]["admin"] = $row->admin;
-	$chatBot->banlist[$row->name]["when"] = $row->time;
-	if ($row->banend != 0 || $row->banend != NULL) {
-		$chatBot->banlist[$row->name]["banend"] = $row->banend;
-	}
-
-	if ($row->why != "" || $row->why != NULL) {
-		$chatBot->banlist[$row->name]["reason"] = $row->why;
-	}
-}
+Ban::upload_banlist();
 
 ?>

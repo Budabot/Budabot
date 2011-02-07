@@ -650,7 +650,7 @@ class bot extends AOChat {
 					Logger::log_chat("Priv Group", -1, "$sender joined the channel.");
 
 					// Remove sender if they are /ignored or /banned or if spam filter is blocking them
-					if ($this->settings["Ignore"][$sender] == true || $this->banlist[$sender]["name"] == $sender || $this->spam[$sender] > 100){
+					if ($this->settings["Ignore"][$sender] == true || Ban::is_banned($sender) || $this->spam[$sender] > 100){
 						AOChat::privategroup_kick($sender);
 						return;
 					}
@@ -799,7 +799,7 @@ class bot extends AOChat {
 					return;
 				}
 
-				if ($this->settings["Ignore"][$sender] == true || $this->banlist[$sender]["name"] == $sender || ($this->spam[$sender] > 100 && $this->vars['spam_protection'] == 1)){
+				if ($this->settings["Ignore"][$sender] == true || Ban::is_banned($sender) || ($this->spam[$sender] > 100 && $this->vars['spam_protection'] == 1)){
 					$this->spam[$sender] += 20;
 					return;
 				}
@@ -843,7 +843,7 @@ class bot extends AOChat {
 					return;
 				}
 				
-				if ($this->banlist[$sender]["name"] == $sender) {
+				if (Ban::is_banned($sender)) {
 					return;
 				}
 
@@ -923,7 +923,7 @@ class bot extends AOChat {
 						return;
 					}
 
-					if ($this->banlist[$sender]["name"] == $sender) {
+					if (Ban::is_banned($sender)) {
 						return;
 					}
 				}
