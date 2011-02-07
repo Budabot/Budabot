@@ -41,7 +41,7 @@
    *
    */
 
-  include 'MMDBParser.class.php';
+  require_once 'MMDBParser.class.php';
 
   if((float)phpversion() < 5.0)
   {
@@ -1089,15 +1089,13 @@
   {
 	public $args, $category, $instance, $message;
 
-	function AOExtMsg($str=NULL)
-	{
-		if(!empty($str)) {
+	function AOExtMsg($str = NULL) {
+		if (!empty($str)) {
 			$this->read($str);
 		}
 	}
 	
-	function arg($n)
-	{
+	function arg($n) {
 		$key = "{".strtoupper($n)."}";
 		if(isset($this->args[$key])) {
 			return $this->args[$key];
@@ -1105,22 +1103,35 @@
 		return NULL;
 	}
 
-	function read($msg)
-	{
-		if(substr($msg, 0, 2) !== "~&") {
+	function read($msg) {
+		if (substr($msg, 0, 2) !== "~&") {
 			return false;
 		}
 		$msg = substr($msg, 2);
 		$this->category = $this->b85g($msg);
 		$this->instance = $this->b85g($msg);
 		
+		$this->args = AOExtMsg::parse_params($msg);
+		$message_string = MMDBParser::get_message_string($this->category, $this->instance);
+		if ($message_string !== null) {
+			$this->message = vsprintf($message_string, $args);
+		}
+	}
+	
+	public static function parse_params($msg) {
 		$args = array();
 		while ($msg != '') {
 			$data_type = $msg[0];
 			$msg = substr($msg, 1); // skip the data type id
 			switch ($data_type) {
+				case "S":
+					$len = ord($msg[0]) * 256 + ord($msg[1]);
+					$str = substr($msg, 2, $len);
+					$msg = substr($msg, $len + 2);
+					$args[] = $str;
+					break;
 				case "s":
-					$len = ord($msg[0])-1;
+					$len = ord($msg[0]) - 1;
 					$str = substr($msg, 1, $len);
 					$msg = substr($msg, $len +1);
 					$args[] = $str;
@@ -1128,38 +1139,35 @@
 
 				case "i":
 				case "u":
-					$num = $this->b85g($msg);
+					$num = AOExtMsg::b85g($msg);
 					$args[] = $num;
 					break;
-					
+
 				case "R":
-					$cat = $this->b85g($msg);
-					$ins = $this->b85g($msg);
+					$cat = AOExtMsg::b85g($msg);
+					$ins = AOExtMsg::b85g($msg);
 					$str = MMDBParser::get_message_string($cat, $ins);
 					if ($str === null) {
 						$str = "Unknown ($cat, $ins)";
 					}
 					$args[] = $str;
 					break;
+
 				case "~":
 					// the last iteration is the closing tilde
 					// for which we need to do nothing
 					break;
+
 				default:
-					echo "Error! could not parse argument: '$data_type' for category: '$this->category' and instance: '$this->instance'\n";
+					echo "Error! could not parse argument: '$data_type'\n";
 					break;
 			}
 		}
 		
-		$this->args = $args;
-		$message_string = MMDBParser::get_message_string($this->category, $this->instance);
-		if ($message_string !== null) {
-			$this->message = vsprintf($message_string, $args);
-		}
+		return $args;
 	}
 
-	function b85g(&$str)
-	{
+	public static function b85g(&$str) {
 		$n = 0;
 		for($i=0; $i<5; $i++) {
 			$n = $n*85 + ord($str[$i])-33;
