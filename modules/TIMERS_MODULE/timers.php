@@ -89,7 +89,9 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	}
 
     bot::send($msg, $sendto);
-} else if (preg_match("/^timers? (([0-9]*)[d|day|days]*).(([0-9]*)[h|hr|hrs]*).(([0-9]*)[m|min|mins]*).(([0-9]*)[s|sec|secs]*)$/i", $message, $arr) || preg_match("/^timers? (([0-9]*)[d|day|days]*).(([0-9]*)[h|hr|hrs]*).(([0-9]*)[m|min|mins]*).(([0-9]*)[s|sec|secs]*) (.+)$/i", $message, $arr2)) {
+} else if (preg_match("/^timers? ((([0-9]+)(d|day|days))?.?(([0-9]+)(h|hr|hrs))?.?(([0-9]+)(m|min|mins))?.?(([0-9]+)(s|sec|secs))?)$/i", $message, $arr) ||
+		preg_match("/^timers? ((([0-9]+)(d|day|days))?.?(([0-9]+)(h|hr|hrs))?.?(([0-9]+)(m|min|mins))?.?(([0-9]+)(s|sec|secs))?) (.+)$/i", $message, $arr2)) {
+
 	if ($arr2) {
 		$arr = $arr2;
 		$last_item = count($arr);
@@ -98,6 +100,8 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 		$timer_name = 'PrimTimer';
 	}
 	
+	$time_string = $arr[1];
+	
 	forEach ($this->vars["Timers"] as $timer) {
 		if ($timer->name == $timer_name) {
 			$msg = "A Timer with the name <highlight>$timer_name<end> is already running.";
@@ -105,58 +109,51 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 			return;
 		}
 	}
-	
-	if (preg_match("/([0-9]+)(d|day|days)/i", $message, $day)) {
+
+	$run_time = 0;
+
+	if (preg_match("/([0-9]+)(d|day|days)/i", $time_string, $day)) {
 		if ($day[1] < 1) {
 			$msg = "No valid time specified!";
 		    bot::send($msg, $sendto);
-		    return;		  	
+		    return;
 		}
-		$days = $day[1] * 86400;
-	} else {
-		$days = 0;
+		$run_time += $day[1] * 86400;
 	}
-	
-	if (preg_match("/([0-9]+)(h|hr|hrs)/i", $message, $hours)) {
+
+	if (preg_match("/([0-9]+)(h|hr|hrs)/i", $time_string, $hours)) {
 		if ($hours[1] < 1) {
 			$msg = "No valid time specified!";
 		    bot::send($msg, $sendto);
 		    return;		  	
 		}
-		$hours = $hours[1] * 3600;
-	} else {
-		$hours = 0;
+		$run_time += $hours[1] * 3600;
 	}
 
-	if (preg_match("/([0-9]+)(m|min|mins)/i", $message, $mins)) {
+	if (preg_match("/([0-9]+)(m|min|mins)/i", $time_string, $mins)) {
 		if ($mins[1] < 1) {
 			$msg = "No valid time specified!";
 		    bot::send($msg, $sendto);
 		    return;		  	
 		}
-		$mins = $mins[1] * 60;
-	} else {
-		$mins = 0;
+		$run_time += $mins[1] * 60;
 	}
-	
-	if (preg_match("/([0-9]+)(s|sec|secs)/i", $message, $secs)) {
+
+	if (preg_match("/([0-9]+)(s|sec|secs)/i", $time_string, $secs)) {
 		if ($secs[1] < 1) {
 			$msg = "No valid time specified!";
 		    bot::send($msg, $sendto);
 		    return;		  	
 		}
-		$secs = $secs[1];
-	} else {
-		$secs = 0;
+		$run_time += $secs[1];
 	}
 
-	if ($days == 0 && $hours == 0 && $mins == 0 && $secs == 0) {
-	  	$msg = "No valid Time specified! Please check the helpfiles how to use this command!";
+	if ($run_time == 0) {
+	  	$msg = "No valid Time specified!";
 	    bot::send($msg, $sendto);
 	    return;		  	
 	}
 
-	$run_time = $days + $hours + $mins + $secs;
     $timer = time() + $run_time;
 
 	Timer::add_timer($timer_name, $sender, $type, $timer);

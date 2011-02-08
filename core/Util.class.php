@@ -12,30 +12,28 @@ class Util {
 	
 	// taken from http://www.php.net/manual/en/function.date-diff.php
 	public static function unixtime_to_readable($time, $show_seconds = true) {
-		// Days + Hours + Minutes
-		$pday = $time / 86400;
-		$preday = explode('.',$pday);
-
-		$phour = $pday-$preday[0];
-		$prehour = explode('.',$phour*24); 
-
-		$premin = ($phour*24)-$prehour[0];
-		$min = explode('.',$premin*60);
+		$days = round($time / 86400);
+		$remainder = $time % 86400;
 		
-		$presec = '0.'.$min[1];
-		$sec = round($presec * 60);
+		$hours = round($remainder / 3600);
+		$remainder = $remainder % 3600;
 		
-		if ($preday[0] != 0) {
-			$timeshift .= $preday[0] . ' days ';
+		$minutes = round($remainder / 60);
+		$remainder = $remainder % 60;
+		
+		$seconds = $remainder;
+		
+		if ($days != 0) {
+			$timeshift .= $days . ' days ';
 		}
-		if ($prehour[0] != 0) {
-			$timeshift .= $prehour[0] . ' hrs ';
+		if ($hours != 0) {
+			$timeshift .= $hours . ' hrs ';
 		}
-		if ($min[0] != 0) {
-			$timeshift .= $min[0] . ' min ';
+		if ($minutes != 0) {
+			$timeshift .= $minutes . ' min ';
 		}
-		if ($sec != 0) {
-			$timeshift .= $sec . ' sec';
+		if ($seconds != 0) {
+			$timeshift .= $seconds . ' sec';
 		}
 		return $timeshift;
 	}
