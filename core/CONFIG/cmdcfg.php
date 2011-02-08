@@ -287,7 +287,7 @@ if (preg_match("/^config$/i", $message)) {
 		}
 	} else {  // if ($category == 'subcmd')
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `type` = '$type' AND `cmdevent` = 'subcmd' AND `cmd` = '$command'");
-		if($db->numrows() == 0) {
+		if ($db->numrows() == 0) {
 			$msg = "Could not find the subcmd <highlight>$command<end> for Channel <highlight>$type<end>";
 		  	bot::send($msg, $sendto);
 		  	return;
