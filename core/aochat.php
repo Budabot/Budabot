@@ -1080,7 +1080,7 @@
 	
 	function arg($n) {
 		$key = "{".strtoupper($n)."}";
-		if(isset($this->args[$key])) {
+		if (isset($this->args[$key])) {
 			return $this->args[$key];
 		}
 		return NULL;
@@ -1096,11 +1096,11 @@
 		
 		$this->args = AOExtMsg::parse_params($msg);
 		if ($this->args === null) {
-			echo "Error parsing params for category: '$this->category' instance: '$this->instance' string: '$msg'";
+			echo "Error parsing params for category: '$this->category' instance: '$this->instance' string: '$msg'\n";
 		} else {
 			$message_string = MMDBParser::get_message_string($this->category, $this->instance);
 			if ($message_string !== null) {
-				$this->message = vsprintf($message_string, $args);
+				$this->message = vsprintf($message_string, $this->args);
 			}
 		}
 	}
@@ -1117,6 +1117,7 @@
 					$msg = substr($msg, $len + 2);
 					$args[] = $str;
 					break;
+				
 				case "s":
 					$len = ord($msg[0]) - 1;
 					$str = substr($msg, 1, $len);
