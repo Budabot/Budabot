@@ -5,3 +5,6 @@
 
 or with a reason
 <tab>afk 'reason'
+
+Also you can set now that you are kiting
+<tab><symbol>kiting

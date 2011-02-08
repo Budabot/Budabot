@@ -19,7 +19,8 @@
 
     // Afk Check
 	Event::register($MODULE_NAME, "priv", "afk_check.php", "none", "Afk check");
-	bot::command("priv", "$MODULE_NAME/afk.php", "afk", "all", "Sets a member afk");
+	bot::command("", "$MODULE_NAME/afk.php", "afk", "all", "Sets a member afk");
+	bot::command("", "$MODULE_NAME/afk.php", "kiting", "all", "Sets a member kiting");
 
 	//Leader
 	bot::command("priv", "$MODULE_NAME/leader.php", "leader", "all", "Sets the Leader of the raid");

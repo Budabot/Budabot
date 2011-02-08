@@ -15,18 +15,9 @@
 	//Verifies the Onlinelist every hour
 	Event::register($MODULE_NAME, "1hour", "online_check.php", "none", "Online check");
 	
-	// Afk Check
-	Event::register($MODULE_NAME, "guild", "afk_check.php", "none", "Afk check");
-	bot::command("guild", "$MODULE_NAME/afk.php", "afk", "all", "Sets a member afk");
-	bot::command("guild", "$MODULE_NAME/kiting.php", "kiting", "all", "Sets a member afk kiting");
-	
 	//Tell and Tellall
 	bot::command("guild msg", "$MODULE_NAME/tell.php", "tell", "leader", "Repeats an message 3 times in Orgchat");
 	bot::command("guild msg", "$MODULE_NAME/tell.php", "tellall", "leader", "Sends a tell to all online guildmembers");
-	
-	//Helpfile
-	Help::register($MODULE_NAME, "afk_kiting", "afk_kiting.txt", "guild", "Set yourself AFK/Kiting");
-	Help::register($MODULE_NAME, "tell", "tell.txt", "guild", "How to use tell and tellall");
 
     // Org Roster list creation and Notify on/off handling
 	Event::register($MODULE_NAME, "24hrs", "roster_guild.php", "none", "Download guild roster xml and update guild members");
@@ -55,4 +46,5 @@
 	Help::register($MODULE_NAME, "lastseen", "lastseen.txt", "guild", "Check when an orgmember was online");
 	Help::register($MODULE_NAME, "logon", "logon_msg.txt", "guild", "Changing your logon message");
 	Help::register($MODULE_NAME, "notify", "notify.txt", "mod", "Add or remove a player from the notify list.");
+	Help::register($MODULE_NAME, "tell", "tell.txt", "guild", "How to use tell and tellall");
 ?>

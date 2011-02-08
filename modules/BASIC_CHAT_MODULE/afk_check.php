@@ -29,39 +29,43 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (!preg_match("/^afk(.*)$/i", $message, $arr)) {
-	$db->query("SELECT afk FROM priv_chatlist_<myname> WHERE `name` = '$sender'");
-	if ($db->numrows() != 0) {
-	    $row = $db->fObject();
-	    if ($row->afk != '0') {
-	        $db->exec("UPDATE priv_chatlist_<myname> SET `afk` = 0 WHERE `name` = '$sender'");
-	        $msg = "<highlight>$sender<end> is back";
-	        bot::send($msg, 'priv');
-	    }
-	}
-	$name = split(" ", $message, 2);
-	$name = $name[0];
-	$name = ucfirst(strtolower($name));
-    $uid = AoChat::get_uid($name);
-   	if ($uid) {
-		$db->query("SELECT afk FROM priv_chatlist_<myname> WHERE `name` = '$name'");
-		if ($db->numrows() == 0 && $this->settings["guest_relay"] == 1) {
-			$db->query("SELECT afk FROM guild_chatlist_<myname> WHERE `name` = '$name'");
-		}
+if ($type == 'priv') {
+	$table_name = 'priv_chatlist_<myname>';
+	$sendto = 'priv';
+} else if ($type == 'guild') {
+	$table_name = 'guild_chatlist_<myname>';
+	$sendto = 'guild';
+}
 
-		if ($db->numrows() != 0) {
-			$row = $db->fObject();
-			if ($row->afk == "1") {
-				$msg = "<highlight>$name<end> is currently AFK.";
-			} else if ($row->afk == "kiting") {
-				$msg = "<highlight>$name<end> is currently Kiting.";
-			} else if ($row->afk != "0") {
-				$msg = "<highlight>$name<end> is currently AFK: <highlight>$row->afk<end>";
-			}
-			if ($msg != "") {
-				bot::send($msg, 'priv');
+$db->query("SELECT afk FROM {$table_name} WHERE `name` = '{$sender}'");
+$row = $db->fObject();
+if (!preg_match("/^afk(.*)$/i", $message)) {
+	if ($row->afk != '0') {
+		$db->exec("UPDATE {$table_name} SET `afk` = 0 WHERE `name` = '{$sender}'");
+		$msg = "<highlight>{$sender}<end> is back";
+	} else {
+		$name = split(" ", $message, 2);
+		$name = $name[0];
+		$name = ucfirst(strtolower($name));
+		$uid = AoChat::get_uid($name);
+		if ($uid) {
+			$db->query("SELECT afk FROM guild_chatlist_<myname> WHERE `name` = '{$name}' UNION SELECT afk FROM priv_chatlist_<myname> WHERE `name` = '{$name}'");
+
+			if ($db->numrows() != 0) {
+				$row = $db->fObject();
+				if ($row->afk == "1") {
+					$msg = "<highlight>{$name}<end> is currently AFK.";
+				} else if ($row->afk == "kiting") {
+					$msg = "<highlight>{$name}<end> is currently Kiting.";
+				} else if ($row->afk != "0") {
+					$msg = "<highlight>{$name}<end> is currently AFK: <highlight>{$row->afk}<end>";
+				}
 			}
 		}
+	}
+	
+	if ($msg != "") {
+		bot::send($msg, "guild");
 	}
 }
 ?>

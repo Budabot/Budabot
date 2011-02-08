@@ -29,24 +29,30 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-$db->query("SELECT afk FROM priv_chatlist_<myname> WHERE `name` = '$sender'");
+if ($type == 'priv') {
+	$table_name = 'priv_chatlist_<myname>';
+	$sendto = 'priv';
+} else if ($type == 'guild') {
+	$table_name = 'guild_chatlist_<myname>';
+	$sendto = 'guild';
+}
+
+$db->query("SELECT afk FROM $table_name WHERE `name` = '$sender'");
 $row = $db->fObject();
 if (preg_match("/^afk$/i", $message, $arr)) {
-    if ($row->afk == '0') {
-        $db->exec("UPDATE priv_chatlist_<myname> SET `afk` = 1 WHERE `name` = '$sender'");
-        $msg = "<highlight>$sender<end> is now AFK";
-    } else if ($row->afk != '0') {
-        $db->exec("UPDATE priv_chatlist_<myname> SET `afk` = 0 WHERE `name` = '$sender'");
-        $msg = "<highlight>$sender<end> is back";
-    }
+    $db->exec("UPDATE $table_name SET `afk` = 1 WHERE `name` = '$sender'");
+    $msg = "<highlight>$sender<end> is now AFK";
 } else if (preg_match("/^afk (.*)$/i", $message, $arr)) {
-    if ($row->afk == '0') {
-        $db->exec("UPDATE priv_chatlist_<myname> SET `afk` = '$arr[1]' WHERE `name` = '$sender'");
-        $msg = "<highlight>$sender<end> is now AFK";
-    } else if ($row->afk != '0') {
-        $db->exec("UPDATE priv_chatlist_<myname> SET `afk` = 0 WHERE `name` = '$sender'");
-        $msg = "<highlight>$sender<end> is back";
-    }
+    $db->exec("UPDATE $table_name SET `afk` = '$arr[1]' WHERE `name` = '$sender'");
+    $msg = "<highlight>$sender<end> is now AFK";
+} else if (preg_match("/^kiting$/i", $message, $arr) && $numrows != 0) {
+	$db->exec("UPDATE $table_name SET `afk` = 'kiting' WHERE `name` = '$sender'");
+	$msg = "<highlight>$sender<end> is now kiting";
+} else {
+	$syntax_error = true;
+	return;
 }
-bot::send($msg, 'priv');
+
+bot::send($msg, $sendto);
+
 ?>
