@@ -18,7 +18,7 @@ $vars['my guild']	= "";
 $vars['dimension']	= 1;
 
 // Insert the Administrator name here
-$settings['Super Admin'] = "";
+$vars['SuperAdmin'] = "";
 
 // Default Delay for crons after bot is connected
 $settings['CronDelay'] = 10;

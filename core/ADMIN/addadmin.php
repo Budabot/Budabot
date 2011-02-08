@@ -47,7 +47,7 @@ if (preg_match("/^addadmin (.+)$/i", $message, $arr)){
 		return;
 	}
 	
-	if ($this->settings["Super Admin"] != $sender){
+	if ($this->vars["SuperAdmin"] != $sender){
 		bot::send("<red>You need to be Super-Administrator to add a Administrator<end>", $sendto);
 		return;
 	}

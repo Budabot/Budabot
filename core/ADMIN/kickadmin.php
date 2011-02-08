@@ -42,7 +42,7 @@ if (preg_match("/^kickadmin (.+)$/i", $message, $arr)){
 		return;
 	}
 	
-	if ($this->settings["Super Admin"] != $sender){
+	if ($this->vars["SuperAdmin"] != $sender){
 		bot::send("<red>You need to be Super-Administrator to kick a Administrator<end>", $sendto);
 		return;
 	}

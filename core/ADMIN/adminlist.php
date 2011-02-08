@@ -38,7 +38,7 @@ if (preg_match("/^adminlist$/i", $message) || preg_match("/^admins$/i", $message
 			if($who != ""){ 
 				$list.= "<tab>$who ";
 				
-				if ($this->settings["Super Admin"] == $who)
+				if ($this->vars["SuperAdmin"] == $who)
 					$list .= "(<orange>Super Administrator<end>) ";
 					
 				if ($this->admins[$who]["online"] == "online" && isset($this->chatlist[$who]))

@@ -130,8 +130,8 @@ do {
 	echo "             \n\n\n\n\n\n\n\n\n";
 	$msg = "Enter the Administrator for this bot: \n";
 	
-	$settings["Super Admin"] = read_input($msg);
-} while ($settings["Super Admin"] == "");
+	$vars["SuperAdmin"] = read_input($msg);
+} while ($vars["SuperAdmin"] == "");
 
 echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 echo "             ******************************************************\n";	
