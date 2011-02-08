@@ -1095,9 +1095,13 @@
 		$this->instance = $this->b85g($msg);
 		
 		$this->args = AOExtMsg::parse_params($msg);
-		$message_string = MMDBParser::get_message_string($this->category, $this->instance);
-		if ($message_string !== null) {
-			$this->message = vsprintf($message_string, $args);
+		if ($this->args === null) {
+			echo "Error parsing params for category: '$this->category' instance: '$this->instance' string: '$msg'";
+		} else {
+			$message_string = MMDBParser::get_message_string($this->category, $this->instance);
+			if ($message_string !== null) {
+				$this->message = vsprintf($message_string, $args);
+			}
 		}
 	}
 	
@@ -1143,6 +1147,7 @@
 
 				default:
 					echo "Error! could not parse argument: '$data_type'\n";
+					return null;
 					break;
 			}
 		}

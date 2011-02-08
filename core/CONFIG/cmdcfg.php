@@ -29,6 +29,25 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
+// show config pages
+//  config cmd name
+//  config subcmd name
+//  config event type filename
+//  config mod name
+//  config help name
+
+// change status
+//  config cmd (enable|disable) [channel|module|name]
+//  config subcmd (enable|disable) [channel|module|name]
+//  config event (enable|disable) [type|module|filename]
+//  config mod (enable|disable) module_name
+//  config help (enable|disable) name
+
+// change admin
+//  config cmd (admin) [type|module|filename]
+//  config subcmd (admin) [type|module|filename]
+//  config help (admin) name
+
 if (!function_exists('get_admin_description')) {
 	function get_admin_description($admin) {
 		$admin = strtolower($admin);
