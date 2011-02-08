@@ -146,7 +146,7 @@
   {
     var $state, $debug, $id, $gid, $chars, $char, $grp, $buddies;
     var $socket, $last_packet, $last_ping, $callback, $cbargs;
-    var $serverseed, $tellqueue;
+    var $serverseed, $chatqueue;
 
     /* Initialization */
     function __construct($cb, $args = NULL)
@@ -171,8 +171,7 @@
       $this->gid         = array();
       $this->grp         = array();
       $this->chars       = array();
-      $this->tellqueue   = NULL;
-      $this->groupqueue  = NULL;
+      $this->chatqueue   = NULL;
     }
 
     /* Network stuff */
@@ -204,8 +203,7 @@
         return false;
       }
 
-      $this->tellqueue  = new AOChatQueue(array($this, 'dispatch_tell'), AOC_FLOOD_LIMIT, AOC_FLOOD_INC);
-      $this->groupqueue = new AOChatQueue(array($this, 'dispatch_groupmsg'), AOC_FLOOD_LIMIT, AOC_FLOOD_INC);
+      $this->chatqueue  = new AOChatQueue(array($this, 'send_packet'), AOC_FLOOD_LIMIT, AOC_FLOOD_INC);
 
       return $s;
     }
@@ -214,10 +212,8 @@
     {
       $now = time();
 
-      if($this->tellqueue !== NULL)
-        $this->tellqueue->run();
-      if($this->groupqueue !== NULL)
-        $this->groupqueue->run();
+      if($this->chatqueue !== NULL)
+        $this->chatqueue->run();
 
       if(($now-$this->last_packet) > 60)
         if(($now-$this->last_ping) > 60)
@@ -500,35 +496,22 @@
       return $this->send_packet(new AOChatPacket("out", AOCP_PING, "AOChat.php"));
     }
 
-    function dispatch_tell($tgt, $msg)
-    {
-      if(($uid = $this->get_uid($tgt)) === false)
-        return false;
-
-      return $this->send_packet(new AOChatPacket("out", AOCP_MSG_PRIVATE,
-        array($uid, $msg, "\0")));
-    }
-
     function send_tell($user, $msg, $blob = "\0")
     {
-      $this->tellqueue->push(AOC_PRIORITY_MED, $user, $msg);
-      return true;
-    }
-
-    /* General chat groups */
-    function dispatch_groupmsg($group, $msg)
-    {
-      if(($gid = $this->get_gid($group)) === false)
-        return false;
-
-      return $this->send_packet(new AOChatPacket("out", AOCP_GROUP_MESSAGE,
-        array($gid, $msg, "\0")));
+		if (($uid = $this->get_uid($user)) === false) {
+			return false;
+		}
+		$this->chatqueue->push(AOC_PRIORITY_MED, new AOChatPacket("out", AOCP_MSG_PRIVATE, array($uid, $msg, "\0")));
+		return true;
     }
 
     function send_group($group, $msg, $blob = "\0")
     {
-      $this->groupqueue->push(AOC_PRIORITY_MED, $group, $msg);
-      return true;
+		if (($gid = $this->get_gid($group)) === false) {
+			return false;
+		}
+		$this->chatqueue->push(AOC_PRIORITY_MED, new AOChatPacket("out", AOCP_GROUP_MESSAGE, array($gid, $msg, "\0")));
+		return true;
     }
 
     function group_join($group)
@@ -1198,18 +1181,14 @@ class AOChatQueue
 	{
 		$args = array_slice(func_get_args(), 1);
 		$now = time();
-		if($this->point <= ($now+$this->limit))
-		{
+		if ($this->point <= ($now + $this->limit)) {
 			call_user_func_array($this->dfunc, $args);
 			$this->point = (($this->point<$now) ? $now : $this->point)+$this->inc;
 			return 1;
 		}
-		if(isset($this->queue[$priority]))
-		{
+		if (isset($this->queue[$priority])) {
 			$this->queue[$priority][] = $args;
-		}
-		else
-		{
+		} else {
 			$this->queue[$priority] = array($args);
 			krsort($this->queue);
 		}
@@ -1219,31 +1198,27 @@ class AOChatQueue
 
 	function run()
 	{
-		if($this->qsize === 0) {
+		if ($this->qsize === 0) {
 			return 0;
 		}
 		$now = time();
-		if($this->point < $now) {
+		if ($this->point < $now) {
 			$this->point = $now;
 		} else if($this->point > ($now + $this->limit)) {
 			return 0;
 		}
 		$processed = 0;
-		foreach(array_keys($this->queue) as $priority)
-		{
-			for(;;)
-			{
+		forEach (array_keys($this->queue) as $priority) {
+			for (;;) {
 				$item = array_shift($this->queue[$priority]);
-				if($item === NULL)
-				{
+				if ($item === NULL) {
 					unset($this->queue[$priority]);
 					break;
 				}
 				call_user_func_array($this->dfunc, $item);
 				$this->point += $this->inc;
 				$processed ++;
-				if($this->point > ($now + $this->limit))
-				{
+				if ($this->point > ($now + $this->limit)) {
 					break(2);
 				}
 			}
