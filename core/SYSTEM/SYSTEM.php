@@ -37,6 +37,10 @@
 	Command::activate("msg", "$MODULE_NAME/lookup.php", "lookup", "mod");
 	Command::activate("priv", "$MODULE_NAME/lookup.php", "lookup", "mod");
 	Command::activate("guild", "$MODULE_NAME/lookup.php", "lookup", "mod");
+	
+	Command::activate("msg", "$MODULE_NAME/clearqueue.php", "clearqueue", "mod");
+	Command::activate("priv", "$MODULE_NAME/clearqueue.php", "clearqueue", "mod");
+	Command::activate("guild", "$MODULE_NAME/clearqueue.php", "clearqueue", "mod");
 
 	Event::activate("1hour", "$MODULE_NAME/ping_db.php");
 

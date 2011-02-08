@@ -20,3 +20,5 @@ if (preg_match("/^reloadconfig$/i", $message)) {
 	
 	bot::send('Config file has been reloaded.', $sendto);
 }
+
+?>
