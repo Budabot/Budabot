@@ -77,7 +77,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 				Timer::remove_timer($key, $name, $owner);
 
 			  	$msg = "Removed timer <highlight>$name<end>.";
-			  	break;			  	
+			  	break;
 			} else {
 				$msg = "You don't have the right to remove this timer.";
 			}
@@ -173,66 +173,17 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	    return;
 	}
 
-  	if ($this->settings["timers_window"] == 2 || ($this->settings["timers_window"] >= 3 && $num_timers <= $this->settings["timers_window"])) {
+  	if ($num_timers <= $this->settings["timers_window"]) {
 		forEach ($this->vars["Timers"] as $timer) {
-			$time_left = "";
-			$tleft = $timer->timer - time();
+			$time_left = Util::unixtime_to_readable($timer->timer - time());
 			$name = $timer->name;
 			$owner = $timer->owner;
 			$mode = $timer->mode;
 
-			if ($mode == "msg" && $type == "msg" && ($sender == $owner)) {
-				$days = floor($tleft/86400);
-				if ($days != 0) {
-					$time_left .= $days."day(s) ";
-				}
-
-				$hours = floor(($tleft-($days*86400))/3600);
-				if ($hours != 0) {
-					$time_left .= $hours."hr(s) ";
-				}
-
-				$mins = floor(($tleft-($days*86400)-$hours*3600)/60);
-				if ($mins != 0) {
-					$time_left .= $mins."min(s) ";
-				}
-
-				$secs = $tleft-($days*86400)-($hours*3600)-$mins*60;
-				if ($secs != 0) {
-					$time_left .= $secs."sec(s)";
-				}
-				
-				if ($name == "PrimTimer") {
-					$msg .= "\n Timer has <highlight>$time_left<end> left [set by <highlight>$owner<end>]";
-				} else {
-					$msg .= "\n Timer <highlight>$name<end> has <highlight>$time_left<end> left [set by <highlight>$owner<end>]";  	
-				}
-			} else if ($mode == $type || ($type == "msg" && $mode != "msg")) {
-				$days = floor($tleft/86400);
-				if ($days != 0) {
-					$time_left .= $days."day(s) ";
-				}
-
-				$hours = floor(($tleft-($days*86400))/3600);
-				if ($hours != 0) {
-					$time_left .= $hours."hr(s) ";
-				}
-
-				$mins = floor(($tleft-($days*86400)-$hours*3600)/60);
-				if ($mins != 0) {
-					$time_left .= $mins."min(s) ";
-				}
-
-				$secs = $tleft-($days*86400)-($hours*3600)-$mins*60;
-				if ($secs != 0) {
-					$time_left .= $secs."sec(s)";
-				}
-				
-				if ($name == "PrimTimer") {
-					$msg .= "\n Timer has <highlight>$time_left<end> left [set by <highlight>$owner<end>]";
-				} else {
-					$msg .= "\n Timer <highlight>$name<end> has <highlight>$time_left<end> left [set by <highlight>$owner<end>]";  	
-				}
+			if ($name == "PrimTimer") {
+				$msg .= "\n Timer has <highlight>$time_left<end> left [set by <highlight>$owner<end>]";
+			} else {
+				$msg .= "\n Timer <highlight>$name<end> has <highlight>$time_left<end> left [set by <highlight>$owner<end>]";  	
 			}
 		}
 		if ($msg == "") {
@@ -242,61 +193,14 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 		}
 	} else {
 		forEach ($this->vars["Timers"] as $timer) {
-			$time_left = "";
-			$tleft = $timer->timer - time();
+			$time_left = Util::unixtime_to_readable($timer->timer - time());
 			$name = $timer->name;
 			$owner = $timer->owner;
 			$mode = $timer->mode;
 
-			if ($mode == "msg" && $type == "msg" && ($sender == $owner)) {
-				$days = floor($tleft/86400);
-				if ($days != 0) {
-					$time_left .= $days."day(s) ";
-				}
-
-				$hours = floor(($tleft-($days*86400))/3600);
-				if ($hours != 0) {
-					$time_left .= $hours."hr(s) ";
-				}
-
-				$mins = floor(($tleft-($days*86400)-$hours*3600)/60);
-				if ($mins != 0) {
-					$time_left .= $mins."min(s) ";
-				}
-
-				$secs = $tleft-($days*86400)-($hours*3600)-$mins*60;
-				if ($secs != 0) {
-					$time_left .= $secs."sec(s)";
-				}
-				
-				$list .= "Timername: <highlight>$name<end>\n";
-				$list .= "Timeleft: <highlight>$time_left<end>\n";
-				$list .= "Set by: <highlight>$owner<end>\n\n";
-			} else if ($mode == $type  || ($type == "msg" && $mode != "msg")) {
-				$days = floor($tleft/86400);
-				if ($days != 0) {
-					$time_left .= $days."day(s) ";
-				}
-
-				$hours = floor(($tleft-($days*86400))/3600);
-				if ($hours != 0) {
-					$time_left .= $hours."hr(s) ";
-				}
-
-				$mins = floor(($tleft-($days*86400)-$hours*3600)/60);
-				if ($mins != 0) {
-					$time_left .= $mins."min(s) ";
-				}
-
-				$secs = $tleft-($days*86400)-($hours*3600)-$mins*60;
-				if ($secs != 0) {
-					$time_left .= $secs."sec(s)";
-				}
-				
-				$list .= "Timername: <highlight>$name<end>\n";
-				$list .= "Timeleft: <highlight>$time_left<end>\n";
-				$list .= "Set by: <highlight>$owner<end>\n\n";
-			}
+			$list .= "Timername: <highlight>$name<end>\n";
+			$list .= "Timeleft: <highlight>$time_left<end>\n";
+			$list .= "Set by: <highlight>$owner<end>\n\n";
 		}
 		if ($list == "") {
 			$msg = "No Timers running atm.";
