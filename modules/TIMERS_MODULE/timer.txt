@@ -1,26 +1,27 @@
 <header>::::: Help on Timer Commands. :::::<end>
 
-<red>Note: When you are setting an timer in a tell they will no shown on the timers list in org or priv channel.<end>
+<orange>Note: You can use <symbol>timers and <symbol>timer interchangeably.<end>
 
 <highlight>Show current Timers running<end>
 <tab><symbol>timers
 
-<highlight>Set a personal Timer(only 1 allowed!)<end>
+<highlight>Set a primary timer<end>
 <tab><symbol>timer 'time'
 
 <highlight>Set a named timer<end>
-<tab><symbol>timer 'Timername' 'time'
+<tab><symbol>timer 'time' 'Timername'
 
 <highlight>Remove a timer(only your owns)<end>
 <tab><symbol>timer rem 'Timername'
 
-<highlight>The time for the timer needs to be written in one of these formats<end>
-<tab>- Time in minutes
-<tab>- Time in minutes(with a min at the end)
-<tab>- Time in hours(with a hour at the end)
-<tab>- Time in days(with a day at the end)
+<highlight>The time for the timer needs to be written in this format<end>
+<tab>days => 1d, 1day, 1days
+<tab>hours => 1h, 1hr, 1hrs
+<tab>minutes => 1m, 1min, 1mins
+<tab>seconds => 1s, 1sec, 1secs
 
-Examples
-<tab><symbol>timer 2days 20hours 2min
-<tab><symbol>timer 1days 25min
-<tab><symbol>timer 18hours 20mins
+<highlight>Examples<end>
+<tab><symbol>timer 2d9h5m43s                      <highlight>--sets your primary timer for 2 days, 9 hours, 5 minutes, 43 seconds<end>
+<tab><symbol>timer 4day8s                            <highlight>--sets your primary timer for 4 days, 8 seconds<end>
+<tab><symbol>timer 18hr20mins spawntime    <highlight>--sets a timer named 'spawntime' for 18 hours, 20 minutes<end>
+<tab><symbol>timer 2h perk reset                  <highlight>--sets a timer named 'perk reset' for 2 hours<end>
