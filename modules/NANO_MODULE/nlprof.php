@@ -36,7 +36,7 @@
 if (preg_match("/^nlprof (.*)$/i", $message, $arr)) {
 
 	$profession = Util::get_profession_name($arr[1]);
-	if ($prof == '') {
+	if ($profession == '') {
 		$msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, or trader";
 		bot::send($msg, $sendto);
 		return;
