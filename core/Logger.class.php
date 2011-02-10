@@ -73,8 +73,8 @@ class Logger {
 		$today =  date("YM");
 
 		// Open and append to log-file. Complain on failure.
-        //$filename = "./logs/{$vars['name']}.{$vars['dimension']}/$today.$channel.log";
-		$filename = "./logs/{$vars['name']}.{$vars['dimension']}/$today.log";
+        $filename = "./logs/{$vars['name']}.{$vars['dimension']}/$today.$channel.log";
+		//$filename = "./logs/{$vars['name']}.{$vars['dimension']}/$today.log";
         if (($fp = fopen($filename, "a")) === false) {
             echo "    *** Failed to open log-file $filename for writing ***\n";
         } else {
