@@ -35,18 +35,17 @@
 
 if (preg_match("/^nlprof (.*)$/i", $message, $arr)) {
 
-	$profession = strtolower($arr[1]);
-	if ($profession == 'nt') {
-		$profession = 'nano';
-	} else if ($profession == 'mp') {
-		$profession = 'meta';
+	$profession = = Util::get_profession_name($arr[1]);
+	if ($prof == '') {
+		$msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, or trader";
+		bot::send($msg, $sendto);
+		return;
 	}
 
-	$sql = "SELECT * FROM aonanos_nanolines WHERE profession LIKE '%$profession%' ORDER BY name ASC";
+	$sql = "SELECT * FROM aonanos_nanolines WHERE profession LIKE '$profession' ORDER BY name ASC";
 	$db->query($sql);
 
 	$count = 0;
-	$profession = '';
 	while ($row = $db->fObject()) {
 
 		$count++;
@@ -55,8 +54,6 @@ if (preg_match("/^nlprof (.*)$/i", $message, $arr)) {
 		}
 		$window .= bot::makeLink("$row->name", "/tell <myname> <symbol>nlline $row->id", 'chatcmd');
 		$window .= "\n";
-
-		$profession = $row->profession;
 	}
 
 	$msg = '';

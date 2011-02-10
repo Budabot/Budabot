@@ -1,9 +1,14 @@
 <?php
 
 if (preg_match("/^leprocs? (.+)$/i", $message, $arr)) {
-	$profession = strtolower($arr[1]);
+	$profession = Util::get_profession_name($arr[1]);
+	if ($profession == '') {
+		$msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, or trader";
+		bot::send($msg, $sendto);
+		return;
+	}
 
-	$db->query("SELECT * FROM leprocs WHERE profession LIKE '%$profession%' ORDER BY proc_type ASC, research_lvl DESC");
+	$db->query("SELECT * FROM leprocs WHERE profession LIKE '$profession' ORDER BY proc_type ASC, research_lvl DESC");
 	$num = $db->numrows();
 	$data = $db->fObject('all');
 	if ($num == 0) {
@@ -19,7 +24,7 @@ if (preg_match("/^leprocs? (.+)$/i", $message, $arr)) {
 			$blob .= "<yellow>$row->name<end> $row->duration <orange>$row->modifiers<end>\n";
 		}
 
-		$msg = $this->makeLink("LE Procs '$profession'", $blob, 'blob');
+		$msg = $this->makeLink("$profession LE Procs", $blob, 'blob');
 	}
 	bot::send($msg, $sendto);
 } else {

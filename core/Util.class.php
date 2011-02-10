@@ -62,6 +62,66 @@ class Util {
 			return 0;
 		}
 	}
+	
+	/**
+	 * @name: get_profession_name
+	 * @description: returns the full profession name given the search string passed in
+	 */
+	public static function get_profession_name($search) {
+		$search = substr(strtolower($search), 0, 3);
+		switch ($search) {
+			case "adv":
+				$prof = "Adventurer";
+				break;
+			case "age":
+				$prof = "Agent";
+				break;
+			case "bur":
+			case "cra":
+				$prof = "Bureaucrat";
+				break;
+			case "doc":
+				$prof = "Doctor";
+				break;
+			case "enf":
+				$prof = "Enforcer";
+				break;
+			case "eng":
+				$prof = "Engineer";
+				break;
+			case "fix":
+				$prof = "Fixer";
+				break;
+			case "kee":
+				$prof = "Keeper";
+				break;
+			case "mar":
+			case "ma":
+				$prof = "Martial Artist";
+				break;
+			case "met":
+			case "mp":
+				$prof = "Meta-Physicist";
+				break;
+			case "nan":
+			case "nt":
+				$prof = "Nano-Technician";
+				break;
+			case "sol":
+				$prof = "Soldier";
+				break;
+			case "tra":
+				$prof = "Trader";
+				break;
+			case "sha":
+				$prof = "Shade";
+				break;
+			default:
+				$prof = '';
+		}
+		
+		return $prof;
+	}
 }
 
 ?>

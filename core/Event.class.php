@@ -37,7 +37,7 @@ class Event {
 		//Check if the file exists
 		$actual_filename = $chatBot->verifyFilename($module . '/' . $filename);
 		if ($actual_filename == '') {
-			Logger::log('error', 'Core', "Error in registering File '{$filename}' for Event type {$type} Module:($module). The file doesn't exist!");
+			Logger::log('error', 'Core', "Error registering event Type:($type) File:($filename) Module:($module). The file doesn't exist!");
 			return;
 		}
 		
@@ -61,7 +61,7 @@ class Event {
 		global $chatBot;
 		$db = DB::get_instance();
 		
-		Logger::log('DEBUG', 'Core', "Activating Event:($type) File:($filename)");
+		Logger::log('DEBUG', 'Core', "Activating event Type:($type) File:($filename)");
 		
 		if (!in_array($type, Event::$EVENT_TYPES)) {
 			Logger::log('ERROR', 'Core', "Error activating event Type:($type) File:($filename). The type is not a recognized event type!");
@@ -81,7 +81,7 @@ class Event {
 			if (!in_array($actual_filename, $chatBot->events[$type])) {
 				$chatBot->events[$type] []= $actual_filename;
 			} else {
-				Logger::log('ERROR', 'Core', "Error deactivating event Type:($type) File:($filename). Event already registered!");
+				Logger::log('ERROR', 'Core', "Error activating event Type:($type) File:($filename). Event already registered!");
 			}
 		}
 	}
@@ -93,19 +93,21 @@ class Event {
 	public static function deactivate($type, $filename) {
 		global $chatBot;
 
-		Logger::log('debug', 'Core', "Deactivating Event:($type) File:($filename)");
+		Logger::log('debug', 'Core', "Deactivating event Type:($type) File:($filename)");
 		
 		if (!in_array($type, Event::$EVENT_TYPES)) {
 			Logger::log('ERROR', 'Core', "Error deactivating event Type:($type) File:($filename). The type is not a recognized event type!");
 			return;
 		}
 		
+		/* does we need this check for deactivating? --tyrence
 		//Check if the file exists
 		$actual_filename = $chatBot->verifyFilename($filename);
 		if ($actual_filename == '') {
-			Logger::log('error', 'Core', "Error activating event Type:($type) File:($filename). The file doesn't exist!");
+			Logger::log('error', 'Core', "Error deactivating event Type:($type) File:($filename). The file doesn't exist!");
 			return;
 		}
+		*/
 
 		if (in_array($actual_filename, $chatBot->events[$type])) {
 			$temp = array_flip($chatBot->events[$type]);

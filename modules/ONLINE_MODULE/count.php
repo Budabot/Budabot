@@ -30,50 +30,12 @@
    */
 
 if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader)$/i", $message, $arr)) {
-    switch (strtolower($arr[1])) {
-        case "adv":
-            $prof = "Adventurer";
-            break;
-        case "agent":
-            $prof = "Agent";
-            break;
-        case "crat":
-            $prof = "Bureaucrat";
-            break;
-        case "doc":
-            $prof = "Doctor";
-            break;
-        case "enf":
-            $prof = "Enforcer";
-            break;
-        case "eng":
-            $prof = "Engineer";
-            break;
-        case "fix":
-            $prof = "Fixer";
-            break;
-        case "keep":
-            $prof = "Keeper";
-            break;
-        case "ma":
-            $prof = "Martial Artist";
-            break;
-        case "mp":
-            $prof = "Meta-Physicist";
-            break;
-        case "nt":
-            $prof = "Nano-Technician";
-            break;
-        case "sol":
-            $prof = "Soldier";
-            break;
-        case "trader":
-            $prof = "Trader";
-            break;
-        case "shade":
-            $prof = "Shade";
-            break;
-    }
+    $prof = Util::get_profession_name($arr[1]);
+	if ($prof == '') {
+        $msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, trader or all";
+	    bot::send($msg, $sendto);
+	    return;
+	}
     if ($type == "guild" || ($this->settings["count_tell"] == 0 && $type == "msg") || $type == "priv") {
 		$sql = "
 			SELECT * FROM guild_chatlist_<myname> g LEFT JOIN players p2 ON g.name = p2.name WHERE p2.`profession` = '$prof'
@@ -135,87 +97,34 @@ if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader
     $msg = "<highlight>$numonline<end> in total: TL1 <highlight>$tl1<end>, TL2 <highlight>$tl2<end>, TL3 <highlight>$tl3<end>, TL4 <highlight>$tl4<end>, TL5 <highlight>$tl5<end>, TL6 <highlight>$tl6<end>, TL7 <highlight>$tl7<end>";
     bot::send($msg, $sendto);
 } else if (preg_match("/^count (.*)$/i", $message, $arr)) {
-    switch(strtolower($arr[1])) {
-        case "all":
-            $prof = "all";
-            $online["Adventurer"] = 0;
-            $online["Agent"] = 0;
-            $online["Bureaucrat"] = 0;
-            $online["Doctor"] = 0;
-            $online["Enforcer"] = 0;
-            $online["Engineer"] = 0;
-            $online["Fixer"] = 0;
-            $online["Keeper"] = 0;
-            $online["Martial Artist"] = 0;
-            $online["Meta-Physicist"] = 0;
-            $online["Martial Artist"] = 0;
-            $online["Nano-Technician"] = 0;
-            $online["Soldier"] = 0;
-            $online["Trader"] = 0;
-            $online["Shade"] = 0;
-            break;
-        case "adv":
-            $prof = "Adventurer";
-            $online[$prof] = 0;
-            break;
-        case "agent":
-            $prof = "Agent";
-            $online[$prof] = 0;
-            break;
-        case "crat":
-            $prof = "Bureaucrat";
-            $online[$prof] = 0;
-            break;
-        case "doc":
-            $prof = "Doctor";
-            $online[$prof] = 0;
-            break;
-        case "enf":
-            $prof = "Enforcer";
-            $online[$prof] = 0;
-            break;
-        case "eng":
-            $prof = "Engineer";
-            $online[$prof] = 0;
-            break;
-        case "fix":
-            $prof = "Fixer";
-            $online[$prof] = 0;
-            break;
-        case "keep":
-            $prof = "Keeper";
-            $online[$prof] = 0;
-            break;
-        case "ma":
-            $prof = "Martial Artist";
-            $online[$prof] = 0;
-            break;
-        case "mp":
-            $prof = "Meta-Physicist";
-            $online[$prof] = 0;
-            break;
-        case "nt":
-            $prof = "Nano-Technician";
-            $online[$prof] = 0;
-            break;
-        case "sol":
-            $prof = "Soldier";
-            $online[$prof] = 0;
-            break;
-        case "trader":
-            $prof = "Trader";
-            $online[$prof] = 0;
-            break;
-        case "shade":
-            $prof = "Shade";
-            $online[$prof] = 0;
-            break;
-    }
-    if (!$prof) {
-        $msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, trader or all";
-	    bot::send($msg, $sendto);
-	    return;
+	if ($arr[1] == 'all') {
+		$prof = 'all';
+		$online["Adventurer"] = 0;
+		$online["Agent"] = 0;
+		$online["Bureaucrat"] = 0;
+		$online["Doctor"] = 0;
+		$online["Enforcer"] = 0;
+		$online["Engineer"] = 0;
+		$online["Fixer"] = 0;
+		$online["Keeper"] = 0;
+		$online["Martial Artist"] = 0;
+		$online["Meta-Physicist"] = 0;
+		$online["Martial Artist"] = 0;
+		$online["Nano-Technician"] = 0;
+		$online["Soldier"] = 0;
+		$online["Trader"] = 0;
+		$online["Shade"] = 0;
+	} else {
+		$prof = Util::get_profession_name($arr[1]);
+		if ($prof == '') {
+			$msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, trader or all";
+			bot::send($msg, $sendto);
+			return;
+		} else {
+			$online[$prof] = 0;
+		}
 	}
+
 	if ($type == "guild" || ($this->settings["count_tell"] == 0 && $type == "msg") || $type == "priv") {
 	    if ($prof == "all") {
 			$sql = "
