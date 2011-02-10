@@ -2,7 +2,7 @@
 	require_once 'Towers.class.php';
 	require_once 'functions.php';
 
-	$MODULE_NAME = "TOWERS_MODULE";
+	$MODULE_NAME = "TOWER_MODULE";
 
 	DB::loadSQLFile($MODULE_NAME, "tower_attack");
 	DB::loadSQLFile($MODULE_NAME, "scout_info");
