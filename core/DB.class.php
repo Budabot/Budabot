@@ -286,8 +286,9 @@ class DB {
 		
 		// only letters, numbers, underscores are allowed
 		if (!preg_match('/^[a-z0-9_]+$/', $name)) {
+			$msg = "Invalid SQL file name: '$name' for module: '$module'!  Only numbers, letters, and underscores permitted!";
 			Logger::log('ERROR', 'Core', "Invalid SQL file name: '$name' for module: '$module'!  Only numbers, letters, and underscores permitted!");
-			return;
+			return $msg;
 		}
 		
 		$settingName = $name . "_db_version";
@@ -326,8 +327,9 @@ class DB {
 				}
 			}
 		}
-		
+
 		if ($file === false) {
+			$msg = "No SQL file found with name '$name' in module '$module'!";
 			Logger::log('ERROR', 'Core', "No SQL file found with name '$name' in module '$module'!");
 		} else if ($forceUpdate || Util::compare_version_numbers($maxFileVersion, $currentVersion) > 0) {
 			$fileArray = file("$dir/$file");
@@ -346,13 +348,18 @@ class DB {
 			}
 			
 			if ($maxFileVersion != 0) {
+				$msg = "Updated '$name' database from '$currentVersion' to '$maxFileVersion'";
 				Logger::log('DEBUG', 'Core', "Updated '$name' database from '$currentVersion' to '$maxFileVersion'");
 			} else {
+				$msg = "Updated '$name' database";
 				Logger::log('DEBUG', 'Core', "Updated '$name' database");
 			}
 		} else {
+			$msg = "'$name' database already up to date! version: '$currentVersion'";
 			Logger::log('DEBUG', 'Core',  "'$name' database already up to date! version: '$currentVersion'");
 		}
+		
+		return $msg;
 	}
 }
 ?>

@@ -41,6 +41,10 @@
 	Command::activate("msg", "$MODULE_NAME/clearqueue.php", "clearqueue", "mod");
 	Command::activate("priv", "$MODULE_NAME/clearqueue.php", "clearqueue", "mod");
 	Command::activate("guild", "$MODULE_NAME/clearqueue.php", "clearqueue", "mod");
+	
+	Command::activate("msg", "$MODULE_NAME/loadsql.php", "loadsql", "mod");
+	Command::activate("priv", "$MODULE_NAME/loadsql.php", "loadsql", "mod");
+	Command::activate("guild", "$MODULE_NAME/loadsql.php", "loadsql", "mod");
 
 	Event::activate("1hour", "$MODULE_NAME/ping_db.php");
 
