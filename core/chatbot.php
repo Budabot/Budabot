@@ -1000,13 +1000,16 @@ class bot extends AOChat {
 				
 				Logger::log('DEBUG', 'Packets', "AOCP_CHAT_NOTICE => client_id: '$client_id' window_id: '$window_id' message_id: '$message_id' message_args: '$args[3]'");
 				
-				$message_args = AOExtMsg::parse_params($args[3]);
-				
 				$category_id = 20000;
 				$message_string = MMDBParser::get_message_string($category_id, $message_id);
 				if ($message_string !== null) {
-					$message = vsprintf($message_string, $message_args);
-					Logger::log_chat('SystemMessage', -1, $message);
+					$message_args = AOExtMsg::parse_params($args[3]);
+					if ($message_args !== null) {
+						$message = vsprintf($message_string, $message_args);
+						Logger::log_chat('SystemMessage', -1, $message);
+					} else {
+						Logger::log('ERROR', 'Core', "Could not parse params '$args[3]' for category_id: '$category_id' message_id: '$message_id' message_string: '$message_String'");
+					}
 				} else {
 					Logger::log('ERROR', 'Core', "Could not find mmdb entry for category_id: '$category_id' message_id: '$message_id'");
 				}
