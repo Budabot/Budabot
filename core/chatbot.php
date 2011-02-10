@@ -1008,7 +1008,7 @@ class bot extends AOChat {
 						$message = vsprintf($message_string, $message_args);
 						Logger::log_chat('SystemMessage', -1, $message);
 					} else {
-						Logger::log('ERROR', 'Core', "Could not parse params '$args[3]' for category_id: '$category_id' message_id: '$message_id' message_string: '$message_String'");
+						Logger::log('ERROR', 'Core', "Could not parse params '$args[3]' for category_id: '$category_id' message_id: '$message_id' message_string: '$message_string'");
 					}
 				} else {
 					Logger::log('ERROR', 'Core', "Could not find mmdb entry for category_id: '$category_id' message_id: '$message_id'");
