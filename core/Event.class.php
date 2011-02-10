@@ -100,14 +100,13 @@ class Event {
 			return;
 		}
 		
-		/* does we need this check for deactivating? --tyrence
+		// to remove this check we need to make sure to use $filename instead of $actual_filename
 		//Check if the file exists
 		$actual_filename = $chatBot->verifyFilename($filename);
 		if ($actual_filename == '') {
 			Logger::log('error', 'Core', "Error deactivating event Type:($type) File:($filename). The file doesn't exist!");
 			return;
 		}
-		*/
 
 		if (in_array($actual_filename, $chatBot->events[$type])) {
 			$temp = array_flip($chatBot->events[$type]);
