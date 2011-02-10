@@ -1,0 +1,6 @@
+<header> :::::: Leprocs :::::: <end>
+
+<highlight>To see the LE procs for a specifc profession:<end>
+<tab><symbol>leprocs 'profession'
+
+Where 'profession' is one of: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, or trader

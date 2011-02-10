@@ -36,7 +36,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
     if ($uid) {
         $whois = Player::get_by_name($arr[1]);
         if ($whois === null) {
-        	$msg = "Could not find character info for {$arr[1]}.";
+        	$msg = "Could not find character info for {$name}.";
         } else {
 	        $msg = Player::get_info($whois);
 
