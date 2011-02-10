@@ -499,44 +499,6 @@ class bot extends AOChat {
 	}
 
 /*===============================
-** Name: Command
-** 	Register a command
-*/	function command($type, $filename, $command, $admin = 'all', $description = ''){
-		$db = DB::get_instance();
-
-		$command = strtolower($command);
-		$description = str_replace("'", "''", $description);
-		$array = explode("/", strtolower($filename));
-		$module = strtoupper($array[0]);
-		
-		if (!bot::processCommandArgs($type, $admin)) {
-			Logger::log('ERROR', 'Core', "invalid args for $module:command($command)");
-			return;
-		}
-		
-		//Check if the file exists
-		if (bot::verifyFilename($filename) == '') {
-			Logger::log('ERROR', 'Core', "Error in registering the File $filename for command $command. The file doesn't exists!");
-			return;
-		}
-
-		for ($i = 0; $i < count($type); $i++) {
-			Logger::log('debug', 'Core', "Adding Command to list:($command) File:($filename) Admin:({$admin[$i]}) Type:({$type[$i]})");
-			
-			if ($this->existing_commands[$type[$i]][$command] == true) {
-				$db->exec("UPDATE cmdcfg_<myname> SET `module` = '$module', `verify` = 1, `file` = '$filename', `description` = '$description' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
-			} else {
-				if ($this->settings["default_module_status"] == 1) {
-					$status = 1;
-				} else {
-					$status = 0;
-				}
-				$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`) VALUES ('$module', '{$type[$i]}', '$filename', '$command', '{$admin[$i]}', '$description', 1, 'cmd', '$status')");
-			}
-		}
-	}
-
-/*===============================
 ** Name: processCommandType
 ** 	Returns a command type in the proper format
 */	function processCommandArgs(&$type, &$admin) {

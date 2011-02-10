@@ -7,31 +7,31 @@
 	Event::register($MODULE_NAME, "setup", "setup.php");
 	
 	// Logon Handling
-	bot::command("", "$MODULE_NAME/logon_msg.php", "logon", "guild", "Sets a Logon Msg");
+	Command::register($MODULE_NAME, "", "logon_msg.php", "logon", "guild", "Sets a Logon Msg");
 	
 	//Lastseen
-	bot::command("", "$MODULE_NAME/lastseen.php", "lastseen", "guild", "Shows the logoff time of a player");
+	Command::register($MODULE_NAME, "", "lastseen.php", "lastseen", "guild", "Shows the logoff time of a player");
 	
 	//Verifies the Onlinelist every hour
 	Event::register($MODULE_NAME, "1hour", "online_check.php", "none", "Online check");
 	
 	//Tell and Tellall
-	bot::command("guild msg", "$MODULE_NAME/tell.php", "tell", "leader", "Repeats an message 3 times in Orgchat");
-	bot::command("guild msg", "$MODULE_NAME/tell.php", "tellall", "leader", "Sends a tell to all online guildmembers");
+	Command::register($MODULE_NAME, "guild msg", "tell.php", "tell", "leader", "Repeats an message 3 times in Orgchat");
+	Command::register($MODULE_NAME, "guild msg", "tell.php", "tellall", "leader", "Sends a tell to all online guildmembers");
 
     // Org Roster list creation and Notify on/off handling
 	Event::register($MODULE_NAME, "24hrs", "roster_guild.php", "none", "Download guild roster xml and update guild members");
 	Event::register($MODULE_NAME, "orgmsg", "notify_auto.php", "none", "Automatically add and remove chars from the guild roster as they leave and join the guild");
-	bot::command("guild", "$MODULE_NAME/notify.php", "notify", "mod", "Adding a char manually to the notify list");
-	bot::command("msg", "$MODULE_NAME/notify.php", "notify", "mod", "Adding a char manually to the notify list");
-	bot::command("priv", "$MODULE_NAME/notify.php", "notify", "mod", "Adding a char manually to the notify list");
+	Command::register($MODULE_NAME, "guild", "notify.php", "notify", "mod", "Adding a char manually to the notify list");
+	Command::register($MODULE_NAME, "msg", "notify.php", "notify", "mod", "Adding a char manually to the notify list");
+	Command::register($MODULE_NAME, "priv", "notify.php", "notify", "mod", "Adding a char manually to the notify list");
 	
-	bot::command("", "$MODULE_NAME/inactive_mem.php", "inactivemem", "admin", "Check for inactive members");
-	bot::command("", "$MODULE_NAME/updateorg.php", "updateorg", "mod", "Forcing an update of the org roster");
+	Command::register($MODULE_NAME, "", "inactive_mem.php", "inactivemem", "admin", "Check for inactive members");
+	Command::register($MODULE_NAME, "", "updateorg.php", "updateorg", "mod", "Forcing an update of the org roster");
 	
 	// Show orgmembers
-	bot::command("", "$MODULE_NAME/orgmembers.php", "orgmembers", "guild", "Show the Members(sorted by name) of the org");
-	bot::command("", "$MODULE_NAME/orgranks.php", "orgranks", "guild", "Show the Members(sorted by rank) of the org");
+	Command::register($MODULE_NAME, "", "orgmembers.php", "orgmembers", "guild", "Show the Members(sorted by name) of the org");
+	Command::register($MODULE_NAME, "", "orgranks.php", "orgranks", "guild", "Show the Members(sorted by rank) of the org");
 	
 	Event::register($MODULE_NAME, "logOn", "notify_logon_guild.php", "none", "Shows an org member login in chat");
 	Event::register($MODULE_NAME, "logOff", "notify_logoff_guild.php", "none", "Shows an org member logoff in chat");

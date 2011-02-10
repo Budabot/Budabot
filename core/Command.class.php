@@ -19,6 +19,46 @@
 class Command {
 
 	/**
+	 * @name: register
+	 * @description: Registers a command
+	 */
+	public static function register($module, $type, $filename, $command, $admin = 'all', $description = ''){
+		$db = DB::get_instance();
+		global $chatBot;
+
+		$command = strtolower($command);
+		$description = str_replace("'", "''", $description);
+		$module = strtoupper($module);
+		
+		if (!bot::processCommandArgs($type, $admin)) {
+			Logger::log('ERROR', 'Core', "invalid args for $module:command($command)");
+			return;
+		}
+		
+		//Check if the file exists
+		$actual_filename = $chatBot->verifyFilename($module . '/' . $filename);
+		if ($actual_filename == '') {
+			Logger::log('ERROR', 'Core', "Error in registering the File $filename for command $command. The file doesn't exists!");
+			return;
+		}
+
+		for ($i = 0; $i < count($type); $i++) {
+			Logger::log('debug', 'Core', "Adding Command to list:($command) File:($actual_filename) Admin:({$admin[$i]}) Type:({$type[$i]})");
+			
+			if ($chatBot->existing_commands[$type[$i]][$command] == true) {
+				$db->exec("UPDATE cmdcfg_<myname> SET `module` = '$module', `verify` = 1, `file` = '$actual_filename', `description` = '$description' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
+			} else {
+				if ($chatBot->settings["default_module_status"] == 1) {
+					$status = 1;
+				} else {
+					$status = 0;
+				}
+				$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`) VALUES ('$module', '{$type[$i]}', '$actual_filename', '$command', '{$admin[$i]}', '$description', 1, 'cmd', '$status')");
+			}
+		}
+	}
+
+	/**
 	 * @name: activate
 	 * @description: Activates a command
 	 */
@@ -139,7 +179,7 @@ class Command {
 	 * @name: loadCommands
 	 * @description: Loads the active commands into memory and activates them
 	 */
-	function loadCommands() {
+	public static function loadCommands() {
 	  	$db = DB::get_instance();
 
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'cmd'");

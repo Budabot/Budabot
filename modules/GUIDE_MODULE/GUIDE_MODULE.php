@@ -33,15 +33,15 @@
    
 	$MODULE_NAME = "GUIDE_MODULE";
 
-	bot::command("", "$MODULE_NAME/guides.php", "guides", "all", "Guides for AO");
+	Command::register($MODULE_NAME, "", "guides.php", "guides", "all", "Guides for AO");
 	
 	// aliases
-	bot::command("", "$MODULE_NAME/guides.php", "breed", "all", "Alias for !guides breed");
-	bot::command("", "$MODULE_NAME/guides.php", "healdelta", "all", "Alias for !guides healdelta");
-	bot::command("", "$MODULE_NAME/guides.php", "lag", "all", "Alias for !guides lag");
-	bot::command("", "$MODULE_NAME/guides.php", "nanodelta", "all", "Alias for !guides nanodelta");
-	bot::command("", "$MODULE_NAME/guides.php", "stats", "all", "Alias for !guides stats");
-	bot::command("", "$MODULE_NAME/guides.php", "buffs", "all", "Alias for !guides buffs");
+	Command::register($MODULE_NAME, "", "guides.php", "breed", "all", "Alias for !guides breed");
+	Command::register($MODULE_NAME, "", "guides.php", "healdelta", "all", "Alias for !guides healdelta");
+	Command::register($MODULE_NAME, "", "guides.php", "lag", "all", "Alias for !guides lag");
+	Command::register($MODULE_NAME, "", "guides.php", "nanodelta", "all", "Alias for !guides nanodelta");
+	Command::register($MODULE_NAME, "", "guides.php", "stats", "all", "Alias for !guides stats");
+	Command::register($MODULE_NAME, "", "guides.php", "buffs", "all", "Alias for !guides buffs");
 	
 	Help::register($MODULE_NAME, "guides", "guides.txt", "all", 'How to use guides');
 ?>

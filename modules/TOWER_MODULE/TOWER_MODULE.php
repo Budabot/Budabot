@@ -8,18 +8,18 @@
 	DB::loadSQLFile($MODULE_NAME, "scout_info");
 	DB::loadSQLFile($MODULE_NAME, "tower_site");
 
-	bot::command("", "$MODULE_NAME/scout.php", "forcescout", "guild", "Adds tower info to watch list (bypasses some of the checks)");
-	bot::command("", "$MODULE_NAME/scout.php", "scout", "guild", "Adds tower info to watch list");
-	bot::command("", "$MODULE_NAME/remscout.php", "remscout", "guild", "Removes tower info to watch list");
+	Command::register($MODULE_NAME, "", "scout.php", "forcescout", "guild", "Adds tower info to watch list (bypasses some of the checks)");
+	Command::register($MODULE_NAME, "", "scout.php", "scout", "guild", "Adds tower info to watch list");
+	Command::register($MODULE_NAME, "", "remscout.php", "remscout", "guild", "Removes tower info to watch list");
 
-	bot::command("", "$MODULE_NAME/opentimes.php", "opentimes", "guild", "Shows status of towers");
-	bot::command("", "$MODULE_NAME/lc.php", "lc", "all", "Shows status of towers");
+	Command::register($MODULE_NAME, "", "opentimes.php", "opentimes", "guild", "Shows status of towers");
+	Command::register($MODULE_NAME, "", "lc.php", "lc", "all", "Shows status of towers");
 
-	bot::command("", "$MODULE_NAME/attacks.php", "attacks", "all", "Shows the last Tower Attack messages");
-	bot::command("", "$MODULE_NAME/attacks.php", "battle", "all", "Shows the last Tower Attack messages");
-	bot::command("", "$MODULE_NAME/attacks.php", "battles", "all", "Shows the last Tower Attack messages");
+	Command::register($MODULE_NAME, "", "attacks.php", "attacks", "all", "Shows the last Tower Attack messages");
+	Command::register($MODULE_NAME, "", "attacks.php", "battle", "all", "Shows the last Tower Attack messages");
+	Command::register($MODULE_NAME, "", "attacks.php", "battles", "all", "Shows the last Tower Attack messages");
 
-  	bot::command("", "$MODULE_NAME/victory.php", "victory", "all", "Shows the last Tower Battle results");
+  	Command::register($MODULE_NAME, "", "victory.php", "victory", "all", "Shows the last Tower Battle results");
 
 	Setting::add($MODULE_NAME, "tower_attack_spam", "Layout types when displaying tower attacks", "edit", "1", "off;compact;normal;full", '0;1;2;3', "mod");
 	Setting::add($MODULE_NAME, "tower_faction_def", "Display certain factions defending", "edit", "7", "none;clan;neutral;clan+neutral;omni;clan+omni;neutral+omni;all", '0;1;2;3;4;5;6;7', "mod");

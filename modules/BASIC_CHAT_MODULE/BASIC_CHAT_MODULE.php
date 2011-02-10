@@ -6,12 +6,12 @@
 	Setting::add($MODULE_NAME, "priv_status_reason", "no", "hide", "not set");	
 
 	//Check macros
-	bot::command("", "$MODULE_NAME/check.php", "check", "rl", "Checks who of the raidgroup is in the area");
+	Command::register($MODULE_NAME, "", "check.php", "check", "rl", "Checks who of the raidgroup is in the area");
 
 	//Topic set/show
 	Event::register($MODULE_NAME, "joinPriv", "topic.php", "topic", "Show Topic when someone joins PrivChat");
 	Event::register($MODULE_NAME, "logOn", "topic_logon.php", "none", "Show Topic on logon of members");
-	bot::command("", "$MODULE_NAME/topic.php", "topic", "all", "Show Topic");
+	Command::register($MODULE_NAME, "", "topic.php", "topic", "all", "Show Topic");
 	Subcommand::register($MODULE_NAME, "", "topic.php", "topic (.+)", "leader", "topic", "Change Topic");
 	Setting::add($MODULE_NAME, "topic", "Topic for Priv Channel", "noedit", "");
 	Setting::add($MODULE_NAME, "topic_setby", "no", "hide", "none");
@@ -19,28 +19,28 @@
 
     // Afk Check
 	Event::register($MODULE_NAME, "priv", "afk_check.php", "none", "Afk check");
-	bot::command("", "$MODULE_NAME/afk.php", "afk", "all", "Sets a member afk");
-	bot::command("", "$MODULE_NAME/afk.php", "kiting", "all", "Sets a member kiting");
+	Command::register($MODULE_NAME, "", "afk.php", "afk", "all", "Sets a member afk");
+	Command::register($MODULE_NAME, "", "afk.php", "kiting", "all", "Sets a member kiting");
 
 	//Leader
-	bot::command("priv", "$MODULE_NAME/leader.php", "leader", "all", "Sets the Leader of the raid");
+	Command::register($MODULE_NAME, "priv", "leader.php", "leader", "all", "Sets the Leader of the raid");
 	Subcommand::register($MODULE_NAME, "priv", "leader.php", "leader (.+)", "raidleader", "leader", "Set a specific Leader");
-	bot::command("", "$MODULE_NAME/leaderecho_cmd.php", "leaderecho", "leader", "Set if the text of the leader will be repeated");
+	Command::register($MODULE_NAME, "", "leaderecho_cmd.php", "leaderecho", "leader", "Set if the text of the leader will be repeated");
 	Event::register($MODULE_NAME, "priv", "leaderecho.php", "leader", "leader echo");
 	Event::register($MODULE_NAME, "leavePriv", "leader.php", "none", "Removes leader when the leader leaves the channel");
 	Setting::add($MODULE_NAME, "leaderecho", "Repeat the text of the raidleader", "edit", "1", "ON;OFF", "1;0");
 	Setting::add($MODULE_NAME, "leaderecho_color", "Color for Raidleader echo", "edit", "<font color=#FFFF00>", "color");
 
 	//Assist
-	bot::command("", "$MODULE_NAME/assist.php", "assist", "all", "Shows an Assist macro");
-	bot::command("", "$MODULE_NAME/assist.php", "callers", "all", "Shows an Assist macro");
+	Command::register($MODULE_NAME, "", "assist.php", "assist", "all", "Shows an Assist macro");
+	Command::register($MODULE_NAME, "", "assist.php", "callers", "all", "Shows an Assist macro");
 	Subcommand::register($MODULE_NAME, "", "assist.php", "assist (.+)", "leader", "assist", "Set a new assist");
-	bot::command("", "$MODULE_NAME/heal_assist.php", "heal", "all", "Creates/showes an Doc Assist macro");
+	Command::register($MODULE_NAME, "", "heal_assist.php", "heal", "all", "Creates/showes an Doc Assist macro");
 	Subcommand::register($MODULE_NAME, "", "heal_assist.php", "heal (.+)", "leader", "heal", "Set a new Doc assist");
 
 	//Tell
-	bot::command("", "$MODULE_NAME/tell.php", "tell", "all", "Repeats a message 3 times");
-	bot::command("", "$MODULE_NAME/cmd.php", "cmd", "rl", "Creates a highly visible messaage");
+	Command::register($MODULE_NAME, "", "tell.php", "tell", "all", "Repeats a message 3 times");
+	Command::register($MODULE_NAME, "", "cmd.php", "cmd", "rl", "Creates a highly visible messaage");
 
 	//Helpfiles
 	Help::register($MODULE_NAME, "afk_priv", "afk.txt", "all", "Going AFK");

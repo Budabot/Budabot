@@ -4,7 +4,7 @@
 	DB::loadSQLFile($MODULE_NAME, "tracked_users");
 	DB::loadSQLFile($MODULE_NAME, "tracking");
     
-	bot::command("", "$MODULE_NAME/track.php", "track", "guild", "Lists all users on tracking list");
+	Command::register($MODULE_NAME, "", "track.php", "track", "guild", "Lists all users on tracking list");
 	
 	Event::register($MODULE_NAME, "logOn", "logon.php", "none", "Records when a tracked user logs on");
 	Event::register($MODULE_NAME, "logOff", "logoff.php", "none", "Records when a tracked user logs off");

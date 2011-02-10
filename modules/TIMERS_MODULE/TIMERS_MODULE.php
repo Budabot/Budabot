@@ -6,10 +6,10 @@
 	Event::register($MODULE_NAME, "setup", "setup.php");
 
 	// Timer Module
-	bot::command("", "$MODULE_NAME/timers.php", "timer", "all", "Set Personal Timers");
-	bot::command("", "$MODULE_NAME/timers.php", "timers", "all", "Shows running Timers");
-	bot::command("", "$MODULE_NAME/countdown.php", "countdown", "all", "Set a countdown");
-	bot::command("", "$MODULE_NAME/countdown.php", "cd", "all", "Set a countdown");
+	Command::register($MODULE_NAME, "", "timers.php", "timer", "all", "Set Personal Timers");
+	Command::register($MODULE_NAME, "", "timers.php", "timers", "all", "Shows running Timers");
+	Command::register($MODULE_NAME, "", "countdown.php", "countdown", "all", "Set a countdown");
+	Command::register($MODULE_NAME, "", "countdown.php", "cd", "all", "Set a countdown");
 
 	Event::register($MODULE_NAME, "2sec", "timers_check.php", "timer", "Checks timers and periodically updates chat with time left");
 	

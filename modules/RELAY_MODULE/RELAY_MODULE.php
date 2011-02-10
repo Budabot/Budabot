@@ -7,10 +7,10 @@
 	Event::register($MODULE_NAME, "guild", "send_relay_message.php", "none", "Sends org chat to relay");
 	Event::register($MODULE_NAME, "priv", "send_relay_message.php", "none", "Sends private channel chat to relay");
 	
-	bot::command("", "$MODULE_NAME/tellrelay.php", "tellrelay", "admin", "Convenience command to quickly set up org relay over tells between two orgs");
+	Command::register($MODULE_NAME, "", "tellrelay.php", "tellrelay", "admin", "Convenience command to quickly set up org relay over tells between two orgs");
 	
 	// Receiving messages to relay
-	bot::command("msg", "$MODULE_NAME/receive_relay_message.php", "grc", "all", "Relays incoming messages to guildchat");
+	Command::register($MODULE_NAME, "msg", "receive_relay_message.php", "grc", "all", "Relays incoming messages to guildchat");
 	Event::register($MODULE_NAME, "extPriv", "receive_relay_message.php", "none", "");
 
 	// Inivite for private channel

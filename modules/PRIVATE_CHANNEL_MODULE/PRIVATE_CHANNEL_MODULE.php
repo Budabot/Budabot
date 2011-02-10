@@ -3,39 +3,39 @@
 	
 	DB::loadSQLFile($MODULE_NAME, "private_chat");
     
-    bot::command("", "$MODULE_NAME/members.php", "members", "all", "Member list");
-	bot::command("", "$MODULE_NAME/sm.php", "sm", "all", "Shows who is in the private channel");
-	bot::command("", "$MODULE_NAME/autoinvite.php", "autoinvite", "all", "Allows member to set whether he should be auto-invited to private channel on logon or not");
-    bot::command("guild msg", "$MODULE_NAME/join.php", "join", "all", "Join command for guests");
-	bot::command("priv msg", "$MODULE_NAME/leave.php", "leave", "all", "Enables Privatechat Kick");
+    Command::register($MODULE_NAME, "", "members.php", "members", "all", "Member list");
+	Command::register($MODULE_NAME, "", "sm.php", "sm", "all", "Shows who is in the private channel");
+	Command::register($MODULE_NAME, "", "autoinvite.php", "autoinvite", "all", "Allows member to set whether he should be auto-invited to private channel on logon or not");
+    Command::register($MODULE_NAME, "guild msg", "join.php", "join", "all", "Join command for guests");
+	Command::register($MODULE_NAME, "priv msg", "leave.php", "leave", "all", "Enables Privatechat Kick");
 	
-	bot::command("priv", "$MODULE_NAME/count.php", "count", "all", "Shows who is in the private channel");
-	bot::command("priv", "$MODULE_NAME/count.php", "count", "all", "Shows who is the private channel");
-	bot::command("priv", "$MODULE_NAME/count.php", "adv", "all", "Shows Adventurers in private channel");
-	bot::command("priv", "$MODULE_NAME/count.php", "agent", "all", "Shows Agents in private channel");
-	bot::command("priv", "$MODULE_NAME/count.php", "crat", "all", "Shows Bureaucrats in private channel");
-	bot::command("priv", "$MODULE_NAME/count.php", "doc", "all", "Shows Doctors in private channel");
-	bot::command("priv", "$MODULE_NAME/count.php", "enf", "all", "Shows Enforcers in private channel");
-	bot::command("priv", "$MODULE_NAME/count.php", "eng", "all", "Shows Engineers in private channel");
-	bot::command("priv", "$MODULE_NAME/count.php", "fix", "all", "Shows Fixers in private channel");
-	bot::command("priv", "$MODULE_NAME/count.php", "keep", "all", "Shows Keepers in private channel");
-	bot::command("priv", "$MODULE_NAME/count.php", "ma", "all", "Shows Martial-Artists in private channel");
-	bot::command("priv", "$MODULE_NAME/count.php", "mp", "all", "Shows Meta-Physicists in private channel");
-	bot::command("priv", "$MODULE_NAME/count.php", "nt", "all", "Shows Nano-Technicians in private channel");
-	bot::command("priv", "$MODULE_NAME/count.php", "sol", "all", "Shows Soldiers in private channel");
-	bot::command("priv", "$MODULE_NAME/count.php", "shade", "all", "Shows Shades in private channel");
-	bot::command("priv", "$MODULE_NAME/count.php", "trader", "all", "Shows Traders in private channel");
+	Command::register($MODULE_NAME, "priv", "count.php", "count", "all", "Shows who is in the private channel");
+	Command::register($MODULE_NAME, "priv", "count.php", "count", "all", "Shows who is the private channel");
+	Command::register($MODULE_NAME, "priv", "count.php", "adv", "all", "Shows Adventurers in private channel");
+	Command::register($MODULE_NAME, "priv", "count.php", "agent", "all", "Shows Agents in private channel");
+	Command::register($MODULE_NAME, "priv", "count.php", "crat", "all", "Shows Bureaucrats in private channel");
+	Command::register($MODULE_NAME, "priv", "count.php", "doc", "all", "Shows Doctors in private channel");
+	Command::register($MODULE_NAME, "priv", "count.php", "enf", "all", "Shows Enforcers in private channel");
+	Command::register($MODULE_NAME, "priv", "count.php", "eng", "all", "Shows Engineers in private channel");
+	Command::register($MODULE_NAME, "priv", "count.php", "fix", "all", "Shows Fixers in private channel");
+	Command::register($MODULE_NAME, "priv", "count.php", "keep", "all", "Shows Keepers in private channel");
+	Command::register($MODULE_NAME, "priv", "count.php", "ma", "all", "Shows Martial-Artists in private channel");
+	Command::register($MODULE_NAME, "priv", "count.php", "mp", "all", "Shows Meta-Physicists in private channel");
+	Command::register($MODULE_NAME, "priv", "count.php", "nt", "all", "Shows Nano-Technicians in private channel");
+	Command::register($MODULE_NAME, "priv", "count.php", "sol", "all", "Shows Soldiers in private channel");
+	Command::register($MODULE_NAME, "priv", "count.php", "shade", "all", "Shows Shades in private channel");
+	Command::register($MODULE_NAME, "priv", "count.php", "trader", "all", "Shows Traders in private channel");
 
-	bot::command("", "$MODULE_NAME/kickall.php", "kickall", "guild", "Kicks all from the privgroup");
-	bot::command("", "$MODULE_NAME/lock.php", "lock", "rl", "Locks the privgroup");
-	bot::command("", "$MODULE_NAME/lock.php", "unlock", "rl", "Unlocks the privgroup");
+	Command::register($MODULE_NAME, "", "kickall.php", "kickall", "guild", "Kicks all from the privgroup");
+	Command::register($MODULE_NAME, "", "lock.php", "lock", "rl", "Locks the privgroup");
+	Command::register($MODULE_NAME, "", "lock.php", "unlock", "rl", "Unlocks the privgroup");
 	
-	bot::command("", "$MODULE_NAME/invite.php", "inviteuser", "guild", "Enables Privatechat Join");
-	bot::command("", "$MODULE_NAME/kick.php", "kickuser", "guild", "kick command for guests");
-	bot::command("", "$MODULE_NAME/invite.php", "invite", "guild", "Enables Privatechat Join");
-	bot::command("", "$MODULE_NAME/kick.php", "kick", "guild", "kick command for guests");
-	bot::command("", "$MODULE_NAME/add.php", "adduser", "guild", "Adds a player to the members list");
-	bot::command("", "$MODULE_NAME/rem.php", "remuser", "guild", "Removes a player from the members list");
+	Command::register($MODULE_NAME, "", "invite.php", "inviteuser", "guild", "Enables Privatechat Join");
+	Command::register($MODULE_NAME, "", "kick.php", "kickuser", "guild", "kick command for guests");
+	Command::register($MODULE_NAME, "", "invite.php", "invite", "guild", "Enables Privatechat Join");
+	Command::register($MODULE_NAME, "", "kick.php", "kick", "guild", "kick command for guests");
+	Command::register($MODULE_NAME, "", "add.php", "adduser", "guild", "Adds a player to the members list");
+	Command::register($MODULE_NAME, "", "rem.php", "remuser", "guild", "Removes a player from the members list");
 	
 	Setting::add($MODULE_NAME, "guest_man_join", "Mode of manual private channel join", "edit", "1", "Only for members of guestlist;Everyone", "1;0");
 	Setting::add($MODULE_NAME, "guest_color_channel", "Color for Private Channel relay(ChannelName)", "edit", "<font color=#C3C3C3>", "color");

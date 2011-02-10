@@ -6,13 +6,13 @@
 
 	//News
     Event::register($MODULE_NAME, "logOn", "news_logon.php", "none", "Sends a tell with news to players logging in");
-	bot::command("", "$MODULE_NAME/news.php", "news", "all", "Show News");
+	Command::register($MODULE_NAME, "", "news.php", "news", "all", "Show News");
 	Subcommand::register($MODULE_NAME, "", "news.php", "news (.+)", "guildadmin", "news", "Add News");
 	Subcommand::register($MODULE_NAME, "", "news.php", "news del (.+)", "guildadmin", "news", "Delete a News entry");
 
 	//Set admin and user news
-	bot::command("", "$MODULE_NAME/set_news.php", "privnews", "rl", "Set news that are shown on privjoin");
-	bot::command("", "$MODULE_NAME/set_news.php", "adminnews", "mod", "Set adminnews that are shown on privjoin");
+	Command::register($MODULE_NAME, "", "set_news.php", "privnews", "rl", "Set news that are shown on privjoin");
+	Command::register($MODULE_NAME, "", "set_news.php", "adminnews", "mod", "Set adminnews that are shown on privjoin");
 	Setting::add($MODULE_NAME, "news", "no", "hide", "Not set.");
 	Setting::add($MODULE_NAME, "adminnews", "no", "hide", "Not set.");
 

@@ -164,7 +164,7 @@ class Event {
 	 * @name: loadEvents
 	 * @description: Loads the active events into memory and activates them
 	 */
-	function loadEvents() {
+	public static function loadEvents() {
 	  	$db = DB::get_instance();
 
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'event'");

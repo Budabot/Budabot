@@ -37,7 +37,7 @@
 	
 	DB::loadSQLFile($MODULE_NAME, "org_history");
 
-	bot::command("msg guild", "$MODULE_NAME/org_history.php", "orghistory", "all", "Shows the org history (invites and kicks and leaves) for a player");
+	Command::register($MODULE_NAME, "", "org_history.php", "orghistory", "guild", "Shows the org history (invites and kicks and leaves) for a player");
 	
 	Event::register($MODULE_NAME, "orgmsg", "org_action_listener.php", "none", "Capture Org Invite/Kick/Leave messages for orghistory");
 	

@@ -18,7 +18,7 @@
 	Event::register($MODULE_NAME, "setup", "setup.php");
 
 	//raffle message
-	bot::command("", "$MODULE_NAME/raffle.php", "raffle", "all");
+	Command::register($MODULE_NAME, "", "raffle.php", "raffle", "all");
 	
 	//timer
 	Event::register($MODULE_NAME, "2sec", "check_raffle.php", "raffle", "Checks to see if raffle is over");

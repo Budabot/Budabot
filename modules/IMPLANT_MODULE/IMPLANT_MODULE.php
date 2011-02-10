@@ -43,9 +43,9 @@
 	DB::loadSQLFile($MODULE_NAME, "premade_implant");
 
 	//Private
-	bot::command("", "$MODULE_NAME/impql.php", "impql", "all", "Shows stats for implant at given ql");
-	bot::command("", "$MODULE_NAME/impreq.php", "impreq", "all", "Shows the highest ql implant that can be worn given treatment and ability");
-	bot::command("", "$MODULE_NAME/premade.php", "premade", "all", "Searches for implants out of the premade implants booths");
+	Command::register($MODULE_NAME, "", "impql.php", "impql", "all", "Shows stats for implant at given ql");
+	Command::register($MODULE_NAME, "", "impreq.php", "impreq", "all", "Shows the highest ql implant that can be worn given treatment and ability");
+	Command::register($MODULE_NAME, "", "premade.php", "premade", "all", "Searches for implants out of the premade implants booths");
 
 	//Help
 	Help::register($MODULE_NAME, "implant", "implant.txt", "all", "Implant help");

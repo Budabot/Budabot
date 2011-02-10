@@ -34,10 +34,10 @@
 	Event::register($MODULE_NAME, "connect", "set_bbin_link.php", "none", "Sets BBIN status at bootup.");
 	
 	//Commands
-	bot::command("msg", "$MODULE_NAME/bbin_connect.php", "startbbin", "admin", "Connect to BBIN");
+	Command::register($MODULE_NAME, "msg", "bbin_connect.php", "startbbin", "admin", "Connect to BBIN");
 	
 	//Command settings
-	bot::command("msg", "$MODULE_NAME/set_bbin_settings.php", "setbbin", "admin", "Manually set BBIN settings");
+	Command::register($MODULE_NAME, "msg", "set_bbin_settings.php", "setbbin", "admin", "Manually set BBIN settings");
 	
 	//BBIN Relay
 	Event::register($MODULE_NAME, "2sec", "bbin_loop.php", "none", "The main BBIN message loop");

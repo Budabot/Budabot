@@ -3,10 +3,10 @@
 class Subcommand {
 
 	/**
-	 * @name: activate
-	 * @description: register a subcommand
+	 * @name: register
+	 * @description: Registers a subcommand
 	 */
-	function register($module, $type, $filename, $command, $admin = 'all', $dependson, $description = 'none') {
+	public static function register($module, $type, $filename, $command, $admin = 'all', $dependson, $description = 'none') {
 		$db = DB::get_instance();
 		global $chatBot;
 
@@ -59,7 +59,7 @@ class Subcommand {
 	 * @name: loadSubcommands
 	 * @description: Loads the active subcommands into memory and activates them
 	 */
-	function loadSubcommands() {
+	public static function loadSubcommands() {
 	  	$db = DB::get_instance();
 		global $chatBot;
 
