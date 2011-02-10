@@ -89,6 +89,7 @@ require_once './core/MyCurl.class.php';
 require_once './core/Playfields.class.php';
 require_once './core/AccessLevel.class.php';
 require_once './core/Command.class.php';
+require_once './core/Subcommand.class.php';
 require_once './core/Event.class.php';
 require_once './core/Setting.class.php';
 require_once './core/Help.class.php';

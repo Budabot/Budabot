@@ -148,22 +148,6 @@ class Command {
 			Command::activate($row->type, $row->file, $row->cmd, $row->admin);
 		}
 	}
-	
-	/**
-	 * @name: loadSubcommands
-	 * @description: Loads the active subcommands into memory and activates them
-	 */
-	function loadSubcommands() {
-	  	$db = DB::get_instance();
-		global $chatBot;
-
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd'");
-		$data = $db->fObject("all");
-		forEach ($data as $row) {
-			$chatBot->subcommands[$row->file][$row->type]["cmd"] = $row->cmd;
-			$chatBot->subcommands[$row->file][$row->type]["admin"] = $row->admin;
-		}
-	}
 }
 
 ?>

@@ -1,7 +1,7 @@
 <?php
    /*
    ** Author: Derroylo (RK2)
-   ** Description: Sets/shows/deletes Newsentrys
+   ** Description: Sets/shows/deletes News entries
    ** Version: 0.3
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
@@ -32,9 +32,9 @@
 if (preg_match("/^news del ([0-9]+)$/i", $message, $arr)) {
 	$rows = $db->exec("DELETE FROM news WHERE `id` = {$arr[1]}");
 	if ($rows == 0) {
-		$msg = "No newsentry found with the ID <highlight>{$arr[1]}<end>.";
+		$msg = "No news entry found with the ID <highlight>{$arr[1]}<end>.";
 	} else {
-		$msg = "Newsentry with the ID <highlight>{$arr[1]}<end> was successfully deleted.";
+		$msg = "News entry with the ID <highlight>{$arr[1]}<end> was successfully deleted.";
 	}
 
     bot::send($msg, $sendto);
@@ -55,7 +55,7 @@ if (preg_match("/^news del ([0-9]+)$/i", $message, $arr)) {
 			
 		  	$link .= "<highlight>Date:<end> ".gmdate("dS M, H:i", $row->time)."\n";
 		  	$link .= "<highlight>Author:<end> $row->name\n";
-		  	$link .= "<highlight>Options:<end> ".bot::makeLink("Delete this newsentry", "/tell <myname> news del $row->id", "chatcmd")."\n";
+		  	$link .= "<highlight>Options:<end> ".bot::makeLink("Delete this news entry", "/tell <myname> news del $row->id", "chatcmd")."\n";
 		  	$link .= "<highlight>Message:<end> $row->news\n\n";
 		}
 		$msg = bot::makeLink("Click to view the latest News", $link)." [Last updated at ".gmdate("dS M, H:i", $updated)."]";
