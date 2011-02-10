@@ -5,8 +5,8 @@
 or
 <tab><symbol>oe 'insert your skill here'
 
-For example you have 112Pistol and wanna check what the max Pistol requirement is you can wear without going oe
+For example you have 112 Pistol and wanna check what the max Pistol requirement is you can wear without going oe
 <tab><symbol>oe 112
 
-Another Example. If your favorite Weapon needs 1200Pistol and you wanna know how much pistol you need to not OE do:
+Another Example. If your favorite Weapon needs 1200 Pistol and you wanna know how much pistol you need to not OE do:
 <tab><symbol>oe 1200

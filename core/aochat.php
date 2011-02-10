@@ -1077,20 +1077,12 @@
 			$this->read($str);
 		}
 	}
-	
-	function arg($n) {
-		$key = "{".strtoupper($n)."}";
-		if (isset($this->args[$key])) {
-			return $this->args[$key];
-		}
-		return NULL;
-	}
 
 	function read($msg) {
-		if (substr($msg, 0, 2) !== "~&") {
+		if (substr($msg, 0, 2) != "~&" || substr("abcdef", -1) != "~") {
 			return false;
 		}
-		$msg = substr($msg, 2);
+		$msg = substr($msg, 2, -1);
 		$this->category = $this->b85g($msg);
 		$this->instance = $this->b85g($msg);
 		
@@ -1139,11 +1131,6 @@
 						$str = "Unknown ($cat, $ins)";
 					}
 					$args[] = $str;
-					break;
-
-				case "~":
-					// the last iteration is the closing tilde
-					// for which we need to do nothing
 					break;
 
 				default:
