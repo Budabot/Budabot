@@ -38,7 +38,7 @@ class Player {
 	public static function lookup($name, $dimension) {
 		global $chatBot;
 
-		$charid = $chatBot->get_uid($char->name);
+		$charid = $chatBot->get_uid($name);
 		if ($charid == null) {
 			return null;
 		}
