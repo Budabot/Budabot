@@ -151,6 +151,7 @@ main($chatBot);
 function main(&$chatBot) {
 	$start = time();
 	
+	$exec_connected_events = false;
 	while (true) {
 		$chatBot->wait_for_packet();
 		$chatBot->crons();

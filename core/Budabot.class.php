@@ -787,13 +787,13 @@ class Budabot extends AOChat {
 		
 		switch ($type){
 			case "msg":
-				$cmds  = &$this->tellCmds;
+				$cmds  = &$chatBot->tellCmds;
 				break;
 			case "priv":
-				$cmds  = &$this->privCmds;
+				$cmds  = &$chatBot->privCmds;
 				break;
 			case "guild":
-				$cmds =  &$this->guildCmds;
+				$cmds =  &$chatBot->guildCmds;
 				break;
 		}
 		
@@ -804,9 +804,9 @@ class Budabot extends AOChat {
 		$filename = $cmds[$cmd]["filename"];
 
 		// Check if a subcommands for this exists
-		if ($this->subcommands[$filename][$type]) {
-			if (preg_match("/^{$this->subcommands[$filename][$type]["cmd"]}$/i", $message)) {
-				$admin = $this->subcommands[$filename][$type]["admin"];
+		if ($chatBot->subcommands[$filename][$type]) {
+			if (preg_match("/^{$chatBot->subcommands[$filename][$type]["cmd"]}$/i", $message)) {
+				$admin = $chatBot->subcommands[$filename][$type]["admin"];
 			}
 		}
 
@@ -816,8 +816,8 @@ class Budabot extends AOChat {
 		if ($access !== true || $filename == "") {
 			if ($type != 'guild') {
 				// don't notify user of unknown command in org chat, in case they are running more than one bot
-				$this->send("Error! Unknown command or Access denied! for more info try /tell <myname> help", $sendto);
-				$this->spam[$sender] = $this->spam[$sender] + 20;
+				$chatBot->send("Error! Unknown command or Access denied! for more info try /tell <myname> help", $sendto);
+				$chatBot->spam[$sender] = $chatBot->spam[$sender] + 20;
 			}
 			return;
 		} else {
@@ -827,12 +827,12 @@ class Budabot extends AOChat {
 			if ($syntax_error == true) {
 				$output = Help::find($message, $sender);
 				if ($output !== false) {
-					$this->send($output, $sendto);
+					$chatBot->send($output, $sendto);
 				} else {
-					$this->send("Error! Check your syntax or for more info try /tell <myname> help", $sendto);
+					$chatBot->send("Error! Check your syntax or for more info try /tell <myname> help", $sendto);
 				}
 			}
-			$this->spam[$sender] = $this->spam[$sender] + 10;
+			$chatBot->spam[$sender] = $chatBot->spam[$sender] + 10;
 		}
 	}
 
@@ -842,73 +842,71 @@ class Budabot extends AOChat {
 */	function crons(){
 		$db = DB::get_instance();
 		global $chatBot;
-
-		switch($this->vars){
-			case $this->vars["2sec"] < time();
-				Logger::log('DEBUG', 'Cron', "2secs");
-				$this->vars["2sec"] 	= time() + 2;
-				forEach ($this->spam as $key => $value){
-					if ($value > 0) {
-						$this->spam[$key] = $value - 10;
-					} else {
-						$this->spam[$key] = 0;
-					}
+		
+		if ($chatBot->vars["2sec"] < time()) {
+			Logger::log('DEBUG', 'Cron', "2secs");
+			$chatBot->vars["2sec"] 	= time() + 2;
+			forEach ($chatBot->spam as $key => $value){
+				if ($value > 0) {
+					$chatBot->spam[$key] = $value - 10;
+				} else {
+					$chatBot->spam[$key] = 0;
 				}
-				
-				forEach ($this->events['2sec'] as $filename) {
-					include $filename;
+			}
+			
+			forEach ($chatBot->events['2sec'] as $filename) {
+				include $filename;
+			}
+		}
+		if ($chatBot->vars["1min"] < time()) {
+			Logger::log('DEBUG', 'Cron', "1min");
+			forEach ($chatBot->largespam as $key => $value){
+				if ($value > 0) {
+					$chatBot->largespam[$key] = $value - 1;
+				} else {
+					$chatBot->largespam[$key] = 0;
 				}
-				break;
-			case $this->vars["1min"] < time();
-				Logger::log('DEBUG', 'Cron', "1min");
-				forEach ($this->largespam as $key => $value){
-					if ($value > 0) {
-						$this->largespam[$key] = $value - 1;
-					} else {
-						$this->largespam[$key] = 0;
-					}
-				}
-				
-				$this->vars["1min"] = time() + 60;
-				forEach ($this->events['1min'] as $filename) {
-					include $filename;
-				}
-				break;
-			case $this->vars["10mins"] < time();
-				Logger::log('DEBUG', 'Cron', "10mins");
-				$this->vars["10mins"] 	= time() + (60 * 10);
-				forEach ($this->events['10mins'] as $filename) {
-					include $filename;
-				}
-				break;
-			case $this->vars["15mins"] < time();
-				Logger::log('DEBUG', 'Cron', "15mins");
-				$this->vars["15mins"] 	= time() + (60 * 15);
-				forEach ($this->events['15mins'] as $filename) {
-					include $filename;
-				}
-				break;
-			case $this->vars["30mins"] < time();
-				Logger::log('DEBUG', 'Cron', "30mins");
-				$this->vars["30mins"] 	= time() + (60 * 30);
-				forEach ($this->events['30mins'] as $filename) {
-					include $filename;
-				}
-				break;
-			case $this->vars["1hour"] < time();
-				Logger::log('DEBUG', 'Cron', "1hour");
-				$this->vars["1hour"] 	= time() + (60 * 60);
-				forEach ($this->events['1hour'] as $filename) {
-					include $filename;
-				}
-				break;
-			case $this->vars["24hours"] < time();
-				Logger::log('DEBUG', 'Cron', "24hours");
-				$this->vars["24hours"] 	= time() + ((60 * 60) * 24);
-				forEach ($this->events['24hrs'] as $filename) {
-					include $filename;
-				}
-				break;
+			}
+			
+			$chatBot->vars["1min"] = time() + 60;
+			forEach ($chatBot->events['1min'] as $filename) {
+				include $filename;
+			}
+		}
+		if ($chatBot->vars["10mins"] < time()) {
+			Logger::log('DEBUG', 'Cron', "10mins");
+			$chatBot->vars["10mins"] 	= time() + (60 * 10);
+			forEach ($chatBot->events['10mins'] as $filename) {
+				include $filename;
+			}
+		}
+		if ($chatBot->vars["15mins"] < time()) {
+			Logger::log('DEBUG', 'Cron', "15mins");
+			$chatBot->vars["15mins"] 	= time() + (60 * 15);
+			forEach ($chatBot->events['15mins'] as $filename) {
+				include $filename;
+			}
+		}
+		if ($chatBot->vars["30mins"] < time()) {
+			Logger::log('DEBUG', 'Cron', "30mins");
+			$chatBot->vars["30mins"] 	= time() + (60 * 30);
+			forEach ($chatBot->events['30mins'] as $filename) {
+				include $filename;
+			}
+		}
+		if ($chatBot->vars["1hour"] < time()) {
+			Logger::log('DEBUG', 'Cron', "1hour");
+			$chatBot->vars["1hour"] 	= time() + (60 * 60);
+			forEach ($chatBot->events['1hour'] as $filename) {
+				include $filename;
+			}
+		}
+		if ($chatBot->vars["24hours"] < time()) {
+			Logger::log('DEBUG', 'Cron', "24hours");
+			$chatBot->vars["24hours"] 	= time() + ((60 * 60) * 24);
+			forEach ($chatBot->events['24hrs'] as $filename) {
+				include $filename;
+			}
 		}
 	}
 }
