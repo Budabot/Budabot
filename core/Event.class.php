@@ -71,7 +71,7 @@ class Event {
 		//Check if the file exists
 		$actual_filename = Util::verify_filename($filename);
 		if ($actual_filename == '') {
-			Logger::log('error', 'Core', "Error activating event Type:($type) File:($filename). The file doesn't exist!");
+			Logger::log('ERROR', 'Core', "Error activating event Type:($type) File:($filename). The file doesn't exist!");
 			return;
 		}
 		
@@ -104,7 +104,7 @@ class Event {
 		//Check if the file exists
 		$actual_filename = Util::verify_filename($filename);
 		if ($actual_filename == '') {
-			Logger::log('error', 'Core', "Error deactivating event Type:($type) File:($filename). The file doesn't exist!");
+			Logger::log('ERROR', 'Core', "Error deactivating event Type:($type) File:($filename). The file doesn't exist!");
 			return;
 		}
 

@@ -161,7 +161,7 @@ if (preg_match("/^config$/i", $message)) {
 } else if (preg_match("/^config (mod|cmd|event) (.+) (enable|disable) (priv|msg|guild|all)$/i", $message, $arr)) {
 	if ($arr[1] == "event") {
 		$temp = explode(" ", $arr[2]);
-	  	$event_type = strtolower($temp[0]);
+	  	$event_type = $temp[0];
 	  	$file = $temp[1];
 	} else if ($arr[1] == 'cmd') {
 		$cmd = strtolower($arr[2]);
