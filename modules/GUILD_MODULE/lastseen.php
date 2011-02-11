@@ -31,7 +31,7 @@
 
 if (preg_match("/^lastseen (.+)$/i", $message, $arr)) {
 	// Get User id
-    $uid = AoChat::get_uid($arr[1]);
+    $uid = $chatBot->get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     if (!$uid) {
         $msg = "Player <highlight>$name<end> does not exist.";

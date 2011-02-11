@@ -41,7 +41,7 @@ if (preg_match("/heal$/i", $message)) {
 	$chatBot->send($msg, 'priv');
 } else if (preg_match("/^heal (.+)$/i", $message, $arr)) {
     $name = $arr[1];
-    $uid = AoChat::get_uid(ucfirst(strtolower($name)));
+    $uid = $chatBot->get_uid(ucfirst(strtolower($name)));
     if ($uid) {
 		$name = ucfirst(strtolower($name));
 		$heal_assist = $name;

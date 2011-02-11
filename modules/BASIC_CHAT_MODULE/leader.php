@@ -44,7 +44,7 @@ if ($type == "leavePriv") {
 		$chatBot->send($msg, 'priv');
 	}
 } else if (preg_match("/^leader (.+)$/i", $message, $arr)) {
-    $uid = AoChat::get_uid($arr[1]);
+    $uid = $chatBot->get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
 	if (!$uid) {
 		$msg = "Player <highlight>{$name}<end> does not exist.";

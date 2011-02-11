@@ -213,7 +213,7 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message)) {
 			$this->data["ORGLIST_MODULE"]["result"][$member->name]["online"] = $buddy_online_status;
 		} else if ($this->vars["name"] != $member->name) { // If the name being checked ISNT the bot.
 			// check if they exist
-			if (AoChat::get_uid($member->name)) {
+			if ($chatBot->get_uid($member->name)) {
 				$this->data["ORGLIST_MODULE"]["check"][$member->name] = 1;
 			}
 		} else if ($this->vars["name"] == $member->name) { // Yes, this bot is online. Don't need a buddylist to tell me.

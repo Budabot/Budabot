@@ -33,7 +33,7 @@ if (preg_match("/^ban (.+) ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (for
 	$who = ucfirst(strtolower($arr[1]));
 	$reason = $arr[5];
 
-	if (AOChat::get_uid($who) == NULL) {
+	if ($chatBot->get_uid($who) == NULL) {
 		$chatBot->send("<red>Sorry the player you wish to ban does not exist.", $sendto);
 		return;
 	}
@@ -58,7 +58,7 @@ if (preg_match("/^ban (.+) ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (for
 } else if (preg_match("/^ban (.+) ([0-9]+)(w|week|weeks|m|month|months|d|day|days)$/i", $message, $arr)) {
 	$who = ucfirst(strtolower($arr[1]));
 	
-	if (AOChat::get_uid($who) == NULL) {
+	if ($chatBot->get_uid($who) == NULL) {
 		$chatBot->send("<red>Sorry the player you wish to ban does not exist.", $sendto);
 		return;
 	}
@@ -84,7 +84,7 @@ if (preg_match("/^ban (.+) ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (for
 	$who = ucfirst(strtolower($arr[1]));
 	$reason = $arr[3];
 	
-	if (AOChat::get_uid($who) == NULL) {
+	if ($chatBot->get_uid($who) == NULL) {
 		$chatBot->send("<red>Sorry player you wish to ban does not exist.", $sendto);
 		return;
 	}
@@ -101,7 +101,7 @@ if (preg_match("/^ban (.+) ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (for
 } else if (preg_match("/^ban (.+)$/i", $message, $arr)) {
 	$who = ucfirst(strtolower($arr[1]));
 	
-	if (AOChat::get_uid($who) == NULL) {
+	if ($chatBot->get_uid($who) == NULL) {
 		$chatBot->send("<red>Sorry player you wish to ban does not exist.", $sendto);
 		return;
 	}

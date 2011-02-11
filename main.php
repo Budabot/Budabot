@@ -81,8 +81,8 @@ ini_set("log_errors", 1);
 ini_set("error_log", "./logs/{$vars['name']}.{$vars['dimension']}/php_errors.log");
 
 
-require_once "./core/aochat.php";
-require_once "./core/chatbot.php";
+require_once "./core/AOChat.class.php";
+require_once "./core/Budabot.class.php";
 require_once "./core/DB.class.php";
 require_once "./core/xml.php";
 require_once './core/MyCurl.class.php';
@@ -125,7 +125,7 @@ if ($db->errorCode != 0) {
 	die();
 }
 
-$chatBot = new bot($vars, $settings);
+$chatBot = new Budabot($vars, $settings);
 $chatBot->init();
 $chatBot->connectAO($vars['login'], $vars['password']);
 

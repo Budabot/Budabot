@@ -10,8 +10,8 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names))
 
 	$name_alt = ucfirst(strtolower($names[1]));
 	$name_main = ucfirst(strtolower($names[2]));
-	$uid_alt = AoChat::get_uid($name_alt);
-	$uid_main = AoChat::get_uid($name_main);
+	$uid_alt = $chatBot->get_uid($name_alt);
+	$uid_main = $chatBot->get_uid($name_main);
 	if (!$uid_alt)
 	{
 		$msg = "Player <highlight>$name_alt<end> does not exist.";

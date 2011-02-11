@@ -31,7 +31,7 @@
 
 $msg = "";
 if (preg_match("/^whois (.+)$/i", $message, $arr)) {
-    $uid = AoChat::get_uid($arr[1]);
+    $uid = $chatBot->get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     if ($uid) {
         $whois = Player::get_by_name($arr[1]);

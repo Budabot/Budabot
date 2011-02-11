@@ -31,7 +31,7 @@
 
 if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
     // Get User id
-    $uid = AoChat::get_uid($arr[2]);
+    $uid = $chatBot->get_uid($arr[2]);
 	$name = ucfirst(strtolower($arr[2]));
     $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$name'");
 	$numrows = $db->numrows();

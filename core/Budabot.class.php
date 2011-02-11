@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-class bot extends AOChat {
+class Budabot extends AOChat {
 
 	var $buddyList = array();
 	var $chatlist = array();

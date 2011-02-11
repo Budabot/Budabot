@@ -30,7 +30,7 @@
    */
    
 if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
-    $uid = AoChat::get_uid($arr[2]);
+    $uid = $chatBot->get_uid($arr[2]);
     $name = ucfirst(strtolower($arr[2]));
     $name2 = ucfirst(strtolower($arr[1]));
 	
@@ -52,7 +52,7 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
 	// update character info
     Player::get_by_name($name);
 } else if (preg_match("/^(.+) kicked (.+) from your organization.$/", $message, $arr) || preg_match("/^(.+) removed inactive character (.+) from your organization.$/", $message, $arr)) {
-    $uid = AoChat::get_uid($arr[2]);
+    $uid = $chatBot->get_uid($arr[2]);
     $name = ucfirst(strtolower($arr[2]));
     $db->exec("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '{$name}'");
     $db->exec("DELETE FROM guild_chatlist_<myname> WHERE `name` = '{$name}'");
@@ -61,7 +61,7 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
 	Buddylist::remove($name, 'org');
     $chatBot->send($msg, "guild");
 } else if(preg_match("/^(.+) just left your organization.$/", $message, $arr) || preg_match("/^(.+) kicked from organization \\(alignment changed\\).$/", $message, $arr)) {
-    $uid = AoChat::get_uid($arr[1]);
+    $uid = $chatBot->get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     $db->exec("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '{$name}'");
     $db->exec("DELETE FROM guild_chatlist_<myname> WHERE `name` = '{$name}'");

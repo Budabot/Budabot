@@ -1,11 +1,11 @@
 <?php
 
 if (preg_match("/^feedback ([a-z0-9-]*) (\\+1|\\-1) (.*)$/i", $message, $arr)) {
-	$charid = AoChat::get_uid($arr[1]);
+	$charid = $chatBot->get_uid($arr[1]);
 	$name = ucfirst(strtolower($arr[1]));
 	$rep = $arr[2];
 	$comment = str_replace("'", "''", $arr[3]);
-	$by_charid = AoChat::get_uid($sender);
+	$by_charid = $chatBot->get_uid($sender);
 
 	if ($charid == false) {
 		$chatBot->send("Could not find character '$name'.", $sendto);
@@ -55,7 +55,7 @@ if (preg_match("/^feedback ([a-z0-9-]*) (\\+1|\\-1) (.*)$/i", $message, $arr)) {
 	$db->exec($sql);
 	$chatBot->send("Feedback for $name added successfully.", $sendto);
 } else if (preg_match("/^feedback ([a-z0-9-]*)$/i", $message, $arr)) {
-    $charid = AoChat::get_uid($arr[1]);
+    $charid = $chatBot->get_uid($arr[1]);
 	$name = ucfirst(strtolower($arr[1]));
 	
 	if ($charid == false) {

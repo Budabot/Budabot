@@ -30,7 +30,7 @@
    */
 
 if (time() >= $this->vars["priv_kickall"]) {
-	AOChat::privategroup_kick_all();
+	$chatBot->privategroup_kick_all();
 	Event::deactivate("2sec", "PRIVATE_CHANNEL_MODULE/kickall_event.php");
 	unset($this->vars["priv_kickall"]);
 }

@@ -26,7 +26,7 @@ if (preg_match("/^track$/i", $message)) {
        	$chatBot->send("No players are on the track list.", $sendto);
 	}
 } else if (preg_match("/^track rem (.+)$/i", $message, $arr)) {
-    $uid = AoChat::get_uid($arr[1]);
+    $uid = $chatBot->get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     
 	if (!$uid) {
@@ -44,7 +44,7 @@ if (preg_match("/^track$/i", $message)) {
 
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^track add (.+)$/i", $message, $arr)) {
-    $uid = AoChat::get_uid($arr[1]);
+    $uid = $chatBot->get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     
 	if (!$uid) {

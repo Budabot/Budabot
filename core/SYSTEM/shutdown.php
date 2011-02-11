@@ -34,7 +34,7 @@ $chatBot->send($msg, $sender);
 $chatBot->send($msg, "prv", true);
 $chatBot->send($msg, "guild", true);
 
-AOChat::disconnect();
+$chatBot->disconnect();
 Logger::log('INFO', 'Core', "The Bot is shutting down.");
 die("The Bot is shutting down.");
 ?>

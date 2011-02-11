@@ -32,7 +32,7 @@
 if (preg_match("/^addadmin (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
 
-	if (AOChat::get_uid($who) == NULL){
+	if ($chatBot->get_uid($who) == NULL){
 		$chatBot->send("<red>Sorry the player you wish to add doesn't exist.<end>", $sendto);
 		return;
 	}

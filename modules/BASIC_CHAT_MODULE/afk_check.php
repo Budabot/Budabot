@@ -47,7 +47,7 @@ if (!preg_match("/^afk(.*)$/i", $message)) {
 		$name = split(" ", $message, 2);
 		$name = $name[0];
 		$name = ucfirst(strtolower($name));
-		$uid = AoChat::get_uid($name);
+		$uid = $chatBot->get_uid($name);
 		if ($uid) {
 			$db->query("SELECT afk FROM guild_chatlist_<myname> WHERE `name` = '{$name}' UNION SELECT afk FROM priv_chatlist_<myname> WHERE `name` = '{$name}'");
 

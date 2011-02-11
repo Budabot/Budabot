@@ -2,7 +2,7 @@
 
 if (preg_match("/^tellrelay (.*)$/", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
-	$uid = AoChat::get_uid($name);
+	$uid = $chatBot->get_uid($name);
 	
 	if (!$uid) {
 		$msg = "Player <highlight>$name<end> does not exist.";
