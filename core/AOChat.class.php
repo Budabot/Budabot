@@ -281,37 +281,46 @@
 
       $packet = new AOChatPacket("in", $type, $data);
 
-      switch($type)
-      {
-        case AOCP_LOGIN_SEED :
-          $this->serverseed = $packet->args[0];
-          break;
+      switch ($type) {
+        case AOCP_LOGIN_SEED:
+			$this->serverseed = $packet->args[0];
+			break;
 
-        case AOCP_CLIENT_NAME :
-        case AOCP_CLIENT_LOOKUP :
-          list($id, $name) = $packet->args;
-          $id   = "" . $id;
-          $name = ucfirst(strtolower($name));
-          $this->id[$id]   = $name;
-          $this->id[$name] = $id;
-          break;
+        case AOCP_CLIENT_NAME:
+        case AOCP_CLIENT_LOOKUP:
+			list($id, $name) = $packet->args;
+			$id = "" . $id;
+			$name = ucfirst(strtolower($name));
+			$this->id[$id]   = $name;
+			$this->id[$name] = $id;
+			break;
 
-        case AOCP_GROUP_ANNOUNCE :
-          list($gid, $name, $status) = $packet->args;
-          $this->grp[$gid] = $status;
-          $this->gid[$gid] = $name;
-          $this->gid[strtolower($name)] = $gid;
-          break;
+        case AOCP_GROUP_ANNOUNCE:
+			list($gid, $name, $status) = $packet->args;
+			$this->grp[$gid] = $status;
+			$this->gid[$gid] = $name;
+			$this->gid[strtolower($name)] = $gid;
+			break;
 
-        case AOCP_GROUP_MESSAGE :
-          /* Hack to support extended messages */
-          if($packet->args[1] === 0 && substr($packet->args[2], 0, 2) == "~&")
-          {
-            $em = new AOExtMsg($packet->args[2]);
-			$packet->args[2] = $em->message;
-			$packet->args['extended_message'] = $em;
-          }
-          break;
+        case AOCP_GROUP_MESSAGE:
+			/* Hack to support extended messages */
+			if($packet->args[1] === 0 && substr($packet->args[2], 0, 2) == "~&") {
+				$em = new AOExtMsg($packet->args[2]);
+				$packet->args[2] = $em->message;
+				$packet->args['extended_message'] = $em;
+			}
+			break;
+
+		case AOCP_CHAT_NOTICE:
+			$category_id = 20000;
+			$packet->args[4] = MMDBParser::get_message_string($category_id, $packet->args[2]);
+			if ($packet->args[4] !== null) {
+				$packet->args[5] = AOExtMsg::parse_params($packet->args[3]);
+				if ($message_args !== null) {
+					$packet->args[6] = vsprintf($packet->args[4], $packet->args[5]);
+				}
+			}
+			break;
       }
 
       $this->last_packet = time();
@@ -1073,18 +1082,16 @@
    *
    */
    
-  class AOExtMsg
-  {
-	public $args, $category, $instance, $message;
+class AOExtMsg {
+	
+	public $args, $category, $instance, $message_string, $message;
 
-	function AOExtMsg($str = NULL) {
-		if (!empty($str)) {
-			$this->read($str);
-		}
+	function __construct($str) {
+		$this->read($str);
 	}
 
 	function read($msg) {
-		if (substr($msg, 0, 2) != "~&" || substr("abcdef", -1) != "~") {
+		if (empty($msg) || substr($msg, 0, 2) != "~&" || substr($msg, -1) != "~") {
 			return false;
 		}
 		$msg = substr($msg, 2, -1);
@@ -1095,9 +1102,9 @@
 		if ($this->args === null) {
 			echo "Error parsing params for category: '$this->category' instance: '$this->instance' string: '$msg'\n";
 		} else {
-			$message_string = MMDBParser::get_message_string($this->category, $this->instance);
-			if ($message_string !== null) {
-				$this->message = vsprintf($message_string, $this->args);
+			$this->message_string = MMDBParser::get_message_string($this->category, $this->instance);
+			if ($this->message_string !== null) {
+				$this->message = vsprintf($this->message_string, $this->args);
 			}
 		}
 	}
@@ -1108,6 +1115,7 @@
 			$data_type = $msg[0];
 			$msg = substr($msg, 1); // skip the data type id
 			switch ($data_type) {
+				
 				case "S":
 					$len = ord($msg[0]) * 256 + ord($msg[1]);
 					$str = substr($msg, 2, $len);
@@ -1115,10 +1123,11 @@
 					$args[] = $str;
 					break;
 				
+				
 				case "s":
 					$len = ord($msg[0]) - 1;
 					$str = substr($msg, 1, $len);
-					$msg = substr($msg, $len +1);
+					$msg = substr($msg, $len + 1);
 					$args[] = $str;
 					break;
 
@@ -1160,8 +1169,8 @@
 
 /* Prioritized chat message queue. */
 
-class AOChatQueue
-{
+class AOChatQueue {
+
 	var $dfunc, $queue, $qsize;
 	var $point, $limit, $inc;
 
