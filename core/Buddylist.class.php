@@ -7,10 +7,19 @@ class Buddylist {
 	 * @description: Returns null when online status is unknown, 1 when buddy is online, 0 when buddy is offline
 	 */
 	public static function is_online($name) {
-		global $chatBot;
-	
-		$buddy = $chatBot->get_buddy($name);
+		$buddy = Buddylist::get_buddy($name);
 		return ($buddy === null ? null : $buddy['online']);
+    }
+	
+	public static function get_buddy($name) {
+		global $chatBot;
+
+		$uid = $chatBot->get_uid($name);
+		if ($uid === false || !isset($chatBot->buddyList[$uid])) {
+			return null;
+		} else {
+			return $chatBot->buddyList[$uid];
+		}
     }
 	
 	public static function add($name, $type) {

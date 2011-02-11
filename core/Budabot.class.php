@@ -129,15 +129,6 @@ class Budabot extends AOChat {
 		$this->vars["15min"] 			= time() + $this->settings["CronDelay"];
 	}
 	
-	function get_buddy($name) {
-		$uid = $this->get_uid($name);
-		if ($uid === false || !isset($this->buddyList[$uid])) {
-			return null;
-		} else {
-			return $this->buddyList[$uid];
-		}
-    }
-	
 	function init() {
 		Logger::log('DEBUG', 'Core', 'Initializing bot');
 		
@@ -257,13 +248,6 @@ class Budabot extends AOChat {
 		//Load active events
 		Logger::log('debug', 'Core', "Loading active events");
 		Event::loadEvents();
-	}
-
-/*===============================
-** Name: ping
-** Get next packet info from AOChat
-*/	function ping(){
-		return $this->wait_for_packet();
 	}
 
 /*===============================
@@ -389,10 +373,11 @@ class Budabot extends AOChat {
 		return true;
 	}
 
-/*===========================================================================================
-** Name: processCallback
-** Proccess all incoming messages that bot recives
-*/	function processCallback($type, $args){
+	/*
+	 * @name: process_packet
+	 * @description: Proccess all incoming messages that bot recives
+	 */	
+	function process_packet($type, $args) {
 		$db = DB::get_instance();
 		global $chatBot;
 

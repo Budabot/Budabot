@@ -316,13 +316,18 @@
 
       $this->last_packet = time();
 
-      if(is_callable($this->callback))
-      {
-		call_user_func($this->callback, $packet->type, $packet->args, $this->cbargs);
-      }
+      $this->process_packet($packet->type, $packet->args);
 
       return $packet;
     }
+	
+	/**
+	 * @name: process_packet
+	 * @description: override this method
+	 */
+	function process_packet($type, $args) {
+		
+	}
 
     function send_packet($packet)
     {

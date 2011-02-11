@@ -152,7 +152,7 @@ function main(&$chatBot) {
 	$start = time();
 	
 	while (true) {
-		$chatBot->ping();
+		$chatBot->wait_for_packet();
 		$chatBot->crons();
 		if ($exec_connected_events == false && ((time() - $start) > 5))	{
 			$chatBot->connectedEvents();
@@ -160,17 +160,6 @@ function main(&$chatBot) {
 		}
 	}	
 }	
-
-/*
-** Name: callback
-** Function called by Aochat each time a incoming packet is received.
-** Inputs: (int)$type, (array)$arguments, (object)&$incBot
-** Outputs: None
-*/	
-function callback($type, $args) {
-	global $chatBot;
-	$chatBot->processCallback($type, $args);	
-}
 
 /**
 * isWindows is a little utility function to check
