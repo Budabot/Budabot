@@ -1,7 +1,7 @@
 <?php
 
 class Util {
-	public static function bytesConvert($bytes) {
+	public static function bytes_convert($bytes) {
 		$ext = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
 		$unitCount = 0;
 		for (; $bytes > 1024; $unitCount++) {
