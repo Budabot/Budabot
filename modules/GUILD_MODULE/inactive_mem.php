@@ -50,8 +50,8 @@ if (preg_match("/^inactivemem ([0-9]+)/i", $message, $arr)) {
 		
 		if ($kick) {
 			$numinactive++;
-			$kick = " [".bot::makeLink("Kick {$row->name}?", "/k {$row->name}", "chatcmd")."]"; ///org kick {$row->name}
-			$alts = bot::makeLink("Alts", "/tell <myname> alts {$row->name}", "chatcmd");
+			$kick = " [".Text::make_link("Kick {$row->name}?", "/k {$row->name}", "chatcmd")."]"; ///org kick {$row->name}
+			$alts = Text::make_link("Alts", "/tell <myname> alts {$row->name}", "chatcmd");
 			$logged = $row->logged_off;
 			$lasttoon = $row->name;
 			
@@ -67,7 +67,7 @@ if (preg_match("/^inactivemem ([0-9]+)/i", $message, $arr)) {
 			
 		}
 	}
-	$msg = bot::makeLink("$numinactive Inactive Org Members (Since {$arr[1]} months)",$list);
+	$msg = Text::make_link("$numinactive Inactive Org Members (Since {$arr[1]} months)",$list);
 	bot::send($msg, $sendto);
 } else {
 	$syntax_error = true;

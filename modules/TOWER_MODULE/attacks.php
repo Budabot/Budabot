@@ -113,13 +113,13 @@ if ($db->numrows() == 0) {
 			$list .= $colorlabel."Attacker:<end> {$row->att_player} ({$row->att_level}/<green>{$row->att_ai_level}<end> {$row->att_profession}) <{$att_faction}>{$row->att_guild_name}<end> ({$row->att_faction})\n";
 		}
 		
-		$base = $this->makeLink("{$row->short_name} {$row->site_number}", "/tell <myname> lc {$row->short_name} {$row->site_number}", 'chatcmd');
+		$base = Text::make_link("{$row->short_name} {$row->site_number}", "/tell <myname> lc {$row->short_name} {$row->site_number}", 'chatcmd');
 		$base .= " ({$row->min_ql}-{$row->max_ql})";
 
 		$list .= $colorlabel."Defender:<end> <{$def_faction}>{$row->def_guild_name}<end> ({$row->def_faction})\n";
 		$list .= "Site: $base\n\n";
 	}
-	$msg = bot::makeLink("Tower Attacks", $list);
+	$msg = Text::make_link("Tower Attacks", $list);
 }
 
 bot::send($msg, $sendto);

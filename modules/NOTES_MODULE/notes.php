@@ -36,14 +36,14 @@ if (preg_match("/^notes?$/i", $message)) {
   	$db->query($sql);
 	$data = $db->fObject('all');
   	forEach ($data as $row) {
-	  	$remove = bot::makeLink('Remove', "/tell <myname> <symbol>note rem $note->id" , 'chatcmd');
+	  	$remove = Text::make_link('Remove', "/tell <myname> <symbol>note rem $note->id" , 'chatcmd');
 	  	$blob .= "$remove $note->note\n\n";
 	}
 	
 	if (count($data) == 0) {
 		$msg = "No notes for $sender.";	
 	} else {
-		$msg = bot::makeLink("Notes for $sender", $blob, 'blob');
+		$msg = Text::make_link("Notes for $sender", $blob, 'blob');
 	}
   	
 	bot::send($msg, $sendto);

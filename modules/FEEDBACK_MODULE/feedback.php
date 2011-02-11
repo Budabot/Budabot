@@ -97,7 +97,7 @@ if (preg_match("/^feedback ([a-z0-9-]*) (\\+1|\\-1) (.*)$/i", $message, $arr)) {
 			$blob .= "({$row->reputation}) $row->comment <end> $row->by <white>{$time} ago<end>\n\n";
 		}
 		
-		$msg = bot::makeLink("Feedback for {$name}", $blob, 'blob');
+		$msg = Text::make_link("Feedback for {$name}", $blob, 'blob');
 	}
 
 	bot::send($msg, $sendto);

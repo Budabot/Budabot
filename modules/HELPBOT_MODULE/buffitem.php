@@ -46,7 +46,7 @@ if (preg_match("/^buffitem (.+)$/i", $message, $arr)) {
 			$inside .= "\n".sizeof($results)." results found, please pick one by clicking it\n\n";
 		}
 		$inside .= "by Imoutochan, RK1";
-		$windowlink = bot::makeLink("Buff item search results", $inside);
+		$windowlink = Text::make_link("Buff item search results", $inside);
 	}
 	bot::send($windowlink, $sendto);
 	bot::send("<highlight>$found<end> result(s) in total", $sendto);

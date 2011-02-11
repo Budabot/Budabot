@@ -51,7 +51,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 	        $list .= "<a href='chatcmd:///cc addbuddy $name'>Add to buddylist</a>\n";
 	        $list .= "<a href='chatcmd:///cc rembuddy $name'>Remove from buddylist</a>\n";
 			$list .= "\nSource: $whois->source\n";
-	        $msg .= " :: ".bot::makeLink("More info", $list, 'blob');
+	        $msg .= " :: ".Text::make_link("More info", $list, 'blob');
 	    }
     } else {
         $msg = "Player <highlight>$name<end> does not exist.";
@@ -81,7 +81,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
             $list .= "<a href='chatcmd:///cc addbuddy $name'>Add to buddylist</a>\n";
             $list .= "<a href='chatcmd:///cc rembuddy $name'>Remove from buddylist</a>\n";
 			$list .= "\nSource: $whois->source\n";
-            $msg .= " :: ".bot::makeLink("More info", $list, 'blob');
+            $msg .= " :: ".Text::make_link("More info", $list, 'blob');
             $msg = "<highlight>Server $server:<end> ".$msg;
         } else {
             $msg = "Server $server: Player <highlight>$name<end> does not exist.";
@@ -210,7 +210,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 	  	$link .= "<highlight>Shades:<end> $num_shade (".round(($num_shade*100)/$num_members, 1)."% of total)\n";
 	  	$link .= "<highlight>Soldiers:<end> $num_sol (".round(($num_sol*100)/$num_members, 1)."% of total)\n";
 	  	$link .= "<highlight>Traders:<end> $num_trad (".round(($num_trad*100)/$num_members, 1)."% of total)\n";		  			  			  	
-	  	$msg = bot::makeLink("Org Info $org->orgname", $link, 'blob');
+	  	$msg = Text::make_link("Org Info $org->orgname", $link, 'blob');
 	} else {
 		$msg = "Error in getting the Org info. Either that org doesn't exist or the AO server was too slow to responce.";
 	}

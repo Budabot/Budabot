@@ -144,7 +144,7 @@ if (preg_match("/^time$/i", $message)) {
 	$link .= "<tab><tab>Summer Time (CDT = GMT-5): {$timezone["CDT"]["time"]}\n";
 
 	$msg = "<highlight>".gmdate("dS M, H:i", $time)."<end> (GMT/AO)";
-	$msg .= " ".bot::makeLink("All Timezones", $link);
+	$msg .= " ".Text::make_link("All Timezones", $link);
     bot::send($msg, $sendto);
 } else if (preg_match("/^time (.+)$/i", $message, $arr)) {
   	$zone = strtoupper($arr[1]);

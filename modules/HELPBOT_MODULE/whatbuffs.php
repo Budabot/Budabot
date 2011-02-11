@@ -34,7 +34,7 @@ if (preg_match("/^whatbuffs (.+)$/i", $message, $arr)) {
 				$inside .= $info;
 				$inside .= "\n\nClick the item(s) for more info\n\n";
 				$inside .= "by Imoutochan, RK1";
-				$windowlink = bot::makeLink(":: Your \"What buffs ...?\" results ::", $inside);
+				$windowlink = Text::make_link(":: Your \"What buffs ...?\" results ::", $inside);
 				bot::send($windowlink, $sendto); 
 				bot::send("<highlight>$found<end> result(s) in total", $sendto);
 				return;
@@ -53,7 +53,7 @@ if (preg_match("/^whatbuffs (.+)$/i", $message, $arr)) {
 			$inside .= $info."\n";
 			$inside .= "Which of those skills did you mean?\n\n";
 			$inside .= "by Imoutochan, RK1";
-			$windowlink = bot::makeLink(":: Your \"What buffs ...?\" results ::", $inside);
+			$windowlink = Text::make_link(":: Your \"What buffs ...?\" results ::", $inside);
 			bot::send($windowlink, $sendto); 
 			bot::send("Found several skills matching your key words.", $sendto);
 			return;

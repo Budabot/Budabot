@@ -42,13 +42,13 @@ if (preg_match("/^nanolines$/i", $message, $arr)) {
 
 	while($row = $db->fObject()) {
 
-		$window .= bot::makeLink($row->profession, "/tell <myname> <symbol>nlprof $row->profession", 'chatcmd');
+		$window .= Text::make_link($row->profession, "/tell <myname> <symbol>nlprof $row->profession", 'chatcmd');
 		$window .= "\n";
 	}
 
 	$window .= "\n\nAO Nanos by Voriuste";
 
-	$msg = bot::makeLink('Nanolines', $window, 'blob');
+	$msg = Text::make_link('Nanolines', $window, 'blob');
 
 	bot::send($msg, $sendto);
 } else {

@@ -47,7 +47,7 @@ if (!preg_match("/^impreq ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	} else {
 		$obj = findMaxImplantQlByReqs($ability, $treatment);
 		$clusterInfo = formatClusterBonuses($obj);
-		$link = $this->makeLink("ql $obj->ql", $clusterInfo, 'blob');
+		$link = Text::make_link("ql $obj->ql", $clusterInfo, 'blob');
 
 		$msg = "\nThe highest ql implant you can wear is $link which requires:\nTreatment: $obj->treatment\nAbility: $obj->ability";
 	}

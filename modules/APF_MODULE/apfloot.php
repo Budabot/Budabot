@@ -110,7 +110,7 @@ if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 	$list .= "<tab>{$itemlink["ICEU"]}\n\n";
 	$list .= "<highlight>Tradeskills needed for this process:<end> 1000Nano Programming.\n";
 
-	$msg = bot::makeLink("Guide for Hacker ICE-Breaker Source", $list);
+	$msg = Text::make_link("Guide for Hacker ICE-Breaker Source", $list);
 
     bot::send($msg, $sendto);
 } elseif(preg_match("/^apfloot KyrOzch Helmet$/i", $message)) {
@@ -122,7 +122,7 @@ if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 	$list .= "<tab><tab><tab><tab><img src=rdb://82981>\n";
 	$list .= "<tab>{$itemlink["CMP"]}\n\n";
 
-	$msg = bot::makeLink("Guide for Kyr'Ozch Helmet", $list);
+	$msg = Text::make_link("Guide for Kyr'Ozch Helmet", $list);
 
     bot::send($msg, $sendto);
 } elseif(preg_match("/^apfloot Action Probability Estimator$/i", $message)) {
@@ -178,7 +178,7 @@ if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 	$list .= "<tab><tab><tab><tab><tab>OR\n\n";
 	$list .= "<tab>{$itemlink["YCSH"]}\n\n";
 
-	$msg = bot::makeLink("Guide for Action Probability Estimator", $list);
+	$msg = Text::make_link("Guide for Action Probability Estimator", $list);
 
     bot::send($msg, $sendto);
 } elseif(preg_match("/^apfloot Dynamic Gas Redistribution Valves$/i", $message)) {
@@ -226,7 +226,7 @@ if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 	$list .= "<tab><tab><tab><tab><img src=rdb://13342>\n";
 	$list .= "<tab>{$itemlink["ASC"]}\n\n";
 		
-	$msg = bot::makeLink("Guide for Dynamic Gas Redistribution Valves", $list);
+	$msg = Text::make_link("Guide for Dynamic Gas Redistribution Valves", $list);
 
     bot::send($msg, $sendto);
 } elseif(preg_match("/^apfloot Inertial Adjustment Processing Unit$/i", $message)) {
@@ -278,7 +278,7 @@ if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 	$list .= "<tab><tab><tab><tab><img src=rdb://218716>\n";
 	$list .= "<tab>{$itemlink["LMM"]}\n";
 			
-	$msg = bot::makeLink("Guide for Inertial Adjustment Processing Unit", $list);
+	$msg = Text::make_link("Guide for Inertial Adjustment Processing Unit", $list);
 
     bot::send($msg, $sendto);
 } elseif(preg_match("/^apfloot Notum Amplification Coil$/i", $message)) {
@@ -316,7 +316,7 @@ if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 	$list .= "<tab><tab><tab><tab><tab>OR\n\n";
 	$list .= "<tab>{$itemlink["AKC13"]}\n\n";
 		
-	$msg = bot::makeLink("Guide for Notum Amplification Coil", $list);
+	$msg = Text::make_link("Guide for Notum Amplification Coil", $list);
 
     bot::send($msg, $sendto);
 } elseif(preg_match("/^apfloot Energy Redistribution Unit$/i", $message)) {
@@ -353,7 +353,7 @@ if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 	$list .= "<tab><tab><tab><tab><img src=rdb://257711>\n";
 	$list .= "<tab>{$itemlink["VNGW"]}\n";
 			
-	$msg = bot::makeLink("Guide for Energy Redistribution Unit", $list);
+	$msg = Text::make_link("Guide for Energy Redistribution Unit", $list);
 
     bot::send($msg, $sendto);
 } elseif(preg_match("/^apfloot Visible Light Remodulation Device$/i", $message)) {
@@ -395,7 +395,7 @@ if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 	$list .= "<tab><tab><tab><tab><img src=rdb://257711>\n";
 	$list .= "<tab>{$itemlink["SSSS"]}\n";
 			
-	$msg = bot::makeLink("Guide for Visible Light Remodulation Device", $list);
+	$msg = Text::make_link("Guide for Visible Light Remodulation Device", $list);
 
     bot::send($msg, $sendto);
 } else {

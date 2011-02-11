@@ -64,7 +64,7 @@ if (preg_match("/^server(.*)$/i", $message, $arr)) {
 		    	$link .= "<highlight>$zone<end>: {$proz["players"]} \n";
 			}
 			
-			$msg = bot::makeLink("Status of $server->name", $link);	    
+			$msg = Text::make_link("Status of $server->name", $link);	    
 		}
 	} else {
 		$msg = "Choose a server between 1 and 4";

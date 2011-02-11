@@ -644,7 +644,7 @@ else if (preg_match ("/^spiritssen ([0-9]+) (.+)$/i", $message, $arr)) {
 	return;
 }
 		
-$spirits = bot::makeLink("Spirits", $spirits);
+$spirits = Text::make_link("Spirits", $spirits);
 		
 bot::send($spirits, $sendto);
 ?>

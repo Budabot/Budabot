@@ -31,7 +31,7 @@ if (preg_match("/^whereis (.+)$/i", $message, $arr)) {
 		
 		$whereis = $header . $whereis;
 	
-		$msg = bot::makelink("Whereis", $whereis);
+		$msg = Text::make_link("Whereis", $whereis);
 	} else if ($whereis_found == 1) {
 		$msg = $whereis;
 	} else {

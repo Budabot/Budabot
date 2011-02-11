@@ -27,11 +27,11 @@ if (preg_match("/^guides list$/i", $message)) {
 
 		$linkContents = '';
 		forEach ($topicList as $topic) {
-			$linkContents .= $this->makeLink($topic, "/tell <myname> <symbol>guides $topic", 'chatcmd') . "\n";  
+			$linkContents .= Text::make_link($topic, "/tell <myname> <symbol>guides $topic", 'chatcmd') . "\n";  
 		}
 		
 		if ($linkContents) {
-			$msg = $this->makeLink('Topics (' . count($topicList) . ')', $linkContents, 'blob');
+			$msg = Text::make_link('Topics (' . count($topicList) . ')', $linkContents, 'blob');
 		} else {
 			$msg = "No topics available.";   
 		}
@@ -48,7 +48,7 @@ if (preg_match("/^guides list$/i", $message)) {
 	if (!$info) {
 		$msg = "No info for $fileName could be found";
 	} else {	
-		$msg = $this->makeLink(ucfirst($fileName), $info, 'blob');
+		$msg = Text::make_link(ucfirst($fileName), $info, 'blob');
 	}
 }
 

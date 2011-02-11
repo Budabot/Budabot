@@ -21,7 +21,7 @@ else {
 	$info .= "The bot has it's own Guardian macro to use it just do ";
 	$info .= "<symbol>g in the chat. \n\n";
 	$info .= "<a href='chatcmd:///macro G_Macro /g <myname> <symbol>g'>Click here to make an G macro </a>";
-	$info = bot::makeLink("Info", $info);
+	$info = Text::make_link("Info", $info);
 
   	//Create g Order
 	foreach($guard as $key => $value) {

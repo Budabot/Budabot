@@ -73,7 +73,7 @@ if (preg_match("/^nlline ([0-9]*)$/i", $message, $arr)) {
 
 		$window .= "\n\nAO Nanos by Voriuste";
 
-		$msg = bot::makeLink($header, $window, 'blob');
+		$msg = Text::make_link($header, $window, 'blob');
 
 	} else {
 

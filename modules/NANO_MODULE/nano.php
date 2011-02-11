@@ -113,7 +113,7 @@ if ($countitems > 1) {
 	    }
     }
     $list = "<header>::::: Nano Search Result :::::<end>\n\n".$list;
-    $link = bot::makeLink("$countitems results in total", $list);
+    $link = Text::make_link("$countitems results in total", $list);
     bot::send($link, $sendto);
       	
 	//Show a warning if the maxnano are reached

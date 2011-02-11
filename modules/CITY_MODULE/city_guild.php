@@ -69,7 +69,7 @@ if (-1 == $sender) {
                 $list .= "Player: <highlight>".$row->player."<end>\n\n";
             }
         }
-        $msg .= " ".bot::makeLink("City History", $list);
+        $msg .= " ".Text::make_link("City History", $list);
 
     }
     bot::send($msg, $sendto);

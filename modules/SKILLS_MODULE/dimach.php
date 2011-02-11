@@ -64,7 +64,7 @@
 		$inside .= $info;
 		$inside .= "\n\nby Imoutochan, RK1";
 		
-		$windowlink = bot::makeLink("::Your Dimach skill results::", $inside);
+		$windowlink = Text::make_link("::Your Dimach skill results::", $inside);
 		bot::send($windowlink, $sendto);
 	} else {
 		$syntax_error = true;

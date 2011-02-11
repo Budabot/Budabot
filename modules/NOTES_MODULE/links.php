@@ -7,8 +7,8 @@ if (preg_match("/^links$/i", $message)) {
   	$db->query($sql);
 	$data = $db->fObject('all');
   	forEach ($data as $row) {
-	  	$remove = bot::makeLink('Remove', "/tell <myname> <symbol>links rem $row->id" , 'chatcmd');
-		$website = bot::makeLink($row->website, "/start $row->website", 'chatcmd');
+	  	$remove = Text::make_link('Remove', "/tell <myname> <symbol>links rem $row->id" , 'chatcmd');
+		$website = Text::make_link($row->website, "/start $row->website", 'chatcmd');
 		$dt = gmdate("M j, Y, G:i", $row->dt);
 	  	$blob .= "$website <white>$row->comments<end> [<green>$row->name<end>] <white>$dt<end> $remove\n";
 	}
@@ -16,7 +16,7 @@ if (preg_match("/^links$/i", $message)) {
 	if (count($data) == 0) {
 		$msg = "No links found.";
 	} else {
-		$msg = bot::makeLink('Links', $blob, 'blob');
+		$msg = Text::make_link('Links', $blob, 'blob');
 	}
   	
 	bot::send($msg, $sendto);

@@ -81,7 +81,7 @@ if (preg_match('/^specials \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)
 	} else {
 		$blob .= "Written by Tyrence(RK2)\n";
 		$blob .= "Stats provided by xyphos.com";
-		$msg = $this->makeLink('Weapon Specials', $blob, 'blob');
+		$msg = Text::make_link('Weapon Specials', $blob, 'blob');
 	}
 
 	bot::send($msg, $sendto);

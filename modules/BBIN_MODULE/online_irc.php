@@ -24,7 +24,7 @@ if(preg_match("/^onlineirc$/i", $message, $arr)) {
 				$list .= "$value\n";
 			}
 			
-			$msg = bot::makeLink("$numusers online in IRC",$list);
+			$msg = Text::make_link("$numusers online in IRC",$list);
 			
 			bot::send($msg, $sendto);
 		}

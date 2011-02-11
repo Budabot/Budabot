@@ -49,7 +49,7 @@ if (preg_match("/^pb (.+)$/i", $message, $arr)) {
 			  	$name = "QL $symb->ql $symb->line $symb->slot Symbiant, $symb->type Unit Aban";
 			  	$link .= Text::make_item($symb->itemid, $symb->itemid, $symb->ql, $name)."\n";
 			}
-			$msg .= "\n".bot::makeLink("Remains of $row->pb", $link);
+			$msg .= "\n".Text::make_link("Remains of $row->pb", $link);
 		}
 	} else if ($pb_found > 5) {
 		$msg = "Too many results.";
@@ -115,9 +115,9 @@ if (preg_match("/^pb (.+)$/i", $message, $arr)) {
 		forEach ($data as $row) {
 		  	$name = "\n\nQL $row->ql $row->line $row->slot Symbiant, $row->type Unit Aban";
 		  	$link .= Text::make_item($row->itemid, $row->itemid, $row->ql, $name)."\n";
-		  	$link .= "Found on ".bot::makeLink($row->pb, "/tell <myname> pb $row->pb", "chatcmd");
+		  	$link .= "Found on ".Text::make_link($row->pb, "/tell <myname> pb $row->pb", "chatcmd");
 		}
-		$msg .= bot::makeLink("Found $numrows matches", $link);
+		$msg .= Text::make_link("Found $numrows matches", $link);
 	} else {
 		$msg = "Couldn't find any symbs";
 	}
@@ -182,9 +182,9 @@ if (preg_match("/^pb (.+)$/i", $message, $arr)) {
 		forEach ($data as $row) {
 		  	$name = "\n\nQL $row->ql $row->line $row->slot Symbiant, $row->type Unit Aban";
 		  	$link .= Text::make_item($row->itemid, $row->itemid, $row->ql, $name)."\n";
-		  	$link .= "Found on ".bot::makeLink($row->pb, "/tell <myname> pb $row->pb", "chatcmd");
+		  	$link .= "Found on ".Text::make_link($row->pb, "/tell <myname> pb $row->pb", "chatcmd");
 		}
-		$msg .= bot::makeLink("Found $numrows matches", $link);
+		$msg .= Text::make_link("Found $numrows matches", $link);
 	} else {
 		$msg = "Couldn't find any symbs";
 	}

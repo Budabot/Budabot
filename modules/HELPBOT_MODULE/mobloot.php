@@ -13,7 +13,7 @@ if (preg_match("/^mobloot ([0-9]+)$/i", $message, $arr)) {
 		$inside	.= "Monster level: <orange>". $lvl ."<end>\n";
 		$inside .= "Loot QL range: <orange>".$low."<end> - <orange>".$high."<end>\n";
 		
-		$windowlink = bot::makeLink("::Your loot QL results::", $inside);
+		$windowlink = Text::make_link("::Your loot QL results::", $inside);
 		bot::send($windowlink, $sendto);
 	}
 

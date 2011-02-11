@@ -217,7 +217,7 @@ if(preg_match("/^loottable (13|28|35)$/i", $message, $arr)) {
 	  	break;
 	}
 
-	$msg = bot::makeLink("Loottable for sector $sector", $list);
+	$msg = Text::make_link("Loottable for sector $sector", $list);
 
 	bot::send($msg, $sendto);
 } else {

@@ -86,17 +86,17 @@ if (!function_exists('get_admin_value')) {
 if (preg_match("/^config$/i", $message)) {
 	$list = "<header>::::: Module Config :::::<end>\n\n";
 	$list .= "Org Commands - " . 
-		bot::makeLink('Enable All', '/tell <myname> config cmd enable guild', 'chatcmd') . " " . 
-		bot::makeLink('Disable All', '/tell <myname> config cmd disable guild', 'chatcmd') . "\n";
+		Text::make_link('Enable All', '/tell <myname> config cmd enable guild', 'chatcmd') . " " . 
+		Text::make_link('Disable All', '/tell <myname> config cmd disable guild', 'chatcmd') . "\n";
 	$list .= "Private Channel Commands - " . 
-		bot::makeLink('Enable All', '/tell <myname> config cmd enable priv', 'chatcmd') . " " . 
-		bot::makeLink('Disable All', '/tell <myname> config cmd disable priv', 'chatcmd') . "\n";
+		Text::make_link('Enable All', '/tell <myname> config cmd enable priv', 'chatcmd') . " " . 
+		Text::make_link('Disable All', '/tell <myname> config cmd disable priv', 'chatcmd') . "\n";
 	$list .= "Private Message Commands - " . 
-		bot::makeLink('Enable All', '/tell <myname> config cmd enable msg', 'chatcmd') . " " . 
-		bot::makeLink('Disable All', '/tell <myname> config cmd disable msg', 'chatcmd') . "\n";
+		Text::make_link('Enable All', '/tell <myname> config cmd enable msg', 'chatcmd') . " " . 
+		Text::make_link('Disable All', '/tell <myname> config cmd disable msg', 'chatcmd') . "\n";
 	$list .= "ALL Commands - " . 
-		bot::makeLink('Enable All', '/tell <myname> config cmd enable all', 'chatcmd') . " " . 
-		bot::makeLink('Disable All', '/tell <myname> config cmd disable all', 'chatcmd') . "\n\n\n";
+		Text::make_link('Enable All', '/tell <myname> config cmd enable all', 'chatcmd') . " " . 
+		Text::make_link('Disable All', '/tell <myname> config cmd disable all', 'chatcmd') . "\n\n\n";
 	
 	$sql = "
 		SELECT
@@ -137,7 +137,7 @@ if (preg_match("/^config$/i", $message)) {
 		$list .= strtoupper($row->module)." $a ($on/$off) $c $b\n";
 	}
 
-	$msg = bot::makeLink("Module Config", $list);
+	$msg = Text::make_link("Module Config", $list);
 	bot::send($msg, $sendto);
 } else if (preg_match("/^config cmd (enable|disable) (all|guild|priv|msg)$/i", $message, $arr)) {
 	$status = ($arr[1] == "enable" ? 1 : 0);
@@ -504,7 +504,7 @@ if (preg_match("/^config$/i", $message)) {
 			$list .= $help;
 		}
 		
-		$msg = bot::makeLink(ucfirst($cmd)." config", $list);
+		$msg = Text::make_link(ucfirst($cmd)." config", $list);
 	}
 	bot::send($msg, $sendto);
 } else if (preg_match("/^config help (.+) admin (all|leader|rl|mod|admin|guildadmin|guild)$/i", $message, $arr)) {
@@ -543,7 +543,7 @@ if (preg_match("/^config$/i", $message)) {
 	  	$list .= "\n\n";
 	}
 
-	$msg = bot::makeLink("Configurate helpfiles for module $mod", $list);
+	$msg = Text::make_link("Configurate helpfiles for module $mod", $list);
 	bot::send($msg, $sendto);
 } else if (preg_match("/^config ([a-z0-9_]*)$/i", $message, $arr)) {
 	$module = strtoupper($arr[1]);
@@ -679,7 +679,7 @@ if (preg_match("/^config$/i", $message)) {
 	}
 
 	if ($found) {
-		$msg = bot::makeLink("Bot Settings", $list);
+		$msg = Text::make_link("Bot Settings", $list);
 	} else {
 		$msg = "Could not find module '$module'";
 	}

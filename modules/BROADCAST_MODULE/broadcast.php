@@ -7,7 +7,7 @@ if (preg_match("/^broadcast$/i", $message)) {
   	$db->query($sql);
 	$data = $db->fObject('all');
   	forEach ($data as $row) {
-	  	$remove = bot::makeLink('Remove', "/tell <myname> <symbol>broadcast rem $row->name" , 'chatcmd');
+	  	$remove = Text::make_link('Remove', "/tell <myname> <symbol>broadcast rem $row->name" , 'chatcmd');
 		$dt = gmdate("M j, Y, G:i", $row->dt);
 	  	$blob .= "<white>{$row->name}<end> [<green>added by {$row->added_by}<end>] <white>{$dt}<end> {$remove}\n";
 	}
@@ -15,7 +15,7 @@ if (preg_match("/^broadcast$/i", $message)) {
 	if (count($data) == 0) {
 		$msg = "No bots are on the broadcast list.";
 	} else {
-		$msg = bot::makeLink('Broadcast', $blob, 'blob');
+		$msg = Text::make_link('Broadcast', $blob, 'blob');
 	}
 
 	bot::send($msg, $sendto);

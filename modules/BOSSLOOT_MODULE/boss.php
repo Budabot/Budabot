@@ -50,7 +50,7 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 				}
 			}
 		}
-		$output = bot::makelink("Boss", $boss);
+		$output = Text::make_link("Boss", $boss);
 	}
 	//If single match found, output full loot table
 	else if ($name_found  == 1) {
@@ -82,7 +82,7 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 			$boss .= "<img src=rdb://".$icon.">\n";
 			$boss .= "<a href='itemref://$loid/$hiid/$ql.'>$loot_name</a>\n\n";
 		}
-		$output = bot::makelink("Boss", $boss);
+		$output = Text::make_link("Boss", $boss);
 	}
 	else {
 		$output .= "<yellow>There were no matches for your search.<end>";

@@ -9,7 +9,7 @@ if (preg_match("/^playfields$/i", $message)) {
 		$blob .= "{$row->id}   <green>{$row->long_name}<end>   <cyan>({$row->short_name})<end>\n";
 	}
 	
-	$msg = $this->makeLink("Playfields", $blob, 'blob');
+	$msg = Text::make_link("Playfields", $blob, 'blob');
 	$this->send($msg, $sendto);
 }
 

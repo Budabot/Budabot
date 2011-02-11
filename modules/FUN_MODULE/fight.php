@@ -64,13 +64,13 @@ if (preg_match("/^fight (.+) vs (.+)$/i", $message, $arr) || preg_match("/^fight
 	
 	if ($hp1 > $hp2) {
 		$list .= "\nAnd the winner is ..... <highlight>$player1!<end>";
-		$msg = bot::makeLink("$player1 vs $player2....$player1 wins!", $list);
+		$msg = Text::make_link("$player1 vs $player2....$player1 wins!", $list);
 	} else if ($hp2 > $hp1) {
 		$list .= "\nAnd the winner is ..... <highlight>$player2!<end>";
-		$msg = bot::makeLink("$player1 vs $player2....$player2 wins!", $list);
+		$msg = Text::make_link("$player1 vs $player2....$player2 wins!", $list);
 	} else {
 		$list .= "\nIt's a tie!!";
-		$msg = bot::makeLink("$player1 vs $player2....It's a tie!", $list);
+		$msg = Text::make_link("$player1 vs $player2....It's a tie!", $list);
 	}
 
 	bot::send($msg, $sendto);

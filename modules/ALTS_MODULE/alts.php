@@ -92,7 +92,7 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr)) {
 	if ($failed_count > 0) {
 		$link .= 'Failed adding '.$failed_count.' alts to your list.';
 	}
-	$msg = $this->makeLink($link, $window);
+	$msg = Text::make_link($link, $window);
 
 	$this->send($msg, $sendto);
 } else if (preg_match("/^alts (rem|del|remove|delete) (.+)$/i", $message, $arr)) {
@@ -187,7 +187,7 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr)) {
 	if ($blob === null) {
 		$msg = "No alts are registered for <highlight>{$name}<end>.";
 	} else {
-		$msg = $this->makeLink($name."'s Alts", $blob);
+		$msg = Text::make_link($name."'s Alts", $blob);
 	}
 	$this->send($msg, $sendto);
 } else {

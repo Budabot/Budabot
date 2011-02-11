@@ -53,7 +53,7 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 		$window .= "$row->actor $row->action $row->actee in $row->organization at " . gmdate("M j, Y, G:i", $row->time)." (GMT)\n";
 	}
 
-	$msg = bot::makeLink('Org History', $window, 'blob');
+	$msg = Text::make_link('Org History', $window, 'blob');
 
 	bot::send($msg, $sendto);
 } else if (preg_match("/^orghistory (.+)$/i", $message, $arr)) {
@@ -78,7 +78,7 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 		$window .= "$row->actor $row->action $row->actee in $row->organization at " . gmdate("M j, Y, G:i", $row->time)." (GMT)\n";
 	}
 
-	$msg = bot::makeLink('Org History', $window, 'blob');
+	$msg = Text::make_link('Org History', $window, 'blob');
 
 	bot::send($msg, $sendto);
 }

@@ -46,7 +46,7 @@ if (!preg_match("/^[0-9]+$/i", $ql, $p) || ($ql < 1) || ($ql > 300)) {
 } else {
 	$obj = getRequirements($ql);
 	$clusterInfo = formatClusterBonuses($obj);
-	$link = bot::makeLink('More info', $clusterInfo, 'blob');
+	$link = Text::make_link('More info', $clusterInfo, 'blob');
 	$msg = "\nFor ql $ql imps\nTreatment required: $obj->treatment.\nAbility Required: $obj->ability\n$link";
 }
 

@@ -37,7 +37,7 @@ if (preg_match("/^oe ([0-9]+)$/i", $message, $arr)) {
 		"With a skill of <highlight>${oe}<end>, you will be OE above <highlight>${oevalue}<end> requirement. " . 
 		"With a requirement of <highlight>${oe}<end> skill, you can have <highlight>${lowoevalue}<end> without being OE.";
 	
-	$msg = "<orange>{$lowoevalue}<end> - <yellow>{$oe}<end> - <orange>{$oevalue}<end> " . bot::makeLink('More info', $blob, 'blob');
+	$msg = "<orange>{$lowoevalue}<end> - <yellow>{$oe}<end> - <orange>{$oevalue}<end> " . Text::make_link('More info', $blob, 'blob');
     
     bot::send($msg, $sendto);
 } else {

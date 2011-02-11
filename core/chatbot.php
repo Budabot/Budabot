@@ -279,64 +279,6 @@ class bot extends AOChat {
 			include $filename;
 		}
 	}
-
-/*===============================
-** Name: makeLink
-** Make click link reference.
-*/	function makeLink($name, $content, $type = "blob", $style = NULL){
-		// escape double quotes
-		if ($type != 'blob') {
-			$content = str_replace('"', '&quote;', $content);
-		}
-
-		if ($type == "blob") { // Normal link.
-			$content = str_replace('"', '&quot;', $content);
-			if (strlen($content) > $this->settings["max_blob_size"]) {  //Split the windows if they are too big
-				$array = explode("<pagebreak>", $content);
-				$pagebreak = true;
-				
-				// if the blob hasn't specified how to split it, split on linebreaks
-				if (count($array) == 1) {
-					$array = explode("\n", $content);
-					$pagebreak = false;
-				}
-				$page = 1;
-				$page_size = 0;
-			  	forEach ($array as $line) {
-					// preserve newline char if we split on newlines
-					if ($pagebreak == false) {
-						$line .= "\n";
-					}
-					$line_length = strlen($line);
-					if ($page_size + $line_length < $this->settings["max_blob_size"]) {
-						$result[$page] .= $line;
-						$page_size += $line_length;
-				    } else {
-						$result[$page] = "<a $style href=\"text://".$this->settings["default_window_color"].$result[$page]."\">$name</a> (Page <highlight>$page<end>)";
-				    	$page++;
-						
-						$result[$page] .= "<header>::::: $name Page $page :::::<end>\n\n";
-						$result[$page] .= $line;
-						$page_size = strlen($result[$page]);
-					}
-				}
-				$result[$page] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].$result[$page]."\">$name</a> (Page <highlight>$page - End<end>)";
-				return $result;
-			} else {
-				$content = str_replace('<pagebreak>', '', $content);
-				return "<a $style href=\"text://".$this->settings["default_window_color"].$content."\">$name</a>";
-			}
-		} else if ($type == "text") { // Majic link.
-			$content = str_replace("'", '&#39;', $content);
-			return "<a $style href='text://$content'>$name</a>";
-		} else if ($type == "chatcmd") { // Chat command.
-			$content = str_replace("'", '&#39;', $content);
-			return "<a $style href='chatcmd://$content'>$name</a>";
-		} else if ($type == "user") { // Adds support for right clicking usernames in chat, providing you with a menu of options (ignore etc.) (see 18.1 AO patchnotes)
-			$content = str_replace("'", '&#39;', $content);
-			return "<a $style href='user://$content'>$name</a>";
-		}
-	}
 	
 	function sendPrivate($message, $group, $disable_relay = false) {
 		// for when makeLink generates several pages
@@ -378,7 +320,7 @@ class bot extends AOChat {
 			
 			// relay to guild channel
 			if (!$disable_relay && $this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1) {
-				$this->send_group($this->vars["my guild"], "</font>{$this->settings["guest_color_channel"]}[Guest]</font> {$this->settings["guest_color_username"]}".bot::makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default_priv_color"]}$message</font>");
+				$this->send_group($this->vars["my guild"], "</font>{$this->settings["guest_color_channel"]}[Guest]</font> {$this->settings["guest_color_username"]}".Text::make_link($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default_priv_color"]}$message</font>");
 			}
 
 			// relay to bot relay
@@ -390,7 +332,7 @@ class bot extends AOChat {
 			
 			// relay to private channel
 			if (!$disable_relay && $this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1) {
-				$this->send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my guild"]}]</font> {$this->settings["guest_color_username"]}".bot::makeLink($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default_guild_color"]}$message</font>");
+				$this->send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my guild"]}]</font> {$this->settings["guest_color_username"]}".Text::make_link($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default_guild_color"]}$message</font>");
 			}
 			
 			// relay to bot relay

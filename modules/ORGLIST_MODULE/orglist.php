@@ -265,7 +265,7 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message)) {
 
 if (isset($this->data["ORGLIST_MODULE"]) && count($this->data["ORGLIST_MODULE"]["added"]) == 0 || $end) {
 	$blob = orgmatesformat($this->data["ORGLIST_MODULE"], $orgrankmap, $orgcolor, $this->data["ORGLIST_MODULE"]["start"], $this->data["ORGLIST_MODULE"]["org"]);
-	$msg = bot::makeLink("Orglist for '".$this->data["ORGLIST_MODULE"]["org"]."'", $blob);
+	$msg = Text::make_link("Orglist for '".$this->data["ORGLIST_MODULE"]["org"]."'", $blob);
 	bot::send($msg, $this->data["ORGLIST_MODULE"]["sendto"]);
 
 	// in case it was ended early

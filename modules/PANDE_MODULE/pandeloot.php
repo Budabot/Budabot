@@ -342,49 +342,49 @@ $msg = '';
 if (preg_match("/^pande$/i", $message)){
 	$list = "<header>::::: Pandemonium Loot :::::<end>\n\n\n";
 	$list .= "The Beast\n";
-	$newlink = bot::makeLink("Beast Armor\n", "/tell <myname> <symbol>beastarmor", "chatcmd");
+	$newlink = Text::make_link("Beast Armor\n", "/tell <myname> <symbol>beastarmor", "chatcmd");
 	$list .= "<tab>".$newlink;
-	$newlink = bot::makeLink("Beast Weapons\n", "/tell <myname> <symbol>beastweaps", "chatcmd");
+	$newlink = Text::make_link("Beast Weapons\n", "/tell <myname> <symbol>beastweaps", "chatcmd");
 	$list .= "<tab>".$newlink;
-	$newlink = bot::makeLink("Beast Stars\n", "/tell <myname> <symbol>beaststars", "chatcmd");
+	$newlink = Text::make_link("Beast Stars\n", "/tell <myname> <symbol>beaststars", "chatcmd");
 	$list .= "<tab>".$newlink;
 	$list .= "\nThe Night Heart\n";
-	$newlink = bot::makeLink("TNH\n", "/tell <myname> <symbol>tnh", "chatcmd");
+	$newlink = Text::make_link("TNH\n", "/tell <myname> <symbol>tnh", "chatcmd");
 	$list .= "<tab>".$newlink;
 	$list .= "\nWest Zodiacs\n";
-	$newlink = bot::makeLink("Aries\n", "/tell <myname> <symbol>aries", "chatcmd");
+	$newlink = Text::make_link("Aries\n", "/tell <myname> <symbol>aries", "chatcmd");
 	$list .= "<tab>".$newlink;
-	$newlink = bot::makeLink("Leo\n", "/tell <myname> <symbol>leo", "chatcmd");
+	$newlink = Text::make_link("Leo\n", "/tell <myname> <symbol>leo", "chatcmd");
 	$list .= "<tab>".$newlink;
-	$newlink = bot::makeLink("Virgo\n", "/tell <myname> <symbol>virgo", "chatcmd");
+	$newlink = Text::make_link("Virgo\n", "/tell <myname> <symbol>virgo", "chatcmd");
 	$list .= "<tab>".$newlink;
 	$list .= "\nEast Zodiacs\n";
-	$newlink = bot::makeLink("Aquarius\n", "/tell <myname> <symbol>aquarius", "chatcmd");
+	$newlink = Text::make_link("Aquarius\n", "/tell <myname> <symbol>aquarius", "chatcmd");
 	$list .= "<tab>".$newlink;
-	$newlink = bot::makeLink("Cancer\n", "/tell <myname> <symbol>cancer", "chatcmd");
+	$newlink = Text::make_link("Cancer\n", "/tell <myname> <symbol>cancer", "chatcmd");
 	$list .= "<tab>".$newlink;
-	$newlink = bot::makeLink("Gemini\n", "/tell <myname> <symbol>gemini", "chatcmd");
+	$newlink = Text::make_link("Gemini\n", "/tell <myname> <symbol>gemini", "chatcmd");
 	$list .= "<tab>".$newlink;
 	$list .= "\nMiddle Zodiacs\n";
-	$newlink = bot::makeLink("Libra\n", "/tell <myname> <symbol>libra", "chatcmd");
+	$newlink = Text::make_link("Libra\n", "/tell <myname> <symbol>libra", "chatcmd");
 	$list .= "<tab>".$newlink;
-	$newlink = bot::makeLink("Pisces\n", "/tell <myname> <symbol>pisces", "chatcmd");
+	$newlink = Text::make_link("Pisces\n", "/tell <myname> <symbol>pisces", "chatcmd");
 	$list .= "<tab>".$newlink;
-	$newlink = bot::makeLink("Taurus\n", "/tell <myname> <symbol>taurus", "chatcmd");
+	$newlink = Text::make_link("Taurus\n", "/tell <myname> <symbol>taurus", "chatcmd");
 	$list .= "<tab>".$newlink;
 	$list .= "\nNorth Zodiacs\n";
-	$newlink = bot::makeLink("Capricorn\n", "/tell <myname> <symbol>capricorn", "chatcmd");
+	$newlink = Text::make_link("Capricorn\n", "/tell <myname> <symbol>capricorn", "chatcmd");
 	$list .= "<tab>".$newlink;
-	$newlink = bot::makeLink("Sagittarius\n", "/tell <myname> <symbol>sagittarius", "chatcmd");
+	$newlink = Text::make_link("Sagittarius\n", "/tell <myname> <symbol>sagittarius", "chatcmd");
 	$list .= "<tab>".$newlink;
-	$newlink = bot::makeLink("Scorpio\n", "/tell <myname> <symbol>scorpio", "chatcmd");
+	$newlink = Text::make_link("Scorpio\n", "/tell <myname> <symbol>scorpio", "chatcmd");
 	$list .= "<tab>".$newlink;
 	$list .= "\nOther\n";
-	$newlink = bot::makeLink("Shadowbreeds\n", "/tell <myname> <symbol>sb", "chatcmd");
+	$newlink = Text::make_link("Shadowbreeds\n", "/tell <myname> <symbol>sb", "chatcmd");
 	$list .= "<tab>".$newlink;
 
 
-	$msg = bot::makeLink("Pandemonium Loot", $list);
+	$msg = Text::make_link("Pandemonium Loot", $list);
 } else if (preg_match("/^pandeloot ([0-9]+)$/i", $message, $arr)) {
 	$val = $arr[1];
 	$itemname = $pandeloot[$val]["name"];
@@ -424,206 +424,206 @@ if (preg_match("/^pande$/i", $message)){
 	$list = "<header>::::: Beast Armor :::::<end>\n\n\n";
 	$loop = 1;
 	while($loop <= 10) {
-		//$itemlink = bot::makeLink($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
-		$addlink = bot::makeLink("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
+		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
+		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
 		$list .= "<a href='itemref://{$ref}/{$ref}/300><img src=rdb://{$pandeloot[$loop]["img"]}></a>\nItem: <highlight>".$pandeloot[$loop]["name"]."<end>\n".$addlink."\n";
 		$list .= "\n";
 		$loop++;
 	}
-	$msg = bot::makeLink("Beast Armor", $list);
+	$msg = Text::make_link("Beast Armor", $list);
 } else if (preg_match("/^beastweaps$/i", $message)){
 	$list = "<header>::::: Beast Weapons :::::<end>\n\n\n";
 	$loop = 11;
 	while($loop <= 24) {
-		//$itemlink = bot::makeLink($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
-		$addlink = bot::makeLink("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
+		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
+		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
 		$list .= "<a href='itemref://{$ref}/{$ref}/300><img src=rdb://{$pandeloot[$loop]["img"]}></a>\nItem: <highlight>".$pandeloot[$loop]["name"]."<end>\n".$addlink."\n";
 		$list .= "\n";
 		$loop++;
 	}
-	$msg = bot::makeLink("Beast Weapons", $list);
+	$msg = Text::make_link("Beast Weapons", $list);
 } else if (preg_match("/^beaststars$/i", $message)){
 	$list = "<header>::::: Beast Stars :::::<end>\n\n\n";
 	$loop = 25;
 	while($loop <= 38) {
-		//$itemlink = bot::makeLink($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
-		$addlink = bot::makeLink("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
+		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
+		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
 		$list .= "<a href='itemref://{$ref}/{$ref}/300><img src=rdb://{$pandeloot[$loop]["img"]}></a>\nItem: <highlight>".$pandeloot[$loop]["name"]."<end>\n".$addlink."\n";
 		$list .= "\n";
 		$loop++;
 	}
-	$msg = bot::makeLink("Beast Stars", $list);
+	$msg = Text::make_link("Beast Stars", $list);
 } else if (preg_match("/^sb$/i", $message)){
 	$list = "<header>::::: Shadowbreeds :::::<end>\n\n\n";
 	$loop = 39;
 	while($loop <= 41) {
-		//$itemlink = bot::makeLink($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
-		$addlink = bot::makeLink("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
+		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
+		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
 		$list .= "<a href='itemref://{$ref}/{$ref}/300><img src=rdb://{$pandeloot[$loop]["img"]}></a>\nItem: <highlight>".$pandeloot[$loop]["name"]."<end>\n".$addlink."\n";
 		$list .= "\n";
 		$loop++;
 	}
-	$msg = bot::makeLink("Shadowbreeds", $list);
+	$msg = Text::make_link("Shadowbreeds", $list);
 } else if (preg_match("/^tnh$/i", $message)){
 	$list = "<header>::::: The Night Heart :::::<end>\n\n\n";
 	$loop = 42;
 	while($loop <= 46) {
-		//$itemlink = bot::makeLink($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
-		$addlink = bot::makeLink("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
+		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
+		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
 		$list .= "<a href='itemref://{$ref}/{$ref}/300><img src=rdb://{$pandeloot[$loop]["img"]}></a>\nItem: <highlight>".$pandeloot[$loop]["name"]."<end>\n".$addlink."\n";
 		$list .= "\n";
 		$loop++;
 	}
-	$msg = bot::makeLink("The Night Heart Loot", $list);
+	$msg = Text::make_link("The Night Heart Loot", $list);
 } else if (preg_match("/^aries$/i", $message)){
 	$list = "<header>::::: Aries :::::<end>\n\n\n";
 	$loop = 47;
 	while($loop <= 51) {
-		//$itemlink = bot::makeLink($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
-		$addlink = bot::makeLink("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
+		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
+		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
 		$list .= "<a href='itemref://{$ref}/{$ref}/300><img src=rdb://{$pandeloot[$loop]["img"]}></a>\nItem: <highlight>".$pandeloot[$loop]["name"]."<end>\n".$addlink."\n";
 		$list .= "\n";
 		$loop++;
 	}
-	$msg = bot::makeLink("Aries Loot", $list);
+	$msg = Text::make_link("Aries Loot", $list);
 } else if (preg_match("/^leo$/i", $message)){
 	$list = "<header>::::: Leo :::::<end>\n\n\n";
 	$loop = 52;
 	while($loop <= 55) {
-		//$itemlink = bot::makeLink($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
-		$addlink = bot::makeLink("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
+		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
+		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
 		$list .= "<a href='itemref://{$ref}/{$ref}/300><img src=rdb://{$pandeloot[$loop]["img"]}></a>\nItem: <highlight>".$pandeloot[$loop]["name"]."<end>\n".$addlink."\n";
 		$list .= "\n";
 		$loop++;
 	}
-	$msg = bot::makeLink("Leo Loot", $list);
+	$msg = Text::make_link("Leo Loot", $list);
 } else if (preg_match("/^virgo$/i", $message)){
 	$list = "<header>::::: Virgo :::::<end>\n\n\n";
 	$loop = 56;
 	while($loop <= 59) {
-		//$itemlink = bot::makeLink($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
-		$addlink = bot::makeLink("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
+		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
+		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
 		$list .= "<a href='itemref://{$ref}/{$ref}/300><img src=rdb://{$pandeloot[$loop]["img"]}></a>\nItem: <highlight>".$pandeloot[$loop]["name"]."<end>\n".$addlink."\n";
 		$list .= "\n";
 		$loop++;
 	}
-	$msg = bot::makeLink("Virgo Loot", $list);
+	$msg = Text::make_link("Virgo Loot", $list);
 } else if (preg_match("/^aquarius$/i", $message)){
 	$list = "<header>::::: Aquarius :::::<end>\n\n\n";
 	$loop = 60;
 	while($loop <= 63) {
-		//$itemlink = bot::makeLink($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
-		$addlink = bot::makeLink("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
+		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
+		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
 		$list .= "<a href='itemref://{$ref}/{$ref}/300><img src=rdb://{$pandeloot[$loop]["img"]}></a>\nItem: <highlight>".$pandeloot[$loop]["name"]."<end>\n".$addlink."\n";
 		$list .= "\n";
 		$loop++;
 	}
-	$msg = bot::makeLink("Aquarius Loot", $list);
+	$msg = Text::make_link("Aquarius Loot", $list);
 } else if (preg_match("/^cancer$/i", $message)){
 	$list = "<header>::::: Cancer :::::<end>\n\n\n";
 	$loop = 64;
 	while($loop <= 67) {
-		//$itemlink = bot::makeLink($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
-		$addlink = bot::makeLink("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
+		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
+		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
 		$list .= "<a href='itemref://{$ref}/{$ref}/300><img src=rdb://{$pandeloot[$loop]["img"]}></a>\nItem: <highlight>".$pandeloot[$loop]["name"]."<end>\n".$addlink."\n";
 		$list .= "\n";
 		$loop++;
 	}
-	$msg = bot::makeLink("Cancer Loot", $list);
+	$msg = Text::make_link("Cancer Loot", $list);
 } else if (preg_match("/^gemini$/i", $message)){
 	$list = "<header>::::: Gemini :::::<end>\n\n\n";
 	$loop = 68;
 	while($loop <= 71) {
-		//$itemlink = bot::makeLink($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
-		$addlink = bot::makeLink("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
+		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
+		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
 		$list .= "<a href='itemref://{$ref}/{$ref}/300><img src=rdb://{$pandeloot[$loop]["img"]}></a>\nItem: <highlight>".$pandeloot[$loop]["name"]."<end>\n".$addlink."\n";
 		$list .= "\n";
 		$loop++;
 	}
-	$msg = bot::makeLink("Gemini Loot", $list);
+	$msg = Text::make_link("Gemini Loot", $list);
 } else if (preg_match("/^libra$/i", $message)){
 	$list = "<header>::::: Libra :::::<end>\n\n\n";
 	$loop = 72;
 	while($loop <= 76) {
-		//$itemlink = bot::makeLink($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
-		$addlink = bot::makeLink("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
+		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
+		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
 		$list .= "<a href='itemref://{$ref}/{$ref}/300><img src=rdb://{$pandeloot[$loop]["img"]}></a>\nItem: <highlight>".$pandeloot[$loop]["name"]."<end>\n".$addlink."\n";
 		$list .= "\n";
 		$loop++;
 	}
-	$msg = bot::makeLink("Libra Loot", $list);
+	$msg = Text::make_link("Libra Loot", $list);
 } else if (preg_match("/^pisces$/i", $message)){
 	$list = "<header>::::: Pisces :::::<end>\n\n\n";
 	$loop = 77;
 	while($loop <= 80) {
-		//$itemlink = bot::makeLink($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
-		$addlink = bot::makeLink("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
+		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
+		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
 		$list .= "<a href='itemref://{$ref}/{$ref}/300><img src=rdb://{$pandeloot[$loop]["img"]}></a>\nItem: <highlight>".$pandeloot[$loop]["name"]."<end>\n".$addlink."\n";
 		$list .= "\n";
 		$loop++;
 	}
-	$msg = bot::makeLink("Pisces Loot", $list);
+	$msg = Text::make_link("Pisces Loot", $list);
 } else if (preg_match("/^taurus$/i", $message)){
 	$list = "<header>::::: Taurus :::::<end>\n\n\n";
 	$loop = 81;
 	while($loop <= 84) {
-		//$itemlink = bot::makeLink($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
-		$addlink = bot::makeLink("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
+		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
+		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
 		$list .= "<a href='itemref://{$ref}/{$ref}/300><img src=rdb://{$pandeloot[$loop]["img"]}></a>\nItem: <highlight>".$pandeloot[$loop]["name"]."<end>\n".$addlink."\n";
 		$list .= "\n";
 		$loop++;
 	}
-	$msg = bot::makeLink("Taurus Loot", $list);
+	$msg = Text::make_link("Taurus Loot", $list);
 } else if (preg_match("/^capricorn$/i", $message)){
 	$list = "<header>::::: Capricorn :::::<end>\n\n\n";
 	$loop = 85;
 	while($loop <= 88) {
-		//$itemlink = bot::makeLink($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
-		$addlink = bot::makeLink("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
+		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
+		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
 		$list .= "<a href='itemref://{$ref}/{$ref}/300><img src=rdb://{$pandeloot[$loop]["img"]}></a>\nItem: <highlight>".$pandeloot[$loop]["name"]."<end>\n".$addlink."\n";
 		$list .= "\n";
 		$loop++;
 	}
-	$msg = bot::makeLink("Capricorn Loot", $list);
+	$msg = Text::make_link("Capricorn Loot", $list);
 } else if (preg_match("/^sagittarius$/i", $message)){
 	$list = "<header>::::: Sagittarius :::::<end>\n\n\n";
 	$loop = 89;
 	while($loop <= 92) {
-		//$itemlink = bot::makeLink($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
-		$addlink = bot::makeLink("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
+		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
+		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
 		$list .= "<a href='itemref://{$ref}/{$ref}/300><img src=rdb://{$pandeloot[$loop]["img"]}></a>\nItem: <highlight>".$pandeloot[$loop]["name"]."<end>\n".$addlink."\n";
 		$list .= "\n";
 		$loop++;
 	}
-	$msg = bot::makeLink("Sagittarius Loot", $list);
+	$msg = Text::make_link("Sagittarius Loot", $list);
 } else if (preg_match("/^scorpio$/i", $message)){
 	$list = "<header>::::: Scorpio :::::<end>\n\n\n";
 	$loop = 93;
 	while($loop <= 96) {
-		//$itemlink = bot::makeLink($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
-		$addlink = bot::makeLink("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
+		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
+		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
 		$list .= "<a href='itemref://{$ref}/{$ref}/300><img src=rdb://{$pandeloot[$loop]["img"]}></a>\nItem: <highlight>".$pandeloot[$loop]["name"]."<end>\n".$addlink."\n";
 		$list .= "\n";
 		$loop++;
 	}
-	$msg = bot::makeLink("Scorpio Loot", $list);
+	$msg = Text::make_link("Scorpio Loot", $list);
 }
 
 bot::send($msg, 'priv');

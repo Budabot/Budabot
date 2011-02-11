@@ -34,7 +34,7 @@ if (preg_match("/heal$/i", $message)) {
   	if (isset($heal_assist)) {
 		$link = "<header>::::: Healassist Macro on $heal_assist :::::\n\n";
 	  	$link .= "<a href='chatcmd:///macro $heal_assist /assist $heal_assist'>Click here to make an healassist on $heal_assist macro</a>";
-		$msg = bot::makeLink("Current Healassist is $heal_assist", $link);
+		$msg = Text::make_link("Current Healassist is $heal_assist", $link);
 	} else {
 		$msg = "No Healassist set atm.";
 	}
@@ -47,7 +47,7 @@ if (preg_match("/heal$/i", $message)) {
 		$heal_assist = $name;
 		$link = "<header>::::: HealAssist Macro on $name :::::\n\n";
 		$link .= "<a href='chatcmd:///macro $name /assist $name'>Click here to make an healassist on $name macro</a>";
-		$msg = bot::makeLink("HealAssist Macro on $name", $link);
+		$msg = Text::make_link("HealAssist Macro on $name", $link);
 		bot::send($msg, 'priv');
 		bot::send($msg, 'priv');
 		bot::send($msg, 'priv');
@@ -55,7 +55,7 @@ if (preg_match("/heal$/i", $message)) {
 	  	$heal_assist = $name;
 		$link = "<header>::::: HealAssist Macro on $name :::::\n\n";
 	  	$link .= "<a href='chatcmd:///macro $name /assist $name'>Click here to make an healassist on $name macro</a>";
-	  	$msg = bot::makeLink("HealAssist Macro on $name", $link);
+	  	$msg = Text::make_link("HealAssist Macro on $name", $link);
 		bot::send($msg, 'priv');
 		bot::send($msg, 'priv');
 		bot::send($msg, 'priv');

@@ -33,7 +33,7 @@
 		$inside .= "Stun duration: ".$stunD."\n";
 		$inside .= "\n\nby Imoutochan, RK1";
 		
-		$windowlink = bot::makeLink("::Your Brawl skill results::", $inside);
+		$windowlink = Text::make_link("::Your Brawl skill results::", $inside);
 		bot::send($windowlink, $sendto);
 	} else {
 		$syntax_error = true;

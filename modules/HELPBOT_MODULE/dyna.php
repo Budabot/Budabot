@@ -29,7 +29,7 @@ if (preg_match ("/^dyna ([0-2]?[0-9]?[0-9])$/i", $message, $arr)) {
 		$dynacamps .="<blue>Level:  $row->minQl<yellow>-<blue>$row->maxQl\n\n";
 	}
 	
-	$dynacamps = bot::makeLink("Dynacamps", $dynacamps);
+	$dynacamps = Text::make_link("Dynacamps", $dynacamps);
 	bot::send($dynacamps, $sendto);
 } elseif (preg_match ("/^dyna (.+)$/i", $message, $arr)) {
 	$search = str_replace(" ", "%", $arr[1]);
@@ -48,7 +48,7 @@ if (preg_match ("/^dyna ([0-2]?[0-9]?[0-9])$/i", $message, $arr)) {
 		$dynacamps .="<blue>Level: $row->minQl<yellow>-<blue>$row->maxQl\n\n";
 	}
 	
-	$dynacamps = bot::makeLink("Dynacamps", $dynacamps);
+	$dynacamps = Text::make_link("Dynacamps", $dynacamps);
 	bot::send($dynacamps, $sendto);
 } else {
 	$syntax_error = true;

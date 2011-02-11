@@ -41,7 +41,7 @@ if (isset($this->guildmembers[$sender])) {
 		  	$link .= "<highlight>Author:<end> $row->name\n";
 		  	$link .= "<highlight>Message:<end> $row->news\n\n";
 		}
-		$msg = bot::makeLink("News", $link)." [Last updated at ".gmdate("dS M, H:i", $updated)."]";
+		$msg = Text::make_link("News", $link)." [Last updated at ".gmdate("dS M, H:i", $updated)."]";
         bot::send($msg, $sender);
 	}	
 }

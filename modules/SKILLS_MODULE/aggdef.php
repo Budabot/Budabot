@@ -58,7 +58,7 @@ if ((!$AttTim) || (!$RechT) || (!$InitS)) {
 	$inside .= "\n\nBased upon a RINGBOT module made by NoGoal(RK2).\n";
 	$inside .= "Modified for Budabot by Healnjoo(RK2).";
 
-	$windowlink = bot::makeLink("::Your Agg/Def Settings::", $inside);
+	$windowlink = Text::make_link("::Your Agg/Def Settings::", $inside);
 	bot::send($windowlink, $sendto); 
 }
 ?>

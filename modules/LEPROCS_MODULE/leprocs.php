@@ -24,7 +24,7 @@ if (preg_match("/^leprocs? (.+)$/i", $message, $arr)) {
 			$blob .= "<yellow>$row->name<end> $row->duration <orange>$row->modifiers<end>\n";
 		}
 
-		$msg = $this->makeLink("$profession LE Procs", $blob, 'blob');
+		$msg = Text::make_link("$profession LE Procs", $blob, 'blob');
 	}
 	bot::send($msg, $sendto);
 } else {

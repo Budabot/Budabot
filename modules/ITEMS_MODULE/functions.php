@@ -102,7 +102,7 @@ function find_items_from_local($search, $ql) {
 		$blob = "<header>::::: Item Search Result :::::<end>\n\n";
 		$blob .= $list;
 		$blob .= "\n\nItem DB Rips provided by MajorOutage";
-		$link = $chatBot->makeLink("$countitems results in total", $blob, 'blob');
+		$link = Text::make_link("$countitems results in total", $blob, 'blob');
 
 		return $link;
 	} else {

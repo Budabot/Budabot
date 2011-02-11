@@ -24,9 +24,9 @@ if (preg_match("/^eventlist$/i", $message, $arr) || preg_match("/^eventlist (tow
 	$db->query($sql);
 
 	while ($row = $db->fObject()) {
-		$on = bot::makeLink('ON', "/tell <myname> config cmd $row->cmd enable all", 'chatcmd');
-		$off = bot::makeLink('OFF', "/tell <myname> config cmd $row->cmd disable all", 'chatcmd');
-		$adv = bot::makeLink('Adv.', "/tell <myname> config cmd $row->cmd $row->module", 'chatcmd');
+		$on = Text::make_link('ON', "/tell <myname> config cmd $row->cmd enable all", 'chatcmd');
+		$off = Text::make_link('OFF', "/tell <myname> config cmd $row->cmd disable all", 'chatcmd');
+		$adv = Text::make_link('Adv.', "/tell <myname> config cmd $row->cmd $row->module", 'chatcmd');
 
 		if ($row->status == 1) {
 			$status = "<green>Enabled<end>";
@@ -41,7 +41,7 @@ if (preg_match("/^eventlist$/i", $message, $arr) || preg_match("/^eventlist (tow
 		}
 	}
 
-	$msg = bot::makeLink("Bot Settings -- Command List", $list);
+	$msg = Text::make_link("Bot Settings -- Command List", $list);
  	bot::send($msg, $sendto);
 }
 

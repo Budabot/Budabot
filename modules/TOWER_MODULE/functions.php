@@ -70,7 +70,7 @@ function getGasLevel($close_time) {
 function formatSiteInfo($row) {
 	global $chatBot;
 
-	$waypoint = $chatBot->makeLink($row->x_coord . "x" . $row->y_coord, "/waypoint {$row->x_coord} {$row->y_coord} {$row->playfield_id}", 'chatcmd');
+	$waypoint = Text::make_link($row->x_coord . "x" . $row->y_coord, "/waypoint {$row->x_coord} {$row->y_coord} {$row->playfield_id}", 'chatcmd');
 
 	$blob =
 "<font color=#66aa66>Short name:</font> <white>{$row->short_name} {$row->site_number}<end>

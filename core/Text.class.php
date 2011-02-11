@@ -31,8 +31,8 @@ class Text {
 					"Download;chatcmd:///start http://budabot.aodevs.com/index.php?page=14");
 		}
 		if (strtolower($links) != "none") {
-			forEach ($links as $thislink){
-				preg_match("/^(.+);(.+)$/i", $thislink, $arr);
+			forEach ($links as $link){
+				preg_match("/^(.+);(.+)$/i", $link, $arr);
 				if ($arr[1] && $arr[2]) {
 					$header .= $color4.":".$color3.":".$color2.":";
 					$header .= "<a style='text-decoration:none' href='$arr[2]'>".$color."$arr[1]</font></a>";
@@ -44,6 +44,67 @@ class Text {
 		$header .= $chatBot->settings["default_window_color"]."\n\n";
 
 		return $header;
+	}
+	
+	/**	
+	 * @name: make_link
+	 * @description: creates a clickable link
+	 */
+	function make_link($name, $content, $type = "blob", $style = NULL){
+		global $chatBot;
+		
+		// escape double quotes
+		if ($type != 'blob') {
+			$content = str_replace('"', '&quote;', $content);
+		}
+
+		if ($type == "blob") { // Normal link.
+			$content = str_replace('"', '&quot;', $content);
+			if (strlen($content) > $chatBot->settings["max_blob_size"]) {  //Split the windows if they are too big
+				$array = explode("<pagebreak>", $content);
+				$pagebreak = true;
+				
+				// if the blob hasn't specified how to split it, split on linebreaks
+				if (count($array) == 1) {
+					$array = explode("\n", $content);
+					$pagebreak = false;
+				}
+				$page = 1;
+				$page_size = 0;
+			  	forEach ($array as $line) {
+					// preserve newline char if we split on newlines
+					if ($pagebreak == false) {
+						$line .= "\n";
+					}
+					$line_length = strlen($line);
+					if ($page_size + $line_length < $chatBot->settings["max_blob_size"]) {
+						$result[$page] .= $line;
+						$page_size += $line_length;
+				    } else {
+						$result[$page] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].$result[$page]."\">$name</a> (Page <highlight>$page<end>)";
+				    	$page++;
+						
+						$result[$page] .= "<header>::::: $name Page $page :::::<end>\n\n";
+						$result[$page] .= $line;
+						$page_size = strlen($result[$page]);
+					}
+				}
+				$result[$page] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].$result[$page]."\">$name</a> (Page <highlight>$page - End<end>)";
+				return $result;
+			} else {
+				$content = str_replace('<pagebreak>', '', $content);
+				return "<a $style href=\"text://".$chatBot->settings["default_window_color"].$content."\">$name</a>";
+			}
+		} else if ($type == "text") { // Majic link.
+			$content = str_replace("'", '&#39;', $content);
+			return "<a $style href='text://$content'>$name</a>";
+		} else if ($type == "chatcmd") { // Chat command.
+			$content = str_replace("'", '&#39;', $content);
+			return "<a $style href='chatcmd://$content'>$name</a>";
+		} else if ($type == "user") { // Adds support for right clicking usernames in chat, providing you with a menu of options (ignore etc.) (see 18.1 AO patchnotes)
+			$content = str_replace("'", '&#39;', $content);
+			return "<a $style href='user://$content'>$name</a>";
+		}
 	}
 	
 	/**	

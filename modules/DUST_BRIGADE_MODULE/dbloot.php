@@ -130,26 +130,26 @@ if (preg_match("/^dbloot ([0-9]+)$/i", $message, $arr)) {
 	$list = "<header>::::: DB1 Loot :::::<end>\n\n\n";
 	$loop = 1;
 	while ($loop <= 14) {
-		$addlink = bot::makeLink("Add to Loot List", "/tell <myname> dbloot ".$loop, "chatcmd");
+		$addlink = Text::make_link("Add to Loot List", "/tell <myname> dbloot ".$loop, "chatcmd");
 		$ref = $dbloot[$loop]["ref"];
 		$list .= Text::make_item($ref, $ref, 300, "<img src=rdb://{$dbloot[$loop]["img"]}>");
 		$list .= "\nItem: <highlight>".$dbloot[$loop]["name"]."<end>\n".$addlink."\n\n";
 		$loop++;
 	}
-	$msg = bot::makeLink("DB1 Loot", $list);
+	$msg = Text::make_link("DB1 Loot", $list);
 	bot::send($msg, $sendto);
 } else if (preg_match("/^db2$/i", $message)) {
 	//List DB Armor choices
 	$list = "<header>::::: DB2 Armor :::::<end>\n\n\n";
 	$loop = 1;
 	while ($loop <= 7) {
-		$addlink = bot::makeLink("Create Loot List", "/tell <myname> db2loot ".$loop, "chatcmd");
+		$addlink = Text::make_link("Create Loot List", "/tell <myname> db2loot ".$loop, "chatcmd");
 		$ref = $dbloot[$loop]["ref"];
 		$list .=  Text::make_item($ref, $ref, 300, "<img src=rdb://{$dbloot[$loop]["img"]}>");
 		$list .= "\nItem: <highlight>".$dbloot[$loop]["name"]."<end>\n".$addlink."\n\n";
 		$loop++;
 	}
-	$msg = bot::makeLink("DB2 Armor", $list);
+	$msg = Text::make_link("DB2 Armor", $list);
 	bot::send($msg, $sendto);
 } else if (preg_match("/^db2loot ([0-9]+)$/i", $message, $arr)) {
 	$val = $arr[1];

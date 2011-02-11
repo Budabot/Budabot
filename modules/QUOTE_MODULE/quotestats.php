@@ -53,7 +53,7 @@
 	   	break;
    }
    
-   $msg = bot::makeLink("Quote stats from (".date("F j, Y, g:i a").")", $msg);
+   $msg = Text::make_link("Quote stats from (".date("F j, Y, g:i a").")", $msg);
    
    $this->vars["quotestats"]= $msg;
 ?>

@@ -45,7 +45,7 @@ Click <a href='chatcmd:///tell <myname> <symbol>raffle leave'>here</a> if you wi
 
 $blob .= "\n\n Time left: $tleft seconds.";
 
-$link = bot::makeLink("here", $blob);
+$link = Text::make_link("here", $blob);
 if (1 < $count)
 {
     $msg = "<yellow>Reminder:<end> Raffle for $item (count: $count) has $tleft seconds left. Click $link to join.";

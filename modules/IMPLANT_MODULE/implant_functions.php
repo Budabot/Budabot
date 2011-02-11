@@ -69,7 +69,7 @@ function formatResults($implants) {
 		
 	if ($count > 3) {
 		$msg .= "\n\nWritten by Tyrence(RK2)";
-		$msg = bot::makeLink('Results', $msg, 'text');
+		$msg = Text::make_link('Results', $msg, 'text');
 	}
 	
 	return $msg;

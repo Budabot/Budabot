@@ -49,7 +49,7 @@ if (preg_match("/^banlist$/i", $message)) {
 		}
 		$list .= "\n";
 	}
-	$link = bot::makeLink('Banlist', $list);
+	$link = Text::make_link('Banlist', $list);
 	bot::send($link, $sendto);
 } else {
 	$syntax_error = true;

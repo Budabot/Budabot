@@ -86,7 +86,7 @@ class Help {
 			$data = file_get_contents($filename);
 			if ($return_as_bloblink) {
 				$helpcmd = ucfirst($helpcmd);
-				$msg = $chatBot->makeLink("Help($helpcmd)", $data);
+				$msg = Text::make_link("Help($helpcmd)", $data);
 			} else {
 				$msg = $data;
 			}

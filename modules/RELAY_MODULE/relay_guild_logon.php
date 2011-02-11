@@ -29,10 +29,10 @@ if ($this->settings["relaybot"] != "Off" && isset($this->guildmembers[$sender]) 
         $blob = Alts::get_alts_blob($sender);
 
 		if ($main != $sender && $main != false) {
-			$alts = bot::makeLink("Alts", $blob);
+			$alts = Text::make_link("Alts", $blob);
 			$msg .= " Main: <highlight>$main<end> ($alts)";
 		} else if ($main != false) {
-  			$alts = bot::makeLink("Alts of $main", $blob);
+  			$alts = Text::make_link("Alts of $main", $blob);
 			$msg .= " $alts";
 		}
 

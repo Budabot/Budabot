@@ -56,7 +56,7 @@ if(preg_match("/^orgranks$/i", $message)) {
 	  	$list .= "<tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end> $row->profession) (<highlight>$row->guild_rank<end>) <highlight>::<end> Last logoff: $logged_off\n";
 	}
 	
-	$msg = bot::makeLink("{$this->vars["my guild"]} has $members members currently.", $list);
+	$msg = Text::make_link("{$this->vars["my guild"]} has $members members currently.", $list);
     bot::send($msg, $sendto);
 } else {
 	$syntax_error = true;

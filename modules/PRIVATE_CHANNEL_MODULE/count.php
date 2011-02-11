@@ -116,7 +116,7 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
    	    $blob .= "{$percent}% {$row->guild} - {$row->cnt} member(s), average level {$avg_level}\n";
 	}
 	
-	$msg = $this->makeLink("Organizations ($numorgs total)", $blob, 'blob');
+	$msg = Text::make_link("Organizations ($numorgs total)", $blob, 'blob');
 	$this->send($msg, $sendto);
 } else if (preg_match("/^count (.*)$/i", $message, $arr) || preg_match("/^(.*)$/i", $message, $arr)) {
     switch (strtolower($arr[1])) {

@@ -45,14 +45,14 @@ if (preg_match("/^settings$/i", $message)) {
 		$link .= "  *";
 
 		if ($row->help != "") {
-			$helpLink = bot::makeLink('Help', "/tell <myname> settings help {$row->name}", 'chatcmd');
+			$helpLink = Text::make_link('Help', "/tell <myname> settings help {$row->name}", 'chatcmd');
 			$link .= "$row->description ($helpLink)";
 		} else {
 			$link .= $row->description;
 		}
 
 		if ($row->mode == "edit") {
-			$editLink = bot::makeLink('Modify', "/tell <myname> settings change {$row->name}", 'chatcmd');
+			$editLink = Text::make_link('Modify', "/tell <myname> settings change {$row->name}", 'chatcmd');
 			$link .= " ($editLink)";
 		}
 	
@@ -71,7 +71,7 @@ if (preg_match("/^settings$/i", $message)) {
 		}
 	}
 
-  	$msg = bot::makeLink("Bot Settings", $link);
+  	$msg = Text::make_link("Bot Settings", $link);
  	bot::send($msg, $sendto);
 } else if (preg_match("/^settings change ([a-z0-9_]+)$/i", $message, $arr)) {
     $link = "<header>::::: Settings for {$arr[1]} :::::<end>\n\n";
@@ -123,7 +123,7 @@ if (preg_match("/^settings$/i", $message)) {
 			if ($options[1] != "") {
 			  	$link .= "Or you can use also simply click on one of the following Numbers\n";
 			  	for ($i = $num[0]; $i <= $num[1]; $i++) {
-					$save_link = bot::makeLink('Save it', "/tell <myname> settings save {$row->name} {$i}", 'chatcmd');
+					$save_link = Text::make_link('Save it', "/tell <myname> settings save {$row->name} {$i}", 'chatcmd');
 					$link .= "<tab>- <highlight>{$i}<end> ({$save_link})\n";
 				}
 			}
@@ -136,12 +136,12 @@ if (preg_match("/^settings$/i", $message)) {
 				$intoptions = explode(";", $row->intoptions);
 				$options_map = array_combine($intoptions, $options);
 				forEach ($options_map as $key => $label) {
-					$save_link = bot::makeLink('Save it', "/tell <myname> settings save {$row->name} {$key}", 'chatcmd');
+					$save_link = Text::make_link('Save it', "/tell <myname> settings save {$row->name} {$key}", 'chatcmd');
 					$link .= "<tab> <highlight>{$label}<end> ({$save_link})\n";
 				}
 			} else {
 				forEach ($options as $char) {
-					$save_link = bot::makeLink('Save it', "/tell <myname> settings save {$row->name} {$char}", 'chatcmd');
+					$save_link = Text::make_link('Save it', "/tell <myname> settings save {$row->name} {$char}", 'chatcmd');
 					$link .= "<tab> <highlight>{$char}<end> ({$save_link})\n";
 				}
 			}
@@ -152,7 +152,7 @@ if (preg_match("/^settings$/i", $message)) {
 		}
 	}
 
-  	$msg = bot::makeLink("Settings Info for $arr[1]", $link);
+  	$msg = Text::make_link("Settings Info for $arr[1]", $link);
  	bot::send($msg, $sendto);
 } else if (preg_match("/^settings save ([a-z0-9_]+) (.+)$/i", $message, $arr)) {
   	$name_setting = strtolower($arr[1]);
@@ -244,7 +244,7 @@ if (preg_match("/^settings$/i", $message)) {
 			if ($data === false) {
 				$msg = "Help file specified but doesn't exist for this setting.";
 			} else {
-				$msg = bot::makeLink("Help on setting {$name}", $data);
+				$msg = Text::make_link("Help on setting {$name}", $data);
 			}
 		}
 	} else {

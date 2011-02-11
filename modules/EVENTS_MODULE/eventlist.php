@@ -13,8 +13,8 @@ if (preg_match("/^eventlist ([0-9]+)$/i", $message, $arr)) {
 		$row = $db->fObject();
 		$link = "<header>::::: Player Signed Up :::::<end>\n\n";
 		
-		$link .= bot::makeLink("Join this event", "/tell <myname> joinEvent $arr[1]", "chatcmd")."\n";
-		$link .= bot::makeLink("Leave this event", "/tell <myname> leaveEvent $arr[1]", "chatcmd")."\n\n";
+		$link .= Text::make_link("Join this event", "/tell <myname> joinEvent $arr[1]", "chatcmd")."\n";
+		$link .= Text::make_link("Leave this event", "/tell <myname> leaveEvent $arr[1]", "chatcmd")."\n\n";
 
 		$eventlist = explode(",", $row->event_attendees);
 		sort($eventlist);
@@ -38,7 +38,7 @@ if (preg_match("/^eventlist ([0-9]+)$/i", $message, $arr)) {
 				
 				$link .= trim($value)."$info $alt\n";
 			}
-			$msg = bot::makeLink("Eventlist", $link);
+			$msg = Text::make_link("Eventlist", $link);
 		} else {
 			$msg = "Eventlist is empty\n";
 		}

@@ -33,7 +33,7 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 	global $version;
 	$data = file_get_contents("./core/HELP/about.txt");
 	$data = str_replace('<version>', $version, $data);
-	$msg = bot::makeLink("About", $data);
+	$msg = Text::make_link("About", $data);
 	bot::send($msg, $sendto);
 } else if (preg_match("/^help$/i", $message)) {
 	global $version;
@@ -62,7 +62,7 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 		
 			$blob .= "  *{$row->name}: {$row->description} <a href='chatcmd:///tell <myname> help {$row->name}'>Click here</a>\n";
 		}
-		$msg = bot::makeLink("Help(main)", $blob, 'blob');
+		$msg = Text::make_link("Help(main)", $blob, 'blob');
 	}
 
 	bot::send($msg, $sendto);

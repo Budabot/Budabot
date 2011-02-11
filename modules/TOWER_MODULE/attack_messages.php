@@ -98,12 +98,12 @@ if ($closest_site === null) {
 	$link .= "<highlight>Defender:<end> ".$colorvalue.$def_guild."<end>\n";
 	$link .= $colorlabel."Alignment:<end> ".$colorvalue.$def_side."<end>\n\n";
 
-	$base_link = $this->makeLink("{$playfield->short_name} {$closest_site->site_number}", "/tell <myname> lc {$playfield->short_name} {$closest_site->site_number}", 'chatcmd');
-	$attack_waypoint = $this->makeLink("{$x_coords}x{$y_coords}", "/waypoint {$x_coords} {$y_coords} {$playfield->id}", 'chatcmd');
+	$base_link = Text::make_link("{$playfield->short_name} {$closest_site->site_number}", "/tell <myname> lc {$playfield->short_name} {$closest_site->site_number}", 'chatcmd');
+	$attack_waypoint = Text::make_link("{$x_coords}x{$y_coords}", "/waypoint {$x_coords} {$y_coords} {$playfield->id}", 'chatcmd');
 	$link .= "<highlight>Playfield:<end> {$colorvalue}{$base_link} ({$closest_site->min_ql}-{$closest_site->max_ql})<end>\n";
 	$link .= $colorlabel."Location:<end> {$colorvalue}{$closest_site->site_name} ({$attack_waypoint})<end>\n";
 
-	$more = "[".bot::makeLink("more", $link)."]";
+	$more = "[".Text::make_link("more", $link)."]";
 }
 
 $targetorg = "<".strtolower($def_side).">".$def_guild."<end>";

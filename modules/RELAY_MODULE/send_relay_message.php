@@ -9,7 +9,7 @@ if (($this->settings["relaybot"] != "Off") && ($this->settings["bot_relay_comman
 	}
 
 	if ($relayMessage != '') {
-		$sender_link = bot::makeLink($sender, $sender, "user");
+		$sender_link = Text::make_link($sender, $sender, "user");
 		$guild = $this->vars["my guild"];
 		if ($type == "guild") {
 			$msg = "grc <grey>[{$guild}] {$sender_link}: ".$relayMessage."</font>";

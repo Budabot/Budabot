@@ -40,10 +40,10 @@ if (preg_match("/^friendlist$/i", $message, $arg) || preg_match("/^friendlist (c
 		} else {
 			$blob .= "\n\nUnknown: ($orphanCount) ";
 			if ($orphanCount > 0) {
-				$blob .= $this->makeLink('Remove Orphans', '/tell <myname> <symbol>friendlist clean', 'chatcmd');
+				$blob .= Text::make_link('Remove Orphans', '/tell <myname> <symbol>friendlist clean', 'chatcmd');
 			}
 		}
-		bot::send(bot::makeLink("Friendlist Details", $blob), $sendto);
+		bot::send(Text::make_link("Friendlist Details", $blob), $sendto);
 	}
 } else if (preg_match("/^friendlist (.*)$/i", $message, $arg)) {
 	$search = $arg[1];
@@ -64,7 +64,7 @@ if (preg_match("/^friendlist$/i", $message, $arg) || preg_match("/^friendlist (c
 		}
 
 		if ($count > 0) {
-			bot::send(bot::makeLink("Friendlist Search Details", $blob), $sendto);
+			bot::send(Text::make_link("Friendlist Search Details", $blob), $sendto);
 		} else {
 			bot::send("No friends on the friends list found containing '$search'", $sendto);
 		}

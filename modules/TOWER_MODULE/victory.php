@@ -103,7 +103,7 @@ if ($db->numrows() == 0) {
 		}
 		
 		if ($row->playfield_id != '' && $row->site_number != '') {
-			$base = $this->makeLink("{$row->short_name} {$row->site_number}", "/tell <myname> lc {$row->short_name} {$row->site_number}", 'chatcmd');
+			$base = Text::make_link("{$row->short_name} {$row->site_number}", "/tell <myname> lc {$row->short_name} {$row->site_number}", 'chatcmd');
 			$base .= " ({$row->min_ql}-{$row->max_ql})";
 		} else {
 			$base = "Unknown";
@@ -113,7 +113,7 @@ if ($db->numrows() == 0) {
 		$list .= $colorlabel."Loser:<end> <{$lose_side}>{$row->lose_guild_name}<end> (".ucfirst($lose_side).")\n";
 		$list .= "Site: $base\n\n";
 	}
-	$msg = bot::makeLink("Tower Victories", $list);
+	$msg = Text::make_link("Tower Victories", $list);
 }
  
 bot::send($msg, $sendto);

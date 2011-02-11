@@ -29,7 +29,7 @@ if (preg_match("/^events$/i", $message, $arr)) {
 				$upcoming .= "<highlight>Event Date:<end> ".gmdate("F d, Y H:i:s", $row->event_date)." GMT\n";
 				$upcoming .= "<highlight>Event Name:<end> $row->event_name     [Event ID $row->id]\n";
 				$upcoming .= "<highlight>Author:<end> $row->submitter_name\n";
-				$upcoming .= "<highlight>Attendance:<end> ".bot::makeLink("$attendance signed up", "/tell <myname> eventlist $row->id", "chatcmd")." [".bot::makeLink("Join", "/tell <myname> joinEvent $row->id", "chatcmd")."/".bot::makeLink("Leave", "/tell <myname> leaveEvent $row->id", "chatcmd")."]\n";
+				$upcoming .= "<highlight>Attendance:<end> ".Text::make_link("$attendance signed up", "/tell <myname> eventlist $row->id", "chatcmd")." [".Text::make_link("Join", "/tell <myname> joinEvent $row->id", "chatcmd")."/".Text::make_link("Leave", "/tell <myname> leaveEvent $row->id", "chatcmd")."]\n";
 				$upcoming .= "<highlight>Description:<end> ".stripslashes($row->event_desc)."\n\n";
 				$upcoming_events = $upcoming.$upcoming_events;
 			} else {
@@ -37,7 +37,7 @@ if (preg_match("/^events$/i", $message, $arr)) {
 				$past .= "<highlight>Event Date:<end> ".gmdate("F d, Y H:i:s", $row->event_date)." GMT\n";
 				$past .= "<highlight>Event Name:<end> $row->event_name     [Event ID $row->id]\n";
 				$past .= "<highlight>Author:<end> $row->submitter_name\n";
-				$past .= "<highlight>Attendance:<end> ".bot::makeLink("$attendance signed up", "/tell <myname> eventlist $row->id", "chatcmd")."\n";
+				$past .= "<highlight>Attendance:<end> ".Text::make_link("$attendance signed up", "/tell <myname> eventlist $row->id", "chatcmd")."\n";
 				$past .= "<highlight>Description:<end> ".stripslashes($row->event_desc)."\n\n";
 				$past_events .= $past;
 			}
@@ -47,7 +47,7 @@ if (preg_match("/^events$/i", $message, $arr)) {
 		}
 		$link = $upcoming_title.$upcoming_events.$past_title.$past_events;
 		
-		$msg = bot::makeLink("Latest Events", $link)." [Last updated at ".gmdate("dS M, H:i", $updated)."]";
+		$msg = Text::make_link("Latest Events", $link)." [Last updated at ".gmdate("dS M, H:i", $updated)."]";
 	} else {
 		$msg = "No events entered yet.";
 	}
