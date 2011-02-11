@@ -229,5 +229,8 @@ if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 	
 	bot::send($msg, $sendto);
 
+} else {
+	$syntax_error = true;
 }
+
 ?>

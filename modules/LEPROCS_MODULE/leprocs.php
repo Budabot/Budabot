@@ -9,9 +9,8 @@ if (preg_match("/^leprocs? (.+)$/i", $message, $arr)) {
 	}
 
 	$db->query("SELECT * FROM leprocs WHERE profession LIKE '$profession' ORDER BY proc_type ASC, research_lvl DESC");
-	$num = $db->numrows();
 	$data = $db->fObject('all');
-	if ($num == 0) {
+	if ($db->numrows() == 0) {
 	    $msg = "No procs found for profession '$profession'.";
 	} else {
 		$blob = "<header> :::::: LE Procs '$profession' :::::: <end>\n\n";
@@ -23,6 +22,8 @@ if (preg_match("/^leprocs? (.+)$/i", $message, $arr)) {
 			}
 			$blob .= "<yellow>$row->name<end> $row->duration <orange>$row->modifiers<end>\n";
 		}
+		
+		$blob .= "\n\nProc info provided by Wolfbiter (RK1)";
 
 		$msg = Text::make_link("$profession LE Procs", $blob, 'blob');
 	}
