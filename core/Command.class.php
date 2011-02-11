@@ -36,7 +36,7 @@ class Command {
 		}
 		
 		//Check if the file exists
-		$actual_filename = $chatBot->verifyFilename($module . '/' . $filename);
+		$actual_filename = Util::verify_filename($module . '/' . $filename);
 		if ($actual_filename == '') {
 			Logger::log('ERROR', 'Core', "Error in registering the File $filename for command $command. The file doesn't exists!");
 			return;
@@ -73,7 +73,7 @@ class Command {
 	  	Logger::log('debug', 'Core', "Activate Command:($command) Admin Type:($admin) File:($filename) Channel:($channel)");
 
 		//Check if the file exists
-		$actual_filename = $chatBot->verifyFilename($filename);
+		$actual_filename = Util::verify_filename($filename);
 		if ($actual_filename == '') {
 			Logger::log('ERROR', 'Core', "Error in activating the File $filename for command $command. The file doesn't exists!");
 			return;

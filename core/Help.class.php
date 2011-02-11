@@ -41,7 +41,7 @@ class Help {
 		}
 
 		// Check if the file exists
-		$actual_filename = $chatBot->verifyFilename($module . '/' . $filename);
+		$actual_filename = Util::verify_filename($module . '/' . $filename);
 		if ($actual_filename == '') {
 			Logger::log('ERROR', 'Core', "Error in registering the File $filename for Help command $module:help($command). The file doesn't exist!");
 			return;

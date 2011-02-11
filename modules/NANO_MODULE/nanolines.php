@@ -38,7 +38,7 @@ if (preg_match("/^nanolines$/i", $message, $arr)) {
 	$sql = "SELECT DISTINCT profession FROM aonanos_nanolines ORDER BY profession ASC";
 	$db->query($sql);
 
-	$window = bot::makeHeader("Nanolines - Professions", "none");
+	$window = Text::make_header("Nanolines - Professions", "none");
 
 	while($row = $db->fObject()) {
 

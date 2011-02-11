@@ -18,12 +18,9 @@ if (preg_match ("/^dyna ([0-2]?[0-9]?[0-9])$/i", $message, $arr)) {
 	$range2 = $search + 25;
 	$db->query("SELECT * FROM dynadb Where minQl > $range1 AND minQl < $range2 GROUP BY `zone` ORDER BY `minQl`");
 	$dyna_found = $db->numrows();
-	$dynacamps = '';
-	if (method_exists('bot', 'makeHeader')) {
-		$dynacamps = bot::makeHeader("Results Of Dynacamp Search For $search", $links);
-	} else {
-		$dynacamps = "<header>::::: Results Of Dynacamp Search For $search :::::<end>\n";
-	}
+
+	$dynacamps = Text::make_header("Results Of Dynacamp Search For $search", $links);
+
 	$dynacamps .= "There are $dyna_found locations matching your query\n\n";
 	$data = $db->fObject("all");
 	foreach($data as $row) {
@@ -40,12 +37,9 @@ if (preg_match ("/^dyna ([0-2]?[0-9]?[0-9])$/i", $message, $arr)) {
 	$search = str_replace("'", "''", $arr[1]);
 	$db->query("SELECT * FROM dynadb Where zone like '%$search%' OR mob = '$search' ORDER BY `minQl`");
 	$dyna_found = $db->numrows();
-	$dynacamps = '';
-	if (method_exists('bot', 'makeHeader')) {
-		$dynacamps = bot::makeHeader("Results Of Dynacamp Search For $search", $links);
-	} else {
-		$dynacamps = "<header>::::: Results Of Dynacamp Search For $search :::::<end>\n";
-	}
+
+	$dynacamps = Text::make_header("Results Of Dynacamp Search For $search", $links);
+
 	$dynacamps .= "There are $dyna_found locations matching your query\n\n";
 	$data = $db->fObject("all");
 	foreach($data as $row) {

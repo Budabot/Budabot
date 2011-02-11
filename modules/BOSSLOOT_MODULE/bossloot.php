@@ -17,12 +17,8 @@ if (preg_match ("/^bossloot (.+)$/i", $message, $arr)) {
 
 	$search = $arr[1];
 	$search = ucwords(strtolower($search));
-	$boss = '';
-	if (method_exists('bot', 'makeHeader')) {
-		$boss = bot::makeHeader("Mobs that drop $search", $links);
-	} else {
-		$boss = "<header>::::: Mobs that drop $search :::::<end>\n";
-	}
+
+	$boss = Text::make_header("Mobs that drop $search", $links);
 	
 	$db->query("SELECT * FROM boss_lootdb WHERE itemname LIKE '%".str_replace("'", "''", $search)."%'");
 	$loot_found = $db->numrows();

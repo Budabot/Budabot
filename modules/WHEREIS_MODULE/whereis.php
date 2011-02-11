@@ -26,11 +26,7 @@ if (preg_match("/^whereis (.+)$/i", $message, $arr)) {
 	}
 	
 	if ($whereis_found > 1) {
-		if (method_exists('bot', 'makeHeader')) {
-			$header = bot::makeHeader("Result of Whereis Search For $search", $links);
-		} else {
-			$header = "<header>::::: Result of Whereis Search For $search :::::<end>\n";	
-		}
+		$header = Text::make_header("Result of Whereis Search For $search", $links);
 		$header .= "There are $whereis_found matches to your query.\n\n";
 		
 		$whereis = $header . $whereis;

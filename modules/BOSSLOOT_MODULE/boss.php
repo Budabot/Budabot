@@ -18,12 +18,7 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 	$search = $arr[1];
 	$search = ucwords(strtolower($search));
 	
-	$boss = '';
-	if (method_exists('bot', 'makeHeader')) {
-		$boss = bot::makeHeader("Results of Search for $search", $links);
-	} else {
-		$boss = "<header>::::: Results of Search for $search :::::<end>\n";
-	}
+	$boss = Text::make_header("Results of Search for $search", $links);
 	
 	// Find bossname or Boss key
 	$db->query("SELECT * FROM boss_namedb WHERE bossname LIKE '%".str_replace("'", "''", $search)."%' OR keyname LIKE '%".str_replace("'", "''", $search)."%'");
@@ -58,7 +53,7 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 		$output = bot::makelink("Boss", $boss);
 	}
 	//If single match found, output full loot table
-	elseif ($name_found  == 1) {
+	else if ($name_found  == 1) {
 		$db->query("SELECT * FROM boss_namedb WHERE bossname LIKE  '%".str_replace("'", "''", $search)."%' OR keyname LIKE '%".str_replace("'", "''", $search)."%'");
 		$data = $db->fobject("all");
 		foreach ($data as $row)
@@ -69,15 +64,15 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 		
 		$db->query("SELECT answer FROM whereis WHERE name = '".str_replace("'", "''", $name)."'");
 		$data = $db->fobject("all");
-			foreach ($data as $row) {
+			forEach ($data as $row) {
 			$where = $row->answer;
 			
 			$boss .= "<green>Can be found $where<end>\n\n";
 			$boss .= "Loot:\n\n";
-			}
+		}
 		$db->query("SELECT * FROM boss_lootdb, aodb WHERE boss_lootdb.bossid = $name_id AND boss_lootdb.itemid = aodb.lowid");
 		$data = $db->fobject("all");
-		foreach ($data as $row) {
+		forEach ($data as $row) {
 			$loid = $row->itemid;
 			$hiid = $row->highid;
 			$ql = $row->highql;

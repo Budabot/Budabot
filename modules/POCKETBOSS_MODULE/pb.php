@@ -47,7 +47,7 @@ if (preg_match("/^pb (.+)$/i", $message, $arr)) {
 			$db->query("SELECT * FROM pbdb WHERE pb = '$row->pb' ORDER BY ql");
 			while ($symb = $db->fObject()){
 			  	$name = "QL $symb->ql $symb->line $symb->slot Symbiant, $symb->type Unit Aban";
-			  	$link .= bot::makeItem($symb->itemid, $symb->itemid, $symb->ql, $name)."\n";
+			  	$link .= Text::make_item($symb->itemid, $symb->itemid, $symb->ql, $name)."\n";
 			}
 			$msg .= "\n".bot::makeLink("Remains of $row->pb", $link);
 		}
@@ -114,7 +114,7 @@ if (preg_match("/^pb (.+)$/i", $message, $arr)) {
 	  	$link = "<header>::::: Result of your search :::::<end>";
 		forEach ($data as $row) {
 		  	$name = "\n\nQL $row->ql $row->line $row->slot Symbiant, $row->type Unit Aban";
-		  	$link .= bot::makeItem($row->itemid, $row->itemid, $row->ql, $name)."\n";
+		  	$link .= Text::make_item($row->itemid, $row->itemid, $row->ql, $name)."\n";
 		  	$link .= "Found on ".bot::makeLink($row->pb, "/tell <myname> pb $row->pb", "chatcmd");
 		}
 		$msg .= bot::makeLink("Found $numrows matches", $link);
@@ -181,7 +181,7 @@ if (preg_match("/^pb (.+)$/i", $message, $arr)) {
 	  	$link = "<header>::::: Result of your search :::::<end>";
 		forEach ($data as $row) {
 		  	$name = "\n\nQL $row->ql $row->line $row->slot Symbiant, $row->type Unit Aban";
-		  	$link .= bot::makeItem($row->itemid, $row->itemid, $row->ql, $name)."\n";
+		  	$link .= Text::make_item($row->itemid, $row->itemid, $row->ql, $name)."\n";
 		  	$link .= "Found on ".bot::makeLink($row->pb, "/tell <myname> pb $row->pb", "chatcmd");
 		}
 		$msg .= bot::makeLink("Found $numrows matches", $link);

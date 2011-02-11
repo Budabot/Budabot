@@ -22,7 +22,7 @@ class Subcommand {
 		}
 
 		//Check if the file exists
-		$actual_filename = $chatBot->verifyFilename($module . '/' . $filename);
+		$actual_filename = Util::verify_filename($module . '/' . $filename);
 		if ($actual_filename == '') {
 			Logger::log('ERROR', 'Core', "Error in registering the file $filename for Subcommand $command. The file doesn't exists!");
 			return;

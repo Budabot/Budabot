@@ -35,6 +35,10 @@ class bot extends AOChat {
 	var $chatlist = array();
 	var $guildmembers = array();
 	
+	var $events = array();
+	var $helpfiles = array();
+	var $subcommands = array();
+	
 	var $tellCmds = array();
 	var $privCmds = array();
 	var $guildCmds = array();
@@ -142,10 +146,11 @@ class bot extends AOChat {
 		//Delete old vars in case they exist
 		$this->events = array();
 		$this->helpfiles = array();
+		$this->subcommands = array();
+
 		$this->tellCmds = array();
 		$this->privCmds = array();
 		$this->guildCmds = array();
-		$this->subcommands = array();
 		
 		unset($this->privMsgs);
 		unset($this->privChat);
@@ -170,7 +175,7 @@ class bot extends AOChat {
 
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'event'");
 		while ($row = $db->fObject()) {
-			if (bot::verifyNameConvention($row->file)) {
+			if (Util::verify_name_convention($row->file)) {
 			  	$this->existing_events[$row->type][$row->file] = true;
 			}
 		}
@@ -276,47 +281,6 @@ class bot extends AOChat {
 	}
 
 /*===============================
-** Name: makeHeader
-** Make header.
-*/	function makeHeader($title, $links = NULL){
-		// if !$links, then makeHeader function will show default links:  Help, About, Download.
-	        // if $links = "none", then makeHeader wont show ANY links.
-		// if $links = array("Help;chatcmd:///tell <myname> help"),  slap in your own array for your own links.
-
-		$color = $this->settings['default_header_color'];
-		$baseR = hexdec(substr($color,14,2)); $baseG = hexdec(substr($color,16,2)); $baseB = hexdec(substr($color,18,2));
-		$color2 = "<font color='#".strtoupper(substr("00".dechex($baseR*.75),-2).substr("00".dechex($baseG*.75),-2).substr("00".dechex($baseB*.75),-2))."'>";
-		$color3 = "<font color='#".strtoupper(substr("00".dechex($baseR*.50),-2).substr("00".dechex($baseG*.50),-2).substr("00".dechex($baseB*.50),-2))."'>";
-		$color4 = "<font color='#".strtoupper(substr("00".dechex($baseR*.25),-2).substr("00".dechex($baseG*.25),-2).substr("00".dechex($baseB*.25),-2))."'>";
-
-		//Title
-		$header = $color4.":::".$color3.":::".$color2.":::".$color;
-		$header .= $title;
-		$header .= "</font>:::</font>:::</font>:::</font> ";
-
-
-		if (!$links) {
-			$links = array( "Help;chatcmd:///tell ".$this->vars["name"]." help",
-					"About;chatcmd:///tell ".$this->vars["name"]." about",
-					"Download;chatcmd:///start http://budabot.aodevs.com/index.php?page=14");
-		}
-		if (strtolower($links) != "none") {
-			forEach ($links as $thislink){
-				preg_match("/^(.+);(.+)$/i", $thislink, $arr);
-				if ($arr[1] && $arr[2]) {
-					$header .= $color4.":".$color3.":".$color2.":";
-					$header .= "<a style='text-decoration:none' href='$arr[2]'>".$color."$arr[1]</font></a>";
-					$header .= ":</font>:</font>:</font>";
-				}
-			}
-		}
-
-		$header .= $this->settings["default_window_color"]."\n\n";
-
-		return $header;
-	}
-
-/*===============================
 ** Name: makeLink
 ** Make click link reference.
 */	function makeLink($name, $content, $type = "blob", $style = NULL){
@@ -374,43 +338,6 @@ class bot extends AOChat {
 		}
 	}
 	
-/*===============================
-** Name: makeItem
-** Make item link reference.
-*/	function makeItem($lowID, $hiID,  $ql, $name){
-		return "<a href='itemref://$lowID/$hiID/$ql'>$name</a>";
-	}
-	
-/*===============================
-** Name: formatMessage
-** Formats an outgoing message with correct colors, replaces values, etc
-*/	function formatMessage($message) {
-		// Color
-		$message = str_replace("<header>", $this->settings['default_header_color'], $message);
-		$message = str_replace("<highlight>", $this->settings['default_highlight_color'], $message);
-		$message = str_replace("<black>", "<font color='#000000'>", $message);
-		$message = str_replace("<white>", "<font color='#FFFFFF'>", $message);
-		$message = str_replace("<yellow>", "<font color='#FFFF00'>", $message);
-		$message = str_replace("<blue>", "<font color='#8CB5FF'>", $message);
-		$message = str_replace("<green>", "<font color='#00DE42'>", $message);
-		$message = str_replace("<red>", "<font color='#ff0000'>", $message);
-		$message = str_replace("<orange>", "<font color='#FCA712'>", $message);
-		$message = str_replace("<grey>", "<font color='#C3C3C3'>", $message);
-		$message = str_replace("<cyan>", "<font color='#00FFFF'>", $message);
-		
-		$message = str_replace("<neutral>", $this->settings['default_neut_color'], $message);
-		$message = str_replace("<omni>", $this->settings['default_omni_color'], $message);
-		$message = str_replace("<clan>", $this->settings['default_clan_color'], $message);
-		$message = str_replace("<unknown>", $this->settings['default_unknown_color'], $message);
-
-		$message = str_replace("<myname>", $this->vars["name"], $message);
-		$message = str_replace("<tab>", "    ", $message);
-		$message = str_replace("<end>", "</font>", $message);
-		$message = str_replace("<symbol>", $this->settings["symbol"] , $message);
-
-		return $message;
-	}
-	
 	function sendPrivate($message, $group, $disable_relay = false) {
 		// for when makeLink generates several pages
 		if (is_array($message)) {
@@ -420,7 +347,7 @@ class bot extends AOChat {
 			return;
 		}
 	
-		$message = bot::formatMessage($message);
+		$message = Text::format_message($message);
 		$this->send_privgroup($group, $this->settings["default_priv_color"].$message);
 	}
 
@@ -443,7 +370,7 @@ class bot extends AOChat {
 			$who = 'prv';
 		}
 
-		$message = bot::formatMessage($message);
+		$message = Text::format_message($message);
 
 		// Send
 		if ($who == 'prv') { // Target is private chat by defult.
@@ -1049,36 +976,6 @@ class bot extends AOChat {
 					include $filename;
 				}
 				break;
-		}
-	}
-
-	function verifyFilename($filename) {
-		//Replace all \ characters with /
-		$filename = str_replace("\\", "/", $filename);
-
-		if (!bot::verifyNameConvention($filename)) {
-			return "";
-		}
-
-		//check if the file exists
-	    if (file_exists("./core/$filename")) {
-	        return "./core/$filename";
-    	} else if (file_exists("./modules/$filename")) {
-        	return "./modules/$filename";
-		} else if (file_exists($filename)) {
-        	return $filename;
-	    } else {
-	     	return "";
-	    }
-	}
-
-	function verifyNameConvention($filename) {
-		preg_match("/^(.+)/([0-9a-z_]+).php$/i", $filename, $arr);
-		if ($arr[2] == strtolower($arr[2])) {
-			return true;
-		} else {
-			Logger::log('ERROR', 'Core', "Warning: $filename does not match the nameconvention(All php files needs to be in lowercases except loading files)!");
-			return false;
 		}
 	}
 }

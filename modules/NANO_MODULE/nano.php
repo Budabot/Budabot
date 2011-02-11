@@ -94,9 +94,9 @@ if ($countitems > 1) {
 			$name = str_replace("&amp;", "&", $name);
 //	        $list .= "<img src=rdb://".$item["icon"]."> \n";
 	        if ($ql) {
-		        $list .= "QL $ql ".bot::makeItem($item["lowid"], $item["highid"], $ql, $name);
+		        $list .= "QL $ql ".Text::make_item($item["lowid"], $item["highid"], $ql, $name);
 			} else {
-		        $list .= bot::makeItem($item["lowid"], $item["highid"], $item["highql"], $name);		  
+		        $list .= Text::make_item($item["lowid"], $item["highid"], $item["highql"], $name);		  
 			}
 	
 	        if ($item["lowql"] != $item["highql"]) {
@@ -127,9 +127,9 @@ if ($countitems > 1) {
 			$name = str_replace("&#58;", ":", $name);
 			$name = str_replace("&amp;", "&", $name); 
 	        if ($ql) {
-		        $link .= "\n QL $ql ".bot::makeItem($item["lowid"], $item["highid"], $ql, $name);
+		        $link .= "\n QL $ql ".Text::make_item($item["lowid"], $item["highid"], $ql, $name);
 			} else {
-		        $link .= "\n".bot::makeItem($item["lowid"], $item["highid"], $item["highql"], $name);
+		        $link .= "\n".Text::make_item($item["lowid"], $item["highid"], $item["highql"], $name);
 			}
 	        
 	        if ($item["lowql"] != $item["highql"]) {

@@ -58,7 +58,7 @@ if (preg_match("/^nlprof (.*)$/i", $message, $arr)) {
 
 	$msg = '';
 	if ($count > 0) {
-		$window = bot::makeHeader("$profession Nanolines", "none") . $window;
+		$window = Text::make_header("$profession Nanolines", "none") . $window;
 		$window .= "\n\nAO Nanos by Voriuste";
 		$msg = bot::makeLink("$profession Nanolines", $window, 'blob');
 	} else {

@@ -95,6 +95,7 @@ require_once './core/Setting.class.php';
 require_once './core/Help.class.php';
 require_once './core/Buddylist.class.php';
 require_once './core/Util.class.php';
+require_once './core/Text.class.php';
 
 //Show setup dialog
 if ($vars['login']		== "" ||

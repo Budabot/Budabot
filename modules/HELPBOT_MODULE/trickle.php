@@ -71,12 +71,8 @@ if (!preg_match("/^trickle( ([a-zA-Z]+) ([0-9]+)){1,6}$/i", $message)) {
 			}
 		}
 
-		$output = "";
-		if (method_exists('bot', 'makeHeader')) {
-			$output .= bot::makeHeader("Trickle$header", "none");
-		} else {
-			$output .= "<header>::::: Trickle$header :::::<end>\n";	
-		}
+		$output = Text::make_header("Trickle$header", "none");
+
 		$results = getTrickleResults($agi, $int, $psy, $sta, $str, $sen);
 		$output .= formatOutput($results, $amount);
 		$msg = bot::makeLink('Trickle Results', $output);

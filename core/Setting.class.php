@@ -29,7 +29,7 @@ class Setting {
 
 		//Check if the help file exists
 		if ($help != '') {
-			$help_file = $chatBot->verifyFilename($help);
+			$help_file = Util::verify_filename($help);
 			if ($help_file == '') {
 				Logger::log('ERROR', 'Core', "Error in registering the help file $help for Setting $module:setting($name). The file doesn't exists!");
 			}

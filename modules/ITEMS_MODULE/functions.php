@@ -86,9 +86,9 @@ function find_items_from_local($search, $ql) {
 			forEach ($item1 as $key => $item) {
 				$list .= "<img src='rdb://".$item["icon"]."'> \n";
 				if ($ql) {
-					$list .= "QL $ql ".$chatBot->makeItem($item["lowid"], $item["highid"], $ql, $name);
+					$list .= "QL $ql ".Text::make_item($item["lowid"], $item["highid"], $ql, $name);
 				} else {
-					$list .= $chatBot->makeItem($item["lowid"], $item["highid"], $item["highql"], $name);		  
+					$list .= Text::make_item($item["lowid"], $item["highid"], $item["highql"], $name);		  
 				}
 		
 				if ($item["lowql"] != $item["highql"]) {
@@ -109,9 +109,9 @@ function find_items_from_local($search, $ql) {
 		forEach ($itemlist as $name => $item1) {
 			forEach ($item1 as $key => $item) {
 				if ($ql) {
-					$link .= "\n QL $ql ".$chatBot->makeItem($item["lowid"], $item["highid"], $ql, $name);
+					$link .= "\n QL $ql ".Text::make_item($item["lowid"], $item["highid"], $ql, $name);
 				} else {
-					$link .= "\n".$chatBot->makeItem($item["lowid"], $item["highid"], $item["highql"], $name);
+					$link .= "\n".Text::make_item($item["lowid"], $item["highid"], $item["highql"], $name);
 				}
 				
 				if ($item["lowql"] != $item["highql"]) {

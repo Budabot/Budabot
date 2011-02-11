@@ -35,7 +35,7 @@ class Event {
 		}
 		
 		//Check if the file exists
-		$actual_filename = $chatBot->verifyFilename($module . '/' . $filename);
+		$actual_filename = Util::verify_filename($module . '/' . $filename);
 		if ($actual_filename == '') {
 			Logger::log('error', 'Core', "Error registering event Type:($type) File:($filename) Module:($module). The file doesn't exist!");
 			return;
@@ -69,7 +69,7 @@ class Event {
 		}
 
 		//Check if the file exists
-		$actual_filename = $chatBot->verifyFilename($filename);
+		$actual_filename = Util::verify_filename($filename);
 		if ($actual_filename == '') {
 			Logger::log('error', 'Core', "Error activating event Type:($type) File:($filename). The file doesn't exist!");
 			return;
@@ -102,7 +102,7 @@ class Event {
 		
 		// to remove this check we need to make sure to use $filename instead of $actual_filename
 		//Check if the file exists
-		$actual_filename = $chatBot->verifyFilename($filename);
+		$actual_filename = Util::verify_filename($filename);
 		if ($actual_filename == '') {
 			Logger::log('error', 'Core', "Error deactivating event Type:($type) File:($filename). The file doesn't exist!");
 			return;

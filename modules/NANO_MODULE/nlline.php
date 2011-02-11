@@ -45,7 +45,7 @@ if (preg_match("/^nlline ([0-9]*)$/i", $message, $arr)) {
 
 		$header = "$row->profession $row->name Nanos";
 
-		$window = bot::makeHeader($header, "none");
+		$window = Text::make_header($header, "none");
 
 		$sql = "
 			SELECT
