@@ -30,7 +30,7 @@ if (preg_match ("/^dyna ([0-2]?[0-9]?[0-9])$/i", $message, $arr)) {
 	}
 	
 	$dynacamps = Text::make_link("Dynacamps", $dynacamps);
-	bot::send($dynacamps, $sendto);
+	$chatBot->send($dynacamps, $sendto);
 } elseif (preg_match ("/^dyna (.+)$/i", $message, $arr)) {
 	$search = str_replace(" ", "%", $arr[1]);
 	$search = ucfirst(strtolower($search));
@@ -49,7 +49,7 @@ if (preg_match ("/^dyna ([0-2]?[0-9]?[0-9])$/i", $message, $arr)) {
 	}
 	
 	$dynacamps = Text::make_link("Dynacamps", $dynacamps);
-	bot::send($dynacamps, $sendto);
+	$chatBot->send($dynacamps, $sendto);
 } else {
 	$syntax_error = true;
 }

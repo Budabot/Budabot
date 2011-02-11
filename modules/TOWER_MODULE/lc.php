@@ -10,13 +10,13 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 		$blob .= "$baseLink <highlight>($row->short_name)<end>\n";
 	}
 	$msg = Text::make_link('Land Control Index', $blob, 'blob');
-	$this->send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^lc ([0-9a-z]+)$/i", $message, $arr)) {
 	$playfield_name = strtoupper($arr[1]);
 	$playfield = Playfields::get_playfield_by_name($playfield_name);
 	if ($playfield === null) {
 		$msg = "Playfield '$playfield_name' could not be found";
-		$this->send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 
@@ -34,13 +34,13 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 	
 	$msg = Text::make_link("All Bases in $playfield->long_name", $blob, 'blob');
 	
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^lc ([0-9a-z]+) ([0-9]+)$/i", $message, $arr)) {
 	$playfield_name = strtoupper($arr[1]);
 	$playfield = Playfields::get_playfield_by_name($playfield_name);
 	if ($playfield === null) {
 		$msg = "Playfield '$playfield_name' could not be found";
-		$this->send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 
@@ -63,7 +63,7 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 		$msg = "Invalid site number.";
 	}
 	
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

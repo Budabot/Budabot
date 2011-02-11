@@ -42,7 +42,7 @@ if (isset($this->guildmembers[$sender])) {
 		  	$link .= "<highlight>Message:<end> $row->news\n\n";
 		}
 		$msg = Text::make_link("News", $link)." [Last updated at ".gmdate("dS M, H:i", $updated)."]";
-        bot::send($msg, $sender);
+        $chatBot->send($msg, $sender);
 	}	
 }
 ?>

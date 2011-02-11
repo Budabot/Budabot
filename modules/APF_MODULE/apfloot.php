@@ -112,7 +112,7 @@ if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 
 	$msg = Text::make_link("Guide for Hacker ICE-Breaker Source", $list);
 
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } elseif(preg_match("/^apfloot KyrOzch Helmet$/i", $message)) {
 	$list = "<header>::::: Guide for Kyr'Ozch Helmet :::::<end>\n\n";
 	$list .= "Handing this item to your faction Vendor at the Alien Playfield Bar it will give you one of these 2500Token Boards back:\n\n";
@@ -124,7 +124,7 @@ if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 
 	$msg = Text::make_link("Guide for Kyr'Ozch Helmet", $list);
 
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } elseif(preg_match("/^apfloot Action Probability Estimator$/i", $message)) {
 	$list = "<header>::::: Guide for Action Probability Estimator :::::<end>\n\n";
 
@@ -180,7 +180,7 @@ if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 
 	$msg = Text::make_link("Guide for Action Probability Estimator", $list);
 
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } elseif(preg_match("/^apfloot Dynamic Gas Redistribution Valves$/i", $message)) {
 	$list = "<header>::::: Guide for Dynamic Gas Redistribution Valves :::::<end>\n\n";
 
@@ -228,7 +228,7 @@ if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 		
 	$msg = Text::make_link("Guide for Dynamic Gas Redistribution Valves", $list);
 
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } elseif(preg_match("/^apfloot Inertial Adjustment Processing Unit$/i", $message)) {
 	$list = "<header>::::: Guide for Inertial Adjustment Processing Unit :::::<end>\n\n";
 	$list .= "<u>Hadrulf's Viral Belt Component Platform</u>\n\n";
@@ -280,7 +280,7 @@ if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 			
 	$msg = Text::make_link("Guide for Inertial Adjustment Processing Unit", $list);
 
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } elseif(preg_match("/^apfloot Notum Amplification Coil$/i", $message)) {
 	$list = "<header>::::: Guide for Notum Amplification Coil :::::<end>\n\n";
 
@@ -318,7 +318,7 @@ if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 		
 	$msg = Text::make_link("Guide for Notum Amplification Coil", $list);
 
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } elseif(preg_match("/^apfloot Energy Redistribution Unit$/i", $message)) {
 	$list = "<header>::::: Guide for Energy Redistribution Unit :::::<end>\n\n";
 
@@ -355,7 +355,7 @@ if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 			
 	$msg = Text::make_link("Guide for Energy Redistribution Unit", $list);
 
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } elseif(preg_match("/^apfloot Visible Light Remodulation Device$/i", $message)) {
 	$list = "<header>::::: Guide for Visible Light Remodulation Device :::::<end>\n\n";
 
@@ -397,7 +397,7 @@ if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 			
 	$msg = Text::make_link("Guide for Visible Light Remodulation Device", $list);
 
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

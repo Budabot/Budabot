@@ -110,7 +110,7 @@ if (preg_match("/^dbloot ([0-9]+)$/i", $message, $arr)) {
 			if (count($loot) < 31) {
 				$nextloot = count($loot) + 1;
 			} else {
-				bot::send("You can only roll 30 items max at one time!", $sendto);
+				$chatBot->send("You can only roll 30 items max at one time!", $sendto);
 				return;
 			}
 		} else {
@@ -121,11 +121,11 @@ if (preg_match("/^dbloot ([0-9]+)$/i", $message, $arr)) {
 		$loot[$nextloot]["linky"] = Text::make_item($dbloot[$val]["ref"], $dbloot[$val]["ref"], 300, $dbloot[$val]["name"]);
 		$loot[$nextloot]["icon"] = $dbloot[$val]["img"];
 		$loot[$nextloot]["multiloot"] = 1;
-		bot::send("<highlight>".$itemname."<end> will be rolled in Slot <highlight>#".$nextloot, 'priv');
+		$chatBot->send("<highlight>".$itemname."<end> will be rolled in Slot <highlight>#".$nextloot, 'priv');
 	} else {
-		bot::send("<highlight>".$itemname."<end> will be rolled in Slot <highlight>#".$slot."<end> as multiloot. Total: <yellow>".$total."<end>", 'priv');
+		$chatBot->send("<highlight>".$itemname."<end> will be rolled in Slot <highlight>#".$slot."<end> as multiloot. Total: <yellow>".$total."<end>", 'priv');
 	}
-	bot::send("To add use !add ".$nextloot.", or !add 0 to remove yourself", 'priv');
+	$chatBot->send("To add use !add ".$nextloot.", or !add 0 to remove yourself", 'priv');
 } else if (preg_match("/^db1$/i", $message)) {
 	$list = "<header>::::: DB1 Loot :::::<end>\n\n\n";
 	$loop = 1;
@@ -137,7 +137,7 @@ if (preg_match("/^dbloot ([0-9]+)$/i", $message, $arr)) {
 		$loop++;
 	}
 	$msg = Text::make_link("DB1 Loot", $list);
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^db2$/i", $message)) {
 	//List DB Armor choices
 	$list = "<header>::::: DB2 Armor :::::<end>\n\n\n";
@@ -150,7 +150,7 @@ if (preg_match("/^dbloot ([0-9]+)$/i", $message, $arr)) {
 		$loop++;
 	}
 	$msg = Text::make_link("DB2 Armor", $list);
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^db2loot ([0-9]+)$/i", $message, $arr)) {
 	$val = $arr[1];
 
@@ -177,7 +177,7 @@ if (preg_match("/^dbloot ([0-9]+)$/i", $message, $arr)) {
 	}
 	$loot[3]["multiloot"] = 2;
 
-	bot::send("DB2 loot table was added to the loot list by <highlight>$sender<end>.", 'priv');
+	$chatBot->send("DB2 loot table was added to the loot list by <highlight>$sender<end>.", 'priv');
 } else {
 	$syntax_error = true;
 }

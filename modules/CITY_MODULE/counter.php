@@ -7,9 +7,9 @@ if (isset($this->data["CITY_WAVE"])) {
 	if ($wave != 2) {
 		if ($stime >= $now + 13 - $wave * 120 && $stime <= $now + 17 - $wave * 120) {
 			if ($wave != 9) {
-				$this->send("Wave $wave Incoming.", "guild");
+				$chatBot->send("Wave $wave Incoming.", "guild");
 			} else {
-				$this->send("General Incoming.", "guild");
+				$chatBot->send("General Incoming.", "guild");
 			}
 			$wave++;
 			$this->data["CITY_WAVE"]['wave'] = $wave;
@@ -19,7 +19,7 @@ if (isset($this->data["CITY_WAVE"])) {
 			}
 		}
 	} elseif ($stime >= $now + 13 - 270 && $stime <= $now + 17 - 270) {
-		$this->send("Wave $wave Incoming.", "guild");
+		$chatBot->send("Wave $wave Incoming.", "guild");
 		$wave++;
 		$this->data["CITY_WAVE"]['wave'] = $wave;
 	}

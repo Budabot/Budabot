@@ -114,11 +114,11 @@ if (preg_match("/^list$/i", $message)) {
 			$msg = "No List exists yet.";
 		}
 	} else {
-		bot::send("No list available!");
+		$chatBot->send("No list available!");
 		return;
 	}
 
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

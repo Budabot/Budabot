@@ -50,6 +50,6 @@ if (!preg_match("/^[0-9]+$/i", $ql, $p) || ($ql < 1) || ($ql > 300)) {
 	$msg = "\nFor ql $ql imps\nTreatment required: $obj->treatment.\nAbility Required: $obj->ability\n$link";
 }
 
-bot::send($msg, $sendto);
+$chatBot->send($msg, $sendto);
 
 ?>

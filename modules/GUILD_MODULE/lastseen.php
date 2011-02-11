@@ -51,7 +51,7 @@ if (preg_match("/^lastseen (.+)$/i", $message, $arr)) {
 		}
 	}
 
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

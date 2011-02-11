@@ -12,7 +12,7 @@ if (preg_match("/^(attacks|battles?) (\\d+)$/i", $message, $arr) || preg_match("
 		$page_label = $arr[2];
 		if ($page_label < 1) {
 			$msg = "You must choose a page number greater than 0";
-			$this->send($msg, $sendto);
+			$chatBot->send($msg, $sendto);
 			return;
 		}
 	}
@@ -21,7 +21,7 @@ if (preg_match("/^(attacks|battles?) (\\d+)$/i", $message, $arr) || preg_match("
 		$page_label = $arr[4];
 		if ($page_label < 1) {
 			$msg = "You must choose a page number greater than 0";
-			$this->send($msg, $sendto);
+			$chatBot->send($msg, $sendto);
 			return;
 		}
 	}
@@ -29,14 +29,14 @@ if (preg_match("/^(attacks|battles?) (\\d+)$/i", $message, $arr) || preg_match("
 	$playfield = Playfields::get_playfield_by_name($arr[2]);
 	if ($playfield === null) {
 		$msg = "Please enter a valid playfield.";
-		bot::send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 	
 	$tower_info = Towers::get_tower_info($playfield->id, $arr[3]);
 	if ($tower_info === null) {
 		$msg = "Invalid site number.";
-		bot::send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 
@@ -46,7 +46,7 @@ if (preg_match("/^(attacks|battles?) (\\d+)$/i", $message, $arr) || preg_match("
 		$page_label = $arr[3];
 		if ($page_label < 1) {
 			$msg = "You must choose a page number greater than 0";
-			$this->send($msg, $sendto);
+			$chatBot->send($msg, $sendto);
 			return;
 		}
 	}
@@ -58,7 +58,7 @@ if (preg_match("/^(attacks|battles?) (\\d+)$/i", $message, $arr) || preg_match("
 		$page_label = $arr[3];
 		if ($page_label < 1) {
 			$msg = "You must choose a page number greater than 0";
-			$this->send($msg, $sendto);
+			$chatBot->send($msg, $sendto);
 			return;
 		}
 	}
@@ -122,6 +122,6 @@ if ($db->numrows() == 0) {
 	$msg = Text::make_link("Tower Attacks", $list);
 }
 
-bot::send($msg, $sendto);
+$chatBot->send($msg, $sendto);
 
 ?>

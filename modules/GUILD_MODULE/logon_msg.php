@@ -41,7 +41,7 @@ if (preg_match("/^logon$/i", $message)) {
     } else {
         $msg = "You are not on the notify list.";
 	}
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else if (preg_match("/^logon clear$/i", $message)) {
     if ($row !== null) {
         $db->exec("UPDATE org_members_<myname> SET `logon_msg` = '' WHERE `name` = '$sender'");
@@ -49,7 +49,7 @@ if (preg_match("/^logon$/i", $message)) {
     } else {
         $msg = "You are not on the notify list.";
 	}
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else if (preg_match("/^logon (.+)$/i", $message, $arr)) {
     if ($row !== null) {
         $arr[1] = str_replace("'", "''", $arr[1]);
@@ -62,7 +62,7 @@ if (preg_match("/^logon$/i", $message)) {
     } else {
         $msg = "You are not on the notify list.";
 	}
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

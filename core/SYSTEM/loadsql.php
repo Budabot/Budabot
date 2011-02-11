@@ -10,7 +10,7 @@ if (preg_match("/^loadsql (.*) (.*)$/i", $message, $arr)) {
 	
 	$db->Commit();
 	
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

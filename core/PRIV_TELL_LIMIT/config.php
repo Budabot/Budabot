@@ -85,7 +85,7 @@ if (preg_match("/^limits$/i", $message)) {
 	$list .= Text::make_link("Change this", "/tell <myname> limit priv maxplayers", "chatcmd").")\n";
 
 	$msg = Text::make_link("Limits for privGroup and Tells", $list);
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^limit (priv|tell) faction$/i", $message, $arr)) {
  	$list .= "<header>::::: Faction Limit :::::<end>\n\n";
  	$list .= "Current Setting: <highlight>";
@@ -109,7 +109,7 @@ if (preg_match("/^limits$/i", $message)) {
 	$list .= Text::make_link("Not Neutral", "/tell <myname> limit {$arr[1]} faction not neutral", "chatcmd")."\n";
 	$list .= Text::make_link("Not Omni", "/tell <myname> limit {$arr[1]} faction not omni", "chatcmd")."\n";
 	$msg = Text::make_link("Faction Limit", $list);
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^limit (priv|tell) faction (omni|clan|neutral|all)$/i", $message, $arr)) {
 	$faction = ucfirst(strtolower($arr[2]));
 	$channel = strtolower($arr[1]);
@@ -128,7 +128,7 @@ if (preg_match("/^limits$/i", $message)) {
 	} elseif($channel == "tell") {
  		$msg = "Responding on tells will be done only for players with the Faction $faction.";
  	}
- 	bot::send($msg, $sendto);
+ 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^limit (priv|tell) faction not (omni|clan|neutral)$/i", $message, $arr)) {
 	$faction = ucfirst(strtolower($arr[2]));
 	$channel = strtolower($arr[1]);
@@ -143,7 +143,7 @@ if (preg_match("/^limits$/i", $message)) {
 	} elseif($channel == "tell") {
  		$msg = "Responding on tells will be done for players that are not $faction.";
  	}
- 	bot::send($msg, $sendto);
+ 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^limit (priv|tell) minlvl$/i", $message, $arr)) {
  	$list .= "<header>::::: Level Limit :::::<end>\n\n";
  	$list .= "Current Setting: <highlight>";
@@ -164,14 +164,14 @@ if (preg_match("/^limits$/i", $message)) {
 		$list .= Text::make_link("Level limit $i", "/tell <myname> limit {$arr[1]} minlvl $i", "chatcmd")."\n";
 
 	$msg = Text::make_link("Level Limit", $list);
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^limit (priv|tell) minlvl ([0-9]+)$/i", $message, $arr)) {
 	$minlvl = strtolower($arr[2]);
 	$channel = strtolower($arr[1]);
 	
 	if($minlvl > 220 || $minlvl < 0) {
 		$msg = "<red>Minimum Level can be only set between 1-220<end>";
-		bot::send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 	
@@ -189,7 +189,7 @@ if (preg_match("/^limits$/i", $message)) {
 	} elseif($channel == "tell") {
  		$msg = "Responding on tells will be done for the Minimumlevel of $minlvl.";
  	}
- 	bot::send($msg, $sendto);
+ 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^limit (priv|tell) open$/i", $message, $arr)) {
  	$list .= "<header>::::: General Limit :::::<end>\n\n";
  	$list .= "Current Setting: <highlight>";
@@ -214,7 +214,7 @@ if (preg_match("/^limits$/i", $message)) {
 	$list .= Text::make_link("Only for Members of the Bot", "/tell <myname> limit {$arr[1]} open members", "chatcmd")."\n\n";
 
 	$msg = Text::make_link("General Limit", $list);
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^limit (priv|tell) open (all|org|members)$/i", $message, $arr)) {
 	$open = strtolower($arr[2]);
 	$channel = strtolower($arr[1]);
@@ -237,7 +237,7 @@ if (preg_match("/^limits$/i", $message)) {
  	} elseif($channel == "tell" && $open == "members") {
  		$msg = "Responding on tells will be done only for Members of this Bot.";
  	}
- 	bot::send($msg, $sendto);
+ 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^limit priv maxplayers$/i", $message, $arr)) {
  	$list .= "<header>::::: Limit of Players in the Bot :::::<end>\n\n";
  	$list .= "Current Setting: <highlight>";
@@ -252,13 +252,13 @@ if (preg_match("/^limits$/i", $message)) {
 		$list .= Text::make_link("Set Maximum allowed Players in the Bot to $i", "/tell <myname> limit priv maxplayers $i", "chatcmd")."\n";
 
 	$msg = Text::make_link("Limit of Players in the Bot", $list);
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^limit priv maxplayers ([0-9]+)$/i", $message, $arr)) {
 	$maxplayers = strtolower($arr[1]);
 	
 	if($maxplayers > 120) {
 		$msg = "<red>Maximum allowed players can be set only to lower then 120<end>";
-		bot::send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 	
@@ -269,7 +269,7 @@ if (preg_match("/^limits$/i", $message)) {
 	} else {
 		$msg = "The Limit of the Amount of players in the private channel has been set to $maxplayers.";
 	} 
- 	bot::send($msg, $sendto);
+ 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

@@ -66,6 +66,6 @@ if (!$attack_time || !$init_skill) {
 	$inside	.= "NanoC. Init needed to instacast at Full Def (0%):<orange> ". $Init3 ." <end>inits.";
 
 	$windowlink = Text::make_link("::Nano Init Results::", $inside);
-	bot::send($windowlink, $sendto);
+	$chatBot->send($windowlink, $sendto);
 }
 ?>

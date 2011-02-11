@@ -53,6 +53,6 @@ if (preg_match("/^afk$/i", $message, $arr)) {
 	return;
 }
 
-bot::send($msg, $sendto);
+$chatBot->send($msg, $sendto);
 
 ?>

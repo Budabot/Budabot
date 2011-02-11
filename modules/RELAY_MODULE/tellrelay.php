@@ -6,7 +6,7 @@ if (preg_match("/^tellrelay (.*)$/", $message, $arr)) {
 	
 	if (!$uid) {
 		$msg = "Player <highlight>$name<end> does not exist.";
-		bot::send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 	
@@ -15,7 +15,7 @@ if (preg_match("/^tellrelay (.*)$/", $message, $arr)) {
 	Setting::save('relaybot', $name);
 	
 	$msg = "Relay set up successfully with <highlight>$name<end>.  Please issue command '/tell $name tellrelay <myname>' if not done so already to complete the setup.";
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = false;
 }

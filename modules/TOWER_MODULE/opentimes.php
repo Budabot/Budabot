@@ -36,7 +36,7 @@ if (preg_match("/^opentimes$/i", $message, $arr)) {
 	} else {
 		$msg = "No sites found.";
 	}
-	$this->send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

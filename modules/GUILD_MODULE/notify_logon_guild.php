@@ -44,11 +44,11 @@ if (isset($this->guildmembers[$sender]) && time() >= $this->vars["onlinedelay"])
 		}
 	}
 
-	bot::send($msg, "guild", true);
+	$chatBot->send($msg, "guild", true);
 
 	//private channel part
 	if ($this->settings["guest_relay"] == 1) {
-		bot::send($msg, "priv", true);
+		$chatBot->send($msg, "priv", true);
 	}
 }
 

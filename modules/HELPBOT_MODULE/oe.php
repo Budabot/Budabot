@@ -39,7 +39,7 @@ if (preg_match("/^oe ([0-9]+)$/i", $message, $arr)) {
 	
 	$msg = "<orange>{$lowoevalue}<end> - <yellow>{$oe}<end> - <orange>{$oevalue}<end> " . Text::make_link('More info', $blob, 'blob');
     
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

@@ -15,7 +15,7 @@ if (preg_match('/^inits \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\"\
 	$url .= "output=aoml";
 
 	$msg = "Calculating Inits... Please wait.";
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 	
 	$ctx - stream_context_create( array( 'http' => array( 'timeout' => 60 ) ) );
 
@@ -27,6 +27,6 @@ if (preg_match('/^inits \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\"\
 	$msg = "Syntax Error! Proper Syntax is <highlight>inits [drop weapon in chat]<end>";
 }
 
-bot::send($msg, $sendto);
+$chatBot->send($msg, $sendto);
 
 ?>

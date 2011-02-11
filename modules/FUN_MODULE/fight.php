@@ -73,7 +73,7 @@ if (preg_match("/^fight (.+) vs (.+)$/i", $message, $arr) || preg_match("/^fight
 		$msg = Text::make_link("$player1 vs $player2....It's a tie!", $list);
 	}
 
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

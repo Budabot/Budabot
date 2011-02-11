@@ -44,7 +44,7 @@ if (preg_match("/^kickuser (.+)$/i", $message, $arr) || preg_match("/^kick (.+)$
 		$msg = "Player <highlight>{$name}<end> does not exist.";
 	}
 	
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

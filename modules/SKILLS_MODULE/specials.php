@@ -8,12 +8,12 @@ if (preg_match('/^specials \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)
 	$url .= "ql={$arr[3]}&";
 
 	$msg = "Calculating Specials Recycle... Please wait.";
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 
 	$data = file_get_contents($url, 0);
 	if (empty($data)) {
 		$msg = "Unable to query Items XML Database.";
-		bot::send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 
@@ -84,10 +84,10 @@ if (preg_match('/^specials \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)
 		$msg = Text::make_link('Weapon Specials', $blob, 'blob');
 	}
 
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else {
 	$msg = "Syntax Error! Proper Syntax is <highlight>specials [drop weapon in chat]<end>";
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 }
 
 ?>

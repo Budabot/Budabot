@@ -4,7 +4,7 @@ if (preg_match("/^leprocs? (.+)$/i", $message, $arr)) {
 	$profession = Util::get_profession_name($arr[1]);
 	if ($profession == '') {
 		$msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, or trader";
-		bot::send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 
@@ -27,7 +27,7 @@ if (preg_match("/^leprocs? (.+)$/i", $message, $arr)) {
 
 		$msg = Text::make_link("$profession LE Procs", $blob, 'blob');
 	}
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

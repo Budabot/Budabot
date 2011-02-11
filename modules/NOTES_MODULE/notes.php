@@ -46,7 +46,7 @@ if (preg_match("/^notes?$/i", $message)) {
 		$msg = Text::make_link("Notes for $sender", $blob, 'blob');
 	}
   	
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^notes? (rem|add) (.*)$/i", $message, $arr)) {
 	$action = strtolower($arr[1]);
 	$parm2 = $arr[2];
@@ -65,7 +65,7 @@ if (preg_match("/^notes?$/i", $message)) {
 		$db->exec("INSERT INTO notes_<myname> (name, note) VALUES('$sender', '$note')");
 		$msg = "Note added successfully.";
 	}
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 }
 
 ?>

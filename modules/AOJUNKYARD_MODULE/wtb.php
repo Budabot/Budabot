@@ -91,7 +91,7 @@ if (!$syntax_error) {
 		$msg = 'No items found. Maybe try fewer keywords.';
 	}
 	
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 }
 
 ?>

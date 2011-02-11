@@ -22,6 +22,6 @@ $title="<header>::::: Title Levels :::::<end>
 	
 if (preg_match("/^title$/i", $message)) {
 	$windowlink = Text::make_link("Title levels", $title);
-	bot::send($windowlink, $sendto);
+	$chatBot->send($windowlink, $sendto);
 }
 ?>

@@ -14,7 +14,7 @@
 		} else if ($brawl_skill < 3001) {
 			$i = 4; 
 		} else { 
-			bot::send("Skill entered is out of range... please enter a number between <highlight>1 and 3000<end>.",$sendto);
+			$chatBot->send("Skill entered is out of range... please enter a number between <highlight>1 and 3000<end>.",$sendto);
 			return;
 		}
 		
@@ -34,7 +34,7 @@
 		$inside .= "\n\nby Imoutochan, RK1";
 		
 		$windowlink = Text::make_link("::Your Brawl skill results::", $inside);
-		bot::send($windowlink, $sendto);
+		$chatBot->send($windowlink, $sendto);
 	} else {
 		$syntax_error = true;
 	}

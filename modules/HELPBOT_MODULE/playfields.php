@@ -10,7 +10,7 @@ if (preg_match("/^playfields$/i", $message)) {
 	}
 	
 	$msg = Text::make_link("Playfields", $blob, 'blob');
-	$this->send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 }
 
 ?>

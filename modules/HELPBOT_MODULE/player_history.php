@@ -31,11 +31,11 @@
 
 if (preg_match("/^history (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
-	if (!bot::get_uid($name)) {
+	if (!$chatBot->get_uid($name)) {
 		$msg = "Player <highlight>$name<end> doesn't exist.";
 	} else {
 	  	$msg = "Getting History of player <highlight>$name<end>. Please standby.";
-        bot::send($msg, $sendto);
+        $chatBot->send($msg, $sendto);
 
 		$history = new history($name);
 		if ($history->errorCode != 0) {
@@ -80,7 +80,7 @@ if (preg_match("/^history (.+)$/i", $message, $arr)) {
 		}
 	}
 
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

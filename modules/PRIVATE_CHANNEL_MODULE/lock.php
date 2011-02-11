@@ -32,14 +32,14 @@
 if (preg_match("/^lock$/i", $message)) {
   	if($this->settings["priv_status"] == "closed") {
 	    $msg = "Private channel is already locked.";
-		bot::send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 	$msg = "The private channel has been locked by <highlight>$sender<end>.";
-	bot::send($msg, 'priv');
+	$chatBot->send($msg, 'priv');
 	$msg = "You have locked the private channel.";
 	if ($type == "msg") {
-		bot::send($msg, $sender);
+		$chatBot->send($msg, $sender);
 	}
 	
 	Setting::save("priv_status", "closed");
@@ -47,14 +47,14 @@ if (preg_match("/^lock$/i", $message)) {
   	$reason = $arr[1];
 	if($this->settings["priv_status"] == "closed") {
 	    $msg = "Private channel is already locked.";
-    	bot::send($msg, $sendto);
+    	$chatBot->send($msg, $sendto);
 		return;
 	}
 	$msg = "The private channel has been locked by <highlight>$sender<end> - Reason: <highlight>$reason<end>.";
-	bot::send($msg, 'priv');
+	$chatBot->send($msg, 'priv');
 	$msg = "You have locked the private channel.";
 	if ($type == "msg") {
-		bot::send($msg, $sender);
+		$chatBot->send($msg, $sender);
 	}
 	
 	Setting::save("priv_status", "closed");
@@ -62,14 +62,14 @@ if (preg_match("/^lock$/i", $message)) {
 } else if (preg_match("/^unlock$/i", $message)) {
   	if($this->settings["priv_status"] == "open") {
 	    $msg = "Private channel is already opened.";
-    	bot::send($msg, $sendto);
+    	$chatBot->send($msg, $sendto);
 		return;
 	}
 	$msg = "The private channel has been opened by <highlight>$sender<end>.";
-	bot::send($msg, 'priv');
+	$chatBot->send($msg, 'priv');
 	$msg = "You have opened the private channel.";
 	if ($type == "msg") {
-		bot::send($msg, $sender);
+		$chatBot->send($msg, $sender);
 	}
 	
 	Setting::save("priv_status", "open");

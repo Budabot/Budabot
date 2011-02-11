@@ -56,6 +56,6 @@ if (preg_match ("/^bossloot (.+)$/i", $message, $arr)) {
 	$output .= "<yellow>You must add a search criteria after the command.<end>";
 }
 
-bot::send($output, $sendto);
+$chatBot->send($output, $sendto);
 
 ?>

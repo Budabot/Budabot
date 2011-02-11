@@ -18,18 +18,18 @@ if (preg_match("/^broadcast$/i", $message)) {
 		$msg = Text::make_link('Broadcast', $blob, 'blob');
 	}
 
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^broadcast add (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 	
 	$charid = $this->get_uid($name);
 	if ($charid == false) {
-		bot::send("'$name' is not a valid character name.", $sendto);
+		$chatBot->send("'$name' is not a valid character name.", $sendto);
 		return;
 	}
 	
 	if (isset($this->vars["broadcast_list"][$name])) {
-		bot::send("'$name' is already on the broadcast bot list.", $sendto);
+		$chatBot->send("'$name' is already on the broadcast bot list.", $sendto);
 		return;
 	}
 
@@ -42,12 +42,12 @@ if (preg_match("/^broadcast$/i", $message)) {
 	
 	Whitelist::add($name, $sender . " (broadcast bot)");
 
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else if (preg_match("/^broadcast (rem|remove) (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[2]));
 
 	if (!isset($this->vars["broadcast_list"][$name])) {
-		bot::send("'$name' is not on the broadcast bot list.", $sendto);
+		$chatBot->send("'$name' is not on the broadcast bot list.", $sendto);
 		return;
 	}
 
@@ -60,7 +60,7 @@ if (preg_match("/^broadcast$/i", $message)) {
 	
 	Whitelist::remove($name);
 	
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

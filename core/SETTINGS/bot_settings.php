@@ -72,7 +72,7 @@ if (preg_match("/^settings$/i", $message)) {
 	}
 
   	$msg = Text::make_link("Bot Settings", $link);
- 	bot::send($msg, $sendto);
+ 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^settings change ([a-z0-9_]+)$/i", $message, $arr)) {
     $link = "<header>::::: Settings for {$arr[1]} :::::<end>\n\n";
  	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '{$arr[1]}'");
@@ -153,7 +153,7 @@ if (preg_match("/^settings$/i", $message)) {
 	}
 
   	$msg = Text::make_link("Settings Info for $arr[1]", $link);
- 	bot::send($msg, $sendto);
+ 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^settings save ([a-z0-9_]+) (.+)$/i", $message, $arr)) {
   	$name_setting = strtolower($arr[1]);
   	$change_to_setting = $arr[2];
@@ -231,7 +231,7 @@ if (preg_match("/^settings$/i", $message)) {
 			file_put_contents("config.php", $lines);
 		}
 	}
- 	bot::send($msg, $sendto);
+ 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^settings help (.+)$/i", $message, $arr)) {
   	$name = $arr[1];
  	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '{$name}'");  
@@ -251,7 +251,7 @@ if (preg_match("/^settings$/i", $message)) {
 		$msg = "This setting doesn't exist.";
 	}
 
- 	bot::send($msg, $sendto);
+ 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

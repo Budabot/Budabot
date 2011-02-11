@@ -51,7 +51,7 @@ if (preg_match("/^kos$/i", $message)) {
 		$msg = Text::make_link("KOS-List", $link);
 	}
 
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^kos add (.+)$/i", $message, $arr)) {
 	$explodemsg = explode(' ', $arr[1], 3);
 	$name = ucfirst(strtolower($explodemsg[0]));
@@ -75,7 +75,7 @@ if (preg_match("/^kos$/i", $message)) {
 		}
 	}
 
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^kos rem (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 	$db->query("SELECT * FROM koslist WHERE `sender` = '$sender' AND `name` = '".str_replace("'", "''", $name)."'");
@@ -94,7 +94,7 @@ if (preg_match("/^kos$/i", $message)) {
 		$msg = "You don't have this player on your KOS List.";
 	}
 
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^kos (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 	$db->query("SELECT * FROM koslist WHERE `name` = '".str_replace("'", "''", $name)."' LIMIT 0, 40");
@@ -118,7 +118,7 @@ if (preg_match("/^kos$/i", $message)) {
 		$msg = "The player <highlight>$name<end> isn't on the KOS List.";
 	}
 
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

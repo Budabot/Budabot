@@ -66,7 +66,7 @@ if (preg_match("/^premade (.*)$/i", $message, $arr)) {
 		$msg = "No results found.";
 	}
   
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

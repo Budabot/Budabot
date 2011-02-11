@@ -8,7 +8,7 @@ if (preg_match("/^join$/i", $message)) {
 		AOChat::privategroup_kick($sender);
 		AOChat::privategroup_invite($sender);
 	} else {
-		bot::send("You are not allowed to join the private channel, ask a member of the bot for an invite.", $sendto);
+		$chatBot->send("You are not allowed to join the private channel, ask a member of the bot for an invite.", $sendto);
 	}
 } else {
 	$syntax_error = true;

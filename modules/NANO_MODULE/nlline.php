@@ -80,7 +80,7 @@ if (preg_match("/^nlline ([0-9]*)$/i", $message, $arr)) {
 		$msg = "No nanoline found.";
 	}
 
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

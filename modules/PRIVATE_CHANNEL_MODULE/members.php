@@ -19,9 +19,9 @@ if (preg_match("/^members$/i", $message)) {
 	  	}
 	  	
 	    $msg = Text::make_link("$autoguests member(s)", $list);
-		bot::send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 	} else {
-       	bot::send("There are no members of this bot.", $sendto);
+       	$chatBot->send("There are no members of this bot.", $sendto);
 	}
 } else {
 	$syntax_error = true;

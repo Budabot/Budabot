@@ -49,7 +49,7 @@ $aypwip = array(
 if (preg_match("/^pinky|brain/i", $message)) {
 	$randval = rand(1, sizeof($aypwip) - 1);
 	$msg = $aypwip[$randval];
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 }
 
 ?>

@@ -18,7 +18,7 @@ if (preg_match("/^reloadconfig$/i", $message)) {
 		$GLOBALS['vars'][$key] = $value;
 	}
 	
-	bot::send('Config file has been reloaded.', $sendto);
+	$chatBot->send('Config file has been reloaded.', $sendto);
 }
 
 ?>

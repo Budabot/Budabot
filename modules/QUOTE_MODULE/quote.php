@@ -17,15 +17,15 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 		$requirement = $this->settings["quote_add_min"];
 		if ($requirement >= 0) {
 			if (!$this->guildmembers[$sender]) {
-				bot::send("Only org members can add a new quote.", $sendto);
+				$chatBot->send("Only org members can add a new quote.", $sendto);
 				return;
 			} else if ($requirement < $this->guildmembers[$sender]) {
 				$rankdiff = $this->guildmembers[$sender]-$requirement;
-				bot::send("You need $rankdiff promotion(s) in order to add a quote.", $sendto);
+				$chatBot->send("You need $rankdiff promotion(s) in order to add a quote.", $sendto);
 				return;
 			}
 		} else if (($requirement == -1 && !isset($this->chatlist[$sender])) && !$this->guildmembers[$sender]) {
-			bot::send("You need to at least be in the private chat in order to add a quote.", $sendto);
+			$chatBot->send("You need to at least be in the private chat in order to add a quote.", $sendto);
 			return;
 		}
 	}
@@ -277,6 +277,6 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 }
 
 if ($msg) {
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 }
 ?>

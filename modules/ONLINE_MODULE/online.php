@@ -34,9 +34,9 @@ if (preg_match("/^online$/i", $message)){
 	list($numonline, $msg, $list) = online($sender, $sendto, $this);
 	if ($numonline != 0) {
 		$blob = Text::make_link($msg, $list);
-		bot::send($blob, $sendto);
+		$chatBot->send($blob, $sendto);
 	} else {
-		bot::send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 	}
 } else if (preg_match("/^online (.*)$/i", $message, $arr)) {
 	$msg = "";
@@ -90,16 +90,16 @@ if (preg_match("/^online$/i", $message)){
 
 	if (!$prof) {
 		$msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, trad or all";
-		bot::send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 
 	list($numonline, $msg, $list) = online($sender, $sendto, $this);
 	if ($numonline != 0) {
 		$blob = Text::make_link($msg, $list);
-		bot::send($blob, $sendto);
+		$chatBot->send($blob, $sendto);
 	} else {
-		bot::send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 	}
 }
 ?>

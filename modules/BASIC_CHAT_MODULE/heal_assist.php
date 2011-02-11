@@ -38,7 +38,7 @@ if (preg_match("/heal$/i", $message)) {
 	} else {
 		$msg = "No Healassist set atm.";
 	}
-	bot::send($msg, 'priv');
+	$chatBot->send($msg, 'priv');
 } else if (preg_match("/^heal (.+)$/i", $message, $arr)) {
     $name = $arr[1];
     $uid = AoChat::get_uid(ucfirst(strtolower($name)));
@@ -48,17 +48,17 @@ if (preg_match("/heal$/i", $message)) {
 		$link = "<header>::::: HealAssist Macro on $name :::::\n\n";
 		$link .= "<a href='chatcmd:///macro $name /assist $name'>Click here to make an healassist on $name macro</a>";
 		$msg = Text::make_link("HealAssist Macro on $name", $link);
-		bot::send($msg, 'priv');
-		bot::send($msg, 'priv');
-		bot::send($msg, 'priv');
+		$chatBot->send($msg, 'priv');
+		$chatBot->send($msg, 'priv');
+		$chatBot->send($msg, 'priv');
 	} else {
 	  	$heal_assist = $name;
 		$link = "<header>::::: HealAssist Macro on $name :::::\n\n";
 	  	$link .= "<a href='chatcmd:///macro $name /assist $name'>Click here to make an healassist on $name macro</a>";
 	  	$msg = Text::make_link("HealAssist Macro on $name", $link);
-		bot::send($msg, 'priv');
-		bot::send($msg, 'priv');
-		bot::send($msg, 'priv');
+		$chatBot->send($msg, 'priv');
+		$chatBot->send($msg, 'priv');
+		$chatBot->send($msg, 'priv');
 	}
 } else {
 	$syntax_error = true;

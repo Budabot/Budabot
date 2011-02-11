@@ -33,12 +33,12 @@ if (preg_match("/^updateitems$/i", $message)) {
 			// load the sql file into the db
 			DB::loadSQLFile("ITEMS_MODULE", "aodb");
 			
-			bot::send("The items database has been updated to the latest version.  Version: $latestVersion", $sendto);
+			$chatBot->send("The items database has been updated to the latest version.  Version: $latestVersion", $sendto);
 		} else {
-			bot::send("The items database is already up to date.  Version: $currentVersion", $sendto);
+			$chatBot->send("The items database is already up to date.  Version: $currentVersion", $sendto);
 		}
 	} else {
-		bot::send("There was a problem finding the latest version on the server", $sendto);
+		$chatBot->send("There was a problem finding the latest version on the server", $sendto);
 	}
 } else {
 	$syntax_error = true;

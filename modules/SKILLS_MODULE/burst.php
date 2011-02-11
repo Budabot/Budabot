@@ -23,5 +23,5 @@ if ((!$AttTim) || (!$RechT) || (!$BurstDelay) || (!$BurstSkill)) {
 	$inside .= "You need <orange>".$burstskillcap."<end> Burst Skill to cap your recharge.";
 
 	$windowlink = Text::make_link("::Your Burst Results::", $inside);
-	bot::send($windowlink, $sendto);
+	$chatBot->send($windowlink, $sendto);
 }

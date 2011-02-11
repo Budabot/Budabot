@@ -16,7 +16,7 @@ if (preg_match("/^cluster (.+)$/i", $message, $arr)) {
 		}
 	}
 	if ($found == 0) { 
-		bot::send("No matches, sorry.", $sendto); return; 
+		$chatBot->send("No matches, sorry.", $sendto); return; 
 	} else if ($found == 1) {
 		$windowlink = str_replace("--", "", $info);
 	} else {
@@ -27,11 +27,11 @@ if (preg_match("/^cluster (.+)$/i", $message, $arr)) {
 	
 		$windowlink = Text::make_link("::Cluster search results::", $inside);
 	}
-	bot::send($windowlink, $sendto);
+	$chatBot->send($windowlink, $sendto);
 	if ($found >= 10) {
-		bot::send("<highlight>More than 10 matches found!<end>\n<tab>Please specify your key words for better results.", $sendto);
+		$chatBot->send("<highlight>More than 10 matches found!<end>\n<tab>Please specify your key words for better results.", $sendto);
 	} else if ($found > 1) {
-		bot::send("<highlight>$found<end> matches in total.", $sendto);
+		$chatBot->send("<highlight>$found<end> matches in total.", $sendto);
 	}
 } else {
 	$syntax_error = true;

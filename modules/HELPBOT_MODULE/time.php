@@ -145,7 +145,7 @@ if (preg_match("/^time$/i", $message)) {
 
 	$msg = "<highlight>".gmdate("dS M, H:i", $time)."<end> (GMT/AO)";
 	$msg .= " ".Text::make_link("All Timezones", $link);
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else if (preg_match("/^time (.+)$/i", $message, $arr)) {
   	$zone = strtoupper($arr[1]);
   	if ($timezone[$zone]["name"]) {
@@ -154,6 +154,6 @@ if (preg_match("/^time$/i", $message)) {
 		$msg = "This timezone doesn't exist or isn't known by this bot.";
 	}
 
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 }
 ?>

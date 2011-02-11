@@ -34,7 +34,7 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 	$data = file_get_contents("./core/HELP/about.txt");
 	$data = str_replace('<version>', $version, $data);
 	$msg = Text::make_link("About", $data);
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^help$/i", $message)) {
 	global $version;
 
@@ -65,13 +65,13 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 		$msg = Text::make_link("Help(main)", $blob, 'blob');
 	}
 
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^help (.+)$/i", $message, $arr)) {
 	$output = Help::find($arr[1], $sender);
 	if ($output !== false) {
-		bot::send($output, $sendto);
+		$chatBot->send($output, $sendto);
 	} else {
-		bot::send("No help found on this topic.", $sendto);
+		$chatBot->send("No help found on this topic.", $sendto);
 	}
 }
 

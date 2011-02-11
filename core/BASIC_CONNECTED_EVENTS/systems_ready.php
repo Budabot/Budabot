@@ -32,10 +32,10 @@
 //Send Admin(s) a tell that the bot is online
 forEach ($this->admins as $name => $info) {
 	if ($name != "" && $info["level"] == 4 && $info["online"] == "online") {
-		bot::send("<myname> is <green>online<end>. For updates or help use the Budabot Forums <highlight>http://budabot.com<end>", $name);
+		$chatBot->send("<myname> is <green>online<end>. For updates or help use the Budabot Forums <highlight>http://budabot.com<end>", $name);
 	}
 }
 
 //Send a message to guild channel
-bot::send("Logon Complete :: All systems ready to use.", "guild");
+$chatBot->send("Logon Complete :: All systems ready to use.", "guild");
 ?>

@@ -92,6 +92,6 @@ else {
 	$output .="<yellow>You must enter search criteria after the command.<end>";
 }
 	
-bot::send($output, $sendto);
+$chatBot->send($output, $sendto);
 
 ?>

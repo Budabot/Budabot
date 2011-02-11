@@ -31,7 +31,7 @@ if (preg_match("/^buffitem (.+)$/i", $message, $arr)) {
 	}
 	
 	if ($found == 0) {
-		bot::send("No matches, sorry.", $sendto);
+		$chatBot->send("No matches, sorry.", $sendto);
 		return;
 	} else {
 		$inside = "<header>::::: Buff item info :::::<end>\n\n";
@@ -48,8 +48,8 @@ if (preg_match("/^buffitem (.+)$/i", $message, $arr)) {
 		$inside .= "by Imoutochan, RK1";
 		$windowlink = Text::make_link("Buff item search results", $inside);
 	}
-	bot::send($windowlink, $sendto);
-	bot::send("<highlight>$found<end> result(s) in total", $sendto);
+	$chatBot->send($windowlink, $sendto);
+	$chatBot->send("<highlight>$found<end> result(s) in total", $sendto);
 } else {
 	$syntax_error = true;
 }

@@ -94,7 +94,7 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr)) {
 	}
 	$msg = Text::make_link($link, $window);
 
-	$this->send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^alts (rem|del|remove|delete) (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[2]));
 	
@@ -115,7 +115,7 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr)) {
 	if (!$uid)
 	{
 		$msg = " Player <highlight>$new_main<end> does not exist.";
-		$this->send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 	
@@ -123,7 +123,7 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr)) {
 	
 	if ($current_main == $new_main) {
 		$msg = "You are already registered as an alt of {$new_main}.";
-		$this->send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 	
@@ -131,19 +131,19 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr)) {
 	if ($current_main != $sender) {
 		Alts::rem_alt($current_main, $sender);
 		$msg = "You have been removed as an alt of $current_main.";
-		$this->send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 	}
 
 	Alts::add_alt($new_main, $sender);
 	$msg = "You have been registered as an alt of {$new_main}.";
-	$this->send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match('/^alts setmain (.+)$/i', $message, $arr)) {
 	// check if new main exists
 	$new_main = ucfirst(strtolower($arr[1]));
 	$uid = $this->get_uid($new_main);
 	if (!$uid) {
 		$msg = "Player <highlight>{$new_main}<end> does not exist.";
-		$this->send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 	
@@ -152,7 +152,7 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr)) {
 	
 	if (!in_array($new_main, $alts)) {
 		$msg = "<highlight>{$new_main}<end> must first be registered as your alt.";
-		$this->send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 
@@ -174,7 +174,7 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr)) {
 	$db->commit();
 
 	$msg = "Successfully set your new main as <highlight>{$new_main}<end>.";
-	$this->send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^alts (.+)$/i", $message, $arr) || preg_match("/^alts$/i", $message, $arr)) {
 	if (isset($arr[1])) {
 		$name = ucfirst(strtolower($arr[1]));
@@ -189,7 +189,7 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr)) {
 	} else {
 		$msg = Text::make_link($name."'s Alts", $blob);
 	}
-	$this->send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

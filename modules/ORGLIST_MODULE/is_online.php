@@ -36,7 +36,7 @@ if (preg_match("/^is (.+)$/i", $message, $arr)) {
     $name = ucfirst(strtolower($arr[1]));
     if (!$uid) {
         $msg = "Player <highlight>$name<end> does not exist.";
-		bot::send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
     } else {
         //if the player is a buddy then
 		$online_status = Buddylist::is_online($name);
@@ -58,7 +58,7 @@ if (preg_match("/^is (.+)$/i", $message, $arr)) {
                 $status = "<red>offline<end>".$logged_off;
 			}
             $msg = "Player <highlight>$name<end> is $status";
-			bot::send($msg, $sendto);
+			$chatBot->send($msg, $sendto);
         }
     }
 } elseif (($type == "logOn" || $type == "logOff") && $sender == $this->data["ONLINE_MODULE"]['playername']) {
@@ -68,7 +68,7 @@ if (preg_match("/^is (.+)$/i", $message, $arr)) {
 		$status = "<red>offline<end>";
 	}
 	$msg = "Player <highlight>$sender<end> is $status";
-	bot::send($msg, $this->data["ONLINE_MODULE"]['sendto']);
+	$chatBot->send($msg, $this->data["ONLINE_MODULE"]['sendto']);
 	Buddylist::remove($sender, 'is_online');
 	unset($this->data["ONLINE_MODULE"]);
 }

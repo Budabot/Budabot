@@ -32,18 +32,18 @@
 if(preg_match("/^orgranks$/i", $message)) {
 	if($this->vars["my guild id"] == "") {
 	  	$msg = "The Bot needs to be in a org to show the orgmembers.";
-        bot::send($msg, $sendto);
+        $chatBot->send($msg, $sendto);
 	}
 	
 	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.name = p.name WHERE `mode` != 'del' ORDER BY `guild_rank_id`");
 	$members = $db->numrows();
   	if ($members == 0) {
 	  	$msg = "No members recorded.";
-        bot::send($msg, $sendto);
+        $chatBot->send($msg, $sendto);
 	}
 
 	$msg = "Processing orgmember list. This can take a few seconds.";
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
        	
 	$list = "<header>::::: Members of the org {$this->vars["my guild"]} (Sorted by orgrank) :::::<end>\n\n";
 	while ($row = $db->fObject()) {
@@ -57,7 +57,7 @@ if(preg_match("/^orgranks$/i", $message)) {
 	}
 	
 	$msg = Text::make_link("{$this->vars["my guild"]} has $members members currently.", $list);
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

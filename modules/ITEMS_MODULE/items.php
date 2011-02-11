@@ -33,7 +33,7 @@ if (preg_match("/^items ([0-9]+) (.+)$/i", $message, $arr)) {
     $ql = $arr[1];
     if (!($ql >= 1 && $ql <= 500)) {
         $msg = "Invalid Ql specified(1-500)";
-        bot::send($msg, $sendto);
+        $chatBot->send($msg, $sendto);
         return;
     }
     $search = $arr[2];
@@ -54,6 +54,6 @@ if ($this->settings["itemdb_location"] == 'Xyphos.com') {
 	// default to local
 	$msg = find_items_from_local($search, $ql);
 }
-bot::send($msg, $sendto);
+$chatBot->send($msg, $sendto);
 
 ?>

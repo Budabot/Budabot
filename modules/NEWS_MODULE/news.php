@@ -37,13 +37,13 @@ if (preg_match("/^news del ([0-9]+)$/i", $message, $arr)) {
 		$msg = "News entry with the ID <highlight>{$arr[1]}<end> was successfully deleted.";
 	}
 
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else if (preg_match("/^news (.+)$/i", $message, $arr)) {
 	$news = str_replace("'", "''", $arr[1]);
 	$db->exec("INSERT INTO news (`time`, `name`, `news`) VALUES (".time().", '".$sender."', '$news')"); 
 	$msg = "News has been added.";
 
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else if (preg_match("/^news$/i", $message, $arr)) {
 	$db->query("SELECT * FROM news ORDER BY `time` DESC LIMIT 0, 10");
 	if ($db->numrows() != 0) {
@@ -63,7 +63,7 @@ if (preg_match("/^news del ([0-9]+)$/i", $message, $arr)) {
 		$msg = "No News recorded yet.";
 	}
 		
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 }
 
 ?>

@@ -30,10 +30,10 @@
    */
 
 //Sending Notify about the reload
-bot::send("Reloading all Modules. This can take a few seconds.", $sendto);
+$chatBot->send("Reloading all Modules. This can take a few seconds.", $sendto);
 
-bot::init();
+$chatBot->init();
 
-bot::send("Reload of Modules complete.", $sendto);
+$chatBot->send("Reload of Modules complete.", $sendto);
 
 ?>

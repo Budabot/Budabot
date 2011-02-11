@@ -50,7 +50,7 @@ if (preg_match("/^nanolines$/i", $message, $arr)) {
 
 	$msg = Text::make_link('Nanolines', $window, 'blob');
 
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

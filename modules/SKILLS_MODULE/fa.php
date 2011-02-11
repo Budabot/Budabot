@@ -30,5 +30,5 @@ if ((!$AttTim) || (!$RechT) || (!$FARecharge) || (!$FullAutoSkill)) {
 	$inside .= "<orange>15K<end> is the damage cap.\n\n";
 
 	$windowlink = Text::make_link("::Your Full Auto Recharge Results::", $inside);
-	bot::send($windowlink, $sendto);
+	$chatBot->send($windowlink, $sendto);
 }

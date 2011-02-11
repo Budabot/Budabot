@@ -77,7 +77,7 @@ else {
 
   	//Send Blist
   	foreach($blist as $player)
-		bot::send($msg, $player);
+		$chatBot->send($msg, $player);
 }
-bot::send($msg, $sendto);
+$chatBot->send($msg, $sendto);
 ?>

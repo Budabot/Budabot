@@ -72,6 +72,6 @@ if (-1 == $sender) {
         $msg .= " ".Text::make_link("City History", $list);
 
     }
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 }
 ?>

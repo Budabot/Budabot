@@ -55,7 +55,7 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 
 	$msg = Text::make_link('Org History', $window, 'blob');
 
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^orghistory (.+)$/i", $message, $arr)) {
 
 	$character = $arr[1];
@@ -80,7 +80,7 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 
 	$msg = Text::make_link('Org History', $window, 'blob');
 
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 }
 
 ?>

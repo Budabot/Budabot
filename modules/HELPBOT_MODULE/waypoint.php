@@ -29,7 +29,7 @@ if (preg_match("/^waypoint \\(?([0-9\\.]+) ([0-9\\.]+) y ([0-9\\.]+) ([0-9]+)\\)
 	
 	$playfield = Playfields::get_playfield_by_name($playfield_name);
 	if ($playfield === null) {
-		$this->send("Could not find playfield '$playfield_name'", $sendto);
+		$chatBot->send("Could not find playfield '$playfield_name'", $sendto);
 		return;
 	} else {
 		$playfield_id = $playfield->id;
@@ -43,6 +43,6 @@ if (preg_match("/^waypoint \\(?([0-9\\.]+) ([0-9\\.]+) y ([0-9\\.]+) ([0-9]+)\\)
 $link = Text::make_link("waypoint: {$x_coords}x{$y_coords} {$playfield_name}", "/waypoint {$x_coords} {$y_coords} {$playfield_id}", 'chatcmd');	
 $blob = "<header>:::::: Waypoint ::::::<end>\n\nClick here to use waypoint: $link";
 $msg = Text::make_link("waypoint: {$x_coords}x{$y_coords} {$playfield_name}", $blob, 'blob');
-$this->send($msg, $sendto);
+$chatBot->send($msg, $sendto);
 
 ?>

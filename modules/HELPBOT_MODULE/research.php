@@ -63,6 +63,6 @@ if (preg_match("/^research ([0-9]+)$/i",$message, $arr)) {
 	return;
 }	
 
-bot::send($research, $sendto);
+$chatBot->send($research, $sendto);
 
 ?>

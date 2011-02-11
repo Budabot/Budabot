@@ -58,7 +58,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 	}
 
     // Send info back
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else if (preg_match("/^whoisall (.+)$/i", $message, $arr)) {
     $name = ucfirst(strtolower($arr[1]));
     for ($i = 1; $i <= 3; $i ++) {
@@ -87,13 +87,13 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
             $msg = "Server $server: Player <highlight>$name<end> does not exist.";
 		}
         // Send info back
-        bot::send($msg, $sendto);
+        $chatBot->send($msg, $sendto);
     }
 } else if (preg_match("/^whoisorg ([0-9]+)$/i", $message, $arr)) {
 	$org_id = $arr[1];
 
   	$msg = "Getting Org info. Please standby.";
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 	
     $org = Guild::get_by_id($org_id);
 	if ($org->errorCode == 0) {
@@ -215,6 +215,6 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 		$msg = "Error in getting the Org info. Either that org doesn't exist or the AO server was too slow to responce.";
 	}
 
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 }
 ?>

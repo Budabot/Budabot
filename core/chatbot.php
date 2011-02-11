@@ -271,6 +271,7 @@ class bot extends AOChat {
 ** Execute Events that needs to be executed right after login
 */	function connectedEvents(){
 		$db = DB::get_instance();
+		global $chatBot;
 
 		Logger::log('DEBUG', 'Core', "Executing connected events");
 
@@ -352,6 +353,7 @@ class bot extends AOChat {
 ** Load all Modules
 */	function loadModules(){
 		$db = DB::get_instance();
+		global $chatBot;
 
 		if ($d = dir("./modules")) {
 			while (false !== ($entry = $d->read())) {
@@ -392,6 +394,7 @@ class bot extends AOChat {
 ** Proccess all incoming messages that bot recives
 */	function processCallback($type, $args){
 		$db = DB::get_instance();
+		global $chatBot;
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -795,6 +798,7 @@ class bot extends AOChat {
 	
 	function process_command($type, $message, $sender, $sendto) {
 		$db = DB::get_instance();
+		global $chatBot;
 		
 		switch ($type){
 			case "msg":
@@ -852,6 +856,8 @@ class bot extends AOChat {
 ** Call php-Scripts at certin time intervals. 2 sec, 1 min, 15 min, 1 hour, 24 hours
 */	function crons(){
 		$db = DB::get_instance();
+		global $chatBot;
+
 		switch($this->vars){
 			case $this->vars["2sec"] < time();
 				Logger::log('DEBUG', 'Cron', "2secs");

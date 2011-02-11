@@ -38,7 +38,7 @@ if (preg_match("/^check$/i", $message) || preg_match("/^check all$/i", $message)
 
 	$list .= "<a href='chatcmd:///text AssistAll: $content'>Click here to check who is here</a>";
 	$msg = Text::make_link("Check on all", $list);
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^check prof$/i", $message)) {
 	$list = "<header>::::: Check for all professions :::::<end>\n\n";
 	$db->query("SELECT p2.name, p2.profession FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY `profession` DESC");
@@ -53,7 +53,7 @@ if (preg_match("/^check$/i", $message) || preg_match("/^check all$/i", $message)
 	}
 
 	$msg = Text::make_link("Check on professions", $list);
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^check org$/i", $message)) {
 	$list = "<header>::::: Check for all organizations :::::<end>\n\n";
 	$db->query("SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY `guild` DESC");
@@ -72,7 +72,7 @@ if (preg_match("/^check$/i", $message) || preg_match("/^check all$/i", $message)
 	}
 
 	$msg = Text::make_link("Check on Organizations", $list);
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

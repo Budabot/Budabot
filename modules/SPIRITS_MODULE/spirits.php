@@ -119,7 +119,7 @@ else if (preg_match("/^spirits ([0-9]+)$/i", $message, $arr)) {
 	$ql = $arr[1];
     if ($ql <= 1 OR $ql >= 300) {
         $msg = "<red>No valid Ql specified(1-300)";
-		bot::send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
         return;
     }
 	$spirits = "<header>  :::::  Search for Spirits QL $ql  :::::  <end>\n\n";
@@ -151,7 +151,7 @@ else if (preg_match("/^spirits ([0-9]+)-([0-9]+)$/i", $message, $arr)) {
 	$qlhirange = $arr[2];
 	if ($qllorange < 1 OR $qlhirange > 219 OR $qllorange >= $qlhirange) {
 		$msg = "<red>Invalid Ql range specified(1-219)";
-        bot::send($msg, $sendto);
+        $chatBot->send($msg, $sendto);
         return;
 	}
 	$spirits = "<header>  :::::  Search for Spirits QL $qllorange to $qlhirange  :::::  <end>\n\n";
@@ -184,7 +184,7 @@ else if (preg_match("/^spirits ([0-9]+) (.+)$/i", $message, $arr)) {
 	$name = ucwords(strtolower($name));
     if ($ql < 1 OR $ql > 300) {
         $msg = "<red>No valid Ql specified(1-300)";
-        bot::send($msg, $sendto);
+        $chatBot->send($msg, $sendto);
         return;
     } else if (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i", $name)) {
 		$spirits = "<header>  :::::  Search Spirits Database <red>Error<end>  :::::  <end>\n\n";
@@ -240,7 +240,7 @@ else if (preg_match("/^spirits ([0-9]+)-([0-9]+) (.+)$/i", $message, $arr)) {
 	$name = ucwords(strtolower($name));
 	if ($qllorange < 1 OR $qlhirange > 300 OR $qllorange >= $qlhirange) {
 		$msg = "<red>Invalid Ql range specified(1-300)";
-		bot::send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
         return;
     } else if (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i",$name)) {
 		$spirits = "<header>  :::::  Search Spirits Database <red>Error<end>  :::::  <end>\n\n";
@@ -293,7 +293,7 @@ else if (preg_match ("/^spiritslvl ([0-9]+)$/i", $message, $arr)) {
 	$lvl = $arr[1];
     if ($lvl < 1 OR $lvl > 219) {
         $msg = "<red>No valid Level specified(1-219)";
-        bot::send($msg, $sendto);
+        $chatBot->send($msg, $sendto);
         return;
     }
 	$spirits = "<header>  :::::  Search for Spirits Level $lvl  :::::  <end>\n\n";
@@ -326,7 +326,7 @@ else if (preg_match("/^spiritslvl ([0-9]+)-([0-9]+)$/i", $message, $arr)) {
 	$lvlhirange = $arr[2];
 	if ($lvllorange < 1 OR $lvlhirange > 219 OR $lvllorange >= $lvlhirange) {
 		$msg = "<red>Invalid Level range specified(1-219)";
-        bot::send($msg, $sendto);
+        $chatBot->send($msg, $sendto);
         return;
 	}
 	$spirits = "<header>  :::::  Search for Spirits Level $lvllorange to $lvlhirange  :::::  <end>\n\n";
@@ -359,7 +359,7 @@ else if (ereg ("/^spiritslvl ([0-9]+) (.+)$/i", $message, $arr)) {
 	$name = ucwords(strtolower($name));
     if ($lvl < 1 OR $lvl > 219) {
         $msg = "<red>No valid Level specified(1-219)";
-        bot::send($msg, $sendto);
+        $chatBot->send($msg, $sendto);
         return;
     } else if (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i",$name)) {
 		$spirits = "<header>  :::::  Search Spirits Database <red>Error<end>  :::::  <end>\n\n";
@@ -416,7 +416,7 @@ else if (preg_match("/^spiritslvl ([0-9]+)-([0-9]+) (.+)$/i", $message, $arr)) {
 	$name = ucwords(strtolower($name));
 	if ($lvllorange < 1 OR $lvlhirange > 219 OR $lvllorange >= $lvlhirange) {
 		$msg = "<red>Invalid Level range specified(1-219)";
-        bot::send($msg, $sendto);
+        $chatBot->send($msg, $sendto);
         return;
     } else if (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i",$name)) {
 		$spirits = "<header>  :::::  Search Spirits Database <red>Error<end>  :::::  <end>\n\n";
@@ -504,7 +504,7 @@ else if (preg_match ("/^spiritsagi ([0-9]+) (.+)$/i", $message, $arr)) {
 	$name = ucwords(strtolower($name));
     if ($agility < 1 OR $agility > 1276) {
         $msg = "<red><red>No valid Agility specified(1-1276)";
-		bot::send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
         return;
     }
 	else if (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i",$name)) {
@@ -592,7 +592,7 @@ else if (preg_match ("/^spiritssen ([0-9]+) (.+)$/i", $message, $arr)) {
 	$name = ucwords(strtolower($name));
     if ($sense < 1 OR $sense > 1276) {
         $msg = "<red>No valid Sense specified(1-1276)";
-        bot::send($msg, $sendto);
+        $chatBot->send($msg, $sendto);
         return;
     } else if (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i",$name)) {
 		$spirits = "<header>  :::::  Search Spirits Database <red>Error<end>  :::::  <end>\n\n";
@@ -646,5 +646,5 @@ else if (preg_match ("/^spiritssen ([0-9]+) (.+)$/i", $message, $arr)) {
 		
 $spirits = Text::make_link("Spirits", $spirits);
 		
-bot::send($spirits, $sendto);
+$chatBot->send($spirits, $sendto);
 ?>

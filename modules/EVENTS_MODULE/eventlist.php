@@ -47,6 +47,6 @@ if (preg_match("/^eventlist ([0-9]+)$/i", $message, $arr)) {
 	}
 }
 if ($msg) {
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 }
 ?>

@@ -65,7 +65,7 @@ if (!preg_match("/^afk(.*)$/i", $message)) {
 	}
 	
 	if ($msg != "") {
-		bot::send($msg, "guild");
+		$chatBot->send($msg, "guild");
 	}
 }
 ?>

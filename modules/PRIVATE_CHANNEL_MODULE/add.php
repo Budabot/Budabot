@@ -47,7 +47,7 @@ if (preg_match("/^adduser (.+)$/i", $message, $arr)) {
 		Buddylist::add($name, 'member');
 	}
 
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

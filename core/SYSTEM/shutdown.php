@@ -30,9 +30,9 @@
    */
 
 $msg = "The Bot is shutting down.";
-bot::send($msg, $sender);
-bot::send($msg, "prv", true);
-bot::send($msg, "guild", true);
+$chatBot->send($msg, $sender);
+$chatBot->send($msg, "prv", true);
+$chatBot->send($msg, "guild", true);
 
 AOChat::disconnect();
 Logger::log('INFO', 'Core', "The Bot is shutting down.");

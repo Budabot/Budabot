@@ -50,7 +50,7 @@ if (preg_match("/^inspect (.+)$/i", $message, $arr)) {
 				$type = "Unidentified";
 		}
 		$msg = "QL ".$ql." of ".$type;
-		bot::send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 	}
 } else {
 	$syntax_error = true;

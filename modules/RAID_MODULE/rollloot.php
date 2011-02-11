@@ -37,7 +37,7 @@ if (preg_match("/^flatroll$/i", $message) || preg_match("/^rollloot$/i", $messag
 	//Check if a loot list exits
   	if (!is_array($loot)) {
 	    $msg = "There is nothing to roll atm.";
-	    bot::send($msg, $sendto);
+	    $chatBot->send($msg, $sendto);
 	    return;
 	}
   	
@@ -96,10 +96,10 @@ if (preg_match("/^flatroll$/i", $message) || preg_match("/^rollloot$/i", $messag
 		$rerollmsg = "";
 	}
 
-	bot::send($msg.$rerollmsg, 'priv');
+	$chatBot->send($msg.$rerollmsg, 'priv');
 
 	if ($type != 'priv') {
-		bot::send($msg.$rerollmsg, $sendto);
+		$chatBot->send($msg.$rerollmsg, $sendto);
 	}
 }
 

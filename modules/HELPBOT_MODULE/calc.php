@@ -52,7 +52,7 @@ if (preg_match("/^calc (.+)$/i", $message, $arr)) {
         $msg = "Wrong syntax for the calc command!";
 	}
 
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

@@ -15,27 +15,27 @@ if (preg_match("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[
 	
 	if ($faction != 'Omni' && $faction != 'Neutral' && $faction != 'Clan') {
 		$msg = "Valid values for faction are: 'Omni', 'Neutral', and 'Clan'.";
-		bot::send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 
 	$playfield = Playfields::get_playfield_by_name($playfield_name);
 	if ($playfield === null) {
 		$msg = "Invalid playfield.";
-		bot::send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 	
 	$tower_info = Towers::get_tower_info($playfield->id, $site_number);
 	if ($tower_info === null) {
 		$msg = "Invalid site number.";
-		bot::send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 	
 	if ($ct_ql < $tower_info->min_ql || $ct_ql > $tower_info->max_ql) {
 		$msg = "$playfield->short_name $tower_info->site_number can only accept ct ql of {$tower_info->min_ql}-{$tower_info->max_ql}";
-		bot::send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 	
@@ -71,7 +71,7 @@ if (preg_match("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[
 		Towers::add_scout_site($playfield->id, $site_number, $closing_time_seconds, $ct_ql, $faction, $guild_name, $sender);
 		$msg = "Tower site has been updated successfully.";
 	}
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

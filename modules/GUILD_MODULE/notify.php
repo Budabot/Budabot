@@ -63,7 +63,7 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
 	}
 
     // Send info back
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else if (preg_match("/^notify (off|rem) (.+)$/i", $message, $arr)) {
     $name = ucfirst(strtolower($arr[2]));
     $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$name'");
@@ -82,7 +82,7 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
 	}
 
     // Send info back
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

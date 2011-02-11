@@ -20,7 +20,7 @@ if (preg_match("/^(fast|fastattack) ([0-9]*\.?[0-9]+) ([0-9]+)$/i", $message, $a
 	$inside	.= "You need <orange>".$fastskillcap."<end> Fast Atk Skill to cap your fast attack at: <orange>".$fasthardcap."<end>s";
 
 	$windowlink = Text::make_link("::Your Fast Attack Results::", $inside);
-	bot::send($windowlink, $sendto);
+	$chatBot->send($windowlink, $sendto);
 } else {
 	$syntax_error = true;
 }

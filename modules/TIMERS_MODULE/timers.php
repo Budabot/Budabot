@@ -40,14 +40,14 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	forEach ($this->vars["Timers"] as $timer) {
 		if ($timer->name == $timer_name) {
 			$msg = "A Timer with the name <highlight>$timer_name<end> is already running.";
-			bot::send($msg, $sendto);
+			$chatBot->send($msg, $sendto);
 			return;
 		}
 	}
 
 	if ($arr[1] < 1) {
 		$msg = "No valid time specified!";
-        bot::send($msg, $sendto);
+        $chatBot->send($msg, $sendto);
 	    return;
 	}
 
@@ -59,7 +59,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	$timerset = Util::unixtime_to_readable($run_time);
 	$msg = "Timer has been set for $timerset.";
 		
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else if (preg_match("/^timers? (rem|del) (.+)$/i", $message, $arr)) {
 	$timer_name = strtolower($arr[2]);
 	
@@ -88,7 +88,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 		$msg = "A timer with this name is not running.";
 	}
 
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else if (preg_match("/^timers? ((([0-9]+)(d|day|days))?.?(([0-9]+)(h|hr|hrs))?.?(([0-9]+)(m|min|mins))?.?(([0-9]+)(s|sec|secs))?)$/i", $message, $arr) ||
 		preg_match("/^timers? ((([0-9]+)(d|day|days))?.?(([0-9]+)(h|hr|hrs))?.?(([0-9]+)(m|min|mins))?.?(([0-9]+)(s|sec|secs))?) (.+)$/i", $message, $arr2)) {
 
@@ -105,7 +105,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	forEach ($this->vars["Timers"] as $timer) {
 		if ($timer->name == $timer_name) {
 			$msg = "A Timer with the name <highlight>$timer_name<end> is already running.";
-			bot::send($msg, $sendto);
+			$chatBot->send($msg, $sendto);
 			return;
 		}
 	}
@@ -115,7 +115,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	if (preg_match("/([0-9]+)(d|day|days)/i", $time_string, $day)) {
 		if ($day[1] < 1) {
 			$msg = "No valid time specified!";
-		    bot::send($msg, $sendto);
+		    $chatBot->send($msg, $sendto);
 		    return;
 		}
 		$run_time += $day[1] * 86400;
@@ -124,7 +124,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	if (preg_match("/([0-9]+)(h|hr|hrs)/i", $time_string, $hours)) {
 		if ($hours[1] < 1) {
 			$msg = "No valid time specified!";
-		    bot::send($msg, $sendto);
+		    $chatBot->send($msg, $sendto);
 		    return;		  	
 		}
 		$run_time += $hours[1] * 3600;
@@ -133,7 +133,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	if (preg_match("/([0-9]+)(m|min|mins)/i", $time_string, $mins)) {
 		if ($mins[1] < 1) {
 			$msg = "No valid time specified!";
-		    bot::send($msg, $sendto);
+		    $chatBot->send($msg, $sendto);
 		    return;		  	
 		}
 		$run_time += $mins[1] * 60;
@@ -142,7 +142,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	if (preg_match("/([0-9]+)(s|sec|secs)/i", $time_string, $secs)) {
 		if ($secs[1] < 1) {
 			$msg = "No valid time specified!";
-		    bot::send($msg, $sendto);
+		    $chatBot->send($msg, $sendto);
 		    return;		  	
 		}
 		$run_time += $secs[1];
@@ -150,7 +150,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 
 	if ($run_time == 0) {
 	  	$msg = "No valid Time specified!";
-	    bot::send($msg, $sendto);
+	    $chatBot->send($msg, $sendto);
 	    return;		  	
 	}
 
@@ -161,12 +161,12 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	$timerset = Util::unixtime_to_readable($run_time);
 	$msg = "Timer has been set for $timerset.";
 		
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else if (preg_match("/^timers?$/i", $message, $arr)) {
 	$num_timers = count($this->vars["Timers"]);
 	if ($num_timers == 0) {
 		$msg = "No Timers running atm.";
-	    bot::send($msg, $sendto);
+	    $chatBot->send($msg, $sendto);
 	    return;
 	}
 
@@ -207,7 +207,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 		}
 	}
 
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

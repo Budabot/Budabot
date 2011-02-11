@@ -49,6 +49,6 @@ $dwight = array(
 if (preg_match("/^dwight/i", $message)) {
 	$randval = rand(1, sizeof($dwight) - 1);
 	$msg = $dwight[$randval];
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 }
 ?>

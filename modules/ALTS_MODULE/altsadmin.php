@@ -15,13 +15,13 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names))
 	if (!$uid_alt)
 	{
 		$msg = "Player <highlight>$name_alt<end> does not exist.";
-		$this->send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 	if (!$uid_main)
 	{
 		$msg = " Player <highlight>$name_main<end> does not exist.";
-		$this->send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 
@@ -43,7 +43,7 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names))
 		}
 
 	}
-	$this->send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 }
 elseif (preg_match("/^altsadmin rem (.+) (.+)$/i", $message, $names))
 {
@@ -66,7 +66,7 @@ elseif (preg_match("/^altsadmin rem (.+) (.+)$/i", $message, $names))
 	{
 		$msg = "Player <highlight>$name_alt<end> not listed as an alt of Player <highlight>$name_main<end>.  Please check the player's !alts listings.";
 	}
-	$this->send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 }
 elseif (preg_match("/^altsadmin export (.+)$/i", $message, $arr))
 {
@@ -76,7 +76,7 @@ elseif (preg_match("/^altsadmin export (.+)$/i", $message, $arr))
 	if (file_exists($file_name))
 	{
 		$msg = "<highlight>File already exists, please specify another one.<end>";
-		$this->send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 
@@ -94,7 +94,7 @@ elseif (preg_match("/^altsadmin export (.+)$/i", $message, $arr))
 	fclose($file);
 
 	$msg = "Export completed into '$file_name'";
-	$this->send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 	return;
 }
 
@@ -106,7 +106,7 @@ elseif (preg_match("/^altsadmin import (.+)/i", $message, $arr))
 	if (!file_exists($file_name))
 	{
 		$msg = "<highlight>File '$file_name' does not exist.<end>";
-		$this->send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 
@@ -118,7 +118,7 @@ elseif (preg_match("/^altsadmin import (.+)/i", $message, $arr))
 	if (stripos($firstline, "alt main") === false)
 	{
 		$msg = "File didn't start with expected 'alt main', aborting import.";
-		$this->send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 	
@@ -133,7 +133,7 @@ elseif (preg_match("/^altsadmin import (.+)/i", $message, $arr))
 		++$altcounter;
 	}
 	$msg = "Succesfully added $altcounter entries into the alts table.";
-	$this->send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 	return;
 }
 

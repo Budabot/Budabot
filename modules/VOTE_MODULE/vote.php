@@ -150,7 +150,7 @@ if (preg_match("/^vote$/i", $message)) {
 			elseif ($timeleft > 0){$privmsg = "You haven't voted on this one yet.";}
 			
 			$msg = Text::make_link("Vote: $question",$msg);
-			if ($privmsg) {bot::send($privmsg, $sender);}			
+			if ($privmsg) {$chatBot->send($privmsg, $sender);}			
 		}
 		
 		
@@ -212,11 +212,11 @@ if (preg_match("/^vote$/i", $message)) {
 		$requirement = $this->settings["vote_use_min"];
 		if ($requirement >= 0) {
 			if (!$this->guildmembers[$sender]) {
-				bot::send("Only org members can start a new vote.", $sender);
+				$chatBot->send("Only org members can start a new vote.", $sender);
 				return;
 			}elseif ($requirement < $this->guildmembers[$sender]) {
 				$rankdiff = $this->guildmembers[$sender]-$requirement;
-				bot::send("You need $rankdiff promotion(s) in order to vote.", $sender);
+				$chatBot->send("You need $rankdiff promotion(s) in order to vote.", $sender);
 				return;
 			}
 		}
@@ -255,11 +255,11 @@ if (preg_match("/^vote$/i", $message)) {
 		$requirement = $this->settings["vote_create_min"];
 		if ($requirement >= 0) {
 			if (!$this->guildmembers[$sender]) {
-				bot::send("Only org members can start a new vote.", $sender);
+				$chatBot->send("Only org members can start a new vote.", $sender);
 				return;
 			} else if ($requirement < $this->guildmembers[$sender]) {
 				$rankdiff = $this->guildmembers[$sender]-$requirement;
-				bot::send("You need $rankdiff promotion(s) in order to start a new vote.", $sender);
+				$chatBot->send("You need $rankdiff promotion(s) in order to start a new vote.", $sender);
 				return;
 			}
 		}
@@ -314,6 +314,6 @@ if (preg_match("/^vote$/i", $message)) {
 // we have a message after all that? post it
 /////////////////////////////////////////////////
 if ($msg){	// Send info back
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 }
 ?>

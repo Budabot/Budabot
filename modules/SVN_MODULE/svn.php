@@ -14,7 +14,7 @@ if (preg_match("/^svn update/i", $message)) {
 	
 	$msg = Text::make_link('svn update output', $window);
 	
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^svn info/i", $message)) {
 	$command = "svn info";
 	$output = array();
@@ -29,7 +29,7 @@ if (preg_match("/^svn update/i", $message)) {
 	
 	$msg = Text::make_link('svn info output', $window);
 	
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

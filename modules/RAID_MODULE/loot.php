@@ -35,10 +35,10 @@ if (preg_match("/^loot clear|clear$/i", $message)) {
   	$loot = "";
 	$residual = "";
   	$msg = "Loot has been cleared by <highlight>$sender<end>.";
-  	bot::send($msg, "priv");
+  	$chatBot->send($msg, "priv");
 
 	if ($type != 'priv') {
-		bot::send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 	}
 } else if (preg_match("/^loot (.+)$/i", $message, $arr)) {
 
@@ -89,7 +89,7 @@ if (preg_match("/^loot clear|clear$/i", $message)) {
 	//Check if max slots is reached
   	if ($num_loot >= 30) {
 	    $msg = "You can only roll 30 items max at one time!";
-	    bot::send($msg);
+	    $chatBot->send($msg);
 	    return;
 	}
 
@@ -128,19 +128,19 @@ if (preg_match("/^loot clear|clear$/i", $message)) {
 
 		//Send info
 		if ($multiloot) {
-			bot::send($multiloot."x <highlight>{$loot[$num_loot]["name"]}<end> will be rolled in Slot <highlight>#$num_loot<end>");
+			$chatBot->send($multiloot."x <highlight>{$loot[$num_loot]["name"]}<end> will be rolled in Slot <highlight>#$num_loot<end>");
 		} else {
-			bot::send("<highlight>{$loot[$num_loot]["name"]}<end> will be rolled in Slot <highlight>#$num_loot<end>");
+			$chatBot->send("<highlight>{$loot[$num_loot]["name"]}<end> will be rolled in Slot <highlight>#$num_loot<end>");
 		}
-		bot::send("To add use <symbol>add $num_loot, or <symbol>add 0 to remove yourself");
+		$chatBot->send("To add use <symbol>add $num_loot, or <symbol>add 0 to remove yourself");
 	} else {
 		//Send info in case of SMART
 		if ($multiloot) {
-			bot::send($multiloot."x <highlight>{$loot[$itmref]["name"]}<end> added to Slot <highlight>#$itmref<end> as multiloot. Total: <yellow>{$loot[$itmref]["multiloot"]}<end>");
+			$chatBot->send($multiloot."x <highlight>{$loot[$itmref]["name"]}<end> added to Slot <highlight>#$itmref<end> as multiloot. Total: <yellow>{$loot[$itmref]["multiloot"]}<end>");
 		} else {
-			bot::send("<highlight>{$loot[$itmref]["name"]}<end> added to Slot <highlight>#$itmref<end> as multiloot. Total: <yellow>{$loot[$itmref]["multiloot"]}<end>");
+			$chatBot->send("<highlight>{$loot[$itmref]["name"]}<end> added to Slot <highlight>#$itmref<end> as multiloot. Total: <yellow>{$loot[$itmref]["multiloot"]}<end>");
 		}
-		bot::send("To add use <symbol>add $itmref, or <symbol>add 0 to remove yourself");
+		$chatBot->send("To add use <symbol>add $itmref, or <symbol>add 0 to remove yourself");
 		$dontadd = 0;
 		$itmref = 0;
 		if (is_array($residual)) {

@@ -52,6 +52,6 @@ if (preg_match("/^guides list$/i", $message)) {
 	}
 }
 
-$this->send($msg, $sendto);
+$chatBot->send($msg, $sendto);
 
 ?>

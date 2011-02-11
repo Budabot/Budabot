@@ -30,7 +30,7 @@ class Command {
 		$description = str_replace("'", "''", $description);
 		$module = strtoupper($module);
 		
-		if (!bot::processCommandArgs($type, $admin)) {
+		if (!$chatBot->processCommandArgs($type, $admin)) {
 			Logger::log('ERROR', 'Core', "invalid args for $module:command($command)");
 			return;
 		}

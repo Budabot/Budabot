@@ -22,7 +22,7 @@ if (preg_match("/^system$/i", $message, $arr)) {
 	$blob .= "Number of characters on the friendlist: " . count($this->buddyList) . "\n";
 	
 	$msg = Text::make_link('System Info', $blob, 'blob');
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

@@ -15,7 +15,7 @@ if (preg_match("/^whatbuffs (.+)$/i", $message, $arr)) {
 
 	switch (sizeof($skills)) {
 		case 0:
-			bot::send("There is no such skill, or at least no twink relevant skill going by that name.", $sendto); 	// skill does not exist
+			$chatBot->send("There is no such skill, or at least no twink relevant skill going by that name.", $sendto); 	// skill does not exist
 			return;
 
 		case 1:
@@ -35,11 +35,11 @@ if (preg_match("/^whatbuffs (.+)$/i", $message, $arr)) {
 				$inside .= "\n\nClick the item(s) for more info\n\n";
 				$inside .= "by Imoutochan, RK1";
 				$windowlink = Text::make_link(":: Your \"What buffs ...?\" results ::", $inside);
-				bot::send($windowlink, $sendto); 
-				bot::send("<highlight>$found<end> result(s) in total", $sendto);
+				$chatBot->send($windowlink, $sendto); 
+				$chatBot->send("<highlight>$found<end> result(s) in total", $sendto);
 				return;
 			} else {
-				bot::send("Nothing that buffs ".$skills[0]." in my database, sorry.", $sendto); return; 
+				$chatBot->send("Nothing that buffs ".$skills[0]." in my database, sorry.", $sendto); return; 
 			}
 			break;
 
@@ -54,8 +54,8 @@ if (preg_match("/^whatbuffs (.+)$/i", $message, $arr)) {
 			$inside .= "Which of those skills did you mean?\n\n";
 			$inside .= "by Imoutochan, RK1";
 			$windowlink = Text::make_link(":: Your \"What buffs ...?\" results ::", $inside);
-			bot::send($windowlink, $sendto); 
-			bot::send("Found several skills matching your key words.", $sendto);
+			$chatBot->send($windowlink, $sendto); 
+			$chatBot->send("Found several skills matching your key words.", $sendto);
 			return;
 	}
 } else {

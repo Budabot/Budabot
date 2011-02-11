@@ -24,5 +24,5 @@ if ((!$AttTim) || (!$RechT) || (!$InitS)) {
 	$inside	.= "You need <orange>".$ASCap."<end> AS skill to cap your recharge.";
 
 	$windowlink = Text::make_link("::Your Aimed Shot Results::", $inside);
-	bot::send($windowlink, $sendto);
+	$chatBot->send($windowlink, $sendto);
 }

@@ -131,7 +131,7 @@ if (preg_match("/^bio <a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">Solid
     $msg = Text::make_item($low_id, $high_id, $arr[3], "QL ".$arr[3]." ".$name)." ".$use;
 
     // Send info back
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

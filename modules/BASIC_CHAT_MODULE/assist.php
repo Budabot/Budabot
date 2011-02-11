@@ -33,7 +33,7 @@ global $assist;
 if (preg_match("/^(assist|callers)$/i", $message)) {
   	if (!isset($assist)) {
 		$msg = "No assist set atm.";
-		bot::send($msg, $sendto);
+		$chatBot->send($msg, $sendto);
 		return;
 	}
 } else if (preg_match("/^assist (.+)$/i", $message, $arr)) {
@@ -44,12 +44,12 @@ if (preg_match("/^(assist|callers)$/i", $message)) {
 		$uid = AoChat::get_uid($name);
 		if ($type == "priv" && !isset($this->chatlist[$name])) {
 			$msg = "Player <highlight>$name<end> isn't in this bot.";
-			bot::send($msg, $sendto);
+			$chatBot->send($msg, $sendto);
 		}
 		
 		if (!$uid) {
 			$msg = "Player <highlight>$name<end> does not exist.";
-			bot::send($msg, $sendto);
+			$chatBot->send($msg, $sendto);
 		}
 		
 		$link = "<header>::::: Assist Macro for $name :::::\n\n";
@@ -61,12 +61,12 @@ if (preg_match("/^(assist|callers)$/i", $message)) {
 			$uid = AoChat::get_uid($name);
 			if ($type == "priv" && !isset($this->chatlist[$name])) {
 				$msg = "Player <highlight>$name<end> isn't in this bot.";
-				bot::send($msg, $sendto);
+				$chatBot->send($msg, $sendto);
 			}
 			
 			if (!$uid) {
 				$msg = "Player <highlight>$name<end> does not exist.";
-				bot::send($msg, $sendto);
+				$chatBot->send($msg, $sendto);
 			}
 			$nameArray[$key] = "/assist $name";
 		}
@@ -80,12 +80,12 @@ if (preg_match("/^(assist|callers)$/i", $message)) {
 }
 
 if ($assist != '') {
-	bot::send($assist, $sendto);
+	$chatBot->send($assist, $sendto);
 	
 	// send message 2 more times (3 total) if used in private channel
 	if ($type == "priv") {
-		bot::send($assist, $sendto);
-		bot::send($assist, $sendto);
+		$chatBot->send($assist, $sendto);
+		$chatBot->send($assist, $sendto);
 	}
 }
 ?>

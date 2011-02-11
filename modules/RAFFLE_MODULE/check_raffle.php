@@ -58,12 +58,12 @@ else
 if ((60 <= $tleft) && (60 <= $timesincelastmsg))
 {
     $this->vars["Raffles"]["lastmsgtime"] = time();
-    bot::send($msg, $this->vars["Raffles"]["sendto"]);
+    $chatBot->send($msg, $this->vars["Raffles"]["sendto"]);
 }
 elseif ((60 > $tleft) && (15 <= $timesincelastmsg))
 {
     $this->vars["Raffles"]["lastmsgtime"] = time();
-    bot::send($msg, $this->vars["Raffles"]["sendto"]);
+    $chatBot->send($msg, $this->vars["Raffles"]["sendto"]);
 }
 
 }

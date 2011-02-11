@@ -16,7 +16,7 @@ if (preg_match("/^searchcmd (.*)/i", $message, $arr))
 	if ( 0 == $db->numrows())
 	{
 		$msg = "<highlight>".strtolower($arr[1])."<end> could not be found.";
-		bot::send($msg,$sendto);
+		$chatBot->send($msg,$sendto);
 		return;
 	}
 	
@@ -36,7 +36,7 @@ if (preg_match("/^searchcmd (.*)/i", $message, $arr))
 	{
 		$msg = Text::make_link(count($data) . ' results found.', $blob);
 	}
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 }
 
 

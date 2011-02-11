@@ -8,12 +8,12 @@ if (preg_match("/^feedback ([a-z0-9-]*) (\\+1|\\-1) (.*)$/i", $message, $arr)) {
 	$by_charid = AoChat::get_uid($sender);
 
 	if ($charid == false) {
-		bot::send("Could not find character '$name'.", $sendto);
+		$chatBot->send("Could not find character '$name'.", $sendto);
 		return;
 	}
 	
 	if ($charid == $by_charid) {
-		bot::send("You cannot give yourself feedback.", $sendto);
+		$chatBot->send("You cannot give yourself feedback.", $sendto);
 		return;
 	}
 	
@@ -22,14 +22,14 @@ if (preg_match("/^feedback ([a-z0-9-]*) (\\+1|\\-1) (.*)$/i", $message, $arr)) {
 	$sql = "SELECT name FROM feedback WHERE `by_charid` = '$by_charid' AND `charid` = '$charid' AND `dt` > '$time'";
 	$db->query($sql);
 	if ($db->numrows() > 0) {
-		bot::send("You may only submit feedback for a player once every 24 hours. Please try again later.", $sendto);
+		$chatBot->send("You may only submit feedback for a player once every 24 hours. Please try again later.", $sendto);
 		return;
 	}
 	
 	$sql = "SELECT name FROM feedback WHERE `by_charid` = '$by_charid'";
 	$db->query($sql);
 	if ($db->numrows() > 3) {
-		bot::send("You may submit a maximum of 3 feedbacks in a 24 hour period. Please try again later.", $sendto);
+		$chatBot->send("You may submit a maximum of 3 feedbacks in a 24 hour period. Please try again later.", $sendto);
 		return;
 	}
 
@@ -53,7 +53,7 @@ if (preg_match("/^feedback ([a-z0-9-]*) (\\+1|\\-1) (.*)$/i", $message, $arr)) {
 		)";
 
 	$db->exec($sql);
-	bot::send("Feedback for $name added successfully.", $sendto);
+	$chatBot->send("Feedback for $name added successfully.", $sendto);
 } else if (preg_match("/^feedback ([a-z0-9-]*)$/i", $message, $arr)) {
     $charid = AoChat::get_uid($arr[1]);
 	$name = ucfirst(strtolower($arr[1]));
@@ -100,7 +100,7 @@ if (preg_match("/^feedback ([a-z0-9-]*) (\\+1|\\-1) (.*)$/i", $message, $arr)) {
 		$msg = Text::make_link("Feedback for {$name}", $blob, 'blob');
 	}
 
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

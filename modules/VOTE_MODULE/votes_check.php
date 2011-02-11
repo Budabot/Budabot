@@ -145,8 +145,8 @@ forEach ($this->vars["Vote"] as $key => $value) {
 		
 		$msg = Text::make_link($title, $msg);
 		
-		if ($this->settings["vote_channel_spam"] == 0 || $this->settings["vote_channel_spam"] == 2) {bot::send($msg, 'guild', true);}
-	   	if ($this->settings["vote_channel_spam"] == 1 || $this->settings["vote_channel_spam"] == 2) {bot::send($msg, 'priv', true);}
+		if ($this->settings["vote_channel_spam"] == 0 || $this->settings["vote_channel_spam"] == 2) {$chatBot->send($msg, 'guild', true);}
+	   	if ($this->settings["vote_channel_spam"] == 1 || $this->settings["vote_channel_spam"] == 2) {$chatBot->send($msg, 'priv', true);}
 	}
 }
 ?>

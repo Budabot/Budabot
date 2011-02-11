@@ -41,7 +41,7 @@ if (preg_match("/^(xp|sk) ([0-9]+)$/i", $message, $arr)) {
         $msg = "You need to specify a lvl between 1 and 219.";
 	}
 
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else if (preg_match("/^(xp|sk) ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	$minLevel = $arr[2];
 	$maxLevel = $arr[3];
@@ -71,7 +71,7 @@ if (preg_match("/^(xp|sk) ([0-9]+)$/i", $message, $arr)) {
         $msg = "You need to specify a lvl between 1 and 220.";
 	}
 
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

@@ -10,7 +10,7 @@ if (preg_match("/^addbuddy (.+) (.+)$/i", $message, $arr)) {
 		$msg = "Could not add $name to the buddy list.";
 	}
 	
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

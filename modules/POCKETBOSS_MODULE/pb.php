@@ -57,7 +57,7 @@ if (preg_match("/^pb (.+)$/i", $message, $arr)) {
 		$msg = "Couldn't find the Pocketboss <highlight>".$pb."<end>";
 	}
 	
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else if (preg_match("/^symb (eye|ocular|head|brain|ear|rarm|chest|larm|rwrist|waist|lwrist|rhand|legs|leg|thigh|lhand|feet) (s(u(p(p(o(r(t)?)?)?)?)?)?|c(o(n(t(r(o(l)?)?)?)?)?)?|i(n(f(a(n(t(r(y)?)?)?)?)?)?)?|a(r(t(i(l(l(e(r(y)?)?)?)?)?)?)?)?|e(x(t(e(r(m(i(n(a(t(i(o(n)?)?)?)?)?)?)?)?)?)?)?)?)$/i", $message, $arr)) {
   	switch($arr[1]) {
 	    case "eye":
@@ -123,7 +123,7 @@ if (preg_match("/^pb (.+)$/i", $message, $arr)) {
 	}
 
 	
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else if (preg_match("/^symb (s(u(p(p(o(r(t)?)?)?)?)?)?|c(o(n(t(r(o(l)?)?)?)?)?)?|i(n(f(a(n(t(r(y)?)?)?)?)?)?)?|a(r(t(i(l(l(e(r(y)?)?)?)?)?)?)?)?|e(x(t(e(r(m(i(n(a(t(i(o(n)?)?)?)?)?)?)?)?)?)?)?)?) (eye|ocular|head|brain|ear|rarm|chest|larm|rwrist|waist|lwrist|rhand|legs|leg|thigh|lhand|feet)$/i", $message, $arr)) {
   	$index = count($arr) - 1;
 	switch ($arr[$index]) {
@@ -189,7 +189,7 @@ if (preg_match("/^pb (.+)$/i", $message, $arr)) {
 		$msg = "Couldn't find any symbs";
 	}
 
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

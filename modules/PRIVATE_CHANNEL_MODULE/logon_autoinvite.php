@@ -33,6 +33,6 @@ $db->query("SELECT * FROM members_<myname> WHERE name = '$sender' AND autoinv = 
 if ($db->numrows() != 0) {
     $msg = "You have been auto invited to the <highlight><myname><end> channel.";
     AOChat::privategroup_invite($sender);
-    bot::send($msg, $sender);
+    $chatBot->send($msg, $sender);
 }
 ?>

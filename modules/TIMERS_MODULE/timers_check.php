@@ -80,9 +80,9 @@ forEach ($this->vars["Timers"] as $key => $timer) {
 
 	if ('' != $msg) {
 		if ('msg' == $mode) {
-			bot::send($msg, $owner);
+			$chatBot->send($msg, $owner);
 		} else {
-			bot::send($msg, $mode);
+			$chatBot->send($msg, $mode);
 		}
 	}
 }

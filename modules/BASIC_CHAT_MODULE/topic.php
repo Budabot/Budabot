@@ -32,7 +32,7 @@
 if ($this->settings["topic"] != "" && $type == "joinPriv") {
 	$date_string = Util::unixtime_to_readable(time() - $this->settings["topic_time"], false);
 	$msg = "<highlight>Topic:<end> {$this->settings["topic"]} [set by <highlight>{$this->settings["topic_setby"]}<end>][<highlight>{$date_string} ago<end>]";
-  	bot::send($msg, $sender);
+  	$chatBot->send($msg, $sender);
 } else if (preg_match("/^topic$/i", $message, $arr)) {
 	$date_string = Util::unixtime_to_readable(time() - $this->settings["topic_time"], false);
 	if ($this->settings["topic"] == '') {
@@ -41,18 +41,18 @@ if ($this->settings["topic"] != "" && $type == "joinPriv") {
 		$topic = $this->settings["topic"];
 	}
 	$msg = "<highlight>Topic:<end> {$topic} [set by <highlight>{$this->settings["topic_setby"]}<end>][<highlight>{$date_string} ago<end>]";
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else if (preg_match("/^topic clear$/i", $message, $arr)) {
   	Setting::save("topic_time", time());
   	Setting::save("topic_setby", $sender);
   	Setting::save("topic", "");
 	$msg = "Topic has been cleared.";
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 } else if (preg_match("/^topic (.+)$/i", $message, $arr)) {
   	Setting::save("topic_time", time());
   	Setting::save("topic_setby", $sender);
   	Setting::save("topic", $arr[1]);
 	$msg = "Topic has been updated.";
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
 }
 ?>

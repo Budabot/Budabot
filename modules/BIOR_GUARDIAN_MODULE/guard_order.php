@@ -57,8 +57,8 @@ else {
 
   	//Send Glist to all soldiers
   	foreach($glist as $player) {
-		bot::send($msg, $player);
+		$chatBot->send($msg, $player);
   	}
 }
-bot::send($msg, $sendto);
+$chatBot->send($msg, $sendto);
 ?>

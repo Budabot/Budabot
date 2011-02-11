@@ -740,6 +740,6 @@ $chuck = array(
 if (preg_match("/^chuck/i", $message)) {
 	$randval = rand(1, sizeof($chuck) - 1);
 	$msg = $chuck[$randval];
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 }
 ?>

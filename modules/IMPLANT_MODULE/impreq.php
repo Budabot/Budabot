@@ -53,6 +53,6 @@ if (!preg_match("/^impreq ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	}
 }
 
-bot::send($msg, $sendto);
+$chatBot->send($msg, $sendto);
 
 ?>

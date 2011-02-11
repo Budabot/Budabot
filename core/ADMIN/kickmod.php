@@ -33,17 +33,17 @@ if (preg_match("/^kickmod (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
 	
 	if ($who == $sender) {
-		bot::send("<red>You can't kick yourself.<end>", $sendto);
+		$chatBot->send("<red>You can't kick yourself.<end>", $sendto);
 		return;
 	}
 
 	if ($this->admins[$who]["level"] != 3) {
-		bot::send("<red>Sorry $who is not a Moderator of this Bot.<end>", $sendto);
+		$chatBot->send("<red>Sorry $who is not a Moderator of this Bot.<end>", $sendto);
 		return;
 	}
 	
 	if ((int)$this->admins[$sender]["level"] <= (int)$this->admins[$who]["level"]){
-		bot::send("<red>You must have a rank higher then $who.", $sendto);
+		$chatBot->send("<red>You must have a rank higher then $who.", $sendto);
 		return;
 	}
 	
@@ -52,8 +52,8 @@ if (preg_match("/^kickmod (.+)$/i", $message, $arr)){
 	
 	Buddylist::remove($who, 'admin');
 
-	bot::send("<highlight>$who<end> has been removed as Moderator of this Bot.", $sendto);
-	bot::send("Your moderator access to <myname> has been removed.", $who);
+	$chatBot->send("<highlight>$who<end> has been removed as Moderator of this Bot.", $sendto);
+	$chatBot->send("Your moderator access to <myname> has been removed.", $who);
 } else {
 	$syntax_error = true;
 }

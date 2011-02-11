@@ -27,6 +27,6 @@ if (preg_match("/^event add (.+)$/i", $message, $arr)) {
 }
 
 if ($msg) {
-	bot::send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
 }
 ?>

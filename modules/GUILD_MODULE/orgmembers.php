@@ -32,7 +32,7 @@
 if(preg_match("/^orgmembers$/i", $message)) {
 	if ($this->vars["my guild id"] == "") {
 	  	$msg = "The Bot needs to be in a org to show the orgmembers.";
-	    bot::send($msg, $sendto);
+	    $chatBot->send($msg, $sendto);
 		return;
 	}
 	
@@ -40,13 +40,13 @@ if(preg_match("/^orgmembers$/i", $message)) {
 	$members = $db->numrows();
   	if ($members == 0) {
 	  	$msg = "No members recorded.";
-	    bot::send($msg, $sendto);
+	    $chatBot->send($msg, $sendto);
 		return;
 	}
 	
 	
 	$msg = "Processing orgmember list. This can take a few seconds.";
-    bot::send($msg, $sendto);
+    $chatBot->send($msg, $sendto);
     
     $first_char = "";
 	$list = "<header>::::: Members of the org {$this->vars["my guild"]} :::::<end>";
@@ -108,11 +108,11 @@ if(preg_match("/^orgmembers$/i", $message)) {
 	}
 	
 	$msg = Text::make_link("{$this->vars["my guild"]} has $members members currently.", $list);
- 	bot::send($msg, $sendto);
+ 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^orgmembers (.*)$/i", $message, $arr)) {
 	if ($this->vars["my guild id"] == "") {
 	  	$msg = "The Bot needs to be in a org to show the orgmembers.";
-	  	bot::send($msg, $sendto);
+	  	$chatBot->send($msg, $sendto);
 		return;
 	}
 	
@@ -163,7 +163,7 @@ if(preg_match("/^orgmembers$/i", $message)) {
     
     if (!$prof) {
         $msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade or trad";
-	    bot::send($msg, $sendto);
+	    $chatBot->send($msg, $sendto);
 	    return;
     }
     
@@ -172,13 +172,13 @@ if(preg_match("/^orgmembers$/i", $message)) {
 	$members = $db->numrows();
   	if ($members == 0) {
 		$msg = "No <highlight>$prof<end>'s as member recorded";		
-	  	bot::send($msg, $sendto);
+	  	$chatBot->send($msg, $sendto);
 		return; 
 	}
 	
 	
 	$msg = "Processing orgmember list. This can take a few seconds.";
-  	bot::send($msg, $sendto);
+  	$chatBot->send($msg, $sendto);
        	
 	$list = "<header>::::: Members of the org {$this->vars["my guild"]}:Profession: $prof :::::<end>\n\n";
 	while ($row = $db->fObject()) {
@@ -192,7 +192,7 @@ if(preg_match("/^orgmembers$/i", $message)) {
 	}
 	
 	$msg = Text::make_link("{$this->vars["my guild"]} has $members members currently.", $list);
- 	bot::send($msg, $sendto);
+ 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

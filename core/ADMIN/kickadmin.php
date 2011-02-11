@@ -33,17 +33,17 @@ if (preg_match("/^kickadmin (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
 
 	if ($who == $sender) {
-		bot::send("<red>You can't kick yourself.<end>", $sendto);
+		$chatBot->send("<red>You can't kick yourself.<end>", $sendto);
 		return;
 	}
 
 	if ($this->admins[$who]["level"] != 4) {
-		bot::send("<red>Sorry $who is not a Administrator of this Bot.<end>", $sendto);
+		$chatBot->send("<red>Sorry $who is not a Administrator of this Bot.<end>", $sendto);
 		return;
 	}
 	
 	if ($this->vars["SuperAdmin"] != $sender){
-		bot::send("<red>You need to be Super-Administrator to kick a Administrator<end>", $sendto);
+		$chatBot->send("<red>You need to be Super-Administrator to kick a Administrator<end>", $sendto);
 		return;
 	}
 	
@@ -52,8 +52,8 @@ if (preg_match("/^kickadmin (.+)$/i", $message, $arr)){
 
 	Buddylist::remove($who, 'admin');
 
-	bot::send("<highlight>$who<end> has been removed as Administrator of this Bot.", $sendto);
-	bot::send("Your Administrator access to <myname> has been removed.", $who);
+	$chatBot->send("<highlight>$who<end> has been removed as Administrator of this Bot.", $sendto);
+	$chatBot->send("Your Administrator access to <myname> has been removed.", $who);
 } else {
 	$syntax_error = true;
 }
