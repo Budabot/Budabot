@@ -18,13 +18,9 @@
 	Command::activate("priv", "$MODULE_NAME/reload_config.php", "reloadconfig", "admin");
 	Command::activate("guild", "$MODULE_NAME/reload_config.php", "reloadconfig", "admin");
 
-	Command::activate("msg", "$MODULE_NAME/uptime.php", "uptime", "all");
-	Command::activate("priv", "$MODULE_NAME/uptime.php", "uptime", "all");
-	Command::activate("guild", "$MODULE_NAME/uptime.php", "uptime", "all");
-
-	Command::activate("msg", "$MODULE_NAME/memory.php", "memory", "all");
-	Command::activate("priv", "$MODULE_NAME/memory.php", "memory", "all");
-	Command::activate("guild", "$MODULE_NAME/memory.php", "memory", "all");
+	Command::activate("msg", "$MODULE_NAME/system_cmd.php", "system", "all");
+	Command::activate("priv", "$MODULE_NAME/system_cmd.php", "system", "all");
+	Command::activate("guild", "$MODULE_NAME/system_cmd.php", "system", "all");
 
 	Command::activate("msg", "$MODULE_NAME/cmdlist.php", "cmdlist", "mod");
 	Command::activate("priv", "$MODULE_NAME/cmdlist.php", "cmdlist", "mod");
