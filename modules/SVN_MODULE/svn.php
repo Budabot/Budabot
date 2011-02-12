@@ -1,6 +1,6 @@
 <?php
 
-if (preg_match("/^svn changes/i", $message)) {
+if (preg_match("/^svn dry/i", $message)) {
 	$command = "svn merge –-dry-run -r BASE:HEAD .";
 	$output = array();
 	$return_var = '';
@@ -57,7 +57,7 @@ if (preg_match("/^svn changes/i", $message)) {
 		$window .= $line . "\n";
 	}
 	
-	$msg = Text::make_link('svn status $arr[1] output', $window);
+	$msg = Text::make_link("svn status $arr[1] output", $window);
 	
 	$chatBot->send($msg, $sendto);
 } else {
