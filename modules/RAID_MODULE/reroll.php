@@ -30,7 +30,7 @@ if (preg_match("/^reroll$/i", $message)) {
 		$chatBot->send($msg, $sendto);
 	}
 	if (is_array($loot)) {
-		$list = "<header>::::: Loot List :::::<end>\n\nUse <symbol>flatroll or <symbol>roll to roll.\n\n";
+		$list = "<header>::::: Loot List :::::<end>\n\nUse <symbol>flatroll or <symbol>rollloot to roll.\n\n";
 		forEach ($loot as $key => $item) {
 			$add = Text::make_link("Add", "/tell <myname> add $key", "chatcmd");
 			$rem = Text::make_link("Remove", "/tell <myname> add 0", "chatcmd");
