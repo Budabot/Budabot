@@ -1,4 +1,0 @@
-<header>::::: Spams the Guildchat with a random 'doh' message :::::<end>
-
-<highlight>To use simply write:<end>
-<tab><symbol>doh

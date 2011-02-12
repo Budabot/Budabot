@@ -1,5 +1,8 @@
 <header>::::: Different Fun Commands :::::<end>
 
+<highlight>Show a random Funcom quote<end>
+<tab><symbol>fc
+
 <highlight>Show a ding gratz message<end>
 <tab><symbol>ding 'insert you new level here'
 <tab><symbol>ding
@@ -29,5 +32,5 @@
 <tab><symbol>pinky
 <tab><symbol>brain
 
-<highlight>Letting 2ppls fight against each other<end>
+<highlight>Let 2 people fight each other<end>
 <tab><symbol>fight 'Person1' vs 'Person2'

@@ -17,8 +17,12 @@ if (preg_match("/^system$/i", $message, $arr)) {
 	$date_string = Util::unixtime_to_readable(time() - $chatBot->vars['startup']);
 	$blob .= "<highlight>Uptime:<end> $date_string.\n\n";
 	
-	$blob .= "<highlight>Number of active commands:<end> ?\n";
+	$blob .= "<highlight>Number of active tell commands:<end> " . count($chatBot->tellCmds) . "\n";
+	$blob .= "<highlight>Number of active private channel commands:<end> " . count($chatBot->privCmds) . "\n";
+	$blob .= "<highlight>Number of active guild channel commands:<end> " . count($chatBot->guildCmds) . "\n";
+	$blob .= "<highlight>Number of active subcommands:<end> " . count($chatBot->subcommands) . "\n";
 	$blob .= "<highlight>Number of active events:<end> " . count($chatBot->events) . "\n";
+	$blob .= "<highlight>Number of help commands:<end> " . count($chatBot->helpfiles) . "\n";
 	$blob .= "<highlight>Number of characters on the friendlist:<end> " . count($chatBot->buddyList) . "\n\n";
 	
 	$blob .= "<highlight>Public Channels:<end>\n";

@@ -13,4 +13,5 @@
 	Setting::add($MODULE_NAME, "broadcast_to_privchan", "Send broadcast message to private channel", "edit", "0", "ON;OFF", "1;0");
 	
 	Help::register($MODULE_NAME, "neutnet", "neutnet.txt", "all", "Shows the commands needed to register a bot with Neutnet");
+	Help::register($MODULE_NAME, "broadcast", "broadcast.txt", "all", "How to manage the broadcast list");
 ?>

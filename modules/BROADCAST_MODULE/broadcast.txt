@@ -1,0 +1,12 @@
+<header> :::::: Broadcast Module :::::: <end>
+
+The BROADCAST_MODULE allows you to receive tells from other bots and then relay those into your guild channel.
+
+<highlight>Show the list of characters on the broadcast list<end>
+<tab><symbol>broadcast
+
+<highlight>Add a character to the broadcast list<end>
+<tab><symbol>broadcast add 'character'
+
+<highlight>Remove a character from the broadcast list<end>
+<tab><symbol>broadcast rem 'character'
