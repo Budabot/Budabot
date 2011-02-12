@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @name: MMDBParser
+ * @author: Tyrence (RK2)
+ * @description: reads entries from the text.mdb file
+ */
 class MMDBParser {
 	private static $mmdb = array();
 
