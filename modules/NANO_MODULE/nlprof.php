@@ -42,13 +42,12 @@ if (preg_match("/^nlprof (.*)$/i", $message, $arr)) {
 		return;
 	}
 
-	$sql = "SELECT * FROM aonanos_nanolines WHERE profession LIKE '$profession' ORDER BY name ASC";
+	$sql = "SELECT * FROM nanolines WHERE profession LIKE '$profession' ORDER BY name ASC";
 	$db->query($sql);
+	$data = $db->fObject('all');
+	$count = $db->numrows();
 
-	$count = 0;
-	while ($row = $db->fObject()) {
-
-		$count++;
+	forEach ($data as $row) {
 		if ($this->settings["shownanolineicons"] == "1") {
 			$window .= "<img src='rdb://$row->image_id'>\n";
 		}

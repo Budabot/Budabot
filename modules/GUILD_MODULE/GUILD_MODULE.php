@@ -39,7 +39,7 @@
 	Event::register($MODULE_NAME, "logOff", "record_lastseen.php", "none", "Records when each member of the org logs off for lastseen command");
 	
 	//Helpfile
-	Help::register($MODULE_NAME, "inactivemem", "manage_guild.txt", "admin", "Help on Checking for Inactive Members");
+	Help::register($MODULE_NAME, "inactivemem", "inactivemem.txt", "admin", "Help on Checking for Inactive Members");
 	Help::register($MODULE_NAME, "updateorg", "updateorg.txt", "mod", "Force an update of org roster");
 	Help::register($MODULE_NAME, "orgmembers", "orgmembers_orgranks.txt", "guild", "Show current OrgMembers");
 	Help::register($MODULE_NAME, "orgranks", "orgmembers_orgranks.txt", "guild", "Show current OrgMembers");

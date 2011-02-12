@@ -37,7 +37,7 @@ if (preg_match("/^nlline ([0-9]*)$/i", $message, $arr)) {
 
 	$nanoline_id = $arr[1];
 
-	$sql = "SELECT * FROM aonanos_nanolines WHERE id = $nanoline_id";
+	$sql = "SELECT * FROM nanolines WHERE id = $nanoline_id";
 	$db->query($sql);
 
 	$msg = '';
@@ -49,26 +49,24 @@ if (preg_match("/^nlline ([0-9]*)$/i", $message, $arr)) {
 
 		$sql = "
 			SELECT
-				a.low_id,
-				a.high_id,
-				a.ql,
-				a.name,
-				n.location
+				n1.lowid,
+				lowql,
+				n1.name,
+				location
 			FROM
-				aonanos_nanos a
-				LEFT JOIN nanos n
-					ON (a.high_id = n.highid AND a.low_id = n.lowid)
+				nanos n1
+				JOIN nano_nanolines_ref n2
+					ON (n1.lowid = n2.lowid)
 			WHERE
-				nanoline_id = $nanoline_id
+				n2.nanolineid = $nanoline_id
 			ORDER BY
-				a.ql DESC, a.name ASC";
+				lowql DESC, name ASC";
 		$db->query($sql);
-		$count = 0;
-		while ($row = $db->fObject()) {
+		$data = $db->fObject('all');
 
-			$count++;
-			$window .= "<a href='itemref://" . $row->low_id . "/" . $row->high_id . "/" . $row->ql . "'>" . $row->name . "</a>";
-			$window .= " [$row->ql] $row->location\n";
+		forEach ($data as $row) {
+			$window .= "<a href='itemref://" . $row->lowid . "/" . $row->lowid . "/" . $row->lowql . "'>" . $row->name . "</a>";
+			$window .= " [$row->lowql] $row->location\n";
 		}
 
 		$window .= "\n\nAO Nanos by Voriuste";

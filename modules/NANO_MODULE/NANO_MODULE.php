@@ -4,6 +4,7 @@
 	//Search for Database Updates
 	DB::loadSQLFile($MODULE_NAME, "nanos");
 	DB::loadSQLFile($MODULE_NAME, "nanolines");
+	DB::loadSQLFile($MODULE_NAME, "nanolines_ref");
 
 	//nano Search
 	Command::register($MODULE_NAME, "", "nano.php", "nano", "all", "Searches for a nano and tells you were to get it.");
