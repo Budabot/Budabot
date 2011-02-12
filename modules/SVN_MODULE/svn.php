@@ -1,7 +1,7 @@
 <?php
 
 if (preg_match("/^svn update dryrun/i", $message)) {
-	$command = "svn update --dry-run"
+	$command = "svn update --dry-run";
 	$output = array();
 	$return_var = '';
 	exec($command, $output, $return_var);
