@@ -6,7 +6,7 @@ class Guild {
     public $errorInfo;
 
     //the organisation lookup function
-	function public static get_by_id($guild_id, $rk_num = 0, $force_update = false) {
+	public static function get_by_id($guild_id, $rk_num = 0, $force_update = false) {
 	 	global $vars;
 		global $chatBot;
 
