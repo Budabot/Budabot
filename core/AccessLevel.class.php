@@ -19,13 +19,13 @@ class AccessLevel {
 				}
 				break;
 
+			case "1":
 			case "leader":
 				if ($chatBot->vars["leader"] == $sender || isset($chatBot->admins[$sender])) {
 					$access = true;
 				}
 				break;
 
-			case "1":
 			case "2":
 			case "3":
 			case "4":

@@ -53,7 +53,7 @@ if (!function_exists('get_admin_description')) {
 		$admin = strtolower($admin);
 		if ($admin == 1 || $admin == "leader") {
 			return "Leader";
-		} else if ($admin == 2 || $admin == "rl" || $admin == "raidleader") {
+		} else if ($admin == 2 || $admin == "rl") {
 			return "Raidleader";
 		} else if ($admin == 3 || $admin == "mod") {
 			return "Moderator";
@@ -67,9 +67,8 @@ if (!function_exists('get_admin_description')) {
 
 if (!function_exists('get_admin_value')) {
 	function get_admin_value($admin) {
+		$admin = strtolower($admin);
 		switch ($admin) {
-			case "leader":
-				return 1;
 			case "rl":
 				return 2;
 			case "mod":
