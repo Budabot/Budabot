@@ -33,7 +33,7 @@ global $loot;
 global $loot_winners;
 global $residual;
 
-if (preg_match("/^flatroll$/i", $message) || preg_match("/^rollloot$/i", $message) || preg_match("/^result$(i", $message) || preg_match("/^win$/i", $message)) {
+if (preg_match("/^flatroll$/i", $message) || preg_match("/^rollloot$/i", $message) || preg_match("/^result$/i", $message) || preg_match("/^win$/i", $message)) {
 	//Check if a loot list exits
   	if (!is_array($loot)) {
 	    $msg = "There is nothing to roll atm.";
