@@ -115,7 +115,7 @@ if (preg_match("/^about$/i", $message)) {
 
 	//Check if he is a org Member
 	if ($this->settings["tell_req_open"] == "org" && !isset($this->guildmembers[$sender])) {
-	  	$msg = "<orange>Error! I am only respondling to members of the org {$this->vars["my guild"]}.<end>";
+	  	$msg = "<orange>Error! I am only responding to members of the org {$this->vars["my guild"]}.<end>";
 	  	$chatBot->send($msg, $sender);
 	  	$restricted = true;
 	  	return;

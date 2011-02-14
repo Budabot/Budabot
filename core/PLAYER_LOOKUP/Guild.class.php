@@ -6,7 +6,7 @@ class Guild {
     public $errorInfo;
 
     //the organisation lookup function
-	function get_by_id($guild_id, $rk_num = 0, $force_update = false) {
+	function public static get_by_id($guild_id, $rk_num = 0, $force_update = false) {
 	 	global $vars;
 		global $chatBot;
 
@@ -71,9 +71,7 @@ class Guild {
 		
 		//if there is still no valid data available give an error back
 		if (!$data_found) {
-           	$guild->errorCode = 1;
-           	$guild->errorInfo = "Couldn't get infos for the organization";
-           	return;
+           	return null;
 		}
 
 		//parsing of the memberdata
@@ -88,8 +86,10 @@ class Guild {
 			}
 		}
 		
-		$db = DB::get_instance();
-		$db->beginTransaction();
+		if ($data_save) {
+			$db = DB::get_instance();
+			$db->beginTransaction();
+		}
 
         forEach ($members as $amember) {
 			$name                                  = xml::splicedata($amember,"<nickname>", "</nickname>");
@@ -118,10 +118,14 @@ class Guild {
 			$guild->members[$name]->dimension      = $rk_num;
 			$guild->members[$name]->source         = 'org_roster';
 			
-			Player::update($guild->members[$name]);
+			if ($data_save) {
+				Player::update($guild->members[$name]);
+			}
 		}
 		
-		$db->Commit();
+		if ($data_save) {
+			$db->Commit();
+		}
 
 		//if a new xml file was downloaded, save it
 		if ($data_save) {

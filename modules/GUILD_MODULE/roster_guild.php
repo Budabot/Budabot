@@ -39,7 +39,7 @@ if ($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 	$org = Guild::get_by_id($this->vars["my guild id"], $this->vars["dimension"], true);
 	
 	//Check if Orgxml file is correct if not abort
-	if ($org->errorCode != 0) {
+	if ($org === null) {
 		Logger::log('ERROR', 'GUILD_MODULE', "Error downloading the org roster xml file");
 	} else {
 		//Delete old Memberslist
