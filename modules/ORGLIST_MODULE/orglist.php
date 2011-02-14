@@ -159,7 +159,7 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message)) {
 
 	$org = Guild::get_by_id($orgid);
 
-	if ($org->errorCode != 0) {
+	if ($org === null) {
 		$msg = "Error in getting the Org info. Either org does not exist or AO's server was too slow to respond.";
 		$chatBot->send($msg, $sendto);
 		unset($this->data["ORGLIST_MODULE"]);

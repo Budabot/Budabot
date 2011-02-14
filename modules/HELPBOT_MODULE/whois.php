@@ -96,7 +96,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
     $chatBot->send($msg, $sendto);
 	
     $org = Guild::get_by_id($org_id);
-	if ($org->errorCode == 0) {
+	if ($org !== null) {
   		$num_adv = 0;
   		$num_agent = 0;
   		$num_crat = 0;
@@ -212,7 +212,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 	  	$link .= "<highlight>Traders:<end> $num_trad (".round(($num_trad*100)/$num_members, 1)."% of total)\n";		  			  			  	
 	  	$msg = Text::make_link("Org Info $org->orgname", $link, 'blob');
 	} else {
-		$msg = "Error in getting the Org info. Either that org doesn't exist or the AO server was too slow to responce.";
+		$msg = "Error in getting the Org info. Either that org doesn't exist or the AO server was too slow to respond.";
 	}
 
     $chatBot->send($msg, $sendto);
