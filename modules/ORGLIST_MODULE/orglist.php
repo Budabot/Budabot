@@ -81,16 +81,6 @@ if (!function_exists(orgmatesformat)){
 	}
 }
 
-
-
-
-// Some globals we are using for this plugin
-// $this->data["ORGLIST_MODULE"]["check"][page]	// list of each name that still needs to be checked. (in groups)
-// $this->data["ORGLIST_MODULE"]["result"] 	// list of names that have completed thier check.
-// $this->data["ORGLIST_MODULE"]["sendto"]	// who gets this info?  org, prv, or a user?
-// $this->data["ORGLIST_MODULE"]["org"]		// org name
-// $this->data["ORGLIST_MODULE"]["start"]     	// time when the search started
-
 // Some rankings (Will be used to help distinguish which org type is used.)
 $orgrankmap["Anarchism"]  = array("Anarchist");
 $orgrankmap["Monarchy"]   = array("Monarch",   "Counsel",      "Follower");
@@ -100,9 +90,9 @@ $orgrankmap["Faction"]    = array("Director",  "Board Member", "Executive",     
 $orgrankmap["Department"] = array("President", "General",      "Squad Commander", "Unit Commander", "Unit Leader", "Unit Member", "Applicant");
 
 // Don't want to reboot to see changes in color edits, so I'll store them in an array outside the function.
-$orgcolor["header"]  = "<font color='#FFFFFF'>";		// Org Rank title
-$orgcolor["onlineH"] = "<highlight>";			// Highlights on whois info
-$orgcolor["offline"] = "<font color='#555555'>";		// Offline names
+$orgcolor["header"]  = "<font color='#FFFFFF'>";   // Org Rank title
+$orgcolor["onlineH"] = "<highlight>";              // Highlights on whois info
+$orgcolor["offline"] = "<font color='#555555'>";   // Offline names
 
 // No options? Target the $sender
 if (preg_match("/^(orglist|onlineorg)$/i", $message)) {

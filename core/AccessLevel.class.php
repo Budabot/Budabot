@@ -12,13 +12,19 @@ class AccessLevel {
 					$access = true;
 				}
 				break;
-			
+
 			case "guildadmin":
 				if ($chatBot->guildmembers[$sender] <= $chatBot->settings['guild_admin_level'] || isset($chatBot->admins[$sender])) {
 					$access = true;
 				}
 				break;
-			
+
+			case "leader":
+				if ($chatBot->vars["leader"] == $sender || isset($chatBot->admins[$sender])) {
+					$access = true;
+				}
+				break;
+
 			case "1":
 			case "2":
 			case "3":
@@ -27,7 +33,7 @@ class AccessLevel {
 					$access = true;
 				}
 				break;
-			
+
 			case "all":
 			default:
 				$access = true;
