@@ -1,0 +1,51 @@
+<header>::::: Webcasting to a webserver :::::<end>
+
+The following commands are available to control the webcast module from the bot.
+
+<font color=#3333CC>Setwebpath</font>
+/tell <myname> webcast setwebpath [my webserver]
+The full path including http:// and the name of the file on your server are required.
+
+Example:
+/tell <myname> webcast setwebpath http://www.mywebserver/online.php
+
+<font color=#3333CC>Reset user cache</font>
+<a href='chatcmd:///tell <myname> webcast clearcache'>/tell <myname> webcast clearcache</a>
+If you have caching enabled on the webserver this command will clear the cache.  Forcing the module to reload user data from anarchy-online.com
+
+
+<font color=#3333CC>Manually update online list</font>
+<a href='chatcmd:///tell <myname> webcast'>/tell <myname> webcast</a>
+Using the webcast command by itself will force the bot to update online list.  Normally the online list is updated automatically when someone logs on or off and every 15mins.
+
+
+<orange>Installation Instructions<end>
+The webcast module is comprised of two parts.  The first part is the moduled installed into budabot, the second is a php file installed
+on your webserver.  The two act as a client/server with the bot publishing its online data to the webpage.
+
+<orange>Requirements<end>
+There are no specific requirements for the budabot module, however you will need the following for the online.php on your webserver.
+
+Your webserver will must be able to run a PHP script and a file will need write access.
+
+<orange>Installation<end>
+There are two seperate parts to install the WEBCAST_MODULE
+
+<orange>Installation on your webserver.<end>
+1. Extract the contents of the "Extract to your Webserver" Folder to the location of choice on your webserver.
+2. Edit the online.php file filling in the two required fields.
+<tab>$dimension - Fill in the dimension your bot is running in (1, 2 or 3)
+<tab>$file -  This is the file that the webcast module will save the online data to. 
+<tab>This file should be somewhere accessable by online.php and have write permissions.
+
+<orange>Install the webcast module.<end>
+1. Extract WEBCAST_MODULE folder to your budabot/modules/ directory.
+2. Relod modules: Log into AO, and /tell <myname> newplugins
+3. Set your webpath: /tell <myname> webcast setwebpath [full path to online.php above]
+   /tell <myname> webcast setwebpath http://www.myserver.com/online.php
+4. Test it!  /tell <myname> webcast to force an update to your server.
+
+If all goes well the webcast module should confirm that the page was updated.  Goto http://www.yourwebserve.com/online.php to see if your
+orgmates are online!
+
+
