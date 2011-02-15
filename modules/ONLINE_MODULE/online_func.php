@@ -9,6 +9,7 @@
 
 function online($sender, $sendto, &$bot, $prof = "all") {
 	$db = DB::get_instance();
+	global $chatBot;
 
 	$list = "";
 	if ($bot->settings["relaydb"]) {
@@ -27,10 +28,13 @@ function online($sender, $sendto, &$bot, $prof = "all") {
 
 	$oldprof = "";
 	$numonline = $db->numrows();
+	if ($chatBot->vars['my guild'] != '') {
+		$guild_name = "[{$chatBot->vars['my guild']}] ";
+	}
 	if ($numonline == 1) {
-		$list .= "<header>::::: 1 member online :::::<end>\n";
+		$list .= "<header>::::: 1 member online $guild_name:::::<end>\n";
 	} else {
-		$list .= "<header>::::: $numonline members online :::::<end>\n";
+		$list .= "<header>::::: $numonline members online $guild_name:::::<end>\n";
 	}
 	$data = $db->fObject("all");
 	// create the list with alts shown

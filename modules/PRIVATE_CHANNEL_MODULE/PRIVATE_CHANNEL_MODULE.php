@@ -37,6 +37,8 @@
 	Command::register($MODULE_NAME, "", "add.php", "adduser", "guild", "Adds a player to the members list");
 	Command::register($MODULE_NAME, "", "rem.php", "remuser", "guild", "Removes a player from the members list");
 	
+	Command::register($MODULE_NAME, "", "accept.php", "accept", "all", "Accept a private channel invitation from another player");
+	
 	Setting::add($MODULE_NAME, "guest_man_join", "Mode of manual private channel join", "edit", "1", "Only for members of guestlist;Everyone", "1;0");
 	Setting::add($MODULE_NAME, "guest_color_channel", "Color for Private Channel relay(ChannelName)", "edit", "<font color=#C3C3C3>", "color");
 	Setting::add($MODULE_NAME, "guest_color_username", "Color for Private Channel relay(UserName)", "edit", "<font color=#C3C3C3>", "color");
