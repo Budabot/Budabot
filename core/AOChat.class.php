@@ -212,10 +212,8 @@ class AOChat
 			$this->chatqueue->run();
 		}
 
-		if (($now-$this->last_packet) > 60) {
-			if (($now-$this->last_ping) > 60) {
-				$this->send_ping();
-			}
+		if (($now - $this->last_packet) > 60 && ($now - $this->last_ping) > 60) {
+			$this->send_ping();
 		}
 	}
 
@@ -299,7 +297,7 @@ class AOChat
 
 			case AOCP_GROUP_MESSAGE:
 				/* Hack to support extended messages */
-				if($packet->args[1] === 0 && substr($packet->args[2], 0, 2) == "~&") {
+				if ($packet->args[1] === 0 && substr($packet->args[2], 0, 2) == "~&") {
 					$em = new AOExtMsg($packet->args[2]);
 					$packet->args[2] = $em->message;
 					$packet->args['extended_message'] = $em;

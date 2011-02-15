@@ -7,7 +7,6 @@ class Guild {
 
     //the organisation lookup function
 	public static function get_by_id($guild_id, $rk_num = 0, $force_update = false) {
-	 	global $vars;
 		global $chatBot;
 
 		$data_found = false;
@@ -15,10 +14,10 @@ class Guild {
 	
 		//if no server number is specified use the one on which the bot is logged in
 		if ($rk_num == 0) {
-			$rk_num = $vars["dimension"];
+			$rk_num = $chatBot->vars["dimension"];
 		}
 
-		$cache = $vars["cachefolder"];
+		$cache = $chatBot->vars["cachefolder"];
 
 		//Making sure that the cache folder exists
         if (!dir($cache)) {
@@ -30,7 +29,7 @@ class Guild {
 	        $mins = (time() - filemtime("$cache/$guild_id.$rk_num.xml")) / 60;
             $hours = floor($mins/60);
             //if the file is not older then 24hrs and it is not the roster of the bot guild then use the cache one, when it the xml file from the org bot guild and not older then 6hrs use it
-            if (($hours < 24 && $vars["my guild id"] != $guild_id) || ($hours < 6 && $vars["my guild id"] == $guild_id)) {
+            if (($hours < 24 && $chatBot->vars["my guild id"] != $guild_id) || ($hours < 6 && $chatBot->vars["my guild id"] == $guild_id)) {
              	$orgxml = file_get_contents("$cache/$guild_id.$rk_num.xml");
 				if (xml::spliceData($orgxml, '<id>', '</id>') == $guild_id) {
 					$data_found = true;
@@ -80,19 +79,15 @@ class Guild {
         $guild->orgside	= xml::spliceData($orgxml, "<side>", "</side");
 		
 		// pre fetch the charids...this speeds things up immensely
-		forEach ($org->members as $member) {
-			if (!isset($this->id[$member->name])) {
-				$this->send_packet(new AOChatPacket("out", AOCP_CLIENT_LOOKUP, $member->name));
+		forEach ($members as $xmlmember) {
+			$name = xml::splicedata($xmlmember, "<nickname>", "</nickname>");
+			if (!isset($chatBot->id[$name])) {
+				$chatBot->send_packet(new AOChatPacket("out", AOCP_CLIENT_LOOKUP, $name));
 			}
 		}
-		
-		if ($data_save) {
-			$db = DB::get_instance();
-			$db->beginTransaction();
-		}
 
-        forEach ($members as $amember) {
-			$name                                  = xml::splicedata($amember,"<nickname>", "</nickname>");
+        forEach ($members as $member) {
+			$name                                  = xml::splicedata($member, "<nickname>", "</nickname>");
 			$charid = $chatBot->get_uid($name);
 			if ($charid == null) {
 				$charid = 0;
@@ -100,34 +95,38 @@ class Guild {
 			
 			$guild->members[$name]                 = new stdClass;
 			$guild->members[$name]->charid         = $charid;
-            $guild->members[$name]->firstname      = xml::spliceData($amember, '<firstname>', '</firstname>');
-            $guild->members[$name]->name           = xml::spliceData($amember, '<nickname>', '</nickname>');
-            $guild->members[$name]->lastname       = xml::spliceData($amember, '<lastname>', '</lastname>');
-            $guild->members[$name]->level          = xml::spliceData($amember, '<level>', '</level>');
-            $guild->members[$name]->breed          = xml::spliceData($amember, '<breed>', '</breed>');
-            $guild->members[$name]->gender         = xml::spliceData($amember, '<gender>', '</gender>');
-            $guild->members[$name]->faction        = $guild -> orgside;
-            $guild->members[$name]->profession     = xml::spliceData($amember, '<profession>', '</profession>');
-			$guild->members[$name]->prof_title     = xml::spliceData($amember, '<profession_title>', '</profession_title>');
-            $guild->members[$name]->ai_rank        = xml::spliceData($amember, '<defender_rank>', '</defender_rank>');
-            $guild->members[$name]->ai_level       = xml::spliceData($amember, '<defender_rank_id>', '</defender_rank_id>');
+            $guild->members[$name]->firstname      = xml::spliceData($member, '<firstname>', '</firstname>');
+            $guild->members[$name]->name           = xml::spliceData($member, '<nickname>', '</nickname>');
+            $guild->members[$name]->lastname       = xml::spliceData($member, '<lastname>', '</lastname>');
+            $guild->members[$name]->level          = xml::spliceData($member, '<level>', '</level>');
+            $guild->members[$name]->breed          = xml::spliceData($member, '<breed>', '</breed>');
+            $guild->members[$name]->gender         = xml::spliceData($member, '<gender>', '</gender>');
+            $guild->members[$name]->faction        = $guild->orgside;
+            $guild->members[$name]->profession     = xml::spliceData($member, '<profession>', '</profession>');
+			$guild->members[$name]->prof_title     = xml::spliceData($member, '<profession_title>', '</profession_title>');
+            $guild->members[$name]->ai_rank        = xml::spliceData($member, '<defender_rank>', '</defender_rank>');
+            $guild->members[$name]->ai_level       = xml::spliceData($member, '<defender_rank_id>', '</defender_rank_id>');
 			$guild->members[$name]->guild_id       = $guild->guild_id;
 			$guild->members[$name]->guild          = $guild->orgname;
-            $guild->members[$name]->guild_rank     = xml::spliceData($amember, '<rank_name>', '</rank_name>');
-            $guild->members[$name]->guild_rank_id  = xml::spliceData($amember, '<rank>', '</rank>');
+            $guild->members[$name]->guild_rank     = xml::spliceData($member, '<rank_name>', '</rank_name>');
+            $guild->members[$name]->guild_rank_id  = xml::spliceData($member, '<rank>', '</rank>');
 			$guild->members[$name]->dimension      = $rk_num;
 			$guild->members[$name]->source         = 'org_roster';
-			
-			if ($data_save) {
-				Player::update($guild->members[$name]);
-			}
 		}
 		
+		// this is done separately from the loop above to prevent nested transaction errors from occuring
 		if ($data_save) {
+			$db = DB::get_instance();
+			$db->beginTransaction();
+			
+			forEach ($guild->members as $member) {
+				Player::update($member);
+			}
+
 			$db->Commit();
 		}
 
-		//if a new xml file was downloaded, save it
+		// if a new xml file was downloaded, save it
 		if ($data_save) {
 	        $fp = fopen("$cache/$guild_id.$rk_num.xml", "w");
 	        fwrite($fp, $orgxml);
