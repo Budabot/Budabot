@@ -462,13 +462,13 @@ if (preg_match("/^config$/i", $message)) {
 				
 				$subcmd_list .= "Current Access: <highlight>$row->admin<end> \n";
 				$subcmd_list .= "Set min. access lvl to use this command: ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> subcmd ".$row->cmd." admin priv all'>All</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> subcmd ".$row->cmd." admin priv leader'>Leader</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> subcmd ".$row->cmd." admin priv rl'>RL</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> subcmd ".$row->cmd." admin priv mod'>Mod</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> subcmd ".$row->cmd." admin priv admin'>Admin</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> subcmd ".$row->cmd." admin priv guildadmin'>Guildadmin</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> subcmd ".$row->cmd." admin priv guild'>Guild</a>\n\n";
+				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin priv all'>All</a>  ";
+				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin priv leader'>Leader</a>  ";
+				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin priv rl'>RL</a>  ";
+				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin priv mod'>Mod</a>  ";
+				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin priv admin'>Admin</a>  ";
+				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin priv guildadmin'>Guildadmin</a>  ";
+				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin priv guild'>Guild</a>\n\n";
 			}
 		}
 

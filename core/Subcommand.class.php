@@ -36,7 +36,7 @@ class Subcommand {
 				if ($admin[$i] == "leader") {
 					$admin[$i] = 1;
 				} else if ($admin[$i] == "raidleader" || $admin[$i] == "rl") {
-					$admin = 2;
+					$admin[$i] = 2;
 				} else if ($admin[$i] == "mod" || $admin[$i] == "moderator") {
 					$admin[$i] = 3;
 				} else if ($admin[$i] == "admin") {
@@ -50,7 +50,8 @@ class Subcommand {
 			if ($chatBot->existing_subcmds[$type[$i]][$command] == true) {
 				$db->exec("UPDATE cmdcfg_<myname> SET `module` = '$module', `verify` = 1, `file` = '$actual_filename', `description` = '$description', `dependson` = '$dependson' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
 			} else {
-				$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `dependson`) VALUES ('$module', '{$type[$i]}', '$actual_filename', '$command', '{$admin[$i]}', '$description', 1, 'subcmd', '$dependson')");
+				$sql = "INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `dependson`) VALUES ('$module', '{$type[$i]}', '$actual_filename', '$command', '{$admin[$i]}', '$description', 1, 'subcmd', '$dependson')";
+				$db->exec($sql);
 			}
 		}
 	}
