@@ -1,6 +1,6 @@
 <?php
 
-if (isset($this->guildmembers[$sender])) {
+if (isset($this->guildmembers[$sender]) && time() >= $this->vars["logondelay"]) {
 	$msg = "";
 	list($numonline, $msg, $list) = online($sender, $sendto, $this);
 	if ($numonline != 0) {

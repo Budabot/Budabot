@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if ($this->settings["topic"] != '' && isset($this->guildmembers[$sender]) && (time() >= $this->vars["topicdelay"])) {
+if ($this->settings["topic"] != '' && isset($this->guildmembers[$sender]) && time() >= $this->vars["logondelay"]) {
 	$date_string = Util::unixtime_to_readable($this->settings["topic_time"], false);
 	$msg = "<highlight>Topic:<end> {$this->settings["topic"]} [set by <highlight>{$this->settings["topic_setby"]}<end>][<highlight>{$date_string} ago<end>]";
     $chatBot->send($msg, $sender);
