@@ -1,42 +1,10 @@
 <?php
-   /*
-   ** Author: Derroylo (RK2)
-   ** Description: Refresh/Create org memberlist
-   ** Version: 1.3
-   **
-   ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
-   **
-   ** Date(created): 23.11.2005
-   ** Date(last modified): 16.01.2007
-   ** 
-   ** Copyright (C) 2005, 2006, 2007 Carsten Lohmann
-   **
-   ** Licence Infos: 
-   ** This file is part of Budabot.
-   **
-   ** Budabot is free software; you can redistribute it and/or modify
-   ** it under the terms of the GNU General Public License as published by
-   ** the Free Software Foundation; either version 2 of the License, or
-   ** (at your option) any later version.
-   **
-   ** Budabot is distributed in the hope that it will be useful,
-   ** but WITHOUT ANY WARRANTY; without even the implied warranty of
-   ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   ** GNU General Public License for more details.
-   **
-   ** You should have received a copy of the GNU General Public License
-   ** along with Budabot; if not, write to the Free Software
-   ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-   */
 
-if ($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
-	// Set Delay for notify on/off(prevent spam from org roster module)
-	$this->vars["logondelay"] = time() + 30;
-	
+if ($chatBot->vars["my guild"] != "" && $chatBot->vars["my guild id"] != "") {
 	Logger::log('INFO', 'GUILD_MODULE', "Starting Roster Update");
 
 	//Get the org infos
-	$org = Guild::get_by_id($this->vars["my guild id"], $this->vars["dimension"], true);
+	$org = Guild::get_by_id($chatBot->vars["my guild id"], $chatBot->vars["dimension"], true);
 	
 	//Check if Orgxml file is correct if not abort
 	if ($org === null) {
@@ -45,7 +13,7 @@ if ($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 	}
 
 	//Delete old Memberslist
-	unset($this->guildmembers);
+	unset($chatBot->guildmembers);
 	
 	//Save the current org_members table in a var
 	$db->query("SELECT * FROM org_members_<myname>");
@@ -62,18 +30,18 @@ if ($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 	
 	$db->beginTransaction();
 	
-	// Going through each member of the org and add his data's
+	// Going through each member of the org and add or update his/her
 	forEach ($org->members as $member) {
 		// don't do anything if $member is the bot itself
-		if (strtolower($member->name) == strtolower($this->vars["name"])) {
+		if (strtolower($member->name) == strtolower($chatBot->vars["name"])) {
 			continue;
 		}
 	
-		//If there exists already data about the player just update hum
+		//If there exists already data about the player just update him/her
 		if (isset($dbentrys[$member->name])) {
 			if ($dbentrys[$member->name]["mode"] == "man" || $dbentrys[$member->name]["mode"] == "org") {
 				$mode = "org";
-				$this->guildmembers[$member->name] = $member->guild_rank_id;
+				$chatBot->guildmembers[$member->name] = $member->guild_rank_id;
 				
 				// add org members who are on notify to buddy list
 				Buddylist::add($member->name, 'org');
@@ -83,13 +51,13 @@ if ($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 			}
 	
 			$db->exec("UPDATE org_members_<myname> SET `mode` = '{$mode}' WHERE `name` = '{$member->name}'");	  		
-		//Else insert his data
+		//Else insert his/her data
 		} else {
 			// add new org members to buddy list
 			Buddylist::add($member->name, 'org');
 
 			$db->exec("INSERT INTO org_members_<myname> (`name`, `mode`) VALUES ('{$member->name}', 'org')");
-			$this->guildmembers[$member->name] = $member->guild_rank_id;
+			$chatBot->guildmembers[$member->name] = $member->guild_rank_id;
 		}
 		unset($dbentrys[$member->name]);    
 	}
