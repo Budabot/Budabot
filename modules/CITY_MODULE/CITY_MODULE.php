@@ -33,10 +33,10 @@
 	
 	DB::loadSQLFile($MODULE_NAME, 'org_city');
 
-    Command::register($MODULE_NAME, "", "city_guild.php", "city", "guild", "Shows the status of the Citycloak");
-	Command::register($MODULE_NAME, "", "city_guild.php", "cloak", "guild", "Shows the status of the Citycloak");
+    Command::register($MODULE_NAME, "", "city.php", "city", "guild", "Shows the status of the Citycloak");
+	Command::register($MODULE_NAME, "", "city.php", "cloak", "guild", "Shows the status of the Citycloak");
 
-	Event::register($MODULE_NAME, "guild", "city_guild.php", "city", "Records when the cloak is raised or lowered");
+	Event::register($MODULE_NAME, "guild", "record_cloak_changes.php", "city", "Records when the cloak is raised or lowered");
     Event::register($MODULE_NAME, "1min", "city_guild_timer.php", "city", "Checks timer to see if cloak can be raised or lowered");
 	Event::register($MODULE_NAME, "1min", "city_guild_raise_cloak.php", "city", "Reminds the player who lowered cloak to raise it when it can be raised.");
 	Event::register($MODULE_NAME, "logOn", "city_guild_logon.php", "city", "Displays summary of city status.");
