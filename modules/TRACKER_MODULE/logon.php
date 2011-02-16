@@ -1,6 +1,6 @@
 <?php
 
-if (time() >= $this->vars["onlinedelay"]) {
+if (time() >= $this->vars["logondelay"]) {
 	$uid = $this->get_uid($sender);
 	$db->query("SELECT * FROM tracked_users_<myname> WHERE uid = $uid");
 	if ($db->numrows() != 0) {

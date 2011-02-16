@@ -1,6 +1,6 @@
 <?php
 
-if (isset($this->guildmembers[$sender]) && time() >= $this->vars["onlinedelay"]) {
+if (isset($this->guildmembers[$sender]) && time() >= $this->vars["logondelay"]) {
 	$whois = Player::get_by_name($sender);
 
 	$msg = '';

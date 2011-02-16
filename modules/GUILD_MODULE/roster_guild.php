@@ -31,7 +31,7 @@
 
 if ($this->vars["my guild"] != "" && $this->vars["my guild id"] != "") {
 	// Set Delay for notify on/off(prevent spam from org roster module)
-	$this->vars["onlinedelay"] = time() + 30;
+	$this->vars["logondelay"] = time() + 30;
 	
 	Logger::log('INFO', 'GUILD_MODULE', "Starting Roster Update");
 

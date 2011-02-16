@@ -1,6 +1,6 @@
 <?php
 
-if ($this->settings["relaybot"] != "Off" && isset($this->guildmembers[$sender]) && time() >= $this->vars["onlinedelay"]) {
+if ($this->settings["relaybot"] != "Off" && isset($this->guildmembers[$sender]) && time() >= $this->vars["logondelay"]) {
     $whois = Player::get_by_name($sender);
 	
 	$msg = '';
