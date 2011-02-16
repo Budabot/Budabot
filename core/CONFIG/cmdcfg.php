@@ -255,7 +255,7 @@ if (preg_match("/^config$/i", $message)) {
 	$category = strtolower($arr[1]);
 	$command = strtolower($arr[2]);
 	$type = strtolower($arr[3]);
-	$admin = $arr[4];
+	$admin = strtolower($arr[4]);
 
 	$admin = get_admin_value($admin);
 	
@@ -298,13 +298,14 @@ if (preg_match("/^config$/i", $message)) {
 		
 		if ($type == "all") {
 			$db->exec("UPDATE cmdcfg_<myname> SET `admin` = '$admin' WHERE `cmd` = '$command' AND `cmdevent` = 'cmd'");
-			$msg = "Updated access of command <highlight>$command<end> to <highlight>$arr[4]<end>";
+			$msg = "Updated access of command <highlight>$command<end> to <highlight>$admin<end>";
 		} else {
 			$db->exec("UPDATE cmdcfg_<myname> SET `admin` = '$admin' WHERE `cmd` = '$command' AND `type` = '$type' AND `cmdevent` = 'cmd'");
-			$msg = "Updated access of command <highlight>$command<end> in Channel <highlight>$type<end> to <highlight>$arr[4]<end>";
+			$msg = "Updated access of command <highlight>$command<end> in Channel <highlight>$type<end> to <highlight>$admin<end>";
 		}
 	} else {  // if ($category == 'subcmd')
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `type` = '$type' AND `cmdevent` = 'subcmd' AND `cmd` = '$command'");
+		$sql = "SELECT * FROM cmdcfg_<myname> WHERE `type` = '$type' AND `cmdevent` = 'subcmd' AND `cmd` = '$command'";
+		$db->query($sql);
 		if ($db->numrows() == 0) {
 			$msg = "Could not find the subcmd <highlight>$command<end> for Channel <highlight>$type<end>";
 		  	$chatBot->send($msg, $sendto);
@@ -313,7 +314,7 @@ if (preg_match("/^config$/i", $message)) {
 		$row = $db->fObject();
 		$this->subcommands[$row->file][$row->type]["admin"] = $admin;		
 		$db->exec("UPDATE cmdcfg_<myname> SET `admin` = '$admin' WHERE `type` = '$type' AND `cmdevent` = 'subcmd' AND `cmd` = '$command'");
-		$msg = "Updated access of sub command <highlight>$command<end> in Channel <highlight>$type<end> to <highlight>$arr[4]<end>";
+		$msg = "Updated access of sub command <highlight>$command<end> in Channel <highlight>$type<end> to <highlight>$admin<end>";
 	}
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^config cmd ([a-z0-9_]+)$/i", $message, $arr)) {
