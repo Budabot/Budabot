@@ -9,7 +9,7 @@ if (preg_match("/^raffle start (\d+) (.+)$/i", $message, $arr))
         return;
     }
 
-    if ($this->vars["Raffles"]["running"])
+    if ($chatBot->vars["Raffles"]["running"])
     {
         $msg = "<highlight>There is already a raffle in progress.";
         $chatBot->send($msg, $sendto);
@@ -18,9 +18,9 @@ if (preg_match("/^raffle start (\d+) (.+)$/i", $message, $arr))
 
     $item = $arr[2];
     $count = $arr[1];
-    $minutes = $this->settings["defaultraffletime"];
+    $minutes = $chatBot->settings["defaultraffletime"];
 
-    $this->vars["Raffles"] = array(
+    $chatBot->vars["Raffles"] = array(
         "running" => true,
         "owner" => $sender,
         "item" => $item,
@@ -43,7 +43,7 @@ A raffle for $item (count: $count) has been started by $sender!
 Click $link to join the raffle. Raffle will end in $minutes minutes.
 -----------------------------------------------------------------------";
 
-        $this->vars["Raffles"]["lastmsgtime"] = time();
+        $chatBot->vars["Raffles"]["lastmsgtime"] = time();
         $chatBot->send($msg, $sendto);
 }
 
@@ -55,7 +55,7 @@ elseif (preg_match("/^raffle start (.+)$/i", $message, $arr))
         $chatBot->send($msg, $sendto);
         return;
     }
-    if ($this->vars["Raffles"]["running"])
+    if ($chatBot->vars["Raffles"]["running"])
     {
         $msg = "<highlight>There is already a raffle in progress.";
         $chatBot->send($msg, $sendto);
@@ -64,9 +64,9 @@ elseif (preg_match("/^raffle start (.+)$/i", $message, $arr))
 
     $item = $arr[1];
     $count = 1;
-    $minutes = $this->settings["defaultraffletime"];
+    $minutes = $chatBot->settings["defaultraffletime"];
 
-    $this->vars["Raffles"] = array(
+    $chatBot->vars["Raffles"] = array(
         "running" => true,
         "owner" => $sender,
         "item" => $item,
@@ -89,27 +89,27 @@ A raffle for $item has been started by $sender!
 Click $link to join the raffle. Raffle will end in $minutes minutes'.
 -----------------------------------------------------------------------";
 
-        $this->vars["Raffles"]["lastmsgtime"] = time();
+        $chatBot->vars["Raffles"]["lastmsgtime"] = time();
         $chatBot->send($msg, $sendto);
 }
 
 elseif (preg_match("/^raffle cancel$/i", $message, $arr))
 {
-    if (!$this->vars["Raffles"]["running"])
+    if (!$chatBot->vars["Raffles"]["running"])
     {
         $msg = "<highlight>There is no active raffle.";
         $chatBot->send($msg, $sendto);
         return;
     }
 
-    if (($this->vars["Raffles"]["owner"] != $sender) && (!isset($this->admins[$sender])))
+    if (($chatBot->vars["Raffles"]["owner"] != $sender) && (!isset($chatBot->admins[$sender])))
     {
          $msg = "<highlight>Only the owner or admins may cancel the raffle.";
          $chatBot->send($msg, $sendto);
          return;
     }
-    $sendtobuffer = $this->vars["Raffles"]["sendto"];
-    $this->vars["Raffles"] = array(
+    $sendtobuffer = $chatBot->vars["Raffles"]["sendto"];
+    $chatBot->vars["Raffles"] = array(
         "running" => false,
         "owner" => NULL,
         "item" => NULL,
@@ -122,19 +122,19 @@ elseif (preg_match("/^raffle cancel$/i", $message, $arr))
         );
 
     $msg = "<highlight>The raffle was cancelled.<end>";
-    $chatBot->send($msg, $this->vars["Raffles"]["sendto"]);
+    $chatBot->send($msg, $chatBot->vars["Raffles"]["sendto"]);
 }
 
 elseif (preg_match("/^raffle end$/i", $message, $arr))
 {
-    if (!$this->vars["Raffles"]["running"])
+    if (!$chatBot->vars["Raffles"]["running"])
     {
         $msg = "<highlight>There is no active raffle.";
         $chatBot->send($msg, $sendto);
         return;
     }
 
-    if (($this->vars["Raffles"]["owner"] != $sender) && (!isset($this->admins[$sender])))
+    if (($chatBot->vars["Raffles"]["owner"] != $sender) && (!isset($chatBot->admins[$sender])))
     {
          $msg = "<highlight>Only the owner or admins may end the raffle.";
          $chatBot->send($msg, $sendto);
@@ -147,55 +147,55 @@ elseif (preg_match("/^raffle end$/i", $message, $arr))
 
 elseif (preg_match("/^raffle result$/i", $message, $arr))
 {
-    if (!isset ($this->vars["Raffles"]["lastresult"]))
+    if (!isset ($chatBot->vars["Raffles"]["lastresult"]))
     {
         $msg = "<highlight>Last raffles result could not be retrieved.";
         $chatBot->send($msg, $sendto);
         return;
     }
 
-    $chatBot->send("Last raffle result: ".$this->vars["Raffles"]["lastresult"], $sendto);
+    $chatBot->send("Last raffle result: ".$chatBot->vars["Raffles"]["lastresult"], $sendto);
 }
 
 elseif (preg_match("/^raffle join$/i", $message, $arr))
 {
-    if (!$this->vars["Raffles"]["running"])
+    if (!$chatBot->vars["Raffles"]["running"])
     {
         $msg = "<highlight>There is no active raffle.";
         $chatBot->send($msg, $sendto);
         return;
     }
 
-    if (isset( $this->vars["Raffles"]["rafflees"][$sender])) {
+    if (isset( $chatBot->vars["Raffles"]["rafflees"][$sender])) {
         $msg = "<highlight>You are already in the raffle.";
         $chatBot->send($msg, $sendto);
         return;
     }
 
-    $this->vars["Raffles"]["rafflees"][$sender] = 0;
+    $chatBot->vars["Raffles"]["rafflees"][$sender] = 0;
     $msg = "$sender has entered the raffle.";
-    $chatBot->send($msg, $this->vars["Raffles"]["sendto"]);
+    $chatBot->send($msg, $chatBot->vars["Raffles"]["sendto"]);
 
 }
 
 elseif (preg_match("/^raffle leave$/i", $message, $arr))
 {
-    if (!$this->vars["Raffles"]["running"])
+    if (!$chatBot->vars["Raffles"]["running"])
     {
         $msg = "<highlight>There is no active raffle.";
         $chatBot->send($msg, $sendto);
         return;
     }
 
-    if (!isset( $this->vars["Raffles"]["rafflees"][$sender])) {
+    if (!isset( $chatBot->vars["Raffles"]["rafflees"][$sender])) {
         $msg = "You are not currently signed up for the raffle.";
         $chatBot->send($msg, $sendto);
         return;
     }
 
-    unset($this->vars["Raffles"]["rafflees"][$sender]);
+    unset($chatBot->vars["Raffles"]["rafflees"][$sender]);
     $msg = "$sender has left the raffle.";
-    $chatBot->send($msg, $this->vars["Raffles"]["sendto"]);
+    $chatBot->send($msg, $chatBot->vars["Raffles"]["sendto"]);
 
 }
 else {

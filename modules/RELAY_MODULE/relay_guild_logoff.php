@@ -1,7 +1,7 @@
 <?php
 
-if ($this->settings["relaybot"] != "Off" && isset($this->guildmembers[$sender]) && time() >= $this->vars["logondelay"]) {
-	send_message_to_relay("grc <grey>[".$this->vars["my guild"]."] <highlight>{$sender}<end> logged off");
+if ($chatBot->settings["relaybot"] != "Off" && isset($chatBot->guildmembers[$sender]) && time() >= $chatBot->vars["logondelay"]) {
+	send_message_to_relay("grc <grey>[".$chatBot->vars["my guild"]."] <highlight>{$sender}<end> logged off");
 }
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 
-if (isset($this->guildmembers[$sender]) && time() >= $this->vars["logondelay"]) {
+if (isset($chatBot->guildmembers[$sender]) && time() >= $chatBot->vars["logondelay"]) {
 	$msg = "";
 	list($numonline, $msg, $list) = online($sender, $sendto, $this);
 	if ($numonline != 0) {

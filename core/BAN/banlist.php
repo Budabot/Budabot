@@ -30,13 +30,13 @@
    */
 
 if (preg_match("/^banlist$/i", $message)) {
-  	if (count($this->banlist) == 0) {
+  	if (count($chatBot->banlist) == 0) {
 	    $chatBot->send("No one is currently banned from this bot.", $sendto);
 	    return;
 	}
 	
 	$list .= "<header>::::: Banlist :::::<end>\n\n";
-	forEach ($this->banlist as $ban) {
+	forEach ($chatBot->banlist as $ban) {
 		$list .= "<highlight>Name:<end> {$ban->name}\n";
 		$list .= "<highlight><tab>Date:<end> ".date("d-M-Y", $ban->time)."\n";
 		$list .= "<highlight><tab>By:<end> {$ban->admin}\n";

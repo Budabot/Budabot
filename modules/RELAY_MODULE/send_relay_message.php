@@ -1,16 +1,16 @@
 <?php
 
-if (($this->settings["relaybot"] != "Off") && ($this->settings["bot_relay_commands"] == 1 || $args[2][0] != $this->settings["symbol"])) {
+if (($chatBot->settings["relaybot"] != "Off") && ($chatBot->settings["bot_relay_commands"] == 1 || $args[2][0] != $chatBot->settings["symbol"])) {
 	$relayMessage = '';
-	if ($this->settings['relaysymbol'] == 'Always relay') {
+	if ($chatBot->settings['relaysymbol'] == 'Always relay') {
 		$relayMessage = $message;
-	} else if ($args[2][0] == $this->settings['relaysymbol']) {
+	} else if ($args[2][0] == $chatBot->settings['relaysymbol']) {
 		$relayMessage = substr($args[2], 1);
 	}
 
 	if ($relayMessage != '') {
 		$sender_link = Text::make_link($sender, $sender, "user");
-		$guild = $this->vars["my guild"];
+		$guild = $chatBot->vars["my guild"];
 		if ($type == "guild") {
 			$msg = "grc <grey>[{$guild}] {$sender_link}: ".$relayMessage."</font>";
 		} else if ($type == "priv") {

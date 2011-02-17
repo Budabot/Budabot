@@ -47,15 +47,15 @@ class Implant {
 
 	function __construct($ql, $treatment, $ability, $abilityShiny, $abilityBright, $abilityFaded, $skillShiny, $skillBright, $skillFaded) {
 
-		$this->ql = $ql;
-		$this->treatment = $treatment;
-		$this->ability = $ability;
-		$this->abilityShiny = $abilityShiny;
-		$this->abilityBright = $abilityBright;
-		$this->abilityFaded = $abilityFaded;
-		$this->skillShiny = $skillShiny;
-		$this->skillBright = $skillBright;
-		$this->skillFaded = $skillFaded;
+		$chatBot->ql = $ql;
+		$chatBot->treatment = $treatment;
+		$chatBot->ability = $ability;
+		$chatBot->abilityShiny = $abilityShiny;
+		$chatBot->abilityBright = $abilityBright;
+		$chatBot->abilityFaded = $abilityFaded;
+		$chatBot->skillShiny = $skillShiny;
+		$chatBot->skillBright = $skillBright;
+		$chatBot->skillFaded = $skillFaded;
 	}
 
 }

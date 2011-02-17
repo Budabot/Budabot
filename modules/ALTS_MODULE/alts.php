@@ -111,7 +111,7 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr)) {
 	$alt = $sender;
 	$new_main = ucfirst(strtolower($arr[1]));
 
-	$uid = $this->get_uid($new_main);
+	$uid = $chatBot->get_uid($new_main);
 	if (!$uid)
 	{
 		$msg = " Player <highlight>$new_main<end> does not exist.";
@@ -140,7 +140,7 @@ if (preg_match("/^alts add (.+)$/i", $message, $arr)) {
 } else if (preg_match('/^alts setmain (.+)$/i', $message, $arr)) {
 	// check if new main exists
 	$new_main = ucfirst(strtolower($arr[1]));
-	$uid = $this->get_uid($new_main);
+	$uid = $chatBot->get_uid($new_main);
 	if (!$uid) {
 		$msg = "Player <highlight>{$new_main}<end> does not exist.";
 		$chatBot->send($msg, $sendto);

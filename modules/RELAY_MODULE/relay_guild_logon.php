@@ -1,6 +1,6 @@
 <?php
 
-if ($this->settings["relaybot"] != "Off" && isset($this->guildmembers[$sender]) && time() >= $this->vars["logondelay"]) {
+if ($chatBot->settings["relaybot"] != "Off" && isset($chatBot->guildmembers[$sender]) && time() >= $chatBot->vars["logondelay"]) {
     $whois = Player::get_by_name($sender);
 	
 	$msg = '';
@@ -43,7 +43,7 @@ if ($this->settings["relaybot"] != "Off" && isset($this->guildmembers[$sender]) 
             $msg .= " - " . $row->logon_msg;
 		}
 
-		send_message_to_relay("grc <grey>[".$this->vars["my guild"]."] ".$msg);
+		send_message_to_relay("grc <grey>[".$chatBot->vars["my guild"]."] ".$msg);
     }
 }
 

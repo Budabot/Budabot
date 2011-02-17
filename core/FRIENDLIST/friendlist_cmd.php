@@ -15,14 +15,14 @@ if (preg_match("/^friendlist$/i", $message, $arg) || preg_match("/^friendlist (c
 		$cleanup = true;
 	}
 
-	$chatBot->send("One momment... (".count($this->buddyList)." names to check.)", $sendto);
+	$chatBot->send("One momment... (".count($chatBot->buddyList)." names to check.)", $sendto);
 
 	$orphanCount = 0;
-	if (count($this->buddyList) == 0) {
+	if (count($chatBot->buddyList) == 0) {
 		$chatBot->send("Didn't find any names in the friends list.", $sendto);
 	} else {
 		$blob = "Friends List\n\n";
-		forEach ($this->buddyList as $key => $value) {
+		forEach ($chatBot->buddyList as $key => $value) {
 			$removed = '';
 			if (count($value['types']) == 0) {
 				$orphanCount++;
@@ -48,14 +48,14 @@ if (preg_match("/^friendlist$/i", $message, $arg) || preg_match("/^friendlist (c
 } else if (preg_match("/^friendlist (.*)$/i", $message, $arg)) {
 	$search = $arg[1];
 	
-	$chatBot->send("One momment... (".count($this->buddyList)." names to check.)", $sendto);
+	$chatBot->send("One momment... (".count($chatBot->buddyList)." names to check.)", $sendto);
 
-	if (count($this->buddyList) == 0) {
+	if (count($chatBot->buddyList) == 0) {
 		$chatBot->send("Didn't find any names in the friends list.", $sendto);
 	} else {
 		$count = 0;
 		$blob = "Friends Search: '{$search}'\n\n";
-		forEach ($this->buddyList as $key => $value) {
+		forEach ($chatBot->buddyList as $key => $value) {
 			$removed = '';
 			if (preg_match("/$search/i", $value['name'])) {
 				$count++;

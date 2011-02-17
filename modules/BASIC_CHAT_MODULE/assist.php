@@ -42,7 +42,7 @@ if (preg_match("/^(assist|callers)$/i", $message)) {
 	if (count($nameArray) == 1) {
 		$name = ucfirst(strtolower($arr[1]));
 		$uid = $chatBot->get_uid($name);
-		if ($type == "priv" && !isset($this->chatlist[$name])) {
+		if ($type == "priv" && !isset($chatBot->chatlist[$name])) {
 			$msg = "Player <highlight>$name<end> isn't in this bot.";
 			$chatBot->send($msg, $sendto);
 		}
@@ -59,7 +59,7 @@ if (preg_match("/^(assist|callers)$/i", $message)) {
 		forEach ($nameArray as $key => $name) {
 			$name = ucfirst(strtolower($name));
 			$uid = $chatBot->get_uid($name);
-			if ($type == "priv" && !isset($this->chatlist[$name])) {
+			if ($type == "priv" && !isset($chatBot->chatlist[$name])) {
 				$msg = "Player <highlight>$name<end> isn't in this bot.";
 				$chatBot->send($msg, $sendto);
 			}

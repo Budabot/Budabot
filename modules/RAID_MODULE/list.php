@@ -34,7 +34,7 @@ global $raidloot;
 global $vote;
 
 if (preg_match("/^list$/i", $message)) {
-	if ($this->vars["raid_status"] == "") {
+	if ($chatBot->vars["raid_status"] == "") {
 	  	if (is_array($loot)) {
 		  	$list = "<header>::::: Loot List :::::<end>\n\nUse <symbol>flatroll or <symbol>rollloot to roll.\n\n";
 			forEach ($loot as $key => $item) {
@@ -80,7 +80,7 @@ if (preg_match("/^list$/i", $message)) {
 		} else {
 			$msg = "No List exists yet.";
 		}
-	} else if ($this->vars["raid_status"] != "" && $this->vars["raid_loot_pts"] == 0) {
+	} else if ($chatBot->vars["raid_status"] != "" && $chatBot->vars["raid_loot_pts"] == 0) {
 	  	if (is_array($raidloot)) {
 		  	$list = "<header>::::: Raidloot List :::::<end>\n\n";
 			forEach ($raidloot as $key => $item) {

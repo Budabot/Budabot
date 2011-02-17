@@ -9,9 +9,9 @@
    */
    
 global $bbin_socket;
-if("1" == $this->settings['bbin_status']) {
+if("1" == $chatBot->settings['bbin_status']) {
 	
-	$msg = "[BBIN:LOGOFF:".$sender.",".$this->vars["dimension"].",";
+	$msg = "[BBIN:LOGOFF:".$sender.",".$chatBot->vars["dimension"].",";
 	
 	if($type == "joinPriv") {
 		$msg .= "1]";
@@ -22,15 +22,15 @@ if("1" == $this->settings['bbin_status']) {
 	
 	if($type == "leavePriv") {
 		flush();
-		fputs($bbin_socket, "PRIVMSG ".$this->settings['bbin_channel']." :$msg\n");
-		if($this->settings['bbin_debug_messages'] == 1) {
+		fputs($bbin_socket, "PRIVMSG ".$chatBot->settings['bbin_channel']." :$msg\n");
+		if($chatBot->settings['bbin_debug_messages'] == 1) {
 			Logger::log('debug', "BBIN Outgoing", $msg);
 		}
 	}
-	elseif($type == "logOff" && isset($this->guildmembers[$sender])) {
+	elseif($type == "logOff" && isset($chatBot->guildmembers[$sender])) {
 		flush();
-		fputs($bbin_socket, "PRIVMSG ".$this->settings['bbin_channel']." :$msg\n");
-		if($this->settings['bbin_debug_messages'] == 1) {
+		fputs($bbin_socket, "PRIVMSG ".$chatBot->settings['bbin_channel']." :$msg\n");
+		if($chatBot->settings['bbin_debug_messages'] == 1) {
 			Logger::log('debug', "BBIN Outgoing", $msg);
 		}
 	}

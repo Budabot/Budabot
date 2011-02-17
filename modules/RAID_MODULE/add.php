@@ -35,13 +35,13 @@ global $raidloot;
 
 if (preg_match("/^add$/i", $message)) {
 	//Check if a flat(multiroll) or pts roll is going on
-	if ($this->vars["raid_pts"] > 0) {
+	if ($chatBot->vars["raid_pts"] > 0) {
 		$msg = "<red>This raid is pts rolled. Use instead bid.<end>";
 		$chatBot->send($msg, $sender);
 		return;
 	}
 	
-	if ($this->vars["raid_pts"] == 0 && $this->vars["raid_flat_multiroll"] == 1) {
+	if ($chatBot->vars["raid_pts"] == 0 && $chatBot->vars["raid_flat_multiroll"] == 1) {
 		$msg = "<red>You need to specify a slot where you want to add!<end>";
 		$chatBot->send($msg, $sender);
 		return;
@@ -53,8 +53,8 @@ if (preg_match("/^add$/i", $message)) {
 		return;		
 	}
 
-	$index = $this->vars["raid_loot_index"];
-	$cat = $this->vars["raid_loot_cat"];
+	$index = $chatBot->vars["raid_loot_index"];
+	$cat = $chatBot->vars["raid_loot_cat"];
 	
 	//Check if minlvl is set and if the player is higher then it
 	if (isset($raidloot[$cat][$index]["minlvl"])) {
@@ -84,7 +84,7 @@ if (preg_match("/^add$/i", $message)) {
 	$chatBot->send($msg);
 } else if (preg_match("/^add 0$/i", $message)) {
  	//Raid with flatrolls
-	if ($this->vars["raid_status"] != "" && $this->vars["raid_pts"] == 0) {
+	if ($chatBot->vars["raid_status"] != "" && $chatBot->vars["raid_pts"] == 0) {
 	  	forEach ($raidloot as $key => $value) {
 			forEach ($value as $key1 => $value1) {
 				if ($raidloot[$key][$key1]["users"][$sender] == true) {
@@ -111,10 +111,10 @@ if (preg_match("/^add$/i", $message)) {
   	$slot = $arr[1];
   	$found = false;
   	//Raid with flatrolls
-	if ($this->vars["raid_status"] != "" && $this->vars["raid_pts"] == 0) {
+	if ($chatBot->vars["raid_status"] != "" && $chatBot->vars["raid_pts"] == 0) {
   	  	$slot = $arr[1];
 		
-		if ($this->vars["raid_pts"] == 0 && $this->vars["raid_flat_multiroll"] == 0) {
+		if ($chatBot->vars["raid_pts"] == 0 && $chatBot->vars["raid_flat_multiroll"] == 0) {
 			$msg = "<red>Use add alone only!<end>";
 			$chatBot->send($msg, $sender);
 			return;

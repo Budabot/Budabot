@@ -83,49 +83,49 @@ class CVentriloClient
 
 			if ( strcasecmp( $field, "UID" ) == 0 )
 			{
-				$this->m_uid = $val;
+				$chatBot->m_uid = $val;
 				continue;
 			}
 
 			if ( strcasecmp( $field, "ADMIN" ) == 0 )
 			{
-				$this->m_admin = $val;
+				$chatBot->m_admin = $val;
 				continue;
 			}
 
 			if ( strcasecmp( $field, "CID" ) == 0 )
 			{
-				$this->m_cid = $val;
+				$chatBot->m_cid = $val;
 				continue;
 			}
 
 			if ( strcasecmp( $field, "PHAN" ) == 0 )
 			{
-				$this->m_phan = $val;
+				$chatBot->m_phan = $val;
 				continue;
 			}
 
 			if ( strcasecmp( $field, "PING" ) == 0 )
 			{
-				$this->m_ping = $val;
+				$chatBot->m_ping = $val;
 				continue;
 			}
 
 			if ( strcasecmp( $field, "SEC" ) == 0 )
 			{
-				$this->m_sec = $val;
+				$chatBot->m_sec = $val;
 				continue;
 			}
 
 			if ( strcasecmp( $field, "NAME" ) == 0 )
 			{
-				$this->m_name = StrDecode( $val );
+				$chatBot->m_name = StrDecode( $val );
 				continue;
 			}
 
 			if ( strcasecmp( $field, "COMM" ) == 0 )
 			{
-				$this->m_comm = StrDecode( $val );
+				$chatBot->m_comm = StrDecode( $val );
 				continue;
 			}
 		}
@@ -150,31 +150,31 @@ class CVentriloChannel
 
 			if ( strcasecmp( $field, "CID" ) == 0 )
 			{
-				$this->m_cid = $val;
+				$chatBot->m_cid = $val;
 				continue;
 			}
 
 			if ( strcasecmp( $field, "PID" ) == 0 )
 			{
-				$this->m_pid = $val;
+				$chatBot->m_pid = $val;
 				continue;
 			}
 
 			if ( strcasecmp( $field, "PROT" ) == 0 )
 			{
-				$this->m_prot = $val;
+				$chatBot->m_prot = $val;
 				continue;
 			}
 
 			if ( strcasecmp( $field, "NAME" ) == 0 )
 			{
-				$this->m_name = StrDecode( $val );
+				$chatBot->m_name = StrDecode( $val );
 				continue;
 			}
 
 			if ( strcasecmp( $field, "COMM" ) == 0 )
 			{
-				$this->m_comm = StrDecode( $val );
+				$chatBot->m_comm = StrDecode( $val );
 				continue;
 			}
 		}
@@ -232,70 +232,70 @@ class CVentriloStatus
 
 		if ( StrKey( $str, "ERROR:", $val ) )
 		{
-			$this->m_error = $val;
+			$chatBot->m_error = $val;
 			return -1;
 		}
 
 		if ( StrKey( $str, "NAME:", $val ) )
 		{
-			$this->m_name = StrDecode( $val );
+			$chatBot->m_name = StrDecode( $val );
 			return 0;
 		}
 
 		if ( StrKey( $str, "PHONETIC:", $val ) )
 		{
-			$this->m_phonetic = StrDecode( $val );
+			$chatBot->m_phonetic = StrDecode( $val );
 			return 0;
 		}
 
 		if ( StrKey( $str, "COMMENT:", $val ) )
 		{
-			$this->m_comment = StrDecode( $val );
+			$chatBot->m_comment = StrDecode( $val );
 			return 0;
 		}
 
-		if ( StrKey( $str, "AUTH:", $this->m_auth ) )
+		if ( StrKey( $str, "AUTH:", $chatBot->m_auth ) )
 			return 0;
 
-		if ( StrKey( $str, "MAXCLIENTS:", $this->m_maxclients ) )
+		if ( StrKey( $str, "MAXCLIENTS:", $chatBot->m_maxclients ) )
 			return 0;
 
 		if ( StrKey( $str, "VOICECODEC:", $val ) )
 		{
-			StrSplit( $val, ",", $this->m_voicecodec_code, $desc );
-			$this->m_voicecodec_desc = StrDecode( $desc );
+			StrSplit( $val, ",", $chatBot->m_voicecodec_code, $desc );
+			$chatBot->m_voicecodec_desc = StrDecode( $desc );
 			return 0;
 		}
 
 		if ( StrKey( $str, "VOICEFORMAT:", $val ) )
 		{
-			StrSplit( $val, ",", $this->m_voiceformat_code, $desc );
-			$this->m_voiceformat_desc = StrDecode( $desc );
+			StrSplit( $val, ",", $chatBot->m_voiceformat_code, $desc );
+			$chatBot->m_voiceformat_desc = StrDecode( $desc );
 			return 0;
 		}
 
 		if ( StrKey( $str, "UPTIME:", $val ) )
 		{
-			$this->m_uptime = $val;
+			$chatBot->m_uptime = $val;
 			return 0;
 		}
 
 		if ( StrKey( $str, "PLATFORM:", $val ) )
 		{
-			$this->m_platform = StrDecode( $val );
+			$chatBot->m_platform = StrDecode( $val );
 			return 0;
 		}
 
 		if ( StrKey( $str, "VERSION:", $val ) )
 		{
-			$this->m_version = StrDecode( $val );
+			$chatBot->m_version = StrDecode( $val );
 			return 0;
 		}
 
-		if ( StrKey( $str, "CHANNELCOUNT:", $this->m_channelcount ) )
+		if ( StrKey( $str, "CHANNELCOUNT:", $chatBot->m_channelcount ) )
 			return 0;
 
-		if ( StrKey( $str, "CHANNELFIELDS:", $this->m_channelfields ) )
+		if ( StrKey( $str, "CHANNELFIELDS:", $chatBot->m_channelfields ) )
 			return 0;
 
 		if ( StrKey( $str, "CHANNEL:", $val ) )
@@ -303,14 +303,14 @@ class CVentriloStatus
 			$chan = new CVentriloChannel;
 			$chan->Parse( $val );
 
-			$this->m_channellist[ count( $this->m_channellist ) ] = $chan;
+			$chatBot->m_channellist[ count( $chatBot->m_channellist ) ] = $chan;
 			return 0;
 		}
 
-		if ( StrKey( $str, "CLIENTCOUNT:", $this->m_clientcount ) )
+		if ( StrKey( $str, "CLIENTCOUNT:", $chatBot->m_clientcount ) )
 			return 0;
 
-		if ( StrKey( $str, "CLIENTFIELDS:", $this->m_clientfields ) )
+		if ( StrKey( $str, "CLIENTFIELDS:", $chatBot->m_clientfields ) )
 			return 0;
 
 		if ( StrKey( $str, "CLIENT:", $val ) )
@@ -318,7 +318,7 @@ class CVentriloStatus
 			$client = new CVentriloClient;
 			$client->Parse( $val );
 
-			$this->m_clientlist[ count( $this->m_clientlist ) ] = $client;
+			$chatBot->m_clientlist[ count( $chatBot->m_clientlist ) ] = $client;
 			return 0;
 		}
 
@@ -329,21 +329,21 @@ class CVentriloStatus
 
 	function ChannelFind( $cid )
 	{
-		for ( $i = 0; $i < count( $this->m_channellist ); $i++ )
-			if ( $this->m_channellist[ $i ]->m_cid == $cid )
-				return( $this->m_channellist[ $i ] );
+		for ( $i = 0; $i < count( $chatBot->m_channellist ); $i++ )
+			if ( $chatBot->m_channellist[ $i ]->m_cid == $cid )
+				return( $chatBot->m_channellist[ $i ] );
 
 		return NULL;
 	}
 
 	function ChannelPathName( $idx )
 	{
-		$chan = $this->m_channellist[ $idx ];
+		$chan = $chatBot->m_channellist[ $idx ];
 		$pathname = $chan->m_name;
 
 		for(;;)
 		{
-			$chan = $this->ChannelFind( $chan->m_pid );
+			$chan = $chatBot->ChannelFind( $chan->m_pid );
 			if ( $chan == NULL )
 				break;
 
@@ -355,25 +355,25 @@ class CVentriloStatus
 
 	function Request()
 	{
-		$cmdline = $this->m_cmdprog;
-		$cmdline .= " -c" . $this->m_cmdcode;
-		$cmdline .= " -t" . $this->m_cmdhost;
+		$cmdline = $chatBot->m_cmdprog;
+		$cmdline .= " -c" . $chatBot->m_cmdcode;
+		$cmdline .= " -t" . $chatBot->m_cmdhost;
 
-		if ( strlen( $this->m_cmdport ) )
+		if ( strlen( $chatBot->m_cmdport ) )
 		{
-			$cmdline .= ":" . $this->m_cmdport;
+			$cmdline .= ":" . $chatBot->m_cmdport;
 
 			// For password to work you MUST provide a port number.
 
-			if ( strlen( $this->m_cmdpass ) )
-				$cmdline .= ":" . $this->m_cmdpass;
+			if ( strlen( $chatBot->m_cmdpass ) )
+				$cmdline .= ":" . $chatBot->m_cmdpass;
 		}
 
 		// Execute the external command.
 		$pipe = popen( $cmdline, "r" );
 		if ( $pipe === false )
 		{
-			$this->m_error = "PHP Unable to spawn shell.";
+			$chatBot->m_error = "PHP Unable to spawn shell.";
 			return -10;
 		}
 
@@ -388,7 +388,7 @@ class CVentriloStatus
 			if ( strlen( $s ) == 0 )
 				continue;
 
-			$rc = $this->Parse( $s );
+			$rc = $chatBot->Parse( $s );
 			if ( $rc < 0 )
 			{
 				pclose( $pipe );
@@ -406,7 +406,7 @@ class CVentriloStatus
 			// the specified process but the shell did spawn. More likely to
 			// occur then the -10 above.
 
-			$this->m_error = "PHP Unable to start external status process.";
+			$chatBot->m_error = "PHP Unable to start external status process.";
 			return -11;
 		}
 

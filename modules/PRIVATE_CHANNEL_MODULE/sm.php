@@ -1,7 +1,7 @@
 <?php
 
 if (preg_match("/^sm$/i", $message)) {
-	if (count($this->chatlist) > 0) {
+	if (count($chatBot->chatlist) > 0) {
 		$db->query("SELECT p2.*, p1.name as name FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY `profession`, `level` DESC");
 		$numguest = $db->numrows();
 

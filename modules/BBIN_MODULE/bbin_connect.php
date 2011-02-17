@@ -14,7 +14,7 @@ require_once("bbin_func.php");
 
 stream_set_blocking($bbin_socket, 0);
 set_time_limit(0);
-$nick = $this->settings['bbin_nickname'];
+$nick = $chatBot->settings['bbin_nickname'];
  
 // Connection
 if(preg_match("/^startbbin$/i", $message)) {
@@ -22,13 +22,13 @@ if(preg_match("/^startbbin$/i", $message)) {
 }
 
 Logger::log('info', "BBIN", "Intialized BBIN connection. Please wait...");
-$bbin_socket = fsockopen($this->settings['bbin_server'], $this->settings['bbin_port']);
+$bbin_socket = fsockopen($chatBot->settings['bbin_server'], $chatBot->settings['bbin_port']);
 fputs($bbin_socket,"USER $nick $nick $nick $nick :$nick\n");
 fputs($bbin_socket,"NICK $nick\n");
 while($logincount < 10) {
 	$logincount++;
 	$data = fgets($bbin_socket, 128);
-	if($this->settings['bbin_debug_all'] == 1)
+	if($chatBot->settings['bbin_debug_all'] == 1)
 	{
 		Logger::log('debug', "BBIN", trim($data));
 	}
@@ -42,10 +42,10 @@ while($logincount < 10) {
 	flush();
 }
 sleep(1);
-fputs($bbin_socket,"JOIN ".$this->settings['bbin_channel']."\n");
+fputs($bbin_socket,"JOIN ".$chatBot->settings['bbin_channel']."\n");
 
 while($data = fgets($bbin_socket)) {
-	if($this->settings['bbin_debug_all'] == 1)
+	if($chatBot->settings['bbin_debug_all'] == 1)
 	{
 		Logger::log('debug', "BBIN", trim($data));
 	}
@@ -66,7 +66,7 @@ while($data = fgets($bbin_socket)) {
 }
 
 // send a synchronize request to network
-fputs($bbin_socket, "PRIVMSG ".$this->settings['bbin_channel']." :[BBIN:SYNCHRONIZE]\n");
+fputs($bbin_socket, "PRIVMSG ".$chatBot->settings['bbin_channel']." :[BBIN:SYNCHRONIZE]\n");
 
 // call the synchronize function ourselves, to send our online list to the network
 parse_incoming_bbin("[BBIN:SYNCHRONIZE]", $nick, $this);

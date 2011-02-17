@@ -1,12 +1,12 @@
 <?php
 
-if ($type == "msg" && isset($this->vars["broadcast_list"][$sender])) {
+if ($type == "msg" && isset($chatBot->vars["broadcast_list"][$sender])) {
 	$msg = "[$sender]: $message";
 
-	if ($this->settings['broadcast_to_guild']) {
+	if ($chatBot->settings['broadcast_to_guild']) {
 		$chatBot->send($msg, 'guild', true);
 	}
-	if ($this->settings['broadcast_to_privchan']) {
+	if ($chatBot->settings['broadcast_to_privchan']) {
 		$chatBot->send($msg, 'priv', true);
 	}
 

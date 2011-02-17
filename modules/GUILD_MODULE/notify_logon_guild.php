@@ -1,6 +1,6 @@
 <?php
 
-if (isset($this->guildmembers[$sender]) && time() >= $this->vars["logondelay"]) {
+if (isset($chatBot->guildmembers[$sender]) && time() >= $chatBot->vars["logondelay"]) {
 	$whois = Player::get_by_name($sender);
 
 	$msg = '';
@@ -47,7 +47,7 @@ if (isset($this->guildmembers[$sender]) && time() >= $this->vars["logondelay"]) 
 	$chatBot->send($msg, "guild", true);
 
 	//private channel part
-	if ($this->settings["guest_relay"] == 1) {
+	if ($chatBot->settings["guest_relay"] == 1) {
 		$chatBot->send($msg, "priv", true);
 	}
 }

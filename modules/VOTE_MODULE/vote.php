@@ -134,7 +134,7 @@ if (preg_match("/^vote$/i", $message)) {
 				$msg .= Text::make_link('Remove yourself from this vote', "/tell <myname> vote remove$delimiter$question", 'chatcmd') . "\n";
 			}
 			
-			if ($timeleft > 0 && $this->settings["vote_add_new_choices"] == 1 && $status == 0) {
+			if ($timeleft > 0 && $chatBot->settings["vote_add_new_choices"] == 1 && $status == 0) {
 				$msg .="\n<highlight>Don't like these choices?  Add your own:<end>\n<tab>/tell <myname> <symbol>vote $question$delimiter"."<highlight>your choice<end>\n"; 
 			}
 			
@@ -157,7 +157,7 @@ if (preg_match("/^vote$/i", $message)) {
 	////////////////////////////////////////////////////////////////////////////////////
 	} elseif (count($sect) == 2 && strtolower($sect[0]) == "remove") {   // Remove vote
 		
-		if (!isset($this->vars["Vote"][$sect[1]])) {
+		if (!isset($chatBot->vars["Vote"][$sect[1]])) {
 			$msg = "There is no such topic available.";
 		} else {
 			$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[1])."' AND `author` = '$sender' AND `duration` IS NULL");
@@ -171,7 +171,7 @@ if (preg_match("/^vote$/i", $message)) {
 	//////////////////////////////////////////////////////////////////////////////////
 	} elseif (count($sect) == 2 && strtolower($sect[0]) == "kill") {     // Kill vote
 		
-		if ($this->admins[$sender]["level"] >= 4) {
+		if ($chatBot->admins[$sender]["level"] >= 4) {
 			$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[1])."'");
 		} else {
 			$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[1])."' AND `author` = '$sender' AND `duration` IS NOT NULL");
@@ -179,7 +179,7 @@ if (preg_match("/^vote$/i", $message)) {
 		
 		if ($db->numrows() > 0) {
 			$db->exec("DELETE FROM $table WHERE `question` = '".str_replace("'", "''", $sect[1])."'");
-			unset($this->vars["Vote"][$sect[1]]);
+			unset($chatBot->vars["Vote"][$sect[1]]);
 			$msg = "'$sect[1]' has been removed.";
 		} else {
 			$msg = "Either this vote doesn't exist, or you didn't create it.";
@@ -201,7 +201,7 @@ if (preg_match("/^vote$/i", $message)) {
 			if ($timeleft > 60) {
 				$duration = (time()-$started)+61;
 				$db->exec("UPDATE $table SET `duration` = '$duration' WHERE `author` = '$sender' AND `duration` IS NOT NULL AND `question` = '".str_replace("'", "''", $sect[1])."'");
-				$this->vars["Vote"][$sect[1]]["duration"] = $duration;
+				$chatBot->vars["Vote"][$sect[1]]["duration"] = $duration;
 			} else {
 				$msg = "There is only $timeleft seconds left.";
 			}
@@ -209,13 +209,13 @@ if (preg_match("/^vote$/i", $message)) {
 	////////////////////////////////////////////////////////////////////////////////////
 	} elseif (count($sect) == 2) {		  			     // Adding vote
 
-		$requirement = $this->settings["vote_use_min"];
+		$requirement = $chatBot->settings["vote_use_min"];
 		if ($requirement >= 0) {
-			if (!$this->guildmembers[$sender]) {
+			if (!$chatBot->guildmembers[$sender]) {
 				$chatBot->send("Only org members can start a new vote.", $sender);
 				return;
-			}elseif ($requirement < $this->guildmembers[$sender]) {
-				$rankdiff = $this->guildmembers[$sender]-$requirement;
+			}elseif ($requirement < $chatBot->guildmembers[$sender]) {
+				$rankdiff = $chatBot->guildmembers[$sender]-$requirement;
 				$chatBot->send("You need $rankdiff promotion(s) in order to vote.", $sender);
 				return;
 			}
@@ -232,7 +232,7 @@ if (preg_match("/^vote$/i", $message)) {
 			$msg = "Couldn't find any votes with this topic.";
 		} else if ($timeleft <= 0) {
 			$msg = "No longer accepting votes for this topic.";
-		} else if (($this->settings["vote_add_new_choices"] == 0 || ($this->settings["vote_add_new_choices"] == 1 && $status == 1)) && strpos($delimiter.$answer.$delimiter, $delimiter.$sect[1].$delimiter) === false) {
+		} else if (($chatBot->settings["vote_add_new_choices"] == 0 || ($chatBot->settings["vote_add_new_choices"] == 1 && $status == 1)) && strpos($delimiter.$answer.$delimiter, $delimiter.$sect[1].$delimiter) === false) {
 			$msg = "Cannot accept this choice.  Please choose one from the menu.";
 		} else {
 			$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[0])."' AND `duration` IS NULL AND `author` = '$sender'");
@@ -252,13 +252,13 @@ if (preg_match("/^vote$/i", $message)) {
 		
 		$settime=trim($sect[0]); $question = trim($sect[1]); $answers = trim($sect[2]);
 		
-		$requirement = $this->settings["vote_create_min"];
+		$requirement = $chatBot->settings["vote_create_min"];
 		if ($requirement >= 0) {
-			if (!$this->guildmembers[$sender]) {
+			if (!$chatBot->guildmembers[$sender]) {
 				$chatBot->send("Only org members can start a new vote.", $sender);
 				return;
-			} else if ($requirement < $this->guildmembers[$sender]) {
-				$rankdiff = $this->guildmembers[$sender]-$requirement;
+			} else if ($requirement < $chatBot->guildmembers[$sender]) {
+				$rankdiff = $chatBot->guildmembers[$sender]-$requirement;
 				$chatBot->send("You need $rankdiff promotion(s) in order to start a new vote.", $sender);
 				return;
 			}
@@ -300,7 +300,7 @@ if (preg_match("/^vote$/i", $message)) {
 				if ($db->numrows() == 0) {
 
 					$db->exec("INSERT INTO $table (`question`, `author`, `started`, `duration`, `answer`, `status`) VALUES ( '".str_replace("'", "''", $question)."', '$sender', '".time()."', '$newtime', '".str_replace("'", "''", $answers)."', '$status')");
-					$this->vars["Vote"][$question] = array("author" => $sender,  "started" => time(), "duration" => $newtime, "answer" => $answers, "status" => "0", "lockout" => $status);
+					$chatBot->vars["Vote"][$question] = array("author" => $sender,  "started" => time(), "duration" => $newtime, "answer" => $answers, "status" => "0", "lockout" => $status);
 
 				} else {
 					$msg = "There's already a vote with this topic.";

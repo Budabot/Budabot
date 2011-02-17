@@ -22,13 +22,13 @@ if (preg_match("/^broadcast$/i", $message)) {
 } else if (preg_match("/^broadcast add (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 	
-	$charid = $this->get_uid($name);
+	$charid = $chatBot->get_uid($name);
 	if ($charid == false) {
 		$chatBot->send("'$name' is not a valid character name.", $sendto);
 		return;
 	}
 	
-	if (isset($this->vars["broadcast_list"][$name])) {
+	if (isset($chatBot->vars["broadcast_list"][$name])) {
 		$chatBot->send("'$name' is already on the broadcast bot list.", $sendto);
 		return;
 	}
@@ -46,7 +46,7 @@ if (preg_match("/^broadcast$/i", $message)) {
 } else if (preg_match("/^broadcast (rem|remove) (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[2]));
 
-	if (!isset($this->vars["broadcast_list"][$name])) {
+	if (!isset($chatBot->vars["broadcast_list"][$name])) {
 		$chatBot->send("'$name' is not on the broadcast bot list.", $sendto);
 		return;
 	}

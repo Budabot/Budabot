@@ -33,54 +33,54 @@ if (preg_match("/^limits$/i", $message)) {
 	$list .= "The bot offers limits that apply to the private channel(like faction or level limit) and responding to tells. Click behind a setting on Change this to set it to a new value.\n\n";
 	$list .= "<u>Responding to Tells</u>\n";
 	$list .= "Faction: <highlight>";
-	if($this->settings["tell_req_faction"] == "all")
+	if($chatBot->settings["tell_req_faction"] == "all")
 		$list .= "No Limit";
 	else
-		$list .= $this->settings["tell_req_faction"];
+		$list .= $chatBot->settings["tell_req_faction"];
 	$list .= "<end> (";
 	$list .= Text::make_link("Change this", "/tell <myname> limit tell faction", "chatcmd").")\n";
 	$list .= "Level: <highlight>";
-	if($this->settings["tell_req_lvl"] == 0)
+	if($chatBot->settings["tell_req_lvl"] == 0)
 		$list .= "No Limit";
 	else
-		$list .= $this->settings["tell_req_lvl"];
+		$list .= $chatBot->settings["tell_req_lvl"];
 	$list .= "<end> (";
 	$list .= Text::make_link("Change this", "/tell <myname> limit tell minlvl", "chatcmd").")\n";
 	$list .= "General: <highlight>";
-	if($this->settings["tell_req_open"] == "all")
+	if($chatBot->settings["tell_req_open"] == "all")
 		$list .= "No general Limit";
-	elseif($this->settings["tell_req_open"] == "org")
-		$list .= "Responding only to Players that are in the Organistion {$this->vars["my guild"]}";
+	elseif($chatBot->settings["tell_req_open"] == "org")
+		$list .= "Responding only to Players that are in the Organistion {$chatBot->vars["my guild"]}";
 	else
 		$list .= "Responding only to players that are Members of this Bot";
 	$list .= "<end> (";
 	$list .= Text::make_link("Change this", "/tell <myname> limit tell open", "chatcmd").")\n";
 
 	$list .= "\n<u>Privatgroup Invites</u>\n";
-	$list .= "Faction: <highlight>{$this->settings["priv_req_faction"]}<end> (";
+	$list .= "Faction: <highlight>{$chatBot->settings["priv_req_faction"]}<end> (";
 	$list .= Text::make_link("Change this", "/tell <myname> limit priv faction", "chatcmd").")\n";
 	$list .= "Level: <highlight>";
-	if($this->settings["priv_req_lvl"] == 0)
+	if($chatBot->settings["priv_req_lvl"] == 0)
 		$list .= "No Limit";
 	else
-		$list .= $this->settings["priv_req_lvl"];
+		$list .= $chatBot->settings["priv_req_lvl"];
 	$list .= "<end> (";
 	$list .= Text::make_link("Change this", "/tell <myname> limit priv minlvl", "chatcmd").")\n";
 	$list .= "General: <highlight>";
-	if($this->settings["priv_req_open"] == "all")
+	if($chatBot->settings["priv_req_open"] == "all")
 		$list .= "No general Limit";
-	elseif($this->settings["priv_req_open"] == "org")
-		$list .= "Accepting invites only from Members of the Organistion {$this->vars["my guild"]}";
+	elseif($chatBot->settings["priv_req_open"] == "org")
+		$list .= "Accepting invites only from Members of the Organistion {$chatBot->vars["my guild"]}";
 	else
 		$list .= "Accepting invites only from Members of this Bot";
 	$list .= "<end> (";
 	
 	$list .= Text::make_link("Change this", "/tell <myname> limit priv open", "chatcmd").")\n";
 	$list .= "Player Limit: <highlight>";
-	if($this->settings["priv_req_maxplayers"] == 0)
+	if($chatBot->settings["priv_req_maxplayers"] == 0)
 		$list .= "No Limit";
 	else
-		$list .= $this->settings["priv_req_maxplayers"];
+		$list .= $chatBot->settings["priv_req_maxplayers"];
 	$list .= "<end> (";
 	$list .= Text::make_link("Change this", "/tell <myname> limit priv maxplayers", "chatcmd").")\n";
 
@@ -90,15 +90,15 @@ if (preg_match("/^limits$/i", $message)) {
  	$list .= "<header>::::: Faction Limit :::::<end>\n\n";
  	$list .= "Current Setting: <highlight>";
  	if($arr[1] == "priv") {
- 	 	if($this->settings["priv_req_faction"] == "all")
+ 	 	if($chatBot->settings["priv_req_faction"] == "all")
 			$list .= "No Limit";
 		else
-			$list .= $this->settings["priv_req_faction"];
+			$list .= $chatBot->settings["priv_req_faction"];
  	} else {
- 	 	if($this->settings["tell_req_faction"] == "all")
+ 	 	if($chatBot->settings["tell_req_faction"] == "all")
 			$list .= "No Limit";
 		else
-			$list .= $this->settings["tell_req_faction"];
+			$list .= $chatBot->settings["tell_req_faction"];
 	}
 	$list .= "<end>\n\nChange it to:\n";
 	$list .= Text::make_link("No Faction Limit", "/tell <myname> limit {$arr[1]} faction all", "chatcmd")."\n\n";	
@@ -148,15 +148,15 @@ if (preg_match("/^limits$/i", $message)) {
  	$list .= "<header>::::: Level Limit :::::<end>\n\n";
  	$list .= "Current Setting: <highlight>";
  	if($arr[1] == "priv") {
-  	 	if($this->settings["priv_req_lvl"] == 0)
+  	 	if($chatBot->settings["priv_req_lvl"] == 0)
 			$list .= "No Limit";
 		else
-			$list .= $this->settings["priv_req_lvl"];
+			$list .= $chatBot->settings["priv_req_lvl"];
  	} else {
-  	 	if($this->settings["tell_req_lvl"] == 0)
+  	 	if($chatBot->settings["tell_req_lvl"] == 0)
 			$list .= "No Limit";
 		else
-			$list .= $this->settings["tell_req_lvl"];
+			$list .= $chatBot->settings["tell_req_lvl"];
 	}
 	$list .= "<end>\n\nChange it to:\n";
 	$list .= Text::make_link("No Level limit", "/tell <myname> limit {$arr[1]} minlvl 0", "chatcmd")."\n\n";	
@@ -194,17 +194,17 @@ if (preg_match("/^limits$/i", $message)) {
  	$list .= "<header>::::: General Limit :::::<end>\n\n";
  	$list .= "Current Setting: <highlight>";
  	if($arr[1] == "priv") {
- 	 	if($this->settings["priv_req_open"] == "all")
+ 	 	if($chatBot->settings["priv_req_open"] == "all")
 			$list .= "No general Limit";
-		elseif($this->settings["priv_req_open"] == "org")
-			$list .= "Responding only to Players that are in the Organistion {$this->vars["my guild"]}";
+		elseif($chatBot->settings["priv_req_open"] == "org")
+			$list .= "Responding only to Players that are in the Organistion {$chatBot->vars["my guild"]}";
 		else
 			$list .= "Responding only to players that are Members of this Bot";
  	} else {
-		if($this->settings["tell_req_open"] == "all")
+		if($chatBot->settings["tell_req_open"] == "all")
 			$list .= "No general Limit";
-		elseif($this->settings["tell_req_open"] == "org")
-			$list .= "Responding only to Players that are in the Organistion {$this->vars["my guild"]}";
+		elseif($chatBot->settings["tell_req_open"] == "org")
+			$list .= "Responding only to Players that are in the Organistion {$chatBot->vars["my guild"]}";
 		else
 			$list .= "Responding only to players that are Members of this Bot";
 	}
@@ -241,10 +241,10 @@ if (preg_match("/^limits$/i", $message)) {
 } else if (preg_match("/^limit priv maxplayers$/i", $message, $arr)) {
  	$list .= "<header>::::: Limit of Players in the Bot :::::<end>\n\n";
  	$list .= "Current Setting: <highlight>";
-	if($this->settings["priv_req_maxplayers"] == 0)
+	if($chatBot->settings["priv_req_maxplayers"] == 0)
 		$list .= "No Limit";
 	else
-		$list .= $this->settings["priv_req_maxplayers"];
+		$list .= $chatBot->settings["priv_req_maxplayers"];
 
 	$list .= "<end>\n\nChange it to:\n";
 	$list .= Text::make_link("No Limit of Players", "/tell <myname> limit priv maxplayers 0", "chatcmd")."\n\n";	

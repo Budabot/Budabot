@@ -43,29 +43,29 @@ if (preg_match("/^addmod (.+)$/i", $message, $arr)){
 	}
 
 
-	if ($this->admins[$who]["level"] == 3) {
+	if ($chatBot->admins[$who]["level"] == 3) {
 		$chatBot->send("<red>Sorry but $who is already a moderator.<end>", $sendto);
 		return;
 	}
 	
-	if ($this->vars["SuperAdmin"] != $sender && (int)$this->admins[$sender]["level"] <= (int)$this->admins[$who]["level"]){
+	if ($chatBot->vars["SuperAdmin"] != $sender && (int)$chatBot->admins[$sender]["level"] <= (int)$chatBot->admins[$who]["level"]){
 		$chatBot->send("<red>You must have a rank higher then $who.<end>", $sendto);
 		return;
 	}
 
-	if (isset($this->admins[$who]["level"]) && $this->admins[$who]["level"] >= 2) {
-		if($this->admins[$who]["level"] > 3) {
+	if (isset($chatBot->admins[$who]["level"]) && $chatBot->admins[$who]["level"] >= 2) {
+		if($chatBot->admins[$who]["level"] > 3) {
 			$chatBot->send("<highlight>$who<end> has been demoted to the rank of a Moderator.", $sendto);
-			$chatBot->send("You have been demoted to the rank of a Moderator on {$this->vars["name"]}", $who);
+			$chatBot->send("You have been demoted to the rank of a Moderator on {$chatBot->vars["name"]}", $who);
 		} else {
 			$chatBot->send("<highlight>$who<end> has been promoted to the rank of a Moderator.", $sendto);
-			$chatBot->send("You have been promoted to the rank of a Moderator on {$this->vars["name"]}", $who);
+			$chatBot->send("You have been promoted to the rank of a Moderator on {$chatBot->vars["name"]}", $who);
 		}
 		$db->exec("UPDATE admin_<myname> SET `adminlevel` = 3 WHERE `name` = '$who'");
-		$this->admins[$who]["level"] = 3;
+		$chatBot->admins[$who]["level"] = 3;
 	} else {
 		$db->exec("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (3, '$who')");
-		$this->admins[$who]["level"] = 3;
+		$chatBot->admins[$who]["level"] = 3;
 		$chatBot->send("<highlight>$who<end> has been added to the Moderatorgroup", $sendto);
 		$chatBot->send("You got moderator access to <myname>", $who);
 	}

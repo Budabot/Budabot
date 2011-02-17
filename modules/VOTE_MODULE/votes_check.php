@@ -10,7 +10,7 @@
    ** Date(last modified): 02.06.2007
    */
    
-if(count($this->vars["Vote"]) == 0) {return;}
+if(count($chatBot->vars["Vote"]) == 0) {return;}
 $delimiter = "|";
 
 // I hate seeing a function in a module/plugin. 
@@ -45,15 +45,15 @@ if (!function_exists(timeLeft)) {function timeLeft($origtime, $showbiggest=4) {
 
 $table = "vote_<myname>";
 
-forEach ($this->vars["Vote"] as $key => $value) {
+forEach ($chatBot->vars["Vote"] as $key => $value) {
    	
-	$author = $this->vars["Vote"][$key]["author"];
+	$author = $chatBot->vars["Vote"][$key]["author"];
 	$question = $key;
-	$started = $this->vars["Vote"][$key]["started"];
-	$duration = $this->vars["Vote"][$key]["duration"];
-	$answer = $this->vars["Vote"][$key]["answer"];
-	$status = $this->vars["Vote"][$key]["status"];
-	$lockout = $this->vars["Vote"][$key]["lockout"];
+	$started = $chatBot->vars["Vote"][$key]["started"];
+	$duration = $chatBot->vars["Vote"][$key]["duration"];
+	$answer = $chatBot->vars["Vote"][$key]["answer"];
+	$status = $chatBot->vars["Vote"][$key]["status"];
+	$lockout = $chatBot->vars["Vote"][$key]["lockout"];
 	// status = 0, just started, 1 = > 60 minutes left, 2 = 60 minutes left, 3 = 15 minutes left, 4 = 60 seconds, 9 = vote over
 	
 	$timeleft = ($started+$duration);
@@ -62,7 +62,7 @@ forEach ($this->vars["Vote"] as $key => $value) {
 	if ($timeleft <= 0) {
 		$title = "Finished: $question";
 		$db->exec("UPDATE $table SET `status` = '9' WHERE `duration` = '$duration' AND `question` = '".str_replace("'", "''", $question)."'");
-		unset($this->vars["Vote"][$key]);
+		unset($chatBot->vars["Vote"][$key]);
 	} else if ($status == 0) {
 		$title = "Vote: $question";
 		
@@ -70,17 +70,17 @@ forEach ($this->vars["Vote"] as $key => $value) {
 		else if ($timeleft > 900) {$mstatus = 2;}
 		else if ($timeleft > 60) {$mstatus = 3;}	
 		else {$mstatus = 4;}
-		$this->vars["Vote"][$key]["status"]=$mstatus;
+		$chatBot->vars["Vote"][$key]["status"]=$mstatus;
 		
 	} else if ($timeleft <= 60 && $timeleft > 0 && $status != 4) {
 		$title = "60 seconds left: $question";
-		$this->vars["Vote"][$key]["status"]=4;
+		$chatBot->vars["Vote"][$key]["status"]=4;
 	} else if ($timeleft <= 900 && $timeleft > 60 && $status != 3) {
 		$title = "15 minutes left: $question";
-		$this->vars["Vote"][$key]["status"]=3;
+		$chatBot->vars["Vote"][$key]["status"]=3;
 	} else if ($timeleft <= 3600 && $timeleft > 900 && $status != 2) {
 		$title = "60 minutes left: $question";
-		$this->vars["Vote"][$key]["status"]=2;
+		$chatBot->vars["Vote"][$key]["status"]=2;
 	} else {$title = "";}
 
 	if($title != "") { // Send current results to guest + org chat.
@@ -133,8 +133,8 @@ forEach ($this->vars["Vote"] as $key => $value) {
 		if ($timeleft > 0) {
 			$msg .= "\n<black>___%<end> <a href='chatcmd:///tell <myname> vote remove$delimiter$question'>Remove yourself from this vote</a>.\n";
 		}
-		if ($timeleft > 0 && $this->settings["vote_add_new_choices"] == 1 && $status == 0) {
-			$msg .="\n<highlight>Don't like these choices?  Add your own:<end>\n<tab>/tell ".$this->vars['name']." <symbol>vote $question$delimiter"."<highlight>your choice<end>\n"; 
+		if ($timeleft > 0 && $chatBot->settings["vote_add_new_choices"] == 1 && $status == 0) {
+			$msg .="\n<highlight>Don't like these choices?  Add your own:<end>\n<tab>/tell ".$chatBot->vars['name']." <symbol>vote $question$delimiter"."<highlight>your choice<end>\n"; 
 		}
 		
 		$msg .="\n<highlight>If you started this vote, you can:<end>\n";
@@ -145,8 +145,8 @@ forEach ($this->vars["Vote"] as $key => $value) {
 		
 		$msg = Text::make_link($title, $msg);
 		
-		if ($this->settings["vote_channel_spam"] == 0 || $this->settings["vote_channel_spam"] == 2) {$chatBot->send($msg, 'guild', true);}
-	   	if ($this->settings["vote_channel_spam"] == 1 || $this->settings["vote_channel_spam"] == 2) {$chatBot->send($msg, 'priv', true);}
+		if ($chatBot->settings["vote_channel_spam"] == 0 || $chatBot->settings["vote_channel_spam"] == 2) {$chatBot->send($msg, 'guild', true);}
+	   	if ($chatBot->settings["vote_channel_spam"] == 1 || $chatBot->settings["vote_channel_spam"] == 2) {$chatBot->send($msg, 'priv', true);}
 	}
 }
 ?>

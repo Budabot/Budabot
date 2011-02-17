@@ -37,7 +37,7 @@ if (preg_match("/^(.+) just left your organization.$/", $message, $arr)) {
 	$actor = $arr[1];
 	$actee = "";
 	$action = "left";
-	$organization = $this->vars['my guild'];
+	$organization = $chatBot->vars['my guild'];
 	$time = time();
 	
 	$sql = "INSERT INTO org_history ( actor, actee, action, organization, time ) VALUES ( '$actor', '$actee', '$action', '$organization', $time ) ";
@@ -46,7 +46,7 @@ if (preg_match("/^(.+) just left your organization.$/", $message, $arr)) {
 	$actor = $arr[1];
 	$actee = $arr[2];
 	$action = "kicked";
-	$organization = $this->vars['my guild'];
+	$organization = $chatBot->vars['my guild'];
 	$time = time();
 	
 	$sql = "INSERT INTO org_history ( actor, actee, action, organization, time ) VALUES ( '$actor', '$actee', '$action', '$organization', $time ) ";
@@ -55,7 +55,7 @@ if (preg_match("/^(.+) just left your organization.$/", $message, $arr)) {
 	$actor = $arr[1];
 	$actee = $arr[2];
 	$action = "invited";
-	$organization = $this->vars['my guild'];
+	$organization = $chatBot->vars['my guild'];
 	$time = time();
 	
 	$sql = "INSERT INTO org_history ( actor, actee, action, organization, time ) VALUES ( '$actor', '$actee', '$action', '$organization', $time ) ";
@@ -64,7 +64,7 @@ if (preg_match("/^(.+) just left your organization.$/", $message, $arr)) {
 	$actor = $arr[1];
 	$actee = $arr[2];
 	$action = "removed";
-	$organization = $this->vars['my guild'];
+	$organization = $chatBot->vars['my guild'];
 	$time = time();
 	
 	$sql = "INSERT INTO org_history ( actor, actee, action, organization, time ) VALUES ( '$actor', '$actee', '$action', '$organization', $time ) ";

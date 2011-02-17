@@ -30,7 +30,7 @@
    */
    
 if(preg_match("/^orgranks$/i", $message)) {
-	if($this->vars["my guild id"] == "") {
+	if($chatBot->vars["my guild id"] == "") {
 	  	$msg = "The Bot needs to be in a org to show the orgmembers.";
         $chatBot->send($msg, $sendto);
 	}
@@ -45,7 +45,7 @@ if(preg_match("/^orgranks$/i", $message)) {
 	$msg = "Processing orgmember list. This can take a few seconds.";
     $chatBot->send($msg, $sendto);
        	
-	$list = "<header>::::: Members of the org {$this->vars["my guild"]} (Sorted by orgrank) :::::<end>\n\n";
+	$list = "<header>::::: Members of the org {$chatBot->vars["my guild"]} (Sorted by orgrank) :::::<end>\n\n";
 	while ($row = $db->fObject()) {
         if ($row->logged_off != "0") {
 	        $logged_off = gmdate("l F d, Y - H:i", $row->logged_off)."(GMT)";
@@ -56,7 +56,7 @@ if(preg_match("/^orgranks$/i", $message)) {
 	  	$list .= "<tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end> $row->profession) (<highlight>$row->guild_rank<end>) <highlight>::<end> Last logoff: $logged_off\n";
 	}
 	
-	$msg = Text::make_link("{$this->vars["my guild"]} has $members members currently.", $list);
+	$msg = Text::make_link("{$chatBot->vars["my guild"]} has $members members currently.", $list);
     $chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;

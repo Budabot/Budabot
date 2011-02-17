@@ -51,7 +51,7 @@ else {
 		$num++;
 		$msg .= " [$num. <highlight>$player<end> $status]";
         $glist[] = $player;
-        if($num >= $this->settings["guard_max"])
+        if($num >= $chatBot->settings["guard_max"])
         	break;        
 	}
 

@@ -48,7 +48,7 @@ if (preg_match("/^items ([0-9]+) (.+)$/i", $message, $arr)) {
 // ao automatically converts '&' to '&amp;', so we convert it back
 $search = str_replace("&amp;", "&", $search);
 
-if ($this->settings["itemdb_location"] == 'Xyphos.com') {
+if ($chatBot->settings["itemdb_location"] == 'Xyphos.com') {
 	$msg = find_items_from_xyphos($search, $ql);
 } else {
 	// default to local

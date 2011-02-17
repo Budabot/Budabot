@@ -12,7 +12,7 @@ if (preg_match("/^reloadconfig$/i", $message)) {
 	unset($vars['dimension']);
 
 	forEach ($vars as $key => $value) {
-		$this->vars[$key] = $value;
+		$chatBot->vars[$key] = $value;
 		
 		// since the logger accesses the global $vars variable we must change the values there also
 		$GLOBALS['vars'][$key] = $value;

@@ -71,7 +71,7 @@ else {
 		$num++;
 		$msg .= " [$num. <highlight>$player<end> $status]";
         $blist[] = $player;
-        if($num >= $this->settings["bior_max"])
+        if($num >= $chatBot->settings["bior_max"])
         	break;
 	}
 

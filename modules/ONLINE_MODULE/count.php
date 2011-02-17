@@ -36,14 +36,14 @@ if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader
 	    $chatBot->send($msg, $sendto);
 	    return;
 	}
-    if ($type == "guild" || ($this->settings["count_tell"] == 0 && $type == "msg") || $type == "priv") {
+    if ($type == "guild" || ($chatBot->settings["count_tell"] == 0 && $type == "msg") || $type == "priv") {
 		$sql = "
 			SELECT * FROM guild_chatlist_<myname> g LEFT JOIN players p2 ON g.name = p2.name WHERE p2.`profession` = '$prof'
 			UNION ALL
 			SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE p2.`profession` = '$prof'
 			ORDER BY level";
 		$db->query($sql); 
-	} else if ($type == "priv" || ($this->settings["count_tell"] == 1 && $type == "msg")) {
+	} else if ($type == "priv" || ($chatBot->settings["count_tell"] == 1 && $type == "msg")) {
 		$sql = "SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE `profession` = '$prof' ORDER BY `level`";
 	  	$db->query($sql);
 	}
@@ -68,13 +68,13 @@ if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader
 	$tl5 = 0;
 	$tl6 = 0;
 	$tl7 = 0;
-	if ($type == "guild" || ($this->settings["count_tell"] == 0 && $type == "msg") || $type == "priv") {
+	if ($type == "guild" || ($chatBot->settings["count_tell"] == 0 && $type == "msg") || $type == "priv") {
 		$sql = "
 			SELECT * FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name
 			UNION ALL
 			SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY level";
 		$db->query($sql);
- 	} else if ($type == "priv"  || ($this->settings["count_tell"] == 1 && $type == "msg")) {
+ 	} else if ($type == "priv"  || ($chatBot->settings["count_tell"] == 1 && $type == "msg")) {
 	  	$db->query("SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name");
 	} 
 	$numonline = $db->numrows();
@@ -125,7 +125,7 @@ if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader
 		}
 	}
 
-	if ($type == "guild" || ($this->settings["count_tell"] == 0 && $type == "msg") || $type == "priv") {
+	if ($type == "guild" || ($chatBot->settings["count_tell"] == 0 && $type == "msg") || $type == "priv") {
 	    if ($prof == "all") {
 			$sql = "
 				SELECT * FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name
@@ -143,7 +143,7 @@ if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader
 			$numonline = $db->numrows();
 			$msg = "<highlight>$numonline<end> $prof:";
 		}
- 	} else if ($type == "priv" || ($this->settings["count_tell"] == 1 && $type == "msg")) {
+ 	} else if ($type == "priv" || ($chatBot->settings["count_tell"] == 1 && $type == "msg")) {
         if ($prof == "all") {
             $db->query("SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY `profession`");
             $numonline = $db->numrows();

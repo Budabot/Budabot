@@ -278,21 +278,21 @@ if (preg_match("/^config$/i", $message)) {
 			
 		switch ($type) {
 			case "all":
-				if ($this->tellCmds[$command])
-					$this->tellCmds[$command]["admin level"] = $admin;
-				if ($this->privCmds[$command])
-					$this->privCmds[$command]["admin level"] = $admin;
-				if ($this->guildCmds[$command])
-					$this->guildCmds[$command]["admin level"] = $admin;
+				if ($chatBot->tellCmds[$command])
+					$chatBot->tellCmds[$command]["admin level"] = $admin;
+				if ($chatBot->privCmds[$command])
+					$chatBot->privCmds[$command]["admin level"] = $admin;
+				if ($chatBot->guildCmds[$command])
+					$chatBot->guildCmds[$command]["admin level"] = $admin;
 				break;
 		  	case "msg":	
-				$this->tellCmds[$command]["admin level"] = $admin;
+				$chatBot->tellCmds[$command]["admin level"] = $admin;
 				break;
 		  	case "priv":
-				$this->privCmds[$command]["admin level"] = $admin;
+				$chatBot->privCmds[$command]["admin level"] = $admin;
 				break;
 		  	case "guild":
-				$this->guildCmds[$command]["admin level"] = $admin;
+				$chatBot->guildCmds[$command]["admin level"] = $admin;
 				break;
 		}
 		
@@ -312,7 +312,7 @@ if (preg_match("/^config$/i", $message)) {
 		  	return;
 		}
 		$row = $db->fObject();
-		$this->subcommands[$row->file][$row->type]["admin"] = $admin;		
+		$chatBot->subcommands[$row->file][$row->type]["admin"] = $admin;		
 		$db->exec("UPDATE cmdcfg_<myname> SET `admin` = '$admin' WHERE `type` = '$type' AND `cmdevent` = 'subcmd' AND `cmd` = '$command'");
 		$msg = "Updated access of sub command <highlight>$command<end> in Channel <highlight>$type<end> to <highlight>$admin<end>";
 	}
@@ -520,7 +520,7 @@ if (preg_match("/^config$/i", $message)) {
 	}
 	$row = $db->fObject();
 	$db->exec("UPDATE hlpcfg_<myname> SET `admin` = '$admin' WHERE `name` = '$help'");
-	$this->helpfiles[$row->name]["admin level"] = $admin;
+	$chatBot->helpfiles[$row->name]["admin level"] = $admin;
 	$chatBot->send("Updated access for helpfile <highlight>$help<end> to <highlight>".ucfirst(strtolower($arr[2]))."<end>.", $sendto);
 } else if (preg_match("/^config help (.+)$/i", $message, $arr)) {
   	$mod = strtoupper($arr[1]);

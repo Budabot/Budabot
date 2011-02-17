@@ -37,17 +37,17 @@ if (preg_match("/^kickmod (.+)$/i", $message, $arr)){
 		return;
 	}
 
-	if ($this->admins[$who]["level"] != 3) {
+	if ($chatBot->admins[$who]["level"] != 3) {
 		$chatBot->send("<red>Sorry $who is not a Moderator of this Bot.<end>", $sendto);
 		return;
 	}
 	
-	if ((int)$this->admins[$sender]["level"] <= (int)$this->admins[$who]["level"]){
+	if ((int)$chatBot->admins[$sender]["level"] <= (int)$chatBot->admins[$who]["level"]){
 		$chatBot->send("<red>You must have a rank higher then $who.", $sendto);
 		return;
 	}
 	
-	unset($this->admins[$who]);
+	unset($chatBot->admins[$who]);
 	$db->exec("DELETE FROM admin_<myname> WHERE `name` = '$who'");
 	
 	Buddylist::remove($who, 'admin');

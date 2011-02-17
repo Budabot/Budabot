@@ -1,6 +1,6 @@
 <?php
 
-if ($type == "extJoinPrivRequest" && $this->settings["relaytype"] == 2 && strtolower($sender) == strtolower($this->settings["relaybot"])) {
+if ($type == "extJoinPrivRequest" && $chatBot->settings["relaytype"] == 2 && strtolower($sender) == strtolower($chatBot->settings["relaybot"])) {
 	$chatBot->privategroup_join($sender);
 }
 

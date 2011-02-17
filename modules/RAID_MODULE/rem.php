@@ -33,7 +33,7 @@ global $loot;
 global $raidloot;
 
 if (preg_match("/^rem$/i", $message)) {
-	if ($this->vars["raid_status"] != "" && $this->vars["raid_pts"] == 0) {
+	if ($chatBot->vars["raid_status"] != "" && $chatBot->vars["raid_pts"] == 0) {
 	  	forEach ($raidloot as $key => $value) {
 			forEach ($value as $key1 => $value1) {
 				if ($raidloot[$key][$key1]["users"][$sender] == true) {

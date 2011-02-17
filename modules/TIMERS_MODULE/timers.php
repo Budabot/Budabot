@@ -37,7 +37,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 		$timer_name = trim($arr[2]);
 	}
 	
-	forEach ($this->vars["Timers"] as $timer) {
+	forEach ($chatBot->vars["Timers"] as $timer) {
 		if ($timer->name == $timer_name) {
 			$msg = "A Timer with the name <highlight>$timer_name<end> is already running.";
 			$chatBot->send($msg, $sendto);
@@ -63,7 +63,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 } else if (preg_match("/^timers? (rem|del) (.+)$/i", $message, $arr)) {
 	$timer_name = strtolower($arr[2]);
 	
-	forEach ($this->vars["Timers"] as $key => $timer) {
+	forEach ($chatBot->vars["Timers"] as $key => $timer) {
 		$name = $timer->name;
 		$owner = $timer->owner;
 
@@ -73,7 +73,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 					
 			  	$msg = "Removed timer <highlight>$name<end>.";
 			  	break;
-			} else if (($this->guildmembers[$sender] <= $this->settings['guild_admin_level']) || isset($this->admins[$sender])) {
+			} else if (($chatBot->guildmembers[$sender] <= $chatBot->settings['guild_admin_level']) || isset($chatBot->admins[$sender])) {
 				Timer::remove_timer($key, $name, $owner);
 
 			  	$msg = "Removed timer <highlight>$name<end>.";
@@ -102,7 +102,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	
 	$time_string = $arr[1];
 	
-	forEach ($this->vars["Timers"] as $timer) {
+	forEach ($chatBot->vars["Timers"] as $timer) {
 		if ($timer->name == $timer_name) {
 			$msg = "A Timer with the name <highlight>$timer_name<end> is already running.";
 			$chatBot->send($msg, $sendto);
@@ -163,15 +163,15 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 		
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^timers?$/i", $message, $arr)) {
-	$num_timers = count($this->vars["Timers"]);
+	$num_timers = count($chatBot->vars["Timers"]);
 	if ($num_timers == 0) {
 		$msg = "No Timers running atm.";
 	    $chatBot->send($msg, $sendto);
 	    return;
 	}
 
-  	if ($num_timers <= $this->settings["timers_window"]) {
-		forEach ($this->vars["Timers"] as $timer) {
+  	if ($num_timers <= $chatBot->settings["timers_window"]) {
+		forEach ($chatBot->vars["Timers"] as $timer) {
 			$time_left = Util::unixtime_to_readable($timer->timer - time());
 			$name = $timer->name;
 			$owner = $timer->owner;
@@ -189,7 +189,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 		  	$msg = "Timers currently running:".$msg;
 		}
 	} else {
-		forEach ($this->vars["Timers"] as $timer) {
+		forEach ($chatBot->vars["Timers"] as $timer) {
 			$time_left = Util::unixtime_to_readable($timer->timer - time());
 			$name = $timer->name;
 			$owner = $timer->owner;

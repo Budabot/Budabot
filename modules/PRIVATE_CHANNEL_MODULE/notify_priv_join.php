@@ -9,7 +9,7 @@ if ($type == "joinPriv") {
 		$msg = "$sender has joined the private channel";
 	}
 
-	if ($this->settings["guest_relay"] == 1) {
+	if ($chatBot->settings["guest_relay"] == 1) {
 		$chatBot->send($msg, "guild", true);
 	}
 	$chatBot->send($msg, "priv", true);

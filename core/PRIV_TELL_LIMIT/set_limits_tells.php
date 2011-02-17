@@ -31,10 +31,10 @@
    */
 
 if(preg_match("/^tminlvl$/i", $message)) {
- 	if($this->settings["tell_req_lvl"] == 0)
+ 	if($chatBot->settings["tell_req_lvl"] == 0)
  		$msg = "No Level Limit has been set for responding on tells.";
  	else
- 		$msg = "Level Limit for responding on tells is set to Lvl {$this->settings["tell_req_lvl"]}";
+ 		$msg = "Level Limit for responding on tells is set to Lvl {$chatBot->settings["tell_req_lvl"]}";
 
     $chatBot->send($msg, $sendto);
 } elseif(preg_match("/^tminlvl ([0-9]+)$/i", $message, $arr)) {
@@ -56,9 +56,9 @@ if(preg_match("/^tminlvl$/i", $message)) {
  	
     $chatBot->send($msg, $sendto);     	
 } elseif(preg_match("/^topen$/i", $message)) {
- 	if($this->settings["tell_req_open"] == "all")
+ 	if($chatBot->settings["tell_req_open"] == "all")
  		$msg = "No General Limit is set for responding on tells.";
- 	elseif($this->settings["tell_req_open"] == "org")
+ 	elseif($chatBot->settings["tell_req_open"] == "org")
  		$msg = "General Limit for responding on tells is set to Organisation members only.";
 	else
 		$msg = "General Limit for responding on tells is set to Bot members only.";
@@ -79,10 +79,10 @@ if(preg_match("/^tminlvl$/i", $message)) {
  	
     $chatBot->send($msg, $sendto);
 } elseif(preg_match("/^tfaction$/i", $message)) {
- 	if($this->settings["tell_req_faction"] == "all")
+ 	if($chatBot->settings["tell_req_faction"] == "all")
  		$msg = "No Faction Limit is set for responding on tells.";
 	else
-		$msg = "Faction Limit for responding on tells is set to {$this->settings["tell_req_faction"]}.";
+		$msg = "Faction Limit for responding on tells is set to {$chatBot->settings["tell_req_faction"]}.";
 		
     $chatBot->send($msg, $sendto);	
 } elseif(preg_match("/^tfaction (omni|clan|neutral|all)$/i", $message, $arr)) {

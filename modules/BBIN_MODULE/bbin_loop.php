@@ -13,9 +13,9 @@ $db = DB::get_instance();
 require_once("bbin_func.php");
 
 stream_set_blocking($bbin_socket, 0);
-if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
+if(($data = fgets($bbin_socket)) && ("1" == $chatBot->settings['bbin_status'])) {
 	$ex = explode(' ', $data);
-	if($this->settings['bbin_debug_all'] == 1)
+	if($chatBot->settings['bbin_debug_all'] == 1)
 	{
 		Logger::log('debug', "BBIN", trim($data));
 	}
@@ -29,7 +29,7 @@ if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
 	if($ex[0] == "PING")
 	{
 		fputs($bbin_socket, "PONG ".$ex[1]."\n");
-		if($this->settings['bbin_debug_ping'] == 1)
+		if($chatBot->settings['bbin_debug_ping'] == 1)
 		{
 			Logger::log('debug', "BBIN", "PING received. PONG sent.");
 		}
@@ -45,11 +45,11 @@ if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
 
 			// send notification to channel
 			$extendedinfo = Text::make_link("Extended informations",$data);
-			if($this->vars['my guild'] != "")
+			if($chatBot->vars['my guild'] != "")
 			{
 				$chatBot->send("<yellow>[BBIN]<end> Lost connection with server:".$extendedinfo,"guild",true);
 			}
-			if($this->vars['my guild'] == "" ||$this->settings["guest_relay"] == 1)
+			if($chatBot->vars['my guild'] == "" ||$chatBot->settings["guest_relay"] == 1)
 			{
 				$chatBot->send("<yellow>[BBIN]<end> Lost connection with server:".$extendedinfo,"priv",true);
 			}
@@ -58,15 +58,15 @@ if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
 	elseif ("KICK" == $ex[1])
 	{
 		$extendedinfo = Text::make_link("Extended informations",$data);
-		if ($ex[3] == $this->settings['bbin_nickname'])
+		if ($ex[3] == $chatBot->settings['bbin_nickname'])
 		{
 			// oh noez, I was kicked !
 			Setting::save("bbin_status", "0");
-			if($this->vars['my guild'] != "")
+			if($chatBot->vars['my guild'] != "")
 			{
 				$chatBot->send("<yellow>[BBIN]<end> Our uplink was kicked from the server:".$extendedinfo,"guild",true);
 			}
-			if($this->vars['my guild'] == "" ||$this->settings["guest_relay"] == 1)
+			if($chatBot->vars['my guild'] == "" ||$chatBot->settings["guest_relay"] == 1)
 			{
 				$chatBot->send("<yellow>[BBIN]<end> Our uplink was kicked from the server:".$extendedinfo,"priv",true);
 			}
@@ -75,11 +75,11 @@ if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
 		{
 			// yay someone else was kicked
 			$db->exec("DELETE FROM bbin_chatlist_<myname> WHERE `ircrelay` = '$ex[3]'");
-			if($this->vars['my guild'] != "")
+			if($chatBot->vars['my guild'] != "")
 			{
 				$chatBot->send("<yellow>[BBIN]<end> The uplink ".$ex[3]." was kicked from the server:".$extendedinfo,"guild",true);
 			}
-			if($this->vars['my guild'] == "" ||$this->settings["guest_relay"] == 1)
+			if($chatBot->vars['my guild'] == "" ||$chatBot->settings["guest_relay"] == 1)
 			{
 				$chatBot->send("<yellow>[BBIN]<end> The uplink ".$ex[3]." was kicked from the server:".$extendedinfo,"priv",true);
 			}
@@ -88,27 +88,27 @@ if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
 	elseif(($ex[1] == "QUIT") || ($ex[1] == "PART"))
 	{
 		$db->exec("DELETE FROM bbin_chatlist_<myname> WHERE `ircrelay` = '$nick'");
-		if($this->vars['my guild'] != "")
+		if($chatBot->vars['my guild'] != "")
 		{
 			$chatBot->send("<yellow>[BBIN]<end> Lost uplink with $nick","guild",true);
 		}
-		if($this->vars['my guild'] == "" ||$this->settings["guest_relay"] == 1)
+		if($chatBot->vars['my guild'] == "" ||$chatBot->settings["guest_relay"] == 1)
 		{
 			$chatBot->send("<yellow>[BBIN]<end> Lost uplink with $nick","priv",true);
 		}
 	}
 	elseif($ex[1] == "JOIN")
 	{
-		if($this->vars['my guild'] != "")
+		if($chatBot->vars['my guild'] != "")
 		{
 			$chatBot->send("<yellow>[BBIN]<end> Uplink established with $nick.","guild",true);
 		}
-		if($this->vars['my guild'] == "" || $this->settings["guest_relay"] == 1)
+		if($chatBot->vars['my guild'] == "" || $chatBot->settings["guest_relay"] == 1)
 		{
 			$chatBot->send("<yellow>[BBIN]<end> Uplink established with $nick.","priv",true);
 		}
 	}
-	elseif($channel == trim(strtolower($this->settings['bbin_channel'])))
+	elseif($channel == trim(strtolower($chatBot->settings['bbin_channel'])))
 	{
 		// tweak the third message a bit to remove beginning ":"
 		$ex[3] = substr($ex[3],1,strlen($ex[3]));
@@ -116,7 +116,7 @@ if(($data = fgets($bbin_socket)) && ("1" == $this->settings['bbin_status'])) {
 		{
 			$bbinmessage .= rtrim(htmlspecialchars_decode($ex[$i]))." ";
 		}
-		if($this->settings['bbin_debug_messages'] == 1)
+		if($chatBot->settings['bbin_debug_messages'] == 1)
 		{
 			Logger::log_chat("Inc. IRC Msg.", $nick, $bbinmessage);
 		}

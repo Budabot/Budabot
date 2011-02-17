@@ -10,7 +10,7 @@
    ** Date(last modified): 14.06.2007
    */
    
-   $top = $this->settings["quote_stat_count"];
+   $top = $chatBot->settings["quote_stat_count"];
 
    $db->query("SELECT * FROM quote");
    $count = $db->numrows();
@@ -36,7 +36,7 @@
    foreach ($quoters as $key => $val) {
 	   $listnum++;
 	   $msg .= "<tab>$listnum) ".
-	   "<a href='chatcmd:///tell ".$this->vars["name"]." quote search $key>$key</a>".
+	   "<a href='chatcmd:///tell ".$chatBot->vars["name"]." quote search $key>$key</a>".
 	   ": <highlight>$val<end> ".number_format((100*($val/$count)),0)."%\n";
 	   if ($listnum >= $top)
 	   	break;
@@ -47,7 +47,7 @@
    foreach ($victims as $key => $val) {
 	   $listnum++;
 	   $msg .= "<tab>$listnum) ".
-	   "<a href='chatcmd:///tell ".$this->vars["name"]." quote search $key>$key</a>".
+	   "<a href='chatcmd:///tell ".$chatBot->vars["name"]." quote search $key>$key</a>".
 	   ": <highlight>$val<end> ".number_format((100*($val/$count)),0)."%\n";
 	   if ($listnum >= $top)
 	   	break;
@@ -55,5 +55,5 @@
    
    $msg = Text::make_link("Quote stats from (".date("F j, Y, g:i a").")", $msg);
    
-   $this->vars["quotestats"]= $msg;
+   $chatBot->vars["quotestats"]= $msg;
 ?>

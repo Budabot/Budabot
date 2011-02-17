@@ -29,8 +29,8 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (is_numeric($this->admins[$sender]["level"])) {
-	$this->admins[$sender]["online"] = "online";
+if (is_numeric($chatBot->admins[$sender]["level"])) {
+	$chatBot->admins[$sender]["online"] = "online";
 }
 
 ?>

@@ -212,20 +212,20 @@ if (preg_match("/^settings$/i", $message)) {
 	}
 	if ($new_setting != "") {
 		$db->exec("UPDATE settings_<myname> SET `setting` = '".str_replace("'", "''", $new_setting)."' WHERE `name` = '$name_setting'");	  	
-		$this->settings[$name_setting] = $new_setting;
+		$chatBot->settings[$name_setting] = $new_setting;
 		$msg = "Setting successfull saved.";
 		//If the source is the config file renew it
 		if ($row->source == "cfg") {
 			$lines = file("config.php");
 			forEach ($lines as $key => $line) {
 			  	if (preg_match("/^(.+)vars\[('|\")(.+)('|\")](.*)=(.*)\"(.*)\";(.*)$/i", $line, $arr) && ($arr[3] == $name_setting)) {
-  					$lines[$key] = "$arr[1]vars['$arr[3]']$arr[5]=$arr[6]\"{$this->vars[$arr[3]]}\"; $arr[8]";
+  					$lines[$key] = "$arr[1]vars['$arr[3]']$arr[5]=$arr[6]\"{$chatBot->vars[$arr[3]]}\"; $arr[8]";
 				} else if (preg_match("/^(.+)vars\[('|\")(.+)('|\")](.*)=(.*)([0-9]+)(.*);(.*)$/i", $line, $arr) && ($arr[3] == $name_setting)) {
-  					$lines[$key] = "$arr[1]vars['$arr[3]']$arr[5]=$arr[6]{$this->vars[$arr[3]]}; $arr[9]";
+  					$lines[$key] = "$arr[1]vars['$arr[3]']$arr[5]=$arr[6]{$chatBot->vars[$arr[3]]}; $arr[9]";
 			  	} else if (preg_match("/^(.+)settings\[('|\")(.+)('|\")](.*)=(.*)\"(.*)\";(.*)$/i", $line, $arr)  && ($arr[3] == $name_setting)) {
-					$lines[$key] = "$arr[1]settings['$arr[3]']$arr[5]=$arr[6]\"{$this->settings[$arr[3]]}\"; $arr[8]";
+					$lines[$key] = "$arr[1]settings['$arr[3]']$arr[5]=$arr[6]\"{$chatBot->settings[$arr[3]]}\"; $arr[8]";
 				} else if (preg_match("/^(.+)settings\[('|\")(.+)('|\")](.*)=([ 	]+)([0-9]+);(.*)$/i", $line, $arr)  && ($arr[3] == $name_setting)) {
-					$lines[$key] = "$arr[1]settings['$arr[3]']$arr[5]=$arr[6]{$this->settings[$arr[3]]}; $arr[8]";
+					$lines[$key] = "$arr[1]settings['$arr[3]']$arr[5]=$arr[6]{$chatBot->settings[$arr[3]]}; $arr[8]";
 				}
 			}
 			file_put_contents("config.php", $lines);

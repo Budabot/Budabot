@@ -43,7 +43,7 @@
 
 require_once 'MMDBParser.class.php';
 require_once 'AOChatQueue.class.php';
-require_once 'AOExtMsg.class.php';
+require_once 'AOChatExtMsg.class.php';
 require_once 'AOChatPacket.class.php';
 
 if ((float)phpversion() < 5.0) {

@@ -62,7 +62,7 @@ if (preg_match("/^track$/i", $message)) {
 
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^track (.+)$/i", $message, $arr)) {
-	$uid = $this->get_uid($arr[1]);
+	$uid = $chatBot->get_uid($arr[1]);
 	$name = ucfirst(strtolower($arr[1]));
 	
 	$db->query("SELECT `event`, `dt` FROM tracking_<myname> WHERE `uid` = $uid ORDER BY `dt` DESC");

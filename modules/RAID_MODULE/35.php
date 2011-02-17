@@ -56,7 +56,7 @@ if (preg_match("/^35$/i", $message)) {
 	$chatBot->send($msg);
 
 	// Displaying new list
-	if ($this->vars["raid_status"] == "") {
+	if ($chatBot->vars["raid_status"] == "") {
 	  	if (is_array($loot)) {
 		  	$list = "<header>::::: Sector35 Loot List :::::<end>\n\nUse <symbol>flatroll or <symbol>rollloot to roll.\n\n";
 			forEach ($loot as $key => $item) {

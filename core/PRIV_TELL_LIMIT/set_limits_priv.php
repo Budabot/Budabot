@@ -29,10 +29,10 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 if (preg_match("/^minlvl$/i", $message)) {
- 	if($this->settings["priv_req_lvl"] == 0)
+ 	if($chatBot->settings["priv_req_lvl"] == 0)
  		$msg = "No Level Limit has been set for private channel Invites.";
  	else
- 		$msg = "Level Limit for responding on tells has been set to Lvl {$this->settings["tell_req_lvl"]}";
+ 		$msg = "Level Limit for responding on tells has been set to Lvl {$chatBot->settings["tell_req_lvl"]}";
 
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^minlvl ([0-9]+)$/i", $message, $arr)) {
@@ -53,9 +53,9 @@ if (preg_match("/^minlvl$/i", $message)) {
 
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^openchannel$/i", $message)) {
- 	if($this->settings["oriv_req_open"] == "all")
+ 	if($chatBot->settings["oriv_req_open"] == "all")
  		$msg = "No General Limit is set for private channel Invites.";
- 	elseif($this->settings["priv_req_open"] == "org")
+ 	elseif($chatBot->settings["priv_req_open"] == "org")
  		$msg = "General Limit for private channel Invites is set to Organisation members only.";
 	else
 		$msg = "General Limit for private channel Invites is set to Bot members only.";
@@ -75,10 +75,10 @@ if (preg_match("/^minlvl$/i", $message)) {
 
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^faction/i", $message)) {
- 	if($this->settings["pirv_req_faction"] == "all")
+ 	if($chatBot->settings["pirv_req_faction"] == "all")
  		$msg = "No Faction Limit is set for private channel Invites.";
 	else
-		$msg = "Faction Limit for private channel Invits is set to {$this->settings["priv_req_faction"]}.";
+		$msg = "Faction Limit for private channel Invits is set to {$chatBot->settings["priv_req_faction"]}.";
 		
     $chatBot->send($msg, $sendto); 	
 } else if (preg_match("/^faction (omni|clan|neutral|all)$/i", $message, $arr)) {
@@ -99,10 +99,10 @@ if (preg_match("/^minlvl$/i", $message)) {
 
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^maxplayers$/i", $message)) {
- 	if($this->settings["priv_req_faction"] == "all")
+ 	if($chatBot->settings["priv_req_faction"] == "all")
  		$msg = "No Faction Limit is set for private channel Invites.";
 	else
-		$msg = "Faction Limit for private channel Invits is set to {$this->settings["priv_req_maxplayers"]}.";
+		$msg = "Faction Limit for private channel Invits is set to {$chatBot->settings["priv_req_maxplayers"]}.";
 	
     $chatBot->send($msg, $sendto); 	 
 } else if (preg_match("/^maxplayer ([0-9]+)$/i", $message, $arr)) {

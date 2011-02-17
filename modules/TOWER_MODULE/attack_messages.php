@@ -112,7 +112,7 @@ $targetorg = "<".strtolower($def_side).">".$def_guild."<end>";
 $msg .= "<font color=#FF67FF>[";
 
 // tower_attack_spam >= 2 (normal) includes attacker stats
-if ($this->settings["tower_attack_spam"] >= 2) {
+if ($chatBot->settings["tower_attack_spam"] >= 2) {
 
 	if ($whois->profession == "") {
 		$msg .= "<".strtolower($whois->faction).">$att_player<end> (Unknown";
@@ -146,7 +146,7 @@ if ($this->settings["tower_attack_spam"] >= 2) {
 $msg .= " attacked ".$targetorg."] ";
 
 // tower_attack_spam >= 3 (full) includes location.
-if ($this->settings["tower_attack_spam"] >= 3) {
+if ($chatBot->settings["tower_attack_spam"] >= 3) {
 	if ($closest_site) {
 		$site_number = "<font color=#AAAAAA>#".$closest_site->site_number."<end>";
 	}
@@ -155,9 +155,9 @@ if ($this->settings["tower_attack_spam"] >= 3) {
 
 $msg .= "$more<end>";
 
-$d = $this->settings["tower_faction_def"];
-$a = $this->settings["tower_faction_atk"];
-$s = $this->settings["tower_attack_spam"];
+$d = $chatBot->settings["tower_faction_def"];
+$a = $chatBot->settings["tower_faction_atk"];
+$s = $chatBot->settings["tower_attack_spam"];
 
 if (($s > 0 && (
 	(strtolower($def_side) == "clan"    && ($d & 1)) ||

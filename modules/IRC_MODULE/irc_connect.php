@@ -11,29 +11,29 @@ global $socket;
 stream_set_blocking($socket, 0);
 set_time_limit(0);
 	//settings
-	if($this->settings['irc_server'] == "") {
+	if($chatBot->settings['irc_server'] == "") {
 		$chatBot->send("The IRC <highlight>server address<end> seems to be missing. Please <highlight>/tell <myname> <symbol>help irc<end> for details on setting this");
 		return;
 	}
-	if($this->settings['irc_port'] == "") {
+	if($chatBot->settings['irc_port'] == "") {
 		$chatBot->send("The IRC <highlight>server port<end> seems to be missing. Please <highlight>/tell <myname> <symbol>help irc<end> for details on setting this");
 		return;
 	}
 	
-	$nick = $this->settings['irc_nickname'];
+	$nick = $chatBot->settings['irc_nickname'];
 	 
 	// Connection
 	if(preg_match("/^startirc$/i", $message)) {
 		$chatBot->send("Intialized IRC connection. Please wait...",$sender);
 	}
 	Logger::log('info', "IRC", "Intialized IRC connection. Please wait...");
-	$socket = fsockopen($this->settings['irc_server'], $this->settings['irc_port']);
+	$socket = fsockopen($chatBot->settings['irc_server'], $chatBot->settings['irc_port']);
 	fputs($socket,"USER $nick $nick $nick $nick :$nick\n");
 	fputs($socket,"NICK $nick\n");
 	while($logincount < 10) {
 		$logincount++;
 		$data = fgets($socket, 128);
-		if($this->settings['irc_debug_all'] == 1)
+		if($chatBot->settings['irc_debug_all'] == 1)
 		{
 			Logger::log('info', "IRC", trim($data));
 		}
@@ -47,10 +47,10 @@ set_time_limit(0);
 		flush();
 	}
 	sleep(1);
-	fputs($socket,"JOIN ".$this->settings['irc_channel']."\n");
+	fputs($socket,"JOIN ".$chatBot->settings['irc_channel']."\n");
 	
 	while($data = fgets($socket)) {
-		if($this->settings['irc_debug_all'] == 1)
+		if($chatBot->settings['irc_debug_all'] == 1)
 		{
 			Logger::log('info', "IRC", trim($data));
 		}

@@ -13,18 +13,18 @@
 // Adding a quote
 if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 	
-	if (!isset($this->admins[$sender])) {
-		$requirement = $this->settings["quote_add_min"];
+	if (!isset($chatBot->admins[$sender])) {
+		$requirement = $chatBot->settings["quote_add_min"];
 		if ($requirement >= 0) {
-			if (!$this->guildmembers[$sender]) {
+			if (!$chatBot->guildmembers[$sender]) {
 				$chatBot->send("Only org members can add a new quote.", $sendto);
 				return;
-			} else if ($requirement < $this->guildmembers[$sender]) {
-				$rankdiff = $this->guildmembers[$sender]-$requirement;
+			} else if ($requirement < $chatBot->guildmembers[$sender]) {
+				$rankdiff = $chatBot->guildmembers[$sender]-$requirement;
 				$chatBot->send("You need $rankdiff promotion(s) in order to add a quote.", $sendto);
 				return;
 			}
-		} else if (($requirement == -1 && !isset($this->chatlist[$sender])) && !$this->guildmembers[$sender]) {
+		} else if (($requirement == -1 && !isset($chatBot->chatlist[$sender])) && !$chatBot->guildmembers[$sender]) {
 			$chatBot->send("You need to at least be in the private chat in order to add a quote.", $sendto);
 			return;
 		}
@@ -102,7 +102,7 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 		$quoteMSG = $row->What;
 
 		//only author or superadmin can delete.
-		if (($quoteWHO == $sender) || ($this->admins[$sender]["level"] >= 4)) {
+		if (($quoteWHO == $sender) || ($chatBot->admins[$sender]["level"] >= 4)) {
 			$db->exec("DELETE FROM quote WHERE `IDNumber` = $quoteID");
 			$msg = "This quote has been deleted.";
 		} else {
@@ -166,11 +166,11 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 } else if (preg_match("/^quote stats$/i", $message, $arr)) {
 	// might need to run it ourselves the first time. 
 	// cron will keep updating it later.
-	$msg = $this->vars["quotestats"];
+	$msg = $chatBot->vars["quotestats"];
 	if ($msg == "") {
 		include "quotestats.php";
 	}
-	$msg = $this->vars["quotestats"];
+	$msg = $chatBot->vars["quotestats"];
 	
 	
 	
@@ -201,7 +201,7 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 		$db->query("SELECT * FROM quote WHERE `Who` = '$quoteWHO'");
 		$list = "";
 		while ($row = $db->fObject()) {
-			$list .= "<a href='chatcmd:///tell ".$this->vars["name"]." quote $row->IDNumber>$row->IDNumber</a>, ";
+			$list .= "<a href='chatcmd:///tell ".$chatBot->vars["name"]." quote $row->IDNumber>$row->IDNumber</a>, ";
 		}
 		$msg .= substr($list,0,strlen($list)-2)."\n\n";
 		
@@ -209,7 +209,7 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 		$db->query("SELECT * FROM quote WHERE `OfWho` = '".str_replace("'", "''", $quoteOfWHO)."'");
 		$list = "";
 		while ($row = $db->fObject()) {
-			$list .= "<a href='chatcmd:///tell ".$this->vars["name"]." quote $row->IDNumber>$row->IDNumber</a>, ";
+			$list .= "<a href='chatcmd:///tell ".$chatBot->vars["name"]." quote $row->IDNumber>$row->IDNumber</a>, ";
 		}
 		$msg .= substr($list,0,strlen($list)-2);
 
@@ -257,7 +257,7 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 		$db->query("SELECT * FROM quote WHERE `Who` = '".str_replace("'", "''", $quoteWHO)."'");
 		$list = "";
 		while ($row = $db->fObject()) {
-			$list .= "<a href='chatcmd:///tell ".$this->vars["name"]." quote $row->IDNumber>$row->IDNumber</a>, ";
+			$list .= "<a href='chatcmd:///tell ".$chatBot->vars["name"]." quote $row->IDNumber>$row->IDNumber</a>, ";
 		}
 		$msg .= substr($list,0,strlen($list)-2)."\n\n";
 		
@@ -265,7 +265,7 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 		$db->query("SELECT * FROM quote WHERE `OfWho` = '".str_replace("'", "''", $quoteOfWHO)."'");
 		$list = "";
 		while ($row = $db->fObject()) {
-			$list .= "<a href='chatcmd:///tell ".$this->vars["name"]." quote $row->IDNumber>$row->IDNumber</a>, ";
+			$list .= "<a href='chatcmd:///tell ".$chatBot->vars["name"]." quote $row->IDNumber>$row->IDNumber</a>, ";
 		}
 		$msg .= substr($list,0,strlen($list)-2);
 		

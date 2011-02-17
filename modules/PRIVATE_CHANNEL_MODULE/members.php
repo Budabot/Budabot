@@ -8,7 +8,7 @@ if (preg_match("/^members$/i", $message)) {
 	  	while ($row = $db->fObject()) {
 	  	  	if (Buddylist::is_online($row->name)) {
 				$status = "<green>Online";
-				if (isset($this->chatlist[$row->name])) {
+				if (isset($chatBot->chatlist[$row->name])) {
 			    	$status .= " and in channel";
 				}
 			} else {

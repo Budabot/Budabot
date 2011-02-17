@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (isset($this->guildmembers[$sender])) {
+if (isset($chatBot->guildmembers[$sender])) {
     $db->query("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 0, 20 ");
     
     $case = 0;
@@ -55,7 +55,7 @@ if (isset($this->guildmembers[$sender])) {
 			$case = 1;
 		}
 
-		if ($case <= $this->settings["showcloakstatus"]) {
+		if ($case <= $chatBot->settings["showcloakstatus"]) {
 			$chatBot->send($msg, $sender);
 		}
     }

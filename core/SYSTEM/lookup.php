@@ -2,7 +2,7 @@
 
 if (preg_match("/^lookup (.*)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
-	$uid = $this->get_uid($name);
+	$uid = $chatBot->get_uid($name);
 
 	$msg = "Uid for '$name' is: '$uid'";
 	$chatBot->send($msg, $sendto);

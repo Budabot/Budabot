@@ -39,7 +39,7 @@
 
 if(preg_match("/^Blammo! (.+) has launched an orbital attack!$/i", $message, $array)) {
 	$chatBot->send("OS !timer was set for 15 minutes", "guild");
-	$orgName = $this->vars["my guild"];
+	$orgName = $chatBot->vars["my guild"];
 
 	$launcher = $array[1];
 
@@ -48,7 +48,7 @@ if(preg_match("/^Blammo! (.+) has launched an orbital attack!$/i", $message, $ar
 		$unique = true;
 
 		$newTimerName = "$orgName OS/AS $i";
-		forEach ($this->vars["Timers"] as $key => $timer) {
+		forEach ($chatBot->vars["Timers"] as $key => $timer) {
 		  	if ($timer->name == $newTimerName) {
 			  	$unique = false;
 			    break;

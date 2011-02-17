@@ -1,6 +1,6 @@
 <?php
 
-if ($this->settings['relaybot'] != 'Off' && $type == "joinPriv") {
+if ($chatBot->settings['relaybot'] != 'Off' && $type == "joinPriv") {
 	$whois = Player::get_by_name($sender);
 
 	if ($whois === null) {
@@ -10,7 +10,7 @@ if ($this->settings['relaybot'] != 'Off' && $type == "joinPriv") {
 
         $msg .= " has joined the private channel.";
 	}
-	send_message_to_relay("grc <grey>[".$this->vars["my guild"]."] ".$msg);
+	send_message_to_relay("grc <grey>[".$chatBot->vars["my guild"]."] ".$msg);
 }
 
 ?>

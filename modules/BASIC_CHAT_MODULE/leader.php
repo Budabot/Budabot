@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if ($this->settings["leaderecho"] == 1) {
+if ($chatBot->settings["leaderecho"] == 1) {
 	$status = "<green>Enabled<end>";
 	$cmd = "off";
 } else {
@@ -38,8 +38,8 @@ if ($this->settings["leaderecho"] == 1) {
 }
 
 if ($type == "leavePriv") {
-	if ($this->vars["leader"] == $sender) {
-		unset($this->vars["leader"]);
+	if ($chatBot->vars["leader"] == $sender) {
+		unset($chatBot->vars["leader"]);
 	  	$msg = "Raid leader cleared.";
 		$chatBot->send($msg, 'priv');
 	}
@@ -48,26 +48,26 @@ if ($type == "leavePriv") {
     $name = ucfirst(strtolower($arr[1]));
 	if (!$uid) {
 		$msg = "Player <highlight>{$name}<end> does not exist.";
-	} else if (!isset($this->chatlist[$name])) {
+	} else if (!isset($chatBot->chatlist[$name])) {
 		$msg = "Player <highlight>{$name}<end> isn't in this channel.";
 	} else {
-		$this->vars["leader"] = $name;
+		$chatBot->vars["leader"] = $name;
 	  	$msg = "{$name} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
 	}
   	$chatBot->send($msg, 'priv');
 } else if (preg_match("/^leader$/i", $message)) {
-  	if ($this->vars["leader"] == $sender) {
-		unset($this->vars["leader"]);
+  	if ($chatBot->vars["leader"] == $sender) {
+		unset($chatBot->vars["leader"]);
 	  	$msg = "Leader cleared.";
-	} else if ($this->vars["leader"] != "") {
-		if ($this->admins[$sender]["level"] >= $this->admins[$this->vars["leader"]]["level"]){
-  			$this->vars["leader"] = $sender;
+	} else if ($chatBot->vars["leader"] != "") {
+		if ($chatBot->admins[$sender]["level"] >= $chatBot->admins[$chatBot->vars["leader"]]["level"]){
+  			$chatBot->vars["leader"] = $sender;
 		  	$msg = "{$sender} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
 		} else {
-			$msg = "You can't take leader from <highlight>{$this->vars["leader"]}<end>.";
+			$msg = "You can't take leader from <highlight>{$chatBot->vars["leader"]}<end>.";
 		}
 	} else {
-		$this->vars["leader"] = $sender;
+		$chatBot->vars["leader"] = $sender;
 	  	$msg = "{$sender} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
 	}
   	$chatBot->send($msg, 'priv');

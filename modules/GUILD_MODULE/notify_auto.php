@@ -38,13 +38,13 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
     $row = $db->fObject();
     if ($row != null && $row->mode == "del") {
         $db->exec("UPDATE org_members_<myname> SET `mode` = 'man' WHERE `name` = '{$name}'");
-	    $this->guildmembers[$name] = 6;
+	    $chatBot->guildmembers[$name] = 6;
     	$msg = "<highlight>{$name}<end> has been added to the Notify list.";
     } else {
         $db->exec("INSERT INTO org_members_<myname> (`mode`, `name`) VALUES ('man', '{$name}')");
 		Buddylist::add($name, 'org');
     	$msg = "<highlight>{$name}<end> has been added to the Notify list.";
-    	$this->guildmembers[$name] = 6;
+    	$chatBot->guildmembers[$name] = 6;
     }
     $db->exec("INSERT INTO guild_chatlist_<myname> (`name`) VALUES ('{$name}')");     
     $chatBot->send($msg, "guild");
@@ -57,7 +57,7 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
     $db->exec("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '{$name}'");
     $db->exec("DELETE FROM guild_chatlist_<myname> WHERE `name` = '{$name}'");
     $msg = "Removed <highlight>{$name}<end> from the Notify list.";
-    unset($this->guildmembers[$name]);
+    unset($chatBot->guildmembers[$name]);
 	Buddylist::remove($name, 'org');
     $chatBot->send($msg, "guild");
 } else if(preg_match("/^(.+) just left your organization.$/", $message, $arr) || preg_match("/^(.+) kicked from organization \\(alignment changed\\).$/", $message, $arr)) {
@@ -66,7 +66,7 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
     $db->exec("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '{$name}'");
     $db->exec("DELETE FROM guild_chatlist_<myname> WHERE `name` = '{$name}'");
     $msg = "Removed <highlight>{$name}<end> from the Notify list.";
-    unset($this->guildmembers[$name]);
+    unset($chatBot->guildmembers[$name]);
 	Buddylist::remove($name, 'org');
     $chatBot->send($msg, "guild");
 }

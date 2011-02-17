@@ -6,7 +6,7 @@
 
 if (preg_match("/^inactivemem ([0-9]+)/i", $message, $arr)) {
 	
-	if ($this->vars["my guild id"] == "") {
+	if ($chatBot->vars["my guild id"] == "") {
 	    $chatBot->send("The Bot needs to be in an org to show the orgmembers.", $sendto);
 		return;
 	}
@@ -20,7 +20,7 @@ if (preg_match("/^inactivemem ([0-9]+)/i", $message, $arr)) {
 	}
 	$numinactive = 0;
 	$highlight = 0;
-	$list = "<header>::::: Inactive Members of {$this->vars['my guild']} :::::<end>\n\n";
+	$list = "<header>::::: Inactive Members of {$chatBot->vars['my guild']} :::::<end>\n\n";
 	$list .="<u>Settings</u>\n";
 	$list .="Timespan: Showing members who have been inactive for more than <blue>{$arr[1]}<end> month(s).\n";
 	$list .="<red>**Be careful with clicking the Org Kick links.  It will cause you to /org kick, and the bot can't help you undo that.<end>\n";

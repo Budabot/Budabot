@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (isset($this->guildmembers[$sender]) && time() >= $this->vars["logondelay"]) {
+if (isset($chatBot->guildmembers[$sender]) && time() >= $chatBot->vars["logondelay"]) {
 	$db->query("SELECT * FROM news ORDER BY `time` DESC LIMIT 0, 10");
 	if ($db->numrows() != 0) {
 		$link = "<header>::::: News :::::<end>\n\n";

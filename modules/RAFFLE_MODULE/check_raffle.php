@@ -2,19 +2,19 @@
 
 
 {
-if (!$this->vars["Raffles"]["running"])
+if (!$chatBot->vars["Raffles"]["running"])
 {
     // no raffle running, do nothing
     return;
 }
 
 // there is a raffle running
-$tleft = $this->vars["Raffles"]["time"] - time();
-$owner = $this->vars["Raffles"]["owner"];
-$item = $this->vars["Raffles"]["item"];
-$count = $this->vars["Raffles"]["count"];
+$tleft = $chatBot->vars["Raffles"]["time"] - time();
+$owner = $chatBot->vars["Raffles"]["owner"];
+$item = $chatBot->vars["Raffles"]["item"];
+$count = $chatBot->vars["Raffles"]["count"];
 
-$timesincelastmsg = time() - $this->vars["Raffles"]["lastmsgtime"];
+$timesincelastmsg = time() - $chatBot->vars["Raffles"]["lastmsgtime"];
 
 // if there is no time left or we even skipped over the time, end raffle
 if (0 >= $tleft)
@@ -31,10 +31,10 @@ if (15 >= $timesincelastmsg)
 
 // generate an info window
 $blob="<white>Current Members:<end>";
-forEach (array_keys($this->vars["Raffles"]["rafflees"]) as $tempName) {
+forEach (array_keys($chatBot->vars["Raffles"]["rafflees"]) as $tempName) {
     $blob .= "\n$tempName";
 }
-if (count($this->vars["Raffles"]["rafflees"]) == 0) {
+if (count($chatBot->vars["Raffles"]["rafflees"]) == 0) {
     $blob .= "No entrants yet.";
 }
 
@@ -57,13 +57,13 @@ else
 // raffle is running quite some time, post only once a minute
 if ((60 <= $tleft) && (60 <= $timesincelastmsg))
 {
-    $this->vars["Raffles"]["lastmsgtime"] = time();
-    $chatBot->send($msg, $this->vars["Raffles"]["sendto"]);
+    $chatBot->vars["Raffles"]["lastmsgtime"] = time();
+    $chatBot->send($msg, $chatBot->vars["Raffles"]["sendto"]);
 }
 elseif ((60 > $tleft) && (15 <= $timesincelastmsg))
 {
-    $this->vars["Raffles"]["lastmsgtime"] = time();
-    $chatBot->send($msg, $this->vars["Raffles"]["sendto"]);
+    $chatBot->vars["Raffles"]["lastmsgtime"] = time();
+    $chatBot->send($msg, $chatBot->vars["Raffles"]["sendto"]);
 }
 
 }

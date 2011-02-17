@@ -41,8 +41,8 @@ if (preg_match("/^is (.+)$/i", $message, $arr)) {
         //if the player is a buddy then
 		$online_status = Buddylist::is_online($name);
 		if ($online_status === null) {
-			$this->data["ONLINE_MODULE"]['playername'] = $name;
-			$this->data["ONLINE_MODULE"]['sendto'] = $sendto;
+			$chatBot->data["ONLINE_MODULE"]['playername'] = $name;
+			$chatBot->data["ONLINE_MODULE"]['sendto'] = $sendto;
 			Buddylist::add($name, 'is_online');
 		} else {
             $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$name'");
@@ -61,15 +61,15 @@ if (preg_match("/^is (.+)$/i", $message, $arr)) {
 			$chatBot->send($msg, $sendto);
         }
     }
-} elseif (($type == "logOn" || $type == "logOff") && $sender == $this->data["ONLINE_MODULE"]['playername']) {
+} elseif (($type == "logOn" || $type == "logOff") && $sender == $chatBot->data["ONLINE_MODULE"]['playername']) {
     if ($type == "logOn") {
 		$status = "<green>online<end>";
 	} else if ($type == "logOff") {
 		$status = "<red>offline<end>";
 	}
 	$msg = "Player <highlight>$sender<end> is $status";
-	$chatBot->send($msg, $this->data["ONLINE_MODULE"]['sendto']);
+	$chatBot->send($msg, $chatBot->data["ONLINE_MODULE"]['sendto']);
 	Buddylist::remove($sender, 'is_online');
-	unset($this->data["ONLINE_MODULE"]);
+	unset($chatBot->data["ONLINE_MODULE"]);
 }
 ?>

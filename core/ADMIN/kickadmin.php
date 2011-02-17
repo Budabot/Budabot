@@ -37,17 +37,17 @@ if (preg_match("/^kickadmin (.+)$/i", $message, $arr)){
 		return;
 	}
 
-	if ($this->admins[$who]["level"] != 4) {
+	if ($chatBot->admins[$who]["level"] != 4) {
 		$chatBot->send("<red>Sorry $who is not a Administrator of this Bot.<end>", $sendto);
 		return;
 	}
 	
-	if ($this->vars["SuperAdmin"] != $sender){
+	if ($chatBot->vars["SuperAdmin"] != $sender){
 		$chatBot->send("<red>You need to be Super-Administrator to kick a Administrator<end>", $sendto);
 		return;
 	}
 	
-	unset($this->admins[$who]);
+	unset($chatBot->admins[$who]);
 	$db->exec("DELETE FROM admin_<myname> WHERE `name` = '$who'");
 
 	Buddylist::remove($who, 'admin');

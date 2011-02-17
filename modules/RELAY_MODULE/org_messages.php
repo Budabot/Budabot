@@ -32,8 +32,8 @@
    **
    */
 
-if ($this->settings["relaybot"] != "Off" && $type == 'guild') {
-	$orgName = $this->vars["my guild"];
+if ($chatBot->settings["relaybot"] != "Off" && $type == 'guild') {
+	$orgName = $chatBot->vars["my guild"];
 	$msg = "grc <grey>[$orgName] $message<end>";
     send_message_to_relay($msg);
 }
