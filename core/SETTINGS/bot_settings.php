@@ -75,7 +75,6 @@ if (preg_match("/^settings$/i", $message)) {
 		$msg = "This setting doesn't exists.";
 	} else {
 		$row = $db->fObject();
-		print_r($row);
 		
 		if ($row->options != '') {
 			$options = explode(";", $row->options);
@@ -85,10 +84,13 @@ if (preg_match("/^settings$/i", $message)) {
 			$options_map = array_combine($intoptions, $options);
 		}
 		
+		$link .= "Name: <highlight>{$row->name}<end>\n";
+		$link .= "Module: <highlight>{$row->module}<end>\n";
+		$link .= "Descrption: <highlight>{$row->description}<end>\n";
 		if ($intoptions) {
-			$link .= "Current value: '{$options_map[$row->value]}'\n\n";
+			$link .= "Current Value: <highlight>{$options_map[$row->value]}<end>\n\n";
 		} else {
-			$link .= "Current value: '$row->value'\n\n";
+			$link .= "Current Value: <highlight>{$row->value}<end>\n\n";
 		}
 		if ($row->type == "color") {
 		  	$link .= "For this setting you can set any Color in the HTML Hexadecimal Color Format.\n";
@@ -130,12 +132,12 @@ if (preg_match("/^settings$/i", $message)) {
 			$link .= "Predefined Options:\n";
 			if ($intoptions) {
 				forEach ($options_map as $key => $label) {
-					$save_link = Text::make_link('Save it', "/tell <myname> settings save {$row->name} {$key}", 'chatcmd');
+					$save_link = Text::make_link('Select', "/tell <myname> settings save {$row->name} {$key}", 'chatcmd');
 					$link .= "<tab> <highlight>{$label}<end> ({$save_link})\n";
 				}
 			} else {
 				forEach ($options as $char) {
-					$save_link = Text::make_link('Save it', "/tell <myname> settings save {$row->name} {$char}", 'chatcmd');
+					$save_link = Text::make_link('Select', "/tell <myname> settings save {$row->name} {$char}", 'chatcmd');
 					$link .= "<tab> <highlight>{$char}<end> ({$save_link})\n";
 				}
 			}

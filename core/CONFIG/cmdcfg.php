@@ -561,14 +561,10 @@ if (preg_match("/^config$/i", $message)) {
 		$list .= "\n<i>Settings</i>\n";
 	}
  	while ($row = $db->fObject()) {
-		if ($row->help != "") {
-			$list .= "$row->description (<a href='chatcmd:///tell <myname> settings help $row->name'>Help</a>)";
-		} else {
-			$list .= $row->description;
-		}
+		$list .= $row->description;
 
 		if ($row->mode == "edit") {
-			$list .= " (<a href='chatcmd:///tell <myname> settings change $row->name'>Change this</a>)";
+			$list .= " (<a href='chatcmd:///tell <myname> settings change $row->name'>Modify</a>)";
 		}
 	
 		$list .= ":  ";
