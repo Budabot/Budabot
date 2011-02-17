@@ -87,19 +87,10 @@ function getRequirements($ql) {
 
 	$db->query($sql);
 
-	return rowMapper($db->fObject());
-}
+	$row = $db->fObject();
+	add_info($row);
 
-function rowMapper($row) {
-	if ($row == null) {
-		return null;
-	}
-
-	$implant = new Implant($row->ql, $row->treatment, $row->ability, $row->abilityShiny, $row->abilityBright, $row->abilityFaded, $row->skillShiny, $row->skillBright, $row->skillFaded);
-
-	$implant = setHighestAndLowestQls($implant);
-
-	return $implant;
+	return $row;
 }
 
 function findMaxImplantQlByReqs($ability, $treatment) {
@@ -108,8 +99,11 @@ function findMaxImplantQlByReqs($ability, $treatment) {
 	$sql = "SELECT * FROM implant_requirements WHERE ability <= $ability AND treatment <= $treatment ORDER BY ql DESC LIMIT 1";
 
 	$db->query($sql);
+	
+	$row = $db->fObject();
+	add_info($row);
 
-	return rowMapper($db->fObject());
+	return $row;
 }
 
 function formatClusterBonuses(&$obj) {
@@ -149,36 +143,40 @@ function formatClusterBonuses(&$obj) {
 	return $msg;
 }
 
-function setHighestAndLowestQls(&$obj) {
-	$obj = _setHighestAndLowestQls($obj, 'abilityShiny');
-	$obj = _setHighestAndLowestQls($obj, 'abilityBright');
-	$obj = _setHighestAndLowestQls($obj, 'abilityFaded');
-	$obj = _setHighestAndLowestQls($obj, 'skillShiny');
-	$obj = _setHighestAndLowestQls($obj, 'skillBright');
-	$obj = _setHighestAndLowestQls($obj, 'skillFaded');
-
+function add_info(&$obj) {
+	$db = DB::get_instance();
+	
+	if ($obj === null) {
+		return;
+	}
+	
+	_setHighestAndLowestQls($obj, 'abilityShiny');
+	_setHighestAndLowestQls($obj, 'abilityBright');
+	_setHighestAndLowestQls($obj, 'abilityFaded');
+	_setHighestAndLowestQls($obj, 'skillShiny');
+	_setHighestAndLowestQls($obj, 'skillBright');
+	_setHighestAndLowestQls($obj, 'skillFaded');
+	
 	$obj->abilityTotal = $obj->abilityShiny + $obj->abilityBright + $obj->abilityFaded;
 	$obj->skillTotal = $obj->skillShiny + $obj->skillBright + $obj->skillFaded;
 
 	$obj->minShinyClusterQl = round($obj->ql * 0.86);
-    $obj->minBrightClusterQl = round($obj->ql * 0.84);
-    $obj->minFadedClusterQl = round($obj->ql * 0.82);
+	$obj->minBrightClusterQl = round($obj->ql * 0.84);
+	$obj->minFadedClusterQl = round($obj->ql * 0.82);
 
-    // if implant ql is 201+, then clusters must be refined and must be ql 201+ also
-    if ($obj->ql >= 201) {
+	// if implant ql is 201+, then clusters must be refined and must be ql 201+ also
+	if ($obj->ql >= 201) {
 
-	    if ($obj->minShinyClusterQl < 201) {
-		    $obj->minShinyClusterQl = 201;
-	    }
-	    if ($obj->minBrightClusterQl < 201) {
-		    $obj->minBrightClusterQl = 201;
-	    }
-	    if ($obj->minFadedClusterQl < 201) {
-		    $obj->minFadedClusterQl = 201;
-	    }
-    }
-
-	return $obj;
+		if ($obj->minShinyClusterQl < 201) {
+			$obj->minShinyClusterQl = 201;
+		}
+		if ($obj->minBrightClusterQl < 201) {
+			$obj->minBrightClusterQl = 201;
+		}
+		if ($obj->minFadedClusterQl < 201) {
+			$obj->minFadedClusterQl = 201;
+		}
+	}
 }
 
 function _setHighestAndLowestQls(&$obj, $var) {
@@ -190,7 +188,6 @@ function _setHighestAndLowestQls(&$obj, $var) {
 	$db->query($sql);
 	$row = $db->fObject();
 
-
 	// camel case var name
 	$tempNameVar = ucfirst($var);
 	$tempHighestName = "highest$tempNameVar";
@@ -198,8 +195,6 @@ function _setHighestAndLowestQls(&$obj, $var) {
 
 	$obj->$tempLowestName = $row->min;
 	$obj->$tempHighestName = $row->max;
-
-	return $obj;
 }
 
 ?>
