@@ -495,6 +495,23 @@ class AOChat
 		$this->chatqueue->push(AOC_PRIORITY_MED, new AOChatPacket("out", AOCP_MSG_PRIVATE, array($uid, $msg, "\0")));
 		return true;
 	}
+	
+	function send_guild($msg, $blob = "\0") {
+		$guild_gid = false;
+		forEach ($this->grp as $gid => $status) {
+			if (ord(substr($gid, 0, 1)) == 3) {
+				$guild_gid = $gid;
+				break;
+			}
+		}
+		
+		if (!$guild_gid) {
+			return false;
+		}
+		
+		$this->chatqueue->push(AOC_PRIORITY_MED, new AOChatPacket("out", AOCP_GROUP_MESSAGE, array($guild_gid, $msg, "\0")));
+		return true;
+	}
 
 	function send_group($group, $msg, $blob = "\0") {
 		if (($gid = $this->get_gid($group)) === false) {

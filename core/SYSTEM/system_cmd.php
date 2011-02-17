@@ -27,7 +27,8 @@ if (preg_match("/^system$/i", $message, $arr)) {
 	
 	$blob .= "<highlight>Public Channels:<end>\n";
 	forEach ($chatBot->grp as $gid => $status) {
-		$blob .= "<tab>'{$chatBot->gid[$gid]}'\n";
+		$string = unpack("N", substr($gid, 1));
+		$blob .= "<tab>'{$chatBot->gid[$gid]}' (" . ord(substr($gid, 0, 1)) . " " . $string[1] . ")\n";
 	}
 
 	$msg = Text::make_link('System Info', $blob, 'blob');
