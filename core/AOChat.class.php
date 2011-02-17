@@ -200,7 +200,7 @@ class AOChat
 			return false;
 		}
 
-		$this->chatqueue  = new AOChatQueue(array($this, 'send_packet'), AOC_FLOOD_LIMIT, AOC_FLOOD_INC);
+		$this->chatqueue = new AOChatQueue(array($this, 'send_packet'), AOC_FLOOD_LIMIT, AOC_FLOOD_INC);
 
 		return $s;
 	}

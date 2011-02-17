@@ -2,9 +2,6 @@
 	require_once "online_func.php";
 
 	$MODULE_NAME = "ONLINE_MODULE";
-	
-	//Setup
-	Event::register($MODULE_NAME, "setup", "setup.php");
 
 	//Online
 	Command::register($MODULE_NAME, "", "online.php", "online", "all", "Shows who is the private channel");
