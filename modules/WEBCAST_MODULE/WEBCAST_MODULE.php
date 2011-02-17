@@ -12,7 +12,7 @@
 //  Instead the Module will update when someone logs on and every 15mins.
 
 	// Settings
-	Setting::add($MODULE_NAME, "webpath", "Where you online list is sent", "edit", "", "", "", "admin");
+	Setting::add($MODULE_NAME, "webpath", "Where you online list is sent", "edit", "text", "", "", "", "admin");
 
 	//Helpiles
 	Help::register($MODULE_NAME, "webcast", "webcast.txt", "admin", "How to use the webcast module.");

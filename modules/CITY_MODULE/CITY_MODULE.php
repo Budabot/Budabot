@@ -41,7 +41,7 @@
 	Event::register($MODULE_NAME, "1min", "city_guild_raise_cloak.php", "city", "Reminds the player who lowered cloak to raise it when it can be raised.");
 	Event::register($MODULE_NAME, "logOn", "city_guild_logon.php", "city", "Displays summary of city status.");
 	
-	Setting::add($MODULE_NAME, "showcloakstatus", "Show cloak status to players at logon", "edit", "1", "Never;When cloak is down;Always", "0;1;2");
+	Setting::add($MODULE_NAME, "showcloakstatus", "Show cloak status to players at logon", "edit", "options", "1", "Never;When cloak is down;Always", "0;1;2");
 	
 	// Helpfiles
 	Help::register($MODULE_NAME, "citycloak", "citycloak.txt", "guild", "Status of the citycloak");

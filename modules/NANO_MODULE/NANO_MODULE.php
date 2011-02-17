@@ -15,8 +15,8 @@
 	Command::register($MODULE_NAME, "", "nlline.php", "nlline", "all", "Shows a list of nanos given a nanoline");
 
 	//Settings
-	Setting::add($MODULE_NAME, 'maxnano', 'Number of Nanos shown on the list', 'edit', '40', '30;40;50;60', "0", "mod", "$MODULE_NAME/maxnano_help.txt");
-	Setting::add($MODULE_NAME, "shownanolineicons", "Show icons for the nanolines", "edit", "0", "true;false", "1;0");
+	Setting::add($MODULE_NAME, 'maxnano', 'Number of Nanos shown on the list', 'edit', "number", '40', '30;40;50;60', "", "mod", "$MODULE_NAME/maxnano_help.txt");
+	Setting::add($MODULE_NAME, "shownanolineicons", "Show icons for the nanolines", "edit", "options", "0", "true;false", "1;0");
 
 	//Helpfiles
 	Help::register($MODULE_NAME, "nano", "nano.txt", "guild", "How to search for a nano.");

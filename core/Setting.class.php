@@ -21,11 +21,16 @@ class Setting {
 	 * @name: add
 	 * @description: Adds a new setting
 	 */	
-	public static function add($module, $name, $description = 'none', $mode = 'hide', $value = 'none', $options = 'none', $intoptions = '0', $admin = 'mod', $help = '') {
+	public static function add($module, $name, $description, $mode, $type, $value, $options = '', $intoptions = '', $admin = 'mod', $help = '') {
 		$db = DB::get_instance();
 		global $chatBot;
 		
 		$name = strtolower($name);
+		$type = strtolower($type);
+		
+		if (!in_array($type, array('color', 'number', 'text', 'options'))) {
+			Logger::log('ERROR', 'Core', "Error in registering Setting $module:setting($name). Type should be one of: 'color', 'number', 'text', 'options'. Actual: '$type'.");
+		}
 
 		//Check if the help file exists
 		if ($help != '') {
@@ -39,10 +44,10 @@ class Setting {
 		$description = str_replace("'", "''", $description);
 
 		if ($chatBot->existing_settings[$name] != true) {
-			$db->exec("INSERT INTO settings_<myname> (`name`, `module`, `mode`, `setting`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('$name', '$module', '$mode', '" . str_replace("'", "''", $value) . "', '$options', '$intoptions', '$description', 'db', '$admin', '$help')");
+			$db->exec("INSERT INTO settings_<myname> (`name`, `module`, `type`, `mode`, `value`, `options`, `intoptions`, `description`, `source`, `admin`, `help`) VALUES ('$name', '$module', '$type', '$mode', '" . str_replace("'", "''", $value) . "', '$options', '$intoptions', '$description', 'db', '$admin', '$help')");
 		  	$chatBot->settings[$name] = $value;
 	  	} else {
-			$db->exec("UPDATE settings_<myname> SET `module` = '$module', `mode` = '$mode', `options` = '$options', `intoptions` = '$intoptions', `description` = '$description', `admin` = '$admin', `help` = '$help' WHERE `name` = '$name'");
+			$db->exec("UPDATE settings_<myname> SET `module` = '$module', `type` = '$type', `mode` = '$mode', `options` = '$options', `intoptions` = '$intoptions', `description` = '$description', `admin` = '$admin', `help` = '$help' WHERE `name` = '$name'");
 		}
 	}
 
@@ -75,7 +80,7 @@ class Setting {
 		}
 
 		if (isset($chatBot->settings[$name])) {
-			$db->exec("UPDATE settings_<myname> SET `setting` = '" . str_replace("'", "''", $newsetting) . "' WHERE `name` = '$name'");
+			$db->exec("UPDATE settings_<myname> SET `value` = '" . str_replace("'", "''", $newsetting) . "' WHERE `name` = '$name'");
 			$chatBot->settings[$name] = $newsetting;
 		} else {
 			return false;

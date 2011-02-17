@@ -27,6 +27,6 @@
 	Help::register($MODULE_NAME, "raffle", "raffle.txt", "all", "Start/Join/Leave Raffles", "Raffles");
 
 	//Settings
-	Setting::add($MODULE_NAME, "defaultraffletime", "Sets how long the raffle should go for in minutes.", "edit", 3, "number");
+	Setting::add($MODULE_NAME, "defaultraffletime", "Sets how long the raffle should go for in minutes.", "edit", "number", 3);
 
 ?>

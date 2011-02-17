@@ -344,7 +344,7 @@ class DB {
 			//$db->Commit();
 		
 			if (!Setting::save($settingName, $maxFileVersion)) {
-				Setting::add($module, $settingName, $settingName, 'noedit', $maxFileVersion);
+				Setting::add($module, $settingName, $settingName, 'noedit', 'text', $maxFileVersion);
 			}
 			
 			if ($maxFileVersion != 0) {

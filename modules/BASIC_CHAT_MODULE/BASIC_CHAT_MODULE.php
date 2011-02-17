@@ -2,8 +2,8 @@
 	$MODULE_NAME = "BASIC_CHAT_MODULE";
 
 	//Invite/Leave/lock commands
-	Setting::add($MODULE_NAME, "priv_status", "no", "hide", "open");
-	Setting::add($MODULE_NAME, "priv_status_reason", "no", "hide", "not set");	
+	Setting::add($MODULE_NAME, "priv_status", "no", "hide", "text", "open");
+	Setting::add($MODULE_NAME, "priv_status_reason", "no", "hide", "text", "not set");	
 
 	//Check macros
 	Command::register($MODULE_NAME, "", "check.php", "check", "rl", "Checks who of the raidgroup is in the area");
@@ -13,9 +13,9 @@
 	Event::register($MODULE_NAME, "logOn", "topic_logon.php", "none", "Show Topic on logon of members");
 	Command::register($MODULE_NAME, "", "topic.php", "topic", "all", "Show Topic");
 	Subcommand::register($MODULE_NAME, "", "topic.php", "topic (.+)", "leader", "topic", "Change Topic");
-	Setting::add($MODULE_NAME, "topic", "Topic for Priv Channel", "noedit", "");
-	Setting::add($MODULE_NAME, "topic_setby", "no", "hide", "none");
-	Setting::add($MODULE_NAME, "topic_time", "no", "hide", time());
+	Setting::add($MODULE_NAME, "topic", "Topic for Priv Channel", "noedit", "text", '');
+	Setting::add($MODULE_NAME, "topic_setby", "no", "noedit", "text", '');
+	Setting::add($MODULE_NAME, "topic_time", "no", "noedit", "text", '');
 
     // Afk Check
 	Event::register($MODULE_NAME, "priv", "afk_check.php", "none", "Afk check");
@@ -28,8 +28,8 @@
 	Command::register($MODULE_NAME, "", "leaderecho_cmd.php", "leaderecho", "leader", "Set if the text of the leader will be repeated");
 	Event::register($MODULE_NAME, "priv", "leaderecho.php", "leader", "leader echo");
 	Event::register($MODULE_NAME, "leavePriv", "leader.php", "none", "Removes leader when the leader leaves the channel");
-	Setting::add($MODULE_NAME, "leaderecho", "Repeat the text of the raidleader", "edit", "1", "ON;OFF", "1;0");
-	Setting::add($MODULE_NAME, "leaderecho_color", "Color for Raidleader echo", "edit", "<font color=#FFFF00>", "color");
+	Setting::add($MODULE_NAME, "leaderecho", "Repeat the text of the raidleader", "edit", "options", "1", "true;false", "1;0");
+	Setting::add($MODULE_NAME, "leaderecho_color", "Color for Raidleader echo", "edit", "color", "<font color=#FFFF00>");
 
 	//Assist
 	Command::register($MODULE_NAME, "", "assist.php", "assist", "all", "Shows an Assist macro");

@@ -43,15 +43,15 @@
 	Command::activate("priv", "$MODULE_NAME/set_limits_priv.php", "faction", "mod");
 
 	//Settings
-	Setting::add($MODULE_NAME, "priv_req_lvl", "Private Channel Min Level Limit", "noedit", "0", "none", "0", "mod", "$MODULE_NAME/help_minlvl.txt");
-	Setting::add($MODULE_NAME, "priv_req_faction", "Private Channel Faction Limit", "noedit", "all", "none", "0", "mod", "$MODULE_NAME/help_faction.txt");
-	Setting::add($MODULE_NAME, "priv_req_open", "Private Channel General Limit", "noedit", "all", "none", "0", "mod", "$MODULE_NAME/help_open.txt");
-	Setting::add($MODULE_NAME, "priv_req_maxplayers", "Maximum Players in the PrivGroup", "noedit", "0", "none", "0", "mod", "$MODULE_NAME/help_maxplayers.txt");
+	Setting::add($MODULE_NAME, "priv_req_lvl", "Private Channel Min Level Limit", "noedit", "number", "0", "", "", "mod", "$MODULE_NAME/help_minlvl.txt");
+	Setting::add($MODULE_NAME, "priv_req_faction", "Private Channel Faction Limit", "noedit", "options", "all", "", "", "mod", "$MODULE_NAME/help_faction.txt");
+	Setting::add($MODULE_NAME, "priv_req_open", "Private Channel General Limit", "noedit", "options", "all", "", "", "mod", "$MODULE_NAME/help_open.txt");
+	Setting::add($MODULE_NAME, "priv_req_maxplayers", "Maximum number of players in the Private Channel", "noedit", "number", "0", "", "", "mod", "$MODULE_NAME/help_maxplayers.txt");
 
-	Setting::add($MODULE_NAME, "tell_req_lvl", "Tells Min Level", "noedit", "0", "none", "0", "mod", "$MODULE_NAME/help_tminlvl.txt");
-	Setting::add($MODULE_NAME, "tell_req_faction", "Tell Faction Limit", "noedit", "all", "none", "0", "mod", "$MODULE_NAME/help_tfaction.txt");
-	Setting::add($MODULE_NAME, "tell_req_open", "Tell General Limit", "noedit", "all", "none", "0", "mod", "$MODULE_NAME/help_topen.txt");
+	Setting::add($MODULE_NAME, "tell_req_lvl", "Tells Min Level", "noedit", "number", "0", "", "", "mod", "$MODULE_NAME/help_tminlvl.txt");
+	Setting::add($MODULE_NAME, "tell_req_faction", "Tell Faction Limit", "noedit", "options", "all", "", "", "mod", "$MODULE_NAME/help_tfaction.txt");
+	Setting::add($MODULE_NAME, "tell_req_open", "Tell General Limit", "noedit", "options", "all", "", "", "mod", "$MODULE_NAME/help_topen.txt");
 
 	//Help File
-	Help::register($MODULE_NAME, "priv_tell_limits", "help.txt", "mod", "Set Limits for tells and PrivGroup");
+	Help::register($MODULE_NAME, "priv_tell_limits", "help.txt", "mod", "Set Limits for Tells and Private Channel");
 ?>

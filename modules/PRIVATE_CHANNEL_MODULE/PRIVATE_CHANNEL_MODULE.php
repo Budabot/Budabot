@@ -39,13 +39,13 @@
 	
 	Command::register($MODULE_NAME, "", "accept.php", "accept", "all", "Accept a private channel invitation from another player");
 	
-	Setting::add($MODULE_NAME, "guest_man_join", "Mode of manual private channel join", "edit", "1", "Only for members of guestlist;Everyone", "1;0");
-	Setting::add($MODULE_NAME, "guest_color_channel", "Color for Private Channel relay(ChannelName)", "edit", "<font color=#C3C3C3>", "color");
-	Setting::add($MODULE_NAME, "guest_color_username", "Color for Private Channel relay(UserName)", "edit", "<font color=#C3C3C3>", "color");
-	Setting::add($MODULE_NAME, "guest_color_guild", "Color for Private Channel relay(Text in Guild)", "edit", "<font color=#C3C3C3>", "color");
-	Setting::add($MODULE_NAME, "guest_color_guest", "Color for Private Channel relay(Text in Private Channel)", "edit", "<font color=#C3C3C3>", "color");
-	Setting::add($MODULE_NAME, "guest_relay", "Relay of the Private Channel", "edit", "1", "ON;OFF", "1;0");
-	Setting::add($MODULE_NAME, "guest_relay_commands", "Relay commands and results from/to Private Channel", "edit", "0", "ON;OFF", "1;0");
+	Setting::add($MODULE_NAME, "guest_man_join", "Mode of manual private channel join", "edit", "options", "1", "Only for members of guestlist;Everyone", "1;0");
+	Setting::add($MODULE_NAME, "guest_color_channel", "Color for Private Channel relay(ChannelName)", "edit", "color", "<font color=#C3C3C3>");
+	Setting::add($MODULE_NAME, "guest_color_username", "Color for Private Channel relay(UserName)", "edit", "color", "<font color=#C3C3C3>");
+	Setting::add($MODULE_NAME, "guest_color_guild", "Color for Private Channel relay(Text in Guild)", "edit", "color", "<font color=#C3C3C3>");
+	Setting::add($MODULE_NAME, "guest_color_guest", "Color for Private Channel relay(Text in Private Channel)", "edit", "color", "<font color=#C3C3C3>");
+	Setting::add($MODULE_NAME, "guest_relay", "Relay the Private Channel with the Guild Channel", "edit", "options", "1", "true;false", "1;0");
+	Setting::add($MODULE_NAME, "guest_relay_commands", "Relay commands and results from/to Private Channel", "edit", "options", "0", "true;false", "1;0");
 	
 	//Autoreinvite Players after a botrestart or crash
 	Event::register($MODULE_NAME, "connect", "connected.php", "none", "Adds all members as buddies who have auto-invite enabled");

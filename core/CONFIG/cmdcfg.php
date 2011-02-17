@@ -555,14 +555,12 @@ if (preg_match("/^config$/i", $message)) {
 	$list = "<header>::::: Bot Settings :::::<end>\n\n";
 	$list .= "<highlight><u>{$module}</u><end> - Enable/disable: ($on/$off)\n";	
 
- 	$db->query("SELECT * FROM settings_<myname> WHERE `mode` != 'hide' AND `module` = '$module'");
+ 	$db->query("SELECT * FROM settings_<myname> WHERE `module` = '$module'");
 	if ($db->numrows() > 0) {
 		$found = true;
 		$list .= "\n<i>Settings</i>\n";
 	}
  	while ($row = $db->fObject()) {
-		$cur = $row->mod;	
-		
 		if ($row->help != "") {
 			$list .= "$row->description (<a href='chatcmd:///tell <myname> settings help $row->name'>Help</a>)";
 		} else {
@@ -576,15 +574,15 @@ if (preg_match("/^config$/i", $message)) {
 		$list .= ":  ";
 
 		$options = explode(";", $row->options);
-		if ($options[0] == "color") {
-			$list .= $row->setting."Current Color</font>\n";
-		} else if ($row->intoptions != "0") {
+		if ($row->type == "color") {
+			$list .= $row->value."Current Color</font>\n";
+		} else if ($row->intoptions != "") {
 			$intoptions = explode(";", $row->intoptions);
 			$intoptions2 = array_flip($intoptions);
-			$key = $intoptions2[$row->setting];
+			$key = $intoptions2[$row->value];
 			$list .= "<highlight>{$options[$key]}<end>\n";
 		} else {
-			$list .= "<highlight>$row->setting<end>\n";	
+			$list .= "<highlight>{$row->value}<end>\n";	
 		}
 	}
 

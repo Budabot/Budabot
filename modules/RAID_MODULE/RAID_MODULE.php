@@ -22,7 +22,7 @@
 	Command::register($MODULE_NAME, "", "rem.php", "rem", "all", "Let a player removing from a slot");
 	
 	//Settings
-	Setting::add($MODULE_NAME, "add_on_loot", "Adding to loot show on", "edit", "1", "tells;privatechat;privatechat and tells", '1;2;3', "mod");
+	Setting::add($MODULE_NAME, "add_on_loot", "Adding to loot show on", "edit", "options", "1", "tells;privatechat;privatechat and tells", '1;2;3', "mod");
 
 	//Help files
 	Help::register($MODULE_NAME, "add", "add_rem.txt", "all", "Adding to a lootitem");

@@ -29,13 +29,13 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
    
-Setting::add($module, 'default_module_status', 'Default Status for new Modules', 'edit', $chatBot->settings["default_module_status"], 'ON;OFF', '1;0', 'mod', 'SETTINGS/module_status_help.txt');
-Setting::add($module, 'max_blob_size', 'Max chars for a window', 'edit', $chatBot->settings["max_blob_size"], 'number', null, 'mod', 'SETTINGS/max_blob_size_help.txt');
+Setting::add('Basic Settings', 'default_module_status', 'Default Status for new Modules', 'edit', "options", $chatBot->settings["default_module_status"], 'ON;OFF', '1;0', 'mod', 'SETTINGS/module_status_help.txt');
+Setting::add('Basic Settings', 'max_blob_size', 'Max chars for a window', 'edit', "number", $chatBot->settings["max_blob_size"], 'number', null, 'mod', 'SETTINGS/max_blob_size_help.txt');
 
 //Upload Settings from the db that are set by modules
 $db->query("SELECT * FROM settings_<myname>");
 while ($row = $db->fObject()) {
-	$chatBot->settings[$row->name] = $row->setting;
+	$chatBot->settings[$row->name] = $row->value;
 }
 
 ?>
