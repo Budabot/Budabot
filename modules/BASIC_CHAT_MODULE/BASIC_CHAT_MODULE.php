@@ -2,8 +2,8 @@
 	$MODULE_NAME = "BASIC_CHAT_MODULE";
 
 	//Invite/Leave/lock commands
-	Setting::add($MODULE_NAME, "priv_status", "no", "hide", "text", "open");
-	Setting::add($MODULE_NAME, "priv_status_reason", "no", "hide", "text", "not set");	
+	Setting::add($MODULE_NAME, "priv_status", "Private channel status", "hide", "text", "open");
+	Setting::add($MODULE_NAME, "priv_status_reason", "Reason for private channel status", "hide", "text", "not set");	
 
 	//Check macros
 	Command::register($MODULE_NAME, "", "check.php", "check", "rl", "Checks who of the raidgroup is in the area");
@@ -14,8 +14,8 @@
 	Command::register($MODULE_NAME, "", "topic.php", "topic", "all", "Show Topic");
 	Subcommand::register($MODULE_NAME, "", "topic.php", "topic (.+)", "leader", "topic", "Change Topic");
 	Setting::add($MODULE_NAME, "topic", "Topic for Priv Channel", "noedit", "text", '');
-	Setting::add($MODULE_NAME, "topic_setby", "no", "noedit", "text", '');
-	Setting::add($MODULE_NAME, "topic_time", "no", "noedit", "text", '');
+	Setting::add($MODULE_NAME, "topic_setby", "Character who set the topic", "noedit", "text", '');
+	Setting::add($MODULE_NAME, "topic_time", "Time the topic was set", "noedit", "text", '');
 
     // Afk Check
 	Event::register($MODULE_NAME, "priv", "afk_check.php", "none", "Afk check");

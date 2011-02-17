@@ -11,10 +11,10 @@
 	Subcommand::register($MODULE_NAME, "", "news.php", "news del (.+)", "guildadmin", "news", "Delete a News entry");
 
 	//Set admin and user news
-	Command::register($MODULE_NAME, "", "set_news.php", "privnews", "rl", "Set news that are shown on privjoin");
-	Command::register($MODULE_NAME, "", "set_news.php", "adminnews", "mod", "Set adminnews that are shown on privjoin");
-	Setting::add($MODULE_NAME, "news", "no", "hide", "text", "Not set.");
-	Setting::add($MODULE_NAME, "adminnews", "no", "hide", "text", "Not set.");
+	Command::register($MODULE_NAME, "", "set_news.php", "privnews", "rl", "Set news that is shown on privjoin");
+	Command::register($MODULE_NAME, "", "set_news.php", "adminnews", "mod", "Set adminnews that is shown on privjoin");
+	Setting::add($MODULE_NAME, "news", "Current news", "hide", "text", "Not set.");
+	Setting::add($MODULE_NAME, "adminnews", "Current admin news", "hide", "text", "Not set.");
 
 	//Help files
 	Help::register($MODULE_NAME, "news", "news.txt", "guild", "How to use news");
