@@ -51,7 +51,7 @@ if (preg_match("/^settings$/i", $message)) {
 			$link .= " ($editLink)";
 		}
 	
-		$link .= ":  ";
+		$link .= ": ";
 
 		$options = explode(";", $row->options);
 		if ($row->type == "color") {

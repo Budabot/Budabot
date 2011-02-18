@@ -22,8 +22,8 @@
 	Setting::add($MODULE_NAME, 'default_unknown_color', "default unknown color", 'edit', "color", "<font color='#FF0000'>");
 
 	Setting::add($MODULE_NAME, 'symbol', 'command prefix symbol', 'edit', "text", '!', '!;#;*;@;$;+;-');
-	Setting::add($MODULE_NAME, 'guild_admin_level', 'guild admin level', 'edit', "number", 3, 'President;General;Squad Commander;Unit Commander;Unit Leader;Unit Member;Applicant', '0;1;2;3;4;5;6', "$MODULE_NAME/guild_admin_level.txt");
-	Setting::add($MODULE_NAME, 'spam_protection', 'enable/disable spam protection', 'edit', "options", 0, 'ON;OFF', '1;0', "$MODULE_NAME/spam_help.txt");
+	Setting::add($MODULE_NAME, 'guild_admin_level', 'guild admin level', 'edit', "number", 3, 'President;General;Squad Commander;Unit Commander;Unit Leader;Unit Member;Applicant', '0;1;2;3;4;5;6', 'mod', "$MODULE_NAME/guild_admin_level.txt");
+	Setting::add($MODULE_NAME, 'spam_protection', 'enable/disable spam protection', 'edit', "options", 0, 'ON;OFF', '1;0', 'mod', "$MODULE_NAME/spam_help.txt");
 
 	//Help Files
 	Help::register($MODULE_NAME, "settings", "settings.txt", "mod", "Change Settings of the Bot");
