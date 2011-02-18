@@ -31,4 +31,5 @@
 	Help::register($MODULE_NAME, "brawl", "brawl.txt", "all", "How to use brawl");
 	Help::register($MODULE_NAME, "dimach", "dimach.txt", "all", "How to use dimach");
 	Help::register($MODULE_NAME, "fast", "fast.txt", "all", "How to use fast");
+	Help::register($MODULE_NAME, "specials", "specials.txt", "all", "How to use specials");
 ?>

@@ -1,0 +1,4 @@
+<header> :::::: Help for specials :::::: <end>
+
+<highlight>To see how much skills you need to cap your weapon specials:<end>
+<tab><symbol>specials [drop weapon in chat]

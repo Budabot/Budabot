@@ -86,8 +86,7 @@ if (preg_match('/^specials \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)
 
 	$chatBot->send($msg, $sendto);
 } else {
-	$msg = "Syntax Error! Proper Syntax is <highlight>specials [drop weapon in chat]<end>";
-	$chatBot->send($msg, $sendto);
+	$syntax_error = true;
 }
 
 ?>

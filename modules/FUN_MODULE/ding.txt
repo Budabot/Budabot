@@ -1,4 +1,0 @@
-<header>::::: Spams the Guildchat with a congratz message :::::<end>
-
-<highlight>Usage:<end>
-<tab><symbol>ding 'insert you new level here'
