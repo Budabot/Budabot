@@ -48,13 +48,13 @@ class Budabot extends AOChat {
 ** Constructor of this class.
 */	function __construct($vars, $settings){
 		parent::__construct("callback");
-		
-		// don't fire logon events when the bot starts up
-		$this->vars["logondelay"] = time() + 100000;
 
 		$this->settings = $settings;
 		$this->vars = $vars;
         $this->vars["name"] = ucfirst(strtolower($this->vars["name"]));
+		
+		// don't fire logon events when the bot starts up
+		$this->vars["logondelay"] = time() + 100000;
 
 		// Set startup time
 		$this->vars["startup"] = time();

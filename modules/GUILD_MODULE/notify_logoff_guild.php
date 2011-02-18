@@ -10,4 +10,5 @@ if (isset($chatBot->guildmembers[$sender]) && time() >= $chatBot->vars["logondel
 		$chatBot->send($msg, "priv", true);
 	}
 }
+
 ?>
