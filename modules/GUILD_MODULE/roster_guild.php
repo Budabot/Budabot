@@ -77,7 +77,10 @@ if ($chatBot->vars["my guild"] != "" && $chatBot->vars["my guild id"] != "") {
 		
 		// wait for all buddy add/remove packets to finish sending
 		// not 100% sure this is needed
-		sleep(10);
+		sleep(5);
+		
+		// in case some of the org members were already on the friendlist, we need to restart the bot
+		// in order to get them to appear on the online list
 		Logger::log('INFO', 'GUILD_MODULE', "The bot is restarting");
 		die();
 	}

@@ -10,7 +10,7 @@
 
 	//Topic set/show
 	Event::register($MODULE_NAME, "joinPriv", "topic.php", "topic", "Show Topic when someone joins PrivChat");
-	Event::register($MODULE_NAME, "logOn", "topic_logon.php", "none", "Show Topic on logon of members");
+	Event::register($MODULE_NAME, "logOn", "topic_logon.php", "topic", "Show Topic on logon of members");
 	Command::register($MODULE_NAME, "", "topic.php", "topic", "all", "Show Topic");
 	Subcommand::register($MODULE_NAME, "", "topic.php", "topic (.+)", "leader", "topic", "Change Topic");
 	Setting::add($MODULE_NAME, "topic", "Topic for Priv Channel", "noedit", "text", '');
@@ -18,7 +18,7 @@
 	Setting::add($MODULE_NAME, "topic_time", "Time the topic was set", "noedit", "text", '');
 
     // Afk Check
-	Event::register($MODULE_NAME, "priv", "afk_check.php", "none", "Afk check");
+	Event::register($MODULE_NAME, "priv", "afk_check.php", "afk", "Afk check");
 	Command::register($MODULE_NAME, "", "afk.php", "afk", "all", "Sets a member afk");
 	Command::register($MODULE_NAME, "", "afk.php", "kiting", "all", "Sets a member kiting");
 
@@ -27,7 +27,7 @@
 	Subcommand::register($MODULE_NAME, "priv", "leader.php", "leader (.+)", "raidleader", "leader", "Set a specific Leader");
 	Command::register($MODULE_NAME, "", "leaderecho_cmd.php", "leaderecho", "leader", "Set if the text of the leader will be repeated");
 	Event::register($MODULE_NAME, "priv", "leaderecho.php", "leader", "leader echo");
-	Event::register($MODULE_NAME, "leavePriv", "leader.php", "none", "Removes leader when the leader leaves the channel");
+	Event::register($MODULE_NAME, "leavePriv", "leader.php", "leader", "Removes leader when the leader leaves the channel");
 	Setting::add($MODULE_NAME, "leaderecho", "Repeat the text of the raidleader", "edit", "options", "1", "true;false", "1;0");
 	Setting::add($MODULE_NAME, "leaderecho_color", "Color for Raidleader echo", "edit", "color", "<font color=#FFFF00>");
 
