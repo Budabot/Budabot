@@ -30,11 +30,11 @@
    */
 
 //Check if at least one timer is running
-if (count($chatBot->vars["Timers"]) == 0) {
+if (count($chatBot->data["timers"]) == 0) {
 	return;
 }
 
-forEach ($chatBot->vars["Timers"] as $key => $timer) {
+forEach ($chatBot->data["timers"] as $key => $timer) {
 	$msg = "";
 
 	$tleft = $timer->timer - time();
