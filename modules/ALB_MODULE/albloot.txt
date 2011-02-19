@@ -1,0 +1,11 @@
+<header>::::: Albtraum Instance Loot Module :::::<end>
+
+This module is designed to assist in adding Albtraum loot to a loot list.
+
+<highlight>To View Loot<end>
+<tab><symbol>alb - Albtraum
+
+<tab>Click on item icons to view item references
+<tab>albloot - Click the 'Add to Loot List' Link to add an item
+
+<orange>Developed by <highlight>Dare2005<end> (RK2), based on code for DB Loot Module by <highlight>Chachy<end> (RK2)<end>
