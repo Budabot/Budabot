@@ -45,7 +45,7 @@ if (preg_match("/^city$/i", $message) || preg_match("/^cloak$/i", $message)) {
             $msg = "The cloaking device is <green>enabled<end>. It is possible in ".round((($row->time + 60*60) - time())/60, 0)."min to disable it.";
 		}
 
-        $list = "<header>::::: City History :::::<end>\n\n";
+        $list = "<header>::::: City Cloak History :::::<end>\n\n";
         $list .= "Time: <highlight>".gmdate("M j, Y, G:i", $row->time)." (GMT)<end>\n";
         if ($row->action == "Attack") {
             $list .= "Action: <highlight>City was under attack.<end>\n\n";
