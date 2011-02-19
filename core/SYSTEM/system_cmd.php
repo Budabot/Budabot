@@ -21,6 +21,7 @@ if (preg_match("/^system$/i", $message, $arr)) {
 	$blob .= "<highlight>Number of active private channel commands:<end> " . count($chatBot->privCmds) . "\n";
 	$blob .= "<highlight>Number of active guild channel commands:<end> " . count($chatBot->guildCmds) . "\n";
 	$blob .= "<highlight>Number of active subcommands:<end> " . count($chatBot->subcommands) . "\n";
+	$blob .= "<highlight>Number of active command aliases:<end> " . count($chatBot->cmd_aliases) . "\n";
 	$blob .= "<highlight>Number of active events:<end> " . count($chatBot->events) . "\n";
 	$blob .= "<highlight>Number of help commands:<end> " . count($chatBot->helpfiles) . "\n";
 	$blob .= "<highlight>Number of characters on the friendlist:<end> " . count($chatBot->buddyList) . "\n\n";

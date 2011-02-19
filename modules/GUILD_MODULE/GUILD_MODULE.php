@@ -16,15 +16,13 @@
 	Event::register($MODULE_NAME, "1hour", "online_check.php", "none", "Online check");
 	
 	//Tell and Tellall
-	Command::register($MODULE_NAME, "guild msg", "tell.php", "tell", "leader", "Repeats an message 3 times in Orgchat");
-	Command::register($MODULE_NAME, "guild msg", "tell.php", "tellall", "leader", "Sends a tell to all online guildmembers");
+	Command::register($MODULE_NAME, "guild msg", "tell.php", "tell", "leader", "Repeats an message 3 times in guild channel");
+	Command::register($MODULE_NAME, "guild msg", "tell.php", "tellall", "leader", "Sends a tell to all online guild members");
 
     // Org Roster list creation and Notify on/off handling
 	Event::register($MODULE_NAME, "24hrs", "roster_guild.php", "none", "Download guild roster xml and update guild members");
 	Event::register($MODULE_NAME, "orgmsg", "notify_auto.php", "none", "Automatically add and remove chars from the guild roster as they leave and join the guild");
-	Command::register($MODULE_NAME, "guild", "notify.php", "notify", "mod", "Adding a char manually to the notify list");
-	Command::register($MODULE_NAME, "msg", "notify.php", "notify", "mod", "Adding a char manually to the notify list");
-	Command::register($MODULE_NAME, "priv", "notify.php", "notify", "mod", "Adding a char manually to the notify list");
+	Command::register($MODULE_NAME, "", "notify.php", "notify", "mod", "Adding a char manually to the notify list");
 	
 	Command::register($MODULE_NAME, "", "inactive_mem.php", "inactivemem", "admin", "Check for inactive members");
 	Command::register($MODULE_NAME, "", "updateorg.php", "updateorg", "mod", "Forcing an update of the org roster");

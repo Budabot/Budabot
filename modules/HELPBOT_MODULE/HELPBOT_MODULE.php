@@ -40,8 +40,8 @@
 	Command::register($MODULE_NAME, "", "roll.php", "verify", "all", "Verifies a flip/roll");
 
 	// Max XP calculator
-	Command::register($MODULE_NAME, "", "cap_xp.php", "capsk", "all", "Max SK Calculator");
-	Command::register($MODULE_NAME, "", "cap_xp.php", "capxp", "all", "Max XP Calculator");
+	Command::register($MODULE_NAME, "", "capxp.php", "capxp", "all", "Max XP Calculator");
+	CommandAlias::register($MODULE_NAME, "capxp", "capsk");
 
 	// Help files
 	Help::register($MODULE_NAME, "whois", "whois.txt", "all", "Show char stats at current and all dimensions");

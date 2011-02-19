@@ -29,8 +29,8 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (preg_match("/^(level|lvl|pvp) ([0-9]+)$/i", $message, $arr)) {
-	$level = $arr[2];
+if (preg_match("/^level ([0-9]+)$/i", $message, $arr)) {
+	$level = $arr[1];
 	if (($row = Level::get_level_info($level)) != false) {
         $msg = "<white>L $row->level: team {$row->teamMin}-{$row->teamMax}<end><highlight> | <end><cyan>PvP {$row->pvpMin}-{$row->pvpMax}<end><highlight> | <end><yellow>".number_format($row->xpsk)." XP/SK<end><highlight> | <end><orange>Missions {$row->missions}<end><highlight> | <end><blue>{$row->tokens} token(s)<end>";
     } else {

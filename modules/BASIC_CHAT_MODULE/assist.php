@@ -30,7 +30,7 @@
    */
 
 global $assist;
-if (preg_match("/^(assist|callers)$/i", $message)) {
+if (preg_match("/^assist$/i", $message)) {
   	if (!isset($assist)) {
 		$msg = "No assist set atm.";
 		$chatBot->send($msg, $sendto);

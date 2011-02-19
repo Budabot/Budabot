@@ -33,21 +33,21 @@
    **
    */
    
-require_once 'implant_functions.php';
+	require_once 'implant_functions.php';
 
-$MODULE_NAME = "IMPLANT_MODULE";
+	$MODULE_NAME = "IMPLANT_MODULE";
 
-//Setup
-DB::loadSQLFile($MODULE_NAME, "implant");
-DB::loadSQLFile($MODULE_NAME, "premade_implant");
+	// Setup
+	DB::loadSQLFile($MODULE_NAME, "implant");
+	DB::loadSQLFile($MODULE_NAME, "premade_implant");
 
-//Private
-Command::register($MODULE_NAME, "", "impql.php", "impql", "all", "Shows stats for implant at given ql");
-Command::register($MODULE_NAME, "", "impreq.php", "impreq", "all", "Shows the highest ql implant that can be worn given treatment and ability");
-Command::register($MODULE_NAME, "", "premade.php", "premade", "all", "Searches for implants out of the premade implants booths");
+	// Private
+	Command::register($MODULE_NAME, "", "impql.php", "impql", "all", "Shows stats for implant at given ql");
+	Command::register($MODULE_NAME, "", "impreq.php", "impreq", "all", "Shows the highest ql implant that can be worn given treatment and ability");
+	Command::register($MODULE_NAME, "", "premade.php", "premade", "all", "Searches for implants out of the premade implants booths");
 
-//Help
-Help::register($MODULE_NAME, "implant", "implant.txt", "all", "Implant help");
-Help::register($MODULE_NAME, "premade", "premade_implant.txt", "guild", "Premade Implant Help");
+	// Help
+	Help::register($MODULE_NAME, "implant", "implant.txt", "all", "Implant help");
+	Help::register($MODULE_NAME, "premade", "premade_implant.txt", "guild", "Premade Implant Help");
 
 ?>

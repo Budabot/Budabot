@@ -30,7 +30,7 @@
    */
 
 $msg = "";
-if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers? ([0-9]+) (.+)$/i", $message, $arr)) {
+if (preg_match("/^timers ([0-9]+)$/i", $message, $arr) || preg_match("/^timers ([0-9]+) (.+)$/i", $message, $arr)) {
 	if ($arr[2] == '') {
 		$timer_name = 'PrimTimer';
 	} else {
@@ -60,7 +60,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	$msg = "Timer has been set for $timerset.";
 		
     $chatBot->send($msg, $sendto);
-} else if (preg_match("/^timers? (rem|del) (.+)$/i", $message, $arr)) {
+} else if (preg_match("/^timers (rem|del) (.+)$/i", $message, $arr)) {
 	$timer_name = strtolower($arr[2]);
 	
 	forEach ($chatBot->vars["Timers"] as $key => $timer) {
@@ -89,8 +89,8 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	}
 
     $chatBot->send($msg, $sendto);
-} else if (preg_match("/^timers? ((([0-9]+)(d|day|days))?.?(([0-9]+)(h|hr|hrs))?.?(([0-9]+)(m|min|mins))?.?(([0-9]+)(s|sec|secs))?)$/i", $message, $arr) ||
-		preg_match("/^timers? ((([0-9]+)(d|day|days))?.?(([0-9]+)(h|hr|hrs))?.?(([0-9]+)(m|min|mins))?.?(([0-9]+)(s|sec|secs))?) (.+)$/i", $message, $arr2)) {
+} else if (preg_match("/^timers ((([0-9]+)(d|day|days))?.?(([0-9]+)(h|hr|hrs))?.?(([0-9]+)(m|min|mins))?.?(([0-9]+)(s|sec|secs))?)$/i", $message, $arr) ||
+		preg_match("/^timers ((([0-9]+)(d|day|days))?.?(([0-9]+)(h|hr|hrs))?.?(([0-9]+)(m|min|mins))?.?(([0-9]+)(s|sec|secs))?) (.+)$/i", $message, $arr2)) {
 
 	if ($arr2) {
 		$arr = $arr2;
@@ -162,7 +162,7 @@ if (preg_match("/^timers? ([0-9]+)$/i", $message, $arr) || preg_match("/^timers?
 	$msg = "Timer has been set for $timerset.";
 		
     $chatBot->send($msg, $sendto);
-} else if (preg_match("/^timers?$/i", $message, $arr)) {
+} else if (preg_match("/^timers$/i", $message, $arr)) {
 	$num_timers = count($chatBot->vars["Timers"]);
 	if ($num_timers == 0) {
 		$msg = "No Timers running atm.";

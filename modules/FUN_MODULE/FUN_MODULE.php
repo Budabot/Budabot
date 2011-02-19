@@ -8,9 +8,9 @@
 	Command::register($MODULE_NAME, "", "chuck.php", "chuck", "all", "Shows a random Chuck Norris joke.");
 	Command::register($MODULE_NAME, "", "credz.php", "credz", "all", "Shows a random credits message.");
 	Command::register($MODULE_NAME, "", "homer.php", "homer", "all", "Shows a random homer quote message.");
-	Command::register($MODULE_NAME, "", "dwight.php", "dwight", "all", "Shows a random homer quote message.");
-	Command::register($MODULE_NAME, "", "pinky_brain.php", "pinky", "all", "Shows a random homer quote message.");
-	Command::register($MODULE_NAME, "", "pinky_brain.php", "brain", "all", "Shows a random homer quote message.");
+	Command::register($MODULE_NAME, "", "dwight.php", "dwight", "all", "Shows a random dwight quote message.");
+	Command::register($MODULE_NAME, "", "brain.php", "brain", "all", "Shows a random pinky and the brain quote message.");
+	CommandAlias::register($MODULE_NAME, "brain", "pinky");
 	
 	// Ding
 	Command::register($MODULE_NAME, "", "ding.php", "ding", "all", "Shows a random ding gratz message.");

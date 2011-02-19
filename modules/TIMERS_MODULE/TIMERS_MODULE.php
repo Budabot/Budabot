@@ -6,8 +6,8 @@
 	Event::register($MODULE_NAME, "setup", "setup.php");
 
 	// Timer Module
-	Command::register($MODULE_NAME, "", "timers.php", "timer", "all", "Set Personal Timers");
-	Command::register($MODULE_NAME, "", "timers.php", "timers", "all", "Shows running Timers");
+	Command::register($MODULE_NAME, "", "timers.php", "timers", "all", "Set timers/Show running Timers");
+	CommandAlias::register($MODULE_NAME, "timers", "timer");
 	Command::register($MODULE_NAME, "", "countdown.php", "countdown", "all", "Set a countdown");
 	Command::register($MODULE_NAME, "", "countdown.php", "cd", "all", "Set a countdown");
 

@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (preg_match("/^inviteuser (.+)$/i", $message, $arr) || preg_match("/^invite (.+)$/i", $message, $arr)) {
+if (preg_match("/^invite (.+)$/i", $message, $arr)) {
     $uid = $chatBot->get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
 	if ($chatBot->vars["name"] == $name) {

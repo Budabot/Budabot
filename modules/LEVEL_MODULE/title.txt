@@ -1,4 +1,0 @@
-<header>::::: Infos about TitleLevels :::::<end>
-
-<highlight>To see some Infos about the TitleLevels do:<end>
-<tab><symbol>title

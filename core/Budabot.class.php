@@ -65,6 +65,7 @@ class Budabot extends AOChat {
 		$db->exec("CREATE TABLE IF NOT EXISTS cmdcfg_<myname> (`module` VARCHAR(50), `cmdevent` VARCHAR(5), `type` VARCHAR(18), `file` VARCHAR(255), `cmd` VARCHAR(25), `admin` VARCHAR(10), `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0', `dependson` VARCHAR(25) DEFAULT 'none', `grp` VARCHAR(25) DEFAULT 'none')");
 		$db->exec("CREATE TABLE IF NOT EXISTS settings_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `type` VARCHAR(30), `mode` VARCHAR(10), `value` VARCHAR(255) Default '0', `options` VARCHAR(255) Default '0', `intoptions` VARCHAR(50) DEFAULT '0', `description` VARCHAR(50), `source` VARCHAR(5), `admin` VARCHAR(25), `help` VARCHAR(60))");
 		$db->exec("CREATE TABLE IF NOT EXISTS hlpcfg_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `description` VARCHAR(50), `admin` VARCHAR(10), `verify` INT Default '0')");
+		$db->exec("CREATE TABLE IF NOT EXISTS cmd_alias_<myname> (`cmd` VARCHAR(25) NOT NULL, `module` VARCHAR(50), `alias` VARCHAR(25) NOT NULL, `status` INT DEFAULT '0')");
 	}
 
 /*===============================
@@ -141,6 +142,7 @@ class Budabot extends AOChat {
 		$this->events = array();
 		$this->helpfiles = array();
 		$this->subcommands = array();
+		$this->cmd_aliases = array();
 
 		$this->tellCmds = array();
 		$this->privCmds = array();
@@ -158,30 +160,41 @@ class Budabot extends AOChat {
 
 		//To reduce querys save the current commands/events in arrays
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd'");
-		while ($row = $db->fObject()) {
+		$data = $db->fObject('all');
+		forEach ($data as $row) {
 		  	$this->existing_commands[$row->type][$row->cmd] = true;
 		}
 
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd'");
-		while ($row = $db->fObject()) {
+		$data = $db->fObject('all');
+		forEach ($data as $row) {
 		  	$this->existing_subcmds[$row->type][$row->cmd] = true;
 		}
 
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'event'");
-		while ($row = $db->fObject()) {
+		$data = $db->fObject('all');
+		forEach ($data as $row) {
 			if (Util::verify_name_convention($row->file)) {
 			  	$this->existing_events[$row->type][$row->file] = true;
 			}
 		}
 
 		$db->query("SELECT * FROM hlpcfg_<myname>");
-		while ($row = $db->fObject()) {
+		$data = $db->fObject('all');
+		forEach ($data as $row) {
 		  	$this->existing_helps[$row->name] = true;
 		}
 
 		$db->query("SELECT * FROM settings_<myname>");
-		while ($row = $db->fObject()) {
+		$data = $db->fObject('all');
+		forEach ($data as $row) {
 		  	$this->existing_settings[$row->name] = true;
+		}
+		
+		$db->query("SELECT * FROM cmd_alias_<myname>");
+		$data = $db->fObject('all');
+		forEach ($data as $row) {
+		  	$this->existing_cmd_aliases[$row->alias] = true;
 		}
 
 		// Load the Core Modules -- SETINGS must be first in case the other modules have settings
@@ -232,6 +245,7 @@ class Budabot extends AOChat {
 		unset($this->existing_subcmds);
 		unset($this->existing_settings);
 		unset($this->existing_helps);
+		unset($this->existing_cmd_aliases);
 		
 		//Delete old entrys in the DB
 		$db->exec("DELETE FROM hlpcfg_<myname> WHERE `verify` = 0");
@@ -247,6 +261,10 @@ class Budabot extends AOChat {
 		//Load active subcommands
 		Logger::log('debug', 'Core', "Loading active subcommands");
 		Subcommand::loadSubcommands();
+		
+		//Load active cmd aliases
+		Logger::log('debug', 'Core', "Loading active command aliases");
+		CommandAlias::load();
 
 		//Load active events
 		Logger::log('debug', 'Core', "Loading active events");
@@ -769,6 +787,23 @@ class Budabot extends AOChat {
 		$db = DB::get_instance();
 		global $chatBot;
 		
+		// Admin Code
+		list($cmd, $params) = explode(' ', $message, 2);
+		$cmd = strtolower($cmd);
+		
+		// Check if this is an alias for a command
+		if ($chatBot->cmd_aliases[$cmd]) {
+			Logger::log('DEBUG', 'Core', "Command alias found command: '{$chatBot->cmd_aliases[$cmd]}' alias: '{$cmd}'");
+			$cmd = $chatBot->cmd_aliases[$cmd];
+			if ($params) {
+				$message = $cmd . ' ' . $params;
+			} else {
+				$message = $cmd;
+			}
+			$this->process_command($type, $message, $sender, $sendto);
+			return;
+		}
+		
 		switch ($type){
 			case "msg":
 				$cmds  = &$chatBot->tellCmds;
@@ -780,10 +815,7 @@ class Budabot extends AOChat {
 				$cmds =  &$chatBot->guildCmds;
 				break;
 		}
-		
-		// Admin Code
-		list($cmd) = explode(' ', $message, 2);
-		$cmd = strtolower($cmd);
+
 		$admin 	= $cmds[$cmd]["admin level"];
 		$filename = $cmds[$cmd]["filename"];
 

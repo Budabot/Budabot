@@ -1,6 +1,6 @@
 <?php
 
-if (preg_match("/^(fast|fastattack) ([0-9]*\.?[0-9]+) ([0-9]+)$/i", $message, $arr)) {
+if (preg_match("/^fast ([0-9]*\.?[0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	$AttTim = trim($arr[1]);
 	$fastSkill = trim($arr[2]);
 	

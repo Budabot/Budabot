@@ -46,7 +46,7 @@ $aypwip = array(
 	"Brain: Pinky, are you pondering what I'm pondering?<br> Pinky: Well, I think so Brain, but if Mulder wore the skirt, wouldn't Scully have to walk around naked?<br>",
 );
 
-if (preg_match("/^pinky|brain/i", $message)) {
+if (preg_match("/^brain/i", $message)) {
 	$randval = rand(1, sizeof($aypwip) - 1);
 	$msg = $aypwip[$randval];
 	$chatBot->send($msg, $sendto);

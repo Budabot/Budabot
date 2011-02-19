@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (preg_match("/^notes?$/i", $message)) {
+if (preg_match("/^notes$/i", $message)) {
 	$blob = "<header> :::::: Notes for $sender :::::: <end>\n\n";
 
 	$sql = "SELECT * FROM notes_<myname> WHERE name LIKE '$sender'";
@@ -47,7 +47,7 @@ if (preg_match("/^notes?$/i", $message)) {
 	}
   	
 	$chatBot->send($msg, $sendto);
-} else if (preg_match("/^notes? (rem|add) (.*)$/i", $message, $arr)) {
+} else if (preg_match("/^notes (rem|add) (.*)$/i", $message, $arr)) {
 	$action = strtolower($arr[1]);
 	$parm2 = $arr[2];
 
@@ -66,6 +66,8 @@ if (preg_match("/^notes?$/i", $message)) {
 		$msg = "Note added successfully.";
 	}
     $chatBot->send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
 
 ?>

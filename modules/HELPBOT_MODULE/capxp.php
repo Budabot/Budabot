@@ -27,11 +27,11 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (preg_match("/^(capxp|capsk) ([0-9]+)/i$", $message, $arr)) {
+if (preg_match("/^capxp ([0-9]+)/i$", $message, $arr)) {
 	//get player lvl
 	$rk_num = $chatBot->vars["dimension"];
 	$info = Player::get_by_name($sender);
-	$reward = $arr[2];
+	$reward = $arr[1];
 
 	if ($info === null) {
 		$chatBot->send("An Error occurred while trying to get your level. Please input it manually via <highlight><symbol>capxp 'mission reward' 'your lvl'<end> or try again later.", $sendto);
@@ -39,14 +39,14 @@ if (preg_match("/^(capxp|capsk) ([0-9]+)/i$", $message, $arr)) {
 	} else {
 		$lvl = $info->level;
 	}
-} else if (preg_match("/^(capxp|capsk) ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
-	$reward = $arr[2];
+} else if (preg_match("/^capxp ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
+	$reward = $arr[1];
 	
-	if (($arr[3] > 219) || ($arr[3] < 1)) {
+	if (($arr[2] > 219) || ($arr[2] < 1)) {
 		$chatBot->send("Your level cannot be greater than 219 or less than 1.", $sendto);
 		return;
 	} else {
-		$lvl = $arr[3];
+		$lvl = $arr[2];
 	}
 } else {
 	$syntax_error = true;

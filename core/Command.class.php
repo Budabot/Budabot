@@ -70,7 +70,7 @@ class Command {
 		$admin = strtolower($admin);
 		$channel = strtolower($channel);
 
-	  	Logger::log('debug', 'Core', "Activate Command:($command) Admin Type:($admin) File:($filename) Channel:($channel)");
+	  	Logger::log('DEBUG', 'Core', "Activate Command:($command) Admin Type:($admin) File:($filename) Channel:($channel)");
 
 		//Check if the file exists
 		$actual_filename = Util::verify_filename($filename);
@@ -113,7 +113,7 @@ class Command {
 	
 	/**
 	 * @name: deactivate
-	 * @description: Deactivates an command
+	 * @description: Deactivates a command
 	 */
 	public static function deactivate($channel, $filename, $command) {
 		global $chatBot;
@@ -122,7 +122,7 @@ class Command {
 		$command = strtolower($command);
 		$channel = strtolower($channel);
 
-	  	Logger::log('debug', 'Core', "Deactivate Command:($command) File:($filename) Channel:($channel)");
+	  	Logger::log('DEBUG', 'Core', "Deactivate Command:($command) File:($filename) Channel:($channel)");
 
 		switch ($channel){
 			case "msg":
@@ -177,7 +177,7 @@ class Command {
 
 	/**
 	 * @name: loadCommands
-	 * @description: Loads the active commands into memory and activates them
+	 * @description: Loads the active commands into memory to activate them
 	 */
 	public static function loadCommands() {
 	  	$db = DB::get_instance();

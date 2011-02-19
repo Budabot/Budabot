@@ -33,7 +33,7 @@
 
 	//Assist
 	Command::register($MODULE_NAME, "", "assist.php", "assist", "all", "Shows an Assist macro");
-	Command::register($MODULE_NAME, "", "assist.php", "callers", "all", "Shows an Assist macro");
+	CommandAlias::register($MODULE_NAME, "assist", "callers");
 	Subcommand::register($MODULE_NAME, "", "assist.php", "assist (.+)", "leader", "assist", "Set a new assist");
 	Command::register($MODULE_NAME, "", "heal_assist.php", "heal", "all", "Creates/showes an Doc Assist macro");
 	Subcommand::register($MODULE_NAME, "", "heal_assist.php", "heal (.+)", "leader", "heal", "Set a new Doc assist");

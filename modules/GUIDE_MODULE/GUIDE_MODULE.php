@@ -36,12 +36,13 @@
 	Command::register($MODULE_NAME, "", "guides.php", "guides", "all", "Guides for AO");
 	
 	// aliases
-	Command::register($MODULE_NAME, "", "guides.php", "breed", "all", "Alias for !guides breed");
-	Command::register($MODULE_NAME, "", "guides.php", "healdelta", "all", "Alias for !guides healdelta");
-	Command::register($MODULE_NAME, "", "guides.php", "lag", "all", "Alias for !guides lag");
-	Command::register($MODULE_NAME, "", "guides.php", "nanodelta", "all", "Alias for !guides nanodelta");
-	Command::register($MODULE_NAME, "", "guides.php", "stats", "all", "Alias for !guides stats");
-	Command::register($MODULE_NAME, "", "guides.php", "buffs", "all", "Alias for !guides buffs");
+	CommandAlias::register($MODULE_NAME, "guides breed", "breed");
+	CommandAlias::register($MODULE_NAME, "guides healdelta", "healdelta");
+	CommandAlias::register($MODULE_NAME, "guides lag", "lag", "all");
+	CommandAlias::register($MODULE_NAME, "guides nanodelta", "nanodelta");
+	CommandAlias::register($MODULE_NAME, "guides stats", "stats");
+	CommandAlias::register($MODULE_NAME, "guides buffs", "buffs");
+	CommandAlias::register($MODULE_NAME, "guides title", "title");
 	
 	Help::register($MODULE_NAME, "guides", "guides.txt", "all", 'How to use guides');
 ?>

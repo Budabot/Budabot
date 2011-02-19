@@ -14,7 +14,7 @@
 	Command::register($MODULE_NAME, "", "dimach.php", "dimach", "all", "Dimach: Calculates dimach facts.");
 	Command::register($MODULE_NAME, "", "brawl.php", "brawl", "all", "Brawl: Calculates brawl facts.");
 	Command::register($MODULE_NAME, "", "fast.php", "fast", "all", "Fast: Calculates Fast Attack recharge.");
-	Command::register($MODULE_NAME, "", "fast.php", "fastattack", "all", "alias for: fast");
+	CommandAlias::register($MODULE_NAME, "fast", "fastattack");
 	
 	//Xyphos' tools
 	Command::register($MODULE_NAME, "", "inits.php", "inits", "all", "shows how much inits you need for 1/1");

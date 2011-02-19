@@ -16,8 +16,8 @@
 	Command::register($MODULE_NAME, "", "lc.php", "lc", "all", "Shows status of towers");
 
 	Command::register($MODULE_NAME, "", "attacks.php", "attacks", "all", "Shows the last Tower Attack messages");
-	Command::register($MODULE_NAME, "", "attacks.php", "battle", "all", "Shows the last Tower Attack messages");
-	Command::register($MODULE_NAME, "", "attacks.php", "battles", "all", "Shows the last Tower Attack messages");
+	CommandAlias::register($MODULE_NAME, "attacks", "battle");
+	CommandAlias::register($MODULE_NAME, "attacks", "battles");
 
   	Command::register($MODULE_NAME, "", "victory.php", "victory", "all", "Shows the last Tower Battle results");
 

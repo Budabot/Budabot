@@ -1,6 +1,6 @@
 <?php
 
-if (preg_match("/^leprocs? (.+)$/i", $message, $arr)) {
+if (preg_match("/^leprocs (.+)$/i", $message, $arr)) {
 	$profession = Util::get_profession_name($arr[1]);
 	if ($profession == '') {
 		$msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, or trader";

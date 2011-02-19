@@ -33,8 +33,8 @@
 	
 	DB::loadSQLFile($MODULE_NAME, 'org_city');
 
-    Command::register($MODULE_NAME, "", "city.php", "city", "guild", "Shows the status of the Citycloak");
-	Command::register($MODULE_NAME, "", "city.php", "cloak", "guild", "Shows the status of the Citycloak");
+    Command::register($MODULE_NAME, "", "cloak.php", "cloak", "guild", "Shows the status of the city cloak");
+	CommandAlias::register($MODULE_NAME, "cloak", "city");
 
 	Event::register($MODULE_NAME, "guild", "record_cloak_changes.php", "city", "Records when the cloak is raised or lowered");
     Event::register($MODULE_NAME, "1min", "city_guild_timer.php", "city", "Checks timer to see if cloak can be raised or lowered");
@@ -44,7 +44,7 @@
 	Setting::add($MODULE_NAME, "showcloakstatus", "Show cloak status to players at logon", "edit", "options", "1", "Never;When cloak is down;Always", "0;1;2");
 	
 	// Helpfiles
-	Help::register($MODULE_NAME, "citycloak", "citycloak.txt", "guild", "Status of the citycloak");
+	Help::register($MODULE_NAME, "cloak", "cloak.txt", "guild", "Status of the city cloak");
 	
 	// Auto Wave
 	Command::register($MODULE_NAME, "guild", "start.php", "startraid", "guild", "manually starts wave counter");

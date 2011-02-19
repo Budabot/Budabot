@@ -3,7 +3,7 @@
  
 	// Checks who in an org is online
 	Command::register($MODULE_NAME, "", "orglist.php", "orglist", "guildadmin", "Check someones org roster");
-	Command::register($MODULE_NAME, "", "orglist.php", "onlineorg", "guildadmin", "Check someones org roster");
+	CommandAlias::register($MODULE_NAME, "orglist", "onlineorg");
 
 	Event::register($MODULE_NAME, "logOn", "orglist.php", "none", "Gets online status of org members");
 	Event::register($MODULE_NAME, "logOff", "orglist.php", "none", "Gets offline status of org members");

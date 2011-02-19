@@ -30,10 +30,12 @@
 	Command::register($MODULE_NAME, "", "lock.php", "lock", "rl", "Locks the privgroup");
 	Command::register($MODULE_NAME, "", "lock.php", "unlock", "rl", "Unlocks the privgroup");
 	
-	Command::register($MODULE_NAME, "", "invite.php", "inviteuser", "guild", "Enables Privatechat Join");
-	Command::register($MODULE_NAME, "", "kick.php", "kickuser", "guild", "kick command for guests");
 	Command::register($MODULE_NAME, "", "invite.php", "invite", "guild", "Enables Privatechat Join");
+	CommandAlias::register($MODULE_NAME, "invite", "inviteuser");
+	
 	Command::register($MODULE_NAME, "", "kick.php", "kick", "guild", "kick command for guests");
+	CommandAlias::register($MODULE_NAME, "kick", "kickuser");
+	
 	Command::register($MODULE_NAME, "", "add.php", "adduser", "guild", "Adds a player to the members list");
 	Command::register($MODULE_NAME, "", "rem.php", "remuser", "guild", "Removes a player from the members list");
 	

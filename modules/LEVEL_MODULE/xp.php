@@ -29,8 +29,8 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (preg_match("/^(xp|sk) ([0-9]+)$/i", $message, $arr)) {
-	$level = $arr[2];
+if (preg_match("/^xp ([0-9]+)$/i", $message, $arr)) {
+	$level = $arr[1];
 	if (($row = Level::get_level_info($level)) != false) {
 		if ($level >= 200) {
 			$msg = "With lvl <highlight>{$row->level}<end> you need <highlight>".number_format($row->xpsk)."<end> SK to level up.";
@@ -42,9 +42,9 @@ if (preg_match("/^(xp|sk) ([0-9]+)$/i", $message, $arr)) {
 	}
 
     $chatBot->send($msg, $sendto);
-} else if (preg_match("/^(xp|sk) ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
-	$minLevel = $arr[2];
-	$maxLevel = $arr[3];
+} else if (preg_match("/^xp ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
+	$minLevel = $arr[1];
+	$maxLevel = $arr[2];
     if ($minLevel >= 1 && $minLevel <= 220 && $maxLevel >= 1 && $maxLevel <= 220) {
         if ($minLevel < $maxLevel) {
 			$db->query("SELECT * FROM levels WHERE level >= $minLevel AND level < $maxLevel");

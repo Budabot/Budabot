@@ -26,6 +26,10 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
+   
+if (!isset($chatBot->guildmembers[$sender]) || time() < $chatBot->vars["logondelay"]) {
+	return;
+}
 
 $info = explode(" ", $message);
 list($msg, $command, $other) = $info;
@@ -44,17 +48,17 @@ if($command)
 {
 	if(strtolower($command) == "clearcache")
 	{
-		//		$chatBot->send($command." / ".$webpath, $sender);
+		//		$chatBot->send($command." / ".$webpath, $sendto);
 		if($webpath)
 		{
 			$send = file_get_contents($webpath."?clearcache=true");
 			if($send)
-				$chatBot->send($send, $sender);
+				$chatBot->send($send, $sendto);
 			else
-				$chatBot->send("Unable to clear cache",$sender);
+				$chatBot->send("Unable to clear cache",$sendto);
 		}
 		else{
-			$chatBot->send("Unable to find webpath",$sender);
+			$chatBot->send("Unable to find webpath",$sendto);
 		}
 	}
 	if(strtolower($command == "setwebpath"))
@@ -64,12 +68,12 @@ if($command)
 			Setting::save("webpath", $other);
 
 			if(Setting::get("webpath") == $other)
-				$chatBot->send("Webpath Saved.", $sender);
+				$chatBot->send("Webpath Saved.", $sendto);
 			else
-				$chatBot->send("Unable to save Webpath",$sender);
+				$chatBot->send("Unable to save Webpath",$sendto);
 		}
 		else{
-			$chatBot->send($webpathhelplink, $sender);
+			$chatBot->send($webpathhelplink, $sendto);
 		}
 	}
 }
@@ -106,10 +110,10 @@ elseif($webpath)
 	{
 		$send = file_get_contents($webpath."?upload=".rawurlencode($list));
 		if($type == "msg" || $type == 'priv' || $type == 'guild')
-			$chatBot->send("Webcast Updated.", $sender);
+			$chatBot->send("Webcast Updated.", $sendto);
 	}
 }
 else{
-	$chatBot->send($webpathhelplink, $sender);
+	$chatBot->send($webpathhelplink, $sendto);
 }
 ?>

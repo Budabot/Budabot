@@ -34,3 +34,7 @@
 <highlight>To see nanos and items that buff abilities and common skills<end>
 <tab><symbol>guides buffs
 <tab><symbol>buffs
+
+<highlight>To see information about title levels<end>
+<tab><symbol>guides title
+<tab><symbol>title

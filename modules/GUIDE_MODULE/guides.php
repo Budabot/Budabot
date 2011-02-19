@@ -38,7 +38,7 @@ if (preg_match("/^guides list$/i", $message)) {
 	} else {
 		$msg = "Error reading topics.";	
 	}
-} else if (preg_match("/^guides ([a-z0-9_-]+)$/i", $message, $arr) || preg_match("/^([a-z0-9_-]+)$/i", $message, $arr)) {
+} else if (preg_match("/^guides ([a-z0-9_-]+)$/i", $message, $arr)) {
 	// if they want a certain topic
 	// get the filename and read in the file
 	$fileName = strtolower($arr[1]);
