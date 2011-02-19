@@ -1,6 +1,6 @@
 <?php
 
-if (isset($chatBot->guildmembers[$sender]) && time() >= $chatBot->vars["logondelay"]) {
+if (isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
 	$msg = "<highlight>$sender<end> logged off";
 
 	$chatBot->send($msg, "guild", true);

@@ -1,6 +1,6 @@
 <?php
 
-if (isset($chatBot->guildmembers[$sender]) && time() >= $chatBot->vars["logondelay"]) {
+if (isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
 	$whois = Player::get_by_name($sender);
 
 	$msg = '';

@@ -1,6 +1,6 @@
 <?php
 
-if (time() >= $chatBot->vars["logondelay"]) {
+if ($chatBot->is_ready()) {
 	$uid = $chatBot->get_uid($sender);
 	$db->query("SELECT * FROM tracked_users_<myname> WHERE uid = $uid");
 	if ($db->numrows() != 0) {

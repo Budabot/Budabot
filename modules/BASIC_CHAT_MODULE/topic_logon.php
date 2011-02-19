@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if ($chatBot->settings["topic"] != '' && isset($chatBot->guildmembers[$sender]) && time() >= $chatBot->vars["logondelay"]) {
+if ($chatBot->settings["topic"] != '' && isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
 	$date_string = Util::unixtime_to_readable($chatBot->settings["topic_time"], false);
 	$msg = "<highlight>Topic:<end> {$chatBot->settings["topic"]} [set by <highlight>{$chatBot->settings["topic_setby"]}<end>][<highlight>{$date_string} ago<end>]";
     $chatBot->send($msg, $sender);

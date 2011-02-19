@@ -27,7 +27,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
    
-if (!isset($chatBot->guildmembers[$sender]) || time() < $chatBot->vars["logondelay"]) {
+if (!isset($chatBot->guildmembers[$sender]) || !$chatBot->is_ready()) {
 	return;
 }
 
