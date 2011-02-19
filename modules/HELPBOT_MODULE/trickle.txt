@@ -4,3 +4,5 @@
 <tab>Usage: <symbol>trickle &lt;ability&gt; &lt;amount&gt;
 
 <tab>eg: <symbol>trickle agi 20
+
+Valid abilites are: agi, int, psy, sta, str, sen

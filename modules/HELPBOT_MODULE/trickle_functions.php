@@ -33,15 +33,12 @@
    **
    */
    
-global $abilities;
-$abilities = array('agi', 'int', 'psy', 'sta', 'str', 'sen');
+$chatBot->data['abilities'] = array('agi', 'int', 'psy', 'sta', 'str', 'sen');
 
 function getAbility($ability) {
-	global $abilities;
-
 	$ability = strtolower(substr($ability, 0, 3));
 
-	if (in_array($ability, $abilities)) {
+	if (in_array($ability, $chatBot->data['abilities'])) {
 		return $ability;
 	} else {
 		return null;
@@ -90,8 +87,6 @@ function getTrickleResults($agi, $int, $psy, $sta, $str, $sen) {
 }
 
 function formatOutput($results, $amount) {
-	global $abilities;
-
 	$msg = "";
 	$groupName = "";
 	forEach($results as $result) {
@@ -104,7 +99,7 @@ function formatOutput($results, $amount) {
 		$amount = $result->amount / 4;
 		$msg .= "<yellow>$result->name<end> <orange>$amount<end>";
 		
-		forEach ($abilities as $ability) {
+		forEach ($chatBot->data['abilities'] as $ability) {
 			$ability = ucfirst($ability);
 			$abilityField = "amount" . $ability;
 			$abilityAmount = $result->$abilityField * 100;

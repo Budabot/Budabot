@@ -44,12 +44,7 @@ $str = 0;
 $sen = 0;
 
 // make sure the $ql is an integer between 1 and 300
-if (!preg_match("/^trickle( ([a-zA-Z]+) ([0-9]+)){1,6}$/i", $message)) {
-
-	$msg = $usageMsg;
-
-} else {
-
+if (preg_match("/^trickle( ([a-zA-Z]+) ([0-9]+)){1,6}$/i", $message)) {
 	$array = explode(" ", $message);
 	for ($i = 0; isset($array[1 + $i]); $i += 2) {
 		$ability = getAbility($array[1 + $i]);
@@ -57,15 +52,10 @@ if (!preg_match("/^trickle( ([a-zA-Z]+) ([0-9]+)){1,6}$/i", $message)) {
 	}
 
 	if ($ability == null) {
-
 		$msg = $usageMsg;
-
 	} else {
-		
-		global $abilities;
-		
 		$header = "";
-		forEach ($abilities as $ability) {
+		forEach ($chatBot->data['abilities'] as $ability) {
 			if ($$ability != 0) {
 				$header .= " (" . ucfirst($ability) . " " . $$ability . ")";
 			}
@@ -77,8 +67,10 @@ if (!preg_match("/^trickle( ([a-zA-Z]+) ([0-9]+)){1,6}$/i", $message)) {
 		$output .= formatOutput($results, $amount);
 		$msg = Text::make_link('Trickle Results', $output);
 	}
+	
+	$chatBot->send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
-
-$chatBot->send($msg, $sendto);
 
 ?>
