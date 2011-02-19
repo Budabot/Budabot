@@ -1,7 +1,7 @@
 <?php
 
-if (!isset($chatBot->vars["Raffles"])) {
-    $chatBot->vars["Raffles"] = array(
+if (!isset($chatBot->data["Raffles"])) {
+    $chatBot->data["Raffles"] = array(
         "running" => false,
         "owner" => NULL,
         "item" => NULL,

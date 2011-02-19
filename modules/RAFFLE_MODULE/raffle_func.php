@@ -2,24 +2,24 @@
 function endraffle(&$bot)
 {
     // just to make sure there is a raffle to end
-    if (!$bot->vars["Raffles"]["running"])
+    if (!$bot->data["Raffles"]["running"])
     {
         return;
     }
     // indicate that the raffle is over
-    $bot->vars["Raffles"]["running"] = false;
+    $bot->data["Raffles"]["running"] = false;
 
-    $item = $bot->vars["Raffles"]["item"];
-    $count = $bot->vars["Raffles"]["count"];
-    $rafflees = array_keys($bot->vars["Raffles"]["rafflees"]);
+    $item = $bot->data["Raffles"]["item"];
+    $count = $bot->data["Raffles"]["count"];
+    $rafflees = array_keys($bot->data["Raffles"]["rafflees"]);
     $rafflees_num = count($rafflees);
 
     if (0 == $rafflees_num)
     {
         $msg = "<highlight>No one joined the raffle, $item is free for all.";
-        $bot->vars["Raffles"]["lastresult"] = $msg;
+        $bot->data["Raffles"]["lastresult"] = $msg;
 
-        $bot->send($msg, $bot->vars["Raffles"]["sendto"]);
+        $bot->send($msg, $bot->data["Raffles"]["sendto"]);
         return;
     }
 
@@ -35,11 +35,11 @@ function endraffle(&$bot)
     {
         // roll a name out of the rafflees and add a rollcount
         $random_name = $rafflees[mt_rand(0, $rafflees_num -1)];
-        $bot->vars["Raffles"]["rafflees"][$random_name] ++;
+        $bot->data["Raffles"]["rafflees"][$random_name] ++;
     }
 
     // sort the list depending on roll results
-    arsort($bot->vars["Raffles"]["rafflees"]);
+    arsort($bot->data["Raffles"]["rafflees"]);
 
     $blob = "<header>Raffle results<end>\n";
     if (1 == $count)
@@ -52,7 +52,7 @@ function endraffle(&$bot)
     }
 
     $i = 0;
-    foreach ($bot->vars["Raffles"]["rafflees"] as $char => $rolls) {
+    foreach ($bot->data["Raffles"]["rafflees"] as $char => $rolls) {
         $i++;
         $blob .= "\n$i. $char got $rolls rolls.";
         if ($i == $count)
@@ -72,7 +72,7 @@ function endraffle(&$bot)
     }
 
     $i = 0;
-    foreach ($bot->vars["Raffles"]["rafflees"] as $char => $rolls) {
+    foreach ($bot->data["Raffles"]["rafflees"] as $char => $rolls) {
         $i++;
         $msg .= "$char";
         if ($i != $count)
@@ -85,8 +85,8 @@ function endraffle(&$bot)
         }
     }
     $msg .= " Congratulations. $results";
-    $bot->vars["Raffles"]["lastresult"] = $msg;
-    $bot->send($msg, $bot->vars["Raffles"]["sendto"]);
+    $bot->data["Raffles"]["lastresult"] = $msg;
+    $bot->send($msg, $bot->data["Raffles"]["sendto"]);
 }
 
 ?>
