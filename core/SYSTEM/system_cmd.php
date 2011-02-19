@@ -23,8 +23,10 @@ if (preg_match("/^system$/i", $message, $arr)) {
 	$blob .= "<highlight>Number of active subcommands:<end> " . count($chatBot->subcommands) . "\n";
 	$blob .= "<highlight>Number of active command aliases:<end> " . count($chatBot->cmd_aliases) . "\n";
 	$blob .= "<highlight>Number of active events:<end> " . count($chatBot->events) . "\n";
-	$blob .= "<highlight>Number of help commands:<end> " . count($chatBot->helpfiles) . "\n";
-	$blob .= "<highlight>Number of characters on the friendlist:<end> " . count($chatBot->buddyList) . "\n\n";
+	$blob .= "<highlight>Number of help commands:<end> " . count($chatBot->helpfiles) . "\n\n";
+	
+	$blob .= "<highlight>Number of characters on the friendlist:<end> " . count($chatBot->buddyList) . "\n";
+	$blob .= "<highlight>Number of messages in the chat queue:<end> " . count($chatBot->chatqueue->queue) . "\n\n";
 	
 	$blob .= "<highlight>Public Channels:<end>\n";
 	forEach ($chatBot->grp as $gid => $status) {

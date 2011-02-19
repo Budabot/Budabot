@@ -304,26 +304,31 @@ class Budabot extends AOChat {
 /*===============================
 ** Name: send
 ** Send chat messages back to aochat servers thru aochat.
-*/	function send($message, $who = 'prv', $disable_relay = false) {
+*/	function send($message, $target, $disable_relay = false) {
+		if ($target == null) {
+			Logger::log('ERROR', 'Core', "Could not send message as no target was specified. message: '{$message}'");
+			return;
+		}
+
 		// for when makeLink generates several pages
 		if (is_array($message)) {
 			forEach ($message as $page) {
-				$this->send($page, $who, $disable_relay);
+				$this->send($page, $target, $disable_relay);
 			}
 			return;
 		}
 
-		if ($who == 'guild') {
-			$who = 'org';
+		if ($target == 'guild') {
+			$target = 'org';
 		}
-		if ($who == 'priv') {
-			$who = 'prv';
+		if ($target == 'priv') {
+			$target = 'prv';
 		}
 
 		$message = Text::format_message($message);
 
 		// Send
-		if ($who == 'prv') { // Target is private chat by defult.
+		if ($target == 'prv') { // Target is private chat by defult.
 			$this->send_privgroup($this->vars["name"], $this->settings["default_priv_color"].$message);
 			
 			// relay to guild channel
@@ -335,7 +340,7 @@ class Budabot extends AOChat {
 			if (!$disable_relay && $this->settings["relaybot"] != "Off" && $this->settings["bot_relay_commands"] == 1) {
 				send_message_to_relay("grc <grey>[".$this->vars["my guild"]."] ".$message);
 			}
-		} else if ($who == $this->vars["my guild"] || $who == 'org') {// Target is guild chat.
+		} else if ($target == $this->vars["my guild"] || $target == 'org') {// Target is guild chat.
     		$this->send_group($this->vars["my guild"], $this->settings["default_guild_color"].$message);
 			
 			// relay to private channel
@@ -347,11 +352,11 @@ class Budabot extends AOChat {
 			if (!$disable_relay && $this->settings["relaybot"] != "Off" && $this->settings["bot_relay_commands"] == 1) {
 				send_message_to_relay("grc <grey>[".$this->vars["my guild"]."] ".$message);
 			}
-		} else if ($this->get_uid($who) != NULL) {// Target is a player.
-			Logger::log_chat("Out. Msg.", $who, $message);
-    		$this->send_tell($who, $this->settings["default_tell_color"].$message);
+		} else if ($this->get_uid($target) != NULL) {// Target is a player.
+			Logger::log_chat("Out. Msg.", $target, $message);
+    		$this->send_tell($target, $this->settings["default_tell_color"].$message);
 		} else { // Public channels that are not myguild.
-	    	$this->send_group($who, $this->settings["default_guild_color"].$message);
+	    	$this->send_group($target, $this->settings["default_guild_color"].$message);
 		}
 	}
 

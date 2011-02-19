@@ -114,7 +114,7 @@ if (preg_match("/^list$/i", $message)) {
 			$msg = "No List exists yet.";
 		}
 	} else {
-		$chatBot->send("No list available!");
+		$chatBot->send("No list available!", $sendto);
 		return;
 	}
 
