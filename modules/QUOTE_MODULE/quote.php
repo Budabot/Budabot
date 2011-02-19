@@ -166,13 +166,10 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 } else if (preg_match("/^quote stats$/i", $message, $arr)) {
 	// might need to run it ourselves the first time. 
 	// cron will keep updating it later.
-	$msg = $chatBot->vars["quotestats"];
 	if ($msg == "") {
 		include "quotestats.php";
 	}
-	$msg = $chatBot->vars["quotestats"];
-	
-	
+	$msg = $chatBot->data["quotestats"];
 	
 //View a specific quote
 } else if (preg_match("/^quote ([0-9]+)$/i", $message, $arr)) {
