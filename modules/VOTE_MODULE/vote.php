@@ -157,7 +157,7 @@ if (preg_match("/^vote$/i", $message)) {
 	////////////////////////////////////////////////////////////////////////////////////
 	} elseif (count($sect) == 2 && strtolower($sect[0]) == "remove") {   // Remove vote
 		
-		if (!isset($chatBot->vars["Vote"][$sect[1]])) {
+		if (!isset($chatBot->data["Vote"][$sect[1]])) {
 			$msg = "There is no such topic available.";
 		} else {
 			$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[1])."' AND `author` = '$sender' AND `duration` IS NULL");
@@ -179,7 +179,7 @@ if (preg_match("/^vote$/i", $message)) {
 		
 		if ($db->numrows() > 0) {
 			$db->exec("DELETE FROM $table WHERE `question` = '".str_replace("'", "''", $sect[1])."'");
-			unset($chatBot->vars["Vote"][$sect[1]]);
+			unset($chatBot->data["Vote"][$sect[1]]);
 			$msg = "'$sect[1]' has been removed.";
 		} else {
 			$msg = "Either this vote doesn't exist, or you didn't create it.";
@@ -201,7 +201,7 @@ if (preg_match("/^vote$/i", $message)) {
 			if ($timeleft > 60) {
 				$duration = (time()-$started)+61;
 				$db->exec("UPDATE $table SET `duration` = '$duration' WHERE `author` = '$sender' AND `duration` IS NOT NULL AND `question` = '".str_replace("'", "''", $sect[1])."'");
-				$chatBot->vars["Vote"][$sect[1]]["duration"] = $duration;
+				$chatBot->data["Vote"][$sect[1]]["duration"] = $duration;
 			} else {
 				$msg = "There is only $timeleft seconds left.";
 			}
@@ -300,7 +300,7 @@ if (preg_match("/^vote$/i", $message)) {
 				if ($db->numrows() == 0) {
 
 					$db->exec("INSERT INTO $table (`question`, `author`, `started`, `duration`, `answer`, `status`) VALUES ( '".str_replace("'", "''", $question)."', '$sender', '".time()."', '$newtime', '".str_replace("'", "''", $answers)."', '$status')");
-					$chatBot->vars["Vote"][$question] = array("author" => $sender,  "started" => time(), "duration" => $newtime, "answer" => $answers, "status" => "0", "lockout" => $status);
+					$chatBot->data["Vote"][$question] = array("author" => $sender,  "started" => time(), "duration" => $newtime, "answer" => $answers, "status" => "0", "lockout" => $status);
 
 				} else {
 					$msg = "There's already a vote with this topic.";

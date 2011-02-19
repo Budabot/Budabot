@@ -10,7 +10,9 @@
    ** Date(last modified): 02.06.2007
    */
    
-if(count($chatBot->vars["Vote"]) == 0) {return;}
+if (count($chatBot->data["Vote"]) == 0) {
+	return;
+}
 $delimiter = "|";
 
 // I hate seeing a function in a module/plugin. 
@@ -45,15 +47,15 @@ if (!function_exists(timeLeft)) {function timeLeft($origtime, $showbiggest=4) {
 
 $table = "vote_<myname>";
 
-forEach ($chatBot->vars["Vote"] as $key => $value) {
+forEach ($chatBot->data["Vote"] as $key => $value) {
    	
-	$author = $chatBot->vars["Vote"][$key]["author"];
+	$author = $chatBot->data["Vote"][$key]["author"];
 	$question = $key;
-	$started = $chatBot->vars["Vote"][$key]["started"];
-	$duration = $chatBot->vars["Vote"][$key]["duration"];
-	$answer = $chatBot->vars["Vote"][$key]["answer"];
-	$status = $chatBot->vars["Vote"][$key]["status"];
-	$lockout = $chatBot->vars["Vote"][$key]["lockout"];
+	$started = $chatBot->data["Vote"][$key]["started"];
+	$duration = $chatBot->data["Vote"][$key]["duration"];
+	$answer = $chatBot->data["Vote"][$key]["answer"];
+	$status = $chatBot->data["Vote"][$key]["status"];
+	$lockout = $chatBot->data["Vote"][$key]["lockout"];
 	// status = 0, just started, 1 = > 60 minutes left, 2 = 60 minutes left, 3 = 15 minutes left, 4 = 60 seconds, 9 = vote over
 	
 	$timeleft = ($started+$duration);
@@ -62,7 +64,7 @@ forEach ($chatBot->vars["Vote"] as $key => $value) {
 	if ($timeleft <= 0) {
 		$title = "Finished: $question";
 		$db->exec("UPDATE $table SET `status` = '9' WHERE `duration` = '$duration' AND `question` = '".str_replace("'", "''", $question)."'");
-		unset($chatBot->vars["Vote"][$key]);
+		unset($chatBot->data["Vote"][$key]);
 	} else if ($status == 0) {
 		$title = "Vote: $question";
 		
@@ -70,17 +72,17 @@ forEach ($chatBot->vars["Vote"] as $key => $value) {
 		else if ($timeleft > 900) {$mstatus = 2;}
 		else if ($timeleft > 60) {$mstatus = 3;}	
 		else {$mstatus = 4;}
-		$chatBot->vars["Vote"][$key]["status"]=$mstatus;
+		$chatBot->data["Vote"][$key]["status"]=$mstatus;
 		
 	} else if ($timeleft <= 60 && $timeleft > 0 && $status != 4) {
 		$title = "60 seconds left: $question";
-		$chatBot->vars["Vote"][$key]["status"]=4;
+		$chatBot->data["Vote"][$key]["status"]=4;
 	} else if ($timeleft <= 900 && $timeleft > 60 && $status != 3) {
 		$title = "15 minutes left: $question";
-		$chatBot->vars["Vote"][$key]["status"]=3;
+		$chatBot->data["Vote"][$key]["status"]=3;
 	} else if ($timeleft <= 3600 && $timeleft > 900 && $status != 2) {
 		$title = "60 minutes left: $question";
-		$chatBot->vars["Vote"][$key]["status"]=2;
+		$chatBot->data["Vote"][$key]["status"]=2;
 	} else {$title = "";}
 
 	if($title != "") { // Send current results to guest + org chat.
