@@ -38,8 +38,8 @@ if ($chatBot->settings["leaderecho"] == 1) {
 }
 
 if ($type == "leavePriv") {
-	if ($chatBot->vars["leader"] == $sender) {
-		unset($chatBot->vars["leader"]);
+	if ($chatBot->data["leader"] == $sender) {
+		unset($chatBot->data["leader"]);
 	  	$msg = "Raid leader cleared.";
 		$chatBot->send($msg, 'priv');
 	}
@@ -51,23 +51,23 @@ if ($type == "leavePriv") {
 	} else if (!isset($chatBot->chatlist[$name])) {
 		$msg = "Player <highlight>{$name}<end> isn't in this channel.";
 	} else {
-		$chatBot->vars["leader"] = $name;
+		$chatBot->data["leader"] = $name;
 	  	$msg = "{$name} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
 	}
   	$chatBot->send($msg, 'priv');
 } else if (preg_match("/^leader$/i", $message)) {
-  	if ($chatBot->vars["leader"] == $sender) {
-		unset($chatBot->vars["leader"]);
+  	if ($chatBot->data["leader"] == $sender) {
+		unset($chatBot->data["leader"]);
 	  	$msg = "Leader cleared.";
-	} else if ($chatBot->vars["leader"] != "") {
-		if ($chatBot->admins[$sender]["level"] >= $chatBot->admins[$chatBot->vars["leader"]]["level"]){
-  			$chatBot->vars["leader"] = $sender;
+	} else if ($chatBot->data["leader"] != "") {
+		if ($chatBot->admins[$sender]["level"] >= $chatBot->admins[$chatBot->data["leader"]]["level"]){
+  			$chatBot->data["leader"] = $sender;
 		  	$msg = "{$sender} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
 		} else {
-			$msg = "You can't take leader from <highlight>{$chatBot->vars["leader"]}<end>.";
+			$msg = "You can't take leader from <highlight>{$chatBot->data["leader"]}<end>.";
 		}
 	} else {
-		$chatBot->vars["leader"] = $sender;
+		$chatBot->data["leader"] = $sender;
 	  	$msg = "{$sender} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
 	}
   	$chatBot->send($msg, 'priv');

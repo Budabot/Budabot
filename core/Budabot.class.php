@@ -42,6 +42,9 @@ class Budabot extends AOChat {
 	var $tellCmds = array();
 	var $privCmds = array();
 	var $guildCmds = array();
+	
+	// array where modules can store stateful session data
+	var $data = array();
 
 /*===============================
 ** Name: __construct
