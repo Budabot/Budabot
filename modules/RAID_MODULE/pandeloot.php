@@ -335,8 +335,6 @@ $pandeloot[96]["ref"] = "244648";
 
 
 global $loot;
-global $raidloot;
-global $vote;
 $msg = '';
 
 if (preg_match("/^pande$/i", $message)){
@@ -383,14 +381,15 @@ if (preg_match("/^pande$/i", $message)){
 	$newlink = Text::make_link("Shadowbreeds\n", "/tell <myname> <symbol>sb", "chatcmd");
 	$list .= "<tab>".$newlink;
 
+	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 
 	$msg = Text::make_link("Pandemonium Loot", $list);
 } else if (preg_match("/^pandeloot ([0-9]+)$/i", $message, $arr)) {
 	$val = $arr[1];
 	$itemname = $pandeloot[$val]["name"];
 	$dontadd = 0;
-	foreach($loot as $key => $item) {
-		if($item["name"] == $itemname){
+	forEach ($loot as $key => $item) {
+		if ($item["name"] == $itemname){
 			$loot[$key]["multiloot"] = $item["multiloot"]+1;
 			$total = $item["multiloot"]+1;
 			$dontadd = 1;
@@ -399,31 +398,30 @@ if (preg_match("/^pande$/i", $message)){
 	}
 	
 
-	if($dontadd == 0){
-		if(is_array($loot)){
-			if(count($loot) < 31)
+	if ($dontadd == 0) {
+		if (is_array($loot)) {
+			if (count($loot) < 31) {
 				$nextloot = count($loot) + 1;
-			else{
+			} else {
 				$chatBot->send("You can only roll 30 items max at one time!", $sendto);
 				return;
 			}
-		}
-		else
+		} else {
 			$nextloot = 1;
+		}
 		$loot[$nextloot]["name"] = $pandeloot[$val]["name"];
 		$loot[$nextloot]["linky"] = "<a href='itemref://{$pandeloot[$val]["ref"]}/{$pandeloot[$val]["ref"]}/300'>{$pandeloot[$val]["name"]}</a>";
 		$loot[$nextloot]["icon"] = $pandeloot[$val]["img"];
 		$loot[$nextloot]["multiloot"] = 1;
 		$msg = "<highlight>".$itemname."<end> will be rolled in Slot <highlight>#".$nextloot;
-	}
-	else{
+	} else {
 		$msg = "<highlight>".$itemname."<end> will be rolled in Slot <highlight>#".$slot."<end> as multiloot. Total: <yellow>".$total."<end>";
 	}
 	$msg .= "\nTo add use !add ".$nextloot.", or !add 0 to remove yourself";
 } else if (preg_match("/^beastarmor$/i", $message)){
 	$list = "<header>::::: Beast Armor :::::<end>\n\n\n";
 	$loop = 1;
-	while($loop <= 10) {
+	while ($loop <= 10) {
 		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
 		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
@@ -431,11 +429,12 @@ if (preg_match("/^pande$/i", $message)){
 		$list .= "\n";
 		$loop++;
 	}
+	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Beast Armor", $list);
 } else if (preg_match("/^beastweaps$/i", $message)){
 	$list = "<header>::::: Beast Weapons :::::<end>\n\n\n";
 	$loop = 11;
-	while($loop <= 24) {
+	while ($loop <= 24) {
 		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
 		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
@@ -443,11 +442,12 @@ if (preg_match("/^pande$/i", $message)){
 		$list .= "\n";
 		$loop++;
 	}
+	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Beast Weapons", $list);
 } else if (preg_match("/^beaststars$/i", $message)){
 	$list = "<header>::::: Beast Stars :::::<end>\n\n\n";
 	$loop = 25;
-	while($loop <= 38) {
+	while ($loop <= 38) {
 		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
 		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
@@ -455,11 +455,12 @@ if (preg_match("/^pande$/i", $message)){
 		$list .= "\n";
 		$loop++;
 	}
+	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Beast Stars", $list);
 } else if (preg_match("/^sb$/i", $message)){
 	$list = "<header>::::: Shadowbreeds :::::<end>\n\n\n";
 	$loop = 39;
-	while($loop <= 41) {
+	while ($loop <= 41) {
 		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
 		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
@@ -467,11 +468,12 @@ if (preg_match("/^pande$/i", $message)){
 		$list .= "\n";
 		$loop++;
 	}
+	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Shadowbreeds", $list);
 } else if (preg_match("/^tnh$/i", $message)){
 	$list = "<header>::::: The Night Heart :::::<end>\n\n\n";
 	$loop = 42;
-	while($loop <= 46) {
+	while ($loop <= 46) {
 		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
 		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
@@ -479,11 +481,12 @@ if (preg_match("/^pande$/i", $message)){
 		$list .= "\n";
 		$loop++;
 	}
+	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("The Night Heart Loot", $list);
 } else if (preg_match("/^aries$/i", $message)){
 	$list = "<header>::::: Aries :::::<end>\n\n\n";
 	$loop = 47;
-	while($loop <= 51) {
+	while ($loop <= 51) {
 		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
 		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
@@ -491,11 +494,12 @@ if (preg_match("/^pande$/i", $message)){
 		$list .= "\n";
 		$loop++;
 	}
+	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Aries Loot", $list);
 } else if (preg_match("/^leo$/i", $message)){
 	$list = "<header>::::: Leo :::::<end>\n\n\n";
 	$loop = 52;
-	while($loop <= 55) {
+	while ($loop <= 55) {
 		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
 		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
@@ -503,11 +507,12 @@ if (preg_match("/^pande$/i", $message)){
 		$list .= "\n";
 		$loop++;
 	}
+	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Leo Loot", $list);
 } else if (preg_match("/^virgo$/i", $message)){
 	$list = "<header>::::: Virgo :::::<end>\n\n\n";
 	$loop = 56;
-	while($loop <= 59) {
+	while ($loop <= 59) {
 		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
 		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
@@ -515,11 +520,12 @@ if (preg_match("/^pande$/i", $message)){
 		$list .= "\n";
 		$loop++;
 	}
+	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Virgo Loot", $list);
 } else if (preg_match("/^aquarius$/i", $message)){
 	$list = "<header>::::: Aquarius :::::<end>\n\n\n";
 	$loop = 60;
-	while($loop <= 63) {
+	while ($loop <= 63) {
 		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
 		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
@@ -527,11 +533,12 @@ if (preg_match("/^pande$/i", $message)){
 		$list .= "\n";
 		$loop++;
 	}
+	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Aquarius Loot", $list);
 } else if (preg_match("/^cancer$/i", $message)){
 	$list = "<header>::::: Cancer :::::<end>\n\n\n";
 	$loop = 64;
-	while($loop <= 67) {
+	while ($loop <= 67) {
 		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
 		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
@@ -539,11 +546,12 @@ if (preg_match("/^pande$/i", $message)){
 		$list .= "\n";
 		$loop++;
 	}
+	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Cancer Loot", $list);
 } else if (preg_match("/^gemini$/i", $message)){
 	$list = "<header>::::: Gemini :::::<end>\n\n\n";
 	$loop = 68;
-	while($loop <= 71) {
+	while ($loop <= 71) {
 		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
 		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
@@ -551,11 +559,12 @@ if (preg_match("/^pande$/i", $message)){
 		$list .= "\n";
 		$loop++;
 	}
+	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Gemini Loot", $list);
 } else if (preg_match("/^libra$/i", $message)){
 	$list = "<header>::::: Libra :::::<end>\n\n\n";
 	$loop = 72;
-	while($loop <= 76) {
+	while ($loop <= 76) {
 		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
 		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
@@ -563,11 +572,12 @@ if (preg_match("/^pande$/i", $message)){
 		$list .= "\n";
 		$loop++;
 	}
+	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Libra Loot", $list);
 } else if (preg_match("/^pisces$/i", $message)){
 	$list = "<header>::::: Pisces :::::<end>\n\n\n";
 	$loop = 77;
-	while($loop <= 80) {
+	while ($loop <= 80) {
 		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
 		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
@@ -575,11 +585,12 @@ if (preg_match("/^pande$/i", $message)){
 		$list .= "\n";
 		$loop++;
 	}
+	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Pisces Loot", $list);
 } else if (preg_match("/^taurus$/i", $message)){
 	$list = "<header>::::: Taurus :::::<end>\n\n\n";
 	$loop = 81;
-	while($loop <= 84) {
+	while ($loop <= 84) {
 		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
 		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
@@ -587,11 +598,12 @@ if (preg_match("/^pande$/i", $message)){
 		$list .= "\n";
 		$loop++;
 	}
+	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Taurus Loot", $list);
 } else if (preg_match("/^capricorn$/i", $message)){
 	$list = "<header>::::: Capricorn :::::<end>\n\n\n";
 	$loop = 85;
-	while($loop <= 88) {
+	while ($loop <= 88) {
 		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
 		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
@@ -599,11 +611,12 @@ if (preg_match("/^pande$/i", $message)){
 		$list .= "\n";
 		$loop++;
 	}
+	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Capricorn Loot", $list);
 } else if (preg_match("/^sagittarius$/i", $message)){
 	$list = "<header>::::: Sagittarius :::::<end>\n\n\n";
 	$loop = 89;
-	while($loop <= 92) {
+	while ($loop <= 92) {
 		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
 		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
@@ -611,11 +624,12 @@ if (preg_match("/^pande$/i", $message)){
 		$list .= "\n";
 		$loop++;
 	}
+	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Sagittarius Loot", $list);
 } else if (preg_match("/^scorpio$/i", $message)){
 	$list = "<header>::::: Scorpio :::::<end>\n\n\n";
 	$loop = 93;
-	while($loop <= 96) {
+	while ($loop <= 96) {
 		//$itemlink = Text::make_link($pandeloot[$loop]["name"], "itemfref://{$pandeloot[$loop]["ref"]}", "chatcmd");
 		$addlink = Text::make_link("Add to Loot List", "/tell <myname> pandeloot ".$loop, "chatcmd");
 		$ref = $pandeloot[$loop]["ref"];
@@ -623,6 +637,7 @@ if (preg_match("/^pande$/i", $message)){
 		$list .= "\n";
 		$loop++;
 	}
+	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Scorpio Loot", $list);
 }
 

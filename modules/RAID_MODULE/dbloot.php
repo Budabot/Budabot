@@ -136,6 +136,7 @@ if (preg_match("/^dbloot ([0-9]+)$/i", $message, $arr)) {
 		$list .= "\nItem: <highlight>".$dbloot[$loop]["name"]."<end>\n".$addlink."\n\n";
 		$loop++;
 	}
+	$list .= "\n\nDust Brigrade Loot By Chachy (RK2)";
 	$msg = Text::make_link("DB1 Loot", $list);
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^db2$/i", $message)) {
@@ -149,6 +150,7 @@ if (preg_match("/^dbloot ([0-9]+)$/i", $message, $arr)) {
 		$list .= "\nItem: <highlight>".$dbloot[$loop]["name"]."<end>\n".$addlink."\n\n";
 		$loop++;
 	}
+	$list .= "\n\nDust Brigrade Loot By Chachy (RK2)";
 	$msg = Text::make_link("DB2 Armor", $list);
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^db2loot ([0-9]+)$/i", $message, $arr)) {

@@ -43,7 +43,7 @@ if(preg_match("/^28$/i", $message)) {
 
 	$msg = "Sector 28 loot table was added to the loot list by <highlight>$sender<end>.";
 
-	$chatBot->send($msg);
+	$chatBot->send($msg, $sendto);
 
 	// Displaying new list
 	if ($chatBot->vars["raid_status"] == "") {
@@ -94,10 +94,10 @@ if(preg_match("/^28$/i", $message)) {
 		}
 	
 	} else {
-		$chatBot->send("No list available!");
+		$chatBot->send("No list available!", $sendto);
 		return;
 	}
 
-	$chatBot->send($msg);
+	$chatBot->send($msg, $sendto);
 }
 ?>

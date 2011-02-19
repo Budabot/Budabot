@@ -936,7 +936,7 @@ class Budabot extends AOChat {
 	
 	/**
 	 * @name: is_ready
-	 * @description: this function tells when the bot is logged on and all the start up events have finished
+	 * @description: tells when the bot is logged on and all the start up events have finished
 	 */
 	public function is_ready() {
 		return time() >= $this->vars["logondelay"];
