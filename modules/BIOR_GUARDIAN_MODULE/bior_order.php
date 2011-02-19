@@ -29,14 +29,10 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-global $bior;
-global $blist;
-global $caller;
-
-if(count($bior) == 0)
-  	$msg = "No Adventurer, Keeper, Enforcer or Engineer 201+ in chat.";
-else {
-  	$blist = "";
+if (count($chatBot->data['bior']) == 0) {
+	$msg = "No Adventurer, Keeper, Enforcer or Engineer 201+ in chat.";
+} else {
+  	$chatBot->data['blist'] = array();
 	$info  = "<header>::::: Info about Bio Regrowth macro :::::<end>\n\n";
 	$info .= "The bot has it's own Bio Regrowth macro to use it just do ";
 	$info .= "<symbol>b in the chat. \n\n";
@@ -44,40 +40,43 @@ else {
 	$info = Text::make_link("Info", $info);
 
   	//Create Bio Regrowth Order
-	foreach($bior as $key => $value) {
-	  	if($caller == $key)
+	forEach ($chatBot->data['bior'] as $key => $value) {
+	  	if ($chatBot->data['bior_caller'] == $key) {
 			$list[(sprintf("%03d", "300").$key)] = $key;
-	  	elseif($bior[$key]["b"] == "ready")
-			$list[(sprintf("%03d", (220 - $bior[$key]["lvl"])).$key)] = $key;
-		else
-			$list[(sprintf("%03d", "250").$key)] = $key;		
+	  	} else if ($chatBot->data['bior'][$key]["b"] == "ready") {
+			$list[(sprintf("%03d", (220 - $chatBot->data['bior'][$key]["lvl"])).$key)] = $key;
+		} else {
+			$list[(sprintf("%03d", "250").$key)] = $key;
+		}
   	}
 
 	$num = 0;
 	ksort($list);
 	reset($list);
   	$msg = "Bio Regrowth Order($info):";
-	foreach($list as $player) {
-	  	if($bior[$player]["b"] == "ready")
+	forEach ($list as $player) {
+	  	if ($chatBot->data['bior'][$player]["b"] == "ready") {
 	  		$status = "<green>*ready*<end>";
-	  	elseif(($bior[$player]["b"] - time()) > 300)
+	  	} else if (($chatBot->data['bior'][$player]["b"] - time()) > 300) {
 	  		$status = "<red>running<end>";
-	  	else {
-		    $rem = $bior[$player]["b"] - time();
+	  	} else {
+		    $rem = $chatBot->data['bior'][$player]["b"] - time();
 			$mins = floor($rem / 60);
 			$secs = sprintf("%02d", $rem - ($mins * 60));
 		    $status = "<orange>$mins:$secs<end>";
 		}
 		$num++;
 		$msg .= " [$num. <highlight>$player<end> $status]";
-        $blist[] = $player;
-        if($num >= $chatBot->settings["bior_max"])
+        $chatBot->data['blist'][] = $player;
+        if ($num >= $chatBot->settings["bior_max"]) {
         	break;
+		}
 	}
 
   	//Send Blist
-  	foreach($blist as $player)
+  	forEach ($chatBot->data['blist'] as $player) {
 		$chatBot->send($msg, $player);
+	}
 }
 $chatBot->send($msg, $sendto);
 ?>

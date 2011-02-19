@@ -29,10 +29,9 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-global $guard;
 $whois = Player::get_by_name($sender);
 if ($whois !== null && $whois->profession == "Soldier" && $whois->level >= 205) {
-  	$guard[$sender]["g"] = "ready";
-  	$guard[$sender]["lvl"] = $whois->level;
+  	$chatBot->data['guard'][$sender]["g"] = "ready";
+  	$chatBot->data['guard'][$sender]["lvl"] = $whois->level;
 }
 ?>

@@ -29,29 +29,29 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-global $bior;
-global $blist;
 foreach($bior as $key => $value) {
-	if($bior[$key]["b"] != "ready") {
-	  	$rem = $bior[$key]["b"] - time();
-	  	if($rem >= 319 && $rem <= 321) {
+	if ($chatBot->data['bior'][$key]["b"] != "ready") {
+	  	$rem = $chatBot->data['bior'][$key]["b"] - time();
+	  	if ($rem >= 319 && $rem <= 321) {
 	  		$msg = "<blue>20sec remaining on Bio Regrowth.<end>";
 	  		$chatBot->send($msg, $sendto);
-	  	} elseif($rem >= 305 && $rem <= 307) {
-	  	  	$pos = array_search($key, $blist);
-	  	  	if(isset($blist[$pos + 1]))
-	  	  		$next = " <yellow>Next is {$blist[$pos + 1]}<end>";
+	  	} else if ($rem >= 305 && $rem <= 307) {
+	  	  	$pos = array_search($key, $chatBot->data['blist']);
+	  	  	if (isset($chatBot->data['blist'][$pos + 1])) {
+	  	  		$next = " <yellow>Next is {$chatBot->data['blist'][$pos + 1]}<end>";
+			}
 	  		$msg = "<blue>6sec remaining on Bio Regrowth.$next<end>";  		
 	  		$chatBot->send($msg, $sendto);
-	  	} elseif($rem >= 299 && $rem <= 301) {
-	  	  	$pos = array_search($key, $blist);
-	  	  	if(isset($blist[$pos + 1]))
-	  	  		$next = " <yellow>Next is {$blist[$pos + 1]}<end>";
+	  	} else if ($rem >= 299 && $rem <= 301) {
+	  	  	$pos = array_search($key, $chatBot->data['blist']);
+	  	  	if (isset($chatBot->data['blist'][$pos + 1])) {
+	  	  		$next = " <yellow>Next is {$chatBot->data['blist'][$pos + 1]}<end>";
+			}
 	  		$msg = "<blue>Bio Regrowth has terminated.$next<end>";
 	  		$chatBot->send($msg, $sendto);
-	  	} elseif($rem <= 0) {
+	  	} else if ($rem <= 0) {
 	  		$msg = "<blue>Bio Regrowth is ready on $key.<end>";
-	  		$bior[$key]["b"] = "ready";
+	  		$chatBot->data['bior'][$key]["b"] = "ready";
 	  		$chatBot->send($msg, $sendto);
 	  	}
 	}

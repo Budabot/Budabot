@@ -9,14 +9,10 @@
 /* Part of: Guardian Module                     */
 /* ******************************************** */
 
-global $guard;
-global $glist;
-global $caller;
-
-if(count($guard) == 0)
+if (count($chatBot->data['guard']) == 0) {
   	$msg = "No 205+ Soldiers in chat.";
-else {
-  	$glist = "";
+} else {
+  	$chatBot->data['glist'] = array();
 	$info  = "<header>::::: Info about Guardian macro :::::<end>\n\n";
 	$info .= "The bot has it's own Guardian macro to use it just do ";
 	$info .= "<symbol>g in the chat. \n\n";
@@ -24,39 +20,41 @@ else {
 	$info = Text::make_link("Info", $info);
 
   	//Create g Order
-	foreach($guard as $key => $value) {
-	  	if($caller == $key)
+	forEach ($chatBot->data['guard'] as $key => $value) {
+	  	if ($chatBot->data['guard_caller'] == $key) {
 			$list[(sprintf("%03d", "300").$key)] = $key;
-	  	elseif($guard[$key]["g"] == "ready")
-			$list[(sprintf("%03d", (220 - $guard[$key]["lvl"])).$key)] = $key;
-		else
-			$list[(sprintf("%03d", "250").$key)] = $key;		
+	  	} else if ($chatBot->data['guard'][$key]["g"] == "ready") {
+			$list[(sprintf("%03d", (220 - $chatBot->data['guard'][$key]["lvl"])).$key)] = $key;
+		} else {
+			$list[(sprintf("%03d", "250").$key)] = $key;
+		}
   	}
 
 	$num = 0;
 	ksort($list);
 	reset($list);
   	$msg = "Guardian Order($info):";
-	foreach($list as $player) {
-	  	if($guard[$player]["g"] == "ready")
+	forEach ($list as $player) {
+	  	if ($chatBot->data['guard'][$player]["g"] == "ready") {
 	  		$status = "<green>*Ready*<end>";
-	  	elseif(($guard[$player]["g"] - time()) > 300)
+	  	} else if (($chatBot->data['guard'][$player]["g"] - time()) > 300) {
 	  		$status = "<red>Running<end>";
-	  	else {
-		    $rem = $guard[$player]["g"] - time();
+	  	} else {
+		    $rem = $chatBot->data['guard'][$player]["g"] - time();
 			$mins = floor($rem / 60);
 			$secs = $rem - ($mins * 60);
 		    $status = "<orange>$mins:$secs<end>";
 		}
 		$num++;
 		$msg .= " [$num. <highlight>$player<end> $status]";
-        $glist[] = $player;
-        if($num >= $chatBot->settings["guard_max"])
-        	break;        
+        $chatBot->data['glist'][] = $player;
+        if ($num >= $chatBot->settings["guard_max"]) {
+        	break;
+		}
 	}
 
   	//Send Glist to all soldiers
-  	foreach($glist as $player) {
+  	forEach ($chatBot->data['glist'] as $player) {
 		$chatBot->send($msg, $player);
   	}
 }

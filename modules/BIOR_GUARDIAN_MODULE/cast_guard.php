@@ -29,10 +29,9 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-global $guard;
-if($guard[$sender]["g"] == "ready") {
+if($chatBot->data['guard'][$sender]["g"] == "ready") {
   	$msg = "<blue>$sender casted Guardian on tank. 40sec remaining.<end>";
-  	$guard[$sender]["g"] = time() + 340;
+  	$chatBot->data['guard'][$sender]["g"] = time() + 340;
   	$chatBot->send($msg, $sendto);
 }
 ?>

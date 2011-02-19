@@ -29,10 +29,9 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-global $bior;
-if($bior[$sender]["b"] == "ready") {
+if ($chatBot->data['bior'][$sender]["b"] == "ready") {
   	$msg = "<blue>$sender casted Bio Regrowth on tank. 30sec remaining.<end>";
-  	$bior[$sender]["b"] = time() + 330;
+  	$chatBot->data['bior'][$sender]["b"] = time() + 330;
   	$chatBot->send($msg, $sendto);
 }
 ?>
