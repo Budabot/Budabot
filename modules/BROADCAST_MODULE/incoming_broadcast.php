@@ -1,6 +1,6 @@
 <?php
 
-if ($type == "msg" && isset($chatBot->vars["broadcast_list"][$sender])) {
+if ($type == "msg" && isset($chatBot->data["broadcast_list"][$sender])) {
 	$msg = "[$sender]: $message";
 
 	if ($chatBot->settings['broadcast_to_guild']) {

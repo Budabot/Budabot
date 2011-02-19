@@ -28,7 +28,7 @@ if (preg_match("/^broadcast$/i", $message)) {
 		return;
 	}
 	
-	if (isset($chatBot->vars["broadcast_list"][$name])) {
+	if (isset($chatBot->data["broadcast_list"][$name])) {
 		$chatBot->send("'$name' is already on the broadcast bot list.", $sendto);
 		return;
 	}
@@ -46,7 +46,7 @@ if (preg_match("/^broadcast$/i", $message)) {
 } else if (preg_match("/^broadcast (rem|remove) (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[2]));
 
-	if (!isset($chatBot->vars["broadcast_list"][$name])) {
+	if (!isset($chatBot->data["broadcast_list"][$name])) {
 		$chatBot->send("'$name' is not on the broadcast bot list.", $sendto);
 		return;
 	}
