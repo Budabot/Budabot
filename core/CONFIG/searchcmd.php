@@ -10,8 +10,13 @@
 
 if (preg_match("/^searchcmd (.*)/i", $message, $arr)) {
 	$cmd = strtolower($arr[1]);
+	
+	$alias_cmd = CommandAlias::get_command_by_alias($cmd);
+	if ($alias_cmd != null) {
+		$cmd = $alias_cmd;
+	}
 
-	$sqlquery = "SELECT DISTINCT module FROM cmdcfg_<myname> WHERE `cmd` = '{$cmd}' OR `cmd` IN (SELECT cmd FROM cmd_alias_<myname> WHERE `alias` = '{$cmd}')";
+	$sqlquery = "SELECT DISTINCT module FROM cmdcfg_<myname> WHERE `cmd` = '{$cmd}'";
 	$db->query($sqlquery);
 	
 	if (0 == $db->numrows()) {

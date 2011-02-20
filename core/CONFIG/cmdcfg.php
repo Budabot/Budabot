@@ -329,9 +329,14 @@ if (preg_match("/^config$/i", $message)) {
 	$cmd = strtolower($arr[1]);
 	$found_msg = 0;
 	$found_priv = 0;
-	$found_guild = 0;	
+	$found_guild = 0;
 
-	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd'");
+	$alias_cmd = CommandAlias::get_command_by_alias($cmd);
+	if ($alias_cmd != null) {
+		$cmd = $alias_cmd;
+	}
+
+	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '{$cmd}'");
 	if ($db->numrows() == 0) {
 		$msg = "Could not find the command '<highlight>$cmd<end>'";
 	} else {
@@ -564,7 +569,7 @@ if (preg_match("/^config$/i", $message)) {
 	$off = "<a href='chatcmd:///tell <myname> config mod {$module} disable all'>Off</a>";
 	
 	$list = "<header>::::: Bot Settings :::::<end>\n\n";
-	$list .= "<highlight><u>{$module}</u><end> - Enable/disable: ($on/$off)\n";	
+	$list .= "<highlight>{$module}<end> - Enable/disable: ($on/$off)\n";	
 
  	$db->query("SELECT * FROM settings_<myname> WHERE `module` = '$module'");
 	if ($db->numrows() > 0) {

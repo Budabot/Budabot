@@ -65,6 +65,23 @@ class CommandAlias {
 		
 		$chatBot->cmd_aliases[$alias] = $command;
 	}
+	
+	public static function get($alias) {
+		$db = DB::get_instance();
+
+		$sql = "SELECT * FROM cmd_alias_<myname> WHERE `alias` = '{$alias}'";
+		$db->query($sql);
+		return $db->fObject();
+	}
+	
+	public static function get_command_by_alias($alias) {
+		$row = CommandAlias::get($alias);
+		if ($row === null) {
+			return null;
+		}
+		list($cmd) = explode(' ', $row->cmd, 2);
+		return $cmd;
+	}
 }
 
 ?>
