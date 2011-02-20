@@ -100,12 +100,12 @@ if (preg_match("/^config$/i", $message)) {
 	$sql = "
 		SELECT
 			module,
-			SUM(CASE WHEN c.status = 1 THEN 1 ELSE 0 END) count_enabled,
-			SUM(CASE WHEN c.status = 0 THEN 1 ELSE 0 END) count_disabled
+			SUM(CASE WHEN status = 1 THEN 1 ELSE 0 END) count_enabled,
+			SUM(CASE WHEN status = 0 THEN 1 ELSE 0 END) count_disabled
 		FROM
-			cmdcfg_<myname> c
-		WHERE
-			module <> 'none'
+			(SELECT module, status FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd'
+			UNION
+			SELECT module, status FROM eventcfg_<myname>) t
 		GROUP BY
 			module
 		ORDER BY
@@ -116,10 +116,11 @@ if (preg_match("/^config$/i", $message)) {
 	forEach ($data as $row) {
 		$db->query("SELECT * FROM hlpcfg_<myname> WHERE `module` = '".strtoupper($row->module)."'");
 		$num = $db->numrows();
-		if($num > 0)
+		if ($num > 0) {
 			$b = "(<a href='chatcmd:///tell <myname> config help $row->module'>Helpfiles</a>)";
-		else
+		} else {
 			$b = "";
+		}
 			
 		if ($row->count_enabled > 0 && $row->count_disabled > 0) {
 			$a = "(<yellow>Partial<end>)";
@@ -177,15 +178,19 @@ if (preg_match("/^config$/i", $message)) {
 	}
 	
 	if ($arr[1] == "mod" && $type == "all") {
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$module' AND `type` <> 'setup'");
+		$db->query("SELECT status, type, file, cmd, admin, cmdevent FROM cmdcfg_<myname> WHERE `module` = '$module'
+					UNION
+					SELECT status, type, file, '' AS cmd, '' AS admin, 'event' AS cmdevent FROM eventcfg_<myname> WHERE `module` = '$module' AND `type` <> 'setup'");
 	} else if ($arr[1] == "mod" && $type != "all") {
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `module` = '$module' AND `type` = '$type' AND `type` <> 'setup'");
+		$db->query("SELECT status, type, file, cmd, admin, cmdevent FROM cmdcfg_<myname> WHERE `module` = '$module' AND `type` = '$type'
+					UNION
+					SELECT status, type, file, cmd AS '', admin AS '', cmdevent AS 'event' FROM eventcfg_<myname> WHERE `module` = '$module' AND `type` = '$event_type' AND `type` <> 'setup'");
 	} else if ($arr[1] == "cmd" && $type != "all") {
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = '$type' AND `cmdevent` = 'cmd'");
 	} else if ($arr[1] == "cmd" && $type == "all") {
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `cmdevent` = 'cmd'");
 	} else if ($arr[1] == "event" && $file != "") {
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `file` = '$file' AND `cmdevent` = 'event' AND `type` = '$event_type' AND `type` <> 'setup'");	
+		$db->query("SELECT *, 'event' AS cmdevent FROM eventcfg_<myname> WHERE `file` = '$file' AND `type` = '$event_type' AND `type` <> 'setup'");	
 	} else {
 		$syntax_error = true;
 		return;
@@ -223,33 +228,36 @@ if (preg_match("/^config$/i", $message)) {
 
 	$data = $db->fObject("all");
 	forEach ($data as $row) {
-	  	if ($row->cmdevent != "event") {
-		  	if ($status == 1) {
-				Command::activate($row->type, $row->file, $row->cmd, $row->admin);
-			} else {
-				Command::deactivate($row->type, $row->file, $row->cmd, $row->admin);
-			}
-		} else {
-		  	if ($status == 1) {
-				Event::activate($row->type, $row->file);
-			} else {
-				Event::deactivate($row->type, $row->file);
+		// only update the status if the status is different
+		if ($row->status != $status) {
+			if ($row->cmdevent == "event") {
+				if ($status == 1) {
+					Event::activate($row->type, $row->file);
+				} else {
+					Event::deactivate($row->type, $row->file);
+				}
+			} else if ($row->cmdevent == "cmd") {
+				if ($status == 1) {
+					Command::activate($row->type, $row->file, $row->cmd, $row->admin);
+				} else {
+					Command::deactivate($row->type, $row->file, $row->cmd, $row->admin);
+				}
 			}
 		}
 	}
 
 	if ($arr[1] == "mod" && $type == "all") {
 		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `module` = '$module' AND `cmdevent` = 'cmd'");
-		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `module` = '$module' AND `cmdevent` = 'event' AND `type` <> 'setup'");
+		$db->exec("UPDATE eventcfg_<myname> SET `status` = $status WHERE `module` = '$module' AND `type` <> 'setup'");
 	} else if ($arr[1] == "mod" && $type != "all") {
 		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `module` = '$module' AND `type` = '$type' AND `cmdevent` = 'cmd'");
-		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `module` = '$module' AND `type` = '$event_type' AND `cmdevent` = 'event' AND `type` <> 'setup'");
+		$db->exec("UPDATE eventcfg_<myname> SET `status` = $status WHERE `module` = '$module' AND `type` = '$event_type' AND `type` <> 'setup'");
 	} else if ($arr[1] == "cmd" && $type != "all") {
 		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `cmd` = '$cmd' AND `type` = '$type' AND `cmdevent` = 'cmd'");
 	} else if ($arr[1] == "cmd" && $type == "all") {
 		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `cmd` = '$cmd' AND `cmdevent` = 'cmd'");
 	} else if ($arr[1] == "event" && $file != "") {
-		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `type` = '$event_type' AND `cmdevent` = 'event' AND `file` = '$file' AND `type` <> 'setup'");
+		$db->exec("UPDATE eventcfg_<myname> SET `status` = $status WHERE `type` = '$event_type' AND `file` = '$file' AND `type` <> 'setup'");
 	}
 } else if (preg_match("/^config (subcmd|cmd) (.+) admin (msg|priv|guild|all) (all|leader|rl|mod|admin|guildadmin|guild)$/i", $message, $arr)) {
 	$category = strtolower($arr[1]);
@@ -325,7 +333,7 @@ if (preg_match("/^config$/i", $message)) {
 
 	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd'");
 	if ($db->numrows() == 0) {
-		$msg = "Could not find the command <highlight>$cmd<end>.";
+		$msg = "Could not find the command '<highlight>$cmd<end>'";
 	} else {
 		$list = "<header>::::: Configure command $cmd :::::<end>\n\n";
 		$list .= "<u><highlight>Tells:<end></u>\n";	
@@ -515,7 +523,7 @@ if (preg_match("/^config$/i", $message)) {
 	
 	$db->query("SELECT * FROM hlpcfg_<myname> WHERE `name` = '$help' ORDER BY `name`");
 	if ($db->numrows() == 0) {
-		$chatBot->send("The helpfile <highlight>$help<end> doesn't exists!", $sendto);		  	
+		$chatBot->send("The helpfile <highlight>$help<end> doesn't exist!", $sendto);		  	
 		return;
 	}
 	$row = $db->fObject();
@@ -528,22 +536,25 @@ if (preg_match("/^config$/i", $message)) {
 
 	$db->query("SELECT * FROM hlpcfg_<myname> WHERE module = '$mod' ORDER BY name");
 	$data = $db->fObject("all");
-	forEach ($data as $row) {
-	  	$list .= "<highlight><u>Helpfile</u><end>: $row->name\n";
-	  	$list .= "<highlight><u>Description</u><end>: $row->description\n";
-	  	$list .= "<highlight><u>Module</u><end>: $row->module\n";
-	  	$list .= "<highlight><u>Set Permission</u><end>: ";
-		$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin all'>All</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin leader'>Leader</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin rl'>RL</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin mod'>Mod</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin admin'>Admin</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin guildadmin'>Guildadmin</a>  ";
-		$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin guild'>Guild</a>\n";	  
-	  	$list .= "\n\n";
+	if (count($data) == 0) {
+		$msg = "Could not file any help files for module '<highlight>$mod<end>'";
+	} else {
+		forEach ($data as $row) {
+			$list .= "<highlight><u>Helpfile</u><end>: $row->name\n";
+			$list .= "<highlight><u>Description</u><end>: $row->description\n";
+			$list .= "<highlight><u>Module</u><end>: $row->module\n";
+			$list .= "<highlight><u>Set Permission</u><end>: ";
+			$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin all'>All</a>  ";
+			$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin leader'>Leader</a>  ";
+			$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin rl'>RL</a>  ";
+			$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin mod'>Mod</a>  ";
+			$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin admin'>Admin</a>  ";
+			$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin guildadmin'>Guildadmin</a>  ";
+			$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin guild'>Guild</a>\n";	  
+			$list .= "\n\n";
+		}
+		$msg = Text::make_link("Configure helpfiles for module $mod", $list);
 	}
-
-	$msg = Text::make_link("Configurate helpfiles for module $mod", $list);
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^config ([a-z0-9_]*)$/i", $message, $arr)) {
 	$module = strtoupper($arr[1]);
@@ -650,7 +661,7 @@ if (preg_match("/^config$/i", $message)) {
 		}
 	}
 	
-	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'event' AND `type` != 'setup' AND `module` = '$module'");
+	$db->query("SELECT * FROM eventcfg_<myname> WHERE `type` <> 'setup' AND `module` = '$module'");
 	if ($db->numrows() > 0) {
 		$found = true;
 		$list .= "\n<i>Events</i>\n";
@@ -675,7 +686,7 @@ if (preg_match("/^config$/i", $message)) {
 	if ($found) {
 		$msg = Text::make_link("Bot Settings", $list);
 	} else {
-		$msg = "Could not find module '$module'";
+		$msg = "Could not find module '<highlight>$module<end>'";
 	}
  	$chatBot->send($msg, $sendto);
 } else

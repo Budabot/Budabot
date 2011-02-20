@@ -42,14 +42,14 @@ class Event {
 		}
 		
 		if ($chatBot->existing_events[$type][$actual_filename] == true) {
-		  	$db->exec("UPDATE cmdcfg_<myname> SET `verify` = 1, `description` = '$description' WHERE `type` = '$type' AND `cmdevent` = 'event' AND `file` = '$actual_filename' AND `module` = '$module'");
+		  	$db->exec("UPDATE eventcfg_<myname> SET `verify` = 1, `description` = '$description' WHERE `type` = '$type' AND `file` = '$actual_filename' AND `module` = '$module'");
 		} else {
 			if ($chatBot->settings["default_module_status"] == 1) {
 				$status = 1;
 			} else {
 				$status = 0;
 			}
-			$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `cmdevent`, `type`, `file`, `verify`, `description`, `status`) VALUES ('$module', 'event', '$type', '$actual_filename', '1', '$description', '$status')");
+			$db->exec("INSERT INTO eventcfg_<myname> (`module`, `type`, `file`, `verify`, `description`, `status`) VALUES ('$module', '$type', '$actual_filename', '1', '$description', '$status')");
 		}
 	}
 
@@ -128,7 +128,7 @@ class Event {
 		if ($filename == '' || $filename == null) {
 			$filename_sql = '';
 		} else {
-			$cmd_sql = "AND `filename` = '$filename'";
+			$cmd_sql = "AND `file` = '$filename'";
 		}
 		
 		if ($module == '' || $module == null) {
@@ -167,7 +167,7 @@ class Event {
 	public static function loadEvents() {
 	  	$db = DB::get_instance();
 
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'event'");
+		$db->query("SELECT * FROM eventcfg_<myname> WHERE `status` = '1'");
 		$data = $db->fObject("all");
 		forEach ($data as $row) {
 			Event::activate($row->type, $row->file);

@@ -4,26 +4,24 @@ if (preg_match("/^eventlist$/i", $message, $arr) || preg_match("/^eventlist (tow
 	$list  = "<header>::::: Bot Settings -- Command List :::::<end>\n\n";
 
 	if ($arr[1] != '') {
-		$cmdSearchSql = "AND c.type LIKE '{$arr[1]}'";
+		$cmdSearchSql = "WHERE c.type LIKE '{$arr[1]}'";
 	}
 
 	$sql = "
 		SELECT
-			c.type,
-			c.description,
-			c.module,
-			c.file,
-			c.status
+			type,
+			description,
+			module,
+			file,
+			status
 		FROM
-			cmdcfg_<myname> c
-		WHERE
-			c.cmdevent = 'event'
-			$cmdSearchSql
+			eventcfg_<myname>
+		$cmdSearchSql
 		ORDER BY
 			type ASC";
 	$db->query($sql);
-
-	while ($row = $db->fObject()) {
+	$data = $db->fObject();
+	forEach ($data as $row) {
 		$on = Text::make_link('ON', "/tell <myname> config cmd $row->cmd enable all", 'chatcmd');
 		$off = Text::make_link('OFF', "/tell <myname> config cmd $row->cmd disable all", 'chatcmd');
 		$adv = Text::make_link('Adv.', "/tell <myname> config cmd $row->cmd $row->module", 'chatcmd');

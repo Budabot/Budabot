@@ -66,6 +66,7 @@ class Budabot extends AOChat {
 
 		// Create command/event settings table if not exists
 		$db->exec("CREATE TABLE IF NOT EXISTS cmdcfg_<myname> (`module` VARCHAR(50), `cmdevent` VARCHAR(5), `type` VARCHAR(18), `file` VARCHAR(255), `cmd` VARCHAR(25), `admin` VARCHAR(10), `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0', `dependson` VARCHAR(25) DEFAULT 'none', `grp` VARCHAR(25) DEFAULT 'none')");
+		$db->exec("CREATE TABLE IF NOT EXISTS eventcfg_<myname> (`module` VARCHAR(50), `type` VARCHAR(18), `file` VARCHAR(255), `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0')");
 		$db->exec("CREATE TABLE IF NOT EXISTS settings_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `type` VARCHAR(30), `mode` VARCHAR(10), `value` VARCHAR(255) Default '0', `options` VARCHAR(255) Default '0', `intoptions` VARCHAR(50) DEFAULT '0', `description` VARCHAR(50), `source` VARCHAR(5), `admin` VARCHAR(25), `help` VARCHAR(60))");
 		$db->exec("CREATE TABLE IF NOT EXISTS hlpcfg_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `description` VARCHAR(50), `admin` VARCHAR(10), `verify` INT Default '0')");
 		$db->exec("CREATE TABLE IF NOT EXISTS cmd_alias_<myname> (`cmd` VARCHAR(25) NOT NULL, `module` VARCHAR(50), `alias` VARCHAR(25) NOT NULL, `status` INT DEFAULT '0')");
@@ -157,8 +158,9 @@ class Budabot extends AOChat {
 
 		//Prepare command/event settings table
 		$db->exec("UPDATE cmdcfg_<myname> SET `verify` = 0");
+		$db->exec("UPDATE eventcfg_<myname> SET `verify` = 0");
 		$db->exec("UPDATE hlpcfg_<myname> SET `verify` = 0");
-		$db->exec("UPDATE cmdcfg_<myname> SET `status` = 1 WHERE `cmdevent` = 'event' AND `type` = 'setup'");
+		$db->exec("UPDATE eventcfg_<myname> SET `status` = 1 WHERE `type` = 'setup'");
 		$db->exec("UPDATE cmdcfg_<myname> SET `grp` = 'none'");
 
 		//To reduce querys save the current commands/events in arrays
@@ -174,12 +176,10 @@ class Budabot extends AOChat {
 		  	$this->existing_subcmds[$row->type][$row->cmd] = true;
 		}
 
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'event'");
+		$db->query("SELECT * FROM eventcfg_<myname>");
 		$data = $db->fObject('all');
 		forEach ($data as $row) {
-			if (Util::verify_name_convention($row->file)) {
-			  	$this->existing_events[$row->type][$row->file] = true;
-			}
+			$this->existing_events[$row->type][$row->file] = true;
 		}
 
 		$db->query("SELECT * FROM hlpcfg_<myname>");
@@ -253,9 +253,7 @@ class Budabot extends AOChat {
 		//Delete old entrys in the DB
 		$db->exec("DELETE FROM hlpcfg_<myname> WHERE `verify` = 0");
 		$db->exec("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0");
-		$db->exec("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'event'");
-		$db->exec("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'cmd'");
-		$db->exec("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0 AND `cmdevent` = 'subcmd'");
+		$db->exec("DELETE FROM eventcfg_<myname> WHERE `verify` = 0");
 
 		//Load active commands
 		Logger::log('debug', 'Core', "Loading active commands");
@@ -376,7 +374,7 @@ class Budabot extends AOChat {
 					// Look for the plugin's ... setup file
 					if (file_exists("./modules/$entry/$entry.php")) {
 						Logger::log('DEBUG', 'Core', "MODULE_NAME:($entry.php)");
-						include "./modules/$entry/$entry.php";
+						require "./modules/$entry/$entry.php";
 					}
 				}
 			}

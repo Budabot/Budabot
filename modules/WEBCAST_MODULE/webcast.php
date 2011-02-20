@@ -48,17 +48,17 @@ if($command)
 {
 	if(strtolower($command) == "clearcache")
 	{
-		//		$chatBot->send($command." / ".$webpath, $sendto);
+		//		$chatBot->send($command." / ".$webpath, $sender);
 		if($webpath)
 		{
 			$send = file_get_contents($webpath."?clearcache=true");
 			if($send)
-				$chatBot->send($send, $sendto);
+				$chatBot->send($send, $sender);
 			else
-				$chatBot->send("Unable to clear cache",$sendto);
+				$chatBot->send("Unable to clear cache",$sender);
 		}
 		else{
-			$chatBot->send("Unable to find webpath",$sendto);
+			$chatBot->send("Unable to find webpath",$sender);
 		}
 	}
 	if(strtolower($command == "setwebpath"))
@@ -68,12 +68,12 @@ if($command)
 			Setting::save("webpath", $other);
 
 			if(Setting::get("webpath") == $other)
-				$chatBot->send("Webpath Saved.", $sendto);
+				$chatBot->send("Webpath Saved.", $sender);
 			else
-				$chatBot->send("Unable to save Webpath",$sendto);
+				$chatBot->send("Unable to save Webpath",$sender);
 		}
 		else{
-			$chatBot->send($webpathhelplink, $sendto);
+			$chatBot->send($webpathhelplink, $sender);
 		}
 	}
 }
@@ -110,10 +110,10 @@ elseif($webpath)
 	{
 		$send = file_get_contents($webpath."?upload=".rawurlencode($list));
 		if($type == "msg" || $type == 'priv' || $type == 'guild')
-			$chatBot->send("Webcast Updated.", $sendto);
+			$chatBot->send("Webcast Updated.", $sender);
 	}
 }
 else{
-	$chatBot->send($webpathhelplink, $sendto);
+	$chatBot->send($webpathhelplink, $sender);
 }
 ?>
