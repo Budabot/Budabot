@@ -416,7 +416,11 @@ class AOChat
 
 	/* User and group lookup functions */
 	function lookup_user($u) {
-		$u = ucfirst(strtolower($u));
+		$u = ucfirst(strtolower(trim($u)));
+		
+		if ($u == '') {
+			return false;
+		}
 
 		if (isset($this->id[$u])) {
 			return $this->id[$u];
@@ -437,7 +441,7 @@ class AOChat
 
 		$uid = $this->lookup_user($user);
 
-		if (($uid == 0) || ($uid == 0xffffffff) || (!$this->is_really_numeric($uid)) || ($uid == -1)) {
+		if ($uid === false || $uid == 0 || $uid == -1 || $uid == 0xffffffff || !$this->is_really_numeric($uid)) {
 			return false;
 		}
 

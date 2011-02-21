@@ -63,7 +63,33 @@ class CommandAlias {
 
 	  	Logger::log('DEBUG', 'Core', "Deactivate Command Alias command:($command) alias:($alias)");
 		
-		$chatBot->cmd_aliases[$alias] = $command;
+		unset($chatBot->cmd_aliases[$alias]);
+	}
+	
+	/**
+	 * @name: add
+	 * @description: Adds a command alias to the db
+	 */
+	public static function add(&$row) {
+		$db = DB::get_instance();
+		
+	  	Logger::log('DEBUG', 'Core', "Adding alias command:($row->cmd) alias:($row->alias)");
+		
+		$sql = "INSERT INTO cmd_alias_<myname> (`module`, `cmd`, `alias`, `status`) VALUES ('{$row->module}', '{$row->cmd}', '{$row->alias}', '{$row->status}')";
+		return $db->exec($sql);
+	}
+	
+	/**
+	 * @name: update
+	 * @description: Updates a command alias in the db
+	 */
+	public static function update(&$row) {
+		$db = DB::get_instance();
+
+	  	Logger::log('DEBUG', 'Core', "Updating alias :($row->alias)");
+		
+		$sql = "UPDATE cmd_alias_<myname> SET `module` = '{$row->module}', `cmd` = '{$row->cmd}', `status` = '{$row->status}' WHERE `alias` = '{$row->alias}'";
+		return $db->exec($sql);
 	}
 	
 	public static function get($alias) {
@@ -76,11 +102,23 @@ class CommandAlias {
 	
 	public static function get_command_by_alias($alias) {
 		$row = CommandAlias::get($alias);
-		if ($row === null) {
+		
+		// if alias doesn't exist or is disabled
+		if ($row === null || $row->status != 1) {
 			return null;
 		}
 		list($cmd) = explode(' ', $row->cmd, 2);
 		return $cmd;
+	}
+	
+	public static function find_aliases_by_command($command) {
+		$db = DB::get_instance();
+		
+		$command = strtolower($command);
+		
+		$sql = "SELECT * FROM cmd_alias_<myname> WHERE `cmd` = '{$command}'";
+		$db->query($sql);
+		return $db->fObject('all');
 	}
 }
 

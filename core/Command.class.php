@@ -188,6 +188,16 @@ class Command {
 			Command::activate($row->type, $row->file, $row->cmd, $row->admin);
 		}
 	}
+	
+	public static function get($command) {
+		$db = DB::get_instance();
+		
+		$command = strtolower($command);
+		
+		$sql = "SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '{$command}'";
+		$db->query($sql);
+		return $db->fObject('all');
+	}
 }
 
 ?>

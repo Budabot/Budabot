@@ -341,6 +341,19 @@ if (preg_match("/^config$/i", $message)) {
 		$msg = "Could not find the command '<highlight>$cmd<end>'";
 	} else {
 		$list = "<header>::::: Configure command $cmd :::::<end>\n\n";
+		$aliases = CommandAlias::find_aliases_by_command($cmd);
+		$count = 0;
+		forEach ($aliases as $row) {
+			if ($row->status == 1) {
+				$count++;
+				$aliases_blob .= "{$row->alias}, ";
+			}
+		}
+		
+		if ($count > 0) {
+			$list .= "<highlight>Aliases:<end> $aliases_blob \n\n";
+		}
+		
 		$list .= "<u><highlight>Tells:<end></u>\n";	
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = 'msg'");
 		if ($db->numrows() == 1) {

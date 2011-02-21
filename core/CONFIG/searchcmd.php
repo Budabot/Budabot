@@ -40,5 +40,4 @@ if (preg_match("/^searchcmd (.*)/i", $message, $arr)) {
 	$chatBot->send($msg, $sendto);
 }
 
-
 ?>
