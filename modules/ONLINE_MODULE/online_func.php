@@ -167,8 +167,10 @@ function createList(&$data, &$sender, &$list, &$bot, $show_alts = false) {
 
 		if ($row->afk == "kiting") {
 			$afk = " <highlight>::<end> <red>KITING<end>";
-		} else if ($row->afk != "0") {
+		} else if ($row->afk == '1') {
 			$afk = " <highlight>::<end> <red>AFK<end>";
+		} else if ($row->afk != '0') {
+			$afk = " <highlight>::<end> <red>AFK - {$row->afk}<end>";
 		} else {
 			$afk = "";
 		}

@@ -19,6 +19,7 @@
 
     // Afk Check
 	Event::register($MODULE_NAME, "priv", "afk_check.php", "afk", "Afk check");
+	Event::register($MODULE_NAME, "guild", "afk_check.php", "afk", "Afk check");
 	Command::register($MODULE_NAME, "", "afk.php", "afk", "all", "Sets a member afk");
 	Command::register($MODULE_NAME, "", "afk.php", "kiting", "all", "Sets a member kiting");
 

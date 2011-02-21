@@ -43,7 +43,8 @@ if (preg_match("/^afk$/i", $message, $arr)) {
     $db->exec("UPDATE $table_name SET `afk` = 1 WHERE `name` = '$sender'");
     $msg = "<highlight>$sender<end> is now AFK";
 } else if (preg_match("/^afk (.*)$/i", $message, $arr)) {
-    $db->exec("UPDATE $table_name SET `afk` = '$arr[1]' WHERE `name` = '$sender'");
+	$reason = str_replace("'", "''", $arr[1]);
+    $db->exec("UPDATE $table_name SET `afk` = '$reason' WHERE `name` = '$sender'");
     $msg = "<highlight>$sender<end> is now AFK";
 } else if (preg_match("/^kiting$/i", $message, $arr) && $numrows != 0) {
 	$db->exec("UPDATE $table_name SET `afk` = 'kiting' WHERE `name` = '$sender'");

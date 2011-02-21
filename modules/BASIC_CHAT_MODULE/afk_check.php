@@ -39,7 +39,7 @@ if ($type == 'priv') {
 
 $db->query("SELECT afk FROM {$table_name} WHERE `name` = '{$sender}'");
 $row = $db->fObject();
-if (!preg_match("/^afk(.*)$/i", $message)) {
+if (!preg_match("/^.afk(.*)$/i", $message)) {
 	if ($row->afk != '0') {
 		$db->exec("UPDATE {$table_name} SET `afk` = 0 WHERE `name` = '{$sender}'");
 		$msg = "<highlight>{$sender}<end> is back";
@@ -68,4 +68,5 @@ if (!preg_match("/^afk(.*)$/i", $message)) {
 		$chatBot->send($msg, "guild");
 	}
 }
+
 ?>
