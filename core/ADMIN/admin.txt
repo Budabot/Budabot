@@ -1,14 +1,16 @@
 <header>::::: Admin help :::::<end>
 
-Basic commands /tells
-<highlight>Access: All<end>
-<tab>/tell <myname> adminlist
-<highlight>Access: Moderators<end>
-<tab>/tell <myname> raidleader {player}
-<tab>/tell <myname> kickraidleader {player}
-<highlight>Access: Administrators<end>
-<tab>/tell <myname> addmod {player}
-<tab>/tell <myname> kickmod {player}
-<highlight>Access: Super-Administrator<end>
-<tab>/tell <myname> addadmin {player}
-<tab>/tell <myname> kickadmin {player}
+To see the list of raidleaders, moderators, and admins (<highlight>Access: All<end>)
+<tab><symbol>adminlist
+
+To add or remove raidleaders (<highlight>Access: Moderators<end>)
+<tab><symbol>addrl {player}
+<tab><symbol>remrl {player}
+
+To add or remove moderators (<highlight>Access: Administrators<end>)
+<tab><symbol>addmod {player}
+<tab><symbol>remmod {player}
+
+To add or remove admins (<highlight>Access: Super-Administrator<end>)
+<tab><symbol>addadmin {player}
+<tab><symbol>remadmin {player}

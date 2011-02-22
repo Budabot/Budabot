@@ -1,7 +1,7 @@
 <?php
    /*
-   ** Author: Sebuda (RK2)
-   ** Description: Removes a mod from the adminlist
+   ** Author: Sebuda, Derroylo (RK2)
+   ** Description: Adds a RL to the adminlist
    ** Version: 0.2
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
@@ -29,31 +29,42 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (preg_match("/^kickmod (.+)$/i", $message, $arr)){
+if (preg_match("/^addrl (.+)$/i", $message, $arr)) {
 	$who = ucfirst(strtolower($arr[1]));
 	
+	if ($chatBot->get_uid($who) == NULL){
+		$chatBot->send("<red>Sorry player you wish to add doesn't exist.<end>", $sendto);
+		return;
+	}
+	
 	if ($who == $sender) {
-		$chatBot->send("<red>You can't kick yourself.<end>", $sendto);
+		$chatBot->send("<red>You can't add yourself to another group.<end>", $sendto);
 		return;
 	}
 
-	if ($chatBot->admins[$who]["level"] != 3) {
-		$chatBot->send("<red>Sorry $who is not a Moderator of this Bot.<end>", $sendto);
+	if ($chatBot->admins[$who]["level"] == 2) {
+		$chatBot->send("<red>Sorry but $who is already a raidleader.<end>", $sendto);
 		return;
 	}
 	
 	if ((int)$chatBot->admins[$sender]["level"] <= (int)$chatBot->admins[$who]["level"]){
-		$chatBot->send("<red>You must have a rank higher then $who.", $sendto);
+		$chatBot->send("<red>You must have a rank higher then $who.<end>", $sendto);
 		return;
 	}
-	
-	unset($chatBot->admins[$who]);
-	$db->exec("DELETE FROM admin_<myname> WHERE `name` = '$who'");
-	
-	Buddylist::remove($who, 'admin');
 
-	$chatBot->send("<highlight>$who<end> has been removed as Moderator of this Bot.", $sendto);
-	$chatBot->send("Your moderator access to <myname> has been removed.", $who);
+	if (isset($chatBot->admins[$who]["level"]) && $chatBot->admins[$who]["level"] > 2) {
+		$chatBot->send("<highlight>$who<end> has been demoted to the rank of a Raidleader.", $sendto);
+		$chatBot->send("You have been demoted to the rank of a Raidleader on {$chatBot->vars["name"]}", $who);
+		$db->exec("UPDATE admin_<myname> SET `adminlevel` = 2 WHERE `name` = '$who'");
+		$chatBot->admins[$who]["level"] = 3;
+	} else {
+		$db->exec("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (2, '$who')");
+		$chatBot->admins[$who]["level"] = 2;
+		$chatBot->send("<highlight>$who<end> has been added to the Raidleadergroup", $sendto);
+		$chatBot->send("You got raidleader access to <myname>", $who);
+	}
+
+	Buddylist::add($who, 'admin');
 } else {
 	$syntax_error = true;
 }

@@ -1,15 +1,15 @@
 <?php
    /*
-   ** Author: Derroylo (RK2)
-   ** Description: Removes a admin from the adminlist
-   ** Version: 0.1
+   ** Author: Sebuda (RK2)
+   ** Description: Removes a mod from the adminlist
+   ** Version: 0.2
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
-   ** Date(created): 30.01.2007
+   ** Date(created): 01.10.2005
    ** Date(last modified): 30.01.2007
    **
-   ** Copyright (C) 2007 C. Lohmann
+   ** Copyright (C) 2005, 2006, 2007 J. Gracik, C. Lohmann
    **
    ** Licence Infos:
    ** This file is part of Budabot.
@@ -29,31 +29,31 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (preg_match("/^kickadmin (.+)$/i", $message, $arr)){
+if (preg_match("/^remmod (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
-
+	
 	if ($who == $sender) {
 		$chatBot->send("<red>You can't kick yourself.<end>", $sendto);
 		return;
 	}
 
-	if ($chatBot->admins[$who]["level"] != 4) {
-		$chatBot->send("<red>Sorry $who is not a Administrator of this Bot.<end>", $sendto);
+	if ($chatBot->admins[$who]["level"] != 3) {
+		$chatBot->send("<red>Sorry $who is not a Moderator of this Bot.<end>", $sendto);
 		return;
 	}
 	
-	if ($chatBot->vars["SuperAdmin"] != $sender){
-		$chatBot->send("<red>You need to be Super-Administrator to kick a Administrator<end>", $sendto);
+	if ((int)$chatBot->admins[$sender]["level"] <= (int)$chatBot->admins[$who]["level"]){
+		$chatBot->send("<red>You must have a rank higher then $who.", $sendto);
 		return;
 	}
 	
 	unset($chatBot->admins[$who]);
 	$db->exec("DELETE FROM admin_<myname> WHERE `name` = '$who'");
-
+	
 	Buddylist::remove($who, 'admin');
 
-	$chatBot->send("<highlight>$who<end> has been removed as Administrator of this Bot.", $sendto);
-	$chatBot->send("Your Administrator access to <myname> has been removed.", $who);
+	$chatBot->send("<highlight>$who<end> has been removed as Moderator of this Bot.", $sendto);
+	$chatBot->send("Your moderator access to <myname> has been removed.", $who);
 } else {
 	$syntax_error = true;
 }
