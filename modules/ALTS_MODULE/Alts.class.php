@@ -47,7 +47,7 @@ class Alts {
 	}
 	
 	public static function get_alts_blob($char) {
-		global $chatBot;
+		$db = DB::get_instance();
 	
 		$main = Alts::get_main($char);
 		$alts = Alts::get_alts($main);
@@ -72,11 +72,14 @@ class Alts {
 			$list .= " - <red>Offline<end>\n";
 		}
 		$list .= ":::::: Alt Character(s)\n";
-		forEach ($alts as $alt) {
-			$list .= "<tab><tab>{$alt}";
-			$character = Player::get_by_name($alt);
-			if ($character !== null) {
-				$list .= " (Level <highlight>{$character->level}<end>/<green>{$character->ai_level}<end> <highlight>{$character->profession}<end>)";
+		
+		$sql = "SELECT `alt`, `main`, p.* FROM `alts` a LEFT JOIN players p ON a.alt = p.name WHERE `main` LIKE '$main' ORDER BY level DESC, ai_level DESC, profession ASC, name ASC";
+		$db->query($sql);
+		$data = $db->fObject('all');
+		forEach ($data as $row) {
+			$list .= "<tab><tab>{$row->alt}";
+			if ($row->profession !== null) {
+				$list .= " (Level <highlight>{$row->level}<end>/<green>{$row->ai_level}<end> <highlight>{$row->profession}<end>)";
 			}
 			$online = Buddylist::is_online($alt);
 			if ($online === null) {
