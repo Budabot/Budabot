@@ -9,7 +9,7 @@
    
 global $socket;
 if ("1" == $chatBot->settings['irc_status']) {
-	if ($args[2][0] != $chatBot->settings["symbol"] && !$chatBot->settings["Ignore"][$sender] && $irc == "active") {
+	if ($args[2][0] != $chatBot->settings["symbol"] && !$chatBot->settings["Ignore"][$sender]) {
 		
 		$patterns = array(
 		  '/<a href="itemref:\/\/(\d+)\/\1\/(\d+)">([^<]+)<\/a>/',
