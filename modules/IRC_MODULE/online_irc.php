@@ -30,5 +30,8 @@ if (preg_match("/^onlineirc$/i", $message, $arr)) {
 		}
 		flush();
 	}
+} else {
+	$syntax_error = true;
 }
+
 ?>

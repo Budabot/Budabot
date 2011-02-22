@@ -37,7 +37,7 @@
 	Command::register($MODULE_NAME, "msg", "bbin_connect.php", "startbbin", "admin", "Connect to BBIN");
 	
 	//Command settings
-	Command::register($MODULE_NAME, "msg", "set_bbin_settings.php", "setbbin", "admin", "Manually set BBIN settings");
+	Command::register($MODULE_NAME, "msg", "set_bbin_settings.php", "setbbin", "admin", "Manually set BBIN settings", 'bbin');
 	
 	//BBIN Relay
 	Event::register($MODULE_NAME, "2sec", "bbin_loop.php", "none", "The main BBIN message loop");

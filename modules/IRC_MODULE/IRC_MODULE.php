@@ -35,7 +35,7 @@
 	Command::register($MODULE_NAME, "", "online_irc.php", "onlineirc", "all", "View who is in IRC chat");
 	
 	//Command settings
-	Command::register($MODULE_NAME, "msg", "set_irc_settings.php", "setirc", "admin", "Manually set IRC settings");
+	Command::register($MODULE_NAME, "msg", "set_irc_settings.php", "setirc", "admin", "Manually set IRC settings", 'irc');
 	
 	//IRC Relay
   	Event::register($MODULE_NAME, "2sec", "irc_check.php", "none", "Receive messages from IRC");
