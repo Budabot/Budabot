@@ -21,11 +21,11 @@ if ("1" == $chatBot->settings['irc_status']) {
 		  '\4 (http://auno.org/ao/db.php?id=\1&ql=\3)',
 		);
 
-		$msg = htmlspecialchars_decode(preg_replace($patterns, $replaces, $message));
+		$message = htmlspecialchars_decode(preg_replace($patterns, $replaces, $message));
 
-		fputs($socket, "PRIVMSG ".$chatBot->settings['irc_channel']." :[" . $this->vars['my guild'] . "] $sender: $msg\n");
+		fputs($socket, "PRIVMSG ".$chatBot->settings['irc_channel']." :[" . $this->vars['my guild'] . "] $sender: $message\n");
 		if ($chatBot->settings['irc_debug_messages'] == 1) {
-			Logger::log_chat("Out. IRC Msg.", $sender, $msg);
+			Logger::log_chat("Out. IRC Msg.", $sender, $message);
 		}
 	}
 }
