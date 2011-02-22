@@ -73,7 +73,7 @@ if (preg_match("/^settings$/i", $message)) {
     $link = "<header>::::: Settings for {$setting} ::::<end>\n\n";
  	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '{$setting}'");
 	if ($db->numrows() == 0) {
-		$msg = "This setting doesn't exists.";
+		$msg = "Could not find setting <highlight>{$setting}<end>.";
 	} else {
 		$row = $db->fObject();
 		
@@ -157,16 +157,17 @@ if (preg_match("/^settings$/i", $message)) {
 		if ($help !== false) {
 			$link .= "\n\n" . $help;
 		}
+		
+		$msg = Text::make_link("Settings Info for {$setting}", $link);
 	}
 
-  	$msg = Text::make_link("Settings Info for {$setting}", $link);
  	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^settings save ([a-z0-9_]+) (.+)$/i", $message, $arr)) {
   	$name_setting = strtolower($arr[1]);
   	$change_to_setting = $arr[2];
  	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '$name_setting'");
 	if ($db->numrows() == 0) {
-		$msg = "This setting doesn't exist.";
+		$msg = "Could not find setting <highlight>{$name_setting}<end>.";
 	} else {
 		$row = $db->fObject();
 		$options = explode(";", $row->options);

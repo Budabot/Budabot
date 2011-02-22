@@ -62,14 +62,11 @@ class Setting {
 	 * @name: save
 	 * @description: Saves a new value for a setting
 	 */	
-	public static function save($name, $newsetting = null) {
+	public static function save($name, $newsetting) {
 		$db = DB::get_instance();
 		global $chatBot;
 
 		$name = strtolower($name);
-		if ($newsetting === null) {
-			return false;
-		}
 
 		if (isset($chatBot->settings[$name])) {
 			$db->exec("UPDATE settings_<myname> SET `value` = '" . str_replace("'", "''", $newsetting) . "' WHERE `name` = '$name'");
