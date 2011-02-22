@@ -1,3 +1,0 @@
-<header>:::::: Help on Default Status for modules ::::::<end>
-
-This setting allows you to choose if modules that are new added to enable with next restart or if they should be enabled manually.

@@ -53,16 +53,16 @@
 	Event::register($MODULE_NAME, "logOff", "bbin_relay_left.php", "none", "Shows a logoff from a member");
 	
 	//Settings
-	Setting::add($MODULE_NAME, "bbin_status", "Status of BBIN uplink", "noedit", "options", "0", "Offline;Online", "0;1", "mod", "$MODULE_NAME/bbin_help.txt");
-	Setting::add($MODULE_NAME, "bbin_server", "IRC server to connect to", "noedit", "text", "irc.funcom.com", "", "", "mod", "$MODULE_NAME/bbin_help.txt");
-	Setting::add($MODULE_NAME, "bbin_port", "IRC server port to use", "noedit", "number", "6667", "", "", "mod", "$MODULE_NAME/bbin_help.txt");
-	Setting::add($MODULE_NAME, "bbin_nickname", "Nickname to use while in IRC", "noedit", "text", $chatBot->vars['name'], "", "", "mod", "$MODULE_NAME/bbin_help.txt");
-	Setting::add($MODULE_NAME, "bbin_channel", "Channel to join", "noedit", "text", $channel, "", "", "mod", "$MODULE_NAME/bbin_help.txt");
-	Setting::add($MODULE_NAME, "bbin_autoconnect", "Connect to IRC at bootup", "edit", "options", "0", "true;false", "1;0", "mod", "$MODULE_NAME/bbin_help.txt");
-	Setting::add($MODULE_NAME, "bbin_debug_ping", "IRC Debug Option: Show pings in console", "edit", "options", "0", "true;false", "1;0", "mod", "$MODULE_NAME/bbin_help.txt");
-	Setting::add($MODULE_NAME, "bbin_debug_messages", "IRC Debug Option: Show events in console", "edit", "options", "0", "true;false", "1;0", "mod", "$MODULE_NAME/bbin_help.txt");
-	Setting::add($MODULE_NAME, "bbin_debug_all", "IRC Debug Option: Log everything", "edit", "options", "0", "true;false", "1;0", "mod", "$MODULE_NAME/bbin_help.txt");
+	Setting::add($MODULE_NAME, "bbin_status", "Status of BBIN uplink", "noedit", "options", "0", "Offline;Online", "0;1", "mod", "bbin");
+	Setting::add($MODULE_NAME, "bbin_server", "IRC server to connect to", "noedit", "text", "irc.funcom.com", "", "", "mod", "bbin");
+	Setting::add($MODULE_NAME, "bbin_port", "IRC server port to use", "noedit", "number", "6667", "", "", "mod", "bbin");
+	Setting::add($MODULE_NAME, "bbin_nickname", "Nickname to use while in IRC", "noedit", "text", $chatBot->vars['name'], "", "", "mod", "bbin");
+	Setting::add($MODULE_NAME, "bbin_channel", "Channel to join", "noedit", "text", $channel, "", "", "mod", "bbin");
+	Setting::add($MODULE_NAME, "bbin_autoconnect", "Connect to IRC at bootup", "edit", "options", "0", "true;false", "1;0", "mod", "bbin");
+	Setting::add($MODULE_NAME, "bbin_debug_ping", "IRC Debug Option: Show pings in console", "edit", "options", "0", "true;false", "1;0", "mod", "bbin");
+	Setting::add($MODULE_NAME, "bbin_debug_messages", "IRC Debug Option: Show events in console", "edit", "options", "0", "true;false", "1;0", "mod", "bbin");
+	Setting::add($MODULE_NAME, "bbin_debug_all", "IRC Debug Option: Log everything", "edit", "options", "0", "true;false", "1;0", "mod", "bbin");
 	
 	//Helpfiles
-	Help::register($MODULE_NAME, "bbin", "bbin_help.txt", "all", "How to use the BBIN plugin", "BBIN");
+	Help::register($MODULE_NAME, "bbin", "bbin_help.txt", "all", "How to use the BBIN plugin");
 ?>

@@ -43,15 +43,22 @@
 	Command::activate("priv", "$MODULE_NAME/set_limits_priv.php", "faction", "mod");
 
 	//Settings
-	Setting::add($MODULE_NAME, "priv_req_lvl", "Private Channel Min Level Limit", "noedit", "number", "0", "", "", "mod", "$MODULE_NAME/help_minlvl.txt");
-	Setting::add($MODULE_NAME, "priv_req_faction", "Private Channel Faction Limit", "noedit", "options", "all", "", "", "mod", "$MODULE_NAME/help_faction.txt");
-	Setting::add($MODULE_NAME, "priv_req_open", "Private Channel General Limit", "noedit", "options", "all", "", "", "mod", "$MODULE_NAME/help_open.txt");
-	Setting::add($MODULE_NAME, "priv_req_maxplayers", "Maximum number of players in the Private Channel", "noedit", "number", "0", "", "", "mod", "$MODULE_NAME/help_maxplayers.txt");
+	Setting::add($MODULE_NAME, "priv_req_lvl", "Private Channel Min Level Limit", "noedit", "number", "0", "", "", "mod");
+	Setting::add($MODULE_NAME, "priv_req_faction", "Private Channel Faction Limit", "noedit", "options", "all", "", "", "mod");
+	Setting::add($MODULE_NAME, "priv_req_open", "Private Channel General Limit", "noedit", "options", "all", "", "", "mod");
+	Setting::add($MODULE_NAME, "priv_req_maxplayers", "Maximum number of players in the Private Channel", "noedit", "number", "0", "", "", "mod");
 
-	Setting::add($MODULE_NAME, "tell_req_lvl", "Tells Min Level", "noedit", "number", "0", "", "", "mod", "$MODULE_NAME/help_tminlvl.txt");
-	Setting::add($MODULE_NAME, "tell_req_faction", "Tell Faction Limit", "noedit", "options", "all", "", "", "mod", "$MODULE_NAME/help_tfaction.txt");
-	Setting::add($MODULE_NAME, "tell_req_open", "Tell General Limit", "noedit", "options", "all", "", "", "mod", "$MODULE_NAME/help_topen.txt");
+	Setting::add($MODULE_NAME, "tell_req_lvl", "Tells Min Level", "noedit", "number", "0", "", "", "mod");
+	Setting::add($MODULE_NAME, "tell_req_faction", "Tell Faction Limit", "noedit", "options", "all", "", "", "mod");
+	Setting::add($MODULE_NAME, "tell_req_open", "Tell General Limit", "noedit", "options", "all", "", "", "mod");
 
 	//Help File
-	Help::register($MODULE_NAME, "priv_tell_limits", "help.txt", "mod", "Set Limits for Tells and Private Channel");
+	Help::register($MODULE_NAME, "priv_tell_limits", "priv_tell_limits.txt", "mod", "Set Limits for Tells and Private Channel");
+	Help::register($MODULE_NAME, "priv_req_lvl", "priv_req_lvl.txt", "mod", "Set level requirements to join the private channel");
+	Help::register($MODULE_NAME, "priv_req_faction", "priv_req_faction.txt", "mod", "Set faction requirements to join the private channel");
+	Help::register($MODULE_NAME, "priv_req_open", "priv_req_open.txt", "mod", "Set general requirements to join the private channel");
+	Help::register($MODULE_NAME, "priv_req_maxplayers", "priv_req_maxplayers.txt", "mod", "Set the maximum amount of players allowed in the private channel at a time");
+	Help::register($MODULE_NAME, "tell_req_lvl", "tell_req_lvl.txt", "mod", "Set level requirements to send tells to the bot");
+	Help::register($MODULE_NAME, "tell_req_faction", "tell_req_faction.txt", "mod", "Set faction requirements to send tells to the bot");
+	Help::register($MODULE_NAME, "tell_req_open", "tell_req_open.txt", "mod", "Set general requirements to send tells to the bot");
 ?>

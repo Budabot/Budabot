@@ -81,8 +81,12 @@ class Help {
 			$admin = $chatBot->helpfiles[$helpcmd]["admin level"];
 		}
 
-		$access = AccessLevel::checkAccess($char, $admin);
-		if ($access === TRUE && file_exists($filename)) {
+		if ($char === null) {
+			$access = true;
+		} else {
+			$access = AccessLevel::checkAccess($char, $admin);
+		}
+		if ($access === true && file_exists($filename)) {
 			$data = file_get_contents($filename);
 			if ($return_as_bloblink) {
 				$helpcmd = ucfirst($helpcmd);

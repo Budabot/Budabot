@@ -31,14 +31,6 @@ class Setting {
 		if (!in_array($type, array('color', 'number', 'text', 'options'))) {
 			Logger::log('ERROR', 'Core', "Error in registering Setting $module:setting($name). Type should be one of: 'color', 'number', 'text', 'options'. Actual: '$type'.");
 		}
-
-		//Check if the help file exists
-		if ($help != '') {
-			$help_file = Util::verify_filename($help);
-			if ($help_file == '') {
-				Logger::log('ERROR', 'Core', "Error in registering the help file $help for Setting $module:setting($name). The file doesn't exists!");
-			}
-		}
 		
 		$options = str_replace("'", "''", $options);
 		$description = str_replace("'", "''", $description);

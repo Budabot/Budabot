@@ -69,8 +69,9 @@ if (preg_match("/^settings$/i", $message)) {
   	$msg = Text::make_link("Bot Settings", $link);
  	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^settings change ([a-z0-9_]+)$/i", $message, $arr)) {
-    $link = "<header>::::: Settings for {$arr[1]} ::::<end>\n\n";
- 	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '{$arr[1]}'");
+	$setting = strtolower($arr[1]);
+    $link = "<header>::::: Settings for {$setting} ::::<end>\n\n";
+ 	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '{$setting}'");
 	if ($db->numrows() == 0) {
 		$msg = "This setting doesn't exists.";
 	} else {
@@ -143,12 +144,22 @@ if (preg_match("/^settings$/i", $message)) {
 			}
 		}
 
+		// show help topic if there is one
 		if ($row->help != '') {
-			$link .= "\n\n" . file_get_contents('./core/' . $row->help) . file_get_contents('./modules/' . $row->help);
+			$help = Help::find($row->help, null, false);
+			if ($help === false) {
+				Logger::log('ERROR', 'Settings', "Help command <highlight>{$row->help}<end> for setting <highlight>{$setting}<end> could not be found.");
+			}
+		} else {
+			$help = Help::find($setting, null, false);
+		}
+
+		if ($help !== false) {
+			$link .= "\n\n" . $help;
 		}
 	}
 
-  	$msg = Text::make_link("Settings Info for $arr[1]", $link);
+  	$msg = Text::make_link("Settings Info for {$setting}", $link);
  	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^settings save ([a-z0-9_]+) (.+)$/i", $message, $arr)) {
   	$name_setting = strtolower($arr[1]);
