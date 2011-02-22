@@ -73,8 +73,7 @@ class Help {
 	public static function find($helpcmd, $char, $return_as_bloblink = true) {
 		global $chatBot;
 	
-		$helpcmd = explode(' ', $helpcmd, 2);
-		$helpcmd = strtolower($helpcmd[0]);
+		$helpcmd = strtolower($helpcmd);
 
 		if (isset($chatBot->helpfiles[$helpcmd])) {
 			$filename = $chatBot->helpfiles[$helpcmd]["filename"];

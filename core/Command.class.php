@@ -22,7 +22,7 @@ class Command {
 	 * @name: register
 	 * @description: Registers a command
 	 */
-	public static function register($module, $type, $filename, $command, $admin = 'all', $description = ''){
+	public static function register($module, $type, $filename, $command, $admin = 'all', $description = '', $help = ''){
 		$db = DB::get_instance();
 		global $chatBot;
 
@@ -46,14 +46,14 @@ class Command {
 			Logger::log('debug', 'Core', "Adding Command to list:($command) File:($actual_filename) Admin:({$admin[$i]}) Type:({$type[$i]})");
 			
 			if ($chatBot->existing_commands[$type[$i]][$command] == true) {
-				$db->exec("UPDATE cmdcfg_<myname> SET `module` = '$module', `verify` = 1, `file` = '$actual_filename', `description` = '$description' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
+				$db->exec("UPDATE cmdcfg_<myname> SET `module` = '$module', `verify` = 1, `file` = '$actual_filename', `description` = '$description', `help` = '{$help}' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
 			} else {
 				if ($chatBot->settings["default_module_status"] == 1) {
 					$status = 1;
 				} else {
 					$status = 0;
 				}
-				$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`) VALUES ('$module', '{$type[$i]}', '$actual_filename', '$command', '{$admin[$i]}', '$description', 1, 'cmd', '$status')");
+				$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`, `help`) VALUES ('$module', '{$type[$i]}', '$actual_filename', '$command', '{$admin[$i]}', '$description', 1, 'cmd', '{$status}', '{$help}')");
 			}
 		}
 	}
@@ -189,12 +189,16 @@ class Command {
 		}
 	}
 	
-	public static function get($command) {
+	public static function get($command, $type = null) {
 		$db = DB::get_instance();
 		
 		$command = strtolower($command);
 		
-		$sql = "SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '{$command}'";
+		if ($type !== null) {
+			$type_sql = "AND type = '{$type}'";
+		}
+		
+		$sql = "SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '{$command}' {$type_sql}";
 		$db->query($sql);
 		return $db->fObject('all');
 	}
