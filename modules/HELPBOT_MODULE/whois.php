@@ -40,8 +40,22 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
         } else {
 	        $msg = Player::get_info($whois);
 
-	        $list = "<header>::::: Detailed info :::::<end>\n\n";
-	        $list .= "<u>Options for ".$name."</u>\n \n";
+	        $list = "<header>::::: Detailed info for {$name} :::::<end>\n\n";
+	        $list .= "Name: <highlight>{$whois->firstname} \"{$name}\" {$whois->lastname}<end>\n";
+			if ($whois->guild) {
+				$list .= "Guild: <highlight>{$whois->guild} ({$whois->guild_id})<end>\n";
+				$list .= "Guild Rank: <highlight>{$whois->guild_rank} ({$whois->guild_rank_id})<end>\n";
+			}
+			$list .= "Breed: <highlight>{$whois->breed}<end>\n";
+			$list .= "Gender: <highlight>{$whois->gender}<end>\n";
+			$list .= "Profession: <highlight>{$whois->profession} ({$whois->prof_title})<end>\n";
+			$list .= "Level: <highlight>{$whois->level}<end>\n";
+			$list .= "AI Level: <highlight>{$whois->ai_level} ({$whois->ai_rank})<end>\n";
+			$list .= "Faction: <highlight>{$whois->faction}<end>\n";
+			$list .= "Character ID: <highlight>{$whois->charid}<end>\n\n";
+			
+			$list .= "Source: $whois->source\n\n";
+			
 	        $list .= "<a href='chatcmd:///tell <myname> history $name'>Check $name's History</a>\n";
 	        $list .= "<a href='chatcmd:///tell <myname> is $name'>Check $name's online status</a>\n";
 	        if ($whois->guild) {
@@ -49,8 +63,8 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 				$list .= "<a href='chatcmd:///tell <myname> orglist $whois->guild_id'>Orglist for {$whois->guild}</a>\n";
 			}
 	        $list .= "<a href='chatcmd:///cc addbuddy $name'>Add to buddylist</a>\n";
-	        $list .= "<a href='chatcmd:///cc rembuddy $name'>Remove from buddylist</a>\n";
-			$list .= "\nSource: $whois->source\n";
+	        $list .= "<a href='chatcmd:///cc rembuddy $name'>Remove from buddylist</a>";
+			
 	        $msg .= " :: ".Text::make_link("More info", $list, 'blob');
 	    }
     } else {
@@ -74,13 +88,27 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
         if ($whois !== null) {
             $msg = Player::get_info($whois);
 
-            $list = "<header>::::: Detailed infos :::::<end>\n\n";
-            $list .= "<u>Options for ".$name."</u>\n \n";
+           $list = "<header>::::: Detailed info for {$name} :::::<end>\n\n";
+	        $list .= "Name: <highlight>{$whois->firstname} \"{$name}\" {$whois->lastname}<end>\n";
+			if ($whois->guild) {
+				$list .= "Guild: <highlight>{$whois->guild} ({$whois->guild_id})<end>\n";
+				$list .= "Guild Rank: <highlight>{$whois->guild_rank} ({$whois->guild_rank_id})<end>\n";
+			}
+			$list .= "Breed: <highlight>{$whois->breed}<end>\n";
+			$list .= "Gender: <highlight>{$whois->gender}<end>\n";
+			$list .= "Profession: <highlight>{$whois->profession} ({$whois->prof_title})<end>\n";
+			$list .= "Level: <highlight>{$whois->level}<end>\n";
+			$list .= "AI Level: <highlight>{$whois->ai_level} ({$whois->ai_rank})<end>\n";
+			$list .= "Faction: <highlight>{$whois->faction}<end>\n";
+			$list .= "Character ID: <highlight>{$whois->charid}<end>\n\n";
+			
+			$list .= "Source: $whois->source\n\n";
+
             $list .= "<a href='chatcmd:///tell <myname> history $name'>Check $name's History</a>\n";
             $list .= "<a href='chatcmd:///tell <myname> is $name'>Check $name's online status</a>\n";
             $list .= "<a href='chatcmd:///cc addbuddy $name'>Add to buddylist</a>\n";
-            $list .= "<a href='chatcmd:///cc rembuddy $name'>Remove from buddylist</a>\n";
-			$list .= "\nSource: $whois->source\n";
+            $list .= "<a href='chatcmd:///cc rembuddy $name'>Remove from buddylist</a>";
+			
             $msg .= " :: ".Text::make_link("More info", $list, 'blob');
             $msg = "<highlight>Server $server:<end> ".$msg;
         } else {
