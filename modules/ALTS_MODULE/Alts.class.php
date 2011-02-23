@@ -81,7 +81,7 @@ class Alts {
 			if ($row->profession !== null) {
 				$list .= " (Level <highlight>{$row->level}<end>/<green>{$row->ai_level}<end> <highlight>{$row->profession}<end>)";
 			}
-			$online = Buddylist::is_online($alt);
+			$online = Buddylist::is_online($row->alt);
 			if ($online === null) {
 				$list .= " - No status.\n";
 			} else if ($online == 1) {
