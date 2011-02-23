@@ -730,7 +730,7 @@ class Budabot extends AOChat {
                     return;
                 } else if ($channel == $this->vars["my guild"]) {
                     $type = "guild";
-					$sendto = 'org';
+					$sendto = 'guild';
 					
 					// Events
 					forEach ($this->events[$type] as $filename) {

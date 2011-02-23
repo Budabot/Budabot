@@ -23,7 +23,7 @@ if (preg_match("/^leprocs (.+)$/i", $message, $arr)) {
 			$blob .= "<yellow>$row->name<end> $row->duration <orange>$row->modifiers<end>\n";
 		}
 		
-		$blob .= "\n\nProc info provided by Wolfbiter (RK1)";
+		$blob .= "\n\nProc info provided by Wolfbiter (RK1), Gatester (RK2)";
 
 		$msg = Text::make_link("$profession LE Procs", $blob, 'blob');
 	}

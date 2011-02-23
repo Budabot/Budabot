@@ -29,6 +29,10 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
+if ($sender == -1) {
+	return;
+}
+
 if ($type == 'priv') {
 	$table_name = 'priv_chatlist_<myname>';
 	$sendto = 'priv';
