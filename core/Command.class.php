@@ -1,28 +1,12 @@
 <?php
 
-/*
-`module` VARCHAR(50) NOT NULL
-`regex` VARCHAR(255)
-`file` VARCHAR(255) NOT NULL
-`is_core` TINYINT NOT NULL
-`cmd` VARCHAR(25) NOT NULL
-`tell_status` INT DEFAULT 0
-`tell_access_level` INT DEFAULT 0
-`guild_status` INT DEFAULT 0
-`guild_access_level` INT DEFAULT 0
-`priv_status` INT DEFAULT 0
-`priv_access_level` INT DEFAULT 0
-`description` VARCHAR(50) NOT NULL DEFAULT ''
-`verify` INT DEFAULT 1
-*/
-
 class Command {
 
 	/**
 	 * @name: register
 	 * @description: Registers a command
 	 */
-	public static function register($module, $type, $filename, $command, $admin = 'all', $description = '', $help = ''){
+	public static function register($module, $channel, $filename, $command, $admin = 'all', $description = '', $help = ''){
 		$db = DB::get_instance();
 		global $chatBot;
 
@@ -30,7 +14,7 @@ class Command {
 		$description = str_replace("'", "''", $description);
 		$module = strtoupper($module);
 		
-		if (!$chatBot->processCommandArgs($type, $admin)) {
+		if (!$chatBot->processCommandArgs($channel, $admin)) {
 			Logger::log('ERROR', 'Core', "invalid args for $module:command($command)");
 			return;
 		}
@@ -42,18 +26,18 @@ class Command {
 			return;
 		}
 
-		for ($i = 0; $i < count($type); $i++) {
-			Logger::log('debug', 'Core', "Adding Command to list:($command) File:($actual_filename) Admin:({$admin[$i]}) Type:({$type[$i]})");
+		for ($i = 0; $i < count($channel); $i++) {
+			Logger::log('debug', 'Core', "Adding Command to list:($command) File:($actual_filename) Admin:({$admin[$i]}) Type:({$channel[$i]})");
 			
-			if ($chatBot->existing_commands[$type[$i]][$command] == true) {
-				$db->exec("UPDATE cmdcfg_<myname> SET `module` = '$module', `verify` = 1, `file` = '$actual_filename', `description` = '$description', `help` = '{$help}' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'");
+			if ($chatBot->existing_commands[$channel[$i]][$command] == true) {
+				$db->exec("UPDATE cmdcfg_<myname> SET `module` = '$module', `verify` = 1, `file` = '$actual_filename', `description` = '$description', `help` = '{$help}' WHERE `cmd` = '$command' AND `type` = '{$channel[$i]}'");
 			} else {
 				if ($chatBot->settings["default_module_status"] == 1) {
 					$status = 1;
 				} else {
 					$status = 0;
 				}
-				$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`, `help`) VALUES ('$module', '{$type[$i]}', '$actual_filename', '$command', '{$admin[$i]}', '$description', 1, 'cmd', '{$status}', '{$help}')");
+				$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`, `help`) VALUES ('$module', '{$channel[$i]}', '$actual_filename', '$command', '{$admin[$i]}', '$description', 1, 'cmd', '{$status}', '{$help}')");
 			}
 		}
 	}
@@ -94,21 +78,9 @@ class Command {
 				return;
 			}
 		}
-
-		switch ($channel) {
-			case "msg":
-				$chatBot->tellCmds[$command]["filename"] = $actual_filename;
-				$chatBot->tellCmds[$command]["admin level"] = $admin;
-				break;
-			case "priv":
-				$chatBot->privCmds[$command]["filename"] = $actual_filename;
-				$chatBot->privCmds[$command]["admin level"] = $admin;
-				break;
-			case "guild":
-				$chatBot->guildCmds[$command]["filename"] = $actual_filename;
-				$chatBot->guildCmds[$command]["admin level"] = $admin;
-				break;
-		}
+		
+		$chatBot->commands[$channel][$command]["filename"] = $actual_filename;
+		$chatBot->commands[$channel][$command]["admin"] = $admin;
 	}
 	
 	/**
@@ -124,26 +96,16 @@ class Command {
 
 	  	Logger::log('DEBUG', 'Core', "Deactivate Command:($command) File:($filename) Channel:($channel)");
 
-		switch ($channel){
-			case "msg":
-				unset($chatBot->tellCmds[$command]);
-				break;
-			case "priv":
-				unset($chatBot->privCmds[$command]);
-				break;
-			case "guild":
-				unset($chatBot->guildCmds[$command]);
-				break;
-		}
+		unset($chatBot->commands[$channel][$command]);
 	}
 	
-	public static function update_status($type, $module, $cmd, $status) {
+	public static function update_status($channel, $module, $cmd, $status) {
 		$db = DB::get_instance();
 		
-		if ($type == 'all' || $type == '' || $type == null) {
+		if ($channel == 'all' || $channel == '' || $channel == null) {
 			$type_sql = '';
 		} else {
-			$type_sql = "AND `type` = '$type'";
+			$type_sql = "AND `type` = '$channel'";
 		}
 		
 		if ($cmd == '' || $cmd == null) {
@@ -189,13 +151,13 @@ class Command {
 		}
 	}
 	
-	public static function get($command, $type = null) {
+	public static function get($command, $channel = null) {
 		$db = DB::get_instance();
 		
 		$command = strtolower($command);
 		
-		if ($type !== null) {
-			$type_sql = "AND type = '{$type}'";
+		if ($channel !== null) {
+			$type_sql = "AND type = '{$channel}'";
 		}
 		
 		$sql = "SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '{$command}' {$type_sql}";

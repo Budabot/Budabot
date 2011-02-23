@@ -45,12 +45,19 @@ class Budabot extends AOChat {
 	
 	// array where modules can store stateful session data
 	var $data = array();
+	
+	//Ignore Messages from Vicinity/IRRK New Wire/OT OOC/OT Newbie OOC...
+	var $channelsToIgnore = array("", 'IRRK News Wire', 'OT OOC', 'OT Newbie OOC', 'OT Jpn OOC', 'OT shopping 11-50',
+		'Tour Announcements', 'Neu. Newbie OOC', 'Neu. Jpn OOC', 'Neu. shopping 11-50', 'Neu. OOC', 'Clan OOC',
+		'Clan Newbie OOC', 'Clan Jpn OOC', 'Clan shopping 11-50', 'OT German OOC', 'Clan German OOC', 'Neu. German OOC');
 
 /*===============================
 ** Name: __construct
 ** Constructor of this class.
-*/	function __construct($vars, $settings){
+*/	function __construct(&$vars, &$settings){
 		parent::__construct("callback");
+		
+		$vars["name"] = ucfirst(strtolower($vars["name"]));
 
 		$this->settings = $settings;
 		$this->vars = $vars;
@@ -61,15 +68,6 @@ class Budabot extends AOChat {
 
 		// Set startup time
 		$this->vars["startup"] = time();
-		
-		$db = DB::get_instance();
-
-		// Create command/event settings table if not exists
-		$db->exec("CREATE TABLE IF NOT EXISTS cmdcfg_<myname> (`module` VARCHAR(50), `cmdevent` VARCHAR(5), `type` VARCHAR(18), `file` VARCHAR(255), `cmd` VARCHAR(25), `admin` VARCHAR(10), `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0', `dependson` VARCHAR(25) DEFAULT 'none', `help` VARCHAR(25))");
-		$db->exec("CREATE TABLE IF NOT EXISTS eventcfg_<myname> (`module` VARCHAR(50), `type` VARCHAR(18), `file` VARCHAR(255), `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0', `help` VARCHAR(25))");
-		$db->exec("CREATE TABLE IF NOT EXISTS settings_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `type` VARCHAR(30), `mode` VARCHAR(10), `value` VARCHAR(255) Default '0', `options` VARCHAR(255) Default '0', `intoptions` VARCHAR(50) DEFAULT '0', `description` VARCHAR(50), `source` VARCHAR(5), `admin` VARCHAR(25), `help` VARCHAR(25))");
-		$db->exec("CREATE TABLE IF NOT EXISTS hlpcfg_<myname> (`name` VARCHAR(25) NOT NULL, `module` VARCHAR(50), `description` VARCHAR(50), `admin` VARCHAR(10), `verify` INT Default '0')");
-		$db->exec("CREATE TABLE IF NOT EXISTS cmd_alias_<myname> (`cmd` VARCHAR(25) NOT NULL, `module` VARCHAR(50), `alias` VARCHAR(25) NOT NULL, `status` INT DEFAULT '0')");
 	}
 
 /*===============================
@@ -142,27 +140,33 @@ class Budabot extends AOChat {
 		
 		$db = DB::get_instance();
 		
-		//Delete old vars in case they exist
+		// Create core tables if not exists
+		$db->exec("CREATE TABLE IF NOT EXISTS cmdcfg_<myname> (`module` VARCHAR(50), `cmdevent` VARCHAR(5), `type` VARCHAR(18), `file` VARCHAR(255), `cmd` VARCHAR(25), `admin` VARCHAR(10), `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0', `dependson` VARCHAR(25) DEFAULT 'none', `help` VARCHAR(25))");
+		$db->exec("CREATE TABLE IF NOT EXISTS eventcfg_<myname> (`module` VARCHAR(50), `type` VARCHAR(18), `file` VARCHAR(255), `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0', `help` VARCHAR(25))");
+		$db->exec("CREATE TABLE IF NOT EXISTS settings_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `type` VARCHAR(30), `mode` VARCHAR(10), `value` VARCHAR(255) Default '0', `options` VARCHAR(255) Default '0', `intoptions` VARCHAR(50) DEFAULT '0', `description` VARCHAR(50), `source` VARCHAR(5), `admin` VARCHAR(25), `verify` INT DEFAULT '0', `help` VARCHAR(25))");
+		$db->exec("CREATE TABLE IF NOT EXISTS hlpcfg_<myname> (`name` VARCHAR(25) NOT NULL, `module` VARCHAR(50), `file` VARCHAR(255), `description` VARCHAR(50), `admin` VARCHAR(10), `verify` INT Default '0')");
+		$db->exec("CREATE TABLE IF NOT EXISTS cmd_alias_<myname> (`cmd` VARCHAR(25) NOT NULL, `module` VARCHAR(50), `alias` VARCHAR(25) NOT NULL, `status` INT DEFAULT '0')");
+		
+		// Delete old vars in case they exist
 		$this->events = array();
 		$this->helpfiles = array();
 		$this->subcommands = array();
 		$this->cmd_aliases = array();
 
-		$this->tellCmds = array();
-		$this->privCmds = array();
-		$this->guildCmds = array();
+		$this->commands = array();
 		
 		unset($this->privMsgs);
 		unset($this->privChat);
 		unset($this->guildChat);
 
-		//Prepare command/event settings table
+		// Prepare command/event settings table
 		$db->exec("UPDATE cmdcfg_<myname> SET `verify` = 0");
 		$db->exec("UPDATE eventcfg_<myname> SET `verify` = 0");
+		$db->exec("UPDATE settings_<myname> SET `verify` = 0");
 		$db->exec("UPDATE hlpcfg_<myname> SET `verify` = 0");
 		$db->exec("UPDATE eventcfg_<myname> SET `status` = 1 WHERE `type` = 'setup'");
 
-		//To reduce querys save the current commands/events in arrays
+		// To reduce queries load core items into memory
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd'");
 		$data = $db->fObject('all');
 		forEach ($data as $row) {
@@ -202,34 +206,34 @@ class Budabot extends AOChat {
 		// Load the Core Modules -- SETINGS must be first in case the other modules have settings
 		Logger::log('INFO', 'Core', "Loading CORE modules...");
 		
-		Logger::log('debug', 'Core', "MODULE_NAME:(SETTINGS.php)");
+		Logger::log('DEBUG', 'Core', "MODULE_NAME:(SETTINGS.php)");
 		include "./core/SETTINGS/SETTINGS.php";
 		
-		Logger::log('debug', 'Core', "MODULE_NAME:(SYSTEM.php)");
+		Logger::log('DEBUG', 'Core', "MODULE_NAME:(SYSTEM.php)");
 		include "./core/SYSTEM/SYSTEM.php";
 		
-		Logger::log('debug', 'Core', "MODULE_NAME:(ADMIN.php)");
+		Logger::log('DEBUG', 'Core', "MODULE_NAME:(ADMIN.php)");
 		include "./core/ADMIN/ADMIN.php";
 		
-		Logger::log('debug', 'Core', "MODULE_NAME:(BAN.php)");
+		Logger::log('DEBUG', 'Core', "MODULE_NAME:(BAN.php)");
 		include "./core/BAN/BAN.php";
 		
-		Logger::log('debug', 'Core', "MODULE_NAME:(HELP.php)");
+		Logger::log('DEBUG', 'Core', "MODULE_NAME:(HELP.php)");
 		include "./core/HELP/HELP.php";
 		
-		Logger::log('debug', 'Core', "MODULE_NAME:(CONFIG.php)");
+		Logger::log('DEBUG', 'Core', "MODULE_NAME:(CONFIG.php)");
 		include "./core/CONFIG/CONFIG.php";
 		
-		Logger::log('debug', 'Core', "MODULE_NAME:(BASIC_CONNECTED_EVENTS.php)\n");
+		Logger::log('DEBUG', 'Core', "MODULE_NAME:(BASIC_CONNECTED_EVENTS.php)\n");
 		include "./core/BASIC_CONNECTED_EVENTS/BASIC_CONNECTED_EVENTS.php";
 		
-		Logger::log('debug', 'Core', "MODULE_NAME:(PRIV_TELL_LIMIT.php)\n");
+		Logger::log('DEBUG', 'Core', "MODULE_NAME:(PRIV_TELL_LIMIT.php)\n");
 		include "./core/PRIV_TELL_LIMIT/PRIV_TELL_LIMIT.php";
 		
-		Logger::log('debug', 'Core', "MODULE_NAME:(PLAYER_LOOKUP.php)\n");
+		Logger::log('DEBUG', 'Core', "MODULE_NAME:(PLAYER_LOOKUP.php)\n");
 		include "./core/PLAYER_LOOKUP/PLAYER_LOOKUP.php";
 		
-		Logger::log('debug', 'Core', "MODULE_NAME:(FRIENDLIST.php)\n");
+		Logger::log('DEBUG', 'Core', "MODULE_NAME:(FRIENDLIST.php)\n");
 		include "./core/FRIENDLIST/FRIENDLIST.php";
 
 		Logger::log('INFO', 'Core', "Loading USER modules...");
@@ -250,24 +254,25 @@ class Budabot extends AOChat {
 		unset($this->existing_cmd_aliases);
 		
 		//Delete old entrys in the DB
-		$db->exec("DELETE FROM hlpcfg_<myname> WHERE `verify` = 0");
 		$db->exec("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0");
 		$db->exec("DELETE FROM eventcfg_<myname> WHERE `verify` = 0");
+		$db->exec("DELETE FROM settings_<myname> WHERE `verify` = 0");
+		$db->exec("DELETE FROM hlpcfg_<myname> WHERE `verify` = 0");
 
 		//Load active commands
-		Logger::log('debug', 'Core', "Loading active commands");
+		Logger::log('DEBUG', 'Core', "Loading active commands");
 		Command::loadCommands();
 
 		//Load active subcommands
-		Logger::log('debug', 'Core', "Loading active subcommands");
+		Logger::log('DEBUG', 'Core', "Loading active subcommands");
 		Subcommand::loadSubcommands();
 		
 		//Load active cmd aliases
-		Logger::log('debug', 'Core', "Loading active command aliases");
+		Logger::log('DEBUG', 'Core', "Loading active command aliases");
 		CommandAlias::load();
 
 		//Load active events
-		Logger::log('debug', 'Core', "Loading active events");
+		Logger::log('DEBUG', 'Core', "Loading active events");
 		Event::loadEvents();
 	}
 
@@ -282,7 +287,7 @@ class Budabot extends AOChat {
 
 		// Check files, for all 'connect' events.
 		forEach ($this->events['connect'] as $filename) {
-			include $filename;
+			require $filename;
 		}
 		
 		$this->vars["logondelay"] = time() + 10;
@@ -327,8 +332,7 @@ class Budabot extends AOChat {
 
 		$message = Text::format_message($message);
 
-		// Send
-		if ($target == 'prv') { // Target is private chat by defult.
+		if ($target == 'prv') {
 			$this->send_privgroup($this->vars["name"], $this->settings["default_priv_color"].$message);
 			
 			// relay to guild channel
@@ -522,7 +526,7 @@ class Budabot extends AOChat {
 				if ($status == 0) {
 					$type = "logOff";
 					
-					Logger::log('debug', "Buddy", "$sender logged off");
+					Logger::log('DEBUG', "Buddy", "$sender logged off");
 
 					// Check files, for all 'player logged off events'
 					forEach ($this->events[$type] as $filename) {
@@ -535,7 +539,7 @@ class Budabot extends AOChat {
 				} else if ($status == 1) {
 					$type = "logOn";
 					
-					Logger::log('info', "Buddy", "$sender logged on");
+					Logger::log('INFO', "Buddy", "$sender logged on");
 
 					// Check files, for all 'player logged on events'.
 					forEach ($this->events[$type] as $filename) {
@@ -596,12 +600,12 @@ class Budabot extends AOChat {
 					}
 				}
 
-				// Remove the prefix infront if there is one
+				// Remove the prefix if there is one
 				if ($message[0] == $this->settings["symbol"] && strlen($message) > 1) {
 					$message = substr($message, 1);
 				}
 
-				// Check privatejoin and tell Limits
+				// Check private join and tell Limits
 				if (file_exists("./core/PRIV_TELL_LIMIT/check.php")) {
 					include './core/PRIV_TELL_LIMIT/check.php';
 					if ($restricted) {
@@ -622,11 +626,7 @@ class Budabot extends AOChat {
 				Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_MESSAGE => sender: '$sender' channel: '$channel' message: '$message'");
 				Logger::log_chat($channel, $sender, $message);
 				
-				if ($sender == $this->vars["name"]) {
-					return;
-				}
-				
-				if (Ban::is_banned($sender)) {
+				if ($sender == $this->vars["name"] || Ban::is_banned($sender)) {
 					return;
 				}
 
@@ -679,12 +679,7 @@ class Budabot extends AOChat {
 				
 				Logger::log('DEBUG', 'Packets', "AOCP_GROUP_MESSAGE => sender: '$sender' channel: '$channel' message: '$message'");
 
-				//Ignore Messages from Vicinity/IRRK New Wire/OT OOC/OT Newbie OOC...
-				$channelsToIgnore = array("", 'IRRK News Wire', 'OT OOC', 'OT Newbie OOC', 'OT Jpn OOC', 'OT shopping 11-50',
-					'Tour Announcements', 'Neu. Newbie OOC', 'Neu. Jpn OOC', 'Neu. shopping 11-50', 'Neu. OOC', 'Clan OOC',
-					'Clan Newbie OOC', 'Clan Jpn OOC', 'Clan shopping 11-50', 'OT German OOC', 'Clan German OOC', 'Neu. German OOC');
-
-				if (in_array($channel, $channelsToIgnore)) {
+				if (in_array($channel, $this->channelsToIgnore)) {
 					return;
 				}
 
@@ -788,7 +783,7 @@ class Budabot extends AOChat {
 		}
 	}
 	
-	function process_command($type, $message, $sender, $sendto) {
+	function process_command($channel, $message, $sender, $sendto) {
 		$db = DB::get_instance();
 		global $chatBot;
 		
@@ -805,29 +800,17 @@ class Budabot extends AOChat {
 			} else {
 				$message = $cmd;
 			}
-			$this->process_command($type, $message, $sender, $sendto);
+			$this->process_command($channel, $message, $sender, $sendto);
 			return;
 		}
 		
-		switch ($type){
-			case "msg":
-				$cmds  = &$chatBot->tellCmds;
-				break;
-			case "priv":
-				$cmds  = &$chatBot->privCmds;
-				break;
-			case "guild":
-				$cmds =  &$chatBot->guildCmds;
-				break;
-		}
-
-		$admin 	= $cmds[$cmd]["admin level"];
-		$filename = $cmds[$cmd]["filename"];
+		$admin 	= $chatBot->commands[$channel][$cmd]["admin"];
+		$filename = $chatBot->commands[$channel][$cmd]["filename"];
 
 		// Check if a subcommands for this exists
-		if ($chatBot->subcommands[$filename][$type]) {
-			if (preg_match("/^{$chatBot->subcommands[$filename][$type]["cmd"]}$/i", $message)) {
-				$admin = $chatBot->subcommands[$filename][$type]["admin"];
+		if ($chatBot->subcommands[$filename][$channel]) {
+			if (preg_match("/^{$chatBot->subcommands[$filename][$channel]["cmd"]}$/i", $message)) {
+				$admin = $chatBot->subcommands[$filename][$channel]["admin"];
 			}
 		}
 
@@ -835,7 +818,7 @@ class Budabot extends AOChat {
 		$access = AccessLevel::checkAccess($sender, $admin);
 
 		if ($access !== true || $filename == "") {
-			if ($type != 'guild') {
+			if ($channel != 'guild') {
 				// don't notify user of unknown command in org chat, in case they are running more than one bot
 				$chatBot->send("Error! Unknown command or Access denied! for more info try /tell <myname> help", $sendto);
 				$chatBot->spam[$sender] = $chatBot->spam[$sender] + 20;
@@ -846,7 +829,7 @@ class Budabot extends AOChat {
 			$msg = "";
 			include $filename;
 			if ($syntax_error == true) {
-				$results = Command::get($cmd, $type);
+				$results = Command::get($cmd, $channel);
 				$result = $results[0];
 				if ($result->help != '') {
 					$output = Help::find($result->help, $sender);
@@ -882,7 +865,7 @@ class Budabot extends AOChat {
 			}
 			
 			forEach ($chatBot->events['2sec'] as $filename) {
-				include $filename;
+				require $filename;
 			}
 		}
 		if ($chatBot->vars["1min"] < time()) {
@@ -897,42 +880,42 @@ class Budabot extends AOChat {
 			
 			$chatBot->vars["1min"] = time() + 60;
 			forEach ($chatBot->events['1min'] as $filename) {
-				include $filename;
+				require $filename;
 			}
 		}
 		if ($chatBot->vars["10mins"] < time()) {
 			Logger::log('DEBUG', 'Cron', "10mins");
 			$chatBot->vars["10mins"] 	= time() + (60 * 10);
 			forEach ($chatBot->events['10mins'] as $filename) {
-				include $filename;
+				require $filename;
 			}
 		}
 		if ($chatBot->vars["15mins"] < time()) {
 			Logger::log('DEBUG', 'Cron', "15mins");
 			$chatBot->vars["15mins"] 	= time() + (60 * 15);
 			forEach ($chatBot->events['15mins'] as $filename) {
-				include $filename;
+				require $filename;
 			}
 		}
 		if ($chatBot->vars["30mins"] < time()) {
 			Logger::log('DEBUG', 'Cron', "30mins");
 			$chatBot->vars["30mins"] 	= time() + (60 * 30);
 			forEach ($chatBot->events['30mins'] as $filename) {
-				include $filename;
+				require $filename;
 			}
 		}
 		if ($chatBot->vars["1hour"] < time()) {
 			Logger::log('DEBUG', 'Cron', "1hour");
 			$chatBot->vars["1hour"] 	= time() + (60 * 60);
 			forEach ($chatBot->events['1hour'] as $filename) {
-				include $filename;
+				require $filename;
 			}
 		}
 		if ($chatBot->vars["24hours"] < time()) {
 			Logger::log('DEBUG', 'Cron', "24hours");
 			$chatBot->vars["24hours"] 	= time() + ((60 * 60) * 24);
 			forEach ($chatBot->events['24hrs'] as $filename) {
-				include $filename;
+				require $filename;
 			}
 		}
 	}

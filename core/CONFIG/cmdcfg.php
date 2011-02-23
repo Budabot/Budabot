@@ -262,67 +262,63 @@ if (preg_match("/^config$/i", $message)) {
 } else if (preg_match("/^config (subcmd|cmd) (.+) admin (msg|priv|guild|all) (all|leader|rl|mod|admin|guildadmin|guild)$/i", $message, $arr)) {
 	$category = strtolower($arr[1]);
 	$command = strtolower($arr[2]);
-	$type = strtolower($arr[3]);
+	$channel = strtolower($arr[3]);
 	$admin = strtolower($arr[4]);
 
 	$admin = get_admin_value($admin);
 	
 	if ($category == "cmd") {
-		if ($type == "all") {
+		if ($channel == "all") {
 			$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$command' AND `cmdevent` = 'cmd'");
 		} else {
-			$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$command' AND `type` = '$type' AND `cmdevent` = 'cmd'");
+			$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$command' AND `type` = '$channel' AND `cmdevent` = 'cmd'");
 		}
 	
 		if ($db->numrows() == 0) {
-			if ($type == "all") {
+			if ($channel == "all") {
 				$msg = "Could not find the command <highlight>$command<end>";
 			} else {
-				$msg = "Could not find the command <highlight>$command<end> for Channel <highlight>$type<end>";
+				$msg = "Could not find the command <highlight>$command<end> for Channel <highlight>$channel<end>";
 			}
 		  	$chatBot->send($msg, $sendto);
 		  	return;
 		}
-			
-		switch ($type) {
-			case "all":
-				if ($chatBot->tellCmds[$command])
-					$chatBot->tellCmds[$command]["admin level"] = $admin;
-				if ($chatBot->privCmds[$command])
-					$chatBot->privCmds[$command]["admin level"] = $admin;
-				if ($chatBot->guildCmds[$command])
-					$chatBot->guildCmds[$command]["admin level"] = $admin;
-				break;
-		  	case "msg":	
-				$chatBot->tellCmds[$command]["admin level"] = $admin;
-				break;
-		  	case "priv":
-				$chatBot->privCmds[$command]["admin level"] = $admin;
-				break;
-		  	case "guild":
-				$chatBot->guildCmds[$command]["admin level"] = $admin;
-				break;
+		
+		if ($channel == 'all') {
+			if ($chatBot->commands['msg'][$command]) {
+				$chatBot->commands['msg']["admin"] = $admin;
+			}
+			if ($chatBot->commands['priv'][$command]) {
+				$chatBot->commands['priv'][$command]["admin"] = $admin;
+			}
+			if ($chatBot->commands['guild'][$command]) {
+				$chatBot->commands['guild'][$command]["admin"] = $admin;
+			}
+		} else {
+			if ($chatBot->commands[$channel][$command]) {
+				$chatBot->commands[$channel][$command]["admin"] = $admin;
+			}
 		}
 		
-		if ($type == "all") {
+		if ($channel == "all") {
 			$db->exec("UPDATE cmdcfg_<myname> SET `admin` = '$admin' WHERE `cmd` = '$command' AND `cmdevent` = 'cmd'");
 			$msg = "Updated access of command <highlight>$command<end> to <highlight>$admin<end>";
 		} else {
-			$db->exec("UPDATE cmdcfg_<myname> SET `admin` = '$admin' WHERE `cmd` = '$command' AND `type` = '$type' AND `cmdevent` = 'cmd'");
-			$msg = "Updated access of command <highlight>$command<end> in Channel <highlight>$type<end> to <highlight>$admin<end>";
+			$db->exec("UPDATE cmdcfg_<myname> SET `admin` = '$admin' WHERE `cmd` = '$command' AND `type` = '$channel' AND `cmdevent` = 'cmd'");
+			$msg = "Updated access of command <highlight>$command<end> in Channel <highlight>$channel<end> to <highlight>$admin<end>";
 		}
 	} else {  // if ($category == 'subcmd')
-		$sql = "SELECT * FROM cmdcfg_<myname> WHERE `type` = '$type' AND `cmdevent` = 'subcmd' AND `cmd` = '$command'";
+		$sql = "SELECT * FROM cmdcfg_<myname> WHERE `type` = '$channel' AND `cmdevent` = 'subcmd' AND `cmd` = '$command'";
 		$db->query($sql);
 		if ($db->numrows() == 0) {
-			$msg = "Could not find the subcmd <highlight>$command<end> for Channel <highlight>$type<end>";
+			$msg = "Could not find the subcmd <highlight>$command<end> for Channel <highlight>$channel<end>";
 		  	$chatBot->send($msg, $sendto);
 		  	return;
 		}
 		$row = $db->fObject();
-		$chatBot->subcommands[$row->file][$row->type]["admin"] = $admin;		
-		$db->exec("UPDATE cmdcfg_<myname> SET `admin` = '$admin' WHERE `type` = '$type' AND `cmdevent` = 'subcmd' AND `cmd` = '$command'");
-		$msg = "Updated access of sub command <highlight>$command<end> in Channel <highlight>$type<end> to <highlight>$admin<end>";
+		$chatBot->subcommands[$row->file][$row->channel]["admin"] = $admin;		
+		$db->exec("UPDATE cmdcfg_<myname> SET `admin` = '$admin' WHERE `type` = '$channel' AND `cmdevent` = 'subcmd' AND `cmd` = '$command'");
+		$msg = "Updated access of sub command <highlight>$command<end> in Channel <highlight>$channel<end> to <highlight>$admin<end>";
 	}
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^config cmd ([a-z0-9_]+)$/i", $message, $arr)) {
@@ -546,7 +542,7 @@ if (preg_match("/^config$/i", $message)) {
 	}
 	$row = $db->fObject();
 	$db->exec("UPDATE hlpcfg_<myname> SET `admin` = '$admin' WHERE `name` = '$help'");
-	$chatBot->helpfiles[$row->name]["admin level"] = $admin;
+	$chatBot->helpfiles[$row->name]["admin"] = $admin;
 	$chatBot->send("Updated access for helpfile <highlight>$help<end> to <highlight>".ucfirst(strtolower($arr[2]))."<end>.", $sendto);
 } else if (preg_match("/^config help (.+)$/i", $message, $arr)) {
   	$mod = strtoupper($arr[1]);

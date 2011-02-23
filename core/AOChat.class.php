@@ -140,22 +140,17 @@ define('AOEM_AI_REMOVE',              0x34);
 define('AOEM_AI_HQ_REMOVE_INIT',      0x35);
 define('AOEM_AI_HQ_REMOVE',           0x36);
 
-class AOChat
-{
+class AOChat {
 	var $state, $debug, $id, $gid, $chars, $char, $grp, $buddies;
-	var $socket, $last_packet, $last_ping, $callback, $cbargs;
+	var $socket, $last_packet, $last_ping;
 	var $serverseed, $chatqueue;
 
 	/* Initialization */
-	function __construct($cb, $args = NULL)
-	{
-		$this->callback = $cb;
-		$this->cbargs   = $args;
+	function __construct() {
 		$this->disconnect();
 	}
 
-	function disconnect()
-	{
+	function disconnect() {
 		if (is_resource($this->socket)) {
 			socket_close($this->socket);
 		}

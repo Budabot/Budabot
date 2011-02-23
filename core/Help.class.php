@@ -48,15 +48,15 @@ class Help {
 		}
 
 		if (isset($chatBot->existing_helps[$command])) {
-			$db->exec("UPDATE hlpcfg_<myname> SET `verify` = 1, `description` = '$description' WHERE `name` = '$command'");
+			$db->exec("UPDATE hlpcfg_<myname> SET `verify` = 1, `file` = '$actual_filename', `description` = '$description' WHERE `name` = '$command'");
 		} else {
-			$db->exec("INSERT INTO hlpcfg_<myname> VALUES ('$command', '$module', '$description', '$admin', 1)");
+			$db->exec("INSERT INTO hlpcfg_<myname> (`name`, `module`, `file`, `description`, `admin`, `verify`) VALUES ('$command', '$module', '$actual_filename', '$description', '$admin', 1)");
 		}
 
 		$db->query("SELECT * FROM hlpcfg_<myname> WHERE `name` = '$command'");
 		$row = $db->fObject();
 		$chatBot->helpfiles[$command]["filename"] = $actual_filename;
-		$chatBot->helpfiles[$command]["admin level"] = $row->admin;
+		$chatBot->helpfiles[$command]["admin"] = $row->admin;
 		$chatBot->helpfiles[$command]["info"] = $description;
 		$chatBot->helpfiles[$command]["module"] = $module;
 		
@@ -77,7 +77,7 @@ class Help {
 
 		if (isset($chatBot->helpfiles[$helpcmd])) {
 			$filename = $chatBot->helpfiles[$helpcmd]["filename"];
-			$admin = $chatBot->helpfiles[$helpcmd]["admin level"];
+			$admin = $chatBot->helpfiles[$helpcmd]["admin"];
 		}
 
 		if ($char === null) {
