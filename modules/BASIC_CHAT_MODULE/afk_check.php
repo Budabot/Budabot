@@ -29,6 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
+// to stop raising and lowering the cloak messages from triggering afk check
 if ($sender == -1) {
 	return;
 }
@@ -43,7 +44,7 @@ if ($type == 'priv') {
 
 $db->query("SELECT afk FROM {$table_name} WHERE `name` = '{$sender}'");
 $row = $db->fObject();
-if (!preg_match("/^.afk(.*)$/i", $message)) {
+if ($row != null && !preg_match("/^.afk(.*)$/i", $message)) {
 	if ($row->afk != '0') {
 		$db->exec("UPDATE {$table_name} SET `afk` = 0 WHERE `name` = '{$sender}'");
 		$msg = "<highlight>{$sender}<end> is back";
