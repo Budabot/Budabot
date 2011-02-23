@@ -70,7 +70,7 @@ if ($row != null && !preg_match("/^.afk(.*)$/i", $message)) {
 	}
 	
 	if ($msg != "") {
-		$chatBot->send($msg, "guild");
+		$chatBot->send($msg, $sendto);
 	}
 }
 
