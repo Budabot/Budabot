@@ -774,12 +774,6 @@ class Budabot extends AOChat {
 					}
 				}
 				break;
-			case AOCP_MSG_SYSTEM: // 36, simple system message
-				$message = $args[0];
-				
-				Logger::log('DEBUG', 'Packets', "AOCP_MSG_SYSTEM => message: '$message'");
-				Logger::log_chat('SystemMessage', -1, $message);
-				break;
 		}
 	}
 	

@@ -86,7 +86,7 @@ if (preg_match("/^about$/i", $message)) {
 	    return;
 	} else if ($chatBot->settings["priv_req_faction"] == "not Omni" || $chatBot->settings["priv_req_faction"] == "not Clan" || $chatBot->settings["priv_req_faction"] == "not Neutral") {
 		$tmp = explode(" ", $chatBot->settings["priv_req_faction"]);
-		if($tmp[1] == $whois->faction) {
+		if ($tmp[1] == $whois->faction) {
 			$msg = "<orange>Error! Only members that are not in the Faction {$tmp[1]} can join this bot.<end>";
 		    $chatBot->send($msg, $sender);
 		  	$restricted = true;
