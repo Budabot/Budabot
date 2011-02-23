@@ -384,6 +384,7 @@ if (preg_match("/^pande$/i", $message)){
 	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 
 	$msg = Text::make_link("Pandemonium Loot", $list);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^pandeloot ([0-9]+)$/i", $message, $arr)) {
 	$val = $arr[1];
 	$itemname = $pandeloot[$val]["name"];
@@ -418,6 +419,7 @@ if (preg_match("/^pande$/i", $message)){
 		$msg = "<highlight>".$itemname."<end> will be rolled in Slot <highlight>#".$slot."<end> as multiloot. Total: <yellow>".$total."<end>";
 	}
 	$msg .= "\nTo add use !add ".$nextloot.", or !add 0 to remove yourself";
+	$chatBot->send($msg, 'priv');
 } else if (preg_match("/^beastarmor$/i", $message)){
 	$list = "<header>::::: Beast Armor :::::<end>\n\n\n";
 	$loop = 1;
@@ -431,6 +433,7 @@ if (preg_match("/^pande$/i", $message)){
 	}
 	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Beast Armor", $list);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^beastweaps$/i", $message)){
 	$list = "<header>::::: Beast Weapons :::::<end>\n\n\n";
 	$loop = 11;
@@ -444,6 +447,7 @@ if (preg_match("/^pande$/i", $message)){
 	}
 	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Beast Weapons", $list);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^beaststars$/i", $message)){
 	$list = "<header>::::: Beast Stars :::::<end>\n\n\n";
 	$loop = 25;
@@ -457,6 +461,7 @@ if (preg_match("/^pande$/i", $message)){
 	}
 	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Beast Stars", $list);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^sb$/i", $message)){
 	$list = "<header>::::: Shadowbreeds :::::<end>\n\n\n";
 	$loop = 39;
@@ -470,6 +475,7 @@ if (preg_match("/^pande$/i", $message)){
 	}
 	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Shadowbreeds", $list);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^tnh$/i", $message)){
 	$list = "<header>::::: The Night Heart :::::<end>\n\n\n";
 	$loop = 42;
@@ -483,6 +489,7 @@ if (preg_match("/^pande$/i", $message)){
 	}
 	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("The Night Heart Loot", $list);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^aries$/i", $message)){
 	$list = "<header>::::: Aries :::::<end>\n\n\n";
 	$loop = 47;
@@ -496,6 +503,7 @@ if (preg_match("/^pande$/i", $message)){
 	}
 	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Aries Loot", $list);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^leo$/i", $message)){
 	$list = "<header>::::: Leo :::::<end>\n\n\n";
 	$loop = 52;
@@ -509,6 +517,7 @@ if (preg_match("/^pande$/i", $message)){
 	}
 	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Leo Loot", $list);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^virgo$/i", $message)){
 	$list = "<header>::::: Virgo :::::<end>\n\n\n";
 	$loop = 56;
@@ -522,6 +531,7 @@ if (preg_match("/^pande$/i", $message)){
 	}
 	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Virgo Loot", $list);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^aquarius$/i", $message)){
 	$list = "<header>::::: Aquarius :::::<end>\n\n\n";
 	$loop = 60;
@@ -535,6 +545,7 @@ if (preg_match("/^pande$/i", $message)){
 	}
 	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Aquarius Loot", $list);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^cancer$/i", $message)){
 	$list = "<header>::::: Cancer :::::<end>\n\n\n";
 	$loop = 64;
@@ -548,6 +559,7 @@ if (preg_match("/^pande$/i", $message)){
 	}
 	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Cancer Loot", $list);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^gemini$/i", $message)){
 	$list = "<header>::::: Gemini :::::<end>\n\n\n";
 	$loop = 68;
@@ -561,6 +573,7 @@ if (preg_match("/^pande$/i", $message)){
 	}
 	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Gemini Loot", $list);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^libra$/i", $message)){
 	$list = "<header>::::: Libra :::::<end>\n\n\n";
 	$loop = 72;
@@ -574,6 +587,7 @@ if (preg_match("/^pande$/i", $message)){
 	}
 	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Libra Loot", $list);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^pisces$/i", $message)){
 	$list = "<header>::::: Pisces :::::<end>\n\n\n";
 	$loop = 77;
@@ -587,6 +601,7 @@ if (preg_match("/^pande$/i", $message)){
 	}
 	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Pisces Loot", $list);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^taurus$/i", $message)){
 	$list = "<header>::::: Taurus :::::<end>\n\n\n";
 	$loop = 81;
@@ -600,6 +615,7 @@ if (preg_match("/^pande$/i", $message)){
 	}
 	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Taurus Loot", $list);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^capricorn$/i", $message)){
 	$list = "<header>::::: Capricorn :::::<end>\n\n\n";
 	$loop = 85;
@@ -613,6 +629,7 @@ if (preg_match("/^pande$/i", $message)){
 	}
 	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Capricorn Loot", $list);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^sagittarius$/i", $message)){
 	$list = "<header>::::: Sagittarius :::::<end>\n\n\n";
 	$loop = 89;
@@ -626,6 +643,7 @@ if (preg_match("/^pande$/i", $message)){
 	}
 	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Sagittarius Loot", $list);
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^scorpio$/i", $message)){
 	$list = "<header>::::: Scorpio :::::<end>\n\n\n";
 	$loop = 93;
@@ -639,10 +657,9 @@ if (preg_match("/^pande$/i", $message)){
 	}
 	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Scorpio Loot", $list);
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }
-
-$chatBot->send($msg, 'priv');
 
 ?>

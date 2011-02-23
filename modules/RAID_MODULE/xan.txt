@@ -1,0 +1,15 @@
+<header>::::: Xan Loot Module :::::<end>
+
+<highlight>To View Xan raids<end>
+<tab><symbol>xan
+
+<highlight>To View Vortexx loot<end>
+<tab><symbol>vortexx
+
+<highlight>To View Mitaar Hero loot<end>
+<tab><symbol>mitaar
+
+<highlight>To View 12 Man loot<end>
+<tab><symbol>12m
+
+<orange>Developed by Morgo (RK2)<end>
