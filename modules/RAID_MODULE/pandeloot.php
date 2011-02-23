@@ -639,6 +639,8 @@ if (preg_match("/^pande$/i", $message)){
 	}
 	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 	$msg = Text::make_link("Scorpio Loot", $list);
+} else {
+	$syntax_error = true;
 }
 
 $chatBot->send($msg, 'priv');

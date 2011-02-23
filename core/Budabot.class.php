@@ -783,7 +783,7 @@ class Budabot extends AOChat {
 		}
 	}
 	
-	function process_command($channel, $message, $sender, $sendto) {
+	function process_command($type, $message, $sender, $sendto) {
 		$db = DB::get_instance();
 		global $chatBot;
 		
@@ -800,17 +800,17 @@ class Budabot extends AOChat {
 			} else {
 				$message = $cmd;
 			}
-			$this->process_command($channel, $message, $sender, $sendto);
+			$this->process_command($type, $message, $sender, $sendto);
 			return;
 		}
 		
-		$admin 	= $chatBot->commands[$channel][$cmd]["admin"];
-		$filename = $chatBot->commands[$channel][$cmd]["filename"];
+		$admin 	= $chatBot->commands[$type][$cmd]["admin"];
+		$filename = $chatBot->commands[$type][$cmd]["filename"];
 
 		// Check if a subcommands for this exists
-		if ($chatBot->subcommands[$filename][$channel]) {
-			if (preg_match("/^{$chatBot->subcommands[$filename][$channel]["cmd"]}$/i", $message)) {
-				$admin = $chatBot->subcommands[$filename][$channel]["admin"];
+		if ($chatBot->subcommands[$filename][$type]) {
+			if (preg_match("/^{$chatBot->subcommands[$filename][$type]["cmd"]}$/i", $message)) {
+				$admin = $chatBot->subcommands[$filename][$type]["admin"];
 			}
 		}
 
@@ -818,7 +818,7 @@ class Budabot extends AOChat {
 		$access = AccessLevel::checkAccess($sender, $admin);
 
 		if ($access !== true || $filename == "") {
-			if ($channel != 'guild') {
+			if ($type != 'guild') {
 				// don't notify user of unknown command in org chat, in case they are running more than one bot
 				$chatBot->send("Error! Unknown command or Access denied! for more info try /tell <myname> help", $sendto);
 				$chatBot->spam[$sender] = $chatBot->spam[$sender] + 20;
@@ -829,7 +829,7 @@ class Budabot extends AOChat {
 			$msg = "";
 			include $filename;
 			if ($syntax_error == true) {
-				$results = Command::get($cmd, $channel);
+				$results = Command::get($cmd, $type);
 				$result = $results[0];
 				if ($result->help != '') {
 					$output = Help::find($result->help, $sender);

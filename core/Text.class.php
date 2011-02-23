@@ -111,8 +111,16 @@ class Text {
 	 * @name: make_item
 	 * @description: creates an item link
 	 */
-	public static function make_item($lowID, $hiID,  $ql, $name){
-		return "<a href='itemref://$lowID/$hiID/$ql'>$name</a>";
+	public static function make_item($lowId, $highId,  $ql, $name){
+		return "<a href='itemref://{$lowId}/{$highId}/{$ql}'>{$name}</a>";
+	}
+	
+	/**	
+	 * @name: make_item
+	 * @description: creates an item link
+	 */
+	public static function make_image($imageId){
+		return "<img src='rdb://{$imageId}'>";
 	}
 	
 	/**	

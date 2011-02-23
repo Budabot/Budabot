@@ -1,5 +1,7 @@
 <?php
 	$MODULE_NAME = "RAID_MODULE";
+	
+	DB::loadSQLFile($MODULE_NAME, 'xan_loot');
 
 	//Loot list and adding/removing of players	
 	Command::register($MODULE_NAME, "", "loot.php", "loot", "leader", "Adds an item to the loot list");
@@ -57,6 +59,13 @@
 	// Albtraum loot manager
 	Command::register($MODULE_NAME, "", "albloot.php", "alb", "leader", "Shows Possible Albtraum loots");
 	Command::register($MODULE_NAME, "", "albloot.php", "albloot", "leader", "Used to add Albtraum loot to the loot list");
+	
+	// Xan loot manager
+	Command::register($MODULE_NAME, "", "xan.php", "xan", "all", "Shows Possible Legacy of the Xan Loot");
+	Command::register($MODULE_NAME, "", "xan.php", "vortexx", "all", "Shows Possible Vortexx Loot");
+	Command::register($MODULE_NAME, "", "xan.php", "mitaar", "all", "Shows Possible Mitaar Hero Loot");
+	Command::register($MODULE_NAME, "", "xan.php", "12m", "all", "Shows Possible 12 man Loot");
+	Command::register($MODULE_NAME, "", "xan.php", "xanloot", "all", "Adds a Xan loot item to the roll list");
 	
 	// Settings
 	Setting::add($MODULE_NAME, "add_on_loot", "Adding to loot show on", "edit", "options", "2", "tells;privatechat;privatechat and tells", '1;2;3', "mod");
