@@ -1,10 +1,7 @@
 <header>::::: Orglist Commands :::::<end>
 
-<highlight>Shows orgroster of your org.<end>
-<tab><symbol>orglist
-
-<highlight>Shows orgroster of person.<end>
+<highlight>Shows org roster of person<end>
 <tab><symbol>orglist person
 
-<highlight>Shows orgroster by orgID number.<end>
-<tab><symbol>orglist #
+<highlight>Shows org roster by org id<end>
+<tab><symbol>orglist orgid

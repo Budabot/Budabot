@@ -38,7 +38,7 @@
 	// aliases
 	CommandAlias::register($MODULE_NAME, "guides breed", "breed");
 	CommandAlias::register($MODULE_NAME, "guides healdelta", "healdelta");
-	CommandAlias::register($MODULE_NAME, "guides lag", "lag", "all");
+	CommandAlias::register($MODULE_NAME, "guides lag", "lag");
 	CommandAlias::register($MODULE_NAME, "guides nanodelta", "nanodelta");
 	CommandAlias::register($MODULE_NAME, "guides stats", "stats");
 	CommandAlias::register($MODULE_NAME, "guides buffs", "buffs");

@@ -32,6 +32,11 @@
 // Hate doing functions in plugins, but it's necessary
 // because this is called in 2 completely different sections.
 
+if ($message && !preg_match("/^orglist (.+)$/i", $message)) {
+	$syntax_error = true;
+	return;
+}
+
 if (!function_exists(orgmatesformat)){
 	function orgmatesformat ($memberlist, $map, $color, $timestart, $orgname) {
 		global $chatBot;
@@ -94,15 +99,10 @@ $orgcolor["header"]  = "<font color='#FFFFFF'>";   // Org Rank title
 $orgcolor["onlineH"] = "<highlight>";              // Highlights on whois info
 $orgcolor["offline"] = "<font color='#555555'>";   // Offline names
 
-// No options? Target the $sender
-if (preg_match("/^(orglist|onlineorg)$/i", $message)) {
-	$message = "orglist $sender";
-}
-
 $end = false;
-if (preg_match("/^(orglist|onlineorg) end$/i", $message)) {
+if (preg_match("/^orglist end$/i", $message)) {
 	$end = true;
-} else if (preg_match("/^(orglist|onlineorg) (.+)$/i", $message, $arr)) {
+} else if (preg_match("/^orglist (.+)$/i", $message, $arr)) {
 	// Now we hopefully have either an org memeber, or org ID.
 
 	// Check if we are already doing a list.
@@ -120,9 +120,9 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message)) {
 		$chatBot->data["ORGLIST_MODULE"]["sendto"] = $sendto;
 	}
 
-	if (!ctype_digit($arr[2])) {
+	if (!ctype_digit($arr[1])) {
 		// Someone's name.  Doing a whois to get an orgID.
-		$name = ucfirst(strtolower($arr[2]));
+		$name = ucfirst(strtolower($arr[1]));
 		$whois = Player::get_by_name($name);
 
 		if ($whois === null) {
@@ -142,7 +142,7 @@ if (preg_match("/^(orglist|onlineorg) end$/i", $message)) {
 		}
 	} else {
 		// We got only numbers, can't be a name.  Maybe org id?
-		$orgid = $arr[2];
+		$orgid = $arr[1];
 	}
 	
 	$chatBot->send("Downloading org list for org id $orgid...", $sendto);

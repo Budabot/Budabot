@@ -244,5 +244,8 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 	}
 
     $chatBot->send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
+
 ?>
