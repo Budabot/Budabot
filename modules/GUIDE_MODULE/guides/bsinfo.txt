@@ -1,7 +1,4 @@
-<header>::::: Information about LE Alien Missions :::::<end>
-
-<font color = yellow>::::: Information about LE Alien Missions :::::</font>
-
+<header>::::: Battlestations :::::<end>
 
 <font color = #31D6FF>Battlestations</font>
 

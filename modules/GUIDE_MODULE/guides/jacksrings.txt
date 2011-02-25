@@ -1,6 +1,4 @@
-<header>::::: Information about LE Alien Missions :::::<end>
-
-<font color = #31D6FF>Jack's rings</font>
+<header>::::: Jack's rings :::::<end>
 
 Guide suited for: All Classes
 Faction: All
