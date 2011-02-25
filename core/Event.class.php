@@ -81,7 +81,7 @@ class Event {
 			if (!in_array($actual_filename, $chatBot->events[$type])) {
 				$chatBot->events[$type] []= $actual_filename;
 			} else {
-				Logger::log('ERROR', 'Core', "Error activating event Type:($type) File:($filename). Event already registered!");
+				Logger::log('ERROR', 'Core', "Error activating event Type:($type) File:($filename). Event already activated!");
 			}
 		}
 	}

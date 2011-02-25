@@ -73,7 +73,7 @@ if ($chatBot->vars["my guild"] != "" && $chatBot->vars["my guild id"] != "") {
 	Logger::log('INFO', 'GUILD_MODULE', "Roster Update finished");
 	
 	if ($restart == true) {
-		$chatBot->send("The bot needs to be restarted to be able to see who is online in your org. Automatically restarting in 10 seconds.", "org");
+		$chatBot->send("The bot needs to be restarted to be able to see who is online in your org. Automatically restarting in 10 seconds.", "guild");
 		
 		// wait for all buddy add/remove packets to finish sending
 		// not 100% sure this is needed

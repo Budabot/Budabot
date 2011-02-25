@@ -203,6 +203,8 @@ class Budabot extends AOChat {
 		  	$this->existing_cmd_aliases[$row->alias] = true;
 		}
 
+		$db->beginTransaction();
+
 		// Load the Core Modules -- SETINGS must be first in case the other modules have settings
 		Logger::log('INFO', 'Core', "Loading CORE modules...");
 		
@@ -235,14 +237,14 @@ class Budabot extends AOChat {
 		
 		Logger::log('DEBUG', 'Core', "MODULE_NAME:(FRIENDLIST.php)\n");
 		include "./core/FRIENDLIST/FRIENDLIST.php";
+		
+		$db->Commit();
 
 		Logger::log('INFO', 'Core', "Loading USER modules...");
 
-		//Start Transaction
+		//Load user modules
 		$db->beginTransaction();
-		//Load modules
 		$this->loadModules();
-		//Submit the Transactions
 		$db->Commit();
 		
 		//remove arrays

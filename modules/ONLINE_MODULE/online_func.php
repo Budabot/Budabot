@@ -117,7 +117,7 @@ function createList(&$data, &$sender, &$list, &$bot, $show_alts = false) {
 		}
 		
 		if ($oldprof != $row->profession) {
-			if($bot->settings["fancy_online"] == 0) {
+			if ($bot->settings["fancy_online"] == 0) {
 				// old style delimiters
 				$list .= "\n<tab><highlight>$row->profession<end>\n";
 				$oldprof = $row->profession;
