@@ -29,20 +29,23 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-$db->query("CREATE TABLE IF NOT EXISTS admin_<myname> (`name` VARCHAR(25) NOT NULL PRIMARY KEY, `adminlevel` INT)");
-
 $chatBot->vars["SuperAdmin"] = ucfirst(strtolower($chatBot->vars["SuperAdmin"]));
+$charid = $chatBot->get_uid($chatBot->vars["SuperAdmin"]);
 
-$db->query("SELECT * FROM admin_<myname> WHERE `name` = '{$chatBot->vars["SuperAdmin"]}'");
+$db->query("SELECT * FROM admin_<myname> WHERE `charid` = '{$charid}'");
 if ($db->numrows() == 0) {
-	$db->exec("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (4, '{$chatBot->vars["SuperAdmin"]}')");
+	$db->exec("INSERT INTO admin_<myname> (`access_level`, `charid`) VALUES (4, '{$charid}')");
 } else {
-	$db->exec("UPDATE admin_<myname> SET `adminlevel` = 4 WHERE `name` = '{$chatBot->vars["SuperAdmin"]}'");
+	$db->exec("UPDATE admin_<myname> SET `access_level` = 4 WHERE `charid` = '{$charid}'");
 }
 
-$db->query("SELECT * FROM admin_<myname>");
-while ($row = $db->fObject()) {
-	$chatBot->admins[$row->name]["level"] = $row->adminlevel;
+$db->query("SELECT a.*, p.name FROM admin_<myname> a LEFT JOIN players p ON a.charid = p.charid");
+$data = $db->fObject('all');
+forEach ($data as $row) {
+	$chatBot->admins[$row->charid] = $row;
+	if ($row->access_level == 4 && Buddylist::is_online($row->name)) {
+		$chatBot->send("<myname> is <green>online<end>. For updates or help use the Budabot Forums <highlight>http://budabot.com<end>", $row->name);
+	}
 }
 
 ?>

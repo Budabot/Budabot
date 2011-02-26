@@ -113,7 +113,7 @@ class Player {
 	public static function update(&$char) {
 		$db = DB::get_instance();
 		
-		$sql = "DELETE FROM players WHERE `name` = '{$char->name}'";
+		$sql = "DELETE FROM players WHERE `charid` = '{$char->charid}'";
 		$db->exec($sql);
 
 		$sql = "

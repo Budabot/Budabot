@@ -1,10 +1,9 @@
 <?php
 
 if ($chatBot->is_ready()) {
-	$uid = $chatBot->get_uid($sender);
-	$db->query("SELECT * FROM tracked_users_<myname> WHERE uid = $uid");
+	$db->query("SELECT * FROM tracked_users_<myname> WHERE charid = $charid");
 	if ($db->numrows() != 0) {
-		$db->exec("INSERT INTO tracking_<myname> (uid, dt, event) VALUES ($uid, " . time() . ", 'logon')");
+		$db->exec("INSERT INTO tracking_<myname> (charid, dt, event) VALUES ($charid, " . time() . ", 'logon')");
 	}
 }
 

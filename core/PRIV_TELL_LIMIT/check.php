@@ -32,7 +32,7 @@
 if (preg_match("/^about$/i", $message)) {
 	// nothing to do
 	return;
-} else if (Whitelist::check($sender) || isset($chatBot->admins[$sender]) || $sender == ucfirst(strtolower($chatBot->settings["relaybot"]))) {
+} else if (Whitelist::check($sender) || isset($chatBot->admins[$charid]) || $sender == ucfirst(strtolower($chatBot->settings["relaybot"]))) {
 	// nothing to do
 	return;
 } else if (preg_match("/^join$/i", $message)) {

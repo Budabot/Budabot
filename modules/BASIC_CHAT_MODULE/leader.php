@@ -60,7 +60,8 @@ if ($type == "leavePriv") {
 		unset($chatBot->data["leader"]);
 	  	$msg = "Leader cleared.";
 	} else if ($chatBot->data["leader"] != "") {
-		if ($chatBot->admins[$sender]["level"] >= $chatBot->admins[$chatBot->data["leader"]]["level"]){
+		$leader_charid = $chatBot->get_uid($chatBot->data["leader"]);
+		if ($chatBot->admins[$charid]->access_level >= $chatBot->admins[$leader_charid]->access_level) {
   			$chatBot->data["leader"] = $sender;
 		  	$msg = "{$sender} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
 		} else {

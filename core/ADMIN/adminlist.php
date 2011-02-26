@@ -33,57 +33,69 @@ if (preg_match("/^adminlist$/i", $message) || preg_match("/^admins$/i", $message
 	$list = "<header>::::: Adminlist :::::<end>\n\n";
 
 	$list .= "<highlight>Administrators<end>\n";	
-	forEach ($chatBot->admins as $who => $data){
-		if ($chatBot->admins[$who]["level"] == 4){
-			if($who != ""){ 
-				$list.= "<tab>$who ";
-				
-				if ($chatBot->vars["SuperAdmin"] == $who)
-					$list .= "(<orange>Super Administrator<end>) ";
-					
-				if ($chatBot->admins[$who]["online"] == "online" && isset($chatBot->chatlist[$who]))
-					$list.="(<green>Online and in chat<end>)";
-				elseif ($chatBot->admins[$who]["online"] == "online")
-					$list.="(<green>Online<end>)";
-				else
-					$list.="(<red>Offline<end>)";
-					
-				$list.= "\n";
+	forEach ($chatBot->admins as $admin){
+		if ($admin->access_level == 4){
+			$list.= "<tab>$admin->name ";
+			
+			if ($chatBot->vars["SuperAdmin"] == $admin->name) {
+				$list .= "(<orange>Super Administrator<end>) ";
 			}
+			
+			$online = Buddylist::is_online($admin->name);
+				
+			if (isset($chatBot->chatlist[$admin->name])) {
+				$list.="(<green>Online and in chat<end>)";
+			} else if ($online == 1) {
+				$list.="(<green>Online<end>)";
+			} else if ($online === null) {
+				$list.="(<orange>Unknown<end>)";
+			} else {
+				$list.="(<red>Offline<end>)";
+			}
+				
+			$list.= "\n";
 		}
 	}
 
 	$list .= "<highlight>Moderators<end>\n";
-	forEach ($chatBot->admins as $who => $data){
-		if ($chatBot->admins[$who]["level"] == 3){
-			if ($who != "") {
-				$list.= "<tab>$who ";
-				if ($chatBot->admins[$who]["online"] == "online" && isset($chatBot->chatlist[$who])) {
-					$list.="(<green>Online and in chat<end>)";
-				} else if ($chatBot->admins[$who]["online"] == "online") {
-					$list.="(<green>Online<end>)";
-				} else {
-					$list.="(<red>Offline<end>)";
-				}
-				$list.= "\n";
+	forEach ($chatBot->admins as $admin){
+		if ($admin->access_level == 3){
+			$list.= "<tab>$admin->name ";
+			
+			$online = Buddylist::is_online($admin->name);
+				
+			if (isset($chatBot->chatlist[$admin->name])) {
+				$list.="(<green>Online and in chat<end>)";
+			} else if ($online == 1) {
+				$list.="(<green>Online<end>)";
+			} else if ($online === null) {
+				$list.="(<orange>Unknown<end>)";
+			} else {
+				$list.="(<red>Offline<end>)";
 			}
+				
+			$list.= "\n";
 		}
 	}
 
 	$list .= "<highlight>Raidleaders<end>\n";	
-	forEach ($chatBot->admins as $who => $data){
-		if ($chatBot->admins[$who]["level"] == 2){
-			if ($who != "") {
-				$list.= "<tab>$who ";
-				if ($chatBot->admins[$who]["online"] == "online" && isset($chatBot->chatlist[$who])) {
-					$list.="(<green>Online and in chat<end>)";
-				} else if ($chatBot->admins[$who]["online"] == "online") {
-					$list.="(<green>Online<end>)";
-				} else {
-					$list.="(<red>Offline<end>)";
-				}
-				$list.= "\n";
+	forEach ($chatBot->admins as $admin){
+		if ($admin->access_level == 2){
+			$list.= "<tab>$admin->name ";
+			
+			$online = Buddylist::is_online($admin->name);
+				
+			if (isset($chatBot->chatlist[$admin->name])) {
+				$list.="(<green>Online and in chat<end>)";
+			} else if ($online == 1) {
+				$list.="(<green>Online<end>)";
+			} else if ($online === null) {
+				$list.="(<orange>Unknown<end>)";
+			} else {
+				$list.="(<red>Offline<end>)";
 			}
+				
+			$list.= "\n";
 		}
 	}
 

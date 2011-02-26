@@ -427,9 +427,10 @@ class Budabot extends AOChat {
 					$this->vars["my guild id"] = $b[2]*256*256*256 + $b[3]*256*256 + $b[4]*256 + $b[5];
 				}
 				break;
-			case AOCP_PRIVGRP_CLIJOIN: // 55, Incoming player joined private chat
+			case AOCP_PRIVGRP_CLIJOIN: // 55, player joined private channel
 				$channel = $this->lookup_user($args[0]);
-				$sender = $this->lookup_user($args[1]);
+				$charid = $args[1];
+				$sender = $this->lookup_user($charid);
 
 				Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_CLIJOIN => channel: '$channel' sender: '$sender'");
 				
@@ -472,9 +473,10 @@ class Budabot extends AOChat {
 					}
 				}
 				break;
-			case AOCP_PRIVGRP_CLIPART: // 56, Incoming player left private chat
+			case AOCP_PRIVGRP_CLIPART: // 56, player left private channel
 				$channel = $this->lookup_user($args[0]);
-				$sender	= $this->lookup_user($args[1]);
+				$charid = $args[1];
+				$sender = $this->lookup_user($charid);
 				
 				Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_CLIPART => channel: '$channel' sender: '$sender'");
 				
@@ -507,7 +509,8 @@ class Budabot extends AOChat {
 				}
 				break;
 			case AOCP_BUDDY_ADD: // 40, Incoming buddy logon or off
-				$sender	= $this->lookup_user($args[0]);
+				$charid = $args[0];
+				$sender = $this->lookup_user($charid);
 				$status	= 0 + $args[1];
 				
 				Logger::log('DEBUG', 'Packets', "AOCP_BUDDY_ADD => sender: '$sender' status: '$status'");
@@ -556,7 +559,7 @@ class Budabot extends AOChat {
 			case AOCP_MSG_PRIVATE: // 30, Incoming Msg
 				$type = "msg";
 				$charid = $args[0];
-				$sender	= $this->lookup_user($args[0]);
+				$sender	= $this->lookup_user($charid);
 				$sendto = $sender;
 				
 				Logger::log('DEBUG', 'Packets', "AOCP_MSG_PRIVATE => sender: '$sender' message: '$args[1]'");
@@ -620,7 +623,8 @@ class Budabot extends AOChat {
 
 				break;
 			case AOCP_PRIVGRP_MESSAGE: // 57, Incoming priv message
-				$sender	= $this->lookup_user($args[1]);
+				$charid = $args[1];
+				$sender = $this->lookup_user($charid);
 				$sendto = 'prv';
 				$channel = $this->lookup_user($args[0]);
 				$message = $args[2];
@@ -676,7 +680,8 @@ class Budabot extends AOChat {
 				break;
 			case AOCP_GROUP_MESSAGE: // 65, Public and guild channels
 				$syntax_error = false;
-				$sender	 = $this->lookup_user($args[1]);
+				$charid = $args[1];
+				$sender = $this->lookup_user($charid);
 				$message = $args[2];
 				$channel = $this->get_gname($args[0]);
 				
@@ -762,8 +767,8 @@ class Budabot extends AOChat {
 				break;
 			case AOCP_PRIVGRP_INVITE:  // 50, private channel invite
 				$type = "extJoinPrivRequest"; // Set message type.
-				$uid = $args[0];
-				$sender = $this->lookup_user($uid);
+				$charid = $args[0];
+				$sender = $this->lookup_user($charid);
 
 				Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_INVITE => sender: '$sender'");
 

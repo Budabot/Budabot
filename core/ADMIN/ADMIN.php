@@ -1,5 +1,7 @@
 <?php 
 	$MODULE_NAME = "ADMIN";
+	
+	DB::loadSQLFile($MODULE_NAME, 'admin');
 
 	//Commands	
 	Command::activate("msg", "$MODULE_NAME/addadmin.php", "addadmin", "admin");
@@ -31,12 +33,10 @@
 	Command::activate("guild", "$MODULE_NAME/adminlist.php", "adminlist");
 
 	//Events
-	Event::activate("logOn", "$MODULE_NAME/admin_logon.php");
-	Event::activate("logOff", "$MODULE_NAME/admin_logoff.php");
 	Event::activate("24hrs", "$MODULE_NAME/check_admins.php");
 
 	//Setup
-	Event::activate("setup", "$MODULE_NAME/upload_admins.php");
+	Event::activate("connect", "$MODULE_NAME/upload_admins.php");
 	
 	Setting::add($MODULE_NAME, 'alts_inherit_admin', 'Alts inherit admin privileges from main', 'edit', "options", 0, "true;false", "1;0", 'mod');
 

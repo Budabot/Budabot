@@ -31,41 +31,42 @@
 
 if (preg_match("/^addmod (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
+	$admin_charid = $chatBot->get_uid($who);
 
-	if ($chatBot->get_uid($who) == NULL){
-		$chatBot->send("<red>Sorry the player you wish to add doesn't exist.<end>", $sendto);
+	if (!$admin_charid) {
+		$chatBot->send("<red>The player you wish to remove doesn't exist.<end>", $sendto);
 		return;
 	}
 	
-	if ($who == $sender) {
+	if ($admin_charid == $charid) {
 		$chatBot->send("<red>You can't add yourself to another group.<end>", $sendto);
 		return;
 	}
 
 
-	if ($chatBot->admins[$who]["level"] == 3) {
+	if ($chatBot->admins[$admin_charid]->access_level == 3) {
 		$chatBot->send("<red>Sorry but $who is already a moderator.<end>", $sendto);
 		return;
 	}
 	
-	if ($chatBot->vars["SuperAdmin"] != $sender && (int)$chatBot->admins[$sender]["level"] <= (int)$chatBot->admins[$who]["level"]){
+	if ($chatBot->vars["SuperAdmin"] != $sender && (int)$chatBot->admins[$sender]->access_level <= (int)$chatBot->admins[$admin_charid]->access_level) {
 		$chatBot->send("<red>You must have a rank higher then $who.<end>", $sendto);
 		return;
 	}
 
-	if (isset($chatBot->admins[$who]["level"]) && $chatBot->admins[$who]["level"] >= 2) {
-		if($chatBot->admins[$who]["level"] > 3) {
+	if (isset($chatBot->admins[$admin_charid]) && $chatBot->admins[$admin_charid]->access_level >= 2) {
+		if($chatBot->admins[$admin_charid]->access_level > 3) {
 			$chatBot->send("<highlight>$who<end> has been demoted to the rank of a Moderator.", $sendto);
 			$chatBot->send("You have been demoted to the rank of a Moderator on {$chatBot->vars["name"]}", $who);
 		} else {
 			$chatBot->send("<highlight>$who<end> has been promoted to the rank of a Moderator.", $sendto);
 			$chatBot->send("You have been promoted to the rank of a Moderator on {$chatBot->vars["name"]}", $who);
 		}
-		$db->exec("UPDATE admin_<myname> SET `adminlevel` = 3 WHERE `name` = '$who'");
-		$chatBot->admins[$who]["level"] = 3;
+		$db->exec("UPDATE admin_<myname> SET `access_level` = 3 WHERE `name` = '$who'");
+		$chatBot->admins[$admin_charid]->access_level = 3;
 	} else {
-		$db->exec("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (3, '$who')");
-		$chatBot->admins[$who]["level"] = 3;
+		$db->exec("INSERT INTO admin_<myname> (`access_level`, `name`) VALUES (3, '$who')");
+		$chatBot->admins[$admin_charid]->access_level = 3;
 		$chatBot->send("<highlight>$who<end> has been added to the Moderatorgroup", $sendto);
 		$chatBot->send("You got moderator access to <myname>", $who);
 	}
