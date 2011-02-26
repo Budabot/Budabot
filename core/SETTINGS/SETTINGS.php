@@ -23,7 +23,7 @@
 
 	Setting::add($MODULE_NAME, 'symbol', 'command prefix symbol', 'edit', "text", '!', '!;#;*;@;$;+;-');
 	Setting::add($MODULE_NAME, 'guild_admin_level', 'guild admin level', 'edit', "number", 3, 'President;General;Squad Commander;Unit Commander;Unit Leader;Unit Member;Applicant', '0;1;2;3;4;5;6', 'mod');
-	Setting::add($MODULE_NAME, 'spam_protection', 'enable/disable spam protection', 'edit', "options", 0, 'ON;OFF', '1;0', 'mod');
+	Setting::add($MODULE_NAME, 'spam_protection', 'Use spam protection', 'edit', "options", 0, "true;false", "1;0", 'mod');
 
 	//Help Files
 	Help::register($MODULE_NAME, "settings", "settings.txt", "mod", "Change Settings of the Bot");

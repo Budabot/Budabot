@@ -37,6 +37,8 @@
 
 	//Setup
 	Event::activate("setup", "$MODULE_NAME/upload_admins.php");
+	
+	Setting::add($MODULE_NAME, 'alts_inherit_admin', 'Alts inherit admin privileges from main', 'edit', "options", 0, "true;false", "1;0", 'mod');
 
 	//Help Files
 	Help::register($MODULE_NAME, "admin", "admin.txt", "mod", "Mod/Admin Help file");

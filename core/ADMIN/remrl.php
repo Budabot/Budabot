@@ -32,11 +32,6 @@
 if (preg_match("/^remrl (.+)$/i", $message, $arr)) {
 	$who = ucfirst(strtolower($arr[1]));
 	
-	if ($who == $sender) {
-		$chatBot->send("<red>You can't kick yourself.<end>", $sendto);
-		return;
-	}
-
 	if ($chatBot->admins[$who]["level"] != 2) {
 		$chatBot->send("<red>Sorry $who is not a Raidleader of this Bot.<end>", $sendto);
 		return;
