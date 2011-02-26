@@ -60,7 +60,7 @@ function endraffle(&$bot)
             $blob .= "\n-------------------------\n Unlucky:";
         }
     }
-    $results = $bot->makeLink("Detailed results", $blob);
+    $results = Text::make_link("Detailed results", $blob);
 
     if (1 == $count)
     {
