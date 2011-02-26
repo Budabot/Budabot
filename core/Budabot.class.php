@@ -555,6 +555,7 @@ class Budabot extends AOChat {
 				break;
 			case AOCP_MSG_PRIVATE: // 30, Incoming Msg
 				$type = "msg";
+				$charid = $args[0];
 				$sender	= $this->lookup_user($args[0]);
 				$sendto = $sender;
 				

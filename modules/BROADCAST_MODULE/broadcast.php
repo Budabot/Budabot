@@ -3,7 +3,7 @@
 if (preg_match("/^broadcast$/i", $message)) {
 	$blob = "<header> :::::: Broadcast Bots :::::: <end>\n\n";
 
-	$sql = "SELECT * FROM broadcast_<myname> ORDER BY dt DESC";
+	$sql = "SELECT * FROM broadcast_<myname> b LEFT JOIN players p ON b.charid = p.charid ORDER BY dt DESC";
   	$db->query($sql);
 	$data = $db->fObject('all');
   	forEach ($data as $row) {
@@ -28,12 +28,14 @@ if (preg_match("/^broadcast$/i", $message)) {
 		return;
 	}
 	
-	if (isset($chatBot->data["broadcast_list"][$name])) {
+	if (isset($chatBot->data["broadcast_list"][$charid])) {
 		$chatBot->send("'$name' is already on the broadcast bot list.", $sendto);
 		return;
 	}
+	
+	Player::add_info($name);
 
-	$db->query("INSERT INTO broadcast_<myname> (`name`, `added_by`, `dt`) VALUES('$name', '$sender', '" . time() . "')");
+	$db->query("INSERT INTO broadcast_<myname> (`charid`, `added_by`, `dt`) VALUES($charid, '$sender', '" . time() . "')");
 	$msg = "Broadcast bot added successfully.";
 	
 	// reload broadcast bot list
@@ -46,12 +48,13 @@ if (preg_match("/^broadcast$/i", $message)) {
 } else if (preg_match("/^broadcast (rem|remove) (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[2]));
 
-	if (!isset($chatBot->data["broadcast_list"][$name])) {
+	$charid = $chatBot->get_uid($name);
+	if (!isset($chatBot->data["broadcast_list"][$charid])) {
 		$chatBot->send("'$name' is not on the broadcast bot list.", $sendto);
 		return;
 	}
 
-	$db->exec("DELETE FROM broadcast_<myname> WHERE name = '$name'");
+	$db->exec("DELETE FROM broadcast_<myname> WHERE charid = $charid");
 	$msg = "Broadcast bot removed successfully.";
 	
 	// reload broadcast bot list
