@@ -804,9 +804,12 @@ class Budabot extends AOChat {
 		$filename = $chatBot->commands[$type][$cmd]["filename"];
 
 		// Check if a subcommands for this exists
-		if ($chatBot->subcommands[$filename][$type]) {
-			if (preg_match("/^{$chatBot->subcommands[$filename][$type]["cmd"]}$/i", $message)) {
-				$admin = $chatBot->subcommands[$filename][$type]["admin"];
+		if ($chatBot->subcommands[$cmd]) {
+			forEach ($chatBot->subcommands[$cmd] as $row) {
+				if ($row->type == $type && preg_match("/^{$row->cmd}$/i", $message)) {
+					$admin = $row->admin;
+					$filename = $row->file;
+				}
 			}
 		}
 

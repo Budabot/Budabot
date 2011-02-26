@@ -68,8 +68,7 @@ class Subcommand {
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd'");
 		$data = $db->fObject("all");
 		forEach ($data as $row) {
-			$chatBot->subcommands[$row->file][$row->type]["cmd"] = $row->cmd;
-			$chatBot->subcommands[$row->file][$row->type]["admin"] = $row->admin;
+			$chatBot->subcommands[$row->dependson] []= $row;
 		}
 	}
 }

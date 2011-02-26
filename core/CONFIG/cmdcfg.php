@@ -316,8 +316,9 @@ if (preg_match("/^config$/i", $message)) {
 		  	return;
 		}
 		$row = $db->fObject();
-		$chatBot->subcommands[$row->file][$row->channel]["admin"] = $admin;		
 		$db->exec("UPDATE cmdcfg_<myname> SET `admin` = '$admin' WHERE `type` = '$channel' AND `cmdevent` = 'subcmd' AND `cmd` = '$command'");
+		chatBot->subcommands = array();
+		Subcommand::loadSubcommands();
 		$msg = "Updated access of sub command <highlight>$command<end> in Channel <highlight>$channel<end> to <highlight>$admin<end>";
 	}
 	$chatBot->send($msg, $sendto);
