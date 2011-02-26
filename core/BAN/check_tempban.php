@@ -31,7 +31,7 @@
 
 forEach ($chatBot->banlist as $ban){
 	if ($ban->banend != null && ((time() - $ban->banend) >= 0)) {
-	 	 $db->exec("DELETE FROM banlist_<myname> WHERE name = '{$ban->name}'");
+	 	 $db->exec("DELETE FROM banlist_<myname> WHERE charid = '{$ban->charid}'");
 	}	
 }
 

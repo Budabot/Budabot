@@ -32,13 +32,14 @@
 if (preg_match("/^ban (.+) ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (for|reason) (.+)$/i", $message, $arr)) {
 	$who = ucfirst(strtolower($arr[1]));
 	$reason = $arr[5];
+	$ban_charid = $chatBot->get_uid($who);
 
-	if ($chatBot->get_uid($who) == NULL) {
+	if (!$ban_charid) {
 		$chatBot->send("<red>Sorry the player you wish to ban does not exist.", $sendto);
 		return;
 	}
 	
-	if (Ban::is_banned($who)) {
+	if (Ban::is_banned($ban_charid)) {
 	  	$chatBot->send("<red>Player $who is already banned.<end>", $sendto);
 		return;
 	}
@@ -51,19 +52,20 @@ if (preg_match("/^ban (.+) ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (for
 	    $length = ($arr[2] * 18144000);
 	}
 
-	Ban::add($who, $sender, $length, $reason);
+	Ban::add($ban_charid, $sender, $length, $reason);
 
 	$chatBot->send("You have banned <highlight>$who<end> from this bot.", $sendto);
 	$chatBot->send("You have been banned from this bot by $sender. Reason: $reason", $who);
 } else if (preg_match("/^ban (.+) ([0-9]+)(w|week|weeks|m|month|months|d|day|days)$/i", $message, $arr)) {
 	$who = ucfirst(strtolower($arr[1]));
-	
-	if ($chatBot->get_uid($who) == NULL) {
+	$ban_charid = $chatBot->get_uid($who);
+
+	if (!$ban_charid) {
 		$chatBot->send("<red>Sorry the player you wish to ban does not exist.", $sendto);
 		return;
 	}
 	
-	if (Ban::is_banned($who)) {
+	if (Ban::is_banned($ban_charid)) {
 	  	$chatBot->send("<red>Player $who is already banned.<end>", $sendto);
 		return;
 	}
@@ -76,56 +78,53 @@ if (preg_match("/^ban (.+) ([0-9]+)(w|week|weeks|m|month|months|d|day|days) (for
 	    $length = ($arr[2] * 18144000);
 	}
 	
-	Ban::add($who, $sender, $length, '');
+	Ban::add($ban_charid, $sender, $length, '');
 
 	$chatBot->send("You have banned <highlight>$who<end> from this bot.", $sendto);
 	$chatBot->send("You have been banned from this bot by $sender.", $who);
 } else if (preg_match("/^ban (.+) (for|reason) (.+)$/i", $message, $arr)) {
 	$who = ucfirst(strtolower($arr[1]));
 	$reason = $arr[3];
-	
-	if ($chatBot->get_uid($who) == NULL) {
+	$ban_charid = $chatBot->get_uid($who);
+
+	if (!$ban_charid) {
 		$chatBot->send("<red>Sorry player you wish to ban does not exist.", $sendto);
 		return;
 	}
 
-	if (Ban::is_banned($who)) {
+	if (Ban::is_banned($ban_charid)) {
 	  	$chatBot->send("<red>Player $who is already banned.<end>", $sendto);
 		return;
 	}
 		
-	Ban::add($who, $sender, null, $reason);
+	Ban::add($ban_charid, $sender, null, $reason);
 
 	$chatBot->send("You have banned <highlight>$who<end> from this bot.", $sendto);
 	$chatBot->send("You have been banned from this bot by $sender. Reason: $reason", $who);
 } else if (preg_match("/^ban (.+)$/i", $message, $arr)) {
 	$who = ucfirst(strtolower($arr[1]));
-	
-	if ($chatBot->get_uid($who) == NULL) {
+	$ban_charid = $chatBot->get_uid($who);
+
+	if (!$ban_charid) {
 		$chatBot->send("<red>Sorry player you wish to ban does not exist.", $sendto);
 		return;
 	}
 
-	if (Ban::is_banned($who)) {
+	if (Ban::is_banned($ban_charid)) {
 	  	$chatBot->send("<red>Player $who is already banned.<end>", $sendto);
 		return;
 	}
 	
-	Ban::add($who, $sender, null, '');
+	Ban::add($ban_charid, $sender, null, '');
 
 	$chatBot->send("You have banned <highlight>$who<end> from this bot.", $sendto);
 	$chatBot->send("You have been banned from this bot by $sender.", $who);
 } else if (preg_match("/^banorg (.+)$/i", $message, $arr)) {
 	$who = $arr[1];
 	
-	if (Ban::is_banned($who)) {
-	  	$chatBot->send("<red>The organization $who is already banned.<end>", $sendto);
-		return;
-	}
-	
-	Ban::add($who, $sender, null, '');
+	// TODO
 
-	$chatBot->send("You have banned the org <highlight>$who<end> from this bot.", $sendto);
+	$chatBot->send("This feature is not available at this time.", $sendto);
 } else {
 	$syntax_error = true;
 }

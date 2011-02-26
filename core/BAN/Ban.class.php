@@ -1,7 +1,7 @@
 <?php
 
 class Ban {
-	public static function add($char, $sender, $length, $reason) {
+	public static function add($charid, $sender, $length, $reason) {
 		$db = DB::get_instance();
 		
 		if ($length == null) {
@@ -11,7 +11,7 @@ class Ban {
 		}
 		$reason = str_replace("'", "''", $reason);
 
-		$sql = "INSERT INTO banlist_<myname> (`name`, `admin`, `time`, `reason`, `banend`) VALUES ('{$char}', '{$sender}', '".time()."', '{$reason}', {$ban_end})";
+		$sql = "INSERT INTO banlist_<myname> (`charid`, `admin`, `time`, `reason`, `banend`) VALUES ('{$charid}', '{$sender}', '".time()."', '{$reason}', {$ban_end})";
 		$numrows = $db->exec($sql);
 		
 		Ban::upload_banlist();
@@ -19,10 +19,10 @@ class Ban {
 		return $numrows;
 	}
 	
-	public static function remove($char) {
+	public static function remove($charid) {
 		$db = DB::get_instance();
 
-		$sql = "DELETE FROM banlist_<myname> WHERE name = '{$char}'";
+		$sql = "DELETE FROM banlist_<myname> WHERE charid = '{$charid}'";
 		$numrows = $db->exec($sql);
 		
 		Ban::upload_banlist();
@@ -36,17 +36,17 @@ class Ban {
 		
 		$chatBot->banlist = array();
 		
-		$db->query("SELECT * FROM banlist_<myname>");
+		$sql = "SELECT b.*, p.name FROM banlist b LEFT JOIN players p ON b.charid = p.charid";
 		$data = $db->fObject('all');
 		forEach ($data as $row) {
-			$chatBot->banlist[$row->name] = $row;
+			$chatBot->banlist[$row->charid] = $row;
 		}
 	}
 	
-	public static function is_banned($char) {
+	public static function is_banned($charid) {
 		global $chatBot;
 	
-		return isset($chatBot->banlist[$char]);
+		return isset($chatBot->banlist[$charid]);
 	}
 }
 
