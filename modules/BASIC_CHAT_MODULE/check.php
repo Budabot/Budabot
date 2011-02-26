@@ -31,8 +31,9 @@
    
 if (preg_match("/^check$/i", $message) || preg_match("/^check all$/i", $message)) {
 	$list = "<header>::::: Check for all members :::::<end>\n\n";
-	$db->query("SELECT name FROM priv_chatlist_<myname>");
-	while ($row = $db->fObject()) {
+	$db->query("SELECT name FROM online WHERE added_by = '<myname>' AND channel_type = 'priv'");
+	$data = $db->fObject('all');
+	forEach ($data as $row) {
 		$content .= " \\n /assist $row->name";
 	}
 
@@ -41,8 +42,9 @@ if (preg_match("/^check$/i", $message) || preg_match("/^check all$/i", $message)
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^check prof$/i", $message)) {
 	$list = "<header>::::: Check for all professions :::::<end>\n\n";
-	$db->query("SELECT p2.name, p2.profession FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY `profession` DESC");
-	while ($row = $db->fObject()) {
+	$db->query("SELECT o.name, p.profession FROM online o LEFT JOIN players p ON o.name = o.name WHERE added_by = '<myname>' AND channel_type = 'priv' ORDER BY `profession` DESC");
+	$data = $db->fObject('all');
+	forEach ($data as $row) {
 		$prof[$row->profession] .= " \\n /assist $row->name";
 	}
 
@@ -56,8 +58,9 @@ if (preg_match("/^check$/i", $message) || preg_match("/^check all$/i", $message)
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^check org$/i", $message)) {
 	$list = "<header>::::: Check for all organizations :::::<end>\n\n";
-	$db->query("SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY `guild` DESC");
-	while ($row = $db->fObject()) {
+	$db->query("SELECT o.name, p.guild FROM online o LEFT JOIN players p ON o.name = p.name WHERE added_by = '<myname>' AND channel_type = 'priv' ORDER BY `guild` DESC");
+	$data = $db->fObject('all');
+	forEach ($data as $row) {
 		if ($row->guild == "") {
 			$org["Non orged"] .= " \\n /assist $row->name";
 		} else {

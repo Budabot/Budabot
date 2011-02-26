@@ -34,11 +34,12 @@ if (preg_match("/^tell (.+)$/i", $message, $arr)) {
   	$chatBot->send("<yellow>".$arr[1]."<end>", "guild");
   	$chatBot->send("<yellow>".$arr[1]."<end>", "guild");
 } else if (preg_match("/^tellall (.+)$/i", $message, $arr)) {
-	$db->query("SELECT name FROM guild_chatlist_<myname>");
-	while ($row = $db->fObject()) {
+	$db->query("SELECT name FROM online WHERE channel_type = 'guild'");
+	$data = fObject('all');
+	forEach ($data as $row) {
 		$chatBot->send("Tell from $sender: <yellow>".$arr[1]."<end>", $row->name);
 	}
 	
-	$chatBot->send("A tell has been sent to all online Orgmembers.", $sendto);
+	$chatBot->send("A tell has been sent to all online Org members.", $sendto);
 }
 ?>

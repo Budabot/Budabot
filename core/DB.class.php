@@ -39,6 +39,8 @@ class DB {
 	private $pass;
 	private $host;
 	private $botname;
+	private $dim;
+	private $guild;
 	private $lastQuery;
 	public $errorCode = 0;
 	public $errorInfo;
@@ -58,6 +60,7 @@ class DB {
 		$this->pass = $pass;
 		$this->botname = strtolower($vars["name"]);
 		$this->dim = $vars["dimension"];
+		$this->guild = $vars["my guild"];
 			
 		if ($type == 'Mysql') {
 			try {
@@ -266,6 +269,7 @@ class DB {
 	function formatSql($sql) {
 		$sql = str_replace("<dim>", $this->dim, $sql);
 		$sql = str_replace("<myname>", $this->botname, $sql);
+		$sql = str_replace("<myguild>", $this->guild, $sql);
 
 		return $sql;
 	}

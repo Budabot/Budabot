@@ -64,9 +64,6 @@
 	Event::register($MODULE_NAME, "leavePriv", "record_priv_leave.php", "none", "Updates the database when a character leaves the private channel");
 	
 	Event::register($MODULE_NAME, "joinPriv", "send_online_list.php", "none", "Sends the online list to people as they join the private channel");
-	
-	//Verifies the Private Channel list every 1hour
-	Event::register($MODULE_NAME, "1hour", "guest_channel_check.php", "guest", "Private channel check");
 
     Help::register($MODULE_NAME, "private_channel", "private_channel.txt", "guild", "Private channel commands");
 	Help::register($MODULE_NAME, "join_leave", "joinleave.txt", "all", "Joining and leaving the bot");

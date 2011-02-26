@@ -34,43 +34,36 @@ if ($sender == -1) {
 	return;
 }
 
-if ($type == 'priv') {
-	$table_name = 'priv_chatlist_<myname>';
-	$sendto = 'priv';
-} else if ($type == 'guild') {
-	$table_name = 'guild_chatlist_<myname>';
-	$sendto = 'guild';
-}
-
-$db->query("SELECT afk FROM {$table_name} WHERE `name` = '{$sender}'");
-$row = $db->fObject();
 if (!preg_match("/^.?afk(.*)$/i", $message)) {
-	if ($row != null && $row->afk != '0') {
-		$db->exec("UPDATE {$table_name} SET `afk` = 0 WHERE `name` = '{$sender}'");
+	$db->query("SELECT afk FROM online WHERE `name` = '{$sender}' AND added_by = '<myname>' AND channel_type = '$type'");
+	$row = $db->fObject();
+
+	if ($row != null && $row->afk != '') {
+		$db->exec("UPDATE online SET `afk` = '' WHERE `name` = '{$sender}' AND added_by = '<myname>' AND channel_type = '$type'");
 		$msg = "<highlight>{$sender}<end> is back";
+		$chatBot->send($msg, $type);
 	} else {
 		$name = split(" ", $message, 2);
 		$name = $name[0];
 		$name = ucfirst(strtolower($name));
 		$uid = $chatBot->get_uid($name);
 		if ($uid) {
-			$db->query("SELECT afk FROM guild_chatlist_<myname> WHERE `name` = '{$name}' UNION SELECT afk FROM priv_chatlist_<myname> WHERE `name` = '{$name}'");
+			$db->query("SELECT afk FROM online WHERE `name` = '{$name}' AND added_by = '<myname>'");
 
 			if ($db->numrows() != 0) {
 				$row = $db->fObject();
 				if ($row->afk == "1") {
 					$msg = "<highlight>{$name}<end> is currently AFK.";
+					$chatBot->send($msg, $type);
 				} else if ($row->afk == "kiting") {
 					$msg = "<highlight>{$name}<end> is currently Kiting.";
-				} else if ($row->afk != "0") {
+					$chatBot->send($msg, $type);
+				} else if ($row->afk != "") {
 					$msg = "<highlight>{$name}<end> is currently AFK: <highlight>{$row->afk}<end>";
+					$chatBot->send($msg, $type);
 				}
 			}
 		}
-	}
-	
-	if ($msg != "") {
-		$chatBot->send($msg, $sendto);
 	}
 }
 

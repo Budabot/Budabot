@@ -54,14 +54,14 @@ if (($data = fgets($socket)) && ("1" == $chatBot->settings['irc_status'])) {
 			$numguest = 0;
 			//guild listing
 			if ($chatBot->vars['my guild'] != "") {
-				$db->query("SELECT * FROM guild_chatlist_<myname>");
+				$db->query("SELECT * FROM online WHERE channel_type = 'guild'");
 				$numonline = $db->numrows();
 				if ($numonline != 0) {
 					$data = $db->fObject("all");
 					forEach ($data as $row) {
 						if ($row->afk == "kiting") {
 							$afk = " KITING";
-						} else if ($row->afk != "0") {
+						} else if ($row->afk != "") {
 							$afk = " AFK";
 						} else {
 							$afk = "";
@@ -79,12 +79,12 @@ if (($data = fgets($socket)) && ("1" == $chatBot->settings['irc_status'])) {
 				}
 			}
 			//priv listing
-			$db->query("SELECT * FROM priv_chatlist_<myname>");
+			$db->query("SELECT * FROM online WHERE channel_type = 'priv'");
 			$numguest = $db->numrows();
 			if ($db->numrows() != 0) {
 				$data = $db->fObject("all");
 				forEach ($data as $row) {
-					if ($row->afk != "0") {
+					if ($row->afk != "") {
 						$afk = " AFK";
 					} else {
 						$afk = "";

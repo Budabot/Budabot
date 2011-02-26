@@ -46,7 +46,7 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
     	$msg = "<highlight>{$name}<end> has been added to the Notify list.";
     	$chatBot->guildmembers[$name] = 6;
     }
-    $db->exec("INSERT INTO guild_chatlist_<myname> (`name`) VALUES ('{$name}')");     
+    $db->exec("INSERT INTO online (`name`, `channel`,  `channel_type`, `added_by`, `dt`) VALUES ('$name', '{$chatBot->vars['my guild']}', 'guild', '<myname>', " . time() . ")");
     $chatBot->send($msg, "guild");
 	
 	// update character info
@@ -55,7 +55,7 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
     $uid = $chatBot->get_uid($arr[2]);
     $name = ucfirst(strtolower($arr[2]));
     $db->exec("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '{$name}'");
-    $db->exec("DELETE FROM guild_chatlist_<myname> WHERE `name` = '{$name}'");
+    $db->exec("DELETE FROM online WHERE `name` = '$name' AND `channel_type` = 'guild' AND added_by = '<myname>'");
     $msg = "Removed <highlight>{$name}<end> from the Notify list.";
     unset($chatBot->guildmembers[$name]);
 	Buddylist::remove($name, 'org');
@@ -64,7 +64,7 @@ if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
     $uid = $chatBot->get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     $db->exec("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '{$name}'");
-    $db->exec("DELETE FROM guild_chatlist_<myname> WHERE `name` = '{$name}'");
+    $db->exec("DELETE FROM online WHERE `name` = '$name' AND `channel_type` = 'guild' AND added_by = '<myname>'");
     $msg = "Removed <highlight>{$name}<end> from the Notify list.";
     unset($chatBot->guildmembers[$name]);
 	Buddylist::remove($name, 'org');

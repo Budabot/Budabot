@@ -29,27 +29,19 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if ($type == 'priv') {
-	$table_name = 'priv_chatlist_<myname>';
-	$sendto = 'priv';
-} else if ($type == 'guild') {
-	$table_name = 'guild_chatlist_<myname>';
-	$sendto = 'guild';
-}
-
 if (preg_match("/^afk$/i", $message, $arr)) {
-    $db->exec("UPDATE $table_name SET `afk` = 1 WHERE `name` = '$sender'");
+    $db->exec("UPDATE online SET `afk` = 1 WHERE `name` = '$sender' AND added_by = '<myname>' AND channel_type = '$type'");
     $msg = "<highlight>$sender<end> is now AFK";
-	$chatBot->send($msg, $sendto);
+	$chatBot->send($msg, $type);
 } else if (preg_match("/^afk (.*)$/i", $message, $arr)) {
 	$reason = str_replace("'", "''", $arr[1]);
-    $db->exec("UPDATE $table_name SET `afk` = '$reason' WHERE `name` = '$sender'");
+    $db->exec("UPDATE online SET `afk` = '$reason' WHERE `name` = '$sender' AND added_by = '<myname>' AND channel_type = '$type'");
     $msg = "<highlight>$sender<end> is now AFK";
-	$chatBot->send($msg, $sendto);
+	$chatBot->send($msg, $type);
 } else if (preg_match("/^kiting$/i", $message, $arr) && $numrows != 0) {
-	$db->exec("UPDATE $table_name SET `afk` = 'kiting' WHERE `name` = '$sender'");
+	$db->exec("UPDATE online SET `afk` = 'kiting' WHERE `name` = '$sender' AND added_by = '<myname>' AND channel_type = '$type'");
 	$msg = "<highlight>$sender<end> is now kiting";
-	$chatBot->send($msg, $sendto);
+	$chatBot->send($msg, $type);
 } else {
 	$syntax_error = true;
 }

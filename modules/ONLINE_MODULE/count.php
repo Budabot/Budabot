@@ -36,26 +36,22 @@ if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader
 	    $chatBot->send($msg, $sendto);
 	    return;
 	}
-    if ($type == "guild" || ($chatBot->settings["count_tell"] == 0 && $type == "msg") || $type == "priv") {
-		$sql = "
-			SELECT * FROM guild_chatlist_<myname> g LEFT JOIN players p2 ON g.name = p2.name WHERE p2.`profession` = '$prof'
-			UNION ALL
-			SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE p2.`profession` = '$prof'
-			ORDER BY level";
+    if ($type == "guild" || ($chatBot->settings["count_tell"] == 0 && $type == "msg")) {
+		$sql = "SELECT * FROM online o LEFT JOIN players p ON o.name = p.name WHERE p.`profession` = '$prof' ORDER BY level";
 		$db->query($sql); 
 	} else if ($type == "priv" || ($chatBot->settings["count_tell"] == 1 && $type == "msg")) {
-		$sql = "SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE `profession` = '$prof' ORDER BY `level`";
+		$sql = "SELECT * FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'priv' AND p.`profession` = '$prof' ORDER BY level";
 	  	$db->query($sql);
 	}
     $numonline = $db->numrows();
     $msg = "<highlight>$numonline<end> $prof:";
 
     while ($row = $db->fObject()) {
-        if($row->afk == "kiting")
+        if ($row->afk == "kiting") {
             $afk = "<red>*KITING*<end>";
-		elseif($row->afk != "0")
+		} else if ($row->afk != '') {
             $afk = "<red>*AFK*<end>";
-        else
+        } else {
             $afk = "";
         $msg .= " [<highlight>$row->name<end> - ".$row->level.$afk."]";
     }
@@ -68,30 +64,27 @@ if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader
 	$tl5 = 0;
 	$tl6 = 0;
 	$tl7 = 0;
-	if ($type == "guild" || ($chatBot->settings["count_tell"] == 0 && $type == "msg") || $type == "priv") {
-		$sql = "
-			SELECT * FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name
-			UNION ALL
-			SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY level";
+	if ($type == "guild" || ($chatBot->settings["count_tell"] == 0 && $type == "msg")) {
+		$sql = "SELECT * FROM online o LEFT JOIN players p ON o.name = p.name ORDER BY level";
 		$db->query($sql);
  	} else if ($type == "priv"  || ($chatBot->settings["count_tell"] == 1 && $type == "msg")) {
-	  	$db->query("SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name");
+	  	$db->query("SELECT * FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'priv'");
 	} 
 	$numonline = $db->numrows();
     while ($row = $db->fObject()) {
-      	if($row->level > 1 && $row->level <= 14)
+      	if ($row->level > 1 && $row->level <= 14)
       		$tl1++;
-      	elseif($row->level >= 15 && $row->level <= 49)
+      	else if ($row->level >= 15 && $row->level <= 49)
       		$tl2++;
-      	elseif($row->level >= 50 && $row->level <= 99)
+      	else if ($row->level >= 50 && $row->level <= 99)
       		$tl3++;
-      	elseif($row->level >= 100 && $row->level <= 149)
+      	else if ($row->level >= 100 && $row->level <= 149)
       		$tl4++;
-      	elseif($row->level >= 150 && $row->level <= 189)
+      	else if ($row->level >= 150 && $row->level <= 189)
       		$tl5++;
-      	elseif($row->level >= 190 && $row->level <= 204)
+      	else if ($row->level >= 190 && $row->level <= 204)
       		$tl6++;
-      	elseif($row->level >= 205 && $row->level <= 220)
+      	else if ($row->level >= 205 && $row->level <= 220)
       		$tl7++;
     }	
     $msg = "<highlight>$numonline<end> in total: TL1 <highlight>$tl1<end>, TL2 <highlight>$tl2<end>, TL3 <highlight>$tl3<end>, TL4 <highlight>$tl4<end>, TL5 <highlight>$tl5<end>, TL6 <highlight>$tl6<end>, TL7 <highlight>$tl7<end>";
@@ -125,31 +118,25 @@ if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader
 		}
 	}
 
-	if ($type == "guild" || ($chatBot->settings["count_tell"] == 0 && $type == "msg") || $type == "priv") {
+	if ($type == "guild" || ($chatBot->settings["count_tell"] == 0 && $type == "msg")) {
 	    if ($prof == "all") {
-			$sql = "
-				SELECT * FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name
-				UNION ALL
-				SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY profession";
+			$sql = "SELECT * FROM online o LEFT JOIN players p ON o.name = p.name ORDER BY profession";
 			$db->query($sql);
 			$numonline = $db->numrows();
 			$msg = "<highlight>$numonline<end> in total: ";
 		} else {
-			$sql = "
-				SELECT * FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name WHERE `profession` = '$prof'
-				UNION ALL
-				SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE `profession` = '$prof' ORDER BY level";
+			$sql = "SELECT * FROM online o LEFT JOIN players p ON o.name = p.name WHERE `profession` = '$prof' ORDER BY level";
 			$db->query($sql);
 			$numonline = $db->numrows();
 			$msg = "<highlight>$numonline<end> $prof:";
 		}
  	} else if ($type == "priv" || ($chatBot->settings["count_tell"] == 1 && $type == "msg")) {
         if ($prof == "all") {
-            $db->query("SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY `profession`");
+            $db->query("SELECT * FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'priv' ORDER BY `profession`");
             $numonline = $db->numrows();
             $msg = "<highlight>$numonline<end> in total: ";
         } else {
-            $db->query("SELECT * FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE `profession` = '$prof' ORDER BY `level`");
+            $db->query("SELECT * FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'priv' AND `profession` = '$prof' ORDER BY `level`");
             $numonline = $db->numrows();
             $msg = "<highlight>$numonline<end> $prof:";
         }
@@ -159,12 +146,13 @@ if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader
 	    if ($prof == "all") {
     	    $online[$row->profession]++;
         } else {
-            if($row->afk == "kiting")
+            if ($row->afk == "kiting") {
             	$afk = "<red>*KITING*<end>";
-			elseif($row->afk != "0")
+			} else if ($row->afk != "") {
 	            $afk = "<red>*AFK*<end>";
-            else
+            } else {
                 $afk = "";
+			}
     	    $msg .= " [<highlight>$row->name<end> - ".$row->level.$afk."]";
         }
 	}

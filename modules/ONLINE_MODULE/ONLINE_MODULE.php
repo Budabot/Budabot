@@ -2,6 +2,8 @@
 	require_once "online_func.php";
 
 	$MODULE_NAME = "ONLINE_MODULE";
+	
+	DB::loadSQLFile($MODULE_NAME, "online");
 
 	//Online
 	Command::register($MODULE_NAME, "", "online.php", "online", "all", "Shows who is the private channel");
@@ -23,9 +25,12 @@
 	
 	Event::register($MODULE_NAME, "logOn", "record_logon_guild.php", "none", "Records an org member login in db");
 	Event::register($MODULE_NAME, "logOff", "record_logoff_guild.php", "none", "Records an org member logoff in db");
+	
+	// Verifies the online list
+	Event::register($MODULE_NAME, "10mins", "online_check.php", "none", "Online check");
 
 	//Settings
-	Setting::add($MODULE_NAME, "relaydb", "Database for merging online lists", "edit", "text", "0", "", '', "mod");
+	Setting::add($MODULE_NAME, "online_expire", "Sets how long to wait before removing players from the online list whose info hasn't been updated", "edit", "number", "15", "2;5;10;15;20", '', "mod");
 	Setting::add($MODULE_NAME, "chatlist_tell", "Mode for Chatlist Cmd in tells", "edit", "options", "1", "Shows online privatechat members;Shows online guild members", "1;0");
 	Setting::add($MODULE_NAME, "fancy_online", "Show fancy delimiters on the online display", "edit", "options", "1", "true;false", "1;0");
 	Setting::add($MODULE_NAME, "icon_fancy_online", "Show profession icons in the online display", "edit", "options", "1", "true;false", "1;0");

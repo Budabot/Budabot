@@ -12,18 +12,10 @@ function online($sender, $sendto, &$bot, $prof = "all") {
 	global $chatBot;
 
 	$list = "";
-	if ($bot->settings["relaydb"]) {
-		if ($prof == "all") {
-			$db->query("SELECT *, g.name AS name FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name UNION ALL SELECT *, g.name AS name FROM guild_chatlist_".strtolower($bot->settings["relaydb"])." g LEFT JOIN players p ON g.name = p.name ORDER BY `profession`, `level` DESC");
-		} else {
-			$db->query("SELECT *, g.name AS name FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name WHERE `profession` = '$prof' UNION ALL SELECT *, g.name AS name FROM guild_chatlist_".strtolower($bot->settings["relaydb"])." g LEFT JOIN players p ON g.name = p.name WHERE `profession` = '$prof'");
-		}
+	if ($prof == "all") {
+		$db->query("SELECT p.*, o.name FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'guild' ORDER BY `profession`, `level` DESC");
 	} else {
-		if ($prof == "all") {
-			$db->query("SELECT *, g.name AS name FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name ORDER BY `profession`, `level` DESC");
-		} else {
-			$db->query("SELECT *, g.name AS name FROM guild_chatlist_<myname> g LEFT JOIN players p ON g.name = p.name WHERE `profession` = '$prof'");
-		}
+		$db->query("SELECT p.*, o.name FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'guild' AND `profession` = '$prof'");
 	}
 
 	$oldprof = "";
@@ -41,18 +33,10 @@ function online($sender, $sendto, &$bot, $prof = "all") {
 	createList($data, $sender, $list, $bot, true);
 
 	// Private Channel Part
-	if ($bot->settings["relaydb"]) {
-		if ($prof == "all") {
-			$db->query("SELECT *, p1.name AS name FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name UNION ALL SELECT *, p1.name AS name FROM priv_chatlist_".strtolower($bot->settings["relaydb"])." p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY `profession`, `level` DESC");
-		} else {
-			$db->query("SELECT *, p1.name AS name FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name UNION ALL SELECT *, p1.name AS name FROM priv_chatlist_".strtolower($bot->settings["relaydb"])." p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE `profession` = '$prof' ORDER BY `level` DESC");
-		}
+	if ($prof == "all") {
+		$db->query("SELECT p.*, o.name FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'priv' ORDER BY `profession`, `level` DESC");
 	} else {
-		if ($prof == "all") {
-			$db->query("SELECT *, p1.name AS name FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name ORDER BY `profession`, `level` DESC");
-		} else {
-			$db->query("SELECT *, p1.name AS name FROM priv_chatlist_<myname> p1 LEFT JOIN players p2 ON p1.name = p2.name WHERE `profession` = '$prof' ORDER BY `level` DESC");
-		}
+		$db->query("SELECT p.*, o.name FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'priv' AND `profession` = '$prof' ORDER BY `level` DESC");
 	}
 
 	$numguest = $db->numrows();
@@ -169,7 +153,7 @@ function createList(&$data, &$sender, &$list, &$bot, $show_alts = false) {
 			$afk = " <highlight>::<end> <red>KITING<end>";
 		} else if ($row->afk == '1') {
 			$afk = " <highlight>::<end> <red>AFK<end>";
-		} else if ($row->afk != '0') {
+		} else if ($row->afk != '') {
 			$afk = " <highlight>::<end> <red>AFK - {$row->afk}<end>";
 		} else {
 			$afk = "";

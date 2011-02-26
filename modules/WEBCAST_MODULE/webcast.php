@@ -44,76 +44,70 @@ $webpathhelp .= "/tell <myname> webcast setwebpath [web server path]\n";
 $webpathhelp .= "For example: /tell <myname> webcast setwebpath http://www.myserver.com/online.php\n";
 $webpathhelplink = Text::make_link("::Webcast Error::", $webpathhelp);
 
-if($command)
-{
-	if(strtolower($command) == "clearcache")
-	{
+if ($command) {
+	if (strtolower($command) == "clearcache") {
 		//		$chatBot->send($command." / ".$webpath, $sender);
-		if($webpath)
-		{
+		if ($webpath) {
 			$send = file_get_contents($webpath."?clearcache=true");
-			if($send)
+			if ($send) {
 				$chatBot->send($send, $sender);
-			else
+			} else {
 				$chatBot->send("Unable to clear cache",$sender);
-		}
-		else{
+			}
+		} else {
 			$chatBot->send("Unable to find webpath",$sender);
 		}
-	}
-	if(strtolower($command == "setwebpath"))
-	{
-		if($other)
-		{
+	} else if (strtolower($command == "setwebpath")) {
+		if ($other) {
 			Setting::save("webpath", $other);
 
-			if(Setting::get("webpath") == $other)
+			if (Setting::get("webpath") == $other) {
 				$chatBot->send("Webpath Saved.", $sender);
-			else
+			} else {
 				$chatBot->send("Unable to save Webpath",$sender);
-		}
-		else{
+			}
+		} else {
 			$chatBot->send($webpathhelplink, $sender);
 		}
 	}
-}
-elseif($webpath)
-{
-	$db->query("SELECT name, afk FROM guild_chatlist_<myname> ORDER BY `profession`, `level` DESC");
+} else if ($webpath) {
+	$db->query("SELECT name, afk FROM online WHERE channel_type = 'guild' ORDER BY `profession`, `level` DESC");
 	$data = $db->fObject("all");
 
-	foreach($data as $row) {	
+	forEach ($data as $row) {	
 		$afk = "";
-		if($row->afk == "kiting")
+		if ($row->afk == "kiting") {
 			$afk = "|KITING";
-		elseif($row->afk != 0)
+		} else if ($row->afk != '') {
 			$afk = "|AFK";
+		}
 		
 		$list .= $row->name.$afk."\r\n";
 	} 
 
 	//do guests
-	$db->query("SELECT name, afk FROM priv_chatlist_<myname> ORDER BY `profession`, `level` DESC");
+	$db->query("SELECT name, afk FROM online WHERE channel_type = 'priv' ORDER BY `profession`, `level` DESC");
 	$data = $db->fObject("all");
 
-	foreach($data as $row) {	        
+	forEach ($data as $row) {	        
 		$afk = "";
-		if($row->afk == "kiting")
+		if ($row->afk == "kiting") {
 			$afk = "|KITING";
-		elseif($row->afk != 0)
+		} else if ($row->afk != '') {
 			$afk = "|AFK";
+		}
 		
 		$list .= $row->name.$afk."\r\n";
 	} 
 
-	if($list)
-	{
+	if ($list) {
 		$send = file_get_contents($webpath."?upload=".rawurlencode($list));
-		if($type == "msg" || $type == 'priv' || $type == 'guild')
+		if ($type == "msg" || $type == 'priv' || $type == 'guild') {
 			$chatBot->send("Webcast Updated.", $sender);
+		}
 	}
-}
-else{
+} else {
 	$chatBot->send($webpathhelplink, $sender);
 }
+
 ?>

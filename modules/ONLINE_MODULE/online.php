@@ -30,7 +30,6 @@
  */
 
 if (preg_match("/^online$/i", $message)){
-	$msg = "";
 	list($numonline, $msg, $list) = online($sender, $sendto, $this);
 	if ($numonline != 0) {
 		$blob = Text::make_link($msg, $list);
@@ -39,7 +38,6 @@ if (preg_match("/^online$/i", $message)){
 		$chatBot->send($msg, $sendto);
 	}
 } else if (preg_match("/^online (.*)$/i", $message, $arr)) {
-	$msg = "";
 	switch (strtolower($arr[1])) {
 		case "all":
 			$prof = "all";
