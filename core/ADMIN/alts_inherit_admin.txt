@@ -1,0 +1,5 @@
+<header> :::::: Setting: alts_inherit_admin :::::: <end>
+
+<orange>IMPORTANT! If you enable this setting you MUST restrict access to the <cyan><symbol>alts<end> command so that people cannot use <cyan><symbol>alts main<end> to set themselves as your alt and gain admin privileges<end>
+
+<a href='chatcmd:///tell <myname> config cmd alts admin all mod'>Require mod access level for <symbol>alts</a>  <a href='chatcmd:///tell <myname> config cmd alts admin all guild'>Require guild access level for  <symbol>alts</a>
