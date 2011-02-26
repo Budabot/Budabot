@@ -15,7 +15,7 @@ if (preg_match("/^friendlist$/i", $message, $arg) || preg_match("/^friendlist (c
 		$cleanup = true;
 	}
 
-	$chatBot->send("One momment... (".count($chatBot->buddyList)." names to check.)", $sendto);
+	$chatBot->send("One moment... (".count($chatBot->buddyList)." names to check.)", $sendto);
 
 	$orphanCount = 0;
 	if (count($chatBot->buddyList) == 0) {

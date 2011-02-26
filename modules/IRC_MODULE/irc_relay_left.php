@@ -8,20 +8,19 @@
    */
    
 global $socket;
-if("1" == $chatBot->settings['irc_status']) {
-	if($type == "leavePriv") {
+if ("1" == $chatBot->settings['irc_status']) {
+	if ($type == "leavePriv") {
 		flush();
 		fputs($socket, "PRIVMSG ".$chatBot->settings['irc_channel']." :$sender has left the private chat.\n");
-		if($chatBot->settings['irc_debug_messages'] == 1) {
+		if ($chatBot->settings['irc_debug_messages'] == 1) {
 			Logger::log_chat("Out. IRC Msg.", -1, "$sender has left the channel");
 		}
-	}
-	elseif($type == "logOff" && isset($chatBot->guildmembers[$sender])) {
+	} else if ($type == "logOff" && isset($chatBot->guildmembers[$sender])) {
 		flush();
 		fputs($socket, "PRIVMSG ".$chatBot->settings['irc_channel']." :$sender has logged off.\n");
-		if($chatBot->settings['irc_debug_messages'] == 1) {
+		if ($chatBot->settings['irc_debug_messages'] == 1) {
 			Logger::log_chat("Out. IRC Msg.", -1, "$sender has left the channel");
-		}	
+		}
 	}
 }
 
