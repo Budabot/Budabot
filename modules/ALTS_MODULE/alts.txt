@@ -4,13 +4,13 @@
 <tab><symbol>alts
 
 <highlight>Show alts from other users<end>
-<tab><symbol>alts 'insert name here'
+<tab><symbol>alts 'name'
 
 <highlight>Adding alts to your list<end>
-<tab><symbol>alts add 'insert name here' 'and even another alt here'
+<tab><symbol>alts add 'alt1' 'alt2' 'alt3'
 
 <highlight>Setting the main of your alt (on your alt)<end>
-<tab><symbol>alts main 'insert name here'
+<tab><symbol>alts main 'name'
 
 <highlight>Remove alts from your list<end>
-<tab><symbol>alts rem 'insert name here'
+<tab><symbol>alts rem 'alt'
