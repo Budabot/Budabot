@@ -70,7 +70,7 @@ if (preg_match("/^settings$/i", $message)) {
  	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^settings change ([a-z0-9_]+)$/i", $message, $arr)) {
 	$setting = strtolower($arr[1]);
-    $link = "<header>::::: Settings for {$setting} ::::<end>\n\n";
+    $link = "<header> :::::: Settings for {$setting} :::::: <end>\n\n";
  	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '{$setting}'");
 	if ($db->numrows() == 0) {
 		$msg = "Could not find setting <highlight>{$setting}<end>.";
@@ -160,7 +160,7 @@ if (preg_match("/^settings$/i", $message)) {
 		
 		$msg = Text::make_link("Settings Info for {$setting}", $link);
 	}
-
+	echo $msg . "\n";
  	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^settings save ([a-z0-9_]+) (.+)$/i", $message, $arr)) {
   	$name_setting = strtolower($arr[1]);
