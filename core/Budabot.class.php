@@ -446,7 +446,7 @@ class Budabot extends AOChat {
 					}
 
 					// Add sender to the chatlist.
-					$this->chatlist[$sender] = true;
+					$this->chatlist[$charid] = true;
 
 					// Check files, for all 'player joined channel events'.
 					forEach ($this->events[$type] as $filename) {
@@ -486,7 +486,7 @@ class Budabot extends AOChat {
 					Logger::log_chat("Priv Group", -1, "$sender left the channel.");
 
 					// Remove from Chatlist array.
-					unset($this->chatlist[$sender]);
+					unset($this->chatlist[$charid]);
 					
 					// Check files, for all 'player left channel events'.
 					forEach ($this->events[$type] as $filename) {
@@ -617,16 +617,15 @@ class Budabot extends AOChat {
 					}
 				}
 				
-				$this->process_command($type, $message, $sender, $sendto);
+				$this->process_command($type, $message, $charid, $sender, $sendto);
 
 				break;
 			case AOCP_PRIVGRP_MESSAGE: // 57, Incoming priv message
+				$channel = $this->lookup_user($args[0]);
 				$charid = $args[1];
 				$sender = $this->lookup_user($charid);
-				$sendto = 'prv';
-				$channel = $this->lookup_user($args[0]);
 				$message = $args[2];
-				$restricted = false;
+				$sendto = 'prv';
 				
 				Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_MESSAGE => sender: '$sender' channel: '$channel' message: '$message'");
 				Logger::log_chat($channel, $sender, $message);
@@ -660,7 +659,7 @@ class Budabot extends AOChat {
 					
 					if ($message[0] == $this->settings["symbol"] && strlen($message) > 1) {
 						$message = substr($message, 1);
-						$this->process_command($type, $message, $sender, $sendto);
+						$this->process_command($type, $message, $charid, $sender, $sendto);
 					}
 				
 				} else {  // ext priv group message
@@ -749,7 +748,7 @@ class Budabot extends AOChat {
 					
 					if ($message[0] == $this->settings["symbol"] && strlen($message) > 1) {
 						$message = substr($message, 1);
-						$this->process_command($type, $message, $sender, $sendto);
+						$this->process_command($type, $message, $charid, $sender, $sendto);
 					}
 				} else if ($channel == 'OT shopping 11-50' || $channel == 'OT shopping 50-100' || $channel == 'OT shopping 100+' || $channel == 'Neu. shopping 11-50' || $channel == 'Neu. shopping 50-100' || $channel == 'Neu. shopping 100+' || $channel == 'Clan shopping 11-50' || $channel == 'Clan shopping 50-100' || $channel == 'Clan shopping 100+') {
 					$type = "shopping";
@@ -783,7 +782,7 @@ class Budabot extends AOChat {
 		}
 	}
 	
-	function process_command($type, $message, $sender, $sendto) {
+	function process_command($type, $message, $charid, $sender, $sendto) {
 		$db = DB::get_instance();
 		global $chatBot;
 		
@@ -800,7 +799,7 @@ class Budabot extends AOChat {
 			} else {
 				$message = $cmd;
 			}
-			$this->process_command($type, $message, $sender, $sendto);
+			$this->process_command($type, $message, $charid, $sender, $sendto);
 			return;
 		}
 		
@@ -929,6 +928,14 @@ class Budabot extends AOChat {
 	 */
 	public function is_ready() {
 		return time() >= $this->vars["logondelay"];
+	}
+	
+	/**
+	 * @name: is_ready
+	 * @description: tells when the bot is logged on and all the start up events have finished
+	 */
+	public function get_in_chatlist($charid) {
+		return $this->chatlist[$charid];
 	}
 }
 ?>

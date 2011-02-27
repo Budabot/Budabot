@@ -24,7 +24,7 @@ if ("1" == $chatBot->settings['bbin_status']) {
 		if ($chatBot->settings['bbin_debug_messages'] == 1) {
 			Logger::log('debug', "BBIN Outgoing", $msg);
 		}
-	} else if ($type == "logOff" && isset($chatBot->guildmembers[$sender])) {
+	} else if ($type == "logOff" && isset($chatBot->guildmembers[$charid])) {
 		flush();
 		fputs($bbin_socket, "PRIVMSG ".$chatBot->settings['bbin_channel']." :$msg\n");
 		if ($chatBot->settings['bbin_debug_messages'] == 1) {

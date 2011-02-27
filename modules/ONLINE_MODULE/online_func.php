@@ -13,9 +13,9 @@ function online($sender, $sendto, &$bot, $prof = "all") {
 
 	$list = "";
 	if ($prof == "all") {
-		$db->query("SELECT p.*, o.name FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'guild' ORDER BY `profession`, `level` DESC");
+		$db->query("SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE o.channel_type = 'guild' ORDER BY `profession`, `level` DESC");
 	} else {
-		$db->query("SELECT p.*, o.name FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'guild' AND `profession` = '$prof'");
+		$db->query("SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE o.channel_type = 'guild' AND `profession` = '$prof'");
 	}
 
 	$oldprof = "";
@@ -34,9 +34,9 @@ function online($sender, $sendto, &$bot, $prof = "all") {
 
 	// Private Channel Part
 	if ($prof == "all") {
-		$db->query("SELECT p.*, o.name FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'priv' ORDER BY `profession`, `level` DESC");
+		$db->query("SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE o.channel_type = 'priv' ORDER BY `profession`, `level` DESC");
 	} else {
-		$db->query("SELECT p.*, o.name FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'priv' AND `profession` = '$prof' ORDER BY `level` DESC");
+		$db->query("SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE o.channel_type = 'priv' AND `profession` = '$prof' ORDER BY `level` DESC");
 	}
 
 	$numguest = $db->numrows();

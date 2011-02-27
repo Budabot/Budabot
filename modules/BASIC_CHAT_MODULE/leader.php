@@ -44,11 +44,11 @@ if ($type == "leavePriv") {
 		$chatBot->send($msg, 'priv');
 	}
 } else if (preg_match("/^leader (.+)$/i", $message, $arr)) {
-    $uid = $chatBot->get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
-	if (!$uid) {
+	$charid = $chatBot->get_uid($name);
+	if (!$charid) {
 		$msg = "Player <highlight>{$name}<end> does not exist.";
-	} else if (!isset($chatBot->chatlist[$name])) {
+	} else if ($chatBot->get_in_chatlist($charid) === null)) {
 		$msg = "Player <highlight>{$name}<end> isn't in this channel.";
 	} else {
 		$chatBot->data["leader"] = $name;

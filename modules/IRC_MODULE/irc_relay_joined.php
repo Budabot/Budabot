@@ -55,7 +55,7 @@ if ("1" == $chatBot->settings['irc_status']) {
 		if ($chatBot->settings['irc_debug_messages'] == 1) {
 			Logger::log_chat("Out. IRC Msg.", -1, "$sender has joined the private chat");
 		}
-	} else if ($type == "logOn" && isset($chatBot->guildmembers[$sender])) {
+	} else if ($type == "logOn" && isset($chatBot->guildmembers[$charid])) {
 		fputs($socket, "PRIVMSG ".$chatBot->settings['irc_channel']." :$msg\n");
 		if ($chatBot->settings['irc_debug_messages'] == 1) {
 			Logger::log_chat("Out. IRC Msg.", -1, "$sender has logged on");

@@ -38,7 +38,7 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 	$tl6 = 0;
 	$tl7 = 0;
 	
-	$db->query("SELECT * FROM online o LEFT JOIN players p ON o.name = p.name WHERE added_by = '<myname>' AND channel_type = 'priv'");
+	$db->query("SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE added_by = '<myname>' AND channel_type = 'priv'");
 	$numonline = $db->numrows();
     while ($row = $db->fObject()) {
       	if ($row->level > 1 && $row->level <= 14) {
@@ -75,7 +75,7 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 	$online["Trader"] = 0;
 	$online["Shade"] = 0;
 
-	$db->query("SELECT count(*) AS count, profession FROM online o LEFT JOIN players p ON o.name = p.name WHERE added_by = '<myname>' AND channel_type = 'priv' GROUP BY `profession`");
+	$db->query("SELECT count(*) AS count, profession FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE added_by = '<myname>' AND channel_type = 'priv' GROUP BY `profession`");
 	$numonline = $db->numrows();
 	$msg = "<highlight>$numonline<end> in total: ";	
 
@@ -105,7 +105,7 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 		return;
 	}
 
-	$sql = "SELECT `guild`, count(*) AS cnt, AVG(level) AS avg_level FROM online o LEFT JOIN players p ON o.name = p.name WHERE added_by = '<myname>' AND channel_type = 'priv' AND `guild` <> '' GROUP BY `guild` ORDER BY `cnt` DESC, `avg_level` DESC";
+	$sql = "SELECT `guild`, count(*) AS cnt, AVG(level) AS avg_level FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE added_by = '<myname>' AND channel_type = 'priv' AND `guild` <> '' GROUP BY `guild` ORDER BY `cnt` DESC, `avg_level` DESC";
 	$db->query($sql);
 	$numorgs = $db->numrows();
 	
@@ -168,7 +168,7 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 			return;
     }
    
-	$db->query("SELECT * FROM online o LEFT JOIN players p ON o.name = p.name WHERE added_by = '<myname>' AND channel_type = 'priv' AND `profession` = '$prof' ORDER BY `level`");
+	$db->query("SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE added_by = '<myname>' AND channel_type = 'priv' AND `profession` = '$prof' ORDER BY `level`");
     $numonline = $db->numrows();
 	$data = $db->fObject('all');
 	print_r($data);

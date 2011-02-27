@@ -54,7 +54,7 @@ if (($data = fgets($socket)) && ("1" == $chatBot->settings['irc_status'])) {
 			$numguest = 0;
 			//guild listing
 			if ($chatBot->vars['my guild'] != "") {
-				$db->query("SELECT * FROM online WHERE channel_type = 'guild'");
+				$db->query("SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE channel_type = 'guild'");
 				$numonline = $db->numrows();
 				if ($numonline != 0) {
 					$data = $db->fObject("all");
@@ -79,7 +79,7 @@ if (($data = fgets($socket)) && ("1" == $chatBot->settings['irc_status'])) {
 				}
 			}
 			//priv listing
-			$db->query("SELECT * FROM online WHERE channel_type = 'priv'");
+			$db->query("SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE channel_type = 'priv'");
 			$numguest = $db->numrows();
 			if ($db->numrows() != 0) {
 				$data = $db->fObject("all");

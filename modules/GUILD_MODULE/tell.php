@@ -34,7 +34,7 @@ if (preg_match("/^tell (.+)$/i", $message, $arr)) {
   	$chatBot->send("<yellow>".$arr[1]."<end>", "guild");
   	$chatBot->send("<yellow>".$arr[1]."<end>", "guild");
 } else if (preg_match("/^tellall (.+)$/i", $message, $arr)) {
-	$db->query("SELECT name FROM online WHERE channel_type = 'guild'");
+	$db->query("SELECT name FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE channel_type = 'guild'");
 	$data = fObject('all');
 	forEach ($data as $row) {
 		$chatBot->send("Tell from $sender: <yellow>".$arr[1]."<end>", $row->name);

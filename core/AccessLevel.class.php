@@ -13,13 +13,13 @@ class AccessLevel {
 		
 		switch ($accessLevel) {
 			case "guild":
-				if (isset($chatBot->guildmembers[$sender]) || isset($chatBot->admins[$charid])) {
+				if (isset($chatBot->guildmembers[$charid]) || isset($chatBot->admins[$charid])) {
 					$access = true;
 				}
 				break;
 
 			case "guildadmin":
-				if ($chatBot->guildmembers[$sender] <= $chatBot->settings['guild_admin_level'] || isset($chatBot->admins[$charid])) {
+				if ((isset($chatBot->guildmembers[$charid]) && $chatBot->guildmembers[$charid]->guild_rank_id <= $chatBot->settings['guild_admin_level']) || isset($chatBot->admins[$charid])) {
 					$access = true;
 				}
 				break;

@@ -81,14 +81,14 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot) {
 		// send actual online members
 
 		$msg = "[BBIN:ONLINELIST:".$bot->vars["dimension"].":";
-		$db->query("SELECT name FROM online WHERE channel_type = 'guild'");
+		$db->query("SELECT name FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE channel_type = 'guild'");
 		$numrows = $db->numrows();
 		$data = $db->fObject("all");
 		forEach ($data as $row) {
 			$msg .= $row->name . ",0,";
 		}
 
-		$db->query("SELECT * FROM online WHERE channel_type = 'priv'");
+		$db->query("SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE channel_type = 'priv'");
 		$numrows += $db->numrows();
 		$data = $db->fObject("all");
 		forEach ($data as $row) {

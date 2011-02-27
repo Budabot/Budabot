@@ -43,7 +43,7 @@ if (preg_match("/^adminlist$/i", $message) || preg_match("/^admins$/i", $message
 			
 			$online = Buddylist::is_online($admin->name);
 				
-			if (isset($chatBot->chatlist[$admin->name])) {
+			if ($chatBot->get_in_chatlist($admin->charid) !== null) {
 				$list.="(<green>Online and in chat<end>)";
 			} else if ($online == 1) {
 				$list.="(<green>Online<end>)";
@@ -64,7 +64,7 @@ if (preg_match("/^adminlist$/i", $message) || preg_match("/^admins$/i", $message
 			
 			$online = Buddylist::is_online($admin->name);
 				
-			if (isset($chatBot->chatlist[$admin->name])) {
+			if (isset($chatBot->chatlist[$admin->charid])) {
 				$list.="(<green>Online and in chat<end>)";
 			} else if ($online == 1) {
 				$list.="(<green>Online<end>)";
@@ -85,7 +85,7 @@ if (preg_match("/^adminlist$/i", $message) || preg_match("/^admins$/i", $message
 			
 			$online = Buddylist::is_online($admin->name);
 				
-			if (isset($chatBot->chatlist[$admin->name])) {
+			if (isset($chatBot->chatlist[$admin->charid])) {
 				$list.="(<green>Online and in chat<end>)";
 			} else if ($online == 1) {
 				$list.="(<green>Online<end>)";

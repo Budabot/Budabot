@@ -1,14 +1,15 @@
 <?php
 
 if (preg_match("/^members$/i", $message)) {
-	$db->query("SELECT * FROM members_<myname> ORDER BY `name`");
+	$db->query("SELECT * FROM members_<myname> m LEFT JOIN players p ON m.charid = p.charid ORDER BY `name`");
 	$autoguests = $db->numrows();
 	if ($autoguests != 0) {
 	  	$list .= "<header>::::: Members :::::<end>\n\n";
-	  	while ($row = $db->fObject()) {
+		$data = $db-fObject('all');
+	  	forEach ($data as $row) {
 	  	  	if (Buddylist::is_online($row->name)) {
 				$status = "<green>Online";
-				if (isset($chatBot->chatlist[$row->name])) {
+				if ($chatBot->get_in_chatlist($row->charid) !== null) {
 			    	$status .= " and in channel";
 				}
 			} else {

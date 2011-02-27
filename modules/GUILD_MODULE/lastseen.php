@@ -30,13 +30,13 @@
    */
 
 if (preg_match("/^lastseen (.+)$/i", $message, $arr)) {
-	// Get User id
-    $uid = $chatBot->get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
-    if (!$uid) {
+	$charid = $chatBot->get_uid($name);
+
+    if (!$charid) {
         $msg = "Player <highlight>$name<end> does not exist.";
     } else {
-	    $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$name' AND `mode` != 'del'");
+	    $db->query("SELECT * FROM org_members_<myname> WHERE `charid` = '$charid' AND `mode` != 'del'");
         if ($db->numrows() == 1) {
     	    $row = $db->fObject();
     	    if (Buddylist::is_online($name)) {

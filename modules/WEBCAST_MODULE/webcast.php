@@ -27,7 +27,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
    
-if (!isset($chatBot->guildmembers[$sender]) || !$chatBot->is_ready()) {
+if (!isset($chatBot->guildmembers[$charid]) || !$chatBot->is_ready()) {
 	return;
 }
 
@@ -71,7 +71,7 @@ if ($command) {
 		}
 	}
 } else if ($webpath) {
-	$db->query("SELECT name, afk FROM online WHERE channel_type = 'guild' ORDER BY `profession`, `level` DESC");
+	$db->query("SELECT name, afk FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE channel_type = 'guild' ORDER BY `profession`, `level` DESC");
 	$data = $db->fObject("all");
 
 	forEach ($data as $row) {	
@@ -86,7 +86,7 @@ if ($command) {
 	} 
 
 	//do guests
-	$db->query("SELECT name, afk FROM online WHERE channel_type = 'priv' ORDER BY `profession`, `level` DESC");
+	$db->query("SELECT name, afk FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE channel_type = 'priv' ORDER BY `profession`, `level` DESC");
 	$data = $db->fObject("all");
 
 	forEach ($data as $row) {	        

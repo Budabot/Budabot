@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
+if (isset($chatBot->guildmembers[$charid]) && $chatBot->is_ready()) {
 	$db->query("SELECT * FROM news ORDER BY `time` DESC LIMIT 0, 10");
 	if ($db->numrows() != 0) {
 		$link = "<header>::::: News :::::<end>\n\n";

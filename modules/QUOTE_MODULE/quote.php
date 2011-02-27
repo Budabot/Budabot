@@ -16,15 +16,15 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 	if (!isset($chatBot->admins[$charid])) {
 		$requirement = $chatBot->settings["quote_add_min"];
 		if ($requirement >= 0) {
-			if (!$chatBot->guildmembers[$sender]) {
+			if (!isset($chatBot->guildmembers[$charid])) {
 				$chatBot->send("Only org members can add a new quote.", $sendto);
 				return;
-			} else if ($requirement < $chatBot->guildmembers[$sender]) {
-				$rankdiff = $chatBot->guildmembers[$sender]-$requirement;
+			} else if ($requirement < $chatBot->guildmembers[$charid]->guild_rank_id) {
+				$rankdiff = $chatBot->guildmembers[$charid]->guild_rank_id - $requirement;
 				$chatBot->send("You need $rankdiff promotion(s) in order to add a quote.", $sendto);
 				return;
 			}
-		} else if (($requirement == -1 && !isset($chatBot->chatlist[$sender])) && !$chatBot->guildmembers[$sender]) {
+		} else if ($requirement == -1 && $chatBot->get_in_chatlist($charid) === null && !isset($chatBot->guildmembers[$charid])) {
 			$chatBot->send("You need to at least be in the private chat in order to add a quote.", $sendto);
 			return;
 		}

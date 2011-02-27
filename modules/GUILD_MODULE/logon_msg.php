@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-$db->query("SELECT name, logon_msg FROM org_members_<myname> WHERE `name` = '$sender'");
+$db->query("SELECT logon_msg FROM org_members_<myname> WHERE `charid` = '$charid'");
 $row = $db->fObject();
 if (preg_match("/^logon$/i", $message)) {
 	if ($row !== null) {
@@ -44,7 +44,7 @@ if (preg_match("/^logon$/i", $message)) {
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^logon clear$/i", $message)) {
     if ($row !== null) {
-        $db->exec("UPDATE org_members_<myname> SET `logon_msg` = '' WHERE `name` = '$sender'");
+        $db->exec("UPDATE org_members_<myname> SET `logon_msg` = '' WHERE `charid` = '$charid'");
         $msg = "Logon message cleared.";
     } else {
         $msg = "You are not on the notify list.";
@@ -54,7 +54,7 @@ if (preg_match("/^logon$/i", $message)) {
     if ($row !== null) {
         $arr[1] = str_replace("'", "''", $arr[1]);
         if (strlen($arr[1]) <= 200) {
-            $db->exec("UPDATE org_members_<myname> SET `logon_msg` = '$arr[1]' WHERE `name` = '$sender'");
+            $db->exec("UPDATE org_members_<myname> SET `logon_msg` = '$arr[1]' WHERE `charid` = '$charid'");
             $msg = "Thank you $sender. Your logon message has been set.";
         } else {
             $msg = "Your logon message is too long. Please choose a shorter one.";

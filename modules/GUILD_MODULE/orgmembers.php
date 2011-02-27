@@ -36,7 +36,7 @@ if(preg_match("/^orgmembers$/i", $message)) {
 		return;
 	}
 	
-	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.name = p.name WHERE `mode` != 'del' ORDER BY o.name");
+	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.charid = p.charid WHERE `mode` != 'del' ORDER BY name");
 	$members = $db->numrows();
   	if ($members == 0) {
 	  	$msg = "No members recorded.";
@@ -50,7 +50,8 @@ if(preg_match("/^orgmembers$/i", $message)) {
     
     $first_char = "";
 	$list = "<header>::::: Members of the org {$chatBot->vars["my guild"]} :::::<end>";
-	while ($row = $db->fObject()) {
+	$data = $db->fObject('all');
+	forEach ($data as $row) {
         if ($row->logged_off != "0")
 	        $logged_off = " :: <highlight>Last logoff:<end> ".gmdate("D F d, Y - H:i", $row->logged_off)."(GMT)";
 	    
@@ -167,7 +168,7 @@ if(preg_match("/^orgmembers$/i", $message)) {
 	    return;
     }
     
-	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.name = p.name WHERE `mode` != 'del' AND `profession` = '$prof' ORDER BY o.name");
+	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.charid = p.charid WHERE `mode` != 'del' AND `profession` = '$prof' ORDER BY name");
 
 	$members = $db->numrows();
   	if ($members == 0) {
@@ -181,7 +182,8 @@ if(preg_match("/^orgmembers$/i", $message)) {
   	$chatBot->send($msg, $sendto);
        	
 	$list = "<header>::::: Members of the org {$chatBot->vars["my guild"]}:Profession: $prof :::::<end>\n\n";
-	while ($row = $db->fObject()) {
+	$data = $db->fObject('all');
+	forEach ($data as $row) {
         if ($row->logged_off != "0") {
 	        $logged_off = gmdate("l F d, Y - H:i", $row->logged_off)."(GMT)";
 	    } else {

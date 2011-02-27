@@ -23,7 +23,7 @@ if ("1" == $chatBot->settings['bbin_status']) {
 		if ($chatBot->settings['bbin_debug_messages'] == 1) {
 			Logger::log('debug', "BBIN Outgoing", $msg);
 		}
-	} else if (isset($chatBot->guildmembers[$sender])) {
+	} else if (isset($chatBot->guildmembers[$charid])) {
 		fputs($bbin_socket, "PRIVMSG ".$chatBot->settings['bbin_channel']." :$msg\n");
 		if ($chatBot->settings['bbin_debug_messages'] == 1) {
 			Logger::log('debug', "BBIN Outgoing", $msg);
