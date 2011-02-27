@@ -160,7 +160,7 @@ if (preg_match("/^settings$/i", $message)) {
 		
 		$msg = Text::make_link("Settings Info for {$setting}", $link);
 	}
-	echo $msg . "\n";
+
  	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^settings save ([a-z0-9_]+) (.+)$/i", $message, $arr)) {
   	$name_setting = strtolower($arr[1]);
