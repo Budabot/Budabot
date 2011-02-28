@@ -36,7 +36,7 @@ if (preg_match("/^leaderecho on$/i", $message)) {
 	Setting::save("leaderecho", "0");
 	$chatBot->send("Leader echo has been <green>disabled<end>", 'priv');	
 } else if (preg_match("/^leaderecho$/i", $message)) {
-	if ($chatBot->settings["leaderecho"] == 1) {
+	if (Setting::get("leaderecho") == 1) {
 		$msg = "Leader echo is currently <green>enabled<end>";
 	} else {
 		$msg = "Leader echo is currently <red>disabled<end>";

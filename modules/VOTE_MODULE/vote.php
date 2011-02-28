@@ -150,7 +150,7 @@ if (preg_match("/^vote$/i", $message)) {
 				$msg .= Text::make_link('Remove yourself from this vote', "/tell <myname> vote remove$delimiter$question", 'chatcmd') . "\n";
 			}
 			
-			if ($timeleft > 0 && $chatBot->settings["vote_add_new_choices"] == 1 && $status == 0) {
+			if ($timeleft > 0 && Setting::get("vote_add_new_choices") == 1 && $status == 0) {
 				$msg .="\n<highlight>Don't like these choices?  Add your own:<end>\n<tab>/tell <myname> <symbol>vote $question$delimiter"."<highlight>your choice<end>\n"; 
 			}
 			
@@ -225,7 +225,7 @@ if (preg_match("/^vote$/i", $message)) {
 	////////////////////////////////////////////////////////////////////////////////////
 	} else if (count($sect) == 2) {		  			     // Adding vote
 
-		$requirement = $chatBot->settings["vote_use_min"];
+		$requirement = Setting::get("vote_use_min");
 		if ($requirement >= 0) {
 			if (!isset($chatBot->guildmembers[$charid])) {
 				$chatBot->send("Only org members can start a new vote.", $sender);
@@ -248,7 +248,7 @@ if (preg_match("/^vote$/i", $message)) {
 			$msg = "Couldn't find any votes with this topic.";
 		} else if ($timeleft <= 0) {
 			$msg = "No longer accepting votes for this topic.";
-		} else if (($chatBot->settings["vote_add_new_choices"] == 0 || ($chatBot->settings["vote_add_new_choices"] == 1 && $status == 1)) && strpos($delimiter.$answer.$delimiter, $delimiter.$sect[1].$delimiter) === false) {
+		} else if ((Setting::get("vote_add_new_choices") == 0 || (Setting::get("vote_add_new_choices") == 1 && $status == 1)) && strpos($delimiter.$answer.$delimiter, $delimiter.$sect[1].$delimiter) === false) {
 			$msg = "Cannot accept this choice.  Please choose one from the menu.";
 		} else {
 			$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[0])."' AND `duration` IS NULL AND `author` = '$sender'");
@@ -268,7 +268,7 @@ if (preg_match("/^vote$/i", $message)) {
 		
 		$settime = trim($sect[0]); $question = trim($sect[1]); $answers = trim($sect[2]);
 		
-		$requirement = $chatBot->settings["vote_create_min"];
+		$requirement = Setting::get("vote_create_min");
 		if ($requirement >= 0) {
 			if (!isset($chatBot->guildmembers[$charid])) {
 				$chatBot->send("Only org members can start a new vote.", $sender);

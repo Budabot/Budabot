@@ -1,10 +1,10 @@
 <?php
 
-if (($chatBot->settings["relaybot"] != "Off") && ($chatBot->settings["bot_relay_commands"] == 1 || $args[2][0] != $chatBot->settings["symbol"])) {
+if ((Setting::get("relaybot") != "Off") && (Setting::get("bot_relay_commands") == 1 || $args[2][0] != Setting::get("symbol"))) {
 	$relayMessage = '';
-	if ($chatBot->settings['relaysymbol'] == 'Always relay') {
+	if (Setting::get('relaysymbol') == 'Always relay') {
 		$relayMessage = $message;
-	} else if ($args[2][0] == $chatBot->settings['relaysymbol']) {
+	} else if ($args[2][0] == Setting::get('relaysymbol')) {
 		$relayMessage = substr($args[2], 1);
 	}
 

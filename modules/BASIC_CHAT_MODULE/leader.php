@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if ($chatBot->settings["leaderecho"] == 1) {
+if (Setting::get("leaderecho") == 1) {
 	$status = "<green>Enabled<end>";
 	$cmd = "off";
 } else {

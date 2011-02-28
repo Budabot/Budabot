@@ -36,10 +36,10 @@ if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader
 	    $chatBot->send($msg, $sendto);
 	    return;
 	}
-    if ($type == "guild" || ($chatBot->settings["count_tell"] == 0 && $type == "msg")) {
+    if ($type == "guild" || (Setting::get("count_tell") == 0 && $type == "msg")) {
 		$sql = "SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE p.`profession` = '$prof' ORDER BY level";
 		$db->query($sql); 
-	} else if ($type == "priv" || ($chatBot->settings["count_tell"] == 1 && $type == "msg")) {
+	} else if ($type == "priv" || (Setting::get("count_tell") == 1 && $type == "msg")) {
 		$sql = "SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE o.channel_type = 'priv' AND p.`profession` = '$prof' ORDER BY level";
 	  	$db->query($sql);
 	}
@@ -64,10 +64,10 @@ if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader
 	$tl5 = 0;
 	$tl6 = 0;
 	$tl7 = 0;
-	if ($type == "guild" || ($chatBot->settings["count_tell"] == 0 && $type == "msg")) {
+	if ($type == "guild" || (Setting::get("count_tell") == 0 && $type == "msg")) {
 		$sql = "SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid ORDER BY level";
 		$db->query($sql);
- 	} else if ($type == "priv"  || ($chatBot->settings["count_tell"] == 1 && $type == "msg")) {
+ 	} else if ($type == "priv"  || (Setting::get("count_tell") == 1 && $type == "msg")) {
 	  	$db->query("SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE o.channel_type = 'priv'");
 	} 
 	$numonline = $db->numrows();
@@ -118,7 +118,7 @@ if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader
 		}
 	}
 
-	if ($type == "guild" || ($chatBot->settings["count_tell"] == 0 && $type == "msg")) {
+	if ($type == "guild" || (Setting::get("count_tell") == 0 && $type == "msg")) {
 	    if ($prof == "all") {
 			$sql = "SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid ORDER BY profession";
 			$db->query($sql);
@@ -130,7 +130,7 @@ if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader
 			$numonline = $db->numrows();
 			$msg = "<highlight>$numonline<end> $prof:";
 		}
- 	} else if ($type == "priv" || ($chatBot->settings["count_tell"] == 1 && $type == "msg")) {
+ 	} else if ($type == "priv" || (Setting::get("count_tell") == 1 && $type == "msg")) {
         if ($prof == "all") {
             $db->query("SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE o.channel_type = 'priv' ORDER BY `profession`");
             $numonline = $db->numrows();

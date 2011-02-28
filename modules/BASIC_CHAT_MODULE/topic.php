@@ -31,13 +31,13 @@
 
 
 if (preg_match("/^topic$/i", $message, $arr)) {
-	$date_string = Util::unixtime_to_readable(time() - $chatBot->settings["topic_time"], false);
-	if ($chatBot->settings["topic"] == '') {
+	$date_string = Util::unixtime_to_readable(time() - Setting::get("topic_time"), false);
+	if (Setting::get("topic") == '') {
 		$topic = 'No topic set';
 	} else {
-		$topic = $chatBot->settings["topic"];
+		$topic = Setting::get("topic");
 	}
-	$msg = "<highlight>Topic:<end> {$topic} [set by <highlight>{$chatBot->settings["topic_setby"]}<end>][<highlight>{$date_string} ago<end>]";
+	$msg = "<highlight>Topic:<end> {$topic} [set by <highlight>" . Setting::get("topic_setby") . "<end>][<highlight>{$date_string} ago<end>]";
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^topic clear$/i", $message, $arr)) {
   	Setting::save("topic_time", time());

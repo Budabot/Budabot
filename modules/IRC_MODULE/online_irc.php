@@ -10,7 +10,7 @@
 global $socket;
 stream_set_blocking($socket, 0);
 if (preg_match("/^onlineirc$/i", $message, $arr)) {
-	fputs($socket, "NAMES :".$chatBot->settings['irc_channel']."\n");
+	fputs($socket, "NAMES :".Setting::get('irc_channel')."\n");
 	sleep(1);
 	while ($data = fgets($socket)) {
 		if (preg_match("/(End of \/NAMES list)/", $data, $discard)) {

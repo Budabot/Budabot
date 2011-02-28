@@ -13,7 +13,7 @@ class Text {
 	        // if $links = "none", then make_header wont show ANY links.
 		// if $links = array("Help;chatcmd:///tell <myname> help"),  slap in your own array for your own links.
 
-		$color = $chatBot->settings['default_header_color'];
+		$color = Setting::get('default_header_color');
 		$baseR = hexdec(substr($color,14,2)); $baseG = hexdec(substr($color,16,2)); $baseB = hexdec(substr($color,18,2));
 		$color2 = "<font color='#".strtoupper(substr("00".dechex($baseR*.75),-2).substr("00".dechex($baseG*.75),-2).substr("00".dechex($baseB*.75),-2))."'>";
 		$color3 = "<font color='#".strtoupper(substr("00".dechex($baseR*.50),-2).substr("00".dechex($baseG*.50),-2).substr("00".dechex($baseB*.50),-2))."'>";
@@ -41,7 +41,7 @@ class Text {
 			}
 		}
 
-		$header .= $chatBot->settings["default_window_color"]."\n\n";
+		$header .= Setting::get("default_window_color")."\n\n";
 
 		return $header;
 	}
@@ -57,7 +57,7 @@ class Text {
 		$content = str_replace('"', '&quote;', $content);
 
 		if ($type == "blob") { // Normal link.
-			if (strlen($content) > $chatBot->settings["max_blob_size"]) {  //Split the windows if they are too big
+			if (strlen($content) > Setting::get("max_blob_size")) {  //Split the windows if they are too big
 				$array = explode("<pagebreak>", $content);
 				$pagebreak = true;
 				
@@ -74,11 +74,11 @@ class Text {
 						$line .= "\n";
 					}
 					$line_length = strlen($line);
-					if ($page_size + $line_length < $chatBot->settings["max_blob_size"]) {
+					if ($page_size + $line_length < Setting::get("max_blob_size")) {
 						$result[$page] .= $line;
 						$page_size += $line_length;
 				    } else {
-						$result[$page] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].$result[$page]."\">$name</a> (Page <highlight>$page<end>)";
+						$result[$page] = "<a $style href=\"text://".Setting::get("default_window_color").$result[$page]."\">$name</a> (Page <highlight>$page<end>)";
 				    	$page++;
 						
 						$result[$page] .= "<header>::::: $name Page $page :::::<end>\n\n";
@@ -86,11 +86,11 @@ class Text {
 						$page_size = strlen($result[$page]);
 					}
 				}
-				$result[$page] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].$result[$page]."\">$name</a> (Page <highlight>$page - End<end>)";
+				$result[$page] = "<a $style href=\"text://".Setting::get("default_window_color").$result[$page]."\">$name</a> (Page <highlight>$page - End<end>)";
 				return $result;
 			} else {
 				$content = str_replace('<pagebreak>', '', $content);
-				return "<a $style href=\"text://".$chatBot->settings["default_window_color"].$content."\">$name</a>";
+				return "<a $style href=\"text://".Setting::get("default_window_color").$content."\">$name</a>";
 			}
 		} else if ($type == "text") { // Majic link.
 			$content = str_replace("'", '&#39;', $content);
@@ -128,8 +128,8 @@ class Text {
 		global $chatBot;
 	
 		// Color
-		$message = str_ireplace("<header>", $chatBot->settings['default_header_color'], $message);
-		$message = str_ireplace("<highlight>", $chatBot->settings['default_highlight_color'], $message);
+		$message = str_ireplace("<header>", Setting::get('default_header_color'), $message);
+		$message = str_ireplace("<highlight>", Setting::get('default_highlight_color'), $message);
 		$message = str_ireplace("<black>", "<font color='#000000'>", $message);
 		$message = str_ireplace("<white>", "<font color='#FFFFFF'>", $message);
 		$message = str_ireplace("<yellow>", "<font color='#FFFF00'>", $message);
@@ -140,16 +140,16 @@ class Text {
 		$message = str_ireplace("<grey>", "<font color='#C3C3C3'>", $message);
 		$message = str_ireplace("<cyan>", "<font color='#00FFFF'>", $message);
 		
-		$message = str_ireplace("<neutral>", $chatBot->settings['default_neut_color'], $message);
-		$message = str_ireplace("<omni>", $chatBot->settings['default_omni_color'], $message);
-		$message = str_ireplace("<clan>", $chatBot->settings['default_clan_color'], $message);
-		$message = str_ireplace("<unknown>", $chatBot->settings['default_unknown_color'], $message);
+		$message = str_ireplace("<neutral>", Setting::get('default_neut_color'), $message);
+		$message = str_ireplace("<omni>", Setting::get('default_omni_color'), $message);
+		$message = str_ireplace("<clan>", Setting::get('default_clan_color'), $message);
+		$message = str_ireplace("<unknown>", Setting::get('default_unknown_color'), $message);
 
 		$message = str_ireplace("<myname>", $chatBot->vars["name"], $message);
 		$message = str_ireplace("<myguild>", $chatBot->vars["my guild"], $message);
 		$message = str_ireplace("<tab>", "    ", $message);
 		$message = str_ireplace("<end>", "</font>", $message);
-		$message = str_ireplace("<symbol>", $chatBot->settings["symbol"] , $message);
+		$message = str_ireplace("<symbol>", Setting::get("symbol") , $message);
 
 		return $message;
 	}

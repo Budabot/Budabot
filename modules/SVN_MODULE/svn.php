@@ -16,7 +16,7 @@ if (preg_match("/^svn dry$/i", $message)) {
 	
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^svn update$/i", $message)) {
-	$command = "svn update --accept " . $chatBot->settings['svnconflict'] . " 2>&1";
+	$command = "svn update --accept " . Setting::get('svnconflict') . " 2>&1";
 	$output = array();
 	$return_var = '';
 	exec($command, $output, $return_var);

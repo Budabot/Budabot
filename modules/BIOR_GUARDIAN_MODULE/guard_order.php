@@ -48,7 +48,7 @@ if (count($chatBot->data['guard']) == 0) {
 		$num++;
 		$msg .= " [$num. <highlight>$player<end> $status]";
         $chatBot->data['glist'][] = $player;
-        if ($num >= $chatBot->settings["guard_max"]) {
+        if ($num >= Setting::get("guard_max")) {
         	break;
 		}
 	}

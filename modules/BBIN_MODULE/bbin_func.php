@@ -43,7 +43,7 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot) {
 		if ($bot->vars['my guild'] != "") {
 			$bot->send("<yellow>[BBIN]<end> $msg","guild",true);
 		}
-		if ($bot->vars['my guild'] == "" || $bot->settings["guest_relay"] == 1) {
+		if ($bot->vars['my guild'] == "" || Setting::get("guest_relay") == 1) {
 			$bot->send("<yellow>[BBIN]<end> $msg","priv",true);
 		}
 
@@ -68,7 +68,7 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot) {
 		if ($bot->vars['my guild'] != "") {
 			$bot->send("<yellow>[BBIN]<end> $msg","guild",true);
 		}
-		if ($bot->vars['my guild'] == "" || $bot->settings["guest_relay"] == 1) {
+		if ($bot->vars['my guild'] == "" || Setting::get("guest_relay") == 1) {
 			$bot->send("<yellow>[BBIN]<end> $msg","priv",true);
 		}
 
@@ -102,7 +102,7 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot) {
 		$msg .= "]";
 
 		// send complete list back to bbin channel
-		fputs($bbin_socket, "PRIVMSG ".$bot->settings['bbin_channel']." :$msg\n");
+		fputs($bbin_socket, "PRIVMSG ".Setting::get('bbin_channel')." :$msg\n");
 
 	} else if (preg_match("/^\[BBIN:ONLINELIST:(.):(.*?)\]/", $bbinmsg, $arr)) {
 		// received a synchronization list
@@ -141,7 +141,7 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot) {
 		if ($bot->vars['my guild'] != "") {
 			$bot->send("<yellow>[BBIN]<end> $bbinmsg", "guild", true);
 		}
-		if ($bot->vars['my guild'] == "" || $bot->settings["guest_relay"] == 1) {
+		if ($bot->vars['my guild'] == "" || Setting::get("guest_relay") == 1) {
 			$bot->send("<yellow>[BBIN]<end> $bbinmsg", "priv", true);
 		}
 	}

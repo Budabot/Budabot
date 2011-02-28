@@ -55,7 +55,7 @@ if (isset($chatBot->guildmembers[$charid])) {
 			$case = 1;
 		}
 
-		if ($case <= $chatBot->settings["showcloakstatus"]) {
+		if ($case <= Setting::get("showcloakstatus")) {
 			$chatBot->send($msg, $sender);
 		}
     }

@@ -9,7 +9,7 @@
    */
    
 global $bbin_socket;
-if ("1" == $chatBot->settings['bbin_status']) {
+if ("1" == Setting::get('bbin_status')) {
 	$msg = "[BBIN:LOGON:".$sender.",".$chatBot->vars["dimension"].",";
 	
 	if ($type == "joinPriv") {
@@ -19,13 +19,13 @@ if ("1" == $chatBot->settings['bbin_status']) {
 	}
 	
 	if ($type == "joinPriv") {
-		fputs($bbin_socket, "PRIVMSG ".$chatBot->settings['bbin_channel']." :$msg\n");
-		if ($chatBot->settings['bbin_debug_messages'] == 1) {
+		fputs($bbin_socket, "PRIVMSG ".Setting::get('bbin_channel')." :$msg\n");
+		if (Setting::get('bbin_debug_messages') == 1) {
 			Logger::log('debug', "BBIN Outgoing", $msg);
 		}
 	} else if (isset($chatBot->guildmembers[$charid])) {
-		fputs($bbin_socket, "PRIVMSG ".$chatBot->settings['bbin_channel']." :$msg\n");
-		if ($chatBot->settings['bbin_debug_messages'] == 1) {
+		fputs($bbin_socket, "PRIVMSG ".Setting::get('bbin_channel')." :$msg\n");
+		if (Setting::get('bbin_debug_messages') == 1) {
 			Logger::log('debug', "BBIN Outgoing", $msg);
 		}
 	}

@@ -73,7 +73,7 @@ if (preg_match("/^timers ([0-9]+)$/i", $message, $arr) || preg_match("/^timers (
 					
 			  	$msg = "Removed timer <highlight>$name<end>.";
 			  	break;
-			} else if (($chatBot->guildmembers[$charid]->guild_rank_id <= $chatBot->settings['guild_admin_level']) || isset($chatBot->admins[$charid])) {
+			} else if (($chatBot->guildmembers[$charid]->guild_rank_id <= Setting::get('guild_admin_level')) || isset($chatBot->admins[$charid])) {
 				Timer::remove_timer($key, $name, $owner);
 
 			  	$msg = "Removed timer <highlight>$name<end>.";
@@ -170,7 +170,7 @@ if (preg_match("/^timers ([0-9]+)$/i", $message, $arr) || preg_match("/^timers (
 	    return;
 	}
 
-  	if ($num_timers <= $chatBot->settings["timers_window"]) {
+  	if ($num_timers <= Setting::get("timers_window")) {
 		forEach ($chatBot->data["timers"] as $timer) {
 			$time_left = Util::unixtime_to_readable($timer->timer - time());
 			$name = $timer->name;

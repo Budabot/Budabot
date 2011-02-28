@@ -1,6 +1,6 @@
 <?php
 
-if ($chatBot->settings['relaybot'] != 'Off' && $type == "joinPriv") {
+if (Setting::get('relaybot') != 'Off' && $type == "joinPriv") {
 	$whois = Player::get_by_name($sender);
 
 	if ($whois === null) {

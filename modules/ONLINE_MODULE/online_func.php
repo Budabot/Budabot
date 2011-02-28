@@ -57,7 +57,7 @@ function online($sender, $sendto, &$bot, $prof = "all") {
 	}
 
 	// BBIN part
-	if ($bot->settings["bbin_status"] == 1) {
+	if (Setting::get("bbin_status") == 1) {
 		// members
 		$db->query("SELECT * FROM bbin_chatlist_<myname> WHERE (`guest` = 0) ORDER BY `profession`, `level` DESC");
 		$numbbinmembers = $db->numrows();
@@ -101,14 +101,14 @@ function createList(&$data, &$sender, &$list, &$bot, $show_alts = false) {
 		}
 		
 		if ($oldprof != $row->profession) {
-			if ($bot->settings["fancy_online"] == 0) {
+			if (Setting::get("fancy_online") == 0) {
 				// old style delimiters
 				$list .= "\n<tab><highlight>$row->profession<end>\n";
 				$oldprof = $row->profession;
 			} else {
 				// fancy delimiters
 				$list .= "\n<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
-				if ($bot->settings["icon_fancy_online"] == 1) {
+				if (Setting::get("icon_fancy_online") == 1) {
 					if ($row->profession == "Adventurer")
 						$list .= "<img src=rdb://84203>";
 					else if ($row->profession == "Agent")

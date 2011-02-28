@@ -14,7 +14,7 @@
 if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 	
 	if (!isset($chatBot->admins[$charid])) {
-		$requirement = $chatBot->settings["quote_add_min"];
+		$requirement = Setting::get("quote_add_min");
 		if ($requirement >= 0) {
 			if (!isset($chatBot->guildmembers[$charid])) {
 				$chatBot->send("Only org members can add a new quote.", $sendto);

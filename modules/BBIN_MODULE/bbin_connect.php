@@ -14,7 +14,7 @@ require_once("bbin_func.php");
 
 stream_set_blocking($bbin_socket, 0);
 set_time_limit(0);
-$nick = $chatBot->settings['bbin_nickname'];
+$nick = Setting::get('bbin_nickname');
  
 // Connection
 if(preg_match("/^startbbin$/i", $message)) {
@@ -22,51 +22,49 @@ if(preg_match("/^startbbin$/i", $message)) {
 }
 
 Logger::log('info', "BBIN", "Intialized BBIN connection. Please wait...");
-$bbin_socket = fsockopen($chatBot->settings['bbin_server'], $chatBot->settings['bbin_port']);
+$bbin_socket = fsockopen(Setting::get('bbin_server'), Setting::get('bbin_port'));
 fputs($bbin_socket,"USER $nick $nick $nick $nick :$nick\n");
 fputs($bbin_socket,"NICK $nick\n");
-while($logincount < 10) {
+while ($logincount < 10) {
 	$logincount++;
 	$data = fgets($bbin_socket, 128);
-	if($chatBot->settings['bbin_debug_all'] == 1)
-	{
+	if (Setting::get('bbin_debug_all') == 1) {
 		Logger::log('debug', "BBIN", trim($data));
 	}
 	// Separate all data
 	$ex = explode(' ', $data);
 
 	// Send PONG back to the server
-	if($ex[0] == "PING"){
-	fputs($bbin_socket, "PONG ".$ex[1]."\n");
+	if ($ex[0] == "PING") {
+		fputs($bbin_socket, "PONG ".$ex[1]."\n");
 	}
 	flush();
 }
 sleep(1);
-fputs($bbin_socket,"JOIN ".$chatBot->settings['bbin_channel']."\n");
+fputs($bbin_socket,"JOIN ".Setting::get('bbin_channel')."\n");
 
-while($data = fgets($bbin_socket)) {
-	if($chatBot->settings['bbin_debug_all'] == 1)
-	{
+while ($data = fgets($bbin_socket)) {
+	if (Setting::get('bbin_debug_all') == 1) {
 		Logger::log('debug', "BBIN", trim($data));
 	}
-	if(preg_match("/(ERROR)(.+)/", $data, $sandbox)) {
+	if (preg_match("/(ERROR)(.+)/", $data, $sandbox)) {
 		Logger::log('error', "BBIN", trim($data));
-		if(preg_match("/^startbbin$/i", $message)) {
+		if (preg_match("/^startbbin$/i", $message)) {
 			$chatBot->send("[red]Could not connect to BBIN",$sender);
 		}
 		return;
 	}
-	if($ex[0] == "PING") {
+	if ($ex[0] == "PING") {
 		fputs($bbin_socket, "PONG ".$ex[1]."\n");
 	}
-	if(preg_match("/(End of \/NAMES list)/", $data, $discard)) {
+	if (preg_match("/(End of \/NAMES list)/", $data, $discard)) {
 		break;
 	}
 	flush();
 }
 
 // send a synchronize request to network
-fputs($bbin_socket, "PRIVMSG ".$chatBot->settings['bbin_channel']." :[BBIN:SYNCHRONIZE]\n");
+fputs($bbin_socket, "PRIVMSG ".Setting::get('bbin_channel')." :[BBIN:SYNCHRONIZE]\n");
 
 // call the synchronize function ourselves, to send our online list to the network
 parse_incoming_bbin("[BBIN:SYNCHRONIZE]", $nick, $this);

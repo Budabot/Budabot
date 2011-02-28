@@ -39,7 +39,7 @@ function find_items_from_local($search, $ql) {
 		$query .= " AND `lowql` <= $ql AND `highql` >= $ql";
 	}
 
-	$db->query("SELECT * FROM aodb WHERE $query ORDER BY `name` LIMIT 0, {$chatBot->settings["maxitems"]}");
+	$db->query("SELECT * FROM aodb WHERE $query ORDER BY `name` LIMIT 0, " . Setting::get("maxitems"));
 	$num = $db->numrows();
 	if ($num == 0) {
 		if ($ql) {
