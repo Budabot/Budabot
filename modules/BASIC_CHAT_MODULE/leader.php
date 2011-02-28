@@ -48,7 +48,7 @@ if ($type == "leavePriv") {
 	$charid = $chatBot->get_uid($name);
 	if (!$charid) {
 		$msg = "Player <highlight>{$name}<end> does not exist.";
-	} else if ($chatBot->get_in_chatlist($charid) === null)) {
+	} else if ($chatBot->get_in_chatlist($charid) === null) {
 		$msg = "Player <highlight>{$name}<end> isn't in this channel.";
 	} else {
 		$chatBot->data["leader"] = $name;
