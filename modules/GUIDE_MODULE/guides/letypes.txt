@@ -1,0 +1,28 @@
+<header> ::: Armor upgrades ::: <end>
+
+Type 295
+This type of biomaterial can be used by Adventurers, Enforcers, Martial artists, and Soldiers.
+
+Type 935
+This type of biomaterial can be used by Agents, Fixers, and Shades.
+
+Type 64
+This type of biomaterial can be used by Doctors, Engineers, Keepers, and Meta-physicists.
+
+Type 468
+This type of biomaterial can be used by Bureaucrats, Nano-technicians, and Traders.
+
+
+<header> ::: Weapon upgrades ::: <end>
+
+Type 812
+Pistols, submachine guns, and crossbows.
+
+Type 687
+Rifles, assault rifles, and shotguns.
+
+Type 18
+1he/2he/Piercing
+
+Type 34
+1hb/2hb
