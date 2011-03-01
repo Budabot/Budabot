@@ -567,8 +567,6 @@ class Budabot extends AOChat {
 					$message = $args[1];
 				}
 
-				$message = html_entity_decode($message, ENT_QUOTES);
-
 				Logger::log_chat("Inc. Msg.", $sender, $message);
 
 				// AFK/bot check

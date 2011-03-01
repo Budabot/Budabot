@@ -54,12 +54,9 @@ class Text {
 		global $chatBot;
 		
 		// escape double quotes
-		if ($type != 'blob') {
-			$content = str_replace('"', '&quote;', $content);
-		}
+		$content = str_replace('"', '&quote;', $content);
 
 		if ($type == "blob") { // Normal link.
-			$content = str_replace('"', '&quot;', $content);
 			if (strlen($content) > $chatBot->settings["max_blob_size"]) {  //Split the windows if they are too big
 				$array = explode("<pagebreak>", $content);
 				$pagebreak = true;
