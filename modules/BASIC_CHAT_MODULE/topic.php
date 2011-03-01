@@ -29,11 +29,8 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if ($chatBot->settings["topic"] != "" && $type == "joinPriv") {
-	$date_string = Util::unixtime_to_readable(time() - $chatBot->settings["topic_time"], false);
-	$msg = "<highlight>Topic:<end> {$chatBot->settings["topic"]} [set by <highlight>{$chatBot->settings["topic_setby"]}<end>][<highlight>{$date_string} ago<end>]";
-  	$chatBot->send($msg, $sender);
-} else if (preg_match("/^topic$/i", $message, $arr)) {
+
+if (preg_match("/^topic$/i", $message, $arr)) {
 	$date_string = Util::unixtime_to_readable(time() - $chatBot->settings["topic_time"], false);
 	if ($chatBot->settings["topic"] == '') {
 		$topic = 'No topic set';
@@ -55,4 +52,5 @@ if ($chatBot->settings["topic"] != "" && $type == "joinPriv") {
 	$msg = "Topic has been updated.";
     $chatBot->send($msg, $sendto);
 }
+
 ?>
