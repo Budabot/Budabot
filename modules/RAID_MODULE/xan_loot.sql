@@ -84,7 +84,7 @@ INSERT INTO xan_loot (raid, category, lowid, highid, ql, name, imageid) VALUES (
 INSERT INTO xan_loot (raid, category, lowid, highid, ql, name, imageid) VALUES ('12 Man', 'General', 281157, 281157, 300, 'Nanodeck Activation Device', 280784);
 INSERT INTO xan_loot (raid, category, lowid, highid, ql, name, imageid) VALUES ('12 Man', 'General', 279447, 279447, 1, 'Multi Colored Xan Belt Tuning Device', 280987);
 INSERT INTO xan_loot (raid, category, lowid, highid, ql, name, imageid) VALUES ('12 Man', 'General', 279446, 279446, 1, 'Green Xan Belt Tuning Device', 280988);
-INSERT INTO xan_loot (raid, category, lowid, highid, ql, name, imageid) VALUES ('12 Man', 'Symbiants', 280786, 280786, 300, 'Xan Weapon Upgrade Device', 246391);
+INSERT INTO xan_loot (raid, category, lowid, highid, ql, name, imageid) VALUES ('12 Man', 'General', 280786, 280786, 300, 'Xan Weapon Upgrade Device', 246391);
 INSERT INTO xan_loot (raid, category, lowid, highid, ql, name, imageid) VALUES ('12 Man', 'Symbiants', 278899, 278899, 300, 'Xan Right Arm Symbiant, Artillery Unit Beta', 215176);
 INSERT INTO xan_loot (raid, category, lowid, highid, ql, name, imageid) VALUES ('12 Man', 'Symbiants', 279016, 279016, 300, 'Xan Right Arm Symbiant, Control Unit Beta', 215176);
 INSERT INTO xan_loot (raid, category, lowid, highid, ql, name, imageid) VALUES ('12 Man', 'Symbiants', 279029, 279029, 300, 'Xan Right Arm Symbiant, Extermination Unit Beta', 215176);
