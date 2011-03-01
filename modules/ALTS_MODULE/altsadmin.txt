@@ -1,10 +1,10 @@
 <header>::::: Alternative Char Commands (admin) :::::<end>
 
 <highlight>Adding alts to a character<end>
-<tab><symbol>altsadmin add 'alt name' 'main toon'
+<tab><symbol>altsadmin add 'main' 'alt'
 
 <highlight>Remove alts from a character<end>
-<tab><symbol>altsadmin rem 'alt name' 'main toon'
+<tab><symbol>altsadmin rem 'main' 'alt'
 
 <highlight>Export all alts to a file<end>
 <tab><symbol>altsadmin export 'filename'

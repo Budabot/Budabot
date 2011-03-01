@@ -53,6 +53,7 @@ if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader
             $afk = "<red>*AFK*<end>";
         } else {
             $afk = "";
+		}
         $msg .= " [<highlight>$row->name<end> - ".$row->level.$afk."]";
     }
     $chatBot->send($msg, $sendto);  	
