@@ -29,25 +29,14 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (preg_match("/^news$/i", $message, $arr)) {
-	$db->query("SELECT * FROM news ORDER BY `time` DESC LIMIT 0, 10");
-	if ($db->numrows() != 0) {
-		$link = "<header>::::: News :::::<end>\n\n";
-		while ($row = $db->fObject()) {
-		  	if (!$updated) {
-				$updated = $row->time;
-			}
-			
-		  	$link .= "<highlight>Date:<end> ".gmdate("dS M, H:i", $row->time)."\n";
-		  	$link .= "<highlight>Author:<end> $row->name\n";
-		  	$link .= "<highlight>Options:<end> ".Text::make_link("Delete this news entry", "/tell <myname> news del $row->id", "chatcmd")."\n";
-		  	$link .= "<highlight>Message:<end> $row->news\n\n";
-		}
-		$msg = Text::make_link("Click to view the latest News", $link)." [Last updated at ".gmdate("dS M, H:i", $updated)."]";
+if (preg_match("/^news del ([0-9]+)$/i", $message, $arr)) {
+	$rows = $db->exec("DELETE FROM news WHERE `id` = {$arr[1]}");
+	if ($rows == 0) {
+		$msg = "No news entry found with the ID <highlight>{$arr[1]}<end>.";
 	} else {
-		$msg = "No News recorded yet.";
+		$msg = "News entry with the ID <highlight>{$arr[1]}<end> was successfully deleted.";
 	}
-		
+
     $chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;

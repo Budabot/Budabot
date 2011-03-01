@@ -158,12 +158,12 @@ if (preg_match("/^config$/i", $message)) {
 	$db->exec($sql);
 	
 	$chatBot->send("Command(s) updated successfully.", $sendto);	
-} else if (preg_match("/^config (mod|cmd|event) (.+) (enable|disable) (priv|msg|guild|all)$/i", $message, $arr)) {
+} else if (preg_match("/^config (subcmd|mod|cmd|event) (.+) (enable|disable) (priv|msg|guild|all)$/i", $message, $arr)) {
 	if ($arr[1] == "event") {
 		$temp = explode(" ", $arr[2]);
 	  	$event_type = $temp[0];
 	  	$file = $temp[1];
-	} else if ($arr[1] == 'cmd') {
+	} else if ($arr[1] == 'cmd' || $arr[1] == 'subcmd') {
 		$cmd = strtolower($arr[2]);
 		$type = $arr[4];
 	} else {
@@ -189,6 +189,10 @@ if (preg_match("/^config$/i", $message)) {
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = '$type' AND `cmdevent` = 'cmd'");
 	} else if ($arr[1] == "cmd" && $type == "all") {
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `cmdevent` = 'cmd'");
+	} else if ($arr[1] == "subcmd" && $type != "all") {
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = '$type' AND `cmdevent` = 'subcmd'");
+	} else if ($arr[1] == "subcmd" && $type == "all") {
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `cmdevent` = 'subcmd'");
 	} else if ($arr[1] == "event" && $file != "") {
 		$db->query("SELECT *, 'event' AS cmdevent FROM eventcfg_<myname> WHERE `file` = '$file' AND `type` = '$event_type' AND `type` <> 'setup'");	
 	} else {
@@ -205,6 +209,10 @@ if (preg_match("/^config$/i", $message)) {
 			$msg = "Could not find the Command <highlight>$cmd<end> for Channel <highlight>$type<end>";
 		} else if ($arr[1] == "cmd" && $type == "all") {
 			$msg = "Could not find the Command <highlight>$cmd<end>";
+		} else if ($arr[1] == "subcmd" && $type != "all") {
+			$msg = "Could not find the Subcommand <highlight>$cmd<end> for Channel <highlight>$type<end>";
+		} else if ($arr[1] == "subcmd" && $type == "all") {
+			$msg = "Could not find the Subcommand <highlight>$cmd<end>";
 		} else if ($arr[1] == "event" && $file != "") {
 			$msg = "Could not find the Event <highlight>$event_type<end> for File <highlight>$file<end>";
 		}
@@ -220,6 +228,10 @@ if (preg_match("/^config$/i", $message)) {
 		$msg = "Updated status of command <highlight>$cmd<end> to <highlight>".$arr[3]."d<end> in Channel <highlight>$type<end>";
 	} else if ($arr[1] == "cmd" && $type == "all") {
 		$msg = "Updated status of command <highlight>$cmd<end> to <highlight>".$arr[3]."d<end>";
+	} else if ($arr[1] == "subcmd" && $type != "all") {
+		$msg = "Updated status of subcommand <highlight>$cmd<end> to <highlight>".$arr[3]."d<end> in Channel <highlight>$type<end>";
+	} else if ($arr[1] == "subcmd" && $type == "all") {
+		$msg = "Updated status of subcommand <highlight>$cmd<end> to <highlight>".$arr[3]."d<end>";
 	} else if ($arr[1] == "event" && $type != "") {
 		$msg = "Updated status of event <highlight>$event_type<end> to <highlight>".$arr[3]."d<end>";
 	}
@@ -247,18 +259,46 @@ if (preg_match("/^config$/i", $message)) {
 	}
 
 	if ($arr[1] == "mod" && $type == "all") {
-		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `module` = '$module' AND `cmdevent` = 'cmd'");
+		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `module` = '$module'");
 		$db->exec("UPDATE eventcfg_<myname> SET `status` = $status WHERE `module` = '$module' AND `type` <> 'setup'");
 	} else if ($arr[1] == "mod" && $type != "all") {
-		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `module` = '$module' AND `type` = '$type' AND `cmdevent` = 'cmd'");
+		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `module` = '$module' AND `type` = '$type'");
 		$db->exec("UPDATE eventcfg_<myname> SET `status` = $status WHERE `module` = '$module' AND `type` = '$event_type' AND `type` <> 'setup'");
 	} else if ($arr[1] == "cmd" && $type != "all") {
 		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `cmd` = '$cmd' AND `type` = '$type' AND `cmdevent` = 'cmd'");
 	} else if ($arr[1] == "cmd" && $type == "all") {
 		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `cmd` = '$cmd' AND `cmdevent` = 'cmd'");
+	} else if ($arr[1] == "subcmd" && $type != "all") {
+		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `cmd` = '$cmd' AND `type` = '$type' AND `cmdevent` = 'subcmd'");
+	} else if ($arr[1] == "subcmd" && $type == "all") {
+		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `cmd` = '$cmd' AND `cmdevent` = 'subcmd'");
 	} else if ($arr[1] == "event" && $file != "") {
 		$db->exec("UPDATE eventcfg_<myname> SET `status` = $status WHERE `type` = '$event_type' AND `file` = '$file' AND `type` <> 'setup'");
 	}
+	
+	$data = $db->fObject("all");
+	forEach ($data as $row) {
+		// only update the status if the status is different
+		if ($row->status != $status) {
+			if ($row->cmdevent == "event") {
+				if ($status == 1) {
+					Event::activate($row->type, $row->file);
+				} else {
+					Event::deactivate($row->type, $row->file);
+				}
+			} else if ($row->cmdevent == "cmd") {
+				if ($status == 1) {
+					Command::activate($row->type, $row->file, $row->cmd, $row->admin);
+				} else {
+					Command::deactivate($row->type, $row->file, $row->cmd, $row->admin);
+				}
+			}
+		}
+	}
+
+	// for subcommands which are handled differently
+	$chatBot->subcommands = array();
+	Subcommand::loadSubcommands();
 } else if (preg_match("/^config (subcmd|cmd) (.+) admin (msg|priv|guild|all) (all|leader|rl|mod|admin|guildadmin|guild)$/i", $message, $arr)) {
 	$category = strtolower($arr[1]);
 	$command = strtolower($arr[2]);
@@ -266,14 +306,14 @@ if (preg_match("/^config$/i", $message)) {
 	$admin = strtolower($arr[4]);
 
 	$admin = get_admin_value($admin);
-	
+
 	if ($category == "cmd") {
 		if ($channel == "all") {
 			$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$command' AND `cmdevent` = 'cmd'");
 		} else {
 			$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$command' AND `type` = '$channel' AND `cmdevent` = 'cmd'");
 		}
-	
+
 		if ($db->numrows() == 0) {
 			if ($channel == "all") {
 				$msg = "Could not find the command <highlight>$command<end>";
@@ -283,7 +323,7 @@ if (preg_match("/^config$/i", $message)) {
 		  	$chatBot->send($msg, $sendto);
 		  	return;
 		}
-		
+
 		if ($channel == 'all') {
 			if ($chatBot->commands['msg'][$command]) {
 				$chatBot->commands['msg']["admin"] = $admin;
@@ -299,7 +339,7 @@ if (preg_match("/^config$/i", $message)) {
 				$chatBot->commands[$channel][$command]["admin"] = $admin;
 			}
 		}
-		
+
 		if ($channel == "all") {
 			$db->exec("UPDATE cmdcfg_<myname> SET `admin` = '$admin' WHERE `cmd` = '$command' AND `cmdevent` = 'cmd'");
 			$msg = "Updated access of command <highlight>$command<end> to <highlight>$admin<end>";
@@ -642,7 +682,7 @@ if (preg_match("/^config$/i", $message)) {
 		} else if ($row->cmdevent == 'subcmd') {
 			$on = "<a href='chatcmd:///tell <myname> config subcmd $row->cmd enable all'>ON</a>";
 			$off = "<a href='chatcmd:///tell <myname> config subcmd $row->cmd disable all'>OFF</a>";
-			$adv = "<a href='chatcmd:///tell <myname> config subcmd $row->cmd'>Adv.</a>";
+			//$adv = "<a href='chatcmd:///tell <myname> config subcmd $row->cmd'>Adv.</a>";
 		}
 		
 		if ($row->msg_avail == 0) {

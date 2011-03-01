@@ -29,25 +29,11 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (preg_match("/^news$/i", $message, $arr)) {
-	$db->query("SELECT * FROM news ORDER BY `time` DESC LIMIT 0, 10");
-	if ($db->numrows() != 0) {
-		$link = "<header>::::: News :::::<end>\n\n";
-		while ($row = $db->fObject()) {
-		  	if (!$updated) {
-				$updated = $row->time;
-			}
-			
-		  	$link .= "<highlight>Date:<end> ".gmdate("dS M, H:i", $row->time)."\n";
-		  	$link .= "<highlight>Author:<end> $row->name\n";
-		  	$link .= "<highlight>Options:<end> ".Text::make_link("Delete this news entry", "/tell <myname> news del $row->id", "chatcmd")."\n";
-		  	$link .= "<highlight>Message:<end> $row->news\n\n";
-		}
-		$msg = Text::make_link("Click to view the latest News", $link)." [Last updated at ".gmdate("dS M, H:i", $updated)."]";
-	} else {
-		$msg = "No News recorded yet.";
-	}
-		
+if (preg_match("/^news (.+)$/i", $message, $arr)) {
+	$news = str_replace("'", "''", $arr[1]);
+	$db->exec("INSERT INTO news (`time`, `name`, `news`) VALUES (".time().", '".$sender."', '$news')"); 
+	$msg = "News has been added successfully.";
+
     $chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
