@@ -106,11 +106,6 @@ if ($vars['login']		== "" ||
 	include "./core/SETUP/setup.php";
 }
 
-// set the title of the command prompt winddow in windows
-if (isWindows()) {
-	system("title {$vars['name']} - Budabot");
-}
-
 Logger::log('INFO', 'StartUp', "Starting {$vars['name']}...");
 
 //Bring the ignore list to a bot readable format

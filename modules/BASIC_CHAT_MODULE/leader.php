@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (Setting::get("leaderecho") == 1) {
+if ($chatBot->settings["leaderecho"] == 1) {
 	$status = "<green>Enabled<end>";
 	$cmd = "off";
 } else {
@@ -44,11 +44,11 @@ if ($type == "leavePriv") {
 		$chatBot->send($msg, 'priv');
 	}
 } else if (preg_match("/^leader (.+)$/i", $message, $arr)) {
+    $uid = $chatBot->get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
-	$charid = $chatBot->get_uid($name);
-	if (!$charid) {
+	if (!$uid) {
 		$msg = "Player <highlight>{$name}<end> does not exist.";
-	} else if ($chatBot->get_in_chatlist($charid) === null) {
+	} else if (!isset($chatBot->chatlist[$name])) {
 		$msg = "Player <highlight>{$name}<end> isn't in this channel.";
 	} else {
 		$chatBot->data["leader"] = $name;
@@ -60,8 +60,7 @@ if ($type == "leavePriv") {
 		unset($chatBot->data["leader"]);
 	  	$msg = "Leader cleared.";
 	} else if ($chatBot->data["leader"] != "") {
-		$leader_charid = $chatBot->get_uid($chatBot->data["leader"]);
-		if ($chatBot->admins[$charid]->access_level >= $chatBot->admins[$leader_charid]->access_level) {
+		if ($chatBot->admins[$sender]["level"] >= $chatBot->admins[$chatBot->data["leader"]]["level"]){
   			$chatBot->data["leader"] = $sender;
 		  	$msg = "{$sender} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
 		} else {

@@ -46,10 +46,10 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 
 	$window = Text::make_header("Org History", "none");
 	
-	$sql = "SELECT action, organization, time, p1.name AS actor, p2.name AS actee FROM org_history o LEFT JOIN players p1 ON o.actor = p1.charid LEFT JOIN players p2 ON o.actee = p2.charid ORDER BY time DESC LIMIT $startingRecord, $pageSize";
+	$sql = "SELECT actor, actee, action, organization, time FROM org_history ORDER BY time DESC LIMIT $startingRecord, $pageSize";
 	$db->query($sql);
-	$data = $db->fObject('all');
-	forEach ($data as $row) {
+	while($row = $db->fObject()) {
+
 		$window .= "$row->actor $row->action $row->actee in $row->organization at " . gmdate("M j, Y, G:i", $row->time)." (GMT)\n";
 	}
 
@@ -63,16 +63,18 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 	$window = Text::make_header("Org History", "none");
 	
 	$window .= "\n  Actions on $character\n";
-	$sql = "SELECT action, organization, time, p1.name AS actor, p2.name AS actee FROM org_history o LEFT JOIN players p1 ON o.actor = p1.charid LEFT JOIN players p2 ON o.actee = p2.charid WHERE actee LIKE '$character' ORDER BY time DESC";
-	$data = $db->fObject('all');
-	forEach ($data as $row) {
+	$sql = "SELECT actor, actee, action, organization, time FROM org_history WHERE actee LIKE '$character' ORDER BY time DESC";
+	$db->query($sql);
+	while($row = $db->fObject()) {
+
 		$window .= "$row->actor $row->action $row->actee in $row->organization at " . gmdate("M j, Y, G:i", $row->time)." (GMT)\n";
 	}
 
 	$window .= "\n  Actions by $character\n";
-	$sql = "SELECT action, organization, time, p1.name AS actor, p2.name AS actee FROM org_history o LEFT JOIN players p1 ON o.actor = p1.charid LEFT JOIN players p2 ON o.actee = p2.charid WHERE actor LIKE '$character' ORDER BY time DESC";
-	$data = $db->fObject('all');
-	forEach ($data as $row) {
+	$sql = "SELECT actor, actee, action, organization, time FROM org_history WHERE actor LIKE '$character' ORDER BY time DESC";
+	$db->query($sql);
+	while($row = $db->fObject()) {
+
 		$window .= "$row->actor $row->action $row->actee in $row->organization at " . gmdate("M j, Y, G:i", $row->time)." (GMT)\n";
 	}
 

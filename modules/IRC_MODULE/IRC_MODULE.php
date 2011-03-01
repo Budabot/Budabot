@@ -9,17 +9,19 @@
    */
 
 	$MODULE_NAME = "IRC_MODULE";
-	if (Setting::get('irc_channel') == "") {
-		if ($chatBot->vars['my guild'] == "") {
+	if($chatBot->settings['irc_channel'] == "") {
+		if($chatBot->vars['my guild'] == "") {
 			$channel = "#".strtolower($chatBot->vars['name']);
-		} else {
-			if (strpos($chatBot->vars['my guild']," ")) {
-				$sandbox = explode(" ",$chatBot->vars['my guild']);
+		}
+		else {
+			if(strpos($chatBot->vars['my guild']," ")) {
+			$sandbox = explode(" ",$chatBot->vars['my guild']);
 				for ($i = 0; $i < count($sandbox); $i++) {
 					$channel .= ucfirst(strtolower($sandbox[$i]));
 				}
 				$channel = "#".$channel;
-			} else {
+			}
+			else {
 				$channel = "#".$chatBot->vars['my guild'];
 			}
 		}

@@ -29,9 +29,8 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-$db->query("SELECT a.*, p.name FROM admin_<myname> a LEFT JOIN players p ON a.charid = p.charid");
-$data = $db->fObject('all');
-forEach ($data as $row) {
+$db->query("SELECT * FROM admin_<myname>");
+while ($row = $db->fObject()) {
 	Buddylist::add($row->name, 'admin');
 }
 

@@ -13,9 +13,9 @@ function online($sender, $sendto, &$bot, $prof = "all") {
 
 	$list = "";
 	if ($prof == "all") {
-		$db->query("SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE o.channel_type = 'guild' ORDER BY `profession`, `level` DESC");
+		$db->query("SELECT p.*, o.name FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'guild' ORDER BY `profession`, `level` DESC");
 	} else {
-		$db->query("SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE o.channel_type = 'guild' AND `profession` = '$prof'");
+		$db->query("SELECT p.*, o.name FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'guild' AND `profession` = '$prof'");
 	}
 
 	$oldprof = "";
@@ -34,9 +34,9 @@ function online($sender, $sendto, &$bot, $prof = "all") {
 
 	// Private Channel Part
 	if ($prof == "all") {
-		$db->query("SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE o.channel_type = 'priv' ORDER BY `profession`, `level` DESC");
+		$db->query("SELECT p.*, o.name FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'priv' ORDER BY `profession`, `level` DESC");
 	} else {
-		$db->query("SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE o.channel_type = 'priv' AND `profession` = '$prof' ORDER BY `level` DESC");
+		$db->query("SELECT p.*, o.name FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'priv' AND `profession` = '$prof' ORDER BY `level` DESC");
 	}
 
 	$numguest = $db->numrows();
@@ -57,7 +57,7 @@ function online($sender, $sendto, &$bot, $prof = "all") {
 	}
 
 	// BBIN part
-	if (Setting::get("bbin_status") == 1) {
+	if ($bot->settings["bbin_status"] == 1) {
 		// members
 		$db->query("SELECT * FROM bbin_chatlist_<myname> WHERE (`guest` = 0) ORDER BY `profession`, `level` DESC");
 		$numbbinmembers = $db->numrows();
@@ -101,14 +101,14 @@ function createList(&$data, &$sender, &$list, &$bot, $show_alts = false) {
 		}
 		
 		if ($oldprof != $row->profession) {
-			if (Setting::get("fancy_online") == 0) {
+			if ($bot->settings["fancy_online"] == 0) {
 				// old style delimiters
 				$list .= "\n<tab><highlight>$row->profession<end>\n";
 				$oldprof = $row->profession;
 			} else {
 				// fancy delimiters
 				$list .= "\n<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
-				if (Setting::get("icon_fancy_online") == 1) {
+				if ($bot->settings["icon_fancy_online"] == 1) {
 					if ($row->profession == "Adventurer")
 						$list .= "<img src=rdb://84203>";
 					else if ($row->profession == "Agent")

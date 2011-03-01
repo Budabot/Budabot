@@ -1,62 +1,80 @@
 <?php
 
-if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names)) {
-	if ($names[1] == '' || $names[2] == '') {
+if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names))
+{
+	if ($names[1] == '' || $names[2] == '')
+	{
 		$syntax_error = true;
 		return;
 	}
 
-	$name_main = ucfirst(strtolower($names[1]));
-	$name_alt = ucfirst(strtolower($names[2]));
-	$uid_main = $chatBot->get_uid($name_main);
+	$name_alt = ucfirst(strtolower($names[1]));
+	$name_main = ucfirst(strtolower($names[2]));
 	$uid_alt = $chatBot->get_uid($name_alt);
-
-	if (!$uid_alt) {
+	$uid_main = $chatBot->get_uid($name_main);
+	if (!$uid_alt)
+	{
 		$msg = "Player <highlight>$name_alt<end> does not exist.";
 		$chatBot->send($msg, $sendto);
 		return;
 	}
-	if (!$uid_main) {
+	if (!$uid_main)
+	{
 		$msg = " Player <highlight>$name_main<end> does not exist.";
 		$chatBot->send($msg, $sendto);
 		return;
 	}
 
-	$main = Alts::get_main($name_alt);
-	if ($main != $name_alt) {
-		$msg = "Player <highlight>$name_alt<end> is already registered as an alt to <highlight>$main<end>.";
-		$chatBot->send($msg, $sendto);
-		return;
+	$db->query("SELECT * FROM alts WHERE `alt` = '$name_alt'");
+	$row = $db->fObject();
+	if ($row->alt == $name_alt)
+	{
+		$msg = "Player <highlight>$name_alt<end> is already registered as alt from <highlight>$row->main<end>.";
 	}
-	
-	$alts = Alts::get_alts($name_alt);
-	if (count($alts) > 0) {
-		$msg = "Player <highlight>$name_alt<end> is already registered as main.";
-	}
+	else
+	{
+		$db->query("SELECT * FROM alts WHERE `main` = '$name_alt'");
+		if ($db->numrows() != 0)
+			$msg = "Player <highlight>$name_alt<end> is already registered as main from someone.";
+		else
+		{
+			$db->exec("INSERT INTO alts (`alt`, `main`) VALUES ('$name_alt', '$name_main')");
+			$msg = "<highlight>$name_alt<end> has been registered as an alt of $name_main.";
+		}
 
-	Alts::add_alt($name_main, $name_alt);
-	$msg = "<highlight>$name_alt<end> has been registered as an alt of $name_main.";
+	}
 	$chatBot->send($msg, $sendto);
-} else if (preg_match("/^altsadmin rem (.+) (.+)$/i", $message, $names)) {
-	if ($names[1] == '' || $names[2] == '') {
+}
+elseif (preg_match("/^altsadmin rem (.+) (.+)$/i", $message, $names))
+{
+	if ($names[1] == '' || $names[2] == '')
+	{
 		$syntax_error = true;
 		return;
 	}
 
-	$name_main = ucfirst(strtolower($names[1]));
-	$name_alt = ucfirst(strtolower($names[2]));
+	$name_alt = ucfirst(strtolower($names[1]));
+	$name_main = ucfirst(strtolower($names[2]));
 
-	if (Alts::rem_alt($name_main, $name_alt) == 0) {
-		$msg = "Player <highlight>$name_alt<end> not listed as an alt of Player <highlight>$name_main<end>.  Please check the player's !alts listings.";
-	} else {
+	$db->query("SELECT * FROM alts WHERE alt = '$name_alt' AND main = '$name_main'");
+	if ($db->numrows() != 0)
+	{
+		Alts::rem_alt($name_main, $name_alt);
 		$msg = "<highlight>$name_alt<end> has been deleted from the alt list of <highlight>$name_main.<end>";
 	}
+	else
+	{
+		$msg = "Player <highlight>$name_alt<end> not listed as an alt of Player <highlight>$name_main<end>.  Please check the player's !alts listings.";
+	}
 	$chatBot->send($msg, $sendto);
-} else if (preg_match("/^altsadmin export (.+)$/i", $message, $arr)) {
+}
+elseif (preg_match("/^altsadmin export (.+)$/i", $message, $arr))
+{
 	/* the file may only be stored under the current directory */
 	$file_name = "./".basename($arr[1]);
 	/* do not overwrite existing files */
-	if (file_exists($file_name)) {
+	if (file_exists($file_name))
+	{
 		$msg = "<highlight>File already exists, please specify another one.<end>";
 		$chatBot->send($msg, $sendto);
 		return;
@@ -69,7 +87,8 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names)) {
 	/* write it to a file */
 	$file = fopen($file_name, 'w');
 	fwrite($file, "alt main\n");
-	forEach ($alts_table as $row) {
+	foreach ($alts_table as $row)
+	{
 		fwrite($file, $row->alt.' '.$row->main."\n");
 	}
 	fclose($file);
@@ -77,11 +96,15 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names)) {
 	$msg = "Export completed into '$file_name'";
 	$chatBot->send($msg, $sendto);
 	return;
-} else if (preg_match("/^altsadmin import (.+)/i", $message, $arr)) {
+}
+
+elseif (preg_match("/^altsadmin import (.+)/i", $message, $arr))
+{
 	/* the file may only be stored under the current directory */
 	$file_name = "./".basename($arr[1]);
 	/* check for existing file */
-	if (!file_exists($file_name)) {
+	if (!file_exists($file_name))
+	{
 		$msg = "<highlight>File '$file_name' does not exist.<end>";
 		$chatBot->send($msg, $sendto);
 		return;
@@ -92,14 +115,16 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names)) {
 
 	/* get first line and check for "alt main" */
 	$firstline = fgets($file);
-	if (stripos($firstline, "alt main") === false) {
+	if (stripos($firstline, "alt main") === false)
+	{
 		$msg = "File didn't start with expected 'alt main', aborting import.";
 		$chatBot->send($msg, $sendto);
 		return;
 	}
 	
 	$altcounter = 0;
-	while (!feof($file)) {
+	while (!feof($file))
+	{
 		$line = fgets($file);
 		$explodeline = explode(' ', $line);
 		$name_alt = $explodeline[0];
@@ -110,7 +135,10 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names)) {
 	$msg = "Succesfully added $altcounter entries into the alts table.";
 	$chatBot->send($msg, $sendto);
 	return;
-} else {
+}
+
+else
+{
 	$syntax_error = true;
 }
 

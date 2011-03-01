@@ -44,7 +44,7 @@ class Event {
 		if ($chatBot->existing_events[$type][$actual_filename] == true) {
 		  	$db->exec("UPDATE eventcfg_<myname> SET `verify` = 1, `description` = '$description', `help` = '{$help}' WHERE `type` = '$type' AND `file` = '$actual_filename' AND `module` = '$module'");
 		} else {
-			if (Setting::get("default_module_status") == 1) {
+			if ($chatBot->settings["default_module_status"] == 1) {
 				$status = 1;
 			} else {
 				$status = 0;

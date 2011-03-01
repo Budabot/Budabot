@@ -35,26 +35,6 @@ class Player {
 		return $player;
 	}
 	
-	public static function add_info($name) {
-		global $vars;
-	
-		$char = Player::get_by_name($name);
-		if ($char === null) {
-			$charid = $chatBot->get_uid($name);
-			if ($charid == null) {
-				return null;
-			}
-			
-			$char = new stdClass;
-			$char->name = $name;
-			$char->charid = $charid;
-			$char->dimension = $vars['dimension'];
-			$char->source = 'placeholder';
-			Player::update($char);
-		}			
-		return $char;
-	}
-	
 	public static function lookup($name, $dimension) {
 		global $chatBot;
 
@@ -113,7 +93,7 @@ class Player {
 	public static function update(&$char) {
 		$db = DB::get_instance();
 		
-		$sql = "DELETE FROM players WHERE `charid` = '{$char->charid}'";
+		$sql = "DELETE FROM players WHERE `name` = '{$char->name}'";
 		$db->exec($sql);
 
 		$sql = "

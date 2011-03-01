@@ -29,7 +29,22 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (preg_match("/^news$/i", $message, $arr)) {
+if (preg_match("/^news del ([0-9]+)$/i", $message, $arr)) {
+	$rows = $db->exec("DELETE FROM news WHERE `id` = {$arr[1]}");
+	if ($rows == 0) {
+		$msg = "No news entry found with the ID <highlight>{$arr[1]}<end>.";
+	} else {
+		$msg = "News entry with the ID <highlight>{$arr[1]}<end> was successfully deleted.";
+	}
+
+    $chatBot->send($msg, $sendto);
+} else if (preg_match("/^news (.+)$/i", $message, $arr)) {
+	$news = str_replace("'", "''", $arr[1]);
+	$db->exec("INSERT INTO news (`time`, `name`, `news`) VALUES (".time().", '".$sender."', '$news')"); 
+	$msg = "News has been added.";
+
+    $chatBot->send($msg, $sendto);
+} else if (preg_match("/^news$/i", $message, $arr)) {
 	$db->query("SELECT * FROM news ORDER BY `time` DESC LIMIT 0, 10");
 	if ($db->numrows() != 0) {
 		$link = "<header>::::: News :::::<end>\n\n";
@@ -49,8 +64,6 @@ if (preg_match("/^news$/i", $message, $arr)) {
 	}
 		
     $chatBot->send($msg, $sendto);
-} else {
-	$syntax_error = true;
 }
 
 ?>

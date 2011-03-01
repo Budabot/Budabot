@@ -1,15 +1,15 @@
 <?php
    /*
-   ** Author: Derroylo (RK2)
-   ** Description: Sets/shows/deletes News entries
-   ** Version: 0.3
+   ** Author: Sebuda (RK2)
+   ** Description: Sets an Admin as Online
+   ** Version: 0.1
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
-   ** Date(created): 15.01.2006
-   ** Date(last modified): 21.11.2006
+   ** Date(created): 01.10.2005
+   ** Date(last modified): 01.10.2005
    ** 
-   ** Copyright (C) 2006 Carsten Lohmann
+   ** Copyright (C) 2005 J. Gracik
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -29,17 +29,8 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (preg_match("/^news del ([0-9]+)$/i", $message, $arr)) {
-	$rows = $db->exec("DELETE FROM news WHERE `id` = {$arr[1]}");
-	if ($rows == 0) {
-		$msg = "No news entry found with the ID <highlight>{$arr[1]}<end>.";
-	} else {
-		$msg = "News entry with the ID <highlight>{$arr[1]}<end> was successfully deleted.";
-	}
-
-    $chatBot->send($msg, $sendto);
-} else {
-	$syntax_error = true;
+if (is_numeric($chatBot->admins[$sender]["level"])) {
+	$chatBot->admins[$sender]["online"] = "online";
 }
 
 ?>

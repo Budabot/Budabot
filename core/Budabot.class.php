@@ -125,14 +125,14 @@ class Budabot extends AOChat {
 		sleep(2);
 
 		// Set cron timers
-		$this->vars["2sec"] 			= time() + Setting::get("CronDelay");
-		$this->vars["1min"] 			= time() + Setting::get("CronDelay");
-		$this->vars["10mins"] 			= time() + Setting::get("CronDelay");
-		$this->vars["15mins"] 			= time() + Setting::get("CronDelay");
-		$this->vars["30mins"] 			= time() + Setting::get("CronDelay");
-		$this->vars["1hour"] 			= time() + Setting::get("CronDelay");
-		$this->vars["24hours"]			= time() + Setting::get("CronDelay");
-		$this->vars["15min"] 			= time() + Setting::get("CronDelay");
+		$this->vars["2sec"] 			= time() + $this->settings["CronDelay"];
+		$this->vars["1min"] 			= time() + $this->settings["CronDelay"];
+		$this->vars["10mins"] 			= time() + $this->settings["CronDelay"];
+		$this->vars["15mins"] 			= time() + $this->settings["CronDelay"];
+		$this->vars["30mins"] 			= time() + $this->settings["CronDelay"];
+		$this->vars["1hour"] 			= time() + $this->settings["CronDelay"];
+		$this->vars["24hours"]			= time() + $this->settings["CronDelay"];
+		$this->vars["15min"] 			= time() + $this->settings["CronDelay"];
 	}
 	
 	function init() {
@@ -305,7 +305,7 @@ class Budabot extends AOChat {
 		}
 	
 		$message = Text::format_message($message);
-		$this->send_privgroup($group, Setting::get("default_priv_color").$message);
+		$this->send_privgroup($group, $this->settings["default_priv_color"].$message);
 	}
 
 /*===============================
@@ -335,34 +335,34 @@ class Budabot extends AOChat {
 		$message = Text::format_message($message);
 
 		if ($target == 'prv') {
-			$this->send_privgroup($this->vars["name"], Setting::get("default_priv_color").$message);
+			$this->send_privgroup($this->vars["name"], $this->settings["default_priv_color"].$message);
 			
 			// relay to guild channel
-			if (!$disable_relay && Setting::get("guest_relay") == 1 && Setting::get("guest_relay_commands") == 1) {
-				$this->send_group($this->vars["my guild"], "</font>" . Setting::get("guest_color_channel") . "[Guest]</font> " . Setting::get("guest_color_username") . Text::make_link($this->vars["name"],$this->vars["name"],"user")."</font>: " . Setting::get("default_priv_color") . $message . "</font>");
+			if (!$disable_relay && $this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1) {
+				$this->send_group($this->vars["my guild"], "</font>{$this->settings["guest_color_channel"]}[Guest]</font> {$this->settings["guest_color_username"]}".Text::make_link($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default_priv_color"]}$message</font>");
 			}
 
 			// relay to bot relay
-			if (!$disable_relay && Setting::get("relaybot") != "Off" && Setting::get("bot_relay_commands") == 1) {
+			if (!$disable_relay && $this->settings["relaybot"] != "Off" && $this->settings["bot_relay_commands"] == 1) {
 				send_message_to_relay("grc <grey>[".$this->vars["my guild"]."] ".$message);
 			}
 		} else if ($target == $this->vars["my guild"] || $target == 'org') {// Target is guild chat.
-    		$this->send_group($this->vars["my guild"], Setting::get("default_guild_color").$message);
+    		$this->send_group($this->vars["my guild"], $this->settings["default_guild_color"].$message);
 			
 			// relay to private channel
-			if (!$disable_relay && Setting::get("guest_relay") == 1 && Setting::get("guest_relay_commands") == 1) {
-				$this->send_privgroup($this->vars["name"], "</font>" . Setting::get("guest_color_channel") . " [{$this->vars["my guild"]}]</font> " . Setting::get("guest_color_username") . Text::make_link($this->vars["name"],$this->vars["name"],"user")."</font>: " . Setting::get("default_guild_color") . $message . "</font>");
+			if (!$disable_relay && $this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1) {
+				$this->send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my guild"]}]</font> {$this->settings["guest_color_username"]}".Text::make_link($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default_guild_color"]}$message</font>");
 			}
 			
 			// relay to bot relay
-			if (!$disable_relay && Setting::get("relaybot") != "Off" && Setting::get("bot_relay_commands") == 1) {
+			if (!$disable_relay && $this->settings["relaybot"] != "Off" && $this->settings["bot_relay_commands"] == 1) {
 				send_message_to_relay("grc <grey>[".$this->vars["my guild"]."] ".$message);
 			}
 		} else if ($this->get_uid($target) != NULL) {// Target is a player.
 			Logger::log_chat("Out. Msg.", $target, $message);
-    		$this->send_tell($target, Setting::get("default_tell_color").$message);
+    		$this->send_tell($target, $this->settings["default_tell_color"].$message);
 		} else { // Public channels that are not myguild.
-	    	$this->send_group($target, Setting::get("default_guild_color").$message);
+	    	$this->send_group($target, $this->settings["default_guild_color"].$message);
 		}
 	}
 
@@ -427,10 +427,9 @@ class Budabot extends AOChat {
 					$this->vars["my guild id"] = $b[2]*256*256*256 + $b[3]*256*256 + $b[4]*256 + $b[5];
 				}
 				break;
-			case AOCP_PRIVGRP_CLIJOIN: // 55, player joined private channel
+			case AOCP_PRIVGRP_CLIJOIN: // 55, Incoming player joined private chat
 				$channel = $this->lookup_user($args[0]);
-				$charid = $args[1];
-				$sender = $this->lookup_user($charid);
+				$sender = $this->lookup_user($args[1]);
 
 				Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_CLIJOIN => channel: '$channel' sender: '$sender'");
 				
@@ -446,7 +445,7 @@ class Budabot extends AOChat {
 					}
 
 					// Add sender to the chatlist.
-					$this->chatlist[$charid] = true;
+					$this->chatlist[$sender] = true;
 
 					// Check files, for all 'player joined channel events'.
 					forEach ($this->events[$type] as $filename) {
@@ -473,10 +472,9 @@ class Budabot extends AOChat {
 					}
 				}
 				break;
-			case AOCP_PRIVGRP_CLIPART: // 56, player left private channel
+			case AOCP_PRIVGRP_CLIPART: // 56, Incoming player left private chat
 				$channel = $this->lookup_user($args[0]);
-				$charid = $args[1];
-				$sender = $this->lookup_user($charid);
+				$sender	= $this->lookup_user($args[1]);
 				
 				Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_CLIPART => channel: '$channel' sender: '$sender'");
 				
@@ -486,7 +484,7 @@ class Budabot extends AOChat {
 					Logger::log_chat("Priv Group", -1, "$sender left the channel.");
 
 					// Remove from Chatlist array.
-					unset($this->chatlist[$charid]);
+					unset($this->chatlist[$sender]);
 					
 					// Check files, for all 'player left channel events'.
 					forEach ($this->events[$type] as $filename) {
@@ -509,8 +507,7 @@ class Budabot extends AOChat {
 				}
 				break;
 			case AOCP_BUDDY_ADD: // 40, Incoming buddy logon or off
-				$charid = $args[0];
-				$sender = $this->lookup_user($charid);
+				$sender	= $this->lookup_user($args[0]);
 				$status	= 0 + $args[1];
 				
 				Logger::log('DEBUG', 'Packets', "AOCP_BUDDY_ADD => sender: '$sender' status: '$status'");
@@ -558,8 +555,7 @@ class Budabot extends AOChat {
 				break;
 			case AOCP_MSG_PRIVATE: // 30, Incoming Msg
 				$type = "msg";
-				$charid = $args[0];
-				$sender	= $this->lookup_user($charid);
+				$sender	= $this->lookup_user($args[0]);
 				$sendto = $sender;
 				
 				Logger::log('DEBUG', 'Packets', "AOCP_MSG_PRIVATE => sender: '$sender' message: '$args[1]'");
@@ -570,6 +566,8 @@ class Budabot extends AOChat {
 				} else {
 					$message = $args[1];
 				}
+
+				$message = html_entity_decode($message, ENT_QUOTES);
 
 				Logger::log_chat("Inc. Msg.", $sender, $message);
 
@@ -605,7 +603,7 @@ class Budabot extends AOChat {
 				}
 
 				// Remove the prefix if there is one
-				if ($message[0] == Setting::get("symbol") && strlen($message) > 1) {
+				if ($message[0] == $this->settings["symbol"] && strlen($message) > 1) {
 					$message = substr($message, 1);
 				}
 
@@ -617,15 +615,15 @@ class Budabot extends AOChat {
 					}
 				}
 				
-				$this->process_command($type, $message, $charid, $sender, $sendto);
+				$this->process_command($type, $message, $sender, $sendto);
 
 				break;
 			case AOCP_PRIVGRP_MESSAGE: // 57, Incoming priv message
-				$channel = $this->lookup_user($args[0]);
-				$charid = $args[1];
-				$sender = $this->lookup_user($charid);
-				$message = $args[2];
+				$sender	= $this->lookup_user($args[1]);
 				$sendto = 'prv';
+				$channel = $this->lookup_user($args[0]);
+				$message = $args[2];
+				$restricted = false;
 				
 				Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_MESSAGE => sender: '$sender' channel: '$channel' message: '$message'");
 				Logger::log_chat($channel, $sender, $message);
@@ -657,9 +655,9 @@ class Budabot extends AOChat {
 						}
 					}
 					
-					if ($message[0] == Setting::get("symbol") && strlen($message) > 1) {
+					if ($message[0] == $this->settings["symbol"] && strlen($message) > 1) {
 						$message = substr($message, 1);
-						$this->process_command($type, $message, $charid, $sender, $sendto);
+						$this->process_command($type, $message, $sender, $sendto);
 					}
 				
 				} else {  // ext priv group message
@@ -677,8 +675,7 @@ class Budabot extends AOChat {
 				break;
 			case AOCP_GROUP_MESSAGE: // 65, Public and guild channels
 				$syntax_error = false;
-				$charid = $args[1];
-				$sender = $this->lookup_user($charid);
+				$sender	 = $this->lookup_user($args[1]);
 				$message = $args[2];
 				$channel = $this->get_gname($args[0]);
 				
@@ -746,9 +743,9 @@ class Budabot extends AOChat {
 						}
 					}
 					
-					if ($message[0] == Setting::get("symbol") && strlen($message) > 1) {
+					if ($message[0] == $this->settings["symbol"] && strlen($message) > 1) {
 						$message = substr($message, 1);
-						$this->process_command($type, $message, $charid, $sender, $sendto);
+						$this->process_command($type, $message, $sender, $sendto);
 					}
 				} else if ($channel == 'OT shopping 11-50' || $channel == 'OT shopping 50-100' || $channel == 'OT shopping 100+' || $channel == 'Neu. shopping 11-50' || $channel == 'Neu. shopping 50-100' || $channel == 'Neu. shopping 100+' || $channel == 'Clan shopping 11-50' || $channel == 'Clan shopping 50-100' || $channel == 'Clan shopping 100+') {
 					$type = "shopping";
@@ -764,8 +761,8 @@ class Budabot extends AOChat {
 				break;
 			case AOCP_PRIVGRP_INVITE:  // 50, private channel invite
 				$type = "extJoinPrivRequest"; // Set message type.
-				$charid = $args[0];
-				$sender = $this->lookup_user($charid);
+				$uid = $args[0];
+				$sender = $this->lookup_user($uid);
 
 				Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_INVITE => sender: '$sender'");
 
@@ -782,7 +779,7 @@ class Budabot extends AOChat {
 		}
 	}
 	
-	function process_command($type, $message, $charid, $sender, $sendto) {
+	function process_command($type, $message, $sender, $sendto) {
 		$db = DB::get_instance();
 		global $chatBot;
 		
@@ -799,7 +796,7 @@ class Budabot extends AOChat {
 			} else {
 				$message = $cmd;
 			}
-			$this->process_command($type, $message, $charid, $sender, $sendto);
+			$this->process_command($type, $message, $sender, $sendto);
 			return;
 		}
 		
@@ -928,14 +925,6 @@ class Budabot extends AOChat {
 	 */
 	public function is_ready() {
 		return time() >= $this->vars["logondelay"];
-	}
-	
-	/**
-	 * @name: is_ready
-	 * @description: tells when the bot is logged on and all the start up events have finished
-	 */
-	public function get_in_chatlist($charid) {
-		return $this->chatlist[$charid];
 	}
 }
 ?>

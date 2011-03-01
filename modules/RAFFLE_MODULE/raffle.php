@@ -15,7 +15,7 @@ if (preg_match("/^raffle start (\d+) (.+)$/i", $message, $arr)) {
 
 	$item = $arr[2];
 	$count = $arr[1];
-	$minutes = Setting::get("defaultraffletime");
+	$minutes = $chatBot->settings["defaultraffletime"];
 
 	$chatBot->data["Raffles"] = array(
 		"running" => true,
@@ -57,7 +57,7 @@ Click $link to join the raffle. Raffle will end in $minutes minutes.
 
 	$item = $arr[1];
 	$count = 1;
-	$minutes = Setting::get("defaultraffletime");
+	$minutes = $chatBot->settings["defaultraffletime"];
 
 	$chatBot->data["Raffles"] = array(
 		"running" => true,
@@ -91,7 +91,7 @@ Click $link to join the raffle. Raffle will end in $minutes minutes'.
 		return;
 	}
 
-	if (($chatBot->data["Raffles"]["owner"] != $sender) && (!isset($chatBot->admins[$charid])))
+	if (($chatBot->data["Raffles"]["owner"] != $sender) && (!isset($chatBot->admins[$sender])))
 	{
 		$msg = "<highlight>Only the owner or admins may cancel the raffle.";
 		$chatBot->send($msg, $sendto);
@@ -119,7 +119,7 @@ Click $link to join the raffle. Raffle will end in $minutes minutes'.
 		return;
 	}
 
-	if (($chatBot->data["Raffles"]["owner"] != $sender) && (!isset($chatBot->admins[$charid]))) {
+	if (($chatBot->data["Raffles"]["owner"] != $sender) && (!isset($chatBot->admins[$sender]))) {
 		$msg = "<highlight>Only the owner or admins may end the raffle.";
 		$chatBot->send($msg, $sendto);
 		return;

@@ -1,6 +1,6 @@
 <?php
 
-if (Setting::get("relaybot") != "Off" && isset($chatBot->guildmembers[$charid]) && $chatBot->is_ready()) {
+if ($chatBot->settings["relaybot"] != "Off" && isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
     $whois = Player::get_by_name($sender);
 	
 	$msg = '';
@@ -36,7 +36,7 @@ if (Setting::get("relaybot") != "Off" && isset($chatBot->guildmembers[$charid]) 
 			$msg .= " $alts";
 		}
 
-		$sql = "SELECT logon_msg FROM org_members_<myname> WHERE `charid` = '{$charid}'";
+		$sql = "SELECT logon_msg FROM org_members_<myname> WHERE name = '{$sender}'";
 		$db->query($sql);
 		$row = $db->fObject();
         if ($row !== null && $row->logon_msg != '') {

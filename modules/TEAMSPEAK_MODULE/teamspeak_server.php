@@ -32,10 +32,10 @@
 $msg = "";
 if (preg_match("/^ts$/i", $message)) {
 	//TS Server Info
-    $ip 			= Setting::get("ts_ip");
-    $queryport 		= Setting::get("ts_queryport");
-    $serverport 	= Setting::get("ts_serverport");
-    $servername 	= Setting::get("ts_servername");
+    $ip 			= $chatBot->settings["ts_ip"];
+    $queryport 		= $chatBot->settings["ts_queryport"];
+    $serverport 	= $chatBot->settings["ts_serverport"];
+    $servername 	= $chatBot->settings["ts_servername"];
 
 	//If IP isn't set show error msg
 	if ($ip == "Not set yet.") {

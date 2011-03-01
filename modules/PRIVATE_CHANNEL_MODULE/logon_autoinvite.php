@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-$db->query("SELECT * FROM members_<myname> WHERE charid = '$charid' AND autoinv = 1");
+$db->query("SELECT * FROM members_<myname> WHERE name = '$sender' AND autoinv = 1");
 if ($db->numrows() != 0) {
     $msg = "You have been auto invited to the <highlight><myname><end> channel.";
     $chatBot->privategroup_invite($sender);

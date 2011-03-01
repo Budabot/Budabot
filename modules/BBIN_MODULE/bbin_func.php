@@ -43,7 +43,7 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot) {
 		if ($bot->vars['my guild'] != "") {
 			$bot->send("<yellow>[BBIN]<end> $msg","guild",true);
 		}
-		if ($bot->vars['my guild'] == "" || Setting::get("guest_relay") == 1) {
+		if ($bot->vars['my guild'] == "" || $bot->settings["guest_relay"] == 1) {
 			$bot->send("<yellow>[BBIN]<end> $msg","priv",true);
 		}
 
@@ -68,7 +68,7 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot) {
 		if ($bot->vars['my guild'] != "") {
 			$bot->send("<yellow>[BBIN]<end> $msg","guild",true);
 		}
-		if ($bot->vars['my guild'] == "" || Setting::get("guest_relay") == 1) {
+		if ($bot->vars['my guild'] == "" || $bot->settings["guest_relay"] == 1) {
 			$bot->send("<yellow>[BBIN]<end> $msg","priv",true);
 		}
 
@@ -81,14 +81,14 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot) {
 		// send actual online members
 
 		$msg = "[BBIN:ONLINELIST:".$bot->vars["dimension"].":";
-		$db->query("SELECT name FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE channel_type = 'guild'");
+		$db->query("SELECT name FROM online WHERE channel_type = 'guild'");
 		$numrows = $db->numrows();
 		$data = $db->fObject("all");
 		forEach ($data as $row) {
 			$msg .= $row->name . ",0,";
 		}
 
-		$db->query("SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE channel_type = 'priv'");
+		$db->query("SELECT * FROM online WHERE channel_type = 'priv'");
 		$numrows += $db->numrows();
 		$data = $db->fObject("all");
 		forEach ($data as $row) {
@@ -102,7 +102,7 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot) {
 		$msg .= "]";
 
 		// send complete list back to bbin channel
-		fputs($bbin_socket, "PRIVMSG ".Setting::get('bbin_channel')." :$msg\n");
+		fputs($bbin_socket, "PRIVMSG ".$bot->settings['bbin_channel']." :$msg\n");
 
 	} else if (preg_match("/^\[BBIN:ONLINELIST:(.):(.*?)\]/", $bbinmsg, $arr)) {
 		// received a synchronization list
@@ -141,7 +141,7 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot) {
 		if ($bot->vars['my guild'] != "") {
 			$bot->send("<yellow>[BBIN]<end> $bbinmsg", "guild", true);
 		}
-		if ($bot->vars['my guild'] == "" || Setting::get("guest_relay") == 1) {
+		if ($bot->vars['my guild'] == "" || $bot->settings["guest_relay"] == 1) {
 			$bot->send("<yellow>[BBIN]<end> $bbinmsg", "priv", true);
 		}
 	}

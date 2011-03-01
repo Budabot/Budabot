@@ -31,25 +31,19 @@
 
 if (preg_match("/^remrl (.+)$/i", $message, $arr)) {
 	$who = ucfirst(strtolower($arr[1]));
-	$admin_charid = $chatBot->get_uid($who);
 	
-	if (!$admin_charid) {
-		$chatBot->send("<red>The player you wish to remove doesn't exist.<end>", $sendto);
-		return;
-	}
-	
-	if ($chatBot->admins[$admin_charid]->access_level != 2) {
+	if ($chatBot->admins[$who]["level"] != 2) {
 		$chatBot->send("<red>Sorry $who is not a Raidleader of this Bot.<end>", $sendto);
 		return;
 	}
 	
-	if ((int)$chatBot->admins[$charid]->access_level <= (int)$chatBot->admins[$admin_charid]->access_level){
+	if ((int)$chatBot->admins[$sender]["level"] <= (int)$chatBot->admins[$who]["level"]){
 		$chatBot->send("<red>You must have a rank higher then $who.", $sendto);
 		return;
 	}
 	
-	unset($chatBot->admins[$admin_charid]);
-	$db->exec("DELETE FROM admin_<myname> WHERE `charid` = '$admin_charid'");
+	unset($chatBot->admins[$who]);
+	$db->exec("DELETE FROM admin_<myname> WHERE `name` = '$who'");
 		
 	Buddylist::remove($who, 'admin');
 

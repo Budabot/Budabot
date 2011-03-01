@@ -2,7 +2,7 @@
 
 if (preg_match("/^sm$/i", $message)) {
 	if (count($chatBot->chatlist) > 0) {
-		$db->query("SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE `channel_type` = 'priv' AND added_by = '<myname>' ORDER BY `profession`, `level` DESC");
+		$db->query("SELECT p.*, o.name as name FROM online o LEFT JOIN players p ON o.name = p.name WHERE `channel_type` = 'priv' AND added_by = '<myname>' ORDER BY `profession`, `level` DESC");
 		$numguest = $db->numrows();
 
 		$list = "<header> {$numguest} player(s) currently in chat<end>\n\n";

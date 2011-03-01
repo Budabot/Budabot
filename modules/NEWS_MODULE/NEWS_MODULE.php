@@ -7,8 +7,8 @@
 	//News
     Event::register($MODULE_NAME, "logOn", "news_logon.php", "none", "Sends a tell with news to players logging in");
 	Command::register($MODULE_NAME, "", "news.php", "news", "all", "Show News");
-	Subcommand::register($MODULE_NAME, "", "news_add.php", "news (.+)", "guildadmin", "news", "Add News");
-	Subcommand::register($MODULE_NAME, "", "news_del.php", "news del (.+)", "guildadmin", "news", "Delete a News entry");
+	Subcommand::register($MODULE_NAME, "", "news.php", "news (.+)", "guildadmin", "news", "Add News");
+	Subcommand::register($MODULE_NAME, "", "news.php", "news del (.+)", "guildadmin", "news", "Delete a News entry");
 
 	//Set admin and user news
 	Command::register($MODULE_NAME, "", "set_news.php", "privnews", "rl", "Set news that is shown on privjoin");

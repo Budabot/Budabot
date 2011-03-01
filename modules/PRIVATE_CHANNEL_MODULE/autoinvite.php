@@ -38,11 +38,11 @@ if (preg_match("/^autoinvite (on|off)$/i", $message, $arr)) {
 		Buddylist::remove($sender, 'member');
 	}
 
-	$db->query("SELECT * FROM members_<myname> WHERE `charid` = '$charid'");
+   $db->query("SELECT * FROM members_<myname> WHERE `name` = '$sender'");
 	if($db->numrows() == 0) {
 		$msg = "You are not a member of this bot.";
 	} else {
-		$db->exec("UPDATE members_<myname> SET autoinv = $onOrOff WHERE charid = '$charid'");
+		$db->exec("UPDATE members_<myname> SET autoinv = $onOrOff WHERE name = '$sender'");
 		$msg = "Your auto invite preference has been updated.";
 	}
 	

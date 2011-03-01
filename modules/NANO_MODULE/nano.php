@@ -19,7 +19,7 @@ if (preg_match("/^nano (.+)$/i", $message, $arr)) {
 		$query .= " AND `name` LIKE '%$value%'";
 	}
 
-	$db->query("SELECT * FROM nanos WHERE 1=1 $query ORDER BY lowql DESC, name LIMIT 0, " . Setting::get("maxnano"));
+	$db->query("SELECT * FROM nanos WHERE 1=1 $query ORDER BY lowql DESC, name LIMIT 0, {$chatBot->settings["maxnano"]}");
 	$count = $db->numrows();
 	if ($count == 0) {
 		$msg = "No nanos found.";

@@ -12,7 +12,7 @@ if (preg_match("/^inactivemem ([0-9]+)/i", $message, $arr)) {
 	}
 	
 	$inactive_deadline = time() - (2592000*$arr[1]);
-	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.charid = p.charid LEFT JOIN alts a ON p.name = a.alt WHERE `mode` != 'del' AND `logged_off` < $inactive_deadline  ORDER BY name");  
+	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN alts a ON o.name = a.alt WHERE `mode` != 'del' AND `logged_off` < $inactive_deadline  ORDER BY o.name");  
 	$members = $db->numrows();
   	if ($members == 0) {
 	    $chatBot->send("No members recorded.", $sendto);    
@@ -32,7 +32,7 @@ if (preg_match("/^inactivemem ([0-9]+)/i", $message, $arr)) {
 		$logged = 0;
 		$main = $row->main;
 		if ($row->main != "") {
-			$db->query("SELECT * FROM alts a LEFT JOIN org_members_<myname> o LEFT JOIN players p ON o.charid = p.charid  ON a.alt = p.name WHERE `main` = '{$row->main}'");
+			$db->query("SELECT * FROM alts a LEFT JOIN org_members_<myname> o ON a.alt = o.name WHERE `main` = '{$row->main}'");
 	
 			while ($row1 = $db->fObject()) {
 				if ($row1->logged_off > $logged) {

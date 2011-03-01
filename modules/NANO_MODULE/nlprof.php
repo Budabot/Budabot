@@ -48,7 +48,7 @@ if (preg_match("/^nlprof (.*)$/i", $message, $arr)) {
 	$count = $db->numrows();
 
 	forEach ($data as $row) {
-		if (Setting::get("shownanolineicons") == "1") {
+		if ($chatBot->settings["shownanolineicons"] == "1") {
 			$window .= "<img src='rdb://$row->image_id'>\n";
 		}
 		$window .= Text::make_link("$row->name", "/tell <myname> <symbol>nlline $row->id", 'chatcmd');

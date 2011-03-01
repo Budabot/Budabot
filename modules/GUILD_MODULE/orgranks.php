@@ -35,7 +35,7 @@ if(preg_match("/^orgranks$/i", $message)) {
         $chatBot->send($msg, $sendto);
 	}
 	
-	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.charid = p.charid WHERE `mode` != 'del' ORDER BY `guild_rank_id`");
+	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.name = p.name WHERE `mode` != 'del' ORDER BY `guild_rank_id`");
 	$members = $db->numrows();
   	if ($members == 0) {
 	  	$msg = "No members recorded.";
@@ -46,8 +46,7 @@ if(preg_match("/^orgranks$/i", $message)) {
     $chatBot->send($msg, $sendto);
        	
 	$list = "<header>::::: Members of the org {$chatBot->vars["my guild"]} (Sorted by orgrank) :::::<end>\n\n";
-	$data = $db->fObject('all');
-	forEach ($data as $row) {
+	while ($row = $db->fObject()) {
         if ($row->logged_off != "0") {
 	        $logged_off = gmdate("l F d, Y - H:i", $row->logged_off)."(GMT)";
 	    } else {

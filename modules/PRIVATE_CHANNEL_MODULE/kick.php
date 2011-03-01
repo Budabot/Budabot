@@ -30,10 +30,10 @@
    */
 
 if (preg_match("/^kick (.+)$/i", $message, $arr)) {
+    $uid = $chatBot->get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
-	$charid = $chatBot->get_uid($name);
-    if ($charid) {
-        if ($chatBot->get_in_chatlist($charid) !== null) {
+    if ($uid) {
+        if (isset($chatBot->chatlist[$name])) {
 			$msg = "<highlight>$name<end> has been kicked from the private channel.";
 		} else {
 			$msg = "<highlight>$name<end> is not in the private channel.";

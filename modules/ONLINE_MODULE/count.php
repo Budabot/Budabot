@@ -36,11 +36,11 @@ if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader
 	    $chatBot->send($msg, $sendto);
 	    return;
 	}
-    if ($type == "guild" || (Setting::get("count_tell") == 0 && $type == "msg")) {
-		$sql = "SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE p.`profession` = '$prof' ORDER BY level";
+    if ($type == "guild" || ($chatBot->settings["count_tell"] == 0 && $type == "msg")) {
+		$sql = "SELECT * FROM online o LEFT JOIN players p ON o.name = p.name WHERE p.`profession` = '$prof' ORDER BY level";
 		$db->query($sql); 
-	} else if ($type == "priv" || (Setting::get("count_tell") == 1 && $type == "msg")) {
-		$sql = "SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE o.channel_type = 'priv' AND p.`profession` = '$prof' ORDER BY level";
+	} else if ($type == "priv" || ($chatBot->settings["count_tell"] == 1 && $type == "msg")) {
+		$sql = "SELECT * FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'priv' AND p.`profession` = '$prof' ORDER BY level";
 	  	$db->query($sql);
 	}
     $numonline = $db->numrows();
@@ -53,7 +53,6 @@ if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader
             $afk = "<red>*AFK*<end>";
         } else {
             $afk = "";
-		}
         $msg .= " [<highlight>$row->name<end> - ".$row->level.$afk."]";
     }
     $chatBot->send($msg, $sendto);  	
@@ -65,11 +64,11 @@ if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader
 	$tl5 = 0;
 	$tl6 = 0;
 	$tl7 = 0;
-	if ($type == "guild" || (Setting::get("count_tell") == 0 && $type == "msg")) {
-		$sql = "SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid ORDER BY level";
+	if ($type == "guild" || ($chatBot->settings["count_tell"] == 0 && $type == "msg")) {
+		$sql = "SELECT * FROM online o LEFT JOIN players p ON o.name = p.name ORDER BY level";
 		$db->query($sql);
- 	} else if ($type == "priv"  || (Setting::get("count_tell") == 1 && $type == "msg")) {
-	  	$db->query("SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE o.channel_type = 'priv'");
+ 	} else if ($type == "priv"  || ($chatBot->settings["count_tell"] == 1 && $type == "msg")) {
+	  	$db->query("SELECT * FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'priv'");
 	} 
 	$numonline = $db->numrows();
     while ($row = $db->fObject()) {
@@ -119,25 +118,25 @@ if (preg_match("/^(adv|agent|crat|doc|enf|eng|fix|keep|ma|mp|nt|sol|shade|trader
 		}
 	}
 
-	if ($type == "guild" || (Setting::get("count_tell") == 0 && $type == "msg")) {
+	if ($type == "guild" || ($chatBot->settings["count_tell"] == 0 && $type == "msg")) {
 	    if ($prof == "all") {
-			$sql = "SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid ORDER BY profession";
+			$sql = "SELECT * FROM online o LEFT JOIN players p ON o.name = p.name ORDER BY profession";
 			$db->query($sql);
 			$numonline = $db->numrows();
 			$msg = "<highlight>$numonline<end> in total: ";
 		} else {
-			$sql = "SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE `profession` = '$prof' ORDER BY level";
+			$sql = "SELECT * FROM online o LEFT JOIN players p ON o.name = p.name WHERE `profession` = '$prof' ORDER BY level";
 			$db->query($sql);
 			$numonline = $db->numrows();
 			$msg = "<highlight>$numonline<end> $prof:";
 		}
- 	} else if ($type == "priv" || (Setting::get("count_tell") == 1 && $type == "msg")) {
+ 	} else if ($type == "priv" || ($chatBot->settings["count_tell"] == 1 && $type == "msg")) {
         if ($prof == "all") {
-            $db->query("SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE o.channel_type = 'priv' ORDER BY `profession`");
+            $db->query("SELECT * FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'priv' ORDER BY `profession`");
             $numonline = $db->numrows();
             $msg = "<highlight>$numonline<end> in total: ";
         } else {
-            $db->query("SELECT * FROM online o LEFT JOIN players p ON o.charid = p.charid WHERE o.channel_type = 'priv' AND `profession` = '$prof' ORDER BY `level`");
+            $db->query("SELECT * FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'priv' AND `profession` = '$prof' ORDER BY `level`");
             $numonline = $db->numrows();
             $msg = "<highlight>$numonline<end> $prof:";
         }

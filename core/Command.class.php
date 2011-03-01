@@ -25,12 +25,6 @@ class Command {
 			Logger::log('ERROR', 'Core', "Error in registering the File $filename for command $command. The file doesn't exists!");
 			return;
 		}
-		
-		if (Setting::get("default_module_status") == 1) {
-			$status = 1;
-		} else {
-			$status = 0;
-		}
 
 		for ($i = 0; $i < count($channel); $i++) {
 			Logger::log('debug', 'Core', "Adding Command to list:($command) File:($actual_filename) Admin:({$admin[$i]}) Type:({$channel[$i]})");
@@ -38,6 +32,11 @@ class Command {
 			if ($chatBot->existing_commands[$channel[$i]][$command] == true) {
 				$db->exec("UPDATE cmdcfg_<myname> SET `module` = '$module', `verify` = 1, `file` = '$actual_filename', `description` = '$description', `help` = '{$help}' WHERE `cmd` = '$command' AND `type` = '{$channel[$i]}'");
 			} else {
+				if ($chatBot->settings["default_module_status"] == 1) {
+					$status = 1;
+				} else {
+					$status = 0;
+				}
 				$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`, `help`) VALUES ('$module', '{$channel[$i]}', '$actual_filename', '$command', '{$admin[$i]}', '$description', 1, 'cmd', '{$status}', '{$help}')");
 			}
 		}

@@ -1,6 +1,6 @@
 <?php
 
-if (isset($chatBot->guildmembers[$charid]) && $chatBot->is_ready()) {
+if (isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
 	$whois = Player::get_by_name($sender);
 
 	$msg = '';
@@ -36,7 +36,7 @@ if (isset($chatBot->guildmembers[$charid]) && $chatBot->is_ready()) {
 			$msg .= " $alts";
 		}
 
-		$sql = "SELECT logon_msg FROM org_members_<myname> WHERE charid = '{$charid}'";
+		$sql = "SELECT logon_msg FROM org_members_<myname> WHERE name = '{$sender}'";
 		$db->query($sql);
 		$row = $db->fObject();
         if ($row !== null && $row->logon_msg != '') {
@@ -47,7 +47,7 @@ if (isset($chatBot->guildmembers[$charid]) && $chatBot->is_ready()) {
 	$chatBot->send($msg, "guild", true);
 
 	//private channel part
-	if (Setting::get("guest_relay") == 1) {
+	if ($chatBot->settings["guest_relay"] == 1) {
 		$chatBot->send($msg, "priv", true);
 	}
 }

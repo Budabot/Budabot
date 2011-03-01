@@ -16,7 +16,7 @@ if ($chatBot->vars["my guild"] != "" && $chatBot->vars["my guild id"] != "") {
 	unset($chatBot->guildmembers);
 	
 	//Save the current org_members table in a var
-	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.charid = p.charid");
+	$db->query("SELECT * FROM org_members_<myname>");
 	$data = $db->fObject('all');
 	if ($db->numrows() == 0 && (count($org->members) > 0)) {
 		$restart = true;
@@ -36,17 +36,12 @@ if ($chatBot->vars["my guild"] != "" && $chatBot->vars["my guild id"] != "") {
 		if (strtolower($member->name) == strtolower($chatBot->vars["name"])) {
 			continue;
 		}
-		
-		$charid = $chatBot->get_uid($member->name);
 	
 		//If there exists already data about the player just update him/her
 		if (isset($dbentrys[$member->name])) {
 			if ($dbentrys[$member->name]["mode"] == "man" || $dbentrys[$member->name]["mode"] == "org") {
 				$mode = "org";
-
-				$chatBot->guildmembers[$charid] = new stdClass;
-				$chatBot->guildmembers[$charid]->guild_rank_id = $member->guild_rank_id;
-				$chatBot->guildmembers[$charid]->name = $member->name;
+				$chatBot->guildmembers[$member->name] = $member->guild_rank_id;
 				
 				// add org members who are on notify to buddy list
 				Buddylist::add($member->name, 'org');
@@ -55,17 +50,14 @@ if ($chatBot->vars["my guild"] != "" && $chatBot->vars["my guild id"] != "") {
 				Buddylist::remove($member->name, 'org');
 			}
 	
-			$db->exec("UPDATE org_members_<myname> SET `mode` = '{$mode}' WHERE `charid` = '{$charid}'");	  		
+			$db->exec("UPDATE org_members_<myname> SET `mode` = '{$mode}' WHERE `name` = '{$member->name}'");	  		
 		//Else insert his/her data
 		} else {
 			// add new org members to buddy list
 			Buddylist::add($member->name, 'org');
 
-			$db->exec("INSERT INTO org_members_<myname> (`charid`, `mode`) VALUES ('{$charid}', 'org')");
-
-			$chatBot->guildmembers[$charid] = new stdClass;
-			$chatBot->guildmembers[$charid]->guild_rank_id = $member->guild_rank_id;
-			$chatBot->guildmembers[$charid]->name = $member->name;
+			$db->exec("INSERT INTO org_members_<myname> (`name`, `mode`) VALUES ('{$member->name}', 'org')");
+			$chatBot->guildmembers[$member->name] = $member->guild_rank_id;
 		}
 		unset($dbentrys[$member->name]);    
 	}
@@ -81,7 +73,7 @@ if ($chatBot->vars["my guild"] != "" && $chatBot->vars["my guild id"] != "") {
 	Logger::log('INFO', 'GUILD_MODULE', "Roster Update finished");
 	
 	if ($restart == true) {
-		$chatBot->send("The bot needs to be restarted to be able to see who is online in your org. Automatically restarting in 5 seconds.", "guild");
+		$chatBot->send("The bot needs to be restarted to be able to see who is online in your org. Automatically restarting in 10 seconds.", "guild");
 		
 		// wait for all buddy add/remove packets to finish sending
 		// not 100% sure this is needed

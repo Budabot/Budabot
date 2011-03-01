@@ -3,7 +3,7 @@
 if ($type == "leavePriv") {
 	$msg = "$sender has left the private channel";
 
-	if (Setting::get("guest_relay") == 1) {
+	if ($chatBot->settings["guest_relay"] == 1) {
 		$chatBot->send($msg, "guild", true);
 	}
 	

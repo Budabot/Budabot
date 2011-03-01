@@ -27,12 +27,6 @@ class Subcommand {
 			Logger::log('ERROR', 'Core', "Error in registering the file $filename for Subcommand $command. The file doesn't exists!");
 			return;
 		}
-		
-		if (Setting::get("default_module_status") == 1) {
-			$status = 1;
-		} else {
-			$status = 0;
-		}
 
 		for ($i = 0; $i < count($type); $i++) {
 			Logger::log('debug', 'Core', "Adding Subcommand to list:($command) File:($actual_filename) Admin:($admin) Type:({$type[$i]})");
@@ -57,7 +51,7 @@ class Subcommand {
 				$sql = "UPDATE cmdcfg_<myname> SET `module` = '$module', `verify` = 1, `file` = '$actual_filename', `description` = '$description', `dependson` = '$dependson', `help` = '{$help}' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'";
 				$db->exec($sql);
 			} else {
-				$sql = "INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `dependson`, `status`, `help`) VALUES ('$module', '{$type[$i]}', '$actual_filename', '$command', '{$admin[$i]}', '$description', 1, 'subcmd', '$dependson', $status, '{$help}')";
+				$sql = "INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `dependson`, `help`) VALUES ('$module', '{$type[$i]}', '$actual_filename', '$command', '{$admin[$i]}', '$description', 1, 'subcmd', '$dependson', '{$help}')";
 				$db->exec($sql);
 			}
 		}
@@ -71,7 +65,7 @@ class Subcommand {
 	  	$db = DB::get_instance();
 		global $chatBot;
 
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd' AND `status` = 1");
+		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd'");
 		$data = $db->fObject("all");
 		forEach ($data as $row) {
 			$chatBot->subcommands[$row->dependson] []= $row;

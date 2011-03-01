@@ -31,14 +31,8 @@
 
 if (preg_match("/^remadmin (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
-	$admin_charid = $chatBot->get_uid($who);
-	
-	if (!$admin_charid) {
-		$chatBot->send("<red>The player you wish to remove doesn't exist.<end>", $sendto);
-		return;
-	}
 
-	if ($chatBot->admins[$admin_charid]->access_level != 4) {
+	if ($chatBot->admins[$who]["level"] != 4) {
 		$chatBot->send("<red>Sorry $who is not a Administrator of this Bot.<end>", $sendto);
 		return;
 	}
@@ -48,8 +42,8 @@ if (preg_match("/^remadmin (.+)$/i", $message, $arr)){
 		return;
 	}
 	
-	unset($chatBot->admins[$admin_charid]);
-	$db->exec("DELETE FROM admin_<myname> WHERE `charid` = '$admin_charid'");
+	unset($chatBot->admins[$who]);
+	$db->exec("DELETE FROM admin_<myname> WHERE `name` = '$who'");
 
 	Buddylist::remove($who, 'admin');
 

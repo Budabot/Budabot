@@ -8,7 +8,7 @@
 	Command::register($MODULE_NAME, "", "check.php", "check", "rl", "Checks who of the raidgroup is in the area");
 
 	// Topic set/show
-	Event::register($MODULE_NAME, "joinPriv", "topic_logon.php", "topic", "Show Topic when someone joins PrivChat");
+	Event::register($MODULE_NAME, "joinPriv", "topic.php", "topic", "Show Topic when someone joins PrivChat");
 	Event::register($MODULE_NAME, "logOn", "topic_logon.php", "topic", "Show Topic on logon of members");
 	Command::register($MODULE_NAME, "", "topic.php", "topic", "all", "Show Topic");
 	Subcommand::register($MODULE_NAME, "", "topic.php", "topic (.+)", "leader", "topic", "Change Topic");

@@ -30,55 +30,44 @@
    */
    
 if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
+    $uid = $chatBot->get_uid($arr[2]);
     $name = ucfirst(strtolower($arr[2]));
-	$joined_charid = $chatBot->get_uid($name);
+    $name2 = ucfirst(strtolower($arr[1]));
 	
-    $db->query("SELECT * FROM org_members_<myname> WHERE `charid` = '{$joined_charid}'");
+    $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '{$name}'");
     $row = $db->fObject();
     if ($row != null && $row->mode == "del") {
-        $db->exec("UPDATE org_members_<myname> SET `mode` = 'man' WHERE `charid` = '{$joined_charid}'");
+        $db->exec("UPDATE org_members_<myname> SET `mode` = 'man' WHERE `name` = '{$name}'");
+	    $chatBot->guildmembers[$name] = 6;
     	$msg = "<highlight>{$name}<end> has been added to the Notify list.";
-		
-		$chatBot->guildmembers[$joined_charid] = new stdClass;
-		$chatBot->guildmembers[$joined_charid]->guild_rank_id = 6;
-		$chatBot->guildmembers[$joined_charid]->name = $name;
     } else {
-        $db->exec("INSERT INTO org_members_<myname> (`mode`, `charid`) VALUES ('man', '{$joined_charid}')");
+        $db->exec("INSERT INTO org_members_<myname> (`mode`, `name`) VALUES ('man', '{$name}')");
 		Buddylist::add($name, 'org');
     	$msg = "<highlight>{$name}<end> has been added to the Notify list.";
-
-		$chatBot->guildmembers[$joined_charid] = new stdClass;
-		$chatBot->guildmembers[$joined_charid]->guild_rank_id = 6;
-		$chatBot->guildmembers[$joined_charid]->name = $name;
+    	$chatBot->guildmembers[$name] = 6;
     }
-    $db->exec("INSERT INTO online (`charid`, `channel`,  `channel_type`, `added_by`, `dt`) VALUES ('$joined_charid', '{$chatBot->vars['my guild']}', 'guild', '<myname>', " . time() . ")");
+    $db->exec("INSERT INTO online (`name`, `channel`,  `channel_type`, `added_by`, `dt`) VALUES ('$name', '{$chatBot->vars['my guild']}', 'guild', '<myname>', " . time() . ")");
     $chatBot->send($msg, "guild");
 	
 	// update character info
     Player::get_by_name($name);
 } else if (preg_match("/^(.+) kicked (.+) from your organization.$/", $message, $arr) || preg_match("/^(.+) removed inactive character (.+) from your organization.$/", $message, $arr)) {
+    $uid = $chatBot->get_uid($arr[2]);
     $name = ucfirst(strtolower($arr[2]));
-	$left_charid = $chatBot->get_uid($name);
-
-    $db->exec("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `charid` = '{$left_charid}'");
-    $db->exec("DELETE FROM online WHERE `charid` = '$left_charid' AND `channel_type` = 'guild' AND added_by = '<myname>'");
-    
-	unset($chatBot->guildmembers[$left_charid]);
+    $db->exec("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '{$name}'");
+    $db->exec("DELETE FROM online WHERE `name` = '$name' AND `channel_type` = 'guild' AND added_by = '<myname>'");
+    $msg = "Removed <highlight>{$name}<end> from the Notify list.";
+    unset($chatBot->guildmembers[$name]);
 	Buddylist::remove($name, 'org');
-
-	$msg = "Removed <highlight>{$name}<end> from the Notify list.";
     $chatBot->send($msg, "guild");
 } else if(preg_match("/^(.+) just left your organization.$/", $message, $arr) || preg_match("/^(.+) kicked from organization \\(alignment changed\\).$/", $message, $arr)) {
-    $name = ucfirst(strtolower($arr[2]));
-	$left_charid = $chatBot->get_uid($name);
-
-    $db->exec("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `charid` = '{$left_charid}'");
-    $db->exec("DELETE FROM online WHERE `charid` = '$left_charid' AND `channel_type` = 'guild' AND added_by = '<myname>'");
-    
-	unset($chatBot->guildmembers[$left_charid]);
+    $uid = $chatBot->get_uid($arr[1]);
+    $name = ucfirst(strtolower($arr[1]));
+    $db->exec("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '{$name}'");
+    $db->exec("DELETE FROM online WHERE `name` = '$name' AND `channel_type` = 'guild' AND added_by = '<myname>'");
+    $msg = "Removed <highlight>{$name}<end> from the Notify list.";
+    unset($chatBot->guildmembers[$name]);
 	Buddylist::remove($name, 'org');
-
-	$msg = "Removed <highlight>{$name}<end> from the Notify list.";
     $chatBot->send($msg, "guild");
 }
 

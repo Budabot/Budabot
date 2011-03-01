@@ -1,15 +1,15 @@
 <?php
    /*
-   ** Author: Derroylo (RK2)
-   ** Description: Sets/shows/deletes News entries
-   ** Version: 0.3
+   ** Author: Sebuda (RK2)
+   ** Description: Sets an Admin as Offline
+   ** Version: 0.1
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
-   ** Date(created): 15.01.2006
-   ** Date(last modified): 21.11.2006
+   ** Date(created): 01.10.2005
+   ** Date(last modified): 01.10.2005
    ** 
-   ** Copyright (C) 2006 Carsten Lohmann
+   ** Copyright (C) 2005 J. Gracik
    **
    ** Licence Infos: 
    ** This file is part of Budabot.
@@ -29,14 +29,8 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (preg_match("/^news (.+)$/i", $message, $arr)) {
-	$news = str_replace("'", "''", $arr[1]);
-	$db->exec("INSERT INTO news (`time`, `name`, `news`) VALUES (".time().", '".$sender."', '$news')"); 
-	$msg = "News has been added successfully.";
-
-    $chatBot->send($msg, $sendto);
-} else {
-	$syntax_error = true;
+if (is_numeric($chatBot->admins[$sender]["level"])) {
+	$chatBot->admins[$sender]["online"] = "offline";
 }
 
 ?>

@@ -8,7 +8,7 @@
    */
    
 Setting::save("irc_status", 0);
-if (Setting::get('irc_autoconnect') == 1) {
+if ($chatBot->settings['irc_autoconnect'] == 1) {
 	include 'irc_connect.php';
 }
 ?>

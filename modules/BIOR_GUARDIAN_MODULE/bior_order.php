@@ -68,7 +68,7 @@ if (count($chatBot->data['bior']) == 0) {
 		$num++;
 		$msg .= " [$num. <highlight>$player<end> $status]";
         $chatBot->data['blist'][] = $player;
-        if ($num >= Setting::get("bior_max")) {
+        if ($num >= $chatBot->settings["bior_max"]) {
         	break;
 		}
 	}

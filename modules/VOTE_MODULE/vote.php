@@ -28,12 +28,9 @@ if (!function_exists(timeLeft)) {
 		array("label" => "second", 'length' => 0));
 			
 		$thisset=0;	
-		while ($thisset<=6){
-			if ($thisset < 6) {
-				$val = floor($origtime/$set[$thisset]['length']);
-			} else if ($thisset == 6) {
-				$val = $origtime;
-			}
+		while($thisset<=6){
+			if ($thisset < 6) {$val = floor($origtime/$set[$thisset]['length']);}
+			elseif ($thisset == 6) {$val = $origtime;}
 				
 			if ($val && $showbiggest > 0) {
 				$retval .= "$val ".$set[$thisset]['label'];
@@ -44,9 +41,7 @@ if (!function_exists(timeLeft)) {
 			$thisset++;
 		}
 
-		if ($retval) {
-			$retval = substr($retval,0,strlen($retval)-2);
-		}
+		if ($retval) {$retval = substr($retval,0,strlen($retval)-2);}
 		return $retval;
 	}
 }
@@ -64,26 +59,19 @@ if (preg_match("/^vote$/i", $message)) {
 			$line = "<tab>" . Text::make_link($question, "/tell <myname> vote $question", 'chatcmd');
 			
 			$timeleft = $started+$duration-time();
-			if ($timeleft>0) {
-				$running .= $line."\n(".timeLeft($timeleft)." left)\n";
-			} else {
-				$over .= $line."\n";
-			}
+			if ($timeleft>0) {$running .= $line."\n(".timeLeft($timeleft)." left)\n";}
+			else {$over .= $line."\n";}
 		}
-		if ($running) {
-			$msg .= " <green>Running:<end>\n".$running;
-		}
-		if ($running && $over) {
-			$msg .= "\n";
-		}
-		if ($over) {
-			$msg .= " <red>Finshed:<end>\n".$over;
-		}
+		if ($running) {$msg .= " <green>Running:<end>\n".$running;}
+		if ($running && $over) $msg .= "\n";
+		if ($over) {$msg .= " <red>Finshed:<end>\n".$over;}
 
 		$msg = Text::make_link("Vote Listing", $msg);
 	} else {
 		$msg = "There are currently no votes to view.";
 	}
+
+
 
 } else if (preg_match("/^vote (.+)$/i", $message, $arr)) {
 	$sect = explode($delimiter, $arr[1],3);
@@ -93,9 +81,9 @@ if (preg_match("/^vote$/i", $message)) {
 		
 		$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[0])."'");
 		
-		if ($db->numrows() <= 0) {
-			$msg = "Couldn't find any votes with this topic.";
-		} else {
+		if ($db->numrows() <= 0) { $msg = "Couldn't find any votes with this topic.";} 
+		
+		else {
 			$results = array();
 			while ($row = $db->fObject()) {
 				if ($row->duration) {
@@ -104,9 +92,7 @@ if (preg_match("/^vote$/i", $message)) {
 					$timeleft = $started+$duration-time();
 					
 				}
-				if ($sender == $author) {
-					$didvote = 1;
-				}
+				if ($sender == $author) {$didvote = 1;}
 				$answer = $row->answer;
 
 				if (strpos($answer, $delimiter) === false) { // A Vote: $answer = "yes";
@@ -116,9 +102,7 @@ if (preg_match("/^vote$/i", $message)) {
 					
 					$ans = explode($delimiter, $answer);
 					foreach ($ans as $value) {
-						if (!isset($results[$value])) {
-							$results[$value] = 0;
-						}
+						if (!isset($results[$value])) {$results[$value] = 0;}
 					}
 				}
 			}
@@ -150,7 +134,7 @@ if (preg_match("/^vote$/i", $message)) {
 				$msg .= Text::make_link('Remove yourself from this vote', "/tell <myname> vote remove$delimiter$question", 'chatcmd') . "\n";
 			}
 			
-			if ($timeleft > 0 && Setting::get("vote_add_new_choices") == 1 && $status == 0) {
+			if ($timeleft > 0 && $chatBot->settings["vote_add_new_choices"] == 1 && $status == 0) {
 				$msg .="\n<highlight>Don't like these choices?  Add your own:<end>\n<tab>/tell <myname> <symbol>vote $question$delimiter"."<highlight>your choice<end>\n"; 
 			}
 			
@@ -187,7 +171,7 @@ if (preg_match("/^vote$/i", $message)) {
 	//////////////////////////////////////////////////////////////////////////////////
 	} elseif (count($sect) == 2 && strtolower($sect[0]) == "kill") {     // Kill vote
 		
-		if ($chatBot->admins[$charid]->access_level >= 4) {
+		if ($chatBot->admins[$sender]["level"] >= 4) {
 			$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[1])."'");
 		} else {
 			$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[1])."' AND `author` = '$sender' AND `duration` IS NOT NULL");
@@ -223,15 +207,15 @@ if (preg_match("/^vote$/i", $message)) {
 			}
 		}
 	////////////////////////////////////////////////////////////////////////////////////
-	} else if (count($sect) == 2) {		  			     // Adding vote
+	} elseif (count($sect) == 2) {		  			     // Adding vote
 
-		$requirement = Setting::get("vote_use_min");
+		$requirement = $chatBot->settings["vote_use_min"];
 		if ($requirement >= 0) {
-			if (!isset($chatBot->guildmembers[$charid])) {
+			if (!$chatBot->guildmembers[$sender]) {
 				$chatBot->send("Only org members can start a new vote.", $sender);
 				return;
-			} else if ($requirement < $chatBot->guildmembers[$charid]->guild_rank_id) {
-				$rankdiff = $chatBot->guildmembers[$charid]->guild_rank_id - $requirement;
+			}elseif ($requirement < $chatBot->guildmembers[$sender]) {
+				$rankdiff = $chatBot->guildmembers[$sender]-$requirement;
 				$chatBot->send("You need $rankdiff promotion(s) in order to vote.", $sender);
 				return;
 			}
@@ -248,7 +232,7 @@ if (preg_match("/^vote$/i", $message)) {
 			$msg = "Couldn't find any votes with this topic.";
 		} else if ($timeleft <= 0) {
 			$msg = "No longer accepting votes for this topic.";
-		} else if ((Setting::get("vote_add_new_choices") == 0 || (Setting::get("vote_add_new_choices") == 1 && $status == 1)) && strpos($delimiter.$answer.$delimiter, $delimiter.$sect[1].$delimiter) === false) {
+		} else if (($chatBot->settings["vote_add_new_choices"] == 0 || ($chatBot->settings["vote_add_new_choices"] == 1 && $status == 1)) && strpos($delimiter.$answer.$delimiter, $delimiter.$sect[1].$delimiter) === false) {
 			$msg = "Cannot accept this choice.  Please choose one from the menu.";
 		} else {
 			$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[0])."' AND `duration` IS NULL AND `author` = '$sender'");
@@ -263,18 +247,18 @@ if (preg_match("/^vote$/i", $message)) {
 		}
 		
 	//////////////////////////////////////////////////////////////////////////////////////
-	} else if (count($sect) > 2) {					     // Creating vote
+	} elseif (count($sect) > 2) {					     // Creating vote
 		// !vote 16m|Does this module work?|yes|no
 		
-		$settime = trim($sect[0]); $question = trim($sect[1]); $answers = trim($sect[2]);
+		$settime=trim($sect[0]); $question = trim($sect[1]); $answers = trim($sect[2]);
 		
-		$requirement = Setting::get("vote_create_min");
+		$requirement = $chatBot->settings["vote_create_min"];
 		if ($requirement >= 0) {
-			if (!isset($chatBot->guildmembers[$charid])) {
+			if (!$chatBot->guildmembers[$sender]) {
 				$chatBot->send("Only org members can start a new vote.", $sender);
 				return;
-			} else if ($requirement < $chatBot->guildmembers[$charid]->guild_rank_id) {
-				$rankdiff = $chatBot->guildmembers[$charid]->guild_rank_id - $requirement;
+			} else if ($requirement < $chatBot->guildmembers[$sender]) {
+				$rankdiff = $chatBot->guildmembers[$sender]-$requirement;
 				$chatBot->send("You need $rankdiff promotion(s) in order to start a new vote.", $sender);
 				return;
 			}

@@ -10,7 +10,7 @@
    ** Date(last modified): 14.06.2007
    */
    
-$top = Setting::get("quote_stat_count");
+$top = $chatBot->settings["quote_stat_count"];
 
 $db->query("SELECT * FROM quote");
 $count = $db->numrows();

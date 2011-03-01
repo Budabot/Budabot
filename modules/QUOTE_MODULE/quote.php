@@ -13,18 +13,18 @@
 // Adding a quote
 if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 	
-	if (!isset($chatBot->admins[$charid])) {
-		$requirement = Setting::get("quote_add_min");
+	if (!isset($chatBot->admins[$sender])) {
+		$requirement = $chatBot->settings["quote_add_min"];
 		if ($requirement >= 0) {
-			if (!isset($chatBot->guildmembers[$charid])) {
+			if (!$chatBot->guildmembers[$sender]) {
 				$chatBot->send("Only org members can add a new quote.", $sendto);
 				return;
-			} else if ($requirement < $chatBot->guildmembers[$charid]->guild_rank_id) {
-				$rankdiff = $chatBot->guildmembers[$charid]->guild_rank_id - $requirement;
+			} else if ($requirement < $chatBot->guildmembers[$sender]) {
+				$rankdiff = $chatBot->guildmembers[$sender]-$requirement;
 				$chatBot->send("You need $rankdiff promotion(s) in order to add a quote.", $sendto);
 				return;
 			}
-		} else if ($requirement == -1 && $chatBot->get_in_chatlist($charid) === null && !isset($chatBot->guildmembers[$charid])) {
+		} else if (($requirement == -1 && !isset($chatBot->chatlist[$sender])) && !$chatBot->guildmembers[$sender]) {
 			$chatBot->send("You need to at least be in the private chat in order to add a quote.", $sendto);
 			return;
 		}
@@ -102,7 +102,7 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 		$quoteMSG = $row->What;
 
 		//only author or superadmin can delete.
-		if (($quoteWHO == $sender) || ($chatBot->admins[$charid]->access_level >= 4)) {
+		if (($quoteWHO == $sender) || ($chatBot->admins[$sender]["level"] >= 4)) {
 			$db->exec("DELETE FROM quote WHERE `IDNumber` = $quoteID");
 			$msg = "This quote has been deleted.";
 		} else {

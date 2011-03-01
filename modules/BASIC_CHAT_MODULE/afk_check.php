@@ -35,11 +35,11 @@ if ($sender == -1) {
 }
 
 if (!preg_match("/^.?afk(.*)$/i", $message)) {
-	$db->query("SELECT afk FROM online WHERE `charid` = '{$charid}' AND added_by = '<myname>' AND channel_type = '$type'");
+	$db->query("SELECT afk FROM online WHERE `name` = '{$sender}' AND added_by = '<myname>' AND channel_type = '$type'");
 	$row = $db->fObject();
 
 	if ($row != null && $row->afk != '') {
-		$db->exec("UPDATE online SET `afk` = '' WHERE `charid` = '{$charid}' AND added_by = '<myname>' AND channel_type = '$type'");
+		$db->exec("UPDATE online SET `afk` = '' WHERE `name` = '{$sender}' AND added_by = '<myname>' AND channel_type = '$type'");
 		$msg = "<highlight>{$sender}<end> is back";
 		$chatBot->send($msg, $type);
 	} else {
@@ -48,7 +48,7 @@ if (!preg_match("/^.?afk(.*)$/i", $message)) {
 		$name = ucfirst(strtolower($name));
 		$uid = $chatBot->get_uid($name);
 		if ($uid) {
-			$db->query("SELECT afk FROM online WHERE `charid` = '{$charid}' AND added_by = '<myname>'");
+			$db->query("SELECT afk FROM online WHERE `name` = '{$name}' AND added_by = '<myname>'");
 
 			if ($db->numrows() != 0) {
 				$row = $db->fObject();
