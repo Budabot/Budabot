@@ -4,5 +4,6 @@
 	require_once 'Player.class.php';
 	require_once 'Guild.class.php';
 	
-	DB::loadSQLFile($MODULE_NAME, 'players');
+	//Setup
+	Event::activate("setup", "$MODULE_NAME/players_table.php");
 ?>

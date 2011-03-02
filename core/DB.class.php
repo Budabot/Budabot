@@ -89,6 +89,10 @@ class DB {
 		}
 	}
 	
+	function get_type() {
+		return $this->type;
+	}
+	
 	//Sends a query to the Database and gives the result back
 	function query($stmt, $type = "object") {
 		$this->result = NULL;
