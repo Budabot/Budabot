@@ -1,0 +1,11 @@
+<header> :::::: Wave Counter :::::: <end>
+
+The Wave Counter should start and end automatically when enabled but you can manually start and end it if you desire.
+
+<highlight>Start the wave timer<end>
+<tab><symbol>startraid
+
+<highlight>Stop the wave timer<end>
+<tab><symbol>stopraid
+
+By Funkman (RK2)
