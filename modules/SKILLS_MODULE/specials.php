@@ -1,14 +1,11 @@
 <?php
 
 // <a href="itemref://280727/280727/300">Sloth of the Xan</a>
-if (preg_match('/^specials \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\"\>/i', $message, $arr)) {
+if (preg_match('/^specials \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\"\>/i', $message, $arr) or true) {
 	$url = "http://itemxml.xyphos.com/?";
 	$url .= "id={$arr[1]}&";  // use low id for id
 	//$url .= "id={$arr[2]}&";  // use high id for id
 	$url .= "ql={$arr[3]}&";
-
-	$msg = "Calculating Specials Recycle... Please wait.";
-	$chatBot->send($msg, $sendto);
 
 	$data = file_get_contents($url, 0);
 	if (empty($data)) {
@@ -21,6 +18,7 @@ if (preg_match('/^specials \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)
 	$doc->prevservWhiteSpace = false;
 	$doc->loadXML($data);
 	
+	$name = $doc->getElementsByTagName('name')->item(0)->nodeValue;
 	$attributes = $doc->getElementsByTagName('attributes')->item(0)->getElementsByTagName('attribute');
 
 	forEach ($attributes as $attribute) {
@@ -46,7 +44,7 @@ if (preg_match('/^specials \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)
 	$recharge_time /= 100;
 	$attack_time /= 100;
 	
-	$blob = "<header>::: Weapon Specials :::<end>\n\n";
+	$blob = "<header> :::::: Weapon Specials for $name :::::: <end>\n\n";
 	if (in_array('FullAuto', $flags)) {
 		list($hard_cap, $skill_cap) = cap_full_auto($attack_time, $recharge_time, $full_auto_recharge);
 		$blob .= "FullAutoRecharge: $full_auto_recharge -- You will need at least <orange>".$skill_cap."<end> Full Auto skill to cap your recharge at: <orange>".$hard_cap."<end>s\n\n";
@@ -81,7 +79,7 @@ if (preg_match('/^specials \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)
 	} else {
 		$blob .= "Written by Tyrence(RK2)\n";
 		$blob .= "Stats provided by xyphos.com";
-		$msg = Text::make_link('Weapon Specials', $blob, 'blob');
+		$msg = Text::make_link("Weapon Specials for $name", $blob, 'blob');
 	}
 
 	$chatBot->send($msg, $sendto);
