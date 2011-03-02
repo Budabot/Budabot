@@ -333,30 +333,32 @@ class Budabot extends AOChat {
 		}
 
 		$message = Text::format_message($message);
+		$sender_link = Text::make_link($this->vars['name'], $this->vars['name'], "user");
 
 		if ($target == 'prv') {
 			$this->send_privgroup($this->vars["name"], $this->settings["default_priv_color"].$message);
 			
 			// relay to guild channel
 			if (!$disable_relay && $this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1) {
-				$this->send_group($this->vars["my guild"], "</font>{$this->settings["guest_color_channel"]}[Guest]</font> {$this->settings["guest_color_username"]}".Text::make_link($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default_priv_color"]}$message</font>");
+				$this->send_group($this->vars["my guild"], "</font>{$this->settings["guest_color_channel"]}[Guest]</font> {$this->settings["guest_color_username"]}{$sender_link}</font>: {$this->settings["default_priv_color"]}$message</font>");
 			}
 
 			// relay to bot relay
 			if (!$disable_relay && $this->settings["relaybot"] != "Off" && $this->settings["bot_relay_commands"] == 1) {
-				send_message_to_relay("grc <grey>[".$this->vars["my guild"]."] ".$message);
+				send_message_to_relay("grc <grey>[{$this->vars["my guild"]}] [Guest] {$sender_link}: $message");
 			}
 		} else if ($target == $this->vars["my guild"] || $target == 'org') {// Target is guild chat.
     		$this->send_group($this->vars["my guild"], $this->settings["default_guild_color"].$message);
 			
 			// relay to private channel
 			if (!$disable_relay && $this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1) {
-				$this->send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my guild"]}]</font> {$this->settings["guest_color_username"]}".Text::make_link($this->vars["name"],$this->vars["name"],"user")."</font>: {$this->settings["default_guild_color"]}$message</font>");
+				$this->send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my guild"]}]</font> {$this->settings["guest_color_username"]}{$sender_link}</font>: {$this->settings["default_guild_color"]}$message</font>");
 			}
 			
 			// relay to bot relay
 			if (!$disable_relay && $this->settings["relaybot"] != "Off" && $this->settings["bot_relay_commands"] == 1) {
-				send_message_to_relay("grc <grey>[".$this->vars["my guild"]."] ".$message);
+				
+				send_message_to_relay("grc <grey>[{$this->vars["my guild"]}] {$sender_link}: $message");
 			}
 		} else if ($this->get_uid($target) != NULL) {// Target is a player.
 			Logger::log_chat("Out. Msg.", $target, $message);
