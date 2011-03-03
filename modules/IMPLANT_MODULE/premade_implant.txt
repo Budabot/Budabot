@@ -2,3 +2,6 @@
 
 <highlight>Shows searches for implants in the premade implant booths that boost skill or ability
 <tab><symbol>premade &lt;profession or slot or modifier&gt;
+
+Professions: adv, agent, crat, doc, enf, eng, fix, keeper, ma, mp, nt, soldier, trader
+Slots: head, eye, ear, rarm, chest, larm, rwrist, waist, lwrist, rhand, legs, lhand, feet

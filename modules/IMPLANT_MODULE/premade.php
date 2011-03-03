@@ -31,7 +31,7 @@ if (preg_match("/^premade (.*)$/i", $message, $arr)) {
 		$results = searchByProfession($profession);
 	} else if ($searchTerms == 'head' || $searchTerms == 'eye' || $searchTerms == 'ear' || $searchTerms == 'rarm' ||
 		$searchTerms == 'chest' || $searchTerms == 'larm' || $searchTerms == 'rwrist' || $searchTerms == 'waist' ||
-		$searchTerms == 'lwrist' || $searchTerms == 'rhand' || $searchTerms == 'leg' || $searchTerm == 'lhand' ||
+		$searchTerms == 'lwrist' || $searchTerms == 'rhand' || $searchTerms == 'legs' || $searchTerms == 'lhand' ||
 		$searchTerms == 'feet') {
 
 		$results = searchBySlot($searchTerms);
