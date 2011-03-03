@@ -64,8 +64,6 @@ function formatResults($implants) {
 		$blob .= getFormattedLine($implant);
 		$count++;
 	}
-		
-	$blob .= "\n\nWritten by Tyrence(RK2)";
 	
 	return $blob;
 }

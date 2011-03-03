@@ -42,7 +42,8 @@ if (preg_match("/^premade (.*)$/i", $message, $arr)) {
 	if ($results != null) {
 		$blob = "<header> :::::: Implant Search Results for '$searchTerms' :::::: <end>\n\n";
 		$blob .= formatResults($results);
-		$blob .= "\n\nOriginal Premade Implant Database provided by Demoder (RK2)";
+		$blob .= "\n\nWritten by Tyrence(RK2)";
+		$blob .= "\nOriginal Premade Implant Database provided by Demoder (RK2)";
 		$msg = Text::make_link("Implant Search Results for '$searchTerms'", $blob, 'blob');
 	} else {
 		$msg = "No results found.";
