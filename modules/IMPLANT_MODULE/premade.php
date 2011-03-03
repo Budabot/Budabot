@@ -22,47 +22,28 @@
 
 if (preg_match("/^premade (.*)$/i", $message, $arr)) {
 
-	$msg = "";
-
-  	$searchTerms = strtolower($arr[1]);
+	$searchTerms = strtolower($arr[1]);
   	$results = null;
-  	
-  	if ($searchTerms == 'enfo' || $searchTerms == 'enforcer') {
-		$searchTerms = 'enf';
-	} else if ($searchTerms == 'advy' || $searchTerms == 'adventurer') {
-		$searchTerms = 'adv';
-	} else if ($searchTerms == 'doctor') {
-		$searchTerms = 'doc';
-	} else if ($searchTerms == 'engi' || $searchTerms == 'engineer') {
-		$searchTerms = 'eng';
-	} else if ($searchTerms == 'fix') {
-		$searchTerms = 'fixer';
-	} else if ($searchTerms == 'keep') {
-		$searchTerms = 'keeper';	
-	} else if ($searchTerms == 'sold' || $searchTerms == 'soldier') {
-		$searchTerms = 'sol';	
-	} else if ($searchTerms == 'trad') {
-		$searchTerms = 'trader';	
-	}
 	
-	if ($searchTerms == 'adv' || $searchTerms == 'agent' || $searchTerms == 'crat' || $searchTerms == 'doc' ||
-		$searchTerms == 'enf' || $searchTerms == 'eng' || $searchTerms == 'fixer' || $searchTerms == 'keeper' ||
-		$searchTerms == 'ma' || $searchTerms == 'mp' || $searchTerms == 'nt' || $searchTerms == 'sol' || $searchTerms == 'trader') {
-			
-		$results = searchByProfession($searchTerms);
+	$profession = Util::get_profession_name($searchTerms);
+	if ($profession != '') {
+		$searchTerms = $profession;
+		$results = searchByProfession($profession);
 	} else if ($searchTerms == 'head' || $searchTerms == 'eye' || $searchTerms == 'ear' || $searchTerms == 'rarm' ||
 		$searchTerms == 'chest' || $searchTerms == 'larm' || $searchTerms == 'rwrist' || $searchTerms == 'waist' ||
 		$searchTerms == 'lwrist' || $searchTerms == 'rhand' || $searchTerms == 'leg' || $searchTerm == 'lhand' ||
 		$searchTerms == 'feet') {
-			
+
 		$results = searchBySlot($searchTerms);
 	} else {
 		$results = searchByModifier($searchTerms);
 	}
 	
 	if ($results != null) {
-		$msg = formatResults($results);
-	} else if ($msg == '') {
+		$blob = "<header> :::::: Implant Search Results for '$searchTerms' :::::: <end>\n\n";
+		$blob .= formatResults($results);
+		$msg = Text::make_link("Implant Search Results for '$searchTerms'", $blob, 'blob');
+	} else {
 		$msg = "No results found.";
 	}
   

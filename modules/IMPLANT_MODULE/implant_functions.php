@@ -59,24 +59,19 @@ function searchByModifier($modifier) {
 }
 
 function formatResults($implants) {
-	$msg = "\n";
-	
 	$count = 0;
 	forEach ($implants as $implant) {
-		$msg .= getFormattedLine($implant);
+		$blob .= getFormattedLine($implant);
 		$count++;
 	}
 		
-	if ($count > 3) {
-		$msg .= "\n\nWritten by Tyrence(RK2)";
-		$msg = Text::make_link('Results', $msg, 'text');
-	}
+	$blob .= "\n\nWritten by Tyrence(RK2)";
 	
-	return $msg;
+	return $blob;
 }
 
 function getFormattedLine($implant) {
-	return "$implant->slot $implant->profession $implant->ability $implant->shiny $implant->bright $implant->faded\n";
+	return "<green>$implant->profession<end> $implant->slot <white>$implant->ability<end> <font color='#FFFF00'>$implant->shiny</font> <font color='#FFA020'>$implant->bright</font> <font color='#FF8040'>$implant->faded</font>\n";
 }
 
 // implant functions

@@ -357,7 +357,6 @@ class Budabot extends AOChat {
 			
 			// relay to bot relay
 			if (!$disable_relay && $this->settings["relaybot"] != "Off" && $this->settings["bot_relay_commands"] == 1) {
-				
 				send_message_to_relay("grc <grey>[{$this->vars["my guild"]}] {$sender_link}: $message");
 			}
 		} else if ($this->get_uid($target) != NULL) {// Target is a player.

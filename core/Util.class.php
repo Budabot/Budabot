@@ -68,52 +68,67 @@ class Util {
 	 * @description: returns the full profession name given the search string passed in
 	 */
 	public static function get_profession_name($search) {
-		$search = substr(strtolower($search), 0, 3);
+		$search = strtolower($search);
 		switch ($search) {
 			case "adv":
+			case "advy":
+			case "adventurer":
 				$prof = "Adventurer";
 				break;
-			case "age":
+			case "agent":
 				$prof = "Agent";
 				break;
-			case "bur":
-			case "cra":
+			case "crat":
+			case "bureaucrat":
 				$prof = "Bureaucrat";
 				break;
 			case "doc":
+			case "doctor":
 				$prof = "Doctor";
 				break;
 			case "enf":
+			case "enfo":
+			case "enforcer":
 				$prof = "Enforcer";
 				break;
 			case "eng":
+			case "engi":
+			case "engineer":
 				$prof = "Engineer";
 				break;
 			case "fix":
+			case "fixer":
 				$prof = "Fixer";
 				break;
-			case "kee":
+			case "keep":
+			case "keeper":
 				$prof = "Keeper";
 				break;
-			case "mar":
 			case "ma":
+			case "martialartist":
+			case "martial artist":
 				$prof = "Martial Artist";
 				break;
-			case "met":
 			case "mp":
+			case "meta":
+			case "metaphysicist":
+			case "meta-physicist":
 				$prof = "Meta-Physicist";
 				break;
-			case "nan":
 			case "nt":
+			case "nanotechnician":
+			case "nano-technician":
 				$prof = "Nano-Technician";
 				break;
 			case "sol":
+			case "sold":
+			case "soldier":
 				$prof = "Soldier";
 				break;
-			case "tra":
+			case "trader":
 				$prof = "Trader";
 				break;
-			case "sha":
+			case "shade":
 				$prof = "Shade";
 				break;
 			default:
