@@ -58,7 +58,7 @@
 -can now create command aliases
 -RAID_MODULE now includes loot lists for Albtraum !alb (thanks Dare2005 (RK2)) and the Xan playfield !xan (thanks Morgo (RK2))
 -can not share online list with an unlimited number of budabots (previous limit was 2) and this happens automatically when they share the same database
--RELAY_MODULE can use the private group of one of the bots in the relay as the hub bot
+-RELAY_MODULE can use the private channel of one of the bots in the relay as the hub bot
 -added a setting to allow alts to inherit admin privileges from their main
 -subcommands can now be enabled or disabled separately from their parent command
 -added solitus, opifex, nanomage, and atrox guides to the GUIDE_MODULE (thanks Mdkdoc420 (RK2), Curlycat (RK2))

@@ -2,6 +2,10 @@
 
 if (preg_match("/^system$/i", $message, $arr)) {
 	global $version;
+	
+	$sql = "SELECT count(*) AS count FROM players";
+	$db->query($sql);
+	$count = $db->fObject()->count;
 
 	$blob = "<header>::::: System Info :::::<end>\n\n";
 	$blob .= "Budabot $version\n\n";
@@ -26,6 +30,7 @@ if (preg_match("/^system$/i", $message, $arr)) {
 	$blob .= "<highlight>Number of help commands:<end> " . count($chatBot->helpfiles) . "\n\n";
 	
 	$blob .= "<highlight>Number of characters on the friendlist:<end> " . count($chatBot->buddyList) . "\n";
+	$blob .= "<highlight>Number of character infos in the character cache:<end> " . $count . "\n";
 	$blob .= "<highlight>Number of messages in the chat queue:<end> " . count($chatBot->chatqueue->queue) . "\n\n";
 	
 	$blob .= "<highlight>Public Channels:<end>\n";
