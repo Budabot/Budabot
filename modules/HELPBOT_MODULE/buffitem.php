@@ -34,22 +34,21 @@ if (preg_match("/^buffitem (.+)$/i", $message, $arr)) {
 		$chatBot->send("No matches, sorry.", $sendto);
 		return;
 	} else {
-		$inside = "<header>::::: Buff item info :::::<end>\n\n";
-		$inside .= "Your query of <yellow>".$name."<end> returned the following item line(s):\n\n";
+		$blob = "<header>::::: Buff item info :::::<end>\n\n";
+		$blob .= "Your query of <yellow>".$name."<end> returned the following item line(s):\n\n";
 		if ($found == 1) {
-			$inside .= $results[0][1]."\n\n";
+			$blob .= $results[0][1]."\n\n";
 		} else {
 			forEach ($results as $result) {
-				$inside .= "- <a href='chatcmd:///tell <myname> <symbol>buffitem ".$result[0]."'>".$result[0]."</a>".
+				$blob .= "- <a href='chatcmd:///tell <myname> <symbol>buffitem ".$result[0]."'>".$result[0]."</a>".
 						   (sizeof($result) == 3 ? " (".$result[2].")" : "")."\n";
 			}
-			$inside .= "\n".sizeof($results)." results found, please pick one by clicking it\n\n";
+			$blob .= "\n".sizeof($results)." results found, please pick one by clicking it";
 		}
-		$inside .= "by Imoutochan, RK1";
-		$windowlink = Text::make_link("Buff item search results", $inside);
+		$blob .= "\n\nby Imoutochan, RK1";
+		$windowlink = Text::make_link("Buff item search results (<highlight>$found<end>)", $blob);
 	}
 	$chatBot->send($windowlink, $sendto);
-	$chatBot->send("<highlight>$found<end> result(s) in total", $sendto);
 } else {
 	$syntax_error = true;
 }
