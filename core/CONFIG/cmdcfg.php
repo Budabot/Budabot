@@ -501,7 +501,17 @@ if (preg_match("/^config$/i", $message)) {
 					
 				$row->admin = get_admin_description($row->admin);
 				
-				$subcmd_list .= "Current Access: <highlight>$row->admin<end> \n";
+				if ($row->status == 1) {
+					$status = "<green>Enabled<end>";
+				} else {
+					$status = "<red>Disabled<end>";
+				}
+
+				$subcmd_list .= "Current Status: $status (Access: $row->admin) \n";
+				$subcmd_list .= "Enable or Disable Command: ";
+				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." enable guild'>ON</a>  ";
+				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." disable guild'>OFF</a>\n";
+				
 				$subcmd_list .= "Set min. access lvl to use this command: ";
 				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg all'>All</a>  ";
 				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg leader'>Leader</a>  ";
@@ -524,7 +534,17 @@ if (preg_match("/^config$/i", $message)) {
 					
 				$row->admin = get_admin_description($row->admin);
 				
-				$subcmd_list .= "Current Access: <highlight>$row->admin<end> \n";
+				if ($row->status == 1) {
+					$status = "<green>Enabled<end>";
+				} else {
+					$status = "<red>Disabled<end>";
+				}
+
+				$subcmd_list .= "Current Status: $status (Access: $row->admin) \n";
+				$subcmd_list .= "Enable or Disable Command: ";
+				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." enable guild'>ON</a>  ";
+				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." disable guild'>OFF</a>\n";
+
 				$subcmd_list .= "Set min. access lvl to use this command: ";
 				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin priv all'>All</a>  ";
 				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin priv leader'>Leader</a>  ";
@@ -547,7 +567,17 @@ if (preg_match("/^config$/i", $message)) {
 					
 				$row->admin = get_admin_description($row->admin);
 				
-				$subcmd_list .= "Current Access: <highlight>$row->admin<end> \n";
+				if ($row->status == 1) {
+					$status = "<green>Enabled<end>";
+				} else {
+					$status = "<red>Disabled<end>";
+				}
+
+				$subcmd_list .= "Current Status: $status (Access: $row->admin) \n";
+				$subcmd_list .= "Enable or Disable Command: ";
+				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." enable guild'>ON</a>  ";
+				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." disable guild'>OFF</a>\n";
+				
 				$subcmd_list .= "Set min. access lvl to use this command: ";
 				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild all'>All</a>  ";
 				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild rl'>RL</a>  ";
