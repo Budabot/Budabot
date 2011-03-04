@@ -41,7 +41,8 @@ if ($db->numrows() == 0) {
 }
 
 $db->query("SELECT * FROM admin_<myname>");
-while ($row = $db->fObject()) {
+$data = $db->fObject('all');
+forEach ($data as $row) {
 	$chatBot->admins[$row->name]["level"] = $row->adminlevel;
 }
 

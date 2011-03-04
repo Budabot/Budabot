@@ -1,6 +1,8 @@
 <?php
 	$MODULE_NAME = "TRACKER_MODULE";
 	
+	Event::register($MODULE_NAME, "connect", "setup.php", "none", "Adds all players on the track list to the bot's friendlist");
+	
 	DB::loadSQLFile($MODULE_NAME, "tracked_users");
 	DB::loadSQLFile($MODULE_NAME, "tracking");
     

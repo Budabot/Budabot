@@ -30,7 +30,8 @@
    */
 
 $db->query("SELECT * FROM admin_<myname>");
-while ($row = $db->fObject()) {
+$data = $db->fObject('all');
+forEach ($data as $row) {
 	Buddylist::add($row->name, 'admin');
 }
 
