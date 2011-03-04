@@ -57,8 +57,8 @@ if (preg_match("/^whompas?$/i", $message, $arr)) {
 	
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^whompa (.+) (.+)$/i", $message, $arr)) {
-	$startCity = find_city_id($arr[1]);
-	$endCity = find_city_id($arr[2]);
+	$startCity = find_city($arr[1]);
+	$endCity = find_city($arr[2]);
 	
 	if ($startCity === null) {
 		$msg = "Error! Could not find city '$arr[1]'!";
