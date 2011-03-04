@@ -1,0 +1,10 @@
+<header> ::::: Whompa Commands ::::: <end>
+
+<highlight>To see the list whompa cities:<end>
+<tab><symbol>whompa
+
+<highlight>To see the list of destinations for a whompa city:<end>
+<tab><symbol>whompa 'city'
+
+<highlight>To see a whompa path from one city to another:<end>
+<tab><symbol>whompa 'city1' 'city2'
