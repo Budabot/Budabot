@@ -29,16 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (preg_match("/heal$/i", $message)) {
-  	if (isset($chatBot->data['heal_assist'])) {
-		$link = "<header>::::: Healassist Macro on {$chatBot->data['heal_assist']}:::::\n\n";
-	  	$link .= "<a href='chatcmd:///macro {$chatBot->data['heal_assist']} /assist {$chatBot->data['heal_assist']}'>Click here to make a heal assist macro on {$chatBot->data['heal_assist']}</a>";
-		$msg = Text::make_link("Current Healassist is {$chatBot->data['heal_assist']}", $link);
-	} else {
-		$msg = "No Healassist set atm.";
-	}
-	$chatBot->send($msg, 'priv');
-} else if (preg_match("/^heal (.+)$/i", $message, $arr)) {
+if (preg_match("/^heal (.+)$/i", $message, $arr)) {
     $name = $arr[1];
     $uid = $chatBot->get_uid(ucfirst(strtolower($name)));
     if ($uid) {

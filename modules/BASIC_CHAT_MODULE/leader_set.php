@@ -37,23 +37,18 @@ if ($chatBot->settings["leaderecho"] == 1) {
 	$cmd = "on";
 }
 
-if (preg_match("/^leader$/i", $message)) {
-  	if ($chatBot->data["leader"] == $sender) {
-		unset($chatBot->data["leader"]);
-	  	$msg = "Leader cleared.";
-	} else if ($chatBot->data["leader"] != "") {
-		if ($chatBot->admins[$sender]["level"] >= $chatBot->admins[$chatBot->data["leader"]]["level"]){
-  			$chatBot->data["leader"] = $sender;
-		  	$msg = "{$sender} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
-		} else {
-			$msg = "You can't take leader from <highlight>{$chatBot->data["leader"]}<end>.";
-		}
+if (preg_match("/^leader (.+)$/i", $message, $arr)) {
+    $uid = $chatBot->get_uid($arr[1]);
+    $name = ucfirst(strtolower($arr[1]));
+	if (!$uid) {
+		$msg = "Player <highlight>{$name}<end> does not exist.";
+	} else if (!isset($chatBot->chatlist[$name])) {
+		$msg = "Player <highlight>{$name}<end> isn't in this channel.";
 	} else {
-		$chatBot->data["leader"] = $sender;
-	  	$msg = "{$sender} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
+		$chatBot->data["leader"] = $name;
+	  	$msg = "{$name} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
 	}
   	$chatBot->send($msg, 'priv');
-
 } else {
 	$syntax_error = true;
 }
