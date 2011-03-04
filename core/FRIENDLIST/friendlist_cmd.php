@@ -1,7 +1,7 @@
 <?php
    /*
    ** Author: Lucier (RK1)
-   ** Description: Friendlist_Module (Shows why a name is on the friendslist)
+   ** Description: Friendlist_Module (Shows why a name is on the friend list)
    ** Version: 0.1
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
@@ -19,9 +19,9 @@ if (preg_match("/^friendlist$/i", $message, $arg) || preg_match("/^friendlist (c
 
 	$orphanCount = 0;
 	if (count($chatBot->buddyList) == 0) {
-		$chatBot->send("Didn't find any names in the friends list.", $sendto);
+		$chatBot->send("Didn't find any names in the friend list.", $sendto);
 	} else {
-		$blob = "Friends List\n\n";
+		$blob = "<header> :::::: Friend List :::::: <end>\n\n";
 		forEach ($chatBot->buddyList as $key => $value) {
 			$removed = '';
 			if (count($value['types']) == 0) {
@@ -51,10 +51,10 @@ if (preg_match("/^friendlist$/i", $message, $arg) || preg_match("/^friendlist (c
 	$chatBot->send("One momment... (".count($chatBot->buddyList)." names to check.)", $sendto);
 
 	if (count($chatBot->buddyList) == 0) {
-		$chatBot->send("Didn't find any names in the friends list.", $sendto);
+		$chatBot->send("Didn't find any names in the friend list.", $sendto);
 	} else {
 		$count = 0;
-		$blob = "Friends Search: '{$search}'\n\n";
+		$blob = "Friend Search: '{$search}'\n\n";
 		forEach ($chatBot->buddyList as $key => $value) {
 			$removed = '';
 			if (preg_match("/$search/i", $value['name'])) {
@@ -64,9 +64,9 @@ if (preg_match("/^friendlist$/i", $message, $arg) || preg_match("/^friendlist (c
 		}
 
 		if ($count > 0) {
-			$chatBot->send(Text::make_link("Friendlist Search Details", $blob), $sendto);
+			$chatBot->send(Text::make_link("Friend List Search Details", $blob), $sendto);
 		} else {
-			$chatBot->send("No friends on the friends list found containing '$search'", $sendto);
+			$chatBot->send("No friends on the friend list found containing '$search'", $sendto);
 		}
 	}
 }
