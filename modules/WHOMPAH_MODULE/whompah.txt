@@ -1,0 +1,10 @@
+<header> ::::: Whompah Commands ::::: <end>
+
+<highlight>To see the list whompah cities:<end>
+<tab><symbol>whompah
+
+<highlight>To see the list of destinations for a whompah city:<end>
+<tab><symbol>whompah 'city'
+
+<highlight>To see a whompah path from one city to another:<end>
+<tab><symbol>whompah 'city1' 'city2'

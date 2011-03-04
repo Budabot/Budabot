@@ -25,7 +25,7 @@ if (preg_match("/^leprocs (.+)$/i", $message, $arr)) {
 			$blob .= "$row->name <orange>$row->modifiers<end> $proc_trigger $row->duration\n";
 		}
 		
-		$blob .= "\n\nNote: Offensive procs have a 5% chance of firing every time you attack; Defensive procs have a 10% chance of firing every time something attacks you";
+		$blob .= "\n\nNote: Offensive procs have a 5% chance of firing every time you attack; Defensive procs have a 10% chance of firing every time something attacks you.";
 		
 		$blob .= "\n\nProc info provided by Wolfbiter (RK1), Gatester (RK2)";
 
