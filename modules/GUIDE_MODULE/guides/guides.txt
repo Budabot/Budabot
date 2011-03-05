@@ -1,19 +1,10 @@
-<header>::::: In-Game Guides :::::<end>
+<header> :::::: In-Game Guides :::::: <end>
 
-<font color = yellow> -= Guides Updated August 15,2007 =-</font>
-<white>
-
-Last Updated 11-21-2009 </font>
-<highlight>Latest Additions:<end>
-<highlight>Added 10-04-2009<end>
-
-<highlight><font color = yellow> General Information</font><end>
-<a href='chatcmd:///tell <myname> <symbol>guides official'>The Official  'Code of Conduct' from Funcom</a>
-
+<font color = #00FF00>Hint: To get an alphabetical list of all guides:</font> <a href='chatcmd:///tell <myname> <symbol>guides list'><symbol>guides list</a>
 
 These are some basic guides put together for new players. Most of this information has come from guides posted on the official forums, but may not be 100% accurate. Enjoy!
 
-<highlight><font color = yellow> General Information Guide </font><end>
+<font color = yellow> General Information Guide </font>
 <a href='chatcmd:///tell <myname> <symbol>guides wrangle'> Guide to Wrangles</a>
 <a href='chatcmd:///tell <myname> <symbol>guides makemoney'> Guide to making credits An excellent guide</a>
 <a href='chatcmd:///tell <myname> <symbol>guides beginners'> Beginners Questions - Good place for beginners to start</a>
@@ -49,7 +40,7 @@ These are some basic guides put together for new players. Most of this informati
 <a href='chatcmd:///tell <myname> <symbol>guides spiritquest'> Inferno: Spirits Quest ( for Ring Of Plausability )</a>
 <a href='chatcmd:///tell <myname> <symbol>guides infstar'> Inferno Professions Star Quest aka Guarding the Source.</a>
 
-Garden Keys (very useful to acquire, buffs treatment as you progress to each higher area)
+<font color = yellow>Garden Keys (very useful to acquire, buffs treatment as you progress to each higher area)</font>
 
 <highlight>Omni<end>
 <a href='chatcmd:///tell <myname> <symbol>guides nasckey'> Guide for garden key in Nascence.</a>
@@ -75,7 +66,7 @@ Garden Keys (very useful to acquire, buffs treatment as you progress to each hig
 <a href='chatcmd:///tell <myname> <symbol>guides pensancclan'> Penumbra Sanctuary Garden Key Quest CLAN.</a>
 
 
-Shadowlands Tradeskills:
+<font color = yellow>Shadowlands Tradeskills:</font>
 <a href='chatcmd:///tell <myname> <symbol>guides pernweps'> Guide for making Perennium Weapons(used by agents, fixers and soldiers).</a>
 <a href='chatcmd:///tell <myname> <symbol>guides jobearmor'> Guide for making Jobe Armor, used in Making Tier Armor</a>
 <a href='chatcmd:///tell <myname> <symbol>guides tier1armor'> Guide for making Tier One Armor, all character classes included here</a>
@@ -96,7 +87,7 @@ Shadowlands Tradeskills:
 <a href='chatcmd:///tell <myname> <symbol>guides bsinfo'> Information about Battlestation </a>
 <a href='chatcmd:///tell <myname> <symbol>guides lemish'> Information about Lost Eden missions (Alien Mothership)</a>
 
-Legacy of Xan Guides
+<font color = yellow>Legacy of Xan Guides</font>
 <a href='chatcmd:///tell <myname> <symbol>guides aridrift'> Information about The base Arid Rift Quests</a>
 
 Special Thanks to all the great AO websites, their creators, and the folks that take time to develop these guides
