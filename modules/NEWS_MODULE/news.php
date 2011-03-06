@@ -31,9 +31,10 @@
 
 if (preg_match("/^news$/i", $message, $arr)) {
 	$db->query("SELECT * FROM news ORDER BY `time` DESC LIMIT 0, 10");
+	$data = $db->fObject('all');
 	if ($db->numrows() != 0) {
 		$link = "<header>::::: News :::::<end>\n\n";
-		while ($row = $db->fObject()) {
+		forEach ($data as $row) {
 		  	if (!$updated) {
 				$updated = $row->time;
 			}
@@ -43,7 +44,7 @@ if (preg_match("/^news$/i", $message, $arr)) {
 		  	$link .= "<highlight>Options:<end> ".Text::make_link("Delete this news entry", "/tell <myname> news del $row->id", "chatcmd")."\n";
 		  	$link .= "<highlight>Message:<end> $row->news\n\n";
 		}
-		$msg = Text::make_link("Click to view the latest News", $link)." [Last updated at ".gmdate("dS M, H:i", $updated)."]";
+		$msg = Text::make_link("News", $link)." [Last updated at ".gmdate("dS M, H:i", $updated)."]";
 	} else {
 		$msg = "No News recorded yet.";
 	}
