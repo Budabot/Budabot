@@ -38,6 +38,7 @@ if (preg_match("/^guides list$/i", $message)) {
 	} else {
 		$msg = "Error reading topics.";	
 	}
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^guides ([a-z0-9_-]+)$/i", $message, $arr)) {
 	// if they want a certain topic
 	// get the filename and read in the file
@@ -50,8 +51,9 @@ if (preg_match("/^guides list$/i", $message)) {
 	} else {	
 		$msg = Text::make_link(ucfirst($fileName), $info, 'blob');
 	}
+	$chatBot->send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
-
-$chatBot->send($msg, $sendto);
 
 ?>
