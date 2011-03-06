@@ -3,9 +3,12 @@
 class AccessLevel {
 	public static function checkAccess($sender, $accessLevel) {
 		global $chatBot;
+		
+		if (Setting::get('alts_inherit_admin') == 1) {
+			$sender = Alts::get_main($sender);
+		}
 
 		$access = false;
-		
 		switch ($accessLevel) {
 			case "guild":
 				if (isset($chatBot->guildmembers[$sender]) || isset($chatBot->admins[$sender])) {
@@ -29,18 +32,17 @@ class AccessLevel {
 			case "2":
 			case "3":
 			case "4":
-				if (Setting::get('alts_inherit_admin') == 1) {
-					$sender = Alts::get_main($sender);
-				}
-				
 				if ($chatBot->admins[$sender]["level"] >= $accessLevel) {
 					$access = true;
 				}
 				break;
 
 			case "all":
-			default:
 				$access = true;
+				break;
+
+			default:
+				$access = false;
 				break;
 		}
 		
