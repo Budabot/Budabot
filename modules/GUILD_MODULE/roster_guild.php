@@ -1,7 +1,7 @@
 <?php
 
 if ($chatBot->vars["my guild"] != "" && $chatBot->vars["my guild id"] != "") {
-	Logger::log('INFO', 'GUILD_MODULE', "Starting Roster Update");
+	Logger::log('INFO', 'GUILD_MODULE', "Starting Roster update");
 
 	//Get the org infos
 	$org = Guild::get_by_id($chatBot->vars["my guild id"], $chatBot->vars["dimension"], true);
@@ -70,18 +70,19 @@ if ($chatBot->vars["my guild"] != "" && $chatBot->vars["my guild id"] != "") {
 		Buddylist::remove($buddy['name'], 'org');
 	}
 
-	Logger::log('INFO', 'GUILD_MODULE', "Roster Update finished");
+	Logger::log('INFO', 'GUILD_MODULE', "Finished Roster update");
 	
 	if ($restart == true) {
 		$chatBot->send("The bot needs to be restarted to be able to see who is online in your org. Automatically restarting in 10 seconds.", "guild");
+		
+		// in case some of the org members were already on the friendlist, we need to restart the bot
+		// in order to get them to appear on the online list
+		Logger::log('INFO', 'GUILD_MODULE', "The bot is restarting");
 		
 		// wait for all buddy add/remove packets to finish sending
 		// not 100% sure this is needed
 		sleep(5);
 		
-		// in case some of the org members were already on the friendlist, we need to restart the bot
-		// in order to get them to appear on the online list
-		Logger::log('INFO', 'GUILD_MODULE', "The bot is restarting");
 		die();
 	}
 }
