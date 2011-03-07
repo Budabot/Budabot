@@ -33,15 +33,17 @@ global $loot;
 global $loot_winners;
 global $residual;
 
-if (preg_match("/^rollloot$/i", $message)) {
+if (preg_match("/^flatroll$/i", $message)) {
 	//Check if a loot list exits
   	if (!is_array($loot)) {
 	    $msg = "There is nothing to roll atm.";
 	    $chatBot->send($msg, $sendto);
 	    return;
 	}
+	
+	srand( ((int)((double)microtime()*1000003)) ); // get a good seed
   	
-  	$list = "<header>::::: Win List :::::<end>\n\n";
+  	$list = "<header> :::::: Win List :::::: <end>\n\n";
   	//Roll the loot
 	$resnum = 1;
 	forEach ($loot as $key => $item) {
@@ -56,7 +58,7 @@ if (preg_match("/^rollloot$/i", $message)) {
 			$residual[$resnum]["multiloot"] = $item["multiloot"];
 			$resnum++;
 	 	} else {
-			if ($item["multiloot"]>1) {
+			if ($item["multiloot"] > 1) {
 				if ($item["multiloot"] > sizeof($item["users"])) {
 					$arrolnum = sizeof($item["users"]);
 				} else {
@@ -69,7 +71,7 @@ if (preg_match("/^rollloot$/i", $message)) {
 					$list .= "<red>$winner<end> ";
 				}
 
-				if ($arrolnum<$item["multiloot"]) {
+				if ($arrolnum < $item["multiloot"]) {
 					$newmultiloot = $item["multiloot"]-$arrolnum;
 					$residual[$resnum]["name"] = $item["name"];
 					$residual[$resnum]["icon"] = $item["icon"];

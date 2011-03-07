@@ -4,11 +4,11 @@ global $loot;
 $msg = '';
 
 if (!function_exists('get_xan_loot')) {
-	function get_xan_loot($boss, $category) {
+	function get_xan_loot($raid, $category) {
 		$db = DB::get_instance();
 		
-		$list = "<header>::::: $boss $category Loot :::::<end>\n\n\n";
-		$sql = "SELECT * FROM xan_loot WHERE boss = '$boss' AND category = '$category'";
+		$list = "<header>::::: $raid $category Loot :::::<end>\n\n\n";
+		$sql = "SELECT * FROM xan_loot WHERE raid = '$raid' AND category = '$category'";
 		$db->query($sql);
 		$data = $db->fObject('all');
 		
@@ -19,7 +19,7 @@ if (!function_exists('get_xan_loot')) {
 			$list .= "\n\n";
 		}
 		$list .= "\n\nXan Loot By Morgo (RK2)";
-		return Text::make_link("$boss $category Loot", $list);
+		return Text::make_link("$raid $category Loot", $list);
 	}
 }
 
