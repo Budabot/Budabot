@@ -27,14 +27,18 @@ if (!$syntax_error) {
 	}
 	
 	$xml_file = file_get_contents("http://www.rubi-ka.com/market/market.php" . $query_string);
-	$xml_doc = new SimpleXMLElement($xml_file);
-	
-	$blob = '';
-	forEach ($xml_doc->marketpost as $marketpost) {
-		$char_link = Text::make_link($marketpost->player, $marketpost->player, 'user');
-		$time = Util::unixtime_to_readable(time() - $marketpost->time);
-		$message = preg_replace('/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/', "<a href='itemref://\\1/\\2/\\3'>\\4</a>", $marketpost->message);
-		$blob .= "[{$char_link}]: {$message} <orange>{$time} ago<end> \n\n";
+	try {
+		$xml_doc = new SimpleXMLElement($xml_file);
+		
+		$blob = '';
+		forEach ($xml_doc->marketpost as $marketpost) {
+			$char_link = Text::make_link($marketpost->player, $marketpost->player, 'user');
+			$time = Util::unixtime_to_readable(time() - $marketpost->time);
+			$message = preg_replace('/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/', "<a href='itemref://\\1/\\2/\\3'>\\4</a>", $marketpost->message);
+			$blob .= "[{$char_link}]: {$message} <orange>{$time} ago<end> \n\n";
+		}
+	} catch (Exception $e) {
+		
 	}
 	
 	if ($blob != '') {
