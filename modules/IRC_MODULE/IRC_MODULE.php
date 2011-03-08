@@ -31,11 +31,11 @@
 	Event::register($MODULE_NAME, "connect", "set_irc_link.php", "none", "Sets IRC status at bootup.");
 	
 	//Commands
-	Command::register($MODULE_NAME, "msg", "irc_connect.php", "startirc", "admin", "Connect to IRC");
+	Command::register($MODULE_NAME, "", "irc_connect.php", "startirc", "admin", "Connect to IRC");
 	Command::register($MODULE_NAME, "", "online_irc.php", "onlineirc", "all", "View who is in IRC chat");
 	
 	//Command settings
-	Command::register($MODULE_NAME, "msg", "set_irc_settings.php", "setirc", "admin", "Manually set IRC settings", 'irc');
+	Command::register($MODULE_NAME, "", "set_irc_settings.php", "setirc", "admin", "Manually set IRC settings", 'irc');
 	
 	//IRC Relay
   	Event::register($MODULE_NAME, "2sec", "irc_check.php", "none", "Receive messages from IRC");

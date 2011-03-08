@@ -12,11 +12,11 @@ stream_set_blocking($socket, 0);
 set_time_limit(0);
 //settings
 if ($chatBot->settings['irc_server'] == "") {
-	$chatBot->send("The IRC <highlight>server address<end> seems to be missing. Please <highlight>/tell <myname> <symbol>help irc<end> for details on setting this");
+	$chatBot->send("The IRC <highlight>server address<end> seems to be missing. Please <highlight>/tell <myname> <symbol>help irc<end> for details on setting this", $sendto);
 	return;
 }
 if ($chatBot->settings['irc_port'] == "") {
-	$chatBot->send("The IRC <highlight>server port<end> seems to be missing. Please <highlight>/tell <myname> <symbol>help irc<end> for details on setting this");
+	$chatBot->send("The IRC <highlight>server port<end> seems to be missing. Please <highlight>/tell <myname> <symbol>help irc<end> for details on setting this", $sendto);
 	return;
 }
 
@@ -24,7 +24,7 @@ $nick = $chatBot->settings['irc_nickname'];
  
 // Connection
 if (preg_match("/^startirc$/i", $message)) {
-	$chatBot->send("Intialized IRC connection. Please wait...",$sender);
+	$chatBot->send("Intialized IRC connection. Please wait...", $sendto);
 }
 Logger::log('info', "IRC", "Intialized IRC connection. Please wait...");
 $socket = fsockopen($chatBot->settings['irc_server'], $chatBot->settings['irc_port']);
@@ -54,7 +54,7 @@ while ($data = fgets($socket)) {
 	}
 	if (preg_match("/(ERROR)(.+)/", $data, $sandbox)) {
 		if (preg_match("/^startirc$/i", $message)) {
-			$chatBot->send("[red]Could not connect to IRC",$sender);
+			$chatBot->send("[red]Could not connect to IRC", $sendto);
 		}
 		Logger::log('error', "IRC", trim($data));
 		return;
@@ -68,8 +68,9 @@ while ($data = fgets($socket)) {
 	flush();
 }
 if (preg_match("/^startirc$/i", $message)) {
-	$chatBot->send("Finished connecting to IRC",$sender);
+	$chatBot->send("Finished connecting to IRC", $sendto);
 }
 Logger::log('info', "IRC", "Finished connecting to IRC");
 Setting::save("irc_status", "1");
+
 ?>
