@@ -22,9 +22,9 @@
 	Command::activate("priv", "$MODULE_NAME/system_cmd.php", "system", "mod");
 	Command::activate("guild", "$MODULE_NAME/system_cmd.php", "system", "mod");
 
-	Command::activate("msg", "$MODULE_NAME/cmdlist.php", "cmdlist", "mod");
-	Command::activate("priv", "$MODULE_NAME/cmdlist.php", "cmdlist", "mod");
-	Command::activate("guild", "$MODULE_NAME/cmdlist.php", "cmdlist", "mod");
+	Command::activate("msg", "$MODULE_NAME/cmdlist.php", "cmdlist", "guild");
+	Command::activate("priv", "$MODULE_NAME/cmdlist.php", "cmdlist", "guild");
+	Command::activate("guild", "$MODULE_NAME/cmdlist.php", "cmdlist", "guild");
 
 	Command::activate("msg", "$MODULE_NAME/eventlist.php", "eventlist", "mod");
 	Command::activate("priv", "$MODULE_NAME/eventlist.php", "eventlist", "mod");

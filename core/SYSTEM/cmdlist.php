@@ -1,7 +1,7 @@
 <?php
 
 if (preg_match("/^cmdlist$/i", $message, $arr) || preg_match("/^cmdlist (.*)$/i", $message, $arr)) {
-	$list  = "<header>::::: Bot Settings -- Command List :::::<end>\n\n";
+	$list  = "<header> :::::: Command List :::::: <end>\n\n";
 	
 	if ($arr[1] != '') {
 		$cmdSearchSql = "AND c.cmd LIKE '%{$arr[1]}%'";
@@ -36,38 +36,17 @@ if (preg_match("/^cmdlist$/i", $message, $arr) || preg_match("/^cmdlist (.*)$/i"
 		$priv = '';
 		$msg = '';
 
-		$on = Text::make_link('ON', "/tell <myname> config cmd $row->cmd enable all", 'chatcmd');
-		$off = Text::make_link('OFF', "/tell <myname> config cmd $row->cmd disable all", 'chatcmd');
-		$adv = Text::make_link('Adv.', "/tell <myname> config cmd $row->cmd", 'chatcmd');
-		
-		if ($row->msg_avail == 0) {
-			$tell = "|_";
-		} else if ($row->msg_status == 1) {
-			$tell = "|<green>T<end> ($row->admin)";
-		} else {
-			$tell = "|<red>T<end> ($row->admin)";
-		}
-		
-		if ($row->guild_avail == 0) {
-			$guild = "|_";
-		} else if ($row->guild_status == 1) {
-			$guild = "|<green>G<end> ($row->admin)";
-		} else {
-			$guild = "|<red>G<end> ($row->admin)";
-		}
-		
-		if ($row->priv_avail == 0) {
-			$priv = "|_";
-		} else if ($row->priv_status == 1) {
-			$priv = "|<green>P<end> ($row->admin)";
-		} else {
-			$priv = "|<red>P<end> ($row->admin)";
+		if (AccessLevel::checkAccess($sender, '3')) {
+			$on = Text::make_link('ON', "/tell <myname> config cmd $row->cmd enable all", 'chatcmd');
+			$off = Text::make_link('OFF', "/tell <myname> config cmd $row->cmd disable all", 'chatcmd');
+			$adv = Text::make_link('Permissions', "/tell <myname> config cmd $row->cmd", 'chatcmd');
+			$adv_link = " ($adv) $on  $off";
 		}
 		
 		if ($row->description != "") {
-			$list .= "$row->cmd [$row->file] ($adv$tell$guild$priv): $on  $off - ($row->description)\n";
+			$list .= "$row->cmd {$adv_link} - ($row->description)\n";
 		} else {
-			$list .= "$row->cmd - ($adv$tell$guild$priv): $on  $off\n";
+			$list .= "$row->cmd {$adv_link}\n";
 		}
 	}
 
