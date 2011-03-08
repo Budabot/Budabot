@@ -12,9 +12,9 @@
 
 	Command::register($MODULE_NAME, "", "kos.php", "kos", "guild", "Shows the Kill On Sight List");
 	Command::register($MODULE_NAME, "", "time.php", "time", "all", "Shows the time in the different timezones");
-	Command::register($MODULE_NAME, "", "whois.php", "whois", "all", "Char Infos (only current dim)");
-	Command::register($MODULE_NAME, "", "whois.php", "whoisall", "all", "Char Infos (all dim)");
-	Command::register($MODULE_NAME, "", "whois.php", "whoisorg", "all", "Org Infos");
+	Command::register($MODULE_NAME, "", "whois.php", "whois", "all", "Display a character's info");
+	Command::register($MODULE_NAME, "", "whois.php", "whoisall", "all", "Display a character's info for all dimensions");
+	Command::register($MODULE_NAME, "", "whoisorg.php", "whoisorg", "all", "Display org info");
 	Command::register($MODULE_NAME, "", "biomat_identify.php", "bio", "all", "Biomaterial Identify");
 	Command::register($MODULE_NAME, "", "calc.php", "calc", "all", "Calculator");
 	Command::register($MODULE_NAME, "", "oe.php", "oe", "all", "OE");

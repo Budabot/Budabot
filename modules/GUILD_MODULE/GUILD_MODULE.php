@@ -24,10 +24,6 @@
 	Command::register($MODULE_NAME, "", "inactive_mem.php", "inactivemem", "guildadmin", "Check for inactive members");
 	Command::register($MODULE_NAME, "", "updateorg.php", "updateorg", "guildadmin", "Forcing an update of the org roster");
 	
-	// Show orgmembers
-	Command::register($MODULE_NAME, "", "orgmembers.php", "orgmembers", "guildadmin", "Show the Members(sorted by name) of the org");
-	Command::register($MODULE_NAME, "", "orgranks.php", "orgranks", "guildadmin", "Show the Members(sorted by rank) of the org");
-	
 	Event::register($MODULE_NAME, "logOn", "notify_logon_guild.php", "none", "Shows an org member login in chat");
 	Event::register($MODULE_NAME, "logOff", "notify_logoff_guild.php", "none", "Shows an org member logoff in chat");
 	
@@ -36,8 +32,6 @@
 	//Helpfile
 	Help::register($MODULE_NAME, "inactivemem", "inactivemem.txt", "guildadmin", "Help on Checking for Inactive Members");
 	Help::register($MODULE_NAME, "updateorg", "updateorg.txt", "guildadmin", "Force an update of org roster");
-	Help::register($MODULE_NAME, "orgmembers", "orgmembers_orgranks.txt", "guild", "Show current OrgMembers");
-	Help::register($MODULE_NAME, "orgranks", "orgmembers_orgranks.txt", "guild", "Show current OrgMembers");
 	Help::register($MODULE_NAME, "lastseen", "lastseen.txt", "guild", "Check when an orgmember was online");
 	Help::register($MODULE_NAME, "logon", "logon_msg.txt", "guild", "Changing your logon message");
 	Help::register($MODULE_NAME, "notify", "notify.txt", "guildadmin", "Add or remove a player from the notify list.");

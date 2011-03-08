@@ -1,0 +1,8 @@
+<header> :::::: Orgmembers :::::: <end>
+
+<highlight>Show members of your own guild sorted by name<end>
+<tab><symbol>orgmembers
+
+<highlight>Show members of another guild sorted by name<end>
+<tab><symbol>orgmembers 'character'
+<tab><symbol>orgmembers 'guild_id'

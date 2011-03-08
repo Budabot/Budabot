@@ -119,6 +119,9 @@ class Guild {
 			$db = DB::get_instance();
 			$db->beginTransaction();
 			
+			$sql = "UPDATE players SET guild_id = '', guild = '' WHERE guild_id = {$guild->guild_id}";
+			$db->exec($sql);
+			
 			forEach ($guild->members as $member) {
 				Player::update($member);
 			}

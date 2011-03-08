@@ -131,7 +131,7 @@ if (preg_match("/^orglist end$/i", $message)) {
 			$chatBot->send($msg, $sendto);
 			unset($chatBot->data["ORGLIST_MODULE"]);
 			return;
-		} elseif (!$whois->guild_id) {
+		} else if (!$whois->guild_id) {
 			$msg = "Player <highlight>$name<end> does not seem to be in any org?";
 			unset($whois);
 			$chatBot->send($msg, $sendto);
@@ -167,7 +167,9 @@ if (preg_match("/^orglist end$/i", $message)) {
 		// Name (Level 1/1, Sex Breed Profession)
 		$thismember  = '<highlight>'.$member->name.'<end>';
 		$thismember .= ' (Level '.$orgcolor["onlineH"].$member->level."<end>";
-		if ($member->ai_level > 0) { $thismember .= "<green>/".$member->ai_level."<end>";}
+		if ($member->ai_level > 0) {
+			$thismember .= "<green>/".$member->ai_level."<end>";
+		}
 		$thismember .= ", ".$member->gender;
 		$thismember .= " ".$member->breed;
 		$thismember .= " ".$orgcolor["onlineH"].$member->profession."<end>)";
@@ -255,7 +257,7 @@ if (preg_match("/^orglist end$/i", $message)) {
 
 if (isset($chatBot->data["ORGLIST_MODULE"]) && count($chatBot->data["ORGLIST_MODULE"]["added"]) == 0 || $end) {
 	$blob = orgmatesformat($chatBot->data["ORGLIST_MODULE"], $orgrankmap, $orgcolor, $chatBot->data["ORGLIST_MODULE"]["start"], $chatBot->data["ORGLIST_MODULE"]["org"]);
-	$msg = Text::make_link("Orglist for '".$chatBot->data["ORGLIST_MODULE"]["org"]."'", $blob);
+	$msg = Text::make_link("Orglist for '".$chatBot->data["ORGLIST_MODULE"]["org"]."'", $blob, 'blob');
 	$chatBot->send($msg, $chatBot->data["ORGLIST_MODULE"]["sendto"]);
 
 	// in case it was ended early

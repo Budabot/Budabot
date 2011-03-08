@@ -138,6 +138,58 @@ class Util {
 		return $prof;
 	}
 	
+	public static function get_profession_abbreviation($profession) {
+		switch ($profession) {
+			case "Adventurer":
+				$prof = "Advy";
+				break;
+			case "agent":
+				$prof = "Agent";
+				break;
+			case "Bureaucrat":
+				$prof = "Crat";
+				break;
+			case "Doctor":
+				$prof = "Doc";
+				break;
+			case "Enforcer":
+				$prof = "Enf";
+				break;
+			case "Engineer":
+				$prof = "Engy";
+				break;
+			case "Fixer":
+				$prof = "Fixer";
+				break;
+			case "Keeper":
+				$prof = "Keeper";
+				break;
+			case "Martial Artist":
+				$prof = "MA";
+				break;
+			case "Meta-Physicist":
+				$prof = "MP";
+				break;
+			case "Nano-Technician":
+				$prof = "NT";
+				break;
+			case "Soldier":
+				$prof = "Sol";
+				break;
+			case "Trader":
+				$prof = "Trader";
+				break;
+			case "Shade":
+				$prof = "Shade";
+				break;
+			default:
+				$prof = "Unknown";
+				break;
+	    }
+		
+		return $prof;
+	}
+	
 	/**
 	 * @name: verify_name_convention
 	 * @description: returns true if filename matches budabot naming convention and false otherwise
