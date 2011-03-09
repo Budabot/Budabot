@@ -15,9 +15,11 @@ if (preg_match("/^track$/i", $message)) {
 				$status = "<grey>Unknown<end>";
 			}
 			
+			$remove = Text::make_link('Remove', "/tell <myname> track rem $row->name", 'chatcmd');
+			
 			$history = Text::make_link('History', "/tell <myname> track $row->name", 'chatcmd');
 
-	  		$blob .= "<tab>- $row->name ($status) - $history\n";
+	  		$blob .= "<tab>- $row->name ($status) - $history $remove\n";
 	  	}
 	  	
 	    $msg = Text::make_link("<highlight>{$numrows}<end> players on the Track List", $blob);
