@@ -1,0 +1,4 @@
+<header> :::::: Find Org :::::: <end>
+
+<highlight>Find an org by org name<end>
+<tab><symbol>findorg 'search'
