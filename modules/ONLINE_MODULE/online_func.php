@@ -7,16 +7,22 @@
  ** Under BudaBot's license.
  */
 
-function online($sender, $sendto, &$bot, $prof = "all") {
+function get_online_list($prof = "all") {
 	$db = DB::get_instance();
 	global $chatBot;
+	
+	if ($prof != 'all') {
+		$prof_query = "AND `profession` = '$prof'";
+	}
+	
+	if (Setting::get('online_group_by') == 'profession') {
+		$order_by = "ORDER BY `profession`, `level` DESC";
+	} else if (Setting::get('online_group_by') == 'guild') {
+		$order_by = "ORDER BY `channel` ASC, `name` ASC";
+	}
 
 	$list = "";
-	if ($prof == "all") {
-		$db->query("SELECT p.*, o.name FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'guild' ORDER BY `profession`, `level` DESC");
-	} else {
-		$db->query("SELECT p.*, o.name FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'guild' AND `profession` = '$prof'");
-	}
+	$db->query("SELECT p.*, o.name, o.channel FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'guild' {$prof_query} {$order_by}");
 
 	$oldprof = "";
 	$numonline = $db->numrows();
@@ -30,14 +36,10 @@ function online($sender, $sendto, &$bot, $prof = "all") {
 	}
 	$data = $db->fObject("all");
 	// create the list with alts shown
-	createList($data, $sender, $list, $bot, true);
+	createList($data, $list, true);
 
 	// Private Channel Part
-	if ($prof == "all") {
-		$db->query("SELECT p.*, o.name FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'priv' ORDER BY `profession`, `level` DESC");
-	} else {
-		$db->query("SELECT p.*, o.name FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'priv' AND `profession` = '$prof' ORDER BY `level` DESC");
-	}
+	$db->query("SELECT p.*, o.name, o.channel FROM online o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'priv' {$prof_query} {$order_by}");
 
 	$numguest = $db->numrows();
 	if ($numguest == 1) {
@@ -47,7 +49,7 @@ function online($sender, $sendto, &$bot, $prof = "all") {
 	}
 	$data = $db->fObject("all");
 	// create the list of guests, without showing alts
-	createList($data, $sender, $list, $bot, true);
+	createList($data, $list, true);
 	$numonline += $numguest;
 
 	if ($numonline == 1) {
@@ -57,9 +59,9 @@ function online($sender, $sendto, &$bot, $prof = "all") {
 	}
 
 	// BBIN part
-	if ($bot->settings["bbin_status"] == 1) {
+	if (Setting::get("bbin_status") == 1) {
 		// members
-		$db->query("SELECT * FROM bbin_chatlist_<myname> WHERE (`guest` = 0) ORDER BY `profession`, `level` DESC");
+		$db->query("SELECT * FROM bbin_chatlist_<myname> WHERE (`guest` = 0) {$prof_query} ORDER BY `profession`, `level` DESC");
 		$numbbinmembers = $db->numrows();
 		$data = $db->fObject("all");
 		if ($numbbinmembers == 1) {
@@ -67,10 +69,10 @@ function online($sender, $sendto, &$bot, $prof = "all") {
 		} else {
 			$list .= "\n\n<highlight><u>$numbbinmembers members in BBIN<end></u>\n";
 		}
-		createList($data, $sender, $list, $bot);
+		createListByProfession($data, $list, false);
 		
 		// guests
-		$db->query("SELECT * FROM bbin_chatlist_<myname> WHERE (`guest` = 1) ORDER BY `profession`, `level` DESC");
+		$db->query("SELECT * FROM bbin_chatlist_<myname> WHERE (`guest` = 1) {$prof_query} ORDER BY `profession`, `level` DESC");
 		$numbbinguests = $db->numrows();
 		$data = $db->fObject("all");
 		if ($numbbinguests == 1) {
@@ -78,7 +80,7 @@ function online($sender, $sendto, &$bot, $prof = "all") {
 		} else {
 			$list .= "\n\n<highlight><u>$numbbinguests guests in BBIN<end></u>\n";
 		}
-		createList($data, $sender, $list, $bot);
+		createListByProfession($data, $list, false);
 		
 		$numonline += $numbbinguests + $numbbinmembers;
 		
@@ -86,10 +88,17 @@ function online($sender, $sendto, &$bot, $prof = "all") {
 	}
 
 	return array ($numonline, $msg, $list);
-
 }
 
-function createList(&$data, &$sender, &$list, &$bot, $show_alts = false) {
+function createList(&$data, &$list, $show_alts) {
+	if (Setting::get('online_group_by') == 'profession') {
+		return createListByProfession($data, $list, $show_alts);
+	} else if (Setting::get('online_group_by') == 'guild') {
+		return createListByChannel($data, $list, $show_alts);
+	}
+}
+
+function createListByChannel(&$data, &$list, $show_alts) {
 	$db = DB::get_instance();
 
 	$oldprof = "";
@@ -100,15 +109,71 @@ function createList(&$data, &$sender, &$list, &$bot, $show_alts = false) {
 			$row->profession = "Unknown";
 		}
 		
-		if ($oldprof != $row->profession) {
-			if ($bot->settings["fancy_online"] == 0) {
+		if ($current_channel != $row->channel) {
+			$list .= "\n<tab><highlight>$row->channel<end>\n";
+			$current_channel = $row->channel;
+		}
+
+		if ($row->afk == "kiting") {
+			$afk = " <highlight>::<end> <red>KITING<end>";
+		} else if ($row->afk == '1') {
+			$afk = " <highlight>::<end> <red>AFK<end>";
+		} else if ($row->afk != '') {
+			$afk = " <highlight>::<end> <red>AFK - {$row->afk}<end>";
+		} else {
+			$afk = "";
+		}
+		
+		if ($row->profession == "Unknown") {
+			$list .= "<tab><tab><highlight>$name<end> - Unknown\n";
+		} else {
+			if ($show_alts == true) {
+				$db->query("SELECT * FROM alts WHERE `alt` = '$row->name'");
+				if ($db->numrows() == 0) {
+					$alt = "<highlight>::<end> <a href='chatcmd:///tell <myname> alts $row->name'>Alts</a>";
+				} else {
+					$row1 = $db->fObject();
+					$alt = "<highlight>::<end> <a href='chatcmd:///tell <myname> alts $row->name'>Alts of $row1->main</a>";
+				}
+					
+				if ($row->guild == "") {
+					$guild = "Not in a guild";
+				} else {
+					$guild = $row->guild." (<highlight>$row->guild_rank<end>)";
+				}
+				$list .= "<tab><tab><highlight>$name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk $alt\n";
+			} else {
+				if ($row->guild == "") {
+					$guild = "Not in a guild";
+				} else {
+					$guild = $row->guild;
+				}
+				$list .= "<tab><tab><highlight>$name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk\n";
+			}
+		}
+	}
+}
+
+function createListByProfession(&$data, &$list, $show_alts) {
+	$db = DB::get_instance();
+
+	$current_channel = "";
+	forEach ($data as $row) {
+		$name = Text::make_link($row->name, "/tell $row->name", "chatcmd");
+		 
+		if ($row->profession == "") {
+			$row->profession = "Unknown";
+		}
+		
+		if ($current_channel != $row->profession) {
+			if (Setting::get("fancy_online") == 0) {
 				// old style delimiters
 				$list .= "\n<tab><highlight>$row->profession<end>\n";
 				$oldprof = $row->profession;
 			} else {
 				// fancy delimiters
 				$list .= "\n<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
-				if ($bot->settings["icon_fancy_online"] == 1) {
+				if (Setting::get("icon_fancy_online") == 1) {
 					if ($row->profession == "Adventurer")
 						$list .= "<img src=rdb://84203>";
 					else if ($row->profession == "Agent")
