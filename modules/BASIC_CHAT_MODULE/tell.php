@@ -30,17 +30,19 @@
    */
 
 if (preg_match("/^tell (.+)$/i", $message, $arr)) {
-	if ($type == "msg") {
+	if ($type = 'guild' || $type == "msg") {
 		$chatBot->send("<yellow>".$arr[1]."<end>", "guild", true);
 		$chatBot->send("<yellow>".$arr[1]."<end>", "guild", true);
 		$chatBot->send("<yellow>".$arr[1]."<end>", "guild", true);
-		$chatBot->send("<yellow>".$arr[1]."<end>", "priv", true);
-		$chatBot->send("<yellow>".$arr[1]."<end>", "priv", true);
-		$chatBot->send("<yellow>".$arr[1]."<end>", "priv", true);
-	} else {
-		$chatBot->send("<yellow>".$arr[1]."<end>", $sendto, true);
-		$chatBot->send("<yellow>".$arr[1]."<end>", $sendto, true);
-		$chatBot->send("<yellow>".$arr[1]."<end>", $sendto, true);
 	}
+	
+	if ($type = 'priv' || $type == "msg") {
+		$chatBot->send("<yellow>".$arr[1]."<end>", "priv", true);
+		$chatBot->send("<yellow>".$arr[1]."<end>", "priv", true);
+		$chatBot->send("<yellow>".$arr[1]."<end>", "priv", true);
+	}
+} else {
+	$syntax_error = true;
 }
+
 ?>

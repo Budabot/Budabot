@@ -40,7 +40,8 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 	
 	$db->query("SELECT * FROM online o LEFT JOIN players p ON o.name = p.name WHERE added_by = '<myname>' AND channel_type = 'priv'");
 	$numonline = $db->numrows();
-    while ($row = $db->fObject()) {
+	$data = $db->fObject('all');
+    forEach ($data as $row) {
       	if ($row->level > 1 && $row->level <= 14) {
       		$tl1++;
       	} else if ($row->level >= 15 && $row->level <= 49) {
@@ -59,7 +60,7 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
     }
     $msg = "<highlight>$numonline<end> in total: TL1 <highlight>$tl1<end>, TL2 <highlight>$tl2<end>, TL3 <highlight>$tl3<end>, TL4 <highlight>$tl4<end>, TL5 <highlight>$tl5<end>, TL6 <highlight>$tl6<end>, TL7 <highlight>$tl7<end>";
     $chatBot->send($msg, $sendto);
-} else if (preg_match("/^count all$/i", $message, $arr)) {
+} else if (preg_match("/^count (all|prof)$/i", $message)) {
     $online["Adventurer"] = 0;
 	$online["Agent"] = 0;
 	$online["Bureaucrat"] = 0;
@@ -79,7 +80,8 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 	$numonline = $db->numrows();
 	$msg = "<highlight>$numonline<end> in total: ";	
 
-    while ($row = $db->fObject()) {
+    $data = $db->fObject('all');
+    forEach ($data as $row) {
    	    $online[$row->profession] = $row->count;
 	}
 
@@ -110,7 +112,8 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 	$numorgs = $db->numrows();
 	
 	$blob = "<font color=#FFFF00>Organizations ($numorgs total)<end><white>\n\n";
-	while ($row = $db->fObject()) {
+	$data = $db->fObject('all');
+    forEach ($data as $row) {
 		$percent = round($row->cnt / $numonline, 2) * 100;
 		$avg_level = round($row->avg_level, 1);
    	    $blob .= "{$percent}% {$row->guild} - {$row->cnt} member(s), average level {$avg_level}\n";
@@ -118,7 +121,7 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 	
 	$msg = Text::make_link("Organizations ($numorgs total)", $blob, 'blob');
 	$chatBot->send($msg, $sendto);
-} else if (preg_match("/^count (.*)$/i", $message, $arr) || preg_match("/^(.*)$/i", $message, $arr)) {
+} else if (preg_match("/^count (.*)$/i", $message, $arr)) {
     switch (strtolower($arr[1])) {
         case "adv":
             $prof = "Adventurer";
@@ -171,7 +174,6 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 	$db->query("SELECT * FROM online o LEFT JOIN players p ON o.name = p.name WHERE added_by = '<myname>' AND channel_type = 'priv' AND `profession` = '$prof' ORDER BY `level`");
     $numonline = $db->numrows();
 	$data = $db->fObject('all');
-	print_r($data);
     $msg = "<highlight>$numonline<end> $prof:";
 
     forEach ($data as $row) {

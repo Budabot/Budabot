@@ -1,0 +1,4 @@
+<header> :::::: Tellall Command :::::: <end>
+
+<highlight>Send a tell to all online guild members<end>
+<tab><symbol>tellall 'message'

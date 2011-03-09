@@ -1,7 +1,0 @@
-<header>::::: Tell Command :::::<end>
-
-<highlight>Repeat a message 3times in orgchat<end>
-<tab><symbol>tell 'message'
-
-<highlight>Send a tell to all online guild members<end>
-<tab><symbol>tellall 'message'

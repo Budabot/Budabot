@@ -33,7 +33,8 @@ if (preg_match("/^cmdlist$/i", $message, $arr) || preg_match("/^cmdlist (.*)$/i"
 			cmd ASC";
 	$db->query($sql);
 
-	while ($row = $db->fObject()) {
+	$data = $db->fObject('all');
+	forEach ($data as $row) {
 		$guild = '';
 		$priv = '';
 		$msg = '';
