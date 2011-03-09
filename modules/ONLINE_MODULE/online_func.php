@@ -47,7 +47,7 @@ function online($sender, $sendto, &$bot, $prof = "all") {
 	}
 	$data = $db->fObject("all");
 	// create the list of guests, without showing alts
-	createList($data, $sender, $list, $bot);
+	createList($data, $sender, $list, $bot, true);
 	$numonline += $numguest;
 
 	if ($numonline == 1) {
