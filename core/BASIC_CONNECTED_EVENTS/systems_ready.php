@@ -37,5 +37,6 @@ forEach ($chatBot->admins as $name => $info) {
 }
 
 //Send a message to guild channel
-$chatBot->send("Logon Complete :: All systems ready to use.", "guild");
+$chatBot->send("Logon Complete :: All systems ready to use.", "guild", true);
+$chatBot->send("Logon Complete :: All systems ready to use.", "priv", true);
 ?>

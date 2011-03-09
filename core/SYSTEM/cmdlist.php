@@ -10,10 +10,12 @@ if (preg_match("/^cmdlist$/i", $message, $arr) || preg_match("/^cmdlist (.*)$/i"
 	$sql = "
 		SELECT
 			cmd,
+			cmdevent,
 			description,
 			module,
 			file,
 			admin,
+			dependson,
 			(SELECT count(*) FROM cmdcfg_<myname> t1 WHERE t1.cmd = c.cmd AND t1.type = 'guild') guild_avail,
 			(SELECT count(*) FROM cmdcfg_<myname> t2 WHERE t2.cmd = c.cmd AND t2.type = 'guild' AND t2.status = 1) guild_status,
 			(SELECT count(*) FROM cmdcfg_<myname> t3 WHERE t3.cmd = c.cmd AND t3.type ='priv') priv_avail,
@@ -35,19 +37,45 @@ if (preg_match("/^cmdlist$/i", $message, $arr) || preg_match("/^cmdlist (.*)$/i"
 		$guild = '';
 		$priv = '';
 		$msg = '';
+		
+		if ($row->cmdevent == 'subcmd') {
+			$cmd = $row->dependson;
+		} else {
+			$cmd = $row->cmd;
+		}
 
 		if (AccessLevel::checkAccess($sender, '3')) {
-			$on = Text::make_link('ON', "/tell <myname> config cmd $row->cmd enable all", 'chatcmd');
-			$off = Text::make_link('OFF', "/tell <myname> config cmd $row->cmd disable all", 'chatcmd');
-			$adv = Text::make_link('Permissions', "/tell <myname> config cmd $row->cmd", 'chatcmd');
+			$on = Text::make_link('ON', "/tell <myname> config cmd $cmd enable all", 'chatcmd');
+			$off = Text::make_link('OFF', "/tell <myname> config cmd $cmd disable all", 'chatcmd');
+			$adv = Text::make_link('Permissions', "/tell <myname> config cmd $cmd", 'chatcmd');
 			$adv_link = " ($adv) $on  $off";
 		}
 		
-		if ($row->description != "") {
-			$list .= "$row->cmd {$adv_link} - ($row->description)\n";
+		if ($row->msg_avail == 0) {
+			$tell = "_";
+		} else if ($row->msg_status == 1) {
+			$tell = "<green>T<end>";
 		} else {
-			$list .= "$row->cmd {$adv_link}\n";
+			$tell = "<red>T<end>";
 		}
+		
+		if ($row->guild_avail == 0) {
+			$guild = "_";
+		} else if ($row->guild_status == 1) {
+			$guild = "<green>G<end>";
+		} else {
+			$guild = "<red>G<end>";
+		}
+		
+		if ($row->priv_avail == 0) {
+			$priv = "_";
+		} else if ($row->priv_status == 1) {
+			$priv = "<green>P<end>";
+		} else {
+			$priv = "<red>P<end>";
+		}
+		
+		$list .= "$row->cmd ({$tell}|{$guild}|{$priv}) {$adv_link} - ($row->description)\n";
 	}
 
 	$msg = Text::make_link("Bot Settings -- Command List", $list);
