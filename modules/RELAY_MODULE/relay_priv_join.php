@@ -2,14 +2,23 @@
 
 if ($chatBot->settings['relaybot'] != 'Off' && $type == "joinPriv") {
 	$whois = Player::get_by_name($sender);
-
-	if ($whois === null) {
-		$msg = "$sender has joined the private channel.";
+	
+	$alts = Alts::get_alts_blob($sender);
+	
+	if ($whois !== null) {
+		if ($alts !== null) {
+			$msg = Player::get_info($whois) . " has joined the private channel. {$alts}";
+		} else {
+			$msg = Player::get_info($whois) . " has joined the private channel.";
+		}
 	} else {
-		$msg = Player::get_info($whois);
-
-        $msg .= " has joined the private channel.";
+		if ($alts !== null) {
+			$msg .= "$sender has joined the private channel. {$alts}";
+		} else {
+			$msg = "$sender has joined the private channel.";
+		}
 	}
+
 	send_message_to_relay("grc <grey>[".$chatBot->vars["my guild"]."] ".$msg);
 }
 

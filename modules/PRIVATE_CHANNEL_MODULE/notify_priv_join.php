@@ -7,15 +7,15 @@ if ($type == "joinPriv") {
 	
 	if ($whois !== null) {
 		if ($alts !== null) {
-			$msg = Player::get_info($whois) . " ($alts) has joined the private channel";
+			$msg = Player::get_info($whois) . " has joined the private channel. {$alts}";
 		} else {
-			$msg = Player::get_info($whois) . " has joined the private channel";
+			$msg = Player::get_info($whois) . " has joined the private channel.";
 		}
 	} else {
 		if ($alts !== null) {
-			$msg .= "$sender ($alts) has joined the private channel";
+			$msg .= "$sender has joined the private channel. {$alts}";
 		} else {
-			$msg = "$sender has joined the private channel";
+			$msg = "$sender has joined the private channel.";
 		}
 	}
 
