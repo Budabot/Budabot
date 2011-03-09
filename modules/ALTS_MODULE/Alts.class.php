@@ -91,7 +91,9 @@ class Alts {
 			}
 		}
 		
-		return $list;
+		$msg = Text::make_link("Alts of $main", $list, 'blob');
+		
+		return $msg;
 	}
 }
 

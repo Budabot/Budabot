@@ -153,13 +153,12 @@ if (preg_match("/^alts add ([a-z0-9-]+)$/i", $message, $arr)) {
 		$name = $sender;
 	}
 
-	$blob = Alts::get_alts_blob($name);
+	$msg = Alts::get_alts_blob($name);
 	
-	if ($blob === null) {
+	if ($msg === null) {
 		$msg = "No alts are registered for <highlight>{$name}<end>.";
-	} else {
-		$msg = Text::make_link($name."'s Alts", $blob);
 	}
+
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
