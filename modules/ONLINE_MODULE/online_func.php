@@ -157,7 +157,7 @@ function createListByChannel(&$data, &$list, $show_alts) {
 function createListByProfession(&$data, &$list, $show_alts) {
 	$db = DB::get_instance();
 
-	$current_channel = "";
+	$current_profession = "";
 	forEach ($data as $row) {
 		$name = Text::make_link($row->name, "/tell $row->name", "chatcmd");
 		 
@@ -165,11 +165,11 @@ function createListByProfession(&$data, &$list, $show_alts) {
 			$row->profession = "Unknown";
 		}
 		
-		if ($current_channel != $row->profession) {
+		if ($current_profession != $row->profession) {
 			if (Setting::get("fancy_online") == 0) {
 				// old style delimiters
 				$list .= "\n<tab><highlight>$row->profession<end>\n";
-				$oldprof = $row->profession;
+				$current_profession = $row->profession;
 			} else {
 				// fancy delimiters
 				$list .= "\n<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
@@ -208,7 +208,7 @@ function createListByProfession(&$data, &$list, $show_alts) {
 					}
 				}
 				$list .= " <highlight>$row->profession<end>";
-				$oldprof = $row->profession;
+				$current_profession = $row->profession;
 
 				$list .= "\n<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
 			}
