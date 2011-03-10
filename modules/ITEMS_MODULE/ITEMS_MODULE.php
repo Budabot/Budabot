@@ -7,7 +7,9 @@
 	DB::loadSQLFile($MODULE_NAME, "aodb");
 
 	//Items Search
-	Command::register($MODULE_NAME, "", "items.php", "items", "all", "Searches for an item in the Database");
+	Command::register($MODULE_NAME, "", "items.php", "items", "all", "Search for an item");
+	Command::register($MODULE_NAME, "", "items.php", "litems", "all", "Search for an item in the local database", 'items');
+	Command::register($MODULE_NAME, "", "items.php", "xitems", "all", "Search for an item in the Xyphos.com database", 'items');
 
 	Command::register($MODULE_NAME, "", "updateitems.php", "updateitems", "guild", "Download the latest version of the items db");
 	

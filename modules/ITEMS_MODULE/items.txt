@@ -13,4 +13,7 @@ Note: You don't need to insert the full name to do a successful search but the w
 <tab>Shows the First tier Armor for the Nano-Technician
 
 <tab><symbol>items 133 first tier nano
-<tab>Shows the First tier Armor for the Nano-Technician with the QL133
+<tab>Shows the First tier Armor for the Nano-Technician QL133
+
+To force searching of the local items database use 'litems' instead of 'items'.
+To force searching of the Xyphos.com items database use 'xitems' instead of 'items'

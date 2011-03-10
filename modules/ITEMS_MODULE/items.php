@@ -29,16 +29,16 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
    
-if (preg_match("/^items ([0-9]+) (.+)$/i", $message, $arr)) {
-    $ql = $arr[1];
+if (preg_match("/^(xitems|litems|items) ([0-9]+) (.+)$/i", $message, $arr)) {
+    $ql = $arr[2];
     if (!($ql >= 1 && $ql <= 500)) {
         $msg = "Invalid Ql specified(1-500)";
         $chatBot->send($msg, $sendto);
         return;
     }
+    $search = $arr[3];
+} else if (preg_match("/^(xitems|litems|items) (.+)$/i", $message, $arr)) {
     $search = $arr[2];
-} else if (preg_match("/^items (.+)$/i", $message, $arr)) {
-    $search = $arr[1];
     $ql = false;
 } else {
   	$syntax_error = true;
@@ -48,10 +48,13 @@ if (preg_match("/^items ([0-9]+) (.+)$/i", $message, $arr)) {
 // ao automatically converts '&' to '&amp;', so we convert it back
 $search = str_replace("&amp;", "&", $search);
 
-if ($chatBot->settings["itemdb_location"] == 'Xyphos.com') {
+if ($arr[1] == 'xitems') {
+	$msg = find_items_from_xyphos($search, $ql);
+} else if ($arr[1] == 'litems') {
+	$msg = find_items_from_local($search, $ql);
+} else if ($chatBot->settings["itemdb_location"] == 'Xyphos.com') {
 	$msg = find_items_from_xyphos($search, $ql);
 } else {
-	// default to local
 	$msg = find_items_from_local($search, $ql);
 }
 $chatBot->send($msg, $sendto);

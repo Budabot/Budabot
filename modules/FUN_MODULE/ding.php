@@ -30,6 +30,8 @@ if (preg_match("/^ding$/i", $message)) {
 		$msg = $dingText[$rndnum];
 	} else if ($arr[1] == 220) {
 		$msg =	"Congratz! You have reached the end of the line! No more fun for you :)";
+	} else if ($arr[1] > 220) {
+		$msg =	"Umm...no.";
 	} else {
 		$msg = "Ding ding ding..now ding some more!";
 	}
