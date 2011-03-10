@@ -13,7 +13,7 @@
 	Command::register($MODULE_NAME, "", "lastseen.php", "lastseen", "guild", "Shows the logoff time of a player");
 	
 	// Tellall
-	Command::register($MODULE_NAME, "", "tell.php", "tellall", "leader", "Sends a tell to all online guild members");
+	Command::register($MODULE_NAME, "", "tellall.php", "tellall", "leader", "Sends a tell to all online guild members");
 
     // Org Roster list creation and Notify on/off handling
 	Event::register($MODULE_NAME, "24hrs", "roster_guild.php", "none", "Download guild roster xml and update guild members");
