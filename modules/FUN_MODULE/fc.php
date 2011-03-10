@@ -21,15 +21,17 @@ $fc[] = "We do not suspend accounts on hearsay or rumour, but only when our staf
 $fc[] = "What is does mean is that every player involved was at least in contact with those doing the exploit, whether by game chat channels or otherwise. --Craig \"Silirrion\" Morrison";
 $fc[] = "Our apologies. Your accounts have been closed due to unauthorized actives. Thank you for your understanding. --Lead GM Sojourn, Customer Satisfaction Manager";
 
-if (preg_match("/^fc/i", $message)) {
+if (preg_match("/^fc$/i", $message)) {
 	$dmg = rand(100,999);
     $cred = rand(10000,9999999);
-	$randval = rand(1, sizeof($fc) - 1);
+	$randval = rand(0, sizeof($fc) - 1);
 	$msg = $fc[$randval];
     $msg = str_replace("*name*", $sender, $msg);
     $msg = str_replace("*dmg*", $dmg, $msg);
     $msg = str_replace("*creds*", $cred, $msg);
 	$chatBot->send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
 
 ?>

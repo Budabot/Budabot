@@ -461,8 +461,11 @@ $homer = array(
 	"'To Start Press Any Key'. Where's the ANY key?");
 
 if (preg_match("/^homer/i", $message)) {
-	$randval = rand(1, sizeof($homer) - 1);
+	$randval = rand(0, sizeof($homer) - 1);
 	$msg = $homer[$randval];
 	$chatBot->send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
+
 ?>

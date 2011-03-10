@@ -47,8 +47,11 @@ $dwight = array(
 );
 
 if (preg_match("/^dwight/i", $message)) {
-	$randval = rand(1, sizeof($dwight) - 1);
+	$randval = rand(0, sizeof($dwight) - 1);
 	$msg = $dwight[$randval];
 	$chatBot->send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
+
 ?>

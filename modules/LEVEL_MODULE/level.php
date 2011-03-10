@@ -41,4 +41,5 @@ if (preg_match("/^level ([0-9]+)$/i", $message, $arr)) {
 } else {
 	$syntax_error = true;
 }
+
 ?>
