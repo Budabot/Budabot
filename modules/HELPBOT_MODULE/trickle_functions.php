@@ -33,19 +33,7 @@
    **
    */
    
-$chatBot->data['abilities'] = array('agi', 'int', 'psy', 'sta', 'str', 'sen');
-
-function getAbility($ability) {
-	$ability = strtolower(substr($ability, 0, 3));
-
-	if (in_array($ability, $chatBot->data['abilities'])) {
-		return $ability;
-	} else {
-		return null;
-	}
-}
-
-function getTrickleResults($agi, $int, $psy, $sta, $str, $sen) {
+function getTrickleResults($abilities) {
 	$db = DB::get_instance();
 
 	$sql = "
@@ -58,12 +46,12 @@ function getTrickleResults($agi, $int, $psy, $sta, $str, $sen) {
 			amountSta,
 			amountStr,
 			amountSen,
-			(amountAgi * $agi
-				+ amountInt * $int
-				+ amountPsy * $psy
-				+ amountSta * $sta
-				+ amountStr * $str
-				+ amountSen * $sen) AS amount
+			(amountAgi * {$abilities['agi']}
+				+ amountInt * {$abilities['int']}
+				+ amountPsy * {$abilities['psy']}
+				+ amountSta * {$abilities['sta']}
+				+ amountStr * {$abilities['str']}
+				+ amountSen * {$abilities['sen']}) AS amount
 		FROM
 			trickle
 		GROUP BY
@@ -86,7 +74,7 @@ function getTrickleResults($agi, $int, $psy, $sta, $str, $sen) {
 	return $db->fObject("all");
 }
 
-function formatOutput($results, $amount) {
+function formatOutput($results, $amount, &$abilities) {
 	$msg = "";
 	$groupName = "";
 	forEach($results as $result) {
@@ -99,7 +87,8 @@ function formatOutput($results, $amount) {
 		$amount = $result->amount / 4;
 		$msg .= "<yellow>$result->name<end> <orange>$amount<end>";
 		
-		forEach ($chatBot->data['abilities'] as $ability) {
+		/*
+		forEach ($abilities as $ability => $value) {
 			$ability = ucfirst($ability);
 			$abilityField = "amount" . $ability;
 			$abilityAmount = $result->$abilityField * 100;
@@ -107,6 +96,7 @@ function formatOutput($results, $amount) {
 				$msg .= " (" . $ability . " " . $abilityAmount . "%)";
 			}
 		}
+		*/
 		
 		$msg .= "\n";
 	}

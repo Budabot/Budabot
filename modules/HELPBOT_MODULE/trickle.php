@@ -33,41 +33,49 @@
    **
    */
 
-$usageMsg = "Usage: <symbol>trickle &lt;ability&gt; &lt;amount&gt;\n<tab>ex: <symbol>trickle agi 20\nValid abilites are: agi, int, psy, sta, str, sen";
-
-$msg = "";
-$agi = 0;
-$int = 0;
-$psy = 0;
-$sta = 0;
-$str = 0;
-$sen = 0;
-
-// make sure the $ql is an integer between 1 and 300
-if (preg_match("/^trickle( ([a-zA-Z]+) ([0-9]+)){1,6}$/i", $message)) {
-	$array = explode(" ", $message);
-	for ($i = 0; isset($array[1 + $i]); $i += 2) {
-		$ability = getAbility($array[1 + $i]);
-		$$ability = $array[2 + $i];
-	}
-
-	if ($ability == null) {
-		$msg = $usageMsg;
-	} else {
-		$header = "";
-		forEach ($chatBot->data['abilities'] as $ability) {
-			if ($$ability != 0) {
-				$header .= " (" . ucfirst($ability) . " " . $$ability . ")";
-			}
-		}
-
-		$output = Text::make_header("Trickle$header", "none");
-
-		$results = getTrickleResults($agi, $int, $psy, $sta, $str, $sen);
-		$output .= formatOutput($results, $amount);
-		$msg = Text::make_link('Trickle Results', $output);
-	}
+if (preg_match("/^trickle( ([a-zA-Z]+) ([0-9]+)){1,6}$/i", $message, $arr1) || preg_match("/^trickle( ([0-9]+) ([a-zA-Z]+)){1,6}$/i", $message, $arr2)) {
+	$msg = "";
 	
+	$abilities = array('agi' => 0, 'int' => 0, 'psy' => 0, 'sta' => 0, 'str' => 0, 'sen' => 0);
+	
+	if ($arr1) {
+		$array = explode(" ", $message);
+		array_shift($array);
+		for ($i = 0; isset($array[$i]); $i += 2) {
+			$ability = Util::get_ability($array[$i]);
+			if ($ability == null) {
+				$syntax_error = true;
+				return;
+			}
+			
+			$abilities[$ability] = $array[1 + $i];
+		}
+	} else if ($arr2) {
+		$array = explode(" ", $message);
+		array_shift($array);
+		for ($i = 0; isset($array[$i]); $i += 2) {
+			$ability = Util::get_ability($array[1 + $i]);
+			if ($ability == null) {
+				$syntax_error = true;
+				return;
+			}
+			
+			$abilities[$ability] = $array[$i];
+		}
+	}
+
+	$header = "";
+	forEach ($abilities as $ability => $value) {
+		if ($value != 0) {
+			$header .= " (" . ucfirst($ability) . " " . $value . ")";
+		}
+	}
+
+	$output = Text::make_header("Trickle$header", "none");
+
+	$results = getTrickleResults($abilities);
+	$output .= formatOutput($results, $amount, $abilities);
+	$msg = Text::make_link("Trickle Results", $output);
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;

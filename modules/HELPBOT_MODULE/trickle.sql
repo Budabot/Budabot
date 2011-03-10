@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS trickle (	groupName VARCHAR(20) NOT NULL,	name VARCHAR(30) NOT NULL,	amountAgi DECIMAL(3,1) NOT NULL,	amountInt DECIMAL(3,1) NOT NULL,	amountPsy DECIMAL(3,1) NOT NULL,	amountSta DECIMAL(3,1) NOT NULL,	amountStr DECIMAL(3,1) NOT NULL,	amountSen DECIMAL(3,1) NOT NULL );
+CREATE TABLE IF NOT EXISTS trickle ( groupName VARCHAR(20) NOT NULL, name VARCHAR(30) NOT NULL, amountAgi DECIMAL(3,1) NOT NULL, amountInt DECIMAL(3,1) NOT NULL, amountPsy DECIMAL(3,1) NOT NULL, amountSta DECIMAL(3,1) NOT NULL, amountStr DECIMAL(3,1) NOT NULL, amountSen DECIMAL(3,1) NOT NULL );
 DELETE FROM trickle;
 INSERT INTO trickle (groupName, name, amountAgi, amountInt, amountPsy, amountSta, amountStr, amountSen) VALUES('Nano skills', 'TS', .2, .8, 0, 0, 0, 0);
 INSERT INTO trickle (groupName, name, amountAgi, amountInt, amountPsy, amountSta, amountStr, amountSen) VALUES('Nano skills', 'MC', 0, .8, 0, .2, 0, 0);

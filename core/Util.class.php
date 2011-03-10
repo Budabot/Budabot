@@ -227,6 +227,18 @@ class Util {
 	     	return "";
 	    }
 	}
+	
+	public static function get_ability($ability) {
+		$abilities = array('agi', 'int', 'psy', 'sta', 'str', 'sen');
+		
+		$ability = strtolower(substr($ability, 0, 3));
+
+		if (in_array($ability, $abilities)) {
+			return $ability;
+		} else {
+			return null;
+		}
+	}
 }
 
 ?>
