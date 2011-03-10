@@ -16,7 +16,8 @@ if (preg_match("/^cluster (.+)$/i", $message, $arr)) {
 		}
 	}
 	if ($found == 0) { 
-		$chatBot->send("No matches, sorry.", $sendto); return; 
+		$chatBot->send("No matches, sorry.", $sendto);
+		return; 
 	} else if ($found == 1) {
 		$windowlink = str_replace("--", "", $info);
 	} else {
@@ -36,4 +37,5 @@ if (preg_match("/^cluster (.+)$/i", $message, $arr)) {
 } else {
 	$syntax_error = true;
 }
+
 ?>

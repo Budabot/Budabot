@@ -39,7 +39,8 @@ if (preg_match("/^whatbuffs (.+)$/i", $message, $arr)) {
 				$chatBot->send("<highlight>$found<end> result(s) in total", $sendto);
 				return;
 			} else {
-				$chatBot->send("Nothing that buffs ".$skills[0]." in my database, sorry.", $sendto); return; 
+				$chatBot->send("Nothing that buffs ".$skills[0]." in my database, sorry.", $sendto);
+				return; 
 			}
 			break;
 

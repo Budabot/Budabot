@@ -149,8 +149,10 @@ if (preg_match("/^vote$/i", $message)) {
 			if ($row->answer && $timeleft > 0) {$privmsg = "On this vote, you already selected: <highlight>(".$row->answer.")<end>.";}
 			elseif ($timeleft > 0){$privmsg = "You haven't voted on this one yet.";}
 			
-			$msg = Text::make_link("Vote: $question",$msg);
-			if ($privmsg) {$chatBot->send($privmsg, $sender);}			
+			$msg = Text::make_link("Vote: $question", $msg);
+			if ($privmsg) {
+				$chatBot->send($privmsg, $sender);
+			}
 		}
 		
 		

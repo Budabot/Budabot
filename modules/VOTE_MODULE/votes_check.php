@@ -147,8 +147,12 @@ forEach ($chatBot->data["Vote"] as $key => $value) {
 		
 		$msg = Text::make_link($title, $msg);
 		
-		if ($chatBot->settings["vote_channel_spam"] == 0 || $chatBot->settings["vote_channel_spam"] == 2) {$chatBot->send($msg, 'guild', true);}
-	   	if ($chatBot->settings["vote_channel_spam"] == 1 || $chatBot->settings["vote_channel_spam"] == 2) {$chatBot->send($msg, 'priv', true);}
+		if ($chatBot->settings["vote_channel_spam"] == 0 || $chatBot->settings["vote_channel_spam"] == 2) {
+			$chatBot->send($msg, 'guild', true);
+		}
+	   	if ($chatBot->settings["vote_channel_spam"] == 1 || $chatBot->settings["vote_channel_spam"] == 2) {
+			$chatBot->send($msg, 'priv', true);
+		}
 	}
 }
 ?>
