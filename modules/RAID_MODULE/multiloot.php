@@ -38,7 +38,7 @@ if (preg_match("/^multiloot (.+)$/i", $message, $arr)) {
 	if(preg_match("/^([0-9]+)x (.+)$/i", $arr[1], $lewt) || preg_match("/^([0-9]+) (.+)$/i", $arr[1], $lewt)){
 		$multiloot = $lewt[1];
 	} else {
-		$chatBot->send("The data you entered is not a multiloot. Please check <highlight>/tell <myname> <symbol>help multiloot<end> for the correct syntax.");
+		$chatBot->send("The data you entered is not a multiloot. Please check <highlight>/tell <myname> <symbol>help multiloot<end> for the correct syntax.", 'priv');
 		return;
 	}
 
@@ -129,16 +129,16 @@ if (preg_match("/^multiloot (.+)$/i", $message, $arr)) {
 
 		//Send info
 		if ($multiloot) {
-			$chatBot->send($multiloot."x <highlight>{$loot[$num_loot]["name"]}<end> will be rolled in Slot <highlight>#$num_loot<end>");
+			$chatBot->send($multiloot."x <highlight>{$loot[$num_loot]["name"]}<end> will be rolled in Slot <highlight>#$num_loot<end>", 'priv');
 		}
-		$chatBot->send("To add use <symbol>add $num_loot, or <symbol>add 0 to remove yourself");
+		$chatBot->send("To add use <symbol>add $num_loot, or <symbol>add 0 to remove yourself", 'priv');
 	} else {
 		//Send info in case of SMART
 		if ($multiloot) {
-			$chatBot->send($multiloot."x <highlight>{$loot[$itmref]["name"]}<end> added to Slot <highlight>#$itmref<end> as multiloot. Total: <yellow>{$loot[$itmref]["multiloot"]}<end>");
+			$chatBot->send($multiloot."x <highlight>{$loot[$itmref]["name"]}<end> added to Slot <highlight>#$itmref<end> as multiloot. Total: <yellow>{$loot[$itmref]["multiloot"]}<end>", 'priv');
 		}
 
-		$chatBot->send("To add use <symbol>add $itmref, or <symbol>add 0 to remove yourself");
+		$chatBot->send("To add use <symbol>add $itmref, or <symbol>add 0 to remove yourself", 'priv');
 		$dontadd = 0;
 		$itmref = 0;
 		if (is_array($residual)) {
@@ -148,4 +148,5 @@ if (preg_match("/^multiloot (.+)$/i", $message, $arr)) {
 } else {
 	$syntax_error = true;
 }
+
 ?>

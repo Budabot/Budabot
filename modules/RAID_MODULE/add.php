@@ -81,7 +81,7 @@ if (preg_match("/^add$/i", $message)) {
 	$chatBot->send($msg, $sender);
 	
 	$msg = "<highlight>$sender<end> has been added for this roll.";
-	$chatBot->send($msg);
+	$chatBot->send($msg, 'priv');
 } else if (preg_match("/^add 0$/i", $message)) {
  	//Raid with flatrolls
 	if ($chatBot->vars["raid_status"] != "" && $chatBot->vars["raid_pts"] == 0) {

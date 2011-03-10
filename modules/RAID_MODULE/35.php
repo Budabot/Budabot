@@ -109,5 +109,8 @@ if (preg_match("/^35$/i", $message)) {
 	}
 
 	$chatBot->send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
+
 ?>

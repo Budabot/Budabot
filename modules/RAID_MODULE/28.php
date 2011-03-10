@@ -99,5 +99,8 @@ if(preg_match("/^28$/i", $message)) {
 	}
 
 	$chatBot->send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
+
 ?>

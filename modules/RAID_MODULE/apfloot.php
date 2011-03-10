@@ -97,7 +97,7 @@ $itemlink["HRPSAG"] = Text::make_item(231236, 231236, 1, "Hyper-Radiation Protec
 $itemlink["VTS"] = Text::make_item(251240, 251240, 250, "Viral Targeting Subunit");	
 $itemlink["SS"] = Text::make_item(253235, 253235, 250, "Salabim Shotgun");	
 
-if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
+if (preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 	$list .= "<header>::::: Guide for Hacker ICE-Breaker Source :::::<end>\n\n";
 	$list .= "<u>Process for 100% CRU</u>\n\n";
 	$list .= "<tab><tab><tab><tab><img src=rdb://99279>\n";
@@ -113,7 +113,7 @@ if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 	$msg = Text::make_link("Guide for Hacker ICE-Breaker Source", $list);
 
     $chatBot->send($msg, $sendto);
-} elseif(preg_match("/^apfloot KyrOzch Helmet$/i", $message)) {
+} else if (preg_match("/^apfloot KyrOzch Helmet$/i", $message)) {
 	$list = "<header>::::: Guide for Kyr'Ozch Helmet :::::<end>\n\n";
 	$list .= "Handing this item to your faction Vendor at the Alien Playfield Bar it will give you one of these 2500Token Boards back:\n\n";
 	$list .= "<tab><tab><tab><tab><img src=rdb://82982>\n";
@@ -125,7 +125,7 @@ if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 	$msg = Text::make_link("Guide for Kyr'Ozch Helmet", $list);
 
     $chatBot->send($msg, $sendto);
-} elseif(preg_match("/^apfloot Action Probability Estimator$/i", $message)) {
+} else if (preg_match("/^apfloot Action Probability Estimator$/i", $message)) {
 	$list = "<header>::::: Guide for Action Probability Estimator :::::<end>\n\n";
 
 	$list .= "<u>Extruder's Molybdenum Crash Helmet</u>\n\n";
@@ -181,7 +181,7 @@ if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 	$msg = Text::make_link("Guide for Action Probability Estimator", $list);
 
     $chatBot->send($msg, $sendto);
-} elseif(preg_match("/^apfloot Dynamic Gas Redistribution Valves$/i", $message)) {
+} else if (preg_match("/^apfloot Dynamic Gas Redistribution Valves$/i", $message)) {
 	$list = "<header>::::: Guide for Dynamic Gas Redistribution Valves :::::<end>\n\n";
 
 	$list .= "<u>High Lord of Angst</u>\n\n";
@@ -229,7 +229,7 @@ if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 	$msg = Text::make_link("Guide for Dynamic Gas Redistribution Valves", $list);
 
     $chatBot->send($msg, $sendto);
-} elseif(preg_match("/^apfloot Inertial Adjustment Processing Unit$/i", $message)) {
+} else if (preg_match("/^apfloot Inertial Adjustment Processing Unit$/i", $message)) {
 	$list = "<header>::::: Guide for Inertial Adjustment Processing Unit :::::<end>\n\n";
 	$list .= "<u>Hadrulf's Viral Belt Component Platform</u>\n\n";
 	$list .= "<tab><tab><tab><tab><img src=rdb://11618>\n";
@@ -281,7 +281,7 @@ if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 	$msg = Text::make_link("Guide for Inertial Adjustment Processing Unit", $list);
 
     $chatBot->send($msg, $sendto);
-} elseif(preg_match("/^apfloot Notum Amplification Coil$/i", $message)) {
+} else if (preg_match("/^apfloot Notum Amplification Coil$/i", $message)) {
 	$list = "<header>::::: Guide for Notum Amplification Coil :::::<end>\n\n";
 
 	$list .= "<u>Twice Augmented Hellspinner Shock Cannon</u>\n\n";
@@ -319,7 +319,7 @@ if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 	$msg = Text::make_link("Guide for Notum Amplification Coil", $list);
 
     $chatBot->send($msg, $sendto);
-} elseif(preg_match("/^apfloot Energy Redistribution Unit$/i", $message)) {
+} else if (preg_match("/^apfloot Energy Redistribution Unit$/i", $message)) {
 	$list = "<header>::::: Guide for Energy Redistribution Unit :::::<end>\n\n";
 
 	$list .= "<u>Blades of Boltar</u>\n\n";
@@ -356,7 +356,7 @@ if(preg_match("/^apfloot Hacker ICE-Breaker Source$/i", $message)) {
 	$msg = Text::make_link("Guide for Energy Redistribution Unit", $list);
 
     $chatBot->send($msg, $sendto);
-} elseif(preg_match("/^apfloot Visible Light Remodulation Device$/i", $message)) {
+} else if (preg_match("/^apfloot Visible Light Remodulation Device$/i", $message)) {
 	$list = "<header>::::: Guide for Visible Light Remodulation Device :::::<end>\n\n";
 
 	$list .= "<u>Explosif's Polychromatic Pillows</u>\n\n";

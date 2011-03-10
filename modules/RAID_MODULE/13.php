@@ -98,5 +98,8 @@ if(preg_match("/^13$/i", $message)) {
 	}
 
 	$chatBot->send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
+
 ?>

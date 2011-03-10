@@ -56,6 +56,8 @@ if (preg_match("/^rem$/i", $message)) {
 	} else {
 		$chatBot->send("There is nothing where you could add in.", $sender);
 	}
+} else {
+	$syntax_error = true;
 }
 
 ?>

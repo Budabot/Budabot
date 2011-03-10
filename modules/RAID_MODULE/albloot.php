@@ -1,6 +1,5 @@
 <?php
 
-require_once('func.php');
 /*
    ** Author: Dare2005 (RK2), based on code for dbloot module by Chachy (RK2)
    ** Description: Albtraum Loot Module
@@ -27,6 +26,8 @@ require_once('func.php');
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+
+require_once 'func.php';
 
 //:::: Alb Crystals and Crystalised Memories Loot ::::
 $albloot[1]["name"] = "Inert Knowledge Crystal";
