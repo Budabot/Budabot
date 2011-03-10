@@ -1,13 +1,11 @@
 <?php
 	require_once 'db_utils.php';
-	require_once 'trickle_functions.php';
 
 	$MODULE_NAME = "HELPBOT_MODULE";
 
 	DB::loadSQLFile($MODULE_NAME, "roll_kos");
 	DB::loadSQLFile($MODULE_NAME, "dyna");
 	DB::loadSQLFile($MODULE_NAME, "research");
-	DB::loadSQLFile($MODULE_NAME, "trickle");
 	DB::loadSQLFile($MODULE_NAME, "playfields");
 
 	Command::register($MODULE_NAME, "", "kos.php", "kos", "guild", "Shows the Kill On Sight List");
@@ -30,7 +28,6 @@
 	Command::register($MODULE_NAME, "", "whatbuffs.php", "whatbuffs", "all", "find items that buff");
 	Command::register($MODULE_NAME, "", "dyna.php", "dyna", "all", "Search for RK Dynaboss");
 	Command::register($MODULE_NAME, "", "research.php", "research", "all", "Info on Research");
-	Command::register($MODULE_NAME, "", "trickle.php", "trickle", "all", "Shows how much skills you will gain by increasing an ability");
 	Command::register($MODULE_NAME, "", "playfields.php", "playfields", "all", "Shows all the playfields including IDs and short names");
 	Command::register($MODULE_NAME, "", "waypoint.php", "waypoint", "all", "Creats a waypoint link");
 
@@ -63,5 +60,4 @@
 	Help::register($MODULE_NAME, "dyna", "dyna.txt", "all", "Search for RK Dynaboss");
 	Help::register($MODULE_NAME, "research", "research.txt", "all", "Info on Research");
 	Help::register($MODULE_NAME, "capxp", "capxp.txt", "all", "Set your reasearch bar for max xp/sk");
-	Help::register($MODULE_NAME, "trickle", "trickle.txt", "all", "How to use trickle");
 ?>
