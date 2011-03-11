@@ -2,10 +2,9 @@
 
 $fields = array();
 $fields['q'] = '';
-$fields['server'] = $chatBot->vars["dimension"];
-$fields['server'] = "0";
-$fields['limit'] = "15";
-
+$fields['type'] = '';
+$fields['s'] = $chatBot->vars["dimension"];
+$fields['limit'] = Setting::get('max_shopping_results');
 
 if (preg_match("/^wtb (.+)$/i", $message, $arr)) {
 	//WTS messages = 0, WTB messages = 1
@@ -23,10 +22,10 @@ if (preg_match("/^wtb (.+)$/i", $message, $arr)) {
 if (!$syntax_error) {
 	$query_string = '?mode=xml';
 	forEach ($fields as $name => $value) {
-		$query_string .= "&{$name}=" . htmlspecialchars($value);
+		$query_string .= "&{$name}=" . rawurlencode($value);
 	}
-	
-	$xml_file = file_get_contents("http://www.rubi-ka.com/market/market.php" . $query_string);
+
+	$xml_file = file_get_contents("http://services.rubi-ka.com/market.php" . $query_string);
 	try {
 		$xml_doc = new SimpleXMLElement($xml_file);
 		
