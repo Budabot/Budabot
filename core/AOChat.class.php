@@ -61,51 +61,6 @@ if (!extension_loaded("gmp") && !extension_loaded("bcmath") && !extension_loaded
 set_time_limit(0);
 ini_set("html_errors", 0);
 
-/* Packet type definitions - so we won't have to use the number IDs
-* .. I did not distinct between server and client message types, as
-* they are mostly the same for same type packets, but maybe it should
-* have been done anyway..  // auno - 2004/mar/26
-*/
-define('AOCP_LOGIN_SEED',               0);
-define('AOCP_LOGIN_REQUEST',            2);
-define('AOCP_LOGIN_SELECT',             3);
-define('AOCP_LOGIN_OK',                 5);
-define('AOCP_LOGIN_ERROR',              6);
-define('AOCP_LOGIN_CHARLIST',           7);
-define('AOCP_CLIENT_UNKNOWN',          10);
-define('AOCP_CLIENT_NAME',             20);
-define('AOCP_CLIENT_LOOKUP',           21);
-define('AOCP_MSG_PRIVATE',             30);
-define('AOCP_MSG_VICINITY',            34);
-define('AOCP_MSG_VICINITYA',           35);
-define('AOCP_MSG_SYSTEM',              36);
-define('AOCP_CHAT_NOTICE',             37);
-define('AOCP_BUDDY_ADD',               40);
-define('AOCP_BUDDY_REMOVE',            41);
-define('AOCP_ONLINE_SET',              42);
-define('AOCP_PRIVGRP_INVITE',          50);
-define('AOCP_PRIVGRP_KICK',            51);
-define('AOCP_PRIVGRP_JOIN',            52);
-define('AOCP_PRIVGRP_PART',            53);
-define('AOCP_PRIVGRP_KICKALL',         54);
-define('AOCP_PRIVGRP_CLIJOIN',         55);
-define('AOCP_PRIVGRP_CLIPART',         56);
-define('AOCP_PRIVGRP_MESSAGE',         57);
-define('AOCP_PRIVGRP_REFUSE',          58);
-define('AOCP_GROUP_ANNOUNCE',          60);
-define('AOCP_GROUP_PART',              61);
-define('AOCP_GROUP_DATA_SET',          64);
-define('AOCP_GROUP_MESSAGE',           65);
-define('AOCP_GROUP_CM_SET',            66);
-define('AOCP_CLIENTMODE_GET',          70);
-define('AOCP_CLIENTMODE_SET',          71);
-define('AOCP_PING',                   100);
-define('AOCP_FORWARD',                110);
-define('AOCP_CC',                     120);
-define('AOCP_ADM_MUX_INFO',          1100);
-
-define('AOCP_GROUP_JOIN',		AOCP_GROUP_ANNOUNCE); /* compat */
-
 define('AOC_GROUP_NOWRITE',     0x00000002);
 define('AOC_GROUP_NOASIAN',     0x00000020);
 define('AOC_GROUP_MUTE',        0x01010000);
@@ -236,13 +191,9 @@ class AOChat {
 			if (($tmp = socket_read($this->socket, $rlen)) === false) {
 				$last_error = socket_strerror(socket_last_error($this->socket));
 				die("Read error: $last_error\n");
-				$this->disconnect();
-				return "";
 			}
 			if ($tmp == "") {
 				die("Read error: EOF\n(Someone else logging on to same account?)\n");
-				$this->disconnect();
-				return "";
 			}
 			$data .= $tmp;
 			$rlen -= strlen($tmp);

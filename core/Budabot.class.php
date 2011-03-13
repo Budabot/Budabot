@@ -96,7 +96,6 @@ class Budabot extends AOChat {
 		// Begin the login process
 		Logger::log('INFO', 'StartUp', "Connecting to AO Server...($server)");
 		$this->connect($server, $port);
-		sleep(2);
 		if ($this->state != "auth") {
 			Logger::log('ERROR', 'StartUp', "Connection failed! Please check your Internet connection and firewall.");
 			sleep(10);
@@ -105,7 +104,6 @@ class Budabot extends AOChat {
 
 		Logger::log('INFO', 'StartUp', "Authenticate login data...");
 		$this->authenticate($login, $password);
-		sleep(2);
 		if ($this->state != "login") {
 			Logger::log('ERROR', 'StartUp', "Authentication failed! Please check your username and password.");
 			sleep(10);
@@ -114,7 +112,6 @@ class Budabot extends AOChat {
 
 		Logger::log('INFO', 'StartUp', "Logging in {$this->vars["name"]}...");
 		$this->login($this->vars["name"]);
-		sleep(2);
 		if ($this->state != "ok") {
 			Logger::log('ERROR', 'StartUp', "Logging in of {$this->vars["name"]} failed! Please check the character name and dimension.");
 			sleep(10);
@@ -122,7 +119,6 @@ class Budabot extends AOChat {
 		}
 
 		Logger::log('INFO', 'StartUp', "All Systems ready!");
-		sleep(2);
 
 		// Set cron timers
 		$this->vars["2sec"] 			= time() + $this->settings["CronDelay"];
