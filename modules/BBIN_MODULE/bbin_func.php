@@ -40,10 +40,10 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot) {
 		}
 		$msg .= ".";
 
-		if ($bot->vars['my guild'] != "") {
+		if ($bot->vars['my_guild'] != "") {
 			$bot->send("<yellow>[BBIN]<end> $msg","guild",true);
 		}
-		if ($bot->vars['my guild'] == "" || $bot->settings["guest_relay"] == 1) {
+		if ($bot->vars['my_guild'] == "" || $bot->settings["guest_relay"] == 1) {
 			$bot->send("<yellow>[BBIN]<end> $msg","priv",true);
 		}
 
@@ -65,10 +65,10 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot) {
 		$msg .= "<highlight>$name<end> has left the network.";
 
 
-		if ($bot->vars['my guild'] != "") {
+		if ($bot->vars['my_guild'] != "") {
 			$bot->send("<yellow>[BBIN]<end> $msg","guild",true);
 		}
-		if ($bot->vars['my guild'] == "" || $bot->settings["guest_relay"] == 1) {
+		if ($bot->vars['my_guild'] == "" || $bot->settings["guest_relay"] == 1) {
 			$bot->send("<yellow>[BBIN]<end> $msg","priv",true);
 		}
 
@@ -138,10 +138,10 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot) {
 		}
 	} else {
 		// normal message
-		if ($bot->vars['my guild'] != "") {
+		if ($bot->vars['my_guild'] != "") {
 			$bot->send("<yellow>[BBIN]<end> $bbinmsg", "guild", true);
 		}
-		if ($bot->vars['my guild'] == "" || $bot->settings["guest_relay"] == 1) {
+		if ($bot->vars['my_guild'] == "" || $bot->settings["guest_relay"] == 1) {
 			$bot->send("<yellow>[BBIN]<end> $bbinmsg", "priv", true);
 		}
 	}

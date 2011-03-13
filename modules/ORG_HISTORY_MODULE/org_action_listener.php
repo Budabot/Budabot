@@ -37,37 +37,33 @@ if (preg_match("/^(.+) just left your organization.$/", $message, $arr)) {
 	$actor = $arr[1];
 	$actee = "";
 	$action = "left";
-	$organization = $chatBot->vars['my guild'];
 	$time = time();
 	
-	$sql = "INSERT INTO org_history ( actor, actee, action, organization, time ) VALUES ( '$actor', '$actee', '$action', '$organization', $time ) ";
+	$sql = "INSERT INTO org_history ( actor, actee, action, organization, time ) VALUES ( '$actor', '$actee', '$action', '<myguild>', $time ) ";
 	$db->exec($sql);
 } else if (preg_match("/^(.+) kicked (.+) from your organization.$/", $message, $arr)) {
 	$actor = $arr[1];
 	$actee = $arr[2];
 	$action = "kicked";
-	$organization = $chatBot->vars['my guild'];
 	$time = time();
 	
-	$sql = "INSERT INTO org_history ( actor, actee, action, organization, time ) VALUES ( '$actor', '$actee', '$action', '$organization', $time ) ";
+	$sql = "INSERT INTO org_history ( actor, actee, action, organization, time ) VALUES ( '$actor', '$actee', '$action', '<myguild>', $time ) ";
 	$db->exec($sql);
 } else if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
 	$actor = $arr[1];
 	$actee = $arr[2];
 	$action = "invited";
-	$organization = $chatBot->vars['my guild'];
 	$time = time();
 	
-	$sql = "INSERT INTO org_history ( actor, actee, action, organization, time ) VALUES ( '$actor', '$actee', '$action', '$organization', $time ) ";
+	$sql = "INSERT INTO org_history ( actor, actee, action, organization, time ) VALUES ( '$actor', '$actee', '$action', '<myguild>', $time ) ";
 	$db->exec($sql);
 } else if (preg_match("/^(.+) removed inactive character (.+) from your organization.$/", $message, $arr)) {
 	$actor = $arr[1];
 	$actee = $arr[2];
 	$action = "removed";
-	$organization = $chatBot->vars['my guild'];
 	$time = time();
 	
-	$sql = "INSERT INTO org_history ( actor, actee, action, organization, time ) VALUES ( '$actor', '$actee', '$action', '$organization', $time ) ";
+	$sql = "INSERT INTO org_history ( actor, actee, action, organization, time ) VALUES ( '$actor', '$actee', '$action', '<myguild>', $time ) ";
 	$db->exec($sql);
 }
 

@@ -37,9 +37,9 @@
 // create a timer for 15m when an OS/AS is launched (so org knows when they can launch again)
 // [Org Msg] Blammo! Player has launched an orbital attack!
 
-if(preg_match("/^Blammo! (.+) has launched an orbital attack!$/i", $message, $array)) {
+if (preg_match("/^Blammo! (.+) has launched an orbital attack!$/i", $message, $array)) {
 	$chatBot->send("OS !timer was set for 15 minutes", "guild");
-	$orgName = $chatBot->vars["my guild"];
+	$orgName = $chatBot->vars["my_guild"];
 
 	$launcher = $array[1];
 

@@ -30,7 +30,7 @@
    */
    
 if (preg_match("/^orgranks$/i", $message)) {
-	if ($chatBot->vars["my guild id"] == "") {
+	if ($chatBot->vars["my_guild_id"] == "") {
 	  	$msg = "The Bot needs to be in a org to show the orgmembers.";
         $chatBot->send($msg, $sendto);
 	}
@@ -45,7 +45,7 @@ if (preg_match("/^orgranks$/i", $message)) {
 	$msg = "Getting guild info. Please wait...";
     $chatBot->send($msg, $sendto);
        	
-	$list = "<header> :::::: Members of {$chatBot->vars["my guild"]} (Sorted by org rank) :::::: <end>\n\n";
+	$list = "<header> :::::: Members of <myguild> (Sorted by org rank) :::::: <end>\n\n";
 	$data = $db->fObject('all');
 	forEach ($data as $row) {
 		if (Buddylist::is_online($row->name) == 1) {
@@ -59,7 +59,7 @@ if (preg_match("/^orgranks$/i", $message)) {
 	  	$list .= "<tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end> $row->profession) (<highlight>$row->guild_rank<end>) <highlight>::<end> Last logoff: $logged_off\n";
 	}
 	
-	$msg = Text::make_link("{$chatBot->vars["my guild"]} members by org rank ($members)", $list);
+	$msg = Text::make_link("<myguild> members by org rank ($members)", $list);
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^orgranks ([0-9]+)$/i", $message, $arr1) || preg_match("/^orgranks ([a-z0-9-]+)$/i", $message, $arr2)) {
 	if ($arr2) {

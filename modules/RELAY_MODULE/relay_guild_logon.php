@@ -23,7 +23,7 @@ if ($chatBot->settings["relaybot"] != "Off" && isset($chatBot->guildmembers[$sen
             $msg .= " - " . $row->logon_msg;
 		}
 
-		send_message_to_relay("grc <grey>[".$chatBot->vars["my guild"]."] ".$msg);
+		send_message_to_relay("grc <grey>[<myguild>] ".$msg);
     }
 }
 

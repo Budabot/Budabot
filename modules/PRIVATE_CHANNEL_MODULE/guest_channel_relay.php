@@ -18,9 +18,9 @@ if ($type == "priv") {
 	//Relay the message to the private channel if there is at least 1 char in private channel
 	if ($sender == '-1') {
 		// for relaying city alien raid messages where $sender == -1
-		$msg = "<end>{$chatBot->settings["guest_color_channel"]}[{$this -> vars["my guild"]}]<end> {$chatBot->settings["guest_color_guest"]}{$message}<end>";
+		$msg = "<end>{$chatBot->settings["guest_color_channel"]}[<myguild>]<end> {$chatBot->settings["guest_color_guest"]}{$message}<end>";
 	} else {
-		$msg = "<end>{$chatBot->settings["guest_color_channel"]}[{$this -> vars["my guild"]}]<end> {$chatBot->settings["guest_color_username"]}".Text::make_link($sender,$sender,"user")."<end>: {$chatBot->settings["guest_color_guest"]}{$message}<end>";
+		$msg = "<end>{$chatBot->settings["guest_color_channel"]}[<myguild>]<end> {$chatBot->settings["guest_color_username"]}".Text::make_link($sender,$sender,"user")."<end>: {$chatBot->settings["guest_color_guest"]}{$message}<end>";
 	}
 	$chatBot->send($msg, 'prv', true);
 }

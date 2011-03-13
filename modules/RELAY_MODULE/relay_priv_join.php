@@ -19,7 +19,7 @@ if ($chatBot->settings['relaybot'] != 'Off' && $type == "joinPriv") {
 		}
 	}
 
-	send_message_to_relay("grc <grey>[".$chatBot->vars["my guild"]."] ".$msg);
+	send_message_to_relay("grc <grey>[<myguild>] ".$msg);
 }
 
 ?>

@@ -60,7 +60,7 @@ class DB {
 		$this->pass = $pass;
 		$this->botname = strtolower($vars["name"]);
 		$this->dim = $vars["dimension"];
-		$this->guild = $vars["my guild"];
+		$this->guild = str_replace("'", "''", $vars["my_guild"]);
 			
 		if ($type == 'Mysql') {
 			try {

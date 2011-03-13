@@ -11,19 +11,19 @@
 
 	$MODULE_NAME = "BBIN_MODULE";
 	if($chatBot->settings['bbin_channel'] == "") {
-		if($chatBot->vars['my guild'] == "") {
+		if($chatBot->vars['my_guild'] == "") {
 			$channel = "#".strtolower($chatBot->vars['name']);
 		}
 		else {
-			if(strpos($chatBot->vars['my guild']," ")) {
-			$sandbox = explode(" ",$chatBot->vars['my guild']);
+			if(strpos($chatBot->vars['my_guild']," ")) {
+			$sandbox = explode(" ",$chatBot->vars['my_guild']);
 				for ($i = 0; $i < count($sandbox); $i++) {
 					$channel .= ucfirst(strtolower($sandbox[$i]));
 				}
 				$channel = "#".$channel;
 			}
 			else {
-				$channel = "#".$chatBot->vars['my guild'];
+				$channel = "#".$chatBot->vars['my_guild'];
 			}
 		}
 	}

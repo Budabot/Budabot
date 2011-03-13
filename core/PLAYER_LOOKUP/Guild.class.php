@@ -29,7 +29,7 @@ class Guild {
 	        $mins = (time() - filemtime("$cache/$guild_id.$rk_num.xml")) / 60;
             $hours = floor($mins/60);
             //if the file is not older then 24hrs and it is not the roster of the bot guild then use the cache one, when it the xml file from the org bot guild and not older then 6hrs use it
-            if (($hours < 24 && $chatBot->vars["my guild id"] != $guild_id) || ($hours < 6 && $chatBot->vars["my guild id"] == $guild_id)) {
+            if (($hours < 24 && $chatBot->vars["my_guild_id"] != $guild_id) || ($hours < 6 && $chatBot->vars["my_guild_id"] == $guild_id)) {
              	$orgxml = file_get_contents("$cache/$guild_id.$rk_num.xml");
 				if (xml::spliceData($orgxml, '<id>', '</id>') == $guild_id) {
 					$data_found = true;

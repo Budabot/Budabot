@@ -146,7 +146,7 @@ class Text {
 		$message = str_ireplace("<unknown>", $chatBot->settings['default_unknown_color'], $message);
 
 		$message = str_ireplace("<myname>", $chatBot->vars["name"], $message);
-		$message = str_ireplace("<myguild>", $chatBot->vars["my guild"], $message);
+		$message = str_ireplace("<myguild>", $chatBot->vars["my_guild"], $message);
 		$message = str_ireplace("<tab>", "    ", $message);
 		$message = str_ireplace("<end>", "</font>", $message);
 		$message = str_ireplace("<symbol>", $chatBot->settings["symbol"] , $message);

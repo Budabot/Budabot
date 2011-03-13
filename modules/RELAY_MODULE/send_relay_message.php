@@ -15,11 +15,10 @@ if (($chatBot->settings["relaybot"] != "Off") && ($chatBot->settings["bot_relay_
 			$sender_link = ' ' . Text::make_link($sender, $sender, "user") . ':';
 		}
 
-		$guild = $chatBot->vars["my guild"];
 		if ($type == "guild") {
-			$msg = "grc <grey>[{$guild}]{$sender_link} {$relayMessage}</font>";
+			$msg = "grc <grey>[<myguild>]{$sender_link} {$relayMessage}</font>";
 		} else if ($type == "priv") {
-			$msg = "grc <grey>[{$guild}] [Guest]{$sender_link} {$relayMessage}</font>";
+			$msg = "grc <grey>[<myguild>] [Guest]{$sender_link} {$relayMessage}</font>";
 		}
         send_message_to_relay($msg);
 	}

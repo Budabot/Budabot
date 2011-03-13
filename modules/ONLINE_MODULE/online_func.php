@@ -26,8 +26,8 @@ function get_online_list($prof = "all") {
 
 	$oldprof = "";
 	$numonline = $db->numrows();
-	if ($chatBot->vars['my guild'] != '') {
-		$guild_name = "[{$chatBot->vars['my guild']}] ";
+	if ($chatBot->vars['my_guild'] != '') {
+		$guild_name = "[<myguild>] ";
 	}
 	if ($numonline == 1) {
 		$list .= "<header>::::: 1 member online $guild_name:::::<end>\n";

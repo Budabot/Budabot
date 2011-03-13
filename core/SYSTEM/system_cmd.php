@@ -11,7 +11,7 @@ if (preg_match("/^system$/i", $message, $arr)) {
 	$blob .= "Budabot $version\n\n";
 	
 	$blob .= "<highlight>SuperAdmin:<end> '{$chatBot->vars['SuperAdmin']}'\n";
-	$blob .= "<highlight>Guild:<end> '{$chatBot->vars['my guild']}' (" . $chatBot->vars['my guild id'] . ")\n\n";
+	$blob .= "<highlight>Guild:<end> '<myguild>' (" . $chatBot->vars['my_guild_id'] . ")\n\n";
 	
 	$blob .= "<highlight>Current Memory Usage:<end> " . Util::bytes_convert(memory_get_usage()) . "\n";
 	$blob .= "<highlight>Current Memory Usage (Real):<end> " . Util::bytes_convert(memory_get_usage(1)) . "\n";

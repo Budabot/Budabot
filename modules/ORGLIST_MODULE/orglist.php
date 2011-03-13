@@ -103,22 +103,21 @@ $end = false;
 if (preg_match("/^orglist end$/i", $message)) {
 	$end = true;
 } else if (preg_match("/^orglist (.+)$/i", $message, $arr)) {
-	// Now we hopefully have either an org memeber, or org ID.
-
 	// Check if we are already doing a list.
 	if ($chatBot->data["ORGLIST_MODULE"]["start"]) {
 		$msg = "I'm already doing a list!";
 		$chatBot->send($msg, $sendto);
 		return;
 	} else if (990 <= count($chatBot->buddyList)) {
-		$msg = "No room on the buddy-list!";
-		$chatBot->send($msg, $sendto);
-		unset($chatBot->data["ORGLIST_MODULE"]);
-		return;
-	} else {
-		$chatBot->data["ORGLIST_MODULE"]["start"] = time();
-		$chatBot->data["ORGLIST_MODULE"]["sendto"] = $sendto;
+		// using the ao chatbot proxy this is no longer an issue
+		//$msg = "No room on the buddy-list!";
+		//$chatBot->send($msg, $sendto);
+		//unset($chatBot->data["ORGLIST_MODULE"]);
+		//return;
 	}
+	
+	$chatBot->data["ORGLIST_MODULE"]["start"] = time();
+	$chatBot->data["ORGLIST_MODULE"]["sendto"] = $sendto;
 
 	if (!ctype_digit($arr[1])) {
 		// Someone's name.  Doing a whois to get an orgID.
@@ -141,7 +140,7 @@ if (preg_match("/^orglist end$/i", $message)) {
 			$orgid = $whois->guild_id;
 		}
 	} else {
-		// We got only numbers, can't be a name.  Maybe org id?
+		// assume org id
 		$orgid = $arr[1];
 	}
 	

@@ -30,7 +30,7 @@
    */
    
 if(preg_match("/^orgmembers$/i", $message)) {
-	if ($chatBot->vars["my guild id"] == "") {
+	if ($chatBot->vars["my_guild_id"] == "") {
 	  	$msg = "The Bot needs to be in a org to show the orgmembers.";
 	    $chatBot->send($msg, $sendto);
 		return;
@@ -48,7 +48,7 @@ if(preg_match("/^orgmembers$/i", $message)) {
     $chatBot->send($msg, $sendto);
     
     $first_char = "";
-	$list = "<header>::::: Members of the org {$chatBot->vars["my guild"]} :::::<end>";
+	$list = "<header>::::: Members of the org <myguild> :::::<end>";
 	$data = $db->fObject('all');
 	forEach ($data as $row) {
 		if (Buddylist::is_online($row->name) == 1) {
@@ -69,7 +69,7 @@ if(preg_match("/^orgmembers$/i", $message)) {
 		$list .= "<tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end>/$prof/<highlight>$row->guild_rank<end>)$logged_off\n";	    
 	}
 	
-	$msg = Text::make_link("{$chatBot->vars["my guild"]} has $members members currently.", $list);
+	$msg = Text::make_link("<myguild> has $members members currently.", $list);
  	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^orgmembers ([0-9]+)$/i", $message, $arr1) || preg_match("/^orgmembers ([a-z0-9-]+)$/i", $message, $arr2)) {
 	if ($arr2) {
@@ -127,4 +127,5 @@ if(preg_match("/^orgmembers$/i", $message)) {
 } else {
 	$syntax_error = true;
 }
+
 ?>

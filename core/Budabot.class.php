@@ -1,33 +1,4 @@
 <?php
-   /*
-   ** Author: Sebuda/Derroylo (both RK2)
-   ** Description: This class provides the basic functions for the bot.
-   ** Version: 0.5.9
-   **
-   ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
-   **
-   ** Date(created): 01.10.2005
-   ** Date(last modified): 05.02.2007
-   **
-   ** Copyright (C) 2005, 2006, 2007 Carsten Lohmann and J. Gracik
-   **
-   ** Licence Infos:
-   ** This file is part of Budabot.
-   **
-   ** Budabot is free software; you can redistribute it and/or modify
-   ** it under the terms of the GNU General Public License as published by
-   ** the Free Software Foundation; either version 2 of the License, or
-   ** (at your option) any later version.
-   **
-   ** Budabot is distributed in the hope that it will be useful,
-   ** but WITHOUT ANY WARRANTY; without even the implied warranty of
-   ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   ** GNU General Public License for more details.
-   **
-   ** You should have received a copy of the GNU General Public License
-   ** along with Budabot; if not, write to the Free Software
-   ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-   */
 
 class Budabot extends AOChat {
 
@@ -92,6 +63,10 @@ class Budabot extends AOChat {
 		  	sleep(10);
 		  	die();
 		}
+		
+		// uncomment for ao chat proxy ONLY
+		//$server = "127.0.0.1";
+		//$port = 9993;
 
 		// Begin the login process
 		Logger::log('INFO', 'StartUp', "Connecting to AO Server...($server)");
@@ -336,29 +311,29 @@ class Budabot extends AOChat {
 			
 			// relay to guild channel
 			if (!$disable_relay && $this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1) {
-				$this->send_group($this->vars["my guild"], "</font>{$this->settings["guest_color_channel"]}[Guest]</font> {$this->settings["guest_color_username"]}{$sender_link}</font>: {$this->settings["default_priv_color"]}$message</font>");
+				$this->send_guild("</font>{$this->settings["guest_color_channel"]}[Guest]</font> {$this->settings["guest_color_username"]}{$sender_link}</font>: {$this->settings["default_priv_color"]}$message</font>");
 			}
 
 			// relay to bot relay
 			if (!$disable_relay && $this->settings["relaybot"] != "Off" && $this->settings["bot_relay_commands"] == 1) {
-				send_message_to_relay("grc <grey>[{$this->vars["my guild"]}] [Guest] {$sender_link}: $message");
+				send_message_to_relay("grc <grey>[{$this->vars["my_guild"]}] [Guest] {$sender_link}: $message");
 			}
-		} else if ($target == $this->vars["my guild"] || $target == 'org') {// Target is guild chat.
-    		$this->send_group($this->vars["my guild"], $this->settings["default_guild_color"].$message);
+		} else if ($target == $this->vars["my_guild"] || $target == 'org') {// Target is guild chat.
+    		$this->send_guild($this->settings["default_guild_color"].$message);
 			
 			// relay to private channel
 			if (!$disable_relay && $this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1) {
-				$this->send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my guild"]}]</font> {$this->settings["guest_color_username"]}{$sender_link}</font>: {$this->settings["default_guild_color"]}$message</font>");
+				$this->send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my_guild"]}]</font> {$this->settings["guest_color_username"]}{$sender_link}</font>: {$this->settings["default_guild_color"]}$message</font>");
 			}
 			
 			// relay to bot relay
 			if (!$disable_relay && $this->settings["relaybot"] != "Off" && $this->settings["bot_relay_commands"] == 1) {
-				send_message_to_relay("grc <grey>[{$this->vars["my guild"]}] {$sender_link}: $message");
+				send_message_to_relay("grc <grey>[{$this->vars["my_guild"]}] {$sender_link}: $message");
 			}
 		} else if ($this->get_uid($target) != NULL) {// Target is a player.
 			Logger::log_chat("Out. Msg.", $target, $message);
     		$this->send_tell($target, $this->settings["default_tell_color"].$message);
-		} else { // Public channels that are not myguild.
+		} else { // Public channels that are not guild
 	    	$this->send_group($target, $this->settings["default_guild_color"].$message);
 		}
 	}
@@ -421,7 +396,8 @@ class Budabot extends AOChat {
 				$b = unpack("C*", $args[0]);
 				Logger::log('DEBUG', 'Packets', "AOCP_GROUP_ANNOUNCE => name: '$args[1]'");
 				if ($b[1] == 3) {
-					$this->vars["my guild id"] = $b[2]*256*256*256 + $b[3]*256*256 + $b[4]*256 + $b[5];
+					$this->vars["my_guild_id"] = $b[2]*256*256*256 + $b[3]*256*256 + $b[4]*256 + $b[5];
+					//$this->vars["my_guild"] = $args[1];
 				}
 				break;
 			case AOCP_PRIVGRP_CLIJOIN: // 55, Incoming player joined private chat
@@ -725,7 +701,7 @@ class Budabot extends AOChat {
 						}
 					}
                     return;
-                } else if ($channel == $this->vars["my guild"]) {
+                } else if ($channel == $this->vars["my_guild"]) {
                     $type = "guild";
 					$sendto = 'guild';
 					

@@ -1,16 +1,18 @@
 <?php
 
-if ($chatBot->vars["my guild"] != "" && $chatBot->vars["my guild id"] != "") {
+if ($chatBot->vars["my_guild_id"] != "") {
 	Logger::log('INFO', 'GUILD_MODULE', "Starting Roster update");
 
 	//Get the org infos
-	$org = Guild::get_by_id($chatBot->vars["my guild id"], $chatBot->vars["dimension"], true);
+	$org = Guild::get_by_id($chatBot->vars["my_guild_id"], $chatBot->vars["dimension"], true);
 	
 	//Check if Orgxml file is correct if not abort
 	if ($org === null) {
 		Logger::log('ERROR', 'GUILD_MODULE', "Error downloading the org roster xml file");
 		return;
 	}
+	
+	$this->vars["logondelay"] = time() + 100000;
 
 	//Delete old Memberslist
 	unset($chatBot->guildmembers);
@@ -85,5 +87,7 @@ if ($chatBot->vars["my guild"] != "" && $chatBot->vars["my guild id"] != "") {
 		
 		die();
 	}
+	
+	$this->vars["logondelay"] = time() + 5;
 }
 ?>

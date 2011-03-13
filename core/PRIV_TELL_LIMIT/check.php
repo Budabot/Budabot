@@ -53,7 +53,7 @@ if (preg_match("/^about$/i", $message)) {
 
 	//Check if he is a org Member
 	if ($chatBot->settings["priv_req_open"] == "org" && !isset($chatBot->guildmembers)) {
-	  	$msg = "<orange>Error! Only members of the org {$chatBot->vars["my guild"]} can join this bot.<end>";
+	  	$msg = "<orange>Error! Only members of the org <myguild> can join this bot.<end>";
 	  	$chatBot->send($msg, $sender);
 	  	$restricted = true;
 	  	return;
@@ -115,7 +115,7 @@ if (preg_match("/^about$/i", $message)) {
 
 	//Check if he is a org Member
 	if ($chatBot->settings["tell_req_open"] == "org" && !isset($chatBot->guildmembers[$sender])) {
-	  	$msg = "<orange>Error! I am only responding to members of the org {$chatBot->vars["my guild"]}.<end>";
+	  	$msg = "<orange>Error! I am only responding to members of the org <myguild>.<end>";
 	  	$chatBot->send($msg, $sender);
 	  	$restricted = true;
 	  	return;
