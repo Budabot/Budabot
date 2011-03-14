@@ -18,7 +18,7 @@ if (isset($chatBot->data["CITY_WAVE"])) {
 				unset($chatBot->data["CITY_WAVE"]);
 			}
 		}
-	} elseif ($stime >= $now + 13 - 270 && $stime <= $now + 17 - 270) {
+	} else if ($stime >= $now + 13 - 270 && $stime <= $now + 17 - 270) {
 		$chatBot->send("Wave $wave Incoming.", "guild");
 		$wave++;
 		$chatBot->data["CITY_WAVE"]['wave'] = $wave;

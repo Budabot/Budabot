@@ -8,4 +8,7 @@ The Wave Counter should start and end automatically when enabled but you can man
 <highlight>Stop the wave timer<end>
 <tab><symbol>stopraid
 
+<highlight>Show the current wave<end>
+<tab><symbol>citywave
+
 By Funkman (RK2)

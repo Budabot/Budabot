@@ -1,4 +1,5 @@
 <?php
+
 if (preg_match("/^Your city in (.+) has been targeted by hostile forces.$/i", $message, $arr)) {
 	$chatBot->send("Wave counter started.", "guild");
 	$chatBot->data["CITY_WAVE"]['time'] = time();
@@ -12,4 +13,5 @@ if (preg_match("/^Your city in (.+) has been targeted by hostile forces.$/i", $m
 		$chatBot->data["CITY_WAVE"]['wave'] = 1;
 	}
 }
+
 ?>
