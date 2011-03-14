@@ -29,7 +29,7 @@
  ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-if (preg_match("/^alts add ([a-z0-9-]+)$/i", $message, $arr)) {
+if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 	/* get all names in an array */
 	$names = explode(' ', $arr[1]);
 	
