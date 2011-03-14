@@ -15,9 +15,9 @@
 	Setting::add($MODULE_NAME, "showcloakstatus", "Show cloak status to players at logon", "edit", "options", "1", "Never;When cloak is down;Always", "0;1;2");
 	
 	// Auto Wave
-	Command::register($MODULE_NAME, "guild", "start.php", "startraid", "guild", "manually starts wave counter", "wavecounter");
-	Command::register($MODULE_NAME, "guild", "stopraid.php", "stopraid", "guild", "manually stops wave counter", "wavecounter");
-	Command::register($MODULE_NAME, "guild", "citywave.php", "citywave", "guild", "Shows the current city wave", "wavecounter");
+	Command::register($MODULE_NAME, "", "start.php", "startraid", "guild", "manually starts wave counter", "wavecounter");
+	Command::register($MODULE_NAME, "", "stopraid.php", "stopraid", "guild", "manually stops wave counter", "wavecounter");
+	Command::register($MODULE_NAME, "", "citywave.php", "citywave", "guild", "Shows the current city wave", "wavecounter");
 	Event::register($MODULE_NAME, "guild", "start.php", "none", "Starts a wave counter when cloak is lowered");
 	Event::register($MODULE_NAME, "2sec", "counter.php", "none", "Checks timer to see when next wave should come");
 	

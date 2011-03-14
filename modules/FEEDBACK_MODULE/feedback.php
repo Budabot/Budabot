@@ -29,7 +29,7 @@ if (preg_match("/^feedback ([a-z0-9-]*) (\\+1|\\-1) (.*)$/i", $message, $arr)) {
 	$sql = "SELECT name FROM feedback WHERE `by_charid` = '$by_charid'";
 	$db->query($sql);
 	if ($db->numrows() > 3) {
-		$chatBot->send("You may submit a maximum of 3 feedbacks in a 24 hour period. Please try again later.", $sendto);
+		$chatBot->send("You may submit feedback a maximum of 3 times in a 24 hour period. Please try again later.", $sendto);
 		return;
 	}
 
