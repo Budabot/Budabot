@@ -1,14 +1,14 @@
 <?php
 
 // <a href="itemref://280727/280727/300">Sloth of the Xan</a>
-if (preg_match('/^specials \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\"\>/i', $message, $arr) or true) {
+if (preg_match('/^specials \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\"\>/i', $message, $arr)) {
 	$url = "http://itemxml.xyphos.com/?";
 	$url .= "id={$arr[1]}&";  // use low id for id
 	//$url .= "id={$arr[2]}&";  // use high id for id
 	$url .= "ql={$arr[3]}&";
 
 	$data = file_get_contents($url, 0);
-	if (empty($data)) {
+	if (empty($data) || '<error>' == substr($data, 0, 7)) {
 		$msg = "Unable to query Items XML Database.";
 		$chatBot->send($msg, $sendto);
 		return;

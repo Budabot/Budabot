@@ -238,7 +238,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 				$quoteMSG = $row->What;
 				break;
 			}
-		} while (1);
+		} while (true);
 		
 		$msg = "<header>::::: Quote Info :::::<end>\n\n";
 		$msg .="<tab>ID: (<highlight>$quoteID<end> of $count)\n";
