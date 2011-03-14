@@ -4,7 +4,6 @@
    ** Author: Mindrila (RK1)
    ** Credits: Legendadv (RK2)
    ** BUDABOT IRC NETWORK MODULE
-   ** Version = 0.1
    ** Developed for: Budabot(http://budabot.com)
    **
    */
@@ -34,10 +33,9 @@
 	Event::register($MODULE_NAME, "connect", "set_bbin_link.php", "none", "Sets BBIN status at bootup.");
 	
 	//Commands
-	Command::register($MODULE_NAME, "msg", "bbin_connect.php", "startbbin", "admin", "Connect to BBIN");
-	
-	//Command settings
-	Command::register($MODULE_NAME, "msg", "set_bbin_settings.php", "setbbin", "admin", "Manually set BBIN settings", 'bbin');
+	Command::register($MODULE_NAME, "", "bbin_connect.php", "startbbin", "admin", "Connect to BBIN", 'bbin');
+	Command::register($MODULE_NAME, "", "stopbbin.php", "stopbbin", "admin", "Disconnect from BBIN", 'bbin');
+	Command::register($MODULE_NAME, "", "set_bbin_settings.php", "setbbin", "admin", "Manually set BBIN settings", 'bbin');
 	
 	//BBIN Relay
 	Event::register($MODULE_NAME, "2sec", "bbin_loop.php", "none", "The main BBIN message loop");

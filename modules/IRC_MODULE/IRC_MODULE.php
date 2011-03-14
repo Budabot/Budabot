@@ -3,7 +3,6 @@
    /*
    ** Author: Legendadv (RK2)
    ** IRC RELAY MODULE
-   ** Version = 0.2
    ** Developed for: Budabot(http://aodevs.com/index.php/topic,512.0.html)
    **
    */
@@ -32,10 +31,8 @@
 	
 	//Commands
 	Command::register($MODULE_NAME, "", "irc_connect.php", "startirc", "admin", "Connect to IRC", 'irc');
-	Command::register($MODULE_NAME, "", "stopirc.php", "stOPirc", "admin", "Disconnect from IRC", 'irc');
+	Command::register($MODULE_NAME, "", "stopirc.php", "stopirc", "admin", "Disconnect from IRC", 'irc');
 	Command::register($MODULE_NAME, "", "online_irc.php", "onlineirc", "all", "View who is in IRC chat", 'irc');
-	
-	//Command settings
 	Command::register($MODULE_NAME, "", "set_irc_settings.php", "setirc", "admin", "Manually set IRC settings", 'irc');
 	
 	//IRC Relay

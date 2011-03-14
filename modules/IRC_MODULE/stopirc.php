@@ -9,3 +9,5 @@ if (Setting::get('irc_status') != 1) {
 	Setting::save("irc_status", "0");
 	$chatBot->send("The IRC connection has been disconnected.", $sendto);
 }
+
+?>
