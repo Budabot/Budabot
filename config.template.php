@@ -9,13 +9,13 @@
 /* ********************************************	*/
 
 // Enter your Account info here
-$vars['login']		= "";
-$vars['password']	= "";
-$vars['name']		= "";
-$vars['my_guild']	= "";
+$vars['login']      = "";
+$vars['password']   = "";
+$vars['name']       = "";
+$vars['my_guild']   = "";
 
 // Enter 1 for Atlantean, 2 for Rimor, 3 for Die Nueue Welt, 4 for Test
-$vars['dimension']	= 1;
+$vars['dimension']  = 1;
 
 // Insert the Administrator name here
 $vars['SuperAdmin'] = "";

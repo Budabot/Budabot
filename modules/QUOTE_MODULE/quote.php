@@ -11,7 +11,7 @@
    */
 
 // Adding a quote
-if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
+if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 	
 	if (!isset($chatBot->admins[$sender])) {
 		$requirement = $chatBot->settings["quote_add_min"];
@@ -216,10 +216,6 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 		$msg = "No quote found with that ID.";
 	}
 	
-	
-// if i didnt get a number, they messed up.
-} else if (preg_match("/^quote (.+)$/i", $message, $arr)) {	
-	$msg = "Its <symbol>quote for a random quote, or <symbol>quote # for a specific quote.";
 //View a random quote
 } else if (preg_match("/^quote$/i", $message)) {
 	//get total number of entries for rand (and see if we even have any quotes to show)
@@ -271,6 +267,8 @@ if (preg_match("/^quote add (.+)$/i", $message, $arr)) {
 	} else {
 		$msg = "I dont have any quotes to show!";
 	}
+} else {
+	$syntax_error = true;
 }
 
 if ($msg) {
