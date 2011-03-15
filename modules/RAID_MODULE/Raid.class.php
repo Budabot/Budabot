@@ -121,12 +121,16 @@ class Raid {
 	public static function find_raid_loot($raid, $category) {
 		$db = DB::get_instance();
 
-		$blob = "<header>::::: $raid $category Loot :::::<end>\n\n\n";
 		$sql = "SELECT * FROM raid_loot WHERE raid = '$raid' AND category = '$category'";
 		$db->query($sql);
+
+		if ($db->numrows() == 0) {
+			return null;
+		}
+
 		$data = $db->fObject('all');
 
-		$blob = '';
+		$blob = "<header>::::: $raid $category Loot :::::<end>\n\n\n";
 		forEach ($data as $row) {
 			$blob .= Text::make_item($row->lowid, $row->highid, $row->ql, "<img src=rdb://{$row->imageid}>");  // image
 			$blob .= "\nItem: <highlight>{$row->name}<end>\n"; // name
