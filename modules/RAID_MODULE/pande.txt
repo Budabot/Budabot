@@ -5,7 +5,4 @@ This module is designed to assist in adding Pandemonium 'phatz boss' loot to a l
 <highlight>To View Pande 'phatz bosses'<end>
 <tab><symbol>pande
 
-<tab>Click on item icons to view item references
-<tab>Click the 'Add to Loot List' Link to add an item
-
 <orange>Developed by <highlight>Marinerecon<end> (RK2)<end>

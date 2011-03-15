@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS raid_loot;
-CREATE TABLE raid_loot (`id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT, raid VARCHAR(30) NOT NULL, category VARCHAR(20) NOT NULL, lowid INT NOT NULL, highid INT NOT NULL, ql INT NOT NULL, name VARCHAR(255) NOT NULL, imageid INT NOT NULL, multiloot NOT NULL);
+CREATE TABLE raid_loot (`id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT, raid VARCHAR(30) NOT NULL, category VARCHAR(20) NOT NULL, lowid INT NOT NULL, highid INT NOT NULL, ql INT NOT NULL, name VARCHAR(255) NOT NULL, imageid INT NOT NULL, multiloot INT NOT NULL);
 
 -- Vortexx
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Vortexx', 'General', 277436, 277436, 300, 'Base NCU - Type 00 (0/6)', 276942, 1);
@@ -171,6 +171,8 @@ INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multilo
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Crystals & Crystalised Memories', 267710, 267710, 250, 'Crystalised Memories of an Instructor', 72771, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Crystals & Crystalised Memories', 267726, 267726, 250, 'Crystalised Memories of a Doctor', 72771, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Crystals & Crystalised Memories', 267697, 267697, 250, 'Crystalised Memories of a Warrior', 72771, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Crystals & Crystalised Memories', 267708, 267708, 250, 'Crystalised Memories of an Archer', 72771, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Crystals & Crystalised Memories', 267713, 267713, 250, 'Crystalised Memories of a Scientist', 72771, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Samples', 267744, 267744, 250, 'Radioactive Gland Sample', 144705, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Samples', 267745, 267745, 250, 'Venom Gland Sample', 253010, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Samples', 267742, 267742, 250, 'Frost Gland Sample', 144702, 1);
@@ -229,18 +231,18 @@ INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multilo
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Armor', 244712, 244712, 300, 'Armplates of Elimination', 245029, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Armor', 244715, 244715, 300, 'Greaves of Malfeasance', 245035, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Armor', 244714, 244714, 300, 'Boots of Concourse', 245032, 1);
-INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244742, 244742, 300, 'Lord/Lady of Abandonment', 245083, 1);
-INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244802, 244802, 300, 'Lord/Lady of Anger', 210184, 1);
-INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244821, 244821, 300, 'Lord/Lady of Angst', 245082, 1);
-INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244910, 244910, 300, 'Lord/Lady of Chaos', 245089, 1);
-INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244779, 244779, 300, 'Lord/Lady of Deceit', 213075, 1);
-INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244843, 244843, 300, 'Lord/Lady of Envy', 244836, 1);
-INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244785, 244785, 300, 'Lord of Gluttony', 218714, 1);
-INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244862, 244862, 300, 'Lord/Lady of Greed', 244931, 1);
-INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244762, 244762, 300, 'Lord/Lady of Hatred', 158269, 1);
-INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244914, 244914, 300, 'Lord/Lady of Lust', 244837, 1);
-INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244783, 244783, 300, 'Lord/Lady of Pride', 233217, 1);
-INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244912, 244912, 300, 'Lord/Lady of Sloth', 233214, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244741, 244742, 300, 'Lord/Lady of Abandonment', 245083, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244801, 244802, 300, 'Lord/Lady of Anger', 210184, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244820, 244821, 300, 'Lord/Lady of Angst', 245082, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244909, 244910, 300, 'Lord/Lady of Chaos', 245089, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244778, 244779, 300, 'Lord/Lady of Deceit', 213075, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244842, 244843, 300, 'Lord/Lady of Envy', 244836, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244784, 244785, 300, 'Lord of Gluttony', 218714, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244859, 244862, 300, 'Lord/Lady of Greed', 244931, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244761, 244762, 300, 'Lord/Lady of Hatred', 158269, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244913, 244914, 300, 'Lord/Lady of Lust', 244837, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244782, 244783, 300, 'Lord/Lady of Pride', 233217, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244911, 244912, 300, 'Lord/Lady of Sloth', 233214, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 246813, 246813, 300, 'Sunrise Hilt', 235342, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 246814, 246814, 300, 'Sunset Hilt', 235341, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Stars', 244700, 244700, 300, 'Star of Ardency (NT)', 131260, 1);
@@ -294,7 +296,7 @@ INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multilo
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Libra', 244581, 244581, 300, 'Urbane Pants of Libra', 22914, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Libra', 244637, 244637, 300, 'Aim of Libra', 130840, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Libra', 244579, 244579, 300, 'Well Balanced Spirit Helper of Libra', 119141, 1);
-INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Libra', 262225, 262225, 300, 'Activation Code', 262224, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Libra', 262225, 262225, 1, 'Activation Code', 262224, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Pisces', 244641, 244641, 300, 'Cosmic Guide of the Pisces', 151918, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Pisces', 244639, 244639, 300, 'Octopus Contraption of the Pisces', 203513, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Pisces', 244638, 244638, 300, 'Soul Mark of Pisces', 226602, 1);

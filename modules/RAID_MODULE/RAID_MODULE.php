@@ -21,15 +21,13 @@
 	Command::register($MODULE_NAME, "", "rem.php", "rem", "all", "Let a player removing from a slot");
 	
 	// APFs
-	Command::register($MODULE_NAME, "", "13.php", "13", "leader", "Adds apf13 loot list", 'apfloot');
-	Command::register($MODULE_NAME, "", "28.php", "28", "leader", "Adds apf28 loot list", 'apfloot');
-	Command::register($MODULE_NAME, "", "35.php", "35", "leader", "Adds apf35 loot list", 'apfloot');
+	Command::register($MODULE_NAME, "", "13.php", "13", "leader", "Adds apf 13 loot list", 'apfloot');
+	Command::register($MODULE_NAME, "", "28.php", "28", "leader", "Adds apf 28 loot list", 'apfloot');
+	Command::register($MODULE_NAME, "", "35.php", "35", "leader", "Adds apf 35 loot list", 'apfloot');
 	Command::register($MODULE_NAME, "", "apf.php", "apf", "all", "Shows what drops of APF Boss", 'apfloot');
 	Command::register($MODULE_NAME, "", "apfloot.php", "apfloot", "all", "Shows what to make from apf items", 'apfloot');
 	
 	// DB loot manager
-	Command::register($MODULE_NAME, "", "dbloot.php", "dbloot", "leader", "Used to add DB loot to the loot list", 'dbloot');
-	Command::register($MODULE_NAME, "", "dbloot.php", "db2loot", "leader", "Used to add DB loot to the loot list", 'dbloot');
 	Command::register($MODULE_NAME, "", "dbloot.php", "db1", "leader", "Shows Possible DB1 Armor/NCUs/Programs", 'dbloot');
 	Command::register($MODULE_NAME, "", "dbloot.php", "db2", "leader", "Shows Possible DB2 Armor", 'dbloot');
 	
@@ -51,19 +49,16 @@
 	Command::register($MODULE_NAME, "", "pandeloot.php", "capricorn", "all", "Shows Possible Capricorn Zodiac Loot", 'pande');
 	Command::register($MODULE_NAME, "", "pandeloot.php", "sagittarius", "all", "Shows Possible Sagittarius Zodiac Loot", 'pande');
 	Command::register($MODULE_NAME, "", "pandeloot.php", "scorpio", "all", "Shows Possible Scorpio Zodiac Loot", 'pande');
-	Command::register($MODULE_NAME, "", "pandeloot.php", "pandeloot", "leader", "used to add pande loot to the loot list", 'pande');
 	Command::register($MODULE_NAME, "", "pandeloot.php", "pande", "all", "shows Initial list of pande bosses", 'pande');
 	
 	// Albtraum loot manager
 	Command::register($MODULE_NAME, "", "albloot.php", "alb", "leader", "Shows Possible Albtraum loots", 'albloot');
-	Command::register($MODULE_NAME, "", "albloot.php", "albloot", "leader", "Used to add Albtraum loot to the loot list", 'albloot');
 	
 	// Xan loot manager
 	Command::register($MODULE_NAME, "", "xan.php", "xan", "all", "Shows Possible Legacy of the Xan Loot", 'xan');
 	Command::register($MODULE_NAME, "", "xan.php", "vortexx", "all", "Shows Possible Vortexx Loot", 'xan');
 	Command::register($MODULE_NAME, "", "xan.php", "mitaar", "all", "Shows Possible Mitaar Hero Loot", 'xan');
 	Command::register($MODULE_NAME, "", "xan.php", "12m", "all", "Shows Possible 12 man Loot", 'xan');
-	Command::register($MODULE_NAME, "", "xan.php", "xanloot", "all", "Adds a Xan loot item to the roll list", 'xan');
 	
 	// Settings
 	Setting::add($MODULE_NAME, "add_on_loot", "Adding to loot show on", "edit", "options", "2", "tells;privatechat;privatechat and tells", '1;2;3', "mod");
