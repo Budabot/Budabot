@@ -217,7 +217,7 @@ if (preg_match("/^apf (13|28|35)$/i", $message, $arr)) {
 	  	break;
 	}
 
-	$msg = Text::make_link("Loottable for sector $sector", $list);
+	$msg = Text::make_link("Loot table for sector $sector", $list);
 
 	$chatBot->send($msg, $sendto);
 } else {

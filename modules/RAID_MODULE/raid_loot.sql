@@ -196,3 +196,24 @@ INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multilo
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Ancients', 267725, 267725, 250, 'Ancient Damage Generation Device', 218770, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Ancients', 267735, 267735, 250, 'Inactive Ancient Medical Device', 218774, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Ancients', 267748, 267748, 250, 'Inactive Ancient Engineering Device', 156094, 1);
+
+-- Dust Brigade
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Dust Brigade', '1', 269993, 269993, 300, 'Enhanced Dustbrigade Combat Chestpiece', 32162, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Dust Brigade', '1', 269994, 269994, 300, 'Enhanced Dustbrigade Spirit-tech Chestpiece', 32162, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Dust Brigade', '1', 269996, 269996, 300, 'Enhanced Dustbrigade Sleeves', 13233, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Dust Brigade', '1', 270394, 270394, 300, 'Enhanced Dustbrigade Notum Gloves', 21871, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Dust Brigade', '1', 270393, 270393, 300, 'Enhanced Dustbrigade Chemist Gloves', 21871, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Dust Brigade', '1', 269997, 269997, 300, 'Enhanced Dustbrigade Covering', 155108, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Dust Brigade', '1', 270392, 270392, 300, 'Enhanced Dustbrigade Flexible Boots', 31746, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Dust Brigade', '1', 269986, 269986, 300, 'Enhanced Safeguarded NCU Memory Unit (str/sta)', 119134, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Dust Brigade', '1', 269987, 269987, 300, 'Enhanced Safeguarded NCU Memory Unit (agi/sen)', 119134, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Dust Brigade', '1', 269985, 269985, 300, 'Enhanced Safeguarded NCU Memory Unit (int/psy)', 119134, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Dust Brigade', '1', 269990, 269990, 300, 'Protected Safeguarded NCU Memory Unit (evades)', 269989, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Dust Brigade', '1', 269961, 269961, 300, 'Master Melee Program (Alappaa Pad Upgrade)', 269948, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Dust Brigade', '1', 269960, 269960, 300, 'Master Combat Program (Alappaa Pad Upgrade)', 269949, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Dust Brigade', '1', 269959, 269959, 300, 'Master Nano Technology Program (Alappaa Pad Upgrade)', 269950, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Dust Brigade', '2', 274541, 274541, 300, 'Basic Infused Dust Brigade Bracer', 84062, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Dust Brigade', '2', 274552, 274552, 300, 'Dust Brigade Notum Infuser (DB Bracer/Alb Item Upgrades)', 218768, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Dust Brigade', '2', 272458, 272458, 300, 'All Molybdenum-Matrix of Xan (2 Black, 6 White Kegern/Jathos Upgrades)', 272534, 2);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Dust Brigade', '2', 274559, 274559, 300, 'Dust Brigade Engineer Pistol', 264787, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Dust Brigade', '2', 274558, 274558, 300, 'Dust Brigade Solar Notum Infuser (Engineer Solar Pistol Upgrades)', 218768, 1);
