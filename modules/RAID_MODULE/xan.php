@@ -1,8 +1,5 @@
 <?php
 
-global $loot;
-$msg = '';
-
 if (!function_exists('get_xan_loot')) {
 	function get_xan_loot($raid, $category) {
 		$blob = Raid::find_raid_loot($raid, $category);

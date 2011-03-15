@@ -134,7 +134,7 @@ INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multilo
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('12 Man', 'Profession Gems', 281221, 281221, 1, 'Warrior''s Gem (Soldier)', 281224, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('12 Man', 'Profession Gems', 281218, 281218, 1, 'Worshipper''s Gem (MP)', 281224, 1);
 
--- APF 13
+-- APF
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('APF', 'Sector 13', 275909, 275909, 1, 'Gelatinous Lump', 275962, 3);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('APF', 'Sector 13', 275916, 275916, 1, 'Biotech Matrix', 275972, 3);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('APF', 'Sector 13', 257960, 257960, 250, 'Action Probability Estimator', 203502, 1);
@@ -142,8 +142,6 @@ INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multilo
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('APF', 'Sector 13', 257533, 257533, 1, 'All Bounties', 218758, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('APF', 'Sector 13', 257968, 257968, 1, 'All ICE', 257196, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('APF', 'Sector 13', 257706, 257706, 1, 'Kyr''Ozch Helmet (2500 Token board)', 230855, 1);
-
--- APF 28
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('APF', 'Sector 28', 275912, 275912, 1, 'Crystaline Matrix', 275964, 3);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('APF', 'Sector 28', 275914, 275914, 1, 'Kyr''Ozch Circuitry', 275966, 3);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('APF', 'Sector 28', 257959, 257959, 250, 'Inertial Adjustment Processing Unit', 11618, 1);
@@ -151,8 +149,6 @@ INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multilo
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('APF', 'Sector 28', 257533, 257533, 1, 'All Bounties', 218758, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('APF', 'Sector 28', 257968, 257968, 1, 'All ICE', 257196, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('APF', 'Sector 28', 257706, 257706, 1, 'Kyr''Ozch Helmet (2500 Token board)', 230855, 1);
-
--- APF 35
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('APF', 'Sector 35', 275918, 275918, 1, 'Alpha Program Chip', 275970, 3);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('APF', 'Sector 35', 275919, 275919, 1, 'Beta Program Chip', 275969, 3);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('APF', 'Sector 35', 275906, 275906, 1, 'Odd Kyr''Ozch Nanobots', 11750, 3);
@@ -162,3 +158,41 @@ INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multilo
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('APF', 'Sector 35', 257533, 257533, 1, 'All Bounties', 218758, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('APF', 'Sector 35', 257968, 257968, 1, 'All ICE', 257196, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('APF', 'Sector 35', 257706, 257706, 1, 'Kyr''Ozch Helmet (2500 Token board)', 230855, 1);
+
+-- Albtraum
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Crystals & Crystalised Memories', 267737, 267737, 250, 'Inert Knowledge Crystal', 151030, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Crystals & Crystalised Memories', 267749, 267749, 250, 'Energy Infused Crystal', 156567, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Crystals & Crystalised Memories', 267704, 267704, 250, 'Crystalised Memories of a Sniper', 72771, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Crystals & Crystalised Memories', 267711, 267711, 250, 'Crystalised Memories of a Defender', 72771, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Crystals & Crystalised Memories', 267698, 267698, 250, 'Crystalised Memories of a Technician', 72770, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Crystals & Crystalised Memories', 267701, 267701, 250, 'Crystalised Memories of a Mechanic', 72771, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Crystals & Crystalised Memories', 267728, 267728, 250, 'Crystalised Memories of a Surgeon', 72771, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Crystals & Crystalised Memories', 267714, 267714, 250, 'Crystalised Memories of a Engineer', 72771, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Crystals & Crystalised Memories', 267710, 267710, 250, 'Crystalised Memories of an Instructor', 72771, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Crystals & Crystalised Memories', 267726, 267726, 250, 'Crystalised Memories of a Doctor', 72771, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Crystals & Crystalised Memories', 267697, 267697, 250, 'Crystalised Memories of a Warrior', 72771, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Samples', 267744, 267744, 250, 'Radioactive Gland Sample', 144705, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Samples', 267745, 267745, 250, 'Venom Gland Sample', 253010, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Samples', 267742, 267742, 250, 'Frost Gland Sample', 144702, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Samples', 267743, 267743, 250, 'Acid Gland Sample', 144703, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Samples', 267741, 267741, 250, 'Fire Gland Sample', 144705, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Pocket Boss Crystals', 267892, 267892, 250, 'Xan Essence Crystal - Summoned Terror', 235354, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Pocket Boss Crystals', 267904, 267904, 250, 'Xan Essence Crystal - Gruesome Misery', 235354, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Pocket Boss Crystals', 267880, 267880, 250, 'Xan Essence Crystal - Sister Pestilence', 235354, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Pocket Boss Crystals', 267799, 267799, 250, 'Xan Essence Crystal - Sister Merciless', 235354, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Pocket Boss Crystals', 267800, 267800, 250, 'Xan Essence Crystal - Divided Loyalty', 235354, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Rings and Preservation Units', 267625, 267625, 250, 'Ancient Speed Preservation Unit', 218753, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Rings and Preservation Units', 267626, 267626, 250, 'Ancient Vision Preservation Unit', 218752, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Rings and Preservation Units', 267905, 267905, 250, 'Ring of Divided Loyalty', 84067, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Rings and Preservation Units', 267906, 267906, 250, 'Ring of Gruesome Misery', 84067, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Rings and Preservation Units', 267909, 267909, 250, 'Ring of Sister Pestilence', 84067, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Rings and Preservation Units', 267907, 267907, 250, 'Ring of Sister Merciless', 84067, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Rings and Preservation Units', 267911, 267911, 250, 'Ring of Summoned Terror', 84067, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Ancients', 267794, 267794, 250, 'Dormant Ancient Circuit', 158233, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Ancients', 267709, 267709, 250, 'Empty Ancient Device', 218753, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Ancients', 267746, 267746, 250, 'Inactive Ancient Bracer', 84048, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Ancients', 267677, 267677, 250, 'Ancient Scrap of Spirit Knowledge', 163575, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Ancients', 267679, 267679, 250, 'Ancient Scrap of Saturated Spirit Knowledge', 163575, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Ancients', 267725, 267725, 250, 'Ancient Damage Generation Device', 218770, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Ancients', 267735, 267735, 250, 'Inactive Ancient Medical Device', 218774, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Albtraum', 'Ancients', 267748, 267748, 250, 'Inactive Ancient Engineering Device', 156094, 1);
