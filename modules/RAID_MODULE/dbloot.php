@@ -36,8 +36,10 @@ if (!function_exists('get_db_loot')) {
 }
 
 if (preg_match("/^db1$/i", $message)){
+	$chatBot->send(get_db_loot('Dust Brigade', 'Armor'), $sendto);
 	$chatBot->send(get_db_loot('Dust Brigade', '1'), $sendto);
 } else if (preg_match("/^db2$/i", $message)){
+	$chatBot->send(get_db_loot('Dust Brigade', 'Armor'), $sendto);
 	$chatBot->send(get_db_loot('Dust Brigade', '2'), $sendto);
 } else {
 	$syntax_error = true;
