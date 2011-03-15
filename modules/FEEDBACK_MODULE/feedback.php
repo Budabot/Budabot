@@ -1,6 +1,34 @@
 <?php
 
-if (preg_match("/^feedback ([a-z0-9-]*) (\\+1|\\-1) (.*)$/i", $message, $arr)) {
+if (preg_match("/^feedback$/i", $message)) {
+	$sql = "
+		SELECT
+			name,
+			SUM(CASE WHEN reputation = '+1' THEN 1 ELSE 0 END) pos_rep,
+			SUM(CASE WHEN reputation = '-1' THEN 1 ELSE 0 END) neg_rep
+		FROM
+			feedback
+		GROUP BY
+			name";
+			
+	$db->query($sql);
+	$count = $db->numrows();
+	
+	if ($count == 0) {
+		$msg = "There are no characters on the feedback list.";
+		$chatBot->send($msg, $sendto);
+		return;
+	}
+	
+	$blob = "<header> :::::: Feedback List :::::: <end>\n\n";
+	$data = $db->fObject('all');
+	forEach ($data as $row) {
+		$details_link = Text::make_link('Details', "/tell <myname> feedback $row->name", 'chatcmd');
+		$blob .= "$row->name  <green>+{$row->pos_rep}<end> <orange>-{$row->neg_rep}<end>   {$details_link}\n";
+	}
+	$msg = Text::make_link("Feedback List ($count)", $blob, 'blob');
+	$chatBot->send($msg, $sendto);
+} else if (preg_match("/^feedback ([a-z0-9-]*) (\\+1|\\-1) (.*)$/i", $message, $arr)) {
 	$charid = $chatBot->get_uid($arr[1]);
 	$name = ucfirst(strtolower($arr[1]));
 	$rep = $arr[2];
