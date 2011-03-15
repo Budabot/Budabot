@@ -40,6 +40,45 @@ if (preg_match("/^loot clear|clear$/i", $message)) {
 	if ($type != 'priv') {
 		$chatBot->send($msg, $sendto);
 	}
+} else if (preg_match("/^loot ([0-9]+)$/i", $message, $arr)) {
+	$id = $arr[1];
+	
+	$sql = "SELECT * FROM raid_loot WHERE id = $id";
+	$db->query($sql);
+	$item = $db->fObject();
+	
+	if ($item === null) {
+		$msg = "Could not find item with id <highlight>$id<end> to add.";
+		$chatBot->send($msg, $sendto);
+		return;
+	}
+	
+	$dontadd = 0;
+	forEach ($loot as $key => $value) {
+		if ($value["name"] == $item->name){
+			$loot[$key]["multiloot"] = $value["multiloot"]+1;
+			$total = $value["multiloot"]+1;
+			$dontadd = 1;
+			$slot = $key;
+		}
+	}
+
+	if ($dontadd == 0) {
+		if (is_array($loot)) {
+			$nextloot = count($loot) + 1;
+		} else {
+			$nextloot = 1;
+		}
+		$loot[$nextloot]["name"] = $item->name;
+		$loot[$nextloot]["linky"] = "<a href='itemref://{$item->lowid}/{$item->highid}/{$item->ql}'>{$item->name}</a>";
+		$loot[$nextloot]["icon"] = $item->imageid;
+		$loot[$nextloot]["multiloot"] = 1;
+		$msg = "<highlight>".$item->name."<end> will be rolled in Slot <highlight>#".$nextloot;
+	} else {
+		$msg = "<highlight>".$item->name."<end> will be rolled in Slot <highlight>#".$slot."<end> as multiloot. Total: <yellow>".$total."<end>";
+	}
+	$msg .= "\nTo add use !add ".$nextloot.", or !add 0 to remove yourself";
+	$chatBot->send($msg, 'priv');
 } else if (preg_match("/^loot (.+)$/i", $message, $arr)) {
 
 	//Check if the item is a link
@@ -109,7 +148,6 @@ if (preg_match("/^loot clear|clear$/i", $message)) {
 			$item_ql = $row->highql;	  
 		}
 	}
-	
 
 	//Save item
 	if (!$dontadd) {

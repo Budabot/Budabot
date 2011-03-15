@@ -1,7 +1,9 @@
 <?php
+	require_once 'Raid.class.php';
+
 	$MODULE_NAME = "RAID_MODULE";
 	
-	DB::loadSQLFile($MODULE_NAME, 'xan_loot');
+	DB::loadSQLFile($MODULE_NAME, 'raid_loot');
 
 	//Loot list and adding/removing of players	
 	Command::register($MODULE_NAME, "", "loot.php", "loot", "leader", "Adds an item to the loot list");
@@ -18,7 +20,7 @@
 	Command::register($MODULE_NAME, "", "add.php", "add", "all", "Let a player adding to a slot");	
 	Command::register($MODULE_NAME, "", "rem.php", "rem", "all", "Let a player removing from a slot");
 	
-	//APFs
+	// APFs
 	Command::register($MODULE_NAME, "", "13.php", "13", "leader", "Adds apf13 loot list", 'apfloot');
 	Command::register($MODULE_NAME, "", "28.php", "28", "leader", "Adds apf28 loot list", 'apfloot');
 	Command::register($MODULE_NAME, "", "35.php", "35", "leader", "Adds apf35 loot list", 'apfloot');
