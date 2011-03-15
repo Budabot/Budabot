@@ -96,14 +96,14 @@ class Budabot extends AOChat {
 		Logger::log('INFO', 'StartUp', "All Systems ready!");
 
 		// Set cron timers
-		$this->vars["2sec"] 			= time() + $this->settings["CronDelay"];
-		$this->vars["1min"] 			= time() + $this->settings["CronDelay"];
-		$this->vars["10mins"] 			= time() + $this->settings["CronDelay"];
-		$this->vars["15mins"] 			= time() + $this->settings["CronDelay"];
-		$this->vars["30mins"] 			= time() + $this->settings["CronDelay"];
-		$this->vars["1hour"] 			= time() + $this->settings["CronDelay"];
-		$this->vars["24hours"]			= time() + $this->settings["CronDelay"];
-		$this->vars["15min"] 			= time() + $this->settings["CronDelay"];
+		$this->vars["2sec"] 			= time() + Setting::get("CronDelay");
+		$this->vars["1min"] 			= time() + Setting::get("CronDelay");
+		$this->vars["10mins"] 			= time() + Setting::get("CronDelay");
+		$this->vars["15mins"] 			= time() + Setting::get("CronDelay");
+		$this->vars["30mins"] 			= time() + Setting::get("CronDelay");
+		$this->vars["1hour"] 			= time() + Setting::get("CronDelay");
+		$this->vars["24hours"]			= time() + Setting::get("CronDelay");
+		$this->vars["15min"] 			= time() + Setting::get("CronDelay");
 	}
 	
 	function init() {
@@ -276,7 +276,7 @@ class Budabot extends AOChat {
 		}
 	
 		$message = Text::format_message($message);
-		$this->send_privgroup($group, $this->settings["default_priv_color"].$message);
+		$this->send_privgroup($group, Setting::get("default_priv_color").$message);
 	}
 
 /*===============================
@@ -307,34 +307,34 @@ class Budabot extends AOChat {
 		$sender_link = Text::make_link($this->vars['name'], $this->vars['name'], "user");
 
 		if ($target == 'prv') {
-			$this->send_privgroup($this->vars["name"], $this->settings["default_priv_color"].$message);
+			$this->send_privgroup($this->vars["name"], Setting::get("default_priv_color").$message);
 			
 			// relay to guild channel
-			if (!$disable_relay && $this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1) {
+			if (!$disable_relay && Setting::get('guild_channel_status') == 1 && Setting::get("guest_relay") == 1 && Setting::get("guest_relay_commands") == 1) {
 				$this->send_guild("</font>{$this->settings["guest_color_channel"]}[Guest]</font> {$this->settings["guest_color_username"]}{$sender_link}</font>: {$this->settings["default_priv_color"]}$message</font>");
 			}
 
 			// relay to bot relay
-			if (!$disable_relay && $this->settings["relaybot"] != "Off" && $this->settings["bot_relay_commands"] == 1) {
+			if (!$disable_relay && Setting::get("relaybot") != "Off" && Setting::get("bot_relay_commands") == 1) {
 				send_message_to_relay("grc <grey>[{$this->vars["my_guild"]}] [Guest] {$sender_link}: $message");
 			}
-		} else if ($target == $this->vars["my_guild"] || $target == 'org') {// Target is guild chat.
-    		$this->send_guild($this->settings["default_guild_color"].$message);
+		} else if (($target == $this->vars["my_guild"] || $target == 'org') && Setting::get('guild_channel_status') == 1) {
+    		$this->send_guild(Setting::get("default_guild_color").$message);
 			
 			// relay to private channel
-			if (!$disable_relay && $this->settings["guest_relay"] == 1 && $this->settings["guest_relay_commands"] == 1) {
+			if (!$disable_relay && Setting::get("guest_relay") == 1 && Setting::get("guest_relay_commands") == 1) {
 				$this->send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my_guild"]}]</font> {$this->settings["guest_color_username"]}{$sender_link}</font>: {$this->settings["default_guild_color"]}$message</font>");
 			}
 			
 			// relay to bot relay
-			if (!$disable_relay && $this->settings["relaybot"] != "Off" && $this->settings["bot_relay_commands"] == 1) {
+			if (!$disable_relay && Setting::get("relaybot") != "Off" && Setting::get("bot_relay_commands") == 1) {
 				send_message_to_relay("grc <grey>[{$this->vars["my_guild"]}] {$sender_link}: $message");
 			}
 		} else if ($this->get_uid($target) != NULL) {// Target is a player.
 			Logger::log_chat("Out. Msg.", $target, $message);
-    		$this->send_tell($target, $this->settings["default_tell_color"].$message);
+    		$this->send_tell($target, Setting::get("default_tell_color").$message);
 		} else { // Public channels that are not guild
-	    	$this->send_group($target, $this->settings["default_guild_color"].$message);
+	    	$this->send_group($target, Setting::get("default_guild_color").$message);
 		}
 	}
 
@@ -574,7 +574,7 @@ class Budabot extends AOChat {
 				}
 
 				// Remove the prefix if there is one
-				if ($message[0] == $this->settings["symbol"] && strlen($message) > 1) {
+				if ($message[0] == Setting::get("symbol") && strlen($message) > 1) {
 					$message = substr($message, 1);
 				}
 
@@ -626,7 +626,7 @@ class Budabot extends AOChat {
 						}
 					}
 					
-					if ($message[0] == $this->settings["symbol"] && strlen($message) > 1) {
+					if ($message[0] == Setting::get("symbol") && strlen($message) > 1) {
 						$message = substr($message, 1);
 						$this->process_command($type, $message, $sender, $sendto);
 					}
@@ -678,6 +678,8 @@ class Budabot extends AOChat {
 						return;
 					}
 				}
+				
+				$b = unpack("C*", $args[0]);
 
 				if ($channel == "All Towers" || $channel == "Tower Battle Outcome") {
                     $type = "towers";
@@ -701,7 +703,7 @@ class Budabot extends AOChat {
 						}
 					}
                     return;
-                } else if ($channel == $this->vars["my_guild"]) {
+                } else if ($b[1] == 3 && Setting::get('guild_channel_status') == 1) {
                     $type = "guild";
 					$sendto = 'guild';
 					
@@ -714,7 +716,7 @@ class Budabot extends AOChat {
 						}
 					}
 					
-					if ($message[0] == $this->settings["symbol"] && strlen($message) > 1) {
+					if ($message[0] == Setting::get("symbol") && strlen($message) > 1) {
 						$message = substr($message, 1);
 						$this->process_command($type, $message, $sender, $sendto);
 					}
