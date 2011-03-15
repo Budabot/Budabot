@@ -55,18 +55,18 @@ if (preg_match("/^addmod (.+)$/i", $message, $arr)){
 
 	if (isset($chatBot->admins[$who]["level"]) && $chatBot->admins[$who]["level"] >= 2) {
 		if($chatBot->admins[$who]["level"] > 3) {
-			$chatBot->send("<highlight>$who<end> has been demoted to the rank of a Moderator.", $sendto);
-			$chatBot->send("You have been demoted to the rank of a Moderator on {$chatBot->vars["name"]}", $who);
+			$chatBot->send("<highlight>$who<end> has been demoted to a moderator.", $sendto);
+			$chatBot->send("You have been demoted to a moderator", $who);
 		} else {
-			$chatBot->send("<highlight>$who<end> has been promoted to the rank of a Moderator.", $sendto);
-			$chatBot->send("You have been promoted to the rank of a Moderator on {$chatBot->vars["name"]}", $who);
+			$chatBot->send("<highlight>$who<end> has been promoted to a moderator.", $sendto);
+			$chatBot->send("You have been promoted to a moderator", $who);
 		}
 		$db->exec("UPDATE admin_<myname> SET `adminlevel` = 3 WHERE `name` = '$who'");
 		$chatBot->admins[$who]["level"] = 3;
 	} else {
 		$db->exec("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (3, '$who')");
 		$chatBot->admins[$who]["level"] = 3;
-		$chatBot->send("<highlight>$who<end> has been added to the Moderatorgroup", $sendto);
+		$chatBot->send("<highlight>$who<end> has been added as a moderator", $sendto);
 		$chatBot->send("You got moderator access to <myname>", $who);
 	}
 

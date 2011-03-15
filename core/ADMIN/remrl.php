@@ -47,7 +47,7 @@ if (preg_match("/^remrl (.+)$/i", $message, $arr)) {
 		
 	Buddylist::remove($who, 'admin');
 
-	$chatBot->send("<highlight>$who<end> has been removed as Raidleader of this Bot.", $sendto);
+	$chatBot->send("<highlight>$who<end> has been removed as a raidleader.", $sendto);
 	$chatBot->send("Your raidleader access to <myname> has been removed.", $who);
 } else {
 	$syntax_error = true;

@@ -47,7 +47,7 @@ if (preg_match("/^remadmin (.+)$/i", $message, $arr)){
 
 	Buddylist::remove($who, 'admin');
 
-	$chatBot->send("<highlight>$who<end> has been removed as Administrator of this Bot.", $sendto);
+	$chatBot->send("<highlight>$who<end> has been removed as an administrator.", $sendto);
 	$chatBot->send("Your Administrator access to <myname> has been removed.", $who);
 } else {
 	$syntax_error = true;

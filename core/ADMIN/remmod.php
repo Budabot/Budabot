@@ -47,7 +47,7 @@ if (preg_match("/^remmod (.+)$/i", $message, $arr)){
 	
 	Buddylist::remove($who, 'admin');
 
-	$chatBot->send("<highlight>$who<end> has been removed as Moderator of this Bot.", $sendto);
+	$chatBot->send("<highlight>$who<end> has been removed as a moderator.", $sendto);
 	$chatBot->send("Your moderator access to <myname> has been removed.", $who);
 } else {
 	$syntax_error = true;
