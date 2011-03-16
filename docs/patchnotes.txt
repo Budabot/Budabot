@@ -1,46 +1,35 @@
 *****************************
-	Version 2.0_RC6:
+	Version 2.0_RC7:
 *****************************
 -updated items db to 18.04.03
--can now set seconds on a timer
--added a TRACKER_MODULE for silently keeping track of when people sign on and off
+-added !track for silently keeping track of when people sign on and off
 -added !lookup command so you can find the userid of a player
 -added !specials command
--can now set commands as requiring admin privileges (before the highest u could set was moderator)
 -updated help commands and event and command descriptions for a number of modules (most commands should have a help entry now)
 -moved ORG_ROSTER from a core module to a user module and renamed to GUILD_MODULE
 -updated syntax for the GUIDEBOT_MODULE (eg, instead of !elykey it's now !guides elykey) to reduce command name space pollution
 -can now use !config cmd 'cmd_name' to display config options for an individual command
 -added convenience method for setting up tell relay between two orgs (/tell bot1 !tellrelay bot2 /tell bot2 !tellrelay bot1)
--bot will respond with syntax error and unknown error for commands in the private channel
 -added some entries to !whereis; also added waypoints for a few of the existing entries
 -!guides list now returns the guides sorted alphabetically
 -!waypoint command for setting waypoints (ex: !waypoing 300 400 pw)
 -!playfields will show you a list of playfields, playfield ids, and shortnames for use with !waypoint and the TOWERS_MODULE
--moved alts character handling to new module ALTS_MODULE (will work with existing alts lists)
 -updated aochat.php to use text.mdb file for extended message lookups
--fixed issue with !premade so it works again
--added setting for ITEMS_MODULE to either look in local db or to use xyphos.com
 -help info will now be included in pages for cmd config and settings if a help file exists
 -moved player info cache into the database
--improved logging for sql errors
 -renamed BOTCHANNEL_MODULE to PRIVATE_CHANNEL_MODULE
 -rewrote (yet again)!orglist so that it can do lookups MUCH faster and is much less likely to bug
--added search option to !friendlist command
--added !addbuddy so you can now manually add friends to the friends list
 -!logon with no params now shows your current logon message
 -made !oe more succinct
 -re-wrote !fight to not favor the first player
 -!buffs is back
 -removed BANK_MODULE
 -fixed TOWERS_MODULE; renamed to TOWER_MODULE
--added !dwight and !pinky/!brain to FUN_MODULE
 -changed !nd and !hd to !nanodelta and !healdelta
 -changed !reboot to !restart
 -updated !about
 -fixed !cmdlist
--fixed !orgranks
--fixed nanoinit calculation
+-fixed !nanoinit calculation
 -added !reloadconfig to load changes from the config file when changes are made without restarting in certain instances
 -added !fc in the FUN_MODULE
 -added !links to NOTES_MODULE
@@ -51,19 +40,22 @@
 -added !clearqueue command to clear the chat queue
 -added !loadsql command for manually loading sql files
 -merged !memory and !uptime into !system and added additional info output
--refactored a lot of the core code into separate files
--combined APF_MODULE, DUST_BRIGRADE_MODULE, and PANDE_MODULE into RAID_MODULE
+-rewrote much of RAID_MODULE which now includes loot lists for pande, apfs, dust brigade (Chachy (RK2)), albtraum (Dare2005 (RK2)), and xan pf's (Morgo (RK2))
 -!accept to allow the bot to accept a private channel invite from another player
 -reduced chat spam when the bot logs on
 -can now create command aliases
--RAID_MODULE now includes loot lists for Albtraum !alb (thanks Dare2005 (RK2)) and the Xan playfield !xan (thanks Morgo (RK2))
--can not share online list with an unlimited number of budabots (previous limit was 2) and this happens automatically when they share the same database
--RELAY_MODULE can use the private channel of one of the bots in the relay as the hub bot
+-can now share online list with an unlimited number of budabots (previous limit was 2) and this happens automatically when they share the same database
 -added a setting to allow alts to inherit admin privileges from their main
 -subcommands can now be enabled or disabled separately from their parent command
 -added solitus, opifex, nanomage, and atrox guides to the GUIDE_MODULE (thanks Mdkdoc420 (RK2), Curlycat (RK2))
--!premade now shows formatted results (finally!)
-
+-!premade works again and now shows formatted results (finally!)
+-added !whompah command
+-added setting alts_inherit_admin for people who want that functionality (disabled by default)
+-added !wtb and !wts commands for searching posts made on the shopping channels
+-updated !whoisorg, !orgmembers, !orgranks to accept either a character name or an org id (or nothing to use the current org)
+-added !findorg command
+-added setting for ITEMS_MODULE to either look in local db or to use xyphos.com (!litems to force local db; !xitems to force xyphos.com)
+-added setting guild_channel_status for enabling or disabling the guild channel
 
 *****************************
 	Version 1.0_GA:
