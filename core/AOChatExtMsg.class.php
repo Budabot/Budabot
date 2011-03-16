@@ -103,12 +103,17 @@ class AOExtMsg {
 					$args[] = $str;
 					break;
 				
-				
 				case "s":
 					$len = ord($msg[0]) - 1;
 					$str = substr($msg, 1, $len);
 					$msg = substr($msg, $len + 1);
 					$args[] = $str;
+					break;
+					
+				case "I":
+					$array = unpack("N", $msg);
+					$args[] = $array[1];
+					$msg = substr($msg, 4);
 					break;
 
 				case "i":

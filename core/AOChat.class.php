@@ -255,8 +255,10 @@ class AOChat {
 				$packet->args[4] = MMDBParser::get_message_string($category_id, $packet->args[2]);
 				if ($packet->args[4] !== null) {
 					$packet->args[5] = AOExtMsg::parse_params($packet->args[3]);
-					if ($message_args !== null) {
+					if ($packet->args[5] !== null) {
 						$packet->args[6] = vsprintf($packet->args[4], $packet->args[5]);
+					} else {
+						print_r($packet);
 					}
 				}
 				break;
