@@ -1,4 +1,4 @@
-<header>::::: Budabot Info :::::<end>
+<header> :::::: Budabot Info :::::: <end>
 
 <highlight>Version:<end> <version>
 <highlight>Project Site:<end> <a href='chatcmd:///start http://code.google.com/p/budabot2'>http://code.google.com/p/budabot2</a>
@@ -10,6 +10,7 @@
 <highlight>-Dark Ninjas (RK2)<end> and <highlight>Devil Inside (RK2)<end> for letting me use their orgs to test new features.
 <highlight>-MajorOutage (RK1)<end> for all the items db rips he has provided.
 <highlight>-CaptainZero (RK1)<end> and <highlight>Snakebite (RK2)<end> for hosting and moderating the budabot.com website.
+<highlight>-Docteeko (RK2)<end> for helping me manage the Budabot project, testing new features, suggesting needed finishing touches, and helping me make it through the last stretch.
 -All the people who have contributed modules to help make Budabot top tier.
 
 To the AO Community:
