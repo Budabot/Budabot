@@ -19,11 +19,12 @@ if (preg_match("/^onlineirc$/i", $message, $arr)) {
 			$start = strrpos($data,":")+1;
 			$names = explode(' ',substr($data, $start, strlen($data)));
 			$numusers = count($names);
+			$blob = "<header> :::::: IRC Online List :::::: <end>\n\n";
 			forEach ($names as $value) {
-				$list .= "$value\n";
+				$blob .= "$value\n";
 			}
 			
-			$msg = Text::make_link("$numusers online in IRC", $list);
+			$msg = Text::make_link("$numusers online in IRC", $blob, 'blob');
 			
 			$chatBot->send($msg, $sendto);
 		}
