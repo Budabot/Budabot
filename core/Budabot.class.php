@@ -27,12 +27,9 @@ class Budabot extends AOChat {
 ** Constructor of this class.
 */	function __construct(&$vars, &$settings){
 		parent::__construct("callback");
-		
-		$vars["name"] = ucfirst(strtolower($vars["name"]));
 
-		$this->settings = $settings;
-		$this->vars = $vars;
-        $this->vars["name"] = ucfirst(strtolower($this->vars["name"]));
+		$this->settings = &$settings;
+		$this->vars = &$vars;
 		
 		// don't fire logon events when the bot starts up
 		$this->vars["logondelay"] = time() + 100000;
@@ -396,7 +393,7 @@ class Budabot extends AOChat {
 				$b = unpack("C*", $args[0]);
 				Logger::log('DEBUG', 'Packets', "AOCP_GROUP_ANNOUNCE => name: '$args[1]'");
 				if ($b[1] == 3) {
-					$this->vars["my_guild_id"] = $b[2]*256*256*256 + $b[3]*256*256 + $b[4]*256 + $b[5];
+					//$this->vars["my_guild_id"] = ($b[2] << 24) + ($b[3] << 16) + ($b[4] << 8) + ($b[5]);
 					//$this->vars["my_guild"] = $args[1];
 				}
 				break;

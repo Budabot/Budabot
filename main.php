@@ -106,6 +106,8 @@ if ($vars['login']		== "" ||
 	include "./core/SETUP/setup.php";
 }
 
+$vars["name"] = ucfirst(strtolower($vars["name"]));
+
 // set the title of the command prompt winddow in windows
 if (isWindows()) {
 	system("title {$vars['name']} - Budabot");
