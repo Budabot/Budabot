@@ -1,10 +1,8 @@
 <?php
    
 if (preg_match("/^join$/i", $message)) {
- 	$db->query("SELECT name FROM members_<myname> WHERE `name` = '$sender' UNION SELECT name FROM org_members_<myname> WHERE `name` = '$sender'");
-
 	// if user is an admin, member, or org member, or if manual join mode is open for everyone, then invite them
-	if (isset($chatBot->admins[$sender]) || $db->numrows() > 0 || $chatBot->settings["guest_man_join"] == 0) {
+	if (Setting::get("guest_man_join") == 0 || AccessLevel::checkAccess($sender, 'member')) {
 		$chatBot->privategroup_kick($sender);
 		$chatBot->privategroup_invite($sender);
 	} else {
