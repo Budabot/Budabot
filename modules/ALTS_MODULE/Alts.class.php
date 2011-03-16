@@ -56,8 +56,7 @@ class Alts {
 			return null;
 		}
 
-		$list = "<header>::::: Alternative Character List :::::<end> \n \n";
-		$list .= ":::::: Main Character\n";
+		$list = "<header> :::::: Character List for $main :::::: <end>\n\n";
 		$list .= "<tab><tab>{$main}";
 		$character = Player::get_by_name($main);
 		if ($character !== null) {
@@ -71,7 +70,7 @@ class Alts {
 		} else {
 			$list .= " - <red>Offline<end>\n";
 		}
-		$list .= ":::::: Alt Character(s)\n";
+		$list .= "\n:::::: Alt Character(s)\n";
 		
 		$sql = "SELECT `alt`, `main`, p.* FROM `alts` a LEFT JOIN players p ON a.alt = p.name WHERE `main` LIKE '$main' ORDER BY level DESC, ai_level DESC, profession ASC, name ASC";
 		$db->query($sql);
