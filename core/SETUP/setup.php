@@ -118,7 +118,7 @@ echo "             and punctuation!\n";
 echo "             ***************************************************\n";
 echo "             \n\n\n\n\n\n\n\n\n";
 $msg = "Enter your Guild:  \n";
-$vars["my guild"] = read_input($msg);
+$vars["my_guild"] = read_input($msg);
 
 do {
 	echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
