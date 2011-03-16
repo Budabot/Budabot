@@ -61,7 +61,7 @@ class Alts {
 		$list .= "<tab><tab>{$main}";
 		$character = Player::get_by_name($main);
 		if ($character !== null) {
-			$list .= " (Level <highlight>{$character->level}<end>/<green>{$character->ai_level}<end> <highlight>{$character->profession}<end>)";
+			$list .= " (<highlight>{$character->level}<end>/<green>{$character->ai_level}<end> <highlight>{$character->profession}<end>)";
 		}
 		$online = Buddylist::is_online($main);
 		if ($online === null) {
@@ -79,7 +79,7 @@ class Alts {
 		forEach ($data as $row) {
 			$list .= "<tab><tab>{$row->alt}";
 			if ($row->profession !== null) {
-				$list .= " (Level <highlight>{$row->level}<end>/<green>{$row->ai_level}<end> <highlight>{$row->profession}<end>)";
+				$list .= " (<highlight>{$row->level}<end>/<green>{$row->ai_level}<end> <highlight>{$row->profession}<end>)";
 			}
 			$online = Buddylist::is_online($row->alt);
 			if ($online === null) {
