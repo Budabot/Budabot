@@ -33,7 +33,7 @@ $settings['DB Host'] = "./data/";	// Hostname or File location.
 $settings['DB username'] = "";		// Mysql User name
 $settings['DB password'] = "";		// Mysql Password
 
-// Logging options.  1 for enabled, 2 for disabled
+// Logging options.  1 for enabled, 0 for disabled
 $vars['error_console'] = 1;
 $vars['error_file'] = 1;
 

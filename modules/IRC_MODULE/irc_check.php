@@ -10,7 +10,7 @@
 global $socket;
 
 stream_set_blocking($socket, 0);
-if (($data = fgets($socket)) && ("1" == $chatBot->settings['irc_status'])) {
+if (($data = fgets($socket)) && ("1" == Setting::get('irc_status'))) {
 	$ex = explode(' ', $data);
 	$ex[3] = substr($ex[3],1,strlen($ex[3]));
 	$rawcmd = rtrim(htmlspecialchars($ex[3]));
@@ -19,24 +19,24 @@ if (($data = fgets($socket)) && ("1" == $chatBot->settings['irc_status'])) {
 	$nicka = explode('@', $ex[0]);
 	$nickb = explode('!', $nicka[0]);
 	$nickc = explode(':', $nickb[0]);
-	if ($chatBot->settings['irc_debug_all'] == 1) {
+	if (Setting::get('irc_debug_all') == 1) {
 		Logger::log('info', "IRC", trim($data));
 	}
 	$host = $nicka[1];
 	$nick = $nickc[1];
 	if ($ex[0] == "PING"){
 		fputs($socket, "PONG ".$ex[1]."\n");
-		if ($chatBot->settings['irc_debug_ping'] == 1) {
+		if (Setting::get('irc_debug_ping') == 1) {
 			Logger::log('info', "IRC", "PING received. PONG sent");
 		}
 	} else if($ex[1] == "QUIT") {
 		if ($chatBot->vars['my_guild'] != "") {
 			$chatBot->send("<yellow>[IRC]<end><green> $nick quit IRC.<end>","guild",true);
 		}
-		if ($chatBot->vars['my_guild'] == "" ||$chatBot->settings["guest_relay"] == 1) {
+		if ($chatBot->vars['my_guild'] == "" || Setting::get("guest_relay") == 1) {
 			$chatBot->send("<yellow>[IRC]<end><white> $nick quit IRC.<end>","priv",true);
 		}
-	} else if ($channel == trim(strtolower($chatBot->settings['irc_channel']))) {
+	} else if ($channel == trim(strtolower(Setting::get('irc_channel')))) {
 		$args = NULL; for ($i = 4; $i < count($ex); $i++) { $args .= rtrim(htmlspecialchars($ex[$i])) . ' '; }
 		for ($i = 3; $i < count($ex); $i++) {
 			$ircmessage .= rtrim(htmlspecialchars($ex[$i]))." ";
@@ -96,7 +96,7 @@ if (($data = fgets($socket)) && ("1" == $chatBot->settings['irc_status'])) {
 						$row1 = $db->fObject();
 						$alt = " ($row1->main)";
 					}
-					$list .= "$row->name"."$alt"."$afk, ";
+					$list .= $row->name . $alt . "$afk, ";
 					$p++;
 				}
 			}
@@ -110,24 +110,24 @@ if (($data = fgets($socket)) && ("1" == $chatBot->settings['irc_status'])) {
 			if ($chatBot->vars['my_guild'] != "") {
 				$chatBot->send("<yellow>[IRC]<end><green> $nick joined the channel.<end>", "guild", true);
 			}
-			if ($chatBot->vars['my_guild'] == "" || $chatBot->settings["guest_relay"] == 1) {
+			if ($chatBot->vars['my_guild'] == "" || Setting::get("guest_relay") == 1) {
 				$chatBot->send("<yellow>[IRC]<end><white> $nick joined the channel.<end>", "priv", true);
 			}
 		} else if ($ex[1] == "PART") {
 			if ($chatBot->vars['my_guild'] != "") {
 				$chatBot->send("<yellow>[IRC]<end><green> $nick left the channel.<end>", "guild", true);
 			}
-			if ($chatBot->vars['my_guild'] == "" ||$chatBot->settings["guest_relay"] == 1) {
+			if ($chatBot->vars['my_guild'] == "" || Setting::get("guest_relay") == 1) {
 				$chatBot->send("<yellow>[IRC]<end><white> $nick left the channel.<end>", "priv", true);
 			}
 		} else {
-			if ($chatBot->settings['irc_debug_messages'] == 1) {
+			if (Setting::get('irc_debug_messages') == 1) {
 				Logger::log_chat("Inc. IRC Msg.", $nick, $ircmessage);
 			}
 			if ($chatBot->vars['my_guild'] != "") {
 				$chatBot->send("<yellow>[IRC]<end><white> $nick: $ircmessage<end>", "guild", true);
 			}
-			if ($chatBot->vars['my_guild'] == "" || $chatBot->settings["guest_relay"] == 1) {
+			if ($chatBot->vars['my_guild'] == "" || Setting::get("guest_relay") == 1) {
 				$chatBot->send("<yellow>[IRC]<end><green> $nick: $ircmessage<end>", "priv", true);
 			}
 			flush();

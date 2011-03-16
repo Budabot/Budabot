@@ -8,8 +8,8 @@
    */
    
 global $socket;
-if ("1" == $chatBot->settings['irc_status']) {
-	if ($args[2][0] != $chatBot->settings["symbol"] && !$chatBot->settings["Ignore"][$sender]) {
+if ("1" == Setting::get('irc_status')) {
+	if ($args[2][0] != Setting::get("symbol") && !$chatBot->settings["Ignore"][$sender]) {
 		
 		$patterns = array(
 		  '/<a href="itemref:\/\/(\d+)\/\1\/(\d+)">([^<]+)<\/a>/',
@@ -23,8 +23,8 @@ if ("1" == $chatBot->settings['irc_status']) {
 
 		$message = htmlspecialchars_decode(preg_replace($patterns, $replaces, $message));
 
-		fputs($socket, "PRIVMSG ".$chatBot->settings['irc_channel']." :[<myguild>] $sender: $message\n");
-		if ($chatBot->settings['irc_debug_messages'] == 1) {
+		fputs($socket, "PRIVMSG ".Setting::get('irc_channel')." :[<myguild>] $sender: $message\n");
+		if (Setting::get('irc_debug_messages') == 1) {
 			Logger::log_chat("Out. IRC Msg.", $sender, $message);
 		}
 	}
