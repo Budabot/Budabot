@@ -393,7 +393,7 @@ class Budabot extends AOChat {
 				$b = unpack("C*", $args[0]);
 				Logger::log('DEBUG', 'Packets', "AOCP_GROUP_ANNOUNCE => name: '$args[1]'");
 				if ($b[1] == 3) {
-					//$this->vars["my_guild_id"] = ($b[2] << 24) + ($b[3] << 16) + ($b[4] << 8) + ($b[5]);
+					$this->vars["my_guild_id"] = ($b[2] << 24) + ($b[3] << 16) + ($b[4] << 8) + ($b[5]);
 					//$this->vars["my_guild"] = $args[1];
 				}
 				break;
