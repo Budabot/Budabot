@@ -23,7 +23,7 @@
 	Command::register($MODULE_NAME, "", "guard_order.php", "guard", "leader", "Show Guardian Order");
 	Command::register($MODULE_NAME, "", "cast_guard.php", "g", "all", "Show Guardian Cast");
 	
-	Setting::add($MODULE_NAME, "guard_max", "Max Persons that are shown on Guard list", "edit", "number", "10", "10;15;20;25;30", '', "mod", "$MODULE_NAME/guard_help.txt");
+	Setting::add($MODULE_NAME, "guard_max", "Max Persons that are shown on Guard list", "edit", "number", "10", "10;15;20;25;30", '', "mod");
 
 	//Helpfiles
 	Help::register($MODULE_NAME, "guard", "guard.txt", "all", "Guardian Macro and List");
