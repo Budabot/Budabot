@@ -155,5 +155,8 @@ if (preg_match("/^time$/i", $message)) {
 	}
 
     $chatBot->send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
+
 ?>

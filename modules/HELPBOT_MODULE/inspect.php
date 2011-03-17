@@ -55,4 +55,5 @@ if (preg_match("/^inspect (.+)$/i", $message, $arr)) {
 } else {
 	$syntax_error = true;
 }
+
 ?>

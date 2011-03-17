@@ -11,6 +11,8 @@ if (preg_match("/^playfields$/i", $message)) {
 	
 	$msg = Text::make_link("Playfields", $blob, 'blob');
 	$chatBot->send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
 
 ?>

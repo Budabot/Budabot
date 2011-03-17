@@ -66,5 +66,6 @@ if (preg_match("/^aigen (ankari|ilari|rimah|jaax|xoch|cha)$/i", $message, $arr))
 } else {
 	$msg = "<red>This boss doesn't exist!<end> Try using: ilari, rimah, jaax, ankari, xoch or cha to get a result.";
 	$chatBot->send($msg, $sendto);
-}	
+}
+
 ?>

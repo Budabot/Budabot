@@ -130,4 +130,5 @@ if (preg_match("/^flip$/i", $message)) {
 } else {
 	$syntax_error = true;
 }
+
 ?>

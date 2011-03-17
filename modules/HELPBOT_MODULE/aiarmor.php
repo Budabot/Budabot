@@ -304,4 +304,5 @@ if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) ||
  	$msg = "<red>Unknown Syntax or wrong Armor specified<end>! Use one of the following: <highlight>cc<end>, <highlight>cm<end>, <highlight>co<end>, <highlight>cp<end>, <highlight>cs<end>, <highlight>ss<end>, <highlight>strong<end>, <highlight>supple<end>, <highlight>enduring<end>, <highlight>observant<end>, <highlight>arithmetic<end> or <highlight>spiritual.<end>";
 	$chatBot->send($msg, $sendto);
 }
+
 ?>

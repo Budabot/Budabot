@@ -129,5 +129,8 @@ if (preg_match("/^smileys$/i", $message)) {
 
 	$chatBot->send($basiclink, $sendto);
 	$chatBot->send($widelink, $sendto);
+} else {
+	$syntax_error = true;
 }
+
 ?>

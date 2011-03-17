@@ -84,4 +84,5 @@ if (preg_match("/^history (.+)$/i", $message, $arr)) {
 } else {
 	$syntax_error = true;
 }
+
 ?>

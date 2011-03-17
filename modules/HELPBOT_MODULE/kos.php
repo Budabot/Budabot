@@ -122,4 +122,5 @@ if (preg_match("/^kos$/i", $message)) {
 } else {
 	$syntax_error = true;
 }
+
 ?>

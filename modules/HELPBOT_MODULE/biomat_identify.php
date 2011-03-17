@@ -135,4 +135,5 @@ if (preg_match("/^bio <a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">Solid
 } else {
 	$syntax_error = true;
 }
+
 ?>
