@@ -29,9 +29,9 @@
 	Event::register($MODULE_NAME, "orgmsg", "org_messages.php", "none", "Relay Org Messages");
 	
 	// Settings
-	Setting::add($MODULE_NAME, "relaytype", "Type of relay", "edit", "options", "1", "tell;private channel", '1;2', "mod", "");
-	Setting::add($MODULE_NAME, "relaysymbol", "Symbol for external relay", "edit", "options", "@", "!;#;*;@;$;+;-;Always relay", '', "mod", "");
-	Setting::add($MODULE_NAME, "relaybot", "Bot for Guildrelay", "edit", "text", "Off", "Off", '', "mod", "$MODULE_NAME/relaybot.txt");
+	Setting::add($MODULE_NAME, "relaytype", "Type of relay", "edit", "options", "1", "tell;private channel", '1;2', "mod");
+	Setting::add($MODULE_NAME, "relaysymbol", "Symbol for external relay", "edit", "options", "@", "!;#;*;@;$;+;-;Always relay", '', "mod");
+	Setting::add($MODULE_NAME, "relaybot", "Bot for Guildrelay", "edit", "text", "Off", "Off", '', "mod");
 	Setting::add($MODULE_NAME, "bot_relay_commands", "Relay commands and results over the bot relay", "edit", "options", "0", "true;false", "1;0");
 	
 	Help::register($MODULE_NAME, "tellrelay", "tellrelay.txt", "mod", "How to setup an org relay between two orgs using tells");
