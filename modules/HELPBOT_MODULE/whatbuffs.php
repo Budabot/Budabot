@@ -14,47 +14,45 @@ if (preg_match("/^whatbuffs (.+)$/i", $message, $arr)) {
 	}
 
 	switch (sizeof($skills)) {
-		case 0:
-			$chatBot->send("There is no such skill, or at least no twink relevant skill going by that name.", $sendto); 	// skill does not exist
+		case 0:  // skill does not exist
+			$chatBot->send("Could not find a skill by that name.", $sendto);
 			return;
 
-		case 1:
-			$info = "";										// exactly one matching skill
+		case 1:  // exactly one matching skill
+			$info = "";
 			$found = 0;
 			forEach ($buffitems as $key => $item_info) {	
 				if (contains($item_info, $skills[0])) {
 					$found++;
-					$info .= "- <a href='chatcmd:///tell <myname> <symbol>buffitem $key'>$key</a>\n";
+					$info .= "- " . Text::make_link($key, "/tell <myname> <symbol>buffitem $key", 'chatcmd') . "\n";
 				}
 			}
 			if ($found > 0) {								// found items that modify this skill
-				$inside = "<header>::::: Buff item helper :::::<end>\n\n";
+				$inside = "<header> :::::: Buff item helper :::::: <end>\n\n";
 				$inside .= "Your query of <yellow>$name<end> yielded the following results:\n\n";
 				$inside .= "Items that buff ".$skills[0].":\n\n";
 				$inside .= $info;
-				$inside .= "\n\nClick the item(s) for more info\n\n";
-				$inside .= "by Imoutochan, RK1";
-				$windowlink = Text::make_link(":: Your \"What buffs ...?\" results ::", $inside);
+				$inside .= "\n\nby Imoutochan, RK1";
+				$windowlink = Text::make_link(":: Your \"What buffs ...?\" results ::", $inside, 'blob');
 				$chatBot->send($windowlink, $sendto); 
 				$chatBot->send("<highlight>$found<end> result(s) in total", $sendto);
 				return;
 			} else {
-				$chatBot->send("Nothing that buffs ".$skills[0]." in my database, sorry.", $sendto);
+				$chatBot->send("Nothing that buffs ".$skills[0]." in my database.", $sendto);
 				return; 
 			}
 			break;
 
-		default:
-			$info = ""; 									// found more than 1 matching skill
+		default:  // found more than 1 matching skill
+			$info = "";
 			forEach ($skills as $skill) {
-				$info .= "- <a href='chatcmd:///tell <myname> <symbol>whatbuffs ".$skill."'>$skill</a>\n";
+				$info .= "- " . Text::make_link($skill, "/tell <myname> <symbol>whatbuffs $skill", 'chatcmd') . "\n";
 			}
-			$inside = "<header>::::: Buff item helper :::::<end>\n\n";
+			$inside = "<header> :::::: Buff item helper :::::: <end>\n\n";
 			$inside .= "Your query of <yellow>$name<end> matches more than one skill:\n\n";
-			$inside .= $info."\n";
-			$inside .= "Which of those skills did you mean?\n\n";
-			$inside .= "by Imoutochan, RK1";
-			$windowlink = Text::make_link(":: Your \"What buffs ...?\" results ::", $inside);
+			$inside .= $info;
+			$inside .= "\n\nby Imoutochan, RK1";
+			$windowlink = Text::make_link(":: Your \"What buffs ...?\" results ::", $inside, 'blob');
 			$chatBot->send($windowlink, $sendto); 
 			$chatBot->send("Found several skills matching your key words.", $sendto);
 			return;
