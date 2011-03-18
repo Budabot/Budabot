@@ -1,0 +1,13 @@
+<header> :::::: Friendlist Commands :::::: <end>
+
+<highlight>Shows all the people on the friend list<end>
+<tab><symbol>friendlist
+
+<highlight>Remove characters from the friendlist that don't need to be on it<end>
+<tab><symbol>friendlist clean
+
+<highlight>Add a character to the friendlist<end>
+<tab><symbol>addbuddy 'name' 'type'
+
+<highlight>Remove a character from the friendlist<end>
+<tab><symbol>rembuddy 'name' 'type'

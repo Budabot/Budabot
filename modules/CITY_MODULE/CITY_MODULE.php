@@ -24,7 +24,7 @@
 	// OS/AS timer
 	Event::register($MODULE_NAME, "orgmsg", "os_timer.php", "none", "Sets a timer when an OS/AS is launched");
 	
-	// Helpfiles
+	// Help files
 	Help::register($MODULE_NAME, "cloak", "cloak.txt", "guild", "Status of the city cloak");
 	Help::register($MODULE_NAME, "wavecounter", "wavecounter.txt", "guild", "How to manually start and stop the wave counter");
 ?>
