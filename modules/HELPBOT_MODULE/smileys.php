@@ -10,7 +10,8 @@
    ** Date(last modified): 03.03.2007
    ** 
    */
-$basic="<header>::::: Smiley Dictionary: Basic Smileys :::::<end>
+$basic="<header> :::::: Smiley Dictionary: Basic Smileys :::::: <end>
+
 <yellow>:-)<end> <green>Your basic smiley<end>
 This smiley is used to inflect a sarcastic or joking statement since we can't hear voice inflection over e-mail
 
@@ -32,7 +33,8 @@ User just made a really devilish remark
 <yellow>>;-><end> <green>Winky and devil combined<end>
 A very lewd remark was just made";
 
-$wide="<header>::::: Smiley Dictionary: Widely used Smileys :::::<end>
+$wide="<header> :::::: Smiley Dictionary: Widely used Smileys :::::: <end>
+
 <yellow>(-:<end>
 User is left handed. 
 
