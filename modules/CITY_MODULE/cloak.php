@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (preg_match("/^city$/i", $message) || preg_match("/^cloak$/i", $message)) {
+if (preg_match("/^cloak$/i", $message)) {
     $db->query("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 0, 20 ");
     if ($db->numrows() == 0) {
         $msg = "<highlight>Unknown status on city cloak!<end>";
@@ -64,9 +64,20 @@ if (preg_match("/^city$/i", $message) || preg_match("/^cloak$/i", $message)) {
             }
         }
         $msg .= " ".Text::make_link("City History", $list);
-
     }
     $chatBot->send($msg, $sendto);
+} else if (preg_match("/^cloak (raise|on)$/i", $message)) {
+    $db->query("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 0, 20 ");
+	$row = $db->fObject();
+
+	if ($row->action == "on") {
+		$msg = "The cloaking device is already <green>enabled<end>.";
+	} else {
+		$db->exec("INSERT INTO org_city_<myname> (`time`, `action`, `player`) VALUES ('".time()."', 'on', '{$sender}*')");
+		$msg = "The cloaking device has been manually set to on in the bot.";
+	}
+
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

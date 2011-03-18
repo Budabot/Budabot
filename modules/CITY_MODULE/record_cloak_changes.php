@@ -29,12 +29,8 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (-1 == $sender) {
-    if (preg_match("/^(.+) turned the cloaking device in your city (on|off).$/i", $message, $arr)) {
-        $db->exec("INSERT INTO org_city_<myname> (`time`, `action`, `player`) VALUES ('".time()."', '".$arr[2]."', '".$arr[1]."')");
-    } else if (preg_match("/^Your city in (.+) has been targeted by hostile forces.$/i", $message, $arr)) {
-        $db->exec("INSERT INTO org_city_<myname> (`time`, `action`) VALUES ('".time()."', 'Attack')");
-    }
+if (-1 == $sender && preg_match("/^(.+) turned the cloaking device in your city (on|off).$/i", $message, $arr)) {
+	$db->exec("INSERT INTO org_city_<myname> (`time`, `action`, `player`) VALUES ('".time()."', '".$arr[2]."', '".$arr[1]."')");
 }
 
 ?>
