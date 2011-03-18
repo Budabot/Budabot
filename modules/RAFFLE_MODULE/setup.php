@@ -11,7 +11,7 @@ if (!isset($chatBot->data["Raffles"])) {
         "lastresult" => NULL,
         "lastmsgtime" => NULL,
         "sendto" => NULL
-        );
+    );
 }
 
 ?>

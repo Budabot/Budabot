@@ -158,7 +158,7 @@ function find_items_from_local($search, $ql) {
 			}
 		}
 
-		$blob = "<header>::::: Item Search Result :::::<end>\n\n";
+		$blob = "<header> :::::: Item Search Result :::::: <end>\n\n";
 		$blob .= $list;
 		$blob .= "\n\nItem DB Rip provided by MajorOutage (RK1)";
 		$link = Text::make_link("$countitems results in total", $blob, 'blob');
