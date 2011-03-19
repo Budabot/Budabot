@@ -1,5 +1,5 @@
 <?php
-   
+
 if (preg_match("/^friendlist$/i", $message) || preg_match("/^friendlist (clean)$/i", $message, $arg)) {
 	if ($arg) {
 		$cleanup = true;

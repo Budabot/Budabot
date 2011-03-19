@@ -4,22 +4,28 @@ if (preg_match("/^track$/i", $message)) {
 	$db->query("SELECT * FROM tracked_users_<myname> ORDER BY `name`");
 	$numrows = $db->numrows();
 	if ($numrows != 0) {
-	  	$blob .= "<header>::::: {$numrows} Users on Track List :::::<end>\n\n";
-	  	while ($row = $db->fObject()) {
-			$is_online = Buddylist::is_online($row->name);
-	  	  	if ($is_online === 1) {
-				$status = "<green>Online<end>";
-			} else if ($is_online === 0) {
-				$status = "<orange>Offline<end>";
+	  	$blob .= "<header> :::::: {$numrows} Users on Track List :::::: <end>\n\n";
+		$data = $db->fObject('all');
+	  	forEach ($data as $row) {
+			$db->query("SELECT `event`, `dt` FROM tracking_<myname> WHERE `uid` = $row->uid ORDER BY `dt` DESC LIMIT 1");
+			if ($db->numrows() > 0) {
+				$row2 = $db->fObject();
+				$last_action = " <white>" . date(DATE_RFC850, $row2->dt) ."<end>";
+			}
+			
+			if ($row2->event == 'logon') {
+				$status = "<green>logon<end>";
+			} else if ($row2->event == 'logoff') {
+				$status = "<orange>logoff<end>";
 			} else {
-				$status = "<grey>Unknown<end>";
+				$status = "<grey>None<end>";
 			}
 			
 			$remove = Text::make_link('Remove', "/tell <myname> track rem $row->name", 'chatcmd');
 			
 			$history = Text::make_link('History', "/tell <myname> track $row->name", 'chatcmd');
 
-	  		$blob .= "<tab>- $row->name ($status) - $history $remove\n";
+	  		$blob .= "<tab>-[{$history}] {$row->name} ({$status}{$last_action}) - {$remove}\n";
 	  	}
 	  	
 	    $msg = Text::make_link("<highlight>{$numrows}<end> players on the Track List", $blob);
@@ -69,8 +75,9 @@ if (preg_match("/^track$/i", $message)) {
 	
 	$db->query("SELECT `event`, `dt` FROM tracking_<myname> WHERE `uid` = $uid ORDER BY `dt` DESC");
 	if ($db->numrows() != 0) {
-		$blob .= "<header>::::: Track History for $name :::::<end>\n\n";
-	  	while ($row = $db->fObject()) {
+		$blob .= "<header> :::::: Track History for $name :::::: <end>\n\n";
+	  	$data = $db->fObject('all');
+	  	forEach ($data as $row) {
 	  		$blob .= "$row->event <white>" . date(DATE_RFC850, $row->dt) ."<end>\n";
 	  	}
 	  	
