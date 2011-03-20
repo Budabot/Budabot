@@ -3,21 +3,26 @@
 if ($chatBot->vars["my_guild_id"] != "") {
 	Logger::log('INFO', 'GUILD_MODULE', "Starting Roster update");
 
-	//Get the org infos
+	// Get the org infos
 	$org = Guild::get_by_id($chatBot->vars["my_guild_id"], $chatBot->vars["dimension"], true);
 	
-	//Check if Orgxml file is correct if not abort
+	// Check if Orgxml file is correct if not abort
 	if ($org === null) {
 		Logger::log('ERROR', 'GUILD_MODULE', "Error downloading the org roster xml file");
 		return;
 	}
 	
+	if (count($org->members) == 0) {
+		Logger::log('ERROR', 'GUILD_MODULE', "Guild xml file has no members! Aborting roster update.");
+		return;
+	}
+	
 	$this->vars["logondelay"] = time() + 100000;
 
-	//Delete old Memberslist
+	// Delete old Memberslist
 	unset($chatBot->guildmembers);
 	
-	//Save the current org_members table in a var
+	// Save the current org_members table in a var
 	$db->query("SELECT * FROM org_members_<myname>");
 	$data = $db->fObject('all');
 	if ($db->numrows() == 0 && (count($org->members) > 0)) {
