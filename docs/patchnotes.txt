@@ -56,6 +56,7 @@
 -added !findorg command
 -added setting for ITEMS_MODULE to either look in local db or to use xyphos.com (!litems to force local db; !xitems to force xyphos.com)
 -added setting guild_channel_status for enabling or disabling the guild channel
+-added !cloak on to allow the cloak to be turned on manually on the bot
 
 *****************************
 	Version 1.0_GA:

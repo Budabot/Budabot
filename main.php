@@ -29,11 +29,11 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */  
 
-$version = "2.0";
+$version = "2.0_GA";
 
 echo "\n\n\n\n\n
 	**************************************************
-	****         Budabot Version: $version             ****
+	****         Budabot Version: $version          ****
 	****    written by Sebuda & Derroylo(RK2)     ****
 	****                Project Site:             ****
 	****    http://code.google.com/p/budabot2/    ****
