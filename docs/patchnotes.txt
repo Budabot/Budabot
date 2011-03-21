@@ -1,5 +1,5 @@
 *****************************
-	Version 2.0_RC7:
+	Version 2.0_GA:
 *****************************
 -updated items db to 18.04.03
 -added !track for silently keeping track of when people sign on and off
