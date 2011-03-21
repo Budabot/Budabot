@@ -1,4 +1,4 @@
-<header>::::: Pocketboss Commands :::::<end>
+<header> :::::: Pocketboss Commands :::::: <end>
 
-<highlight>To show a list of Symbiants that a Pocketboss drops<end>
-<tab><symbol>pb 'Insert Pocketbossname'
+<highlight>Show a list of Symbiants that a Pocketboss drops<end>
+<tab><symbol>pb 'pocketboss name'

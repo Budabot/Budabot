@@ -1,7 +1,7 @@
-<header>::::: Symbiat Commands :::::<end>
+<header> :::::: Symbiant Commands :::::: <end>
 
-<highlight>To show a list of Symbiants and which PB it drops do<end>
-<tab><symbol>symb 'Insert Slotname' 'Insert Type'
+<highlight>Show a list of Symbiants and which Pocketboss drops it<end>
+<tab><symbol>symb 'slotname' 'type'
 
 Allowed Slotnames
 <tab>- eye
