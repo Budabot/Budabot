@@ -3,8 +3,11 @@
 Note: Before using this module you must copy your old budabot.db file to /modules/MIGRATE_MODULE/ on the new bot.
 Also, make sure you check the settings. /tell <myname> config MIGRATE_MODULE
 
-<highlight>Migrate your alts list<end>
+<highlight>Migrate alts list<end>
 <tab><symbol>migrate alts
 
-<highlight>Migrate your guest list<end>
+<highlight>Migrate guest list<end>
 <tab><symbol>migrate members
+
+<highlight>Migrate admin list<end>
+<tab><symbol>migrate admins

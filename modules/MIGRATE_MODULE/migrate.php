@@ -46,6 +46,21 @@ if (preg_match("/^migrate alts$/i", $message, $arr)) {
 	}
 	
     $chatBot->send("$count members migrated successfully. It is recommended that you restart your bot now.", $sendto);
+} else if (preg_match("/^migrate admins$/i", $message, $arr)) {
+	$db2 = new DB2(Setting::get('migrate_type'), Setting::get('migrate_name'), Setting::get('migrate_hostname'), Setting::get('migrate_username'), Setting::get('migrate_password'), Setting::get('migrate_botname'));
+
+	$db2->query("SELECT name, adminlevel FROM admin_<myname>");
+	$data = $db2->fObject('all');
+	$count = 0;
+	forEach ($data as $row) {
+		$db->query("SELECT name FROM admin_<myname> WHERE name = '$row->name'");
+		if ($db->numrows() == 0) {
+			$count++;
+			$db->exec("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES ('$row->adminlevel', '$row->name')");
+		}
+	}
+	
+    $chatBot->send("$count admins migrated successfully. It is recommended that you restart your bot now.", $sendto);
 } else {
 	$syntax_error = true;
 }
