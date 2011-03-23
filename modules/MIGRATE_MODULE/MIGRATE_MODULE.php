@@ -8,7 +8,7 @@
 	Setting::add($MODULE_NAME, "migrate_hostname", "Database hostname to migrate from", "edit", "text", "./modules/MIGRATE_MODULE/", "./modules/MIGRATE_MODULE/");
 	Setting::add($MODULE_NAME, "migrate_username", "Database username to migrate from", "edit", "text", "");
 	Setting::add($MODULE_NAME, "migrate_password", "Database password to migrate from", "edit", "text", "");
-	Setting::add($MODULE_NAME, "migrate_botname", "Bot name to migrate from", "edit", "text", "");
+	Setting::add($MODULE_NAME, "migrate_botname", "Bot name to migrate from", "edit", "text", $chatBot->vars['name']);
 
 	// Help files
     Help::register($MODULE_NAME, "migrate", "migrate.txt", "admin", "How to migrate your database from a previous version of Budabot");
