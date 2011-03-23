@@ -57,10 +57,24 @@ if (preg_match("/^migrate alts$/i", $message, $arr)) {
 		if ($db->numrows() == 0) {
 			$count++;
 			$db->exec("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES ('$row->adminlevel', '$row->name')");
+			$chatBot->admins[$row->name]["level"] = $row->adminlevel;
 		}
 	}
 	
     $chatBot->send("$count admins migrated successfully. It is recommended that you restart your bot now.", $sendto);
+} else if (preg_match("/^migrate settings$/i", $message, $arr)) {
+	$db2 = new DB2(Setting::get('migrate_type'), Setting::get('migrate_name'), Setting::get('migrate_hostname'), Setting::get('migrate_username'), Setting::get('migrate_password'), Setting::get('migrate_botname'));
+
+	$db2->query("SELECT name, setting FROM settings_<myname> WHERE mode <> 'noedit'");
+	$data = $db2->fObject('all');
+	$count = 0;
+	forEach ($data as $row) {
+		if (Setting::save($row->name, $row->setting) !== false) {
+			$count++;
+		}
+	}
+	
+    $chatBot->send("$count settings migrated successfully. It is recommended that you restart your bot now.", $sendto);
 } else {
 	$syntax_error = true;
 }
