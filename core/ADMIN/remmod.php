@@ -33,7 +33,7 @@ if (preg_match("/^remmod (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
 	
 	if ($chatBot->admins[$who]["level"] != 3) {
-		$chatBot->send("<red>Sorry $who is not a Moderator of this Bot.<end>", $sendto);
+		$chatBot->send("<red>$who is not a Moderator of this Bot.<end>", $sendto);
 		return;
 	}
 	

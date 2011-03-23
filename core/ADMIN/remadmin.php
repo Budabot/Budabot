@@ -33,7 +33,7 @@ if (preg_match("/^remadmin (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
 
 	if ($chatBot->admins[$who]["level"] != 4) {
-		$chatBot->send("<red>Sorry $who is not a Administrator of this Bot.<end>", $sendto);
+		$chatBot->send("<red>$who is not an Administrator of this Bot.<end>", $sendto);
 		return;
 	}
 	

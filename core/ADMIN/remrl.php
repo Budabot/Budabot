@@ -33,7 +33,7 @@ if (preg_match("/^remrl (.+)$/i", $message, $arr)) {
 	$who = ucfirst(strtolower($arr[1]));
 	
 	if ($chatBot->admins[$who]["level"] != 2) {
-		$chatBot->send("<red>Sorry $who is not a Raidleader of this Bot.<end>", $sendto);
+		$chatBot->send("<red>$who is not a Raidleader of this Bot.<end>", $sendto);
 		return;
 	}
 	
