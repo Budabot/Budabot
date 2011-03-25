@@ -23,7 +23,7 @@ if ("1" == Setting::get('irc_status')) {
 
 		$message = htmlspecialchars_decode(preg_replace($patterns, $replaces, $message));
 
-		fputs($socket, "PRIVMSG ".Setting::get('irc_channel')." :[<myguild>] $sender: $message\n");
+		fputs($socket, "PRIVMSG ".Setting::get('irc_channel')." :[{$chatBot->vars['my_guild']}] $sender: $message\n");
 		if (Setting::get('irc_debug_messages') == 1) {
 			Logger::log_chat("Out. IRC Msg.", $sender, $message);
 		}
