@@ -20,6 +20,7 @@ $fc[] = "Our Game Masters only ever suspend players when their actions leave us 
 $fc[] = "We do not suspend accounts on hearsay or rumour, but only when our staff witness and can verify that exploiting was taking place. --Craig \"Silirrion\" Morrison";
 $fc[] = "What is does mean is that every player involved was at least in contact with those doing the exploit, whether by game chat channels or otherwise. --Craig \"Silirrion\" Morrison";
 $fc[] = "Our apologies. Your accounts have been closed due to unauthorized actives. Thank you for your understanding. --Lead GM Sojourn, Customer Satisfaction Manager";
+$fc[] = "I disagree with everything you say in this thread...even including the idea that this is the \"most stupid\" idea we've ever had. We have done way dumber things than this. --Colin \"Means\" Cragg";
 
 if (preg_match("/^fc$/i", $message)) {
 	$dmg = rand(100,999);
