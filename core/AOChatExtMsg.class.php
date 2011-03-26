@@ -131,6 +131,18 @@ class AOExtMsg {
 					}
 					$args[] = $str;
 					break;
+					
+				case "l":
+					$array = unpack("N", $msg);
+					$msg = substr($msg, 4);
+					$cat = 20000;
+					$ins = $array[1];
+					$str = MMDBParser::get_message_string($cat, $ins);
+					if ($str === null) {
+						$str = "Unknown ($cat, $ins)";
+					}
+					$args[] = $str;
+					break;
 
 				default:
 					echo "Error! could not parse argument: '$data_type'\n";
