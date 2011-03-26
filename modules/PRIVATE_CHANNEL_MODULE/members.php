@@ -4,18 +4,21 @@ if (preg_match("/^members$/i", $message)) {
 	$db->query("SELECT * FROM members_<myname> ORDER BY `name`");
 	$autoguests = $db->numrows();
 	if ($autoguests != 0) {
-	  	$list .= "<header>::::: Members :::::<end>\n\n";
-	  	while ($row = $db->fObject()) {
-	  	  	if (Buddylist::is_online($row->name)) {
-				$status = "<green>Online";
-				if (isset($chatBot->chatlist[$row->name])) {
-			    	$status .= " and in channel";
-				}
+	  	$list .= "<header> :::::: Members :::::: <end>\n\n";
+	  	$data = $db->fObject('all');
+		forEach ($data as $row) {
+			$online = Buddylist::is_online($row->name);
+	  	  	if (isset($chatBot->chatlist[$row->name])) {
+				$status = "(<green>Online and in channel<end>)";
+			} else if ($online === 1) {
+				$status = "(<green>Online<end>)";
+			} else if ($online === 0) {
+				$status = "(<red>Offline<end>)";
 			} else {
-				$status = "<red>Offline";
+				$status = "(<orange>Unknown<end>)";
 			}
 
-	  		$list .= "<tab>- $row->name ($status<end>)\n";
+	  		$list .= "<tab>- $row->name {$status}\n";
 	  	}
 	  	
 	    $msg = Text::make_link("$autoguests member(s)", $list);
