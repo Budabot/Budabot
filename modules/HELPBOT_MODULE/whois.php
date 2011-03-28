@@ -98,8 +98,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 			$list .= "Profession: <highlight>{$whois->profession} ({$whois->prof_title})<end>\n";
 			$list .= "Level: <highlight>{$whois->level}<end>\n";
 			$list .= "AI Level: <highlight>{$whois->ai_level} ({$whois->ai_rank})<end>\n";
-			$list .= "Faction: <highlight>{$whois->faction}<end>\n";
-			$list .= "Character ID: <highlight>{$whois->charid}<end>\n\n";
+			$list .= "Faction: <highlight>{$whois->faction}<end>\n\n";
 			
 			$list .= "Source: $whois->source\n\n";
 

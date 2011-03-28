@@ -3,12 +3,13 @@
 class Player {
 	public static function get_by_name($name, $forceUpdate = false) {
 		$db = DB::get_instance();
-		global $vars;
+		global $chatBot;
 		
 		$name = ucfirst(strtolower($name));
 		
-		if ($dimension === null) {
-			$dimension = $vars['dimension'];
+		$charid = $chatBot->get_uid($name);
+		if ($charid == null) {
+			return null;
 		}
 	
 		$sql = "SELECT * FROM players WHERE name LIKE '$name'";
@@ -16,14 +17,16 @@ class Player {
 		$player = $db->fObject();
 
 		if ($player === null || $forceUpdate) {
-			$player = Player::lookup($name, $dimension);
+			$player = Player::lookup($name, $chatBot->vars['dimension']);
 			if ($player !== null) {
+				$player->charid = $charid;
 				Player::update($player);
 			}
 		} else if ($player->last_update < (time() - 86400)) {
-			$player2 = Player::lookup($name, $dimension);
+			$player2 = Player::lookup($name, $chatBot->vars['dimension']);
 			if ($player2 !== null) {
 				$player = $player2;
+				$player->charid = $charid;
 				Player::update($player);
 			} else {
 				$player->source .= ' (old-cache)';
@@ -36,18 +39,10 @@ class Player {
 	}
 	
 	public static function lookup($name, $dimension) {
-		global $chatBot;
-
-		$charid = $chatBot->get_uid($name);
-		if ($charid == null) {
-			return null;
-		}
-
 		$xml = Player::lookup_url("http://people.anarchy-online.com/character/bio/d/$dimension/name/$name/bio.xml");
 		if ($xml->name == $name) {
 			$xml->source = 'people.anarchy-online.com';
 			$xml->dimension = $dimension;
-			$xml->charid = $charid;
 
 			return $xml;
 		}
@@ -57,7 +52,6 @@ class Player {
 		if ($xml->name == $name) {
 			$xml->source = 'auno.org';
 			$xml->dimension = $dimension;
-			$xml->charid = $charid;
 
 			return $xml;
 		}
