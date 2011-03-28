@@ -60,7 +60,7 @@ if (preg_match("/^friendlist$/i", $message) || preg_match("/^friendlist (clean)$
 		}
 
 		if ($count > 0) {
-			Text::make_link("Friendlist Search Details", $blob, 'blob');
+			$msg = Text::make_link("Friendlist Search Details", $blob, 'blob');
 			$chatBot->send($msg, $sendto);
 		} else {
 			$chatBot->send("No friends on the friendlist found containing '$search'", $sendto);
