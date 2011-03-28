@@ -165,11 +165,11 @@ class Vent {
 	var $packets = array();	// hold all the decoded response packets, in correct order
 	var $response;			// all the decoded data
 
-	function getClock()			{ return $chatBot->clock; }
-	function getTimeout()			{ return $chatBot->timeout; }
-	function setTimeout( $microsecs )	{ $chatBot->timeout = $microsecs; }
-	function &getPackets()		{ return $chatBot->packets; } 		// by ref
-	function getResponse()		{ return $chatBot->response; }
+	function getClock()			{ return $this->clock; }
+	function getTimeout()			{ return $this->timeout; }
+	function setTimeout( $microsecs )	{ $this->timeout = $microsecs; }
+	function &getPackets()		{ return $this->packets; } 		// by ref
+	function getResponse()		{ return $this->response; }
 
 /* makeRequest: send off a request to the vent server, return true/false. I'm not checking
  *	for valid IP or hostname - someone else can add this stuff.
@@ -177,13 +177,13 @@ class Vent {
  *	  is password protected, it will return status info.
  */
 	function makeRequest( $cmd, $ip, $port, $pass = "" ) {
-		$chatBot->clock = smallCast( time(), 16 );		// reset the clock for each request
-		$chatBot->packets = array();					// start fresh
-		$chatBot->response = '';
+		$this->clock = smallCast( time(), 16 );		// reset the clock for each request
+		$this->packets = array();					// start fresh
+		$this->response = '';
 
 		$data = pack( "a16", $pass );				// the only data for a request is a password, 16 bytes.
 
-		$request = new VentRequestPacket( $cmd, $chatBot->clock, $pass );
+		$request = new VentRequestPacket( $cmd, $this->clock, $pass );
 
 		$sfh = fsockopen( "udp://$ip", $port, $errno, $errstr );
 
@@ -193,13 +193,13 @@ class Vent {
 		}
 
 		fwrite( $sfh, $request->packet );			// put the encoded request packet on the stream
-		stream_set_timeout( $sfh, 0, $chatBot->timeout );
+		stream_set_timeout( $sfh, 0, $this->timeout );
 
 		/* read response packets off the stream. with UDP, packets can (and often)
 	*   come out of order, so we'll put then back together after closing the socket.
 	*/
 		while( false != $pck = fread( $sfh, VENT_MAXPACKETSIZE ) ) {
-			if (  count( $chatBot->packets ) >= VENT_MAXPACKETNO ) {
+			if (  count( $this->packets ) >= VENT_MAXPACKETNO ) {
 				echo("ERROR: Received more packets than the maximum allowed in a response.\n");
 				fclose( $sfh );
 				return false;
@@ -211,21 +211,21 @@ class Vent {
 			/* check the id / clock. They should match the request, if not - skip it.
 	* also skip if there's a duplicate packet. Could throw an error here.
 	*/
-			if (( $rpobj->id != $chatBot->clock ) || ( isset( $chatBot->packets[$rpobj->pck] ))) { continue; }
+			if (( $rpobj->id != $this->clock ) || ( isset( $this->packets[$rpobj->pck] ))) { continue; }
 
-			$chatBot->packets[$rpobj->pck] = $rpobj;
+			$this->packets[$rpobj->pck] = $rpobj;
 		}
 
 		fclose( $sfh );
 
 		// check if we've got the right number of packets
-		if ( $chatBot->packets[0]->totpck != count( $chatBot->packets )) {
+		if ( $this->packets[0]->totpck != count( $this->packets )) {
 			echo("ERROR: Received less packets than expected in the response.\n");
 			return false;
 		}
 
 		// the order may not be correct. sort on the key.
-		if ( !ksort( $chatBot->packets, SORT_NUMERIC )) {
+		if ( !ksort( $this->packets, SORT_NUMERIC )) {
 			echo("ERROR: Failed to sort the response packets in order.\n");
 			return false;
 		}
@@ -234,18 +234,18 @@ class Vent {
 	*   can pull the decoded data together, and check that the total length matches
 	*   the value in the header, and the crc matches.
 	*/
-		foreach( $chatBot->packets as $packet ) { $chatBot->response .= $packet->rawdata; }
+		foreach( $this->packets as $packet ) { $this->response .= $packet->rawdata; }
 
-		$rlen = strlen( $chatBot->response );
-		if ( $rlen != $chatBot->packets[0]->totlen ) {
-			echo("ERROR: Response data is $rlen bytes. Expected {$chatBot->packets[0]->totlen} bytes.\n");
+		$rlen = strlen( $this->response );
+		if ( $rlen != $this->packets[0]->totlen ) {
+			echo("ERROR: Response data is $rlen bytes. Expected {$this->packets[0]->totlen} bytes.\n");
 			return false;
 		}
 
-		$crc = Vent::getCRC( $chatBot->response );
+		$crc = Vent::getCRC( $this->response );
 
-		if ( $crc != $chatBot->packets[0]->crc ) {
-			echo("ERROR: response crc is $crc. Expected: {$chatBot->packets[0]->crc}.\n");
+		if ( $crc != $this->packets[0]->crc ) {
+			echo("ERROR: response crc is $crc. Expected: {$this->packets[0]->crc}.\n");
 			return false;
 		}
 
@@ -271,7 +271,7 @@ class Vent {
 	/* constructor: (need to change method name for PHP5)
 */
 	function Vent() {
-		$chatBot->timeout = 500000;		// default to 0.5 second timeout
+		$this->timeout = 500000;		// default to 0.5 second timeout
 	}
 
 }
@@ -314,9 +314,9 @@ class VentPacket {
 *	have lost the ordering.
 */
 	function mapHeader() {
-		$chatBot->head_items = array( & $chatBot->headkey, 	& $chatBot->zero,	& $chatBot->cmd,	& $chatBot->id,
-		& $chatBot->totlen, 	& $chatBot->len,	& $chatBot->totpck,	& $chatBot->pck,
-		& $chatBot->datakey,	& $chatBot->crc );
+		$this->head_items = array( & $this->headkey, 	& $this->zero,	& $this->cmd,	& $this->id,
+		& $this->totlen, 	& $this->len,	& $this->totpck,	& $this->pck,
+		& $this->datakey,	& $this->crc );
 	}
 
 }
@@ -352,7 +352,7 @@ class VentRequestPacket extends VentPacket {
 *		the correct length...
 */
 	function encodeHeader() {
-		$chatBot->createKeys( $key, $a1, $a2, true );
+		$this->createKeys( $key, $a1, $a2, true );
 		$table = getHeadEncodeRef();
 
 		$enchead = pack( "n", $key );		// the head key doesn't get encoded, just packed.
@@ -362,8 +362,8 @@ class VentRequestPacket extends VentPacket {
 	*/
 		$to_encode = '';
 
-		for( $i = 1; $i < count($chatBot->head_items); $i++ ) {
-			$to_encode .= pack( "n", $chatBot->head_items[$i] );
+		for( $i = 1; $i < count($this->head_items); $i++ ) {
+			$to_encode .= pack( "n", $this->head_items[$i] );
 		}
 
 		/* Need to encode as unsigned chars, not shorts. That's the reason for the pack & unpack.
@@ -377,17 +377,17 @@ class VentRequestPacket extends VentPacket {
 			$a2 = smallCast( $a2 + $a1, 8 );
 		}
 
-		$chatBot->headkey = $key;
-		$chatBot->header = $enchead;
+		$this->headkey = $key;
+		$this->header = $enchead;
 	}
 
 	/* encodeData: The data has to be encoded first because the datakey is part of the
 *		header, and it needs to encoded along with the rest of the header.
 */
 	function encodeData() {
-		$chatBot->createKeys( $key, $a1, $a2 );
+		$this->createKeys( $key, $a1, $a2 );
 
-		$chars = unpack( "c*", $chatBot->rawdata );		// 1 indexed array
+		$chars = unpack( "c*", $this->rawdata );		// 1 indexed array
 		$table = getDataEncodeRef();				// Data table reference
 		$encdata = '';
 
@@ -397,29 +397,29 @@ class VentRequestPacket extends VentPacket {
 			$a2 = smallCast( $a2 + $a1, 8 );
 		}
 
-		$chatBot->datakey = $key;
-		$chatBot->data = $encdata;
+		$this->datakey = $key;
+		$this->data = $encdata;
 	}
 
 
 	/* Constructor (Need to change to __Constructor() for PHP5?)
 */
 	function VentRequestPacket( $cmd, $id, $pass ) {
-		$chatBot->mapHeader();							// set up the references
-		$chatBot->rawdata = pack( "a16", $pass );			// the only thing in the data part.
+		$this->mapHeader();							// set up the references
+		$this->rawdata = pack( "a16", $pass );			// the only thing in the data part.
 
-		$chatBot->zero = 0;
-		$chatBot->cmd = ( $cmd == 1 || $cmd == 2 || $cmd == 7 ) ? $cmd : 1 ;
-		$chatBot->id = $id;
-		$chatBot->totlen = strlen( $chatBot->rawdata );
-		$chatBot->len = $chatBot->totlen;
-		$chatBot->totpck = 1;
-		$chatBot->pck = 0;
-		$chatBot->crc = Vent::getCRC( $chatBot->rawdata );
-		$chatBot->encodeData();						// $chatBot->data & datakey set here.
-		$chatBot->encodeHeader();						// $chatBot->header & headkey set here.
+		$this->zero = 0;
+		$this->cmd = ( $cmd == 1 || $cmd == 2 || $cmd == 7 ) ? $cmd : 1 ;
+		$this->id = $id;
+		$this->totlen = strlen( $this->rawdata );
+		$this->len = $this->totlen;
+		$this->totpck = 1;
+		$this->pck = 0;
+		$this->crc = Vent::getCRC( $this->rawdata );
+		$this->encodeData();						// $this->data & datakey set here.
+		$this->encodeHeader();						// $this->header & headkey set here.
 
-		$chatBot->packet = $chatBot->header . $chatBot->data;
+		$this->packet = $this->header . $this->data;
 	}
 }
 /* end of VentRequestPacket class */
@@ -435,8 +435,8 @@ class VentResponsePacket extends VentPacket {
 	function decodeHeader() {
 		$table = getHeadEncodeRef();
 
-		$key_array = unpack( "n1", $chatBot->header );			// unpack the key as a short
-		$chars = unpack( "C*", substr( $chatBot->header, 2 ));	// unpack the rest of the header as chars
+		$key_array = unpack( "n1", $this->header );			// unpack the key as a short
+		$chars = unpack( "C*", substr( $this->header, 2 ));	// unpack the rest of the header as chars
 		$key = $key_array[1];
 
 		$a1 = smallCast( $key, 8 );
@@ -451,7 +451,7 @@ class VentResponsePacket extends VentPacket {
 	*	Once we finish 2 bytes treat them as a short, get the endian right,
 	*	and stick them in the proper header item slot.
 	*/
-		$item_no = 1;		// for $chatBot->head_items array. we skip the unencoded headkey, at index 0.
+		$item_no = 1;		// for $this->head_items array. we skip the unencoded headkey, at index 0.
 
 		for( $i = 1; $i <= count( $chars ); $i++ ) {
 			$chars[$i] -= smallCast( $table[$a2] + (( $i - 1 ) % 5 ), 8 );
@@ -460,23 +460,23 @@ class VentResponsePacket extends VentPacket {
 			// Once we've completed two bytes, we can treat them as a short, and fix the endian.
 			if ( ( $i % 2 ) == 0 ) {
 				$short_array = unpack( "n1", pack( "C2", $chars[$i - 1], $chars[$i] ));
-				$chatBot->head_items[$item_no] = $short_array[1];
+				$this->head_items[$item_no] = $short_array[1];
 				$item_no++;
 			}
 		}
 
 		// simple sanity checks
-		if (( $chatBot->zero != 0 ) || ( $chatBot->cmd != 3 )) {
-			echo("ERROR: Invalid packet. Expected 0 & 3, found {$chatBot->zero} & {$chatBot->cmd}.\n");
+		if (( $this->zero != 0 ) || ( $this->cmd != 3 )) {
+			echo("ERROR: Invalid packet. Expected 0 & 3, found {$this->zero} & {$this->cmd}.\n");
 			return false;
 		}
 
-		if ( $chatBot->len != strlen( $chatBot->data )) {
-			echo("ERROR: Invalid packet. Data is ". strlen( $chatBot->data ) ." bytes, expected {$chatBot->len}.\n");
+		if ( $this->len != strlen( $this->data )) {
+			echo("ERROR: Invalid packet. Data is ". strlen( $this->data ) ." bytes, expected {$this->len}.\n");
 			return false;
 		}
 
-		$chatBot->headkey = $key;
+		$this->headkey = $key;
 		return true;
 	}
 
@@ -487,20 +487,20 @@ class VentResponsePacket extends VentPacket {
 	function decodeData() {
 		$table = getDataEncodeRef();
 
-		$a1 = smallCast( $chatBot->datakey, 8 );
-		$a2 = $chatBot->datakey >> 8;
+		$a1 = smallCast( $this->datakey, 8 );
+		$a2 = $this->datakey >> 8;
 
 		if ( $a1 == 0 ) { 
 			echo("ERROR: Invalid packet. Data key is invalid.\n");
 			return false;
 		}
 
-		$chars = unpack( "C*", $chatBot->data );		// unpack the data as unsigned chars
+		$chars = unpack( "C*", $this->data );		// unpack the data as unsigned chars
 
 		for( $i = 1; $i <= count( $chars ); $i++ ) {
 			$chars[$i] -= smallCast( $table[$a2] + (( $i - 1 ) % 72 ), 8 );
 			$a2 = smallCast( $a2 + $a1, 8 );
-			$chatBot->rawdata .= chr( $chars[$i] );
+			$this->rawdata .= chr( $chars[$i] );
 		}
 
 		return true;
@@ -519,13 +519,13 @@ class VentResponsePacket extends VentPacket {
 			return null;
 		}
 
-		$chatBot->mapHeader();							// set up the references
-		$chatBot->packet = $packet;
-		$chatBot->header = substr( $packet, 0, VENT_HEADSIZE );
-		$chatBot->data = substr( $packet, VENT_HEADSIZE );
+		$this->mapHeader();							// set up the references
+		$this->packet = $packet;
+		$this->header = substr( $packet, 0, VENT_HEADSIZE );
+		$this->data = substr( $packet, VENT_HEADSIZE );
 
-		if ( !$chatBot->decodeHeader() ) { return null; }
-		if ( !$chatBot->decodeData() ) { return null; }
+		if ( !$this->decodeHeader() ) { return null; }
+		if ( !$this->decodeData() ) { return null; }
 	}
 
 
