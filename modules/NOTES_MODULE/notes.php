@@ -32,12 +32,12 @@
 if (preg_match("/^notes$/i", $message)) {
 	$blob = "<header> :::::: Notes for $sender :::::: <end>\n\n";
 
-	$sql = "SELECT * FROM notes_<myname> WHERE name LIKE '$sender'";
+	$sql = "SELECT * FROM notes WHERE name LIKE '$sender'";
   	$db->query($sql);
 	$data = $db->fObject('all');
   	forEach ($data as $row) {
-	  	$remove = Text::make_link('Remove', "/tell <myname> <symbol>note rem $note->id" , 'chatcmd');
-	  	$blob .= "$remove $note->note\n\n";
+	  	$remove = Text::make_link('Remove', "/tell <myname> <symbol>note rem $row->id" , 'chatcmd');
+	  	$blob .= "$remove $row->note\n\n";
 	}
 	
 	if (count($data) == 0) {
@@ -52,7 +52,7 @@ if (preg_match("/^notes$/i", $message)) {
 	$parm2 = $arr[2];
 
 	if ($action == 'rem') {
-		$numRows = $db->exec("DELETE FROM notes_<myname> WHERE id = $parm2 AND name LIKE '$sender'");
+		$numRows = $db->exec("DELETE FROM notes WHERE id = $parm2 AND name LIKE '$sender'");
 		
 		if ($numRows) {
 			$msg = "Note deleted successfully.";
@@ -62,7 +62,7 @@ if (preg_match("/^notes$/i", $message)) {
 	} else if ($action == 'add') {
 		$note = str_replace("'", "''", $parm2);
 
-		$db->exec("INSERT INTO notes_<myname> (name, note) VALUES('$sender', '$note')");
+		$db->exec("INSERT INTO notes (name, note) VALUES('$sender', '$note')");
 		$msg = "Note added successfully.";
 	}
     $chatBot->send($msg, $sendto);
