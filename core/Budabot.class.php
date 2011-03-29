@@ -61,9 +61,11 @@ class Budabot extends AOChat {
 		  	die();
 		}
 		
-		// uncomment for ao chat proxy ONLY
-		//$server = "127.0.0.1";
-		//$port = 9993;
+		// ao chat proxy ONLY
+		if ($this->vars['use_proxy'] === 1) {
+			$server = $this->vars['proxy_server'];
+			$port = $this->vars['proxy_port'];
+		}
 
 		// Begin the login process
 		Logger::log('INFO', 'StartUp', "Connecting to AO Server...($server)");
