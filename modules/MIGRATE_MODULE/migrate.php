@@ -94,7 +94,7 @@ if (preg_match("/^migrate alts$/i", $message, $arr)) {
 	$data = $db2->fObject('all');
 	$count = 0;
 	forEach ($data as $row) {
-		$db->exec("INSERT INTO events_<myname>_<dim> (time_submitted, submitter_name, event_name, event_date, event_desc, event_attendees) VALUES
+		$db->exec("INSERT INTO events (time_submitted, submitter_name, event_name, event_date, event_desc, event_attendees) VALUES
 			('$row->time_submitted', '$row->submitter_name', '$row->event_name', '$row->event_date', '$row->event_desc', '$row->event_attendees')");
 		$count++;
 	}
