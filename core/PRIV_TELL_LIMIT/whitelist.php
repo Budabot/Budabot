@@ -5,10 +5,10 @@ if (preg_match("/^whitelist$/", $message)) {
 	if (count($list) == 0) {
 		$chatBot->send("No entries in whitelist", $sendto);
 	} else {
-		$blob = "<highlight>::: Whitelist :::<end>\n\n";
+		$blob = "<header> :::::: Whitelist :::::: <end>\n\n";
 		forEach ($list as $entry) {
 			$remove = Text::make_link('Remove', "/tell <myname> whitelist remove $entry->name", 'chatcmd');
-			$blob .= "<white>$entry->name<end> added by <white>$entry->added_by<end> on $entry->added_dt $remove\n";
+			$blob .= "<white>{$entry->name}<end> [<green>added by {$entry->added_by}<end>] <white>{$entry->added_dt}<end> {$remove}\n";
 		}
 		$msg = Text::make_link("Whitelist", $blob, 'blob');
 		$chatBot->send($msg, $sendto);

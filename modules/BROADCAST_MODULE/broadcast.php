@@ -37,7 +37,6 @@ if (preg_match("/^broadcast$/i", $message)) {
 	$msg = "Broadcast bot added successfully.";
 	
 	// reload broadcast bot list
-	global $chatBot;
 	require 'setup.php';
 	
 	Whitelist::add($name, $sender . " (broadcast bot)");
@@ -55,7 +54,6 @@ if (preg_match("/^broadcast$/i", $message)) {
 	$msg = "Broadcast bot removed successfully.";
 	
 	// reload broadcast bot list
-	global $chatBot;
 	require 'setup.php';
 	
 	Whitelist::remove($name);
