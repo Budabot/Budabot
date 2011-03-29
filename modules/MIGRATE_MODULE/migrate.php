@@ -115,11 +115,11 @@ if (preg_match("/^migrate alts$/i", $message, $arr)) {
 } else if (preg_match("/^migrate quotes$/i", $message, $arr)) {
 	$db2 = new DB2(Setting::get('migrate_type'), Setting::get('migrate_name'), Setting::get('migrate_hostname'), Setting::get('migrate_username'), Setting::get('migrate_password'), Setting::get('migrate_botname'));
 
-	$db2->query("SELECT Who, OfWho, When, What FROM quote");
+	$db2->query("SELECT `Who`, `OfWho`, `When`, `What` FROM quote");
 	$data = $db2->fObject('all');
 	$count = 0;
 	forEach ($data as $row) {
-		$db->exec("INSERT INTO quote (Who, OfWho, When, What) VALUES ('$row->Who', '$row->OfWho', '$row->When', '$row->What')");
+		$db->exec("INSERT INTO quote (`Who`, `OfWho`, `When`, `What`) VALUES ('$row->Who', '$row->OfWho', '$row->When', '$row->What')");
 		$count++;
 	}
 	
