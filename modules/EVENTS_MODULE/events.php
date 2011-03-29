@@ -8,7 +8,7 @@
    */
 
 if (preg_match("/^events$/i", $message, $arr)) {
-  	$db->query("SELECT * FROM events_<myname>_<dim> ORDER BY `event_date` DESC LIMIT 0,5");
+  	$db->query("SELECT * FROM events ORDER BY `event_date` DESC LIMIT 0,5");
 	if ($db->numrows() != 0) {
 		$upcoming_title = "<header>::::: Upcoming Events :::::<end>\n\n";
 		$past_title = "<header>::::: Past Events :::::<end>\n\n";
@@ -51,8 +51,9 @@ if (preg_match("/^events$/i", $message, $arr)) {
 	} else {
 		$msg = "No events entered yet.";
 	}
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^joinevent ([0-9]+)$/i", $message, $arr)) {
-	$db->query("SELECT * FROM events_<myname>_<dim> WHERE `id` = '$arr[1]'");
+	$db->query("SELECT * FROM events WHERE `id` = '$arr[1]'");
 	$row = $db->fObject();
 	if (time() < (($row->event_date)+(3600*3))) {
 		// cannot join an event after 3 hours past its starttime
@@ -66,14 +67,15 @@ if (preg_match("/^events$/i", $message, $arr)) {
 			} else {
 				$row->event_attendees .= ",$sender";
 			}
-			$db->exec("UPDATE events_<myname>_<dim> SET `event_attendees`='".$row->event_attendees."' WHERE `id` = '$arr[1]'");
+			$db->exec("UPDATE events SET `event_attendees`='".$row->event_attendees."' WHERE `id` = '$arr[1]'");
 			$msg = "You have been added to the event.";
 		}
 	} else {
 		$msg = "You cannot join an event once it has already passed!";
 	}
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^leaveevent ([0-9]+)$/i", $message, $arr)) {
-	$db->query("SELECT * FROM events_<myname>_<dim> WHERE `id` = '$arr[1]'");
+	$db->query("SELECT * FROM events WHERE `id` = '$arr[1]'");
 	$row = $db->fObject();
 	if (time() < (($row->event_date)+(3600*3))) { // cannot leave an event after 3 hours past its starttime
 		if (strpos($row->event_attendees,$sender) !== false) {
@@ -86,7 +88,7 @@ if (preg_match("/^events$/i", $message, $arr)) {
 			}
 			$event = implode(",", $event);
 			$event = substr($event,1);
-			$db->exec("UPDATE events_<myname>_<dim> SET `event_attendees`='".$event."' WHERE `id` = '$arr[1]'");
+			$db->exec("UPDATE events SET `event_attendees`='".$event."' WHERE `id` = '$arr[1]'");
 			$msg = "You have been removed from the event.";
 		} else {
 			$chatBot->send("<highlist>$sender<end> is not on the event list.",$sender);
@@ -95,9 +97,9 @@ if (preg_match("/^events$/i", $message, $arr)) {
 	} else {
 		$msg = "You cannot leave an event once it has already passed!";
 	}
+	$chatBot->send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
 
-if ($msg) {
-	$chatBot->send($msg, $sendto);
-}
 ?>

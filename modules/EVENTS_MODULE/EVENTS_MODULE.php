@@ -2,7 +2,7 @@
 	$MODULE_NAME = "EVENTS_MODULE";
 
 	//Setup
-	Event::register($MODULE_NAME, "setup", "setup.php");
+	DB::loadSQLFile($MODULE_NAME, "events");
 
 	//Commands
 	Command::register($MODULE_NAME, "", "events.php", "events", "all", "Views events");

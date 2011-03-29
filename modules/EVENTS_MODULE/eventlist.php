@@ -8,7 +8,7 @@
    */
 
 if (preg_match("/^eventlist ([0-9]+)$/i", $message, $arr)) {
-	$db->query("SELECT event_attendees FROM events_<myname>_<dim> WHERE `id` = '$arr[1]'");
+	$db->query("SELECT event_attendees FROM events WHERE `id` = '$arr[1]'");
 	if ($db->numrows() != 0) {
 		$row = $db->fObject();
 		$link = "<header>::::: Player Signed Up :::::<end>\n\n";
@@ -45,8 +45,10 @@ if (preg_match("/^eventlist ([0-9]+)$/i", $message, $arr)) {
 	} else {
 		$msg = "That event doesn't exist";
 	}
-}
-if ($msg) {
+	
 	$chatBot->send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
+
 ?>
