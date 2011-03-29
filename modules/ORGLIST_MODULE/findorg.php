@@ -16,7 +16,9 @@ if (preg_match("/^findorg (.+)$/i", $message, $arr)) {
 				$orglist = Text::make_link('Orglist', "/tell <myname> orglist {$row->guild_id}", 'chatcmd');
 				$orgranks = Text::make_link('Orgranks', "/tell <myname> orgranks {$row->guild_id}", 'chatcmd');
 				$orgmembers = Text::make_link('Orgmembers', "/tell <myname> orgmembers {$row->guild_id}", 'chatcmd');
-				$blob .= "<green>{$row->guild} ({$row->guild_id})<end> [$whoisorg] [$orglist] [$orgranks] [$orgmembers]\n";
+				$tower_attacks = Text::make_link('Tower Attacks', "/tell <myname> attacks org {$row->guild}", 'chatcmd');
+				$tower_victories = Text::make_link('Tower Victories', "/tell <myname> victory org {$row->guild}", 'chatcmd');
+				$blob .= "<green>{$row->guild} ({$row->guild_id})<end> [$whoisorg] [$orglist] [$orgranks] [$orgmembers] [$tower_attacks] [$tower_victories]\n";
 			} else {
 				$blob .= "<green>{$row->guild}<end>\n";
 			}
