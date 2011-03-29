@@ -1,6 +1,14 @@
 <header> :::::: Neutnet :::::: <end>
 
-Bots
+<highlight>Add all 14 Neutnet slave bots to the broadcast list<end>
+<tab><symbol>neutnet add
+
+<highlight>Remove all 14 Neutnet slave bots from the broadcast list<end>
+<tab><symbol>neutnet rem
+
+
+<header> ::: Registering your bot with Neutnet ::: <end>
+
 You can register your bot to Neutnet and it gets the spam first. However, there are some limitations to this:
 
     * Person registering the bot has to be at least level 150
