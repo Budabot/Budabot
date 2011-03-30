@@ -1,84 +1,64 @@
 <?php
-   /*
-   ** Author: Derroylo (RK2)
-   ** Description: Adding/Removing Guildmembers
-   ** Version: 1.0
-   **
-   ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
-   **
-   ** Date(created): 23.11.2005
-   ** Date(last modified): 10.12.2006
-   ** 
-   ** Copyright (C) 2005, 2006 Carsten Lohmann
-   **
-   ** Licence Infos: 
-   ** This file is part of Budabot.
-   **
-   ** Budabot is free software; you can redistribute it and/or modify
-   ** it under the terms of the GNU General Public License as published by
-   ** the Free Software Foundation; either version 2 of the License, or
-   ** (at your option) any later version.
-   **
-   ** Budabot is distributed in the hope that it will be useful,
-   ** but WITHOUT ANY WARRANTY; without even the implied warranty of
-   ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   ** GNU General Public License for more details.
-   **
-   ** You should have received a copy of the GNU General Public License
-   ** along with Budabot; if not, write to the Free Software
-   ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-   */
 
 if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
     $uid = $chatBot->get_uid($arr[2]);
 	$name = ucfirst(strtolower($arr[2]));
-    $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$name'");
-	$numrows = $db->numrows();
-	if ($numrows != 0) {
-	    $row = $db->fObject();
+
+	if (!$uid) {
+		$msg = "Player <highlight>{$name}<end> does not exist.";
+		$chatBot->send($msg, $sendto);
+		return;
 	}
-    // Is the player already a member?
-    if ($numrows != 0 && $row->mode != "del") {
-        $msg = "<highlight>$name<end> is already on the Notify list.";
-    // If the member was deleted set him as manual added again
-    } else if ($numrows != 0 && $row->mode == "del") {
-        $db->exec("UPDATE org_members_<myname> SET `mode` = 'man' WHERE `name` = '$name'");
-        Buddylist::add($name, 'org');
-	    
-    	$msg = "<highlight>$name<end> has been added to the Notify list.";
-    } else if ($uid) {
-        // update player info
-        Player::get_by_name($name);
 
-        // Add him as a buddy and put his infos into the DB
-		Buddylist::add($name, 'org');
+    $db->query("SELECT mode FROM org_members_<myname> WHERE `name` = '$name'");
+	if ($db->numrows() == 0) {
+		$msg = "Player <highlight>{$name}<end> is not on the guild roster.";
+		$chatBot->send($msg, $sendto);
+		return;
+	}
 
-        $db->exec("INSERT INTO org_members_<myname> (`mode`, `name`) VALUES ('man', '".$name."')");
-    	$msg = "<highlight>".$name."<end> has been added to the Notify list.";
+	$row = $db->fObject();
+    if ($row->mode != "del") {
+        $msg = "<highlight>{$name}<end> is already on the Notify list.";
     } else {
-        $msg = "Player <highlight>".$name."<end> does not exist.";
+        $db->exec("UPDATE org_members_<myname> SET `mode` = 'add' WHERE `name` = '$name'");
+		$db->exec("INSERT INTO online (`name`, `channel`,  `channel_type`, `added_by`, `dt`) VALUES ('{$name}', '<myguild>', 'guild', '<myname>', " . time() . ")");
+        Buddylist::add($name, 'org');
+    	$chatBot->guildmembers[$name] = 6;
+    	$msg = "<highlight>{$name}<end> has been added to the Notify list.";
+    }
+
+	$chatBot->send($msg, $sendto);
+} else if (preg_match("/^notify (off|rem) (.+)$/i", $message, $arr)) {
+    $uid = $chatBot->get_uid($arr[2]);
+	$name = ucfirst(strtolower($arr[2]));
+
+	if (!$uid) {
+		$msg = "Player <highlight>{$name}<end> does not exist.";
+		$chatBot->send($msg, $sendto);
+		return;
 	}
 
-    $chatBot->send($msg, $sendto);
-} else if (preg_match("/^notify (off|rem) (.+)$/i", $message, $arr)) {
-    $name = ucfirst(strtolower($arr[2]));
-    $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$name'");
-	$numrows = $db->numrows();
-	if ($numrows != 0) {
-	    $row = $db->fObject();
+    $db->query("SELECT mode FROM org_members_<myname> WHERE `name` = '$name'");
+	if ($db->numrows() == 0) {
+		$msg = "Player <highlight>{$name}<end> is not on the guild roster.";
+		$chatBot->send($msg, $sendto);
+		return;
 	}
-	    
-    // Is the player a member of this bot?
-    if ($numrows != 0 && $row->mode != "del") {
+
+    if ($row->mode == "del") {
+		$msg = "<highlight>{$name}<end> has already been removed from the Notify list.";
+	} else {
         $db->exec("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '$name'");
         $db->exec("DELETE FROM online WHERE `name` = '$name' AND `channel_type` = 'guild' AND added_by = '<myname>'");
-        $msg = "Removed <highlight>$name<end> from the Notify list.";
-    } else {
-        $msg = "<highlight>$name<end> is not a member of this bot.";
-	}
+		Buddylist::remove($name, 'org');
+		unset($chatBot->guildmembers[$name]);
+        $msg = "Removed <highlight>{$name}<end> from the Notify list.";
+    }
 
     $chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }
+
 ?>

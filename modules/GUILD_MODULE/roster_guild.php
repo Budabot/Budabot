@@ -3,12 +3,12 @@
 if ($chatBot->vars["my_guild_id"] != "") {
 	Logger::log('INFO', 'GUILD_MODULE', "Starting Roster update");
 
-	// Get the org infos
+	// Get the guild info
 	$org = Guild::get_by_id($chatBot->vars["my_guild_id"], $chatBot->vars["dimension"], true);
 	
-	// Check if Orgxml file is correct if not abort
+	// Check if guild xml file is correct if not abort
 	if ($org === null) {
-		Logger::log('ERROR', 'GUILD_MODULE', "Error downloading the org roster xml file");
+		Logger::log('ERROR', 'GUILD_MODULE', "Error downloading the guild roster xml file");
 		return;
 	}
 	
@@ -17,11 +17,8 @@ if ($chatBot->vars["my_guild_id"] != "") {
 		return;
 	}
 	
-	$this->vars["logondelay"] = time() + 100000;
+	$chatBot->vars["logondelay"] = time() + 100000;
 
-	// Delete old Memberslist
-	unset($chatBot->guildmembers);
-	
 	// Save the current org_members table in a var
 	$db->query("SELECT * FROM org_members_<myname>");
 	$data = $db->fObject('all');
@@ -46,27 +43,29 @@ if ($chatBot->vars["my_guild_id"] != "") {
 	
 		//If there exists already data about the player just update him/her
 		if (isset($dbentrys[$member->name])) {
-			if ($dbentrys[$member->name]["mode"] == "man" || $dbentrys[$member->name]["mode"] == "org") {
-				$mode = "org";
-				$chatBot->guildmembers[$member->name] = $member->guild_rank_id;
-				
+			if ($dbentrys[$member->name]["mode"] == "del") {
+				// members who are not on notify should not be on the buddy list but should remain in the database
+				Buddylist::remove($member->name, 'org');
+				unset($chatBot->guildmembers[$name]);
+			} else {
 				// add org members who are on notify to buddy list
 				Buddylist::add($member->name, 'org');
-			} else {
-				$mode = "del";
-				Buddylist::remove($member->name, 'org');
+				$chatBot->guildmembers[$member->name] = $member->guild_rank_id;
+
+				// if member was added to notify list manually, switch mode to org and let guild roster update from now on
+				if ($dbentrys[$member->name]["mode"] == "add") {
+					$db->exec("UPDATE org_members_<myname> SET `mode` = 'org' WHERE `name` = '{$member->name}'");
+				}
 			}
-	
-			$db->exec("UPDATE org_members_<myname> SET `mode` = '{$mode}' WHERE `name` = '{$member->name}'");	  		
 		//Else insert his/her data
 		} else {
 			// add new org members to buddy list
 			Buddylist::add($member->name, 'org');
+			$chatBot->guildmembers[$member->name] = $member->guild_rank_id;
 
 			$db->exec("INSERT INTO org_members_<myname> (`name`, `mode`) VALUES ('{$member->name}', 'org')");
-			$chatBot->guildmembers[$member->name] = $member->guild_rank_id;
 		}
-		unset($dbentrys[$member->name]);    
+		unset($dbentrys[$member->name]);
 	}
 	
 	$db->Commit();
@@ -75,24 +74,24 @@ if ($chatBot->vars["my_guild_id"] != "") {
 	forEach ($dbentrys as $buddy) {
 		$db->exec("DELETE FROM org_members_<myname> WHERE `name` = '{$buddy['name']}'");
 		Buddylist::remove($buddy['name'], 'org');
+		unset($chatBot->guildmembers[$buddy['name']]);
 	}
 
 	Logger::log('INFO', 'GUILD_MODULE', "Finished Roster update");
-	
+
 	if ($restart == true) {
-		$chatBot->send("The bot needs to be restarted to be able to see who is online in your org. Automatically restarting in 10 seconds.", "guild");
-		
+		$chatBot->send("Guild roster has been loaded for the first time. Restarting...", "guild");
+
+		Logger::log('INFO', 'GUILD_MODULE', "The bot is restarting");
+
+		sleep(5);
+
 		// in case some of the org members were already on the friendlist, we need to restart the bot
 		// in order to get them to appear on the online list
-		Logger::log('INFO', 'GUILD_MODULE', "The bot is restarting");
-		
-		// wait for all buddy add/remove packets to finish sending
-		// not 100% sure this is needed
-		sleep(5);
-		
 		die();
 	}
-	
-	$this->vars["logondelay"] = time() + 5;
+
+	$chatBot->vars["logondelay"] = time() + 5;
 }
+
 ?>
