@@ -86,7 +86,7 @@ if (preg_match("/^migrate alts$/i", $message, $arr)) {
 		$count++;
 	}
 	
-    $chatBot->send("$count kos entries migrated successfully. It is recommended that you restart your bot now. Do not try to import your kos list again or you will have duplicates.", $sendto);
+    $chatBot->send("$count kos entries migrated successfully. It is recommended that you restart your bot now. Do not import your kos list again or you will have duplicates.", $sendto);
 } else if (preg_match("/^migrate events$/i", $message, $arr)) {
 	$db2 = new DB2(Setting::get('migrate_type'), Setting::get('migrate_name'), Setting::get('migrate_hostname'), Setting::get('migrate_username'), Setting::get('migrate_password'), Setting::get('migrate_botname'));
 
@@ -99,7 +99,7 @@ if (preg_match("/^migrate alts$/i", $message, $arr)) {
 		$count++;
 	}
 	
-    $chatBot->send("$count events migrated successfully. It is recommended that you restart your bot now. Do not try to import your events list again or you will have duplicates.", $sendto);
+    $chatBot->send("$count events migrated successfully. It is recommended that you restart your bot now. Do not import your events list again or you will have duplicates.", $sendto);
 } else if (preg_match("/^migrate news$/i", $message, $arr)) {
 	$db2 = new DB2(Setting::get('migrate_type'), Setting::get('migrate_name'), Setting::get('migrate_hostname'), Setting::get('migrate_username'), Setting::get('migrate_password'), Setting::get('migrate_botname'));
 
@@ -111,7 +111,7 @@ if (preg_match("/^migrate alts$/i", $message, $arr)) {
 		$count++;
 	}
 	
-    $chatBot->send("$count news entries migrated successfully. It is recommended that you restart your bot now. Do not try to import your news list again or you will have duplicates.", $sendto);
+    $chatBot->send("$count news entries migrated successfully. It is recommended that you restart your bot now. Do not import your news list again or you will have duplicates.", $sendto);
 } else if (preg_match("/^migrate quotes$/i", $message, $arr)) {
 	$db2 = new DB2(Setting::get('migrate_type'), Setting::get('migrate_name'), Setting::get('migrate_hostname'), Setting::get('migrate_username'), Setting::get('migrate_password'), Setting::get('migrate_botname'));
 
@@ -123,7 +123,7 @@ if (preg_match("/^migrate alts$/i", $message, $arr)) {
 		$count++;
 	}
 	
-    $chatBot->send("$count quotes migrated successfully. It is recommended that you restart your bot now. Do not try to import your quotes list again or you will have duplicates.", $sendto);
+    $chatBot->send("$count quotes migrated successfully. It is recommended that you restart your bot now. Do not import your quotes list again or you will have duplicates.", $sendto);
 } else if (preg_match("/^migrate orghistory$/i", $message, $arr)) {
 	$db2 = new DB2(Setting::get('migrate_type'), Setting::get('migrate_name'), Setting::get('migrate_hostname'), Setting::get('migrate_username'), Setting::get('migrate_password'), Setting::get('migrate_botname'));
 
@@ -135,7 +135,19 @@ if (preg_match("/^migrate alts$/i", $message, $arr)) {
 		$count++;
 	}
 	
-    $chatBot->send("$count org history entries migrated successfully. It is recommended that you restart your bot now. Do not try to import your org history list again or you will have duplicates.", $sendto);
+    $chatBot->send("$count org history entries migrated successfully. It is recommended that you restart your bot now. Do not import your org history list again or you will have duplicates.", $sendto);
+} else if (preg_match("/^migrate notes$/i", $message, $arr)) {
+	$db2 = new DB2(Setting::get('migrate_type'), Setting::get('migrate_name'), Setting::get('migrate_hostname'), Setting::get('migrate_username'), Setting::get('migrate_password'), Setting::get('migrate_botname'));
+
+	$db2->query("SELECT name, note FROM notes_<myname>");
+	$data = $db2->fObject('all');
+	$count = 0;
+	forEach ($data as $row) {
+		$db->exec("INSERT INTO notes (name, note) VALUES ('$row->name', '$row->note')");
+		$count++;
+	}
+	
+    $chatBot->send("$count notes migrated successfully. It is recommended that you restart your bot now. Do not import your notes list again or you will have duplicates.", $sendto);
 } else {
 	$syntax_error = true;
 }

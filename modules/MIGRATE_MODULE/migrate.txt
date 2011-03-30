@@ -27,3 +27,6 @@ Lastly, each of these commands should only be run once.
 
 <highlight>Migrate org history<end>
 <tab><symbol>migrate orghistory
+
+<highlight>Migrate notes<end>
+<tab><symbol>migrate notes
