@@ -67,6 +67,6 @@ $settings['max_blob_size'] = 7500;
 // 1 for enabled, 0 for disabled
 $vars['use_proxy'] = 0;
 $vars['proxy_server'] = "127.0.0.1";
-$vars['proxy'] = 9993;
+$vars['proxy_port'] = 9993;
 ////////////////////////////////////////////////
 ?>

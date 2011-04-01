@@ -496,7 +496,7 @@ class Budabot extends AOChat {
 					return;
 				}
 
-				// If Status == 0(logoff) if Status == 1(logon)
+				// Status => 0: logoff  1: logon
 				if ($status == 0) {
 					$type = "logOff";
 					
