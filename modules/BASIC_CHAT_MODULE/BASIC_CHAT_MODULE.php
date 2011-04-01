@@ -16,12 +16,6 @@
 	Setting::add($MODULE_NAME, "topic_setby", "Character who set the topic", "noedit", "text", '');
 	Setting::add($MODULE_NAME, "topic_time", "Time the topic was set", "noedit", "text", '');
 
-    // Afk Check
-	Event::register($MODULE_NAME, "priv", "afk_check.php", "afk", "Afk check");
-	Event::register($MODULE_NAME, "guild", "afk_check.php", "afk", "Afk check");
-	Command::register($MODULE_NAME, "priv guild", "afk.php", "afk", "all", "Sets a member afk");
-	Command::register($MODULE_NAME, "priv guild", "afk.php", "kiting", "all", "Sets a member kiting");
-
 	// Leader
 	Command::register($MODULE_NAME, "priv", "leader.php", "leader", "all", "Sets the Leader of the raid");
 	Subcommand::register($MODULE_NAME, "priv", "leader_set.php", "leader (.+)", "raidleader", "leader", "Set a specific Leader");
@@ -44,7 +38,6 @@
 	Command::register($MODULE_NAME, "", "cmd.php", "cmd", "rl", "Creates a highly visible messaage");
 
 	// Helpfiles
-	Help::register($MODULE_NAME, "afk_priv", "afk.txt", "all", "Going AFK");
 	Help::register($MODULE_NAME, "assist", "assist.txt", "all", "Creating an Assist Macro");
 	Help::register($MODULE_NAME, "check", "check.txt", "all", "See of the ppls are in the area");
 	Help::register($MODULE_NAME, "heal", "healassist.txt", "all", "Creating an Healassist Macro");

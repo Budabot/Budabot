@@ -22,7 +22,7 @@ function get_online_list($prof = "all") {
 	}
 
 	$list = "";
-	$db->query("SELECT p.*, o.name, o.channel FROM `online` o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'guild' {$prof_query} {$order_by}");
+	$db->query("SELECT p.*, o.name, o.channel, o.afk FROM `online` o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'guild' {$prof_query} {$order_by}");
 
 	$oldprof = "";
 	$numonline = $db->numrows();
@@ -39,7 +39,7 @@ function get_online_list($prof = "all") {
 	createList($data, $list, true);
 
 	// Private Channel Part
-	$db->query("SELECT p.*, o.name, o.channel FROM `online` o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'priv' {$prof_query} {$order_by}");
+	$db->query("SELECT p.*, o.name, o.channel, o.afk FROM `online` o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'priv' {$prof_query} {$order_by}");
 
 	$numguest = $db->numrows();
 	if ($numguest == 1) {
