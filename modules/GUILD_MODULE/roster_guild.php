@@ -72,9 +72,12 @@ if ($chatBot->vars["my_guild_id"] != "") {
 	
 	// remove buddies who are no longer org members
 	forEach ($dbentrys as $buddy) {
-		$db->exec("DELETE FROM org_members_<myname> WHERE `name` = '{$buddy['name']}'");
-		Buddylist::remove($buddy['name'], 'org');
-		unset($chatBot->guildmembers[$buddy['name']]);
+		if ($buddy['mode'] != 'add') {
+			$db->exec("DELETE FROM online WHERE `name` = '{$buddy['name']}' AND `channel_type` = 'guild' AND added_by = '<myname>'");
+			$db->exec("DELETE FROM org_members_<myname> WHERE `name` = '{$buddy['name']}'");
+			Buddylist::remove($buddy['name'], 'org');
+			unset($chatBot->guildmembers[$buddy['name']]);
+		}
 	}
 
 	Logger::log('INFO', 'GUILD_MODULE', "Finished Roster update");

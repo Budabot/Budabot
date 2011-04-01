@@ -5,23 +5,22 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[2]));
 
 	if (!$uid) {
-		$msg = "Player <highlight>{$name}<end> does not exist.";
+		$msg = "<highlight>{$name}<end> does not exist.";
 		$chatBot->send($msg, $sendto);
 		return;
 	}
-
-    $db->query("SELECT mode FROM org_members_<myname> WHERE `name` = '$name'");
-	if ($db->numrows() == 0) {
-		$msg = "Player <highlight>{$name}<end> is not on the guild roster.";
-		$chatBot->send($msg, $sendto);
-		return;
-	}
-
+	
+	$db->query("SELECT mode FROM org_members_<myname> WHERE `name` = '$name'");
 	$row = $db->fObject();
-    if ($row->mode != "del") {
+
+	if ($row !== null && $row->mode != "del") {
         $msg = "<highlight>{$name}<end> is already on the Notify list.";
     } else {
-        $db->exec("UPDATE org_members_<myname> SET `mode` = 'add' WHERE `name` = '$name'");
+		if ($row === null) {
+			$db->exec("INSERT INTO org_members_<myname> (`name`, `mode`) VALUES ('{$name}', 'add')");
+		} else {
+			$db->exec("UPDATE org_members_<myname> SET `mode` = 'add' WHERE `name` = '$name'");
+		}
 		$db->exec("INSERT INTO online (`name`, `channel`,  `channel_type`, `added_by`, `dt`) VALUES ('{$name}', '<myguild>', 'guild', '<myname>', " . time() . ")");
         Buddylist::add($name, 'org');
     	$chatBot->guildmembers[$name] = 6;
@@ -34,19 +33,17 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[2]));
 
 	if (!$uid) {
-		$msg = "Player <highlight>{$name}<end> does not exist.";
+		$msg = "<highlight>{$name}<end> does not exist.";
 		$chatBot->send($msg, $sendto);
 		return;
 	}
 
     $db->query("SELECT mode FROM org_members_<myname> WHERE `name` = '$name'");
-	if ($db->numrows() == 0) {
-		$msg = "Player <highlight>{$name}<end> is not on the guild roster.";
-		$chatBot->send($msg, $sendto);
-		return;
-	}
-
-    if ($row->mode == "del") {
+	$row = $db->fObject();
+	
+	if ($row === null) {
+		$msg = "<highlight>{$name}<end> is not on the guild roster.";
+	} else if ($row->mode == "del") {
 		$msg = "<highlight>{$name}<end> has already been removed from the Notify list.";
 	} else {
         $db->exec("UPDATE org_members_<myname> SET `mode` = 'del' WHERE `name` = '$name'");
