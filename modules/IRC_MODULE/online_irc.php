@@ -9,11 +9,16 @@
    
 global $socket;
 stream_set_blocking($socket, 0);
-if (preg_match("/^onlineirc$/i", $message, $arr)) {
+if (preg_match("/^onlineirc$/i", $message)) {
+	if (Setting::get('irc_status') != 1) {
+		$chatBot->send("There is no active IRC connection.", $sendto);
+		return;
+	}
+
 	fputs($socket, "NAMES :".$chatBot->settings['irc_channel']."\n");
 	sleep(1);
 	while ($data = fgets($socket)) {
-		if (preg_match("/(End of \/NAMES list)/", $data, $discard)) {
+		if (preg_match("/(End of \/NAMES list)/", $data)) {
 			break;
 		} else {
 			$start = strrpos($data,":")+1;
