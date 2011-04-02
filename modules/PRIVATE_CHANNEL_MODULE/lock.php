@@ -30,11 +30,12 @@
    */
    
 if (preg_match("/^lock$/i", $message)) {
-  	if($chatBot->settings["priv_status"] == "closed") {
+  	if (Setting::get("priv_status") == "0") {
 	    $msg = "Private channel is already locked.";
 		$chatBot->send($msg, $sendto);
 		return;
 	}
+
 	$msg = "The private channel has been locked by <highlight>$sender<end>.";
 	$chatBot->send($msg, 'priv');
 	$msg = "You have locked the private channel.";
@@ -42,14 +43,15 @@ if (preg_match("/^lock$/i", $message)) {
 		$chatBot->send($msg, $sender);
 	}
 	
-	Setting::save("priv_status", "closed");
+	Setting::save("priv_status", "0");
 } else if (preg_match("/^lock (.+)$/i", $message, $arr)) {
   	$reason = $arr[1];
-	if($chatBot->settings["priv_status"] == "closed") {
+	if (Setting::get("priv_status") == "0") {
 	    $msg = "Private channel is already locked.";
     	$chatBot->send($msg, $sendto);
 		return;
 	}
+
 	$msg = "The private channel has been locked by <highlight>$sender<end> - Reason: <highlight>$reason<end>.";
 	$chatBot->send($msg, 'priv');
 	$msg = "You have locked the private channel.";
@@ -57,14 +59,15 @@ if (preg_match("/^lock$/i", $message)) {
 		$chatBot->send($msg, $sender);
 	}
 	
-	Setting::save("priv_status", "closed");
+	Setting::save("priv_status", "0");
 	Setting::save("priv_status_reason", $reason);
 } else if (preg_match("/^unlock$/i", $message)) {
-  	if($chatBot->settings["priv_status"] == "open") {
-	    $msg = "Private channel is already opened.";
+  	if (Setting::get("priv_status") == "1") {
+	    $msg = "Private channel is already open.";
     	$chatBot->send($msg, $sendto);
 		return;
 	}
+
 	$msg = "The private channel has been opened by <highlight>$sender<end>.";
 	$chatBot->send($msg, 'priv');
 	$msg = "You have opened the private channel.";
@@ -72,9 +75,10 @@ if (preg_match("/^lock$/i", $message)) {
 		$chatBot->send($msg, $sender);
 	}
 	
-	Setting::save("priv_status", "open");
-	Setting::save("priv_status_reason", "not set");
+	Setting::save("priv_status", "1");
+	Setting::save("priv_status_reason", "none");
 } else {
 	$syntax_error = true;
 }
+
 ?>

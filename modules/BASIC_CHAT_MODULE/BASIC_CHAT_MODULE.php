@@ -1,9 +1,6 @@
 <?php
 	$MODULE_NAME = "BASIC_CHAT_MODULE";
 
-	Setting::add($MODULE_NAME, "priv_status", "Private channel status", "hide", "text", "open");
-	Setting::add($MODULE_NAME, "priv_status_reason", "Reason for private channel status", "hide", "text", "not set");	
-
 	// Check macros
 	Command::register($MODULE_NAME, "", "check.php", "check", "rl", "Checks who of the raidgroup is in the area");
 

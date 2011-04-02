@@ -34,6 +34,9 @@
 	Setting::add($MODULE_NAME, "guest_relay", "Relay the Private Channel with the Guild Channel", "edit", "options", "1", "true;false", "1;0");
 	Setting::add($MODULE_NAME, "guest_relay_commands", "Relay commands and results from/to Private Channel", "edit", "options", "0", "true;false", "1;0");
 	
+	Setting::add($MODULE_NAME, "priv_status", "Private channel status", "edit", "options", "1", "open;closed", "1;0");
+	Setting::add($MODULE_NAME, "priv_status_reason", "Reason for private channel status", "edit", "text", "none");
+	
 	// Make sure all guests are on the buddy list
 	Event::register($MODULE_NAME, "connect", "connected.php", "none", "Adds all members as buddies who have auto-invite enabled");
 	

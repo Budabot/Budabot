@@ -7,6 +7,22 @@ class AccessLevel {
 		if (Setting::get('alts_inherit_admin') == 1) {
 			$sender = Alts::get_main($sender);
 		}
+		
+		// convert admin level names to numbers
+		switch ($access_level) {
+			case "rl":
+			case "raidleader":
+				$access_level = 3;
+				break;
+			case "mod":
+			case "moderator":
+				$access_level = 2;
+				break;
+			case "admin":
+			case "administrator":
+				$access_level = 1;
+				break;
+		}
 
 		$access = false;
 		switch ($access_level) {
