@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */  
 
-$version = "2.0_GA";
+$version = "2.1_GA";
 
 echo "\n\n\n\n\n
 	**************************************************
