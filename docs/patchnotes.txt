@@ -1,4 +1,21 @@
 *****************************
+	Version 2.1_GA:
+*****************************
+-updated Wrong Window perk modifier for !leprocs
+-subcommands now work even when using MySQL
+-fix for IRC module not showing the guild name in the irc channel
+-fix for setup wizard not saving the config file correctly in linux
+-fix for !whoisall not showing characters on other dimensions when a character with the same name doesn't exist on the current dimension
+-fix for !friendlist search not displaying search results
+-fix for !vent not displaying the vent info
+-added !neutnet for conveniently adding and removing all 14 neutnet slave bots to and from the broadcast list
+-added ao chat proxy support to the config.php file
+-EVENTS_MODULE will now share events with other bots using the same database
+-NOTES_MODULE will now share notes with other bots using the same database
+-fixed some issues when adding and removing characters from the notify list would not update the friend list correctly in some cases
+-fix for !lock not locking the private channel
+
+*****************************
 	Version 2.0_GA:
 *****************************
 -updated items db to 18.04.03
