@@ -55,4 +55,5 @@ if (preg_match("/^lastseen (.+)$/i", $message, $arr)) {
 } else {
 	$syntax_error = true;
 }
+
 ?>

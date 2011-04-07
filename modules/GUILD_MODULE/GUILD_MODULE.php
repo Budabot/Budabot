@@ -3,7 +3,7 @@
 	
 	DB::loadSQLFile($MODULE_NAME, "org_members");
 
-	//Setup
+	// Setup
 	Event::register($MODULE_NAME, "setup", "setup.php");
 	
 	// Logon Handling

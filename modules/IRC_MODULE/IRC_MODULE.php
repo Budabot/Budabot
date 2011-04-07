@@ -26,29 +26,29 @@
 		}
 	}
 
-	//Auto start IRC connection, or turn it off
+	// Auto start IRC connection, or turn it off
 	Event::register($MODULE_NAME, "connect", "set_irc_link.php", "none", "Sets IRC status at bootup.");
 	
-	//Commands
+	// Commands
 	Command::register($MODULE_NAME, "", "irc_connect.php", "startirc", "admin", "Connect to IRC", 'irc');
 	Command::register($MODULE_NAME, "", "stopirc.php", "stopirc", "admin", "Disconnect from IRC", 'irc');
 	Command::register($MODULE_NAME, "", "online_irc.php", "onlineirc", "all", "View who is in IRC chat", 'irc');
 	Command::register($MODULE_NAME, "", "set_irc_settings.php", "setirc", "admin", "Manually set IRC settings", 'irc');
 	
-	//IRC Relay
+	// IRC Relay
   	Event::register($MODULE_NAME, "2sec", "irc_check.php", "none", "Receive messages from IRC");
 	
-	//In-game relay
+	// In-game relay
 	Event::register($MODULE_NAME, "priv", "relay_irc_out.php", "none", "Relay (priv) messages to IRC");
 	Event::register($MODULE_NAME, "guild", "relay_irc_out.php", "none", "Relay (guild) messages to IRC");
 	
-	//Notifications
+	// Notifications
 	Event::register($MODULE_NAME, "joinPriv", "irc_relay_joined.php", "none", "Sends joined channel messages");
 	Event::register($MODULE_NAME, "leavePriv", "irc_relay_left.php", "none", "Sends left channel messages");
 	Event::register($MODULE_NAME, "logOn", "irc_relay_joined.php", "none", "Shows a logon from a member");
 	Event::register($MODULE_NAME, "logOff", "irc_relay_left.php", "none", "Shows a logoff from a member");
 	
-	//Settings
+	// Settings
 	Setting::add($MODULE_NAME, "irc_status", "Status of IRC uplink", "noedit", "options", "0", "Offline;Online", "0;1", "mod", "irc");
 	Setting::add($MODULE_NAME, "irc_server", "IRC server to connect to", "noedit", "text", "irc.funcom.com", "", "", "mod", "irc");
 	Setting::add($MODULE_NAME, "irc_port", "IRC server port to use", "noedit", "number", "6667", "", "", "mod", "irc");
@@ -59,6 +59,6 @@
 	Setting::add($MODULE_NAME, "irc_debug_messages", "IRC Debug Option: Show events in console", "edit", "options", "0", "true:false", "1;0", "mod", "irc");
 	Setting::add($MODULE_NAME, "irc_debug_all", "IRC Debug Option: Log everything", "edit", "options", "0", "true;false", "1;0", "mod", "irc");
 	
-	//Helpfiles
+	// Helpfiles
 	Help::register($MODULE_NAME, "irc", "irc_help.txt", "all", "How to use the IRC plugin");
 ?>
