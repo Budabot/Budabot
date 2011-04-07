@@ -21,7 +21,7 @@ if (preg_match("/^links$/i", $message)) {
   	
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^links add ([^ ]+) (.+)$/i", $message, $arr)) {
-	$website = str_replace("'", "''", $arr[1]);
+	$website = html_entity_decode(str_replace("'", "''", $arr[1]));
 	$comments = str_replace("'", "''", $arr[2]);
 
 	$db->query("INSERT INTO links (`name`, `website`, `comments`, `dt`) VALUES('$sender', '$website', '$comments', '" . time() . "')");
