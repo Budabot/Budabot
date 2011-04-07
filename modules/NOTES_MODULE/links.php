@@ -8,7 +8,11 @@ if (preg_match("/^links$/i", $message)) {
 	$data = $db->fObject('all');
   	forEach ($data as $row) {
 	  	$remove = Text::make_link('Remove', "/tell <myname> <symbol>links rem $row->id" , 'chatcmd');
-		$website = Text::make_link($row->website, "/start $row->website", 'chatcmd');
+		if (Setting::get('showfullurls') == 1) {
+			$website = Text::make_link($row->website, "/start $row->website", 'chatcmd');
+		} else {
+			$website = Text::make_link('[Link]', "/start $row->website", 'chatcmd');
+		}
 		$dt = gmdate("M j, Y, G:i", $row->dt);
 	  	$blob .= "$website <white>$row->comments<end> [<green>$row->name<end>] <white>$dt<end> $remove\n";
 	}
