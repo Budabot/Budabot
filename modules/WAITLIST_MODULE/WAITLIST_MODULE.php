@@ -1,8 +1,5 @@
 <?php
 	$MODULE_NAME = "WAITLIST_MODULE";
-	
-	// Setup
-	Event::register($MODULE_NAME, "setup", "setup.php");
 
 	// Commands
 	Command::register($MODULE_NAME, "", "waitlist.php", "waitlist", "all", "Show/Set the Waitlist");

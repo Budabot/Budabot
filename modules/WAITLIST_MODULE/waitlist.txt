@@ -1,4 +1,4 @@
-<header>::::: ListBot Functions :::::<end>
+<header> :::::: Waitlist Functions :::::: <end>
 
 <highlight>Show your waitlist<end>
 <tab><symbol>waitlist
