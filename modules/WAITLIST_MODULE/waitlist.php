@@ -67,21 +67,27 @@ if (preg_match("/^waitlist next$/i", $message)) {
 	
 	$msg = "<highlight>$name<end> has been removed from your waitlist.";
     $chatBot->send($msg, $sendto);
-} else if (preg_match("/^waitlist$/i", $message)) {
-  	if (count($waitlist[$sender]) == 0) {
-	 	$msg = "You don't have any waitlist created yet!";
+} else if (preg_match("/^waitlist$/i", $message) || preg_match("/^waitlist ([a-z0-9-]+)$/i", $message, $arr)) {
+	if ($arr) {
+		$char = ucfirst(strtolower($arr[1]));
+	} else {
+		$char = $sender;
+	}
+
+  	if (count($waitlist[$char]) == 0) {
+	 	$msg = "<highlight>$char<end> doesn't have a waitlist!";
 	  	$chatBot->send($msg, $sendto);
       	return;
 	}
 	
 	$count = 0;
-	$blob = "<header> :::::: Waitlist for $sender :::::: <end>\n\n";
-	forEach($waitlist[$sender] as $name => $value) {
+	$blob = "<header> :::::: Waitlist for $char :::::: <end>\n\n";
+	forEach($waitlist[$char] as $name => $value) {
 		$count++;
 		$blob .= "{$count}. $name \n";
 	}
 	
-	$msg = Text::make_link("Waitlist for $sender ($count)", $blob, 'blob');
+	$msg = Text::make_link("Waitlist for $char ($count)", $blob, 'blob');
 
   	$chatBot->send($msg, $sendto);
 } else {
