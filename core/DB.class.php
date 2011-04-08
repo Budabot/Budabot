@@ -281,7 +281,7 @@ class DB {
 	function getLastQuery() {
 		return $this->lastQuery;
 	}
-	
+
 	/**
 	 * @name: loadSQLFile
 	 * @description: Loads an sql file if there is an update

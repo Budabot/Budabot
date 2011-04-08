@@ -8,7 +8,8 @@ if (preg_match("/^system$/i", $message, $arr)) {
 	$count = $db->fObject()->count;
 
 	$blob = "<header>::::: System Info :::::<end>\n\n";
-	$blob .= "Budabot $version\n\n";
+	$blob .= "Budabot $version\n";
+	$blob .= "Database: " . $db->get_type() . "\n\n";
 	
 	$blob .= "<highlight>SuperAdmin:<end> '{$chatBot->vars['SuperAdmin']}'\n";
 	$blob .= "<highlight>Guild:<end> '<myguild>' (" . $chatBot->vars['my_guild_id'] . ")\n\n";
