@@ -52,7 +52,7 @@ if (preg_match("/^waitlist next$/i", $message)) {
 	forEach ($listbot_waitlist[$sender] as $key => $value) {
 	   	$listbot_waitlist[$sender][$key]["position"] -= 1;
 		$db->query("UPDATE waitlist_<myname> SET `position` = {$listbot_waitlist[$sender][$key]["position"]} WHERE `owner` = '$sender' AND `name` = '{$listbot_waitlist[$sender][$key]["name"]}'");
-		bot::send("Your Position on <highlight>$sender<end>'s waitlist has been changed to <highlight>{$listbot_waitlist[$sender][$key]["position"]}<end>", $listbot_waitlist[$sender][$key]["name"]);
+		$chatBot->send("Your Position on <highlight>$sender<end>'s waitlist has been changed to <highlight>{$listbot_waitlist[$sender][$key]["position"]}<end>", $listbot_waitlist[$sender][$key]["name"]);
 	}
 	$db->Commit();
 
