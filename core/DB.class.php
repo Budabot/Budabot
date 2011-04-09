@@ -255,16 +255,16 @@ class DB {
 			if ($this->numrows() == 0) {
 				return $table_info;
 			}
-			
+
 			$tbl_sql = $this->fObject();
 			$table_info["sql"] = $tbl_sql->sql;
-			
+
 		 	$tmp = $this->sql->query("SELECT * FROM $tbl_name LIMIT 0, 1");
 			for ($i = 0; $i < $tmp->columnCount(); $i++) {
 				$temp = $tmp->getColumnMeta($i);
 				$table_info["columns"]["name"] = $temp["name"];
 				$table_info["columns"]["type"] = $temp["native_type"];
-				$table_info["columns"]["flags"] = $temp["flags"];				
+				$table_info["columns"]["flags"] = $temp["flags"];
 			}
 			return $table_info;
 		}

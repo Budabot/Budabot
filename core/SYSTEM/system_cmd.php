@@ -31,6 +31,8 @@ if (preg_match("/^system$/i", $message, $arr)) {
 	$blob .= "<highlight>Number of help commands:<end> " . count($chatBot->helpfiles) . "\n\n";
 	
 	$blob .= "<highlight>Number of characters on the friendlist:<end> " . count($chatBot->buddyList) . "\n";
+	$blob .= "<highlight>Number of characters in the private channel:<end> " . count($chatBot->chatlist) . "\n";
+	$blob .= "<highlight>Number of guild members:<end> " . count($chatBot->guildmembers) . "\n";
 	$blob .= "<highlight>Number of character infos in cache:<end> " . $count . "\n";
 	$blob .= "<highlight>Number of messages in the chat queue:<end> " . count($chatBot->chatqueue->queue) . "\n\n";
 	
