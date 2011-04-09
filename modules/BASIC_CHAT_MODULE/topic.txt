@@ -1,4 +1,4 @@
-<header>::::: Topic for the Raid :::::<end>
+<header> :::::: Topic for the Raid :::::: <end>
 
 Info: The Topic will be shown when you join the private channel(as tell)
 
