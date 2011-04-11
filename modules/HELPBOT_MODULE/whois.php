@@ -40,7 +40,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
         } else {
 	        $msg = Player::get_info($whois);
 
-	        $list = "<header>::::: Detailed info for {$name} :::::<end>\n\n";
+	        $list = "<header> :::::: Detailed info for {$name} :::::: <end>\n\n";
 	        $list .= "Name: <highlight>{$whois->firstname} \"{$name}\" {$whois->lastname}<end>\n";
 			if ($whois->guild) {
 				$list .= "Guild: <highlight>{$whois->guild} ({$whois->guild_id})<end>\n";
@@ -66,6 +66,12 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 	        $list .= "<a href='chatcmd:///cc rembuddy $name'>Remove from buddylist</a>";
 			
 	        $msg .= " :: ".Text::make_link("More info", $list, 'blob');
+			
+			$main = Alts::get_main($name);
+			$alts = Alts::get_alts($main);
+			if (count($alts) > 0) {
+				$msg .= " :: " . Text::make_link("Alts of $main", "/tell <myname> alts $main", 'chatcmd');
+			}
 	    }
     } else {
         $msg = "Player <highlight>$name<end> does not exist.";
