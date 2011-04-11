@@ -177,29 +177,29 @@ class AOChatPacket {
 			for ($i = 0; $i < strlen($pmap["args"]); $i++) {
 				$sa = $pmap["args"][$i];
 				switch ($sa) {
-					case "I" :
+					case "I":
 						$res  = array_pop(unpack("N", $data));
 						$data = substr($data, 4);
 						break;
 
-					case "S" :
+					case "S":
 						$len  = array_pop(unpack("n", $data));
 						$res  = substr($data, 2, $len);
 						$data = substr($data, 2 + $len);
 						break;
 
-					case "G" :
+					case "G":
 						$res  = substr($data, 0, 5);
 						$data = substr($data, 5);
 						break;
 
-					case "i" :
+					case "i":
 						$len  = array_pop(unpack("n", $data));
 						$res  = array_values(unpack("N" . $len, substr($data, 2)));
 						$data = substr($data, 2 + 4 * $len);
 						break;
 
-					case "s" :
+					case "s":
 						$len  = array_pop(unpack("n", $data));
 						$data = substr($data, 2);
 						$res  = array();
@@ -210,7 +210,7 @@ class AOChatPacket {
 						}
 						break;
 
-						default :
+					default:
 						echo "Unknown argument type! (" . $sa . ")\n";
 						continue(2);
 				}
@@ -234,26 +234,26 @@ class AOChatPacket {
 				}
 
 				switch ($sa) {
-					case "I" :
+					case "I":
 						$data .= pack("N", $it);
 						break;
 
-					case "S" :
+					case "S":
 						$data .= pack("n", strlen($it)) . $it;
 						break;
 
-					case "G" :
+					case "G":
 						$data .= $it;
 						break;
 
-					case "s" :
+					case "s":
 						$data .= pack("n", sizeof($it));
 						forEach ($it as $it_elem) {
 							$data .= pack("n", strlen($it_elem)) . $it_elem;
 						}
 						break;
 
-						default :
+					default:
 						echo "Unknown argument type! (" . $sa . ")\n";
 						continue(2);
 				}
