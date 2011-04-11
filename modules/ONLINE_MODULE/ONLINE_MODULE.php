@@ -15,10 +15,10 @@
 	Event::register($MODULE_NAME, "10mins", "online_check.php", "none", "Online check");
 	
 	// Afk Check
-	Event::register($MODULE_NAME, "priv", "afk_check.php", "afk", "Afk check");
-	Event::register($MODULE_NAME, "guild", "afk_check.php", "afk", "Afk check");
-	Command::register($MODULE_NAME, "priv guild", "afk.php", "afk", "all", "Sets a member afk");
-	Command::register($MODULE_NAME, "priv guild", "afk.php", "kiting", "all", "Sets a member kiting");
+	Event::register($MODULE_NAME, "priv", "afk_check.php", "none", "Afk check");
+	Event::register($MODULE_NAME, "guild", "afk_check.php", "none", "Afk check");
+	Event::register($MODULE_NAME, "guild", "afk.php", "none", "Sets a member afk");
+	Event::register($MODULE_NAME, "priv", "afk.php", "none", "Sets a member kiting");
 
 	// Settings
 	Setting::add($MODULE_NAME, "online_expire", "Sets how long to wait before removing players from the online list whose info hasn't been updated", "edit", "number", "15", "2;5;10;15;20", '', "mod");
