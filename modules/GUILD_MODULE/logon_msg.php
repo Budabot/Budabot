@@ -53,11 +53,11 @@ if (preg_match("/^logon$/i", $message)) {
 } else if (preg_match("/^logon (.+)$/i", $message, $arr)) {
     if ($row !== null) {
         $arr[1] = str_replace("'", "''", $arr[1]);
-        if (strlen($arr[1]) <= 200) {
+        if (strlen($arr[1]) <= Setting::get('max_logon_msg_size')) {
             $db->exec("UPDATE org_members_<myname> SET `logon_msg` = '$arr[1]' WHERE `name` = '$sender'");
             $msg = "Thank you $sender. Your logon message has been set.";
         } else {
-            $msg = "Your logon message is too long. Please choose a shorter one.";
+            $msg = "Your logon message is too large. Your logon message may contain a maximum of " . Setting::get('max_logon_msg_size') . " characters.";
 		}
     } else {
         $msg = "You are not on the notify list.";
