@@ -1,24 +1,4 @@
 <?php
-   /*
-   ** Module: PREMADE_IMPLANT
-   ** Author: Tyrence/Whiz (RK2)
-   ** Description: Allows you search for the implants in the premade implant booths.
-   ** Version: 1.0
-   **
-   ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
-   **
-   ** Date(created): Fall 2008
-   ** Date(last modified): 9-Mar-2010
-   ** 
-   ** Copyright (C) 2008 Jason Wheeler (bigwheels16@hotmail.com)
-   **
-   ** This module and all it's files and contents are licensed
-   ** under the GNU General Public License.  You may distribute
-   ** and modify this module and it's contents freely.
-   **
-   ** This module may be obtained at: http://www.box.net/shared/bgl3cx1c3z
-   **
-   */
 
 if (preg_match("/^premade (.*)$/i", $message, $arr)) {
 
@@ -42,7 +22,7 @@ if (preg_match("/^premade (.*)$/i", $message, $arr)) {
 	if ($results != null) {
 		$blob = "<header> :::::: Implant Search Results for '$searchTerms' :::::: <end>\n\n";
 		$blob .= formatResults($results);
-		$blob .= "\n\nWritten by Tyrence(RK2)";
+		$blob .= "\n\nWritten by Tyrence (RK2)";
 		$blob .= "\nOriginal Premade Implant Database provided by Demoder (RK2)";
 		$msg = Text::make_link("Implant Search Results for '$searchTerms'", $blob, 'blob');
 	} else {
