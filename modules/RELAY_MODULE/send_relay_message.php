@@ -16,9 +16,9 @@ if (($chatBot->settings["relaybot"] != "Off") && ($chatBot->settings["bot_relay_
 		}
 
 		if ($type == "guild") {
-			$msg = "grc <grey>[<myguild>]{$sender_link} {$relayMessage}</font>";
+			$msg = "grc [<myguild>]{$sender_link} {$relayMessage}";
 		} else if ($type == "priv") {
-			$msg = "grc <grey>[<myguild>] [Guest]{$sender_link} {$relayMessage}</font>";
+			$msg = "grc [<myguild>] [Guest]{$sender_link} {$relayMessage}";
 		}
         send_message_to_relay($msg);
 	}
