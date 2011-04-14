@@ -33,7 +33,7 @@ class AccessLevel {
 				break;
 
 			case "guildadmin":
-				if ($chatBot->guildmembers[$sender] <= $chatBot->settings['guild_admin_level'] || isset($chatBot->admins[$sender])) {
+				if (isset($chatBot->admins[$sender]) || (isset($chatBot->guildmembers[$sender]) && $chatBot->guildmembers[$sender] <= $chatBot->settings['guild_admin_level'])) {
 					$access = true;
 				}
 				break;
