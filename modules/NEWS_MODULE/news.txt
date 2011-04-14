@@ -4,6 +4,6 @@
 <tab><symbol>news
 
 <highlight>To add News do:<end>
-<tab><symbol>news 'text'
+<tab><symbol>addnews 'text'
 
 <highlight>To delete a Newsentry click simply on the 'Delete Newsentry' behind the Entry you want to delete<end>
