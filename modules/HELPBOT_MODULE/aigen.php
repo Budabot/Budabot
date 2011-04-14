@@ -42,7 +42,7 @@ if (preg_match("/^aigen (ankari|ilari|rimah|jaax|xoch|cha)$/i", $message, $arr))
 	$msg = "<header>::::: Info about General $gen :::::<end>\n\n";
 	switch ($gen) {
 		case "Ankari":
-			$msg .= "<red>Low Evade/Dodge,low AR, casting Viral/Virral nukes.<blue> \nBoss of this type drops:\n\n<img src=rdb://100337></img>\n<a href='itemref://247145/247145/300'>Arithmetic Lead Viralbots</a>.\n<orange>(Nanoskill / Tradeskill)<blue>\n<img src=rdb://255705></img>\n<a href='itemref://247684/247684/300'>Kyr'Ozch Bio-Material - Type 1</a>\n<img src=rdb://255705></img>\n<a href='itemref://247685/247685/300'>Kyr'Ozch Bio-Material - Type 2</a>";
+			$msg .= "<red>Low Evade/Dodge,low AR, casting Viral/Virral nukes.<blue> \nBoss of this type drops:\n\n<img src=rdb://100337></img>\n<a href='itemref://247145/247145/300'>Arithmetic Lead Viralbots</a>.\n<orange>(Nanoskill / Tradeskill)<blue>\n<img src=rdb://255705></img>\n<a href='itemref://247684/247684/300'>Kyr'Ozch Bio-Material - Type 1</a>\n<img src=rdb://255705></img>\n<a href='itemref://247685/247685/300'>Kyr'Ozch Bio-Material - Type 2</a>\n<img src=rdb://255705></img>\n<a href='itemref://288672/288673/300'>Kyr'Ozch Bio-Material - Type 48</a>";
 			break;
 		case "Ilari":
 			$msg .= "<red>Low Evade/Dodge.<blue>\nBoss of this type drops:\n\n<img src=rdb://100337></img>\n<a href='itemref://247146/247146/300'>Spiritual Lead Viralbots</a>.<orange>\n(Nanocost / Nanopool / Max Nano)<blue>\n<img src=rdb://255705></img>\n<a href='itemref://247681/247681/300'>Kyr'Ozch Bio-Material - Type 992</a>\n<img src=rdb://255705></img>\n<a href='itemref://247679/247679/300'>Kyr'Ozch Bio-Material - Type 880</a>";
