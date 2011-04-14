@@ -122,15 +122,19 @@ if (preg_match("/^bio <a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">Solid
         	$use = "Used to build city buildings";
             $name = "Kyr'Ozch Viral Serum";
             break;
+		case 288700:
+			$high_id = 288673;
+        	$low_id = 288672;
+        	$use = "Adds Specials to weapons(Brawl/Dimach)";
+            $name = "Kyr'Ozch Bio-Material - Type 48";
+            break;
         default:
 			$use = "Unknown Bio-Material.";
 			break;
 	}
 
-    //Create the output message
     $msg = Text::make_item($low_id, $high_id, $arr[3], "QL ".$arr[3]." ".$name)." ".$use;
 
-    // Send info back
     $chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
