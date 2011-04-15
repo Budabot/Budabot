@@ -33,7 +33,7 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 	global $version;
 	$data = file_get_contents("./core/HELP/about.txt");
 	$data = str_replace('<version>', $version, $data);
-	$msg = Text::make_link("About", $data);
+	$msg = Text::make_link("About Budabot", $data);
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^help$/i", $message)) {
 	global $version;
