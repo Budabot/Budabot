@@ -12,5 +12,8 @@
 <highlight>Remove all players from your list<end>
 <tab><symbol>waitlist rem all
 
+<highlight>Shuffle the waitlist<end>
+<tab><symbol>waitlist shuffle
+
 <highlight>Calling the next one from your list<end>
 <tab><symbol>waitlist next
