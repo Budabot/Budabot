@@ -45,7 +45,7 @@ There are two seperate parts to install the WEBCAST_MODULE
    /tell <myname> webcast setwebpath http://www.myserver.com/online.php
 4. Test it!  /tell <myname> webcast to force an update to your server.
 
-If all goes well the webcast module should confirm that the page was updated.  Goto http://www.yourwebserve.com/online.php to see if your
+If all goes well the webcast module should confirm that the page was updated.  Go to http://www.yourwebserve.com/online.php to see if your
 orgmates are online!
 
 

@@ -59,6 +59,7 @@ if ($command) {
 		}
 	} else if (strtolower($command == "setwebpath")) {
 		if ($other) {
+			$other = html_entity_decode($other);
 			Setting::save("webpath", $other);
 
 			if (Setting::get("webpath") == $other) {
