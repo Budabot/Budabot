@@ -1,4 +1,21 @@
 *****************************
+	Version 2.2_GA:
+*****************************
+-added LISTBOT_MODULE and renamed it to WAITLIST_MODULE
+-added more output to !system
+-added setting to control how !links is display
+-fix for topic not sending to characters in guild on logon
+-!whois will now shows alts for that character if the bot knows of any
+-!afk can now be used with the command symbol (!)
+-can now change the color of incoming messages on the relay to both the guild and private channels issue
+-added setting for the maximum number of characters allowed in a logon message (default: 200)
+-!news msg and !news del replaced by !addnews and !remnews
+-fix for guildadmin access level
+-added Type 48 to !bio and !aigen ankari
+-!bio now shows weapon upgrade info
+-removed "Ignore" from the settings as !ban does the same thing; also, logon/logoff events now execute even for people on the ban list (for !track, !is, !orglist purposes)
+
+*****************************
 	Version 2.1_GA:
 *****************************
 -updated Wrong Window perk modifier for !leprocs
