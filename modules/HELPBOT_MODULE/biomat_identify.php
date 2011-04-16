@@ -1,7 +1,9 @@
 <?php
 
 if (preg_match("/^bio <a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">Solid Clump of Kyr\'Ozch Bio-Material<\/a>$/i", $message, $arr)){
-	switch ($arr[2]) {
+	$highid = $arr[2];
+	$ql = $arr[3];
+	switch ($highid) {
 		case 247103:
 			$high_id = 247107;
 			$low_id = 247106;
@@ -115,12 +117,15 @@ if (preg_match("/^bio <a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">Solid
 			$name = "Kyr'Ozch Bio-Material - Type 48";
 			break;
 		default:
-			$use = "Unknown Bio-Material.";
-			break;
+			$chatBot->send("Unknown Bio-Material", $sendto);
+			return;
 	}
-
-	$msg = Text::make_item($low_id, $high_id, $arr[3], "QL ".$arr[3]." ".$name)." ".$use;
-
+	
+	$blob = "<header> :::::: $name (ql $ql) :::::: <end>\n\n";
+	$blob .= Text::make_item($low_id, $high_id, $ql, $name). "\n\n";
+	$blob .= $use;
+	
+	$msg = Text::make_link("$name (ql $ql)", $blob, 'blob');
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
