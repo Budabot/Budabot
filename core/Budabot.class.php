@@ -410,8 +410,8 @@ class Budabot extends AOChat {
 
 					Logger::log_chat("Priv Group", -1, "$sender joined the channel.");
 
-					// Remove sender if they are /ignored or /banned or if spam filter is blocking them
-					if ($this->settings["Ignore"][$sender] == true || Ban::is_banned($sender) || $this->spam[$sender] > 100){
+					// Remove sender if they are banned or if spam filter is blocking them
+					if (Ban::is_banned($sender) || $this->spam[$sender] > 100){
 						$this->privategroup_kick($sender);
 						return;
 					}
@@ -492,7 +492,7 @@ class Budabot extends AOChat {
 				$this->buddyList[$bid]['known'] = (ord($btype) ? 1 : 0);
 
 				// Ignore Logon/Logoff from other bots or phantom logon/offs
-                if ($this->settings["Ignore"][$sender] == true || $sender == "") {
+                if ($sender == "") {
 					return;
 				}
 
@@ -558,7 +558,9 @@ class Budabot extends AOChat {
 					return;
 				}
 
-				if ($this->settings["Ignore"][$sender] == true || Ban::is_banned($sender) || ($this->spam[$sender] > 100 && $this->vars['spam_protection'] == 1)){
+				if (Ban::is_banned($sender)) {
+					return;
+				} else if ($this->vars['spam_protection'] == 1 && $this->spam[$sender] > 100) {
 					$this->spam[$sender] += 20;
 					return;
 				}
@@ -607,8 +609,12 @@ class Budabot extends AOChat {
 					if ($this->spam[$sender] > 60) $this->privategroup_kick($sender);
 					if (strlen($args[1]) > 400){
 						$this->largespam[$sender] = $this->largespam[$sender] + 1;
-						if ($this->largespam[$sender] > 1) $this->privategroup_kick($sender);
-						if ($this->largespam[$sender] > 0) $this->send("Error! Your client is sending large chat messages. Stop or be kicked.", $sender);
+						if ($this->largespam[$sender] > 1) {
+							$this->privategroup_kick($sender);
+						}
+						if ($this->largespam[$sender] > 0) {
+							$this->send("Error! Your client is sending large chat messages. Stop or be kicked.", $sender);
+						}
 					}
 				}
 
@@ -667,12 +673,6 @@ class Budabot extends AOChat {
 					if ($sender == $this->vars["name"]) {
 						return;
 					}
-
-					// Ignore messages from other bots
-	                if ($this->settings["Ignore"][$sender] == true) {
-						return;
-					}
-
 					if (Ban::is_banned($sender)) {
 						return;
 					}

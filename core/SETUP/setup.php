@@ -133,20 +133,6 @@ do {
 	$vars["SuperAdmin"] = read_input($msg);
 } while ($vars["SuperAdmin"] == "");
 
-echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-echo "             ******************************************************\n";	
-echo "             This bot allows you to put someone on its\n";
-echo "             Ignore list but it is mainly only needed when \n";
-echo "             other bots are running in your org.\n";
-echo "             To add more then one to the ignore list\n";
-echo "             they neeed to be seperated by ;\n";
-echo "             For example bot1;bot2;bot3 and so on\n";
-echo "             Remember this setting is case-sensitive!\n";
-echo "             ******************************************************\n";
-echo "             \n\n\n\n\n\n\n";
-$msg = "Ignorelist:  \n";
-$settings["Ignore"] = read_input($msg);
-
 do {
 	echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 	echo "             *********************************************************\n";		

@@ -11,7 +11,7 @@
 global $bbin_socket;
 if ("1" == $chatBot->settings['bbin_status']) {
 	// do not relay commands and ignored chars
-	if ($args[2][0] != $chatBot->settings["symbol"] && !$chatBot->settings["Ignore"][$sender]) {
+	if ($args[2][0] != $chatBot->settings["symbol"]) {
 		
 		$outmsg = htmlspecialchars($message);
 		

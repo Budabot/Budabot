@@ -115,15 +115,6 @@ if (isWindows()) {
 
 Logger::log('INFO', 'StartUp', "Starting {$vars['name']}...");
 
-//Bring the ignore list to a bot readable format
-$ignore = explode(";", $settings["Ignore"]);
-unset($settings["Ignore"]);
-forEach ($ignore as $bot) {
-	$bot = ucfirst(strtolower($bot));
-	$settings["Ignore"][$bot] = true;
-}
-unset($ignore);
-
 //////////////////////////////////////////////////////////////
 // Create new objects
 $db = new DB($settings["DB Type"], $settings["DB Name"], $settings["DB Host"], $settings["DB username"], $settings["DB password"]);

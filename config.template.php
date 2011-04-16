@@ -23,9 +23,6 @@ $vars['SuperAdmin'] = "";
 // Default Delay for crons after bot is connected
 $settings['CronDelay'] = 10;
 
-// List of characters the bot should ignore (multiple names should be separated by semicolons ';')
-$settings['Ignore'] = "";
-
 // Database Information
 $settings['DB Type'] = "Sqlite";	// What type of Database should be used? (Sqlite or Mysql)
 $settings['DB Name'] = "budabot.db";	// Database Name
