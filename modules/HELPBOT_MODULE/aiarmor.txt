@@ -1,12 +1,15 @@
-<header>::::: Alien Armor Tradeskillprocess :::::<end>
+<header>::::: Alien Armor Tradeskill Process :::::<end>
 
-<highlight>To show the Process for an Alien Armor piece do<end>
+<highlight>To show the Process for an Alien Armor piece do:<end>
 <tab><symbol>aiarmor 'type'
 
-<highlight>If you want to specify the QL do<end>
+<highlight>If you want to specify the QL do:<end>
 <tab><symbol>aiarmor 'type' 'ql of the armor'
+<highlight>Or<end>
+<tab><symbol>aiarmor 'ql of the armor' 'type'
 
-Allowed Types:
+<highlight>Allowed Types:<end>
+
 <highlight>- cc<end>
 <tab>Combined Commando's
 
@@ -16,13 +19,13 @@ Allowed Types:
 <highlight>- co<end>
 <tab>Combined Officer's
 
-<hihglight>- cp<end>
+<highlight>- cp<end>
 <tab>Combined Paramedic's
 
 <highlight>- cs<end>
 <tab>Combined Scout's
 
-<highlight>- ss
+<highlight>- ss<end>
 <tab>Combined Sharpshooter's
 
 <highlight>- strong<end>

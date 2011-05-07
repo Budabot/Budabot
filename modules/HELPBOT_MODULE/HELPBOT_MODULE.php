@@ -42,7 +42,7 @@
 
 	// Help files
 	Help::register($MODULE_NAME, "whois", "whois.txt", "all", "Show char stats at current and all dimensions");
-    Help::register($MODULE_NAME, "biomat", "biomat.txt", "all", "Identify an Biomaterial");
+    Help::register($MODULE_NAME, "bio", "biomat.txt", "all", "Identify an Biomaterial");
     Help::register($MODULE_NAME, "calc", "calculator.txt", "all", "Calculator");
     Help::register($MODULE_NAME, "oe", "oe.txt", "all", "Calculating the OE ranges");
     Help::register($MODULE_NAME, "roll", "roll.txt", "all", "How to use the flip and roll command");
