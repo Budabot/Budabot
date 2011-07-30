@@ -66,12 +66,6 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 	        $list .= "<a href='chatcmd:///cc rembuddy $name'>Remove from buddylist</a>";
 			
 	        $msg .= " :: " . Text::make_link("More info", $list, 'blob');
-			
-			$main = Alts::get_main($name);
-			$alts = Alts::get_alts($main);
-			if (count($alts) > 0) {
-				$msg .= " :: " . Text::make_link("Alts of $main", "/tell <myname> alts $main", 'chatcmd');
-			}
 	    }
     } else {
         $msg = "Player <highlight>{$name}<end> does not exist.";
