@@ -109,9 +109,10 @@ class Raid {
 
 		$data = $db->fObject('all');
 		forEach ($data as $row) {
-			$loot[$count]["name"] = $row->name;
-			$loot[$count]["linky"] = Text::make_item($row->lowid, $row->highid, $row->ql, $row->name);
-			$loot[$count]["icon"] = $row->imageid;
+			$loot[$count]['name'] = $row->name;
+			$loot[$count]['linky'] = Text::make_item($row->lowid, $row->highid, $row->ql, $row->name);
+			$loot[$count]['icon'] = $row->imageid;
+			$loot[$count]['multiloot'] = $row->quantity;
 			$count++;
 		}
 
