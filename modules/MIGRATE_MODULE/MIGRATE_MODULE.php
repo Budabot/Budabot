@@ -1,4 +1,6 @@
 <?php
+	require_once 'DB2.class.php';
+
 	$MODULE_NAME = "MIGRATE_MODULE";
 	
 	Command::register($MODULE_NAME, "", "migrate.php", "migrate", "admin", "Migrate database from a previous version of Budabot");

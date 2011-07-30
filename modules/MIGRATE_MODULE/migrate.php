@@ -1,21 +1,5 @@
 <?php
 
-if (!class_exists('DB2')) {
-	class DB2 extends DB {
-		function __construct($type, $dbName, $host, $user, $pass, $botname) {
-			parent::__construct($type, $dbName, $host, $user, $pass);
-			$this->botname = strtolower($botname);
-		}
-		
-		function formatSql($sql) {
-			$sql = str_replace("<myname>", $this->botname, $sql);
-			$sql = parent::formatSql($sql);
-
-			return $sql;
-		}
-	}
-}
-
 if (preg_match("/^migrate alts$/i", $message, $arr)) {
 	$db2 = new DB2(Setting::get('migrate_type'), Setting::get('migrate_name'), Setting::get('migrate_hostname'), Setting::get('migrate_username'), Setting::get('migrate_password'), Setting::get('migrate_botname'));
 
@@ -148,6 +132,40 @@ if (preg_match("/^migrate alts$/i", $message, $arr)) {
 	}
 	
     $chatBot->send("$count notes migrated successfully. It is recommended that you restart your bot now. Do not import your notes list again or you will have duplicates.", $sendto);
+} else if (preg_match("/^migrate orgmembers$/i", $message, $arr)) {
+	$db2 = new DB2(Setting::get('migrate_type'), Setting::get('migrate_name'), Setting::get('migrate_hostname'), Setting::get('migrate_username'), Setting::get('migrate_password'), Setting::get('migrate_botname'));
+
+	$db2->query("SELECT name, mode, logged_off, logon_msg FROM org_members_<myname>");
+	$data = $db2->fObject('all');
+	$count = 0;
+	forEach ($data as $row) {
+		if ($chatBot->get_uid($row->name)) {
+			// 1.0 modes: man, org, del
+			// 2.0 modes: add, org, del
+			if ($row->mode == 'man') {
+				$row->mode = 'add';
+			}
+		
+			$db->query("SELECT name FROM org_members_<myname> WHERE name = '$row->name'");
+			$row2 = $db2->fObject();
+			if ($db->numrows() == 0) {
+				$db->exec("INSERT INTO org_members_<myname> (name, mode, logon_msg, logged_off) VALUES ('$row->name', '$row->mode', '$row->logon_msg', '$row->logged_off')");
+			} else {
+				// use whichever logon time is most recent from the old and new databases
+				$row->logged_off = max($row->logged_off, $row2->logged_off);
+				
+				// use the current logon message if it's set, otherwise use the logon message from the old database
+				if ($row2->logon_msg != '') {
+					$row->logon_msg = $row2->logon_msg;
+				}
+				$db->exec("UPDATE org_members_<myname> set name = '$row->name', mode = '$row->mode', logon_msg = '$row->logon_msg', logged_off = '$row->logged_off'");
+			}
+			
+			$count++;
+		}
+	}
+	
+    $chatBot->send("$count guild members migrated successfully. It is recommended that you restart your bot now.", $sendto);
 } else {
 	$syntax_error = true;
 }

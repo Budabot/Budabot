@@ -4,6 +4,10 @@ Note: Before using this module you must copy your old budabot.db file to /module
 Also, make sure you check the settings. /tell <myname> config MIGRATE_MODULE
 Lastly, each of these commands should only be run once.
 
+<highlight>Migrate orgmembers<end>
+<tab><symbol>migrate orgmembers
+<orange>Note: This will migrate logon messages and last seen times. It will only update the logon message if it hasn't already been set. It will only update the last seen time if it's newer than what's in the current database.<end>
+
 <highlight>Migrate alts list<end>
 <tab><symbol>migrate alts
 
