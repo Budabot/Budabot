@@ -27,7 +27,9 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot) {
 		$character = Player::get_by_name($name, $servernum);
 
 		// add user to bbin_chatlist_<myname>
-		$db->exec("INSERT INTO bbin_chatlist_<myname> (`name`, `guest`, `ircrelay`) VALUES ('$name', $guest, '$nick')");
+		$sql = "INSERT INTO bbin_chatlist_<myname> (`name`, `guest`, `ircrelay`, `faction`, `profession`, `guild`, `breed`, `level`, `ai_level`, `dimension`) " .
+			"VALUES ('$name', $guest, '$nick', '$character->faction', '$character->profession', '$character->guild', '$character->breed', '$character->level', '$character->ai_level', $servernum)";
+		$db->exec($sql);
 
 		// send notification to channels
 		$msg = "<highlight>$name<end> (<highlight>{$character->level}<end>/<green>{$character->ai_level}<end>, <highlight>{$character->profession}<end>, {$character->faction})";
