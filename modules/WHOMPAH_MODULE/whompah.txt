@@ -8,3 +8,6 @@
 
 <highlight>To see a whompah path from one city to another:<end>
 <tab><symbol>whompah 'city1' 'city2'
+
+Written By Tyrence (RK2)
+Database from a Bebot module written by POD13

@@ -1,4 +1,6 @@
 <?php
+	require_once 'Whompah.class.php';
+
 	$MODULE_NAME = "WHOMPAH_MODULE";
 	
 	DB::loadSQLFile($MODULE_NAME, "whompah_cities");
