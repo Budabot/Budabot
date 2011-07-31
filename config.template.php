@@ -57,9 +57,6 @@ $vars['cachefolder'] = "./cache/";
 // 1 = Modules are enabled by default
 $settings['default_module_status'] = 0;
 
-// Maximum chars for one window(blob) in bytes
-$settings['max_blob_size'] = 7500;
-
 // AO Chat Proxy
 // 1 for enabled, 0 for disabled
 $vars['use_proxy'] = 0;
