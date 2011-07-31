@@ -61,6 +61,7 @@ function find_items_from_xyphos($search, $ql = null) {
 	$cidb_server = "http://cidb.xyphos.com";
 	$url = $cidb_server;
 	$url .= '?search=' . urlencode($search);
+	$url .= "&bot=budabot";
 	$url .= "&output=aoml";
 
 	if ($ql) {
