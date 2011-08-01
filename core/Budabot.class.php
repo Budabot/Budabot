@@ -26,7 +26,7 @@ class Budabot extends AOChat {
 ** Name: __construct
 ** Constructor of this class.
 */	function __construct(&$vars, &$settings){
-		parent::__construct("callback");
+		parent::__construct();
 
 		$this->settings = &$settings;
 		$this->vars = &$vars;

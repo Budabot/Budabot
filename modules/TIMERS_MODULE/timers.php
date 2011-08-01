@@ -69,12 +69,12 @@ if (preg_match("/^timers ([0-9]+)$/i", $message, $arr) || preg_match("/^timers (
 
 		if (strtolower($name) == $timer_name) {
 			if ($owner == $sender) {
-				Timer::remove_timer($key, $name, $sender);
+				Timer::remove_timer($key);
 					
 			  	$msg = "Removed timer <highlight>$name<end>.";
 			  	break;
 			} else if (($chatBot->guildmembers[$sender] <= $chatBot->settings['guild_admin_level']) || isset($chatBot->admins[$sender])) {
-				Timer::remove_timer($key, $name, $owner);
+				Timer::remove_timer($key);
 
 			  	$msg = "Removed timer <highlight>$name<end>.";
 			  	break;

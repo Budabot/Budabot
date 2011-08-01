@@ -75,7 +75,7 @@ forEach ($chatBot->data["timers"] as $key => $timer) {
 			}
 		}
 	
-		Timer::remove_timer($key, $name, $owner);
+		Timer::remove_timer($key);
 	}
 
 	if ('' != $msg) {
