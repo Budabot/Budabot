@@ -95,14 +95,14 @@ class Budabot extends AOChat {
 		Logger::log('INFO', 'StartUp', "All Systems ready!");
 
 		// Set cron timers
-		$this->vars["2sec"] 			= time() + Setting::get("CronDelay");
-		$this->vars["1min"] 			= time() + Setting::get("CronDelay");
-		$this->vars["10mins"] 			= time() + Setting::get("CronDelay");
-		$this->vars["15mins"] 			= time() + Setting::get("CronDelay");
-		$this->vars["30mins"] 			= time() + Setting::get("CronDelay");
-		$this->vars["1hour"] 			= time() + Setting::get("CronDelay");
-		$this->vars["24hours"]			= time() + Setting::get("CronDelay");
-		$this->vars["15min"] 			= time() + Setting::get("CronDelay");
+		$this->vars["2sec"] 			= time() + Setting::get("cron_delay");
+		$this->vars["1min"] 			= time() + Setting::get("cron_delay");
+		$this->vars["10mins"] 			= time() + Setting::get("cron_delay");
+		$this->vars["15mins"] 			= time() + Setting::get("cron_delay");
+		$this->vars["30mins"] 			= time() + Setting::get("cron_delay");
+		$this->vars["1hour"] 			= time() + Setting::get("cron_delay");
+		$this->vars["24hours"]			= time() + Setting::get("cron_delay");
+		$this->vars["15min"] 			= time() + Setting::get("cron_delay");
 	}
 	
 	function init() {

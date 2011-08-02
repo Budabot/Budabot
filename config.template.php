@@ -20,9 +20,6 @@ $vars['dimension']  = 1;
 // Insert the Administrator name here
 $vars['SuperAdmin'] = "";
 
-// Default Delay for crons after bot is connected
-$settings['CronDelay'] = 10;
-
 // Database Information
 $settings['DB Type'] = "Sqlite";	// What type of Database should be used? (Sqlite or Mysql)
 $settings['DB Name'] = "budabot.db";	// Database Name
