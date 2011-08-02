@@ -165,22 +165,22 @@ if (strtolower($mansetupdb) == "yes") {
 		echo "             *********************************************************\n";
 		echo "             \n\n\n\n\n\n\n";
 		$msg = "Choose a Databasesystem (1 = Sqlite - Recommended, 2 = MySQL): \n";
-		$settings["DB Type"] = read_input($msg);
-	} while (strtolower($settings["DB Type"]) != "1" && strtolower($settings["DB Type"]) != "2");
+		$vars["DB Type"] = read_input($msg);
+	} while (strtolower($vars["DB Type"]) != "1" && strtolower($vars["DB Type"]) != "2");
 
-	switch($settings["DB Type"]) {
+	switch($vars["DB Type"]) {
 		case "1":
-			$settings["DB Type"] = "Sqlite";
+			$vars["DB Type"] = "Sqlite";
 		break;
 		case "2":
-			$settings["DB Type"] = "Mysql";
+			$vars["DB Type"] = "Mysql";
 		break;
 	}
 	echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 	echo "             *********************************************************\n";	
 	echo "             What is the name of the database that you\n";
 	echo "             wannna use?\n";
-	if ($settings["DB Type"] == "Sqlite") {
+	if ($vars["DB Type"] == "Sqlite") {
 		echo "             (This is the filename of the database)\n";
 		echo "             (Default: budabot.db)\n";
 	} else {
@@ -189,15 +189,15 @@ if (strtolower($mansetupdb) == "yes") {
 	echo "             *********************************************************\n";	
 	echo "             \n\n\n\n\n\n\n\n";
 	$msg = "Enter the Databasename(leave blank for default setting): \n";
-	$settings["DB Name"] = read_input($msg);
+	$vars["DB Name"] = read_input($msg);
 	
-	if ($settings["DB Name"] == "" && $settings["DB Type"] == "Sqlite") {
-		$settings["DB Name"] = "budabot.db";
-	} else if ($settings["DB Name"] == "" && $settings["DB Type"] == "Mysql") {
-		$settings["DB Name"] = "budabot";
+	if ($vars["DB Name"] == "" && $vars["DB Type"] == "Sqlite") {
+		$vars["DB Name"] = "budabot.db";
+	} else if ($vars["DB Name"] == "" && $vars["DB Type"] == "Mysql") {
+		$vars["DB Name"] = "budabot";
 	}
 		
-	if($settings["DB Type"] == "Mysql") {
+	if ($vars["DB Type"] == "Mysql") {
 		echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		echo "             **********************************************\n";		
 		echo "             On what Host is the Database running?\n";
@@ -208,10 +208,11 @@ if (strtolower($mansetupdb) == "yes") {
 		echo "             **********************************************\n";
 		echo "             \n\n\n\n\n\n\n\n\n";
 		$msg = "Enter the Hostname for the Database(leave blank for default setting): \n";
-		$settings["DB Host"] = read_input($msg);
+		$vars["DB Host"] = read_input($msg);
 
-		if($settings["DB Host"] == "")
-			$settings["DB Host"] = "localhost";
+		if ($vars["DB Host"] == "") {
+			$vars["DB Host"] = "localhost";
+		}
 		echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		echo "             **********************************************\n";
 		echo "             What is the username for the MySQL Database?\n";
@@ -221,10 +222,10 @@ if (strtolower($mansetupdb) == "yes") {
 		echo "             **********************************************\n";
 		echo "             \n\n\n\n\n\n\n\n";
 		$msg = "Enter username for the Database(leave blank for default setting): \n";
-		$settings["DB username"] = read_input($msg);
+		$vars["DB username"] = read_input($msg);
 
-		if ($settings["DB username"] == "") {
-			$settings["DB username"] = "root";
+		if ($vars["DB username"] == "") {
+			$vars["DB username"] = "root";
 		}
 
 		echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
@@ -236,7 +237,7 @@ if (strtolower($mansetupdb) == "yes") {
 		echo "             **********************************************\n";
 		echo "             \n\n\n\n\n\n\n\n\n";
 		$msg = "Enter password for the Database(leave blank for default setting): \n";
-		$settings["DB password"] = read_input($msg);
+		$vars["DB password"] = read_input($msg);
 	} else {
 		echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		echo "             **********************************************\n";			
@@ -249,10 +250,10 @@ if (strtolower($mansetupdb) == "yes") {
 		echo "             **********************************************\n";
 		echo "             \n\n\n\n\n\n\n";
 		$msg = "Enter the path for the Database(leave blank for default setting):  \n";
-		$settings["DB Host"] = read_input($msg);
+		$vars["DB Host"] = read_input($msg);
 
-		if ($settings["DB Host"] == "") {
-			$settings["DB Host"] = "./data/";
+		if ($vars["DB Host"] == "") {
+			$vars["DB Host"] = "./data/";
 		}
 	}
 }

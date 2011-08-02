@@ -117,12 +117,19 @@ Logger::log('INFO', 'StartUp', "Starting {$vars['name']}...");
 
 //////////////////////////////////////////////////////////////
 // Create new objects
-$db = new DB($settings["DB Type"], $settings["DB Name"], $settings["DB Host"], $settings["DB username"], $settings["DB password"]);
+$db = new DB($vars["DB Type"], $vars["DB Name"], $vars["DB Host"], $vars["DB username"], $vars["DB password"]);
 if ($db->errorCode != 0) {
 	Logger::log('ERROR', 'StartUp', "Error in creating Database Object: {$db->errorInfo}");
 	sleep(5);
 	die();
 }
+
+//Clear database settings
+unset($vars["DB Type"]);
+unset($vars["DB Name"]);
+unset($vars["DB Host"]);
+unset($vars["DB username"]);
+unset($vars["DB password"]);
 
 $chatBot = new Budabot($vars, $settings);
 $chatBot->init();
@@ -131,13 +138,6 @@ $chatBot->connectAO($vars['login'], $vars['password']);
 //Clear the login and the password	
 unset($vars['login']);
 unset($vars['password']);
-
-//Clear database settings
-unset($settings["DB Type"]);
-unset($settings["DB Name"]);
-unset($settings["DB Host"]);
-unset($settings["DB username"]);
-unset($settings["DB password"]);
 
 // Call Main Loop
 main($chatBot);
