@@ -299,7 +299,7 @@ echo "         \n\n\n\n\n";
 $msg = "Press any key to start the bot.\n";
 read_input($msg);
 
-//Save the entered infos to $config_file
+//Save the entered info to $config_file
 savecfg($vars, $settings);
 
 die("Restarting bot");
