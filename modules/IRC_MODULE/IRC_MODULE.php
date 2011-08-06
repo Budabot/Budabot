@@ -8,19 +8,17 @@
    */
 
 	$MODULE_NAME = "IRC_MODULE";
-	if($chatBot->settings['irc_channel'] == "") {
-		if($chatBot->vars['my_guild'] == "") {
+	if ($chatBot->settings['irc_channel'] == "") {
+		if ($chatBot->vars['my_guild'] == "") {
 			$channel = "#".strtolower($chatBot->vars['name']);
-		}
-		else {
-			if(strpos($chatBot->vars['my_guild']," ")) {
-			$sandbox = explode(" ",$chatBot->vars['my_guild']);
+		} else {
+			if (strpos($chatBot->vars['my_guild']," ")) {
+				$sandbox = explode(" ", $chatBot->vars['my_guild']);
 				for ($i = 0; $i < count($sandbox); $i++) {
 					$channel .= ucfirst(strtolower($sandbox[$i]));
 				}
 				$channel = "#".$channel;
-			}
-			else {
+			} else {
 				$channel = "#".$chatBot->vars['my_guild'];
 			}
 		}

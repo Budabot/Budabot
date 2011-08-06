@@ -37,7 +37,7 @@ if ($message && !preg_match("/^orglist (.+)$/i", $message)) {
 	return;
 }
 
-if (!function_exists(orgmatesformat)){
+if (!function_exists('orgmatesformat')){
 	function orgmatesformat ($memberlist, $map, $color, $timestart, $orgname) {
 		global $chatBot;
 	

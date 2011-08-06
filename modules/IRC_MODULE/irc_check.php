@@ -24,7 +24,7 @@ if (($data = fgets($socket)) && ("1" == Setting::get('irc_status'))) {
 	}
 	$host = $nicka[1];
 	$nick = $nickc[1];
-	if ($ex[0] == "PING"){
+	if ($ex[0] == "PING") {
 		fputs($socket, "PONG ".$ex[1]."\n");
 		if (Setting::get('irc_debug_ping') == 1) {
 			Logger::log('info', "IRC", "PING received. PONG sent");
