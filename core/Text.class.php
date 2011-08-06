@@ -10,7 +10,7 @@ class Text {
 		global $chatBot;
 	
 		// if !$links, then make_header function will show default links:  Help, About, Download.
-	        // if $links = "none", then make_header wont show ANY links.
+	    // if $links = "none", then make_header wont show ANY links.
 		// if $links = array("Help;chatcmd:///tell <myname> help"),  slap in your own array for your own links.
 
 		$color = $chatBot->settings['default_header_color'];
@@ -23,7 +23,6 @@ class Text {
 		$header = $color4.":::".$color3.":::".$color2.":::".$color;
 		$header .= $title;
 		$header .= "</font>:::</font>:::</font>:::</font> ";
-
 
 		if (!$links) {
 			$links = array( "Help;chatcmd:///tell ".$chatBot->vars["name"]." help",
@@ -57,7 +56,11 @@ class Text {
 		$content = str_replace('"', '&quot;', $content);
 
 		if ($type == "blob") { // Normal link.
-			if (strlen($content) > $chatBot->settings["max_blob_size"]) {  //Split the windows if they are too big
+			$content = Text::format_message($content);
+			$tmp = str_replace('<pagebreak>', '', $content);
+			
+			// split blob into multiple messages if it's too big
+			if (strlen($tmp) > $chatBot->settings["max_blob_size"]) {
 				$array = explode("<pagebreak>", $content);
 				$pagebreak = true;
 				
@@ -89,8 +92,7 @@ class Text {
 				$result[$page] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].$result[$page]."\">$name</a> (Page <highlight>$page - End<end>)";
 				return $result;
 			} else {
-				$content = str_replace('<pagebreak>', '', $content);
-				return "<a $style href=\"text://".$chatBot->settings["default_window_color"].$content."\">$name</a>";
+				return "<a $style href=\"text://".$chatBot->settings["default_window_color"].$tmp."\">$name</a>";
 			}
 		} else if ($type == "text") { // Majic link.
 			$content = str_replace("'", '&#39;', $content);
@@ -126,30 +128,32 @@ class Text {
 	 */
 	public static function format_message($message) {
 		global $chatBot;
-	
-		// Color
-		$message = str_ireplace("<header>", $chatBot->settings['default_header_color'], $message);
-		$message = str_ireplace("<highlight>", $chatBot->settings['default_highlight_color'], $message);
-		$message = str_ireplace("<black>", "<font color='#000000'>", $message);
-		$message = str_ireplace("<white>", "<font color='#FFFFFF'>", $message);
-		$message = str_ireplace("<yellow>", "<font color='#FFFF00'>", $message);
-		$message = str_ireplace("<blue>", "<font color='#8CB5FF'>", $message);
-		$message = str_ireplace("<green>", "<font color='#00DE42'>", $message);
-		$message = str_ireplace("<red>", "<font color='#ff0000'>", $message);
-		$message = str_ireplace("<orange>", "<font color='#FCA712'>", $message);
-		$message = str_ireplace("<grey>", "<font color='#C3C3C3'>", $message);
-		$message = str_ireplace("<cyan>", "<font color='#00FFFF'>", $message);
 		
-		$message = str_ireplace("<neutral>", $chatBot->settings['default_neut_color'], $message);
-		$message = str_ireplace("<omni>", $chatBot->settings['default_omni_color'], $message);
-		$message = str_ireplace("<clan>", $chatBot->settings['default_clan_color'], $message);
-		$message = str_ireplace("<unknown>", $chatBot->settings['default_unknown_color'], $message);
+		$array = array(
+			"<header>" => $chatBot->settings['default_header_color'],
+			"<highlight>" => $chatBot->settings['default_highlight_color'],
+			"<black>" => "<font color='#000000'>",
+			"<white>" => "<font color='#FFFFFF'>",
+			"<yellow>" => "<font color='#FFFF00'>",
+			"<blue>" => "<font color='#8CB5FF'>",
+			"<green>" => "<font color='#00DE42'>",
+			"<red>" => "<font color='#ff0000'>",
+			"<orange>" => "<font color='#FCA712'>",
+			"<grey>" => "<font color='#C3C3C3'>",
+			"<cyan>" => "<font color='#00FFFF'>",
+			
+			"<neutral>" => $chatBot->settings['default_neut_color'],
+			"<omni>" => $chatBot->settings['default_omni_color'],
+			"<clan>" => $chatBot->settings['default_clan_color'],
+			"<unknown>" => $chatBot->settings['default_unknown_color'],
 
-		$message = str_ireplace("<myname>", $chatBot->vars["name"], $message);
-		$message = str_ireplace("<myguild>", $chatBot->vars["my_guild"], $message);
-		$message = str_ireplace("<tab>", "    ", $message);
-		$message = str_ireplace("<end>", "</font>", $message);
-		$message = str_ireplace("<symbol>", $chatBot->settings["symbol"] , $message);
+			"<myname>" => $chatBot->vars["name"],
+			"<myguild>" => $chatBot->vars["my_guild"],
+			"<tab>" => "    ",
+			"<end>" => "</font>",
+			"<symbol>" => $chatBot->settings["symbol"]);
+		
+		$message = str_ireplace(array_keys($array), array_values($array), $message);
 
 		return $message;
 	}
