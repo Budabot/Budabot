@@ -32,7 +32,7 @@
 if (preg_match("/^(xitems|litems|items) ([0-9]+) (.+)$/i", $message, $arr)) {
     $ql = $arr[2];
     if (!($ql >= 1 && $ql <= 500)) {
-        $msg = "Invalid Ql specified(1-500)";
+        $msg = "Invalid Ql specified (1-500)";
         $chatBot->send($msg, $sendto);
         return;
     }
@@ -47,16 +47,7 @@ if (preg_match("/^(xitems|litems|items) ([0-9]+) (.+)$/i", $message, $arr)) {
 
 // ao automatically converts '&' to '&amp;', so we convert it back
 $search = str_replace("&amp;", "&", $search);
-
-if ($arr[1] == 'xitems') {
-	$msg = find_items_from_xyphos($search, $ql);
-} else if ($arr[1] == 'litems') {
-	$msg = find_items_from_local($search, $ql);
-} else if ($chatBot->settings["itemdb_location"] == 'Xyphos.com') {
-	$msg = find_items_from_xyphos($search, $ql);
-} else {
-	$msg = find_items_from_local($search, $ql);
-}
+$msg = find_items_from_local($search, $ql);
 $chatBot->send($msg, $sendto);
 
 ?>

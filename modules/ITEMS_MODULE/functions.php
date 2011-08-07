@@ -57,37 +57,6 @@ function download_newest_itemsdb() {
 	return $msg;
 }
 
-function find_items_from_xyphos($search, $ql = null) {
-	$icons = 'true';
-	$color_header = 'DFDF00';
-	$color_highlight = '97BE37';
-	$color_normal = 'CCF0AD';
-	$server = 'http://cidb.xyphos.com/';
-	$max = 50;
-	
-	if (!$ql) {
-		$ql = '0';
-	}
-	
-	$url  = $server;
-	$url .= '?bot=BeBot';
-	$url .= '&output=aoml';
-	$url .= '&max=' . $max;
-	$url .= '&search=' . urlencode($search);
-	$url .= '&ql=' . $ql;
-	$url .= '&icons=' . $icons;
-	$url .= '&color_header=' . $color_header;
-	$url .= '&color_highlight=' . $color_highlight;
-	$url .= '&color_normal=' . $color_normal;
-
-	$msg = file_get_contents($url);
-	if (empty($msg)) {
-		$msg = "Unable to query Central Items Database.";
-	}
-	
-	return $msg;
-}
-
 function find_items_from_local($search, $ql) {
 	global $chatBot;
 	$db = DB::get_instance();
