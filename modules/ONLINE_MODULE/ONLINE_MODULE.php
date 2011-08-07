@@ -26,6 +26,9 @@
 	Setting::add($MODULE_NAME, "fancy_online", "Show fancy delimiters on the online display", "edit", "options", "1", "true;false", "1;0");
 	Setting::add($MODULE_NAME, "icon_fancy_online", "Show profession icons in the online display", "edit", "options", "1", "true;false", "1;0");
 	Setting::add($MODULE_NAME, "online_group_by", "Show online list grouped by guild name or by profession", "edit", "options", "profession", "profession;guild");
+	Setting::add($MODULE_NAME, "online_show_org", "Show org information for players in the online list", "edit", "options", "1", "Shows all org info;Shows org info on characters not in your org;Shows no org info", "2;1;0");
+	Setting::add($MODULE_NAME, "online_colorful", "Use fancy coloring for online list", "edit", "options", "1", "true;false", "1;0");
+	Setting::add($MODULE_NAME, "online_admin", "Show admin levels in online list", "edit", "options", "0", "true;false", "1;0");
 
 	Event::register($MODULE_NAME, "logOn", "logonline.php", "none", "Sends a tell to players on logon showing who is online in org");
 

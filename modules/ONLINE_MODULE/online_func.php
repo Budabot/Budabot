@@ -21,7 +21,8 @@ function get_online_list($prof = "all") {
 		$order_by = "ORDER BY `channel` ASC, `name` ASC";
 	}
 
-	$list = "";
+	//$list = "";
+	$list = array();
 	$db->query("SELECT p.*, o.name, o.channel, o.afk FROM `online` o LEFT JOIN players p ON o.name = p.name WHERE o.channel_type = 'guild' {$prof_query} {$order_by}");
 
 	$oldprof = "";
@@ -30,10 +31,11 @@ function get_online_list($prof = "all") {
 		$guild_name = "[<myguild>] ";
 	}
 	if ($numonline == 1) {
-		$list .= "<header>::::: 1 member online $guild_name:::::<end>\n";
+		$list[] = array("content" => "<header>::::: 1 member online $guild_name:::::<end>\n");
 	} else {
-		$list .= "<header>::::: $numonline members online $guild_name:::::<end>\n";
+		$list[] = array("content" => "<header>::::: $numonline members online $guild_name:::::<end>\n");
 	}
+	
 	$data = $db->fObject("all");
 	// create the list with alts shown
 	createList($data, $list, true);
@@ -43,9 +45,9 @@ function get_online_list($prof = "all") {
 
 	$numguest = $db->numrows();
 	if ($numguest == 1) {
-		$list .= "\n\n<highlight><u>1 User in Private Channel<end></u>\n";
+		$list[] = array("content" => "\n\n<highlight><u>1 member User in Private Channel<end></u>\n");
 	} else {
-		$list .= "\n\n<highlight><u>$numguest Users in Private Channel<end></u>\n";
+		$list[] = array("content" => "\n\n<highlight><u>$numonline Users in Private Channel<end></u>\n");
 	}
 	$data = $db->fObject("all");
 	// create the list of guests, without showing alts
@@ -65,9 +67,9 @@ function get_online_list($prof = "all") {
 		$numbbinmembers = $db->numrows();
 		$data = $db->fObject("all");
 		if ($numbbinmembers == 1) {
-			$list .= "\n\n<highlight><u>1 member in BBIN<end></u>\n";
+			$list[] = array("content" => "\n\n<highlight><u>1 member in BBIN<end></u>\n");
 		} else {
-			$list .= "\n\n<highlight><u>$numbbinmembers members in BBIN<end></u>\n";
+			$list[] = array("content" => "\n\n<highlight><u>$numbbinmembers members in BBIN<end></u>\n");
 		}
 		createListByProfession($data, $list, false);
 		
@@ -76,9 +78,9 @@ function get_online_list($prof = "all") {
 		$numbbinguests = $db->numrows();
 		$data = $db->fObject("all");
 		if ($numbbinguests == 1) {
-			$list .= "\n\n<highlight><u>1 guest in BBIN<end></u>\n";
+			$list[] = array("content" => "\n\n<highlight><u>1 guest in BBIN<end></u>\n");
 		} else {
-			$list .= "\n\n<highlight><u>$numbbinguests guests in BBIN<end></u>\n";
+			$list[] = array("content" => "\n\n<highlight><u>$numbbinguests guests in BBIN<end></u>\n");
 		}
 		createListByProfession($data, $list, false);
 		
@@ -99,9 +101,21 @@ function createList(&$data, &$list, $show_alts) {
 }
 
 function createListByChannel(&$data, &$list, $show_alts) {
+	global $chatBot; //To access my_guild
 	$db = DB::get_instance();
 
-	$oldprof = "";
+	//Colorful temporary var settings (avoid a mess of if statements later in the function)
+	$fancyColon = "::";
+	if (Setting::get("online_colorful") == "1")
+	{
+		$fancyColon = "<highlight>::<end>";
+	}
+	
+	$orgShow = Setting::get("online_show_org");
+	
+	$current_channel = "";
+	$current_header = "";
+	$current_content = "";
 	forEach ($data as $row) {
 		$name = Text::make_link($row->name, "/tell $row->name", "chatcmd");
 		 
@@ -110,148 +124,214 @@ function createListByChannel(&$data, &$list, $show_alts) {
 		}
 		
 		if ($current_channel != $row->channel) {
-			$list .= "\n<tab><highlight>$row->channel<end>\n";
+			if (!empty($current_channel)) {
+				$list[] = array("header" => $current_header, "content" => $current_content); //And don't forget to store the last segment
+			}
+			$current_header = "\n<tab><highlight>$row->channel<end>\n";
+			$current_content = "";
 			$current_channel = $row->channel;
 		}
 
 		if ($row->afk == "kiting") {
-			$afk = " <highlight>::<end> <red>KITING<end>";
+			$afk = " $fancyColon <red>KITING<end>";
 		} else if ($row->afk == '1') {
-			$afk = " <highlight>::<end> <red>AFK<end>";
+			$afk = " $fancyColon <red>AFK<end>";
 		} else if ($row->afk != '') {
-			$afk = " <highlight>::<end> <red>AFK - {$row->afk}<end>";
+			$afk = " $fancyColon <red>AFK - {$row->afk}<end>";
 		} else {
 			$afk = "";
 		}
 		
 		if ($row->profession == "Unknown") {
-			$list .= "<tab><tab><highlight>$name<end> - Unknown\n";
+			$list .= "<tab><tab>$name - Unknown\n";
 		} else {
 			if ($show_alts == true) {
 				$db->query("SELECT * FROM alts WHERE `alt` = '$row->name'");
 				if ($db->numrows() == 0) {
-					$alt = "<highlight>::<end> <a href='chatcmd:///tell <myname> alts $row->name'>Alts</a>";
+					$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alts</a>";
 				} else {
 					$row1 = $db->fObject();
-					$alt = "<highlight>::<end> <a href='chatcmd:///tell <myname> alts $row->name'>Alts of $row1->main</a>";
+					$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alts of $row1->main</a>";
 				}
+				
+				if (Setting::get("online_admin") == "1") { //When building list without alts, we don't show admin info
+					$alvl = AccessLevel::get_admin_level($row->name);
+					switch ($alvl)
+					{
+						case 4: $admin = " $fancyColon <red>Admin<end>"; break;
+						case 3: $admin = " $fancyColon <green>Mod<end>"; break;
+						case 2: $admin = " $fancyColon <orange>RL<end>"; break;
+					}
 					
-				if ($row->guild == "") {
-					$guild = "Not in a guild";
+					if (strtolower($chatBot->vars["SuperAdmin"]) == strtolower($row->name)) {
+						$admin = " $fancyColon <red>SuperAdmin<end>";
+					}
 				} else {
-					$guild = $row->guild." (<highlight>$row->guild_rank<end>)";
+					$admin = "";
 				}
-				$list .= "<tab><tab><highlight>$name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk $alt\n";
 			} else {
-				if ($row->guild == "") {
-					$guild = "Not in a guild";
-				} else {
-					$guild = $row->guild;
-				}
-				$list .= "<tab><tab><highlight>$name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk\n";
+				$alt = "";
+				$admin = "";
 			}
+			
+			if ($orgShow == "2" || ($orgShow == "1" && ($row->guild != $chatBot->vars['my_guild'] || $chatBot->vars['my_guild'] != '')))
+			{
+				if ($row->guild == "") { //No guild
+					$guild = " $fancyColon Not in a guild";
+				} else if ($orgShow == "2" && $row->guild == $charBot->vars['my_guild']) {
+					$guild = " $fancyColon " . $row->guild_rank; // If in same guild, shows rank
+				} else if ($orgShow == "2") {
+					$guild = " $fancyColon " . $row->guild . " (" . $row->guild_rank . ")"; // Not in guild, show guild name & rank (on all guild info)
+				} else {
+					$guild = " $fancyColon " . $row->guild; // Not in guild, show guild name (on limited guild info)
+				}
+			}
+			
+			$current_content .= "<tab><tab>$name (Lvl $row->level/<green>$row->ai_level<end>)$guild$afk$alt$admin\n";
 		}
 	}
+	
+	$list[] = array("header" => $current_header, "content" => $current_content); //And don't forget to store the last segment
 }
 
 function createListByProfession(&$data, &$list, $show_alts) {
+	global $chatBot; //To access my_guild
 	$db = DB::get_instance();
 
+	//Colorful temporary var settings (avoid a mess of if statements later in the function)
+	$fancyColon = "::";
+	if (Setting::get("online_colorful") == "1")
+	{
+		$fancyColon = "<highlight>::<end>";
+	}
+	
+	$orgShow = Setting::get("online_show_org");
+	
 	$current_profession = "";
+	$current_header = "";
+	$current_content = "";
 	forEach ($data as $row) {
+		
 		$name = Text::make_link($row->name, "/tell $row->name", "chatcmd");
-		 
+		
 		if ($row->profession == "") {
 			$row->profession = "Unknown";
 		}
 		
 		if ($current_profession != $row->profession) {
+			if (!empty($current_profession)) {
+				$list[] = array("header" => $current_header, "content" => $current_content, "incomplete_footer" => "\nContinued...", "incomplete_header" => $current_header);
+				$current_header = "";
+				$current_content = "";
+			}
 			if (Setting::get("fancy_online") == 0) {
 				// old style delimiters
-				$list .= "\n<tab><highlight>$row->profession<end>\n";
+				$current_header = "\n<tab><highlight>$row->profession<end>\n";
 				$current_profession = $row->profession;
 			} else {
 				// fancy delimiters
-				$list .= "\n<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
+				$current_header = "\n<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
 				if (Setting::get("icon_fancy_online") == 1) {
 					if ($row->profession == "Adventurer")
-						$list .= "<img src=rdb://84203>";
+						$current_header .= "<img src=rdb://84203>";
 					else if ($row->profession == "Agent")
-						$list .= "<img src=rdb://16186>";
+						$current_header .= "<img src=rdb://16186>";
 					else if ($row->profession == "Bureaucrat")
-						$list .= "<img src=rdb://46271>";
+						$current_header .= "<img src=rdb://46271>";
 					else if ($row->profession == "Doctor")
-						$list .= "<img src=rdb://44235>";
+						$current_header .= "<img src=rdb://44235>";
 					else if ($row->profession == "Enforcer")
-						$list .= "<img src=rdb://117926>";
+						$current_header .= "<img src=rdb://117926>";
 					else if ($row->profession == "Engineer")
-						$list .= "<img src=rdb://16307>";
+						$current_header .= "<img src=rdb://16307>";
 					else if ($row->profession == "Fixer")
-						$list .= "<img src=rdb://16300>";
+						$current_header .= "<img src=rdb://16300>";
 					else if ($row->profession == "Keeper")
-						$list .= "<img src=rdb://38911>";
+						$current_header .= "<img src=rdb://38911>";
 					else if ($row->profession == "Martial Artist")
-						$list .= "<img src=rdb://16289>";
+						$current_header .= "<img src=rdb://16289>";
 					else if ($row->profession == "Meta-Physicist")
-						$list .= "<img src=rdb://16283>";
+						$current_header .= "<img src=rdb://16283>";
 					else if ($row->profession == "Nano-Technician")
-						$list .= "<img src=rdb://45190>";
+						$current_header .= "<img src=rdb://45190>";
 					else if ($row->profession == "Soldier")
-						$list .= "<img src=rdb://16195>";
+						$current_header .= "<img src=rdb://16195>";
 					else if ($row->profession == "Shade")
-						$list .= "<img src=rdb://39290>";
+						$current_header .= "<img src=rdb://39290>";
 					else if ($row->profession == "Trader")
-						$list .= "<img src=rdb://118049>";
+						$current_header .= "<img src=rdb://118049>";
 					else {
 						// TODO need unknown icon
-						$list .= "";
+						$current_header .= "";
 					}
 				}
-				$list .= " <highlight>$row->profession<end>";
+				$current_header .= " <highlight>$row->profession<end>";
 				$current_profession = $row->profession;
 
-				$list .= "\n<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
+				$current_header .= "\n<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
 			}
 		}
 
 		if ($row->afk == "kiting") {
-			$afk = " <highlight>::<end> <red>KITING<end>";
+			$afk = " $fancyColon <red>KITING<end>";
 		} else if ($row->afk == '1') {
-			$afk = " <highlight>::<end> <red>AFK<end>";
+			$afk = " $fancyColon <red>AFK<end>";
 		} else if ($row->afk != '') {
-			$afk = " <highlight>::<end> <red>AFK - {$row->afk}<end>";
+			$afk = " $fancyColon <red>AFK - {$row->afk}<end>";
 		} else {
 			$afk = "";
 		}
 		
 		if ($row->profession == "Unknown") {
-			$list .= "<tab><tab><highlight>$name<end> - Unknown\n";
+			$list .= "<tab><tab>$name - Unknown\n";
 		} else {
 			if ($show_alts == true) {
 				$db->query("SELECT * FROM alts WHERE `alt` = '$row->name'");
 				if ($db->numrows() == 0) {
-					$alt = "<highlight>::<end> <a href='chatcmd:///tell <myname> alts $row->name'>Alts</a>";
+					$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alts</a>";
 				} else {
 					$row1 = $db->fObject();
-					$alt = "<highlight>::<end> <a href='chatcmd:///tell <myname> alts $row->name'>Alts of $row1->main</a>";
+					$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alts of $row1->main</a>";
 				}
+				
+				if (Setting::get("online_admin") == "1") { //When building list without alts, we don't show admin info
+					$alvl = AccessLevel::get_admin_level($row->name);
+					switch ($alvl)
+					{
+						case 4: $admin = " $fancyColon <red>Admin<end>"; break;
+						case 3: $admin = " $fancyColon <green>Mod<end>"; break;
+						case 2: $admin = " $fancyColon <orange>RL<end>"; break;
+					}
 					
-				if ($row->guild == "") {
-					$guild = "Not in a guild";
+					if (strtolower($chatBot->vars["SuperAdmin"]) == strtolower($row->name)) {
+						$admin = " $fancyColon <red>SuperAdmin<end>";
+					}
 				} else {
-					$guild = $row->guild." (<highlight>$row->guild_rank<end>)";
+					$admin = "";
 				}
-				$list .= "<tab><tab><highlight>$name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk $alt\n";
 			} else {
-				if ($row->guild == "") {
-					$guild = "Not in a guild";
-				} else {
-					$guild = $row->guild;
-				}
-				$list .= "<tab><tab><highlight>$name<end> (Lvl $row->level/<green>$row->ai_level<end>) <highlight>::<end> $guild$afk\n";
+				$alt = "";
+				$admin = "";
 			}
+			
+			if ($orgShow == "2" || ($orgShow == "1" && ($row->guild != $chatBot->vars['my_guild'] || $chatBot->vars['my_guild'] == '')))
+			{
+				if ($row->guild == "") { //No guild
+					$guild = " $fancyColon Not in a guild";
+				} else if ($orgShow == "2" && $row->guild == $charBot->vars['my_guild']) {
+					$guild = " $fancyColon " . $row->guild_rank; // If in same guild, shows rank
+				} else if ($orgShow == "2") {
+					$guild = " $fancyColon " . $row->guild . " (" . $row->guild_rank . ")"; // Not in guild, show guild name & rank (on all guild info)
+				} else {
+					$guild = " $fancyColon " . $row->guild; // Not in guild, show guild name (on limited guild info)
+				}
+			}
+			
+			$current_content .= "<tab><tab>$name (Lvl $row->level/<green>$row->ai_level<end>)$guild$afk$alt$admin\n";
 		}
 	}
+	
+	$list[] = array("header" => $current_header, "content" => $current_content); //And don't forget to store the last segment
 }
 
 ?>
