@@ -58,15 +58,27 @@ function download_newest_itemsdb() {
 }
 
 function find_items_from_xyphos($search, $ql = null) {
-	$cidb_server = "http://cidb.xyphos.com";
-	$url = $cidb_server;
-	$url .= '?search=' . urlencode($search);
-	$url .= "&bot=budabot";
-	$url .= "&output=aoml";
-
-	if ($ql) {
-		$url .= '&ql=' . $ql;
+	$icons = 'true';
+	$color_header = 'DFDF00';
+	$color_highlight = '97BE37';
+	$color_normal = 'CCF0AD';
+	$server = 'http://cidb.xyphos.com/';
+	$max = 50;
+	
+	if (!$ql) {
+		$ql = '0';
 	}
+	
+	$url  = $server;
+	$url .= '?bot=BeBot';
+	$url .= '&output=aoml';
+	$url .= '&max=' . $max;
+	$url .= '&search=' . urlencode($search);
+	$url .= '&ql=' . $ql;
+	$url .= '&icons=' . $icons;
+	$url .= '&color_header=' . $color_header;
+	$url .= '&color_highlight=' . $color_highlight;
+	$url .= '&color_normal=' . $color_normal;
 
 	$msg = file_get_contents($url);
 	if (empty($msg)) {
