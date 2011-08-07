@@ -320,14 +320,14 @@ class DB {
 		if ($d) {
 			while (false !== ($entry = $d->read())) {
 				if (is_file("$dir/$entry") && preg_match("/^" . $name . "([0-9.]*)\\.sql$/i", $entry, $arr)) {
-					// if there is no version on the file, set the version to 0, and force update every time
+					
+					// If the file has no versioning in its filename, then we go off the modified timestamp
 					if ($arr[1] == '') {
 						$file = $entry;
-						$maxFileVersion = 0;
-						$forceUpdate = true;
+						$maxFileVersion = filemtime("$dir/$file");
 						break;
 					}
-
+					
 					if (Util::compare_version_numbers($arr[1], $maxFileVersion) >= 0) {
 						$maxFileVersion = $arr[1];
 						$file = $entry;
@@ -339,7 +339,7 @@ class DB {
 		if ($file === false) {
 			$msg = "No SQL file found with name '$name' in module '$module'!";
 			Logger::log('ERROR', 'Core', "No SQL file found with name '$name' in module '$module'!");
-		} else if ($forceUpdate || Util::compare_version_numbers($maxFileVersion, $currentVersion) > 0) {
+		} else if (Util::compare_version_numbers($maxFileVersion, $currentVersion) > 0) {
 			$fileArray = file("$dir/$file");
 			//$db->beginTransaction();
 			forEach ($fileArray as $num => $line) {
@@ -353,6 +353,8 @@ class DB {
 		
 			if (!Setting::save($settingName, $maxFileVersion)) {
 				Setting::add($module, $settingName, $settingName, 'noedit', 'text', $maxFileVersion);
+			} else {
+				$db->exec("UPDATE settings_<myname> SET `verify`=1 WHERE `name`='$settingName'"); //Make sure the settings table row isn't dropped during boot-up.
 			}
 			
 			if ($maxFileVersion != 0) {
@@ -365,6 +367,8 @@ class DB {
 		} else {
 			$msg = "'$name' database already up to date! version: '$currentVersion'";
 			Logger::log('DEBUG', 'Core',  "'$name' database already up to date! version: '$currentVersion'");
+			
+			$db->exec("UPDATE settings_<myname> SET `verify`=1 WHERE `name`='$settingName'"); //Make sure the settings table row isn't dropped during boot-up.
 		}
 		
 		return $msg;
