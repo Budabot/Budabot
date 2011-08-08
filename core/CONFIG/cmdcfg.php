@@ -83,19 +83,20 @@ if (!function_exists('get_admin_value')) {
    
    
 if (preg_match("/^config$/i", $message)) {
-	$list = "<header>::::: Module Config :::::<end>\n\n";
-	$list .= "Org Commands - " . 
+	$list = array();
+	$list[] = array("header" => "<header>::::: Module Config :::::<end>\n\n", 
+	"content" => "Org Commands - " .
 		Text::make_link('Enable All', '/tell <myname> config cmd enable guild', 'chatcmd') . " " . 
-		Text::make_link('Disable All', '/tell <myname> config cmd disable guild', 'chatcmd') . "\n";
-	$list .= "Private Channel Commands - " . 
+		Text::make_link('Disable All', '/tell <myname> config cmd disable guild', 'chatcmd') . "\n" . 
+	"Private Channel Commands - " . 
 		Text::make_link('Enable All', '/tell <myname> config cmd enable priv', 'chatcmd') . " " . 
-		Text::make_link('Disable All', '/tell <myname> config cmd disable priv', 'chatcmd') . "\n";
-	$list .= "Private Message Commands - " . 
+		Text::make_link('Disable All', '/tell <myname> config cmd disable priv', 'chatcmd') . "\n" . 
+	"Private Message Commands - " .
 		Text::make_link('Enable All', '/tell <myname> config cmd enable msg', 'chatcmd') . " " . 
-		Text::make_link('Disable All', '/tell <myname> config cmd disable msg', 'chatcmd') . "\n";
-	$list .= "ALL Commands - " . 
+		Text::make_link('Disable All', '/tell <myname> config cmd disable msg', 'chatcmd') . "\n" .
+	"ALL Commands - " .
 		Text::make_link('Enable All', '/tell <myname> config cmd enable all', 'chatcmd') . " " . 
-		Text::make_link('Disable All', '/tell <myname> config cmd disable all', 'chatcmd') . "\n\n\n";
+		Text::make_link('Disable All', '/tell <myname> config cmd disable all', 'chatcmd') . "\n\n\n");
 	
 	$sql = "
 		SELECT
@@ -134,7 +135,7 @@ if (preg_match("/^config$/i", $message)) {
 	
 		$on = "<a href='chatcmd:///tell <myname> config mod $row->module enable all'>On</a>";
 		$off = "<a href='chatcmd:///tell <myname> config mod $row->module disable all'>Off</a>";
-		$list .= strtoupper($row->module)." $a ($on/$off) $c $b\n";
+		$list[] = strtoupper($row->module)." $a ($on/$off) $c $b\n";
 	}
 
 	$msg = Text::make_link("Module Config", $list);
@@ -377,7 +378,8 @@ if (preg_match("/^config$/i", $message)) {
 	if ($db->numrows() == 0) {
 		$msg = "Could not find the command '<highlight>$cmd<end>'";
 	} else {
-		$list = "<header>::::: Configure command $cmd :::::<end>\n\n";
+		$list = array();
+		$list[] = "<header>::::: Configure command $cmd :::::<end>\n\n";
 		$aliases = CommandAlias::find_aliases_by_command($cmd);
 		$count = 0;
 		forEach ($aliases as $row) {
@@ -388,10 +390,10 @@ if (preg_match("/^config$/i", $message)) {
 		}
 		
 		if ($count > 0) {
-			$list .= "<highlight>Aliases:<end> $aliases_blob \n\n";
+			$list[] = "<highlight>Aliases:<end> $aliases_blob \n\n";
 		}
 		
-		$list .= "<u><highlight>Tells:<end></u>\n";	
+		$l = "";
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = 'msg'");
 		if ($db->numrows() == 1) {
 			$row = $db->fObject();
@@ -406,24 +408,25 @@ if (preg_match("/^config$/i", $message)) {
 				$status = "<red>Disabled<end>";
 			}
 			
-			$list .= "Current Status: $status (Access: $row->admin) \n";
-			$list .= "Enable or Disable Command: ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." enable msg'>ON</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." disable msg'>OFF</a>\n";
+			$l .= "Current Status: $status (Access: $row->admin) \n";
+			$l .= "Enable or Disable Command: ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." enable msg'>ON</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." disable msg'>OFF</a>\n";
 
-			$list .= "Set minimum access lvl to use this command: ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg all'>All</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg leader'>Leader</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg rl'>RL</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg mod'>Mod</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg admin'>Admin</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg guildadmin'>Guildadmin</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg guild'>Guild</a>\n";
+			$l .= "Set minimum access lvl to use this command: ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg all'>All</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg leader'>Leader</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg rl'>RL</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg mod'>Mod</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg admin'>Admin</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg guildadmin'>Guildadmin</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg guild'>Guild</a>\n";
 		} else {
-			$list .= "Current Status: <red>Unused<end>. \n";
+			$l .= "Current Status: <red>Unused<end>. \n";
 		}
-
-		$list .= "\n\n<u><highlight>Private Channel:<end></u>\n";	
+		$list[] = array("header" => "<u><highlight>Tells:<end></u>\n", "content" => $l, "footer" => "\n\n");
+		
+		$l = "";
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = 'priv'");
 		if ($db->numrows() == 1) {
 			$row = $db->fObject();
@@ -438,24 +441,25 @@ if (preg_match("/^config$/i", $message)) {
 				$status = "<red>Disabled<end>";
 			}
 
-			$list .= "Current Status: $status (Access: $row->admin) \n";
-			$list .= "Enable or Disable Command: ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." enable priv'>ON</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." disable priv'>OFF</a>\n";
+			$l .= "Current Status: $status (Access: $row->admin) \n";
+			$l .= "Enable or Disable Command: ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." enable priv'>ON</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." disable priv'>OFF</a>\n";
 
-			$list .= "Set minimum access lvl to use this command: ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv all'>All</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv leader'>Leader</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv rl'>RL</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv mod'>Mod</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv admin'>Admin</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv guildadmin'>Guildadmin</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv guild'>Guild</a>\n";
+			$l .= "Set minimum access lvl to use this command: ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv all'>All</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv leader'>Leader</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv rl'>RL</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv mod'>Mod</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv admin'>Admin</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv guildadmin'>Guildadmin</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv guild'>Guild</a>\n";
 		} else {
-			$list .= "Current Status: <red>Unused<end>. \n";
+			$l .= "Current Status: <red>Unused<end>. \n";
 		}
+		$list[] = array("header" => "<u><highlight>Private Channel:<end></u>\n", "content" => $l, "footer" => "\n\n");
 
-		$list .= "\n\n<u><highlight>Guild Channel:<end></u>\n";
+		$l = "";
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = 'guild'");
 		if ($db->numrows() == 1) {
 			$row = $db->fObject();
@@ -470,22 +474,21 @@ if (preg_match("/^config$/i", $message)) {
 				$status = "<red>Disabled<end>";
 			}
 
-			$list .= "Current Status: $status (Access: $row->admin) \n";
-			$list .= "Enable or Disable Command: ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." enable guild'>ON</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." disable guild'>OFF</a>\n";
+			$l .= "Current Status: $status (Access: $row->admin) \n";
+			$l .= "Enable or Disable Command: ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." enable guild'>ON</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." disable guild'>OFF</a>\n";
 
-			$list .= "Set minimum access lvl to use this command: ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild all'>All</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild rl'>RL</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild mod'>Mod</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild admin'>Admin</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild guildadmin'>Guildadmin</a>  ";
+			$l .= "Set minimum access lvl to use this command: ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild all'>All</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild rl'>RL</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild mod'>Mod</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild admin'>Admin</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild guildadmin'>Guildadmin</a>  ";
 		} else {
-			$list .= "Current Status: <red>Unused<end>. \n";
+			$l .= "Current Status: <red>Unused<end>. \n";
 		}
-		
-		$list .= "\n\n";
+		$list[] = array("header" => "<u><highlight>Guild Channel:<end></u>\n", "content" => $l, "footer" => "\n\n");
 		
 		$subcmd_list = '';
 
@@ -498,7 +501,7 @@ if (preg_match("/^config$/i", $message)) {
 				if ($row->description != "") {
 					$subcmd_list .= "Description: $row->description\n";
 				}
-					
+				
 				$row->admin = get_admin_description($row->admin);
 				
 				if ($row->status == 1) {
@@ -589,12 +592,12 @@ if (preg_match("/^config$/i", $message)) {
 		}
 		
 		if ($subcmd_list) {
-			$list .= "<header> ::: Subcommands ::: <end>\n\n" . $subcmd_list;
+			$list[] = array("header" => "<header> ::: Subcommands ::: <end>\n\n", "content" => $subcmd_list);
 		}
 		
 		$help = Help::find($cmd, $sender, false);
 		if ($help) {
-			$list .= $help;
+			$list[] = $help;
 		}
 		
 		$msg = Text::make_link(ucfirst($cmd)." config", $list);
@@ -617,7 +620,8 @@ if (preg_match("/^config$/i", $message)) {
 	$chatBot->send("Updated access for helpfile <highlight>$help<end> to <highlight>".ucfirst(strtolower($arr[2]))."<end>.", $sendto);
 } else if (preg_match("/^config help (.+)$/i", $message, $arr)) {
   	$mod = strtoupper($arr[1]);
-	$list = "<header>::::: Configure helpfiles for module $mod :::::<end>\n\n";
+	$list = array();
+	$list[] = "<header>::::: Configure helpfiles for module $mod :::::<end>\n\n";
 
 	$db->query("SELECT * FROM hlpcfg_<myname> WHERE module = '$mod' ORDER BY name");
 	$data = $db->fObject("all");
@@ -625,18 +629,19 @@ if (preg_match("/^config$/i", $message)) {
 		$msg = "Could not file any help files for module '<highlight>$mod<end>'";
 	} else {
 		forEach ($data as $row) {
-			$list .= "<highlight><u>Helpfile</u><end>: $row->name\n";
-			$list .= "<highlight><u>Description</u><end>: $row->description\n";
-			$list .= "<highlight><u>Module</u><end>: $row->module\n";
-			$list .= "<highlight><u>Set Permission</u><end>: ";
-			$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin all'>All</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin leader'>Leader</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin rl'>RL</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin mod'>Mod</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin admin'>Admin</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin guildadmin'>Guildadmin</a>  ";
-			$list .= "<a href='chatcmd:///tell <myname> config help $row->name admin guild'>Guild</a>\n";	  
-			$list .= "\n\n";
+			$l = "";
+			$l .= "<highlight><u>Helpfile</u><end>: $row->name\n";
+			$l .= "<highlight><u>Description</u><end>: $row->description\n";
+			$l .= "<highlight><u>Module</u><end>: $row->module\n";
+			$l .= "<highlight><u>Set Permission</u><end>: ";
+			$l .= "<a href='chatcmd:///tell <myname> config help $row->name admin all'>All</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config help $row->name admin leader'>Leader</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config help $row->name admin rl'>RL</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config help $row->name admin mod'>Mod</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config help $row->name admin admin'>Admin</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config help $row->name admin guildadmin'>Guildadmin</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config help $row->name admin guild'>Guild</a>\n";
+			$list[] = array("content" => $l, "footer" => "\n\n");
 		}
 		$msg = Text::make_link("Configure helpfiles for module $mod", $list);
 	}
@@ -648,34 +653,41 @@ if (preg_match("/^config$/i", $message)) {
 	$on = "<a href='chatcmd:///tell <myname> config mod {$module} enable all'>On</a>";
 	$off = "<a href='chatcmd:///tell <myname> config mod {$module} disable all'>Off</a>";
 	
-	$list = "<header>::::: Bot Settings :::::<end>\n\n";
-	$list .= "<highlight>{$module}<end> - Enable/disable: ($on/$off)\n";	
+	$list = array();
+	$list[] = "<header>::::: Bot Settings :::::<end>\n\n";
+	$list[] = "<highlight>{$module}<end> - Enable/disable: ($on/$off)\n";
+	$l = "";
+	$lh = "";
 
  	$db->query("SELECT * FROM settings_<myname> WHERE `module` = '$module'");
 	if ($db->numrows() > 0) {
 		$found = true;
-		$list .= "\n<i>Settings</i>\n";
+		$lh = "\n<i>Settings</i>\n";
 	}
  	while ($row = $db->fObject()) {
-		$list .= $row->description;
+		$l .= $row->description;
 
 		if ($row->mode == "edit") {
-			$list .= " (<a href='chatcmd:///tell <myname> settings change $row->name'>Modify</a>)";
+			$l .= " (<a href='chatcmd:///tell <myname> settings change $row->name'>Modify</a>)";
 		}
 	
-		$list .= ":  ";
+		$l .= ":  ";
 
 		$options = explode(";", $row->options);
 		if ($row->type == "color") {
-			$list .= $row->value."Current Color</font>\n";
+			$l .= $row->value."Current Color</font>\n";
 		} else if ($row->intoptions != "") {
 			$intoptions = explode(";", $row->intoptions);
 			$intoptions2 = array_flip($intoptions);
 			$key = $intoptions2[$row->value];
-			$list .= "<highlight>{$options[$key]}<end>\n";
+			$l .= "<highlight>{$options[$key]}<end>\n";
 		} else {
-			$list .= "<highlight>{$row->value}<end>\n";	
+			$l .= "<highlight>{$row->value}<end>\n";	
 		}
+	}
+	
+	if ($lh != "") {
+		$list[] = array("header" => $lh, "content" => $l);
 	}
 
 	$sql = 
@@ -695,9 +707,11 @@ if (preg_match("/^config$/i", $message)) {
 		GROUP BY
 			cmd";
 	$db->query($sql);
+	$l = "";
+	$lh = "";
 	if ($db->numrows() > 0) {
 		$found = true;
-		$list .= "\n<i>Commands</i>\n";
+		$lh = "\n<i>Commands</i>\n";
 	}
 	$data = $db->fObject("all");
 	forEach ($data as $row) {
@@ -740,16 +754,21 @@ if (preg_match("/^config$/i", $message)) {
 		}
 
 		if ($row->description != "") {
-			$list .= "$row->cmd ($adv$tell$guild$priv): $on  $off - ($row->description)\n";
+			$l .= "$row->cmd ($adv$tell$guild$priv): $on  $off - ($row->description)\n";
 		} else {
-			$list .= "$row->cmd - ($adv$tell$guild$priv): $on  $off\n";
+			$l .= "$row->cmd - ($adv$tell$guild$priv): $on  $off\n";
 		}
 	}
+	if ($lh != "") {
+		$list[] = array("header" => $lh, "content" => $l);
+	}
 	
+	$l = "";
+	$lh = "";
 	$db->query("SELECT * FROM eventcfg_<myname> WHERE `type` <> 'setup' AND `module` = '$module'");
 	if ($db->numrows() > 0) {
 		$found = true;
-		$list .= "\n<i>Events</i>\n";
+		$lh = "\n<i>Events</i>\n";
 	}
 	while ($row = $db->fObject()) {
 		$on = "<a href='chatcmd:///tell <myname> config event ".$row->type." ".$row->file." enable all'>ON</a>";
@@ -762,10 +781,13 @@ if (preg_match("/^config$/i", $message)) {
 		}
 
 		if ($row->description != "none") {
-			$list .= "$row->type ($row->description) - ($status): $on  $off \n";
+			$l .= "$row->type ($row->description) - ($status): $on  $off \n";
 		} else {
-			$list .= "$row->type - ($status): $on  $off \n";
+			$l .= "$row->type - ($status): $on  $off \n";
 		}
+	}
+	if ($lh != "") {
+		$list[] = array("header" => $lh, "content" => $l);
 	}
 
 	if ($found) {
