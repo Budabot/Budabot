@@ -135,7 +135,7 @@ class Text {
 				}
 				
 				// Make sure all the values of the current array are set (avoid any odd NULL output)
-				if (!is_array($arr)) { $arr = array("header" => $arr); }
+				if (!is_array($arr)) { $arr = array("content" => $arr); }
 				if (isset($arr[0])) { $arr['header'] = $arr[0]; }
 				if (isset($arr[1])) { $arr['content'] = $arr[1]; }
 				if (isset($arr[2])) { $arr['footer'] = $arr[2]; }
@@ -167,24 +167,45 @@ class Text {
 					if (strlen($output) + strlen($arr['content']) < $chatBot->settings["max_blob_size"]) {
 						$output .= $arr['content'];
 					} else {
-						$cArr = explode("\n", $arr['content']);
+						// Split the content into sections based off newlines and <pagebreak> tags
+						$cArrN = explode("\n", $arr['content']);
+						$incNewline = array();
+						$cArr = array();
+						foreach ($cArrN as $str) {
+							$a = explode("<pagebreak>", $str);
+							if (count($a) == 1) {
+								$cArr[] = $str;
+								$incNewline[] = "\n";
+							} else {
+								for ($i = 0; $i < count($a); $i++) {
+									$cArr[] = $a[$i];
+									if ($i + 1 != count($a)) {
+										$incNewline[] = "";
+									} else {
+										$incNewline[] = "\n";
+									}
+								}
+							}
+						}
 						
-						$pagebreak = false;
-						foreach ($cArr as $str)
+						$i = 0;
+						
+						// Process all the sections of the content
+						while ($i < count($cArr))
 						{
+							$str = $cArr[$i];
 							if (strlen($output) + strlen($str) + strlen($arr['footer_incomplete']) < $chatBot->settings["max_blob_size"]) {
 								//We have room to add another line before splitting
-								if ($pagebreak) {
-									$output .= "\n" . $str;
+								if ($i + 1 != count($cArr)) {
+									$output .= $str . $incNewline[$i];
 								} else {
 									$output .= $str;
-									$pagebreak = true;
 								}
+								$i++;
 							} else {
 								$output .= $arr['footer_incomplete'];
 								$outputArr[] = $output;
 								$output = "<header>::::: $name Page " . (count($outputArr) + 1) . " :::::<end>\n\n" . $arr['header_incomplete'];
-								$pagebreak = true;
 							}
 						}
 					}
@@ -210,12 +231,12 @@ class Text {
 			{
 				if (count($outputArr) > 1) {
 					if (count($outputArr) == $index + 1) {
-						$outputArr[$index] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].$page."\">$name</a> (Page <highlight>" . ($index + 1) . " - End<end>)";
+						$outputArr[$index] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].str_replace("<pagebreak>", "",$page)."\">$name</a> (Page <highlight>" . ($index + 1) . " - End<end>)";
 					} else {
-						$outputArr[$index] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].$page."\">$name</a> (Page <highlight>" . ($index + 1) . "<end>)";
+						$outputArr[$index] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].str_replace("<pagebreak>", "",$page)."\">$name</a> (Page <highlight>" . ($index + 1) . "<end>)";
 					}
 				} else {
-					$outputArr = "<a $style href=\"text://".$chatBot->settings["default_window_color"].$page."\">$name</a>";
+					$outputArr = "<a $style href=\"text://".$chatBot->settings["default_window_color"].str_replace("<pagebreak>", "",$page)."\">$name</a>";
 				}
 			}
 			
