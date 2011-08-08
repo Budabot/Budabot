@@ -45,7 +45,8 @@ if (preg_match("/^orgranks$/i", $message)) {
 	$msg = "Getting guild info. Please wait...";
     $chatBot->send($msg, $sendto);
        	
-	$list = "<header> :::::: Members of <myguild> (Sorted by org rank) :::::: <end>\n\n";
+	$list = array("<header> :::::: Members of <myguild> (Sorted by org rank) :::::: <end>\n\n");
+	$l = "";
 	$data = $db->fObject('all');
 	forEach ($data as $row) {
 		if (Buddylist::is_online($row->name) == 1) {
@@ -55,10 +56,11 @@ if (preg_match("/^orgranks$/i", $message)) {
 	    } else {
 	    	$logged_off = "<orange>Unknown<end>";
 		}
-	    	
-	  	$list .= "<tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end> $row->profession) (<highlight>$row->guild_rank<end>) <highlight>::<end> Last logoff: $logged_off\n";
+	    
+	  	$l .= "<tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end> $row->profession) (<highlight>$row->guild_rank<end>) <highlight>::<end> Last logoff: $logged_off\n";
 	}
 	
+	$list[] = $l;
 	$msg = Text::make_link("<myguild> members by org rank ($members)", $list);
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^orgranks ([0-9]+)$/i", $message, $arr1) || preg_match("/^orgranks ([a-z0-9-]+)$/i", $message, $arr2)) {
@@ -95,22 +97,31 @@ if (preg_match("/^orgranks$/i", $message)) {
 	$sql = "SELECT * FROM players WHERE guild_id = {$guild_id} ORDER BY guild_rank_id ASC, name ASC";
 	$db->query($sql);
 	
-	$blob = "{$org->orgname} has {$db->numrows()} members.\n";
+	$blob = array("{$org->orgname} has {$db->numrows()} members.\n\n");
 	
 	$data = $db->fObject('all');
 	$current_rank_id = '';
+	$l = "";
+	$lh = "";
 	forEach ($data as $row) {
 		if ($current_rank_id != $row->guild_rank_id) {
+			if ($current_rank_id != '') {
+				$blob []= array('header' => $lh, 'content' => $l, 'footer' => "\n");
+				$l = "";
+				$lh = "";
+			}
 			$current_rank_id = $row->guild_rank_id;
-			$blob .= "\n<white>{$row->guild_rank}\n";
+			$lh = "<white>{$row->guild_rank}\n";
 		}
 		
-		$blob .= "<tab><highlight>{$row->name} (Level {$row->level}";
+		$l .= "<tab><highlight>{$row->name} (Level {$row->level}";
 		if ($row->ai_level > 0) {
-			$blob .= "<green>/{$row->ai_level}<end>";
+			$l .= "<green>/{$row->ai_level}<end>";
 		}
-		$blob .= ", {$row->gender} {$row->breed} {$row->profession})<end>\n";
+		$l .= ", {$row->gender} {$row->breed} {$row->profession})<end>\n";
 	}
+	
+	$blob[] = array('header' => $lh, 'content' => $l);
 	
 	$msg = Text::make_link("Org ranks for '$org->orgname'", $blob, 'blob');
 	$chatBot->send($msg, $sendto);

@@ -47,9 +47,12 @@ if (!function_exists('orgmatesformat')){
 			$newlist[$amember["rank_id"]][] = $amember["name"];
 		}
 		
+		$blob = array("");
+		
 		for ($rankid = 0; $rankid < count($map[$memberlist["orgtype"]]); $rankid++) {
 			$onlinelist = "";
 			$offlinelist = "";
+			$olcount = 0;
 			$rank_online = 0;
 			$rank_total = count($newlist[$rankid]);
 			
@@ -59,28 +62,41 @@ if (!function_exists('orgmatesformat')){
 					$rank_online++;
 					$onlinelist .= "  " . $memberlist["result"][$newlist[$rankid][$i]]["post"] . "\n";
 				} else {
-					$offlinelist .= $newlist[$rankid][$i] . ", <pagebreak>";
+					if ($offlinelist != "") {
+						$offlinelist .= ", ";
+						if (($olcount % 50) == 0) {
+							$offlinelist .= "<pagebreak>";
+						}
+					}
+					$offlinelist .= $newlist[$rankid][$i];
+					$olcount++;
 				}
 			}
 			
 			$totalonline += $rank_online;
-							
-			$blob .=  "\n" . $color["header"] . $map[$memberlist["orgtype"]][$rankid] . "</font> ";
-			$blob .=  "(" . $color["onlineH"] . "{$rank_online}</font> of " . $color["onlineH"] . "{$rank_total}</font>)\n";
-
-			if ($onlinelist) {
-				$blob .= $onlinelist;
+			
+			$bh = $color["header"] . $map[$memberlist["orgtype"]][$rankid] . "</font> ";
+			$bh .= "(" . $color["onlineH"] . "{$rank_online}</font> online of " . $color["onlineH"] . "{$rank_total}</font>)";
+			
+			$bhi = $bh . " cont...\n";
+			$bh .= "\n";
+			
+			$b = "";
+			if ($onlinelist != "") {
+				$b .= $onlinelist;
 			}
-			if ($offlinelist) {
-				$blob .= $color["offline"] . $offlinelist . "</font>\n";
+			if ($offlinelist != "") {
+				$b .= "  " . $offlinelist;
 			}
+			
+			$blob[] = array("header" => $bh, "content" => $b, "footer" => "\n\n", "header_incomplete" => $bhi, "footer_incomplete" => "\n");
 		}
 		
 		$totaltime = time() - $timestart;
 		$header  = $color["onlineH"].$orgname."<end> has ";
 		$header .= $color["onlineH"]."$totalonline</font> online out of a total of ".$color["onlineH"]."$totalcount</font> members. ";
-		$header .= "(".$color["onlineH"]."$totaltime</font> seconds)\n";
-		$blob = $header.$blob;
+		$header .= "(".$color["onlineH"]."$totaltime</font> seconds)\n\n";
+		$blob[0] = $header;
 		
 		return $blob;
 	}

@@ -8,7 +8,7 @@ if (preg_match("/^findorg (.+)$/i", $message, $arr)) {
 	if ($db->numrows() == 0) {
 		$msg = "No matches found.";
 	} else {
-		$blob = "<header> :::::: Org Search Results for '{$arr[1]}' :::::: <end>\n\n";
+		$blob = "";
 		$data = $db->fObject('all');
 		forEach ($data as $row) {
 			if ($row->guild_id != '') {
@@ -24,7 +24,7 @@ if (preg_match("/^findorg (.+)$/i", $message, $arr)) {
 			}
 		}
 		
-		$msg = Text::make_link("Org Search Results for '{$arr[1]}'", $blob, 'blob');
+		$msg = Text::make_link("Org Search Results for '{$arr[1]}'", array("header" => "<header> :::::: Org Search Results for '{$arr[1]}' :::::: <end>\n\n", "content" => $blob), 'blob');
 	}
 	$chatBot->send($msg, $sendto);	
 } else {

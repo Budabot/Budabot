@@ -48,28 +48,35 @@ if(preg_match("/^orgmembers$/i", $message)) {
     $chatBot->send($msg, $sendto);
     
     $first_char = "";
-	$list = "<header>::::: Members of the org <myguild> :::::<end>";
+	$blob = array("<header>::::: Members of the org <myguild> :::::<end>\n\n");
+	$l = "";
 	$data = $db->fObject('all');
 	forEach ($data as $row) {
 		if (Buddylist::is_online($row->name) == 1) {
 			$logged_off = " :: <highlight>Last logoff:<end> <green>Online<end>";
         } else if ($row->logged_off != "0") {
-	        $logged_off = " :: <highlight>Last logoff:<end>" . gmdate("l F d, Y - H:i", $row->logged_off)."(GMT)";
+	        $logged_off = " :: <highlight>Last logoff:<end> " . gmdate("l F d, Y - H:i", $row->logged_off)."(GMT)";
 	    } else {
 	    	$logged_off = " :: <highlight>Last logoff:<end> <orange>Unknown<end>";
 		}
 	    
 	    if ($row->name[0] != $first_char) {
+			if ($first_char != "") {
+				$blob[] = array("header" => $lh, "content" => $l, "footer" => "\n\n");
+				$l = "";
+			}
 	     	$first_char = $row->name[0];
-			$list .= "\n\n<highlight><u>$first_char</u><end>\n";
+			$lh = "<white><u>$first_char</u><end>\n";
 		}
 		
 		$prof = Util::get_profession_abbreviation($row->profession);
 	    
-		$list .= "<tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end>/$prof/<highlight>$row->guild_rank<end>)$logged_off\n";	    
+		$l .= "<tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end>/$prof/$row->guild_rank)$logged_off\n";	    
 	}
 	
-	$msg = Text::make_link("<myguild> has $members members currently.", $list);
+	$blob[] = array("header" => $lh, "content" => $l);
+	
+	$msg = Text::make_link("<myguild> has $members members currently.", $blob);
  	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^orgmembers ([0-9]+)$/i", $message, $arr1) || preg_match("/^orgmembers ([a-z0-9-]+)$/i", $message, $arr2)) {
 	if ($arr2) {
@@ -105,22 +112,29 @@ if(preg_match("/^orgmembers$/i", $message)) {
 	$sql = "SELECT * FROM players WHERE guild_id = {$guild_id} ORDER BY name ASC";
 	$db->query($sql);
 	
-	$blob = "{$org->orgname} has {$db->numrows()} members.\n";
+	$blob = array("{$org->orgname} has {$db->numrows()} members.\n\n");
 	
 	$data = $db->fObject('all');
+	$l = "";
 	$current_letter = '';
 	forEach ($data as $row) {
 		if ($current_letter != $row->name[0]) {
+			if ($current_letter != "") {
+				$blob[] = array("header" => $lh, "content" => $l, "footer" => "\n\n");
+				$l = "";
+			}
 			$current_letter = $row->name[0];
-			$blob .= "\n<white>{$row->name[0]}\n";
+			$lh = "<white><u>{$row->name[0]}</u><end>\n";
 		}
 		
-		$blob .= "<tab><highlight>{$row->name}, {$row->guild_rank} (Level {$row->level}";
+		$l .= "<tab><highlight>{$row->name}, {$row->guild_rank} (Level {$row->level}";
 		if ($row->ai_level > 0) {
-			$blob .= "<green>/{$row->ai_level}<end>";
+			$l .= "<green>/{$row->ai_level}<end>";
 		}
-		$blob .= ", {$row->gender} {$row->breed} {$row->profession})<end>\n";
+		$l .= ", {$row->gender} {$row->breed} {$row->profession})<end>\n";
 	}
+	
+	$blob[] = array("header" => $lh, "content" => $l);
 	
 	$msg = Text::make_link("Org members for '$org->orgname'", $blob, 'blob');
 	$chatBot->send($msg, $sendto);
