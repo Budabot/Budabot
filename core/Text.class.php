@@ -110,7 +110,8 @@ class Text {
 			 * This algorithm will always split on a line.
 			 * In the event that 'footer_incomplete' is not defined, it is treated as blank.  In the event that 'header_incomplete' is not defined, 'header' will be used instead.
 			 * 
-			 * Note: In the event that 'footer' would go over a blob limit and be placed in another blob, 'footer' is omitted entirely.  'footer' should be used *only* to close up formatting tags.
+			 * Note: In the event that 'footer' would go over a blob limit and be placed in another blob, 'footer' is omitted entirely.  'footer' should be used *only* to close up formatting tags or blank spaces.
+			 * Note: If an entry in the $content array is a string, it is treated as though the string is the content and there are is no attached 'header' or 'footer'.
 			 * 
 			 * 
 			 * Sample 1:
@@ -208,7 +209,7 @@ class Text {
 			foreach ($outputArr as $index => $page)
 			{
 				if (count($outputArr) > 1) {
-					if (count($outputArr) == $index - 1) {
+					if (count($outputArr) == $index + 1) {
 						$outputArr[$index] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].$page."\">$name</a> (Page <highlight>" . ($index + 1) . " - End<end>)";
 					} else {
 						$outputArr[$index] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].$page."\">$name</a> (Page <highlight>" . ($index + 1) . "<end>)";
