@@ -52,16 +52,23 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 	if (count($help_array) == 0) {
 		$msg = "<orange>No Helpfiles found.<end>";
 	} else {
-		$blob = "<header> :::: Help Files for Budabot {$version} ::: <end>\n\n";
+		$blob = array(array("content" => "<header> :::: Help Files for Budabot {$version} ::: <end>\n\n"));
 		$current_module = '';
+		$current_content = '';
 		forEach ($help_array as $row) {
 			if ($current_module != $row->module) {
+				
+				if ($current_module != '') {
+					$blob[] = array("header" => "<highlight><u>{$row->module}:</u><end>\n", "content" => $current_content, "footer" => "\n");
+				}
 				$current_module = $row->module;
-				$blob .= "\n<highlight><u>{$row->module}:</u><end>\n";
+				$current_content = '';
 			}
-		
-			$blob .= "  *{$row->name}: {$row->description} <a href='chatcmd:///tell <myname> help {$row->name}'>Click here</a>\n";
+			
+			$current_content .= "  *{$row->name}: {$row->description} <a href='chatcmd:///tell <myname> help {$row->name}'>Click here</a>\n";
 		}
+		
+		$blob[] = array("header" => "<highlight><u>{$row->module}:</u><end>\n", "content" => $current_content);
 		$msg = Text::make_link("Help(main)", $blob, 'blob');
 	}
 
