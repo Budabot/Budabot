@@ -89,7 +89,7 @@ if (preg_match("/^waitlist next$/i", $message)) {
 		$blob .= "{$count}. $name \n";
 	}
 	
-	$msg = "Your waitlist has been shuffled. " . Text::make_link("Waitlist for $sender ($count)", $blob, 'blob');
+	$msg = "Your waitlist has been shuffled. " . Text::make_blob("Waitlist for $sender ($count)", $blob);
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^waitlist$/i", $message) || preg_match("/^waitlist ([a-z0-9-]+)$/i", $message, $arr)) {
 	if ($arr) {
@@ -111,7 +111,7 @@ if (preg_match("/^waitlist next$/i", $message)) {
 		$blob .= "{$count}. $name \n";
 	}
 	
-	$msg = Text::make_link("Waitlist for $char ($count)", $blob, 'blob');
+	$msg = Text::make_blob("Waitlist for $char ($count)", $blob);
 
   	$chatBot->send($msg, $sendto);
 } else {

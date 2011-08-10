@@ -67,7 +67,7 @@ if (preg_match("/^inactivemem ([0-9]+)/i", $message, $arr)) {
 			
 		}
 	}
-	$msg = Text::make_link("$numinactive Inactive Org Members (Since {$arr[1]} months)",$list);
+	$msg = Text::make_blob("$numinactive Inactive Org Members (Since {$arr[1]} months)", $list);
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;

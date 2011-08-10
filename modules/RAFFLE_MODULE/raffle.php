@@ -34,7 +34,7 @@ if (preg_match("/^raffle start (\d+) (.+)$/i", $message, $arr)) {
 
 Click <a href='chatcmd:///tell <myname> <symbol>raffle join'>here</a> to join the raffle!
 Click <a href='chatcmd:///tell <myname> <symbol>raffle leave'>here</a> if you wish to leave the raffle.";
-	$link = Text::make_link("here", $jnRflMsg, 'blob');
+	$link = Text::make_blob("here", $jnRflMsg);
 	$msg = "
 -----------------------------------------------------------------------
 A raffle for $item (count: $count) has been started by $sender!
@@ -77,7 +77,7 @@ Click $link to join the raffle. Raffle will end in $minutes minutes.
 
 Click <a href='chatcmd:///tell <myname> <symbol>raffle join'>here</a> to join the raffle!
 Click <a href='chatcmd:///tell <myname> <symbol>raffle leave'>here</a> if you wish to leave the raffle.";
-	$link = Text::make_link("here", $jnRflMsg, 'blob');
+	$link = Text::make_blob("here", $jnRflMsg);
 	$msg = "
 -----------------------------------------------------------------------
 A raffle for $item has been started by $sender!

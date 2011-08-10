@@ -24,7 +24,7 @@ if (preg_match("/^findorg (.+)$/i", $message, $arr)) {
 			}
 		}
 		
-		$msg = Text::make_link("Org Search Results for '{$arr[1]}'", array("header" => "<header> :::::: Org Search Results for '{$arr[1]}' :::::: <end>\n\n", "content" => $blob), 'blob');
+		$msg = Text::make_blob("Org Search Results for '{$arr[1]}'", array("header" => "<header> :::::: Org Search Results for '{$arr[1]}' :::::: <end>\n\n", "content" => $blob));
 	}
 	$chatBot->send($msg, $sendto);	
 } else {

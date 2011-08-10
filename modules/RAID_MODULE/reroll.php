@@ -70,7 +70,7 @@ if (preg_match("/^reroll$/i", $message)) {
 			
 			$list .= "\n\n";
 		}
-		$msg2 = Text::make_link("New loot List", $list);
+		$msg2 = Text::make_blob("New loot List", $list);
 	} else {
 		$msg2 = "No List exists yet.";
 	}

@@ -75,7 +75,7 @@ if (preg_match("/^trickle( ([a-zA-Z]+) ([0-9]+)){1,6}$/i", $message, $arr1) || p
 
 	$results = getTrickleResults($abilities);
 	$output .= formatOutput($results, $amount, $abilities);
-	$msg = Text::make_link("Trickle Results", $output);
+	$msg = Text::make_blob("Trickle Results", $output);
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;

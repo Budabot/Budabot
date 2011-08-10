@@ -50,10 +50,9 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 				}
 			}
 		}
-		$output = Text::make_link("Boss", $boss);
-	}
-	//If single match found, output full loot table
-	else if ($name_found  == 1) {
+		$output = Text::make_blob("Boss", $boss);
+	} else if ($name_found  == 1) {
+		//If single match found, output full loot table
 		$db->query("SELECT * FROM boss_namedb WHERE bossname LIKE  '%".str_replace("'", "''", $search)."%' OR keyname LIKE '%".str_replace("'", "''", $search)."%'");
 		$data = $db->fobject("all");
 		foreach ($data as $row)
@@ -82,13 +81,11 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 			$boss .= "<img src=rdb://".$icon.">\n";
 			$boss .= "<a href='itemref://$loid/$hiid/$ql.'>$loot_name</a>\n\n";
 		}
-		$output = Text::make_link("Boss", $boss);
-	}
-	else {
+		$output = Text::make_blob("Boss", $boss);
+	} else {
 		$output .= "<yellow>There were no matches for your search.<end>";
 	}
-}
-else {
+} else {
 	$output .="<yellow>You must enter search criteria after the command.<end>";
 }
 	

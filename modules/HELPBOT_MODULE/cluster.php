@@ -26,7 +26,7 @@ if (preg_match("/^cluster (.+)$/i", $message, $arr)) {
 		$inside .= str_replace("--", "\n\n", $info);
 		$inside .= "by Imoutochan, RK1";
 	
-		$windowlink = Text::make_link("::Cluster search results::", $inside);
+		$windowlink = Text::make_blob("::Cluster search results::", $inside);
 	}
 	$chatBot->send($windowlink, $sendto);
 	if ($found >= 10) {

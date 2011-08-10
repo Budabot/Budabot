@@ -15,7 +15,7 @@ if (preg_match("/^broadcast$/i", $message)) {
 	if (count($data) == 0) {
 		$msg = "No bots are on the broadcast list.";
 	} else {
-		$msg = Text::make_link('Broadcast', $blob, 'blob');
+		$msg = Text::make_blob('Broadcast', $blob);
 	}
 
 	$chatBot->send($msg, $sendto);

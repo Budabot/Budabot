@@ -95,7 +95,7 @@ if (preg_match("/^axp$/i", $message)) {
     $msg .= "29 - 5.475.604 - Vanquisher - 195\n";
     $msg .= "30 - 5.968.409 - Vindicator - 200\n";
 
-    $msg = Text::make_link("AXP Table", $msg);
+    $msg = Text::make_blob("AXP Table", $msg);
 
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^axp ([0-9]+)$/i", $message, $arr)) {

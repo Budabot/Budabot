@@ -113,7 +113,7 @@ if ($db->numrows() == 0) {
 		$list .= $colorlabel."Loser:<end> <{$lose_side}>{$row->lose_guild_name}<end> (".ucfirst($lose_side).")\n";
 		$list .= "Site: $base\n\n";
 	}
-	$msg = Text::make_link("Tower Victories", $list);
+	$msg = Text::make_blob("Tower Victories", $list);
 }
  
 $chatBot->send($msg, $sendto);

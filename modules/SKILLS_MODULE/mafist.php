@@ -68,7 +68,7 @@
 		$inside	.= "Fist damage: ".$dmg."\n";
 		$inside .= "Fist speed: <orange>".$speed."<end>s/<orange>".$speed."<end>s\n";
 		
-		$windowlink = Text::make_link("::Your MA skill results::", $inside);
+		$windowlink = Text::make_blob("::Your MA skill results::", $inside);
 		$chatBot->send($windowlink, $sendto);
 		
 	} else {

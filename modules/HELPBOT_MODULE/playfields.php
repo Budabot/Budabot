@@ -9,7 +9,7 @@ if (preg_match("/^playfields$/i", $message)) {
 		$blob .= "{$row->id}   <green>{$row->long_name}<end>   <cyan>({$row->short_name})<end>\n";
 	}
 	
-	$msg = Text::make_link("Playfields", $blob, 'blob');
+	$msg = Text::make_blob("Playfields", $blob);
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;

@@ -92,7 +92,7 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 	if ($failed_count > 0) {
 		$link .= 'Failed adding '.$failed_count.' alts to your list.';
 	}
-	$msg = Text::make_link($link, $window);
+	$msg = Text::make_blob($link, $window);
 
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^alts (rem|del|remove|delete) ([a-z0-9-]+)$/i", $message, $arr)) {

@@ -35,9 +35,9 @@ if (preg_match("/^friendlist$/i", $message) || preg_match("/^friendlist (clean)$
 		}
 		
 		if ($cleanup) {
-			$msg = Text::make_link("Removed $orphanCount friends from the friendlist", $blob, 'blob');
+			$msg = Text::make_blob("Removed $orphanCount friends from the friendlist", $blob);
 		} else {
-			$msg = Text::make_link("Friendlist Details", $blob, 'blob');
+			$msg = Text::make_blob("Friendlist Details", $blob);
 		}
 		$chatBot->send($msg, $sendto);
 	}
@@ -60,7 +60,7 @@ if (preg_match("/^friendlist$/i", $message) || preg_match("/^friendlist (clean)$
 		}
 
 		if ($count > 0) {
-			$msg = Text::make_link("Friendlist Search Details", $blob, 'blob');
+			$msg = Text::make_blob("Friendlist Search Details", $blob);
 			$chatBot->send($msg, $sendto);
 		} else {
 			$chatBot->send("No friends on the friendlist found containing '$search'", $sendto);

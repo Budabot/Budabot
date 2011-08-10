@@ -163,7 +163,7 @@ if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) ||
 	$list .= "<img src=rdb://$icon_armor_trg>\n";
 	$list .= "<a href='itemref://$lowid_armor_trg/$highid_armor_trg/$trg_ql'>QL$trg_ql $name_armor_trg</a> (";
 	$list .= Text::make_link("Tradeskill process for this item", "/tell <myname> aiarmor $name_armor_trg $trg_ql", "chatcmd").")";
-	$msg = Text::make_link("Building process for $ql $name_armor_result", $list);
+	$msg = Text::make_blob("Building process for $ql $name_armor_result", $list);
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual)$/i", $message, $arr) ||
 		preg_match("/^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual) ([0-9]+)/i", $message, $arr1) ||
@@ -318,7 +318,7 @@ if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) ||
 	$list .= "<highlight>Required Skills:<end>\n";
 	$list .= "- ".ceil($ql * 6)." Psychology\n\n";
 		
-	$msg = Text::make_link("Building process for $ql $armortype", $list);
+	$msg = Text::make_blob("Building process for $ql $armortype", $list);
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;

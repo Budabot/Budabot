@@ -37,7 +37,7 @@ if (preg_match("/^heal (.+)$/i", $message, $arr)) {
 		$chatBot->data['heal_assist'] = $name;
 		$link = "<header>::::: HealAssist Macro on $name :::::\n\n";
 		$link .= "<a href='chatcmd:///macro $name /assist $name'>Click here to make an healassist on $name macro</a>";
-		$msg = Text::make_link("HealAssist Macro on $name", $link);
+		$msg = Text::make_blob("HealAssist Macro on $name", $link);
 		$chatBot->send($msg, 'priv');
 		$chatBot->send($msg, 'priv');
 		$chatBot->send($msg, 'priv');
@@ -45,7 +45,7 @@ if (preg_match("/^heal (.+)$/i", $message, $arr)) {
 	  	$chatBot->data['heal_assist'] = $name;
 		$link = "<header>::::: HealAssist Macro on $name :::::\n\n";
 	  	$link .= "<a href='chatcmd:///macro $name /assist $name'>Click here to make an healassist on $name macro</a>";
-	  	$msg = Text::make_link("HealAssist Macro on $name", $link);
+	  	$msg = Text::make_blob("HealAssist Macro on $name", $link);
 		$chatBot->send($msg, 'priv');
 		$chatBot->send($msg, 'priv');
 		$chatBot->send($msg, 'priv');

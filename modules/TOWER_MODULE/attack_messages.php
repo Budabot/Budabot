@@ -103,7 +103,7 @@ if ($closest_site === null) {
 	$link .= "<highlight>Playfield:<end> {$colorvalue}{$base_link} ({$closest_site->min_ql}-{$closest_site->max_ql})<end>\n";
 	$link .= $colorlabel."Location:<end> {$colorvalue}{$closest_site->site_name} ({$attack_waypoint})<end>\n";
 
-	$more = "[".Text::make_link("more", $link)."]";
+	$more = "[".Text::make_blob("more", $link)."]";
 }
 
 $targetorg = "<".strtolower($def_side).">".$def_guild."<end>";

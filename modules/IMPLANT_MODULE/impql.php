@@ -9,7 +9,7 @@ if (preg_match("/^impql ([0-9]+)$/i", $message, $arr)) {
 	} else {
 		$obj = getRequirements($ql);
 		$clusterInfo = formatClusterBonuses($obj);
-		$link = Text::make_link('More info', $clusterInfo, 'blob');
+		$link = Text::make_blob('More info', $clusterInfo);
 		$msg = "\nFor ql $ql imps\nTreatment required: $obj->treatment.\nAbility Required: $obj->ability\n$link";
 	}
 

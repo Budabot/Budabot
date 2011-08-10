@@ -48,7 +48,7 @@ if (preg_match ("/^bossloot (.+)$/i", $message, $arr)) {
 				}
 			}
 		}
-		$output = Text::make_link("BossLoot", $boss);
+		$output = Text::make_blob("BossLoot", $boss);
 	} else {
 		$output .= "<yellow>There were no matches for your search.<end>";
 	}

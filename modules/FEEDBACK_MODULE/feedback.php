@@ -26,7 +26,7 @@ if (preg_match("/^feedback$/i", $message)) {
 		$details_link = Text::make_link('Details', "/tell <myname> feedback $row->name", 'chatcmd');
 		$blob .= "$row->name  <green>+{$row->pos_rep}<end> <orange>-{$row->neg_rep}<end>   {$details_link}\n";
 	}
-	$msg = Text::make_link("Feedback List ($count)", $blob, 'blob');
+	$msg = Text::make_blob("Feedback List ($count)", $blob);
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^feedback ([a-z0-9-]*) (\\+1|\\-1) (.*)$/i", $message, $arr)) {
 	$charid = $chatBot->get_uid($arr[1]);
@@ -125,7 +125,7 @@ if (preg_match("/^feedback$/i", $message)) {
 			$blob .= "({$row->reputation}) $row->comment <end> $row->by <white>{$time} ago<end>\n\n";
 		}
 		
-		$msg = Text::make_link("Feedback for {$name}", $blob, 'blob');
+		$msg = Text::make_blob("Feedback for {$name}", $blob);
 	}
 
 	$chatBot->send($msg, $sendto);

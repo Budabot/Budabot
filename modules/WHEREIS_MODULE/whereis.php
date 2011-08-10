@@ -31,17 +31,15 @@ if (preg_match("/^whereis (.+)$/i", $message, $arr)) {
 		
 		$whereis = $header . $whereis;
 	
-		$msg = Text::make_link("Whereis", $whereis);
+		$msg = Text::make_blob("Whereis", $whereis);
 	} else if ($whereis_found == 1) {
 		$msg = $whereis;
 	} else {
 		$msg = "<yellow>There were no matches for your search.<end>";
 	}
+	$chatBot->send($msg , $sendto);
+} else {
+	$syntax_error = true;
 }
-else {
-	$msg = "<yellow>You must enter valid search criteria.<end>\n";
-}
-
-$chatBot->send($msg , $sendto);
 
 ?>

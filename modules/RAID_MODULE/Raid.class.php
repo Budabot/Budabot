@@ -48,7 +48,7 @@ class Raid {
 					
 					$list .= "\n\n";
 				}
-				$msg = Text::make_link("Loot List", $list);
+				$msg = Text::make_blob("Loot List", $list);
 			} else {
 				$msg = "No List exists yet.";
 			}
@@ -81,7 +81,7 @@ class Raid {
 					
 					$list .= "\n\n";
 				}
-				$msg = Text::make_link("Raidloot List", $list);
+				$msg = Text::make_blob("Raidloot List", $list);
 			} else {
 				$msg = "No List exists yet.";
 			}

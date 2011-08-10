@@ -43,7 +43,7 @@ if (preg_match("/^notes$/i", $message)) {
 	if (count($data) == 0) {
 		$msg = "No notes for $sender.";	
 	} else {
-		$msg = Text::make_link("Notes for $sender", $blob, 'blob');
+		$msg = Text::make_blob("Notes for $sender", $blob);
 	}
   	
 	$chatBot->send($msg, $sendto);

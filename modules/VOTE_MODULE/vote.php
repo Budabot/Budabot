@@ -66,7 +66,7 @@ if (preg_match("/^vote$/i", $message)) {
 		if ($running && $over) $msg .= "\n";
 		if ($over) {$msg .= " <red>Finshed:<end>\n".$over;}
 
-		$msg = Text::make_link("Vote Listing", $msg);
+		$msg = Text::make_blob("Vote Listing", $msg);
 	} else {
 		$msg = "There are currently no votes to view.";
 	}
@@ -149,7 +149,7 @@ if (preg_match("/^vote$/i", $message)) {
 			if ($row->answer && $timeleft > 0) {$privmsg = "On this vote, you already selected: <highlight>(".$row->answer.")<end>.";}
 			elseif ($timeleft > 0){$privmsg = "You haven't voted on this one yet.";}
 			
-			$msg = Text::make_link("Vote: $question", $msg);
+			$msg = Text::make_blob("Vote: $question", $msg);
 			if ($privmsg) {
 				$chatBot->send($privmsg, $sender);
 			}

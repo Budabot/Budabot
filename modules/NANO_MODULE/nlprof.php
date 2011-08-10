@@ -59,7 +59,7 @@ if (preg_match("/^nlprof (.*)$/i", $message, $arr)) {
 	if ($count > 0) {
 		$window = Text::make_header("$profession Nanolines", "none") . $window;
 		$window .= "\n\nAO Nanos by Voriuste";
-		$msg = Text::make_link("$profession Nanolines", $window, 'blob');
+		$msg = Text::make_blob("$profession Nanolines", $window);
 	} else {
 		$msg = "Profession not found.";
 	}

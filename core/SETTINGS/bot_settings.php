@@ -66,7 +66,7 @@ if (preg_match("/^settings$/i", $message)) {
 		}
 	}
 
-  	$msg = Text::make_link("Bot Settings", $link);
+  	$msg = Text::make_blob("Bot Settings", $link);
  	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^settings change ([a-z0-9_]+)$/i", $message, $arr)) {
 	$setting = strtolower($arr[1]);
@@ -158,7 +158,7 @@ if (preg_match("/^settings$/i", $message)) {
 			$link .= "\n\n" . $help;
 		}
 		
-		$msg = Text::make_link("Settings Info for {$setting}", $link);
+		$msg = Text::make_blob("Settings Info for {$setting}", $link);
 	}
 
  	$chatBot->send($msg, $sendto);

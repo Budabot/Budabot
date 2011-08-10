@@ -65,7 +65,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 	        $list .= "<a href='chatcmd:///cc addbuddy $name'>Add to buddylist</a>\n";
 	        $list .= "<a href='chatcmd:///cc rembuddy $name'>Remove from buddylist</a>";
 			
-	        $msg .= " :: " . Text::make_link("More info", $list, 'blob');
+	        $msg .= " :: " . Text::make_blob("More info", $list);
 	    }
     } else {
         $msg = "Player <highlight>{$name}<end> does not exist.";
@@ -107,7 +107,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
             $list .= "<a href='chatcmd:///cc addbuddy $name'>Add to buddylist</a>\n";
             $list .= "<a href='chatcmd:///cc rembuddy $name'>Remove from buddylist</a>";
 			
-            $msg .= " :: ".Text::make_link("More info", $list, 'blob');
+            $msg .= " :: ".Text::make_blob("More info", $list);
             $msg = "<highlight>Server $server:<end> ".$msg;
         } else {
             $msg = "Server $server: Player <highlight>{$name}<end> does not exist.";

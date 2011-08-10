@@ -31,7 +31,7 @@ if (!function_exists('get_db_loot')) {
 	function get_db_loot($raid, $category) {
 		$blob = Raid::find_raid_loot($raid, $category);
 		$blob .= "\n\nDust Brigrade Loot By Chachy (RK2)";
-		return Text::make_link("$raid $category Loot", $blob);
+		return Text::make_blob("$raid $category Loot", $blob);
 	}
 }
 

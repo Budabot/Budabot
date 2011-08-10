@@ -63,7 +63,7 @@ if (preg_match("/^cloak$/i", $message)) {
                 $list .= "Player: <highlight>".$row->player."<end>\n\n";
             }
         }
-        $msg .= " ".Text::make_link("City History", $list);
+        $msg .= " ".Text::make_blob("City History", $list);
     }
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^cloak (raise|on)$/i", $message)) {

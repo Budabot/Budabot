@@ -35,7 +35,7 @@ if (preg_match("/^searchcmd (.*)/i", $message, $arr)) {
 	if (count($data) == 0) {
 		$msg = "No results found.";
 	} else {
-		$msg = Text::make_link(count($data) . ' results found', $blob, 'blob');
+		$msg = Text::make_blob(count($data) . ' results found', $blob);
 	}
 	$chatBot->send($msg, $sendto);
 }

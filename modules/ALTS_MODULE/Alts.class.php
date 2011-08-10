@@ -90,7 +90,7 @@ class Alts {
 			}
 		}
 		
-		$msg = Text::make_link("Alts of $main", $list, 'blob');
+		$msg = Text::make_blob("Alts of $main", $list);
 		
 		return $msg;
 	}

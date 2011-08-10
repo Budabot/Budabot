@@ -22,40 +22,44 @@
    ** For more information please visit http://www.gnu.org/licenses/gpl-3.0.txt
    */
    
-if($xml = simplexml_load_file("modules/BANK_MODULE/bank.xml")){
-	if(preg_match("/^bank$/i", $message)){
+if ($xml = simplexml_load_file("modules/BANK_MODULE/bank.xml")) {
+	if (preg_match("/^bank$/i", $message)) {
 		$item_count = 0;
 		$backpack_count = 0;
 		$msg = "";
-		foreach ($xml->children() as $base_container) {// Loops through inventory and bank
+		// Loops through inventory and bank
+		forEach ($xml->children() as $base_container) {
 			$msg .= "- ".ucwords($base_container->getName())."\n";
 			$packprelude = substr($base_container->getName(), 0, 1);
-			foreach ($base_container->children() as $base_slot) {// Loops through items and backpacks
-				if($base_slot->getName()=='item'){
+			// Loops through items and backpacks
+			forEach ($base_container->children() as $base_slot) {
+				if ($base_slot->getName() == 'item') {
 					$msg .= "<tab>> ".Text::make_item($base_slot['lowid'], $base_slot['highid'], $base_slot['ql'], $base_slot['name'])." Item ID: ".$base_slot['id']."\n";
 					$item_count++;
-				}elseif($base_slot->getName()=='backpack'){
+				} else if ($base_slot->getName() == 'backpack') {
 					$backpack_inside_count = 0;
 					$backpack_count++;
-					foreach ($base_slot->children() as $item) {// Loops through items in backpacks
+					// Loops through items in backpacks
+					forEach ($base_slot->children() as $item) {
 						$backpack_inside_count++;
 						$item_count++;
 					}
-					if($backpack_inside_count)
-					$msg .= "<tab>+ ".Text::make_link("Backpack #".$base_slot['id'], "/tell <myname> pack ".$packprelude.$base_slot['id'], "chatcmd")." Contains ".$backpack_inside_count." items\n";
-					else
-					$msg .= "<tab>- Backpack #".$base_slot['id']." Is empty\n";
+					if ($backpack_inside_count) {
+						$msg .= "<tab>+ ".Text::make_link("Backpack #".$base_slot['id'], "/tell <myname> pack ".$packprelude.$base_slot['id'], "chatcmd")." Contains ".$backpack_inside_count." items\n";
+					} else {
+						$msg .= "<tab>- Backpack #".$base_slot['id']." Is empty\n";
+					}
 				}
 			}
 		}
 		$msg = $item_count." Items in total, ".$backpack_count." Backpacks in total.\n\n".$msg;
-		$link = Text::make_link("Click to browse the org bank", $msg);
+		$link = Text::make_blob("Click to browse the org bank", $msg);
 		$chatBot->send($link, $sendto);
-	}else{
+	} else {
 		$msg = "Incorrect syntax! For more information /tell <myname> help.";
 		$chatBot->send($msg, $sendto);
 	}
-}else{
+} else {
 	$msg = "File not found! Please contact an administrator.";
 	$chatBot->send($msg, $sendto);
 }   

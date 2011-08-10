@@ -22,50 +22,53 @@
    ** For more information please visit http://www.gnu.org/licenses/gpl-3.0.txt
    */
    
-if($xml = simplexml_load_file("modules/BANK_MODULE/bank.xml")){
-	if(preg_match("/^pack ([ib][0-9]+)$/i", $message, $arr)){
-		if(substr($arr[1], 0, 1)=="i")
-		$location = "inventory";
-		else
-		$location = "bank";
+if ($xml = simplexml_load_file("modules/BANK_MODULE/bank.xml")) {
+	if (preg_match("/^pack ([ib][0-9]+)$/i", $message, $arr)) {
+		if (substr($arr[1], 0, 1) == "i") {
+			$location = "inventory";
+		} else {
+			$location = "bank";
+		}
 		$arr = substr($arr[1], 1);
 		$item_count = 0;
 		$foundpack = false;
 
-		foreach ($xml->$location->children() as $backpack) {// Loops through until it finds backpack
-			if($backpack->getName() == "backpack" && $backpack['id'] == $arr){
+		forEach ($xml->$location->children() as $backpack) {// Loops through until it finds backpack
+			if ($backpack->getName() == "backpack" && $backpack['id'] == $arr) {
 				$foundpack = true;
-				if($location == "inventory"){
+				if ($location == "inventory"){
 					$msg = "- Inventory\n";
-				}else{
+				} else {
 					$msg = "+ Inventory\n";
 					$msg .= "- Bank\n";
 				}
 				$msg .= "   - Backpack #".$backpack['id']."\n";
-				foreach ($backpack->children() as $item) {// Loops through items
+				// Loops through items
+				forEach ($backpack->children() as $item) {
 					$msg .= "<tab><tab>> ".Text::make_item($item['lowid'], $item['highid'], $item['ql'], $item['name'])." Item ID: ".$item['id']."\n";
 					$item_count++;
 				}
-				if($location == "inventory")
-				$msg .= "+ Bank\n";
+				if ($location == "inventory") {
+					$msg .= "+ Bank\n";
+				}
 				break;
 			}	
 		}
 		
-		if(!$foundpack){
+		if (!$foundpack) {
 			$link = "Could not find Backpack#".$arr." in ".ucwords($location);
-		}elseif($item_count == 0){
+		} else if ($item_count == 0) {
 			$link = "No items found in Backpack#".$arr." in ".ucwords($location);
-		}else{
+		} else {
 			$msg = $item_count." Items in Backpack#".$arr." in ".ucwords($location)."\n\n".$msg;
-			$link = Text::make_link($item_count." items found in \"Backpack #".$arr."\" in ".ucwords($location), $msg);
+			$link = Text::make_blob($item_count." items found in \"Backpack #".$arr."\" in ".ucwords($location), $msg);
 		}
 		$chatBot->send($link, $sendto);
-	}else{
+	} else {
 		$msg = "Incorrect syntax! For more information /tell <myname> help.";
 		$chatBot->send($msg, $sendto);
 	}
-}else{
+} else {
 	$msg = "File not found! Please contact an administrator.";
 	$chatBot->send($msg, $sendto);
 }

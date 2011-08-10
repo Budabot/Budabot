@@ -157,7 +157,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 	}
 	
 	if ($msg) {
-		$msg = Text::make_link("Results for: '$search'", "<header>::::: Quote Info :::::<end>\n\n$msg");
+		$msg = Text::make_blob("Results for: '$search'", "<header>::::: Quote Info :::::<end>\n\n$msg");
 	} else {
 		$msg = "Couldn't find any matches for this search.";
 	}
@@ -210,7 +210,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 		}
 		$msg .= substr($list,0,strlen($list)-2);
 
-		$msg = Text::make_link("Quote", $msg).': "'.$quoteMSG.'"';
+		$msg = Text::make_blob("Quote", $msg).': "'.$quoteMSG.'"';
 		
 	} else {
 		$msg = "No quote found with that ID.";
@@ -262,7 +262,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 		}
 		$msg .= substr($list,0,strlen($list)-2);
 		
-		$msg = Text::make_link("Quote", $msg).': "'.$quoteMSG.'"';
+		$msg = Text::make_blob("Quote", $msg).': "'.$quoteMSG.'"';
 		
 	} else {
 		$msg = "I dont have any quotes to show!";

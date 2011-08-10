@@ -21,7 +21,7 @@ if (preg_match("/^members$/i", $message)) {
 	  		$list .= "<tab>- $row->name {$status}\n";
 	  	}
 	  	
-	    $msg = Text::make_link("$autoguests member(s)", $list);
+	    $msg = Text::make_blob("$autoguests member(s)", $list);
 		$chatBot->send($msg, $sendto);
 	} else {
        	$chatBot->send("There are no members of this bot.", $sendto);

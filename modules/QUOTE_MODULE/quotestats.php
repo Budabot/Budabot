@@ -59,7 +59,7 @@ forEach ($victims as $key => $val) {
 	}
 }
 
-$msg = Text::make_link("Quote stats from (".date("F j, Y, g:i a").")", $msg);
+$msg = Text::make_blob("Quote stats from (".date("F j, Y, g:i a").")", $msg);
 
 $chatBot->data["quotestats"]= $msg;
 ?>

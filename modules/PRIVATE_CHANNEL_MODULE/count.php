@@ -119,7 +119,7 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
    	    $blob .= "{$percent}% {$row->guild} - {$row->cnt} member(s), average level {$avg_level}\n";
 	}
 	
-	$msg = Text::make_link("Organizations ($numorgs total)", $blob, 'blob');
+	$msg = Text::make_blob("Organizations ($numorgs total)", $blob);
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^count (.*)$/i", $message, $arr)) {
     switch (strtolower($arr[1])) {

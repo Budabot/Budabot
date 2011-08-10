@@ -29,6 +29,6 @@ if ((!$AttTim) || (!$RechT) || (!$FARecharge) || (!$FullAutoSkill)) {
 	$inside .= "From <orange>11K to 15K<end> damage, each bullet damage is halved again.\n";
 	$inside .= "<orange>15K<end> is the damage cap.\n\n";
 
-	$windowlink = Text::make_link("::Your Full Auto Recharge Results::", $inside);
+	$windowlink = Text::make_blob("::Your Full Auto Recharge Results::", $inside);
 	$chatBot->send($windowlink, $sendto);
 }

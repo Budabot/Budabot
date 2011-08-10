@@ -27,7 +27,7 @@ if (preg_match("/^research ([0-9]+)$/i",$message, $arr)) {
 		$blob .= "You need <blue>$sk SK<end> to reach <blue>Research Level $level<end> per research line.\n\n";
 		$blob .= "This equals <orange>$xp XP<end>.\n\n";
 		$blob .= "Your research will cap at <yellow>~$capxp XP<end> or <yellow>~$capsk SK<end>.";
-		$msg = Text::make_link("Research", $blob);
+		$msg = Text::make_blob("Research", $blob);
 	}
 	
 	$chatBot->send($msg, $sendto);
@@ -55,7 +55,7 @@ if (preg_match("/^research ([0-9]+)$/i",$message, $arr)) {
 		$blob .= "<green>You must be <blue>Level $row->levelcap<end> to reach Research Level <blue>$hilevel.<end>\n";
 		$blob .= "It takes <blue>$sk SK<end> to go from Research Level <blue>$lolevel<end> to Research Level <blue>$hilevel<end> per research line.\n\n";
 		$blob .= "This equals <orange>$xp XP<end>.";
-		$msg = Text::make_link("Research", $blob);
+		$msg = Text::make_blob("Research", $blob);
 	}
 	
 	$chatBot->send($msg, $sendto);

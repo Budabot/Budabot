@@ -44,7 +44,7 @@ if (preg_match("/^system$/i", $message, $arr)) {
 		$blob .= "<tab>'{$chatBot->gid[$gid]}' (" . ord(substr($gid, 0, 1)) . " " . $string[1] . ")\n";
 	}
 
-	$msg = Text::make_link('System Info', $blob, 'blob');
+	$msg = Text::make_blob('System Info', $blob);
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;

@@ -10,7 +10,7 @@ if (preg_match("/^whitelist$/", $message)) {
 			$remove = Text::make_link('Remove', "/tell <myname> whitelist remove $entry->name", 'chatcmd');
 			$blob .= "<white>{$entry->name}<end> [<green>added by {$entry->added_by}<end>] <white>{$entry->added_dt}<end> {$remove}\n";
 		}
-		$msg = Text::make_link("Whitelist", $blob, 'blob');
+		$msg = Text::make_blob("Whitelist", $blob);
 		$chatBot->send($msg, $sendto);
 	}
 } else if (preg_match("/^whitelist add (.+)$/", $message, $arr)) {

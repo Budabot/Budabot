@@ -14,7 +14,7 @@ if (preg_match("/^sm$/i", $message)) {
 			}
 	    }
 
-		$msg = Text::make_link("Chatlist ({$numguest})", $list);
+		$msg = Text::make_blob("Chatlist ({$numguest})", $list);
 		$chatBot->send($msg, $sendto);
 	} else {
 		$chatBot->send("No players are in the private channel.", $sendto);

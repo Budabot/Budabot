@@ -61,7 +61,7 @@ if (preg_match("/^orgranks$/i", $message)) {
 	}
 	
 	$list[] = $l;
-	$msg = Text::make_link("<myguild> members by org rank ($members)", $list);
+	$msg = Text::make_blob("<myguild> members by org rank ($members)", $list);
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^orgranks ([0-9]+)$/i", $message, $arr1) || preg_match("/^orgranks ([a-z0-9-]+)$/i", $message, $arr2)) {
 	if ($arr2) {
@@ -123,7 +123,7 @@ if (preg_match("/^orgranks$/i", $message)) {
 	
 	$blob[] = array('header' => $lh, 'content' => $l);
 	
-	$msg = Text::make_link("Org ranks for '$org->orgname'", $blob, 'blob');
+	$msg = Text::make_blob("Org ranks for '$org->orgname'", $blob);
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;

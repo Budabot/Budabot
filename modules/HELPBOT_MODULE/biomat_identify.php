@@ -145,7 +145,7 @@ if (preg_match("/^bio(( *${bio_regex})+)$/i", $message, $arr)){
 		$blob .= Text::make_item($low_id, $high_id, $ql, $name) . "\n\n";
 		$blob .= $use;
 		
-		$msg = Text::make_link("$name (ql $ql)", $blob, 'blob');
+		$msg = Text::make_blob("$name (ql $ql)", $blob);
 		$chatBot->send($msg, $sendto);
 	}
 } else {

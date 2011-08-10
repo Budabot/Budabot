@@ -35,10 +35,9 @@ if (preg_match("/^nano (.+)$/i", $message, $arr)) {
 			$blob .= "Located: {$row->location}\n\n";
 		}
 		
-		$msg = Text::make_link("Nano Search Results ($count)", $blob, 'blob');
+		$msg = Text::make_blob("Nano Search Results ($count)", $blob);
 	}
 
-	// Send info back
 	$chatBot->send($msg, $sendto);
 } else {
   	$syntax_error = true; 	

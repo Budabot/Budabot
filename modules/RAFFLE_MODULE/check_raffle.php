@@ -43,7 +43,7 @@
 
 	$blob .= "\n\n Time left: $time_string.";
 
-	$link = Text::make_link("here", $blob);
+	$link = Text::make_blob("here", $blob);
 	if (1 < $count) {
 		$msg = "<yellow>Reminder:<end> Raffle for $item (count: $count) has $time_string left. Click $link to join.";
 	} else {

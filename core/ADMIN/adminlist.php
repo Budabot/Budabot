@@ -87,7 +87,7 @@ if (preg_match("/^adminlist$/i", $message) || preg_match("/^admins$/i", $message
 		}
 	}
 
-	$link = Text::make_link('Bot Administrators', $list);	
+	$link = Text::make_blob('Bot Administrators', $list);	
 	$chatBot->send($link, $sendto);
 } else {
 	$syntax_error = true;

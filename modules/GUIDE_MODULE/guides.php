@@ -31,7 +31,7 @@ if (preg_match("/^guides list$/i", $message)) {
 		}
 		
 		if ($linkContents) {
-			$msg = Text::make_link('Topics (' . count($topicList) . ')', $linkContents, 'blob');
+			$msg = Text::make_blob('Topics (' . count($topicList) . ')', $linkContents);
 		} else {
 			$msg = "No topics available.";   
 		}
@@ -49,7 +49,7 @@ if (preg_match("/^guides list$/i", $message)) {
 	if (!$info) {
 		$msg = "No info for $fileName could be found";
 	} else {	
-		$msg = Text::make_link(ucfirst($fileName), $info, 'blob');
+		$msg = Text::make_blob(ucfirst($fileName), $info);
 	}
 	$chatBot->send($msg, $sendto);
 } else {

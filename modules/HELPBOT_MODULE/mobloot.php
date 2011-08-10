@@ -14,7 +14,7 @@ if (preg_match("/^mobloot ([0-9]+)$/i", $message, $arr)) {
 		$inside	.= "Monster level: <orange>". $lvl ."<end>\n";
 		$inside .= "Loot QL range: <orange>".$low."<end> - <orange>".$high."<end>\n";
 		
-		$windowlink = Text::make_link("::Your loot QL results::", $inside);
+		$windowlink = Text::make_blob("::Your loot QL results::", $inside);
 		$chatBot->send($windowlink, $sendto);
 	}
 

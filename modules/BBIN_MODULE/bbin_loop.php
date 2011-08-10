@@ -37,7 +37,7 @@ if (($data = fgets($bbin_socket)) && ("1" == $chatBot->settings['bbin_status']))
 			Setting::save("bbin_status","0");
 
 			// send notification to channel
-			$extendedinfo = Text::make_link("Extended informations",$data);
+			$extendedinfo = Text::make_blob("Extended information", $data);
 			if ($chatBot->vars['my_guild'] != "") {
 				$chatBot->send("<yellow>[BBIN]<end> Lost connection with server:".$extendedinfo, "guild", true);
 			}
@@ -46,7 +46,7 @@ if (($data = fgets($bbin_socket)) && ("1" == $chatBot->settings['bbin_status']))
 			}
 		}
 	} else if ("KICK" == $ex[1]) {
-		$extendedinfo = Text::make_link("Extended informations",$data);
+		$extendedinfo = Text::make_blob("Extended information", $data);
 		if ($ex[3] == $chatBot->settings['bbin_nickname']) {
 			// oh noez, I was kicked !
 			Setting::save("bbin_status", "0");

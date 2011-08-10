@@ -144,7 +144,7 @@ if (preg_match("/^whoisorg ([0-9]+)$/i", $message, $arr1) || preg_match("/^whois
 	$link .= "<highlight>Shades:<end> $num_shade (".round(($num_shade*100)/$num_members, 1)."% of total)\n";
 	$link .= "<highlight>Soldiers:<end> $num_sol (".round(($num_sol*100)/$num_members, 1)."% of total)\n";
 	$link .= "<highlight>Traders:<end> $num_trad (".round(($num_trad*100)/$num_members, 1)."% of total)\n";		  			  			  	
-	$msg = Text::make_link("Org Info $org->orgname", $link, 'blob');
+	$msg = Text::make_blob("Org Info $org->orgname", $link);
 
 	$chatBot->send($msg, $sendto);
 } else {

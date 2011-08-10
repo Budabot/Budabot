@@ -203,7 +203,7 @@ if (preg_match("/^timers ([0-9]+)$/i", $message, $arr) || preg_match("/^timers (
 			$msg = "No Timers running atm.";
 		} else {
 			$list = "<header>::::: Currently running Timers :::::<end>\n\n".$list;
-		  	$msg = Text::make_link("Timers currently running", $list);
+		  	$msg = Text::make_blob("Timers currently running", $list);
 		}
 	}
 

@@ -20,7 +20,7 @@ if (preg_match("/^links$/i", $message)) {
 	if (count($data) == 0) {
 		$msg = "No links found.";
 	} else {
-		$msg = Text::make_link('Links', $blob, 'blob');
+		$msg = Text::make_blob('Links', $blob);
 	}
   	
 	$chatBot->send($msg, $sendto);

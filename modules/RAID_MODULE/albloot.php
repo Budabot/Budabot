@@ -31,7 +31,7 @@ if (!function_exists('get_alb_loot')) {
 	function get_alb_loot($raid, $category) {
 		$blob = Raid::find_raid_loot($raid, $category);
 		$blob .= "\n\nAlbtraum Loot By Dare2005 (RK2)";
-		return Text::make_link("$raid $category Loot", $blob);
+		return Text::make_blob("$raid $category Loot", $blob);
 	}
 }
 

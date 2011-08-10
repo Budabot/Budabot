@@ -11,7 +11,7 @@ if (preg_match("/^whompah$/i", $message, $arr)) {
 	}
 	$blob .= "\nWritten By Tyrence (RK2)\nDatabase from a Bebot module written by POD13";
 	
-	$msg = Text::make_link('Whompah Cities', $blob, 'blob');
+	$msg = Text::make_blob('Whompah Cities', $blob);
 	
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^whompah (.+) (.+)$/i", $message, $arr)) {

@@ -45,7 +45,7 @@ if (preg_match("/^nanolines$/i", $message, $arr)) {
 	}
 	$window .= "\n\nAO Nanos by Voriuste";
 
-	$msg = Text::make_link('Nanolines', $window, 'blob');
+	$msg = Text::make_blob('Nanolines', $window);
 
 	$chatBot->send($msg, $sendto);
 } else {

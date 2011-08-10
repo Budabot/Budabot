@@ -38,7 +38,7 @@ if (preg_match("/^check$/i", $message) || preg_match("/^check all$/i", $message)
 	}
 
 	$list .= "<a href='chatcmd:///text AssistAll: $content'>Click here to check who is here</a>";
-	$msg = Text::make_link("Check on all", $list);
+	$msg = Text::make_blob("Check on all", $list);
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^check prof$/i", $message)) {
 	$list = "<header>::::: Check for all professions :::::<end>\n\n";
@@ -54,7 +54,7 @@ if (preg_match("/^check$/i", $message) || preg_match("/^check all$/i", $message)
 		$list .= "<a href='chatcmd:///text Assist $key: $value'>Click here to check $key</a>\n";
 	}
 
-	$msg = Text::make_link("Check on professions", $list);
+	$msg = Text::make_blob("Check on professions", $list);
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^check org$/i", $message)) {
 	$list = "<header>::::: Check for all organizations :::::<end>\n\n";
@@ -74,7 +74,7 @@ if (preg_match("/^check$/i", $message) || preg_match("/^check all$/i", $message)
 		$list .= "<a href='chatcmd:///text Assist $key: $value'>Click here to check $key</a>\n";
 	}
 
-	$msg = Text::make_link("Check on Organizations", $list);
+	$msg = Text::make_blob("Check on Organizations", $list);
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;

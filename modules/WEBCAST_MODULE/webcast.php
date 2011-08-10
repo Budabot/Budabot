@@ -42,7 +42,7 @@ $webpathhelp .= "If the webpath setting is invalid or not existing, the webcast 
 $webpathhelp .= "Solution:\n";
 $webpathhelp .= "/tell <myname> webcast setwebpath [web server path]\n";
 $webpathhelp .= "For example: /tell <myname> webcast setwebpath http://www.myserver.com/online.php\n";
-$webpathhelplink = Text::make_link("::Webcast Error::", $webpathhelp);
+$webpathhelplink = Text::make_blob("::Webcast Error::", $webpathhelp);
 
 if ($command) {
 	if (strtolower($command) == "clearcache") {

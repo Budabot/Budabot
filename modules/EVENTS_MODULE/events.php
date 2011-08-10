@@ -47,7 +47,7 @@ if (preg_match("/^events$/i", $message, $arr)) {
 		}
 		$link = $upcoming_title.$upcoming_events.$past_title.$past_events;
 		
-		$msg = Text::make_link("Latest Events", $link)." [Last updated at ".gmdate("dS M, H:i", $updated)."]";
+		$msg = Text::make_blob("Latest Events", $link)." [Last updated at ".gmdate("dS M, H:i", $updated)."]";
 	} else {
 		$msg = "No events entered yet.";
 	}

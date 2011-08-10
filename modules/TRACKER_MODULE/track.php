@@ -28,7 +28,7 @@ if (preg_match("/^track$/i", $message)) {
 	  		$blob .= "<tab>-[{$history}] {$row->name} ({$status}{$last_action}) - {$remove}\n";
 	  	}
 	  	
-	    $msg = Text::make_link("<highlight>{$numrows}<end> players on the Track List", $blob);
+	    $msg = Text::make_blob("<highlight>{$numrows}<end> players on the Track List", $blob);
 		$chatBot->send($msg, $sendto);
 	} else {
        	$chatBot->send("No players are on the track list.", $sendto);
@@ -81,7 +81,7 @@ if (preg_match("/^track$/i", $message)) {
 	  		$blob .= "$row->event <white>" . date(DATE_RFC850, $row->dt) ."<end>\n";
 	  	}
 	  	
-	    $msg = Text::make_link("Track History for $name", $blob);
+	    $msg = Text::make_blob("Track History for $name", $blob);
 	} else {
 		$msg = "'$name' has never logged on or is not being tracked.";
 	}

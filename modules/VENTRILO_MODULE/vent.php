@@ -102,7 +102,7 @@ if ($error === false) {
 	}
 	
 	$page .= "\n\n*Please note that sometimes the server will not return the right information, if this happens, please try again.\n";
-	$msg = Text::make_link("Vent Status", $page, 'blob');
+	$msg = Text::make_blob("Vent Status", $page);
 
 } else {
 	$msg = "<orange>$error<end>";

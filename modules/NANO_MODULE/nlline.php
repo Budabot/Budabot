@@ -71,10 +71,9 @@ if (preg_match("/^nlline ([0-9]*)$/i", $message, $arr)) {
 
 		$window .= "\n\nAO Nanos by Voriuste";
 
-		$msg = Text::make_link($header, $window, 'blob');
+		$msg = Text::make_blob($header, $window);
 
 	} else {
-
 		$msg = "No nanoline found.";
 	}
 

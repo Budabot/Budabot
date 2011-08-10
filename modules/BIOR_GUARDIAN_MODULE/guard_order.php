@@ -17,7 +17,7 @@ if (count($chatBot->data['guard']) == 0) {
 	$info .= "The bot has it's own Guardian macro to use it just do ";
 	$info .= "<symbol>g in the chat. \n\n";
 	$info .= "<a href='chatcmd:///macro G_Macro /g <myname> <symbol>g'>Click here to make an G macro </a>";
-	$info = Text::make_link("Info", $info);
+	$info = Text::make_blob("Info", $info);
 
   	//Create g Order
 	forEach ($chatBot->data['guard'] as $key => $value) {

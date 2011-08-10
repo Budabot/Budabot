@@ -31,7 +31,7 @@ if (!function_exists('get_pande_loot')) {
 	function get_pande_loot($raid, $category) {
 		$blob = Raid::find_raid_loot($raid, $category);
 		$blob .= "\n\nPande Loot By Marinerecon (RK2)";
-		return Text::make_link("$raid $category Loot", $blob);
+		return Text::make_blob("$raid $category Loot", $blob);
 	}
 }
 
@@ -81,7 +81,7 @@ if (preg_match("/^pande$/i", $message)){
 
 	$list .= "\n\nPande Loot By Marinerecon (RK2)";
 
-	$msg = Text::make_link("Pandemonium Loot", $list);
+	$msg = Text::make_blob("Pandemonium Loot", $list);
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^beastarmor$/i", $message)){
 	$chatBot->send(get_pande_loot('Pande', 'Beast Armor'), $sendto);

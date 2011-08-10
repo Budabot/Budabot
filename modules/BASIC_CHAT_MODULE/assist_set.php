@@ -18,7 +18,7 @@ if (preg_match("/^assist (.+)$/i", $message, $arr)) {
 		
 		$link = "<header>::::: Assist Macro for $name :::::\n\n";
 		$link .= "<a href='chatcmd:///macro $name /assist $name'>Click here to make an assist $name macro</a>";
-		$chatBot->data['assist'] = Text::make_link("Assist $name Macro", $link);
+		$chatBot->data['assist'] = Text::make_blob("Assist $name Macro", $link);
 	} else {
 		forEach ($nameArray as $key => $name) {
 			$name = ucfirst(strtolower($name));

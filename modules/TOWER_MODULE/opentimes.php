@@ -32,7 +32,7 @@ if (preg_match("/^opentimes$/i", $message, $arr)) {
 	}
 	
 	if ($numrows > 0) {
-		$msg = Text::make_link($title, $title . "\n\n" . $blob);
+		$msg = Text::make_blob($title, $title . "\n\n" . $blob);
 	} else {
 		$msg = "No sites found.";
 	}

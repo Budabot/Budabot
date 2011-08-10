@@ -266,7 +266,7 @@ class Budabot extends AOChat {
 	}
 	
 	function sendPrivate($message, $group, $disable_relay = false) {
-		// for when Text::make_link generates several pages
+		// for when Text::make_blob generates several pages
 		if (is_array($message)) {
 			forEach ($message as $page) {
 				$this->send($page, $group, $disable_relay);
@@ -287,7 +287,7 @@ class Budabot extends AOChat {
 			return;
 		}
 
-		// for when Text::make_link generates several pages
+		// for when Text::make_blob generates several pages
 		if (is_array($message)) {
 			forEach ($message as $page) {
 				$this->send($page, $target, $disable_relay);

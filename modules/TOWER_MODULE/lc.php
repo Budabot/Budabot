@@ -9,7 +9,7 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 		$baseLink = Text::make_link($row->long_name, "/tell <myname> lc $row->short_name", 'chatcmd');
 		$blob .= "$baseLink <highlight>($row->short_name)<end>\n";
 	}
-	$msg = Text::make_link('Land Control Index', $blob, 'blob');
+	$msg = Text::make_blob('Land Control Index', $blob);
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^lc ([0-9a-z]+)$/i", $message, $arr)) {
 	$playfield_name = strtoupper($arr[1]);
@@ -32,7 +32,7 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 		$blob .= formatSiteInfo($row) . "\n\n";
 	}
 	
-	$msg = Text::make_link("All Bases in $playfield->long_name", $blob, 'blob');
+	$msg = Text::make_blob("All Bases in $playfield->long_name", $blob);
 	
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^lc ([0-9a-z]+) ([0-9]+)$/i", $message, $arr)) {
@@ -58,7 +58,7 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 	}
 	
 	if ($numrows > 0) {
-		$msg = Text::make_link("$playfield->short_name $site_number", $blob, 'blob');
+		$msg = Text::make_blob("$playfield->short_name $site_number", $blob);
 	} else {
 		$msg = "Invalid site number.";
 	}

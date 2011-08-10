@@ -38,7 +38,7 @@ if (preg_match("/^eventlist ([0-9]+)$/i", $message, $arr)) {
 				
 				$link .= trim($value)."$info $alt\n";
 			}
-			$msg = Text::make_link("Eventlist", $link);
+			$msg = Text::make_blob("Eventlist", $link);
 		} else {
 			$msg = "Eventlist is empty\n";
 		}

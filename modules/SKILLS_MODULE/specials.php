@@ -79,7 +79,7 @@ if (preg_match('/^specials \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)
 	} else {
 		$blob .= "Written by Tyrence(RK2)\n";
 		$blob .= "Stats provided by xyphos.com";
-		$msg = Text::make_link("Weapon Specials for $name", $blob, 'blob');
+		$msg = Text::make_blob("Weapon Specials for $name", $blob);
 	}
 
 	$chatBot->send($msg, $sendto);

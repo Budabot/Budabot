@@ -33,7 +33,7 @@ if (preg_match("/^whatbuffs (.+)$/i", $message, $arr)) {
 				$inside .= "Items that buff ".$skills[0].":\n\n";
 				$inside .= $info;
 				$inside .= "\n\nby Imoutochan, RK1";
-				$windowlink = Text::make_link(":: Your \"What buffs ...?\" results ::", $inside, 'blob');
+				$windowlink = Text::make_blob(":: Your \"What buffs ...?\" results ::", $inside);
 				$chatBot->send($windowlink, $sendto); 
 				$chatBot->send("<highlight>$found<end> result(s) in total", $sendto);
 				return;
@@ -52,7 +52,7 @@ if (preg_match("/^whatbuffs (.+)$/i", $message, $arr)) {
 			$inside .= "Your query of <yellow>$name<end> matches more than one skill:\n\n";
 			$inside .= $info;
 			$inside .= "\n\nby Imoutochan, RK1";
-			$windowlink = Text::make_link(":: Your \"What buffs ...?\" results ::", $inside, 'blob');
+			$windowlink = Text::make_blob(":: Your \"What buffs ...?\" results ::", $inside);
 			$chatBot->send($windowlink, $sendto); 
 			$chatBot->send("Found several skills matching your key words.", $sendto);
 			return;

@@ -89,7 +89,7 @@ class Help {
 			$data = file_get_contents($filename);
 			if ($return_as_bloblink) {
 				$helpcmd = ucfirst($helpcmd);
-				$msg = Text::make_link("Help($helpcmd)", $data);
+				$msg = Text::make_blob("Help($helpcmd)", $data);
 			} else {
 				$msg = $data;
 			}
