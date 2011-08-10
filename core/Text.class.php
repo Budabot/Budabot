@@ -246,10 +246,6 @@ class Text {
 	 * @description: creates a clickable link
 	 */
 	function make_link($name, $content, $type, $style = NULL) {
-		if ($type == 'blob') {
-			return make_blob($name, $content, $style);
-		}
-	
 		global $chatBot;
 		
 		// escape double quotes
