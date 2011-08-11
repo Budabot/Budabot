@@ -45,7 +45,7 @@ function get_online_list($prof = "all") {
 
 	$numguest = $db->numrows();
 	if ($numguest == 1) {
-		$list[] = array("content" => "\n\n<highlight><u>1 member User in Private Channel<end></u>\n");
+		$list[] = array("content" => "\n\n<highlight><u>1 User in Private Channel<end></u>\n");
 	} else {
 		$list[] = array("content" => "\n\n<highlight><u>$numonline Users in Private Channel<end></u>\n");
 	}
@@ -106,8 +106,7 @@ function createListByChannel(&$data, &$list, $show_alts) {
 
 	//Colorful temporary var settings (avoid a mess of if statements later in the function)
 	$fancyColon = "::";
-	if (Setting::get("online_colorful") == "1")
-	{
+	if (Setting::get("online_colorful") == "1") {
 		$fancyColon = "<highlight>::<end>";
 	}
 	
@@ -174,11 +173,10 @@ function createListByChannel(&$data, &$list, $show_alts) {
 				$admin = "";
 			}
 			
-			if ($orgShow == "2" || ($orgShow == "1" && ($row->guild != $chatBot->vars['my_guild'] || $chatBot->vars['my_guild'] != '')))
-			{
+			if ($orgShow == "2" || ($orgShow == "1" && ($row->guild != $chatBot->vars['my_guild'] || $chatBot->vars['my_guild'] != ''))) {
 				if ($row->guild == "") { //No guild
 					$guild = " $fancyColon Not in a guild";
-				} else if ($orgShow == "2" && $row->guild == $charBot->vars['my_guild']) {
+				} else if ($orgShow == "2" && $row->guild == $chatBot->vars['my_guild']) {
 					$guild = " $fancyColon " . $row->guild_rank; // If in same guild, shows rank
 				} else if ($orgShow == "2") {
 					$guild = " $fancyColon " . $row->guild . " (" . $row->guild_rank . ")"; // Not in guild, show guild name & rank (on all guild info)
@@ -200,8 +198,7 @@ function createListByProfession(&$data, &$list, $show_alts) {
 
 	//Colorful temporary var settings (avoid a mess of if statements later in the function)
 	$fancyColon = "::";
-	if (Setting::get("online_colorful") == "1")
-	{
+	if (Setting::get("online_colorful") == "1") {
 		$fancyColon = "<highlight>::<end>";
 	}
 	
@@ -261,8 +258,7 @@ function createListByProfession(&$data, &$list, $show_alts) {
 					else if ($row->profession == "Trader")
 						$current_header .= "<img src=rdb://118049>";
 					else {
-						// TODO need unknown icon
-						$current_header .= "";
+						$current_header .= "<img src=rdb://46268>";
 					}
 				}
 				$current_header .= " <highlight>$row->profession<end>";
@@ -286,18 +282,20 @@ function createListByProfession(&$data, &$list, $show_alts) {
 			$list .= "<tab><tab>$name - Unknown\n";
 		} else {
 			if ($show_alts == true) {
-				$db->query("SELECT * FROM alts WHERE `alt` = '$row->name'");
-				if ($db->numrows() == 0) {
-					$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alts</a>";
-				} else {
-					$row1 = $db->fObject();
-					$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alts of $row1->main</a>";
+				$main = Alts::get_main($row->name);
+				$alts = Alts::get_alts($main);
+				if (count($alts) > 0) {
+					if ($main == $row->name) {
+						$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alts</a>";
+					} else {
+						$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alts of $main</a>";
+					}
 				}
 				
-				if (Setting::get("online_admin") == "1") { //When building list without alts, we don't show admin info
+				//When building list without alts, we don't show admin info
+				if (Setting::get("online_admin") == "1") {
 					$alvl = AccessLevel::get_admin_level($row->name);
-					switch ($alvl)
-					{
+					switch ($alvl) {
 						case 4: $admin = " $fancyColon <red>Admin<end>"; break;
 						case 3: $admin = " $fancyColon <green>Mod<end>"; break;
 						case 2: $admin = " $fancyColon <orange>RL<end>"; break;
@@ -314,11 +312,11 @@ function createListByProfession(&$data, &$list, $show_alts) {
 				$admin = "";
 			}
 			
-			if ($orgShow == "2" || ($orgShow == "1" && ($row->guild != $chatBot->vars['my_guild'] || $chatBot->vars['my_guild'] == '')))
-			{
+			$guild = '';
+			if ($orgShow == "2" || ($orgShow == "1" && ($row->guild != $chatBot->vars['my_guild'] || $chatBot->vars['my_guild'] == ''))) {
 				if ($row->guild == "") { //No guild
 					$guild = " $fancyColon Not in a guild";
-				} else if ($orgShow == "2" && $row->guild == $charBot->vars['my_guild']) {
+				} else if ($orgShow == "1" && $row->guild == $chatBot->vars['my_guild']) {
 					$guild = " $fancyColon " . $row->guild_rank; // If in same guild, shows rank
 				} else if ($orgShow == "2") {
 					$guild = " $fancyColon " . $row->guild . " (" . $row->guild_rank . ")"; // Not in guild, show guild name & rank (on all guild info)
