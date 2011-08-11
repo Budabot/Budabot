@@ -11,3 +11,6 @@
 
 <highlight>Remove a character from the friendlist<end>
 <tab><symbol>rembuddy 'name' 'type'
+
+<highlight>Remove all characters from the friendlist<end>
+<tab><symbol>rembuddyall
