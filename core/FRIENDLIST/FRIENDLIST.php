@@ -9,6 +9,10 @@
 	Command::activate("priv", "$MODULE_NAME/rembuddy.php", "rembuddy", "mod");
 	Command::activate("guild", "$MODULE_NAME/rembuddy.php", "rembuddy", "mod");
 	
+	Command::activate("msg", "$MODULE_NAME/rembuddyall.php", "rembuddyall", "mod");
+	Command::activate("priv", "$MODULE_NAME/rembuddyall.php", "rembuddyall", "mod");
+	Command::activate("guild", "$MODULE_NAME/rembuddyall.php", "rembuddyall", "mod");
+	
 	Command::activate("msg", "$MODULE_NAME/addbuddy.php", "addbuddy", "mod");
 	Command::activate("priv", "$MODULE_NAME/addbuddy.php", "addbuddy", "mod");
 	Command::activate("guild", "$MODULE_NAME/addbuddy.php", "addbuddy", "mod");
