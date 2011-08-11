@@ -69,7 +69,7 @@ class Setting {
 		$name = strtolower($name);
 
 		if (isset($chatBot->settings[$name])) {
-			$db->exec("UPDATE settings_<myname> SET `value` = '" . str_replace("'", "''", $newsetting) . "' WHERE `name` = '$name'");
+			$db->exec("UPDATE settings_<myname> SET `verify` = 1, `value` = '" . str_replace("'", "''", $newsetting) . "' WHERE `name` = '$name'");
 			$chatBot->settings[$name] = $newsetting;
 		} else {
 			return false;

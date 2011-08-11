@@ -339,7 +339,7 @@ class DB {
 		if ($file === false) {
 			$msg = "No SQL file found with name '$name' in module '$module'!";
 			Logger::log('ERROR', 'Core', "No SQL file found with name '$name' in module '$module'!");
-		} else if (Util::compare_version_numbers($maxFileVersion, $currentVersion) > 0) {
+		} else if ($forceUpdate || Util::compare_version_numbers($maxFileVersion, $currentVersion) > 0) {
 			$fileArray = file("$dir/$file");
 			//$db->beginTransaction();
 			forEach ($fileArray as $num => $line) {
@@ -353,8 +353,6 @@ class DB {
 		
 			if (!Setting::save($settingName, $maxFileVersion)) {
 				Setting::add($module, $settingName, $settingName, 'noedit', 'text', $maxFileVersion);
-			} else {
-				$db->exec("UPDATE settings_<myname> SET `verify`=1 WHERE `name`='$settingName'"); //Make sure the settings table row isn't dropped during boot-up.
 			}
 			
 			if ($maxFileVersion != 0) {
