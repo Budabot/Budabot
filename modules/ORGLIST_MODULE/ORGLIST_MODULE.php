@@ -7,6 +7,7 @@
 	
 	Command::register($MODULE_NAME, "", "orgmembers.php", "orgmembers", "guildadmin", "Show guild members sorted by name");
 	Command::register($MODULE_NAME, "", "orgranks.php", "orgranks", "guildadmin", "Show guild members sorted by guild rank");
+	Command::register($MODULE_NAME, "", "whoisorg.php", "whoisorg", "all", "Display org info");
 
 	Event::register($MODULE_NAME, "logOn", "orglist.php", "none", "Gets online status of org members");
 	Event::register($MODULE_NAME, "logOff", "orglist.php", "none", "Gets offline status of org members");
