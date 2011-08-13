@@ -155,14 +155,13 @@ function createListByChannel(&$data, &$list, $show_alts) {
 				
 				if (Setting::get("online_admin") == "1") { //When building list without alts, we don't show admin info
 					$alvl = AccessLevel::get_admin_level($row->name);
-					switch ($alvl)
-					{
+					switch ($alvl) {
 						case 4: $admin = " $fancyColon <red>Admin<end>"; break;
 						case 3: $admin = " $fancyColon <green>Mod<end>"; break;
 						case 2: $admin = " $fancyColon <orange>RL<end>"; break;
 					}
 					
-					if (strtolower($chatBot->vars["SuperAdmin"]) == strtolower($row->name)) {
+					if (AccessLevel::checkAccess($row->name, 'superadmin')) {
 						$admin = " $fancyColon <red>SuperAdmin<end>";
 					}
 				} else {
@@ -301,7 +300,7 @@ function createListByProfession(&$data, &$list, $show_alts) {
 						case 2: $admin = " $fancyColon <orange>RL<end>"; break;
 					}
 					
-					if (strtolower($chatBot->vars["SuperAdmin"]) == strtolower($row->name)) {
+					if (AccessLevel::checkAccess($row->name, 'superadmin')) {
 						$admin = " $fancyColon <red>SuperAdmin<end>";
 					}
 				} else {

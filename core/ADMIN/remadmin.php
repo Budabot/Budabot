@@ -37,7 +37,7 @@ if (preg_match("/^remadmin (.+)$/i", $message, $arr)){
 		return;
 	}
 	
-	if ($chatBot->vars["SuperAdmin"] != $sender){
+	if (!AccessLevel::checkAccess($sender, 'superadmin')){
 		$chatBot->send("<red>You need to be Super-Administrator to kick a Administrator<end>", $sendto);
 		return;
 	}

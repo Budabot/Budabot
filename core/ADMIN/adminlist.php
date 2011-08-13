@@ -33,20 +33,22 @@ if (preg_match("/^adminlist$/i", $message) || preg_match("/^admins$/i", $message
 	$list = "<header>::::: Adminlist :::::<end>\n\n";
 
 	$list .= "<highlight>Administrators<end>\n";	
-	forEach ($chatBot->admins as $who => $data){
-		if ($chatBot->admins[$who]["level"] == 4){
-			if($who != ""){ 
+	forEach ($chatBot->admins as $who => $data) {
+		if ($chatBot->admins[$who]["level"] == 4) {
+			if ($who != "") {
 				$list.= "<tab>$who ";
 				
-				if ($chatBot->vars["SuperAdmin"] == $who)
+				if (AccessLevel::checkAccess($who, 'superadmin')) {
 					$list .= "(<orange>Super Administrator<end>) ";
+				}
 					
-				if ($chatBot->admins[$who]["online"] == "online" && isset($chatBot->chatlist[$who]))
+				if ($chatBot->admins[$who]["online"] == "online" && isset($chatBot->chatlist[$who])) {
 					$list.="(<green>Online and in chat<end>)";
-				elseif ($chatBot->admins[$who]["online"] == "online")
+				} else if ($chatBot->admins[$who]["online"] == "online") {
 					$list.="(<green>Online<end>)";
-				else
+				} else {
 					$list.="(<red>Offline<end>)";
+				}
 					
 				$list.= "\n";
 			}

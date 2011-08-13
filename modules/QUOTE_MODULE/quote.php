@@ -101,12 +101,12 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 		$quoteDATE = $row->When;
 		$quoteMSG = $row->What;
 
-		//only author or superadmin can delete.
-		if (($quoteWHO == $sender) || ($chatBot->admins[$sender]["level"] >= 4)) {
+		//only author or admin can delete.
+		if (($quoteWHO == $sender) || AccessLevel::checkAccess($sender, 'admin')) {
 			$db->exec("DELETE FROM quote WHERE `IDNumber` = $quoteID");
 			$msg = "This quote has been deleted.";
 		} else {
-			$msg = "Only the Superadmin or $quoteWHO can delete this quote.";
+			$msg = "Only an admin or $quoteWHO can delete this quote.";
 		}
 	} else {
 		$msg = "Could not find this quote.  Already deleted?";
