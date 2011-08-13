@@ -26,7 +26,6 @@ class AccessLevel {
 
 		$access = false;
 		switch ($access_level) {
-			case "sa":
 			case "superadmin":
 				if ($chatBot->vars["SuperAdmin"] == $sender){
 					$access = true;

@@ -119,13 +119,13 @@ class DB {
 			$this->result = NULL;
 		}
 
-		$error = $this->sql->errorInfo();
-		if ($error[0] != "00000") {
+		$this->errorInfo = $this->sql->errorInfo();
+		if ($this->errorInfo[0] != "00000") {
 			// when schema changes sqlite throws an error so we retry the query
-			if ($this->type == "Sqlite" && $error[1] == 17) {
+			if ($this->type == "Sqlite" && $this->errorInfo[1] == 17) {
 				return $this->query($stmt, $type);
 			}
-			Logger::log('ERROR', "SqlError", "{$error[2]} in: $stmt");
+			Logger::log('ERROR', "SqlError", "{$this->errorInfo[2]} in: $stmt");
 		}
 
 		return $result;
@@ -145,13 +145,13 @@ class DB {
 		Logger::log('query', "SQL", $stmt);
       	$aff_rows = $this->sql->exec($stmt);
 
-		$error = $this->sql->errorInfo();
-		if ($error[0] != "00000") {
+		$this->errorInfo = $this->sql->errorInfo();
+		if ($this->errorInfo[0] != "00000") {
 			// when schema changes sqlite throws an error so we retry the query
-			if ($this->type == "Sqlite" && $error[1] == 17) {
+			if ($this->type == "Sqlite" && $this->errorInfo[1] == 17) {
 				return $this->exec($stmt);
 			}
-			Logger::log('ERROR', "SqlError", "{$error[2]} in: $stmt");
+			Logger::log('ERROR', "SqlError", "{$this->errorInfo[2]} in: $stmt");
 		}
 
 		return $aff_rows;
@@ -172,13 +172,13 @@ class DB {
 		Logger::log('query', "SQL", $stmt);
 		$this->sql->exec($stmt);
 
-		$error = $this->sql->errorInfo();
-		if ($error[0] != "00000") {
+		$this->errorInfo = $this->sql->errorInfo();
+		if ($this->errorInfo[0] != "00000") {
 			// when schema changes sqlite throws an error so we retry the query
-			if ($this->type == "Sqlite" && $error[1] == 17) {
+			if ($this->type == "Sqlite" && $this->errorInfo[1] == 17) {
 				return $this->CreateTable($stmt, $type);
 			}
-			Logger::log('ERROR', "SqlError", "{$error[2]} in: $stmt");
+			Logger::log('ERROR', "SqlError", "{$this->errorInfo[2]} in: $stmt");
 		}
 	}
 
@@ -190,13 +190,13 @@ class DB {
 		if ($this->type == 'Mysql'){
 			try {
 				$this->sql = new PDO("mysql:dbname=$dbName;host=$this->host", $this->user, $this->pass);
-			} catch(PDOException $e) {
+			} catch (PDOException $e) {
 			  	die($e->getMessage());
 			}			
 		} else if ($this->type == 'Sqlite') {
 			try {
 				$this->sql = new PDO("sqlite:".$dbName);  
-			} catch(PDOException $e) {
+			} catch (PDOException $e) {
 				die($e->getMessage());
 			}			
 		}	

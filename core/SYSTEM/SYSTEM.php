@@ -41,6 +41,10 @@
 	Command::activate("msg", "$MODULE_NAME/loadsql.php", "loadsql", "mod");
 	Command::activate("priv", "$MODULE_NAME/loadsql.php", "loadsql", "mod");
 	Command::activate("guild", "$MODULE_NAME/loadsql.php", "loadsql", "mod");
+	
+	Command::activate("msg", "$MODULE_NAME/executesql.php", "executesql", "admin");
+	Command::activate("priv", "$MODULE_NAME/executesql.php", "executesql", "admin");
+	Command::activate("guild", "$MODULE_NAME/executesql.php", "executesql", "admin");
 
 	Event::activate("1hour", "$MODULE_NAME/ping_db.php");
 	
