@@ -24,8 +24,8 @@ INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf',
 INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '13', 'Master Genesplicer Cha''Khaz', 'Kyr''Ozch Rank Identification', '218768', '257531', 1);
 INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '13', 'Master Genesplicer Cha''Khaz', 'Kyr''Ozch Video Processing Unit', '218758', '257533', 1);
 INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '13', 'Master Genesplicer Cha''Khaz', 'Kyr''Ozch Data Core', '25800', '258294', 1);
-INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '13', 'Master Genesplicer Cha''Khaz', 'Biotech Matrix', '275972', '275916', 1);
-INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '13', 'Master Genesplicer Cha''Khaz', 'Gelatinous Lump', '275962', '275909', 1);
+INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '13', 'Master Genesplicer Cha''Khaz', 'Biotech Matrix', '275972', '275916', 3);
+INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '13', 'Master Genesplicer Cha''Khaz', 'Gelatinous Lump', '275962', '275909', 3);
 INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '28', 'Embalmer Cha''Khaz', 'Notum Amplification Coil', '257195', '275963', 1);
 INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '28', 'Embalmer Cha''Khaz', 'Inertial Adjustment Processing Unit', '11618', '275959', 1);
 INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '28', 'Embalmer Cha''Khaz', 'Kyr''Ozch Helmet', '230855', '257706', 1);
@@ -34,8 +34,8 @@ INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf',
 INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '28', 'Embalmer Cha''Khaz', 'Kyr''Ozch Rank Identification', '218768', '257531', 1);
 INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '28', 'Embalmer Cha''Khaz', 'Kyr''Ozch Video Processing Unit', '218758', '257533', 1);
 INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '28', 'Embalmer Cha''Khaz', 'Kyr''Ozch Data Core', '25800', '258293', 1);
-INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '28', 'Embalmer Cha''Khaz', 'Crystalline Matrix', '275964', '275912', 1);
-INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '28', 'Embalmer Cha''Khaz', 'Kyr''Ozch Circuitry', '275965', '275914', 1);
+INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '28', 'Embalmer Cha''Khaz', 'Crystalline Matrix', '275964', '275912', 3);
+INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '28', 'Embalmer Cha''Khaz', 'Kyr''Ozch Circuitry', '275965', '275914', 3);
 INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '35', 'Field Marshal and Support Cha''Khaz', 'Visible Light Remodulation Device', '235270', '257964', 1);
 INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '35', 'Field Marshal and Support Cha''Khaz', 'Energy Redistribution Unit', '257197', '257961', 1);
 INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '35', 'Field Marshal and Support Cha''Khaz', 'Kyr''Ozch Helmet', '230855', '257706', 1);
@@ -44,10 +44,10 @@ INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf',
 INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '35', 'Field Marshal and Support Cha''Khaz', 'Kyr''Ozch Rank Identification', '218768', '257531', 1);
 INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '35', 'Field Marshal and Support Cha''Khaz', 'Kyr''Ozch Video Processing Unit', '218758', '257533', 1);
 INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '35', 'Field Marshal and Support Cha''Khaz', 'Kyr''Ozch Data Core', '25800', '258292', 1);
-INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '35', 'Field Marshal and Support Cha''Khaz', 'Alpha Program Chip', '275970', '275918', 1);
-INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '35', 'Field Marshal and Support Cha''Khaz', 'Beta Program Chip', '275969', '275919', 1);
-INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '35', 'Field Marshal and Support Cha''Khaz', 'Kyr''Ozch Processing Unit', '275960', '275907', 1);
-INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '35', 'Field Marshal and Support Cha''Khaz', 'Odd Kyr''Ozch Nanobots', '11750', '275906', 1);
+INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '35', 'Field Marshal and Support Cha''Khaz', 'Alpha Program Chip', '275970', '275918', 3);
+INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '35', 'Field Marshal and Support Cha''Khaz', 'Beta Program Chip', '275969', '275919', 3);
+INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '35', 'Field Marshal and Support Cha''Khaz', 'Kyr''Ozch Processing Unit', '275960', '275907', 3);
+INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '35', 'Field Marshal and Support Cha''Khaz', 'Odd Kyr''Ozch Nanobots', '11750', '275906', 3);
 INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '42', 'East - Field Marshal & Support', 'Visible Light Remodulation Device', '235270', '257964', 1);
 INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '42', 'East - Field Marshal & Support', 'Energy Redistribution Unit', '257197', '257961', 1);
 INSERT INTO raidloot (raid, area, boss, name, img, ref, quantity) VALUES ('apf', '42', 'East - Field Marshal & Support', 'Hacker Ice-Breaker Source', '257196', '257968', 1);
