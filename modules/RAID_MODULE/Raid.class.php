@@ -112,7 +112,7 @@ class Raid {
 			$loot[$count]['name'] = $row->name;
 			$loot[$count]['linky'] = Text::make_item($row->lowid, $row->highid, $row->ql, $row->name);
 			$loot[$count]['icon'] = $row->imageid;
-			$loot[$count]['multiloot'] = $row->quantity;
+			$loot[$count]['multiloot'] = $row->multiloot;
 			$count++;
 		}
 
