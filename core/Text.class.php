@@ -245,7 +245,11 @@ class Text {
 	 * @name: make_link
 	 * @description: creates a clickable link
 	 */
-	function make_link($name, $content, $type, $style = NULL) {
+	function make_link($name, $content, $type = NULL, $style = NULL) {
+		if ($type == 'blob' || $type == NULL) {
+			return Text::make_blob($name, $content, $style);
+		}
+	
 		global $chatBot;
 		
 		// escape double quotes
