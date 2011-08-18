@@ -29,7 +29,7 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (is_numeric($chatBot->admins[$sender]["level"])) {
+if (AccessLevel::checkAccess($sender, "raidleader")) {
 	$chatBot->admins[$sender]["online"] = "offline";
 }
 

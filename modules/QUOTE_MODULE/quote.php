@@ -13,7 +13,7 @@
 // Adding a quote
 if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 	
-	if (!isset($chatBot->admins[$sender])) {
+	if (!AccessLevel::checkAccess($sender, "raidleader")) {
 		$requirement = $chatBot->settings["quote_add_min"];
 		if ($requirement >= 0) {
 			if (!$chatBot->guildmembers[$sender]) {

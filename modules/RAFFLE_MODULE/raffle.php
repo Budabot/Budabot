@@ -93,7 +93,7 @@ Click $link to join the raffle. Raffle will end in $minutes minutes'.
 		return;
 	}
 
-	if (($chatBot->data["Raffles"]["owner"] != $sender) && (!isset($chatBot->admins[$sender])))
+	if (($chatBot->data["Raffles"]["owner"] != $sender) && !AccessLevel::checkAccess($sender, "raidleader"))
 	{
 		$msg = "<highlight>Only the owner or admins may cancel the raffle.";
 		$chatBot->send($msg, $sendto);
@@ -121,7 +121,7 @@ Click $link to join the raffle. Raffle will end in $minutes minutes'.
 		return;
 	}
 
-	if (($chatBot->data["Raffles"]["owner"] != $sender) && (!isset($chatBot->admins[$sender]))) {
+	if (($chatBot->data["Raffles"]["owner"] != $sender) && !AccessLevel::checkAccess($sender, "raidleader")) {
 		$msg = "<highlight>Only the owner or admins may end the raffle.";
 		$chatBot->send($msg, $sendto);
 		return;
