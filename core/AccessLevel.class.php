@@ -1,7 +1,7 @@
 <?php
 
 class AccessLevel {
-	public static function checkAccess($sender, $access_level) {
+	public static function check_access($sender, $access_level) {
 		global $chatBot;
 		
 		if (Setting::get('alts_inherit_admin') == 1) {
@@ -82,7 +82,7 @@ class AccessLevel {
 		
 		return $access;
 	}
-	
+
 	public static function get_admin_level($sender) {
 		global $chatBot;
 	

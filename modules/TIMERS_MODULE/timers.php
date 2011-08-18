@@ -73,13 +73,13 @@ if (preg_match("/^timers ([0-9]+)$/i", $message, $arr) || preg_match("/^timers (
 					
 			  	$msg = "Removed timer <highlight>$name<end>.";
 			  	break;
-			} else if (($chatBot->guildmembers[$sender] <= $chatBot->settings['guild_admin_level']) || AccessLevel::checkAccess($sender, "raidleader")) {
+			} else if (AccessLevel::check_access($sender, "guildadmin")) {
 				Timer::remove_timer($key);
 
 			  	$msg = "Removed timer <highlight>$name<end>.";
 			  	break;
 			} else {
-				$msg = "You don't have the right to remove this timer.";
+				$msg = "You don't have the rights to remove this timer.";
 			}
 		}
 	}

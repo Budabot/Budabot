@@ -44,7 +44,7 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 	
 	$help_array = array();
 	forEach ($data as $row) {
-		if (AccessLevel::checkAccess($sender, $row->admin)) {
+		if (AccessLevel::check_access($sender, $row->admin)) {
 			$help_array []= $row;
 		}
 	}

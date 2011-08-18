@@ -161,7 +161,7 @@ function createListByChannel(&$data, &$list, $show_alts) {
 						case 2: $admin = " $fancyColon <orange>RL<end>"; break;
 					}
 					
-					if (AccessLevel::checkAccess($row->name, 'superadmin')) {
+					if (AccessLevel::check_access($row->name, 'superadmin')) {
 						$admin = " $fancyColon <red>SuperAdmin<end>";
 					}
 				} else {
@@ -300,7 +300,7 @@ function createListByProfession(&$data, &$list, $show_alts) {
 						case 2: $admin = " $fancyColon <orange>RL<end>"; break;
 					}
 					
-					if (AccessLevel::checkAccess($row->name, 'superadmin')) {
+					if (AccessLevel::check_access($row->name, 'superadmin')) {
 						$admin = " $fancyColon <red>SuperAdmin<end>";
 					}
 				} else {

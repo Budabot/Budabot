@@ -83,7 +83,7 @@ class Help {
 		if ($char === null) {
 			$access = true;
 		} else {
-			$access = AccessLevel::checkAccess($char, $admin);
+			$access = AccessLevel::check_access($char, $admin);
 		}
 		if ($access === true && file_exists($filename)) {
 			$data = file_get_contents($filename);

@@ -173,7 +173,7 @@ if (preg_match("/^vote$/i", $message)) {
 	//////////////////////////////////////////////////////////////////////////////////
 	} elseif (count($sect) == 2 && strtolower($sect[0]) == "kill") {     // Kill vote
 		
-		if (AccessLevel::checkAccess($sender, "moderator")) {
+		if (AccessLevel::check_access($sender, "moderator")) {
 			$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[1])."'");
 		} else {
 			$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[1])."' AND `author` = '$sender' AND `duration` IS NOT NULL");

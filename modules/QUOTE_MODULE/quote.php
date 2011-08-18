@@ -13,7 +13,7 @@
 // Adding a quote
 if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 	
-	if (!AccessLevel::checkAccess($sender, "raidleader")) {
+	if (!AccessLevel::check_access($sender, "raidleader")) {
 		$requirement = $chatBot->settings["quote_add_min"];
 		if ($requirement >= 0) {
 			if (!$chatBot->guildmembers[$sender]) {
@@ -102,7 +102,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 		$quoteMSG = $row->What;
 
 		//only author or admin can delete.
-		if (($quoteWHO == $sender) || AccessLevel::checkAccess($sender, 'admin')) {
+		if (($quoteWHO == $sender) || AccessLevel::check_access($sender, 'admin')) {
 			$db->exec("DELETE FROM quote WHERE `IDNumber` = $quoteID");
 			$msg = "This quote has been deleted.";
 		} else {

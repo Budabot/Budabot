@@ -48,7 +48,7 @@ if (preg_match("/^addmod (.+)$/i", $message, $arr)){
 		return;
 	}
 	
-	if (!AccessLevel::checkAccess($sender, 'superadmin') && (int)$chatBot->admins[$sender]["level"] <= (int)$chatBot->admins[$who]["level"]){
+	if (!AccessLevel::check_access($sender, 'superadmin') && (int)$chatBot->admins[$sender]["level"] <= (int)$chatBot->admins[$who]["level"]){
 		$chatBot->send("<red>You must have a rank higher then $who.<end>", $sendto);
 		return;
 	}

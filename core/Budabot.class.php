@@ -786,7 +786,7 @@ class Budabot extends AOChat {
 		}
 
 		// Admin Check
-		$access = AccessLevel::checkAccess($sender, $admin);
+		$access = AccessLevel::check_access($sender, $admin);
 
 		if ($access !== true || $filename == "") {
 			if ($type != 'guild') {

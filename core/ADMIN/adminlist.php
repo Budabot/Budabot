@@ -38,7 +38,7 @@ if (preg_match("/^adminlist$/i", $message) || preg_match("/^admins$/i", $message
 			if ($who != "") {
 				$list.= "<tab>$who ";
 				
-				if (AccessLevel::checkAccess($who, 'superadmin')) {
+				if (AccessLevel::check_access($who, 'superadmin')) {
 					$list .= "(<orange>Super Administrator<end>) ";
 				}
 					
