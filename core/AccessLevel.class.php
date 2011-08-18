@@ -12,15 +12,15 @@ class AccessLevel {
 		switch ($access_level) {
 			case "rl":
 			case "raidleader":
-				$access_level = 3;
+				$access_level = 2;
 				break;
 			case "mod":
 			case "moderator":
-				$access_level = 2;
+				$access_level = 3;
 				break;
 			case "admin":
 			case "administrator":
-				$access_level = 1;
+				$access_level = 4;
 				break;
 		}
 
