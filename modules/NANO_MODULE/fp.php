@@ -52,7 +52,7 @@ if (preg_match("/^fp (\\d+)$/i", $message, $arr1) || preg_match("/^fp (.+)$/i", 
 		if ($fpUsable) {
 			$msg = "$item <green>is<end> usable in false profession";
 		} else {
-			$msg = "$item is <orange>is not<end> usable in false profession";
+			$msg = "$item <orange>is not<end> usable in false profession";
 		}
 	} else {
 		$blob = "<header> :::::: Nano Search Results ($count) :::::: <end>\n\n";
