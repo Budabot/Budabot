@@ -7,7 +7,8 @@
 	DB::loadSQLFile($MODULE_NAME, "nanolines_ref");
 
 	//nano Search
-	Command::register($MODULE_NAME, "", "nano.php", "nano", "all", "Searches for a nano and tells you were to get it.");
+	Command::register($MODULE_NAME, "", "nano.php", "nano", "all", "Searches for a nano and tells you were to get it");
+	Command::register($MODULE_NAME, "", "fp.php", "fp", "all", "Shows whether or not a nano is usable in false profession");
 
 	//nanolines
 	Command::register($MODULE_NAME, "", "nanolines.php", "nanolines", "all", "Shows a list of professions to choose from");
