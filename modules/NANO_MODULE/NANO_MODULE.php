@@ -24,4 +24,5 @@
 	Help::register($MODULE_NAME, "nanolines", "nanolines.txt", "all", "How to use nanolines");
 	Help::register($MODULE_NAME, "nanolines", "nanolines.txt", "all", "How to use nanolines");
 	Help::register($MODULE_NAME, "maxnano", "maxnano.txt", "mod", "Set the max number of nano results");
+	Help::register($MODULE_NAME, "fp", "fp.txt", "mod", "How to tell if a nano is usable in false profession");
 ?>

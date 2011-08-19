@@ -1,0 +1,7 @@
+<header> ::::: Help on FP Command ::::: <end>
+
+<highlight>To check if a nano is usable in false profession by name:<end>
+<tab><symbol>fp hack quack
+
+<highlight>To check if a nano is usable in false profession by aoid (use the lowid of the crystal):<end>
+<tab><symbol>fp 162735

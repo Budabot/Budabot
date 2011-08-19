@@ -1,4 +1,4 @@
-<header>::::: Help on <symbol>Nano Command. :::::<end>
+<header> ::::: Help on Nano Command ::::: <end>
 
 The <symbol>Nano command will search for the given nano and return where the Nano can be obtained.
 
