@@ -44,6 +44,7 @@ class DB {
 	private $lastQuery;
 	public $errorCode = 0;
 	public $errorInfo;
+	public $table_replaces = array();
 	
 	public static function get_instance() {
 		global $db;
@@ -271,6 +272,9 @@ class DB {
 	}
 
 	function formatSql($sql) {
+		forEach ($this->table_replaces as $search => $replace) {
+			$sql = str_replace($search, $replace, $sql);
+		}
 		$sql = str_replace("<dim>", $this->dim, $sql);
 		$sql = str_replace("<myname>", $this->botname, $sql);
 		$sql = str_replace("<myguild>", $this->guild, $sql);
@@ -280,6 +284,15 @@ class DB {
 	
 	function getLastQuery() {
 		return $this->lastQuery;
+	}
+	
+	/**
+	 * @name: add_table_replace
+	 * @description: creates a replace string to run on queries
+	 */
+	public static function add_table_replace($search, $replace) {
+		global $db;
+		$db->table_replaces[$search] = $replace;
 	}
 
 	/**
