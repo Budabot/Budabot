@@ -1,9 +1,9 @@
 <?php
 
 if (isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
-	$db->query("SELECT * FROM news ORDER BY `time` DESC LIMIT 0, 10");
+	$db->query("SELECT * FROM `#__news` ORDER BY `time` DESC LIMIT 0, 10");
 	if ($db->numrows() != 0) {
-		$link = "<header>::::: News :::::<end>\n\n";
+		$link = "<header> :::::: News :::::: <end>\n\n";
 		while ($row = $db->fObject()) {
 		  	if (!$updated) {
 				$updated = $row->time;

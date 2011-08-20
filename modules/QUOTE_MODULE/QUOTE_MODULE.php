@@ -1,7 +1,7 @@
 <?php
 	$MODULE_NAME = "QUOTE_MODULE";
 
-	DB::add_table_replace('#__quote', 'quote_<myname>');	
+	DB::add_table_replace('#__quote', 'quote');
 	DB::loadSQLFile($MODULE_NAME, "quote");
 
 	//Setup

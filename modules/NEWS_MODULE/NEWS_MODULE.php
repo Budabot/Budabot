@@ -1,6 +1,7 @@
 <?php
 	$MODULE_NAME = "NEWS_MODULE";
 
+	DB::add_table_replace('#__news', 'news');
 	DB::loadSQLFile($MODULE_NAME, 'news');
 
 	// News
