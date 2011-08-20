@@ -1,8 +1,10 @@
 <?php
 	$MODULE_NAME = "QUOTE_MODULE";
 
+	DB::add_table_replace('#__quote', 'quote_<myname>');	
+	DB::loadSQLFile($MODULE_NAME, "quote");
+
 	//Setup
-	Event::register($MODULE_NAME, "setup", "setup.php");
 	Event::register($MODULE_NAME, "24hrs", "quotestats.php", "none", "Update Quote Stats");
 
 	//Commands

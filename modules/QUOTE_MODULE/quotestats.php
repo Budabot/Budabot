@@ -12,11 +12,11 @@
    
 $top = $chatBot->settings["quote_stat_count"];
 
-$db->query("SELECT * FROM quote");
+$db->query("SELECT * FROM `#__quote`");
 $count = $db->numrows();
 
 //$quoters = setup a list of who quoted the most
-$db->query("SELECT * FROM quote ORDER BY `Who`");
+$db->query("SELECT * FROM `#__quote` ORDER BY `Who`");
 $quoters = array();
 while($row = $db->fObject()) {
 	if ($row->Who != "") {
@@ -26,7 +26,7 @@ while($row = $db->fObject()) {
 arsort($quoters);
 
 //$victims = setup a list of who was quoted the most
-$db->query("SELECT * FROM quote ORDER BY `OfWho`");
+$db->query("SELECT * FROM `#__quote` ORDER BY `OfWho`");
 $victims = array();
 while ($row = $db->fObject()) {
 	if ($row->Who != "") {
