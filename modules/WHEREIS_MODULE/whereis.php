@@ -10,7 +10,7 @@
    Last Modified 5/14/07
    */
 
-$links = array("Help;chatcmd:///tell <myname> help whereis");
+$links = array("Help" => "/tell <myname> help whereis");
 
 $msg = '';
 if (preg_match("/^whereis (.+)$/i", $message, $arr)) {

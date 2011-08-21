@@ -9,7 +9,7 @@
    Last Modified 5/27/07
    */
 
-$links = array("Help;chatcmd:///tell <myname> help dyna");
+$links = array("Help" => "/tell <myname> help dyna");
 
 $dynacamps = '';
 if (preg_match ("/^dyna ([0-2]?[0-9]?[0-9])$/i", $message, $arr)) {

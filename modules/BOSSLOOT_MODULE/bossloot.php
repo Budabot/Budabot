@@ -10,14 +10,13 @@
    Last Modified 5/14/07
    */
 
-    $links = array("Help;chatcmd:///tell <myname> help boss");
-
 $output = '';
 if (preg_match ("/^bossloot (.+)$/i", $message, $arr)) {
 
 	$search = $arr[1];
 	$search = ucwords(strtolower($search));
 
+	$links = array("Help" = > "/tell <myname> help boss");
 	$boss = Text::make_header("Mobs that drop $search", $links);
 	
 	$db->query("SELECT * FROM boss_lootdb WHERE itemname LIKE '%".str_replace("'", "''", $search)."%'");

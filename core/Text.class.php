@@ -26,18 +26,15 @@ class Text {
 
 
 		if (!$links) {
-			$links = array( "Help;chatcmd:///tell ".$chatBot->vars["name"]." help",
-					"About;chatcmd:///tell ".$chatBot->vars["name"]." about",
-					"Download;chatcmd:///start http://budabot.aodevs.com/index.php?page=14");
+			$links = array(
+				"Help" => "/tell <myname> help",
+				"About" => "/tell <myname> about",
+				"Download" => "/start http://code.google.com/p/budabot2/downloads/list"
+			);
 		}
 		if (strtolower($links) != "none") {
-			forEach ($links as $link){
-				preg_match("/^(.+);(.+)$/i", $link, $arr);
-				if ($arr[1] && $arr[2]) {
-					$header .= $color4.":".$color3.":".$color2.":";
-					$header .= "<a style='text-decoration:none' href='$arr[2]'>".$color."$arr[1]</font></a>";
-					$header .= ":</font>:</font>:</font>";
-				}
+			forEach ($links as $title => $command){
+				$header .= ":::" . Text::make_chatcmd($title, $command, 'style="text-decoration:none;"') . ":::";
 			}
 		}
 
@@ -47,8 +44,8 @@ class Text {
 	}
 	
 	/**	
-	 * @name: make_link
-	 * @description: creates a clickable link
+	 * @name: make_blob
+	 * @description: creates an info window
 	 */
 	function make_blob($name, $content, $style = NULL) {
 		global $chatBot;
@@ -241,37 +238,60 @@ class Text {
 		}
 	}
 	
-	/**	
+	/**
 	 * @name: make_link
+	 * @deprecated: other methods in this class have replaced this method
 	 * @description: creates a clickable link
+	 * @param: $name - the name the link will show
+	 * @param: $content - the content of the link
+	 * @param: $type - can be either 'chatcmd' or 'user'
+	 * @param: $style (optional) - any styling you want applied to the link
 	 */
 	function make_link($name, $content, $type = NULL, $style = NULL) {
 		if ($type == 'blob' || $type == NULL) {
 			return Text::make_blob($name, $content, $style);
+		} else if ($type == "chatcmd") { // Chat command.
+			return Text::make_chatcmd($name, $content, $style);
+		} else if ($type == "user") { // Adds support for right clicking usernames in chat, providing you with a menu of options (ignore etc.) (see 18.1 AO patchnotes)
+			return Text::make_userlink($user, $style);
 		}
+	}
 	
+	/**
+	 * @name: make_chatcmd
+	 * @description: creates a chatcmd link
+	 * @param: $name - the name the link will show
+	 * @param: $content - the chatcmd to execute
+	 * @param: $style (optional) - any styling you want applied to the link
+	 */
+	function make_chatcmd($name, $content, $style = NULL) {
 		global $chatBot;
 		
-		// escape double quotes
 		$content = str_replace('"', '&quot;', $content);
-
-		if ($type == "text") { // Majic link.
-			$content = str_replace("'", '&#39;', $content);
-			return "<a $style href='text://$content'>$name</a>";
-		} else if ($type == "chatcmd") { // Chat command.
-			$content = str_replace("'", '&#39;', $content);
-			return "<a $style href='chatcmd://$content'>$name</a>";
-		} else if ($type == "user") { // Adds support for right clicking usernames in chat, providing you with a menu of options (ignore etc.) (see 18.1 AO patchnotes)
-			$content = str_replace("'", '&#39;', $content);
-			return "<a $style href='user://$content'>$name</a>";
-		}
+		$content = str_replace("'", '&#39;', $content);
+		return "<a $style href='chatcmd://$content'>$name</a>";
+	}
+	
+	/**
+	 * @name: make_userlink
+	 * @description: creates a user link which adds support for right clicking usernames in chat, providing you with a menu of options (ignore etc.) (see 18.1 AO patchnotes)
+	 * @param: $name - the name the user to create a link for
+	 * @param: $style (optional) - any styling you want applied to the link
+	 */
+	function make_userlink($user, $style = NULL) {
+		global $chatBot;
+		
+		$content = str_replace('"', '&quot;', $content);
+		$content = str_replace("'", '&#39;', $content);
+		
+		return "<a $style href='user://$content'>$name</a>";
 	}
 	
 	/**	
 	 * @name: make_item
 	 * @description: creates an item link
 	 */
-	public static function make_item($lowId, $highId,  $ql, $name){
+	public static function make_item($lowId, $highId,  $ql, $name) {
 		return "<a href='itemref://{$lowId}/{$highId}/{$ql}'>{$name}</a>";
 	}
 	
@@ -279,7 +299,7 @@ class Text {
 	 * @name: make_item
 	 * @description: creates an item link
 	 */
-	public static function make_image($imageId){
+	public static function make_image($imageId) {
 		return "<img src='rdb://{$imageId}'>";
 	}
 	

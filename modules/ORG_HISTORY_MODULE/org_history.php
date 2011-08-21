@@ -1,9 +1,8 @@
 <?php
    
-$pageSize = 20;
-
 if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\\d+)$/i", $message, $arr)) {
 	
+	$pageSize = 20;
 	$page = 1;
 	if ($arr[1] != '') {
 		$page = $arr[1];

@@ -10,14 +10,13 @@
    Last Modified 5/14/07
    */
 
-    $links = array("Help;chatcmd:///tell <myname> help Boss");
-
 $output = '';
 if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 
 	$search = $arr[1];
 	$search = ucwords(strtolower($search));
-	
+
+	$links = array("Help" => "/tell <myname> help boss");	
 	$boss = Text::make_header("Results of Search for $search", $links);
 	
 	// Find bossname or Boss key
@@ -85,10 +84,9 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 	} else {
 		$output .= "<yellow>There were no matches for your search.<end>";
 	}
+	$chatBot->send($output, $sendto);
 } else {
-	$output .="<yellow>You must enter search criteria after the command.<end>";
+	$syntax_error = true;
 }
-	
-$chatBot->send($output, $sendto);
 
 ?>
