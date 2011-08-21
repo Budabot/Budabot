@@ -12,7 +12,7 @@ if (($chatBot->settings["relaybot"] != "Off") && ($chatBot->settings["bot_relay_
 		if ($sender == -1) {
 			$sender_link = '';
 		} else {
-			$sender_link = ' ' . Text::make_link($sender, $sender, "user") . ':';
+			$sender_link = ' ' . Text::make_userlink($sender) . ':';
 		}
 
 		if ($type == "guild") {

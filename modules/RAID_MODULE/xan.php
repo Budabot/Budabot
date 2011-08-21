@@ -11,17 +11,17 @@ if (!function_exists('get_xan_loot')) {
 if (preg_match("/^xan$/i", $message)){
 	$list = "<header>::::: Legacy of the Xan Loot :::::<end>\n\n";
 	
-	$list .= Text::make_link("Vortexx", "/tell <myname> <symbol>vortexx", "chatcmd") . "\n";
+	$list .= Text::make_chatcmd("Vortexx", "/tell <myname> <symbol>vortexx") . "\n";
 	$list .= "<tab>General\n";
 	$list .= "<tab>Symbiants (Beta)\n";
 	$list .= "<tab>Spirits (Beta)\n\n";
 	
-	$list .= Text::make_link("Mitaar Hero", "/tell <myname> <symbol>mitaar", "chatcmd") . "\n";
+	$list .= Text::make_chatcmd("Mitaar Hero", "/tell <myname> <symbol>mitaar") . "\n";
 	$list .= "<tab>General\n";
 	$list .= "<tab>Symbiants (Beta)\n";
 	$list .= "<tab>Spirits (Beta)\n\n";
 	
-	$list .= Text::make_link("12 Man", "/tell <myname> <symbol>12m", "chatcmd") . "\n";
+	$list .= Text::make_chatcmd("12 Man", "/tell <myname> <symbol>12m") . "\n";
 	$list .= "<tab>General\n";
 	$list .= "<tab>Symbiants (Beta)\n";
 	$list .= "<tab>Spirits (Beta)\n";

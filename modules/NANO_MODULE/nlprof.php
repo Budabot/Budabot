@@ -18,7 +18,7 @@ if (preg_match("/^nlprof (.*)$/i", $message, $arr)) {
 		if ($chatBot->settings["shownanolineicons"] == "1") {
 			$window .= "<img src='rdb://$row->image_id'>\n";
 		}
-		$window .= Text::make_link("$row->name", "/tell <myname> <symbol>nlline $row->id", 'chatcmd');
+		$window .= Text::make_chatcmd("$row->name", "/tell <myname> <symbol>nlline $row->id");
 		$window .= "\n";
 	}
 

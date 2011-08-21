@@ -45,7 +45,7 @@ if ($xml = simplexml_load_file("modules/BANK_MODULE/bank.xml")) {
 						$item_count++;
 					}
 					if ($backpack_inside_count) {
-						$msg .= "<tab>+ ".Text::make_link("Backpack #".$base_slot['id'], "/tell <myname> pack ".$packprelude.$base_slot['id'], "chatcmd")." Contains ".$backpack_inside_count." items\n";
+						$msg .= "<tab>+ ".Text::make_chatcmd("Backpack #".$base_slot['id'], "/tell <myname> pack ".$packprelude.$base_slot['id'])." Contains ".$backpack_inside_count." items\n";
 					} else {
 						$msg .= "<tab>- Backpack #".$base_slot['id']." Is empty\n";
 					}
@@ -56,8 +56,7 @@ if ($xml = simplexml_load_file("modules/BANK_MODULE/bank.xml")) {
 		$link = Text::make_blob("Click to browse the org bank", $msg);
 		$chatBot->send($link, $sendto);
 	} else {
-		$msg = "Incorrect syntax! For more information /tell <myname> help.";
-		$chatBot->send($msg, $sendto);
+		$syntax_error = true;
 	}
 } else {
 	$msg = "File not found! Please contact an administrator.";

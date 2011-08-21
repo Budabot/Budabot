@@ -12,12 +12,12 @@ if (preg_match("/^findorg (.+)$/i", $message, $arr)) {
 		$data = $db->fObject('all');
 		forEach ($data as $row) {
 			if ($row->guild_id != '') {
-				$whoisorg = Text::make_link('Whoisorg', "/tell <myname> whoisorg {$row->guild_id}", 'chatcmd');
-				$orglist = Text::make_link('Orglist', "/tell <myname> orglist {$row->guild_id}", 'chatcmd');
-				$orgranks = Text::make_link('Orgranks', "/tell <myname> orgranks {$row->guild_id}", 'chatcmd');
-				$orgmembers = Text::make_link('Orgmembers', "/tell <myname> orgmembers {$row->guild_id}", 'chatcmd');
-				$tower_attacks = Text::make_link('Tower Attacks', "/tell <myname> attacks org {$row->guild}", 'chatcmd');
-				$tower_victories = Text::make_link('Tower Victories', "/tell <myname> victory org {$row->guild}", 'chatcmd');
+				$whoisorg = Text::make_chatcmd('Whoisorg', "/tell <myname> whoisorg {$row->guild_id}");
+				$orglist = Text::make_chatcmd('Orglist', "/tell <myname> orglist {$row->guild_id}");
+				$orgranks = Text::make_chatcmd('Orgranks', "/tell <myname> orgranks {$row->guild_id}");
+				$orgmembers = Text::make_chatcmd('Orgmembers', "/tell <myname> orgmembers {$row->guild_id}");
+				$tower_attacks = Text::make_chatcmd('Tower Attacks', "/tell <myname> attacks org {$row->guild}");
+				$tower_victories = Text::make_chatcmd('Tower Victories', "/tell <myname> victory org {$row->guild}");
 				$blob .= "<green>{$row->guild} ({$row->guild_id})<end> [$whoisorg] [$orglist] [$orgranks] [$orgmembers] [$tower_attacks] [$tower_victories]\n";
 			} else {
 				$blob .= "<green>{$row->guild}<end>\n";

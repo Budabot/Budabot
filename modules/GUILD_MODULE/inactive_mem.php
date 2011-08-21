@@ -50,8 +50,8 @@ if (preg_match("/^inactivemem ([0-9]+)/i", $message, $arr)) {
 		
 		if ($kick) {
 			$numinactive++;
-			$kick = " [".Text::make_link("Kick {$row->name}?", "/k {$row->name}", "chatcmd")."]"; ///org kick {$row->name}
-			$alts = Text::make_link("Alts", "/tell <myname> alts {$row->name}", "chatcmd");
+			$kick = " [".Text::make_chatcmd("Kick {$row->name}?", "/k {$row->name}")."]"; ///org kick {$row->name}
+			$alts = Text::make_chatcmd("Alts", "/tell <myname> alts {$row->name}");
 			$logged = $row->logged_off;
 			$lasttoon = $row->name;
 			

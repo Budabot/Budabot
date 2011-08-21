@@ -7,7 +7,7 @@ if (preg_match("/^broadcast$/i", $message)) {
   	$db->query($sql);
 	$data = $db->fObject('all');
   	forEach ($data as $row) {
-	  	$remove = Text::make_link('Remove', "/tell <myname> <symbol>broadcast rem $row->name" , 'chatcmd');
+	  	$remove = Text::make_chatcmd('Remove', "/tell <myname> <symbol>broadcast rem $row->name");
 		$dt = gmdate("M j, Y, G:i", $row->dt);
 	  	$blob .= "<white>{$row->name}<end> [<green>added by {$row->added_by}<end>] <white>{$dt}<end> {$remove}\n";
 	}

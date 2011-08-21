@@ -28,7 +28,7 @@ if (preg_match("/^events$/i", $message, $arr)) {
 				$upcoming = "<highlight>Event Date:<end> ".gmdate("F d, Y H:i:s", $row->event_date)." GMT\n";
 				$upcoming .= "<highlight>Event Name:<end> $row->event_name     [Event ID $row->id]\n";
 				$upcoming .= "<highlight>Author:<end> $row->submitter_name\n";
-				$upcoming .= "<highlight>Attendance:<end> ".Text::make_link("$attendance signed up", "/tell <myname> eventlist $row->id", "chatcmd")." [".Text::make_link("Join", "/tell <myname> joinEvent $row->id", "chatcmd")."/".Text::make_link("Leave", "/tell <myname> leaveEvent $row->id", "chatcmd")."]\n";
+				$upcoming .= "<highlight>Attendance:<end> ".Text::make_chatcmd("$attendance signed up", "/tell <myname> eventlist $row->id")." [".Text::make_chatcmd("Join", "/tell <myname> joinEvent $row->id")."/".Text::make_chatcmd("Leave", "/tell <myname> leaveEvent $row->id")."]\n";
 				$upcoming .= "<highlight>Description:<end> ".stripslashes($row->event_desc)."\n";
 				$upcoming .= "<highlight>Date Submitted:<end> ".gmdate("dS M, H:i", $row->time_submitted)."\n\n";
 				$upcoming_events = $upcoming.$upcoming_events;
@@ -36,7 +36,7 @@ if (preg_match("/^events$/i", $message, $arr)) {
 				$past = "<highlight>Event Date:<end> ".gmdate("F d, Y H:i:s", $row->event_date)." GMT\n";
 				$past .= "<highlight>Event Name:<end> $row->event_name     [Event ID $row->id]\n";
 				$past .= "<highlight>Author:<end> $row->submitter_name\n";
-				$past .= "<highlight>Attendance:<end> ".Text::make_link("$attendance signed up", "/tell <myname> eventlist $row->id", "chatcmd")."\n";
+				$past .= "<highlight>Attendance:<end> ".Text::make_chatcmd("$attendance signed up", "/tell <myname> eventlist $row->id")."\n";
 				$past .= "<highlight>Description:<end> ".stripslashes($row->event_desc)."\n";
 				$past .= "<highlight>Date Submitted:<end> ".gmdate("dS M, H:i", $row->time_submitted)."\n\n";
 				$past_events .= $past;

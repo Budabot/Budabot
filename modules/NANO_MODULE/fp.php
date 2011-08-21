@@ -57,7 +57,7 @@ if (preg_match("/^fp (\\d+)$/i", $message, $arr1) || preg_match("/^fp (.+)$/i", 
 	} else {
 		$blob = "<header> :::::: Nano Search Results ($count) :::::: <end>\n\n";
 		forEach ($data as $row) {
-			$check_fp = Text::make_link("Check False Profession", "/tell <myname> fp $row->lowid", 'chatcmd');
+			$check_fp = Text::make_chatcmd("Check False Profession", "/tell <myname> fp $row->lowid");
 			$blob .= Text::make_item($row->lowid, $row->lowid, $row->lowql, $row->name) . " ({$row->lowql}) $check_fp\n\n";
 		}
 		

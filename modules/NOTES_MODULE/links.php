@@ -7,11 +7,11 @@ if (preg_match("/^links$/i", $message)) {
   	$db->query($sql);
 	$data = $db->fObject('all');
   	forEach ($data as $row) {
-	  	$remove = Text::make_link('Remove', "/tell <myname> <symbol>links rem $row->id" , 'chatcmd');
+	  	$remove = Text::make_chatcmd('Remove', "/tell <myname> <symbol>links rem $row->id");
 		if (Setting::get('showfullurls') == 1) {
-			$website = Text::make_link($row->website, "/start $row->website", 'chatcmd');
+			$website = Text::make_chatcmd($row->website, "/start $row->website");
 		} else {
-			$website = Text::make_link('[Link]', "/start $row->website", 'chatcmd');
+			$website = Text::make_chatcmd('[Link]', "/start $row->website");
 		}
 		$dt = gmdate("M j, Y, G:i", $row->dt);
 	  	$blob .= "$website <white>$row->comments<end> [<green>$row->name<end>] <white>$dt<end> $remove\n";

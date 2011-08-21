@@ -1,33 +1,4 @@
 <?php
-   /*
-   ** Author: Tyrence (RK2)
-   ** Description: Add tower sites to watch list
-   ** Version: 1.0
-   **
-   ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
-   **
-   ** Date(created): 23.11.2007
-   ** Date(last modified): 23.11.2007
-   ** 
-   ** Copyright (C) 2007 Jason Wheeler
-   **
-   ** Licence Infos: 
-   ** This file is module for of Budabot.
-   **
-   ** This module is free software; you can redistribute it and/or modify
-   ** it under the terms of the GNU General Public License as published by
-   ** the Free Software Foundation; either version 2 of the License, or
-   ** (at your option) any later version.
-   **
-   ** This module is distributed in the hope that it will be useful,
-   ** but WITHOUT ANY WARRANTY; without even the implied warranty of
-   ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   ** GNU General Public License for more details.
-   **
-   ** You should have received a copy of the GNU General Public License
-   ** along with this module; if not, write to the Free Software
-   ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-   */
 
 if (preg_match("/^notes$/i", $message)) {
 	$blob = "<header> :::::: Notes for $sender :::::: <end>\n\n";
@@ -36,7 +7,7 @@ if (preg_match("/^notes$/i", $message)) {
   	$db->query($sql);
 	$data = $db->fObject('all');
   	forEach ($data as $row) {
-	  	$remove = Text::make_link('Remove', "/tell <myname> <symbol>note rem $row->id" , 'chatcmd');
+	  	$remove = Text::make_chatcmd('Remove', "/tell <myname> <symbol>note rem $row->id");
 	  	$blob .= "$remove $row->note\n\n";
 	}
 	

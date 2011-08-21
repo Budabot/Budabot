@@ -1,6 +1,12 @@
 <?php
 
 class AccessLevel {
+	/**
+	 * @name: check_access
+	 * @param: $sender - the name of the person you want to check access on
+	 * @param: $access_level - can be one of: superadmin, admininistrator|4, moderator|3, raidleader|2, guildadmin, leader, guild, member, all
+	 * @returns: true if $sender has at least $access_level, false otherwise
+	 */
 	public static function check_access($sender, $access_level) {
 		global $chatBot;
 		
@@ -83,6 +89,11 @@ class AccessLevel {
 		return $access;
 	}
 
+	/**
+	 * @name: get_admin_level
+	 * @param: $sender - the name of the person you want to get the admin level for
+	 * @return: 4 if administrator, 3 if moderator, 2 if raidleader, otherwise null
+	 */
 	public static function get_admin_level($sender) {
 		global $chatBot;
 	

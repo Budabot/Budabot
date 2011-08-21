@@ -30,7 +30,7 @@ if (preg_match("/^friendlist$/i", $message) || preg_match("/^friendlist (clean)$
 		} else {
 			$blob .= "\n\nUnknown: ($orphanCount) ";
 			if ($orphanCount > 0) {
-				$blob .= Text::make_link('Remove Orphans', '/tell <myname> <symbol>friendlist clean', 'chatcmd');
+				$blob .= Text::make_chatcmd('Remove Orphans', '/tell <myname> <symbol>friendlist clean');
 			}
 		}
 		

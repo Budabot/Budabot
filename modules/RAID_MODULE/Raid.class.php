@@ -10,8 +10,8 @@ class Raid {
 			if (is_array($loot)) {
 				$list = "<header>::::: Loot List :::::<end>\n\nUse <symbol>flatroll to roll.\n\n";
 				forEach ($loot as $key => $item) {
-					$add = Text::make_link("Add", "/tell <myname> add $key", "chatcmd");
-					$rem = Text::make_link("Remove", "/tell <myname> add 0", "chatcmd");
+					$add = Text::make_chatcmd("Add", "/tell <myname> add $key");
+					$rem = Text::make_chatcmd("Remove", "/tell <myname> add 0");
 					$added_players = count($item["users"]);
 		
 					$list .= "<u>Slot #<font color='#FF00AA'>$key</font></u>\n";
@@ -56,8 +56,8 @@ class Raid {
 			if (is_array($raidloot)) {
 				$list = "<header>::::: Raidloot List :::::<end>\n\n";
 				forEach ($raidloot as $key => $item) {
-					$add = Text::make_link("Add", "/tell <myname> add $key", "chatcmd");
-					$rem = Text::make_link("Remove", "/tell <myname> add 0", "chatcmd");
+					$add = Text::make_chatcmd("Add", "/tell <myname> add $key");
+					$rem = Text::make_chatcmd("Remove", "/tell <myname> add 0");
 					$added_players = count($item["users"]);
 		
 					$list .= "<u>Slot #$key</u>\n";
@@ -133,9 +133,9 @@ class Raid {
 
 		$blob = "<header>::::: $raid $category Loot :::::<end>\n\n\n";
 		forEach ($data as $row) {
-			$blob .= Text::make_item($row->lowid, $row->highid, $row->ql, "<img src=rdb://{$row->imageid}>");  // image
-			$blob .= "\nItem: <highlight>{$row->name}<end>\n"; // name
-			$blob .= Text::make_link("Add to Loot List", "/tell <myname> loot $row->id", "chatcmd");  // add link
+			$blob .= Text::make_item($row->lowid, $row->highid, $row->ql, "<img src=rdb://{$row->imageid}>");
+			$blob .= "\nItem: <highlight>{$row->name}<end>\n";
+			$blob .= Text::make_chatcmd("Add to Loot List", "/tell <myname> loot $row->id");
 			$blob .= "\n\n";
 		}
 

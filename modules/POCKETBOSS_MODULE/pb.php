@@ -115,7 +115,7 @@ if (preg_match("/^pb (.+)$/i", $message, $arr)) {
 		forEach ($data as $row) {
 		  	$name = "\n\nQL $row->ql $row->line $row->slot Symbiant, $row->type Unit Aban";
 		  	$link .= Text::make_item($row->itemid, $row->itemid, $row->ql, $name)."\n";
-		  	$link .= "Found on ".Text::make_link($row->pb, "/tell <myname> pb $row->pb", "chatcmd");
+		  	$link .= "Found on ".Text::make_chatcmd($row->pb, "/tell <myname> pb $row->pb");
 		}
 		$msg .= Text::make_blob("Found $numrows matches", $link);
 	} else {
@@ -182,7 +182,7 @@ if (preg_match("/^pb (.+)$/i", $message, $arr)) {
 		forEach ($data as $row) {
 		  	$name = "\n\nQL $row->ql $row->line $row->slot Symbiant, $row->type Unit Aban";
 		  	$link .= Text::make_item($row->itemid, $row->itemid, $row->ql, $name)."\n";
-		  	$link .= "Found on ".Text::make_link($row->pb, "/tell <myname> pb $row->pb", "chatcmd");
+		  	$link .= "Found on ".Text::make_chatcmd($row->pb, "/tell <myname> pb $row->pb");
 		}
 		$msg .= Text::make_blob("Found $numrows matches", $link);
 	} else {

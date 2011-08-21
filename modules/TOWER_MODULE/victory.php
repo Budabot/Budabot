@@ -103,7 +103,7 @@ if ($db->numrows() == 0) {
 		}
 		
 		if ($row->playfield_id != '' && $row->site_number != '') {
-			$base = Text::make_link("{$row->short_name} {$row->site_number}", "/tell <myname> lc {$row->short_name} {$row->site_number}", 'chatcmd');
+			$base = Text::make_chatcmd("{$row->short_name} {$row->site_number}", "/tell <myname> lc {$row->short_name} {$row->site_number}");
 			$base .= " ({$row->min_ql}-{$row->max_ql})";
 		} else {
 			$base = "Unknown";

@@ -12,7 +12,7 @@ if ($args[2][0] == $chatBot->settings["symbol"] && $chatBot->settings["guest_rel
 
 if ($type == "priv") {
 	//Relay the message to the guild channel
-	$msg = "<end>{$chatBot->settings["guest_color_channel"]}[Guest]<end> {$chatBot->settings["guest_color_username"]}".Text::make_link($sender,$sender,"user")."<end>: {$chatBot->settings["guest_color_guild"]}{$message}<end>";
+	$msg = "<end>{$chatBot->settings["guest_color_channel"]}[Guest]<end> {$chatBot->settings["guest_color_username"]}".Text::make_userlink($sender)."<end>: {$chatBot->settings["guest_color_guild"]}{$message}<end>";
 	$chatBot->send($msg, 'org', true);
 } else if ($type == "guild" && count($chatBot->chatlist) > 0) {
 	//Relay the message to the private channel if there is at least 1 char in private channel
@@ -20,7 +20,7 @@ if ($type == "priv") {
 		// for relaying city alien raid messages where $sender == -1
 		$msg = "<end>{$chatBot->settings["guest_color_channel"]}[<myguild>]<end> {$chatBot->settings["guest_color_guest"]}{$message}<end>";
 	} else {
-		$msg = "<end>{$chatBot->settings["guest_color_channel"]}[<myguild>]<end> {$chatBot->settings["guest_color_username"]}".Text::make_link($sender,$sender,"user")."<end>: {$chatBot->settings["guest_color_guest"]}{$message}<end>";
+		$msg = "<end>{$chatBot->settings["guest_color_channel"]}[<myguild>]<end> {$chatBot->settings["guest_color_username"]}".Text::make_userlink($sender)."<end>: {$chatBot->settings["guest_color_guest"]}{$message}<end>";
 	}
 	$chatBot->send($msg, 'prv', true);
 }

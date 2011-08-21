@@ -85,7 +85,7 @@ if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 	$locations = xml::spliceMultiData($geolookup, "<name>", "</name>");
 	if (count($locations) > 1){
 		foreach ($locations as $spot) {
-			$blob .= Text::make_link($spot, "/tell <myname> weather $spot", "chatcmd")."\n";
+			$blob .= Text::make_chatcmd($spot, "/tell <myname> weather $spot")."\n";
 		}
 
 		$msg = Text::make_blob('Multiple hits for '.$arr[1].'.', $blob);
@@ -140,9 +140,9 @@ if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 	} else {
 		$latlonstr .= "W ";
 	}
-	$latlonstr .= Text::make_link("Google Map", "/start http://maps.google.com/maps?q=$lat,$lon", "chatcmd")." ";
-	$latlonstr .= Text::make_link("Wunder Map", "/start http://www.wunderground.com/wundermap/?lat=$lat&lon=$lon&zoom=10", "chatcmd")."\n\n";
-	$blob  = "<highlight>Credit:<end> ".Text::make_link($credit, "/start $crediturl", "chatcmd")."\n";
+	$latlonstr .= Text::make_chatcmd("Google Map", "/start http://maps.google.com/maps?q=$lat,$lon")." ";
+	$latlonstr .= Text::make_chatcmd("Wunder Map", "/start http://www.wunderground.com/wundermap/?lat=$lat&lon=$lon&zoom=10")."\n\n";
+	$blob  = "<highlight>Credit:<end> ".Text::make_chatcmd($credit, "/start $crediturl")."\n";
 	$blob .= "<highlight>Last Updated:<end> $updated\n\n";
 	$blob .= "<highlight>Location:<end> $fullLoc, $country\n";
 	$blob .= "<highlight>Lat/Lon:<end> $latlonstr";

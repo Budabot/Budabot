@@ -13,8 +13,8 @@ if (preg_match("/^eventlist ([0-9]+)$/i", $message, $arr)) {
 		$row = $db->fObject();
 		$link = "<header>::::: Player Signed Up :::::<end>\n\n";
 		
-		$link .= Text::make_link("Join this event", "/tell <myname> joinEvent $arr[1]", "chatcmd")."\n";
-		$link .= Text::make_link("Leave this event", "/tell <myname> leaveEvent $arr[1]", "chatcmd")."\n\n";
+		$link .= Text::make_chatcmd("Join this event", "/tell <myname> joinEvent $arr[1]")."\n";
+		$link .= Text::make_chatcmd("Leave this event", "/tell <myname> leaveEvent $arr[1]")."\n\n";
 
 		$eventlist = explode(",", $row->event_attendees);
 		sort($eventlist);

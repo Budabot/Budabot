@@ -31,7 +31,7 @@ if (!$syntax_error) {
 		
 		$blob = '';
 		forEach ($xml_doc->marketpost as $marketpost) {
-			$char_link = Text::make_link($marketpost->player, $marketpost->player, 'user');
+			$char_link = Text::make_userlink($marketpost->player);
 			$time = Util::unixtime_to_readable(time() - $marketpost->time);
 			$message = preg_replace('/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/', "<a href='itemref://\\1/\\2/\\3'>\\4</a>", $marketpost->message);
 			$blob .= "[{$char_link}]: {$message} <orange>{$time} ago<end> \n\n";

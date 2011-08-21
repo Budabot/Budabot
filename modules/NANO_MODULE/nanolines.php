@@ -7,7 +7,7 @@ if (preg_match("/^nanolines$/i", $message, $arr)) {
 
 	$window = Text::make_header("Nanolines - Professions", "none");
 	forEach ($data as $row) {
-		$window .= Text::make_link($row->profession, "/tell <myname> <symbol>nlprof $row->profession", 'chatcmd');
+		$window .= Text::make_chatcmd($row->profession, "/tell <myname> <symbol>nlprof $row->profession");
 		$window .= "\n";
 	}
 	$window .= "\n\nAO Nanos by Voriuste"

@@ -27,7 +27,7 @@ if (preg_match("/^guides list$/i", $message)) {
 
 		$linkContents = '';
 		forEach ($topicList as $topic) {
-			$linkContents .= Text::make_link($topic, "/tell <myname> <symbol>guides $topic", 'chatcmd') . "\n";  
+			$linkContents .= Text::make_chatcmd($topic, "/tell <myname> <symbol>guides $topic") . "\n";  
 		}
 		
 		if ($linkContents) {

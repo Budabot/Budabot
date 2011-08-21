@@ -86,17 +86,17 @@ if (preg_match("/^config$/i", $message)) {
 	$list = array();
 	$list[] = array("header" => "<header>::::: Module Config :::::<end>\n\n", 
 	"content" => "Org Commands - " .
-		Text::make_link('Enable All', '/tell <myname> config cmd enable guild', 'chatcmd') . " " . 
-		Text::make_link('Disable All', '/tell <myname> config cmd disable guild', 'chatcmd') . "\n" . 
+		Text::make_chatcmd('Enable All', '/tell <myname> config cmd enable guild') . " " . 
+		Text::make_chatcmd('Disable All', '/tell <myname> config cmd disable guild') . "\n" . 
 	"Private Channel Commands - " . 
-		Text::make_link('Enable All', '/tell <myname> config cmd enable priv', 'chatcmd') . " " . 
-		Text::make_link('Disable All', '/tell <myname> config cmd disable priv', 'chatcmd') . "\n" . 
+		Text::make_chatcmd('Enable All', '/tell <myname> config cmd enable priv') . " " . 
+		Text::make_chatcmd('Disable All', '/tell <myname> config cmd disable priv') . "\n" . 
 	"Private Message Commands - " .
-		Text::make_link('Enable All', '/tell <myname> config cmd enable msg', 'chatcmd') . " " . 
-		Text::make_link('Disable All', '/tell <myname> config cmd disable msg', 'chatcmd') . "\n" .
+		Text::make_chatcmd('Enable All', '/tell <myname> config cmd enable msg') . " " . 
+		Text::make_chatcmd('Disable All', '/tell <myname> config cmd disable msg') . "\n" .
 	"ALL Commands - " .
-		Text::make_link('Enable All', '/tell <myname> config cmd enable all', 'chatcmd') . " " . 
-		Text::make_link('Disable All', '/tell <myname> config cmd disable all', 'chatcmd') . "\n\n\n");
+		Text::make_chatcmd('Enable All', '/tell <myname> config cmd enable all') . " " . 
+		Text::make_chatcmd('Disable All', '/tell <myname> config cmd disable all') . "\n\n\n");
 	
 	$sql = "
 		SELECT

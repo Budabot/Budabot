@@ -24,7 +24,7 @@ if (preg_match("/^whatbuffs (.+)$/i", $message, $arr)) {
 			forEach ($buffitems as $key => $item_info) {	
 				if (contains($item_info, $skills[0])) {
 					$found++;
-					$info .= "- " . Text::make_link($key, "/tell <myname> <symbol>buffitem $key", 'chatcmd') . "\n";
+					$info .= "- " . Text::make_chatcmd($key, "/tell <myname> <symbol>buffitem $key") . "\n";
 				}
 			}
 			if ($found > 0) {								// found items that modify this skill
@@ -46,7 +46,7 @@ if (preg_match("/^whatbuffs (.+)$/i", $message, $arr)) {
 		default:  // found more than 1 matching skill
 			$info = "";
 			forEach ($skills as $skill) {
-				$info .= "- " . Text::make_link($skill, "/tell <myname> <symbol>whatbuffs $skill", 'chatcmd') . "\n";
+				$info .= "- " . Text::make_chatcmd($skill, "/tell <myname> <symbol>whatbuffs $skill") . "\n";
 			}
 			$inside = "<header> :::::: Buff item helper :::::: <end>\n\n";
 			$inside .= "Your query of <yellow>$name<end> matches more than one skill:\n\n";

@@ -6,7 +6,7 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 	
 	$blob = "Land Control Index\n\n";
 	while (($row = $db->fObject()) != false) {
-		$baseLink = Text::make_link($row->long_name, "/tell <myname> lc $row->short_name", 'chatcmd');
+		$baseLink = Text::make_chatcmd($row->long_name, "/tell <myname> lc $row->short_name");
 		$blob .= "$baseLink <highlight>($row->short_name)<end>\n";
 	}
 	$msg = Text::make_blob('Land Control Index', $blob);

@@ -116,7 +116,7 @@ function createListByChannel(&$data, &$list, $show_alts) {
 	$current_header = "";
 	$current_content = "";
 	forEach ($data as $row) {
-		$name = Text::make_link($row->name, "/tell $row->name", "chatcmd");
+		$name = Text::make_chatcmd($row->name, "/tell $row->name");
 		 
 		if ($row->profession == "") {
 			$row->profession = "Unknown";
@@ -207,8 +207,7 @@ function createListByProfession(&$data, &$list, $show_alts) {
 	$current_header = "";
 	$current_content = "";
 	forEach ($data as $row) {
-		
-		$name = Text::make_link($row->name, "/tell $row->name", "chatcmd");
+		$name = Text::make_chatcmd($row->name, "/tell $row->name");
 		
 		if ($row->profession == "") {
 			$row->profession = "Unknown";

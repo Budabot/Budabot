@@ -303,7 +303,7 @@ class Budabot extends AOChat {
 		}
 
 		$message = Text::format_message($message);
-		$sender_link = Text::make_link($this->vars['name'], $this->vars['name'], "user");
+		$sender_link = Text::make_userlink($this->vars['name']);
 
 		if ($target == 'prv') {
 			$this->send_privgroup($this->vars["name"], Setting::get("default_priv_color").$message);

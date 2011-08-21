@@ -46,9 +46,9 @@ if (preg_match("/^cmdlist$/i", $message, $arr) || preg_match("/^cmdlist (.*)$/i"
 		}
 
 		if (AccessLevel::check_access($sender, 'moderator')) {
-			$on = Text::make_link('ON', "/tell <myname> config cmd $cmd enable all", 'chatcmd');
-			$off = Text::make_link('OFF', "/tell <myname> config cmd $cmd disable all", 'chatcmd');
-			$adv = Text::make_link('Permissions', "/tell <myname> config cmd $cmd", 'chatcmd');
+			$on = Text::make_chatcmd('ON', "/tell <myname> config cmd $cmd enable all");
+			$off = Text::make_chatcmd('OFF', "/tell <myname> config cmd $cmd disable all");
+			$adv = Text::make_chatcmd('Permissions', "/tell <myname> config cmd $cmd");
 			$adv_link = " ($adv) $on  $off";
 		}
 		

@@ -47,7 +47,7 @@ if (preg_match("/^settings$/i", $message)) {
 		$link .= $row->description;
 
 		if ($row->mode == "edit") {
-			$editLink = Text::make_link('Modify', "/tell <myname> settings change {$row->name}", 'chatcmd');
+			$editLink = Text::make_chatcmd('Modify', "/tell <myname> settings change {$row->name}");
 			$link .= " ($editLink)";
 		}
 	
@@ -133,12 +133,12 @@ if (preg_match("/^settings$/i", $message)) {
 			$link .= "Predefined Options:\n";
 			if ($intoptions) {
 				forEach ($options_map as $key => $label) {
-					$save_link = Text::make_link('Select', "/tell <myname> settings save {$row->name} {$key}", 'chatcmd');
+					$save_link = Text::make_chatcmd('Select', "/tell <myname> settings save {$row->name} {$key}");
 					$link .= "<tab> <highlight>{$label}<end> ({$save_link})\n";
 				}
 			} else {
 				forEach ($options as $char) {
-					$save_link = Text::make_link('Select', "/tell <myname> settings save {$row->name} {$char}", 'chatcmd');
+					$save_link = Text::make_chatcmd('Select', "/tell <myname> settings save {$row->name} {$char}");
 					$link .= "<tab> <highlight>{$char}<end> ({$save_link})\n";
 				}
 			}

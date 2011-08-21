@@ -7,7 +7,7 @@ if (preg_match("/^whitelist$/", $message)) {
 	} else {
 		$blob = "<header> :::::: Whitelist :::::: <end>\n\n";
 		forEach ($list as $entry) {
-			$remove = Text::make_link('Remove', "/tell <myname> whitelist remove $entry->name", 'chatcmd');
+			$remove = Text::make_chatcmd('Remove', "/tell <myname> whitelist remove $entry->name");
 			$blob .= "<white>{$entry->name}<end> [<green>added by {$entry->added_by}<end>] <white>{$entry->added_dt}<end> {$remove}\n";
 		}
 		$msg = Text::make_blob("Whitelist", $blob);

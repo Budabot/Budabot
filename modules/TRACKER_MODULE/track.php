@@ -21,9 +21,9 @@ if (preg_match("/^track$/i", $message)) {
 				$status = "<grey>None<end>";
 			}
 			
-			$remove = Text::make_link('Remove', "/tell <myname> track rem $row->name", 'chatcmd');
+			$remove = Text::make_chatcmd('Remove', "/tell <myname> track rem $row->name");
 			
-			$history = Text::make_link('History', "/tell <myname> track $row->name", 'chatcmd');
+			$history = Text::make_chatcmd('History', "/tell <myname> track $row->name");
 
 	  		$blob .= "<tab>-[{$history}] {$row->name} ({$status}{$last_action}) - {$remove}\n";
 	  	}

@@ -23,7 +23,7 @@ if (preg_match("/^feedback$/i", $message)) {
 	$blob = "<header> :::::: Feedback List :::::: <end>\n\n";
 	$data = $db->fObject('all');
 	forEach ($data as $row) {
-		$details_link = Text::make_link('Details', "/tell <myname> feedback $row->name", 'chatcmd');
+		$details_link = Text::make_chatcmd('Details', "/tell <myname> feedback $row->name");
 		$blob .= "$row->name  <green>+{$row->pos_rep}<end> <orange>-{$row->neg_rep}<end>   {$details_link}\n";
 	}
 	$msg = Text::make_blob("Feedback List ($count)", $blob);

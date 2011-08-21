@@ -157,12 +157,12 @@ if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) ||
 	$list .= "<u>Source Armor</u>\n";
 	$list .= "<img src=rdb://$icon_armor_src>\n";
 	$list .= "<a href='itemref://$lowid_armor_src/$highid_armor_src/$src_ql'>QL$src_ql $name_armor_src</a> (";
-	$list .= Text::make_link("Tradeskill process for this item", "/tell <myname> aiarmor $name_armor_src $src_ql", "chatcmd").")\n\n";
+	$list .= Text::make_chatcmd("Tradeskill process for this item", "/tell <myname> aiarmor $name_armor_src $src_ql").")\n\n";
 	
 	$list .= "<u>Target Armor</u>\n";
 	$list .= "<img src=rdb://$icon_armor_trg>\n";
 	$list .= "<a href='itemref://$lowid_armor_trg/$highid_armor_trg/$trg_ql'>QL$trg_ql $name_armor_trg</a> (";
-	$list .= Text::make_link("Tradeskill process for this item", "/tell <myname> aiarmor $name_armor_trg $trg_ql", "chatcmd").")";
+	$list .= Text::make_chatcmd("Tradeskill process for this item", "/tell <myname> aiarmor $name_armor_trg $trg_ql").")";
 	$msg = Text::make_blob("Building process for $ql $name_armor_result", $list);
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual)$/i", $message, $arr) ||

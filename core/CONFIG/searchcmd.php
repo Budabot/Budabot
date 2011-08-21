@@ -29,7 +29,7 @@ if (preg_match("/^searchcmd (.*)/i", $message, $arr)) {
 	$blob = "<header> :::::: Command Search Results :::::: <end>\n\n";
 	forEach ($data as $row) {
 		$foundmodule = strtoupper($row->module);
-		$blob .= Text::make_link($foundmodule.' configuration', '/tell <myname> config '.$foundmodule, 'chatcmd') . "\n";
+		$blob .= Text::make_chatcmd($foundmodule.' configuration', '/tell <myname> config '.$foundmodule) . "\n";
 	}
 
 	if (count($data) == 0) {
