@@ -11,7 +11,16 @@ class AccessLevel {
 		global $chatBot;
 		
 		if (Setting::get('alts_inherit_admin') == 1) {
-			$sender = Alts::get_main($sender);
+			if (is_a($sender, 'AltInfo')) {
+				$sender = $sender->accessCharacter;
+			} else {
+				$altInfo = Alts::get_alt_info($sender);
+				$sender = $altInfo->accessCharacter;
+			}
+		} else {
+			if (is_a($sender, 'AltInfo')) {
+				$sender = $sender->accessCharacter;
+			}
 		}
 		
 		// convert admin level names to numbers
@@ -98,7 +107,16 @@ class AccessLevel {
 		global $chatBot;
 	
 		if (Setting::get('alts_inherit_admin') == 1) {
-			$sender = Alts::get_main($sender);
+			if (is_a($sender, 'AltInfo')) {
+				$sender = $sender->accessCharacter;
+			} else {
+				$altInfo = Alts::get_alt_info($sender);
+				$sender = $altInfo->accessCharacter;
+			}
+		} else {
+			if (is_a($sender, 'AltInfo')) {
+				$sender = $sender->accessCharacter;
+			}
 		}
 		
 		return (int)$chatBot->admins[$sender]["level"];

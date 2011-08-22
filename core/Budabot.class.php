@@ -208,6 +208,9 @@ class Budabot extends AOChat {
 		Logger::log('DEBUG', 'Core', "MODULE_NAME:(FRIENDLIST.php)\n");
 		include "./core/FRIENDLIST/FRIENDLIST.php";
 		
+		Logger::log('DEBUG', 'Core', "MODULE_NAME:(ALTS.php)\n");
+		include "./core/ALTS/ALTS.php";
+		
 		$db->Commit();
 
 		Logger::log('INFO', 'Core', "Loading USER modules...");
@@ -786,12 +789,25 @@ class Budabot extends AOChat {
 		}
 
 		// Admin Check
-		$access = AccessLevel::check_access($sender, $admin);
+		$altInfo = Alts::get_alt_info($sender);
+		
+		$access = AccessLevel::check_access($altInfo, $admin);
 
 		if ($access !== true || $filename == "") {
 			if ($type != 'guild') {
 				// don't notify user of unknown command in org chat, in case they are running more than one bot
-				$chatBot->send("Error! Unknown command or Access denied! for more info try /tell <myname> help", $sendto);
+				
+				if (intval($altInfo->currentValidated) > 0) {
+					$chatBot->send("Error! Unknown command or Access denied! for more info try /tell <myname> help", $sendto);
+				} else {
+					// Not validated, check if the main would have access
+					$mainAccess = AccessLevel::check_access($altInfo->main, $admin);
+					if ($mainAccess == true && $filename != '') {
+						$chatBot->send("Error! Access denied! Your main has access to this command, but your alt is not validated yet.  Please relog to your main and validate your character.", $sendto);
+					} else {
+						$chatBot->send("Error! Unknown command or Access denied! for more info try /tell <myname> help", $sendto);
+					}
+				}
 				$chatBot->spam[$sender] = $chatBot->spam[$sender] + 20;
 			}
 			return;
