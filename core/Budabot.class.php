@@ -796,20 +796,20 @@ class Budabot extends AOChat {
 				// don't notify user of unknown command in org chat, in case they are running more than one bot
 				
 				if (Setting::get('alts_inherit_admin') == 0) {
-					$chatBot->send("Error: Unknown command or Access denied! For more info try /tell <myname> help", $sendto);
+					$chatBot->send("Error! Unknown command or Access denied! For more info try /tell <myname> help", $sendto);
 				} else {
 					// Alts inherit admin from main - so check if main would have high access
 					$altInfo = Alts::get_alt_info($sender);
 					if (intval($altInfo->currentValidated) > 0) {
 						// If this alt is validated, then it's not an issue
-						$chatBot->send("Error: Unknown command or Access denied! For more info try /tell <myname> help", $sendto);
+						$chatBot->send("Error! Unknown command or Access denied! For more info try /tell <myname> help", $sendto);
 					} else {
 						// Not validated, check if the main would have access
 						$mainAccess = AccessLevel::check_access($altInfo->main, $admin);
 						if ($mainAccess == true && $filename != '') {
-							$chatBot->send("Error: Access denied! Your main has access to this command, but your alt is not validated yet.  Please relog to your main and validate your character.", $sendto);
+							$chatBot->send("Error! Access denied! Your main has access to this command, but your alt is not validated yet.  Please relog to your main and validate your character.", $sendto);
 						} else {
-							$chatBot->send("Error: Unknown command or Access denied! For more info try /tell <myname> help", $sendto);
+							$chatBot->send("Error! Unknown command or Access denied! For more info try /tell <myname> help", $sendto);
 						}
 					}
 				}
@@ -831,7 +831,7 @@ class Budabot extends AOChat {
 				if ($output !== false) {
 					$chatBot->send($output, $sendto);
 				} else {
-					$chatBot->send("Error: Check your syntax! For more info try /tell <myname> help", $sendto);
+					$chatBot->send("Error! Check your syntax! For more info try /tell <myname> help", $sendto);
 				}
 			}
 			$chatBot->spam[$sender] = $chatBot->spam[$sender] + 10;
