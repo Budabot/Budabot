@@ -1,6 +1,8 @@
 <?php
 
-if (preg_match("/^altvalidate ([a-z0-9- ]+)$/i", $message, $arr)) {
+if (Setting::get('alts_inherit_admin') == 0) {
+	$chatBot->send("Alts inheriting their main's access is currently disabled.", $sendto);
+} else if (preg_match("/^altvalidate ([a-z0-9- ]+)$/i", $message, $arr)) {
 	$altInfo = Alts::get_alt_info($sender);
 	$alt = ucfirst(strtolower($arr[1]));
 	
