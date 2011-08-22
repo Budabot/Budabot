@@ -58,8 +58,11 @@ class Alts {
 		
 		$ai->currentValidated = $isValidated || $ai->main == $player;
 		$ai->accessCharacter = $player;
-		if ($ai->currentValidated) {
-			$ai->accessCharacter = $ai->main;
+		
+		if (Setting::get('alts_inherit_admin') == 1) {
+			if ($ai->currentValidated) {
+				$ai->accessCharacter = $ai->main;
+			}
 		}
 		
 		return $ai;
