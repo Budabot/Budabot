@@ -1,4 +1,0 @@
-<header>::::: Validate Alts :::::<end>
-
-<highlight>Validate your alt to enable it to inherit your main's admin privelages<end>
-<tab><symbol>altvalidate 'alt'
