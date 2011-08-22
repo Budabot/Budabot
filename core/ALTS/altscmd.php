@@ -60,8 +60,14 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 			continue;
 		}
 		
+		$validated = 0;
+		
+		if ($sender == $main || (Setting::get("validate_from_validated_alt") == 1 && $senderAltInfo->currentValidated)) {
+			$validated = 1;
+		}
+		
 		/* insert into database */
-		Alts::add_alt($main, $name);
+		Alts::add_alt($main, $name, $validated);
 		$names_succeeded []= $name;
 		
 		// update character info
