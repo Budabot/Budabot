@@ -11,15 +11,9 @@ class AccessLevel {
 		global $chatBot;
 		
 		if (Setting::get('alts_inherit_admin') == 1) {
-			if (is_a($sender, 'AltInfo')) {
-				$sender = $sender->accessCharacter;
-			} else {
-				$altInfo = Alts::get_alt_info($sender);
-				$sender = $altInfo->accessCharacter;
-			}
-		} else {
-			if (is_a($sender, 'AltInfo')) {
-				$sender = $sender->accessCharacter;
+			$altInfo = Alts::get_alt_info($sender);
+			if ($altInfo->currentValidated) {
+				$sender = $altInfo->main;
 			}
 		}
 		
@@ -107,15 +101,9 @@ class AccessLevel {
 		global $chatBot;
 	
 		if (Setting::get('alts_inherit_admin') == 1) {
-			if (is_a($sender, 'AltInfo')) {
-				$sender = $sender->accessCharacter;
-			} else {
-				$altInfo = Alts::get_alt_info($sender);
-				$sender = $altInfo->accessCharacter;
-			}
-		} else {
-			if (is_a($sender, 'AltInfo')) {
-				$sender = $sender->accessCharacter;
+			$altInfo = Alts::get_alt_info($sender);
+			if ($altInfo->currentValidated) {
+				$sender = $altInfo->main;
 			}
 		}
 		

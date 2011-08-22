@@ -3,7 +3,6 @@
 class AltInfo {
 	public $main; // The main for this character
 	public $alts = array(); // The list of alts for this character
-	public $accessCharacter; // The character name that should be used for determining access
 	public $currentValidated; // Whether the current character is validated
 }
 
@@ -57,13 +56,6 @@ class Alts {
 		}
 		
 		$ai->currentValidated = $isValidated || $ai->main == $player;
-		$ai->accessCharacter = $player;
-		
-		if (Setting::get('alts_inherit_admin') == 1) {
-			if ($ai->currentValidated) {
-				$ai->accessCharacter = $ai->main;
-			}
-		}
 		
 		return $ai;
 	}
@@ -127,7 +119,7 @@ class Alts {
 				$list .= " - <red>Offline<end>";
 			}
 			
-			if ($row->validated == 0) {
+			if (Setting::get('alts_inherit_admin') == 1 && $row->validated == 0) {
 				$list .= " [Unvalidated] " . Text::make_link('Validate', "/tell <myname> <symbol>altvalidate {$row->alt}", 'chatcmd');
 			}
 			

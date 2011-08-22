@@ -7,7 +7,7 @@ if (preg_match("/^altvalidate ([a-z0-9- ]+)$/i", $message, $arr)) {
 	$canValidate = false;
 	if (Setting::get("validate_from_validated_alt") == 1) {
 		// Validate from Main or Alt
-		if ($altInfo->main == $sender || $altInfo->accessCharacter == $altInfo->main) {
+		if ($altInfo->main == $sender || $altInfo->currentValidated > 0) {
 			$canValidate = true;
 		}
 	} else {
