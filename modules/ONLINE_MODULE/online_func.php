@@ -142,7 +142,7 @@ function createListByChannel(&$data, &$list, $show_alts) {
 		}
 		
 		if ($row->profession == "Unknown") {
-			$list .= "<tab><tab>$name - Unknown\n";
+			$current_content .= "<tab><tab>$name - Unknown\n";
 		} else {
 			if ($show_alts == true) {
 				$db->query("SELECT * FROM alts WHERE `alt` = '$row->name'");
@@ -277,7 +277,7 @@ function createListByProfession(&$data, &$list, $show_alts) {
 		}
 		
 		if ($row->profession == "Unknown") {
-			$list .= "<tab><tab>$name - Unknown\n";
+			$current_content .= "<tab><tab>$name - Unknown\n";
 		} else {
 			if ($show_alts == true) {
 				$main = Alts::get_main($row->name);
