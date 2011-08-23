@@ -15,10 +15,42 @@
 `verify` INT DEFAULT 1
 */
 
+/*
+Table Description
+mode = if this setting is editable or not
+		edit = This setting is editable
+		hide = This setting is not shown on !settings list
+		noedit = Not changable
+options = Allowed Options for this setting
+		text = any text(up to 50 chars)
+		text;maxLength = any text(up to max length)
+		number = any number
+		number;start-end = any number between start and end
+		color = any HMTL Color code
+		option1;option2 = List of Options seperated by a ;
+intoptions = Internal Version of options
+		ONLY usable for a list of options
+descriptions = Description of this setting, this is shown on !settings
+source = From where is this setting coming
+		db = Added by a module
+		cfg = added by thy config.php
+admin = Rank that is needed for this setting (admin or mod)
+help = Helpfile for this setting
+*/
+
 class Setting {
 
 	/**
 	 * @name: add
+	 * @param: $module - the module name
+	 * @param: $name - the name of the setting
+	 * @param: $description - a description for the setting (will appear in the config)
+	 * @param: $mode - 'edit', 'noedit', or 'hide'
+	 * @param: $type - 'color', 'number', 'text', or 'options'
+	 * @param: $options - a list of values that the setting can be, semi-colon delimited (optional)
+	 * @param: $intoptions - int values corresponding to $options; if empty, the values from $options will be what is stored in the database (optional)
+	 * @param: $admin - the permission level needed to change this setting (default: mod) (optional)
+	 * @param: $help - a help file for this setting; if blank, will use a help topic with the same name as this setting if it exists (optional)
 	 * @description: Adds a new setting
 	 */	
 	public static function add($module, $name, $description, $mode, $type, $value, $options = '', $intoptions = '', $admin = 'mod', $help = '') {
@@ -46,6 +78,7 @@ class Setting {
 	/**
 	 * @name: get
 	 * @description: Gets the value of a setting
+	 * @return: the value of the setting, or false if a setting with that name does not exist
 	 */	
 	public static function get($name) {
 		global $chatBot;
@@ -61,16 +94,20 @@ class Setting {
 	/**
 	 * @name: save
 	 * @description: Saves a new value for a setting
+	 * @param: $name - the name of the setting
+	 * @param: @value - the new value to set the setting to
+	 * @return: false if the setting with that name does not exist, true otherwise
 	 */	
-	public static function save($name, $newsetting) {
+	public static function save($name, $value) {
 		$db = DB::get_instance();
 		global $chatBot;
 
 		$name = strtolower($name);
 
 		if (isset($chatBot->settings[$name])) {
-			$db->exec("UPDATE settings_<myname> SET `verify` = 1, `value` = '" . str_replace("'", "''", $newsetting) . "' WHERE `name` = '$name'");
-			$chatBot->settings[$name] = $newsetting;
+			$db->exec("UPDATE settings_<myname> SET `verify` = 1, `value` = '" . str_replace("'", "''", $value) . "' WHERE `name` = '$name'");
+			$chatBot->settings[$name] = $value;
+			return true;
 		} else {
 			return false;
 		}

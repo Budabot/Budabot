@@ -6,7 +6,7 @@ class Subcommand {
 	 * @name: register
 	 * @description: Registers a subcommand
 	 */
-	public static function register($module, $type, $filename, $command, $admin = 'all', $dependson, $description = 'none', $help = '') {
+	public static function register($module, $type, $filename, $command, $admin = 'all', $parent_command, $description = 'none', $help = '') {
 		$db = DB::get_instance();
 		global $chatBot;
 
@@ -54,10 +54,10 @@ class Subcommand {
 			}
 
 			if ($chatBot->existing_subcmds[$type[$i]][$command] == true) {
-				$sql = "UPDATE cmdcfg_<myname> SET `module` = '$module', `verify` = 1, `file` = '$actual_filename', `description` = '$description', `dependson` = '$dependson', `help` = '{$help}' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'";
+				$sql = "UPDATE cmdcfg_<myname> SET `module` = '$module', `verify` = 1, `file` = '$actual_filename', `description` = '$description', `dependson` = '$parent_command', `help` = '{$help}' WHERE `cmd` = '$command' AND `type` = '{$type[$i]}'";
 				$db->exec($sql);
 			} else {
-				$sql = "INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `dependson`, `status`, `help`) VALUES ('$module', '{$type[$i]}', '$actual_filename', '$command', '{$admin[$i]}', '$description', 1, 'subcmd', '$dependson', $status, '{$help}')";
+				$sql = "INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `dependson`, `status`, `help`) VALUES ('$module', '{$type[$i]}', '$actual_filename', '$command', '{$admin[$i]}', '$description', 1, 'subcmd', '$parent_command', $status, '{$help}')";
 				$db->exec($sql);
 			}
 		}

@@ -44,7 +44,7 @@ function download_newest_itemsdb() {
 			Logger::log('INFO', 'ITEMS_MODULE', "Items db updated from '$currentVersion' to '$latestVersion'");
 			$msg = "The items database has been updated to the latest version.  Version: $latestVersion";
 		} else {
-			Logger::log('INFO', 'ITEMS_MODULE', "Items db already up to date '$latestVersion'");
+			Logger::log('INFO', 'ITEMS_MODULE', "Items db already up to date '$currentVersion'");
 			$msg = "The items database is already up to date.  Version: $currentVersion";
 		}
 	} else {
