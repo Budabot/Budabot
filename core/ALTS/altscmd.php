@@ -46,15 +46,14 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 	foreach ($names as $name) {
 		$name = ucfirst(strtolower($name));
 		
-		$amain = Alts::get_main($name);
-		
-		if ($amain == $sender) {
+		$altinfo = Alts::get_alt_info($name);
+		if ($altinfo->main == $sender) {
 			// Already registered to self
 			$self_registered []= $name;
 			continue;
 		}
 		
-		if ($amain != $name) {
+		if (count($altinfo->alts) > 0) {
 			// Already registered to someone else
 			$other_registered []= $name;
 			continue;

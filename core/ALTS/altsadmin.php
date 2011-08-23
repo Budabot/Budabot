@@ -22,16 +22,17 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names)) {
 		return;
 	}
 
-	$main = Alts::get_main($name_alt);
-	if ($main != $name_alt) {
+	$altinfo = Alts::get_alt_info($name_alt);
+	if ($altinfo->main != $name_alt) {
 		$msg = "Player <highlight>$name_alt<end> is already registered as an alt to <highlight>$main<end>.";
 		$chatBot->send($msg, $sendto);
 		return;
 	}
 	
-	$alts = Alts::get_alts($name_alt);
-	if (count($alts) > 0) {
+	if (count($altinfo->alts) > 0) {
 		$msg = "Player <highlight>$name_alt<end> is already registered as main.";
+		$chatBot->send($msg, $sendto);
+		return;
 	}
 
 	Alts::add_alt($name_main, $name_alt);

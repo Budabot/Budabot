@@ -280,10 +280,9 @@ function createListByProfession(&$data, &$list, $show_alts) {
 			$current_content .= "<tab><tab>$name - Unknown\n";
 		} else {
 			if ($show_alts == true) {
-				$main = Alts::get_main($row->name);
-				$alts = Alts::get_alts($main);
-				if (count($alts) > 0) {
-					if ($main == $row->name) {
+				$altinfo = Alts::get_alt_info($row->name);
+				if (count($altinfo->alts) > 0) {
+					if ($altinfo->main == $row->name) {
 						$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alts</a>";
 					} else {
 						$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alts of $main</a>";

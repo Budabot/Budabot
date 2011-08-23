@@ -7,34 +7,6 @@ class AltInfo {
 }
 
 class Alts {
-	public static function get_main($player) {
-		$db = DB::get_instance();
-		
-		$sql = "SELECT `alt`, `main` FROM `alts` WHERE `alt` LIKE '$player'";
-		$db->query($sql);
-		$row = $db->fObject();
-
-		if ($row === null) {
-			return $player;
-		} else {
-			return $row->main;
-		}
-	}
-	
-	public static function get_alts($main) {
-		$db = DB::get_instance();
-		
-		$sql = "SELECT `alt`, `main` FROM `alts` WHERE (`main` LIKE '$main') OR (`main` LIKE (SELECT `main` FROM `alts` WHERE `alt` LIKE '$main'))";
-		$db->query($sql);
-		
-		$data = $db->fObject('all');
-		$array = array();
-		forEach ($data as $row) {
-			$array[] = $row->alt;
-		}
-		return $array;
-	}
-	
 	public static function get_alt_info($player) {
 		$db = DB::get_instance();
 		
@@ -46,11 +18,10 @@ class Alts {
 		$isValidated = 0;
 		
 		$data = $db->fObject('all');
-		foreach ($data as $row) {
+		forEach ($data as $row) {
 			$ai->main = $row->main;
 			$ai->alts []= $row->alt;
-			if ($player == $row->alt)
-			{
+			if ($player == $row->alt) {
 				$isValidated = $row->validated;
 			}
 		}
