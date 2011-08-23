@@ -41,6 +41,18 @@ if (preg_match("/^addadmin (.+)$/i", $message, $arr)){
 		$chatBot->send("<red>You can't add yourself to another group.<end>", $sendto);
 		return;
 	}
+	
+	$ai = Alts::get_alt_info($who);
+	if (Setting::get("alts_inherit_admin") == 1 && $ai->main != $who) {
+		$msg = "<red>Alts inheriting admin is enabled, and $who is not a main character.<end>";
+		if ($chatBot->admins[$ai->main]["level"] == 4) {
+			$msg .= " {$ai->main} is already an Administrator.";
+		} else {
+			$msg .= " Try again with $who's main, <highlight>{$ai->main}<end>.";
+		}
+		$chatBot->send($msg, $sendto);
+		return;
+	}
 
 	if ($chatBot->admins[$who]["level"] == 4) {
 		$chatBot->send("<red>Sorry but $who is already a Administrator.<end>", $sendto);

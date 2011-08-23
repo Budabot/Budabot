@@ -42,6 +42,17 @@ if (preg_match("/^addmod (.+)$/i", $message, $arr)){
 		return;
 	}
 
+	$ai = Alts::get_alt_info($who);
+	if (Setting::get("alts_inherit_admin") == 1 && $ai->main != $who) {
+		$msg = "<red>Alts inheriting admin is enabled, and $who is not a main character.<end>";
+		if ($chatBot->admins[$ai->main]["level"] == 3) {
+			$msg .= " {$ai->main} is already a moderator.";
+		} else {
+			$msg .= " Try again with $who's main, <highlight>{$ai->main}<end>.";
+		}
+		$chatBot->send($msg, $sendto);
+		return;
+	}
 
 	if ($chatBot->admins[$who]["level"] == 3) {
 		$chatBot->send("<red>Sorry but $who is already a moderator.<end>", $sendto);
