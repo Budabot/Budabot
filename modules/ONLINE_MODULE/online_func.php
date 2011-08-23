@@ -142,15 +142,28 @@ function createListByChannel(&$data, &$list, $show_alts) {
 		}
 		
 		if ($row->profession == "Unknown") {
-			$current_content .= "<tab><tab>$name - Unknown\n";
+			$current_content .= "<tab><tab>$name - Unknown";
+			if ($show_alts == true) {
+				$altinfo = Alts::get_alt_info($row->name);
+				if (count($altinfo->alts) > 0) {
+					if ($altinfo->main == $row->name) {
+						$current_content .= " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alts</a>";
+					} else {
+						$current_content .= " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alt of {$altinfo->main}</a>";
+					}
+				}
+			}
+			
+			$current_content .= "\n";
 		} else {
 			if ($show_alts == true) {
-				$db->query("SELECT * FROM alts WHERE `alt` = '$row->name'");
-				if ($db->numrows() == 0) {
-					$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alts</a>";
-				} else {
-					$row1 = $db->fObject();
-					$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alts of $row1->main</a>";
+				$altinfo = Alts::get_alt_info($row->name);
+				if (count($altinfo->alts) > 0) {
+					if ($altinfo->main == $row->name) {
+						$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alts</a>";
+					} else {
+						$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alt of {$altinfo->main}</a>";
+					}
 				}
 				
 				if (Setting::get("online_admin") == "1") { //When building list without alts, we don't show admin info
@@ -277,7 +290,19 @@ function createListByProfession(&$data, &$list, $show_alts) {
 		}
 		
 		if ($row->profession == "Unknown") {
-			$current_content .= "<tab><tab>$name - Unknown\n";
+			$current_content .= "<tab><tab>$name - Unknown";
+			if ($show_alts == true) {
+				$altinfo = Alts::get_alt_info($row->name);
+				if (count($altinfo->alts) > 0) {
+					if ($altinfo->main == $row->name) {
+						$current_content .= " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alts</a>";
+					} else {
+						$current_content .= " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alt of {$altinfo->main}</a>";
+					}
+				}
+			}
+			
+			$current_content .= "\n";
 		} else {
 			if ($show_alts == true) {
 				$altinfo = Alts::get_alt_info($row->name);
@@ -285,7 +310,7 @@ function createListByProfession(&$data, &$list, $show_alts) {
 					if ($altinfo->main == $row->name) {
 						$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alts</a>";
 					} else {
-						$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alts of $main</a>";
+						$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alt of {$altinfo->main}</a>";
 					}
 				}
 				
