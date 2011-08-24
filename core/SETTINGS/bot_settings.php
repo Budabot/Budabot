@@ -30,7 +30,7 @@
    */
 
 if (preg_match("/^settings$/i", $message)) {
-  	$link  = "<header>::::: Bot Settings :::::<end>\n\n";
+  	$link  = "<header> :::::: Bot Settings :::::: <end>\n\n";
  	$link .= "<highlight>Changing any of these settings will take effect immediately. Please note that some of these settings are read-only and can't be changed.\n\n<end>";
  	$db->query("SELECT * FROM settings_<myname> WHERE `mode` != 'hide' ORDER BY `module`");
 	$data = $db->fObject("all");
