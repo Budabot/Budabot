@@ -27,8 +27,7 @@ if (Setting::get('alts_inherit_admin') == 0) {
 			$isValidated = ($validated == 1);
 		}
 	}
-	
-	
+
 	// Alright, time to handle it
 	if (!$isAlt) {
 		$chatBot->send("That's not your alt!", $sendto);

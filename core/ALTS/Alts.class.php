@@ -9,7 +9,7 @@ class AltInfo {
 			return true;
 		}
 		
-		forEach ($alts as $alt => $validated) {
+		forEach ($this->alts as $alt => $validated) {
 			if ($sender == $alt) {
 				return ($validated == 1);
 			}
