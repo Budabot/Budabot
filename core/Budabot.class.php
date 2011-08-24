@@ -386,371 +386,451 @@ class Budabot extends AOChat {
 	 * @description: Proccess all incoming messages that bot recives
 	 */	
 	function process_packet($type, $args) {
+		switch ($type){
+			case AOCP_GROUP_ANNOUNCE: // 60
+				process_group_announce($args);
+				break;
+			case AOCP_PRIVGRP_CLIJOIN: // 55, Incoming player joined private chat
+				process_private_channel_join($args);
+				break;
+			case AOCP_PRIVGRP_CLIPART: // 56, Incoming player left private chat
+				process_private_channel_leave($args);
+				break;
+			case AOCP_BUDDY_ADD: // 40, Incoming buddy logon or off
+				process_buddy_update($args);
+				break;
+			case AOCP_MSG_PRIVATE: // 30, Incoming Msg
+				process_private_message($args);
+				break;
+			case AOCP_PRIVGRP_MESSAGE: // 57, Incoming priv message
+				process_private_channel_message($args);
+				break;
+			case AOCP_GROUP_MESSAGE: // 65, Public and guild channels
+				process_public_channel_message($args);
+				break;
+			case AOCP_PRIVGRP_INVITE:  // 50, private channel invite
+				process_private_channel_invite($args);
+				break;
+		}
+	}
+	
+	function process_group_announce($args) {
 		$db = DB::get_instance();
 		global $chatBot;
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
 		$restricted = false;
+	
+		$b = unpack("C*", $args[0]);
+		Logger::log('DEBUG', 'Packets', "AOCP_GROUP_ANNOUNCE => name: '$args[1]'");
+		if ($b[1] == 3) {
+			$this->vars["my_guild_id"] = ($b[2] << 24) + ($b[3] << 16) + ($b[4] << 8) + ($b[5]);
+			//$this->vars["my_guild"] = $args[1];
+		}
+	}
+	
+	function process_private_channel_join($args) {
+		$db = DB::get_instance();
+		global $chatBot;
 
-		switch ($type){
-			case AOCP_GROUP_ANNOUNCE: // 60
-				$b = unpack("C*", $args[0]);
-				Logger::log('DEBUG', 'Packets', "AOCP_GROUP_ANNOUNCE => name: '$args[1]'");
-				if ($b[1] == 3) {
-					$this->vars["my_guild_id"] = ($b[2] << 24) + ($b[3] << 16) + ($b[4] << 8) + ($b[5]);
-					//$this->vars["my_guild"] = $args[1];
-				}
-				break;
-			case AOCP_PRIVGRP_CLIJOIN: // 55, Incoming player joined private chat
-				$channel = $this->lookup_user($args[0]);
-				$sender = $this->lookup_user($args[1]);
+		// modules can set this to true to stop execution after they are called
+		$stop_execution = false;
+		$restricted = false;
+	
+		$channel = $this->lookup_user($args[0]);
+		$sender = $this->lookup_user($args[1]);
 
-				Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_CLIJOIN => channel: '$channel' sender: '$sender'");
-				
-				if ($channel == $this->vars['name']) {
-					$type = "joinPriv";
+		Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_CLIJOIN => channel: '$channel' sender: '$sender'");
+		
+		if ($channel == $this->vars['name']) {
+			$type = "joinPriv";
 
-					Logger::log_chat("Priv Group", -1, "$sender joined the channel.");
+			Logger::log_chat("Priv Group", -1, "$sender joined the channel.");
 
-					// Remove sender if they are banned or if spam filter is blocking them
-					if (Ban::is_banned($sender) || $this->spam[$sender] > 100){
-						$this->privategroup_kick($sender);
-						return;
-					}
+			// Remove sender if they are banned or if spam filter is blocking them
+			if (Ban::is_banned($sender) || $this->spam[$sender] > 100){
+				$this->privategroup_kick($sender);
+				return;
+			}
 
-					// Add sender to the chatlist.
-					$this->chatlist[$sender] = true;
+			// Add sender to the chatlist.
+			$this->chatlist[$sender] = true;
 
-					// Check files, for all 'player joined channel events'.
-					forEach ($this->events[$type] as $filename) {
-						$msg = '';
-						include $filename;
-						if ($stop_execution) {
-							return;
-						}
-					}
-					
-					// Kick if their access is restricted.
-					if ($restricted === true) {
-						$this->privategroup_kick($sender);
-					}
-				} else {
-					$type = "extJoinPriv";
-					
-					forEach ($this->events[$type] as $filename) {
-						$msg = '';
-						include $filename;
-						if ($stop_execution) {
-							return;
-						}
-					}
-				}
-				break;
-			case AOCP_PRIVGRP_CLIPART: // 56, Incoming player left private chat
-				$channel = $this->lookup_user($args[0]);
-				$sender	= $this->lookup_user($args[1]);
-				
-				Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_CLIPART => channel: '$channel' sender: '$sender'");
-				
-				if ($channel == $this->vars['name']) {
-					$type = "leavePriv";
-				
-					Logger::log_chat("Priv Group", -1, "$sender left the channel.");
-
-					// Remove from Chatlist array.
-					unset($this->chatlist[$sender]);
-					
-					// Check files, for all 'player left channel events'.
-					forEach ($this->events[$type] as $filename) {
-						$msg = '';
-						include $filename;
-						if ($stop_execution) {
-							return;
-						}
-					}
-				} else {
-					$type = "extLeavePriv";
-					
-					forEach ($this->events[$type] as $filename) {
-						$msg = '';
-						include $filename;
-						if ($stop_execution) {
-							return;
-						}
-					}
-				}
-				break;
-			case AOCP_BUDDY_ADD: // 40, Incoming buddy logon or off
-				$sender	= $this->lookup_user($args[0]);
-				$status	= 0 + $args[1];
-				
-				Logger::log('DEBUG', 'Packets', "AOCP_BUDDY_ADD => sender: '$sender' status: '$status'");
-				
-				// store buddy info
-				list($bid, $bonline, $btype) = $args;
-				$this->buddyList[$bid]['uid'] = $bid;
-				$this->buddyList[$bid]['name'] = $sender;
-				$this->buddyList[$bid]['online'] = ($bonline ? 1 : 0);
-				$this->buddyList[$bid]['known'] = (ord($btype) ? 1 : 0);
-
-				// Ignore Logon/Logoff from other bots or phantom logon/offs
-                if ($sender == "") {
+			// Check files, for all 'player joined channel events'.
+			forEach ($this->events[$type] as $filename) {
+				$msg = '';
+				include $filename;
+				if ($stop_execution) {
 					return;
 				}
-
-				// Status => 0: logoff  1: logon
-				if ($status == 0) {
-					$type = "logOff";
-					
-					Logger::log('DEBUG', "Buddy", "$sender logged off");
-
-					// Check files, for all 'player logged off events'
-					forEach ($this->events[$type] as $filename) {
-						$msg = "";
-						include $filename;
-						if ($stop_execution) {
-							return;
-						}
-					}
-				} else if ($status == 1) {
-					$type = "logOn";
-					
-					Logger::log('INFO', "Buddy", "$sender logged on");
-
-					// Check files, for all 'player logged on events'.
-					forEach ($this->events[$type] as $filename) {
-						$msg = "";
-						include $filename;
-						if ($stop_execution) {
-							return;
-						}
-					}
-				}
-				break;
-			case AOCP_MSG_PRIVATE: // 30, Incoming Msg
-				$type = "msg";
-				$sender	= $this->lookup_user($args[0]);
-				$sendto = $sender;
-				
-				Logger::log('DEBUG', 'Packets', "AOCP_MSG_PRIVATE => sender: '$sender' message: '$args[1]'");
-				
-				// Removing tell color
-				if (preg_match("/^<font color='#([0-9a-f]+)'>(.+)$/si", $args[1], $arr)) {
-					$message = $arr[2];
-				} else {
-					$message = $args[1];
-				}
-
-				Logger::log_chat("Inc. Msg.", $sender, $message);
-
-				// AFK/bot check
-				if (preg_match("/$sender is AFK/si", $message, $arr)) {
-					return;
-				} else if (preg_match("/I am away from my keyboard right now/si", $message)) {
-					return;
-				} else if (preg_match("/Unknown command or access denied!/si", $message, $arr)) {
-					return;
-				} else if (preg_match("/I am responding/si", $message, $arr)) {
-					return;
-				} else if (preg_match("/I only listen/si", $message, $arr)) {
-					return;
-				} else if (preg_match("/Error!/si", $message, $arr)) {
-					return;
-				} else if (preg_match("/Unknown command input/si", $message, $arr)) {
+			}
+			
+			// Kick if their access is restricted.
+			if ($restricted === true) {
+				$this->privategroup_kick($sender);
+			}
+		} else {
+			$type = "extJoinPriv";
+			
+			forEach ($this->events[$type] as $filename) {
+				$msg = '';
+				include $filename;
+				if ($stop_execution) {
 					return;
 				}
+			}
+		}
+	}
+	
+	function process_private_channel_leave($args) {
+		$db = DB::get_instance();
+		global $chatBot;
 
-				if (Ban::is_banned($sender)) {
+		// modules can set this to true to stop execution after they are called
+		$stop_execution = false;
+		$restricted = false;
+	
+		$channel = $this->lookup_user($args[0]);
+		$sender	= $this->lookup_user($args[1]);
+		
+		Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_CLIPART => channel: '$channel' sender: '$sender'");
+		
+		if ($channel == $this->vars['name']) {
+			$type = "leavePriv";
+		
+			Logger::log_chat("Priv Group", -1, "$sender left the channel.");
+
+			// Remove from Chatlist array.
+			unset($this->chatlist[$sender]);
+			
+			// Check files, for all 'player left channel events'.
+			forEach ($this->events[$type] as $filename) {
+				$msg = '';
+				include $filename;
+				if ($stop_execution) {
 					return;
-				} else if ($this->vars['spam_protection'] == 1 && $this->spam[$sender] > 100) {
-					$this->spam[$sender] += 20;
+				}
+			}
+		} else {
+			$type = "extLeavePriv";
+			
+			forEach ($this->events[$type] as $filename) {
+				$msg = '';
+				include $filename;
+				if ($stop_execution) {
 					return;
 				}
-				
-				// Events
-				forEach ($this->events[$type] as $filename) {
-					$msg = "";
-					include $filename;
-					if ($stop_execution) {
-						return;
-					}
-				}
+			}
+		}
+	}
+	
+	function process_buddy_update($args) {
+		$db = DB::get_instance();
+		global $chatBot;
 
-				// Remove the prefix if there is one
-				if ($message[0] == Setting::get("symbol") && strlen($message) > 1) {
-					$message = substr($message, 1);
-				}
+		// modules can set this to true to stop execution after they are called
+		$stop_execution = false;
+		$restricted = false;
+	
+		$sender	= $this->lookup_user($args[0]);
+		$status	= 0 + $args[1];
+		
+		Logger::log('DEBUG', 'Packets', "AOCP_BUDDY_ADD => sender: '$sender' status: '$status'");
+		
+		// store buddy info
+		list($bid, $bonline, $btype) = $args;
+		$this->buddyList[$bid]['uid'] = $bid;
+		$this->buddyList[$bid]['name'] = $sender;
+		$this->buddyList[$bid]['online'] = ($bonline ? 1 : 0);
+		$this->buddyList[$bid]['known'] = (ord($btype) ? 1 : 0);
 
-				// Check private join and tell Limits
-				if (file_exists("./core/PRIV_TELL_LIMIT/check.php")) {
-					include './core/PRIV_TELL_LIMIT/check.php';
-					if ($restricted) {
-						return;
-					}
+		// Ignore Logon/Logoff from other bots or phantom logon/offs
+		if ($sender == "") {
+			return;
+		}
+
+		// Status => 0: logoff  1: logon
+		if ($status == 0) {
+			$type = "logOff";
+			
+			Logger::log('DEBUG', "Buddy", "$sender logged off");
+
+			// Check files, for all 'player logged off events'
+			forEach ($this->events[$type] as $filename) {
+				$msg = "";
+				include $filename;
+				if ($stop_execution) {
+					return;
 				}
-				
+			}
+		} else if ($status == 1) {
+			$type = "logOn";
+			
+			Logger::log('INFO', "Buddy", "$sender logged on");
+
+			// Check files, for all 'player logged on events'.
+			forEach ($this->events[$type] as $filename) {
+				$msg = "";
+				include $filename;
+				if ($stop_execution) {
+					return;
+				}
+			}
+		}
+	}
+	
+	function process_private_message($args) {
+		$db = DB::get_instance();
+		global $chatBot;
+
+		// modules can set this to true to stop execution after they are called
+		$stop_execution = false;
+		$restricted = false;
+	
+		$type = "msg";
+		$sender	= $this->lookup_user($args[0]);
+		$sendto = $sender;
+		
+		Logger::log('DEBUG', 'Packets', "AOCP_MSG_PRIVATE => sender: '$sender' message: '$args[1]'");
+		
+		// Removing tell color
+		if (preg_match("/^<font color='#([0-9a-f]+)'>(.+)$/si", $args[1], $arr)) {
+			$message = $arr[2];
+		} else {
+			$message = $args[1];
+		}
+
+		Logger::log_chat("Inc. Msg.", $sender, $message);
+
+		// AFK/bot check
+		if (preg_match("/$sender is AFK/si", $message, $arr)) {
+			return;
+		} else if (preg_match("/I am away from my keyboard right now/si", $message)) {
+			return;
+		} else if (preg_match("/Unknown command or access denied!/si", $message, $arr)) {
+			return;
+		} else if (preg_match("/I am responding/si", $message, $arr)) {
+			return;
+		} else if (preg_match("/I only listen/si", $message, $arr)) {
+			return;
+		} else if (preg_match("/Error!/si", $message, $arr)) {
+			return;
+		} else if (preg_match("/Unknown command input/si", $message, $arr)) {
+			return;
+		}
+
+		if (Ban::is_banned($sender)) {
+			return;
+		} else if ($this->vars['spam_protection'] == 1 && $this->spam[$sender] > 100) {
+			$this->spam[$sender] += 20;
+			return;
+		}
+		
+		// Events
+		forEach ($this->events[$type] as $filename) {
+			$msg = "";
+			include $filename;
+			if ($stop_execution) {
+				return;
+			}
+		}
+
+		// Remove the prefix if there is one
+		if ($message[0] == Setting::get("symbol") && strlen($message) > 1) {
+			$message = substr($message, 1);
+		}
+
+		// Check private join and tell Limits
+		if (file_exists("./core/PRIV_TELL_LIMIT/check.php")) {
+			include './core/PRIV_TELL_LIMIT/check.php';
+			if ($restricted) {
+				return;
+			}
+		}
+		
+		$this->process_command($type, $message, $sender, $sendto);
+	}
+	
+	function private_channel_message($args) {
+		$db = DB::get_instance();
+		global $chatBot;
+
+		// modules can set this to true to stop execution after they are called
+		$stop_execution = false;
+		$restricted = false;
+	
+		$sender	= $this->lookup_user($args[1]);
+		$sendto = 'prv';
+		$channel = $this->lookup_user($args[0]);
+		$message = $args[2];
+		$restricted = false;
+		
+		Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_MESSAGE => sender: '$sender' channel: '$channel' message: '$message'");
+		Logger::log_chat($channel, $sender, $message);
+		
+		if ($sender == $this->vars["name"] || Ban::is_banned($sender)) {
+			return;
+		}
+
+		if ($this->vars['spam_protection'] == 1) {
+			if ($this->spam[$sender] == 40) $this->send("Error! Your client is sending a high frequency of chat messages. Stop or be kicked.", $sender);
+			if ($this->spam[$sender] > 60) $this->privategroup_kick($sender);
+			if (strlen($args[1]) > 400){
+				$this->largespam[$sender] = $this->largespam[$sender] + 1;
+				if ($this->largespam[$sender] > 1) {
+					$this->privategroup_kick($sender);
+				}
+				if ($this->largespam[$sender] > 0) {
+					$this->send("Error! Your client is sending large chat messages. Stop or be kicked.", $sender);
+				}
+			}
+		}
+
+		if ($channel == $this->vars['name']) {
+
+			$type = "priv";
+
+			// Events
+			forEach ($this->events[$type] as $filename) {
+				$msg = "";
+				include $filename;
+				if ($stop_execution) {
+					return;
+				}
+			}
+			
+			if ($message[0] == Setting::get("symbol") && strlen($message) > 1) {
+				$message = substr($message, 1);
 				$this->process_command($type, $message, $sender, $sendto);
-
-				break;
-			case AOCP_PRIVGRP_MESSAGE: // 57, Incoming priv message
-				$sender	= $this->lookup_user($args[1]);
-				$sendto = 'prv';
-				$channel = $this->lookup_user($args[0]);
-				$message = $args[2];
-				$restricted = false;
-				
-				Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_MESSAGE => sender: '$sender' channel: '$channel' message: '$message'");
-				Logger::log_chat($channel, $sender, $message);
-				
-				if ($sender == $this->vars["name"] || Ban::is_banned($sender)) {
+			}
+		
+		} else {  // ext priv group message
+			
+			$type = "extPriv";
+			
+			forEach ($this->events[$type] as $filename) {
+				$msg = "";
+				include $filename;
+				if ($stop_execution) {
 					return;
 				}
+			}
+		}
+	}
+	
+	function process_public_channel_message($args) {
+		$db = DB::get_instance();
+		global $chatBot;
 
-				if ($this->vars['spam_protection'] == 1) {
-					if ($this->spam[$sender] == 40) $this->send("Error! Your client is sending a high frequency of chat messages. Stop or be kicked.", $sender);
-					if ($this->spam[$sender] > 60) $this->privategroup_kick($sender);
-					if (strlen($args[1]) > 400){
-						$this->largespam[$sender] = $this->largespam[$sender] + 1;
-						if ($this->largespam[$sender] > 1) {
-							$this->privategroup_kick($sender);
-						}
-						if ($this->largespam[$sender] > 0) {
-							$this->send("Error! Your client is sending large chat messages. Stop or be kicked.", $sender);
-						}
-					}
-				}
+		// modules can set this to true to stop execution after they are called
+		$stop_execution = false;
+		$restricted = false;
+	
+		$syntax_error = false;
+		$sender	 = $this->lookup_user($args[1]);
+		$message = $args[2];
+		$channel = $this->get_gname($args[0]);
+		
+		Logger::log('DEBUG', 'Packets', "AOCP_GROUP_MESSAGE => sender: '$sender' channel: '$channel' message: '$message'");
 
-				if ($channel == $this->vars['name']) {
+		if (in_array($channel, $this->channelsToIgnore)) {
+			return;
+		}
 
-					$type = "priv";
+		// don't log tower messages with rest of chat messages
+		if ($channel != "All Towers" && $channel != "Tower Battle Outcome") {
+			Logger::log_chat($channel, $sender, $message);
+		} else {
+			Logger::log('DEBUG', $channel, $message);
+		}
 
-					// Events
-					forEach ($this->events[$type] as $filename) {
-						$msg = "";
-						include $filename;
-						if ($stop_execution) {
-							return;
-						}
-					}
-					
-					if ($message[0] == Setting::get("symbol") && strlen($message) > 1) {
-						$message = substr($message, 1);
-						$this->process_command($type, $message, $sender, $sendto);
-					}
-				
-				} else {  // ext priv group message
-					
-					$type = "extPriv";
-					
-					forEach ($this->events[$type] as $filename) {
-						$msg = "";
-						include $filename;
-						if ($stop_execution) {
-							return;
-						}
-					}
-				}
-				break;
-			case AOCP_GROUP_MESSAGE: // 65, Public and guild channels
-				$syntax_error = false;
-				$sender	 = $this->lookup_user($args[1]);
-				$message = $args[2];
-				$channel = $this->get_gname($args[0]);
-				
-				Logger::log('DEBUG', 'Packets', "AOCP_GROUP_MESSAGE => sender: '$sender' channel: '$channel' message: '$message'");
+		if ($sender) {
+			// Ignore Message that are sent from the bot self
+			if ($sender == $this->vars["name"]) {
+				return;
+			}
+			if (Ban::is_banned($sender)) {
+				return;
+			}
+		}
+		
+		$b = unpack("C*", $args[0]);
 
-				if (in_array($channel, $this->channelsToIgnore)) {
+		if ($channel == "All Towers" || $channel == "Tower Battle Outcome") {
+			$type = "towers";
+			
+			forEach ($this->events[$type] as $filename) {
+				$msg = "";
+				include $filename;
+				if ($stop_execution) {
 					return;
 				}
+			}
+			return;
+		} else if ($channel == "Org Msg"){
+			$type = "orgmsg";
 
-				// don't log tower messages with rest of chat messages
-				if ($channel != "All Towers" && $channel != "Tower Battle Outcome") {
-					Logger::log_chat($channel, $sender, $message);
-				} else {
-					Logger::log('DEBUG', $channel, $message);
+			forEach ($this->events[$type] as $filename) {
+				$msg = "";
+				include $filename;
+				if ($stop_execution) {
+					return;
 				}
-
-				if ($sender) {
-					// Ignore Message that are sent from the bot self
-					if ($sender == $this->vars["name"]) {
-						return;
-					}
-					if (Ban::is_banned($sender)) {
-						return;
-					}
+			}
+			return;
+		} else if ($b[1] == 3 && Setting::get('guild_channel_status') == 1) {
+			$type = "guild";
+			$sendto = 'guild';
+			
+			// Events
+			forEach ($this->events[$type] as $filename) {
+				$msg = "";
+				include $filename;
+				if ($stop_execution) {
+					return;
 				}
-				
-				$b = unpack("C*", $args[0]);
-
-				if ($channel == "All Towers" || $channel == "Tower Battle Outcome") {
-                    $type = "towers";
-					
-					forEach ($this->events[$type] as $filename) {
-						$msg = "";
-						include $filename;
-						if ($stop_execution) {
-							return;
-						}
-					}
-                    return;
-                } else if ($channel == "Org Msg"){
-                    $type = "orgmsg";
-
-					forEach ($this->events[$type] as $filename) {
-						$msg = "";
-						include $filename;
-						if ($stop_execution) {
-							return;
-						}
-					}
-                    return;
-                } else if ($b[1] == 3 && Setting::get('guild_channel_status') == 1) {
-                    $type = "guild";
-					$sendto = 'guild';
-					
-					// Events
-					forEach ($this->events[$type] as $filename) {
-						$msg = "";
-						include $filename;
-						if ($stop_execution) {
-							return;
-						}
-					}
-					
-					if ($message[0] == Setting::get("symbol") && strlen($message) > 1) {
-						$message = substr($message, 1);
-						$this->process_command($type, $message, $sender, $sendto);
-					}
-				} else if ($channel == 'OT shopping 11-50' || $channel == 'OT shopping 50-100' || $channel == 'OT shopping 100+' || $channel == 'Neu. shopping 11-50' || $channel == 'Neu. shopping 50-100' || $channel == 'Neu. shopping 100+' || $channel == 'Clan shopping 11-50' || $channel == 'Clan shopping 50-100' || $channel == 'Clan shopping 100+') {
-					$type = "shopping";
-    				
-					forEach ($this->events[$type] as $filename) {
-						$msg = "";
-						include $filename;
-						if ($stop_execution) {
-							return;
-						}
-					}
+			}
+			
+			if ($message[0] == Setting::get("symbol") && strlen($message) > 1) {
+				$message = substr($message, 1);
+				$this->process_command($type, $message, $sender, $sendto);
+			}
+		} else if ($channel == 'OT shopping 11-50' || $channel == 'OT shopping 50-100' || $channel == 'OT shopping 100+' || $channel == 'Neu. shopping 11-50' || $channel == 'Neu. shopping 50-100' || $channel == 'Neu. shopping 100+' || $channel == 'Clan shopping 11-50' || $channel == 'Clan shopping 50-100' || $channel == 'Clan shopping 100+') {
+			$type = "shopping";
+			
+			forEach ($this->events[$type] as $filename) {
+				$msg = "";
+				include $filename;
+				if ($stop_execution) {
+					return;
 				}
-				break;
-			case AOCP_PRIVGRP_INVITE:  // 50, private channel invite
-				$type = "extJoinPrivRequest"; // Set message type.
-				$uid = $args[0];
-				$sender = $this->lookup_user($uid);
+			}
+		}
+	}
+	
+	function process_private_channel_invite($args) {
+		$db = DB::get_instance();
+		global $chatBot;
 
-				Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_INVITE => sender: '$sender'");
+		// modules can set this to true to stop execution after they are called
+		$stop_execution = false;
+		$restricted = false;
+	
+		$type = "extJoinPrivRequest"; // Set message type.
+		$uid = $args[0];
+		$sender = $this->lookup_user($uid);
 
-				Logger::log_chat("Priv Channel Invitation", -1, "$sender channel invited.");
+		Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_INVITE => sender: '$sender'");
 
-				forEach ($this->events[$type] as $filename) {
-					$msg = "";
-					include $filename;
-					if ($stop_execution) {
-						return;
-					}
-				}
-				break;
+		Logger::log_chat("Priv Channel Invitation", -1, "$sender channel invited.");
+
+		forEach ($this->events[$type] as $filename) {
+			$msg = "";
+			include $filename;
+			if ($stop_execution) {
+				return;
+			}
 		}
 	}
 	
