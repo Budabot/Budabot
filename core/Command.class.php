@@ -22,7 +22,7 @@ class Command {
 		//Check if the file exists
 		$actual_filename = Util::verify_filename($module . '/' . $filename);
 		if ($actual_filename == '') {
-			Logger::log('ERROR', 'Core', "Error in registering the File $filename for command $command. The file doesn't exists!");
+			Logger::log('ERROR', 'Core', "Error in registering the File $filename for command $command. The file doesn't exist!");
 			return;
 		}
 		
@@ -33,7 +33,7 @@ class Command {
 		}
 
 		for ($i = 0; $i < count($channel); $i++) {
-			Logger::log('debug', 'Core', "Adding Command to list:($command) File:($actual_filename) Admin:({$admin[$i]}) Type:({$channel[$i]})");
+			Logger::log('debug', 'Core', "Adding Command to list:($command) File:($actual_filename) Admin:({$admin[$i]}) Channel:({$channel[$i]})");
 			
 			if ($chatBot->existing_commands[$channel[$i]][$command] == true) {
 				$db->exec("UPDATE cmdcfg_<myname> SET `module` = '$module', `verify` = 1, `file` = '$actual_filename', `description` = '$description', `help` = '{$help}' WHERE `cmd` = '$command' AND `type` = '{$channel[$i]}'");

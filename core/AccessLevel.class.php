@@ -47,6 +47,7 @@ class AccessLevel {
 				if (isset($chatBot->guildmembers[$sender])) {
 					return true;
 				}
+			case "1":
 			case "leader":
 				if ($chatBot->data["leader"] == $sender) {
 					return true;
