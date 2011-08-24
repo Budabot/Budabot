@@ -279,12 +279,7 @@ class Text {
 	 * @param: $style (optional) - any styling you want applied to the link
 	 */
 	function make_userlink($user, $style = NULL) {
-		global $chatBot;
-		
-		$content = str_replace('"', '&quot;', $content);
-		$content = str_replace("'", '&#39;', $content);
-		
-		return "<a $style href='user://$content'>$name</a>";
+		return "<a $style href='user://$user'>$user</a>";
 	}
 	
 	/**	
