@@ -3,12 +3,28 @@
 class AltInfo {
 	public $main; // The main for this character
 	public $alts = array(); // The list of alts for this character
-	public $currentValidated; // Whether the current character is validated
+	
+	public function is_validated($sender) {
+		if ($sender == $this->main) {
+			return true;
+		}
+		
+		forEach ($alts as $alt => $validated) {
+			if ($sender == $alt) {
+				return ($validated == 1);
+			}
+		}
+		
+		// $sender is not an alt at all, return false
+		return false;
+	}
 }
 
 class Alts {
 	public static function get_alt_info($player) {
 		$db = DB::get_instance();
+		
+		$player = ucfirst(strtolower($player));
 		
 		$ai = new AltInfo();
 		
@@ -18,15 +34,14 @@ class Alts {
 		$isValidated = 0;
 		
 		$data = $db->fObject('all');
-		forEach ($data as $row) {
-			$ai->main = $row->main;
-			$ai->alts []= $row->alt;
-			if ($player == $row->alt) {
-				$isValidated = $row->validated;
+		if (count($data) > 0) {
+			forEach ($data as $row) {
+				$ai->main = $row->main;
+				$ai->alts[$row->alt] = $row->validated;
 			}
+		} else {
+			$ai->main = $player;
 		}
-		
-		$ai->currentValidated = $isValidated || $ai->main == $player;
 		
 		return $ai;
 	}
@@ -51,9 +66,9 @@ class Alts {
 	public static function get_alts_blob($char) {
 		$db = DB::get_instance();
 	
-		$altInfo = Alts::get_alt_info(ucfirst(strtolower($char)));
+		$altInfo = Alts::get_alt_info($char);
 		
-		if (count($altInfo->alts) == 0 || (count($altInfo->alts) == 1 && $altInfo->alts[0] == $altInfo->main)) {
+		if (count($altInfo->alts) == 0) {
 			return "No registered alts";
 		}
 

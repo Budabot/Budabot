@@ -800,7 +800,7 @@ class Budabot extends AOChat {
 				} else {
 					// Alts inherit admin from main - so check if main would have high access
 					$altInfo = Alts::get_alt_info($sender);
-					if (intval($altInfo->currentValidated) > 0) {
+					if ($altInfo->is_validated($sender)) {
 						// If this alt is validated, then it's not an issue
 						$chatBot->send("Error! Unknown command or Access denied! For more info try /tell <myname> help", $sendto);
 					} else {

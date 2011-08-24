@@ -47,13 +47,13 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 		$name = ucfirst(strtolower($name));
 		
 		$altinfo = Alts::get_alt_info($name);
-		if ($altinfo->main == $sender) {
+		if ($altinfo->main == $senderAltInfo->main) {
 			// Already registered to self
 			$self_registered []= $name;
 			continue;
 		}
 		
-		if (count($altinfo->alts) > 0) {
+		if (count($senderAltInfo->alts) > 0) {
 			// Already registered to someone else
 			$other_registered []= $name;
 			continue;
@@ -61,12 +61,12 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 		
 		$validated = 0;
 		
-		if ($sender == $main || (Setting::get("validate_from_validated_alt") == 1 && $senderAltInfo->currentValidated)) {
+		if ($sender == $senderAltInfo->main || (Setting::get("validate_from_validated_alt") == 1 && $senderAltInfo->is_validated($sender))) {
 			$validated = 1;
 		}
 		
 		/* insert into database */
-		Alts::add_alt($main, $name, $validated);
+		Alts::add_alt($senderAltInfo->main, $name, $validated);
 		$names_succeeded []= $name;
 		
 		// update character info
@@ -100,7 +100,7 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 	
 	$altInfo = Alts::get_alt_info($sender);
 	
-	if (!in_array($name, $altInfo->alts)) {
+	if (!array_key_exists($name, $altInfo->alts)) {
 		$msg = "<highlight>{$name}<end> is not registered as your alt.";
 	} else {
 		Alts::rem_alt($altInfo->main, $name);
@@ -119,7 +119,7 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 	
 	$altInfo = Alts::get_alt_info($sender);
 	
-	if (!in_array($new_main, $altInfo->alts)) {
+	if (!array_key_exists($new_main, $altInfo->alts)) {
 		$msg = "<highlight>{$new_main}<end> must first be registered as your alt.";
 		$chatBot->send($msg, $sendto);
 		return;
@@ -131,10 +131,10 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 	$db->exec("DELETE FROM `alts` WHERE `main` = '{$altInfo->main}'");
 
 	// add current main to new main as an alt
-	Alts::add_alt($new_main, $current_main);
+	Alts::add_alt($new_main, $altinfo->main);
 	
 	// add current alts to new main
-	forEach ($altInfo->alts as $alt) {
+	forEach ($altInfo->alts as $alt => $validated) {
 		if ($alt != $new_main) {
 			Alts::add_alt($new_main, $alt);
 		}

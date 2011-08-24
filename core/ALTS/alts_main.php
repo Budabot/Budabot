@@ -19,14 +19,14 @@ if (preg_match("/^alts main ([a-z0-9-]+)$/i", $message, $arr)) {
 		return;
 	}
 	
-	if (count($altInfo->alts) > 0) {
+	if ($altInfo->main == $sender && count($altInfo->alts) > 0) {
 		$msg = "You must not have any alts already registered.";
 		$chatBot->send($msg, $sendto);
 		return;
 	}
 	
 	// let them know if they are changing the main for this char
-	if ($altInfo->main != '' && $altInfo->main != $sender) {
+	if ($altInfo->main != $sender) {
 		Alts::rem_alt($altInfo->main, $sender);
 		$msg = "You have been removed as an alt of {$altInfo->main}.";
 		$chatBot->send($msg, $sendto);

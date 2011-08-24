@@ -12,7 +12,7 @@ class AccessLevel {
 		
 		if (Setting::get('alts_inherit_admin') == 1) {
 			$altInfo = Alts::get_alt_info($sender);
-			if ($altInfo->currentValidated) {
+			if ($altInfo->is_validated($sender)) {
 				$sender = $altInfo->main;
 			}
 		}
@@ -74,14 +74,14 @@ class AccessLevel {
 	/**
 	 * @name: get_admin_level
 	 * @param: $sender - the name of the person you want to get the admin level for
-	 * @return: 4 if administrator, 3 if moderator, 2 if raidleader, otherwise null
+	 * @return: 4 if administrator, 3 if moderator, 2 if raidleader, otherwise 0
 	 */
 	public static function get_admin_level($sender) {
 		global $chatBot;
 	
 		if (Setting::get('alts_inherit_admin') == 1) {
 			$altInfo = Alts::get_alt_info($sender);
-			if ($altInfo->currentValidated) {
+			if ($altInfo->is_validated($sender)) {
 				$sender = $altInfo->main;
 			}
 		}
