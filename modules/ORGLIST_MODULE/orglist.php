@@ -65,7 +65,7 @@ if (!function_exists('orgmatesformat')){
 					if ($offlinelist != "") {
 						$offlinelist .= ", ";
 						if (($olcount % 50) == 0) {
-							$offlinelist .= "<pagebreak>";
+							$offlinelist .= "<end><pagebreak>" . $color["offline"];
 						}
 					}
 					$offlinelist .= $newlist[$rankid][$i];
@@ -86,7 +86,7 @@ if (!function_exists('orgmatesformat')){
 				$b .= $onlinelist;
 			}
 			if ($offlinelist != "") {
-				$b .= "  " . $offlinelist;
+				$b .= $color["offline"] . $offlinelist . "<end>\n";
 			}
 			
 			$blob[] = array("header" => $bh, "content" => $b, "footer" => "\n\n", "header_incomplete" => $bhi, "footer_incomplete" => "\n");
