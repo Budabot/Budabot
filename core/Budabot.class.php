@@ -388,28 +388,28 @@ class Budabot extends AOChat {
 	function process_packet($type, $args) {
 		switch ($type){
 			case AOCP_GROUP_ANNOUNCE: // 60
-				process_group_announce($args);
+				$this->process_group_announce($args);
 				break;
 			case AOCP_PRIVGRP_CLIJOIN: // 55, Incoming player joined private chat
-				process_private_channel_join($args);
+				$this->process_private_channel_join($args);
 				break;
 			case AOCP_PRIVGRP_CLIPART: // 56, Incoming player left private chat
-				process_private_channel_leave($args);
+				$this->process_private_channel_leave($args);
 				break;
 			case AOCP_BUDDY_ADD: // 40, Incoming buddy logon or off
-				process_buddy_update($args);
+				$this->process_buddy_update($args);
 				break;
 			case AOCP_MSG_PRIVATE: // 30, Incoming Msg
-				process_private_message($args);
+				$this->process_private_message($args);
 				break;
 			case AOCP_PRIVGRP_MESSAGE: // 57, Incoming priv message
-				process_private_channel_message($args);
+				$this->process_private_channel_message($args);
 				break;
 			case AOCP_GROUP_MESSAGE: // 65, Public and guild channels
-				process_public_channel_message($args);
+				$this->process_public_channel_message($args);
 				break;
 			case AOCP_PRIVGRP_INVITE:  // 50, private channel invite
-				process_private_channel_invite($args);
+				$this->process_private_channel_invite($args);
 				break;
 		}
 	}
@@ -652,7 +652,7 @@ class Budabot extends AOChat {
 		$this->process_command($type, $message, $sender, $sendto);
 	}
 	
-	function private_channel_message($args) {
+	function process_private_channel_message($args) {
 		$db = DB::get_instance();
 		global $chatBot;
 
