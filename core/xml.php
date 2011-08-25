@@ -91,28 +91,27 @@ class history extends xml{
 	public $errorInfo;
 	public $errorCode = 0;
 
-	//constructor of the class
     function __construct($name, $rk_num = 0, $cache = 0){
+		global $chatBot;
+	
 		//if no server number is specified use the one on which the bot is logged in
-		if($rk_num == 0) {
-		  	global $vars;
-			$rk_num = $vars["dimension"];
+		if ($rk_num == 0) {
+			$rk_num = $chatBot->vars["dimension"];
 		}
 
 		//if no specific cachefolder is defined use the one from config.php
-		if($cache == 0) {
-		  	global $vars;
-			$cache = $vars["cachefolder"];
+		if ($cache == 0) {
+			$cache = $chatBot->vars["cachefolder"];
 		}
 
 		//Making sure that the cache folder exists
-        if(!dir($cache))
+        if (!dir($cache)) {
 	        mkdir($cache, 0777);
+		}
 
         $this->lookup($name, $rk_num, $cache);
-    } //end constructor
+    }
 
-	//the lookup function
     function lookup($name, $rk_num, $cache) {
   	 	$data_found = false;
 		$data_save = false;
@@ -161,7 +160,7 @@ class history extends xml{
 		//if there is still no valid data available give an error back
 		if(!$data_found) {
            	$this->errorCode = 1;
-           	$this->errorInfo = "Couldn't get History of $name";
+           	$this->errorInfo = "Couldn't get History of $name on RK $rk_num";
            	return;
 		}
 
