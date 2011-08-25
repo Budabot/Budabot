@@ -1,10 +1,17 @@
 <?php
 
-if (preg_match("/^whoisorg ([0-9]+)$/i", $message, $arr1) || preg_match("/^whoisorg ([a-z0-9-]+)$/i", $message, $arr2)) {
+if (preg_match("/^whoisorg (\d+) (\d)$/i", $message, $arr1) || preg_match("/^whoisorg ([a-z0-9-]+) (\d)$/i", $message, $arr2) ||
+	preg_match("/^whoisorg ([0-9]+)$/i", $message, $arr1) || preg_match("/^whoisorg ([a-z0-9-]+)$/i", $message, $arr2)) {
+	
+	$dimension = $chatBot->vars['dimension'];
 	if ($arr2) {
+		if (isset($arr2[2])) {
+			$dimension = $arr2[2];
+		}
+	
 		// Someone's name.  Doing a whois to get an orgID.
 		$name = ucfirst(strtolower($arr2[1]));
-		$whois = Player::get_by_name($name);
+		$whois = Player::get_by_name($name, $dimension);
 
 		if ($whois === null) {
 			$msg = "Could not find character info for $name.";
@@ -19,14 +26,18 @@ if (preg_match("/^whoisorg ([0-9]+)$/i", $message, $arr1) || preg_match("/^whois
 		}
 	} else {
 		$org_id = $arr1[1];
+		
+		if (isset($arr1[2])) {
+			$dimension = $arr1[2];
+		}
 	}
 
-  	$msg = "Getting Org info. Please standby.";
+  	$msg = "Getting Org info. Please stand by...";
     $chatBot->send($msg, $sendto);
 	
-    $org = Guild::get_by_id($org_id);
+    $org = Guild::get_by_id($org_id, $dimension);
 	if ($org === null) {
-		$msg = "Error in getting the Org info. Either org does not exist or AO's server was too slow to respond.";
+		$msg = "Error in getting the Org info. Either the org does not exist or AO's server was too slow to respond.";
 		$chatBot->send($msg, $sendto);
 		return;
 	}
