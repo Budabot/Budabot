@@ -3,7 +3,7 @@
 $colorlabel = "<font color=#00DE42>";
 $colorvalue = "<font color=#63AD63>";
 
-$listcount = 20;
+$page_size = 20;
 $page_label = 1;
 $search = '';
 
@@ -70,7 +70,8 @@ if (preg_match("/^victory (\\d+)$/i", $message, $arr) || preg_match("/^victory$/
 	return;
 }
 
-$page = $page_label - 1;
+$start_row = ($page_label - 1) * $page_size;
+
 $sql = "
 	SELECT
 		*,
@@ -85,13 +86,13 @@ $sql = "
 	ORDER BY
 		`victory_time` DESC
 	LIMIT
-		$page, $listcount";
+		$start_row, $page_size";
 
 $db->query($sql);
 if ($db->numrows() == 0) {
 	$msg = "No Tower results found.";
 } else {
-	$list = "<header>::::: The last $listcount Tower Results (page $page_label) :::::<end>\n\n".$colorvalue;
+	$list = "<header> :::::: The last $page_size Tower Results (page $page_label) :::::: <end>\n\n".$colorvalue;
 	while ($row = $db->fObject()) {
 		$list .= $colorlabel."Time:<end> ".gmdate("M j, Y, G:i", $row->victory_time)." (GMT)\n";
 
