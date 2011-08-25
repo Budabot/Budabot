@@ -55,16 +55,20 @@ class Text {
 		
 		if (is_string($content)) {
 			$content = Text::format_message($content);
-			$content = str_replace('<pagebreak>', '', $content);
-			
-			if (strlen($content) > $chatBot->settings["max_blob_size"]) {  //Split the windows if they are too big
-				// split on linebreaks
-				$array = explode("\n", $content);
-				$pagebreak = false;
+			$tmp = str_replace('<pagebreak>', '', $content);
+
+			if (strlen($tmp) > $chatBot->settings["max_blob_size"]) {
+				$array = explode("<pagebreak>", $content);
+				$pagebreak = true;
 				
+				// if the blob doesn't specify <pagebreak>s, split on linebreaks
+				if (count($array) == 1) {
+					$array = explode("\n", $content);
+					$pagebreak = false;
+				}
 				$page = 1;
 				$page_size = 0;
-			  	forEach ($array as $line) {
+				forEach ($array as $line) {
 					// preserve newline char if we split on newlines
 					if ($pagebreak == false) {
 						$line .= "\n";
@@ -73,9 +77,9 @@ class Text {
 					if ($page_size + $line_length < $chatBot->settings["max_blob_size"]) {
 						$result[$page] .= $line;
 						$page_size += $line_length;
-				    } else {
+					} else {
 						$result[$page] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].$result[$page]."\">$name</a> (Page <highlight>$page<end>)";
-				    	$page++;
+						$page++;
 						
 						$result[$page] .= "<header>::::: $name Page $page :::::<end>\n\n";
 						$result[$page] .= $line;
@@ -85,7 +89,7 @@ class Text {
 				$result[$page] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].$result[$page]."\">$name</a> (Page <highlight>$page - End<end>)";
 				return $result;
 			} else {
-				return "<a $style href=\"text://".$chatBot->settings["default_window_color"].$content."\">$name</a>";
+				return "<a $style href=\"text://".$chatBot->settings["default_window_color"].$tmp."\">$name</a>";
 			}
 		} else if (is_array($content)) { // Format retaining blob.
 			/**
