@@ -6,3 +6,7 @@
 
 <highlight>Show the online list filtered by profession<end>
 <tab><symbol>online 'prof'
+
+<highlight>Valid profession names are:<end>
+<tab>adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, 
+<tab>shade, trad, all. Full profession names work as well.

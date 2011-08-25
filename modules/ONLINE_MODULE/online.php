@@ -7,9 +7,8 @@ if (preg_match("/^online$/i", $message) || preg_match("/^online (.*)$/i", $messa
 			$prof = Util::get_profession_name($prof);
 		}
 		
-		if ($prof === null) {
-			$msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, trad or all";
-			$chatBot->send($msg, $sendto);
+		if ($prof == null) {
+			$syntax_error = true;
 			return;
 		}
 	} else {
