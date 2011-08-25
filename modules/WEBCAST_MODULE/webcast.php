@@ -72,7 +72,7 @@ if ($command) {
 		}
 	}
 } else if ($webpath) {
-	$db->query("SELECT o.name, afk FROM online o LEFT JOIN players p ON o.name = p.name WHERE channel_type = 'guild' ORDER BY `profession`, `level` DESC");
+	$db->query("SELECT o.name, afk FROM online o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE channel_type = 'guild' ORDER BY `profession`, `level` DESC");
 	$data = $db->fObject("all");
 
 	forEach ($data as $row) {	
@@ -87,7 +87,7 @@ if ($command) {
 	} 
 
 	//do guests
-	$db->query("SELECT o.name, afk FROM online o LEFT JOIN players p ON o.name = p.name WHERE channel_type = 'priv' ORDER BY `profession`, `level` DESC");
+	$db->query("SELECT o.name, afk FROM online o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE channel_type = 'priv' ORDER BY `profession`, `level` DESC");
 	$data = $db->fObject("all");
 
 	forEach ($data as $row) {	        

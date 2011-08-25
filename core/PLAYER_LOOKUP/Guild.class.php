@@ -119,7 +119,7 @@ class Guild {
 			$db = DB::get_instance();
 			$db->beginTransaction();
 			
-			$sql = "UPDATE players SET guild_id = '', guild = '' WHERE guild_id = {$guild->guild_id}";
+			$sql = "UPDATE players SET guild_id = '', guild = '' WHERE guild_id = {$guild->guild_id} AND dimension = {$rk_num}";
 			$db->exec($sql);
 			
 			forEach ($guild->members as $member) {

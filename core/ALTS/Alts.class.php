@@ -88,7 +88,7 @@ class Alts {
 		}
 		$list .= "\n:::::: Alt Character(s)\n";
 		
-		$sql = "SELECT `alt`, `main`, `validated`, p.* FROM `alts` a LEFT JOIN players p ON a.alt = p.name WHERE `main` LIKE '{$altInfo->main}' ORDER BY level DESC, ai_level DESC, profession ASC, name ASC";
+		$sql = "SELECT `alt`, `main`, `validated`, p.* FROM `alts` a LEFT JOIN players p ON (a.alt = p.name AND p.dimension = '<dim>') WHERE `main` LIKE '{$altInfo->main}' ORDER BY level DESC, ai_level DESC, profession ASC, name ASC";
 		$db->query($sql);
 		$data = $db->fObject('all');
 		forEach ($data as $row) {

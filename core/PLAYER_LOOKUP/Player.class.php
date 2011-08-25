@@ -1,9 +1,13 @@
 <?php
 
 class Player {
-	public static function get_by_name($name, $forceUpdate = false) {
+	public static function get_by_name($name, $dimension = 0, $forceUpdate = false) {
 		$db = DB::get_instance();
 		global $chatBot;
+		
+		if ($dimension == 0) {
+			$dimension = $chatBot->vars['dimension'];
+		}
 		
 		$name = ucfirst(strtolower($name));
 		
@@ -12,18 +16,18 @@ class Player {
 			return null;
 		}
 	
-		$sql = "SELECT * FROM players WHERE name LIKE '$name'";
+		$sql = "SELECT * FROM players WHERE name LIKE '$name' AND dimension = $dimension";
 		$db->query($sql);
 		$player = $db->fObject();
 
 		if ($player === null || $forceUpdate) {
-			$player = Player::lookup($name, $chatBot->vars['dimension']);
+			$player = Player::lookup($name, $dimension);
 			if ($player !== null) {
 				$player->charid = $charid;
 				Player::update($player);
 			}
 		} else if ($player->last_update < (time() - 86400)) {
-			$player2 = Player::lookup($name, $chatBot->vars['dimension']);
+			$player2 = Player::lookup($name, $dimension);
 			if ($player2 !== null) {
 				$player = $player2;
 				$player->charid = $charid;
@@ -87,7 +91,7 @@ class Player {
 	public static function update(&$char) {
 		$db = DB::get_instance();
 		
-		$sql = "DELETE FROM players WHERE `name` = '{$char->name}'";
+		$sql = "DELETE FROM players WHERE `name` = '{$char->name}' AND `dimension` = '{$char->dimension}'";
 		$db->exec($sql);
 
 		$sql = "

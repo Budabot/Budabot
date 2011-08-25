@@ -1,42 +1,13 @@
 <?php
-   /*
-   ** Author: Derroylo (RK2)
-   ** Description: Refresh/Create org memberlist
-   ** Version: 0.1
-   **
-   ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
-   **
-   ** Date(created): 22.07.2006
-   ** Date(last modified): 03.02.2007
-   ** 
-   ** Copyright (C) 2006, 2007 Carsten Lohmann
-   **
-   ** Licence Infos: 
-   ** This file is part of Budabot.
-   **
-   ** Budabot is free software; you can redistribute it and/or modify
-   ** it under the terms of the GNU General Public License as published by
-   ** the Free Software Foundation; either version 2 of the License, or
-   ** (at your option) any later version.
-   **
-   ** Budabot is distributed in the hope that it will be useful,
-   ** but WITHOUT ANY WARRANTY; without even the implied warranty of
-   ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   ** GNU General Public License for more details.
-   **
-   ** You should have received a copy of the GNU General Public License
-   ** along with Budabot; if not, write to the Free Software
-   ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-   */
-   
-if(preg_match("/^orgmembers$/i", $message)) {
+
+if (preg_match("/^orgmembers$/i", $message)) {
 	if ($chatBot->vars["my_guild_id"] == "") {
 	  	$msg = "The Bot needs to be in a org to show the orgmembers.";
 	    $chatBot->send($msg, $sendto);
 		return;
 	}
 	
-	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.name = p.name WHERE `mode` != 'del' ORDER BY o.name");
+	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE `mode` != 'del' ORDER BY o.name");
 	$members = $db->numrows();
   	if ($members == 0) {
 	  	$msg = "No members recorded.";
@@ -109,7 +80,7 @@ if(preg_match("/^orgmembers$/i", $message)) {
 		return;
 	}
 	
-	$sql = "SELECT * FROM players WHERE guild_id = {$guild_id} ORDER BY name ASC";
+	$sql = "SELECT * FROM players WHERE guild_id = {$guild_id} AND dimension = '<dim>' ORDER BY name ASC";
 	$db->query($sql);
 	
 	$blob = array("{$org->orgname} has {$db->numrows()} members.\n\n");
