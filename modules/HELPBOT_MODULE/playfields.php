@@ -5,7 +5,8 @@ if (preg_match("/^playfields$/i", $message)) {
 	
 	$sql = "SELECT * FROM playfields ORDER BY long_name";
 	$db->query($sql);
-	while ($row = $db->fObject()) {
+	$data = $db->fObject('all');
+	forEach ($data as $row) {
 		$blob .= "{$row->id}   <green>{$row->long_name}<end>   <cyan>({$row->short_name})<end>\n";
 	}
 	

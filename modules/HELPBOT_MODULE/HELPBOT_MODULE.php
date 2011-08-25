@@ -15,7 +15,7 @@
 	Command::register($MODULE_NAME, "", "biomat_identify.php", "bio", "all", "Biomaterial Identify");
 	Command::register($MODULE_NAME, "", "calc.php", "calc", "all", "Calculator");
 	Command::register($MODULE_NAME, "", "oe.php", "oe", "all", "OE");
-	Command::register($MODULE_NAME, "", "history.php", "history", "all", "Show a history of a player");
+	Command::register($MODULE_NAME, "", "history.php", "history", "all", "Show history of a player");
 	Command::register($MODULE_NAME, "", "smileys.php", "smileys", "all", "The meaning of different Smileys");
 	Command::register($MODULE_NAME, "", "inspect.php", "inspect", "all", "Inspects Christmas/Eart Gifts and Peren. Containers");
 	Command::register($MODULE_NAME, "", "aigen.php", "aigen", "all", "Info about Alien City Generals(which VBs they drop)");
