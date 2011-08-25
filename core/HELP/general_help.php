@@ -69,7 +69,7 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 		}
 		
 		$blob[] = array("header" => "<highlight><u>{$row->module}:</u><end>\n", "content" => $current_content);
-		$msg = Text::make_blob("Help(main)", $blob);
+		$msg = Text::make_structured_blob("Help(main)", $blob);
 	}
 
 	$chatBot->send($msg, $sendto);

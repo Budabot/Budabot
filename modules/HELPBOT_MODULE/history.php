@@ -87,7 +87,7 @@ if (preg_match("/^history (.+) (\d)$/i", $message, $arr) || preg_match("/^histor
 			$l .= "$key |  $level  | $ailevel | $faction | $guild\n";
 		}
 		$link[] = array("header" => $lh, "content" => $l);
-		$msg = Text::make_blob("History of $name", $link);
+		$msg = Text::make_structured_blob("History of $name", $link);
 	}
 
     $chatBot->send($msg, $sendto);

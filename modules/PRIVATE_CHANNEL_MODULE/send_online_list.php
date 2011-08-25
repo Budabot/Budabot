@@ -32,7 +32,7 @@
 $msg = "";
 list($numonline, $msg, $list) = get_online_list();
 if ($numonline != 0) {
-	$blob = Text::make_blob($msg, $list);
+	$blob = Text::make_structured_blob($msg, $list);
 	$chatBot->send($blob, $sender);
 } else {
 	$chatBot->send($msg, $sender);

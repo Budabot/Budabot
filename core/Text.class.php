@@ -53,193 +53,203 @@ class Text {
 		// escape double quotes
 		$content = str_replace('"', '&quot;', $content);
 		
-		if (is_string($content)) {
-			$content = Text::format_message($content);
-			$tmp = str_replace('<pagebreak>', '', $content);
+		$content = Text::format_message($content);
+		$tmp = str_replace('<pagebreak>', '', $content);
 
-			if (strlen($tmp) > $chatBot->settings["max_blob_size"]) {
-				$array = explode("<pagebreak>", $content);
-				$pagebreak = true;
-				
-				// if the blob doesn't specify <pagebreak>s, split on linebreaks
-				if (count($array) == 1) {
-					$array = explode("\n", $content);
-					$pagebreak = false;
-				}
-				$page = 1;
-				$page_size = 0;
-				forEach ($array as $line) {
-					// preserve newline char if we split on newlines
-					if ($pagebreak == false) {
-						$line .= "\n";
-					}
-					$line_length = strlen($line);
-					if ($page_size + $line_length < $chatBot->settings["max_blob_size"]) {
-						$result[$page] .= $line;
-						$page_size += $line_length;
-					} else {
-						$result[$page] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].$result[$page]."\">$name</a> (Page <highlight>$page<end>)";
-						$page++;
-						
-						$result[$page] .= "<header>::::: $name Page $page :::::<end>\n\n";
-						$result[$page] .= $line;
-						$page_size = strlen($result[$page]);
-					}
-				}
-				$result[$page] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].$result[$page]."\">$name</a> (Page <highlight>$page - End<end>)";
-				return $result;
-			} else {
-				return "<a $style href=\"text://".$chatBot->settings["default_window_color"].$tmp."\">$name</a>";
+		if (strlen($tmp) > $chatBot->settings["max_blob_size"]) {
+			$array = explode("<pagebreak>", $content);
+			$pagebreak = true;
+			
+			// if the blob doesn't specify <pagebreak>s, split on linebreaks
+			if (count($array) == 1) {
+				$array = explode("\n", $content);
+				$pagebreak = false;
 			}
-		} else if (is_array($content)) { // Format retaining blob.
-			/**
-			 * $content is expected to be delivered in the following format:
-			 * 
-			 * $content => array(
-			 *  [0] => array(
-			 *   'header' => "", //If not set, uses ""
-			 *   'content' => "",
-			 *   'footer' => "", //If not set, uses ""
-			 *   'footer_incomplete' => "", //If not set, uses ""
-			 *   'header_incomplete' => "" //If not set, uses 'header'
-			 *   )
-			 *  [..] => array(..)
-			 * )
-			 * 
-			 * This algorithm will attempt to split a large blob into multiple pages between indices if possible.  It will split up to 500 characters early to preserve formatting.
-			 * If it must split in the middle of content then it will append 'footer_incomplete' at the end of the first blob, 'header_incomplete' at the start of the second blob and continue the content.
-			 * This algorithm will always split on a line.
-			 * In the event that 'footer_incomplete' is not defined, it is treated as blank.  In the event that 'header_incomplete' is not defined, 'header' will be used instead.
-			 * 
-			 * Note: In the event that 'footer' would go over a blob limit and be placed in another blob, 'footer' is omitted entirely.  'footer' should be used *only* to close up formatting tags or blank spaces.
-			 * Note: If an entry in the $content array is a string, it is treated as though the string is the content and there are is no attached 'header' or 'footer'.
-			 * 
-			 * 
-			 * Sample 1:
-			 * Blob: <header><content><footer>
-			 * 
-			 * Sample 2:
-			 * Blob #1: <header><content up to character 7000><footer_incomplete>
-			 * Blob #2: <header_incomplete><content from 7001 - 1000><footer>
-			 * 
-			 */
-			
-			$content = Text::format_message($content); //Budabot markup -> AOML (yay for str_ireplace innately handling arrays!)
-			
-			$output = "";
-			$outputArr = array();
-			
-			forEach ($content as $index => $arr) {
-				if (empty($arr) || (empty($arr['content']) && empty($arr['header']))) {
-					continue; //Skip it if it's empty
+			$page = 1;
+			$page_size = 0;
+			forEach ($array as $line) {
+				// preserve newline char if we split on newlines
+				if ($pagebreak == false) {
+					$line .= "\n";
 				}
-				
-				// Make sure all the values of the current array are set (avoid any odd NULL output)
-				if (!is_array($arr)) { $arr = array("content" => $arr); }
-				if (isset($arr[0])) { $arr['header'] = $arr[0]; }
-				if (isset($arr[1])) { $arr['content'] = $arr[1]; }
-				if (isset($arr[2])) { $arr['footer'] = $arr[2]; }
-				if (!isset($arr['header'])) { $arr['header'] = ""; }
-				if (!isset($arr['footer'])) { $arr['footer'] = ""; }
-				if (!isset($arr['header_incomplete'])) { $arr['header_incomplete'] = $arr['header']; }
-				if (!isset($arr['footer_incomplete'])) { $arr['footer_incomplete'] = ""; }
-				
-				$nextCount = strlen($output) + strlen($arr['header']) + strlen($arr['content']) + strlen($arr['footer']); //Character count if header+content+footer are added
-				
-				if ($nextCount < $chatBot->settings["max_blob_size"]) {
-					//If it's less than max_blob_size still, we're good
-					$output .= $arr['header'] . $arr['content'] . $arr['footer'];
-				} else if ($nextCount - 500 < $chatBot->settings["max_blob_size"] && strlen($output) >= ($chatBot->settings["max_blob_size"] / 2)) {
-					//If less than 500 characters over the cap, we go ahead and move the entire section into the next page (but only if the current page has >= half its max size used in content already)
-					$outputArr[] = $output; //Stick the current page into our output array
-					$output = "<header>::::: $name Page " . (count($outputArr) + 1) . " :::::<end>\n\n" . $arr['header'] . $arr['content'] . $arr['footer']; //And start the new page
+				$line_length = strlen($line);
+				if ($page_size + $line_length < $chatBot->settings["max_blob_size"]) {
+					$result[$page] .= $line;
+					$page_size += $line_length;
 				} else {
-					//Alright, looks like we're splitting the section over multiple pages
-					if (strlen($output) + strlen($arr['header']) < $chatBot->settings["max_blob_size"]) {
-						$output .= $arr['header'];
-					} else {
-						//New page (simplest split)
-						$outputArr[] = $output;
-						$output = "<header>::::: $name Page " . (count($outputArr) + 1) . " :::::<end>\n\n" . $arr['header'];
-					}
+					$result[$page] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].$result[$page]."\">$name</a> (Page <highlight>$page<end>)";
+					$page++;
 					
-					//Now for the content
-					if (strlen($output) + strlen($arr['content']) < $chatBot->settings["max_blob_size"]) {
-						$output .= $arr['content'];
-					} else {
-						// Split the content into sections based off newlines and <pagebreak> tags
-						$cArrN = explode("\n", $arr['content']);
-						$incNewline = array();
-						$cArr = array();
-						forEach ($cArrN as $str) {
-							$a = explode("<pagebreak>", $str);
-							if (count($a) == 1) {
-								$cArr[] = $str;
-								$incNewline[] = "\n";
-							} else {
-								for ($i = 0; $i < count($a); $i++) {
-									$cArr[] = $a[$i];
-									if ($i + 1 != count($a)) {
-										$incNewline[] = "";
-									} else {
-										$incNewline[] = "\n";
-									}
-								}
-							}
-						}
-						
-						$i = 0;
-						
-						// Process all the sections of the content
-						while ($i < count($cArr)) {
-							$str = $cArr[$i];
-							if (strlen($output) + strlen($str) + strlen($arr['footer_incomplete']) < $chatBot->settings["max_blob_size"]) {
-								//We have room to add another line before splitting
-								if ($i + 1 != count($cArr)) {
-									$output .= $str . $incNewline[$i];
-								} else {
-									$output .= $str;
-								}
-								$i++;
-							} else {
-								$output .= $arr['footer_incomplete'];
-								$outputArr[] = $output;
-								$output = "<header>::::: $name Page " . (count($outputArr) + 1) . " :::::<end>\n\n" . $arr['header_incomplete'];
-							}
-						}
-					}
-					
-					//Now for the footer
-					if (strlen($output) + strlen($arr['footer']) < $chatBot->settings["max_blob_size"]) {
-						$output .= $arr['footer'];
-					} else {
-						//This is a tricky one.  footers should have formatting ending tags only.
-						// So for now, we will leave the footer off if it comes last (everything important should be in content)
-						$outputArr[] = $output;
-						$output = "<header>::::: $name Page " . (count($outputArr) + 1) . " :::::<end>\n\n";
-					}
-				}
-				
-			}
-			
-			if (!empty($output))
-				$outputArr[] = $output;
-			
-			// Turn all pages into clickable blobs
-			foreach ($outputArr as $index => $page) {
-				if (count($outputArr) > 1) {
-					if (count($outputArr) == $index + 1) {
-						$outputArr[$index] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].str_replace("<pagebreak>", "",$page)."\">$name</a> (Page <highlight>" . ($index + 1) . " - End<end>)";
-					} else {
-						$outputArr[$index] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].str_replace("<pagebreak>", "",$page)."\">$name</a> (Page <highlight>" . ($index + 1) . "<end>)";
-					}
-				} else {
-					$outputArr = "<a $style href=\"text://".$chatBot->settings["default_window_color"].str_replace("<pagebreak>", "",$page)."\">$name</a>";
+					$result[$page] .= "<header>::::: $name Page $page :::::<end>\n\n";
+					$result[$page] .= $line;
+					$page_size = strlen($result[$page]);
 				}
 			}
-			
-			return $outputArr; //Return the result
+			$result[$page] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].$result[$page]."\">$name</a> (Page <highlight>$page - End<end>)";
+			return $result;
+		} else {
+			return "<a $style href=\"text://".$chatBot->settings["default_window_color"].$tmp."\">$name</a>";
 		}
+	}
+	
+	/**	
+	 * @name: make_structured_blob
+	 * @description: creates an info window
+	 */
+	function make_structured_blob($name, $content, $style = NULL) {
+		global $chatBot;
+		
+		// escape double quotes
+		$content = str_replace('"', '&quot;', $content);
+		
+		// Format retaining blob.
+		/**
+		 * $content is expected to be delivered in the following format:
+		 * 
+		 * $content => array(
+		 *  [0] => array(
+		 *   'header' => "", //If not set, uses ""
+		 *   'content' => "",
+		 *   'footer' => "", //If not set, uses ""
+		 *   'footer_incomplete' => "", //If not set, uses ""
+		 *   'header_incomplete' => "" //If not set, uses 'header'
+		 *   )
+		 *  [..] => array(..)
+		 * )
+		 * 
+		 * This algorithm will attempt to split a large blob into multiple pages between indices if possible.  It will split up to 500 characters early to preserve formatting.
+		 * If it must split in the middle of content then it will append 'footer_incomplete' at the end of the first blob, 'header_incomplete' at the start of the second blob and continue the content.
+		 * This algorithm will always split on a line.
+		 * In the event that 'footer_incomplete' is not defined, it is treated as blank.  In the event that 'header_incomplete' is not defined, 'header' will be used instead.
+		 * 
+		 * Note: In the event that 'footer' would go over a blob limit and be placed in another blob, 'footer' is omitted entirely.  'footer' should be used *only* to close up formatting tags or blank spaces.
+		 * Note: If an entry in the $content array is a string, it is treated as though the string is the content and there are is no attached 'header' or 'footer'.
+		 * 
+		 * 
+		 * Sample 1:
+		 * Blob: <header><content><footer>
+		 * 
+		 * Sample 2:
+		 * Blob #1: <header><content up to character 7000><footer_incomplete>
+		 * Blob #2: <header_incomplete><content from 7001 - 1000><footer>
+		 * 
+		 */
+		
+		$content = Text::format_message($content); //Budabot markup -> AOML (yay for str_ireplace innately handling arrays!)
+		
+		$output = "";
+		$outputArr = array();
+		
+		forEach ($content as $index => $arr) {
+			if (empty($arr) || (empty($arr['content']) && empty($arr['header']))) {
+				continue; //Skip it if it's empty
+			}
+			
+			// Make sure all the values of the current array are set (avoid any odd NULL output)
+			if (!is_array($arr)) { $arr = array("content" => $arr); }
+			if (isset($arr[0])) { $arr['header'] = $arr[0]; }
+			if (isset($arr[1])) { $arr['content'] = $arr[1]; }
+			if (isset($arr[2])) { $arr['footer'] = $arr[2]; }
+			if (!isset($arr['header'])) { $arr['header'] = ""; }
+			if (!isset($arr['footer'])) { $arr['footer'] = ""; }
+			if (!isset($arr['header_incomplete'])) { $arr['header_incomplete'] = $arr['header']; }
+			if (!isset($arr['footer_incomplete'])) { $arr['footer_incomplete'] = ""; }
+			
+			$nextCount = strlen($output) + strlen($arr['header']) + strlen($arr['content']) + strlen($arr['footer']); //Character count if header+content+footer are added
+			
+			if ($nextCount < $chatBot->settings["max_blob_size"]) {
+				//If it's less than max_blob_size still, we're good
+				$output .= $arr['header'] . $arr['content'] . $arr['footer'];
+			} else if ($nextCount - 500 < $chatBot->settings["max_blob_size"] && strlen($output) >= ($chatBot->settings["max_blob_size"] / 2)) {
+				//If less than 500 characters over the cap, we go ahead and move the entire section into the next page (but only if the current page has >= half its max size used in content already)
+				$outputArr[] = $output; //Stick the current page into our output array
+				$output = "<header>::::: $name Page " . (count($outputArr) + 1) . " :::::<end>\n\n" . $arr['header'] . $arr['content'] . $arr['footer']; //And start the new page
+			} else {
+				//Alright, looks like we're splitting the section over multiple pages
+				if (strlen($output) + strlen($arr['header']) < $chatBot->settings["max_blob_size"]) {
+					$output .= $arr['header'];
+				} else {
+					//New page (simplest split)
+					$outputArr[] = $output;
+					$output = "<header>::::: $name Page " . (count($outputArr) + 1) . " :::::<end>\n\n" . $arr['header'];
+				}
+				
+				//Now for the content
+				if (strlen($output) + strlen($arr['content']) < $chatBot->settings["max_blob_size"]) {
+					$output .= $arr['content'];
+				} else {
+					// Split the content into sections based off newlines and <pagebreak> tags
+					$cArrN = explode("\n", $arr['content']);
+					$incNewline = array();
+					$cArr = array();
+					forEach ($cArrN as $str) {
+						$a = explode("<pagebreak>", $str);
+						if (count($a) == 1) {
+							$cArr[] = $str;
+							$incNewline[] = "\n";
+						} else {
+							for ($i = 0; $i < count($a); $i++) {
+								$cArr[] = $a[$i];
+								if ($i + 1 != count($a)) {
+									$incNewline[] = "";
+								} else {
+									$incNewline[] = "\n";
+								}
+							}
+						}
+					}
+					
+					$i = 0;
+					
+					// Process all the sections of the content
+					while ($i < count($cArr)) {
+						$str = $cArr[$i];
+						if (strlen($output) + strlen($str) + strlen($arr['footer_incomplete']) < $chatBot->settings["max_blob_size"]) {
+							//We have room to add another line before splitting
+							if ($i + 1 != count($cArr)) {
+								$output .= $str . $incNewline[$i];
+							} else {
+								$output .= $str;
+							}
+							$i++;
+						} else {
+							$output .= $arr['footer_incomplete'];
+							$outputArr[] = $output;
+							$output = "<header>::::: $name Page " . (count($outputArr) + 1) . " :::::<end>\n\n" . $arr['header_incomplete'];
+						}
+					}
+				}
+				
+				//Now for the footer
+				if (strlen($output) + strlen($arr['footer']) < $chatBot->settings["max_blob_size"]) {
+					$output .= $arr['footer'];
+				} else {
+					//This is a tricky one.  footers should have formatting ending tags only.
+					// So for now, we will leave the footer off if it comes last (everything important should be in content)
+					$outputArr[] = $output;
+					$output = "<header>::::: $name Page " . (count($outputArr) + 1) . " :::::<end>\n\n";
+				}
+			}
+			
+		}
+		
+		if (!empty($output))
+			$outputArr[] = $output;
+		
+		// Turn all pages into clickable blobs
+		foreach ($outputArr as $index => $page) {
+			if (count($outputArr) > 1) {
+				if (count($outputArr) == $index + 1) {
+					$outputArr[$index] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].str_replace("<pagebreak>", "",$page)."\">$name</a> (Page <highlight>" . ($index + 1) . " - End<end>)";
+				} else {
+					$outputArr[$index] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].str_replace("<pagebreak>", "",$page)."\">$name</a> (Page <highlight>" . ($index + 1) . "<end>)";
+				}
+			} else {
+				$outputArr = "<a $style href=\"text://".$chatBot->settings["default_window_color"].str_replace("<pagebreak>", "",$page)."\">$name</a>";
+			}
+		}
+		
+		return $outputArr; //Return the result
 	}
 	
 	/**

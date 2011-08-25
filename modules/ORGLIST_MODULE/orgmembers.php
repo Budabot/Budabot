@@ -47,7 +47,7 @@ if (preg_match("/^orgmembers$/i", $message)) {
 	
 	$blob[] = array("header" => $lh, "content" => $l);
 	
-	$msg = Text::make_blob("<myguild> has $members members currently.", $blob);
+	$msg = Text::make_structured_blob("<myguild> has $members members currently.", $blob);
  	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^orgmembers ([0-9]+)$/i", $message, $arr1) || preg_match("/^orgmembers ([a-z0-9-]+)$/i", $message, $arr2)) {
 	if ($arr2) {
@@ -107,7 +107,7 @@ if (preg_match("/^orgmembers$/i", $message)) {
 	
 	$blob[] = array("header" => $lh, "content" => $l);
 	
-	$msg = Text::make_blob("Org members for '$org->orgname'", $blob);
+	$msg = Text::make_structured_blob("Org members for '$org->orgname'", $blob);
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;

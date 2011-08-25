@@ -272,7 +272,7 @@ if (preg_match("/^orglist end$/i", $message)) {
 
 if (isset($chatBot->data["ORGLIST_MODULE"]) && count($chatBot->data["ORGLIST_MODULE"]["added"]) == 0 || $end) {
 	$blob = orgmatesformat($chatBot->data["ORGLIST_MODULE"], $orgrankmap, $orgcolor, $chatBot->data["ORGLIST_MODULE"]["start"], $chatBot->data["ORGLIST_MODULE"]["org"]);
-	$msg = Text::make_blob("Orglist for '".$chatBot->data["ORGLIST_MODULE"]["org"]."'", $blob);
+	$msg = Text::make_structured_blob("Orglist for '".$chatBot->data["ORGLIST_MODULE"]["org"]."'", $blob);
 	$chatBot->send($msg, $chatBot->data["ORGLIST_MODULE"]["sendto"]);
 
 	// in case it was ended early

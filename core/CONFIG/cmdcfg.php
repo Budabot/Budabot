@@ -138,7 +138,7 @@ if (preg_match("/^config$/i", $message)) {
 		$list[] = strtoupper($row->module)." $a ($on/$off) $c $b\n";
 	}
 
-	$msg = Text::make_blob("Module Config", $list);
+	$msg = Text::make_structured_blob("Module Config", $list);
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^config cmd (enable|disable) (all|guild|priv|msg)$/i", $message, $arr)) {
 	$status = ($arr[1] == "enable" ? 1 : 0);
@@ -600,7 +600,7 @@ if (preg_match("/^config$/i", $message)) {
 			$list[] = $help;
 		}
 		
-		$msg = Text::make_blob(ucfirst($cmd)." config", $list);
+		$msg = Text::make_structured_blob(ucfirst($cmd)." config", $list);
 	}
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^config help (.+) admin (all|leader|rl|mod|admin|guildadmin|guild)$/i", $message, $arr)) {
@@ -621,7 +621,7 @@ if (preg_match("/^config$/i", $message)) {
 } else if (preg_match("/^config help (.+)$/i", $message, $arr)) {
   	$mod = strtoupper($arr[1]);
 	$list = array();
-	$list[] = "<header>::::: Configure helpfiles for module $mod :::::<end>\n\n";
+	$list[] = "<header> :::::: Configure helpfiles for module $mod :::::: <end>\n\n";
 
 	$db->query("SELECT * FROM hlpcfg_<myname> WHERE module = '$mod' ORDER BY name");
 	$data = $db->fObject("all");
@@ -643,7 +643,7 @@ if (preg_match("/^config$/i", $message)) {
 			$l .= "<a href='chatcmd:///tell <myname> config help $row->name admin guild'>Guild</a>\n";
 			$list[] = array("content" => $l, "footer" => "\n\n");
 		}
-		$msg = Text::make_blob("Configure helpfiles for module $mod", $list);
+		$msg = Text::make_structured_blob("Configure helpfiles for module $mod", $list);
 	}
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^config ([a-z0-9_]*)$/i", $message, $arr)) {
@@ -791,7 +791,7 @@ if (preg_match("/^config$/i", $message)) {
 	}
 
 	if ($found) {
-		$msg = Text::make_blob("Bot Settings", $list);
+		$msg = Text::make_structured_blob("Bot Settings", $list);
 	} else {
 		$msg = "Could not find module '<highlight>$module<end>'";
 	}
