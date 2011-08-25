@@ -1,35 +1,6 @@
 <?php
-   /*
-   ** Author: Derroylo (RK2)
-   ** Description: Shows infos about players
-   ** Version: 1.0
-   **
-   ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
-   **
-   ** Date(created): 10.12.2005
-   ** Date(last modified): 10.12.2005
-   ** 
-   ** Copyright (C) 2005 Carsten Lohmann
-   **
-   ** Licence Infos: 
-   ** This file is part of Budabot.
-   **
-   ** Budabot is free software; you can redistribute it and/or modify
-   ** it under the terms of the GNU General Public License as published by
-   ** the Free Software Foundation; either version 2 of the License, or
-   ** (at your option) any later version.
-   **
-   ** Budabot is distributed in the hope that it will be useful,
-   ** but WITHOUT ANY WARRANTY; without even the implied warranty of
-   ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   ** GNU General Public License for more details.
-   **
-   ** You should have received a copy of the GNU General Public License
-   ** along with Budabot; if not, write to the Free Software
-   ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-   */
 
-$msg = "";
+
 if (preg_match("/^whois (.+)$/i", $message, $arr)) {
     $uid = $chatBot->get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
@@ -66,6 +37,11 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 	        $list .= "<a href='chatcmd:///cc rembuddy $name'>Remove from buddylist</a>";
 			
 	        $msg .= " :: " . Text::make_blob("More info", $list);
+
+			$altInfo = Alts::get_alt_info($name);
+			if (count($altInfo->alts) > 0) {
+				$msg .= " :: " . Alts::get_alts_blob($name);
+			}
 	    }
     } else {
         $msg = "Player <highlight>{$name}<end> does not exist.";
@@ -74,15 +50,13 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^whoisall (.+)$/i", $message, $arr)) {
     $name = ucfirst(strtolower($arr[1]));
-    for ($i = 1; $i <= 3; $i ++) {
+    for ($i = 1; $i <= 2; $i ++) {
         if ($i == 1) {
             $server = "Atlantean";
         } else if ($i == 2) {
             $server = "Rimor";
-        } else {
-            $server = "Die Neue Welt";
 		}
-        $msg = "";
+
         $whois = Player::lookup($name, $i);
         if ($whois !== null) {
             $msg = Player::get_info($whois);
