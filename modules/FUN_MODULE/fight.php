@@ -1,62 +1,70 @@
 <?php
-   /*
-   ** Author: Derroylo (RK2)
-   ** Description: Let 2 players fight against each other
-   ** Version: 1.0
-   **
-   ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
-   **
-   ** Date(created): 24.07.2006
-   ** Date(last modified): 24.07.2006
-   ** 
-   ** Copyright (C) 2006 Carsten Lohmann
-   **
-   ** Licence Infos: 
-   ** This file is part of Budabot.
-   **
-   ** Budabot is free software; you can redistribute it and/or modify
-   ** it under the terms of the GNU General Public License as published by
-   ** the Free Software Foundation; either version 2 of the License, or
-   ** (at your option) any later version.
-   **
-   ** Budabot is distributed in the hope that it will be useful,
-   ** but WITHOUT ANY WARRANTY; without even the implied warranty of
-   ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   ** GNU General Public License for more details.
-   **
-   ** You should have received a copy of the GNU General Public License
-   ** along with Budabot; if not, write to the Free Software
-   ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-   */
-   
+
 if (preg_match("/^fight (.+) vs (.+)$/i", $message, $arr) || preg_match("/^fight (.+) (.+)$/i", $message, $arr)) {
   	$player1 = $arr[1];
   	$player2 = $arr[2];
-  	$hp1 = 10000;
-  	$hp2 = 10000;
-  	
+
+	// Checks if user is trying to get Chuck Norris to fight another Chuck Norris
+	if ((strcasecmp($player1, "chuck") == 0 || strcasecmp($player1, "chuck norris") == 0) &&  (strcasecmp($player2, "chuck") == 0 || strcasecmp($player2, "chuck norris") == 0)) {
+		$msg = "Theres only enough room in this world for one Chuck Norris!";
+		$chatBot->send($msg, $sendto);
+		return;
+	}
+
+	// This checks if the user is trying to get two of the same people fighting each other
+	if (strcasecmp($player1, $player2) == 0) {
+		$twin = array(
+			"Dejavu?",
+			"$player1 can't fight $player2, it may break the voids of space and time!",
+			"As much as I'd love to see $player1 punching himself/herself in the face, it just isn't theoretical...");
+		$randval = rand(0, sizeof($twin) - 1);
+		$msg = $twin[$randval];
+		$chatBot->send($msg, $sendto);
+		return;
+	}
+
+	// Checks if Player 1/2 is chuck or chuck norris, and if so, sets HP to 100k and adds 10k - 100k damage to ensure victory.
+	if (strcasecmp($player1, "chuck") == 0 OR strcasecmp($player1, "chuck norris") == 0) {
+		$hp1 = 100000;
+		$add_damage_P1 = rand(10000, 100000);
+		$wep_P1 = "round house kick";
+	} else {
+		$hp1 = 10000;
+		$add_damage_P1 = 0;
+		$wep_P1 = "nerfstick";
+	}
+	if (strcasecmp($player2, "chuck") == 0 OR strcasecmp($player2, "chuck norris") == 0) {
+		$hp2 = 100000;
+		$add_damage_P2 = rand(10000, 100000);
+		$wep_P2 = "round house kick";
+	} else {
+		$hp2 = 10000;
+		$add_damage_P2 = 0;
+		$wep_P2 = "nerfstick";
+	}
+
   	$list = "Fight <highlight>$player1<end> VS <highlight>$player2<end> \n\n";
   	while ($hp1 > 0 && $hp2 > 0) {
 		// player1 dmg to player2
-	    $dmg = rand(50, 4000);
-	    if ($dmg > 3000) {
+	    $dmg = rand(50, 4000) + $add_damage_P1;
+	    if ($dmg - $add_damage_P1 > 3000) {
 			$crit = " <red>Critical Hit!<end>";
 		} else {
 			$crit = "";
 		}
 			
-		$list .= "<highlight>$player1<end> hit <highlight>$player2<end> for $dmg of nerfstick dmg.$crit\n";
+		$list .= "<highlight>$player1<end> hit <highlight>$player2<end> for $dmg of $wep_P1 dmg.$crit\n";
 		$hp2 -= $dmg;
 		
 		// player2 dmg to player1
-		$dmg = rand(50, 4000);
-		if ($dmg > 3000) {
+		$dmg = rand(50, 4000) + $add_damage_P2;
+		if ($dmg - $add_damage_P2 > 3000) {
 			$crit = " <red>Critical Hit!<end>";
 		} else {
 			$crit = "";
 		}
 			
-		$list .= "<highlight>$player2<end> hit <highlight>$player1<end> for $dmg of nerfstick dmg.$crit\n";
+		$list .= "<highlight>$player2<end> hit <highlight>$player1<end> for $dmg of $wep_P2 dmg.$crit\n";
 		$hp1 -= $dmg;
 		
 		$list .= "\n";

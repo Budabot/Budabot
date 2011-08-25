@@ -1,4 +1,4 @@
-<header>::::: Different Fun Commands :::::<end>
+<header> :::::: Different Fun Commands :::::: <end>
 
 <highlight>Show a random Funcom quote<end>
 <tab><symbol>fc
