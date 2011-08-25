@@ -19,8 +19,8 @@ if (preg_match("/^eventlist ([0-9]+)$/i", $message, $arr)) {
 		$eventlist = explode(",", $row->event_attendees);
 		sort($eventlist);
 		if ($row->event_attendees != "") {
-			forEach ($eventlist as $key => $value) {
-				$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON o.name = p.name WHERE `o.name` = '$value'");
+			forEach ($eventlist as $key => $name) {
+				$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE `o.name` = '$name'");
 				if ($db->numrows() != 0) {
 					$row = $db->fObject();
 					$level = $row->level;
@@ -28,15 +28,16 @@ if (preg_match("/^eventlist ([0-9]+)$/i", $message, $arr)) {
 					$info = ", level $level $prof";
 				}
 				
-				$db->query("SELECT * FROM alts WHERE `alt` = '$value'");
-				if ($db->numrows() == 0) {
-					$alt = "<highlight>::<end> <a href='chatcmd:///tell <myname> alts $value'>Alts</a>";
-				} else {
-					$row1 = $db->fObject();
-					$alt = "<highlight>::<end> <a href='chatcmd:///tell <myname> alts $value'>Alts of $row1->main</a>";
+				$altInfo = Alts::get_alt_info($name);
+				if (count($altInfo->alts) > 0) {
+					if ($altInfo->main == $name) {
+						$alt = "<highlight>::<end> <a href='chatcmd:///tell <myname> alts {$name}'>Alts</a>";
+					} else {
+						$alt = "<highlight>::<end> <a href='chatcmd:///tell <myname> alts {$name}'>Alts of {$altInfo->main}</a>";
+					}
 				}
 				
-				$link .= trim($value)."$info $alt\n";
+				$link .= trim($name)."$info $alt\n";
 			}
 			$msg = Text::make_blob("Eventlist", $link);
 		} else {
