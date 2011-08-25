@@ -1,4 +1,4 @@
-<header>::::: Help on Timer Commands. :::::<end>
+<header> :::::: Help on Timer Commands :::::: <end>
 
 <orange>Note: You can use <symbol>timers and <symbol>timer interchangeably.<end>
 
@@ -11,7 +11,7 @@
 <highlight>Set a named timer<end>
 <tab><symbol>timer 'time' 'Timername'
 
-<highlight>Remove a timer(only your owns)<end>
+<highlight>Remove a timer(only your own)<end>
 <tab><symbol>timer rem 'Timername'
 
 <highlight>The time for the timer needs to be written in this format<end>

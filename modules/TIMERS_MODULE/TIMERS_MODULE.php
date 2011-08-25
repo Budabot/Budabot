@@ -16,5 +16,5 @@
 	Setting::add($MODULE_NAME, "timers_window", "Show running timers in a window or directly", "edit", "options", "1", "window only;chat only;window after 3;window after 4;window after 5", '1;2;3;4;5', "mod");
 
 	//Help files
-	Help::register($MODULE_NAME, "timer", "timer.txt", "guild", "Set/Show Timers");
+	Help::register($MODULE_NAME, "timers", "timers.txt", "guild", "Set/Show Timers");
 ?>
