@@ -35,7 +35,7 @@ class Util {
 		if ($seconds != 0) {
 			$timeshift .= $seconds . ' sec';
 		}
-		return $timeshift;
+		return trim($timeshift);
 	}
 	
 	/**
