@@ -17,9 +17,8 @@ if (preg_match("/^fight (.+) vs (.+)$/i", $message, $arr) || preg_match("/^fight
 			"Dejavu?",
 			"$player1 can't fight $player2, it may break the voids of space and time!",
 			"As much as I'd love to see $player1 punching himself/herself in the face, it just isn't theoretical...");
-		$randval = rand(0, sizeof($twin) - 1);
-		$msg = $twin[$randval];
-		$chatBot->send($msg, $sendto);
+
+		$chatBot->send(Util::rand_array_value($twin), $sendto);
 		return;
 	}
 

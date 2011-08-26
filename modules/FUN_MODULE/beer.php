@@ -79,8 +79,7 @@ $beer[] = "You can't be a real country unless you have a beer and an airline - i
 if (preg_match("/^beer/i", $message)) {
 	$dmg = rand(100,999);
     $cred = rand(10000,9999999);
-	$randval = rand(0, sizeof($beer) - 1);
-	$msg = $beer[$randval];
+	$msg = Util::rand_array_value($beer);
     $msg = str_replace("*name*", $sender, $msg);
     $msg = str_replace("*dmg*", $dmg, $msg);
     $msg = str_replace("*creds*", $cred, $msg);

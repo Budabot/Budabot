@@ -47,8 +47,7 @@ $credz = array(
 if (preg_match("/^credz/i", $message)) {
 	$dmg = rand(100,999);
     $cred = rand(10000,9999999);
-	$randval = rand(0, sizeof($credz) - 1);
-	$msg = $credz[$randval];
+	$msg = Util::rand_array_value($credz);
     $msg = str_replace("*name*", $sender, $msg);
     $msg = str_replace("*dmg*", $dmg, $msg);
     $msg = str_replace("*creds*", $cred, $msg);

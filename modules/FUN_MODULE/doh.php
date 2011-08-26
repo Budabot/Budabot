@@ -19,9 +19,7 @@ if (preg_match("/^doh/i", $message)) {
 		"Doh ey!",
 		"Doh you say..I say Doh!!!");
 
-	$randval = rand(0, sizeof($doh) - 1);
-	$msg = $doh[$randval];
-	$chatBot->send($msg, $sendto);
+	$chatBot->send(Util::rand_array_value($doh), $sendto);
 } else {
 	$syntax_error = true;
 }

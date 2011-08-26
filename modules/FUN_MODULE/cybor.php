@@ -110,8 +110,7 @@ $cybor = array("I touch you on your lettuce, you massage my spinach... sexily.",
 		
 if (preg_match("/^cybor/i", $message)) {
     $cred = rand(10000,9999999);
-	$randval = rand(0, sizeof($cybor) - 1);
-	$msg = $cybor[$randval];
+	$msg = Util::rand_array_value($cybor);
     $msg = str_replace("*name*", $sender, $msg);
     $msg = str_replace("*creds*", $cred, $msg);
 	$chatBot->send($msg, $sendto);

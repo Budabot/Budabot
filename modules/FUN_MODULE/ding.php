@@ -16,9 +16,8 @@ if (preg_match("/^ding$/i", $message)) {
 		"Hmmm, I really want to know what level you dinged, but gratz anyways nub.",
 		"When are you people going to start using me right! Gratz for your level though.",
 		"Gratz! But what are we looking at? I need a level next time.");
- 	$rndnum = rand(0, count($dingText) - 1);
-	$msg = $dingText[$rndnum];	
- 	$chatBot->send($msg, $sendto);
+
+ 	$chatBot->send(Util::rand_array_value($dingText), $sendto);
 } else if (preg_match("/^ding dong$/i", $message)) {
 	$msg =	"Ditch, Bitch!";
  	$chatBot->send($msg, $sendto);
@@ -91,9 +90,8 @@ if (preg_match("/^ding$/i", $message)) {
 			"Don't stop now, your getting there!",
 			"Come on, COME ON! Only $lvl more levels to go until 220!");
 	}
-	$rndnum = rand(0, count($dingText) - 1);
-	$msg = $dingText[$rndnum];
- 	$chatBot->send($msg, $sendto);
+
+ 	$chatBot->send(Util::rand_array_value($dingText), $sendto);
 } else {
 	$syntax_error = true;
 }

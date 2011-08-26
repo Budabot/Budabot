@@ -25,8 +25,7 @@ $fc[] = "I disagree with everything you say in this thread...even including the 
 if (preg_match("/^fc$/i", $message)) {
 	$dmg = rand(100,999);
     $cred = rand(10000,9999999);
-	$randval = rand(0, sizeof($fc) - 1);
-	$msg = $fc[$randval];
+	$msg = Util::rand_array_value($fc);
     $msg = str_replace("*name*", $sender, $msg);
     $msg = str_replace("*dmg*", $dmg, $msg);
     $msg = str_replace("*creds*", $cred, $msg);
