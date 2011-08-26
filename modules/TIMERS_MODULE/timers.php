@@ -138,8 +138,10 @@ if (preg_match("/^(timers|timers add) ([0-9]+)$/i", $message, $arr) || preg_matc
 			$name = $timer->name;
 			$owner = $timer->owner;
 			$mode = $timer->mode;
+			
+			$remove_link = Text::make_chatcmd("Remove", "/tell <myname> timers rem $name");
 
-			$list .= "Timername: <highlight>$name<end>\n";
+			$list .= "Timername: <highlight>$name<end> {$remove_link}\n";
 			$list .= "Timeleft: <highlight>$time_left<end>\n";
 			$list .= "Set by: <highlight>$owner<end>\n\n";
 		}
