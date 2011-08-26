@@ -41,8 +41,8 @@ if (($data = fgets($socket)) && ("1" == Setting::get('irc_status'))) {
 		for ($i = 3; $i < count($ex); $i++) {
 			$ircmessage .= rtrim(htmlspecialchars($ex[$i]))." ";
 		}
-		// vhabot compatibility; vhabot sends ascii 02 and 03 chars in it's irc messages, this filters them out
-		$ircmessage = str_replace(chr(2), "", $ircmessage);
+
+		// vhabot compatibility; vhabot sends ascii 03 chars in it's irc messages, this filters them out
 		$ircmessage = str_replace(chr(3), "", $ircmessage);
 
 		if ($rawcmd == "!sayit") {
@@ -124,11 +124,16 @@ if (($data = fgets($socket)) && ("1" == Setting::get('irc_status'))) {
 			if (Setting::get('irc_debug_messages') == 1) {
 				Logger::log_chat("Inc. IRC Msg.", $nick, $ircmessage);
 			}
+			if (preg_match("/" . chr(2) . chr(2) . chr(2) . "(.+)" . chr(2) . " (.+)/i", $ircmessage, $arr)) {
+				$ircmessage = "<white>{$arr[1]} {$arr[2]}<end>";
+			} else {
+				$ircmessage = "<yellow>[IRC]<end><white> {$nick}: {$ircmessage}<end>";
+			}
 			if ($chatBot->vars['my_guild'] != "") {
-				$chatBot->send("<yellow>[IRC]<end><white> $nick: $ircmessage<end>", "guild", true);
+				$chatBot->send($ircmessage, "guild", true);
 			}
 			if ($chatBot->vars['my_guild'] == "" || Setting::get("guest_relay") == 1) {
-				$chatBot->send("<yellow>[IRC]<end><green> $nick: $ircmessage<end>", "priv", true);
+				$chatBot->send($ircmessage, "priv", true);
 			}
 			flush();
 		}
