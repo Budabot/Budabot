@@ -1,6 +1,5 @@
 <?php
 
-
 if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) ||
 		preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss) ([0-9]+)$/i", $message, $arr1) ||
 		preg_match("/^aiarmor ([0-9]+) (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr2)) {
