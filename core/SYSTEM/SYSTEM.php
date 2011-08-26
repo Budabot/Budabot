@@ -45,6 +45,10 @@
 	Command::activate("msg", "$MODULE_NAME/executesql.php", "executesql", "admin");
 	Command::activate("priv", "$MODULE_NAME/executesql.php", "executesql", "admin");
 	Command::activate("guild", "$MODULE_NAME/executesql.php", "executesql", "admin");
+	
+	Command::activate("msg", "$MODULE_NAME/checkaccess.php", "checkaccess", "all");
+	Command::activate("priv", "$MODULE_NAME/checkaccess.php", "checkaccess", "all");
+	Command::activate("guild", "$MODULE_NAME/checkaccess.php", "checkaccess", "all");
 
 	Event::activate("1hour", "$MODULE_NAME/ping_db.php");
 	

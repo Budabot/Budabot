@@ -10,6 +10,8 @@ class AccessLevel {
 	public static function check_access($sender, $access_level) {
 		global $chatBot;
 		
+		$sender = ucfirst(strtolower($sender));
+
 		if (Setting::get('alts_inherit_admin') == 1) {
 			$altInfo = Alts::get_alt_info($sender);
 			if ($altInfo->is_validated($sender)) {
@@ -78,6 +80,8 @@ class AccessLevel {
 	 */
 	public static function get_admin_level($sender) {
 		global $chatBot;
+
+		$sender = ucfirst(strtolower($sender));
 	
 		if (Setting::get('alts_inherit_admin') == 1) {
 			$altInfo = Alts::get_alt_info($sender);
