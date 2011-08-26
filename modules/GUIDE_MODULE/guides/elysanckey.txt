@@ -1,8 +1,5 @@
 <header>::::: Elysium: Shere Sanctuary Garden Key Quest :::::<end>
 
-Elysium: Shere Sanctuary Garden Key Quest
-
-
 Beginning this guide I'll assume you're in the Elysium Shere garden. Exit to Nero and head south along the rock wall cliff. You'll see a ramp in the temple area, go up it and you'll find Prophet Nar Shere (coords 922, 397) at the top. Talk to him and select the first option 'I spoke to Garboil Chi Shere and he mentioned someone called Yuan Chi?' Continue the conversation till you get the quest. Your first mission is to kill the Watcher Enel Ulma-Thar. 
 
 NOTE: It really helps to upload the mission's coords to the map so you can find where to go more easily after each kill. 

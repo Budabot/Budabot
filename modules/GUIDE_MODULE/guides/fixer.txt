@@ -1,8 +1,6 @@
 <header>::::: Guide to Fixers :::::<end>
 
-<font color = yellow>Fixer
-
-<font color = yellow>At a glance</font>
+<pagebreak><font color = yellow>At a glance</font>
 <font color = red>* Main Weapons: SMGs</font>
 * Alternate Weapons: Pistol, Ranged Energy
 * Main Nanoskills: MM/BM/TS for Heal-over-Time, MM/MC/TS for Grid Armor
@@ -16,10 +14,10 @@ evades, including the highly coveted Grid Armor line of nanos that allow them
 to become virtually untouchable in combat. Their nanoskills, however, are all
 dark blue. Opifex is the race of choice.
 
-<font color = yellow>Chapter One: What is a Fixer?</font>
+<pagebreak><font color = yellow>Chapter One: What is a Fixer?</font>
 What is a fixer? Some people think of us as useless for anything but our run-, NCU- and hot buffs. Others think of us as a nice bunch they can ask to fetch items for. Yet others just don't know what fixers are, can and will do. So, what can we do? Well, we do run pretty fast, and we seem to be able to find almost everything on Rubi-Ka. And people do like to have someone with them that can
 
-<font color = yellow>Chapter Two: Breeds - What breed suits your play style?</font>
+<pagebreak><font color = yellow>Chapter Two: Breeds - What breed suits your play style?</font>
 
 Atrox: Is the breed with the most HP. The difference is that Opifex and Solitus get 3hp per body dev while Atrox gets 4hp for each body dev. point. So this means when fixer breed caps at 666 (I think this is the right number) Atrox will have 666 more hp they others and twice as much compared to Nanomage. The skill that Atrox lacks is intelligence which will have to be compensated with some heavier implanting or by putting up a few towers. Also they will have a lower nano pull that means about 1000 or more nano less then others.
 
@@ -29,7 +27,7 @@ Solitus: Has a 300 HP advantage over Opifex breed at level 200, easier choice of
 
 Opifex: Agility and Sense are green and the cap is over 500, which translate, in additional points in the weapon skills like SMG and Burst, which at the end adds additions attack rating. Also some specific fixer items may require agility or stamina to wear so if you don't wont to implant every time you want wear it.
 
-<font color = yellow>Chapter Three: Abilities and Skills. -Where should I spend my IPs?</font>
+<pagebreak><font color = yellow>Chapter Three: Abilities and Skills. -Where should I spend my IPs?</font>
 
 Abilities:
 Basically you will have to raise all abilities almost constantly. Now you don't have to max them all out, but you should focus on Agility and Sense, as those are the main fixer abilities. Intelligence is another good thing to max, or at least keep as high as possible, as the tickledown in this ability raises all your nano-skills and your complit. Stamina should be high on the list too as it helps your Body dev raise, and thus gives you more hit points. Body dev is one of the skills you always should max, as you need your hit points. Raise your Nano Pool as you see fit. Make sure you have enough to cast the best nanos you can get.
@@ -52,4 +50,4 @@ As a fixer you will notice that all the nano skills are dark blue, and therefore
 
 In essence, all the nano skills need love, except the MC that you don't need if you don't want to use the GA. If you need to prioritize, you should try to keep TS about 2/3 of your SI and BM skill is at because it's required less. The next two skills you have to look out for is PM and MM. Usually if a line needs both they are required in the same amount so keep them equal if you can, or if you think SMG buffs are more important to you raise PM. In any case at high level they will end up about the same around 787.
 
-Updated Fixer Guide on the Ao forums (warning:will open your web browser) #L 'Click here' '/start http://forums.anarchy-online.com/showthread.php?t=391085&highlight=updated+fixer'
+http://forums.anarchy-online.com/showthread.php?t=391085&highlight=updated+fixer

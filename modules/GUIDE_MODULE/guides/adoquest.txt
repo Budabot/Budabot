@@ -19,13 +19,12 @@ You can pick up this quest line right after zoning into Adonis, like so most of 
   Just inside the building North from the One Who Points the Way.
   He'll task you to kill 3 Stingers, found in the underwater area just north of his location.You'll get Fish Treats when that is complete.
   Turn that into him and he'll reward you with <font color='#33FF33'>Insignia of Gilthar</font> and <font color='#33FF33'>Insignia of Dalja.</font>
-  
-  <font color = yellow>Step 2:</font><font color='#FF9900'> Foruth Watch Down</font>
+
+  <pagebreak><font color = yellow>Step 2:</font><font color='#FF9900'> Foruth Watch Down</font>
   His problem are spirits, but for now, just finding them is enough. You'll have to tab <font color='#33FF33'>Cascading, Voluminous, Slinking and Magnanimous Spirit.</font>
   Once completed, return to him and he'll reward you with <img src=rdb://136332><a href='itemref://226266/226266/1'>Kanel's Story - First Edition (Spec 3/1)</a>
-  
-  
-  <font color = yellow>Step 3:</font><font color='#FF9900'>This one is dependant upon your side, Clan or Omni</font>
+
+  <pagebreak><font color = yellow>Step 3:</font><font color='#FF9900'>This one is dependant upon your side, Clan or Omni</font>
   <font color='#33FF33'>Clan</font>
   <font color='#FF9900'>Conserver Gil Cama-Hume</font>
 	If this is your first time to Adonis, reaching him will pose a bit of problem, since he stands on top of a cliff.
@@ -52,7 +51,7 @@ You can pick up this quest line right after zoning into Adonis, like so most of 
   ****Insider tip - Dungeon is at the <font color='#FF9900'>190 Incarnator</font>, just south of <font color='#FF9900'>City North</font> Statue exit, door is the one of the NORTH side of the incarnator****
  	Once dead, claim your reward - <img src=rdb://37932><a href='itemref://226267/226267/1'>Kanel's Story - Second Edition (Spec 3/2)</a> from Operator Xum-Nar Dal and continue to Scott Free. 
 
-  <font color = yellow>Step 4:</font><font color='#FF9900'> Scott Free</font>
+  <pagebreak><font color = yellow>Step 4:</font><font color='#FF9900'> Scott Free</font>
   His first task for you is to collect <font color='#33FF33'>peach, purple and green</font> recollection shards (Adonis Recollection Shards), that drop from <font color='#33FF33'>Scintillated Spirits</font> north of his location.
 	For your troubles, you'll receive <img src=rdb://37932><a href='itemref://226268/226268/1'>Kanel's Story - Third Edition (Spec 3/3)</a> and a new mission
 	His second task will be to find and kill <font color='#33FF33'>Amok Baraton</font>, which can be found South/Southwest of the Unredeemed Village in Western Adonis.
@@ -63,8 +62,8 @@ You can pick up this quest line right after zoning into Adonis, like so most of 
   He'll send you to talk to Dr. Koumas
   
   <font color='#33FF33'>***NOTE*** After this part of the quest, you can pause in the doing of it, as the mission to see Dr. Koumas has no timer on it.</font>
-  
-  <font color = yellow>Step 5:</font><font color='#FF9900'> Dr. Koumas</font>
+
+  <pagebreak><font color = yellow>Step 5:</font><font color='#FF9900'> Dr. Koumas</font>
   Located a short distance West by Northwest from Scott Free,this Jobe scientist has a problem with archeologic dig nearby.
   Dig itself is actually quite fine, there's just a small matter of pest control.
   Your task is to kill:
@@ -79,8 +78,8 @@ You can pick up this quest line right after zoning into Adonis, like so most of 
 	
 	
 	and sends you to see Dr.Marko Steffenson
-  
-  <font color = yellow>Step 6:</font><font color='#FF9900'>Dr.Marko Steffenson</font>
+
+  <pagebreak><font color = yellow>Step 6:</font><font color='#FF9900'>Dr.Marko Steffenson</font>
   He has some personal problems he needs your help with, so off we go again
   He asks you to kill 5 Sizzling Synaptids (found near Garden statues,underwater of course)
   Kill Lone Shark ( be careful here, as killing him spawns more Sharks and progressively more there after)
@@ -99,8 +98,8 @@ You can pick up this quest line right after zoning into Adonis, like so most of 
   But nothing much you can do, since in order for Dryad Tissue sample to spawn in your inventory, you need to fight on that confined area.
   Once the creature is dead bring back Tissue sample and Dr. Marko will send you to next Yutto.
 	<font color='#33FF33'>***NOTE*** After this part of the quest, you can pause in the doing of it, as the mission has no timer on it.</font>
-  
-  <font color = yellow>Step 7:</font><font color='#FF9900'> One Who Gives Warnings</font>
+
+  <pagebreak><font color = yellow>Step 7:</font><font color='#FF9900'> One Who Gives Warnings</font>
   
 	One Who Gives Warnings is located at Pos: 2543.1, 981.0, 109.2, Area: The Hourglass.
 
@@ -125,7 +124,7 @@ You can pick up this quest line right after zoning into Adonis, like so most of 
 	For your troubles you'll receive 3 Wills, used for Tier 2 Glyph (Yes, all 3 are the type your profession needs).
 	And you'll get the location of new Yutto to see.
 
-  <font color = yellow>Step 8:</font><font color='#FF9900'> One Who Remembers </font>
+  <pagebreak><font color = yellow>Step 8:</font><font color='#FF9900'> One Who Remembers </font>
   
   One Who Remembers is located Pos: 1602.2, 2858.1, 153.0, Area: Piercing Tundra (by Dryad dyna camps)
   

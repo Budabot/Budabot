@@ -32,8 +32,7 @@ Max % Add Nano Cost -45%
 4 max health per 1 point of bodydev
 2 max nano per 1 point of nanopool
 
-
-<header> ::: Atrox Shadowbreeds List ::: <end>
+<pagebreak><header> ::: Atrox Shadowbreeds List ::: <end>
 
 <green>Atrox (Clan) Shadowbreed<end>
 
@@ -65,7 +64,7 @@ Will give Root and Snare resistance
 AoE:
 Allows affected players to absorb 15 hits
 
-<green>Atrox (Omni) Shadowbreed<end>
+<pagebreak><green>Atrox (Omni) Shadowbreed<end>
 
 1: Dusky
 Casts: Blackfist
@@ -95,7 +94,7 @@ Hostile AoE
 Casts a DoT (1.5k, 6 hits, 5 sec delay)
 Lowers Run Speed by 2k and fears all monsters for 30 seconds
 
-<green>Atrox (Neutral) Shadowbreed<end>
+<pagebreak><green>Atrox (Neutral) Shadowbreed<end>
 
 1: Unsettled
 Casts: Blackfist
@@ -121,8 +120,7 @@ Hostile AoE
 Casts a DoT (1k, 6 hits, 3 sec delay)
 Lowers Run Speed by 1k
 
-
-<header> ::: Atrox Alien Invasion Perks ::: <end>
+<pagebreak><header> ::: Atrox Alien Invasion Perks ::: <end>
 
 <green>Atrox Primary Genome<end>
 
@@ -253,7 +251,7 @@ Recharge: 2 Minutes, 30 Seconds
 
 <a href='chatcmd:///start http://auno.org/ao/db.php?id=252490'>http://auno.org/ao/db.php?id=252490</a>
 
-<green>Atrox Secondary Genome<end>
+<pagebreak><green>Atrox Secondary Genome<end>
 
 1. Requirements:
 

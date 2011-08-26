@@ -4,7 +4,7 @@
 
 These are some basic guides put together for new players. Most of this information has come from guides posted on the official forums, but may not be 100% accurate. Enjoy!
 
-<font color = yellow> General Information Guide </font>
+<pagebreak><font color = yellow> General Information Guide </font>
 <a href='chatcmd:///tell <myname> <symbol>guides wrangle'> Guide to Wrangles</a>
 <a href='chatcmd:///tell <myname> <symbol>guides makemoney'> Guide to making credits An excellent guide</a>
 <a href='chatcmd:///tell <myname> <symbol>guides beginners'> Beginners Questions - Good place for beginners to start</a>
@@ -28,7 +28,7 @@ These are some basic guides put together for new players. Most of this informati
 <a href='chatcmd:///tell <myname> <symbol>guides pvpguide'> Guide to PVP system</a>
 <a href='chatcmd:///tell <myname> <symbol>guides cloakrean'> Cloak of The Reanimated Upgrade Process</a>
 
-<font color = yellow>Guides for the Shadowlands: Courtesy of AO-universe</font>
+<pagebreak><font color = yellow>Guides for the Shadowlands: Courtesy of AO-universe</font>
 <a href='chatcmd:///tell <myname> <symbol>guides slpower'> Solo Powerleveling Guides for the Shadowlands</a>
 <a href='chatcmd:///tell <myname> <symbol>guides compact'> Nascence : Compact Message Datadiscs quests.</a>
 <a href='chatcmd:///tell <myname> <symbol>guides slnano'> Lists of Nanos sold in the Gardens and Sanctuary areas of the Shadowlands.</a>
@@ -40,7 +40,7 @@ These are some basic guides put together for new players. Most of this informati
 <a href='chatcmd:///tell <myname> <symbol>guides spiritquest'> Inferno: Spirits Quest ( for Ring Of Plausability )</a>
 <a href='chatcmd:///tell <myname> <symbol>guides infstar'> Inferno Professions Star Quest aka Guarding the Source.</a>
 
-<font color = yellow>Garden Keys (very useful to acquire, buffs treatment as you progress to each higher area)</font>
+<pagebreak><font color = yellow>Garden Keys (very useful to acquire, buffs treatment as you progress to each higher area)</font>
 
 <highlight>Omni<end>
 <a href='chatcmd:///tell <myname> <symbol>guides nasckey'> Guide for garden key in Nascence.</a>
@@ -66,14 +66,14 @@ These are some basic guides put together for new players. Most of this informati
 <a href='chatcmd:///tell <myname> <symbol>guides pensancclan'> Penumbra Sanctuary Garden Key Quest CLAN.</a>
 
 
-<font color = yellow>Shadowlands Tradeskills:</font>
+<pagebreak><font color = yellow>Shadowlands Tradeskills:</font>
 <a href='chatcmd:///tell <myname> <symbol>guides pernweps'> Guide for making Perennium Weapons(used by agents, fixers and soldiers).</a>
 <a href='chatcmd:///tell <myname> <symbol>guides jobearmor'> Guide for making Jobe Armor, used in Making Tier Armor</a>
 <a href='chatcmd:///tell <myname> <symbol>guides tier1armor'> Guide for making Tier One Armor, all character classes included here</a>
 <a href='chatcmd:///tell <myname> <symbol>guides tier2armor'> Guide for making Tier Two Armor, all character classes included here</a>
 <a href='chatcmd:///tell <myname> <symbol>guides tier3armor'> Guide for making Tier 3, Choosen or Faithful, Armor SL Tier Final Stage</a>
 
-<font color = yellow>Alien Invasion Guides</font>
+<pagebreak><font color = yellow>Alien Invasion Guides</font>
 <a href='chatcmd:///tell <myname> <symbol>guides bazzit'> Uncle Bazzit Quest </a>
 <a href='chatcmd:///tell <myname> <symbol>guides clothes'> AI Social Clothes </a>
 <a href='chatcmd:///tell <myname> <symbol>guides apf13guide'> Guide to APF Sector 13 </a>
@@ -81,13 +81,13 @@ These are some basic guides put together for new players. Most of this informati
 <a href='chatcmd:///tell <myname> <symbol>guides apf35guide'> Guide to APF Sector 35 </a>
 <a href='chatcmd:///tell <myname> <symbol>guides apf42guide'> Guide to APF Sector 42 </a>
 
-<font color = yellow>Lost Eden Guides</font>                                                              
+<pagebreak><font color = yellow>Lost Eden Guides</font>                                                              
 <a href='chatcmd:///tell <myname> <symbol>guides clandreadloch'> Dreadloch Camps Clan vs Omni</a>
 <a href='chatcmd:///tell <myname> <symbol>guides omnidreadloch'> Dreadloch Camps Omni vs Clan</a>
 <a href='chatcmd:///tell <myname> <symbol>guides bsinfo'> Information about Battlestation </a>
 <a href='chatcmd:///tell <myname> <symbol>guides lemish'> Information about Lost Eden missions (Alien Mothership)</a>
 
-<font color = yellow>Legacy of Xan Guides</font>
+<pagebreak><font color = yellow>Legacy of Xan Guides</font>
 <a href='chatcmd:///tell <myname> <symbol>guides aridrift'> Information about The base Arid Rift Quests</a>
 
 Special Thanks to all the great AO websites, their creators, and the folks that take time to develop these guides

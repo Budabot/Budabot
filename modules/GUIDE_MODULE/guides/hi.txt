@@ -24,7 +24,7 @@ To avoid getting overly aggroed by the eremites, try standing close together at 
 
 If you die and come back to the island entrance, you will notice the 'Psionic Eremites' in the water. Those little buggers are spawned to make it a tad harder (or impossible?) for players to return to the raid. They are level 230, spawn in groups of 5 or more and can warp you to them, even when you are in Yalmaha above. Their melee hits kill you in 2 hits or instantly, depending if you have more than 7k HP or not ;) To get back in, try flying as high over them as possible, so they don't aggro you. If they aggro you, then you are dead, no matter what, since they will warp you sooner or later and finish you off like a fly.
 
-Item Droplist
+<pagebreak>Item Droplist
 
 Here is the item drop list of the entire raid (as far as I know it at this time). The items may drop at different QLs than listed and in different order or another item may drop instead of one listed. 
 <font color = blue>

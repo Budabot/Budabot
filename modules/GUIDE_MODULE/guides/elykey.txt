@@ -1,8 +1,5 @@
 <header>::::: Elysium Shere Garden Key Quest :::::<end>
 
-Elysium: Shere Garden Key Quest
-
-
 Beginning this guide I'll assume you're in the Elysium Shere garden. Exit to Nero and head south along the rock wall cliff. You'll see a ramp in the temple area, go up it and you'll find Prophet Nar Shere (coords 922, 397) at the top. 
 
 Shere Insignias needed: 7 to 8 

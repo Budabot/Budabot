@@ -14,7 +14,7 @@ Implants are items used to further increase your skills. They are placed under t
 
 When you first find an implant, they usually have no clusters in them. 'Clusters' are the main items that fit into implants to increase your skills. One of each type (Shining, Bright, and Faded) can go into the implant depicted on the cluster (so a 1h Edged Weapon Cluster - Bright (Right-Wrist) would go into the 'Bright' slot of a Right-Wrist implant). All implants require Treatment skill and one of the six main abilities (Strength, Agility, Stamina, Sense, Psychic, and Intelligence).
 
-<font color = green>= how to find implants =</font>
+<pagebreak><font color = green>= how to find implants =</font>
 
 Implants (and clusters) can all be bought in major basic shops, such as Rome Blue Basic (or Fair Trade for you clan- or neutral-sided players). In the basic shop, implants you buy there already have clusters inside them, so there is no need to install the clusters . Empty ones and clusters can be looted off of random mobs in some cases. The basic shops that sell filled implants have them sorted into booths based on the profession that would best use it. However, this does not mean it would be impossible for your enforcer to nick a max-health chest implant from the doctor booth and install it, because all filled implants have only the Treatment + main ability requirements; they are never profession specific.
 
@@ -22,7 +22,7 @@ Filled implants are sorted not only by body part but by quality level, ranging f
 
 There is a formula for main ability requirements, dependant on the ql of the implant. It goes like such: [ req = QL x 2 + 4 ]. So a ql20 needs (20x2+4), or 44 of a main ability, and a ql150 would need 304. This is helpful in gauging what level you could get your implant on.
 
-<font color = green>= 'but my skills are too low!' =</font>
+<pagebreak><font color = green>= 'but my skills are too low!' =</font>
 
 Luckily, there are a ton of ways to bring your skills up.
 
@@ -55,7 +55,7 @@ Lastly, Surgery Clinic adds 100 Treatment.
 For more information on buffing your treatment skills, turn to Pyro's Treatment Guide.
 { Credits to HurfBurf }
 
-<font color = green>+ Strength +</font>
+<pagebreak><font color = green>+ Strength +</font>
 
 Prodigious Strength. Omgzorz. If you think you can live without this, good luck. +40 Strength is ev0l, pure and simple. 42 NCU.
 
@@ -67,13 +67,13 @@ Another nano for this category is Iron Circle. Right now, they take 23 NCU, due 
 
 Now we delve into items. Concrete Cushion (warning: while it looks like a pillow, sleeping on it is considered idiotic). These add 8 Stamina and Strength each (can be dual-wielded). Best ones are ql10, so find a method to get these babies, because they eschange hands fast!
 
-<font color = green>+ Agility +</font>
+<pagebreak><font color = green>+ Agility +</font>
 
 Now we get into some agent lub with this 17 NCU nano, known as Feline Grace. Find the tiniest person in Borealis and start asking away
 
 This rifle gives a hearty 15 Rifle skill... and 8 Agility. Hopefully you've spared some nice IP for the 121 Rifle it needs.
 
-<font color = green>+ Intelligence & Psychic +</font>
+<pagebreak><font color = green>+ Intelligence & Psychic +</font>
 
 For intelligence, we'll start off with a nice little pistol named Second-Hand Old English Trading Co.. This indeed goes all the way down to ql1, and no matter the QL they will give a nice 5 intelligence. They can also be dual-wielded.
 
@@ -97,7 +97,7 @@ Cause if you do...
 Welcome to the world of a nano us AO'ers love to call Composite Attribute Boost.
 This nano comes in four flavors: 1, 2, 4, and 8 hours. It adds 12 to ALL SIX of your abilities... for at least ONE HOUR... for only FOUR NCU. Very, very, very handy for twinking implants in at low levels... and even beyond
 
-<font color = green>= '42 ncu?!? I don't even have 9!!!' =</font>
+<pagebreak><font color = green>= '42 ncu?!? I don't even have 9!!!' =</font>
 
 This section is devoted to raising your NCU to fit all these buffs.
 This is where we call upon the Fixer profession to serve ... I mean ... help us with our goal, via their NCU buff line. 
@@ -118,7 +118,3 @@ The level requirements for all these nanos are equivalent to the level requireme
 Each of these nanos take up one NCU space, so you'd really get +249 NCU for the higher one for example.
 
 Need just a wee extra? Get some Carbonum Armor, which adds a small amount of NCU per piece, and has some decent AC's if you permanently want to walk around in it.
-
-<font color = green>= conclusion =</font>
-
-Well, nothing much else to say, other than knowing that there's another door of opportunity to go through in further leveling your character. Hey... what are you waiting for? Log on and get grafting!!!

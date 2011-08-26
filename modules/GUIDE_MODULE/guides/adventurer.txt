@@ -10,7 +10,7 @@
 * Overall Difficulty: Easy
   The Anarchy Online equivalent of the 'Ranger' class, the Adventurer is a dual-wielding specialist, often focusing on pistols or 1-handed edged weapons. The adventurer has decent one-shot heals, modest defensive abilities, and makes a versatile combatant.  The damage is highly-dependent on equipment, some of which is difficult to obtain, but in general, you will hit for small amounts of damage very quickly, rather than big hits. The Adventurer has a great selection of Adventurer-only equipment, as well.
 
-<font color = yellow>What weapons should I use?</font>
+<pagebreak><font color = yellow>What weapons should I use?</font>
 <font color = green>
   Adventurers come in two flavors: melee and ranged.</font> The Adventurer profession is very flexible, and has many weapon options. Probably the most popular, however, are Pistol and 1H Edged.
 
@@ -20,7 +20,7 @@
 
   In the end--very much like breeds--pick what you think suits you. Adventurers will do well under many circumstances, so feel free to experiment if you see fit.
 
-<font color = yellow>What skills should I raise?</font>
+<pagebreak><font color = yellow>What skills should I raise?</font>
 <font color = green>
   Generally speaking, here is the priority list:</font>
 
@@ -70,8 +70,7 @@
 
     You will probably want to raise Vehicle Air to use a Yalm around level 50-70. Find the lowest level Yalm you can, and raise this skill as little as possible.
 
-
-<font color = yellow>Weapons List</font>
+<pagebreak><font color = yellow>Weapons List</font>
 <font color = green>Here is a list of weapons you will want to keep in mind:</font>
 
 <font color = yellow>Melee Weapons:</font>
@@ -89,8 +88,8 @@
     Mantis Scissors (level 146 requirement, special drop in Mantis Den)
     Gelid Blade of Inobak (Inner Sanctum drop)
     Impious Dominator (Inner Sanctum drop)
-    
-<font color = yellow>Ranged Weapons:</font>
+   
+<pagebreak><font color = yellow>Ranged Weapons:</font>
 <font color = green>
   Top Tier:
     Joint Clans Scout Pistol (Clan and Neutral shops, dyna boss loot--beats out the Kaen at lower levels)

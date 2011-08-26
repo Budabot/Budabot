@@ -1,6 +1,5 @@
 <header>::::: Elysium Sanctuary Garden Nanos :::::<end>
 
-Elysium Sanctuary Nanos
 <font color ='#69E61E'>
 
 <a href='itemref://218095/218095/55'>LINK </a> Chilled Touch - NT

@@ -1,10 +1,10 @@
 <header>::::: Adonis Sanctuary Garden Key Quest CLAN :::::<end>
 
-<font color='#ff9933'><highlight>Gilthar Garden Key Quest</font></end>
+<font color='#ff9933'>Gilthar Garden Key Quest</font>
 
-<highlight>Guide suited for:</end> All Classes
-<highlight>Faction:</end> Clan
-<highlight>Level Range:</end> 150-200
+<highlight>Guide suited for:<end> All Classes
+<highlight>Faction:<end> Clan
+<highlight>Level Range:<end> 150-200
 
 Head to the Redeemed Village on the East Coast.
 It's the second white building area extreme NE, you have to run back across the rocks to get to it. It's an area called Acropolis.

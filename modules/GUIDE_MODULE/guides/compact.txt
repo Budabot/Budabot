@@ -7,7 +7,7 @@ Important note : After going through 3 ARKs and 1 GM, I can safely say some of t
 
 This guide will deal with Compact Datadiscs
 
-<font color = yellow>For Dr. Rosenblatt</font>
+<pagebreak><font color = yellow>For Dr. Rosenblatt</font>
 
 <a href='itemref://259949/259949/1'>Compact Message Datadisc</a>
 
@@ -29,7 +29,7 @@ Mission : Kill Spinetooth Hatchling
 Drops from : Weaver of Malice
 Mission : Kill Demonic Subjugenator
 
-<font color = yellow>For Avatar Urga-Pi Thrak</font>
+<pagebreak><font color = yellow>For Avatar Urga-Pi Thrak</font>
 
 <a href='itemref://259959/2599591'>Compact Message Datadisc</a>
 
@@ -64,7 +64,7 @@ Mission : Kill Remur-Nefer and bring back <a href='itemref://259960/259960/1'>Pi
 Reward : <a href='itemref://236077/236077/25'>Neglectful Brain Symbiant, Support Unit Aban</a>
 Note : You can pull both Remur-Nefer quests and complete 2 missions at once
 
-<font color = yellow>For Seeker Aban Kald-Nuir</font>
+<pagebreak><font color = yellow>For Seeker Aban Kald-Nuir</font>
 
 <a href='itemref://259971/259971/1'>Compact Message Datadisc</a>
 
@@ -108,7 +108,7 @@ Faction: All
 Level Range: 1-50
 Important note : After going through 3 ARKs and 1 GM, I can safely say some of those quests are bugged. I have experienced everything from quests not updating and completing to Unique items gone missing or renaming. Since it appears that if you stubble upon bugged quest, it will nerf additional non bugged ones, I strongly advise to do just one quest at time. Deleting bugged quests and pulling it again usually solves problems
 
-<font color = yellow>Neutral quests</font>
+<pagebreak><font color = yellow>Neutral quests</font>
 
 Joshua Falker
 
@@ -126,7 +126,7 @@ You'll find them at camp located at 880x1570, Old Frontier, just a stone throw a
 
 <font color = green>Libbie Hynan</font> : She'll ask you to kill 7 Weavers of Malice. You'll find them a bit towards Nascence Frontier and to the left. Weavers also drop .
 
-<font color = yellow>Reedem quests</font>
+<pagebreak><font color = yellow>Redeemed quests</font>
 
 All of those quests you can pull from <font color = green>Seeker Aban Kald-Nuir</font>, located at Silence 1865x65. He also have quests involving for guide what to do with them.
 
@@ -140,7 +140,7 @@ He also gives out quests for Specialization 1 books. For that you'll need to tra
 <a href='itemref://226255/226255/1'>The Mariner's Father - Chapter 4</a> : Kill 3 Barad-Ors and Hypnagogic Man-Dom Thrak (88.2x868.2) 
 In order to easier locate named mobs, I strongly suggest the use of Sphere Map.
 
-<font color = yellow>Unreedem quests</font>
+<pagebreak><font color = yellow>Unredeemed quests</font>
 
 All of those quests you can pull from <font color = green>Seeker Urga Pi Thrak</font> located at Brawl 165x1060. He also have quests involving .
 

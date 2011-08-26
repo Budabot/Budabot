@@ -1,10 +1,5 @@
 <header>::::: Information about Dreadloch Camps :::::<end>
 
-<font color = yellow>::::: Information about Dreadloch Camps :::::</font>
-
-
-<font color = #31D6FF>Dreadloch Camps</font>
-
 Omni Camps (Clan Quests)
 
 Guide suited for: All Classes
@@ -41,7 +36,7 @@ Dreadloch Aiming Apparatus
 <font color = blue>________________________________</font> 
 
 
-<font color = yellow>Clondyke </font>
+<pagebreak><font color = yellow>Clondyke </font>
 
 Captain Hawk's resourses tell him that there's a certain commander in Clondyke. He was dishonorably discharged from OTAF, and recruited by the Unicorrns. He is known simply as Force Recon Commander 191 and he now tests pilot prototype mechs. Your job is to get rid of him. 
 
@@ -54,7 +49,7 @@ You will first have to kill 5 Deaths Squads that are around his camp. These shou
 When you have killed all 5, it is time to take on the Force Recon Commander 191. He walks around the camp. Wait until he is close to the entrance to pull him out. It may be best to clear a few of the adds around him, but watch it, he moves fast. He is in a mech, and you will have to mech up to kill him. 
 
 
-<font color = yellow>Eastern Foul Plains</font> 
+<pagebreak><font color = yellow>Eastern Foul Plains</font> 
 
 The have found an Alien artifact, some kind of signal tower. It will be your job to destroy it, and kill the commander in charge of it : Special Agent Moxy. You will be given a special tool to destroy the tower. 
 
@@ -67,7 +62,7 @@ Once these are disposed of, you will have to target the tower, and use the tool 
 She is not stationary and will follow you. She is quite dangerous as she hits really hard, and she has the ability to completely wipe your ncu. 
 
 
-<font color = yellow>Pleasant Meadows </font>
+<pagebreak><font color = yellow>Pleasant Meadows </font>
 
 Major Woon has restored an abandoned Outpost in Pleasant Meadows. It is suspected that he is training troups here. Captain Hawk wants you to stop them. 
 
@@ -78,7 +73,7 @@ You will first have to exterminate 5 Assault Troopers. These are found all aroun
 When you have completed the 5 kills. You will then have to kill Major Woon, who is located inside the camp. He has a massive HP bar and is quite strong. He is stationary however, so he will not follow you around. However, he will warp people to him, which will be problematic. He also has an AoE stun. It is a good idea that you kill everyone around the camp before you confront him, as if there are some guards left around, they will come and help their commander. The docs should stay well away of his stun, as stunned docs can lead to disaster. 
 
 
-<font color = yellow>Southern Artery Valley</font> 
+<pagebreak><font color = yellow>Southern Artery Valley</font> 
 
 There's a new camp in SAV that specializes in the training of assault vehicle drivers, gunners and loaders. You are ordered to destroy this camp, and the person who runs it : Assault Commander Pax. 
 
@@ -91,7 +86,7 @@ Once this is done, you will have to kill Assault Commander Pax, who is located i
 She is also stationary, so this fight will be easier if you kill all the adds around her. She spawns adds, named Executive Defenders. These shouldn't pose problems. However, when she gets just past the halfway mark, she spawns 2 huge mechs Level 250 (Assault Sargeant Helene Moneal and Assault Sargeant Ellen Moneal). These are very nasty, and they seem very drawn to heal aggro. 
 
 
-<font color = yellow>Upper Street West Bank </font> 
+<pagebreak><font color = yellow>Upper Street West Bank </font> 
 
 One of the Thunder Brothers, Peal Thunder, has lost a few marbles. Captain Hawk would like you to exterminate him before he launches some missile attack on civilian targets. He gives you a warning that he runs an Elite group of agents. 
 

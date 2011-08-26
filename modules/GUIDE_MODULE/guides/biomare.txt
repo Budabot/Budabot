@@ -32,23 +32,19 @@ He and his friends will shoot any clanners.
 Time for some action! Go inside!
 
 
-Omni Missions in Biomare: 
+<pagebreak>Omni Missions in Biomare: 
 Omni Investigation Mission 
 
 AKA 'How to keep the guards from aggroing you.' 
 
 NPC Dr. Hercules Lincoln near the Whom-Pahs in Outpost 10-3 <Pos: 1135, 2375> gives mission to deliver a report to NPC Efficiency Expert Linda Osmos inside Biomare. 
 
-
-
-
-
 Mission Log: 
 'Omni-Tek has been able to place an informant inside the Biological Materials Research facilities. Deliver the Systems Monthly periodical to Efficiency Expert Linda Osmos and return immediately with the weekly progress report she will give you.' 
 
 Linda Osmos is at 150x365, in a dead end room with 2-3 robots. Careful with trains here. From the reception room go right in the next room and follow it to the dead end. 
 
-Linda's Missions 
+<pagebreak>Linda's Missions 
 From Linda Osmos you'll get 4 missions, but have to return to her after each one. They revolve around cleaning the scum from the sewer pips. If you don't know where the sewers are, read her dialog, she tells you. 
 
 Disable six security cameras. <You can click the scanner on the same camera six times.> 
@@ -67,7 +63,7 @@ Each card is good for one level of Biomare. The alpha card works up until the fi
 Where to find damaged cards 
 The first place I fould Damaged Beta cards was in the hallway after the last mutant cave, dropping from security guards/officers. Damaged Gamma cards camed from Bodyguards after the Golf Ball into the directors area. So it seems that you find them in the area after that level of clearance is useful. Which is nice because once you get through an area safely, you'll get a pass to get back through it. 
 
-Rescue the Analyst Mission 
+<pagebreak>Rescue the Analyst Mission 
 After returning the report to Outpost 10-3, you have the option to start a 'repair' mission. You'll get an encrypted key in your inventory. 
 
 Mission Log: 
@@ -81,19 +77,19 @@ She is in the SE corner of the hanger <Pos: 255, 35>. After you speak to her, sh
 
 Now you have a return mission to deliver the decrypted datacube to Dr. Hercules Lincoln. When you do so, you'll have the option to do another mission. 
 
-Tissue Sample Mission 
+<pagebreak>Tissue Sample Mission 
 This is really 3 missions since you hand in each piece seperately. Dr. Hercules Lincoln wants a cardiac, pulmonary, and liver sample from the mutants. If you make a quick run through the mutant caves to get your parts after walking Theresa Cameron out, you'll be time ahead here. 
 
 Hand in the parts, and get 60k-90k xp for each part. Now you'll have the option to continue. 
 
-Computer Hacking Mission 
+<pagebreak>Computer Hacking Mission 
 
 Mission Log: 
 'Go to the laboratory area in the Biological Materials Research facility in The Longest Road. There should be computers with stored information on the nano particles used in the testing. Use the Secure Terminal Hacking Protocols to get access to the computers. When you have been able to access the sensitive data, return to Dr. Hercules Lincoln.' 
 
 These terminals are after the mutant caves and exam room and through yet another golf ball. Use the hacking tool on the computers in the sides of the room until you get a GREEN <Sensitive Data> paper. The purple paper <Routine Data> is just a decoy. Just keep using the hacking tool until a green paper is in your inventory, you might wind up with several purples, no big deal. Return to Dr. Hercules Lincoln with the papers, and you get the last mission. 
 
-Kill the Director Mission 
+<pagebreak>Kill the Director Mission 
 
 Mission Log: 
 'Go to the Biological Materials Research facility in The Longest Road. Find the lab director and kill him. This will send him to a reclaim terminal at an Omni-InternOps location where he can be questioned about his recent actions and possible connection to the viral outbreak.' 
@@ -102,7 +98,7 @@ The Director is in the usual place, and will probably be up when you get there. 
 
 Once the director is dead each team member will find a 'Director's Indentification Card' in your inventory. Return this to Dr. Hercules Lincoln and get your reward: Collar of Amplification and 125k xp. 
 
-Bonus Missions 
+<pagebreak>Bonus Missions 
 
 Kill T.I.M. Mission 
 See Lab Assistant - Evelynn Shead <Pos: 382.1, 215> 
@@ -112,10 +108,10 @@ Mission Log:
 
 Easy enough, T.I.M is level 100 now, and not that bad of a kill. He drops both scopes 100%, too. Reward is 180k xp. 
 
-Killer Cargo Bot Mission 
+<pagebreak>Killer Cargo Bot Mission 
 After doing the security clearance mission, Linda Osmos has one more job for you. Head to the hanger and kill 3 Heavy Cargo Hauler Bots. For 3k cash/60k xp. 
 
-Miscellaneous 
+<pagebreak>Miscellaneous 
 Rik-Rak is a hall mob on the way to T.I.M, when you attack, 'Lab security devices' come out of the ceiling over the one Rik-Rak is fighting. These things root/stun the player/pet they're over. With a team, someone else can be killing the security devices, to free the main tank. He drops the Assult-class tank armor 100%. 
 
 The Blind Eyemutant on the bridge after the Chemical Vindicators dorps the Medic Tank Armor. I think this is close to 100% now. 

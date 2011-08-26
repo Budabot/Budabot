@@ -17,7 +17,7 @@ While this can be nice to get any missed mobs, it will be annoying later on, whe
 Please keep this in mind.  If you see that your team is about to wipe, or someone does a really bad pull, it would be wise to run, and keep the playfield open.  
 As long as one person survives, the team will be able to re-enter the playfield.
 
-<font color = yellow>Loot</font>
+<pagebreak><font color = yellow>Loot</font>
 
 Albtraum will have many new drops, most of which are used for tradeskill processes, and MOST are not nodrop (beware, some are).  
 There are a variety of drops, some are common, and some are much rarer.  
@@ -47,14 +47,14 @@ The processes for these items can be found on AO-Universe:
 <font color = green>Weapons:</font>
 <a href='chatcmd:///tell <myname> items Ice of Albtraum Arrows>Ice of Albtraum Arrows</a>
 
-<font color = yellow>Pocket Bosses</font>
+<pagebreak><font color = yellow>Pocket Bosses</font>
 
 Among the loot of this zone will be new Pocket Bosses.  
 These will drop inside the zone, ready to pop.  
 You will need to pop them at the statue at the end of the zone.  
 Beware, they are not easy, and have many AoE attacks, including some harsh AoE DoTs.
 
-<font color = yellow>Location</font>
+<pagebreak><font color = yellow>Location</font>
 
 The portal to Albtraum is located in inferno.  
 From the entrance to Inferno from Penumbra, instead of taking the left path that takes you to the jump-off, take the lower right path.  
@@ -67,7 +67,7 @@ Below is a map of the new zone, as well as the location of the Bosses that you w
 
 <a href='chatcmd:///start http://www.ao-universe.com/website/images/guides/sl/296/alb_map.jpg'><font color = yellow>Map on AO Universe (clikable Link)</font></a>
 
-<font color = green>Albtraum Quests</font>
+<pagebreak><font color = green>Albtraum Quests</font>
 
 <font color = yellow>Finding answers</font>
 
@@ -116,7 +116,7 @@ If you lost the playfield, 'The little one' will despawn most mobs. Only ones th
 When you kill the bosses, they will drop a variety of items, as well as 4 identical parts needed to make the bomb.  That means only 4 people will be able to make the bomb for each playfield.  
 If you want the entire team to receive the bomb (which *might* be needed) you will have to clear 2 playfields.
 
-<font color = Red>The Mini Bosses</font>
+<pagebreak><font color = Red>The Mini Bosses</font>
 
 <font color = yellow>Mutant Shadow Eremite</font>
 
@@ -126,14 +126,14 @@ He is hidden in the ground just at the entrance of that opening.  Make sure that
 This boss shouldn't pose too many problems, he has an AoE stun, which can be annoying.  
 Have your doc and any ranged non-tankers stay back.  The rest, just have plenty of Free Movement Stims ready, and you should be fine.
 
-<font color = yellow>Wings of Despair</font>
+<pagebreak><font color = yellow>Wings of Despair</font>
 
 Further north from the eremite, you will find the Wings of Despair.  
 This Boss will be a bit harder than the Eremite.  He has an AoE nano drain.  
 It appears to be quite vast, as we couldn't get the doc far enough to get out of its range.  
 Keep some nano stims handy, and make sure to stim your doc when needed.  He will need them.
 
-<font color = yellow>Overwhelming Horror</font>
+<pagebreak><font color = yellow>Overwhelming Horror</font>
 
 This will be your most difficult challenge yet.  This horror is very difficult.  
 <font color = yellow>He has a nasty 18k nuke</font>, which will decimate your team quickly if you're not careful.  
@@ -152,7 +152,7 @@ He will make a Novictum Bomb for you, and instruct you to talk to the yuttos ins
 <font color =red>Warning!</font> Do not right click the bomb, or use anything (tradeskill) on it.  
 If you do this, it will explode and will be used up.  If you do this, you will have to start over.
 
-<font color = yellow>The Final Battle</font>
+<pagebreak><font color = yellow>The Final Battle</font>
 
 Note:At this point you can reset field (by having every team member leave playfield), but little Yutto will slack again and not despawn all mobs. 
 So better strategy is clearing whole playfield after killing bomb bosses and leaving at least one team member inside to keep playfield.

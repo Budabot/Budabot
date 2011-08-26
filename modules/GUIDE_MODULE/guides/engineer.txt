@@ -20,7 +20,7 @@ If you need to remake your robot you can do so by right clicking on the Nano Pro
 
 This bot will last you until you terminate it, it dies, or you log off. If you lose your connection the bot will wait for 2 minutes for you to reconnect before powering down.
 
-3. Controlling Yourself and the Bot
+<pagebreak>3. Controlling Yourself and the Bot
 
 Pets are controlled through the command line (ie hit enter, type in the command). But don't panic there are ways to make this much easier!
 
@@ -68,7 +68,7 @@ or /pet 'Ralph the Mech Dog' attack
 
 These types of macro's work particularly well in conjunction with rename macros, otherwise the macro would have to be updated every time the pets name changed. Finally, if you use colourful names then the command must reflect that or it won't work.
 
-3.3. Scripts, Variables & Chat Commands
+<pagebreak>3.3. Scripts, Variables & Chat Commands
 
 Scripts are text files that sit in a Scripts folder inside of the Anarchy Online program folder. Scripts do not require any extension (the last part of the file name, like .txt) and will work with and without.
 
@@ -123,14 +123,14 @@ Finally it's also possible to change chat channel like this as well.
 
 It will also recognise partial names provided it's enough to get a unique match. So if your guild was called 'Super Guild Version 12.4' then '/ch Super' would be enough to switch to that channel.
 
-3.4. Pet Command & Maximum Range
+<pagebreak>3.4. Pet Command & Maximum Range
 
 This section covers two issues.
 
     * Command Range - You can only issue commands to your bot within a relatively small range (approximately 10 - 15 metres). Issuing commands outside of this range will have no effect.
     * Maximum Range - Pets will cease fighting and return to us if the pet gets 50 metres or further away from us. You will recieve a warning and some time to get back in range when this happens.
 	
-4. Affording your Engineer
+<pagebreak>4. Affording your Engineer
 
 Getting enough credits to fund your character is pretty hard to start off with, this is the same for all professions, but I think more so on those that depend on their nanos.
 
@@ -144,7 +144,7 @@ If you find you don't have enough credits to afford the next bot up, then slow d
 
 Don't do it. Too much of this happens already and this may well get you ignored by a large quantity of the higher level population. There are other ways, they may take longer but you won't annoy anyone in the process.
 
-4.2. Soloing Missions
+<pagebreak>4.2. Soloing Missions
 
 Before we begin looking at missions as a way of making credits make sure you get Clicksaver.
 
@@ -163,7 +163,7 @@ Soloing missions is an excellent (if time consuming) way of getting items and cr
 
 Soloing team missions is even better than solo missions if you can. Of course to do this you at least temporarily needs a team mate.
 
-4.3. Blitzing Missions
+<pagebreak>4.3. Blitzing Missions
 
 Mission Setting: Bad, Money, Order
 
@@ -173,17 +173,17 @@ The chance of recieving an xp reward is directly related to the percentage of mo
 
 Always save (use Insurance Terminal) before you attempt a blitz, this way if you die during a blitz you have lost nothing except for the couple of minutes it takes to recover.
 
-4.4. Mission Location
+<pagebreak>4.4. Mission Location
 
 Location is important, the further away from the mission terminal the mission is the more credits you'll get as a reward. This doesn't mean we have to run into the middle of nowhere to get a couple of hundred more credits though. Check out getting missions from other cities or towns and see how easy they are to get to.
 
-4.5. Jewelery
+<pagebreak>4.5. Jewelery
 
 If you find yourself looting a lot of ingots, gems, rings then we can make these more valuable by turning them into jewelery. Check out this guide for what you need and how to do it. Then you can turn what are normally junk items into rings, which will get you more credits from the shops.
 
 To make Jewelery you'll need quite a lot of Agility and Mechanical Engineering.
 
-4.6. Monster Parts
+<pagebreak>4.6. Monster Parts
 
 With the use of a Bio-Comminutor (found in the Trade section of any general store) Monster Parts can be converted to Blood Plasma. These sell for substantially more than the monster parts to shops. This can be a nice way to make a bit of quick cash.
 
@@ -191,7 +191,7 @@ Converting Monster Parts to Blood Plasma will need a bit of Pharma Tech.
 
 Check out the trade skill section later on to see what others you might want to do.
 
-5. Skills
+<pagebreak>5. Skills
 
 5.1. Essential Skills
 
@@ -212,7 +212,7 @@ Treatment - Med kits, nano kits, implants
 Body Development - This increases your Hit points
 Nano Pool - Increases your Nano points
 
-5.2. Secondary Skills
+<pagebreak>5.2. Secondary Skills
 
 Any other abilities you raise depend on your Breed choice. As Solitus I always suggest you raise Agility and Stamina (in addition to Intelligence).
 
@@ -225,7 +225,7 @@ Biological Metamorphesis - The bot heals are listed here. All Bot heals are miss
 Psychological Modification and Sensory Improvement - Raise to at least 66
 Map Navigation - Optional, but if you raise to 80 you can have the important map upgrades (people & monsters) quickly. Otherwise use temporary implants to increase and upload maps as you level.
 
-5.5. Buffs
+<pagebreak>5.5. Buffs
 
 5.5.1. General Buffs
 
@@ -290,7 +290,7 @@ Apprentice - Each of these programs adds 40 to one of your trade skills (List)
 Journeyman - Adds 80 to each trade skill (List)
 Maestro - Adds 125 to each trade skill (List)
 
-5.6. Items
+<pagebreak>5.6. Items
 
 These are details of some items that add to 'Matter Creation' and 'Time and Space' which we can use to help us summon our bots.
 
@@ -334,7 +334,7 @@ Unfortunately not all bots obey the rules, as they have been sabotaged while lea
     * Flawed Warmachine - Nano upload requirement is 751 MC and TS. Shell requirement is 753 MC and TS. Should require 601 MC and TS to be within OE. Actual requirement is 612 MC and TS.
     * Slayerdroid Protector - Should require 682 MC and TS to be within OE. Actual requirement is ~686 MC and TS.
 	
-7. Weapon Choices
+<pagebreak>7. Weapon Choices
 
 As Engineers we get a quite few weapon choices, this section covers many of the options available to us.
 
@@ -406,7 +406,7 @@ It's well worth noting that Add All Def in your implant set (Level 100+ only) an
 
 Multi Ranged and Multi Melee are both the ability to hold and use two weapons as once. When you wear a ranged weapon the lowest of the two Multi requiremensts is used to figure out if you can wear it - both of these skills are very very expensive for us so normally left until high levels.
 
-8. Trimmers & Android NCU Upgrades
+<pagebreak>8. Trimmers & Android NCU Upgrades
 
 This section covers the items you can use on your robot to enhance it's performance. Trimmers can be used as many times as you need and won't disapear on use. NCU Upgrades are single use only.
 
@@ -458,7 +458,7 @@ For the most part these NCU Upgrades are unnecessary as the bots generally have 
 
 The lower Quality NCU upgrades tend to be more useful than the higher level ones as you're unlikely to need 110 more NCU on a robot.
 
-0. Soloing & Teaming
+<pagebreak>10. Soloing & Teaming
 
 This is where it all comes together, in this section I'm going to give a few pointers and suggestions to make everything that we've done up to now work.
 
@@ -535,7 +535,7 @@ The fight ends and everyone recharges. Your bot waits patiently for you to issue
 
 Controlling your bot effectively is very important, you generally cannot let it go on an uncontrolled rampage, it'll upset people in a team and may make soloing hard work.
 
-10.3. Solo Play
+<pagebreak>10.3. Solo Play
 
 Engineers are a good profession for this, the bots ability to tank make us able to solo missions well above our level. In effect it is essential that the Engineer and the Bot behave as a small team.
 
@@ -571,7 +571,7 @@ However, if the mob takes even a single point of damage the blind will be broken
 
 Along with these is a Snare line that pulses out from the bot (every 30 seconds). The snare contains a taunt which improves chances of the mob attacking the bot.
 
-10.4. Team Play
+<pagebreak>10.4. Team Play
 
 Acting as part of a team can be very hard work at times, some teams are better than others.
 
@@ -597,7 +597,7 @@ Be a little more careful in teams with some of our programs. The snare program t
 
 The Blind program and other offensive auras we have can sometimes (not all the time) break calms.
 
-10.5. Offensive and Defensive Auras
+<pagebreak>10.5. Offensive and Defensive Auras
 
 One final thing I want to cover in this section is a bit more of a detailed description of our defensive and offensive auras.
 
@@ -650,7 +650,7 @@ In effect this line provides us with some basic crowd control, it's not as effec
 
 They are short range and will break on a single point of damage, or if another offensive program lands on the target.
 
-11. Trade Skills
+<pagebreak>11. Trade Skills
 
 11.1. Introduction to Trade Skills
 
@@ -702,7 +702,7 @@ There are some items in the game that can only be found in a limited number of p
     * Robot Instruction Discs - These three can only be found as mission loot at the same levels as the discs.
     * Shape Armour - These two can only be found as boss loot (indoor or outdoor) on approximately level 60 bosses.
 
-11.5. Maximum Skills for each Breed
+<pagebreak>11.5. Maximum Skills for each Breed
 
 If you're making a character specifically for Trade skills then your Breed choice is very important.
 
@@ -772,7 +772,7 @@ Tutoring is absolutely essential for many high level trade skills, but it takes 
 
 So while you might want tutoring eventually, it's probably little use to you before level 150.
 
-13.2. Where to find parts for the Engineer Pistol
+<pagebreak>13.2. Where to find parts for the Engineer Pistol
 
 Most of this is taken from Lyricia's guide at the Tir School of Engineering
 

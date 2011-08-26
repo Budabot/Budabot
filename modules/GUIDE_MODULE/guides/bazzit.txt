@@ -5,7 +5,7 @@ Level Range: ?
 
 This quest can be done in four stages, at the end of each stage you are able to take a break for as long as you need before continuing
 
-<font color = yellow>First Stage</font>
+<pagebreak><font color = yellow>First Stage</font>
 
 To start the quest talk to Bazzit about weapons, when he asks what you think the item can do reply 'It looks like something that could modify its head' he will then give you the unknown device and ask you to see Deidre Lux in Stret West Bank to see if she can help
 
@@ -15,8 +15,7 @@ Ramon offers to re tune the pistol rather than replace it, but first he wants fi
 
 Return to Ramon Bauer and return the tracking device, he will now re-tune the pistol for you, all you need to do is let him know what frequency is needed (if the pistol gets broken using the wrong frequency Deidre will always give you another). Once this has been done, return the Deidre with the gun
 
-
-<font color = yellow>Second Stage</font>
+<pagebreak><font color = yellow>Second Stage</font>
 
 For the second stage each part allows 1 hour to complete, you will be asked to tag three cyborg's
 
@@ -31,7 +30,7 @@ The last cyborg is Prototype Inferno, this one is a little further out in Greate
 Once you have tagged all three, return to Deidre and hand her the hacker tool, she will upgrade it and return it to you
 
 
-<font color = yellow>Third Stage</font>
+<pagebreak><font color = yellow>Third Stage</font>
 
 This third stage of the quest is longer still, each part allows between 8 hours and 3 days though so after you have taken a break, return to Deidre and let her know you are ready to continue. Hand her the Linked Hacker Tool to receive your first mission
 
@@ -61,7 +60,7 @@ Once you have the Omni-Tek Node Logs return to Ofoz, hand him the logs and he wi
 
 Head back to Meetmedere and speak to Uncle Bazzit again, show him the Kyr'Ozch Structural Analyzer and tell him what Sirocco has found out and he will reward you with Bazzit's Alien Library
 
-<font color = yellow>Fourth Stage</font>
+<pagebreak><font color = yellow>Fourth Stage</font>
 
 The fourth and final stage of the quest involves a lot of running around Rubi-ka, each part allows between 10 hours and 3 days. So once you are ready, return to Bazzit and let him know you are ready to continue
 
@@ -85,7 +84,7 @@ After talking to Krank for a little while show him the transfer form, he will ag
 
 Krank will talk to you about the analyzer once you have shown it to him, after this all that is left is to head back to Bazzit, show him the Kyr'Ozch Structural Analyzer and tell him what information you found out. He will thanks you and reward you with an Overclocked Belt Component Platform, the quest is now finished
 
-<font color = yellow>Rewards</font>
+<pagebreak><font color = yellow>Rewards</font>
 
 There are 3 items that are received through this mission: 
 

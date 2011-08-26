@@ -61,7 +61,7 @@ will be around level 70+, you will find higher level mobs near the main
 dungeon boss. Some mobs will execute a Poison DoT nano (damage over time) and 
 even temporarily blind you (Followers Darkness nano). 
 
-Mobs you will find in this section: 
+<pagebreak>Mobs you will find in this section: 
 
 Dark Cenobite drops these items: 
 
@@ -79,7 +79,7 @@ Dark Summoner drops these items:
 <font color = 69E61E><a href='itemref://246125/246125/100'>Collar Casero de la Cripta</a></font>
 
 
-You will now find yourself in a long corridor, there will be a left and right 
+<pagebreak>You will now find yourself in a long corridor, there will be a left and right 
 corridors adjacent to the main corridor. Either path will lead downstairs 
 where the first boss awaits you. Bane (level 90) will be well protected by 4 
 Eclipsers next to him as well as other mobs in that small area. Something 
@@ -87,14 +87,12 @@ interesting here is that in the middle of a very small room there is a
 capsule, which cannot be opened by any means currently. Some players 
 speculate that at some point this dungeon will be developed further. 
 
-Bane
-
 Bane drops these items: 
 <font color = 69E61E><a href='itemref://245276/245276/100'>Bracer of Recondite Flames</a></font> 
 <font color = 69E61E><a href='itemref://246226/246226/100'>Human Skin Hood</a></font>
 
 
-Alright, now go back to the main corridor and make your down deeper into the 
+<pagebreak>Alright, now go back to the main corridor and make your down deeper into the 
 dungeon, at one point it will be so dark you will need to look at your map to 
 see where the door is. 
 
@@ -144,7 +142,7 @@ weapons. The Blackbirds are Fixer only 1h SMG weapons, Chiropteras are 1he
 weapons for Enforcers and Adventurers and the Howlets are 2hb weapons for 
 Enforcers and Meta-Physicist. 
 
-The Skincrawlers mobs like the darkness, so watch for them in the shadows. 
+<pagebreak>The Skincrawlers mobs like the darkness, so watch for them in the shadows. 
 You will find the Alpha Skincrawler at the back of the main room relaxing on 
 what appears to be an old fountain. 
 
@@ -160,7 +158,7 @@ first see a door with a couple of torches on each side of it. The door is
 guarded by Necromancers with some Eclipsers roaming the room. For now ignore 
 that door because you cannot enter it from this side of it. 
  
-Necromancer
+<pagebreak>Necromancer
 
 Necromancer drops these items: 
 <font color = 69E61E><a href='itemref://245170/245170/100'>Necromancer Cloak</a></font>
@@ -188,8 +186,7 @@ intersection will lead you to the third section of the dungeon which is full
 of Kizzermoles, another Cenobite Shadow will be hidding here so search for 
 him if you want some of his weapons. 
  
-Kizzermole
-
+<pagebreak>Kizzermole
 
 Kizzermore drops these items: 
 <font color = 69E61E><a href='itemref://245323/245323/100'>Kizzermole Gumboil</a></font> 
@@ -208,7 +205,7 @@ only hood, a Pit Demon Heart that allows you to create a Reanimator's Robe,
 for more details check this guide and Pit Demon Spit for AC stims, for more 
 details check this guide. 
 
-Awakened Pit Demon
+<pagebreak>Awakened Pit Demon
 
 Awakened Pit Demon drops these items: 
 <font color = 69E61E><a href='itemref://246217/246217/100'>Hood of Wicked Inspiration</a></font>
@@ -250,7 +247,7 @@ room that way. It's easier if you have a team, since one can remain behind
 and reopen the door while the rest kill the mobs. 
 
  
-Crypt Guardian
+<pagebreak>Crypt Guardian
 
 Crypt Guardians drop this item: 
 <font color = 69E61E><a href='itemref://245278/245278/100'>Bracer of the Dark Flame</a></font>
@@ -273,7 +270,7 @@ You have reached the boss mob of the crytp, Cerubin the Rejected (level 150)
 is not a happy fellow, after all he has been rejected by everyone in his life 
 (and with his looks who can blame anyone for that?). 
  
-Cerubin the Rejected
+<pagebreak>Cerubin the Rejected
 
 The battle could be very easy if you're a high level or in team. However it 
 can also be very hard because Cerubin has several different tentacles that 
