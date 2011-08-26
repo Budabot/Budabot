@@ -12,14 +12,11 @@
 	Command::register($MODULE_NAME, "", "time.php", "time", "all", "Shows the time in the different timezones");
 	Command::register($MODULE_NAME, "", "whois.php", "whois", "all", "Display a character's info");
 	Command::register($MODULE_NAME, "", "whois.php", "whoisall", "all", "Display a character's info for all dimensions");
-	Command::register($MODULE_NAME, "", "biomat_identify.php", "bio", "all", "Biomaterial Identify");
 	Command::register($MODULE_NAME, "", "calc.php", "calc", "all", "Calculator");
 	Command::register($MODULE_NAME, "", "oe.php", "oe", "all", "OE");
 	Command::register($MODULE_NAME, "", "history.php", "history", "all", "Show history of a player");
 	Command::register($MODULE_NAME, "", "smileys.php", "smileys", "all", "The meaning of different Smileys");
 	Command::register($MODULE_NAME, "", "inspect.php", "inspect", "all", "Inspects Christmas/Eart Gifts and Peren. Containers");
-	Command::register($MODULE_NAME, "", "aigen.php", "aigen", "all", "Info about Alien City Generals(which VBs they drop)");
-	Command::register($MODULE_NAME, "", "aiarmor.php", "aiarmor", "all", "Tradeskillprocess for Alien Armor");
 	Command::register($MODULE_NAME, "", "mobloot.php", "mobloot", "all", "loot QL Infos ");
 	Command::register($MODULE_NAME, "", "random.php", "random", "all", "Random order");
 	Command::register($MODULE_NAME, "", "cluster.php", "cluster", "all", "cluster location");
@@ -41,7 +38,6 @@
 
 	// Help files
 	Help::register($MODULE_NAME, "whois", "whois.txt", "all", "Show char stats at current and all dimensions");
-    Help::register($MODULE_NAME, "bio", "biomat.txt", "all", "Identify an Biomaterial");
     Help::register($MODULE_NAME, "calc", "calculator.txt", "all", "Calculator");
     Help::register($MODULE_NAME, "oe", "oe.txt", "all", "Calculating the OE ranges");
     Help::register($MODULE_NAME, "roll", "roll.txt", "all", "How to use the flip and roll command");
@@ -50,8 +46,6 @@
     Help::register($MODULE_NAME, "kos", "kos.txt", "all", "Kill On Sight List");
     Help::register($MODULE_NAME, "inspect", "inspect.txt", "all", "How to use inspect");
 	Help::register($MODULE_NAME, "smileys", "inspect.txt", "all", "How to use smileys");
-    Help::register($MODULE_NAME, "aiarmor", "aiarmor.txt", "all", "Alien armor Tradeskillprocess");
-	Help::register($MODULE_NAME, "aigen", "aigen.txt", "all", "Alien City Generals Info");
 	Help::register($MODULE_NAME, "buffitem", "buffitem.txt", "all", "How to use buffitem");
 	Help::register($MODULE_NAME, "cluster", "cluster.txt", "all", "How to use cluster");
 	Help::register($MODULE_NAME, "mobloot", "mobloot.txt", "all", "How to use mobloot");
