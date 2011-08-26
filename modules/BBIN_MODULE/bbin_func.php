@@ -12,8 +12,9 @@
  * This is the main parse function for incoming messages other than
  * IRC related stuff
  */
-function parse_incoming_bbin($bbinmsg, $nick, &$bot) {
+function parse_incoming_bbin($bbinmsg, $nick) {
 	$db = DB::get_instance();
+	global $chatBot;
 	global $bbin_socket;
 
 	if (preg_match("/^\[BBIN:LOGON:(.*?),(.),(.)\]/",$bbinmsg,$arr)) {
@@ -42,11 +43,11 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot) {
 		}
 		$msg .= ".";
 
-		if ($bot->vars['my_guild'] != "") {
-			$bot->send("<yellow>[BBIN]<end> $msg","guild",true);
+		if ($chatBot->vars['my_guild'] != "") {
+			$chatBot->send("<yellow>[BBIN]<end> $msg","guild",true);
 		}
-		if ($bot->vars['my_guild'] == "" || $bot->settings["guest_relay"] == 1) {
-			$bot->send("<yellow>[BBIN]<end> $msg","priv",true);
+		if ($chatBot->vars['my_guild'] == "" || Setting::get("guest_relay") == 1) {
+			$chatBot->send("<yellow>[BBIN]<end> $msg","priv",true);
 		}
 
 	} else if (preg_match("/^\[BBIN:LOGOFF:(.*?),(.),(.)\]/",$bbinmsg,$arr)) {
@@ -67,11 +68,11 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot) {
 		$msg .= "<highlight>$name<end> has left the network.";
 
 
-		if ($bot->vars['my_guild'] != "") {
-			$bot->send("<yellow>[BBIN]<end> $msg","guild",true);
+		if ($chatBot->vars['my_guild'] != "") {
+			$chatBot->send("<yellow>[BBIN]<end> $msg","guild",true);
 		}
-		if ($bot->vars['my_guild'] == "" || $bot->settings["guest_relay"] == 1) {
-			$bot->send("<yellow>[BBIN]<end> $msg","priv",true);
+		if ($chatBot->vars['my_guild'] == "" || Setting::get("guest_relay") == 1) {
+			$chatBot->send("<yellow>[BBIN]<end> $msg","priv",true);
 		}
 
 	} else if (preg_match("/^\[BBIN:SYNCHRONIZE\]/",$bbinmsg)) {
@@ -82,7 +83,7 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot) {
 
 		// send actual online members
 
-		$msg = "[BBIN:ONLINELIST:".$bot->vars["dimension"].":";
+		$msg = "[BBIN:ONLINELIST:".$chatBot->vars["dimension"].":";
 		$db->query("SELECT name FROM online WHERE channel_type = 'guild'");
 		$numrows = $db->numrows();
 		$data = $db->fObject("all");
@@ -104,7 +105,7 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot) {
 		$msg .= "]";
 
 		// send complete list back to bbin channel
-		fputs($bbin_socket, "PRIVMSG ".$bot->settings['bbin_channel']." :$msg\n");
+		fputs($bbin_socket, "PRIVMSG ".Setting::get('bbin_channel')." :$msg\n");
 
 	} else if (preg_match("/^\[BBIN:ONLINELIST:(.):(.*?)\]/", $bbinmsg, $arr)) {
 		// received a synchronization list
@@ -140,11 +141,11 @@ function parse_incoming_bbin($bbinmsg, $nick, &$bot) {
 		}
 	} else {
 		// normal message
-		if ($bot->vars['my_guild'] != "") {
-			$bot->send("<yellow>[BBIN]<end> $bbinmsg", "guild", true);
+		if ($chatBot->vars['my_guild'] != "") {
+			$chatBot->send("<yellow>[BBIN]<end> $bbinmsg", "guild", true);
 		}
-		if ($bot->vars['my_guild'] == "" || $bot->settings["guest_relay"] == 1) {
-			$bot->send("<yellow>[BBIN]<end> $bbinmsg", "priv", true);
+		if ($chatBot->vars['my_guild'] == "" || Settings::get("guest_relay") == 1) {
+			$chatBot->send("<yellow>[BBIN]<end> $bbinmsg", "priv", true);
 		}
 	}
 }

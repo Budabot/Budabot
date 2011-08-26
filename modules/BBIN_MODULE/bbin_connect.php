@@ -67,7 +67,7 @@ while ($data = fgets($bbin_socket)) {
 fputs($bbin_socket, "PRIVMSG ".$chatBot->settings['bbin_channel']." :[BBIN:SYNCHRONIZE]\n");
 
 // call the synchronize function ourselves, to send our online list to the network
-parse_incoming_bbin("[BBIN:SYNCHRONIZE]", $nick, $this);
+parse_incoming_bbin("[BBIN:SYNCHRONIZE]", $nick);
 
 if (preg_match("/^startbbin$/i", $message)) {
 	$chatBot->send("Finished connecting to bbin",$sender);

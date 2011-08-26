@@ -94,7 +94,7 @@ if (($data = fgets($bbin_socket)) && ("1" == $chatBot->settings['bbin_status']))
 		if ($chatBot->settings['bbin_debug_messages'] == 1) {
 			Logger::log_chat("Inc. IRC Msg.", $nick, $bbinmessage);
 		}
-		parse_incoming_bbin($bbinmessage, $nick, $this);
+		parse_incoming_bbin($bbinmessage, $nick);
 
 		flush();
 	}

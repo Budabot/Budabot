@@ -18,7 +18,7 @@
 
 	// if there is no time left or we even skipped over the time, end raffle
 	if (0 >= $tleft) {
-		endraffle($this);
+		endraffle();
 		return;
 	}
 

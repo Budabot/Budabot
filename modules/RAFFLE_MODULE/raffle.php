@@ -15,7 +15,7 @@ if (preg_match("/^raffle start (\d+) (.+)$/i", $message, $arr)) {
 
 	$item = $arr[2];
 	$count = $arr[1];
-	$minutes = $chatBot->settings["defaultraffletime"];
+	$minutes = Setting::get("defaultraffletime");
 
 	$chatBot->data["Raffles"] = array(
 		"running" => true,
@@ -58,7 +58,7 @@ Click $link to join the raffle. Raffle will end in $minutes minutes.
 
 	$item = $arr[1];
 	$count = 1;
-	$minutes = $chatBot->settings["defaultraffletime"];
+	$minutes = Setting::get("defaultraffletime");
 
 	$chatBot->data["Raffles"] = array(
 		"running" => true,
@@ -127,7 +127,7 @@ Click $link to join the raffle. Raffle will end in $minutes minutes'.
 		return;
 	}
 
-	endraffle($this);
+	endraffle();
 
 } else if (preg_match("/^raffle result$/i", $message, $arr)) {
 	if (!isset ($chatBot->data["Raffles"]["lastresult"])) {

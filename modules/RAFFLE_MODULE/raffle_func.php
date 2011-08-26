@@ -1,23 +1,24 @@
 <?php
-function endraffle(&$bot)
-{
+function endraffle() {
+	global $chatBot;
+
     // just to make sure there is a raffle to end
-    if (!$bot->data["Raffles"]["running"]) {
+    if (!$chatBot->data["Raffles"]["running"]) {
         return;
     }
     // indicate that the raffle is over
-    $bot->data["Raffles"]["running"] = false;
+    $chatBot->data["Raffles"]["running"] = false;
 
-    $item = $bot->data["Raffles"]["item"];
-    $count = $bot->data["Raffles"]["count"];
-    $rafflees = array_keys($bot->data["Raffles"]["rafflees"]);
+    $item = $chatBot->data["Raffles"]["item"];
+    $count = $chatBot->data["Raffles"]["count"];
+    $rafflees = array_keys($chatBot->data["Raffles"]["rafflees"]);
     $rafflees_num = count($rafflees);
 
     if (0 == $rafflees_num) {
         $msg = "<highlight>No one joined the raffle, $item is free for all.";
-        $bot->data["Raffles"]["lastresult"] = $msg;
+        $chatBot->data["Raffles"]["lastresult"] = $msg;
 
-        $bot->send($msg, $bot->data["Raffles"]["sendto"]);
+        $chatBot->send($msg, $chatBot->data["Raffles"]["sendto"]);
         return;
     }
 
@@ -31,11 +32,11 @@ function endraffle(&$bot)
     for ($i = 0; $i < $rollcount; $i++) {
         // roll a name out of the rafflees and add a rollcount
         $random_name = $rafflees[mt_rand(0, $rafflees_num -1)];
-        $bot->data["Raffles"]["rafflees"][$random_name] ++;
+        $chatBot->data["Raffles"]["rafflees"][$random_name] ++;
     }
 
     // sort the list depending on roll results
-    arsort($bot->data["Raffles"]["rafflees"]);
+    arsort($chatBot->data["Raffles"]["rafflees"]);
 
     $blob = "<header>Raffle results<end>\n";
     if (1 == $count) {
@@ -45,7 +46,7 @@ function endraffle(&$bot)
     }
 
     $i = 0;
-    forEach ($bot->data["Raffles"]["rafflees"] as $char => $rolls) {
+    forEach ($chatBot->data["Raffles"]["rafflees"] as $char => $rolls) {
         $i++;
         $blob .= "\n$i. $char got $rolls rolls.";
         if ($i == $count) {
@@ -61,7 +62,7 @@ function endraffle(&$bot)
     }
 
     $i = 0;
-    forEach ($bot->data["Raffles"]["rafflees"] as $char => $rolls) {
+    forEach ($chatBot->data["Raffles"]["rafflees"] as $char => $rolls) {
         $i++;
         $msg .= "$char";
         if ($i != $count) {
@@ -71,8 +72,8 @@ function endraffle(&$bot)
         }
     }
     $msg .= " Congratulations. $results";
-    $bot->data["Raffles"]["lastresult"] = $msg;
-    $bot->send($msg, $bot->data["Raffles"]["sendto"]);
+    $chatBot->data["Raffles"]["lastresult"] = $msg;
+    $chatBot->send($msg, $chatBot->data["Raffles"]["sendto"]);
 }
 
 ?>
