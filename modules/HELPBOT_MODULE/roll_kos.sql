@@ -1,2 +1,0 @@
-CREATE TABLE IF NOT EXISTS roll (`id` INTEGER PRIMARY KEY AUTO_INCREMENT, `time` INT, `name` VARCHAR(25), `type` INT, `start` INT, `end` INT, `result` INT);
-CREATE TABLE IF NOT EXISTS koslist (`time` INT PRIMARY KEY NOT NULL, `name` VARCHAR(25), `sender` VARCHAR(25), `reason` VARCHAR(50) DEFAULT '0');

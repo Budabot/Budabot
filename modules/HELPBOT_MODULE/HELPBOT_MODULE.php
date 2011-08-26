@@ -3,7 +3,8 @@
 
 	$MODULE_NAME = "HELPBOT_MODULE";
 
-	DB::loadSQLFile($MODULE_NAME, "roll_kos");
+	DB::loadSQLFile($MODULE_NAME, "roll");
+	DB::loadSQLFile($MODULE_NAME, "koslist");
 	DB::loadSQLFile($MODULE_NAME, "dyna");
 	DB::loadSQLFile($MODULE_NAME, "research");
 	DB::loadSQLFile($MODULE_NAME, "playfields");
