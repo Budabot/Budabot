@@ -1,8 +1,10 @@
 <?php
 	$MODULE_NAME = "ALIEN_MODULE";
 	
+	DB::loadSQLFile($MODULE_NAME, 'clump');
 	DB::loadSQLFile($MODULE_NAME, "leprocs");
 
+	Command::register($MODULE_NAME, "", "ofab.php", "ofab", "all", "Show a list of ofab armor bio-material type");
 	Command::register($MODULE_NAME, "", "bio.php", "bio", "all", "Biomaterial Identify");
 	Command::register($MODULE_NAME, "", "aigen.php", "aigen", "all", "Info about Alien City Generals(which VBs they drop)");
 	Command::register($MODULE_NAME, "", "aiarmor.php", "aiarmor", "all", "Tradeskillprocess for Alien Armor");
