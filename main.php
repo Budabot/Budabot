@@ -153,7 +153,7 @@ function main(&$chatBot) {
 	$exec_connected_events = false;
 	while (true) {
 		$chatBot->wait_for_packet();
-		$chatBot->crons();
+		Event::crons();
 		if ($exec_connected_events == false && ((time() - $start) > 5))	{
 			$chatBot->connectedEvents();
 			$exec_connected_events = true;
