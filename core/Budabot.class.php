@@ -386,6 +386,8 @@ class Budabot extends AOChat {
 	 * @description: Proccess all incoming messages that bot recives
 	 */	
 	function process_packet($type, $args) {
+		
+	
 		switch ($type){
 			case AOCP_GROUP_ANNOUNCE: // 60
 				$this->process_group_announce($args);
@@ -425,7 +427,7 @@ class Budabot extends AOChat {
 		$b = unpack("C*", $args[0]);
 		Logger::log('DEBUG', 'Packets', "AOCP_GROUP_ANNOUNCE => name: '$args[1]'");
 		if ($b[1] == 3) {
-			$this->vars["my_guild_id"] = ($b[2] << 24) + ($b[3] << 16) + ($b[4] << 8) + ($b[5]);
+			$chatBot->vars["my_guild_id"] = ($b[2] << 24) + ($b[3] << 16) + ($b[4] << 8) + ($b[5]);
 			//$this->vars["my_guild"] = $args[1];
 		}
 	}
@@ -438,27 +440,27 @@ class Budabot extends AOChat {
 		$stop_execution = false;
 		$restricted = false;
 	
-		$channel = $this->lookup_user($args[0]);
-		$sender = $this->lookup_user($args[1]);
+		$channel = $chatBot->lookup_user($args[0]);
+		$sender = $chatBot->lookup_user($args[1]);
 
 		Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_CLIJOIN => channel: '$channel' sender: '$sender'");
 		
-		if ($channel == $this->vars['name']) {
+		if ($channel == $chatBot->vars['name']) {
 			$type = "joinPriv";
 
 			Logger::log_chat("Priv Group", -1, "$sender joined the channel.");
 
 			// Remove sender if they are banned or if spam filter is blocking them
-			if (Ban::is_banned($sender) || $this->spam[$sender] > 100){
-				$this->privategroup_kick($sender);
+			if (Ban::is_banned($sender) || $chatBot->spam[$sender] > 100){
+				$chatBot->privategroup_kick($sender);
 				return;
 			}
 
 			// Add sender to the chatlist.
-			$this->chatlist[$sender] = true;
+			$chatBot->chatlist[$sender] = true;
 
 			// Check files, for all 'player joined channel events'.
-			forEach ($this->events[$type] as $filename) {
+			forEach ($chatBot->events[$type] as $filename) {
 				$msg = '';
 				include $filename;
 				if ($stop_execution) {
@@ -468,12 +470,12 @@ class Budabot extends AOChat {
 			
 			// Kick if their access is restricted.
 			if ($restricted === true) {
-				$this->privategroup_kick($sender);
+				$chatBot->privategroup_kick($sender);
 			}
 		} else {
 			$type = "extJoinPriv";
 			
-			forEach ($this->events[$type] as $filename) {
+			forEach ($chatBot->events[$type] as $filename) {
 				$msg = '';
 				include $filename;
 				if ($stop_execution) {
@@ -491,21 +493,21 @@ class Budabot extends AOChat {
 		$stop_execution = false;
 		$restricted = false;
 	
-		$channel = $this->lookup_user($args[0]);
-		$sender	= $this->lookup_user($args[1]);
+		$channel = $chatBot->lookup_user($args[0]);
+		$sender	= $chatBot->lookup_user($args[1]);
 		
 		Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_CLIPART => channel: '$channel' sender: '$sender'");
 		
-		if ($channel == $this->vars['name']) {
+		if ($channel == $chatBot->vars['name']) {
 			$type = "leavePriv";
 		
 			Logger::log_chat("Priv Group", -1, "$sender left the channel.");
 
 			// Remove from Chatlist array.
-			unset($this->chatlist[$sender]);
+			unset($chatBot->chatlist[$sender]);
 			
 			// Check files, for all 'player left channel events'.
-			forEach ($this->events[$type] as $filename) {
+			forEach ($chatBot->events[$type] as $filename) {
 				$msg = '';
 				include $filename;
 				if ($stop_execution) {
@@ -515,7 +517,7 @@ class Budabot extends AOChat {
 		} else {
 			$type = "extLeavePriv";
 			
-			forEach ($this->events[$type] as $filename) {
+			forEach ($chatBot->events[$type] as $filename) {
 				$msg = '';
 				include $filename;
 				if ($stop_execution) {
@@ -533,17 +535,17 @@ class Budabot extends AOChat {
 		$stop_execution = false;
 		$restricted = false;
 	
-		$sender	= $this->lookup_user($args[0]);
+		$sender	= $chatBot->lookup_user($args[0]);
 		$status	= 0 + $args[1];
 		
 		Logger::log('DEBUG', 'Packets', "AOCP_BUDDY_ADD => sender: '$sender' status: '$status'");
 		
 		// store buddy info
 		list($bid, $bonline, $btype) = $args;
-		$this->buddyList[$bid]['uid'] = $bid;
-		$this->buddyList[$bid]['name'] = $sender;
-		$this->buddyList[$bid]['online'] = ($bonline ? 1 : 0);
-		$this->buddyList[$bid]['known'] = (ord($btype) ? 1 : 0);
+		$chatBot->buddyList[$bid]['uid'] = $bid;
+		$chatBot->buddyList[$bid]['name'] = $sender;
+		$chatBot->buddyList[$bid]['online'] = ($bonline ? 1 : 0);
+		$chatBot->buddyList[$bid]['known'] = (ord($btype) ? 1 : 0);
 
 		// Ignore Logon/Logoff from other bots or phantom logon/offs
 		if ($sender == "") {
@@ -557,7 +559,7 @@ class Budabot extends AOChat {
 			Logger::log('DEBUG', "Buddy", "$sender logged off");
 
 			// Check files, for all 'player logged off events'
-			forEach ($this->events[$type] as $filename) {
+			forEach ($chatBot->events[$type] as $filename) {
 				$msg = "";
 				include $filename;
 				if ($stop_execution) {
@@ -570,7 +572,7 @@ class Budabot extends AOChat {
 			Logger::log('INFO', "Buddy", "$sender logged on");
 
 			// Check files, for all 'player logged on events'.
-			forEach ($this->events[$type] as $filename) {
+			forEach ($chatBot->events[$type] as $filename) {
 				$msg = "";
 				include $filename;
 				if ($stop_execution) {
@@ -589,7 +591,7 @@ class Budabot extends AOChat {
 		$restricted = false;
 	
 		$type = "msg";
-		$sender	= $this->lookup_user($args[0]);
+		$sender	= $chatBot->lookup_user($args[0]);
 		$sendto = $sender;
 		
 		Logger::log('DEBUG', 'Packets', "AOCP_MSG_PRIVATE => sender: '$sender' message: '$args[1]'");
@@ -622,13 +624,13 @@ class Budabot extends AOChat {
 
 		if (Ban::is_banned($sender)) {
 			return;
-		} else if ($this->vars['spam_protection'] == 1 && $this->spam[$sender] > 100) {
-			$this->spam[$sender] += 20;
+		} else if ($chatBot->vars['spam_protection'] == 1 && $chatBot->spam[$sender] > 100) {
+			$chatBot->spam[$sender] += 20;
 			return;
 		}
 		
 		// Events
-		forEach ($this->events[$type] as $filename) {
+		forEach ($chatBot->events[$type] as $filename) {
 			$msg = "";
 			include $filename;
 			if ($stop_execution) {
@@ -649,7 +651,7 @@ class Budabot extends AOChat {
 			}
 		}
 		
-		$this->process_command($type, $message, $sender, $sendto);
+		$chatBot->process_command($type, $message, $sender, $sendto);
 	}
 	
 	function process_private_channel_message($args) {
@@ -660,39 +662,39 @@ class Budabot extends AOChat {
 		$stop_execution = false;
 		$restricted = false;
 	
-		$sender	= $this->lookup_user($args[1]);
+		$sender	= $chatBot->lookup_user($args[1]);
 		$sendto = 'prv';
-		$channel = $this->lookup_user($args[0]);
+		$channel = $chatBot->lookup_user($args[0]);
 		$message = $args[2];
 		$restricted = false;
 		
 		Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_MESSAGE => sender: '$sender' channel: '$channel' message: '$message'");
 		Logger::log_chat($channel, $sender, $message);
 		
-		if ($sender == $this->vars["name"] || Ban::is_banned($sender)) {
+		if ($sender == $chatBot->vars["name"] || Ban::is_banned($sender)) {
 			return;
 		}
 
-		if ($this->vars['spam_protection'] == 1) {
-			if ($this->spam[$sender] == 40) $this->send("Error! Your client is sending a high frequency of chat messages. Stop or be kicked.", $sender);
-			if ($this->spam[$sender] > 60) $this->privategroup_kick($sender);
+		if ($chatBot->vars['spam_protection'] == 1) {
+			if ($chatBot->spam[$sender] == 40) $chatBot->send("Error! Your client is sending a high frequency of chat messages. Stop or be kicked.", $sender);
+			if ($chatBot->spam[$sender] > 60) $chatBot->privategroup_kick($sender);
 			if (strlen($args[1]) > 400){
-				$this->largespam[$sender] = $this->largespam[$sender] + 1;
-				if ($this->largespam[$sender] > 1) {
-					$this->privategroup_kick($sender);
+				$chatBot->largespam[$sender] = $chatBot->largespam[$sender] + 1;
+				if ($chatBot->largespam[$sender] > 1) {
+					$chatBot->privategroup_kick($sender);
 				}
-				if ($this->largespam[$sender] > 0) {
-					$this->send("Error! Your client is sending large chat messages. Stop or be kicked.", $sender);
+				if ($chatBot->largespam[$sender] > 0) {
+					$chatBot->send("Error! Your client is sending large chat messages. Stop or be kicked.", $sender);
 				}
 			}
 		}
 
-		if ($channel == $this->vars['name']) {
+		if ($channel == $chatBot->vars['name']) {
 
 			$type = "priv";
 
 			// Events
-			forEach ($this->events[$type] as $filename) {
+			forEach ($chatBot->events[$type] as $filename) {
 				$msg = "";
 				include $filename;
 				if ($stop_execution) {
@@ -702,14 +704,14 @@ class Budabot extends AOChat {
 			
 			if ($message[0] == Setting::get("symbol") && strlen($message) > 1) {
 				$message = substr($message, 1);
-				$this->process_command($type, $message, $sender, $sendto);
+				$chatBot->process_command($type, $message, $sender, $sendto);
 			}
 		
 		} else {  // ext priv group message
 			
 			$type = "extPriv";
 			
-			forEach ($this->events[$type] as $filename) {
+			forEach ($chatBot->events[$type] as $filename) {
 				$msg = "";
 				include $filename;
 				if ($stop_execution) {
@@ -728,13 +730,13 @@ class Budabot extends AOChat {
 		$restricted = false;
 	
 		$syntax_error = false;
-		$sender	 = $this->lookup_user($args[1]);
+		$sender	 = $chatBot->lookup_user($args[1]);
 		$message = $args[2];
-		$channel = $this->get_gname($args[0]);
+		$channel = $chatBot->get_gname($args[0]);
 		
 		Logger::log('DEBUG', 'Packets', "AOCP_GROUP_MESSAGE => sender: '$sender' channel: '$channel' message: '$message'");
 
-		if (in_array($channel, $this->channelsToIgnore)) {
+		if (in_array($channel, $chatBot->channelsToIgnore)) {
 			return;
 		}
 
@@ -747,7 +749,7 @@ class Budabot extends AOChat {
 
 		if ($sender) {
 			// Ignore Message that are sent from the bot self
-			if ($sender == $this->vars["name"]) {
+			if ($sender == $chatBot->vars["name"]) {
 				return;
 			}
 			if (Ban::is_banned($sender)) {
@@ -760,7 +762,7 @@ class Budabot extends AOChat {
 		if ($channel == "All Towers" || $channel == "Tower Battle Outcome") {
 			$type = "towers";
 			
-			forEach ($this->events[$type] as $filename) {
+			forEach ($chatBot->events[$type] as $filename) {
 				$msg = "";
 				include $filename;
 				if ($stop_execution) {
@@ -771,7 +773,7 @@ class Budabot extends AOChat {
 		} else if ($channel == "Org Msg"){
 			$type = "orgmsg";
 
-			forEach ($this->events[$type] as $filename) {
+			forEach ($chatBot->events[$type] as $filename) {
 				$msg = "";
 				include $filename;
 				if ($stop_execution) {
@@ -784,7 +786,7 @@ class Budabot extends AOChat {
 			$sendto = 'guild';
 			
 			// Events
-			forEach ($this->events[$type] as $filename) {
+			forEach ($chatBot->events[$type] as $filename) {
 				$msg = "";
 				include $filename;
 				if ($stop_execution) {
@@ -794,12 +796,12 @@ class Budabot extends AOChat {
 			
 			if ($message[0] == Setting::get("symbol") && strlen($message) > 1) {
 				$message = substr($message, 1);
-				$this->process_command($type, $message, $sender, $sendto);
+				$chatBot->process_command($type, $message, $sender, $sendto);
 			}
 		} else if ($channel == 'OT shopping 11-50' || $channel == 'OT shopping 50-100' || $channel == 'OT shopping 100+' || $channel == 'Neu. shopping 11-50' || $channel == 'Neu. shopping 50-100' || $channel == 'Neu. shopping 100+' || $channel == 'Clan shopping 11-50' || $channel == 'Clan shopping 50-100' || $channel == 'Clan shopping 100+') {
 			$type = "shopping";
 			
-			forEach ($this->events[$type] as $filename) {
+			forEach ($chatBot->events[$type] as $filename) {
 				$msg = "";
 				include $filename;
 				if ($stop_execution) {
@@ -819,13 +821,13 @@ class Budabot extends AOChat {
 	
 		$type = "extJoinPrivRequest"; // Set message type.
 		$uid = $args[0];
-		$sender = $this->lookup_user($uid);
+		$sender = $chatBot->lookup_user($uid);
 
 		Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_INVITE => sender: '$sender'");
 
 		Logger::log_chat("Priv Channel Invitation", -1, "$sender channel invited.");
 
-		forEach ($this->events[$type] as $filename) {
+		forEach ($chatBot->events[$type] as $filename) {
 			$msg = "";
 			include $filename;
 			if ($stop_execution) {
@@ -851,7 +853,7 @@ class Budabot extends AOChat {
 			} else {
 				$message = $cmd;
 			}
-			$this->process_command($type, $message, $sender, $sendto);
+			$chatBot->process_command($type, $message, $sender, $sendto);
 			return;
 		}
 		
