@@ -385,10 +385,9 @@ class Budabot extends AOChat {
 	 * @name: process_packet
 	 * @description: Proccess all incoming messages that bot recives
 	 */	
-	function process_packet($type, $args) {
-		
-	
-		switch ($type){
+	function process_packet($packet_type, $args) {
+		// event handlers
+		switch ($packet_type){
 			case AOCP_GROUP_ANNOUNCE: // 60
 				$this->process_group_announce($args);
 				break;
@@ -413,6 +412,27 @@ class Budabot extends AOChat {
 			case AOCP_PRIVGRP_INVITE:  // 50, private channel invite
 				$this->process_private_channel_invite($args);
 				break;
+		}
+		
+		$this->process_all_packets($packet_type, $args);
+	}
+	
+	function process_all_packets($packet_type, $args) {
+		$db = DB::get_instance();
+		global $chatBot;
+
+		// modules can set this to true to stop execution after they are called
+		$stop_execution = false;
+		$restricted = false;
+		
+		$type = 'allpackets';
+
+		forEach ($chatBot->events[$type] as $filename) {
+			$msg = "";
+			include $filename;
+			if ($stop_execution) {
+				return;
+			}
 		}
 	}
 	
