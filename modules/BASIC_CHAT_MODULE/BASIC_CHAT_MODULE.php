@@ -15,12 +15,12 @@
 
 	// Leader
 	Command::register($MODULE_NAME, "priv", "leader.php", "leader", "all", "Sets the Leader of the raid");
-	Subcommand::register($MODULE_NAME, "priv", "leader_set.php", "leader (.+)", "raidleader", "leader", "Set a specific Leader");
+	Subcommand::register($MODULE_NAME, "priv", "leader_set.php", "leader (.+)", "leader", "leader", "Set a specific Leader");
 	Command::register($MODULE_NAME, "", "leaderecho_cmd.php", "leaderecho", "leader", "Set if the text of the leader will be repeated");
-	Event::register($MODULE_NAME, "priv", "leaderecho.php", "leader", "leader echo");
+	Event::register($MODULE_NAME, "priv", "leaderecho.php", "leader", "Repeats what the leader says in the color of leaderecho_color setting");
 	Event::register($MODULE_NAME, "leavePriv", "leader_leave.php", "leader", "Removes leader when the leader leaves the channel", 'leader');
-	Setting::add($MODULE_NAME, "leaderecho", "Repeat the text of the raidleader", "edit", "options", "1", "true;false", "1;0");
-	Setting::add($MODULE_NAME, "leaderecho_color", "Color for Raidleader echo", "edit", "color", "<font color=#FFFF00>");
+	Setting::add($MODULE_NAME, "leaderecho", "Repeat the text of the leader", "edit", "options", "1", "true;false", "1;0");
+	Setting::add($MODULE_NAME, "leaderecho_color", "Color for leader echo", "edit", "color", "<font color=#FFFF00>");
 
 	// Assist
 	Command::register($MODULE_NAME, "", "assist.php", "assist", "all", "Shows an Assist macro");
@@ -40,6 +40,6 @@
 	Help::register($MODULE_NAME, "heal", "healassist.txt", "all", "Creating an Healassist Macro");
 	Help::register($MODULE_NAME, "leader", "leader.txt", "all", "Set a Leader of a Raid/Echo on/off");
 	Help::register($MODULE_NAME, "tell", "tell.txt", "leader", "How to use tell");
-	Help::register($MODULE_NAME, "topic", "topic.txt", "raidleader", "Set the Topic of the raid");
+	Help::register($MODULE_NAME, "topic", "topic.txt", "leader", "Set the Topic of the raid");
 	Help::register($MODULE_NAME, "cmd", "cmd.txt", "leader", "How to use cmd");
 ?>
