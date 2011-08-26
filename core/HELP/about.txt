@@ -12,6 +12,7 @@
 <highlight>-CaptainZero (RK1)<end> and <highlight>Snakebite (RK2)<end> for hosting and moderating the budabot.com website.
 <highlight>-Mdkdoc420 (RK2)<end> for reporting bugs, testing new features, and testing the AO Chat Proxy in a live environment.
 <highlight>-Docteeko (RK2)<end> for helping me manage the Budabot project, testing new features, suggesting needed finishing touches, and helping me make it through the last stretch.
+<highlight>-Rosss (RK1)<end> and <highlight>Kinaton (RK1)<end> for testing the release candidates, reporting bugs, and continuously giving feedback.
 -All the people who have contributed modules, ideas, and bug reports to help make Budabot the best bot AO has ever seen.
 
 To the AO Community:
