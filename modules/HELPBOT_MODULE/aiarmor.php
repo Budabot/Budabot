@@ -31,7 +31,7 @@ if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) ||
 	}
 		
 	$trg_ql = $ql;
-  	$src_ql = ceil($trg_ql * 0.8);
+  	$src_ql = floor($trg_ql * 0.8);
   	
 	switch ($armortype) {
 	    case 'cc':
@@ -194,11 +194,12 @@ if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) ||
 		}
 	}
 		
-  	$misc_ql = ceil($ql * 0.8);
+  	$misc_ql = floor($ql * 0.8);
 
 	$list = "<header>::::: Building process for $ql $armortype :::::<end>\n\n";
 	
-	$list .= "You need the following items to build $armortype Armor\n";
+	$list .= " Note: <highlight>All tradeskill processes are based on the lowest QL items usable.<end>\n\n";
+	$list .= "<highlight>You need the following items to build $armortype Armor:\n<end>";
 	$list .= "- Kyr'Ozch Viralbots\n";
 	$list .= "- Kyr'Ozch Atomic Re-Structulazing Tool\n";
 	$list .= "- Solid Clump of Kyr'Ozch Biomaterial\n";
@@ -221,6 +222,7 @@ if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) ||
 	$list .= "<tab><tab>=\n";
 	$list .= "<tab><img src=rdb://100334>\n<a href='itemref://247120/247121/$misc_ql'>Formatted Kyr'Ozch Viralbots</a>\n";
 	$list .= "<highlight>Required Skills:<end>\n";
+	$list .= "- ".ceil($misc_ql * 4.5)." Computer Literacy\n";
 	$list .= "- ".ceil($misc_ql * 6)." Nano Programming\n\n";
 
 	$list .= "<highlight><u>Step 3</u><end>\n";
@@ -230,8 +232,7 @@ if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) ||
 	$list .= "<tab><tab>=\n";
 	$list .= "<tab><img src=rdb://255705>\n<a href='itemref://247108/247109/$ql'>QL$ql Mutated Kyr'Ozch Biomaterial</a> or <a href='itemref://247106/247107/$ql'>QL$ql Pristine Kyr'Ozch Biomaterial</a>\n";
 	$list .= "<highlight>Required Skills:<end>\n";
-	$list .= "- ".ceil($ql * 4.5)." Chemistry(for Pristine)\n";
-	$list .= "- ".ceil($ql * 7)." Chemistry(for Mutated)\n\n";
+	$list .= "- ".ceil($ql * 4.5)." Chemistry (Both require the same amount)\n\n";
 	
 	$list .= "<highlight><u>Step 4</u><end>\n";
 	$list .= "<tab><img src=rdb://255705>\n<a href='itemref://247108/247109/$ql'>QL$ql Mutated Kyr'Ozch Biomaterial</a> or <a href='itemref://247106/247107/$ql'>QL$ql Pristine Kyr'Ozch Biomaterial</a>\n";
@@ -271,7 +272,7 @@ if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) ||
 	$list .= "<highlight><u>Step 8</u><end>\n";
 	$list .= "<tab><img src=rdb://100337>\n";
 	
-	$vb_ql = ceil($ql*0.8);
+	$vb_ql = floor($ql * 0.8);
 	switch ($armortype) {
 		case "Arithmetic":
 			$list .= "<a href='itemref://247144/247145/$vb_ql'>QL$vb_ql Arithmetic Lead Viralbots</a> (<highlight>Rare Drop off Alien City Generals<end>)\n";
@@ -316,7 +317,7 @@ if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) ||
 			break;
 	}
 	$list .= "<highlight>Required Skills:<end>\n";
-	$list .= "- ".ceil($ql * 6)." Psychology\n\n";
+	$list .= "- ".floor($ql * 6)." Psychology\n\n";
 		
 	$msg = Text::make_blob("Building process for $ql $armortype", $list);
 	$chatBot->send($msg, $sendto);
