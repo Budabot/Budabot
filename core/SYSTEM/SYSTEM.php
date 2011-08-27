@@ -49,6 +49,10 @@
 	Command::activate("msg", "$MODULE_NAME/checkaccess.php", "checkaccess", "all");
 	Command::activate("priv", "$MODULE_NAME/checkaccess.php", "checkaccess", "all");
 	Command::activate("guild", "$MODULE_NAME/checkaccess.php", "checkaccess", "all");
+	
+	Command::activate("msg", "$MODULE_NAME/logs.php", "logs", "admin");
+	Command::activate("priv", "$MODULE_NAME/logs.php", "logs", "admin");
+	Command::activate("guild", "$MODULE_NAME/logs.php", "logs", "admin");
 
 	Event::activate("1hour", "$MODULE_NAME/ping_db.php");
 	

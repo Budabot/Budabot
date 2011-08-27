@@ -13,6 +13,12 @@ global $vars;
 //   error
 
 class Logger {
+	public static function get_logging_directory() {
+		global $chatBot;
+		
+		return "./logs/{$chatBot->vars['name']}.{$chatBot->vars['dimension']}";
+	}
+
 	public static function log($category, $tag, $message) {
 		global $vars;
 		

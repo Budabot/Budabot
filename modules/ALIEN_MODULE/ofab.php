@@ -1,7 +1,6 @@
 <?php
 
 if (preg_match("/^ofab$/i", $message, $arr)) {
-
 	$db->query("SELECT DISTINCT `type`, `profession` FROM ofab ORDER BY profession ASC");
 	$data = $db->fObject('all');
 	$blob = "<header> :::::: Ofab Armor Bio-Material Types :::::: <end>\n\n";
