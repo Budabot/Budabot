@@ -1,7 +1,5 @@
 <header>::::: Penumbra Sanctuary Garden Key Quest CLAN :::::<end>
 
-Penumbra Sanctuary Garden Key Quest CLAN
-
 To start this quest, speak to <font color = yellow>The Forrester</font>. He is in the Penumbra Garden, in the middle of the maze to the north.
 
 <font color = yellow>Part one: Calibrate stuff!</font>

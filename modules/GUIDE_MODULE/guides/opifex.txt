@@ -11,7 +11,6 @@ Ability penalties.
 Most of the Opifex-only items are geared toward Agility and Sense, but these
 items are few and far between.
 
-
 <header> ::: Opifex Breed Caps ::: <end>
 
 * <font color='#0088CC'>Strength</font> 464/764
@@ -29,7 +28,7 @@ Max % Add Nano Cost -50%
 3 max nano per 1 point of nanopool
 
 
-<header> ::: Opifex Shadowbreeds List ::: <end>
+<pagebreak><header> ::: Opifex Shadowbreeds List ::: <end>
 
 <green>Opifex (Clan) Shadowbreed<end>
 
@@ -61,7 +60,7 @@ Allows you to Absorb 25 Special Attacks
 AoE:
 Boosts Add all Def by 1k
 
-<green>Opifex (Omni) Shadowbreed<end>
+<pagebreak><green>Opifex (Omni) Shadowbreed<end>
 
 1: Shady
 Casts: Blackstep
@@ -88,7 +87,7 @@ Boosts your Concealment by 2k
 Boosts your Add all Off by 800
 Raises your Critical Chance by 15
 
-<green>Opifex (Neutral) Shadowbreed<end>
+<pagebreak><green>Opifex (Neutral) Shadowbreed<end>
 
 1: Doubtful
 Casts: Blackstep
@@ -115,7 +114,7 @@ Boosts your Add all Off by 200
 Raises your Critical Chance by 12
 
 
-<header> ::: Opifex Alien Invasion Perks ::: <end>
+<pagebreak><header> ::: Opifex Alien Invasion Perks ::: <end>
 
 <green>Opifex Primary Genome<end>
 
@@ -246,7 +245,7 @@ Recharge: 1 Minute, 50 Seconds
 
 <a href='chatcmd:///start http://auno.org/ao/db.php?id=252526'>http://auno.org/ao/db.php?id=252526</a>
 
-<green>Opifex Secondary Genome<end>
+<pagebreak><green>Opifex Secondary Genome<end>
 
 1. Requirements:
 

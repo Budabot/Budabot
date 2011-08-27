@@ -1,7 +1,4 @@
-<header>::::: Scheol: Roch Sanctuary Garden Key Quest :::::<end>
-
-Scheol: Roch Sanctuary Garden Key Quest
-
+<header>::::: Scheol: Roch Sanctuary Garden Key Quest OMNI :::::<end>
 
 To do this quest you need at least one Novictalized Notum Crystal with 'Weary Empath Min-Ji Liu' (see Scheol: Roch Garden Key Quest walktrough for info how to obtain and create it. 
 

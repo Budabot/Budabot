@@ -12,7 +12,7 @@ playing a Nanomage is a challenging proposition and is one way to ramp up the
 difficulty of the game.
 
 
-<header> ::: Nanomage Breed Caps ::: <end>
+<pagebreak><header> ::: Nanomage Breed Caps ::: <end>
 
 * <font color='#075AFF'>Strength</font> 464/664
 * <font color='#075AFF'>Agility</font> 464/664
@@ -29,7 +29,7 @@ Max % Add Nano Cost -55%
 4 max nano per 1 point of nanopool
 
 
-<header> ::: Nanomage Shadowbreeds List ::: <end>
+<pagebreak><header> ::: Nanomage Shadowbreeds List ::: <end>
 
 <green>Nanomage (Clan) Shadowbreed<end>
 
@@ -69,7 +69,7 @@ Boosts your Nano Init by 1k
 Raises your Max Nano by 4k
 Gives root/Snare/Calm Resistances
 
-<green>Nanomage (Omni) Shadowbreed<end>
+<pagebreak><green>Nanomage (Omni) Shadowbreed<end>
 
 1: Benighted
 Casts: Silence
@@ -109,7 +109,7 @@ Gives a 1k Damage Shield
 Hostile AoE:
 Cast a 8k Nuke
 
-<green>Nanomage (Neutral) Shadowbreed<end>
+<pagebreak><green>Nanomage (Neutral) Shadowbreed<end>
 
 1: Balanced
 Casts: Silence
@@ -149,7 +149,7 @@ Hostile AoE:
 Casts a 4k Nuke
 
 
-<header> ::: Nanomage Alien Invasion Perks ::: <end>
+<pagebreak><header> ::: Nanomage Alien Invasion Perks ::: <end>
 
 <green>Nanobreed Primary Genome<end>
 
@@ -280,7 +280,7 @@ Recharge: 1 Minute, 15 Seconds
 
 <a href='chatcmd:///start http://auno.org/ao/db.php?id=252559'>http://auno.org/ao/db.php?id=252559</a>
 
-<green>Nanobreed Secondary Genome<end>
+<pagebreak><green>Nanobreed Secondary Genome<end>
 
 1. Requirements:
 

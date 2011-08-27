@@ -4,14 +4,14 @@ There are often questions about what the mission types are and what the sliders 
 
 This is the second version of my guide. The original version was posted on the New Arrivals board under the title 'Missions: Types, Sliders, and Find Item Missions' I would like to thank everyone for their helpful comments in that thread, especially Jajangmyun, Yurunn, Bufo, and Incarnadine.
 
-<font color = yellow>Why Mission?</font>
+<pagebreak><font color = yellow>Why Mission?</font>
 It seems that many players are now focusing on hunting in the static dungeons (TOTW, Foremans,etc.) which can offer better experience and monitary rewards than hunting in missions (similar to many gold rush situations in the ancient history of Old Earth). However, many new players are missing some of the benefits from running missions, which you can only get on Rubi-Ka.
 
 First, there are the token boards for those that choose a side. There are several good guides to these, but if you are unfamiliar with side token boards, you can find a very good Tokens and Token Boards guide at AO Stratics. There are some new token boards for high level neutrals as well, but you can get a 1000 token board much earlier on a side.
 
 Secondly, you can get 'free' armor, weapons, and nanos by running missions. Of course, ClickSaver is very useful for that purpose, and its use has been sanctioned by Funcom. Not all items are missionable, but quite a few are.
 
-<font color = yellow>Mission Types</font>
+<pagebreak><font color = yellow>Mission Types</font>
 There are five mission types: <font color = blue>find item, return item, repair, find person, and kill person missions.</font>
 
 Find item missions are generally the preferred type of mission among adventurers, as you get to keep the found item as well as the mission reward. Once you pick up the item, your mission ends, so don't pick it up until all the mobs are dead if you are going for a 100% chance to get your mission token(s). Please note that many find item missions now ask you to locate some Urgent Sensitive Information or an Art Container which is worthless and negates the primary benefit for pulling find item missions.
@@ -25,7 +25,7 @@ Find person missions involving targeting the selected person or monster for abou
 Kill person missions are similar to find person missions, but the mission completes when the target is killed, rather than just being targetted. This may mean that you encounter the person early in the mission, and can't access rooms beyond without his attacking. Running for the entrance in these cases seems to have him waiting for you when you zone back in too. That means that you can't always do enough of the mission to earn a token. They also can be good for blitzing missions, but not as good as find item or find person missions as you must kill this target, not just click on it. Also, if you have your map upgrades for people and monsters, you can sometimes pick out your target on the map like with find person missions.
 (note:With kill person missions, it seems like the target human can be one of two types visually. If the person is dressed in a brown plated armor, they tend to be passive, and you can easily take down everything in the room with the person, move on, do other things, and come back and take them later. However, if it is a person in a blue Hawaiian shirt, they will be aggressive, and attack on sight, so if you run into the person before you were ready to complete the mission, you have to either go through the rest of the mission with them beating on your back (have done that before ) or just kill them and finish the mish early.)
 
-<font color = yellow>Mission Sliders</font>
+<pagebreak><font color = yellow>Mission Sliders</font>
 
 If you click on the small arrow to the right of the Request Mission button, you will see some sliders where you can select the mission parameters. Its not absolutely certain what each slider does, but these are what I think I know about them.
 

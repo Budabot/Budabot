@@ -1,17 +1,10 @@
 <header>::::: Information about Dreadloch Camps For Omni :::::<end>
 
-<font color = yellow>::::: Information about Dreadloch Camps : Omni :::::</font>
-
-
-<font color = #31D6FF>Dreadloch Camps</font>
-
 Omni Camps (vs Clan Quests)
 
 Guide suited for: All Classes
 Faction: Neutral, Omni
 Level Range: 210-220
-
-**Work in progress **
 
 With the release of the 17.2 patch, various new NPCs have appeared. 
 One with a nice story to tell is one Paolo Turin, found near the Grid terminal in the Omni-1 Trade District: 

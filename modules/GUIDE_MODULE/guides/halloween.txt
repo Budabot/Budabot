@@ -1,7 +1,5 @@
 <header>::::: Halloween/Uncle Pumpkinhead Hunting  :::::<end>
 
-<font color='#69E61E'>:::::: Halloween Guide :::::                               </FONT>
-                                                            
 First of all, it's really dark and foggy out. You can solve the Fog problems by using:
 F10 -> Environment -> Fog and Ground -> Fog Mode: Off
 

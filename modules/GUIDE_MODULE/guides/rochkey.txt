@@ -1,7 +1,4 @@
-<header>::::: Scheol: Roch Garden Key Quest :::::<end>
-
-Scheol: Roch Garden Key Quest
-
+<header>::::: Scheol: Roch Garden Key Quest OMNI :::::<end>
 
 To start the quest you need to head to the Unredeemed Temple (take exit Temple Bog--1715x380) and find Prophet Eckel-Roch (N until you get to the second room, then take the left path and go through the door, then in the next room go right), after speaking to him he'll tell you that some underlings are searching for a certain Empath of the Redeemed side, and of course you have to help them out. 
 

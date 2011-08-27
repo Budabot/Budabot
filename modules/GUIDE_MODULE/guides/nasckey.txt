@@ -1,7 +1,4 @@
-<header>::::: Guide to Nascence Garden Key :::::<end>
-
-Nascence: Thrak (Omni) Garden Key Quest
-
+<header>::::: Guide to Thrak (Omni) Nascence Garden Key :::::<end>
 
 This quest gives you the ability to travel between the Unredeemed transit statues of Nascense without using insignias. You need at least 5 Insignias of Thrak to complete it. Insignias drop from Redeemed mobs and creatures which are not affiliated with the Unredeemed faction. 
 

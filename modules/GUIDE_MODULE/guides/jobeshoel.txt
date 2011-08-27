@@ -7,6 +7,7 @@ Level Range: All Levels</span>
 Any special reward for completing parts of this questline will be mentioned in guide. With few exceptions, the order of quests is set as continuing line. This quest line isn't level locked.
 
 <font color = green>Dr. Jones</font>
+
 Read the latest copy of Jobe Scientist? Dr Jones certainly has a lot to say about his field of expertise. When you have listened to what he has to say you will probably be brimming with excitement to get started on the work he has to offer you.
 
 To start you off nice and easily, when you ask him whether you can help, he has 2 simple quests for you.
@@ -27,7 +28,7 @@ The mission requires you to find the item in dungeon, pick it up and bring it ba
 
 So, with the old bones in your inventory and your mission updated, you need to head back to Dr Jones, open dialog with him and trade him his old bones. After a chat, he will direct you to Technologist Frank Jobin.
 
-<font color = green>Technologist Frank Jobin</font>
+<pagebreak><font color = green>Technologist Frank Jobin</font>
 
 Frank will talk to you about the structure of the Notum Battery Tree which he is stood next to. He also wants you to obtain a <a href='itemref://229603/229603/1'>Crystal Filled by the Source</a> for him, of which the quality level of crystal doesn't appear to matter.
 
@@ -47,13 +48,13 @@ The second pocket boss to spawn is the Adolescent Voidling:
 
 Neither of these pocket bosses drop anything, so as soon as the second one hits the floor, you can start heading back to Frank. When you begin talking with him he will tell you about how the incarnators work, but not long into the conversation will suggest that you speak with Dr Hestiya.  He asks you to deliver an <a href='itemref://263858/263858/1'>Ancient Device</a> to her while you are there.
 
-<font color = green>Dr.Hestiya</font>
+<pagebreak><font color = green>Dr.Hestiya</font>
 
 She is located at <font color = yellow>805x605</font> within a camp of level 120 Malahs. After delivering the Ancient Device, she will identify it as an <a href='itemref://229870/229870/1'>Ancient Novictum Refiner</a>, which is used for subduing novictum in the process of making pocket boss crystals. Since she doesn't need it, she will give it back to you to keep. The item is unique, so if you already have one, you won't receive another. She needs three different Xan Nanocrystals and will give you a <a href='itemref://263888/263888/1'>Space-Time Extraction Device</a> used to extract those. You can harvest the crystals by right clicking this device on jars on the ground. One set of them is located right south of Dr. Hestiya and there's another set near the western incarnator.
 
 You will have to extract three of the following types of crystals: <a href='itemref://263918/263918/1'>Cracked Xan Notum Crystal</a>, <a href='itemref://263899/263899/1'>Deformed Xan Notum Crystal</a>, <a href='itemref://263919/263919/1'>Pristine Xan Notum Crystal</a>, or <a href='itemref://263926/263926/1'>Empty Xan Notum Crystal</a>. Once you return to her and deliver those, she directs you to on towards Dr.Curry, an expert in linguistics.
 
-<font color = green>Dr.Curry</font>
+<pagebreak><font color = green>Dr.Curry</font>
 
 Dr. Curry is located at <font color = yellow>1090x1145</font>.
 
@@ -69,7 +70,8 @@ For both of them, you need to right click the device on them. This can be done f
 
 When you have made the recordings and returned the device to Dr. Curry, he suggests you pay a visit to Dr. Darnell.
 
-<font color = green>Dr.Darnell</font>
+<pagebreak><font color = green>Dr. Darnell</font>
+
 She is sitting next to Leading Blossom at <font color = yellow>310x1110</font>. To get to her can be kind of tricky the first time around. So, we took you a picture!
 
 If you head towards the northern edge of where it states Leading Blossom on the Sphere map, you will get to an edge. If you move your camera angle around, you will see the portal on a ledge just below you:
@@ -103,7 +105,7 @@ Shade : <a href='itemref://263289/263290/126'>Necklace of Alacrity</a>
 Soldier : <a href='itemref://263256/263257/10'>Deflection Amplifier</a>
 Trader : <a href='itemref://263293/263294/126'>Nano Crystal (Lesser Nanobot Defense)</a>
 
-<font color = yellow>Searching for the Unknown</font>
+<pagebreak><font color = yellow>Searching for the Unknown</font>
 
 Dr. Hestiya isn't done with you yet!
 Now, she wants you to go to Necropolis to find proofs of Xan burial rituals. Her mission contains a waypoint that is uploadable to your planet map. At this waypoint at <font color = yellow>1255x1770,</font>, you need to kill Passive Aggressive Spirits, and return with a <a href='itemref://264066/264066/1'>Cracked Xan Burial Stone</a>. These are NODROP UNIQUE and you must loot it from their corpses.
@@ -115,12 +117,12 @@ Which means, we are about to head back to the Twilight Basin.
 Once you get there, advise Dr. Darnell that Dr. Hestiya asked you to bring the stone.
 She will in return for it give you some information about their beliefs. This also leads us straight to her next assignment for us.
 
-<font color = yellow>Looting the Devoted</font>
+<pagebreak><font color = yellow>Looting the Devoted</font>
 
 Dr. Darnell will send you to find either an <a href='itemref//264070/264070/1'>Ancient Insignia of Ocra</a> or <a href='itemref//264069/264069/1'>Ancient Insignia Of Roch</a>.
 Those drop from Cama-Eltah Wens (Unredeemed) and Or-Moda Torka(Redeemed), located around Temples. Yet again, choose carefully which side of the conflict you represent and take care to avoid any friendly fire on your own side.
 
-<font color = yellow>Learn about the Gardens</font>
+<pagebreak><font color = yellow>Learn about the Gardens</font>
 
 When you return with one of these Ancient Insignias to Dr. Darnell, she sends you to investigate the gardens.
 To help you with that, she gives you an insignia for your side's garden, since access to it is required for the third step of this mission.
@@ -134,7 +136,7 @@ Head back to Dr. Darnell.
 Tell her you visited one of the gardens, and that you would like to know more about the Xan rituals.
 Apparently, there were some artifacts that were maybe used in their rituals. She wants you to go to Dr. Hestiya again... How can you possibly refuse?
 
-<font color = yellow>Ancient Rituals</font>
+<pagebreak><font color = yellow>Ancient Rituals</font>
 
 When you get to Dr. Hestiya, tell her Dr. Darnell sent you. She will give you the location details to find this ritual artifact: <a href='itemref://265356/263356/1'>A Scepter</a>.
 Pick it up from this yet again dynamically generated mission at The Plunge, and bring it back to the doctor.
@@ -147,7 +149,7 @@ After you return to report to Dr. Hestiya, she wants to make sure that the scept
 So once you hand it over to her and receive it back, she tells you to deliver it to Dr. Darnell.
 After heading there, she will reward you with a <a href='itemref//239835/239835/1'>Consanguineal Embryo of Annwn'Guinee</a>, a Tier 1 armour embryo!
 
-<font color = yellow>Pet Hunt</font>
+<pagebreak><font color = yellow>Pet Hunt</font>
 
 Your tasks are still not complete for the scientists... you would have thought by now that a complimentary garden warp might have been included... but oh no... now we have to kill some mongrels... maybe this will help them learn to understand more about the Xan.
 So, Dr. Darnell will send you to kill 3 Canine Mongrels, located at <font color = yellow>875x1285</font>.
@@ -155,7 +157,7 @@ The mongrels are social -- so careful about just wading in and bashing, if you a
 Once you acomplish your mission of butchery, <a href='itemref://265515/265515/1'>The Corpse of a Canine Mongrel</a> will spawn in your inventory.
 Return with it to Dr. Darnell.
 
-<font color = green>Ancient Urns</font>
+<pagebreak><font color = green>Ancient Urns</font>
 
 She'll send you to find an Urn. Those are located at foot of rocky hill at <font color = yellow>955x440</font> and once you'll pick one up, it should become <a href='itemref://265352/263352/1'>Broken Xan Prayer Urn</a>.
 
@@ -165,11 +167,11 @@ That Yutto is named Vanward Four and is located at <font color = yellow>1115x136
 He'll indeed know how to fix it and give you <a href='itemref://226017/226017/1'>Xan Prayer Urn</a> to deliver to Dr.Darnell.
 This time she won't give you any more quests, just hint that Dr.Hestiya might have some more work for you.
 
-<font color = green>A Delivery</font>
+<pagebreak><font color = green>A Delivery</font>
 
 Dr.Hestiya has a small delivery job for you. You should bring <a href='itemref://264007/264007/1'>Scan of Yuttos Wall Carvings</a> to Dr.Jones.
 
-<font color = green>Hidden Secrets</font>
+<pagebreak><font color = green>Hidden Secrets</font>
 
 Dr.Jones is extatic about the Scan as well as Dr.Hestiya. And also about fact that his earlier theory about bones isn't correct.
 Unknown to him, this is early sympthom of High Altitude sickness, coused by lower concentration of oxigen higher up.
@@ -177,7 +179,7 @@ So kids, don't go loitering afk around Scheol portal. Another sympthom is fatiqu
 
 Once you bring it to him, he sends you towards Frank Jobin.
 
-<font color = green>Thieving Spirits</font>
+<pagebreak><font color = green>Thieving Spirits</font>
 
 Frank has one last adventure for you. You should return 3 pieces of Xan technology that spirits around Ergo cave keep on stealing. And yes, those mobs are actually named Thieving spirits.
 

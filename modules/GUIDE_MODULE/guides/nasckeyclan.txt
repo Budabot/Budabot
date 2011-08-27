@@ -1,11 +1,8 @@
-<header>::::: Nascence Garden Key Quest CLAN :::::<end>
+<header>::::: Nascence Garden Key Quest CLAN (Aban) :::::<end>
 
-<font color='#ff9933'><highlight>Nascence (Aban) Garden Key Quest</font></end>
-
-<highlight>Guide suited for:</end> All Classes
-<highlight>Faction:</end> Clan
-<highlight>Level Range:</end> 1-50
-
+<highlight>Guide suited for:<end> All Classes
+<highlight>Faction:<end> Clan
+<highlight>Level Range:<end> 1-50
 
 This quest gives you the ability to travel between the Redeemed transit statues of Nascense without using insignias. You need at least 5 Insignias of Aban to complete it. Insignias drop from Unredeemed mobs and creatures which are not affiliated with the Redeemed faction. 
 
