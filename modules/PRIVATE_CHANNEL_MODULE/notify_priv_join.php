@@ -3,7 +3,10 @@
 if ($type == "joinPriv") {
 	$whois = Player::get_by_name($sender);
 	
-	$alts = Alts::get_alts_blob($sender);
+	$altInfo = Alts::get_alt_info($sender);
+	if (count($altInfo->alts) > 0) {
+		$alts = Alts::get_alts_blob($sender);
+	}
 	
 	if ($whois !== null) {
 		if ($alts !== null) {
