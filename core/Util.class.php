@@ -32,7 +32,7 @@ class Util {
 		if ($minutes != 0) {
 			$timeshift .= $minutes . ' min ';
 		}
-		if ($seconds != 0 && $show_seconds) {
+		if ($seconds != 0 && ($show_seconds || $timeshift == '')) {
 			$timeshift .= $seconds . ' sec';
 		}
 		return trim($timeshift);
