@@ -1,33 +1,4 @@
 <?php
-/*
- ** Author: Derroylo (RK2)
- ** Description: Alt Char Handling
- ** Version: 1.0
- **
- ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
- **
- ** Date(created): 23.11.2005
- ** Date(last modified): 21.11.2006
- **
- ** Copyright (C) 2005, 2006 Carsten Lohmann
- **
- ** Licence Infos:
- ** This file is part of Budabot.
- **
- ** Budabot is free software; you can redistribute it and/or modify
- ** it under the terms of the GNU General Public License as published by
- ** the Free Software Foundation; either version 2 of the License, or
- ** (at your option) any later version.
- **
- ** Budabot is distributed in the hope that it will be useful,
- ** but WITHOUT ANY WARRANTY; without even the implied warranty of
- ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- ** GNU General Public License for more details.
- **
- ** You should have received a copy of the GNU General Public License
- ** along with Budabot; if not, write to the Free Software
- ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
 
 if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 	/* get all names in an array */
@@ -38,24 +9,32 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 	$senderAltInfo = Alts::get_alt_info($sender);
 	$main = $senderAltInfo->main;
 	
-	$self_registered = array();
-	$other_registered = array();
-	$names_succeeded = array();
-	
 	/* Pop a name from the array until none are left (checking for null) */
 	foreach ($names as $name) {
 		$name = ucfirst(strtolower($name));
 		
-		$altinfo = Alts::get_alt_info($name);
-		if ($altinfo->main == $senderAltInfo->main) {
-			// Already registered to self
-			$self_registered []= $name;
+		if ($name == $sender) {
+			$msg = "You cannot register yourself as your alt.";
+			$chatBot->send($msg, $sendto);
 			continue;
 		}
 		
-		if (count($senderAltInfo->alts) > 0) {
+		$altInfo = Alts::get_alt_info($name);
+		if ($altInfo->main == $senderAltInfo->main) {
+			// Already registered to self
+			$msg = "$name is already registered to you.";
+			$chatBot->send($msg, $sendto);
+			continue;
+		}
+		
+		if (count($altInfo->alts) > 0) {
 			// Already registered to someone else
-			$other_registered []= $name;
+			if ($altInfo->main == $name) {
+				$msg = "$name is already registered as a main with alts.";
+			} else {
+				$msg = "$name is already registered as an of alt of {$altInfo->main}.";
+			}
+			$chatBot->send($msg, $sendto);
 			continue;
 		}
 		
@@ -67,34 +46,12 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 		
 		/* insert into database */
 		Alts::add_alt($senderAltInfo->main, $name, $validated);
-		$names_succeeded []= $name;
+		$msg = "$name was successfully registered as your alt.";
+		$chatBot->send($msg, $sendto);
 		
 		// update character info
 		Player::get_by_name($name);
 	}
-	
-	$window = '';
-	if ($names_succeeded) {
-		$window .= "Alts added:\n" . implode(' ', $names_succeeded) . "\n\n";
-	}
-	if ($self_registered) {
-		$window .= "Alts already registered to yourself:\n" . implode(' ', $self_registered) . "\n\n";
-	}
-	if ($other_registered) {
-		$window .= "Alts already registered to someone else:\n" . implode(' ', $other_registered) . "\n\n";
-	}
-	
-	/* create a link */
-	if (count($names_succeeded) > 0) {
-		$link = 'Added '.count($names_succeeded).' alts to your list. ';
-	}
-	$failed_count = count($other_registered) + count($self_registered);
-	if ($failed_count > 0) {
-		$link .= 'Failed adding '.$failed_count.' alts to your list.';
-	}
-	$msg = Text::make_blob($link, $window);
-
-	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^alts (rem|del|remove|delete) ([a-z0-9-]+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[2]));
 	
