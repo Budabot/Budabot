@@ -80,6 +80,12 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 		$chatBot->send($msg, $sendto);
 		return;
 	}
+	
+	if (!$altInfo->is_validated($sender)) {
+		$msg = "You must run this command from a validated character.";
+		$chatBot->send($msg, $sendto);
+		return;
+	}
 
 	$db->beginTransaction();
 
@@ -87,12 +93,12 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 	$db->exec("DELETE FROM `alts` WHERE `main` = '{$altInfo->main}'");
 
 	// add current main to new main as an alt
-	Alts::add_alt($new_main, $altinfo->main);
+	Alts::add_alt($new_main, $altinfo->main, 0);
 	
 	// add current alts to new main
 	forEach ($altInfo->alts as $alt => $validated) {
 		if ($alt != $new_main) {
-			Alts::add_alt($new_main, $alt);
+			Alts::add_alt($new_main, $alt, 0);
 		}
 	}
 	
