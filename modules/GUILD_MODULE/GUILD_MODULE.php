@@ -8,6 +8,7 @@
 	
 	// Logon Handling
 	Command::register($MODULE_NAME, "", "logon_msg.php", "logon", "guild", "Sets a Logon Msg");
+	Command::register($MODULE_NAME, "", "logonadmin.php", "logonadmin", "mod", "Admin command for editing another person's logon message");
 	
 	// Lastseen
 	Command::register($MODULE_NAME, "", "lastseen.php", "lastseen", "guild", "Shows the logoff time of a player");
