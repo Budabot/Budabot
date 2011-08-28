@@ -28,7 +28,7 @@ Max % Add Nano Cost -50%
 3 max nano per 1 point of nanopool
 
 
-<header> ::: Solitus Shadowbreeds List ::: <end>
+<pagebreak><header> ::: Solitus Shadowbreeds List ::: <end>
 
 <green>Solitus (Clan) Shadowbreeds<end>
 
@@ -61,7 +61,7 @@ Boosts perception by 1k
 Gives a 200 Damage Shield
 Breaks Roots, Snares and Calms
 
-<green>Solitus (Omni) Shadowbreeds<end>
+<pagebreak><green>Solitus (Omni) Shadowbreeds<end>
 
 1: Murky
 Casts: Path of Darkness
@@ -97,7 +97,7 @@ Hostile AoE:
 Casts a DoT (1k, 10 hits, 3 sec delay)
 Roots your opponents
 
-<green>Solitus (Neutral) Shadowbreeds<end>
+<pagebreak><green>Solitus (Neutral) Shadowbreeds<end>
 
 1: Vague
 Casts: Path of Darkness
@@ -131,7 +131,7 @@ Casts a DoT (1k, 8 hits, 3 sec delay)
 Roots your opponents
 
 
-<header> ::: Solitus Alien Invasion Perks ::: <end>
+<pagebreak><header> ::: Solitus Alien Invasion Perks ::: <end>
 
 <green>Solitus Alpha Genome<end>
 
@@ -272,7 +272,7 @@ Recharge = 1 Minute, 40 Seconds
 
 <a href='chatcmd:///start http://auno.org/ao/db.php?id=253033'>http://auno.org/ao/db.php?id=253033</a>
 
-<green>Solitus Beta Genome<end>
+<pagebreak><green>Solitus Beta Genome<end>
 
 1. Requirements:
 

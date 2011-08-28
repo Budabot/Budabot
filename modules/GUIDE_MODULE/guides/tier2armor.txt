@@ -1,7 +1,5 @@
 <header>::::: Making Tier 2 Armor :::::<end>
 
-Jobe Armor Tier Two
-
 Guide suited for: All Classes
 Faction: All
 Level Range: 200-220

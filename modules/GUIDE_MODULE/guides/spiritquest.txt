@@ -1,7 +1,5 @@
 <header>::::: Inferno Quests: Spirits Quest  :::::<end>
 
-Spirits Quests
-
 Guide suited for: All Classes
 Faction: All
 Level Range: 190-220
@@ -58,12 +56,12 @@ Agents, Soldiers and Fixers get Perennium XXX Rebuild Kit.
 <font color = yellow>Snake Eyes</font>
 
 Now Yutto wants you to bring him Ashen Viper Eye. As name indicates, they drop off Ashen Vipers(9), and yet again, it's not 100% dropchance. 
-Those mobs have two camps too, one at <font color = green>677x1470 in Burning Marshes and another one at <font color = green>3170x3260</font> in Inferno. 
+Those mobs have two camps too, one at <font color = green>677x1470</font> in Burning Marshes and another one at <font color = green>3170x3260</font> in Inferno. 
 
 <font color = yellow>Killing the messenger</font>
 
 You need to confront Ira Atlin at <font color = green>283x199</font> in Jobe Plaza. After you start talking to him, he'll walk off. Catch up with him and start talking again. He'll send you to Eddie. 
-Eddie, located at <font color = green>1200x2820 in Street West Bank (just in front of Reet's Retreat) has a new item for sell. For a meager 1k credits you can buy Cryptovariable Deduction Algorithm from him, after you asked him 'What do you do?'. 
+Eddie, located at <font color = green>1200x2820</font> in Street West Bank (just in front of Reet's Retreat) has a new item for sell. For a meager 1k credits you can buy Cryptovariable Deduction Algorithm from him, after you asked him 'What do you do?'. 
 
 Bring back this item to Yutto. This wont end this quest just yet, since One Who Asks The Unasked now wants Compact Message Datadisc. You can pick those up from corpses of Courier Lizards(11), located at <font color = green>1820x1170</font> in Burning Marshes. 
 

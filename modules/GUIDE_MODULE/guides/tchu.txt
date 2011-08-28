@@ -2,7 +2,6 @@
 
 For the process of spawning Tchu you'll need 4 Hellion Mirrors. They drop from the spirits outside Ergo in Scheol.-> the rest of the quest is in Eastern Foul Plains on Rubi-Ka1. 
 
-
 kill Hellion Fanatic (1550x3900) (it's on a 3 hours spawn timer). 
 This will spawn four Hellion Imps:    
 a)2350x3800    

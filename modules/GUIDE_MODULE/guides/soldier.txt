@@ -1,7 +1,5 @@
 <header>::::: Guide to Soldiers :::::<end>
 
-<font color = yellow>-= Soldier =-
-
 <font color = yellow>At a glance</font>
 <font color = red>* Main Weapons: Ranged Energy, Assault Rifle, Pistol, Shotgun</font>
 * Alternate Weapons: Any Ranged Weapon

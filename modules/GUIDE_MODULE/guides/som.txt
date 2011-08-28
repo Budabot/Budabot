@@ -1,8 +1,6 @@
 <header>::::: Guide to Steps Of Madness :::::<end>
 
-<font color = red>The Steps Of Madness </font>
-
- Steps of Madness is a level 30-50 dungeon which was opened at Halloween 2001. Back then you needed a teddy bear called 'Childhood memory' which you got from an Uncle Pumpkinhead (special Halloween monster in 2001), to enter this dungeon. Nowadays you dont need an item anymore, just right-click the rolling eye at the entrance of this dungeon. The dungeon can be found in Omni Forest, not far away from Omni-1 - the capital of Omni-Tek Rubi-Ka.
+Steps of Madness is a level 30-50 dungeon which was opened at Halloween 2001. Back then you needed a teddy bear called 'Childhood memory' which you got from an Uncle Pumpkinhead (special Halloween monster in 2001), to enter this dungeon. Nowadays you dont need an item anymore, just right-click the rolling eye at the entrance of this dungeon. The dungeon can be found in Omni Forest, not far away from Omni-1 - the capital of Omni-Tek Rubi-Ka.
 
 Location: Omni Forest, 800 x 2800
 

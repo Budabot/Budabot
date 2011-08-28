@@ -1,7 +1,5 @@
 <header>::::: Making Tier 3 Armor :::::<end>
 
-Jobe Armor Tier Three
-
 Guide suited for: All Classes
 Faction: All
 Level Range: 200-220

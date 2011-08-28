@@ -1,7 +1,5 @@
 <header>::::: Making Tier 1 Armor :::::<end>
 
-Jobe Armor Tier One
-
 Guide suited for: All Classes
 Faction: All
 Level Range: All Levels
@@ -42,7 +40,7 @@ for Trader: Fragmented Novictum Crystals
 Just to review, you'll need exactly 18 Visions, 6 Embryos, 6 Canisters of Pure Liquid Notum and 6 Novictum for a total of 36 items. It is important you do not get the wrong type of Visions of Novictum or you will very likely end up with the wrong Glyph. 
 Now you must be wondering where can I get all this stuff? 
 
-Let's start with the Visions, which only drop in Elysium and Scheol catacombs located inside each faction's temple. It won't matter which faction's temple you go into, both have the same exact set of catacombs. In the Redeemed Temple you will have to run up a spiral tower to the top to find an entrance into a room with spirits. In the Unredeemed Temple just head straight forward to the entrance toward the spirits area. 
+<pagebreak>Let's start with the Visions, which only drop in Elysium and Scheol catacombs located inside each faction's temple. It won't matter which faction's temple you go into, both have the same exact set of catacombs. In the Redeemed Temple you will have to run up a spiral tower to the top to find an entrance into a room with spirits. In the Unredeemed Temple just head straight forward to the entrance toward the spirits area. 
 As soon as you're in the room, go either left or right where you will find a corridor leading to a set of stairs going down to a dead end with 1 or 2 pits on the ground. The pit will be your way into the catacombs. 
 Note: If you go left, the dead end will have two pits, if you use the pit to the left you will end up on the entrance on the left side shown in the map, same goes for the pit on the right. 
 
@@ -50,7 +48,7 @@ Each temple has 2 separate catacombs (left and right at the spirit area), which 
 The easiest catacomb is in Elysium, where you will find that any mob drops the Visions, while only named mobs have a good chance of dropping an Embryo (they also drop Visions). Here are the mobs you will encounter in the depts of those catacombs that will drop the Visions you need. 
 
 
-Now to get your hands on some embryos. Slaugh and Bean Sidhe will be your first two named mobs you will encounter, with some luck you may have 2 embryos by the time they're taken down. 
+<pagebreak>Now to get your hands on some embryos. Slaugh and Bean Sidhe will be your first two named mobs you will encounter, with some luck you may have 2 embryos by the time they're taken down. 
 
 Blood of Acheron and Emmisary of Annwn will be the next two mobs which are in the largest room in the catacombs. 
 
@@ -65,10 +63,8 @@ Your next stop should be Scheol for the remaining parts. To find Canisters of Li
 
 You will find a few places where Hiathlins are in groups, waiting for you to grab their canisters. The droprate on the canisters is random, so you may take 15 minutes or 2 hours to get all 6 of them. 
 
-The next place to go is not too far, just head north toward Ergo (as displayed in the map below) where named mobs (Spirits, Mynxes, Imps and Spirit Hunters) may drop the specific novictum you need. This will almost certainly take a while, so you may want to check the Rubi-Ka Market at the Official AO Forums where players may have some for sale. If you have the Alien Invasion expansion you could also shop using Global Market terminals. 
+<pagebreak>The next place to go is not too far, just head north toward Ergo (as displayed in the map below) where named mobs (Spirits, Mynxes, Imps and Spirit Hunters) may drop the specific novictum you need. This will almost certainly take a while, so you may want to check the Rubi-Ka Market at the Official AO Forums where players may have some for sale. If you have the Alien Invasion expansion you could also shop using Global Market terminals. 
 After a lot of time and effort, you will have all the items needed for a full upgrade of your Jobe Armor set. Head back to your professional representative and chat a bit, and be sure to pick the 'Yellow Glyph' option, at which point he will ask for 3 Visions and 1 Embryo per Glyph. Trade all of the ones you have gathered and you should end up with 6 Glyphs. 
-
-
 
 Yellow Glyph of Aban
 Enforcer, Engineer, Keeper, Martial Artist, Shade 
@@ -80,9 +76,7 @@ Yellow Glyph of Ocra
 Adventurer, Doctor, Fixer, Meta-Physicist, Trader
 
 
-Now it's time to activate your Glyphs, you may want to find a tradeskiller for these last steps. Right-click your Canister of Liquid Notum on each Glyph, this requires 550 in Quantum FT. 
-
-
+<pagebreak>Now it's time to activate your Glyphs, you may want to find a tradeskiller for these last steps. Right-click your Canister of Liquid Notum on each Glyph, this requires 550 in Quantum FT. 
 
 Yellow Glyph of Aban   +   Canister of Pure Liquid Notum   =   Yellow Glyph of Aban - Awakened 
 Yellow Glyph of Enel   +   Canister of Pure Liquid Notum   =   Yellow Glyph of Enel - Awakened 
@@ -149,7 +143,7 @@ Yellow Glyph of Ocra - Awakened   +   Fragmented Novictum Crystals   =   Glyph o
 
 All Glyphs are sellable, average price 4-5m each! 
 
-Give yourself a pat on the back, because here comes the grand finale! 
+<pagebreak>Give yourself a pat on the back, because here comes the grand finale! 
 
 Take off your armor and right-click each Glyph on the following parts: Gloves, Sleeves, Pants, Boots, Body. This will upgrade your Jobe Armor to Tier 1 Armor specific to your profession. This last step requires that you have 450 in Computer Literacy. 
 The set will be QL 100 but you can level your armor up to QL 160 by right-clicking on each piece. Be careful to not overdo it or you will level it past the point in which you are currently able to equip your armor. 

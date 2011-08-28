@@ -1,8 +1,6 @@
 <header>::::: Guide to AO Terminology :::::<end>
 
-Guide to AO terminology
-
-<font color = red>A</font>
+<pagebreak><font color = red>A</font>
 
 AC - 1. armour class, the measurement of how effective armour is 2. Asheron's Call, another MMORPG
 
@@ -72,7 +70,7 @@ axp - alien experience, a type of XP separate from regular XP or SK which comes 
 
 aye - yes
 ---------------------------------------------------
-<font color = red>B</font>
+<pagebreak><font color = red>B</font>
 
 B&E - the breaking & entry skill, used in tradeskills and for opening locked chests and doors
 
@@ -144,7 +142,7 @@ BwT - Blessed with Thunder, an MA attack
 
 BY - back yard, on Rubi-Ka these are the small zones with apartment entrances adjoining the training grounds
 ----------------------------------------------------
-<font color = red>C</font>
+<pagebreak><font color = red>C</font>
 
 calm - a nano effect which mesmerizes a mob and makes it stop attacking, synonymous with mez
 
@@ -226,7 +224,7 @@ cuppa - cup of coffee.
 
 cya - see ya, slang for 'I'll see you later'
 ---------------------------------------------------------
-<font color = red>D</font>
+<pagebreak><font color = red>D</font>
 
 d00d - A certain type of player distinguished by a tendancy to use short curt sentances, type all in caps and generally behave in an obnoxious way (example: 'CREDS PLZ!!! WTF?! HELLO??? R U ALL NUBI? I NEED CREDS!!')
 
@@ -270,7 +268,7 @@ drains - trader nanos that take skill away from the target and transfer it to th
 
 dyna - dynacamp, a type of mob camp unique to AO consisting of a boss mob and a number of lesser minions, these can be found scattered around the AO landscape
 ---------------------------------------------
-<font color = red>E</font>
+<pagebreak><font color = red>E</font>
 
 EE - the Electrical Engineering skill
 
@@ -310,7 +308,7 @@ Evac - From EQ. Describes fast-casting teleports that can be used in emergencies
 
 evades - refers collectively to the Evade, Dodge and Duck skills found in the Speed category
 ---------------------------------------------
-<font color = red>F</font>
+<pagebreak><font color = red>F</font>
 
 FA - 1. full auto, a weapon special which empties the gun's full clip of bullets into the target 2. the fast attack melee weapon skill 3. the first aid skill
 
@@ -356,7 +354,7 @@ FUBAR - f**ked up beyond all recognition
 
 fumble - nano program execution error
 --------------------------------------------------------
-<font color = red>G</font>
+<pagebreak><font color = red>G</font>
 
 GA - grid armor, a type of armor that fixers can summon and use which boosts their ability to evade attacks at a cost of greatly reduced armor class, grid armor comes in 4 types; GA1, GA2, GA3 and GA4
 
@@ -414,7 +412,7 @@ GTG - means either good to go (ready)or got to go which can be quite confusing s
 
 GUI - graphical user interface, a general computing term which ingame refers to the parts of the game window the players use to control their play, such as the map window, paperdoll, action bar, etc.
 -----------------------------------------------------
-<font color = red>H</font>
+<pagebreak><font color = red>H</font>
 
 Hack'n'Slash - A sub-genre of RPG games or a playing style, in which the objective is to kill, kill, kill with your swords, knifes, maces etc. This is often used derogatory about games that lack story or features to make role-playing interesting.
 
@@ -440,7 +438,7 @@ HPO - Heavily Padded Overcoat, mid-level backarmor dropped from Tara.
 
 HQ - 1. headquarters, a meeting hall-like building in an AI city, an HQ must be present before any other buildings can be put down 2. the Omni-1 HQ zone
 -----------------------------------------------------
-<font color = red>I</font>
+<pagebreak><font color = red>I</font>
 
 IC - Iron Circle, a doctor buff that boosts stamina and strength by 20 points
 
@@ -476,7 +474,7 @@ iron circle - an often asked for doctor's buff that raises stamina and strength
 
 IS - Inner Sanctum, high level indoor dungeon that continues the theme of Temple of Three Winds
 --------------------------------------------
-<font color = red>J</font>
+<pagebreak><font color = red>J</font>
 
 j/k - joke
 
@@ -494,7 +492,7 @@ JPN OOC - Japanese Out of Character, a rarely used chat channel intended for Jap
 
 JSPP - Jobe Surveyor Personal Pistol, The lower quality version of the JEPP
 --------------------------------------------------
-<font color = red>K</font>
+<pagebreak><font color = red>K</font>
 
 K - OK
 
@@ -516,7 +514,7 @@ KS - Kill Steal - This is the act of taking a kill from another player that has 
 
 kthxbye - 'OK, thanks, bye' usually intended in a joking way
 --------------------------------------------
-<font color = red>L</font>
+<pagebreak><font color = red>L</font>
 
 L2 - Lineage 2, another MMORPG
 
@@ -568,7 +566,7 @@ LOL - Laughing out Loud
 
 lvl - level
 --------------------------------------------------------
-<font color = red>M</font>
+<pagebreak><font color = red>M</font>
 
 m8 - mate, a friendly thing to call someone (example: 'Thanks m8')
 
@@ -650,7 +648,7 @@ Mule - Using a specialized character within a certain area to help out one of yo
 
 MW - Milky Way
 --------------------------------------------------------
-<font color = red>N</font>
+<pagebreak><font color = red>N</font>
 
 named - mostly used in Shadowlands to refer to mobs similar to dyna bosses on RK, named mobs are significant in that they drop pocket boss patterns and other desirable loot, some named mobs have an actually name like 'Joe' others just have a special title, like 'Unhygienic Rafter'
 
@@ -716,7 +714,7 @@ nuke - a damage nano, usually direct damage, but can also be used to refer to Ao
 
 NW - Notum Wars, an expansion or 'booster pack' for AO that added org vs. org battles for ownership of notum mining sites
 ---------------------------------------------------
-<font color = red>O</font>
+<pagebreak><font color = red>O</font>
 
 OA - Old Athen
 
@@ -760,7 +758,7 @@ overtuning - a tradeskill process which removes some of the nano penalties from 
 
 ownz - to dominate an opponent, typically used in PvP, (example: 'I ownz you!'), also the name of a unique mob near Tir
 ---------------------------------------------------
-<font color = red>P</font>
+<pagebreak><font color = red>P</font>
 
 pads - shoulderpads, often refers to the pads given as rewards for the popular Dodga quest
 
@@ -850,7 +848,7 @@ PW - Perpetual Wastelands
 
 pwn - own, a common misspelling which has become a deliberate part of gamespeak, meaning to dominate an opponent
 ----------------------------------------------------
-<font color = red>Q</font>
+<pagebreak><font color = red>Q</font>
 
 QA - Quality Assurance. The internal department that works with testing the versions before it is put out on the servers.
 
@@ -862,7 +860,7 @@ queen - usually referring to the Den Mantis Queen of Smuggler's Den
 
 QW - Quantum Wings, MP's fly on these.
 ----------------------------------------------------
-<font color = red>R</font>
+<pagebreak><font color = red>R</font>
 
 R = Ready, generally used when you are done buffing and ready to start fighting/enter boss room etc.
 
@@ -941,7 +939,7 @@ rubberbanding - when you're running and suddenly end up back where you started m
 
 ruins - usually refers to a hunting spot for cyborgs in Mort near Sentinels
 ------------------------------------------------------
-<font color = red>S</font>
+<pagebreak><font color = red>S</font>
 
 S&S - shop and save/scan, what you do between missions (sell loot and scan to save xp)
 
@@ -1039,7 +1037,7 @@ SWB - Stret West Bank
 
 SWG - Star Wars Galaxies, another MMORPG
 -----------------------------------------------------
-<font color = red>T</font>
+<pagebreak><font color = red>T</font>
 
 Tank - An Enforcer or other character with good armor and melee expertise. Used as humanshield for nano wielders, who are more vulnerable to melee attack. Also known as a Meatshield.
 
@@ -1100,7 +1098,7 @@ tweak - to improve a character to a high degree of perfection, not to be confuse
 
 Twinking - The act of using one higher level character to equip a lower level character with higher level equipment or money.
 ------------------------------------------------
-<font color = red>U</font>
+<pagebreak><font color = red>U</font>
 
 u - you
 
@@ -1116,7 +1114,7 @@ USEB - Upper Stret East Bank
 
 UVC - Universal Vulnerability Compendium. The best MA crit buff.
 ------------------------------------------------
-<font color = red>V</font>
+<pagebreak><font color = red>V</font>
 
 Vanya - The unredeemed boss of the Penumbra playfield, significant as a source of high level faction
 
@@ -1126,7 +1124,7 @@ VTE - Virral triumvirate egg. Playermade shoulder item.
 
 VW - Warmint Woods
 -------------------------------------------------
-<font color = red>W</font>
+<pagebreak><font color = red>W</font>
 
 WA - West Athen
 
@@ -1168,7 +1166,7 @@ WV - Wartorn Valley
 
 WW - Wailing Wastes
 ------------------------------------------------
-<font color = red>Y</font>
+<pagebreak><font color = red>Y</font>
 
 Y - yes or why
 
@@ -1178,7 +1176,7 @@ YVW = you're very welcome
 
 YW - you're welcome
 ------------------------------------------------------------
-<font color = red>Z</font>
+<pagebreak><font color = red>Z</font>
 
 zerg or zerging - to throw massive numbers of people at a target with little thought to strategy or planning, hopefully doing enough fast damage to take it down before it kills everyone, from the strategy game Starcraft, where mass attacks of small expendable creatures named zerglings was a common tactic
 
@@ -1186,7 +1184,7 @@ zodiacs - 12 boss mobs in Pandemonium
 
 zone - to pass from one playfield to another
 -----------------------------------------------------------------------------------
-<font color = red>Other</font>
+<pagebreak><font color = red>Other</font>
 
 *action* - a way of expressing emotes on chat channels other than vicinity (example: *She flutters her eyelashes and looks up with a sheepish grin*)
 

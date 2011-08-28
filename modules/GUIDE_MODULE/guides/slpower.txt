@@ -24,7 +24,7 @@ Shadow Lands 1-200 Soloing Guide for All Classes
 ***The dungeon by the Lord and Lady has been nerfed down.*** 
 The Lord, Lady and Soul Dredge are all higher level in Temple area beware of them in your teens! 
 
-<font color = green>Ely</font> 
+<pagebreak><font color = green>Ely</font>
 <font color = yellow>Level 50-65</font> (Coral rafters great fast exp till 64, Lucent Silvertails near porta Dropped QL44 Spirits no Tatts) 
 <font color = yellow>Level 60-70</font> (Coral Rafters, Hiathlins, spirits near Port Seven Portal area all dropped QL44 Spirits no Tatts) 
 <font color = yellow>Level 63-75</font> (Malahs and Hoathilins in temple of Chants near Redeemed Stone Whispervale, Unredeemed Village there also, lucent silvertails and Kolanna all dropped QL44-52 spirits No Tatts) 
@@ -39,7 +39,7 @@ The Lord, Lady and Soul Dredge are all higher level in Temple area beware of the
 <font color = yellow>Level 125-130</font> (Named Minxes and Imps by Ergo they also drop DKNs) 
 <font color = yellow>Level 140+</font>(You can solo a eylsium heckler with CI) 
 
-<font color = green>Scheol</font> 
+<pagebreak><font color = green>Scheol</font>
 <font color = yellow>Level 100-110</font> (Beits near entance, Mossy Girders in Temple Bog these drop Alban glyphs for weapon upgrades also had Insignias drop but very low rate) 
 <font color = yellow>Level 120-145</font> ( Unredeemed mobs in Temple of Roch, Eric Miller Omega Chain is here good luck getting those tattoos, Redemeed mobs in Temple of Scheol) 
 <font color = yellow>Level 110-140</font> (Spiders N of drop off rumors of them dropping QL100-150 Clan Tatts) 

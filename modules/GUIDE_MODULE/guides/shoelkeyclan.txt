@@ -1,12 +1,8 @@
-<header>::::: Shoel Garden Key Quest CLAN :::::<end>
+<header>::::: Shoel Ocra Garden Key Quest CLAN :::::<end>
 
-Shoel Garden Key Quest CLAN
-
-<font color='#ff9933'><highlight>Ocra Garden Key Quest</font></end>
-
-<highlight>Guide suited for:</end> All Classes
-<highlight>Faction:</end> Clan
-<highlight>Level Range:</end> 50-100
+<highlight>Guide suited for:<end> All Classes
+<highlight>Faction:<end> Clan
+<highlight>Level Range:<end> 50-100
 
 Ocra Garden Key Quest
 
