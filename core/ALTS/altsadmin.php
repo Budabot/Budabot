@@ -35,7 +35,7 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names)) {
 		return;
 	}
 
-	Alts::add_alt($name_main, $name_alt);
+	Alts::add_alt($name_main, $name_alt, 1);
 	$msg = "<highlight>$name_alt<end> has been registered as an alt of $name_main.";
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^altsadmin rem (.+) (.+)$/i", $message, $names)) {

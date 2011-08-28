@@ -46,7 +46,7 @@ class Alts {
 		return $ai;
 	}
 	
-	public static function add_alt($main, $alt, $validated = 1) {
+	public static function add_alt($main, $alt, $validated) {
 		$db = DB::get_instance();
 		
 		$main = ucfirst(strtolower($main));

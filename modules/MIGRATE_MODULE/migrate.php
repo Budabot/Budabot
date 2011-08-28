@@ -10,7 +10,7 @@ if (preg_match("/^migrate alts$/i", $message, $arr)) {
 		$db->query("SELECT alt FROM alts WHERE main = '$row->main' AND alt = '$row->alt'");
 		if ($db->numrows() == 0) {
 			$count++;
-			Alts::add_alt($row->main, $row->alt);
+			Alts::add_alt($row->main, $row->alt, 1);
 		}
 	}
 	
