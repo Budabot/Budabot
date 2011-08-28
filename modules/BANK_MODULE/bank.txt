@@ -1,13 +1,13 @@
-<header>::::: Help on Bank Command. :::::<end>
+<header> :::::: Help on Bank Command :::::: <end>
 
-Note: You don't need to insert the full name to do a successfull search but the words needs to be in the same order as in the original items name.
-/tell <myname> bank is restricted to moderators only, to prevent overloading the bot.
+<highlight>To list the bank characters in the database:<end>
+<tab><symbol>bank char
 
-<highlight>To search for an item in the org bank:<end>
-<tab><symbol>find 'Insert itemname here'
+<highlight>to list the backpacks of a particular bank character:<end>
+<tab><symbol>bank pack 'character'
 
-<highlight>To browse the org bank:<end>
-<tab><symbol>bank
+<highlight>To see the contents of a backpack on a bank character<end>
+<tab><symbol>bank pack 'character' 'backpackname'
 
-<highlight>To look an item or multiple items up in the org bank:<end>
-<tab><symbol>id 'Insert item IDs here'
+<highlight>To search for an item on a bank character<end>
+<tab><symbol>bank search 'items to search for'

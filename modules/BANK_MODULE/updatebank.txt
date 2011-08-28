@@ -1,0 +1,6 @@
+<header> :::::: Help on Updatebank Command :::::: <end>
+
+<highlight>To list the bank characters in the database:<end>
+<tab><symbol>updatebank
+
+Note: This will reload the bank database from the file specified with the <a href='chatcmd:///tell <myname> settings change bank_file_location'>bank_file_location</a> setting.  This setting can point to a local file or a to url.

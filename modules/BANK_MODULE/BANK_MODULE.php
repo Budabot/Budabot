@@ -1,20 +1,13 @@
 <?php
 	$MODULE_NAME = "BANK_MODULE";
-
-	// Bank browse
-	Command::register($MODULE_NAME, "", "bankbrowse.php", "bank", "all", "Browse the Org Bank.");
 	
-	// Backpack browse
-	Command::register($MODULE_NAME, "", "backpackbrowse.php", "pack", "all", "Browse an Org Bank backpack.");
+	Command::register($MODULE_NAME, "", "bank.php", "bank", "guild", "Browse the Org Bank");
+	Command::register($MODULE_NAME, "", "updatebank.php", "updatebank", "admin", "Reloads the bank database from the AO Items Assistant file");
 	
-	// Bank lookup
-	Command::register($MODULE_NAME, "", "banklookup.php", "id", "all", "Look up an item.");
-	
-	// Bank search
-	Command::register($MODULE_NAME, "", "banksearch.php", "find", "all", "Search the Org Bank for an item you need.");
+	Setting::add($MODULE_NAME, "bank_file_location", "Location of the AO Items Assistant csv dump file", "edit", "text", './modules/BANK_MODULE/import.csv', './modules/BANK_MODULE/import.csv', '', 'mod', 'updatebank');
+	Setting::add($MODULE_NAME, 'max_bank_items', 'Number of items shown in search results and pack browsing', 'edit', "number", '200', '30;40;50;60');
 	
 	// Help
-	Help::register($MODULE_NAME, "bank", "bank.txt", "all", "How to search for an item.");
-
-	// Thanks to Xyphos (RK1) for helping me bugfix
+	Help::register($MODULE_NAME, "bank", "bank.txt", "all", "How to search for an item on your bank(s)");
+	Help::register($MODULE_NAME, "updatebank", "updatebank.txt", "admin", "How to update your bank database");
 ?>
