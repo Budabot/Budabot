@@ -59,9 +59,15 @@ class AccessLevel {
 					return true;
 				}
 			case "2":
+				if (isset($chatBot->admins[$sender]) && $chatBot->admins[$sender]["level"] >= 2) {
+					return true;
+				}
 			case "3":
+				if (isset($chatBot->admins[$sender]) && $chatBot->admins[$sender]["level"] >= 3) {
+					return true;
+				}
 			case "4":
-				if (isset($chatBot->admins[$sender]) && $chatBot->admins[$sender]["level"] >= $access_level) {
+				if (isset($chatBot->admins[$sender]) && $chatBot->admins[$sender]["level"] >= 4) {
 					return true;
 				}
 			case "superadmin":
