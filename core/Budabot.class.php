@@ -894,29 +894,13 @@ class Budabot extends AOChat {
 		$access = AccessLevel::check_access($sender, $admin);
 
 		if ($access !== true || $filename == "") {
-			if ($type != 'guild') {
-				// don't notify user of unknown command in org chat, in case they are running more than one bot
-				
-				if (Setting::get('alts_inherit_admin') == 0) {
-					$chatBot->send("Error! Unknown command or Access denied! For more info try /tell <myname> help", $sendto);
-				} else {
-					// Alts inherit admin from main - so check if main would have high access
-					$altInfo = Alts::get_alt_info($sender);
-					if ($altInfo->is_validated($sender)) {
-						// If this alt is validated, then it's not an issue
-						$chatBot->send("Error! Unknown command or Access denied! For more info try /tell <myname> help", $sendto);
-					} else {
-						// Not validated, check if the main would have access
-						$mainAccess = AccessLevel::check_access($altInfo->main, $admin);
-						if ($mainAccess == true && $filename != '') {
-							$chatBot->send("Error! Access denied! Your main has access to this command, but your alt is not validated yet.  Please relog to your main and validate your character.", $sendto);
-						} else {
-							$chatBot->send("Error! Unknown command or Access denied! For more info try /tell <myname> help", $sendto);
-						}
-					}
-				}
-				$chatBot->spam[$sender] = $chatBot->spam[$sender] + 20;
+			// if they've disabled feedback for guild or private channel, just return
+			if ((Setting::get('guild_channel_syntax_errors') == 0 && $type == 'guild') || ((Setting::get('private_channel_syntax_errors') == 0 && $type == 'priv'))) {
+				return;
 			}
+				
+			$chatBot->send("Error! Unknown command or Access denied! For more info try /tell <myname> help", $sendto);
+			$chatBot->spam[$sender] = $chatBot->spam[$sender] + 20;
 			return;
 		} else {
 			$syntax_error = false;
