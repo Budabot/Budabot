@@ -90,10 +90,10 @@ $db->query($sql);
 if ($db->numrows() == 0) {
 	$msg = "No tower attacks found.";
 } else {
-	$list = "<header> :::::: The last $page_size Tower Attacks (page $page_label) :::::: <end>\n\n" . $colorvalue;
+	$blob = "<header> :::::: The last $page_size Tower Attacks (page $page_label) :::::: <end>\n\n" . $colorvalue;
 
 	while ($row = $db->fObject()) {
-		$list .= $colorlabel."Time:<end> ".gmdate("M j, Y, G:i", $row->time)." (GMT)\n";
+		$blob .= $colorlabel."Time:<end> ".gmdate("M j, Y, G:i", $row->time)." (GMT)\n";
 		if ($row->att_faction == '') {
 			$att_faction = "unknown";
 		} else {
@@ -107,20 +107,20 @@ if ($db->numrows() == 0) {
 		}
 
 		if ($row->att_profession == 'Unknown') {
-			$list .= $colorlabel."Attacker:<end> <{$att_faction}>{$row->att_player}<end> ({$row->att_faction})\n";
+			$blob .= $colorlabel."Attacker:<end> <{$att_faction}>{$row->att_player}<end> ({$row->att_faction})\n";
 		} else if ($row->att_guild_name == '') {
-			$list .= $colorlabel."Attacker:<end> <{$att_faction}>{$row->att_player}<end> ({$row->att_level}/<green>{$row->att_ai_level}<end> {$row->att_profession}) ({$row->att_faction})\n";
+			$blob .= $colorlabel."Attacker:<end> <{$att_faction}>{$row->att_player}<end> ({$row->att_level}/<green>{$row->att_ai_level}<end> {$row->att_profession}) ({$row->att_faction})\n";
 		} else {
-			$list .= $colorlabel."Attacker:<end> {$row->att_player} ({$row->att_level}/<green>{$row->att_ai_level}<end> {$row->att_profession}) <{$att_faction}>{$row->att_guild_name}<end> ({$row->att_faction})\n";
+			$blob .= $colorlabel."Attacker:<end> {$row->att_player} ({$row->att_level}/<green>{$row->att_ai_level}<end> {$row->att_profession}) <{$att_faction}>{$row->att_guild_name}<end> ({$row->att_faction})\n";
 		}
 		
-		$base = Text::make_blob("{$row->short_name} {$row->site_number}", "/tell <myname> lc {$row->short_name} {$row->site_number}", 'chatcmd');
+		$base = Text::make_chatcmd("{$row->short_name} {$row->site_number}", "/tell <myname> lc {$row->short_name} {$row->site_number}");
 		$base .= " ({$row->min_ql}-{$row->max_ql})";
 
-		$list .= $colorlabel."Defender:<end> <{$def_faction}>{$row->def_guild_name}<end> ({$row->def_faction})\n";
-		$list .= "Site: $base\n\n";
+		$blob .= $colorlabel."Defender:<end> <{$def_faction}>{$row->def_guild_name}<end> ({$row->def_faction})\n";
+		$blob .= "Site: $base\n\n";
 	}
-	$msg = Text::make_blob("Tower Attacks", $list);
+	$msg = Text::make_blob("Tower Attacks", $blob);
 }
 
 $chatBot->send($msg, $sendto);

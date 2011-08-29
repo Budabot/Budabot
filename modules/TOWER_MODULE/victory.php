@@ -92,9 +92,9 @@ $db->query($sql);
 if ($db->numrows() == 0) {
 	$msg = "No Tower results found.";
 } else {
-	$list = "<header> :::::: The last $page_size Tower Results (page $page_label) :::::: <end>\n\n".$colorvalue;
+	$blob = "<header> :::::: The last $page_size Tower Results (page $page_label) :::::: <end>\n\n".$colorvalue;
 	while ($row = $db->fObject()) {
-		$list .= $colorlabel."Time:<end> ".gmdate("M j, Y, G:i", $row->victory_time)." (GMT)\n";
+		$blob .= $colorlabel."Time:<end> ".gmdate("M j, Y, G:i", $row->victory_time)." (GMT)\n";
 
 		if (!$win_side = strtolower($row->win_faction)) {
 			$win_side = "unknown";
@@ -110,11 +110,11 @@ if ($db->numrows() == 0) {
 			$base = "Unknown";
 		}
 
-		$list .= $colorlabel."Winner:<end> <{$win_side}>{$row->win_guild_name}<end> (".ucfirst($win_side).")\n";
-		$list .= $colorlabel."Loser:<end> <{$lose_side}>{$row->lose_guild_name}<end> (".ucfirst($lose_side).")\n";
-		$list .= "Site: $base\n\n";
+		$blob .= $colorlabel."Winner:<end> <{$win_side}>{$row->win_guild_name}<end> (".ucfirst($win_side).")\n";
+		$blob .= $colorlabel."Loser:<end> <{$lose_side}>{$row->lose_guild_name}<end> (".ucfirst($lose_side).")\n";
+		$blob .= "Site: $base\n\n";
 	}
-	$msg = Text::make_blob("Tower Victories", $list);
+	$msg = Text::make_blob("Tower Victories", $blob);
 }
  
 $chatBot->send($msg, $sendto);
