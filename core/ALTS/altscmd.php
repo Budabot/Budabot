@@ -113,10 +113,11 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 		$name = $sender;
 	}
 
-	$msg = Alts::get_alts_blob($name);
-	
-	if ($msg === null) {
+	$altInfo = $Alts::get_alt_info($sender);
+	if (count($altInfo->alts) == 0) {
 		$msg = "No alts are registered for <highlight>{$name}<end>.";
+	} else {
+		$msg = $altInfo->get_alts_blob();
 	}
 
 	$chatBot->send($msg, $sendto);

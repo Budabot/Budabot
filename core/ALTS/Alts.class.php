@@ -18,6 +18,58 @@ class AltInfo {
 		// $sender is not an alt at all, return false
 		return false;
 	}
+	
+	public function get_alts_blob() {
+		$db = DB::get_instance();
+		
+		if (count($this->alts) == 0) {
+			return "No registered alts";
+		}
+
+		$list = "<header> :::::: Character List for {$this->main} :::::: <end>\n\n";
+		$list .= "<tab><tab>{$this->main}";
+		$character = Player::get_by_name($this->main);
+		if ($character !== null) {
+			$list .= " (<highlight>{$character->level}<end>/<green>{$character->ai_level}<end> <highlight>{$character->profession}<end>)";
+		}
+		$online = Buddylist::is_online($this->main);
+		if ($online === null) {
+			$list .= " - No status.\n";
+		} else if ($online == 1) {
+			$list .= " - <green>Online<end>\n";
+		} else {
+			$list .= " - <red>Offline<end>\n";
+		}
+		$list .= "\n:::::: Alt Character(s)\n";
+		
+		$sql = "SELECT `alt`, `main`, `validated`, p.* FROM `alts` a LEFT JOIN players p ON (a.alt = p.name AND p.dimension = '<dim>') WHERE `main` LIKE '{$this->main}' ORDER BY level DESC, ai_level DESC, profession ASC, name ASC";
+		$db->query($sql);
+		$data = $db->fObject('all');
+		forEach ($data as $row) {
+			$list .= "<tab><tab>{$row->alt}";
+			if ($row->profession !== null) {
+				$list .= " (<highlight>{$row->level}<end>/<green>{$row->ai_level}<end> <highlight>{$row->profession}<end>)";
+			}
+			$online = Buddylist::is_online($row->alt);
+			if ($online === null) {
+				$list .= " - No status.";
+			} else if ($online == 1) {
+				$list .= " - <green>Online<end>";
+			} else {
+				$list .= " - <red>Offline<end>";
+			}
+			
+			if (Setting::get('alts_inherit_admin') == 1 && $row->validated == 0) {
+				$list .= " [Unvalidated] " . Text::make_link('Validate', "/tell <myname> <symbol>altvalidate {$row->alt}", 'chatcmd');
+			}
+			
+			$list .= "\n";
+		}
+		
+		$msg = Text::make_blob("Alts of {$this->main}", $list);
+		
+		return $msg;
+	}
 }
 
 class Alts {
@@ -61,60 +113,6 @@ class Alts {
 		
 		$sql = "DELETE FROM `alts` WHERE `alt` LIKE '$alt' AND `main` LIKE '$main'";
 		return $db->exec($sql);
-	}
-	
-	public static function get_alts_blob($char) {
-		$db = DB::get_instance();
-	
-		$altInfo = Alts::get_alt_info($char);
-		
-		if (count($altInfo->alts) == 0) {
-			return "No registered alts";
-		}
-
-		$list = "<header> :::::: Character List for {$altInfo->main} :::::: <end>\n\n";
-		$list .= "<tab><tab>{$altInfo->main}";
-		$character = Player::get_by_name($altInfo->main);
-		if ($character !== null) {
-			$list .= " (<highlight>{$character->level}<end>/<green>{$character->ai_level}<end> <highlight>{$character->profession}<end>)";
-		}
-		$online = Buddylist::is_online($altInfo->main);
-		if ($online === null) {
-			$list .= " - No status.\n";
-		} else if ($online == 1) {
-			$list .= " - <green>Online<end>\n";
-		} else {
-			$list .= " - <red>Offline<end>\n";
-		}
-		$list .= "\n:::::: Alt Character(s)\n";
-		
-		$sql = "SELECT `alt`, `main`, `validated`, p.* FROM `alts` a LEFT JOIN players p ON (a.alt = p.name AND p.dimension = '<dim>') WHERE `main` LIKE '{$altInfo->main}' ORDER BY level DESC, ai_level DESC, profession ASC, name ASC";
-		$db->query($sql);
-		$data = $db->fObject('all');
-		forEach ($data as $row) {
-			$list .= "<tab><tab>{$row->alt}";
-			if ($row->profession !== null) {
-				$list .= " (<highlight>{$row->level}<end>/<green>{$row->ai_level}<end> <highlight>{$row->profession}<end>)";
-			}
-			$online = Buddylist::is_online($row->alt);
-			if ($online === null) {
-				$list .= " - No status.";
-			} else if ($online == 1) {
-				$list .= " - <green>Online<end>";
-			} else {
-				$list .= " - <red>Offline<end>";
-			}
-			
-			if (Setting::get('alts_inherit_admin') == 1 && $row->validated == 0) {
-				$list .= " [Unvalidated] " . Text::make_link('Validate', "/tell <myname> <symbol>altvalidate {$row->alt}", 'chatcmd');
-			}
-			
-			$list .= "\n";
-		}
-		
-		$msg = Text::make_blob("Alts of {$altInfo->main}", $list);
-		
-		return $msg;
 	}
 }
 

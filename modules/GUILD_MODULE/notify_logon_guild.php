@@ -11,9 +11,9 @@ if (isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
 
         $msg .= " logged on.";
 
-        $alts = Alts::get_alts_blob($sender);
-		if ($alts !== null) {
-			$msg .= " $alts";
+		$altInfo = $Alts::get_alt_info($sender);
+		if (count($altInfo->alts) > 0) {
+			$msg .= " " . $altInfo->get_alts_blob();
 		}
 
 		$sql = "SELECT logon_msg FROM org_members_<myname> WHERE name = '{$sender}'";
