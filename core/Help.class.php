@@ -24,22 +24,6 @@ class Help {
 
 		$command = strtolower($command);
 
-		//Check if the admin status exists
-		if (!is_numeric($admin)) {
-			if ($admin == "leader") {
-				$admin = 1;
-			} else if ($admin == "raidleader" || $admin == "rl") {
-				$admin = 2;
-			} else if ($admin == "mod" || $admin == "moderator") {
-				$admin = 3;
-			} else if ($admin == "admin") {
-				$admin = 4;
-			} else if($admin != "all" && $admin != "guild" && $admin != "guildadmin") {
-				Logger::log('ERROR', 'Core', "Error in registrating the $module:help($command). Unknown Admin type: '$admin'. Admin type is set to 'all'.");
-				$admin = "all";
-			}
-		}
-
 		// Check if the file exists
 		$actual_filename = Util::verify_filename($module . '/' . $filename);
 		if ($actual_filename == '') {
@@ -62,7 +46,6 @@ class Help {
 		
 		if (substr($actual_filename, 0, 7) == "./core/") {
 			$chatBot->helpfiles[$command]["status"] = "enabled";
-
 		}
 	}
 	
