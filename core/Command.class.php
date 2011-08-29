@@ -6,7 +6,7 @@ class Command {
 	 * @name: register
 	 * @description: Registers a command
 	 */
-	public static function register($module, $channel, $filename, $command, $admin = 'all', $description = '', $help = ''){
+	public static function register($module, $channel, $filename, $command, $admin, $description = '', $help = ''){
 		$db = DB::get_instance();
 		global $chatBot;
 

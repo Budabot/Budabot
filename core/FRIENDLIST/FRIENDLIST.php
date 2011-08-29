@@ -19,4 +19,5 @@
 	
 	// Help files
 	Help::register($MODULE_NAME, "friendlist", "friendlist.txt", "mod", "Commands for viewing and manually changing the friend list");
+	// TODO add help for rembuddy/addbuddy/rembuddyall
 ?>

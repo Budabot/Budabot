@@ -7,15 +7,12 @@
 	
 	//Set/Show Limits
 	Command::activate("msg", "$MODULE_NAME/config.php", "limits", "mod");
-	Command::activate("msg", "$MODULE_NAME/config.php", "limit", "mod");
 	Command::activate("msg", "$MODULE_NAME/whitelist.php", "whitelist", "mod");
 	
 	Command::activate("priv", "$MODULE_NAME/config.php", "limits", "mod");
-	Command::activate("priv", "$MODULE_NAME/config.php", "limit", "mod");
 	Command::activate("priv", "$MODULE_NAME/whitelist.php", "whitelist", "mod");
 	
 	Command::activate("guild", "$MODULE_NAME/config.php", "limits", "mod");
-	Command::activate("guild", "$MODULE_NAME/config.php", "limit", "mod");
 	Command::activate("guild", "$MODULE_NAME/whitelist.php", "whitelist", "mod");
 
 	//Set/Show minlvl for Tells
@@ -61,4 +58,5 @@
 	Help::register($MODULE_NAME, "tell_req_lvl", "tell_req_lvl.txt", "mod", "Set level requirements to send tells to the bot");
 	Help::register($MODULE_NAME, "tell_req_faction", "tell_req_faction.txt", "mod", "Set faction requirements to send tells to the bot");
 	Help::register($MODULE_NAME, "tell_req_open", "tell_req_open.txt", "mod", "Set general requirements to send tells to the bot");
+	// TODO add help for limits, whitelist
 ?>

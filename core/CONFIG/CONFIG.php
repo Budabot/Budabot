@@ -20,4 +20,5 @@
 
 	//Help Files
 	Help::register($MODULE_NAME, "config", "config.txt", "mod", "Configure Commands/Events of the Bot");
+	// TODO add help for searchcmd, addalias/remalias	
 ?>

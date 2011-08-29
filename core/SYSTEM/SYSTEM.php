@@ -2,13 +2,9 @@
 	$MODULE_NAME = "SYSTEM";
 
 	//Commands
-	Command::activate("msg", "$MODULE_NAME/plugins.php", "newplugins", "admin");
-	Command::activate("priv", "$MODULE_NAME/plugins.php", "newplugins", "admin");
-	Command::activate("guild", "$MODULE_NAME/plugins.php", "newplugins", "admin");
-
 	Command::activate("msg", "$MODULE_NAME/restart.php", "restart", "admin");
 	Command::activate("priv", "$MODULE_NAME/restart.php", "restart", "admin");
-	Command::activate("guild", "$MODULE_NAME/restart.php", "restart", "admin");	
+	Command::activate("guild", "$MODULE_NAME/restart.php", "restart", "admin");
 
 	Command::activate("msg", "$MODULE_NAME/shutdown.php", "shutdown", "admin");
 	Command::activate("priv", "$MODULE_NAME/shutdown.php", "shutdown", "admin");
@@ -30,9 +26,9 @@
 	Command::activate("priv", "$MODULE_NAME/eventlist.php", "eventlist", "mod");
 	Command::activate("guild", "$MODULE_NAME/eventlist.php", "eventlist", "mod");
 
-	Command::activate("msg", "$MODULE_NAME/lookup.php", "lookup", "mod");
-	Command::activate("priv", "$MODULE_NAME/lookup.php", "lookup", "mod");
-	Command::activate("guild", "$MODULE_NAME/lookup.php", "lookup", "mod");
+	Command::activate("msg", "$MODULE_NAME/lookup.php", "lookup", "all");
+	Command::activate("priv", "$MODULE_NAME/lookup.php", "lookup", "all");
+	Command::activate("guild", "$MODULE_NAME/lookup.php", "lookup", "all");
 	
 	Command::activate("msg", "$MODULE_NAME/clearqueue.php", "clearqueue", "mod");
 	Command::activate("priv", "$MODULE_NAME/clearqueue.php", "clearqueue", "mod");
@@ -69,4 +65,5 @@
 	Help::register($MODULE_NAME, "spam_protection", "spam_protection.txt", "mod", "Enable or disable the spam protection");
 	Help::register($MODULE_NAME, "max_blob_size", "max_blob_size.txt", "mod", "Set the maximum blob size");
 	Help::register($MODULE_NAME, "default_module_status", "default_module_status.txt", "mod", "Set new modules to be enabled or disabled by default");
+	// TODO add help for logs, checkaccess, executesql, loadsql, clearqueue, lookup, eventlist, cmdlist, reloadconfig
 ?>
