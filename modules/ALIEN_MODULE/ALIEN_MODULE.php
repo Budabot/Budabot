@@ -8,6 +8,7 @@
 	Command::register($MODULE_NAME, "", "bio.php", "bio", "all", "Identify Solid Clump of Kyr'Ozch Bio-Material");
 	Command::register($MODULE_NAME, "", "aigen.php", "aigen", "all", "Info about Alien City Generals(which VBs they drop)");
 	Command::register($MODULE_NAME, "", "aiarmor.php", "aiarmor", "all", "Tradeskillprocess for Alien Armor");
+	Command::register($MODULE_NAME, "", "bioinfo.php", "bioinfo", "all", "Show info about a particular bio type");
 
 	Command::register($MODULE_NAME, "", "leprocs.php", "leprocs", "all", "Shows the LE Procs for a particular profession");
 	CommandAlias::register($MODULE_NAME, "leprocs", "leproc");
