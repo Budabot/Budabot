@@ -16,17 +16,14 @@ if (preg_match('/^inits \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\"\
 
 	$msg = "Calculating Inits... Please wait.";
 	$chatBot->send($msg, $sendto);
-	
-	$ctx - stream_context_create( array( 'http' => array( 'timeout' => 60 ) ) );
 
-	$msg = file_get_contents($url, 0, $ctx);
+	$msg = file_get_contents($url, 0);
 	if (empty($msg)) {
 		$msg = "Unable to query Central Items Database.";
 	}
+	$chatBot->send($msg, $sendto);
 } else {
-	$msg = "Syntax Error! Proper Syntax is <highlight>inits [drop weapon in chat]<end>";
+	$syntax_error = true;
 }
-
-$chatBot->send($msg, $sendto);
 
 ?>

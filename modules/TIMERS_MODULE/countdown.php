@@ -4,8 +4,7 @@ if (preg_match("/^(countdown|cd)$/i", $message)) {
   	global $countdown_last;
   	
   	if ($countdown_last >= (time() - 30)) {
-		$msg = "<red>You can only start a countdown every 30seconds!<end>";
-	    // Send info back
+		$msg = "<red>You can only start a countdown every 30 seconds!<end>";
 	    $chatBot->send($msg, $sendto);
 	    return;
 	}
@@ -27,7 +26,6 @@ if (preg_match("/^(countdown|cd)$/i", $message)) {
 	}
 
 	$msg = "<green>-------> GO GO GO <-------<end>";
-    // Send info back
     $chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;

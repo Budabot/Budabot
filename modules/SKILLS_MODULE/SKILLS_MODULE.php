@@ -23,6 +23,7 @@
 	//Helpiles
 	Help::register($MODULE_NAME, "aggdef", "aggdef.txt", "all", "How to use aggdef");
 	Help::register($MODULE_NAME, "nanoinit", "nanoinit.txt", "all", "How to use nanoinit");
+	Help::register($MODULE_NAME, "inits", "inits.txt", "all", "How to use inits");
 	Help::register($MODULE_NAME, "as", "as.txt", "all", "How to use as");
 	Help::register($MODULE_NAME, "fa", "fa.txt", "all", "How to use fa");
 	Help::register($MODULE_NAME, "fling", "fling.txt", "all", "How to use fling");

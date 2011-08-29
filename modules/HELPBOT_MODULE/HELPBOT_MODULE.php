@@ -12,7 +12,7 @@
 	Command::register($MODULE_NAME, "", "kos.php", "kos", "guild", "Shows the Kill On Sight List");
 	Command::register($MODULE_NAME, "", "time.php", "time", "all", "Shows the time in the different timezones");
 	Command::register($MODULE_NAME, "", "whois.php", "whois", "all", "Display a character's info");
-	Command::register($MODULE_NAME, "", "whois.php", "whoisall", "all", "Display a character's info for all dimensions");
+	Command::register($MODULE_NAME, "", "whois.php", "whoisall", "all", "Display a character's info for all dimensions", 'whois');
 	Command::register($MODULE_NAME, "", "calc.php", "calc", "all", "Calculator");
 	Command::register($MODULE_NAME, "", "oe.php", "oe", "all", "OE");
 	Command::register($MODULE_NAME, "", "history.php", "history", "all", "Show history of a player");
@@ -25,13 +25,13 @@
 	Command::register($MODULE_NAME, "", "whatbuffs.php", "whatbuffs", "all", "find items that buff");
 	Command::register($MODULE_NAME, "", "dyna.php", "dyna", "all", "Search for RK Dynaboss");
 	Command::register($MODULE_NAME, "", "research.php", "research", "all", "Info on Research");
-	Command::register($MODULE_NAME, "", "playfields.php", "playfields", "all", "Shows all the playfields including IDs and short names");
+	Command::register($MODULE_NAME, "", "playfields.php", "playfields", "all", "Shows all the playfields including IDs and short names", 'waypoint');
 	Command::register($MODULE_NAME, "", "waypoint.php", "waypoint", "all", "Creats a waypoint link");
 
 	// Flip or Roll command
-	Command::register($MODULE_NAME, "", "roll.php", "flip", "all", "Flip a coin");
+	Command::register($MODULE_NAME, "", "roll.php", "flip", "all", "Flip a coin", 'roll');
 	Command::register($MODULE_NAME, "", "roll.php", "roll", "all", "Roll a random number");
-	Command::register($MODULE_NAME, "", "roll.php", "verify", "all", "Verifies a flip/roll");
+	Command::register($MODULE_NAME, "", "roll.php", "verify", "all", "Verifies a flip/roll", 'roll');
 
 	// Max XP calculator
 	Command::register($MODULE_NAME, "", "capxp.php", "capxp", "all", "Max XP Calculator");
@@ -54,4 +54,6 @@
 	Help::register($MODULE_NAME, "dyna", "dyna.txt", "all", "Search for RK Dynaboss");
 	Help::register($MODULE_NAME, "research", "research.txt", "all", "Info on Research");
 	Help::register($MODULE_NAME, "capxp", "capxp.txt", "all", "Set your reasearch bar for max xp/sk");
+	Help::register($MODULE_NAME, "waypoint", "waypoint.txt", "all", "How to create a waypoint link");
+	Help::register($MODULE_NAME, "random", "random.txt", "all", "How to randomly order a list of elements");
 ?>

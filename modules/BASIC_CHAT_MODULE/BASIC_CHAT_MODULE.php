@@ -16,7 +16,7 @@
 	// Leader
 	Command::register($MODULE_NAME, "priv", "leader.php", "leader", "all", "Sets the Leader of the raid");
 	Subcommand::register($MODULE_NAME, "priv", "leader_set.php", "leader (.+)", "leader", "leader", "Set a specific Leader");
-	Command::register($MODULE_NAME, "", "leaderecho_cmd.php", "leaderecho", "leader", "Set if the text of the leader will be repeated");
+	Command::register($MODULE_NAME, "", "leaderecho_cmd.php", "leaderecho", "leader", "Set if the text of the leader will be repeated", 'leader');
 	Event::register($MODULE_NAME, "priv", "leaderecho.php", "leader", "Repeats what the leader says in the color of leaderecho_color setting");
 	Event::register($MODULE_NAME, "leavePriv", "leader_leave.php", "leader", "Removes leader when the leader leaves the channel", 'leader');
 	Setting::add($MODULE_NAME, "leaderecho", "Repeat the text of the leader", "edit", "options", "1", "true;false", "1;0");

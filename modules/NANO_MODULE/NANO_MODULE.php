@@ -12,8 +12,8 @@
 
 	//nanolines
 	Command::register($MODULE_NAME, "", "nanolines.php", "nanolines", "all", "Shows a list of professions to choose from");
-	Command::register($MODULE_NAME, "", "nlprof.php", "nlprof", "all", "Shows a list of nanolines given a profession");
-	Command::register($MODULE_NAME, "", "nlline.php", "nlline", "all", "Shows a list of nanos given a nanoline");
+	Command::register($MODULE_NAME, "", "nlprof.php", "nlprof", "all", "Shows a list of nanolines given a profession", 'nanolines');
+	Command::register($MODULE_NAME, "", "nlline.php", "nlline", "all", "Shows a list of nanos given a nanoline", 'nanolines');
 
 	//Settings
 	Setting::add($MODULE_NAME, 'maxnano', 'Number of Nanos shown on the list', 'edit', "number", '40', '30;40;50;60', "", "mod");
@@ -21,7 +21,6 @@
 
 	//Helpfiles
 	Help::register($MODULE_NAME, "nano", "nano.txt", "guild", "How to search for a nano.");
-	Help::register($MODULE_NAME, "nanolines", "nanolines.txt", "all", "How to use nanolines");
 	Help::register($MODULE_NAME, "nanolines", "nanolines.txt", "all", "How to use nanolines");
 	Help::register($MODULE_NAME, "maxnano", "maxnano.txt", "mod", "Set the max number of nano results");
 	Help::register($MODULE_NAME, "fp", "fp.txt", "mod", "How to tell if a nano is usable in false profession");

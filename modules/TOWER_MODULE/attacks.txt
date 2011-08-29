@@ -1,29 +1,27 @@
-<header>::::: Attack Message Commands and Options :::::<end>
-
-<red>Remember that the bot needs at least Squad Commander to be able to see Tower Messages<end>
+<header> :::::: Attack Message Commands and Options :::::: <end>
 
 <highlight>To see the last 20 attack messages:<end>
 <tab><symbol>attacks
 
 <highlight>To see page 2 of the last attack messages:<end>
-<tab><symbol>attacks 2
+<tab><symbol>attacks 'page number'
 
 <highlight>To see the last 20 attack messages for a certain site:<end>
-<tab><symbol>attacks EFP 5
+<tab><symbol>attacks 'playfield' 'site number'
 
 <highlight>To see page 2 of the last attack messages for a certain site:<end>
-<tab><symbol>attacks EFP 5 2
+<tab><symbol>attacks 'playfield' 'site number' 'page number'
 
 <highlight>To see the last 20 attack messages for specific person:<end>
-<tab><symbol>attacks player Tyrence
+<tab><symbol>attacks player 'character name'
 
 <highlight>To see page 2 of the last attack messages for specific person:<end>
-<tab><symbol>attacks player Tyence 2
+<tab><symbol>attacks player 'character name' 'page number'
 
 <highlight>To see the last 20 attack messages for specific guild:<end>
-<tab><symbol>attacks org The Pain Dealers
+<tab><symbol>attacks org 'exact guild name'
 
 <highlight>To see page 2 of the last attack messages for specific guild:<end>
-<tab><symbol>attacks org The Pain Dealers 2
+<tab><symbol>attacks org 'exact guild name' 'page number'
 
-Note: Use '%' as a wildcard in guild and player names
+Note: You can use '%' as a wildcard in guild and player names

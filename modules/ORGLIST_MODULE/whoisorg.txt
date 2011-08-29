@@ -1,0 +1,13 @@
+<header> :::::: Whoisorg Command :::::: <end>
+
+<highlight>Show info about an org on the current server by the org id<end>
+<tab><symbol>whoisorg 'org id'
+
+<highlight>Show info about an org on the current server by a character in that org<end>
+<tab><symbol>whoisorg 'character'
+
+<highlight>Show info about an org on a specified server by the org id<end>
+<tab><symbol>whoisorg 'org id' 'server number'
+
+<highlight>Show info about an org on a specified server by a character in that org<end>
+<tab><symbol>whoisorg 'character' 'server number'

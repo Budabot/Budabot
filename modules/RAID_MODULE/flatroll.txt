@@ -1,4 +1,4 @@
-<header>::::: Rolling an item flat :::::<end>
+<header> :::::: Flatrolling Items :::::: <end>
 
 <highlight>Adding an item to the list<end>
 <tab><symbol>loot 'item name'

@@ -12,24 +12,6 @@
 
 // Adding a quote
 if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
-	
-	if (!AccessLevel::check_access($sender, "raidleader")) {
-		$requirement = $chatBot->settings["quote_add_min"];
-		if ($requirement >= 0) {
-			if (!$chatBot->guildmembers[$sender]) {
-				$chatBot->send("Only org members can add a new quote.", $sendto);
-				return;
-			} else if ($requirement < $chatBot->guildmembers[$sender]) {
-				$rankdiff = $chatBot->guildmembers[$sender]-$requirement;
-				$chatBot->send("You need $rankdiff promotion(s) in order to add a quote.", $sendto);
-				return;
-			}
-		} else if (($requirement == -1 && !isset($chatBot->chatlist[$sender])) && !$chatBot->guildmembers[$sender]) {
-			$chatBot->send("You need to at least be in the private chat in order to add a quote.", $sendto);
-			return;
-		}
-	}
-	
 	$arr[1] = trim($arr[1]);
 	$db->query("SELECT * FROM `#__quote` WHERE `What` LIKE '".str_replace("'", "''", $arr[1])."'");
 	if ($db->numrows() > 0) {
@@ -87,7 +69,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 			$msg = "This quote is too big.";
 		}
 	}
-	
+	$chatBot->send($msg, $sendto);
 // Removing a quote
 } else if (preg_match("/^quote (rem|del|remove|delete) (\\d+)$/i", $message, $arr)) {
 
@@ -111,7 +93,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 	} else {
 		$msg = "Could not find this quote.  Already deleted?";
 	}
-
+	$chatBot->send($msg, $sendto);
 //Searching for authors or victims.
 } else if (preg_match("/^quote search (.+)$/i", $message, $arr)) {
 	
@@ -161,16 +143,63 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 	} else {
 		$msg = "Couldn't find any matches for this search.";
 	}
-	
+	$chatBot->send($msg, $sendto);
 //Show the top quoters/quoted
 } else if (preg_match("/^quote stats$/i", $message, $arr)) {
-	// might need to run it ourselves the first time. 
-	// cron will keep updating it later.
-	if ($msg == "") {
-		include "quotestats.php";
+	$top = $chatBot->settings["quote_stat_count"];
+
+	$db->query("SELECT * FROM `#__quote`");
+	$count = $db->numrows();
+
+	//$quoters = setup a list of who quoted the most
+	$db->query("SELECT * FROM `#__quote` ORDER BY `Who`");
+	$data = $db->fObject('all');
+	$quoters = array();
+	forEach ($data as $row) {
+		if ($row->Who != "") {
+			$quoters[$row->Who]++;
+		}
 	}
-	$msg = $chatBot->data["quotestats"];
+	arsort($quoters);
+
+	//$victims = setup a list of who was quoted the most
+	$db->query("SELECT * FROM `#__quote` ORDER BY `OfWho`");
+	$data = $db->fObject('all');
+	$victims = array();
+	forEach ($data as $row) {
+		if ($row->Who != "") {
+			$victims[$row->OfWho]++;
+		}
+	}
+	arsort($victims);
 	
+	$blob = "<header> :::::: Quote Stats :::::: <end>\n\n";
+	$blob .= "<highlight>Top $top Quoters:<end> (".count($quoters)." total)\n";
+	$listnum = 0;
+	forEach ($quoters as $key => $val) {
+		$listnum++;
+		$blob .= "<tab>$listnum) ".
+			"<a href='chatcmd:///tell ".$chatBot->vars["name"]." quote search $key>$key</a>".
+			": <highlight>$val<end> ".number_format((100*($val/$count)),0)."%\n";
+		if ($listnum >= $top) {
+			break;
+		}
+	}
+
+	$blob .= "\n<highlight>Top $top Quoted:<end> (".count($victims)." total)\n";
+	$listnum = 0;
+	forEach ($victims as $key => $val) {
+		$listnum++;
+		$blob .= "<tab>$listnum) ".
+			"<a href='chatcmd:///tell ".$chatBot->vars["name"]." quote search $key>$key</a>".
+			": <highlight>$val<end> ".number_format((100*($val/$count)),0)."%\n";
+		if ($listnum >= $top) {
+			break;
+		}
+	}
+
+	$msg = Text::make_blob("Quote stats", $blob);
+	$chatBot->send($msg, $sendto);
 //View a specific quote
 } else if (preg_match("/^quote ([0-9]+)$/i", $message, $arr)) {
 	
@@ -215,7 +244,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 	} else {
 		$msg = "No quote found with that ID.";
 	}
-	
+	$chatBot->send($msg, $sendto);
 //View a random quote
 } else if (preg_match("/^quote$/i", $message)) {
 	//get total number of entries for rand (and see if we even have any quotes to show)
@@ -267,11 +296,9 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 	} else {
 		$msg = "I dont have any quotes to show!";
 	}
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }
 
-if ($msg) {
-	$chatBot->send($msg, $sendto);
-}
 ?>

@@ -1,4 +1,4 @@
-<header>::::: Help on Private Channel :::::<end>
+<header> :::::: Help on Private Channel :::::: <end>
 
 <highlight>To show who is in the private channel<end>
 <tab><symbol>sm
@@ -17,3 +17,9 @@
 
 <highlight>To show who is on the guestlist<end>
 <tab><symbol>members
+
+<highlight>To join the Bot<end>
+<tab>/tell <myname> join
+
+<highlight>To leave the bot<end>
+<tab><symbol>leave

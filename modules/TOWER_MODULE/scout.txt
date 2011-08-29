@@ -1,10 +1,13 @@
-<header>::::: Scout Commands :::::<end>
+<header> :::::: Scout Commands :::::: <end>
 
-<highlight>To scout a base:<end>
-<tab><symbol>scout zone site_number closing_time ct_ql faction guild_name
+<highlight>To scout a tower site :<end>
+<tab><symbol>scout 'playfield' 'site number' 'closing time' 'ct ql' 'faction' 'guild name'
 
 For instance:
 <tab><symbol>scout PW 4 12:34:56 190 clan Dark Ninjas
 
-<highlight>To see the list of scouted bases:<end>
+<highlight>To remove a scouted tower site:<end>
+<tab><symbol>remscout 'playfield' 'site number'
+
+<highlight>To show info on the list of scouted bases:<end>
 <tab><symbol>opentimes

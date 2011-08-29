@@ -1,29 +1,27 @@
-<header>::::: Victory Message Commands and Options :::::<end>
-
-<red>Remember that the bot needs at least Squad Commander to be able to see Tower Messages<end>
+<header> :::::: Victory Message Commands and Options :::::: <end>
 
 <highlight>To see the last 20 victory messages:<end>
 <tab><symbol>victory
 
 <highlight>To see page 2 of the last victory messages:<end>
-<tab><symbol>victory 2
+<tab><symbol>victory 'page number'
 
 <highlight>To see the last 20 victory messages for a certain site:<end>
-<tab><symbol>victory EFP 5
+<tab><symbol>victory 'playfield' 'site number'
 
 <highlight>To see page 2 of the last victory messages for a certain site:<end>
-<tab><symbol>victory EFP 5 2
+<tab><symbol>victory 'playfield' 'site number' 'page number'
 
 <highlight>To see the last 20 victory messages for specific person:<end>
-<tab><symbol>victory player Tyrence
+<tab><symbol>victory player 'player name'
 
 <highlight>To see page 2 of the last victory messages for specific person:<end>
-<tab><symbol>victory player Tyence 2
+<tab><symbol>victory player 'player name' 'page number'
 
 <highlight>To see the last 20 victory messages for specific guild:<end>
-<tab><symbol>victory org The Pain Dealers
+<tab><symbol>victory org 'exact guild name'
 
 <highlight>To see page 2 of the last victory messages for specific guild:<end>
-<tab><symbol>victory org The Pain Dealers 2
+<tab><symbol>victory org 'exact guild name' 'page number'
 
-Note: Use '%' as a wildcard in guild and player names
+Note: You can use '%' as a wildcard in guild and player names

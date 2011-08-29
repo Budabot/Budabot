@@ -1,13 +1,13 @@
-<header>::::: Notes Commands :::::<end>
+<header> :::::: Notes Commands :::::: <end>
 
-<highlight>Shows all yours notes
+<highlight>Show all yours notes:<end>
 <tab><symbol>notes
 
 
-<highlight>Adds a note to your list
-<tab><symbol>note add &lt;note&gt;
+<highlight>Add a note to your list:<end>
+<tab><symbol>notes add 'message'
 
 
-<highlight>Removes a note from your list
-<tab><symbol>note rem &lt;note_id&gt;
+<highlight>Remove a note from your list:<end>
+<tab><symbol>notes rem 'note id'
 

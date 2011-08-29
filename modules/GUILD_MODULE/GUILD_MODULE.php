@@ -36,6 +36,7 @@
 	Help::register($MODULE_NAME, "updateorg", "updateorg.txt", "guildadmin", "Force an update of org roster");
 	Help::register($MODULE_NAME, "lastseen", "lastseen.txt", "guild", "Check when an orgmember was online");
 	Help::register($MODULE_NAME, "logon", "logon_msg.txt", "guild", "Changing your logon message");
+	Help::register($MODULE_NAME, "logonadmin", "logonadmin.txt", "mod", "Changing another character's logon message");
 	Help::register($MODULE_NAME, "notify", "notify.txt", "guildadmin", "Add or remove a player from the notify list");
 	Help::register($MODULE_NAME, "tellall", "tellall.txt", "leader", "Send a tell to all online guild members");
 ?>

@@ -1,0 +1,4 @@
+<header> :::::: Accept Command :::::: <end>
+
+<highlight>To manually accept a private channel invitation from another character:<end>
+<tab><symbol>accept 'character'

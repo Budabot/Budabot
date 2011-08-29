@@ -6,19 +6,18 @@
 	DB::loadSQLFile($MODULE_NAME, 'raid_loot');
 
 	//Loot list and adding/removing of players	
-	Command::register($MODULE_NAME, "", "loot.php", "loot", "leader", "Adds an item to the loot list");
-	Command::register($MODULE_NAME, "", "multiloot.php", "multiloot", "leader", "Adds items using multiloot");
-	Command::register($MODULE_NAME, "", "loot.php", "clear", "leader", "Clears the loot list");
-	Command::register($MODULE_NAME, "", "remloot.php", "remloot", "leader", "Remove item from loot list");
-	Command::register($MODULE_NAME, "", "reroll.php", "reroll", "leader", "Rerolls the residual loot list");
-	Command::register($MODULE_NAME, "", "flatroll.php", "flatroll", "leader", "Rolls the loot list");
+	Command::register($MODULE_NAME, "", "loot.php", "loot", "leader", "Adds an item to the loot list", 'flatroll');
+	Command::register($MODULE_NAME, "", "multiloot.php", "multiloot", "leader", "Adds items using multiloot", 'flatroll');
+	Command::register($MODULE_NAME, "", "remloot.php", "remloot", "leader", "Remove item from loot list", 'flatroll');
+	Command::register($MODULE_NAME, "", "reroll.php", "reroll", "leader", "Rerolls the residual loot list", 'flatroll');
+	Command::register($MODULE_NAME, "", "flatroll.php", "flatroll", "leader", "Rolls the loot list", 'flatroll');
 	CommandAlias::register($MODULE_NAME, "flatroll", "rollloot");
 	CommandAlias::register($MODULE_NAME, "flatroll", "result");
 	CommandAlias::register($MODULE_NAME, "flatroll", "win");
 	
-	Command::register($MODULE_NAME, "", "list.php", "list", "all", "Shows the loot list");
-	Command::register($MODULE_NAME, "", "add.php", "add", "all", "Let a player adding to a slot");	
-	Command::register($MODULE_NAME, "", "rem.php", "rem", "all", "Let a player removing from a slot");
+	Command::register($MODULE_NAME, "", "list.php", "list", "all", "Shows the loot list", 'flatroll');
+	Command::register($MODULE_NAME, "", "add.php", "add", "all", "Let a player adding to a slot", 'add_rem');	
+	Command::register($MODULE_NAME, "", "rem.php", "rem", "all", "Let a player removing from a slot", 'add_rem');
 	
 	// APFs
 	Command::register($MODULE_NAME, "", "13.php", "13", "leader", "Adds apf 13 loot list", 'apfloot');
@@ -64,12 +63,8 @@
 	Setting::add($MODULE_NAME, "add_on_loot", "Adding to loot show on", "edit", "options", "2", "tells;privatechat;privatechat and tells", '1;2;3', "mod");
 
 	// Help files
-	Help::register($MODULE_NAME, "add", "add_rem.txt", "all", "Adding to a lootitem");
-	Help::register($MODULE_NAME, "rem", "add_rem.txt", "all", "Removing your bid on a lootitem");
-	Help::register($MODULE_NAME, "loot", "flatroll.txt", "leader", "Adding an item to be flatrolled");
-	Help::register($MODULE_NAME, "remloot", "flatroll.txt", "leader", "Removing an item from a flatroll list");
-	Help::register($MODULE_NAME, "rollloot", "flatroll.txt", "leader", "Flatroll an item");
-	Help::register($MODULE_NAME, "multiloot", "flatroll.txt", "leader", "Adding multiple of an item to be rolled");
+	Help::register($MODULE_NAME, "add_rem", "add_rem.txt", "all", "Adding to a lootitem");
+	Help::register($MODULE_NAME, "flatroll", "flatroll.txt", "leader", "Flatroll an item");
 	
 	Help::register($MODULE_NAME, "apfloot", "apfloot.txt", "guild", "Show the Loots of the APF");
 	Help::register($MODULE_NAME, "dbloot", "dbloot.txt", "all", "Loot manager for DB1/DB2 Instance");

@@ -1,0 +1,11 @@
+<header> :::::: Links Commands :::::: <end>
+
+<highlight>Shows all links:<end>
+<tab><symbol>links
+
+<highlight>Add a link to the list:<end>
+<tab><symbol>links add 'url' 'description'
+
+<highlight>Remove a note from your list:<end>
+<tab><symbol>links rem 'link id'
+

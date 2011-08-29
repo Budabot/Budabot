@@ -2,7 +2,7 @@
 
 if (preg_match("/^bank char$/i", $message)) {
 	$blob = "<header> :::::: Bank Characters :::::: <end>\n\n";
-	$db->query("SELECT DISTINCT character FROM bank");
+	$db->query("SELECT DISTINCT character FROM bank ORDER BY character ASC");
 	$data = $db->fObject('all');
 	forEach ($data as $row) {
 		$character_link = Text::make_chatcmd($row->character, "/tell <myname> bank pack {$row->character}");
@@ -15,7 +15,7 @@ if (preg_match("/^bank char$/i", $message)) {
 	$name = ucfirst(strtolower($arr[1]));
 
 	$blob = "<header> :::::: Backpacks for $name :::::: <end>\n\n";
-	$db->query("SELECT DISTINCT container, character FROM bank WHERE character = '$name'");
+	$db->query("SELECT DISTINCT container, character FROM bank WHERE character = '$name' ORDER BY container ASC");
 	$data = $db->fObject('all');
 	if (count($data) > 0) {
 		forEach ($data as $row) {
@@ -34,13 +34,13 @@ if (preg_match("/^bank char$/i", $message)) {
 	$limit = Setting::get('max_bank_items');
 
 	$blob = "<header> :::::: Contents of $pack :::::: <end>\n\n";
-	$db->query("SELECT * FROM bank WHERE character = '$name' AND container = '{$pack}' LIMIT {$limit}");
+	$db->query("SELECT * FROM bank WHERE character = '$name' AND container = '{$pack}' ORDER BY name ASC, ql DESC LIMIT {$limit}");
 	$data = $db->fObject('all');
 	
 	if (count($data) > 0) {
 		forEach ($data as $row) {
 			$item_link = Text::make_item($row->lowid, $row->highid, $row->ql, $row->name);
-			$blob .= $item_link . "\n";
+			$blob .= "{$item_link} ({$row->ql})\n";
 		}
 		
 		$msg = Text::make_blob("Contents of $pack", $blob);
@@ -64,7 +64,7 @@ if (preg_match("/^bank char$/i", $message)) {
 	if (count($data) > 0) {
 		forEach ($data as $row) {
 			$item_link = Text::make_item($row->lowid, $row->highid, $row->ql, $row->name);
-			$blob .= "{$item_link} ({$row->container}, <green>{$row->character})<end>\n";
+			$blob .= "{$item_link} ({$row->ql}) (<green>{$row->character}<end>, {$row->container})\n";
 		}
 		
 		$msg = Text::make_blob("Bank Search Results for {$arr[1]}", $blob);

@@ -1,0 +1,10 @@
+<header> :::::: Logonadmin Command :::::: <end>
+
+<highlight>See what a character's logon message is set to:<end>
+<tab><symbol>logonadmin 'character'
+
+<highlight>Set a character's logon message:<end>
+<tab><symbol>logonadmin 'character' 'logon message'
+
+<highlight>Clear a character's logon message:<end>
+<tab><symbol>logonadmin 'character' clear

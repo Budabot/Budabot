@@ -19,7 +19,7 @@
 	CommandAlias::register($MODULE_NAME, "xp", "sk");
 	
 	// AXP calculator
-	Command::register($MODULE_NAME, "", "axp.php", "axp", "all", "AXP Calculator");
+	Command::register($MODULE_NAME, "", "axp.php", "axp", "all", "AXP Calculator", 'xp');
 
 	// Help files
     Help::register($MODULE_NAME, "level", "level.txt", "all", "How to use level");

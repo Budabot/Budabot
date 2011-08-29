@@ -26,4 +26,5 @@
 	Help::register($MODULE_NAME, "is", "isonline.txt", "guild", "Checking if a player is online");
 	Help::register($MODULE_NAME, "orgmembers", "orgmembers.txt", "guild", "How to use orgmembers");
 	Help::register($MODULE_NAME, "orgranks", "orgranks.txt", "guild", "How to use orgranks");
+	Help::register($MODULE_NAME, "whoisorg", "whoisorg.txt", "guild", "How to see basic info about an org");
 ?>

@@ -1,5 +1,8 @@
 <header>::::: Land Control Commands :::::<end>
 
+<highlight>To see a list of all the tower playfields<end>
+<tab><symbol>lc
+
 <highlight>To see info about all sites in a playfield<end>
 <tab><symbol>lc 'playfield'
 <green><tab><symbol>lc GTC<end>

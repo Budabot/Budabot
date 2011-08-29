@@ -1,0 +1,7 @@
+<header> :::::: Ofab Command :::::: <end>
+
+<highlight>See a list of professions and their LE bio types:<end>
+<tab><symbol>ofab
+
+<highlight>See Ofab armor for a particular profession:<end>
+<tab><symbol>ofab 'profession'

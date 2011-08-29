@@ -31,7 +31,7 @@
 
 global $loot;
 global $residual;
-if (preg_match("/^loot clear|clear$/i", $message)) {
+if (preg_match("/^loot clear$/i", $message)) {
   	$loot = "";
 	$residual = "";
   	$msg = "Loot has been cleared by <highlight>$sender<end>.";

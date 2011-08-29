@@ -1,4 +1,4 @@
-<header>::::: Locking the Private Channel :::::<end>
+<header> :::::: Locking the Private Channel :::::: <end>
 
 <highlight>Lock the private channel<end>
 <tab><symbol>lock

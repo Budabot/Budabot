@@ -1,7 +1,7 @@
-<header>::::: Whois Commands :::::<end>
+<header> :::::: Whois Commands :::::: <end>
 
-<highlight>Shows Infos about a player on the current server<end>
-<tab><symbol>whois 'insert name here'
+<highlight>Shows info about a player on the current server<end>
+<tab><symbol>whois 'character name'
 
-<highlight>Shows Infos about a player on all servers<end>
-<tab><symbol>whoisall 'insert name here'
+<highlight>Show info about a player on all servers<end>
+<tab><symbol>whoisall 'character name'

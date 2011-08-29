@@ -1,0 +1,4 @@
+<header> :::::: Vent Command :::::: <end>
+
+<highlight>To see who is in the vent channel:<end>
+<tab><symbol>vent

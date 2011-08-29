@@ -8,9 +8,6 @@ if (preg_match("/^updatebank$/i", $message)) {
 		$chatBot->send($msg, $sendto);
 		return;
 	}
-	
-	$msg = "Updating the bank database...";
-	$chatBot->send($msg, $sendto);
 
 	//remove the header line
 	array_shift($lines);
