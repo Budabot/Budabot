@@ -117,9 +117,9 @@ class Player {
 				`last_update`
 			) VALUES (
 				'{$char->charid}',
-				'{$char->firstname}',
+				'" . str_replace("'", "''", $char->firstname) . "',
 				'{$char->name}',
-				'{$char->lastname}',
+				'" . str_replace("'", "''", $char->lastname) . "',
 				'{$char->level}',
 				'{$char->breed}',
 				'{$char->gender}',
