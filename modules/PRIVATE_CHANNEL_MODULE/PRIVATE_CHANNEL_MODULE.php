@@ -29,8 +29,8 @@
 	Setting::add($MODULE_NAME, "guest_man_join", "Mode of manual private channel join", "edit", "options", "1", "Only for members of guestlist;Everyone", "1;0");
 	Setting::add($MODULE_NAME, "guest_color_channel", "Color for Private Channel relay(ChannelName)", "edit", "color", "<font color=#C3C3C3>");
 	Setting::add($MODULE_NAME, "guest_color_username", "Color for Private Channel relay(UserName)", "edit", "color", "<font color=#C3C3C3>");
-	Setting::add($MODULE_NAME, "guest_color_guild", "Color for Private Channel relay(Text in Guild)", "edit", "color", "<font color=#C3C3C3>");
-	Setting::add($MODULE_NAME, "guest_color_guest", "Color for Private Channel relay(Text in Private Channel)", "edit", "color", "<font color=#C3C3C3>");
+	Setting::add($MODULE_NAME, "guest_color_guild", "Private Channel relay color in guild channel", "edit", "color", "<font color=#C3C3C3>");
+	Setting::add($MODULE_NAME, "guest_color_guest", "Private Channel relay color in private channel", "edit", "color", "<font color=#C3C3C3>");
 	Setting::add($MODULE_NAME, "guest_relay", "Relay the Private Channel with the Guild Channel", "edit", "options", "1", "true;false", "1;0");
 	Setting::add($MODULE_NAME, "guest_relay_commands", "Relay commands and results from/to Private Channel", "edit", "options", "0", "true;false", "1;0");
 	
