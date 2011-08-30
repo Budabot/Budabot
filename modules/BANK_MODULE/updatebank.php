@@ -22,6 +22,9 @@ if (preg_match("/^updatebank$/i", $message)) {
 		if ($location != 'Bank' && $location != 'Inventory') {
 			continue;
 		}
+		if ($container == '') {
+			$container = $location;
+		}
 		
 		$name = str_replace("'", "''", $name);
 		$container = str_replace("'", "''", $container);
