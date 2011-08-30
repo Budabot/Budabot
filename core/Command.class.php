@@ -63,22 +63,6 @@ class Command {
 			Logger::log('ERROR', 'Core', "Error in activating the File $filename for command $command. The file doesn't exists!");
 			return;
 		}
-
-		//Check if the admin status exists
-		if (!is_numeric($admin)) {
-			if ($admin == "leader") {
-				$admin = 1;
-			} else if ($admin == "raidleader" || $admin == "rl") {
-				$admin = 2;
-			} else if ($admin == "mod" || $admin == "moderator") {
-				$admin = 3;
-			} else if ($admin == "admin") {
-				$admin = 4;
-			} else if ($admin != "all" && $admin != "guild" && $admin != "guildadmin") {
-				Logger::log('ERROR', 'Core', "Error in registering command $command for channel $channel. Unknown Admintype: $admin. Admintype is set to all now.");
-				return;
-			}
-		}
 		
 		$chatBot->commands[$channel][$command]["filename"] = $actual_filename;
 		$chatBot->commands[$channel][$command]["admin"] = $admin;
