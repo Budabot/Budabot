@@ -386,6 +386,8 @@ class Budabot extends AOChat {
 	 * @description: Proccess all incoming messages that bot recives
 	 */	
 	function process_packet($packet_type, $args) {
+		$this->process_all_packets($packet_type, $args);
+		
 		// event handlers
 		switch ($packet_type){
 			case AOCP_GROUP_ANNOUNCE: // 60
@@ -413,8 +415,6 @@ class Budabot extends AOChat {
 				$this->process_private_channel_invite($args);
 				break;
 		}
-		
-		$this->process_all_packets($packet_type, $args);
 	}
 	
 	function process_all_packets($packet_type, $args) {
