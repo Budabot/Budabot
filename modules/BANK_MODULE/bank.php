@@ -34,7 +34,7 @@ if (preg_match("/^bank char$/i", $message)) {
 	$limit = Setting::get('max_bank_items');
 
 	$blob = "<header> :::::: Contents of $pack :::::: <end>\n\n";
-	$db->query("SELECT * FROM bank WHERE character = '$name' AND container = '{$pack}' ORDER BY name ASC, ql DESC LIMIT {$limit}");
+	$db->query("SELECT * FROM bank WHERE character = '$name' AND container = '{$pack}' ORDER BY name ASC, ql ASC LIMIT {$limit}");
 	$data = $db->fObject('all');
 	
 	if (count($data) > 0) {
@@ -58,7 +58,7 @@ if (preg_match("/^bank char$/i", $message)) {
 	}
 
 	$blob = "<header> :::::: Bank Search Results for '{$arr[1]}' :::::: <end>\n\n";
-	$db->query("SELECT * FROM bank WHERE 1 = 1 {$where_sql} LIMIT {$limit}");
+	$db->query("SELECT * FROM bank WHERE 1 = 1 {$where_sql} ORDER BY name ASC, ql ASC LIMIT {$limit}");
 	$data = $db->fObject('all');
 	
 	if (count($data) > 0) {
