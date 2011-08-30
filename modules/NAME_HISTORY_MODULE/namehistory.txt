@@ -1,0 +1,4 @@
+<header> :::::: Namehistory Command :::::: <end>
+
+<highlight>To show name history for a particular character:<end>
+<tab><symbol>namehistory 'character'
