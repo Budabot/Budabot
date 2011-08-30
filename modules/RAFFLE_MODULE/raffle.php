@@ -38,10 +38,10 @@ Click <a href='chatcmd:///tell <myname> <symbol>raffle leave'>here</a> if you wi
 	$msg = "
 -----------------------------------------------------------------------
 A raffle for $item (count: $count) has been started by $sender!
-Click $link to join the raffle. Raffle will end in $minutes minutes.
+Click $link to join the raffle. Raffle will end in $minutes minute(s).
 -----------------------------------------------------------------------";
 
-	$chatBot->data["Raffles"]["lastmsgtime"] = time();
+	$chatBot->data["Raffles"]["nextmsgtime"] = get_next_time($chatBot->data["Raffles"]["time"]);
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^raffle start (.+)$/i", $message, $arr)) {
 	if ("msg" == $type) {
@@ -50,7 +50,7 @@ Click $link to join the raffle. Raffle will end in $minutes minutes.
 		return;
 	}
 
-		if ($chatBot->data["Raffles"]["running"]) {
+	if ($chatBot->data["Raffles"]["running"]) {
 		$msg = "<highlight>There is already a raffle in progress.";
 		$chatBot->send($msg, $sendto);
 		return;
@@ -81,10 +81,10 @@ Click <a href='chatcmd:///tell <myname> <symbol>raffle leave'>here</a> if you wi
 	$msg = "
 -----------------------------------------------------------------------
 A raffle for $item has been started by $sender!
-Click $link to join the raffle. Raffle will end in $minutes minutes'.
+Click $link to join the raffle. Raffle will end in $minutes minute(s)'.
 -----------------------------------------------------------------------";
 
-	$chatBot->data["Raffles"]["lastmsgtime"] = time();
+	$chatBot->data["Raffles"]["nextmsgtime"] = get_next_time($chatBot->data["Raffles"]["time"]);
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^raffle cancel$/i", $message, $arr)) {
 	if (!$chatBot->data["Raffles"]["running"]) {
@@ -93,8 +93,7 @@ Click $link to join the raffle. Raffle will end in $minutes minutes'.
 		return;
 	}
 
-	if (($chatBot->data["Raffles"]["owner"] != $sender) && !AccessLevel::check_access($sender, "raidleader"))
-	{
+	if (($chatBot->data["Raffles"]["owner"] != $sender) && !AccessLevel::check_access($sender, "raidleader")) {
 		$msg = "<highlight>Only the owner or admins may cancel the raffle.";
 		$chatBot->send($msg, $sendto);
 		return;
@@ -108,7 +107,6 @@ Click $link to join the raffle. Raffle will end in $minutes minutes'.
 		"time" => NULL,
 		"rafflees" => NULL,
 		"lastresult" => "The last raffle was cancelled.",
-		"lastmsgtime" => NULL,
 		"sendto" => $sendtobuffer
 		);
 

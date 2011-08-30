@@ -9,7 +9,7 @@ if (!isset($chatBot->data["Raffles"])) {
         "time" => NULL,
         "rafflees" => NULL,
         "lastresult" => NULL,
-        "lastmsgtime" => NULL,
+		"nextmsgtime" => NULL,
         "sendto" => NULL
     );
 }
