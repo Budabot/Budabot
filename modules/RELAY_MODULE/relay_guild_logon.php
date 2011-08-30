@@ -11,7 +11,7 @@ if ($chatBot->settings["relaybot"] != "Off" && isset($chatBot->guildmembers[$sen
 
         $msg .= " logged on.";
 
-		$altInfo = $Alts::get_alt_info($sender);
+		$altInfo = Alts::get_alt_info($sender);
 		if (count($altInfo->alts) > 0) {
 			$msg .= " " . $altInfo->get_alts_blob();
 		}

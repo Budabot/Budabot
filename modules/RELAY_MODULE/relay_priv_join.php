@@ -3,7 +3,7 @@
 if ($chatBot->settings['relaybot'] != 'Off' && $type == "joinPriv") {
 	$whois = Player::get_by_name($sender);
 	
-	$altInfo = $Alts::get_alt_info($sender);
+	$altInfo = Alts::get_alt_info($sender);
 	
 	if ($whois !== null) {
 		if (count($altInfo->alts) > 0) {
