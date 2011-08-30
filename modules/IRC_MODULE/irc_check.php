@@ -42,9 +42,6 @@ if (($data = fgets($socket)) && ("1" == Setting::get('irc_status'))) {
 			$ircmessage .= rtrim(htmlspecialchars($ex[$i]))." ";
 		}
 
-		// vhabot compatibility; vhabot sends ascii 03 chars in it's irc messages, this filters them out
-		$ircmessage = str_replace(chr(3), "", $ircmessage);
-
 		if ($rawcmd == "!sayit") {
 			fputs($socket, "PRIVMSG ".$channel." :".$args." \n");
 		} else if ($rawcmd == "!md5") {
@@ -124,11 +121,19 @@ if (($data = fgets($socket)) && ("1" == Setting::get('irc_status'))) {
 			if (Setting::get('irc_debug_messages') == 1) {
 				Logger::log_chat("Inc. IRC Msg.", $nick, $ircmessage);
 			}
+			
+			// handle relay messages from other bots
 			if (preg_match("/" . chr(2) . chr(2) . chr(2) . "(.+)" . chr(2) . " (.+)/i", $ircmessage, $arr)) {
 				$ircmessage = "<white>{$arr[1]} {$arr[2]}<end>";
 			} else {
 				$ircmessage = "<yellow>[IRC]<end><white> {$nick}: {$ircmessage}<end>";
 			}
+			
+			// handle item links from other bots
+			$pattern = "/" . chr(3) . chr(3) . "(.+?)" . chr(3) . ' ' . chr(3) . "[(](.+?)id=([0-9]+)&amp;id2=([0-9]+)&amp;ql=([0-9]+)[)]" . chr(3) . chr(3) . "/";
+			$replace = '<a href="itemref://\3/\4/\5">\1</a>';
+			$ircmessage = preg_replace($pattern, $replace, $ircmessage);
+			
 			if ($chatBot->vars['my_guild'] != "") {
 				$chatBot->send($ircmessage, "guild", true);
 			}

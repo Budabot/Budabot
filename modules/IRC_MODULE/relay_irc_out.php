@@ -11,17 +11,10 @@ global $socket;
 if ("1" == Setting::get('irc_status')) {
 	if ($args[2][0] != Setting::get("symbol")) {
 		
-		$patterns = array(
-		  '/<a href="itemref:\/\/(\d+)\/\1\/(\d+)">([^<]+)<\/a>/',
-		  '/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/',
-		);
-
-		$replaces = array(
-		  '\3 (http://auno.org/ao/db.php?id=\1)',
- 		  '\4 (http://auno.org/ao/db.php?id=\1&ql=\3)',
- 		);
+		$pattern = '/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/';
+		$replace = chr(3) . chr(3) . '\4' . chr(3) . ' ' . chr(3) . '(http://auno.org/ao/db.php?id=\1&id2=\2&ql=\3)' . chr(3) . chr(3);
  
-		$msg = htmlspecialchars_decode(preg_replace($patterns, $replaces, $message));
+		$msg = htmlspecialchars_decode(preg_replace($pattern, $replace, $message));
 		//$msg = htmlspecialchars_decode(preg_replace($patterns, $replaces, $message), ENT_QUOTES);
  
  		fputs($socket, "PRIVMSG ".Setting::get('irc_channel') . " :" . chr(2) . chr(2) . chr(2) . "[{$chatBot->vars['my_guild']}]" .  chr(2) . " $sender: $msg\n");
