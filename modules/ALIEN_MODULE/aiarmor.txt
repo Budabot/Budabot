@@ -1,4 +1,4 @@
-<header>::::: Alien Armor Tradeskill Process :::::<end>
+<header> :::::: Alien Armor Tradeskill Process :::::: <end>
 
 <highlight>To show the Process for an Alien Armor piece do:<end>
 <tab><symbol>aiarmor 'type'
