@@ -32,7 +32,7 @@ if ($chatBot->vars["my_guild_id"] != "") {
 		}
 	}
 	
-	$db->beginTransaction();
+	$db->begin_transaction();
 	
 	// Going through each member of the org and add or update his/her
 	forEach ($org->members as $member) {
@@ -68,7 +68,7 @@ if ($chatBot->vars["my_guild_id"] != "") {
 		unset($dbentrys[$member->name]);
 	}
 	
-	$db->Commit();
+	$db->commit();
 	
 	// remove buddies who are no longer org members
 	forEach ($dbentrys as $buddy) {

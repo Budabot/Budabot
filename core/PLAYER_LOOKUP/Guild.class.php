@@ -117,7 +117,7 @@ class Guild {
 		// when looking up charids for characters
 		if ($data_save) {
 			$db = DB::get_instance();
-			$db->beginTransaction();
+			$db->begin_transaction();
 			
 			$sql = "UPDATE players SET guild_id = '', guild = '' WHERE guild_id = {$guild->guild_id} AND dimension = {$rk_num}";
 			$db->exec($sql);
@@ -126,7 +126,7 @@ class Guild {
 				Player::update($member);
 			}
 
-			$db->Commit();
+			$db->commit();
 		}
 
 		// if a new xml file was downloaded, save it

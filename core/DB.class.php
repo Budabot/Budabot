@@ -218,12 +218,12 @@ class DB {
 	}
 	
 	//Start of an transaction	
-	function beginTransaction() {
+	function begin_transaction() {
 		$this->sql->beginTransaction();
 	}
 	
 	//Commit an transaction	
-	function Commit() {
+	function commit() {
 		$this->sql->Commit();
 	}
 
@@ -354,7 +354,7 @@ class DB {
 			Logger::log('ERROR', 'Core', "No SQL file found with name '$name' in module '$module'!");
 		} else if ($forceUpdate || Util::compare_version_numbers($maxFileVersion, $currentVersion) > 0) {
 			$fileArray = file("$dir/$file");
-			//$db->beginTransaction();
+			//$db->begin_transaction();
 			forEach ($fileArray as $num => $line) {
 				$line = trim($line);
 				// don't process comment lines or blank lines
@@ -362,7 +362,7 @@ class DB {
 					$db->exec($line);
 				}
 			}
-			//$db->Commit();
+			//$db->commit();
 		
 			if (!Setting::save($settingName, $maxFileVersion)) {
 				Setting::add($module, $settingName, $settingName, 'noedit', 'text', $maxFileVersion);

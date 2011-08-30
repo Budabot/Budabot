@@ -87,7 +87,7 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 		return;
 	}
 
-	$db->beginTransaction();
+	$db->begin_transaction();
 
 	// remove all the old alt information
 	$db->exec("DELETE FROM `alts` WHERE `main` = '{$altInfo->main}'");

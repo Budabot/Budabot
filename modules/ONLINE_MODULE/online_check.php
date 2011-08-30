@@ -30,7 +30,7 @@
    */
 
 if ($chatBot->is_ready()) {
-	$db->beginTransaction();
+	$db->begin_transaction();
 	   
 	$sql = "SELECT name FROM `online`";
 	$db->query($sql);

@@ -12,7 +12,7 @@ if (preg_match("/^updatebank$/i", $message)) {
 	//remove the header line
 	array_shift($lines);
 
-	$db->beginTransaction();
+	$db->begin_transaction();
 	$db->exec("DROP TABLE IF EXISTS bank");
 	$db->exec("CREATE TABLE bank (name varchar(150), lowid int, highid int, ql int, character VARCHAR(20), container VARCHAR(150), location VARCHAR(150))");
 
@@ -28,7 +28,7 @@ if (preg_match("/^updatebank$/i", $message)) {
 		$sql = "INSERT INTO bank (name, lowid, highid, ql, character, container, location) VALUES ('{$name}', '{$lowId}', '{$highId}', '{$ql}', '{$character}', '{$container}', '${location}')";
 		$db->exec($sql);
 	}
-	$db->Commit();
+	$db->commit();
 	
 	$msg = "The bank database has been updated.";
 	$chatBot->send($msg, $sendto);
