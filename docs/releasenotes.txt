@@ -1,4 +1,35 @@
 *****************************
+	Version 2.3_RC1:
+*****************************
+-added NAME_HISTORY module for tracking players through name changes
+-added 'allpackets' event type so modules can process packets directly if they wish
+-RAFFLE_MODULE now shows reminders every minute on the minute and at 30 seconds (thanks Kinaton (RK1) for requesting this)
+-rewrote BANK_MODULE which now imports csv files from AO Items Assistant (thanks Rosss (RK1) for requesting/testing this)
+-private_channel_cmd_feedback and guild_channel_cmd_feedback settings added to control whether the bot responds if a command doesn't exist (thanks Mdkdoc420 (RK2) for requesting this)
+-IRC_MODULE should now match irc implementations of other bots and relay items links and messages between bots correctly
+-fix for !attacks and !victory paging (thanks Mdkdoc420 (RK2))
+-ALIEN_MODULE now contains !aiarmor, !aigen, !leprocs, !bio (can now handle multiple bios as once), and added new !bioinfo and !ofab (thanks Mdkdoc420 (RK2))
+-nearly all commands should have a help file now
+-guides in the GUIDE_MODULE should page better now; fixed/updated some guides (thanks Raging (RK1) for requesting this)
+-!logonadmin lets admins view, change, or clear another character's logon message (thanks Ross (RK1) for requesting this)
+-!logs command lets you view the last 7000 characters of a log file from in game
+-!checkaccess shows your effective access level, taking into account alts_inherit_admin setting
+-updated !about to include people who I intended to add for the 2.2 release but forgot
+-added Text::make_structured_blob() for more control over how blob windows are generated (thanks Raging (RK1))
+-!timers can now take days as a time unit (thanks Mdkdoc420 (RK2))
+-updated !fight, !ding, !doh (thanks Mdkdoc420 (RK2))
+-fix for showing alts with !whois output (thanks Mdkdoc420 (RK2))
+-!findorg, !whoisorg, and !history can now take an optional dimension parameter (thanks Mdkdoc420 (RK2) for requesting this)
+-items db updated to 18.04.07
+-moved ALTS module to be a core module; alts must now be validated with !altvalidate before they can inherit their main's access level (thanks Raging (RK1))
+-added !fp for determining if a nano is usable in false profession (thanks Wolfbiter (RK1) for letting me use his code as reference)
+-!13, !28, and !35 now display the correct items as multiloot (thank you Haku for reporting this)
+-!executesql let's you run queries on your bot from in game (superadmin only)
+-!online now shows a default icon for characters where the profession is unknown
+-ITEMS_MODULE now longer has support for Xyphos.com
+-blob sizes should be calculated correctly now, possibly fixing several issues (thanks Raging (RK1))
+
+*****************************
 	Version 2.2_GA:
 *****************************
 -added LISTBOT_MODULE and renamed it to WAITLIST_MODULE
