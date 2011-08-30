@@ -70,6 +70,22 @@ class AltInfo {
 		
 		return $msg;
 	}
+
+	public function get_online_alts() {
+		$online_list = array();
+
+		if (Buddylist::is_online($this->main)) {
+			$online_list []= $this->main;
+		}
+		
+		forEach ($this->alts as $name => $validated) {
+			if (Buddylist::is_online($name)) {
+				$online_list []= $name;
+			}
+		}
+		
+		return $online_list;
+	}
 }
 
 class Alts {

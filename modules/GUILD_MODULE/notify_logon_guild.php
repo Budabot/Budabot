@@ -1,6 +1,14 @@
 <?php
 
 if (isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
+	if (Setting::get('first_and_last_alt_only') == 1) {
+		// if at least one alt/main is still online, don't show logoff message
+		$altInfo = Alts::get_alt_info($sender);
+		if (count($altInfo->get_online_alts()) > 1) {
+			return;
+		}
+	}
+
 	$whois = Player::get_by_name($sender);
 
 	$msg = '';
