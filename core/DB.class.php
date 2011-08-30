@@ -42,6 +42,7 @@ class DB {
 	private $dim;
 	private $guild;
 	private $lastQuery;
+	private $in_transaction = false;
 	public $errorCode = 0;
 	public $errorInfo;
 	public $table_replaces = array();
@@ -219,12 +220,18 @@ class DB {
 	
 	//Start of an transaction	
 	function begin_transaction() {
+		$this->in_transaction = true;
 		$this->sql->beginTransaction();
 	}
 	
 	//Commit an transaction	
 	function commit() {
+		$this->in_transaction = false;
 		$this->sql->Commit();
+	}
+	
+	function in_transaction() {
+		return $this->in_transaction;
 	}
 
 	//Return the last inserted ID
