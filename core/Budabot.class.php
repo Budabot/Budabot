@@ -895,7 +895,7 @@ class Budabot extends AOChat {
 
 		if ($access !== true || $filename == "") {
 			// if they've disabled feedback for guild or private channel, just return
-			if ((Setting::get('guild_channel_syntax_errors') == 0 && $type == 'guild') || ((Setting::get('private_channel_syntax_errors') == 0 && $type == 'priv'))) {
+			if ((Setting::get('guild_channel_cmd_feedback') == 0 && $type == 'guild') || ((Setting::get('private_channel_cmd_feedback') == 0 && $type == 'priv'))) {
 				return;
 			}
 				
