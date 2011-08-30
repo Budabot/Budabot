@@ -1,7 +1,6 @@
 <?php
 
 if (preg_match("/^alts main ([a-z0-9-]+)$/i", $message, $arr)) {
-	$alt = $sender;
 	$new_main = ucfirst(strtolower($arr[1]));
 
 	$uid = $chatBot->get_uid($new_main);

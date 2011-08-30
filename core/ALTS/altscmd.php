@@ -106,14 +106,14 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 
 	$msg = "Successfully set your new main as <highlight>{$new_main}<end>.";
 	$chatBot->send($msg, $sendto);
-} else if (preg_match("/^alts ([a-z0-9-]+)$/i", $message, $arr) || preg_match("/^alts$/i", $message, $arr)) {
+} else if (preg_match("/^alts ([a-z0-9-]+)$/i", $message, $arr) || preg_match("/^alts$/i", $message)) {
 	if (isset($arr[1])) {
 		$name = ucfirst(strtolower($arr[1]));
 	} else {
 		$name = $sender;
 	}
 
-	$altInfo = Alts::get_alt_info($sender);
+	$altInfo = Alts::get_alt_info($name);
 	if (count($altInfo->alts) == 0) {
 		$msg = "No alts are registered for <highlight>{$name}<end>.";
 	} else {
