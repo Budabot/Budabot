@@ -11,8 +11,6 @@
 
 	Command::register($MODULE_NAME, "", "kos.php", "kos", "guild", "Shows the Kill On Sight List");
 	Command::register($MODULE_NAME, "", "time.php", "time", "all", "Shows the time in the different timezones");
-	Command::register($MODULE_NAME, "", "whois.php", "whois", "all", "Display a character's info");
-	Command::register($MODULE_NAME, "", "whois.php", "whoisall", "all", "Display a character's info for all dimensions", 'whois');
 	Command::register($MODULE_NAME, "", "calc.php", "calc", "all", "Calculator");
 	Command::register($MODULE_NAME, "", "oe.php", "oe", "all", "OE");
 	Command::register($MODULE_NAME, "", "history.php", "history", "all", "Show history of a player");
@@ -38,7 +36,6 @@
 	CommandAlias::register($MODULE_NAME, "capxp", "capsk");
 
 	// Help files
-	Help::register($MODULE_NAME, "whois", "whois.txt", "all", "Show char stats at current and all dimensions");
     Help::register($MODULE_NAME, "calc", "calculator.txt", "all", "Calculator");
     Help::register($MODULE_NAME, "oe", "oe.txt", "all", "Calculating the OE ranges");
     Help::register($MODULE_NAME, "roll", "roll.txt", "all", "How to use the flip and roll command");
