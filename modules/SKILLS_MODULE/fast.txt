@@ -1,8 +1,0 @@
-<header>fast Usage:<end>
-/tell <myname> <symbol>fast [<orange>A<end>] [<orange>F<end>]
-[<orange>A<end>] = Weapon Attack Time
-[<orange>F<end>] = Your Fast Attack Skill
-Example:
-Your weapon has an attack time of <orange>1.2<end> seconds.
-You have <orange>900<end> fast attack Skill.
-<a href='chatcmd:///tell <myname> <symbol>fast 1.2 900'>/tell <myname> <symbol>fast 1.2 900</a>

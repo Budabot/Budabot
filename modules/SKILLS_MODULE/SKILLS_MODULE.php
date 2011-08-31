@@ -13,8 +13,8 @@
 	Command::register($MODULE_NAME, "", "mafist.php", "mafist", "all", "MA Fist: Calculates your fist speed.");
 	Command::register($MODULE_NAME, "", "dimach.php", "dimach", "all", "Dimach: Calculates dimach facts.");
 	Command::register($MODULE_NAME, "", "brawl.php", "brawl", "all", "Brawl: Calculates brawl facts.");
-	Command::register($MODULE_NAME, "", "fast.php", "fast", "all", "Fast: Calculates Fast Attack recharge.");
-	CommandAlias::register($MODULE_NAME, "fast", "fastattack");
+	Command::register($MODULE_NAME, "", "fastattack.php", "fastattack", "all", "Fastattack: Calculates Fast Attack recharge.");
+	CommandAlias::register($MODULE_NAME, "fastattack", "fast");
 	
 	//Xyphos' tools
 	Command::register($MODULE_NAME, "", "inits.php", "inits", "all", "shows how much inits you need for 1/1");
@@ -23,7 +23,6 @@
 	//Helpiles
 	Help::register($MODULE_NAME, "aggdef", "aggdef.txt", "all", "How to use aggdef");
 	Help::register($MODULE_NAME, "nanoinit", "nanoinit.txt", "all", "How to use nanoinit");
-	Help::register($MODULE_NAME, "inits", "inits.txt", "all", "How to use inits");
 	Help::register($MODULE_NAME, "as", "as.txt", "all", "How to use as");
 	Help::register($MODULE_NAME, "fa", "fa.txt", "all", "How to use fa");
 	Help::register($MODULE_NAME, "fling", "fling.txt", "all", "How to use fling");
@@ -31,6 +30,7 @@
 	Help::register($MODULE_NAME, "mafist", "mafist.txt", "all", "How to use mafist");
 	Help::register($MODULE_NAME, "brawl", "brawl.txt", "all", "How to use brawl");
 	Help::register($MODULE_NAME, "dimach", "dimach.txt", "all", "How to use dimach");
-	Help::register($MODULE_NAME, "fast", "fast.txt", "all", "How to use fast");
+	Help::register($MODULE_NAME, "fastattack", "fastattack.txt", "all", "How to use fastattack");
+	Help::register($MODULE_NAME, "inits", "inits.txt", "all", "How to use inits");
 	Help::register($MODULE_NAME, "specials", "specials.txt", "all", "How to use specials");
 ?>

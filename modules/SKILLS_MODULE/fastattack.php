@@ -1,6 +1,6 @@
 <?php
 
-if (preg_match("/^fast ([0-9]*\.?[0-9]+) ([0-9]+)$/i", $message, $arr)) {
+if (preg_match("/^fastattack ([0-9]*\.?[0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	$AttTim = trim($arr[1]);
 	$fastSkill = trim($arr[2]);
 	
@@ -12,7 +12,7 @@ if (preg_match("/^fast ([0-9]*\.?[0-9]+) ([0-9]+)$/i", $message, $arr)) {
 		$fastrech = $fasthardcap;
 	}
 
-	$inside = "<header>::::: Fast Attack Calculator - Version 1.00 :::::<end>\n\n";
+	$inside = "<header> :::::: Fast Attack Calculator :::::: <end>\n\n";
 	$inside .= "Results:\n";
 	$inside	.= "Attack: <orange>". $AttTim ." <end>second(s).\n";
 	$inside	.= "Fast Atk Skill: <orange>". $fastSkill ."<end>\n";
