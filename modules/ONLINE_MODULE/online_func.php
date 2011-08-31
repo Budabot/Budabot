@@ -38,7 +38,7 @@ function get_online_list($prof = "all") {
 	
 	$data = $db->fObject("all");
 	// create the list with alts shown
-	createList($data, $list, true);
+	createList($data, $list, true, Setting::get("online_show_org_guild"));
 
 	// Private Channel Part
 	$db->query("SELECT p.*, o.name, o.channel, o.afk FROM `online` o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE o.channel_type = 'priv' {$prof_query} {$order_by}");
@@ -51,7 +51,7 @@ function get_online_list($prof = "all") {
 	}
 	$data = $db->fObject("all");
 	// create the list of guests, without showing alts
-	createList($data, $list, true);
+	createList($data, $list, true, Setting::get("online_show_org_priv"));
 	$numonline += $numguest;
 
 	if ($numonline == 1) {
@@ -71,7 +71,7 @@ function get_online_list($prof = "all") {
 		} else {
 			$list[] = array("content" => "\n\n<highlight><u>$numbbinmembers members in BBIN<end></u>\n");
 		}
-		createListByProfession($data, $list, false);
+		createListByProfession($data, $list, false, true);
 		
 		// guests
 		$db->query("SELECT * FROM bbin_chatlist_<myname> WHERE (`guest` = 1) {$prof_query} ORDER BY `profession`, `level` DESC");
@@ -82,7 +82,7 @@ function get_online_list($prof = "all") {
 		} else {
 			$list[] = array("content" => "\n\n<highlight><u>$numbbinguests guests in BBIN<end></u>\n");
 		}
-		createListByProfession($data, $list, false);
+		createListByProfession($data, $list, false, true);
 		
 		$numonline += $numbbinguests + $numbbinmembers;
 		
@@ -92,15 +92,15 @@ function get_online_list($prof = "all") {
 	return array ($numonline, $msg, $list);
 }
 
-function createList(&$data, &$list, $show_alts) {
+function createList(&$data, &$list, $show_alts, $show_org_info) {
 	if (Setting::get('online_group_by') == 'profession') {
-		return createListByProfession($data, $list, $show_alts);
+		return createListByProfession($data, $list, $show_alts, $show_org_info);
 	} else if (Setting::get('online_group_by') == 'guild') {
-		return createListByChannel($data, $list, $show_alts);
+		return createListByChannel($data, $list, $show_alts, $show_org_info);
 	}
 }
 
-function createListByChannel(&$data, &$list, $show_alts) {
+function createListByChannel(&$data, &$list, $show_alts, $show_org_info) {
 	global $chatBot; //To access my_guild
 	$db = DB::get_instance();
 
@@ -131,71 +131,25 @@ function createListByChannel(&$data, &$list, $show_alts) {
 			$current_channel = $row->channel;
 		}
 
-		if ($row->afk == "kiting") {
-			$afk = " $fancyColon <red>KITING<end>";
-		} else if ($row->afk == '1') {
-			$afk = " $fancyColon <red>AFK<end>";
-		} else if ($row->afk != '') {
-			$afk = " $fancyColon <red>AFK - {$row->afk}<end>";
-		} else {
-			$afk = "";
-		}
+		$afk = get_afk_info($row->afk, $fancyColon);
 		
 		if ($row->profession == "Unknown") {
 			$current_content .= "<tab><tab>$name - Unknown";
 			if ($show_alts == true) {
-				$altinfo = Alts::get_alt_info($row->name);
-				if (count($altinfo->alts) > 0) {
-					if ($altinfo->main == $row->name) {
-						$current_content .= " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alts</a>";
-					} else {
-						$current_content .= " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alt of {$altinfo->main}</a>";
-					}
-				}
+				$alt = get_alt_char_info($row->name, $fancyColon);
 			}
 			
-			$current_content .= "\n";
+			$current_content .= "$alt\n";
 		} else {
 			if ($show_alts == true) {
-				$altinfo = Alts::get_alt_info($row->name);
-				if (count($altinfo->alts) > 0) {
-					if ($altinfo->main == $row->name) {
-						$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alts</a>";
-					} else {
-						$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alt of {$altinfo->main}</a>";
-					}
-				}
-				
-				if (Setting::get("online_admin") == "1") { //When building list without alts, we don't show admin info
-					$alvl = AccessLevel::get_admin_level($row->name);
-					switch ($alvl) {
-						case 4: $admin = " $fancyColon <red>Admin<end>"; break;
-						case 3: $admin = " $fancyColon <green>Mod<end>"; break;
-						case 2: $admin = " $fancyColon <orange>RL<end>"; break;
-					}
-					
-					if (AccessLevel::check_access($row->name, 'superadmin')) {
-						$admin = " $fancyColon <red>SuperAdmin<end>";
-					}
-				} else {
-					$admin = "";
-				}
+				$alt = get_alt_char_info($row->name, $fancyColon);
+				$admin = get_admin_info($row->name, $fancyColon);
 			} else {
 				$alt = "";
 				$admin = "";
 			}
-			
-			if ($orgShow == "2" || ($orgShow == "1" && ($row->guild != $chatBot->vars['my_guild'] || $chatBot->vars['my_guild'] != ''))) {
-				if ($row->guild == "") { //No guild
-					$guild = " $fancyColon Not in a guild";
-				} else if ($orgShow == "2" && $row->guild == $chatBot->vars['my_guild']) {
-					$guild = " $fancyColon " . $row->guild_rank; // If in same guild, shows rank
-				} else if ($orgShow == "2") {
-					$guild = " $fancyColon " . $row->guild . " (" . $row->guild_rank . ")"; // Not in guild, show guild name & rank (on all guild info)
-				} else {
-					$guild = " $fancyColon " . $row->guild; // Not in guild, show guild name (on limited guild info)
-				}
-			}
+
+			$guild = get_org_info($show_org_info, $fancyColon, $row->guild, $row->guild_rank);
 			
 			$current_content .= "<tab><tab>$name (Lvl $row->level/<green>$row->ai_level<end>)$guild$afk$alt$admin\n";
 		}
@@ -204,7 +158,7 @@ function createListByChannel(&$data, &$list, $show_alts) {
 	$list[] = array("header" => $current_header, "content" => $current_content); //And don't forget to store the last segment
 }
 
-function createListByProfession(&$data, &$list, $show_alts) {
+function createListByProfession(&$data, &$list, $show_alts, $show_org_info) {
 	global $chatBot; //To access my_guild
 	$db = DB::get_instance();
 
@@ -213,8 +167,6 @@ function createListByProfession(&$data, &$list, $show_alts) {
 	if (Setting::get("online_colorful") == "1") {
 		$fancyColon = "<highlight>::<end>";
 	}
-	
-	$orgShow = Setting::get("online_show_org");
 	
 	$current_profession = "";
 	$current_header = "";
@@ -279,79 +231,90 @@ function createListByProfession(&$data, &$list, $show_alts) {
 			}
 		}
 
-		if ($row->afk == "kiting") {
-			$afk = " $fancyColon <red>KITING<end>";
-		} else if ($row->afk == '1') {
-			$afk = " $fancyColon <red>AFK<end>";
-		} else if ($row->afk != '') {
-			$afk = " $fancyColon <red>AFK - {$row->afk}<end>";
-		} else {
-			$afk = "";
-		}
+		$afk = get_afk_info($row->afk, $fancyColon);
 		
 		if ($row->profession == "Unknown") {
 			$current_content .= "<tab><tab>$name - Unknown";
 			if ($show_alts == true) {
-				$altinfo = Alts::get_alt_info($row->name);
-				if (count($altinfo->alts) > 0) {
-					if ($altinfo->main == $row->name) {
-						$current_content .= " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alts</a>";
-					} else {
-						$current_content .= " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alt of {$altinfo->main}</a>";
-					}
-				}
+				$alt = get_alt_char_info($row->name, $fancyColon);
 			}
 			
-			$current_content .= "\n";
+			$current_content .= "$alt\n";
 		} else {
 			if ($show_alts == true) {
-				$altinfo = Alts::get_alt_info($row->name);
-				if (count($altinfo->alts) > 0) {
-					if ($altinfo->main == $row->name) {
-						$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alts</a>";
-					} else {
-						$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts $row->name'>Alt of {$altinfo->main}</a>";
-					}
-				}
-				
-				//When building list without alts, we don't show admin info
-				if (Setting::get("online_admin") == "1") {
-					$alvl = AccessLevel::get_admin_level($row->name);
-					switch ($alvl) {
-						case 4: $admin = " $fancyColon <red>Admin<end>"; break;
-						case 3: $admin = " $fancyColon <green>Mod<end>"; break;
-						case 2: $admin = " $fancyColon <orange>RL<end>"; break;
-					}
-					
-					if (AccessLevel::check_access($row->name, 'superadmin')) {
-						$admin = " $fancyColon <red>SuperAdmin<end>";
-					}
-				} else {
-					$admin = "";
-				}
+				$alt = get_alt_char_info($row->name, $fancyColon);
+				$admin = get_admin_info($row->name, $fancyColon);
 			} else {
 				$alt = "";
 				$admin = "";
 			}
 			
-			$guild = '';
-			if ($orgShow == "2" || ($orgShow == "1" && ($row->guild != $chatBot->vars['my_guild'] || $chatBot->vars['my_guild'] == ''))) {
-				if ($row->guild == "") { //No guild
-					$guild = " $fancyColon Not in a guild";
-				} else if ($orgShow == "1" && $row->guild == $chatBot->vars['my_guild']) {
-					$guild = " $fancyColon " . $row->guild_rank; // If in same guild, shows rank
-				} else if ($orgShow == "2") {
-					$guild = " $fancyColon " . $row->guild . " (" . $row->guild_rank . ")"; // Not in guild, show guild name & rank (on all guild info)
-				} else {
-					$guild = " $fancyColon " . $row->guild; // Not in guild, show guild name (on limited guild info)
-				}
-			}
+			$guild = get_org_info($show_org_info, $fancyColon, $row->guild, $row->guild_rank);
 			
 			$current_content .= "<tab><tab>$name (Lvl $row->level/<green>$row->ai_level<end>)$guild$afk$alt$admin\n";
 		}
 	}
 	
 	$list[] = array("header" => $current_header, "content" => $current_content); //And don't forget to store the last segment
+}
+
+function get_org_info($show_org_info, $fancyColon, $guild, $guild_rank) {
+	if ($show_org_info == 2) {
+		if ($guild == "") {
+			return " $fancyColon Not in a guild";
+		} else {
+			return " $fancyColon {$guild} ({$guild_rank})";
+		}
+	} else if ($show_org_info == 1) {
+		if ($guild != "") {
+			return " $fancyColon {$guild_rank}";
+		}
+	}
+	return '';
+}
+
+function get_admin_info($name, $fancyColon) {
+	if (Setting::get("online_admin") == 1) {
+		if (AccessLevel::check_access($name, 'superadmin')) {
+			$admin = " $fancyColon <red>SuperAdmin<end>";
+		} else {
+			$alvl = AccessLevel::get_admin_level($name);
+			switch ($alvl) {
+				case 4: $admin = " $fancyColon <red>Admin<end>"; break;
+				case 3: $admin = " $fancyColon <green>Mod<end>"; break;
+				case 2: $admin = " $fancyColon <orange>RL<end>"; break;
+			}
+		}
+	} else {
+		$admin = "";
+	}
+
+	return $admin;
+}
+
+function get_afk_info($afk, $fancyColon) {
+	if ($row->afk == "kiting") {
+		$ret = " $fancyColon <red>KITING<end>";
+	} else if ($row->afk == '1') {
+		$ret = " $fancyColon <red>AFK<end>";
+	} else if ($row->afk != '') {
+		$ret = " $fancyColon <red>AFK - {$row->afk}<end>";
+	} else {
+		$ret = "";
+	}
+	return $ret;
+}
+
+function get_alt_char_info($name, $fancyColon) {
+	$altinfo = Alts::get_alt_info($name);
+	if (count($altinfo->alts) > 0) {
+		if ($altinfo->main == $name) {
+			$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts {$name}'>Alts</a>";
+		} else {
+			$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts {$name}'>Alt of {$altinfo->main}</a>";
+		}
+	}
+	return $alt;
 }
 
 ?>
