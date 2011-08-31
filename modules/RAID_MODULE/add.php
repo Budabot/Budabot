@@ -41,7 +41,7 @@ if (preg_match("/^add$/i", $message)) {
 		return;
 	}
 	
-	if ($chatBot->vars["raid_pts"] == 0 && $chatBot->vars["raid_flat_multiroll"] == 1) {
+	if ($chatBot->vars["raid_flat_multiroll"] == 1) {
 		$msg = "<red>You need to specify a slot where you want to add!<end>";
 		$chatBot->send($msg, $sender);
 		return;
@@ -114,7 +114,7 @@ if (preg_match("/^add$/i", $message)) {
 	if ($chatBot->vars["raid_status"] != "" && $chatBot->vars["raid_pts"] == 0) {
   	  	$slot = $arr[1];
 		
-		if ($chatBot->vars["raid_pts"] == 0 && $chatBot->vars["raid_flat_multiroll"] == 0) {
+		if ($chatBot->vars["raid_flat_multiroll"] == 0) {
 			$msg = "<red>Use add alone only!<end>";
 			$chatBot->send($msg, $sender);
 			return;
@@ -177,12 +177,12 @@ if (preg_match("/^add$/i", $message)) {
 	    $raidloot[$cat][$index]["users"][$sender] = true;
 	
 	    if ($found == false) {
-		    $msg = "You have been assigned to the roll of <highlight>\"{$raidloot[$cat][$index]["name"]}\"<end>.";
+		    $msg = "$sender has added to <highlight>\"{$raidloot[$cat][$index]["name"]}\"<end>.";
 		} else {
-			$msg = "You have moved to the roll of <highlight>\"{$raidloot[$cat][$index]["name"]}\"<end>.";
+			$msg = "$sender has moved to <highlight>\"{$raidloot[$cat][$index]["name"]}\"<end>.";
 		}
 		
-	  	$chatBot->send($msg, $sender);
+	  	$chatBot->send($msg, 'priv');
 	} else if (count($loot) > 0) {
   	  	$slot = $arr[1];
 
@@ -216,12 +216,12 @@ if (preg_match("/^add$/i", $message)) {
 	    $loot[$slot]["users"][$sender] = true;
 	
 	    if ($found == false) {
-		    $msg = "You have been assigned to the roll of <highlight>\"{$loot[$slot]["name"]}\"<end>.";
+		    $msg = "$sender has added to <highlight>\"{$loot[$slot]["name"]}\"<end>.";
 		} else {
-			$msg = "You have moved to the roll of <highlight>\"{$loot[$slot]["name"]}\"<end>.";
+			$msg = "$sender has moved to <highlight>\"{$loot[$slot]["name"]}\"<end>.";
 		}
 		
-	  	$chatBot->send($msg, $sender);
+	  	$chatBot->send($msg, 'priv');
 	} else {
 		$chatBot->send("No list available where you can add in.", $sender);
 	}
