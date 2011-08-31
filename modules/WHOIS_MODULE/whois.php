@@ -91,10 +91,22 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 			
 			$list .= "Source: $whois->source\n\n";
 
-            $list .= "<a href='chatcmd:///tell <myname> history $name'>Check $name's History</a>\n";
-            $list .= "<a href='chatcmd:///tell <myname> is $name'>Check $name's online status</a>\n";
-            $list .= "<a href='chatcmd:///cc addbuddy $name'>Add to buddylist</a>\n";
-            $list .= "<a href='chatcmd:///cc rembuddy $name'>Remove from buddylist</a>";
+			$sql = "SELECT * FROM name_history WHERE charid = '{$uid}' AND dimension = {$i} ORDER BY dt DESC";
+			$db->query($sql);
+			$data = $db->fObject('all');
+
+			$list .= "<pagebreak><header> :::::: Name History :::::: <end>\n\n";
+			if (count($data) > 0) {
+				forEach ($data as $row) {
+					$list .= "<green>{$row->name}<end> " . gmdate("M j, Y, G:i", $row->dt) . "\n";
+				}
+			} else {
+				$list .= "No name history available\n";
+			}
+
+			$list .= "\n<pagebreak><header> :::::: Character Options :::::: <end>\n\n";
+
+            $list .= "<a href='chatcmd:///tell <myname> history {$name} {$i}'>Show History</a>\n";
 			
             $msg .= " :: ".Text::make_blob("More info", $list);
             $msg = "<highlight>Server $server:<end> ".$msg;

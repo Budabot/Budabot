@@ -89,7 +89,7 @@ if (preg_match("/^ts$/i", $message)) {
        	$seconds = floor(($uptime%3600)%60);
         if ($hours>0) {
 			$uptime = $hours."h ".$minutes."m ".$seconds."s";
-		} else if ($minutes>0) {
+		} else if ($minutes > 0) {
 			$uptime = $minutes."m ".$seconds."s";
 		} else {
 			$uptime = $seconds."s";
