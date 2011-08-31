@@ -4,10 +4,10 @@ if (isset($chatBot->data['name_history_cache']) && count($chatBot->data['name_hi
 	$db->begin_transaction();
 	forEach ($chatBot->data['name_history_cache'] as $entry) {
 		list($charid, $name) = $entry;
-		$db->query("SELECT * FROM name_history WHERE name = '{$name}' AND charid = '{$charid}'");
-		$data = $db->fObject('all');
-		if (count($data) == 0) {
-			$db->exec("INSERT INTO name_history (name, charid, dt) VALUES ('{$name}', '{$charid}', " . time() . ")");
+		if ($db->get_type() == "Sqlite") {
+			$db->exec("INSERT OR IGNORE INTO name_history (name, charid, dt) VALUES ('{$name}', '{$charid}', " . time() . ")");
+		} else { // if ($db->get_type() == "Mysql")
+			$db->exec("INSERT IGNORE INTO name_history (name, charid, dt) VALUES ('{$name}', '{$charid}', " . time() . ")");
 		}
 	}
 	$db->commit();
