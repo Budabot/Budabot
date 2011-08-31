@@ -27,7 +27,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 			
 			$list .= "Source: $whois->source\n\n";
 			
-			$sql = "SELECT * FROM name_history WHERE charid = '{$uid}' ORDER BY dt DESC";
+			$sql = "SELECT * FROM name_history WHERE charid = '{$uid}' AND dimension = <dim> ORDER BY dt DESC";
 			$db->query($sql);
 			$data = $db->fObject('all');
 
