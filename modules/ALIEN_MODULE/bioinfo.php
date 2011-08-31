@@ -504,11 +504,9 @@ if (preg_match("/^bioinfo (1|2|3|4|5|12|13|48|76|112|240|880|992|pristine|mutate
 	$blob = "<header> :::::: $name (QL $ql) :::::: <end>\n\n";
 	$blob .= Text::make_item($low_id, $high_id, $ql, $name) . "\nIt will take <highlight>$ts_bio<end> EE & CL (<highlight>4.5 * QL<end>) to analyze the Bio-Material." . "\n\n";
 	$blob .= $use;
-	$bio_info = "$arr2[0]";
-	$fixed_bio_info =  str_replace("\'", "&#39;", "$bio_info");
-	$bio_link = "<a href='chatcmd:///tell <myname> <symbol>bio $fixed_bio_info'>$name (QL $ql)</a>";
+	$blob .= "\n\n<yellow>Tradeskilling info added by Mdkdoc420 (RK2)<end>";
 
-	$msg = Text::make_link("$name (ql $ql)", $blob);
+	$msg = Text::make_blob("$name (ql $ql)", $blob);
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
