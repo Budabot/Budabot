@@ -13,7 +13,6 @@
 	Command::register($MODULE_NAME, "", "time.php", "time", "all", "Shows the time in the different timezones");
 	Command::register($MODULE_NAME, "", "calc.php", "calc", "all", "Calculator");
 	Command::register($MODULE_NAME, "", "oe.php", "oe", "all", "OE");
-	Command::register($MODULE_NAME, "", "history.php", "history", "all", "Show history of a player");
 	Command::register($MODULE_NAME, "", "smileys.php", "smileys", "all", "The meaning of different Smileys");
 	Command::register($MODULE_NAME, "", "inspect.php", "inspect", "all", "Inspects Christmas/Eart Gifts and Peren. Containers");
 	Command::register($MODULE_NAME, "", "mobloot.php", "mobloot", "all", "loot QL Infos ");
@@ -39,7 +38,6 @@
     Help::register($MODULE_NAME, "calc", "calculator.txt", "all", "Calculator");
     Help::register($MODULE_NAME, "oe", "oe.txt", "all", "Calculating the OE ranges");
     Help::register($MODULE_NAME, "roll", "roll.txt", "all", "How to use the flip and roll command");
-    Help::register($MODULE_NAME, "history", "history.txt", "all", "History of a player");
     Help::register($MODULE_NAME, "time", "time.txt", "all", "Timezones");
     Help::register($MODULE_NAME, "kos", "kos.txt", "all", "Kill On Sight List");
     Help::register($MODULE_NAME, "inspect", "inspect.txt", "all", "How to use inspect");
