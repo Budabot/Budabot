@@ -27,7 +27,7 @@ if (preg_match("/^neutnet add$/i", $message)) {
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^neutnet (rem|remove)$/i", $message)) {
 	for ($i = 1; $i <= $num_neutnet_slaves; $i++) {
-		$name = "Neutnet" - $i;
+		$name = "Neutnet" . $i;
 
 		$db->exec("DELETE FROM broadcast_<myname> WHERE name = '$name'");
 		
