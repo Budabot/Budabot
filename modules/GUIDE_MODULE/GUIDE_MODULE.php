@@ -34,6 +34,7 @@
 	$MODULE_NAME = "GUIDE_MODULE";
 
 	Command::register($MODULE_NAME, "", "guides.php", "guides", "all", "Guides for AO");
+	Command::register($MODULE_NAME, "", "aou.php", "aou", "all", "Search for or view a guide from AO-Universe");
 	
 	// aliases
 	CommandAlias::register($MODULE_NAME, "guides breed", "breed");
@@ -45,4 +46,5 @@
 	CommandAlias::register($MODULE_NAME, "guides title", "title");
 	
 	Help::register($MODULE_NAME, "guides", "guides.txt", "all", 'How to use guides');
+	Help::register($MODULE_NAME, "aou", "aou.txt", "all", "How to find a guide from AO-Universe");
 ?>
