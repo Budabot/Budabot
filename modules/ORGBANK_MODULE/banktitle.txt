@@ -1,0 +1,10 @@
+<yellow><center>::::: Org Bank: Bank Title Help :::::</center><end>
+
+<green<The title of your Bank can be used to show others what is kept in there.<end>
+
+<green>Example:<end><yellow> !banktitle Armour and Weapons Bank.<end>
+
+<green>Example:<end><yellow> !banktitle Engineer Only Bank.<end>
+
+<green>The Budabot shortcut for this is: !bt < Some text to show people >
+

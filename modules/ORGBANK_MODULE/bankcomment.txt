@@ -1,0 +1,16 @@
+<yellow:><center>:::: Org Bank: Bank Comment Help</center> :::::<end>
+
+<green>If you want to leave a comment or instructions for people to read when
+they visit your Bank, this is where to look...
+
+Example:<yellow> !bankcomment All items are for LOAN Only. <end>
+
+Example:<yellow> !bankcomment I only play between 6pm and 12 pm GMT. <end>
+
+Example:<yellow> !bankcomment Send tell to Elimeta to borrow these items. <end>
+
+<green>To clear your bankcomment:<end> 
+
+<yellow>/tell <myname> bankcomment none<end>
+
+<green>The Budabot alias for this is: !bc < the text you want to say ><end>

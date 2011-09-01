@@ -1,0 +1,11 @@
+<yellow><center>::::: Org Bank: Bankitem Help :::::</center><end>
+
+<green>Searching for items in other members banks is easy.<end> 
+
+<yellow>/tell <myname> !bankitem < first few letters of the item > <end> 
+
+<green>Example:  <yellow>/tell <myname> !bankitem cushion<end>
+
+<green><left>When you click on the Search Results link, a list of matched items is displayed. You can then click on a members name to visit their bank.<end>
+
+<green>The Budabot alias for this is: <yellow>!bi < first few letters of item ><end> 
