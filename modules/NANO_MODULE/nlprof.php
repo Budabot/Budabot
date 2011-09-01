@@ -25,7 +25,7 @@ if (preg_match("/^nlprof (.*)$/i", $message, $arr)) {
 	$msg = '';
 	if ($count > 0) {
 		$window = Text::make_header("$profession Nanolines", "none") . $window;
-		$window .= "\n\nAO Nanos by Voriuste"
+		$window .= "\n\nAO Nanos by Voriuste";
 		$window .= "\nModule created by Tyrence (RK2)";
 		$msg = Text::make_blob("$profession Nanolines", $window);
 	} else {

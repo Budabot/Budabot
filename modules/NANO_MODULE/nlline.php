@@ -36,7 +36,7 @@ if (preg_match("/^nlline ([0-9]*)$/i", $message, $arr)) {
 			$window .= " [$row->lowql] $row->location\n";
 		}
 
-		$window .= "\n\nAO Nanos by Voriuste"
+		$window .= "\n\nAO Nanos by Voriuste";
 		$window .= "\nModule created by Tyrence (RK2)";
 
 		$msg = Text::make_blob($header, $window);

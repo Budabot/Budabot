@@ -10,7 +10,7 @@ if (preg_match("/^nanolines$/i", $message, $arr)) {
 		$window .= Text::make_chatcmd($row->profession, "/tell <myname> <symbol>nlprof $row->profession");
 		$window .= "\n";
 	}
-	$window .= "\n\nAO Nanos by Voriuste"
+	$window .= "\n\nAO Nanos by Voriuste";
 	$window .= "\nModule created by Tyrence (RK2)";
 
 	$msg = Text::make_blob('Nanolines', $window);
