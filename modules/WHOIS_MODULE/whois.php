@@ -40,7 +40,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 				$list .= "No name history available\n";
 			}
 			
-			$list .= "\n<pagebreak><header> :::::: Character Options :::::: <end>\n\n";
+			$list .= "\n<pagebreak><header> :::::: Options :::::: <end>\n\n";
 			
 	        $list .= "<a href='chatcmd:///tell <myname> history $name'>Check $name's History</a>\n";
 	        $list .= "<a href='chatcmd:///tell <myname> is $name'>Check $name's online status</a>\n";
@@ -104,7 +104,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 				$list .= "No name history available\n";
 			}
 
-			$list .= "\n<pagebreak><header> :::::: Character Options :::::: <end>\n\n";
+			$list .= "\n<pagebreak><header> :::::: Options :::::: <end>\n\n";
 
             $list .= "<a href='chatcmd:///tell <myname> history {$name} {$i}'>Show History</a>\n";
 			

@@ -300,6 +300,7 @@ INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('pants', 25, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('sleeves', 25, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('gloves', 25, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('helmet', 25, 0);
+INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('ring', 25, 24000);
 
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('body', 50, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('boots', 50, 0);
@@ -307,6 +308,7 @@ INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('pants', 50, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('sleeves', 50, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('gloves', 50, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('helmet', 50, 0);
+INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('ring', 50, 24000);
 
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('body', 75, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('boots', 75, 0);
@@ -314,6 +316,7 @@ INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('pants', 75, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('sleeves', 75, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('gloves', 75, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('helmet', 75, 0);
+INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('ring', 75, 24000);
 
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('body', 100, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('boots', 100, 0);
@@ -321,6 +324,7 @@ INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('pants', 100, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('sleeves', 100, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('gloves', 100, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('helmet', 100, 0);
+INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('ring', 100, 24000);
 
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('body', 125, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('boots', 125, 0);
@@ -328,6 +332,7 @@ INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('pants', 125, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('sleeves', 125, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('gloves', 125, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('helmet', 125, 0);
+INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('ring', 125, 24000);
 
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('body', 150, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('boots', 150, 0);
@@ -335,6 +340,7 @@ INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('pants', 150, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('sleeves', 150, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('gloves', 150, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('helmet', 150, 0);
+INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('ring', 150, 24000);
 
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('body', 175, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('boots', 175, 0);
@@ -342,6 +348,7 @@ INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('pants', 175, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('sleeves', 175, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('gloves', 175, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('helmet', 175, 0);
+INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('ring', 175, 24000);
 
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('body', 200, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('boots', 200, 0);
@@ -349,6 +356,7 @@ INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('pants', 200, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('sleeves', 200, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('gloves', 200, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('helmet', 200, 0);
+INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('ring', 200, 24000);
 
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('body', 225, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('boots', 225, 0);
@@ -356,6 +364,7 @@ INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('pants', 225, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('sleeves', 225, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('gloves', 225, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('helmet', 225, 0);
+INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('ring', 225, 24000);
 
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('body', 250, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('boots', 250, 0);
@@ -363,6 +372,7 @@ INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('pants', 250, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('sleeves', 250, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('gloves', 250, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('helmet', 250, 0);
+INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('ring', 250, 24000);
 
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('body', 275, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('boots', 275, 0);
@@ -370,6 +380,7 @@ INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('pants', 275, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('sleeves', 275, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('gloves', 275, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('helmet', 275, 0);
+INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('ring', 275, 24000);
 
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('body', 300, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('boots', 300, 0);
@@ -377,9 +388,10 @@ INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('pants', 300, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('sleeves', 300, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('gloves', 300, 0);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('helmet', 300, 0);
-INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('specialhelmet', 300, 0);
-INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('back', 300, 0);
-INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('shoulder', 300, 0);
+INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('ring', 300, 24000);
+INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('specialhelmet', 300, 30000);
+INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('back', 300, 30000);
+INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('shoulder', 300, 12000);
 
 DROP TABLE IF EXISTS `ofabarmortype`;
 CREATE TABLE `ofabarmortype` (`type` SMALLINT NOT NULL, `profession` VARCHAR(30) NOT NULL);
