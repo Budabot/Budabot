@@ -64,7 +64,7 @@ if (preg_match("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[
 	}
 	
 	if ($check_blob) {
-		$check_blob = "<header>:::::: Scouting problems <end>\n\n" . $check_blob;
+		$check_blob = "<header> :::::: Scouting problems :::::: <end>\n\n" . $check_blob;
 		$check_blob .= "Please correct these errors, or, if you are sure the values you entered are correct, use !forcescout to bypass these checks";
 		$msg = Text::make_blob('Scouting problems', $check_blob);
 	} else {

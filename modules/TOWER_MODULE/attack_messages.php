@@ -51,7 +51,7 @@ if ($closest_site === null) {
 	Logger::log('debug', "TowerInfo", "Site being attacked: ({$playfield_name}) '{$closest_site->playfield_id}' '{$closest_site->site_number}'");
 
 	// Beginning of the 'more' window
-	$link  = "<header>:::::: Advanced Tower Info :::::<end>\n\n";
+	$link  = "<header> :::::: Advanced Tower Info :::::: <end>\n\n";
 	
 	$link .= "<highlight>Attacker:<end> <font color=#DEDE42>";
 	if ($whois->firstname) {
