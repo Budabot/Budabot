@@ -1,18 +1,31 @@
 <?php
 
 if (preg_match("/^ofab$/i", $message, $arr)) {
-	$db->query("SELECT DISTINCT `type`, `profession` FROM ofab ORDER BY profession ASC");
+	$db->query("SELECT DISTINCT ql FROM ofabarmorcost ORDER BY ql ASC");
+	$qls = $db->fObject('all');
+
+	$db->query("SELECT `type`, `profession` FROM ofabarmortype ORDER BY profession ASC");
 	$data = $db->fObject('all');
 	$blob = "<header> :::::: Ofab Armor Bio-Material Types :::::: <end>\n\n";
 	forEach ($data as $row) {
-		$profession_link = Text::make_chatcmd($row->profession, "/tell <myname> ofab $row->profession");
-		$blob .= "{$profession_link} - Type {$row->type}\n\n";
+		$blob .= "{$row->profession} - Type {$row->type}\n";
+		forEach ($qls as $ql) {
+			$ql_link = Text::make_chatcmd($ql->ql, "/tell <myname> ofab {$row->profession} {$ql->ql}");
+			$blob .= "[{$ql_link}] ";
+		}
+		$blob .= "\n\n";
 	}
-	$blob .= "\nInfo provided by Wolfbiter (RK1)";
+	$blob .= "\nInfo provided by Wolfbiter (RK1), Mdkdoc240 (RK2)";
 
 	$msg = Text::make_blob("Ofab Armor Bio-Material Types", $blob);
 	$chatBot->send($msg, $sendto);
-} else if (preg_match("/^ofab (.+)$/i", $message, $arr)) {
+} else if (preg_match("/^ofab (.+) (\\d+)$/i", $message, $arr) || preg_match("/^ofab (.+)$/i", $message, $arr)) {
+	if ($arr[2]) {
+		$ql = $arr[2];
+	} else {
+		$ql = 300;
+	}
+
 	$profession = Util::get_profession_name($arr[1]);
 	if ($profession == '') {
 		$msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, or trader";
@@ -20,18 +33,13 @@ if (preg_match("/^ofab$/i", $message, $arr)) {
 		return;
 	}
 	
-	$db->query("SELECT * FROM ofab WHERE profession = '{$profession}' ORDER BY `name` ASC");
+	$db->query("SELECT * FROM ofabarmor o1 JOIN ofabarmorcost o2 ON o1.slot = o2.slot WHERE o1.profession = '{$profession}' AND o2.ql = {$ql} ORDER BY upgrade ASC, slot ASC");
 	$data = $db->fObject('all');
 	$blob = "<header> :::::: $profession Ofab Armor :::::: <end>\n\n";
 	forEach ($data as $row) {
-		$blob .=  Text::make_item($row->body, $row->body, 300, $row->name . " Body Armor") . "\n";
-		$blob .=  Text::make_item($row->boots, $row->boots, 300, $row->name . " Boots") . "\n";
-		$blob .=  Text::make_item($row->gloves, $row->gloves, 300, $row->name . " Gloves") . "\n";
-		$blob .=  Text::make_item($row->helmet, $row->helmet, 300, $row->name . " Helmet") . "\n";
-		$blob .=  Text::make_item($row->pants, $row->pants, 300, $row->name . " Pants") . "\n";
-		$blob .=  Text::make_item($row->sleeves, $row->sleeves, 300, $row->name . " Sleeves") . "\n\n";
+		$blob .=  Text::make_item($row->lowid, $row->highid, $ql, $row->name) . "\n";
 	}
-	$blob .= "\nInfo provided by Wolfbiter (RK1)";
+	$blob .= "\nInfo provided by Wolfbiter (RK1), Mdkdoc240 (RK2)";
 	
 	$msg = Text::make_blob("$profession Ofab Armor", $blob);
 	$chatBot->send($msg, $sendto);
