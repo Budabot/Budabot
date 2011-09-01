@@ -33,6 +33,7 @@ if (preg_match("/^aou (\\d+)$/i", $message, $arr)) {
 	$divs = $dom->getElementsByTagName('div');
 
 	$blob .= "<header> :::::: $title :::::: <end>\n\n";
+	$blob .= Text::make_chatcmd("Guide on AO-Universe.com", "/start {$url}?id={$guideid}") . "\n\n";
 	forEach ($divs as $div) {
 		if ($div->attributes->getNamedItem("class")->nodeValue == "content guidetext") {
 			$blob .= strip_tags(str_replace("<br>", "\n", innerXML($div)));
@@ -55,8 +56,10 @@ if (preg_match("/^aou (\\d+)$/i", $message, $arr)) {
 	$divs = $dom->getElementsByTagName('div');
 
 	$blob .= "<header> :::::: Guides containing '$search' :::::: <end>\n\n";
+	$found = false;
 	forEach ($divs as $div) {
 		if ($div->attributes->getNamedItem("class")->nodeValue == "guide") {
+			$found = true;
 			$id = $div->getElementsByTagName('span')->item(0)->getElementsByTagName('a')->item(0)->attributes->getNamedItem("href")->nodeValue;
 			$name = $div->getElementsByTagName('span')->item(0)->getElementsByTagName('a')->item(0)->nodeValue;
 			$desc = $div->getElementsByTagName('span')->item(1)->nodeValue;
@@ -69,7 +72,11 @@ if (preg_match("/^aou (\\d+)$/i", $message, $arr)) {
 	
 	$blob .= "\n\n<yellow>Powered by<end> " . Text::make_chatcmd("AO-Universe.com", "/start http://www.ao-universe.com");
 	
-	$msg = Text::make_blob("AO-U Guides containing '$search'", $blob);
+	if ($found) {
+		$msg = Text::make_blob("AO-U Guides containing '$search'", $blob);
+	} else {
+		$msg = "Could not find any guides containing: '$search'";
+	}
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
