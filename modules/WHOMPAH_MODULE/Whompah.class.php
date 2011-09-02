@@ -23,7 +23,7 @@ class Whompah {
 			}
 		}
 		
-		return find_whompah_path($queue, $whompahs, $endCity);
+		return Whompah::find_whompah_path($queue, $whompahs, $endCity);
 	}
 	
 	public static function find_city($search) {
@@ -40,6 +40,8 @@ class Whompah {
 	}
 	
 	public static function build_whompah_network() {
+		$db = DB::get_instance();
+
 		$whompahs = array();
 
 		$sql = "SELECT * FROM `whompah_cities`";
