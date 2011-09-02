@@ -74,23 +74,7 @@ if (preg_match("/^(timers|timers add) ([0-9]+)$/i", $message, $arr) || preg_matc
 		}
 	}
 
-	$run_time = 0;
-
-	if (preg_match("/([0-9]+)(d|day|days)/i", $time_string, $day)) {
-		$run_time += $day[1] * 86400;
-	}
-
-	if (preg_match("/([0-9]+)(h|hr|hrs)/i", $time_string, $hours)) {
-		$run_time += $hours[1] * 3600;
-	}
-
-	if (preg_match("/([0-9]+)(m|min|mins)/i", $time_string, $mins)) {
-		$run_time += $mins[1] * 60;
-	}
-
-	if (preg_match("/([0-9]+)(s|sec|secs)/i", $time_string, $secs)) {
-		$run_time += $secs[1];
-	}
+	$run_time = Util::parseTime($time_string);
 
 	if ($run_time == 0) {
 		$msg = "Your timer must be longer than 0 seconds.";
