@@ -8,14 +8,13 @@ if (preg_match("/^ofab$/i", $message, $arr)) {
 	$data = $db->fObject('all');
 	$blob = "<header> :::::: Ofab Armor Bio-Material Types :::::: <end>\n\n";
 	forEach ($data as $row) {
-		$blob .= "{$row->profession} - Type {$row->type}\n";
+		$blob .= "<pagebreak>{$row->profession} - Type {$row->type}\n";
 		forEach ($qls as $ql) {
 			$ql_link = Text::make_chatcmd($ql->ql, "/tell <myname> ofab {$row->profession} {$ql->ql}");
 			$blob .= "[{$ql_link}] ";
 		}
 		$blob .= "\n\n";
 	}
-	$blob .= "\nInfo provided by Wolfbiter (RK1), Mdkdoc240 (RK2)";
 
 	$msg = Text::make_blob("Ofab Armor Bio-Material Types", $blob);
 	$chatBot->send($msg, $sendto);
@@ -33,13 +32,22 @@ if (preg_match("/^ofab$/i", $message, $arr)) {
 		return;
 	}
 	
-	$db->query("SELECT * FROM ofabarmor o1 JOIN ofabarmorcost o2 ON o1.slot = o2.slot WHERE o1.profession = '{$profession}' AND o2.ql = {$ql} ORDER BY upgrade ASC, slot ASC");
+	$db->query("SELECT * FROM ofabarmor o1 LEFT JOIN ofabarmorcost o2 ON o1.slot = o2.slot WHERE o1.profession = '{$profession}' AND o2.ql = {$ql} ORDER BY upgrade ASC, name ASC");
 	$data = $db->fObject('all');
-	$blob = "<header> :::::: $profession Ofab Armor :::::: <end>\n\n";
+	$blob = "<header> :::::: $profession Ofab Armor :::::: <end>\n";
+	$current_upgrade = $row->upgrade;
 	forEach ($data as $row) {
-		$blob .=  Text::make_item($row->lowid, $row->highid, $ql, $row->name) . "\n";
+		if ($current_upgrade != $row->upgrade) {
+			$current_upgrade = $row->upgrade;
+			$blob .= "\n";
+		}
+		$blob .=  Text::make_item($row->lowid, $row->highid, $ql, $row->name);
+		
+		if ($row->upgrade == 0 || $row->upgrade == 3) {
+			$blob .= "  (<highlight>$row->vp<end> VP)";
+		}
+		$blob .= "\n";
 	}
-	$blob .= "\nInfo provided by Wolfbiter (RK1), Mdkdoc240 (RK2)";
 	
 	$msg = Text::make_blob("$profession Ofab Armor", $blob);
 	$chatBot->send($msg, $sendto);
