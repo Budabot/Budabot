@@ -133,16 +133,16 @@ forEach ($chatBot->data["Vote"] as $key => $value) {
 		}
 		
 		if ($timeleft > 0) {
-			$msg .= "\n<black>___%<end> <a href='chatcmd:///tell <myname> vote remove$delimiter$question'>Remove yourself from this vote</a>.\n";
+			$msg .= "\n<black>___%<end> <a href='chatcmd:///tell <myname> vote remove $question'>Remove yourself from this vote</a>.\n";
 		}
 		if ($timeleft > 0 && $chatBot->settings["vote_add_new_choices"] == 1 && $status == 0) {
 			$msg .="\n<highlight>Don't like these choices?  Add your own:<end>\n<tab>/tell ".$chatBot->vars['name']." <symbol>vote $question$delimiter"."<highlight>your choice<end>\n"; 
 		}
 		
 		$msg .="\n<highlight>If you started this vote, you can:<end>\n";
-		$msg .="<tab><a href='chatcmd:///tell <myname> vote kill$delimiter$question'>Kill</a> the vote completely.\n";
+		$msg .="<tab><a href='chatcmd:///tell <myname> vote kill $question'>Kill</a> the vote completely.\n";
 		if ($timeleft > 0) {
-			$msg .="<tab><a href='chatcmd:///tell <myname> vote end$delimiter$question'>End</a> the vote early.";
+			$msg .="<tab><a href='chatcmd:///tell <myname> vote end $question'>End</a> the vote early.";
 		}
 		
 		$msg = Text::make_blob($title, $msg);

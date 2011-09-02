@@ -26,12 +26,21 @@ if (preg_match("/^vote$/i", $message)) {
 			$line = "<tab>" . Text::make_chatcmd($question, "/tell <myname> vote $question");
 			
 			$timeleft = $started+$duration-time();
-			if ($timeleft>0) {$running .= $line."\n(".Util::unixtime_to_readable($timeleft)." left)\n";}
-			else {$over .= $line."\n";}
+			if ($timeleft>0) {
+				$running .= $line."\n(".Util::unixtime_to_readable($timeleft)." left)\n";
+			} else {
+				$over .= $line."\n";
+			}
 		}
-		if ($running) {$msg .= " <green>Running:<end>\n".$running;}
-		if ($running && $over) $msg .= "\n";
-		if ($over) {$msg .= " <red>Finshed:<end>\n".$over;}
+		if ($running) {
+			$msg .= " <green>Running:<end>\n".$running;
+		}
+		if ($running && $over) {
+			$msg .= "\n";
+		}
+		if ($over) {
+			$msg .= " <red>Finshed:<end>\n".$over;
+		}
 
 		$msg = Text::make_blob("Vote Listing", $msg);
 	} else {
@@ -56,7 +65,7 @@ if (preg_match("/^vote$/i", $message)) {
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^vote remove (.+)$/i", $message, $arr)) {
 	$topic = $arr[1];
-	if (!isset($chatBot->data["Vote"][$sect[1]])) {
+	if (!isset($chatBot->data["Vote"][$topic])) {
 		$msg = "There is no such topic available.";
 	} else {
 		$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $topic)."' AND `author` = '$sender' AND `duration` IS NULL");
@@ -84,10 +93,14 @@ if (preg_match("/^vote$/i", $message)) {
 			$duration = (time()-$started)+61;
 			$db->exec("UPDATE $table SET `duration` = '$duration' WHERE `author` = '$sender' AND `duration` IS NOT NULL AND `question` = '".str_replace("'", "''", $topic)."'");
 			$chatBot->data["Vote"][$topic]["duration"] = $duration;
+			$msg = "Vote duration reduced to 60 seconds.";
+		} else if ($timeleft <= 0) {
+			$msg = "This vote has already finished.";
 		} else {
 			$msg = "There is only $timeleft seconds left.";
 		}
 	}
+	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^vote (.+)$/i", $message, $arr)) {
 	$sect = explode($delimiter, $arr[1],3);
 	
@@ -96,9 +109,9 @@ if (preg_match("/^vote$/i", $message)) {
 		
 		$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[0])."'");
 		
-		if ($db->numrows() <= 0) { $msg = "Couldn't find any votes with this topic.";} 
-		
-		else {
+		if ($db->numrows() <= 0) {
+			$msg = "Couldn't find any votes with this topic.";
+		} else {
 			$results = array();
 			while ($row = $db->fObject()) {
 				if ($row->duration) {
@@ -107,7 +120,9 @@ if (preg_match("/^vote$/i", $message)) {
 					$timeleft = $started+$duration-time();
 					
 				}
-				if ($sender == $author) {$didvote = 1;}
+				if ($sender == $author) {
+					$didvote = 1;
+				}
 				$answer = $row->answer;
 
 				if (strpos($answer, $delimiter) === false) { // A Vote: $answer = "yes";
@@ -116,8 +131,10 @@ if (preg_match("/^vote$/i", $message)) {
 				} else {				     // Main topic: $answer = "yes;no";
 					
 					$ans = explode($delimiter, $answer);
-					foreach ($ans as $value) {
-						if (!isset($results[$value])) {$results[$value] = 0;}
+					forEach ($ans as $value) {
+						if (!isset($results[$value])) {
+							$results[$value] = 0;
+						}
 					}
 				}
 			}
@@ -129,12 +146,16 @@ if (preg_match("/^vote$/i", $message)) {
 				$msg .= "<red>This vote has ended ".Util::unixtime_to_readable(time()-($started+$duration),1)." ago.<end>\n\n";
 			}
 			
-			foreach ($results as $key => $value) {
+			forEach ($results as $key => $value) {
 
 				$val = number_format(100*($value/$totalresults),0);
-				if ($val < 10) {$msg .= "<black>__<end>$val% ";}
-				else if ($val < 100) {$msg .= "<black>_<end>$val% ";}
-				else {$msg .= "$val% ";}
+				if ($val < 10) {
+					$msg .= "<black>__<end>$val% ";
+				} else if (
+					$val < 100) {$msg .= "<black>_<end>$val% ";
+				} else {
+					$msg .= "$val% ";
+				}
 				
 				if ($timeleft > 0) {
 					$msg .= Text::make_chatcmd($key, "/tell <myname> vote $question$delimiter$key") . "(Votes: $value)\n";
@@ -161,8 +182,11 @@ if (preg_match("/^vote$/i", $message)) {
 			
 			$db->query("SELECT * FROM $table WHERE `author` = '$sender' AND `question` = '$question' AND `duration` IS NULL");
 			$row = $db->fObject();
-			if ($row->answer && $timeleft > 0) {$privmsg = "On this vote, you already selected: <highlight>(".$row->answer.")<end>.";}
-			elseif ($timeleft > 0){$privmsg = "You haven't voted on this one yet.";}
+			if ($row->answer && $timeleft > 0) {
+				$privmsg = "On this vote, you already selected: <highlight>(".$row->answer.")<end>.";
+			} else if ($timeleft > 0) {
+				$privmsg = "You haven't voted on this one yet.";
+			}
 			
 			$msg = Text::make_blob("Vote: $question", $msg);
 			if ($privmsg) {
@@ -170,14 +194,14 @@ if (preg_match("/^vote$/i", $message)) {
 			}
 		}
 	////////////////////////////////////////////////////////////////////////////////////
-	} elseif (count($sect) == 2) {		  			     // Adding vote
+	} else if (count($sect) == 2) {		  			     // Adding vote
 
 		$requirement = $chatBot->settings["vote_use_min"];
 		if ($requirement >= 0) {
 			if (!$chatBot->guildmembers[$sender]) {
 				$chatBot->send("Only org members can start a new vote.", $sender);
 				return;
-			}elseif ($requirement < $chatBot->guildmembers[$sender]) {
+			} else if ($requirement < $chatBot->guildmembers[$sender]) {
 				$rankdiff = $chatBot->guildmembers[$sender]-$requirement;
 				$chatBot->send("You need $rankdiff promotion(s) in order to vote.", $sender);
 				return;
@@ -210,7 +234,7 @@ if (preg_match("/^vote$/i", $message)) {
 		}
 		
 	//////////////////////////////////////////////////////////////////////////////////////
-	} elseif (count($sect) > 2) {					     // Creating vote
+	} else if (count($sect) > 2) {					     // Creating vote
 		// !vote 16m|Does this module work?|yes|no
 		
 		$settime=trim($sect[0]);
@@ -229,7 +253,7 @@ if (preg_match("/^vote$/i", $message)) {
 			}
 		}
 
-		$newtime = Util::timeParser($settime);
+		$newtime = Util::parseTime($settime);
 		
 		if ($newtime == 0) {
 			$msg = "Found an invalid character for duration or the time you entered was 0 seconds. Time format should be: 1d2h3m4s";
@@ -261,11 +285,12 @@ if (preg_match("/^vote$/i", $message)) {
 		}
 	}
 
+	/////////////////////////////////////////////////
+	// we have a message after all that? post it
+	/////////////////////////////////////////////////
+	if ($msg) {
+		$chatBot->send($msg, $sendto);
+	}
 }
-/////////////////////////////////////////////////
-// we have a message after all that? post it
-/////////////////////////////////////////////////
-if ($msg){	// Send info back
-	$chatBot->send($msg, $sendto);
-}
+
 ?>
