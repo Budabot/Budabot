@@ -191,7 +191,7 @@ INSERT INTO `whereis` VALUES (198,'Stumpy','at Greater Omni Forest at 2000 x 130
 INSERT INTO `whereis` VALUES (199,'Supply Master Smug','at the northeast corner of Wailing Wastes at 2700 x 3500','Supplymaster Smug');
 INSERT INTO `whereis` VALUES (200,'Susan Furor','at Poole/Galway County at 1219 x 1940 at AGT only',NULL);
 INSERT INTO `whereis` VALUES (201,'Tarasque','at Avalon Dungeon, Avalon at 2092 x 3822',NULL);
-INSERT INTO `whereis` VALUES (202,'Temple Of The Three Winds','out the Tir west gate and go north . There is a shortcut teleportal in the SE part of Rome Green near 420 x 240 (behind some red boxes). You must be L 60 or below to enter.','Totw');
+INSERT INTO `whereis` VALUES (202,'Temple Of The Three Winds','out the Tir west gate and go north. There is a shortcut teleportal in the SE part of Rome Green near 420 x 240 (behind some red boxes). You must be L 60 or below to enter.','Totw');
 INSERT INTO `whereis` VALUES (203,'The Broken Falls','at 1450 x 3100 in Broken Shores',NULL);
 INSERT INTO `whereis` VALUES (204,'The Carbon Crystal','at 2600 x 2900 in Southern Artery Valley',NULL);
 INSERT INTO `whereis` VALUES (205,'The Cup','in West Athen directly beside the grid access at 452 x 415.  A quiet little club, the Red Tigers hold their weekly meeting there every Sunday at 20:00 GMT.','thecup');

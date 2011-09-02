@@ -23,7 +23,6 @@ if (preg_match("/^history (.+) (\d)$/i", $message, $arr) || preg_match("/^histor
 	} else {
 		$link[] = "<header>::::: History of $name ::::::<end>\n\n";
 		$lh = "<highlight>Options:<end>\n";
-		$lh .= "<tab><tab><a href='chatcmd:///start $url_orig'>Show History in your browser</a>\n";
 		$lh .= "<tab><tab><a href='chatcmd:///tell <myname> alts $name'>Show Alts</a> \n";
 		$lh .= "<tab><tab><a href='chatcmd:///tell <myname> whois $name'>Whois</a>\n";
 		$lh .= "<tab><tab><a href='chatcmd:///cc addbuddy $name'>Add to your friendslist</a>\n";

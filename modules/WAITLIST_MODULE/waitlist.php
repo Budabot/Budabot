@@ -16,13 +16,7 @@ if (preg_match("/^waitlist next$/i", $message)) {
 	$msg = "<highlight>$name<end> has been called to come now.";
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^waitlist add (.+)$/i", $message, $arr)) {
-  	$uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
-    if (!$uid) {
-      	$msg = "Player <highlight>".$name."<end> does not exist.";
-		$chatBot->send($msg, $sendto);
-	    return;
-    }
 	
 	if (isset($waitlist[$sender][$name])) {
 	  	$msg = "<highlight>$name<end> is already on your waitlist!";
@@ -35,7 +29,7 @@ if (preg_match("/^waitlist next$/i", $message)) {
 	$chatBot->send($msg, $sendto);
 	  	
 	$chatBot->send("You have been added to the waitlist of <highlight>$sender<end>.", $name);
-} else if (preg_match("/^waitlist rem all$/i", $message)) {
+} else if (preg_match("/^waitlist (rem all|clear)$/i", $message)) {
   	if (count($waitlist[$sender]) == 0) {
 	  	$msg = "There is no one on your waitlist!";
 	  	$chatBot->send($msg, $sendto);
@@ -47,13 +41,7 @@ if (preg_match("/^waitlist next$/i", $message)) {
 	$msg = "Your waitlist has been cleared.";
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^waitlist rem (.+)$/i", $message, $arr)) {
-  	$uid = AoChat::get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
-    if (!$uid) {
-      	$msg = "Player <highlight>".$name."<end> does not exist.";
-   	    $chatBot->send($msg, $sendto);
-      	return;
-    }
 	
 	if (!isset($waitlist[$sender][$name])) {
 	  	$msg = "<highlight>$name<end> is not on your waitlist!";
