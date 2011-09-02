@@ -12,7 +12,17 @@ if (!function_exists('innerXML')) {
 		}
 		
 		if ($children == false) {
-			return $node->nodeValue . "\n";
+			if ($node->nodeName == 'br') {
+				return $node->nodeValue . "\n";
+			} else if ($node->nodeName == 'img') {
+				if (preg_match("/http:\\/\\/www\\.ao-universe\\.com\\/aodb\\/icons\\/(\\d+)\\.png/", $node->attributes->getNamedItem("src")->nodeValue, $arr)) {
+					return "<img src=rdb://{$arr[1]}>";
+				} else {
+					return $node->nodeValue;
+				}
+			} else {
+				return $node->nodeValue;
+			}
 		} else {
 			return $str;
 		}
@@ -33,10 +43,11 @@ if (preg_match("/^aou (\\d+)$/i", $message, $arr)) {
 	$divs = $dom->getElementsByTagName('div');
 
 	$blob .= "<header> :::::: $title :::::: <end>\n\n";
-	$blob .= Text::make_chatcmd("Guide on AO-Universe.com", "/start {$url}?id={$guideid}") . "\n\n";
+	$blob .= Text::make_chatcmd("Guide on AO-Universe.com", "/start http://www.ao-universe.com/main.php?site=knowledge&id={$guideid}") . "\n";
+	$blob .= Text::make_chatcmd("Guide on AO-Universe.com Mobile", "/start {$url}?id={$guideid}") . "\n\n";
 	forEach ($divs as $div) {
 		if ($div->attributes->getNamedItem("class")->nodeValue == "content guidetext") {
-			$blob .= strip_tags(str_replace("<br>", "\n", innerXML($div)));
+			$blob .= str_replace("<br>", "\n", innerXML($div));
 			break;
 		}
 	}
@@ -65,7 +76,7 @@ if (preg_match("/^aou (\\d+)$/i", $message, $arr)) {
 			$desc = $div->getElementsByTagName('span')->item(1)->nodeValue;
 			$id = preg_replace("/[^0-9]/", "", $id);
 			$guide_link = Text::make_chatcmd("$name", "/tell <myname> aou $id");
-			
+
 			$blob .= "$guide_link\n{$desc}\n\n";
 		}
 	}
