@@ -14,7 +14,7 @@
 if (preg_match("/^spirits ([^0-9,]+)$/i", $message, $arr)) {
 	$name = $arr[1];
 	$name = ucwords(strtolower($name));
-	$spirits = "<header>  :::::  Search Spirits Database for $name  :::::  <end>\n\n";
+	$spirits = "<header> :::::: Search Spirits Database for $name :::::: <end>\n\n";
 	$db->query("SELECT * FROM spiritsdb WHERE name LIKE '%".str_replace("'", "''", $name)."%' OR spot LIKE '%".str_replace("'", "''", $name)."%' ORDER BY level");
 	$matches= $db->numrows();
 	if ($matches == 0) {
@@ -44,14 +44,14 @@ if (preg_match("/^spirits ([^0-9,]+)$/i", $message, $arr)) {
 			
 			$db->query("SELECT * FROM aodb WHERE lowid = '$loid'");
 			$data2 = $db->fobject("all");
-			forEach ($dadata2ta as $row); {
+			forEach ($data2 as $row); {
 				$hiid = $row->highid;
 				$icon = $row->icon;
 				$phat = $row->name;
 				$hiql = $row->highql;
 			}
 			$spirits .= "<img src=rdb://".$icon."> ";
-			$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
+			$spirits .= "<a href='itemref://$loid/$hiid/$hiql'>$phat</a>\n";
 			$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";
 		}
 	}
@@ -61,13 +61,13 @@ else if (preg_match("/^spirits ([^0-9]+),([^0-9]+)$/i", $message, $arr)) {
 	if (preg_match("/(chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist)/i", $arr[1])) {
 		$slot = $arr[1];
 		$name = $arr[2];
-		$spirits = "<header>  :::::  Search Spirits Database for $name $slot  :::::  <end>\n\n";
+		$spirits = "<header> :::::: Search Spirits Database for $name $slot ::::: <end>\n\n";
 	} else if (preg_match("/(chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist)/i", $arr[2])) {
 		$name = $arr[1];
 		$slot = $arr[2];
-		$spirits = "<header>  :::::  Search Spirits Database for $name $slot  :::::  <end>\n\n";
+		$spirits = "<header> :::::: Search Spirits Database for $name $slot :::::: <end>\n\n";
 	} else {
-		$spirits = "<header>  :::::  Search Spirits Database <red>Error<end>  :::::  <end>\n\n";
+		$spirits = "<header> :::::: Search Spirits Database <red>Error<end> :::::: <end>\n\n";
 		$spirits .= "<red>No matches were found for $name $slot\n\n";
 		$spirits .="If searching by Spirit Name and Slot valid slot types are:\n";
 		$spirits .="Head\n";
@@ -110,7 +110,7 @@ else if (preg_match("/^spirits ([^0-9]+),([^0-9]+)$/i", $message, $arr)) {
 			$hiql = $row->highql;
 		}
 		$spirits .= "<img src=rdb://".$icon."> ";
-		$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
+		$spirits .= "<a href='itemref://$loid/$hiid/$hiql'>$phat</a>\n";
 		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";
 	}
 }
@@ -122,7 +122,7 @@ else if (preg_match("/^spirits ([0-9]+)$/i", $message, $arr)) {
 		$chatBot->send($msg, $sendto);
         return;
     }
-	$spirits = "<header>  :::::  Search for Spirits QL $ql  :::::  <end>\n\n";
+	$spirits = "<header> :::::: Search for Spirits QL $ql :::::: <end>\n\n";
 	$db->query("SELECT * FROM spiritsdb where ql = $ql ORDER BY ql");
 	$data = $db->fobject("all");
 	forEach ($data as $row) {
@@ -141,7 +141,7 @@ else if (preg_match("/^spirits ([0-9]+)$/i", $message, $arr)) {
 			$hiql = $row->highql;
 		}
 		$spirits .= "<img src=rdb://".$icon."> ";
-		$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
+		$spirits .= "<a href='itemref://$loid/$hiid/$hiql'>$phat</a>\n";
 		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";
 	}
 }
@@ -154,7 +154,7 @@ else if (preg_match("/^spirits ([0-9]+)-([0-9]+)$/i", $message, $arr)) {
         $chatBot->send($msg, $sendto);
         return;
 	}
-	$spirits = "<header>  :::::  Search for Spirits QL $qllorange to $qlhirange  :::::  <end>\n\n";
+	$spirits = "<header> :::::: Search for Spirits QL $qllorange to $qlhirange :::::: <end>\n\n";
 	$db->query("SELECT * FROM spiritsdb where ql >= $qllorange AND ql <= $qlhirange ORDER BY ql");
 	$data = $db->fobject("all");
 	forEach ($data as $row) {
@@ -173,7 +173,7 @@ else if (preg_match("/^spirits ([0-9]+)-([0-9]+)$/i", $message, $arr)) {
 			$hiql = $row->highql;
 		}
 		$spirits .= "<img src=rdb://".$icon."> ";
-		$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
+		$spirits .= "<a href='itemref://$loid/$hiid/$hiql'>$phat</a>\n";
 		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";
 	}
 }
@@ -204,7 +204,7 @@ else if (preg_match("/^spirits ([0-9]+) (.+)$/i", $message, $arr)) {
 		$spirits .="Rhand\n";
 		$spirits .="Feet\n";
 	} else {
-		$spirits = "<header>  :::::  Search for $name Spirits QL $ql  :::::  <end>\n\n";
+		$spirits = "<header> :::::: Search for $name Spirits QL $ql :::::: <end>\n\n";
 		$db->query("SELECT * FROM spiritsdb where spot = '".str_replace("'", "''", $name)."' AND ql = $ql ORDER BY ql");
 		$matches = $db->numrows();
 		if ($matches == 0) {
@@ -227,7 +227,7 @@ else if (preg_match("/^spirits ([0-9]+) (.+)$/i", $message, $arr)) {
 				$hiql = $row->highql;
 			}
 			$spirits .= "<img src=rdb://".$icon."> ";
-			$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
+			$spirits .= "<a href='itemref://$loid/$hiid/$hiql'>$phat</a>\n";
 			$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility Needed=$agi<end>\n\n";
 		}
 	}
@@ -243,7 +243,7 @@ else if (preg_match("/^spirits ([0-9]+)-([0-9]+) (.+)$/i", $message, $arr)) {
 		$chatBot->send($msg, $sendto);
         return;
     } else if (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i",$name)) {
-		$spirits = "<header>  :::::  Search Spirits Database <red>Error<end>  :::::  <end>\n\n";
+		$spirits = "<header> :::::: Search Spirits Database <red>Error<end> :::::: <end>\n\n";
 		$spirits .= "<red>Invalid Input\n\n";
 		$spirits .="If searching by QL Range and Slot valid slot types are:\n";
 		$spirits .="Head\n";
@@ -260,7 +260,7 @@ else if (preg_match("/^spirits ([0-9]+)-([0-9]+) (.+)$/i", $message, $arr)) {
 		$spirits .="Rhand\n";
 		$spirits .="Feet\n";
 	} else {
-		$spirits = "<header>  :::::  Search for $name Spirits QL $qllorange to $qlhirange  :::::  <end>\n\n";
+		$spirits = "<header> :::::: Search for $name Spirits QL $qllorange to $qlhirange :::::: <end>\n\n";
 		$db->query("SELECT * FROM spiritsdb where spot = '".str_replace("'", "''", $name)."' AND ql >= $qllorange AND ql <= $qlhirange ORDER BY ql");
 		$matches = $db->numrows();
 		if ($matches == 0) {
@@ -283,7 +283,7 @@ else if (preg_match("/^spirits ([0-9]+)-([0-9]+) (.+)$/i", $message, $arr)) {
 				$hiql = $row->highql;
 			}
 			$spirits .= "<img src=rdb://".$icon."> ";
-			$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
+			$spirits .= "<a href='itemref://$loid/$hiid/$hiql'>$phat</a>\n";
 			$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";
 		}
 	}
@@ -296,7 +296,7 @@ else if (preg_match ("/^spiritslvl ([0-9]+)$/i", $message, $arr)) {
         $chatBot->send($msg, $sendto);
         return;
     }
-	$spirits = "<header>  :::::  Search for Spirits Level $lvl  :::::  <end>\n\n";
+	$spirits = "<header> :::::: Search for Spirits Level $lvl :::::: <end>\n\n";
 	$lolvl = $lvl-10;
 	$db->query("SELECT * FROM spiritsdb where level < $lvl AND level > $lolvl ORDER BY level");
 	$data = $db->fobject("all");
@@ -316,7 +316,7 @@ else if (preg_match ("/^spiritslvl ([0-9]+)$/i", $message, $arr)) {
 			$hiql = $row->highql;
 		}
 		$spirits .= "<img src=rdb://".$icon."> ";
-		$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
+		$spirits .= "<a href='itemref://$loid/$hiid/$hiql'>$phat</a>\n";
 		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";
 	}
 }
@@ -329,7 +329,7 @@ else if (preg_match("/^spiritslvl ([0-9]+)-([0-9]+)$/i", $message, $arr)) {
         $chatBot->send($msg, $sendto);
         return;
 	}
-	$spirits = "<header>  :::::  Search for Spirits Level $lvllorange to $lvlhirange  :::::  <end>\n\n";
+	$spirits = "<header> :::::: Search for Spirits Level $lvllorange to $lvlhirange :::::: <end>\n\n";
 	$db->query("SELECT * FROM spiritsdb where level >= $lvllorange AND level <= $lvlhirange ORDER BY level");
 	$data = $db->fobject("all");
 	forEach ($data as $row) {
@@ -348,7 +348,7 @@ else if (preg_match("/^spiritslvl ([0-9]+)-([0-9]+)$/i", $message, $arr)) {
 			$hiql = $row->highql;
 		}
 		$spirits .= "<img src=rdb://".$icon."> ";
-		$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
+		$spirits .= "<a href='itemref://$loid/$hiid/$hiql'>$phat</a>\n";
 		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";
 	}
 }
@@ -362,7 +362,7 @@ else if (ereg ("/^spiritslvl ([0-9]+) (.+)$/i", $message, $arr)) {
         $chatBot->send($msg, $sendto);
         return;
     } else if (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i",$name)) {
-		$spirits = "<header>  :::::  Search Spirits Database <red>Error<end>  :::::  <end>\n\n";
+		$spirits = "<header> :::::: Search Spirits Database <red>Error<end> :::::: <end>\n\n";
 		$spirits .= "<red>Invalid Input\n\n";
 		$spirits .="If searching by Minimum Level and Slot valid slot types are:\n";
 		$spirits .="Head\n";
@@ -379,7 +379,7 @@ else if (ereg ("/^spiritslvl ([0-9]+) (.+)$/i", $message, $arr)) {
 		$spirits .="Rhand\n";
 		$spirits .="Feet\n";
 	} else {
-		$spirits = "<header>  :::::  Search for $name Spirits Level $lvl  :::::  <end>\n\n";
+		$spirits = "<header> ::::::: Search for $name Spirits Level $lvl :::::: <end>\n\n";
 		$lolvl = $lvl-10;
 		$db->query("SELECT * FROM spiritsdb where spot = '".str_replace("'", "''", $name)."' AND level < $lvl AND level > $lolvl ORDER BY level");
 		$matches = $db->numrows();
@@ -403,7 +403,7 @@ else if (ereg ("/^spiritslvl ([0-9]+) (.+)$/i", $message, $arr)) {
 				$hiql = $row->highql;
 			}
 			$spirits .= "<img src=rdb://".$icon."> ";
-			$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
+			$spirits .= "<a href='itemref://$loid/$hiid/$hiql'>$phat</a>\n";
 			$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";
 		}
 	}
@@ -419,7 +419,7 @@ else if (preg_match("/^spiritslvl ([0-9]+)-([0-9]+) (.+)$/i", $message, $arr)) {
         $chatBot->send($msg, $sendto);
         return;
     } else if (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i",$name)) {
-		$spirits = "<header>  :::::  Search Spirits Database <red>Error<end>  :::::  <end>\n\n";
+		$spirits = "<header> :::::: Search Spirits Database <red>Error<end> :::::: <end>\n\n";
 		$spirits .= "<red>Invalid Input\n\n";
 		$spirits .="If searching by Minimum Level and Slot valid slot types are:\n";
 		$spirits .="Head\n";
@@ -459,7 +459,7 @@ else if (preg_match("/^spiritslvl ([0-9]+)-([0-9]+) (.+)$/i", $message, $arr)) {
 				$hiql = $row->highql;
 			}
 			$spirits .= "<img src=rdb://".$icon."> ";
-			$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
+			$spirits .= "<a href='itemref://$loid/$hiid/$hiql'>$phat</a>\n";
 			$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility/Sense Needed=$agi<end>\n\n";
 		}
 	}
@@ -468,7 +468,7 @@ else if (preg_match("/^spiritslvl ([0-9]+)-([0-9]+) (.+)$/i", $message, $arr)) {
 else if (preg_match ("/^spiritsagi ([0-9,]+)$/i", $message, $arr)) {
 	$agility = $arr[1];
 	$loagility = $agility - 10;
-	$spirits = "<header>::::Search Spirits Database for Agility Requirement of $agility::::<end>\n\n";
+	$spirits = "<header> :::::: Search Spirits Database for Agility Requirement of $agility :::::: <end>\n\n";
 	$db->query("SELECT * FROM spiritsdb WHERE agility < $agility AND agility > $loagility ORDER BY level");
 	$matches = $db->numrows();
 	if ($matches == 0) {
@@ -491,7 +491,7 @@ else if (preg_match ("/^spiritsagi ([0-9,]+)$/i", $message, $arr)) {
 			$hiql = $row->highql;
 		}
 		$spirits .= "<img src=rdb://".$icon."> ";
-		$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
+		$spirits .= "<a href='itemref://$loid/$hiid/$hiql'>$phat</a>\n";
 		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility Needed=$agi<end>\n\n";
 	}
 }
@@ -508,7 +508,7 @@ else if (preg_match ("/^spiritsagi ([0-9]+) (.+)$/i", $message, $arr)) {
         return;
     }
 	else if (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i",$name)) {
-		$spirits = "<header>  :::::  Search Spirits Database <red>Error<end>  :::::  <end>\n\n";
+		$spirits = "<header> :::::: Search Spirits Database <red>Error<end> :::::: <end>\n\n";
 		$spirits .= "<red>Invalid Input\n\n";
 		$spirits .="If searching by Agility and Slot valid slot types are:\n";
 		$spirits .="Head\n";
@@ -525,7 +525,7 @@ else if (preg_match ("/^spiritsagi ([0-9]+) (.+)$/i", $message, $arr)) {
 		$spirits .="Rhand\n";
 		$spirits .="Feet\n";
 	} else {
-		$spirits = "<header>  :::::  Search for $name Spirits With Agility Req of $agility  :::::  <end>\n\n";
+		$spirits = "<header> :::::: Search for $name Spirits With Agility Req of $agility :::::: <end>\n\n";
 		$db->query("SELECT * FROM spiritsdb where spot = '".str_replace("'", "''", $name)."' AND agility < $agility AND agility > $loagility ORDER BY ql");
 		$matches = $db->numrows();
 		if ($matches == 0) {
@@ -548,7 +548,7 @@ else if (preg_match ("/^spiritsagi ([0-9]+) (.+)$/i", $message, $arr)) {
 				$hiql = $row->highql;
 			}
 			$spirits .= "<img src=rdb://".$icon."> ";
-			$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
+			$spirits .= "<a href='itemref://$loid/$hiid/$hiql'>$phat</a>\n";
 			$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility Needed=$agi<end>\n\n";
 		}
 	}
@@ -580,7 +580,7 @@ else if (preg_match ("/^spiritssen ([0-9,]+)$/i", $message, $arr)) {
 			$hiql = $row->highql;
 		}
 		$spirits .= "<img src=rdb://".$icon."> ";
-		$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
+		$spirits .= "<a href='itemref://$loid/$hiid/$hiql'>$phat</a>\n";
 		$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Sense Needed=$sen<end>\n\n";
 	}
 }
@@ -595,7 +595,7 @@ else if (preg_match ("/^spiritssen ([0-9]+) (.+)$/i", $message, $arr)) {
         $chatBot->send($msg, $sendto);
         return;
     } else if (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i",$name)) {
-		$spirits = "<header>  :::::  Search Spirits Database <red>Error<end>  :::::  <end>\n\n";
+		$spirits = "<header> :::::: Search Spirits Database <red>Error<end> :::::: <end>\n\n";
 		$spirits .= "<red>Invalid Input\n\n";
 		$spirits .="If searching by Sense and Slot valid slot types are:\n";
 		$spirits .="Head\n";
@@ -612,7 +612,7 @@ else if (preg_match ("/^spiritssen ([0-9]+) (.+)$/i", $message, $arr)) {
 		$spirits .="Rhand\n";
 		$spirits .="Feet\n";
 	} else {
-		$spirits = "<header>  :::::  Search for $name Spirits With Sense Req of $sense  :::::  <end>\n\n";
+		$spirits = "<header> :::::: Search for $name Spirits With Sense Req of $sense :::::: <end>\n\n";
 		$db->query("SELECT * FROM spiritsdb where spot = '".str_replace("'", "''", $name)."' AND sense < $sense AND sense > $losense ORDER BY ql");
 		$matches = $db->numrows();
 		if ($matches == 0) {
@@ -635,7 +635,7 @@ else if (preg_match ("/^spiritssen ([0-9]+) (.+)$/i", $message, $arr)) {
 				$hiql = $row->highql;
 			}
 			$spirits .= "<img src=rdb://".$icon."> ";
-			$spirits .= "<a href='itemref://$loid/$hiid/$hiql.'>$phat</a>\n";
+			$spirits .= "<a href='itemref://$loid/$hiid/$hiql'>$phat</a>\n";
 			$spirits .= "<green>Minimum Level=$lvl   Slot=$spot   Agility Needed=$agi<end>\n\n";
 		}
 	}

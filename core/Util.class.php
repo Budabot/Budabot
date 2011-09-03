@@ -247,8 +247,8 @@ class Util {
 	public static function parseTime($time_string) {
 		$run_time = 0;
 
-		if (preg_match("/([0-9]+)(d|day|days)/i", $time_string, $day)) {
-			$run_time += $day[1] * 86400;
+		if (preg_match("/([0-9]+)(d|day|days)/i", $time_string, $days)) {
+			$run_time += $days[1] * 86400;
 		}
 
 		if (preg_match("/([0-9]+)(h|hr|hrs)/i", $time_string, $hours)) {
