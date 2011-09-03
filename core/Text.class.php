@@ -8,37 +8,26 @@ class Text {
 	 */
 	public static function make_header($title, $links = NULL) {
 		global $chatBot;
-	
-		// if !$links, then make_header function will show default links:  Help, About, Download.
-	        // if $links = "none", then make_header wont show ANY links.
-		// if $links = array("Help;chatcmd:///tell <myname> help"),  slap in your own array for your own links.
 
 		$color = $chatBot->settings['default_header_color'];
-		$baseR = hexdec(substr($color,14,2)); $baseG = hexdec(substr($color,16,2)); $baseB = hexdec(substr($color,18,2));
+		$baseR = hexdec(substr($color,14,2));
+		$baseG = hexdec(substr($color,16,2));
+		$baseB = hexdec(substr($color,18,2));
 		$color2 = "<font color='#".strtoupper(substr("00".dechex($baseR*.75),-2).substr("00".dechex($baseG*.75),-2).substr("00".dechex($baseB*.75),-2))."'>";
-		$color3 = "<font color='#".strtoupper(substr("00".dechex($baseR*.50),-2).substr("00".dechex($baseG*.50),-2).substr("00".dechex($baseB*.50),-2))."'>";
-		$color4 = "<font color='#".strtoupper(substr("00".dechex($baseR*.25),-2).substr("00".dechex($baseG*.25),-2).substr("00".dechex($baseB*.25),-2))."'>";
+		$color3 = "<font color='#".strtoupper(substr("00".dechex($baseR*.60),-2).substr("00".dechex($baseG*.60),-2).substr("00".dechex($baseB*.60),-2))."'>";
+		$color4 = "<font color='#".strtoupper(substr("00".dechex($baseR*.45),-2).substr("00".dechex($baseG*.45),-2).substr("00".dechex($baseB*.45),-2))."'>";
 
 		//Title
 		$header = $color4.":::".$color3.":::".$color2.":::".$color;
-		$header .= $title;
-		$header .= "</font>:::</font>:::</font>:::</font> ";
+		$header .= " $title ";
+		$header .= "</font>:::</font>:::</font>:::</font>\n\n";
 
-
-		if (!$links) {
-			$links = array(
-				"Help" => "/tell <myname> help",
-				"About" => "/tell <myname> about",
-				"Download" => "/start http://code.google.com/p/budabot2/downloads/list"
-			);
-		}
-		if (strtolower($links) != "none") {
+		if ($links !== NULL) {
 			forEach ($links as $title => $command){
-				$header .= ":::" . Text::make_chatcmd($title, $command, 'style="text-decoration:none;"') . ":::";
+				$header .= " ::: " . Text::make_chatcmd($title, $command, 'style="text-decoration:none;"') . " ::: ";
 			}
+			$header .= "\n\n";
 		}
-
-		$header .= $chatBot->settings["default_window_color"]."\n\n";
 
 		return $header;
 	}

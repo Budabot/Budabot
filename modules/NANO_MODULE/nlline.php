@@ -12,7 +12,7 @@ if (preg_match("/^nlline ([0-9]*)$/i", $message, $arr)) {
 
 		$header = "$row->profession $row->name Nanos";
 
-		$window = Text::make_header($header, "none");
+		$window = Text::make_header($header, array('Help' => '/tell <myname> help nanolines'));
 
 		$sql = "
 			SELECT

@@ -38,7 +38,7 @@ if (preg_match("/^trickle( ([a-zA-Z]+) ([0-9]+)){1,6}$/i", $message, $arr1) || p
 		}
 	}
 
-	$output = Text::make_header("Trickle$header", "none");
+	$output = Text::make_header("Trickle$header", array('Help' => '/tell <myname> help trickle'));
 
 	$results = getTrickleResults($abilities);
 	$output .= formatOutput($results, $amount, $abilities);

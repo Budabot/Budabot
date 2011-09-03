@@ -3,7 +3,7 @@
 $colorlabel = "<font color=#00DE42>";
 $colorvalue = "<font color=#63AD63>";
 
-$page_size = 20;
+$page_size = Setting::get('tower_page_size');
 $page_label = 1;
 $search = '';
 
@@ -90,7 +90,14 @@ $db->query($sql);
 if ($db->numrows() == 0) {
 	$msg = "No tower attacks found.";
 } else {
-	$blob = "<header> :::::: The last $page_size Tower Attacks (page $page_label) :::::: <end>\n\n" . $colorvalue;
+	$links = array();
+	if ($page_label > 1) {
+		$links['Previous Page'] = '/tell <myname> attacks ' . ($page_label - 1);
+	}
+	$links['Next Page'] = '/tell <myname> attacks ' . ($page_label + 1);
+	
+	$blob = Text::make_header("The last $page_size Tower Attacks (page $page_label)", $links);
+	$blob .= $colorvalue;
 
 	while ($row = $db->fObject()) {
 		$blob .= $colorlabel."Time:<end> ".gmdate("M j, Y, G:i", $row->time)." (GMT)\n";
