@@ -63,14 +63,4 @@ class Teamspeak3 {
     }
 }
 
-// The example
-///////////////
-$username = "query";
-$password = "pass";
-$ts =  new Teamspeak3($username, $password);
-
-$onlinePlayers = $ts->exec('clientlist');
-print_r($onlinePlayers);
-
-$playerInfo = $ts->exec('clientinfo clid=16');
-print_r($playerInfo);
+?>
