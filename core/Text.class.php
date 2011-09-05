@@ -7,9 +7,7 @@ class Text {
 	 * @description: creates a formatted header to go in a blob
 	 */
 	public static function make_header($title, $links = NULL) {
-		global $chatBot;
-
-		$color = $chatBot->settings['default_header_color'];
+		$color = Setting::get('default_header_color');
 		$baseR = hexdec(substr($color,14,2));
 		$baseG = hexdec(substr($color,16,2));
 		$baseB = hexdec(substr($color,18,2));
@@ -37,15 +35,13 @@ class Text {
 	 * @description: creates an info window
 	 */
 	function make_blob($name, $content, $style = NULL) {
-		global $chatBot;
-		
 		// escape double quotes
 		$content = str_replace('"', '&quot;', $content);
 		
 		$content = Text::format_message($content);
 		$tmp = str_replace('<pagebreak>', '', $content);
 
-		if (strlen($tmp) > $chatBot->settings["max_blob_size"]) {
+		if (strlen($tmp) > Setting::get("max_blob_size")) {
 			$array = explode("<pagebreak>", $content);
 			$pagebreak = true;
 			
@@ -62,22 +58,26 @@ class Text {
 					$line .= "\n";
 				}
 				$line_length = strlen($line);
-				if ($page_size + $line_length < $chatBot->settings["max_blob_size"]) {
+				if ($page_size + $line_length < Setting::get("max_blob_size")) {
 					$result[$page] .= $line;
 					$page_size += $line_length;
 				} else {
-					$result[$page] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].$result[$page]."\">$name</a> (Page <highlight>$page<end>)";
+					$result[$page] = "<a $style href=\"text://".Setting::get("default_window_color").$result[$page]."\">$name</a> (Page <highlight>$page<end>)";
 					$page++;
 					
 					$result[$page] .= "<header>::::: $name Page $page :::::<end>\n\n";
 					$result[$page] .= $line;
 					$page_size = strlen($result[$page]);
+					
+					if ($page_size > Setting::get("max_blob_size")) {
+						Logger::log('ERROR', 'Text', "Could not successfully page blob with title '$name'");
+					}
 				}
 			}
-			$result[$page] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].$result[$page]."\">$name</a> (Page <highlight>$page - End<end>)";
+			$result[$page] = "<a $style href=\"text://".Setting::get("default_window_color").$result[$page]."\">$name</a> (Page <highlight>$page - End<end>)";
 			return $result;
 		} else {
-			return "<a $style href=\"text://".$chatBot->settings["default_window_color"].$tmp."\">$name</a>";
+			return "<a $style href=\"text://".Setting::get("default_window_color").$tmp."\">$name</a>";
 		}
 	}
 	
@@ -86,8 +86,6 @@ class Text {
 	 * @description: creates an info window
 	 */
 	function make_structured_blob($name, $content, $style = NULL) {
-		global $chatBot;
-		
 		// escape double quotes
 		$content = str_replace('"', '&quot;', $content);
 		
@@ -146,16 +144,16 @@ class Text {
 			
 			$nextCount = strlen($output) + strlen($arr['header']) + strlen($arr['content']) + strlen($arr['footer']); //Character count if header+content+footer are added
 			
-			if ($nextCount < $chatBot->settings["max_blob_size"]) {
+			if ($nextCount < Setting::get("max_blob_size")) {
 				//If it's less than max_blob_size still, we're good
 				$output .= $arr['header'] . $arr['content'] . $arr['footer'];
-			} else if ($nextCount - 500 < $chatBot->settings["max_blob_size"] && strlen($output) >= ($chatBot->settings["max_blob_size"] / 2)) {
+			} else if ($nextCount - 500 < Setting::get("max_blob_size") && strlen($output) >= (Setting::get("max_blob_size") / 2)) {
 				//If less than 500 characters over the cap, we go ahead and move the entire section into the next page (but only if the current page has >= half its max size used in content already)
 				$outputArr[] = $output; //Stick the current page into our output array
 				$output = "<header>::::: $name Page " . (count($outputArr) + 1) . " :::::<end>\n\n" . $arr['header'] . $arr['content'] . $arr['footer']; //And start the new page
 			} else {
 				//Alright, looks like we're splitting the section over multiple pages
-				if (strlen($output) + strlen($arr['header']) < $chatBot->settings["max_blob_size"]) {
+				if (strlen($output) + strlen($arr['header']) < Setting::get("max_blob_size")) {
 					$output .= $arr['header'];
 				} else {
 					//New page (simplest split)
@@ -164,7 +162,7 @@ class Text {
 				}
 				
 				//Now for the content
-				if (strlen($output) + strlen($arr['content']) < $chatBot->settings["max_blob_size"]) {
+				if (strlen($output) + strlen($arr['content']) < Setting::get("max_blob_size")) {
 					$output .= $arr['content'];
 				} else {
 					// Split the content into sections based off newlines and <pagebreak> tags
@@ -193,7 +191,7 @@ class Text {
 					// Process all the sections of the content
 					while ($i < count($cArr)) {
 						$str = $cArr[$i];
-						if (strlen($output) + strlen($str) + strlen($arr['footer_incomplete']) < $chatBot->settings["max_blob_size"]) {
+						if (strlen($output) + strlen($str) + strlen($arr['footer_incomplete']) < Setting::get("max_blob_size")) {
 							//We have room to add another line before splitting
 							if ($i + 1 != count($cArr)) {
 								$output .= $str . $incNewline[$i];
@@ -210,7 +208,7 @@ class Text {
 				}
 				
 				//Now for the footer
-				if (strlen($output) + strlen($arr['footer']) < $chatBot->settings["max_blob_size"]) {
+				if (strlen($output) + strlen($arr['footer']) < Setting::get("max_blob_size")) {
 					$output .= $arr['footer'];
 				} else {
 					//This is a tricky one.  footers should have formatting ending tags only.
@@ -222,19 +220,20 @@ class Text {
 			
 		}
 		
-		if (!empty($output))
+		if (!empty($output)) {
 			$outputArr[] = $output;
+		}
 		
 		// Turn all pages into clickable blobs
 		foreach ($outputArr as $index => $page) {
 			if (count($outputArr) > 1) {
 				if (count($outputArr) == $index + 1) {
-					$outputArr[$index] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].str_replace("<pagebreak>", "",$page)."\">$name</a> (Page <highlight>" . ($index + 1) . " - End<end>)";
+					$outputArr[$index] = "<a $style href=\"text://".Setting::get("default_window_color").str_replace("<pagebreak>", "", $page)."\">$name</a> (Page <highlight>" . ($index + 1) . " - End<end>)";
 				} else {
-					$outputArr[$index] = "<a $style href=\"text://".$chatBot->settings["default_window_color"].str_replace("<pagebreak>", "",$page)."\">$name</a> (Page <highlight>" . ($index + 1) . "<end>)";
+					$outputArr[$index] = "<a $style href=\"text://".Setting::get("default_window_color").str_replace("<pagebreak>", "", $page)."\">$name</a> (Page <highlight>" . ($index + 1) . "<end>)";
 				}
 			} else {
-				$outputArr = "<a $style href=\"text://".$chatBot->settings["default_window_color"].str_replace("<pagebreak>", "",$page)."\">$name</a>";
+				$outputArr = "<a $style href=\"text://".Setting::get("default_window_color").str_replace("<pagebreak>", "", $page)."\">$name</a>";
 			}
 		}
 		
@@ -268,8 +267,6 @@ class Text {
 	 * @param: $style (optional) - any styling you want applied to the link
 	 */
 	function make_chatcmd($name, $content, $style = NULL) {
-		global $chatBot;
-		
 		$content = str_replace('"', '&quot;', $content);
 		$content = str_replace("'", '&#39;', $content);
 		return "<a $style href='chatcmd://$content'>$name</a>";
@@ -309,8 +306,8 @@ class Text {
 		global $chatBot;
 		
 		$array = array(
-			"<header>" => $chatBot->settings['default_header_color'],
-			"<highlight>" => $chatBot->settings['default_highlight_color'],
+			"<header>" => Setting::get('default_header_color'),
+			"<highlight>" => Setting::get('default_highlight_color'),
 			"<black>" => "<font color='#000000'>",
 			"<white>" => "<font color='#FFFFFF'>",
 			"<yellow>" => "<font color='#FFFF00'>",
@@ -321,16 +318,16 @@ class Text {
 			"<grey>" => "<font color='#C3C3C3'>",
 			"<cyan>" => "<font color='#00FFFF'>",
 			
-			"<neutral>" => $chatBot->settings['default_neut_color'],
-			"<omni>" => $chatBot->settings['default_omni_color'],
-			"<clan>" => $chatBot->settings['default_clan_color'],
-			"<unknown>" => $chatBot->settings['default_unknown_color'],
+			"<neutral>" => Setting::get('default_neut_color'),
+			"<omni>" => Setting::get('default_omni_color'),
+			"<clan>" => Setting::get('default_clan_color'),
+			"<unknown>" => Setting::get('default_unknown_color'),
 
 			"<myname>" => $chatBot->vars["name"],
 			"<myguild>" => $chatBot->vars["my_guild"],
 			"<tab>" => "    ",
 			"<end>" => "</font>",
-			"<symbol>" => $chatBot->settings["symbol"]);
+			"<symbol>" => Setting::get("symbol"));
 		
 		$message = str_ireplace(array_keys($array), array_values($array), $message);
 
