@@ -98,7 +98,7 @@ if (preg_match("/^(timers|timers add) ([0-9]+)$/i", $message, $arr) || preg_matc
 	    return;
 	}
 
-  	if ($num_timers <= $chatBot->settings["timers_window"]) {
+  	if ($num_timers <= Setting::get("timers_window")) {
 		forEach ($chatBot->data["timers"] as $timer) {
 			$time_left = Util::unixtime_to_readable($timer->timer - time());
 			$name = $timer->name;

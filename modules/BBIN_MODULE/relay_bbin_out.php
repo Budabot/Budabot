@@ -9,14 +9,14 @@
    */
    
 global $bbin_socket;
-if ("1" == $chatBot->settings['bbin_status']) {
+if ("1" == Setting::get('bbin_status')) {
 	// do not relay commands and ignored chars
-	if ($args[2][0] != $chatBot->settings["symbol"]) {
+	if ($args[2][0] != Setting::get("symbol")) {
 		
 		$outmsg = htmlspecialchars($message);
 		
-		fputs($bbin_socket, "PRIVMSG ".$chatBot->settings['bbin_channel']." :$sender: $message\n");
-		if ($chatBot->settings['bbin_debug_messages'] == 1) {
+		fputs($bbin_socket, "PRIVMSG ".Setting::get('bbin_channel')." :$sender: $message\n");
+		if (Setting::get('bbin_debug_messages') == 1) {
 			Logger::log_chat("Out. BBIN Msg.", $sender, $message);
 		}
 	}

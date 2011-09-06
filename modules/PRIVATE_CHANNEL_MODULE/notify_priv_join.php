@@ -19,7 +19,7 @@ if ($type == "joinPriv") {
 		}
 	}
 
-	if ($chatBot->settings["guest_relay"] == 1) {
+	if (Setting::get("guest_relay") == 1) {
 		$chatBot->send($msg, "guild", true);
 	}
 	$chatBot->send($msg, "priv", true);

@@ -35,7 +35,7 @@ if (isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
 	$chatBot->send($msg, "guild", true);
 
 	//private channel part
-	if ($chatBot->settings["guest_relay"] == 1) {
+	if (Setting::get("guest_relay") == 1) {
 		$chatBot->send($msg, "priv", true);
 	}
 }

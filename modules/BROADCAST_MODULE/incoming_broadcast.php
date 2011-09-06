@@ -3,10 +3,10 @@
 if ($type == "msg" && isset($chatBot->data["broadcast_list"][$sender])) {
 	$msg = "[$sender]: $message";
 
-	if ($chatBot->settings['broadcast_to_guild']) {
+	if (Setting::get('broadcast_to_guild')) {
 		$chatBot->send($msg, 'guild', true);
 	}
-	if ($chatBot->settings['broadcast_to_privchan']) {
+	if (Setting::get('broadcast_to_privchan')) {
 		$chatBot->send($msg, 'priv', true);
 	}
 

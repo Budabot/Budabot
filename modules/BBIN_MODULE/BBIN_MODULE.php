@@ -9,19 +9,17 @@
    */
 
 	$MODULE_NAME = "BBIN_MODULE";
-	if($chatBot->settings['bbin_channel'] == "") {
-		if($chatBot->vars['my_guild'] == "") {
+	if (Setting::get('bbin_channel') == "") {
+		if ($chatBot->vars['my_guild'] == "") {
 			$channel = "#".strtolower($chatBot->vars['name']);
-		}
-		else {
-			if(strpos($chatBot->vars['my_guild']," ")) {
-			$sandbox = explode(" ",$chatBot->vars['my_guild']);
+		} else {
+			if (strpos($chatBot->vars['my_guild']," ")) {
+				$sandbox = explode(" ",$chatBot->vars['my_guild']);
 				for ($i = 0; $i < count($sandbox); $i++) {
 					$channel .= ucfirst(strtolower($sandbox[$i]));
 				}
 				$channel = "#".$channel;
-			}
-			else {
+			} else {
 				$channel = "#".$chatBot->vars['my_guild'];
 			}
 		}

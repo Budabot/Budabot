@@ -106,7 +106,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 		$list .= "<a href='chatcmd:///tell <myname> quote $row->IDNumber'>$row->IDNumber</a>, ";
 	}
 	if ($list) {
-		$msg .="<tab>Quotes posted by <highlight>$search<end>: ";
+		$msg .= "<tab>Quotes posted by <highlight>$search<end>: ";
 		$msg .= substr($list,0,strlen($list)-2);
 	}	
 	
@@ -120,7 +120,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 		if ($msg) {
 			$msg .="\n\n";
 		}
-		$msg .="<tab>Quotes <highlight>$search<end> said: ";
+		$msg .= "<tab>Quotes <highlight>$search<end> said: ";
 		$msg .= substr($list,0,strlen($list)-2);
 	}
 
@@ -134,19 +134,19 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 		if ($msg) {
 			$msg .="\n\n";
 		}
-		$msg .="<tab>Quotes that contain '<highlight>$search<end>': ";
+		$msg .= "<tab>Quotes that contain '<highlight>$search<end>': ";
 		$msg .= substr($list,0,strlen($list)-2);
 	}
 	
 	if ($msg) {
-		$msg = Text::make_blob("Results for: '$search'", "<header>::::: Quote Info :::::<end>\n\n$msg");
+		$msg = Text::make_blob("Results for: '$search'", "<header> :::::: Quote Info :::::: <end>\n\n$msg");
 	} else {
 		$msg = "Couldn't find any matches for this search.";
 	}
 	$chatBot->send($msg, $sendto);
 //Show the top quoters/quoted
 } else if (preg_match("/^quote stats$/i", $message, $arr)) {
-	$top = $chatBot->settings["quote_stat_count"];
+	$top = Setting::get("quote_stat_count");
 
 	$db->query("SELECT * FROM `#__quote`");
 	$count = $db->numrows();
@@ -218,12 +218,12 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 		$quoteMSG = $row->What;
 		
 		$msg = "<header> ::::: Quote Info ::::: <end>\n\n";
-		$msg .="<tab>ID: (<highlight>$quoteID<end> of $count)\n";
-		$msg .="<tab>Poster: <highlight>$quoteWHO<end>\n";
-		$msg .="<tab>Quoting: <highlight>$quoteOfWHO<end>\n";
-		$msg .="<tab>Date: <highlight>$quoteDATE<end>\n\n";
+		$msg .= "<tab>ID: (<highlight>$quoteID<end> of $count)\n";
+		$msg .= "<tab>Poster: <highlight>$quoteWHO<end>\n";
+		$msg .= "<tab>Quoting: <highlight>$quoteOfWHO<end>\n";
+		$msg .= "<tab>Date: <highlight>$quoteDATE<end>\n\n";
 		
-		$msg .="<tab>Quotes posted by <highlight>$quoteWHO<end>: ";
+		$msg .= "<tab>Quotes posted by <highlight>$quoteWHO<end>: ";
 		$db->query("SELECT * FROM `#__quote` WHERE `Who` = '$quoteWHO'");
 		$list = "";
 		while ($row = $db->fObject()) {
@@ -269,13 +269,13 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 			}
 		} while (true);
 		
-		$msg = "<header>::::: Quote Info :::::<end>\n\n";
-		$msg .="<tab>ID: (<highlight>$quoteID<end> of $count)\n";
-		$msg .="<tab>Poster: <highlight>$quoteWHO<end>\n";
-		$msg .="<tab>Quoting: <highlight>$quoteOfWHO<end>\n";
-		$msg .="<tab>Date: <highlight>$quoteDATE<end>\n\n";
+		$msg = "<header> :::::: Quote Info :::::: <end>\n\n";
+		$msg .= "<tab>ID: (<highlight>$quoteID<end> of $count)\n";
+		$msg .= "<tab>Poster: <highlight>$quoteWHO<end>\n";
+		$msg .= "<tab>Quoting: <highlight>$quoteOfWHO<end>\n";
+		$msg .= "<tab>Date: <highlight>$quoteDATE<end>\n\n";
 		
-		$msg .="<tab>Quotes posted by <highlight>$quoteWHO<end>: ";
+		$msg .= "<tab>Quotes posted by <highlight>$quoteWHO<end>: ";
 		$db->query("SELECT * FROM `#__quote` WHERE `Who` = '".str_replace("'", "''", $quoteWHO)."'");
 		$list = "";
 		while ($row = $db->fObject()) {
@@ -283,13 +283,13 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 		}
 		$msg .= substr($list,0,strlen($list)-2)."\n\n";
 		
-		$msg .="<tab>Quotes <highlight>$quoteOfWHO<end> said: ";
+		$msg .= "<tab>Quotes <highlight>$quoteOfWHO<end> said: ";
 		$db->query("SELECT * FROM `#__quote` WHERE `OfWho` = '".str_replace("'", "''", $quoteOfWHO)."'");
 		$list = "";
 		while ($row = $db->fObject()) {
 			$list .= "<a href='chatcmd:///tell ".$chatBot->vars["name"]." quote $row->IDNumber>$row->IDNumber</a>, ";
 		}
-		$msg .= substr($list,0,strlen($list)-2);
+		$msg .= substr($list, 0, strlen($list) - 2);
 		
 		$msg = Text::make_blob("Quote", $msg).': "'.$quoteMSG.'"';
 		

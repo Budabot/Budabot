@@ -15,7 +15,7 @@ if (preg_match("/^onlineirc$/i", $message)) {
 		return;
 	}
 
-	fputs($socket, "NAMES :".$chatBot->settings['irc_channel']."\n");
+	fputs($socket, "NAMES :".Setting::get('irc_channel')."\n");
 	sleep(1);
 	while ($data = fgets($socket)) {
 		if (preg_match("/(End of \/NAMES list)/", $data)) {

@@ -9,11 +9,11 @@ if (preg_match("/^fp (\\d+)$/i", $message, $arr1) || preg_match("/^fp (.+)$/i", 
 			$query .= " AND `name` LIKE '%$value%'";
 		}
 
-		$db->query("SELECT * FROM nanos WHERE 1=1 $query ORDER BY lowql DESC, name LIMIT 0, {$chatBot->settings["maxnano"]}");
+		$db->query("SELECT * FROM nanos WHERE 1=1 $query ORDER BY lowql DESC, name LIMIT 0, " . Setting::get("maxnano"));
 		$data = $db->fObject('all');
 	} else { // if ($arr1)
 		$id = $arr1[1];
-		$db->query("SELECT * FROM nanos WHERE `lowid` = $id ORDER BY lowql DESC, name LIMIT 0, {$chatBot->settings["maxnano"]}");
+		$db->query("SELECT * FROM nanos WHERE `lowid` = $id ORDER BY lowql DESC, name LIMIT 0, " . Setting::get(maxnano"));
 		$data = $db->fObject('all');
 	}
 	
