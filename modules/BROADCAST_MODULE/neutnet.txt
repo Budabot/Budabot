@@ -1,11 +1,12 @@
 <header> :::::: Neutnet :::::: <end>
 
-<highlight>Add all 14 Neutnet slave bots to the broadcast list<end>
-<tab><symbol>neutnet add
+<highlight>Enable Neutnet support<end>
+<tab><symbol>neutnet enable
 
-<highlight>Remove all 14 Neutnet slave bots from the broadcast list<end>
-<tab><symbol>neutnet rem
+<highlight>Disable Neutnet support<end>
+<tab><symbol>neutnet disable
 
+Note: Neutnet is currently available on RK2 only.  See !help dnet for an RK1 equivalent.
 
 <header> ::: Registering your bot with Neutnet ::: <end>
 
@@ -26,5 +27,3 @@ Removes the bot registration
 
 /tell neutnet !statusbot &lt;botname&gt;
 Shows control panel for the bot. With the control panel, you can subscribe and unsubscribe channels.
-
-Note: Neutnet is currently available on RK2 only.
