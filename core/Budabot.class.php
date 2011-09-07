@@ -272,7 +272,7 @@ class Budabot extends AOChat {
 		// for when Text::make_blob generates several pages
 		if (is_array($message)) {
 			forEach ($message as $page) {
-				$this->send($page, $group, $disable_relay);
+				$this->sendPrivate($page, $group, $disable_relay);
 			}
 			return;
 		}
