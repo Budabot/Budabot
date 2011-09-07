@@ -529,6 +529,14 @@ class AOChat {
 
 		return $this->send_packet(new AOChatPacket("out", AOCP_PRIVGRP_KICK, $uid));
 	}
+	
+	function privategroup_leave($user) {
+		if (($uid = $this->get_uid($user)) === false) {
+			return false;
+		}
+
+		return $this->send_packet(new AOChatPacket("out", AOCP_PRIVGRP_PART, $uid));
+	}
 
 	function privategroup_kick_all() {
 		return $this->send_packet(new AOChatPacket("out", AOCP_PRIVGRP_KICKALL, ""));
