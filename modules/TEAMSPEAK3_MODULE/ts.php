@@ -1,21 +1,25 @@
 <?php
 
-$msg = "test";
 if (preg_match("/^ts$/i", $message)) {
-	// The example
-	///////////////
-	$username = "serveradmin";
-	$password = "FdddLBZN";
-	$ts =  new Teamspeak3($username, $password, "69.60.115.210");
+	$ts = new Teamspeak3(Setting::get('ts_username'), Setting::get('ts_password'), Setting::get('ts_server'), Setting::get('ts_port'));
 
-	$onlinePlayers = $ts->exec('clientlist');
-	print_r($onlinePlayers);
-
-	$playerInfo = $ts->exec('clientinfo clid=4');
-	print_r($playerInfo);
+	try {
+		$users = $ts->exec('clientlist');
+		$count = 0;
+		$blob = "<header> :::::: Teamspeak 3 Info :::::: <end>\n\n";
+		$blob .= "Users:\n";
+		forEach ($users as $user) {
+			$blob .= "{$user['client_nickname']}\n";
+			$count++;
+		}
+		$msg = Text::make_blob("Teamspeak 3 Info ($count)", $blob);
+	} catch (Exception $e) {
+		$msg = "Error connecting to TS3 server.";
+	}
 	
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }
+
 ?>
