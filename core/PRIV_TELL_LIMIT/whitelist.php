@@ -17,6 +17,8 @@ if (preg_match("/^whitelist$/", $message)) {
 	$chatBot->send(Whitelist::add($arr[1], $sender), $sendto);
 } else if (preg_match("/^whitelist (rem|remove|del|delete) (.+)$/", $message, $arr)) {
 	$chatBot->send(Whitelist::remove($arr[2]), $sendto);
+} else {
+	$syntax_error = true;
 }
 
 ?>

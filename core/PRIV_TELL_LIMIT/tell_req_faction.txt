@@ -1,4 +1,4 @@
-<header>::::: Help for Setting Faction Limit(tells) :::::<end>
+<header> :::::: Help for Setting Faction Limit(tells) :::::: <end>
 
 With this setting you can restrict responding on tells only to one or two faction.
 

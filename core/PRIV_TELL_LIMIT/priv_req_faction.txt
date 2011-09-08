@@ -1,4 +1,4 @@
-<header>::::: Help for Setting Faction Limit (Private Channel) :::::<end>
+<header> :::::: Help for Setting Faction Limit (Private Channel) :::::: <end>
 
 With this setting you can restrict the private channel only to one or two faction.
 

@@ -1,4 +1,4 @@
-<header>::::: Set Limits for Tells and Private channel :::::<end>
+<header> :::::: Set Limits for Tells and Private channel :::::: <end>
 
 The Bot supports to set limits for the private channel and responding on tells. This means you can set for example a minimum level for the private channel with that set no one under that lvl can join the group. Same can be done for responding on tells. This helps to secure the Bot and keeping unwanted players away from beeing able to use the Bot. Note that you need to set them both seperatly!
 
