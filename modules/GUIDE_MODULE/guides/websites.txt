@@ -4,34 +4,47 @@
 
 <font color = yellow>Note: These links will be automatically opened in your web browser.</font>
 
-General/Overall Information
-<a href='chatcmd:///start http://naers.forumer.com/'>Newcomers Alliance Forums</a>
-<a href='chatcmd:///start http://forums.anarchy-online.com/'>Official Forums</a>
-<a href='chatcmd:///start http://www.aofroobs.com/'>AO Froobs.com</a>
+Guides and Other Information
 <a href='chatcmd:///start http://www.ao-universe.com/'>AO Universe</a>
-<a href='chatcmd:///start http://arcanum.aodevs.com/index.html'>Anarchy Arcanum</a>
-<a href='chatcmd:///start http://www.auno.org'>Auno</a>
-<a href='chatcmd:///start http://ao.stratics.com/index.php'>AO Stratics</a>
-<a href='chatcmd:///start http://gridstream.org/'>Gridstream Productions</a>
-<a href='chatcmd:///start http://wiki.flw.nu/tiki-index.php?page=Atlas%20of%20Rubi-Ka'>Atlas of Rubi-Ka</a>
-<a href='chatcmd:///start http://travel.to/rubi-ka/'>Huge Map</a>
 <a href='chatcmd:///start http://wiki.aodevs.com/wiki/Main_Page'>AO Wiki</a>
-<a href='chatcmd:///start http://www.creativestudent.com/ao/'>CSP Map</a>
-<a href='chatcmd:///start http://www.tirschool.com/'>Tir School Of Engineering</a>
-<a href='chatcmd:///start http://www.unimob.aomarket.com/'>Unique Mobs and their Loot</a>
-<a href='chatcmd:///start http://www.aotradeskills.streamlinenettrial.co.uk/index.htm'>AO Tradeskills (AOTS)</a>
-<a href='chatcmd:///start http://www.anarchy-online.com/content/game/notumwars/map/atlantean.html'>Land Control Status</a>
-<a href='chatcmd:///start http://arpa3.net/anarchy-online/'>Kimi's AO Resources</a>
-<a href='chatcmd:///start http://forums.vhabot.net/'>Vhabot.net</a>
-<a href='chatcmd:///start http://aovault.ign.com/'>The Vault</a>
-<a href='chatcmd:///start http://www.unityoftherose.com/tools/aggdefcalc.htm'>Agg/Def Calculator</a>
-<a href='chatcmd:///start http://www.aogms.com/default.aspx'>AOGMS</a>
-<a href='chatcmd:///start http://www.zanthyna.com/implant_clusters.htm'>Premade Implants Listing</a>
-
-Shadowlands Related
 <a href='chatcmd:///start http://www.jexai.co.uk/anarchy/index.php'>Jexai's AO Site</a>
-<a href='chatcmd:///start http://aopocket.tngk.com/'>AO Pocket Symbiant Information</a>
-<a href='chatcmd:///start http://www.forsaken.no/forums/viewtopic.php?t=1428'>Spheremap</a> 
+<a href='chatcmd:///start http://aovault.ign.com/'>The Vault</a> 
+<a href='chatcmd:///start http://arcanum.aodevs.com/index.html'>Anarchy Arcanum</a> 
+<a href='chatcmd:///start http://www.tirschool.com/'>Tir School Of Engineering</a> (<a href='chatcmd:///start http://www.tirschool.com/ai/index.html'>Alien Invasion</a>)
+<a href='chatcmd:///start http://towerwars.info/'>Towerwars Tracking</a>
+<a href='chatcmd:///start http://arpa3.net/anarchy-online/'>Kimi's AO Resources</a>
+<a href='chatcmd:///start http://gridstream.org/'>Gridstream Productions</a> in game radio station
 
+Maps 
+<a href='chatcmd:///start http://www.leetsonline.com/extern/rubika/index.html'>Huge Map</a>
+<a href='chatcmd:///start http://aoaquarius.de/html/slguides.html'>Shadowland map</a> with dungeons
+<a href='chatcmd:///start http://home.datacomm.ch/sphere/map/Spheremap_v1.0_low.jpg'>Large Shadowland map</a>
+<a href='chatcmd:///start http://aomaps.com'>AOMaps.com</a> for rubi-ka and shadowland
+
+Forums
+<a href='chatcmd:///start http://forums.anarchy-online.com/'>Official Forums</a> 
+<a href='chatcmd:///start http://www.aofroobs.com/'>AO Froobs.com</a>
+<a href='chatcmd:///start http://www.ao-universe.com/index.php?sf=1'>AO Universe Forums</a>
+<a href='chatcmd:///start http://aodevs.com/forums//'>AODevs</a> 
+<a href='chatcmd:///start http://forums.vhabot.net/'>Vhabot.net</a>
+
+Item Databases
+<a href='chatcmd:///start http://www.xyphos.com/'>XYPHOS</a>
+<a href='chatcmd:///start http://www.auno.org'>Auno</a>
+<a href='chatcmd:///start http://www.dokushuu.com/'>Dokushuu Patch Database</a>
+<a href='chatcmd:///start http://aodb.us/'>Shadowgods Database</a>
+<a href='chatcmd:///start http://ao.tcdev.de/'>AO Mainframe</a>
+<a href='chatcmd:///start http://aopocket.tngk.com/'>AO Pocket Symbiant Information</a>
+
+Tools
+<a href='chatcmd:///start http://frellu.net/ia/'>Item Assistent</a> tracks your character inventory
+<a href='chatcmd:///start http://www.lastmanut.pwp.blueyonder.co.uk/implantHelperWebPage/implanthelper.html'>Implant Helper</a> 
+<a href='chatcmd:///start http://flw.nu/portal/?page=tools_premadeimps'>Premade Implants Search</a>
+<a href='chatcmd:///start http://www.ao-universe.com/main.php?site=tools&link=download&action=tools'>AO Universe Clicksaver</a>
+<a href='chatcmd:///start http://arpa3.net/ao/clicksaver.html'>Kimi Clicksaver</a>
+<a href='chatcmd:///start http://www.phuncom.com/Scripts/index.html'>Argenteum Astrum Scripts for Rubi-Ka</a> useful script collection
+<a href='chatcmd:///start http://aodevs.com/projects'>AODev Tool Repository</a>
+<a href='chatcmd:///start http://www.unityoftherose.com/tools/aggdefcalc.htm'>Agg/Def Calculator</a>
 
 <font color = yellow>Note: These links will be automatically opened in your web browser.</font>
+
