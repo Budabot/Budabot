@@ -7,10 +7,13 @@ if (preg_match("/^ts$/i", $message)) {
 		$users = $ts->exec('clientlist');
 		$count = 0;
 		$blob = "<header> :::::: Teamspeak 3 Info :::::: <end>\n\n";
-		$blob .= "Users:\n";
+		$blob .= "Server: <highlight>" . Setting::get('ts_server') . "<end>";
+		$blob .= "\n\nUsers:\n";
 		forEach ($users as $user) {
-			$blob .= "{$user['client_nickname']}\n";
-			$count++;
+			if ($user['client_type'] == 0) {
+				$blob .= "<highlight>{$user['client_nickname']}<end>\n";
+				$count++;
+			}
 		}
 		$msg = Text::make_blob("Teamspeak 3 Info ($count)", $blob);
 	} catch (Exception $e) {
