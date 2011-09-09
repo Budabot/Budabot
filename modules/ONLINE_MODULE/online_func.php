@@ -31,9 +31,9 @@ function get_online_list($prof = "all") {
 		$guild_name = "[<myguild>] ";
 	}
 	if ($numonline == 1) {
-		$list[] = array("content" => "<header>::::: 1 member online $guild_name:::::<end>\n");
+		$list[] = array("content" => "<header> :::::: 1 member online $guild_name:::::: <end>\n");
 	} else {
-		$list[] = array("content" => "<header>::::: $numonline members online $guild_name:::::<end>\n");
+		$list[] = array("content" => "<header> :::::: $numonline members online $guild_name:::::: <end>\n");
 	}
 	
 	$data = $db->fObject("all");
@@ -45,9 +45,9 @@ function get_online_list($prof = "all") {
 
 	$numguest = $db->numrows();
 	if ($numguest == 1) {
-		$list[] = array("content" => "\n\n<highlight><u>1 User in Private Channel<end></u>\n");
+		$list[] = array("content" => "\n\n<highlight><u>1 User in Private Channel</u><end>\n");
 	} else {
-		$list[] = array("content" => "\n\n<highlight><u>$numonline Users in Private Channel<end></u>\n");
+		$list[] = array("content" => "\n\n<highlight><u>$numguest Users in Private Channel</u><end>\n");
 	}
 	$data = $db->fObject("all");
 	// create the list of guests, without showing alts
@@ -67,9 +67,9 @@ function get_online_list($prof = "all") {
 		$numbbinmembers = $db->numrows();
 		$data = $db->fObject("all");
 		if ($numbbinmembers == 1) {
-			$list[] = array("content" => "\n\n<highlight><u>1 member in BBIN<end></u>\n");
+			$list[] = array("content" => "\n\n<highlight><u>1 member in BBIN</u><end>\n");
 		} else {
-			$list[] = array("content" => "\n\n<highlight><u>$numbbinmembers members in BBIN<end></u>\n");
+			$list[] = array("content" => "\n\n<highlight><u>$numbbinmembers members in BBIN</u><end>\n");
 		}
 		createListByProfession($data, $list, false, true);
 		
