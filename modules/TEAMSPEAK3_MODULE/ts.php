@@ -15,6 +15,7 @@ if (preg_match("/^ts$/i", $message)) {
 				$count++;
 			}
 		}
+		$blob .= "\n\nTeamspeak 3 support by Tshaar (RK2)";
 		$msg = Text::make_blob("Teamspeak 3 Info ($count)", $blob);
 	} catch (Exception $e) {
 		$msg = "Error connecting to TS3 server.";

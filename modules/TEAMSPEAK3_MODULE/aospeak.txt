@@ -1,0 +1,6 @@
+<header> :::::: AOSpeak Command :::::: <end>
+
+<red>Note: Before you can use this plugin your org president must set up an org channel on the AOSpeak server.<end>
+
+<highlight>Show org members currently connected to the AOSpeak server<end>
+<tab><symbol>aospeak

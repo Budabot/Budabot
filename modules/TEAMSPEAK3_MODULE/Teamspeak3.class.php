@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @author: Tshaar (RK2)
+ */
 class Teamspeak3 {
 	private $username;
 	private $password;
