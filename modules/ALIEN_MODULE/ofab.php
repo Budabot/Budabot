@@ -1,5 +1,7 @@
 <?php
 
+$qls = array(1, 25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300);
+
 if (preg_match("/^ofab$/i", $message, $arr)) {
 	$db->query("SELECT DISTINCT ql FROM ofabarmorcost ORDER BY ql ASC");
 	$qls = $db->fObject('all');
@@ -25,6 +27,12 @@ if (preg_match("/^ofab$/i", $message, $arr)) {
 		$ql = 300;
 	}
 
+if (!in_array($ql, $qls)) {
+        $msg = "Please choose one of these qls: " . implode(", ", $qls);
+        $chatBot->send($msg, $sendto);
+        return;
+}
+	
 	$profession = Util::get_profession_name($arr[1]);
 	if ($profession == '') {
 		$msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, or trader";
@@ -45,9 +53,11 @@ if (preg_match("/^ofab$/i", $message, $arr)) {
 		
 		if ($row->upgrade == 0 || $row->upgrade == 3) {
 			$blob .= "  (<highlight>$row->vp<end> VP)";
+			$total_vp = $total_vp + $row->vp;
 		}
 		$blob .= "\n";
 	}
+	$blob .= "\n\nVP Cost for full set: $total_vp";
 	
 	$msg = Text::make_blob("$profession Ofab Armor", $blob);
 	$chatBot->send($msg, $sendto);
