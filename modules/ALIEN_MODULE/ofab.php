@@ -27,22 +27,24 @@ if (preg_match("/^ofab$/i", $message, $arr)) {
 		$ql = 300;
 	}
 
-if (!in_array($ql, $qls)) {
+	if (!in_array($ql, $qls)) {
         $msg = "Please choose one of these qls: " . implode(", ", $qls);
         $chatBot->send($msg, $sendto);
         return;
-}
-	
+	}
+
 	$profession = Util::get_profession_name($arr[1]);
 	if ($profession == '') {
 		$msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, or trader";
 		$chatBot->send($msg, $sendto);
 		return;
 	}
-	
+
+	$db->query("SELECT * FROM ofabarmortype WHERE profession = '$profession'");
+	$typelist = $db->fObject('all');
 	$db->query("SELECT * FROM ofabarmor o1 LEFT JOIN ofabarmorcost o2 ON o1.slot = o2.slot WHERE o1.profession = '{$profession}' AND o2.ql = {$ql} ORDER BY upgrade ASC, name ASC");
 	$data = $db->fObject('all');
-	$blob = "<header> :::::: $profession Ofab Armor :::::: <end>\n";
+	$blob = "<header> :::::: $profession Ofab Armor [<highlight>Type {$typelist[0]->type}<end>] :::::: <end>\n";
 	$current_upgrade = $row->upgrade;
 	forEach ($data as $row) {
 		if ($current_upgrade != $row->upgrade) {
@@ -50,15 +52,14 @@ if (!in_array($ql, $qls)) {
 			$blob .= "\n";
 		}
 		$blob .=  Text::make_item($row->lowid, $row->highid, $ql, $row->name);
-		
+
 		if ($row->upgrade == 0 || $row->upgrade == 3) {
 			$blob .= "  (<highlight>$row->vp<end> VP)";
 			$total_vp = $total_vp + $row->vp;
 		}
 		$blob .= "\n";
 	}
-	$blob .= "\n\nVP Cost for full set: $total_vp";
-	
+	$blob .= "\n\nVP Cost for full set: <highlight>$total_vp<end>";
 	$msg = Text::make_blob("$profession Ofab Armor", $blob);
 	$chatBot->send($msg, $sendto);
 } else {
