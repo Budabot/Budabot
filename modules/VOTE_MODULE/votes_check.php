@@ -62,7 +62,7 @@ forEach ($chatBot->data["Vote"] as $key => $value) {
 	$timeleft -= time();
 
 	if ($timeleft <= 0) {
-		$title = "Finished: $question";
+		$title = "Finished Vote: $question";
 		$db->exec("UPDATE $table SET `status` = '9' WHERE `duration` = '$duration' AND `question` = '".str_replace("'", "''", $question)."'");
 		unset($chatBot->data["Vote"][$key]);
 	} else if ($status == 0) {
