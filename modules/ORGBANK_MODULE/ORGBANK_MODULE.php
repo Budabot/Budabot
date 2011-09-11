@@ -17,16 +17,15 @@
 
 $MODULE_NAME = "ORGBANK_MODULE";
 
-$table = "orgbank_".$this->vars["dimension"];
-$db->query("CREATE TABLE IF NOT EXISTS $table ( 'bankowner' VARCHAR(25), 'bankslot' INTEGER, 'timestamp' INTEGER, `lowID` INTEGER, 'highID' INTEGER, 'ql' INTEGER, 'itemname' VARCHAR(100), 'quantity' INTEGER, 'comment' VARCHAR(50) NULL, 'banktitle' VARCHAR(50), 'bankmenu' VARCHAR(25), 'banktab' VARCHAR(6), 'banktype' VARCHAR(6), 'tab1' VARCHAR(10), 'tab2' VARCHAR(10), 'tab3' VARCHAR(10), 'tab4' VARCHAR(10), 'tab5' VARCHAR(10) )");
-
 // If you have made a save of the orgbank from a previous version, you can 
 // reload it from here. Make sure the file is called orgbank.sql
 // Be sure to // it after you have done it once, or you will repeat-fill the bank. 
 // DB::loadSQLFile($MODULE_NAME, "orgbank");
 //
-// I beleive you can also use !loadsql ORGBANK_MODULE orgbank to do the same thing, though 
-// you might have to create the table first by running the module first. 
+// I believe you can also use !loadsql ORGBANK_MODULE orgbank to do the same thing, though 
+// you might have to create the table first by running the module first.
+
+DB::loadSQLFile($MODULE_NAME, "orgbank");
 
 // Basic commands to get to your bank
 Command::register($MODULE_NAME, "", "bankstart.php", "bank", "all", "Visit your bank home page");  
@@ -39,7 +38,6 @@ Command::register($MODULE_NAME, "", "bankmake.php", "bankkill", "all", "Manual b
 Command::register($MODULE_NAME, "", "bankadmin.php", "bankadmin", "admin", "Admin-only Bank remover");
 Command::register($MODULE_NAME, "", "adminkill.php", "adminkill", "admin", "Admin-only Bank remover");
 
-
 // Commands to add & manually delete items from/to the Bank
 Command::register($MODULE_NAME, "", "bankaddtab.php", "bankadd", "all", "Add items to a Bank");
 Command::register($MODULE_NAME, "", "bankdel.php", "bankdel", "all", "Manual delete of item in Bank");
@@ -50,7 +48,6 @@ Command::register($MODULE_NAME, "", "banktabname.php", "banktabname2", "all", "C
 Command::register($MODULE_NAME, "", "banktabname.php", "banktabname3", "all", "Change the name of Tab3");
 Command::register($MODULE_NAME, "", "banktabname.php", "banktabname4", "all", "Change the name of Tab4");
 Command::register($MODULE_NAME, "", "banktabname.php", "banktabname5", "all", "Change the name of Tab5");
-
 
 // Buttons for editing existing item quanities in Banks.
 Command::register($MODULE_NAME, "", "bankbuttons.php", "bankM", "all", "[-] button in Home Page list");
@@ -66,12 +63,9 @@ Command::register($MODULE_NAME, "", "banklist.php", "banklist", "all", "List all
 // Bankmenu left as a legacy command. 
 Command::register($MODULE_NAME, "", "bankmenu.php", "bankmenu", "all", "Manually open/close settings.");
 
-
-
 // Changing your banks title.
 Command::register($MODULE_NAME, "", "banktitle.php", "banktitle", "all", "Change the title of your Bank");	
 Command::register($MODULE_NAME, "", "bankcomment.php", "bankcomment", "all", "Change the comment of your Bank");	
-
 
 //Aliases. Lots of them. Very convenient
 CommandAlias::register($MODULE_NAME, "bankdel", "bd");
@@ -90,7 +84,6 @@ CommandAlias::register($MODULE_NAME, "banktabname3", "btn3");
 CommandAlias::register($MODULE_NAME, "banktabname4", "btn4");
 CommandAlias::register($MODULE_NAME, "banktabname5", "btn5");
 
-
 // And a few help files. 
 Help::register($MODULE_NAME, "bank", "bank.txt", "all", "How to get to your bank");
 Help::register($MODULE_NAME, "banktabname", "banktabname.txt", "all", "Change tab names in your Bank");
@@ -101,9 +94,6 @@ Help::register($MODULE_NAME, "banksearch", "banksearch.txt", "all", "Finding ban
 Help::register($MODULE_NAME, "banktitle", "banktitle.txt", "all", "Setting a title for your bank");
 Help::register($MODULE_NAME, "bankcomment", "bankcomment.txt", "all", "Setting a comment for your bank");
 Help::register($MODULE_NAME, "banklist", "banklist.txt", "all", "Listing all players with Banks.");
-
-//Help::register($MODULE_NAME, "bankremove", "bankrem.txt", "admin", "Admin delete of Banks.");
 Help::register($MODULE_NAME, "bankcommands", "bankcommands.txt", "all", "List all bank commands");
-
 	
 ?>
