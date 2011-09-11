@@ -11,6 +11,7 @@ Guides and Other Information
 <a href='chatcmd:///start http://aovault.ign.com/'>The Vault</a> 
 <a href='chatcmd:///start http://arcanum.aodevs.com/index.html'>Anarchy Arcanum</a> 
 <a href='chatcmd:///start http://www.tirschool.com/'>Tir School Of Engineering</a> (<a href='chatcmd:///start http://www.tirschool.com/ai/index.html'>Alien Invasion</a>)
+<a href='chatcmd:///start http://www.aotradeskills.co.uk/'>AO Tradeskills</a> 
 <a href='chatcmd:///start http://towerwars.info/'>Towerwars Tracking</a>
 <a href='chatcmd:///start http://arpa3.net/anarchy-online/'>Kimi's AO Resources</a>
 <a href='chatcmd:///start http://gridstream.org/'>Gridstream Productions</a> in game radio station
@@ -48,3 +49,4 @@ Tools
 
 <font color = yellow>Note: These links will be automatically opened in your web browser.</font>
 
+Website links cleaned up and organizaed by JungleGeorge (RK2)
