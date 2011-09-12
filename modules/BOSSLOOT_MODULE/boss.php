@@ -10,79 +10,49 @@
    Last Modified 5/14/07
    */
 
-$output = '';
 if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 
-	$search = $arr[1];
-	$search = ucwords(strtolower($search));
+	$search = strtolower($arr[1]);
 
 	$links = array("Help" => "/tell <myname> help boss");	
-	$boss = Text::make_header("Results of Search for $search", $links);
+	$blob = Text::make_header("Results of Search for '$search'", $links);
 	
-	// Find bossname or Boss key
-	$db->query("SELECT * FROM boss_namedb WHERE bossname LIKE '%".str_replace("'", "''", $search)."%' OR keyname LIKE '%".str_replace("'", "''", $search)."%'");
-	$name_found = $db->numrows();
+	// Find boss by name or key
+	$db->query("SELECT * FROM boss_namedb b LEFT JOIN whereis w ON b.bossname = w.name WHERE bossname LIKE '%".str_replace("'", "''", $search)."%' OR keyname LIKE '%".str_replace("'", "''", $search)."%'");
+	$bosses = $db->fobject("all");
+	$count = $db->numrows();
 	
-	//If multiple matches found output list of bosses
-	if ($name_found > 1) {
-		$db->query("SELECT * FROM boss_namedb WHERE bossname LIKE '%".str_replace("'", "''", $search)."%' OR keyname LIKE '%".str_replace("'", "''", $search)."%'");
-		$data = $db->fobject("all");
-		$bosses = $data;
+	if ($count > 1) {
+		//If multiple matches found output list of bosses
 		forEach ($bosses as $row) {
-			$bossname = $row->bossname;
-			$bossid = $row->bossid;
-			$db->query("SELECT * FROM whereis WHERE name = '".str_replace("'", "''", $bossname)."'");
+			$blob .= Text::make_chatcmd($row->name, "/tell <myname> boss $row->name") . "\n";
+			$blob .= "<green>Can be found {$row->answer}<end>\nDrops: ";
+			$db->query("SELECT * FROM boss_lootdb b JOIN aodb a ON b.itemid = a.lowid WHERE b.bossid = {$row->bossid}");
 			$data = $db->fobject("all");
-			forEach ($data as $row) {
-				$bossname = $row->name;
-				$boss .= "\n\n<a href='chatcmd:///tell <myname> !boss $bossname'>$bossname</a>\n";
-				$where = $row->answer;
-				$boss .= "<green>Can be found $where<end>\nDrops:";
-				$db->query("SELECT * FROM boss_lootdb, aodb WHERE boss_lootdb.bossid = '$bossid' AND boss_lootdb.itemid = aodb.lowid");
-				$data = $db->fobject("all");
-				forEach ($data as $row) {
-					$lowid = $row->lowid;
-					$highid = $row->highid;
-					$ql = $row->highql;
-					$loot_name = $row->itemname;
-					$boss .= "<a href='itemref://$lowid/$highid/$ql.'>$loot_name</a> ";
-				}
+			forEach ($data as $row2) {
+				$blob .= Text::make_item($row2->lowid, $row2->highid, $row2->ql, $row2->itemname) . ', ';
 			}
+			$blob .= "\n\n";
 		}
-		$output = Text::make_blob("Boss", $boss);
-	} else if ($name_found  == 1) {
+		$output = Text::make_blob("Boss", $blob);
+	} else if ($count == 1) {
 		//If single match found, output full loot table
-		$db->query("SELECT * FROM boss_namedb WHERE bossname LIKE  '%".str_replace("'", "''", $search)."%' OR keyname LIKE '%".str_replace("'", "''", $search)."%'");
-		$data = $db->fobject("all");
-		foreach ($data as $row)
-		$name_id = $row->bossid;
-		$name = $row->bossname;
+		$row = $bosses[0];
 		
-		$boss .= "<yellow>$name\n\n";
+		$blob .= "<yellow>{$row->bossname}<end>\n\n";
 		
-		$db->query("SELECT answer FROM whereis WHERE name = '".str_replace("'", "''", $name)."'");
+		$blob .= "<green>Can be found {$row->answer}<end>\n\n";
+		$blob .= "Loot:\n\n";
+
+		$db->query("SELECT * FROM boss_lootdb b JOIN aodb a ON b.itemid = a.lowid WHERE b.bossid = {$row->bossid}");
 		$data = $db->fobject("all");
-			forEach ($data as $row) {
-			$where = $row->answer;
-			
-			$boss .= "<green>Can be found $where<end>\n\n";
-			$boss .= "Loot:\n\n";
+		forEach ($data as $row2) {
+			$blob .= "<img src=rdb://{$row2->icon}>\n";
+			$blob .= Text::make_item($row2->lowid, $row2->highid, $row2->ql, $row2->itemname) . "\n\n";
 		}
-		$db->query("SELECT * FROM boss_lootdb, aodb WHERE boss_lootdb.bossid = $name_id AND boss_lootdb.itemid = aodb.lowid");
-		$data = $db->fobject("all");
-		forEach ($data as $row) {
-			$loid = $row->itemid;
-			$hiid = $row->highid;
-			$ql = $row->highql;
-			$loot_name = $row->itemname;
-			$icon = $row->icon;
-		
-			$boss .= "<img src=rdb://".$icon.">\n";
-			$boss .= "<a href='itemref://$loid/$hiid/$ql.'>$loot_name</a>\n\n";
-		}
-		$output = Text::make_blob("Boss", $boss);
+		$output = Text::make_blob("Boss", $blob);
 	} else {
-		$output .= "<yellow>There were no matches for your search.<end>";
+		$output = "There were no matches for your search.";
 	}
 	$chatBot->send($output, $sendto);
 } else {
