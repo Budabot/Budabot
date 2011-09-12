@@ -1,7 +1,5 @@
 <?php
 
-$qls = array(1, 25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300);
-
 if (preg_match("/^ofab$/i", $message, $arr)) {
 	$db->query("SELECT DISTINCT ql FROM ofabarmorcost ORDER BY ql ASC");
 	$qls = $db->fObject('all');
@@ -27,12 +25,6 @@ if (preg_match("/^ofab$/i", $message, $arr)) {
 		$ql = 300;
 	}
 
-	if (!in_array($ql, $qls)) {
-        $msg = "Please choose one of these qls: " . implode(", ", $qls);
-        $chatBot->send($msg, $sendto);
-        return;
-	}
-
 	$profession = Util::get_profession_name($arr[1]);
 	if ($profession == '') {
 		$msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, or trader";
@@ -44,6 +36,12 @@ if (preg_match("/^ofab$/i", $message, $arr)) {
 	$typelist = $db->fObject('all');
 	$db->query("SELECT * FROM ofabarmor o1 LEFT JOIN ofabarmorcost o2 ON o1.slot = o2.slot WHERE o1.profession = '{$profession}' AND o2.ql = {$ql} ORDER BY upgrade ASC, name ASC");
 	$data = $db->fObject('all');
+	if (count($data) == 0) {
+		$msg = "Please choose a valid ql.";
+        $chatBot->send($msg, $sendto);
+        return;
+	}
+	
 	$blob = "<header> :::::: $profession Ofab Armor [<highlight>Type {$typelist[0]->type}<end>] :::::: <end>\n";
 	$current_upgrade = $row->upgrade;
 	forEach ($data as $row) {
