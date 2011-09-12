@@ -20,13 +20,15 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 	// Find boss by name or key
 	$db->query("SELECT * FROM boss_namedb b LEFT JOIN whereis w ON b.bossname = w.name WHERE bossname LIKE '%".str_replace("'", "''", $search)."%' OR keyname LIKE '%".str_replace("'", "''", $search)."%'");
 	$bosses = $db->fobject("all");
-	$count = $db->numrows();
+	$count = count($bosses);
 	
 	if ($count > 1) {
 		//If multiple matches found output list of bosses
 		forEach ($bosses as $row) {
 			$blob .= Text::make_chatcmd($row->name, "/tell <myname> boss $row->name") . "\n";
 			$blob .= "<green>Can be found {$row->answer}<end>\nDrops: ";
+			
+			// get loot
 			$db->query("SELECT * FROM boss_lootdb b JOIN aodb a ON b.itemid = a.lowid WHERE b.bossid = {$row->bossid}");
 			$data = $db->fobject("all");
 			forEach ($data as $row2) {
@@ -34,7 +36,7 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 			}
 			$blob .= "\n\n";
 		}
-		$output = Text::make_blob("Boss", $blob);
+		$output = Text::make_blob("Boss ($count results)", $blob);
 	} else if ($count == 1) {
 		//If single match found, output full loot table
 		$row = $bosses[0];
@@ -50,7 +52,7 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 			$blob .= "<img src=rdb://{$row2->icon}>\n";
 			$blob .= Text::make_item($row2->lowid, $row2->highid, $row2->ql, $row2->itemname) . "\n\n";
 		}
-		$output = Text::make_blob("Boss", $blob);
+		$output = Text::make_blob("Boss (1 result)", $blob);
 	} else {
 		$output = "There were no matches for your search.";
 	}

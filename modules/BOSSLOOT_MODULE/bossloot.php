@@ -10,51 +10,38 @@
    Last Modified 5/14/07
    */
 
-$output = '';
 if (preg_match ("/^bossloot (.+)$/i", $message, $arr)) {
-
-	$search = $arr[1];
-	$search = ucwords(strtolower($search));
+	$search = strtolower($arr[1]);
 
 	$links = array("Help" => "/tell <myname> help boss");
-	$boss = Text::make_header("Mobs that drop $search", $links);
+	$blob = Text::make_header("Mobs that drop $search", $links);
 	
-	$db->query("SELECT * FROM boss_lootdb WHERE itemname LIKE '%".str_replace("'", "''", $search)."%'");
-	$loot_found = $db->numrows();
+	$db->query("SELECT DISTINCT b2.bossid, b2.bossname, w.answer FROM boss_lootdb b1 JOIN boss_namedb b2 ON b2.bossid = b1.bossid LEFT JOIN whereis w ON w.name = b2.bossname WHERE b1.itemname LIKE '%".str_replace("'", "''", $search)."%'");
+	$loot = $db->fobject("all");
+	$count = count($loot);
 
-	if ($loot_found != 0) {
+	if ($count != 0) {
 		//Find loot item and associated boss and his location
-		$db->query("SELECT * FROM boss_lootdb, boss_namedb, whereis WHERE boss_lootdb.itemname LIKE '%".str_replace("'", "''", $search)."%' AND boss_namedb.bossid = boss_lootdb.bossid AND whereis.name = boss_namedb.bossname");
-		$data = $db->fobject("all");
-		forEach ($data as $row) {
-			$bossname = $row->bossname;
-			$bossid = $row->bossid;
-			$where = $row->answer;
-			//output Bossname once
-			while ($oldbossname != $bossname) {
-				$boss .= "\n\n<a href='chatcmd:///tell <myname> !boss $bossname'>$bossname</a>\n";
-				$oldbossname = $bossname;
-				$boss .= "<green>Can be found $where<end>\nDrops:";
-				//output bossloot as many times as necessary
-				$db->query("SELECT * FROM boss_lootdb, aodb WHERE boss_lootdb.itemname LIKE '%".str_replace("'", "''", $search)."%' AND boss_lootdb.bossid = $bossid AND boss_lootdb.itemid = aodb.lowid");
-				$data = $db->fobject("all");
-				forEach ($data as $row) {
-					$lowid = $row->lowid;
-					$highid = $row->highid;
-					$ql = $row->highql;
-					$loot_name = $row->itemname;
-					$boss .= "<a href='itemref://$lowid/$highid/$ql.'>$loot_name</a> ";
-				}
+		forEach ($loot as $row) {
+			$blob .= Text::make_chatcmd($row->bossname, "/tell <myname> boss $row->bossname") . "\n";
+			$oldbossid = $bossname;
+			$blob .= "<green>Can be found {$row->answer}<end>\nDrops: ";
+
+			// get loot
+			$db->query("SELECT * FROM boss_lootdb b JOIN aodb a ON b.itemid = a.lowid WHERE b.bossid = {$row->bossid} AND b.itemname LIKE '%".str_replace("'", "''", $search)."%'");
+			$data = $db->fobject("all");
+			forEach ($data as $row2) {
+				$blob .= Text::make_item($row2->lowid, $row2->highid, $row2->ql, $row2->itemname) . ', ';
 			}
+			$blob .= "\n\n";
 		}
-		$output = Text::make_blob("BossLoot", $boss);
+		$output = Text::make_blob("BossLoot ($count result(s))", $blob);
 	} else {
 		$output .= "<yellow>There were no matches for your search.<end>";
 	}
+	$chatBot->send($output, $sendto);
 } else {
-	$output .= "<yellow>You must add a search criteria after the command.<end>";
+	$syntax_error = true;
 }
-
-$chatBot->send($output, $sendto);
 
 ?>
