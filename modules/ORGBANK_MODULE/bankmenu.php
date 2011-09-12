@@ -13,56 +13,33 @@
 ** Date(last modified): 20.04.2011
 */
 
-$table = "orgbank_".$this->vars["dimension"];
-$owner = $sender; 
-$slot = "0";
-
-
-$message = str_replace("'", "\'", $message);
-// Either client.exe, server, bot is changing chars to html code
-// We may need to switch them around.
-//$htmlcode=array("&amp;", "&quot;", "&lt;", "&gt;");$snglchar=array('&','"', '<', '>');
-
 /////////////////////////////////////////////////
 // Toggle shopmenu open & closed 
 /////////////////////////////////////////////////
-if( eregi("^bankmenu (.+)?$", $message, $arr)){
-	$owner = $sender; 
+if (preg_match("/^bankmenu (.+)?$/i", $message, $arr)) {
 	$slot = "0";
 	$command = trim("$arr[1]");
-	//$db->query("SELECT * FROM $table WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
-	$db->query("SELECT * FROM $table WHERE `bankowner` = '$owner' ");
+	$db->query("SELECT * FROM orgbank_<dim> WHERE `bankowner` = '$sender' ");
 	if ($db->numrows() < 1) { // No Shop to find
 		$msg .= "You need to create a shop first. Type bank for help. ";	
-	}elseif($db->numrows() > 0) {// Found it
-		
+	} else if ($db->numrows() > 0) {// Found it
 		if ($command == "open") {
-		$bankmenu = "open";
-		$setstr = "`bankmenu` = '$bankmenu'";
-		$db->query("UPDATE $table SET $setstr WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
-		$msg .= "<green>Your bankmenu is now: <white>$bankmenu<end><green>.<end>";
+			$bankmenu = "open";
+			$setstr = "`bankmenu` = '$bankmenu'";
+			$db->query("UPDATE orgbank_<dim> SET $setstr WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
+			$msg .= "<green>Your bankmenu is now: <white>$bankmenu<end><green>.<end>";
 		} 
 		if ($command == "closed") {
 			$bankmenu = "closed";
 			$setstr = "`bankmenu` = '$bankmenu'";
-		$db->query("UPDATE $table SET $setstr WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
-		$msg .= "<green>Your bankmenu is now: <white>$bankmenu<end><green> .<end>";
+			$db->query("UPDATE orgbank_<dim> SET $setstr WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
+			$msg .= "<green>Your bankmenu is now: <white>$bankmenu<end><green> .<end>";
 		} 
 	}
-	
-
-}
-/////////////////////////////////////////////////
-// we have a message after all that? post it
-/////////////////////////////////////////////////
-$msg = str_replace("\'", "'", $msg);
-if ($msg){	// Send info back
-	if($type == "msg"){
-		$chatBot->send($msg, $sendto);
-	}
-	
-	
 }
 
+if ($msg) {
+	$chatBot->send($msg, $sendto);
+}
 
 ?>

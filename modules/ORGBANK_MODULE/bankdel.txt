@@ -1,11 +1,11 @@
-<yellow><center>::::: Org Bank: Delete Item Help :::::</center><end>
+<header> :::::: Org Bank: Delete Item Help :::::: <end>
 
-<green><left>Sometimes items just don't want to Delete. This is because Funcom does not follow it's own rules on naming items. The normal way to delete items is to use the <grey> DELETE <green>button next to the item in your Bank. If that doesn't work try this:
+Sometimes items just don't want to Delete. This is because Funcom does not follow it's own rules on naming items. The normal way to delete items is to use the <grey>DELETE<end> button next to the item in your Bank. If that doesn't work try this:
 
- <yellow> /tell <myname> shopdel <ql of item> <partial name of the item>
+<highlight> /tell <myname> shopdel <ql of item> <partial name of the item><end>
 
-<green>Example:<end><yellow> bankdel 10 cushion 
+Example: <highlight> bankdel 10 cushion<end>
 
-<green>If no items match, the delete is cancelled. If more than 1 item matches, you will be asked to clarify your deletion.
+If no items match, the delete is cancelled. If more than 1 item matches, you will be asked to clarify your deletion.
 
-<green>The Budabot alias for this command is: <yellow>!bd <ql> <partial name of item><end>
+The Budabot alias for this command is: <highlight>!bd <ql> <partial name of item><end>

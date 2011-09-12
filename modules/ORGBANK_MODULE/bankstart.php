@@ -13,28 +13,19 @@
 ** Date(last modified): 04.06.2011
 */
 
-$table = "orgbank_".$this->vars["dimension"];
-$message = str_replace("'", "\'", $message);
-$owner = $sender; 
 $slot = "0";
 
-
-
-
-
-if(preg_match("/^bank (.+)$/i", $message, $arr)){ 
+if (preg_match("/^bank (.+)$/i", $message, $arr)) {
 	$command = trim($arr[1]);
 	
 	// SECTION START: MAKING BANKS
 	if($command == "basic" || $command == "tabbed"){ // We're asking to make a bank from scratch. 
-		$db->query("SELECT * FROM $table WHERE `bankowner` = '$owner' ");
+		$db->query("SELECT * FROM orgbank_<dim> WHERE `bankowner` = '$sender' ");
 		// Does this person already have a bank? 
 		if ($db->numrows() > 0) { 
 			$msg = ("You already have a bank. Don't be greedy!\n");
-		}ELSE {
+		} else {
 			// No, So make a default placeholder for the bank. 
-			$owner = $sender; 
-			$slot = 0;
 			$timestamp = time();
 			$lowid = 0;
 			$highid = 0;
@@ -45,15 +36,15 @@ if(preg_match("/^bank (.+)$/i", $message, $arr)){
 			$banktitle = "Bank";
 			$bankmenu = "closed";
 			
-			if($command == "basic"){
+			if ($command == "basic") {
 				$banktab = "none";
 				$banktype = "basic";
 				$tab1 = $tab2 = $tab3 = $tab4 = $tab5 = "none";
-				$db->query("INSERT INTO '$table' VALUES ( '$owner', '$slot', '$timestamp', '$lowID', '$highID', '$ql', '$itemname', '$quantity', '$comment', '$banktitle', '$bankmenu', '$banktab', '$banktype', '$tab1', '$tab2', '$tab3', '$tab4', '$tab5' )");
+				$db->query("INSERT INTO orgbank_<dim> VALUES ( '$sender', '$slot', '$timestamp', '$lowID', '$highID', '$ql', '$itemname', '$quantity', '$comment', '$banktitle', '$bankmenu', '$banktab', '$banktype', '$tab1', '$tab2', '$tab3', '$tab4', '$tab5' )");
 
 			}
 
-			if($command == "tabbed"){
+			if ($command == "tabbed") {
 				$banktab = "tab1";
 				$banktype = "tabbed";
 				$tab1 = "tab 1"; 
@@ -61,7 +52,7 @@ if(preg_match("/^bank (.+)$/i", $message, $arr)){
 				$tab3 = "tab 3"; 
 				$tab4 = "tab 4"; 
 				$tab5 = "tab 5";
-				$db->query("INSERT INTO '$table' VALUES ( '$owner', '$slot', '$timestamp', '$lowID', '$highID', '$ql', '$itemname', '$quantity', '$comment', '$banktitle', '$bankmenu', '$banktab', '$banktype', '$tab1', '$tab2', '$tab3', '$tab4', '$tab5' )");
+				$db->query("INSERT INTO orgbank_<dim> VALUES ( '$sender', '$slot', '$timestamp', '$lowID', '$highID', '$ql', '$itemname', '$quantity', '$comment', '$banktitle', '$bankmenu', '$banktab', '$banktype', '$tab1', '$tab2', '$tab3', '$tab4', '$tab5' )");
 
 			}	
 		}
@@ -71,23 +62,18 @@ if(preg_match("/^bank (.+)$/i", $message, $arr)){
 
 //SECTION START: OPENING AND CLOSING THINGS
 if ($command == "open") {
-	$bankmenu = "open";
 	// Save the new menu setting into the placeholder for this user.
-	$setstr = "`bankmenu` = '$bankmenu'";
-	$db->query("UPDATE $table SET $setstr WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
+	$db->query("UPDATE orgbank_<dim> SET `bankmenu` = '$command' WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
 } 
 if ($command == "closed") {
-	$bankmenu = "closed";
 	// Save the new menu setting into the placeholder for this user.
-	$setstr = "`bankmenu` = '$bankmenu'";
-	$db->query("UPDATE $table SET $setstr WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
+	$db->query("UPDATE orgbank_<dim> SET `bankmenu` = '$command' WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
 }
 //SECTION END
 
 //SECTION START: GETTING COMMANDS TO SWITCH TABS FROM USERS AND CODE
 // First check it's not a basic bank.. no switching allowed. 
-$slot = "0";
-$db->query("SELECT * FROM $table WHERE `bankowner` = '$owner' AND bankslot = '$slot'");
+$db->query("SELECT * FROM orgbank_<dim> WHERE `bankowner` = '$sender' AND bankslot = '$slot'");
 if ($db->numrows() > 0) { 
 	$row = $db->fObject();
 	$banktype = $row->banktype;
@@ -106,31 +92,31 @@ if ($db->numrows() > 0) {
 		case ($command == tab1):
 			$banktab = "tab1";
 			$setstr = "`banktab` = '$banktab'";
-			$db->query("UPDATE $table SET $setstr WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
+			$db->query("UPDATE orgbank_<dim> SET $setstr WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
 			break;
 		case ($command == $tab2):
 		case ($command == tab2):	
 			$banktab = "tab2";
 			$setstr = "`banktab` = '$banktab'";
-			$db->query("UPDATE $table SET $setstr WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
+			$db->query("UPDATE orgbank_<dim> SET $setstr WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
 			break;
 		case ($command == $tab3):
 		case ($command == tab3):
 			$banktab = "tab3";
 			$setstr = "`banktab` = '$banktab'";
-			$db->query("UPDATE $table SET $setstr WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
+			$db->query("UPDATE orgbank_<dim> SET $setstr WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
 			break;
 		case ($command == $tab4):
 		case ($command == tab4):		
 			$banktab = "tab4";
 			$setstr = "`banktab` = '$banktab'";
-			$db->query("UPDATE $table SET $setstr WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
+			$db->query("UPDATE orgbank_<dim> SET $setstr WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
 			break;
 		case ($command == $tab5):
 		case ($command == tab5):
 			$banktab = "tab5";
 			$setstr = "`banktab` = '$banktab'";
-			$db->query("UPDATE $table SET $setstr WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
+			$db->query("UPDATE orgbank_<dim> SET $setstr WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
 			break;
 		}
 	}
@@ -138,8 +124,7 @@ if ($db->numrows() > 0) {
 //SECTION END
 
 //SECTION START: SET UP THE TABS PRIOR TO DISPLAY. 
-$slot = "0";
-$db->query("SELECT * FROM $table WHERE `bankowner` = '$owner'");
+$db->query("SELECT * FROM orgbank_<dim> WHERE `bankowner` = '$sender'");
 if ($db->numrows() > 0) { 
 	$tabrow = $db->fObject();
 	$banktitle = $tabrow->banktitle;
@@ -202,8 +187,7 @@ if ($db->numrows() > 0) {
 //SECTION START: DISPLAYING THINGS
 //The banks header. 
 $msg = ("<header><center>::::: Org Bank: Home Menu :::::</center><end>\n");
-$slot = 0;
-$db->query("SELECT * FROM $table WHERE `bankowner` = '$owner'");
+$db->query("SELECT * FROM orgbank_<dim> WHERE `bankowner` = '$sender'");
 $title_found =$db->numrows();
 // If user has no bank, put up a dialog to let him choose and make one. 
 if ($title_found == 0){
@@ -227,12 +211,12 @@ if ($title_found > 0){
 		$msg .=("<white>______________________________________________<end>\n");
 		$msg .= "<green>Delete your bank and all items in it<end> [<a href='chatcmd:///tell <myname> <symbol>bankkill>Delete Bank</a>]\n";
 		$msg .=("<white>______________________________________________<end>\n");
-		if($banktype == "tabbed"){
+		if ($banktype == "tabbed") {
 			$msg .= "<green>Changing the tab names of your bank<end> [<a href='chatcmd:///tell <myname> <symbol>help banktabname>Help Me</a>]\n";
 		}
-		if($banktype == "basic"){
+		if ($banktype == "basic") {
 			$msg .= "<green>How to add an item to your bank<end> [<a href='chatcmd:///tell <myname> <symbol>help bankadd>Help Me</a>]\n";
-		} ELSE {
+		} else {
 			$msg .= "<green>How to add an item to your bank<end> [<a href='chatcmd:///tell <myname> <symbol>help bankaddtab>Help Me</a>]\n";
 		}
 		$msg .= "<green>How to delete an item from your bank<end> [<a href='chatcmd:///tell <myname> <symbol>help bankdel>Help Me</a>]\n";
@@ -243,20 +227,19 @@ if ($title_found > 0){
 		$msg .= "<green>Your bank's title is currently: <grey> $banktitle [<a href='chatcmd:///tell <myname> <symbol>help banktitle>Change It</a>]\n";
 		$msg .= "<green>Your bank's comment is currently: <grey> $bankcomment [<a href='chatcmd:///tell <myname> <symbol>help bankcomment>Change It</a>]\n";
 		
-	}ELSEIF($bankmenu = "closed"){
+	} else if ($bankmenu = "closed") {
 		$msg .="<white>To show your settings: [<a href='chatcmd:///tell <myname> <symbol>bank open >Open Menu</a>] \n";
 	}
 	
 	// Check if there are items in the bank, prompt user to start adding items. 
 	// Start printing tabs if it's a tabbed bank. 
-	$slot = "0";
-	$db->query("SELECT * FROM $table WHERE `bankowner` = '$owner'");
+	$db->query("SELECT * FROM orgbank_<dim> WHERE `bankowner` = '$sender'");
 	$items_found = $db->numrows();
 	if ($items_found == 1) {	// 1 item means they have a bank, but no goods in it... prompt them to add 
 		$msg .= "\n<White>Now you can add items ";
 		$msg .= " and then [<a href='chatcmd:///tell <myname> <symbol>bank>Refresh Bank</a>]\n";
 		$msg .=("<white>______________________________________________<end>\n");
-		if($banktype !== "basic"){
+		if ($banktype !== "basic") {
 			$msg .=("<white>Select:  ");
 			$msg .= "$banktab1 ";
 			$msg .= "$banktab2 ";
@@ -267,13 +250,13 @@ if ($title_found > 0){
 		}
 	}
 	// Start figuring out which items are in this tab. 
-	$db->query("SELECT * FROM $table WHERE `bankowner` = '$owner' ");
+	$db->query("SELECT * FROM orgbank_<dim> WHERE `bankowner` = '$sender' ");
 	$items_found = $db->numrows();
 	// Okay, the bank has more than just a placeholder.
 	if ($items_found > 1) {
 		$msg .=("<white>______________________________________________<end>\n");
 		// Decide if we print tabs or not. 
-		if($banktype !== "basic"){
+		if ($banktype !== "basic") {
 			$msg .=("<white>Select:  ");
 			$msg .= "$banktab1 ";
 			$msg .= "$banktab2 ";
@@ -298,11 +281,10 @@ if ($title_found > 0){
 			// Slot 0 = Bank placeholder. Slot 1 = An item within a Bank. Reserved for future uses. 
 			if ($bankslot > 0) {
 				// Is it a tabbed bank? if not default it to the first page. 
-				if ($banktype == "basic"){
+				if ($banktype == "basic") {
 					$banktab = "none";
 				}
-				if($banktab == $itemtab){
-					
+				if ($banktab == $itemtab) {
 					// Put up the item and the -+DEL Buttons. 
 					$thisitem = "<a href='itemref://$row->lowID/$row->highID/$row->ql'>$row->itemname</a>";
 					$edititem =  str_replace("\'", "&#39;", "$row->lowID/$row->highID/$row->ql/$row->itemname/");
@@ -318,18 +300,11 @@ if ($title_found > 0){
 			}
 		}
 	}
-	
-	
 }
 
-$msg = Text::make_link("Please click to start or refresh your Bank.", substr($msg, 0,strlen($msg)-1));
-/////////////////////////////////////////////////
-// we have a message after all that? post it
-/////////////////////////////////////////////////
-$msg = str_replace("\'", "'", $msg);
-if ($msg){	// Send info back
+$msg = Text::make_link("Please click to start or refresh your Bank.", substr($msg, 0, strlen($msg) - 1));
+if ($msg) {
 	$chatBot->send($msg, $sender);
-	
 }
 
 ?>

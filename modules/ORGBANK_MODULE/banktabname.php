@@ -12,14 +12,14 @@
 ** Date(created): 27.04.2011
 ** Date(last modified): 20.04.2011
 */
+
 // Set up some basic stuff.
-$table = "orgbank_".$this->vars["dimension"];
 $owner = $sender; 
 $slot = "0";
 // Does the player have a bank?
-$db->query("SELECT * FROM $table WHERE `bankowner` = '$owner' ");
+$db->query("SELECT * FROM orgbank_<dim> WHERE `bankowner` = '$owner' ");
 if ($db->numrows() < 1) { 
-	$msg .=("<green>You dont have a bank. Please type bank for help...<end>\n");//
+	$msg .= "You dont have a bank. Please type bank for help...";
 	$chatBot->send($msg, $sendto);
 	return;
 }
@@ -34,54 +34,37 @@ if ($db->numrows() > 0) {
 // Change tab names.  
 /////////////////////////////////////////////////
 
-if( eregi("^banktabname([1-5])? (.+)?$", $message, $arr)){
+if (preg_match("/^banktabname([1-5])? (.+)?$/i", $message, $arr)) {
 	// You can't change tabs on a Basic bank....
-	if($banktype == "basic"){
-		$msg .=("<green>You have a <yellow>Basic<green> Bank. No tabs to rename!\n");
+	if ($banktype == "basic") {
+		$msg .= "You have a <highlight>Basic<end> Bank. No tabs to rename!";
 		$chatBot->send($msg, $sendto);
 		return;
 	}
 	$number = $arr[1];
 	$newtabname = trim($arr[2]);
 	if (strlen($newtabname) > 10){
-		$msg .=("<green>More than 10 letters... think smaller!\n");
+		$msg .= "More than 10 letters... think smaller!");
 		$chatBot->send($msg, $sendto);
 		return;
 	}
 	
-	$newtabname =  str_replace("'", "&#039;", $newtabname);
-	$newtabname = substr($newtabname,0,10);
-	$db->query("SELECT * FROM $table WHERE `bankowner` = '$owner' ");
+	$newtabname =  str_replace("'", "''", $newtabname);
+	$db->query("SELECT * FROM orgbank_<dim> WHERE `bankowner` = '$owner' ");
 	if ($db->numrows() > 0) { 
-		$Shop_Owner = 1;
-		$newtabname = trim($newtabname);
 		$slot = "0";
 		$displaynewtabname = trim($arr[2]);
-		$tabnumber ="tab$number";
-		if($newtabname !== "open" && $newtabname !== "closed"&& $newtabname !== "basic"&& $newtabname !== "tabbed"){
-			$setstr = "`$tabnumber` = '$newtabname'";
+		if ($newtabname !== "open" && $newtabname !== "closed" && $newtabname !== "basic" && $newtabname !== "tabbed") {
 			$msg .= ("<green>Tab <yellow>$number<green> of your bank was changed to: <white>'$displaynewtabname'<green>.<end>");
-			$db->query("UPDATE $table SET $setstr WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
-			
-		}ELSE{
-			$msg .= ("<green>Sorry, <white>$newtabname<green> is a reserved word. Tab <yellow?$number<green> not set.\n");
+			$db->query("UPDATE orgbank_<dim> SET `tab$number` = '$newtabname' WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
+		} else {
+			$msg .= "<green>Sorry, <highlight>$newtabname<end> is a reserved word. Tab <highlight>$number<end> not set.<end>\n";
 		}
-		
-		
 	}
 }
 
-
-/////////////////////////////////////////////////
-// we have a message after all that? post it
-/////////////////////////////////////////////////
-$msg = str_replace("\'", "'", $msg);
-if ($msg){	// Send info back
-	if($type == "msg" || $type == "guild" || $type == "priv"){
-		$chatBot->send($msg, $sendto);
-	}
-	
-	
+if ($msg) {
+	$chatBot->send($msg, $sendto);
 }
 
 

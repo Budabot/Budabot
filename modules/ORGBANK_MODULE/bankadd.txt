@@ -1,15 +1,15 @@
-<yellow><center>::::: Org Bank: Basic Bank Add Item ::::::</center><end>
+<header> :::::: Org Bank: Basic Bank Add Item :::::: <end>
 
-<green><left>If you are using a <yellow>Basic<green> bank to just dump a list of items you are prepared to lend, the command would be:
+<green>If you are using a <highlight>Basic<end> bank to just dump a list of items you are prepared to lend, the command would be:<end>
  
-<yellow>/tell <myname> bankadd <drag item> <optional: comment><end>
+<highlight>/tell <myname> bankadd <drag item> <optional: comment><end>
 
 <green>Examples:<end>
 
-<yellow>/tell <myname> bankadd <drag item from inventory> LOAN ONLY<end>
+<highlight>/tell <myname> bankadd <drag item from inventory> LOAN ONLY<end>
 
-<yellow>/tell <myname> bankadd <drag item from inventory> PACK 55<end>
+<highlight>/tell <myname> bankadd <drag item from inventory> PACK 55<end>
 
-<green><left>Once an item is in your Bank, you can add or delete it using the <grey>[-1|DELETE|+1) <green>buttons next to it.<end>
+<green>Once an item is in your Bank, you can add or delete it using the <grey>[-1|DELETE|+1)<end> buttons next to it.<end>
 
-<green><left>The Budabot alias for this command is: <yellow>!ba <drag item> <optional: comment><end>
+<green>The Budabot alias for this command is: <highlight>!ba <drag item> <optional: comment><end><end>

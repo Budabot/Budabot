@@ -1,11 +1,11 @@
-<yellow><center>::::: Org Bank: Banklist Help :::::</center><end>
+<header> :::::: Org Bank: Banklist Help :::::: <end>
 
-<green>Gives a complete list of all players who have Org Bank(s)<end> 
+Gives a complete list of all players who have Org Bank(s)
 
-<green>Example: <yellow>/tell <myname> banklist <end> 
+Example: <highlight>/tell <myname> banklist<end> 
 
-<green>When you click on the Search Results link, a list of players is displayed. 
+When you click on the Search Results link, a list of players is displayed. 
 
-You can then click on a players name to visit their Bank<end>
+You can then click on a players name to visit their Bank
 
-<green>The Budabot alias for this command is: <yellow>!bl<end>
+The Budabot alias for this command is: <highlight>!bl<end>

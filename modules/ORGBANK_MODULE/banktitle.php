@@ -12,67 +12,55 @@
 ** Date(created): 27.04.2011
 ** Date(last modified): 20.04.2011
 */
+
 $msg = "";
-$table = "orgbank_".$this->vars["dimension"];
 $owner = $sender; 
 $slot = "0";
-$db->query("SELECT * FROM $table WHERE `bankowner` = '$owner' ");
+$db->query("SELECT * FROM orgbank_<dim> WHERE `bankowner` = '$owner' ");
 if ($db->numrows() < 1) { 
-$Shop_Owner = 0;
-$msg .=("You don't have a bank. Please type !bank for help...\n");//
+	$Shop_Owner = 0;
+	$msg .= "You don't have a bank. Please type !bank for help...\n";
 }
-
-
 
 $message = str_replace("'", "\'", $message);
 // Either client.exe, server, bot is changing chars to html code
 // We may need to switch them around.
 //$htmlcode=array("&amp;", "&quot;", "&lt;", "&gt;");$snglchar=array('&','"', '<', '>');
 
-if(!$msg){ // No message so no error, lets start changing the title. 
+if (!$msg) { // No message so no error, lets start changing the title. 
 
 	/////////////////////////////////////////////////
 	// Change the banktitle.  
 	/////////////////////////////////////////////////
 
-	if( eregi("^banktitle (.+)?$", $message, $arr)){
+	if (preg_match("/^banktitle (.+)?$/i", $message, $arr)) {
 		$retitle = ($arr[1]);
 		$retitle = str_replace("'", "\'", $retitle);
-		$db->query("SELECT * FROM $table WHERE `bankowner` = '$owner' ");
+		$db->query("SELECT * FROM orgbank_<dim> WHERE `bankowner` = '$owner' ");
 		if ($db->numrows() > 0) { 
 			$retitle = trim($retitle);
 			if ($retitle == "none"){
 				$retitle = "Bank";
 				$slot = "0";
 				$msg .= "The title of your bank was cleared.<end>";
-				$db->query("UPDATE $table SET `banktitle` = \"$retitle\" WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
-			}ELSE{
+				$db->query("UPDATE orgbank_<dim> SET `banktitle` = \"$retitle\" WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
+			} else {
 				$slot = "0";
 				$displayit = str_replace("\'", "'", $retitle);
 				$msg .= "The title of your bank was changed to: <white>'$displayit'.<end>";
-				$db->query("UPDATE $table SET `banktitle` = \"$retitle\" WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
+				$db->query("UPDATE orgbank_<dim> SET `banktitle` = \"$retitle\" WHERE `bankslot` = '$slot' AND `bankowner` = '$sender'");
 			}
-			
-			
-			
 		}
 	}
 
 }
+
 /////////////////////////////////////////////////
 // we have a message after all that? post it
 /////////////////////////////////////////////////
 $msg = str_replace("\'", "'", $msg);
 if ($msg){	// Send info back
-	if($type == "msg"){
-		$chatBot->send($msg, $sender);
-	}
-	if($type == "guild"){
-		$chatBot->send($msg, $sender);
-	}
-	
+	$chatBot->send($msg, $sendto);
 }	
-
-
 
 ?>

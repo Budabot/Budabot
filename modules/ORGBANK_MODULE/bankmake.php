@@ -13,27 +13,15 @@
 ** Date(last modified): 20.04.2011
 */
 
-$table = "orgbank_".$this->vars["dimension"];
-$owner = $sender; 
-$slot = "0";
-
-
-$message = str_replace("'", "\'", $message);
-// Either client.exe, server, bot is changing chars to html code
-// We may need to switch them around.
-//$htmlcode=array("&amp;", "&quot;", "&lt;", "&gt;");$snglchar=array('&','"', '<', '>');
-
 /////////////////////////////////////////////////
 // Create a new bank. 
 /////////////////////////////////////////////////
-if( eregi("^bankmake$", $message)) {
-
-	$db->query("SELECT * FROM $table WHERE `bankowner` = '$owner' ");
+if (preg_match("/^bankmake$/i", $message)) {
+	$db->query("SELECT * FROM orgbank_<dim> WHERE `bankowner` = '$sender' ");
 	if ($db->numrows() > 0) { 
 		$msg = "Don't be greedy, you already have a bank!";
-	}ELSE {
+	} else {
 		// Make a default placeholder for the bank
-		$owner = $sender; 
 		$slot = 0;
 		$timestamp =time();
 		$lowid = 0;
@@ -44,39 +32,26 @@ if( eregi("^bankmake$", $message)) {
 		$comment = "";
 		$banktitle = "Orgbank";
 		$bankmenu = "open";
-		$db->query("INSERT INTO '$table' VALUES ( '$owner', '$slot', '$timestamp', '$lowID', '$highID', '$ql', '$itemname', '$quantity', '$comment', '$banktitle', '$bankmenu' )");
+		$db->query("INSERT INTO orgbank_<dim> VALUES ( '$sender', '$slot', '$timestamp', '$lowID', '$highID', '$ql', '$itemname', '$quantity', '$comment', '$banktitle', '$bankmenu' )");
 		$msg = "Created an empty bank for you!";
 	}
+	$chatBot->send($msg, $sendto);
 }		
 
 /////////////////////////////////////////////////
 // Delete an existing bank. 
 /////////////////////////////////////////////////
-if( eregi("^bankkill$", $message)) {
-
-	$db->query("SELECT * FROM $table WHERE `bankowner` = '$owner' ");
+else if (preg_match("/^bankkill$/i", $message)) {
+	$db->query("SELECT * FROM orgbank_<dim> WHERE `bankowner` = '$sender' ");
 	if ($db->numrows() < 1) { 
 		$msg = "You don't appear to have a Bank!";
-	}
-	ELSE {
+	} else {
 		 //Delete the bank and all items. 
 
-		$db->query("DELETE FROM $table WHERE `bankowner` = '$owner' ");
+		$db->query("DELETE FROM orgbank_<dim> WHERE `bankowner` = '$sender' ");
 		$msg = "Your bank was deleted.";	
 	}
+	$chatBot->send($msg, $sendto);
 }
-
-/////////////////////////////////////////////////
-// we have a message after all that? post it
-/////////////////////////////////////////////////
-$msg = str_replace("\'", "'", $msg);
-if ($msg){	// Send info back
-	if($type == "msg"){
-		$chatBot->send($msg, $sender);
-	}
-	
-	
-}
-
 
 ?>

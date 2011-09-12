@@ -1,13 +1,13 @@
-<yellow><center>:::: Org Bank: Bank Tab Help</center> :::::<end>
+<highlight> ::::: Org Bank: Bank Tab Help :::::: <end>
 
-<green><left> The 5 tabs of a Tabbed Bank can be renamed to almost anything you like:
+The 5 tabs of a Tabbed Bank can be renamed to almost anything you like:
 
-<yellow><left>/tell <myname> !banktabname < 1-5 > <10 Characters><end>
+<highlight>/tell <myname> !banktabname < 1-5 > <10 Characters><end>
 
-Example:<yellow> !banktabname 1 Armour<end>
+Example: <highlight>!banktabname 1 Armour<end>
 
-Example:<yellow> !banktabname 4 Weapons<end>
+Example: <highlight>!banktabname 4 Weapons<end>
 
-Example:<yellow> !banktabname 5 Spirits<end>
+Example: <highlight>!banktabname 5 Spirits<end>
 
-<green><left>The Budabot shortcut for this is: <yellow>!btn < 1-5 > <10 Characters><end>
+The Budabot shortcut for this is: <highlight>!btn < 1-5 > <10 Characters><end>

@@ -1,10 +1,10 @@
-<yellow><center>::::: Org Bank: Banksearch Help :::::</center><end>
+<header> :::::: Org Bank: Banksearch Help :::::: <end>
 
-<green><left>If you know the name of an Org member who has a bank you can easily go directly to it by typing:
+If you know the name of an Org member who has a bank you can easily go directly to it by typing:
 
-<yellow>/tell <myname> banksearch < name of player > <end>
+<highlight>/tell <myname> banksearch < name of player ><end>
 
 You could also type !banksearch < name of player > in the Org chatline. 
 
-The Budabot shortcut for this command is: <yellow>!bs <name of player>
+The Budabot shortcut for this command is: <highlight>!bs <name of player><end>
 
