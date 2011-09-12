@@ -1,10 +1,10 @@
-<header>  ::::::  RK Dynacamp Help  ::::::  <end>
+<header> :::::: RK Dynacamp Help :::::: <end>
 
-<blue>This command will return a list of Dynacamps on RK according to a set of user defined criteria.  All searches are ordered from lowest to highest in level.
+This command will return a list of Dynacamps on RK according to a set of user defined criteria.  All searches are ordered from lowest to highest in level.
 
-<tab><yellow>dyna (#)<end> Will return a list of Dynacamps within -25 and +25 of the level input.
+<tab><highlight>dyna (#)<end> Will return a list of Dynacamps within -25 and +25 of the level input.
 
-<tab><yellow>dyna (zone)<end> Will return a list of all the Dynacamps in the specified zone.
+<tab><highlight>dyna (zone)<end> Will return a list of all the Dynacamps in the specified zone.
 
-<tab><yellow>dyna (mob)<end> Will return a list of all the Dynacamps that consist of the specified type of mob.   
+<tab><highlight>dyna (mob)<end> Will return a list of all the Dynacamps that consist of the specified type of mob.   
 
