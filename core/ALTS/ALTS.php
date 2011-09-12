@@ -10,6 +10,7 @@
 	// Alternative Characters
 	Command::register($MODULE_NAME, "", "altscmd.php", "alts", "guild", "Alt Char handling");
 	Subcommand::register($MODULE_NAME, "", "alts_main.php", "alts main (.+)", "guild", "alts", "Add yourself as an alt to a main", 'alts');
+	CommandAlias::register($MODULE_NAME, "alts", "alt");
 	
 	Command::register($MODULE_NAME, "", "altsadmin.php", "altsadmin", "mod", "Alt Char handling (admin)");
 	
