@@ -15,7 +15,7 @@ class Event {
 	public static $EVENT_TYPES = array(
 		'towers','orgmsg','msg','priv','extPriv','guild','joinPriv','extJoinPriv','leavePriv','extLeavePriv',
 		'extJoinPrivRequest','extKickPriv','logOn','logOff','2sec','1min','10mins','15mins','30mins','1hour',
-		'24hrs','connect','shopping','sendGuild','sendPriv','setup','allpackets');
+		'24hrs','connect','sendGuild','sendPriv','setup','allpackets');
 
 	/**
 	 * @name: register

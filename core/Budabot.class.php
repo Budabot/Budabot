@@ -818,16 +818,6 @@ class Budabot extends AOChat {
 				$message = substr($message, 1);
 				$chatBot->process_command($type, $message, $sender, $sendto);
 			}
-		} else if ($channel == 'OT shopping 11-50' || $channel == 'OT shopping 50-100' || $channel == 'OT shopping 100+' || $channel == 'Neu. shopping 11-50' || $channel == 'Neu. shopping 50-100' || $channel == 'Neu. shopping 100+' || $channel == 'Clan shopping 11-50' || $channel == 'Clan shopping 50-100' || $channel == 'Clan shopping 100+') {
-			$type = "shopping";
-			
-			forEach ($chatBot->events[$type] as $filename) {
-				$msg = "";
-				include $filename;
-				if ($stop_execution) {
-					return;
-				}
-			}
 		}
 	}
 	
