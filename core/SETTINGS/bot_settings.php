@@ -96,7 +96,7 @@ if (preg_match("/^settings$/i", $message)) {
 		if ($row->type == "color") {
 		  	$link .= "For this setting you can set any Color in the HTML Hexadecimal Color Format.\n";
 		  	$link .= "You can change it manually with the command: \n\n";
-		  	$link .= "/tell <myname> settings save {$row->name} 'HTML-Color'\n\m";
+		  	$link .= "/tell <myname> settings save {$row->name} 'HTML-Color'\n\n";
 		  	$link .= "(Allowed chars for the HTML-Color is 0-9 and A-F, max 4.chars)\n";
 		  	$link .= "Or you can use also one of the following Pregiven Colors\n\n";
 		  	$link .= "Red: <font color='#ff0000'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #ff0000'>Save it</a>) \n";
