@@ -2,7 +2,6 @@
 
 if (preg_match("/^logs$/i", $message)) {
 	if ($handle = opendir(Logger::get_logging_directory())) {
-		
 		$blob .= "<header> :::::: Log Files :::::: <end>\n\n";
 		while (false !== ($file = readdir($handle))) {
 			if ($file == '.' || $file == '..') {
@@ -23,7 +22,6 @@ if (preg_match("/^logs$/i", $message)) {
 	$filename = Logger::get_logging_directory() . "/" . $arr[1];
 	$size = filesize($filename);
 	$readsize = Setting::get('max_blob_size') - 500;
-	echo "size: $size readsize: $readsize\n";
 	
 	if ($fp = fopen($filename, 'r')) {
 		fseek($fp, $size - $readsize);

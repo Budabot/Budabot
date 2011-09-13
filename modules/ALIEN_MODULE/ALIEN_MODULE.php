@@ -15,6 +15,7 @@
 
 	// Help files
     Help::register($MODULE_NAME, "bio", "bio.txt", "all", "Identify an Biomaterial");
+	Help::register($MODULE_NAME, "bioinfo", "bioinfo.txt", "all", "How to find info on a bio type");
     Help::register($MODULE_NAME, "aiarmor", "aiarmor.txt", "all", "Alien armor Tradeskillprocess");
 	Help::register($MODULE_NAME, "aigen", "aigen.txt", "all", "Alien City Generals Info");
 	Help::register($MODULE_NAME, "leprocs", "leprocs.txt", "all", "How to use leprocs");
