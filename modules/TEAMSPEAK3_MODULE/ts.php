@@ -6,7 +6,7 @@ if (preg_match("/^ts$/i", $message)) {
 	try {
 		$server = Setting::get('ts_server');
 		$clientPort = Setting::get('ts_clientport');
-		$serverLink = Text::make_chatcmd($server, "/start ts3server://$server:$clientPort");
+		$serverLink = Text::make_chatcmd($server, "/start http://ts3server:://$server:$clientPort");
 		
 		$users = $ts->exec('clientlist');
 		$count = 0;
