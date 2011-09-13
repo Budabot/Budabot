@@ -1,0 +1,102 @@
+<font color="CCInfoHeadline">Playfield Index</font>
+    
+<font color="CCInfoText">For specific information on a playfield, click on the appropriate playfield link. Land Control Areas, DynaCamps, and Organization City information are listed for each playfield, where applicable.
+
+
+4
+- <a href="file://info-4holes.html">4 Holes</a>
+
+A
+- <a href="file://info-aegean.html">Aegean</a>
+- <a href="file://info-andromeda.html">Andromeda</a>
+- <a href="file://info-athenshire.html">Athen Shire</a>
+- <a href="file://info-avalon.html">Avalon</a>
+
+B
+- <a href="file://info-belialforest.html">Belial Forest</a>
+- <a href="file://info-borealis.html">Borealis</a>
+- <a href="file://info-brokenshores.html">Broken Shores</a>
+
+C
+- <a href="file://info-centralarteryvalley.html">Central Artery Valley</a>
+- <a href="file://info-clondyke.html">Clondyke</a>
+- <a href="file://info-coastofpeace.html">Coast of Peace</a>
+- <a href="file://info-coastoftranquility.html">Coast of Tranquility</a>
+
+D
+- <a href="file://info-deeparteryvalley.html">Deep Artery Valley</a>
+
+E
+- <a href="file://info-easternfoulsplains.html">Eastern Fouls Plains</a>
+
+G
+- <a href="file://info-galwaycounty.html">Galway County</a>
+- <a href="file://info-galwayshire.html">Galway Shire</a>
+- <a href="file://info-greateromniforest.html">Greater Omni Forest</a>
+- <a href="file://info-greatertircounty.html">Greater Tir County</a>
+
+H
+- <a href="file://info-holesinthewall.html">Holes in the Wall</a>
+
+L
+- <a href="file://info-lushfields.html">Lush Fields</a>
+
+M
+- <a href="file://info-milkyway.html">Milky Way</a>
+- <a href="file://info-mort.html">Mort</a>
+- <a href="file://info-mutantdomain.html">Mutant Domain</a>
+
+N
+- <a href="file://info-newland.html">Newland</a>
+- <a href="file://info-newlandcity.html">Newland City</a>
+- <a href="file://info-newlanddesert.html">Newland Desert</a>
+
+O
+- <a href="file://info-oldathen.html">Old Athen</a>
+- <a href="file://info-omni1entertainment.html">Omni-1 Entertainment</a>
+- <a href="file://info-omni1headquarters.html">Omni-1 Headquarters</a>
+- <a href="file://info-omni1trade.html">Omni-1 Trade</a>
+- <a href="file://info-omniforest.html">Omni Forest</a>
+
+P
+- <a href="file://info-perpetualwastelands.html">Perpetual Wastelands</a>
+- <a href="file://info-pleasantmeadows.html">Pleasant Meadows</a>
+
+R
+- <a href="file://info-romeblue.html">Rome Blue</a>
+- <a href="file://info-romegreen.html">Rome Green</a>
+- <a href="file://info-romered.html">Rome Red</a>
+
+S
+- <a href="file://info-southernarteryvalley.html">Southern Artery Valley</a>
+- <a href="file://info-southernfoulshills.html">Southern Fouls Hills</a>
+- <a href="file://info-streteastbank.html">Stret East Bank</a>
+- <a href="file://info-stretwestbank.html">Stret West Bank</a>
+
+T
+- <a href="file://info-thelongestroad.html">The Longest Road</a>
+- <a href="file://info-tir.html">Tir</a>
+- <a href="file://info-tircounty.html">Tir County</a>
+
+U
+- <a href="file://info-upperstreteastbank.html">Upper Stret East Bank</a>
+
+V
+- <a href="file://info-varmintwoods.html">Varmint Woods</a>
+
+W
+- <a href="file://info-wailingwastes.html">Wailing Wastes</a>
+- <a href="file://info-wartornvalley.html">Wartorn Valley</a>
+- <a href="file://info-westathen.html">West Athen</a>
+
+
+_______________________________
+
+Click on this <a href="chatcmd:///macro PF /showfile info-playfield.html">Playfields</a> link to create a hotkeyable macro for easier access to this Help File.
+
+
+- <a href="file://info-playfield.html">Playfield Index</a>
+    <a href="file://info-dynacamp.html">DynaCamps</a>
+    <a href="file://info-lca.html">Land Control Areas</a>
+
+(current as of game version 16.2.9)</font>

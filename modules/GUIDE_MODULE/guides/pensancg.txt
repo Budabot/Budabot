@@ -1,4 +1,4 @@
-<header>::::: Penumbra Sanctuary Garden Key Quest OMNI :::::<end>
+<header> :::::: Penumbra Sanctuary Garden Key Quest OMNI :::::: <end>
 
 Penumbra Sanctuary Garden Key Quest OMNI
 
@@ -6,7 +6,6 @@ To start this quest, speak to <font color = yellow>Garboil Roch Van</font>. He i
 
 <font color = yellow>Part one: Calibrate stuff!</font>
 The Garboil will give you a mission, and a Calibration Tuner. The mission has coords, so it's a smooth ride. Upload the coords to the map, enter the mission and find a large machine. Use your Tuner on the machine, and wait for a mission update. Run out, and repeat the process 7 times. Usually all the missions point to the same location, and the machine is almost always in the same room, so it's a piece of cake.
-
 
 <font color = yellow>Part two: Kill redeemed leaders!</font>
 This one is a bit trickier, you have to kill twelwe redeemed leaders. Some are pretty hard to reach because of the adds (no problem after lvl 203 (202?), adds turn grey around then), so you might want to bring backup.
@@ -41,4 +40,4 @@ The leaders:
    <font color = green>(West) Northwest redeemed temple, on the top of the stairs.</font>
 
 <font color = yellow>10-12. Venerable Ecclesiast, Empath Alyssa, redeemed Cama.</font>
-   (West) Northwest redeemed temple. Kill the Ecclesiast, give the shady guy 6 Cama Insignias. He will spawn the Empath. Kill the Empath, redeemed Cama will spawn. Kill Cama, and you have the key.
+   <font color = green>(West) Northwest redeemed temple. Kill the Ecclesiast, give the shady guy 6 Cama Insignias. He will spawn the Empath. Kill the Empath, redeemed Cama will spawn. Kill Cama, and you have the key.</font>
