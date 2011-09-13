@@ -8,6 +8,7 @@
 	DB::loadSQLFile($MODULE_NAME, "dyna");
 	DB::loadSQLFile($MODULE_NAME, "research");
 	DB::loadSQLFile($MODULE_NAME, "playfields");
+	DB::loadSQLFile($MODULE_NAME, "orgcities");
 
 	Command::register($MODULE_NAME, "", "kos.php", "kos", "guild", "Shows the Kill On Sight List");
 	Command::register($MODULE_NAME, "", "time.php", "time", "all", "Shows the time in the different timezones");
@@ -22,8 +23,9 @@
 	Command::register($MODULE_NAME, "", "whatbuffs.php", "whatbuffs", "all", "find items that buff");
 	Command::register($MODULE_NAME, "", "dyna.php", "dyna", "all", "Search for RK Dynaboss");
 	Command::register($MODULE_NAME, "", "research.php", "research", "all", "Info on Research");
-	Command::register($MODULE_NAME, "", "playfields.php", "playfields", "all", "Shows all the playfields including IDs and short names", 'waypoint');
-	Command::register($MODULE_NAME, "", "waypoint.php", "waypoint", "all", "Creats a waypoint link");
+	Command::register($MODULE_NAME, "", "playfields.php", "playfields", "all", "Shows playfield ids, long names, and short names", 'waypoint');
+	Command::register($MODULE_NAME, "", "waypoint.php", "waypoint", "all", "Creates a waypoint link");
+	Command::register($MODULE_NAME, "", "orgcities.php", "orgcities", "all", "Show coords for org cities");
 
 	// Flip or Roll command
 	Command::register($MODULE_NAME, "", "roll.php", "flip", "all", "Flip a coin", 'roll');
@@ -50,5 +52,6 @@
 	Help::register($MODULE_NAME, "research", "research.txt", "all", "Info on Research");
 	Help::register($MODULE_NAME, "capxp", "capxp.txt", "all", "Set your reasearch bar for max xp/sk");
 	Help::register($MODULE_NAME, "waypoint", "waypoint.txt", "all", "How to create a waypoint link");
+	Help::register($MODULE_NAME, "orgcities", "orgcities.txt", "all", "How to find coords for org cities");
 	Help::register($MODULE_NAME, "random", "random.txt", "all", "How to randomly order a list of elements");
 ?>
