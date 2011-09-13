@@ -44,7 +44,7 @@ if (preg_match("/^banktabname([1-5])? (.+)?$/i", $message, $arr)) {
 	$number = $arr[1];
 	$newtabname = trim($arr[2]);
 	if (strlen($newtabname) > 10){
-		$msg .= "More than 10 letters... think smaller!");
+		$msg .= "More than 10 letters... think smaller!";
 		$chatBot->send($msg, $sendto);
 		return;
 	}

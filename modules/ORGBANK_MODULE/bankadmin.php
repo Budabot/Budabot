@@ -46,7 +46,7 @@ if (preg_match("/^bankadmin/i", $message, $arr)) {
 		$msg = Text::make_link("Click to view BankAdmin list", substr($msg, 0,strlen($msg)-1));
 	}
 	if ($owners_found == 0) {
-		$msg = "I can't see any banks to administrate.");
+		$msg = "I can't see any banks to administrate.";
 	}
 }
 

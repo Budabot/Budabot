@@ -7,7 +7,7 @@ if (preg_match("/^b$/i", $message)) {
 		$chatBot->send($msg, $sendto);
 	}
 } else {
-	$syntax_error = true
+	$syntax_error = true;
 }
 
 ?>

@@ -9,7 +9,7 @@
 /* Part of: Guardian Module                     */
 /* ******************************************** */
 
-if (preg_match("/^guard$/i", $message) {
+if (preg_match("/^guard$/i", $message)) {
 	if (count($chatBot->data['guard']) == 0) {
 		$msg = "No 205+ Soldiers in chat.";
 	} else {
