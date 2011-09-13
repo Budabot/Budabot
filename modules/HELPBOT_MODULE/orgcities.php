@@ -1,7 +1,7 @@
 <?php
 
 if (preg_match("/^orgcities$/i", $message)) {
-	$db->query("SELECT DISTINCT playfield_id, long_name, short_name FROM cities c JOIN playfields p ON c.playfield_id = p.id ORDER BY long_name ASC");
+	$db->query("SELECT DISTINCT playfield_id, long_name, short_name FROM orgcities c JOIN playfields p ON c.playfield_id = p.id ORDER BY long_name ASC");
 	$data = $db->fObject('all');
 	
 	$blob = "<header> :::::: Playfields with Org Cities :::::: <end>\n\n";
@@ -19,7 +19,7 @@ if (preg_match("/^orgcities$/i", $message)) {
 		return;
 	}
 
-	$db->query("SELECT * FROM cities WHERE playfield_id = {$playfield->id} ORDER BY cluster ASC, plot ASC");
+	$db->query("SELECT * FROM orgcities WHERE playfield_id = {$playfield->id} ORDER BY cluster ASC, plot ASC");
 	$data = $db->fObject('all');
 	
 	$blob = "<header> :::::: Org cities in {$playfield->long_name} :::::: <end>\n";
