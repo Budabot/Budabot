@@ -1,26 +1,22 @@
-<font color="CCInfoHeadline">DYNACAMPS</font>
-    
-<font color="CCInfoText">Click on a playfield link below to view DynaCamp information for that playfield.
+<font color=CCInfoHeadline>DYNACAMPS</font>
+
+<font color=CCInfoText>Click on a playfield link below to view DynaCamp information for that playfield.
 
 
-- <a href="file://info-aegean.html">Aegean</a>
-- <a href="file://info-andromeda.html">Andromeda</a>
-- <a href="file://info-belialforest.html">Belial Forest</a>
-- <a href="file://info-centralarteryvalley.html">Central Artery Valley</a>
-- <a href="file://info-newlanddesert.html">Newland Desert</a>
-- <a href="file://info-omniforest.html">Omni Forest</a>
-- <a href="file://info-perpetualwastelands.html">Perpetual Wastelands</a>
-- <a href="file://info-varmintwoods.html">Varmint Woods</a>
-- <a href="file://info-wailingwastes.html">Wailing Wastes</a>
-
+- <a href='chatcmd:///tell <myname> guides info-aegean'>Aegean</a>
+- <a href='chatcmd:///tell <myname> guides info-andromeda'>Andromeda</a>
+- <a href='chatcmd:///tell <myname> guides info-belialforest'>Belial Forest</a>
+- <a href='chatcmd:///tell <myname> guides info-centralarteryvalley'>Central Artery Valley</a>
+- <a href='chatcmd:///tell <myname> guides info-newlanddesert'>Newland Desert</a>
+- <a href='chatcmd:///tell <myname> guides info-omniforest'>Omni Forest</a>
+- <a href='chatcmd:///tell <myname> guides info-perpetualwastelands'>Perpetual Wastelands</a>
+- <a href='chatcmd:///tell <myname> guides info-varmintwoods'>Varmint Woods</a>
+- <a href='chatcmd:///tell <myname> guides info-wailingwastes'>Wailing Wastes</a>
 
 _______________________________
 
-Click on this <a href="chatcmd:///macro DYNA /showfile info-dynacamp.html">Dynacamps</a> link to create a hotkeyable macro for easier access to this Help File.
-
-
-- <a href="file://info-playfield.html">Playfield Index</a>
-    <a href="file://info-dynacamp.html">DynaCamps</a>
-    <a href="file://info-lca.html">Land Control Areas</a>
+<a href='chatcmd:///tell <myname> guides info-playfield'>Playfield Index</a>
+<a href='chatcmd:///tell <myname> guides info-dynacamp'>DynaCamps</a>
+<a href='chatcmd:///tell <myname> guides info-lca'>Land Control Areas</a>
 
 (current as of game version 16.2.9)</font>

@@ -1,27 +1,27 @@
-<font color="CCInfoHeadline">NEWLAND DESERT / 565</font>
+<font color=CCInfoHeadline>NEWLAND DESERT / 565</font>
 
-<font color="CCInfoText">Listed below is information for Land Control Areas and DynaCamps for the Newland Desert playfield.
+<font color=CCInfoText>Listed below is information for Land Control Areas and DynaCamps for the Newland Desert playfield.
 
 
-_______________________________</font><font color="CCInfoHeader">
+_______________________________</font><font color=CCInfoHeader>
 
-<img src="tdb://id:GFX_GUI_ICON_TOWER"> Land Control Areas</font>
-<font color="CCInfoText">For specific information on a Land Control Area, find the corresponding number of the LCA listed on the map.</font><font color="CCInfoHeader">
+<img src=tdb://id:GFX_GUI_ICON_TOWER> Land Control Areas</font>
+<font color=CCInfoText>For specific information on a Land Control Area, find the corresponding number of the LCA listed on the map.</font><font color=CCInfoHeader>
 
-LCA    COORDINATES      LCA RANGE    LCA NAME</font><font color="CCInfoText">
+LCA    COORDINATES      LCA RANGE    LCA NAME</font><font color=CCInfoText>
 1        2940, 2900          25-40         Rich Desert Ridge
 2        1980, 2580          30-45         East of Meetmedere
 3          540, 2020          50-75         Middle of Western Desert
 4        2580, 1940          40-60         North of Rhino Village
 5        2700, 1260          40-60         South of Rhino Village
-</font><font color="CCInfoText">
+</font><font color=CCInfoText>
 
-_______________________________</font><font color="CCInfoHeader">
+_______________________________</font><font color=CCInfoHeader>
 
-<img src="rdb://156598"> DynaCamps</font>
-<font color="CCInfoText">The Boss and Minion levels listed are their approximate level ranges.</font><font color="CCInfoHeader">
+<img src=rdb://156598> DynaCamps</font>
+<font color=CCInfoText>The Boss and Minion levels listed are their approximate level ranges.</font><font color=CCInfoHeader>
 
-BOSS    MINIONS    COORDINATES      SPECIES</font><font color="CCInfoText">
+BOSS    MINIONS    COORDINATES      SPECIES</font><font color=CCInfoText>
   15        10-15       1260, 2540        Rhinomen
   15        10-15       1340, 2340        Rhinomen
   20        15-20       2180, 2740        Eyemutants
@@ -45,30 +45,30 @@ BOSS    MINIONS    COORDINATES      SPECIES</font><font color="CCInfoText">
   65        50-55       2660, 1460        Rhinomen
   65        50-55       2810, 1640        Rhinomen
   65        50-55       2820, 1620        Rhinomen
-</font><font color="CCInfoText">
+</font><font color=CCInfoText>
 
-_______________________________</font><font color="CCInfoHeader">
+_______________________________</font><font color=CCInfoHeader>
 
-<img src="tdb://id:GFX_GUI_CC_ICONS_FACTIONS">Organization Cities</font>
-<font color="CCInfoText">For information on a specific Organization City, find the corresponding city controller designation on the map.</font>
+<img src=tdb://id:GFX_GUI_CC_ICONS_FACTIONS>Organization Cities</font>
+<font color=CCInfoText>For information on a specific Organization City, find the corresponding city controller designation on the map.</font>
 
-<font color="CCInfoHeader">Cluster 1
-        COORDINATES</font><font color="CCInfoText">
+<font color=CCInfoHeader>Cluster 1
+        COORDINATES</font><font color=CCInfoText>
  a         483, 2905
  b         638, 3021
  c         511, 2710
  d         609, 2751
 </font>
-<font color="CCInfoHeader">Cluster 2
-        COORDINATES</font><font color="CCInfoText">
+<font color=CCInfoHeader>Cluster 2
+        COORDINATES</font><font color=CCInfoText>
  a       2721, 2511
  b       2851, 2282
 </font>
-<font color="CCInfoText">
+<font color=CCInfoText>
 _______________________________
 
-- <a href="file://info-playfield.html">Playfield Index</a>
-    <a href="file://info-dynacamp.html">DynaCamps</a>
-    <a href="file://info-lca.html">Land Control Areas</a>
+<a href='chatcmd:///tell <myname> guides info-playfield'>Playfield Index</a>
+<a href='chatcmd:///tell <myname> guides info-dynacamp'>DynaCamps</a>
+<a href='chatcmd:///tell <myname> guides info-lca'>Land Control Areas</a>
 
 (current as of game version 16.2.9)</font>

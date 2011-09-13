@@ -1,14 +1,14 @@
-<font color="CCInfoHeadline">PERPETUAL WASTELANDS / 570</font>
+<font color=CCInfoHeadline>PERPETUAL WASTELANDS / 570</font>
 
-<font color="CCInfoText">Listed below is information for Land Control Areas and DynaCamps for the Perpetual Wastelands playfield.
+<font color=CCInfoText>Listed below is information for Land Control Areas and DynaCamps for the Perpetual Wastelands playfield.
 
 
-_______________________________</font><font color="CCInfoHeader">
+_______________________________</font><font color=CCInfoHeader>
 
-<img src="tdb://id:GFX_GUI_ICON_TOWER"> Land Control Areas</font>
-<font color="CCInfoText">For specific information on a Land Control Area, find the corresponding number of the LCA listed on the map.</font><font color="CCInfoHeader">
+<img src=tdb://id:GFX_GUI_ICON_TOWER> Land Control Areas</font>
+<font color=CCInfoText>For specific information on a Land Control Area, find the corresponding number of the LCA listed on the map.</font><font color=CCInfoHeader>
 
-LCA    COORDINATES      LCA RANGE    LCA NAME</font><font color="CCInfoText">
+LCA    COORDINATES      LCA RANGE    LCA NAME</font><font color=CCInfoText>
 1        3220, 3020        200-300       North of Cyborg Hideout
 2        3780, 2540        191-250       Middle of Liberty
 3          980, 2060        120-180       South of Sabulum
@@ -21,14 +21,14 @@ LCA    COORDINATES      LCA RANGE    LCA NAME</font><font color="CCInfoText">
 10          900, 1060        100-150       West of Canyon
 11        3180,   940        100-150       The Canyon Mines
 12        2300,   780        190-230       South of Canyon
-</font><font color="CCInfoText">
+</font><font color=CCInfoText>
 
-_______________________________</font><font color="CCInfoHeader">
+_______________________________</font><font color=CCInfoHeader>
 
-<img src="rdb://156598"> DynaCamps</font>
-<font color="CCInfoText">The Boss and Minion levels listed are their approximate level ranges.</font><font color="CCInfoHeader">
+<img src=rdb://156598> DynaCamps</font>
+<font color=CCInfoText>The Boss and Minion levels listed are their approximate level ranges.</font><font color=CCInfoHeader>
 
-BOSS    MINIONS    COORDINATES      SPECIES</font><font color="CCInfoText">
+BOSS    MINIONS    COORDINATES      SPECIES</font><font color=CCInfoText>
 105        76-90       1160, 1145        Mantis
 105        85-90       1935, 1380        Cyborgs
 110        85-90       1950, 1390        Cyborgs
@@ -52,34 +52,34 @@ BOSS    MINIONS    COORDINATES      SPECIES</font><font color="CCInfoText">
 210        NA-NA       3940, 1780        Sand Demon
 235      171-190     3460, 2940        Cyborgs
 245      171-190     3475, 2980        Cyborgs
-</font><font color="CCInfoText">
+</font><font color=CCInfoText>
 
-_______________________________</font><font color="CCInfoHeader">
+_______________________________</font><font color=CCInfoHeader>
 
-<img src="tdb://id:GFX_GUI_CC_ICONS_FACTIONS">Organization Cities</font>
-<font color="CCInfoText">For information on a specific Organization City, find the corresponding city controller designation on the map.</font>
+<img src=tdb://id:GFX_GUI_CC_ICONS_FACTIONS>Organization Cities</font>
+<font color=CCInfoText>For information on a specific Organization City, find the corresponding city controller designation on the map.</font>
 
-<font color="CCInfoHeader">Cluster 1
-        COORDINATES</font><font color="CCInfoText">
+<font color=CCInfoHeader>Cluster 1
+        COORDINATES</font><font color=CCInfoText>
  a         920, 3239
  b         581, 2980
  c         870, 2926
  d       1179, 2900
  e         821, 2700
 </font>
-<font color="CCInfoHeader">Cluster 2
-        COORDINATES</font><font color="CCInfoText">
+<font color=CCInfoHeader>Cluster 2
+        COORDINATES</font><font color=CCInfoText>
  a       3521, 1563
  b       3567, 1321
  c       3803, 1341
  d       4002, 1258
  e       3560, 1078
 </font>
-<font color="CCInfoText">
+<font color=CCInfoText>
 _______________________________
 
-- <a href="file://info-playfield.html">Playfield Index</a>
-    <a href="file://info-dynacamp.html">DynaCamps</a>
-    <a href="file://info-lca.html">Land Control Areas</a>
+<a href='chatcmd:///tell <myname> guides info-playfield'>Playfield Index</a>
+<a href='chatcmd:///tell <myname> guides info-dynacamp'>DynaCamps</a>
+<a href='chatcmd:///tell <myname> guides info-lca'>Land Control Areas</a>
 
 (current as of game version 16.2.9)</font>

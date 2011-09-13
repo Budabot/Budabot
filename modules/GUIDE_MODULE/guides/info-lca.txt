@@ -1,10 +1,10 @@
-<font color="CCInfoHeadline">LAND CONTROL AREAS</font>
+<font color=CCInfoHeadline>LAND CONTROL AREAS</font>
     
-<font color="CCInfoText">The following information for Land Control Areas is listed in order by maxiumum level range. A complete listing of Land Control Areas can also be viewed by <a href="file://info-playfield.html">Playfield</a>. For Playfield abbreviations, scroll to the bottom of this window.
+<font color=CCInfoText>The following information for Land Control Areas is listed in order by maxiumum level range. A complete listing of Land Control Areas can also be viewed by <a href="file://info-playfield.html">Playfield</a>. For Playfield abbreviations, scroll to the bottom of this window.
     
-_______________________________</font><font color="CCInfoHeader">
+_______________________________</font><font color=CCInfoHeader>
 
- RANGE    PF     LCA   COORDINATES    LCA NAME</font><font color="CCInfoText">
+ RANGE    PF     LCA   COORDINATES    LCA NAME</font><font color=CCInfoText>
   10-15    CLO     7     2500, 1220      Micron Slopes Notum Mine
   10-15    GOF     5     1500, 1300      Greater Omni Forest South
   10-15    GS       1       500, 1900      Blossom Valley
@@ -312,9 +312,9 @@ _______________________________</font><font color="CCInfoHeader">
 200-300  PW       6     3740, 1700      South of Cyborg Hideout
 
 
-_______________________________</font><font color="CCInfoHeader">
+_______________________________</font><font color=CCInfoHeader>
 
-Playfield Abbreviations</font><font color="CCInfoText">
+Playfield Abbreviations</font><font color=CCInfoText>
 
 4H - 4 Holes
 AEG - Aegean
@@ -351,14 +351,10 @@ USEB - Upper Stret East Bank
 VW - Varmint Woods
 WW - Wailing Wastes
 
-
 _______________________________
 
-Click on this <a href="chatcmd:///macro LCA /showfile info-lca.html">LCA</a> link to create a hotkeyable macro for easier access to this Help File.
-
-
-- <a href="file://info-playfield.html">Playfield Index</a>
-    <a href="file://info-dynacamp.html">DynaCamps</a>
-    <a href="file://info-lca.html">Land Control Areas</a>
+<a href='chatcmd:///tell <myname> guides info-playfield'>Playfield Index</a>
+<a href='chatcmd:///tell <myname> guides info-dynacamp'>DynaCamps</a>
+<a href='chatcmd:///tell <myname> guides info-lca'>Land Control Areas</a>
 
 (current as of game version 16.2.9)</font>

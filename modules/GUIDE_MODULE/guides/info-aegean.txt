@@ -1,14 +1,14 @@
-<font color="CCInfoHeadline">AEGEAN / 585</font>
+<font color=CCInfoHeadline>AEGEAN / 585</font>
 
-<font color="CCInfoText">Listed below is information for Land Control Areas and DynaCamps for the Aegean playfield.
+<font color=CCInfoText>Listed below is information for Land Control Areas and DynaCamps for the Aegean playfield.
 
 
-_______________________________</font><font color="CCInfoHeader">
+_______________________________</font><font color=CCInfoHeader>
 
-<img src="tdb://id:GFX_GUI_ICON_TOWER"> Land Control Areas</font>
-<font color="CCInfoText">For specific information on a Land Control Area, find the corresponding number of the LCA listed on the map.</font><font color="CCInfoHeader">
+<img src=tdb://id:GFX_GUI_ICON_TOWER> Land Control Areas</font>
+<font color=CCInfoText>For specific information on a Land Control Area, find the corresponding number of the LCA listed on the map.</font><font color=CCInfoHeader>
 
-LCA    COORDINATES      LCA RANGE    LCA NAME</font><font color="CCInfoText">
+LCA    COORDINATES      LCA RANGE    LCA NAME</font><font color=CCInfoText>
 1        1220, 2740          40-60         Northern Wastelands
 2        2180, 2580          11-16         West Wastelands
 3        1020, 2460          40-55         Mid Wastelands
@@ -18,14 +18,14 @@ LCA    COORDINATES      LCA RANGE    LCA NAME</font><font color="CCInfoText">
 7        1420, 1020          15-22         Canyon East
 8          820,   780          25-35         Canyon South
 9          900,   460          35-50         By the River
-</font><font color="CCInfoText">
+</font><font color=CCInfoText>
 
-_______________________________</font><font color="CCInfoHeader">
+_______________________________</font><font color=CCInfoHeader>
 
-<img src="rdb://156598"> DynaCamps</font>
-<font color="CCInfoText">The Boss and Minion levels listed are their approximate level ranges.</font><font color="CCInfoHeader">
+<img src=rdb://156598> DynaCamps</font>
+<font color=CCInfoText>The Boss and Minion levels listed are their approximate level ranges.</font><font color=CCInfoHeader>
 
-BOSS    MINIONS    COORDINATES      SPECIES</font><font color="CCInfoText">
+BOSS    MINIONS    COORDINATES      SPECIES</font><font color=CCInfoText>
   20        15-20       1740, 1940        Blubbags
   30        25-30       1710, 1720        Blubbags
   30        25-30       1680, 1730        Blubbags
@@ -47,40 +47,40 @@ BOSS    MINIONS    COORDINATES      SPECIES</font><font color="CCInfoText">
   75        60-65       1300, 1530        Anuns
   75        60-65       2060,   740        Mantezes
   75        60-65         460,   340        Rhinomen
-</font><font color="CCInfoText">
+</font><font color=CCInfoText>
 
-_______________________________</font><font color="CCInfoHeader">
+_______________________________</font><font color=CCInfoHeader>
 
-<img src="tdb://id:GFX_GUI_CC_ICONS_FACTIONS">Organization Cities</font>
-<font color="CCInfoText">For information on a specific Organization City, find the corresponding city controller designation on the map.</font>
+<img src=tdb://id:GFX_GUI_CC_ICONS_FACTIONS>Organization Cities</font>
+<font color=CCInfoText>For information on a specific Organization City, find the corresponding city controller designation on the map.</font>
 
-<font color="CCInfoHeader">Cluster 1
-        COORDINATES</font><font color="CCInfoText">
+<font color=CCInfoHeader>Cluster 1
+        COORDINATES</font><font color=CCInfoText>
  a         640, 2460
  b         820, 2460
  c         620, 2279
  d         800, 2239
  e       1000, 2260
 </font>
-<font color="CCInfoHeader">Cluster 2
-        COORDINATES</font><font color="CCInfoText">
+<font color=CCInfoHeader>Cluster 2
+        COORDINATES</font><font color=CCInfoText>
  a       1500, 1581
  b       1400, 1380
  c       1630, 1340
 </font>
-<font color="CCInfoHeader">Cluster 3
-        COORDINATES</font><font color="CCInfoText">
+<font color=CCInfoHeader>Cluster 3
+        COORDINATES</font><font color=CCInfoText>
             999,   740
 </font>
-<font color="CCInfoHeader">Cluster 4
-        COORDINATES</font><font color="CCInfoText">
+<font color=CCInfoHeader>Cluster 4
+        COORDINATES</font><font color=CCInfoText>
           1248,   699
 </font>
-<font color="CCInfoText">
+<font color=CCInfoText>
 _______________________________
 
-- <a href="file://info-playfield.html">Playfield Index</a>
-    <a href="file://info-dynacamp.html">DynaCamps</a>
-    <a href="file://info-lca.html">Land Control Areas</a>
+<a href='chatcmd:///tell <myname> guides info-playfield'>Playfield Index</a>
+<a href='chatcmd:///tell <myname> guides info-dynacamp'>DynaCamps</a>
+<a href='chatcmd:///tell <myname> guides info-lca'>Land Control Areas</a>
 
 (current as of game version 16.2.9)</font>
