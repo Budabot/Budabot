@@ -4,9 +4,9 @@
 	DB::loadSQLFile($MODULE_NAME, 'clump');
 	DB::loadSQLFile($MODULE_NAME, "leprocs");
 
-	Command::register($MODULE_NAME, "", "ofab.php", "ofab", "all", "Show Ofab armor bio-material types");
+	Command::register($MODULE_NAME, "", "ofabarmor.php", "ofabarmor", "all", "Show Ofab armor bio-material types");
 	Command::register($MODULE_NAME, "", "bio.php", "bio", "all", "Identify Solid Clump of Kyr'Ozch Bio-Material");
-	Command::register($MODULE_NAME, "", "aigen.php", "aigen", "all", "Info about Alien City Generals(which VBs they drop)");
+	Command::register($MODULE_NAME, "", "aigen.php", "aigen", "all", "Info about Alien City Generals");
 	Command::register($MODULE_NAME, "", "aiarmor.php", "aiarmor", "all", "Tradeskill process for Alien Armor");
 	Command::register($MODULE_NAME, "", "bioinfo.php", "bioinfo", "all", "Show info about a particular bio type");
 
@@ -19,5 +19,5 @@
     Help::register($MODULE_NAME, "aiarmor", "aiarmor.txt", "all", "Alien armor Tradeskillprocess");
 	Help::register($MODULE_NAME, "aigen", "aigen.txt", "all", "Alien City Generals Info");
 	Help::register($MODULE_NAME, "leprocs", "leprocs.txt", "all", "How to use leprocs");
-	Help::register($MODULE_NAME, "ofab", "ofab.txt", "all", "How to use ofab");
+	Help::register($MODULE_NAME, "ofabarmor", "ofabarmor.txt", "all", "How to use ofab");
 ?>

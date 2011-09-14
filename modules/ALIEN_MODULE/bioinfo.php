@@ -261,7 +261,7 @@ if (preg_match("/^bioinfo (1|2|3|4|5|12|13|48|76|112|240|880|992|pristine|mutate
 	$ts_bio = floor($ql * 4.5);
 	
 	$blob = "<header> :::::: $name (QL $ql) :::::: <end>\n\n";
-	$blob .= Text::make_item($low_id, $high_id, $ql, $name) . "\nIt will take <highlight>$ts_bio<end> EE & CL (<highlight>4.5 * QL<end>) to analyze the Bio-Material." . "\n\n";
+	$blob .= Text::make_item($low_id, $high_id, $ql, $name) . "\nIt will take <highlight>$ts_bio<end> EE & CL (<highlight>4.5 * QL<end>) to analyze the Bio-Material.\n\n";
 	$blob .= $use;
 	$blob .= "\n\n<yellow>Tradeskilling info added by Mdkdoc420 (RK2)<end>";
 

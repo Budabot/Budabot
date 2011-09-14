@@ -1,6 +1,6 @@
 <?php
 
-if (preg_match("/^ofab$/i", $message, $arr)) {
+if (preg_match("/^ofabarmor$/i", $message, $arr)) {
 	$db->query("SELECT DISTINCT ql FROM ofabarmorcost ORDER BY ql ASC");
 	$qls = $db->fObject('all');
 
@@ -10,7 +10,7 @@ if (preg_match("/^ofab$/i", $message, $arr)) {
 	forEach ($data as $row) {
 		$blob .= "<pagebreak>{$row->profession} - Type {$row->type}\n";
 		forEach ($qls as $ql) {
-			$ql_link = Text::make_chatcmd($ql->ql, "/tell <myname> ofab {$row->profession} {$ql->ql}");
+			$ql_link = Text::make_chatcmd($ql->ql, "/tell <myname> ofabarmor {$row->profession} {$ql->ql}");
 			$blob .= "[{$ql_link}] ";
 		}
 		$blob .= "\n\n";
@@ -18,7 +18,7 @@ if (preg_match("/^ofab$/i", $message, $arr)) {
 
 	$msg = Text::make_blob("Ofab Armor Bio-Material Types", $blob);
 	$chatBot->send($msg, $sendto);
-} else if (preg_match("/^ofab (.+) (\\d+)$/i", $message, $arr) || preg_match("/^ofab (.+)$/i", $message, $arr)) {
+} else if (preg_match("/^ofabarmor (.+) (\\d+)$/i", $message, $arr) || preg_match("/^ofabarmor (.+)$/i", $message, $arr)) {
 	if ($arr[2]) {
 		$ql = $arr[2];
 	} else {
