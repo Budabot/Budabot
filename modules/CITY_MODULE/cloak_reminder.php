@@ -31,7 +31,8 @@ if ($db->numrows() != 0) {
 		// disabled past the the time that the cloaking device could be enabled.
 		$interval = 5;
 		if ((time() - $row->time) >= 65*60 && ((time() - $row->time) % (60 * $interval) >= 0 && (time() - $row->time) % (60 * $interval) <= 60 )) {
-			$chatBot->send("The cloaking was disabled by {$row->name}. It is possible to enable it.", 'guild');
+			$timeString = Util::unixtime_to_readable(time() - $row->time, false);
+			$chatBot->send("The cloaking was disabled by {$row->name} $timeString ago. It is possible to enable it.", 'guild');
 		}
 	}
 }
