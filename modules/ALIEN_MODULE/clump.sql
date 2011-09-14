@@ -10,7 +10,7 @@ INSERT INTO `clumpref` (`lid`, `hid`, `name`, `specials`, `type`, `spec`) VALUES
 INSERT INTO `clumpref` (`lid`, `hid`, `name`, `specials`, `type`, `spec`) VALUES (265335, 265336, 'Kyr''Ozch Bio-Material - Type 468', 'Bureaucrats, Nano-technicians and Traders', 468, 3);
 
 DROP TABLE IF EXISTS `clumpweapon`;
-CREATE TABLE `clumpweapon` ( `type` int(11) NOT NULL default '0', `name` varchar(255) NOT NULL default '', `0` int(11) NOT NULL default '0', `99` int(11) NOT NULL default '0', `100` int(11
+CREATE TABLE `clumpweapon` ( `type` int(11) NOT NULL default '0', `name` varchar(255) NOT NULL default '', `0` int(11) NOT NULL default '0', `99` int(11) NOT NULL default '0', `100` int(11) NOT NULL default '0', `199` int(11) NOT NULL default '0', `200` int(11) NOT NULL default '0', `299` int(11) NOT NULL default '0', `300` int(11) NOT NULL default '0');
 INSERT INTO `clumpweapon` (`type`, `name`, `0`, `99`, `100`, `199`, `200`, `299`, `300`) VALUES (18, 'Ofab Mongoose Mk', 265152, 264907, 264914, 264921, 264928, 264935, 300);
 INSERT INTO `clumpweapon` (`type`, `name`, `0`, `99`, `100`, `199`, `200`, `299`, `300`) VALUES (18, 'Ofab Viper Mk', 264984, 264991, 264998, 265005, 265012, 265019, 300);
 INSERT INTO `clumpweapon` (`type`, `name`, `0`, `99`, `100`, `199`, `200`, `299`, `300`) VALUES (18, 'Ofab Wolf Mk', 265201, 265208, 265215, 265222, 265229, 265236, 300);
