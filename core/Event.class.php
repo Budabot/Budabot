@@ -13,9 +13,9 @@
 class Event {
 
 	public static $EVENT_TYPES = array(
-		'towers','orgmsg','msg','priv','extPriv','guild','joinPriv','extJoinPriv','leavePriv','extLeavePriv',
-		'extJoinPrivRequest','extKickPriv','logOn','logOff','2sec','1min','10mins','15mins','30mins','1hour',
-		'24hrs','connect','sendGuild','sendPriv','setup','allpackets');
+		'orgmsg','msg','priv','extPriv','guild','joinPriv','extJoinPriv','leavePriv','extLeavePriv',
+		'extJoinPrivRequest','extKickPriv','2sec','1min','5mins','10mins','15mins','30mins','1hour',
+		'logOn','logOff','towers','24hrs','connect','sendGuild','sendPriv','setup','allpackets');
 
 	/**
 	 * @name: register
@@ -178,13 +178,13 @@ class Event {
 	 * @name: crons
 	 * @description: Call php-Scripts at certin time intervals. 2 sec, 1 min, 10min, 15 min, 30min, 1 hour, 24 hours
 	 */
-	function crons(){
+	function crons() {
 		$db = DB::get_instance();
 		global $chatBot;
 		
 		if ($chatBot->vars["2sec"] < time()) {
 			Logger::log('DEBUG', 'Cron', "2secs");
-			$chatBot->vars["2sec"] 	= time() + 2;
+			$chatBot->vars["2sec"] = time() + 2;
 			forEach ($chatBot->spam as $key => $value){
 				if ($value > 0) {
 					$chatBot->spam[$key] = $value - 10;
@@ -212,37 +212,44 @@ class Event {
 				require $filename;
 			}
 		}
+		if ($chatBot->vars["5mins"] < time()) {
+			Logger::log('DEBUG', 'Cron', "5mins");
+			$chatBot->vars["5mins"] = time() + (60 * 5);
+			forEach ($chatBot->events['5mins'] as $filename) {
+				require $filename;
+			}
+		}
 		if ($chatBot->vars["10mins"] < time()) {
 			Logger::log('DEBUG', 'Cron', "10mins");
-			$chatBot->vars["10mins"] 	= time() + (60 * 10);
+			$chatBot->vars["10mins"] = time() + (60 * 10);
 			forEach ($chatBot->events['10mins'] as $filename) {
 				require $filename;
 			}
 		}
 		if ($chatBot->vars["15mins"] < time()) {
 			Logger::log('DEBUG', 'Cron', "15mins");
-			$chatBot->vars["15mins"] 	= time() + (60 * 15);
+			$chatBot->vars["15mins"] = time() + (60 * 15);
 			forEach ($chatBot->events['15mins'] as $filename) {
 				require $filename;
 			}
 		}
 		if ($chatBot->vars["30mins"] < time()) {
 			Logger::log('DEBUG', 'Cron', "30mins");
-			$chatBot->vars["30mins"] 	= time() + (60 * 30);
+			$chatBot->vars["30mins"] = time() + (60 * 30);
 			forEach ($chatBot->events['30mins'] as $filename) {
 				require $filename;
 			}
 		}
 		if ($chatBot->vars["1hour"] < time()) {
 			Logger::log('DEBUG', 'Cron', "1hour");
-			$chatBot->vars["1hour"] 	= time() + (60 * 60);
+			$chatBot->vars["1hour"] = time() + (60 * 60);
 			forEach ($chatBot->events['1hour'] as $filename) {
 				require $filename;
 			}
 		}
 		if ($chatBot->vars["24hours"] < time()) {
 			Logger::log('DEBUG', 'Cron', "24hours");
-			$chatBot->vars["24hours"] 	= time() + ((60 * 60) * 24);
+			$chatBot->vars["24hours"] = time() + ((60 * 60) * 24);
 			forEach ($chatBot->events['24hrs'] as $filename) {
 				require $filename;
 			}
