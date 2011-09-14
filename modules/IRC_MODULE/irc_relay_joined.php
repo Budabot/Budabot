@@ -56,6 +56,14 @@ if ("1" == Setting::get('irc_status')) {
 			Logger::log_chat("Out. IRC Msg.", -1, "$sender has joined the private chat");
 		}
 	} else if ($type == "logOn" && isset($chatBot->guildmembers[$sender])) {
+		if (Setting::get('first_and_last_alt_only') == 1) {
+			// if at least one alt/main is still online, don't show logoff message
+			$altInfo = Alts::get_alt_info($sender);
+			if (count($altInfo->get_online_alts()) > 1) {
+				return;
+			}
+		}
+
 		fputs($socket, "PRIVMSG ".Setting::get('irc_channel')." :$msg\n");
 		if (Setting::get('irc_debug_messages') == 1) {
 			Logger::log_chat("Out. IRC Msg.", -1, "$sender has logged on");
