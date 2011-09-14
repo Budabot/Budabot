@@ -2,7 +2,8 @@
 	$MODULE_NAME = "ALIEN_MODULE";
 	
 	DB::loadSQLFile($MODULE_NAME, 'clump');
-	DB::loadSQLFile($MODULE_NAME, "leprocs");
+	DB::loadSQLFile($MODULE_NAME, 'leprocs');
+	DB::loadSQLFile($MODULE_NAME, 'ofabarmor');
 
 	Command::register($MODULE_NAME, "", "ofabarmor.php", "ofabarmor", "all", "Show Ofab armor bio-material types");
 	Command::register($MODULE_NAME, "", "bio.php", "bio", "all", "Identify Solid Clump of Kyr'Ozch Bio-Material");
