@@ -2,7 +2,7 @@
 
 $num_neutnet_slaves = 14;
 
-if (preg_match("/^neutnet (disable|on|add)$/i", $message)) {
+if (preg_match("/^neutnet (enable|on|add)$/i", $message)) {
 	for ($i = 1; $i <= $num_neutnet_slaves; $i++) {
 		$name = "Neutnet" . $i;
 		
