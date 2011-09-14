@@ -32,7 +32,7 @@ if ($db->numrows() != 0) {
 		$interval = 5;
 		if ((time() - $row->time) >= 65*60 && ((time() - $row->time) % (60 * $interval) >= 0 && (time() - $row->time) % (60 * $interval) <= 60 )) {
 			$timeString = Util::unixtime_to_readable(time() - $row->time, false);
-			$chatBot->send("The cloaking was disabled by {$row->name} $timeString ago. It is possible to enable it.", 'guild');
+			$chatBot->send("The cloaking was disabled by {$row->player} $timeString ago. It is possible to enable it.", 'guild');
 		}
 	}
 }

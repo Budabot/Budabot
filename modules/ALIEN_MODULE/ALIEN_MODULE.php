@@ -10,6 +10,7 @@
 	Command::register($MODULE_NAME, "", "aigen.php", "aigen", "all", "Info about Alien City Generals");
 	Command::register($MODULE_NAME, "", "aiarmor.php", "aiarmor", "all", "Tradeskill process for Alien Armor");
 	Command::register($MODULE_NAME, "", "bioinfo.php", "bioinfo", "all", "Show info about a particular bio type");
+	CommandAlias::register($MODULE_NAME, "bioinfo", "biotype");
 
 	Command::register($MODULE_NAME, "", "leprocs.php", "leprocs", "all", "Shows the LE Procs for a particular profession");
 	CommandAlias::register($MODULE_NAME, "leprocs", "leproc");
