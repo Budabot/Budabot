@@ -45,7 +45,7 @@ $vars['show_aoml_markup'] = 0;
 $vars['cachefolder'] = "./cache/";
 
 // Default Status for modules. 1 for enabled, 0 for disabled
-$settings['default_module_status'] = 0;
+$vars['default_module_status'] = 0;
 
 // AO Chat Proxy. 1 for enabled, 0 for disabled
 $vars['use_proxy'] = 0;

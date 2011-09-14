@@ -26,7 +26,7 @@ class Subcommand {
 			return;
 		}
 		
-		if (Setting::get("default_module_status") == 1) {
+		if ($chatBot->vars['default_module_status'] == 1) {
 			$status = 1;
 		} else {
 			$status = 0;

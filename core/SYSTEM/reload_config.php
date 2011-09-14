@@ -10,6 +10,12 @@ if (preg_match("/^reloadconfig$/i", $message)) {
 	unset($vars['login']);
 	unset($vars['password']);
 	unset($vars['dimension']);
+	
+	unset($vars["DB Type"]);
+	unset($vars["DB Name"]);
+	unset($vars["DB Host"]);
+	unset($vars["DB username"]);
+	unset($vars["DB password"]);
 
 	forEach ($vars as $key => $value) {
 		$chatBot->vars[$key] = $value;

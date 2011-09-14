@@ -51,6 +51,8 @@
 	Command::activate("guild", "$MODULE_NAME/logs.php", "logs", "admin");
 
 	Event::activate("1hour", "$MODULE_NAME/ping_db.php");
+	Event::activate("2sec", "$MODULE_NAME/reduce_spam_values.php");
+	Event::activate("1min", "$MODULE_NAME/reduce_largespam_values.php");
 	
 	Setting::add($MODULE_NAME, 'symbol', 'Command prefix symbol', 'edit', "text", '!', '!;#;*;@;$;+;-', '', 'mod');
 	Setting::add($MODULE_NAME, 'guild_admin_level', 'Guild admin level', 'edit', "number", 1, 'President;General;Squad Commander;Unit Commander;Unit Leader;Unit Member;Applicant', '0;1;2;3;4;5;6', 'mod');
@@ -66,6 +68,5 @@
 	Help::register($MODULE_NAME, "guild_admin_level", "guild_admin_level.txt", "mod", "Change what guild rank and high receives the guild admin level privilege");
 	Help::register($MODULE_NAME, "spam_protection", "spam_protection.txt", "mod", "Enable or disable the spam protection");
 	Help::register($MODULE_NAME, "max_blob_size", "max_blob_size.txt", "mod", "Set the maximum blob size");
-	Help::register($MODULE_NAME, "default_module_status", "default_module_status.txt", "mod", "Set new modules to be enabled or disabled by default");
 	// TODO add help for logs, checkaccess, executesql, loadsql, clearqueue, lookup, eventlist, cmdlist, reloadconfig
 ?>

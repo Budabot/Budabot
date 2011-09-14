@@ -22,11 +22,11 @@ class Command {
 		//Check if the file exists
 		$actual_filename = Util::verify_filename($module . '/' . $filename);
 		if ($actual_filename == '') {
-			Logger::log('ERROR', 'Core', "Error in registering the File $filename for command $command. The file doesn't exist!");
+			Logger::log('ERROR', 'Core', "Error registering file $filename for command $command. The file doesn't exist!");
 			return;
 		}
 		
-		if (Setting::get("default_module_status") == 1) {
+		if ($chatBot->vars['default_module_status'] == 1) {
 			$status = 1;
 		} else {
 			$status = 0;
@@ -60,7 +60,7 @@ class Command {
 		//Check if the file exists
 		$actual_filename = Util::verify_filename($filename);
 		if ($actual_filename == '') {
-			Logger::log('ERROR', 'Core', "Error in activating the File $filename for command $command. The file doesn't exists!");
+			Logger::log('ERROR', 'Core', "Error activating file $filename for command $command. The file doesn't exist!");
 			return;
 		}
 		

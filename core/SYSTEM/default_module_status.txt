@@ -1,3 +1,0 @@
-<header>:::::: Help on Default Status for modules ::::::<end>
-
-This setting allows you to choose whether new modules are enabled or disabled by default.

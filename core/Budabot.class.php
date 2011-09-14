@@ -25,11 +25,10 @@ class Budabot extends AOChat {
 /*===============================
 ** Name: __construct
 ** Constructor of this class.
-*/	function __construct(&$vars, &$settings){
+*/	function __construct(&$vars){
 		parent::__construct();
 
-		$this->settings = &$settings;
-		$this->vars = &$vars;
+		$this->vars = $vars;
 		
 		// don't fire logon events when the bot starts up
 		$this->vars["logondelay"] = time() + 100000;
@@ -95,14 +94,20 @@ class Budabot extends AOChat {
 		Logger::log('INFO', 'StartUp', "All Systems ready!");
 
 		// Set cron timers
-		$this->vars["2sec"] 			= time() + Setting::get("cron_delay");
-		$this->vars["1min"] 			= time() + Setting::get("cron_delay");
-		$this->vars["10mins"] 			= time() + Setting::get("cron_delay");
-		$this->vars["15mins"] 			= time() + Setting::get("cron_delay");
-		$this->vars["30mins"] 			= time() + Setting::get("cron_delay");
-		$this->vars["1hour"] 			= time() + Setting::get("cron_delay");
-		$this->vars["24hours"]			= time() + Setting::get("cron_delay");
-		$this->vars["15min"] 			= time() + Setting::get("cron_delay");
+		Event::initCronTimers();
+	}
+	
+	public function run() {
+		$start = time();
+		$exec_connected_events = false;
+		while (true) {
+			$this->wait_for_packet();
+			Event::crons();
+			if ($exec_connected_events == false && ((time() - $start) > 5))	{
+				Event::executeConnectEvents();
+				$exec_connected_events = true;
+			}
+		}
 	}
 	
 	function init() {
@@ -251,23 +256,6 @@ class Budabot extends AOChat {
 		Event::loadEvents();
 	}
 
-/*===============================
-** Name: connectedEvents
-** Execute Events that needs to be executed right after login
-*/	function connectedEvents(){
-		$db = DB::get_instance();
-		global $chatBot;
-
-		Logger::log('DEBUG', 'Core', "Executing connected events");
-
-		// Check files, for all 'connect' events.
-		forEach ($this->events['connect'] as $filename) {
-			require $filename;
-		}
-		
-		$this->vars["logondelay"] = time() + 10;
-	}
-	
 	function sendPrivate($message, $group, $disable_relay = false) {
 		// for when Text::make_blob generates several pages
 		if (is_array($message)) {

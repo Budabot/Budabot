@@ -36,7 +36,7 @@ function read_input ($output = "") {
 	return trim(fgets(STDIN));
 }
 
-function savecfg($vars, $settings) {
+function savecfg($vars) {
 	global $config_file;
 	$lines = file($config_file);
 	forEach ($lines as $key => $line) {
@@ -44,10 +44,6 @@ function savecfg($vars, $settings) {
 			$lines[$key] = "$arr[1]vars['$arr[3]']$arr[5]=$arr[6]\"{$vars[$arr[3]]}\";$arr[8]";
 		} else if (preg_match("/^(.+)vars\[('|\")(.+)('|\")](.*)=([ 	]+)([0-9]+);(.*)$/si", $line, $arr)) {
 			$lines[$key] = "$arr[1]vars['$arr[3]']$arr[5]=$arr[6]{$vars[$arr[3]]};$arr[8]";
-	  	} else if (preg_match("/^(.+)settings\[('|\")(.+)('|\")](.*)=(.*)\"(.*)\";(.*)$/si", $line, $arr)) {
-			$lines[$key] = "$arr[1]settings['$arr[3]']$arr[5]=$arr[6]\"{$settings[$arr[3]]}\";$arr[8]";
-		} else if (preg_match("/^(.+)settings\[('|\")(.+)('|\")](.*)=([ 	]+)([0-9]+);(.*)$/si", $line, $arr)) {
-			$lines[$key] = "$arr[1]settings['$arr[3]']$arr[5]=$arr[6]{$settings[$arr[3]]};$arr[8]";
 		}
 	}
 	file_put_contents($config_file, $lines);
@@ -272,14 +268,14 @@ do {
 	echo "             \n\n\n\n\n\n\n";
 
 	$msg = "Should all modules be enabled ? (yes - Recommended/no): \n";
-	$settings["default_module_status"] = strtolower(read_input($msg));
-} while ($settings["default_module_status"] != "yes" && $settings["default_module_status"] != "no");
+	$vars["default_module_status"] = strtolower(read_input($msg));
+} while ($vars["default_module_status"] != "yes" && $vars["default_module_status"] != "no");
 
-if ($settings["default_module_status"] == "yes") {
-	$settings["default_module_status"] = 1;
+if ($vars["default_module_status"] == "yes") {
+	$vars["default_module_status"] = 1;
 }
-if ($settings["default_module_status"] == "no") {
-	$settings["default_module_status"] = 0;
+if ($vars["default_module_status"] == "no") {
+	$vars["default_module_status"] = 0;
 }
 	
 echo "         \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
@@ -300,7 +296,7 @@ $msg = "Press any key to start the bot.\n";
 read_input($msg);
 
 //Save the entered info to $config_file
-savecfg($vars, $settings);
+savecfg($vars);
 
 die("Restarting bot");
 ?>

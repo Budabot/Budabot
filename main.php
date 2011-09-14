@@ -11,7 +11,7 @@
    ** 
    ** Copyright (C) 2005, 2006 Carsten Lohmann and J. Gracik
    **
-   ** Licence Infos: 
+   ** Licence Info: 
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -29,20 +29,31 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */  
 
-$version = "2.2_GA";
+$version = "2.3_RC1";
 
 echo "\n\n\n\n\n
-	**************************************************
-	****         Budabot Version: $version          ****
-	****    written by Sebuda & Derroylo(RK2)     ****
-	****                Project Site:             ****
-	****    http://code.google.com/p/budabot2/    ****
-	****               Support Forum:             ****
-	****          http://www.budabot.com/         ****
-	**************************************************
+**************************************************
+     Budabot $version, by Tyrence(RK2)
+
+Project Site:  http://code.google.com/p/budabot2
+Support Forum: http://www.budabot.com/forum
+**************************************************
 \n";
 
 date_default_timezone_set("UTC");
+
+/**
+ * isWindows is a little utility function to check
+ * whether the bot is running Windows or something
+ * else: returns true if under Windows, else false
+ */
+function isWindows() {
+	if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+		return true;
+	} else {
+		return false;
+	}
+}
 
 if (isWindows()) {
     // Load Extention 
@@ -124,14 +135,14 @@ if ($db->errorCode != 0) {
 	die();
 }
 
-//Clear database settings
+//Clear database info
 unset($vars["DB Type"]);
 unset($vars["DB Name"]);
 unset($vars["DB Host"]);
 unset($vars["DB username"]);
 unset($vars["DB password"]);
 
-$chatBot = new Budabot($vars, $settings);
+$chatBot = new Budabot($vars);
 $chatBot->init();
 $chatBot->connectAO($vars['login'], $vars['password']);
 
@@ -139,39 +150,6 @@ $chatBot->connectAO($vars['login'], $vars['password']);
 unset($vars['login']);
 unset($vars['password']);
 
-// Call Main Loop
-main($chatBot);
-/*
-** Name: main
-** Main Loop
-** Inputs: (bool)$forever
-** Outputs: None
-*/	
-function main(&$chatBot) {
-	$start = time();
-	
-	$exec_connected_events = false;
-	while (true) {
-		$chatBot->wait_for_packet();
-		Event::crons();
-		if ($exec_connected_events == false && ((time() - $start) > 5))	{
-			$chatBot->connectedEvents();
-			$exec_connected_events = true;
-		}
-	}	
-}	
-
-/**
-* isWindows is a little utility function to check
-* whether the bot is running Windows or something
-* else: returns true if under Windows, else false
-*/
-function isWindows() {
-	if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-		return true;
-	} else {
-		return false;
-	}
-}
+$chatBot->run();
 
 ?>

@@ -12,10 +12,19 @@
 
 class Event {
 
+	public static $CRON_EVENT_TYPES = array(
+		'2sec','1min','5mins','10mins','15mins','30mins','1hour','24hrs'
+	);
+	
+	public static $CRON_EVENT_TYPE_DURATIONS = array(
+		2, 60, 300, 600, 900, 1800, 3600, 86400
+	);
+
 	public static $EVENT_TYPES = array(
-		'orgmsg','msg','priv','extPriv','guild','joinPriv','extJoinPriv','leavePriv','extLeavePriv',
-		'extJoinPrivRequest','extKickPriv','2sec','1min','5mins','10mins','15mins','30mins','1hour',
-		'logOn','logOff','towers','24hrs','connect','sendGuild','sendPriv','setup','allpackets');
+		'msg','priv','extPriv','guild','joinPriv','extJoinPriv','leavePriv','extLeavePriv',
+		'orgmsg','extJoinPrivRequest','extKickPriv','logOn','logOff','towers','connect',
+		'sendGuild','sendPriv','setup','allpackets'
+	);
 
 	/**
 	 * @name: register
@@ -29,7 +38,7 @@ class Event {
 		
 		Logger::log('DEBUG', 'Core', "Registering event Type:($type) File:($filename) Module:($module)");
 		
-		if (!in_array($type, Event::$EVENT_TYPES)) {
+		if (!in_array($type, Event::$EVENT_TYPES) && !in_array($type, Event::$CRON_EVENT_TYPES)) {
 			Logger::log('ERROR', 'Core', "Error registering event Type:($type) File:($filename) Module:($module). The type is not a recognized event type!");
 			return;
 		}
@@ -44,7 +53,7 @@ class Event {
 		if ($chatBot->existing_events[$type][$actual_filename] == true) {
 		  	$db->exec("UPDATE eventcfg_<myname> SET `verify` = 1, `description` = '$description', `help` = '{$help}' WHERE `type` = '$type' AND `file` = '$actual_filename' AND `module` = '$module'");
 		} else {
-			if (Setting::get("default_module_status") == 1) {
+			if ($chatBot->vars['default_module_status'] == 1) {
 				$status = 1;
 			} else {
 				$status = 0;
@@ -63,7 +72,7 @@ class Event {
 		
 		Logger::log('DEBUG', 'Core', "Activating event Type:($type) File:($filename)");
 		
-		if (!in_array($type, Event::$EVENT_TYPES)) {
+		if (!in_array($type, Event::$EVENT_TYPES) && !in_array($type, Event::$CRON_EVENT_TYPES)) {
 			Logger::log('ERROR', 'Core', "Error activating event Type:($type) File:($filename). The type is not a recognized event type!");
 			return;
 		}
@@ -95,7 +104,7 @@ class Event {
 
 		Logger::log('debug', 'Core', "Deactivating event Type:($type) File:($filename)");
 		
-		if (!in_array($type, Event::$EVENT_TYPES)) {
+		if (!in_array($type, Event::$EVENT_TYPES) && !in_array($type, Event::$CRON_EVENT_TYPES)) {
 			Logger::log('ERROR', 'Core', "Error deactivating event Type:($type) File:($filename). The type is not a recognized event type!");
 			return;
 		}
@@ -178,82 +187,50 @@ class Event {
 	 * @name: crons
 	 * @description: Call php-Scripts at certin time intervals. 2 sec, 1 min, 10min, 15 min, 30min, 1 hour, 24 hours
 	 */
-	function crons() {
+	public static function crons() {
+		$numEvents = count(Event::$CRON_EVENT_TYPES);
+		for ($i = 0; $i < $numEvents; $i++) {
+			Event::executeCronEvent(Event::$CRON_EVENT_TYPES[$i], Event::$CRON_EVENT_TYPE_DURATIONS[$i]);
+		}
+	}
+	
+	private static function executeCronEvent($eventType, $time) {
 		$db = DB::get_instance();
 		global $chatBot;
+
+		if ($chatBot->vars[$eventType] < time()) {
+			Logger::log('DEBUG', 'Cron', $eventType);
+			$chatBot->vars[$eventType] = time() + $time;
+			forEach ($chatBot->events[$eventType] as $filename) {
+				require $filename;
+			}
+		}
+	}
+	
+	public static function initCronTimers() {
+		global $chatBot;
 		
-		if ($chatBot->vars["2sec"] < time()) {
-			Logger::log('DEBUG', 'Cron', "2secs");
-			$chatBot->vars["2sec"] = time() + 2;
-			forEach ($chatBot->spam as $key => $value){
-				if ($value > 0) {
-					$chatBot->spam[$key] = $value - 10;
-				} else {
-					$chatBot->spam[$key] = 0;
-				}
-			}
-			
-			forEach ($chatBot->events['2sec'] as $filename) {
-				require $filename;
-			}
+		forEach (Event::$CRON_EVENT_TYPES as $event_type) {
+			$chatBot->cron_timers[$event_type] = time() + Setting::get("cron_delay");
 		}
-		if ($chatBot->vars["1min"] < time()) {
-			Logger::log('DEBUG', 'Cron', "1min");
-			forEach ($chatBot->largespam as $key => $value){
-				if ($value > 0) {
-					$chatBot->largespam[$key] = $value - 1;
-				} else {
-					$chatBot->largespam[$key] = 0;
-				}
-			}
-			
-			$chatBot->vars["1min"] = time() + 60;
-			forEach ($chatBot->events['1min'] as $filename) {
-				require $filename;
-			}
+	}
+	
+	/*===============================
+	** Name: executeConnectEvents
+	** Execute Events that needs to be executed right after login
+	*/	
+	public static function executeConnectEvents(){
+		$db = DB::get_instance();
+		global $chatBot;
+
+		Logger::log('DEBUG', 'Core', "Executing connected events");
+
+		// Check files, for all 'connect' events.
+		forEach ($chatBot->events['connect'] as $filename) {
+			require $filename;
 		}
-		if ($chatBot->vars["5mins"] < time()) {
-			Logger::log('DEBUG', 'Cron', "5mins");
-			$chatBot->vars["5mins"] = time() + (60 * 5);
-			forEach ($chatBot->events['5mins'] as $filename) {
-				require $filename;
-			}
-		}
-		if ($chatBot->vars["10mins"] < time()) {
-			Logger::log('DEBUG', 'Cron', "10mins");
-			$chatBot->vars["10mins"] = time() + (60 * 10);
-			forEach ($chatBot->events['10mins'] as $filename) {
-				require $filename;
-			}
-		}
-		if ($chatBot->vars["15mins"] < time()) {
-			Logger::log('DEBUG', 'Cron', "15mins");
-			$chatBot->vars["15mins"] = time() + (60 * 15);
-			forEach ($chatBot->events['15mins'] as $filename) {
-				require $filename;
-			}
-		}
-		if ($chatBot->vars["30mins"] < time()) {
-			Logger::log('DEBUG', 'Cron', "30mins");
-			$chatBot->vars["30mins"] = time() + (60 * 30);
-			forEach ($chatBot->events['30mins'] as $filename) {
-				require $filename;
-			}
-		}
-		if ($chatBot->vars["1hour"] < time()) {
-			Logger::log('DEBUG', 'Cron', "1hour");
-			$chatBot->vars["1hour"] = time() + (60 * 60);
-			forEach ($chatBot->events['1hour'] as $filename) {
-				require $filename;
-			}
-		}
-		if ($chatBot->vars["24hours"] < time()) {
-			Logger::log('DEBUG', 'Cron', "24hours");
-			$chatBot->vars["24hours"] = time() + ((60 * 60) * 24);
-			forEach ($chatBot->events['24hrs'] as $filename) {
-				require $filename;
-			}
-		}
+		
+		$chatBot->vars["logondelay"] = time() + 10;
 	}
 }
 
