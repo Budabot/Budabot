@@ -20,17 +20,10 @@ if ($db->numrows() != 0) {
 		}
 
 		if ($msg) {
-			// send message to main if he/she is online
-			if (Buddylist::is_online($row->player)) {
-				$chatBot->send($msg, $row->player);
-			}
-			
-			// send message to any online alts
-			$db->query("SELECT * FROM `alts` WHERE `main` = (SELECT `main` FROM `alts` WHERE `main` = '$row->player' or `alt` = '$row->player' LIMIT 1)");
-			while ($nextAlt = $db->fObject()) {
-				if (Buddylist::is_online($nextAlt->alt)) {
-					$chatBot->send($msg, $nextAlt->alt);
-				}
+			// send message to all online alts
+			$altInfo = Alts::get_alt_info($row->player);
+			forEach ($altInfo->get_online_alts() as $name) {
+				$chatBot->send($msg, $name);
 			}
 		}
 
@@ -38,7 +31,7 @@ if ($db->numrows() != 0) {
 		// disabled past the the time that the cloaking device could be enabled.
 		$interval = 5;
 		if ((time() - $row->time) >= 65*60 && ((time() - $row->time) % (60 * $interval) >= 0 && (time() - $row->time) % (60 * $interval) <= 60 )) {
-			$chatBot->send("The cloaking device is disabled. It is possible to enable it.", 'guild');
+			$chatBot->send("The cloaking was disabled by {$row->name}. It is possible to enable it.", 'guild');
 		}
 	}
 }
