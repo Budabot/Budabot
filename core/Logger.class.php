@@ -25,11 +25,11 @@ class Logger {
 		if ($vars[strtolower($category) . "_console"] != 1 && $vars[strtolower($category) . "_file"] != 1) {
 			return;
 		}
-	
-		$timestamp = date("Ymd H:i");
+
+		$timestamp = date("Ymd H:i:s");
 		$category = strtoupper($category);
 
-		$line = str_pad($timestamp, 14) . ' ' .  str_pad($category, 5) . ' ' . "[$tag]" . ' ' . $message;
+		$line = str_pad($timestamp, 17) . ' ' .  str_pad($category, 5) . ' ' . "[$tag]" . ' ' . $message;
 
 		if ($vars[strtolower($category) . "_console"]) {
 			echo "$line\n";
