@@ -195,6 +195,10 @@ class Towers {
 		
 		$guild_name = str_replace("'", "''", $guild_name);
 		
+		$db->begin_transaction();
+		
+		$db->exec("DELETE FROM scout_info WHERE `playfield_id` = {$playfield_id} AND `site_number` = {$site_number}");
+		
 		$sql = "
 			INSERT INTO scout_info (
 				`playfield_id`,
@@ -216,7 +220,15 @@ class Towers {
 				{$close_time}
 			)";
 
-		return $db->exec($sql);
+		$numrows = $db->exec($sql);
+		
+		if ($numrows == 0) {
+			$db->rollback();
+		} else {
+			$db->commit();
+		}
+		
+		return $numrows;
 	}
 	
 	public static function rem_scout_site($playfield_id, $site_number) {

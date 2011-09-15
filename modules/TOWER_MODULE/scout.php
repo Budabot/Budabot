@@ -69,7 +69,7 @@ if (preg_match("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[
 		$msg = Text::make_blob('Scouting problems', $check_blob);
 	} else {
 		Towers::add_scout_site($playfield->id, $site_number, $closing_time_seconds, $ct_ql, $faction, $guild_name, $sender);
-		$msg = "Tower site has been updated successfully.";
+		$msg = "Scout info has been updated.";
 	}
 	$chatBot->send($msg, $sendto);
 } else {
