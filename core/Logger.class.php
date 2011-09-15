@@ -13,6 +13,8 @@ global $vars;
 //   error
 
 class Logger {
+	public static $TIMESTAMP_FORMAT = "Ymd H:i:s";
+
 	public static function get_logging_directory() {
 		global $chatBot;
 		
@@ -26,7 +28,7 @@ class Logger {
 			return;
 		}
 
-		$timestamp = date("Ymd H:i:s");
+		$timestamp = date(Logger::$TIMESTAMP_FORMAT);
 		$category = strtoupper($category);
 
 		$line = str_pad($timestamp, 17) . ' ' .  str_pad($category, 5) . ' ' . "[$tag]" . ' ' . $message;
@@ -46,7 +48,7 @@ class Logger {
 */	public static function log_chat($channel, $sender, $message) {
 		global $vars;
 		
-		$timestamp = date("Ymd H:i");
+		$timestamp = date(Logger::$TIMESTAMP_FORMAT);
 		
 		if ($vars['show_aoml_markup'] == 0) {
 			$message = preg_replace("/<font(.+)>/U", "", $message);
