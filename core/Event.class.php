@@ -36,17 +36,17 @@ class Event {
 		
 		$description = str_replace("'", "''", $description);
 		
-		Logger::log('DEBUG', 'Core', "Registering event Type:($type) File:($filename) Module:($module)");
+		Logger::log('DEBUG', 'Event', "Registering event Type:($type) File:($filename) Module:($module)");
 		
 		if (!in_array($type, Event::$EVENT_TYPES) && !in_array($type, Event::$CRON_EVENT_TYPES)) {
-			Logger::log('ERROR', 'Core', "Error registering event Type:($type) File:($filename) Module:($module). The type is not a recognized event type!");
+			Logger::log('ERROR', 'Event', "Error registering event Type:($type) File:($filename) Module:($module). The type is not a recognized event type!");
 			return;
 		}
 		
 		//Check if the file exists
 		$actual_filename = Util::verify_filename($module . '/' . $filename);
 		if ($actual_filename == '') {
-			Logger::log('error', 'Core', "Error registering event Type:($type) File:($filename) Module:($module). The file doesn't exist!");
+			Logger::log('ERROR', 'Event', "Error registering event Type:($type) File:($filename) Module:($module). The file doesn't exist!");
 			return;
 		}
 		
@@ -70,17 +70,17 @@ class Event {
 		global $chatBot;
 		$db = DB::get_instance();
 		
-		Logger::log('DEBUG', 'Core', "Activating event Type:($type) File:($filename)");
+		Logger::log('DEBUG', 'Event', "Activating event Type:($type) File:($filename)");
 		
 		if (!in_array($type, Event::$EVENT_TYPES) && !in_array($type, Event::$CRON_EVENT_TYPES)) {
-			Logger::log('ERROR', 'Core', "Error activating event Type:($type) File:($filename). The type is not a recognized event type!");
+			Logger::log('ERROR', 'Event', "Error activating event Type:($type) File:($filename). The type is not a recognized event type!");
 			return;
 		}
 
 		//Check if the file exists
 		$actual_filename = Util::verify_filename($filename);
 		if ($actual_filename == '') {
-			Logger::log('ERROR', 'Core', "Error activating event Type:($type) File:($filename). The file doesn't exist!");
+			Logger::log('ERROR', 'Event', "Error activating event Type:($type) File:($filename). The file doesn't exist!");
 			return;
 		}
 		
@@ -90,7 +90,7 @@ class Event {
 			if (!in_array($actual_filename, $chatBot->events[$type])) {
 				$chatBot->events[$type] []= $actual_filename;
 			} else {
-				Logger::log('ERROR', 'Core', "Error activating event Type:($type) File:($filename). Event already activated!");
+				Logger::log('ERROR', 'Event', "Error activating event Type:($type) File:($filename). Event already activated!");
 			}
 		}
 	}
@@ -102,10 +102,10 @@ class Event {
 	public static function deactivate($type, $filename) {
 		global $chatBot;
 
-		Logger::log('debug', 'Core', "Deactivating event Type:($type) File:($filename)");
+		Logger::log('debug', 'Event', "Deactivating event Type:($type) File:($filename)");
 		
 		if (!in_array($type, Event::$EVENT_TYPES) && !in_array($type, Event::$CRON_EVENT_TYPES)) {
-			Logger::log('ERROR', 'Core', "Error deactivating event Type:($type) File:($filename). The type is not a recognized event type!");
+			Logger::log('ERROR', 'Event', "Error deactivating event Type:($type) File:($filename). The type is not a recognized event type!");
 			return;
 		}
 		
@@ -113,7 +113,7 @@ class Event {
 		//Check if the file exists
 		$actual_filename = Util::verify_filename($filename);
 		if ($actual_filename == '') {
-			Logger::log('ERROR', 'Core', "Error deactivating event Type:($type) File:($filename). The file doesn't exist!");
+			Logger::log('ERROR', 'Event', "Error deactivating event Type:($type) File:($filename). The file doesn't exist!");
 			return;
 		}
 
@@ -121,7 +121,7 @@ class Event {
 			$temp = array_flip($chatBot->events[$type]);
 			unset($chatBot->events[$type][$temp[$actual_filename]]);
 		} else {
-			Logger::log('ERROR', 'Core', "Error deactivating event Type:($type) File:($filename). The event is not active or doesn't exist!");
+			Logger::log('ERROR', 'Event', "Error deactivating event Type:($type) File:($filename). The event is not active or doesn't exist!");
 		}
 	}
 	
@@ -174,9 +174,9 @@ class Event {
 	 * @description: Loads the active events into memory and activates them
 	 */
 	public static function loadEvents() {
+		Logger::log('DEBUG', 'Event', "Loading enabled events");
+
 	  	$db = DB::get_instance();
-		
-		Logger::log('DEBUG', 'Core', "Loading enabled events");
 
 		$db->query("SELECT * FROM eventcfg_<myname> WHERE `status` = '1'");
 		$data = $db->fObject("all");
@@ -203,11 +203,9 @@ class Event {
 	private static function executeCronEvent($eventType, $time) {
 		$db = DB::get_instance();
 		global $chatBot;
-		
-		Logger::log('DEBUG', 'Core', "Executing cron event '$eventType'");
 
 		if ($chatBot->vars[$eventType] < time()) {
-			Logger::log('DEBUG', 'Cron', $eventType);
+			Logger::log('DEBUG', 'Cron', "Executing cron event '$eventType'");
 			$chatBot->vars[$eventType] = time() + $time;
 			forEach ($chatBot->events[$eventType] as $filename) {
 				require $filename;
@@ -216,10 +214,10 @@ class Event {
 	}
 	
 	public static function initCronTimers() {
+		Logger::log('DEBUG', 'Cron', "Initializing cron timers");
+
 		global $chatBot;
-		
-		Logger::log('DEBUG', 'Core', "Initializing cron timers");
-		
+
 		forEach (Event::$CRON_EVENT_TYPES as $event_type) {
 			$chatBot->cron_timers[$event_type] = time();
 		}
@@ -230,10 +228,10 @@ class Event {
 	** Execute Events that needs to be executed right after login
 	*/	
 	public static function executeConnectEvents(){
+		Logger::log('DEBUG', 'Event', "Executing connected events");
+
 		$db = DB::get_instance();
 		global $chatBot;
-
-		Logger::log('DEBUG', 'Core', "Executing connected events");
 
 		// Check files, for all 'connect' events.
 		forEach ($chatBot->events['connect'] as $filename) {

@@ -15,14 +15,14 @@ class Command {
 		$module = strtoupper($module);
 		
 		if (!$chatBot->processCommandArgs($channel, $admin)) {
-			Logger::log('ERROR', 'Core', "invalid args for $module:command($command)");
+			Logger::log('ERROR', 'Command', "Invalid args for $module:command($command). Command not registered.");
 			return;
 		}
 		
 		//Check if the file exists
 		$actual_filename = Util::verify_filename($module . '/' . $filename);
 		if ($actual_filename == '') {
-			Logger::log('ERROR', 'Core', "Error registering file $filename for command $command. The file doesn't exist!");
+			Logger::log('ERROR', 'Command', "Error registering file $filename for command $command. The file doesn't exist!");
 			return;
 		}
 		
@@ -33,7 +33,7 @@ class Command {
 		}
 
 		for ($i = 0; $i < count($channel); $i++) {
-			Logger::log('debug', 'Core', "Adding Command to list:($command) File:($actual_filename) Admin:({$admin[$i]}) Channel:({$channel[$i]})");
+			Logger::log('debug', 'Command', "Adding Command to list:($command) File:($actual_filename) Admin:({$admin[$i]}) Channel:({$channel[$i]})");
 			
 			if ($chatBot->existing_commands[$channel[$i]][$command] == true) {
 				$db->exec("UPDATE cmdcfg_<myname> SET `module` = '$module', `verify` = 1, `file` = '$actual_filename', `description` = '$description', `help` = '{$help}' WHERE `cmd` = '$command' AND `type` = '{$channel[$i]}'");
@@ -55,12 +55,12 @@ class Command {
 		$admin = strtolower($admin);
 		$channel = strtolower($channel);
 
-	  	Logger::log('DEBUG', 'Core', "Activate Command:($command) Admin Type:($admin) File:($filename) Channel:($channel)");
+	  	Logger::log('DEBUG', 'Command', "Activate Command:($command) Admin Type:($admin) File:($filename) Channel:($channel)");
 
 		//Check if the file exists
 		$actual_filename = Util::verify_filename($filename);
 		if ($actual_filename == '') {
-			Logger::log('ERROR', 'Core', "Error activating file $filename for command $command. The file doesn't exist!");
+			Logger::log('ERROR', 'Command', "Error activating file $filename for command $command. The file doesn't exist!");
 			return;
 		}
 		
@@ -79,7 +79,7 @@ class Command {
 		$command = strtolower($command);
 		$channel = strtolower($channel);
 
-	  	Logger::log('DEBUG', 'Core', "Deactivate Command:($command) File:($filename) Channel:($channel)");
+	  	Logger::log('DEBUG', 'Command', "Deactivate Command:($command) File:($filename) Channel:($channel)");
 
 		unset($chatBot->commands[$channel][$command]);
 	}
@@ -127,6 +127,8 @@ class Command {
 	 * @description: Loads the active commands into memory to activate them
 	 */
 	public static function loadCommands() {
+		Logger::log('DEBUG', 'Command', "Loading enabled commands");
+
 	  	$db = DB::get_instance();
 
 		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'cmd'");

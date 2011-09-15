@@ -39,9 +39,11 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^help (.+)$/i", $message, $arr)) {
-	$output = Help::find($arr[1], $sender);
-	if ($output !== false) {
-		$chatBot->send($output, $sendto);
+	$helpcmd = ucfirst($arr[1]);
+	$blob = Help::find($helpcmd, $sender);
+	if ($blob !== false) {
+		$msg = Text::make_blob("Help($helpcmd)", $blob);
+		$chatBot->send($msg, $sendto);
 	} else {
 		$chatBot->send("No help found on this topic.", $sendto);
 	}

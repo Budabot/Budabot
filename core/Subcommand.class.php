@@ -15,14 +15,14 @@ class Subcommand {
 		$module = strtoupper($module);
 
 		if (!$chatBot->processCommandArgs($channel, $admin)) {
-			Logger::log('ERROR', 'Core', "Invalid args for $module:subcommand($command)");
+			Logger::log('ERROR', 'Subcommand', "Invalid args for $module:subcommand($command)");
 			return;
 		}
 
 		//Check if the file exists
 		$actual_filename = Util::verify_filename($module . '/' . $filename);
 		if ($actual_filename == '') {
-			Logger::log('ERROR', 'Core', "Error in registering the file $filename for Subcommand $command. The file doesn't exist!");
+			Logger::log('ERROR', 'Subcommand', "Error in registering the file $filename for Subcommand $command. The file doesn't exist!");
 			return;
 		}
 		
@@ -33,7 +33,7 @@ class Subcommand {
 		}
 
 		for ($i = 0; $i < count($channel); $i++) {
-			Logger::log('debug', 'Core', "Adding Subcommand to list:($command) File:($actual_filename) Admin:($admin) Channel:({$channel[$i]})");
+			Logger::log('debug', 'Subcommand', "Adding Subcommand to list:($command) File:($actual_filename) Admin:($admin) Channel:({$channel[$i]})");
 			
 			if ($chatBot->existing_subcmds[$channel[$i]][$command] == true) {
 				$db->exec("UPDATE cmdcfg_<myname> SET `module` = '$module', `verify` = 1, `file` = '$actual_filename', `description` = '$description', `dependson` = '$parent_command', `help` = '{$help}' WHERE `cmd` = '$command' AND `type` = '{$channel[$i]}'");
@@ -48,6 +48,8 @@ class Subcommand {
 	 * @description: Loads the active subcommands into memory and activates them
 	 */
 	public static function loadSubcommands() {
+		Logger::log('DEBUG', 'Subcommand', "Loading enabled subcommands");
+	
 	  	$db = DB::get_instance();
 		global $chatBot;
 

@@ -146,12 +146,12 @@ if (preg_match("/^settings$/i", $message)) {
 
 		// show help topic if there is one
 		if ($row->help != '') {
-			$help = Help::find($row->help, null, false);
+			$help = Help::find($row->help, null);
 			if ($help === false) {
 				Logger::log('ERROR', 'Settings', "Help command <highlight>{$row->help}<end> for setting <highlight>{$setting}<end> could not be found.");
 			}
 		} else {
-			$help = Help::find($setting, null, false);
+			$help = Help::find($setting, null);
 		}
 
 		if ($help !== false) {

@@ -7,6 +7,8 @@ class CommandAlias {
 	 * @description: loads active aliases into memory to activate them
 	 */
 	public static function load() {
+		Logger::log('DEBUG', 'CommandAlias', "Loading enabled command aliases");
+	
 		$db = DB::get_instance();
 		global $chatBot;
 
@@ -29,6 +31,8 @@ class CommandAlias {
 		$command = strtolower($command);
 		$alias = strtolower($alias);
 		
+		Logger::log('DEBUG', 'CommandAlias', "Registering alias: '{$alias}' for command: '$command'");
+		
 		if ($chatBot->existing_cmd_aliases[$alias] == true) {
 			$db->exec("UPDATE cmd_alias_<myname> SET `module` = '{$module}', `cmd` = '{$command}' WHERE `alias` = '{$alias}'");
 		} else {
@@ -46,7 +50,7 @@ class CommandAlias {
 		$command = strtolower($command);
 		$alias = strtolower($alias);
 
-	  	Logger::log('DEBUG', 'Core', "Activate Command Alias command:($command) alias:($alias)");
+	  	Logger::log('DEBUG', 'CommandAlias', "Activate Command Alias command:($command) alias:($alias)");
 		
 		$chatBot->cmd_aliases[$alias] = $command;
 	}
@@ -61,7 +65,7 @@ class CommandAlias {
 		$command = strtolower($command);
 		$alias = strtolower($alias);
 
-	  	Logger::log('DEBUG', 'Core', "Deactivate Command Alias command:($command) alias:($alias)");
+	  	Logger::log('DEBUG', 'CommandAlias', "Deactivate Command Alias command:($command) alias:($alias)");
 		
 		unset($chatBot->cmd_aliases[$alias]);
 	}
@@ -73,7 +77,7 @@ class CommandAlias {
 	public static function add(&$row) {
 		$db = DB::get_instance();
 		
-	  	Logger::log('DEBUG', 'Core', "Adding alias command:($row->cmd) alias:($row->alias)");
+		Logger::log('DEBUG', 'CommandAlias', "Adding alias: '{$alias}' for command: '$command'");
 		
 		$sql = "INSERT INTO cmd_alias_<myname> (`module`, `cmd`, `alias`, `status`) VALUES ('{$row->module}', '{$row->cmd}', '{$row->alias}', '{$row->status}')";
 		return $db->exec($sql);
@@ -86,7 +90,7 @@ class CommandAlias {
 	public static function update(&$row) {
 		$db = DB::get_instance();
 
-	  	Logger::log('DEBUG', 'Core', "Updating alias :($row->alias)");
+	  	Logger::log('DEBUG', 'CommandAlias', "Updating alias :($row->alias)");
 		
 		$sql = "UPDATE cmd_alias_<myname> SET `module` = '{$row->module}', `cmd` = '{$row->cmd}', `status` = '{$row->status}' WHERE `alias` = '{$row->alias}'";
 		return $db->exec($sql);

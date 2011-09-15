@@ -20,14 +20,14 @@ class Help {
 	  	$db = DB::get_instance();
 		global $chatBot;
 		
-		Logger::log('debug', 'Core', "Registering $module:help($command) Helpfile:($filename)");
+		Logger::log('DEBUG', 'Help', "Registering $module:help($command) Helpfile:($filename)");
 
 		$command = strtolower($command);
 
 		// Check if the file exists
 		$actual_filename = Util::verify_filename($module . '/' . $filename);
 		if ($actual_filename == '') {
-			Logger::log('ERROR', 'Core', "Error in registering the File $filename for Help command $module:help($command). The file doesn't exist!");
+			Logger::log('ERROR', 'Help', "Error in registering the File $filename for Help command $module:help($command). The file doesn't exist!");
 			return;
 		}
 
@@ -53,7 +53,7 @@ class Help {
 	 * @name: find
 	 * @description: Find a help topic by name if it exists and if the user has permissions to see it
 	 */
-	public static function find($helpcmd, $char, $return_as_bloblink = true) {
+	public static function find($helpcmd, $char) {
 		global $chatBot;
 	
 		$helpcmd = strtolower($helpcmd);
@@ -70,17 +70,11 @@ class Help {
 		}
 		if ($access === true && file_exists($filename)) {
 			$data = file_get_contents($filename);
-			if ($return_as_bloblink) {
-				$helpcmd = ucfirst($helpcmd);
-				$msg = Text::make_blob("Help($helpcmd)", $data);
-			} else {
-				$msg = $data;
-			}
 		} else {
 			return false;
 		}
 
-		return $msg;
+		return $data;
 	}
 }
 

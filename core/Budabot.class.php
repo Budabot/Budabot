@@ -219,20 +219,9 @@ class Budabot extends AOChat {
 		$db->exec("DELETE FROM settings_<myname> WHERE `verify` = 0");
 		$db->exec("DELETE FROM hlpcfg_<myname> WHERE `verify` = 0");
 
-		//Load active commands
-		Logger::log('DEBUG', 'Core', "Loading active commands");
 		Command::loadCommands();
-
-		//Load active subcommands
-		Logger::log('DEBUG', 'Core', "Loading active subcommands");
 		Subcommand::loadSubcommands();
-		
-		//Load active cmd aliases
-		Logger::log('DEBUG', 'Core', "Loading active command aliases");
 		CommandAlias::load();
-
-		//Load active events
-		Logger::log('DEBUG', 'Core', "Loading active events");
 		Event::loadEvents();
 	}
 
@@ -868,12 +857,15 @@ class Budabot extends AOChat {
 				$results = Command::get($cmd, $type);
 				$result = $results[0];
 				if ($result->help != '') {
-					$output = Help::find($result->help, $sender);
+					$blob = Help::find($result->help, $sender);
+					$helpcmd = ucfirst($result->help);
 				} else {
-					$output = Help::find($cmd, $sender);
+					$blob = Help::find($cmd, $sender);
+					$helpcmd = ucfirst($cmd);
 				}
-				if ($output !== false) {
-					$chatBot->send($output, $sendto);
+				if ($blob !== false) {
+					$msg = Text::make_blob("Help($helpcmd)", $blob);
+					$chatBot->send($msg, $sendto);
 				} else {
 					$chatBot->send("Error! Check your syntax! For more info try /tell <myname> help", $sendto);
 				}
