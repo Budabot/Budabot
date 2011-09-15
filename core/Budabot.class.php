@@ -40,34 +40,9 @@ class Budabot extends AOChat {
 /*===============================
 ** Name: connect
 ** Connect to AO chat servers.
-*/	function connectAO($login, $password){
-		// Choose Server
-		if ($this->vars["dimension"] == 1) {
-			$server = "chat.d1.funcom.com";
-			$port = 7101;
-		} else if ($this->vars["dimension"] == 2) {
-			$server = "chat.d2.funcom.com";
-			$port = 7102;
-		} else if ($this->vars["dimension"] == 3) {
-			$server = "chat.d3.funcom.com";
-			$port = 7103;
-		} else if ($this->vars["dimension"] == 4) {
-			$server = "chat.dt.funcom.com";
-			$port = 7109;
-		} else {
-			Logger::log('ERROR', 'StartUp', "No valid Server to connect with! Available dimensions are 1, 2, 3 and 4.");
-		  	sleep(10);
-		  	die();
-		}
-		
-		// ao chat proxy ONLY
-		if ($this->vars['use_proxy'] === 1) {
-			$server = $this->vars['proxy_server'];
-			$port = $this->vars['proxy_port'];
-		}
-
+*/	function connectAO($login, $password, $server, $port){
 		// Begin the login process
-		Logger::log('INFO', 'StartUp', "Connecting to AO Server...($server)");
+		Logger::log('INFO', 'StartUp', "Connecting to AO Server...({$server}:{$port})");
 		$this->connect($server, $port);
 		if ($this->state != "auth") {
 			Logger::log('ERROR', 'StartUp', "Connection failed! Please check your Internet connection and firewall.");
@@ -78,7 +53,7 @@ class Budabot extends AOChat {
 		Logger::log('INFO', 'StartUp', "Authenticate login data...");
 		$this->authenticate($login, $password);
 		if ($this->state != "login") {
-			Logger::log('ERROR', 'StartUp', "Authentication failed! Please check your username and password.");
+			Logger::log('ERROR', 'StartUp', "Authentication failed! Invalid username or password.");
 			sleep(10);
 			die();
 		}
@@ -86,7 +61,7 @@ class Budabot extends AOChat {
 		Logger::log('INFO', 'StartUp', "Logging in {$this->vars["name"]}...");
 		$this->login($this->vars["name"]);
 		if ($this->state != "ok") {
-			Logger::log('ERROR', 'StartUp', "Logging in of {$this->vars["name"]} failed! Please check the character name and dimension.");
+			Logger::log('ERROR', 'StartUp', "Character selection failed! Could not login on as character '{$this->vars["name"]}'.");
 			sleep(10);
 			die();
 		}
@@ -105,6 +80,7 @@ class Budabot extends AOChat {
 			Event::crons();
 			if ($exec_connected_events == false && ((time() - $start) > 5))	{
 				Event::executeConnectEvents();
+				$chatBot->vars["logondelay"] = time() + 10;
 				$exec_connected_events = true;
 			}
 		}

@@ -229,8 +229,6 @@ class Event {
 		forEach ($chatBot->events['connect'] as $filename) {
 			require $filename;
 		}
-		
-		$chatBot->vars["logondelay"] = time() + 10;
 	}
 }
 

@@ -144,7 +144,31 @@ unset($vars["DB password"]);
 
 $chatBot = new Budabot($vars);
 $chatBot->init();
-$chatBot->connectAO($vars['login'], $vars['password']);
+
+// Choose Server
+// ao chat proxy ONLY
+if ($vars['use_proxy'] === 1) {
+	$server = $vars['proxy_server'];
+	$port = $vars['proxy_port'];
+} else if ($vars["dimension"] == 1) {
+	$server = "chat.d1.funcom.com";
+	$port = 7101;
+} else if ($vars["dimension"] == 2) {
+	$server = "chat.d2.funcom.com";
+	$port = 7102;
+} else if ($vars["dimension"] == 3) {
+	$server = "chat.d3.funcom.com";
+	$port = 7103;
+} else if ($vars["dimension"] == 4) {
+	$server = "chat.dt.funcom.com";
+	$port = 7109;
+} else {
+	Logger::log('ERROR', 'StartUp', "No valid Server to connect with! Available dimensions are 1, 2, 3 and 4.");
+	sleep(10);
+	die();
+}
+
+$chatBot->connectAO($vars['login'], $vars['password'], $server, $port);
 
 //Clear the login and the password	
 unset($vars['login']);
