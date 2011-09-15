@@ -1,0 +1,28 @@
+DROP TABLE IF EXISTS `ofabweapons`;
+CREATE TABLE `ofabweapons` ( `type` int(11) NOT NULL default '0', `name` varchar(255) NOT NULL default '');
+INSERT INTO `ofabweapons` (`type`, `name`) VALUES (18, 'Mongoose');
+INSERT INTO `ofabweapons` (`type`, `name`) VALUES (18, 'Viper');
+INSERT INTO `ofabweapons` (`type`, `name`) VALUES (18, 'Wolf');
+INSERT INTO `ofabweapons` (`type`, `name`) VALUES (34, 'Bear');
+INSERT INTO `ofabweapons` (`type`, `name`) VALUES (34, 'Panther');
+INSERT INTO `ofabweapons` (`type`, `name`) VALUES (687, 'Cobra');
+INSERT INTO `ofabweapons` (`type`, `name`) VALUES (687, 'Shark');
+INSERT INTO `ofabweapons` (`type`, `name`) VALUES (687, 'Silverback');
+INSERT INTO `ofabweapons` (`type`, `name`) VALUES (812, 'Hawk');
+INSERT INTO `ofabweapons` (`type`, `name`) VALUES (812, 'Peregrine');
+INSERT INTO `ofabweapons` (`type`, `name`) VALUES (812, 'Tiger');
+
+DROP TABLE IF EXISTS `ofabweaponscost`;
+CREATE TABLE `ofabweaponscost` (`ql` int(11) NOT NULL, `vp` int(11) NOT NULL);
+INSERT INTO `ofabweaponscost` (`ql`, `vp`) VALUES (25, 100);
+INSERT INTO `ofabweaponscost` (`ql`, `vp`) VALUES (50, 100);
+INSERT INTO `ofabweaponscost` (`ql`, `vp`) VALUES (75, 100);
+INSERT INTO `ofabweaponscost` (`ql`, `vp`) VALUES (100, 100);
+INSERT INTO `ofabweaponscost` (`ql`, `vp`) VALUES (125, 100);
+INSERT INTO `ofabweaponscost` (`ql`, `vp`) VALUES (150, 100);
+INSERT INTO `ofabweaponscost` (`ql`, `vp`) VALUES (175, 100);
+INSERT INTO `ofabweaponscost` (`ql`, `vp`) VALUES (200, 100);
+INSERT INTO `ofabweaponscost` (`ql`, `vp`) VALUES (225, 100);
+INSERT INTO `ofabweaponscost` (`ql`, `vp`) VALUES (250, 100);
+INSERT INTO `ofabweaponscost` (`ql`, `vp`) VALUES (275, 100);
+INSERT INTO `ofabweaponscost` (`ql`, `vp`) VALUES (300, 100);

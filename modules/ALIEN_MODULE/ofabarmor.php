@@ -32,7 +32,7 @@ if (preg_match("/^ofabarmor$/i", $message, $arr)) {
 		return;
 	}
 
-	$db->query("SELECT * FROM ofabarmortype WHERE profession = '$profession'");
+	$db->query("SELECT type FROM ofabarmortype WHERE profession = '$profession'");
 	$typelist = $db->fObject('all');
 	$db->query("SELECT * FROM ofabarmor o1 LEFT JOIN ofabarmorcost o2 ON o1.slot = o2.slot WHERE o1.profession = '{$profession}' AND o2.ql = {$ql} ORDER BY upgrade ASC, name ASC");
 	$data = $db->fObject('all');
@@ -42,7 +42,7 @@ if (preg_match("/^ofabarmor$/i", $message, $arr)) {
         return;
 	}
 	
-	$blob = "<header> :::::: $profession Ofab Armor [<highlight>Type {$typelist[0]->type}<end>] :::::: <end>\n";
+	$blob = "<header> :::::: $profession Ofab Armor [<highlight>Type {$typelist[0]->type}<end>] (ql $ql) :::::: <end>\n";
 	$current_upgrade = $row->upgrade;
 	forEach ($data as $row) {
 		if ($current_upgrade != $row->upgrade) {
@@ -58,7 +58,7 @@ if (preg_match("/^ofabarmor$/i", $message, $arr)) {
 		$blob .= "\n";
 	}
 	$blob .= "\n\nVP Cost for full set: <highlight>$total_vp<end>";
-	$msg = Text::make_blob("$profession Ofab Armor", $blob);
+	$msg = Text::make_blob("$profession Ofab Armor (ql $ql)", $blob);
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
