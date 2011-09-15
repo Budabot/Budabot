@@ -175,6 +175,8 @@ class Event {
 	 */
 	public static function loadEvents() {
 	  	$db = DB::get_instance();
+		
+		Logger::log('DEBUG', 'Core', "Loading enabled events");
 
 		$db->query("SELECT * FROM eventcfg_<myname> WHERE `status` = '1'");
 		$data = $db->fObject("all");
@@ -188,15 +190,21 @@ class Event {
 	 * @description: Call php-Scripts at certin time intervals. 2 sec, 1 min, 10min, 15 min, 30min, 1 hour, 24 hours
 	 */
 	public static function crons() {
-		$numEvents = count(Event::$CRON_EVENT_TYPES);
-		for ($i = 0; $i < $numEvents; $i++) {
-			Event::executeCronEvent(Event::$CRON_EVENT_TYPES[$i], Event::$CRON_EVENT_TYPE_DURATIONS[$i]);
+		global $chatBot;
+		
+		if ($chatBot->is_ready()) {
+			$numEvents = count(Event::$CRON_EVENT_TYPES);
+			for ($i = 0; $i < $numEvents; $i++) {
+				Event::executeCronEvent(Event::$CRON_EVENT_TYPES[$i], Event::$CRON_EVENT_TYPE_DURATIONS[$i]);
+			}
 		}
 	}
 	
 	private static function executeCronEvent($eventType, $time) {
 		$db = DB::get_instance();
 		global $chatBot;
+		
+		Logger::log('DEBUG', 'Core', "Executing cron event '$eventType'");
 
 		if ($chatBot->vars[$eventType] < time()) {
 			Logger::log('DEBUG', 'Cron', $eventType);
@@ -210,8 +218,10 @@ class Event {
 	public static function initCronTimers() {
 		global $chatBot;
 		
+		Logger::log('DEBUG', 'Core', "Initializing cron timers");
+		
 		forEach (Event::$CRON_EVENT_TYPES as $event_type) {
-			$chatBot->cron_timers[$event_type] = time() + Setting::get("cron_delay");
+			$chatBot->cron_timers[$event_type] = time();
 		}
 	}
 	

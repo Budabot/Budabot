@@ -126,25 +126,6 @@ if (isWindows()) {
 
 Logger::log('INFO', 'StartUp', "Starting {$vars['name']}...");
 
-//////////////////////////////////////////////////////////////
-// Create new objects
-$db = new DB($vars["DB Type"], $vars["DB Name"], $vars["DB Host"], $vars["DB username"], $vars["DB password"]);
-if ($db->errorCode != 0) {
-	Logger::log('ERROR', 'StartUp', "Error in creating Database Object: {$db->errorInfo}");
-	sleep(5);
-	die();
-}
-
-//Clear database info
-unset($vars["DB Type"]);
-unset($vars["DB Name"]);
-unset($vars["DB Host"]);
-unset($vars["DB username"]);
-unset($vars["DB password"]);
-
-$chatBot = new Budabot($vars);
-$chatBot->init();
-
 // Choose Server
 // ao chat proxy ONLY
 if ($vars['use_proxy'] === 1) {
@@ -167,6 +148,25 @@ if ($vars['use_proxy'] === 1) {
 	sleep(10);
 	die();
 }
+
+//////////////////////////////////////////////////////////////
+// Create new objects
+$db = new DB($vars["DB Type"], $vars["DB Name"], $vars["DB Host"], $vars["DB username"], $vars["DB password"]);
+if ($db->errorCode != 0) {
+	Logger::log('ERROR', 'StartUp', "Error in creating Database Object: {$db->errorInfo}");
+	sleep(5);
+	die();
+}
+
+//Clear database info
+unset($vars["DB Type"]);
+unset($vars["DB Name"]);
+unset($vars["DB Host"]);
+unset($vars["DB username"]);
+unset($vars["DB password"]);
+
+$chatBot = new Budabot($vars);
+$chatBot->init();
 
 $chatBot->connectAO($vars['login'], $vars['password'], $server, $port);
 
