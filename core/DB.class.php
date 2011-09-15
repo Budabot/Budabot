@@ -106,7 +106,7 @@ class DB {
 		}
 
 		$this->lastQuery = $stmt;
-		Logger::log('query', "SQL", $stmt);
+		Logger::log('QUERY', "SQL", $stmt);
       	$result = $this->sql->query($stmt);
       	
 		if (is_object($result)) {
@@ -144,7 +144,7 @@ class DB {
 		}
 		
 		$this->lastQuery = $stmt;
-		Logger::log('query', "SQL", $stmt);
+		Logger::log('QUERY', "SQL", $stmt);
       	$aff_rows = $this->sql->exec($stmt);
 
 		$this->errorInfo = $this->sql->errorInfo();
@@ -171,7 +171,7 @@ class DB {
 		$stmt = $this->formatSql($stmt);
 		
 		$this->lastQuery = $stmt;
-		Logger::log('query', "SQL", $stmt);
+		Logger::log('QUERY', "SQL", $stmt);
 		$this->sql->exec($stmt);
 
 		$this->errorInfo = $this->sql->errorInfo();
@@ -228,6 +228,10 @@ class DB {
 	function commit() {
 		$this->in_transaction = false;
 		$this->sql->Commit();
+	}
+	
+	function rollback() {
+		$this->sql->rollback();
 	}
 	
 	function in_transaction() {
