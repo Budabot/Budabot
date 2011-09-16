@@ -1,4 +1,4 @@
-<header>::::: Help for News Commands. :::::<end>
+<header> :::::: News Commands :::::: <end>
 
 <highlight>To show the latest News:<end>
 <tab><symbol>news

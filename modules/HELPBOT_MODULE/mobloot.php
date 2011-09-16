@@ -9,13 +9,13 @@ if (preg_match("/^mobloot ([0-9]+)$/i", $message, $arr)) {
 		$high = floor($lvl * 1.25);
 		$low = ceil($lvl * 0.75);
 		
-		$inside = "<header>::::: Mob Loot QL Calculator :::::<end>\n\n";
-		$inside .= "<u>Results</u>:\n";
-		$inside	.= "Monster level: <orange>". $lvl ."<end>\n";
-		$inside .= "Loot QL range: <orange>".$low."<end> - <orange>".$high."<end>\n";
+		$blob = "<header>::::: Mob Loot QL Calculator :::::<end>\n\n";
+		$blob .= "<u>Results</u>:\n";
+		$blob	.= "Monster level: <orange>". $lvl ."<end>\n";
+		$blob .= "Loot QL range: <orange>".$low."<end> - <orange>".$high."<end>\n";
 		
-		$windowlink = Text::make_blob("::Your loot QL results::", $inside);
-		$chatBot->send($windowlink, $sendto);
+		$msg = Text::make_blob("::Your loot QL results::", $blob);
+		$chatBot->send($msg, $sendto);
 	}
 
 } else {

@@ -16,7 +16,6 @@ if (preg_match ("/^dyna ([\\d]+)$/i", $message, $arr)) {
 	$range1 = $search - 25;
 	$range2 = $search + 25;
 	$db->query("SELECT * FROM dynadb d JOIN playfields p ON d.playfield_id = p.id WHERE minQl > $range1 AND minQl < $range2 ORDER BY `minQl`");
-	echo $db->getLastQuery();
 	$count = $db->numrows();
 
 	$dynacamps = Text::make_header("Results Of Dynacamp Search For $search", $links);
@@ -25,7 +24,7 @@ if (preg_match ("/^dyna ([\\d]+)$/i", $message, $arr)) {
 	$data = $db->fObject("all");
 	forEach($data as $row) {
 		$coordLink = Text::make_chatcmd("{$row->cX}x{$row->cY} {$row->long_name}", "/waypoint $row->cX $row->cY $row->playfield_id");
-		$dynacamps .="<yellow>$row->long_name:  Co-ordinates $coordLink\n";
+		$dynacamps .="<pagebreak><yellow>$row->long_name:  Co-ordinates $coordLink\n";
 		$dynacamps .="<green>Mob Type:  $row->mob\n";
 		$dynacamps .="<blue>Level:  $row->minQl<yellow>-<blue>$row->maxQl\n\n";
 	}
@@ -44,7 +43,7 @@ if (preg_match ("/^dyna ([\\d]+)$/i", $message, $arr)) {
 	$data = $db->fObject("all");
 	forEach($data as $row) {
 		$coordLink = Text::make_chatcmd("{$row->cX}x{$row->cY} {$row->long_name}", "/waypoint $row->cX $row->cY $row->playfield_id");
-		$dynacamps .="<yellow>$row->long_name:  Co-ordinates $coordLink\n";
+		$dynacamps .="<pagebreak><yellow>$row->long_name:  Co-ordinates $coordLink\n";
 		$dynacamps .="<green>Mob Type:  $row->mob\n";
 		$dynacamps .="<blue>Level: $row->minQl<yellow>-<blue>$row->maxQl\n\n";
 	}

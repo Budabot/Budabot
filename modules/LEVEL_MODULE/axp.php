@@ -1,33 +1,4 @@
 <?php
-   /*
-   ** Author: Derroylo (RK2)
-   ** Description: Alien XP List
-   ** Version: 1.0
-   **
-   ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
-   **
-   ** Date(created): 13.12.2005
-   ** Date(last modified): 14.12.2005
-   ** 
-   ** Copyright (C) 2005 Carsten Lohmann
-   **
-   ** Licence Infos: 
-   ** This file is part of Budabot.
-   **
-   ** Budabot is free software; you can redistribute it and/or modify
-   ** it under the terms of the GNU General Public License as published by
-   ** the Free Software Foundation; either version 2 of the License, or
-   ** (at your option) any later version.
-   **
-   ** Budabot is distributed in the hope that it will be useful,
-   ** but WITHOUT ANY WARRANTY; without even the implied warranty of
-   ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   ** GNU General Public License for more details.
-   **
-   ** You should have received a copy of the GNU General Public License
-   ** along with Budabot; if not, write to the Free Software
-   ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-   */
 
 //Set the required axp for every alienlvl
 $axp[1] = 1500;
@@ -60,6 +31,7 @@ $axp[27] = 4608707;
 $axp[28] = 5023490;
 $axp[29] = 5475604;
 $axp[30] = 5968409;
+$axp[31] = 0;  // don't remove, needed
 
 if (preg_match("/^axp$/i", $message)) {
     $msg = "<header>::::: Alien Experience List :::::<end>\n\n";
@@ -99,16 +71,16 @@ if (preg_match("/^axp$/i", $message)) {
 
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^axp ([0-9]+)$/i", $message, $arr)) {
-    if ($arr[1] >= 1 && $arr[1] <= 30) {
-        $msg = "With ai lvl <highlight>".$arr[1]."<end> you need <highlight>".number_format($axp[$arr[1]])."<end> AXP to level up.";
+    if ($arr[1] >= 0 && $arr[1] <= 30) {
+        $msg = "With ai lvl <highlight>".$arr[1]."<end> you need <highlight>".number_format($axp[$arr[1] + 1])."<end> AXP to level up.";
     } else {
-        $msg = "You need to specify a lvl between 1 and 30.";
+        $msg = "You need to specify a lvl between 0 and 30.";
 	}
 
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^axp ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
-    if ($arr[1] >= 0 && $arr[1] <= 30 && $arr[2] >= 1 && $arr[2] <= 30) {
-        if ($arr[1] < $arr[2]) {
+    if ($arr[1] >= 0 && $arr[1] <= 30 && $arr[2] >= 0 && $arr[2] <= 30) {
+        if ($arr[1] <= $arr[2]) {
             for ($i = $arr[1]+1; $i <= $arr[2]; $i++) {
                 $axp_comp += $axp[$i];
 			}
@@ -118,7 +90,7 @@ if (preg_match("/^axp$/i", $message)) {
             $msg = "The start level can't be higher then the endlevel.";
 		}
     } else {
-        $msg = "You need to specify a lvl between 1 and 30.";
+        $msg = "You need to specify a lvl between 0 and 30.";
 	}
 
     $chatBot->send($msg, $sendto);

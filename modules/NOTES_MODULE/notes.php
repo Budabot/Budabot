@@ -7,7 +7,7 @@ if (preg_match("/^notes$/i", $message)) {
   	$db->query($sql);
 	$data = $db->fObject('all');
   	forEach ($data as $row) {
-	  	$remove = Text::make_chatcmd('Remove', "/tell <myname> <symbol>note rem $row->id");
+	  	$remove = Text::make_chatcmd('Remove', "/tell <myname> <symbol>notes rem $row->id");
 	  	$blob .= "$remove $row->note\n\n";
 	}
 	
@@ -18,24 +18,23 @@ if (preg_match("/^notes$/i", $message)) {
 	}
   	
 	$chatBot->send($msg, $sendto);
-} else if (preg_match("/^notes (rem|add) (.*)$/i", $message, $arr)) {
-	$action = strtolower($arr[1]);
-	$parm2 = $arr[2];
+} else if (preg_match("/^notes add (.*)$/i", $message, $arr)) {
+	$note = str_replace("'", "''", $arr[1]);
 
-	if ($action == 'rem') {
-		$numRows = $db->exec("DELETE FROM notes WHERE id = $parm2 AND name LIKE '$sender'");
-		
-		if ($numRows) {
-			$msg = "Note deleted successfully.";
-		} else {
-			$msg = "Note could not be found.";
-		}
-	} else if ($action == 'add') {
-		$note = str_replace("'", "''", $parm2);
+	$db->exec("INSERT INTO notes (name, note) VALUES('$sender', '$note')");
+	$msg = "Note added successfully.";
 
-		$db->exec("INSERT INTO notes (name, note) VALUES('$sender', '$note')");
-		$msg = "Note added successfully.";
+    $chatBot->send($msg, $sendto);
+} else if (preg_match("/^notes rem (\\d+)$/i", $message, $arr)) {
+	$id = $arr[1];
+
+	$numRows = $db->exec("DELETE FROM notes WHERE id = $id AND name LIKE '$sender'");
+	if ($numRows) {
+		$msg = "Note deleted successfully.";
+	} else {
+		$msg = "Note could not be found.";
 	}
+
     $chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;

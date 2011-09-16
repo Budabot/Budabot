@@ -26,7 +26,7 @@ $nick = Setting::get('irc_nickname');
 if (preg_match("/^startirc$/i", $message)) {
 	$chatBot->send("Intialized IRC connection. Please wait...", $sendto);
 }
-Logger::log('info', "IRC", "Intialized IRC connection. Please wait...");
+Logger::log('INFO', "IRC", "Intialized IRC connection. Please wait...");
 $socket = fsockopen(Setting::get('irc_server'), Setting::get('irc_port'));
 fputs($socket,"USER $nick $nick $nick $nick :$nick\n");
 fputs($socket,"NICK $nick\n");
@@ -34,7 +34,7 @@ while ($logincount < 10) {
 	$logincount++;
 	$data = fgets($socket, 128);
 	if (Setting::get('irc_debug_all') == 1) {
-		Logger::log('info', "IRC", trim($data));
+		Logger::log('INFO', "IRC", trim($data));
 	}
 	// Separate all data
 	$ex = explode(' ', $data);
@@ -50,7 +50,7 @@ fputs($socket,"JOIN ".Setting::get('irc_channel')."\n");
 
 while ($data = fgets($socket)) {
 	if (Setting::get('irc_debug_all') == 1) {
-		Logger::log('info', "IRC", trim($data));
+		Logger::log('INFO', "IRC", trim($data));
 	}
 	if (preg_match("/(ERROR)(.+)/", $data, $sandbox)) {
 		if (preg_match("/^startirc$/i", $message)) {
@@ -70,7 +70,7 @@ while ($data = fgets($socket)) {
 if (preg_match("/^startirc$/i", $message)) {
 	$chatBot->send("Finished connecting to IRC", $sendto);
 }
-Logger::log('info', "IRC", "Finished connecting to IRC");
+Logger::log('INFO', "IRC", "Finished connecting to IRC");
 Setting::save("irc_status", "1");
 
 ?>
