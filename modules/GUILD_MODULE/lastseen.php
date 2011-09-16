@@ -1,33 +1,4 @@
 <?php
-   /*
-   ** Author: Derroylo (RK2)
-   ** Description: Shows the last time a player logged off
-   ** Version: 1.0
-   **
-   ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
-   **
-   ** Date(created): 03.02.2007
-   ** Date(last modified): 03.02.2007
-   ** 
-   ** Copyright (C) 2007 Carsten Lohmann
-   **
-   ** Licence Infos: 
-   ** This file is part of Budabot.
-   **
-   ** Budabot is free software; you can redistribute it and/or modify
-   ** it under the terms of the GNU General Public License as published by
-   ** the Free Software Foundation; either version 2 of the License, or
-   ** (at your option) any later version.
-   **
-   ** Budabot is distributed in the hope that it will be useful,
-   ** but WITHOUT ANY WARRANTY; without even the implied warranty of
-   ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   ** GNU General Public License for more details.
-   **
-   ** You should have received a copy of the GNU General Public License
-   ** along with Budabot; if not, write to the Free Software
-   ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-   */
 
 if (preg_match("/^lastseen (.+)$/i", $message, $arr)) {
 	// Get User id
@@ -36,18 +7,31 @@ if (preg_match("/^lastseen (.+)$/i", $message, $arr)) {
     if (!$uid) {
         $msg = "Player <highlight>$name<end> does not exist.";
     } else {
-	    $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$name' AND `mode` != 'del'");
-        if ($db->numrows() == 1) {
-    	    $row = $db->fObject();
-    	    if (Buddylist::is_online($name)) {
-    	    	$msg = "This player is currently <green>online<end>.";
-            } else if ($row->logged_off != "0") {
-        	    $msg = "Logged off at ".gmdate("l F d, Y - H:i", $row->logged_off)."(GMT)";
-        	} else {
-        		$msg = "No Record for this player.";
+		$altInfo = Alts::get_alt_info($name);
+		$onlineAlts = $altInfo->get_online_alts();
+		if (count($onlineAlts) > 0) {
+			$msg = "This player is currently <green>online<end> as " . implode(', ', $onlineAlts) . ".";
+		} else {
+			$namesSql = '';
+			forEach ($altInfo->get_all_alts() as $alt) {
+				if ($namesSql) {
+					$namesSql .= ", ";
+				}
+				$namesSql .= "'$alt'";
 			}
-        } else {
-        	$msg = "This player is not a member of this Org.";
+			$db->query("SELECT * FROM org_members_<myname> WHERE `name` IN ($namesSql) AND `mode` != 'del' ORDER BY logged_off DESC");
+			$data = $db->fObject('all');
+			
+			if (count($data) != 0) {
+				$row = $data[0];
+				if ($row->logged_off == 0) {
+					$msg = "<highlight>$name<end> has never logged on.";
+				} else {
+					$msg = "Last seen at ".gmdate("l F d, Y - H:i", $row->logged_off)."(GMT) on <highlight>" . $row->name . "<end>.";
+				}
+			} else {
+				$msg = "This player is not a member of the org.";
+			}
 		}
 	}
 

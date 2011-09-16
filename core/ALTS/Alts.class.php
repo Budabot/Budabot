@@ -86,6 +86,18 @@ class AltInfo {
 		
 		return $online_list;
 	}
+	
+	public function get_all_alts() {
+		$online_list = array();
+
+		$online_list []= $this->main;
+		
+		forEach ($this->alts as $name => $validated) {
+			$online_list []= $name;
+		}
+		
+		return $online_list;
+	}
 }
 
 class Alts {
