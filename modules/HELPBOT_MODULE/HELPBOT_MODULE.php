@@ -25,7 +25,8 @@
 	Command::register($MODULE_NAME, "", "research.php", "research", "all", "Info on Research");
 	Command::register($MODULE_NAME, "", "playfields.php", "playfields", "all", "Shows playfield ids, long names, and short names", 'waypoint');
 	Command::register($MODULE_NAME, "", "waypoint.php", "waypoint", "all", "Creates a waypoint link");
-	Command::register($MODULE_NAME, "", "orgcities.php", "orgcities", "all", "Show coords for org cities");
+	Command::register($MODULE_NAME, "", "orgcities.php", "orgcities", "all", "Show coords for org cities");//Server Status
+	Command::register($MODULE_NAME, "", "server.php", "server", "all", "Shows the Server status");	
 
 	// Flip or Roll command
 	Command::register($MODULE_NAME, "", "roll.php", "flip", "all", "Flip a coin", 'roll');
@@ -54,4 +55,5 @@
 	Help::register($MODULE_NAME, "waypoint", "waypoint.txt", "all", "How to create a waypoint link");
 	Help::register($MODULE_NAME, "orgcities", "orgcities.txt", "all", "How to find coords for org cities");
 	Help::register($MODULE_NAME, "random", "random.txt", "all", "How to randomly order a list of elements");
+	Help::register($MODULE_NAME, "server", "server.txt", "all", "Show the server status");
 ?>
