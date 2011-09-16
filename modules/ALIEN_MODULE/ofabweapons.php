@@ -49,10 +49,10 @@ if (preg_match("/^ofabweapons$/i", $message, $arr)) {
 
 	$row = $data[0];
 	
-	$blob = "<header> :::::: Ofab $weapon (ql $ql) :::::: <end>\n\n";
+	$blob = "<header> :::::: Ofab $weapon (QL $ql) :::::: <end>\n\n";
 	$typeQl = round(.8 * $ql);
 	$typeLink = Text::make_chatcmd("Kyr'Ozch Bio-Material - Type {$row->type}", "/tell <myname> bioinfo {$row->type} {$typeQl}");
-	$blob .= "Upgrade with $typeLink (minimum ql {$typeQl})\n\n";
+	$blob .= "Upgrade with $typeLink (minimum QL {$typeQl})\n\n";
 	for ($i = 1; $i <= 6; $i++) {
 		$blob .=  makeAlienWeapon($ql, "Ofab {$weapon} Mk {$i}");
 		if ($i == 1) {
@@ -61,7 +61,7 @@ if (preg_match("/^ofabweapons$/i", $message, $arr)) {
 		$blob .= "\n";
 	}
 
-	$msg = Text::make_blob("Ofab $weapon (ql $ql)", $blob);
+	$msg = Text::make_blob("Ofab $weapon (QL $ql)", $blob);
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;

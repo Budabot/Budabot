@@ -43,10 +43,10 @@ if (preg_match("/^ofabarmor$/i", $message, $arr)) {
 		return;
 	}
 	
-	$blob = "<header> :::::: $profession Ofab Armor (ql $ql) :::::: <end>\n";
+	$blob = "<header> :::::: $profession Ofab Armor (QL $ql) :::::: <end>\n\n";
 	$typeLink = Text::make_chatcmd("Kyr'Ozch Bio-Material - Type {$type}", "/tell <myname> bioinfo {$type}");
 	$typeQl = round(.8 * $ql);
-	$blob .= "Upgrade with $typeLink (minimum ql {$typeQl})\n\n";
+	$blob .= "Upgrade with $typeLink (minimum QL {$typeQl})\n";
 	$current_upgrade = $row->upgrade;
 	forEach ($data as $row) {
 		if ($current_upgrade != $row->upgrade) {
@@ -61,9 +61,9 @@ if (preg_match("/^ofabarmor$/i", $message, $arr)) {
 		}
 		$blob .= "\n";
 	}
-	$blob .= "\n\nVP Cost for full set: <highlight>$total_vp<end>";
+	$blob .= "\nVP Cost for full set: <highlight>$total_vp<end>";
 	
-	$msg = Text::make_blob("$profession Ofab Armor (ql $ql)", $blob);
+	$msg = Text::make_blob("$profession Ofab Armor (QL $ql)", $blob);
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
