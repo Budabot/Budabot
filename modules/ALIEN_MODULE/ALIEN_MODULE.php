@@ -1,7 +1,6 @@
 <?php
 	$MODULE_NAME = "ALIEN_MODULE";
 	
-	DB::loadSQLFile($MODULE_NAME, 'clump');
 	DB::loadSQLFile($MODULE_NAME, 'leprocs');
 	DB::loadSQLFile($MODULE_NAME, 'ofabarmor');
 	DB::loadSQLFile($MODULE_NAME, 'ofabweapons');
