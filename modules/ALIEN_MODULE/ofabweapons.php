@@ -42,9 +42,17 @@ if (preg_match("/^ofabweapons$/i", $message, $arr)) {
 
 	$db->query("SELECT `type`, `vp` FROM ofabweapons w, ofabweaponscost c WHERE w.name = '{$weapon}' AND c.ql = $ql");
 	$data = $db->fObject('all');
+	if (count($data) == 0) {
+		$syntax_error = true;
+		return;
+	}
+
 	$row = $data[0];
 	
-	$blob = "<header> :::::: Ofab $weapon [<highlight>Type {$row->type}<end>] (ql $ql) :::::: <end>\n\n";
+	$blob = "<header> :::::: Ofab $weapon (ql $ql) :::::: <end>\n\n";
+	$typeQl = round(.8 * $ql);
+	$typeLink = Text::make_chatcmd("Kyr'Ozch Bio-Material - Type {$row->type}", "/tell <myname> bioinfo {$row->type} {$typeQl}");
+	$blob .= "Upgrade with $typeLink (minimum ql {$typeQl})\n\n";
 	for ($i = 1; $i <= 6; $i++) {
 		$blob .=  makeAlienWeapon($ql, "Ofab {$weapon} Mk {$i}");
 		if ($i == 1) {
