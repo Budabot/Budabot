@@ -302,7 +302,7 @@ class DB {
 	 * @description: creates a replace string to run on queries
 	 */
 	public static function add_table_replace($search, $replace) {
-		global $db;
+		$db = DB::get_instance();
 		$db->table_replaces[$search] = $replace;
 	}
 
