@@ -22,7 +22,7 @@ if (preg_match("/^whereis (.+)$/i", $message, $arr)) {
 	
 	$data = $db->fobject("all");
 	forEach ($data as $row) {
-		$whereis .= "<yellow>$row->name \n <green>Can be found $row->answer\n";
+		$whereis .= "<yellow>$row->name \n <green>Can be found $row->answer\n\n";
 	}
 	
 	if ($whereis_found > 1) {

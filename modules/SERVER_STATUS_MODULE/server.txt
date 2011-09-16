@@ -1,15 +1,12 @@
-<header>::::: Help on Serverstatus Command. :::::<end>
+<header> :::::: Serverstatus Command :::::: <end>
 
-<highlight>Shows the status of the current server<end>
+<highlight>Shows the status of the current server:<end>
 <tab><symbol>server
 
+<highlight>Show the status of a server:<end>
+<tab><symbol>server 'Insert Servernumber'
 
 <highlight>Servernumber:<end>
 <tab>1 = Atlantean(RK1)
 <tab>2 = Rimor(RK2)
-<tab>3 = Die Neue Welt(RK3)
-<tab>4 = Test Server
-
-
-<highlight>Show the status of a server<end>
-<tab><symbol>server 'Insert Servernumber'
+<tab>3 = Test Server

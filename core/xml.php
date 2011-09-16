@@ -202,7 +202,7 @@ class server extends xml{
 	//the constructor
     function __construct($rk_num = 0){
 		//if no server was specified use the one where the bot is logged in
-		if($rk_num == 0) {
+		if ($rk_num == '0') {
 		  	global $vars;
 			$rk_num = $vars["dimension"];
 		}
@@ -214,16 +214,19 @@ class server extends xml{
     function lookup($rk_num) {
 	  	$serverstat = xml::getUrl("probes.funcom.com/ao.xml", 30);
 
-        if($serverstat == NULL) {
+        if ($serverstat == NULL) {
           	$this->errorCode = 1;
            	$this->errorInfo = "Couldn't get Serverstatus for Dimension $rk_num";
 			return;
         }
 
-       	if($rk_num == 4)
-       		$rk_num = "t";
-
        	$data = xml::spliceData($serverstat, "<dimension name=\"d$rk_num", "</dimension>");
+		if (!$data) {
+          	$this->errorCode = 1;
+           	$this->errorInfo = "Couldn't get Serverstatus for Dimension $rk_num";
+			return;
+        }
+		
 		preg_match("/locked=\"(0|1)\"/i", $data, $tmp);
 		$this->locked = $tmp[1];
 
@@ -252,6 +255,7 @@ class server extends xml{
 				$this->data[$arr[2]]["players"] = $arr[5];
 			}				
 		}
-    } //end lookup function
-} //end server class
+    }
+}
+
 ?>
