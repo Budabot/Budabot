@@ -7,7 +7,8 @@ if (preg_match("/^whompah$/i", $message, $arr)) {
 
 	$blob = "<header> :::::: Whompah Cities :::::: <end>\n\n<white>";
 	forEach ($data as $row) {
-		$blob .= "{$row->city_name} (<highlight>{$row->short_name}<end>)\n";
+		$cityLink = Text::make_chatcmd($row->short_name, "/tell <myname> whompah {$row->short_name}");
+		$blob .= "{$row->city_name} ({$cityLink})\n";
 	}
 	$blob .= "\nWritten By Tyrence (RK2)\nDatabase from a Bebot module written by POD13";
 	
