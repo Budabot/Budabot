@@ -1,14 +1,26 @@
 *****************************
 	Version 2.3_RC1:
 *****************************
--added NAME_HISTORY module for tracking players through name changes
--added 'allpackets' event type so modules can process packets directly if they wish
+-!lastseen now takes alts into account
+-renamed the core command !eventlist to !boteventlist (so it doesn't conflict with EVENTS_MODULE) and fixed it
+-added !orgcities to show coordinates for player cities
+-!oe shows info for 50%, 25%. and 0% now in addition to 75% (thanks Mdkdoc420 (RK2))
+-added CSP map guides to the GUIDES_MODULE (guides that start with 'info-')
+-added !aospeak which tells you who is in your org channel on the AOSpeak server (thanks Tshaar (RK2))
+-TEAMSPEAK3_MODULE replaces TEAMSPEAK_MODULE (and provides TS3 support ofc; thanks Tshaar (RK2))
+-added support for Dnet (!dnet enable/!dnet disable) (RK1 only)
+-added !aou for searching for and viewing AO Universe guides from in game
+-bot now announces in private channel any time someone adds themselves to a loot item (thanks Teknocrat (RK2) for requesting this)
+-added settings to control how much org info (org and rank, rank, none) is displayed on the online list (thanks Raging (RK1) for implementing this)
+-added setting first_and_last_alt_only to control whether the bot always spams logon/logoff messages or only when the first alt logs on or the last alt logs off (thanks Hogwar (RK1) for suggesting this)
+-!whois was moved to WHOIS_MODULE and now shows name history
+-added allpackets event type so modules can process packets directly if they wish
 -RAFFLE_MODULE now shows reminders every minute on the minute and at 30 seconds (thanks Kinaton (RK1) for requesting this)
 -rewrote BANK_MODULE which now imports csv files from AO Items Assistant (thanks Rosss (RK1) for requesting/testing this)
 -private_channel_cmd_feedback and guild_channel_cmd_feedback settings added to control whether the bot responds if a command doesn't exist (thanks Mdkdoc420 (RK2) for requesting this)
 -IRC_MODULE should now match irc implementations of other bots and relay items links and messages between bots correctly
 -fix for !attacks and !victory paging (thanks Mdkdoc420 (RK2))
--ALIEN_MODULE now contains !aiarmor, !aigen, !leprocs, !bio (can now handle multiple bios as once), and added new !bioinfo and !ofab (thanks Mdkdoc420 (RK2))
+-ALIEN_MODULE now contains !aiarmor, !aigen, !leprocs, !bio (can now handle multiple bios as once), and added new commands: !bioinfo, !ofabarmor, and !ofabweapons (thanks Mdkdoc420 (RK2), Wolfbiter (RK1))
 -nearly all commands should have a help file now
 -guides in the GUIDE_MODULE should page better now; fixed/updated some guides (thanks Raging (RK1) for requesting this)
 -!logonadmin lets admins view, change, or clear another character's logon message (thanks Ross (RK1) for requesting this)
@@ -24,10 +36,11 @@
 -moved ALTS module to be a core module; alts must now be validated with !altvalidate before they can inherit their main's access level (thanks Raging (RK1))
 -added !fp for determining if a nano is usable in false profession (thanks Wolfbiter (RK1) for letting me use his code as reference)
 -!13, !28, and !35 now display the correct items as multiloot (thank you Haku for reporting this)
--!executesql let's you run queries on your bot from in game (superadmin only)
+-!executesql let's you run queries on your bot database directly from in game (superadmin only)
 -!online now shows a default icon for characters where the profession is unknown
--ITEMS_MODULE now longer has support for Xyphos.com
+-ITEMS_MODULE no longer has support for Xyphos.com CIDB
 -blob sizes should be calculated correctly now, possibly fixing several issues (thanks Raging (RK1))
+-various other fixes
 
 *****************************
 	Version 2.2_GA:
