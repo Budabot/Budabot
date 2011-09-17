@@ -16,12 +16,12 @@ if (!function_exists('innerXML')) {
 				return $node->nodeValue . "\n";
 			} else if ($node->nodeName == 'img') {
 				if (preg_match("/http:\\/\\/www\\.ao-universe\\.com\\/aodb\\/icons\\/(\\d+)\\.png/", $node->attributes->getNamedItem("src")->nodeValue, $arr)) {
-					return "<img src=rdb://{$arr[1]}>";
+					return "\n<img src=rdb://{$arr[1]}>";
 				} else {
 					return $node->nodeValue;
 				}
 			} else {
-				return $node->nodeValue;
+				return $node->nodeValue . ' ';
 			}
 		} else {
 			return $str;
@@ -81,7 +81,7 @@ if (preg_match("/^aou (\\d+)$/i", $message, $arr)) {
 		}
 	}
 	
-	$blob .= "\n\n<yellow>Powered by<end> " . Text::make_chatcmd("AO-Universe.com", "/start http://www.ao-universe.com");
+	$blob .= "\n<yellow>Powered by<end> " . Text::make_chatcmd("AO-Universe.com", "/start http://www.ao-universe.com");
 	
 	if ($found) {
 		$msg = Text::make_blob("AO-U Guides containing '$search'", $blob);
