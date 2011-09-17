@@ -27,7 +27,7 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-   
+
 $chuck = array( 
     "Chuck Norris counted to infinity - twice.", 
     "Some kids piss their name in the snow. Chuck Norris can piss his name into concrete.",
@@ -677,7 +677,7 @@ $chuck = array(
 	"Chuck Norris eats lightning and farts thunder.",
 	"Lightning never strikes twice in one place because Chuck Norris is looking for it.&nbsp;",
 	"Chuck Norris was once a knight in King Arthur's court.&nbsp; He was known as Sir Beatdown.",
-	"Chuck Norris once played rugby by himself.&nbsp; He went undefeated. Chuck Norris once played rugby by himself.&nbsp; He went undefeated.",
+	"Chuck Norris once played rugby by himself.&nbsp; He went undefeated.",
 	"In Desert Storm the reason why the Iraqi army surrendered so quickly because they knew Chuck Norris was coming.&nbsp;",
 	"Chuck Norris has never looked a baby in the eyes cause it might him cry but if he does it also makes him want to punch a baby.",
 	"Chuck norris doesnt go at the speed of light, he goes at the speed of Norris",
@@ -696,7 +696,7 @@ $chuck = array(
 	"The United States could save billions in defense funding if they trade the Military for Chuck Norris",
 	"When Chuck Norris spits out watermelon seeds, he puts a machine gun to shame",
 	"Chuck Norris doesnt use after shave, he uses liquid hot magma.",
-	"When Chuck norris found this web-site while surfing the internt, he round house kicked his computer...10 new facts were added instantly.including this one",
+	"When Chuck norris found this web-site while surfing the internt, he round house kicked his computer...10 new facts were added instantly...including this one",
 	"You can lead a horse to water but cannot make him drink, unless you’re Chuck Norris",
 	"No matter what your mother always said, Chuck Norris can tune a fish.",
 	"Chuck&nbsp;Norris is&nbsp;'' The best a man can get ''",
@@ -714,7 +714,7 @@ $chuck = array(
 	"The Seven Wonders of the ancient world were: Chuck Norris' left and right hands, his left and right feet, his belly button, his liver, and his beard.",
 	"When Chuck Norris goes to Vegas, he doesn't have to gamble. The casinos just give him stacks of money.",
 	"In an emergency, Chuck Norris can be used as a floatation device.",
-	"When Chuck Norris is ready to wake up, he tells the sun to get the above the horizon.",
+	"When Chuck Norris is ready to wake up, he tells the sun to get above the horizon.",
 	"The speed of light was instituted because Chuck Norris didn't want get winded outrunning it. Chuck Norris hates to sweat.",
 	"Chuck Norris once bench-pressed the entire state of Ohio, and all of its residents.",
 	"Chuck Norris can hold his breathe for nine years.",
@@ -733,7 +733,7 @@ $chuck = array(
 	"Chuck Norris can watch an episode of 60 minutes in 22 seconds.",
 	"Chuck Norris make onions CRY!!!",
 	"Some people say that Chuck Norris is a myth. Those &quot;some people&quot; are now dead.",
-	"When Chuck Norris sneeze, he don't say &quot;Atchoo&quot; he says &quot;DIE EVERYONE!!!&quot;. That's what happens next.",
+	"When Chuck Norris sneezes, he doesn't say &quot;Atchoo&quot; he says &quot;DIE EVERYONE!!!&quot;. That's what happens next.",
 	"Chuck Norris eats a bowl of diamonds every morning.",
 	"Chuck Norris is not only a noun, but a verb."); 
 
