@@ -9,9 +9,18 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 	$senderAltInfo = Alts::get_alt_info($sender);
 	$main = $senderAltInfo->main;
 	
+	$success = 0;
+	
 	/* Pop a name from the array until none are left (checking for null) */
 	foreach ($names as $name) {
 		$name = ucfirst(strtolower($name));
+		
+		$uid = $chatBot->get_uid($name);
+		if (!$uid) {
+			$msg = "Player <highlight>{$name}<end> does not exist.";
+			$chatBot->send($msg, $sendto);
+			continue;
+		}
 		
 		if ($name == $sender) {
 			$msg = "You cannot register yourself as your alt.";
@@ -45,11 +54,15 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 		
 		/* insert into database */
 		Alts::add_alt($senderAltInfo->main, $name, $validated);
-		$msg = "$name was successfully registered as your alt.";
-		$chatBot->send($msg, $sendto);
+		$success++;
 		
 		// update character info
 		Player::get_by_name($name);
+	}
+	
+	if ($success > 1) {
+		$msg = "$success alt(s) added successfully.";
+		$chatBot->send($msg, $sendto);
 	}
 } else if (preg_match("/^alts (rem|del|remove|delete) ([a-z0-9-]+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[2]));
