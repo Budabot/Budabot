@@ -24,7 +24,7 @@ if (preg_match("/^inactivemem ([0-9]+)/i", $message, $arr)) {
 	$list .="<u>Settings</u>\n";
 	$list .="Timespan: Showing members who have been inactive for more than <blue>{$arr[1]}<end> month(s).\n";
 	$list .="<red>**Be careful with clicking the Org Kick links.  It will cause you to /org kick, and the bot can't help you undo that.<end>\n";
-	$list .="<u>Name [Main], Last seen, Options</u>\n";
+	$list .="<u>Name [Main], Last seen, Options</u>\n\n";
 	
 	$data = $db->fObject("all");
 	forEach ($data as $row) {
@@ -40,10 +40,10 @@ if (preg_match("/^inactivemem ([0-9]+)/i", $message, $arr)) {
 					$lasttoon = $row1->name;
 				}
 				
-				if($row1->logged_off > $inactive_deadline)
+				if ($row1->logged_off > $inactive_deadline) {
 					$kick = 0;
-					
-					
+				}
+
 				$main = $row1->main;
 			}
 		}
@@ -55,9 +55,9 @@ if (preg_match("/^inactivemem ([0-9]+)/i", $message, $arr)) {
 			$logged = $row->logged_off;
 			$lasttoon = $row->name;
 			
-			$player = $row->name."; Main: $main; [{$alts}]$kick\nLast seen on [$lasttoon] on ".date("Y-m-d",$logged)."\n--------------------\n";
+			$player = $row->name."; Main: $main; [{$alts}]$kick\nLast seen on [$lasttoon] on ".date("Y-m-d",$logged)."\n\n";
 			if ($highlight == 1) {
-				$list .= "<white>$player<end>";
+				$list .= "<highlight>$player<end>";
 				$highlight = 0;
 			}
 			else {

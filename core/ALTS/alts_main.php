@@ -1,11 +1,11 @@
 <?php
 
 if (preg_match("/^alts main ([a-z0-9-]+)$/i", $message, $arr)) {
-	$new_main = ucfirst(strtolower($arr[1]));
+	$new_main = Alts::get_alt_info($arr[1])->main;
 
 	$uid = $chatBot->get_uid($new_main);
 	if (!$uid) {
-		$msg = " Player <highlight>$new_main<end> does not exist.";
+		$msg = "Player <highlight>$new_main<end> does not exist.";
 		$chatBot->send($msg, $sendto);
 		return;
 	}
