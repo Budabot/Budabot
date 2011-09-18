@@ -16,6 +16,7 @@ if (preg_match("/^victory (\\d+)$/i", $message, $arr) || preg_match("/^victory$/
 			return;
 		}
 	}
+	$cmd = "";
 } else if (preg_match("/^victory ([a-z0-9]+) (\\d+) (\\d+)$/i", $message, $arr) || preg_match("/^victory ([a-z0-9]+) (\\d+)$/i", $message, $arr)) {
 	if (isset($arr[3])) {
 		$page_label = $arr[3];
@@ -40,6 +41,7 @@ if (preg_match("/^victory (\\d+)$/i", $message, $arr) || preg_match("/^victory$/
 		return;
 	}
 
+	$cmd = "$arr[1] $arr[2] ";
 	$search = "WHERE a.`playfield_id` = {$tower_info->playfield_id} AND a.`site_number` = {$tower_info->site_number}";
 } else if (preg_match("/^victory org (.+) (\\d+)$/i", $message, $arr) || preg_match("/^victory org (.+)$/i", $message, $arr)) {
 	if (isset($arr[2])) {
@@ -51,6 +53,7 @@ if (preg_match("/^victory (\\d+)$/i", $message, $arr) || preg_match("/^victory$/
 		}
 	}
 
+	$cmd = "org $arr[1] ";
 	$value = str_replace("'", "''", $arr[1]);
 	$search = "WHERE v.`win_guild_name` LIKE '$value' OR v.`lose_guild_name` LIKE '$value'";
 } else if (preg_match("/^victory player (.+) (\\d+)$/i", $message, $arr) || preg_match("/^victory player (.+)$/i", $message, $arr)) {
@@ -62,7 +65,8 @@ if (preg_match("/^victory (\\d+)$/i", $message, $arr) || preg_match("/^victory$/
 			return;
 		}
 	}
-	
+
+	$cmd = "player $arr[1] ";
 	$value = str_replace("'", "''", $arr[1]);
 	$search = "WHERE a.`att_player` LIKE '$value'";
 } else {
@@ -89,18 +93,19 @@ $sql = "
 		$start_row, $page_size";
 
 $db->query($sql);
-if ($db->numrows() == 0) {
+$data = $db->fObject('all');
+if (count($data) == 0) {
 	$msg = "No Tower results found.";
 } else {
 	$links = array();
 	if ($page_label > 1) {
 		$links['Previous Page'] = '/tell <myname> victory ' . ($page_label - 1);
 	}
-	$links['Next Page'] = '/tell <myname> victory ' . ($page_label + 1);
+	$links['Next Page'] = "/tell <myname> victory {$cmd}" . ($page_label + 1);
 	
 	$blob = Text::make_header("The last $page_size Tower Results (page $page_label)", $links);
 	$blob .= $colorvalue;
-	while ($row = $db->fObject()) {
+	forEach ($data as $row) {
 		$blob .= $colorlabel."Time:<end> ".gmdate("M j, Y, G:i", $row->victory_time)." (GMT)\n";
 
 		if (!$win_side = strtolower($row->win_faction)) {
