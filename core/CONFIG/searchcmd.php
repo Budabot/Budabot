@@ -38,6 +38,8 @@ if (preg_match("/^searchcmd (.*)/i", $message, $arr)) {
 		$msg = Text::make_blob(count($data) . ' results found', $blob);
 	}
 	$chatBot->send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
 
 ?>

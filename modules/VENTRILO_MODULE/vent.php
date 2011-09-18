@@ -101,7 +101,7 @@ if ($error === false) {
 		displayChannel($channel, $stat->m_clientlist, "", $page);
 	}
 	
-	$page .= "\n\n*Please note that sometimes the server will not return the right information, if this happens, please try again.\n";
+	$page .= "\n\n*Please note that sometimes the server will not return the right information. If this happens, please try again.\n";
 	$msg = Text::make_blob("Vent Status", $page);
 
 } else {
