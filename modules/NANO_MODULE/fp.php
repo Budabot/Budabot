@@ -60,6 +60,8 @@ if (preg_match("/^fp (\\d+)$/i", $message, $arr1) || preg_match("/^fp (.+)$/i", 
 			$check_fp = Text::make_chatcmd("Check False Profession", "/tell <myname> fp $row->lowid");
 			$blob .= Text::make_item($row->lowid, $row->lowid, $row->lowql, $row->name) . " ({$row->lowql}) $check_fp\n\n";
 		}
+		$blob .= "Written by Tyrence(RK2)\n";
+		$blob .= "Stats provided by xyphos.com";
 		
 		$msg = Text::make_blob("Nano Search Results ($count)", $blob);
 	}
