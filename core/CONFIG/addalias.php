@@ -26,6 +26,8 @@ if (preg_match("/^addalias ([a-z0-9]+) (.+)/i", $message, $arr)) {
 		$msg = "Cannot add alias <highlight>{$alias}<end> since an alias with that name already exists!";
 	}
 	$chatBot->send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
 
 ?>
