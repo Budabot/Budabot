@@ -1,35 +1,33 @@
-<header>::::: How to ban a player from the bot :::::<end>
+<header> :::::: Ban Commands :::::: <end>
 
 <highlight>To show the current banned player<end>
-<tab>/tell <myname> banlist
+<tab><symbol>banlist
+
+<highlight>To permanent ban a player from the bot (without a reason specified)<end>
+<symbol>ban 'playername'
+
+<highlight>To remove a ban on a player<end>
+<symbol>unban 'playername'
 
 <highlight>To temporally ban a player from the bot (without a reason specified)<end>
-<tab>/tell <myname> ban 'time' 'playername'
-<tab>(for time is allowed 1-50weeks, 1-100days or 1-12months)
-For example:
-<tab>/tell <myname> ban 2weeks badplayer
+<symbol>ban 'time' 'playername'
+
+<tab><highlight>For example:<end>
+<tab><symbol>ban 2weeks badplayer
 <tab>(bans badplayer for 2weeks from the bot)
 
 <highlight>To temporally ban a player from the bot (with a reason specified)<end>
-<tab>/tell <myname> ban 'time' 'playername' reason 'reason for the ban'
-<tab>(for time is allowed 1-50weeks, 1-100days or 1-12months)
-For example:
-<tab>/tell <myname> ban 2weeks badplayer reason Ninjalooter
-(bans badplayer for 2weeks from the bot with the reason Ninjalooter)
+<symbol>ban 'time' 'playername' reason 'reason for the ban'
 
-<highlight>To permanent ban a player from the bot (without a reason specified)<end>
-<tab>/tell <myname> ban 'playername'
-For example:
-<tab>/tell <myname> ban badplayer
-<tab>(bans badplayer from the bot)
+<tab><highlight>For example:<end>
+<tab><symbol>ban 2weeks badplayer reason Ninjalooter
+<tab>(bans badplayer for 2weeks from the bot with the reason Ninjalooter)
 
 <highlight>To permanent ban a player from the bot (with a reason specified)<end>
-<tab>/tell <myname> ban 'playername' reason 'reason for the ban'
-For example:
-<tab>/tell <myname> ban badplayer reason Ninjalooter
+<symbol>ban 'playername' reason 'reason for the ban'
+
+<tab><highlight>For example:<end>
+<tab><symbol>ban badplayer reason Ninjalooter
 <tab>(bans badplayer from the bot with the reason Ninjalooter)
 
-<highlight>To remove a ban on a player<end>
-<tab>/tell <myname> unban 'playername'
-For example:
-<tab>/tell <myname> unban badplayer
+<highlight>'time' argument can be specified in weeks, days, hours, and minutes<end>

@@ -246,6 +246,10 @@ class Util {
 	
 	public static function parseTime($time_string) {
 		$run_time = 0;
+		
+		if (preg_match("/([0-9]+)(w|week|weeks)/i", $time_string, $weeks)) {
+			$run_time += $weeks[1] * 604800;
+		}
 
 		if (preg_match("/([0-9]+)(d|day|days)/i", $time_string, $days)) {
 			$run_time += $days[1] * 86400;

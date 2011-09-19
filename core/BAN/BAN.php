@@ -15,7 +15,7 @@
 	Command::activate("guild", "$MODULE_NAME/banlist.php", "banlist");
 
 	//Events
-	Event::activate("1hour", "$MODULE_NAME/check_tempban.php");
+	Event::activate("1min", "$MODULE_NAME/check_tempban.php");
 
 	//Setup
 	Event::activate("setup", "$MODULE_NAME/setup.php");

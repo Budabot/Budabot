@@ -1,4 +1,4 @@
-<header>::::: Admin help :::::<end>
+<header> ::::: Admin Commands :::::: <end>
 
 To see the list of raidleaders, moderators, and admins (<highlight>Access: All<end>)
 <tab><symbol>adminlist
