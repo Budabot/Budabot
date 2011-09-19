@@ -6,13 +6,13 @@
 	DB::loadSqlFile($MODULE_NAME, 'whitelist');
 	
 	//Set/Show Limits
-	Command::activate("msg", "$MODULE_NAME/config.php", "limits", "mod");
+	Command::activate("msg", "$MODULE_NAME/limits.php", "limits", "mod");
 	Command::activate("msg", "$MODULE_NAME/whitelist.php", "whitelist", "mod");
 	
-	Command::activate("priv", "$MODULE_NAME/config.php", "limits", "mod");
+	Command::activate("priv", "$MODULE_NAME/limits.php", "limits", "mod");
 	Command::activate("priv", "$MODULE_NAME/whitelist.php", "whitelist", "mod");
 	
-	Command::activate("guild", "$MODULE_NAME/config.php", "limits", "mod");
+	Command::activate("guild", "$MODULE_NAME/limits.php", "limits", "mod");
 	Command::activate("guild", "$MODULE_NAME/whitelist.php", "whitelist", "mod");
 
 	//Set/Show minlvl for Tells
@@ -50,6 +50,8 @@
 	Setting::add($MODULE_NAME, "tell_req_open", "Tell General Limit", "noedit", "options", "all", "", "", "mod");
 
 	//Help File
+	Help::register($MODULE_NAME, "limits", "limits.txt", "mod", "How to restrict usage of the bot");
+	Help::register($MODULE_NAME, "whitelist", "whitelist.txt", "mod", "How to add exceptions to limits rules");
 	Help::register($MODULE_NAME, "priv_tell_limits", "priv_tell_limits.txt", "mod", "Set Limits for Tells and Private Channel");
 	Help::register($MODULE_NAME, "priv_req_lvl", "priv_req_lvl.txt", "mod", "Set level requirements to join the private channel");
 	Help::register($MODULE_NAME, "priv_req_faction", "priv_req_faction.txt", "mod", "Set faction requirements to join the private channel");
@@ -58,5 +60,4 @@
 	Help::register($MODULE_NAME, "tell_req_lvl", "tell_req_lvl.txt", "mod", "Set level requirements to send tells to the bot");
 	Help::register($MODULE_NAME, "tell_req_faction", "tell_req_faction.txt", "mod", "Set faction requirements to send tells to the bot");
 	Help::register($MODULE_NAME, "tell_req_open", "tell_req_open.txt", "mod", "Set general requirements to send tells to the bot");
-	// TODO add help for limits, whitelist
 ?>
