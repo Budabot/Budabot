@@ -654,7 +654,7 @@ if (preg_match("/^config$/i", $message)) {
 	$off = "<a href='chatcmd:///tell <myname> config mod {$module} disable all'>Off</a>";
 	
 	$list = array();
-	$list[] = "<header>::::: Bot Settings :::::<end>\n\n";
+	$list[] = "<header> :::::: $module Configuration :::::: <end>\n\n";
 	$list[] = "<highlight>{$module}<end> - Enable/disable: ($on/$off)\n";
 	$l = "";
 	$lh = "";
@@ -791,7 +791,7 @@ if (preg_match("/^config$/i", $message)) {
 	}
 
 	if ($found) {
-		$msg = Text::make_structured_blob("Bot Settings", $list);
+		$msg = Text::make_structured_blob("$module Configuration", $list);
 	} else {
 		$msg = "Could not find module '<highlight>$module<end>'";
 	}
