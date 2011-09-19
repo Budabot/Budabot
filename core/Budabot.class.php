@@ -181,9 +181,6 @@ class Budabot extends AOChat {
 		Logger::log('DEBUG', 'Core', "MODULE_NAME:(CONFIG.php)");
 		include "./core/CONFIG/CONFIG.php";
 		
-		Logger::log('DEBUG', 'Core', "MODULE_NAME:(BASIC_CONNECTED_EVENTS.php)\n");
-		include "./core/BASIC_CONNECTED_EVENTS/BASIC_CONNECTED_EVENTS.php";
-		
 		Logger::log('DEBUG', 'Core', "MODULE_NAME:(PRIV_TELL_LIMIT.php)\n");
 		include "./core/PRIV_TELL_LIMIT/PRIV_TELL_LIMIT.php";
 		

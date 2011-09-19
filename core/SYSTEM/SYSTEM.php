@@ -53,6 +53,7 @@
 	Event::activate("1hour", "$MODULE_NAME/ping_db.php");
 	Event::activate("2sec", "$MODULE_NAME/reduce_spam_values.php");
 	Event::activate("1min", "$MODULE_NAME/reduce_largespam_values.php");
+	Event::activate("connect", "$MODULE_NAME/systems_ready.php");
 	
 	Setting::add($MODULE_NAME, 'symbol', 'Command prefix symbol', 'edit', "text", '!', '!;#;*;@;$;+;-', '', 'mod');
 	Setting::add($MODULE_NAME, 'guild_admin_level', 'Guild admin level', 'edit', "number", 1, 'President;General;Squad Commander;Unit Commander;Unit Leader;Unit Member;Applicant', '0;1;2;3;4;5;6', 'mod');
