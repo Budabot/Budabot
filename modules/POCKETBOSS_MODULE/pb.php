@@ -15,7 +15,7 @@ if (preg_match("/^pb (.+)$/i", $message, $arr)) {
 			$blob .= "<highlight>General Location:<end> $row->bp_location\n";
 			$blob .= "_____________________________\n";
 			$db->query("SELECT * FROM pbdb WHERE pb = '$row->pb' ORDER BY ql");
-			$data2 = $db->fOject('all');
+			$data2 = $db->fObject('all');
 			forEach ($data2 as $symb) {
 			  	$name = "QL $symb->ql $symb->line $symb->slot Symbiant, $symb->type Unit Aban";
 			  	$blob .= Text::make_item($symb->itemid, $symb->itemid, $symb->ql, $name)."\n";
