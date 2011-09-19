@@ -18,37 +18,20 @@
 	Command::activate("priv", "$MODULE_NAME/system_cmd.php", "system", "mod");
 	Command::activate("guild", "$MODULE_NAME/system_cmd.php", "system", "mod");
 
-	Command::activate("msg", "$MODULE_NAME/cmdlist.php", "cmdlist", "guild");
-	Command::activate("priv", "$MODULE_NAME/cmdlist.php", "cmdlist", "guild");
-	Command::activate("guild", "$MODULE_NAME/cmdlist.php", "cmdlist", "guild");
-
-	Command::activate("msg", "$MODULE_NAME/boteventlist.php", "boteventlist", "mod");
-	Command::activate("priv", "$MODULE_NAME/boteventlist.php", "boteventlist", "mod");
-	Command::activate("guild", "$MODULE_NAME/boteventlist.php", "boteventlist", "mod");
-
-	Command::activate("msg", "$MODULE_NAME/lookup.php", "lookup", "all");
-	Command::activate("priv", "$MODULE_NAME/lookup.php", "lookup", "all");
-	Command::activate("guild", "$MODULE_NAME/lookup.php", "lookup", "all");
-	
-	Command::activate("msg", "$MODULE_NAME/clearqueue.php", "clearqueue", "mod");
-	Command::activate("priv", "$MODULE_NAME/clearqueue.php", "clearqueue", "mod");
-	Command::activate("guild", "$MODULE_NAME/clearqueue.php", "clearqueue", "mod");
-	
-	Command::activate("msg", "$MODULE_NAME/loadsql.php", "loadsql", "mod");
-	Command::activate("priv", "$MODULE_NAME/loadsql.php", "loadsql", "mod");
-	Command::activate("guild", "$MODULE_NAME/loadsql.php", "loadsql", "mod");
-	
 	Command::activate("msg", "$MODULE_NAME/executesql.php", "executesql", "admin");
 	Command::activate("priv", "$MODULE_NAME/executesql.php", "executesql", "admin");
 	Command::activate("guild", "$MODULE_NAME/executesql.php", "executesql", "admin");
 	
-	Command::activate("msg", "$MODULE_NAME/checkaccess.php", "checkaccess", "all");
-	Command::activate("priv", "$MODULE_NAME/checkaccess.php", "checkaccess", "all");
-	Command::activate("guild", "$MODULE_NAME/checkaccess.php", "checkaccess", "all");
-	
 	Command::activate("msg", "$MODULE_NAME/logs.php", "logs", "admin");
 	Command::activate("priv", "$MODULE_NAME/logs.php", "logs", "admin");
 	Command::activate("guild", "$MODULE_NAME/logs.php", "logs", "admin");
+	
+	Command::register($MODULE_NAME, "", "cmdlist.php", "cmdlist", "guild", "Shows a list of all commands on the bot");
+	Command::register($MODULE_NAME, "", "boteventlist.php", "boteventlist", "guild", "Shows a list of all events on the bot");
+	Command::register($MODULE_NAME, "", "lookup.php", "lookup", "all", "Find the uid for a character");
+	Command::register($MODULE_NAME, "", "clearqueue.php", "clearqueue", "mod", "Clear outgoing chatqueue from all pending messages");
+	Command::register($MODULE_NAME, "", "loadsql.php", "loadsql", "mod", "Manually reload an sql file");
+	Command::register($MODULE_NAME, "", "checkaccess.php", "checkaccess", "all", "Check effective access level of a character");
 
 	Event::activate("1hour", "$MODULE_NAME/ping_db.php");
 	Event::activate("2sec", "$MODULE_NAME/reduce_spam_values.php");
