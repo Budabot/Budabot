@@ -13,5 +13,5 @@
 	//Help Files
 	Help::register($MODULE_NAME, "config", "config.txt", "mod", "Configure Commands/Events of the Bot");
 	Help::register($MODULE_NAME, "alias", "alias.txt", "mod", "How to add and remove aliases");
-	// TODO add help for searchcmd, addalias/remalias	
+	Help::register($MODULE_NAME, "searchcmd", "searchcmd.txt", "mod", "How to find which module a command belongs to");
 ?>
