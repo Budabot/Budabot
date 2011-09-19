@@ -1,0 +1,19 @@
+<header> :::::: Alias Commands :::::: <end>
+
+<highlight>To create an alias:<end>
+<symbol>addalias 'alias name' 'command name'
+
+<highlight>To remove an alias:<end>
+<symbol>remalias 'alias name' 'command name'
+
+Note that while 'command name' can have multiple words, the 'alias name' can only be a single word.  The first word is interpreted as the alias name and all subsequent words are interpreted as the command name.
+
+<header> ::: Examples ::: <end>
+
+<highlight>Create an alias for a single-worded command:<end>
+<symbol>addalias o online
+This will let you use <highlight><symbol>o<end> instead of <highlight><symbol>online<end> to see who is online.
+
+<highlight>Create an alias for a multi-worded command:<end>
+<symbol>addalias orgwins victory org <myguild>
+This will let you use <highlight><symbol>orgwins<end> instead of <highlight><symbol>victory org <myguild><end> to see recent tower victories of your org.
