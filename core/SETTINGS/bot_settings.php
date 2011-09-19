@@ -88,7 +88,9 @@ if (preg_match("/^settings$/i", $message)) {
 		$link .= "Name: <highlight>{$row->name}<end>\n";
 		$link .= "Module: <highlight>{$row->module}<end>\n";
 		$link .= "Descrption: <highlight>{$row->description}<end>\n";
-		if ($intoptions) {
+		if ($row->type == "color") {
+			$link .= "Current Value: {$row->value}Color<end>\n\n";
+		} else if ($intoptions) {
 			$link .= "Current Value: <highlight>{$options_map[$row->value]}<end>\n\n";
 		} else {
 			$link .= "Current Value: <highlight>{$row->value}<end>\n\n";
