@@ -1,7 +1,7 @@
 <header> :::::: Whereis command :::::: <end>
 
-<blue>This command shows you infos about different locations or NPCs
-<tab><yellow><symbol>whereis 'location or NPC'<end>
+<highlight>This command shows you infos about different locations or NPCs<end>
+<tab><symbol>whereis 'location or NPC'
 
-for example
+<highlight>Example:<end>
 <tab><symbol>whereis elmer ragg

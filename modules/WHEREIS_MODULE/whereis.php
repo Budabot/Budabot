@@ -15,27 +15,24 @@ $links = array("Help" => "/tell <myname> help whereis");
 $msg = '';
 if (preg_match("/^whereis (.+)$/i", $message, $arr)) {
 	$search = $arr[1];
-	$search = ucwords(strtolower($search));
+	$search = strtolower($search);
 	$db->query("SELECT * FROM whereis WHERE name LIKE '%".str_replace("'", "''", $search)."%'");
-	$whereis_found = $db->numrows();
-	$whereis = '';
-	
 	$data = $db->fobject("all");
-	forEach ($data as $row) {
-		$whereis .= "<yellow>$row->name \n <green>Can be found $row->answer\n\n";
-	}
+	$count = count($data);
 	
-	if ($whereis_found > 1) {
-		$header = Text::make_header("Result of Whereis Search For $search", $links);
-		$header .= "There are $whereis_found matches to your query.\n\n";
+	if ($count > 1) {
+		$blob = Text::make_header("Result of Whereis Search for '$search'", $links);
+		$blob .= "There are $count matches to your query.\n\n";
+		forEach ($data as $row) {
+			$blob .= "<yellow>$row->name<end>\n<green>Can be found $row->answer<end>\n\n";
+		}
 		
-		$whereis = $header . $whereis;
-	
-		$msg = Text::make_blob("Whereis", $whereis);
-	} else if ($whereis_found == 1) {
-		$msg = $whereis;
+		$msg = Text::make_blob("Whereis ($count)", $blob);
+	} else if ($count == 1) {
+		$row = $data[0];
+		$msg = "<yellow>$row->name<end>\n<green>Can be found $row->answer<end>";
 	} else {
-		$msg = "<yellow>There were no matches for your search.<end>";
+		$msg = "There were no matches for your search.";
 	}
 	$chatBot->send($msg , $sendto);
 } else {
