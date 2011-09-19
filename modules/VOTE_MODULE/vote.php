@@ -19,9 +19,9 @@ $delimiter = "|";
 if (preg_match("/^vote$/i", $message)) {
 	
 	$db->query("SELECT * FROM $table WHERE `duration` IS NOT NULL ORDER BY `started`");
-	
-	if ($db->numrows() > 0) {
-		while ($row = $db->fObject()) {
+	$data = $db->fObject('all');
+	if (count($data) > 0) {
+		forEach ($data as $row) {
 			$question = $row->question; $started = $row->started; $duration = $row->duration;
 			$line = "<tab>" . Text::make_chatcmd($question, "/tell <myname> vote $question");
 			
@@ -108,12 +108,12 @@ if (preg_match("/^vote$/i", $message)) {
 	if (count($sect) == 1) { // Show vote
 		
 		$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[0])."'");
-		
-		if ($db->numrows() <= 0) {
+		$data = $db->fObject('all');
+		if (count($data)<= 0) {
 			$msg = "Couldn't find any votes with this topic.";
 		} else {
 			$results = array();
-			while ($row = $db->fObject()) {
+			forEach ($data as $row) {
 				if ($row->duration) {
 					$question = $row->question; $author = $row->author; $started = $row->started;
 					$duration = $row->duration; $status = $row->status;
@@ -147,7 +147,6 @@ if (preg_match("/^vote$/i", $message)) {
 			}
 			
 			forEach ($results as $key => $value) {
-
 				$val = number_format(100*($value/$totalresults),0);
 				if ($val < 10) {
 					$msg .= "<black>__<end>$val% ";
@@ -277,6 +276,7 @@ if (preg_match("/^vote$/i", $message)) {
 
 					$db->exec("INSERT INTO $table (`question`, `author`, `started`, `duration`, `answer`, `status`) VALUES ( '".str_replace("'", "''", $question)."', '$sender', '".time()."', '$newtime', '".str_replace("'", "''", $answers)."', '$status')");
 					$chatBot->data["Vote"][$question] = array("author" => $sender,  "started" => time(), "duration" => $newtime, "answer" => $answers, "status" => "0", "lockout" => $status);
+					$msg = "Vote has been added.";
 
 				} else {
 					$msg = "There's already a vote with this topic.";
