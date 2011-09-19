@@ -15,11 +15,11 @@
 	Command::register($MODULE_NAME, "", "altsadmin.php", "altsadmin", "mod", "Alt Char handling (admin)");
 	
 	// Admin integration
-	Command::register($MODULE_NAME, "", "altverify.php", "altvalidate", "guild", "Validate alts for admin privelages");
+	Command::register($MODULE_NAME, "", "altvalidate.php", "altvalidate", "guild", "Validate alts for admin privileges");
 	Setting::add($MODULE_NAME, "validate_from_validated_alt", "Validate alts from any validated alt", "edit", "options", "0", "true;false", "1;0");
 	
 	//Helpfile
 	Help::register($MODULE_NAME, "alts", "alts.txt", "guild", "How to set alts");
-	Help::register($MODULE_NAME, "altsadmin", "altsadmin.txt", "mod", "How to set alts (admins)");
-	Help::register($MODULE_NAME, "altvalidate", "altverify.txt", "guild", "How to validate alts");
+	Help::register($MODULE_NAME, "altsadmin", "altsadmin.txt", "mod", "How to set alts (admin)");
+	Help::register($MODULE_NAME, "altvalidate", "altvalidate.txt", "guild", "How to validate alts");
 ?>
