@@ -293,12 +293,12 @@ function get_admin_info($name, $fancyColon) {
 }
 
 function get_afk_info($afk, $fancyColon) {
-	if ($row->afk == "kiting") {
+	if ($afk == "kiting") {
 		$ret = " $fancyColon <red>KITING<end>";
-	} else if ($row->afk == '1') {
+	} else if ($afk == '1') {
 		$ret = " $fancyColon <red>AFK<end>";
-	} else if ($row->afk != '') {
-		$ret = " $fancyColon <red>AFK - {$row->afk}<end>";
+	} else if ($afk != '') {
+		$ret = " $fancyColon <red>AFK - {$afk}<end>";
 	} else {
 		$ret = "";
 	}
