@@ -39,7 +39,7 @@ if (preg_match("/^broadcast$/i", $message)) {
 	// reload broadcast bot list
 	require 'setup.php';
 	
-	Whitelist::add($name, $sender . " (broadcast bot)");
+	Whitelist::add($name, $sender . " (bot)");
 
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^broadcast (rem|remove) (.+)$/i", $message, $arr)) {
