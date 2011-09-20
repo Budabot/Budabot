@@ -1,29 +1,20 @@
-<header>::::: System Commands :::::<end>
+<header> :::::: System Commands :::::: <end>
 
 <highlight>To restart the bot:<end>
-<tab><symbol>reboot
+<tab><symbol>restart
 
 <highlight>To shutdown the bot:<end>
 <tab><symbol>shutdown
-
-<highlight>To reload all modules:<end>
-<tab><symbol>newplugins
-
-<highlight>To clear the queue for guild channel and tells:<end>
-<tab><symbol>clearqueue
-
-<highlight>To show the list of all commands and their statuses:<end>
-<tab><symbol>cmdlist
-
-<highlight>To show the list of all events and their statuses:<end>
-<tab><symbol>eventlist
-
-<highlight>To manually load an sql file:<end>
-<tab><symbol>loadsql 'module' 'filename'
-Note: the filename should not include the version number or .sql extension
 
 <highlight>To manually load changes from the config file:<end>
 <tab><symbol>reloadconfig
 
 <highlight>To see an overview of the bot systems:<end>
 <tab><symbol>system
+
+<highlight>To execute a query on the database:<end>
+<tab><symbol>executesql 'query'
+Note: 'query' should be an INSERT, UPDATE, or DELETE only as it won't return a result set
+
+<highlight>To show the last lines in a log file:<end>
+<tab><symbol>logs

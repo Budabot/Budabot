@@ -52,5 +52,10 @@
 	Help::register($MODULE_NAME, "guild_admin_level", "guild_admin_level.txt", "mod", "Change what guild rank and high receives the guild admin level privilege");
 	Help::register($MODULE_NAME, "spam_protection", "spam_protection.txt", "mod", "Enable or disable the spam protection");
 	Help::register($MODULE_NAME, "max_blob_size", "max_blob_size.txt", "mod", "Set the maximum blob size");
-	// TODO add help for logs, checkaccess, executesql, loadsql, clearqueue, lookup, eventlist, cmdlist, reloadconfig
+	Help::register($MODULE_NAME, "checkaccess", "checkaccess.txt", "all", "How to get effective access level of a character");
+	Help::register($MODULE_NAME, "boteventlist", "boteventlist.txt", "guild", "How to see list of all events");
+	Help::register($MODULE_NAME, "cmdlist", "cmdlist.txt", "guild", "How to see list of all commands");
+	Help::register($MODULE_NAME, "lookup", "lookup.txt", "all", "How to get the id of a character");
+	Help::register($MODULE_NAME, "loadsql", "loadsql.txt", "mod", "How to manually load an sql file");
+	Help::register($MODULE_NAME, "clearqueue", "clearqueue.txt", "mod", "How to clear the outgoing chat message queue");
 ?>

@@ -1,0 +1,4 @@
+<header> :::::: Cmdlist Command :::::: <end>
+
+<highlight>To show the list of all commands and their statuses:<end>
+<tab><symbol>cmdlist

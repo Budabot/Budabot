@@ -1,0 +1,4 @@
+<header> :::::: Clearqueue Command :::::: <end>
+
+<highlight>To clear the queue for guild channel and tell messages:<end>
+<tab><symbol>clearqueue
