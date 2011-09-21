@@ -21,7 +21,7 @@ if ($type == "priv") {
 	$chatBot->send($msg, 'org', true);
 } else if ($type == "guild" && count($chatBot->chatlist) > 0) {
 	//Relay the message to the private channel if there is at least 1 char in private channel
-	if ($sender == '-1') {
+	if (!Util::isValidSender($sender)) {
 		// for relaying city alien raid messages where $sender == -1
 		$msg = "<end>{$guest_color_channel}[<myguild>]<end> {$guest_color_guest}{$message}<end>";
 	} else {

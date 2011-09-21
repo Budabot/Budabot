@@ -1,7 +1,7 @@
 <?php
 
 // to stop raising and lowering the cloak messages from triggering afk check
-if ($sender == -1) {
+if (!Util::isValidSender($sender)) {
 	return;
 }
 

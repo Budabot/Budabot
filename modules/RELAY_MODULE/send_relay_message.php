@@ -9,7 +9,7 @@ if ((Setting::get("relaybot") != "Off") && (Setting::get("bot_relay_commands") =
 	}
 
 	if ($relayMessage != '') {
-		if ($sender == -1) {
+		if (!Util::isValidSender($sender)) {
 			$sender_link = '';
 		} else {
 			$sender_link = ' ' . Text::make_userlink($sender) . ':';
