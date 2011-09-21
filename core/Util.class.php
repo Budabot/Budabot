@@ -30,10 +30,10 @@ class Util {
 			$timeshift .= $hours . ' hrs ';
 		}
 		if ($minutes != 0) {
-			$timeshift .= $minutes . ' min ';
+			$timeshift .= $minutes . ' mins ';
 		}
 		if ($seconds != 0 && ($show_seconds || $timeshift == '')) {
-			$timeshift .= $seconds . ' sec';
+			$timeshift .= $seconds . ' secs';
 		}
 		return trim($timeshift);
 	}

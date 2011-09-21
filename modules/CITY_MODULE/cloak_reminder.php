@@ -15,7 +15,7 @@ if ($db->numrows() != 0) {
 			$msg = "The cloaking device is disabled. It is possible in ".round((($row->time + 60*60) - time())/60, 0)."min to enable it.";
 		} else if ((time() - $row->time) >= 59*60 && ((time() - $row->time) % (60*5) >= 0 && (time() - $row->time) % (60*5) <= 60 )) {
 			// when cloak can be raised, send tell to player and
-			// every 5 minutes after, send tell to player (and message in org chat)
+			// every 5 minutes after, send tell to player
 			$msg = "The cloaking device is disabled. Please enable it now.";
 		}
 
