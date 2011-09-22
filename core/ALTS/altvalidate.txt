@@ -1,4 +1,4 @@
-<header>::::: Validate Alts :::::<end>
+<header> :::::: Validate Alts :::::: <end>
 
 Alts added to someone's altlist via <cyan><symbol>alts main<end> are unvalidated, and cannot <a href='chatcmd:///tell <myname> settings change alts_inherit_admin'>inherit</a> admin privileges.
 

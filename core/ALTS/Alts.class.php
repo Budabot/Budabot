@@ -98,6 +98,15 @@ class AltInfo {
 		
 		return $online_list;
 	}
+	
+	public function hasUnvalidatedAlts() {
+		forEach ($this->get_all_alts() as $alt) {
+			if (!$this->is_validated($alt)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
 
 class Alts {
