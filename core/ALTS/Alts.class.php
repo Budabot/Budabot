@@ -19,7 +19,7 @@ class AltInfo {
 		return false;
 	}
 	
-	public function get_alts_blob() {
+	public function get_alts_blob($showValidateLinks = false) {
 		$db = DB::get_instance();
 		
 		if (count($this->alts) == 0) {
@@ -59,7 +59,7 @@ class AltInfo {
 				$list .= " - <red>Offline<end>";
 			}
 			
-			if (Setting::get('alts_inherit_admin') == 1 && $row->validated == 0) {
+			if ($showValidateLinks && Setting::get('alts_inherit_admin') == 1 && $row->validated == 0) {
 				$list .= " [Unvalidated] " . Text::make_link('Validate', "/tell <myname> <symbol>altvalidate {$row->alt}", 'chatcmd');
 			}
 			

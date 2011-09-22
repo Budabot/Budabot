@@ -3,39 +3,30 @@
 if (preg_match("/^altvalidate ([a-z0-9- ]+)$/i", $message, $arr)) {
 	$altInfo = Alts::get_alt_info($sender);
 	$alt = ucfirst(strtolower($arr[1]));
-	
-	$canValidate = false;
-	if (Setting::get("validate_from_validated_alt") == 1) {
-		// Validate from Main or Alt
-		if ($altInfo->main == $sender || $altInfo->is_validated($sender)) {
-			$canValidate = true;
-		}
-	} else {
-		// Main only
-		if ($altInfo->main == $sender) {
-			$canValidate = true;
-		}
+
+	if (!$altInfo->is_validated($sender) || ($sender != $altInfo->main && Setting::get('validate_from_validated_alt') == 0)) {
+		$chatBot->send("<highlight>$alt<end> cannot be validated from your current character.", $sendto);
+		return;
 	}
-	
-	// Make sure the toon is an alt of the person sending the command
+
+	// Make sure the character being validated is an alt of the person sending the command
 	$isAlt = false;
-	foreach ($altInfo->alts as $a => $validated) {
+	forEach ($altInfo->alts as $a => $validated) {
 		if ($a == $alt) {
 			$isAlt = true;
-			$isValidated = ($validated == 1);
+
+			if ($validated == 1) {
+				$chatBot->send("<highlight>$alt<end> is already validated as your alt.", $sendto);
+				return;
+			}
 		}
 	}
 
-	// Alright, time to handle it
 	if (!$isAlt) {
-		$chatBot->send("That's not your alt!", $sendto);
-	} else if ($isValidated) {
-		$chatBot->send("That alt is already validated!", $sendto);
-	} else if ($canValidate) {
-		$db->exec("UPDATE `alts` SET `validated` = '1' WHERE `alt` LIKE '$alt' AND `main` LIKE '{$altInfo->main}'");
-		$chatBot->send("Your alt $alt has been validated.", $sendto);
+		$chatBot->send("<highlight>$alt<end> is not registered as your alt.", $sendto);
 	} else {
-		$chatBot->send("You're not on a character that can validate that alt.", $sendto);
+		$db->exec("UPDATE `alts` SET `validated` = '1' WHERE `alt` LIKE '$alt' AND `main` LIKE '{$altInfo->main}'");
+		$chatBot->send("<highlight>$alt<end> has been validated as your alt.", $sendto);
 	}
 } else {
 	$syntax_error = true;

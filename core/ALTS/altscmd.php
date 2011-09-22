@@ -121,8 +121,10 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^alts ([a-z0-9-]+)$/i", $message, $arr) || preg_match("/^alts$/i", $message)) {
 	if (isset($arr[1])) {
+		$showValidateLinks = false;
 		$name = ucfirst(strtolower($arr[1]));
 	} else {
+		$showValidateLinks = true;
 		$name = $sender;
 	}
 
@@ -130,7 +132,7 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 	if (count($altInfo->alts) == 0) {
 		$msg = "No alts are registered for <highlight>{$name}<end>.";
 	} else {
-		$msg = $altInfo->get_alts_blob();
+		$msg = $altInfo->get_alts_blob($showValidateLinks);
 	}
 
 	$chatBot->send($msg, $sendto);
