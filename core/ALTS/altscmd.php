@@ -60,7 +60,7 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 		Player::get_by_name($name);
 	}
 	
-	if ($success > 1) {
+	if ($success > 0) {
 		$msg = "$success alt(s) added successfully.";
 		$chatBot->send($msg, $sendto);
 	}
