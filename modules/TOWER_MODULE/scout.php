@@ -34,7 +34,7 @@ if (preg_match("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[
 	}
 	
 	if ($ct_ql < $tower_info->min_ql || $ct_ql > $tower_info->max_ql) {
-		$msg = "$playfield->short_name $tower_info->site_number can only accept ct ql of {$tower_info->min_ql}-{$tower_info->max_ql}";
+		$msg = "$playfield->short_name $tower_info->site_number can only accept Control Tower of ql {$tower_info->min_ql}-{$tower_info->max_ql}";
 		$chatBot->send($msg, $sendto);
 		return;
 	}
