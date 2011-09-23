@@ -22,12 +22,6 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 			continue;
 		}
 		
-		if ($name == $sender) {
-			$msg = "You cannot register yourself as your alt.";
-			$chatBot->send($msg, $sendto);
-			continue;
-		}
-		
 		$altInfo = Alts::get_alt_info($name);
 		if ($altInfo->main == $senderAltInfo->main) {
 			// Already registered to self
