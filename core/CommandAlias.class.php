@@ -10,13 +10,19 @@ class CommandAlias {
 		Logger::log('DEBUG', 'CommandAlias', "Loading enabled command aliases");
 	
 		$db = DB::get_instance();
-		global $chatBot;
 
 		$db->query("SELECT * FROM cmd_alias_<myname> WHERE `status` = '1'");
 		$data = $db->fObject("all");
 		forEach ($data as $row) {
 			CommandAlias::activate($row->cmd, $row->alias);
 		}
+	}
+	
+	public function getAllAliases() {
+		$db = DB::get_instance();
+
+		$db->query("SELECT * FROM cmd_alias_<myname> ORDER BY alias ASC");
+		return $db->fObject("all");
 	}
 	
 	/**
