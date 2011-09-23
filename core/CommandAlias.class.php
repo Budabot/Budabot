@@ -18,10 +18,10 @@ class CommandAlias {
 		}
 	}
 	
-	public function getAllAliases() {
+	public function getEnabledAliases() {
 		$db = DB::get_instance();
 
-		$db->query("SELECT * FROM cmd_alias_<myname> ORDER BY alias ASC");
+		$db->query("SELECT * FROM cmd_alias_<myname> WHERE `status` = '1' ORDER BY alias ASC");
 		return $db->fObject("all");
 	}
 	
