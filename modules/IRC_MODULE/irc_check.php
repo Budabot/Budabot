@@ -6,11 +6,15 @@
    ** Developed for: Budabot(http://aodevs.com/index.php/topic,512.0.html)
    **
    */
+   
+if ("1" != Setting::get('irc_status')) {
+	return;
+}
 
 global $socket;
 
 stream_set_blocking($socket, 0);
-if (($data = fgets($socket)) && ("1" == Setting::get('irc_status'))) {
+if ($data = fgets($socket)) {
 	$ex = explode(' ', $data);
 	$ex[3] = substr($ex[3],1,strlen($ex[3]));
 	$rawcmd = rtrim(htmlspecialchars($ex[3]));

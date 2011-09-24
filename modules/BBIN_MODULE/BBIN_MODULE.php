@@ -7,6 +7,8 @@
    ** Developed for: Budabot(http://budabot.com)
    **
    */
+   
+	require_once "bbin_func.php";
 
 	$MODULE_NAME = "BBIN_MODULE";
 	if (Setting::get('bbin_channel') == "") {

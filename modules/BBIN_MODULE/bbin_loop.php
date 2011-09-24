@@ -8,12 +8,14 @@
  **
  */
 
+if ("1" != Setting::get('bbin_status')) {
+	return;
+}
+
 global $bbin_socket;
-$db = DB::get_instance();
-require_once("bbin_func.php");
 
 stream_set_blocking($bbin_socket, 0);
-if (($data = fgets($bbin_socket)) && ("1" == Setting::get('bbin_status'))) {
+if ($data = fgets($bbin_socket)) {
 	$ex = explode(' ', $data);
 	if (Setting::get('bbin_debug_all') == 1) {
 		Logger::log('debug', "BBIN", trim($data));
