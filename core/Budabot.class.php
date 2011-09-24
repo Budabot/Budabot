@@ -67,9 +67,6 @@ class Budabot extends AOChat {
 		}
 
 		Logger::log('INFO', 'StartUp', "All Systems ready!");
-
-		// Set cron timers
-		Event::initCronTimers();
 		
 		Logger::log('DEBUG', 'Core', "Setting logondelay to '" . Setting::get("logon_delay") . "'");
 		$this->vars["logondelay"] = time() + Setting::get("logon_delay");
@@ -78,6 +75,7 @@ class Budabot extends AOChat {
 	public function run() {
 		$start = time();
 		$exec_connected_events = false;
+		$time = 0;
 		while (true) {
 			$this->wait_for_packet();
 			if ($this->is_ready()) {
@@ -85,7 +83,12 @@ class Budabot extends AOChat {
 					Event::executeConnectEvents();
 					$exec_connected_events = true;
 				}
-				Event::crons();
+				
+				// execute crons at most once every second
+				if ($time < time()) {
+					Event::crons();
+					$time = time();
+				}
 			}
 		}
 	}

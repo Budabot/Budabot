@@ -12,14 +12,6 @@
 
 class Event {
 
-	public static $CRON_EVENT_TYPES = array(
-		'2sec','1min','5mins','10mins','15mins','30mins','1hour','24hrs'
-	);
-	
-	public static $CRON_EVENT_TYPE_DURATIONS = array(
-		2, 60, 300, 600, 900, 1800, 3600, 86400
-	);
-
 	public static $EVENT_TYPES = array(
 		'msg','priv','extPriv','guild','joinPriv','extJoinPriv','leavePriv','extLeavePriv',
 		'orgmsg','extJoinPrivRequest','extKickPriv','logOn','logOff','towers','connect',
@@ -38,7 +30,8 @@ class Event {
 		
 		Logger::log('DEBUG', 'Event', "Registering event Type:($type) File:($filename) Module:($module)");
 		
-		if (!in_array($type, Event::$EVENT_TYPES) && !in_array($type, Event::$CRON_EVENT_TYPES)) {
+		$time = Util::parseTime($type);
+		if ($time == 0 && !in_array($type, Event::$EVENT_TYPES)) {
 			Logger::log('ERROR', 'Event', "Error registering event Type:($type) File:($filename) Module:($module). The type is not a recognized event type!");
 			return;
 		}
@@ -72,7 +65,8 @@ class Event {
 		
 		Logger::log('DEBUG', 'Event', "Activating event Type:($type) File:($filename)");
 		
-		if (!in_array($type, Event::$EVENT_TYPES) && !in_array($type, Event::$CRON_EVENT_TYPES)) {
+		$time = Util::parseTime($type);
+		if ($time == 0 && !in_array($type, Event::$EVENT_TYPES)) {
 			Logger::log('ERROR', 'Event', "Error activating event Type:($type) File:($filename). The type is not a recognized event type!");
 			return;
 		}
@@ -86,6 +80,8 @@ class Event {
 		
 		if ($type == "setup") {
 			include $actual_filename;
+		} else if ($time != 0) {
+			$chatBot->cronevents[] = array('nextevent' => 0, 'filename' => $filename, 'time' => $time);
 		} else {
 			if (!isset($chatBot->events[$type]) || !in_array($actual_filename, $chatBot->events[$type])) {
 				$chatBot->events[$type] []= $actual_filename;
@@ -104,7 +100,8 @@ class Event {
 
 		Logger::log('debug', 'Event', "Deactivating event Type:($type) File:($filename)");
 		
-		if (!in_array($type, Event::$EVENT_TYPES) && !in_array($type, Event::$CRON_EVENT_TYPES)) {
+		$time = Util::parseTime($type);
+		if ($time == 0 && !in_array($type, Event::$EVENT_TYPES)) {
 			Logger::log('ERROR', 'Event', "Error deactivating event Type:($type) File:($filename). The type is not a recognized event type!");
 			return;
 		}
@@ -117,10 +114,23 @@ class Event {
 			return;
 		}
 
-		if (isset($chatBot->events[$type]) && in_array($actual_filename, $chatBot->events[$type])) {
-			$temp = array_flip($chatBot->events[$type]);
-			unset($chatBot->events[$type][$temp[$actual_filename]]);
+		$found = true;
+		if ($time != 0) {
+			forEach ($chatBot->cronevents as $key => $event) {
+				if ($time == $event['time'] && $event['filename'] == $filename) {
+					$found = true;
+					unset($chatBot->cronevents[$key]);
+				}
+			}
 		} else {
+			if (in_array($actual_filename, $chatBot->events[$type])) {
+				$found = true;
+				$temp = array_flip($chatBot->events[$type]);
+				unset($chatBot->events[$type][$temp[$actual_filename]]);
+			}
+		}
+
+		if (!$found) {
 			Logger::log('ERROR', 'Event', "Error deactivating event Type:($type) File:($filename). The event is not active or doesn't exist!");
 		}
 	}
@@ -191,36 +201,26 @@ class Event {
 	 */
 	public static function crons() {
 		global $chatBot;
+		$db = DB::get_instance();
 		
 		if ($chatBot->is_ready()) {
-			$numEvents = count(Event::$CRON_EVENT_TYPES);
-			for ($i = 0; $i < $numEvents; $i++) {
-				Event::executeCronEvent(Event::$CRON_EVENT_TYPES[$i], Event::$CRON_EVENT_TYPE_DURATIONS[$i]);
+			$time = time();
+			Logger::log('DEBUG', 'Cron', "Executing cron events at '$time'");
+			forEach ($chatBot->cronevents as $key => $event) {
+				if ($event['nextevent'] <= $time) {
+					Logger::log('DEBUG', 'Cron', "Executing cron event '${event['filename']}'");
+					Event::executeCronEvent($event['time'], $event['filename']);
+					$chatBot->cronevents[$key]['nextevent'] = $time + $event['time'];
+				}
 			}
 		}
 	}
 	
-	private static function executeCronEvent($eventType, $time) {
+	public static function executeCronEvent($type, $filename) {
+		global $chatBot;
 		$db = DB::get_instance();
-		global $chatBot;
-
-		if ($chatBot->vars[$eventType] < time()) {
-			Logger::log('DEBUG', 'Cron', "Executing cron event '$eventType'");
-			$chatBot->vars[$eventType] = time() + $time;
-			forEach ($chatBot->events[$eventType] as $filename) {
-				require $filename;
-			}
-		}
-	}
-	
-	public static function initCronTimers() {
-		Logger::log('DEBUG', 'Cron', "Initializing cron timers");
-
-		global $chatBot;
-
-		forEach (Event::$CRON_EVENT_TYPES as $event_type) {
-			$chatBot->cron_timers[$event_type] = time();
-		}
+		
+		include $filename;
 	}
 	
 	/*===============================
