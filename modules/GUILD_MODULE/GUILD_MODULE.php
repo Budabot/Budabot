@@ -34,6 +34,7 @@
 	Setting::add($MODULE_NAME, "max_logon_msg_size", "Maximum characters a logon message can have", "edit", "number", "200", "100;200;300;400", '', "mod");
 	Setting::add($MODULE_NAME, "max_logoff_msg_size", "Maximum characters a logoff message can have", "edit", "number", "200", "100;200;300;400", '', "mod");
 	Setting::add($MODULE_NAME, "first_and_last_alt_only", "Show logon/logoff for first/last alt only", "edit", "options", "0", "true;false", "1;0");
+	Setting::add($MODULE_NAME, "extended_logoff_display", "Show info about players logging off", "edit", "options", "0", "true;false", "1;0");
 	
 	// Help files
 	Help::register($MODULE_NAME, "inactivemem", "inactivemem.txt", "guildadmin", "Help on Checking for Inactive Members");
