@@ -38,6 +38,32 @@ class Util {
 		return trim($timeshift);
 	}
 	
+	public static function parseTime($time_string) {
+		$run_time = 0;
+		
+		if (preg_match("/([0-9]+)(w|week|weeks)/i", $time_string, $weeks)) {
+			$run_time += $weeks[1] * 604800;
+		}
+
+		if (preg_match("/([0-9]+)(d|day|days)/i", $time_string, $days)) {
+			$run_time += $days[1] * 86400;
+		}
+
+		if (preg_match("/([0-9]+)(h|hr|hrs)/i", $time_string, $hours)) {
+			$run_time += $hours[1] * 3600;
+		}
+
+		if (preg_match("/([0-9]+)(m|min|mins)/i", $time_string, $mins)) {
+			$run_time += $mins[1] * 60;
+		}
+
+		if (preg_match("/([0-9]+)(s|sec|secs)/i", $time_string, $secs)) {
+			$run_time += $secs[1];
+		}
+		
+		return $run_time;
+	}
+	
 	/**
 	 * Takes two version numbers.  Returns 1 if the first is greater than the second.
 	 * Returns -1 if the second is greater than the first.  Returns 0 if they are equal.
@@ -195,7 +221,7 @@ class Util {
 	 * @description: returns true if filename matches budabot naming convention and false otherwise
 	 */
 	public static function verify_name_convention($filename) {
-		preg_match("/^(.+)/([0-9a-z_]+).php$/i", $filename, $arr);
+		preg_match("/^(.+)\\/([0-9a-z_]+)\\.php$/i", $filename, $arr);
 		if ($arr[2] == strtolower($arr[2])) {
 			return true;
 		} else {
@@ -242,32 +268,6 @@ class Util {
 	
 	public static function rand_array_value($array) {
 		return $array[rand(0, sizeof($array) - 1)];
-	}
-	
-	public static function parseTime($time_string) {
-		$run_time = 0;
-		
-		if (preg_match("/([0-9]+)(w|week|weeks)/i", $time_string, $weeks)) {
-			$run_time += $weeks[1] * 604800;
-		}
-
-		if (preg_match("/([0-9]+)(d|day|days)/i", $time_string, $days)) {
-			$run_time += $days[1] * 86400;
-		}
-
-		if (preg_match("/([0-9]+)(h|hr|hrs)/i", $time_string, $hours)) {
-			$run_time += $hours[1] * 3600;
-		}
-
-		if (preg_match("/([0-9]+)(m|min|mins)/i", $time_string, $mins)) {
-			$run_time += $mins[1] * 60;
-		}
-
-		if (preg_match("/([0-9]+)(s|sec|secs)/i", $time_string, $secs)) {
-			$run_time += $secs[1];
-		}
-		
-		return $run_time;
 	}
 	
 	// checks to see if user is valid

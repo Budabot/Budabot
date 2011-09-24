@@ -328,11 +328,14 @@ class DB {
 		$core_dir = "./core/$module";
 		$modules_dir = "./modules/$module";
 		$dir = '';
-		if ($d = dir($modules_dir)) {
+		if (is_dir($modules_dir)) {
 			$dir = $modules_dir;
-		} else if ($d = dir($core_dir)) {
+		} else if (is_dir($core_dir)) {
 			$dir = $core_dir;
+		} else {
+			// TODO invalid module name
 		}
+		$d = dir($dir);
 		
 		$currentVersion = Setting::get($settingName);
 		if ($currentVersion === false) {
@@ -362,7 +365,7 @@ class DB {
 
 		if ($file === false) {
 			$msg = "No SQL file found with name '$name' in module '$module'!";
-			Logger::log('ERROR', 'Core', "No SQL file found with name '$name' in module '$module'!");
+			Logger::log('ERROR', 'Core', "No SQL file found with name '$name' in '$dir'!");
 		} else if ($forceUpdate || Util::compare_version_numbers($maxFileVersion, $currentVersion) > 0) {
 			$fileArray = file("$dir/$file");
 			//$db->begin_transaction();
