@@ -44,7 +44,7 @@
     Help::register($MODULE_NAME, "time", "time.txt", "all", "Timezones");
     Help::register($MODULE_NAME, "kos", "kos.txt", "all", "Kill On Sight List");
     Help::register($MODULE_NAME, "inspect", "inspect.txt", "all", "How to use inspect");
-	Help::register($MODULE_NAME, "smileys", "inspect.txt", "all", "How to use smileys");
+	Help::register($MODULE_NAME, "smileys", "smileys.txt", "all", "How to use smileys");
 	Help::register($MODULE_NAME, "buffitem", "buffitem.txt", "all", "How to use buffitem");
 	Help::register($MODULE_NAME, "cluster", "cluster.txt", "all", "How to use cluster");
 	Help::register($MODULE_NAME, "mobloot", "mobloot.txt", "all", "How to use mobloot");
