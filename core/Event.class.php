@@ -87,7 +87,7 @@ class Event {
 		if ($type == "setup") {
 			include $actual_filename;
 		} else {
-			if (!in_array($actual_filename, $chatBot->events[$type])) {
+			if (!isset($chatBot->events[$type]) || !in_array($actual_filename, $chatBot->events[$type])) {
 				$chatBot->events[$type] []= $actual_filename;
 			} else {
 				Logger::log('ERROR', 'Event', "Error activating event Type:($type) File:($filename). Event already activated!");
@@ -117,7 +117,7 @@ class Event {
 			return;
 		}
 
-		if (in_array($actual_filename, $chatBot->events[$type])) {
+		if (isset($chatBot->events[$type]) && in_array($actual_filename, $chatBot->events[$type])) {
 			$temp = array_flip($chatBot->events[$type]);
 			unset($chatBot->events[$type][$temp[$actual_filename]]);
 		} else {
