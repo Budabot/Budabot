@@ -9,5 +9,11 @@ if ($db->numrows() != 0) {
 		$chatBot->guildmembers[$row->name] = $row->guild_rank_id;
 	}
 }
+//Add logoff table to org_members_<myname> if it dosent exist.
+$db->query("SELECT `logoff_msg` FROM `org_members_<myname>`");
 
+if ($db->errorInfo[0] != "00000") {
+	//No column
+	$db->exec("ALTER TABLE `org_members_<myname>` ADD COLUMN `logoff_msg` VARCHAR(400) DEFAULT ''"); //Add the logoff_msg column
+}
 ?>

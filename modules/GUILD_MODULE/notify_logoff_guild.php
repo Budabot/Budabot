@@ -9,7 +9,28 @@ if (isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
 		}
 	}
 
-	$msg = "<highlight>$sender<end> logged off";
+	$whois = Player::get_by_name($sender);
+
+	$msg = '';
+	if ($whois === null) {
+		$msg = "$sender logged off.";
+	} else {
+		$msg = Player::get_info($whois);
+
+        $msg .= " logged off.";
+
+		$altInfo = Alts::get_alt_info($sender);
+		if (count($altInfo->alts) > 0) {
+			$msg .= " " . $altInfo->get_alts_blob();
+		}
+
+		$sql = "SELECT logoff_msg FROM org_members_<myname> WHERE name = '{$sender}'";
+		$db->query($sql);
+		$row = $db->fObject();
+        if ($row !== null && $row->logoff_msg != '') {
+            $msg .= " - " . $row->logoff_msg;
+		}
+	}
 
 	$chatBot->send($msg, "guild", true);
 
@@ -18,5 +39,4 @@ if (isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
 		$chatBot->send($msg, "priv", true);
 	}
 }
-
 ?>

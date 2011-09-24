@@ -1,0 +1,10 @@
+<header> :::::: Logoffadmin Command :::::: <end>
+
+<highlight>See what a character's logoff message is set to:<end>
+<tab><symbol>logoffadmin 'character'
+
+<highlight>Set a character's logoff message:<end>
+<tab><symbol>logoffadmin 'character' 'logon message'
+
+<highlight>Clear a character's logoff message:<end>
+<tab><symbol>logoffadmin 'character' clear

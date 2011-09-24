@@ -8,7 +8,9 @@
 	
 	// Logon Handling
 	Command::register($MODULE_NAME, "", "logon_msg.php", "logon", "guild", "Sets a Logon Msg");
+	Command::register($MODULE_NAME, "", "logoff_msg.php", "logoff", "guild", "Sets a Logoff Msg");
 	Command::register($MODULE_NAME, "", "logonadmin.php", "logonadmin", "mod", "Admin command for editing another person's logon message");
+	Command::register($MODULE_NAME, "", "logoffadmin.php", "logoffadmin", "mod", "Admin command for editing another person's logoff message");
 	
 	// Lastseen
 	Command::register($MODULE_NAME, "", "lastseen.php", "lastseen", "guild", "Shows the logoff time of a player");
@@ -30,6 +32,7 @@
 	Event::register($MODULE_NAME, "logOff", "record_lastseen.php", "none", "Records when each member of the org logs off for lastseen command");
 	
 	Setting::add($MODULE_NAME, "max_logon_msg_size", "Maximum characters a logon message can have", "edit", "number", "200", "100;200;300;400", '', "mod");
+	Setting::add($MODULE_NAME, "max_logoff_msg_size", "Maximum characters a logoff message can have", "edit", "number", "200", "100;200;300;400", '', "mod");
 	Setting::add($MODULE_NAME, "first_and_last_alt_only", "Show logon/logoff for first/last alt only", "edit", "options", "0", "true;false", "1;0");
 	
 	// Help files
@@ -37,7 +40,9 @@
 	Help::register($MODULE_NAME, "updateorg", "updateorg.txt", "guildadmin", "Force an update of org roster");
 	Help::register($MODULE_NAME, "lastseen", "lastseen.txt", "guild", "Check when an orgmember was online");
 	Help::register($MODULE_NAME, "logon", "logon_msg.txt", "guild", "Changing your logon message");
+	Help::register($MODULE_NAME, "logoff", "logoff_msg.txt", "guild", "Changing your logoff message");
 	Help::register($MODULE_NAME, "logonadmin", "logonadmin.txt", "mod", "Changing another character's logon message");
+	Help::register($MODULE_NAME, "logoffadmin", "logoffadmin.txt", "mod", "Changing another character's logoff message");
 	Help::register($MODULE_NAME, "notify", "notify.txt", "guildadmin", "Add or remove a player from the notify list");
 	Help::register($MODULE_NAME, "tellall", "tellall.txt", "leader", "Send a tell to all online guild members");
 ?>
