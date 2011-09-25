@@ -48,7 +48,7 @@ class Teamspeak3 {
 
     // Open the stream
     public function connect() {
-        $stream = fsockopen($this->address, $this->port, $errno, $errstr, 30);
+        $stream = fsockopen($this->address, $this->port, $errno, $errstr, 5);
         $this->stream = $stream;
         if ($this->stream) {
             if ($this->username) {
