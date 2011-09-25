@@ -1,6 +1,6 @@
 <?php
-$info = explode(" ", $message);
-list($msg, $AttTim, $RechT, $BurstDelay, $BurstSkill) = $info;
+
+list($command, $AttTim, $RechT, $BurstDelay, $BurstSkill) = explode(" ", $message);
 
 if ((!$AttTim) || (!$RechT) || (!$BurstDelay) || (!$BurstSkill)) {
 	$syntax_error = true;
@@ -12,16 +12,16 @@ if ((!$AttTim) || (!$RechT) || (!$BurstDelay) || (!$BurstSkill)) {
 		$burstrech = $cap;
 	}
 
-	$inside = "<header>::::: Burst Calculator - Version 1.00 :::::<end>\n\n";
-	$inside .= "Results:\n";
-	$inside .= "Attack: <orange>". $AttTim ." <end>second(s).\n";
-	$inside .= "Recharge: <orange>". $RechT ." <end>second(s).\n";
-	$inside .= "Burst Delay: <orange>". $BurstDelay ."<end>\n";
-	$inside .= "Burst Skill: <orange>". $BurstSkill ."<end>\n\n";
-	$inside .= "Your Burst Recharge:<orange> ". $burstrech ."<end>s\n";
-	$inside .= "With your weap, your burst recharge will cap at <orange>".$cap."<end>s.\n";
-	$inside .= "You need <orange>".$burstskillcap."<end> Burst Skill to cap your recharge.";
+	$blob = "<header> :::::: Burst Calculator :::::: <end>\n\n";
+	$blob .= "Results:\n";
+	$blob .= "Attack: <orange>". $AttTim ." <end>second(s).\n";
+	$blob .= "Recharge: <orange>". $RechT ." <end>second(s).\n";
+	$blob .= "Burst Delay: <orange>". $BurstDelay ."<end>\n";
+	$blob .= "Burst Skill: <orange>". $BurstSkill ."<end>\n\n";
+	$blob .= "Your Burst Recharge:<orange> ". $burstrech ."<end>s\n";
+	$blob .= "With your weap, your burst recharge will cap at <orange>".$cap."<end>s.\n";
+	$blob .= "You need <orange>".$burstskillcap."<end> Burst Skill to cap your recharge.";
 
-	$windowlink = Text::make_blob("::Your Burst Results::", $inside);
-	$chatBot->send($windowlink, $sendto);
+	$msg = Text::make_blob("::Your Burst Results::", $blob);
+	$chatBot->send($msg, $sendto);
 }

@@ -1,7 +1,6 @@
 <header>MA Usage:<end>
-/tell <myname> <symbol>mafist [<orange>class<end>] [<orange>MA<end>]
-[<orange>class<end>] = Class: MA, shade, other
+/tell <myname> <symbol>mafist [<orange>MA<end>]
 [<orange>MA<end>] = MA Skill
 Example:
-You are a shade and have 750 MA Skill.
-<a href='chatcmd:///tell <myname> <symbol>mafist shade 750'>/tell <myname> <symbol>mafist shade 750</a>
+You have 750 MA Skill.
+<a href='chatcmd:///tell <myname> <symbol>mafist 750'>/tell <myname> <symbol>mafist 750</a>

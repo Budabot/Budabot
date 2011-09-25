@@ -1,7 +1,6 @@
 <header>Dimach Usage:<end>
-/tell <myname> <symbol>dimach [<orange>C<end>] [<orange>D<end>]
-[<orange>C<end>] = Class: MA, shade, keeper, other
+/tell <myname> <symbol>dimach [<orange>D<end>]
 [<orange>D<end>] = Dimach Skill
 Example:
-You are a keeper have 750 dimach Skill.
-<a href='chatcmd:///tell <myname> <symbol>dimach keeper 750'>/tell <myname> <symbol>dimach keeper 750</a>
+You have 750 dimach Skill.
+<a href='chatcmd:///tell <myname> <symbol>dimach 750'>/tell <myname> <symbol>dimach 750</a>
