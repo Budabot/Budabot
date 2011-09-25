@@ -7,13 +7,13 @@ if (preg_match("/^svn dry$/i", $message)) {
 	$return_var = '';
 	exec($command, $output, $return_var);
 	
-	$window = "::: SVN MERGE --dry-run :::\n\n";
-	$window .= $command . "\n\n";
+	$blob = "<header> :::::: SVN MERGE --dry-run :::::: <end>\n\n";
+	$blob .= $command . "\n\n";
 	forEach ($output as $line) {
-		$window .= $line . "\n";
+		$blob .= $line . "\n";
 	}
 	
-	$msg = Text::make_blob('svn merge –-dry-run output', $window);
+	$msg = Text::make_blob('svn merge –-dry-run output', $blob);
 	
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^svn update$/i", $message)) {
@@ -22,13 +22,13 @@ if (preg_match("/^svn dry$/i", $message)) {
 	$return_var = '';
 	exec($command, $output, $return_var);
 	
-	$window = "::: SVN UPDATE output :::\n\n";
-	$window .= $command . "\n\n";
+	$blob = "<header> :::::: SVN UPDATE output :::::: <end>\n\n";
+	$blob .= $command . "\n\n";
 	forEach ($output as $line) {
-		$window .= $line . "\n";
+		$blob .= $line . "\n";
 	}
 	
-	$msg = Text::make_blob('svn update output', $window);
+	$msg = Text::make_blob('svn update output', $blob);
 	
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^svn info$/i", $message)) {
@@ -37,13 +37,13 @@ if (preg_match("/^svn dry$/i", $message)) {
 	$return_var = '';
 	exec($command, $output, $return_var);
 	
-	$window = "::: SVN INFO output :::\n\n";
-	$window .= $command . "\n\n";
+	$blob = "<header> :::::: SVN INFO output :::::: <end>\n\n";
+	$blob .= $command . "\n\n";
 	forEach ($output as $line) {
-		$window .= $line . "\n";
+		$blob .= $line . "\n";
 	}
 	
-	$msg = Text::make_blob('svn info output', $window);
+	$msg = Text::make_blob('svn info output', $blob);
 	
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^svn status$/i", $message) || preg_match("/^svn status (.*)$/i", $message, $arr)) {
@@ -52,13 +52,13 @@ if (preg_match("/^svn dry$/i", $message)) {
 	$return_var = '';
 	exec($command, $output, $return_var);
 	
-	$window = "::: SVN STATUS $arr[1] output :::\n\n";
-	$window .= $command . "\n\n";
+	$blob = "<header> :::::: SVN STATUS $arr[1] output :::::: <end>\n\n";
+	$blob .= $command . "\n\n";
 	forEach ($output as $line) {
-		$window .= $line . "\n";
+		$blob .= $line . "\n";
 	}
 	
-	$msg = Text::make_blob("svn status $arr[1] output", $window);
+	$msg = Text::make_blob("svn status $arr[1] output", $blob);
 	
 	$chatBot->send($msg, $sendto);
 } else {
