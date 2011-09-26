@@ -9,16 +9,12 @@ if (isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
 		}
 	}
 
-	if (Setting::get('extended_logoff_display') == 0) {
-		$msg = "$sender logged off.";
-	} else {
-        $msg = "$sender logged off.";
-		$sql = "SELECT logoff_msg FROM org_members_<myname> WHERE name = '{$sender}'";
-		$db->query($sql);
-		$row = $db->fObject();
-		if ($row !== null && $row->logoff_msg != '') {
-			$msg .= " - " . $row->logoff_msg;
-		}
+	$msg = "$sender logged off.";
+	$sql = "SELECT logoff_msg FROM org_members_<myname> WHERE name = '{$sender}'";
+	$db->query($sql);
+	$row = $db->fObject();
+	if ($row !== null && $row->logoff_msg != '') {
+		$msg .= " - " . $row->logoff_msg;
 	}
 
 	$chatBot->send($msg, "guild", true);
