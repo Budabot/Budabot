@@ -1,6 +1,19 @@
 *****************************
-	Version 2.3_RC1:
+	Version 2.3_RC2:
 *****************************
+-added !penalty for showing orgs who have attacked recently and are in penalty (thanks Taylorka (RK2) for requesting)
+-!ban now takes the time argument as "Buda-time" (eg. 1d4h6m32s)
+-added option notify_banned_player to control whether the bot sends a tell to a player when they are banned or unbanned from the bot
+-some core commands are now configurable
+-!neutnet on now accepts neutnet spams from the new Neutnet satellite bots (Neutnet15, Neutnet16)
+-on logon, bot now notifies players if they have unvalidated alts
+-added !aliaslist to show current aliases that are active on the bot
+-added !logoff to set a logoff message (similar to setting a logon message with !logon) (thanks Rageballs (RK1) for implementing this)
+-timed/cron events can now take an arbitrary time value (in Buda-time) (thanks Argufix (RK2) for requesting)
+-added help files for various core commands
+-moved !orghistory into GUILD_MODULE (ORG_HISTORY_MODULE no longer exists)
+-fixed some issues when runninng Budabot on 64 bit linux (thanks Wirehead for reporting this)
+-!settings change will now show the current value for colors
 -!lastseen now takes alts into account
 -renamed the core command !eventlist to !boteventlist (so it doesn't conflict with EVENTS_MODULE) and fixed it
 -added !orgcities to show coordinates for player cities
