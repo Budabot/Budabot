@@ -9,9 +9,11 @@ if ($packet_type == AOCP_GROUP_MESSAGE) {
 		$sender	= $chatBot->lookup_user($args[1]);
 		$message = $args[2];
 		
+		Logger::log_chat($channel, $sender, $message);
+		
 		$matches = array();
 		$pattern = '/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/';
-		preg_match_all($pattern, $message, $matches);
+		preg_match_all($pattern, $message, $matches, PREG_SET_ORDER);
 		
 		$msg = str_replace("'", "''", $message);
 		
@@ -23,7 +25,7 @@ if ($packet_type == AOCP_GROUP_MESSAGE) {
 		
 		forEach ($matches as $match) {
 			$name = str_replace("'", "''", $match[4]);
-			$db->exec("INSERT INTO shopping_tems (message_id, lowid, highid, ql, name) VALUES ($id, $match[1], $match[2], $match[3], '$name')");
+			$db->exec("INSERT INTO shopping_items (message_id, lowid, highid, ql, name) VALUES ($id, $match[1], $match[2], $match[3], '$name')");
 		}
 		
 		$db->commit();
