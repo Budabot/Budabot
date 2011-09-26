@@ -40,7 +40,9 @@ if (preg_match("/^unban (.+)$/i", $message, $arr)){
 	Ban::remove($who);
 
 	$chatBot->send("You have unbanned <highlight>$who<end> from this bot.", $sendto);
-	$chatBot->send("You have been unbanned from this bot by $sender.", $who);
+	if (Setting::get('notify_banned_player') == 1) {
+		$chatBot->send("You have been unbanned from this bot by $sender.", $who);
+	}
 } else if (preg_match("/^unbanorg (.+)$/i", $message, $arr)) {
 	$who = ucwords(strtolower($arr[1]));
 	
