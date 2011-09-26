@@ -1,0 +1,33 @@
+<?php
+
+if ($packet_type == AOCP_GROUP_MESSAGE) {
+	$b = unpack("C*", $args[0]);
+	// check to make sure message is from a shopping channel
+	// (first byte = 134; see http://aodevs.com/forums/index.php/topic,42.msg2192.html#msg2192)
+	if ($b[1] == 134) {
+		$channel = $chatBot->get_gname($args[0]);
+		$sender	= $chatBot->lookup_user($args[1]);
+		$message = $args[2];
+		
+		$matches = array();
+		$pattern = '/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/';
+		preg_match_all($pattern, $message, $matches);
+		
+		$msg = str_replace("'", "''", $message);
+		
+		
+		$db->begin_transaction();
+		
+		$db->exec("INSERT INTO shopping_messages (dimension, channel, bot, sender, dt, message) VALUES ('<dim>', '$channel', '<myname>', '$sender', " . time() . ", '$msg')");
+		$id = $db->lastInsertId();
+		
+		forEach ($matches as $match) {
+			$name = str_replace("'", "''", $match[4]);
+			$db->exec("INSERT INTO shopping_tems (message_id, lowid, highid, ql, name) VALUES ($id, $match[1], $match[2], $match[3], '$name')");
+		}
+		
+		$db->commit();
+	}
+}
+
+?>
