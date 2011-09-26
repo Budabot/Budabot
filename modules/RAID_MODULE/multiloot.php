@@ -131,14 +131,14 @@ if (preg_match("/^multiloot (.+)$/i", $message, $arr)) {
 		if ($multiloot) {
 			$chatBot->send($multiloot."x <highlight>{$loot[$num_loot]["name"]}<end> will be rolled in Slot <highlight>#$num_loot<end>", 'priv');
 		}
-		$chatBot->send("To add use <symbol>add $num_loot, or <symbol>add 0 to remove yourself", 'priv');
+		$chatBot->send("To add use <symbol>add $num_loot, or <symbol>rem to remove yourself", 'priv');
 	} else {
 		//Send info in case of SMART
 		if ($multiloot) {
 			$chatBot->send($multiloot."x <highlight>{$loot[$itmref]["name"]}<end> added to Slot <highlight>#$itmref<end> as multiloot. Total: <yellow>{$loot[$itmref]["multiloot"]}<end>", 'priv');
 		}
 
-		$chatBot->send("To add use <symbol>add $itmref, or <symbol>add 0 to remove yourself", 'priv');
+		$chatBot->send("To add use <symbol>add $itmref, or <symbol>rem to remove yourself", 'priv');
 		$dontadd = 0;
 		$itmref = 0;
 		if (is_array($residual)) {

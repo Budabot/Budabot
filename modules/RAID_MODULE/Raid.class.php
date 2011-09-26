@@ -11,7 +11,7 @@ class Raid {
 				$list = "<header>::::: Loot List :::::<end>\n\nUse <symbol>flatroll to roll.\n\n";
 				forEach ($loot as $key => $item) {
 					$add = Text::make_chatcmd("Add", "/tell <myname> add $key");
-					$rem = Text::make_chatcmd("Remove", "/tell <myname> add 0");
+					$rem = Text::make_chatcmd("Remove", "/tell <myname> rem");
 					$added_players = count($item["users"]);
 		
 					$list .= "<u>Slot #<font color='#FF00AA'>$key</font></u>\n";
@@ -57,7 +57,7 @@ class Raid {
 				$list = "<header>::::: Raidloot List :::::<end>\n\n";
 				forEach ($raidloot as $key => $item) {
 					$add = Text::make_chatcmd("Add", "/tell <myname> add $key");
-					$rem = Text::make_chatcmd("Remove", "/tell <myname> add 0");
+					$rem = Text::make_chatcmd("Remove", "/tell <myname> rem");
 					$added_players = count($item["users"]);
 		
 					$list .= "<u>Slot #$key</u>\n";

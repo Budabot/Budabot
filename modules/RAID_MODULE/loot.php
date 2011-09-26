@@ -77,7 +77,7 @@ if (preg_match("/^loot clear$/i", $message)) {
 	} else {
 		$msg = "<highlight>".$item->name."<end> will be rolled in Slot <highlight>#".$slot."<end> as multiloot. Total: <yellow>".$total."<end>";
 	}
-	$msg .= "\nTo add use !add ".$nextloot.", or !add 0 to remove yourself";
+	$msg .= "\nTo add use <symbol>add ".$nextloot.", or <symbol>rem to remove yourself";
 	$chatBot->send($msg, 'priv');
 } else if (preg_match("/^loot (.+)$/i", $message, $arr)) {
 
@@ -170,7 +170,7 @@ if (preg_match("/^loot clear$/i", $message)) {
 		} else {
 			$chatBot->send("<highlight>{$loot[$num_loot]["name"]}<end> will be rolled in Slot <highlight>#$num_loot<end>", 'priv');
 		}
-		$chatBot->send("To add use <symbol>add $num_loot, or <symbol>add 0 to remove yourself", 'priv');
+		$chatBot->send("To add use <symbol>add $num_loot, or <symbol>rem to remove yourself", 'priv');
 	} else {
 		//Send info in case of SMART
 		if ($multiloot) {
@@ -178,7 +178,7 @@ if (preg_match("/^loot clear$/i", $message)) {
 		} else {
 			$chatBot->send("<highlight>{$loot[$itmref]["name"]}<end> added to Slot <highlight>#$itmref<end> as multiloot. Total: <yellow>{$loot[$itmref]["multiloot"]}<end>", 'priv');
 		}
-		$chatBot->send("To add use <symbol>add $itmref, or <symbol>add 0 to remove yourself", 'priv');
+		$chatBot->send("To add use <symbol>add $itmref, or <symbol>rem to remove yourself", 'priv');
 		$dontadd = 0;
 		$itmref = 0;
 		if (is_array($residual)) {

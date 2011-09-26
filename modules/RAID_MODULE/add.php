@@ -82,31 +82,6 @@ if (preg_match("/^add$/i", $message)) {
 	
 	$msg = "<highlight>$sender<end> has been added for this roll.";
 	$chatBot->send($msg, 'priv');
-} else if (preg_match("/^add 0$/i", $message)) {
- 	//Raid with flatrolls
-	if ($chatBot->vars["raid_status"] != "" && $chatBot->vars["raid_pts"] == 0) {
-	  	forEach ($raidloot as $key => $value) {
-			forEach ($value as $key1 => $value1) {
-				if ($raidloot[$key][$key1]["users"][$sender] == true) {
-					unset($raidloot[$key][$key1]["users"][$sender]);
-				}
-			}
-		}
-
-		$msg = "$sender has been removed from all rolls.";
-	  	$chatBot->send($msg, 'priv');
-	} else if (count($loot) > 0) {
-	  	forEach ($loot as $key => $item) {
-			if ($loot[$key]["users"][$sender] == true) {
-				unset($loot[$key]["users"][$sender]);
-			}
-		}
-	
-		$msg = "$sender has been removed from all rolls.";
-	  	$chatBot->send($msg, 'priv');
-	} else {
-		$chatBot->send("There is nothing where you could add in.", $sender);
-	}
 } else if (preg_match("/^add ([0-9]+)$/i", $message, $arr)) {
   	$slot = $arr[1];
   	$found = false;

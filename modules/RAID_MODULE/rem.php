@@ -42,8 +42,8 @@ if (preg_match("/^rem$/i", $message)) {
 			}
 		}
 	
-		$msg = "You have been removed from all rolls";
-	  	$chatBot->send($msg, $sender);
+		$msg = "$sender has been removed from all rolls.";
+	  	$chatBot->send($msg, 'priv');
 	} else if (count($loot) > 0) {
 	  	forEach ($loot as $key => $item) {
 			if ($loot[$key]["users"][$sender] == true) {
@@ -51,10 +51,10 @@ if (preg_match("/^rem$/i", $message)) {
 			}
 		}
 	
-		$msg = "You have been removed from all rolls";
-	  	$chatBot->send($msg, $sender);
+		$msg = "$sender has been removed from all rolls.";
+	  	$chatBot->send($msg, 'priv');
 	} else {
-		$chatBot->send("There is nothing where you could add in.", $sender);
+		$chatBot->send("There is nothing to remove you from.", $sender);
 	}
 } else {
 	$syntax_error = true;
