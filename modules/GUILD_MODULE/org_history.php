@@ -16,7 +16,7 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 	$db->query($sql);
 	$data = $db->fObject('all');
 	forEach ($data as $row) {
-		$window .= "$row->actor $row->action $row->actee in $row->organization at " . gmdate("M j, Y, G:i", $row->time)." (GMT)\n";
+		$window .= "$row->actor $row->action <highlight>$row->actee<end> in $row->organization at " . gmdate("M j, Y, G:i", $row->time)." (GMT)\n";
 	}
 
 	$msg = Text::make_blob('Org History', $window);
@@ -33,7 +33,7 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 	$db->query($sql);
 	$data = $db->fObject('all');
 	forEach ($data as $row) {
-		$window .= "$row->actor $row->action $row->actee in $row->organization at " . gmdate("M j, Y, G:i", $row->time)." (GMT)\n";
+		$window .= "$row->actor $row->action <highlight>$row->actee<end> in $row->organization at " . gmdate("M j, Y, G:i", $row->time)." (GMT)\n";
 	}
 
 	$window .= "\n  Actions by $character\n";
@@ -41,7 +41,7 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 	$db->query($sql);
 	$data = $db->fObject('all');
 	forEach ($data as $row) {
-		$window .= "$row->actor $row->action $row->actee in $row->organization at " . gmdate("M j, Y, G:i", $row->time)." (GMT)\n";
+		$window .= "$row->actor $row->action <highlight>$row->actee<end> in $row->organization at " . gmdate("M j, Y, G:i", $row->time)." (GMT)\n";
 	}
 
 	$msg = Text::make_blob('Org History', $window);
