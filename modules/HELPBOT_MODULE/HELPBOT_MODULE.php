@@ -25,7 +25,7 @@
 	Command::register($MODULE_NAME, "", "research.php", "research", "all", "Info on Research");
 	Command::register($MODULE_NAME, "", "playfields.php", "playfields", "all", "Shows playfield ids, long names, and short names", 'waypoint');
 	Command::register($MODULE_NAME, "", "waypoint.php", "waypoint", "all", "Creates a waypoint link");
-	Command::register($MODULE_NAME, "", "orgcities.php", "orgcities", "all", "Show coords for org cities");//Server Status
+	Command::register($MODULE_NAME, "", "orgcities.php", "orgcities", "all", "Show coords for org cities");
 	Command::register($MODULE_NAME, "", "server.php", "server", "all", "Shows the Server status");	
 
 	// Flip or Roll command
