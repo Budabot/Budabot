@@ -91,7 +91,6 @@ error_reporting(E_ERROR | E_PARSE);
 ini_set("log_errors", 1);
 ini_set("error_log", "./logs/{$vars['name']}.{$vars['dimension']}/php_errors.log");
 
-
 require_once "./core/AOChat.class.php";
 require_once "./core/Budabot.class.php";
 require_once "./core/DB.class.php";
@@ -110,10 +109,7 @@ require_once './core/Util.class.php';
 require_once './core/Text.class.php';
 
 //Show setup dialog
-if ($vars['login']		== "" ||
-	$vars['password']	== "" ||
-	$vars['name']		== "") {
-
+if ($vars['login'] == "" || $vars['password'] == "" || $vars['name'] == "") {
 	include "./core/SETUP/setup.php";
 }
 
