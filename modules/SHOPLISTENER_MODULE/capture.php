@@ -29,6 +29,8 @@ if ($packet_type == AOCP_GROUP_MESSAGE) {
 		}
 		
 		$db->commit();
+		
+		Player::get_by_name($sender);
 	}
 }
 
