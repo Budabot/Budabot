@@ -3,9 +3,9 @@
 if (preg_match("/^shop (.+)$/i", $message, $arr)) {
 	$search = $arr[1];
 	$sql = "
-		SELECT DISTINCT
-			s2.sender,
-			s2.message,
+		SELECT
+			sender,
+			message,
 			MAX(dt) as dt
 		FROM
 			shopping_items s1
@@ -13,7 +13,10 @@ if (preg_match("/^shop (.+)$/i", $message, $arr)) {
 				ON s1.message_id = s2.id
 		WHERE
 			s2.dimension = <dim>
-			AND s1.name LIKE '%" . str_replace("'", "''", $search) . "%'";
+			AND s1.name LIKE '%" . str_replace("'", "''", $search) . "%'
+		GROUP BY
+			sender,
+			message";
 	$db->query($sql);
 	$data = $db->fObject('all');
 	
@@ -21,7 +24,7 @@ if (preg_match("/^shop (.+)$/i", $message, $arr)) {
 	forEach ($data as $row) {
 		$senderLink = Text::make_userlink($row->sender);
 		$timeString = Util::unixtime_to_readable(time()- $row->dt, false);
-		$blob .= "[$senderLink]: {$row->message} - <highlight>($timeString ago)<end>\n";
+		$blob .= "[$senderLink]: {$row->message} - <highlight>($timeString ago)<end>\n\n";
 	}
 	
 	$msg = Text::make_blob("Shopping Results for '$search'", $blob);
