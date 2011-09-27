@@ -32,7 +32,7 @@ class Help {
 		}
 
 		if (isset($chatBot->existing_helps[$command])) {
-			$db->exec("UPDATE hlpcfg_<myname> SET `verify` = 1, `file` = '$actual_filename', `description` = '" . str_replace("'", "''", $description) . "' WHERE `name` = '$command'");
+			$db->exec("UPDATE hlpcfg_<myname> SET `verify` = 1, `file` = '$actual_filename', `module` = '$module', `description` = '" . str_replace("'", "''", $description) . "' WHERE `name` = '$command'");
 		} else {
 			$db->exec("INSERT INTO hlpcfg_<myname> (`name`, `module`, `file`, `description`, `admin`, `verify`) VALUES ('$command', '$module', '$actual_filename', '" . str_replace("'", "''", $description) . "', '$admin', 1)");
 		}
