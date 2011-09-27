@@ -25,7 +25,7 @@ if ($packet_type == AOCP_GROUP_MESSAGE) {
 		
 		forEach ($matches as $match) {
 			$name = str_replace("'", "''", $match[4]);
-			$db->exec("INSERT INTO shopping_items (message_id, lowid, highid, ql, iconid, name) VALUES ($id, $match[1], $match[2], $match[3], (SELECT IFNULL(icon, 0) FROM aodb WHERE highid = '{$match[2]}' LIMIT 1), '$name')");
+			$db->exec("INSERT INTO shopping_items (message_id, lowid, highid, ql, iconid, name) VALUES ($id, $match[1], $match[2], $match[3], (SELECT IFNULL(icon, 0) FROM aodb WHERE lowid = '{$match[1]}' LIMIT 1), '$name')");
 		}
 		
 		$db->commit();
