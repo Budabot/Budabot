@@ -196,6 +196,9 @@ class Budabot extends AOChat {
 		Logger::log('DEBUG', 'Core', "MODULE_NAME:(ALTS.php)\n");
 		include "./core/ALTS/ALTS.php";
 		
+		Logger::log('DEBUG', 'Core', "MODULE_NAME:(USAGE.php)\n");
+		include "./core/USAGE/USAGE.php";
+		
 		$db->commit();
 
 		Logger::log('INFO', 'Core', "Loading USER modules...");
@@ -850,6 +853,10 @@ class Budabot extends AOChat {
 			$chatBot->spam[$sender] = $chatBot->spam[$sender] + 20;
 			return;
 		} else {
+			if (Setting::get('record_usage_stats') == 1) {
+				Usage::record($type, $cmd, $sender);
+			}
+		
 			$syntax_error = false;
 			$msg = "";
 			include $filename;
