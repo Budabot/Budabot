@@ -28,7 +28,7 @@ if (preg_match("/^penalty$/i", $message) || preg_match("/^penalty (\\d+)$/i", $m
 				$blob .= "\n<header> ::: {$row->att_faction} ::: <end>\n";
 				$current_faction = $row->att_faction;
 			}
-			$timeString = Util::unixtime_to_readable(time() - $row->penalty_time);
+			$timeString = Util::unixtime_to_readable(time() - $row->penalty_time, false);
 			$blob .= "<$row->att_faction>{$row->att_guild_name}<end> - <white>$timeString ago<end>\n";
 		}
 		$msg = Text::make_blob("Orgs in penalty ($hours hour(s))", $blob);
