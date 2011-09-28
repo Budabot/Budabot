@@ -864,7 +864,7 @@ class Budabot extends AOChat {
 					$helpcmd = ucfirst($cmd);
 				}
 				if ($blob !== false) {
-					$msg = Text::make_blob("Help($helpcmd)", $blob);
+					$msg = Text::make_blob("Help ($helpcmd)", $blob);
 					$chatBot->send($msg, $sendto);
 				} else {
 					$chatBot->send("Error! Check your syntax! For more info try /tell <myname> help", $sendto);

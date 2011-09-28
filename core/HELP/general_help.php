@@ -34,7 +34,7 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 			$blob .= "  *{$row->name}: {$row->description} <a href='chatcmd:///tell <myname> help {$row->name}'>Click here</a>\n";
 		}
 		
-		$msg = Text::make_blob("Help(main)", $blob);
+		$msg = Text::make_blob("Help (main)", $blob);
 	}
 
 	$chatBot->send($msg, $sendto);
@@ -42,7 +42,7 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 	$helpcmd = ucfirst($arr[1]);
 	$blob = Help::find($helpcmd, $sender);
 	if ($blob !== false) {
-		$msg = Text::make_blob("Help($helpcmd)", $blob);
+		$msg = Text::make_blob("Help ($helpcmd)", $blob);
 		$chatBot->send($msg, $sendto);
 	} else {
 		$chatBot->send("No help found on this topic.", $sendto);
