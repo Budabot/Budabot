@@ -1,3 +1,0 @@
-<header>::::: Help on Maxitems Setting :::::<end>
-
-With this setting you can set how much items should be shown at max when you do an itemsearch with the items command.
