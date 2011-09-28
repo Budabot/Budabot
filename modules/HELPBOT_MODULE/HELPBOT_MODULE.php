@@ -14,7 +14,6 @@
 	Command::register($MODULE_NAME, "", "time.php", "time", "all", "Shows the time in the different timezones");
 	Command::register($MODULE_NAME, "", "calc.php", "calc", "all", "Calculator");
 	Command::register($MODULE_NAME, "", "oe.php", "oe", "all", "OE");
-	Command::register($MODULE_NAME, "", "smileys.php", "smileys", "all", "The meaning of different Smileys");
 	Command::register($MODULE_NAME, "", "inspect.php", "inspect", "all", "Inspects Christmas/Eart Gifts and Peren. Containers");
 	Command::register($MODULE_NAME, "", "mobloot.php", "mobloot", "all", "loot QL Infos ");
 	Command::register($MODULE_NAME, "", "random.php", "random", "all", "Random order");
@@ -44,7 +43,6 @@
     Help::register($MODULE_NAME, "time", "time.txt", "all", "Timezones");
     Help::register($MODULE_NAME, "kos", "kos.txt", "all", "Kill On Sight List");
     Help::register($MODULE_NAME, "inspect", "inspect.txt", "all", "How to use inspect");
-	Help::register($MODULE_NAME, "smileys", "smileys.txt", "all", "How to use smileys");
 	Help::register($MODULE_NAME, "buffitem", "buffitem.txt", "all", "How to use buffitem");
 	Help::register($MODULE_NAME, "cluster", "cluster.txt", "all", "How to use cluster");
 	Help::register($MODULE_NAME, "mobloot", "mobloot.txt", "all", "How to use mobloot");

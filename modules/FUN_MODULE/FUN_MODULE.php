@@ -1,6 +1,7 @@
 <?php
 	$MODULE_NAME = "FUN_MODULE";
 
+	Command::register($MODULE_NAME, "", "smileys.php", "smileys", "all", "The meaning of different Smileys");
 	Command::register($MODULE_NAME, "", "fight.php", "fight", "all", "Let two persons fight against each other.", 'fun_module');
 	Command::register($MODULE_NAME, "", "ding.php", "ding", "all", "Shows a random ding gratz message.", 'fun_module');
 	Command::register($MODULE_NAME, "", "fc.php", "fc", "all", "Shows a random FC quote.", 'fun_module');
@@ -16,4 +17,5 @@
 
 	//Help files
 	Help::register($MODULE_NAME, "fun_module", "fun_module.txt", "all", 'Fun Commands');
+	Help::register($MODULE_NAME, "smileys", "smileys.txt", "all", "How to use smileys");
 ?>
