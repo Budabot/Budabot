@@ -5,7 +5,7 @@
 	
 	DB::loadSQLFile($MODULE_NAME, "usage");
 	
-	Event::register($MODULE_NAME, "1min", "submit_usage.php", "none", "Submits usage stats to Budabot website");
+	Event::register($MODULE_NAME, "24hrs", "submit_usage.php", "none", "Submits usage stats to Budabot website");
     
 	Command::register($MODULE_NAME, "", "usage_cmd.php", "usage", "guild", "Shows usage stats");
 	
