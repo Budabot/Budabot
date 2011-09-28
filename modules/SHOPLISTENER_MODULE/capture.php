@@ -11,16 +11,19 @@ if ($packet_type == AOCP_GROUP_MESSAGE) {
 		
 		Logger::log_chat($channel, $sender, $message);
 		
+		$message = preg_replace("/<font(.+)>/U", "", $message);
+		$message = preg_replace("/<\/font>/U", "", $message);
+		
 		$matches = array();
 		$pattern = '/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/';
 		preg_match_all($pattern, $message, $matches, PREG_SET_ORDER);
 		
-		$msg = str_replace("'", "''", $message);
+		$message = str_replace("'", "''", $message);
 		
 		
 		$db->begin_transaction();
 		
-		$db->exec("INSERT INTO shopping_messages (dimension, channel, bot, sender, dt, message) VALUES ('<dim>', '$channel', '<myname>', '$sender', " . time() . ", '$msg')");
+		$db->exec("INSERT INTO shopping_messages (dimension, channel, bot, sender, dt, message) VALUES ('<dim>', '$channel', '<myname>', '$sender', " . time() . ", '$message')");
 		$id = $db->lastInsertId();
 		
 		forEach ($matches as $match) {
