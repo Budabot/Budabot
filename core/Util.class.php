@@ -12,13 +12,29 @@ class Util {
 	
 	// taken from http://www.php.net/manual/en/function.date-diff.php
 	public static function unixtime_to_readable($time, $show_seconds = true) {
-		$days = floor($time / 86400);
+		if ($time == 0) {
+			return '0 secs';
+		}
+	
+		if ($time > 0) {
+			$days = floor($time / 86400);
+		} else {
+			$days = ceil($time / 86400);
+		}
 		$remainder = $time % 86400;
 		
-		$hours = floor($remainder / 3600);
+		if ($remainder > 0) {
+			$hours = floor($remainder / 3600);
+		} else {
+			$hours = ceil($remainder / 3600);
+		}
 		$remainder = $remainder % 3600;
 		
-		$minutes = floor($remainder / 60);
+		if ($remainder > 0) {
+			$minutes = floor($remainder / 60);
+		} else {
+			$minutes = ceil($remainder / 60);
+		}
 		$remainder = $remainder % 60;
 		
 		$seconds = $remainder;
