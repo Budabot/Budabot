@@ -18,7 +18,7 @@ if ($packet_type == AOCP_GROUP_MESSAGE) {
 		$messageType = 1;
 		if (preg_match("/^(.{0,3})wtb/i", $message)) {
 			$messageType = 2;
-		} else if if (preg_match("/^(.{0,3})wtt/i", $message)) {
+		} else if (preg_match("/^(.{0,3})wtt/i", $message)) {
 			$messageType = 3;
 		}
 		
