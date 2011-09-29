@@ -61,23 +61,23 @@ $answer = strtolower(read_input($msg));
 do {		
 	echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 	echo "             ***************************************************\n";
-	echo "             Enter the Account name that contains the\n";
+	echo "             Enter the account username that contains the\n";
 	echo "             character the bot will run on. \n";
 	echo "             Remember this name is case-sensitive!\n";
 	echo "             ***************************************************\n";
 	echo "             \n\n\n\n\n\n\n\n\n";
-	$msg = "Enter the bot AO-Username(case-senstitive): \n";
+	$msg = "Enter the account username (case-senstitive): \n";
 	$vars["login"] = read_input($msg);
 } while ($vars["login"] == "");
 
 do {
 	echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 	echo "             ************************************************\n";	
-	echo "             Enter the Password for the for the Account.\n";
+	echo "             Enter the Password for the for the account.\n";
 	echo "             Remember this is also case-sensitive!\n";
 	echo "             ************************************************\n";
 	echo "             \n\n\n\n\n\n\n\n\n";
-	$msg = "Enter the bot AO-Password(case-senstitive): \n";
+	$msg = "Enter the account password (case-senstitive): \n";
 	$vars["password"] = read_input($msg);
 } while ($vars["password"] == "");	
 
@@ -101,7 +101,7 @@ do {
 	echo "             by someone else or the bot will not be able to log on.\n";
 	echo "             *******************************************************\n";
 	echo "             \n\n\n\n\n\n\n\n";
-	$msg = "Enter the Character you want to use as bot: \n";
+	$msg = "Enter the Character the bot will run as: \n";
 	$vars["name"] = read_input($msg);
 } while ($vars["name"] == "");
 
@@ -113,7 +113,7 @@ echo "             The organization name must match exactly including case\n";
 echo "             and punctuation!\n";
 echo "             ***************************************************\n";
 echo "             \n\n\n\n\n\n\n\n\n";
-$msg = "Enter your Guild:  \n";
+$msg = "Enter your Guild (leave blank if this will be a raid bot): \n";
 $vars["my_guild"] = read_input($msg);
 
 do {
@@ -142,7 +142,7 @@ do {
 	echo "             Mysql and Sqlite.\n";
 	echo "             *********************************************************\n";
 	echo "             \n\n\n\n\n\n\n";
-	$msg = "Do you want to setup the database manually(yes/no - Recommended): \n";
+	$msg = "Do you want to setup the database manually (yes/no - Recommended): \n";
 	$mansetupdb = strtolower(read_input($msg));
 } while ($mansetupdb != "no" && $mansetupdb != "yes");
 
@@ -160,7 +160,7 @@ if (strtolower($mansetupdb) == "yes") {
 		echo "                 that it can be slower then SQLite!\n";
 		echo "             *********************************************************\n";
 		echo "             \n\n\n\n\n\n\n";
-		$msg = "Choose a Databasesystem (1 = Sqlite - Recommended, 2 = MySQL): \n";
+		$msg = "Choose a Database system (1 = Sqlite - Recommended, 2 = MySQL): \n";
 		$vars["DB Type"] = read_input($msg);
 	} while (strtolower($vars["DB Type"]) != "1" && strtolower($vars["DB Type"]) != "2");
 
@@ -203,7 +203,7 @@ if (strtolower($mansetupdb) == "yes") {
 		echo "             (Default: localhost)\n";
 		echo "             **********************************************\n";
 		echo "             \n\n\n\n\n\n\n\n\n";
-		$msg = "Enter the Hostname for the Database(leave blank for default setting): \n";
+		$msg = "Enter the Hostname for the Database (leave blank for default setting): \n";
 		$vars["DB Host"] = read_input($msg);
 
 		if ($vars["DB Host"] == "") {
@@ -217,7 +217,7 @@ if (strtolower($mansetupdb) == "yes") {
 		echo "             (Default: root)\n";
 		echo "             **********************************************\n";
 		echo "             \n\n\n\n\n\n\n\n";
-		$msg = "Enter username for the Database(leave blank for default setting): \n";
+		$msg = "Enter username for the Database (leave blank for default setting): \n";
 		$vars["DB username"] = read_input($msg);
 
 		if ($vars["DB username"] == "") {
@@ -232,7 +232,7 @@ if (strtolower($mansetupdb) == "yes") {
 		echo "             (Default: none)\n";
 		echo "             **********************************************\n";
 		echo "             \n\n\n\n\n\n\n\n\n";
-		$msg = "Enter password for the Database(leave blank for default setting): \n";
+		$msg = "Enter password for the Database (leave blank for default setting): \n";
 		$vars["DB password"] = read_input($msg);
 	} else {
 		echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n";
@@ -245,7 +245,7 @@ if (strtolower($mansetupdb) == "yes") {
 		echo "             (Default: data/)\n";
 		echo "             **********************************************\n";
 		echo "             \n\n\n\n\n\n\n";
-		$msg = "Enter the path for the Database(leave blank for default setting):  \n";
+		$msg = "Enter the path for the Database (leave blank for default setting):  \n";
 		$vars["DB Host"] = read_input($msg);
 
 		if ($vars["DB Host"] == "") {
@@ -292,7 +292,7 @@ echo "             To rerun this setup simply delete your\n";
 echo "             config file: $config_file\n";
 echo "             **********************************************\n";
 echo "         \n\n\n\n\n";
-$msg = "Press any key to start the bot.\n";
+$msg = "Press [Enter] to start the bot.\n";
 read_input($msg);
 
 //Save the entered info to $config_file
