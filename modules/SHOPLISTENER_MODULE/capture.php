@@ -14,6 +14,14 @@ if ($packet_type == AOCP_GROUP_MESSAGE) {
 		$message = preg_replace("/<font(.+)>/U", "", $message);
 		$message = preg_replace("/<\/font>/U", "", $message);
 		
+		// messageType: 1=WTS, 2=WTB, 3=WTT, default to WTS
+		$messageType = 1;
+		if (preg_match("/^(.{0,3})wtb/i", $message)) {
+			$messageType = 2;
+		} else if if (preg_match("/^(.{0,3})wtt/i", $message)) {
+			$messageType = 3;
+		}
+		
 		$matches = array();
 		$pattern = '/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/';
 		preg_match_all($pattern, $message, $matches, PREG_SET_ORDER);
@@ -23,7 +31,7 @@ if ($packet_type == AOCP_GROUP_MESSAGE) {
 		
 		$db->begin_transaction();
 		
-		$db->exec("INSERT INTO shopping_messages (dimension, channel, bot, sender, dt, message) VALUES ('<dim>', '$channel', '<myname>', '$sender', " . time() . ", '$message')");
+		$db->exec("INSERT INTO shopping_messages (dimension, message_type, channel, bot, sender, dt, message) VALUES ('<dim>', '$messageType', '$channel', '<myname>', '$sender', " . time() . ", '$message')");
 		$id = $db->lastInsertId();
 		
 		forEach ($matches as $match) {
