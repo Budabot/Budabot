@@ -367,27 +367,31 @@ class DB {
 			$msg = "No SQL file found with name '$name' in module '$module'!";
 			Logger::log('ERROR', 'Core', "No SQL file found with name '$name' in '$dir'!");
 		} else if ($forceUpdate || Util::compare_version_numbers($maxFileVersion, $currentVersion) > 0) {
-			$fileArray = file("$dir/$file");
-			//$db->begin_transaction();
-			forEach ($fileArray as $num => $line) {
-				$line = trim($line);
-				// don't process comment lines or blank lines
-				if ($line != '' && substr($line, 0, 1) != "#" && substr($line, 0, 2) != "--") {
-					$db->exec($line);
+			$handle = @fopen("$dir/$file", "r");
+			if ($handle) {
+				//$db->begin_transaction();
+				while (($line = fgets($handle)) !== false) {
+					$line = trim($line);
+					// don't process comment lines or blank lines
+					if ($line != '' && substr($line, 0, 1) != "#" && substr($line, 0, 2) != "--") {
+						$db->exec($line);
+					}
 				}
-			}
-			//$db->commit();
-		
-			if (!Setting::save($settingName, $maxFileVersion)) {
-				Setting::add($module, $settingName, $settingName, 'noedit', 'text', $maxFileVersion);
-			}
+				//$db->commit();
 			
-			if ($maxFileVersion != 0) {
-				$msg = "Updated '$name' database from '$currentVersion' to '$maxFileVersion'";
-				Logger::log('DEBUG', 'Core', "Updated '$name' database from '$currentVersion' to '$maxFileVersion'");
+				if (!Setting::save($settingName, $maxFileVersion)) {
+					Setting::add($module, $settingName, $settingName, 'noedit', 'text', $maxFileVersion);
+				}
+				
+				if ($maxFileVersion != 0) {
+					$msg = "Updated '$name' database from '$currentVersion' to '$maxFileVersion'";
+					Logger::log('DEBUG', 'Core', "Updated '$name' database from '$currentVersion' to '$maxFileVersion'");
+				} else {
+					$msg = "Updated '$name' database";
+					Logger::log('DEBUG', 'Core', "Updated '$name' database");
+				}
 			} else {
-				$msg = "Updated '$name' database";
-				Logger::log('DEBUG', 'Core', "Updated '$name' database");
+				Logger::log('ERROR', 'Core',  "Could not load SQL file: '$dir/$file'");
 			}
 		} else {
 			$msg = "'$name' database already up to date! version: '$currentVersion'";
