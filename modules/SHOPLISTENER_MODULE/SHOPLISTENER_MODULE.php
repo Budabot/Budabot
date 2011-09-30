@@ -3,6 +3,7 @@
 
 	DB::loadSQLFile($MODULE_NAME, 'shopping_messages');	
 	DB::loadSQLFile($MODULE_NAME, 'shopping_items');
+	DB::loadSQLFile($MODULE_NAME, 'aodb_items');
 
 	Event::register($MODULE_NAME, "allpackets", "capture.php", "none", "Capture messages from shopping channel");
 	Event::register($MODULE_NAME, "24hrs", "remove_old_messages.php", "none", "Remove old shopping messages from the database");

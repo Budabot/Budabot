@@ -24,7 +24,8 @@ if (preg_match("/^shop (.+)$/i", $message, $arr)) {
 	forEach ($data as $row) {
 		$senderLink = Text::make_userlink($row->sender);
 		$timeString = Util::unixtime_to_readable(time()- $row->dt, false);
-		$blob .= "[$senderLink]: {$row->message} - <highlight>($timeString ago)<end>\n\n";
+		$post = preg_replace('/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/', "<a href='itemref://\\1/\\2/\\3'>\\4</a>", $row->message);
+		$blob .= "[$senderLink]: {$post} - <highlight>($timeString ago)<end>\n\n";
 	}
 	
 	$msg = Text::make_blob("Shopping Results for '$search'", $blob);
