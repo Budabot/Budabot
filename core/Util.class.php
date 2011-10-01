@@ -294,6 +294,16 @@ class Util {
 	public static function isValidSender($sender) {
 		return (int)0xFFFFFFFF == $sender ? false : true;
 	}
+	
+	// taken from: http://www.lost-in-code.com/programming/php-code/php-random-string-with-numbers-and-letters/
+	public static function genRandomString($length = 10) {
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+		$string = '';    
+		for ($p = 0; $p < $length; $p++) {
+			$string .= $characters[mt_rand(0, strlen($characters))];
+		}
+		return $string;
+	}
 }
 
 ?>
