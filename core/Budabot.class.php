@@ -849,11 +849,11 @@ class Budabot extends AOChat {
 				return;
 			}
 				
-			$chatBot->send("Error! Unknown command or Access denied! For more info try /tell <myname> help", $sendto);
+			$chatBot->send("Error! Unknown command or Access denied.", $sendto);
 			$chatBot->spam[$sender] = $chatBot->spam[$sender] + 20;
 			return;
 		} else {
-			if (Setting::get('record_usage_stats') == 1) {
+			if ($cmd != 'grc' && Setting::get('record_usage_stats') == 1) {
 				Usage::record($type, $cmd, $sender);
 			}
 		
@@ -874,7 +874,7 @@ class Budabot extends AOChat {
 					$msg = Text::make_blob("Help ($helpcmd)", $blob);
 					$chatBot->send($msg, $sendto);
 				} else {
-					$chatBot->send("Error! Check your syntax! For more info try /tell <myname> help", $sendto);
+					$chatBot->send("Error! Invalid syntax for this command.", $sendto);
 				}
 			}
 			$chatBot->spam[$sender] = $chatBot->spam[$sender] + 10;
