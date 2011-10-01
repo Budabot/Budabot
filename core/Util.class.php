@@ -54,30 +54,48 @@ class Util {
 		return trim($timeshift);
 	}
 	
-	public static function parseTime($time_string) {
-		$run_time = 0;
+	public static function parseTime($budatime) {
+		$unixtime = 0;
 		
-		if (preg_match("/([0-9]+)(w|week|weeks)/i", $time_string, $weeks)) {
-			$run_time += $weeks[1] * 604800;
-		}
-
-		if (preg_match("/([0-9]+)(d|day|days)/i", $time_string, $days)) {
-			$run_time += $days[1] * 86400;
-		}
-
-		if (preg_match("/([0-9]+)(h|hr|hrs)/i", $time_string, $hours)) {
-			$run_time += $hours[1] * 3600;
-		}
-
-		if (preg_match("/([0-9]+)(m|min|mins)/i", $time_string, $mins)) {
-			$run_time += $mins[1] * 60;
-		}
-
-		if (preg_match("/([0-9]+)(s|sec|secs)/i", $time_string, $secs)) {
-			$run_time += $secs[1];
+		$matches = array();
+		$pattern = '/([0-9]+)([a-z]+)/';
+		preg_match_all($pattern, $budatime, $matches, PREG_SET_ORDER);
+		
+		forEach ($matches as $match) {
+			switch ($match[2]) {
+				case 'weeks':
+				case 'week':
+				case 'w':
+					$unixtime += $match[1] * 604800;
+					break;
+				case 'days':
+				case 'day':
+				case 'd':
+					$unixtime += $match[1] * 86400;
+					break;
+				case 'hours':
+				case 'hour':
+				case 'hrs':
+				case 'hr':
+				case 'h':
+					$unixtime += $match[1] * 3600;
+					break;
+				case 'mins':
+				case 'min':
+				case 'm':
+					$unixtime += $match[1] * 60;
+					break;
+				case 'secs':
+				case 'sec':
+				case 's':
+					$unixtime += $match[1];
+					break;
+				default:
+					return 0;
+			}
 		}
 		
-		return $run_time;
+		return $unixtime;
 	}
 	
 	/**
