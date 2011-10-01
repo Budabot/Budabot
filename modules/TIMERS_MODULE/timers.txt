@@ -14,14 +14,4 @@
 <highlight>Remove a timer(only your own)<end>
 <tab><symbol>timer rem 'Timername'
 
-<highlight>The time for the timer needs to be written in this format<end>
-<tab>days => 1d, 1day, 1days
-<tab>hours => 1h, 1hr, 1hrs
-<tab>minutes => 1m, 1min, 1mins
-<tab>seconds => 1s, 1sec, 1secs
-
-<highlight>Examples<end>
-<tab><symbol>timer 2d9h5m43s                      <highlight>--sets your primary timer for 2 days, 9 hours, 5 minutes, 43 seconds<end>
-<tab><symbol>timer 4day8s                            <highlight>--sets your primary timer for 4 days, 8 seconds<end>
-<tab><symbol>timer 18hr20mins spawntime    <highlight>--sets a timer named 'spawntime' for 18 hours, 20 minutes<end>
-<tab><symbol>timer 2h perk reset                  <highlight>--sets a timer named 'perk reset' for 2 hours<end>
+See <a href='chatcmd:///tell <myname> help budatime'>budatime</a> for info on the format of the 'time' parameter.

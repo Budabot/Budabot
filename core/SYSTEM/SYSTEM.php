@@ -54,4 +54,5 @@
 	Help::register($MODULE_NAME, "lookup", "lookup.txt", "all", "How to get the id of a character");
 	Help::register($MODULE_NAME, "loadsql", "loadsql.txt", "mod", "How to manually load an sql file");
 	Help::register($MODULE_NAME, "clearqueue", "clearqueue.txt", "mod", "How to clear the outgoing chat message queue");
+	Help::register($MODULE_NAME, "budatime", "budatime.txt", "all", "Format for budatime");
 ?>
