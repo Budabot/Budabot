@@ -23,7 +23,7 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 	if (count($help_array) == 0) {
 		$msg = "<orange>No Helpfiles found.<end>";
 	} else {
-		$blob = "<header> :::: Help Files for Budabot {$version} ::: <end>\n\n";
+		$blob = "<header> :::::: Help Files for Budabot {$version} :::::: <end>\n\n";
 		$current_module = '';
 		forEach ($help_array as $row) {
 			if ($current_module != $row->module) {

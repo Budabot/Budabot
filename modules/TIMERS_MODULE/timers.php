@@ -77,7 +77,7 @@ if (preg_match("/^(timers|timers add) ([0-9]+)$/i", $message, $arr) || preg_matc
 	$run_time = Util::parseTime($time_string);
 
 	if ($run_time == 0) {
-		$msg = "Your timer must be longer than 0 seconds.";
+		$msg = "You must enter a valid duration.";
 		$chatBot->send($msg, $sendto);
 		return;
 	}
