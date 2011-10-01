@@ -55,8 +55,8 @@ if (preg_match("/^(timers|timers add) ([0-9]+)$/i", $message, $arr) || preg_matc
 	}
 
     $chatBot->send($msg, $sendto);
-} else if (preg_match("/^(timers add|timers) ((([0-9]+)(d|day|days))?.?(([0-9]+)(h|hr|hrs))?.?(([0-9]+)(m|min|mins))?.?(([0-9]+)(s|sec|secs))?)$/i", $message, $arr) ||
-		preg_match("/^(timers add|timers) ((([0-9]+)(d|day|days))?.?(([0-9]+)(h|hr|hrs))?.?(([0-9]+)(m|min|mins))?.?(([0-9]+)(s|sec|secs))?) (.+)$/i", $message, $arr2)) {
+} else if (preg_match("/^(timers add|timers) ([a-z0-9]+)$/i", $message, $arr) ||
+		preg_match("/^(timers add|timers) ([a-z0-9]+) (.+)$/i", $message, $arr2)) {
 
 	if ($arr) {
 		$timer_name = 'PrimTimer';
@@ -87,7 +87,7 @@ if (preg_match("/^(timers|timers add) ([0-9]+)$/i", $message, $arr) || preg_matc
 	Timer::add_timer($timer_name, $sender, $type, $timer);
 
 	$timerset = Util::unixtime_to_readable($run_time);
-	$msg = "Timer has been set for $timerset.";
+	$msg = "Timer <highlight>$timer_name<end> has been set for $timerset.";
 		
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^timers$/i", $message, $arr)) {
