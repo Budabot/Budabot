@@ -31,6 +31,7 @@ class Usage {
 			$obj->id = sha1($botid . $chatBot->vars['name'] . $chatBot->vars['dimension']);
 			$obj->dimension = $chatBot->vars['dimension'];
 			$obj->commands = $data;
+			$obj->version = "1.0";
 
 			$postArray['stats'] = json_encode($obj);
 
