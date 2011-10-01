@@ -18,6 +18,12 @@ class Usage {
 		if ($lastSubmittedStats == false) {
 			$lastSubmittedStats = 0;
 		}
+		
+		$botid = Setting::get('botid');
+		if ($botid == '') {
+			$botid = Util::genRandomString(20);
+			Setting::add("USAGE", 'botid', 'botid', 'noedit', 'text', $botid);
+		}
 
 		$sql = "SELECT type, command FROM usage_<myname> WHERE dt >= $lastSubmittedStats";
 		$db->query($sql);
@@ -25,7 +31,7 @@ class Usage {
 
 		if (count($data) > 0) {
 			$obj = new stdClass;
-			$obj->id = sha1($chatBot->vars['name'] . $chatBot->vars['dimension']);
+			$obj->id = sha1($botid . $chatBot->vars['name'] . $chatBot->vars['dimension']);
 			$obj->dimension = $chatBot->vars['dimension'];
 			$obj->usage = $data;
 
