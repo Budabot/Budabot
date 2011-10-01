@@ -161,44 +161,14 @@ class Budabot extends AOChat {
 		  	$this->existing_cmd_aliases[$row->alias] = true;
 		}
 
-		$db->begin_transaction();
-
 		// Load the Core Modules -- SETINGS must be first in case the other modules have settings
 		Logger::log('INFO', 'Core', "Loading CORE modules...");
-		
-		Logger::log('DEBUG', 'Core', "MODULE_NAME:(SETTINGS.php)");
-		include "./core/SETTINGS/SETTINGS.php";
-		
-		Logger::log('DEBUG', 'Core', "MODULE_NAME:(SYSTEM.php)");
-		include "./core/SYSTEM/SYSTEM.php";
-		
-		Logger::log('DEBUG', 'Core', "MODULE_NAME:(ADMIN.php)");
-		include "./core/ADMIN/ADMIN.php";
-		
-		Logger::log('DEBUG', 'Core', "MODULE_NAME:(BAN.php)");
-		include "./core/BAN/BAN.php";
-		
-		Logger::log('DEBUG', 'Core', "MODULE_NAME:(HELP.php)");
-		include "./core/HELP/HELP.php";
-		
-		Logger::log('DEBUG', 'Core', "MODULE_NAME:(CONFIG.php)");
-		include "./core/CONFIG/CONFIG.php";
-		
-		Logger::log('DEBUG', 'Core', "MODULE_NAME:(PRIV_TELL_LIMIT.php)\n");
-		include "./core/PRIV_TELL_LIMIT/PRIV_TELL_LIMIT.php";
-		
-		Logger::log('DEBUG', 'Core', "MODULE_NAME:(PLAYER_LOOKUP.php)\n");
-		include "./core/PLAYER_LOOKUP/PLAYER_LOOKUP.php";
-		
-		Logger::log('DEBUG', 'Core', "MODULE_NAME:(FRIENDLIST.php)\n");
-		include "./core/FRIENDLIST/FRIENDLIST.php";
-		
-		Logger::log('DEBUG', 'Core', "MODULE_NAME:(ALTS.php)\n");
-		include "./core/ALTS/ALTS.php";
-		
-		Logger::log('DEBUG', 'Core', "MODULE_NAME:(USAGE.php)\n");
-		include "./core/USAGE/USAGE.php";
-		
+		$core_modules = array('SETTINGS', 'SYSTEM', 'ADMIN', 'BAN', 'HELP', 'CONFIG', 'PRIV_TELL_LIMIT', 'PLAYER_LOOKUP', 'FRIENDLIST', 'ALTS', 'USAGE');
+		$db->begin_transaction();
+		forEach ($core_modules as $MODULE_NAME) {
+			Logger::log('DEBUG', 'Core', "MODULE_NAME:({$MODULE_NAME}.php)");
+			include "./core/{$MODULE_NAME}/{$MODULE_NAME}.php";
+		}
 		$db->commit();
 
 		Logger::log('INFO', 'Core', "Loading USER modules...");
@@ -308,12 +278,13 @@ class Budabot extends AOChat {
 		global $chatBot;
 
 		if ($d = dir("./modules")) {
-			while (false !== ($entry = $d->read())) {
-				if (!is_dir($entry)) {
+			while (false !== ($MODULE_NAME = $d->read())) {
+				// filters out ., .., .svn
+				if (!is_dir($MODULE_NAME)) {
 					// Look for the plugin's ... setup file
-					if (file_exists("./modules/$entry/$entry.php")) {
-						Logger::log('DEBUG', 'Core', "MODULE_NAME:($entry.php)");
-						require "./modules/$entry/$entry.php";
+					if (file_exists("./modules/{$MODULE_NAME}/{$MODULE_NAME}.php")) {
+						Logger::log('DEBUG', 'Core', "MODULE_NAME:({$MODULE_NAME}.php)");
+						require "./modules/{$MODULE_NAME}/{$MODULE_NAME}.php";
 					}
 				}
 			}
