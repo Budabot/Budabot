@@ -1,6 +1,4 @@
 <?php
-	$MODULE_NAME = "RELAY_MODULE";
-	
 	require_once 'functions.php';
 	
 	// Sending messages to relay

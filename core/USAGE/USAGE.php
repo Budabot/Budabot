@@ -1,7 +1,5 @@
 <?php
 	require_once 'Usage.class.php';
-
-	$MODULE_NAME = "USAGE";
 	
 	DB::loadSQLFile($MODULE_NAME, "usage");
 	

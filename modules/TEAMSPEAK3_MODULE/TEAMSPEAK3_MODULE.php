@@ -1,8 +1,6 @@
 <?php
 	require_once 'Teamspeak3.class.php';
 
-	$MODULE_NAME = "TEAMSPEAK3_MODULE";
-
 	Command::register($MODULE_NAME, "", "ts.php", "ts", "guild", "Show users connected to Teamspeak3 server");
 	Command::register($MODULE_NAME, "", "aospeak.php", "aospeak", "guild", "Show org members connected to AOSpeak server");
 

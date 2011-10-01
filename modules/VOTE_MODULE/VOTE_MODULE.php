@@ -1,6 +1,4 @@
 <?php
-	$MODULE_NAME = "VOTE_MODULE";
-	
 	Event::register($MODULE_NAME, "setup", "setup.php");
 
 	Command::register($MODULE_NAME, "", "vote.php", "vote", "all", "Vote/Polling");

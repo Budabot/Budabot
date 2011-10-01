@@ -1,8 +1,6 @@
 <?php
 	require_once 'db_utils.php';
 
-	$MODULE_NAME = "HELPBOT_MODULE";
-
 	DB::loadSQLFile($MODULE_NAME, "roll");
 	DB::loadSQLFile($MODULE_NAME, "koslist");
 	DB::loadSQLFile($MODULE_NAME, "dyna");

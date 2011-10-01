@@ -1,6 +1,4 @@
 <?php
-	$MODULE_NAME = "WAITLIST_MODULE";
-
 	// Commands
 	Command::register($MODULE_NAME, "", "waitlist.php", "waitlist", "all", "Show/Set the Waitlist");
 

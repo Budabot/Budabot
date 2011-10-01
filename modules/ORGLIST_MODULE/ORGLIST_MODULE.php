@@ -1,6 +1,4 @@
 <?php
-	$MODULE_NAME = "ORGLIST_MODULE";
- 
 	// Checks who in an org is online
 	Command::register($MODULE_NAME, "", "orglist.php", "orglist", "guildadmin", "Check someones org roster");
 	CommandAlias::register($MODULE_NAME, "orglist", "onlineorg");

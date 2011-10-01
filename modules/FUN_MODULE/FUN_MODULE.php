@@ -1,6 +1,4 @@
 <?php
-	$MODULE_NAME = "FUN_MODULE";
-
 	Command::register($MODULE_NAME, "", "smileys.php", "smileys", "all", "The meaning of different Smileys");
 	Command::register($MODULE_NAME, "", "fight.php", "fight", "all", "Let two persons fight against each other.", 'fun_module');
 	Command::register($MODULE_NAME, "", "ding.php", "ding", "all", "Shows a random ding gratz message.", 'fun_module');

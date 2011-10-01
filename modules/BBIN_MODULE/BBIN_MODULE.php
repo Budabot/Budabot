@@ -10,7 +10,6 @@
    
 	require_once "bbin_func.php";
 
-	$MODULE_NAME = "BBIN_MODULE";
 	if (Setting::get('bbin_channel') == "") {
 		if ($chatBot->vars['my_guild'] == "") {
 			$channel = "#".strtolower($chatBot->vars['name']);

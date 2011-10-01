@@ -1,6 +1,4 @@
 <?php
-	$MODULE_NAME = "TEAMSPEAK2_MODULE";
-
 	Command::register($MODULE_NAME, "", "teamspeak_server.php", "ts", "all", "Show Status of the Teamspeak2 Server");
 
 	Setting::add($MODULE_NAME, "ts_ip", "IP from the TS Server", "edit", "text", "Not set yet.", "", '', "mod");	

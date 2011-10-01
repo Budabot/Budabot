@@ -1,7 +1,4 @@
 <?php 
-	$MODULE_NAME = "SYSTEM";
-
-	//Commands
 	Command::activate("msg", "$MODULE_NAME/restart.php", "restart", "admin");
 	Command::activate("priv", "$MODULE_NAME/restart.php", "restart", "admin");
 	Command::activate("guild", "$MODULE_NAME/restart.php", "restart", "admin");
@@ -47,7 +44,6 @@
 	Setting::add($MODULE_NAME, 'guild_channel_cmd_feedback', "Show message on invalid command in guild channel", 'edit', "options", 1, "true;false", "1;0", 'mod');
 	Setting::add($MODULE_NAME, 'private_channel_cmd_feedback', "Show message on invalid command in private channel", 'edit', "options", 1, "true;false", "1;0", 'mod');
 
-	//Help Files
 	Help::register($MODULE_NAME, "system", "system.txt", "admin", "Admin System Help file");
 	Help::register($MODULE_NAME, "guild_admin_level", "guild_admin_level.txt", "mod", "Change what guild rank and high receives the guild admin level privilege");
 	Help::register($MODULE_NAME, "spam_protection", "spam_protection.txt", "mod", "Enable or disable the spam protection");

@@ -1,8 +1,6 @@
 <?php
 	require_once 'implant_functions.php';
 
-	$MODULE_NAME = "IMPLANT_MODULE";
-
 	// Setup
 	DB::loadSQLFile($MODULE_NAME, "implant");
 	DB::loadSQLFile($MODULE_NAME, "premade_implant");

@@ -1,7 +1,5 @@
 <?php
 	require_once "online_func.php";
-
-	$MODULE_NAME = "ONLINE_MODULE";
 	
 	DB::loadSQLFile($MODULE_NAME, "online");
 

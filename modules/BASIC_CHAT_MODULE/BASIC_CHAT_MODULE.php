@@ -1,6 +1,4 @@
 <?php
-	$MODULE_NAME = "BASIC_CHAT_MODULE";
-
 	// Check macros
 	Command::register($MODULE_NAME, "", "check.php", "check", "rl", "Checks who of the raidgroup is in the area");
 

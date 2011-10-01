@@ -1,6 +1,4 @@
 <?php
-	$MODULE_NAME = "PRIVATE_CHANNEL_MODULE";
-	
 	DB::loadSQLFile($MODULE_NAME, "private_chat");
     
     Command::register($MODULE_NAME, "", "members.php", "members", "all", "Member list", 'private_channel');

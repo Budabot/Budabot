@@ -1,8 +1,6 @@
 <?php
 	require_once 'Timer.class.php';
 
-	$MODULE_NAME = "TIMERS_MODULE";
-
 	Event::register($MODULE_NAME, "setup", "setup.php");
 
 	// Timer Module

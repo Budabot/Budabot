@@ -1,6 +1,4 @@
 <?php
-	$MODULE_NAME = "FRIENDLIST";
-
 	Command::register($MODULE_NAME, "", "friendlist_cmd.php", "friendlist", "mod", "Show buddies on bot's buddylist");
 	Command::register($MODULE_NAME, "", "addbuddy.php", "addbuddy", "mod", "Add a buddy to bot's buddylist", 'friendlist');
 	Command::register($MODULE_NAME, "", "rembuddy.php", "rembuddy", "mod", "Remove a buddy from bot's buddylist", 'friendlist');

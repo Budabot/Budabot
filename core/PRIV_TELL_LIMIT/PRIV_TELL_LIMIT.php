@@ -1,6 +1,4 @@
 <?php
-	$MODULE_NAME = "PRIV_TELL_LIMIT";
-	
 	require_once 'Whitelist.class.php';
 	
 	DB::loadSqlFile($MODULE_NAME, 'whitelist');

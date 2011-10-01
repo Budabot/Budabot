@@ -2,8 +2,6 @@
 	require_once "vent.inc.php";
 	require_once "ventrilostatus.php";
 
-	$MODULE_NAME = "VENTRILO_MODULE"; 
-
 	Command::register($MODULE_NAME, "", "vent.php", "vent", "guild", "Show Ventrilo Server Info");
 	
 	Setting::add($MODULE_NAME, "ventaddress", "Ventrilo Server Address", "edit", "text", "unknown");

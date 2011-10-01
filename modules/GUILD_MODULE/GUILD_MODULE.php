@@ -1,6 +1,4 @@
 <?php
-	$MODULE_NAME = "GUILD_MODULE";
-
 	DB::add_table_replace('#__org_history', 'org_history');	
 	DB::loadSQLFile($MODULE_NAME, "org_members");
 	DB::loadSQLFile($MODULE_NAME, "org_history");

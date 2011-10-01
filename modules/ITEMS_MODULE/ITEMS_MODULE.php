@@ -1,8 +1,6 @@
 <?php
 	require_once 'functions.php';
 
-	$MODULE_NAME = "ITEMS_MODULE";
-
 	//Load items db
 	DB::loadSQLFile($MODULE_NAME, "aodb");
 

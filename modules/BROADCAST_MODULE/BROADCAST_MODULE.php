@@ -1,6 +1,4 @@
 <?php
-	$MODULE_NAME = "BROADCAST_MODULE";
-	
 	DB::loadSQLFile($MODULE_NAME, 'broadcast');
 	
 	Event::register($MODULE_NAME, "setup", "setup.php");

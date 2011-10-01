@@ -1,6 +1,4 @@
 <?php
-	$MODULE_NAME = "SHOPLISTENER_MODULE";
-
 	DB::loadSQLFile($MODULE_NAME, 'shopping_messages');	
 	DB::loadSQLFile($MODULE_NAME, 'shopping_items');
 	DB::loadSQLFile($MODULE_NAME, 'aodb_items');

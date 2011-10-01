@@ -1,8 +1,6 @@
 <?php
 	require_once 'Raid.class.php';
 
-	$MODULE_NAME = "RAID_MODULE";
-	
 	DB::loadSQLFile($MODULE_NAME, 'raid_loot');
 
 	//Loot list and adding/removing of players	

@@ -12,8 +12,6 @@
 
 	require_once 'raffle_func.php';
 
-	$MODULE_NAME = "RAFFLE_MODULE";
-
 	// Setup
 	Event::register($MODULE_NAME, "setup", "setup.php");
 

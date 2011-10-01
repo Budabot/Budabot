@@ -1,6 +1,4 @@
 <?php
-	$MODULE_NAME = "WEBCAST_MODULE";
-
 	// Commands 
 	Command::register($MODULE_NAME, "", "webcast.php", "webcast", "admin", "Sends your online list to a webserver");
 

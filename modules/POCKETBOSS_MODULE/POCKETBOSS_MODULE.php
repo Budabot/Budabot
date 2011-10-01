@@ -1,6 +1,4 @@
 <?php
-	$MODULE_NAME = "POCKETBOSS_MODULE";
-
 	DB::loadSQLFile($MODULE_NAME, "pocketboss");
 
 	Command::register($MODULE_NAME, "", "pb.php", "pb", "all", "Shows what symbs a PB drops");

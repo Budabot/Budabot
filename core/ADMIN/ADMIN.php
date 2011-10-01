@@ -1,7 +1,4 @@
 <?php 
-	$MODULE_NAME = "ADMIN";
-
-	//Commands	
 	Command::activate("msg", "$MODULE_NAME/addadmin.php", "addadmin", "admin");
 	Command::activate("priv", "$MODULE_NAME/addadmin.php", "addadmin", "admin");
 	Command::activate("guild", "$MODULE_NAME/addadmin.php", "addadmin", "admin");
@@ -30,15 +27,12 @@
 	Command::activate("priv", "$MODULE_NAME/adminlist.php", "adminlist");
 	Command::activate("guild", "$MODULE_NAME/adminlist.php", "adminlist");
 
-	//Events
 	Event::activate("logOn", "$MODULE_NAME/admin_logon.php");
 	Event::activate("logOff", "$MODULE_NAME/admin_logoff.php");
 	Event::activate("24hrs", "$MODULE_NAME/check_admins.php");
 
-	//Setup
 	Event::activate("setup", "$MODULE_NAME/upload_admins.php");
 
-	//Help Files
 	Help::register($MODULE_NAME, "admin", "admin.txt", "mod", "Mod/Admin Help file");
 	Help::register($MODULE_NAME, "alts_inherit_admin", "alts_inherit_admin.txt", "mod", "Alts inherit admin privileges from main");
 ?>

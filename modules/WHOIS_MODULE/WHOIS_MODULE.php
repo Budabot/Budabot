@@ -1,6 +1,4 @@
 <?php
-	$MODULE_NAME = "WHOIS_MODULE";
-	
 	DB::loadSQLFile($MODULE_NAME, 'name_history');
 
 	Command::register($MODULE_NAME, "", "whois.php", "whois", "all", "Display a character's info");

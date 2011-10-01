@@ -1,6 +1,4 @@
 <?php
-	$MODULE_NAME = "NANO_MODULE";
-
 	//Search for Database Updates
 	DB::loadSQLFile($MODULE_NAME, "nanos");
 	DB::loadSQLFile($MODULE_NAME, "nanolines");

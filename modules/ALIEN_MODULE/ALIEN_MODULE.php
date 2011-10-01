@@ -1,7 +1,5 @@
 <?php
 	require_once 'functions.php';
-
-	$MODULE_NAME = "ALIEN_MODULE";
 	
 	DB::loadSQLFile($MODULE_NAME, 'leprocs');
 	DB::loadSQLFile($MODULE_NAME, 'ofabarmor');
@@ -19,7 +17,6 @@
 	Command::register($MODULE_NAME, "", "leprocs.php", "leprocs", "all", "Shows the LE Procs for a particular profession");
 	CommandAlias::register($MODULE_NAME, "leprocs", "leproc");
 
-	// Help files
     Help::register($MODULE_NAME, "bio", "bio.txt", "all", "Identify an Biomaterial");
 	Help::register($MODULE_NAME, "bioinfo", "bioinfo.txt", "all", "How to find info on a bio type");
     Help::register($MODULE_NAME, "aiarmor", "aiarmor.txt", "all", "Alien armor Tradeskillprocess");

@@ -7,7 +7,6 @@
    **
    */
 
-	$MODULE_NAME = "IRC_MODULE";
 	if (Setting::get('irc_channel') == "") {
 		if ($chatBot->vars['my_guild'] == "") {
 			$channel = "#".strtolower($chatBot->vars['name']);

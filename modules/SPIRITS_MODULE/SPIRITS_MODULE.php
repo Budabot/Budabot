@@ -1,6 +1,4 @@
 <?php
-	$MODULE_NAME = "SPIRITS_MODULE";
-	
 	DB::loadSQLFile($MODULE_NAME, "spirits");
 	
 	Command::register($MODULE_NAME, "", "spirits.php", "spirits", "all", "Search for Spirits");

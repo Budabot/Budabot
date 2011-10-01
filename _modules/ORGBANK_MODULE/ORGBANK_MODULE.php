@@ -15,8 +15,6 @@
    ** See end of file for changelog. 
    */
 
-$MODULE_NAME = "ORGBANK_MODULE";
-
 // If you have made a save of the orgbank from a previous version, you can 
 // reload it from here. Make sure the file is called orgbank.sql
 // Be sure to // it after you have done it once, or you will repeat-fill the bank. 

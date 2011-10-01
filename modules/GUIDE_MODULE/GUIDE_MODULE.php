@@ -30,8 +30,6 @@
    */
    
 	require_once 'functions.php';
-   
-	$MODULE_NAME = "GUIDE_MODULE";
 
 	Command::register($MODULE_NAME, "", "guides.php", "guides", "all", "Guides for AO");
 	Command::register($MODULE_NAME, "", "aou.php", "aou", "all", "Search for or view a guide from AO-Universe");
