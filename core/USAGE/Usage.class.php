@@ -15,9 +15,6 @@ class Usage {
 		$time = time();
 		$settingName = 'last_submitted_stats';
 		$lastSubmittedStats = Setting::get($settingName);
-		if ($lastSubmittedStats == false) {
-			$lastSubmittedStats = 0;
-		}
 		
 		$botid = Setting::get('botid');
 		if ($botid == '') {
@@ -33,18 +30,16 @@ class Usage {
 			$obj = new stdClass;
 			$obj->id = sha1($botid . $chatBot->vars['name'] . $chatBot->vars['dimension']);
 			$obj->dimension = $chatBot->vars['dimension'];
-			$obj->usage = $data;
+			$obj->commands = $data;
 
-			$postArray = array('stats' => json_encode($obj));
+			$postArray['stats'] = json_encode($obj);
 
-			$url = 'stats.budabot.com/submitUsage.php';
+			$url = 'stats.jkbff.com/submitUsage.php';
 			$mycurl = new MyCurl($url);
 			$mycurl->setPost($postArray);
 			$mycurl->createCurl();
 
-			if (!Setting::save($settingName, $time)) {
-				Setting::add('USAGE', $settingName, $settingName, 'noedit', 'text', $time);
-			}
+			Setting::save($settingName, $time);
 		}
 	}
 }
