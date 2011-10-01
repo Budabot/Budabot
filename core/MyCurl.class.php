@@ -7,7 +7,7 @@ class MyCurl {
 	protected $_followlocation;
 	protected $_timeout;
 	protected $_maxRedirects;
-	protected $_cookieFileLocation = './cookie.txt';
+	protected $_cookieFileLocation = './data/cookie.txt';
 	protected $_post;
 	protected $_postFields;
 	protected $_referer ="http://www.google.com";
@@ -24,7 +24,9 @@ class MyCurl {
 
 	public function useAuth($use) {
 		$this->authentication = 0;
-		if($use == true) $this->authentication = 1;
+		if ($use == true) {
+			$this->authentication = 1;
+		}
 	}
 
 	public function setName($name) {
@@ -44,8 +46,6 @@ class MyCurl {
 		$this->_noBody = $noBody;
 		$this->_includeHeader = $includeHeader;
 		$this->_binaryTransfer = $binaryTransfer;
-
-		$this->_cookieFileLocation = dirname(__FILE__).'/cookie.txt';
 	}
 
 	public function setReferer($referer) {
@@ -66,7 +66,7 @@ class MyCurl {
 	}
 
 	public function createCurl($url = 'nul') {
-		if ($url != 'nul'){
+		if ($url != 'nul') {
 			$this->_url = $url;
 		}
 
