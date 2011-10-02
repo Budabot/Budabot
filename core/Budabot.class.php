@@ -786,7 +786,7 @@ class Budabot extends AOChat {
 		$cmd = strtolower($cmd);
 		
 		// Check if this is an alias for a command
-		if ($chatBot->cmd_aliases[$cmd]) {
+		if (isset($chatBot->cmd_aliases[$cmd])) {
 			Logger::log('DEBUG', 'Core', "Command alias found command: '{$chatBot->cmd_aliases[$cmd]}' alias: '{$cmd}'");
 			$cmd = $chatBot->cmd_aliases[$cmd];
 			if ($params) {
@@ -802,7 +802,7 @@ class Budabot extends AOChat {
 		$filename = $chatBot->commands[$type][$cmd]["filename"];
 
 		// Check if a subcommands for this exists
-		if ($chatBot->subcommands[$cmd]) {
+		if (isset($chatBot->subcommands[$cmd])) {
 			forEach ($chatBot->subcommands[$cmd] as $row) {
 				if ($row->type == $type && preg_match("/^{$row->cmd}$/i", $message)) {
 					$admin = $row->admin;

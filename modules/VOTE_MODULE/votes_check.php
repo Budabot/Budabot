@@ -10,39 +10,48 @@
    ** Date(last modified): 02.06.2007
    */
    
-if (count($chatBot->data["Vote"]) == 0) {
+if (!isset($chatBot->data["Vote"]) || count($chatBot->data["Vote"]) == 0) {
 	return;
 }
 $delimiter = "|";
 
 // I hate seeing a function in a module/plugin. 
 // But this is just temporary until 0.7.0.
-if (!function_exists(timeLeft)) {function timeLeft($origtime, $showbiggest=4) {
-	// deal with negative values?
-	if ($origtime < 0) {$origtime = 0;}
-	//week = day * 7, month = day*365/12, year = day * 365
-	$set = array( array("label" => "year", 'length' => 31536000), array("label" => "month", 'length' => 2628000), 
-	array("label" => "week", 'length' => 604800), array("label" => "day", 'length' => 86400), 
-	array("label" => "hour", 'length' => 3600), array("label" => "minute", 'length' => 60), 
-	array("label" => "second", 'length' => 0));
-		
-	$thisset=0;	
-	while($thisset<=6){
-		if ($thisset < 6) {$val = floor($origtime/$set[$thisset]['length']);}
-		elseif ($thisset == 6) {$val = $origtime;}
-			
-		if ($val && $showbiggest > 0) {
-			$retval .= "$val ".$set[$thisset]['label'];
-			$retval .= ($val > 1) ? 's, ' : ', ';
-			$showbiggest--;
-			$origtime -= $val*$set[$thisset]['length'];
+if (!function_exists(timeLeft)) {
+	function timeLeft($origtime, $showbiggest=4) {
+		// deal with negative values?
+		if ($origtime < 0) {
+			$origtime = 0;
 		}
-		$thisset++;
-	}
+		//week = day * 7, month = day*365/12, year = day * 365
+		$set = array( array("label" => "year", 'length' => 31536000), array("label" => "month", 'length' => 2628000), 
+		array("label" => "week", 'length' => 604800), array("label" => "day", 'length' => 86400), 
+		array("label" => "hour", 'length' => 3600), array("label" => "minute", 'length' => 60), 
+		array("label" => "second", 'length' => 0));
+			
+		$thisset = 0;
+		while ($thisset <= 6) {
+			if ($thisset < 6) {
+				$val = floor($origtime / $set[$thisset]['length']);
+			} else if ($thisset == 6) {
+				$val = $origtime;
+			}
+				
+			if ($val && $showbiggest > 0) {
+				$retval .= "$val ".$set[$thisset]['label'];
+				$retval .= ($val > 1) ? 's, ' : ', ';
+				$showbiggest--;
+				$origtime -= $val * $set[$thisset]['length'];
+			}
+			$thisset++;
+		}
 
-	if ($retval) {$retval = substr($retval,0,strlen($retval)-2);}
-	return $retval;
-}}
+		if ($retval) {
+			$retval = substr($retval, 0, strlen($retval) - 2);
+		}
+		return $retval;
+	}
+}
 
 
 $table = "vote_<myname>";

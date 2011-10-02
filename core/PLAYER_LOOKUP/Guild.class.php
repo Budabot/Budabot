@@ -24,7 +24,7 @@ class Guild {
 		}
 		
 		// check if a xml file of the person exists and if it is uptodate
-		if (!force_update && file_exists("$cache/$guild_id.$rk_num.xml")) {
+		if (!$force_update && file_exists("$cache/$guild_id.$rk_num.xml")) {
 	        $mins = (time() - filemtime("$cache/$guild_id.$rk_num.xml")) / 60;
             $hours = floor($mins/60);
             // if the file is not older then 24hrs and it is not the roster of the bot guild then use the cache one, when it the xml file from the org bot guild and not older then 6hrs use it

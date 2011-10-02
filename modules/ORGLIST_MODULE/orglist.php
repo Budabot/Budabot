@@ -29,79 +29,6 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-// Hate doing functions in plugins, but it's necessary
-// because this is called in 2 completely different sections.
-
-if ($message && !preg_match("/^orglist (.+)$/i", $message)) {
-	$syntax_error = true;
-	return;
-}
-
-if (!function_exists('orgmatesformat')){
-	function orgmatesformat ($memberlist, $map, $color, $timestart, $orgname) {
-		global $chatBot;
-	
-		$totalonline = 0;
-		$totalcount = count($memberlist["result"]);
-		forEach ($memberlist["result"] as $amember) {
-			$newlist[$amember["rank_id"]][] = $amember["name"];
-		}
-		
-		$blob = array("");
-		
-		for ($rankid = 0; $rankid < count($map[$memberlist["orgtype"]]); $rankid++) {
-			$onlinelist = "";
-			$offlinelist = "";
-			$olcount = 0;
-			$rank_online = 0;
-			$rank_total = count($newlist[$rankid]);
-			
-			sort($newlist[$rankid]);
-			for ($i = 0; $i < $rank_total; $i++) {
-				if ($memberlist["result"][$newlist[$rankid][$i]]["online"]) {
-					$rank_online++;
-					$onlinelist .= "  " . $memberlist["result"][$newlist[$rankid][$i]]["post"] . "\n";
-				} else {
-					if ($offlinelist != "") {
-						$offlinelist .= ", ";
-						if (($olcount % 50) == 0) {
-							$offlinelist .= "<end><pagebreak>" . $color["offline"];
-						}
-					}
-					$offlinelist .= $newlist[$rankid][$i];
-					$olcount++;
-				}
-			}
-			
-			$totalonline += $rank_online;
-			
-			$bh = $color["header"] . $map[$memberlist["orgtype"]][$rankid] . "</font> ";
-			$bh .= "(" . $color["onlineH"] . "{$rank_online}</font> online of " . $color["onlineH"] . "{$rank_total}</font>)";
-			
-			$bhi = $bh . " cont...\n";
-			$bh .= "\n";
-			
-			$b = "";
-			if ($onlinelist != "") {
-				$b .= $onlinelist;
-			}
-			if ($offlinelist != "") {
-				$b .= $color["offline"] . $offlinelist . "<end>\n";
-			}
-			
-			$blob[] = array("header" => $bh, "content" => $b, "footer" => "\n\n", "header_incomplete" => $bhi, "footer_incomplete" => "\n");
-		}
-		
-		$totaltime = time() - $timestart;
-		$header  = $color["onlineH"].$orgname."<end> has ";
-		$header .= $color["onlineH"]."$totalonline</font> online out of a total of ".$color["onlineH"]."$totalcount</font> members. ";
-		$header .= "(".$color["onlineH"]."$totaltime</font> seconds)\n\n";
-		$blob[0] = $header;
-		
-		return $blob;
-	}
-}
-
 // Some rankings (Will be used to help distinguish which org type is used.)
 $orgrankmap["Anarchism"]  = array("Anarchist");
 $orgrankmap["Monarchy"]   = array("Monarch",   "Counsel",      "Follower");
@@ -115,9 +42,8 @@ $orgcolor["header"]  = "<font color='#FFFFFF'>";   // Org Rank title
 $orgcolor["onlineH"] = "<highlight>";              // Highlights on whois info
 $orgcolor["offline"] = "<font color='#555555'>";   // Offline names
 
-$end = false;
 if (preg_match("/^orglist end$/i", $message)) {
-	$end = true;
+	checkOrglistEnd(true);
 } else if (preg_match("/^orglist (.+)$/i", $message, $arr)) {
 	// Check if we are already doing a list.
 	if ($chatBot->data["ORGLIST_MODULE"]["start"]) {
@@ -195,23 +121,23 @@ if (preg_match("/^orglist end$/i", $message)) {
 		$chatBot->data["ORGLIST_MODULE"]["result"][$member->name]["rank_id"] = $member->guild_rank_id;
 
 		// If we havent found an org type yet, check this member if they have a unique rank.
-		if (!$chatBot->data["ORGLIST_MODULE"]["orgtype"]) {
+		if (!isset($chatBot->data["ORGLIST_MODULE"]["orgtype"])) {
 			if (($member->guild_rank_id == 0 && $member->guild_rank == "President") ||
 				($member->guild_rank_id == 3 && $member->guild_rank == "Member") ||
 				($member->guild_rank_id == 4 && $member->guild_rank == "Applicant")) {
 				// Dont do anything. Can't do a match cause this rank is in multiple orgtypes.
 			} else if ($member->guild_rank == $orgrankmap["Anarchism"][$member->guild_rank_id]) {
-				$chatBot->data["ORGLIST_MODULE"]["orgtype"]= "Anarchism";
+				$chatBot->data["ORGLIST_MODULE"]["orgtype"] = $orgrankmap["Anarchism"];
 			} else if ($member->guild_rank == $orgrankmap["Monarchy"][$member->guild_rank_id]) {
-				$chatBot->data["ORGLIST_MODULE"]["orgtype"]= "Monarchy";
+				$chatBot->data["ORGLIST_MODULE"]["orgtype"] = $orgrankmap["Monarchy"];
 			} else if ($member->guild_rank == $orgrankmap["Feudalism"][$member->guild_rank_id]) {
-				$chatBot->data["ORGLIST_MODULE"]["orgtype"]= "Feudalism";
+				$chatBot->data["ORGLIST_MODULE"]["orgtype"] = $orgrankmap["Feudalism"];
 			} else if ($member->guild_rank == $orgrankmap["Republic"][$member->guild_rank_id]) {
-				$chatBot->data["ORGLIST_MODULE"]["orgtype"]= "Republic";
+				$chatBot->data["ORGLIST_MODULE"]["orgtype"] = $orgrankmap["Republic"];
 			} else if ($member->guild_rank == $orgrankmap["Faction"][$member->guild_rank_id]) {
-				$chatBot->data["ORGLIST_MODULE"]["orgtype"]= "Faction";
+				$chatBot->data["ORGLIST_MODULE"]["orgtype"] = $orgrankmap["Faction"];
 			} else if ($member->guild_rank == $orgrankmap["Department"][$member->guild_rank_id]) {
-				$chatBot->data["ORGLIST_MODULE"]["orgtype"]= "Department";
+				$chatBot->data["ORGLIST_MODULE"]["orgtype"] = $orgrankmap["Department"];
 			}
 		}
 		
@@ -241,45 +167,19 @@ if (preg_match("/^orglist end$/i", $message)) {
 		}
 	}
 
-	if (!$chatBot->data["ORGLIST_MODULE"]["orgtype"] && !$msg) {
+	if (!isset($chatBot->data["ORGLIST_MODULE"]["orgtype"]) && !$msg) {
 		// If we haven't found the org yet, it can only be
 		// Department or Republic with only a president.
-		$chatBot->data["ORGLIST_MODULE"]["orgtype"] = "Republic";
+		$chatBot->data["ORGLIST_MODULE"]["orgtype"] = $orgrankmap["Republic"];
 	}
 
 	unset($org);
 
-// If we added names to the buddylist, this will kick in to determine if they are online or not.
-// If no more names need to be checked, then post results.
-} else if (($type == "logOn" || $type == "logOff") && isset($chatBot->data["ORGLIST_MODULE"]["added"][$sender])) {
-
-	if ($type == "logOn") {
-		$chatBot->data["ORGLIST_MODULE"]["result"][$sender]["online"] = 1;
-	} else if ($type == "logOff") {
-		$chatBot->data["ORGLIST_MODULE"]["result"][$sender]["online"] = 0;
-	}
-
-	Buddylist::remove($sender, 'onlineorg');
-	unset($chatBot->data["ORGLIST_MODULE"]["added"][$sender]);
-	
-	forEach ($chatBot->data["ORGLIST_MODULE"]["check"] as $name => $value) {
-		$chatBot->data["ORGLIST_MODULE"]["added"][$name] = 1;
-		unset($chatBot->data["ORGLIST_MODULE"]["check"][$name]);
-		Buddylist::add($name, 'onlineorg');
-		break;
-	}
-}
-
-if (isset($chatBot->data["ORGLIST_MODULE"]) && count($chatBot->data["ORGLIST_MODULE"]["added"]) == 0 || $end) {
-	$blob = orgmatesformat($chatBot->data["ORGLIST_MODULE"], $orgrankmap, $orgcolor, $chatBot->data["ORGLIST_MODULE"]["start"], $chatBot->data["ORGLIST_MODULE"]["org"]);
-	$msg = Text::make_structured_blob("Orglist for '".$chatBot->data["ORGLIST_MODULE"]["org"]."'", $blob);
-	$chatBot->send($msg, $chatBot->data["ORGLIST_MODULE"]["sendto"]);
-
-	// in case it was ended early
-	forEach ($chatBot->data["ORGLIST_MODULE"]["added"] as $name => $value) {
-		Buddylist::remove($name, 'onlineorg');
-	}
-	unset($chatBot->data["ORGLIST_MODULE"]);
+	// If we added names to the buddylist, this will kick in to determine if they are online or not.
+	// If no more names need to be checked, then post results.	
+	checkOrglistEnd();
+} else {
+	$syntax_error = true;
 }
 
 ?>

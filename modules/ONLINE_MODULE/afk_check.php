@@ -14,8 +14,7 @@ if (!preg_match("/^.?afk(.*)$/i", $message)) {
 		$msg = "<highlight>{$sender}<end> is back";
 		$chatBot->send($msg, $type);
 	} else {
-		$name = split(" ", $message, 2);
-		$name = $name[0];
+		list($name, $other) = explode(" ", $message, 2);
 		$name = ucfirst(strtolower($name));
 		$uid = $chatBot->get_uid($name);
 		if ($uid) {

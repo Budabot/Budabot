@@ -255,8 +255,7 @@ class Util {
 	 * @description: returns true if filename matches budabot naming convention and false otherwise
 	 */
 	public static function verify_name_convention($filename) {
-		preg_match("/^(.+)\\/([0-9a-z_]+)\\.php$/i", $filename, $arr);
-		if ($arr[2] == strtolower($arr[2])) {
+		if (preg_match("/^(.+)\\/([0-9a-z_]+)\\.(php|txt)$/i", $filename, $arr) && $arr[2] == strtolower($arr[2])) {
 			return true;
 		} else {
 			Logger::log('ERROR', 'Core', "Warning: $filename does not match the nameconvention(All php files needs to be in lowercases except loading files)!");

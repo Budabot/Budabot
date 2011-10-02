@@ -7,7 +7,8 @@
    **
    */
 
-	if (Setting::get('irc_channel') == "") {
+	$channel = Setting::get('irc_channel');
+	if ($channel === false) {
 		if ($chatBot->vars['my_guild'] == "") {
 			$channel = "#".strtolower($chatBot->vars['name']);
 		} else {

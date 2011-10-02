@@ -71,9 +71,11 @@ class xml {
 		$fp = @fsockopen($host, 80, $errno, $errstr, 10);
 		@stream_set_timeout($fp, $timeout);
 		if($fp) {
-			@fputs($fp, "GET $uri HTTP/1.0\nHost: $host\r\n\r\n");				
-			while($indata = fread($fp,1024))
+			@fputs($fp, "GET $uri HTTP/1.0\nHost: $host\r\n\r\n");
+			$data = '';
+			while ($indata = fread($fp,1024)) {
 				$data .= $indata;
+			}
 	
 			fclose($fp);
 			return $data;
