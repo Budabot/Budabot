@@ -32,7 +32,7 @@ if (preg_match("/^aospeak$/i", $message) || preg_match("/^aospeak org$/i", $mess
 	
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^aospeak all$/i", $message) || preg_match("/^aospeak (\\d)$/i", $message, $arr) || preg_match("/^aospeak (\\d)$/i", $message, $arr)) {
-	if ($arr) {
+	if (isset($arr)) {
 		$title = "AOSpeak Online RK" . $arr[1];
 		$url = "http://api.aospeak.com/online/" . $arr[1];
 	} else {

@@ -1,7 +1,7 @@
 <?php
 
 if (preg_match("/^checkaccess$/i", $message) || preg_match("/^checkaccess (.+)$/i", $message, $arr)) {
-	if ($arr) {
+	if (isset($arr)) {
 		$name = ucfirst(strtolower($arr[1]));
 	} else {
 		$name = $sender;

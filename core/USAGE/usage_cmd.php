@@ -3,7 +3,7 @@
 $limit = 25;
 
 if (preg_match("/^usage$/i", $message) || preg_match("/^usage ([a-z0-9]+)$/i", $message, $arr)) {
-	if ($arr) {
+	if (isset($arr)) {
 		$time = Util::parseTime($arr[1]);
 		if ($time == 0) {
 			$msg = "Please enter a valid time.";

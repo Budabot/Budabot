@@ -575,7 +575,7 @@ class Budabot extends AOChat {
 
 		if (Ban::is_banned($sender)) {
 			return;
-		} else if ($chatBot->vars['spam_protection'] == 1 && $chatBot->spam[$sender] > 100) {
+		} else if (Setting::get('spam_protection') == 1 && $chatBot->spam[$sender] > 100) {
 			$chatBot->spam[$sender] += 20;
 			return;
 		}
@@ -626,7 +626,7 @@ class Budabot extends AOChat {
 			return;
 		}
 
-		if ($chatBot->vars['spam_protection'] == 1) {
+		if (Setting::get('spam_protection') == 1) {
 			if ($chatBot->spam[$sender] == 40) $chatBot->send("Error! Your client is sending a high frequency of chat messages. Stop or be kicked.", $sender);
 			if ($chatBot->spam[$sender] > 60) $chatBot->privategroup_kick($sender);
 			if (strlen($args[1]) > 400){

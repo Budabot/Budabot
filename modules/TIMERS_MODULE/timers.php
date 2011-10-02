@@ -58,7 +58,7 @@ if (preg_match("/^(timers|timers add) ([0-9]+)$/i", $message, $arr) || preg_matc
 } else if (preg_match("/^(timers add|timers) ([a-z0-9]+)$/i", $message, $arr) ||
 		preg_match("/^(timers add|timers) ([a-z0-9]+) (.+)$/i", $message, $arr2)) {
 
-	if ($arr) {
+	if (isset($arr)) {
 		$timer_name = 'PrimTimer';
 		$time_string = $arr[2];
 	} else if ($arr2) {

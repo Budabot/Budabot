@@ -765,7 +765,6 @@ class AOChat {
 
 			$ret .= $this -> SafeDecHexReverseEndian($prev[0]);
 			$ret .= $this -> SafeDecHexReverseEndian($prev[1]);
-
 		}
 
 		return $ret;

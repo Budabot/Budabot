@@ -1,7 +1,7 @@
 <?php
 
 if (preg_match("/^online$/i", $message) || preg_match("/^online (.*)$/i", $message, $arr)) {
-	if ($arr) {
+	if (isset($arr)) {
 		$prof = strtolower($arr[1]);
 		if ($prof != 'all') {
 			$prof = Util::get_profession_name($prof);

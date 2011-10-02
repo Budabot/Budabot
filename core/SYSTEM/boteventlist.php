@@ -1,7 +1,7 @@
 <?php
 
 if (preg_match("/^boteventlist$/i", $message) || preg_match("/^boteventlist (.+)$/i", $message, $arr)) {
-	if ($arr) {
+	if (isset($arr)) {
 		$eventType = str_replace("'", "''", $arr[1]);
 		$cmdSearchSql = "WHERE type LIKE '{$eventType}'";
 	}

@@ -2,7 +2,7 @@
 
 if (preg_match("/^penalty$/i", $message) || preg_match("/^penalty (\\d+)$/i", $message, $arr)) {
 	$hours = 2;
-	if ($arr) {
+	if (isset($arr)) {
 		$hours = $arr[1];
 	}
 	$time = time() - (3600 * $hours);
