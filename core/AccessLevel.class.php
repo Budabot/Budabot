@@ -1,6 +1,8 @@
 <?php
 
 class AccessLevel {
+	public static $ACCESS_LEVELS = array(0 => 'superadmin',  1 => 'admin', 2 => 'mod', 3 => 'rl', 4 => 'guildadmin', 5 => 'leader', 6 => 'guild', 7 => 'member', 8 => 'all');
+
 	/**
 	 * @name: check_access
 	 * @param: $sender - the name of the person you want to check access on
