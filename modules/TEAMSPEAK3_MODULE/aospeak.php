@@ -59,9 +59,9 @@ if (preg_match("/^aospeak$/i", $message) || preg_match("/^aospeak org$/i", $mess
 			forEach ($users as $user) {
 				if ($user->idleTime >= 300000) {
 					// if idle for at least 5 minutes
-					$blob .= "<tab><highlight>{$user->name}<end> ({$user->country}, idle for " . Util::unixtime_to_readable($user->idleTime / 1000, false) . ")\n";
+					$blob .= "<tab><highlight>{$user->name}<end> (RK{$user->dim}, {$user->country}, idle for " . Util::unixtime_to_readable($user->idleTime / 1000, false) . ")\n";
 				} else {
-					$blob .= "<tab><highlight>{$user->name}<end> ({$user->country})\n";
+					$blob .= "<tab><highlight>{$user->name}<end> (RK{$user->dim}, {$user->country})\n";
 				}
 			}
 		}
