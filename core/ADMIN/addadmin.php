@@ -38,20 +38,19 @@ if (preg_match("/^addadmin (.+)$/i", $message, $arr)){
 	if (isset($chatBot->admins[$who]["level"]) && $chatBot->admins[$who]["level"] >= 2) {
 		if ($chatBot->admins[$who]["level"] > 4) {
 			$chatBot->send("<highlight>$who<end> has been demoted to an administrator.", $sendto);
-			$chatBot->send("You have been demoted to an administrator", $who);
+			$chatBot->send("You have been demoted to administrator by <highlight>$sender<end>.", $who);
 		} else {
 			$chatBot->send("<highlight>$who<end> has been promoted to an administrator.", $sendto);
-			$chatBot->send("You have been promoted to an administrator", $who);
+			$chatBot->send("You have been promoted to administrator by <highlight>$sender<end>.", $who);
 		}
 		$db->exec("UPDATE admin_<myname> SET `adminlevel` = 4 WHERE `name` = '$who'");
-		$chatBot->admins[$who]["level"] = 4;
 	} else {
 		$db->exec("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (4, '$who')");
-		$chatBot->admins[$who]["level"] = 4;
 		$chatBot->send("<highlight>$who<end> has been added as an administrator", $sendto);
-		$chatBot->send("You got administrator access to <myname>", $who);
+		$chatBot->send("You have been promoted to administrator by <highlight>$sender<end>.", $who);
 	}
 
+	$chatBot->admins[$who]["level"] = 4;
 	Buddylist::add($who, 'admin');
 } else {
 	$syntax_error = true;

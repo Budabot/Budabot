@@ -53,7 +53,7 @@ if (preg_match("/^remmod (.+)$/i", $message, $arr)){
 	}
 
 	$chatBot->send("<highlight>$who<end> has been removed as a moderator.", $sendto);
-	$chatBot->send("Your moderator access to <myname> has been removed.", $who);
+	$chatBot->send("Your moderator access has been removed by <highlight>$sender<end>.", $who);
 } else {
 	$syntax_error = true;
 }

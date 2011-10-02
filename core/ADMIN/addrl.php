@@ -66,16 +66,15 @@ if (preg_match("/^addrl (.+)$/i", $message, $arr)) {
 
 	if (isset($chatBot->admins[$who]["level"]) && $chatBot->admins[$who]["level"] > 2) {
 		$chatBot->send("<highlight>$who<end> has been demoted to a raidleader.", $sendto);
-		$chatBot->send("You have been demoted to raidleader", $who);
+		$chatBot->send("You have been demoted to raidleader by <highlight>$sender<end>.", $who);
 		$db->exec("UPDATE admin_<myname> SET `adminlevel` = 2 WHERE `name` = '$who'");
-		$chatBot->admins[$who]["level"] = 3;
 	} else {
 		$db->exec("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (2, '$who')");
-		$chatBot->admins[$who]["level"] = 2;
-		$chatBot->send("<highlight>$who<end> has been added as a raidleader", $sendto);
-		$chatBot->send("You got raidleader access to <myname>", $who);
+		$chatBot->send("<highlight>$who<end> has been added as a raidleader.", $sendto);
+		$chatBot->send("You have been promoted to raidleader by <highlight>$sender<end>.", $who);
 	}
 
+	$chatBot->admins[$who]["level"] = 2;
 	Buddylist::add($who, 'admin');
 } else {
 	$syntax_error = true;

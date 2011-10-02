@@ -53,7 +53,7 @@ if (preg_match("/^remadmin (.+)$/i", $message, $arr)){
 	}
 	
 	$chatBot->send("<highlight>$who<end> has been removed as an administrator.", $sendto);
-	$chatBot->send("Your Administrator access to <myname> has been removed.", $who);
+	$chatBot->send("Your administrator access has been removed by $sender.", $who);
 } else {
 	$syntax_error = true;
 }

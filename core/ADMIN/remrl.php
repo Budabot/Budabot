@@ -53,7 +53,7 @@ if (preg_match("/^remrl (.+)$/i", $message, $arr)) {
 	}
 
 	$chatBot->send("<highlight>$who<end> has been removed as a raidleader.", $sendto);
-	$chatBot->send("Your raidleader access to <myname> has been removed.", $who);
+	$chatBot->send("Your raidleader access has been removed by <highlight>$sender<end>.", $who);
 } else {
 	$syntax_error = true;
 }
