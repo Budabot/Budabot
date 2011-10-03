@@ -594,8 +594,7 @@ if (preg_match("/^config$/i", $message)) {
 	$chatBot->send("Updated access for helpfile <highlight>$help<end> to <highlight>".ucfirst(strtolower($arr[2]))."<end>.", $sendto);
 } else if (preg_match("/^config help (.+)$/i", $message, $arr)) {
   	$mod = strtoupper($arr[1]);
-	$list = array();
-	$list[] = "<header> :::::: Configure helpfiles for module $mod :::::: <end>\n\n";
+	$blob = "<header> :::::: Configure helpfiles for module $mod :::::: <end>\n\n";
 
 	$db->query("SELECT * FROM hlpcfg_<myname> WHERE module = '$mod' ORDER BY name");
 	$data = $db->fObject("all");
@@ -603,21 +602,20 @@ if (preg_match("/^config$/i", $message)) {
 		$msg = "Could not find any help files for module '<highlight>$mod<end>'";
 	} else {
 		forEach ($data as $row) {
-			$l = "";
-			$l .= "<highlight><u>Helpfile</u><end>: $row->name\n";
-			$l .= "<highlight><u>Description</u><end>: $row->description\n";
-			$l .= "<highlight><u>Module</u><end>: $row->module\n";
-			$l .= "<highlight><u>Set Permission</u><end>: ";
-			$l .= "<a href='chatcmd:///tell <myname> config help $row->name admin all'>All</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config help $row->name admin member'>Member</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config help $row->name admin guild'>Guild</a>\n";
-			$l .= "<a href='chatcmd:///tell <myname> config help $row->name admin leader'>Leader</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config help $row->name admin rl'>RL</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config help $row->name admin mod'>Mod</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config help $row->name admin admin'>Admin</a>  ";
-			$list[] = array("content" => $l, "footer" => "\n\n");
+			$blob .= "<pagebreak><highlight><u>Helpfile</u><end>: $row->name\n";
+			$blob .= "<highlight><u>Description</u><end>: $row->description\n";
+			$blob .= "<highlight><u>Module</u><end>: $row->module\n";
+			$blob .= "<highlight><u>Current Permission</u><end>: $row->admin\n";
+			$blob .= "<highlight><u>Set Permission</u><end>: ";
+			$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin all'>All</a>  ";
+			$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin member'>Member</a>  ";
+			$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin guild'>Guild</a>  ";
+			$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin leader'>Leader</a>  ";
+			$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin rl'>RL</a>  ";
+			$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin mod'>Mod</a>  ";
+			$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin admin'>Admin</a>\n\n";
 		}
-		$msg = Text::make_structured_blob("Configure helpfiles for module $mod", $list);
+		$msg = Text::make_blob("Configure helpfiles for module $mod", $blob);
 	}
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^config ([a-z0-9_]*)$/i", $message, $arr)) {
