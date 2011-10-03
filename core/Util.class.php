@@ -39,6 +39,7 @@ class Util {
 		
 		$seconds = $remainder;
 		
+		$timeshift = '';
 		if ($days != 0) {
 			$timeshift .= $days . ' days ';
 		}

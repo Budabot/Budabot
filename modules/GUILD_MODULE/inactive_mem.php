@@ -4,15 +4,24 @@
    ** Description: Lookup inactive org members
    */
 
-if (preg_match("/^inactivemem ([0-9]+)/i", $message, $arr)) {
+if (preg_match("/^inactivemem ([a-z0-9]+)/i", $message, $arr)) {
 	
 	if ($chatBot->vars["my_guild_id"] == "") {
 	    $chatBot->send("The Bot needs to be in an org to show the orgmembers.", $sendto);
 		return;
 	}
 	
-	$inactive_deadline = time() - (2592000 * $arr[1]);
-	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN alts a ON o.name = a.alt WHERE `mode` != 'del' AND `logged_off` < $inactive_deadline  ORDER BY o.name");  
+	$time = Util::parseTime($arr[1]);
+	if ($time < 1) {
+		$msg = "You must enter a valid time parameter.";
+		$chatBot->send($msg, $sendto);
+		return;
+	}
+	
+	$timeString = Util::unixtime_to_readable($time, false);
+	$time = time() - $time;
+	
+	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN alts a ON o.name = a.alt WHERE `mode` != 'del' AND `logged_off` < $time  ORDER BY o.name");  
 	$data = $db->fObject("all");
 
   	if (count($data) == 0) {
@@ -23,7 +32,7 @@ if (preg_match("/^inactivemem ([0-9]+)/i", $message, $arr)) {
 	$numinactive = 0;
 	$highlight = 0;
 	$blob = "<header>::::: Inactive Members of <myguild> :::::<end>\n\n";
-	$blob .="Org members who have been inactive for more than <blue>{$arr[1]}<end> month(s).\n\n";
+	$blob .="Org members who have been inactive for atleast <highlight>{$timeString}<end>.\n\n";
 	$blob .="<red>**Be careful with clicking the Org Kick links.  It will cause you to /org kick, and the bot can't help you undo that.<end>\n\n";
 	
 	forEach ($data as $row) {
@@ -33,7 +42,7 @@ if (preg_match("/^inactivemem ([0-9]+)/i", $message, $arr)) {
 			$db->query("SELECT * FROM alts a JOIN org_members_<myname> o ON a.alt = o.name WHERE `main` = '{$row->main}'");
 			$data1 = $db->fOject('all');
 			forEach ($data1 as $row1) {
-				if ($row1->logged_off > $inactive_deadline) {
+				if ($row1->logged_off > $time) {
 					continue 2;
 				}
 				
