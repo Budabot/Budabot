@@ -23,18 +23,13 @@ mode = if this setting is editable or not
 		noedit = Not changable
 options = Allowed Options for this setting
 		text = any text(up to 50 chars)
-		text;maxLength = any text(up to max length)
 		number = any number
-		number;start-end = any number between start and end
 		color = any HMTL Color code
 		option1;option2 = List of Options seperated by a ;
 intoptions = Internal Version of options
 		ONLY usable for a list of options
 descriptions = Description of this setting, this is shown on !settings
-source = From where is this setting coming
-		db = Added by a module
-		cfg = added by thy config.php
-admin = Rank that is needed for this setting (admin or mod)
+access_level = access level that is needed for this setting (admin or mod)
 help = Helpfile for this setting
 */
 
@@ -60,8 +55,17 @@ class Setting {
 		$name = strtolower($name);
 		$type = strtolower($type);
 		
-		if (!in_array($type, array('color', 'number', 'text', 'options'))) {
-			Logger::log('ERROR', 'Core', "Error in registering Setting $module:setting($name). Type should be one of: 'color', 'number', 'text', 'options'. Actual: '$type'.");
+		if (!in_array($type, array('color', 'number', 'text', 'options', 'time'))) {
+			Logger::log('ERROR', 'Core', "Error in registering Setting $module:setting($name). Type should be one of: 'color', 'number', 'text', 'options', 'time'. Actual: '$type'.");
+		}
+		
+		if ($type == 'time') {
+			$oldvalue = $value;
+			$value = Util::parseTime($value);
+			if ($value < 1) {
+				Logger::log('ERROR', 'Core', "Error in registering Setting $module:setting($name). Invalid time: '{$oldvalue}'.");
+				return;
+			}
 		}
 		
 		$options = str_replace("'", "''", $options);

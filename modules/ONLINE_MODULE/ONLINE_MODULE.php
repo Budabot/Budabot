@@ -19,7 +19,7 @@
 	Event::register($MODULE_NAME, "priv", "afk.php", "none", "Sets a member kiting");
 
 	// Settings
-	Setting::add($MODULE_NAME, "online_expire", "Minutes to wait before clearing online list", "edit", "number", "15", "2;5;10;15;20", '', "mod");
+	Setting::add($MODULE_NAME, "online_expire", "How long to wait before clearing online list", "edit", "time", "15m", "2m;5m;10m;15m;20m", '', "mod");
 	Setting::add($MODULE_NAME, "chatlist_tell", "Mode for Chatlist Cmd in tells", "edit", "options", "1", "Shows online privatechat members;Shows online guild members", "1;0");
 	Setting::add($MODULE_NAME, "fancy_online", "Show fancy delimiters on the online display", "edit", "options", "1", "true;false", "1;0");
 	Setting::add($MODULE_NAME, "icon_fancy_online", "Show profession icons in the online display", "edit", "options", "1", "true;false", "1;0");

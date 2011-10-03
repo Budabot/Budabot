@@ -1,6 +1,6 @@
 <?php
 
-$dt = time() - (86400 * Setting::get('shop_message_age'));
+$dt = time() - Setting::get('shop_message_age');
 
 $db->begin_transaction();
 

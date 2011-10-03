@@ -15,14 +15,15 @@ if (preg_match("/^raffle start (\d+) (.+)$/i", $message, $arr)) {
 
 	$item = $arr[2];
 	$count = $arr[1];
-	$minutes = Setting::get("defaultraffletime");
+	$seconds = Setting::get("defaultraffletime");
+	$timeString = Util::unixtime_to_readable($seconds);
 
 	$chatBot->data["Raffles"] = array(
 		"running" => true,
 		"owner" => $sender,
 		"item" => $item,
 		"count" => $count,
-		"time" => time() +  $minutes * 60,
+		"time" => time() +  $seconds,
 		"rafflees" => array(),
 		"lastresult" => NULL,
 		"sendto" => $sendto
@@ -38,7 +39,7 @@ Click <a href='chatcmd:///tell <myname> <symbol>raffle leave'>here</a> if you wi
 	$msg = "
 -----------------------------------------------------------------------
 A raffle for $item (count: $count) has been started by $sender!
-Click $link to join the raffle. Raffle will end in $minutes minute(s).
+Click $link to join the raffle. Raffle will end in $timeString.
 -----------------------------------------------------------------------";
 
 	$chatBot->data["Raffles"]["nextmsgtime"] = get_next_time($chatBot->data["Raffles"]["time"]);
@@ -58,14 +59,15 @@ Click $link to join the raffle. Raffle will end in $minutes minute(s).
 
 	$item = $arr[1];
 	$count = 1;
-	$minutes = Setting::get("defaultraffletime");
+	$seconds = Setting::get("defaultraffletime");
+	$timeString = Util::unixtime_to_readable($seconds);
 
 	$chatBot->data["Raffles"] = array(
 		"running" => true,
 		"owner" => $sender,
 		"item" => $item,
 		"count" => $count,
-		"time" => time() +  $minutes * 60,
+		"time" => time() +  $seconds,
 		"rafflees" => array(),
 		"lastresult" => NULL,
 		"sendto" => $sendto
@@ -81,7 +83,7 @@ Click <a href='chatcmd:///tell <myname> <symbol>raffle leave'>here</a> if you wi
 	$msg = "
 -----------------------------------------------------------------------
 A raffle for $item has been started by $sender!
-Click $link to join the raffle. Raffle will end in $minutes minute(s)'.
+Click $link to join the raffle. Raffle will end in $timeString'.
 -----------------------------------------------------------------------";
 
 	$chatBot->data["Raffles"]["nextmsgtime"] = get_next_time($chatBot->data["Raffles"]["time"]);

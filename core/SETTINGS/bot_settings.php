@@ -5,29 +5,27 @@ if (preg_match("/^settings$/i", $message)) {
  	$blob .= "<highlight>Changing any of these settings will take effect immediately. Please note that some of these settings are read-only and can't be changed.\n\n<end>";
  	$db->query("SELECT * FROM settings_<myname> WHERE `mode` != 'hide' ORDER BY `module`");
 	$data = $db->fObject("all");
+	$cur = '';
  	forEach ($data as $row) {
-		if ($row->module == "Basic Settings" && $row->module != $cur) {
-			$blob .= "\n<highlight><u>Basic Settings</u><end>\n";
-		} else if ($row->module != "" && $row->module != $cur) {
-			$blob .= "\n<highlight><u>".str_replace("_", " ", $row->module)."</u><end>\n";
+		if ($row->module != $cur) {
+			$blob .= "\n<pagebreak><highlight><u>".str_replace("_", " ", $row->module)."</u><end>\n";
+			$cur = $row->module;
 		}	
-
-		$cur = $row->module;	
-		$blob .= "  *";
-
-		$blob .= $row->description;
+		$blob .= "  *" . $row->description;
 
 		if ($row->mode == "edit") {
 			$editLink = Text::make_chatcmd('Modify', "/tell <myname> settings change {$row->name}");
 			$blob .= " ($editLink)";
 		}
-	
+
 		$blob .= ": ";
 
 		$options = explode(";", $row->options);
 		if ($row->type == "color") {
 			$blob .= $row->value."Current Color</font>\n";
-		} elseif ($row->intoptions != "") {
+		} else if ($row->type == 'time') {
+			$blob .=  "<highlight>" . Util::unixtime_to_readable($row->value) . "<end>\n";
+		} else if ($row->intoptions != "") {
 			$intoptions = explode(";", $row->intoptions);
 			$intoptions2 = array_flip($intoptions);
 			$key = $intoptions2[$row->value];
@@ -59,14 +57,16 @@ if (preg_match("/^settings$/i", $message)) {
 		$blob .= "Name: <highlight>{$row->name}<end>\n";
 		$blob .= "Module: <highlight>{$row->module}<end>\n";
 		$blob .= "Descrption: <highlight>{$row->description}<end>\n";
-		if ($row->type == "color") {
+		if ($row->type == 'color') {
 			$blob .= "Current Value: {$row->value}Color<end>\n\n";
+		} else if ($row->type == 'time') {
+			$blob .= "Current Value: <highlight>" . Util::unixtime_to_readable($row->value) . "<end>\n\n";
 		} else if ($intoptions) {
 			$blob .= "Current Value: <highlight>{$options_map[$row->value]}<end>\n\n";
 		} else {
 			$blob .= "Current Value: <highlight>{$row->value}<end>\n\n";
 		}
-		if ($row->type == "color") {
+		if ($row->type == 'color') {
 		  	$blob .= "For this setting you can set any Color in the HTML Hexadecimal Color Format.\n";
 		  	$blob .= "You can change it manually with the command: \n\n";
 		  	$blob .= "/tell <myname> settings save {$row->name} #'HTML-Color'\n\n";
@@ -89,16 +89,20 @@ if (preg_match("/^settings$/i", $message)) {
 		  	$blob .= "Cyan: <font color='#00FFFF'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #00FFFF'>Save it</a>) \n";
 		  	$blob .= "Navy Blue: <font color='#000080'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #000080'>Save it</a>) \n";
 		  	$blob .= "Dark Orange: <font color='#FF8C00'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #FF8C00'>Save it</a>) \n";
-		} else if ($row->type == "text") {
+		} else if ($row->type == 'text') {
 	  		$blob .= "For this setting you can enter any text you want (max. 255 chararacters).\n";
 		  	$blob .= "To change this setting:\n\n";
-		  	$blob .= "<highlight>/tell <myname> settings save {$row->name} 'Your text'<end>\n\n";
-		} else if ($row->type == "number") {
+		  	$blob .= "<highlight>/tell <myname> settings save {$row->name} 'text'<end>\n\n";
+		} else if ($row->type == 'number') {
 			$blob .= "For this setting you can set any number.\n";
 		  	$blob .= "To change this setting: \n\n";
-		  	$blob .= "<highlight>/tell <myname> settings save {$row->name} 'Number'<end>\n\n";
-		} else if ($row->type == "options") {
+		  	$blob .= "<highlight>/tell <myname> settings save {$row->name} 'number'<end>\n\n";
+		} else if ($row->type == 'options') {
 		  	$blob .= "For this setting you must choose one of the options from the list below.\n\n";
+		} else if ($row->type == 'time') {
+			$blob .= "For this setting you must enter a time value. See <a href='chatcmd:///tell <myname> help budatime'>budatime</a> for info on the format of the 'time' parameter.\n\n";
+			$blob .= "To change this setting:\n\n";
+			$blob .= "<highlight>/tell <myname> settings save {$row->name} 'time'<end>\n\n";
 		}
 		
 		if ($options) {
@@ -176,6 +180,13 @@ if (preg_match("/^settings$/i", $message)) {
 				} else {
 					$msg = "This isn't a correct option for this setting.";
 				}
+			}
+		} else if ($row->type == "time") {
+			$time = Util::parseTime($change_to_setting);
+			if ($time > 0) {
+				$new_setting = $time;
+			} else {
+				$msg = "This isn't a valid time for this setting.";
 			}
 		}
 	}
