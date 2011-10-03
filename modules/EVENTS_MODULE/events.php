@@ -8,57 +8,18 @@
    */
 
 if (preg_match("/^events$/i", $message, $arr)) {
-  	$db->query("SELECT * FROM events ORDER BY `event_date` DESC LIMIT 0,5");
-	if ($db->numrows() != 0) {
-		$upcoming_title = "<header>::::: Upcoming Events :::::<end>\n\n";
-		$past_title = "<header>::::: Past Events :::::<end>\n\n";
-		while ($row = $db->fObject()) {
-			$row->event_name = stripslashes($row->event_name);
-		  	$row->event_desc = stripslashes($row->event_desc);
-			if ($row->event_attendees == '') {
-				$attendance = 0;
-			} else {
-				$attendance = count(explode(",", $row->event_attendees));
-			}
-		  	if (!$updated) {
-			  $updated = $row->time_submitted;
-			}
-			  
-			if ($row->event_date > time()) {
-				$upcoming = "<highlight>Event Date:<end> ".gmdate("F d, Y H:i:s", $row->event_date)." GMT\n";
-				$upcoming .= "<highlight>Event Name:<end> $row->event_name     [Event ID $row->id]\n";
-				$upcoming .= "<highlight>Author:<end> $row->submitter_name\n";
-				$upcoming .= "<highlight>Attendance:<end> ".Text::make_chatcmd("$attendance signed up", "/tell <myname> eventlist $row->id")." [".Text::make_chatcmd("Join", "/tell <myname> joinEvent $row->id")."/".Text::make_chatcmd("Leave", "/tell <myname> leaveEvent $row->id")."]\n";
-				$upcoming .= "<highlight>Description:<end> ".stripslashes($row->event_desc)."\n";
-				$upcoming .= "<highlight>Date Submitted:<end> ".gmdate("dS M, H:i", $row->time_submitted)."\n\n";
-				$upcoming_events = $upcoming.$upcoming_events;
-			} else {
-				$past = "<highlight>Event Date:<end> ".gmdate("F d, Y H:i:s", $row->event_date)." GMT\n";
-				$past .= "<highlight>Event Name:<end> $row->event_name     [Event ID $row->id]\n";
-				$past .= "<highlight>Author:<end> $row->submitter_name\n";
-				$past .= "<highlight>Attendance:<end> ".Text::make_chatcmd("$attendance signed up", "/tell <myname> eventlist $row->id")."\n";
-				$past .= "<highlight>Description:<end> ".stripslashes($row->event_desc)."\n";
-				$past .= "<highlight>Date Submitted:<end> ".gmdate("dS M, H:i", $row->time_submitted)."\n\n";
-				$past_events .= $past;
-			}
-		}
-		if (!$upcoming_events) {
-			$upcoming_events = "<i>More to come.  Check back soon!</i>\n\n";
-		}
-		$link = $upcoming_title.$upcoming_events.$past_title.$past_events;
-		
-		$msg = Text::make_blob("Latest Events", $link)." [Last updated at ".gmdate("dS M, H:i", $updated)."]";
-	} else {
+	$msg = getEvents();
+  	if ($msg == '') {
 		$msg = "No events entered yet.";
 	}
 	$chatBot->send($msg, $sendto);
-} else if (preg_match("/^joinevent ([0-9]+)$/i", $message, $arr)) {
+} else if (preg_match("/^events join ([0-9]+)$/i", $message, $arr)) {
 	$db->query("SELECT * FROM events WHERE `id` = '$arr[1]'");
 	$row = $db->fObject();
 	if (time() < (($row->event_date)+(3600*3))) {
 		// cannot join an event after 3 hours past its starttime
 		if (strpos($row->event_attendees,$sender) !== false) {
-			$chatBot->send("<highlight>$sender<end> is already on the event list.",$sender);
+			$chatBot->send("You are already on the event list.",$sender);
 			return;
 		} else {
 			$row->event_attendees = trim($row->event_attendees);
@@ -74,7 +35,7 @@ if (preg_match("/^events$/i", $message, $arr)) {
 		$msg = "You cannot join an event once it has already passed!";
 	}
 	$chatBot->send($msg, $sendto);
-} else if (preg_match("/^leaveevent ([0-9]+)$/i", $message, $arr)) {
+} else if (preg_match("/^events leave ([0-9]+)$/i", $message, $arr)) {
 	$db->query("SELECT * FROM events WHERE `id` = '$arr[1]'");
 	$row = $db->fObject();
 	if (time() < (($row->event_date)+(3600*3))) { // cannot leave an event after 3 hours past its starttime
@@ -91,12 +52,73 @@ if (preg_match("/^events$/i", $message, $arr)) {
 			$db->exec("UPDATE events SET `event_attendees`='".$event."' WHERE `id` = '$arr[1]'");
 			$msg = "You have been removed from the event.";
 		} else {
-			$chatBot->send("<highlist>$sender<end> is not on the event list.",$sender);
+			$chatBot->send("You are not on the event list.",$sender);
 			return;
 		}
 	} else {
 		$msg = "You cannot leave an event once it has already passed!";
 	}
+	$chatBot->send($msg, $sendto);
+} else if (preg_match("/^events list ([0-9]+)$/i", $message, $arr)) {
+	$id = $arr[1];
+	$db->query("SELECT event_attendees FROM events WHERE `id` = '$id'");
+	if ($db->numrows() != 0) {
+		$row = $db->fObject();
+		$link = "<header> :::::: Players Attending Event $id :::::: <end>\n\n";
+		
+		$link .= Text::make_chatcmd("Join this event", "/tell <myname> event join $id")."\n";
+		$link .= Text::make_chatcmd("Leave this event", "/tell <myname> event leave $id")."\n\n";
+
+		$eventlist = explode(",", $row->event_attendees);
+		sort($eventlist);
+		if ($row->event_attendees != "") {
+			forEach ($eventlist as $key => $name) {
+				$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE o.name = '$name'");
+				if ($db->numrows() != 0) {
+					$row = $db->fObject();
+					$level = $row->level;
+					$prof = $row->profession;
+					$info = ", level $level $prof";
+				}
+				
+				$altInfo = Alts::get_alt_info($name);
+				if (count($altInfo->alts) > 0) {
+					if ($altInfo->main == $name) {
+						$alt = "<highlight>::<end> <a href='chatcmd:///tell <myname> alts {$name}'>Alts</a>";
+					} else {
+						$alt = "<highlight>::<end> <a href='chatcmd:///tell <myname> alts {$name}'>Alts of {$altInfo->main}</a>";
+					}
+				}
+				
+				$link .= trim($name)."$info $alt\n";
+			}
+			$msg = Text::make_blob("Eventlist", $link);
+		} else {
+			$msg = "Eventlist is empty\n";
+		}
+	} else {
+		$msg = "That event doesn't exist";
+	}
+	
+	$chatBot->send($msg, $sendto);
+} else if (preg_match("/^events add (.+)$/i", $message, $arr)) {
+	$db->exec("INSERT INTO events (`time_submitted`, `submitter_name`, `event_name`) VALUES (".time().", '".$sender."', '".addslashes($arr[1])."')");
+	$event_id = $db->lastInsertId();
+	$msg = "Event: '$arr[1]' was submitted [Event ID $event_id].";
+	$chatBot->send($msg, $sendto);
+} else if (preg_match("/^events (rem|remove|del|delete) ([0-9]+)$/i", $message, $arr)) {
+	$db->exec("DELETE FROM events WHERE `id` = '$arr[2]'");
+	$msg = "Event Deleted.";
+	$chatBot->send($msg, $sendto);
+} else if (preg_match("/^events setdesc ([0-9]+) (.+)$/i", $message, $arr)) {
+	$db->exec("UPDATE events SET `event_desc` = '".addslashes($arr[2])."' WHERE `id` = '$arr[1]'");
+	$msg = "Description Updated.";
+	$chatBot->send($msg, $sendto);
+} else if (preg_match("/^events setdate ([0-9]+) ([0-9]{4})-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]) ([0-1][0-9]|[2][0-3]):([0-5][0-9]):([0-5][0-9])$/i", $message, $arr)) {
+	// yyyy-dd-mm hh:mm:ss GMT
+	$eventDate = gmmktime($arr[5], $arr[6], 0, $arr[3], $arr[4], $arr[2]);
+	$db->exec("UPDATE events SET `event_date` = '$eventDate' WHERE `id` = '$arr[1]'");
+	$msg = "Date/Time Updated.";
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
