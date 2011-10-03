@@ -65,6 +65,8 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 	
 	if (!array_key_exists($name, $altInfo->alts)) {
 		$msg = "<highlight>{$name}<end> is not registered as your alt.";
+	} else if (!$altInfo->is_validated($sender) && $altInfo->is_validated($name)) {
+		$msg = "You must be on a validated alt to remove another alt that is validated.";
 	} else {
 		Alts::rem_alt($altInfo->main, $name);
 		$msg = "<highlight>{$name}<end> has been deleted from your alt list.";
