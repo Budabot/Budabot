@@ -47,7 +47,7 @@ function getEvents() {
 			$link = $upcoming_title.$upcoming_events.$past_title.$past_events;
 		}
 		
-		return Text::make_blob("Latest Events", $link)." [Last updated at ".gmdate("F d, Y H:i:s", $updated)."]";
+		return Text::make_blob("Latest Events", $link)." [Last updated ".gmdate("F d, Y H:i:s", $updated)."]";
 	} else {
 		return "";
 	}
