@@ -271,7 +271,7 @@ if (preg_match("/^config$/i", $message)) {
 	// for subcommands which are handled differently
 	$chatBot->subcommands = array();
 	Subcommand::loadSubcommands();
-} else if (preg_match("/^config (subcmd|cmd) (.+) admin (msg|priv|guild|all) (all|leader|rl|mod|admin|guildadmin|guild|member)$/i", $message, $arr)) {
+} else if (preg_match("/^config (subcmd|cmd) (.+) admin (msg|priv|guild|all) (all|leader|rl|mod|admin|guild|member)$/i", $message, $arr)) {
 	$category = strtolower($arr[1]);
 	$command = strtolower($arr[2]);
 	$channel = strtolower($arr[3]);
@@ -389,7 +389,6 @@ if (preg_match("/^config$/i", $message)) {
 			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg member'>Member</a>  ";
 			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg guild'>Guild</a>  ";
 			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg leader'>Leader</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg guildadmin'>Guildadmin</a>  ";
 			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg rl'>RL</a>  ";
 			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg mod'>Mod</a>  ";
 			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg admin'>Admin</a>\n";
@@ -423,7 +422,6 @@ if (preg_match("/^config$/i", $message)) {
 			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv member'>Member</a>  ";
 			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv guild'>Guild</a>  ";
 			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv leader'>Leader</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv guildadmin'>Guildadmin</a>  ";
 			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv rl'>RL</a>  ";
 			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv mod'>Mod</a>  ";
 			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv admin'>Admin</a>\n";
@@ -457,7 +455,6 @@ if (preg_match("/^config$/i", $message)) {
 			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild member'>Member</a>  ";
 			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild guild'>Guild</a>  ";
 			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild leader'>Leader</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild guildadmin'>Guildadmin</a>  ";
 			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild rl'>RL</a>  ";
 			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild mod'>Mod</a>  ";
 			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild admin'>Admin</a>  ";
@@ -496,7 +493,6 @@ if (preg_match("/^config$/i", $message)) {
 				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg member'>Member</a>  ";
 				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg guild'>Guild</a>  ";
 				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg leader'>Leader</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg guildadmin'>Guildadmin</a>  ";
 				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg rl'>RL</a>  ";
 				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg mod'>Mod</a>  ";
 				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg admin'>Admin</a>\n\n";
@@ -530,7 +526,6 @@ if (preg_match("/^config$/i", $message)) {
 				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin priv member'>Member</a>  ";
 				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin priv guild'>Guild</a>  ";
 				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin priv leader'>Leader</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin priv guildadmin'>Guildadmin</a>  ";
 				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin priv rl'>RL</a>  ";
 				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin priv mod'>Mod</a>  ";
 				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin priv admin'>Admin</a>\n\n";
@@ -564,7 +559,6 @@ if (preg_match("/^config$/i", $message)) {
 				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild member'>Member</a>  ";
 				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild guild'>Guild</a>  ";
 				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild leader'>Leader</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild guildadmin'>Guildadmin</a>  ";
 				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild rl'>RL</a>  ";
 				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild mod'>Mod</a>  ";
 				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild admin'>Admin</a>\n\n";
@@ -583,7 +577,7 @@ if (preg_match("/^config$/i", $message)) {
 		$msg = Text::make_structured_blob(ucfirst($cmd)." config", $list);
 	}
 	$chatBot->send($msg, $sendto);
-} else if (preg_match("/^config help (.+) admin (all|leader|rl|mod|admin|guildadmin|guild|member)$/i", $message, $arr)) {
+} else if (preg_match("/^config help (.+) admin (all|leader|rl|mod|admin|guild|member)$/i", $message, $arr)) {
   	$help = strtolower($arr[1]);
 	$admin = $arr[2];
 
@@ -618,7 +612,6 @@ if (preg_match("/^config$/i", $message)) {
 			$l .= "<a href='chatcmd:///tell <myname> config help $row->name admin member'>Member</a>  ";
 			$l .= "<a href='chatcmd:///tell <myname> config help $row->name admin guild'>Guild</a>\n";
 			$l .= "<a href='chatcmd:///tell <myname> config help $row->name admin leader'>Leader</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config help $row->name admin guildadmin'>Guildadmin</a>  ";
 			$l .= "<a href='chatcmd:///tell <myname> config help $row->name admin rl'>RL</a>  ";
 			$l .= "<a href='chatcmd:///tell <myname> config help $row->name admin mod'>Mod</a>  ";
 			$l .= "<a href='chatcmd:///tell <myname> config help $row->name admin admin'>Admin</a>  ";

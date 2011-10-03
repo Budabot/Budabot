@@ -38,13 +38,13 @@ if (preg_match("/^(timers|timers add) ([0-9]+)$/i", $message, $arr) || preg_matc
 		$owner = $timer->owner;
 
 		if (strtolower($name) == $timer_name) {
-			if ($owner == $sender || AccessLevel::check_access($sender, "guildadmin")) {
+			if ($owner == $sender || AccessLevel::check_access($sender, "rl")) {
 				Timer::remove_timer($key);
 					
 			  	$msg = "Removed timer <highlight>$name<end>.";
 			  	break;
 			} else {
-				$msg = "You don't have the required access level (guildadmin) to remove this timer.";
+				$msg = "You don't have the required access level (raidleader) to remove this timer.";
 				break;
 			}
 		}

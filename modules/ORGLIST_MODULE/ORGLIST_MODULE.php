@@ -1,12 +1,12 @@
 <?php
 	require_once 'orglist_functions.php';
 	
-	Command::register($MODULE_NAME, "", "orgmembers.php", "orgmembers", "guildadmin", "Show guild members sorted by name");
-	Command::register($MODULE_NAME, "", "orgranks.php", "orgranks", "guildadmin", "Show guild members sorted by guild rank");
+	Command::register($MODULE_NAME, "", "orgmembers.php", "orgmembers", "rl", "Show guild members sorted by name");
+	Command::register($MODULE_NAME, "", "orgranks.php", "orgranks", "rl", "Show guild members sorted by guild rank");
 	Command::register($MODULE_NAME, "", "whoisorg.php", "whoisorg", "all", "Display org info");
 	Command::register($MODULE_NAME, "", "findorg.php", "findorg", "all", "Find orgs by name");
 	Command::register($MODULE_NAME, "", "is_online.php", "is", "all", "Checks if a player is online");
-	Command::register($MODULE_NAME, "", "orglist.php", "orglist", "guildadmin", "Check someones org roster");
+	Command::register($MODULE_NAME, "", "orglist.php", "orglist", "rl", "Check someones org roster");
 	CommandAlias::register($MODULE_NAME, "orglist", "onlineorg");
 
 	Event::register($MODULE_NAME, "logOn", "orglist_check.php", "none", "Gets online status of org members");

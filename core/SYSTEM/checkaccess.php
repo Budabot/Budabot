@@ -8,7 +8,7 @@ if (preg_match("/^checkaccess$/i", $message) || preg_match("/^checkaccess (.+)$/
 	}
 	
 	$current_access_level = '';
-	forEach (AccessLevel::$ACCESS_LEVELS as $level => $access_level) {
+	forEach (AccessLevel::$ACCESS_LEVELS as $access_level => $level) {
 		$current_access_level = $access_level;
 		if (AccessLevel::check_access($name, $access_level)) {
 			break;
