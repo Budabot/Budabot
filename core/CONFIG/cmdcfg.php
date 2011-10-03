@@ -622,12 +622,14 @@ if (preg_match("/^config$/i", $message)) {
 	$module = strtoupper($arr[1]);
 	$found = false;
 
-	$on = "<a href='chatcmd:///tell <myname> config mod {$module} enable all'>On</a>";
-	$off = "<a href='chatcmd:///tell <myname> config mod {$module} disable all'>Off</a>";
+	$on = "<a href='chatcmd:///tell <myname> config mod {$module} enable all'>Enable</a>";
+	$off = "<a href='chatcmd:///tell <myname> config mod {$module} disable all'>Disable</a>";
+	$configHelpFiles = Text::make_chatcmd('Configure', "/tell <myname> config help {$module}");
 	
 	$list = array();
 	$list[] = "<header> :::::: $module Configuration :::::: <end>\n\n";
-	$list[] = "<highlight>{$module}<end> - Enable/disable: ($on/$off)\n";
+	$list[] = "Enable/disable entire module: ($on/$off)\n";
+	$list[] = "Helpfiles: ($configHelpFiles)\n";
 	$l = "";
 	$lh = "";
 
@@ -679,13 +681,13 @@ if (preg_match("/^config$/i", $message)) {
 		GROUP BY
 			cmd";
 	$db->query($sql);
+	$data = $db->fObject("all");
 	$l = "";
 	$lh = "";
-	if ($db->numrows() > 0) {
+	if (count($data) > 0) {
 		$found = true;
 		$lh = "\n<i>Commands</i>\n";
 	}
-	$data = $db->fObject("all");
 	forEach ($data as $row) {
 		$guild = '';
 		$priv = '';
@@ -738,11 +740,12 @@ if (preg_match("/^config$/i", $message)) {
 	$l = "";
 	$lh = "";
 	$db->query("SELECT * FROM eventcfg_<myname> WHERE `type` <> 'setup' AND `module` = '$module'");
-	if ($db->numrows() > 0) {
+	$data = $db->fObject("all");
+	if (count($data) > 0) {
 		$found = true;
 		$lh = "\n<i>Events</i>\n";
 	}
-	while ($row = $db->fObject()) {
+	forEach ($data as $row) {
 		$on = "<a href='chatcmd:///tell <myname> config event ".$row->type." ".$row->file." enable all'>ON</a>";
 		$off = "<a href='chatcmd:///tell <myname> config event ".$row->type." ".$row->file." disable all'>OFF</a>";
 
