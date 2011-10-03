@@ -1,7 +1,12 @@
 <?php
 
-if (preg_match("/^symb ([a-z]+) ([a-z]+)$/i", $message, $arr)) {
-	for ($i = 1; $i <= 2; $i++) {
+if (preg_match("/^symb ([a-z]+)$/i", $message, $arr) || preg_match("/^symb ([a-z]+) ([a-z]+)$/i", $message, $arr)) {
+	$paramCount = count($arr) - 1;
+	
+	$slot = '%';
+	$symbtype = '%';
+
+	for ($i = 1; $i <= $paramCount; $i++) {
 		switch (strtolower($arr[$i])) {
 			case "eye":
 			case "ocular":
@@ -61,14 +66,14 @@ if (preg_match("/^symb ([a-z]+) ([a-z]+)$/i", $message, $arr)) {
 		}
 	}
 	
-  	$db->query("SELECT * FROM pbdb WHERE `slot` = '{$slot}' AND `type` = '{$symbtype}' ORDER BY `ql` DESC");
+  	$db->query("SELECT * FROM pbdb WHERE `slot` LIKE '{$slot}' AND `type` LIKE '{$symbtype}' ORDER BY `ql` DESC, `type` ASC");
   	$data = $db->fObject("all");
-	$numrows = $db->numrows();
+	$numrows = count($data);
 	if ($numrows != 0) {
 	  	$blob = "<header> :::::: Symbiants Search Results ($numrows) :::::: <end>\n\n";
 		forEach ($data as $row) {
 		  	$name = "QL $row->ql $row->line $row->slot Symbiant, $row->type Unit Aban";
-		  	$blob .= Text::make_item($row->itemid, $row->itemid, $row->ql, $name)."\n";
+		  	$blob .= "<pagebreak>" . Text::make_item($row->itemid, $row->itemid, $row->ql, $name)."\n";
 		  	$blob .= "Found on ".Text::make_chatcmd($row->pb, "/tell <myname> pb $row->pb");
 			$blob .= "\n\n";
 		}

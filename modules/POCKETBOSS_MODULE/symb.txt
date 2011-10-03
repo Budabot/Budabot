@@ -1,7 +1,13 @@
 <header> :::::: Symbiant Commands :::::: <end>
 
-<highlight>Show a list of Symbiants and which Pocketboss drops it<end>
+<highlight>Show a list of symbiants and which pocketboss drops it:<end>
 <tab><symbol>symb 'slotname' 'type'
+
+<highlight>Show all symbiants of a certain type:<end>
+<tab><symbol>symb 'type'
+
+<highlight>Show all symbiants which go in a certain slot:<end>
+<tab><symbol>symb 'slot'
 
 Allowed Slotnames
 <tab>- eye
