@@ -26,47 +26,49 @@ class AltInfo {
 			return "No registered alts";
 		}
 
-		$list = "<header> :::::: Character List for {$this->main} :::::: <end>\n\n";
-		$list .= "<tab><tab>{$this->main}";
+		$blob = "<header> :::::: Character List for {$this->main} :::::: <end>\n\n";
+		$blob .= "<tab><tab>{$this->main}";
 		$character = Player::get_by_name($this->main);
 		if ($character !== null) {
-			$list .= " (<highlight>{$character->level}<end>/<green>{$character->ai_level}<end> <highlight>{$character->profession}<end>)";
+			$blob .= " (<highlight>{$character->level}<end>/<green>{$character->ai_level}<end> <highlight>{$character->profession}<end>)";
 		}
 		$online = Buddylist::is_online($this->main);
 		if ($online === null) {
-			$list .= " - No status.\n";
+			$blob .= " - No status.\n";
 		} else if ($online == 1) {
-			$list .= " - <green>Online<end>\n";
+			$blob .= " - <green>Online<end>\n";
 		} else {
-			$list .= " - <red>Offline<end>\n";
+			$blob .= " - <red>Offline<end>\n";
 		}
-		$list .= "\n:::::: Alt Character(s)\n";
 		
 		$sql = "SELECT `alt`, `main`, `validated`, p.* FROM `alts` a LEFT JOIN players p ON (a.alt = p.name AND p.dimension = '<dim>') WHERE `main` LIKE '{$this->main}' ORDER BY level DESC, ai_level DESC, profession ASC, name ASC";
 		$db->query($sql);
 		$data = $db->fObject('all');
+		$count = count($data);
+		
+		$blob .= "\n:::::: Alt Characters ({$count})\n";
 		forEach ($data as $row) {
-			$list .= "<tab><tab>{$row->alt}";
+			$blob .= "<tab><tab>{$row->alt}";
 			if ($row->profession !== null) {
-				$list .= " (<highlight>{$row->level}<end>/<green>{$row->ai_level}<end> <highlight>{$row->profession}<end>)";
+				$blob .= " (<highlight>{$row->level}<end>/<green>{$row->ai_level}<end> <highlight>{$row->profession}<end>)";
 			}
 			$online = Buddylist::is_online($row->alt);
 			if ($online === null) {
-				$list .= " - No status.";
+				$blob .= " - No status.";
 			} else if ($online == 1) {
-				$list .= " - <green>Online<end>";
+				$blob .= " - <green>Online<end>";
 			} else {
-				$list .= " - <red>Offline<end>";
+				$blob .= " - <red>Offline<end>";
 			}
 			
 			if ($showValidateLinks && Setting::get('alts_inherit_admin') == 1 && $row->validated == 0) {
-				$list .= " [Unvalidated] " . Text::make_link('Validate', "/tell <myname> <symbol>altvalidate {$row->alt}", 'chatcmd');
+				$blob .= " [Unvalidated] " . Text::make_link('Validate', "/tell <myname> <symbol>altvalidate {$row->alt}", 'chatcmd');
 			}
 			
-			$list .= "\n";
+			$blob .= "\n";
 		}
 		
-		$msg = Text::make_blob("Alts of {$this->main}", $list);
+		$msg = Text::make_blob("Alts of {$this->main}", $blob);
 		
 		return $msg;
 	}
