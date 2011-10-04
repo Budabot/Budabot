@@ -10,6 +10,7 @@
 	Event::register($MODULE_NAME, "logOn", "city_guild_logon.php", "city", "Displays summary of city status.");
 	
 	Setting::add($MODULE_NAME, "showcloakstatus", "Show cloak status to players at logon", "edit", "options", "1", "Never;When cloak is down;Always", "0;1;2");
+	Setting::add($MODULE_NAME, "cloak_reminder_interval", "How often to spam guild channel when cloak is down", "edit", "time", "5m", "2m;5m;10m;15m;20m");
 	
 	// Auto Wave
 	Command::register($MODULE_NAME, "", "start.php", "startraid", "guild", "manually starts wave counter", "wavecounter");
