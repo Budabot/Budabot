@@ -5,8 +5,8 @@ if (preg_match("/^cloak$/i", $message)) {
     if ($db->numrows() == 0) {
         $msg = "<highlight>Unknown status on city cloak!<end>";
     } else {
-		$timeSinceChange = time() - $row->time;
 		$row = $db->fObject();
+		$timeSinceChange = time() - $row->time;
         if ($timeSinceChange >= 3600 && $row->action == "off") {
             $msg = "The cloaking device is <orange>disabled<end>. It is possible to enable it.";
         } else if ($timeSinceChange < 3600 && $row->action == "off") {
