@@ -19,21 +19,13 @@ if (preg_match("/^cloak$/i", $message)) {
 
         $list = "<header> :::::: City Cloak History :::::: <end>\n\n";
         $list .= "Time: <highlight>".gmdate("M j, Y, G:i", $row->time)." (GMT)<end>\n";
-        if ($row->action == "Attack") {
-            $list .= "Action: <highlight>City was under attack.<end>\n\n";
-        } else if ($row->action == "on" || $row->action == "off") {
-            $list .= "Action: <highlight>Cloaking Device has been turned ".$row->action."<end>\n";
-            $list .= "Player: <highlight>".$row->player."<end>\n\n";
-        }
+        $list .= "Action: <highlight>Cloaking Device has been turned ".$row->action."<end>\n";
+        $list .= "Player: <highlight>".$row->player."<end>\n\n";
         
         while ($row = $db->fObject()) {
             $list .= "Time: <highlight>".gmdate("M j, Y, G:i", $row->time)." (GMT)<end>\n";
-            if ($row->action == "Attack") {
-                $list .= "Action: <highlight>City was under attack.<end>\n\n";
-            } else if ($row->action == "on" || $row->action == "off") {
-                $list .= "Action: <highlight>Cloaking Device has been turned ".$row->action."<end>\n";
-                $list .= "Player: <highlight>".$row->player."<end>\n\n";
-            }
+            $list .= "Action: <highlight>Cloaking Device has been turned ".$row->action."<end>\n";
+            $list .= "Player: <highlight>".$row->player."<end>\n\n";
         }
         $msg .= " ".Text::make_blob("City History", $list);
     }
