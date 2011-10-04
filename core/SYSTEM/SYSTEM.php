@@ -35,17 +35,18 @@
 	Event::activate("1min", "$MODULE_NAME/reduce_largespam_values.php");
 	Event::activate("connect", "$MODULE_NAME/systems_ready.php");
 	
-	Setting::add($MODULE_NAME, 'symbol', 'Command prefix symbol', 'edit', "text", '!', '!;#;*;@;$;+;-', '', 'mod');
-	Setting::add($MODULE_NAME, 'guild_admin_level', 'Guild admin level', 'edit', "number", 1, 'President;General;Squad Commander;Unit Commander;Unit Leader;Unit Member;Applicant', '0;1;2;3;4;5;6', 'mod');
-	Setting::add($MODULE_NAME, 'spam_protection', 'Enable spam protection', 'edit', "options", 0, "true;false", "1;0", 'mod');
-	Setting::add($MODULE_NAME, 'max_blob_size', 'Max chars for a window', 'edit', "number", 7500, '4500;6000;7500;9000;10500;12000', '', 'mod');
-	Setting::add($MODULE_NAME, 'logon_delay', 'Seconds to wait before executing connect events and cron jobs', 'edit', "number", 10, '5;10;20;30', '', 'mod');
-	Setting::add($MODULE_NAME, 'guild_channel_status', 'Enable the guild channel', 'edit', "options", 1, "true;false", "1;0", 'mod');
-	Setting::add($MODULE_NAME, 'guild_channel_cmd_feedback', "Show message on invalid command in guild channel", 'edit', "options", 1, "true;false", "1;0", 'mod');
-	Setting::add($MODULE_NAME, 'private_channel_cmd_feedback', "Show message on invalid command in private channel", 'edit', "options", 1, "true;false", "1;0", 'mod');
+	Setting::add($MODULE_NAME, 'symbol', 'Command prefix symbol', 'edit', "text", '!', '!;#;*;@;$;+;-');
+	Setting::add($MODULE_NAME, 'guild_admin_rank', 'Guild rank required to be considered a guild admin', 'edit', "options", '1', '0;1;2;3;4;5;6');
+	Setting::add($MODULE_NAME, 'guild_admin_access_level', 'Access level that guild admins acquire', 'edit', "options", 'none', 'admin;mod;rl;all');
+	Setting::add($MODULE_NAME, 'spam_protection', 'Enable spam protection', 'edit', "options", 0, "true;false", "1;0");
+	Setting::add($MODULE_NAME, 'max_blob_size', 'Max chars for a window', 'edit', "number", 7500, '4500;6000;7500;9000;10500;12000');
+	Setting::add($MODULE_NAME, 'logon_delay', 'Seconds to wait before executing connect events and cron jobs', 'edit', "number", 10, '5;10;20;30');
+	Setting::add($MODULE_NAME, 'guild_channel_status', 'Enable the guild channel', 'edit', "options", 1, "true;false", "1;0");
+	Setting::add($MODULE_NAME, 'guild_channel_cmd_feedback', "Show message on invalid command in guild channel", 'edit', "options", 1, "true;false");
+	Setting::add($MODULE_NAME, 'private_channel_cmd_feedback', "Show message on invalid command in private channel", 'edit', "options", 1, "true;false", "1;0");
 
 	Help::register($MODULE_NAME, "system", "system.txt", "admin", "Admin System Help file");
-	Help::register($MODULE_NAME, "guild_admin_level", "guild_admin_level.txt", "mod", "Change what guild rank and high receives the guild admin level privilege");
+	Help::register($MODULE_NAME, "guild_admin_rank", "guild_admin_rank.txt", "mod", "Change what guild rank is considered a guild admin");
 	Help::register($MODULE_NAME, "spam_protection", "spam_protection.txt", "mod", "Enable or disable the spam protection");
 	Help::register($MODULE_NAME, "max_blob_size", "max_blob_size.txt", "mod", "Set the maximum blob size");
 	Help::register($MODULE_NAME, "checkaccess", "checkaccess.txt", "all", "How to get effective access level of a character");
