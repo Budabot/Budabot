@@ -1,6 +1,6 @@
 <?php
 
-if (preg_match("/^fling ([0-9]*\.?[0-9]+) ([0-9]+)$/i", $message, $arr)) {
+if (preg_match("/^fling ([0-9]*\\.?[0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	$AttTim = $arr[1];
 	$FlingSkill = $arr[2];
 	
@@ -14,10 +14,10 @@ if (preg_match("/^fling ([0-9]*\.?[0-9]+) ([0-9]+)$/i", $message, $arr)) {
 
 	$blob = "<header> :::::: Fling Calculator :::::: <end>\n\n";
 	$blob .= "Results:\n";
-	$blob	.= "Attack: <orange>{$AttTim}<end> second(s).\n";
-	$blob	.= "Fling Skill: <orange>{$FlingSkill}<end>\n";
-	$blob	.= "Fling Recharge: <orange>{$flingrech}<end> second(s)\n";
-	$blob	.= "You need <orange>{$flingskillcap}<end> Fling Skill to cap your fling at: <orange>{$flinghardcap}<end> second(s).";
+	$blob .= "Attack: <orange>{$AttTim}<end> second(s).\n";
+	$blob .= "Fling Skill: <orange>{$FlingSkill}<end>\n";
+	$blob .= "Fling Recharge: <orange>{$flingrech}<end> second(s)\n";
+	$blob .= "You need <orange>{$flingskillcap}<end> Fling Skill to cap your fling at: <orange>{$flinghardcap}<end> second(s).";
 
 	$msg = Text::make_blob("::Your Fling Results::", $blob);
 	$chatBot->send($msg, $sendto);

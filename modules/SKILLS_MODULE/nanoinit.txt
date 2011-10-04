@@ -1,8 +1,9 @@
-<header>Nano Init Usage:<end>
+<header> :::::: Nanoinit Command :::::: <end>
+
 /tell <myname> <symbol>nanoinit [<orange>A<end>] [<orange>I<end>]
 [<orange>A<end>] = Nano Attack Time
 [<orange>I<end>] = Your nano init skill
+
 Example:
-Your nano has an attack time (cast) of <orange>1.2<end>
-Your Nano Init skill is <orange>1200<end>.
+Your nano has an attack time (cast) of <orange>1.2<end> and your Nano Init skill is <orange>1200<end>.
 <a href='chatcmd:///tell <myname> <symbol>nanoinit 1.2 1200'>/tell <myname> <symbol>nanoinit 1.2 1200</a>

@@ -1,10 +1,11 @@
 <?php
 
-list($command, $AttTim, $RechT, $BurstDelay, $BurstSkill) = explode(" ", $message);
+if (preg_match("/^burst ([0-9]*\\.?[0-9]+) ([0-9]*\\.?[0-9]+) (\\d+) (\\d+)$/i", $message, $arr)) {
+	$AttTim = $arr[1];
+	$RechT = $arr[2];
+	$BurstDelay = $arr[3];
+	$BurstSkill = $arr[4];
 
-if ((!$AttTim) || (!$RechT) || (!$BurstDelay) || (!$BurstSkill)) {
-	$syntax_error = true;
-} else {
 	list($cap, $burstskillcap) = cap_burst($AttTim, $RechT, $BurstDelay);
 	
 	$burstrech = floor(($RechT * 20) + ($BurstDelay / 100) - ($BurstSkill / 25) + $AttTim);
@@ -24,4 +25,8 @@ if ((!$AttTim) || (!$RechT) || (!$BurstDelay) || (!$BurstSkill)) {
 
 	$msg = Text::make_blob("::Your Burst Results::", $blob);
 	$chatBot->send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
+
+?>

@@ -1,10 +1,10 @@
 <?php
 
-list($command, $AttTim, $RechT, $InitS) = explode(" ", $message);
+if (preg_match("/^as ([0-9]*\\.?[0-9]+) ([0-9]*\\.?[0-9]+) (\\d+)$/i", $message, $arr)) {
+	$AttTim = $arr[1];
+	$RechT = $arr[2];
+	$InitS = $arr[3];
 
-if ((!$AttTim) || (!$RechT) || (!$InitS)) {
-	$syntax_error = true;
-} else {
 	list($cap, $ASCap) = cap_aimed_shot($AttTim, $RechT);
 	
 	$ASRech	= ceil(($RechT * 40) - ($InitS * 3 / 100) + $AttTim - 1);
@@ -25,6 +25,8 @@ if ((!$AttTim) || (!$RechT) || (!$InitS)) {
 
 	$msg = Text::make_blob("::Your Aimed Shot Results::", $blob);
 	$chatBot->send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
 
 ?>

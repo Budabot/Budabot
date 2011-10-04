@@ -1,6 +1,8 @@
-<header>Brawl Usage:<end>
+<header> :::::: Brawl Command :::::: <end>
+
 /tell <myname> <symbol>Brawl [<orange>B<end>]
 [<orange>B<end>] = Brawl Skill
+
 Example:
 You have 750 brawl Skill.
 <a href='chatcmd:///tell <myname> <symbol>brawl 750'>/tell <myname> <symbol>brawl MA 750</a>

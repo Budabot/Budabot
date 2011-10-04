@@ -3,11 +3,11 @@
 //Module based upon a RINGBOT module made by NoGoal (RK2)
 //Modified for Budabot by Healnjoo (RK2)
 
-list($command, $AttTim, $RechT, $InitS) = explode(" ", $message);
+if (preg_match("/^aggdef ([0-9]*\\.?[0-9]+) ([0-9]*\\.?[0-9]+) (\\d+)$/i", $message, $arr)) {
+	$AttTim = $arr[1];
+	$RechT = $arr[2];
+	$InitS = $arr[3];
 
-if ((!$AttTim) || (!$RechT) || (!$InitS)) {
-	$syntax_error = true;
-} else {
 	if ($InitS < 1200) {
 		$AttCalc	= round(((($AttTim - ($InitS / 600)) - 1)/0.02) + 87.5, 0);
 		$RechCalc	= round(((($RechT - ($InitS / 300)) - 1)/0.02) + 87.5, 0);
@@ -84,6 +84,8 @@ if ((!$AttTim) || (!$RechT) || (!$InitS)) {
 
 	$msg = Text::make_blob("::Your Agg/Def Settings::", $blob);
 	$chatBot->send($msg, $sendto); 
+} else {
+	$syntax_error = true;
 }
 
 ?>

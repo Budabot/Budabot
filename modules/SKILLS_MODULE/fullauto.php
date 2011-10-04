@@ -1,10 +1,11 @@
 <?php
 
-list($command, $AttTim, $RechT, $FARecharge, $FullAutoSkill) = explode(" ", $message);
+if (preg_match("/^fullauto ([0-9]*\\.?[0-9]+) ([0-9]*\\.?[0-9]+) (\\d+) (\\d+)$/i", $message, $arr)) {
+	$AttTim = $arr[1];
+	$RechT = $arr[2];
+	$FARecharge = $arr[3];
+	$FullAutoSkill = $arr[4];
 
-if ((!$AttTim) || (!$RechT) || (!$FARecharge) || (!$FullAutoSkill)) {
-	$syntax_error = true;
-} else {
 	list($FACap, $FA_Skill_Cap) = cap_full_auto($AttTim, $RechT, $FARecharge);
 	
 	$FA_Recharge = round(($RechT * 40) + ($FARecharge / 100) - ($FullAutoSkill / 25) + round($AttTim - 1));
@@ -31,6 +32,8 @@ if ((!$AttTim) || (!$RechT) || (!$FARecharge) || (!$FullAutoSkill)) {
 
 	$msg = Text::make_blob("::Your Full Auto Recharge Results::", $blob);
 	$chatBot->send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
 
 ?>

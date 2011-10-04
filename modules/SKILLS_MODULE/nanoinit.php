@@ -1,48 +1,8 @@
 <?php
 
-if (!function_exists('calc_attack_time_reduction')) {
-	function calc_attack_time_reduction($init_skill) {
-		if ($init_skill > 1200) {
-			$RechTk = $init_skill - 1200;
-			$attack_time_reduction = ($RechTk / 600) + 6;
-		} else {
-			$attack_time_reduction = ($init_skill / 200);
-		}
-		
-		return $attack_time_reduction;
-	}
-}
-
-if (!function_exists('calc_bar_setting')) {
-	function calc_bar_setting($effective_attack_time) {
-		if ($effective_attack_time < 0) {
-			return 88 + (88 * $effective_attack_time);
-		} else if ($effective_attack_time > 0) {
-			return 88 + (12 * $effective_attack_time);
-		} else {
-			return 88;
-		}
-	}
-}
-
-if (!function_exists('calc_inits')) {
-	function calc_inits($attack_time) {
-		if ($attack_time < 0) {
-			return 0;
-		} else if ($attack_time < 6) {
-			return round($attack_time * 200, 2);
-		} else {
-			return round(1200 + ($attack_time - 6) * 600, 2);
-		}
-	}
-}
-
-$info = explode(" ", $message);
-list($command, $attack_time, $init_skill) = $info;
-
-if (!$attack_time || !$init_skill) {
-	$syntax_error = true;
-} else {
+if (preg_match("/^nanoinit ([0-9]*\\.?[0-9]+) (\\d+)$/i", $message, $arr)) {
+	$attack_time = $arr[1];
+	$init_skill = $arr[2];
 
 	$attack_time_reduction = calc_attack_time_reduction($init_skill);
 	$effective_attack_time = $attack_time - $attack_time_reduction;
@@ -71,6 +31,8 @@ if (!$attack_time || !$init_skill) {
 
 	$msg = Text::make_blob("::Nano Init Results::", $blob);
 	$chatBot->send($msg, $sendto);
+} else {
+	$syntax_error = true;
 }
 
 ?>

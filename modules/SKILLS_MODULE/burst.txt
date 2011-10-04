@@ -1,12 +1,13 @@
-<header>Burst Usage:<end>
+<header> :::::: Burst Command :::::: <end>
+
 /tell <myname> <symbol>burst [<orange>A<end>] [<orange>R<end>] [<orange>BD<end>] [<orange>BS<end>]
 [<orange>A<end>] = Weapon Attack Time
 [<orange>R<end>] = Weapon Recharge Time
 [<orange>BD<end>] = Your Burst Delay*
 [<orange>BS<end>] = Your Burst Skill
+
 Example:
-Your weapon has an attack time of <orange>1.2<end> seconds and a recharge time
-of <orange>1.5<end> seconds.  Your weapon has a Burst Delay* of <orange>1600<end>.
-You have <orange>900<end> Burst Skill.
+Your weapon has an attack time of <orange>1.2<end> seconds and a recharge time of <orange>1.5<end> seconds.  Your weapon has a Burst Delay* of <orange>1600<end>.  You have <orange>900<end> Burst Skill.
 <a href='chatcmd:///tell <myname> <symbol>burst 1.2 1.5 1600 900'>/tell <myname> <symbol>burst 1.2 1.5 1600 900</a>
-* Your Burst Delay value (1600) can be found on <a href='chatcmd:///start http://www.auno.org'>auno.org</a> as Burst Cycle and <a href='chatcmd:///start http://aomainframe.net'>aomainframe.net</a> as BurstRecharge.
+
+* Your Burst Delay value (1600) can be found by using the <a href='chatcmd:///tell <myname> help specials'>specials</a> command or on <a href='chatcmd:///start http://www.auno.org'>auno.org</a> as Burst Cycle and <a href='chatcmd:///start http://aomainframe.net'>aomainframe.net</a> as BurstRecharge.

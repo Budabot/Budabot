@@ -5,7 +5,7 @@
 	Command::register($MODULE_NAME, "", "aggdef.php", "aggdef", "all", "Agg/Def: Calculates weapon inits for your Agg/Def bar.");
 	Command::register($MODULE_NAME, "", "as.php", "as", "all", "AS: Calculates Aimed Shot.");
 	Command::register($MODULE_NAME, "", "nanoinit.php", "nanoinit", "all", "Nanoinit: Calculates Nano Init.");
-	Command::register($MODULE_NAME, "", "fa.php", "fa", "all", "FA: Calculates Full Auto recharge.");
+	Command::register($MODULE_NAME, "", "fullauto.php", "fullauto", "all", "Fullauto: Calculates Full Auto recharge.");
 	Command::register($MODULE_NAME, "", "burst.php", "burst", "all", "Burst: Calculates Burst.");
 	Command::register($MODULE_NAME, "", "fling.php", "fling", "all", "Fling: Calculates Fling.");
 	Command::register($MODULE_NAME, "", "mafist.php", "mafist", "all", "MA Fist: Calculates your fist speed.");
@@ -13,6 +13,7 @@
 	Command::register($MODULE_NAME, "", "brawl.php", "brawl", "all", "Brawl: Calculates brawl facts.");
 	Command::register($MODULE_NAME, "", "fastattack.php", "fastattack", "all", "Fastattack: Calculates Fast Attack recharge.");
 	CommandAlias::register($MODULE_NAME, "fastattack", "fast");
+	CommandAlias::register($MODULE_NAME, "fullauto", "fa");
 	
 	//Xyphos' tools
 	Command::register($MODULE_NAME, "", "inits.php", "inits", "all", "shows how much inits you need for 1/1");
@@ -22,7 +23,7 @@
 	Help::register($MODULE_NAME, "aggdef", "aggdef.txt", "all", "How to use aggdef");
 	Help::register($MODULE_NAME, "nanoinit", "nanoinit.txt", "all", "How to use nanoinit");
 	Help::register($MODULE_NAME, "as", "as.txt", "all", "How to use as");
-	Help::register($MODULE_NAME, "fa", "fa.txt", "all", "How to use fa");
+	Help::register($MODULE_NAME, "fullauto", "fullauto.txt", "all", "How to use fullauto");
 	Help::register($MODULE_NAME, "fling", "fling.txt", "all", "How to use fling");
 	Help::register($MODULE_NAME, "burst", "burst.txt", "all", "How to use burst");
 	Help::register($MODULE_NAME, "mafist", "mafist.txt", "all", "How to use mafist");
