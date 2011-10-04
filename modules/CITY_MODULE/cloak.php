@@ -10,11 +10,11 @@ if (preg_match("/^cloak$/i", $message)) {
         if ($timeSinceChange >= 3600 && $row->action == "off") {
             $msg = "The cloaking device is <orange>disabled<end>. It is possible to enable it.";
         } else if ($timeSinceChange < 3600 && $row->action == "off") {
-            $msg = "The cloaking device is <orange>disabled<end>. It is possible in " . Util::unixtime_to_readable($row->time, false) . " to enable it.";
+            $msg = "The cloaking device is <orange>disabled<end>. It is possible in " . Util::unixtime_to_readable(3600 - $timeSinceChange, false) . " to enable it.";
         } else if ($timeSinceChange >= 3600 && $row->action == "on") {
             $msg = "The cloaking device is <green>enabled<end>. It is possible to disable it.";
 		} else if ($timeSinceChange < 3600 && $row->action == "on") {
-            $msg = "The cloaking device is <green>enabled<end>. It is possible in " . Util::unixtime_to_readable($row->time, false) . " to disable it.";
+            $msg = "The cloaking device is <green>enabled<end>. It is possible in " . Util::unixtime_to_readable(3600 - $timeSinceChange, false) . " to disable it.";
 		}
 
         $list = "<header> :::::: City Cloak History :::::: <end>\n\n";
