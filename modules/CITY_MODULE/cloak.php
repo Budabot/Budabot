@@ -7,14 +7,14 @@ if (preg_match("/^cloak$/i", $message)) {
     } else {
 		$timeSinceChange = time() - $row->time;
 		$row = $db->fObject();
-        if (($timeSinceChange >= 60*60) && ($row->action == "off")) {
-            $msg = "The cloaking device is disabled. It is possible to enable it.";
-        } else if (($timeSinceChange < 60*60) && ($row->action == "off")) {
-            $msg = "The cloaking device is disabled. It is possible in ".round((($row->time + 60*60) - time())/60, 0)."min to enable it.";
-        } else if (($timeSinceChange >= 60*60) && ($row->action == "on")) {
-            $msg = "The cloaking device is enabled. It is possible to disable it.";
-		} else if (($timeSinceChange < 60*60) && ($row->action == "on")) {
-            $msg = "The cloaking device is <green>enabled<end>. It is possible in ".round((($row->time + 60*60) - time())/60, 0)."min to disable it.";
+        if ($timeSinceChange >= 3600 && $row->action == "off") {
+            $msg = "The cloaking device is <orange>disabled<end>. It is possible to enable it.";
+        } else if ($timeSinceChange < 3600 && $row->action == "off") {
+            $msg = "The cloaking device is <orange>disabled<end>. It is possible in " . Util::unixtime_to_readable($row->time, false) . " to enable it.";
+        } else if ($timeSinceChange >= 3600 && $row->action == "on") {
+            $msg = "The cloaking device is <green>enabled<end>. It is possible to disable it.";
+		} else if ($timeSinceChange < 3600 && $row->action == "on") {
+            $msg = "The cloaking device is <green>enabled<end>. It is possible in " . Util::unixtime_to_readable($row->time, false) . " to disable it.";
 		}
 
         $list = "<header> :::::: City Cloak History :::::: <end>\n\n";
@@ -46,7 +46,7 @@ if (preg_match("/^cloak$/i", $message)) {
 		$msg = "The cloaking device is already <green>enabled<end>.";
 	} else {
 		$db->exec("INSERT INTO org_city_<myname> (`time`, `action`, `player`) VALUES ('".time()."', 'on', '{$sender}*')");
-		$msg = "The cloaking device has been manually set to on in the bot.";
+		$msg = "The cloaking device has been manually enabled in the bot (you must still enable the cloak if it's disabled).";
 	}
 
 	$chatBot->send($msg, $sendto);
