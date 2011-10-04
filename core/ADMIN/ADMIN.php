@@ -27,10 +27,7 @@
 	Command::activate("priv", "$MODULE_NAME/adminlist.php", "adminlist");
 	Command::activate("guild", "$MODULE_NAME/adminlist.php", "adminlist");
 
-	Event::activate("logOn", "$MODULE_NAME/admin_logon.php");
-	Event::activate("logOff", "$MODULE_NAME/admin_logoff.php");
 	Event::activate("24hrs", "$MODULE_NAME/check_admins.php");
-
 	Event::activate("setup", "$MODULE_NAME/upload_admins.php");
 
 	Help::register($MODULE_NAME, "admin", "admin.txt", "mod", "Mod/Admin Help file");

@@ -12,7 +12,7 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 	$success = 0;
 	
 	/* Pop a name from the array until none are left (checking for null) */
-	foreach ($names as $name) {
+	forEach ($names as $name) {
 		$name = ucfirst(strtolower($name));
 		
 		$uid = $chatBot->get_uid($name);

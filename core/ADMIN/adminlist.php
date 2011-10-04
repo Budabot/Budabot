@@ -42,9 +42,9 @@ if (preg_match("/^adminlist$/i", $message) || preg_match("/^admins$/i", $message
 					$list .= "(<orange>Super Administrator<end>) ";
 				}
 					
-				if ($chatBot->admins[$who]["online"] == "online" && isset($chatBot->chatlist[$who])) {
+				if (Buddylist::is_online($who) == 1 && isset($chatBot->chatlist[$who])) {
 					$list.="(<green>Online and in chat<end>)";
-				} else if ($chatBot->admins[$who]["online"] == "online") {
+				} else if (Buddylist::is_online($who) == 1) {
 					$list.="(<green>Online<end>)";
 				} else {
 					$list.="(<red>Offline<end>)";
@@ -60,9 +60,9 @@ if (preg_match("/^adminlist$/i", $message) || preg_match("/^admins$/i", $message
 		if ($chatBot->admins[$who]["level"] == 3){
 			if ($who != "") {
 				$list.= "<tab>$who ";
-				if ($chatBot->admins[$who]["online"] == "online" && isset($chatBot->chatlist[$who])) {
+				if (Buddylist::is_online($who) == 1 && isset($chatBot->chatlist[$who])) {
 					$list.="(<green>Online and in chat<end>)";
-				} else if ($chatBot->admins[$who]["online"] == "online") {
+				} else if (Buddylist::is_online($who) == 1) {
 					$list.="(<green>Online<end>)";
 				} else {
 					$list.="(<red>Offline<end>)";
@@ -77,9 +77,9 @@ if (preg_match("/^adminlist$/i", $message) || preg_match("/^admins$/i", $message
 		if ($chatBot->admins[$who]["level"] == 2){
 			if ($who != "") {
 				$list.= "<tab>$who ";
-				if ($chatBot->admins[$who]["online"] == "online" && isset($chatBot->chatlist[$who])) {
+				if (Buddylist::is_online($who) == 1 && isset($chatBot->chatlist[$who])) {
 					$list.="(<green>Online and in chat<end>)";
-				} else if ($chatBot->admins[$who]["online"] == "online") {
+				} else if (Buddylist::is_online($who) == 1) {
 					$list.="(<green>Online<end>)";
 				} else {
 					$list.="(<red>Offline<end>)";

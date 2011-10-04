@@ -2,7 +2,7 @@
 
 //Send Admin(s) a tell that the bot is online
 forEach ($chatBot->admins as $name => $info) {
-	if ($name != "" && $info["level"] == 4 && $info["online"] == "online") {
+	if ($info["level"] == 4 && Buddylist::is_online($name) == 1) {
 		$chatBot->send("<myname> is <green>online<end>. For updates or help use the Budabot Forums <highlight>http://budabot.com<end>", $name);
 	}
 }
