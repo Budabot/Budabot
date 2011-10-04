@@ -35,7 +35,7 @@ class Command {
 		for ($i = 0; $i < count($channel); $i++) {
 			Logger::log('debug', 'Command', "Adding Command to list:($command) File:($actual_filename) Admin:({$admin[$i]}) Channel:({$channel[$i]})");
 			
-			if ($chatBot->existing_commands[$channel[$i]][$command] == true) {
+			if (isset($chatBot->existing_commands[$channel[$i]][$command])) {
 				$db->exec("UPDATE cmdcfg_<myname> SET `module` = '$module', `verify` = 1, `file` = '$actual_filename', `description` = '$description', `help` = '{$help}' WHERE `cmd` = '$command' AND `type` = '{$channel[$i]}'");
 			} else {
 				$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`, `help`) VALUES ('$module', '{$channel[$i]}', '$actual_filename', '$command', '{$admin[$i]}', '$description', 1, 'cmd', '{$status}', '{$help}')");
