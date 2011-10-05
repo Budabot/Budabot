@@ -1,4 +1,0 @@
-<header> :::::: Boteventlist Command :::::: <end>
-
-<highlight>To show the list of all events and their statuses:<end>
-<tab><symbol>boteventlist

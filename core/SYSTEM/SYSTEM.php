@@ -23,8 +23,6 @@
 	Command::activate("priv", "$MODULE_NAME/logs.php", "logs", "admin");
 	Command::activate("guild", "$MODULE_NAME/logs.php", "logs", "admin");
 	
-	Command::register($MODULE_NAME, "", "cmdlist.php", "cmdlist", "guild", "Shows a list of all commands on the bot");
-	Command::register($MODULE_NAME, "", "boteventlist.php", "boteventlist", "guild", "Shows a list of all events on the bot");
 	Command::register($MODULE_NAME, "", "lookup.php", "lookup", "all", "Find the uid for a character");
 	Command::register($MODULE_NAME, "", "clearqueue.php", "clearqueue", "mod", "Clear outgoing chatqueue from all pending messages");
 	Command::register($MODULE_NAME, "", "loadsql.php", "loadsql", "mod", "Manually reload an sql file");
@@ -50,8 +48,6 @@
 	Help::register($MODULE_NAME, "spam_protection", "spam_protection.txt", "mod", "Enable or disable the spam protection");
 	Help::register($MODULE_NAME, "max_blob_size", "max_blob_size.txt", "mod", "Set the maximum blob size");
 	Help::register($MODULE_NAME, "checkaccess", "checkaccess.txt", "all", "How to get effective access level of a character");
-	Help::register($MODULE_NAME, "boteventlist", "boteventlist.txt", "guild", "How to see list of all events");
-	Help::register($MODULE_NAME, "cmdlist", "cmdlist.txt", "guild", "How to see list of all commands");
 	Help::register($MODULE_NAME, "lookup", "lookup.txt", "all", "How to get the id of a character");
 	Help::register($MODULE_NAME, "loadsql", "loadsql.txt", "mod", "How to manually load an sql file");
 	Help::register($MODULE_NAME, "clearqueue", "clearqueue.txt", "mod", "How to clear the outgoing chat message queue");

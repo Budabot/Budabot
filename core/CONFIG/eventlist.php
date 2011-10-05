@@ -22,7 +22,7 @@ if (preg_match("/^boteventlist$/i", $message) || preg_match("/^boteventlist (.+)
 	$data = $db->fObject('all');
 	
 	if (count($data) > 0) {
-		$blob  = "<header> :::::: Bot Event List :::::: <end>\n\n";
+		$blob  = "<header> :::::: Event List :::::: <end>\n\n";
 		forEach ($data as $row) {
 			$on = Text::make_chatcmd('ON', "/tell <myname> config event $row->type $row->file enable all");
 			$off = Text::make_chatcmd('OFF', "/tell <myname> config event $row->type $row->file disable all");
@@ -40,7 +40,7 @@ if (preg_match("/^boteventlist$/i", $message) || preg_match("/^boteventlist (.+)
 			}
 		}
 
-		$msg = Text::make_blob("Bot Event List", $blob);
+		$msg = Text::make_blob("Event List", $blob);
 	} else {
 		$msg = "No events could be found for event type '$arr[1]'.";
 	}
