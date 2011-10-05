@@ -73,12 +73,10 @@ if (preg_match("/^events$/i", $message, $arr)) {
 		sort($eventlist);
 		if ($row->event_attendees != "") {
 			forEach ($eventlist as $key => $name) {
-				$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE o.name = '$name'");
+				$db->query("SELECT * FROM players p WHERE name = '$name' AND p.dimension = '<dim>'");
 				if ($db->numrows() != 0) {
 					$row = $db->fObject();
-					$level = $row->level;
-					$prof = $row->profession;
-					$info = ", level $level $prof";
+					$info = " <white>Lvl $row->level $row->profession<end>\n";
 				}
 				
 				$altInfo = Alts::get_alt_info($name);
@@ -92,12 +90,12 @@ if (preg_match("/^events$/i", $message, $arr)) {
 				
 				$link .= trim($name)."$info $alt\n";
 			}
-			$msg = Text::make_blob("Eventlist", $link);
+			$msg = Text::make_blob("Event Attendees", $link);
 		} else {
-			$msg = "Eventlist is empty\n";
+			$msg = "No one has signed up to attend this event!";
 		}
 	} else {
-		$msg = "That event doesn't exist";
+		$msg = "That event doesn't exist!";
 	}
 	
 	$chatBot->send($msg, $sendto);
