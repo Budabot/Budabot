@@ -16,9 +16,9 @@ if (!preg_match("/^.?afk(.*)$/i", $message)) {
 	} else {
 		list($name, $other) = explode(" ", $message, 2);
 		$name = ucfirst(strtolower($name));
-		$uid = $chatBot->get_uid($name);
-		if ($uid) {
-			$db->query("SELECT afk FROM online WHERE `name` = '{$name}' AND added_by = '<myname>'");
+
+		if (isset($this->id[$name]) && Util::isValidSender($this->id[$name])) {
+			$db->query("SELECT afk FROM online WHERE `name` = '" . str_replace("'", "''", $name) . "' AND added_by = '<myname>'");
 
 			if ($db->numrows() != 0) {
 				$row = $db->fObject();
