@@ -1,6 +1,6 @@
 <?php
 
-if (Setting::get('alts_inherit_admin') == 1) {
+if ($chatBot->is_ready() && Setting::get('alts_inherit_admin') == 1) {
 	$altInfo = Alts::get_alt_info($sender);
 	
 	if ($altInfo->hasUnvalidatedAlts() && ($sender == $altInfo->main || (Setting::get('validate_from_validated_alt') == 1 && $altInfo->is_validated($sender)))) {
