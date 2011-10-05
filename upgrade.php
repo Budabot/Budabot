@@ -11,5 +11,7 @@ if ($db->errorInfo[0] != "00000") {
 }
 
 // TODO update settings which were changed to time settings
-
+// ONLINE_MODULE, online_expire
+// RAFFLE_MODULE, defaultraffletime
+// SHOPLISTENER_MODULE, shop_message_age
 ?>
