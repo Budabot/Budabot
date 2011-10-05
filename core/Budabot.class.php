@@ -316,34 +316,34 @@ class Budabot extends AOChat {
 	 * @name: process_packet
 	 * @description: Proccess all incoming messages that bot recives
 	 */	
-	function process_packet($packet_type, $args) {
-		$this->process_all_packets($packet_type, $args);
+	function process_packet($packet) {
+		$this->process_all_packets($packet->type, $packet->args);
 		
 		// event handlers
-		switch ($packet_type){
+		switch ($packet->type){
 			case AOCP_GROUP_ANNOUNCE: // 60
-				$this->process_group_announce($args);
+				$this->process_group_announce($packet->args);
 				break;
 			case AOCP_PRIVGRP_CLIJOIN: // 55, Incoming player joined private chat
-				$this->process_private_channel_join($args);
+				$this->process_private_channel_join($packet->args);
 				break;
 			case AOCP_PRIVGRP_CLIPART: // 56, Incoming player left private chat
-				$this->process_private_channel_leave($args);
+				$this->process_private_channel_leave($packet->args);
 				break;
 			case AOCP_BUDDY_ADD: // 40, Incoming buddy logon or off
-				$this->process_buddy_update($args);
+				$this->process_buddy_update($packet->args);
 				break;
 			case AOCP_MSG_PRIVATE: // 30, Incoming Msg
-				$this->process_private_message($args);
+				$this->process_private_message($packet->args);
 				break;
 			case AOCP_PRIVGRP_MESSAGE: // 57, Incoming priv message
-				$this->process_private_channel_message($args);
+				$this->process_private_channel_message($packet->args);
 				break;
 			case AOCP_GROUP_MESSAGE: // 65, Public and guild channels
-				$this->process_public_channel_message($args);
+				$this->process_public_channel_message($packet->args);
 				break;
-			case AOCP_PRIVGRP_INVITE:  // 50, private channel invite
-				$this->process_private_channel_invite($args);
+			case AOCP_PRIVGRP_INVITE: // 50, private channel invite
+				$this->process_private_channel_invite($packet->args);
 				break;
 		}
 	}
@@ -354,8 +354,7 @@ class Budabot extends AOChat {
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
-		$restricted = false;
-		
+
 		$type = 'allpackets';
 
 		forEach ($chatBot->events[$type] as $filename) {
@@ -373,7 +372,6 @@ class Budabot extends AOChat {
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
-		$restricted = false;
 	
 		$b = unpack("C*", $args[0]);
 		Logger::log('DEBUG', 'Packets', "AOCP_GROUP_ANNOUNCE => name: '$args[1]'");
@@ -389,7 +387,6 @@ class Budabot extends AOChat {
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
-		$restricted = false;
 	
 		$channel = $chatBot->lookup_user($args[0]);
 		$sender = $chatBot->lookup_user($args[1]);
@@ -418,11 +415,6 @@ class Budabot extends AOChat {
 					return;
 				}
 			}
-			
-			// Kick if their access is restricted.
-			if ($restricted === true) {
-				$chatBot->privategroup_kick($sender);
-			}
 		} else {
 			$type = "extJoinPriv";
 			
@@ -442,7 +434,6 @@ class Budabot extends AOChat {
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
-		$restricted = false;
 	
 		$channel = $chatBot->lookup_user($args[0]);
 		$sender	= $chatBot->lookup_user($args[1]);
@@ -484,7 +475,6 @@ class Budabot extends AOChat {
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
-		$restricted = false;
 	
 		$sender	= $chatBot->lookup_user($args[0]);
 		$status	= 0 + $args[1];
@@ -589,7 +579,7 @@ class Budabot extends AOChat {
 			}
 		}
 
-		// Remove the prefix if there is one
+		// Remove the symbol if there is one
 		if ($message[0] == Setting::get("symbol") && strlen($message) > 1) {
 			$message = substr($message, 1);
 		}
@@ -611,13 +601,11 @@ class Budabot extends AOChat {
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
-		$restricted = false;
 	
 		$sender	= $chatBot->lookup_user($args[1]);
 		$sendto = 'prv';
 		$channel = $chatBot->lookup_user($args[0]);
 		$message = $args[2];
-		$restricted = false;
 		
 		Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_MESSAGE => sender: '$sender' channel: '$channel' message: '$message'");
 		Logger::log_chat($channel, $sender, $message);
@@ -678,7 +666,6 @@ class Budabot extends AOChat {
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
-		$restricted = false;
 	
 		$syntax_error = false;
 		$sender	 = $chatBot->lookup_user($args[1]);
@@ -758,7 +745,6 @@ class Budabot extends AOChat {
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
-		$restricted = false;
 	
 		$type = "extJoinPrivRequest"; // Set message type.
 		$uid = $args[0];
