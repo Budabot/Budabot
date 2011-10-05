@@ -166,7 +166,7 @@ $chatBot->init();
 
 if (file_exists('upgrade.php')) {
 	include 'upgrade.php';
-	unlink('upgrade.php');
+	//unlink('upgrade.php');
 }
 
 $chatBot->connectAO($vars['login'], $vars['password'], $server, $port);

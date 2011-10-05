@@ -13,8 +13,22 @@ if ($db->errorInfo[0] != "00000") {
 // remove name history for characters that don't actually exist
 $db->exec("DELETE FROM name_history WHERE charid = '-1' OR charid = '4294967295'");
 
-// TODO update settings which were changed to time settings
-// ONLINE_MODULE, online_expire
-// RAFFLE_MODULE, defaultraffletime
-// SHOPLISTENER_MODULE, shop_message_age
+// update number settings which were changed to time settings
+$db->query("SELECT * FROM settings_<myname> WHERE name = 'online_expire' OR name = 'defaultraffletime' OR name = 'shop_message_age'");
+$data = $db->fObject('all');
+forEach ($data as $row) {
+	if ($row->name == 'online_expire' && $row->value < 60) {
+		$newvalue = $row->value * 60;
+		$db->exec("UPDATE settings_<myname> SET value = '$newvalue' WHERE name = 'online_expire'");
+	}
+	if ($row->name == 'defaultraffletime' && $row->value < 60) {
+		$newvalue = $row->value * 60;
+		$db->exec("UPDATE settings_<myname> SET value = '$newvalue' WHERE name = 'defaultraffletime'");
+	}
+	if ($row->name == 'shop_message_age' && $row->value < 86400) {
+		$newvalue = $row->value * 86400;
+		$db->exec("UPDATE settings_<myname> SET value = '$newvalue' WHERE name = 'shop_message_age'");
+	}
+}
+
 ?>
