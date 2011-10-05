@@ -13,6 +13,6 @@
 	Help::register($MODULE_NAME, "config", "config.txt", "mod", "Configure Commands/Events of the Bot");
 	Help::register($MODULE_NAME, "alias", "alias.txt", "mod", "How to add and remove aliases");
 	Help::register($MODULE_NAME, "searchcmd", "searchcmd.txt", "mod", "How to find which module a command belongs to");
-	Help::register($MODULE_NAME, "eventlist", "boteventlist.txt", "guild", "How to see list of all events");
+	Help::register($MODULE_NAME, "eventlist", "eventlist.txt", "guild", "How to see list of all events");
 	Help::register($MODULE_NAME, "cmdlist", "cmdlist.txt", "guild", "How to see list of all commands");
 ?>
