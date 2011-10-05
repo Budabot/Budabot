@@ -10,6 +10,12 @@ if ($db->errorInfo[0] != "00000") {
 	$db->exec("ALTER TABLE `alts` ADD COLUMN `validated` TINYINT(1) NOT NULL DEFAULT 0"); //Add the validated column
 }
 
+// add logoff_msg column to org_members_<myname>
+$db->query("SELECT `logoff_msg` FROM `org_members_<myname>`");
+if ($db->errorInfo[0] != "00000") {
+	$db->exec("ALTER TABLE `org_members_<myname>` ADD COLUMN `logoff_msg` VARCHAR(400) DEFAULT ''"); //Add the logoff_msg column
+}
+
 // remove name history for characters that don't actually exist
 $db->exec("DELETE FROM name_history WHERE charid = '-1' OR charid = '4294967295'");
 
