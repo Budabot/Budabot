@@ -30,6 +30,10 @@ class Logger {
 
 		$timestamp = date(Logger::$TIMESTAMP_FORMAT);
 		$category = strtoupper($category);
+		
+		if ($category == "ERROR") {
+			$message .= Util::getStackTrace();
+		}
 
 		$line = str_pad($timestamp, 17) . ' ' .  str_pad($category, 5) . ' ' . "[$tag]" . ' ' . $message;
 

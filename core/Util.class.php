@@ -323,12 +323,14 @@ class Util {
 		return $string;
 	}
 	
-	public static function printStackTrace() {
+	public static function getStackTrace() {
 		$trace = debug_backtrace();
+		$str = '';
 		forEach($trace as $obj) {
 			$file = str_replace(getcwd(), "", $obj['file']);
-			echo "{$file}({$obj['line']}) : {$obj['function']}()\n";
+			$str .= "{$file}({$obj['line']}) : {$obj['function']}()\n";
 		}
+		return $str;
 	}
 }
 

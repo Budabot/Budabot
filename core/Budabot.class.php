@@ -798,7 +798,7 @@ class Budabot extends AOChat {
 			return;
 		}
 		
-		$admin 	= $chatBot->commands[$type][$cmd]["admin"];
+		$admin = $chatBot->commands[$type][$cmd]["admin"];
 		$filename = $chatBot->commands[$type][$cmd]["filename"];
 
 		// Check if a subcommands for this exists
@@ -811,10 +811,8 @@ class Budabot extends AOChat {
 			}
 		}
 
-		// Admin Check
-		$access = AccessLevel::check_access($sender, $admin);
-
-		if ($access !== true || $filename == "") {
+		// if file doesn't exist or the character doesn't have access
+		if ($filename == "" || AccessLevel::check_access($sender, $admin) !== true) {
 			// if they've disabled feedback for guild or private channel, just return
 			if ((Setting::get('guild_channel_cmd_feedback') == 0 && $type == 'guild') || ((Setting::get('private_channel_cmd_feedback') == 0 && $type == 'priv'))) {
 				return;
