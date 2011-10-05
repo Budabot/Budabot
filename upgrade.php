@@ -10,6 +10,9 @@ if ($db->errorInfo[0] != "00000") {
 	$db->exec("ALTER TABLE `alts` ADD COLUMN `validated` TINYINT(1) NOT NULL DEFAULT 0"); //Add the validated column
 }
 
+// remove name history for characters that don't actually exist
+$db->exec("DELETE FROM name_history WHERE charid = '-1' OR charid = '4294967295'");
+
 // TODO update settings which were changed to time settings
 // ONLINE_MODULE, online_expire
 // RAFFLE_MODULE, defaultraffletime
