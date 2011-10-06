@@ -22,8 +22,8 @@ if (preg_match("/^ofabweapons$/i", $message, $arr)) {
 	$blob = "<header> :::::: Ofab Weapons :::::: <end>\n\n";
 	forEach ($data as $row) {
 		$blob .= "<pagebreak>{$row->name} - Type {$row->type}\n";
-		forEach ($qls as $ql) {
-			$ql_link = Text::make_chatcmd($ql->ql, "/tell <myname> ofabweapons {$row->name} {$ql->ql}");
+		forEach ($qls as $row2) {
+			$ql_link = Text::make_chatcmd($row2->ql, "/tell <myname> ofabweapons {$row->name} {$row2->ql}");
 			$blob .= "[{$ql_link}] ";
 		}
 		$blob .= "\n\n";
@@ -53,6 +53,19 @@ if (preg_match("/^ofabweapons$/i", $message, $arr)) {
 	$typeQl = round(.8 * $ql);
 	$typeLink = Text::make_chatcmd("Kyr'Ozch Bio-Material - Type {$row->type}", "/tell <myname> bioinfo {$row->type} {$typeQl}");
 	$blob .= "Upgrade with $typeLink (minimum QL {$typeQl})\n\n";
+	
+	$db->query("SELECT DISTINCT ql FROM ofabweaponscost ORDER BY ql ASC");
+	$qls = $db->fObject('all');
+	forEach ($qls as $row2) {
+		if ($row2->ql == $ql) {
+			$blob .= "[{$row2->ql}] ";
+		} else {
+			$ql_link = Text::make_chatcmd($row2->ql, "/tell <myname> ofabweapons {$weapon} {$row2->ql}");
+			$blob .= "[{$ql_link}] ";
+		}
+	}
+	$blob .= "\n\n";
+
 	for ($i = 1; $i <= 6; $i++) {
 		$blob .=  makeAlienWeapon($ql, "Ofab {$weapon} Mk {$i}");
 		if ($i == 1) {

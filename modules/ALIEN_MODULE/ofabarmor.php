@@ -9,8 +9,8 @@ if (preg_match("/^ofabarmor$/i", $message, $arr)) {
 	$blob = "<header> :::::: Ofab Armor Bio-Material Types :::::: <end>\n\n";
 	forEach ($data as $row) {
 		$blob .= "<pagebreak>{$row->profession} - Type {$row->type}\n";
-		forEach ($qls as $ql) {
-			$ql_link = Text::make_chatcmd($ql->ql, "/tell <myname> ofabarmor {$row->profession} {$ql->ql}");
+		forEach ($qls as $row2) {
+			$ql_link = Text::make_chatcmd($row2->ql, "/tell <myname> ofabarmor {$row->profession} {$row2->ql}");
 			$blob .= "[{$ql_link}] ";
 		}
 		$blob .= "\n\n";
@@ -46,7 +46,20 @@ if (preg_match("/^ofabarmor$/i", $message, $arr)) {
 	$blob = "<header> :::::: $profession Ofab Armor (QL $ql) :::::: <end>\n\n";
 	$typeLink = Text::make_chatcmd("Kyr'Ozch Bio-Material - Type {$type}", "/tell <myname> bioinfo {$type}");
 	$typeQl = round(.8 * $ql);
-	$blob .= "Upgrade with $typeLink (minimum QL {$typeQl})\n";
+	$blob .= "Upgrade with $typeLink (minimum QL {$typeQl})\n\n";
+	
+	$db->query("SELECT DISTINCT ql FROM ofabarmorcost ORDER BY ql ASC");
+	$qls = $db->fObject('all');
+	forEach ($qls as $row2) {
+		if ($row2->ql == $ql) {
+			$blob .= "[{$row2->ql}] ";
+		} else {
+			$ql_link = Text::make_chatcmd($row2->ql, "/tell <myname> ofabarmor {$profession} {$row2->ql}");
+			$blob .= "[{$ql_link}] ";
+		}
+	}
+	$blob .= "\n";
+	
 	$current_upgrade = $row->upgrade;
 	forEach ($data as $row) {
 		if ($current_upgrade != $row->upgrade) {
