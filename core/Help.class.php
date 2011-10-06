@@ -58,20 +58,19 @@ class Help {
 	
 		$helpcmd = strtolower($helpcmd);
 
+		$data = false;
 		if (isset($chatBot->helpfiles[$helpcmd])) {
 			$filename = $chatBot->helpfiles[$helpcmd]["filename"];
 			$admin = $chatBot->helpfiles[$helpcmd]["admin"];
-		}
-
-		if ($char === null) {
-			$access = true;
-		} else {
-			$access = AccessLevel::check_access($char, $admin);
-		}
-		if ($access === true && file_exists($filename)) {
-			$data = file_get_contents($filename);
-		} else {
-			return false;
+			
+			if ($char === null) {
+				$access = true;
+			} else {
+				$access = AccessLevel::check_access($char, $admin);
+			}
+			if ($access === true && file_exists($filename)) {
+				$data = file_get_contents($filename);
+			}
 		}
 
 		return $data;
