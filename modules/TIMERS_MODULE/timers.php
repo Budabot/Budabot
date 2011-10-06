@@ -27,7 +27,7 @@ if (preg_match("/^(timers|timers add) ([0-9]+)$/i", $message, $arr) || preg_matc
 	Timer::add_timer($timer_name, $sender, $type, $timer);
 
 	$timerset = Util::unixtime_to_readable($run_time);
-	$msg = "Timer has been set for $timerset.";
+	$msg = "Timer <highlight>$timer_name<end> has been set for $timerset.";
 		
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^timers (rem|del) (.+)$/i", $message, $arr)) {

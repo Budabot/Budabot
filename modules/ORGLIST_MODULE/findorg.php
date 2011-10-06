@@ -10,11 +10,10 @@ if (preg_match("/^findorg (.+) (\d)$/i", $message, $arr) || preg_match("/^findor
 	
     $sql = "SELECT DISTINCT guild, guild_id, CASE WHEN guild_id = '' THEN 0 ELSE 1 END AS sort FROM players WHERE guild LIKE '%{$guild_name}%' AND dimension = '{$dimension}' ORDER BY sort DESC, guild ASC LIMIT 30";
 	$db->query($sql);
-	if ($db->numrows() == 0) {
-		$msg = "No matches found.";
-	} else {
+	$data = $db->fObject('all');
+	if (count($data) > 0) {
 		$blob = "<header> :::::: Org Search Results for '{$arr[1]}' :::::: <end>\n\n";
-		$data = $db->fObject('all');
+		
 		forEach ($data as $row) {
 			if ($row->guild_id != '') {
 				$whoisorg = Text::make_chatcmd('Whoisorg', "/tell <myname> whoisorg {$row->guild_id} $dimension");
@@ -34,8 +33,10 @@ if (preg_match("/^findorg (.+) (\d)$/i", $message, $arr) || preg_match("/^findor
 		}
 		
 		$msg = Text::make_blob("Org Search Results for '{$arr[1]}'", $blob);
+	} else {
+		$msg = "No matches found.";
 	}
-	$chatBot->send($msg, $sendto);	
+	$chatBot->send($msg, $sendto);
 } else {
     $syntax_error = true;
 }
