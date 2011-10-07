@@ -1,6 +1,5 @@
 <?php
 
-$msg = "";
 if (preg_match("/^(timers|timers add) ([0-9]+)$/i", $message, $arr) || preg_match("/^(timers|timers add) ([0-9]+) (.+)$/i", $message, $arr)) {
 	
 	if (isset($arr[3])) {
