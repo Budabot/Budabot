@@ -22,36 +22,19 @@
 if (!function_exists('get_admin_description')) {
 	function get_admin_description($admin) {
 		$admin = strtolower($admin);
-		if ($admin == 1 || $admin == "leader") {
+		if ($admin == "leader") {
 			return "Leader";
-		} else if ($admin == 2 || $admin == "rl") {
+		} else if ($admin == "rl") {
 			return "Raidleader";
-		} else if ($admin == 3 || $admin == "mod") {
+		} else if ($admin == "mod") {
 			return "Moderator";
-		} else if ($admin == 4 || $admin == "admin") {
+		} else if ($admin == "admin") {
 			return "Administrator";
 		} else {
 			return ucfirst(strtolower($admin));
 		}
 	}
 }
-
-if (!function_exists('get_admin_value')) {
-	function get_admin_value($admin) {
-		$admin = strtolower($admin);
-		switch ($admin) {
-			case "rl":
-				return 2;
-			case "mod":
-				return 3;
-			case "admin":
-				return 4;
-			default:
-				return $admin;
-		}
-	}
-}
-   
    
 if (preg_match("/^config$/i", $message)) {
 	$list = array();
@@ -276,8 +259,6 @@ if (preg_match("/^config$/i", $message)) {
 	$command = strtolower($arr[2]);
 	$channel = strtolower($arr[3]);
 	$admin = strtolower($arr[4]);
-
-	$admin = get_admin_value($admin);
 
 	if ($category == "cmd") {
 		if ($channel == "all") {
@@ -580,8 +561,6 @@ if (preg_match("/^config$/i", $message)) {
 } else if (preg_match("/^config help (.+) admin (all|leader|rl|mod|admin|guild|member)$/i", $message, $arr)) {
   	$help = strtolower($arr[1]);
 	$admin = $arr[2];
-
-	$admin = get_admin_value($admin);
 	
 	$db->query("SELECT * FROM hlpcfg_<myname> WHERE `name` = '$help' ORDER BY `name`");
 	if ($db->numrows() == 0) {
