@@ -2,13 +2,15 @@
 
 $msg = "";
 if (preg_match("/^(timers|timers add) ([0-9]+)$/i", $message, $arr) || preg_match("/^(timers|timers add) ([0-9]+) (.+)$/i", $message, $arr)) {
-	if ($arr[3] == '') {
-		$timer_name = 'PrimTimer';
-	} else {
+	
+	if (isset($arr[3])) {
 		$timer_name = trim($arr[3]);
+	} else {
+		$timer_name = $sender;
 	}
 	if ($arr[2] < 1) {
-		$syntax_error = true;
+		$msg = "You must enter a valid time parameter.";
+		$chatBot->send($msg, $sendto);
 		return;
 	} else {
 		$run_time = $arr[2] * 60;
@@ -40,7 +42,6 @@ if (preg_match("/^(timers|timers add) ([0-9]+)$/i", $message, $arr) || preg_matc
 		if (strtolower($name) == $timer_name) {
 			if ($owner == $sender || AccessLevel::check_access($sender, "rl")) {
 				Timer::remove_timer($key);
-					
 			  	$msg = "Removed timer <highlight>$name<end>.";
 			  	break;
 			} else {
@@ -55,15 +56,15 @@ if (preg_match("/^(timers|timers add) ([0-9]+)$/i", $message, $arr) || preg_matc
 	}
 
     $chatBot->send($msg, $sendto);
-} else if (preg_match("/^(timers add|timers) ([a-z0-9]+)$/i", $message, $arr) ||
-		preg_match("/^(timers add|timers) ([a-z0-9]+) (.+)$/i", $message, $arr2)) {
+} else if (preg_match("/^(timers add|timers) ([a-z0-9]+) (.+)$/i", $message, $arr) ||
+		preg_match("/^(timers add|timers) ([a-z0-9]+)$/i", $message, $arr2)) {
 
-	if (isset($arr)) {
-		$timer_name = 'PrimTimer';
-		$time_string = $arr[2];
-	} else if ($arr2) {
-		$timer_name = trim($arr2[count($arr2) - 1]);
+	if (isset($arr2)) {
 		$time_string = $arr2[2];
+		$timer_name = $sender;
+	} else {
+		$time_string = $arr[2];
+		$timer_name = $arr[3];
 	}
 	
 	forEach ($chatBot->data["timers"] as $timer) {
@@ -105,11 +106,7 @@ if (preg_match("/^(timers|timers add) ([0-9]+)$/i", $message, $arr) || preg_matc
 			$owner = $timer->owner;
 			$mode = $timer->mode;
 
-			if ($name == "PrimTimer") {
-				$msg .= "\n Timer has <highlight>$time_left<end> left [set by <highlight>$owner<end>]";
-			} else {
-				$msg .= "\n Timer <highlight>$name<end> has <highlight>$time_left<end> left [set by <highlight>$owner<end>]";  	
-			}
+			$msg .= "\n Timer <highlight>$name<end> has <highlight>$time_left<end> left [set by <highlight>$owner<end>]";  	
 		}
 		if ($msg == "") {
 			$msg = "No Timers running atm.";
