@@ -624,19 +624,7 @@ if (preg_match("/^config$/i", $message)) {
 			$l .= " (<a href='chatcmd:///tell <myname> settings change $row->name'>Modify</a>)";
 		}
 	
-		$l .= ":  ";
-
-		$options = explode(";", $row->options);
-		if ($row->type == "color") {
-			$l .= $row->value."Current Color</font>\n";
-		} else if ($row->intoptions != "") {
-			$intoptions = explode(";", $row->intoptions);
-			$intoptions2 = array_flip($intoptions);
-			$key = $intoptions2[$row->value];
-			$l .= "<highlight>{$options[$key]}<end>\n";
-		} else {
-			$l .= "<highlight>{$row->value}<end>\n";	
-		}
+		$l .= ":  " . Setting::displayValue($row);
 	}
 	
 	if ($lh != "") {

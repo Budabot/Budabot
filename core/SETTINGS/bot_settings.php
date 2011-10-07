@@ -18,21 +18,7 @@ if (preg_match("/^settings$/i", $message)) {
 			$blob .= " ($editLink)";
 		}
 
-		$blob .= ": ";
-
-		$options = explode(";", $row->options);
-		if ($row->type == "color") {
-			$blob .= $row->value."Current Color</font>\n";
-		} else if ($row->type == 'time') {
-			$blob .=  "<highlight>" . Util::unixtime_to_readable($row->value) . "<end>\n";
-		} else if ($row->intoptions != "") {
-			$intoptions = explode(";", $row->intoptions);
-			$intoptions2 = array_flip($intoptions);
-			$key = $intoptions2[$row->value];
-			$blob .= "<highlight>{$options[$key]}<end>\n";
-		} else {
-			$blob .= "<highlight>{$row->value}<end>\n";
-		}
+		$blob .= ": " . Setting::displayValue($row);
 	}
 
   	$msg = Text::make_blob("Bot Settings", $blob);
@@ -57,15 +43,8 @@ if (preg_match("/^settings$/i", $message)) {
 		$blob .= "Name: <highlight>{$row->name}<end>\n";
 		$blob .= "Module: <highlight>{$row->module}<end>\n";
 		$blob .= "Descrption: <highlight>{$row->description}<end>\n";
-		if ($row->type == 'color') {
-			$blob .= "Current Value: {$row->value}Color<end>\n\n";
-		} else if ($row->type == 'time') {
-			$blob .= "Current Value: <highlight>" . Util::unixtime_to_readable($row->value) . "<end>\n\n";
-		} else if ($intoptions) {
-			$blob .= "Current Value: <highlight>{$options_map[$row->value]}<end>\n\n";
-		} else {
-			$blob .= "Current Value: <highlight>{$row->value}<end>\n\n";
-		}
+		$blob .= "Current Value: " . Setting::displayValue($row) . "\n";
+
 		if ($row->type == 'color') {
 		  	$blob .= "For this setting you can set any Color in the HTML Hexadecimal Color Format.\n";
 		  	$blob .= "You can change it manually with the command: \n\n";

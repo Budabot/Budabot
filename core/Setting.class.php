@@ -116,6 +116,22 @@ class Setting {
 			return false;
 		}
 	}
+	
+	public static function displayValue($row) {
+		$options = explode(";", $row->options);
+		if ($row->type == "color") {
+			return $row->value."Current Color</font>\n";
+		} else if ($row->type == 'time') {
+			return "<highlight>" . Util::unixtime_to_readable($row->value) . "<end>\n";
+		} else if ($row->intoptions != "") {
+			$intoptions = explode(";", $row->intoptions);
+			$intoptions2 = array_flip($intoptions);
+			$key = $intoptions2[$row->value];
+			return "<highlight>{$options[$key]}<end>\n";
+		} else {
+			return "<highlight>{$row->value}<end>\n";
+		}
+	}
 }
 
 ?>
