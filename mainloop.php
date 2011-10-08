@@ -3,9 +3,9 @@
 /* 
  * If the bot is running under Windows, use php.exe 
  * and the Windows-specific php-win.ini, else use 
- * php and the system default php.ini, if any, or a 
+ * PHP and the system default php.ini, if any, or a 
  * local custom php.ini if it exists (hence the new 
- * name for the Windows-specific ini-file.) 
+ * name for the Windows-specific ini-file). 
  */
 if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') { 
     $php_exec = ".\win32\php.exe -c php-win.ini"; 
