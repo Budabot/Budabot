@@ -1,17 +1,17 @@
 <?php
    /*
-   ** Author: Sebuda/Derroylo (both RK2) + Linux compatibility Changes from Dak (RK2)
-   ** Description: Creates the setup Procedure, Loads core classes and creates the bot mainloop.
+   ** Author: Sebuda/Derroylo (both RK2) + Linux compatibility changes from Dak (RK2).
+   ** Description: Creates the setup procedure, loads core classes and creates the bot mainloop.
    ** Version: 0.6
    **
-   ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
+   ** Developed for: Budabot (http://budabot2.googlecode.com)
    **
-   ** Date(created): 01.10.2005	
-   ** Date(last modified): 12.01.2007
+   ** Date (created): 01.10.2005	
+   ** Date (last modified): 12.01.2007
    ** 
-   ** Copyright (C) 2005, 2006 Carsten Lohmann and J. Gracik
+   ** Copyright (C) 2005, 2006 Carsten Lohmann and J. Gracik.
    **
-   ** Licence Info: 
+   ** Licence information: 
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -33,10 +33,10 @@ $version = "2.3_RC2";
 
 echo "\n\n\n\n\n
 **************************************************
-     Budabot $version, by Tyrence(RK2)
+     Budabot $version, by Tyrence (RK2)
 
-Project Site:  http://code.google.com/p/budabot2
-Support Forum: http://www.budabot.com/forum
+Project site:  http://code.google.com/p/budabot2
+Support forum: http://www.budabot.com/forum
 **************************************************
 \n";
 
@@ -45,7 +45,7 @@ date_default_timezone_set("UTC");
 /**
  * isWindows is a little utility function to check
  * whether the bot is running Windows or something
- * else: returns true if under Windows, else false
+ * else: returns true if under Windows, else false.
  */
 function isWindows() {
 	if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
@@ -56,13 +56,13 @@ function isWindows() {
 }
 
 if (isWindows()) {
-    // Load Extention 
+    // Load extension.
     dl("php_sockets.dll");
     dl("php_pdo_sqlite.dll");
     dl("php_pdo_mysql.dll");
 } else {
     /*
-    * Load Extentions, if not already loaded.
+    * Load extensions, if not already loaded.
     *
     * Note: These are normally present in a
     * modern Linux system. This is a safeguard.
@@ -76,7 +76,7 @@ if (isWindows()) {
     
 }
 
-//Load Required Files
+// Load required files.
 $config_file = $argv[1];
 if (!file_exists($config_file)) {
 	copy('config.template.php', $config_file) or Logger::log('ERROR', 'StartUp', "could not create config file: {$config_file}");
@@ -85,7 +85,7 @@ if (!file_exists($config_file)) {
 require $config_file;
 require_once "./core/Logger.class.php";
 
-//Set Error Level
+// Set error level.
 //error_reporting(-1);
 error_reporting(E_ERROR | E_PARSE);
 ini_set("log_errors", 1);
@@ -108,22 +108,22 @@ require_once './core/Buddylist.class.php';
 require_once './core/Util.class.php';
 require_once './core/Text.class.php';
 
-//Show setup dialog
+// Show setup dialog.
 if ($vars['login'] == "" || $vars['password'] == "" || $vars['name'] == "") {
 	include "./core/SETUP/setup.php";
 }
 
 $vars["name"] = ucfirst(strtolower($vars["name"]));
 
-// set the title of the command prompt winddow in windows
+// Set the title of the command prompt window in Windows.
 if (isWindows()) {
 	system("title {$vars['name']} - Budabot");
 }
 
 Logger::log('INFO', 'StartUp', "Starting {$vars['name']}...");
 
-// Choose Server
-// ao chat proxy ONLY
+// Choose server.
+// AO chat proxy ONLY!
 if ($vars['use_proxy'] === 1) {
 	$server = $vars['proxy_server'];
 	$port = $vars['proxy_port'];
@@ -140,21 +140,21 @@ if ($vars['use_proxy'] === 1) {
 	$server = "chat.dt.funcom.com";
 	$port = 7109;
 } else {
-	Logger::log('ERROR', 'StartUp', "No valid Server to connect with! Available dimensions are 1, 2, 3 and 4.");
+	Logger::log('ERROR', 'StartUp', "No valid server to connect with! Available dimensions are 1, 2 and 4.");
 	sleep(10);
 	die();
 }
 
 //////////////////////////////////////////////////////////////
-// Create new objects
+// Create new objects.
 $db = new DB($vars["DB Type"], $vars["DB Name"], $vars["DB Host"], $vars["DB username"], $vars["DB password"]);
 if ($db->errorCode != 0) {
-	Logger::log('ERROR', 'StartUp', "Error in creating Database Object: {$db->errorInfo}");
+	Logger::log('ERROR', 'StartUp', "Error in creating database object: {$db->errorInfo}");
 	sleep(5);
 	die();
 }
 
-//Clear database info
+// Clear database information.
 unset($vars["DB Type"]);
 unset($vars["DB Name"]);
 unset($vars["DB Host"]);
@@ -171,7 +171,7 @@ if (file_exists('upgrade.php')) {
 
 $chatBot->connectAO($vars['login'], $vars['password'], $server, $port);
 
-//Clear the login and the password	
+// Clear the login and the password.	
 unset($vars['login']);
 unset($vars['password']);
 
