@@ -83,7 +83,7 @@ class AccessLevel {
 	/**
 	 * @description: Returns a positive number if $accessLevel1 is a greater access level than $accessLevel2,
 	 *               a negative number if $accessLevel1 is a lesser access level than $accessLevel2,
-	 *               and 0 if the access levels are equal
+	 *               and 0 if the access levels are equal.
 	 */
 	public static function compareAccessLevels($accessLevel1, $accessLevel2) {
 		return AccessLevel::$ACCESS_LEVELS[$accessLevel2] - AccessLevel::$ACCESS_LEVELS[$accessLevel1];
@@ -91,8 +91,8 @@ class AccessLevel {
 
 	/**
 	 * @name: get_admin_level
-	 * @param: $sender - the name of the person you want to get the admin level for
-	 * @return: 4 if administrator, 3 if moderator, 2 if raidleader, otherwise 0
+	 * @param: $sender - the name of the person you want to get the admin level for.
+	 * @return: 4 if administrator, 3 if moderator, 2 if raidleader, otherwise 0.
 	 */
 	public static function get_admin_level($sender) {
 		global $chatBot;
