@@ -4,12 +4,12 @@ if (preg_match("/^addrl (.+)$/i", $message, $arr)) {
 	$who = ucfirst(strtolower($arr[1]));
 	
 	if ($chatBot->get_uid($who) == NULL){
-		$chatBot->send("<red>Sorry player you wish to add doesn't exist.<end>", $sendto);
+		$chatBot->send("<red>Sorry, the character you wish to add does not exist.<end>", $sendto);
 		return;
 	}
 	
 	if ($who == $sender) {
-		$chatBot->send("<red>You can't add yourself to another group.<end>", $sendto);
+		$chatBot->send("<red>You cannot add yourself to another group.<end>", $sendto);
 		return;
 	}
 	
@@ -26,12 +26,12 @@ if (preg_match("/^addrl (.+)$/i", $message, $arr)) {
 	}
 
 	if ($chatBot->admins[$who]["level"] == 2) {
-		$chatBot->send("<red>Sorry but $who is already a raidleader.<end>", $sendto);
+		$chatBot->send("<red>Sorry, but $who is already a raidleader.<end>", $sendto);
 		return;
 	}
 	
 	if ((int)$chatBot->admins[$sender]["level"] <= (int)$chatBot->admins[$who]["level"]){
-		$chatBot->send("<red>You must have a rank higher then $who.<end>", $sendto);
+		$chatBot->send("<red>You must have a rank higher than $who.<end>", $sendto);
 		return;
 	}
 

@@ -1,7 +1,7 @@
 <?php
 
 if (preg_match("/^adminlist$/i", $message) || preg_match("/^admins$/i", $message)) {
-	$list = "<header>::::: Adminlist :::::<end>\n\n";
+	$list = "<header>::::: List of administrators :::::<end>\n\n";
 
 	$list .= "<highlight>Administrators<end>\n";	
 	forEach ($chatBot->admins as $who => $data) {
@@ -10,7 +10,7 @@ if (preg_match("/^adminlist$/i", $message) || preg_match("/^admins$/i", $message
 				$list.= "<tab>$who ";
 				
 				if (AccessLevel::check_access($who, 'superadmin')) {
-					$list .= "(<orange>Super Administrator<end>) ";
+					$list .= "(<orange>Super-administrator<end>) ";
 				}
 					
 				if (Buddylist::is_online($who) == 1 && isset($chatBot->chatlist[$who])) {
@@ -60,7 +60,7 @@ if (preg_match("/^adminlist$/i", $message) || preg_match("/^admins$/i", $message
 		}
 	}
 
-	$link = Text::make_blob('Bot Administrators', $list);	
+	$link = Text::make_blob('Bot administrators.', $list);	
 	$chatBot->send($link, $sendto);
 } else {
 	$syntax_error = true;
