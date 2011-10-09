@@ -4,12 +4,7 @@ if (preg_match("/^remadmin (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
 
 	if ($chatBot->admins[$who]["level"] != 4) {
-		$chatBot->send("<red>$who is not an Administrator of this Bot.<end>", $sendto);
-		return;
-	}
-	
-	if (!AccessLevel::check_access($sender, 'superadmin')){
-		$chatBot->send("<red>You need to be Super-Administrator to kick a Administrator<end>", $sendto);
+		$chatBot->send("<highlight>$who<end> is not an administrator.", $sendto);
 		return;
 	}
 	
@@ -24,7 +19,7 @@ if (preg_match("/^remadmin (.+)$/i", $message, $arr)){
 	}
 	
 	$chatBot->send("<highlight>$who<end> has been removed as an administrator.", $sendto);
-	$chatBot->send("Your administrator access has been removed by $sender.", $who);
+	$chatBot->send("Your administrator access has been removed by <highlight>$sender<end>.", $who);
 } else {
 	$syntax_error = true;
 }

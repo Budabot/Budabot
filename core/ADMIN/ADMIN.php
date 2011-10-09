@@ -3,9 +3,9 @@
 	Command::activate("priv", "$MODULE_NAME/addadmin.php", "addadmin", "admin");
 	Command::activate("guild", "$MODULE_NAME/addadmin.php", "addadmin", "admin");
 	
-	Command::activate("msg", "$MODULE_NAME/remadmin.php", "remadmin", "admin");
-	Command::activate("priv", "$MODULE_NAME/remadmin.php", "remadmin", "admin");
-	Command::activate("guild", "$MODULE_NAME/remadmin.php", "remadmin", "admin");
+	Command::activate("msg", "$MODULE_NAME/remadmin.php", "remadmin", "superadmin");
+	Command::activate("priv", "$MODULE_NAME/remadmin.php", "remadmin", "superadmin");
+	Command::activate("guild", "$MODULE_NAME/remadmin.php", "remadmin", "superadmin");
 	
 	Command::activate("msg", "$MODULE_NAME/addmod.php", "addmod", "admin");
 	Command::activate("priv", "$MODULE_NAME/addmod.php", "addmod", "admin");

@@ -4,12 +4,7 @@ if (preg_match("/^remrl (.+)$/i", $message, $arr)) {
 	$who = ucfirst(strtolower($arr[1]));
 	
 	if ($chatBot->admins[$who]["level"] != 2) {
-		$chatBot->send("<red>$who is not a Raidleader of this Bot.<end>", $sendto);
-		return;
-	}
-	
-	if ((int)$chatBot->admins[$sender]["level"] <= (int)$chatBot->admins[$who]["level"]){
-		$chatBot->send("<red>You must have a rank higher then $who.", $sendto);
+		$chatBot->send("<highlight>$who<end> is not a raidleader.", $sendto);
 		return;
 	}
 	
