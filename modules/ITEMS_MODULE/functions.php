@@ -78,93 +78,45 @@ function find_items_from_local($search, $ql) {
 		$query .= " AND `lowql` <= $ql AND `highql` >= $ql";
 	}
 
-	$sql = "SELECT * FROM aodb WHERE $query ORDER BY `name` LIMIT 0, " . Setting::get("maxitems");
+	$sql = "SELECT * FROM aodb WHERE $query ORDER BY `name` ASC, highql DESC LIMIT 0, " . Setting::get("maxitems");
 	$db->query($sql);
+	$data = $db->fObject('all');
 	$num = $db->numrows();
 	if ($num == 0) {
 		if ($ql) {
-			$msg = "No items found with QL <highlight>$ql<end>. Maybe try fewer keywords.";
+			$msg = "No items found matching <highlight>$search<end> with QL <highlight>$ql<end>.";
 		} else {
-			$msg = "No items found. Maybe try fewer keywords.";
+			$msg = "No items found matching <highlight>$search<end>.";
 		}
 		return $msg;
-	}
-
-	$countitems = 0;
-
-	$data = $db->fObject('all');
-	forEach ($data as $row) {
-		if (!isset($itemlist[$row->name])) {
-			$itemlist[$row->name] = array(array("lowid" => $row->lowid, "highid" => $row->highid, "lowql" => $row->lowql, "highql" => $row->highql, "icon" => $row->icon));
-			$countitems++;
-		} else if (isset($itemlist[$row->name])) {
-			if ($itemlist[$row->name][0]["lowql"] > $row->lowql) {
-				$itemlist[$row->name][0]["lowql"] = $row->lowql;
-				$itemlist[$row->name][0]["lowid"] = $row->lowid;
-			} else if ($itemlist[$row->name][0]["highql"] < $row->highql) {
-				$itemlist[$row->name][0]["highql"] = $row->highql;
-				$itemlist[$row->name][0]["highid"] = $row->highid;		    
-			} else {
-				$tmp = $itemlist[$row->name];
-				$tmp[] = array("lowid" => $row->lowid, "highid" => $row->highid, "lowql" => $row->lowql, "highql" => $row->highql, "icon" => $row->icon);
-				$itemlist[$row->name] = $tmp;
-				$countitems++;
-			}
-		}
-	}
-
-	if ($countitems == 0) {
-		if ($ql) {
-			$msg = "No items found with QL <highlight>$ql<end>.";
-		} else {
-			$msg = "No items found.";
-		}
-		return $msg;
-	}
-
-	if ($countitems > 3) {
-		forEach ($itemlist as $name => $item1) {
-			forEach ($item1 as $key => $item) {
-				$list .= "<img src='rdb://".$item["icon"]."'> \n";
-				if ($ql) {
-					$list .= "QL $ql ".Text::make_item($item["lowid"], $item["highid"], $ql, $name);
-				} else {
-					$list .= Text::make_item($item["lowid"], $item["highid"], $item["highql"], $name);		  
-				}
-		
-				if ($item["lowql"] != $item["highql"]) {
-					$list .= " (QL".$item["lowql"]." - ".$item["highql"].")\n\n";
-				} else {
-					$list .= " (QL".$item["lowql"].")\n\n";
-				}
-			}
-		}
-
-		$blob = "<header> :::::: Item Search Result :::::: <end>\n\n";
-		$blob .= $list;
-		$blob .= "\n\nItem DB Rip provided by MajorOutage (RK1)";
-		$link = Text::make_blob("$countitems results in total", $blob);
+	} else if ($num > 3) {
+		$blob = "<header> :::::: Item Search Results :::::: <end>\n\n" . formatSearchResults($data, $ql, true);
+		$link = Text::make_blob("$num results in total", $blob);
 
 		return $link;
 	} else {
-		forEach ($itemlist as $name => $item1) {
-			forEach ($item1 as $key => $item) {
-				if ($ql) {
-					$link .= "\n QL $ql ".Text::make_item($item["lowid"], $item["highid"], $ql, $name);
-				} else {
-					$link .= "\n".Text::make_item($item["lowid"], $item["highid"], $item["highql"], $name);
-				}
-				
-				if ($item["lowql"] != $item["highql"]) {
-					$link .= " (QL".$item["lowql"]." - ".$item["highql"].")";
-				} else {
-					$link .= " (QL".$item["lowql"].")";
-				}
-			}
-		}
-
-		return $link;
+		return trim(formatSearchResults($data, $ql, false));
 	}
+}
+
+function formatSearchResults($data, $ql, $showImages) {
+	$list = '';
+	forEach ($data as $row) {
+		if ($showImages) {
+			$list .= "<img src='rdb://".$row->icon."'> \n";
+		}
+		if ($ql) {
+			$list .= "QL $ql ".Text::make_item($row->lowid, $row->highid, $ql, $row->name);
+		} else {
+			$list .= Text::make_item($row->lowid, $row->highid, $row->highql, $row->name);		  
+		}
+		if ($row->lowql != $row->highql) {
+			$list .= " (QL".$row->lowql." - ".$row->highql.")\n\n";
+		} else {
+			$list .= " (QL".$row->lowql.")\n\n";
+		}
+	}
+	return $list;
 }
 
 ?>
