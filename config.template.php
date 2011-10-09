@@ -12,7 +12,7 @@ $vars['my_guild']   = "";
 // 1 for Atlantean, 2 for Rimor, 4 for Test Live.
 $vars['dimension']  = 1;
 
-// Character name of Super Administrator.
+// Character name of the Super Administrator.
 $vars['SuperAdmin'] = "";
 
 // Database information.
