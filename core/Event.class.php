@@ -22,7 +22,7 @@ class Event {
 	 * @name: register
 	 * @description: Registers an event on the bot so it can be configured
 	 */
-	public static function register($module, $type, $filename, $dependson = 'none', $description = 'none', $help = '') {
+	public static function register($module, $type, $filename, $dependson = 'none', $description = 'none', $help = '', $defaultStatus = null) {
 		$db = DB::get_instance();
 		global $chatBot;
 		
@@ -46,10 +46,14 @@ class Event {
 		if (isset($chatBot->existing_events[$type][$actual_filename])) {
 		  	$db->exec("UPDATE eventcfg_<myname> SET `verify` = 1, `description` = '$description', `help` = '{$help}' WHERE `type` = '$type' AND `file` = '$actual_filename' AND `module` = '$module'");
 		} else {
-			if ($chatBot->vars['default_module_status'] == 1) {
-				$status = 1;
+			if ($defaultStatus === null) {
+				if ($chatBot->vars['default_module_status'] == 1) {
+					$status = 1;
+				} else {
+					$status = 0;
+				}
 			} else {
-				$status = 0;
+				$status = $defaultStatus;
 			}
 			$db->exec("INSERT INTO eventcfg_<myname> (`module`, `type`, `file`, `verify`, `description`, `status`, `help`) VALUES ('$module', '$type', '$actual_filename', '1', '$description', '$status', '{$help}')");
 		}
