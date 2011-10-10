@@ -12,7 +12,7 @@ if (preg_match("/^about$/i", $message)) {
 	}
 	
 	//Get character info if minlvl or faction is set
-	if (Setting::get("priv_req_lvl") != 0 || Setting::get("priv_req_faction") != "all") {
+	if (Setting::get("join_req_lvl") != 0 || Setting::get("join_req_faction") != "all") {
 		$whois = Player::get_by_name($sender);
 	   	if ($whois === null) {
 		    $msg = "<orange>Error! Unable to get your character info. Please try again later.<end>";
@@ -23,23 +23,23 @@ if (preg_match("/^about$/i", $message)) {
 	}
 	
 	//Check the Minlvl
-	if (Setting::get("priv_req_lvl") != 0 && Setting::get("priv_req_lvl") > $whois->level) {
-	  	$msg = "<orange>Error! You need to be at least level " . Setting::get("priv_req_lvl") . " to join this bot.<end>";
+	if (Setting::get("join_req_lvl") != 0 && Setting::get("join_req_lvl") > $whois->level) {
+	  	$msg = "<orange>Error! You need to be at least level " . Setting::get("join_req_lvl") . " to join this bot.<end>";
 	    $chatBot->send($msg, $sender);
 	  	$restricted = true;
 	    return;
 	}
 	
 	//Check the Faction Limit
-	if ((Setting::get("priv_req_faction") == "Omni" || Setting::get("priv_req_faction") == "Clan" || Setting::get("priv_req_faction") == "Neutral") && Setting::get("priv_req_faction") != $whois->faction) {
-	  	$msg = "<orange>Error! Only characters who are " . Setting::get("priv_req_faction") . " can join this bot.<end>";
+	if ((Setting::get("join_req_faction") == "Omni" || Setting::get("join_req_faction") == "Clan" || Setting::get("join_req_faction") == "Neutral") && Setting::get("join_req_faction") != $whois->faction) {
+	  	$msg = "<orange>Error! Only characters who are " . Setting::get("join_req_faction") . " can join this bot.<end>";
 	    $chatBot->send($msg, $sender);
 	  	$restricted = true;
 	    return;
-	} else if (Setting::get("priv_req_faction") == "not Omni" || Setting::get("priv_req_faction") == "not Clan" || Setting::get("priv_req_faction") == "not Neutral") {
-		$tmp = explode(" ", Setting::get("priv_req_faction"));
+	} else if (Setting::get("join_req_faction") == "not Omni" || Setting::get("join_req_faction") == "not Clan" || Setting::get("join_req_faction") == "not Neutral") {
+		$tmp = explode(" ", Setting::get("join_req_faction"));
 		if ($tmp[1] == $whois->faction) {
-			$msg = "<orange>Error! Only characters who are " . Setting::get("priv_req_faction") . " can join this bot.<end>";
+			$msg = "<orange>Error! Only characters who are " . Setting::get("join_req_faction") . " can join this bot.<end>";
 		    $chatBot->send($msg, $sender);
 		  	$restricted = true;
 		    return;
@@ -47,8 +47,8 @@ if (preg_match("/^about$/i", $message)) {
 	}
 
 	//Check the Maximum Limit for the Private Channel
-	if (Setting::get("priv_req_maxplayers") != 0 && count($chatBot->chatlist) >= Setting::get("priv_req_maxplayers")) {
-	  	$msg = "<orange>Error! There are already a maximum number of " . Setting::get("priv_req_maxplayers") . " characters in the bot.<end>";
+	if (Setting::get("join_req_maxplayers") != 0 && count($chatBot->chatlist) >= Setting::get("join_req_maxplayers")) {
+	  	$msg = "<orange>Error! There are already a maximum number of " . Setting::get("join_req_maxplayers") . " characters in the bot.<end>";
 	    $chatBot->send($msg, $sender);
 	  	$restricted = true;
 	    return;

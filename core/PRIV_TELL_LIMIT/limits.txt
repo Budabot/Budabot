@@ -1,4 +1,0 @@
-<header> :::::: Limits Command :::::: <end>
-
-<highlight>To place limits on who can send tells to the bot or join the private channel:<end>
-<tab><symbol>limits
