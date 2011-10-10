@@ -10,14 +10,9 @@ if (preg_match("/^join$/i", $message)) {
 		}
 		return;
 	}
-
-	// if user is an admin, member, or org member, or if manual join mode is open for everyone, then invite them
-	if (Setting::get("guest_man_join") == 0 || AccessLevel::check_access($sender, 'member')) {
-		$chatBot->privategroup_kick($sender);
-		$chatBot->privategroup_invite($sender);
-	} else {
-		$chatBot->send("You are not allowed to join the private channel, ask a member of the bot for an invite.", $sendto);
-	}
+	
+	$chatBot->privategroup_kick($sender);
+	$chatBot->privategroup_invite($sender);
 } else {
 	$syntax_error = true;
 }
