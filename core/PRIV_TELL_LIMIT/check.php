@@ -7,25 +7,11 @@ if (preg_match("/^about$/i", $message)) {
 	// nothing to do
 	return;
 } else if (preg_match("/^join$/i", $message)) {
-	//If the incoming message was a join request
-	if (Setting::get("priv_req_open") == "members") {
-		//Check if he is a member of the Bot
-	  	$db->query("SELECT * FROM members_<myname> WHERE `name` = '$sender'");
-		if ($db->numrows() == 0) {
-		  	$msg = "<orange>Error! Only members can join this bot.<end>";
-		  	$chatBot->send($msg, $sender);
-  		  	$restricted = true;
-		  	return;
-		}
-	} else if (Setting::get("priv_req_open") == "org" && !isset($chatBot->guildmembers[$sender])) {
-		//Check if he is a org Member
-	  	$msg = "<orange>Error! Only members of the org <myguild> can join this bot.<end>";
-	  	$chatBot->send($msg, $sender);
-	  	$restricted = true;
-	  	return;
+	if (AccessLevel::check_access($sender, 'member')) {
+		return;
 	}
 	
-	//Get his character info if minlvl or faction is set
+	//Get character info if minlvl or faction is set
 	if (Setting::get("priv_req_lvl") != 0 || Setting::get("priv_req_faction") != "all") {
 		$whois = Player::get_by_name($sender);
 	   	if ($whois === null) {

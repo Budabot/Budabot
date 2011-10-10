@@ -39,15 +39,6 @@ if (preg_match("/^limits$/i", $message)) {
 	}
 	$blob .= " (" . Text::make_chatcmd("Change this", "/tell <myname> limits priv minlvl").")\n";
 
-	if (Setting::get("priv_req_open") == "all") {
-		$blob .= "General: <highlight>No general Limit<end>";
-	} else if (Setting::get("priv_req_open") == "org") {
-		$blob .= "General: <highlight>Accepting invites only from Members of the Organistion <myguild><end>";
-	} else {
-		$blob .= "General: <highlight>Accepting invites only from Members of this Bot<end>";
-	}
-	$blob .= " (" . Text::make_chatcmd("Change this", "/tell <myname> limits priv open").")\n";
-
 	if (Setting::get("priv_req_maxplayers") == 0) {
 		$blob .= "Player Limit: <highlight>No Limit<end>";
 	} else {
@@ -167,54 +158,35 @@ if (preg_match("/^limits$/i", $message)) {
  		$msg = "Responding on tells will be done for the Minimumlevel of $minlvl.";
  	}
  	$chatBot->send($msg, $sendto);
-} else if (preg_match("/^limits (priv|tell) open$/i", $message, $arr)) {
+} else if (preg_match("/^limits tell open$/i", $message)) {
  	$blob = "<header> :::::: General Limit :::::: <end>\n\n";
  	$blob .= "Current Setting: <highlight>";
- 	if ($arr[1] == "priv") {
- 	 	if (Setting::get("priv_req_open") == "all") {
-			$blob .= "No general Limit";
-		} else if (Setting::get("priv_req_open") == "org") {
-			$blob .= "Responding only to Players that are in the Organistion <myguild>";
-		} else {
-			$blob .= "Responding only to players that are Members of this Bot";
-		}
- 	} else {
-		if (Setting::get("tell_req_open") == "all") {
-			$blob .= "No general Limit";
-		} else if (Setting::get("tell_req_open") == "org") {
-			$blob .= "Responding only to Players that are in the Organistion <myguild>";
-		} else {
-			$blob .= "Responding only to players that are Members of this Bot";
-		}
+
+	if (Setting::get("tell_req_open") == "all") {
+		$blob .= "No general Limit";
+	} else if (Setting::get("tell_req_open") == "org") {
+		$blob .= "Responding only to Players that are in the Organistion <myguild>";
+	} else {
+		$blob .= "Responding only to players that are Members of this Bot";
 	}
+
 	$blob .= "<end>\n\nChange it to:\n";
-	$blob .= Text::make_chatcmd("No General limit", "/tell <myname> limits {$arr[1]} open all")."\n\n";
-	$blob .= Text::make_chatcmd("Only for Members of your Organisation", "/tell <myname> limits {$arr[1]} open org")."\n";
-	$blob .= Text::make_chatcmd("Only for Members of the Bot", "/tell <myname> limits {$arr[1]} open members")."\n\n";
+	$blob .= Text::make_chatcmd("No General limit", "/tell <myname> limits tell open all")."\n\n";
+	$blob .= Text::make_chatcmd("Only for Members of your Organisation", "/tell <myname> limits tell open org")."\n";
+	$blob .= Text::make_chatcmd("Only for Members of the Bot", "/tell <myname> limits tell open members")."\n\n";
 
 	$msg = Text::make_blob("General Limit", $blob);
 	$chatBot->send($msg, $sendto);
-} else if (preg_match("/^limits (priv|tell) open (all|org|members)$/i", $message, $arr)) {
-	$open = strtolower($arr[2]);
-	$channel = strtolower($arr[1]);
+} else if (preg_match("/^limits tell open (all|org|members)$/i", $message, $arr)) {
+	$open = strtolower($arr[1]);
 	
-	if ($channel == "priv") {
-		Setting::save("priv_req_open", $open);
-	} else {
-		Setting::save("tell_req_open", $open);
-	}
+	Setting::save("tell_req_open", $open);
 	
-	if ($channel == "priv" && $open == "all") {
-		$msg = "General restrictions for private channel invites has been removed.";
-	} else if ($channel == "priv" && $open == "org") {
-		$msg = "Private channel invites will be accepted only from Members of your Organisation";
-	} else if ($channel == "priv" && $open == "members") {
-		$msg = "Private channel Invites will be accepted only from Members of this Bot";
-	} else if ($channel == "tell" && $open == "all") {
+	if ($open == "all") {
 		$msg = "General restriction for responding on tells has been removed.";
-	} else if ($channel == "tell" && $open == "org") {
+	} else if ($open == "org") {
  		$msg = "Responding on tells will be done only for Members of your Organisation.";
- 	} else if ($channel == "tell" && $open == "members") {
+ 	} else if ($open == "members") {
  		$msg = "Responding on tells will be done only for Members of this Bot.";
  	}
  	$chatBot->send($msg, $sendto);
