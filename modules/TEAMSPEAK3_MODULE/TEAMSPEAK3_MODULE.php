@@ -3,6 +3,8 @@
 
 	Command::register($MODULE_NAME, "", "ts.php", "ts", "guild", "Show users connected to Teamspeak3 server");
 	Command::register($MODULE_NAME, "", "aospeak.php", "aospeak", "guild", "Show org members connected to AOSpeak server");
+	
+	Event::register($MODULE_NAME, "logOn", "send_ts_status.php", "none", "Sends TS status to org members logging on", '', 0);
 
 	Setting::add($MODULE_NAME, "ts_username", "Username for TS server", "edit", "text", 'serveradmin', 'serveradmin');	
 	Setting::add($MODULE_NAME, "ts_password", "Password for TS server", "edit", "text", 'password');
