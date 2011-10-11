@@ -163,11 +163,11 @@ class Budabot extends AOChat {
 
 		// Load the Core Modules -- SETINGS must be first in case the other modules have settings
 		Logger::log('INFO', 'Core', "Loading CORE modules...");
-		$core_modules = array('SETTINGS', 'SYSTEM', 'ADMIN', 'BAN', 'HELP', 'CONFIG', 'PRIV_TELL_LIMIT', 'PLAYER_LOOKUP', 'FRIENDLIST', 'ALTS', 'USAGE');
+		$core_modules = array('SETTINGS', 'SYSTEM', 'ADMIN', 'BAN', 'HELP', 'CONFIG', 'LIMITS', 'PLAYER_LOOKUP', 'FRIENDLIST', 'ALTS', 'USAGE');
 		$db->begin_transaction();
 		forEach ($core_modules as $MODULE_NAME) {
 			Logger::log('DEBUG', 'Core', "MODULE_NAME:({$MODULE_NAME}.php)");
-			include "./core/{$MODULE_NAME}/{$MODULE_NAME}.php";
+			require "./core/{$MODULE_NAME}/{$MODULE_NAME}.php";
 		}
 		$db->commit();
 
@@ -285,6 +285,8 @@ class Budabot extends AOChat {
 					if (file_exists("./modules/{$MODULE_NAME}/{$MODULE_NAME}.php")) {
 						Logger::log('DEBUG', 'Core', "MODULE_NAME:({$MODULE_NAME}.php)");
 						require "./modules/{$MODULE_NAME}/{$MODULE_NAME}.php";
+					} else {
+						Logger::log('ERROR', 'Core', "Could not load module {$MODULE_NAME}. {$MODULE_NAME}.php does not exist!");
 					}
 				}
 			}
