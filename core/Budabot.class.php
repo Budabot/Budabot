@@ -22,10 +22,7 @@ class Budabot extends AOChat {
 		'Tour Announcements', 'Neu. Newbie OOC', 'Neu. Jpn OOC', 'Neu. shopping 11-50', 'Neu. OOC', 'Clan OOC',
 		'Clan Newbie OOC', 'Clan Jpn OOC', 'Clan shopping 11-50', 'OT German OOC', 'Clan German OOC', 'Neu. German OOC');
 
-/*===============================
-** Name: __construct
-** Constructor of this class.
-*/	function __construct(&$vars){
+	function __construct(&$vars){
 		parent::__construct();
 
 		$this->vars = $vars;
@@ -37,10 +34,11 @@ class Budabot extends AOChat {
 		$this->vars["startup"] = time();
 	}
 
-/*===============================
-** Name: connect
-** Connect to AO chat servers.
-*/	function connectAO($login, $password, $server, $port){
+	/**
+	 * @name: connect
+	 * @description: connect to AO chat servers
+	 */
+	function connectAO($login, $password, $server, $port){
 		// Begin the login process
 		Logger::log('INFO', 'StartUp', "Connecting to AO Server...({$server}:{$port})");
 		$this->connect($server, $port);
@@ -211,10 +209,11 @@ class Budabot extends AOChat {
 		$this->send_privgroup($group, Setting::get("default_priv_color").$message);
 	}
 
-/*===============================
-** Name: send
-** Send chat messages back to aochat servers thru aochat.
-*/	function send($message, $target, $disable_relay = false) {
+	/**
+	 * @name: send
+	 * @description: format a message and send it to private channel, guild channel, or a player
+	 */
+	function send($message, $target, $disable_relay = false) {
 		if ($target == null) {
 			Logger::log('ERROR', 'Core', "Could not send message as no target was specified. message: '{$message}'");
 			return;
@@ -270,10 +269,11 @@ class Budabot extends AOChat {
 		}
 	}
 
-/*===============================
-** Name: loadModules
-** Load all Modules
-*/	function loadModules(){
+	/**
+	 * @name: loadModules
+	 * @description: load all user modules
+	 */
+	function loadModules(){
 		$db = DB::get_instance();
 		global $chatBot;
 
@@ -281,7 +281,7 @@ class Budabot extends AOChat {
 			while (false !== ($MODULE_NAME = $d->read())) {
 				// filters out ., .., .svn
 				if (!is_dir($MODULE_NAME)) {
-					// Look for the plugin's ... setup file
+					// Look for the plugin's declaration file
 					if (file_exists("./modules/{$MODULE_NAME}/{$MODULE_NAME}.php")) {
 						Logger::log('DEBUG', 'Core', "MODULE_NAME:({$MODULE_NAME}.php)");
 						require "./modules/{$MODULE_NAME}/{$MODULE_NAME}.php";
@@ -294,10 +294,11 @@ class Budabot extends AOChat {
 		}
 	}
 
-/*===============================
-** Name: processCommandType
-** 	Returns a command type in the proper format
-*/	function processCommandArgs(&$type, &$admin) {
+	/**
+	 * @name: processCommandType
+	 * @description: returns a command type in the proper format
+	 */
+	function processCommandArgs(&$type, &$admin) {
 		if ($type == "") {
 			$type = array("msg", "priv", "guild");
 		} else {
@@ -314,7 +315,7 @@ class Budabot extends AOChat {
 		return true;
 	}
 
-	/*
+	/**
 	 * @name: process_packet
 	 * @description: Proccess all incoming messages that bot recives
 	 */	
