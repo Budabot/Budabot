@@ -3,14 +3,10 @@
 if (preg_match("/^about$/i", $message)) {
 	// nothing to do
 	return;
-} else if (Whitelist::check($sender) || AccessLevel::check_access($sender, "raidleader") || $sender == ucfirst(strtolower(Setting::get("relaybot")))) {
+} else if (Whitelist::check($sender) || AccessLevel::check_access($sender, "member") || $sender == ucfirst(strtolower(Setting::get("relaybot")))) {
 	// nothing to do
 	return;
 } else if (preg_match("/^join$/i", $message)) {
-	if (AccessLevel::check_access($sender, 'member')) {
-		return;
-	}
-	
 	//Get character info if minlvl or faction is set
 	if (Setting::get("join_req_lvl") != 0 || Setting::get("join_req_faction") != "all") {
 		$whois = Player::get_by_name($sender);
@@ -24,7 +20,7 @@ if (preg_match("/^about$/i", $message)) {
 	
 	//Check the Minlvl
 	if (Setting::get("join_req_lvl") != 0 && Setting::get("join_req_lvl") > $whois->level) {
-		$msg = "<orange>Error! You need to be at least level " . Setting::get("join_req_lvl") . " to join this bot.<end>";
+		$msg = "<orange>Error! You must be at least level " . Setting::get("join_req_lvl") . " to join this bot.<end>";
 		$chatBot->send($msg, $sender);
 		$restricted = true;
 		return;
@@ -54,24 +50,14 @@ if (preg_match("/^about$/i", $message)) {
 		return;
 	}
 } else {
-	if (Setting::get("tell_req_open") == "members") {
-		//Chek if he is a member of the Bot
-	  	$db->query("SELECT * FROM members_<myname> WHERE `name` = '$sender'");
-		if ($db->numrows() == 0) {
-		  	$msg = "<orange>Error! I am only responding to members of this bot!<end>.";
-		  	$chatBot->send($msg, $sender);
-  		  	$restricted = true;
-		  	return;
-		}
-	} else if (Setting::get("tell_req_open") == "org" && !isset($chatBot->guildmembers[$sender])) {
-		//Check if he is a org Member
-	  	$msg = "<orange>Error! I am only responding to members of the org <myguild>.<end>";
+	if (!AccessLevel::check_access($sender, Setting::get("tell_req_open"))) {
+	  	$msg = "<orange>Error! I am only responding to members.<end>";
 	  	$chatBot->send($msg, $sender);
 	  	$restricted = true;
 	  	return;
 	}
 	
-	//Get his character infos if minlvl or faction is set
+	//Get character info if minlvl or faction is set
 	if (Setting::get("tell_req_lvl") != 0 || Setting::get("tell_req_faction") != "all") {
 		$whois = Player::get_by_name($sender);
 	   	if ($whois === null) {

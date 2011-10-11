@@ -10,7 +10,7 @@
 	Setting::add($MODULE_NAME, "join_req_maxplayers", "Maximum number of players in the Private Channel", "edit", "number", "0", "5;10;20;50;100", "", "mod");
 	Setting::add($MODULE_NAME, "tell_req_lvl", "Tells Min Level", "edit", "number", "0", "0;10;50;100;150;190;205;215", "", "mod");
 	Setting::add($MODULE_NAME, "tell_req_faction", "Tell Faction Limit", "edit", "options", "all", "all;Omni;Neutral;Clan;not Omni;not Neutral;not Clan", "", "mod");
-	Setting::add($MODULE_NAME, "tell_req_open", "Tell General Limit", "edit", "options", "all", "all;members", "", "mod");
+	Setting::add($MODULE_NAME, "tell_req_open", "Tell General Limit", "edit", "options", "all", "all;member", "", "mod");
 
 	Help::register($MODULE_NAME, "whitelist", "whitelist.txt", "mod", "How to add exceptions to limits rules");
 	Help::register($MODULE_NAME, "join_req_lvl", "join_req_lvl.txt", "mod", "Set level requirements to join the private channel");

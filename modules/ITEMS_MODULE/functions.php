@@ -111,9 +111,12 @@ function formatSearchResults($data, $ql, $showImages) {
 			$list .= Text::make_item($row->lowid, $row->highid, $row->highql, $row->name);		  
 		}
 		if ($row->lowql != $row->highql) {
-			$list .= " (QL".$row->lowql." - ".$row->highql.")\n\n";
+			$list .= " (QL".$row->lowql." - ".$row->highql.")\n";
 		} else {
-			$list .= " (QL".$row->lowql.")\n\n";
+			$list .= " (QL".$row->lowql.")\n";
+		}
+		if ($showImages) {
+			$list .= "\n";
 		}
 	}
 	return $list;
