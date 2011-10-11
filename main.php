@@ -115,6 +115,9 @@ if ($vars['login'] == "" || $vars['password'] == "" || $vars['name'] == "") {
 
 $vars["name"] = ucfirst(strtolower($vars["name"]));
 
+// make sure logging directory exists
+@mkdir("./logs/{$vars['name']}.{$vars['dimension']}", 0777, true);
+
 // Set the title of the command prompt window in Windows.
 if (isWindows()) {
 	system("title {$vars['name']} - Budabot");

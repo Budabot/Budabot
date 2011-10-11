@@ -1,10 +1,5 @@
 <?php
 
-global $vars;
-
-// make sure logging directory exists
-@mkdir("./logs/{$vars['name']}.{$vars['dimension']}", 0777, true);
-
 // category is one of:
 //   debug
 //   query
