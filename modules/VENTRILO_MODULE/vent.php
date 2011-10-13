@@ -55,25 +55,6 @@ if (Setting::get("ventimplementation") == 1) {
 
 if ($error === false) {
 	
-	$uptime = '';
-	$unixtime = $stat->m_uptime;
-    $days = floor($unixtime / 86400);
-	if ($days != 0) {
-		$uptime .= "<white>".$days."<end><grey>day(s) <end>";
-	}
-    $hours = floor(($unixtime-($days*86400))/3600);
-	if ($hours != 0) {
-		$uptime .= "<white>".$hours."<end><grey>hr(s) <end>";
-	}
-    $mins = floor(($unixtime-($days*86400)-$hours*3600)/60);
-	if ($mins != 0) {
-		$uptime .= "<white>".$mins."<end><grey>min(s) <end>";
-	}
-    $secs = $unixtime-($days*86400)-($hours*3600)-$mins*60;
-	if ($secs != 0) {
-		$uptime .= "<white>".$secs."<end><grey>sec(s)<end>";
-	}
-    
     $page = "<header>Ventrilo Server Information<end>\n\n";
     $page .= "This is a <orange>PRIVATE<end> Ventrilo server.\n";
     $page .= "Please DO NOT give out this information without permission.\n\n";
@@ -90,7 +71,7 @@ if ($error === false) {
     if (Setting::get("showextendedinfo") == 1) {
 		$page .= "Voice Encoder: <white>{$stat->m_voicecodec_code}<end> - <grey>{$stat->m_voicecodec_desc}<end>\n";
 		$page .= "Voice Format: <white>{$stat->m_voiceformat_code}<end> - <grey>{$stat->m_voiceformat_desc}<end>\n";
-		$page .= "Server Uptime: $uptime\n";
+		$page .= "Server Uptime: " . Util::unixtime_to_readable($stat->m_uptime, false) . "\n";
 		$page .= "Server Platform: <white>{$stat->m_platform}<end>\n";
 		$page .= "Server Version: <white>{$stat->m_version}<end>\n";
 		$page .= "Number of channels: <white>{$stat->m_channelcount}<end>\n";

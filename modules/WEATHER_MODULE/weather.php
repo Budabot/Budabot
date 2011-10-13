@@ -66,19 +66,20 @@ if (!function_exists(fix_num_space)){
 }
 
 if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
+	$location = $arr[1];
 	
 	$host      = "api.wunderground.com";
-	$geolookup = "/auto/wui/geo/GeoLookupXML/index.xml?query=".urlencode($arr[1]);
-	$current   = "/auto/wui/geo/WXCurrentObXML/index.xml?query=".urlencode($arr[1]);
-	$forecast  = "/auto/wui/geo/ForecastXML/index.xml?query=".urlencode($arr[1]);
-	$alerts    = "/auto/wui/geo/AlertsXML/index.xml?query=".urlencode($arr[1]);
+	$geolookup = "/auto/wui/geo/GeoLookupXML/index.xml?query=".urlencode($location);
+	$current   = "/auto/wui/geo/WXCurrentObXML/index.xml?query=".urlencode($location);
+	$forecast  = "/auto/wui/geo/ForecastXML/index.xml?query=".urlencode($location);
+	$alerts    = "/auto/wui/geo/AlertsXML/index.xml?query=".urlencode($location);
 	
 	$geolookup = getweatherdata("api.wunderground.com", 80, $geolookup);
 
 // Geolookup
 	
 	if (xml::spliceData($geolookup, "<wui_error>", "</wui_error>") != ""){
-		$chatBot->send("No information is available for <highlight>".$arr[1]."<end>.", $sendto);
+		$chatBot->send("No information is available for <highlight>".$location."<end>.", $sendto);
 		return;
 	}
 	
@@ -88,12 +89,12 @@ if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 			$blob .= Text::make_chatcmd($spot, "/tell <myname> weather $spot")."\n";
 		}
 
-		$msg = Text::make_blob('Multiple hits for '.$arr[1].'.', $blob);
+		$msg = Text::make_blob('Multiple hits for '.$location.'.', $blob);
 		$chatBot->send($msg, $sendto);
 		return;
 	}
 	
-	$chatBot->send("Collecting data for <highlight>".$arr[1]."<end>.", $sendto);
+	$chatBot->send("Collecting data for <highlight>".$location."<end>.", $sendto);
 	
 	$current   = getweatherdata("api.wunderground.com", 80, $current);
 	$forecast  = getweatherdata("api.wunderground.com", 80, $forecast);
@@ -104,7 +105,7 @@ if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 	$updated = xml::spliceData($current, "<observation_time_rfc822>", "</observation_time_rfc822>");
 
 	if ($updated == ", :: GMT") {
-		$chatBot->send("No information is available for <highlight>".$arr[1]."<end>.", $sendto);
+		$chatBot->send("No information is available for <highlight>".$location."<end>.", $sendto);
 		return;
 	}
 	
@@ -225,7 +226,7 @@ if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 		}
 	}
 
-	$msg = Text::make_blob('Weather: '.$arr[1].'.', $blob);
+	$msg = Text::make_blob('Weather: '.$location, $blob);
 	
 	$chatBot->send($msg, $sendto);
 

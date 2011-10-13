@@ -36,19 +36,13 @@ global $raidloot;
 if (preg_match("/^add$/i", $message)) {
 	//Check if a flat(multiroll) or pts roll is going on
 	if ($chatBot->vars["raid_pts"] > 0) {
-		$msg = "<red>This raid is pts rolled. Use instead bid.<end>";
-		$chatBot->send($msg, $sender);
-		return;
-	}
-	
-	if ($chatBot->vars["raid_flat_multiroll"] == 1) {
-		$msg = "<red>You need to specify a slot where you want to add!<end>";
+		$msg = "This raid is pts rolled. Use instead bid.";
 		$chatBot->send($msg, $sender);
 		return;
 	}
 	
 	if (!isset($raidlist[$sender])) {
-		$msg = "<red>You need to be on the raidlist to be able to add to an item!<end>";
+		$msg = "You need to be on the raidlist to be able to add to an item!";
 		$chatBot->send($msg, $sender);
 		return;		
 	}
@@ -69,7 +63,7 @@ if (preg_match("/^add$/i", $message)) {
 	//Check if the player is already added
 	
 	if ($raidloot[$cat][$index]["users"][$sender]) {
-		$msg = "<red>You are already assigned to this roll<end>";
+		$msg = "You are already assigned to this roll.";
 		$chatBot->send($msg, $sender);
 		return;
 	}
@@ -89,14 +83,8 @@ if (preg_match("/^add$/i", $message)) {
 	if ($chatBot->vars["raid_status"] != "" && $chatBot->vars["raid_pts"] == 0) {
   	  	$slot = $arr[1];
 		
-		if ($chatBot->vars["raid_flat_multiroll"] == 0) {
-			$msg = "<red>Use add alone only!<end>";
-			$chatBot->send($msg, $sender);
-			return;
-		}
-		
 		if (!isset($raidlist[$sender])) {
-			$msg = "<red>You need to be on the raidlist to be able to add to an item!<end>";
+			$msg = "You need to be on the raidlist to be able to add to an item!";
 			$chatBot->send($msg, $sender);
 			return;		
 		}
@@ -118,7 +106,7 @@ if (preg_match("/^add$/i", $message)) {
 		}
 		
 	  	if (!$found) {
-	  		$msg = "The slot you trying to add in doesn't exists";
+	  		$msg = "The slot you trying to add in doesn't exist!";
 		  	$chatBot->send($msg, $sender);
 		  	return;
 	  	}
@@ -163,7 +151,7 @@ if (preg_match("/^add$/i", $message)) {
 
 		//Check if the slot exists
 	  	if (!isset($loot[$slot])) {
-	  		$msg = "The slot you trying to add in doesn't exists";
+	  		$msg = "The slot you trying to add in doesn't exist.";
 		  	$chatBot->send($msg, $sender);
 		  	return;
 	  	}
