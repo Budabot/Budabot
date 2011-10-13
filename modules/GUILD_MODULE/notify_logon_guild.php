@@ -23,13 +23,13 @@ if (isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
 		if (count($altInfo->alts) > 0) {
 			$msg .= " " . $altInfo->get_alts_blob();
 		}
+	}
 
-		$sql = "SELECT logon_msg FROM org_members_<myname> WHERE name = '{$sender}'";
-		$db->query($sql);
-		$row = $db->fObject();
-        if ($row !== null && $row->logon_msg != '') {
-            $msg .= " - " . $row->logon_msg;
-		}
+	$sql = "SELECT logon_msg FROM org_members_<myname> WHERE name = '{$sender}'";
+	$db->query($sql);
+	$row = $db->fObject();
+	if ($row !== null && $row->logon_msg != '') {
+		$msg .= " - " . $row->logon_msg;
 	}
 
 	$chatBot->send($msg, "guild", true);
