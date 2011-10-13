@@ -102,7 +102,7 @@ if ($error === false) {
 	}
 	
 	$page .= "\n\n*Please note that sometimes the server will not return the right information. If this happens, please try again.\n";
-	$msg = Text::make_blob("Vent Status ($stat->m_clientcount)", $page);
+	$msg = Text::make_blob("{$stat->m_clientcount} user(s) on Vent", $page);
 
 } else {
 	$msg = "<orange>$error<end>";

@@ -47,7 +47,7 @@ if (preg_match("/^fp (\\d+)$/i", $message, $arr1) || preg_match("/^fp (.+)$/i", 
 			}
 		}
 		
-		$item = Text::make_item($row->lowid, $row->lowid, $row->lowql, $row->name) . " ({$row->lowql})\n";
+		$item = Text::make_item($row->lowid, $row->lowid, $row->lowql, $row->name) . " ({$row->lowql})";
 		
 		if ($fpUsable) {
 			$msg = "$item <green>is<end> usable in false profession";

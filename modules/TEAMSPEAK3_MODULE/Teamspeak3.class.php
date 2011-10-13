@@ -90,7 +90,7 @@ function getTeamspeak3Status() {
 			$blob .= "<i>No users connected</i>\n";
 		}
 		$blob .= "\n\nTeamspeak 3 support by Tshaar (RK2)";
-		$msg = Text::make_blob("Teamspeak 3 Info ($count users)", $blob);
+		$msg = Text::make_blob("{$count} user(s) on Teamspeak", $blob);
 	} catch (Exception $e) {
 		$msg = "Error! " . $e->getMessage();
 	}

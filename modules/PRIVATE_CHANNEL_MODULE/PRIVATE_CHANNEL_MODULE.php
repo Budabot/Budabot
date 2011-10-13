@@ -4,7 +4,7 @@
     Command::register($MODULE_NAME, "", "members.php", "members", "all", "Member list", 'private_channel');
 	Command::register($MODULE_NAME, "", "sm.php", "sm", "all", "Shows who is in the private channel", 'private_channel');
 	Command::register($MODULE_NAME, "", "autoinvite.php", "autoinvite", "member", "Allows members to set whether he should be auto-invited to private channel on logon or not");
-    Command::register($MODULE_NAME, "guild msg", "join.php", "join", "all", "Join command for guests", 'private_channel');
+    Command::register($MODULE_NAME, "guild msg", "join.php", "join", "member", "Join command for guests", 'private_channel');
 	Command::register($MODULE_NAME, "priv msg", "leave.php", "leave", "all", "Enables Privatechat Kick", 'private_channel');
 	Command::register($MODULE_NAME, "", "count.php", "count", "all", "Shows how many characters are in the private channel");
 	Command::register($MODULE_NAME, "", "kickall.php", "kickall", "guild", "Kicks all from the private channel");

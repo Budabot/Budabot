@@ -6,14 +6,14 @@ if (preg_match("/^notes$/i", $message)) {
 	$sql = "SELECT * FROM notes WHERE name LIKE '$sender'";
   	$db->query($sql);
 	$data = $db->fObject('all');
-  	forEach ($data as $row) {
-	  	$remove = Text::make_chatcmd('Remove', "/tell <myname> <symbol>notes rem $row->id");
-	  	$blob .= "$remove $row->note\n\n";
-	}
 	
 	if (count($data) == 0) {
 		$msg = "No notes for $sender.";	
 	} else {
+		forEach ($data as $row) {
+			$remove = Text::make_chatcmd('Remove', "/tell <myname> <symbol>notes rem $row->id");
+			$blob .= "$remove $row->note\n\n";
+		}
 		$msg = Text::make_blob("Notes for $sender", $blob);
 	}
   	
@@ -29,10 +29,10 @@ if (preg_match("/^notes$/i", $message)) {
 	$id = $arr[1];
 
 	$numRows = $db->exec("DELETE FROM notes WHERE id = $id AND name LIKE '$sender'");
-	if ($numRows) {
-		$msg = "Note deleted successfully.";
-	} else {
+	if ($numRows == 0) {
 		$msg = "Note could not be found.";
+	} else {
+		$msg = "Note deleted successfully.";
 	}
 
     $chatBot->send($msg, $sendto);
