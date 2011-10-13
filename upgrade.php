@@ -37,4 +37,11 @@ forEach ($data as $row) {
 	}
 }
 
+// If setting 'guild_admin_access_level' is set to 'none', change it to 'all'
+$db->query("SELECT * FROM settings_<myname> WHERE name = 'guild_admin_access_level'");
+$data = $db->fObject('all');
+if ($data[0]->value = 'none') {
+	$db->exec("UPDATE settings_<myname> SET value = 'all' WHERE name = 'guild_admin_access_level'");
+}
+
 ?>
