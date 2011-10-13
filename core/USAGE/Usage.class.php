@@ -54,10 +54,19 @@ class Usage {
 		$settings['os'] = (isWindows() === true ? 'Windows' : 'Other');
 		$settings['relay_enabled'] = (Setting::get('relaybot') == 'Off' ? '0' : '1');
 		$settings['relay_type'] = Setting::get('relaytype');
+		$settings['alts_inherit_admin'] = Setting::get('alts_inherit_admin');
+		$settings['bbin_status'] = Setting::get('bbin_status');
+		$settings['irc_status'] = Setting::get('irc_status');
+		$settings['first_and_last_alt_only'] = Setting::get('first_and_last_alt_only');
+		$settings['aodb_db_version'] = Setting::get('aodb_db_version');
+		$settings['guild_admin_access_level'] = Setting::get('guild_admin_access_level');
+		$settings['guild_admin_rank'] = Setting::get('guild_admin_rank');
+		$settings['max_blob_size'] = Setting::get('max_blob_size');
+		$settings['logon_delay'] = Setting::get('logon_delay');
 
 		$obj = new stdClass;
 		$obj->id = sha1($botid . $chatBot->vars['name'] . $chatBot->vars['dimension']);
-		$obj->version = "1.1";
+		$obj->version = "1.2";
 		$obj->debug = ($debug == true ? '1' : '0');
 		$obj->commands = $data;
 		$obj->settings = $settings;
