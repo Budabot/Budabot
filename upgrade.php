@@ -7,13 +7,13 @@ $db->exec("UPDATE hlpcfg_<myname> SET `admin` = 'rl' WHERE `admin` = 'guildadmin
 // Add validated column to alts table.
 $db->query("SELECT `validated` FROM `alts`");
 if ($db->errorInfo[0] != "00000") {
-	$db->exec("ALTER TABLE `alts` ADD COLUMN `validated` TINYINT(1) NOT NULL DEFAULT 0"); // Add the validated column.
+	$db->exec("ALTER TABLE `alts` ADD COLUMN `validated` TINYINT(1) NOT NULL DEFAULT 0");
 }
 
 // Add logoff_msg column to org_members_<myname>.
 $db->query("SELECT `logoff_msg` FROM `org_members_<myname>`");
 if ($db->errorInfo[0] != "00000") {
-	$db->exec("ALTER TABLE `org_members_<myname>` ADD COLUMN `logoff_msg` VARCHAR(400) DEFAULT ''"); // Add the logoff_msg column.
+	$db->exec("ALTER TABLE `org_members_<myname>` ADD COLUMN `logoff_msg` VARCHAR(400) DEFAULT ''");
 }
 
 // Remove name history for characters that don't actually exist.

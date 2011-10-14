@@ -573,7 +573,7 @@ if (preg_match("/^config$/i", $message)) {
 	$chatBot->send("Updated access for helpfile <highlight>$help<end> to <highlight>".ucfirst(strtolower($arr[2]))."<end>.", $sendto);
 } else if (preg_match("/^config help (.+)$/i", $message, $arr)) {
   	$mod = strtoupper($arr[1]);
-	$blob = "<header> :::::: Configure helpfiles for module $mod :::::: <end>\n\n";
+	$blob = "<header> :::::: Configure helpfiles for $mod :::::: <end>\n\n";
 
 	$db->query("SELECT * FROM hlpcfg_<myname> WHERE module = '$mod' ORDER BY name");
 	$data = $db->fObject("all");
@@ -594,7 +594,7 @@ if (preg_match("/^config$/i", $message)) {
 			$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin mod'>Mod</a>  ";
 			$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin admin'>Admin</a>\n\n";
 		}
-		$msg = Text::make_blob("Configure helpfiles for module $mod", $blob);
+		$msg = Text::make_blob("Configure helpfiles for $mod", $blob);
 	}
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^config ([a-z0-9_]*)$/i", $message, $arr)) {

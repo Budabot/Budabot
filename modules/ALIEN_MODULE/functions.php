@@ -94,11 +94,11 @@ function alienWeaponBio($ql, $type) {
 	return Text::make_blob("$name (QL $ql)", $blob);
 }
 
-function alienArmorBio($ql, $bio) {
-	if (strtolower($bio) == "mutated") {
+function alienArmorBio($ql, $type) {
+	if (strtolower($type) == "mutated") {
 		$name = "Mutated Kyr'Ozch Bio-Material";
 		$chem = floor($ql * 7);
-	} else if (strtolower($bio) == "pristine") {
+	} else if (strtolower($type) == "pristine") {
 		$name = "Pristine Kyr'Ozch Bio-Material";
 		$chem = floor($ql * 4.5);
 		$extraInfo = "(<highlight>less tradeskill requirements then mutated.<end>)";
@@ -152,7 +152,7 @@ function alienArmorBio($ql, $bio) {
 	return Text::make_blob("$name (QL $ql)", $blob);
 }
 
-function serumBio($ql, $name) {
+function serumBio($ql, $type) {
 	$name = "Kyr'Ozch Viral Serum";
 	$item = findItem($ql, $name);
 
