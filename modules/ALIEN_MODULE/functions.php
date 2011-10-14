@@ -98,7 +98,7 @@ function alienArmorBio($ql, $bio) {
 	if (strtolower($bio) == "mutated") {
 		$name = "Mutated Kyr'Ozch Bio-Material";
 		$chem = floor($ql * 7);
-	} else if (strtolower($bio) == "mutated") {
+	} else if (strtolower($bio) == "pristine") {
 		$name = "Pristine Kyr'Ozch Bio-Material";
 		$chem = floor($ql * 4.5);
 		$extraInfo = "(<highlight>less tradeskill requirements then mutated.<end>)";
