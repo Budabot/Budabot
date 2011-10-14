@@ -44,7 +44,7 @@ class Usage {
 		$settings = array();
 		$settings['dimension'] = $chatBot->vars['dimension'];
 		$settings['is_guild_bot'] = ($chatBot->vars['my_guild'] == '' ? '0' : '1');
-		$settings['guildsize'] = count($chatBot->guildmembers);
+		$settings['guildsize'] = Usage::getGuildSizeClass(count($chatBot->guildmembers));
 		$settings['using_chat_proxy'] = $chatBot->vars['use_proxy'];
 		$settings['symbol'] = Setting::get('symbol');
 		$settings['spam_protection'] = Setting::get('spam_protection');
@@ -66,12 +66,34 @@ class Usage {
 
 		$obj = new stdClass;
 		$obj->id = sha1($botid . $chatBot->vars['name'] . $chatBot->vars['dimension']);
-		$obj->version = "1.2";
+		$obj->version = "1.3";
 		$obj->debug = ($debug == true ? '1' : '0');
 		$obj->commands = $data;
 		$obj->settings = $settings;
 
 		return $obj;
+	}
+	
+	public static function getGuildSizeClass($size) {
+		$guildClass = "";
+		if ($size = 0) {
+			$guildClass = "class0";
+		} else if ($size < 10) {
+			$guildClass = "class1";
+		} else if ($size < 30) {
+			$guildClass = "class2";
+		} else if ($size < 150) {
+			$guildClass = "class3";
+		} else if ($size < 300) {
+			$guildClass = "class4";
+		} else if ($size < 650) {
+			$guildClass = "class5";
+		} else if ($size < 1000) {
+			$guildClass = "class6";
+		} else {
+			$guildClass = "class7";
+		}
+		return $guildClass;
 	}
 }
 
