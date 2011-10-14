@@ -1,6 +1,14 @@
 *****************************
-	Version 2.3_RC2:
+	Version 2.3_RC3:
 *****************************
+-updated text.mdb and items db to 18.04.10
+-rewrote PRIV_TELL_LIMIT core module, renamed it to LIMITS, and removed !limits command (use !config limits)
+-added !guides grafts
+-removed !altsadmin export and !altsadmin import
+-added 'guild_admin_rank' and 'guild_admin_access_level' settings to replace 'guild_admin_level' setting
+-removed 'guildadmin' access level and changed all references to 'raidleader'
+-added core USAGE module (!usage)
+-added setting type 'time' which takes a budatime argument
 -added !penalty for showing orgs who have attacked recently and are in penalty (thanks Taylorka (RK2) for requesting)
 -!ban now takes the time argument as "Buda-time" (eg. 1d4h6m32s)
 -added option notify_banned_player to control whether the bot sends a tell to a player when they are banned or unbanned from the bot
@@ -15,11 +23,11 @@
 -fixed some issues when runninng Budabot on 64 bit linux (thanks Wirehead for reporting this)
 -!settings change will now show the current value for colors
 -!lastseen now takes alts into account
--renamed the core command !eventlist to !boteventlist (so it doesn't conflict with EVENTS_MODULE) and fixed it
+-fixed !eventlist
 -added !orgcities to show coordinates for player cities
 -!oe shows info for 50%, 25%. and 0% now in addition to 75% (thanks Mdkdoc420 (RK2))
 -added CSP map guides to the GUIDES_MODULE (guides that start with 'info-')
--added !aospeak which tells you who is in your org channel on the AOSpeak server (thanks Tshaar (RK2))
+-added !aospeak (!aospeak org, !aospeak all) which tells you who is in your org channel on the AOSpeak server (thanks Tshaar (RK2))
 -TEAMSPEAK3_MODULE replaces TEAMSPEAK_MODULE (and provides TS3 support ofc; thanks Tshaar (RK2))
 -added support for Dnet (!dnet enable/!dnet disable) (RK1 only)
 -added !aou for searching for and viewing AO Universe guides from in game
