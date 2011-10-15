@@ -57,7 +57,8 @@ if ($error === false) {
 	
     $page = "<header>Ventrilo Server Information<end>\n\n";
     $page .= "This is a <orange>PRIVATE<end> Ventrilo server.\n";
-    $page .= "Please DO NOT give out this information without permission.\n\n";
+    $page .= "Please DO NOT give out this information without permission.\n";
+	$page .= "Channels highlighted <orange>ORANGE<end> are password protected.\n\n";
     $page .= "Hostname: <white>{$stat->m_cmdhost}<end>\n";
     $page .= "Port Number: <white>{$stat->m_cmdport}<end>\n";
     
