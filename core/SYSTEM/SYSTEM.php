@@ -35,7 +35,7 @@
 	
 	Setting::add($MODULE_NAME, 'symbol', 'Command prefix symbol', 'edit', "text", '!', '!;#;*;@;$;+;-');
 	Setting::add($MODULE_NAME, 'guild_admin_rank', 'Guild rank required to be considered a guild admin', 'edit', "options", '1', '0;1;2;3;4;5;6');
-	Setting::add($MODULE_NAME, 'guild_admin_access_level', 'Access level that guild admins acquire', 'edit', "options", 'none', 'admin;mod;rl;all');
+	Setting::add($MODULE_NAME, 'guild_admin_access_level', 'Access level that guild admins acquire', 'edit', "options", 'all', 'admin;mod;rl;all');
 	Setting::add($MODULE_NAME, 'spam_protection', 'Enable spam protection', 'edit', "options", 0, "true;false", "1;0");
 	Setting::add($MODULE_NAME, 'max_blob_size', 'Max chars for a window', 'edit', "number", 7500, '4500;6000;7500;9000;10500;12000');
 	Setting::add($MODULE_NAME, 'logon_delay', 'Seconds to wait before executing connect events and cron jobs', 'edit', "number", 10, '5;10;20;30');
