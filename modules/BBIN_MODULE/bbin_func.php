@@ -144,7 +144,7 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 		if ($chatBot->vars['my_guild'] != "") {
 			$chatBot->send("<yellow>[BBIN]<end> $bbinmsg", "guild", true);
 		}
-		if ($chatBot->vars['my_guild'] == "" || Settings::get("guest_relay") == 1) {
+		if ($chatBot->vars['my_guild'] == "" || Setting::get("guest_relay") == 1) {
 			$chatBot->send("<yellow>[BBIN]<end> $bbinmsg", "priv", true);
 		}
 	}

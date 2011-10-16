@@ -76,7 +76,7 @@ class Usage {
 	
 	public static function getGuildSizeClass($size) {
 		$guildClass = "";
-		if ($size = 0) {
+		if ($size == 0) {
 			$guildClass = "class0";
 		} else if ($size < 10) {
 			$guildClass = "class1";
