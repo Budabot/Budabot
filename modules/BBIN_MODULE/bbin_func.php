@@ -17,15 +17,18 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 	global $chatBot;
 	global $bbin_socket;
 
-	if (preg_match("/^\[BBIN:LOGON:(.*?),(.),(.)\]/",$bbinmsg,$arr)) {
+	if (preg_match("/^\[BBIN:LOGON:(.*?),(.),(.)\]/", $bbinmsg, $arr)) {
 		// a user logged on somewhere in the network
 		// first argument is name, second is dimension, third indicates a guest
 		$name = $arr[1];
 		$servernum = $arr[2];
 		$guest = $arr[3];
 
-		// get character informations
-		$character = Player::get_by_name($name, $servernum);
+		// get character information, and store for later
+		$character = Player::lookup($name, $servernum);
+		if ($character !== null) {
+			Player::update($character);
+		}
 
 		// add user to bbin_chatlist_<myname>
 		$sql = "INSERT INTO bbin_chatlist_<myname> (`name`, `guest`, `ircrelay`, `faction`, `profession`, `guild`, `breed`, `level`, `ai_level`, `dimension`) " .
