@@ -21,18 +21,15 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 		// a user logged on somewhere in the network
 		// first argument is name, second is dimension, third indicates a guest
 		$name = $arr[1];
-		$servernum = $arr[2];
-		$guest = $arr[3];
+		$dimension = $arr[2];
+		$isguest = $arr[3];
 
-		// get character information, and store for later
-		$character = Player::lookup($name, $servernum);
-		if ($character !== null) {
-			Player::update($character);
-		}
+		// get character information
+		$character = Player::get_by_name($name, $dimension);
 
 		// add user to bbin_chatlist_<myname>
-		$sql = "INSERT INTO bbin_chatlist_<myname> (`name`, `guest`, `ircrelay`, `faction`, `profession`, `guild`, `breed`, `level`, `ai_level`, `dimension`) " .
-			"VALUES ('$name', $guest, '$nick', '$character->faction', '$character->profession', '$character->guild', '$character->breed', '$character->level', '$character->ai_level', $servernum)";
+		$sql = "INSERT INTO bbin_chatlist_<myname> (`name`, `guest`, `ircrelay`, `faction`, `profession`, `guild`, `breed`, `level`, `ai_level`, `dimension`, `afk`) " .
+			"VALUES ('$name', $isguest, '$nick', '$character->faction', '$character->profession', '$character->guild', '$character->breed', '$character->level', '$character->ai_level', $dimension, '')";
 		$db->exec($sql);
 
 		// send notification to channels
@@ -41,7 +38,7 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 			$msg .=	" {$character->guild_rank} of {$character->guild}";
 		}
 		$msg .= " has joined the network";
-		if ($guest == 1) {
+		if ($isguest == 1) {
 			$msg .= " as a guest";
 		}
 		$msg .= ".";
@@ -56,15 +53,15 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 	} else if (preg_match("/^\[BBIN:LOGOFF:(.*?),(.),(.)\]/",$bbinmsg,$arr)) {
 		// a user logged off somewhere in the network
 		$name = $arr[1];
-		$servernum = $arr[2];
-		$guest = $arr[3];
+		$dimension = $arr[2];
+		$isguest = $arr[3];
 
 		// delete user from online table
-		$db->exec("DELETE FROM bbin_chatlist_<myname> WHERE (`name` = '$name') AND (`ircrelay` = '$nick')");
+		$db->exec("DELETE FROM bbin_chatlist_<myname> WHERE (`name` = '$name') AND (`dimension` = $dimension) AND (`ircrelay` = '$nick')");
 
 		// send notification to channels
 		$msg = "";
-		if ($guest == 1)
+		if ($isguest == 1)
 		{
 			$msg = "Our guest ";
 		}
@@ -136,11 +133,13 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 				break;
 			}
 				
-			// update character info
+			// get character information
 			$character = Player::get_by_name($name, $dimension);
-				
+
 			// add user to bbin_chatlist_<myname>
-			$db->exec("INSERT INTO bbin_chatlist_<myname> (`name`, `guest`, `ircrelay`) VALUES ('$name', $isguest, '$nick')");
+			$sql = "INSERT INTO bbin_chatlist_<myname> (`name`, `guest`, `ircrelay`, `faction`, `profession`, `guild`, `breed`, `level`, `ai_level`, `dimension`, `afk`) " .
+				"VALUES ('$name', $isguest, '$nick', '$character->faction', '$character->profession', '$character->guild', '$character->breed', '$character->level', '$character->ai_level', $dimension, '')";
+			$db->exec($sql);
 		}
 	} else {
 		// normal message
