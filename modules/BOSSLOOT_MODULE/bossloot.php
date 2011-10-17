@@ -23,7 +23,7 @@ if (preg_match ("/^bossloot (.+)$/i", $message, $arr)) {
 	if ($count != 0) {
 		//Find loot item and associated boss and his location
 		forEach ($loot as $row) {
-			$blob .= Text::make_chatcmd($row->bossname, "/tell <myname> boss $row->bossname") . "\n";
+			$blob .= '<pagebreak>' . Text::make_chatcmd($row->bossname, "/tell <myname> boss $row->bossname") . "\n";
 			$oldbossid = $bossname;
 			$blob .= "<green>Can be found {$row->answer}<end>\nDrops: ";
 
@@ -31,13 +31,13 @@ if (preg_match ("/^bossloot (.+)$/i", $message, $arr)) {
 			$db->query("SELECT * FROM boss_lootdb b JOIN aodb a ON b.itemid = a.lowid WHERE b.bossid = {$row->bossid} AND b.itemname LIKE '%".str_replace("'", "''", $search)."%'");
 			$data = $db->fobject("all");
 			forEach ($data as $row2) {
-				$blob .= Text::make_item($row2->lowid, $row2->highid, $row2->ql, $row2->itemname) . ', ';
+				$blob .= Text::make_item($row2->lowid, $row2->highid, $row2->highql, $row2->itemname) . ', ';
 			}
 			$blob .= "\n\n";
 		}
-		$output = Text::make_blob("BossLoot ($count result(s))", $blob);
+		$output = Text::make_blob("Bossloot ($count result(s))", $blob);
 	} else {
-		$output .= "<yellow>There were no matches for your search.<end>";
+		$output .= "There were no matches for your search.";
 	}
 	$chatBot->send($output, $sendto);
 } else {

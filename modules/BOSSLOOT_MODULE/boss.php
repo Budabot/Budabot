@@ -25,14 +25,14 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 	if ($count > 1) {
 		//If multiple matches found output list of bosses
 		forEach ($bosses as $row) {
-			$blob .= Text::make_chatcmd($row->name, "/tell <myname> boss $row->name") . "\n";
+			$blob .= '<pagebreak>' . Text::make_chatcmd($row->name, "/tell <myname> boss $row->name") . "\n";
 			$blob .= "<green>Can be found {$row->answer}<end>\nDrops: ";
 			
 			// get loot
-			$db->query("SELECT * FROM boss_lootdb b JOIN aodb a ON b.itemid = a.lowid WHERE b.bossid = {$row->bossid}");
+			$db->query("SELECT * FROM boss_lootdb b LEFT JOIN aodb a ON (b.itemid = a.lowid OR b.itemid = a.highid) WHERE b.bossid = {$row->bossid}");
 			$data = $db->fobject("all");
 			forEach ($data as $row2) {
-				$blob .= Text::make_item($row2->lowid, $row2->highid, $row2->ql, $row2->itemname) . ', ';
+				$blob .= Text::make_item($row2->lowid, $row2->highid, $row2->highql, $row2->itemname) . ', ';
 			}
 			$blob .= "\n\n";
 		}
@@ -46,11 +46,11 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 		$blob .= "<green>Can be found {$row->answer}<end>\n\n";
 		$blob .= "Loot:\n\n";
 
-		$db->query("SELECT * FROM boss_lootdb b JOIN aodb a ON b.itemid = a.lowid WHERE b.bossid = {$row->bossid}");
+		$db->query("SELECT * FROM boss_lootdb b LEFT JOIN aodb a ON (b.itemid = a.lowid OR b.itemid = a.highid) WHERE b.bossid = {$row->bossid}");
 		$data = $db->fobject("all");
 		forEach ($data as $row2) {
 			$blob .= "<img src=rdb://{$row2->icon}>\n";
-			$blob .= Text::make_item($row2->lowid, $row2->highid, $row2->ql, $row2->itemname) . "\n\n";
+			$blob .= Text::make_item($row2->lowid, $row2->highid, $row2->highql, $row2->itemname) . "\n\n";
 		}
 		$output = Text::make_blob("Boss (1 result)", $blob);
 	} else {
