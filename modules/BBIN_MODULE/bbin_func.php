@@ -26,10 +26,12 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 
 		// get character information
 		$character = Player::get_by_name($name, $dimension);
+		
+		$guild = str_replace("'", "''", $character->guild);
 
 		// add user to bbin_chatlist_<myname>
 		$sql = "INSERT INTO bbin_chatlist_<myname> (`name`, `guest`, `ircrelay`, `faction`, `profession`, `guild`, `breed`, `level`, `ai_level`, `dimension`, `afk`) " .
-			"VALUES ('$name', $isguest, '$nick', '$character->faction', '$character->profession', '$character->guild', '$character->breed', '$character->level', '$character->ai_level', $dimension, '')";
+			"VALUES ('$name', $isguest, '$nick', '$character->faction', '$character->profession', '$guild', '$character->breed', '$character->level', '$character->ai_level', $dimension, '')";
 		$db->exec($sql);
 
 		// send notification to channels
@@ -78,11 +80,7 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 	} else if (preg_match("/^\[BBIN:SYNCHRONIZE\]/",$bbinmsg)) {
 		// a new bot joined and requested a full online synchronization
 
-		// drop existing data
-		$db->exec("DELETE FROM bbin_chatlist_<myname>");
-
 		// send actual online members
-
 		$msg = "[BBIN:ONLINELIST:".$chatBot->vars["dimension"].":";
 		$db->query("SELECT name FROM online WHERE channel_type = 'guild'");
 		$numrows = $db->numrows();
@@ -110,6 +108,8 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 	} else if (preg_match("/^\[BBIN:ONLINELIST:(.):(.*?)\]/", $bbinmsg, $arr)) {
 		// received a synchronization list
 		
+		$db->begin_transaction();
+		
 		// delete all buddies from that nick
 		$db->exec("DELETE FROM bbin_chatlist_<myname> WHERE `ircrelay` = '$nick'");
 		
@@ -135,12 +135,16 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 				
 			// get character information
 			$character = Player::get_by_name($name, $dimension);
+			
+			$guild = str_replace("'", "''", $character->guild);
 
 			// add user to bbin_chatlist_<myname>
 			$sql = "INSERT INTO bbin_chatlist_<myname> (`name`, `guest`, `ircrelay`, `faction`, `profession`, `guild`, `breed`, `level`, `ai_level`, `dimension`, `afk`) " .
-				"VALUES ('$name', $isguest, '$nick', '$character->faction', '$character->profession', '$character->guild', '$character->breed', '$character->level', '$character->ai_level', $dimension, '')";
+				"VALUES ('$name', $isguest, '$nick', '$character->faction', '$character->profession', '$guild', '$character->breed', '$character->level', '$character->ai_level', $dimension, '')";
 			$db->exec($sql);
 		}
+		
+		$db->commit();
 	} else {
 		// normal message
 		if ($chatBot->vars['my_guild'] != "") {
