@@ -58,7 +58,7 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 		$dimension = $arr[2];
 		$isguest = $arr[3];
 
-		// delete user from online table
+		// delete user from bbin_chatlist table
 		$db->exec("DELETE FROM bbin_chatlist_<myname> WHERE (`name` = '$name') AND (`dimension` = $dimension) AND (`ircrelay` = '$nick')");
 
 		// send notification to channels
@@ -82,14 +82,14 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 
 		// send actual online members
 		$msg = "[BBIN:ONLINELIST:".$chatBot->vars["dimension"].":";
-		$db->query("SELECT name FROM online WHERE channel_type = 'guild'");
+		$db->query("SELECT name FROM online WHERE channel_type = 'guild' AND added_by = '<myname>'");
 		$numrows = $db->numrows();
 		$data = $db->fObject("all");
 		forEach ($data as $row) {
 			$msg .= $row->name . ",0,";
 		}
 
-		$db->query("SELECT * FROM online WHERE channel_type = 'priv'");
+		$db->query("SELECT * FROM online WHERE channel_type = 'priv' AND added_by = '<myname>'");
 		$numrows += $db->numrows();
 		$data = $db->fObject("all");
 		forEach ($data as $row) {
