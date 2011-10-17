@@ -72,7 +72,7 @@
 -fix for topic not sending to characters in guild on logon
 -!whois will now shows alts for that character if the bot knows of any
 -!afk can now be used with the command symbol (!)
--can now change the color of incoming messages on the relay to both the guild and private channels issue
+-can now change the color of incoming messages on the relay to both the guild and private channels
 -added setting for the maximum number of characters allowed in a logon message (default: 200)
 -!news msg and !news del replaced by !addnews and !remnews
 -fix for guildadmin access level

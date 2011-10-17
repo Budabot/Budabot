@@ -2,7 +2,6 @@
 
 class Player {
 	public static function get_by_name($name, $dimension = 0, $forceUpdate = false) {
-		$db = DB::get_instance();
 		global $chatBot;
 		
 		if ($dimension == 0) {
@@ -11,14 +10,15 @@ class Player {
 		
 		$name = ucfirst(strtolower($name));
 		
-		$charid = $chatBot->get_uid($name);
-		if ($charid == null) {
-			return null;
+		$charid = '';
+		if ($dimension == $chatBot->vars['dimension']) {
+			$charid = $chatBot->get_uid($name);
+			if ($charid == null) {
+				return null;
+			}
 		}
 	
-		$sql = "SELECT * FROM players WHERE name LIKE '$name' AND dimension = $dimension";
-		$db->query($sql);
-		$player = $db->fObject();
+		$player = Player::findInDb($name, $dimension);
 
 		if ($player === null || $forceUpdate) {
 			$player = Player::lookup($name, $dimension);
@@ -40,6 +40,14 @@ class Player {
 		}
 		
 		return $player;
+	}
+	
+	public static function findInDb($name, $dimension) {
+		$db = DB::get_instance();
+	
+		$sql = "SELECT * FROM players WHERE name LIKE '$name' AND dimension = $dimension";
+		$db->query($sql);
+		return $db->fObject();
 	}
 	
 	public static function lookup($name, $dimension) {
