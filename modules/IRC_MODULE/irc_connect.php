@@ -12,11 +12,11 @@ stream_set_blocking($socket, 0);
 set_time_limit(0);
 //settings
 if (Setting::get('irc_server') == "") {
-	$chatBot->send("The IRC <highlight>server address<end> seems to be missing. Please <highlight>/tell <myname> <symbol>help irc<end> for details on setting this", $sendto);
+	$chatBot->send("The IRC <highlight>server address<end> seems to be missing. <highlight>/tell <myname> <symbol>help irc<end> for details on setting this.", $sendto);
 	return;
 }
 if (Setting::get('irc_port') == "") {
-	$chatBot->send("The IRC <highlight>server port<end> seems to be missing. Please <highlight>/tell <myname> <symbol>help irc<end> for details on setting this", $sendto);
+	$chatBot->send("The IRC <highlight>server port<end> seems to be missing. <highlight>/tell <myname> <symbol>help irc<end> for details on setting this.", $sendto);
 	return;
 }
 
@@ -24,9 +24,9 @@ $nick = Setting::get('irc_nickname');
  
 // Connection
 if (preg_match("/^startirc$/i", $message)) {
-	$chatBot->send("Intialized IRC connection. Please wait...", $sendto);
+	$chatBot->send("Intializing IRC connection. Please wait...", $sendto);
 }
-Logger::log('INFO', "IRC", "Intialized IRC connection. Please wait...");
+Logger::log('INFO', "IRC", "Intializing IRC connection");
 $socket = fsockopen(Setting::get('irc_server'), Setting::get('irc_port'));
 fputs($socket,"USER $nick $nick $nick $nick :$nick\n");
 fputs($socket,"NICK $nick\n");
@@ -54,7 +54,7 @@ while ($data = fgets($socket)) {
 	}
 	if (preg_match("/(ERROR)(.+)/", $data, $sandbox)) {
 		if (preg_match("/^startirc$/i", $message)) {
-			$chatBot->send("[red]Could not connect to IRC", $sendto);
+			$chatBot->send("Could not connect to IRC.", $sendto);
 		}
 		Logger::log('error', "IRC", trim($data));
 		return;
@@ -68,7 +68,7 @@ while ($data = fgets($socket)) {
 	flush();
 }
 if (preg_match("/^startirc$/i", $message)) {
-	$chatBot->send("Finished connecting to IRC", $sendto);
+	$chatBot->send("Finished connecting to IRC.", $sendto);
 }
 Logger::log('INFO', "IRC", "Finished connecting to IRC");
 Setting::save("irc_status", "1");

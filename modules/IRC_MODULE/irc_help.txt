@@ -1,4 +1,4 @@
-<header>::::: Help on IRC relay :::::<end>
+<header> :::::: Help on IRC relay :::::: <end>
 
 To start the IRC relay, a moderator or higher needs to do <highlight>/tell <myname> <symbol>startirc<end>, or you can set it to auto-connect on bot-startup in the <symbol>settings.
 
@@ -33,5 +33,3 @@ Thanks and enjoy.
 <tab>Can be used to relay accross dimentions.  Set both bots to connect to the same IRC channel.
 <tab>Can be used to relay more than 2 bots. See above ^
 <tab>Can autoconnect at bot start-up. Check <symbol>settings.
-
-<highlight>More to come as I get feedback<end>

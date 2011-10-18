@@ -6,6 +6,8 @@
    ** Developed for: Budabot(http://aodevs.com/index.php/topic,512.0.html)
    **
    */
+   
+	require_once 'functions.php';
 
 	$channel = Setting::get('irc_channel');
 	if ($channel === false) {

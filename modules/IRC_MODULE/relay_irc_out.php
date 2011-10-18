@@ -17,7 +17,7 @@ if ("1" == Setting::get('irc_status')) {
 		$msg = htmlspecialchars_decode(preg_replace($pattern, $replace, $message));
 		//$msg = htmlspecialchars_decode(preg_replace($patterns, $replaces, $message), ENT_QUOTES);
  
- 		fputs($socket, "PRIVMSG ".Setting::get('irc_channel') . " :" . chr(2) . chr(2) . chr(2) . "[{$chatBot->vars['my_guild']}]" .  chr(2) . " $sender: $msg\n");
+ 		fputs($socket, "PRIVMSG ".Setting::get('irc_channel') . " :" . encodeGuildMessage($chatBot->vars['my_guild'], "$sender: $msg") . "\n");
  		if (Setting::get('irc_debug_messages') == 1) {
 			Logger::log_chat("Out. IRC Msg.", $sender, $msg);
 		}
