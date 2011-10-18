@@ -8,6 +8,7 @@
    */
    
 Setting::save("irc_status", 0);
-include 'irc_connect.php';
-
+if (Setting::get('irc_autoconnect') == 1) {
+	include 'irc_connect.php';
+}
 ?>
