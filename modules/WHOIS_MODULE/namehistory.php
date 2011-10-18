@@ -2,8 +2,14 @@
 
 if (preg_match("/^namehistory (.+)$/i", $message, $arr)) {
     $name = ucfirst(strtolower($arr[1]));
+	$uid = $chatBot->get_uid($name);
+	if (!$uid) {
+		$msg = "<highlight>$name<end> does not exist.";
+		$chatBot->send($msg, $sendto);
+		return;
+	}
 	
-	$sql = "SELECT * FROM name_history WHERE charid = (SELECT charid FROM name_history WHERE name = '{$name}' AND dimension = <dim>) AND dimension = <dim> ORDER BY dt DESC";
+	$sql = "SELECT * FROM name_history WHERE charid = $uid AND dimension = <dim> ORDER BY dt DESC";
 	$db->query($sql);
 	$data = $db->fObject('all');
 	$count = count($data);
