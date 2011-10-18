@@ -21,14 +21,15 @@ if (preg_match("/^ding$/i", $message)) {
 } else if (preg_match("/^ding dong$/i", $message)) {
 	$msg =	"Ditch, Bitch!";
  	$chatBot->send($msg, $sendto);
-} else if (preg_match("/^ding ([\-+]?[0-9]+)$/i", $message, $arr)) {
+} else if (preg_match("/^ding ([\-+]?[0-9]+)$/i", $message, $arr) ||
+		preg_match("/^ding ([\-+]?[0-9]+) (.+)$/i", $message, $arr)) {
 	if ($arr[1] == 100) {
 		$dingText = array(
 			"Congratz! <red>Level 100<end> - ".$sender." you rock!\n",
 			"Congratulations! Time to twink up for T.I.M!",
 			"Gratz, your half way to 200. More missions, MORE!",
 			"Woot! Congrats, don't forget to put on your 1k token board.");
-	} else if ($arr[1] < 0) {
+	} else if ($arr[1] <= 0) {
 		$lvl = (int)round(220 - $arr [1]);
 		$dingText = array(
 			"Reclaim sure is doing a number on you if your going backwards...",
