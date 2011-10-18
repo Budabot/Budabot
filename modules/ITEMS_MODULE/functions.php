@@ -9,18 +9,23 @@ function download_newest_itemsdb() {
 	$data = file_get_contents("http://budabot2.googlecode.com/svn/trunk/modules/ITEMS_MODULE");
 	$data = str_replace("<hr noshade>", "", $data);  // not valid xml
 
-	$xml = new SimpleXmlElement($data);
+	try {
+		$xml = new SimpleXmlElement($data);
 
-	// find the latest items db version on the server
-	$latestVersion = null;
-	forEach ($xml->body->ul->li as $item) {
-		if (preg_match("/^aodb(.*)\\.sql$/i", $item->a, $arr)) {
-			if ($latestVersion === null) {
-				$latestVersion = $arr[1];
-			} else if (Util::compare_version_numbers($arr[1], $currentVersion)) {
-				$latestVersion = $arr[1];
+		// find the latest items db version on the server
+		$latestVersion = null;
+		forEach ($xml->body->ul->li as $item) {
+			if (preg_match("/^aodb(.*)\\.sql$/i", $item->a, $arr)) {
+				if ($latestVersion === null) {
+					$latestVersion = $arr[1];
+				} else if (Util::compare_version_numbers($arr[1], $currentVersion)) {
+					$latestVersion = $arr[1];
+				}
 			}
 		}
+	} catch (Exception $e) {
+		Logger::log('ERROR', 'ITEMS_MODULE', "Error updating items db: " . $e->getMessage());
+		return "Error updating items db: " . $e->getMessage();
 	}
 
 	if ($latestVersion !== null) {
