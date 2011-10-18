@@ -1,7 +1,7 @@
 <?php
 
 if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
-	/* get all names in an array */
+	/* Get all names in an array. */
 	$names = explode(' ', $arr[1]);
 	
 	$sender = ucfirst(strtolower($sender));
@@ -11,7 +11,7 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 	
 	$success = 0;
 	
-	/* Pop a name from the array until none are left (checking for null) */
+	/* Pop a name from the array until none are left (checking for null). */
 	forEach ($names as $name) {
 		$name = ucfirst(strtolower($name));
 		
@@ -24,18 +24,18 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 		
 		$altInfo = Alts::get_alt_info($name);
 		if ($altInfo->main == $senderAltInfo->main) {
-			// Already registered to self
-			$msg = "$name is already registered to you.";
+			// Already registered to self.
+			$msg = "<highlight>$name<end> is already registered to you.";
 			$chatBot->send($msg, $sendto);
 			continue;
 		}
 		
 		if (count($altInfo->alts) > 0) {
-			// Already registered to someone else
+			// Already registered to someone else.
 			if ($altInfo->main == $name) {
-				$msg = "$name is already registered as a main with alts.";
+				$msg = "<highlight>$name<end> is already registered as a main with alts.";
 			} else {
-				$msg = "$name is already registered as an of alt of {$altInfo->main}.";
+				$msg = "<highlight>$name>end> is already registered as an of alt of <highlight>{$altInfo->main}<end>.";
 			}
 			$chatBot->send($msg, $sendto);
 			continue;
@@ -46,16 +46,16 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 			$validated = 1;
 		}
 		
-		/* insert into database */
+		/* Insert into database. */
 		Alts::add_alt($senderAltInfo->main, $name, $validated);
 		$success++;
 		
-		// update character info
+		// Update character information.
 		Player::get_by_name($name);
 	}
 	
 	if ($success > 0) {
-		$msg = "$success alt(s) added successfully.";
+		$msg = ($success == 1 ? "alt" : "$success alt(s)") . " added successfully.";
 		$chatBot->send($msg, $sendto);
 	}
 } else if (preg_match("/^alts (rem|del|remove|delete) ([a-z0-9-]+)$/i", $message, $arr)) {
@@ -73,7 +73,7 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 	}
 	$chatBot->send($msg, $sendto);
 } else if (preg_match('/^alts setmain ([a-z0-9-]+)$/i', $message, $arr)) {
-	// check if new main exists
+	// Check if new main exists.
 	$new_main = ucfirst(strtolower($arr[1]));
 	$uid = $chatBot->get_uid($new_main);
 	if (!$uid) {
@@ -98,13 +98,13 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 
 	$db->begin_transaction();
 
-	// remove all the old alt information
+	// Remove all the old alt information.
 	$db->exec("DELETE FROM `alts` WHERE `main` = '{$altInfo->main}'");
 
-	// add current main to new main as an alt
+	// Add current main to new main as an alt.
 	Alts::add_alt($new_main, $altinfo->main, 0);
 	
-	// add current alts to new main
+	// Add current alts to new main.
 	forEach ($altInfo->alts as $alt => $validated) {
 		if ($alt != $new_main) {
 			Alts::add_alt($new_main, $alt, 0);
