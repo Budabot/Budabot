@@ -12,12 +12,12 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names)) {
 	$uid_alt = $chatBot->get_uid($name_alt);
 
 	if (!$uid_alt) {
-		$msg = "Player <highlight>$name_alt<end> does not exist.";
+		$msg = "The character <highlight>$name_alt<end> does not exist.";
 		$chatBot->send($msg, $sendto);
 		return;
 	}
 	if (!$uid_main) {
-		$msg = " Player <highlight>$name_main<end> does not exist.";
+		$msg = "The character <highlight>$name_main<end> does not exist.";
 		$chatBot->send($msg, $sendto);
 		return;
 	}
@@ -25,17 +25,17 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names)) {
 	$mainInfo = Alts::get_alt_info($name_main);
 	$altinfo = Alts::get_alt_info($name_alt);
 	if ($altinfo->main == $mainInfo->main) {
-		$msg = "Player <highlight>$name_alt<end> is already registered as an alt of <highlight>{$altinfo->main}<end>.";
+		$msg = "The character <highlight>$name_alt<end> is already registered as an alt of <highlight>{$altinfo->main}<end>.";
 		$chatBot->send($msg, $sendto);
 		return;
 	}
 	
 	if (count($altInfo->alts) > 0) {
-		// Already registered to someone else
+		// Already registered to someone else.
 		if ($altInfo->main == $name) {
-			$msg = "$name is already registered as a main with alts.";
+			$msg = "<highlight>$name<end> is already registered as a main with alts.";
 		} else {
-			$msg = "$name is already registered as an of alt of {$altInfo->main}.";
+			$msg = "<highlight>$name<end> is already registered as an of alt of {$altInfo->main}.";
 		}
 		$chatBot->send($msg, $sendto);
 		return;
@@ -54,9 +54,9 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names)) {
 	$name_alt = ucfirst(strtolower($names[2]));
 
 	if (Alts::rem_alt($name_main, $name_alt) == 0) {
-		$msg = "Player <highlight>$name_alt<end> not listed as an alt of Player <highlight>$name_main<end>.  Please check the player's !alts listings.";
+		$msg = "The character <highlight>$name_alt<end> is not listed as an alt of the character <highlight>$name_main<end>. Please check the player's !alts listings.";
 	} else {
-		$msg = "<highlight>$name_alt<end> has been deleted from the alt list of <highlight>$name_main.<end>";
+		$msg = "<highlight>$name_alt<end> has been deleted from the alt list of <highlight>$name_main<end>.";
 	}
 	$chatBot->send($msg, $sendto);
 } else {

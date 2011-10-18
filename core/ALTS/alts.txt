@@ -1,6 +1,6 @@
-<header> :::::: Alt Commands :::::: <end>
+<header> :::::: Alt commands :::::: <end>
 
-<highlight>Shows your own alts<end>
+<highlight>Show your own alts<end>
 <tab><symbol>alts
 
 <highlight>Show alts from other users<end>
@@ -9,7 +9,7 @@
 <highlight>Adding alts to your list<end>
 <tab><symbol>alts add 'alt1' 'alt2' 'alt3'
 
-<highlight>Add yourself as an alt of a character<end>
+<highlight>Add yourself as an alt of a different character<end>
 <tab><symbol>alts main 'name'
 
 <highlight>Choose one of your alts to be your new main<end>

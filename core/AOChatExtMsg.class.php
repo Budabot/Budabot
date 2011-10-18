@@ -3,12 +3,12 @@
 /*
 * $Id: aochat.php,v 1.1 2006/12/08 15:17:54 genesiscl Exp $
 *
-* Modified to handle the recent problem with the integer overflow
+* Modified to handle the recent problem with the integer overflow.
 *
-* Copyright (C) 2002-2005  Oskari Saarenmaa <auno@auno.org>.
+* Copyright (C) 2002-2005 Oskari Saarenmaa <auno@auno.org>.
 *
 * AOChat, a PHP class for talking with the Anarchy Online chat servers.
-* It requires the sockets extension (to connect to the chat server..)
+* It requires the sockets extension (to connect to the chat server)
 * from PHP 4.2.0+ and either the GMP or BCMath extension (for generating
 * and calculating the login keys) to work.
 *
@@ -42,16 +42,16 @@
 */
 
 /* New "extended" messages, parser and abstraction.
-* These were introduced in 16.1.  The messages use postscript
-* base85 encoding (not ipv6 / rfc 1924 base85).  They also use
+* These were introduced in 16.1. The messages use postscript
+* base85 encoding (not ipv6 / rfc 1924 base85). They also use
 * some custom encoding and references to further confuse things.
 *
 * Messages start with the magic marker ~& and end with ~
 * Messages begin with two base85 encoded numbers that define
-* the category and instance of the message.  After that there
+* the category and instance of the message. After that there
 * are an category/instance defined amount of variables which
-* are prefixed by the variable type.  A base85 encoded number
-* takes 5 bytes.  Variable types:
+* are prefixed by the variable type. A base85 encoded number
+* takes 5 bytes. Variable types:
 *
 * s: string, first byte is the length of the string
 * i: signed integer (b85)
@@ -81,7 +81,7 @@ class AOExtMsg {
 		
 		$this->args = AOExtMsg::parse_params($msg);
 		if ($this->args === null) {
-			echo "Error parsing params for category: '$this->category' instance: '$this->instance' string: '$msg'\n";
+			echo "Error parsing parameters for category: '$this->category' instance: '$this->instance' string: '$msg'.\n";
 		} else {
 			$this->message_string = MMDBParser::get_message_string($this->category, $this->instance);
 			if ($this->message_string !== null) {
@@ -94,7 +94,7 @@ class AOExtMsg {
 		$args = array();
 		while ($msg != '') {
 			$data_type = $msg[0];
-			$msg = substr($msg, 1); // skip the data type id
+			$msg = substr($msg, 1); // Skip the data type id.
 			switch ($data_type) {
 				case "S":
 					$len = ord($msg[0]) * 256 + ord($msg[1]);
@@ -127,7 +127,7 @@ class AOExtMsg {
 					$ins = AOExtMsg::b85g($msg);
 					$str = MMDBParser::get_message_string($cat, $ins);
 					if ($str === null) {
-						$str = "Unknown ($cat, $ins)";
+						$str = "Unknown ($cat, $ins).";
 					}
 					$args[] = $str;
 					break;
@@ -139,13 +139,13 @@ class AOExtMsg {
 					$ins = $array[1];
 					$str = MMDBParser::get_message_string($cat, $ins);
 					if ($str === null) {
-						$str = "Unknown ($cat, $ins)";
+						$str = "Unknown ($cat, $ins).";
 					}
 					$args[] = $str;
 					break;
 
 				default:
-					echo "Error! could not parse argument: '$data_type'\n";
+					echo "Error! Could not parse argument: '$data_type'.\n";
 					return null;
 					break;
 			}

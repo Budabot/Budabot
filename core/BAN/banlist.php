@@ -14,7 +14,7 @@ if (preg_match("/^banlist$/i", $message)) {
 		if ($ban->banend != null) {
 			$list .= "<highlight><tab>Ban ends:<end> ". Util::unixtime_to_readable($ban->banend - time(), false)."\n";
 		} else {
-			$list .= "<highlight><tab>Ban ends:<end> Never\n";
+			$list .= "<highlight><tab>Ban ends:<end> Never.\n";
 		}
 		
 		if ($ban->reason != '') {

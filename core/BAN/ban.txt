@@ -1,33 +1,33 @@
-<header> :::::: Ban Commands :::::: <end>
+<header> :::::: Can Commands :::::: <end>
 
-<highlight>To show the current banned player<end>
+<highlight>Show a list of the current banned characters<end>
 <tab><symbol>banlist
 
-<highlight>To permanent ban a player from the bot (without a reason specified)<end>
+<highlight>Banning a character permanently from the bot (without a reason specified)<end>
 <symbol>ban 'playername'
 
-<highlight>To remove a ban on a player<end>
+<highlight>Removing a ban on a character<end>
 <symbol>unban 'playername'
 
-<highlight>To temporally ban a player from the bot (without a reason specified)<end>
+<highlight>Banning a character temporarily from the bot (without a reason specified)<end>
 <symbol>ban 'time' 'playername'
 
 <tab><highlight>For example:<end>
 <tab><symbol>ban 2weeks badplayer
 <tab>(bans badplayer for 2weeks from the bot)
 
-<highlight>To temporally ban a player from the bot (with a reason specified)<end>
+<highlight>Banning a character temporarily from the bot (with a reason specified)<end>
 <symbol>ban 'time' 'playername' reason 'reason for the ban'
 
 <tab><highlight>For example:<end>
 <tab><symbol>ban 2weeks badplayer reason Ninjalooter
-<tab>(bans badplayer for 2weeks from the bot with the reason Ninjalooter)
+<tab>(bans badplayer for 2weeks from the bot with the reason 'Ninjalooter')
 
-<highlight>To permanent ban a player from the bot (with a reason specified)<end>
+<highlight>Banning a character permanently from the bot (with a reason specified)<end>
 <symbol>ban 'playername' reason 'reason for the ban'
 
 <tab><highlight>For example:<end>
 <tab><symbol>ban badplayer reason Ninjalooter
-<tab>(bans badplayer from the bot with the reason Ninjalooter)
+<tab>(bans badplayer from the bot with the reason 'Ninjalooter')
 
 <highlight>'time' argument can be specified in weeks, days, hours, and minutes<end>

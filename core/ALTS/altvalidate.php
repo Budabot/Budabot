@@ -9,7 +9,7 @@ if (preg_match("/^altvalidate ([a-z0-9- ]+)$/i", $message, $arr)) {
 		return;
 	}
 
-	// Make sure the character being validated is an alt of the person sending the command
+	// Make sure the character being validated is an alt of the person sending the command.
 	$isAlt = false;
 	forEach ($altInfo->alts as $a => $validated) {
 		if ($a == $alt) {

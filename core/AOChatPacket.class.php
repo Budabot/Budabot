@@ -3,12 +3,12 @@
 /*
 * $Id: aochat.php,v 1.1 2006/12/08 15:17:54 genesiscl Exp $
 *
-* Modified to handle the recent problem with the integer overflow
+* Modified to handle the recent problem with the integer overflow.
 *
-* Copyright (C) 2002-2005  Oskari Saarenmaa <auno@auno.org>.
+* Copyright (C) 2002-2005 Oskari Saarenmaa <auno@auno.org>.
 *
 * AOChat, a PHP class for talking with the Anarchy Online chat servers.
-* It requires the sockets extension (to connect to the chat server..)
+* It requires the sockets extension (to connect to the chat server)
 * from PHP 4.2.0+ and either the GMP or BCMath extension (for generating
 * and calculating the login keys) to work.
 *
@@ -58,9 +58,9 @@
  */
  
 /* Packet type definitions - so we won't have to use the number IDs
-* .. I did not distinct between server and client message types, as
+* I did not distinct between server and client message types, as
 * they are mostly the same for same type packets, but maybe it should
-* have been done anyway..  // auno - 2004/mar/26
+* have been done anyway.  // Auno - 2004/Mar/26
 */
 define('AOCP_LOGIN_SEED',               0);
 define('AOCP_LOGIN_REQUEST',            2);

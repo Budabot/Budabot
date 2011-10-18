@@ -3,12 +3,12 @@
 /*
 * $Id: aochat.php,v 1.1 2006/12/08 15:17:54 genesiscl Exp $
 *
-* Modified to handle the recent problem with the integer overflow
+* Modified to handle the recent problem with the integer overflow.
 *
-* Copyright (C) 2002-2005  Oskari Saarenmaa <auno@auno.org>.
+* Copyright (C) 2002-2005 Oskari Saarenmaa <auno@auno.org>.
 *
 * AOChat, a PHP class for talking with the Anarchy Online chat servers.
-* It requires the sockets extension (to connect to the chat server..)
+* It requires the sockets extension (to connect to the chat server)
 * from PHP 4.2.0+ and either the GMP or BCMath extension (for generating
 * and calculating the login keys) to work.
 *
@@ -47,7 +47,7 @@ require_once 'AOChatExtMsg.class.php';
 require_once 'AOChatPacket.class.php';
 
 if ((float)phpversion() < 5.0) {
-	die("AOChat class needs PHP version >= 5.0.0 to work.\n");
+	die("AOChat class needs PHP version 5.0.0 or higher in order to work.\n");
 }
 
 if (!extension_loaded("sockets")) {

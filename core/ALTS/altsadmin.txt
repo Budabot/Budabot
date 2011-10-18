@@ -1,7 +1,7 @@
-<header> :::::: Alternative Char Commands (admin) :::::: <end>
+<header> :::::: Alternative char commands (admin) :::::: <end>
 
 <highlight>Adding alts to a character<end>
 <tab><symbol>altsadmin add 'main' 'alt'
 
-<highlight>Remove alts from a character<end>
+<highlight>Removing alts from a character<end>
 <tab><symbol>altsadmin rem 'main' 'alt'
