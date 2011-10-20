@@ -49,15 +49,16 @@
 	Event::register($MODULE_NAME, "logOff", "irc_relay_left.php", "none", "Shows a logoff from a member");
 	
 	// Settings
-	Setting::add($MODULE_NAME, "irc_status", "Status of IRC uplink", "noedit", "options", "0", "Offline;Online", "0;1", "mod", "irc");
-	Setting::add($MODULE_NAME, "irc_server", "IRC server to connect to", "noedit", "text", "irc.funcom.com", "", "", "mod", "irc");
-	Setting::add($MODULE_NAME, "irc_port", "IRC server port to use", "noedit", "number", "6667", "", "", "mod", "irc");
-	Setting::add($MODULE_NAME, "irc_nickname", "Nickname to use while in IRC", "noedit", "text", $chatBot->vars['name'], "", "", "mod", "irc");
-	Setting::add($MODULE_NAME, "irc_channel", "Channel to join", "noedit", "text", $channel, "", "", "mod", "irc");
-	Setting::add($MODULE_NAME, "irc_autoconnect", "Connect to IRC at bootup", "edit", "options", "0", "true;false", "1;0", "mod", "irc");
-	Setting::add($MODULE_NAME, "irc_debug_ping", "IRC Debug Option: Show pings in console", "edit", "options", "0", "true:false", "1;0", "mod", "irc");
-	Setting::add($MODULE_NAME, "irc_debug_messages", "IRC Debug Option: Show events in console", "edit", "options", "0", "true:false", "1;0", "mod", "irc");
-	Setting::add($MODULE_NAME, "irc_debug_all", "IRC Debug Option: Log everything", "edit", "options", "0", "true;false", "1;0", "mod", "irc");
+	Setting::add($MODULE_NAME, "irc_status", "Status of IRC uplink", "noedit", "options", "0", "Offline;Online", "0;1");
+	Setting::add($MODULE_NAME, "irc_server", "IRC server to connect to", "noedit", "text", "irc.funcom.com", "irc.funcom.com");
+	Setting::add($MODULE_NAME, "irc_port", "IRC server port to use", "noedit", "number", "6667", "6667");
+	Setting::add($MODULE_NAME, "irc_nickname", "Nickname to use while in IRC", "noedit", "text", $chatBot->vars['name'], $chatBot->vars['name']);
+	Setting::add($MODULE_NAME, "irc_channel", "Channel to join", "noedit", "text", $channel, $channel);
+	Setting::add($MODULE_NAME, "irc_autoconnect", "Connect to IRC at bootup", "edit", "options", "0", "true;false", "1;0");
+	Setting::add($MODULE_NAME, "irc_debug_ping", "IRC Debug Option: Show pings in console", "edit", "options", "0", "true:false", "1;0");
+	Setting::add($MODULE_NAME, "irc_debug_messages", "IRC Debug Option: Show events in console", "edit", "options", "0", "true:false", "1;0");
+	Setting::add($MODULE_NAME, "irc_password", "IRC password to join channel", "edit", "text", "none", "none");
+	Setting::add($MODULE_NAME, "irc_debug_all", "IRC Debug Option: Log everything", "edit", "options", "0", "true;false", "1;0");
 	
 	// Helpfiles
 	Help::register($MODULE_NAME, "irc", "irc_help.txt", "all", "How to use the IRC plugin");

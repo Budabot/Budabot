@@ -14,11 +14,14 @@ By default, your bot will use these settings:
 <tab>Port = 6667
 <tab>Nickname = <myname>
 <tab>Channel = #GuildName
+<tab>Password = <i>none</i>
 
 If the bot is not in a guild, it will join #<myname>
 To manually set on of these settings <highlight>/tell <myname> <symbol>setirc [irc-setting] [data]<end>
 ie. <symbol>setirc nickname my-bots-irc-name
 <symbol>setirc port 6666
+
+Note: to disable the password, set it to 'none'.
 
 <highlight>/tell Legendadv<end> (RK2) if you have any questions/comments/concerns/suggestions.
 Thanks and enjoy.

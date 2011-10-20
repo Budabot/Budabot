@@ -35,6 +35,9 @@ if (preg_match("/^setirc server (.+)$/i", $message, $arr)) {
 	}
 	Setting::save("irc_channel", trim($channel));
 	$chatBot->send("Setting saved.  Bot will join $channel when it connects to IRC.", $sendto);
+} else if (preg_match("/^setirc password (.+)$/i", $message, $arr)) {
+	Setting::save("irc_password", trim($arr[1]));
+	$chatBot->send("Setting saved.  Bot will use {$arr[1]} as the password when connecting to IRC.", $sendto);
 } else {
 	$syntax_error = true;
 }

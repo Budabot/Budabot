@@ -46,7 +46,11 @@ while ($logincount < 10) {
 	flush();
 }
 sleep(1);
-fputs($socket,"JOIN ".Setting::get('irc_channel')."\n");
+if (Setting::get('irc_password') != 'none') {
+	fputs($socket,"JOIN ".Setting::get('irc_channel'). ' ' . Setting::get('irc_password') . "\n");
+} else {
+	fputs($socket,"JOIN ".Setting::get('irc_channel')."\n");
+}
 
 while ($data = fgets($socket)) {
 	if (Setting::get('irc_debug_all') == 1) {
