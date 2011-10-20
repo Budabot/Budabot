@@ -1,15 +1,34 @@
-<header>::::: Locations of Yalms  :::::<end>
+<header> :::::: Yalm Shops  :::::: <end>
 
-<highlight>-=Yalm Shops=-</end>
-OT Advanced Vehicle shops can be found at: 
+<highlight>-=Yalm Shops=-<end>
 
-<font color = #31D6FF>413x289   </font> Rome Green, 
-<font color = #31D6FF>545x290   </font> Rome Blue, 
-<font color = #31D6FF>862x438   </font> Omni-1 Entertainment, 
-<font color = #31D6FF>334x202   </font> Trade District, 
-<font color = #31D6FF>576x222   </font> Trade District, 
-<font color = #31D6FF>3045x3033 </font> Harry's,
-<font color = #31D6FF>653x575   </font> Borealis
-<font color = #31D6FF>1526x541  </font> Lush Fields
-<font color = #31D6FF>289x315   </font> Newland City (Shop right OTW to Newland Shops) 
-<font color = #31D6FF>1190.7, 2352.4</font> Pleasant Meadows (20K) east of the shops
+The "Yalmaha XL - 29478" is one of the most popular flying vehicles in Rubi-ka. It is purchasable by all players including free accounts. It comes in a variety of quality levels with different run spead modifiers, but it appears the actual run speed is the same regardless of QL. With that in mind getting a Yalm at QL 30 with its low requirement of Vehicle Air 81 will save money and make is easier to equip. Many players equip implants to buff their Vehicle Air skill instead of spending IP on it. The Trader shop sells Experienced Aviator Sunglasses which buffs vehicle air by 15 but cost around 850k.
+
+Yalms are NODROP and the shop terminals that sell them change their inventory unless a player keeps an open trade with the shop terminal. The shop terminal name is Car Shop Terminal. They are located in shops that also have the trader Specialist Commerce terminal. These shops have names such as luxury store or special shop. There are superior shops but for QL 30 look for the advance shops. 
+
+Tip: If you see a players sitting in front of the shop terminal, there is a good chance it has a low QL Yalm in it and they are keeping the terminal open so the inventory will not switch. Many players spam messages when they find a terminal with a QL 30 Yalm so others can buy one.
+
+
+Advanced Vehicle Shop Locations: 
+
+<Omni>Omni<end>
+<a href='chatcmd:///waypoint 413 289 740'>/waypoint 413 289 740</a> <font color = #31D6FF>Rome Green</font>
+<a href='chatcmd:///waypoint 545 288 735'>/waypoint 545 288 735</a> <font color = #31D6FF>Rome Blue</font> 
+<a href='chatcmd:///waypoint 857 445 705'>/waypoint 857 445 705</a> <font color = #31D6FF>Omni-1 Entertainment</font>
+<a href='chatcmd:///waypoint 335 203 710'>/waypoint 335 203 710</a> <font color = #31D6FF>Trade District</font>
+<a href='chatcmd:///waypoint 575 222 710'>/waypoint 575 222 710</a> <font color = #31D6FF>Trade District</font>
+<a href='chatcmd:///waypoint 1527 540 695'>/waypoint 1527 540 695</a> <font color = #31D6FF>Lush Fields</font>
+
+<Neutral>Neutral<end>
+<a href='chatcmd:///waypoint 653 575 800'>/waypoint 653 575 800</a> <font color = #31D6FF>Borealis</font>
+<a href='chatcmd:///waypoint 290 315 566'>/waypoint 290 315 566</a> <font color = #31D6FF>Newland City - In alley near Newland Shops</font>
+<a href='chatcmd:///waypoint 3045 3034 695'>/waypoint 3045 3034</a> <font color = #31D6FF>Harry's</font>
+<a href='chatcmd:///waypoint 1190 2351 630'>/waypoint 1190 2351</a> <font color = #31D6FF>Pleasant Meadows (20K) - NW of Whompah</font>
+
+<Clan>Clan<end>
+<a href='chatcmd:///waypoint 364 474 540'>/waypoint 364 474 540</a> <font color = #31D6FF>Old Athens</font>
+<a href='chatcmd:///waypoint 480 559 640'>/waypoint 480 559 640</a> <font color = #31D6FF>Tir</font>
+
+Note: There are Superior Car shop terminals but the Yalm QL is mostly in the 100's.
+
+Updated by JungleGeorge (RK2)
