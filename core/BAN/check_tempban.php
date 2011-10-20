@@ -1,17 +1,17 @@
 <?php
    /*
    ** Author: Derroylo (RK2)
-   ** Description: Check for temporary bans.
+   ** Description: Check Temp bans
    ** Version: 0.1
    **
-   ** Developed for: Budabot (http://budabot2.googlecode.com)
+   ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
    **
-   ** Date (created): 05.06.2006
-   ** Date (last modified): 10.12.2006
+   ** Date(created): 05.06.2006
+   ** Date(last modified): 10.12.2006
    ** 
-   ** Copyright (C) 2006 Carsten Lohmann.
+   ** Copyright (C) 2006 Carsten Lohmann
    **
-   ** Licence information: 
+   ** Licence Infos: 
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -21,7 +21,7 @@
    **
    ** Budabot is distributed in the hope that it will be useful,
    ** but WITHOUT ANY WARRANTY; without even the implied warranty of
-   ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+   ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    ** GNU General Public License for more details.
    **
    ** You should have received a copy of the GNU General Public License

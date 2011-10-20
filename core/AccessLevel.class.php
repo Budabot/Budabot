@@ -5,9 +5,9 @@ class AccessLevel {
 
 	/**
 	 * @name: check_access
-	 * @param: $sender - the name of the person you want to check access on.
-	 * @param: $accessLevel - can be one of the following: superadmin, admininistrator|4, moderator|3, raidleader|2, leader, guild, member all
-	 * @returns: true if $sender has at least $accessLevel, false otherwise.
+	 * @param: $sender - the name of the person you want to check access on
+	 * @param: $accessLevel - can be one of: superadmin, admininistrator, moderator, raidleader, leader, guild, member, all
+	 * @returns: true if $sender has at least $accessLevel, false otherwise
 	 */
 	public static function check_access($sender, $accessLevel) {
 		global $chatBot;

@@ -98,7 +98,7 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 	$who = $arr[1];
 	
 	if (Ban::is_banned($who)) {
-	  	$chatBot->send("The organization $who is already banned.", $sendto);
+	  	$chatBot->send("The organization <highlight>$who<end> is already banned.", $sendto);
 		return;
 	}
 	

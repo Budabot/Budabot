@@ -24,7 +24,7 @@ if (preg_match("/^alts main ([a-z0-9-]+)$/i", $message, $arr)) {
 		return;
 	}
 	
-	// Let them know if they are changing the main for this character.
+	// let them know if they are changing the main for this character
 	if ($altInfo->main != $sender) {
 		Alts::rem_alt($altInfo->main, $sender);
 		$msg = "You have been removed as an alt of <highlight>{$altInfo->main}<end>.";

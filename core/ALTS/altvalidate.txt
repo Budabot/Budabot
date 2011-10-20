@@ -1,10 +1,10 @@
-<header> :::::: Validate alts :::::: <end>
+<header> :::::: Validate Alts :::::: <end>
 
 Alts added to someone's altlist via <cyan><symbol>alts main<end> are unvalidated, and cannot <a href='chatcmd:///tell <myname> settings change alts_inherit_admin'>inherit</a> admin privileges.
 
 This command allows the main of an altlist (or another validated character at your bot owner's <a href='chatcmd:///tell <myname> settings change validate_from_validated_alt'>discretion</a>) to validate characters on your altlist, enabling them to inherit the main's admin privileges.
 
-<highlight>Validating your alt to enable it to inherit your main's admin privileges<end>
+<highlight>To validate your alt to enable it to inherit your main's admin privileges:<end>
 <tab><symbol>altvalidate 'alt'
 
 

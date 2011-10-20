@@ -1,19 +1,19 @@
-<header> :::::: Alt commands :::::: <end>
+<header> :::::: Alt Commands :::::: <end>
 
-<highlight>Show your own alts<end>
+<highlight>To show your own alts:<end>
 <tab><symbol>alts
 
-<highlight>Show alts from other users<end>
+<highlight>To show alts from other users:<end>
 <tab><symbol>alts 'name'
 
-<highlight>Adding alts to your list<end>
+<highlight>To add characters as your alts:<end>
 <tab><symbol>alts add 'alt1' 'alt2' 'alt3'
 
-<highlight>Add yourself as an alt of a different character<end>
+<highlight>To add yourself as an alt of a character:<end>
 <tab><symbol>alts main 'name'
 
-<highlight>Choose one of your alts to be your new main<end>
+<highlight>To choose one of your alts to be your new main:<end>
 <tab><symbol>alts setmain 'name'
 
-<highlight>Remove alts from your list<end>
+<highlight>To remove alts from your list:<end>
 <tab><symbol>alts rem 'alt'

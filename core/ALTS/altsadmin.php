@@ -31,7 +31,7 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names)) {
 	}
 	
 	if (count($altInfo->alts) > 0) {
-		// Already registered to someone else.
+		// already registered to someone else
 		if ($altInfo->main == $name) {
 			$msg = "<highlight>$name<end> is already registered as a main with alts.";
 		} else {
@@ -54,9 +54,9 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names)) {
 	$name_alt = ucfirst(strtolower($names[2]));
 
 	if (Alts::rem_alt($name_main, $name_alt) == 0) {
-		$msg = "The character <highlight>$name_alt<end> is not listed as an alt of the character <highlight>$name_main<end>. Please check the player's !alts listings.";
+		$msg = "The character <highlight>$name_alt<end> is not listed as an alt of <highlight>$name_main<end>.";
 	} else {
-		$msg = "<highlight>$name_alt<end> has been deleted from the alt list of <highlight>$name_main<end>.";
+		$msg = "<highlight>$name_alt<end> has been removed from the alt list of <highlight>$name_main<end>.";
 	}
 	$chatBot->send($msg, $sendto);
 } else {
