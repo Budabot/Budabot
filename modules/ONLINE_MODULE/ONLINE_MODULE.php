@@ -16,7 +16,7 @@
 	Event::register($MODULE_NAME, "priv", "afk_check.php", "none", "Afk check");
 	Event::register($MODULE_NAME, "guild", "afk_check.php", "none", "Afk check");
 	Event::register($MODULE_NAME, "guild", "afk.php", "none", "Sets a member afk");
-	Event::register($MODULE_NAME, "priv", "afk.php", "none", "Sets a member kiting");
+	Event::register($MODULE_NAME, "priv", "afk.php", "none", "Sets a member afk");
 
 	// Settings
 	Setting::add($MODULE_NAME, "online_expire", "How long to wait before clearing online list", "edit", "time", "15m", "2m;5m;10m;15m;20m", '', "mod");

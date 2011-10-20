@@ -5,7 +5,17 @@ if (preg_match("/^system$/i", $message, $arr)) {
 
 	$sql = "SELECT count(*) AS count FROM players";
 	$db->query($sql);
-	$count = $db->fObject()->count;
+	$num_player_cache = $db->fObject()->count;
+	
+	$num_friendlist = 0;
+	forEach ($chatBot->buddyList as $key => $value) {
+		if (!isset($value['name'])) {
+			// skip the buddies that have been added but the server hasn't sent back an update yet
+			continue;
+		}
+
+		$num_friendlist++;
+	}
 
 	$blob = "<header> :::::: System Info :::::: <end>\n\n";
 	$blob .= "<highlight>Budabot:<end> $version\n";
@@ -39,10 +49,10 @@ if (preg_match("/^system$/i", $message, $arr)) {
 	$blob .= "<highlight>Number of active events:<end> " . $eventnum . "\n";
 	$blob .= "<highlight>Number of help commands:<end> " . count($chatBot->helpfiles) . "\n\n";
 
-	$blob .= "<highlight>Number of characters on the friendlist:<end> " . count($chatBot->buddyList) . "\n";
+	$blob .= "<highlight>Number of characters on the friendlist:<end> $num_friendlist / " . count($chatBot->buddyList) . "\n";
 	$blob .= "<highlight>Number of characters in the private channel:<end> " . count($chatBot->chatlist) . "\n";
 	$blob .= "<highlight>Number of guild members:<end> " . count($chatBot->guildmembers) . "\n";
-	$blob .= "<highlight>Number of character infos in cache:<end> " . $count . "\n";
+	$blob .= "<highlight>Number of character infos in cache:<end> " . $num_player_cache . "\n";
 	$blob .= "<highlight>Number of messages in the chat queue:<end> " . count($chatBot->chatqueue->queue) . "\n\n";
 
 	$blob .= "<highlight>Public Channels:<end>\n";
