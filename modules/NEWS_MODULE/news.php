@@ -12,7 +12,7 @@ if (preg_match("/^news$/i", $message, $arr)) {
 			
 		  	$link .= "<highlight>Date:<end> ".gmdate("dS M, H:i", $row->time)."\n";
 		  	$link .= "<highlight>Author:<end> $row->name\n";
-		  	$link .= "<highlight>Options:<end> ".Text::make_chatcmd("Delete this news entry", "/tell <myname> remnews $row->id")."\n";
+		  	$link .= "<highlight>Options:<end> ".Text::make_chatcmd("Remove", "/tell <myname> news rem $row->id")."\n";
 		  	$link .= "<highlight>Message:<end> $row->news\n\n";
 		}
 		$msg = Text::make_blob("News", $link)." [Last updated at ".gmdate("dS M, H:i", $updated)."]";
