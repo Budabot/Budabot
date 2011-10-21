@@ -84,11 +84,11 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 		$quoteMSG = $row->What;
 
 		//only author or admin can delete.
-		if (($quoteWHO == $sender) || AccessLevel::check_access($sender, 'admin')) {
+		if (($quoteWHO == $sender) || AccessLevel::check_access($sender, 'moderator')) {
 			$db->exec("DELETE FROM `#__quote` WHERE `IDNumber` = $quoteID");
 			$msg = "This quote has been deleted.";
 		} else {
-			$msg = "Only an admin or $quoteWHO can delete this quote.";
+			$msg = "Only a moderator or $quoteWHO can delete this quote.";
 		}
 	} else {
 		$msg = "Could not find this quote.  Already deleted?";
