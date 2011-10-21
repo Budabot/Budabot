@@ -15,7 +15,6 @@
 	Command::register($MODULE_NAME, "", "inspect.php", "inspect", "all", "Inspects Christmas/Eart Gifts and Peren. Containers");
 	Command::register($MODULE_NAME, "", "mobloot.php", "mobloot", "all", "loot QL Infos ");
 	Command::register($MODULE_NAME, "", "random.php", "random", "all", "Random order");
-	Command::register($MODULE_NAME, "", "cluster.php", "cluster", "all", "cluster location");
 	Command::register($MODULE_NAME, "", "buffitem.php", "buffitem", "all", "buffitem look up");
 	Command::register($MODULE_NAME, "", "whatbuffs.php", "whatbuffs", "all", "find items that buff");
 	Command::register($MODULE_NAME, "", "dyna.php", "dyna", "all", "Search for RK Dynaboss");
@@ -42,7 +41,6 @@
     Help::register($MODULE_NAME, "kos", "kos.txt", "all", "Kill On Sight List");
     Help::register($MODULE_NAME, "inspect", "inspect.txt", "all", "How to use inspect");
 	Help::register($MODULE_NAME, "buffitem", "buffitem.txt", "all", "How to use buffitem");
-	Help::register($MODULE_NAME, "cluster", "cluster.txt", "all", "How to use cluster");
 	Help::register($MODULE_NAME, "mobloot", "mobloot.txt", "all", "How to use mobloot");
 	Help::register($MODULE_NAME, "whatbuffs", "whatbuffs.txt", "all", "How to use whatbuffs");
 	Help::register($MODULE_NAME, "dyna", "dyna.txt", "all", "Search for RK Dynaboss");
