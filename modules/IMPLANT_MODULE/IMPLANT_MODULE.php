@@ -2,7 +2,7 @@
 	require_once 'implant_functions.php';
 
 	// Setup
-	DB::loadSQLFile($MODULE_NAME, "implant");
+	DB::loadSQLFile($MODULE_NAME, "implant_requirements");
 	DB::loadSQLFile($MODULE_NAME, "premade_implant");
 
 	// Private
