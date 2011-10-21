@@ -148,7 +148,6 @@ if ($vars['use_proxy'] === 1) {
 	die();
 }
 
-//////////////////////////////////////////////////////////////
 // Create new objects.
 $db = new DB($vars["DB Type"], $vars["DB Name"], $vars["DB Host"], $vars["DB username"], $vars["DB password"]);
 if ($db->errorCode != 0) {

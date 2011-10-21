@@ -1,16 +1,4 @@
-<?php
-   /*
-   ** Author: Neksus (RK2)
-   ** Description: Makes a blob with smileys
-   ** Version: 0.1
-   **
-   ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
-   **
-   ** Date(created): 13.09.2006
-   ** Date(last modified): 03.03.2007
-   ** 
-   */
-$basic="<header> :::::: Smiley Dictionary: Basic Smileys :::::: <end>
+<header> :::::: Basic Smileys :::::: <end>
 
 <yellow>:-)<end> <green>Your basic smiley<end>
 This smiley is used to inflect a sarcastic or joking statement since we can't hear voice inflection over e-mail
@@ -33,7 +21,7 @@ User just made a really devilish remark
 <yellow>>;-><end> <green>Winky and devil combined<end>
 A very lewd remark was just made";
 
-$wide="<header> :::::: Smiley Dictionary: Widely used Smileys :::::: <end>
+<pagebreak><header> :::::: Widely used Smileys :::::: <end>
 
 <yellow>(-:<end>
 User is left handed. 
@@ -123,16 +111,7 @@ User is licking his/her lips.
 User is braindead. 
 
 <yellow>X-(<end>
-User just died. ";
-	
-if (preg_match("/^smileys$/i", $message)) {
-	$basiclink = Text::make_blob("Basic Smileys", $basic) ;
-	$widelink = Text::make_blob("Widely Used Smileys", $wide);
+User just died.
 
-	$chatBot->send($basiclink, $sendto);
-	$chatBot->send($widelink, $sendto);
-} else {
-	$syntax_error = true;
-}
 
-?>
+By Neksus (RK2)
