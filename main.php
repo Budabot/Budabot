@@ -163,14 +163,14 @@ unset($vars["DB Host"]);
 unset($vars["DB username"]);
 unset($vars["DB password"]);
 
-$chatBot = new Budabot($vars);
-$chatBot->init();
-
+// run upgrade scripts
 if (file_exists('upgrade.php')) {
 	include 'upgrade.php';
 	//unlink('upgrade.php');
 }
 
+$chatBot = new Budabot($vars);
+$chatBot->init();
 $chatBot->connectAO($vars['login'], $vars['password'], $server, $port);
 
 // Clear the login and the password.	
