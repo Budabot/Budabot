@@ -14,56 +14,83 @@ class AccessLevel {
 		
 		$sender = ucfirst(strtolower($sender));
 
-		if (Setting::get('alts_inherit_admin') == 1) {
+		$returnVal = AccessLevel::checkSingleAccess($sender, $accessLevel);
+		
+		if ($returnVal === false && Setting::get('alts_inherit_admin') == 1) {
+			// if current character doesn't have access,
+			// and if alts_inherit_admin is enabled,
+			// and if the current character is not a main character,
+			// and if the current character is validated,
+			// then check access against the main character,
+			// otherwise just return the result
 			$altInfo = Alts::get_alt_info($sender);
-			if ($altInfo->is_validated($sender)) {
-				$sender = $altInfo->main;
+			if ($sender != $altInfo->main && $altInfo->is_validated($sender)) {
+				return AccessLevel::checkSingleAccess($altInfo->main, $accessLevel);
+			} else {
+				return $returnVal;
 			}
+		} else {
+			return $returnVal;
 		}
-
+	}
+	
+	private static function checkSingleAccess($sender, $accessLevel) {
+		$returnVal = false;
 		switch ($accessLevel) {
 			case "all":
-				return true;
+				$returnVal = true;
+				break;
 			case "member":
 				$db = DB::get_instance();
 				$sql = "SELECT name FROM members_<myname> WHERE `name` = '$sender'";
 				$db->query($sql);
 				if ($db->numrows() > 0) {
-					return true;
+					$returnVal = true;
+					break;
 				}
 			case "guild":
 				if (isset($chatBot->guildmembers[$sender])) {
-					return true;
+					$returnVal = true;
+					break;
 				}
 			case "leader":
 				if (isset($chatBot->data["leader"]) && $chatBot->data["leader"] == $sender) {
-					return true;
+					$returnVal = true;
+					break;
 				}
 			case "rl":
 			case "raidleader":
 				if ((isset($chatBot->admins[$sender]) && $chatBot->admins[$sender]["level"] >= 2) || AccessLevel::checkGuildAdmin($sender, 'rl')) {
-					return true;
+					$returnVal = true;
+					break;
 				}
 			case "mod":
 			case "moderator":
 				if ((isset($chatBot->admins[$sender]) && $chatBot->admins[$sender]["level"] >= 3) || AccessLevel::checkGuildAdmin($sender, 'mod')) {
-					return true;
+					$returnVal = true;
+					break;
 				}
 			case "admin":
 			case "administrator":
 				if ((isset($chatBot->admins[$sender]) && $chatBot->admins[$sender]["level"] >= 4) || AccessLevel::checkGuildAdmin($sender, 'admin')) {
-					return true;
+					$returnVal = true;
+					break;
 				}
 			case "superadmin":
 				if ($chatBot->vars["SuperAdmin"] == $sender){
-					return true;
+					$returnVal = true;
+					break;
 				}
 			case 'none':
-				return false;
+				$returnVal = false;
+				break;
 			default:
 				Logger::log('ERROR', 'AccessLevel', "Invalid access level: '$accessLevel' checked against: '$sender'");
-				return false;
+				$returnVal = false;
+				break;
 		}
+		
+		return $returnVal;
 	}
 	
 	public static function checkGuildAdmin($sender, $accessLevel) {
