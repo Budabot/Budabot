@@ -42,6 +42,10 @@
 	Setting::add($MODULE_NAME, 'guild_channel_status', 'Enable the guild channel', 'edit', "options", 1, "true;false", "1;0");
 	Setting::add($MODULE_NAME, 'guild_channel_cmd_feedback', "Show message on invalid command in guild channel", 'edit', "options", 1, "true;false");
 	Setting::add($MODULE_NAME, 'private_channel_cmd_feedback', "Show message on invalid command in private channel", 'edit', "options", 1, "true;false", "1;0");
+	Setting::add($MODULE_NAME, 'version', "Bot version that database was created from", 'noedit', "text", 0);
+	
+	global $version;
+	Setting::save('version', $version);
 
 	Help::register($MODULE_NAME, "system", "system.txt", "admin", "Admin System Help file");
 	Help::register($MODULE_NAME, "guild_admin_rank", "guild_admin_rank.txt", "mod", "Change what guild rank is considered a guild admin");
