@@ -35,6 +35,8 @@ class AccessLevel {
 	}
 	
 	private static function checkSingleAccess($sender, $accessLevel) {
+		global $chatBot;
+		
 		$returnVal = false;
 		switch ($accessLevel) {
 			case "all":
