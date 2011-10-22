@@ -26,8 +26,7 @@
 		}
 	}
 
-	// Auto start IRC connection, or turn it off
-	Event::register($MODULE_NAME, "connect", "set_irc_link.php", "none", "Sets IRC status at bootup.");
+	Event::register($MODULE_NAME, "connect", "set_irc_link.php", "none", "Connect to IRC at startup", '', 0);
 	
 	// Commands
 	Command::register($MODULE_NAME, "", "irc_connect.php", "startirc", "admin", "Connect to IRC", 'irc');
@@ -54,7 +53,6 @@
 	Setting::add($MODULE_NAME, "irc_port", "IRC server port to use", "noedit", "number", "6667", "6667");
 	Setting::add($MODULE_NAME, "irc_nickname", "Nickname to use while in IRC", "noedit", "text", $chatBot->vars['name'], $chatBot->vars['name']);
 	Setting::add($MODULE_NAME, "irc_channel", "Channel to join", "noedit", "text", $channel, $channel);
-	Setting::add($MODULE_NAME, "irc_autoconnect", "Connect to IRC at bootup", "edit", "options", "0", "true;false", "1;0");
 	Setting::add($MODULE_NAME, "irc_debug_ping", "IRC Debug Option: Show pings in console", "edit", "options", "0", "true:false", "1;0");
 	Setting::add($MODULE_NAME, "irc_debug_messages", "IRC Debug Option: Show events in console", "edit", "options", "0", "true:false", "1;0");
 	Setting::add($MODULE_NAME, "irc_password", "IRC password to join channel", "edit", "text", "none", "none");

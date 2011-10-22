@@ -21,7 +21,7 @@ To manually set on of these settings <highlight>/tell <myname> <symbol>setirc [i
 ie. <symbol>setirc nickname my-bots-irc-name
 <symbol>setirc port 6666
 
-Note: to disable the password, set it to 'none'.
+Note: to disable the password set it to 'none'.
 
 <highlight>/tell Legendadv<end> (RK2) if you have any questions/comments/concerns/suggestions.
 Thanks and enjoy.
