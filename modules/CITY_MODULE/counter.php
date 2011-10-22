@@ -26,8 +26,6 @@ if (isset($chatBot->data["CITY_WAVE"])) {
 	if ($stime < $now - 10 * 120) {
 		unset($chatBot->data["CITY_WAVE"]);
 	}
-} else {
-	unset($chatBot->data["CITY_WAVE"]);
 }
 
 ?>
