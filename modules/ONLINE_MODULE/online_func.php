@@ -275,15 +275,12 @@ function get_org_info($show_org_info, $fancyColon, $guild, $guild_rank) {
 
 function get_admin_info($name, $fancyColon) {
 	if (Setting::get("online_admin") == 1) {
-		if (AccessLevel::check_access($name, 'superadmin')) {
-			$admin = " $fancyColon <red>SuperAdmin<end>";
-		} else {
-			$alvl = AccessLevel::get_admin_level($name);
-			switch ($alvl) {
-				case 4: $admin = " $fancyColon <red>Admin<end>"; break;
-				case 3: $admin = " $fancyColon <green>Mod<end>"; break;
-				case 2: $admin = " $fancyColon <orange>RL<end>"; break;
-			}
+		$alvl = AccessLevel::getAccessLevelForCharacter($name);
+		switch ($alvl) {
+			case 'superadmin': $admin = " $fancyColon <red>SuperAdmin<end>";
+			case 'admin': $admin = " $fancyColon <red>Admin<end>"; break;
+			case 'mod': $admin = " $fancyColon <green>Mod<end>"; break;
+			case 'rl': $admin = " $fancyColon <orange>RL<end>"; break;
 		}
 	} else {
 		$admin = "";
