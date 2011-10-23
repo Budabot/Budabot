@@ -79,8 +79,8 @@ if (preg_match("/^waitlist next$/i", $message)) {
 	
 	$msg = "Your waitlist has been shuffled. " . Text::make_blob("Waitlist for $sender ($count)", $blob);
     $chatBot->send($msg, $sendto);
-} else if (preg_match("/^waitlist$/i", $message) || preg_match("/^waitlist ([a-z0-9-]+)$/i", $message, $arr)) {
-	if (isset($arr)) {
+} else if (preg_match("/^waitlist$/i", $message) || preg_match("/^waitlist ([a-z0-9-]+)$/i", $message, $arr2)) {
+	if (isset($arr2)) {
 		$char = ucfirst(strtolower($arr[1]));
 	} else {
 		$char = $sender;
