@@ -7,9 +7,16 @@ if (preg_match("/^addmod (.+)$/i", $message, $arr)){
 		$chatBot->send("The character <highlight>$who<end> does not exist.", $sendto);
 		return;
 	}
-	
-	if ($who == $sender) {
-		$chatBot->send("You cannot change your own access level.", $sendto);
+
+	if ($chatBot->admins[$who]["level"] == 3) {
+		$chatBot->send("<highlight>$who<end> is already a moderator.", $sendto);
+		return;
+	}
+
+	$senderAccessLevel = AccessLevel::getAccessLevelForCharacter($sender);
+	$whoAccessLevel = AccessLevel::getSingleAccessLevel($who);
+	if (AccessLevel::compareAccessLevels($whoAccessLevel, $senderAccessLevel) >= 0) {
+		$chatBot->send("You must have a higher access level than <highlight>$who<end> in order to change his access level.");
 		return;
 	}
 
@@ -22,11 +29,6 @@ if (preg_match("/^addmod (.+)$/i", $message, $arr)){
 			$msg .= " Try again with <highlight>$who<end>'s main, <highlight>{$ai->main}<end>.";
 		}
 		$chatBot->send($msg, $sendto);
-		return;
-	}
-
-	if ($chatBot->admins[$who]["level"] == 3) {
-		$chatBot->send("<highlight>$who<end> is already a moderator.", $sendto);
 		return;
 	}
 

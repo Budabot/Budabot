@@ -2,17 +2,24 @@
 
 if (preg_match("/^addrl (.+)$/i", $message, $arr)) {
 	$who = ucfirst(strtolower($arr[1]));
-	
+
 	if ($chatBot->get_uid($who) == NULL){
 		$chatBot->send("The character <highlight>$who<end> does not exist.", $sendto);
 		return;
 	}
-	
-	if ($who == $sender) {
-		$chatBot->send("You cannot change your own access level.", $sendto);
+
+	if ($chatBot->admins[$who]["level"] == 2) {
+		$chatBot->send("<highlight>$who<end> is already a raidleader.", $sendto);
 		return;
 	}
-	
+
+	$senderAccessLevel = AccessLevel::getAccessLevelForCharacter($sender);
+	$whoAccessLevel = AccessLevel::getSingleAccessLevel($who);
+	if (AccessLevel::compareAccessLevels($whoAccessLevel, $senderAccessLevel) >= 0) {
+		$chatBot->send("You must have a higher access level than <highlight>$who<end> in order to change his access level.");
+		return;
+	}
+
 	$ai = Alts::get_alt_info($who);
 	if (Setting::get("alts_inherit_admin") == 1 && $ai->main != $who) {
 		$msg = "<red>Alts inheriting admin is enabled, and $who is not a main character.<end>";
@@ -22,11 +29,6 @@ if (preg_match("/^addrl (.+)$/i", $message, $arr)) {
 			$msg .= " Try again with <highlight>$who<end>'s main, <highlight>{$ai->main}<end>.";
 		}
 		$chatBot->send($msg, $sendto);
-		return;
-	}
-
-	if ($chatBot->admins[$who]["level"] == 2) {
-		$chatBot->send("<highlight>$who<end> is already a raidleader.", $sendto);
 		return;
 	}
 
