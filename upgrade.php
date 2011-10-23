@@ -56,4 +56,20 @@ if (count($data) > 0 && $data[0]->value != '1') {
 	$db->exec("UPDATE eventcfg_<myname> SET status = '0' WHERE module = 'BBIN_MODULE' AND type = 'connect'");
 }
 
+// update admin levels
+$db->exec("UPDATE cmdcfg_<myname> SET admin = 'admin' WHERE admin = '4'");
+$db->exec("UPDATE cmdcfg_<myname> SET admin = 'mod' WHERE admin = '3'");
+$db->exec("UPDATE cmdcfg_<myname> SET admin = 'rl' WHERE admin = '2'");
+$db->exec("UPDATE cmdcfg_<myname> SET admin = 'leader' WHERE admin = '1'");
+
+$db->exec("UPDATE settings_<myname> SET admin = 'admin' WHERE admin = '4'");
+$db->exec("UPDATE settings_<myname> SET admin = 'mod' WHERE admin = '3'");
+$db->exec("UPDATE settings_<myname> SET admin = 'rl' WHERE admin = '2'");
+$db->exec("UPDATE settings_<myname> SET admin = 'leader' WHERE admin = '1'");
+
+$db->exec("UPDATE helpcfg_<myname> SET admin = 'admin' WHERE admin = '4'");
+$db->exec("UPDATE helpcfg_<myname> SET admin = 'mod' WHERE admin = '3'");
+$db->exec("UPDATE helpcfg_<myname> SET admin = 'rl' WHERE admin = '2'");
+$db->exec("UPDATE helpcfg_<myname> SET admin = 'leader' WHERE admin = '1'");
+
 ?>
