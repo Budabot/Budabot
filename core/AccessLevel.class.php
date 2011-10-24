@@ -32,7 +32,7 @@ class AccessLevel {
 			// otherwise just return the result
 			$altInfo = Alts::get_alt_info($sender);
 			if ($sender != $altInfo->main && $altInfo->is_validated($sender)) {
-				$charAccessLevel = getSingleAccessLevel($altInfo->main);
+				$charAccessLevel = AccessLevel::getSingleAccessLevel($altInfo->main);
 				$returnVal = (AccessLevel::compareAccessLevels($charAccessLevel, $accessLevel) >= 0);
 			}
 		}
