@@ -1,10 +1,9 @@
 <?php
 
-if (Setting::get('irc_status') != 1) {
+if (!IRC::isConnectionActive()) {
 	$chatBot->send("There is no active IRC connection.", $sendto);
 } else {
-	global $socket;
-	fclose($socket);
+	IRC::disconnect();
 	Logger::log('info', "IRC", "Disconnected from IRC");
 	Setting::save("irc_status", "0");
 	$chatBot->send("The IRC connection has been disconnected.", $sendto);

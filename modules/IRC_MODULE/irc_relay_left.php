@@ -7,11 +7,9 @@
    **
    */
    
-global $socket;
-if ("1" == Setting::get('irc_status')) {
+if (IRC::isConnectionActive()) {
 	if ($type == "leavePriv") {
-		flush();
-		fputs($socket, "PRIVMSG ".Setting::get('irc_channel') . " :" . encodeGuildMessage($chatBot->vars['my_guild'], "$sender has left the private channel.") . "\n");
+		IRC::send(encodeGuildMessage($chatBot->vars['my_guild'], "$sender has left the private channel."));
 		if (Setting::get('irc_debug_messages') == 1) {
 			Logger::log_chat("Out. IRC Msg.", -1, "$sender has left the channel");
 		}
@@ -24,8 +22,7 @@ if ("1" == Setting::get('irc_status')) {
 			}
 		}
 		
-		flush();
-		fputs($socket, "PRIVMSG ".Setting::get('irc_channel') . " :" . encodeGuildMessage($chatBot->vars['my_guild'], "$sender has logged off.") . "\n");
+		IRC::send(encodeGuildMessage($chatBot->vars['my_guild'], "$sender has logged off."));
 		if (Setting::get('irc_debug_messages') == 1) {
 			Logger::log_chat("Out. IRC Msg.", -1, "$sender has left the channel");
 		}

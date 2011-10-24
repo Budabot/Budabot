@@ -7,13 +7,11 @@
    **
    */
    
-if ("1" != Setting::get('irc_status')) {
+if (!IRC::isConnectionActive()) {
 	return;
 }
 
 global $socket;
-
-stream_set_blocking($socket, 0);
 if ($data = fgets($socket)) {
 	$ex = explode(' ', $data);
 	$ex[3] = substr($ex[3],1,strlen($ex[3]));

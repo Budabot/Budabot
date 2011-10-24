@@ -8,6 +8,7 @@
    */
    
 	require_once 'functions.php';
+	require_once 'IRC.class.php';
 
 	$channel = Setting::get('irc_channel');
 	if ($channel === false) {
@@ -26,7 +27,7 @@
 		}
 	}
 
-	Event::register($MODULE_NAME, "connect", "set_irc_link.php", "none", "Connect to IRC at startup", '', 0);
+	Event::register($MODULE_NAME, "1min", "set_irc_link.php", "none", "Automatically reconnect to IRC server", '', 0);
 	
 	// Commands
 	Command::register($MODULE_NAME, "", "irc_connect.php", "startirc", "admin", "Connect to IRC", 'irc');

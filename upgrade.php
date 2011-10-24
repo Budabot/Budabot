@@ -44,18 +44,6 @@ if (count($data) > 0 && $data[0]->value = 'none') {
 	$db->exec("UPDATE settings_<myname> SET value = 'all' WHERE name = 'guild_admin_access_level'");
 }
 
-$db->query("SELECT * FROM settings_<myname> WHERE name = 'irc_autoconnect'");
-$data = $db->fObject('all');
-if (count($data) > 0 && $data[0]->value != '1') {
-	$db->exec("UPDATE eventcfg_<myname> SET status = '0' WHERE module = 'IRC_MODULE' AND type = 'connect'");
-}
-
-$db->query("SELECT * FROM settings_<myname> WHERE name = 'bbin_autoconnect'");
-$data = $db->fObject('all');
-if (count($data) > 0 && $data[0]->value != '1') {
-	$db->exec("UPDATE eventcfg_<myname> SET status = '0' WHERE module = 'BBIN_MODULE' AND type = 'connect'");
-}
-
 // update admin levels
 $db->exec("UPDATE cmdcfg_<myname> SET admin = 'admin' WHERE admin = '4'");
 $db->exec("UPDATE cmdcfg_<myname> SET admin = 'mod' WHERE admin = '3'");
@@ -67,9 +55,9 @@ $db->exec("UPDATE settings_<myname> SET admin = 'mod' WHERE admin = '3'");
 $db->exec("UPDATE settings_<myname> SET admin = 'rl' WHERE admin = '2'");
 $db->exec("UPDATE settings_<myname> SET admin = 'leader' WHERE admin = '1'");
 
-$db->exec("UPDATE helpcfg_<myname> SET admin = 'admin' WHERE admin = '4'");
-$db->exec("UPDATE helpcfg_<myname> SET admin = 'mod' WHERE admin = '3'");
-$db->exec("UPDATE helpcfg_<myname> SET admin = 'rl' WHERE admin = '2'");
-$db->exec("UPDATE helpcfg_<myname> SET admin = 'leader' WHERE admin = '1'");
+$db->exec("UPDATE hlpcfg_<myname> SET admin = 'admin' WHERE admin = '4'");
+$db->exec("UPDATE hlpcfg_<myname> SET admin = 'mod' WHERE admin = '3'");
+$db->exec("UPDATE hlpcfg_<myname> SET admin = 'rl' WHERE admin = '2'");
+$db->exec("UPDATE hlpcfg_<myname> SET admin = 'leader' WHERE admin = '1'");
 
 ?>

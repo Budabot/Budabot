@@ -7,8 +7,7 @@
    **
    */
    
-global $socket;
-if ("1" == Setting::get('irc_status')) {
+if (IRC::isConnectionActive()) {
 	if ($args[2][0] != Setting::get("symbol")) {
 		
 		$pattern = '/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/';
@@ -16,8 +15,8 @@ if ("1" == Setting::get('irc_status')) {
  
 		$msg = htmlspecialchars_decode(preg_replace($pattern, $replace, $message));
 		//$msg = htmlspecialchars_decode(preg_replace($patterns, $replaces, $message), ENT_QUOTES);
- 
- 		fputs($socket, "PRIVMSG ".Setting::get('irc_channel') . " :" . encodeGuildMessage($chatBot->vars['my_guild'], "$sender: $msg") . "\n");
+
+		IRC::send(encodeGuildMessage($chatBot->vars['my_guild'], "$sender: $msg"));
  		if (Setting::get('irc_debug_messages') == 1) {
 			Logger::log_chat("Out. IRC Msg.", $sender, $msg);
 		}

@@ -7,8 +7,7 @@
    **
    */
    
-global $socket;
-if ("1" == Setting::get('irc_status')) {
+if (IRC::isConnectionActive()) {
 	$whois = Player::get_by_name($sender);
 	if ($whois === null) {
 		$whois = new stdClass;
@@ -51,7 +50,7 @@ if ("1" == Setting::get('irc_status')) {
 	}
 	
 	if ($type == "joinPriv") {
-		fputs($socket, "PRIVMSG ".Setting::get('irc_channel') . " :" . encodeGuildMessage($chatBot->vars['my_guild'], $msg) . "\n");
+		IRC::send(encodeGuildMessage($chatBot->vars['my_guild'], $msg));
 		if (Setting::get('irc_debug_messages') == 1) {
 			Logger::log_chat("Out. IRC Msg.", -1, "$sender has joined the private chat");
 		}
@@ -64,7 +63,7 @@ if ("1" == Setting::get('irc_status')) {
 			}
 		}
 
-		fputs($socket, "PRIVMSG ".Setting::get('irc_channel') . " :" . encodeGuildMessage($chatBot->vars['my_guild'], $msg) . "\n");
+		IRC::send(encodeGuildMessage($chatBot->vars['my_guild'], $msg));
 		if (Setting::get('irc_debug_messages') == 1) {
 			Logger::log_chat("Out. IRC Msg.", -1, "$sender has logged on");
 		}
