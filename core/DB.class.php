@@ -397,7 +397,8 @@ class DB {
 			$msg = "'$name' database already up to date! version: '$currentVersion'";
 			Logger::log('DEBUG', 'Core',  "'$name' database already up to date! version: '$currentVersion'");
 			
-			$db->exec("UPDATE settings_<myname> SET `verify`=1 WHERE `name`='$settingName'"); //Make sure the settings table row isn't dropped during boot-up.
+			//Make sure the settings table row isn't dropped during boot-up
+			$db->exec("UPDATE settings_<myname> SET `verify` = 1 WHERE `name` = '$settingName'");
 		}
 		
 		return $msg;

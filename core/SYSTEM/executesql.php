@@ -7,7 +7,7 @@ if (preg_match("/^executesql (.*)$/i", $message, $arr)) {
 		return;
 	}
 
-	$sql = strtoupper($arr[1]);
+	$sql = htmlspecialchars_decode($arr[1]);
 	
 	$num_rows = $db->exec($sql);
 
