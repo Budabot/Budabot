@@ -21,9 +21,12 @@ if (preg_match("/^history (.+) (\d)$/i", $message, $arr) || preg_match("/^histor
 	if ($history->errorCode != 0) {
 		$msg = $history->errorInfo;
 	} else {
+		$altInfo = Alts::get_alt_info($name);
 		$link[] = "<header>::::: History of $name ::::::<end>\n\n";
 		$lh = "<highlight>Options:<end>\n";
+		if (count($altInfo->alts) > 0) {
 		$lh .= "<tab><tab><a href='chatcmd:///tell <myname> alts $name'>Show Alts</a> \n";
+		}
 		$lh .= "<tab><tab><a href='chatcmd:///tell <myname> whois $name'>Whois</a>\n";
 		$lh .= "<tab><tab><a href='chatcmd:///cc addbuddy $name'>Add to your friendslist</a>\n";
 		$lh .= "<tab><tab><a href='chatcmd:///cc rembuddy $name'>Remove from your friendslist</a>\n\n";
