@@ -14,9 +14,9 @@ if (preg_match("/^aliaslist$/i", $message)) {
 	$count = 0;
 	forEach (CommandAlias::getEnabledAliases() as $alias) {
 		if ($count++ % 2 == 0) {
-			$color  = "white";
+			$color = "white";
 		} else {
-			$color  = "highlight";
+			$color = "highlight";
 		}
 		$removeLink = Text::make_chatcmd('Remove', "/tell <myname> remalias {$alias->alias} {$alias->cmd}");
 		$a = padRow($alias->alias, $paddingSize);
