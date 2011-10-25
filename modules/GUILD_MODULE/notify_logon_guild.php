@@ -21,7 +21,7 @@ if (isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
 
 		$altInfo = Alts::get_alt_info($sender);
 		if (count($altInfo->alts) > 0) {
-			$msg .= " " . $altInfo->get_alts_blob();
+			$msg .= " " . $altInfo->get_alts_blob(false, true);
 		}
 	}
 

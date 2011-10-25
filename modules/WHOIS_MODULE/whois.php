@@ -55,7 +55,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 
 			$altInfo = Alts::get_alt_info($name);
 			if (count($altInfo->alts) > 0) {
-				$msg .= " :: " . $altInfo->get_alts_blob();
+				$msg .= " :: " . $altInfo->get_alts_blob(false, true);
 			}
 	    }
     } else {

@@ -19,7 +19,7 @@ class AltInfo {
 		return false;
 	}
 	
-	public function get_alts_blob($showValidateLinks = false) {
+	public function get_alts_blob($showValidateLinks = false, $firstPageOnly = false) {
 		$db = DB::get_instance();
 		
 		if (count($this->alts) == 0) {
@@ -70,7 +70,11 @@ class AltInfo {
 		
 		$msg = Text::make_blob("Alts of {$this->main}", $blob);
 		
-		return $msg;
+		if ($firstPageOnly && is_array($msg)) {
+			return $msg[0];
+		} else {
+			return $msg;
+		}
 	}
 
 	public function get_online_alts() {
