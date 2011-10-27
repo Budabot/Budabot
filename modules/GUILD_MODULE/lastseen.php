@@ -27,7 +27,7 @@ if (preg_match("/^lastseen (.+)$/i", $message, $arr)) {
 				if ($row->logged_off == 0) {
 					$msg = "<highlight>$name<end> has never logged on.";
 				} else {
-					$msg = "Last seen at ".gmdate("l F d, Y - H:i", $row->logged_off)."(GMT) on <highlight>" . $row->name . "<end>.";
+					$msg = "Last seen at ".date("l F d, Y - H:i", $row->logged_off)."(GMT) on <highlight>" . $row->name . "<end>.";
 				}
 			} else {
 				$msg = "This player is not a member of the org.";

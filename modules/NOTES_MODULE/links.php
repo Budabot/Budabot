@@ -13,7 +13,7 @@ if (preg_match("/^links$/i", $message)) {
 		} else {
 			$website = Text::make_chatcmd('[Link]', "/start $row->website");
 		}
-		$dt = gmdate("M j, Y, G:i", $row->dt);
+		$dt = date("M j, Y, G:i", $row->dt);
 	  	$blob .= "$website <white>$row->comments<end> [<green>$row->name<end>] <white>$dt<end> $remove\n";
 	}
 	

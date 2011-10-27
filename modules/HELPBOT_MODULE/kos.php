@@ -103,7 +103,7 @@ if (preg_match("/^kos$/i", $message)) {
 		$link .= "The following Players has added <highlight>$name<end> to his list\n\n";
 		while ($row = $db->fObject()) {
 			$link .= "Name: <highlight>$row->sender<end>\n";
-			$link .= "Date: <highlight>".gmdate("dS F Y, H:i", $row->time)."<end>\n";
+			$link .= "Date: <highlight>".date("dS F Y, H:i", $row->time)."<end>\n";
 			if ($row->reason != "0" && "" != $row->reason) {
 				// only show the reason if there is one
 				// old style would be zero as reason

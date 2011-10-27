@@ -34,7 +34,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 			$list .= "<pagebreak><header> :::::: Name History :::::: <end>\n\n";
 			if (count($data) > 0) {
 				forEach ($data as $row) {
-					$list .= "<green>{$row->name}<end> " . gmdate("M j, Y, G:i", $row->dt) . "\n";
+					$list .= "<green>{$row->name}<end> " . date("M j, Y, G:i", $row->dt) . "\n";
 				}
 			} else {
 				$list .= "No name history available\n";
@@ -98,7 +98,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 			$list .= "<pagebreak><header> :::::: Name History :::::: <end>\n\n";
 			if (count($data) > 0) {
 				forEach ($data as $row) {
-					$list .= "<green>{$row->name}<end> " . gmdate("M j, Y, G:i", $row->dt) . "\n";
+					$list .= "<green>{$row->name}<end> " . date("M j, Y, G:i", $row->dt) . "\n";
 				}
 			} else {
 				$list .= "No name history available\n";

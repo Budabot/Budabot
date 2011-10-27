@@ -21,20 +21,20 @@ function getEvents() {
 			}
 			  
 			if ($row->event_date > time()) {
-				$upcoming = "<highlight>Event Date:<end> ".gmdate("F d, Y H:i:s", $row->event_date)." GMT\n";
+				$upcoming = "<highlight>Event Date:<end> ".date("F d, Y H:i:s", $row->event_date)." GMT\n";
 				$upcoming .= "<highlight>Event Name:<end> $row->event_name     [Event ID $row->id]\n";
 				$upcoming .= "<highlight>Author:<end> $row->submitter_name\n";
 				$upcoming .= "<highlight>Attendance:<end> ".Text::make_chatcmd("$attendance signed up", "/tell <myname> events list $row->id")." [".Text::make_chatcmd("Join", "/tell <myname> events join $row->id")."/".Text::make_chatcmd("Leave", "/tell <myname> events leave $row->id")."]\n";
 				$upcoming .= "<highlight>Description:<end> ".stripslashes($row->event_desc)."\n";
-				$upcoming .= "<highlight>Date Submitted:<end> ".gmdate("F d, Y H:i:s", $row->time_submitted)."\n\n";
+				$upcoming .= "<highlight>Date Submitted:<end> ".date("F d, Y H:i:s", $row->time_submitted)."\n\n";
 				$upcoming_events = $upcoming.$upcoming_events;
 			} else {
-				$past = "<highlight>Event Date:<end> ".gmdate("F d, Y H:i:s", $row->event_date)." GMT\n";
+				$past = "<highlight>Event Date:<end> ".date("F d, Y H:i:s", $row->event_date)." GMT\n";
 				$past .= "<highlight>Event Name:<end> $row->event_name     [Event ID $row->id]\n";
 				$past .= "<highlight>Author:<end> $row->submitter_name\n";
 				$past .= "<highlight>Attendance:<end> ".Text::make_chatcmd("$attendance signed up", "/tell <myname> events list $row->id")."\n";
 				$past .= "<highlight>Description:<end> ".stripslashes($row->event_desc)."\n";
-				$past .= "<highlight>Date Submitted:<end> ".gmdate("F d, Y H:i:s", $row->time_submitted)."\n\n";
+				$past .= "<highlight>Date Submitted:<end> ".date("F d, Y H:i:s", $row->time_submitted)."\n\n";
 				$past_events .= $past;
 			}
 		}
@@ -47,7 +47,7 @@ function getEvents() {
 			$link = $upcoming_title.$upcoming_events.$past_title.$past_events;
 		}
 		
-		return Text::make_blob("Latest Events", $link)." [Last updated ".gmdate("F d, Y H:i:s", $updated)."]";
+		return Text::make_blob("Latest Events", $link)." [Last updated ".date("F d, Y H:i:s", $updated)."]";
 	} else {
 		return "";
 	}

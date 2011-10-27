@@ -18,7 +18,7 @@ if (preg_match("/^opentimes$/i", $message)) {
 		$blob = "<header> :::::: Scouted Bases :::::: <end>\n\n";
 		forEach ($data as $row) {
 			$gas_level = getGasLevel($row->close_time);
-			$gas_change_string = "$gas_level->color $gas_level->gas_level - $gas_level->next_state in " . gmdate('H:i:s', $gas_level->gas_change) . "<end>";
+			$gas_change_string = "$gas_level->color $gas_level->gas_level - $gas_level->next_state in " . date('H:i:s', $gas_level->gas_change) . "<end>";
 
 			$site_link = Text::make_chatcmd("$row->short_name $row->site_number", "/tell <myname> lc $row->short_name $row->site_number");
 			$open_time = $row->close_time - (3600 * 6);

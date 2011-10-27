@@ -17,7 +17,7 @@ if (preg_match("/^namehistory (.+)$/i", $message, $arr)) {
 	$blob = "<header> :::::: Name History for $name ($count) :::::: <end>\n\n";
 	if ($count > 0) {
 		forEach ($data as $row) {
-			$blob .= "<green>{$row->name}<end> " . gmdate("M j, Y, G:i", $row->dt) . "\n";
+			$blob .= "<green>{$row->name}<end> " . date("M j, Y, G:i", $row->dt) . "\n";
 		}
 		$msg = Text::make_blob("Name History for $name ($count)", $blob);
 	} else {
