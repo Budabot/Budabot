@@ -29,24 +29,25 @@
 	Command::register($MODULE_NAME, "", "dbloot.php", "db2", "leader", "Shows Possible DB2 Armor", 'dbloot');
 	
 	// Pande loot manager
-	Command::register($MODULE_NAME, "", "pandeloot.php", "beastarmor", "all", "Shows Possible Beast Armor Loot", 'pande');
-	Command::register($MODULE_NAME, "", "pandeloot.php", "beastweaps", "all", "Shows Possible Beast Weapons Loot", 'pande');
-	Command::register($MODULE_NAME, "", "pandeloot.php", "beaststars", "all", "Shows Possible Beast Stars Loot", 'pande');
-	Command::register($MODULE_NAME, "", "pandeloot.php", "tnh", "all", "Shows Possible The Night Heart Loot", 'pande');
-	Command::register($MODULE_NAME, "", "pandeloot.php", "sb", "all", "Shows Possible Shadowbreeds Loot", 'pande');
-	Command::register($MODULE_NAME, "", "pandeloot.php", "aries", "all", "Shows Possible Aries Zodiac Loot", 'pande');
-	Command::register($MODULE_NAME, "", "pandeloot.php", "leo", "all", "Shows Possible Leo Zodiac Loot", 'pande');
-	Command::register($MODULE_NAME, "", "pandeloot.php", "virgo", "all", "Shows Possible Virgo Zodiac Loot", 'pande');
-	Command::register($MODULE_NAME, "", "pandeloot.php", "aquarius", "all", "Shows Possible Aquarius Zodiac Loot", 'pande');
-	Command::register($MODULE_NAME, "", "pandeloot.php", "cancer", "all", "Shows Possible Cancer Zodiac Loot", 'pande');
-	Command::register($MODULE_NAME, "", "pandeloot.php", "gemini", "all", "Shows Possible Gemini Zodiac Loot", 'pande');
-	Command::register($MODULE_NAME, "", "pandeloot.php", "libra", "all", "Shows Possible Libra Zodiac Loot", 'pande');
-	Command::register($MODULE_NAME, "", "pandeloot.php", "pisces", "all", "Shows Possible Pisces Zodiac Loot", 'pande');
-	Command::register($MODULE_NAME, "", "pandeloot.php", "taurus", "all", "Shows Possible Taurus Zodiac Loot", 'pande');
-	Command::register($MODULE_NAME, "", "pandeloot.php", "capricorn", "all", "Shows Possible Capricorn Zodiac Loot", 'pande');
-	Command::register($MODULE_NAME, "", "pandeloot.php", "sagittarius", "all", "Shows Possible Sagittarius Zodiac Loot", 'pande');
-	Command::register($MODULE_NAME, "", "pandeloot.php", "scorpio", "all", "Shows Possible Scorpio Zodiac Loot", 'pande');
-	Command::register($MODULE_NAME, "", "pandeloot.php", "pande", "all", "shows Initial list of pande bosses", 'pande');
+	Command::register($MODULE_NAME, "", "pandeloot.php", "beastarmor", "all", "Shows Beast Armor loot", 'pande');
+	Command::register($MODULE_NAME, "", "pandeloot.php", "beastweaps", "all", "Shows Beast Weapons loot", 'pande');
+	Command::register($MODULE_NAME, "", "pandeloot.php", "beaststars", "all", "Shows Beast Stars loot", 'pande');
+	Command::register($MODULE_NAME, "", "pandeloot.php", "tnh", "all", "Shows The Night Heart loot", 'pande');
+	Command::register($MODULE_NAME, "", "pandeloot.php", "sb", "all", "Shows Shadowbreeds loot", 'pande');
+	Command::register($MODULE_NAME, "", "pandeloot.php", "aries", "all", "Shows Aries Zodiac loot", 'pande');
+	Command::register($MODULE_NAME, "", "pandeloot.php", "leo", "all", "Shows Leo Zodiac loot", 'pande');
+	Command::register($MODULE_NAME, "", "pandeloot.php", "virgo", "all", "Shows Virgo Zodiac loot", 'pande');
+	Command::register($MODULE_NAME, "", "pandeloot.php", "aquarius", "all", "Shows Aquarius Zodiac loot", 'pande');
+	Command::register($MODULE_NAME, "", "pandeloot.php", "cancer", "all", "Shows Cancer Zodiac loot", 'pande');
+	Command::register($MODULE_NAME, "", "pandeloot.php", "gemini", "all", "Shows Gemini Zodiac loot", 'pande');
+	Command::register($MODULE_NAME, "", "pandeloot.php", "libra", "all", "Shows Libra Zodiac loot", 'pande');
+	Command::register($MODULE_NAME, "", "pandeloot.php", "pisces", "all", "Shows Pisces Zodiac loot", 'pande');
+	Command::register($MODULE_NAME, "", "pandeloot.php", "taurus", "all", "Shows Taurus Zodiac loot", 'pande');
+	Command::register($MODULE_NAME, "", "pandeloot.php", "capricorn", "all", "Shows Capricorn Zodiac loot", 'pande');
+	Command::register($MODULE_NAME, "", "pandeloot.php", "sagittarius", "all", "Shows Sagittarius Zodiac loot", 'pande');
+	Command::register($MODULE_NAME, "", "pandeloot.php", "scorpio", "all", "Shows Scorpio Zodiac loot", 'pande');
+	Command::register($MODULE_NAME, "", "pandeloot.php", "bastion", "all", "Shows Bastion loot", 'pande');
+	Command::register($MODULE_NAME, "", "pandeloot.php", "pande", "all", "Shows list of pande bosses and loot categories", 'pande');
 	
 	// Albtraum loot manager
 	Command::register($MODULE_NAME, "", "albloot.php", "alb", "leader", "Shows Possible Albtraum loots", 'albloot');

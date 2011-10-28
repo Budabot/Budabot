@@ -2,7 +2,6 @@
 
 /*
    ** Author: Marinerecon (RK2)
-   ** Description: Removes an item from the roll
    ** Version: 1.0
    **
    ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
@@ -38,48 +37,32 @@ if (!function_exists('get_pande_loot')) {
 if (preg_match("/^pande$/i", $message)){
 	$list = "<header>::::: Pandemonium Loot :::::<end>\n\n\n";
 	$list .= "The Beast\n";
-	$newlink = Text::make_chatcmd("Beast Armor\n", "/tell <myname> <symbol>beastarmor");
-	$list .= "<tab>".$newlink;
-	$newlink = Text::make_chatcmd("Beast Weapons\n", "/tell <myname> <symbol>beastweaps");
-	$list .= "<tab>".$newlink;
-	$newlink = Text::make_chatcmd("Beast Stars\n", "/tell <myname> <symbol>beaststars");
-	$list .= "<tab>".$newlink;
+	$list .= "<tab>".Text::make_chatcmd("Beast Armor\n", "/tell <myname> <symbol>beastarmor");
+	$list .= "<tab>".Text::make_chatcmd("Beast Weapons\n", "/tell <myname> <symbol>beastweaps");
+	$list .= "<tab>".Text::make_chatcmd("Beast Stars\n", "/tell <myname> <symbol>beaststars");
 	$list .= "\nThe Night Heart\n";
-	$newlink = Text::make_chatcmd("TNH\n", "/tell <myname> <symbol>tnh");
-	$list .= "<tab>".$newlink;
+	$list .= "<tab>".Text::make_chatcmd("TNH\n", "/tell <myname> <symbol>tnh");
 	$list .= "\nWest Zodiacs\n";
-	$newlink = Text::make_chatcmd("Aries\n", "/tell <myname> <symbol>aries");
-	$list .= "<tab>".$newlink;
-	$newlink = Text::make_chatcmd("Leo\n", "/tell <myname> <symbol>leo");
-	$list .= "<tab>".$newlink;
-	$newlink = Text::make_chatcmd("Virgo\n", "/tell <myname> <symbol>virgo");
-	$list .= "<tab>".$newlink;
+	$list .= "<tab>".Text::make_chatcmd("Aries\n", "/tell <myname> <symbol>aries");
+	$list .= "<tab>".Text::make_chatcmd("Leo\n", "/tell <myname> <symbol>leo");
+	$list .= "<tab>".Text::make_chatcmd("Virgo\n", "/tell <myname> <symbol>virgo");
 	$list .= "\nEast Zodiacs\n";
-	$newlink = Text::make_chatcmd("Aquarius\n", "/tell <myname> <symbol>aquarius");
-	$list .= "<tab>".$newlink;
-	$newlink = Text::make_chatcmd("Cancer\n", "/tell <myname> <symbol>cancer");
-	$list .= "<tab>".$newlink;
-	$newlink = Text::make_chatcmd("Gemini\n", "/tell <myname> <symbol>gemini");
-	$list .= "<tab>".$newlink;
+	$list .= "<tab>".Text::make_chatcmd("Aquarius\n", "/tell <myname> <symbol>aquarius");
+	$list .= "<tab>".Text::make_chatcmd("Cancer\n", "/tell <myname> <symbol>cancer");
+	$list .= "<tab>".Text::make_chatcmd("Gemini\n", "/tell <myname> <symbol>gemini");
 	$list .= "\nMiddle Zodiacs\n";
-	$newlink = Text::make_chatcmd("Libra\n", "/tell <myname> <symbol>libra");
-	$list .= "<tab>".$newlink;
-	$newlink = Text::make_chatcmd("Pisces\n", "/tell <myname> <symbol>pisces");
-	$list .= "<tab>".$newlink;
-	$newlink = Text::make_chatcmd("Taurus\n", "/tell <myname> <symbol>taurus");
-	$list .= "<tab>".$newlink;
+	$list .= "<tab>".Text::make_chatcmd("Libra\n", "/tell <myname> <symbol>libra");
+	$list .= "<tab>".Text::make_chatcmd("Pisces\n", "/tell <myname> <symbol>pisces");
+	$list .= "<tab>".Text::make_chatcmd("Taurus\n", "/tell <myname> <symbol>taurus");
 	$list .= "\nNorth Zodiacs\n";
-	$newlink = Text::make_chatcmd("Capricorn\n", "/tell <myname> <symbol>capricorn");
-	$list .= "<tab>".$newlink;
-	$newlink = Text::make_chatcmd("Sagittarius\n", "/tell <myname> <symbol>sagittarius");
-	$list .= "<tab>".$newlink;
-	$newlink = Text::make_chatcmd("Scorpio\n", "/tell <myname> <symbol>scorpio");
-	$list .= "<tab>".$newlink;
+	$list .= "<tab>".Text::make_chatcmd("Capricorn\n", "/tell <myname> <symbol>capricorn");
+	$list .= "<tab>".Text::make_chatcmd("Sagittarius\n", "/tell <myname> <symbol>sagittarius");
+	$list .= "<tab>".Text::make_chatcmd("Scorpio\n", "/tell <myname> <symbol>scorpio");
 	$list .= "\nOther\n";
-	$newlink = Text::make_chatcmd("Shadowbreeds\n", "/tell <myname> <symbol>sb");
-	$list .= "<tab>".$newlink;
+	$list .= "<tab>".Text::make_chatcmd("Shadowbreeds\n", "/tell <myname> <symbol>sb");
+	$list .= "<tab>".Text::make_chatcmd("Bastion\n", "/tell <myname> <symbol>bastion");
 
-	$list .= "\n\nPande Loot By Marinerecon (RK2)";
+	$list .= "\n\nPandemonium Loot By Marinerecon (RK2)";
 
 	$msg = Text::make_blob("Pandemonium Loot", $list);
 	$chatBot->send($msg, $sendto);
@@ -117,6 +100,8 @@ if (preg_match("/^pande$/i", $message)){
 	$chatBot->send(get_pande_loot('Pande', 'Sagittarius'), $sendto);
 } else if (preg_match("/^scorpio$/i", $message)){
 	$chatBot->send(get_pande_loot('Pande', 'Scorpio'), $sendto);
+} else if (preg_match("/^bastion$/i", $message)){
+	$chatBot->send(get_pande_loot('Pande', 'Bastion'), $sendto);
 } else {
 	$syntax_error = true;
 }

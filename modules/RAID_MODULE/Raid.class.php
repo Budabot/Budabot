@@ -133,6 +133,7 @@ class Raid {
 
 		$blob = "<header>::::: $raid $category Loot :::::<end>\n\n\n";
 		forEach ($data as $row) {
+			$blob .= "<pagebreak>";
 			$blob .= Text::make_item($row->lowid, $row->highid, $row->ql, "<img src=rdb://{$row->imageid}>");
 			$blob .= "\nItem: <highlight>{$row->name}<end>\n";
 			$blob .= Text::make_chatcmd("Add to Loot List", "/tell <myname> loot $row->id");
