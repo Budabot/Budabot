@@ -40,7 +40,7 @@ if (preg_match("/^inactivemem ([a-z0-9]+)/i", $message, $arr)) {
 		$main = $row->main;
 		if ($row->main != "") {
 			$db->query("SELECT * FROM alts a JOIN org_members_<myname> o ON a.alt = o.name WHERE `main` = '{$row->main}'");
-			$data1 = $db->fOject('all');
+			$data1 = $db->fObject('all');
 			forEach ($data1 as $row1) {
 				if ($row1->logged_off > $time) {
 					continue 2;
