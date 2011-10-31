@@ -26,16 +26,17 @@
 			}
 		}
 	}
+
 	// Setup
 	DB::loadSQLFile($MODULE_NAME, "bbin_chatlist");
 	
-	//Auto start BBIN connection, or turn it off
-	Event::register($MODULE_NAME, "connect", "set_bbin_link.php", "none", "Connect to IRC/BBIN at startup", '', 0);
+	Event::register($MODULE_NAME, "1min", "set_bbin_link.php", "none", "Automatically reconnect to IRC server", '', 0);
 	
 	//Commands
-	Command::register($MODULE_NAME, "", "bbin_connect.php", "startbbin", "admin", "Connect to BBIN", 'bbin');
-	Command::register($MODULE_NAME, "", "stopbbin.php", "stopbbin", "admin", "Disconnect from BBIN", 'bbin');
-	Command::register($MODULE_NAME, "", "set_bbin_settings.php", "setbbin", "admin", "Manually set BBIN settings", 'bbin');
+	Command::register($MODULE_NAME, "", "bbin_connect.php", "startbbin", "mod", "Connect to BBIN", 'bbin');
+	Command::register($MODULE_NAME, "", "stopbbin.php", "stopbbin", "mod", "Disconnect from BBIN", 'bbin');
+	Command::register($MODULE_NAME, "", "online_bbin.php", "onlinebbin", "all", "View who is in IRC channel", 'bbin');
+	Command::register($MODULE_NAME, "", "set_bbin_settings.php", "setbbin", "mod", "Manually set BBIN settings", 'bbin');
 	
 	//BBIN Relay
 	Event::register($MODULE_NAME, "2sec", "bbin_loop.php", "none", "The main BBIN message loop");
@@ -56,9 +57,7 @@
 	Setting::add($MODULE_NAME, "bbin_port", "IRC server port to use", "noedit", "number", "6667", "", "", "mod", "bbin");
 	Setting::add($MODULE_NAME, "bbin_nickname", "Nickname to use while in IRC", "noedit", "text", $chatBot->vars['name'], "", "", "mod", "bbin");
 	Setting::add($MODULE_NAME, "bbin_channel", "Channel to join", "noedit", "text", $channel, "", "", "mod", "bbin");
-	Setting::add($MODULE_NAME, "bbin_debug_ping", "IRC Debug Option: Show pings in console", "edit", "options", "0", "true;false", "1;0", "mod", "bbin");
-	Setting::add($MODULE_NAME, "bbin_debug_messages", "IRC Debug Option: Show events in console", "edit", "options", "0", "true;false", "1;0", "mod", "bbin");
-	Setting::add($MODULE_NAME, "bbin_debug_all", "IRC Debug Option: Log everything", "edit", "options", "0", "true;false", "1;0", "mod", "bbin");
+	Setting::add($MODULE_NAME, "bbin_password", "IRC password to join channel", "edit", "text", "none", "none");
 	
 	//Helpfiles
 	Help::register($MODULE_NAME, "bbin", "bbin_help.txt", "all", "How to use the BBIN plugin");

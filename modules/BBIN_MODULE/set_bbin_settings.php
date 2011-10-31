@@ -1,13 +1,13 @@
 <?php
-	 /*
-   ** Author: Mindrila (RK1)
-   ** Credits: Legendadv (RK2)
-   ** BUDABOT IRC NETWORK MODULE
-   ** Version = 0.1
-   ** Developed for: Budabot(http://budabot.com)
-   **
-   */
-   
+/*
+** Author: Mindrila (RK1)
+** Credits: Legendadv (RK2)
+** BUDABOT IRC NETWORK MODULE
+** Version = 0.1
+** Developed for: Budabot(http://budabot.com)
+**
+*/
+
 if (preg_match("/^setbbin server (.+)$/i", $message, $arr)) {
 	Setting::save("bbin_server", trim($arr[1]));
 	$chatBot->send("Setting saved.  Bot will connect to IRC server: {$arr[1]}.", $sender);

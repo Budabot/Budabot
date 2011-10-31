@@ -8,23 +8,18 @@
    **
    */
    
-global $bbin_socket;
-if ("1" == Setting::get('bbin_status')) {
-	$msg = "[BBIN:LOGON:".$sender.",".$chatBot->vars["dimension"].",";
-
+global $bbinSocket;
+if (IRC::isConnectionActive($bbinSocket)) {
 	if ($type == "joinPriv") {
-		$msg .= "1]";
-		fputs($bbin_socket, "PRIVMSG ".Setting::get('bbin_channel')." :$msg\n");
-		if (Setting::get('bbin_debug_messages') == 1) {
-			Logger::log('debug', "BBIN Outgoing", $msg);
-		}
+		$leaveType = "1";
 	} else if ($type == 'logOn' && isset($chatBot->guildmembers[$sender])) {
-		$msg .= "0]";
-		fputs($bbin_socket, "PRIVMSG ".Setting::get('bbin_channel')." :$msg\n");
-		if (Setting::get('bbin_debug_messages') == 1) {
-			Logger::log('debug', "BBIN Outgoing", $msg);
-		}
+		$leaveType = "0";
 	}
+	
+	$msg = "[BBIN:LOGON:".$sender.",".$chatBot->vars["dimension"].",{$leaveType}]";
+	
+	Logger::log('DEBUG', "BBIN Outgoing", $msg);
+	IRC::send($bbinSocket, Setting::get('bbin_channel'), $msg);
 }
 
 ?>

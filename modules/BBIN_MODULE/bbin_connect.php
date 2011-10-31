@@ -1,78 +1,34 @@
 <?php
-	 /*
-   ** Author: Mindrila (RK1)
-   ** Credits: Legendadv (RK2)
-   ** BUDABOT IRC NETWORK MODULE
-   ** Version = 0.1
-   ** Developed for: Budabot(http://budabot.com)
-   **
-   */
-   
-global $bbin_socket;
-$db = DB::get_instance();
-require_once("bbin_func.php");
+/*
+** Author: Mindrila (RK1)
+** Credits: Legendadv (RK2)
+** BUDABOT IRC NETWORK MODULE
+** Version = 0.1
+** Developed for: Budabot(http://budabot.com)
+**
+*/
 
-stream_set_blocking($bbin_socket, 0);
-set_time_limit(0);
-$nick = Setting::get('bbin_nickname');
- 
-// Connection
+global $bbinSocket;
 if (preg_match("/^startbbin$/i", $message)) {
-	$chatBot->send("Intialized BBIN connection. Please wait...",$sender);
-}
-
-Logger::log('info', "BBIN", "Intialized BBIN connection. Please wait...");
-$bbin_socket = fsockopen(Setting::get('bbin_server'), Setting::get('bbin_port'));
-fputs($bbin_socket,"USER $nick $nick $nick $nick :$nick\n");
-fputs($bbin_socket,"NICK $nick\n");
-while ($logincount < 10) {
-	$logincount++;
-	$data = fgets($bbin_socket, 128);
-	if (Setting::get('bbin_debug_all') == 1) {
-		Logger::log('debug', "BBIN", trim($data));
-	}
-	// Separate all data
-	$ex = explode(' ', $data);
-
-	// Send PONG back to the server
-	if ($ex[0] == "PING") {
-		fputs($bbin_socket, "PONG ".$ex[1]."\n");
-	}
-	flush();
-}
-sleep(1);
-fputs($bbin_socket,"JOIN ".Setting::get('bbin_channel')."\n");
-
-while ($data = fgets($bbin_socket)) {
-	if (Setting::get('bbin_debug_all') == 1) {
-		Logger::log('DEBUG', "BBIN", trim($data));
-	}
-	if (preg_match("/(ERROR)(.+)/", $data, $sandbox)) {
-		Logger::log('ERROR', "BBIN", trim($data));
-		if (preg_match("/^startbbin$/i", $message)) {
-			$chatBot->send("[red]Could not connect to BBIN",$sender);
-		}
+	if (Setting::get('bbin_server') == "") {
+		$chatBot->send("The BBIN <highlight>server address<end> seems to be missing. <highlight>/tell <myname> <symbol>help bbin<end> for details on setting this.", $sendto);
 		return;
 	}
-	if ($ex[0] == "PING") {
-		fputs($bbin_socket, "PONG ".$ex[1]."\n");
+	if (Setting::get('bbin_port') == "") {
+		$chatBot->send("The BBIN <highlight>server port<end> seems to be missing. <highlight>/tell <myname> <symbol>help bbin<end> for details on setting this.", $sendto);
+		return;
 	}
-	if (preg_match("/(End of \/NAMES list)/", $data, $discard)) {
-		break;
+
+	$chatBot->send("Intializing BBIN connection. Please wait...", $sendto);
+	$result = IRC::connect($bbinSocket, Setting::get('bbin_nickname'), Setting::get('bbin_server'), Setting::get('bbin_port'), Setting::get('bbin_password'), Setting::get('bbin_channel'));
+	if ($result == true) {
+		Setting::save("bbin_status", "1");
+		$chatBot->send("Finished connecting to BBIN.", $sendto);
+	} else {
+		$chatBot->send("Error connectiong to BBIN.", $sendto);
 	}
-	flush();
+} else {
+	$syntax_error = true;
 }
-
-// send a synchronize request to network
-fputs($bbin_socket, "PRIVMSG ".Setting::get('bbin_channel')." :[BBIN:SYNCHRONIZE]\n");
-
-// call the synchronize function ourselves, to send our online list to the network
-parse_incoming_bbin("[BBIN:SYNCHRONIZE]", $nick);
-
-if (preg_match("/^startbbin$/i", $message)) {
-	$chatBot->send("Finished connecting to bbin",$sender);
-}
-Logger::log('INFO', "BBIN", "Finished connecting to bbin");
-Setting::save("bbin_status", "1");
 
 ?>

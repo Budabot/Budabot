@@ -15,7 +15,7 @@
 function parse_incoming_bbin($bbinmsg, $nick) {
 	$db = DB::get_instance();
 	global $chatBot;
-	global $bbin_socket;
+	global $bbinSocket;
 
 	if (preg_match("/^\[BBIN:LOGON:(.*?),(.),(.)\]/", $bbinmsg, $arr)) {
 		// a user logged on somewhere in the network
@@ -103,7 +103,7 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 		$msg .= "]";
 
 		// send complete list back to bbin channel
-		fputs($bbin_socket, "PRIVMSG ".Setting::get('bbin_channel')." :$msg\n");
+		fputs($bbinSocket, "PRIVMSG ".Setting::get('bbin_channel')." :$msg\n");
 
 	} else if (preg_match("/^\[BBIN:ONLINELIST:(.):(.*?)\]/", $bbinmsg, $arr)) {
 		// received a synchronization list

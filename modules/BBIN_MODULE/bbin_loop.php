@@ -8,18 +8,14 @@
  **
  */
 
-if ("1" != Setting::get('bbin_status')) {
+global $bbinSocket;
+if (!IRC::isConnectionActive($bbinSocket)) {
 	return;
 }
 
-global $bbin_socket;
-
-stream_set_blocking($bbin_socket, 0);
-if ($data = fgets($bbin_socket)) {
+if ($data = fgets($bbinSocket)) {
 	$ex = explode(' ', $data);
-	if (Setting::get('bbin_debug_all') == 1) {
-		Logger::log('debug', "BBIN", trim($data));
-	}
+	Logger::log('DEBUG', "BBIN", trim($data));
 	$channel = rtrim(strtolower($ex[2]));
 	$nicka = explode('@', $ex[0]);
 	$nickb = explode('!', $nicka[0]);
@@ -28,10 +24,8 @@ if ($data = fgets($bbin_socket)) {
 	$host = $nicka[1];
 	$nick = $nickc[1];
 	if ($ex[0] == "PING") {
-		fputs($bbin_socket, "PONG ".$ex[1]."\n");
-		if (Setting::get('bbin_debug_ping') == 1) {
-			Logger::log('debug', "BBIN", "PING received. PONG sent.");
-		}
+		fputs($bbinSocket, "PONG ".$ex[1]."\n");
+		Logger::log('DEBUG', "BBIN", "PING received. PONG sent.");
 	} else if ($ex[1] == "NOTICE") {
 		if (false != stripos($data, "exiting")) {
 			// the irc server shut down (i guess)
@@ -93,9 +87,7 @@ if ($data = fgets($bbin_socket)) {
 		$bbinmessage = str_replace(chr(2), "", $bbinmessage);
 		$bbinmessage = str_replace(chr(3), "", $bbinmessage);
 
-		if (Setting::get('bbin_debug_messages') == 1) {
-			Logger::log_chat("Inc. IRC Msg.", $nick, $bbinmessage);
-		}
+		Logger::log_chat("Inc. BBIN Msg.", $nick, $bbinmessage);
 		parse_incoming_bbin($bbinmessage, $nick);
 
 		flush();
