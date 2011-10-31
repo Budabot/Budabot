@@ -8,21 +8,21 @@
 	DB::loadSQLFile($MODULE_NAME, "playfields");
 	DB::loadSQLFile($MODULE_NAME, "orgcities");
 
-	Command::register($MODULE_NAME, "", "kos.php", "kos", "guild", "Shows the Kill On Sight List");
-	Command::register($MODULE_NAME, "", "time.php", "time", "all", "Shows the time in the different timezones");
+	Command::register($MODULE_NAME, "", "kos.php", "kos", "guild", "Show the Kill On Sight List");
+	Command::register($MODULE_NAME, "", "time.php", "time", "all", "Show the time in the different timezones");
 	Command::register($MODULE_NAME, "", "calc.php", "calc", "all", "Calculator");
 	Command::register($MODULE_NAME, "", "oe.php", "oe", "all", "OE");
-	Command::register($MODULE_NAME, "", "inspect.php", "inspect", "all", "Inspects Christmas/Eart Gifts and Peren. Containers");
-	Command::register($MODULE_NAME, "", "mobloot.php", "mobloot", "all", "loot QL Infos ");
-	Command::register($MODULE_NAME, "", "random.php", "random", "all", "Random order");
-	Command::register($MODULE_NAME, "", "buffitem.php", "buffitem", "all", "buffitem look up");
-	Command::register($MODULE_NAME, "", "whatbuffs.php", "whatbuffs", "all", "find items that buff");
+	Command::register($MODULE_NAME, "", "inspect.php", "inspect", "all", "Inspect Christmas/Eart Gifts and Peren. Containers");
+	Command::register($MODULE_NAME, "", "mobloot.php", "mobloot", "all", "Show loot QL info");
+	Command::register($MODULE_NAME, "", "random.php", "random", "all", "Randomize a list of names/items");
+	Command::register($MODULE_NAME, "", "buffitem.php", "buffitem", "all", "Buffitem look up");
+	Command::register($MODULE_NAME, "", "whatbuffs.php", "whatbuffs", "all", "Find items that buff");
 	Command::register($MODULE_NAME, "", "dyna.php", "dyna", "all", "Search for RK Dynaboss");
-	Command::register($MODULE_NAME, "", "research.php", "research", "all", "Info on Research");
-	Command::register($MODULE_NAME, "", "playfields.php", "playfields", "all", "Shows playfield ids, long names, and short names", 'waypoint');
-	Command::register($MODULE_NAME, "", "waypoint.php", "waypoint", "all", "Creates a waypoint link");
+	Command::register($MODULE_NAME, "", "research.php", "research", "all", "Show info on Research");
+	Command::register($MODULE_NAME, "", "playfields.php", "playfields", "all", "Show playfield ids, long names, and short names", 'waypoint');
+	Command::register($MODULE_NAME, "", "waypoint.php", "waypoint", "all", "Create a waypoint link");
 	Command::register($MODULE_NAME, "", "orgcities.php", "orgcities", "all", "Show coords for org cities");
-	Command::register($MODULE_NAME, "", "server.php", "server", "all", "Shows the Server status");	
+	Command::register($MODULE_NAME, "", "server.php", "server", "all", "Show the Server status");
 
 	// Flip or Roll command
 	Command::register($MODULE_NAME, "", "roll.php", "flip", "all", "Flip a coin", 'roll');

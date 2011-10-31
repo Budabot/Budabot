@@ -1,12 +1,12 @@
 <?php
-   /*
-   ** Author: Legendadv (RK2)
-   ** IRC RELAY MODULE
-   **
-   ** Developed for: Budabot(http://aodevs.com/index.php/topic,512.0.html)
-   **
-   */
-   
+/*
+** Author: Legendadv (RK2)
+** IRC RELAY MODULE
+**
+** Developed for: Budabot(http://aodevs.com/index.php/topic,512.0.html)
+**
+*/
+
 if (preg_match("/^setirc server (.+)$/i", $message, $arr)) {
 	Setting::save("irc_server", trim($arr[1]));
 	$chatBot->send("Setting saved.  Bot will connect to IRC server: {$arr[1]}.", $sendto);
