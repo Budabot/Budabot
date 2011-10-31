@@ -33,6 +33,6 @@ Thanks and enjoy.
 <tab>IRC join/leave/quits shown in-game.
 <tab><highlight><symbol>onlineirc<end> shows who's online in IRC.
 <tab><highlight><symbol>online<end> in IRC shows who's in-game.
-<tab>Can be used to relay accross dimentions.  Set both bots to connect to the same IRC channel.
+<tab>Can be used to relay accross dimensions.  Set both bots to connect to the same IRC channel.
 <tab>Can be used to relay more than 2 bots. See above ^
-<tab>Can autoconnect at bot start-up. Check <symbol>settings.
+<tab>Can autoconnect at bot start-up. Check <symbol>config IRC_MODULE.

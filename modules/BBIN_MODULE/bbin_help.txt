@@ -29,6 +29,6 @@ Thanks and enjoy.
 **Features:**
 <tab>Relays everything like it would be posted ingame
 <tab>Relays member joins / leaves
-<tab>Gives feedback if on established uplinks
+<tab>Gives feedback on established uplinks
 <tab><highlight><symbol>online<end> will show all members in the network
-<tab>Can autoconnect at bot start-up. Check <symbol>config.
+<tab>Can autoconnect at bot start-up. Check <symbol>config BBIN_MODULE.
