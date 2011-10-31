@@ -1,7 +1,7 @@
 <?php
 
 class IRC {
-	public static function isConnectionActive($socket) {
+	public static function isConnectionActive(&$socket) {
 		$array = socket_get_status($socket);
 		if (empty($array) || $array['eof'] == '1') {
 			return false;
@@ -10,7 +10,7 @@ class IRC {
 		}
 	}
 	
-	public static function connect($socket, $nick, $server, $port, $password, $channel) {
+	public static function connect(&$socket, $nick, $server, $port, $password, $channel) {
 		Logger::log('INFO', "IRC", "Intializing IRC connection");
 		
 		$socket = fsockopen($server, $port);
@@ -54,7 +54,7 @@ class IRC {
 		return true;
 	}
 	
-	public static function getUsersInChannel($socket, $channel) {
+	public static function getUsersInChannel(&$socket, $channel) {
 		stream_set_blocking($socket, 1);
 		fputs($socket, "NAMES :".$channel."\n");
 		$data = fgets($socket);
@@ -69,11 +69,11 @@ class IRC {
 		return $names;
 	}
 	
-	public static function disconnect($socket) {
+	public static function disconnect(&$socket) {
 		fclose($socket);
 	}
 	
-	public static function send($socket, $channel, $message) {
+	public static function send(&$socket, $channel, $message) {
 		fputs($socket, "PRIVMSG ".$channel. " :" . $message . "\n");
 	}
 }
