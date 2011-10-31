@@ -19,7 +19,7 @@ By default, your bot will use these settings:
 If the bot is not in a guild, it will join #<myname>
 To manually set on of these settings <highlight>/tell <myname> <symbol>setirc [irc-setting] [data]<end>
 ie. <symbol>setirc nickname my-bots-irc-name
-<symbol>setirc port 6666
+<symbol>setirc port 6667
 
 Note: to disable the password set it to 'none'.
 
