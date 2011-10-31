@@ -1,15 +1,16 @@
 <?php
-   /*
-   ** Author: Legendadv (RK2)
-   ** IRC RELAY MODULE
-   **
-   ** Developed for: Budabot(http://aodevs.com/index.php/topic,512.0.html)
-   **
-   */
-   
-if (IRC::isConnectionActive()) {
+/*
+** Author: Legendadv (RK2)
+** IRC RELAY MODULE
+**
+** Developed for: Budabot(http://aodevs.com/index.php/topic,512.0.html)
+**
+*/
+
+global $ircSocket;
+if (IRC::isConnectionActive($ircSocket)) {
 	if ($type == "leavePriv") {
-		IRC::send(encodeGuildMessage($chatBot->vars['my_guild'], "$sender has left the private channel."));
+		IRC::send($ircSocket, Setting::get('irc_channel'), encodeGuildMessage($chatBot->vars['my_guild'], "$sender has left the private channel."));
 		if (Setting::get('irc_debug_messages') == 1) {
 			Logger::log_chat("Out. IRC Msg.", -1, "$sender has left the channel");
 		}
@@ -22,7 +23,7 @@ if (IRC::isConnectionActive()) {
 			}
 		}
 		
-		IRC::send(encodeGuildMessage($chatBot->vars['my_guild'], "$sender has logged off."));
+		IRC::send($ircSocket, Setting::get('irc_channel'), encodeGuildMessage($chatBot->vars['my_guild'], "$sender has logged off."));
 		if (Setting::get('irc_debug_messages') == 1) {
 			Logger::log_chat("Out. IRC Msg.", -1, "$sender has left the channel");
 		}

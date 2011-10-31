@@ -1,9 +1,7 @@
 <?php
 
 class IRC {
-	public static function isConnectionActive() {
-		global $socket;
-
+	public static function isConnectionActive($socket) {
 		$array = socket_get_status($socket);
 		if (empty($array) || $array['eof'] == '1') {
 			return false;
@@ -12,23 +10,18 @@ class IRC {
 		}
 	}
 	
-	public static function connect() {
-		global $socket;
-
-		$nick = Setting::get('irc_nickname');
+	public static function connect($socket, $nick, $server, $port, $password, $channel) {
 		Logger::log('INFO', "IRC", "Intializing IRC connection");
 		
-		$socket = fsockopen(Setting::get('irc_server'), Setting::get('irc_port'));
+		$socket = fsockopen($server, $port);
 		
 		fputs($socket,"USER $nick $nick $nick $nick :$nick\n");
 		fputs($socket,"NICK $nick\n");
 		while ($logincount < 10) {
 			$logincount++;
 			$data = fgets($socket, 128);
-			if (Setting::get('irc_debug_all') == 1) {
-				Logger::log('INFO', "IRC", trim($data));
-			}
-			// Separate all data
+			Logger::log('DEBUG', "IRC", trim($data));
+
 			$ex = explode(' ', $data);
 
 			// Send PONG back to the server
@@ -37,22 +30,17 @@ class IRC {
 			}
 		}
 
-		if (Setting::get('irc_password') != 'none') {
-			fputs($socket,"JOIN ".Setting::get('irc_channel'). ' ' . Setting::get('irc_password') . "\n");
+		if ($password != 'none') {
+			fputs($socket,"JOIN ".$channel. ' ' . $password . "\n");
 		} else {
-			fputs($socket,"JOIN ".Setting::get('irc_channel')."\n");
+			fputs($socket,"JOIN ".$channel."\n");
 		}
 
 		while ($data = fgets($socket)) {
-			if (Setting::get('irc_debug_all') == 1) {
-				Logger::log('INFO', "IRC", trim($data));
-			}
+			Logger::log('DEBUG', "IRC", trim($data));
 			if (preg_match("/(ERROR)(.+)/", $data, $sandbox)) {
-				if (preg_match("/^startirc$/i", $message)) {
-					$chatBot->send("Could not connect to IRC.", $sendto);
-				}
-				Logger::log('error', "IRC", trim($data));
-				return;
+				Logger::log('ERROR', "IRC", trim($data));
+				return false;
 			}
 			if ($ex[0] == "PING") {
 				fputs($socket, "PONG ".$ex[1]."\n");
@@ -63,13 +51,12 @@ class IRC {
 		}
 		stream_set_blocking($socket, 0);
 		Logger::log('INFO', "IRC", "Finished connecting to IRC");
+		return true;
 	}
 	
-	public static function getUsersInChannel() {
-		global $socket;
-
+	public static function getUsersInChannel($socket, $channel) {
 		stream_set_blocking($socket, 1);
-		fputs($socket, "NAMES :".Setting::get('irc_channel')."\n");
+		fputs($socket, "NAMES :".$channel."\n");
 		$data = fgets($socket);
 		
 		$names = array();
@@ -82,14 +69,12 @@ class IRC {
 		return $names;
 	}
 	
-	public static function disconnect() {
-		global $socket;
+	public static function disconnect($socket) {
 		fclose($socket);
 	}
 	
-	public static function send($message) {
-		global $socket;
-		fputs($socket, "PRIVMSG ".Setting::get('irc_channel') . " :" . $message . "\n");
+	public static function send($socket, $channel, $message) {
+		fputs($socket, "PRIVMSG ".$channel. " :" . $message . "\n");
 	}
 }
 

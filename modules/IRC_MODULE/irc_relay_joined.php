@@ -1,13 +1,14 @@
 <?php
-   /*
-   ** Author: Legendadv (RK2)
-   ** IRC RELAY MODULE
-   **
-   ** Developed for: Budabot(http://aodevs.com/index.php/topic,512.0.html)
-   **
-   */
-   
-if (IRC::isConnectionActive()) {
+/*
+** Author: Legendadv (RK2)
+** IRC RELAY MODULE
+**
+** Developed for: Budabot(http://aodevs.com/index.php/topic,512.0.html)
+**
+*/
+
+global $ircSocket;
+if (IRC::isConnectionActive($ircSocket)) {
 	$whois = Player::get_by_name($sender);
 	if ($whois === null) {
 		$whois = new stdClass;
@@ -50,7 +51,7 @@ if (IRC::isConnectionActive()) {
 	}
 	
 	if ($type == "joinPriv") {
-		IRC::send(encodeGuildMessage($chatBot->vars['my_guild'], $msg));
+		IRC::send($ircSocket, Setting::get('irc_channel'), encodeGuildMessage($chatBot->vars['my_guild'], $msg));
 		if (Setting::get('irc_debug_messages') == 1) {
 			Logger::log_chat("Out. IRC Msg.", -1, "$sender has joined the private chat");
 		}
@@ -63,7 +64,7 @@ if (IRC::isConnectionActive()) {
 			}
 		}
 
-		IRC::send(encodeGuildMessage($chatBot->vars['my_guild'], $msg));
+		IRC::send($ircSocket, Setting::get('irc_channel'), encodeGuildMessage($chatBot->vars['my_guild'], $msg));
 		if (Setting::get('irc_debug_messages') == 1) {
 			Logger::log_chat("Out. IRC Msg.", -1, "$sender has logged on");
 		}

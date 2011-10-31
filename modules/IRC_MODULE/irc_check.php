@@ -1,18 +1,18 @@
 <?php
-   /*
-   ** Author: Legendadv (RK2)
-   ** IRC RELAY MODULE
-   **
-   ** Developed for: Budabot(http://aodevs.com/index.php/topic,512.0.html)
-   **
-   */
-   
-if (!IRC::isConnectionActive()) {
+/*
+** Author: Legendadv (RK2)
+** IRC RELAY MODULE
+**
+** Developed for: Budabot(http://aodevs.com/index.php/topic,512.0.html)
+**
+*/
+
+global $ircSocket;
+if (!IRC::isConnectionActive($ircSocket)) {
 	return;
 }
 
-global $socket;
-if ($data = fgets($socket)) {
+if ($data = fgets($ircSocket)) {
 	$ex = explode(' ', $data);
 	$ex[3] = substr($ex[3],1,strlen($ex[3]));
 	$rawcmd = rtrim(htmlspecialchars($ex[3]));
@@ -27,7 +27,7 @@ if ($data = fgets($socket)) {
 	$host = $nicka[1];
 	$nick = $nickc[1];
 	if ($ex[0] == "PING") {
-		fputs($socket, "PONG ".$ex[1]."\n");
+		fputs($ircSocket, "PONG ".$ex[1]."\n");
 		if (Setting::get('irc_debug_ping') == 1) {
 			Logger::log('info', "IRC", "PING received. PONG sent");
 		}
@@ -45,9 +45,9 @@ if ($data = fgets($socket)) {
 		}
 
 		if ($rawcmd == "!sayit") {
-			fputs($socket, "PRIVMSG ".$channel." :".$args." \n");
+			fputs($ircSocket, "PRIVMSG ".$channel." :".$args." \n");
 		} else if ($rawcmd == "!md5") {
-			fputs($socket, "PRIVMSG ".$channel." :MD5 ".md5($args)."\n");
+			fputs($ircSocket, "PRIVMSG ".$channel." :MD5 ".md5($args)."\n");
 		} else if ($rawcmd == "!online") {
 			$numonline = 0;
 			$numguest = 0;
@@ -102,8 +102,8 @@ if ($data = fgets($socket)) {
 			$membercount = "$numonline guildmembers and $numguest private chat members are online";
 			$list = substr($list,0,-2);
 			
-			fputs($socket, "PRIVMSG ".$channel." :$membercount\n");
-			fputs($socket, "PRIVMSG ".$channel." :$list\n");
+			fputs($ircSocket, "PRIVMSG ".$channel." :$membercount\n");
+			fputs($ircSocket, "PRIVMSG ".$channel." :$list\n");
 			flush();
 		} else if ($ex[1] == "JOIN") {
 			if ($chatBot->vars['my_guild'] != "") {

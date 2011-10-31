@@ -30,10 +30,10 @@
 	Event::register($MODULE_NAME, "1min", "set_irc_link.php", "none", "Automatically reconnect to IRC server", '', 0);
 	
 	// Commands
-	Command::register($MODULE_NAME, "", "irc_connect.php", "startirc", "admin", "Connect to IRC", 'irc');
-	Command::register($MODULE_NAME, "", "stopirc.php", "stopirc", "admin", "Disconnect from IRC", 'irc');
+	Command::register($MODULE_NAME, "", "irc_connect.php", "startirc", "mod", "Connect to IRC", 'irc');
+	Command::register($MODULE_NAME, "", "stopirc.php", "stopirc", "mod", "Disconnect from IRC", 'irc');
 	Command::register($MODULE_NAME, "", "online_irc.php", "onlineirc", "all", "View who is in IRC chat", 'irc');
-	Command::register($MODULE_NAME, "", "set_irc_settings.php", "setirc", "admin", "Manually set IRC settings", 'irc');
+	Command::register($MODULE_NAME, "", "set_irc_settings.php", "setirc", "mod", "Manually set IRC settings", 'irc');
 	
 	// IRC Relay
   	Event::register($MODULE_NAME, "2sec", "irc_check.php", "none", "Receive messages from IRC");
