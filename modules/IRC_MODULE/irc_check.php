@@ -21,16 +21,13 @@ if ($data = fgets($ircSocket)) {
 	$nicka = explode('@', $ex[0]);
 	$nickb = explode('!', $nicka[0]);
 	$nickc = explode(':', $nickb[0]);
-	if (Setting::get('irc_debug_all') == 1) {
-		Logger::log('info', "IRC", trim($data));
-	}
+	Logger::log('DEBUG', "IRC", trim($data));
+
 	$host = $nicka[1];
 	$nick = $nickc[1];
 	if ($ex[0] == "PING") {
 		fputs($ircSocket, "PONG ".$ex[1]."\n");
-		if (Setting::get('irc_debug_ping') == 1) {
-			Logger::log('info', "IRC", "PING received. PONG sent");
-		}
+		Logger::log('DEBUG', "IRC", "PING received. PONG sent");
 	} else if($ex[1] == "QUIT") {
 		if ($chatBot->vars['my_guild'] != "") {
 			$chatBot->send("<yellow>[IRC]<end><green> $nick quit IRC.<end>","guild",true);
@@ -120,9 +117,7 @@ if ($data = fgets($ircSocket)) {
 				$chatBot->send("<yellow>[IRC]<end><white> $nick left the channel.<end>", "priv", true);
 			}
 		} else {
-			if (Setting::get('irc_debug_messages') == 1) {
-				Logger::log_chat("Inc. IRC Msg.", $nick, $ircmessage);
-			}
+			Logger::log_chat("Inc. IRC Msg.", $nick, $ircmessage);
 			
 			// handle relay messages from other bots
 			if (preg_match("/" . chr(2) . chr(2) . chr(2) . "(.+)" . chr(2) . " (.+)/i", $ircmessage, $arr)) {
