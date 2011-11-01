@@ -4,7 +4,7 @@
 	DB::loadSQLFile($MODULE_NAME, "online");
 
 	// Online
-	Command::register($MODULE_NAME, "", "online.php", "online", "all", "Shows who is the private channel");
+	Command::register($MODULE_NAME, "", "online.php", "online", "member", "Shows who is the private channel");
 	
 	Event::register($MODULE_NAME, "logOn", "record_logon_guild.php", "none", "Records an org member login in db");
 	Event::register($MODULE_NAME, "logOff", "record_logoff_guild.php", "none", "Records an org member logoff in db");
@@ -32,6 +32,6 @@
 	Event::register($MODULE_NAME, "logOn", "logonline.php", "none", "Sends a tell to players on logon showing who is online in org");
 
 	// Help files
-	Help::register($MODULE_NAME, "online", "online.txt", "guild", "Show who is on from the guild");
-	Help::register($MODULE_NAME, "afk", "afk.txt", "all", "Going AFK");
+	Help::register($MODULE_NAME, "online", "online.txt", "member", "Show who is on from the guild");
+	Help::register($MODULE_NAME, "afk", "afk.txt", "member", "Going AFK");
 ?>
