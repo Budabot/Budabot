@@ -1,5 +1,12 @@
 <?php
 
+// disable error logging
+$error_file = $vars['error_file'];
+$error_console = $vars['error_console'];
+
+$vars['error_file'] = 0;
+$vars['error_console'] = 0;
+
 // For people upgrading from 2.2, any command that required 'guildadmin' access now requires 'rl' access.
 $db->exec("UPDATE cmdcfg_<myname> SET `admin` = 'rl' WHERE `admin` = 'guildadmin'");
 $db->exec("UPDATE hlpcfg_<myname> SET `admin` = 'rl' WHERE `admin` = 'guildadmin'");
@@ -55,5 +62,9 @@ $db->exec("UPDATE hlpcfg_<myname> SET admin = 'leader' WHERE admin = '1'");
 
 // remove cyclic fast/fastattack alias
 $db->exec("DELETE FROM cmd_alias_<myname> WHERE cmd = 'fast' AND alias = 'fastattack'");
+
+// re-enable error logging
+$vars['error_file'] = $error_file;
+$vars['error_console'] = $error_console;
 
 ?>
