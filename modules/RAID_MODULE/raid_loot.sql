@@ -342,3 +342,8 @@ INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multilo
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 292508, 292508, 1, 'Virus Programming: Bacteriophage Phi X 3957', 292776, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 292509, 292509, 1, 'Virus Programming: Bacteriophage M73', 292775, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 292510, 292510, 1, 'Virus Programming: Bacteriophage F9', 292774, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 290780, 290780, 250, 'NCU Infuser', 290779, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 292537, 292537, 1, 'Collatz Upgrade Plate', 292782, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 292535, 292535, 1, 'Fatou Upgrade Plate', 292790, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 292536, 292536, 1, 'Mandlebrot Upgrade Plate', 292758, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 293809, 293809, 1, 'A Single Strand of Glowing Dark Energy', 293810, 1);
