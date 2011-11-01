@@ -53,4 +53,7 @@ $db->exec("UPDATE hlpcfg_<myname> SET admin = 'mod' WHERE admin = '3'");
 $db->exec("UPDATE hlpcfg_<myname> SET admin = 'rl' WHERE admin = '2'");
 $db->exec("UPDATE hlpcfg_<myname> SET admin = 'leader' WHERE admin = '1'");
 
+// remove cyclic fast/fastattack alias
+$db->exec("DELETE FROM cmd_alias_<myname> WHERE cmd = 'fast' AND alias = 'fastattack'");
+
 ?>
