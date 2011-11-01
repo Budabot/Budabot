@@ -9,25 +9,14 @@ if (preg_match("/^Blammo! (.+) has launched an orbital attack!$/i", $message, $a
 
 	$launcher = $arr[1];
 
-	$newTimerName = "";
 	for ($i = 1; $i <= 10; $i++) {
-		$unique = true;
-
-		$newTimerName = "$orgName OS/AS $i";
-		forEach ($chatBot->data["timers"] as $key => $timer) {
-		  	if ($timer->name == $newTimerName) {
-			  	$unique = false;
-			    break;
-			}
-		}
-
-		if ($unique) {
+		$name = "$orgName OS/AS $i";
+		if (Timer::getTimer($name) == null) {
+			$timer = time() + (15*60); // set timer for 15 minutes
+			Timer::add_timer($name, $launcher, 'guild', $timer);
 			break;
 		}
 	}
-
-	$timer = time() + (15*60); // set timer for 15 minutes
-	Timer::add_timer($newTimerName, $launcher, 'guild', $timer);
 }
 
 ?>

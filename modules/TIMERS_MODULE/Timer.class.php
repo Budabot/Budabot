@@ -20,6 +20,15 @@ class Timer {
 		$db->exec("DELETE FROM timers_<myname> WHERE `name` LIKE '" . str_replace("'", "''", $chatBot->data["timers"][$key]->name) . "' AND `owner` = '{$chatBot->data["timers"][$key]->owner}'");
 		unset($chatBot->data["timers"][$key]);
 	}
+
+	public static function getTimer($name) {
+		forEach ($chatBot->data["timers"] as $timer) {
+			if (strcasecmp($name, $timer->name) == 0) {
+				return $timer;
+			}
+		}
+		return null;
+	}	
 }
 
 ?>
