@@ -1,14 +1,14 @@
 <?php
 
 class Timer {
-	public static function add_timer($name, $char, $type, $timer, $callback = null, $callback_param = null) {
+	public static function add_timer($name, $owner, $mode, $timer, $callback = null, $callback_param = null) {
 		global $chatBot;
 
 		$db = DB::get_instance();
 
-		$chatBot->data["timers"][] = (object)array("name" => $name, "owner" => $char, "mode" => $type, "timer" => $timer, "settime" => time(), 'callback' => $callback, 'callback_param' => $callback_param);
+		$chatBot->data["timers"][] = (object)array("name" => $name, "owner" => $owner, "mode" => $mode, "timer" => $timer, "settime" => time(), 'callback' => $callback, 'callback_param' => $callback_param);
 		$sql = "INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`, `callback`, `callback_param`) " .
-			"VALUES ('".str_replace("'", "''", $name)."', '$char', '$type', $timer, ".time().", '".str_replace("'", "''", $callback)."', '".str_replace("'", "''", $callback_param)."')";
+			"VALUES ('".str_replace("'", "''", $name)."', '$owner', '$mode', $timer, ".time().", '".str_replace("'", "''", $callback)."', '".str_replace("'", "''", $callback_param)."')";
 		$db->exec($sql);
 	}
 	

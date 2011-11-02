@@ -13,11 +13,6 @@ forEach ($chatBot->data["timers"] as $key => $timer) {
 	$name = $timer->name;
 	$owner = $timer->owner;
 	$mode = $timer->mode;
-	
-	if ($timer->callback != '') {
-		call_user_func($timer->callback, $timer->callback_param);
-		return;
-	}
 
 	if ($tleft >= 3599 && $tleft < 3601 && ((time() - $set_time) >= 30)) {
 		if ($name == $owner) {
@@ -47,6 +42,9 @@ forEach ($chatBot->data["timers"] as $key => $timer) {
 		}
 	
 		Timer::remove_timer($key);
+		if ($timer->callback == 'repeating') {
+			Timer::add_timer($name, $owner, $mode, $timer->callback_param + time(), $timer->callback, $timer->callback_param);
+		}
 	}
 
 	if ('' != $msg) {

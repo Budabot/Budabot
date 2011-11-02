@@ -118,11 +118,17 @@ if (preg_match("/^(timers|timers add) ([0-9]+)$/i", $message, $arr) || preg_matc
 			$name = $timer->name;
 			$owner = $timer->owner;
 			$mode = $timer->mode;
-			
+
 			$remove_link = Text::make_chatcmd("Remove", "/tell <myname> timers rem $name");
 
-			$list .= "Timername: <highlight>$name<end> {$remove_link}\n";
-			$list .= "Timeleft: <highlight>$time_left<end>\n";
+			$repeatingInfo = '';
+			if ($timer->callback == 'repeating') {
+				$repeatingTimeString = Util::unixtime_to_readable($timer->callback_param);
+				$repeatingInfo = " (Repeats every $repeatingTimeString)";
+			}
+
+			$list .= "Name: <highlight>$name<end> {$remove_link}\n";
+			$list .= "Timeleft: <highlight>$time_left<end> $repeatingInfo\n";
 			$list .= "Set by: <highlight>$owner<end>\n\n";
 		}
 		if ($list == "") {

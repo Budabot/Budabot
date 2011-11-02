@@ -4,6 +4,7 @@
 	Event::register($MODULE_NAME, "setup", "setup.php");
 
 	// Timer Module
+	Command::register($MODULE_NAME, "", "rtimer.php", "rtimer", "guild", "Add/restart a repeating timer");
 	Command::register($MODULE_NAME, "", "timers.php", "timers", "guild", "Set timers/Show running Timers");
 	CommandAlias::register($MODULE_NAME, "timers", "timer");
 	
