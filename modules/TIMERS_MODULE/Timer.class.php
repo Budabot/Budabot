@@ -21,7 +21,9 @@ class Timer {
 		unset($chatBot->data["timers"][$key]);
 	}
 
-	public static function getTimer($name) {
+	public static function get($name) {
+		global $chatBot;
+	
 		forEach ($chatBot->data["timers"] as $timer) {
 			if (strcasecmp($name, $timer->name) == 0) {
 				return $timer;
