@@ -1,6 +1,23 @@
 <?php
 
-if (preg_match("/^(timers|timers add) ([0-9]+)$/i", $message, $arr) || preg_match("/^(timers|timers add) ([0-9]+) (.+)$/i", $message, $arr)) {
+if (preg_match("/^timers view (.+)$/i", $message, $arr)) {
+	$timer_name = trim($arr[1]);
+	
+	$timer = Timer::get($timer_name);
+	if ($timer == null) {
+		$msg = "Could not find timer named <highlight>$timer_name<end>.";
+		$chatBot->send($msg, $sendto);
+		return;
+	}
+	
+	$time_left = Util::unixtime_to_readable($timer->timer - time());
+	$name = $timer->name;
+	$owner = $timer->owner;
+	$mode = $timer->mode;
+
+	$msg = "Timer <highlight>$name<end> has <highlight>$time_left<end> left.";
+	$chatBot->send($msg, $sendto);
+} else if (preg_match("/^(timers|timers add) ([0-9]+)$/i", $message, $arr) || preg_match("/^(timers|timers add) ([0-9]+) (.+)$/i", $message, $arr)) {
 	
 	if (isset($arr[3])) {
 		$timer_name = trim($arr[3]);
@@ -15,12 +32,10 @@ if (preg_match("/^(timers|timers add) ([0-9]+)$/i", $message, $arr) || preg_matc
 		$run_time = $arr[2] * 60;
 	}
 
-	forEach ($chatBot->data["timers"] as $timer) {
-		if ($timer->name == $timer_name) {
-			$msg = "A Timer with the name <highlight>$timer_name<end> is already running.";
-			$chatBot->send($msg, $sendto);
-			return;
-		}
+	if (Timer::get($timer_name) != null) {
+		$msg = "A timer named <highlight>$timer_name<end> is already running.";
+		$chatBot->send($msg, $sendto);
+		return;
 	}
 
     $timer = time() + $run_time;
@@ -66,12 +81,10 @@ if (preg_match("/^(timers|timers add) ([0-9]+)$/i", $message, $arr) || preg_matc
 		$timer_name = $arr[3];
 	}
 	
-	forEach ($chatBot->data["timers"] as $timer) {
-		if ($timer->name == $timer_name) {
-			$msg = "A Timer with the name <highlight>$timer_name<end> is already running.";
-			$chatBot->send($msg, $sendto);
-			return;
-		}
+	if (Timer::get($timer_name) != null) {
+		$msg = "A timer named <highlight>$timer_name<end> is already running.";
+		$chatBot->send($msg, $sendto);
+		return;
 	}
 
 	$run_time = Util::parseTime($time_string);
@@ -93,26 +106,23 @@ if (preg_match("/^(timers|timers add) ([0-9]+)$/i", $message, $arr) || preg_matc
 } else if (preg_match("/^timers$/i", $message, $arr)) {
 	$num_timers = count($chatBot->data["timers"]);
 	if ($num_timers == 0) {
-		$msg = "No Timers running atm.";
+		$msg = "No timers currently running.";
 	    $chatBot->send($msg, $sendto);
 	    return;
 	}
 
   	if ($num_timers <= Setting::get("timers_window")) {
+		$msg = "Timers currently running:";
 		forEach ($chatBot->data["timers"] as $timer) {
 			$time_left = Util::unixtime_to_readable($timer->timer - time());
 			$name = $timer->name;
 			$owner = $timer->owner;
 			$mode = $timer->mode;
 
-			$msg .= "\n Timer <highlight>$name<end> has <highlight>$time_left<end> left [set by <highlight>$owner<end>]";  	
-		}
-		if ($msg == "") {
-			$msg = "No Timers running atm.";
-		} else {
-		  	$msg = "Timers currently running:".$msg;
+			$msg .= "\n Timer <highlight>$name<end> has <highlight>$time_left<end> left [set by <highlight>$owner<end>]";
 		}
 	} else {
+		$blob = "<header> :::::: Timers Currently Running :::::: <end>\n\n";
 		forEach ($chatBot->data["timers"] as $timer) {
 			$time_left = Util::unixtime_to_readable($timer->timer - time());
 			$name = $timer->name;
@@ -127,16 +137,11 @@ if (preg_match("/^(timers|timers add) ([0-9]+)$/i", $message, $arr) || preg_matc
 				$repeatingInfo = " (Repeats every $repeatingTimeString)";
 			}
 
-			$list .= "Name: <highlight>$name<end> {$remove_link}\n";
-			$list .= "Timeleft: <highlight>$time_left<end> $repeatingInfo\n";
-			$list .= "Set by: <highlight>$owner<end>\n\n";
+			$blob .= "Name: <highlight>$name<end> {$remove_link}\n";
+			$blob .= "Timeleft: <highlight>$time_left<end> $repeatingInfo\n";
+			$blob .= "Set by: <highlight>$owner<end>\n\n";
 		}
-		if ($list == "") {
-			$msg = "No Timers running atm.";
-		} else {
-			$list = "<header> :::::: Timers Currently Running :::::: <end>\n\n".$list;
-		  	$msg = Text::make_blob("Timers currently running", $list);
-		}
+	  	$msg = Text::make_blob("Timers currently running", $blob);
 	}
 
     $chatBot->send($msg, $sendto);
