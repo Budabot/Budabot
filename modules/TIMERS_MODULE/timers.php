@@ -111,38 +111,26 @@ if (preg_match("/^timers view (.+)$/i", $message, $arr)) {
 	    return;
 	}
 
-  	if ($num_timers <= Setting::get("timers_window")) {
-		$msg = "Timers currently running:";
-		forEach ($chatBot->data["timers"] as $timer) {
-			$time_left = Util::unixtime_to_readable($timer->timer - time());
-			$name = $timer->name;
-			$owner = $timer->owner;
-			$mode = $timer->mode;
+	$blob = "<header> :::::: Timers Currently Running :::::: <end>\n\n";
+	forEach ($chatBot->data["timers"] as $timer) {
+		$time_left = Util::unixtime_to_readable($timer->timer - time());
+		$name = $timer->name;
+		$owner = $timer->owner;
+		$mode = $timer->mode;
 
-			$msg .= "\n Timer <highlight>$name<end> has <highlight>$time_left<end> left [set by <highlight>$owner<end>]";
+		$remove_link = Text::make_chatcmd("Remove", "/tell <myname> timers rem $name");
+
+		$repeatingInfo = '';
+		if ($timer->callback == 'repeating') {
+			$repeatingTimeString = Util::unixtime_to_readable($timer->callback_param);
+			$repeatingInfo = " (Repeats every $repeatingTimeString)";
 		}
-	} else {
-		$blob = "<header> :::::: Timers Currently Running :::::: <end>\n\n";
-		forEach ($chatBot->data["timers"] as $timer) {
-			$time_left = Util::unixtime_to_readable($timer->timer - time());
-			$name = $timer->name;
-			$owner = $timer->owner;
-			$mode = $timer->mode;
 
-			$remove_link = Text::make_chatcmd("Remove", "/tell <myname> timers rem $name");
-
-			$repeatingInfo = '';
-			if ($timer->callback == 'repeating') {
-				$repeatingTimeString = Util::unixtime_to_readable($timer->callback_param);
-				$repeatingInfo = " (Repeats every $repeatingTimeString)";
-			}
-
-			$blob .= "Name: <highlight>$name<end> {$remove_link}\n";
-			$blob .= "Timeleft: <highlight>$time_left<end> $repeatingInfo\n";
-			$blob .= "Set by: <highlight>$owner<end>\n\n";
-		}
-	  	$msg = Text::make_blob("Timers currently running", $blob);
+		$blob .= "Name: <highlight>$name<end> {$remove_link}\n";
+		$blob .= "Timeleft: <highlight>$time_left<end> $repeatingInfo\n";
+		$blob .= "Set by: <highlight>$owner<end>\n\n";
 	}
+	$msg = Text::make_blob("Timers currently running", $blob);
 
     $chatBot->send($msg, $sendto);
 } else {
