@@ -11,9 +11,16 @@ if (preg_match("/^addalias ([a-z0-9]+) (.+)/i", $message, $arr)) {
 	$alias_obj->status = 1;
 
 	$commands = Command::get($alias);
+	$enabled = false;
+	forEach ($commands as $command) {
+		if ($command->status == '1') {
+			$enabled = true;
+			break;
+		}
+	}
 	$row = CommandAlias::get($alias);
-	if (count($commands)) {
-		$msg = "Cannot add alias <highlight>{$alias}<end> since there is already a command with that name!";
+	if ($enabled) {
+		$msg = "Cannot add alias <highlight>{$alias}<end> since there is already an active command with that name.";
 	} else if ($row === null) {
 		CommandAlias::add($alias_obj);
 		CommandAlias::activate($cmd, $alias);
@@ -23,7 +30,7 @@ if (preg_match("/^addalias ([a-z0-9]+) (.+)/i", $message, $arr)) {
 		CommandAlias::activate($cmd, $alias);
 		$msg = "Alias <highlight>{$alias}<end> for command <highlight>{$cmd}<end> added successfully.";
 	} else if ($row->status == 1 && $row->cmd != $cmd) {
-		$msg = "Cannot add alias <highlight>{$alias}<end> since an alias with that name already exists!";
+		$msg = "Cannot add alias <highlight>{$alias}<end> since an alias with that name already exists.";
 	}
 	$chatBot->send($msg, $sendto);
 } else {

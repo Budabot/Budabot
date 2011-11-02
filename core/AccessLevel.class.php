@@ -76,6 +76,7 @@ class AccessLevel {
 	
 	public static function getSingleAccessLevel($sender) {
 		global $chatBot;
+		$db = DB::get_instance();
 		
 		if ($chatBot->vars["SuperAdmin"] == $sender){
 			return "superadmin";
@@ -96,7 +97,6 @@ class AccessLevel {
 			return "guild";
 		}
 		
-		$db = DB::get_instance();
 		$sql = "SELECT name FROM members_<myname> WHERE `name` = '$sender'";
 		$db->query($sql);
 		if ($db->numrows() > 0) {
