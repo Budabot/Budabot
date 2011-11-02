@@ -17,7 +17,10 @@ if (IRC::isConnectionActive($ircSocket)) {
 		$msg = htmlspecialchars_decode(preg_replace($pattern, $replace, $message));
 		//$msg = htmlspecialchars_decode(preg_replace($patterns, $replaces, $message), ENT_QUOTES);
 
-		IRC::send($ircSocket, Setting::get('irc_channel'), encodeGuildMessage($chatBot->vars['my_guild'], "$sender: $msg"));
+		if (Util::isValidSender($sender)) {
+			$msg = "$sender: $msg";
+		}
+		IRC::send($ircSocket, Setting::get('irc_channel'), encodeGuildMessage($chatBot->vars['my_guild'], $msg));
 		Logger::log_chat("Out. IRC Msg.", $sender, $msg);
 	}
 }
