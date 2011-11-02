@@ -2,16 +2,19 @@
 
 <orange>Note: You can use <symbol>timers and <symbol>timer interchangeably.<end>
 
-<highlight>Show current Timers running<end>
+<highlight>To show current timers running:<end>
 <tab><symbol>timers
 
-<highlight>Set a primary timer<end>
+<highlight>To set a primary timer:<end>
 <tab><symbol>timer 'time'
 
-<highlight>Set a named timer<end>
+<highlight>To set a named timer:<end>
 <tab><symbol>timer 'time' 'Timername'
 
-<highlight>Remove a timer(only your own)<end>
+<highlight>To remove a timer(only your own):<end>
 <tab><symbol>timer rem 'Timername'
+
+<highlight>To create a repeating timer:<end>
+<tab><symbol>rtimer 'intial time' 'repeating time' 'name'
 
 See <a href='chatcmd:///tell <myname> help budatime'>budatime</a> for info on the format of the 'time' parameter.

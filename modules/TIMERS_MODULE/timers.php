@@ -127,7 +127,7 @@ if (preg_match("/^timers view (.+)$/i", $message, $arr)) {
 		}
 
 		$blob .= "Name: <highlight>$name<end> {$remove_link}\n";
-		$blob .= "Timeleft: <highlight>$time_left<end> $repeatingInfo\n";
+		$blob .= "Time left: <highlight>$time_left<end> $repeatingInfo\n";
 		$blob .= "Set by: <highlight>$owner<end>\n\n";
 	}
 	$msg = Text::make_blob("Timers currently running", $blob);

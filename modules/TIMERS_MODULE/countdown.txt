@@ -2,6 +2,6 @@
 
 <orange>Note: This command will prevent the bot from responding to any other requests until the countdown finishes, so once it is run it can't be run again for another 30 seconds.<end>
 
-<highlight>To create a 5 second countdown timer<end>
+<highlight>To create a 5 second countdown timer:<end>
 <tab><symbol>countdown
 <tab><symbol>cd
