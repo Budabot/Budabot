@@ -29,9 +29,6 @@ if ($data = fgets($bbinSocket)) {
 	} else if ($ex[1] == "NOTICE") {
 		if (false != stripos($data, "exiting")) {
 			// the irc server shut down (i guess)
-			// set bot to disconnected
-			Setting::save("bbin_status","0");
-
 			// send notification to channel
 			$extendedinfo = Text::make_blob("Extended information", $data);
 			if ($chatBot->vars['my_guild'] != "") {
@@ -44,8 +41,6 @@ if ($data = fgets($bbinSocket)) {
 	} else if ("KICK" == $ex[1]) {
 		$extendedinfo = Text::make_blob("Extended information", $data);
 		if ($ex[3] == Setting::get('bbin_nickname')) {
-			// oh noez, I was kicked !
-			Setting::save("bbin_status", "0");
 			if ($chatBot->vars['my_guild'] != "") {
 				$chatBot->send("<yellow>[BBIN]<end> Our uplink was kicked from the server:".$extendedinfo, "guild", true);
 			}
@@ -77,7 +72,7 @@ if ($data = fgets($bbinSocket)) {
 		if ($chatBot->vars['my_guild'] == "" || Setting::get("guest_relay") == 1) {
 			$chatBot->send("<yellow>[BBIN]<end> Uplink established with $nick.", "priv", true);
 		}
-	} else if ($channel == trim(strtolower(Setting::get('bbin_channel')))) {
+	} else if ("PRIVMSG" == $ex[1] && $channel == trim(strtolower(Setting::get('bbin_channel')))) {
 		// tweak the third message a bit to remove beginning ":"
 		$ex[3] = substr($ex[3],1,strlen($ex[3]));
 		for ($i = 3; $i < count($ex); $i++) {
