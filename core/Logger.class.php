@@ -27,7 +27,7 @@ class Logger {
 		$category = strtoupper($category);
 		
 		if ($category == "ERROR") {
-			$message .= Util::getStackTrace();
+			$message .= "\n" . Util::getStackTrace();
 		}
 
 		$line = str_pad($timestamp, 17) . ' ' .  str_pad($category, 5) . ' ' . "[$tag]" . ' ' . $message;

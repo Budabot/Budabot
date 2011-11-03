@@ -31,7 +31,7 @@ class Event {
 		Logger::log('DEBUG', 'Event', "Registering event Type:($type) File:($filename) Module:($module)");
 		
 		$time = Util::parseTime($type);
-		if ($time == 0 && !in_array($type, Event::$EVENT_TYPES)) {
+		if ($time <= 0 && !in_array($type, Event::$EVENT_TYPES)) {
 			Logger::log('ERROR', 'Event', "Error registering event Type:($type) File:($filename) Module:($module). The type is not a recognized event type!");
 			return;
 		}
@@ -68,12 +68,6 @@ class Event {
 		$db = DB::get_instance();
 		
 		Logger::log('DEBUG', 'Event', "Activating event Type:($type) File:($filename)");
-		
-		$time = Util::parseTime($type);
-		if ($time == 0 && !in_array($type, Event::$EVENT_TYPES)) {
-			Logger::log('ERROR', 'Event', "Error activating event Type:($type) File:($filename). The type is not a recognized event type!");
-			return;
-		}
 
 		//Check if the file exists
 		$actual_filename = Util::verify_filename($filename);
@@ -84,13 +78,18 @@ class Event {
 		
 		if ($type == "setup") {
 			include $actual_filename;
-		} else if ($time != 0) {
-			$chatBot->cronevents[] = array('nextevent' => 0, 'filename' => $filename, 'time' => $time);
-		} else {
+		} else if (in_array($type, Event::$EVENT_TYPES)) {
 			if (!isset($chatBot->events[$type]) || !in_array($actual_filename, $chatBot->events[$type])) {
 				$chatBot->events[$type] []= $actual_filename;
 			} else {
 				Logger::log('ERROR', 'Event', "Error activating event Type:($type) File:($filename). Event already activated!");
+			}
+		} else {
+			$time = Util::parseTime($type);
+			if ($time > 0) {
+				$chatBot->cronevents[] = array('nextevent' => 0, 'filename' => $actual_filename, 'time' => $time);
+			} else {
+				Logger::log('ERROR', 'Event', "Error activating event Type:($type) File:($filename). The type is not a recognized event type!");
 			}
 		}
 	}
@@ -104,12 +103,6 @@ class Event {
 
 		Logger::log('debug', 'Event', "Deactivating event Type:($type) File:($filename)");
 		
-		$time = Util::parseTime($type);
-		if ($time == 0 && !in_array($type, Event::$EVENT_TYPES)) {
-			Logger::log('ERROR', 'Event', "Error deactivating event Type:($type) File:($filename). The type is not a recognized event type!");
-			return;
-		}
-		
 		// to remove this check we need to make sure to use $filename instead of $actual_filename
 		//Check if the file exists
 		$actual_filename = Util::verify_filename($filename);
@@ -117,20 +110,25 @@ class Event {
 			Logger::log('ERROR', 'Event', "Error deactivating event Type:($type) File:($filename). The file doesn't exist!");
 			return;
 		}
-
-		$found = true;
-		if ($time != 0) {
-			forEach ($chatBot->cronevents as $key => $event) {
-				if ($time == $event['time'] && $event['filename'] == $filename) {
-					$found = true;
-					unset($chatBot->cronevents[$key]);
-				}
-			}
-		} else {
+		
+		if (in_array($type, Event::$EVENT_TYPES)) {
 			if (in_array($actual_filename, $chatBot->events[$type])) {
 				$found = true;
 				$temp = array_flip($chatBot->events[$type]);
 				unset($chatBot->events[$type][$temp[$actual_filename]]);
+			}
+		} else {
+			$time = Util::parseTime($type);
+			if ($time > 0) {
+				forEach ($chatBot->cronevents as $key => $event) {
+					if ($time == $event['time'] && $event['filename'] == $actual_filename) {
+						$found = true;
+						unset($chatBot->cronevents[$key]);
+					}
+				}
+			} else {
+				Logger::log('ERROR', 'Event', "Error deactivating event Type:($type) File:($filename). The type is not a recognized event type!");
+				return;
 			}
 		}
 
