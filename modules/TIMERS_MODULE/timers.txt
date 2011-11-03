@@ -1,4 +1,4 @@
-<header> :::::: Help on Timer Commands :::::: <end>
+<header> :::::: Timer Commands :::::: <end>
 
 <orange>Note: You can use <symbol>timers and <symbol>timer interchangeably.<end>
 

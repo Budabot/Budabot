@@ -10,10 +10,10 @@
 if (preg_match("/^events add (.+)$/i", $message, $arr)) {
 	$db->exec("INSERT INTO events (`time_submitted`, `submitter_name`, `event_name`) VALUES (".time().", '".$sender."', '".addslashes($arr[1])."')");
 	$event_id = $db->lastInsertId();
-	$msg = "Event: '$arr[1]' was submitted [Event ID $event_id].";
+	$msg = "Event: '$arr[1]' was added [Event ID $event_id].";
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^events rem ([0-9]+)$/i", $message, $arr)) {
-	$db->exec("DELETE FROM events WHERE `id` = '$arr[2]'");
+	$db->exec("DELETE FROM events WHERE `id` = '$arr[1]'");
 	$msg = "Event Deleted.";
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^events setdesc ([0-9]+) (.+)$/i", $message, $arr)) {
