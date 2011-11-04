@@ -24,6 +24,10 @@ if ($data = fgets($ircSocket)) {
 	
 	$host = $nicka[1];
 	$nick = $nickc[1];
+	
+	$msgColor = Setting::get('irc_message_color');
+	$guildMsgColor = Setting::get('irc_guild_message_color');
+	$guildNameColor = Setting::get('irc_guild_name_color');
 
 	if ("PING" == $ex[0]) {
 		fputs($ircSocket, "PONG ".$ex[1]."\n");
@@ -44,32 +48,32 @@ if ($data = fgets($ircSocket)) {
 		$extendedinfo = Text::make_blob("Extended information", $data);
 		if ($ex[3] == Setting::get('irc_nickname')) {
 			if ($chatBot->vars['my_guild'] != "") {
-				$chatBot->send("<yellow>[IRC]<end> Our uplink was kicked from the server:".$extendedinfo, "guild", true);
+				$chatBot->send("<yellow>[IRC]<end> Bot was kicked from the server:".$extendedinfo, "guild", true);
 			}
 			if ($chatBot->vars['my_guild'] == "" || Setting::get("guest_relay") == 1) {
-				$chatBot->send("<yellow>[IRC]<end> Our uplink was kicked from the server:".$extendedinfo, "priv", true);
+				$chatBot->send("<yellow>[IRC]<end> Bot was kicked from the server:".$extendedinfo, "priv", true);
 			}
 		} else {
 			if ($chatBot->vars['my_guild'] != "") {
-				$chatBot->send("<yellow>[IRC]<end> The uplink ".$ex[3]." was kicked from the server:".$extendedinfo, "guild", true);
+				$chatBot->send("<yellow>[IRC]<end> ".$ex[3]." was kicked from the server:".$extendedinfo, "guild", true);
 			}
 			if ($chatBot->vars['my_guild'] == "" || Setting::get("guest_relay") == 1) {
-				$chatBot->send("<yellow>[IRC]<end> The uplink ".$ex[3]." was kicked from the server:".$extendedinfo, "priv", true);
+				$chatBot->send("<yellow>[IRC]<end> ".$ex[3]." was kicked from the server:".$extendedinfo, "priv", true);
 			}
 		}
 	} else if("QUIT" == $ex[1] || "PART" == $ex[1]) {
 		if ($chatBot->vars['my_guild'] != "") {
-			$chatBot->send("<yellow>[IRC]<end> <green>$nick left the channel.<end>", "guild", true);
+			$chatBot->send("<yellow>[IRC]<end> {$msgColor}$nick left the channel.<end>", "guild", true);
 		}
 		if ($chatBot->vars['my_guild'] == "" || Setting::get("guest_relay") == 1) {
-			$chatBot->send("<yellow>[IRC]<end> <white>$nick left the channel.<end>", "priv", true);
+			$chatBot->send("<yellow>[IRC]<end> {$msgColor}$nick left the channel.<end>", "priv", true);
 		}
 	} else if ("JOIN" == $ex[1]) {
 		if ($chatBot->vars['my_guild'] != "") {
-			$chatBot->send("<yellow>[IRC]<end> <green>$nick joined the channel.<end>", "guild", true);
+			$chatBot->send("<yellow>[IRC]<end> {$msgColor}$nick joined the channel.<end>", "guild", true);
 		}
 		if ($chatBot->vars['my_guild'] == "" || Setting::get("guest_relay") == 1) {
-			$chatBot->send("<yellow>[IRC]<end> <white>$nick joined the channel.<end>", "priv", true);
+			$chatBot->send("<yellow>[IRC]<end> {$msgColor}$nick joined the channel.<end>", "priv", true);
 		}
 	} else if ("PRIVMSG" == $ex[1] && $channel == trim(strtolower(Setting::get('irc_channel')))) {
 		$args = NULL; for ($i = 4; $i < count($ex); $i++) { $args .= rtrim(htmlspecialchars($ex[$i])) . ' '; }
@@ -144,9 +148,9 @@ if ($data = fgets($ircSocket)) {
 		} else {
 			// handle relay messages from other bots
 			if (preg_match("/" . chr(2) . chr(2) . chr(2) . "(.+)" . chr(2) . " (.+)/i", $ircmessage, $arr)) {
-				$ircmessage = "<white>{$arr[1]} {$arr[2]}<end>";
+				$ircmessage = "{$guildNameColor}{$arr[1]}<end> {$guildMsgColor}{$arr[2]}<end>";
 			} else {
-				$ircmessage = "<yellow>[IRC]<end><white> {$nick}: {$ircmessage}<end>";
+				$ircmessage = "<yellow>[IRC]<end> {$msgColor}{$nick}: {$ircmessage}<end>";
 			}
 			
 			// handle item links from other bots
