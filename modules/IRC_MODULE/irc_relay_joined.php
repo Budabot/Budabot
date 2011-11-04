@@ -25,26 +25,10 @@ if (IRC::isConnectionActive($ircSocket)) {
 	}
 
 	// Alternative Characters Part
-	$main = false;
-	// Check if $sender is hisself the main
-	$db->query("SELECT * FROM alts WHERE `main` = '$sender'");
-	if ($db->numrows() == 0){
-		// Check if $sender is an alt
-		$db->query("SELECT * FROM alts WHERE `alt` = '$sender'");
-		if ($db->numrows() != 0) {
-			$row = $db->fObject();
-			$main = $row->main;
-		}
-	} else {
-		$main = $sender;
+	$altInfo = Alts::get_alt_info($sender);
+	if ($altInfo->main != $sender) {
+		$msg .= " Alt of {$altInfo->main}";
 	}
-
-	if ($main != $sender && $main != false) {
-		$msg .= " Main: $main";
-	} else if ($main != false) {
-		$msg .= " Alt of $main";
-	}
-
 
 	if (($row->logon_msg != '') && ($row->logon_msg != '0')) {
 		$msg .= " - " . $row->logon_msg;
