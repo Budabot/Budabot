@@ -95,7 +95,8 @@ function find_items_from_local($search, $ql) {
 		}
 		return $msg;
 	} else if ($num > 3) {
-		$blob = "<header> :::::: Item Search Results :::::: <end>\n\n" . formatSearchResults($data, $ql, true);
+		$blob = "<header> :::::: Item Search Results (" . Setting::get('aodb_db_version') . ") :::::: <end>\n\n";
+		$blob .= formatSearchResults($data, $ql, true);
 		$blob .= "\n\n<highlight>Item DB rips provied by MajorOutage (RK1)<end>";
 		$link = Text::make_blob("$num results in total", $blob);
 
