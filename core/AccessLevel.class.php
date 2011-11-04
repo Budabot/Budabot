@@ -17,6 +17,8 @@ class AccessLevel {
 	 * @returns: true if $sender has at least $accessLevel, false otherwise
 	 */
 	public static function checkAccess($sender, $accessLevel) {
+		Logger::log("DEBUG", "AccessLevel", "Checking access level '$accessLevel' against character '$sender'");
+	
 		$sender = ucfirst(strtolower($sender));
 		$accessLevel = AccessLevel::normalizeAccessLevel($accessLevel);
 
@@ -32,6 +34,7 @@ class AccessLevel {
 			// otherwise just return the result
 			$altInfo = Alts::get_alt_info($sender);
 			if ($sender != $altInfo->main && $altInfo->is_validated($sender)) {
+				Logger::log("DEBUG", "AccessLevel", "Checking access level '$accessLevel' against the main of '$sender' which is '$altInfo->main'");
 				$charAccessLevel = AccessLevel::getSingleAccessLevel($altInfo->main);
 				$returnVal = (AccessLevel::compareAccessLevels($charAccessLevel, $accessLevel) >= 0);
 			}
@@ -81,14 +84,17 @@ class AccessLevel {
 		if ($chatBot->vars["SuperAdmin"] == $sender){
 			return "superadmin";
 		}
-		if ((isset($chatBot->admins[$sender]) && $chatBot->admins[$sender]["level"] >= 4) || AccessLevel::checkGuildAdmin($sender, 'admin')) {
-			return "admin";
-		}
-		if ((isset($chatBot->admins[$sender]) && $chatBot->admins[$sender]["level"] >= 3) || AccessLevel::checkGuildAdmin($sender, 'mod')) {
-			return "mod";
-		}
-		if ((isset($chatBot->admins[$sender]) && $chatBot->admins[$sender]["level"] >= 2) || AccessLevel::checkGuildAdmin($sender, 'rl')) {
-			return "rl";
+		if (isset($chatBot->admins[$sender])) {
+			$level = $chatBot->admins[$sender]["level"];
+			if ($level >= 4 || AccessLevel::checkGuildAdmin($sender, 'admin')) {
+				return "admin";
+			}
+			if ($level >= 3 || AccessLevel::checkGuildAdmin($sender, 'mod')) {
+				return "mod";
+			}
+			if ($level >= 2 || AccessLevel::checkGuildAdmin($sender, 'rl')) {
+				return "rl";
+			}
 		}
 		if (isset($chatBot->data["leader"]) && $chatBot->data["leader"] == $sender) {
 			return "leader";
@@ -110,11 +116,13 @@ class AccessLevel {
 
 		$accessLevel = AccessLevel::getSingleAccessLevel($sender);
 		
-		$altInfo = Alts::get_alt_info($sender);
-		if ($sender != $altInfo->main && $altInfo->is_validated($sender)) {
-			$mainAccessLevel = AccessLevel::getSingleAccessLevel($altInfo->main);
-			if (AccessLevel::compareAccessLevels($mainAccessLevel, $accessLevel) > 0) {
-				$accessLevel = $mainAccessLevel;
+		if (Setting::get('alts_inherit_admin') == 1) {
+			$altInfo = Alts::get_alt_info($sender);
+			if ($sender != $altInfo->main && $altInfo->is_validated($sender)) {
+				$mainAccessLevel = AccessLevel::getSingleAccessLevel($altInfo->main);
+				if (AccessLevel::compareAccessLevels($mainAccessLevel, $accessLevel) > 0) {
+					$accessLevel = $mainAccessLevel;
+				}
 			}
 		}
 		
