@@ -1,9 +1,9 @@
 <?php
 
 if (preg_match("/^cloak$/i", $message)) {
-    $db->query("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 0, 20 ");
+    $db->query("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 20");
     if ($db->numrows() == 0) {
-        $msg = "<highlight>Unknown status on city cloak!<end>";
+        $msg = "<highlight>Unknown status on cloak!<end>";
     } else {
 		$row = $db->fObject();
 		$timeSinceChange = time() - $row->time;
@@ -19,21 +19,21 @@ if (preg_match("/^cloak$/i", $message)) {
             $msg = "The cloaking device is <green>enabled<end>. It is possible in $timeString to disable it.";
 		}
 
-        $list = "<header> :::::: City Cloak History :::::: <end>\n\n";
+        $list = "<header> :::::: Cloak History :::::: <end>\n\n";
         $list .= "Time: <highlight>".date("M j, Y, G:i", $row->time)." (GMT)<end>\n";
-        $list .= "Action: <highlight>Cloaking Device has been turned ".$row->action."<end>\n";
+        $list .= "Action: <highlight>Cloaking Device turned ".$row->action."<end>\n";
         $list .= "Player: <highlight>".$row->player."<end>\n\n";
         
         while ($row = $db->fObject()) {
             $list .= "Time: <highlight>".date("M j, Y, G:i", $row->time)." (GMT)<end>\n";
-            $list .= "Action: <highlight>Cloaking Device has been turned ".$row->action."<end>\n";
+            $list .= "Action: <highlight>Cloaking Device turned ".$row->action."<end>\n";
             $list .= "Player: <highlight>".$row->player."<end>\n\n";
         }
-        $msg .= " ".Text::make_blob("City History", $list);
+        $msg .= " ".Text::make_blob("Cloak History", $list);
     }
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^cloak (raise|on)$/i", $message)) {
-    $db->query("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 0, 20 ");
+    $db->query("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 20");
 	$row = $db->fObject();
 
 	if ($row->action == "on") {
