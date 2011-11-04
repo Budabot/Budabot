@@ -136,4 +136,5 @@ if (preg_match("/^timers view (.+)$/i", $message, $arr)) {
 } else {
 	$syntax_error = true;
 }
+
 ?>

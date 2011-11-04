@@ -40,4 +40,5 @@ if (preg_match("/^(rtimer add|rtimer) ([a-z0-9]+) ([a-z0-9]+) (.+)$/i", $message
 } else {
 	$syntax_error = true;
 }
+
 ?>

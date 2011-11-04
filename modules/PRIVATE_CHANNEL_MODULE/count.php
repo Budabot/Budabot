@@ -159,4 +159,5 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 } else {
 	$syntax_error = true;
 }
+
 ?>

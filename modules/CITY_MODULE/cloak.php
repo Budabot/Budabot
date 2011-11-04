@@ -21,12 +21,12 @@ if (preg_match("/^cloak$/i", $message)) {
 
         $list = "<header> :::::: Cloak History :::::: <end>\n\n";
         $list .= "Time: <highlight>".date("M j, Y, G:i", $row->time)." (GMT)<end>\n";
-        $list .= "Action: <highlight>Cloaking Device turned ".$row->action."<end>\n";
+        $list .= "Action: <highlight>Cloaking device turned ".$row->action."<end>\n";
         $list .= "Player: <highlight>".$row->player."<end>\n\n";
         
         while ($row = $db->fObject()) {
             $list .= "Time: <highlight>".date("M j, Y, G:i", $row->time)." (GMT)<end>\n";
-            $list .= "Action: <highlight>Cloaking Device turned ".$row->action."<end>\n";
+            $list .= "Action: <highlight>Cloaking device turned ".$row->action."<end>\n";
             $list .= "Player: <highlight>".$row->player."<end>\n\n";
         }
         $msg .= " ".Text::make_blob("Cloak History", $list);
