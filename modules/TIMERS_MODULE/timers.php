@@ -40,7 +40,7 @@ if (preg_match("/^timers view (.+)$/i", $message, $arr)) {
 
     $timer = time() + $run_time;
 
-	Timer::add_timer($timer_name, $sender, $type, $timer);
+	Timer::add($timer_name, $sender, $type, $timer);
 
 	$timerset = Util::unixtime_to_readable($run_time);
 	$msg = "Timer <highlight>$timer_name<end> has been set for $timerset.";
@@ -49,24 +49,14 @@ if (preg_match("/^timers view (.+)$/i", $message, $arr)) {
 } else if (preg_match("/^timers (rem|del) (.+)$/i", $message, $arr)) {
 	$timer_name = strtolower($arr[2]);
 	
-	forEach ($chatBot->data["timers"] as $key => $timer) {
-		$name = $timer->name;
-		$owner = $timer->owner;
-
-		if (strtolower($name) == $timer_name) {
-			if ($owner == $sender || AccessLevel::check_access($sender, "rl")) {
-				Timer::remove_timer($key);
-			  	$msg = "Removed timer <highlight>$name<end>.";
-			  	break;
-			} else {
-				$msg = "You don't have the required access level (raidleader) to remove this timer.";
-				break;
-			}
-		}
-	}
-
-	if (!$msg) {
-		$msg = "A timer with this name is not running.";
+	$timer = Timer::get($timer_name);
+	if ($timer == null) {
+		$msg = "Could not find a timer named <highlight>$timer_name<end>.";
+	} else if ($timer->owner != $sender && !AccessLevel::check_access($sender, "rl")) {
+		$msg = "You don't have the required access level (raidleader) to remove this timer.";
+	} else {
+		Timer::remove($timer_name);
+		$msg = "Removed timer <highlight>$timer_name<end>.";
 	}
 
     $chatBot->send($msg, $sendto);
@@ -97,22 +87,22 @@ if (preg_match("/^timers view (.+)$/i", $message, $arr)) {
 
     $timer = time() + $run_time;
 
-	Timer::add_timer($timer_name, $sender, $type, $timer);
+	Timer::add($timer_name, $sender, $type, $timer);
 
 	$timerset = Util::unixtime_to_readable($run_time);
 	$msg = "Timer <highlight>$timer_name<end> has been set for $timerset.";
 		
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^timers$/i", $message, $arr)) {
-	$num_timers = count($chatBot->data["timers"]);
-	if ($num_timers == 0) {
+	$timers = Timer::getAllTimers();
+	if (count($timers) == 0) {
 		$msg = "No timers currently running.";
 	    $chatBot->send($msg, $sendto);
 	    return;
 	}
 
 	$blob = "<header> :::::: Timers Currently Running :::::: <end>\n\n";
-	forEach ($chatBot->data["timers"] as $timer) {
+	forEach ($timers as $timer) {
 		$time_left = Util::unixtime_to_readable($timer->timer - time());
 		$name = $timer->name;
 		$owner = $timer->owner;

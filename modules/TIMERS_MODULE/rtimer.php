@@ -5,12 +5,11 @@ if (preg_match("/^(rtimer add|rtimer) ([a-z0-9]+) ([a-z0-9]+) (.+)$/i", $message
 	$timeString = $arr[3];
 	$timerName = $arr[4];
 	
-	forEach ($chatBot->data["timers"] as $timer) {
-		if ($timer->name == $timerName) {
-			$msg = "A Timer with the name <highlight>$timerName<end> is already running.";
-			$chatBot->send($msg, $sendto);
-			return;
-		}
+	$timer = Timer::get($timerName);
+	if ($timer != null) {
+		$msg = "A Timer with the name <highlight>$timerName<end> is already running.";
+		$chatBot->send($msg, $sendto);
+		return;
 	}
 
 	$initialRunTime = Util::parseTime($initialTimeString);
@@ -30,7 +29,7 @@ if (preg_match("/^(rtimer add|rtimer) ([a-z0-9]+) ([a-z0-9]+) (.+)$/i", $message
 
     $timer = time() + $initialRunTime;
 
-	Timer::add_timer($timerName, $sender, $type, $timer, "repeating", $runTime);
+	Timer::add($timerName, $sender, $type, $timer, "repeating", $runTime);
 
 	$initialTimerSet = Util::unixtime_to_readable($initialRunTime);
 	$timerSet = Util::unixtime_to_readable($runTime);

@@ -13,7 +13,7 @@ if (preg_match("/^Blammo! (.+) has launched an orbital attack!$/i", $message, $a
 		$name = "$orgName OS/AS $i";
 		if (Timer::get($name) == null) {
 			$timer = time() + (15*60); // set timer for 15 minutes
-			Timer::add_timer($name, $launcher, 'guild', $timer);
+			Timer::add($name, $launcher, 'guild', $timer);
 			break;
 		}
 	}
