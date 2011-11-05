@@ -19,12 +19,12 @@ if (preg_match("/^startirc$/i", $message)) {
 	}
 
 	$chatBot->send("Intializing IRC connection. Please wait...", $sendto);
-	$result = IRC::connect($ircSocket, Setting::get('irc_nickname'), Setting::get('irc_server'), Setting::get('irc_port'), Setting::get('irc_password'), Setting::get('irc_channel'));
-	if ($result == true) {
+	IRC::connect($ircSocket, Setting::get('irc_nickname'), Setting::get('irc_server'), Setting::get('irc_port'), Setting::get('irc_password'), Setting::get('irc_channel'));
+	if (IRC::isConnectionActive($ircSocket)) {
 		Setting::save("irc_status", "1");
 		$chatBot->send("Finished connecting to IRC.", $sendto);
 	} else {
-		$chatBot->send("Error connectiong to IRC.", $sendto);
+		$chatBot->send("Error connecting to IRC.", $sendto);
 	}
 } else {
 	$syntax_error = true;

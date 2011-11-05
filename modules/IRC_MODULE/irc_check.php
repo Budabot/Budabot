@@ -76,7 +76,10 @@ if ($data = fgets($ircSocket)) {
 			$chatBot->send("<yellow>[IRC]<end> {$msgColor}$nick joined the channel.<end>", "priv", true);
 		}
 	} else if ("PRIVMSG" == $ex[1] && $channel == trim(strtolower(Setting::get('irc_channel')))) {
-		$args = NULL; for ($i = 4; $i < count($ex); $i++) { $args .= rtrim(htmlspecialchars($ex[$i])) . ' '; }
+		$args = NULL;
+		for ($i = 4; $i < count($ex); $i++) {
+			$args .= rtrim(htmlspecialchars($ex[$i])) . ' ';
+		}
 		for ($i = 3; $i < count($ex); $i++) {
 			$ircmessage .= rtrim(htmlspecialchars($ex[$i]))." ";
 		}

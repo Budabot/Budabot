@@ -40,7 +40,6 @@ class IRC {
 			Logger::log('DEBUG', "IRC", trim($data));
 			if (preg_match("/(ERROR)(.+)/", $data, $sandbox)) {
 				Logger::log('ERROR', "IRC", trim($data));
-				return false;
 			}
 			if ($ex[0] == "PING") {
 				fputs($socket, "PONG ".$ex[1]."\n");
@@ -51,7 +50,6 @@ class IRC {
 		}
 		stream_set_blocking($socket, 0);
 		Logger::log('INFO', "IRC", "Finished connecting to IRC");
-		return true;
 	}
 	
 	public static function getUsersInChannel(&$socket, $channel) {
