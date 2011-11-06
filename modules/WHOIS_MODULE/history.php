@@ -13,16 +13,13 @@ if (preg_match("/^history (.+) (\d)$/i", $message, $arr) || preg_match("/^histor
 		}
 	}
 	
-	$msg = "Getting History of player <highlight>$name<end>...";
-	$chatBot->send($msg, $sendto);
-	
 	$link = array();
 	$history = new history($name, $dimension);
 	if ($history->errorCode != 0) {
 		$msg = $history->errorInfo;
 	} else {
 		$altInfo = Alts::get_alt_info($name);
-		$link[] = "<header>::::: History of $name ::::::<end>\n\n";
+		$link[] = "<header>::::: History of $name for RK {$dimension} ::::::<end>\n\n";
 		$lh = "<highlight>Options:<end>\n";
 		if (count($altInfo->alts) > 0) {
 		$lh .= "<tab><tab><a href='chatcmd:///tell <myname> alts $name'>Show Alts</a> \n";
@@ -60,7 +57,7 @@ if (preg_match("/^history (.+) (\d)$/i", $message, $arr) || preg_match("/^histor
 			$l .= "$key |  $level  | $ailevel | $faction | $guild\n";
 		}
 		$link[] = array("header" => $lh, "content" => $l);
-		$msg = Text::make_structured_blob("History of $name", $link);
+		$msg = Text::make_structured_blob("History of $name for RK {$dimension}", $link);
 	}
 
     $chatBot->send($msg, $sendto);
