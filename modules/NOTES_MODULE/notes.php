@@ -8,7 +8,7 @@ if (preg_match("/^notes$/i", $message)) {
 	$data = $db->fObject('all');
 	
 	if (count($data) == 0) {
-		$msg = "No notes for $sender.";	
+		$msg = "No notes for $sender.";
 	} else {
 		forEach ($data as $row) {
 			$remove = Text::make_chatcmd('Remove', "/tell <myname> <symbol>notes rem $row->id");
@@ -30,7 +30,7 @@ if (preg_match("/^notes$/i", $message)) {
 
 	$numRows = $db->exec("DELETE FROM notes WHERE id = $id AND name LIKE '$sender'");
 	if ($numRows == 0) {
-		$msg = "Note could not be found.";
+		$msg = "Note could not be found or note does not belong to you.";
 	} else {
 		$msg = "Note deleted successfully.";
 	}
