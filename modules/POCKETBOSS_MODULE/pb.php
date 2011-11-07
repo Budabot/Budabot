@@ -2,7 +2,8 @@
 
 if (preg_match("/^pb (.+)$/i", $message, $arr)) {
 	$search = str_replace(" ", "%", $arr[1]);
-  	$db->query("SELECT * FROM pbdb WHERE `pb` LIKE '%$search%' GROUP BY `pb` ORDER BY `pb`");
+	$search = str_replace("'", "''", $search);
+  	$db->query("SELECT * FROM pbdb WHERE `pb` LIKE '%{$search}%' GROUP BY `pb` ORDER BY `pb`");
 	$numrows = $db->numrows();
   	if ($numrows >= 1 && $numrows <= 5) {
 		$msg = "Pocketbosses matching: ";
