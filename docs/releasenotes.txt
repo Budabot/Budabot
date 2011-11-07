@@ -1,9 +1,11 @@
 *****************************
-	Version 2.3_RC4:
+	Version 2.3_GA:
 *****************************
+-added !rtimers (repeating timers) and !timers view (intended to be used with aliases)
 -added bastion loot in RAID_MODULE (thanks Taylorka (RK2) and Nanomongool (RK2))
+-adding setting to specify colors in the IRC_MODULE
 -reworked BBIN_MODULE and IRC_MODULE to fix some issues and added option to have them reconnect when IRC connection is lost
--tweaked items db filter and updated it to 18.04.11 along with text.mdb (thanks MajorOutage (RK1))
+-tweaked items db filter and updated it to 18.04.12 along with text.mdb (thanks MajorOutage (RK1))
 -changed gmdate() to date() in case someone would like to set the bot to use their own timezone (thanks MajorOutage (RK1))
 -fixed some issues with checking access level when alts_inherit_admin was enabled
 -removed join limits from the core LIMITS module
