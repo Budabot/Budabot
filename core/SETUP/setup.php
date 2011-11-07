@@ -151,13 +151,13 @@ if (strtolower($mansetupdb) == "yes") {
 		echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		echo "             *********************************************************\n";		
 		echo "             The bot is able to use 2 different Database Types.\n";
-		echo "             1 = Sqlite. It is the easiest way togo.\n";
-		echo "                 Nearly as fast as MySQL\n";
+		echo "             1 = Sqlite. It is the easiest way to go and provides.\n";
+		echo "                 faster bot startup than MySQL.\n";
 		echo "             2 = MySQL. An Open-Source Database.\n";
 		echo "                 You need to install and setup it manually\n";
 		echo "                 http://www.mysql.com/\n";
 		echo "                 Be aware that when you setup it wrong\n";
-		echo "                 that it can be slower then SQLite!\n";
+		echo "                 it can be slower then Sqlite!\n";
 		echo "             *********************************************************\n";
 		echo "             \n\n\n\n\n\n\n";
 		$msg = "Choose a Database system (1 = Sqlite - Recommended, 2 = MySQL): \n";
@@ -166,17 +166,17 @@ if (strtolower($mansetupdb) == "yes") {
 
 	switch($vars["DB Type"]) {
 		case "1":
-			$vars["DB Type"] = "Sqlite";
+			$vars["DB Type"] = "sqlite";
 		break;
 		case "2":
-			$vars["DB Type"] = "Mysql";
+			$vars["DB Type"] = "mysql";
 		break;
 	}
 	echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 	echo "             *********************************************************\n";	
 	echo "             What is the name of the database that you\n";
 	echo "             wannna use?\n";
-	if ($vars["DB Type"] == "Sqlite") {
+	if ($vars["DB Type"] == "sqlite") {
 		echo "             (This is the filename of the database)\n";
 		echo "             (Default: budabot.db)\n";
 	} else {
@@ -187,13 +187,13 @@ if (strtolower($mansetupdb) == "yes") {
 	$msg = "Enter the Databasename(leave blank for default setting): \n";
 	$vars["DB Name"] = read_input($msg);
 	
-	if ($vars["DB Name"] == "" && $vars["DB Type"] == "Sqlite") {
+	if ($vars["DB Name"] == "" && $vars["DB Type"] == "sqlite") {
 		$vars["DB Name"] = "budabot.db";
-	} else if ($vars["DB Name"] == "" && $vars["DB Type"] == "Mysql") {
+	} else if ($vars["DB Name"] == "" && $vars["DB Type"] == "mysql") {
 		$vars["DB Name"] = "budabot";
 	}
 		
-	if ($vars["DB Type"] == "Mysql") {
+	if ($vars["DB Type"] == "mysql") {
 		echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		echo "             **********************************************\n";		
 		echo "             On what Host is the Database running?\n";

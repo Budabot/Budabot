@@ -55,7 +55,7 @@ class DB {
 	//Constructor(opens the connection to the Database)
 	function __construct($type, $dbName, $host = NULL, $user = NULL, $pass = NULL) {
 		global $vars;
-		$this->type = $type;
+		$this->type = strtolower($type);
 		$this->dbName = $dbName;
 		$this->host = $host;
 		$this->user = $user;
@@ -64,7 +64,7 @@ class DB {
 		$this->dim = $vars["dimension"];
 		$this->guild = str_replace("'", "''", $vars["my_guild"]);
 			
-		if ($type == 'Mysql') {
+		if ($type == 'mysql') {
 			try {
 				$this->sql = new PDO("mysql:host=$host", $user, $pass);
 				$this->exec("CREATE DATABASE IF NOT EXISTS $dbName");
@@ -75,7 +75,7 @@ class DB {
 			  	$this->errorCode = 1;
 			  	$this->errorInfo = $e->getMessage();
 			}
-		} else if ($type == 'Sqlite') {
+		} else if ($type == 'sqlite') {
 			if ($host == NULL || $host == "" || $host == "localhost") {
 				$this->dbName = "./data/$this->dbName";
 			} else {
@@ -88,6 +88,8 @@ class DB {
 			  	$this->errorCode = 1;
 			  	$this->errorInfo = $e->getMessage();
 			}			
+		} else {
+			throw new Exception("Invalid database type: '$type'.  Expecting 'mysql' or 'sqlite'.";
 		}
 	}
 	

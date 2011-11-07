@@ -16,7 +16,7 @@ $vars['dimension']  = 1;
 $vars['SuperAdmin'] = "";
 
 // Database information.
-$vars['DB Type'] = "Sqlite";		// What type of database should be used? (Sqlite or Mysql)
+$vars['DB Type'] = "sqlite";		// What type of database should be used? ('sqlite' or 'mysql')
 $vars['DB Name'] = "budabot.db";	// Database name
 $vars['DB Host'] = "./data/";		// Hostname or file location
 $vars['DB username'] = "";		// MySQL username
