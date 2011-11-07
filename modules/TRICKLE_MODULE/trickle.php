@@ -17,7 +17,7 @@ if (preg_match("/^trickle( ([a-zA-Z]+) ([0-9]+)){1,6}$/i", $message, $arr1) || p
 			
 			$abilities[$ability] = $array[1 + $i];
 		}
-	} else if ($arr2) {
+	} else {
 		$array = explode(" ", $message);
 		array_shift($array);
 		for ($i = 0; isset($array[$i]); $i += 2) {

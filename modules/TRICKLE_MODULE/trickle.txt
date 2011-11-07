@@ -1,8 +1,10 @@
-<header>::::: Trickle Commands :::::<end>
+<header> :::::: Trickle Command :::::: <end>
 
-<highlight>Shows how much skills you will gain by increasing an ability<end>
-<tab>Usage: <symbol>trickle &lt;ability&gt; &lt;amount&gt;
+<highlight>To show which and how much your skills will increase by increasing an ability:<end>
+<tab><symbol>trickle 'ability' 'amount'
 
-<tab>eg: <symbol>trickle agi 20
+<highlight>Example:<end>
+<tab><symbol>trickle agi 20
+<tab><symbol>trickle agi 20 intel 40 psychic 60
 
-Valid abilites are: agi, int, psy, sta, str, sen
+Valid abilities are: agi, int, psy, sta, str, sen
