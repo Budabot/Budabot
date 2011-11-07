@@ -47,7 +47,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 			
 			$list .= "Source: $whois->source\n\n";
 			
-			$list .= "<pagebreak>" . getNameHistory($name, "<dim>");
+			$list .= "<pagebreak>" . getNameHistory($uid, "<dim>");
 
 			$list .= "\n<pagebreak><header> :::::: Options :::::: <end>\n\n";
 			
