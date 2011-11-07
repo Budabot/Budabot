@@ -3,7 +3,7 @@
 if (preg_match("/^links$/i", $message)) {
 	$blob = "<header> :::::: Links :::::: <end>\n\n";
 
-	$sql = "SELECT * FROM links ORDER BY dt DESC";
+	$sql = "SELECT * FROM links ORDER BY name ASC";
   	$db->query($sql);
 	$data = $db->fObject('all');
   	forEach ($data as $row) {
@@ -13,8 +13,7 @@ if (preg_match("/^links$/i", $message)) {
 		} else {
 			$website = Text::make_chatcmd('[Link]', "/start $row->website");
 		}
-		$dt = date("M j, Y, G:i", $row->dt);
-	  	$blob .= "$website <white>$row->comments<end> [<green>$row->name<end>] <white>$dt<end> $remove\n";
+	  	$blob .= "$website <white>$row->comments<end> [<green>$row->name<end>] $remove\n";
 	}
 	
 	if (count($data) == 0) {
