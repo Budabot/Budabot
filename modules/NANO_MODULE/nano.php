@@ -20,16 +20,16 @@ if (preg_match("/^nano (.+)$/i", $message, $arr)) {
 	}
 
 	$db->query("SELECT * FROM nanos WHERE 1=1 $query ORDER BY lowql DESC, name LIMIT 0, " . Setting::get("maxnano"));
-	$count = $db->numrows();
+	$data = $db->fObject('all');
+	$count = count($data);
 	if ($count == 0) {
 		$msg = "No nanos found.";
 	} else if ($count == 1) {
-		$row = $db->fObject();
+		$row = $data[0];
 		$msg .= Text::make_item($row->lowid, $row->lowid, $row->lowql, $row->name) . " ({$row->lowql})\n";
 		$msg .= "Located: {$row->location}";
 	} else {
 		$blob = "<header> :::::: Nano Search Results ($count) :::::: <end>\n\n";
-		$data = $db->fObject('all');
 		forEach ($data as $row) {
 			$blob .= Text::make_item($row->lowid, $row->lowid, $row->lowql, $row->name) . " ({$row->lowql})\n";
 			$blob .= "Located: {$row->location}\n\n";
