@@ -64,7 +64,7 @@ class DB {
 		$this->dim = $vars["dimension"];
 		$this->guild = str_replace("'", "''", $vars["my_guild"]);
 			
-		if ($type == 'mysql') {
+		if ($this->type == 'mysql') {
 			try {
 				$this->sql = new PDO("mysql:host=$host", $user, $pass);
 				$this->exec("CREATE DATABASE IF NOT EXISTS $dbName");
@@ -75,7 +75,7 @@ class DB {
 			  	$this->errorCode = 1;
 			  	$this->errorInfo = $e->getMessage();
 			}
-		} else if ($type == 'sqlite') {
+		} else if ($this->type == 'sqlite') {
 			if ($host == NULL || $host == "" || $host == "localhost") {
 				$this->dbName = "./data/$this->dbName";
 			} else {
@@ -89,7 +89,7 @@ class DB {
 			  	$this->errorInfo = $e->getMessage();
 			}			
 		} else {
-			throw new Exception("Invalid database type: '$type'.  Expecting 'mysql' or 'sqlite'.";
+			throw new Exception("Invalid database type: '$type'.  Expecting 'mysql' or 'sqlite'.");
 		}
 	}
 	
