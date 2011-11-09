@@ -1,7 +1,7 @@
 <?php
 
 if (preg_match("/^nanoloc$/i", $message, $arr)) {
-	$db->query("SELECT DISTINCT location FROM nanos");
+	$db->query("SELECT DISTINCT location FROM nanos ORDER BY name ASC");
 	$data = $db->fObject('all');
 	
 	$blob = "<header> :::::: Nano Locations :::::: <end>\n\n";
@@ -14,7 +14,7 @@ if (preg_match("/^nanoloc$/i", $message, $arr)) {
 } else if (preg_match("/^nanoloc (.+)$/i", $message, $arr)) {
 	$location = $arr[1];
 
-	$db->query("SELECT * FROM nanos WHERE location LIKE '" . str_replace("'", "''", $location) . "' ORDER BY lowql DESC, name");
+	$db->query("SELECT * FROM nanos WHERE location LIKE '" . str_replace("'", "''", $location) . "' ORDER BY name ASC");
 	$data = $db->fObject('all');
 	$count = count($data);
 	if ($count == 0) {
