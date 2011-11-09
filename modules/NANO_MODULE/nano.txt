@@ -10,3 +10,6 @@ Note: You don't need to insert the full name to do an successfull search but the
 <highlight>For example:<end>
 <tab><symbol>nano composite
 <tab>Displays nanos with composite in its name and where to get them.
+
+<highlight>To browse nanos by location:<end>
+<tab><symbol>nanoloc

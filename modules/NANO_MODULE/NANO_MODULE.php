@@ -6,7 +6,7 @@
 
 	//nano Search
 	Command::register($MODULE_NAME, "", "nano.php", "nano", "all", "Searches for a nano and tells you were to get it");
-	Command::register($MODULE_NAME, "", "nanoloc.php", "nanoloc", "all", "Browse nanos by location");
+	Command::register($MODULE_NAME, "", "nanoloc.php", "nanoloc", "all", "Browse nanos by location", 'nano');
 	Command::register($MODULE_NAME, "", "fp.php", "fp", "all", "Shows whether or not a nano is usable in false profession");
 
 	//nanolines
