@@ -163,9 +163,9 @@ class DB {
 
 	//Function for creating the table. Main reason is that some SQL commands are not compatible with sqlite for example the autoincrement field
 	function CreateTable($stmt) {
-		if ($this->type == "Mysql") {
+		if ($this->type == "mysql") {
             $stmt = str_ireplace("AUTOINCREMENT", "AUTO_INCREMENT", $stmt);
-        } else if ($this->type == "Sqlite") {
+        } else if ($this->type == "sqlite") {
             $stmt = str_ireplace("AUTO_INCREMENT", "AUTOINCREMENT", $stmt);
 			$stmt = str_ireplace(" INT ", " INTEGER ", $stmt);
         }
@@ -191,13 +191,13 @@ class DB {
 		$this->sql = NULL;
 		$this->dbName = $dbName;			
 		
-		if ($this->type == 'Mysql'){
+		if ($this->type == 'mysql'){
 			try {
 				$this->sql = new PDO("mysql:dbname=$dbName;host=$this->host", $this->user, $this->pass);
 			} catch (PDOException $e) {
 			  	die($e->getMessage());
 			}			
-		} else if ($this->type == 'Sqlite') {
+		} else if ($this->type == 'sqlite') {
 			try {
 				$this->sql = new PDO("sqlite:".$dbName);  
 			} catch (PDOException $e) {
