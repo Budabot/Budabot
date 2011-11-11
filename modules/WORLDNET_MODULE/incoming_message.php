@@ -16,7 +16,7 @@ if (ucfirst(strtolower(Setting::get('worldnet_bot'))) == $sender) {
 	$channelColor = Setting::get('worldnet_channel_color');
 	$messageColor = Setting::get('worldnet_message_color');
 	$senderColor = Setting::get('worldnet_sender_color');
-	$msg = "[{$channelColor}$channel<end>] {$messageColor}{$messageText}<end> [{$senderColor}{$name}<end>]";
+	$msg = "WorldNet: [{$channelColor}$channel<end>] {$messageColor}{$messageText}<end> [{$senderColor}{$name}<end>]";
 
 	if (Setting::get('broadcast_to_guild') == 1) {
 		$chatBot->send($msg, 'guild', true);
@@ -25,7 +25,11 @@ if (ucfirst(strtolower(Setting::get('worldnet_bot'))) == $sender) {
 		$chatBot->send($msg, 'priv', true);
 	}
 	if (Setting::get('broadcast_to_guild_members') == 1) {
-		// TODO
+		forEach ($chatBot->guildmembers as $name => $rank) {
+			if (Buddylist::is_online($name) == 1) {
+				$chatBot->send($msg, $name);
+			}
+		}
 	}
 }
 
