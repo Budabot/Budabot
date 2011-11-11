@@ -27,7 +27,7 @@ if (ucfirst(strtolower(Setting::get('worldnet_bot'))) == $sender) {
 	if (Setting::get('broadcast_to_guild_members') == 1) {
 		forEach ($chatBot->guildmembers as $name => $rank) {
 			if (Buddylist::is_online($name) == 1) {
-				$chatBot->send($msg, $name);
+				$chatBot->send($msg, $name, false, AOC_PRIORITY_LOW);
 			}
 		}
 	}
