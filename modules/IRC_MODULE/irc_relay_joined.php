@@ -35,6 +35,8 @@ if (IRC::isConnectionActive($ircSocket)) {
 		$msg .= " - " . $row->logon_msg;
 	}
 	
+	$msg = Text::format_message($msg);
+	
 	if ($type == "joinPriv") {
 		IRC::send($ircSocket, Setting::get('irc_channel'), encodeGuildMessage($chatBot->vars['my_guild'], $msg));
 	} else if ($type == "logOn" && isset($chatBot->guildmembers[$sender])) {

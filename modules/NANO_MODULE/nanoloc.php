@@ -1,7 +1,7 @@
 <?php
 
 if (preg_match("/^nanoloc$/i", $message, $arr)) {
-	$db->query("SELECT DISTINCT location FROM nanos ORDER BY name ASC");
+	$db->query("SELECT DISTINCT location FROM nanos ORDER BY location ASC");
 	$data = $db->fObject('all');
 	
 	$blob = "<header> :::::: Nano Locations :::::: <end>\n\n";
