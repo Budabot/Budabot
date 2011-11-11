@@ -14,7 +14,28 @@ if (IRC::isConnectionActive($ircSocket)) {
 		$whois = new stdClass;
 		$whois->name = $sender;
 	}
-	$msg = Player::get_info($whois);
+	
+	$msg = '';
+		
+	if ($whois->firstname) {
+		$msg = $whois->firstname." ";
+	}
+
+	$msg .= "\"{$whois->name}\" ";
+
+	if ($whois->lastname) {
+		$msg .= $whois->lastname." ";
+	}
+
+	$msg .= "({$whois->level}/{$whois->ai_level}";
+	$msg .= ", {$whois->gender} {$whois->breed} {$whois->profession}";
+	$msg .= ", $whois->faction";
+
+	if ($whois->guild) {
+		$msg .= ", {$whois->guild_rank} of {$whois->guild})";
+	} else {
+		$msg .= ", Not in a guild)";
+	}
 	
 	if ($type == "joinPriv") {
 		$msg .= " has joined the private channel.";
@@ -34,8 +55,6 @@ if (IRC::isConnectionActive($ircSocket)) {
 	if ($row !== null && $row->logon_msg != '') {
 		$msg .= " - " . $row->logon_msg;
 	}
-	
-	$msg = Text::format_message($msg);
 	
 	if ($type == "joinPriv") {
 		IRC::send($ircSocket, Setting::get('irc_channel'), encodeGuildMessage($chatBot->vars['my_guild'], $msg));
