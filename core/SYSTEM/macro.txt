@@ -1,0 +1,10 @@
+<header> :::::: Macro :::::: <end>
+
+<highlight>To execute multiple commands at once:<end>
+<tab><symbol>macro 'command1'|'command2'|'command3' ...
+
+<highlight>Example:<end>
+<tab><symbol>macro online|aospeak
+Executing this command should show the online list, and then the people in the AOSpeak Org channel.
+
+Note: This command is intended to be used with aliases.

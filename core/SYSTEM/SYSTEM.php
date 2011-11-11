@@ -26,6 +26,7 @@
 	Command::register($MODULE_NAME, "", "clearqueue.php", "clearqueue", "mod", "Clear outgoing chatqueue from all pending messages");
 	Command::register($MODULE_NAME, "", "loadsql.php", "loadsql", "mod", "Manually reload an sql file");
 	Command::register($MODULE_NAME, "", "checkaccess.php", "checkaccess", "all", "Check effective access level of a character");
+	Command::register($MODULE_NAME, "", "macro.php", "macro", "all", "Execute multiple commands at once");
 
 	Event::activate("1hour", "$MODULE_NAME/ping_db.php");
 	Event::activate("2sec", "$MODULE_NAME/reduce_spam_values.php");
@@ -54,4 +55,5 @@
 	Help::register($MODULE_NAME, "loadsql", "loadsql.txt", "mod", "How to manually load an sql file");
 	Help::register($MODULE_NAME, "clearqueue", "clearqueue.txt", "mod", "How to clear the outgoing chat message queue");
 	Help::register($MODULE_NAME, "budatime", "budatime.txt", "all", "Format for budatime");
+	Help::register($MODULE_NAME, "macro", "macro.txt", "all", "How to execute multiple commands at once");
 ?>
