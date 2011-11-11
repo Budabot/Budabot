@@ -440,15 +440,18 @@ class AOChat {
 		return $this->send_packet(new AOChatPacket("out", AOCP_PING, "AOChat.php"));
 	}
 
-	function send_tell($user, $msg, $blob = "\0") {
+	function send_tell($user, $msg, $blob = "\0", $priority = null) {
 		if (($uid = $this->get_uid($user)) === false) {
 			return false;
 		}
-		$this->chatqueue->push(AOC_PRIORITY_MED, new AOChatPacket("out", AOCP_MSG_PRIVATE, array($uid, $msg, "\0")));
+		if ($priority == null) {
+			$priority = AOC_PRIORITY_MED;
+		}
+		$this->chatqueue->push($priority, new AOChatPacket("out", AOCP_MSG_PRIVATE, array($uid, $msg, "\0")));
 		return true;
 	}
 	
-	function send_guild($msg, $blob = "\0") {
+	function send_guild($msg, $blob = "\0", $priority = null) {
 		$guild_gid = false;
 		forEach ($this->grp as $gid => $status) {
 			if (ord(substr($gid, 0, 1)) == 3) {
@@ -456,18 +459,22 @@ class AOChat {
 				break;
 			}
 		}
-		
 		if (!$guild_gid) {
 			return false;
 		}
-		
-		$this->chatqueue->push(AOC_PRIORITY_MED, new AOChatPacket("out", AOCP_GROUP_MESSAGE, array($guild_gid, $msg, "\0")));
+		if ($priority == null) {
+			$priority = AOC_PRIORITY_MED;
+		}
+		$this->chatqueue->push($priority, new AOChatPacket("out", AOCP_GROUP_MESSAGE, array($guild_gid, $msg, "\0")));
 		return true;
 	}
 
-	function send_group($group, $msg, $blob = "\0") {
+	function send_group($group, $msg, $blob = "\0", $priority = null) {
 		if (($gid = $this->get_gid($group)) === false) {
 			return false;
+		}
+		if ($priority == null) {
+			$priority = AOC_PRIORITY_MED;
 		}
 		$this->chatqueue->push(AOC_PRIORITY_MED, new AOChatPacket("out", AOCP_GROUP_MESSAGE, array($gid, $msg, "\0")));
 		return true;

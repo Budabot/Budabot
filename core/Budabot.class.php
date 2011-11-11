@@ -213,7 +213,7 @@ class Budabot extends AOChat {
 	 * @name: send
 	 * @description: format a message and send it to private channel, guild channel, or a player
 	 */
-	function send($message, $target, $disable_relay = false) {
+	function send($message, $target, $disable_relay = false, $priority = null) {
 		if ($target == null) {
 			Logger::log('ERROR', 'Core', "Could not send message as no target was specified. message: '{$message}'");
 			return;
@@ -222,9 +222,13 @@ class Budabot extends AOChat {
 		// for when Text::make_blob generates several pages
 		if (is_array($message)) {
 			forEach ($message as $page) {
-				$this->send($page, $target, $disable_relay);
+				$this->send($page, $target, $disable_relay, $priority);
 			}
 			return;
+		}
+		
+		if ($priority == null) {
+			$priority = AOC_PRIORITY_MED;
 		}
 
 		if ($target == 'guild') {
@@ -242,7 +246,7 @@ class Budabot extends AOChat {
 			
 			// relay to guild channel
 			if (!$disable_relay && Setting::get('guild_channel_status') == 1 && Setting::get("guest_relay") == 1 && Setting::get("guest_relay_commands") == 1) {
-				$this->send_guild("</font>{$this->settings["guest_color_channel"]}[Guest]</font> {$sender_link}: {$this->settings["default_priv_color"]}$message</font>");
+				$this->send_guild("</font>{$this->settings["guest_color_channel"]}[Guest]</font> {$sender_link}: {$this->settings["default_priv_color"]}$message</font>", "\0", $priority);
 			}
 
 			// relay to bot relay
@@ -250,7 +254,7 @@ class Budabot extends AOChat {
 				send_message_to_relay("grc <grey>[{$this->vars["my_guild"]}] [Guest] {$sender_link}: $message");
 			}
 		} else if (($target == $this->vars["my_guild"] || $target == 'org') && Setting::get('guild_channel_status') == 1) {
-    		$this->send_guild(Setting::get("default_guild_color").$message);
+    		$this->send_guild(Setting::get("default_guild_color").$message, "\0", $priority);
 			
 			// relay to private channel
 			if (!$disable_relay && Setting::get("guest_relay") == 1 && Setting::get("guest_relay_commands") == 1) {
@@ -263,9 +267,9 @@ class Budabot extends AOChat {
 			}
 		} else if ($this->get_uid($target) != NULL) {// Target is a player.
 			Logger::log_chat("Out. Msg.", $target, $message);
-    		$this->send_tell($target, Setting::get("default_tell_color").$message);
+    		$this->send_tell($target, Setting::get("default_tell_color").$message, "\0", $priority);
 		} else { // Public channels that are not guild
-	    	$this->send_group($target, Setting::get("default_guild_color").$message);
+	    	$this->send_group($target, Setting::get("default_guild_color").$message, "\0", $priority);
 		}
 	}
 
