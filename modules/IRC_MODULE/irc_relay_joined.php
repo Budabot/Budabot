@@ -12,11 +12,9 @@ if (IRC::isConnectionActive($ircSocket)) {
 	$whois = Player::get_by_name($sender);
 	if ($whois === null) {
 		$whois = new stdClass;
+		$whois->name = $sender;
 	}
-	if ($whois->guild == "") {
-		$whois->guild = "Not in a guild";
-	}
-	$msg = "$sender ({$whois->level}/{$whois->ai_level}, {$whois->profession}, {$whois->guild})";
+	$msg = Player::get_info($whois);
 	
 	if ($type == "joinPriv") {
 		$msg .= " has joined the private channel.";
@@ -30,13 +28,15 @@ if (IRC::isConnectionActive($ircSocket)) {
 		$msg .= " Alt of {$altInfo->main}";
 	}
 
-	if (($row->logon_msg != '') && ($row->logon_msg != '0')) {
+	$sql = "SELECT logon_msg FROM org_members_<myname> WHERE name = '{$sender}'";
+	$db->query($sql);
+	$row = $db->fObject();
+	if ($row !== null && $row->logon_msg != '') {
 		$msg .= " - " . $row->logon_msg;
 	}
 	
 	if ($type == "joinPriv") {
 		IRC::send($ircSocket, Setting::get('irc_channel'), encodeGuildMessage($chatBot->vars['my_guild'], $msg));
-		Logger::log_chat("Out. IRC Msg.", -1, "$sender has joined the private chat");
 	} else if ($type == "logOn" && isset($chatBot->guildmembers[$sender])) {
 		if (Setting::get('first_and_last_alt_only') == 1) {
 			// if at least one alt/main is still online, don't show logoff message
@@ -47,8 +47,8 @@ if (IRC::isConnectionActive($ircSocket)) {
 		}
 
 		IRC::send($ircSocket, Setting::get('irc_channel'), encodeGuildMessage($chatBot->vars['my_guild'], $msg));
-		Logger::log_chat("Out. IRC Msg.", -1, "$sender has logged on");
 	}
+	Logger::log_chat("Out. IRC Msg.", -1, $msg);
 }
 
 ?>
