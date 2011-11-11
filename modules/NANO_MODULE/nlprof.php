@@ -12,25 +12,19 @@ if (preg_match("/^nlprof (.*)$/i", $message, $arr)) {
 	$sql = "SELECT * FROM nanolines WHERE profession LIKE '$profession' ORDER BY name ASC";
 	$db->query($sql);
 	$data = $db->fObject('all');
-	$count = $db->numrows();
 
+	$header = "$profession Nanolines";
+	$blob = Text::make_header($header, array('Help' => '/tell <myname> help nanolines'));
 	forEach ($data as $row) {
 		if (Setting::get("shownanolineicons") == "1") {
-			$window .= "<img src='rdb://$row->image_id'>\n";
+			$blob .= "<img src='rdb://$row->image_id'>\n";
 		}
-		$window .= Text::make_chatcmd("$row->name", "/tell <myname> <symbol>nlline $row->id");
-		$window .= "\n";
+		$blob .= Text::make_chatcmd("$row->name", "/tell <myname> <symbol>nlline $row->id");
+		$blob .= "\n";
 	}
-
-	$msg = '';
-	if ($count > 0) {
-		$window = Text::make_header("$profession Nanolines", array('Help' => '/tell <myname> help nanolines')) . $window;
-		$window .= "\n\nAO Nanos by Voriuste";
-		$window .= "\nModule created by Tyrence (RK2)";
-		$msg = Text::make_blob("$profession Nanolines", $window);
-	} else {
-		$msg = "Profession not found.";
-	}
+	$blob .= "\n\nAO Nanos by Voriuste";
+	$blob .= "\nModule created by Tyrence (RK2)";
+	$msg = Text::make_blob($header, $blob);
 
 	$chatBot->send($msg, $sendto);
 } else {

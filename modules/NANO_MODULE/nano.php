@@ -16,23 +16,49 @@ if (preg_match("/^nano (.+)$/i", $message, $arr)) {
 
 	$tmp = explode(" ", $name);
 	forEach ($tmp as $key => $value) {
-		$query .= " AND `name` LIKE '%$value%'";
+		$query .= " AND n1.`name` LIKE '%$value%'";
 	}
 
-	$db->query("SELECT * FROM nanos WHERE 1=1 $query ORDER BY lowql DESC, name LIMIT 0, " . Setting::get("maxnano"));
+	$sql = 
+		"SELECT
+			n1.lowid,
+			n1.lowql,
+			n1.name,
+			n1.location,
+			n3.profession
+		FROM
+			nanos n1
+			LEFT JOIN nano_nanolines_ref n2 ON n1.lowid = n2.lowid
+			LEFT JOIN nanolines n3 ON n2.nanolineid = n3.id
+		WHERE
+			1=1 $query
+		ORDER BY
+			n1.lowql DESC, n1.name ASC
+		LIMIT
+			" . Setting::get("maxnano");
+	
+	$db->query($sql);
 	$data = $db->fObject('all');
 	$count = count($data);
 	if ($count == 0) {
 		$msg = "No nanos found.";
 	} else if ($count == 1) {
 		$row = $data[0];
-		$msg .= Text::make_item($row->lowid, $row->lowid, $row->lowql, $row->name) . " ({$row->lowql})\n";
-		$msg .= "Located: {$row->location}";
+		$msg = Text::make_item($row->lowid, $row->lowid, $row->lowql, $row->name);
+		$msg .= " [$row->lowql] $row->location";
+		if ($row->profession) {
+			$msg .= " - <highlight>$row->profession<end>";
+		}
 	} else {
-		$blob = "<header> :::::: Nano Search Results ($count) :::::: <end>\n\n";
+		$header = "Nano Search Results ($count)";
+		$blob = Text::make_header($header, array('Help' => '/tell <myname> help nano'));
 		forEach ($data as $row) {
-			$blob .= Text::make_item($row->lowid, $row->lowid, $row->lowql, $row->name) . " ({$row->lowql})\n";
-			$blob .= "Located: {$row->location}\n\n";
+			$blob .= Text::make_item($row->lowid, $row->lowid, $row->lowql, $row->name);
+			$blob .= " [$row->lowql] $row->location";
+			if ($row->profession) {
+				$blob .= " - <highlight>$row->profession<end>";
+			}
+			$blob .= "\n";
 		}
 		
 		$msg = Text::make_blob("Nano Search Results ($count)", $blob);

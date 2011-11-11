@@ -1,36 +1,55 @@
 <?php
 
 if (preg_match("/^nanoloc$/i", $message, $arr)) {
-	$db->query("SELECT DISTINCT location FROM nanos ORDER BY location ASC");
+	$db->query("SELECT location, count(location) AS count FROM nanos GROUP BY location ORDER BY location ASC");
 	$data = $db->fObject('all');
 	
-	$blob = "<header> :::::: Nano Locations :::::: <end>\n\n";
+	$header = "Nano Locations";
+	$blob = Text::make_header($header, array('Help' => '/tell <myname> help nano'));
 	forEach ($data as $row) {
-		$blob .= Text::make_chatcmd($row->location, "/tell <myname> nanoloc $row->location") . "\n";
+		$blob .= Text::make_chatcmd($row->location, "/tell <myname> nanoloc $row->location") . " ($row->count) \n";
 	}
 	
-	$msg = Text::make_blob("Nano Locations", $blob);
+	$msg = Text::make_blob($header, $blob);
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^nanoloc (.+)$/i", $message, $arr)) {
 	$location = $arr[1];
 
-	$db->query("SELECT * FROM nanos WHERE location LIKE '" . str_replace("'", "''", $location) . "' ORDER BY name ASC");
+	$sql = 
+		"SELECT
+			n1.lowid,
+			n1.lowql,
+			n1.name,
+			n1.location,
+			n3.profession
+		FROM
+			nanos n1
+			LEFT JOIN nano_nanolines_ref n2 ON n1.lowid = n2.lowid
+			LEFT JOIN nanolines n3 ON n2.nanolineid = n3.id
+		WHERE
+			n1.location LIKE '" . str_replace("'", "''", $location) . "'
+		ORDER BY
+			n1.profession ASC,
+			n1.name ASC";
+
+	$db->query($sql);
 	$data = $db->fObject('all');
 	$count = count($data);
 	if ($count == 0) {
 		$msg = "No nanos found.";
-	} else if ($count == 1) {
-		$row = $data[0];
-		$msg .= Text::make_item($row->lowid, $row->lowid, $row->lowql, $row->name) . " ({$row->lowql})\n";
-		$msg .= "Located: {$row->location}";
 	} else {
-		$blob = "<header> :::::: Nanos for Location '$location' ($count) :::::: <end>\n\n";
+		$header = "Nanos for Location '$location' ($count)";
+		$blob = Text::make_header($header, array('Help' => '/tell <myname> help nano'));
 		forEach ($data as $row) {
-			$blob .= Text::make_item($row->lowid, $row->lowid, $row->lowql, $row->name) . " ({$row->lowql})\n";
-			$blob .= "Located: {$row->location}\n\n";
+			$blob .= Text::make_item($row->lowid, $row->lowid, $row->lowql, $row->name);
+			$blob .= " [$row->lowql] $row->location";
+			if ($row->profession) {
+				$blob .= " - <highlight>$row->profession<end>";
+			}
+			$blob .= "\n";
 		}
 		
-		$msg = Text::make_blob("Nanos for Location '$location' ($count)", $blob);
+		$msg = Text::make_blob($header, $blob);
 	}
 
 	$chatBot->send($msg, $sendto);

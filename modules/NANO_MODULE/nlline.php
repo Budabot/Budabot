@@ -1,6 +1,6 @@
 <?php
 
-if (preg_match("/^nlline ([0-9]*)$/i", $message, $arr)) {
+if (preg_match("/^nlline ([0-9]+)$/i", $message, $arr)) {
 
 	$nanoline_id = $arr[1];
 
@@ -32,7 +32,7 @@ if (preg_match("/^nlline ([0-9]*)$/i", $message, $arr)) {
 		$data = $db->fObject('all');
 
 		forEach ($data as $row) {
-			$window .= "<a href='itemref://" . $row->lowid . "/" . $row->lowid . "/" . $row->lowql . "'>" . $row->name . "</a>";
+			$window .= Text::make_item($row->lowid, $row->lowid, $row->lowql, $row->name);
 			$window .= " [$row->lowql] $row->location\n";
 		}
 
