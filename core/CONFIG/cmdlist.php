@@ -75,7 +75,7 @@ if (preg_match("/^cmdlist$/i", $message, $arr) || preg_match("/^cmdlist (.*)$/i"
 		} else {
 			$priv = "<red>P<end>";
 		}
-		
+
 		$list .= "$row->cmd ({$tell}|{$guild}|{$priv}) {$adv_link} - ($row->description)\n";
 	}
 
