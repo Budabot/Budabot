@@ -20,9 +20,7 @@ if (preg_match("/^startbbin$/i", $message)) {
 	}
 
 	$chatBot->send("Intializing BBIN connection. Please wait...", $sendto);
-	IRC::connect($bbinSocket, Setting::get('bbin_nickname'), Setting::get('bbin_server'), Setting::get('bbin_port'), Setting::get('bbin_password'), Setting::get('bbin_channel'));
-	if (IRC::isConnectionActive($bbinSocket)) {
-		Setting::save("bbin_status", "1");
+	if (bbinConnect()) {
 		$chatBot->send("Finished connecting to BBIN.", $sendto);
 	} else {
 		$chatBot->send("Error connectiong to BBIN.", $sendto);

@@ -155,4 +155,19 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 		}
 	}
 }
+
+function bbinConnect() {
+	global $bbinSocket;
+
+	IRC::connect($bbinSocket, Setting::get('bbin_nickname'), Setting::get('bbin_server'), Setting::get('bbin_port'), Setting::get('bbin_password'), Setting::get('bbin_channel'));
+	if (IRC::isConnectionActive($bbinSocket)) {
+		Setting::save("bbin_status", "1");
+		fputs($bbinSocket, "PRIVMSG ".Setting::get('bbin_channel')." :[BBIN:SYNCHRONIZE]\n");
+		parse_incoming_bbin("[BBIN:SYNCHRONIZE]", '');
+		return true;
+	} else {
+		return false;
+	}
+}
+
 ?>
