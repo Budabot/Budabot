@@ -7,56 +7,66 @@
 **
 */
 
+if (!function_exists('getIRCPlayerInfo')) {
+	function getIRCPlayerInfo($sender) {
+		$db = DB::get_instance();
+	
+		$whois = Player::get_by_name($sender);
+		if ($whois === null) {
+			$whois = new stdClass;
+			$whois->name = $sender;
+		}
+		
+		$msg = '';
+			
+		if ($whois->firstname) {
+			$msg = $whois->firstname." ";
+		}
+
+		$msg .= "\"{$whois->name}\" ";
+
+		if ($whois->lastname) {
+			$msg .= $whois->lastname." ";
+		}
+
+		$msg .= "({$whois->level}/{$whois->ai_level}";
+		$msg .= ", {$whois->gender} {$whois->breed} {$whois->profession}";
+		$msg .= ", $whois->faction";
+
+		if ($whois->guild) {
+			$msg .= ", {$whois->guild_rank} of {$whois->guild})";
+		} else {
+			$msg .= ", Not in a guild)";
+		}
+		
+		if ($type == "joinPriv") {
+			$msg .= " has joined the private channel.";
+		} else {
+			$msg .= " has logged on.";
+		}
+
+		// Alternative Characters Part
+		$altInfo = Alts::get_alt_info($sender);
+		if ($altInfo->main != $sender) {
+			$msg .= " Alt of {$altInfo->main}";
+		}
+
+		$sql = "SELECT logon_msg FROM org_members_<myname> WHERE name = '{$sender}'";
+		$db->query($sql);
+		$row = $db->fObject();
+		if ($row !== null && $row->logon_msg != '') {
+			$msg .= " - " . $row->logon_msg;
+		}
+		
+		return $msg;
+	}
+}
+
 global $ircSocket;
 if (IRC::isConnectionActive($ircSocket)) {
-	$whois = Player::get_by_name($sender);
-	if ($whois === null) {
-		$whois = new stdClass;
-		$whois->name = $sender;
-	}
-	
-	$msg = '';
-		
-	if ($whois->firstname) {
-		$msg = $whois->firstname." ";
-	}
-
-	$msg .= "\"{$whois->name}\" ";
-
-	if ($whois->lastname) {
-		$msg .= $whois->lastname." ";
-	}
-
-	$msg .= "({$whois->level}/{$whois->ai_level}";
-	$msg .= ", {$whois->gender} {$whois->breed} {$whois->profession}";
-	$msg .= ", $whois->faction";
-
-	if ($whois->guild) {
-		$msg .= ", {$whois->guild_rank} of {$whois->guild})";
-	} else {
-		$msg .= ", Not in a guild)";
-	}
-	
 	if ($type == "joinPriv") {
-		$msg .= " has joined the private channel.";
-	} else {
-		$msg .= " has logged on.";
-	}
-
-	// Alternative Characters Part
-	$altInfo = Alts::get_alt_info($sender);
-	if ($altInfo->main != $sender) {
-		$msg .= " Alt of {$altInfo->main}";
-	}
-
-	$sql = "SELECT logon_msg FROM org_members_<myname> WHERE name = '{$sender}'";
-	$db->query($sql);
-	$row = $db->fObject();
-	if ($row !== null && $row->logon_msg != '') {
-		$msg .= " - " . $row->logon_msg;
-	}
-	
-	if ($type == "joinPriv") {
+		$msg = getIRCPlayerInfo($sender);
+		Logger::log_chat("Out. IRC Msg.", -1, $msg);
 		IRC::send($ircSocket, Setting::get('irc_channel'), encodeGuildMessage($chatBot->vars['my_guild'], $msg));
 	} else if ($type == "logOn" && isset($chatBot->guildmembers[$sender])) {
 		if (Setting::get('first_and_last_alt_only') == 1) {
@@ -66,10 +76,11 @@ if (IRC::isConnectionActive($ircSocket)) {
 				return;
 			}
 		}
-
+		
+		$msg = getIRCPlayerInfo($sender);
+		Logger::log_chat("Out. IRC Msg.", -1, $msg);
 		IRC::send($ircSocket, Setting::get('irc_channel'), encodeGuildMessage($chatBot->vars['my_guild'], $msg));
 	}
-	Logger::log_chat("Out. IRC Msg.", -1, $msg);
 }
 
 ?>

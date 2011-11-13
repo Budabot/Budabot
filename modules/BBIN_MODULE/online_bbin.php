@@ -1,11 +1,4 @@
 <?php
-   /*
-   ** Author: Legendadv (RK2)
-   ** IRC RELAY MODULE
-   **
-   ** Developed for: Budabot(http://aodevs.com/index.php/topic,512.0.html)
-   **
-   */
    
 global $bbinSocket;
 if (preg_match("/^onlinebbin$/i", $message)) {

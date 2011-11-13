@@ -11,15 +11,14 @@
 global $bbinSocket;
 if (IRC::isConnectionActive($bbinSocket)) {
 	if ($type == "leavePriv") {
-		$leaveType = "1";
+		$msg = "[BBIN:LOGOFF:".$sender.",".$chatBot->vars["dimension"].",1]";
+		Logger::log('DEBUG', "BBIN Outgoing", $msg);
+		IRC::send($bbinSocket, Setting::get('bbin_channel'), $msg);
 	} else if ($type == "logOff" && isset($chatBot->guildmembers[$sender])) {
-		$leaveType = "0";
+		$msg = "[BBIN:LOGOFF:".$sender.",".$chatBot->vars["dimension"].",0]";
+		Logger::log('DEBUG', "BBIN Outgoing", $msg);
+		IRC::send($bbinSocket, Setting::get('bbin_channel'), $msg);
 	}
-	
-	$msg = "[BBIN:LOGOFF:".$sender.",".$chatBot->vars["dimension"].",{$leaveType}]";
-	
-	IRC::send($bbinSocket, Setting::get('bbin_channel'), $msg);
-	Logger::log('debug', "BBIN Outgoing", $msg);
 }
 
 ?>
