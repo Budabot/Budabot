@@ -29,6 +29,23 @@ if (preg_match("/^opentimes$/i", $message)) {
 			$faction = strtolower($row->faction);
 			$blob .= "$site_link <white>- {$row->min_ql}-{$row->max_ql}, $row->ct_ql CT, <$faction>$row->guild_name<end>, $gas_change_string [by $row->scouted_by]<end>\n";
 		}
+		
+		$sql = "
+			SELECT
+				guild_name,
+				sum(ct_ql) AS total_ql
+			FROM
+				scout_info
+			GROUP BY
+				guild_name
+			ORDER BY
+				guild_name ASC";
+		$db->query($sql);
+		$data = $db->fObject('all');
+		$blob .= "\n\n<header> ::: Contract QLs ::: <end>\n\n";
+		forEach ($data as $row) {
+			$blob .= "{$row->guild_name}: <highlight>" . ($row->total_ql * 2) . "<end>\n";
+		}
 
 		$msg = Text::make_blob("Scouted Bases", $blob);
 	} else {
