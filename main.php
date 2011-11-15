@@ -157,7 +157,6 @@ if ($db->errorCode != 0) {
 }
 
 // Clear database information.
-    // Test by argu
 unset($vars["DB Type"]);
 unset($vars["DB Name"]);
 unset($vars["DB Host"]);
