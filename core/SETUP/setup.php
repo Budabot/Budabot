@@ -87,7 +87,7 @@ do {
 	echo "             Enter the dimension that the bot will run on.\n";
 	echo "             **************************************************\n";
 	echo "             \n\n\n\n\n\n\n\n\n";
-	$msg = "Choose a Dimension (1 = Atlantean, 2 = Rimor, 3 = Die Neue Welt, 4 = Test): \n";
+	$msg = "Choose a Dimension (1 = Atlantean, 2 = Rimor, 4 = Test): \n";
 	$vars["dimension"] = read_input($msg);
 } while ($vars["dimension"] != 1 && $vars["dimension"] != 2 && $vars["dimension"] != 3 && $vars["dimension"] != 4);
 
