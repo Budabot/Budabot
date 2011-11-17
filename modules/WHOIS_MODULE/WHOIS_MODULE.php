@@ -6,6 +6,7 @@
 	Command::register($MODULE_NAME, "", "history.php", "history", "all", "Show history of a player");
 	Command::register($MODULE_NAME, "", "namehistory.php", "namehistory", "all", "Show name history of a character");
 	Command::register($MODULE_NAME, "", "lookup.php", "lookup", "all", "Find the uid for a character");
+	Command::register($MODULE_NAME, "", "charid.php", "charid", "all", "Find the name of a character by char id");
 	
 	Event::register($MODULE_NAME, "1min", "save_to_db.php", "none", "Save cache of names and charids to database");
 	Event::register($MODULE_NAME, "allpackets", "record_names.php", "none", "Records names and charids for saving later");
