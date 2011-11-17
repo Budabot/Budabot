@@ -30,7 +30,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 			$list = "<header> :::::: Basic Info for {$name} :::::: <end>\n\n";
 			$list .= "<orange>Note: Could not retrieve detailed info for character.<end>\n\n";
 	        $list .= "Name: <highlight>{$name}<end>\n";
-			$list .= "Character ID: <highlight>{$whois->charid}<end>\n\n";
+			$list .= "Character ID: <highlight>{$uid}<end>\n\n";
 			$list .= "<pagebreak>" . getNameHistory($uid, "<dim>");
         	
 			$msg = Text::make_blob("Basic Info for $name", $list);
