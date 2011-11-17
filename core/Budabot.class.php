@@ -803,44 +803,55 @@ class Budabot extends AOChat {
 				}
 			}
 		}
+		
+		// if file doesn't exist
+		if ($filename == '') {
+			if ((Setting::get('guild_channel_cmd_feedback') == 0 && $type == 'guild') || ((Setting::get('private_channel_cmd_feedback') == 0 && $type == 'priv'))) {
+				return;
+			}
+				
+			$chatBot->send("Error! Unknown command.", $sendto);
+			$chatBot->spam[$sender] = $chatBot->spam[$sender] + 20;
+			return;
+		}
 
-		// if file doesn't exist or the character doesn't have access
-		if ($filename == "" || AccessLevel::check_access($sender, $admin) !== true) {
+		// if the character doesn't have access
+		if (AccessLevel::check_access($sender, $admin) !== true) {
 			// if they've disabled feedback for guild or private channel, just return
 			if ((Setting::get('guild_channel_cmd_feedback') == 0 && $type == 'guild') || ((Setting::get('private_channel_cmd_feedback') == 0 && $type == 'priv'))) {
 				return;
 			}
 				
-			$chatBot->send("Error! Unknown command or Access denied.", $sendto);
+			$chatBot->send("Error! Access denied.", $sendto);
 			$chatBot->spam[$sender] = $chatBot->spam[$sender] + 20;
 			return;
-		} else {
-			if ($cmd != 'grc' && Setting::get('record_usage_stats') == 1) {
-				Usage::record($type, $cmd, $sender);
-			}
-		
-			$syntax_error = false;
-			$msg = "";
-			include $filename;
-			if ($syntax_error == true) {
-				$results = Command::get($cmd, $type);
-				$result = $results[0];
-				if ($result->help != '') {
-					$blob = Help::find($result->help, $sender);
-					$helpcmd = ucfirst($result->help);
-				} else {
-					$blob = Help::find($cmd, $sender);
-					$helpcmd = ucfirst($cmd);
-				}
-				if ($blob !== false) {
-					$msg = Text::make_blob("Help ($helpcmd)", $blob);
-					$chatBot->send($msg, $sendto);
-				} else {
-					$chatBot->send("Error! Invalid syntax for this command.", $sendto);
-				}
-			}
-			$chatBot->spam[$sender] = $chatBot->spam[$sender] + 10;
 		}
+
+		if ($cmd != 'grc' && Setting::get('record_usage_stats') == 1) {
+			Usage::record($type, $cmd, $sender);
+		}
+	
+		$syntax_error = false;
+		$msg = "";
+		include $filename;
+		if ($syntax_error == true) {
+			$results = Command::get($cmd, $type);
+			$result = $results[0];
+			if ($result->help != '') {
+				$blob = Help::find($result->help, $sender);
+				$helpcmd = ucfirst($result->help);
+			} else {
+				$blob = Help::find($cmd, $sender);
+				$helpcmd = ucfirst($cmd);
+			}
+			if ($blob !== false) {
+				$msg = Text::make_blob("Help ($helpcmd)", $blob);
+				$chatBot->send($msg, $sendto);
+			} else {
+				$chatBot->send("Error! Invalid syntax for this command.", $sendto);
+			}
+		}
+		$chatBot->spam[$sender] = $chatBot->spam[$sender] + 10;
 	}
 	
 	/**
