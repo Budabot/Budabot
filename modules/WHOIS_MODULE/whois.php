@@ -22,16 +22,20 @@ if (!function_exists('getNameHistory')) {
 }
 
 if (preg_match("/^whois (.+)$/i", $message, $arr)) {
-    $uid = $chatBot->get_uid($arr[1]);
-    $name = ucfirst(strtolower($arr[1]));
+	$name = ucfirst(strtolower($arr[1]));
+    $uid = $chatBot->get_uid($name);
     if ($uid) {
-        $whois = Player::get_by_name($arr[1]);
+        $whois = Player::get_by_name($name);
         if ($whois === null) {
-        	$msg = "Could not find character info for {$name}.";
+			$list = "<header> :::::: Basic Info for {$name} :::::: <end>\n\n";
+			$list .= "<orange>Note: Could not retrieve detailed info for character.<end>\n\n";
+	        $list .= "Name: <highlight>{$name}<end>\n";
+			$list .= "Character ID: <highlight>{$whois->charid}<end>\n\n";
+			$list .= "<pagebreak>" . getNameHistory($uid, "<dim>");
+        	
+			$msg = Text::make_blob("Basic Info for $name", $list);
         } else {
-	        $msg = Player::get_info($whois);
-
-	        $list = "<header> :::::: Detailed info for {$name} :::::: <end>\n\n";
+	        $list = "<header> :::::: Detailed Info for {$name} :::::: <end>\n\n";
 	        $list .= "Name: <highlight>{$whois->firstname} \"{$name}\" {$whois->lastname}<end>\n";
 			if ($whois->guild) {
 				$list .= "Guild: <highlight>{$whois->guild} ({$whois->guild_id})<end>\n";
@@ -58,7 +62,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 				$list .= Text::make_chatcmd('Orglist', "/tell <myname> orglist $whois->guild_id") . "\n";
 			}
 			
-	        $msg .= " :: " . Text::make_blob("More info", $list);
+	        $msg = Player::get_info($whois) . " :: " . Text::make_blob("More Info", $list);
 
 			$altInfo = Alts::get_alt_info($name);
 			if (count($altInfo->alts) > 0) {
@@ -66,7 +70,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 			}
 	    }
     } else {
-        $msg = "Player <highlight>{$name}<end> does not exist.";
+        $msg = "Character <highlight>{$name}<end> does not exist.";
 	}
 
     $chatBot->send($msg, $sendto);
