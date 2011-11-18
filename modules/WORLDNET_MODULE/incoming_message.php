@@ -1,6 +1,8 @@
 <?php
 
 if (ucfirst(strtolower(Setting::get('worldnet_bot'))) == $sender) {
+	$message = preg_replace("/<font(.+?)>/s", "", $message);
+	$message = preg_replace("/<\/font>/s", "", $message);
 	if (!preg_match("/\\[([^ ]+)\\] (.*) \\[([a-z0-9-]+)\\]$/i", $message, $arr)) {
 		return;
 	}
