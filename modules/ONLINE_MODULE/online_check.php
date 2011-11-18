@@ -36,9 +36,6 @@ if ($chatBot->is_ready()) {
 			$db->exec("INSERT INTO `online` (`name`, `channel`,  `channel_type`, `added_by`, `dt`) VALUES ('$name', '<myguild> Guest', 'priv', '<myname>', " . $time . ")");
 		}
 	}
-	
-	$sql = "DELETE FROM `online` WHERE ";
-	$db->exec($sql);
 
 	$time_to_expire = ($time - Setting::get('online_expire'));
 	$sql = "DELETE FROM `online` WHERE (`dt` < {$time} AND added_by = '<myname>') OR (`dt` < {$time_to_expire})";
