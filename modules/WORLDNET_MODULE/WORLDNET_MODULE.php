@@ -12,7 +12,7 @@
 	Event::register($MODULE_NAME, "logOn", "logon.php", 'none', 'Requests to join worldnet private channel');
 	
 	Setting::add($MODULE_NAME, 'worldnet_bot', 'Name of bot', 'edit', "text", "Worldnet", "Worldnet;Dnet", '', 'mod', 'worldnet');
-	Setting::add($MODULE_NAME, "broadcast_to_guild_members", "Send worldnet messages guild members via tells", "edit", "options", "0", "true;false", "1;0");
+	Setting::add($MODULE_NAME, "worldnet_allow_tell_subscriptions", "Send worldnet messages to characters via tells", "edit", "options", "0", "true;false", "1;0");
 	
 	// colors
 	Setting::add($MODULE_NAME, 'worldnet_channel_color', "Color of channel text in worldnet messages", 'edit', "color", "<font color='#FFFFFF'>");
