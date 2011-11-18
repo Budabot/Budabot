@@ -10,13 +10,19 @@ if (preg_match("/^opentimes$/i", $message)) {
 			JOIN scout_info s ON (t.playfield_id = s.playfield_id AND s.site_number = t.site_number)
 			JOIN playfields p ON (t.playfield_id = p.id)
 		ORDER BY
-			close_time";
+			guild_name ASC,
+			ct_ql DESC";
 	$db->query($sql);
 	$data = $db->fObject('all');
 	
 	if (count($data) > 0) {
-		$blob = "<header> :::::: Scouted Bases :::::: <end>\n\n";
+		$blob = "<header> :::::: Scouted Bases :::::: <end>\n";
+		$currentGuildName = '';
 		forEach ($data as $row) {
+			if ($row->guild_name != $currentGuildName) {
+				$blob .= "\n";
+				$currentGuildName = $row->guild_name;
+			}
 			$gas_level = getGasLevel($row->close_time);
 			$gas_change_string = "$gas_level->color $gas_level->gas_level - $gas_level->next_state in " . date('H:i:s', $gas_level->gas_change) . "<end>";
 
