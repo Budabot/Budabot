@@ -7,9 +7,6 @@
 	}
 
 	Event::register($MODULE_NAME, "extPriv", "incoming_message.php", 'none', 'Relays incoming messages to the guild/private channel');
-	Event::register($MODULE_NAME, "extJoinPrivRequest", "accept_invite.php", 'none', 'Accepts invites from worldnet');
-	Event::register($MODULE_NAME, "connect", "connect.php", 'none', 'Adds worldnet to buddylist');
-	Event::register($MODULE_NAME, "logOn", "logon.php", 'none', 'Requests to join worldnet private channel');
 	
 	Setting::add($MODULE_NAME, 'worldnet_bot', 'Name of bot', 'edit', "text", "Worldnet", "Worldnet;Dnet", '', 'mod', 'worldnet');
 	Setting::add($MODULE_NAME, "worldnet_allow_tell_subscriptions", "Send worldnet messages to characters via tells", "edit", "options", "0", "true;false", "1;0");

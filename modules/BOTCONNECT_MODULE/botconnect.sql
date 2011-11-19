@@ -1,0 +1,1 @@
+CREATE TABLE botconnect (charid INT NOT NULL, dt INT NOT NULL);

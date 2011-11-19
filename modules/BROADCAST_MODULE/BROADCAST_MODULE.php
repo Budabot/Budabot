@@ -5,8 +5,6 @@
 	
 	Event::register($MODULE_NAME, "msg", "incoming_broadcast.php", 'none', 'Relays incoming messages to the guild/private channel');
 	Event::register($MODULE_NAME, "extPriv", "incoming_broadcast.php", 'none', 'Relays incoming messages to the guild/private channel');
-	Event::register($MODULE_NAME, "extJoinPrivRequest", "accept_invite.php", 'none', 'Accepts invites from bots on the broadcast list');
-	Event::register($MODULE_NAME, "connect", "dnet_request_invite.php", 'none', 'Requests invite from Dnet');
 	
 	Command::register($MODULE_NAME, "", "broadcast.php", "broadcast", "mod", "View/edit the broadcast bots list");
 	Command::register($MODULE_NAME, "", "neutnet.php", "neutnet", "mod", "Enable/disable Neutnet support (RK 2 only)");

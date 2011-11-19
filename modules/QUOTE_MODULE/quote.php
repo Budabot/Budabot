@@ -57,8 +57,6 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 					//Lucier: message
 					$quoteOfWHO = substr($quoteMSG,0,$findcolon);
 				}
-
-				// TODO escape single quotes
 			} else {
 				//without a colon.. quoting him/her/itself?
 				$quoteOfWHO = $sender;
