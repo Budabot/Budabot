@@ -321,7 +321,6 @@ INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multilo
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 293638, 293638, 1, 'SSC "Bastion" Back Armor - Inactive', 291379, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 293643, 293643, 1, 'SSC "Bastion" Left Shoulder Armor - Inactive', 293723, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 293653, 293653, 1, 'SSC "Bastion" Right Shoulder Armor - Inactive', 291371, 1);
-INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 293640, 293640, 1, 'SSC Bastion NanoPaint Chip', 43135, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 290780, 290780, 250, 'NCU Infuser', 290779, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 292537, 292537, 1, 'Collatz Upgrade Plate', 292782, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 292535, 292535, 1, 'Fatou Upgrade Plate', 292790, 1);
@@ -333,12 +332,9 @@ INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multilo
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 292533, 292533, 1, 'Dacite Fiber', 292788, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 292529, 292529, 1, 'Sealed Packet of Bilayer Graphene Sheets', 292779, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 292530, 292530, 1, 'Mu-Negative Novictum Enriched Metamaterial', 292759, 1);
-INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 292534, 292534, 1, 'Ferrous Dacite Fiber', 292791, 1);
-INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 292531, 292531, 1, 'Novictum-Enriched Graphene Metamaterial', 292761, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 292524, 292524, 1, 'Compressed Silane', 292784, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 292525, 292525, 1, 'Potassium Nitrate', 292763, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 292526, 292526, 1, 'VLS Synthesis Catalyst', 292777, 1);
-INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 292527, 292527, 1, 'Compressed Composite Weave', 292783, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 292528, 292528, 1, 'Bi-Isotropic Nano Media', 292778, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 292538, 292538, 1, 'Synchotronic Recombinator - Pocket Edition (Empty)', 292772, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Bastion', 292514, 292514, 1, 'Red Data Crystal', 292764, 1);
