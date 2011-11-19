@@ -31,9 +31,8 @@ if (preg_match("/^cmdlist$/i", $message, $arr) || preg_match("/^cmdlist (.*)$/i"
 			c.cmd, c.description, c.module
 		ORDER BY
 			cmd ASC";
-	$db->query($sql);
+	$data = $db->query($sql);
 
-	$data = $db->fObject('all');
 	forEach ($data as $row) {
 		$guild = '';
 		$priv = '';

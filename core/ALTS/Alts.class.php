@@ -42,8 +42,7 @@ class AltInfo {
 		}
 		
 		$sql = "SELECT `alt`, `main`, `validated`, p.* FROM `alts` a LEFT JOIN players p ON (a.alt = p.name AND p.dimension = '<dim>') WHERE `main` LIKE '{$this->main}' ORDER BY level DESC, ai_level DESC, profession ASC, name ASC";
-		$db->query($sql);
-		$data = $db->fObject('all');
+		$data = $db->query($sql);
 		$count = count($data);
 		
 		$blob .= "\n:::::: Alt Characters ({$count})\n";
@@ -124,11 +123,10 @@ class Alts {
 		$ai = new AltInfo();
 		
 		$sql = "SELECT `alt`, `main`, `validated` FROM `alts` WHERE (`main` LIKE '$player') OR (`main` LIKE (SELECT `main` FROM `alts` WHERE `alt` LIKE '$player'))";
-		$db->query($sql);
+		$data = $db->query($sql);
 		
 		$isValidated = 0;
 		
-		$data = $db->fObject('all');
 		if (count($data) > 0) {
 			forEach ($data as $row) {
 				$ai->main = $row->main;

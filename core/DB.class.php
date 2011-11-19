@@ -98,27 +98,16 @@ class DB {
 	}
 	
 	//Sends a query to the Database and gives the result back
-	function query($stmt, $type = "object") {
+	function query($stmt) {
 		$this->result = NULL;
 		$stmt = $this->formatSql($stmt);
 		
-		if (substr_compare($stmt, "create", 0, 6, true) == 0) {
-			$this->CreateTable($stmt);
-			return;
-		}
-
 		$this->lastQuery = $stmt;
 		Logger::log('QUERY', "SQL", $stmt);
       	$result = $this->sql->query($stmt);
       	
 		if (is_object($result)) {
-		  	if ($type == "object") {
-	  			$this->result = $result->fetchALL(PDO::FETCH_OBJ);
-		  	} else if ($type == "assoc") {
-		  		$this->result = $result->fetchALL(PDO::FETCH_ASSOC);
-		  	} else if ($type == "num") {
-		  		$this->result = $result->fetchALL(PDO::FETCH_NUM);
-			}
+		  	$this->result = $result->fetchALL(PDO::FETCH_OBJ);
 		} else {
 			$this->result = NULL;
 		}
@@ -132,7 +121,7 @@ class DB {
 			Logger::log('ERROR', "SqlError", "{$this->errorInfo[2]} in: $stmt");
 		}
 
-		return $result;
+		return $this->result;
 	}
 	
 	//Does Basicly the same thing just don't gives the result back(used for create table, Insert, delete etc), a bit faster as normal querys 
@@ -321,7 +310,7 @@ class DB {
 		// only letters, numbers, underscores are allowed
 		if (!preg_match('/^[a-z0-9_]+$/', $name)) {
 			$msg = "Invalid SQL file name: '$name' for module: '$module'!  Only numbers, letters, and underscores permitted!";
-			Logger::log('ERROR', 'Core', "Invalid SQL file name: '$name' for module: '$module'!  Only numbers, letters, and underscores permitted!");
+			Logger::log('ERROR', 'Core', $msg);
 			return $msg;
 		}
 		
@@ -335,7 +324,9 @@ class DB {
 		} else if (is_dir($core_dir)) {
 			$dir = $core_dir;
 		} else {
-			// TODO invalid module name
+			$msg = "Could not find module '$module'.";
+			Logger::log('ERROR', 'Core', $msg);
+			return $msg;
 		}
 		$d = dir($dir);
 		

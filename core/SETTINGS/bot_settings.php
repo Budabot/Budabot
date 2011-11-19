@@ -3,8 +3,7 @@
 if (preg_match("/^settings$/i", $message)) {
   	$blob  = "<header> :::::: Bot Settings :::::: <end>\n\n";
  	$blob .= "<highlight>Changing any of these settings will take effect immediately. Please note that some of these settings are read-only and can't be changed.\n\n<end>";
- 	$db->query("SELECT * FROM settings_<myname> WHERE `mode` != 'hide' ORDER BY `module`");
-	$data = $db->fObject("all");
+ 	$data = $db->query("SELECT * FROM settings_<myname> WHERE `mode` != 'hide' ORDER BY `module`");
 	$cur = '';
  	forEach ($data as $row) {
 		if ($row->module != $cur) {
@@ -25,11 +24,11 @@ if (preg_match("/^settings$/i", $message)) {
  	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^settings change ([a-z0-9_]+)$/i", $message, $arr)) {
 	$setting = strtolower($arr[1]);
- 	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '{$setting}'");
-	if ($db->numrows() == 0) {
+ 	$data = $db->query("SELECT * FROM settings_<myname> WHERE `name` = '{$setting}'");
+	if (count($data) == 0) {
 		$msg = "Could not find setting <highlight>{$setting}<end>.";
 	} else {
-		$row = $db->fObject();
+		$row = $data[0];
 		
 		if ($row->options != '') {
 			$options = explode(";", $row->options);
@@ -120,11 +119,11 @@ if (preg_match("/^settings$/i", $message)) {
 } else if (preg_match("/^settings save ([a-z0-9_]+) (.+)$/i", $message, $arr)) {
   	$name_setting = strtolower($arr[1]);
   	$change_to_setting = $arr[2];
- 	$db->query("SELECT * FROM settings_<myname> WHERE `name` = '$name_setting'");
-	if ($db->numrows() == 0) {
+ 	$data = $db->query("SELECT * FROM settings_<myname> WHERE `name` = '$name_setting'");
+	if (count($data) == 0) {
 		$msg = "Could not find setting <highlight>{$name_setting}<end>.";
 	} else {
-		$row = $db->fObject();
+		$row = $data[0];
 		$options = explode(";", $row->options);
 		$new_setting = "";
 		if ($row->type == "color") {

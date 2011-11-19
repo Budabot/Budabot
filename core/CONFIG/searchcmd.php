@@ -17,15 +17,14 @@ if (preg_match("/^searchcmd (.*)/i", $message, $arr)) {
 	}
 
 	$sqlquery = "SELECT DISTINCT module FROM cmdcfg_<myname> WHERE `cmd` = '{$cmd}'";
-	$db->query($sqlquery);
+	$data = $db->query($sqlquery);
 	
-	if (0 == $db->numrows()) {
+	if (count($data) == 0) {
 		$msg = "<highlight>{$cmd}<end> could not be found.";
 		$chatBot->send($msg, $sendto);
 		return;
 	}
 	
-	$data = $db->fObject("all");
 	$blob = "<header> :::::: Command Search Results :::::: <end>\n\n";
 	forEach ($data as $row) {
 		$foundmodule = strtoupper($row->module);

@@ -36,8 +36,7 @@ class Ban {
 		
 		$chatBot->banlist = array();
 		
-		$db->query("SELECT * FROM banlist_<myname>");
-		$data = $db->fObject('all');
+		$data = $db->query("SELECT * FROM banlist_<myname>");
 		forEach ($data as $row) {
 			$chatBot->banlist[$row->name] = $row;
 		}

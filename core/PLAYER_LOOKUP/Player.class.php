@@ -46,8 +46,8 @@ class Player {
 		$db = DB::get_instance();
 	
 		$sql = "SELECT * FROM players WHERE name LIKE '$name' AND dimension = $dimension";
-		$db->query($sql);
-		return $db->fObject();
+		$data = $db->query($sql);
+		return $data[0];
 	}
 	
 	public static function lookup($name, $dimension) {

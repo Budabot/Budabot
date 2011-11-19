@@ -18,8 +18,7 @@ if (preg_match("/^eventlist$/i", $message) || preg_match("/^eventlist (.+)$/i", 
 		$cmdSearchSql
 		ORDER BY
 			type ASC";
-	$db->query($sql);
-	$data = $db->fObject('all');
+	$data = $db->query($sql);
 	
 	if (count($data) > 0) {
 		$blob  = "<header> :::::: Event List :::::: <end>\n\n";

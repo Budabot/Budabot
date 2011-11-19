@@ -35,6 +35,85 @@ if (!function_exists('get_admin_description')) {
 		}
 	}
 }
+
+if (!function_exists('getCommandInfo')) {
+	function getCommandInfo($cmd, $type) {
+		$db = DB::get_instance();
+	
+		$l = "";
+		$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = '$type'");
+		if (count($data) == 0) {
+			$l .= "Current Status: <red>Unused<end>. \n";
+		} else if (count($data) == 1) {
+			$row = $data[0];
+
+			$found_msg = 1;
+			
+			$row->admin = get_admin_description($row->admin);
+		
+			if ($row->status == 1) {
+				$status = "<green>Enabled<end>";
+			} else {
+				$status = "<red>Disabled<end>";
+			}
+			
+			$l .= "Current Status: $status (Access: $row->admin) \n";
+			$l .= "Enable or Disable Command: ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} enable {$type}'>ON</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} disable {$type}'>OFF</a>\n";
+
+			$l .= "Set minimum access lvl to use this command: ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} all'>All</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} member'>Member</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} guild'>Guild</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} leader'>Leader</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} rl'>RL</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} mod'>Mod</a>  ";
+			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} admin'>Admin</a>\n";
+		} else {
+			Logger::log("ERROR", "CONFIG", "Multiple rows exists for cmd: '$cmd' and type: '$type'");
+		}
+		return $l;
+	}
+}
+
+if (!function_exists('getSubCommandInfo')) {
+	function getSubCommandInfo($cmd, $type) {
+		$db = DB::get_instance();
+	
+		$subcmd_list = '';
+		$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE dependson = '$cmd' AND `type` = '{$type}' AND `cmdevent` = 'subcmd'");
+		forEach ($data as $row) {
+			$subcmd_list .= "Command: $row->cmd\n";
+			if ($row->description != "") {
+				$subcmd_list .= "Description: $row->description\n";
+			}
+			
+			$row->admin = get_admin_description($row->admin);
+			
+			if ($row->status == 1) {
+				$status = "<green>Enabled<end>";
+			} else {
+				$status = "<red>Disabled<end>";
+			}
+
+			$subcmd_list .= "Current Status: $status (Access: $row->admin) \n";
+			$subcmd_list .= "Enable or Disable Command: ";
+			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} enable {$type}'>ON</a>  ";
+			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} disable {$type}'>OFF</a>\n";
+			
+			$subcmd_list .= "Set min. access lvl to use this command: ";
+			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} admin {$type} all'>All</a>  ";
+			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} admin {$type} member'>Member</a>  ";
+			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} admin {$type} guild'>Guild</a>  ";
+			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} admin {$type} leader'>Leader</a>  ";
+			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} admin {$type} rl'>RL</a>  ";
+			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} admin {$type} mod'>Mod</a>  ";
+			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} admin {$type} admin'>Admin</a>\n\n";
+		}
+		return $subcmd_list;
+	}
+}
    
 if (preg_match("/^config$/i", $message)) {
 	$list = array();
@@ -66,8 +145,7 @@ if (preg_match("/^config$/i", $message)) {
 		ORDER BY
 			module ASC";
 
-	$db->query($sql);
-	$data = $db->fObject("all");
+	$data = $db->query($sql);
 	forEach ($data as $row) {
 		$db->query("SELECT * FROM hlpcfg_<myname> WHERE `module` = '".strtoupper($row->module)."'");
 		$num = $db->numrows();
@@ -99,8 +177,7 @@ if (preg_match("/^config$/i", $message)) {
 	$typeSql = ($arr[2] == "all" ? "`type` = 'guild' OR `type` = 'priv' OR `type` = 'msg'" : "`type` = '{$arr[2]}'");
 	
 	$sql = "SELECT type, file, cmd, admin FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' AND ($typeSql)";
-	$db->query($sql);
-	$data = $db->fObject('all');
+	$data = $db->query($sql);
 	forEach ($data as $row) {
 	  	if ($status == 1) {
 			Command::activate($row->type, $row->file, $row->cmd, $row->admin);
@@ -133,29 +210,31 @@ if (preg_match("/^config$/i", $message)) {
 	}
 	
 	if ($arr[1] == "mod" && $type == "all") {
-		$db->query("SELECT status, type, file, cmd, admin, cmdevent FROM cmdcfg_<myname> WHERE `module` = '$module'
+		$sql = "SELECT status, type, file, cmd, admin, cmdevent FROM cmdcfg_<myname> WHERE `module` = '$module'
 					UNION
-					SELECT status, type, file, '' AS cmd, '' AS admin, 'event' AS cmdevent FROM eventcfg_<myname> WHERE `module` = '$module' AND `type` <> 'setup'");
+					SELECT status, type, file, '' AS cmd, '' AS admin, 'event' AS cmdevent FROM eventcfg_<myname> WHERE `module` = '$module' AND `type` <> 'setup'";
 	} else if ($arr[1] == "mod" && $type != "all") {
-		$db->query("SELECT status, type, file, cmd, admin, cmdevent FROM cmdcfg_<myname> WHERE `module` = '$module' AND `type` = '$type'
+		$sql = "SELECT status, type, file, cmd, admin, cmdevent FROM cmdcfg_<myname> WHERE `module` = '$module' AND `type` = '$type'
 					UNION
-					SELECT status, type, file, cmd AS '', admin AS '', cmdevent AS 'event' FROM eventcfg_<myname> WHERE `module` = '$module' AND `type` = '$event_type' AND `type` <> 'setup'");
+					SELECT status, type, file, cmd AS '', admin AS '', cmdevent AS 'event' FROM eventcfg_<myname> WHERE `module` = '$module' AND `type` = '$event_type' AND `type` <> 'setup'";
 	} else if ($arr[1] == "cmd" && $type != "all") {
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = '$type' AND `cmdevent` = 'cmd'");
+		$sql = "SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = '$type' AND `cmdevent` = 'cmd'";
 	} else if ($arr[1] == "cmd" && $type == "all") {
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `cmdevent` = 'cmd'");
+		$sql = "SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `cmdevent` = 'cmd'";
 	} else if ($arr[1] == "subcmd" && $type != "all") {
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = '$type' AND `cmdevent` = 'subcmd'");
+		$sql = "SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = '$type' AND `cmdevent` = 'subcmd'";
 	} else if ($arr[1] == "subcmd" && $type == "all") {
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `cmdevent` = 'subcmd'");
+		$sql = "SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `cmdevent` = 'subcmd'";
 	} else if ($arr[1] == "event" && $file != "") {
-		$db->query("SELECT *, 'event' AS cmdevent FROM eventcfg_<myname> WHERE `file` = '$file' AND `type` = '$event_type' AND `type` <> 'setup'");	
+		$sql = "SELECT *, 'event' AS cmdevent FROM eventcfg_<myname> WHERE `file` = '$file' AND `type` = '$event_type' AND `type` <> 'setup'";
 	} else {
 		$syntax_error = true;
 		return;
 	}
+	
+	$data = $db->query($sql);
 
-	if ($db->numrows() == 0) {
+	if (count($data) == 0) {
 		if ($arr[1] == "mod" && $type == "all") {
 			$msg = "Could not find the Module <highlight>$module<end>";
 		} else if ($arr[1] == "mod" && $type != "all") {
@@ -193,7 +272,6 @@ if (preg_match("/^config$/i", $message)) {
 
 	$chatBot->send($msg, $sendto);
 
-	$data = $db->fObject("all");
 	forEach ($data as $row) {
 		// only update the status if the status is different
 		if ($row->status != $status) {
@@ -231,7 +309,6 @@ if (preg_match("/^config$/i", $message)) {
 		$db->exec("UPDATE eventcfg_<myname> SET `status` = $status WHERE `type` = '$event_type' AND `file` = '$file' AND `type` <> 'setup'");
 	}
 	
-	$data = $db->fObject("all");
 	forEach ($data as $row) {
 		// only update the status if the status is different
 		if ($row->status != $status) {
@@ -262,12 +339,13 @@ if (preg_match("/^config$/i", $message)) {
 
 	if ($category == "cmd") {
 		if ($channel == "all") {
-			$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$command' AND `cmdevent` = 'cmd'");
+			$sql = "SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$command' AND `cmdevent` = 'cmd'";
 		} else {
-			$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$command' AND `type` = '$channel' AND `cmdevent` = 'cmd'");
+			$sql = "SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$command' AND `type` = '$channel' AND `cmdevent` = 'cmd'";
 		}
+		$data = $db->query($sql);
 
-		if ($db->numrows() == 0) {
+		if (count($data) == 0) {
 			if ($channel == "all") {
 				$msg = "Could not find the command <highlight>$command<end>";
 			} else {
@@ -302,13 +380,13 @@ if (preg_match("/^config$/i", $message)) {
 		}
 	} else {  // if ($category == 'subcmd')
 		$sql = "SELECT * FROM cmdcfg_<myname> WHERE `type` = '$channel' AND `cmdevent` = 'subcmd' AND `cmd` = '$command'";
-		$db->query($sql);
-		if ($db->numrows() == 0) {
+		$data = $db->query($sql);
+		if (count($data) == 0) {
 			$msg = "Could not find the subcmd <highlight>$command<end> for Channel <highlight>$channel<end>";
 		  	$chatBot->send($msg, $sendto);
 		  	return;
 		}
-		$row = $db->fObject();
+
 		$db->exec("UPDATE cmdcfg_<myname> SET `admin` = '$admin' WHERE `type` = '$channel' AND `cmdevent` = 'subcmd' AND `cmd` = '$command'");
 		$chatBot->subcommands = array();
 		Subcommand::loadSubcommands();
@@ -345,207 +423,29 @@ if (preg_match("/^config$/i", $message)) {
 			$list[] = "<highlight>Aliases:<end> $aliases_blob \n\n";
 		}
 		
-		$l = "";
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = 'msg'");
-		if ($db->numrows() == 1) {
-			$row = $db->fObject();
-
-			$found_msg = 1;
-			
-			$row->admin = get_admin_description($row->admin);
-		
-			if ($row->status == 1) {
-				$status = "<green>Enabled<end>";
-			} else {
-				$status = "<red>Disabled<end>";
-			}
-			
-			$l .= "Current Status: $status (Access: $row->admin) \n";
-			$l .= "Enable or Disable Command: ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." enable msg'>ON</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." disable msg'>OFF</a>\n";
-
-			$l .= "Set minimum access lvl to use this command: ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg all'>All</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg member'>Member</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg guild'>Guild</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg leader'>Leader</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg rl'>RL</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg mod'>Mod</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin msg admin'>Admin</a>\n";
-		} else {
-			$l .= "Current Status: <red>Unused<end>. \n";
-		}
-		$list[] = array("header" => "<u><highlight>Tells:<end></u>\n", "content" => $l, "footer" => "\n\n");
-		
-		$l = "";
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = 'priv'");
-		if ($db->numrows() == 1) {
-			$row = $db->fObject();
-
-			$found_priv = 1;
-			
-			$row->admin = get_admin_description($row->admin);
-
-			if ($row->status == 1) {
-				$status = "<green>Enabled<end>";
-			} else {
-				$status = "<red>Disabled<end>";
-			}
-
-			$l .= "Current Status: $status (Access: $row->admin) \n";
-			$l .= "Enable or Disable Command: ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." enable priv'>ON</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." disable priv'>OFF</a>\n";
-
-			$l .= "Set minimum access lvl to use this command: ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv all'>All</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv member'>Member</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv guild'>Guild</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv leader'>Leader</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv rl'>RL</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv mod'>Mod</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin priv admin'>Admin</a>\n";
-		} else {
-			$l .= "Current Status: <red>Unused<end>. \n";
-		}
-		$list[] = array("header" => "<u><highlight>Private Channel:<end></u>\n", "content" => $l, "footer" => "\n\n");
-
-		$l = "";
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = 'guild'");
-		if ($db->numrows() == 1) {
-			$row = $db->fObject();
-			
-			$found_guild = 1;
-			
-			$row->admin = get_admin_description($row->admin);
-				
-			if ($row->status == 1) {
-				$status = "<green>Enabled<end>";
-			} else {
-				$status = "<red>Disabled<end>";
-			}
-
-			$l .= "Current Status: $status (Access: $row->admin) \n";
-			$l .= "Enable or Disable Command: ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." enable guild'>ON</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." disable guild'>OFF</a>\n";
-
-			$l .= "Set minimum access lvl to use this command: ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild all'>All</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild member'>Member</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild guild'>Guild</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild leader'>Leader</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild rl'>RL</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild mod'>Mod</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd ".$cmd." admin guild admin'>Admin</a>  ";
-		} else {
-			$l .= "Current Status: <red>Unused<end>. \n";
-		}
-		$list[] = array("header" => "<u><highlight>Guild Channel:<end></u>\n", "content" => $l, "footer" => "\n\n");
+		$list[] = array("header" => "<u><highlight>Tells:<end></u>\n", "content" => getCommandInfo($cmd, 'msg'), "footer" => "\n\n");
+		$list[] = array("header" => "<u><highlight>Private Channel:<end></u>\n", "content" => getCommandInfo($cmd, 'priv'), "footer" => "\n\n");
+		$list[] = array("header" => "<u><highlight>Guild Channel:<end></u>\n", "content" => getCommandInfo($cmd, 'guild'), "footer" => "\n\n");
 		
 		$subcmd_list = '';
-
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE dependson = '$cmd' AND `type` = 'msg' AND `cmdevent` = 'subcmd'");
-		if ($db->numrows() != 0) {
-			
+		$output = getSubCommandInfo($cmd, 'msg');
+		if ($output) {
 			$subcmd_list .= "<u><highlight>Available Subcommands in tells<end></u>\n";
-			while ($row = $db->fObject()) {
-				$subcmd_list .= "Command: $row->cmd\n";
-				if ($row->description != "") {
-					$subcmd_list .= "Description: $row->description\n";
-				}
-				
-				$row->admin = get_admin_description($row->admin);
-				
-				if ($row->status == 1) {
-					$status = "<green>Enabled<end>";
-				} else {
-					$status = "<red>Disabled<end>";
-				}
-
-				$subcmd_list .= "Current Status: $status (Access: $row->admin) \n";
-				$subcmd_list .= "Enable or Disable Command: ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." enable guild'>ON</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." disable guild'>OFF</a>\n";
-				
-				$subcmd_list .= "Set min. access lvl to use this command: ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg all'>All</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg member'>Member</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg guild'>Guild</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg leader'>Leader</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg rl'>RL</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg mod'>Mod</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin msg admin'>Admin</a>\n\n";
-			}
-		}
-
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `dependson` = '$cmd' AND `type` = 'priv' AND `cmdevent` = 'subcmd'");
-		if ($db->numrows() != 0) {
-			$subcmd_list .= "<u><highlight>Available Subcommands in Private Channel<end></u>\n";
-			while ($row = $db->fObject()) {
-				$subcmd_list .= "Command: $row->cmd\n";
-				if ($row->description != "") {
-					$subcmd_list .= "Description: $row->description\n";
-				}
-					
-				$row->admin = get_admin_description($row->admin);
-				
-				if ($row->status == 1) {
-					$status = "<green>Enabled<end>";
-				} else {
-					$status = "<red>Disabled<end>";
-				}
-
-				$subcmd_list .= "Current Status: $status (Access: $row->admin) \n";
-				$subcmd_list .= "Enable or Disable Command: ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." enable guild'>ON</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." disable guild'>OFF</a>\n";
-
-				$subcmd_list .= "Set min. access lvl to use this command: ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin priv all'>All</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin priv member'>Member</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin priv guild'>Guild</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin priv leader'>Leader</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin priv rl'>RL</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin priv mod'>Mod</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin priv admin'>Admin</a>\n\n";
-			}
-		}
-
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `dependson` = '$cmd' AND `type` = 'guild' AND `cmdevent` = 'subcmd'");
-		if ($db->numrows() != 0) {
-			$subcmd_list .= "<u><highlight>Available Subcommands in Guild Channel<end></u>\n";
-			while ($row = $db->fObject()) {
-				$subcmd_list .= "Command: $row->cmd\n";
-				if ($row->description != "") {
-					$subcmd_list .= "Description: $row->description\n";
-				}
-					
-				$row->admin = get_admin_description($row->admin);
-				
-				if ($row->status == 1) {
-					$status = "<green>Enabled<end>";
-				} else {
-					$status = "<red>Disabled<end>";
-				}
-
-				$subcmd_list .= "Current Status: $status (Access: $row->admin) \n";
-				$subcmd_list .= "Enable or Disable Command: ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." enable guild'>ON</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." disable guild'>OFF</a>\n";
-				
-				$subcmd_list .= "Set min. access lvl to use this command: ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild all'>All</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild member'>Member</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild guild'>Guild</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild leader'>Leader</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild rl'>RL</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild mod'>Mod</a>  ";
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd ".$row->cmd." admin guild admin'>Admin</a>\n\n";
-			}
+			$subcmd_list .= $output;
 		}
 		
+		$output = getSubCommandInfo($cmd, 'priv');
+		if ($output) {
+			$subcmd_list .= "<u><highlight>Available Subcommands in Private Channel<end></u>\n";
+			$subcmd_list .= $output;
+		}
+		
+		$output = getSubCommandInfo($cmd, 'guild');
+		if ($output) {
+			$subcmd_list .= "<u><highlight>Available Subcommands in Guild Channel<end></u>\n";
+			$subcmd_list .= $output;
+		}
+
 		if ($subcmd_list) {
 			$list[] = array("header" => "<header> ::: Subcommands ::: <end>\n\n", "content" => $subcmd_list);
 		}

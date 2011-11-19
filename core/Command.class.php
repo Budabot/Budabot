@@ -105,12 +105,11 @@ class Command {
 			$module_sql = "AND `module` = '$module'";
 		}
 	
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' $module_sql $cmd_sql $type_sql");
-		if ($db->numrows == 0) {
+		$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' $module_sql $cmd_sql $type_sql");
+		if (count($data) == 0) {
 			return 0;
 		}
 		
-		$data = $db->fObject('all');
 		forEach ($data as $row) {
 			if ($status == 1) {
 				Command::activate($row->type, $row->filename, $row->cmd, $row->admin);
@@ -131,8 +130,7 @@ class Command {
 
 	  	$db = DB::get_instance();
 
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'cmd'");
-		$data = $db->fObject("all");
+		$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'cmd'");
 		forEach ($data as $row) {
 			Command::activate($row->type, $row->file, $row->cmd, $row->admin);
 		}
@@ -148,8 +146,7 @@ class Command {
 		}
 		
 		$sql = "SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '{$command}' {$type_sql}";
-		$db->query($sql);
-		return $db->fObject('all');
+		return $db->query($sql);
 	}
 }
 

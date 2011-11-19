@@ -10,8 +10,7 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 	global $version;
 
 	$sql = "SELECT * FROM hlpcfg_<myname> ORDER BY module ASC";
-	$db->query($sql);
-	$data = $db->fObject('all');
+	$data = $db->query($sql);
 	
 	$help_array = array();
 	forEach ($data as $row) {

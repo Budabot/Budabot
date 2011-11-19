@@ -53,8 +53,7 @@ class Subcommand {
 	  	$db = DB::get_instance();
 		global $chatBot;
 
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd' AND `status` = 1");
-		$data = $db->fObject("all");
+		$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd' AND `status` = 1");
 		forEach ($data as $row) {
 			$chatBot->subcommands[$row->dependson] []= $row;
 		}

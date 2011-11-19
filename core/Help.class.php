@@ -37,8 +37,8 @@ class Help {
 			$db->exec("INSERT INTO hlpcfg_<myname> (`name`, `module`, `file`, `description`, `admin`, `verify`) VALUES ('$command', '$module', '$actual_filename', '" . str_replace("'", "''", $description) . "', '$admin', 1)");
 		}
 
-		$db->query("SELECT * FROM hlpcfg_<myname> WHERE `name` = '$command'");
-		$row = $db->fObject();
+		$data = $db->query("SELECT * FROM hlpcfg_<myname> WHERE `name` = '$command'");
+		$row = $data[0];
 		$chatBot->helpfiles[$command]["filename"] = $actual_filename;
 		$chatBot->helpfiles[$command]["admin"] = $row->admin;
 		$chatBot->helpfiles[$command]["info"] = $description;

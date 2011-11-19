@@ -10,8 +10,8 @@ class Whitelist {
 			return "User or sender is blank";
 		}
 	
-		$db->query("SELECT * FROM whitelist WHERE name = '$user'");
-		if ($db->numrows() != 0) {
+		$data = $db->query("SELECT * FROM whitelist WHERE name = '$user'");
+		if (count($data) != 0) {
 			return "Error! $user already added to the whitelist";
 		} else {
 			$db->exec("INSERT INTO whitelist (name, added_by, added_dt) VALUES ('$user', '$sender', CURRENT_TIMESTAMP)");
@@ -27,8 +27,8 @@ class Whitelist {
 			return "User is blank";
 		}
 	
-		$db->query("SELECT * FROM whitelist WHERE name = '$user'");
-		if ($db->numrows() == 0) {
+		$data = $db->query("SELECT * FROM whitelist WHERE name = '$user'");
+		if (count($data) == 0) {
 			return "Error! $user is not on the whitelist";
 		} else {
 			$db->exec("DELETE FROM whitelist WHERE name = '$user'");
@@ -40,8 +40,8 @@ class Whitelist {
 		$db = DB::get_instance();
 		$user = ucfirst(strtolower($user));
 
-		$db->query("SELECT * FROM whitelist WHERE name = '$user'");
-		if ($db->numrows() == 0) {
+		$data = $db->query("SELECT * FROM whitelist WHERE name = '$user'");
+		if (count($data) == 0) {
 			return false;
 		} else {
 			return true;
@@ -51,8 +51,7 @@ class Whitelist {
 	public static function all() {
 		$db = DB::get_instance();
 	
-		$db->query("SELECT * FROM whitelist ORDER BY name ASC");
-		return $db->fObject('all');
+		return $db->query("SELECT * FROM whitelist ORDER BY name ASC");
 	}
 }
 

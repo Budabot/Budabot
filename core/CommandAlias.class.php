@@ -11,8 +11,7 @@ class CommandAlias {
 	
 		$db = DB::get_instance();
 
-		$db->query("SELECT * FROM cmd_alias_<myname> WHERE `status` = '1'");
-		$data = $db->fObject("all");
+		$data = $db->query("SELECT * FROM cmd_alias_<myname> WHERE `status` = '1'");
 		forEach ($data as $row) {
 			CommandAlias::activate($row->cmd, $row->alias);
 		}
@@ -21,8 +20,7 @@ class CommandAlias {
 	public function getEnabledAliases() {
 		$db = DB::get_instance();
 
-		$db->query("SELECT * FROM cmd_alias_<myname> WHERE `status` = '1' ORDER BY alias ASC");
-		return $db->fObject("all");
+		return $db->query("SELECT * FROM cmd_alias_<myname> WHERE `status` = '1' ORDER BY alias ASC");
 	}
 	
 	/**
@@ -106,8 +104,7 @@ class CommandAlias {
 		$db = DB::get_instance();
 
 		$sql = "SELECT * FROM cmd_alias_<myname> WHERE `alias` = '{$alias}'";
-		$db->query($sql);
-		return $db->fObject();
+		return $db->query($sql);
 	}
 	
 	public static function get_command_by_alias($alias) {
@@ -127,8 +124,7 @@ class CommandAlias {
 		$command = strtolower($command);
 		
 		$sql = "SELECT * FROM cmd_alias_<myname> WHERE `cmd` = '{$command}'";
-		$db->query($sql);
-		return $db->fObject('all');
+		return $db->query($sql);
 	}
 }
 

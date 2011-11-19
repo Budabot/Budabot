@@ -82,7 +82,7 @@ class AOChatQueue {
 		$now = time();
 		if ($this->point < $now) {
 			$this->point = $now;
-		} else if($this->point > ($now + $this->limit)) {
+		} else if ($this->point > ($now + $this->limit)) {
 			return 0;
 		}
 		$processed = 0;

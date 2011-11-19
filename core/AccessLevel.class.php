@@ -104,8 +104,8 @@ class AccessLevel {
 		}
 		
 		$sql = "SELECT name FROM members_<myname> WHERE `name` = '$sender'";
-		$db->query($sql);
-		if ($db->numrows() > 0) {
+		$data = $db->query($sql);
+		if (count($data) > 0) {
 			return "member";
 		}
 		return "all";

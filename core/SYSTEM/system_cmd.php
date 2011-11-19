@@ -4,8 +4,8 @@ if (preg_match("/^system$/i", $message, $arr)) {
 	global $version;
 
 	$sql = "SELECT count(*) AS count FROM players";
-	$db->query($sql);
-	$num_player_cache = $db->fObject()->count;
+	$data = $db->query($sql);
+	$num_player_cache = $data[0]->count;
 	
 	$num_friendlist = 0;
 	forEach ($chatBot->buddyList as $key => $value) {

@@ -123,38 +123,32 @@ class Budabot extends AOChat {
 		$db->exec("UPDATE eventcfg_<myname> SET `status` = 1 WHERE `type` = 'setup'");
 
 		// To reduce queries load core items into memory
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd'");
-		$data = $db->fObject('all');
+		$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd'");
 		forEach ($data as $row) {
 		  	$this->existing_commands[$row->type][$row->cmd] = true;
 		}
 
-		$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd'");
-		$data = $db->fObject('all');
+		$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd'");
 		forEach ($data as $row) {
 		  	$this->existing_subcmds[$row->type][$row->cmd] = true;
 		}
 
-		$db->query("SELECT * FROM eventcfg_<myname>");
-		$data = $db->fObject('all');
+		$data = $db->query("SELECT * FROM eventcfg_<myname>");
 		forEach ($data as $row) {
 			$this->existing_events[$row->type][$row->file] = true;
 		}
 
-		$db->query("SELECT * FROM hlpcfg_<myname>");
-		$data = $db->fObject('all');
+		$data = $db->query("SELECT * FROM hlpcfg_<myname>");
 		forEach ($data as $row) {
 		  	$this->existing_helps[$row->name] = true;
 		}
 
-		$db->query("SELECT * FROM settings_<myname>");
-		$data = $db->fObject('all');
+		$data = $db->query("SELECT * FROM settings_<myname>");
 		forEach ($data as $row) {
 		  	$this->existing_settings[$row->name] = true;
 		}
 		
-		$db->query("SELECT * FROM cmd_alias_<myname>");
-		$data = $db->fObject('all');
+		$data = $db->query("SELECT * FROM cmd_alias_<myname>");
 		forEach ($data as $row) {
 		  	$this->existing_cmd_aliases[$row->alias] = true;
 		}

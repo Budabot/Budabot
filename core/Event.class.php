@@ -164,12 +164,11 @@ class Event {
 			$status_sql = "`status` = 0";
 		}
 	
-		$db->query("SELECT * FROM eventcfg_<myname> WHERE $status_Sql $module_sql $filename_sql $type_sql");
-		if ($db->numrows == 0) {
+		$data = $db->query("SELECT * FROM eventcfg_<myname> WHERE $status_Sql $module_sql $filename_sql $type_sql");
+		if (count($data) == 0) {
 			return 0;
 		}
 		
-		$data = $db->fObject('all');
 		forEach ($data as $row) {
 			if ($status == 1) {
 				Event::activate($row->type, $row->filename);
@@ -190,8 +189,7 @@ class Event {
 
 	  	$db = DB::get_instance();
 
-		$db->query("SELECT * FROM eventcfg_<myname> WHERE `status` = '1'");
-		$data = $db->fObject("all");
+		$data = $db->query("SELECT * FROM eventcfg_<myname> WHERE `status` = '1'");
 		forEach ($data as $row) {
 			Event::activate($row->type, $row->file);
 		}

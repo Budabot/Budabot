@@ -38,8 +38,7 @@ class Usage {
 		}
 
 		$sql = "SELECT type, command FROM usage_<myname> WHERE dt >= $lastSubmittedStats";
-		$db->query($sql);
-		$data = $db->fObject('all');
+		$data = $db->query($sql);
 
 		$settings = array();
 		$settings['dimension'] = $chatBot->vars['dimension'];
