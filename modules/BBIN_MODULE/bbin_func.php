@@ -46,13 +46,13 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 		$msg .= ".";
 
 		if ($chatBot->vars['my_guild'] != "") {
-			$chatBot->send("<yellow>[BBIN]<end> $msg","guild",true);
+			$chatBot->send("<yellow>[BBIN]<end> $msg", "guild", true);
 		}
 		if ($chatBot->vars['my_guild'] == "" || Setting::get("guest_relay") == 1) {
-			$chatBot->send("<yellow>[BBIN]<end> $msg","priv",true);
+			$chatBot->send("<yellow>[BBIN]<end> $msg", "priv", true);
 		}
 
-	} else if (preg_match("/^\[BBIN:LOGOFF:(.*?),(.),(.)\]/",$bbinmsg,$arr)) {
+	} else if (preg_match("/^\[BBIN:LOGOFF:(.*?),(.),(.)\]/", $bbinmsg, $arr)) {
 		// a user logged off somewhere in the network
 		$name = $arr[1];
 		$dimension = $arr[2];
@@ -63,18 +63,17 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 
 		// send notification to channels
 		$msg = "";
-		if ($isguest == 1)
-		{
+		if ($isguest == 1) {
 			$msg = "Our guest ";
 		}
 		$msg .= "<highlight>$name<end> has left the network.";
 
 
 		if ($chatBot->vars['my_guild'] != "") {
-			$chatBot->send("<yellow>[BBIN]<end> $msg","guild",true);
+			$chatBot->send("<yellow>[BBIN]<end> $msg", "guild", true);
 		}
 		if ($chatBot->vars['my_guild'] == "" || Setting::get("guest_relay") == 1) {
-			$chatBot->send("<yellow>[BBIN]<end> $msg","priv",true);
+			$chatBot->send("<yellow>[BBIN]<end> $msg", "priv", true);
 		}
 
 	} else if (preg_match("/^\[BBIN:SYNCHRONIZE\]/",$bbinmsg)) {
@@ -158,10 +157,12 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 
 function bbinConnect() {
 	global $bbinSocket;
+	$db = DB::get_instance();
 
 	IRC::connect($bbinSocket, Setting::get('bbin_nickname'), Setting::get('bbin_server'), Setting::get('bbin_port'), Setting::get('bbin_password'), Setting::get('bbin_channel'));
 	if (IRC::isConnectionActive($bbinSocket)) {
 		Setting::save("bbin_status", "1");
+		$db->exec("DELETE FROM bbin_chatlist_<myname>");
 		fputs($bbinSocket, "PRIVMSG ".Setting::get('bbin_channel')." :[BBIN:SYNCHRONIZE]\n");
 		parse_incoming_bbin("[BBIN:SYNCHRONIZE]", '');
 		return true;

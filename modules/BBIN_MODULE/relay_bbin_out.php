@@ -19,4 +19,5 @@ if (IRC::isConnectionActive($bbinSocket)) {
 		IRC::send($bbinSocket, Setting::get('bbin_channel'), $msg);
 	}
 }
+
 ?>

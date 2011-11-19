@@ -78,14 +78,9 @@ if ($data = fgets($bbinSocket)) {
 		for ($i = 3; $i < count($ex); $i++) {
 			$bbinmessage .= rtrim(htmlspecialchars_decode($ex[$i]))." ";
 		}
-		// vhabot compatibility; vhabot sends ascii 02 and 03 chars in it's irc messages, this filters them out
-		$bbinmessage = str_replace(chr(2), "", $bbinmessage);
-		$bbinmessage = str_replace(chr(3), "", $bbinmessage);
 
 		Logger::log_chat("Inc. BBIN Msg.", $nick, $bbinmessage);
 		parse_incoming_bbin($bbinmessage, $nick);
-
-		flush();
 	}
 	unset($sandbox);
 }
