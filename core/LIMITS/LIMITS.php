@@ -1,5 +1,6 @@
 <?php
 	require_once 'Whitelist.class.php';
+	require_once 'Limits.class.php';
 	
 	DB::loadSqlFile($MODULE_NAME, 'whitelist');
 	

@@ -580,17 +580,14 @@ class Budabot extends AOChat {
 			}
 		}
 
-		// Remove the symbol if there is one
+		// remove the symbol if there is one
 		if ($message[0] == Setting::get("symbol") && strlen($message) > 1) {
 			$message = substr($message, 1);
 		}
 
-		// Check private join and tell Limits
-		if (file_exists("./core/PRIV_TELL_LIMIT/check.php")) {
-			include './core/PRIV_TELL_LIMIT/check.php';
-			if ($restricted) {
-				return;
-			}
+		// check tell limits
+		if (!Limits::check($sender, $message)) {
+			return;
 		}
 		
 		$chatBot->process_command($type, $message, $sender, $sendto);
