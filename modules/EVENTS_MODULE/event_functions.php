@@ -8,6 +8,7 @@ function getEvents() {
 	if (count($data) > 0) {
 		$upcoming_title = "<header> :::::: Upcoming Events :::::: <end>\n\n";
 		$past_title = "<header> :::::: Past Events :::::: <end>\n\n";
+		$updated = 0;
 		forEach ($data as $row) {
 			$row->event_name = stripslashes($row->event_name);
 			$row->event_desc = stripslashes($row->event_desc);
@@ -16,7 +17,7 @@ function getEvents() {
 			} else {
 				$attendance = count(explode(",", $row->event_attendees));
 			}
-			if (!$updated) {
+			if ($updated < $row->time_submitted) {
 				$updated = $row->time_submitted;
 			}
 			  
