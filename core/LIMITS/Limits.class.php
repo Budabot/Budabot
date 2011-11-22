@@ -7,15 +7,9 @@ class Limits {
 
 		if (preg_match("/^about$/i", $message)) {
 			return true;
-		} else if (Whitelist::check($sender) || AccessLevel::check_access($sender, "member") || $sender == ucfirst(strtolower(Setting::get("relaybot")))) {
+		} else if (Whitelist::check($sender) || AccessLevel::check_access($sender, Setting::get("tell_req_open")) || $sender == ucfirst(strtolower(Setting::get("relaybot")))) {
 			return true;
 		} else {
-			if (!AccessLevel::check_access($sender, Setting::get("tell_req_open"))) {
-				$msg = "<orange>Error! I am only responding to members.<end>";
-				$chatBot->send($msg, $sender);
-				return false;
-			}
-
 			// if neither minlvl or faction is set, then check passes
 			if (Setting::get("tell_req_lvl") == 0 && Setting::get("tell_req_faction") == "all") {
 				return true;
