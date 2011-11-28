@@ -6,6 +6,8 @@
 For instance:
 <tab><symbol>scout PW 4 12:34:56 190 clan Dark Ninjas
 
+Note that the closing time is the "Created at" time, but only the time part, not the date part.
+
 <highlight>To remove a scouted tower site:<end>
 <tab><symbol>remscout 'playfield' 'site number'
 
