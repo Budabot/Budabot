@@ -1,18 +1,16 @@
-<header>::::: Implant Commands :::::<end>
+<header> :::::: Implant Command :::::: <end>
 
 <highlight>Shows stats for implants at given ql<end>
-<tab>Usage: <symbol>impql &lt;implant_ql&gt;
-
-<tab>eg: <symbol>impql 255
-
+<tab><symbol>implant 'implant_ql'
 
 <highlight>Shows implant for a given ability and treatment<end>
-<tab>Usage: <symbol>impreq &lt;ability_skill&gt; &lt;treatment_skill&gt;
+<tab><symbol>implant 'ability_amount' 'treatment_skill'
 
-<tab>eg: <symbol>impreq 404 951
+For instance, if you had 404 agility and 951 treatment, you would do
+<tab><symbol>implant 404 951
+And the bot would tell you the highest ql implant you could wear.
 
-
-Does normal and refined imps(not jobe imps) from ql 1 up to ql 300.
+Note that this command works for normal and refined implants from ql 1 up to ql 300, but not implants with Jobe clusters in them.
 
 When you view more info on an implant ql, the range of numbers next to the modifier tells you the range of quality levels that will give you the same modifier.
 
