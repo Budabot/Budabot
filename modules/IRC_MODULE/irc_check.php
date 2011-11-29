@@ -150,7 +150,7 @@ if ($data = fgets($ircSocket)) {
 			fputs($ircSocket, "PRIVMSG ".$channel." :$list\n");
 		} else {
 			$ircarray = explode(",", strtolower(Setting::get('irc_ignore')));
-			if (in_array($nick, $ircarray)) {
+			if (in_array(strtolower($nick), $ircarray)) {
 				return;
 			}
 		
