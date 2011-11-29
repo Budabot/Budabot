@@ -24,8 +24,7 @@ if ($playfield === null) {
 
 $last_attack = Towers::get_last_attack($win_faction, $win_guild_name, $lose_faction, $lose_guild_name, $playfield->id);
 if ($last_attack !== null) {
-	$sql = "DELETE FROM scout_info WHERE `playfield_id` = {$last_attack->playfield_id} AND `site_number` = {$last_attack->site_number}";
-	$db->exec($sql);
+	Towers::rem_scout_site($last_attack->playfield_id, $last_attack->site_number);
 } else {
 	$last_attack = new stdClass;
 	$last_attack->att_guild_name = $win_guild_name;
