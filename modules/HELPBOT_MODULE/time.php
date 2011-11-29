@@ -29,7 +29,8 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-$time = time();
+$date = new DateTime();
+$time = time() - $date->getOffset();
 $time_format = "dS M, H:i";
 
 $timezone["CST"]["name"] = "Central Standard Time (GMT-6)";
