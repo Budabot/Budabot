@@ -149,6 +149,11 @@ if ($data = fgets($ircSocket)) {
 			fputs($ircSocket, "PRIVMSG ".$channel." :$membercount\n");
 			fputs($ircSocket, "PRIVMSG ".$channel." :$list\n");
 		} else {
+			$ircarray = explode(",", strtolower(Setting::get('irc_ignore')));
+			if (in_array($nick, $ircarray)) {
+				return;
+			}
+		
 			// handle relay messages from other bots
 			if (preg_match("/" . chr(2) . chr(2) . chr(2) . "(.+)" . chr(2) . " (.+)/i", $ircmessage, $arr)) {
 				$ircmessage = "{$guildNameColor}{$arr[1]}<end> {$guildMsgColor}{$arr[2]}<end>";
