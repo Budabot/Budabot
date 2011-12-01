@@ -13,7 +13,6 @@
 	CommandAlias::register($MODULE_NAME, "countdown", "cd");
 
 	Event::register($MODULE_NAME, "2sec", "timers_check.php", "timer", "Checks timers and periodically updates chat with time left");
-	Event::register($MODULE_NAME, "allpackets", "gauntletset.php", "none", "Sets a 17h10m timer when Vizaresh spawn is spammed");
 
 	Help::register($MODULE_NAME, "timers", "timers.txt", "guild", "How to create and show timers");
 	Help::register($MODULE_NAME, "countdown", "countdown.txt", "guild", "How to create a 5 second countdown timer");
