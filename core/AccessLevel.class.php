@@ -19,11 +19,7 @@ class AccessLevel {
 	public static function checkAccess($sender, $accessLevel) {
 		Logger::log("DEBUG", "AccessLevel", "Checking access level '$accessLevel' against character '$sender'");
 	
-		$sender = ucfirst(strtolower($sender));
-		$accessLevel = AccessLevel::normalizeAccessLevel($accessLevel);
-
-		$charAccessLevel = AccessLevel::getSingleAccessLevel($sender);
-		$returnVal = (AccessLevel::compareAccessLevels($charAccessLevel, $accessLevel) >= 0);
+		$returnVal = AccessLevel::checkSingleAccess($sender, $accessLevel);
 		
 		if ($returnVal === false && Setting::get('alts_inherit_admin') == 1) {
 			// if current character doesn't have access,
@@ -35,12 +31,19 @@ class AccessLevel {
 			$altInfo = Alts::get_alt_info($sender);
 			if ($sender != $altInfo->main && $altInfo->is_validated($sender)) {
 				Logger::log("DEBUG", "AccessLevel", "Checking access level '$accessLevel' against the main of '$sender' which is '$altInfo->main'");
-				$charAccessLevel = AccessLevel::getSingleAccessLevel($altInfo->main);
-				$returnVal = (AccessLevel::compareAccessLevels($charAccessLevel, $accessLevel) >= 0);
+				$returnVal = AccessLevel::checkSingleAccess($altInfo->main, $accessLevel);
 			}
 		}
 		
 		return $returnVal;
+	}
+	
+	public static function checkSingleAccess($sender, $accessLevel) {
+		$sender = ucfirst(strtolower($sender));
+		$accessLevel = AccessLevel::normalizeAccessLevel($accessLevel);
+
+		$charAccessLevel = AccessLevel::getSingleAccessLevel($sender);
+		return (AccessLevel::compareAccessLevels($charAccessLevel, $accessLevel) >= 0);
 	}
 	
 	public static function normalizeAccessLevel($accessLevel) {
