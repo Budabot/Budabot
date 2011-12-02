@@ -88,7 +88,7 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 		}
 
 		$data = $db->query("SELECT * FROM online WHERE channel_type = 'priv' AND added_by = '<myname>'");
-		$numrows += count($data)
+		$numrows += count($data);
 		forEach ($data as $row) {
 			$msg .= $row->name . ",1,";
 		}
