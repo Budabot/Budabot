@@ -9,7 +9,7 @@ if ($client !== false) {
 	// Read the input from the client
 	$apiRequest = $clientHandler->readPacket();
 	
-	$password = Preferences::get($apiRequest->username);
+	$password = Preferences::get($apiRequest->username, 'apipassword');
 	if ($password === false) {
 		$clientHandler->writePacket(new APIResponse(FAILURE, "login", "Password has not been set for this user."));
 	} else if ($password != $apiRequest->password) {
