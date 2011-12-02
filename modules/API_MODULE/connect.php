@@ -4,7 +4,7 @@ global $apisocket;
 
 // bind to port 5250 on any address
 $address = '0.0.0.0';
-$port = 5250;
+$port = Setting::get('api_port');
 
 // Create a TCP Stream socket
 $apisocket = socket_create(AF_INET, SOCK_STREAM, 0);

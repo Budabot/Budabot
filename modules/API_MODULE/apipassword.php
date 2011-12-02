@@ -1,6 +1,6 @@
 <?php
 
-if (preg_match("/^$/i", $message, $arr)) {
+if (preg_match("/^apipassword (.*)$/i", $message, $arr)) {
 	$password = $arr[1];
 	
 	Preferences::save($sender, 'apipassword', $password);

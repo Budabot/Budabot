@@ -11,7 +11,7 @@ if ($client !== false) {
 	
 	$password = Preferences::get($apiRequest->username);
 	if ($password === false) {
-		$clientHandler->writePacket(new APIResponse(FAILURE, "login", "Password has not been setup for this user."));
+		$clientHandler->writePacket(new APIResponse(FAILURE, "login", "Password has not been set for this user."));
 	} else if ($password != $apiRequest->password) {
 		$clientHandler->writePacket(new APIResponse(FAILURE, "login", "Password was incorrect."));
 	} else {
