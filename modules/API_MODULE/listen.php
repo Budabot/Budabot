@@ -14,6 +14,8 @@ if ($client !== false) {
 		$clientHandler->writePacket(new APIResponse(FAILURE, "login", "Password has not been set for this user."));
 	} else if ($password != $apiRequest->password) {
 		$clientHandler->writePacket(new APIResponse(FAILURE, "login", "Password was incorrect."));
+	} else if (!AccessLevel::checkAccess($apiRequest->username, 'mod')) {
+		$clientHandler->writePacket(new APIResponse(FAILURE, "login", "You must have moderator access or higher to use this feature."));
 	} else {
 		switch ($apiRequest->command) {
 			case "ping":
