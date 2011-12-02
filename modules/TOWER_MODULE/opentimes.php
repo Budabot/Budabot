@@ -1,6 +1,22 @@
 <?php
 
 if (preg_match("/^opentimes$/i", $message)) {
+
+	$sql = "
+		SELECT
+			guild_name,
+			sum(ct_ql) AS total_ql
+		FROM
+			scout_info
+		GROUP BY
+			guild_name
+		ORDER BY
+			guild_name ASC";
+	$data = $db->query($sql);
+	$contractQls = array();
+	forEach ($data as $row) {
+		$contractQls[$row->guild_name] = $row->total_ql;
+	}
 	
 	$sql = "
 		SELECT
@@ -12,15 +28,17 @@ if (preg_match("/^opentimes$/i", $message)) {
 		ORDER BY
 			guild_name ASC,
 			ct_ql DESC";
-	$db->query($sql);
-	$data = $db->fObject('all');
+	$data = $db->query($sql);
 	
 	if (count($data) > 0) {
 		$blob = "<header> :::::: Scouted Bases :::::: <end>\n";
 		$currentGuildName = '';
 		forEach ($data as $row) {
 			if ($row->guild_name != $currentGuildName) {
-				$blob .= "\n";
+				$contractQl = $contractQls[$row->guild_name];
+				$faction = strtolower($row->faction);
+
+				$blob .= "\n<u><$faction>$row->guild_name<end></u> (Total Contract QL: $contractQl)\n";
 				$currentGuildName = $row->guild_name;
 			}
 			$gas_level = getGasLevel($row->close_time);
@@ -31,28 +49,10 @@ if (preg_match("/^opentimes$/i", $message)) {
 			if ($open_time < 0) {
 				$open_time += 86400;
 			}
-			
-			$faction = strtolower($row->faction);
-			$blob .= "$site_link <white>- {$row->min_ql}-{$row->max_ql}, $row->ct_ql CT, <$faction>$row->guild_name<end>, $gas_change_string [by $row->scouted_by]<end>\n";
+
+			$blob .= "$site_link <white>- {$row->min_ql}-{$row->max_ql}, $row->ct_ql CT, $gas_change_string [by $row->scouted_by]<end>\n";
 		}
 		
-		$sql = "
-			SELECT
-				guild_name,
-				sum(ct_ql) AS total_ql
-			FROM
-				scout_info
-			GROUP BY
-				guild_name
-			ORDER BY
-				guild_name ASC";
-		$db->query($sql);
-		$data = $db->fObject('all');
-		$blob .= "\n\n<header> ::: Contract QLs ::: <end>\n\n";
-		forEach ($data as $row) {
-			$blob .= "{$row->guild_name}: <highlight>" . ($row->total_ql * 2) . "<end>\n";
-		}
-
 		$msg = Text::make_blob("Scouted Bases", $blob);
 	} else {
 		$msg = "No sites currently scouted.";
