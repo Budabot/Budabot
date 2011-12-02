@@ -1,11 +1,10 @@
 <?php
 
 if (preg_match("/^members$/i", $message)) {
-	$db->query("SELECT * FROM members_<myname> ORDER BY `name`");
-	$autoguests = $db->numrows();
+	$data = $db->query("SELECT * FROM members_<myname> ORDER BY `name`");
+	$autoguests = count($data);
 	if ($autoguests != 0) {
 	  	$list .= "<header> :::::: Members :::::: <end>\n\n";
-	  	$data = $db->fObject('all');
 		forEach ($data as $row) {
 			$online = Buddylist::is_online($row->name);
 	  	  	if (isset($chatBot->chatlist[$row->name])) {

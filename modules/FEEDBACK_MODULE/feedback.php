@@ -11,8 +11,8 @@ if (preg_match("/^feedback$/i", $message)) {
 		GROUP BY
 			name";
 			
-	$db->query($sql);
-	$count = $db->numrows();
+	$data = $db->query($sql);
+	$count = count($data);
 	
 	if ($count == 0) {
 		$msg = "There are no characters on the feedback list.";
@@ -21,7 +21,6 @@ if (preg_match("/^feedback$/i", $message)) {
 	}
 	
 	$blob = "<header> :::::: Feedback List :::::: <end>\n\n";
-	$data = $db->fObject('all');
 	forEach ($data as $row) {
 		$details_link = Text::make_chatcmd('Details', "/tell <myname> feedback $row->name");
 		$blob .= "$row->name  <green>+{$row->pos_rep}<end> <orange>-{$row->neg_rep}<end>   {$details_link}\n";
@@ -48,15 +47,15 @@ if (preg_match("/^feedback$/i", $message)) {
 	$time = time() - 86400;
 	
 	$sql = "SELECT name FROM feedback WHERE `by_charid` = '$by_charid' AND `charid` = '$charid' AND `dt` > '$time'";
-	$db->query($sql);
-	if ($db->numrows() > 0) {
+	$data = $db->query($sql);
+	if (count($data) > 0) {
 		$chatBot->send("You may only submit feedback for a player once every 24 hours. Please try again later.", $sendto);
 		return;
 	}
 	
 	$sql = "SELECT name FROM feedback WHERE `by_charid` = '$by_charid'";
-	$db->query($sql);
-	if ($db->numrows() > 3) {
+	$data = $db->query($sql);
+	if (count($data) > 3) {
 		$chatBot->send("You may submit feedback a maximum of 3 times in a 24 hour period. Please try again later.", $sendto);
 		return;
 	}
@@ -92,13 +91,13 @@ if (preg_match("/^feedback$/i", $message)) {
 		$where_sql = "WHERE `charid` = '$charid'";
 	}
     
-	$db->query("SELECT reputation, COUNT(*) count FROM feedback {$where_sql} GROUP BY `reputation`");
-	if($db->numrows() == 0) {
+	$data = $db->query("SELECT reputation, COUNT(*) count FROM feedback {$where_sql} GROUP BY `reputation`");
+	if (count($data) == 0) {
 		$msg = "<highlight>$name<end> has no feedback.";
 	} else {
 		$num_positive = 0;
 		$num_negative = 0;
-		while ($row = $db->fObject()) {
+		forEach ($data as $row) {
 			if ($row->reputation == '+1') {
 				$num_positive = $row->count;
 			} else if ($row->reputation == '-1') {
@@ -112,8 +111,7 @@ if (preg_match("/^feedback$/i", $message)) {
 		$blob .= "Last 10 comments about this user:\n\n";
 		
 		$sql = "SELECT * FROM feedback {$where_sql} ORDER BY `dt` DESC LIMIT 10";
-		$db->query($sql);
-		$data = $db->fObject('all');
+		$data = $db->query($sql);
 		forEach ($data as $row) {
 			if ($row->reputation == '-1') {
 				$blob .= "<orange>";

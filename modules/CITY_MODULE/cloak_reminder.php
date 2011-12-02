@@ -1,10 +1,10 @@
 <?php
 
 // valid states for action are: 'on', 'off'
-$db->query("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 1 ");
-if ($db->numrows() != 0) {
+$data = $db->query("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 1 ");
+if (count($data) > 0) {
 	$msg = "";
-	$row = $db->fObject();
+	$row = $data[0];
 
 	if ($row->action == "off") {
 		$timeSinceChange = time() - $row->time;

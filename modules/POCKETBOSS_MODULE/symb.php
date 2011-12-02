@@ -66,8 +66,7 @@ if (preg_match("/^symb ([a-z]+)$/i", $message, $arr) || preg_match("/^symb ([a-z
 		}
 	}
 	
-  	$db->query("SELECT * FROM pbdb WHERE `slot` LIKE '{$slot}' AND `type` LIKE '{$symbtype}' ORDER BY `ql` DESC, `type` ASC");
-  	$data = $db->fObject("all");
+  	$data = $db->query("SELECT * FROM pbdb WHERE `slot` LIKE '{$slot}' AND `type` LIKE '{$symbtype}' ORDER BY `ql` DESC, `type` ASC");
 	$numrows = count($data);
 	if ($numrows != 0) {
 	  	$blob = "<header> :::::: Symbiants Search Results ($numrows) :::::: <end>\n\n";

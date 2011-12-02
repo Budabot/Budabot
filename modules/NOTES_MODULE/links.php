@@ -4,8 +4,7 @@ if (preg_match("/^links$/i", $message)) {
 	$blob = "<header> :::::: Links :::::: <end>\n\n";
 
 	$sql = "SELECT * FROM links ORDER BY name ASC";
-  	$db->query($sql);
-	$data = $db->fObject('all');
+  	$data = $db->query($sql);
   	forEach ($data as $row) {
 	  	$remove = Text::make_chatcmd('Remove', "/tell <myname> <symbol>links rem $row->id");
 		if (Setting::get('showfullurls') == 1) {

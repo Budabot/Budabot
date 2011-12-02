@@ -1,11 +1,11 @@
 <?php
 
 if (preg_match("/^cloak$/i", $message)) {
-    $db->query("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 20");
-    if ($db->numrows() == 0) {
+    $data = $db->query("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 20");
+    if (count($data) == 0) {
         $msg = "<highlight>Unknown status on cloak!<end>";
     } else {
-		$row = $db->fObject();
+		$row = array_shift($data);
 		$timeSinceChange = time() - $row->time;
 		$timeString = Util::unixtime_to_readable(3600 - $timeSinceChange, false);
 
@@ -24,7 +24,7 @@ if (preg_match("/^cloak$/i", $message)) {
         $list .= "Action: <highlight>Cloaking device turned ".$row->action."<end>\n";
         $list .= "Player: <highlight>".$row->player."<end>\n\n";
         
-        while ($row = $db->fObject()) {
+        forEach ($data as $row) {
             $list .= "Time: <highlight>".date("M j, Y, G:i", $row->time)." (GMT)<end>\n";
             $list .= "Action: <highlight>Cloaking device turned ".$row->action."<end>\n";
             $list .= "Player: <highlight>".$row->player."<end>\n\n";
@@ -33,8 +33,8 @@ if (preg_match("/^cloak$/i", $message)) {
     }
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^cloak (raise|on)$/i", $message)) {
-    $db->query("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 20");
-	$row = $db->fObject();
+    $data = $db->query("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 20");
+	$row = $data[0];
 
 	if ($row->action == "on") {
 		$msg = "The cloaking device is already <green>enabled<end>.";

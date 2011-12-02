@@ -246,8 +246,8 @@ class Towers {
 	
 		$sql = "SELECT * FROM tower_attack_<myname> WHERE `att_guild_name` LIKE '{$guild_name}' OR `def_guild_name` LIKE '{$guild_name}' LIMIT 1";
 		
-		$db->query($sql);
-		if ($db->numrows() === 0) {
+		$data = $db->query($sql);
+		if (count($data) === 0) {
 			return false;
 		} else {
 			return true;

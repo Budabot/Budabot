@@ -26,8 +26,8 @@ if (isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
 	}
 
 	$sql = "SELECT logon_msg FROM org_members_<myname> WHERE name = '{$sender}'";
-	$db->query($sql);
-	$row = $db->fObject();
+	$data = $db->query($sql);
+	$row = $data[0];
 	if ($row !== null && $row->logon_msg != '') {
 		$msg .= " - " . $row->logon_msg;
 	}

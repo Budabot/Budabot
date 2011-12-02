@@ -23,10 +23,10 @@ function get_online_list($prof = "all") {
 
 	//$list = "";
 	$list = array();
-	$db->query("SELECT p.*, o.name, o.channel, o.afk FROM `online` o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE o.channel_type = 'guild' {$prof_query} {$order_by}");
+	$data = $db->query("SELECT p.*, o.name, o.channel, o.afk FROM `online` o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE o.channel_type = 'guild' {$prof_query} {$order_by}");
 
 	$oldprof = "";
-	$numonline = $db->numrows();
+	$numonline = count($data);
 	if ($chatBot->vars['my_guild'] != '') {
 		$guild_name = "[<myguild>] ";
 	}
@@ -36,20 +36,19 @@ function get_online_list($prof = "all") {
 		$list[] = array("content" => "<header> :::::: $numonline members online $guild_name:::::: <end>\n");
 	}
 	
-	$data = $db->fObject("all");
 	// create the list with alts shown
 	createList($data, $list, true, Setting::get("online_show_org_guild"));
 
 	// Private Channel Part
-	$db->query("SELECT p.*, o.name, o.channel, o.afk FROM `online` o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE o.channel_type = 'priv' {$prof_query} {$order_by}");
+	$data = $db->query("SELECT p.*, o.name, o.channel, o.afk FROM `online` o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE o.channel_type = 'priv' {$prof_query} {$order_by}");
 
-	$numguest = $db->numrows();
+	$numguest = count($data);
 	if ($numguest == 1) {
 		$list[] = array("content" => "\n\n<highlight><u>1 User in Private Channel</u><end>\n");
 	} else {
 		$list[] = array("content" => "\n\n<highlight><u>$numguest Users in Private Channel</u><end>\n");
 	}
-	$data = $db->fObject("all");
+
 	// create the list of guests, without showing alts
 	createList($data, $list, true, Setting::get("online_show_org_priv"));
 	$numonline += $numguest;
@@ -63,9 +62,8 @@ function get_online_list($prof = "all") {
 	// BBIN part
 	if (Setting::get("bbin_status") == 1) {
 		// members
-		$db->query("SELECT * FROM bbin_chatlist_<myname> WHERE (`guest` = 0) {$prof_query} ORDER BY `profession`, `level` DESC");
-		$numbbinmembers = $db->numrows();
-		$data = $db->fObject("all");
+		$data = $db->query("SELECT * FROM bbin_chatlist_<myname> WHERE (`guest` = 0) {$prof_query} ORDER BY `profession`, `level` DESC");
+		$numbbinmembers = count($data);
 		if ($numbbinmembers == 1) {
 			$list[] = array("content" => "\n\n<highlight><u>1 member in BBIN</u><end>\n");
 		} else {
@@ -74,9 +72,8 @@ function get_online_list($prof = "all") {
 		createListByProfession($data, $list, false, true);
 		
 		// guests
-		$db->query("SELECT * FROM bbin_chatlist_<myname> WHERE (`guest` = 1) {$prof_query} ORDER BY `profession`, `level` DESC");
-		$numbbinguests = $db->numrows();
-		$data = $db->fObject("all");
+		$data = $db->query("SELECT * FROM bbin_chatlist_<myname> WHERE (`guest` = 1) {$prof_query} ORDER BY `profession`, `level` DESC");
+		$numbbinguests = count($data);
 		if ($numbbinguests == 1) {
 			$list[] = array("content" => "\n\n<highlight><u>1 guest in BBIN<end></u>\n");
 		} else {

@@ -4,8 +4,7 @@ if (preg_match("/^notes$/i", $message)) {
 	$blob = "<header> :::::: Notes for $sender :::::: <end>\n\n";
 
 	$sql = "SELECT * FROM notes WHERE name LIKE '$sender'";
-  	$db->query($sql);
-	$data = $db->fObject('all');
+  	$data = $db->query($sql);
 	
 	if (count($data) == 0) {
 		$msg = "No notes for $sender.";

@@ -50,12 +50,12 @@ if (preg_match("/^vote$/i", $message)) {
 } else if (preg_match("/^vote kill (.+)$/i", $message, $arr)) {
 	$topic = $arr[1];
 	if (AccessLevel::check_access($sender, "moderator")) {
-		$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $topic)."'");
+		$data = $db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $topic)."'");
 	} else {
-		$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $topic)."' AND `author` = '$sender' AND `duration` IS NOT NULL");
+		$data = $db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $topic)."' AND `author` = '$sender' AND `duration` IS NOT NULL");
 	}
 	
-	if ($db->numrows() > 0) {
+	if (count($data) > 0) {
 		$db->exec("DELETE FROM $table WHERE `question` = '".str_replace("'", "''", $topic)."'");
 		unset($chatBot->data["Vote"][$topic]);
 		$msg = "'$topic' has been removed.";
@@ -68,8 +68,8 @@ if (preg_match("/^vote$/i", $message)) {
 	if (!isset($chatBot->data["Vote"][$topic])) {
 		$msg = "There is no such topic available.";
 	} else {
-		$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $topic)."' AND `author` = '$sender' AND `duration` IS NULL");
-		if ($db->numrows() > 0) {
+		$data = $db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $topic)."' AND `author` = '$sender' AND `duration` IS NULL");
+		if (count($data) > 0) {
 			$db->exec("DELETE FROM $table WHERE `question` = '".str_replace("'", "''", $topic)."' AND `author` = '$sender' AND `duration` IS NULL");
 			$msg = "Your vote has been removed.";
 		} else {
@@ -79,12 +79,12 @@ if (preg_match("/^vote$/i", $message)) {
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^vote end (.+)$/i", $message, $arr)) {
 	$topic = $arr[1];
-	$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $topic)."' AND `author` = '$sender' AND `duration` IS NOT NULL");
+	$data = $db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $topic)."' AND `author` = '$sender' AND `duration` IS NOT NULL");
 	
-	if ($db->numrows() == 0) {
+	if (count($data) == 0) {
 		$msg = "Either this vote doesn't exist, or you didn't create it.";
 	} else {
-		$row = $db->fObject();
+		$row = $data[0];
 		$question = $row->question; $author = $row->author; $started = $row->started;
 		$duration = $row->duration; $status = $row->status;
 		$timeleft = $started+$duration-time();		
@@ -273,11 +273,9 @@ if (preg_match("/^vote$/i", $message)) {
 				}
 				$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $question)."'");
 				if ($db->numrows() == 0) {
-
 					$db->exec("INSERT INTO $table (`question`, `author`, `started`, `duration`, `answer`, `status`) VALUES ( '".str_replace("'", "''", $question)."', '$sender', '".time()."', '$newtime', '".str_replace("'", "''", $answers)."', '$status')");
 					$chatBot->data["Vote"][$question] = array("author" => $sender,  "started" => time(), "duration" => $newtime, "answer" => $answers, "status" => "0", "lockout" => $status);
 					$msg = "Vote has been added.";
-
 				} else {
 					$msg = "There's already a vote with this topic.";
 				}

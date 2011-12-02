@@ -10,8 +10,8 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
 		return;
 	}
 	
-	$db->query("SELECT mode FROM org_members_<myname> WHERE `name` = '$name'");
-	$row = $db->fObject();
+	$data = $db->query("SELECT mode FROM org_members_<myname> WHERE `name` = '$name'");
+	$row = $data[0];
 
 	if ($row !== null && $row->mode != "del") {
         $msg = "<highlight>{$name}<end> is already on the Notify list.";
@@ -38,8 +38,8 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
 		return;
 	}
 
-    $db->query("SELECT mode FROM org_members_<myname> WHERE `name` = '$name'");
-	$row = $db->fObject();
+    $data = $db->query("SELECT mode FROM org_members_<myname> WHERE `name` = '$name'");
+	$row = $data[0];
 	
 	if ($row === null) {
 		$msg = "<highlight>{$name}<end> is not on the guild roster.";

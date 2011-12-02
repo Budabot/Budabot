@@ -6,8 +6,8 @@ if (preg_match("/^adduser (.+)$/i", $message, $arr)) {
 	if (!$uid) {
 		$msg = "Player <highlight>$name<end> does not exist.";
 	} else {
-		$db->query("SELECT * FROM members_<myname> WHERE `name` = '$name'");
-		if ($db->numrows() != 0) {
+		$data = $db->query("SELECT * FROM members_<myname> WHERE `name` = '$name'");
+		if (count($data) != 0) {
 			$msg = "<highlight>$name<end> is already a member of this bot.";
 		} else {
 			$db->exec("INSERT INTO members_<myname> (`name`, `autoinv`) VALUES ('$name', 1)");

@@ -1,11 +1,11 @@
 <?php
 
 if ($chatBot->is_ready() && isset($chatBot->guildmembers[$sender])) {
-    $db->query("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 0, 20 ");
+	$data = $db->query("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 0, 20 ");
     
     $case = 0;
-    if ($db->numrows() > 0) {
-        $row = $db->fObject();
+    if (count($data) > 0) {
+        $row = $data[0];
 		$timeSinceChange = time() - $row->time;
 		$timeString = Util::unixtime_to_readable(3600 - $timeSinceChange, false);
 

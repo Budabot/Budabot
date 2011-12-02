@@ -4,8 +4,7 @@ if (preg_match("/^broadcast$/i", $message)) {
 	$blob = "<header> :::::: Broadcast Bots :::::: <end>\n\n";
 
 	$sql = "SELECT * FROM broadcast_<myname> ORDER BY dt DESC";
-  	$db->query($sql);
-	$data = $db->fObject('all');
+  	$data = $db->query($sql);
   	forEach ($data as $row) {
 	  	$remove = Text::make_chatcmd('Remove', "/tell <myname> <symbol>broadcast rem $row->name");
 		$dt = date("M j, Y, G:i", $row->dt);

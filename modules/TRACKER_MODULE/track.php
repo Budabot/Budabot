@@ -1,11 +1,10 @@
 <?php
 
 if (preg_match("/^track$/i", $message)) {
-	$db->query("SELECT * FROM tracked_users_<myname> ORDER BY `name`");
+	$data = $db->query("SELECT * FROM tracked_users_<myname> ORDER BY `name`");
 	$numrows = $db->numrows();
 	if ($numrows != 0) {
 	  	$blob .= "<header> :::::: {$numrows} Users on Track List :::::: <end>\n\n";
-		$data = $db->fObject('all');
 	  	forEach ($data as $row) {
 			$db->query("SELECT `event`, `dt` FROM tracking_<myname> WHERE `uid` = $row->uid ORDER BY `dt` DESC LIMIT 1");
 			if ($db->numrows() > 0) {

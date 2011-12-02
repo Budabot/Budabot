@@ -2,11 +2,11 @@
 
 if (preg_match("/^sm$/i", $message)) {
 	if (count($chatBot->chatlist) > 0) {
-		$db->query("SELECT p.*, o.name as name FROM online o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE `channel_type` = 'priv' AND added_by = '<myname>' ORDER BY `profession`, `level` DESC");
-		$numguest = $db->numrows();
+		$data = $db->query("SELECT p.*, o.name as name FROM online o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE `channel_type` = 'priv' AND added_by = '<myname>' ORDER BY `profession`, `level` DESC");
+		$numguest = count($data);
 
 		$blob = "<header> {$numguest} player(s) currently in chat<end>\n\n";
-	    while ($row = $db->fObject()) {
+	    forEach ($data as $row) {
 			if ($row->profession == null) {
 				$blob .= "<white>$row->name<white> - Unknown\n";
 			} else {

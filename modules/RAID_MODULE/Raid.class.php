@@ -101,13 +101,12 @@ class Raid {
 		$count = 1;
 
 		$sql = "SELECT * FROM raid_loot WHERE raid = '$raid' AND category = '$category'";
-		$db->query($sql);
+		$data = $db->query($sql);
 
-		if ($db->numrows() == 0) {
+		if (count($data) == 0) {
 			return false;
 		}
 
-		$data = $db->fObject('all');
 		forEach ($data as $row) {
 			$loot[$count]['name'] = $row->name;
 			$loot[$count]['linky'] = Text::make_item($row->lowid, $row->highid, $row->ql, $row->name);
@@ -123,13 +122,11 @@ class Raid {
 		$db = DB::get_instance();
 
 		$sql = "SELECT * FROM raid_loot WHERE raid = '$raid' AND category = '$category'";
-		$db->query($sql);
+		$data = $db->query($sql);
 
-		if ($db->numrows() == 0) {
+		if (count($data) == 0) {
 			return null;
 		}
-
-		$data = $db->fObject('all');
 
 		$blob = "<header>::::: $raid $category Loot :::::<end>\n\n\n";
 		forEach ($data as $row) {

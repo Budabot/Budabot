@@ -3,8 +3,8 @@
 if (preg_match("/^logonadmin ([a-zA-Z0-9-]+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 	
-	$db->query("SELECT name, logon_msg FROM org_members_<myname> WHERE `name` = '{$name}'");
-	$row = $db->fObject();
+	$data = $db->query("SELECT name, logon_msg FROM org_members_<myname> WHERE `name` = '{$name}'");
+	$row = $data[0];
 
 	if ($row !== null) {
 		if ($row->logon_msg == '') {
@@ -19,8 +19,8 @@ if (preg_match("/^logonadmin ([a-zA-Z0-9-]+)$/i", $message, $arr)) {
 } else if (preg_match("/^logonadmin ([a-zA-Z0-9-]+) (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 	
-	$db->query("SELECT name, logon_msg FROM org_members_<myname> WHERE `name` = '{$name}'");
-	$row = $db->fObject();
+	$data = $db->query("SELECT name, logon_msg FROM org_members_<myname> WHERE `name` = '{$name}'");
+	$row = $data[0];
 
     if ($row !== null) {
         $logon_msg = str_replace("'", "''", $arr[2]);

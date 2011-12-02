@@ -15,13 +15,12 @@ if (preg_match ("/^dyna ([\\d]+)$/i", $message, $arr)) {
 	$search = $arr[1];
 	$range1 = $search - 25;
 	$range2 = $search + 25;
-	$db->query("SELECT * FROM dynadb d JOIN playfields p ON d.playfield_id = p.id WHERE minQl > $range1 AND minQl < $range2 ORDER BY `minQl`");
-	$count = $db->numrows();
+	$data = $db->query("SELECT * FROM dynadb d JOIN playfields p ON d.playfield_id = p.id WHERE minQl > $range1 AND minQl < $range2 ORDER BY `minQl`");
+	$count = count($data);
 
 	$dynacamps = Text::make_header("Results Of Dynacamp Search For $search", $links);
 
 	$dynacamps .= "There are $count locations matching your query\n\n";
-	$data = $db->fObject("all");
 	forEach($data as $row) {
 		$coordLink = Text::make_chatcmd("{$row->cX}x{$row->cY} {$row->long_name}", "/waypoint $row->cX $row->cY $row->playfield_id");
 		$dynacamps .="<pagebreak><yellow>$row->long_name:  Co-ordinates $coordLink\n";
@@ -34,13 +33,12 @@ if (preg_match ("/^dyna ([\\d]+)$/i", $message, $arr)) {
 } else if (preg_match ("/^dyna (.+)$/i", $message, $arr)) {
 	$search = str_replace(" ", "%", $arr[1]);
 	$search = str_replace("'", "''", $arr[1]);
-	$db->query("SELECT * FROM dynadb d JOIN playfields p ON d.playfield_id = p.id WHERE long_name LIKE '%$search%' OR short_name LIKE '%$search%' OR mob LIKE '%$search%' ORDER BY `minQl`");
-	$count = $db->numrows();
+	$data = $db->query("SELECT * FROM dynadb d JOIN playfields p ON d.playfield_id = p.id WHERE long_name LIKE '%$search%' OR short_name LIKE '%$search%' OR mob LIKE '%$search%' ORDER BY `minQl`");
+	$count = count($data);
 
 	$dynacamps = Text::make_header("Results Of Dynacamp Search For '$search'", $links);
 
 	$dynacamps .= "There are $count locations matching your query\n\n";
-	$data = $db->fObject("all");
 	forEach($data as $row) {
 		$coordLink = Text::make_chatcmd("{$row->cX}x{$row->cY} {$row->long_name}", "/waypoint $row->cX $row->cY $row->playfield_id");
 		$dynacamps .="<pagebreak><yellow>$row->long_name:  Co-ordinates $coordLink\n";

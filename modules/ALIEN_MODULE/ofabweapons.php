@@ -5,8 +5,7 @@ if (!function_exists('makeAlienWeapon')) {
 		$db = DB::get_instance();
 	
 		$name = str_replace("'", "''", $name);
-		$db->query("SELECT * FROM aodb WHERE name = '{$name}' AND lowql <= $ql AND highql >= $ql");
-		$data = $db->fObject('all');
+		$data = $db->query("SELECT * FROM aodb WHERE name = '{$name}' AND lowql <= $ql AND highql >= $ql");
 		$row = $data[0];
 		
 		return Text::make_item($row->lowid, $row->highid, $ql, $row->name);
@@ -14,11 +13,9 @@ if (!function_exists('makeAlienWeapon')) {
 }
 
 if (preg_match("/^ofabweapons$/i", $message, $arr)) {
-	$db->query("SELECT DISTINCT ql FROM ofabweaponscost ORDER BY ql ASC");
-	$qls = $db->fObject('all');
+	$qls = $db->query("SELECT DISTINCT ql FROM ofabweaponscost ORDER BY ql ASC");
 
-	$db->query("SELECT `type`, `name` FROM ofabweapons ORDER BY name ASC");
-	$data = $db->fObject('all');
+	$data = $db->query("SELECT `type`, `name` FROM ofabweapons ORDER BY name ASC");
 	$blob = "<header> :::::: Ofab Weapons :::::: <end>\n\n";
 	forEach ($data as $row) {
 		$blob .= "<pagebreak>{$row->name} - Type {$row->type}\n";
@@ -40,8 +37,7 @@ if (preg_match("/^ofabweapons$/i", $message, $arr)) {
 
 	$weapon = ucfirst($arr[1]);
 
-	$db->query("SELECT `type`, `vp` FROM ofabweapons w, ofabweaponscost c WHERE w.name = '{$weapon}' AND c.ql = $ql");
-	$data = $db->fObject('all');
+	$data = $db->query("SELECT `type`, `vp` FROM ofabweapons w, ofabweaponscost c WHERE w.name = '{$weapon}' AND c.ql = $ql");
 	if (count($data) == 0) {
 		$syntax_error = true;
 		return;
@@ -54,8 +50,7 @@ if (preg_match("/^ofabweapons$/i", $message, $arr)) {
 	$typeLink = Text::make_chatcmd("Kyr'Ozch Bio-Material - Type {$row->type}", "/tell <myname> bioinfo {$row->type} {$typeQl}");
 	$blob .= "Upgrade with $typeLink (minimum QL {$typeQl})\n\n";
 	
-	$db->query("SELECT DISTINCT ql FROM ofabweaponscost ORDER BY ql ASC");
-	$qls = $db->fObject('all');
+	$qls = $db->query("SELECT DISTINCT ql FROM ofabweaponscost ORDER BY ql ASC");
 	forEach ($qls as $row2) {
 		if ($row2->ql == $ql) {
 			$blob .= "[{$row2->ql}] ";

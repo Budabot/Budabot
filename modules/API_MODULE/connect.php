@@ -3,7 +3,7 @@
 global $apisocket;
 
 // bind to port 5250 on any address
-$address = '0.0.0.0.';
+$address = '0.0.0.0';
 $port = 5250;
 
 // Create a TCP Stream socket

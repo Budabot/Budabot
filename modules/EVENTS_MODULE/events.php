@@ -14,8 +14,8 @@ if (preg_match("/^events$/i", $message, $arr)) {
 	}
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^events join ([0-9]+)$/i", $message, $arr)) {
-	$db->query("SELECT * FROM events WHERE `id` = '$arr[1]'");
-	$row = $db->fObject();
+	$data = $db->query("SELECT * FROM events WHERE `id` = '$arr[1]'");
+	$row = $data[0];
 	if (time() < (($row->event_date)+(3600*3))) {
 		// cannot join an event after 3 hours past its starttime
 		if (strpos($row->event_attendees,$sender) !== false) {
@@ -36,8 +36,8 @@ if (preg_match("/^events$/i", $message, $arr)) {
 	}
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^events leave ([0-9]+)$/i", $message, $arr)) {
-	$db->query("SELECT * FROM events WHERE `id` = '$arr[1]'");
-	$row = $db->fObject();
+	$data = $db->query("SELECT * FROM events WHERE `id` = '$arr[1]'");
+	$row = $data[0];
 	if (time() < (($row->event_date)+(3600*3))) { // cannot leave an event after 3 hours past its starttime
 		if (strpos($row->event_attendees,$sender) !== false) {
 			$event = explode(",", $row->event_attendees);
@@ -61,9 +61,9 @@ if (preg_match("/^events$/i", $message, $arr)) {
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^events list ([0-9]+)$/i", $message, $arr)) {
 	$id = $arr[1];
-	$db->query("SELECT event_attendees FROM events WHERE `id` = '$id'");
-	if ($db->numrows() != 0) {
-		$row = $db->fObject();
+	$data = $db->query("SELECT event_attendees FROM events WHERE `id` = '$id'");
+	if (count($data) > 0) {
+		$row = $data[0];
 		$link = "<header> :::::: Players Attending Event $id :::::: <end>\n\n";
 		
 		$link .= Text::make_chatcmd("Join this event", "/tell <myname> event join $id")."\n";
@@ -73,9 +73,9 @@ if (preg_match("/^events$/i", $message, $arr)) {
 		sort($eventlist);
 		if ($row->event_attendees != "") {
 			forEach ($eventlist as $key => $name) {
-				$db->query("SELECT * FROM players p WHERE name = '$name' AND p.dimension = '<dim>'");
-				if ($db->numrows() != 0) {
-					$row = $db->fObject();
+				$data = $db->query("SELECT * FROM players p WHERE name = '$name' AND p.dimension = '<dim>'");
+				if (count($data) > 0) {
+					$row = $data[0];
 					$info = " <white>Lvl $row->level $row->profession<end>\n";
 				}
 				

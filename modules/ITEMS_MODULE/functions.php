@@ -84,9 +84,8 @@ function find_items_from_local($search, $ql) {
 	}
 
 	$sql = "SELECT * FROM aodb WHERE $query ORDER BY `name` ASC, highql DESC LIMIT 0, " . Setting::get("maxitems");
-	$db->query($sql);
-	$data = $db->fObject('all');
-	$num = $db->numrows();
+	$data = $db->query($sql);
+	$num = count($data);
 	if ($num == 0) {
 		if ($ql) {
 			$msg = "No items found matching <highlight>$search<end> with QL <highlight>$ql<end>.";

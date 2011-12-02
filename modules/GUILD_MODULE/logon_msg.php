@@ -1,8 +1,8 @@
 <?php
 
 if (preg_match("/^logon$/i", $message)) {
-	$db->query("SELECT name, logon_msg FROM org_members_<myname> WHERE `name` = '{$sender}'");
-	$row = $db->fObject();
+	$data = $db->query("SELECT name, logon_msg FROM org_members_<myname> WHERE `name` = '{$sender}'");
+	$row = $data[0];
 
 	if ($row !== null) {
 		if ($row->logon_msg == '') {
@@ -15,8 +15,8 @@ if (preg_match("/^logon$/i", $message)) {
 	}
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^logon (.+)$/i", $message, $arr)) {
-	$db->query("SELECT name, logon_msg FROM org_members_<myname> WHERE `name` = '{$sender}'");
-	$row = $db->fObject();
+	$data = $db->query("SELECT name, logon_msg FROM org_members_<myname> WHERE `name` = '{$sender}'");
+	$row = $data[0];
 
     if ($row !== null) {
         $logon_msg = str_replace("'", "''", $arr[1]);

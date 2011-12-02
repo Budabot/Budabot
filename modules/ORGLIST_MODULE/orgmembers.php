@@ -7,8 +7,8 @@ if (preg_match("/^orgmembers$/i", $message)) {
 		return;
 	}
 	
-	$db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE `mode` != 'del' ORDER BY o.name");
-	$members = $db->numrows();
+	$data = $db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE `mode` != 'del' ORDER BY o.name");
+	$members = count($data);
   	if ($members == 0) {
 	  	$msg = "No members recorded.";
 	    $chatBot->send($msg, $sendto);
@@ -21,7 +21,6 @@ if (preg_match("/^orgmembers$/i", $message)) {
     $first_char = "";
 	$blob = array("<header>::::: Members of the org <myguild> :::::<end>\n\n");
 	$l = "";
-	$data = $db->fObject('all');
 	forEach ($data as $row) {
 		if (Buddylist::is_online($row->name) == 1) {
 			$logged_off = " :: <highlight>Last logoff:<end> <green>Online<end>";
@@ -81,11 +80,11 @@ if (preg_match("/^orgmembers$/i", $message)) {
 	}
 	
 	$sql = "SELECT * FROM players WHERE guild_id = {$guild_id} AND dimension = '<dim>' ORDER BY name ASC";
-	$db->query($sql);
+	$data = $db->query($sql);
+	$numrows = count($data);
 	
-	$blob = array("{$org->orgname} has {$db->numrows()} members.\n\n");
+	$blob = array("{$org->orgname} has {$numrows} members.\n\n");
 	
-	$data = $db->fObject('all');
 	$l = "";
 	$current_letter = '';
 	forEach ($data as $row) {

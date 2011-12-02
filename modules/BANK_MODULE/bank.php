@@ -2,8 +2,7 @@
 
 if (preg_match("/^bank browse$/i", $message)) {
 	$blob = "<header> :::::: Bank Characters :::::: <end>\n\n";
-	$db->query("SELECT DISTINCT character FROM bank ORDER BY character ASC");
-	$data = $db->fObject('all');
+	$data = $db->query("SELECT DISTINCT character FROM bank ORDER BY character ASC");
 	forEach ($data as $row) {
 		$character_link = Text::make_chatcmd($row->character, "/tell <myname> bank browse {$row->character}");
 		$blob .= $character_link . "\n";
@@ -15,8 +14,7 @@ if (preg_match("/^bank browse$/i", $message)) {
 	$name = ucfirst(strtolower($arr[1]));
 
 	$blob = "<header> :::::: Backpacks for $name :::::: <end>\n\n";
-	$db->query("SELECT DISTINCT container, character FROM bank WHERE character = '$name' ORDER BY container ASC");
-	$data = $db->fObject('all');
+	$data = $db->query("SELECT DISTINCT container, character FROM bank WHERE character = '$name' ORDER BY container ASC");
 	if (count($data) > 0) {
 		forEach ($data as $row) {
 			$container_link = Text::make_chatcmd($row->container, "/tell <myname> bank browse {$row->character} {$row->container}");
@@ -34,8 +32,7 @@ if (preg_match("/^bank browse$/i", $message)) {
 	$limit = Setting::get('max_bank_items');
 
 	$blob = "<header> :::::: Contents of $pack :::::: <end>\n\n";
-	$db->query("SELECT * FROM bank WHERE character = '$name' AND container = '{$pack}' ORDER BY name ASC, ql ASC LIMIT {$limit}");
-	$data = $db->fObject('all');
+	$data = $db->query("SELECT * FROM bank WHERE character = '$name' AND container = '{$pack}' ORDER BY name ASC, ql ASC LIMIT {$limit}");
 	
 	if (count($data) > 0) {
 		forEach ($data as $row) {
@@ -59,8 +56,7 @@ if (preg_match("/^bank browse$/i", $message)) {
 	}
 
 	$blob = "<header> :::::: Bank Search Results for '{$arr[1]}' :::::: <end>\n\n";
-	$db->query("SELECT * FROM bank WHERE 1 = 1 {$where_sql} ORDER BY name ASC, ql ASC LIMIT {$limit}");
-	$data = $db->fObject('all');
+	$data = $db->query("SELECT * FROM bank WHERE 1 = 1 {$where_sql} ORDER BY name ASC, ql ASC LIMIT {$limit}");
 	
 	if (count($data) > 0) {
 		forEach ($data as $row) {

@@ -41,7 +41,7 @@ if (preg_match("/^flip$/i", $message)) {
 		  	$msg = "The coin landed <highlight>tails<end>, to verify do /tell <myname> verify $ver_num";
 		}
 	} else {
-	$row = $db->fObject();
+		$row = $db->fObject();
 		if ((time() - $row->time) <= 30) {
 	  		$msg = "You can only flip or roll once every 30 seconds.";
 	  	} else {

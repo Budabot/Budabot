@@ -30,11 +30,11 @@
  */
 
 if (preg_match("/^kos$/i", $message)) {
-	$db->query("SELECT * FROM koslist");
-	if ($db->numrows() == 0) {
+	$data = $db->query("SELECT * FROM koslist");
+	if (count($data) == 0) {
 		$msg = "No one is on the KOS list.";
 	} else {
-		while ($row = $db->fObject()) {
+		forEach ($data as $row) {
 			$list[$row->name]++;
 		}
 

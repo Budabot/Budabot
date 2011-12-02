@@ -35,8 +35,8 @@ if (preg_match("/^remuser (.+)$/i", $message, $arr)) {
     if (!$uid) {
         $msg = "Player <highlight>{$name}<end> does not exist.";
     } else {
-	  	$db->query("SELECT * FROM members_<myname> WHERE `name` = '$name'");
-	  	if ($db->numrows() == 0) {
+	  	$data = $db->query("SELECT * FROM members_<myname> WHERE `name` = '$name'");
+	  	if (count($data) == 0) {
 	  		$msg = "<highlight>$name<end> is not a member of this bot.";
 	  	} else {
 		    $db->exec("DELETE FROM members_<myname> WHERE `name` = '$name'");

@@ -20,9 +20,8 @@ if ($chatBot->vars["my_guild_id"] != "") {
 	$chatBot->vars["logondelay"] = time() + 100000;
 
 	// Save the current org_members table in a var
-	$db->query("SELECT * FROM org_members_<myname>");
-	$data = $db->fObject('all');
-	if ($db->numrows() == 0 && (count($org->members) > 0)) {
+	$data = $db->query("SELECT * FROM org_members_<myname>");
+	if (count($data) == 0 && (count($org->members) > 0)) {
 		$restart = true;
 	} else {
 		$restart = false;

@@ -3,11 +3,10 @@
 if (preg_match("/^pb (.+)$/i", $message, $arr)) {
 	$search = str_replace(" ", "%", $arr[1]);
 	$search = str_replace("'", "''", $search);
-  	$db->query("SELECT * FROM pbdb WHERE `pb` LIKE '%{$search}%' GROUP BY `pb` ORDER BY `pb`");
-	$numrows = $db->numrows();
+  	$data = $db->query("SELECT * FROM pbdb WHERE `pb` LIKE '%{$search}%' GROUP BY `pb` ORDER BY `pb`");
+	$numrows = count($data);
   	if ($numrows >= 1 && $numrows <= 5) {
 		$msg = "Pocketbosses matching: ";
-  	  	$data = $db->fObject("all");
 		forEach ($data as $row) {
 			$blob  = "<header>:::::: Remains of $row->pb :::::<end>\n\n";
 			$blob .= "<highlight>Location:<end> $row->pb_location\n";

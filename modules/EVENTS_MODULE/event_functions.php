@@ -3,8 +3,7 @@
 function getEvents() {
 	$db = DB::get_instance();
 
-	$db->query("SELECT * FROM events ORDER BY `event_date` DESC LIMIT 0,5");
-	$data = $db->fObject('all');
+	$data = $db->query("SELECT * FROM events ORDER BY `event_date` DESC LIMIT 0,5");
 	if (count($data) > 0) {
 		$upcoming_title = "<header> :::::: Upcoming Events :::::: <end>\n\n";
 		$past_title = "<header> :::::: Past Events :::::: <end>\n\n";

@@ -16,8 +16,7 @@ if (preg_match ("/^bossloot (.+)$/i", $message, $arr)) {
 	$links = array("Help" => "/tell <myname> help boss");
 	$blob = Text::make_header("Mobs that drop $search", $links);
 	
-	$db->query("SELECT DISTINCT b2.bossid, b2.bossname, w.answer FROM boss_lootdb b1 JOIN boss_namedb b2 ON b2.bossid = b1.bossid LEFT JOIN whereis w ON w.name = b2.bossname WHERE b1.itemname LIKE '%".str_replace("'", "''", $search)."%'");
-	$loot = $db->fobject("all");
+	$loot = $db->query("SELECT DISTINCT b2.bossid, b2.bossname, w.answer FROM boss_lootdb b1 JOIN boss_namedb b2 ON b2.bossid = b1.bossid LEFT JOIN whereis w ON w.name = b2.bossname WHERE b1.itemname LIKE '%".str_replace("'", "''", $search)."%'");
 	$count = count($loot);
 
 	if ($count != 0) {
@@ -28,8 +27,7 @@ if (preg_match ("/^bossloot (.+)$/i", $message, $arr)) {
 			$blob .= "<green>Can be found {$row->answer}<end>\nDrops: ";
 
 			// get loot
-			$db->query("SELECT * FROM boss_lootdb b JOIN aodb a ON b.itemid = a.lowid WHERE b.bossid = {$row->bossid} AND b.itemname LIKE '%".str_replace("'", "''", $search)."%'");
-			$data = $db->fobject("all");
+			$data = $db->query("SELECT * FROM boss_lootdb b JOIN aodb a ON b.itemid = a.lowid WHERE b.bossid = {$row->bossid} AND b.itemname LIKE '%".str_replace("'", "''", $search)."%'");
 			forEach ($data as $row2) {
 				$blob .= Text::make_item($row2->lowid, $row2->highid, $row2->highql, $row2->itemname) . ', ';
 			}

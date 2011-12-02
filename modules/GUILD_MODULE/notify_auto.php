@@ -3,8 +3,8 @@
 if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
     $name = ucfirst(strtolower($arr[2]));
 	
-    $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '{$name}'");
-    $row = $db->fObject();
+    $data = $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '{$name}'");
+    $row = $data[0];
     if ($row != null) {
         $db->exec("UPDATE org_members_<myname> SET `mode` = 'add' WHERE `name` = '{$name}'");
 	    Buddylist::add($name, 'org');

@@ -45,10 +45,10 @@ if (preg_match("/^is (.+)$/i", $message, $arr)) {
 			$chatBot->data["ONLINE_MODULE"]['sendto'] = $sendto;
 			Buddylist::add($name, 'is_online');
 		} else {
-            $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$name'");
-            if ($db->numrows() == 1) {
-                $row = $db->fObject();
-                if($row->logged_off != "0") {
+            $data = $db->query("SELECT * FROM org_members_<myname> WHERE `name` = '$name'");
+            if (count($data) == 1) {
+                $row = $data[0];
+                if ($row->logged_off != "0") {
                     $logged_off = "\nLogged off at ".date("l F d, Y - H:i", $row->logged_off)."(GMT)";
 				}
             }

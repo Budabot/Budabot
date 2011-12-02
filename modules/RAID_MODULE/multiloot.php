@@ -95,10 +95,10 @@ if (preg_match("/^multiloot (.+)$/i", $message, $arr)) {
 	}
 
 	//Check if there is a icon available
-	$db->query("SELECT * FROM aodb WHERE `name` LIKE '".str_replace("'", "''", $item_name)."'");
-	if ($db->numrows() != 0) {
+	$data = $db->query("SELECT * FROM aodb WHERE `name` LIKE '".str_replace("'", "''", $item_name)."'");
+	if (count($data) != 0) {
 		//Create an Object of the data
-	  	$row = $db->fObject();
+	  	$row = $data[0];
 	  	$item_name = $row->name;
 
 		//Save the icon

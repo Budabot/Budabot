@@ -2,10 +2,10 @@
 
 if (preg_match("/^lc$/i", $message, $arr)) {
 	$sql = "SELECT * FROM playfields WHERE `id` IN (SELECT DISTINCT `playfield_id` FROM tower_site) ORDER BY `short_name`";
-	$db->query($sql);
+	$data = $db->query($sql);
 	
 	$blob = "Land Control Index\n\n";
-	while (($row = $db->fObject()) != false) {
+	forEach (data as $row) {
 		$baseLink = Text::make_chatcmd($row->long_name, "/tell <myname> lc $row->short_name");
 		$blob .= "$baseLink <highlight>($row->short_name)<end>\n";
 	}
@@ -24,10 +24,9 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 		JOIN playfields p ON (t1.playfield_id = p.id)
 		WHERE t1.playfield_id = $playfield->id";
 
-	$db->query($sql);
-	$numrows = $db->numrows();
+	$data = $db->query($sql);
 	$blob = "All bases in $playfield->long_name\n\n";
-	while (($row = $db->fObject()) != false) {
+	forEach ($data as $row) {
 		$gas_level = getGasLevel($row->close_time);
 		$blob .= formatSiteInfo($row) . "\n\n";
 	}
@@ -49,15 +48,14 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 		JOIN playfields p ON (t1.playfield_id = p.id)
 		WHERE t1.playfield_id = $playfield->id AND t1.site_number = $site_number";
 
-	$db->query($sql);
-	$numrows = $db->numrows();
+	$data = $db->query($sql);
 	$blob = "$playfield->short_name $site_number\n\n";
-	while (($row = $db->fObject()) != false) {
+	forEach ($data as $row) {
 		$gas_level = getGasLevel($row->close_time);
 		$blob .= formatSiteInfo($row) . "\n\n";
 	}
 	
-	if ($numrows > 0) {
+	if (count($data) > 0) {
 		$msg = Text::make_blob("$playfield->short_name $site_number", $blob);
 	} else {
 		$msg = "Invalid site number.";
