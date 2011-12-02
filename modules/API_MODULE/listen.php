@@ -12,9 +12,16 @@ if ($client !== false) {
 	// TODO authentication
 	
 	switch ($apiRequest->command) {
+		case "ping":
+			$clientHandler->writePacket(new APIResponse(SUCCESS, "ping", $apiRequest->args));
+			break;
 		case "restart":
-			$clientHandler->writePacket(new APIResponse(SUCCESS, "Bot is restarting...", ""));
+			$clientHandler->writePacket(new APIResponse(SUCCESS, "restart", "Bot is restarting..."));
 			exit();
+			break;
+		case "adminlist":
+			$data = $db->query("SELECT * FROM admin_<myname> WHERE adminlevel = 4");
+			$clientHandler->writePacket(new APIResponse(SUCCESS, "adminlist", $data));
 			break;
 		default:
 			$clientHandler->writePacket(new APIResponse(FAILURE, "Unknown command: '$apiRequest->command'\n", ""));
