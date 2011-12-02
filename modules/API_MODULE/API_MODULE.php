@@ -7,5 +7,6 @@
 	Event::register($MODULE_NAME, "2sec", "listen.php", "", "Checks for and processes API requests");
 	
 	Command::register($MODULE_NAME, "", "testapi.php", "testapi", "mod", "Test API MODULE");
+	Command::register($MODULE_NAME, "", "apipassword.php", "apipassword", "mod", "Set your API password");
 
 ?>
