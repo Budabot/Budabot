@@ -102,12 +102,12 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 	$db->exec("DELETE FROM `alts` WHERE `main` = '{$altInfo->main}'");
 
 	// add current main to new main as an alt
-	Alts::add_alt($new_main, $altinfo->main, 0);
+	Alts::add_alt($new_main, $altInfo->main, 1);
 	
 	// add current alts to new main
 	forEach ($altInfo->alts as $alt => $validated) {
 		if ($alt != $new_main) {
-			Alts::add_alt($new_main, $alt, 0);
+			Alts::add_alt($new_main, $alt, $validated);
 		}
 	}
 	
