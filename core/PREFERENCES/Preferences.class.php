@@ -6,6 +6,7 @@ class Preferences {
 		
 		$sender = ucfirst(strtolower($sender));
 		$name = strtolower($name);
+		$value = str_replace("'", "''", $value);
 		
 		if (Preferences::get($sender, $name) === false) {
 			$db->exec("INSERT INTO preferences_<myname> (sender, name, value) VALUES ('{$sender}', '{$name}', '{$value}')");

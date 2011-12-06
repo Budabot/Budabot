@@ -67,3 +67,5 @@ if (preg_match("/^botconnect$/i", $message)) {
 } else {
 	$syntax_error = true;
 }
+
+?>

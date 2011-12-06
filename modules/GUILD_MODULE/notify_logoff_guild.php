@@ -10,11 +10,9 @@ if (isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
 	}
 
 	$msg = "$sender logged off.";
-	$sql = "SELECT logoff_msg FROM org_members_<myname> WHERE name = '{$sender}'";
-	$data = $db->query($sql);
-	$row = $data[0];
-	if ($row !== null && $row->logoff_msg != '') {
-		$msg .= " - " . $row->logoff_msg;
+	$logoff_msg = Preferences::get($sender, 'logoff_msg');
+	if ($logoff_msg !== false && $logoff_msg != '') {
+		$msg .= " - " . $logoff_msg;
 	}
 
 	$chatBot->send($msg, "guild", true);
