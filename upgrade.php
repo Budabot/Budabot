@@ -10,10 +10,10 @@ require_once 'core/PREFERENCES/Preferences.class.php';
 $data = $db->query("SELECT name, logon_msg, logoff_msg FROM org_members_<myname>");
 forEach ($data as $row) {
 	if ($row->logon_msg != '') {
-		Preferences::save($name, 'logon_msg', $row->logon_msg);
+		Preferences::save($row->name, 'logon_msg', $row->logon_msg);
 	}
 	if ($row->logoff_msg != '') {
-		Preferences::save($name, 'logoff_msg', $row->logoff_msg);
+		Preferences::save($row->name, 'logoff_msg', $row->logoff_msg);
 	}
 }
 $db->exec("UPDATE org_members_<myname> SET logon_msg = '', logoff_msg = ''");
