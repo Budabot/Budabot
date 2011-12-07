@@ -1,9 +1,12 @@
 <?php
 
+$data = $db->query("SELECT * FROM preferences_<myname>");
+print_r($data);
+
 if (preg_match("/^logon$/i", $message)) {
 	$logon_msg = Preferences::get($sender, 'logon_msg');
 
-	if ($logon_msg !== false || $logon_msg == '') {
+	if ($logon_msg === false || $logon_msg == '') {
 		$msg = "Your logon message has not been set.";
 	} else {
 		$msg = "{$sender} logon: {$logon_msg}";

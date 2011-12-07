@@ -3,7 +3,7 @@
 if (preg_match("/^logoff$/i", $message)) {
 	$logoff_msg = Preferences::get($sender, 'logoff_msg');
 
-	if ($logoff_msg !== false || $logoff_msg == '') {
+	if ($logoff_msg === false || $logoff_msg == '') {
 		$msg = "Your logoff message has not been set.";
 	} else {
 		$msg = "{$sender} logoff: {$logoff_msg}";

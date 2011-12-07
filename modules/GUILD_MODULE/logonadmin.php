@@ -4,7 +4,7 @@ if (preg_match("/^logonadmin ([a-zA-Z0-9-]+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 	$logon_msg = Preferences::get($name, 'logon_msg');
 
-	if ($logon_msg !== false || $logon_msg == '') {
+	if ($logon_msg === false || $logon_msg == '') {
 		$msg = "The logon message for $name has not been set.";
 	} else {
 		$msg = "{$name} logon: {$logon_msg}";

@@ -4,7 +4,7 @@ if (preg_match("/^logoffadmin ([a-zA-Z0-9-]+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 	$logoff_msg = Preferences::get($name, 'logoff_msg');
 
-	if ($logoff_msg !== false || $logoff_msg == '') {
+	if ($logoff_msg === false || $logoff_msg == '') {
 		$msg = "The logoff message for $name has not been set.";
 	} else {
 		$msg = "{$name} logoff: {$logoff_msg}";
