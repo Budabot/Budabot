@@ -6,7 +6,7 @@ $error_console = $vars['error_console'];
 
 //$vars['error_file'] = 0;
 //$vars['error_console'] = 0;
-
+require_once 'core/PREFERENCES/Preferences.class.php';
 $data = $db->query("SELECT name, logon_msg, logoff_msg FROM org_members_<myname>");
 forEach ($data as $row) {
 	if ($row->logon_msg != '') {
