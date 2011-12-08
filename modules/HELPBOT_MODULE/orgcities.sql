@@ -113,8 +113,8 @@ INSERT INTO `orgcities` (`playfield_id`, `cluster`, `plot`, `xcoord`, `ycoord`) 
 INSERT INTO `orgcities` (`playfield_id`, `cluster`, `plot`, `xcoord`, `ycoord`) VALUES (565, 1, 'b', 638, 3021);
 INSERT INTO `orgcities` (`playfield_id`, `cluster`, `plot`, `xcoord`, `ycoord`) VALUES (565, 1, 'c', 511, 2710);
 INSERT INTO `orgcities` (`playfield_id`, `cluster`, `plot`, `xcoord`, `ycoord`) VALUES (565, 1, 'd', 609, 2751);
-INSERT INTO `orgcities` (`playfield_id`, `cluster`, `plot`, `xcoord`, `ycoord`) VALUES (565, 1, 'a', 2721, 2511);
-INSERT INTO `orgcities` (`playfield_id`, `cluster`, `plot`, `xcoord`, `ycoord`) VALUES (565, 1, 'b', 2851, 2282);
+INSERT INTO `orgcities` (`playfield_id`, `cluster`, `plot`, `xcoord`, `ycoord`) VALUES (565, 2, 'a', 2721, 2511);
+INSERT INTO `orgcities` (`playfield_id`, `cluster`, `plot`, `xcoord`, `ycoord`) VALUES (565, 2, 'b', 2851, 2282);
 
 INSERT INTO `orgcities` (`playfield_id`, `cluster`, `plot`, `xcoord`, `ycoord`) VALUES (567, 1, 'a', 326, 1098);
 INSERT INTO `orgcities` (`playfield_id`, `cluster`, `plot`, `xcoord`, `ycoord`) VALUES (567, 1, 'b', 590, 1110);
