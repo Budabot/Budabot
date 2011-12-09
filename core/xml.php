@@ -56,21 +56,26 @@ class xml {
     }
 
 	//Trys to download a file from a URL
-	public function getUrl($url, $timeout = '5') {
+	public function getUrl($url, $timeout = null) {
 	 	$url = strtolower($url);
+		
+		if ($timeout === null) {
+			$timeout = Setting::get('xml_timeout');
+		}
 	 	
 		//Remove any http tags
 		$url = str_replace("http://", "", $url);
 		//Put an / at the end of the url if not there
-		if(!strstr($url, '/'))
+		if (!strstr($url, '/')) {
 			$url .= '/';
+		}
 				
 		preg_match("/^(.+)(\.de|\.biz|\.com|\.org|\.info)\/(.*)$/i", $url, $tmp);
 		$host = $tmp[1].$tmp[2];
 		$uri = "/".$tmp[3];
 		$fp = @fsockopen($host, 80, $errno, $errstr, 10);
 		@stream_set_timeout($fp, $timeout);
-		if($fp) {
+		if ($fp) {
 			@fputs($fp, "GET $uri HTTP/1.0\nHost: $host\r\n\r\n");
 			$data = '';
 			while ($indata = fread($fp,1024)) {
