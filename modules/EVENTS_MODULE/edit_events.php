@@ -8,7 +8,7 @@
    */
 
 if (preg_match("/^events add (.+)$/i", $message, $arr)) {
-	$db->exec("INSERT INTO events (`time_submitted`, `submitter_name`, `event_name`) VALUES (".time().", '".$sender."', '".addslashes($arr[1])."')");
+	$db->exec("INSERT INTO events (`time_submitted`, `submitter_name`, `event_name`) VALUES (".time().", '".$sender."', '".str_replace("'", "''", $arr[1])."')");
 	$event_id = $db->lastInsertId();
 	$msg = "Event: '$arr[1]' was added [Event ID $event_id].";
 	$chatBot->send($msg, $sendto);
@@ -17,7 +17,7 @@ if (preg_match("/^events add (.+)$/i", $message, $arr)) {
 	$msg = "Event Deleted.";
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^events setdesc ([0-9]+) (.+)$/i", $message, $arr)) {
-	$db->exec("UPDATE events SET `event_desc` = '".addslashes($arr[2])."' WHERE `id` = '$arr[1]'");
+	$db->exec("UPDATE events SET `event_desc` = '".str_replace("'", "''", $arr[2])."' WHERE `id` = '$arr[1]'");
 	$msg = "Description Updated.";
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^events setdate ([0-9]+) ([0-9]{4})-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]) ([0-1][0-9]|[2][0-3]):([0-5][0-9]):([0-5][0-9])$/i", $message, $arr)) {
