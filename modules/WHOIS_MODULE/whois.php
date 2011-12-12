@@ -25,18 +25,20 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
     $uid = $chatBot->get_uid($name);
     if ($uid) {
+		$lookupNameLink = Text::make_chatcmd("Lookup", "/tell <myname> lookup $name");
+		$lookupCharIdLink = Text::make_chatcmd("Lookup", "/tell <myname> lookup $uid");
         $whois = Player::get_by_name($name);
         if ($whois === null) {
 			$list = "<header> :::::: Basic Info for {$name} :::::: <end>\n\n";
 			$list .= "<orange>Note: Could not retrieve detailed info for character.<end>\n\n";
-	        $list .= "Name: <highlight>{$name}<end>\n";
-			$list .= "Character ID: <highlight>{$uid}<end>\n\n";
+	        $list .= "Name: <highlight>{$name}<end> {$lookupNameLink}\n";
+			$list .= "Character ID: <highlight>{$uid}<end> {$lookupCharIdLink}\n\n";
 			$list .= "<pagebreak>" . getNameHistory($uid, "<dim>");
         	
 			$msg = Text::make_blob("Basic Info for $name", $list);
         } else {
 	        $list = "<header> :::::: Detailed Info for {$name} :::::: <end>\n\n";
-	        $list .= "Name: <highlight>{$whois->firstname} \"{$name}\" {$whois->lastname}<end>\n";
+	        $list .= "Name: <highlight>{$whois->firstname} \"{$name}\" {$whois->lastname}<end> {$lookupNameLink}\n";
 			if ($whois->guild) {
 				$list .= "Guild: <highlight>{$whois->guild} ({$whois->guild_id})<end>\n";
 				$list .= "Guild Rank: <highlight>{$whois->guild_rank} ({$whois->guild_rank_id})<end>\n";
@@ -47,7 +49,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 			$list .= "Level: <highlight>{$whois->level}<end>\n";
 			$list .= "AI Level: <highlight>{$whois->ai_level} ({$whois->ai_rank})<end>\n";
 			$list .= "Faction: <highlight>{$whois->faction}<end>\n";
-			$list .= "Character ID: <highlight>{$whois->charid}<end>\n\n";
+			$list .= "Character ID: <highlight>{$whois->charid}<end> {$lookupCharIdLink}\n\n";
 			
 			$list .= "Source: $whois->source\n\n";
 			
