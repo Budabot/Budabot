@@ -621,7 +621,7 @@ INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(43991, 169, 'Nano Crystal (Deep Wounds Cleanser)', 'Doctor', 'RK Mission');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(223190, 53, 'Nano Crystal (Deepen fight (Team))', 'Soldier', 'Elysium Sanctuary');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(155619, 130, 'Nano Crystal (Defamation 101)', 'Bureaucrat', 'RK Mission');
-INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(265454, 175, 'Nano Crystal (Defeat Righteousness)', 'Shade', 'LE VP Shop');
+INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(265454, 175, 'Nano Crystal (Shade''s Caress)', 'Shade', 'LE VP Shop');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(210312, 27, 'Nano Crystal (Defender''s Poise)', 'Keeper', 'SL Jobe Harbor');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(70574, 83, 'Nano Crystal (Defensive Screen)', 'Engineer', 'RK Store');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(227144, 218, 'Nano Crystal (Defilement of Resolve)', 'Meta Physicist', 'Pandemonium');
@@ -1779,7 +1779,6 @@ INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(223278, 217, 'Nano Crystal (Mutagenic Pestilence)', 'Doctor', 'Pandemonium');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(223262, 100, 'Nano Crystal (Mutagenic Venom)', 'Doctor', 'Adonis Garden');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(143902, 186, 'Nano Crystal (My Brain For Your Brain)', 'Trader', 'RK Mission');
-INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(231023, 190, 'Nano Crystal (My Way)', 'Bureaucrat', 'Unknown');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(81951, 83, 'Nano Crystal (Mysterious Causes)', 'Agent', 'RK Store');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(81897, 24, 'Nano Crystal (Nano Augmentation)', 'Agent', 'RK Store');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(43952, 73, 'Nano Crystal (Nano Bandage)', 'Doctor', 'RK Store');
@@ -3281,7 +3280,7 @@ INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(230408, 390, 'Nano Crystal (Bane of Eldini)', 'General', 'Unknown');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(274372, 1, 'Nano Crystal (Jamming Tower)', 'Engineer ', 'Unknown');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(273340, 215, 'Nano Crystal (Improved Prodigious Strength)', 'Enforcer', 'Unknown');
-INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(274374, 1, 'Nano Crystal (Communication Disruption)', 'Fixer', 'Unknown');
+INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(274374, 1, 'Nano Crystal (Communication Disruption)', 'Fixer', 'LE VP Shop');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(273311, 215, 'Nano Crystal (Mass Layoffs)', 'Bureaucrat', 'Unknown');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(229962, 142, 'Nano Crystal (Team Empowered Allure of Servitude)', 'Bureaucrat', 'Unknown');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(273336, 215, 'Nano Crystal (Mongo DeCrush)', 'Enforcer', 'Unknown');

@@ -328,7 +328,7 @@ INSERT INTO `nanolines` (`id`, `image_id`, `name`, `profession`) VALUES(325, 390
 INSERT INTO `nanolines` (`id`, `image_id`, `name`, `profession`) VALUES(326, 39221, 'Agility Buff', 'Shade');
 INSERT INTO `nanolines` (`id`, `image_id`, `name`, `profession`) VALUES(327, 16214, 'Concealment Buff', 'Shade');
 INSERT INTO `nanolines` (`id`, `image_id`, `name`, `profession`) VALUES(328, 117914, 'Health Drain', 'Shade');
-INSERT INTO `nanolines` (`id`, `image_id`, `name`, `profession`) VALUES(329, 39125, 'LE PvP Debuff', 'Shade');
+INSERT INTO `nanolines` (`id`, `image_id`, `name`, `profession`) VALUES(329, 39125, 'LE PvP Heal', 'Shade');
 INSERT INTO `nanolines` (`id`, `image_id`, `name`, `profession`) VALUES(330, 39204, 'Martial Arts Buff', 'Shade');
 INSERT INTO `nanolines` (`id`, `image_id`, `name`, `profession`) VALUES(331, 39267, 'Multiwield Buff', 'Shade');
 INSERT INTO `nanolines` (`id`, `image_id`, `name`, `profession`) VALUES(332, 16214, 'Runspeed Buffs', 'Shade');
