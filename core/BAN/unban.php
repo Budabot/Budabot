@@ -33,7 +33,7 @@ if (preg_match("/^unban (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
 	
 	if (!Ban::is_banned($who)) {
-		$chatBot->send("<red>Sorry the player you wish to remove doesn't exist or isn't on the banlist.", $sendto);
+		$chatBot->send("<highlight>$who<end> is not banned on this bot.", $sendto);
 		return;
 	}
 		
@@ -47,7 +47,7 @@ if (preg_match("/^unban (.+)$/i", $message, $arr)){
 	$who = ucwords(strtolower($arr[1]));
 	
 	if (!Ban::is_banned($who)) {
-		$chatBot->send("<red>Sorry the org you wish to remove doesn´t exist or isn´t on the banlist.", $sender);
+		$chatBot->send("The org <highlight>$who<end> is not banned on this bot.", $sender);
 		return;		  
 	}
 		

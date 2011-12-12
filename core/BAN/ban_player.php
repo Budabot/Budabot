@@ -14,6 +14,11 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 		return;
 	}
 	
+	if (AccessLevel::compareCharacterAccessLevels($sender, $who) <= 0) {
+		$chatBot->send("You must have a higher access level than $who to perform this function.", $sendto);
+		return;
+	}
+	
 	$length = Util::parseTime($arr[2]);
 	if ($length == 0) {
 		$msg = "Your timer must be longer than 0 seconds.";
@@ -38,6 +43,11 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 	
 	if (Ban::is_banned($who)) {
 	  	$chatBot->send("The character <highlight>$who<end> is already banned.", $sendto);
+		return;
+	}
+	
+	if (AccessLevel::compareCharacterAccessLevels($sender, $who) <= 0) {
+		$chatBot->send("You must have a higher access level than $who to perform this function.", $sendto);
 		return;
 	}
 	
@@ -68,6 +78,11 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 	  	$chatBot->send("The character <highlight>$who<end> is already banned.", $sendto);
 		return;
 	}
+	
+	if (AccessLevel::compareCharacterAccessLevels($sender, $who) <= 0) {
+		$chatBot->send("You must have a higher access level than $who to perform this function.", $sendto);
+		return;
+	}
 		
 	Ban::add($who, $sender, null, $reason);
 
@@ -85,6 +100,11 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 
 	if (Ban::is_banned($who)) {
 	  	$chatBot->send("The character <highlight>$who<end> is already banned.", $sendto);
+		return;
+	}
+	
+	if (AccessLevel::compareCharacterAccessLevels($sender, $who) <= 0) {
+		$chatBot->send("You must have a higher access level than $who to perform this function.", $sendto);
 		return;
 	}
 	
