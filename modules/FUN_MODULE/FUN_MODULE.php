@@ -1,7 +1,7 @@
 <?php
 	Command::register($MODULE_NAME, "", "fight.php", "fight", "all", "Let two persons fight against each other.", 'fun_module');
 	Command::register($MODULE_NAME, "", "ding.php", "ding", "all", "Shows a random ding gratz message.", 'fun_module');
-	Command::register($MODULE_NAME, "api;msg;priv;guild", "fc.php", "fc", "all", "Shows a random FC quote.", 'fun_module');
+	Command::register($MODULE_NAME, "api msg priv guild", "fc.php", "fc", "all", "Shows a random FC quote.", 'fun_module');
 	Command::register($MODULE_NAME, "", "doh.php", "doh", "all", "Shows a random doh message.", 'fun_module');
 	Command::register($MODULE_NAME, "", "beer.php", "beer", "all", "Shows a random beer message.", 'fun_module');
 	Command::register($MODULE_NAME, "", "cybor.php", "cybor", "all", "Shows a random cybor message.", 'fun_module');
@@ -12,6 +12,5 @@
 	Command::register($MODULE_NAME, "", "brain.php", "brain", "all", "Shows a random pinky and the brain quote message.", 'fun_module');
 	CommandAlias::register($MODULE_NAME, "brain", "pinky");
 
-	//Help files
 	Help::register($MODULE_NAME, "fun_module", "fun_module.txt", "all", 'Fun Commands');
 ?>
