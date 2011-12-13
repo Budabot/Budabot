@@ -7,7 +7,7 @@
 <tab><symbol>addalias 'alias name' 'command name'
 
 <highlight>To remove an alias:<end>
-<tab><symbol>remalias 'alias name' 'command name'
+<tab><symbol>remalias 'alias name'
 
 Note that while 'command name' can have multiple words, the 'alias name' can only be a single word.  The first word is interpreted as the alias name and all subsequent words are interpreted as the command name.
 

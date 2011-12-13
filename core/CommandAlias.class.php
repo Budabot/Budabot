@@ -51,7 +51,6 @@ class CommandAlias {
 	public static function activate($command, $alias) {
 		global $chatBot;
 		
-		$command = strtolower($command);
 		$alias = strtolower($alias);
 
 	  	Logger::log('DEBUG', 'CommandAlias', "Activate Command Alias command:($command) alias:($alias)");
@@ -63,13 +62,12 @@ class CommandAlias {
 	 * @name: deactivate
 	 * @description: Deactivates a command alias
 	 */
-	public static function deactivate($command, $alias) {
+	public static function deactivate($alias) {
 		global $chatBot;
-		
-		$command = strtolower($command);
+
 		$alias = strtolower($alias);
 
-	  	Logger::log('DEBUG', 'CommandAlias', "Deactivate Command Alias command:($command) alias:($alias)");
+	  	Logger::log('DEBUG', 'CommandAlias', "Deactivate Command Alias:($alias)");
 		
 		unset($chatBot->cmd_aliases[$alias]);
 	}
@@ -102,9 +100,16 @@ class CommandAlias {
 	
 	public static function get($alias) {
 		$db = DB::get_instance();
+		
+		$alias = strtolower($alias);
 
 		$sql = "SELECT * FROM cmd_alias_<myname> WHERE `alias` = '{$alias}'";
-		return $db->query($sql);
+		$data = $db->query($sql);
+		if (count($data) == 0) {
+			return null;
+		} else {
+			return $data[0];
+		}
 	}
 	
 	public static function get_command_by_alias($alias) {
@@ -121,9 +126,7 @@ class CommandAlias {
 	public static function find_aliases_by_command($command) {
 		$db = DB::get_instance();
 		
-		$command = strtolower($command);
-		
-		$sql = "SELECT * FROM cmd_alias_<myname> WHERE `cmd` = '{$command}'";
+		$sql = "SELECT * FROM cmd_alias_<myname> WHERE `cmd` LIKE '{$command}'";
 		return $db->query($sql);
 	}
 }
