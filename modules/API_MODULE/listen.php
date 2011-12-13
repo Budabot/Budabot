@@ -11,11 +11,9 @@ if ($client !== false) {
 	
 	$password = Preferences::get($apiRequest->username, 'apipassword');
 	if ($password === false) {
-		$clientHandler->writePacket(new APIResponse(API_FAILURE, "login", "Password has not been set for this user."));
+		$clientHandler->writePacket(new APIResponse(API_FAILURE, "Password has not been set for this user."));
 	} else if ($password != $apiRequest->password) {
-		$clientHandler->writePacket(new APIResponse(API_FAILURE, "login", "Password was incorrect."));
-	} else if (!AccessLevel::checkAccess($apiRequest->username, 'mod')) {
-		$clientHandler->writePacket(new APIResponse(API_FAILURE, "login", "You must have moderator access or higher to use this feature."));
+		$clientHandler->writePacket(new APIResponse(API_FAILURE, "Password was incorrect."));
 	} else {
 		$chatBot->process_command('api', $apiRequest->command, $apiRequest->username, $clientHandler);
 	}
