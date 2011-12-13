@@ -6,12 +6,11 @@ define(FAILURE, 0);
 class APIResponse {
 	public $status;
 	public $message;
-	public $output;
+	public $syncId;
 
-	function __construct($status, $message, $output) {
+	function __construct($status, $message) {
 		$this->status = $status;
 		$this->message = $message;
-		$this->output = $output;
 	}
 }
 

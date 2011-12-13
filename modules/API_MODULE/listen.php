@@ -17,21 +17,7 @@ if ($client !== false) {
 	} else if (!AccessLevel::checkAccess($apiRequest->username, 'mod')) {
 		$clientHandler->writePacket(new APIResponse(FAILURE, "login", "You must have moderator access or higher to use this feature."));
 	} else {
-		switch ($apiRequest->command) {
-			case "ping":
-				$clientHandler->writePacket(new APIResponse(SUCCESS, "ping", $apiRequest->args));
-				break;
-			case "restart":
-				$clientHandler->writePacket(new APIResponse(SUCCESS, "restart", "Bot is restarting..."));
-				exit();
-				break;
-			case "adminlist":
-				$data = $db->query("SELECT * FROM admin_<myname> WHERE adminlevel = 4");
-				$clientHandler->writePacket(new APIResponse(SUCCESS, "adminlist", $data));
-				break;
-			default:
-				$clientHandler->writePacket(new APIResponse(FAILURE, "Unknown command: '$apiRequest->command'\n", ""));
-		}
+		$chatBot->process_command('api', $apiRequest->command, $apiRequest->username, $clientHandler);
 	}
 }
 

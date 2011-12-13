@@ -3,21 +3,21 @@
 if (!function_exists('getNameHistory')) {
 	function getNameHistory($charid, $dimension) {
 		$db = DB::get_instance();
-	
+
 		$sql = "SELECT * FROM name_history WHERE charid = '{$charid}' AND dimension = {$dimension} ORDER BY dt DESC";
 		$db->query($sql);
 		$data = $db->fObject('all');
-		
-		$list = "<header> :::::: Name History :::::: <end>\n\n";
+
+		$blob = "<header> :::::: Name History :::::: <end>\n\n";
 		if (count($data) > 0) {
 			forEach ($data as $row) {
-				$list .= "<green>{$row->name}<end> " . date("M j, Y, G:i", $row->dt) . "\n";
+				$blob .= "<green>{$row->name}<end> " . date("M j, Y, G:i", $row->dt) . "\n";
 			}
 		} else {
-			$list .= "No name history available\n";
+			$blob .= "No name history available\n";
 		}
-		
-		return $list;
+
+		return $blob;
 	}
 }
 
@@ -29,42 +29,42 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 		$lookupCharIdLink = Text::make_chatcmd("Lookup", "/tell <myname> lookup $uid");
         $whois = Player::get_by_name($name);
         if ($whois === null) {
-			$list = "<header> :::::: Basic Info for {$name} :::::: <end>\n\n";
-			$list .= "<orange>Note: Could not retrieve detailed info for character.<end>\n\n";
-	        $list .= "Name: <highlight>{$name}<end> {$lookupNameLink}\n";
-			$list .= "Character ID: <highlight>{$uid}<end> {$lookupCharIdLink}\n\n";
-			$list .= "<pagebreak>" . getNameHistory($uid, "<dim>");
+			$blob = "<header> :::::: Basic Info for {$name} :::::: <end>\n\n";
+			$blob .= "<orange>Note: Could not retrieve detailed info for character.<end>\n\n";
+	        $blob .= "Name: <highlight>{$name}<end> {$lookupNameLink}\n";
+			$blob .= "Character ID: <highlight>{$uid}<end> {$lookupCharIdLink}\n\n";
+			$blob .= "<pagebreak>" . getNameHistory($uid, "<dim>");
         	
-			$msg = Text::make_blob("Basic Info for $name", $list);
+			$msg = Text::make_blob("Basic Info for $name", $blob);
         } else {
-	        $list = "<header> :::::: Detailed Info for {$name} :::::: <end>\n\n";
-	        $list .= "Name: <highlight>{$whois->firstname} \"{$name}\" {$whois->lastname}<end> {$lookupNameLink}\n";
+	        $blob = "<header> :::::: Detailed Info for {$name} :::::: <end>\n\n";
+	        $blob .= "Name: <highlight>{$whois->firstname} \"{$name}\" {$whois->lastname}<end> {$lookupNameLink}\n";
 			if ($whois->guild) {
-				$list .= "Guild: <highlight>{$whois->guild} ({$whois->guild_id})<end>\n";
-				$list .= "Guild Rank: <highlight>{$whois->guild_rank} ({$whois->guild_rank_id})<end>\n";
+				$blob .= "Guild: <highlight>{$whois->guild} ({$whois->guild_id})<end>\n";
+				$blob .= "Guild Rank: <highlight>{$whois->guild_rank} ({$whois->guild_rank_id})<end>\n";
 			}
-			$list .= "Breed: <highlight>{$whois->breed}<end>\n";
-			$list .= "Gender: <highlight>{$whois->gender}<end>\n";
-			$list .= "Profession: <highlight>{$whois->profession} ({$whois->prof_title})<end>\n";
-			$list .= "Level: <highlight>{$whois->level}<end>\n";
-			$list .= "AI Level: <highlight>{$whois->ai_level} ({$whois->ai_rank})<end>\n";
-			$list .= "Faction: <highlight>{$whois->faction}<end>\n";
-			$list .= "Character ID: <highlight>{$whois->charid}<end> {$lookupCharIdLink}\n\n";
+			$blob .= "Breed: <highlight>{$whois->breed}<end>\n";
+			$blob .= "Gender: <highlight>{$whois->gender}<end>\n";
+			$blob .= "Profession: <highlight>{$whois->profession} ({$whois->prof_title})<end>\n";
+			$blob .= "Level: <highlight>{$whois->level}<end>\n";
+			$blob .= "AI Level: <highlight>{$whois->ai_level} ({$whois->ai_rank})<end>\n";
+			$blob .= "Faction: <highlight>{$whois->faction}<end>\n";
+			$blob .= "Character ID: <highlight>{$whois->charid}<end> {$lookupCharIdLink}\n\n";
 			
-			$list .= "Source: $whois->source\n\n";
+			$blob .= "Source: $whois->source\n\n";
 			
-			$list .= "<pagebreak>" . getNameHistory($uid, "<dim>");
+			$blob .= "<pagebreak>" . getNameHistory($uid, "<dim>");
 
-			$list .= "\n<pagebreak><header> :::::: Options :::::: <end>\n\n";
+			$blob .= "\n<pagebreak><header> :::::: Options :::::: <end>\n\n";
 			
-	        $list .= Text::make_chatcmd('History', "/tell <myname> history $name") . "\n";
-	        $list .= Text::make_chatcmd('Online Status', "/tell <myname> is $name") . "\n";
+	        $blob .= Text::make_chatcmd('History', "/tell <myname> history $name") . "\n";
+	        $blob .= Text::make_chatcmd('Online Status', "/tell <myname> is $name") . "\n";
 	        if (isset($whois->guild_id)) {
-		        $list .= Text::make_chatcmd('Whoisorg', "/tell <myname> whoisorg $whois->guild_id") . "\n";
-				$list .= Text::make_chatcmd('Orglist', "/tell <myname> orglist $whois->guild_id") . "\n";
+		        $blob .= Text::make_chatcmd('Whoisorg', "/tell <myname> whoisorg $whois->guild_id") . "\n";
+				$blob .= Text::make_chatcmd('Orglist', "/tell <myname> orglist $whois->guild_id") . "\n";
 			}
 			
-	        $msg = Player::get_info($whois) . " :: " . Text::make_blob("More Info", $list);
+	        $msg = Player::get_info($whois) . " :: " . Text::make_blob("More Info", $blob);
 
 			$altInfo = Alts::get_alt_info($name);
 			if (count($altInfo->alts) > 0) {
@@ -89,26 +89,26 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
         if ($whois !== null) {
             $msg = Player::get_info($whois);
 
-			$list = "<header> :::::: Detailed info for {$name} :::::: <end>\n\n";
-	        $list .= "Name: <highlight>{$whois->firstname} \"{$name}\" {$whois->lastname}<end>\n";
+			$blob = "<header> :::::: Detailed info for {$name} :::::: <end>\n\n";
+	        $blob .= "Name: <highlight>{$whois->firstname} \"{$name}\" {$whois->lastname}<end>\n";
 			if ($whois->guild) {
-				$list .= "Guild: <highlight>{$whois->guild} ({$whois->guild_id})<end>\n";
-				$list .= "Guild Rank: <highlight>{$whois->guild_rank} ({$whois->guild_rank_id})<end>\n";
+				$blob .= "Guild: <highlight>{$whois->guild} ({$whois->guild_id})<end>\n";
+				$blob .= "Guild Rank: <highlight>{$whois->guild_rank} ({$whois->guild_rank_id})<end>\n";
 			}
-			$list .= "Breed: <highlight>{$whois->breed}<end>\n";
-			$list .= "Gender: <highlight>{$whois->gender}<end>\n";
-			$list .= "Profession: <highlight>{$whois->profession} ({$whois->prof_title})<end>\n";
-			$list .= "Level: <highlight>{$whois->level}<end>\n";
-			$list .= "AI Level: <highlight>{$whois->ai_level} ({$whois->ai_rank})<end>\n";
-			$list .= "Faction: <highlight>{$whois->faction}<end>\n\n";
+			$blob .= "Breed: <highlight>{$whois->breed}<end>\n";
+			$blob .= "Gender: <highlight>{$whois->gender}<end>\n";
+			$blob .= "Profession: <highlight>{$whois->profession} ({$whois->prof_title})<end>\n";
+			$blob .= "Level: <highlight>{$whois->level}<end>\n";
+			$blob .= "AI Level: <highlight>{$whois->ai_level} ({$whois->ai_rank})<end>\n";
+			$blob .= "Faction: <highlight>{$whois->faction}<end>\n\n";
 			
-			$list .= "Source: $whois->source\n\n";
+			$blob .= "Source: $whois->source\n\n";
 
-			$list .= "<pagebreak><header> :::::: Options :::::: <end>\n\n";
+			$blob .= "<pagebreak><header> :::::: Options :::::: <end>\n\n";
 
-            $list .= "<a href='chatcmd:///tell <myname> history {$name} {$i}'>History</a>\n";
+            $blob .= "<a href='chatcmd:///tell <myname> history {$name} {$i}'>History</a>\n";
 			
-            $msg .= " :: ".Text::make_blob("More info", $list);
+            $msg .= " :: ".Text::make_blob("More info", $blob);
             $msg = "<highlight>Server $server:<end> ".$msg;
         } else {
             $msg = "Server $server: Player <highlight>{$name}<end> does not exist.";

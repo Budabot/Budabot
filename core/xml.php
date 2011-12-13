@@ -34,12 +34,14 @@ class xml {
 	//Extracts one entry of the XML file 	
 	public function spliceData($sourcefile, $start, $end){
 	 	$data = explode($start, $sourcefile, 2);
-	 	if(!$data || (is_array($data) && count($data) < 2))
+	 	if (!$data || (is_array($data) && count($data) < 2)) {
 	 		return "";
+		}
 	 	$data = $data[1];
 	 	$data = explode($end, $data, 2);
-	 	if(!$data || (is_array($data) && count($data) < 2))
+	 	if (!$data || (is_array($data) && count($data) < 2)) {
 	 		return "";
+		}
 		return $data[0];
 	}
 
@@ -48,7 +50,7 @@ class xml {
 		$targetdata = array();
 		$sourcedata = explode($start, $sourcefile);
 		array_shift($sourcedata);
-        foreach ($sourcedata as $indsplit) {
+        forEach ($sourcedata as $indsplit) {
         	$target = explode($end, $indsplit, 2);
             $targetdata[] = $target[0];
         }
@@ -140,9 +142,9 @@ class history extends xml{
         }
         		
 		//If no old history file was found or it was invalid try to update it from auno.org
-		if(!$data_found) {
+		if (!$data_found) {
 			$playerhistory = xml::getUrl("http://auno.org/ao/char.php?output=xml&dimension=$rk_num&name=$name", 20);
-			if(xml::spliceData($playerhistory, '<nick>', '</nick>') == $name) {
+			if (xml::spliceData($playerhistory, '<nick>', '</nick>') == $name) {
 				$data_found = true;
 				$data_save = true;
 			} else {
@@ -164,7 +166,7 @@ class history extends xml{
 		}
 		
 		//if there is still no valid data available give an error back
-		if(!$data_found) {
+		if (!$data_found) {
            	$this->errorCode = 1;
            	$this->errorInfo = "Couldn't get History of $name on RK $rk_num";
            	return;
@@ -173,7 +175,7 @@ class history extends xml{
 		//parsing of the xml file		
 		$data = xml::spliceData($playerhistory, "<history>", "</history>");
 		$data = xml::splicemultidata($data, "<entry", "/>");
-		foreach($data as $hdata) {
+		forEach ($data as $hdata) {
 			preg_match("/date=\"(.+)\" level=\"(.+)\" ailevel=\"(.*)\" faction=\"(.+)\" guild=\"(.*)\" rank=\"(.*)\"/i", $hdata, $arr);
 			$this->data[$arr[1]]["level"] = $arr[2];
 			$this->data[$arr[1]]["ailevel"] = $arr[3];
@@ -183,7 +185,7 @@ class history extends xml{
 		}
 		
 		//if he downloaded a new xml file save it in the cache folder
-		if($data_save) {
+		if ($data_save) {
 	        $fp = fopen("$cache/$name.$rk_num.history.xml", "w");
 	        fwrite($fp, $playerbio);
 	        fclose($fp);
@@ -254,8 +256,8 @@ class server extends xml{
 	    $this->name = $tmp[1];
 
 		$data = xml::spliceMultiData($data, "<playfield", "/>");			
-		foreach($data as $hdata) {
-			if(preg_match("/id=\"(.+)\" name=\"(.+)\" status=\"(.+)\" load=\"(.+)\" players=\"(.+)\"/i", $hdata, $arr)) {
+		forEach ($data as $hdata) {
+			if (preg_match("/id=\"(.+)\" name=\"(.+)\" status=\"(.+)\" load=\"(.+)\" players=\"(.+)\"/i", $hdata, $arr)) {
 				$this->data[$arr[2]]["status"] = $arr[3];
 				$this->data[$arr[2]]["load"] = $arr[4];
 				$this->data[$arr[2]]["players"] = $arr[5];
