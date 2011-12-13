@@ -225,7 +225,7 @@ class Budabot extends AOChat {
 			if ($message instanceof APIResponse) {
 				$target->writePacket($message);
 			} else {
-				$target->writePacket(new APIResponse(FAILURE, $message));
+				$target->writePacket(new APIResponse(API_FAILURE, $message));
 			}
 			return;
 		}

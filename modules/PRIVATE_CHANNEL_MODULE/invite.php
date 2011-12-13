@@ -43,7 +43,10 @@ if (preg_match("/^invite (.+)$/i", $message, $arr)) {
     } else {
 		$msg = "Player <highlight>{$name}<end> does not exist.";
 	}
-	
+
+	if ($type == 'api') {
+		$msg = new APIResponse(API_SUCCESS, $msg);
+	}
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
