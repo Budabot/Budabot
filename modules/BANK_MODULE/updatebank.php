@@ -14,10 +14,10 @@ if (preg_match("/^updatebank$/i", $message)) {
 
 	$db->begin_transaction();
 	$db->exec("DROP TABLE IF EXISTS bank");
-	$db->exec("CREATE TABLE bank (name varchar(150), lowid int, highid int, ql int, character VARCHAR(20), container VARCHAR(150), location VARCHAR(150))");
+	$db->exec("CREATE TABLE bank (name varchar(150), lowid int, highid int, ql int, player VARCHAR(20), container VARCHAR(150), container_id INT, location VARCHAR(150))");
 
 	forEach ($lines as $line) {
-		list($name, $ql, $character, $container, $location, $lowId, $highId) = str_getcsv($line);
+		list($name, $ql, $player, $container, $containerId, $location, $lowId, $highId) = str_getcsv($line);
 		
 		if ($location != 'Bank' && $location != 'Inventory') {
 			continue;
@@ -28,7 +28,7 @@ if (preg_match("/^updatebank$/i", $message)) {
 		
 		$name = str_replace("'", "''", $name);
 		$container = str_replace("'", "''", $container);
-		$sql = "INSERT INTO bank (name, lowid, highid, ql, character, container, location) VALUES ('{$name}', '{$lowId}', '{$highId}', '{$ql}', '{$character}', '{$container}', '${location}')";
+		$sql = "INSERT INTO bank (name, lowid, highid, ql, player, container, container_id, location) VALUES ('{$name}', '{$lowId}', '{$highId}', '{$ql}', '{$player}', '{$container}', '{$containerId}', '${location}')";
 		$db->exec($sql);
 	}
 	$db->commit();
