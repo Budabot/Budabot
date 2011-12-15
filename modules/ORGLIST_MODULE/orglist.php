@@ -99,8 +99,6 @@ if (preg_match("/^orglist end$/i", $message)) {
 	
 	$chatBot->data["ORGLIST_MODULE"]["org"] = $org->orgname;
 	
-	$chatBot->send("Parsing xml for '$org->orgname'...", $sendto);
-	
 	// Check each name if they are already on the buddylist (and get online status now)
 	// Or make note of the name so we can add it to the buddylist later.
 	forEach ($org->members as $member) {

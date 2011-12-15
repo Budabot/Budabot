@@ -8,6 +8,11 @@ function send_message_to_relay($message) {
 	// since we are using the aochat methods, we have to call format_message manually to handle colors and bot name replacement
 	$message = Text::format_message($message);
 	$relayBot = Setting::get('relaybot');
+	$guild = $chatBot->vars["my_guild"];
+	if (Setting::get('relay_guild_abbreviation') != 'none') {
+		$guild = Setting::get('relay_guild_abbreviation');
+	}
+	$message str_ireplace("<myguild>", $guild, $message);
 
 	if (Setting::get('relaytype') == 2) {
 		$chatBot->send_privgroup($relayBot, $message);
