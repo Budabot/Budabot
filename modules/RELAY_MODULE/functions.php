@@ -12,7 +12,7 @@ function send_message_to_relay($message) {
 	if (Setting::get('relay_guild_abbreviation') != 'none') {
 		$guild = Setting::get('relay_guild_abbreviation');
 	}
-	$message str_ireplace("<myguild>", $guild, $message);
+	$message = str_ireplace("<myguild>", $guild, $message);
 
 	if (Setting::get('relaytype') == 2) {
 		$chatBot->send_privgroup($relayBot, $message);
