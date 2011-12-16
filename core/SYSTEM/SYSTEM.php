@@ -39,7 +39,7 @@
 	Setting::add($MODULE_NAME, 'spam_protection', 'Enable spam protection', 'edit', "options", 0, "true;false", "1;0");
 	Setting::add($MODULE_NAME, 'max_blob_size', 'Max chars for a window', 'edit', "number", 7500, '4500;6000;7500;9000;10500;12000');
 	Setting::add($MODULE_NAME, 'xml_timeout', 'Max time to wait for response from xml servers', 'edit', "time", '5s', '1s;2s;5s;10s;30s');
-	Setting::add($MODULE_NAME, 'logon_delay', 'Seconds to wait before executing connect events and cron jobs', 'edit', "number", 10, '5;10;20;30');
+	Setting::add($MODULE_NAME, 'logon_delay', 'Seconds to wait before executing connect events and cron jobs', 'edit', "number", 20, '5;10;20;30');
 	Setting::add($MODULE_NAME, 'guild_channel_status', 'Enable the guild channel', 'edit', "options", 1, "true;false", "1;0");
 	Setting::add($MODULE_NAME, 'guild_channel_cmd_feedback',   "Show message on invalid command in guild channel", 'edit', "options", 1, "true;false", "1;0");
 	Setting::add($MODULE_NAME, 'private_channel_cmd_feedback', "Show message on invalid command in private channel", 'edit', "options", 1, "true;false", "1;0");
