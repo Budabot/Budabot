@@ -44,7 +44,7 @@ class Player {
 	
 	public static function findInDb($name, $dimension) {
 		$db = DB::get_instance();
-	
+
 		$sql = "SELECT * FROM players WHERE name LIKE '$name' AND dimension = $dimension";
 		$data = $db->query($sql);
 		return $data[0];
@@ -58,7 +58,7 @@ class Player {
 
 			return $xml;
 		}
-		
+
 		// if people.anarchy-online.com was too slow to respond or returned invalid data then try to update from auno.org
 		// Apparently auno.org is no longer updating character info so we will no longer use it to look up player info
 		/*
@@ -73,13 +73,13 @@ class Player {
 
 		return null;
 	}
-	
+
 	private static function lookup_url($url) {
 		$playerbio = xml::getUrl($url);
-		
+
 		$xml = new stdClass;
-	
-		// parsing of the player data		
+
+		// parsing of the player data
 		$xml->firstname      = xml::spliceData($playerbio, '<firstname>', '</firstname>');
 		$xml->name           = xml::spliceData($playerbio, '<nick>', '</nick>');
 		$xml->lastname       = xml::spliceData($playerbio, '<lastname>', '</lastname>');
@@ -153,7 +153,7 @@ class Player {
 	
 	public static function get_info(&$whois) {
 		$msg = '';
-		
+
 		if ($whois->firstname) {
             $msg = $whois->firstname." ";
 		}
@@ -163,7 +163,7 @@ class Player {
         if ($whois->lastname) {
             $msg .= $whois->lastname." ";
 		}
-	
+
 		$msg .= "(<highlight>{$whois->level}<end>/<green>{$whois->ai_level}<end>";
 		$msg .= ", {$whois->gender} {$whois->breed} <highlight>{$whois->profession}<end>";
 		$msg .= ", <" . strtolower($whois->faction) . ">$whois->faction<end>";
@@ -173,7 +173,7 @@ class Player {
         } else {
             $msg .= ", Not in a guild)";
 		}
-		
+
 		return $msg;
 	}
 }
