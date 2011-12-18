@@ -3289,3 +3289,4 @@ INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(230412, 390, 'Nano Crystal (Bane of Jareck)', 'General', 'Unknown');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(230414, 390, 'Nano Crystal (Bane of Nadira)', 'General', 'Unknown');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(230417, 390, 'Nano Crystal (Bane of the Challenger)', 'General', 'Unknown');
+INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(293900, 175, 'Nano Crystal (Carlita Desposito)', 'Bureaucrat', 'Pen Xan Quest');

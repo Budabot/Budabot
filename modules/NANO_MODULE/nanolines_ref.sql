@@ -2996,3 +2996,4 @@ INSERT INTO `nano_nanolines_ref` (`lowid`, `nanolineid`) VALUES(121360, 411);
 INSERT INTO `nano_nanolines_ref` (`lowid`, `nanolineid`) VALUES(30789, 412);
 INSERT INTO `nano_nanolines_ref` (`lowid`, `nanolineid`) VALUES(30779, 412);
 INSERT INTO `nano_nanolines_ref` (`lowid`, `nanolineid`) VALUES(29102, 412);
+INSERT INTO `nano_nanolines_ref` (`lowid`, `nanolineid`) VALUES(293900, 111);
