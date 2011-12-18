@@ -15,7 +15,7 @@ if ($client !== false) {
 	} else if ($password != $apiRequest->password) {
 		$clientHandler->writePacket(new APIResponse(API_FAILURE, "Password was incorrect."));
 	} else {
-		$chatBot->process_command('api', $apiRequest->command, $apiRequest->username, $clientHandler);
+		$chatBot->process_command('msg', $apiRequest->command, $apiRequest->username, $clientHandler);
 	}
 }
 

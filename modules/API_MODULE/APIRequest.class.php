@@ -1,6 +1,7 @@
 <?php
 
 class APIRequest {
+	public $version = "1.0";
 	public $username;
 	public $password;
 	public $command;
