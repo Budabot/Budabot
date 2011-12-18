@@ -245,6 +245,9 @@ INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multilo
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 244911, 244912, 300, 'Lord/Lady of Sloth', 233214, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 246813, 246813, 300, 'Sunrise Hilt', 235342, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 246814, 246814, 300, 'Sunset Hilt', 235341, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 294000, 294000, 300, 'Lady of Wisdom', 293991, 1);
+INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Beast Weapons', 293997, 293997, 300, 'Lord of Wisdom', 293991, 1);
+
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Stars', 244700, 244700, 300, 'Star of Ardency (NT)', 131260, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Stars', 244693, 244693, 300, 'Star of Enterprice (Fixer)', 131260, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Stars', 244703, 244703, 300, 'Star of Enticement (Shade)', 131260, 1);
@@ -267,6 +270,7 @@ INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multilo
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'The Night Heart', 244990, 244990, 300, 'Maar''s Yellow Belt of Double Speed', 244991, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'The Night Heart', 246818, 246818, 300, 'Notum Seed', 246815, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'The Night Heart', 246817, 246817, 300, 'Novictum Seed', 246816, 1);
+
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Aries', 244542, 244542, 300, 'Dynamic Sleeve of Aries (Melee)', 22953, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Aries', 244541, 244541, 300, 'Dynamic Sleeve of Aries (Ranged)', 22953, 1);
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Pande', 'Aries', 244540, 244540, 300, 'Aries'' Tiara of the Quick Witted', 84061, 1);
