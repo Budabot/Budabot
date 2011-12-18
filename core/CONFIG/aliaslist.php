@@ -18,7 +18,7 @@ if (preg_match("/^aliaslist$/i", $message)) {
 		} else {
 			$color = "highlight";
 		}
-		$removeLink = Text::make_chatcmd('Remove', "/tell <myname> remalias {$alias->alias} {$alias->cmd}");
+		$removeLink = Text::make_chatcmd('Remove', "/tell <myname> remalias {$alias->alias}");
 		$a = padRow($alias->alias, $paddingSize);
 		$blob .= "<{$color}>{$a}{$alias->cmd}<end> $removeLink\n";
 	}
