@@ -7,6 +7,7 @@ if (preg_match("/^botconnect$/i", $message)) {
 		$blob = "<header> :::::: Connect List :::::: <end>\n\n";
 		forEach ($data as $row) {
 			$onlineStatus = Buddylist::is_online($row->name);
+			$online = '';
 			if ($onlineStatus == 1) {
 				$online .= "<green>Online<end>";
 			} else if ($onlineStatus == 0) {
@@ -17,7 +18,6 @@ if (preg_match("/^botconnect$/i", $message)) {
 			$removeLink = Text::make_chatcmd("Remove", "/tell <myname> botconnect remove $row->name");
 		
 			$blob .= "{$row->name} {$online} {$removeLink}\n";
-			
 		}
 		$msg = Text::make_blob("Connect List", $blob);
 	} else {
