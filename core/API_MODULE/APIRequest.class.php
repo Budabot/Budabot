@@ -1,8 +1,8 @@
 <?php
 
-define(API_SIMPLE_MSG, 0);
-define(API_ADVANCED_MSG, 1);
-define(API_VERSION, 1.1);
+define('API_SIMPLE_MSG', 0);
+define('API_ADVANCED_MSG', 1);
+define('API_VERSION', 1.1);
 
 class APIRequest {
 	public $version = API_VERSION;

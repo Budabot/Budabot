@@ -1,7 +1,7 @@
 <?php
 
-define(API_SUCCESS, 1);
-define(API_FAILURE, 0);
+define('API_SUCCESS', 1);
+define('API_FAILURE', 0);
 
 class APIResponse {
 	public $status;
