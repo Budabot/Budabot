@@ -4,11 +4,7 @@ function send_message_to_relay($message) {
 	global $chatBot;
 	
 	$relayBot = Setting::get('relaybot');
-	$guild = $chatBot->vars["my_guild"];
-	if (Setting::get('relay_guild_abbreviation') != 'none') {
-		$guild = Setting::get('relay_guild_abbreviation');
-	}
-	$message = str_ireplace("<myguild>", $guild, $message);
+	$message = str_ireplace("<myguild>", getGuildAbbreviation(), $message);
 
 	// since we are using the aochat methods, we have to call format_message manually to handle colors and bot name replacement	
 	$message = Text::format_message($message);
@@ -21,6 +17,16 @@ function send_message_to_relay($message) {
 		
 		// manual logging is only needed for tell relay
 		Logger::log_chat("Out. Msg.", $relayBot, $message);
+	}
+}
+
+function getGuildAbbreviation() {
+	global $chatBot;
+
+	if (Setting::get('relay_guild_abbreviation') != 'none') {
+		return Setting::get('relay_guild_abbreviation');
+	} else {
+		return $chatBot->vars["my_guild"];
 	}
 }
 

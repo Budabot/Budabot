@@ -20,7 +20,7 @@ if (IRC::isConnectionActive($ircSocket)) {
 		if (Util::isValidSender($sender)) {
 			$msg = "$sender: $msg";
 		}
-		IRC::send($ircSocket, Setting::get('irc_channel'), encodeGuildMessage($chatBot->vars['my_guild'], $msg));
+		IRC::send($ircSocket, Setting::get('irc_channel'), encodeGuildMessage(getGuildAbbreviation(), $msg));
 		Logger::log_chat("Out. IRC Msg.", $sender, $msg);
 	}
 }

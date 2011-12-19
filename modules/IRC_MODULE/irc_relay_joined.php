@@ -67,7 +67,7 @@ if (IRC::isConnectionActive($ircSocket)) {
 	if ($type == "joinPriv") {
 		$msg = getIRCPlayerInfo($sender);
 		Logger::log_chat("Out. IRC Msg.", -1, $msg);
-		IRC::send($ircSocket, Setting::get('irc_channel'), encodeGuildMessage($chatBot->vars['my_guild'], $msg));
+		IRC::send($ircSocket, Setting::get('irc_channel'), encodeGuildMessage(getGuildAbbreviation(), $msg));
 	} else if ($type == "logOn" && isset($chatBot->guildmembers[$sender])) {
 		if (Setting::get('first_and_last_alt_only') == 1) {
 			// if at least one alt/main is still online, don't show logoff message
@@ -79,7 +79,7 @@ if (IRC::isConnectionActive($ircSocket)) {
 		
 		$msg = getIRCPlayerInfo($sender);
 		Logger::log_chat("Out. IRC Msg.", -1, $msg);
-		IRC::send($ircSocket, Setting::get('irc_channel'), encodeGuildMessage($chatBot->vars['my_guild'], $msg));
+		IRC::send($ircSocket, Setting::get('irc_channel'), encodeGuildMessage(getGuildAbbreviation(), $msg));
 	}
 }
 

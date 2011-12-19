@@ -10,7 +10,7 @@
 global $ircSocket;
 if (IRC::isConnectionActive($ircSocket)) {
 	if ($type == "leavePriv") {
-		IRC::send($ircSocket, Setting::get('irc_channel'), encodeGuildMessage($chatBot->vars['my_guild'], "$sender has left the private channel."));
+		IRC::send($ircSocket, Setting::get('irc_channel'), encodeGuildMessage(getGuildAbbreviation(), "$sender has left the private channel."));
 		Logger::log_chat("Out. IRC Msg.", -1, "$sender has left the channel");
 	} else if ($type == "logOff" && isset($chatBot->guildmembers[$sender])) {
 		if (Setting::get('first_and_last_alt_only') == 1) {
@@ -21,7 +21,7 @@ if (IRC::isConnectionActive($ircSocket)) {
 			}
 		}
 		
-		IRC::send($ircSocket, Setting::get('irc_channel'), encodeGuildMessage($chatBot->vars['my_guild'], "$sender has logged off."));
+		IRC::send($ircSocket, Setting::get('irc_channel'), encodeGuildMessage(getGuildAbbreviation(), "$sender has logged off."));
 		Logger::log_chat("Out. IRC Msg.", -1, "$sender has left the channel");
 	}
 }
