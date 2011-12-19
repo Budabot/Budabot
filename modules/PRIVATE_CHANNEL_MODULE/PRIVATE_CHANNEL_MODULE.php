@@ -28,15 +28,15 @@
 	Setting::add($MODULE_NAME, "priv_status", "Private channel status", "edit", "options", "1", "open;closed", "1;0");
 	Setting::add($MODULE_NAME, "priv_status_reason", "Reason for private channel status", "edit", "text", "none");
 
-	Event::register($MODULE_NAME, "connect", "connected.php", "none", "Adds all members as buddies who have auto-invite enabled");
-	Event::register($MODULE_NAME, "guild", "guest_channel_relay.php", "none", "Private channel relay from guild channel");
-	Event::register($MODULE_NAME, "priv", "guest_channel_relay.php", "none", "Private channel relay from priv channel");
-	Event::register($MODULE_NAME, "logOn", "logon_autoinvite.php", "none", "Auto-invite members on logon");
-	Event::register($MODULE_NAME, "joinPriv", "notify_priv_join.php", "none", "Displays a message when a character joins the private channel");
-	Event::register($MODULE_NAME, "leavePriv", "notify_priv_leave.php", "none", "Displays a message when a character leaves the private channel");
-	Event::register($MODULE_NAME, "joinPriv", "record_priv_join.php", "none", "Updates the database when a character joins the private channel");
-	Event::register($MODULE_NAME, "leavePriv", "record_priv_leave.php", "none", "Updates the database when a character leaves the private channel");
-	Event::register($MODULE_NAME, "joinPriv", "send_online_list.php", "none", "Sends the online list to people as they join the private channel");
+	Event::register($MODULE_NAME, "connect", "connected.php", "Adds all members as buddies who have auto-invite enabled");
+	Event::register($MODULE_NAME, "guild", "guest_channel_relay.php", "Private channel relay from guild channel");
+	Event::register($MODULE_NAME, "priv", "guest_channel_relay.php", "Private channel relay from priv channel");
+	Event::register($MODULE_NAME, "logOn", "logon_autoinvite.php", "Auto-invite members on logon");
+	Event::register($MODULE_NAME, "joinPriv", "notify_priv_join.php", "Displays a message when a character joins the private channel");
+	Event::register($MODULE_NAME, "leavePriv", "notify_priv_leave.php", "Displays a message when a character leaves the private channel");
+	Event::register($MODULE_NAME, "joinPriv", "record_priv_join.php", "Updates the database when a character joins the private channel");
+	Event::register($MODULE_NAME, "leavePriv", "record_priv_leave.php", "Updates the database when a character leaves the private channel");
+	Event::register($MODULE_NAME, "joinPriv", "send_online_list.php", "Sends the online list to people as they join the private channel");
 
     Help::register($MODULE_NAME, "private_channel", "private_channel.txt", "guild", "Private channel commands");
 	Help::register($MODULE_NAME, "kickall", "kickall.txt", "raidleader", "Kick all players from the Bot");

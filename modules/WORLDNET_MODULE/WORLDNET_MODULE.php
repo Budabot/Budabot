@@ -6,7 +6,7 @@
 		Setting::add($row->module, $row->name, $row->description, $row->mode, $row->type, $row->value, $row->options, $row->intoptions, $row->admin, $row->help);
 	}
 
-	Event::register($MODULE_NAME, "extPriv", "incoming_message.php", 'none', 'Relays incoming messages to the guild/private channel');
+	Event::register($MODULE_NAME, "extPriv", "incoming_message.php", 'Relays incoming messages to the guild/private channel');
 	
 	Setting::add($MODULE_NAME, 'worldnet_bot', 'Name of bot', 'edit', "text", "Worldnet", "Worldnet;Dnet", '', 'mod', 'worldnet');
 	Setting::add($MODULE_NAME, "worldnet_allow_tell_subscriptions", "Send worldnet messages to characters via tells", "edit", "options", "0", "true;false", "1;0");

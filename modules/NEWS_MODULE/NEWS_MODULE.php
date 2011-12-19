@@ -3,7 +3,7 @@
 	DB::loadSQLFile($MODULE_NAME, 'news');
 
 	// News
-    Event::register($MODULE_NAME, "logOn", "news_logon.php", "none", "Sends a tell with news to players logging in");
+    Event::register($MODULE_NAME, "logOn", "news_logon.php", "Sends a tell with news to players logging in");
 	Command::register($MODULE_NAME, "", "news.php", "news", "all", "Show News");
 	Subcommand::register($MODULE_NAME, "", "news_add.php", "news add (.+)", "rl", "news", "Add a news entry");
 	Subcommand::register($MODULE_NAME, "", "news_rem.php", "news rem (.+)", "rl", "news", "Remove a news entry");

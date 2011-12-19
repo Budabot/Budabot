@@ -9,7 +9,7 @@
 
 	Command::register($MODULE_NAME, "", "updateitems.php", "updateitems", "guild", "Download the latest version of the items db");
 	
-	Event::register($MODULE_NAME, "24hrs", "itemsdb_check.php", "none", "Check to make sure items db is the latest version available");
+	Event::register($MODULE_NAME, "24hrs", "itemsdb_check.php", "Check to make sure items db is the latest version available");
 
 	//Settings
 	Setting::add($MODULE_NAME, 'maxitems', 'Number of Items shown on the list', 'edit', "number", '40', '30;40;50;60', "", "mod");

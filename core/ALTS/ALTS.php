@@ -3,7 +3,7 @@
 	
 	DB::loadSQLFile($MODULE_NAME, "alts");
 	
-	Event::register($MODULE_NAME, "logOn", "check_unvalidated_alts.php", "", "Reminds players logging in to validate alts");
+	Event::register($MODULE_NAME, "logOn", "check_unvalidated_alts.php", "Reminds players logging in to validate alts");
 	
 	Command::register($MODULE_NAME, "", "altvalidate.php", "altvalidate", "member", "Validate alts for admin privileges");
 	Command::register($MODULE_NAME, "", "altsadmin.php", "altsadmin", "mod", "Alt character handling (admin)");

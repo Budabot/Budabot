@@ -1,10 +1,10 @@
 <?php
-	Event::register($MODULE_NAME, "leavePriv", "bior_left_chat.php", "bior", "Remove player who leaves chat from bior list if he was on it");
-	Event::register($MODULE_NAME, "joinPriv", "bior_joined_chat.php", "bior", "Add player to bior list when he joins chat if he should be on it (Keep,Adv,Enf,Eng)");
-	Event::register($MODULE_NAME, "2sec", "bior_check.php", "bior", "Timer check for bior list");
-	Event::register($MODULE_NAME, "leavePriv", "guardian_left_chat.php", "guard", "Remove player who leaves chat from guardian list if he was on it");
-	Event::register($MODULE_NAME, "joinPriv", "guardian_joined_chat.php", "guard", "Add player to guardian list when he joins chat if he should be on it (Soldier)");
-	Event::register($MODULE_NAME, "2sec", "guard_check.php", "guard", "Timer check for guardian list");
+	Event::register($MODULE_NAME, "leavePriv", "bior_left_chat.php", "Remove player who leaves chat from bior list if he was on it");
+	Event::register($MODULE_NAME, "joinPriv", "bior_joined_chat.php", "Add player to bior list when he joins chat if he should be on it (Keep,Adv,Enf,Eng)");
+	Event::register($MODULE_NAME, "2sec", "bior_check.php", "Timer check for bior list");
+	Event::register($MODULE_NAME, "leavePriv", "guardian_left_chat.php", "Remove player who leaves chat from guardian list if he was on it");
+	Event::register($MODULE_NAME, "joinPriv", "guardian_joined_chat.php", "Add player to guardian list when he joins chat if he should be on it (Soldier)");
+	Event::register($MODULE_NAME, "2sec", "guard_check.php", "Timer check for guardian list");
 	
 	Command::register($MODULE_NAME, "", "bior.php", "bior", "leader", "Show Bio Regrowth Order");
 	Command::register($MODULE_NAME, "", "cast_bior.php", "b", "all", "Show Bio Regrowth Cast");

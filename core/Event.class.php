@@ -22,7 +22,7 @@ class Event {
 	 * @name: register
 	 * @description: Registers an event on the bot so it can be configured
 	 */
-	public static function register($module, $type, $filename, $dependson = 'none', $description = 'none', $help = '', $defaultStatus = null) {
+	public static function register($module, $type, $filename, $description = 'none', $help = '', $defaultStatus = null) {
 		$db = DB::get_instance();
 		global $chatBot;
 		
