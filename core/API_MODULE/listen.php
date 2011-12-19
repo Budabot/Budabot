@@ -8,6 +8,9 @@ if ($client !== false) {
 
 	// Read the input from the client
 	$apiRequest = $clientHandler->readPacket();
+	if ($apiRequest->version != API_VERSION) {
+		$clientHandler->writePacket(new APIResponse(API_FAILURE, "API version must be: " . API_VERSION));
+	}
 	
 	$password = Preferences::get($apiRequest->username, 'apipassword');
 	if ($password === false) {
@@ -15,7 +18,11 @@ if ($client !== false) {
 	} else if ($password != $apiRequest->password) {
 		$clientHandler->writePacket(new APIResponse(API_FAILURE, "Password was incorrect."));
 	} else {
-		$chatBot->process_command('msg', $apiRequest->command, $apiRequest->username, $clientHandler);
+		$type = 'msg';
+		if ($apiRequest->type == API_ADVANCED_MSG) {
+			$type = 'api';
+		}
+		$chatBot->process_command($type, $apiRequest->command, $apiRequest->username, $clientHandler);
 	}
 }
 
