@@ -76,6 +76,7 @@ class xml {
 		$host = $tmp[1].$tmp[2];
 		$uri = "/".$tmp[3];
 		$fp = @fsockopen($host, 80, $errno, $errstr, $timeout);
+		@stream_set_timeout($fp, $timeout);
  		if ($fp) {
 			@fputs($fp, "GET $uri HTTP/1.0\nHost: $host\r\n\r\n");
 			$data = '';
