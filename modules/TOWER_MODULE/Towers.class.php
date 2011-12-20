@@ -10,19 +10,19 @@ class Towers {
 			FROM
 				tower_site t
 			WHERE
-				`playfield_id` = {$playfield_id}
-				AND `site_number` = {$site_number}
+				`playfield_id` = ?
+				AND `site_number` = ?
 			LIMIT 1";
 		
-		return $db->queryRow($sql);
+		return $db->queryRow($sql, $playfield_id, $site_number);
 	}
 	
 	public static function find_sites_in_playfield($playfield_id) {
 		$db = DB::get_instance();
 
-		$sql = "SELECT * FROM tower_site WHERE `playfield_id` = {$playfield_id}";
+		$sql = "SELECT * FROM tower_site WHERE `playfield_id` = ?";
 
-		return $db->query($sql);
+		return $db->query($sql, $playfield_id);
 	}
 	
 	public static function get_closest_site($playfield_id, $x_coords, $y_coords) {
@@ -46,19 +46,16 @@ class Towers {
 				FROM
 					tower_site
 				WHERE
-					playfield_id = {$playfield_id}) t
+					playfield_id = ?) t
 			ORDER BY
 				radius ASC
 			LIMIT 1";
 
-		return $db->queryRow($sql);
+		return $db->queryRow($sql, $playfield_id);
 	}
 
 	public static function get_last_attack($att_faction, $att_guild_name, $def_faction, $def_guild_name, $playfield_id) {
 		$db = DB::get_instance();
-		
-		$att_guild_name = str_replace("'", "''", $att_guild_name);
-		$def_guild_name = str_replace("'", "''", $def_guild_name);
 		
 		$time = time() - (7 * 3600);
 		
@@ -68,17 +65,17 @@ class Towers {
 			FROM
 				tower_attack_<myname>
 			WHERE
-				`att_guild_name` = '{$att_guild_name}'
-				AND `att_faction` = '{$att_faction}'
-				AND `def_guild_name` = '{$def_guild_name}'
-				AND `def_faction` =  '{$def_faction}'
-				AND `playfield_id` = {$playfield_id}
-				AND `time` >= {$time}
+				`att_guild_name` = ?
+				AND `att_faction` = ?
+				AND `def_guild_name` = ?
+				AND `def_faction` = ?
+				AND `playfield_id` = ?
+				AND `time` >= ?
 			ORDER BY
 				`time` DESC
 			LIMIT 1";
 		
-		return $db->queryRow($sql);
+		return $db->queryRow($sql, $att_guild_name, $att_faction, $def_guild_name, $def_faction, $playfield_id, $time);
 	}
 	
 	public static function record_attack($whois, $def_faction, $def_guild_name, $x_coords, $y_coords, $closest_site) {

@@ -30,12 +30,7 @@ class Whompah {
 		$db = DB::get_instance();
 		
 		$sql = "SELECT * FROM whompah_cities WHERE city_name LIKE ? OR short_name LIKE ?";
-		$data = $db->query($sql, $search, $search);
-		if (count($data) == 0) {
-			return null;
-		} else {
-			return $data[0];
-		}
+		return $db->queryRow($sql, $search, $search);
 	}
 	
 	public static function build_whompah_network() {

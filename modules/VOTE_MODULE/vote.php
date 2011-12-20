@@ -78,12 +78,11 @@ if (preg_match("/^vote$/i", $message)) {
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^vote end (.+)$/i", $message, $arr)) {
 	$topic = $arr[1];
-	$data = $db->query("SELECT * FROM $table WHERE `question` = ? AND `author` = ? AND `duration` IS NOT NULL", $topic, $sender);
+	$row = $db->queryRow("SELECT * FROM $table WHERE `question` = ? AND `author` = ? AND `duration` IS NOT NULL", $topic, $sender);
 	
-	if (count($data) == 0) {
+	if ($row === null) {
 		$msg = "Either this vote doesn't exist, or you didn't create it.";
 	} else {
-		$row = $data[0];
 		$question = $row->question; $author = $row->author; $started = $row->started;
 		$duration = $row->duration; $status = $row->status;
 		$timeleft = $started+$duration-time();		
@@ -176,8 +175,7 @@ if (preg_match("/^vote$/i", $message)) {
 				$msg .="<tab>" . Text::make_chatcmd('End the vote early', "/tell <myname> vote end $question");
 			}
 			
-			$data = $db->query("SELECT * FROM $table WHERE `author` = ? AND `question` = ? AND `duration` IS NULL", $sender, $question);
-			$row = $data[0];
+			$row = $db->queryRow("SELECT * FROM $table WHERE `author` = ? AND `question` = ? AND `duration` IS NULL", $sender, $question);
 			if ($row->answer && $timeleft > 0) {
 				$privmsg = "On this vote, you already selected: <highlight>(".$row->answer.")<end>.";
 			} else if ($timeleft > 0) {
@@ -205,8 +203,7 @@ if (preg_match("/^vote$/i", $message)) {
 		}
 
 		
-		$data = $db->query("SELECT * FROM $table WHERE `question` = ? AND `duration` IS NOT NULL", $sect[0]);
-		$row = $data[0];
+		$row = $db->query("SELECT * FROM $table WHERE `question` = ? AND `duration` IS NOT NULL", $sect[0]);
 		$question = $row->question; $author = $row->author; $started = $row->started;
 		$duration = $row->duration; $status = $row->status; $answer = $row->answer;
 		$timeleft = $started+$duration-time();	

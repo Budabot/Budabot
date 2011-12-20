@@ -24,12 +24,10 @@ if (preg_match("/^settings$/i", $message)) {
  	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^settings change ([a-z0-9_]+)$/i", $message, $arr)) {
 	$setting = strtolower($arr[1]);
- 	$data = $db->query("SELECT * FROM settings_<myname> WHERE `name` = '{$setting}'");
-	if (count($data) == 0) {
+ 	$row = $db->queryRow("SELECT * FROM settings_<myname> WHERE `name` = '{$setting}'");
+	if ($row === null) {
 		$msg = "Could not find setting <highlight>{$setting}<end>.";
 	} else {
-		$row = $data[0];
-		
 		if ($row->options != '') {
 			$options = explode(";", $row->options);
 		}

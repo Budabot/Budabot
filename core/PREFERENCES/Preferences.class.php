@@ -21,11 +21,11 @@ class Preferences {
 		$sender = ucfirst(strtolower($sender));
 		$name = strtolower($name);
 		
-		$data = $db->query("SELECT * FROM preferences_<myname> WHERE sender = '$sender' AND name = '$name'");
-		if (count($data) == 0) {
+		$row = $db->queryRow("SELECT * FROM preferences_<myname> WHERE sender = '$sender' AND name = '$name'");
+		if ($row === null) {
 			return false;
 		} else {
-			return $data[0]->value;
+			return $row->value;
 		}
 	}
 }
