@@ -2,13 +2,12 @@
 
 if (preg_match("/^track$/i", $message)) {
 	$data = $db->query("SELECT * FROM tracked_users_<myname> ORDER BY `name`");
-	$numrows = $db->numrows();
+	$numrows = count($data);
 	if ($numrows != 0) {
 	  	$blob .= "<header> :::::: {$numrows} Users on Track List :::::: <end>\n\n";
 	  	forEach ($data as $row) {
-			$db->query("SELECT `event`, `dt` FROM tracking_<myname> WHERE `uid` = $row->uid ORDER BY `dt` DESC LIMIT 1");
-			if ($db->numrows() > 0) {
-				$row2 = $db->fObject();
+			$row2 = $db->queryRow("SELECT `event`, `dt` FROM tracking_<myname> WHERE `uid` = ? ORDER BY `dt` DESC LIMIT 1", $row->uid);
+			if ($row2 != null) {
 				$last_action = " <white>" . date(DATE_RFC850, $row2->dt) ."<end>";
 			}
 			
@@ -39,11 +38,11 @@ if (preg_match("/^track$/i", $message)) {
 	if (!$uid) {
         $msg = "Player <highlight>$name<end> does not exist.";
     } else {
-	  	$db->query("SELECT * FROM tracked_users_<myname> WHERE `uid` = '$uid'");
-	  	if($db->numrows() == 0) {
+	  	$data = $db->query("SELECT * FROM tracked_users_<myname> WHERE `uid` = ?", $uid);
+	  	if (count($data) == 0) {
 	  		$msg = "<highlight>$name<end> is not on the track list.";
 	  	} else {
-		    $db->exec("DELETE FROM tracked_users_<myname> WHERE `uid` = '$uid'");
+		    $db->exec("DELETE FROM tracked_users_<myname> WHERE `uid` = ?", $uid);
 		    $msg = "<highlight>$name<end> has been removed from the track list.";
 			Buddylist::remove($name, 'tracking');
 		}
@@ -57,11 +56,11 @@ if (preg_match("/^track$/i", $message)) {
 	if (!$uid) {
         $msg = "Player <highlight>$name<end> does not exist.";
     } else {
-	  	$db->query("SELECT * FROM tracked_users_<myname> WHERE `uid` = '$uid'");
-	  	if($db->numrows() != 0) {
+	  	$data = $db->query("SELECT * FROM tracked_users_<myname> WHERE `uid` = ?", $uid);
+	  	if (count($data) != 0) {
 	  		$msg = "<highlight>$name<end> is already on the track list.";
 	  	} else {
-		    $db->exec("INSERT INTO tracked_users_<myname> (`name`, `uid`, `added_by`, `added_dt`) VALUES ('$name', $uid, '$sender', " . time() . ")");
+		    $db->exec("INSERT INTO tracked_users_<myname> (`name`, `uid`, `added_by`, `added_dt`) VALUES (?, ?, ?, ?)", $name, $uid, $sender, time());
 		    $msg = "<highlight>$name<end> has been added to the track list.";
 	        Buddylist::add($name, 'tracking');
 		}
@@ -72,10 +71,9 @@ if (preg_match("/^track$/i", $message)) {
 	$uid = $chatBot->get_uid($arr[1]);
 	$name = ucfirst(strtolower($arr[1]));
 	
-	$db->query("SELECT `event`, `dt` FROM tracking_<myname> WHERE `uid` = $uid ORDER BY `dt` DESC");
-	if ($db->numrows() != 0) {
+	$data = $db->query("SELECT `event`, `dt` FROM tracking_<myname> WHERE `uid` = $uid ORDER BY `dt` DESC");
+	if (count($data) == 0) {
 		$blob .= "<header> :::::: Track History for $name :::::: <end>\n\n";
-	  	$data = $db->fObject('all');
 	  	forEach ($data as $row) {
 	  		$blob .= "$row->event <white>" . date(DATE_RFC850, $row->dt) ."<end>\n";
 	  	}

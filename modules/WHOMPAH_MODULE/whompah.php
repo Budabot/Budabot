@@ -2,8 +2,7 @@
 
 if (preg_match("/^whompah$/i", $message, $arr)) {
 	$sql = "SELECT * FROM `whompah_cities` ORDER BY city_name ASC";
-	$db->query($sql);
-	$data = $db->fObject('all');
+	$data = $db->query($sql);
 
 	$blob = "<header> :::::: Whompah Cities :::::: <end>\n\n<white>";
 	forEach ($data as $row) {
@@ -59,9 +58,8 @@ if (preg_match("/^whompah$/i", $message, $arr)) {
 		return;
 	}
 	
-	$sql = "SELECT w2.* FROM whompah_cities_rel w1 JOIN whompah_cities w2 ON w1.city2_id = w2.id WHERE w1.city1_id = $city->id";
-	$db->query($sql);
-	$data = $db->fObject('all');
+	$sql = "SELECT w2.* FROM whompah_cities_rel w1 JOIN whompah_cities w2 ON w1.city2_id = w2.id WHERE w1.city1_id = ?";
+	$data = $db->query($sql, $city->id);
 	
 	$msg = "From {$city->city_name} you can get to: ";
 	forEach ($data as $row) {

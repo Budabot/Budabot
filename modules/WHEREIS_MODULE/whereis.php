@@ -16,8 +16,7 @@ $msg = '';
 if (preg_match("/^whereis (.+)$/i", $message, $arr)) {
 	$search = $arr[1];
 	$search = strtolower($search);
-	$db->query("SELECT * FROM whereis WHERE name LIKE '%".str_replace("'", "''", $search)."%'");
-	$data = $db->fobject("all");
+	$data = $db->query("SELECT * FROM whereis WHERE name LIKE ?", '%' . $search . '%');
 	$count = count($data);
 	
 	if ($count > 1) {

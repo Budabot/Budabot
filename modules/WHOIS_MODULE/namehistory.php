@@ -9,9 +9,8 @@ if (preg_match("/^namehistory (.+)$/i", $message, $arr)) {
 		return;
 	}
 	
-	$sql = "SELECT * FROM name_history WHERE charid = $uid AND dimension = <dim> ORDER BY dt DESC";
-	$db->query($sql);
-	$data = $db->fObject('all');
+	$sql = "SELECT * FROM name_history WHERE charid = ? AND dimension = <dim> ORDER BY dt DESC";
+	$data = $db->query($sql, $uid);
 	$count = count($data);
 
 	$blob = "<header> :::::: Name History for $name ($count) :::::: <end>\n\n";

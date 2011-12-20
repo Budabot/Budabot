@@ -14,8 +14,7 @@ class Towers {
 				AND `site_number` = {$site_number}
 			LIMIT 1";
 		
-		$db->query($sql);
-		return $db->fObject();
+		return $db->queryRow($sql);
 	}
 	
 	public static function find_sites_in_playfield($playfield_id) {
@@ -23,8 +22,7 @@ class Towers {
 
 		$sql = "SELECT * FROM tower_site WHERE `playfield_id` = {$playfield_id}";
 
-		$db->query($sql);
-		return $db->fObject('all');
+		return $db->query($sql);
 	}
 	
 	public static function get_closest_site($playfield_id, $x_coords, $y_coords) {
@@ -53,8 +51,7 @@ class Towers {
 				radius ASC
 			LIMIT 1";
 
-		$db->query($sql);
-		return $db->fObject();		
+		return $db->queryRow($sql);
 	}
 
 	public static function get_last_attack($att_faction, $att_guild_name, $def_faction, $def_guild_name, $playfield_id) {
@@ -81,15 +78,11 @@ class Towers {
 				`time` DESC
 			LIMIT 1";
 		
-		$db->query($sql);
-		return $db->fObject();
+		return $db->queryRow($sql);
 	}
 	
 	public static function record_attack($whois, $def_faction, $def_guild_name, $x_coords, $y_coords, $closest_site) {
 		$db = DB::get_instance();
-		
-		$att_guild_name = str_replace("'", "''", $whois->guild);
-		$def_guild_name = str_replace("'", "''", $def_guild_name);
 		
 		$sql = "
 			INSERT INTO tower_attack_<myname> (
@@ -107,22 +100,23 @@ class Towers {
 				`x_coords`,
 				`y_coords`
 			) VALUES (
-				".time().",
-				'{$att_guild_name}',
-				'{$whois->faction}',
-				'{$whois->name}',
-				'{$whois->level}',
-				'{$whois->ai_level}',
-				'{$whois->profession}',
-				'{$def_guild_name}',
-				'{$def_faction}',
-				{$closest_site->playfield_id},
-				{$closest_site->site_number},
-				{$x_coords},
-				{$y_coords}
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?
 			)";
 		
-		return $db->exec($sql);
+		return $db->exec($sql, time(), $whois->guild, $whois->faction, $whois->name, $whois->level, $whois->ai_level, $whois->profession,
+			$def_guild_name, $def_faction, $closest_site->playfield_id, $closest_site->site_number, $x_coords, $y_coords);
 	}
 	
 	public static function find_all_scouted_sites() {
@@ -140,8 +134,7 @@ class Towers {
 			ORDER BY
 				guild_name, ct_ql";
 
-		$db->query($sql);
-		return $db->fObject('all');
+		return $db->query($sql);
 	}
 	
 	public static function get_last_victory($playfield_id, $site_number) {
@@ -154,21 +147,17 @@ class Towers {
 				tower_victory_<myname> v
 				JOIN tower_attack_<myname> a ON (v.attack_id = a.id)
 			WHERE
-				a.`playfield_id` = {$playfield_id}
-				AND a.`site_number` >= {$site_number}
+				a.`playfield_id` = ?
+				AND a.`site_number` >= ?
 			ORDER BY
 				v.`time` DESC
 			LIMIT 1";
 		
-		$db->query($sql);
-		return $db->fObject();
+		return $db->queryRow($sql, $playfield_id, $site_number);
 	}
 	
 	public static function record_victory($last_attack) {
 		$db = DB::get_instance();
-		
-		$win_guild_name = str_replace("'", "''", $last_attack->att_guild_name);
-		$lose_guild_name = str_replace("'", "''", $last_attack->def_guild_name);
 		
 		$sql = "
 			INSERT INTO tower_victory_<myname> (
@@ -179,25 +168,23 @@ class Towers {
 				`lose_faction`,
 				`attack_id`
 			) VALUES (
-				".time().",
-				'{$win_guild_name}',
-				'{$last_attack->att_faction}',
-				'{$lose_guild_name}',
-				'{$last_attack->def_faction}',
-				{$last_attack->id}
+				?,
+				?,
+				?,
+				?,
+				?,
+				?
 			)";
 		
-		return $db->exec($sql);
+		return $db->exec($sql, time(), $last_attack->att_guild_name, $last_attack->att_faction, $last_attack->def_guild_name, $last_attack->def_faction, $last_attack->id);
 	}
 	
 	public static function add_scout_site($playfield_id, $site_number, $close_time, $ct_ql, $faction, $guild_name, $scouted_by) {
 		$db = DB::get_instance();
 		
-		$guild_name = str_replace("'", "''", $guild_name);
-		
 		$db->begin_transaction();
 		
-		$db->exec("DELETE FROM scout_info WHERE `playfield_id` = {$playfield_id} AND `site_number` = {$site_number}");
+		$db->exec("DELETE FROM scout_info WHERE `playfield_id` = ? AND `site_number` = ?", $playfield_id, $site_number);
 		
 		$sql = "
 			INSERT INTO scout_info (
@@ -210,17 +197,17 @@ class Towers {
 				`faction`,
 				`close_time`
 			) VALUES (
-				{$playfield_id},
-				{$site_number},
-				".time().",
-				'{$scouted_by}',
-				{$ct_ql},
-				'{$guild_name}',
-				'{$faction}',
-				{$close_time}
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?
 			)";
 
-		$numrows = $db->exec($sql);
+		$numrows = $db->exec($sql, $playfield_id, $site_number, time(), $scouted_by, $ct_ql, $guild_name, $faction, $close_time);
 		
 		if ($numrows == 0) {
 			$db->rollback();
@@ -234,24 +221,35 @@ class Towers {
 	public static function rem_scout_site($playfield_id, $site_number) {
 		$db = DB::get_instance();
 		
-		$sql = "DELETE FROM scout_info WHERE `playfield_id` = {$playfield_id} AND `site_number` = {$site_number}";
+		$sql = "DELETE FROM scout_info WHERE `playfield_id` = ? AND `site_number` = ?";
 
-		return $db->exec($sql);
+		return $db->exec($sql, $playfield_id, $site_number);
 	}
 	
 	public static function check_guild_name($guild_name) {
 		$db = DB::get_instance();
-		
-		$guild_name = str_replace("'", "''", $guild_name);
 	
-		$sql = "SELECT * FROM tower_attack_<myname> WHERE `att_guild_name` LIKE '{$guild_name}' OR `def_guild_name` LIKE '{$guild_name}' LIMIT 1";
+		$sql = "SELECT * FROM tower_attack_<myname> WHERE `att_guild_name` LIKE ? OR `def_guild_name` LIKE ? LIMIT 1";
 		
-		$data = $db->query($sql);
+		$data = $db->query($sql, $guild_name, $guild_name);
 		if (count($data) === 0) {
 			return false;
 		} else {
 			return true;
 		}
+	}
+	
+	public static function getSitesInPenalty($time) {
+		$db = DB::get_instance();
+		
+		$sql = "
+			SELECT att_guild_name, att_faction, MAX(IFNULL(t2.time, t1.time)) AS penalty_time
+			FROM tower_attack_<myname> t1
+				LEFT JOIN tower_victory_<myname> t2 ON t1.id = t2.id
+			WHERE (t2.time IS NULL AND t1.time > ?) OR t2.time > ?
+			GROUP BY att_guild_name, att_faction
+			ORDER BY att_faction ASC, penalty_time DESC";
+		return $db->query($sql, $time, $time);
 	}
 }
 

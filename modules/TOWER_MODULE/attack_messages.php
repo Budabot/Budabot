@@ -90,7 +90,6 @@ if ($closest_site === null) {
 		}
 	}
 
-
 	$link .= "\n";
 
 	$link .= "<highlight>Defender:<end> ".$colorvalue.$def_guild."<end>\n";

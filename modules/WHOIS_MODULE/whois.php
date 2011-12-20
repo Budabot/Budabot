@@ -4,9 +4,8 @@ if (!function_exists('getNameHistory')) {
 	function getNameHistory($charid, $dimension) {
 		$db = DB::get_instance();
 
-		$sql = "SELECT * FROM name_history WHERE charid = '{$charid}' AND dimension = {$dimension} ORDER BY dt DESC";
-		$db->query($sql);
-		$data = $db->fObject('all');
+		$sql = "SELECT * FROM name_history WHERE charid = ? AND dimension = ? ORDER BY dt DESC";
+		$data = $db->query($sql, $charid, $dimension);
 
 		$blob = "<header> :::::: Name History :::::: <end>\n\n";
 		if (count($data) > 0) {

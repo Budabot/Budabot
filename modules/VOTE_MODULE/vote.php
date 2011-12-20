@@ -18,8 +18,7 @@ $delimiter = "|";
 // Listing of all votes
 if (preg_match("/^vote$/i", $message)) {
 	
-	$db->query("SELECT * FROM $table WHERE `duration` IS NOT NULL ORDER BY `started`");
-	$data = $db->fObject('all');
+	$data = $db->query("SELECT * FROM $table WHERE `duration` IS NOT NULL ORDER BY `started`");
 	if (count($data) > 0) {
 		forEach ($data as $row) {
 			$question = $row->question; $started = $row->started; $duration = $row->duration;
@@ -50,13 +49,13 @@ if (preg_match("/^vote$/i", $message)) {
 } else if (preg_match("/^vote kill (.+)$/i", $message, $arr)) {
 	$topic = $arr[1];
 	if (AccessLevel::check_access($sender, "moderator")) {
-		$data = $db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $topic)."'");
+		$data = $db->query("SELECT * FROM $table WHERE `question` = ?", $topic);
 	} else {
-		$data = $db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $topic)."' AND `author` = '$sender' AND `duration` IS NOT NULL");
+		$data = $db->query("SELECT * FROM $table WHERE `question` = ? AND `author` = ? AND `duration` IS NOT NULL", $topic, $sender);
 	}
 	
 	if (count($data) > 0) {
-		$db->exec("DELETE FROM $table WHERE `question` = '".str_replace("'", "''", $topic)."'");
+		$db->exec("DELETE FROM $table WHERE `question` = ?", $topic);
 		unset($chatBot->data["Vote"][$topic]);
 		$msg = "'$topic' has been removed.";
 	} else {
@@ -68,9 +67,9 @@ if (preg_match("/^vote$/i", $message)) {
 	if (!isset($chatBot->data["Vote"][$topic])) {
 		$msg = "There is no such topic available.";
 	} else {
-		$data = $db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $topic)."' AND `author` = '$sender' AND `duration` IS NULL");
+		$data = $db->query("SELECT * FROM $table WHERE `question` = ? AND `author` = ? AND `duration` IS NULL", $topic, $sender);
 		if (count($data) > 0) {
-			$db->exec("DELETE FROM $table WHERE `question` = '".str_replace("'", "''", $topic)."' AND `author` = '$sender' AND `duration` IS NULL");
+			$db->exec("DELETE FROM $table WHERE `question` = ? AND `author` = ? AND `duration` IS NULL", $topic, $sender);
 			$msg = "Your vote has been removed.";
 		} else {
 			$msg = "You have not voted on this topic.";
@@ -79,7 +78,7 @@ if (preg_match("/^vote$/i", $message)) {
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^vote end (.+)$/i", $message, $arr)) {
 	$topic = $arr[1];
-	$data = $db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $topic)."' AND `author` = '$sender' AND `duration` IS NOT NULL");
+	$data = $db->query("SELECT * FROM $table WHERE `question` = ? AND `author` = ? AND `duration` IS NOT NULL", $topic, $sender);
 	
 	if (count($data) == 0) {
 		$msg = "Either this vote doesn't exist, or you didn't create it.";
@@ -91,7 +90,7 @@ if (preg_match("/^vote$/i", $message)) {
 	
 		if ($timeleft > 60) {
 			$duration = (time()-$started)+61;
-			$db->exec("UPDATE $table SET `duration` = '$duration' WHERE `author` = '$sender' AND `duration` IS NOT NULL AND `question` = '".str_replace("'", "''", $topic)."'");
+			$db->exec("UPDATE $table SET `duration` = ? WHERE `author` = ? AND `duration` IS NOT NULL AND `question` = ?", $duration, $sender, $topic);
 			$chatBot->data["Vote"][$topic]["duration"] = $duration;
 			$msg = "Vote duration reduced to 60 seconds.";
 		} else if ($timeleft <= 0) {
@@ -107,8 +106,7 @@ if (preg_match("/^vote$/i", $message)) {
 	//////////////////////////////////////
 	if (count($sect) == 1) { // Show vote
 		
-		$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[0])."'");
-		$data = $db->fObject('all');
+		$data = $db->query("SELECT * FROM $table WHERE `question` = ?", $sect[0]);
 		if (count($data)<= 0) {
 			$msg = "Couldn't find any votes with this topic.";
 		} else {
@@ -118,7 +116,6 @@ if (preg_match("/^vote$/i", $message)) {
 					$question = $row->question; $author = $row->author; $started = $row->started;
 					$duration = $row->duration; $status = $row->status;
 					$timeleft = $started+$duration-time();
-					
 				}
 				if ($sender == $author) {
 					$didvote = 1;
@@ -128,8 +125,8 @@ if (preg_match("/^vote$/i", $message)) {
 				if (strpos($answer, $delimiter) === false) { // A Vote: $answer = "yes";
 					$results[$answer]++;
 					$totalresults++;
-				} else {				     // Main topic: $answer = "yes;no";
-					
+				} else {
+					// Main topic: $answer = "yes;no";
 					$ans = explode($delimiter, $answer);
 					forEach ($ans as $value) {
 						if (!isset($results[$value])) {
@@ -179,8 +176,8 @@ if (preg_match("/^vote$/i", $message)) {
 				$msg .="<tab>" . Text::make_chatcmd('End the vote early', "/tell <myname> vote end $question");
 			}
 			
-			$db->query("SELECT * FROM $table WHERE `author` = '$sender' AND `question` = '$question' AND `duration` IS NULL");
-			$row = $db->fObject();
+			$data = $db->query("SELECT * FROM $table WHERE `author` = ? AND `question` = ? AND `duration` IS NULL", $sender, $question);
+			$row = $data[0];
 			if ($row->answer && $timeleft > 0) {
 				$privmsg = "On this vote, you already selected: <highlight>(".$row->answer.")<end>.";
 			} else if ($timeleft > 0) {
@@ -208,8 +205,8 @@ if (preg_match("/^vote$/i", $message)) {
 		}
 
 		
-		$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[0])."' AND `duration` IS NOT NULL");
-		$row = $db->fObject();
+		$data = $db->query("SELECT * FROM $table WHERE `question` = ? AND `duration` IS NOT NULL", $sect[0]);
+		$row = $data[0];
 		$question = $row->question; $author = $row->author; $started = $row->started;
 		$duration = $row->duration; $status = $row->status; $answer = $row->answer;
 		$timeleft = $started+$duration-time();	
@@ -221,15 +218,14 @@ if (preg_match("/^vote$/i", $message)) {
 		} else if ((Setting::get("vote_add_new_choices") == 0 || (Setting::get("vote_add_new_choices") == 1 && $status == 1)) && strpos($delimiter.$answer.$delimiter, $delimiter.$sect[1].$delimiter) === false) {
 			$msg = "Cannot accept this choice.  Please choose one from the menu.";
 		} else {
-			$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $sect[0])."' AND `duration` IS NULL AND `author` = '$sender'");
-			if ($db->numrows() > 0) {
-				$db->exec("UPDATE $table SET `answer` = '".str_replace("'", "''", $sect[1])."' WHERE `author` = '$sender' AND `duration` IS NULL AND `question` = '".str_replace("'", "''", $sect[0])."'");
+			$data = $db->query("SELECT * FROM $table WHERE `question` = ? AND `duration` IS NULL AND `author` = ?", $sect[0], $sender);
+			if (count($data) > 0) {
+				$db->exec("UPDATE $table SET `answer` = ? WHERE `author` = ? AND `duration` IS NULL AND `question` = ?", $sect[1], $sender, $sect[0]);
 				$msg = "You have altered your choice to <highlight>$sect[1]<end> for: <highlight>$sect[0]<end>.";
 			} else {
-				$db->exec("INSERT INTO $table (`author`, `answer`, `question`) VALUES ('$sender', '".str_replace("'", "''", $sect[1])."', '".str_replace("'", "''", $sect[0])."')");
+				$db->exec("INSERT INTO $table (`author`, `answer`, `question`) VALUES (?, ?, ?)", $sender, $sect[1], $sect[0]);
 				$msg = "You have selected choice <highlight>$sect[1]<end> for: <highlight>$sect[0]<end>.";
 			}
-			
 		}
 		
 	//////////////////////////////////////////////////////////////////////////////////////
@@ -271,9 +267,9 @@ if (preg_match("/^vote$/i", $message)) {
 				} else {
 					$status = 0;
 				}
-				$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $question)."'");
-				if ($db->numrows() == 0) {
-					$db->exec("INSERT INTO $table (`question`, `author`, `started`, `duration`, `answer`, `status`) VALUES ( '".str_replace("'", "''", $question)."', '$sender', '".time()."', '$newtime', '".str_replace("'", "''", $answers)."', '$status')");
+				$data = $db->query("SELECT * FROM $table WHERE `question` = ?", $question);
+				if (count($data) == 0) {
+					$db->exec("INSERT INTO $table (`question`, `author`, `started`, `duration`, `answer`, `status`) VALUES (?, ?, ?, ?, ?, ?)", $question, $sender, time(), $newtime, $answers, $status);
 					$chatBot->data["Vote"][$question] = array("author" => $sender,  "started" => time(), "duration" => $newtime, "answer" => $answers, "status" => "0", "lockout" => $status);
 					$msg = "Vote has been added.";
 				} else {

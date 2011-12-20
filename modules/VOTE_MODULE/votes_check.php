@@ -72,7 +72,7 @@ forEach ($chatBot->data["Vote"] as $key => $value) {
 
 	if ($timeleft <= 0) {
 		$title = "Finished Vote: $question";
-		$db->exec("UPDATE $table SET `status` = '9' WHERE `duration` = '$duration' AND `question` = '".str_replace("'", "''", $question)."'");
+		$db->exec("UPDATE $table SET `status` = '9' WHERE `duration` = ? AND `question` = ?", $duration, $question);
 		unset($chatBot->data["Vote"][$key]);
 	} else if ($status == 0) {
 		$title = "Vote: $question";
@@ -94,12 +94,12 @@ forEach ($chatBot->data["Vote"] as $key => $value) {
 		$chatBot->data["Vote"][$key]["status"]=2;
 	} else {$title = "";}
 
-	if($title != "") { // Send current results to guest + org chat.
+	if ($title != "") { // Send current results to guest + org chat.
 
-		$db->query("SELECT * FROM $table WHERE `question` = '".str_replace("'", "''", $question)."'");
+		$data = $db->query("SELECT * FROM $table WHERE `question` = ?", $question);
 
 		$results = array();
-		while ($row = $db->fObject()) {
+		forEach ($data as $row) {
 			if ($row->duration) {
 				$question = $row->question; $author = $row->author; $started = $row->started;
 				$duration = $row->duration; $status = $row->status;
@@ -125,9 +125,8 @@ forEach ($chatBot->data["Vote"] as $key => $value) {
 		} else {
 			$msg .= "<red>This vote has ended.<end>\n\n";
 		}
-			
-		foreach ($results as $key => $value) {
 
+		foreach ($results as $key => $value) {
 			$val = number_format(100*($value/$totalresults),0);
 			if ($val < 10) {$msg .= "<black>__<end>$val% ";}
 			else if ($val < 100) {$msg .= "<black>_<end>$val% ";}

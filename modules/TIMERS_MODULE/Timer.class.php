@@ -7,9 +7,8 @@ class Timer {
 		$db = DB::get_instance();
 
 		$chatBot->data["timers"][strtolower($name)] = (object)array("name" => $name, "owner" => $owner, "mode" => $mode, "timer" => $timer, "settime" => time(), 'callback' => $callback, 'callback_param' => $callback_param);
-		$sql = "INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`, `callback`, `callback_param`) " .
-			"VALUES ('".str_replace("'", "''", $name)."', '$owner', '$mode', $timer, ".time().", '".str_replace("'", "''", $callback)."', '".str_replace("'", "''", $callback_param)."')";
-		$db->exec($sql);
+		$sql = "INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`, `callback`, `callback_param`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		$db->exec($sql, $name, $owner, $mode, $timer, time(), $callback, $callback_param);
 	}
 	
 	public static function remove($name) {
@@ -17,7 +16,7 @@ class Timer {
 
 		$db = DB::get_instance();
 
-		$db->exec("DELETE FROM timers_<myname> WHERE `name` LIKE '" . str_replace("'", "''", $name) . "'");
+		$db->exec("DELETE FROM timers_<myname> WHERE `name` LIKE ?", $name);
 		unset($chatBot->data["timers"][strtolower($name)]);
 	}
 

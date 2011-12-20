@@ -22,9 +22,9 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 
 	$sql = "SELECT * FROM tower_site t1
 		JOIN playfields p ON (t1.playfield_id = p.id)
-		WHERE t1.playfield_id = $playfield->id";
+		WHERE t1.playfield_id = ?";
 
-	$data = $db->query($sql);
+	$data = $db->query($sql, $playfield->id);
 	$blob = "All bases in $playfield->long_name\n\n";
 	forEach ($data as $row) {
 		$gas_level = getGasLevel($row->close_time);
@@ -46,9 +46,9 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 	$site_number = $arr[2];
 	$sql = "SELECT * FROM tower_site t1
 		JOIN playfields p ON (t1.playfield_id = p.id)
-		WHERE t1.playfield_id = $playfield->id AND t1.site_number = $site_number";
+		WHERE t1.playfield_id = ? AND t1.site_number = ?";
 
-	$data = $db->query($sql);
+	$data = $db->query($sql, $playfield->id, $site_number);
 	$blob = "$playfield->short_name $site_number\n\n";
 	forEach ($data as $row) {
 		$gas_level = getGasLevel($row->close_time);

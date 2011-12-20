@@ -29,13 +29,12 @@ class Whompah {
 	public static function find_city($search) {
 		$db = DB::get_instance();
 		
-		$sql = "SELECT * FROM whompah_cities WHERE city_name LIKE '{$search}' OR short_name LIKE '{$search}'";
-		$db->query($sql);
-		$row = $db->fObject();
-		if ($row === null) {
+		$sql = "SELECT * FROM whompah_cities WHERE city_name LIKE ? OR short_name LIKE ?";
+		$data = $db->query($sql, $search, $search);
+		if (count($data) == 0) {
 			return null;
 		} else {
-			return $row;
+			return $data[0];
 		}
 	}
 	
@@ -45,15 +44,13 @@ class Whompah {
 		$whompahs = array();
 
 		$sql = "SELECT * FROM `whompah_cities`";
-		$db->query($sql);
-		$data = $db->fObject('all');
+		$data = $db->query($sql);
 		forEach ($data as $row) {
 			$whompahs[$row->id] = $row;
 		}
 		
 		$sql = "SELECT city1_id, city2_id FROM whompah_cities_rel";
-		$db->query($sql);
-		$data = $db->fObject('all');
+		$data = $db->query($sql);
 		forEach ($data as $row) {
 			$whompahs[$row->city1_id]->connections[] = $row->city2_id;
 		}

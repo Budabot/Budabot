@@ -14,15 +14,7 @@ if (preg_match("/^penalty$/i", $message) || preg_match("/^penalty ([a-z0-9]+)$/i
 	}
 	$penaltyTimeString = Util::unixtime_to_readable($time, false);
 
-	$sql = "
-		SELECT att_guild_name, att_faction, MAX(IFNULL(t2.time, t1.time)) AS penalty_time
-		FROM tower_attack_<myname> t1
-			LEFT JOIN tower_victory_<myname> t2 ON t1.id = t2.id
-		WHERE (t2.time IS NULL AND t1.time > $time) OR t2.time > $time
-		GROUP BY att_guild_name, att_faction
-		ORDER BY att_faction ASC, penalty_time DESC";
-	$db->query($sql);
-	$data = $db->fObject('all');
+	$data = Towers::getSitesInPenalty($time);
 	
 	if (count($data) > 0) {
 		$blob = "<header> :::::: Orgs in penalty ($penaltyTimeString) :::::: <end>\n";

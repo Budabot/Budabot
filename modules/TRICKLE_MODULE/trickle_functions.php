@@ -36,9 +36,7 @@ function getTrickleResults($abilities) {
 			groupName,
 			name";
 
-	$db->query($sql);
-
-	return $db->fObject("all");
+	return $db->query($sql);
 }
 
 function formatOutput($results, $amount, &$abilities) {

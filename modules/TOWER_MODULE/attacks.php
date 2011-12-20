@@ -89,8 +89,7 @@ $sql =
 	LIMIT
 		$start_row, $page_size";
 
-$db->query($sql);
-$data = $db->fObject('all');
+$data = $db->query($sql);
 if (count($data) == 0) {
 	$msg = "No tower attacks found.";
 } else {
