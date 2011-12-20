@@ -67,6 +67,7 @@ class DB {
 		if ($this->type == 'mysql') {
 			try {
 				$this->sql = new PDO("mysql:host=$host", $user, $pass);
+				$this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 				$this->exec("CREATE DATABASE IF NOT EXISTS $dbName");
 				$this->selectDB($dbName);
 				$this->exec("SET sql_mode='NO_BACKSLASH_ESCAPES'");
@@ -84,6 +85,7 @@ class DB {
 
 			try {
 				$this->sql = new PDO("sqlite:".$this->dbName);  
+				$this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			} catch(PDOException $e) {
 			  	$this->errorCode = 1;
 			  	$this->errorInfo = $e->getMessage();
@@ -98,81 +100,67 @@ class DB {
 	}
 	
 	//Sends a query to the Database and gives the result back
-	function query($stmt) {
+	function query($sql) {
 		$this->result = NULL;
-		$stmt = $this->formatSql($stmt);
+		$sql = $this->formatSql($sql);
 		
-		$this->lastQuery = $stmt;
-		Logger::log('QUERY', "SQL", $stmt);
-      	$result = $this->sql->query($stmt);
-      	
-		if (is_object($result)) {
-		  	$this->result = $result->fetchALL(PDO::FETCH_OBJ);
-		} else {
-			$this->result = NULL;
-		}
+		$args = func_get_args();
+		array_shift($args);
+		
+		$ps = $this->executeQuery($sql, $args);
 
-		$this->errorInfo = $this->sql->errorInfo();
-		if ($this->errorInfo[0] != "00000") {
-			// when schema changes sqlite throws an error so we retry the query
-			if ($this->type == "Sqlite" && $this->errorInfo[1] == 17) {
-				return $this->query($stmt, $type);
-			}
-			Logger::log('ERROR', "SqlError", "{$this->errorInfo[2]} in: $stmt");
+		if ($ps !== null && $ps !== false) {
+			$this->result = $ps->fetchAll(PDO::FETCH_OBJ);
 		}
-
 		return $this->result;
 	}
 	
 	//Does Basicly the same thing just don't gives the result back(used for create table, Insert, delete etc), a bit faster as normal querys 
-	function exec($stmt) {
+	function exec($sql) {
 		$this->result = NULL;
-		$stmt = $this->formatSql($stmt);
-		
-		if (substr_compare($stmt, "create", 0, 6, true) == 0) {
-			$this->CreateTable($stmt);
-			return;
-		}
-		
-		$this->lastQuery = $stmt;
-		Logger::log('QUERY', "SQL", $stmt);
-      	$aff_rows = $this->sql->exec($stmt);
+		$sql = $this->formatSql($sql);
 
-		$this->errorInfo = $this->sql->errorInfo();
-		if ($this->errorInfo[0] != "00000") {
-			// when schema changes sqlite throws an error so we retry the query
-			if ($this->type == "Sqlite" && $this->errorInfo[1] == 17) {
-				return $this->exec($stmt);
+		if (substr_compare($sql, "create", 0, 6, true) == 0) {
+			if ($this->type == "mysql") {
+				$sql = str_ireplace("AUTOINCREMENT", "AUTO_INCREMENT", $sql);
+			} else if ($this->type == "sqlite") {
+				$sql = str_ireplace("AUTO_INCREMENT", "AUTOINCREMENT", $sql);
+				$sql = str_ireplace(" INT ", " INTEGER ", $sql);
 			}
-			Logger::log('ERROR', "SqlError", "{$this->errorInfo[2]} in: $stmt");
 		}
 
-		return $aff_rows;
+		$args = func_get_args();
+		array_shift($args);
+		
+		$ps = $this->executeQuery($sql, $args);
+
+		$affectedRows = 0;
+		if ($ps !== null && $ps !== false) {
+			$affectedRows = $ps->rowCount();
+		}
+		return $affectedRows;
 	}
-
-	//Function for creating the table. Main reason is that some SQL commands are not compatible with sqlite for example the autoincrement field
-	function CreateTable($stmt) {
-		if ($this->type == "mysql") {
-            $stmt = str_ireplace("AUTOINCREMENT", "AUTO_INCREMENT", $stmt);
-        } else if ($this->type == "sqlite") {
-            $stmt = str_ireplace("AUTO_INCREMENT", "AUTOINCREMENT", $stmt);
-			$stmt = str_ireplace(" INT ", " INTEGER ", $stmt);
-        }
-
-		$stmt = $this->formatSql($stmt);
+	
+	private function executeQuery($sql, $params) {
+		$this->lastQuery = $sql;
+		Logger::log('QUERY', "SQL", $sql);
 		
-		$this->lastQuery = $stmt;
-		Logger::log('QUERY', "SQL", $stmt);
-		$this->sql->exec($stmt);
-
-		$this->errorInfo = $this->sql->errorInfo();
-		if ($this->errorInfo[0] != "00000") {
-			// when schema changes sqlite throws an error so we retry the query
-			if ($this->type == "Sqlite" && $this->errorInfo[1] == 17) {
-				return $this->CreateTable($stmt, $type);
+		try {
+			$ps = $this->sql->prepare($sql);
+			$count = 1;
+			forEach ($params as $param) {
+				$ps->bindValue($count++, $param);
 			}
-			Logger::log('ERROR', "SqlError", "{$this->errorInfo[2]} in: $stmt");
+			$ps->execute();
+			return $ps;
+		} catch (PDOException $e) {
+			if ($this->type == "Sqlite" && $e->errorInfo[1] == 17) {
+				//return $this->query($sql);
+			}
+			Logger::log('ERROR', "SqlError", "{$e->errorInfo[2]} in: $sql");
 		}
+
+		return null;
 	}
 
 	//Switch to another Database

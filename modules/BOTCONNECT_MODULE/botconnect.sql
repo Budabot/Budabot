@@ -1,1 +1,1 @@
-CREATE TABLE botconnect (charid INT NOT NULL, dt INT NOT NULL);
+CREATE TABLE IF NOT EXISTS botconnect (charid INT NOT NULL, dt INT NOT NULL);
