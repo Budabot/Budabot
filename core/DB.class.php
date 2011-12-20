@@ -99,6 +99,25 @@ class DB {
 		return $this->type;
 	}
 	
+	function queryRow($sql) {
+		$this->result = NULL;
+		$sql = $this->formatSql($sql);
+		
+		$args = func_get_args();
+		array_shift($args);
+		
+		$ps = $this->executeQuery($sql, $args);
+
+		if ($ps !== null && $ps !== false) {
+			$this->result = $ps->fetchAll(PDO::FETCH_OBJ);
+		}
+		if (count($this->result) == 0) {
+			return null;
+		} else {
+			return $this->result[0];
+		}
+	}
+	
 	//Sends a query to the Database and gives the result back
 	function query($sql) {
 		$this->result = NULL;
