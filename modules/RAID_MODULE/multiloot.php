@@ -95,7 +95,7 @@ if (preg_match("/^multiloot (.+)$/i", $message, $arr)) {
 	}
 
 	//Check if there is a icon available
-	$row = $db->queryRow("SELECT * FROM aodb WHERE `name` LIKE '".str_replace("'", "''", $item_name)."'");
+	$row = $db->queryRow("SELECT * FROM aodb WHERE `name` LIKE ?", $item_name);
 	if ($row !== null) {
 	  	$item_name = $row->name;
 

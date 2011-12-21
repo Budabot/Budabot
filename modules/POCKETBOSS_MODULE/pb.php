@@ -2,8 +2,7 @@
 
 if (preg_match("/^pb (.+)$/i", $message, $arr)) {
 	$search = str_replace(" ", "%", $arr[1]);
-	$search = str_replace("'", "''", $search);
-  	$data = $db->query("SELECT * FROM pbdb WHERE `pb` LIKE '%{$search}%' GROUP BY `pb` ORDER BY `pb`");
+  	$data = $db->query("SELECT * FROM pbdb WHERE `pb` LIKE ? GROUP BY `pb` ORDER BY `pb`", '%' . $search . '%');
 	$numrows = count($data);
   	if ($numrows >= 1 && $numrows <= 5) {
 		$msg = "Pocketbosses matching: ";
@@ -14,8 +13,7 @@ if (preg_match("/^pb (.+)$/i", $message, $arr)) {
 			$blob .= "<highlight>Mob Level:<end> $row->bp_lvl\n";
 			$blob .= "<highlight>General Location:<end> $row->bp_location\n";
 			$blob .= "_____________________________\n";
-			$db->query("SELECT * FROM pbdb WHERE pb = '$row->pb' ORDER BY ql");
-			$data2 = $db->fObject('all');
+			$data2 = $db->query("SELECT * FROM pbdb WHERE pb = ? ORDER BY ql", $row->pb);
 			forEach ($data2 as $symb) {
 			  	$name = "QL $symb->ql $symb->line $symb->slot Symbiant, $symb->type Unit Aban";
 			  	$blob .= Text::make_item($symb->itemid, $symb->itemid, $symb->ql, $name)."\n";

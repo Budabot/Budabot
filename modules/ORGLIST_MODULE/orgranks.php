@@ -8,7 +8,7 @@ if (preg_match("/^orgranks$/i", $message, $arr) || preg_match("/^orgranks ([0-9]
 		}
 		
 		$sql = "SELECT * FROM org_members_<myname> o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE `mode` != 'del' ORDER BY `guild_rank_id` ASC, o.name ASC";
-		$db->query($sql);
+		$data = $db->query($sql);
 		$orgname = "<myguild>";
 	} else {
 		if (isset($arr2[0])) {
@@ -41,12 +41,11 @@ if (preg_match("/^orgranks$/i", $message, $arr) || preg_match("/^orgranks ([0-9]
 			return;
 		}
 		
-		$sql = "SELECT * FROM players WHERE guild_id = {$guild_id} AND dimension = '<dim>' ORDER BY guild_rank_id ASC, name ASC";
-		$db->query($sql);
+		$sql = "SELECT * FROM players WHERE guild_id = ? AND dimension = '<dim>' ORDER BY guild_rank_id ASC, name ASC";
+		$data = $db->query($sql, $guild_id);
 		$orgname = $org->orgname;
 	}
 
-	$data = $db->fObject('all');	
 	$count = count($data);
 	if ($count == 0) {
 	  	$msg = "No org members found.";

@@ -98,9 +98,6 @@ function createList(&$data, &$list, $show_alts, $show_org_info) {
 }
 
 function createListByChannel(&$data, &$list, $show_alts, $show_org_info) {
-	global $chatBot; //To access my_guild
-	$db = DB::get_instance();
-
 	//Colorful temporary var settings (avoid a mess of if statements later in the function)
 	$fancyColon = "::";
 	if (Setting::get("online_colorful") == "1") {
@@ -156,9 +153,6 @@ function createListByChannel(&$data, &$list, $show_alts, $show_org_info) {
 }
 
 function createListByProfession(&$data, &$list, $show_alts, $show_org_info) {
-	global $chatBot; //To access my_guild
-	$db = DB::get_instance();
-
 	//Colorful temporary var settings (avoid a mess of if statements later in the function)
 	$fancyColon = "::";
 	if (Setting::get("online_colorful") == "1") {

@@ -1,8 +1,7 @@
 <?php
 
 $sql = "SELECT name FROM members_<myname> WHERE autoinv = 1";
-$db->query($sql);
-$data = $db->fObject('all');
+$data = $db->query($sql);
 forEach ($data as $row) {
 	Buddylist::add($row->name, 'member');
 }

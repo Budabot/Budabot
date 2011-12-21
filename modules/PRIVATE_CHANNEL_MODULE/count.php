@@ -139,7 +139,7 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 			return;
     }
    
-	$data = $db->query("SELECT * FROM online o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE added_by = '<myname>' AND channel_type = 'priv' AND `profession` = '$prof' ORDER BY `level`");
+	$data = $db->query("SELECT * FROM online o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE added_by = '<myname>' AND channel_type = 'priv' AND `profession` = ? ORDER BY `level`", $prof);
     $numonline = count($data);
     $msg = "<highlight>$numonline<end> $prof:";
 

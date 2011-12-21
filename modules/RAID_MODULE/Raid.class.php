@@ -100,8 +100,8 @@ class Raid {
 		$loot = array();
 		$count = 1;
 
-		$sql = "SELECT * FROM raid_loot WHERE raid = '$raid' AND category = '$category'";
-		$data = $db->query($sql);
+		$sql = "SELECT * FROM raid_loot WHERE raid = ? AND category = ?";
+		$data = $db->query($sql, $raid, $category);
 
 		if (count($data) == 0) {
 			return false;
@@ -121,8 +121,8 @@ class Raid {
 	public static function find_raid_loot($raid, $category) {
 		$db = DB::get_instance();
 
-		$sql = "SELECT * FROM raid_loot WHERE raid = '$raid' AND category = '$category'";
-		$data = $db->query($sql);
+		$sql = "SELECT * FROM raid_loot WHERE raid = ? AND category = ?";
+		$data = $db->query($sql, $raid, $category);
 
 		if (count($data) == 0) {
 			return null;

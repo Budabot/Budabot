@@ -79,8 +79,8 @@ if (preg_match("/^orgmembers$/i", $message)) {
 		return;
 	}
 	
-	$sql = "SELECT * FROM players WHERE guild_id = {$guild_id} AND dimension = '<dim>' ORDER BY name ASC";
-	$data = $db->query($sql);
+	$sql = "SELECT * FROM players WHERE guild_id = ? AND dimension = '<dim>' ORDER BY name ASC";
+	$data = $db->query($sql, $guild_id);
 	$numrows = count($data);
 	
 	$blob = array("{$org->orgname} has {$numrows} members.\n\n");

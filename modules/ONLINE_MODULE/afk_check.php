@@ -6,11 +6,10 @@ if (!Util::isValidSender($sender)) {
 }
 
 if (!preg_match("/^.?afk(.*)$/i", $message)) {
-	$db->query("SELECT afk FROM online WHERE `name` = '{$sender}' AND added_by = '<myname>' AND channel_type = '$type'");
-	$row = $db->fObject();
+	$row = $db->queryRow("SELECT afk FROM online WHERE `name` = ? AND added_by = '<myname>' AND channel_type = ?", $sender, $type);
 
-	if ($row != null && $row->afk != '') {
-		$db->exec("UPDATE online SET `afk` = '' WHERE `name` = '{$sender}' AND added_by = '<myname>' AND channel_type = '$type'");
+	if ($row !== null && $row->afk != '') {
+		$db->exec("UPDATE online SET `afk` = '' WHERE `name` = ? AND added_by = '<myname>' AND channel_type = ?", $sender, $type);
 		$msg = "<highlight>{$sender}<end> is back";
 		$chatBot->send($msg, $type);
 	} else {
@@ -18,10 +17,9 @@ if (!preg_match("/^.?afk(.*)$/i", $message)) {
 		$name = ucfirst(strtolower($name));
 
 		if (isset($this->id[$name]) && Util::isValidSender($this->id[$name])) {
-			$db->query("SELECT afk FROM online WHERE `name` = '" . str_replace("'", "''", $name) . "' AND added_by = '<myname>'");
+			$row = $db->queryRow("SELECT afk FROM online WHERE `name` = ? AND added_by = '<myname>'", $name);
 
-			if ($db->numrows() != 0) {
-				$row = $db->fObject();
+			if ($row !== null) {
 				if ($row->afk == "1") {
 					$msg = "<highlight>{$name}<end> is currently AFK.";
 					$chatBot->send($msg, $type);

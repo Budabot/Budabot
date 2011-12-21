@@ -1,15 +1,15 @@
 <?php
 
 if (preg_match("/^findorg (.+) (\d)$/i", $message, $arr) || preg_match("/^findorg (.+)$/i", $message, $arr)) {
-    $guild_name = str_replace("'", "''", $arr[1]);
+    $guild_name = $arr[1];
 	
 	$dimension = $chatBot->vars['dimension'];
 	if (isset($arr[2])) {
 		$dimension = $arr[2];
 	}
 	
-    $sql = "SELECT DISTINCT guild, guild_id, CASE WHEN guild_id = '' THEN 0 ELSE 1 END AS sort FROM players WHERE guild LIKE '%{$guild_name}%' AND dimension = '{$dimension}' ORDER BY sort DESC, guild ASC LIMIT 30";
-	$db->query($sql);
+    $sql = "SELECT DISTINCT guild, guild_id, CASE WHEN guild_id = '' THEN 0 ELSE 1 END AS sort FROM players WHERE guild LIKE ? AND dimension = ? ORDER BY sort DESC, guild ASC LIMIT 30";
+	$db->query($sql, '%'.$guild_name.'%', $dimension);
 	$data = $db->fObject('all');
 	if (count($data) > 0) {
 		$blob = "<header> :::::: Org Search Results for '{$arr[1]}' :::::: <end>\n\n";
