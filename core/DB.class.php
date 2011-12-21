@@ -174,7 +174,8 @@ class DB {
 			return $ps;
 		} catch (PDOException $e) {
 			if ($this->type == "Sqlite" && $e->errorInfo[1] == 17) {
-				//return $this->query($sql);
+				// fix for Sqlite schema changed error (retry the query)
+				return $this->executeQuery($sql, $params);
 			}
 			Logger::log('ERROR', "SqlError", "{$e->errorInfo[2]} in: $sql");
 		}
