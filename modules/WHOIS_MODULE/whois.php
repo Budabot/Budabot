@@ -32,7 +32,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 			$blob .= "<orange>Note: Could not retrieve detailed info for character.<end>\n\n";
 	        $blob .= "Name: <highlight>{$name}<end> {$lookupNameLink}\n";
 			$blob .= "Character ID: <highlight>{$uid}<end> {$lookupCharIdLink}\n\n";
-			$blob .= "<pagebreak>" . getNameHistory($uid, "<dim>");
+			$blob .= "<pagebreak>" . getNameHistory($uid, $chatBot->vars['dimension']);
         	
 			$msg = Text::make_blob("Basic Info for $name", $blob);
         } else {
@@ -52,7 +52,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 			
 			$blob .= "Source: $whois->source\n\n";
 			
-			$blob .= "<pagebreak>" . getNameHistory($uid, "<dim>");
+			$blob .= "<pagebreak>" . getNameHistory($uid, $chatBot->vars['dimension']);
 
 			$blob .= "\n<pagebreak><header> :::::: Options :::::: <end>\n\n";
 			
