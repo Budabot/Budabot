@@ -12,7 +12,7 @@ if ($row !== null) {
 			$chatBot->send("The cloaking device was disabled by <highlight>{$row->player}<end> $timeString ago. It is possible to enable it.", 'guild');
 		}
     } else if ($row->action == "on") {
-        if ($timeSinceChange >= 60*60) && $timeSinceChange < 61*60) {
+        if ($timeSinceChange >= 60*60 && $timeSinceChange < 61*60) {
             $chatBot->send("The cloaking device was enabled one hour ago. Alien attacks can now be initiated.", "guild");
 		}
     }
