@@ -203,7 +203,7 @@ if (preg_match("/^vote$/i", $message)) {
 		}
 
 		
-		$row = $db->query("SELECT * FROM $table WHERE `question` = ? AND `duration` IS NOT NULL", $sect[0]);
+		$row = $db->queryRow("SELECT * FROM $table WHERE `question` = ? AND `duration` IS NOT NULL", $sect[0]);
 		$question = $row->question; $author = $row->author; $started = $row->started;
 		$duration = $row->duration; $status = $row->status; $answer = $row->answer;
 		$timeleft = $started+$duration-time();	
