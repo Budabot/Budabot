@@ -4,25 +4,22 @@
 function searchByProfession($profession) {
 	$db = DB::get_instance();
 
-	$sql = "SELECT * FROM premade_implant WHERE profession = '$profession' ORDER BY slot";
-	$db->query($sql);
-	return $db->fObject("all");
+	$sql = "SELECT * FROM premade_implant WHERE profession = ? ORDER BY slot";
+	return $db->query($sql, $profession);
 }
 
 function searchBySlot($slot) {
 	$db = DB::get_instance();
 
-	$sql = "SELECT * FROM premade_implant WHERE slot = '$slot' ORDER BY shiny, bright, faded";
-	$db->query($sql);
-	return $db->fObject("all");
+	$sql = "SELECT * FROM premade_implant WHERE slot = ? ORDER BY shiny, bright, faded";
+	return $db->query($sql, $slot);
 }
 
 function searchByModifier($modifier) {
 	$db = DB::get_instance();
 
-	$sql = "SELECT * FROM premade_implant WHERE shiny LIKE '%$modifier%' OR bright LIKE '%$modifier%' OR faded LIKE '%$modifier%'";
-	$db->query($sql);
-	return $db->fObject("all");
+	$sql = "SELECT * FROM premade_implant WHERE shiny LIKE ? OR bright LIKE ? OR faded LIKE ?";
+	return $db->query($sql, "%{$modifier}%", "%{$modifier}%", "%{$modifier}%");
 }
 
 function formatResults($implants) {
@@ -43,11 +40,10 @@ function getFormattedLine($implant) {
 function getRequirements($ql) {
 	$db = DB::get_instance();
 
-	$sql = "SELECT * FROM implant_requirements WHERE ql = $ql";
+	$sql = "SELECT * FROM implant_requirements WHERE ql = ?";
 
-	$db->query($sql);
+	$row = $db->queryRow($sql, $ql);
 
-	$row = $db->fObject();
 	add_info($row);
 
 	return $row;
@@ -56,11 +52,10 @@ function getRequirements($ql) {
 function findMaxImplantQlByReqs($ability, $treatment) {
 	$db = DB::get_instance();
 
-	$sql = "SELECT * FROM implant_requirements WHERE ability <= $ability AND treatment <= $treatment ORDER BY ql DESC LIMIT 1";
+	$sql = "SELECT * FROM implant_requirements WHERE ability <= ? AND treatment <= ? ORDER BY ql DESC LIMIT 1";
 
-	$db->query($sql);
+	$row = $db->queryRow($sql, $ability, $treatment);
 	
-	$row = $db->fObject();
 	add_info($row);
 
 	return $row;
@@ -107,8 +102,6 @@ function formatClusterBonuses(&$obj) {
 }
 
 function add_info(&$obj) {
-	$db = DB::get_instance();
-	
 	if ($obj === null) {
 		return;
 	}
@@ -147,9 +140,8 @@ function _setHighestAndLowestQls(&$obj, $var) {
 
 	$varValue = $obj->$var;
 
-	$sql = "SELECT MAX(ql) as max, MIN(ql) as min FROM implant_requirements WHERE $var = $varValue";
-	$db->query($sql);
-	$row = $db->fObject();
+	$sql = "SELECT MAX(ql) as max, MIN(ql) as min FROM implant_requirements WHERE $var = ?";
+	$row = $db->queryRow($sql, $varValue);
 
 	// camel case var name
 	$tempNameVar = ucfirst($var);

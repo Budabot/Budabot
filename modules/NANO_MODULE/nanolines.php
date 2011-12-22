@@ -2,8 +2,7 @@
 
 if (preg_match("/^nanolines$/i", $message, $arr)) {
 	$sql = "SELECT DISTINCT profession FROM nanolines ORDER BY profession ASC";
-	$db->query($sql);
-	$data = $db->fObject('all');
+	$data = $db->query($sql);
 
 	$window = Text::make_header("Nanolines - Professions", array('Help' => '/tell <myname> help nanolines'));
 	forEach ($data as $row) {

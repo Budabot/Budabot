@@ -1,8 +1,7 @@
 <?php
 
 if (preg_match("/^orgcities$/i", $message)) {
-	$db->query("SELECT DISTINCT playfield_id, long_name, short_name FROM orgcities c JOIN playfields p ON c.playfield_id = p.id ORDER BY long_name ASC");
-	$data = $db->fObject('all');
+	$data = $db->query("SELECT DISTINCT playfield_id, long_name, short_name FROM orgcities c JOIN playfields p ON c.playfield_id = p.id ORDER BY long_name ASC");
 	
 	$blob = "<header> :::::: Playfields with Org Cities :::::: <end>\n\n";
 	forEach ($data as $row) {
@@ -19,8 +18,7 @@ if (preg_match("/^orgcities$/i", $message)) {
 		return;
 	}
 
-	$db->query("SELECT * FROM orgcities WHERE playfield_id = {$playfield->id} ORDER BY cluster ASC, plot ASC");
-	$data = $db->fObject('all');
+	$data = $db->query("SELECT * FROM orgcities WHERE playfield_id = ? ORDER BY cluster ASC, plot ASC", $playfield->id);
 	
 	$blob = "<header> :::::: Org cities in {$playfield->long_name} :::::: <end>\n";
 	$current_cluster = '';

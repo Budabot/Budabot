@@ -27,37 +27,18 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-if (preg_match("/^capxp ([0-9]+)/i$", $message, $arr)) {
-	//get player lvl
-	$rk_num = $chatBot->vars["dimension"];
-	$info = Player::get_by_name($sender);
+if (preg_match("/^capxp ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	$reward = $arr[1];
-
-	if ($info === null) {
-		$chatBot->send("An Error occurred while trying to get your level. Please input it manually via <highlight><symbol>capxp 'mission reward' 'your lvl'<end> or try again later.", $sendto);
-		return;
-	} else {
-		$lvl = $info->level;
-	}
-} else if (preg_match("/^capxp ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
-	$reward = $arr[1];
+	$level = $arr[2];
 	
-	if (($arr[2] > 219) || ($arr[2] < 1)) {
+	if ($level > 219 || $level < 1) {
 		$chatBot->send("Your level cannot be greater than 219 or less than 1.", $sendto);
 		return;
-	} else {
-		$lvl = $arr[2];
 	}
-} else {
-	$syntax_error = true;
-	return;
-}
+	
+	$row = Level::get_level_info($level);
 
-if ($reward >= 300) {
-	$db->query("SELECT * FROM levels WHERE `level` = $lvl");
-	$row = $db->fObject();
-
-	if ($lvl < 200) {
+	if ($level < 200) {
 		$xp = $row->xpsk;
 		$research = (1-(($xp*.2)/$reward))*100;
 	} else {
@@ -68,15 +49,15 @@ if ($reward >= 300) {
 		$research = 0;
 	}
 	
-	if ($lvl < 200) {
-		$msg = "At lvl <highlight>".number_format($lvl)."<end> you need <highlight>".number_format($xp)."<end> xp to level. With a mission reward of <highlight>".number_format($reward)."<end> xp, set your research bar to <highlight>".ceil($research)."%<end> to receive maximum xp from this mission reward.";
+	if ($level < 200) {
+		$msg = "At lvl <highlight>".number_format($level)."<end> you need <highlight>".number_format($xp)."<end> xp to level. With a mission reward of <highlight>".number_format($reward)."<end> xp, set your research bar to <highlight>".ceil($research)."%<end> to receive maximum xp from this mission reward.";
 	} else {
-		$msg = "At lvl <highlight>".number_format($lvl)."<end> you need <highlight>".number_format($sk)."<end> sk to level. With a mission reward of <highlight>".number_format($reward)."<end> sk, set your research bar to <highlight>".ceil($research)."%<end> to receive maximum sk from this mission reward.";
+		$msg = "At lvl <highlight>".number_format($level)."<end> you need <highlight>".number_format($sk)."<end> sk to level. With a mission reward of <highlight>".number_format($reward)."<end> sk, set your research bar to <highlight>".ceil($research)."%<end> to receive maximum sk from this mission reward.";
 	}
-} else {
-	 $msg = "Usage: <highlight><symbol>capxp 'mission reward amount' 'custom level'<end>\n<tab>ex: !capxp 165000 215\nIf no level is specified, it will use your current level.";
-}
 	
-$chatBot->send($msg, $sendto);
+	$chatBot->send($msg, $sendto);
+} else {
+	$syntax_error = true;
+}
 
 ?>

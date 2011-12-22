@@ -37,8 +37,8 @@ if (preg_match("/^nano (.+)$/i", $message, $arr)) {
 		LIMIT
 			" . Setting::get("maxnano");
 	
-	$db->query($sql);
-	$data = $db->fObject('all');
+	$data = $db->query($sql);
+
 	$count = count($data);
 	if ($count == 0) {
 		$msg = "No nanos found.";

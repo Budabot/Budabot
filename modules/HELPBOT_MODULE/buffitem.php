@@ -46,9 +46,9 @@ if (preg_match("/^buffitem (.+)$/i", $message, $arr)) {
 			$blob .= "\n".sizeof($results)." results found, please pick one by clicking it";
 		}
 		$blob .= "\n\nby Imoutochan, RK1";
-		$windowlink = Text::make_blob("Buff item search results (<highlight>$found<end>)", $blob);
+		$msg = Text::make_blob("Buff item search results (<highlight>$found<end>)", $blob);
 	}
-	$chatBot->send($windowlink, $sendto);
+	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
 }

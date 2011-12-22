@@ -1,14 +1,11 @@
-<header>::::: Cap Experience Commands. :::::<end>
+<header>::::: Cap Experience Command :::::<end>
 
 This module is designed to help you calculate where to put your research bar so that you get the maximum amount of the mission reward going into your xp bar, while letting the rest spill over into research.
 
 Experience(XP/SK)
 
 To show needed research % to cap xp
-<highlight><tab><symbol>capxp 'mission reward amount'<end>
-
-You can manually specify your lvl if the lookup isn't working by adding it as another variable. ie:
-<highlight><tab><symbol>capxp 'mission reward amount' 'custom lvl'<end>
+<highlight><tab><symbol>capxp 'mission reward amount' 'your level'<end>
 
 You can also use <highlight>!capsk<end> ...the two are interchangeable
 

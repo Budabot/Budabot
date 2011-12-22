@@ -1,8 +1,7 @@
 <?php
 
 if (preg_match("/^nanoloc$/i", $message, $arr)) {
-	$db->query("SELECT location, count(location) AS count FROM nanos GROUP BY location ORDER BY location ASC");
-	$data = $db->fObject('all');
+	$data = $db->query("SELECT location, count(location) AS count FROM nanos GROUP BY location ORDER BY location ASC");
 	
 	$header = "Nano Locations";
 	$blob = Text::make_header($header, array('Help' => '/tell <myname> help nano'));
@@ -27,13 +26,13 @@ if (preg_match("/^nanoloc$/i", $message, $arr)) {
 			LEFT JOIN nano_nanolines_ref n2 ON n1.lowid = n2.lowid
 			LEFT JOIN nanolines n3 ON n2.nanolineid = n3.id
 		WHERE
-			n1.location LIKE '" . str_replace("'", "''", $location) . "'
+			n1.location LIKE ?
 		ORDER BY
 			n1.profession ASC,
 			n1.name ASC";
 
-	$db->query($sql);
-	$data = $db->fObject('all');
+	$data = $db->query($sql, $location);
+
 	$count = count($data);
 	if ($count == 0) {
 		$msg = "No nanos found.";

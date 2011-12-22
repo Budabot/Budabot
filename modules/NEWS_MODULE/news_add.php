@@ -2,7 +2,7 @@
 
 if (preg_match("/^news add (.+)$/si", $message, $arr)) {
 	$news = str_replace("'", "''", $arr[1]);
-	$db->exec("INSERT INTO `#__news` (`time`, `name`, `news`) VALUES (".time().", '".$sender."', '$news')"); 
+	$db->exec("INSERT INTO `#__news` (`time`, `name`, `news`) VALUES (?, ?, ?)", time(), $sender, $news);
 	$msg = "News has been added successfully.";
 
     $chatBot->send($msg, $sendto);

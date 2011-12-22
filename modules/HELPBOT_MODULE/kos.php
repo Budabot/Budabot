@@ -66,11 +66,11 @@ if (preg_match("/^kos$/i", $message)) {
 	if (strlen($reason) >= 50) {
 		$msg = "The reason can't be longer than 50 characters.";
 	} else {
-		$db->query("SELECT * FROM koslist WHERE `sender` = '$sender' AND `name` = '".str_replace("'", "''", $name)."'");
-		if($db->numrows() == 1) {
+		$row = $db->queryRow("SELECT * FROM koslist WHERE `sender` = ? AND `name` = ?", $sender, $name);
+		if ($row !== null) {
 			$msg = "You have already <highlight>$name<end> on your KOS List.";
 		} else {
-			$db->exec("INSERT INTO koslist (`time`, `name`, `sender`, `reason`) VALUES (".time().", '".str_replace("'", "''", $name)."', '$sender', '".str_replace("'", "''", $reason)."')");
+			$db->exec("INSERT INTO koslist (`time`, `name`, `sender`, `reason`) VALUES (?, ?, ?, ?)", time(), $name, $sender, $reason);
 			$msg = "You have successfull added <highlight>$name<end> to the KOS List.";
 		}
 	}
@@ -78,15 +78,15 @@ if (preg_match("/^kos$/i", $message)) {
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^kos rem (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
-	$db->query("SELECT * FROM koslist WHERE `sender` = '$sender' AND `name` = '".str_replace("'", "''", $name)."'");
-	if ($db->numrows() == 1) {
-		$db->exec("DELETE FROM koslist WHERE `sender` = '$sender' AND `name` = '".str_replace("'", "''", $name)."'");
-		$msg = "You have successfull removed <highlight>$name<end> from the KOS List.";
+	$row = $db->queryRow("SELECT * FROM koslist WHERE `sender` = ? AND `name` = ?", $sender, $name);
+	if ($row !== null) {
+		$db->exec("DELETE FROM koslist WHERE `sender` = ? AND `name` = ?", $sender, $name);
+		$msg = "You have successfully removed <highlight>$name<end> from the KOS List.";
 	} else if ($chatBot->guildmembers[$sender] < Setting::get('guild_admin_level')) {
-		$db->query("SELECT * FROM koslist WHERE `name` = '".str_replace("'", "''", $name)."'");
-		if($db->numrows() != 0) {
-			$db->exec("DELETE FROM koslist WHERE `name` = '$".str_replace("'", "''", $name)."'");
-			$msg = "You have successfull removed <highlight>$name<end> from the KOS List.";
+		$row = $db->queryRow("SELECT * FROM koslist WHERE `name` = ?", $name);
+		if ($row !== null) {
+			$db->exec("DELETE FROM koslist WHERE `name` = ?", $name);
+			$msg = "You have successfully removed <highlight>$name<end> from the KOS List.";
 		} else {
 			$msg = "No one with this name is on the KOS List.";
 		}
@@ -97,17 +97,15 @@ if (preg_match("/^kos$/i", $message)) {
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^kos (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
-	$db->query("SELECT * FROM koslist WHERE `name` = '".str_replace("'", "''", $name)."' LIMIT 0, 40");
-	if ($db->numrows() >= 1) {
+	$data = $db->query("SELECT * FROM koslist WHERE `name` = ? LIMIT 0, 40", $name);
+	if (count($data) >= 1) {
 		$link  = "<header>::::: Kill On Sight list :::::<end>\n\n";
 		$link .= "The following Players has added <highlight>$name<end> to his list\n\n";
-		while ($row = $db->fObject()) {
+		forEach ($data as $row) {
 			$link .= "Name: <highlight>$row->sender<end>\n";
 			$link .= "Date: <highlight>".date("dS F Y, H:i", $row->time)."<end>\n";
-			if ($row->reason != "0" && "" != $row->reason) {
+			if ($row->reason != "") {
 				// only show the reason if there is one
-				// old style would be zero as reason
-				// new style is an empty string
 				$link .= "Reason: <highlight>$row->reason<end>\n";
 			}
 

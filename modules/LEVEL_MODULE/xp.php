@@ -47,10 +47,10 @@ if (preg_match("/^xp ([0-9]+)$/i", $message, $arr)) {
 	$maxLevel = $arr[2];
     if ($minLevel >= 1 && $minLevel <= 220 && $maxLevel >= 1 && $maxLevel <= 220) {
         if ($minLevel < $maxLevel) {
-			$db->query("SELECT * FROM levels WHERE level >= $minLevel AND level < $maxLevel");
+			$data = $db->query("SELECT * FROM levels WHERE level >= ? AND level < ?", $minLevel, $maxLevel);
 			$xp = 0;
 			$sk = 0;
-			while (($row = $db->fObject()) != false) {
+			forEach ($data as $row) {
                 if ($row->level < 200) {
                     $xp += $row->xpsk;
                 } else {

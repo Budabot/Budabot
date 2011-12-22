@@ -15,7 +15,7 @@ if (preg_match ("/^dyna ([\\d]+)$/i", $message, $arr)) {
 	$search = $arr[1];
 	$range1 = $search - 25;
 	$range2 = $search + 25;
-	$data = $db->query("SELECT * FROM dynadb d JOIN playfields p ON d.playfield_id = p.id WHERE minQl > $range1 AND minQl < $range2 ORDER BY `minQl`");
+	$data = $db->query("SELECT * FROM dynadb d JOIN playfields p ON d.playfield_id = p.id WHERE minQl > ? AND minQl < ? ORDER BY `minQl`", $range1, $range2);
 	$count = count($data);
 
 	$dynacamps = Text::make_header("Results Of Dynacamp Search For $search", $links);
@@ -33,7 +33,7 @@ if (preg_match ("/^dyna ([\\d]+)$/i", $message, $arr)) {
 } else if (preg_match ("/^dyna (.+)$/i", $message, $arr)) {
 	$search = str_replace(" ", "%", $arr[1]);
 	$search = str_replace("'", "''", $arr[1]);
-	$data = $db->query("SELECT * FROM dynadb d JOIN playfields p ON d.playfield_id = p.id WHERE long_name LIKE '%$search%' OR short_name LIKE '%$search%' OR mob LIKE '%$search%' ORDER BY `minQl`");
+	$data = $db->query("SELECT * FROM dynadb d JOIN playfields p ON d.playfield_id = p.id WHERE long_name LIKE ? OR short_name LIKE ? OR mob LIKE ? ORDER BY `minQl`", "%{$search}%", "%{$search}%", "%{$search}%");
 	$count = count($data);
 
 	$dynacamps = Text::make_header("Results Of Dynacamp Search For '$search'", $links);

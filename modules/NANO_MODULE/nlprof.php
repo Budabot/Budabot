@@ -9,9 +9,8 @@ if (preg_match("/^nlprof (.*)$/i", $message, $arr)) {
 		return;
 	}
 
-	$sql = "SELECT * FROM nanolines WHERE profession LIKE '$profession' ORDER BY name ASC";
-	$db->query($sql);
-	$data = $db->fObject('all');
+	$sql = "SELECT * FROM nanolines WHERE profession LIKE ? ORDER BY name ASC";
+	$data = $db->query($sql, $profession);
 
 	$header = "$profession Nanolines";
 	$blob = Text::make_header($header, array('Help' => '/tell <myname> help nanolines'));
