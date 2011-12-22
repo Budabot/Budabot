@@ -32,7 +32,7 @@ if (preg_match("/^broadcast$/i", $message)) {
 		return;
 	}
 
-	$db->query("INSERT INTO broadcast_<myname> (`name`, `added_by`, `dt`) VALUES('$name', '$sender', '" . time() . "')");
+	$db->query("INSERT INTO broadcast_<myname> (`name`, `added_by`, `dt`) VALUES (?, ?, ?)", $name, $sender, time());
 	$msg = "Broadcast bot added successfully.";
 	
 	// reload broadcast bot list
@@ -49,7 +49,7 @@ if (preg_match("/^broadcast$/i", $message)) {
 		return;
 	}
 
-	$db->exec("DELETE FROM broadcast_<myname> WHERE name = '$name'");
+	$db->exec("DELETE FROM broadcast_<myname> WHERE name = ?", $name);
 	$msg = "Broadcast bot removed successfully.";
 	
 	// reload broadcast bot list

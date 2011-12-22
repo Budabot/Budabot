@@ -9,8 +9,7 @@ if (preg_match("/^findorg (.+) (\d)$/i", $message, $arr) || preg_match("/^findor
 	}
 	
     $sql = "SELECT DISTINCT guild, guild_id, CASE WHEN guild_id = '' THEN 0 ELSE 1 END AS sort FROM players WHERE guild LIKE ? AND dimension = ? ORDER BY sort DESC, guild ASC LIMIT 30";
-	$db->query($sql, '%'.$guild_name.'%', $dimension);
-	$data = $db->fObject('all');
+	$data = $db->query($sql, '%'.$guild_name.'%', $dimension);
 	if (count($data) > 0) {
 		$blob = "<header> :::::: Org Search Results for '{$arr[1]}' :::::: <end>\n\n";
 		

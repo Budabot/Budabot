@@ -4,9 +4,7 @@ if (!function_exists('makeAlienWeapon')) {
 	function makeAlienWeapon($ql, $name) {
 		$db = DB::get_instance();
 	
-		$name = str_replace("'", "''", $name);
-		$data = $db->query("SELECT * FROM aodb WHERE name = '{$name}' AND lowql <= $ql AND highql >= $ql");
-		$row = $data[0];
+		$row = $db->queryRow("SELECT * FROM aodb WHERE name = ? AND lowql <= ? AND highql >= ?", $name, $ql, $ql);
 		
 		return Text::make_item($row->lowid, $row->highid, $ql, $row->name);
 	}
@@ -37,7 +35,7 @@ if (preg_match("/^ofabweapons$/i", $message, $arr)) {
 
 	$weapon = ucfirst($arr[1]);
 
-	$data = $db->query("SELECT `type`, `vp` FROM ofabweapons w, ofabweaponscost c WHERE w.name = '{$weapon}' AND c.ql = $ql");
+	$data = $db->query("SELECT `type`, `vp` FROM ofabweapons w, ofabweaponscost c WHERE w.name = ? AND c.ql = ?", $weapon, $ql);
 	if (count($data) == 0) {
 		$syntax_error = true;
 		return;

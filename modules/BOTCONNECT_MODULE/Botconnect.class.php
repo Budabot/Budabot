@@ -6,7 +6,7 @@ class Botconnect {
 		$db = DB::get_instance();
 		
 		$uid = $chatBot->get_uid($name);
-		$data = $db->query("SELECT * FROM botconnect WHERE charid = $uid");
+		$data = $db->query("SELECT * FROM botconnect WHERE charid = ?", $uid);
 		if (count($data) == 0) {
 			return false;
 		} else {
@@ -19,7 +19,7 @@ class Botconnect {
 		$db = DB::get_instance();
 		
 		$uid = $chatBot->get_uid($name);
-		$db->exec("INSERT INTO botconnect (charid, dt) VALUES ($uid, " . time() . ")");
+		$db->exec("INSERT INTO botconnect (charid, dt) VALUES (?, ?)", $uid, time());
 	}
 	
 	public static function remove($name) {
@@ -27,7 +27,7 @@ class Botconnect {
 		$db = DB::get_instance();
 		
 		$uid = $chatBot->get_uid($name);
-		$db->exec("DELETE FROM botconnect WHERE charid = $uid");
+		$db->exec("DELETE FROM botconnect WHERE charid = ?", $uid);
 	}
 	
 	public static function getAll() {

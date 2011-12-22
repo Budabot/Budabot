@@ -4,7 +4,7 @@ $channel_type = "priv";
    
 if (preg_match("/^check$/i", $message) || preg_match("/^check all$/i", $message)) {
 	$list = "<header>::::: Check for all members :::::<end>\n\n";
-	$data = $db->query("SELECT name FROM online WHERE added_by = '<myname>' AND channel_type = '{$channel_type}'");
+	$data = $db->query("SELECT name FROM online WHERE added_by = '<myname>' AND channel_type = ?", $channel_type);
 	forEach ($data as $row) {
 		$content .= " \\n /assist $row->name";
 	}
@@ -14,7 +14,7 @@ if (preg_match("/^check$/i", $message) || preg_match("/^check all$/i", $message)
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^check prof$/i", $message)) {
 	$list = "<header>::::: Check for all professions :::::<end>\n\n";
-	$data = $db->query("SELECT o.name, p.profession FROM online o LEFT JOIN players p ON (o.name = o.name AND p.dimension = '<dim>') WHERE added_by = '<myname>' AND channel_type = '{$channel_type}' ORDER BY `profession` DESC");
+	$data = $db->query("SELECT o.name, p.profession FROM online o LEFT JOIN players p ON (o.name = o.name AND p.dimension = '<dim>') WHERE added_by = '<myname>' AND channel_type = ? ORDER BY `profession` DESC", $channel_type);
 	forEach ($data as $row) {
 		$prof[$row->profession] .= " \\n /assist $row->name";
 	}
@@ -29,7 +29,7 @@ if (preg_match("/^check$/i", $message) || preg_match("/^check all$/i", $message)
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^check org$/i", $message)) {
 	$list = "<header>::::: Check for all organizations :::::<end>\n\n";
-	$data = $db->query("SELECT o.name, p.guild FROM online o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE added_by = '<myname>' AND channel_type = '{$channel_type}' ORDER BY `guild` DESC");
+	$data = $db->query("SELECT o.name, p.guild FROM online o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE added_by = '<myname>' AND channel_type = ? ORDER BY `guild` DESC", $channel_type);
 	forEach ($data as $row) {
 		if ($row->guild == "") {
 			$org["Non orged"] .= " \\n /assist $row->name";

@@ -14,7 +14,7 @@ if (preg_match("/^bank browse$/i", $message)) {
 	$name = ucfirst(strtolower($arr[1]));
 
 	$blob = "<header> :::::: Backpacks for $name :::::: <end>\n\n";
-	$data = $db->query("SELECT DISTINCT container, player FROM bank WHERE player = '$name' ORDER BY container ASC");
+	$data = $db->query("SELECT DISTINCT container, player FROM bank WHERE player = ? ORDER BY container ASC", $name);
 	if (count($data) > 0) {
 		forEach ($data as $row) {
 			$container_link = Text::make_chatcmd($row->container, "/tell <myname> bank browse {$row->player} {$row->container}");
@@ -28,11 +28,11 @@ if (preg_match("/^bank browse$/i", $message)) {
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^bank browse ([a-z0-9-]+) (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
-	$pack = str_replace("'", "''", 	htmlspecialchars_decode($arr[2], ENT_QUOTES));
+	$pack = htmlspecialchars_decode($arr[2], ENT_QUOTES);
 	$limit = Setting::get('max_bank_items');
 
 	$blob = "<header> :::::: Contents of $pack :::::: <end>\n\n";
-	$data = $db->query("SELECT * FROM bank WHERE player = '$name' AND container = '{$pack}' ORDER BY name ASC, ql ASC LIMIT {$limit}");
+	$data = $db->query("SELECT * FROM bank WHERE player = ? AND container = ? ORDER BY name ASC, ql ASC LIMIT {$limit}", $name, $pack);
 	
 	if (count($data) > 0) {
 		forEach ($data as $row) {

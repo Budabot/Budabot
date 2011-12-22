@@ -15,7 +15,7 @@ if (preg_match("/^neutnet (enable|on|add)$/i", $message)) {
 			continue;
 		}
 
-		$db->query("INSERT INTO broadcast_<myname> (`name`, `added_by`, `dt`) VALUES('$name', '$sender', '" . time() . "')");
+		$db->query("INSERT INTO broadcast_<myname> (`name`, `added_by`, `dt`) VALUES (?, ?, ?)", $name, $sender, time());
 		
 		Whitelist::add($name, $sender . " (broadcast bot)");
 	}
@@ -29,7 +29,7 @@ if (preg_match("/^neutnet (enable|on|add)$/i", $message)) {
 	for ($i = 1; $i <= $num_neutnet_slaves; $i++) {
 		$name = "Neutnet" . $i;
 
-		$db->exec("DELETE FROM broadcast_<myname> WHERE name = '$name'");
+		$db->exec("DELETE FROM broadcast_<myname> WHERE name = ?", $name);
 		
 		Whitelist::remove($name);
 	}

@@ -43,9 +43,8 @@ if (preg_match("/^loot clear$/i", $message)) {
 } else if (preg_match("/^loot ([0-9]+)$/i", $message, $arr)) {
 	$id = $arr[1];
 	
-	$sql = "SELECT * FROM raid_loot WHERE id = $id";
-	$db->query($sql);
-	$item = $db->fObject();
+	$sql = "SELECT * FROM raid_loot WHERE id = ?";
+	$item = $db->queryRow($sql, $id);
 	
 	if ($item === null) {
 		$msg = "Could not find item with id <highlight>$id<end> to add.";

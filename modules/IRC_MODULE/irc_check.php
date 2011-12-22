@@ -108,11 +108,10 @@ if ($data = fgets($ircSocket)) {
 						} else {
 							$afk = "";
 						}
-						$db->query("SELECT * FROM alts WHERE `alt` = '$row->name'");
-						if ($db->numrows() == 0) {
+						$row1 = $db->queryRow("SELECT * FROM alts WHERE `alt` = ?", $row->name);
+						if ($row1 === null) {
 							$alt = "";
 						} else {
-							$row1 = $db->fObject();
 							$alt = " ($row1->main)";
 						}
 						$list .= "$row->name"."$alt"."$afk, ";
@@ -130,11 +129,10 @@ if ($data = fgets($ircSocket)) {
 					} else {
 						$afk = "";
 					}
-					$db->query("SELECT * FROM alts WHERE `alt` = '$row->name'");
-					if ($db->numrows() == 0) {
+					$row1 = $db->queryRow("SELECT * FROM alts WHERE `alt` = ?", $row->name);
+					if ($row1 === null) {
 						$alt = "";
 					} else {
-						$row1 = $db->fObject();
 						$alt = " ($row1->main)";
 					}
 					$list .= $row->name . $alt . "$afk, ";

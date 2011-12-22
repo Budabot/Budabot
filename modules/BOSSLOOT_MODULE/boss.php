@@ -18,7 +18,7 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 	$blob = Text::make_header("Results of Search for '$search'", $links);
 	
 	// Find boss by name or key
-	$bosses = $db->query("SELECT * FROM boss_namedb b LEFT JOIN whereis w ON b.bossname = w.name WHERE bossname LIKE '%".str_replace("'", "''", $search)."%' OR keyname LIKE '%".str_replace("'", "''", $search)."%'");
+	$bosses = $db->query("SELECT * FROM boss_namedb b LEFT JOIN whereis w ON b.bossname = w.name WHERE bossname LIKE ? OR keyname LIKE ?", "%{$search}%", "%{$search}%");
 	$count = count($bosses);
 	
 	if ($count > 1) {
@@ -28,7 +28,7 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 			$blob .= "<green>Can be found {$row->answer}<end>\nDrops: ";
 			
 			// get loot
-			$data = $db->query("SELECT * FROM boss_lootdb b LEFT JOIN aodb a ON (b.itemid = a.lowid OR b.itemid = a.highid) WHERE b.bossid = {$row->bossid}");
+			$data = $db->query("SELECT * FROM boss_lootdb b LEFT JOIN aodb a ON (b.itemid = a.lowid OR b.itemid = a.highid) WHERE b.bossid = ?", $row->bossid);
 			forEach ($data as $row2) {
 				$blob .= Text::make_item($row2->lowid, $row2->highid, $row2->highql, $row2->itemname) . ', ';
 			}
@@ -44,7 +44,7 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 		$blob .= "<green>Can be found {$row->answer}<end>\n\n";
 		$blob .= "Loot:\n\n";
 
-		$data = $db->query("SELECT * FROM boss_lootdb b LEFT JOIN aodb a ON (b.itemid = a.lowid OR b.itemid = a.highid) WHERE b.bossid = {$row->bossid}");
+		$data = $db->query("SELECT * FROM boss_lootdb b LEFT JOIN aodb a ON (b.itemid = a.lowid OR b.itemid = a.highid) WHERE b.bossid = ?". $row->bossid);
 		forEach ($data as $row2) {
 			$blob .= "<img src=rdb://{$row2->icon}>\n";
 			$blob .= Text::make_item($row2->lowid, $row2->highid, $row2->highql, $row2->itemname) . "\n\n";

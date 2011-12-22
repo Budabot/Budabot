@@ -26,13 +26,11 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 
 		// get character information
 		$character = Player::get_by_name($name, $dimension);
-		
-		$guild = str_replace("'", "''", $character->guild);
 
 		// add user to bbin_chatlist_<myname>
 		$sql = "INSERT INTO bbin_chatlist_<myname> (`name`, `guest`, `ircrelay`, `faction`, `profession`, `guild`, `breed`, `level`, `ai_level`, `dimension`, `afk`) " .
-			"VALUES ('$name', $isguest, '$nick', '$character->faction', '$character->profession', '$guild', '$character->breed', '$character->level', '$character->ai_level', $dimension, '')";
-		$db->exec($sql);
+			"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		$db->exec($sql, $name, $isguest, $nick, $character->faction, $character->profession, $character->guild, $character->breed, $character->level, $character->ai_level, $dimension, '');
 
 		// send notification to channels
 		$msg = "<highlight>$name<end> (<highlight>{$character->level}<end>/<green>{$character->ai_level}<end>, <highlight>{$character->profession}<end>, {$character->faction})";
@@ -59,7 +57,7 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 		$isguest = $arr[3];
 
 		// delete user from bbin_chatlist table
-		$db->exec("DELETE FROM bbin_chatlist_<myname> WHERE (`name` = '$name') AND (`dimension` = $dimension) AND (`ircrelay` = '$nick')");
+		$db->exec("DELETE FROM bbin_chatlist_<myname> WHERE (`name` = ?) AND (`dimension` = ?) AND (`ircrelay` = ?)", $name, $dimension, $nick);
 
 		// send notification to channels
 		$msg = "";
@@ -108,7 +106,7 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 		$db->begin_transaction();
 		
 		// delete all buddies from that nick
-		$db->exec("DELETE FROM bbin_chatlist_<myname> WHERE `ircrelay` = '$nick'");
+		$db->exec("DELETE FROM bbin_chatlist_<myname> WHERE `ircrelay` = ?", $nick);
 		
 		// Format: [BBIN:ONLINELIST:dimension:name,isguest,name,isguest....]
 		$dimension = $arr[1];
@@ -132,13 +130,11 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 				
 			// get character information
 			$character = Player::get_by_name($name, $dimension);
-			
-			$guild = str_replace("'", "''", $character->guild);
 
 			// add user to bbin_chatlist_<myname>
 			$sql = "INSERT INTO bbin_chatlist_<myname> (`name`, `guest`, `ircrelay`, `faction`, `profession`, `guild`, `breed`, `level`, `ai_level`, `dimension`, `afk`) " .
-				"VALUES ('$name', $isguest, '$nick', '$character->faction', '$character->profession', '$guild', '$character->breed', '$character->level', '$character->ai_level', $dimension, '')";
-			$db->exec($sql);
+				"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			$db->exec($sql, $name, $isguest, $nick, $character->faction, $character->profession, $character->guild, $character->breed, $character->level, $character->ai_level, $dimension, '');
 		}
 		
 		$db->commit();

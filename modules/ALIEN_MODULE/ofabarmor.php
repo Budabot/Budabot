@@ -30,10 +30,10 @@ if (preg_match("/^ofabarmor$/i", $message, $arr)) {
 		return;
 	}
 
-	$typelist = $db->query("SELECT type FROM ofabarmortype WHERE profession = '$profession'");
+	$typelist = $db->query("SELECT type FROM ofabarmortype WHERE profession = ?", $profession);
 	$type = $typelist[0]->type;
 	
-	$data = $db->query("SELECT * FROM ofabarmor o1 LEFT JOIN ofabarmorcost o2 ON o1.slot = o2.slot WHERE o1.profession = '{$profession}' AND o2.ql = {$ql} ORDER BY upgrade ASC, name ASC");
+	$data = $db->query("SELECT * FROM ofabarmor o1 LEFT JOIN ofabarmorcost o2 ON o1.slot = o2.slot WHERE o1.profession = ? AND o2.ql = ? ORDER BY upgrade ASC, name ASC", $profession, $ql);
 	if (count($data) == 0) {
 		$syntax_error = true;
 		return;

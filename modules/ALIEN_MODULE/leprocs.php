@@ -8,7 +8,7 @@ if (preg_match("/^leprocs (.+)$/i", $message, $arr)) {
 		return;
 	}
 
-	$data = $db->query("SELECT * FROM leprocs WHERE profession LIKE '$profession' ORDER BY proc_type ASC, research_lvl DESC");
+	$data = $db->query("SELECT * FROM leprocs WHERE profession LIKE ? ORDER BY proc_type ASC, research_lvl DESC", $profession);
 	if (count($data) == 0) {
 	    $msg = "No procs found for profession '$profession'.";
 	} else {

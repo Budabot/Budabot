@@ -5,7 +5,7 @@ $name = "Dnetorg";
 if (preg_match("/^dnet (enable|on|add)/i", $message)) {
 	if (!isset($chatBot->data["broadcast_list"][$name])) {
 		Setting::save('dnet_status', 1);
-		$db->query("INSERT INTO broadcast_<myname> (`name`, `added_by`, `dt`) VALUES('$name', '$sender', '" . time() . "')");
+		$db->query("INSERT INTO broadcast_<myname> (`name`, `added_by`, `dt`) VALUES (?, ?, ?)", $name, $sender, time());
 		Whitelist::add($name, $sender . " (broadcast bot)");
 
 		// reload broadcast bot list
@@ -20,7 +20,7 @@ if (preg_match("/^dnet (enable|on|add)/i", $message)) {
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^dnet (disable|off|rem|remove)$/i", $message)) {
 	Setting::save('dnet_status', 0);
-	$db->exec("DELETE FROM broadcast_<myname> WHERE name = '$name'");
+	$db->exec("DELETE FROM broadcast_<myname> WHERE name = ?", $name);
 	Whitelist::remove($name);
 
 	// reload broadcast bot list

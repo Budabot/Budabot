@@ -3,9 +3,7 @@
 function findItem($ql, $name) {
 	$db = DB::get_instance();
 
-	$name = str_replace("'", "''", $name);
-	$data = $db->query("SELECT * FROM aodb WHERE name = '{$name}' AND lowql <= $ql AND highql >= $ql");
-	$row = $data[0];
+	$row = $db->queryRow("SELECT * FROM aodb WHERE name = ? AND lowql <= ? AND highql >= ?", $name, $ql, $ql);
 	
 	return Text::make_item($row->lowid, $row->highid, $ql, $row->name);
 }
@@ -27,7 +25,7 @@ function ofabArmorBio($ql, $type) {
 	$name = "Kyr'Ozch Bio-Material - Type $type";
 	$item = findItem($ql, $name);
 	
-	$data = $db->query("SELECT * FROM ofabarmortype WHERE type = '$type'");
+	$data = $db->query("SELECT * FROM ofabarmortype WHERE type = ?", $type);
 
 	$blob = "<header> :::::: $name (QL $ql) :::::: <end>\n\n";
 	$blob .= $item . "\n\n";
@@ -45,7 +43,7 @@ function ofabWeaponBio($ql, $type) {
 	$name = "Kyr'Ozch Bio-Material - Type $type";
 	$item = findItem($ql, $name);
 	
-	$data = $db->query("SELECT * FROM ofabweapons WHERE type = '$type'");
+	$data = $db->query("SELECT * FROM ofabweapons WHERE type = ?", $type);
 
 	$blob = "<header> :::::: $name (QL $ql) :::::: <end>\n\n";
 	$blob .= $item . "\n\n";
@@ -71,10 +69,10 @@ function alienWeaponBio($ql, $type) {
 	
 	$ts_bio = floor($ql * 4.5);
 	
-	$data = $db->query("SELECT specials FROM alienweaponspecials WHERE type = '$type'");
-	$specials = $data[0]->specials;
+	$row = $db->queryRow("SELECT specials FROM alienweaponspecials WHERE type = ?", $type);
+	$specials = $row->specials;
 	
-	$data = $db->query("SELECT * FROM alienweapons WHERE type = '$type'");
+	$data = $db->query("SELECT * FROM alienweapons WHERE type = ?", $type);
 
 	$blob = "<header> :::::: $name (QL $ql) :::::: <end>\n\n";
 	$blob .= $item . "\n\n";

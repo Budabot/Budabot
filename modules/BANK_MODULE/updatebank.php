@@ -26,10 +26,8 @@ if (preg_match("/^updatebank$/i", $message)) {
 			$container = $location;
 		}
 		
-		$name = str_replace("'", "''", $name);
-		$container = str_replace("'", "''", $container);
-		$sql = "INSERT INTO bank (name, lowid, highid, ql, player, container, container_id, location) VALUES ('{$name}', '{$lowId}', '{$highId}', '{$ql}', '{$player}', '{$container}', '{$containerId}', '${location}')";
-		$db->exec($sql);
+		$sql = "INSERT INTO bank (name, lowid, highid, ql, player, container, container_id, location) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		$db->exec($sql, $name, $lowId, $highId, $ql, $player, $container, $containerId, $location);
 	}
 	$db->commit();
 	

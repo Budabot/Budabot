@@ -1,7 +1,6 @@
 <?php
 	// since settings for channels are added dynamically, we need to add them manually
-	$db->query("SELECT * FROM settings_<myname> WHERE module = '$MODULE_NAME' AND name LIKE 'worldnet%status'");
-	$data = $db->fObject('all');
+	$data = $db->query("SELECT * FROM settings_<myname> WHERE module = ? AND name LIKE ?", $MODULE_NAME, "worldnet%status");
 	forEach ($data as $row) {
 		Setting::add($row->module, $row->name, $row->description, $row->mode, $row->type, $row->value, $row->options, $row->intoptions, $row->admin, $row->help);
 	}
