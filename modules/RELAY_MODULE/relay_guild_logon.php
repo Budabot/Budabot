@@ -16,10 +16,9 @@ if (Setting::get("relaybot") != "Off" && isset($chatBot->guildmembers[$sender]) 
 			$msg .= " " . $altInfo->get_alts_blob(false, true);
 		}
 
-		$sql = "SELECT logon_msg FROM org_members_<myname> WHERE name = ?";
-		$row = $db->queryRow($sql, $sender);
-        if ($row !== null && $row->logon_msg != '') {
-            $msg .= " - " . $row->logon_msg;
+		$logon_msg = Preferences::get($sender, 'logon_msg');
+		if ($logon_msg !== false && $logon_msg != '') {
+			$msg .= " - " . $logon_msg;
 		}
     }
 

@@ -51,11 +51,9 @@ if (!function_exists('getIRCPlayerInfo')) {
 			$msg .= " Alt of {$altInfo->main}";
 		}
 
-		$sql = "SELECT logon_msg FROM org_members_<myname> WHERE name = '{$sender}'";
-		$db->query($sql);
-		$row = $db->fObject();
-		if ($row !== null && $row->logon_msg != '') {
-			$msg .= " - " . $row->logon_msg;
+		$logon_msg = Preferences::get($sender, 'logon_msg');
+		if ($logon_msg !== false && $logon_msg != '') {
+			$msg .= " - " . $logon_msg;
 		}
 		
 		return $msg;
