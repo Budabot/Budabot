@@ -29,10 +29,6 @@
 	Command::register($MODULE_NAME, "", "roll.php", "roll", "all", "Roll a random number");
 	Command::register($MODULE_NAME, "", "roll.php", "verify", "all", "Verifies a flip/roll", 'roll');
 
-	// Max XP calculator
-	Command::register($MODULE_NAME, "", "capxp.php", "capxp", "all", "Max XP Calculator");
-	CommandAlias::register($MODULE_NAME, "capxp", "capsk");
-
 	// Help files
     Help::register($MODULE_NAME, "calc", "calculator.txt", "all", "Calculator");
     Help::register($MODULE_NAME, "oe", "oe.txt", "all", "Calculating the OE ranges");
@@ -45,7 +41,6 @@
 	Help::register($MODULE_NAME, "whatbuffs", "whatbuffs.txt", "all", "How to use whatbuffs");
 	Help::register($MODULE_NAME, "dyna", "dyna.txt", "all", "Search for RK Dynaboss");
 	Help::register($MODULE_NAME, "research", "research.txt", "all", "Info on Research");
-	Help::register($MODULE_NAME, "capxp", "capxp.txt", "all", "Set your reasearch bar for max xp/sk");
 	Help::register($MODULE_NAME, "waypoint", "waypoint.txt", "all", "How to create a waypoint link");
 	Help::register($MODULE_NAME, "orgcities", "orgcities.txt", "all", "How to find coords for org cities");
 	Help::register($MODULE_NAME, "random", "random.txt", "all", "How to randomly order a list of elements");

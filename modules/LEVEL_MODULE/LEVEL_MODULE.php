@@ -1,6 +1,6 @@
 <?php
 	require_once 'Level.class.php';
-	
+
 	DB::loadSQLFile($MODULE_NAME, 'levels');
 
     // Level Info
@@ -11,16 +11,21 @@
 	// Missions
 	Command::register($MODULE_NAME, "", "missions.php", "missions", "all", "Shows what missions a specified level can roll");
 	CommandAlias::register($MODULE_NAME, "missions", "mission");
-	
+
 	// XP/SK Calculator
 	Command::register($MODULE_NAME, "", "xp.php", "xp", "all", "XP Calculator");
 	CommandAlias::register($MODULE_NAME, "xp", "sk");
-	
+
 	// AXP calculator
 	Command::register($MODULE_NAME, "", "axp.php", "axp", "all", "AXP Calculator", 'xp');
+
+	// Max XP calculator
+	Command::register($MODULE_NAME, "", "capxp.php", "capxp", "all", "Max XP Calculator");
+	CommandAlias::register($MODULE_NAME, "capxp", "capsk");
 
 	// Help files
     Help::register($MODULE_NAME, "level", "level.txt", "all", "How to use level");
     Help::register($MODULE_NAME, "missions", "missions.txt", "all", "Who can roll a specific QL of a mission");
 	Help::register($MODULE_NAME, "xp", "xp.txt", "all", "XP/SK/AXP Info");
+	Help::register($MODULE_NAME, "capxp", "capxp.txt", "all", "Set your reasearch bar for max xp/sk");
 ?>
