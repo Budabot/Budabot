@@ -4,7 +4,7 @@ $db->exec("CREATE TABLE IF NOT EXISTS admin_<myname> (`name` VARCHAR(25) NOT NUL
 
 $chatBot->vars["SuperAdmin"] = ucfirst(strtolower($chatBot->vars["SuperAdmin"]));
 
-$data = $db->query("SELECT * FROM admin_<myname> WHERE `name` = ?", $chatBot->vars["SuperAdmin"]););
+$data = $db->query("SELECT * FROM admin_<myname> WHERE `name` = ?", $chatBot->vars["SuperAdmin"]);
 if (count($data) == 0) {
 	$db->exec("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (?, ?)", '4', $chatBot->vars["SuperAdmin"]);
 } else {
