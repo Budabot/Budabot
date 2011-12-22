@@ -26,8 +26,6 @@ class Event {
 		$db = DB::get_instance();
 		global $chatBot;
 		
-		$description = str_replace("'", "''", $description);
-		
 		Logger::log('DEBUG', 'Event', "Registering event Type:($type) File:($filename) Module:($module)");
 		
 		$time = Util::parseTime($type);
@@ -44,7 +42,8 @@ class Event {
 		}
 		
 		if (isset($chatBot->existing_events[$type][$actual_filename])) {
-		  	$db->exec("UPDATE eventcfg_<myname> SET `verify` = 1, `description` = '$description', `help` = '{$help}' WHERE `type` = '$type' AND `file` = '$actual_filename' AND `module` = '$module'");
+			$sql = "UPDATE eventcfg_<myname> SET `verify` = 1, `description` = ?, `help` = ? WHERE `type` = ? AND `file` = ? AND `module` = ?";
+		  	$db->exec($sql, $description, $help, $type, $actual_filename, $module);
 		} else {
 			if ($defaultStatus === null) {
 				if ($chatBot->vars['default_module_status'] == 1) {
@@ -55,7 +54,8 @@ class Event {
 			} else {
 				$status = $defaultStatus;
 			}
-			$db->exec("INSERT INTO eventcfg_<myname> (`module`, `type`, `file`, `verify`, `description`, `status`, `help`) VALUES ('$module', '$type', '$actual_filename', '1', '$description', '$status', '{$help}')");
+			$sql = "INSERT INTO eventcfg_<myname> (`module`, `type`, `file`, `verify`, `description`, `status`, `help`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+			$db->exec($sql, $module, $type, $actual_filename, '1', $description, $status, $help);
 		}
 	}
 
@@ -201,7 +201,6 @@ class Event {
 	 */
 	public static function crons() {
 		global $chatBot;
-		$db = DB::get_instance();
 		
 		if ($chatBot->is_ready()) {
 			$time = time();

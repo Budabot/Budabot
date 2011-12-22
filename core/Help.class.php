@@ -32,12 +32,14 @@ class Help {
 		}
 
 		if (isset($chatBot->existing_helps[$command])) {
-			$db->exec("UPDATE hlpcfg_<myname> SET `verify` = 1, `file` = '$actual_filename', `module` = '$module', `description` = '" . str_replace("'", "''", $description) . "' WHERE `name` = '$command'");
+			$sql = "UPDATE hlpcfg_<myname> SET `verify` = 1, `file` = ?, `module` = ?, `description` = ? WHERE `name` = ?";
+			$db->exec($sql, $actual_filename, $module, $description, $command);
 		} else {
-			$db->exec("INSERT INTO hlpcfg_<myname> (`name`, `module`, `file`, `description`, `admin`, `verify`) VALUES ('$command', '$module', '$actual_filename', '" . str_replace("'", "''", $description) . "', '$admin', 1)");
+			$sql = "INSERT INTO hlpcfg_<myname> (`name`, `module`, `file`, `description`, `admin`, `verify`) VALUES (?, ?, ?, ?, ?, ?)";
+			$db->exec($sql, $command, $module, $actual_filename, $description, $admin, '1');
 		}
 
-		$row = $db->queryRow("SELECT * FROM hlpcfg_<myname> WHERE `name` = '$command'");
+		$row = $db->queryRow("SELECT * FROM hlpcfg_<myname> WHERE `name` = ?", $command);
 		$chatBot->helpfiles[$command]["filename"] = $actual_filename;
 		$chatBot->helpfiles[$command]["admin"] = $row->admin;
 		$chatBot->helpfiles[$command]["info"] = $description;

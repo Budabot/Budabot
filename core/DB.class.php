@@ -66,10 +66,8 @@ class DB {
 			
 		if ($this->type == 'mysql') {
 			try {
-				$this->sql = new PDO("mysql:host=$host", $user, $pass);
+				$this->sql = new PDO("mysql:dbname=$dbName;host=$host", $user, $pass);
 				$this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$this->exec("CREATE DATABASE IF NOT EXISTS $dbName");
-				$this->selectDB($dbName);
 				$this->exec("SET sql_mode='NO_BACKSLASH_ESCAPES'");
 				$this->exec("SET time_zone = '+00:00'");
 			} catch (PDOException $e) {
@@ -182,26 +180,6 @@ class DB {
 
 		return null;
 	}
-
-	//Switch to another Database
-	function selectDB($dbName){
-		$this->sql = NULL;
-		$this->dbName = $dbName;			
-		
-		if ($this->type == 'mysql'){
-			try {
-				$this->sql = new PDO("mysql:dbname=$dbName;host=$this->host", $this->user, $this->pass);
-			} catch (PDOException $e) {
-			  	die($e->getMessage());
-			}			
-		} else if ($this->type == 'sqlite') {
-			try {
-				$this->sql = new PDO("sqlite:".$dbName);  
-			} catch (PDOException $e) {
-				die($e->getMessage());
-			}			
-		}	
-	}
 	
 	//Return the result of an Select statement
 	function fObject($mode = "single") {
@@ -240,45 +218,6 @@ class DB {
 	//Return the last inserted ID
 	function lastInsertId() {
 		return $this->sql->lastInsertId();	
-	}
-
-	//Gives a list with all tablenames back
-	function getTables() {
-		if ($this->type == "Sqlite") {
-			$tables = array();
-			$this->query("SELECT tbl_name FROM sqlite_master WHERE type = 'table'");
-			if ($this->numrows() == 0) {
-				return $tables;
-			}
-			while ($row = $this->fObject()) {
-				$tables[$row->tbl_name] = true;
-			}
-			
-			return $tables;
-		}
-	}
-
-	//Gives infos back about the tables	
-	function getTableInfos($tbl_name) {
-		if ($this->type == "Sqlite") {
-		 	$table_info = array();
-			$this->query("SELECT tbl_name, sql FROM sqlite_master WHERE `type` = 'table' AND `tbl_name` = '$tbl_name'");
-			if ($this->numrows() == 0) {
-				return $table_info;
-			}
-
-			$tbl_sql = $this->fObject();
-			$table_info["sql"] = $tbl_sql->sql;
-
-		 	$tmp = $this->sql->query("SELECT * FROM $tbl_name LIMIT 0, 1");
-			for ($i = 0; $i < $tmp->columnCount(); $i++) {
-				$temp = $tmp->getColumnMeta($i);
-				$table_info["columns"]["name"] = $temp["name"];
-				$table_info["columns"]["type"] = $temp["native_type"];
-				$table_info["columns"]["flags"] = $temp["flags"];
-			}
-			return $table_info;
-		}
 	}
 
 	function formatSql($sql) {

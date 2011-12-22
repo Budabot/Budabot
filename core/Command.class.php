@@ -11,7 +11,6 @@ class Command {
 		global $chatBot;
 
 		$command = strtolower($command);
-		$description = str_replace("'", "''", $description);
 		$module = strtoupper($module);
 		
 		if (!$chatBot->processCommandArgs($channel, $admin)) {
@@ -36,9 +35,11 @@ class Command {
 			Logger::log('debug', 'Command', "Adding Command to list:($command) File:($actual_filename) Admin:({$admin[$i]}) Channel:({$channel[$i]})");
 			
 			if (isset($chatBot->existing_commands[$channel[$i]][$command])) {
-				$db->exec("UPDATE cmdcfg_<myname> SET `module` = '$module', `verify` = 1, `file` = '$actual_filename', `description` = '$description', `help` = '{$help}' WHERE `cmd` = '$command' AND `type` = '{$channel[$i]}'");
+				$sql = "UPDATE cmdcfg_<myname> SET `module` = ?, `verify` = ?, `file` = ?, `description` = ?, `help` = ? WHERE `cmd` = ? AND `type` = ?";
+				$db->exec($sql, $module, '1', $actual_filename, $description, $help, $command, $channel[$i]);
 			} else {
-				$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`, `help`) VALUES ('$module', '{$channel[$i]}', '$actual_filename', '$command', '{$admin[$i]}', '$description', 1, 'cmd', '{$status}', '{$help}')");
+				$sql = "INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`, `help`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				$db->exec($sql, $module, $channel[$i], $actual_filename, $command, $admin[$i], $description, '1', 'cmd', $status, $help);
 			}
 		}
 	}
@@ -49,7 +50,6 @@ class Command {
 	 */
 	public static function activate($channel, $filename, $command, $admin = 'all') {
 		global $chatBot;
-		$db = DB::get_instance();
 		
 		$command = strtolower($command);
 		$admin = strtolower($admin);
@@ -74,7 +74,6 @@ class Command {
 	 */
 	public static function deactivate($channel, $filename, $command) {
 		global $chatBot;
-  		$db = DB::get_instance();
 
 		$command = strtolower($command);
 		$channel = strtolower($channel);
@@ -145,8 +144,8 @@ class Command {
 			$type_sql = "AND type = '{$channel}'";
 		}
 		
-		$sql = "SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '{$command}' {$type_sql}";
-		return $db->query($sql);
+		$sql = "SELECT * FROM cmdcfg_<myname> WHERE `cmd` = ? {$type_sql}";
+		return $db->query($sql, $command);
 	}
 }
 

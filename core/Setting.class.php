@@ -67,14 +67,13 @@ class Setting {
 				return;
 			}
 		}
-		
-		$options = str_replace("'", "''", $options);
-		$description = str_replace("'", "''", $description);
 
 		if (isset($chatBot->existing_settings[$name])) {
-			$db->exec("UPDATE settings_<myname> SET `module` = '$module', `type` = '$type', `mode` = '$mode', `options` = '$options', `intoptions` = '$intoptions', `description` = '$description', `admin` = '$admin', `verify` = 1, `help` = '$help' WHERE `name` = '$name'");
+			$sql = "UPDATE settings_<myname> SET `module` = ?, `type` = ?, `mode` = ?, `options` = ?, `intoptions` = ?, `description` = ?, `admin` = ?, `verify` = 1, `help` = ? WHERE `name` = ?";
+			$db->exec($sql, $module, $type, $mode, $options, $intoptions, $description, $admin, $help, $name);
 	  	} else {
-			$db->exec("INSERT INTO settings_<myname> (`name`, `module`, `type`, `mode`, `value`, `options`, `intoptions`, `description`, `source`, `admin`, `verify`, `help`) VALUES ('$name', '$module', '$type', '$mode', '" . str_replace("'", "''", $value) . "', '$options', '$intoptions', '$description', 'db', '$admin', 1, '$help')");
+			$sql = "INSERT INTO settings_<myname> (`name`, `module`, `type`, `mode`, `value`, `options`, `intoptions`, `description`, `source`, `admin`, `verify`, `help`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			$db->exec($sql, $name, $module, $type, $mode, $value, $options, $intoptions, $description, 'db', $admin, '1', $help);
 		  	$chatBot->settings[$name] = $value;
 		}
 	}
@@ -109,7 +108,7 @@ class Setting {
 		$name = strtolower($name);
 
 		if (isset($chatBot->settings[$name])) {
-			$db->exec("UPDATE settings_<myname> SET `verify` = 1, `value` = '" . str_replace("'", "''", $value) . "' WHERE `name` = '$name'");
+			$db->exec("UPDATE settings_<myname> SET `verify` = 1, `value` = ? WHERE `name` = ?", $value, $name);
 			$chatBot->settings[$name] = $value;
 			return true;
 		} else {

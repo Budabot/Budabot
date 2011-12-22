@@ -35,13 +35,11 @@ if (preg_match("/^ofabweapons$/i", $message, $arr)) {
 
 	$weapon = ucfirst($arr[1]);
 
-	$data = $db->query("SELECT `type`, `vp` FROM ofabweapons w, ofabweaponscost c WHERE w.name = ? AND c.ql = ?", $weapon, $ql);
-	if (count($data) == 0) {
+	$row = $db->queryRow("SELECT `type`, `vp` FROM ofabweapons w, ofabweaponscost c WHERE w.name = ? AND c.ql = ?", $weapon, $ql);
+	if ($row === null) {
 		$syntax_error = true;
 		return;
 	}
-
-	$row = $data[0];
 	
 	$blob = "<header> :::::: Ofab $weapon (QL $ql) :::::: <end>\n\n";
 	$typeQl = round(.8 * $ql);

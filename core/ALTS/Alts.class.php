@@ -41,8 +41,8 @@ class AltInfo {
 			$blob .= " - <red>Offline<end>\n";
 		}
 		
-		$sql = "SELECT `alt`, `main`, `validated`, p.* FROM `alts` a LEFT JOIN players p ON (a.alt = p.name AND p.dimension = '<dim>') WHERE `main` LIKE '{$this->main}' ORDER BY level DESC, ai_level DESC, profession ASC, name ASC";
-		$data = $db->query($sql);
+		$sql = "SELECT `alt`, `main`, `validated`, p.* FROM `alts` a LEFT JOIN players p ON (a.alt = p.name AND p.dimension = '<dim>') WHERE `main` LIKE ? ORDER BY level DESC, ai_level DESC, profession ASC, name ASC";
+		$data = $db->query($sql, $this->main);
 		$count = count($data);
 		
 		$blob .= "\n:::::: Alt Characters ({$count})\n";
@@ -122,8 +122,8 @@ class Alts {
 		
 		$ai = new AltInfo();
 		
-		$sql = "SELECT `alt`, `main`, `validated` FROM `alts` WHERE (`main` LIKE '$player') OR (`main` LIKE (SELECT `main` FROM `alts` WHERE `alt` LIKE '$player'))";
-		$data = $db->query($sql);
+		$sql = "SELECT `alt`, `main`, `validated` FROM `alts` WHERE (`main` LIKE ?) OR (`main` LIKE (SELECT `main` FROM `alts` WHERE `alt` LIKE ?))";
+		$data = $db->query($sql, $player, $player);
 		
 		$isValidated = 0;
 		
@@ -145,15 +145,15 @@ class Alts {
 		$main = ucfirst(strtolower($main));
 		$alt = ucfirst(strtolower($alt));
 		
-		$sql = "INSERT INTO `alts` (`alt`, `main`, `validated`) VALUES ('$alt', '$main', '$validated')";
-		return $db->exec($sql);
+		$sql = "INSERT INTO `alts` (`alt`, `main`, `validated`) VALUES (?, ?, ?)";
+		return $db->exec($sql, $alt, $main, $validated);
 	}
 	
 	public static function rem_alt($main, $alt) {
 		$db = DB::get_instance();
 		
-		$sql = "DELETE FROM `alts` WHERE `alt` LIKE '$alt' AND `main` LIKE '$main'";
-		return $db->exec($sql);
+		$sql = "DELETE FROM `alts` WHERE `alt` LIKE ? AND `main` LIKE ?";
+		return $db->exec($sql, $alt, $main);
 	}
 }
 

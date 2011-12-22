@@ -106,9 +106,9 @@ class AccessLevel {
 			return "guild";
 		}
 		
-		$sql = "SELECT name FROM members_<myname> WHERE `name` = '$sender'";
-		$data = $db->query($sql);
-		if (count($data) > 0) {
+		$sql = "SELECT name FROM members_<myname> WHERE `name` = ?";
+		$row = $db->queryRow($sql, $sender);
+		if ($row !== null) {
 			return "member";
 		}
 		return "all";

@@ -38,9 +38,11 @@ class CommandAlias {
 		Logger::log('DEBUG', 'CommandAlias', "Registering alias: '{$alias}' for command: '$command'");
 		
 		if ($chatBot->existing_cmd_aliases[$alias] == true) {
-			$db->exec("UPDATE cmd_alias_<myname> SET `module` = '{$module}', `cmd` = '{$command}' WHERE `alias` = '{$alias}'");
+			$sql = "UPDATE cmd_alias_<myname> SET `module` = ?, `cmd` = ? WHERE `alias` = ?";
+			$db->exec($sql, $module, $command, $alias);
 		} else {
-			$db->exec("INSERT INTO cmd_alias_<myname> (`module`, `cmd`, `alias`, `status`) VALUES ('{$module}', '{$command}', '{$alias}', '{$status}')");
+			$sql = "INSERT INTO cmd_alias_<myname> (`module`, `cmd`, `alias`, `status`) VALUES (?, ?, ?, ?)";
+			$db->exec($sql, $module, $command, $alias, $status);
 		}
 	}
 	
@@ -81,8 +83,8 @@ class CommandAlias {
 		
 		Logger::log('DEBUG', 'CommandAlias', "Adding alias: '{$alias}' for command: '$command'");
 		
-		$sql = "INSERT INTO cmd_alias_<myname> (`module`, `cmd`, `alias`, `status`) VALUES ('{$row->module}', '{$row->cmd}', '{$row->alias}', '{$row->status}')";
-		return $db->exec($sql);
+		$sql = "INSERT INTO cmd_alias_<myname> (`module`, `cmd`, `alias`, `status`) VALUES (?, ?, ?, ?)";
+		return $db->exec($sql, $row->module, $row->cmd, $row->alias, $row->status);
 	}
 	
 	/**
@@ -94,8 +96,8 @@ class CommandAlias {
 
 	  	Logger::log('DEBUG', 'CommandAlias', "Updating alias :($row->alias)");
 		
-		$sql = "UPDATE cmd_alias_<myname> SET `module` = '{$row->module}', `cmd` = '{$row->cmd}', `status` = '{$row->status}' WHERE `alias` = '{$row->alias}'";
-		return $db->exec($sql);
+		$sql = "UPDATE cmd_alias_<myname> SET `module` = ?, `cmd` = ?, `status` = ? WHERE `alias` = ?";
+		return $db->exec($sql, $row->module, $row->cmd, $row->status, $row->alias);
 	}
 	
 	public static function get($alias) {
@@ -103,13 +105,8 @@ class CommandAlias {
 		
 		$alias = strtolower($alias);
 
-		$sql = "SELECT * FROM cmd_alias_<myname> WHERE `alias` = '{$alias}'";
-		$data = $db->query($sql);
-		if (count($data) == 0) {
-			return null;
-		} else {
-			return $data[0];
-		}
+		$sql = "SELECT * FROM cmd_alias_<myname> WHERE `alias` = ?";
+		return $db->queryRow($sql, $alias);
 	}
 	
 	public static function get_command_by_alias($alias) {
@@ -126,8 +123,8 @@ class CommandAlias {
 	public static function find_aliases_by_command($command) {
 		$db = DB::get_instance();
 		
-		$sql = "SELECT * FROM cmd_alias_<myname> WHERE `cmd` LIKE '{$command}'";
-		return $db->query($sql);
+		$sql = "SELECT * FROM cmd_alias_<myname> WHERE `cmd` LIKE ?";
+		return $db->query($sql, $command);
 	}
 }
 

@@ -11,7 +11,6 @@ class Subcommand {
 		global $chatBot;
 
 		$command = strtolower($command);
-		$description = str_replace("'", "''", $description);
 		$module = strtoupper($module);
 
 		if (!$chatBot->processCommandArgs($channel, $admin)) {
@@ -34,11 +33,13 @@ class Subcommand {
 
 		for ($i = 0; $i < count($channel); $i++) {
 			Logger::log('debug', 'Subcommand', "Adding Subcommand to list:($command) File:($actual_filename) Admin:($admin) Channel:({$channel[$i]})");
-			
+
 			if ($chatBot->existing_subcmds[$channel[$i]][$command] == true) {
-				$db->exec("UPDATE cmdcfg_<myname> SET `module` = '$module', `verify` = 1, `file` = '$actual_filename', `description` = '$description', `dependson` = '$parent_command', `help` = '{$help}' WHERE `cmd` = '$command' AND `type` = '{$channel[$i]}'");
+				$sql = "UPDATE cmdcfg_<myname> SET `module` = ?, `verify` = ?, `file` = ?, `description` = ?, `dependson` = ?, `help` = ? WHERE `cmd` = ? AND `type` = ?";
+				$db->exec($sql, $module, '1', $actual_filename, $description, $parent_command, $help, $command, $channel[$i]);
 			} else {
-				$db->exec("INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `dependson`, `status`, `help`) VALUES ('$module', '{$channel[$i]}', '$actual_filename', '$command', '{$admin[$i]}', '$description', 1, 'subcmd', '$parent_command', $status, '{$help}')");
+				$sql = "INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `dependson`, `status`, `help`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				$db->exec($sql, $module, $channel[$i], $actual_filename, $command, $admin[$i], $description, '1', 'subcmd', $parent_command, $status, $help);
 			}
 		}
 	}
