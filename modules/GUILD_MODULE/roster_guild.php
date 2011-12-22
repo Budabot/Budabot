@@ -53,7 +53,7 @@ if ($chatBot->vars["my_guild_id"] != "") {
 
 				// if member was added to notify list manually, switch mode to org and let guild roster update from now on
 				if ($dbentrys[$member->name]["mode"] == "add") {
-					$db->exec("UPDATE org_members_<myname> SET `mode` = 'org' WHERE `name` = '{$member->name}'");
+					$db->exec("UPDATE org_members_<myname> SET `mode` = 'org' WHERE `name` = ?", $member->name);
 				}
 			}
 		//Else insert his/her data
@@ -62,7 +62,7 @@ if ($chatBot->vars["my_guild_id"] != "") {
 			Buddylist::add($member->name, 'org');
 			$chatBot->guildmembers[$member->name] = $member->guild_rank_id;
 
-			$db->exec("INSERT INTO org_members_<myname> (`name`, `mode`) VALUES ('{$member->name}', 'org')");
+			$db->exec("INSERT INTO org_members_<myname> (`name`, `mode`) VALUES (?, 'org')", $member->name);
 		}
 		unset($dbentrys[$member->name]);
 	}
@@ -72,8 +72,8 @@ if ($chatBot->vars["my_guild_id"] != "") {
 	// remove buddies who are no longer org members
 	forEach ($dbentrys as $buddy) {
 		if ($buddy['mode'] != 'add') {
-			$db->exec("DELETE FROM online WHERE `name` = '{$buddy['name']}' AND `channel_type` = 'guild' AND added_by = '<myname>'");
-			$db->exec("DELETE FROM org_members_<myname> WHERE `name` = '{$buddy['name']}'");
+			$db->exec("DELETE FROM online WHERE `name` = ? AND `channel_type` = 'guild' AND added_by = '<myname>'", $buddy['name']);
+			$db->exec("DELETE FROM org_members_<myname> WHERE `name` = ?", $buddy['name']);
 			Buddylist::remove($buddy['name'], 'org');
 			unset($chatBot->guildmembers[$buddy['name']]);
 		}

@@ -32,7 +32,6 @@ if (preg_match ("/^dyna ([\\d]+)$/i", $message, $arr)) {
 	$chatBot->send($dynacamps, $sendto);
 } else if (preg_match ("/^dyna (.+)$/i", $message, $arr)) {
 	$search = str_replace(" ", "%", $arr[1]);
-	$search = str_replace("'", "''", $arr[1]);
 	$data = $db->query("SELECT * FROM dynadb d JOIN playfields p ON d.playfield_id = p.id WHERE long_name LIKE ? OR short_name LIKE ? OR mob LIKE ? ORDER BY `minQl`", "%{$search}%", "%{$search}%", "%{$search}%");
 	$count = count($data);
 

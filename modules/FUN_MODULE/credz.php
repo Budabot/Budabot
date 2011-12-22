@@ -32,7 +32,7 @@
 $credz = array(
 	"*name*, get lost you begging fr00b!",
 	"Credz! What do I look like a money tree *name*!!?",
-	"Cyber with me and I might think about giving you some credits *name*.",
+	"Cybor with me and I might think about giving you some credits *name*.",
 	"Sure *name* but there's a 100% Interest Rate compounded Hourly. Still interested?",
 	"/me sneaks up and thumps *name* in the head with a roll of coins doing *dmg* points of melee damage!",
 	"Sure, I would love some credits. How much you wanna give me?",

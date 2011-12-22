@@ -33,13 +33,12 @@ if (preg_match("/^cloak$/i", $message)) {
     }
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^cloak (raise|on)$/i", $message)) {
-    $data = $db->query("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 20");
-	$row = $data[0];
+    $data = $db->queryRow("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 20");
 
 	if ($row->action == "on") {
 		$msg = "The cloaking device is already <green>enabled<end>.";
 	} else {
-		$db->exec("INSERT INTO org_city_<myname> (`time`, `action`, `player`) VALUES ('".time()."', 'on', '{$sender}*')");
+		$db->exec("INSERT INTO org_city_<myname> (`time`, `action`, `player`) VALUES (?, ?, ?)", time(), 'on', $sender . '*');
 		$msg = "The cloaking device has been manually enabled in the bot (you must still enable the cloak if it's disabled).";
 	}
 

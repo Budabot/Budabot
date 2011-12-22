@@ -31,7 +31,7 @@ if (preg_match("/^feedback$/i", $message)) {
 	$charid = $chatBot->get_uid($arr[1]);
 	$name = ucfirst(strtolower($arr[1]));
 	$rep = $arr[2];
-	$comment = str_replace("'", "''", $arr[3]);
+	$comment = $arr[3];
 	$by_charid = $chatBot->get_uid($sender);
 
 	if ($charid == false) {
@@ -46,15 +46,15 @@ if (preg_match("/^feedback$/i", $message)) {
 	
 	$time = time() - 86400;
 	
-	$sql = "SELECT name FROM feedback WHERE `by_charid` = '$by_charid' AND `charid` = '$charid' AND `dt` > '$time'";
-	$data = $db->query($sql);
+	$sql = "SELECT name FROM feedback WHERE `by_charid` = ? AND `charid` = ? AND `dt` > ?";
+	$data = $db->query($sql, $by_charid, $charid, $time);
 	if (count($data) > 0) {
 		$chatBot->send("You may only submit feedback for a player once every 24 hours. Please try again later.", $sendto);
 		return;
 	}
 	
-	$sql = "SELECT name FROM feedback WHERE `by_charid` = '$by_charid'";
-	$data = $db->query($sql);
+	$sql = "SELECT name FROM feedback WHERE `by_charid` = ?";
+	$data = $db->query($sql, $by_charid);
 	if (count($data) > 3) {
 		$chatBot->send("You may submit feedback a maximum of 3 times in a 24 hour period. Please try again later.", $sendto);
 		return;
@@ -70,16 +70,16 @@ if (preg_match("/^feedback$/i", $message)) {
 			`by_charid`,
 			`dt`
 		) VALUES (
-			'$name',
-			'$charid',
-			'$rep',
-			'$comment',
-			'$sender',
-			'$by_charid',
-			'" . time() . "'
+			?,
+			?,
+			?,
+			?,
+			?,
+			?,
+			?
 		)";
 
-	$db->exec($sql);
+	$db->exec($sql, $name, $charid, $rep, $comment, $sender, $by_charid, time());
 	$chatBot->send("Feedback for $name added successfully.", $sendto);
 } else if (preg_match("/^feedback ([a-z0-9-]*)$/i", $message, $arr)) {
     $charid = $chatBot->get_uid($arr[1]);
