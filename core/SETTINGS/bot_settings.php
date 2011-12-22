@@ -24,7 +24,7 @@ if (preg_match("/^settings$/i", $message)) {
  	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^settings change ([a-z0-9_]+)$/i", $message, $arr)) {
 	$setting = strtolower($arr[1]);
- 	$row = $db->queryRow("SELECT * FROM settings_<myname> WHERE `name` = '{$setting}'");
+ 	$row = $db->queryRow("SELECT * FROM settings_<myname> WHERE `name` = ?", $setting);
 	if ($row === null) {
 		$msg = "Could not find setting <highlight>{$setting}<end>.";
 	} else {
@@ -117,11 +117,10 @@ if (preg_match("/^settings$/i", $message)) {
 } else if (preg_match("/^settings save ([a-z0-9_]+) (.+)$/i", $message, $arr)) {
   	$name_setting = strtolower($arr[1]);
   	$change_to_setting = $arr[2];
- 	$data = $db->query("SELECT * FROM settings_<myname> WHERE `name` = '$name_setting'");
-	if (count($data) == 0) {
+ 	$row = $db->queryRow("SELECT * FROM settings_<myname> WHERE `name` = ?", $name_setting);
+	if ($row === null) {
 		$msg = "Could not find setting <highlight>{$name_setting}<end>.";
 	} else {
-		$row = $data[0];
 		$options = explode(";", $row->options);
 		$new_setting = "";
 		if ($row->type == "color") {

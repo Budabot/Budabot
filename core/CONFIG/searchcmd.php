@@ -16,8 +16,8 @@ if (preg_match("/^searchcmd (.*)/i", $message, $arr)) {
 		$cmd = $alias_cmd;
 	}
 
-	$sqlquery = "SELECT DISTINCT module FROM cmdcfg_<myname> WHERE `cmd` = '{$cmd}'";
-	$data = $db->query($sqlquery);
+	$sqlquery = "SELECT DISTINCT module FROM cmdcfg_<myname> WHERE `cmd` = ?";
+	$data = $db->query($sqlquery, $cmd);
 	
 	if (count($data) == 0) {
 		$msg = "<highlight>{$cmd}<end> could not be found.";

@@ -25,7 +25,7 @@ if (preg_match("/^altvalidate ([a-z0-9- ]+)$/i", $message, $arr)) {
 	if (!$isAlt) {
 		$chatBot->send("<highlight>$alt<end> is not registered as your alt.", $sendto);
 	} else {
-		$db->exec("UPDATE `alts` SET `validated` = '1' WHERE `alt` LIKE '$alt' AND `main` LIKE '{$altInfo->main}'");
+		$db->exec("UPDATE `alts` SET `validated` = ? WHERE `alt` LIKE ? AND `main` LIKE ?", '1', $alt, $altInfo->main);
 		$chatBot->send("<highlight>$alt<end> has been validated as your alt.", $sendto);
 	}
 } else {

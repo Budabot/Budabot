@@ -3,7 +3,6 @@
 class Limits {
 	public static function check($sender, $message) {
 		global $chatBot;
-		$db = DB::get_instance();
 
 		if (preg_match("/^about$/i", $message)) {
 			return true;

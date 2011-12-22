@@ -40,9 +40,9 @@ if (preg_match("/^addmod (.+)$/i", $message, $arr)){
 			$chatBot->send("<highlight>$who<end> has been promoted to moderator.", $sendto);
 			$chatBot->send("You have been promoted to moderator by <highlight>$sender<end>.", $who);
 		}
-		$db->exec("UPDATE admin_<myname> SET `adminlevel` = 3 WHERE `name` = '$who'");
+		$db->exec("UPDATE admin_<myname> SET `adminlevel` = ? WHERE `name` = ?", '3', $who);
 	} else {
-		$db->exec("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (3, '$who')");
+		$db->exec("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (?, ?)", '3', $who););
 		$chatBot->send("<highlight>$who<end> has been promoted to moderator.", $sendto);
 		$chatBot->send("You have been promoted to moderator by <highlight>$sender<end>.", $who);
 	}

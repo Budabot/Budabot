@@ -4,8 +4,8 @@ class Usage {
 	public static function record($type, $cmd, $sender) {
 		$db = DB::get_instance();
 
-		$sql = "INSERT INTO usage_<myname> (type, command, sender, dt) VALUES ('$type', '$cmd', '$sender', " . time() . ")";
-		$db->exec($sql);
+		$sql = "INSERT INTO usage_<myname> (type, command, sender, dt) VALUES (?, ?, ?, ?)";
+		$db->exec($sql, $type, $cmd, $sender, time());
 	}
 
 	public static function submitUsage($debug = false) {
@@ -37,8 +37,8 @@ class Usage {
 			Setting::add("USAGE", 'botid', 'botid', 'noedit', 'text', $botid);
 		}
 
-		$sql = "SELECT type, command FROM usage_<myname> WHERE dt >= $lastSubmittedStats";
-		$data = $db->query($sql);
+		$sql = "SELECT type, command FROM usage_<myname> WHERE dt >= ?";
+		$data = $db->query($sql, $lastSubmittedStats);
 
 		$settings = array();
 		$settings['dimension'] = $chatBot->vars['dimension'];

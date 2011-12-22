@@ -41,7 +41,7 @@ if (!function_exists('getCommandInfo')) {
 		$db = DB::get_instance();
 	
 		$l = "";
-		$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = '$type'");
+		$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = ? AND `type` = ?", $cmd, $type);
 		if (count($data) == 0) {
 			$l .= "Current Status: <red>Unused<end>. \n";
 		} else if (count($data) == 1) {
@@ -82,7 +82,7 @@ if (!function_exists('getSubCommandInfo')) {
 		$db = DB::get_instance();
 	
 		$subcmd_list = '';
-		$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE dependson = '$cmd' AND `type` = '{$type}' AND `cmdevent` = 'subcmd'");
+		$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE dependson = ? AND `type` = ? AND `cmdevent` = 'subcmd'", $cmd, $type);
 		forEach ($data as $row) {
 			$subcmd_list .= "Command: $row->cmd\n";
 			if ($row->description != "") {
@@ -147,9 +147,8 @@ if (preg_match("/^config$/i", $message)) {
 
 	$data = $db->query($sql);
 	forEach ($data as $row) {
-		$db->query("SELECT * FROM hlpcfg_<myname> WHERE `module` = '".strtoupper($row->module)."'");
-		$num = $db->numrows();
-		if ($num > 0) {
+		$data = $db->query("SELECT * FROM hlpcfg_<myname> WHERE `module` = ?", strtoupper($row->module));
+		if (count($data) > 0) {
 			$b = "(<a href='chatcmd:///tell <myname> config help $row->module'>Helpfiles</a>)";
 		} else {
 			$b = "";
@@ -292,21 +291,21 @@ if (preg_match("/^config$/i", $message)) {
 	}
 
 	if ($arr[1] == "mod" && $type == "all") {
-		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `module` = '$module'");
-		$db->exec("UPDATE eventcfg_<myname> SET `status` = $status WHERE `module` = '$module' AND `type` <> 'setup'");
+		$db->exec("UPDATE cmdcfg_<myname> SET `status` = ? WHERE `module` = ?", $status, $module);
+		$db->exec("UPDATE eventcfg_<myname> SET `status` = ? WHERE `module` = ? AND `type` <> 'setup'", $status, $module);
 	} else if ($arr[1] == "mod" && $type != "all") {
-		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `module` = '$module' AND `type` = '$type'");
-		$db->exec("UPDATE eventcfg_<myname> SET `status` = $status WHERE `module` = '$module' AND `type` = '$event_type' AND `type` <> 'setup'");
+		$db->exec("UPDATE cmdcfg_<myname> SET `status` = ? WHERE `module` = ? AND `type` = ?", $status, $module, $type);
+		$db->exec("UPDATE eventcfg_<myname> SET `status` = ? WHERE `module` = ? AND `type` = ? AND `type` <> 'setup'", $status, $module, $event_type);
 	} else if ($arr[1] == "cmd" && $type != "all") {
-		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `cmd` = '$cmd' AND `type` = '$type' AND `cmdevent` = 'cmd'");
+		$db->exec("UPDATE cmdcfg_<myname> SET `status` = ? WHERE `cmd` = ? AND `type` = ? AND `cmdevent` = 'cmd'", $status, $cmd, $type);
 	} else if ($arr[1] == "cmd" && $type == "all") {
-		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `cmd` = '$cmd' AND `cmdevent` = 'cmd'");
+		$db->exec("UPDATE cmdcfg_<myname> SET `status` = ? WHERE `cmd` = ? AND `cmdevent` = 'cmd'", $status, $cmd);
 	} else if ($arr[1] == "subcmd" && $type != "all") {
-		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `cmd` = '$cmd' AND `type` = '$type' AND `cmdevent` = 'subcmd'");
+		$db->exec("UPDATE cmdcfg_<myname> SET `status` = ? WHERE `cmd` = ? AND `type` = ? AND `cmdevent` = 'subcmd'", $status, $cmd, $type);
 	} else if ($arr[1] == "subcmd" && $type == "all") {
-		$db->exec("UPDATE cmdcfg_<myname> SET `status` = $status WHERE `cmd` = '$cmd' AND `cmdevent` = 'subcmd'");
+		$db->exec("UPDATE cmdcfg_<myname> SET `status` = ? WHERE `cmd` = ? AND `cmdevent` = 'subcmd'", $status, $cmd);
 	} else if ($arr[1] == "event" && $file != "") {
-		$db->exec("UPDATE eventcfg_<myname> SET `status` = $status WHERE `type` = '$event_type' AND `file` = '$file' AND `type` <> 'setup'");
+		$db->exec("UPDATE eventcfg_<myname> SET `status` = ? WHERE `type` = ? AND `file` = ? AND `type` <> 'setup'", $status, $event_type, $file);
 	}
 	
 	forEach ($data as $row) {
@@ -372,22 +371,22 @@ if (preg_match("/^config$/i", $message)) {
 		}
 
 		if ($channel == "all") {
-			$db->exec("UPDATE cmdcfg_<myname> SET `admin` = '$admin' WHERE `cmd` = '$command' AND `cmdevent` = 'cmd'");
+			$db->exec("UPDATE cmdcfg_<myname> SET `admin` = ? WHERE `cmd` = ? AND `cmdevent` = 'cmd'", $admin, $command);
 			$msg = "Updated access of command <highlight>$command<end> to <highlight>$admin<end>";
 		} else {
-			$db->exec("UPDATE cmdcfg_<myname> SET `admin` = '$admin' WHERE `cmd` = '$command' AND `type` = '$channel' AND `cmdevent` = 'cmd'");
+			$db->exec("UPDATE cmdcfg_<myname> SET `admin` = ? WHERE `cmd` = ? AND `type` = ? AND `cmdevent` = 'cmd'", $admin, $command, $channel);
 			$msg = "Updated access of command <highlight>$command<end> in Channel <highlight>$channel<end> to <highlight>$admin<end>";
 		}
 	} else {  // if ($category == 'subcmd')
-		$sql = "SELECT * FROM cmdcfg_<myname> WHERE `type` = '$channel' AND `cmdevent` = 'subcmd' AND `cmd` = '$command'";
-		$data = $db->query($sql);
+		$sql = "SELECT * FROM cmdcfg_<myname> WHERE `type` = ? AND `cmdevent` = 'subcmd' AND `cmd` = ?";
+		$data = $db->query($sql, $channel, $command);
 		if (count($data) == 0) {
 			$msg = "Could not find the subcmd <highlight>$command<end> for Channel <highlight>$channel<end>";
 		  	$chatBot->send($msg, $sendto);
 		  	return;
 		}
 
-		$db->exec("UPDATE cmdcfg_<myname> SET `admin` = '$admin' WHERE `type` = '$channel' AND `cmdevent` = 'subcmd' AND `cmd` = '$command'");
+		$db->exec("UPDATE cmdcfg_<myname> SET `admin` = ? WHERE `type` = ? AND `cmdevent` = 'subcmd' AND `cmd` = ?", $admin, $channel, $command);
 		$chatBot->subcommands = array();
 		Subcommand::loadSubcommands();
 		$msg = "Updated access of sub command <highlight>$command<end> in Channel <highlight>$channel<end> to <highlight>$admin<end>";
@@ -404,8 +403,8 @@ if (preg_match("/^config$/i", $message)) {
 		$cmd = $alias_cmd;
 	}
 
-	$db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '{$cmd}'");
-	if ($db->numrows() == 0) {
+	$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = ?", $cmd);
+	if (count($data) == 0) {
 		$msg = "Could not find the command '<highlight>$cmd<end>'";
 	} else {
 		$list = array();
@@ -462,21 +461,20 @@ if (preg_match("/^config$/i", $message)) {
   	$help = strtolower($arr[1]);
 	$admin = $arr[2];
 	
-	$db->query("SELECT * FROM hlpcfg_<myname> WHERE `name` = '$help' ORDER BY `name`");
-	if ($db->numrows() == 0) {
+	$row = $db->queryRow("SELECT * FROM hlpcfg_<myname> WHERE `name` = ? ORDER BY `name`", $help);
+	if ($row === null) {
 		$chatBot->send("The help topic <highlight>$help<end> doesn't exist!", $sendto);		  	
 		return;
 	}
-	$row = $db->fObject();
-	$db->exec("UPDATE hlpcfg_<myname> SET `admin` = '$admin' WHERE `name` = '$help'");
+
+	$db->exec("UPDATE hlpcfg_<myname> SET `admin` = ? WHERE `name` = ?", $admin, $help);
 	$chatBot->helpfiles[$row->name]["admin"] = $admin;
 	$chatBot->send("Updated access for helpfile <highlight>$help<end> to <highlight>".ucfirst(strtolower($arr[2]))."<end>.", $sendto);
 } else if (preg_match("/^config help (.+)$/i", $message, $arr)) {
   	$mod = strtoupper($arr[1]);
 	$blob = "<header> :::::: Configure helpfiles for $mod :::::: <end>\n\n";
 
-	$db->query("SELECT * FROM hlpcfg_<myname> WHERE module = '$mod' ORDER BY name");
-	$data = $db->fObject("all");
+	$data = $db->query("SELECT * FROM hlpcfg_<myname> WHERE module = ? ORDER BY name", $mod);
 	if (count($data) == 0) {
 		$msg = "Could not find any help files for module '<highlight>$mod<end>'";
 	} else {
@@ -512,12 +510,13 @@ if (preg_match("/^config$/i", $message)) {
 	$l = "";
 	$lh = "";
 
- 	$db->query("SELECT * FROM settings_<myname> WHERE `module` = '$module'");
-	if ($db->numrows() > 0) {
+ 	$data = $db->query("SELECT * FROM settings_<myname> WHERE `module` = ?", $module);
+	if (count($data) > 0) {
 		$found = true;
 		$lh = "\n<i>Settings</i>\n";
 	}
- 	while ($row = $db->fObject()) {
+
+	forEach ($data as $row) {
 		$l .= $row->description;
 
 		if ($row->mode == "edit") {
@@ -544,11 +543,10 @@ if (preg_match("/^config$/i", $message)) {
 			cmdcfg_<myname> c
 		WHERE
 			(`cmdevent` = 'cmd' OR `cmdevent` = 'subcmd')
-			AND `module` = '$module'
+			AND `module` = ?
 		GROUP BY
 			cmd";
-	$db->query($sql);
-	$data = $db->fObject("all");
+	$data = $db->query($sql, $module);
 	$l = "";
 	$lh = "";
 	if (count($data) > 0) {
@@ -606,8 +604,7 @@ if (preg_match("/^config$/i", $message)) {
 	
 	$l = "";
 	$lh = "";
-	$db->query("SELECT * FROM eventcfg_<myname> WHERE `type` <> 'setup' AND `module` = '$module'");
-	$data = $db->fObject("all");
+	$data = $db->query("SELECT * FROM eventcfg_<myname> WHERE `type` <> 'setup' AND `module` = ?", $module);
 	if (count($data) > 0) {
 		$found = true;
 		$lh = "\n<i>Events</i>\n";

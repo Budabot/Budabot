@@ -9,10 +9,9 @@ class Ban {
 		} else {
 			$ban_end = time() + $length;
 		}
-		$reason = str_replace("'", "''", $reason);
 
-		$sql = "INSERT INTO banlist_<myname> (`name`, `admin`, `time`, `reason`, `banend`) VALUES ('{$char}', '{$sender}', '".time()."', '{$reason}', {$ban_end})";
-		$numrows = $db->exec($sql);
+		$sql = "INSERT INTO banlist_<myname> (`name`, `admin`, `time`, `reason`, `banend`) VALUES (?, ?, ?, ?, ?)";
+		$numrows = $db->exec($sql, $char, $sender, time(), $reason, $ban_end);
 		
 		Ban::upload_banlist();
 		
@@ -22,8 +21,8 @@ class Ban {
 	public static function remove($char) {
 		$db = DB::get_instance();
 
-		$sql = "DELETE FROM banlist_<myname> WHERE name = '{$char}'";
-		$numrows = $db->exec($sql);
+		$sql = "DELETE FROM banlist_<myname> WHERE name = ?";
+		$numrows = $db->exec($sql, $char);
 		
 		Ban::upload_banlist();
 		

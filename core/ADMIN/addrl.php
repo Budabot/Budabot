@@ -35,9 +35,9 @@ if (preg_match("/^addrl (.+)$/i", $message, $arr)) {
 	if (isset($chatBot->admins[$who]["level"]) && $chatBot->admins[$who]["level"] > 2) {
 		$chatBot->send("<highlight>$who<end> has been demoted to raidleader.", $sendto);
 		$chatBot->send("You have been demoted to raidleader by <highlight>$sender<end>.", $who);
-		$db->exec("UPDATE admin_<myname> SET `adminlevel` = 2 WHERE `name` = '$who'");
+		$db->exec("UPDATE admin_<myname> SET `adminlevel` = ? WHERE `name` = ?", '2', $who);
 	} else {
-		$db->exec("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (2, '$who')");
+		$db->exec("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (?, ?)", '2', $who);
 		$chatBot->send("<highlight>$who<end> has been promoted to raidleader.", $sendto);
 		$chatBot->send("You have been promoted to raidleader by <highlight>$sender<end>.", $who);
 	}

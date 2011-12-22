@@ -16,7 +16,7 @@ if (preg_match("/^remrl (.+)$/i", $message, $arr)) {
 	}
 
 	unset($chatBot->admins[$who]);
-	$db->exec("DELETE FROM admin_<myname> WHERE `name` = '$who'");
+	$db->exec("DELETE FROM admin_<myname> WHERE `name` = ?", $who);
 
 	Buddylist::remove($who, 'admin');
 

@@ -101,8 +101,8 @@ class Player {
 	public static function update(&$char) {
 		$db = DB::get_instance();
 		
-		$sql = "DELETE FROM players WHERE `name` = '{$char->name}' AND `dimension` = '{$char->dimension}'";
-		$db->exec($sql);
+		$sql = "DELETE FROM players WHERE `name` = ? AND `dimension` = ?";
+		$db->exec($sql, $char->name, $char->dimension);
 
 		$sql = "
 			INSERT INTO players (
@@ -126,28 +126,30 @@ class Player {
 				`source`,
 				`last_update`
 			) VALUES (
-				'{$char->charid}',
-				'" . str_replace("'", "''", $char->firstname) . "',
-				'{$char->name}',
-				'" . str_replace("'", "''", $char->lastname) . "',
-				'{$char->level}',
-				'{$char->breed}',
-				'{$char->gender}',
-				'{$char->faction}',
-				'{$char->profession}',
-				'{$char->prof_title}',
-				'{$char->ai_rank}',
-				'{$char->ai_level}',
-				'{$char->guild_id}',
-				'" . str_replace("'", "''", $char->guild) . "',
-				'{$char->guild_rank}',
-				'{$char->guild_rank_id}',
-				'{$char->dimension}',
-				'{$char->source}',
-				'" . time() . "'
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?
 			)";
 		
-		$db->exec($sql);
+		$db->exec($sql, $char->charid, $char->firstname, $char->name, $char->lastname, $char->level, $char->breed, $char->gender, $char->gender, $char->faction,
+			$char->profession, $char->prof_title, $char->ai_rank, $char->ai_level, $char->guild_id, $char->guild, $char->guild_rank, $char->guild_rank_id
+			$char->dimension, $char->source, time());
 	}
 	
 	public static function get_info(&$whois) {
