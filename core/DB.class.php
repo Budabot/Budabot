@@ -181,20 +181,6 @@ class DB {
 		return null;
 	}
 	
-	//Return the result of an Select statement
-	function fObject($mode = "single") {
-		if ($mode == "single") {
-	  		return array_shift($this->result);
-		} else if ($mode == "all") {
-			return $this->result;
-		}
-	}
-
-	//Give the affected rows back from an select statement
-	function numrows() {
-		return count($this->result);
-	}
-	
 	//Start of an transaction	
 	function begin_transaction() {
 		$this->in_transaction = true;
