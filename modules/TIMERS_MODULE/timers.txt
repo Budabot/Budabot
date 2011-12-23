@@ -17,4 +17,4 @@
 <highlight>To create a repeating timer:<end>
 <tab><symbol>rtimer 'intial time' 'repeating time' 'name'
 
-See <a href='chatcmd:///tell <myname> help budatime'>budatime</a> for info on the format of the 'time' parameter.
+See <a href='chatcmd:///tell <myname> help budatime'><symbol>help budatime</a> for info on the format of the 'time' parameter.
