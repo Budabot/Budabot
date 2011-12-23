@@ -9,6 +9,7 @@
 	Command::register($MODULE_NAME, "", "cmdlist.php", "cmdlist", "guild", "Shows a list of all commands on the bot");
 	Command::register($MODULE_NAME, "", "eventlist.php", "eventlist", "guild", "Shows a list of all events on the bot");
 	Command::register($MODULE_NAME, "", "searchcmd.php", "searchcmd", "mod", "Find which module has specified command");
+	Command::register($MODULE_NAME, "", "cmdsearch.php", "cmdsearch", "all", "Find commands based on key words");
 
 	Help::register($MODULE_NAME, "config", "config.txt", "mod", "Configure Commands/Events of the Bot");
 	Help::register($MODULE_NAME, "alias", "alias.txt", "mod", "How to add and remove aliases");

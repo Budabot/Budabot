@@ -69,7 +69,6 @@ function find_items_from_local($search, $ql) {
 	$tmp = explode(" ", $search);
 	$first = true;
 	forEach ($tmp as $key => $value) {
-		// escape single quotes to prevent sql injection
 		$value = str_replace("'", "''", $value);
 		if ($first) {
 			$query .= "`name` LIKE '%$value%'";
