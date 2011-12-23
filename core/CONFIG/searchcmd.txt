@@ -1,4 +1,0 @@
-<header> :::::: Searchcmd Command :::::: <end>
-
-<highlight>To find which module a command belongs to:<end>
-<symbol>searchcmd 'command'

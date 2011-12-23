@@ -20,6 +20,11 @@ if (preg_match("/^cmdsearch (.*)/i", $message, $arr)) {
 	$sqlquery = "SELECT DISTINCT module, cmd, help, description FROM cmdcfg_<myname> WHERE status = 1 AND ($cmdQuery) OR ($descriptionQuery)";
 	$data = $db->query($sqlquery);
 	
+	$access = false;
+	if (AccessLevel::checkAccess($sender, 'mod')) {
+		$access = true;
+	}
+	
 	$blob = "<header> :::::: Command Search Results :::::: <end>\n\n";
 	forEach ($data as $row) {
 		if ($row->help != '') {
@@ -27,8 +32,14 @@ if (preg_match("/^cmdsearch (.*)/i", $message, $arr)) {
 		} else {
 			$helpLink = Text::make_chatcmd("Help", "/tell <myname> help $row->cmd");
 		}
+		if ($access) {
+			$module = Text::make_chatcmd($row->module, "/tell <myname> config {$row->module}");
+		} else {
+			$module = "<yellow>{$row->module}<end>";
+		}
+
 		$cmd = str_pad($row->cmd . " ", 20, ".");
-		$blob .= "<highlight>{$cmd}<end> <yellow>{$row->module}<end> - {$row->description} ({$helpLink})\n";
+		$blob .= "<highlight>{$cmd}<end> {$module} - {$row->description} ({$helpLink})\n";
 	}
 
 	if (count($data) == 0) {
