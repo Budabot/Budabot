@@ -1,7 +1,7 @@
 <?php
 
 if (preg_match("/^news$/i", $message, $arr)) {
-	$data = $db->query("SELECT * FROM `#__news` WHERE `sticky` = 1 ORDER BY `time` DESC UNION SELECT * FROM `#__news` WHERE `sticky` = 0 ORDER BY `time` DESC LIMIT 10");
+	$data = $db->query("SELECT * FROM `#__news` ORDER BY `sticky` DESC, `time` DESC LIMIT 10");
 	if (count($data) != 0) {
 		$link = "<header> :::::: News :::::: <end>\n\n";
 		forEach ($data as $row) {
