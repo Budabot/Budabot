@@ -40,7 +40,7 @@ if (preg_match("/^addadmin (.+)$/i", $message, $arr)){
 			$chatBot->send("<highlight>$who<end> has been promoted to administrator.", $sendto);
 			$chatBot->send("You have been promoted to administrator by <highlight>$sender<end>.", $who);
 		}
-		$db->exec("UPDATE admin_<myname> SET `adminlevel` = ? WHERE `name` = ?", , '2', $who););
+		$db->exec("UPDATE admin_<myname> SET `adminlevel` = ? WHERE `name` = ?", '2', $who);
 	} else {
 		$db->exec("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (?, ?)", '4', $who);
 		$chatBot->send("<highlight>$who<end> has been promoted to administrator.", $sendto);
