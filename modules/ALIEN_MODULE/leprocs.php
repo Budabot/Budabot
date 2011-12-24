@@ -1,6 +1,18 @@
 <?php
 
-if (preg_match("/^leprocs (.+)$/i", $message, $arr)) {
+if (preg_match("/^leprocs$/i", $message)) {
+	$data = $db->query("SELECT DISTINCT profession FROM leprocs ORDER BY profession ASC");
+	$blob = "<header> :::::: LE Procs :::::: <end>\n\n";
+	forEach ($data as $row) {
+		$professionLink = Text::make_chatcmd($row->profession, "/tell <myname> leprocs $row->profession");
+		$blob .= $professionLink . "\n";
+	}
+	
+	$blob .= "\n\nProc info provided by Wolfbiter (RK1), Gatester (RK2)";
+
+	$msg = Text::make_blob("LE Procs", $blob);
+	$chatBot->send($msg, $sendto);
+} else if (preg_match("/^leprocs (.+)$/i", $message, $arr)) {
 	$profession = Util::get_profession_name($arr[1]);
 	if ($profession == '') {
 		$msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, or trader";
