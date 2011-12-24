@@ -59,8 +59,6 @@ class Player {
 		}
 
 		// if people.anarchy-online.com was too slow to respond or returned invalid data then try to update from auno.org
-		// Apparently auno.org is no longer updating character info so we will no longer use it to look up player info
-		/*
 		$xml = Player::lookup_url("http://auno.org/ao/char.php?output=xml&dimension=$dimension&name=$name");
 		if ($xml->name == $name) {
 			$xml->source = 'auno.org';
@@ -68,7 +66,6 @@ class Player {
 
 			return $xml;
 		}
-		*/
 
 		return null;
 	}
