@@ -1,4 +1,6 @@
 <?php
+	require_once 'News.class.php';
+
 	DB::add_table_replace('#__news', 'news');
 	DB::loadSQLFile($MODULE_NAME, 'news');
 
