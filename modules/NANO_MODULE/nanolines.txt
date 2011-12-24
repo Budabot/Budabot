@@ -4,4 +4,7 @@
 <tab><symbol>nanolines
 
 <highlight>To show the nanolines for a particular profession:<end>
-<tab><symbol>nlprof 'profession'
+<tab><symbol>nanolines 'profession'
+
+<highlight>To show the nanos in a particular nanoline:<end>
+<tab><symbol>nanolines 'nanoline id'

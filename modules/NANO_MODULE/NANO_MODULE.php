@@ -10,9 +10,7 @@
 	Command::register($MODULE_NAME, "", "fp.php", "fp", "all", "Shows whether or not a nano is usable in false profession");
 
 	//nanolines
-	Command::register($MODULE_NAME, "", "nanolines.php", "nanolines", "all", "Shows a list of professions to choose from");
-	Command::register($MODULE_NAME, "", "nlprof.php", "nlprof", "all", "Shows a list of nanolines given a profession", 'nanolines');
-	Command::register($MODULE_NAME, "", "nlline.php", "nlline", "all", "Shows a list of nanos given a nanoline", 'nanolines');
+	Command::register($MODULE_NAME, "", "nanolines.php", "nanolines", "all", "Shows nanos based on nanoline");
 
 	//Settings
 	Setting::add($MODULE_NAME, 'maxnano', 'Number of Nanos shown on the list', 'edit', "number", '40', '30;40;50;60', "", "mod");
