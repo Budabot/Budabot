@@ -7,7 +7,9 @@
 	Command::register($MODULE_NAME, "", "news.php", "news", "all", "Show News");
 	Subcommand::register($MODULE_NAME, "", "news_add.php", "news add (.+)", "rl", "news", "Add a news entry");
 	Subcommand::register($MODULE_NAME, "", "news_rem.php", "news rem (.+)", "rl", "news", "Remove a news entry");
-
+	Subcommand::register($MODULE_NAME, "", "news_sticky.php", "news sticky (.+)", "leader", "news", "Stickies a news entry");
+	Subcommand::register($MODULE_NAME, "", "news_sticky.php", "news unsticky (.+)", "leader", "news", "Unstickies a news entry");
+	
 	// Set admin and user news
 	Command::register($MODULE_NAME, "", "set_news.php", "privnews", "rl", "Set news shown on private channel join");
 	Command::register($MODULE_NAME, "", "set_news.php", "adminnews", "mod", "Set news shown to admins on private channel join", 'privnews');

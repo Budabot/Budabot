@@ -6,4 +6,8 @@
 <highlight>To add a news entry:<end>
 <tab><symbol>news add 'text'
 
+<highlight>To sticky or unsticky a news post:<end>
+<tab><symbol>news set sticky 'news_id_#'
+<tab><symbol>news set unsticky 'news_id_#'
+
 <highlight>To delete a news entry click on the 'Remove' link next to the news entry you want to remove<end>
