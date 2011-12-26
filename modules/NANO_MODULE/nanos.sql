@@ -1458,7 +1458,7 @@ INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(210304, 83, 'Nano Crystal (Judgement Bringer)', 'Keeper', 'SL Jobe Market');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(31425, 152, 'Nano Crystal (Karma Harvest)', 'Fixer', 'RK Mission');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(223218, 207, 'Nano Crystal (Keep clear of me)', 'Soldier', 'Inferno Sanctuary');
-INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(210298, 1, 'Nano Crystal (Keeper''s Edge)', 'Keeper', 'Starter Nano');
+INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(210298, 1, 'Nano Crystal (Keeper''s Edge)', 'Keeper', 'Startup Nano');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(28823, 212, 'Nano Crystal (Kel''s Neutronium Plaything)', 'Nano Technician', 'RK Dyna');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(210737, 71, 'Nano Crystal (Kick of the Phantom)', 'Shade', 'RK Mission');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(210745, 200, 'Nano Crystal (Kiss of the Vampire)', 'Shade', 'RK Mission');
@@ -3117,7 +3117,7 @@ INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(268695, 100, 'Nano Crystal (Insight into the Shadowlands)', 'General', 'Veteran Vendor');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(268698, 100, 'Nano Crystal (Veterans L33t Transformation)', 'General', 'Veteran Vendor');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(269464, 183, 'Nano Crystal (Boosted Tendons)', 'Engineer', 'Pen Xan Quest');
-INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(269448, 180, 'Nano Crystal (Brain Freeze)', 'Bureaucrat', 'Pen Xan Quest');
+INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(269448, 180, 'Nano Crystal (Brain Freeze)', 'Bureaucrat', 'RK Mission');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(269443, 175, 'Nano Crystal (Cold Blooded)', 'Adventurer', 'Pen Xan Quest');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(269445, 170, 'Nano Crystal (Dead Cold)', 'Agent', 'Pen Xan Quest');
 INSERT INTO `nanos` (`lowid`, `lowql`, `name`, `profession`, `location`) VALUES(269472, 185, 'Nano Crystal (Fists of the Winter Flame)', 'Martial Artist', 'Pen Xan Quest');
