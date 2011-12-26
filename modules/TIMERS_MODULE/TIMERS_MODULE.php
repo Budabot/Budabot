@@ -7,7 +7,6 @@
 
 	Command::register($MODULE_NAME, "", "rtimer.php", "rtimer", "guild", "Add a repeating timer", 'timers');
 	Command::register($MODULE_NAME, "", "timers.php", "timers", "guild", "Set timers/Show running timers");
-	CommandAlias::register($MODULE_NAME, "timers", "timer");
 	
 	Command::register($MODULE_NAME, "", "countdown.php", "countdown", "guild", "Set a countdown");
 	CommandAlias::register($MODULE_NAME, "countdown", "cd");

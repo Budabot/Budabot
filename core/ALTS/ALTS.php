@@ -8,7 +8,6 @@
 	Command::register($MODULE_NAME, "", "altvalidate.php", "altvalidate", "member", "Validate alts for admin privileges");
 	Command::register($MODULE_NAME, "", "altsadmin.php", "altsadmin", "mod", "Alt character handling (admin)");
 	Command::register($MODULE_NAME, "", "altscmd.php", "alts", "member", "Alt character handling");
-	CommandAlias::register($MODULE_NAME, "alts", "alt");
 
 	Subcommand::register($MODULE_NAME, "", "alts_main.php", "alts main (.+)", "member", "alts", "Add yourself as an alt to a main", 'alts');
 

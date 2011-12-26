@@ -10,7 +10,6 @@
 
 	// Missions
 	Command::register($MODULE_NAME, "", "missions.php", "missions", "all", "Shows what missions a specified level can roll");
-	CommandAlias::register($MODULE_NAME, "missions", "mission");
 
 	// XP/SK Calculator
 	Command::register($MODULE_NAME, "", "xp.php", "xp", "all", "XP Calculator");

@@ -7,7 +7,6 @@
 	Command::register($MODULE_NAME, "", "findorg.php", "findorg", "all", "Find orgs by name");
 	Command::register($MODULE_NAME, "", "is_online.php", "is", "all", "Checks if a player is online");
 	Command::register($MODULE_NAME, "", "orglist.php", "orglist", "rl", "Check someones org roster");
-	CommandAlias::register($MODULE_NAME, "orglist", "onlineorg");
 
 	Event::register($MODULE_NAME, "logOn", "orglist_check.php", "Gets online status of org members");
 	Event::register($MODULE_NAME, "logOff", "orglist_check.php", "Gets offline status of org members");

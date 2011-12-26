@@ -15,7 +15,6 @@
 	CommandAlias::register($MODULE_NAME, "bioinfo", "biotype");
 
 	Command::register($MODULE_NAME, "", "leprocs.php", "leprocs", "all", "Shows the LE Procs for a particular profession");
-	CommandAlias::register($MODULE_NAME, "leprocs", "leproc");
 
     Help::register($MODULE_NAME, "bio", "bio.txt", "all", "Identify an Biomaterial");
 	Help::register($MODULE_NAME, "bioinfo", "bioinfo.txt", "all", "How to find info on a bio type");
