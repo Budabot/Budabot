@@ -10,7 +10,7 @@ if (preg_match("/^implant ([0-9]+)$/i", $message, $arr)) {
 		$obj = getRequirements($ql);
 		$clusterInfo = formatClusterBonuses($obj);
 		$link = Text::make_blob('More info', $clusterInfo);
-		$msg = "\nFor ql $ql imps\nTreatment required: $obj->treatment.\nAbility Required: $obj->ability\n$link";
+		$msg = "QL $ql implants--Ability: {$obj->ability}, Treatment: {$obj->treatment} $link";
 	}
 
 	$chatBot->send($msg, $sendto);
