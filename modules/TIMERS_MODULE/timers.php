@@ -12,8 +12,6 @@ if (preg_match("/^timers view (.+)$/i", $message, $arr)) {
 	
 	$time_left = Util::unixtime_to_readable($timer->timer - time());
 	$name = $timer->name;
-	$owner = $timer->owner;
-	$mode = $timer->mode;
 
 	$msg = "Timer <highlight>$name<end> has <highlight>$time_left<end> left.";
 	$chatBot->send($msg, $sendto);
@@ -106,7 +104,6 @@ if (preg_match("/^timers view (.+)$/i", $message, $arr)) {
 		$time_left = Util::unixtime_to_readable($timer->timer - time());
 		$name = $timer->name;
 		$owner = $timer->owner;
-		$mode = $timer->mode;
 
 		$remove_link = Text::make_chatcmd("Remove", "/tell <myname> timers rem $name");
 
