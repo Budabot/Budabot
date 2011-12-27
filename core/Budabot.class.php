@@ -14,6 +14,8 @@ class Budabot extends AOChat {
 	var $privCmds = array();
 	var $guildCmds = array();
 	
+	var $repo = array();
+	
 	// array where modules can store stateful session data
 	var $data = array();
 	
@@ -369,7 +371,17 @@ class Budabot extends AOChat {
 
 		forEach ($chatBot->events[$type] as $filename) {
 			$msg = "";
-			include $filename;
+			if (preg_match("/\\.php$/i", $filename)) {
+				require $filename;
+			} else {
+				list($name, $method) = explode(".", $filename);
+				$instance = $this->repo[$name];
+				if ($instance === null) {
+					Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
+				} else {
+					$instance->$method($this, $type, $args);
+				}
+			}
 			if ($stop_execution) {
 				return;
 			}
@@ -420,7 +432,17 @@ class Budabot extends AOChat {
 			// Check files, for all 'player joined channel events'.
 			forEach ($chatBot->events[$type] as $filename) {
 				$msg = '';
-				include $filename;
+				if (preg_match("/\\.php$/i", $filename)) {
+					require $filename;
+				} else {
+					list($name, $method) = explode(".", $filename);
+					$instance = $this->repo[$name];
+					if ($instance === null) {
+						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
+					} else {
+						$instance->$method($this, $type, $sender, $channel, $args);
+					}
+				}
 				if ($stop_execution) {
 					return;
 				}
@@ -430,7 +452,17 @@ class Budabot extends AOChat {
 			
 			forEach ($chatBot->events[$type] as $filename) {
 				$msg = '';
-				include $filename;
+				if (preg_match("/\\.php$/i", $filename)) {
+					require $filename;
+				} else {
+					list($name, $method) = explode(".", $filename);
+					$instance = $this->repo[$name];
+					if ($instance === null) {
+						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
+					} else {
+						$instance->$method($this, $type, $sender, $channel, $args);
+					}
+				}
 				if ($stop_execution) {
 					return;
 				}
@@ -461,7 +493,17 @@ class Budabot extends AOChat {
 			// Check files, for all 'player left channel events'.
 			forEach ($chatBot->events[$type] as $filename) {
 				$msg = '';
-				include $filename;
+				if (preg_match("/\\.php$/i", $filename)) {
+					require $filename;
+				} else {
+					list($name, $method) = explode(".", $filename);
+					$instance = $this->repo[$name];
+					if ($instance === null) {
+						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
+					} else {
+						$instance->$method($this, $type, $sender, $channel, $args);
+					}
+				}
 				if ($stop_execution) {
 					return;
 				}
@@ -471,7 +513,17 @@ class Budabot extends AOChat {
 			
 			forEach ($chatBot->events[$type] as $filename) {
 				$msg = '';
-				include $filename;
+				if (preg_match("/\\.php$/i", $filename)) {
+					require $filename;
+				} else {
+					list($name, $method) = explode(".", $filename);
+					$instance = $this->repo[$name];
+					if ($instance === null) {
+						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
+					} else {
+						$instance->$method($this, $type, $sender, $channel, $args);
+					}
+				}
 				if ($stop_execution) {
 					return;
 				}
@@ -512,7 +564,17 @@ class Budabot extends AOChat {
 			// Check files, for all 'player logged off events'
 			forEach ($chatBot->events[$type] as $filename) {
 				$msg = "";
-				include $filename;
+				if (preg_match("/\\.php$/i", $filename)) {
+					require $filename;
+				} else {
+					list($name, $method) = explode(".", $filename);
+					$instance = $this->repo[$name];
+					if ($instance === null) {
+						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
+					} else {
+						$instance->$method($this, $type, $sender, $args);
+					}
+				}
 				if ($stop_execution) {
 					return;
 				}
@@ -525,7 +587,17 @@ class Budabot extends AOChat {
 			// Check files, for all 'player logged on events'.
 			forEach ($chatBot->events[$type] as $filename) {
 				$msg = "";
-				include $filename;
+				if (preg_match("/\\.php$/i", $filename)) {
+					require $filename;
+				} else {
+					list($name, $method) = explode(".", $filename);
+					$instance = $this->repo[$name];
+					if ($instance === null) {
+						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
+					} else {
+						$instance->$method($this, $type, $sender, $args);
+					}
+				}
 				if ($stop_execution) {
 					return;
 				}
@@ -583,7 +655,17 @@ class Budabot extends AOChat {
 		// Events
 		forEach ($chatBot->events[$type] as $filename) {
 			$msg = "";
-			include $filename;
+			if (preg_match("/\\.php$/i", $filename)) {
+					require $filename;
+				} else {
+					list($name, $method) = explode(".", $filename);
+					$instance = $this->repo[$name];
+					if ($instance === null) {
+						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
+					} else {
+						$instance->$method($this, $type, $sender, $message, $args);
+					}
+				}
 			if ($stop_execution) {
 				return;
 			}
@@ -642,7 +724,17 @@ class Budabot extends AOChat {
 			// Events
 			forEach ($chatBot->events[$type] as $filename) {
 				$msg = "";
-				include $filename;
+				if (preg_match("/\\.php$/i", $filename)) {
+					require $filename;
+				} else {
+					list($name, $method) = explode(".", $filename);
+					$instance = $this->repo[$name];
+					if ($instance === null) {
+						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
+					} else {
+						$instance->$method($this, $type, $sender, $channel, $message, $args);
+					}
+				}
 				if ($stop_execution) {
 					return;
 				}
@@ -659,7 +751,17 @@ class Budabot extends AOChat {
 			
 			forEach ($chatBot->events[$type] as $filename) {
 				$msg = "";
-				include $filename;
+				if (preg_match("/\\.php$/i", $filename)) {
+					require $filename;
+				} else {
+					list($name, $method) = explode(".", $filename);
+					$instance = $this->repo[$name];
+					if ($instance === null) {
+						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
+					} else {
+						$instance->$method($this, $type, $sender, $channel, $message, $args);
+					}
+				}
 				if ($stop_execution) {
 					return;
 				}
@@ -709,7 +811,17 @@ class Budabot extends AOChat {
 			
 			forEach ($chatBot->events[$type] as $filename) {
 				$msg = "";
-				include $filename;
+				if (preg_match("/\\.php$/i", $filename)) {
+					require $filename;
+				} else {
+					list($name, $method) = explode(".", $filename);
+					$instance = $this->repo[$name];
+					if ($instance === null) {
+						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
+					} else {
+						$instance->$method($this, $type, $sender, $channel, $message, $args);
+					}
+				}
 				if ($stop_execution) {
 					return;
 				}
@@ -720,7 +832,17 @@ class Budabot extends AOChat {
 
 			forEach ($chatBot->events[$type] as $filename) {
 				$msg = "";
-				include $filename;
+				if (preg_match("/\\.php$/i", $filename)) {
+					require $filename;
+				} else {
+					list($name, $method) = explode(".", $filename);
+					$instance = $this->repo[$name];
+					if ($instance === null) {
+						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
+					} else {
+						$instance->$method($this, $type, $sender, $channel, $message, $args);
+					}
+				}
 				if ($stop_execution) {
 					return;
 				}
@@ -733,7 +855,17 @@ class Budabot extends AOChat {
 			// Events
 			forEach ($chatBot->events[$type] as $filename) {
 				$msg = "";
-				include $filename;
+				if (preg_match("/\\.php$/i", $filename)) {
+					require $filename;
+				} else {
+					list($name, $method) = explode(".", $filename);
+					$instance = $this->repo[$name];
+					if ($instance === null) {
+						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
+					} else {
+						$instance->$method($this, $type, $sender, $channel, $message, $args);
+					}
+				}
 				if ($stop_execution) {
 					return;
 				}
@@ -763,7 +895,17 @@ class Budabot extends AOChat {
 
 		forEach ($chatBot->events[$type] as $filename) {
 			$msg = "";
-			include $filename;
+			if (preg_match("/\\.php$/i", $filename)) {
+				require $filename;
+			} else {
+				list($name, $method) = explode(".", $filename);
+				$instance = $this->repo[$name];
+				if ($instance === null) {
+					Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
+				} else {
+					$instance->$method($this, $type, $sender, $args);
+				}
+			}
 			if ($stop_execution) {
 				return;
 			}
@@ -833,8 +975,20 @@ class Budabot extends AOChat {
 	
 		$syntax_error = false;
 		$msg = "";
-		include $filename;
-		if ($syntax_error == true) {
+		if (preg_match("/\\.php$/i", $filename)) {
+			require $filename;
+		} else {
+			list($name, $method) = explode(".", $filename);
+			$instance = $this->repo[$name];
+			if ($instance === null) {
+				Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
+			} else {
+				// methods will return false to indicate a syntax error, so when a false is returned,
+				// we set $syntax_error = true, otherwise we set it to false
+				$syntax_error = ($instance->$method($this, $message, $type, $sender, $sendto) !== false ? false : true);
+			}
+		}
+		if ($syntax_error === true) {
 			$results = Command::get($cmd, $type);
 			$result = $results[0];
 			if ($result->help != '') {
@@ -852,6 +1006,13 @@ class Budabot extends AOChat {
 			}
 		}
 		$chatBot->spam[$sender] = $chatBot->spam[$sender] + 10;
+	}
+	
+	public function registerInstance($name, &$obj) {
+		if (isset($this->repo[$name])) {
+			Logger::log('WARN', 'CORE', "Instance with name '$name' already registered--replaced with new instance");
+		}
+		$this->repo[$name] = $obj;
 	}
 	
 	/**

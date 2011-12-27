@@ -34,11 +34,20 @@ class Event {
 			return;
 		}
 		
-		//Check if the file exists
-		$actual_filename = Util::verify_filename($module . '/' . $filename);
-		if ($actual_filename == '') {
-			Logger::log('ERROR', 'Event', "Error registering event Type:($type) File:($filename) Module:($module). The file doesn't exist!");
-			return;
+		if (preg_match("/\\.php$/i", $filename)) {
+			$actual_filename = Util::verify_filename($module . '/' . $filename);
+			if ($actual_filename == '') {
+				Logger::log('ERROR', 'Event', "Error registering event Type:($type) File:($filename) Module:($module). The file doesn't exist!");
+				return;
+			}
+		} else {
+			list($name, $method) = explode(".", $filename);
+			$instance = $chatBot->repo[$name];
+			if ($instance === null) {
+				Logger::log('ERROR', 'Command', "Error registering method $filename for event type $type.  Could not find instance '$name'.");
+				return;
+			}
+			$actual_filename = $filename;
 		}
 		
 		if (isset($chatBot->existing_events[$type][$actual_filename])) {
@@ -69,11 +78,20 @@ class Event {
 		
 		Logger::log('DEBUG', 'Event', "Activating event Type:($type) File:($filename)");
 
-		//Check if the file exists
-		$actual_filename = Util::verify_filename($filename);
-		if ($actual_filename == '') {
-			Logger::log('ERROR', 'Event', "Error activating event Type:($type) File:($filename). The file doesn't exist!");
-			return;
+		if (preg_match("/\\.php$/i", $filename)) {
+			$actual_filename = Util::verify_filename($filename);
+			if ($actual_filename == '') {
+				Logger::log('ERROR', 'Event', "Error activating event Type:($type) File:($filename). The file doesn't exist!");
+				return;
+			}
+		} else {
+			list($name, $method) = explode(".", $filename);
+			$instance = $chatBot->repo[$name];
+			if ($instance === null) {
+				Logger::log('ERROR', 'Command', "Error activating method $filename for event type $type.  Could not find instance '$name'.");
+				return;
+			}
+			$actual_filename = $filename;
 		}
 		
 		if ($type == "setup") {
@@ -219,7 +237,17 @@ class Event {
 		global $chatBot;
 		$db = DB::get_instance();
 		
-		include $filename;
+		if (preg_match("/\\.php$/i", $filename)) {
+			require $filename;
+		} else {
+			list($name, $method) = explode(".", $filename);
+			$instance = $chatBot->repo[$name];
+			if ($instance === null) {
+				Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
+			} else {
+				$instance->$method($chatBot, $type);
+			}
+		}
 	}
 	
 	/*===============================
@@ -234,7 +262,17 @@ class Event {
 
 		// Check files, for all 'connect' events.
 		forEach ($chatBot->events['connect'] as $filename) {
-			require $filename;
+			if (preg_match("/\\.php$/i", $filename)) {
+				require $filename;
+			} else {
+				list($name, $method) = explode(".", $filename);
+				$instance = $chatBot->repo[$name];
+				if ($instance === null) {
+					Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
+				} else {
+					$instance->$method($chatBot, 'connect');
+				}
+			}
 		}
 	}
 }

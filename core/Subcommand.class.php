@@ -18,13 +18,22 @@ class Subcommand {
 			return;
 		}
 
-		//Check if the file exists
-		$actual_filename = Util::verify_filename($module . '/' . $filename);
-		if ($actual_filename == '') {
-			Logger::log('ERROR', 'Subcommand', "Error in registering the file $filename for Subcommand $command. The file doesn't exist!");
-			return;
+		if (preg_match("/\\.php$/i", $filename)) {
+			$actual_filename = Util::verify_filename($module . '/' . $filename);
+			if ($actual_filename == '') {
+				Logger::log('ERROR', 'Subcommand', "Error in registering the file $filename for Subcommand $command. The file doesn't exist!");
+				return;
+			}
+		} else {
+			list($name, $method) = explode(".", $filename);
+			$instance = $chatBot->repo[$name];
+			if ($instance === null) {
+				Logger::log('ERROR', 'Command', "Error registering method $filename for subcommand $command.  Could not find instance '$name'.");
+				return;
+			}
+			$actual_filename = $filename;
 		}
-		
+
 		if ($chatBot->vars['default_module_status'] == 1) {
 			$status = 1;
 		} else {
