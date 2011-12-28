@@ -10,7 +10,7 @@
 `verify` INT Default 1
 */
 
-class Help {
+class Help extends Annotation {
 
 	/**
 	 * @name: register

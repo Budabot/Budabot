@@ -1,6 +1,6 @@
 <?php
 
-class Command {
+class Command extends Annotation {
 
 	/**
 	 * @name: register

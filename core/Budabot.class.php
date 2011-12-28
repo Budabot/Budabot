@@ -1008,11 +1008,49 @@ class Budabot extends AOChat {
 		$chatBot->spam[$sender] = $chatBot->spam[$sender] + 10;
 	}
 	
-	public function registerInstance($name, &$obj) {
+	public function registerInstance($MODULE_NAME, $name, &$obj) {
+		Logger::log('DEBUG', 'CORE', "Registering instance name '$name' for module '$MODULE_NAME'");
 		if (isset($this->repo[$name])) {
 			Logger::log('WARN', 'CORE', "Instance with name '$name' already registered--replaced with new instance");
 		}
 		$this->repo[$name] = $obj;
+		forEach (get_class_methods($obj) as $method) {
+			$reflection = new ReflectionAnnotatedMethod($obj, $method);
+			if ($reflection->hasAnnotation('Command')) {
+				Command::register(
+					$MODULE_NAME,
+					$reflection->getAnnotation('Channels')->value,
+					$name . '.' . $method,
+					$reflection->getAnnotation('Command')->value,
+					$reflection->getAnnotation('AccessLevel')->value,
+					$reflection->getAnnotation('Description')->value,
+					$reflection->getAnnotation('Help')->value
+				);
+			}
+			if ($reflection->hasAnnotation('Subcommand')) {
+				list($parentCommand) = explode(" ", $reflection->getAnnotation('Subcommand')->value, 2);
+				Subcommand::register(
+					$MODULE_NAME,
+					$reflection->getAnnotation('Channels')->value,
+					$name . '.' . $method,
+					$reflection->getAnnotation('Subcommand')->value,
+					$reflection->getAnnotation('AccessLevel')->value,
+					$parentCommand,
+					$reflection->getAnnotation('Description')->value,
+					$reflection->getAnnotation('Help')->value
+				);
+			}
+			if ($reflection->hasAnnotation('Event')) {
+				Event::register(
+					$MODULE_NAME,
+					$reflection->getAnnotation('Event')->value,
+					$name . '.' . $method,
+					$reflection->getAnnotation('Description')->value,
+					$reflection->getAnnotation('Help')->value,
+					$reflection->getAnnotation('DefaultStatus')->value
+				);
+			}
+		}
 	}
 	
 	/**
@@ -1023,4 +1061,5 @@ class Budabot extends AOChat {
 		return time() >= $this->vars["logondelay"];
 	}
 }
+
 ?>

@@ -1,18 +1,13 @@
 <?php
 	require_once 'Worldnet.class.php';
-	
-	$chatBot->registerInstance('Worldnet', new Worldnet);
 
-	// since settings for channels are added dynamically, we need to add them manually
+	$chatBot->registerInstance($MODULE_NAME, 'Worldnet', new Worldnet);
+
+	// since settings for channels are added dynamically, we need to re-add them manually
 	$data = $db->query("SELECT * FROM settings_<myname> WHERE module = ? AND name LIKE ?", $MODULE_NAME, "%_channel");
 	forEach ($data as $row) {
 		Setting::add($row->module, $row->name, $row->description, $row->mode, $row->type, $row->value, $row->options, $row->intoptions, $row->admin, $row->help);
 	}
-
-	Event::register($MODULE_NAME, "extPriv", "Worldnet.incomingMessage", 'Relays incoming messages to the guild/private channel');
-	Event::register($MODULE_NAME, "logOn", "Worldnet.logon", 'Requests invite from worldnet bot');
-	Event::register($MODULE_NAME, "extJoinPrivRequest", "Worldnet.acceptInvite", 'Accepts invites from worldnet bot');
-	Event::register($MODULE_NAME, "connect", "Worldnet.connect", 'Adds worldnet bot to buddylist');
 
 	Setting::add($MODULE_NAME, 'worldnet_bot', 'Name of bot', 'edit', "text", "Worldnet", "Worldnet;Dnet", '', 'mod', 'worldnet');
 

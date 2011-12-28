@@ -33,6 +33,10 @@ class News {
 		return $msg;
 	}
 	
+	/**
+	 * @Event("logOn")
+	 * @Description("Sends a tell with news to players logging in")
+	 */
 	public function logon($chatBot, $type, $sender, $args) {
 		if (isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
 			$msg = $this->getNews();
@@ -42,6 +46,12 @@ class News {
 		}
 	}
 	
+	/**
+	 * @Command("news")
+	 * @Channels("")
+	 * @AccessLevel("all")
+	 * @Description("Show News")
+	 */
 	public function newsCommand($chatBot, $message, $channel, $sender, $sendto) {
 		if (!preg_match("/^news$/i", $message)) {
 			return false;
@@ -50,10 +60,16 @@ class News {
 		if ($msg == '') {
 			$msg = "No News recorded yet.";
 		}
-			
+
 		$chatBot->send($msg, $sendto);
 	}
 	
+	/**
+	 * @Subcommand("news add (.+)")
+	 * @Channels("")
+	 * @AccessLevel("rl")
+	 * @Description("Add a news entry")
+	 */
 	public function newsAddCommand($chatBot, $message, $channel, $sender, $sendto) {
 		$db = DB::get_instance();
 
@@ -68,6 +84,12 @@ class News {
 		}
 	}
 	
+	/**
+	 * @Subcommand("news rem (.+)")
+	 * @Channels("")
+	 * @AccessLevel("rl")
+	 * @Description("Remove a news entry")
+	 */
 	public function newsRemCommand($chatBot, $message, $channel, $sender, $sendto) {
 		$db = DB::get_instance();
 
@@ -86,6 +108,12 @@ class News {
 		}
 	}
 	
+	/**
+	 * @Subcommand("news sticky (.+)")
+	 * @Channels("")
+	 * @AccessLevel("rl")
+	 * @Description("Stickies a news entry")
+	 */
 	public function stickyCommand($chatBot, $message, $channel, $sender, $sendto) {
 		$db = DB::get_instance();
 
@@ -106,6 +134,12 @@ class News {
 		}
 	}
 	
+	/**
+	 * @Subcommand("news unsticky (.+)")
+	 * @Channels("")
+	 * @AccessLevel("rl")
+	 * @Description("Unstickies a news entry")
+	 */
 	public function unstickyCommand($chatBot, $message, $channel, $sender, $sendto) {
 		$db = DB::get_instance();
 

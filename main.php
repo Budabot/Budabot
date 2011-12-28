@@ -90,10 +90,12 @@ error_reporting(E_ERROR | E_PARSE);
 ini_set("log_errors", 1);
 ini_set("error_log", "./logs/{$vars['name']}.{$vars['dimension']}/php_errors.log");
 
-require_once "./core/AOChat.class.php";
-require_once "./core/Budabot.class.php";
-require_once "./core/DB.class.php";
-require_once "./core/xml.php";
+require_once './lib/addendum-0.4.1/annotations.php';
+require_once './core/annotations.php';
+require_once './core/AOChat.class.php';
+require_once './core/Budabot.class.php';
+require_once './core/DB.class.php';
+require_once './core/xml.php';
 require_once './core/MyCurl.class.php';
 require_once './core/Playfields.class.php';
 require_once './core/AccessLevel.class.php';

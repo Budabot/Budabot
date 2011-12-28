@@ -10,7 +10,7 @@
 `status` INT DEFAULT 1
 */
 
-class Event {
+class Event extends Annotation {
 
 	public static $EVENT_TYPES = array(
 		'msg','priv','extPriv','guild','joinPriv','extJoinPriv','leavePriv','extLeavePriv',

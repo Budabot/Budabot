@@ -1,6 +1,6 @@
 <?php
 
-class AccessLevel {
+class AccessLevel extends Annotation {
 	public static $ACCESS_LEVELS = array('none' => 0, 'superadmin' => 1,  'admin' => 2, 'mod' => 3, 'rl' => 4, 'leader' => 5, 'guild' => 6, 'member' => 7, 'all' => 8);
 	
 	/**

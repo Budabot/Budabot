@@ -1,6 +1,10 @@
 <?php
 
 class Worldnet {
+	/**
+	 * @Event("logOn")
+	 * @Description("Requests invite from worldnet bot")
+	 */
 	function logon($chatBot, $type, $sender) {
 		if (strtolower(Setting::get('worldnet_bot')) == strtolower($sender)) {
 			$msg = "!join";
@@ -9,16 +13,28 @@ class Worldnet {
 		}
 	}
 	
+	/**
+	 * @Event("connect")
+	 * @Description("Adds worldnet bot to buddylist")
+	 */
 	function connect($chatbot, $type) {
 		Buddylist::add(Setting::get('worldnet_bot'), 'worldnet');
 	}
 	
+	/**
+	 * @Event("extJoinPrivRequest")
+	 * @Description("Accepts invites from worldnet bot")
+	 */
 	function acceptInvite($chatBot, $type, $sender) {
 		if (strtolower(Setting::get('worldnet_bot')) == strtolower($sender)) {
 			$chatBot->privategroup_join($sender);
 		}
 	}
 	
+	/**
+	 * @Event("extPriv")
+	 * @Description("Relays incoming messages to the guild/private channel")
+	 */
 	function incomingMessage($chatBot, $type, $sender, $channel, $message) {
 		if (strtolower(Setting::get('worldnet_bot')) != strtolower($sender)) {
 			return;
