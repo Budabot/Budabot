@@ -25,7 +25,7 @@ if (preg_match("/^implant ([0-9]+)$/i", $message, $arr)) {
 		$clusterInfo = formatClusterBonuses($obj);
 		$link = Text::make_blob("ql $obj->ql", $clusterInfo);
 
-		$msg = "\nThe highest ql implant you can wear is $link which requires:\nTreatment: $obj->treatment\nAbility: $obj->ability";
+		$msg = "The highest ql implant you can wear is $link which requires <highlight>$obj->treatment Treatment<end> and <highlight>$obj->ability Ability<end>.";
 	}
 	$chatBot->send($msg, $sendto);
 } else {
