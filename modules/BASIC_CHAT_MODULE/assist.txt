@@ -1,7 +1,10 @@
-<header>::::: Creating an assist macro :::::<end>
+<header> :::::: Creating an assist macro :::::: <end>
 
-<highlight>Set a new assist<end>
+<highlight>To create an assist macro for a single person:<end>
 <tab><symbol>assist 'name'
 
-<highlight>Show current assist<end>
+<highlight>To create an assist macro for a multiple people:<end>
+<tab><symbol>assist 'name1' 'name2' 'name3' ...
+
+<highlight>To show the current assist:<end>
 <tab><symbol>assist
