@@ -1014,40 +1014,58 @@ class Budabot extends AOChat {
 			Logger::log('WARN', 'CORE', "Instance with name '$name' already registered--replaced with new instance");
 		}
 		$this->repo[$name] = $obj;
-		forEach (get_class_methods($obj) as $method) {
-			$reflection = new ReflectionAnnotatedMethod($obj, $method);
-			if ($reflection->hasAnnotation('Command')) {
+
+		// register commands, subcommands, events, and settings annotated on the class
+		$reflection = new ReflectionAnnotatedClass($obj);
+		forEach ($reflection->getProperties() as $property) {
+			if ($property->hasAnnotation('Setting')) {
+				Setting::add(
+					$MODULE_NAME,
+					$property->getAnnotation('Setting')->value,
+					$property->getAnnotation('Description')->value,
+					$property->getAnnotation('Visibility')->value,
+					$property->getAnnotation('Type')->value,
+					$obj->{$property->name},
+					$property->getAnnotation('Options')->value,
+					$property->getAnnotation('Intoptions')->value,
+					$property->getAnnotation('AccessLevel')->value,
+					$property->getAnnotation('Help')->value
+				);
+			}
+		}
+		forEach ($reflection->getMethods() as $method) {
+			if ($method->hasAnnotation('Command')) {
 				Command::register(
 					$MODULE_NAME,
-					$reflection->getAnnotation('Channels')->value,
-					$name . '.' . $method,
-					$reflection->getAnnotation('Command')->value,
-					$reflection->getAnnotation('AccessLevel')->value,
-					$reflection->getAnnotation('Description')->value,
-					$reflection->getAnnotation('Help')->value
+					$method->getAnnotation('Channels')->value,
+					$name . '.' . $method->name,
+					$method->getAnnotation('Command')->value,
+					$method->getAnnotation('AccessLevel')->value,
+					$method->getAnnotation('Description')->value,
+					$method->getAnnotation('Help')->value
 				);
 			}
-			if ($reflection->hasAnnotation('Subcommand')) {
-				list($parentCommand) = explode(" ", $reflection->getAnnotation('Subcommand')->value, 2);
+			if ($method->hasAnnotation('Subcommand')) {
+				list($parentCommand) = explode(" ", $method->getAnnotation('Subcommand')->value, 2);
 				Subcommand::register(
 					$MODULE_NAME,
-					$reflection->getAnnotation('Channels')->value,
-					$name . '.' . $method,
-					$reflection->getAnnotation('Subcommand')->value,
-					$reflection->getAnnotation('AccessLevel')->value,
+					$method->getAnnotation('Channels')->value,
+					$name . '.' . $method->name,
+					$method->getAnnotation('Subcommand')->value,
+					$method->getAnnotation('AccessLevel')->value,
 					$parentCommand,
-					$reflection->getAnnotation('Description')->value,
-					$reflection->getAnnotation('Help')->value
+					$method->getAnnotation('Description')->value,
+					$method->getAnnotation('Help')->value
 				);
 			}
-			if ($reflection->hasAnnotation('Event')) {
+			if ($method->hasAnnotation('Event')) {
 				Event::register(
 					$MODULE_NAME,
-					$reflection->getAnnotation('Event')->value,
-					$name . '.' . $method,
-					$reflection->getAnnotation('Description')->value,
-					$reflection->getAnnotation('Help')->value,
-					$reflection->getAnnotation('DefaultStatus')->value
+					$method->getAnnotation('Event')->value,
+					$name . '.' . $method->name,
+					$method->getAnnotation('Description')->value,
+					$method->getAnnotation('Help')->value,
+					$method->getAnnotation('DefaultStatus')->value
 				);
 			}
 		}

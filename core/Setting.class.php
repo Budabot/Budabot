@@ -33,7 +33,7 @@ access_level = access level that is needed for this setting (admin or mod)
 help = Helpfile for this setting
 */
 
-class Setting {
+class Setting extends Annotation {
 
 	/**
 	 * @name: add

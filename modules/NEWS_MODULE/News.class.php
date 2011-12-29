@@ -1,6 +1,22 @@
 <?php
 
 class News {
+	/**
+	 * @Setting("news")
+	 * @Description("Private channel news")
+	 * @Visibility("hide")
+	 * @Type("text")
+	 */
+	public $defaultNews = "Not set.";
+	
+	/**
+	 * @Setting("adminnews")
+	 * @Description("Current admin news")
+	 * @Visibility("hide")
+	 * @Type("text")
+	 */
+	public $defaultAdminNews = "Not set.";
+
 	public function getNews() {
 		$db = DB::get_instance();
 	

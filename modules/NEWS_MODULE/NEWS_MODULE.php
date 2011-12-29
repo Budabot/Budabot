@@ -1,6 +1,6 @@
 <?php
 	require_once 'News.class.php';
-	
+
 	$chatBot->registerInstance($MODULE_NAME, 'News', new News);
 
 	DB::add_table_replace('#__news', 'news');
@@ -9,8 +9,6 @@
 	// Set admin and user news
 	Command::register($MODULE_NAME, "", "set_news.php", "privnews", "rl", "Set news shown on private channel join");
 	Command::register($MODULE_NAME, "", "set_news.php", "adminnews", "mod", "Set news shown to admins on private channel join", 'privnews');
-	Setting::add($MODULE_NAME, "news", "Current news", "hide", "text", "Not set.");
-	Setting::add($MODULE_NAME, "adminnews", "Current admin news", "hide", "text", "Not set.");
 
 	// Help files
 	Help::register($MODULE_NAME, "news", "news.txt", "guild", "How to use news");

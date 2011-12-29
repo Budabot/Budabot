@@ -12,4 +12,12 @@ class DefaultStatus extends Annotation {
 
 }
 
+class Visibility extends Annotation {
+
+}
+
+class Type extends Annotation {
+
+}
+
 ?>
