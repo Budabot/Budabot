@@ -2,13 +2,15 @@
 
 class Subcommand extends Annotation {
 
+	/** @Inject */
+	public $db;
+
 	/**
 	 * @name: register
 	 * @description: Registers a subcommand
 	 */
-	public static function register($module, $channel, $filename, $command, $admin = 'all', $parent_command, $description = 'none', $help = '') {
+	public function register($module, $channel, $filename, $command, $admin = 'all', $parent_command, $description = 'none', $help = '') {
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
 
 		$command = strtolower($command);
 		$module = strtoupper($module);
@@ -45,10 +47,10 @@ class Subcommand extends Annotation {
 
 			if ($chatBot->existing_subcmds[$channel[$i]][$command] == true) {
 				$sql = "UPDATE cmdcfg_<myname> SET `module` = ?, `verify` = ?, `file` = ?, `description` = ?, `dependson` = ?, `help` = ? WHERE `cmd` = ? AND `type` = ?";
-				$db->exec($sql, $module, '1', $actual_filename, $description, $parent_command, $help, $command, $channel[$i]);
+				$this->db->exec($sql, $module, '1', $actual_filename, $description, $parent_command, $help, $command, $channel[$i]);
 			} else {
 				$sql = "INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `dependson`, `status`, `help`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-				$db->exec($sql, $module, $channel[$i], $actual_filename, $command, $admin[$i], $description, '1', 'subcmd', $parent_command, $status, $help);
+				$this->db->exec($sql, $module, $channel[$i], $actual_filename, $command, $admin[$i], $description, '1', 'subcmd', $parent_command, $status, $help);
 			}
 		}
 	}
@@ -57,13 +59,12 @@ class Subcommand extends Annotation {
 	 * @name: loadSubcommands
 	 * @description: Loads the active subcommands into memory and activates them
 	 */
-	public static function loadSubcommands() {
+	public function loadSubcommands() {
 		Logger::log('DEBUG', 'Subcommand', "Loading enabled subcommands");
 	
 	  	global $chatBot;
-		$db = $chatBot->getInstance('db');
 
-		$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd' AND `status` = 1");
+		$data = $this->db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd' AND `status` = 1");
 		forEach ($data as $row) {
 			$chatBot->subcommands[$row->dependson] []= $row;
 		}

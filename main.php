@@ -170,6 +170,7 @@ if (file_exists('upgrade.php')) {
 $chatBot = new Budabot($vars);
 $chatBot->registerInstance('CORE', 'db', $db);
 $chatBot->registerInstance('CORE', 'command', new Command);
+$chatBot->registerInstance('CORE', 'subcommand', new Subcommand);
 $chatBot->init();
 $chatBot->connectAO($vars['login'], $vars['password'], $server, $port);
 

@@ -6,14 +6,14 @@
 	Event::register($MODULE_NAME, "joinPriv", "topic_logon.php", "Show Topic when someone joins PrivChat");
 	Event::register($MODULE_NAME, "logOn", "topic_logon.php", "Show Topic on logon of members");
 	$command->register($MODULE_NAME, "", "topic.php", "topic", "all", "Show Topic");
-	Subcommand::register($MODULE_NAME, "", "topic_change.php", "topic (.+)", "leader", "topic", "Change Topic");
+	$subcommand->register($MODULE_NAME, "", "topic_change.php", "topic (.+)", "leader", "topic", "Change Topic");
 	Setting::add($MODULE_NAME, "topic", "Topic for Priv Channel", "noedit", "text", '');
 	Setting::add($MODULE_NAME, "topic_setby", "Character who set the topic", "noedit", "text", '');
 	Setting::add($MODULE_NAME, "topic_time", "Time the topic was set", "noedit", "text", '');
 
 	// Leader
 	$command->register($MODULE_NAME, "priv", "leader.php", "leader", "all", "Sets the Leader of the raid");
-	Subcommand::register($MODULE_NAME, "priv", "leader_set.php", "leader (.+)", "leader", "leader", "Set a specific Leader");
+	$subcommand->register($MODULE_NAME, "priv", "leader_set.php", "leader (.+)", "leader", "leader", "Set a specific Leader");
 	$command->register($MODULE_NAME, "", "leaderecho_cmd.php", "leaderecho", "leader", "Set if the text of the leader will be repeated", 'leader');
 	Event::register($MODULE_NAME, "priv", "leaderecho.php", "Repeats what the leader says in the color of leaderecho_color setting");
 	Event::register($MODULE_NAME, "leavePriv", "leader_leave.php", "Removes leader when the leader leaves the channel", 'leader');
@@ -23,9 +23,9 @@
 	// Assist
 	$command->register($MODULE_NAME, "", "assist.php", "assist", "all", "Shows an Assist macro");
 	CommandAlias::register($MODULE_NAME, "assist", "callers");
-	Subcommand::register($MODULE_NAME, "", "assist_set.php", "assist (.+)", "leader", "assist", "Set a new assist");
+	$subcommand->register($MODULE_NAME, "", "assist_set.php", "assist (.+)", "leader", "assist", "Set a new assist");
 	$command->register($MODULE_NAME, "", "healassist.php", "heal", "all", "Creates/showes an Doc Assist macro");
-	Subcommand::register($MODULE_NAME, "", "healassist_set.php", "heal (.+)", "leader", "heal", "Set a new Doc assist");
+	$subcommand->register($MODULE_NAME, "", "healassist_set.php", "heal (.+)", "leader", "heal", "Set a new Doc assist");
 	CommandAlias::register($MODULE_NAME, "heal", "healassist");
 
 	// Tell

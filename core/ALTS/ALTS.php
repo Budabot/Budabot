@@ -9,7 +9,7 @@
 	$command->register($MODULE_NAME, "", "altsadmin.php", "altsadmin", "mod", "Alt character handling (admin)");
 	$command->register($MODULE_NAME, "", "altscmd.php", "alts", "member", "Alt character handling");
 
-	Subcommand::register($MODULE_NAME, "", "alts_main.php", "alts main (.+)", "member", "alts", "Add yourself as an alt to a main", 'alts');
+	$subcommand->register($MODULE_NAME, "", "alts_main.php", "alts main (.+)", "member", "alts", "Add yourself as an alt to a main", 'alts');
 
 	Setting::add($MODULE_NAME, 'alts_inherit_admin', 'Alts inherit admin privileges from main', 'edit', "options", 0, "true;false", "1;0", 'mod');
 	Setting::add($MODULE_NAME, "validate_from_validated_alt", "Validate alts from any validated alt", "edit", "options", "1", "true;false", "1;0");
