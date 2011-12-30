@@ -11,7 +11,7 @@
 	$command->register($MODULE_NAME, "", "cluster.php", "cluster", "all", "cluster location");
 
 	// Help
-	Help::register($MODULE_NAME, "implant", "implant.txt", "all", "How to find implant stats given ql or player stats");
-	Help::register($MODULE_NAME, "premade", "premade_implant.txt", "guild", "How to search for premade implants");
-	Help::register($MODULE_NAME, "cluster", "cluster.txt", "all", "How to use cluster");
+	$help->register($MODULE_NAME, "implant", "implant.txt", "all", "How to find implant stats given ql or player stats");
+	$help->register($MODULE_NAME, "premade", "premade_implant.txt", "guild", "How to search for premade implants");
+	$help->register($MODULE_NAME, "cluster", "cluster.txt", "all", "How to use cluster");
 ?>

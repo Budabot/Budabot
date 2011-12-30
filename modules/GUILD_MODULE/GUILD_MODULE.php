@@ -27,14 +27,14 @@
 	Setting::add($MODULE_NAME, "max_logoff_msg_size", "Maximum characters a logoff message can have", "edit", "number", "200", "100;200;300;400", '', "mod");
 	Setting::add($MODULE_NAME, "first_and_last_alt_only", "Show logon/logoff for first/last alt only", "edit", "options", "0", "true;false", "1;0");
 	
-	Help::register($MODULE_NAME, "inactivemem", "inactivemem.txt", "rl", "Help on Checking for Inactive Members");
-	Help::register($MODULE_NAME, "updateorg", "updateorg.txt", "rl", "Force an update of org roster");
-	Help::register($MODULE_NAME, "lastseen", "lastseen.txt", "guild", "Check when an orgmember was online");
-	Help::register($MODULE_NAME, "logon", "logon_msg.txt", "guild", "Changing your logon message");
-	Help::register($MODULE_NAME, "logoff", "logoff_msg.txt", "guild", "Changing your logoff message");
-	Help::register($MODULE_NAME, "logonadmin", "logonadmin.txt", "mod", "Changing another character's logon message");
-	Help::register($MODULE_NAME, "logoffadmin", "logoffadmin.txt", "mod", "Changing another character's logoff message");
-	Help::register($MODULE_NAME, "notify", "notify.txt", "rl", "Add or remove a player from the notify list");
-	Help::register($MODULE_NAME, "tellall", "tellall.txt", "leader", "Send a tell to all online guild members");
-	Help::register($MODULE_NAME, "orghistory", "org_history.txt", "guild", "How to use orghistory");
+	$help->register($MODULE_NAME, "inactivemem", "inactivemem.txt", "rl", "Help on Checking for Inactive Members");
+	$help->register($MODULE_NAME, "updateorg", "updateorg.txt", "rl", "Force an update of org roster");
+	$help->register($MODULE_NAME, "lastseen", "lastseen.txt", "guild", "Check when an orgmember was online");
+	$help->register($MODULE_NAME, "logon", "logon_msg.txt", "guild", "Changing your logon message");
+	$help->register($MODULE_NAME, "logoff", "logoff_msg.txt", "guild", "Changing your logoff message");
+	$help->register($MODULE_NAME, "logonadmin", "logonadmin.txt", "mod", "Changing another character's logon message");
+	$help->register($MODULE_NAME, "logoffadmin", "logoffadmin.txt", "mod", "Changing another character's logoff message");
+	$help->register($MODULE_NAME, "notify", "notify.txt", "rl", "Add or remove a player from the notify list");
+	$help->register($MODULE_NAME, "tellall", "tellall.txt", "leader", "Send a tell to all online guild members");
+	$help->register($MODULE_NAME, "orghistory", "org_history.txt", "guild", "How to use orghistory");
 ?>

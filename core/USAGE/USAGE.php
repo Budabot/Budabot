@@ -11,5 +11,5 @@
 	Setting::add($MODULE_NAME, 'botid', 'Botid', 'noedit', 'text', '');
 	Setting::add($MODULE_NAME, 'last_submitted_stats', 'last_submitted_stats', 'noedit', 'text', 0);
 	
-	Help::register($MODULE_NAME, "usage", "usage.txt", "guild", "How to show usage stats");
+	$help->register($MODULE_NAME, "usage", "usage.txt", "guild", "How to show usage stats");
 ?>

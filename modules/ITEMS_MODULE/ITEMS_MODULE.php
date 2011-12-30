@@ -15,6 +15,6 @@
 	Setting::add($MODULE_NAME, 'maxitems', 'Number of Items shown on the list', 'edit', "number", '40', '30;40;50;60', "", "mod");
 
 	//Help files
-	Help::register($MODULE_NAME, "items", "items.txt", "guild", "How to search for an item.");
-	Help::register($MODULE_NAME, "updateitems", "updateitems.txt", "guild", "How to update your local items database");
+	$help->register($MODULE_NAME, "items", "items.txt", "guild", "How to search for an item.");
+	$help->register($MODULE_NAME, "updateitems", "updateitems.txt", "guild", "How to update your local items database");
 ?>

@@ -61,5 +61,5 @@
 	Setting::add($MODULE_NAME, 'irc_ignore', "Defines which characters to ignore", 'edit', "text", 'none', 'none');
 	
 	// Helpfiles
-	Help::register($MODULE_NAME, "irc", "irc_help.txt", "all", "How to use the IRC plugin");
+	$help->register($MODULE_NAME, "irc", "irc_help.txt", "all", "How to use the IRC plugin");
 ?>

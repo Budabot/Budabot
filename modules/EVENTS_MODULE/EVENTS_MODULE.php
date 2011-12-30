@@ -12,5 +12,5 @@
 	$event->register($MODULE_NAME, "logOn", "events_logon.php", "Show events to org members logging on");
 	$event->register($MODULE_NAME, "joinPriv", "events_logon.php", "Show events to characters joining the private channel");
 	
-	Help::register($MODULE_NAME, "events", "events.txt", "all", "Adding/editing/removing events");
+	$help->register($MODULE_NAME, "events", "events.txt", "all", "Adding/editing/removing events");
 ?>

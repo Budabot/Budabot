@@ -17,5 +17,5 @@
 	Setting::add($MODULE_NAME, 'default_neut_color', "default neut color", 'edit', "color", "<font color='#EEEEEE'>");
 	Setting::add($MODULE_NAME, 'default_unknown_color', "default unknown color", 'edit', "color", "<font color='#FF0000'>");
 
-	Help::register($MODULE_NAME, "settings", "settings.txt", "mod", "Change Settings of the Bot");
+	$help->register($MODULE_NAME, "settings", "settings.txt", "mod", "Change Settings of the Bot");
 ?>

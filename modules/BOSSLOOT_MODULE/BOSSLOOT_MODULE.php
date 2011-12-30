@@ -16,5 +16,5 @@
 	$command->register($MODULE_NAME, "", "boss.php", "boss", "all", "Show bosses and their loot");
 	$command->register($MODULE_NAME, "", "bossloot.php", "bossloot", "all", "Find which boss drops certain loot", 'boss');
 	
-	Help::register($MODULE_NAME, "boss", "boss.txt", "all", "How to search for bosses and bossloots");
+	$help->register($MODULE_NAME, "boss", "boss.txt", "all", "How to search for bosses and bossloots");
 ?>

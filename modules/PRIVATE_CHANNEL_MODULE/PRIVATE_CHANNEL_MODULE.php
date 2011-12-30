@@ -38,10 +38,10 @@
 	$event->register($MODULE_NAME, "leavePriv", "record_priv_leave.php", "Updates the database when a character leaves the private channel");
 	$event->register($MODULE_NAME, "joinPriv", "send_online_list.php", "Sends the online list to people as they join the private channel");
 
-    Help::register($MODULE_NAME, "private_channel", "private_channel.txt", "guild", "Private channel commands");
-	Help::register($MODULE_NAME, "kickall", "kickall.txt", "raidleader", "Kick all players from the Bot");
-	Help::register($MODULE_NAME, "lock", "lock.txt", "raidleader", "Lock and unlock the private channel");
-	Help::register($MODULE_NAME, "count", "count.txt", "all", "How to use count");
-	Help::register($MODULE_NAME, "accept", "accept.txt", "mod", "How to accept a private channel invitation from another character");
-	Help::register($MODULE_NAME, "autoinvite", "autoinvite.txt", "member", "How to change your autoinvite preference");
+    $help->register($MODULE_NAME, "private_channel", "private_channel.txt", "guild", "Private channel commands");
+	$help->register($MODULE_NAME, "kickall", "kickall.txt", "raidleader", "Kick all players from the Bot");
+	$help->register($MODULE_NAME, "lock", "lock.txt", "raidleader", "Lock and unlock the private channel");
+	$help->register($MODULE_NAME, "count", "count.txt", "all", "How to use count");
+	$help->register($MODULE_NAME, "accept", "accept.txt", "mod", "How to accept a private channel invitation from another character");
+	$help->register($MODULE_NAME, "autoinvite", "autoinvite.txt", "member", "How to change your autoinvite preference");
 ?>

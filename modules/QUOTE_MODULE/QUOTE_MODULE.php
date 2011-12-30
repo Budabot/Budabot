@@ -8,5 +8,5 @@
 	Setting::add($MODULE_NAME, "quote_stat_count", "Number of users shown in stats", "edit", "number", "10");
 
 	//Help files
-	Help::register($MODULE_NAME, "quote", "quote.txt", "guild", "How to add/remove/view quotes");
+	$help->register($MODULE_NAME, "quote", "quote.txt", "guild", "How to add/remove/view quotes");
 ?>

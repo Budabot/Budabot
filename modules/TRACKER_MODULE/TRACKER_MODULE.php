@@ -9,5 +9,5 @@
 	$event->register($MODULE_NAME, "logOn", "logon.php", "Records when a tracked user logs on");
 	$event->register($MODULE_NAME, "logOff", "logoff.php", "Records when a tracked user logs off");
 	
-	Help::register($MODULE_NAME, "track", "track.txt", "guild", "How to track players");
+	$help->register($MODULE_NAME, "track", "track.txt", "guild", "How to track players");
 ?>

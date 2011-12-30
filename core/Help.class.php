@@ -12,13 +12,15 @@
 
 class Help extends Annotation {
 
+	/** @Inject */
+	public $db;
+
 	/**
 	 * @name: register
 	 * @description: Registers a help command
 	 */
-	public static function register($module, $command, $filename, $admin, $description) {
+	public function register($module, $command, $filename, $admin, $description) {
 	  	global $chatBot;
-		$db = $chatBot->getInstance('db');
 		
 		Logger::log('DEBUG', 'Help', "Registering $module:help($command) Helpfile:($filename)");
 
@@ -33,13 +35,13 @@ class Help extends Annotation {
 
 		if (isset($chatBot->existing_helps[$command])) {
 			$sql = "UPDATE hlpcfg_<myname> SET `verify` = 1, `file` = ?, `module` = ?, `description` = ? WHERE `name` = ?";
-			$db->exec($sql, $actual_filename, $module, $description, $command);
+			$this->db->exec($sql, $actual_filename, $module, $description, $command);
 		} else {
 			$sql = "INSERT INTO hlpcfg_<myname> (`name`, `module`, `file`, `description`, `admin`, `verify`) VALUES (?, ?, ?, ?, ?, ?)";
-			$db->exec($sql, $command, $module, $actual_filename, $description, $admin, '1');
+			$this->db->exec($sql, $command, $module, $actual_filename, $description, $admin, '1');
 		}
 
-		$row = $db->queryRow("SELECT * FROM hlpcfg_<myname> WHERE `name` = ?", $command);
+		$row = $this->db->queryRow("SELECT * FROM hlpcfg_<myname> WHERE `name` = ?", $command);
 		$chatBot->helpfiles[$command]["filename"] = $actual_filename;
 		$chatBot->helpfiles[$command]["admin"] = $row->admin;
 		$chatBot->helpfiles[$command]["info"] = $description;
@@ -54,7 +56,7 @@ class Help extends Annotation {
 	 * @name: find
 	 * @description: Find a help topic by name if it exists and if the user has permissions to see it
 	 */
-	public static function find($helpcmd, $char) {
+	public function find($helpcmd, $char) {
 		global $chatBot;
 	
 		$helpcmd = strtolower($helpcmd);

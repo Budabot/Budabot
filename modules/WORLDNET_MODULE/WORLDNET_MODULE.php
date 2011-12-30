@@ -16,5 +16,5 @@
 	Setting::add($MODULE_NAME, 'worldnet_message_color', "Color of message text in worldnet messages", 'edit', "color", "<font color='#FFFFFF'>");
 	Setting::add($MODULE_NAME, 'worldnet_sender_color', "Color of sender text in worldnet messages", 'edit', "color", "<font color='#FFFFFF'>");
 
-	Help::register($MODULE_NAME, "worldnet", "worldnet.txt", "all", "How to use Worldnet");
+	$help->register($MODULE_NAME, "worldnet", "worldnet.txt", "all", "How to use Worldnet");
 ?>

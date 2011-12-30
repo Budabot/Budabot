@@ -4,6 +4,6 @@
 	
 	Setting::add($MODULE_NAME, 'max_shopping_results', 'Number of Items shown for wtb/wts', 'edit', "number", '20', '10;15;20;25', "", "mod");
 	
-	Help::register($MODULE_NAME, "shopping", "shopping.txt", "guild", "How to use wtb/wts");
+	$help->register($MODULE_NAME, "shopping", "shopping.txt", "guild", "How to use wtb/wts");
 
 ?>

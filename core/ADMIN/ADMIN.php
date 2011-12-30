@@ -30,6 +30,6 @@
 	$event->activate("connect", "$MODULE_NAME/check_admins.php");
 	$event->activate("setup", "$MODULE_NAME/upload_admins.php");
 
-	Help::register($MODULE_NAME, "admin", "admin.txt", "mod", "Mod/admin help file");
-	Help::register($MODULE_NAME, "alts_inherit_admin", "alts_inherit_admin.txt", "mod", "Alts inherit admin privileges from main");
+	$help->register($MODULE_NAME, "admin", "admin.txt", "mod", "Mod/admin help file");
+	$help->register($MODULE_NAME, "alts_inherit_admin", "alts_inherit_admin.txt", "mod", "Alts inherit admin privileges from main");
 ?>

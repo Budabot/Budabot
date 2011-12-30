@@ -16,5 +16,5 @@
 	$command->register($MODULE_NAME, "", "brain.php", "brain", "all", "Shows a random pinky and the brain quote message", 'fun_module');
 	CommandAlias::register($MODULE_NAME, "brain", "pinky");
 
-	Help::register($MODULE_NAME, "fun_module", "fun_module.txt", "all", 'Fun Commands');
+	$help->register($MODULE_NAME, "fun_module", "fun_module.txt", "all", 'Fun Commands');
 ?>

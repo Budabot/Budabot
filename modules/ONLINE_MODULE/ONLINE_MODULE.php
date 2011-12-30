@@ -32,6 +32,6 @@
 	$event->register($MODULE_NAME, "logOn", "logonline.php", "Sends a tell to players on logon showing who is online in org");
 
 	// Help files
-	Help::register($MODULE_NAME, "online", "online.txt", "member", "Show who is on from the guild");
-	Help::register($MODULE_NAME, "afk", "afk.txt", "member", "Going AFK");
+	$help->register($MODULE_NAME, "online", "online.txt", "member", "Show who is on from the guild");
+	$help->register($MODULE_NAME, "afk", "afk.txt", "member", "Going AFK");
 ?>

@@ -13,10 +13,10 @@
 	$event->register($MODULE_NAME, "logOn", "is_online_check.php", "Gets online status of player");
 	$event->register($MODULE_NAME, "logOff", "is_online_check.php", "Gets offline status of player");
 
-	Help::register($MODULE_NAME, "orglist", "orglist.txt", "guild", "See who is online from someones org");
-	Help::register($MODULE_NAME, "findorg", "findorg.txt", "all", "Find an org by name");
-	Help::register($MODULE_NAME, "is", "isonline.txt", "guild", "Checking if a player is online");
-	Help::register($MODULE_NAME, "orgmembers", "orgmembers.txt", "guild", "How to use orgmembers");
-	Help::register($MODULE_NAME, "orgranks", "orgranks.txt", "guild", "How to use orgranks");
-	Help::register($MODULE_NAME, "whoisorg", "whoisorg.txt", "guild", "How to see basic info about an org");
+	$help->register($MODULE_NAME, "orglist", "orglist.txt", "guild", "See who is online from someones org");
+	$help->register($MODULE_NAME, "findorg", "findorg.txt", "all", "Find an org by name");
+	$help->register($MODULE_NAME, "is", "isonline.txt", "guild", "Checking if a player is online");
+	$help->register($MODULE_NAME, "orgmembers", "orgmembers.txt", "guild", "How to use orgmembers");
+	$help->register($MODULE_NAME, "orgranks", "orgranks.txt", "guild", "How to use orgranks");
+	$help->register($MODULE_NAME, "whoisorg", "whoisorg.txt", "guild", "How to see basic info about an org");
 ?>

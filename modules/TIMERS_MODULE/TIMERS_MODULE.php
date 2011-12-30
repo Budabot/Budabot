@@ -13,6 +13,6 @@
 
 	$event->register($MODULE_NAME, "2sec", "timers_check.php", "Checks timers and periodically updates chat with time left");
 
-	Help::register($MODULE_NAME, "timers", "timers.txt", "guild", "How to create and show timers");
-	Help::register($MODULE_NAME, "countdown", "countdown.txt", "guild", "How to create a 5 second countdown timer");
+	$help->register($MODULE_NAME, "timers", "timers.txt", "guild", "How to create and show timers");
+	$help->register($MODULE_NAME, "countdown", "countdown.txt", "guild", "How to create a 5 second countdown timer");
 ?>

@@ -275,6 +275,7 @@ class Budabot extends AOChat {
 		$command = $this->getInstance('command');
 		$subcommand = $this->getInstance('subcommand');
 		$event = $this->getInstance('event');
+		$help = $this->getInstance('help');
 
 		// Load the Core Modules -- SETINGS must be first in case the other modules have settings
 		Logger::log('INFO', 'Core', "Loading CORE modules...");
@@ -297,6 +298,7 @@ class Budabot extends AOChat {
 		$command = $this->getInstance('command');
 		$subcommand = $this->getInstance('subcommand');
 		$event = $this->getInstance('event');
+		$help = $this->getInstance('help');
 
 		if ($d = dir("./modules")) {
 			while (false !== ($MODULE_NAME = $d->read())) {
@@ -1004,10 +1006,10 @@ class Budabot extends AOChat {
 			$results = $chatBot->getInstance('command')->get($cmd, $type);
 			$result = $results[0];
 			if ($result->help != '') {
-				$blob = Help::find($result->help, $sender);
+				$blob = $chatBot->getInstance('help')->find($result->help, $sender);
 				$helpcmd = ucfirst($result->help);
 			} else {
-				$blob = Help::find($cmd, $sender);
+				$blob = $chatBot->getInstance('help')->find($cmd, $sender);
 				$helpcmd = ucfirst($cmd);
 			}
 			if ($blob !== false) {

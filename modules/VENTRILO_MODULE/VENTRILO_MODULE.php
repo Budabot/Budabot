@@ -12,5 +12,5 @@
 	Setting::add($MODULE_NAME, "showventpassword", "Show password with vent info?", "edit", "options", "1", "true;false", "1;0");
 	Setting::add($MODULE_NAME, "showextendedinfo", "Show extended vent server info?", "edit", "options", "1", "true;false", "1;0");
 
-	Help::register($MODULE_NAME, "vent", "vent.txt", "guild", "How to see who is in the ventrilo channel");
+	$help->register($MODULE_NAME, "vent", "vent.txt", "guild", "How to see who is in the ventrilo channel");
 ?>

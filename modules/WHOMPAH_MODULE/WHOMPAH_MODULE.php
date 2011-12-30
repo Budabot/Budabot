@@ -8,5 +8,5 @@
 	CommandAlias::register($MODULE_NAME, 'whompah', 'whompa');
 	CommandAlias::register($MODULE_NAME, 'whompah', 'whompas');
 	
-	Help::register($MODULE_NAME, "whompah", "whompah.txt", "all", "How to find the whompah route from one city to another");
+	$help->register($MODULE_NAME, "whompah", "whompah.txt", "all", "How to find the whompah route from one city to another");
 ?>

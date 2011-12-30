@@ -23,8 +23,8 @@
 	CommandAlias::register($MODULE_NAME, "capxp", "capsk");
 
 	// Help files
-    Help::register($MODULE_NAME, "level", "level.txt", "all", "How to use level");
-    Help::register($MODULE_NAME, "missions", "missions.txt", "all", "Who can roll a specific QL of a mission");
-	Help::register($MODULE_NAME, "xp", "xp.txt", "all", "XP/SK/AXP Info");
-	Help::register($MODULE_NAME, "capxp", "capxp.txt", "all", "Set your reasearch bar for max xp/sk");
+    $help->register($MODULE_NAME, "level", "level.txt", "all", "How to use level");
+    $help->register($MODULE_NAME, "missions", "missions.txt", "all", "Who can roll a specific QL of a mission");
+	$help->register($MODULE_NAME, "xp", "xp.txt", "all", "XP/SK/AXP Info");
+	$help->register($MODULE_NAME, "capxp", "capxp.txt", "all", "Set your reasearch bar for max xp/sk");
 ?>

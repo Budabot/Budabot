@@ -451,7 +451,7 @@ if (preg_match("/^config$/i", $message)) {
 			$list[] = array("header" => "<header> ::: Subcommands ::: <end>\n\n", "content" => $subcmd_list);
 		}
 		
-		$help = Help::find($cmd, $sender);
+		$help = $chatBot->getInstance('help')->find($cmd, $sender);
 		if ($help) {
 			$list[] = $help;
 		}

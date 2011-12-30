@@ -18,16 +18,16 @@
 	$command->register($MODULE_NAME, "", "specials.php", "specials", "all", "shows how much skill you need to cap specials recycle");
 
 	//Helpiles
-	Help::register($MODULE_NAME, "aggdef", "aggdef.txt", "all", "How to use aggdef");
-	Help::register($MODULE_NAME, "nanoinit", "nanoinit.txt", "all", "How to use nanoinit");
-	Help::register($MODULE_NAME, "as", "as.txt", "all", "How to use as");
-	Help::register($MODULE_NAME, "fullauto", "fullauto.txt", "all", "How to use fullauto");
-	Help::register($MODULE_NAME, "fling", "fling.txt", "all", "How to use fling");
-	Help::register($MODULE_NAME, "burst", "burst.txt", "all", "How to use burst");
-	Help::register($MODULE_NAME, "mafist", "mafist.txt", "all", "How to use mafist");
-	Help::register($MODULE_NAME, "brawl", "brawl.txt", "all", "How to use brawl");
-	Help::register($MODULE_NAME, "dimach", "dimach.txt", "all", "How to use dimach");
-	Help::register($MODULE_NAME, "fastattack", "fastattack.txt", "all", "How to use fastattack");
-	Help::register($MODULE_NAME, "inits", "inits.txt", "all", "How to use inits");
-	Help::register($MODULE_NAME, "specials", "specials.txt", "all", "How to use specials");
+	$help->register($MODULE_NAME, "aggdef", "aggdef.txt", "all", "How to use aggdef");
+	$help->register($MODULE_NAME, "nanoinit", "nanoinit.txt", "all", "How to use nanoinit");
+	$help->register($MODULE_NAME, "as", "as.txt", "all", "How to use as");
+	$help->register($MODULE_NAME, "fullauto", "fullauto.txt", "all", "How to use fullauto");
+	$help->register($MODULE_NAME, "fling", "fling.txt", "all", "How to use fling");
+	$help->register($MODULE_NAME, "burst", "burst.txt", "all", "How to use burst");
+	$help->register($MODULE_NAME, "mafist", "mafist.txt", "all", "How to use mafist");
+	$help->register($MODULE_NAME, "brawl", "brawl.txt", "all", "How to use brawl");
+	$help->register($MODULE_NAME, "dimach", "dimach.txt", "all", "How to use dimach");
+	$help->register($MODULE_NAME, "fastattack", "fastattack.txt", "all", "How to use fastattack");
+	$help->register($MODULE_NAME, "inits", "inits.txt", "all", "How to use inits");
+	$help->register($MODULE_NAME, "specials", "specials.txt", "all", "How to use specials");
 ?>

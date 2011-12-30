@@ -14,6 +14,6 @@
 	Setting::add($MODULE_NAME, "ts_server", "IP/Domain name of the TS server", "edit", "text", '127.0.0.1', '127.0.0.1');
 
 	//Help files
-	Help::register($MODULE_NAME, "ts", "ts.txt", "guild", "How to use teamspeak");
-	Help::register($MODULE_NAME, "aospeak", "aospeak.txt", "guild", "How to use AOSpeak");
+	$help->register($MODULE_NAME, "ts", "ts.txt", "guild", "How to use teamspeak");
+	$help->register($MODULE_NAME, "aospeak", "aospeak.txt", "guild", "How to use AOSpeak");
 ?>

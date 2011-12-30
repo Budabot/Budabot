@@ -12,5 +12,5 @@
 	
 	Setting::add($MODULE_NAME, "notify_banned_player", "Notify player when banned from bot", "edit", "options", "1", "true;false", "1;0");
 	
-	Help::register($MODULE_NAME, "ban", "ban.txt", "mod", "Ban a person from the bot");
+	$help->register($MODULE_NAME, "ban", "ban.txt", "mod", "Ban a person from the bot");
 ?>

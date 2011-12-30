@@ -10,6 +10,6 @@
 	
 	$event->register($MODULE_NAME, "2sec", "votes_check.php", "Checks timer and periodically updates chat with time left on vote");
 	
-	Help::register($MODULE_NAME, "vote", "vote.txt", "all", "Vote/Polling");
-	Help::register($MODULE_NAME, "votesettings", "votesettings.txt", "mod", "Vote Settings");
+	$help->register($MODULE_NAME, "vote", "vote.txt", "all", "Vote/Polling");
+	$help->register($MODULE_NAME, "votesettings", "votesettings.txt", "mod", "Vote Settings");
 ?>

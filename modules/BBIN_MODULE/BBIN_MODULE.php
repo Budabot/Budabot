@@ -60,5 +60,5 @@
 	Setting::add($MODULE_NAME, "bbin_password", "IRC password to join channel", "edit", "text", "none", "none");
 	
 	//Helpfiles
-	Help::register($MODULE_NAME, "bbin", "bbin_help.txt", "all", "How to use the BBIN plugin");
+	$help->register($MODULE_NAME, "bbin", "bbin_help.txt", "all", "How to use the BBIN plugin");
 ?>

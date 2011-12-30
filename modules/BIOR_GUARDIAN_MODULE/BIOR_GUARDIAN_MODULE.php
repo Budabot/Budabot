@@ -14,8 +14,8 @@
 	Setting::add($MODULE_NAME, "bior_max", "Max Persons that are shown on BioR list", "edit", "number", "10", "10;15;20;25;30", '', "mod");
 	Setting::add($MODULE_NAME, "guard_max", "Max Persons that are shown on Guard list", "edit", "number", "10", "10;15;20;25;30", '', "mod");
 
-	Help::register($MODULE_NAME, "guard", "guard.txt", "all", "Guardian Macro and List");
-	Help::register($MODULE_NAME, "guard_max", "guard_max.txt", "mod", "Set the max numbers of players on the Guardian List");
-	Help::register($MODULE_NAME, "bior", "bior.txt", "all", "Bio Regrowth Macro and List");
-	Help::register($MODULE_NAME, "bior_max", "bior_max.txt", "mod", "Set the max numbers of players on the Bio Regrowth List");
+	$help->register($MODULE_NAME, "guard", "guard.txt", "all", "Guardian Macro and List");
+	$help->register($MODULE_NAME, "guard_max", "guard_max.txt", "mod", "Set the max numbers of players on the Guardian List");
+	$help->register($MODULE_NAME, "bior", "bior.txt", "all", "Bio Regrowth Macro and List");
+	$help->register($MODULE_NAME, "bior_max", "bior_max.txt", "mod", "Set the max numbers of players on the Bio Regrowth List");
 ?>

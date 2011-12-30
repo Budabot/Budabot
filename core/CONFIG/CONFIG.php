@@ -11,9 +11,9 @@
 	$command->register($MODULE_NAME, "", "cmdsearch.php", "cmdsearch", "all", "Find commands based on key words");
 	CommandAlias::register($MODULE_NAME, "cmdsearch", "searchcmd");
 
-	Help::register($MODULE_NAME, "config", "config.txt", "mod", "Configure Commands/Events of the Bot");
-	Help::register($MODULE_NAME, "alias", "alias.txt", "mod", "How to add and remove aliases");
-	Help::register($MODULE_NAME, "cmdsearch", "cmdsearch.txt", "all", "How to find a command base on key words");
-	Help::register($MODULE_NAME, "eventlist", "eventlist.txt", "guild", "How to see list of all events");
-	Help::register($MODULE_NAME, "cmdlist", "cmdlist.txt", "guild", "How to see list of all commands");
+	$help->register($MODULE_NAME, "config", "config.txt", "mod", "Configure Commands/Events of the Bot");
+	$help->register($MODULE_NAME, "alias", "alias.txt", "mod", "How to add and remove aliases");
+	$help->register($MODULE_NAME, "cmdsearch", "cmdsearch.txt", "all", "How to find a command base on key words");
+	$help->register($MODULE_NAME, "eventlist", "eventlist.txt", "guild", "How to see list of all events");
+	$help->register($MODULE_NAME, "cmdlist", "cmdlist.txt", "guild", "How to see list of all commands");
 ?>

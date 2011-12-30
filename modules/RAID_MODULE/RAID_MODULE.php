@@ -62,12 +62,11 @@
 	Setting::add($MODULE_NAME, "add_on_loot", "Adding to loot show on", "edit", "options", "2", "tells;privatechat;privatechat and tells", '1;2;3', "mod");
 
 	// Help files
-	Help::register($MODULE_NAME, "add_rem", "add_rem.txt", "all", "Adding to a lootitem");
-	Help::register($MODULE_NAME, "flatroll", "flatroll.txt", "leader", "Flatroll an item");
-	
-	Help::register($MODULE_NAME, "apfloot", "apfloot.txt", "guild", "Show the Loots of the APF");
-	Help::register($MODULE_NAME, "dbloot", "dbloot.txt", "all", "Loot manager for DB1/DB2 Instance");
-	Help::register($MODULE_NAME, "pande", "pande.txt", "all", "Loot manager for Pandemonium Raid loot");
-	Help::register($MODULE_NAME, "albloot", "albloot.txt", "all", "Loot manager for Albtraum Instance");
-	Help::register($MODULE_NAME, "xan", "xan.txt", "all", "Loot manager for Xan playfield");
+	$help->register($MODULE_NAME, "add_rem", "add_rem.txt", "all", "Adding to a lootitem");
+	$help->register($MODULE_NAME, "flatroll", "flatroll.txt", "leader", "Flatroll an item");
+	$help->register($MODULE_NAME, "apfloot", "apfloot.txt", "guild", "Show the Loots of the APF");
+	$help->register($MODULE_NAME, "dbloot", "dbloot.txt", "all", "Loot manager for DB1/DB2 Instance");
+	$help->register($MODULE_NAME, "pande", "pande.txt", "all", "Loot manager for Pandemonium Raid loot");
+	$help->register($MODULE_NAME, "albloot", "albloot.txt", "all", "Loot manager for Albtraum Instance");
+	$help->register($MODULE_NAME, "xan", "xan.txt", "all", "Loot manager for Xan playfield");
 ?>

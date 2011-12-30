@@ -16,11 +16,11 @@
 
 	$command->register($MODULE_NAME, "", "leprocs.php", "leprocs", "all", "Shows the LE Procs for a particular profession");
 
-    Help::register($MODULE_NAME, "bio", "bio.txt", "all", "Identify an Biomaterial");
-	Help::register($MODULE_NAME, "bioinfo", "bioinfo.txt", "all", "How to find info on a bio type");
-    Help::register($MODULE_NAME, "aiarmor", "aiarmor.txt", "all", "Alien armor Tradeskillprocess");
-	Help::register($MODULE_NAME, "aigen", "aigen.txt", "all", "Alien City Generals Info");
-	Help::register($MODULE_NAME, "leprocs", "leprocs.txt", "all", "How to use leprocs");
-	Help::register($MODULE_NAME, "ofabarmor", "ofabarmor.txt", "all", "How to use ofabarmor");
-	Help::register($MODULE_NAME, "ofabweapons", "ofabweapons.txt", "all", "How to use ofabweapons");
+    $help->register($MODULE_NAME, "bio", "bio.txt", "all", "Identify an Biomaterial");
+	$help->register($MODULE_NAME, "bioinfo", "bioinfo.txt", "all", "How to find info on a bio type");
+    $help->register($MODULE_NAME, "aiarmor", "aiarmor.txt", "all", "Alien armor Tradeskillprocess");
+	$help->register($MODULE_NAME, "aigen", "aigen.txt", "all", "Alien City Generals Info");
+	$help->register($MODULE_NAME, "leprocs", "leprocs.txt", "all", "How to use leprocs");
+	$help->register($MODULE_NAME, "ofabarmor", "ofabarmor.txt", "all", "How to use ofabarmor");
+	$help->register($MODULE_NAME, "ofabweapons", "ofabweapons.txt", "all", "How to use ofabweapons");
 ?>

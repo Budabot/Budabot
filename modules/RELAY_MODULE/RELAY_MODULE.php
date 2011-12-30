@@ -35,6 +35,6 @@
 	Setting::add($MODULE_NAME, 'relay_color_priv', "Color of messages from relay to private channel", 'edit', "color", "<font color='#C3C3C3'>");
 	Setting::add($MODULE_NAME, 'relay_guild_abbreviation', 'Abbreviation to use for org name', 'edit', 'text', 'none', 'none');
 	
-	Help::register($MODULE_NAME, "tellrelay", "tellrelay.txt", "mod", "How to setup an org relay between two orgs using tells");
-	Help::register($MODULE_NAME, "relaybot", "relaybot.txt", "mod", "Set the bot that this bot will relay with");
+	$help->register($MODULE_NAME, "tellrelay", "tellrelay.txt", "mod", "How to setup an org relay between two orgs using tells");
+	$help->register($MODULE_NAME, "relaybot", "relaybot.txt", "mod", "Set the bot that this bot will relay with");
 ?>

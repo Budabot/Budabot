@@ -48,13 +48,13 @@
 	global $version;
 	Setting::save('version', $version);
 
-	Help::register($MODULE_NAME, "system", "system.txt", "admin", "Admin System Help file");
-	Help::register($MODULE_NAME, "guild_admin_rank", "guild_admin_rank.txt", "mod", "Change what guild rank is considered a guild admin");
-	Help::register($MODULE_NAME, "spam_protection", "spam_protection.txt", "mod", "Enable or disable the spam protection");
-	Help::register($MODULE_NAME, "max_blob_size", "max_blob_size.txt", "mod", "Set the maximum blob size");
-	Help::register($MODULE_NAME, "checkaccess", "checkaccess.txt", "all", "How to get effective access level of a character");
-	Help::register($MODULE_NAME, "loadsql", "loadsql.txt", "mod", "How to manually load an sql file");
-	Help::register($MODULE_NAME, "clearqueue", "clearqueue.txt", "mod", "How to clear the outgoing chat message queue");
-	Help::register($MODULE_NAME, "budatime", "budatime.txt", "all", "Format for budatime");
-	Help::register($MODULE_NAME, "macro", "macro.txt", "all", "How to execute multiple commands at once");
+	$help->register($MODULE_NAME, "system", "system.txt", "admin", "Admin System Help file");
+	$help->register($MODULE_NAME, "guild_admin_rank", "guild_admin_rank.txt", "mod", "Change what guild rank is considered a guild admin");
+	$help->register($MODULE_NAME, "spam_protection", "spam_protection.txt", "mod", "Enable or disable the spam protection");
+	$help->register($MODULE_NAME, "max_blob_size", "max_blob_size.txt", "mod", "Set the maximum blob size");
+	$help->register($MODULE_NAME, "checkaccess", "checkaccess.txt", "all", "How to get effective access level of a character");
+	$help->register($MODULE_NAME, "loadsql", "loadsql.txt", "mod", "How to manually load an sql file");
+	$help->register($MODULE_NAME, "clearqueue", "clearqueue.txt", "mod", "How to clear the outgoing chat message queue");
+	$help->register($MODULE_NAME, "budatime", "budatime.txt", "all", "Format for budatime");
+	$help->register($MODULE_NAME, "macro", "macro.txt", "all", "How to execute multiple commands at once");
 ?>
