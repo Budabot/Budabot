@@ -1,8 +1,8 @@
 <?php 
 	require_once 'Ban.class.php';
 	
-	Event::activate("setup", "$MODULE_NAME/setup.php");
-	Event::activate("1min", "$MODULE_NAME/check_tempban.php");
+	$event->activate("setup", "$MODULE_NAME/setup.php");
+	$event->activate("1min", "$MODULE_NAME/check_tempban.php");
 
 	$command->register($MODULE_NAME, "", "unban.php", "unban", "mod", "Unban a player from this bot", 'ban');
 	$command->register($MODULE_NAME, "", "unban.php", "unbanorg", "mod", "Unban a player from this bot", 'ban');

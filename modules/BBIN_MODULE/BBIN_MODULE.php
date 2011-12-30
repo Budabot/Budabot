@@ -30,7 +30,7 @@
 	// Setup
 	$db->loadSQLFile($MODULE_NAME, "bbin_chatlist");
 	
-	Event::register($MODULE_NAME, "1min", "set_bbin_link.php", "Automatically reconnect to IRC server", '', 0);
+	$event->register($MODULE_NAME, "1min", "set_bbin_link.php", "Automatically reconnect to IRC server", '', 0);
 	
 	//Commands
 	$command->register($MODULE_NAME, "", "bbin_connect.php", "startbbin", "mod", "Connect to BBIN", 'bbin');
@@ -39,17 +39,17 @@
 	$command->register($MODULE_NAME, "", "set_bbin_settings.php", "setbbin", "mod", "Manually set BBIN settings", 'bbin');
 	
 	//BBIN Relay
-	Event::register($MODULE_NAME, "2sec", "bbin_loop.php", "The main BBIN message loop");
+	$event->register($MODULE_NAME, "2sec", "bbin_loop.php", "The main BBIN message loop");
 	
 	//In-game relay
-	Event::register($MODULE_NAME, "priv", "relay_bbin_out.php", "Relay (priv) messages to BBIN");
-	Event::register($MODULE_NAME, "guild", "relay_bbin_out.php", "Relay (guild) messages to BBIN");
+	$event->register($MODULE_NAME, "priv", "relay_bbin_out.php", "Relay (priv) messages to BBIN");
+	$event->register($MODULE_NAME, "guild", "relay_bbin_out.php", "Relay (guild) messages to BBIN");
 	
 	//Notifications
-	Event::register($MODULE_NAME, "joinPriv", "bbin_relay_joined.php", "Sends joined channel messages");
-	Event::register($MODULE_NAME, "leavePriv", "bbin_relay_left.php", "Sends left channel messages");
-	Event::register($MODULE_NAME, "logOn", "bbin_relay_joined.php", "Shows a logon from a member");
-	Event::register($MODULE_NAME, "logOff", "bbin_relay_left.php", "Shows a logoff from a member");
+	$event->register($MODULE_NAME, "joinPriv", "bbin_relay_joined.php", "Sends joined channel messages");
+	$event->register($MODULE_NAME, "leavePriv", "bbin_relay_left.php", "Sends left channel messages");
+	$event->register($MODULE_NAME, "logOn", "bbin_relay_joined.php", "Shows a logon from a member");
+	$event->register($MODULE_NAME, "logOff", "bbin_relay_left.php", "Shows a logoff from a member");
 	
 	//Settings
 	Setting::add($MODULE_NAME, "bbin_status", "Status of BBIN uplink", "noedit", "options", "0", "Offline;Online", "0;1", "mod", "bbin");

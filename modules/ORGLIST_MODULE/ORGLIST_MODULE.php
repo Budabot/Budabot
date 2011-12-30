@@ -8,10 +8,10 @@
 	$command->register($MODULE_NAME, "", "is_online.php", "is", "all", "Checks if a player is online");
 	$command->register($MODULE_NAME, "", "orglist.php", "orglist", "guild", "Check someones org roster");
 
-	Event::register($MODULE_NAME, "logOn", "orglist_check.php", "Gets online status of org members");
-	Event::register($MODULE_NAME, "logOff", "orglist_check.php", "Gets offline status of org members");
-	Event::register($MODULE_NAME, "logOn", "is_online_check.php", "Gets online status of player");
-	Event::register($MODULE_NAME, "logOff", "is_online_check.php", "Gets offline status of player");
+	$event->register($MODULE_NAME, "logOn", "orglist_check.php", "Gets online status of org members");
+	$event->register($MODULE_NAME, "logOff", "orglist_check.php", "Gets offline status of org members");
+	$event->register($MODULE_NAME, "logOn", "is_online_check.php", "Gets online status of player");
+	$event->register($MODULE_NAME, "logOff", "is_online_check.php", "Gets offline status of player");
 
 	Help::register($MODULE_NAME, "orglist", "orglist.txt", "guild", "See who is online from someones org");
 	Help::register($MODULE_NAME, "findorg", "findorg.txt", "all", "Find an org by name");

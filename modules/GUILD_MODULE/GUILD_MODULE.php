@@ -3,7 +3,7 @@
 	$db->loadSQLFile($MODULE_NAME, "org_members");
 	$db->loadSQLFile($MODULE_NAME, "org_history");
 
-	Event::register($MODULE_NAME, "setup", "setup.php");
+	$event->register($MODULE_NAME, "setup", "setup.php");
 	
 	$command->register($MODULE_NAME, "", "logon_msg.php", "logon", "guild", "Sets a Logon Msg");
 	$command->register($MODULE_NAME, "", "logoff_msg.php", "logoff", "guild", "Sets a Logoff Msg");
@@ -16,12 +16,12 @@
 	$command->register($MODULE_NAME, "", "inactive_mem.php", "inactivemem", "rl", "Check for inactive members");
 	$command->register($MODULE_NAME, "", "updateorg.php", "updateorg", "rl", "Forcing an update of the org roster");
 
-	Event::register($MODULE_NAME, "24hrs", "roster_guild.php", "Download guild roster xml and update guild members");
-	Event::register($MODULE_NAME, "orgmsg", "notify_auto.php", "Automatically add and remove chars from the guild roster as they leave and join the guild");
-	Event::register($MODULE_NAME, "logOn", "notify_logon_guild.php", "Shows an org member login in chat");
-	Event::register($MODULE_NAME, "logOff", "notify_logoff_guild.php", "Shows an org member logoff in chat");
-	Event::register($MODULE_NAME, "logOff", "record_lastseen.php", "Records when each member of the org logs off for lastseen command");
-	Event::register($MODULE_NAME, "orgmsg", "org_action_listener.php", "Capture Org Invite/Kick/Leave messages for orghistory");
+	$event->register($MODULE_NAME, "24hrs", "roster_guild.php", "Download guild roster xml and update guild members");
+	$event->register($MODULE_NAME, "orgmsg", "notify_auto.php", "Automatically add and remove chars from the guild roster as they leave and join the guild");
+	$event->register($MODULE_NAME, "logOn", "notify_logon_guild.php", "Shows an org member login in chat");
+	$event->register($MODULE_NAME, "logOff", "notify_logoff_guild.php", "Shows an org member logoff in chat");
+	$event->register($MODULE_NAME, "logOff", "record_lastseen.php", "Records when each member of the org logs off for lastseen command");
+	$event->register($MODULE_NAME, "orgmsg", "org_action_listener.php", "Capture Org Invite/Kick/Leave messages for orghistory");
 	
 	Setting::add($MODULE_NAME, "max_logon_msg_size", "Maximum characters a logon message can have", "edit", "number", "200", "100;200;300;400", '', "mod");
 	Setting::add($MODULE_NAME, "max_logoff_msg_size", "Maximum characters a logoff message can have", "edit", "number", "200", "100;200;300;400", '', "mod");

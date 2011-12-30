@@ -13,13 +13,13 @@
 	require_once 'raffle_func.php';
 
 	// Setup
-	Event::register($MODULE_NAME, "setup", "setup.php");
+	$event->register($MODULE_NAME, "setup", "setup.php");
 
 	// Raffle message
 	$command->register($MODULE_NAME, "", "raffle.php", "raffle", "all");
 	
 	// Timer
-	Event::register($MODULE_NAME, "2sec", "check_raffle.php", "Checks to see if raffle is over");
+	$event->register($MODULE_NAME, "2sec", "check_raffle.php", "Checks to see if raffle is over");
 
 	// Settings
 	Setting::add($MODULE_NAME, "defaultraffletime", "How long the raffle should go for", "edit", "time", '3m', '1m;2m;3m;4m;5m', '', 'mod', 'raffle');

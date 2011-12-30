@@ -3,7 +3,7 @@
 	
 	$db->loadSQLFile($MODULE_NAME, "usage");
 	
-	Event::register($MODULE_NAME, "24hrs", "submit_usage.php", "Submits anonymous usage stats to Budabot website");
+	$event->register($MODULE_NAME, "24hrs", "submit_usage.php", "Submits anonymous usage stats to Budabot website");
     
 	$command->register($MODULE_NAME, "", "usage_cmd.php", "usage", "guild", "Shows usage stats");
 	

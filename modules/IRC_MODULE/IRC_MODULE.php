@@ -27,7 +27,7 @@
 		}
 	}
 
-	Event::register($MODULE_NAME, "1min", "set_irc_link.php", "Automatically reconnect to IRC server", '', 0);
+	$event->register($MODULE_NAME, "1min", "set_irc_link.php", "Automatically reconnect to IRC server", '', 0);
 	
 	// Commands
 	$command->register($MODULE_NAME, "", "irc_connect.php", "startirc", "mod", "Connect to IRC", 'irc');
@@ -36,17 +36,17 @@
 	$command->register($MODULE_NAME, "", "set_irc_settings.php", "setirc", "mod", "Manually set IRC settings", 'irc');
 	
 	// IRC Relay
-  	Event::register($MODULE_NAME, "2sec", "irc_check.php", "Receive messages from IRC");
+  	$event->register($MODULE_NAME, "2sec", "irc_check.php", "Receive messages from IRC");
 	
 	// In-game relay
-	Event::register($MODULE_NAME, "priv", "relay_irc_out.php", "Relay (priv) messages to IRC");
-	Event::register($MODULE_NAME, "guild", "relay_irc_out.php", "Relay (guild) messages to IRC");
+	$event->register($MODULE_NAME, "priv", "relay_irc_out.php", "Relay (priv) messages to IRC");
+	$event->register($MODULE_NAME, "guild", "relay_irc_out.php", "Relay (guild) messages to IRC");
 	
 	// Notifications
-	Event::register($MODULE_NAME, "joinPriv", "irc_relay_joined.php", "Sends joined channel messages");
-	Event::register($MODULE_NAME, "leavePriv", "irc_relay_left.php", "Sends left channel messages");
-	Event::register($MODULE_NAME, "logOn", "irc_relay_joined.php", "Shows a logon from a member");
-	Event::register($MODULE_NAME, "logOff", "irc_relay_left.php", "Shows a logoff from a member");
+	$event->register($MODULE_NAME, "joinPriv", "irc_relay_joined.php", "Sends joined channel messages");
+	$event->register($MODULE_NAME, "leavePriv", "irc_relay_left.php", "Sends left channel messages");
+	$event->register($MODULE_NAME, "logOn", "irc_relay_joined.php", "Shows a logon from a member");
+	$event->register($MODULE_NAME, "logOff", "irc_relay_left.php", "Shows a logoff from a member");
 	
 	// Settings
 	Setting::add($MODULE_NAME, "irc_status", "Status of IRC uplink", "noedit", "options", "0", "Offline;Online", "0;1");

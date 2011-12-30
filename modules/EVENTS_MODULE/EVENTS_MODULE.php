@@ -9,8 +9,8 @@
 	$subcommand->register($MODULE_NAME, "", "edit_events.php", "events setdesc (.+)", "rl", "events", "Change or set the description for an event");
 	$subcommand->register($MODULE_NAME, "", "edit_events.php", "events setdate (.+)", "rl", "events", "Change or set the date for an event");
 	
-	Event::register($MODULE_NAME, "logOn", "events_logon.php", "Show events to org members logging on");
-	Event::register($MODULE_NAME, "joinPriv", "events_logon.php", "Show events to characters joining the private channel");
+	$event->register($MODULE_NAME, "logOn", "events_logon.php", "Show events to org members logging on");
+	$event->register($MODULE_NAME, "joinPriv", "events_logon.php", "Show events to characters joining the private channel");
 	
 	Help::register($MODULE_NAME, "events", "events.txt", "all", "Adding/editing/removing events");
 ?>

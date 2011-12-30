@@ -23,8 +23,8 @@
 	Setting::add($MODULE_NAME, "tower_faction_atk", "Display certain factions attacking", "edit", "options", "7", "none;clan;neutral;clan+neutral;omni;clan+omni;neutral+omni;all", '0;1;2;3;4;5;6;7');
 	Setting::add($MODULE_NAME, "tower_page_size", "Number of results to display for victory/attacks", "edit", "options", "15", "5;10;15;20;25");
 
-	Event::register($MODULE_NAME, "towers", "attack_messages.php", "Record attack messages");
-	Event::register($MODULE_NAME, "towers", "victory_messages.php", "Record victory messages");
+	$event->register($MODULE_NAME, "towers", "attack_messages.php", "Record attack messages");
+	$event->register($MODULE_NAME, "towers", "victory_messages.php", "Record victory messages");
 
 	// help files
 	Help::register($MODULE_NAME, "attacks", "attacks.txt", "guild", "Show attack message commands and options");

@@ -278,9 +278,9 @@ if (preg_match("/^config$/i", $message)) {
 		if ($row->status != $status) {
 			if ($row->cmdevent == "event") {
 				if ($status == 1) {
-					Event::activate($row->type, $row->file);
+					$chatBot->getInstance('event')->activate($row->type, $row->file);
 				} else {
-					Event::deactivate($row->type, $row->file);
+					$chatBot->getInstance('event')->deactivate($row->type, $row->file);
 				}
 			} else if ($row->cmdevent == "cmd") {
 				if ($status == 1) {
@@ -315,9 +315,9 @@ if (preg_match("/^config$/i", $message)) {
 		if ($row->status != $status) {
 			if ($row->cmdevent == "event") {
 				if ($status == 1) {
-					Event::activate($row->type, $row->file);
+					$chatBot->getInstance('event')->activate($row->type, $row->file);
 				} else {
-					Event::deactivate($row->type, $row->file);
+					$chatBot->getInstance('event')->deactivate($row->type, $row->file);
 				}
 			} else if ($row->cmdevent == "cmd") {
 				if ($status == 1) {

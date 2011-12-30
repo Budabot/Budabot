@@ -1,10 +1,10 @@
 <?php
 	$db->loadSQLFile($MODULE_NAME, 'broadcast');
 	
-	Event::register($MODULE_NAME, "setup", "setup.php");
+	$event->register($MODULE_NAME, "setup", "setup.php");
 	
-	Event::register($MODULE_NAME, "msg", "incoming_broadcast.php", 'Relays incoming messages to the guild/private channel');
-	Event::register($MODULE_NAME, "extPriv", "incoming_broadcast.php", 'Relays incoming messages to the guild/private channel');
+	$event->register($MODULE_NAME, "msg", "incoming_broadcast.php", 'Relays incoming messages to the guild/private channel');
+	$event->register($MODULE_NAME, "extPriv", "incoming_broadcast.php", 'Relays incoming messages to the guild/private channel');
 	
 	$command->register($MODULE_NAME, "", "broadcast.php", "broadcast", "mod", "View/edit the broadcast bots list");
 	$command->register($MODULE_NAME, "", "dnet.php", "dnet", "mod", "Enable/disable Dnet support (RK 1 only)");

@@ -12,6 +12,9 @@
 
 class Event extends Annotation {
 
+	/** @Inject */
+	public $db;
+
 	public static $EVENT_TYPES = array(
 		'msg','priv','extPriv','guild','joinPriv','extJoinPriv','leavePriv','extLeavePriv',
 		'orgmsg','extJoinPrivRequest','extKickPriv','logOn','logOff','towers','connect',
@@ -22,9 +25,8 @@ class Event extends Annotation {
 	 * @name: register
 	 * @description: Registers an event on the bot so it can be configured
 	 */
-	public static function register($module, $type, $filename, $description = 'none', $help = '', $defaultStatus = null) {
+	public function register($module, $type, $filename, $description = 'none', $help = '', $defaultStatus = null) {
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
 		
 		Logger::log('DEBUG', 'Event', "Registering event Type:($type) File:($filename) Module:($module)");
 		
@@ -52,7 +54,7 @@ class Event extends Annotation {
 		
 		if (isset($chatBot->existing_events[$type][$actual_filename])) {
 			$sql = "UPDATE eventcfg_<myname> SET `verify` = 1, `description` = ?, `help` = ? WHERE `type` = ? AND `file` = ? AND `module` = ?";
-		  	$db->exec($sql, $description, $help, $type, $actual_filename, $module);
+		  	$this->db->exec($sql, $description, $help, $type, $actual_filename, $module);
 		} else {
 			if ($defaultStatus === null) {
 				if ($chatBot->vars['default_module_status'] == 1) {
@@ -64,7 +66,7 @@ class Event extends Annotation {
 				$status = $defaultStatus;
 			}
 			$sql = "INSERT INTO eventcfg_<myname> (`module`, `type`, `file`, `verify`, `description`, `status`, `help`) VALUES (?, ?, ?, ?, ?, ?, ?)";
-			$db->exec($sql, $module, $type, $actual_filename, '1', $description, $status, $help);
+			$this->db->exec($sql, $module, $type, $actual_filename, '1', $description, $status, $help);
 		}
 	}
 
@@ -72,7 +74,8 @@ class Event extends Annotation {
 	 * @name: activate
 	 * @description: Activates an event
 	 */
-	public static function activate($type, $filename) {
+	public function activate($type, $filename) {
+		// for file includes
 		global $chatBot;
 		$db = $chatBot->getInstance('db');
 		
@@ -95,7 +98,7 @@ class Event extends Annotation {
 		}
 		
 		if ($type == "setup") {
-			include $actual_filename;
+			require $actual_filename;
 		} else if (in_array($type, Event::$EVENT_TYPES)) {
 			if (!isset($chatBot->events[$type]) || !in_array($actual_filename, $chatBot->events[$type])) {
 				$chatBot->events[$type] []= $actual_filename;
@@ -116,7 +119,7 @@ class Event extends Annotation {
 	 * @name: deactivate
 	 * @description: Deactivates an event
 	 */
-	public static function deactivate($type, $filename) {
+	public function deactivate($type, $filename) {
 		global $chatBot;
 
 		Logger::log('debug', 'Event', "Deactivating event Type:($type) File:($filename)");
@@ -155,10 +158,7 @@ class Event extends Annotation {
 		}
 	}
 	
-	public static function update_status($type, $module, $filename, $status) {
-		global $chatBot;
-		$db = $chatBot->getInstance('db');
-		
+	public function update_status($type, $module, $filename, $status) {
 		if ($type == 'all' || $type == '' || $type == null) {
 			$type_sql = '';
 		} else {
@@ -183,35 +183,32 @@ class Event extends Annotation {
 			$status_sql = "`status` = 0";
 		}
 	
-		$data = $db->query("SELECT * FROM eventcfg_<myname> WHERE $status_Sql $module_sql $filename_sql $type_sql");
+		$data = $this->db->query("SELECT * FROM eventcfg_<myname> WHERE $status_Sql $module_sql $filename_sql $type_sql");
 		if (count($data) == 0) {
 			return 0;
 		}
 		
 		forEach ($data as $row) {
 			if ($status == 1) {
-				Event::activate($row->type, $row->filename);
+				$this->activate($row->type, $row->filename);
 			} else if ($status == 0) {
-				Event::deactivate($row->type, $row->filename);
+				$this->deactivate($row->type, $row->filename);
 			}
 		}
 		
-		return $db->exec("UPDATE eventcfg_<myname> SET status = '$status' WHERE $status_Sql $module_sql $filename_sql $type_sql");
+		return $this->db->exec("UPDATE eventcfg_<myname> SET status = '$status' WHERE $status_Sql $module_sql $filename_sql $type_sql");
 	}
 
 	/**
 	 * @name: loadEvents
 	 * @description: Loads the active events into memory and activates them
 	 */
-	public static function loadEvents() {
+	public function loadEvents() {
 		Logger::log('DEBUG', 'Event', "Loading enabled events");
 
-	  	global $chatBot;
-		$db = $chatBot->getInstance('db');
-
-		$data = $db->query("SELECT * FROM eventcfg_<myname> WHERE `status` = '1'");
+		$data = $this->db->query("SELECT * FROM eventcfg_<myname> WHERE `status` = '1'");
 		forEach ($data as $row) {
-			Event::activate($row->type, $row->file);
+			$this->activate($row->type, $row->file);
 		}
 	}
 	
@@ -219,7 +216,7 @@ class Event extends Annotation {
 	 * @name: crons
 	 * @description: Call php-Scripts at certin time intervals. 2 sec, 1 min, 10min, 15 min, 30min, 1 hour, 24 hours
 	 */
-	public static function crons() {
+	public function crons() {
 		global $chatBot;
 		
 		if ($chatBot->is_ready()) {
@@ -228,14 +225,15 @@ class Event extends Annotation {
 			forEach ($chatBot->cronevents as $key => $event) {
 				if ($event['nextevent'] <= $time) {
 					Logger::log('DEBUG', 'Cron', "Executing cron event '${event['filename']}'");
-					Event::executeCronEvent($event['time'], $event['filename']);
+					$this->executeCronEvent($event['time'], $event['filename']);
 					$chatBot->cronevents[$key]['nextevent'] = $time + $event['time'];
 				}
 			}
 		}
 	}
 	
-	public static function executeCronEvent($type, $filename) {
+	public function executeCronEvent($type, $filename) {
+		// for file includes
 		global $chatBot;
 		$db = $chatBot->getInstance('db');
 		
@@ -256,9 +254,10 @@ class Event extends Annotation {
 	** Name: executeConnectEvents
 	** Execute Events that needs to be executed right after login
 	*/	
-	public static function executeConnectEvents(){
+	public function executeConnectEvents(){
 		Logger::log('DEBUG', 'Event', "Executing connected events");
 
+		// for file includes
 		global $chatBot;
 		$db = $chatBot->getInstance('db');
 

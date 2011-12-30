@@ -80,13 +80,13 @@ class Budabot extends AOChat {
 			$this->wait_for_packet();
 			if ($this->is_ready()) {
 				if ($exec_connected_events == false)	{
-					Event::executeConnectEvents();
+					$this->getInstance('event')->executeConnectEvents();
 					$exec_connected_events = true;
 				}
 				
 				// execute crons at most once every second
 				if ($time < time()) {
-					Event::crons();
+					$this->getInstance('event')->crons();
 					$time = time();
 				}
 			}
@@ -181,7 +181,7 @@ class Budabot extends AOChat {
 		$this->getInstance('command')->loadCommands();
 		$this->getInstance('subcommand')->loadSubcommands();
 		CommandAlias::load();
-		Event::loadEvents();
+		$this->getInstance('event')->loadEvents();
 	}
 
 	function sendPrivate($message, $group, $disable_relay = false) {
@@ -274,6 +274,7 @@ class Budabot extends AOChat {
 		$db = $this->getInstance('db');
 		$command = $this->getInstance('command');
 		$subcommand = $this->getInstance('subcommand');
+		$event = $this->getInstance('event');
 
 		// Load the Core Modules -- SETINGS must be first in case the other modules have settings
 		Logger::log('INFO', 'Core', "Loading CORE modules...");
@@ -295,6 +296,7 @@ class Budabot extends AOChat {
 		$db = $this->getInstance('db');
 		$command = $this->getInstance('command');
 		$subcommand = $this->getInstance('subcommand');
+		$event = $this->getInstance('event');
 
 		if ($d = dir("./modules")) {
 			while (false !== ($MODULE_NAME = $d->read())) {
@@ -372,7 +374,7 @@ class Budabot extends AOChat {
 	
 	function process_all_packets($packet_type, $args) {
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
+		$db = $this->getInstance('db');
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -400,7 +402,7 @@ class Budabot extends AOChat {
 	
 	function process_group_announce($args) {
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
+		$db = $this->getInstance('db');
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -415,7 +417,7 @@ class Budabot extends AOChat {
 	
 	function process_private_channel_join($args) {
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
+		$db = $this->getInstance('db');
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -482,7 +484,7 @@ class Budabot extends AOChat {
 	
 	function process_private_channel_leave($args) {
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
+		$db = $this->getInstance('db');
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -543,7 +545,7 @@ class Budabot extends AOChat {
 	
 	function process_buddy_update($args) {
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
+		$db = $this->getInstance('db');
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -617,7 +619,7 @@ class Budabot extends AOChat {
 	
 	function process_private_message($args) {
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
+		$db = $this->getInstance('db');
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -696,7 +698,7 @@ class Budabot extends AOChat {
 	
 	function process_private_channel_message($args) {
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
+		$db = $this->getInstance('db');
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -781,7 +783,7 @@ class Budabot extends AOChat {
 	
 	function process_public_channel_message($args) {
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
+		$db = $this->getInstance('db');
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -890,7 +892,7 @@ class Budabot extends AOChat {
 	
 	function process_private_channel_invite($args) {
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
+		$db = $this->getInstance('db');
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -924,7 +926,7 @@ class Budabot extends AOChat {
 	
 	function process_command($type, $message, $sender, $sendto) {
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
+		$db = $this->getInstance('db');
 		
 		// Admin Code
 		list($cmd, $params) = explode(' ', $message, 2);
@@ -1026,7 +1028,7 @@ class Budabot extends AOChat {
 		}
 		$this->repo[$name] = $obj;
 
-		// register commands, subcommands, events, and settings annotated on the class
+		// register settings annotated on the class
 		$reflection = new ReflectionAnnotatedClass($obj);
 		forEach ($reflection->getProperties() as $property) {
 			if ($property->hasAnnotation('Setting')) {
@@ -1044,8 +1046,11 @@ class Budabot extends AOChat {
 				);
 			}
 		}
+		
+		// register commands, subcommands, and events annotated on the class
 		$command = $this->getInstance('command');
 		$subcommand = $this->getInstance('subcommand');
+		$event = $this->getInstance('event');
 		forEach ($reflection->getMethods() as $method) {
 			if ($method->hasAnnotation('Command')) {
 				$command->register(
@@ -1072,7 +1077,7 @@ class Budabot extends AOChat {
 				);
 			}
 			if ($method->hasAnnotation('Event')) {
-				Event::register(
+				$event->register(
 					$MODULE_NAME,
 					$method->getAnnotation('Event')->value,
 					$name . '.' . $method->name,

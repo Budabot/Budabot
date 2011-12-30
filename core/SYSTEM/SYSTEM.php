@@ -28,10 +28,10 @@
 	$command->register($MODULE_NAME, "", "checkaccess.php", "checkaccess", "all", "Check effective access level of a character");
 	$command->register($MODULE_NAME, "", "macro.php", "macro", "all", "Execute multiple commands at once");
 
-	Event::activate("1hour", "$MODULE_NAME/ping_db.php");
-	Event::activate("2sec", "$MODULE_NAME/reduce_spam_values.php");
-	Event::activate("1min", "$MODULE_NAME/reduce_largespam_values.php");
-	Event::activate("connect", "$MODULE_NAME/systems_ready.php");
+	$event->activate("1hour", "$MODULE_NAME/ping_db.php");
+	$event->activate("2sec", "$MODULE_NAME/reduce_spam_values.php");
+	$event->activate("1min", "$MODULE_NAME/reduce_largespam_values.php");
+	$event->activate("connect", "$MODULE_NAME/systems_ready.php");
 	
 	Setting::add($MODULE_NAME, 'symbol', 'Command prefix symbol', 'edit', "text", '!', '!;#;*;@;$;+;-');
 	Setting::add($MODULE_NAME, 'guild_admin_rank', 'Guild rank required to be considered a guild admin', 'edit', "options", '1', '0;1;2;3;4;5;6');
