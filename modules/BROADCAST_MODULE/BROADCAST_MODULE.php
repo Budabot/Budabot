@@ -1,5 +1,5 @@
 <?php
-	DB::loadSQLFile($MODULE_NAME, 'broadcast');
+	$db->loadSQLFile($MODULE_NAME, 'broadcast');
 	
 	Event::register($MODULE_NAME, "setup", "setup.php");
 	

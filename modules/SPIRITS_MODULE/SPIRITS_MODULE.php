@@ -1,7 +1,7 @@
 <?php
 	require_once 'functions.php';
 
-	DB::loadSQLFile($MODULE_NAME, "spirits");
+	$db->loadSQLFile($MODULE_NAME, "spirits");
 	
 	Command::register($MODULE_NAME, "", "spirits.php", "spirits", "all", "Search for Spirits");
 	Command::register($MODULE_NAME, "", "spirits.php", "spiritslvl", "all", "Search for Spirits", 'spirits');

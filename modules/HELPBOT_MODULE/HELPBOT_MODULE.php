@@ -1,12 +1,12 @@
 <?php
 	require_once 'db_utils.php';
 
-	DB::loadSQLFile($MODULE_NAME, "roll");
-	DB::loadSQLFile($MODULE_NAME, "koslist");
-	DB::loadSQLFile($MODULE_NAME, "dyna");
-	DB::loadSQLFile($MODULE_NAME, "research");
-	DB::loadSQLFile($MODULE_NAME, "playfields");
-	DB::loadSQLFile($MODULE_NAME, "orgcities");
+	$db->loadSQLFile($MODULE_NAME, "roll");
+	$db->loadSQLFile($MODULE_NAME, "koslist");
+	$db->loadSQLFile($MODULE_NAME, "dyna");
+	$db->loadSQLFile($MODULE_NAME, "research");
+	$db->loadSQLFile($MODULE_NAME, "playfields");
+	$db->loadSQLFile($MODULE_NAME, "orgcities");
 
 	Command::register($MODULE_NAME, "", "kos.php", "kos", "guild", "Show the Kill On Sight List");
 	Command::register($MODULE_NAME, "", "time.php", "time", "all", "Show the time in the different timezones");

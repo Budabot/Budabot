@@ -1,7 +1,7 @@
 <?php
 	require_once 'Whompah.class.php';
 	
-	DB::loadSQLFile($MODULE_NAME, "whompah_cities");
+	$db->loadSQLFile($MODULE_NAME, "whompah_cities");
     
 	Command::register($MODULE_NAME, "", "whompah.php", "whompah", "all", "Shows the whompah route from one city to another");
 	CommandAlias::register($MODULE_NAME, 'whompah', 'whompahs');

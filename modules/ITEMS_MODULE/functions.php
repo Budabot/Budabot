@@ -43,7 +43,7 @@ function download_newest_itemsdb() {
 			$db->begin_transaction();
 			
 			// load the sql file into the db
-			DB::loadSQLFile("ITEMS_MODULE", "aodb");
+			$db->loadSQLFile("ITEMS_MODULE", "aodb");
 			
 			$db->commit();
 			

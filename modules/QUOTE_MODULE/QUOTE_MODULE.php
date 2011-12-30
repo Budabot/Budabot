@@ -1,6 +1,6 @@
 <?php
-	DB::add_table_replace('#__quote', 'quote');
-	DB::loadSQLFile($MODULE_NAME, "quote");
+	$db->add_table_replace('#__quote', 'quote');
+	$db->loadSQLFile($MODULE_NAME, "quote");
 
 	//Commands
 	Command::register($MODULE_NAME, "", "quote.php", "quote", "guild", "Add/Remove/View Quotes");

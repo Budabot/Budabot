@@ -232,9 +232,7 @@ class DB {
 	 *    Will load the sql file with name $namexx.xx.xx.xx.sql if xx.xx.xx.xx is greater than settings[$name . "_sql_version"]
 	 *    If there is an sql file with name $name.sql it would load that one every time
 	 */
-	public static function loadSQLFile($module, $name, $forceUpdate = false) {
-		global $chatBot;
-		$db = $chatBot->getInstance('db');
+	public function loadSQLFile($module, $name, $forceUpdate = false) {
 		$name = strtolower($name);
 		
 		// only letters, numbers, underscores are allowed
@@ -292,15 +290,15 @@ class DB {
 		} else if ($forceUpdate || Util::compare_version_numbers($maxFileVersion, $currentVersion) > 0) {
 			$handle = @fopen("$dir/$file", "r");
 			if ($handle) {
-				//$db->begin_transaction();
+				//$this->begin_transaction();
 				while (($line = fgets($handle)) !== false) {
 					$line = trim($line);
 					// don't process comment lines or blank lines
 					if ($line != '' && substr($line, 0, 1) != "#" && substr($line, 0, 2) != "--") {
-						$db->exec($line);
+						$this->exec($line);
 					}
 				}
-				//$db->commit();
+				//$this->commit();
 			
 				if (!Setting::save($settingName, $maxFileVersion)) {
 					Setting::add($module, $settingName, $settingName, 'noedit', 'text', $maxFileVersion);
@@ -321,7 +319,7 @@ class DB {
 			Logger::log('DEBUG', 'Core',  "'$name' database already up to date! version: '$currentVersion'");
 			
 			//Make sure the settings table row isn't dropped during boot-up
-			$db->exec("UPDATE settings_<myname> SET `verify` = 1 WHERE `name` = '$settingName'");
+			$this->exec("UPDATE settings_<myname> SET `verify` = 1 WHERE `name` = '$settingName'");
 		}
 		
 		return $msg;

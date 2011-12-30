@@ -1,7 +1,7 @@
 <?php
 	require_once 'Alts.class.php';
 	
-	DB::loadSQLFile($MODULE_NAME, "alts");
+	$db->loadSQLFile($MODULE_NAME, "alts");
 	
 	Event::register($MODULE_NAME, "logOn", "check_unvalidated_alts.php", "Reminds players logging in to validate alts");
 	

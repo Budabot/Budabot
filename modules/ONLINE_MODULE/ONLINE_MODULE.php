@@ -1,7 +1,7 @@
 <?php
 	require_once "online_func.php";
 	
-	DB::loadSQLFile($MODULE_NAME, "online");
+	$db->loadSQLFile($MODULE_NAME, "online");
 
 	// Online
 	Command::register($MODULE_NAME, "", "online.php", "online", "member", "Shows who is the private channel");

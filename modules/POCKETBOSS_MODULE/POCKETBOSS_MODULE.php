@@ -1,5 +1,5 @@
 <?php
-	DB::loadSQLFile($MODULE_NAME, "pocketboss");
+	$db->loadSQLFile($MODULE_NAME, "pocketboss");
 
 	Command::register($MODULE_NAME, "", "pb.php", "pb", "all", "Shows what symbs a PB drops");
 	Command::register($MODULE_NAME, "", "symb.php", "symb", "all", "Shows what PB drops a symb");

@@ -2,8 +2,8 @@
 	require_once 'implant_functions.php';
 
 	// Setup
-	DB::loadSQLFile($MODULE_NAME, "implant_requirements");
-	DB::loadSQLFile($MODULE_NAME, "premade_implant");
+	$db->loadSQLFile($MODULE_NAME, "implant_requirements");
+	$db->loadSQLFile($MODULE_NAME, "premade_implant");
 
 	// Private
 	Command::register($MODULE_NAME, "", "implant.php", "implant", "all", "Shows info about implants given a ql or stats");

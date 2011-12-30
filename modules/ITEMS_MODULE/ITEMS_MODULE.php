@@ -2,7 +2,7 @@
 	require_once 'functions.php';
 
 	//Load items db
-	DB::loadSQLFile($MODULE_NAME, "aodb");
+	$db->loadSQLFile($MODULE_NAME, "aodb");
 
 	//Items Search
 	Command::register($MODULE_NAME, "", "items.php", "items", "all", "Search for an item");

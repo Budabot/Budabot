@@ -1,7 +1,7 @@
 <?php 
 	require_once 'event_functions.php';
 
-	DB::loadSQLFile($MODULE_NAME, "events");
+	$db->loadSQLFile($MODULE_NAME, "events");
 
 	Command::register($MODULE_NAME, "", "events.php", "events", "all", "View/Join/Leave events");
 	Subcommand::register($MODULE_NAME, "", "edit_events.php", "events add (.+)", "rl", "events", "Add an event");

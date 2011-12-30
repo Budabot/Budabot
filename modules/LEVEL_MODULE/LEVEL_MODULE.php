@@ -1,7 +1,7 @@
 <?php
 	require_once 'Level.class.php';
 
-	DB::loadSQLFile($MODULE_NAME, 'levels');
+	$db->loadSQLFile($MODULE_NAME, 'levels');
 
     // Level Info
 	Command::register($MODULE_NAME, "", "level.php", "level", "all", "Show level ranges");

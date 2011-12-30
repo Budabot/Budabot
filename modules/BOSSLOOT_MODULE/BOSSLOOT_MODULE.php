@@ -10,8 +10,8 @@
 	Last Modified 5/14/07
 	*/
 
-    DB::loadSQLFile($MODULE_NAME, "boss_namedb");
-	DB::loadSQLFile($MODULE_NAME, "boss_lootdb");
+    $db->loadSQLFile($MODULE_NAME, "boss_namedb");
+	$db->loadSQLFile($MODULE_NAME, "boss_lootdb");
 	
 	Command::register($MODULE_NAME, "", "boss.php", "boss", "all", "Show bosses and their loot");
 	Command::register($MODULE_NAME, "", "bossloot.php", "bossloot", "all", "Find which boss drops certain loot", 'boss');

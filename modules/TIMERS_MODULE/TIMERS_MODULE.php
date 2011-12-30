@@ -1,7 +1,7 @@
 <?php
 	require_once 'Timer.class.php';
 
-	DB::loadSQLFile($MODULE_NAME, 'timers');
+	$db->loadSQLFile($MODULE_NAME, 'timers');
 
 	Event::register($MODULE_NAME, "setup", "setup.php");
 

@@ -2,9 +2,9 @@
 	require_once 'Towers.class.php';
 	require_once 'functions.php';
 
-	DB::loadSQLFile($MODULE_NAME, "tower_attack");
-	DB::loadSQLFile($MODULE_NAME, "scout_info");
-	DB::loadSQLFile($MODULE_NAME, "tower_site");
+	$db->loadSQLFile($MODULE_NAME, "tower_attack");
+	$db->loadSQLFile($MODULE_NAME, "scout_info");
+	$db->loadSQLFile($MODULE_NAME, "tower_site");
 
 	Command::register($MODULE_NAME, "", "scout.php", "forcescout", "guild", "Adds tower info to watch list (bypasses some of the checks)");
 	Command::register($MODULE_NAME, "", "scout.php", "scout", "guild", "Adds tower info to watch list");

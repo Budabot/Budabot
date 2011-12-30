@@ -2,7 +2,7 @@
 	require_once 'Whitelist.class.php';
 	require_once 'Limits.class.php';
 	
-	DB::loadSqlFile($MODULE_NAME, 'whitelist');
+	$db->loadSqlFile($MODULE_NAME, 'whitelist');
 	
 	Command::register($MODULE_NAME, "", "whitelist.php", "whitelist", "all", "Add people to whitelist to bypass limits check");
 

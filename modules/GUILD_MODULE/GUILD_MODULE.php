@@ -1,7 +1,7 @@
 <?php
-	DB::add_table_replace('#__org_history', 'org_history');	
-	DB::loadSQLFile($MODULE_NAME, "org_members");
-	DB::loadSQLFile($MODULE_NAME, "org_history");
+	$db->add_table_replace('#__org_history', 'org_history');	
+	$db->loadSQLFile($MODULE_NAME, "org_members");
+	$db->loadSQLFile($MODULE_NAME, "org_history");
 
 	Event::register($MODULE_NAME, "setup", "setup.php");
 	

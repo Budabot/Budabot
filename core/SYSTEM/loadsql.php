@@ -6,7 +6,7 @@ if (preg_match("/^loadsql (.*) (.*)$/i", $message, $arr)) {
 	
 	$db->begin_transaction();
 	
-	$msg = DB::loadSQLFile($module, $name, true);
+	$msg = $db->loadSQLFile($module, $name, true);
 	
 	$db->commit();
 	

@@ -28,7 +28,7 @@
 	}
 
 	// Setup
-	DB::loadSQLFile($MODULE_NAME, "bbin_chatlist");
+	$db->loadSQLFile($MODULE_NAME, "bbin_chatlist");
 	
 	Event::register($MODULE_NAME, "1min", "set_bbin_link.php", "Automatically reconnect to IRC server", '', 0);
 	

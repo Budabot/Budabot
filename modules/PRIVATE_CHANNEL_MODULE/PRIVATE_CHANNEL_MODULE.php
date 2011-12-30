@@ -1,5 +1,5 @@
 <?php
-	DB::loadSQLFile($MODULE_NAME, "private_chat");
+	$db->loadSQLFile($MODULE_NAME, "private_chat");
     
     Command::register($MODULE_NAME, "", "members.php", "members", "all", "Member list", 'private_channel');
 	Command::register($MODULE_NAME, "", "sm.php", "sm", "all", "Shows who is in the private channel", 'private_channel');

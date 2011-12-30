@@ -3,8 +3,8 @@
 
 	$chatBot->registerInstance($MODULE_NAME, 'News', new News);
 
-	DB::add_table_replace('#__news', 'news');
-	DB::loadSQLFile($MODULE_NAME, 'news');
+	$db->add_table_replace('#__news', 'news');
+	$db->loadSQLFile($MODULE_NAME, 'news');
 
 	// Set admin and user news
 	Command::register($MODULE_NAME, "", "set_news.php", "privnews", "rl", "Set news shown on private channel join");

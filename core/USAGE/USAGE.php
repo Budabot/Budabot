@@ -1,7 +1,7 @@
 <?php
 	require_once 'Usage.class.php';
 	
-	DB::loadSQLFile($MODULE_NAME, "usage");
+	$db->loadSQLFile($MODULE_NAME, "usage");
 	
 	Event::register($MODULE_NAME, "24hrs", "submit_usage.php", "Submits anonymous usage stats to Budabot website");
     

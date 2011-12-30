@@ -1,5 +1,5 @@
 <?php
-	DB::loadSQLFile($MODULE_NAME, 'org_city');
+	$db->loadSQLFile($MODULE_NAME, 'org_city');
 
     Command::register($MODULE_NAME, "", "cloak.php", "cloak", "guild", "Shows the status of the city cloak");
 	CommandAlias::register($MODULE_NAME, "cloak", "city");

@@ -1,8 +1,8 @@
 <?php
 	Event::register($MODULE_NAME, "connect", "setup.php", "Adds all players on the track list to the bot's friendlist");
 	
-	DB::loadSQLFile($MODULE_NAME, "tracked_users");
-	DB::loadSQLFile($MODULE_NAME, "tracking");
+	$db->loadSQLFile($MODULE_NAME, "tracked_users");
+	$db->loadSQLFile($MODULE_NAME, "tracking");
     
 	Command::register($MODULE_NAME, "", "track.php", "track", "guild", "Lists all users on tracking list");
 	

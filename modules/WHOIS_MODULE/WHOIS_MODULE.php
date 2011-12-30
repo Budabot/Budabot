@@ -1,5 +1,5 @@
 <?php
-	DB::loadSQLFile($MODULE_NAME, 'name_history');
+	$db->loadSQLFile($MODULE_NAME, 'name_history');
 
 	Command::register($MODULE_NAME, "", "whois.php", "whois", "all", "Show character info and name history");
 	Command::register($MODULE_NAME, "", "whois.php", "whoisall", "all", "show character info and name history for all dimensions", 'whois');

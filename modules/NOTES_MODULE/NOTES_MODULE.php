@@ -1,6 +1,6 @@
 <?php
-	DB::loadSQLFile($MODULE_NAME, "notes");
-	DB::loadSQLFile($MODULE_NAME, "links");
+	$db->loadSQLFile($MODULE_NAME, "notes");
+	$db->loadSQLFile($MODULE_NAME, "links");
 
 	Command::register($MODULE_NAME, "", "notes.php", "notes", "guild", "displays, adds, or removes a note from your list");
 	

@@ -1,10 +1,10 @@
 <?php
 	require_once 'functions.php';
 	
-	DB::loadSQLFile($MODULE_NAME, 'leprocs');
-	DB::loadSQLFile($MODULE_NAME, 'ofabarmor');
-	DB::loadSQLFile($MODULE_NAME, 'ofabweapons');
-	DB::loadSQLFile($MODULE_NAME, 'alienweapons');
+	$db->loadSQLFile($MODULE_NAME, 'leprocs');
+	$db->loadSQLFile($MODULE_NAME, 'ofabarmor');
+	$db->loadSQLFile($MODULE_NAME, 'ofabweapons');
+	$db->loadSQLFile($MODULE_NAME, 'alienweapons');
 
 	Command::register($MODULE_NAME, "", "ofabarmor.php", "ofabarmor", "all", "Show Ofab armor and VP cost");
 	Command::register($MODULE_NAME, "", "ofabweapons.php", "ofabweapons", "all", "Show Ofab weapons and VP cost");

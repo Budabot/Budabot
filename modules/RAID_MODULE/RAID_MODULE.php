@@ -1,7 +1,7 @@
 <?php
 	require_once 'Raid.class.php';
 
-	DB::loadSQLFile($MODULE_NAME, 'raid_loot');
+	$db->loadSQLFile($MODULE_NAME, 'raid_loot');
 
 	//Loot list and adding/removing of players	
 	Command::register($MODULE_NAME, "", "loot.php", "loot", "leader", "Adds an item to the loot list", 'flatroll');
