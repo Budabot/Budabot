@@ -16,7 +16,7 @@
 	Event::register($MODULE_NAME, "setup", "setup.php");
 
 	// Raffle message
-	Command::register($MODULE_NAME, "", "raffle.php", "raffle", "all");
+	$command->register($MODULE_NAME, "", "raffle.php", "raffle", "all");
 	
 	// Timer
 	Event::register($MODULE_NAME, "2sec", "check_raffle.php", "Checks to see if raffle is over");

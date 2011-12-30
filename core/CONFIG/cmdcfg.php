@@ -181,9 +181,9 @@ if (preg_match("/^config$/i", $message)) {
 	$data = $db->query($sql);
 	forEach ($data as $row) {
 	  	if ($status == 1) {
-			Command::activate($row->type, $row->file, $row->cmd, $row->admin);
+			$chatBot->getInstance('command')->activate($row->type, $row->file, $row->cmd, $row->admin);
 		} else {
-			Command::deactivate($row->type, $row->file, $row->cmd);
+			$chatBot->getInstance('command')->deactivate($row->type, $row->file, $row->cmd);
 		}
 	}
 	
@@ -284,9 +284,9 @@ if (preg_match("/^config$/i", $message)) {
 				}
 			} else if ($row->cmdevent == "cmd") {
 				if ($status == 1) {
-					Command::activate($row->type, $row->file, $row->cmd, $row->admin);
+					$chatBot->getInstance('command')->activate($row->type, $row->file, $row->cmd, $row->admin);
 				} else {
-					Command::deactivate($row->type, $row->file, $row->cmd, $row->admin);
+					$chatBot->getInstance('command')->deactivate($row->type, $row->file, $row->cmd, $row->admin);
 				}
 			}
 		}
@@ -321,9 +321,9 @@ if (preg_match("/^config$/i", $message)) {
 				}
 			} else if ($row->cmdevent == "cmd") {
 				if ($status == 1) {
-					Command::activate($row->type, $row->file, $row->cmd, $row->admin);
+					$chatBot->getInstance('command')->activate($row->type, $row->file, $row->cmd, $row->admin);
 				} else {
-					Command::deactivate($row->type, $row->file, $row->cmd, $row->admin);
+					$chatBot->getInstance('command')->deactivate($row->type, $row->file, $row->cmd, $row->admin);
 				}
 			}
 		}

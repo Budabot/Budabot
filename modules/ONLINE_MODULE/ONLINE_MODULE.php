@@ -4,7 +4,7 @@
 	$db->loadSQLFile($MODULE_NAME, "online");
 
 	// Online
-	Command::register($MODULE_NAME, "", "online.php", "online", "member", "Shows who is the private channel");
+	$command->register($MODULE_NAME, "", "online.php", "online", "member", "Shows who is the private channel");
 	
 	Event::register($MODULE_NAME, "logOn", "record_logon_guild.php", "Records an org member login in db");
 	Event::register($MODULE_NAME, "logOff", "record_logoff_guild.php", "Records an org member logoff in db");

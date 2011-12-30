@@ -5,9 +5,9 @@
 	
 	Event::register($MODULE_NAME, "logOn", "check_unvalidated_alts.php", "Reminds players logging in to validate alts");
 	
-	Command::register($MODULE_NAME, "", "altvalidate.php", "altvalidate", "member", "Validate alts for admin privileges");
-	Command::register($MODULE_NAME, "", "altsadmin.php", "altsadmin", "mod", "Alt character handling (admin)");
-	Command::register($MODULE_NAME, "", "altscmd.php", "alts", "member", "Alt character handling");
+	$command->register($MODULE_NAME, "", "altvalidate.php", "altvalidate", "member", "Validate alts for admin privileges");
+	$command->register($MODULE_NAME, "", "altsadmin.php", "altsadmin", "mod", "Alt character handling (admin)");
+	$command->register($MODULE_NAME, "", "altscmd.php", "alts", "member", "Alt character handling");
 
 	Subcommand::register($MODULE_NAME, "", "alts_main.php", "alts main (.+)", "member", "alts", "Add yourself as an alt to a main", 'alts');
 

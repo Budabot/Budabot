@@ -10,7 +10,7 @@ if (preg_match("/^addalias ([a-z0-9]+) (.+)/i", $message, $arr)) {
 	$alias_obj->alias = $alias;
 	$alias_obj->status = 1;
 
-	$commands = Command::get($alias);
+	$commands = $chatBot->getInstance('command')->get($alias);
 	$enabled = false;
 	forEach ($commands as $command) {
 		if ($command->status == '1') {

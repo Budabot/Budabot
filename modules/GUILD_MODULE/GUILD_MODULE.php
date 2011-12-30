@@ -5,16 +5,16 @@
 
 	Event::register($MODULE_NAME, "setup", "setup.php");
 	
-	Command::register($MODULE_NAME, "", "logon_msg.php", "logon", "guild", "Sets a Logon Msg");
-	Command::register($MODULE_NAME, "", "logoff_msg.php", "logoff", "guild", "Sets a Logoff Msg");
-	Command::register($MODULE_NAME, "", "logonadmin.php", "logonadmin", "mod", "Admin command for editing another person's logon message");
-	Command::register($MODULE_NAME, "", "logoffadmin.php", "logoffadmin", "mod", "Admin command for editing another person's logoff message");
-	Command::register($MODULE_NAME, "", "org_history.php", "orghistory", "guild", "Shows the org history (invites and kicks and leaves) for a player");
-	Command::register($MODULE_NAME, "", "lastseen.php", "lastseen", "guild", "Shows the logoff time of a player");
-	Command::register($MODULE_NAME, "", "tellall.php", "tellall", "leader", "Sends a tell to all online guild members");
-	Command::register($MODULE_NAME, "", "notify.php", "notify", "rl", "Adding a char manually to the notify list");
-	Command::register($MODULE_NAME, "", "inactive_mem.php", "inactivemem", "rl", "Check for inactive members");
-	Command::register($MODULE_NAME, "", "updateorg.php", "updateorg", "rl", "Forcing an update of the org roster");
+	$command->register($MODULE_NAME, "", "logon_msg.php", "logon", "guild", "Sets a Logon Msg");
+	$command->register($MODULE_NAME, "", "logoff_msg.php", "logoff", "guild", "Sets a Logoff Msg");
+	$command->register($MODULE_NAME, "", "logonadmin.php", "logonadmin", "mod", "Admin command for editing another person's logon message");
+	$command->register($MODULE_NAME, "", "logoffadmin.php", "logoffadmin", "mod", "Admin command for editing another person's logoff message");
+	$command->register($MODULE_NAME, "", "org_history.php", "orghistory", "guild", "Shows the org history (invites and kicks and leaves) for a player");
+	$command->register($MODULE_NAME, "", "lastseen.php", "lastseen", "guild", "Shows the logoff time of a player");
+	$command->register($MODULE_NAME, "", "tellall.php", "tellall", "leader", "Sends a tell to all online guild members");
+	$command->register($MODULE_NAME, "", "notify.php", "notify", "rl", "Adding a char manually to the notify list");
+	$command->register($MODULE_NAME, "", "inactive_mem.php", "inactivemem", "rl", "Check for inactive members");
+	$command->register($MODULE_NAME, "", "updateorg.php", "updateorg", "rl", "Forcing an update of the org roster");
 
 	Event::register($MODULE_NAME, "24hrs", "roster_guild.php", "Download guild roster xml and update guild members");
 	Event::register($MODULE_NAME, "orgmsg", "notify_auto.php", "Automatically add and remove chars from the guild roster as they leave and join the guild");

@@ -1,32 +1,32 @@
 <?php 
-	Command::activate("msg", "$MODULE_NAME/restart.php", "restart", "admin");
-	Command::activate("priv", "$MODULE_NAME/restart.php", "restart", "admin");
-	Command::activate("guild", "$MODULE_NAME/restart.php", "restart", "admin");
+	$command->activate("msg", "$MODULE_NAME/restart.php", "restart", "admin");
+	$command->activate("priv", "$MODULE_NAME/restart.php", "restart", "admin");
+	$command->activate("guild", "$MODULE_NAME/restart.php", "restart", "admin");
 
-	Command::activate("msg", "$MODULE_NAME/shutdown.php", "shutdown", "admin");
-	Command::activate("priv", "$MODULE_NAME/shutdown.php", "shutdown", "admin");
-	Command::activate("guild", "$MODULE_NAME/shutdown.php", "shutdown", "admin");
+	$command->activate("msg", "$MODULE_NAME/shutdown.php", "shutdown", "admin");
+	$command->activate("priv", "$MODULE_NAME/shutdown.php", "shutdown", "admin");
+	$command->activate("guild", "$MODULE_NAME/shutdown.php", "shutdown", "admin");
 	
-	Command::activate("msg", "$MODULE_NAME/reload_config.php", "reloadconfig", "admin");
-	Command::activate("priv", "$MODULE_NAME/reload_config.php", "reloadconfig", "admin");
-	Command::activate("guild", "$MODULE_NAME/reload_config.php", "reloadconfig", "admin");
+	$command->activate("msg", "$MODULE_NAME/reload_config.php", "reloadconfig", "admin");
+	$command->activate("priv", "$MODULE_NAME/reload_config.php", "reloadconfig", "admin");
+	$command->activate("guild", "$MODULE_NAME/reload_config.php", "reloadconfig", "admin");
 
-	Command::activate("msg", "$MODULE_NAME/system_cmd.php", "system", "mod");
-	Command::activate("priv", "$MODULE_NAME/system_cmd.php", "system", "mod");
-	Command::activate("guild", "$MODULE_NAME/system_cmd.php", "system", "mod");
+	$command->activate("msg", "$MODULE_NAME/system_cmd.php", "system", "mod");
+	$command->activate("priv", "$MODULE_NAME/system_cmd.php", "system", "mod");
+	$command->activate("guild", "$MODULE_NAME/system_cmd.php", "system", "mod");
 
-	Command::activate("msg", "$MODULE_NAME/executesql.php", "executesql", "admin");
-	Command::activate("priv", "$MODULE_NAME/executesql.php", "executesql", "admin");
-	Command::activate("guild", "$MODULE_NAME/executesql.php", "executesql", "admin");
+	$command->activate("msg", "$MODULE_NAME/executesql.php", "executesql", "admin");
+	$command->activate("priv", "$MODULE_NAME/executesql.php", "executesql", "admin");
+	$command->activate("guild", "$MODULE_NAME/executesql.php", "executesql", "admin");
 	
-	Command::activate("msg", "$MODULE_NAME/logs.php", "logs", "admin");
-	Command::activate("priv", "$MODULE_NAME/logs.php", "logs", "admin");
-	Command::activate("guild", "$MODULE_NAME/logs.php", "logs", "admin");
+	$command->activate("msg", "$MODULE_NAME/logs.php", "logs", "admin");
+	$command->activate("priv", "$MODULE_NAME/logs.php", "logs", "admin");
+	$command->activate("guild", "$MODULE_NAME/logs.php", "logs", "admin");
 	
-	Command::register($MODULE_NAME, "", "clearqueue.php", "clearqueue", "mod", "Clear outgoing chatqueue from all pending messages");
-	Command::register($MODULE_NAME, "", "loadsql.php", "loadsql", "mod", "Manually reload an sql file");
-	Command::register($MODULE_NAME, "", "checkaccess.php", "checkaccess", "all", "Check effective access level of a character");
-	Command::register($MODULE_NAME, "", "macro.php", "macro", "all", "Execute multiple commands at once");
+	$command->register($MODULE_NAME, "", "clearqueue.php", "clearqueue", "mod", "Clear outgoing chatqueue from all pending messages");
+	$command->register($MODULE_NAME, "", "loadsql.php", "loadsql", "mod", "Manually reload an sql file");
+	$command->register($MODULE_NAME, "", "checkaccess.php", "checkaccess", "all", "Check effective access level of a character");
+	$command->register($MODULE_NAME, "", "macro.php", "macro", "all", "Execute multiple commands at once");
 
 	Event::activate("1hour", "$MODULE_NAME/ping_db.php");
 	Event::activate("2sec", "$MODULE_NAME/reduce_spam_values.php");

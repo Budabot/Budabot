@@ -4,22 +4,22 @@
 	$db->loadSQLFile($MODULE_NAME, 'levels');
 
     // Level Info
-	Command::register($MODULE_NAME, "", "level.php", "level", "all", "Show level ranges");
+	$command->register($MODULE_NAME, "", "level.php", "level", "all", "Show level ranges");
 	CommandAlias::register($MODULE_NAME, "level", "pvp");
 	CommandAlias::register($MODULE_NAME, "level", "lvl");
 
 	// Missions
-	Command::register($MODULE_NAME, "", "missions.php", "missions", "all", "Shows what missions a specified level can roll");
+	$command->register($MODULE_NAME, "", "missions.php", "missions", "all", "Shows what missions a specified level can roll");
 
 	// XP/SK Calculator
-	Command::register($MODULE_NAME, "", "xp.php", "xp", "all", "XP Calculator");
+	$command->register($MODULE_NAME, "", "xp.php", "xp", "all", "XP Calculator");
 	CommandAlias::register($MODULE_NAME, "xp", "sk");
 
 	// AXP calculator
-	Command::register($MODULE_NAME, "", "axp.php", "axp", "all", "AXP Calculator", 'xp');
+	$command->register($MODULE_NAME, "", "axp.php", "axp", "all", "AXP Calculator", 'xp');
 
 	// Max XP calculator
-	Command::register($MODULE_NAME, "", "capxp.php", "capxp", "all", "Max XP Calculator");
+	$command->register($MODULE_NAME, "", "capxp.php", "capxp", "all", "Max XP Calculator");
 	CommandAlias::register($MODULE_NAME, "capxp", "capsk");
 
 	// Help files

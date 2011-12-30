@@ -3,7 +3,7 @@
 
 	$db->loadSQLFile($MODULE_NAME, "trickle");
 
-	Command::register($MODULE_NAME, "", "trickle.php", "trickle", "all", "Shows how much skills you will gain by increasing an ability");
+	$command->register($MODULE_NAME, "", "trickle.php", "trickle", "all", "Shows how much skills you will gain by increasing an ability");
 
 	Help::register($MODULE_NAME, "trickle", "trickle.txt", "all", "How to use trickle");
 ?>

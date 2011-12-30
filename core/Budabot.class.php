@@ -154,16 +154,8 @@ class Budabot extends AOChat {
 		forEach ($data as $row) {
 		  	$this->existing_cmd_aliases[$row->alias] = true;
 		}
-
-		// Load the Core Modules -- SETINGS must be first in case the other modules have settings
-		Logger::log('INFO', 'Core', "Loading CORE modules...");
-		$core_modules = array('SETTINGS', 'SYSTEM', 'ADMIN', 'BAN', 'HELP', 'CONFIG', 'LIMITS', 'PLAYER_LOOKUP', 'FRIENDLIST', 'ALTS', 'USAGE', 'PREFERENCES', 'API_MODULE');
-		$db->begin_transaction();
-		forEach ($core_modules as $MODULE_NAME) {
-			Logger::log('DEBUG', 'Core', "MODULE_NAME:({$MODULE_NAME}.php)");
-			require "./core/{$MODULE_NAME}/{$MODULE_NAME}.php";
-		}
-		$db->commit();
+		
+		$this->loadCoreModules();
 
 		Logger::log('INFO', 'Core', "Loading USER modules...");
 
@@ -186,10 +178,25 @@ class Budabot extends AOChat {
 		$db->exec("DELETE FROM settings_<myname> WHERE `verify` = 0");
 		$db->exec("DELETE FROM hlpcfg_<myname> WHERE `verify` = 0");
 
-		Command::loadCommands();
+		$this->getInstance('command')->loadCommands();
 		Subcommand::loadSubcommands();
 		CommandAlias::load();
 		Event::loadEvents();
+	}
+	
+	function loadCoreModules() {
+		$db = $this->getInstance('db');
+		$command = $this->getInstance('command');
+
+		// Load the Core Modules -- SETINGS must be first in case the other modules have settings
+		Logger::log('INFO', 'Core', "Loading CORE modules...");
+		$core_modules = array('SETTINGS', 'SYSTEM', 'ADMIN', 'BAN', 'HELP', 'CONFIG', 'LIMITS', 'PLAYER_LOOKUP', 'FRIENDLIST', 'ALTS', 'USAGE', 'PREFERENCES', 'API_MODULE');
+		$db->begin_transaction();
+		forEach ($core_modules as $MODULE_NAME) {
+			Logger::log('DEBUG', 'Core', "MODULE_NAME:({$MODULE_NAME}.php)");
+			require "./core/{$MODULE_NAME}/{$MODULE_NAME}.php";
+		}
+		$db->commit();
 	}
 
 	function sendPrivate($message, $group, $disable_relay = false) {
@@ -284,7 +291,8 @@ class Budabot extends AOChat {
 	 */
 	function loadModules(){
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
+		$db = $this->getInstance('db');
+		$command = $this->getInstance('command');
 
 		if ($d = dir("./modules")) {
 			while (false !== ($MODULE_NAME = $d->read())) {
@@ -989,7 +997,7 @@ class Budabot extends AOChat {
 			}
 		}
 		if ($syntax_error === true) {
-			$results = Command::get($cmd, $type);
+			$results = $chatBot->getInstance('command')->get($cmd, $type);
 			$result = $results[0];
 			if ($result->help != '') {
 				$blob = Help::find($result->help, $sender);
@@ -1034,9 +1042,10 @@ class Budabot extends AOChat {
 				);
 			}
 		}
+		$command = $this->getInstance('command');
 		forEach ($reflection->getMethods() as $method) {
 			if ($method->hasAnnotation('Command')) {
-				Command::register(
+				$command->register(
 					$MODULE_NAME,
 					$method->getAnnotation('Channels')->value,
 					$name . '.' . $method->name,
@@ -1079,6 +1088,11 @@ class Budabot extends AOChat {
 		if ($instance == null) {
 			return null;
 		}
+		if ($set[$name] !== null) {
+			return $set[$name];
+		}
+		
+		$set[$name] = $instance;
 		
 		// inject other instances that are annotated with @Inject
 		$reflection = new ReflectionAnnotatedClass($instance);
@@ -1090,7 +1104,6 @@ class Budabot extends AOChat {
 					$dependencyName = $property->name;
 				}
 				$dependencyName = strtolower($dependencyName);
-				$set []= $instance;
 				$instance->{$property->name} = $this->getInstance($dependencyName, $set);
 			}
 		}

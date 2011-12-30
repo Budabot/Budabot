@@ -2,13 +2,15 @@
 
 class Command extends Annotation {
 
+	/** @Inject */
+	public $db;
+
 	/**
 	 * @name: register
 	 * @description: Registers a command
 	 */
-	public static function register($module, $channel, $filename, $command, $admin, $description = '', $help = ''){
+	public function register($module, $channel, $filename, $command, $admin, $description = '', $help = ''){
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
 
 		$command = strtolower($command);
 		$module = strtoupper($module);
@@ -45,10 +47,10 @@ class Command extends Annotation {
 			
 			if (isset($chatBot->existing_commands[$channel[$i]][$command])) {
 				$sql = "UPDATE cmdcfg_<myname> SET `module` = ?, `verify` = ?, `file` = ?, `description` = ?, `help` = ? WHERE `cmd` = ? AND `type` = ?";
-				$db->exec($sql, $module, '1', $actual_filename, $description, $help, $command, $channel[$i]);
+				$this->db->exec($sql, $module, '1', $actual_filename, $description, $help, $command, $channel[$i]);
 			} else {
 				$sql = "INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`, `help`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-				$db->exec($sql, $module, $channel[$i], $actual_filename, $command, $admin[$i], $description, '1', 'cmd', $status, $help);
+				$this->db->exec($sql, $module, $channel[$i], $actual_filename, $command, $admin[$i], $description, '1', 'cmd', $status, $help);
 			}
 		}
 	}
@@ -90,7 +92,7 @@ class Command extends Annotation {
 	 * @name: deactivate
 	 * @description: Deactivates a command
 	 */
-	public static function deactivate($channel, $filename, $command) {
+	public function deactivate($channel, $filename, $command) {
 		global $chatBot;
 
 		$command = strtolower($command);
@@ -101,10 +103,7 @@ class Command extends Annotation {
 		unset($chatBot->commands[$channel][$command]);
 	}
 	
-	public static function update_status($channel, $module, $cmd, $status) {
-		global $chatBot;
-		$db = $chatBot->getInstance('db');
-		
+	public function update_status($channel, $module, $cmd, $status) {
 		if ($channel == 'all' || $channel == '' || $channel == null) {
 			$type_sql = '';
 		} else {
@@ -123,42 +122,36 @@ class Command extends Annotation {
 			$module_sql = "AND `module` = '$module'";
 		}
 	
-		$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' $module_sql $cmd_sql $type_sql");
+		$data = $this->db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' $module_sql $cmd_sql $type_sql");
 		if (count($data) == 0) {
 			return 0;
 		}
 		
 		forEach ($data as $row) {
 			if ($status == 1) {
-				Command::activate($row->type, $row->filename, $row->cmd, $row->admin);
+				$this->activate($row->type, $row->filename, $row->cmd, $row->admin);
 			} else if ($status == 0) {
-				Command::deactivate($row->type, $row->filename, $row->cmd);
+				$this->deactivate($row->type, $row->filename, $row->cmd);
 			}
 		}
 		
-		return $db->exec("UPDATE cmdcfg_<myname> SET status = '$status' WHERE `cmdevent` = 'cmd' $module_sql $cmd_sql $type_sql");
+		return $this->db->exec("UPDATE cmdcfg_<myname> SET status = '$status' WHERE `cmdevent` = 'cmd' $module_sql $cmd_sql $type_sql");
 	}
 
 	/**
 	 * @name: loadCommands
 	 * @description: Loads the active commands into memory to activate them
 	 */
-	public static function loadCommands() {
+	public function loadCommands() {
 		Logger::log('DEBUG', 'Command', "Loading enabled commands");
 
-	  	global $chatBot;
-		$db = $chatBot->getInstance('db');
-
-		$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'cmd'");
+		$data = $this->db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'cmd'");
 		forEach ($data as $row) {
-			Command::activate($row->type, $row->file, $row->cmd, $row->admin);
+			$this->activate($row->type, $row->file, $row->cmd, $row->admin);
 		}
 	}
 	
-	public static function get($command, $channel = null) {
-		global $chatBot;
-		$db = $chatBot->getInstance('db');
-		
+	public function get($command, $channel = null) {
 		$command = strtolower($command);
 		
 		if ($channel !== null) {
@@ -166,7 +159,7 @@ class Command extends Annotation {
 		}
 		
 		$sql = "SELECT * FROM cmdcfg_<myname> WHERE `cmd` = ? {$type_sql}";
-		return $db->query($sql, $command);
+		return $this->db->query($sql, $command);
 	}
 }
 

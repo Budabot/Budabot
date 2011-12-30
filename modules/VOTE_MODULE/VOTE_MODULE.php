@@ -1,7 +1,7 @@
 <?php
 	Event::register($MODULE_NAME, "setup", "setup.php");
 
-	Command::register($MODULE_NAME, "", "vote.php", "vote", "all", "Vote/Polling");
+	$command->register($MODULE_NAME, "", "vote.php", "vote", "all", "Vote/Polling");
 	
 	Setting::add($MODULE_NAME, "vote_channel_spam", "Showing Vote status messages in", "edit", "options", "2", "Private Channel;Guild;Private Channel and Guild;Neither", "0;1;2;3", "mod", "votesettings");
 	Setting::add($MODULE_NAME, "vote_add_new_choices", "Users can add in there own choices", "edit", "options", "1", "true;false", "1;0", "mod", "votesettings");

@@ -7,8 +7,8 @@
 	$db->loadSQLFile($MODULE_NAME, 'news');
 
 	// Set admin and user news
-	Command::register($MODULE_NAME, "", "set_news.php", "privnews", "rl", "Set news shown on private channel join");
-	Command::register($MODULE_NAME, "", "set_news.php", "adminnews", "mod", "Set news shown to admins on private channel join", 'privnews');
+	$command->register($MODULE_NAME, "", "set_news.php", "privnews", "rl", "Set news shown on private channel join");
+	$command->register($MODULE_NAME, "", "set_news.php", "adminnews", "mod", "Set news shown to admins on private channel join", 'privnews');
 
 	// Help files
 	Help::register($MODULE_NAME, "news", "news.txt", "guild", "How to use news");

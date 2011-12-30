@@ -5,9 +5,9 @@
 	$db->loadSQLFile($MODULE_NAME, "aodb");
 
 	//Items Search
-	Command::register($MODULE_NAME, "", "items.php", "items", "all", "Search for an item");
+	$command->register($MODULE_NAME, "", "items.php", "items", "all", "Search for an item");
 
-	Command::register($MODULE_NAME, "", "updateitems.php", "updateitems", "guild", "Download the latest version of the items db");
+	$command->register($MODULE_NAME, "", "updateitems.php", "updateitems", "guild", "Download the latest version of the items db");
 	
 	Event::register($MODULE_NAME, "24hrs", "itemsdb_check.php", "Check to make sure items db is the latest version available");
 

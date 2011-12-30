@@ -2,7 +2,7 @@
 	require_once "vent.inc.php";
 	require_once "ventrilostatus.php";
 
-	Command::register($MODULE_NAME, "", "vent.php", "vent", "guild", "Show Ventrilo Server Info");
+	$command->register($MODULE_NAME, "", "vent.php", "vent", "guild", "Show Ventrilo Server Info");
 	
 	Setting::add($MODULE_NAME, "ventaddress", "Ventrilo Server Address", "edit", "text", "unknown");
 	Setting::add($MODULE_NAME, "ventport", "Ventrilo Server Port", "edit", "number", "unknown");

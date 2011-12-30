@@ -1,23 +1,23 @@
 <?php
 	$db->loadSQLFile($MODULE_NAME, "private_chat");
     
-    Command::register($MODULE_NAME, "", "members.php", "members", "all", "Member list", 'private_channel');
-	Command::register($MODULE_NAME, "", "sm.php", "sm", "all", "Shows who is in the private channel", 'private_channel');
-	Command::register($MODULE_NAME, "", "autoinvite.php", "autoinvite", "member", "Allows members to set whether he should be auto-invited to private channel on logon or not");
-    Command::register($MODULE_NAME, "guild msg", "join.php", "join", "member", "Join command for guests", 'private_channel');
-	Command::register($MODULE_NAME, "priv msg", "leave.php", "leave", "all", "Enables Privatechat Kick", 'private_channel');
-	Command::register($MODULE_NAME, "", "count.php", "count", "all", "Shows how many characters are in the private channel");
-	Command::register($MODULE_NAME, "", "kickall.php", "kickall", "guild", "Kicks all from the private channel");
-	Command::register($MODULE_NAME, "", "lock.php", "lock", "rl", "Locks the private channel");
-	Command::register($MODULE_NAME, "", "lock.php", "unlock", "rl", "Unlocks the private channel", 'lock');
-	Command::register($MODULE_NAME, "", "add.php", "adduser", "guild", "Adds a player to the members list", 'private_channel');
-	Command::register($MODULE_NAME, "", "rem.php", "remuser", "guild", "Removes a player from the members list", 'private_channel');
-	Command::register($MODULE_NAME, "", "accept.php", "accept", "mod", "Accept a private channel invitation from another player");
+    $command->register($MODULE_NAME, "", "members.php", "members", "all", "Member list", 'private_channel');
+	$command->register($MODULE_NAME, "", "sm.php", "sm", "all", "Shows who is in the private channel", 'private_channel');
+	$command->register($MODULE_NAME, "", "autoinvite.php", "autoinvite", "member", "Allows members to set whether he should be auto-invited to private channel on logon or not");
+    $command->register($MODULE_NAME, "guild msg", "join.php", "join", "member", "Join command for guests", 'private_channel');
+	$command->register($MODULE_NAME, "priv msg", "leave.php", "leave", "all", "Enables Privatechat Kick", 'private_channel');
+	$command->register($MODULE_NAME, "", "count.php", "count", "all", "Shows how many characters are in the private channel");
+	$command->register($MODULE_NAME, "", "kickall.php", "kickall", "guild", "Kicks all from the private channel");
+	$command->register($MODULE_NAME, "", "lock.php", "lock", "rl", "Locks the private channel");
+	$command->register($MODULE_NAME, "", "lock.php", "unlock", "rl", "Unlocks the private channel", 'lock');
+	$command->register($MODULE_NAME, "", "add.php", "adduser", "guild", "Adds a player to the members list", 'private_channel');
+	$command->register($MODULE_NAME, "", "rem.php", "remuser", "guild", "Removes a player from the members list", 'private_channel');
+	$command->register($MODULE_NAME, "", "accept.php", "accept", "mod", "Accept a private channel invitation from another player");
 	
-	Command::register($MODULE_NAME, "api msg priv guild", "invite.php", "invite", "guild", "Invite players to the private channel", 'private_channel');
+	$command->register($MODULE_NAME, "api msg priv guild", "invite.php", "invite", "guild", "Invite players to the private channel", 'private_channel');
 	CommandAlias::register($MODULE_NAME, "invite", "inviteuser");
 	
-	Command::register($MODULE_NAME, "api msg priv guild", "kick.php", "kick", "guild", "Kick players from private channel", 'private_channel');
+	$command->register($MODULE_NAME, "api msg priv guild", "kick.php", "kick", "guild", "Kick players from private channel", 'private_channel');
 	CommandAlias::register($MODULE_NAME, "kick", "kickuser");
 
 	Setting::add($MODULE_NAME, "guest_color_channel", "Color for Private Channel relay(ChannelName)", "edit", "color", "<font color=#C3C3C3>");

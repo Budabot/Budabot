@@ -220,10 +220,8 @@ class DB {
 	 * @name: add_table_replace
 	 * @description: creates a replace string to run on queries
 	 */
-	public static function add_table_replace($search, $replace) {
-		global $chatBot;
-		$db = $chatBot->getInstance('db');
-		$db->table_replaces[$search] = $replace;
+	public function add_table_replace($search, $replace) {
+		$this->table_replaces[$search] = $replace;
 	}
 
 	/**

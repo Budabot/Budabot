@@ -1,7 +1,7 @@
 <?php
 	$db->loadSQLFile($MODULE_NAME, 'org_city');
 
-    Command::register($MODULE_NAME, "", "cloak.php", "cloak", "guild", "Shows the status of the city cloak");
+    $command->register($MODULE_NAME, "", "cloak.php", "cloak", "guild", "Shows the status of the city cloak");
 	CommandAlias::register($MODULE_NAME, "cloak", "city");
 
 	Event::register($MODULE_NAME, "guild", "record_cloak_changes.php", "Records when the cloak is raised or lowered");
@@ -13,9 +13,9 @@
 	Setting::add($MODULE_NAME, "cloak_reminder_interval", "How often to spam guild channel when cloak is down", "edit", "time", "5m", "2m;5m;10m;15m;20m");
 	
 	// Auto Wave
-	Command::register($MODULE_NAME, "", "startraid.php", "startraid", "guild", "manually starts wave counter", "wavecounter");
-	Command::register($MODULE_NAME, "", "stopraid.php", "stopraid", "guild", "manually stops wave counter", "wavecounter");
-	Command::register($MODULE_NAME, "", "citywave.php", "citywave", "guild", "Shows the current city wave", "wavecounter");
+	$command->register($MODULE_NAME, "", "startraid.php", "startraid", "guild", "manually starts wave counter", "wavecounter");
+	$command->register($MODULE_NAME, "", "stopraid.php", "stopraid", "guild", "manually stops wave counter", "wavecounter");
+	$command->register($MODULE_NAME, "", "citywave.php", "citywave", "guild", "Shows the current city wave", "wavecounter");
 	Event::register($MODULE_NAME, "guild", "auto_start_wave_counter.php", "Starts a wave counter when cloak is lowered");
 	Event::register($MODULE_NAME, "2sec", "counter.php", "Checks timer to see when next wave should come");
 	

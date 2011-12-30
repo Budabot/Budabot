@@ -6,16 +6,16 @@
 	$db->loadSQLFile($MODULE_NAME, "scout_info");
 	$db->loadSQLFile($MODULE_NAME, "tower_site");
 
-	Command::register($MODULE_NAME, "", "scout.php", "forcescout", "guild", "Adds tower info to watch list (bypasses some of the checks)");
-	Command::register($MODULE_NAME, "", "scout.php", "scout", "guild", "Adds tower info to watch list");
-	Command::register($MODULE_NAME, "", "remscout.php", "remscout", "guild", "Removes tower info to watch list", 'scout');
-	Command::register($MODULE_NAME, "", "opentimes.php", "opentimes", "guild", "Shows status of towers", 'scout');
+	$command->register($MODULE_NAME, "", "scout.php", "forcescout", "guild", "Adds tower info to watch list (bypasses some of the checks)");
+	$command->register($MODULE_NAME, "", "scout.php", "scout", "guild", "Adds tower info to watch list");
+	$command->register($MODULE_NAME, "", "remscout.php", "remscout", "guild", "Removes tower info to watch list", 'scout');
+	$command->register($MODULE_NAME, "", "opentimes.php", "opentimes", "guild", "Shows status of towers", 'scout');
 
-	Command::register($MODULE_NAME, "", "lc.php", "lc", "all", "Shows status of towers");
+	$command->register($MODULE_NAME, "", "lc.php", "lc", "all", "Shows status of towers");
 
-	Command::register($MODULE_NAME, "", "penalty.php", "penalty", "all", "Shows orgs in penalty");
-	Command::register($MODULE_NAME, "", "victory.php", "victory", "all", "Shows the last Tower Battle results");
-	Command::register($MODULE_NAME, "", "attacks.php", "attacks", "all", "Shows the last Tower Attack messages");
+	$command->register($MODULE_NAME, "", "penalty.php", "penalty", "all", "Shows orgs in penalty");
+	$command->register($MODULE_NAME, "", "victory.php", "victory", "all", "Shows the last Tower Battle results");
+	$command->register($MODULE_NAME, "", "attacks.php", "attacks", "all", "Shows the last Tower Attack messages");
 	CommandAlias::register($MODULE_NAME, "attacks", "battles");
 
 	Setting::add($MODULE_NAME, "tower_attack_spam", "Layout types when displaying tower attacks", "edit", "options", "1", "off;compact;normal;full", '0;1;2;3');

@@ -33,10 +33,10 @@
 	Event::register($MODULE_NAME, "1min", "set_bbin_link.php", "Automatically reconnect to IRC server", '', 0);
 	
 	//Commands
-	Command::register($MODULE_NAME, "", "bbin_connect.php", "startbbin", "mod", "Connect to BBIN", 'bbin');
-	Command::register($MODULE_NAME, "", "stopbbin.php", "stopbbin", "mod", "Disconnect from BBIN", 'bbin');
-	Command::register($MODULE_NAME, "", "online_bbin.php", "onlinebbin", "all", "View who is in IRC channel", 'bbin');
-	Command::register($MODULE_NAME, "", "set_bbin_settings.php", "setbbin", "mod", "Manually set BBIN settings", 'bbin');
+	$command->register($MODULE_NAME, "", "bbin_connect.php", "startbbin", "mod", "Connect to BBIN", 'bbin');
+	$command->register($MODULE_NAME, "", "stopbbin.php", "stopbbin", "mod", "Disconnect from BBIN", 'bbin');
+	$command->register($MODULE_NAME, "", "online_bbin.php", "onlinebbin", "all", "View who is in IRC channel", 'bbin');
+	$command->register($MODULE_NAME, "", "set_bbin_settings.php", "setbbin", "mod", "Manually set BBIN settings", 'bbin');
 	
 	//BBIN Relay
 	Event::register($MODULE_NAME, "2sec", "bbin_loop.php", "The main BBIN message loop");

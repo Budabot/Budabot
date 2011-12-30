@@ -1,12 +1,12 @@
 <?php
 	require_once 'orglist_functions.php';
 	
-	Command::register($MODULE_NAME, "", "orgmembers.php", "orgmembers", "rl", "Show guild members sorted by name");
-	Command::register($MODULE_NAME, "", "orgranks.php", "orgranks", "rl", "Show guild members sorted by guild rank");
-	Command::register($MODULE_NAME, "", "whoisorg.php", "whoisorg", "all", "Display org info");
-	Command::register($MODULE_NAME, "", "findorg.php", "findorg", "all", "Find orgs by name");
-	Command::register($MODULE_NAME, "", "is_online.php", "is", "all", "Checks if a player is online");
-	Command::register($MODULE_NAME, "", "orglist.php", "orglist", "guild", "Check someones org roster");
+	$command->register($MODULE_NAME, "", "orgmembers.php", "orgmembers", "rl", "Show guild members sorted by name");
+	$command->register($MODULE_NAME, "", "orgranks.php", "orgranks", "rl", "Show guild members sorted by guild rank");
+	$command->register($MODULE_NAME, "", "whoisorg.php", "whoisorg", "all", "Display org info");
+	$command->register($MODULE_NAME, "", "findorg.php", "findorg", "all", "Find orgs by name");
+	$command->register($MODULE_NAME, "", "is_online.php", "is", "all", "Checks if a player is online");
+	$command->register($MODULE_NAME, "", "orglist.php", "orglist", "guild", "Check someones org roster");
 
 	Event::register($MODULE_NAME, "logOn", "orglist_check.php", "Gets online status of org members");
 	Event::register($MODULE_NAME, "logOff", "orglist_check.php", "Gets offline status of org members");

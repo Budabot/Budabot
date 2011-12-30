@@ -8,5 +8,5 @@
 	
 	Setting::add($MODULE_NAME, "api_port", "Port number to listen for API requests", "edit", "number", '5250', '5250');
 
-	Command::register($MODULE_NAME, "", "apipassword.php", "apipassword", "mod", "Set your API password");
+	$command->register($MODULE_NAME, "", "apipassword.php", "apipassword", "mod", "Set your API password");
 ?>

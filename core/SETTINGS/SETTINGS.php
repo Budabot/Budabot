@@ -1,7 +1,7 @@
 <?php
-	Command::activate("msg", "$MODULE_NAME/bot_settings.php", "settings", "mod");
-	Command::activate("priv", "$MODULE_NAME/bot_settings.php", "settings", "mod");
-	Command::activate("guild", "$MODULE_NAME/bot_settings.php", "settings", "mod");
+	$command->activate("msg", "$MODULE_NAME/bot_settings.php", "settings", "mod");
+	$command->activate("priv", "$MODULE_NAME/bot_settings.php", "settings", "mod");
+	$command->activate("guild", "$MODULE_NAME/bot_settings.php", "settings", "mod");
 
 	Event::activate("setup", "$MODULE_NAME/upload_settings.php");
 

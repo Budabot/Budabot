@@ -6,15 +6,15 @@
 	$db->loadSQLFile($MODULE_NAME, 'ofabweapons');
 	$db->loadSQLFile($MODULE_NAME, 'alienweapons');
 
-	Command::register($MODULE_NAME, "", "ofabarmor.php", "ofabarmor", "all", "Show Ofab armor and VP cost");
-	Command::register($MODULE_NAME, "", "ofabweapons.php", "ofabweapons", "all", "Show Ofab weapons and VP cost");
-	Command::register($MODULE_NAME, "", "bio.php", "bio", "all", "Identify Solid Clump of Kyr'Ozch Bio-Material");
-	Command::register($MODULE_NAME, "", "aigen.php", "aigen", "all", "Info about Alien City Generals");
-	Command::register($MODULE_NAME, "", "aiarmor.php", "aiarmor", "all", "Tradeskill process for Alien Armor");
-	Command::register($MODULE_NAME, "", "bioinfo.php", "bioinfo", "all", "Show info about a particular bio type");
+	$command->register($MODULE_NAME, "", "ofabarmor.php", "ofabarmor", "all", "Show Ofab armor and VP cost");
+	$command->register($MODULE_NAME, "", "ofabweapons.php", "ofabweapons", "all", "Show Ofab weapons and VP cost");
+	$command->register($MODULE_NAME, "", "bio.php", "bio", "all", "Identify Solid Clump of Kyr'Ozch Bio-Material");
+	$command->register($MODULE_NAME, "", "aigen.php", "aigen", "all", "Info about Alien City Generals");
+	$command->register($MODULE_NAME, "", "aiarmor.php", "aiarmor", "all", "Tradeskill process for Alien Armor");
+	$command->register($MODULE_NAME, "", "bioinfo.php", "bioinfo", "all", "Show info about a particular bio type");
 	CommandAlias::register($MODULE_NAME, "bioinfo", "biotype");
 
-	Command::register($MODULE_NAME, "", "leprocs.php", "leprocs", "all", "Shows the LE Procs for a particular profession");
+	$command->register($MODULE_NAME, "", "leprocs.php", "leprocs", "all", "Shows the LE Procs for a particular profession");
 
     Help::register($MODULE_NAME, "bio", "bio.txt", "all", "Identify an Biomaterial");
 	Help::register($MODULE_NAME, "bioinfo", "bioinfo.txt", "all", "How to find info on a bio type");

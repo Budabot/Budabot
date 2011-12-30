@@ -5,10 +5,10 @@
 
 	Event::register($MODULE_NAME, "setup", "setup.php");
 
-	Command::register($MODULE_NAME, "", "rtimer.php", "rtimer", "guild", "Add a repeating timer", 'timers');
-	Command::register($MODULE_NAME, "", "timers.php", "timers", "guild", "Set timers/Show running timers");
+	$command->register($MODULE_NAME, "", "rtimer.php", "rtimer", "guild", "Add a repeating timer", 'timers');
+	$command->register($MODULE_NAME, "", "timers.php", "timers", "guild", "Set timers/Show running timers");
 	
-	Command::register($MODULE_NAME, "", "countdown.php", "countdown", "guild", "Set a countdown");
+	$command->register($MODULE_NAME, "", "countdown.php", "countdown", "guild", "Set a countdown");
 	CommandAlias::register($MODULE_NAME, "countdown", "cd");
 
 	Event::register($MODULE_NAME, "2sec", "timers_check.php", "Checks timers and periodically updates chat with time left");
