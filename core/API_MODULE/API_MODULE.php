@@ -6,7 +6,7 @@
 	$event->register($MODULE_NAME, "connect", "connect.php", "Opens a socket to listen for API requests", '', 0);
 	$event->register($MODULE_NAME, "2sec", "listen.php", "Checks for and processes API requests", '', 0);
 	
-	Setting::add($MODULE_NAME, "api_port", "Port number to listen for API requests", "edit", "number", '5250', '5250');
+	$setting->add($MODULE_NAME, "api_port", "Port number to listen for API requests", "edit", "number", '5250', '5250');
 
 	$command->register($MODULE_NAME, "", "apipassword.php", "apipassword", "mod", "Set your API password");
 ?>

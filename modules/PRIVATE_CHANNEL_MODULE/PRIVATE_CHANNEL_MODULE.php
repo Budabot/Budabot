@@ -20,13 +20,13 @@
 	$command->register($MODULE_NAME, "api msg priv guild", "kick.php", "kick", "guild", "Kick players from private channel", 'private_channel');
 	CommandAlias::register($MODULE_NAME, "kick", "kickuser");
 
-	Setting::add($MODULE_NAME, "guest_color_channel", "Color for Private Channel relay(ChannelName)", "edit", "color", "<font color=#C3C3C3>");
-	Setting::add($MODULE_NAME, "guest_color_guild", "Private Channel relay color in guild channel", "edit", "color", "<font color=#C3C3C3>");
-	Setting::add($MODULE_NAME, "guest_color_guest", "Private Channel relay color in private channel", "edit", "color", "<font color=#C3C3C3>");
-	Setting::add($MODULE_NAME, "guest_relay", "Relay the Private Channel with the Guild Channel", "edit", "options", "1", "true;false", "1;0");
-	Setting::add($MODULE_NAME, "guest_relay_commands", "Relay commands and results from/to Private Channel", "edit", "options", "0", "true;false", "1;0");
-	Setting::add($MODULE_NAME, "priv_status", "Private channel status", "edit", "options", "1", "open;closed", "1;0");
-	Setting::add($MODULE_NAME, "priv_status_reason", "Reason for private channel status", "edit", "text", "none");
+	$setting->add($MODULE_NAME, "guest_color_channel", "Color for Private Channel relay(ChannelName)", "edit", "color", "<font color=#C3C3C3>");
+	$setting->add($MODULE_NAME, "guest_color_guild", "Private Channel relay color in guild channel", "edit", "color", "<font color=#C3C3C3>");
+	$setting->add($MODULE_NAME, "guest_color_guest", "Private Channel relay color in private channel", "edit", "color", "<font color=#C3C3C3>");
+	$setting->add($MODULE_NAME, "guest_relay", "Relay the Private Channel with the Guild Channel", "edit", "options", "1", "true;false", "1;0");
+	$setting->add($MODULE_NAME, "guest_relay_commands", "Relay commands and results from/to Private Channel", "edit", "options", "0", "true;false", "1;0");
+	$setting->add($MODULE_NAME, "priv_status", "Private channel status", "edit", "options", "1", "open;closed", "1;0");
+	$setting->add($MODULE_NAME, "priv_status_reason", "Reason for private channel status", "edit", "text", "none");
 
 	$event->register($MODULE_NAME, "connect", "connected.php", "Adds all members as buddies who have auto-invite enabled");
 	$event->register($MODULE_NAME, "guild", "guest_channel_relay.php", "Private channel relay from guild channel");

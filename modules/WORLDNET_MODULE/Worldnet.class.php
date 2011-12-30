@@ -1,6 +1,9 @@
 <?php
 
 class Worldnet {
+	/** @Inject */
+	public $setting;
+
 	/**
 	 * @Event("logOn")
 	 * @Description("Requests invite from worldnet bot")
@@ -53,7 +56,7 @@ class Worldnet {
 		
 		$channelSetting = strtolower($sender . '_' . $worldnetChannel . '_channel');
 		if (Setting::get($channelSetting) === false) {
-			Setting::add('WORLDNET_MODULE', $channelSetting, "Channel $worldnetChannel status", "edit", "options", "1", "true;false", "1;0");
+			$this->setting->add('WORLDNET_MODULE', $channelSetting, "Channel $worldnetChannel status", "edit", "options", "1", "true;false", "1;0");
 		}
 
 		if (Ban::is_banned($name)) {

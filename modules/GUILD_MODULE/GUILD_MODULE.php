@@ -23,9 +23,9 @@
 	$event->register($MODULE_NAME, "logOff", "record_lastseen.php", "Records when each member of the org logs off for lastseen command");
 	$event->register($MODULE_NAME, "orgmsg", "org_action_listener.php", "Capture Org Invite/Kick/Leave messages for orghistory");
 	
-	Setting::add($MODULE_NAME, "max_logon_msg_size", "Maximum characters a logon message can have", "edit", "number", "200", "100;200;300;400", '', "mod");
-	Setting::add($MODULE_NAME, "max_logoff_msg_size", "Maximum characters a logoff message can have", "edit", "number", "200", "100;200;300;400", '', "mod");
-	Setting::add($MODULE_NAME, "first_and_last_alt_only", "Show logon/logoff for first/last alt only", "edit", "options", "0", "true;false", "1;0");
+	$setting->add($MODULE_NAME, "max_logon_msg_size", "Maximum characters a logon message can have", "edit", "number", "200", "100;200;300;400", '', "mod");
+	$setting->add($MODULE_NAME, "max_logoff_msg_size", "Maximum characters a logoff message can have", "edit", "number", "200", "100;200;300;400", '', "mod");
+	$setting->add($MODULE_NAME, "first_and_last_alt_only", "Show logon/logoff for first/last alt only", "edit", "options", "0", "true;false", "1;0");
 	
 	$help->register($MODULE_NAME, "inactivemem", "inactivemem.txt", "rl", "Help on Checking for Inactive Members");
 	$help->register($MODULE_NAME, "updateorg", "updateorg.txt", "rl", "Force an update of org roster");

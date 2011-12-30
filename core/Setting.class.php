@@ -34,6 +34,8 @@ help = Helpfile for this setting
 */
 
 class Setting extends Annotation {
+	/** @Inject */
+	public $db;
 
 	/**
 	 * @name: add
@@ -48,9 +50,8 @@ class Setting extends Annotation {
 	 * @param: $help - a help file for this setting; if blank, will use a help topic with the same name as this setting if it exists (optional)
 	 * @description: Adds a new setting
 	 */	
-	public static function add($module, $name, $description, $mode, $type, $value, $options = '', $intoptions = '', $admin = 'mod', $help = '') {
+	public function add($module, $name, $description, $mode, $type, $value, $options = '', $intoptions = '', $admin = 'mod', $help = '') {
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
 		
 		$name = strtolower($name);
 		$type = strtolower($type);
@@ -70,10 +71,10 @@ class Setting extends Annotation {
 
 		if (isset($chatBot->existing_settings[$name])) {
 			$sql = "UPDATE settings_<myname> SET `module` = ?, `type` = ?, `mode` = ?, `options` = ?, `intoptions` = ?, `description` = ?, `admin` = ?, `verify` = 1, `help` = ? WHERE `name` = ?";
-			$db->exec($sql, $module, $type, $mode, $options, $intoptions, $description, $admin, $help, $name);
+			$this->db->exec($sql, $module, $type, $mode, $options, $intoptions, $description, $admin, $help, $name);
 	  	} else {
 			$sql = "INSERT INTO settings_<myname> (`name`, `module`, `type`, `mode`, `value`, `options`, `intoptions`, `description`, `source`, `admin`, `verify`, `help`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-			$db->exec($sql, $name, $module, $type, $mode, $value, $options, $intoptions, $description, 'db', $admin, '1', $help);
+			$this->db->exec($sql, $name, $module, $type, $mode, $value, $options, $intoptions, $description, 'db', $admin, '1', $help);
 		  	$chatBot->settings[$name] = $value;
 		}
 	}

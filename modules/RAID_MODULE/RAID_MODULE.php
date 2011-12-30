@@ -59,7 +59,7 @@
 	$command->register($MODULE_NAME, "", "xan.php", "12m", "all", "Shows Possible 12 man Loot", 'xan');
 	
 	// Settings
-	Setting::add($MODULE_NAME, "add_on_loot", "Adding to loot show on", "edit", "options", "2", "tells;privatechat;privatechat and tells", '1;2;3', "mod");
+	$setting->add($MODULE_NAME, "add_on_loot", "Adding to loot show on", "edit", "options", "2", "tells;privatechat;privatechat and tells", '1;2;3', "mod");
 
 	// Help files
 	$help->register($MODULE_NAME, "add_rem", "add_rem.txt", "all", "Adding to a lootitem");

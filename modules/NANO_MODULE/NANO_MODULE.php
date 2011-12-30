@@ -13,8 +13,8 @@
 	$command->register($MODULE_NAME, "", "nanolines.php", "nanolines", "all", "Shows nanos based on nanoline");
 
 	//Settings
-	Setting::add($MODULE_NAME, 'maxnano', 'Number of Nanos shown on the list', 'edit', "number", '40', '30;40;50;60', "", "mod");
-	Setting::add($MODULE_NAME, "shownanolineicons", "Show icons for the nanolines", "edit", "options", "0", "true;false", "1;0");
+	$setting->add($MODULE_NAME, 'maxnano', 'Number of Nanos shown on the list', 'edit', "number", '40', '30;40;50;60', "", "mod");
+	$setting->add($MODULE_NAME, "shownanolineicons", "Show icons for the nanolines", "edit", "options", "0", "true;false", "1;0");
 
 	//Helpfiles
 	$help->register($MODULE_NAME, "nano", "nano.txt", "guild", "How to search for a nano.");

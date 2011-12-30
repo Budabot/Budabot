@@ -9,8 +9,8 @@
 	$event->register($MODULE_NAME, "1min", "cloak_reminder.php", "Reminds the player who lowered cloak to raise it");
 	$event->register($MODULE_NAME, "logOn", "city_guild_logon.php", "Show cloak status to guild members logging in");
 	
-	Setting::add($MODULE_NAME, "showcloakstatus", "Show cloak status to players at logon", "edit", "options", "1", "Never;When cloak is down;Always", "0;1;2");
-	Setting::add($MODULE_NAME, "cloak_reminder_interval", "How often to spam guild channel when cloak is down", "edit", "time", "5m", "2m;5m;10m;15m;20m");
+	$setting->add($MODULE_NAME, "showcloakstatus", "Show cloak status to players at logon", "edit", "options", "1", "Never;When cloak is down;Always", "0;1;2");
+	$setting->add($MODULE_NAME, "cloak_reminder_interval", "How often to spam guild channel when cloak is down", "edit", "time", "5m", "2m;5m;10m;15m;20m");
 	
 	// Auto Wave
 	$command->register($MODULE_NAME, "", "startraid.php", "startraid", "guild", "manually starts wave counter", "wavecounter");

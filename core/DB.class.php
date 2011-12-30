@@ -31,6 +31,9 @@
 
 //Database Abstraction Class
 class DB {
+	/** @Inject */
+	public $setting;
+
 	private $type;
 	private $sql;
 	private $dbName;
@@ -299,7 +302,7 @@ class DB {
 				//$this->commit();
 			
 				if (!Setting::save($settingName, $maxFileVersion)) {
-					Setting::add($module, $settingName, $settingName, 'noedit', 'text', $maxFileVersion);
+					$this->setting->add($module, $settingName, $settingName, 'noedit', 'text', $maxFileVersion);
 				}
 				
 				if ($maxFileVersion != 0) {

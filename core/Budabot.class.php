@@ -2,6 +2,24 @@
 
 class Budabot extends AOChat {
 
+	/** @Inject */
+	public $db;
+	
+	/** @Inject */
+	public $command;
+	
+	/** @Inject */
+	public $subcommand;
+	
+	/** @Inject */
+	public $event;
+	
+	/** @Inject */
+	public $help;
+	
+	/** @Inject */
+	public $setting;
+
 	var $buddyList = array();
 	var $chatlist = array();
 	var $guildmembers = array();
@@ -80,13 +98,13 @@ class Budabot extends AOChat {
 			$this->wait_for_packet();
 			if ($this->is_ready()) {
 				if ($exec_connected_events == false)	{
-					$this->getInstance('event')->executeConnectEvents();
+					$this->event->executeConnectEvents();
 					$exec_connected_events = true;
 				}
 				
 				// execute crons at most once every second
 				if ($time < time()) {
-					$this->getInstance('event')->crons();
+					$this->event->crons();
 					$time = time();
 				}
 			}
@@ -96,14 +114,12 @@ class Budabot extends AOChat {
 	function init() {
 		Logger::log('DEBUG', 'Core', 'Initializing bot');
 		
-		$db = $this->getInstance('db');
-		
 		// Create core tables if not exists
-		$db->exec("CREATE TABLE IF NOT EXISTS cmdcfg_<myname> (`module` VARCHAR(50), `cmdevent` VARCHAR(6), `type` VARCHAR(18), `file` VARCHAR(255), `cmd` VARCHAR(25), `admin` VARCHAR(10), `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0', `dependson` VARCHAR(25) DEFAULT 'none', `help` VARCHAR(25))");
-		$db->exec("CREATE TABLE IF NOT EXISTS eventcfg_<myname> (`module` VARCHAR(50), `type` VARCHAR(18), `file` VARCHAR(255), `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0', `help` VARCHAR(25))");
-		$db->exec("CREATE TABLE IF NOT EXISTS settings_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `type` VARCHAR(30), `mode` VARCHAR(10), `value` VARCHAR(255) DEFAULT '0', `options` VARCHAR(255) DEFAULT '0', `intoptions` VARCHAR(50) DEFAULT '0', `description` VARCHAR(50), `source` VARCHAR(5), `admin` VARCHAR(25), `verify` INT DEFAULT '0', `help` VARCHAR(25))");
-		$db->exec("CREATE TABLE IF NOT EXISTS hlpcfg_<myname> (`name` VARCHAR(25) NOT NULL, `module` VARCHAR(50), `file` VARCHAR(255), `description` VARCHAR(50), `admin` VARCHAR(10), `verify` INT DEFAULT '0')");
-		$db->exec("CREATE TABLE IF NOT EXISTS cmd_alias_<myname> (`cmd` VARCHAR(25) NOT NULL, `module` VARCHAR(50), `alias` VARCHAR(25) NOT NULL, `status` INT DEFAULT '0')");
+		$this->db->exec("CREATE TABLE IF NOT EXISTS cmdcfg_<myname> (`module` VARCHAR(50), `cmdevent` VARCHAR(6), `type` VARCHAR(18), `file` VARCHAR(255), `cmd` VARCHAR(25), `admin` VARCHAR(10), `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0', `dependson` VARCHAR(25) DEFAULT 'none', `help` VARCHAR(25))");
+		$this->db->exec("CREATE TABLE IF NOT EXISTS eventcfg_<myname> (`module` VARCHAR(50), `type` VARCHAR(18), `file` VARCHAR(255), `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0', `help` VARCHAR(25))");
+		$this->db->exec("CREATE TABLE IF NOT EXISTS settings_<myname> (`name` VARCHAR(30) NOT NULL, `module` VARCHAR(50), `type` VARCHAR(30), `mode` VARCHAR(10), `value` VARCHAR(255) DEFAULT '0', `options` VARCHAR(255) DEFAULT '0', `intoptions` VARCHAR(50) DEFAULT '0', `description` VARCHAR(50), `source` VARCHAR(5), `admin` VARCHAR(25), `verify` INT DEFAULT '0', `help` VARCHAR(25))");
+		$this->db->exec("CREATE TABLE IF NOT EXISTS hlpcfg_<myname> (`name` VARCHAR(25) NOT NULL, `module` VARCHAR(50), `file` VARCHAR(255), `description` VARCHAR(50), `admin` VARCHAR(10), `verify` INT DEFAULT '0')");
+		$this->db->exec("CREATE TABLE IF NOT EXISTS cmd_alias_<myname> (`cmd` VARCHAR(25) NOT NULL, `module` VARCHAR(50), `alias` VARCHAR(25) NOT NULL, `status` INT DEFAULT '0')");
 		
 		// Delete old vars in case they exist
 		$this->events = array();
@@ -118,39 +134,39 @@ class Budabot extends AOChat {
 		unset($this->guildChat);
 
 		// Prepare command/event settings table
-		$db->exec("UPDATE cmdcfg_<myname> SET `verify` = 0");
-		$db->exec("UPDATE eventcfg_<myname> SET `verify` = 0");
-		$db->exec("UPDATE settings_<myname> SET `verify` = 0");
-		$db->exec("UPDATE hlpcfg_<myname> SET `verify` = 0");
-		$db->exec("UPDATE eventcfg_<myname> SET `status` = 1 WHERE `type` = 'setup'");
+		$this->db->exec("UPDATE cmdcfg_<myname> SET `verify` = 0");
+		$this->db->exec("UPDATE eventcfg_<myname> SET `verify` = 0");
+		$this->db->exec("UPDATE settings_<myname> SET `verify` = 0");
+		$this->db->exec("UPDATE hlpcfg_<myname> SET `verify` = 0");
+		$this->db->exec("UPDATE eventcfg_<myname> SET `status` = 1 WHERE `type` = 'setup'");
 
 		// To reduce queries load core items into memory
-		$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd'");
+		$data = $this->db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd'");
 		forEach ($data as $row) {
 		  	$this->existing_commands[$row->type][$row->cmd] = true;
 		}
 
-		$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd'");
+		$data = $this->db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd'");
 		forEach ($data as $row) {
 		  	$this->existing_subcmds[$row->type][$row->cmd] = true;
 		}
 
-		$data = $db->query("SELECT * FROM eventcfg_<myname>");
+		$data = $this->db->query("SELECT * FROM eventcfg_<myname>");
 		forEach ($data as $row) {
 			$this->existing_events[$row->type][$row->file] = true;
 		}
 
-		$data = $db->query("SELECT * FROM hlpcfg_<myname>");
+		$data = $this->db->query("SELECT * FROM hlpcfg_<myname>");
 		forEach ($data as $row) {
 		  	$this->existing_helps[$row->name] = true;
 		}
 
-		$data = $db->query("SELECT * FROM settings_<myname>");
+		$data = $this->db->query("SELECT * FROM settings_<myname>");
 		forEach ($data as $row) {
 		  	$this->existing_settings[$row->name] = true;
 		}
 		
-		$data = $db->query("SELECT * FROM cmd_alias_<myname>");
+		$data = $this->db->query("SELECT * FROM cmd_alias_<myname>");
 		forEach ($data as $row) {
 		  	$this->existing_cmd_aliases[$row->alias] = true;
 		}
@@ -160,9 +176,7 @@ class Budabot extends AOChat {
 		Logger::log('INFO', 'Core', "Loading USER modules...");
 
 		//Load user modules
-		$db->begin_transaction();
 		$this->loadModules();
-		$db->commit();
 		
 		//remove arrays
 		unset($this->existing_commands);
@@ -173,15 +187,15 @@ class Budabot extends AOChat {
 		unset($this->existing_cmd_aliases);
 		
 		//Delete old entrys in the DB
-		$db->exec("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0");
-		$db->exec("DELETE FROM eventcfg_<myname> WHERE `verify` = 0");
-		$db->exec("DELETE FROM settings_<myname> WHERE `verify` = 0");
-		$db->exec("DELETE FROM hlpcfg_<myname> WHERE `verify` = 0");
+		$this->db->exec("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0");
+		$this->db->exec("DELETE FROM eventcfg_<myname> WHERE `verify` = 0");
+		$this->db->exec("DELETE FROM settings_<myname> WHERE `verify` = 0");
+		$this->db->exec("DELETE FROM hlpcfg_<myname> WHERE `verify` = 0");
 
-		$this->getInstance('command')->loadCommands();
-		$this->getInstance('subcommand')->loadSubcommands();
+		$this->command->loadCommands();
+		$this->subcommand->loadSubcommands();
 		CommandAlias::load();
-		$this->getInstance('event')->loadEvents();
+		$this->event->loadEvents();
 	}
 
 	function sendPrivate($message, $group, $disable_relay = false) {
@@ -271,21 +285,23 @@ class Budabot extends AOChat {
 	}
 	
 	function loadCoreModules() {
-		$db = $this->getInstance('db');
-		$command = $this->getInstance('command');
-		$subcommand = $this->getInstance('subcommand');
-		$event = $this->getInstance('event');
-		$help = $this->getInstance('help');
+		global $chatBot;
+		$db = $this->db;
+		$command = $this->command;
+		$subcommand = $this->subcommand;
+		$event = $this->event;
+		$help = $this->help;
+		$setting = $this->setting;
 
 		// Load the Core Modules -- SETINGS must be first in case the other modules have settings
 		Logger::log('INFO', 'Core', "Loading CORE modules...");
 		$core_modules = array('SETTINGS', 'SYSTEM', 'ADMIN', 'BAN', 'HELP', 'CONFIG', 'LIMITS', 'PLAYER_LOOKUP', 'FRIENDLIST', 'ALTS', 'USAGE', 'PREFERENCES', 'API_MODULE');
-		$db->begin_transaction();
+		$this->db->begin_transaction();
 		forEach ($core_modules as $MODULE_NAME) {
 			Logger::log('DEBUG', 'Core', "MODULE_NAME:({$MODULE_NAME}.php)");
 			require "./core/{$MODULE_NAME}/{$MODULE_NAME}.php";
 		}
-		$db->commit();
+		$this->db->commit();
 	}
 
 	/**
@@ -294,13 +310,15 @@ class Budabot extends AOChat {
 	 */
 	function loadModules(){
 		global $chatBot;
-		$db = $this->getInstance('db');
-		$command = $this->getInstance('command');
-		$subcommand = $this->getInstance('subcommand');
-		$event = $this->getInstance('event');
-		$help = $this->getInstance('help');
+		$db = $this->db;
+		$command = $this->command;
+		$subcommand = $this->subcommand;
+		$event = $this->event;
+		$help = $this->help;
+		$setting = $this->setting;
 
 		if ($d = dir("./modules")) {
+			$this->db->begin_transaction();
 			while (false !== ($MODULE_NAME = $d->read())) {
 				// filters out ., .., .svn
 				if (!is_dir($MODULE_NAME)) {
@@ -314,6 +332,7 @@ class Budabot extends AOChat {
 				}
 			}
 			$d->close();
+			$this->db->commit();
 		}
 	}
 
@@ -376,7 +395,7 @@ class Budabot extends AOChat {
 	
 	function process_all_packets($packet_type, $args) {
 		global $chatBot;
-		$db = $this->getInstance('db');
+		$db = $this->db;
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -404,7 +423,7 @@ class Budabot extends AOChat {
 	
 	function process_group_announce($args) {
 		global $chatBot;
-		$db = $this->getInstance('db');
+		$db = $this->db;
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -419,7 +438,7 @@ class Budabot extends AOChat {
 	
 	function process_private_channel_join($args) {
 		global $chatBot;
-		$db = $this->getInstance('db');
+		$db = $this->db;
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -486,7 +505,7 @@ class Budabot extends AOChat {
 	
 	function process_private_channel_leave($args) {
 		global $chatBot;
-		$db = $this->getInstance('db');
+		$db = $this->db;
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -547,7 +566,7 @@ class Budabot extends AOChat {
 	
 	function process_buddy_update($args) {
 		global $chatBot;
-		$db = $this->getInstance('db');
+		$db = $this->db;
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -621,7 +640,7 @@ class Budabot extends AOChat {
 	
 	function process_private_message($args) {
 		global $chatBot;
-		$db = $this->getInstance('db');
+		$db = $this->db;
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -700,7 +719,7 @@ class Budabot extends AOChat {
 	
 	function process_private_channel_message($args) {
 		global $chatBot;
-		$db = $this->getInstance('db');
+		$db = $this->db;
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -785,7 +804,7 @@ class Budabot extends AOChat {
 	
 	function process_public_channel_message($args) {
 		global $chatBot;
-		$db = $this->getInstance('db');
+		$db = $this->db;
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -894,7 +913,7 @@ class Budabot extends AOChat {
 	
 	function process_private_channel_invite($args) {
 		global $chatBot;
-		$db = $this->getInstance('db');
+		$db = $this->db;
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -928,7 +947,7 @@ class Budabot extends AOChat {
 	
 	function process_command($type, $message, $sender, $sendto) {
 		global $chatBot;
-		$db = $this->getInstance('db');
+		$db = $this->db;
 		
 		// Admin Code
 		list($cmd, $params) = explode(' ', $message, 2);
@@ -984,7 +1003,7 @@ class Budabot extends AOChat {
 		}
 
 		if ($cmd != 'grc' && Setting::get('record_usage_stats') == 1) {
-			Usage::record($type, $cmd, $sender);
+			$this->getInstance('usage')->record($type, $cmd, $sender);
 		}
 	
 		$syntax_error = false;
@@ -1003,13 +1022,13 @@ class Budabot extends AOChat {
 			}
 		}
 		if ($syntax_error === true) {
-			$results = $chatBot->getInstance('command')->get($cmd, $type);
+			$results = $this->command->get($cmd, $type);
 			$result = $results[0];
 			if ($result->help != '') {
-				$blob = $chatBot->getInstance('help')->find($result->help, $sender);
+				$blob = $this->help->find($result->help, $sender);
 				$helpcmd = ucfirst($result->help);
 			} else {
-				$blob = $chatBot->getInstance('help')->find($cmd, $sender);
+				$blob = $this->help->find($cmd, $sender);
 				$helpcmd = ucfirst($cmd);
 			}
 			if ($blob !== false) {
@@ -1034,7 +1053,7 @@ class Budabot extends AOChat {
 		$reflection = new ReflectionAnnotatedClass($obj);
 		forEach ($reflection->getProperties() as $property) {
 			if ($property->hasAnnotation('Setting')) {
-				Setting::add(
+				$this->setting->add(
 					$MODULE_NAME,
 					$property->getAnnotation('Setting')->value,
 					$property->getAnnotation('Description')->value,
@@ -1050,12 +1069,9 @@ class Budabot extends AOChat {
 		}
 		
 		// register commands, subcommands, and events annotated on the class
-		$command = $this->getInstance('command');
-		$subcommand = $this->getInstance('subcommand');
-		$event = $this->getInstance('event');
 		forEach ($reflection->getMethods() as $method) {
 			if ($method->hasAnnotation('Command')) {
-				$command->register(
+				$this->command->register(
 					$MODULE_NAME,
 					$method->getAnnotation('Channels')->value,
 					$name . '.' . $method->name,
@@ -1067,7 +1083,7 @@ class Budabot extends AOChat {
 			}
 			if ($method->hasAnnotation('Subcommand')) {
 				list($parentCommand) = explode(" ", $method->getAnnotation('Subcommand')->value, 2);
-				$subcommand->register(
+				$this->subcommand->register(
 					$MODULE_NAME,
 					$method->getAnnotation('Channels')->value,
 					$name . '.' . $method->name,
@@ -1079,7 +1095,7 @@ class Budabot extends AOChat {
 				);
 			}
 			if ($method->hasAnnotation('Event')) {
-				$event->register(
+				$this->event->register(
 					$MODULE_NAME,
 					$method->getAnnotation('Event')->value,
 					$name . '.' . $method->name,
@@ -1105,6 +1121,11 @@ class Budabot extends AOChat {
 		}
 		$set[$name] = $instance;
 		
+		$this->injectDependencies($instance, $set);
+		return $instance;
+	}
+	
+	public function injectDependencies(&$instance, $set = array()) {
 		// inject other instances that are annotated with @Inject
 		$reflection = new ReflectionAnnotatedClass($instance);
 		forEach ($reflection->getProperties() as $property) {
@@ -1118,7 +1139,6 @@ class Budabot extends AOChat {
 				$instance->{$property->name} = $this->getInstance($dependencyName, $set);
 			}
 		}
-		return $instance;
 	}
 	
 	/**

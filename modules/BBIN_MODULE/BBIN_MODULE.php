@@ -52,12 +52,12 @@
 	$event->register($MODULE_NAME, "logOff", "bbin_relay_left.php", "Shows a logoff from a member");
 	
 	//Settings
-	Setting::add($MODULE_NAME, "bbin_status", "Status of BBIN uplink", "noedit", "options", "0", "Offline;Online", "0;1", "mod", "bbin");
-	Setting::add($MODULE_NAME, "bbin_server", "IRC server to connect to", "noedit", "text", "irc.funcom.com", "", "", "mod", "bbin");
-	Setting::add($MODULE_NAME, "bbin_port", "IRC server port to use", "noedit", "number", "6667", "", "", "mod", "bbin");
-	Setting::add($MODULE_NAME, "bbin_nickname", "Nickname to use while in IRC", "noedit", "text", $chatBot->vars['name'], "", "", "mod", "bbin");
-	Setting::add($MODULE_NAME, "bbin_channel", "Channel to join", "noedit", "text", $channel, "", "", "mod", "bbin");
-	Setting::add($MODULE_NAME, "bbin_password", "IRC password to join channel", "edit", "text", "none", "none");
+	$setting->add($MODULE_NAME, "bbin_status", "Status of BBIN uplink", "noedit", "options", "0", "Offline;Online", "0;1", "mod", "bbin");
+	$setting->add($MODULE_NAME, "bbin_server", "IRC server to connect to", "noedit", "text", "irc.funcom.com", "", "", "mod", "bbin");
+	$setting->add($MODULE_NAME, "bbin_port", "IRC server port to use", "noedit", "number", "6667", "", "", "mod", "bbin");
+	$setting->add($MODULE_NAME, "bbin_nickname", "Nickname to use while in IRC", "noedit", "text", $chatBot->vars['name'], "", "", "mod", "bbin");
+	$setting->add($MODULE_NAME, "bbin_channel", "Channel to join", "noedit", "text", $channel, "", "", "mod", "bbin");
+	$setting->add($MODULE_NAME, "bbin_password", "IRC password to join channel", "edit", "text", "none", "none");
 	
 	//Helpfiles
 	$help->register($MODULE_NAME, "bbin", "bbin_help.txt", "all", "How to use the BBIN plugin");

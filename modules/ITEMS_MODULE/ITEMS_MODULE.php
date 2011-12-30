@@ -12,7 +12,7 @@
 	$event->register($MODULE_NAME, "24hrs", "itemsdb_check.php", "Check to make sure items db is the latest version available");
 
 	//Settings
-	Setting::add($MODULE_NAME, 'maxitems', 'Number of Items shown on the list', 'edit', "number", '40', '30;40;50;60', "", "mod");
+	$setting->add($MODULE_NAME, 'maxitems', 'Number of Items shown on the list', 'edit', "number", '40', '30;40;50;60', "", "mod");
 
 	//Help files
 	$help->register($MODULE_NAME, "items", "items.txt", "guild", "How to search for an item.");

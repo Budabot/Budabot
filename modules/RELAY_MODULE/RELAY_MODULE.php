@@ -27,13 +27,13 @@
 	$event->register($MODULE_NAME, "orgmsg", "org_messages.php", "Relay Org Messages");
 	
 	// Settings
-	Setting::add($MODULE_NAME, "relaytype", "Type of relay", "edit", "options", "1", "tell;private channel", '1;2', "mod");
-	Setting::add($MODULE_NAME, "relaysymbol", "Symbol for external relay", "edit", "options", "@", "!;#;*;@;$;+;-;Always relay", '', "mod");
-	Setting::add($MODULE_NAME, "relaybot", "Bot for Guildrelay", "edit", "text", "Off", "Off", '', "mod");
-	Setting::add($MODULE_NAME, "bot_relay_commands", "Relay commands and results over the bot relay", "edit", "options", "0", "true;false", "1;0");
-	Setting::add($MODULE_NAME, 'relay_color_guild', "Color of messages from relay to guild channel", 'edit', "color", "<font color='#C3C3C3'>");
-	Setting::add($MODULE_NAME, 'relay_color_priv', "Color of messages from relay to private channel", 'edit', "color", "<font color='#C3C3C3'>");
-	Setting::add($MODULE_NAME, 'relay_guild_abbreviation', 'Abbreviation to use for org name', 'edit', 'text', 'none', 'none');
+	$setting->add($MODULE_NAME, "relaytype", "Type of relay", "edit", "options", "1", "tell;private channel", '1;2', "mod");
+	$setting->add($MODULE_NAME, "relaysymbol", "Symbol for external relay", "edit", "options", "@", "!;#;*;@;$;+;-;Always relay", '', "mod");
+	$setting->add($MODULE_NAME, "relaybot", "Bot for Guildrelay", "edit", "text", "Off", "Off", '', "mod");
+	$setting->add($MODULE_NAME, "bot_relay_commands", "Relay commands and results over the bot relay", "edit", "options", "0", "true;false", "1;0");
+	$setting->add($MODULE_NAME, 'relay_color_guild', "Color of messages from relay to guild channel", 'edit', "color", "<font color='#C3C3C3'>");
+	$setting->add($MODULE_NAME, 'relay_color_priv', "Color of messages from relay to private channel", 'edit', "color", "<font color='#C3C3C3'>");
+	$setting->add($MODULE_NAME, 'relay_guild_abbreviation', 'Abbreviation to use for org name', 'edit', 'text', 'none', 'none');
 	
 	$help->register($MODULE_NAME, "tellrelay", "tellrelay.txt", "mod", "How to setup an org relay between two orgs using tells");
 	$help->register($MODULE_NAME, "relaybot", "relaybot.txt", "mod", "Set the bot that this bot will relay with");

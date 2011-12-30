@@ -18,10 +18,10 @@
 	$command->register($MODULE_NAME, "", "attacks.php", "attacks", "all", "Shows the last Tower Attack messages");
 	CommandAlias::register($MODULE_NAME, "attacks", "battles");
 
-	Setting::add($MODULE_NAME, "tower_attack_spam", "Layout types when displaying tower attacks", "edit", "options", "1", "off;compact;normal;full", '0;1;2;3');
-	Setting::add($MODULE_NAME, "tower_faction_def", "Display certain factions defending", "edit", "options", "7", "none;clan;neutral;clan+neutral;omni;clan+omni;neutral+omni;all", '0;1;2;3;4;5;6;7');
-	Setting::add($MODULE_NAME, "tower_faction_atk", "Display certain factions attacking", "edit", "options", "7", "none;clan;neutral;clan+neutral;omni;clan+omni;neutral+omni;all", '0;1;2;3;4;5;6;7');
-	Setting::add($MODULE_NAME, "tower_page_size", "Number of results to display for victory/attacks", "edit", "options", "15", "5;10;15;20;25");
+	$setting->add($MODULE_NAME, "tower_attack_spam", "Layout types when displaying tower attacks", "edit", "options", "1", "off;compact;normal;full", '0;1;2;3');
+	$setting->add($MODULE_NAME, "tower_faction_def", "Display certain factions defending", "edit", "options", "7", "none;clan;neutral;clan+neutral;omni;clan+omni;neutral+omni;all", '0;1;2;3;4;5;6;7');
+	$setting->add($MODULE_NAME, "tower_faction_atk", "Display certain factions attacking", "edit", "options", "7", "none;clan;neutral;clan+neutral;omni;clan+omni;neutral+omni;all", '0;1;2;3;4;5;6;7');
+	$setting->add($MODULE_NAME, "tower_page_size", "Number of results to display for victory/attacks", "edit", "options", "15", "5;10;15;20;25");
 
 	$event->register($MODULE_NAME, "towers", "attack_messages.php", "Record attack messages");
 	$event->register($MODULE_NAME, "towers", "victory_messages.php", "Record victory messages");

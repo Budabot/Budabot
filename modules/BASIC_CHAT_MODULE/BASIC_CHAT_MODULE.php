@@ -7,9 +7,9 @@
 	$event->register($MODULE_NAME, "logOn", "topic_logon.php", "Show Topic on logon of members");
 	$command->register($MODULE_NAME, "", "topic.php", "topic", "all", "Show Topic");
 	$subcommand->register($MODULE_NAME, "", "topic_change.php", "topic (.+)", "leader", "topic", "Change Topic");
-	Setting::add($MODULE_NAME, "topic", "Topic for Priv Channel", "noedit", "text", '');
-	Setting::add($MODULE_NAME, "topic_setby", "Character who set the topic", "noedit", "text", '');
-	Setting::add($MODULE_NAME, "topic_time", "Time the topic was set", "noedit", "text", '');
+	$setting->add($MODULE_NAME, "topic", "Topic for Priv Channel", "noedit", "text", '');
+	$setting->add($MODULE_NAME, "topic_setby", "Character who set the topic", "noedit", "text", '');
+	$setting->add($MODULE_NAME, "topic_time", "Time the topic was set", "noedit", "text", '');
 
 	// Leader
 	$command->register($MODULE_NAME, "priv", "leader.php", "leader", "all", "Sets the Leader of the raid");
@@ -17,8 +17,8 @@
 	$command->register($MODULE_NAME, "", "leaderecho_cmd.php", "leaderecho", "leader", "Set if the text of the leader will be repeated", 'leader');
 	$event->register($MODULE_NAME, "priv", "leaderecho.php", "Repeats what the leader says in the color of leaderecho_color setting");
 	$event->register($MODULE_NAME, "leavePriv", "leader_leave.php", "Removes leader when the leader leaves the channel", 'leader');
-	Setting::add($MODULE_NAME, "leaderecho", "Repeat the text of the leader", "edit", "options", "1", "true;false", "1;0");
-	Setting::add($MODULE_NAME, "leaderecho_color", "Color for leader echo", "edit", "color", "<font color=#FFFF00>");
+	$setting->add($MODULE_NAME, "leaderecho", "Repeat the text of the leader", "edit", "options", "1", "true;false", "1;0");
+	$setting->add($MODULE_NAME, "leaderecho_color", "Color for leader echo", "edit", "color", "<font color=#FFFF00>");
 
 	// Assist
 	$command->register($MODULE_NAME, "", "assist.php", "assist", "all", "Shows an Assist macro");

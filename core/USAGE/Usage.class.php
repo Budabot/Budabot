@@ -1,20 +1,24 @@
 <?php
 
 class Usage {
-	public static function record($type, $cmd, $sender) {
-		global $chatBot;
-		$db = $chatBot->getInstance('db');
+	/** @Inject */
+	public $db;
+	
+	/** @Inject */
+	public $setting;
 
+	public function record($type, $cmd, $sender) {
 		$sql = "INSERT INTO usage_<myname> (type, command, sender, dt) VALUES (?, ?, ?, ?)";
-		$db->exec($sql, $type, $cmd, $sender, time());
+		$this->db->exec($sql, $type, $cmd, $sender, time());
 	}
 
-	public static function submitUsage($debug = false) {
+	public function submitUsage() {
+		$debug = false;
 		$time = time();
 		$settingName = 'last_submitted_stats';
 		$lastSubmittedStats = Setting::get($settingName);
 
-		$postArray['stats'] = json_encode(Usage::getUsageInfo($lastSubmittedStats, $debug));
+		$postArray['stats'] = json_encode($this->getUsageInfo($lastSubmittedStats, $debug));
 
 		$url = 'stats.jkbff.com/submitUsage.php';
 		$mycurl = new MyCurl($url);
@@ -27,28 +31,27 @@ class Usage {
 		Setting::save($settingName, $time);
 	}
 	
-	public static function getUsageInfo($lastSubmittedStats, $debug = false) {
+	public function getUsageInfo($lastSubmittedStats, $debug = false) {
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
 		global $version;
 
 		$botid = Setting::get('botid');
 		if ($botid == '') {
 			$botid = Util::genRandomString(20);
-			Setting::add("USAGE", 'botid', 'botid', 'noedit', 'text', $botid);
+			$this->setting->add("USAGE", 'botid', 'botid', 'noedit', 'text', $botid);
 		}
 
 		$sql = "SELECT type, command FROM usage_<myname> WHERE dt >= ?";
-		$data = $db->query($sql, $lastSubmittedStats);
+		$data = $this->db->query($sql, $lastSubmittedStats);
 
 		$settings = array();
 		$settings['dimension'] = $chatBot->vars['dimension'];
 		$settings['is_guild_bot'] = ($chatBot->vars['my_guild'] == '' ? '0' : '1');
-		$settings['guildsize'] = Usage::getGuildSizeClass(count($chatBot->guildmembers));
+		$settings['guildsize'] = $this->getGuildSizeClass(count($chatBot->guildmembers));
 		$settings['using_chat_proxy'] = $chatBot->vars['use_proxy'];
 		$settings['symbol'] = Setting::get('symbol');
 		$settings['spam_protection'] = Setting::get('spam_protection');
-		$settings['db_type'] = $db->get_type();
+		$settings['db_type'] = $this->db->get_type();
 		$settings['bot_version'] = $version;
 		$settings['using_svn'] = (file_exists("./modules/SVN_MODULE/svn.php") === true ? '1' : '0');
 		$settings['os'] = (isWindows() === true ? 'Windows' : 'Other');
@@ -74,7 +77,7 @@ class Usage {
 		return $obj;
 	}
 	
-	public static function getGuildSizeClass($size) {
+	public function getGuildSizeClass($size) {
 		$guildClass = "";
 		if ($size == 0) {
 			$guildClass = "class0";

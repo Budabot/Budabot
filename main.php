@@ -173,6 +173,8 @@ $chatBot->registerInstance('CORE', 'command', new Command);
 $chatBot->registerInstance('CORE', 'subcommand', new Subcommand);
 $chatBot->registerInstance('CORE', 'event', new Event);
 $chatBot->registerInstance('CORE', 'help', new Help);
+$chatBot->registerInstance('CORE', 'setting', new Setting);
+$chatBot->injectDependencies($chatBot);
 $chatBot->init();
 $chatBot->connectAO($vars['login'], $vars['password'], $server, $port);
 
