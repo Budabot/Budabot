@@ -1,7 +1,8 @@
 <?php
 
 function formatSpiritOutput($data) {
-	$db = DB::get_instance();
+	global $chatBot;
+	$db = $chatBot->getInstance('db');
 	
 	if (count($data) == 0) {
 		return "No matches found.";

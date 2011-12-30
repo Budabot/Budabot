@@ -1,8 +1,6 @@
 <?php
 
-function checkIfColumnExists($table, $column) {
-	$db = DB::get_instance();
-
+function checkIfColumnExists($db, $table, $column) {
 	$data = $db->query("SELECT * FROM $table");
 	return property_exists($data[0], $column);
 }
@@ -21,7 +19,7 @@ if (property_exists($data[0], 'logon_msg') || property_exists($data[0], 'logoff_
 	$db->exec("UPDATE org_members_<myname> SET logon_msg = '', logoff_msg = ''");
 }
 
-if (!checkIfColumnExists("news", "sticky")) {
+if (!checkIfColumnExists($db, "news", "sticky")) {
 	$db->exec("ALTER TABLE news ADD `sticky` TINYINT NOT NULL DEFAULT 0");
 }
 

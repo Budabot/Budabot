@@ -49,8 +49,8 @@ class Setting extends Annotation {
 	 * @description: Adds a new setting
 	 */	
 	public static function add($module, $name, $description, $mode, $type, $value, $options = '', $intoptions = '', $admin = 'mod', $help = '') {
-		$db = DB::get_instance();
 		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		$name = strtolower($name);
 		$type = strtolower($type);
@@ -102,8 +102,8 @@ class Setting extends Annotation {
 	 * @return: false if the setting with that name does not exist, true otherwise
 	 */	
 	public static function save($name, $value) {
-		$db = DB::get_instance();
 		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		$name = strtolower($name);
 

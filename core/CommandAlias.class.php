@@ -9,7 +9,8 @@ class CommandAlias {
 	public static function load() {
 		Logger::log('DEBUG', 'CommandAlias', "Loading enabled command aliases");
 	
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		$data = $db->query("SELECT * FROM cmd_alias_<myname> WHERE `status` = '1'");
 		forEach ($data as $row) {
@@ -18,7 +19,8 @@ class CommandAlias {
 	}
 	
 	public function getEnabledAliases() {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		return $db->query("SELECT * FROM cmd_alias_<myname> WHERE `status` = '1' ORDER BY alias ASC");
 	}
@@ -28,8 +30,8 @@ class CommandAlias {
 	 * @description: Registers a command alias
 	 */
 	public static function register($module, $command, $alias, $status = 1) {
-		$db = DB::get_instance();
 		global $chatBot;
+		$db = $chatBot->getInstance('db');
 	
 		$module = strtoupper($module);
 		$command = strtolower($command);
@@ -79,7 +81,8 @@ class CommandAlias {
 	 * @description: Adds a command alias to the db
 	 */
 	public static function add(&$row) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		Logger::log('DEBUG', 'CommandAlias', "Adding alias: '{$alias}' for command: '$command'");
 		
@@ -92,7 +95,8 @@ class CommandAlias {
 	 * @description: Updates a command alias in the db
 	 */
 	public static function update(&$row) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 	  	Logger::log('DEBUG', 'CommandAlias', "Updating alias :($row->alias)");
 		
@@ -101,7 +105,8 @@ class CommandAlias {
 	}
 	
 	public static function get($alias) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		$alias = strtolower($alias);
 
@@ -121,7 +126,8 @@ class CommandAlias {
 	}
 	
 	public static function find_aliases_by_command($command) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		$sql = "SELECT * FROM cmd_alias_<myname> WHERE `cmd` LIKE ?";
 		return $db->query($sql, $command);

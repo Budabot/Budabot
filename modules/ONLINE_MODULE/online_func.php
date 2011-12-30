@@ -8,8 +8,8 @@
  */
 
 function get_online_list($prof = "all") {
-	$db = DB::get_instance();
 	global $chatBot;
+	$db = $chatBot->getInstance('db');
 	
 	if ($prof != 'all') {
 		$prof_query = "AND `profession` = '$prof'";

@@ -23,8 +23,8 @@ class Event extends Annotation {
 	 * @description: Registers an event on the bot so it can be configured
 	 */
 	public static function register($module, $type, $filename, $description = 'none', $help = '', $defaultStatus = null) {
-		$db = DB::get_instance();
 		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		Logger::log('DEBUG', 'Event', "Registering event Type:($type) File:($filename) Module:($module)");
 		
@@ -42,7 +42,7 @@ class Event extends Annotation {
 			}
 		} else {
 			list($name, $method) = explode(".", $filename);
-			$instance = $chatBot->repo[$name];
+			$instance = $chatBot->getInstance($name);
 			if ($instance === null) {
 				Logger::log('ERROR', 'Command', "Error registering method $filename for event type $type.  Could not find instance '$name'.");
 				return;
@@ -74,7 +74,7 @@ class Event extends Annotation {
 	 */
 	public static function activate($type, $filename) {
 		global $chatBot;
-		$db = DB::get_instance();
+		$db = $chatBot->getInstance('db');
 		
 		Logger::log('DEBUG', 'Event', "Activating event Type:($type) File:($filename)");
 
@@ -86,7 +86,7 @@ class Event extends Annotation {
 			}
 		} else {
 			list($name, $method) = explode(".", $filename);
-			$instance = $chatBot->repo[$name];
+			$instance = $chatBot->getInstance($name);
 			if ($instance === null) {
 				Logger::log('ERROR', 'Command', "Error activating method $filename for event type $type.  Could not find instance '$name'.");
 				return;
@@ -156,7 +156,8 @@ class Event extends Annotation {
 	}
 	
 	public static function update_status($type, $module, $filename, $status) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		if ($type == 'all' || $type == '' || $type == null) {
 			$type_sql = '';
@@ -205,7 +206,8 @@ class Event extends Annotation {
 	public static function loadEvents() {
 		Logger::log('DEBUG', 'Event', "Loading enabled events");
 
-	  	$db = DB::get_instance();
+	  	global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		$data = $db->query("SELECT * FROM eventcfg_<myname> WHERE `status` = '1'");
 		forEach ($data as $row) {
@@ -235,13 +237,13 @@ class Event extends Annotation {
 	
 	public static function executeCronEvent($type, $filename) {
 		global $chatBot;
-		$db = DB::get_instance();
+		$db = $chatBot->getInstance('db');
 		
 		if (preg_match("/\\.php$/i", $filename)) {
 			require $filename;
 		} else {
 			list($name, $method) = explode(".", $filename);
-			$instance = $chatBot->repo[$name];
+			$instance = $chatBot->getInstance($name);
 			if ($instance === null) {
 				Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 			} else {
@@ -257,8 +259,8 @@ class Event extends Annotation {
 	public static function executeConnectEvents(){
 		Logger::log('DEBUG', 'Event', "Executing connected events");
 
-		$db = DB::get_instance();
 		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		// Check files, for all 'connect' events.
 		forEach ($chatBot->events['connect'] as $filename) {
@@ -266,7 +268,7 @@ class Event extends Annotation {
 				require $filename;
 			} else {
 				list($name, $method) = explode(".", $filename);
-				$instance = $chatBot->repo[$name];
+				$instance = $chatBot->getInstance($name);
 				if ($instance === null) {
 					Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 				} else {

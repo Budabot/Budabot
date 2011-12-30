@@ -7,8 +7,8 @@ class Command extends Annotation {
 	 * @description: Registers a command
 	 */
 	public static function register($module, $channel, $filename, $command, $admin, $description = '', $help = ''){
-		$db = DB::get_instance();
 		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		$command = strtolower($command);
 		$module = strtoupper($module);
@@ -26,7 +26,7 @@ class Command extends Annotation {
 			}
 		} else {
 			list($name, $method) = explode(".", $filename);
-			$instance = $chatBot->repo[$name];
+			$instance = $chatBot->getInstance($name);
 			if ($instance === null) {
 				Logger::log('ERROR', 'Command', "Error registering method $filename for command $command.  Could not find instance '$name'.");
 				return;
@@ -74,7 +74,7 @@ class Command extends Annotation {
 			}
 		} else {
 			list($name, $method) = explode(".", $filename);
-			$instance = $chatBot->repo[$name];
+			$instance = $chatBot->getInstance($name);
 			if ($instance === null) {
 				Logger::log('ERROR', 'Command', "Error activating method $filename for command $command.  Could not find instance '$name'.");
 				return;
@@ -102,7 +102,8 @@ class Command extends Annotation {
 	}
 	
 	public static function update_status($channel, $module, $cmd, $status) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		if ($channel == 'all' || $channel == '' || $channel == null) {
 			$type_sql = '';
@@ -145,7 +146,8 @@ class Command extends Annotation {
 	public static function loadCommands() {
 		Logger::log('DEBUG', 'Command', "Loading enabled commands");
 
-	  	$db = DB::get_instance();
+	  	global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'cmd'");
 		forEach ($data as $row) {
@@ -154,7 +156,8 @@ class Command extends Annotation {
 	}
 	
 	public static function get($command, $channel = null) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		$command = strtolower($command);
 		

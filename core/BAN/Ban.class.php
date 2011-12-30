@@ -2,7 +2,8 @@
 
 class Ban {
 	public static function add($char, $sender, $length, $reason) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		if ($length == null) {
 			$ban_end = "NULL";
@@ -19,7 +20,8 @@ class Ban {
 	}
 	
 	public static function remove($char) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		$sql = "DELETE FROM banlist_<myname> WHERE name = ?";
 		$numrows = $db->exec($sql, $char);
@@ -30,8 +32,8 @@ class Ban {
 	}
 	
 	public static function upload_banlist() {
-		$db = DB::get_instance();
 		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		$chatBot->banlist = array();
 		

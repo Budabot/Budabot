@@ -2,7 +2,8 @@
 
 if (!function_exists('getNameHistory')) {
 	function getNameHistory($charid, $dimension) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		$sql = "SELECT * FROM name_history WHERE charid = ? AND dimension = ? ORDER BY dt DESC";
 		$data = $db->query($sql, $charid, $dimension);

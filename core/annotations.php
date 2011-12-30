@@ -20,4 +20,8 @@ class Type extends Annotation {
 
 }
 
+class Inject extends Annotation {
+
+}
+
 ?>

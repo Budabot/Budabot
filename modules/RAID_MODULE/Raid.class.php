@@ -94,7 +94,8 @@ class Raid {
 	
 	public static function add_raid_to_loot_list($raid, $category) {
 		global $loot;
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		// clear current loot list
 		$loot = array();
@@ -119,7 +120,8 @@ class Raid {
 	}
 	
 	public static function find_raid_loot($raid, $category) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		$sql = "SELECT * FROM raid_loot WHERE raid = ? AND category = ?";
 		$data = $db->query($sql, $raid, $category);

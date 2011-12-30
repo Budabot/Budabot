@@ -1,7 +1,8 @@
 <?php
 
 function findItem($ql, $name) {
-	$db = DB::get_instance();
+	global $chatBot;
+	$db = $chatBot->getInstance('db');
 
 	$row = $db->queryRow("SELECT * FROM aodb WHERE name = ? AND lowql <= ? AND highql >= ?", $name, $ql, $ql);
 	
@@ -20,7 +21,8 @@ function getWeaponInfo($ql) {
 }
 
 function ofabArmorBio($ql, $type) {
-	$db = DB::get_instance();
+	global $chatBot;
+	$db = $chatBot->getInstance('db');
 
 	$name = "Kyr'Ozch Bio-Material - Type $type";
 	$item = findItem($ql, $name);
@@ -38,7 +40,8 @@ function ofabArmorBio($ql, $type) {
 }
 
 function ofabWeaponBio($ql, $type) {
-	$db = DB::get_instance();
+	global $chatBot;
+	$db = $chatBot->getInstance('db');
 
 	$name = "Kyr'Ozch Bio-Material - Type $type";
 	$item = findItem($ql, $name);
@@ -56,7 +59,8 @@ function ofabWeaponBio($ql, $type) {
 }
 
 function alienWeaponBio($ql, $type) {
-	$db = DB::get_instance();
+	global $chatBot;
+	$db = $chatBot->getInstance('db');
 
 	$name = "Kyr'Ozch Bio-Material - Type $type";
 	$item = findItem($ql, $name);

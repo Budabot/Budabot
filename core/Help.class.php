@@ -17,8 +17,8 @@ class Help extends Annotation {
 	 * @description: Registers a help command
 	 */
 	public static function register($module, $command, $filename, $admin, $description) {
-	  	$db = DB::get_instance();
-		global $chatBot;
+	  	global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		Logger::log('DEBUG', 'Help', "Registering $module:help($command) Helpfile:($filename)");
 

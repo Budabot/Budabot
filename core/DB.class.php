@@ -47,11 +47,6 @@ class DB {
 	public $errorInfo;
 	public $table_replaces = array();
 	
-	public static function get_instance() {
-		global $db;
-		return $db;
-	}
-	
 	//Constructor(opens the connection to the Database)
 	function __construct($type, $dbName, $host = NULL, $user = NULL, $pass = NULL) {
 		global $vars;
@@ -226,7 +221,8 @@ class DB {
 	 * @description: creates a replace string to run on queries
 	 */
 	public static function add_table_replace($search, $replace) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		$db->table_replaces[$search] = $replace;
 	}
 
@@ -237,7 +233,8 @@ class DB {
 	 *    If there is an sql file with name $name.sql it would load that one every time
 	 */
 	public static function loadSQLFile($module, $name, $forceUpdate = false) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		$name = strtolower($name);
 		
 		// only letters, numbers, underscores are allowed

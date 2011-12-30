@@ -1,7 +1,8 @@
 <?php
 
 function download_newest_itemsdb() {
-	$db = DB::get_instance();
+	global $chatBot;
+	$db = $chatBot->getInstance('db');
 
 	Logger::log('INFO', 'ITEMS_MODULE', "Starting items db update");
 
@@ -64,7 +65,7 @@ function download_newest_itemsdb() {
 
 function find_items_from_local($search, $ql) {
 	global $chatBot;
-	$db = DB::get_instance();
+	$db = $chatBot->getInstance('db');
 
 	$tmp = explode(" ", $search);
 	$first = true;

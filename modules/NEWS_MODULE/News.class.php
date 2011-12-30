@@ -1,6 +1,9 @@
 <?php
 
 class News {
+	/** @Inject */
+	public $db;
+
 	/**
 	 * @Setting("news")
 	 * @Description("Private channel news")
@@ -18,9 +21,7 @@ class News {
 	public $defaultAdminNews = "Not set.";
 
 	public function getNews() {
-		$db = DB::get_instance();
-	
-		$data = $db->query("SELECT * FROM `#__news` ORDER BY `sticky` DESC, `time` DESC LIMIT 10");
+		$data = $this->db->query("SELECT * FROM `#__news` ORDER BY `sticky` DESC, `time` DESC LIMIT 10");
 		$msg = '';
 		if (count($data) != 0) {
 			$blob = "<header> :::::: News :::::: <end>\n\n";
@@ -87,11 +88,9 @@ class News {
 	 * @Description("Add a news entry")
 	 */
 	public function newsAddCommand($chatBot, $message, $channel, $sender, $sendto) {
-		$db = DB::get_instance();
-
 		if (preg_match("/^news add (.+)$/si", $message, $arr)) {
 			$news = $arr[1];
-			$db->exec("INSERT INTO `#__news` (`time`, `name`, `news`, `sticky`) VALUES (?, ?, ?, 0)", time(), $sender, $news);
+			$this->db->exec("INSERT INTO `#__news` (`time`, `name`, `news`, `sticky`) VALUES (?, ?, ?, 0)", time(), $sender, $news);
 			$msg = "News has been added successfully.";
 
 			$chatBot->send($msg, $sendto);
@@ -107,11 +106,9 @@ class News {
 	 * @Description("Remove a news entry")
 	 */
 	public function newsRemCommand($chatBot, $message, $channel, $sender, $sendto) {
-		$db = DB::get_instance();
-
 		if (preg_match("/^news rem ([0-9]+)$/i", $message, $arr)) {
 			$id = $arr[1];
-			$rows = $db->exec("DELETE FROM `#__news` WHERE `id` = ?", $id);
+			$rows = $this->db->exec("DELETE FROM `#__news` WHERE `id` = ?", $id);
 			if ($rows == 0) {
 				$msg = "No news entry found with the ID <highlight>{$id}<end>.";
 			} else {
@@ -131,17 +128,15 @@ class News {
 	 * @Description("Stickies a news entry")
 	 */
 	public function stickyCommand($chatBot, $message, $channel, $sender, $sendto) {
-		$db = DB::get_instance();
-
 		if (preg_match("/^news sticky ([0-9]+)$/i", $message, $arr)) {
 			$id = $arr[1];
 
-			$row = $db->queryRow("SELECT * FROM `#__news` WHERE `id` = ?", $id);
+			$row = $this->db->queryRow("SELECT * FROM `#__news` WHERE `id` = ?", $id);
 
 			if ($row->sticky == 1) {
 				$msg = "News ID $id is already stickied.";
 			} else {
-				$db->exec("UPDATE `#__news` SET `sticky` = 1 WHERE `id` = ?", $id);
+				$this->db->exec("UPDATE `#__news` SET `sticky` = 1 WHERE `id` = ?", $id);
 				$msg = "News ID $id successfully stickied.";
 			}
 			$chatBot->send($msg, $sendto);
@@ -157,17 +152,15 @@ class News {
 	 * @Description("Unstickies a news entry")
 	 */
 	public function unstickyCommand($chatBot, $message, $channel, $sender, $sendto) {
-		$db = DB::get_instance();
-
 		if (preg_match("/^news unsticky ([0-9]+)$/i", $message, $arr)) {
 			$id = $arr[1];
 
-			$row = $db->queryRow("SELECT * FROM `#__news` WHERE `id` = ?", $id);
+			$row = $this->db->queryRow("SELECT * FROM `#__news` WHERE `id` = ?", $id);
 
 			if ($row->sticky == 0) {
 				$msg = "News ID $id is not stickied.";
 			} else if ($row->sticky == 1) {
-				$db->exec("UPDATE `#__news` SET `sticky` = 0 WHERE `id` = ?", $id);
+				$this->db->exec("UPDATE `#__news` SET `sticky` = 0 WHERE `id` = ?", $id);
 				$msg = "News ID $id successfully unstickied.";
 			}
 			$chatBot->send($msg, $sendto);

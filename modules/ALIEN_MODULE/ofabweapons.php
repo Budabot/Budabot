@@ -2,7 +2,8 @@
 
 if (!function_exists('makeAlienWeapon')) {
 	function makeAlienWeapon($ql, $name) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 	
 		$row = $db->queryRow("SELECT * FROM aodb WHERE name = ? AND lowql <= ? AND highql >= ?", $name, $ql, $ql);
 		

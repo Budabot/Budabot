@@ -27,14 +27,16 @@ class Whompah {
 	}
 	
 	public static function find_city($search) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		$sql = "SELECT * FROM whompah_cities WHERE city_name LIKE ? OR short_name LIKE ?";
 		return $db->queryRow($sql, $search, $search);
 	}
 	
 	public static function build_whompah_network() {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		$whompahs = array();
 

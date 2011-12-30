@@ -2,7 +2,8 @@
 
 class Usage {
 	public static function record($type, $cmd, $sender) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		$sql = "INSERT INTO usage_<myname> (type, command, sender, dt) VALUES (?, ?, ?, ?)";
 		$db->exec($sql, $type, $cmd, $sender, time());
@@ -28,7 +29,7 @@ class Usage {
 	
 	public static function getUsageInfo($lastSubmittedStats, $debug = false) {
 		global $chatBot;
-		$db = DB::get_instance();
+		$db = $chatBot->getInstance('db');
 		global $version;
 
 		$botid = Setting::get('botid');

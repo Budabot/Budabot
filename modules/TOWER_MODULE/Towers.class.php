@@ -2,7 +2,8 @@
 
 class Towers {
 	public static function get_tower_info($playfield_id, $site_number) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		$sql = "
 			SELECT
@@ -18,7 +19,8 @@ class Towers {
 	}
 	
 	public static function find_sites_in_playfield($playfield_id) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		$sql = "SELECT * FROM tower_site WHERE `playfield_id` = ?";
 
@@ -26,7 +28,8 @@ class Towers {
 	}
 	
 	public static function get_closest_site($playfield_id, $x_coords, $y_coords) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		$sql = "
 			SELECT
@@ -55,7 +58,8 @@ class Towers {
 	}
 
 	public static function get_last_attack($att_faction, $att_guild_name, $def_faction, $def_guild_name, $playfield_id) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		$time = time() - (7 * 3600);
 		
@@ -79,7 +83,8 @@ class Towers {
 	}
 	
 	public static function record_attack($whois, $def_faction, $def_guild_name, $x_coords, $y_coords, $closest_site) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		$sql = "
 			INSERT INTO tower_attack_<myname> (
@@ -117,7 +122,8 @@ class Towers {
 	}
 	
 	public static function find_all_scouted_sites() {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		$sql = 
 			"SELECT
@@ -135,7 +141,8 @@ class Towers {
 	}
 	
 	public static function get_last_victory($playfield_id, $site_number) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		$sql = "
 			SELECT
@@ -154,7 +161,8 @@ class Towers {
 	}
 	
 	public static function record_victory($last_attack) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		$sql = "
 			INSERT INTO tower_victory_<myname> (
@@ -177,7 +185,8 @@ class Towers {
 	}
 	
 	public static function add_scout_site($playfield_id, $site_number, $close_time, $ct_ql, $faction, $guild_name, $scouted_by) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		$db->begin_transaction();
 		
@@ -216,7 +225,8 @@ class Towers {
 	}
 	
 	public static function rem_scout_site($playfield_id, $site_number) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		$sql = "DELETE FROM scout_info WHERE `playfield_id` = ? AND `site_number` = ?";
 
@@ -224,7 +234,8 @@ class Towers {
 	}
 	
 	public static function check_guild_name($guild_name) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 	
 		$sql = "SELECT * FROM tower_attack_<myname> WHERE `att_guild_name` LIKE ? OR `def_guild_name` LIKE ? LIMIT 1";
 		
@@ -237,7 +248,8 @@ class Towers {
 	}
 	
 	public static function getSitesInPenalty($time) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		$sql = "
 			SELECT att_guild_name, att_faction, MAX(IFNULL(t2.time, t1.time)) AS penalty_time

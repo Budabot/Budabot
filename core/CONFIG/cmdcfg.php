@@ -38,7 +38,8 @@ if (!function_exists('get_admin_description')) {
 
 if (!function_exists('getCommandInfo')) {
 	function getCommandInfo($cmd, $type) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 	
 		$l = "";
 		$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = ? AND `type` = ?", $cmd, $type);
@@ -79,7 +80,8 @@ if (!function_exists('getCommandInfo')) {
 
 if (!function_exists('getSubCommandInfo')) {
 	function getSubCommandInfo($cmd, $type) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 	
 		$subcmd_list = '';
 		$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE dependson = ? AND `type` = ? AND `cmdevent` = 'subcmd'", $cmd, $type);

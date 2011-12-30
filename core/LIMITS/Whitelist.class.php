@@ -2,7 +2,8 @@
 
 class Whitelist {
 	public static function add($user, $sender) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		$user = ucfirst(strtolower($user));
 		$sender = ucfirst(strtolower($sender));
 
@@ -20,7 +21,8 @@ class Whitelist {
 	}
 	
 	public static function remove($user) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		$user = ucfirst(strtolower($user));
 
 		if ($user == '') {
@@ -37,7 +39,8 @@ class Whitelist {
 	}
 	
 	public static function check($user) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		$user = ucfirst(strtolower($user));
 
 		$data = $db->query("SELECT * FROM whitelist WHERE name = ?", $user);
@@ -49,7 +52,8 @@ class Whitelist {
 	}
 	
 	public static function all() {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 	
 		return $db->query("SELECT * FROM whitelist ORDER BY name ASC");
 	}

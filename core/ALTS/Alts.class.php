@@ -20,7 +20,8 @@ class AltInfo {
 	}
 	
 	public function get_alts_blob($showValidateLinks = false, $firstPageOnly = false) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		if (count($this->alts) == 0) {
 			return "No registered alts.";
@@ -116,7 +117,8 @@ class AltInfo {
 
 class Alts {
 	public static function get_alt_info($player) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		$player = ucfirst(strtolower($player));
 		
@@ -140,7 +142,8 @@ class Alts {
 	}
 	
 	public static function add_alt($main, $alt, $validated) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		$main = ucfirst(strtolower($main));
 		$alt = ucfirst(strtolower($alt));
@@ -150,7 +153,8 @@ class Alts {
 	}
 	
 	public static function rem_alt($main, $alt) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		$sql = "DELETE FROM `alts` WHERE `alt` LIKE ? AND `main` LIKE ?";
 		return $db->exec($sql, $alt, $main);

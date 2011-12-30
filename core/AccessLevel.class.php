@@ -82,7 +82,7 @@ class AccessLevel extends Annotation {
 	
 	public static function getSingleAccessLevel($sender) {
 		global $chatBot;
-		$db = DB::get_instance();
+		$db = $chatBot->getInstance('db');
 		
 		if ($chatBot->vars["SuperAdmin"] == $sender){
 			return "superadmin";

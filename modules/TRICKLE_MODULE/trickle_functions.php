@@ -1,7 +1,8 @@
 <?php
   
 function getTrickleResults($abilities) {
-	$db = DB::get_instance();
+	global $chatBot;
+	$db = $chatBot->getInstance('db');
 
 	$sql = "
 		SELECT 

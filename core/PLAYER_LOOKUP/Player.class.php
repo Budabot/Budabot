@@ -43,7 +43,8 @@ class Player {
 	}
 	
 	public static function findInDb($name, $dimension) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		$sql = "SELECT * FROM players WHERE name LIKE ? AND dimension = ?";
 		return $db->queryRow($sql, $name, $dimension);
@@ -96,7 +97,8 @@ class Player {
 	}
 	
 	public static function update(&$char) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		$sql = "DELETE FROM players WHERE `name` = ? AND `dimension` = ?";
 		$db->exec($sql, $char->name, $char->dimension);

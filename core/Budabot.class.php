@@ -14,7 +14,7 @@ class Budabot extends AOChat {
 	var $privCmds = array();
 	var $guildCmds = array();
 	
-	var $repo = array();
+	private $repo = array();
 	
 	// array where modules can store stateful session data
 	var $data = array();
@@ -96,7 +96,7 @@ class Budabot extends AOChat {
 	function init() {
 		Logger::log('DEBUG', 'Core', 'Initializing bot');
 		
-		$db = DB::get_instance();
+		$db = $this->getInstance('db');
 		
 		// Create core tables if not exists
 		$db->exec("CREATE TABLE IF NOT EXISTS cmdcfg_<myname> (`module` VARCHAR(50), `cmdevent` VARCHAR(6), `type` VARCHAR(18), `file` VARCHAR(255), `cmd` VARCHAR(25), `admin` VARCHAR(10), `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0', `dependson` VARCHAR(25) DEFAULT 'none', `help` VARCHAR(25))");
@@ -283,8 +283,8 @@ class Budabot extends AOChat {
 	 * @description: load all user modules
 	 */
 	function loadModules(){
-		$db = DB::get_instance();
 		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		if ($d = dir("./modules")) {
 			while (false !== ($MODULE_NAME = $d->read())) {
@@ -361,8 +361,8 @@ class Budabot extends AOChat {
 	}
 	
 	function process_all_packets($packet_type, $args) {
-		$db = DB::get_instance();
 		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -375,7 +375,7 @@ class Budabot extends AOChat {
 				require $filename;
 			} else {
 				list($name, $method) = explode(".", $filename);
-				$instance = $this->repo[$name];
+				$instance = $this->getInstance($name);
 				if ($instance === null) {
 					Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 				} else {
@@ -389,8 +389,8 @@ class Budabot extends AOChat {
 	}
 	
 	function process_group_announce($args) {
-		$db = DB::get_instance();
 		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -404,8 +404,8 @@ class Budabot extends AOChat {
 	}
 	
 	function process_private_channel_join($args) {
-		$db = DB::get_instance();
 		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -436,7 +436,7 @@ class Budabot extends AOChat {
 					require $filename;
 				} else {
 					list($name, $method) = explode(".", $filename);
-					$instance = $this->repo[$name];
+					$instance = $this->getInstance($name);
 					if ($instance === null) {
 						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 					} else {
@@ -456,7 +456,7 @@ class Budabot extends AOChat {
 					require $filename;
 				} else {
 					list($name, $method) = explode(".", $filename);
-					$instance = $this->repo[$name];
+					$instance = $this->getInstance($name);
 					if ($instance === null) {
 						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 					} else {
@@ -471,8 +471,8 @@ class Budabot extends AOChat {
 	}
 	
 	function process_private_channel_leave($args) {
-		$db = DB::get_instance();
 		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -497,7 +497,7 @@ class Budabot extends AOChat {
 					require $filename;
 				} else {
 					list($name, $method) = explode(".", $filename);
-					$instance = $this->repo[$name];
+					$instance = $this->getInstance($name);
 					if ($instance === null) {
 						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 					} else {
@@ -517,7 +517,7 @@ class Budabot extends AOChat {
 					require $filename;
 				} else {
 					list($name, $method) = explode(".", $filename);
-					$instance = $this->repo[$name];
+					$instance = $this->getInstance($name);
 					if ($instance === null) {
 						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 					} else {
@@ -532,8 +532,8 @@ class Budabot extends AOChat {
 	}
 	
 	function process_buddy_update($args) {
-		$db = DB::get_instance();
 		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -568,7 +568,7 @@ class Budabot extends AOChat {
 					require $filename;
 				} else {
 					list($name, $method) = explode(".", $filename);
-					$instance = $this->repo[$name];
+					$instance = $this->getInstance($name);
 					if ($instance === null) {
 						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 					} else {
@@ -591,7 +591,7 @@ class Budabot extends AOChat {
 					require $filename;
 				} else {
 					list($name, $method) = explode(".", $filename);
-					$instance = $this->repo[$name];
+					$instance = $this->getInstance($name);
 					if ($instance === null) {
 						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 					} else {
@@ -606,8 +606,8 @@ class Budabot extends AOChat {
 	}
 	
 	function process_private_message($args) {
-		$db = DB::get_instance();
 		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -659,7 +659,7 @@ class Budabot extends AOChat {
 					require $filename;
 				} else {
 					list($name, $method) = explode(".", $filename);
-					$instance = $this->repo[$name];
+					$instance = $this->getInstance($name);
 					if ($instance === null) {
 						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 					} else {
@@ -685,8 +685,8 @@ class Budabot extends AOChat {
 	}
 	
 	function process_private_channel_message($args) {
-		$db = DB::get_instance();
 		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -728,7 +728,7 @@ class Budabot extends AOChat {
 					require $filename;
 				} else {
 					list($name, $method) = explode(".", $filename);
-					$instance = $this->repo[$name];
+					$instance = $this->getInstance($name);
 					if ($instance === null) {
 						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 					} else {
@@ -755,7 +755,7 @@ class Budabot extends AOChat {
 					require $filename;
 				} else {
 					list($name, $method) = explode(".", $filename);
-					$instance = $this->repo[$name];
+					$instance = $this->getInstance($name);
 					if ($instance === null) {
 						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 					} else {
@@ -770,8 +770,8 @@ class Budabot extends AOChat {
 	}
 	
 	function process_public_channel_message($args) {
-		$db = DB::get_instance();
 		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -815,7 +815,7 @@ class Budabot extends AOChat {
 					require $filename;
 				} else {
 					list($name, $method) = explode(".", $filename);
-					$instance = $this->repo[$name];
+					$instance = $this->getInstance($name);
 					if ($instance === null) {
 						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 					} else {
@@ -836,7 +836,7 @@ class Budabot extends AOChat {
 					require $filename;
 				} else {
 					list($name, $method) = explode(".", $filename);
-					$instance = $this->repo[$name];
+					$instance = $this->getInstance($name);
 					if ($instance === null) {
 						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 					} else {
@@ -859,7 +859,7 @@ class Budabot extends AOChat {
 					require $filename;
 				} else {
 					list($name, $method) = explode(".", $filename);
-					$instance = $this->repo[$name];
+					$instance = $this->getInstance($name);
 					if ($instance === null) {
 						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 					} else {
@@ -879,8 +879,8 @@ class Budabot extends AOChat {
 	}
 	
 	function process_private_channel_invite($args) {
-		$db = DB::get_instance();
 		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
@@ -899,7 +899,7 @@ class Budabot extends AOChat {
 				require $filename;
 			} else {
 				list($name, $method) = explode(".", $filename);
-				$instance = $this->repo[$name];
+				$instance = $this->getInstance($name);
 				if ($instance === null) {
 					Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 				} else {
@@ -913,8 +913,8 @@ class Budabot extends AOChat {
 	}
 	
 	function process_command($type, $message, $sender, $sendto) {
-		$db = DB::get_instance();
 		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		// Admin Code
 		list($cmd, $params) = explode(' ', $message, 2);
@@ -979,7 +979,7 @@ class Budabot extends AOChat {
 			require $filename;
 		} else {
 			list($name, $method) = explode(".", $filename);
-			$instance = $this->repo[$name];
+			$instance = $this->getInstance($name);
 			if ($instance === null) {
 				Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 			} else {
@@ -1009,6 +1009,7 @@ class Budabot extends AOChat {
 	}
 	
 	public function registerInstance($MODULE_NAME, $name, &$obj) {
+		$name = strtolower($name);
 		Logger::log('DEBUG', 'CORE', "Registering instance name '$name' for module '$MODULE_NAME'");
 		if (isset($this->repo[$name])) {
 			Logger::log('WARN', 'CORE', "Instance with name '$name' already registered--replaced with new instance");
@@ -1069,6 +1070,31 @@ class Budabot extends AOChat {
 				);
 			}
 		}
+	}
+	
+	public function getInstance($name, $set = array()) {
+		$name = strtolower($name);
+		Logger::log('DEBUG', 'CORE', "Retrieving instance '$name'");
+		$instance = $this->repo[$name];
+		if ($instance == null) {
+			return null;
+		}
+		
+		// inject other instances that are annotated with @Inject
+		$reflection = new ReflectionAnnotatedClass($instance);
+		forEach ($reflection->getProperties() as $property) {
+			if ($property->hasAnnotation('Inject')) {
+				if ($property->getAnnotation('Inject')->value != '') {
+					$dependencyName = $property->getAnnotation('Inject')->value;
+				} else {
+					$dependencyName = $property->name;
+				}
+				$dependencyName = strtolower($dependencyName);
+				$set []= $instance;
+				$instance->{$property->name} = $this->getInstance($dependencyName, $set);
+			}
+		}
+		return $instance;
 	}
 	
 	/**

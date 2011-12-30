@@ -7,8 +7,8 @@ class Subcommand extends Annotation {
 	 * @description: Registers a subcommand
 	 */
 	public static function register($module, $channel, $filename, $command, $admin = 'all', $parent_command, $description = 'none', $help = '') {
-		$db = DB::get_instance();
 		global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		$command = strtolower($command);
 		$module = strtoupper($module);
@@ -26,7 +26,7 @@ class Subcommand extends Annotation {
 			}
 		} else {
 			list($name, $method) = explode(".", $filename);
-			$instance = $chatBot->repo[$name];
+			$instance = $chatBot->getInstance($name);
 			if ($instance === null) {
 				Logger::log('ERROR', 'Command', "Error registering method $filename for subcommand $command.  Could not find instance '$name'.");
 				return;
@@ -60,8 +60,8 @@ class Subcommand extends Annotation {
 	public static function loadSubcommands() {
 		Logger::log('DEBUG', 'Subcommand', "Loading enabled subcommands");
 	
-	  	$db = DB::get_instance();
-		global $chatBot;
+	  	global $chatBot;
+		$db = $chatBot->getInstance('db');
 
 		$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd' AND `status` = 1");
 		forEach ($data as $row) {

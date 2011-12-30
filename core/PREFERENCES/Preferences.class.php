@@ -2,7 +2,8 @@
 
 class Preferences {
 	public static function save($sender, $name, $value) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		$sender = ucfirst(strtolower($sender));
 		$name = strtolower($name);
@@ -15,7 +16,8 @@ class Preferences {
 	}
 	
 	public static function get($sender, $name) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 		
 		$sender = ucfirst(strtolower($sender));
 		$name = strtolower($name);

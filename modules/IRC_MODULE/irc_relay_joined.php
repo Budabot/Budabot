@@ -9,7 +9,8 @@
 
 if (!function_exists('getIRCPlayerInfo')) {
 	function getIRCPlayerInfo($sender) {
-		$db = DB::get_instance();
+		global $chatBot;
+		$db = $chatBot->getInstance('db');
 	
 		$whois = Player::get_by_name($sender);
 		if ($whois === null) {

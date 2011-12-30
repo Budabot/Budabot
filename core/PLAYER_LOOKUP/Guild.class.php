@@ -116,7 +116,8 @@ class Guild {
 		// this is done separately from the loop above to prevent nested transaction errors from occuring
 		// when looking up charids for characters
 		if ($data_save) {
-			$db = DB::get_instance();
+			global $chatBot;
+			$db = $chatBot->getInstance('db');
 			$db->begin_transaction();
 			
 			$sql = "UPDATE players SET guild_id = '', guild = '' WHERE guild_id = ? AND dimension = ?";
