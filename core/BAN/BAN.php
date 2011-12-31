@@ -1,6 +1,4 @@
 <?php 
-	require_once 'Ban.class.php';
-	
 	$event->activate("setup", "$MODULE_NAME/setup.php");
 	$event->activate("1min", "$MODULE_NAME/check_tempban.php");
 

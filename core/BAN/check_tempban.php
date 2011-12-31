@@ -29,12 +29,17 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
+$update = false;
 forEach ($chatBot->banlist as $ban){
 	if ($ban->banend != null && ((time() - $ban->banend) >= 0)) {
-	 	 $db->exec("DELETE FROM banlist_<myname> WHERE name = ?", $ban->name);
+		$update = true;
+	 	$db->exec("DELETE FROM banlist_<myname> WHERE name = ?", $ban->name);
 	}	
 }
 
-Ban::upload_banlist();
+if ($update) {
+	$ban = $chatBot->getInstance('ban');
+	$ban->upload_banlist();
+}
 
 ?>

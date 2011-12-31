@@ -1,9 +1,11 @@
 <?php
 
 class Ban {
-	public static function add($char, $sender, $length, $reason) {
-		global $chatBot;
-		$db = $chatBot->getInstance('db');
+
+	/** @Inject */
+	public $db;
+
+	public function add($char, $sender, $length, $reason) {
 		
 		if ($length == null) {
 			$ban_end = "NULL";
@@ -12,38 +14,34 @@ class Ban {
 		}
 
 		$sql = "INSERT INTO banlist_<myname> (`name`, `admin`, `time`, `reason`, `banend`) VALUES (?, ?, ?, ?, ?)";
-		$numrows = $db->exec($sql, $char, $sender, time(), $reason, $ban_end);
+		$numrows = $this->db->exec($sql, $char, $sender, time(), $reason, $ban_end);
 		
 		Ban::upload_banlist();
 		
 		return $numrows;
 	}
 	
-	public static function remove($char) {
-		global $chatBot;
-		$db = $chatBot->getInstance('db');
-
+	public function remove($char) {
 		$sql = "DELETE FROM banlist_<myname> WHERE name = ?";
-		$numrows = $db->exec($sql, $char);
+		$numrows = $this->db->exec($sql, $char);
 		
 		Ban::upload_banlist();
 		
 		return $numrows;
 	}
 	
-	public static function upload_banlist() {
+	public function upload_banlist() {
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
 		
 		$chatBot->banlist = array();
 		
-		$data = $db->query("SELECT * FROM banlist_<myname>");
+		$data = $this->db->query("SELECT * FROM banlist_<myname>");
 		forEach ($data as $row) {
 			$chatBot->banlist[$row->name] = $row;
 		}
 	}
 	
-	public static function is_banned($char) {
+	public function is_banned($char) {
 		global $chatBot;
 	
 		return isset($chatBot->banlist[$char]);

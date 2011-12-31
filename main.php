@@ -106,6 +106,7 @@ require_once './core/Event.class.php';
 require_once './core/Setting.class.php';
 require_once './core/Help.class.php';
 require_once './core/Buddylist.class.php';
+require_once './core/Ban.class.php';
 require_once './core/Util.class.php';
 require_once './core/Text.class.php';
 
@@ -175,6 +176,8 @@ $chatBot->registerInstance('CORE', 'commandAlias', new CommandAlias);
 $chatBot->registerInstance('CORE', 'event', new Event);
 $chatBot->registerInstance('CORE', 'help', new Help);
 $chatBot->registerInstance('CORE', 'setting', new Setting);
+$chatBot->registerInstance('CORE', 'buddyList', new BuddyList);
+$chatBot->registerInstance('CORE', 'ban', new Ban);
 $chatBot->injectDependencies($chatBot);
 $chatBot->init();
 $chatBot->connectAO($vars['login'], $vars['password'], $server, $port);

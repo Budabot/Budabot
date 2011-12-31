@@ -2,6 +2,9 @@
 	require_once 'Whitelist.class.php';
 	require_once 'Limits.class.php';
 	
+	$chatBot->registerInstance($MODULE_NAME, 'Whitelist', new Whitelist);
+	$chatBot->registerInstance($MODULE_NAME, 'Limits', new Limits);
+	
 	$db->loadSqlFile($MODULE_NAME, 'whitelist');
 	
 	$command->register($MODULE_NAME, "", "whitelist.php", "whitelist", "all", "Add people to whitelist to bypass limits check");

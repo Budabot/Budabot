@@ -29,15 +29,16 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
+$ban = $chatBot->getInstance('ban');
 if (preg_match("/^unban (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));
 	
-	if (!Ban::is_banned($who)) {
+	if (!$ban->is_banned($who)) {
 		$chatBot->send("<highlight>$who<end> is not banned on this bot.", $sendto);
 		return;
 	}
 		
-	Ban::remove($who);
+	$ban->remove($who);
 
 	$chatBot->send("You have unbanned <highlight>$who<end> from this bot.", $sendto);
 	if (Setting::get('notify_banned_player') == 1) {
@@ -46,12 +47,12 @@ if (preg_match("/^unban (.+)$/i", $message, $arr)){
 } else if (preg_match("/^unbanorg (.+)$/i", $message, $arr)) {
 	$who = ucwords(strtolower($arr[1]));
 	
-	if (!Ban::is_banned($who)) {
+	if (!$ban->is_banned($who)) {
 		$chatBot->send("The org <highlight>$who<end> is not banned on this bot.", $sender);
 		return;		  
 	}
 		
-	Ban::remove($who);
+	$ban->remove($who);
 
 	$chatBot->send("You have unbanned the org <highlight>$who<end> from this bot.", $sendto);
 } else {

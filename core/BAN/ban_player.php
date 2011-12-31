@@ -1,5 +1,6 @@
 <?php
 
+$ban = $chatBot->getInstance('ban');
 if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 	$who = ucfirst(strtolower($arr[1]));
 	$reason = $arr[4];
@@ -9,7 +10,7 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 		return;
 	}
 	
-	if (Ban::is_banned($who)) {
+	if ($ban->is_banned($who)) {
 	  	$chatBot->send("The character <highlight$who<end> is already banned.", $sendto);
 		return;
 	}
@@ -27,7 +28,7 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 	}
 	$timeString = Util::unixtime_to_readable($length);
 
-	Ban::add($who, $sender, $length, $reason);
+	$ban->add($who, $sender, $length, $reason);
 
 	$chatBot->send("You have banned <highlight>$who<end> from this bot for $timeString.", $sendto);
 	if (Setting::get('notify_banned_player') == 1) {
@@ -41,7 +42,7 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 		return;
 	}
 	
-	if (Ban::is_banned($who)) {
+	if ($ban->is_banned($who)) {
 	  	$chatBot->send("The character <highlight>$who<end> is already banned.", $sendto);
 		return;
 	}
@@ -59,7 +60,7 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 	}
 	$timeString = Util::unixtime_to_readable($length);
 	
-	Ban::add($who, $sender, $length, '');
+	$ban->add($who, $sender, $length, '');
 
 	if (Setting::get('notify_banned_player') == 1) {
 		$chatBot->send("You have banned <highlight>$who<end> from this bot for $timeString.", $sendto);
@@ -74,7 +75,7 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 		return;
 	}
 
-	if (Ban::is_banned($who)) {
+	if ($ban->is_banned($who)) {
 	  	$chatBot->send("The character <highlight>$who<end> is already banned.", $sendto);
 		return;
 	}
@@ -84,7 +85,7 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 		return;
 	}
 		
-	Ban::add($who, $sender, null, $reason);
+	$ban->add($who, $sender, null, $reason);
 
 	if (Setting::get('notify_banned_player') == 1) {
 		$chatBot->send("You have permanently banned <highlight>$who<end> from this bot.", $sendto);
@@ -98,7 +99,7 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 		return;
 	}
 
-	if (Ban::is_banned($who)) {
+	if ($ban->is_banned($who)) {
 	  	$chatBot->send("The character <highlight>$who<end> is already banned.", $sendto);
 		return;
 	}
@@ -108,7 +109,7 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 		return;
 	}
 	
-	Ban::add($who, $sender, null, '');
+	$ban->add($who, $sender, null, '');
 
 	if (Setting::get('notify_banned_player') == 1) {
 		$chatBot->send("You have permanently banned <highlight>$who<end> from this bot.", $sendto);
@@ -117,12 +118,12 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 } else if (preg_match("/^banorg (.+)$/i", $message, $arr)) {
 	$who = $arr[1];
 	
-	if (Ban::is_banned($who)) {
+	if ($ban->is_banned($who)) {
 	  	$chatBot->send("The organization <highlight>$who<end> is already banned.", $sendto);
 		return;
 	}
 	
-	Ban::add($who, $sender, null, '');
+	$ban->add($who, $sender, null, '');
 
 	$chatBot->send("You have banned the organization <highlight>$who<end> from this bot.", $sendto);
 } else {
