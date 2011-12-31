@@ -26,8 +26,10 @@ class Towers {
 		
 		$timeString = Util::unixtime_to_readable($time);
 		
+		$blob = "<header> :::::: Tower Stats for the Last $timeString :::::: <end>\n\n";
+		
 		$sql = "SELECT
-				def_faction,
+				att_faction,
 				COUNT(def_faction) AS num
 			FROM
 				tower_attack_<myname>
@@ -39,15 +41,30 @@ class Towers {
 				num DESC";
 
 		$data = $this->db->query($sql, time() - $time);
-		if (count($data) == 0) {
-			$chatBot->send("No tower victories have happened in the last {$timeString}.", $sendto);
-			return;
+		forEach ($data as $row) {
+			$blob .= "<{$row->def_faction}>{$row->def_faction}<end> have attacked <highlight>{$row->num}<end> times.\n";
+		}
+		if (count($data) > 0) {
+			$blob .= "\n";
 		}
 		
-		$blob = "<header> :::::: Tower Stats for the Last $timeString :::::: <end>\n\n";
+		$sql = "SELECT
+				lose_faction,
+				COUNT(lose_faction) AS num
+			FROM
+				tower_victory_<myname>
+			WHERE
+				`time` >= ?
+			GROUP BY
+				lose_faction
+			ORDER BY
+				num DESC";
+
+		$data = $this->db->query($sql, time() - $time);
 		forEach ($data as $row) {
-			$blob .= "<{$row->def_faction}>{$row->def_faction}<end> has lost <highlight>{$row->num}<end> tower sites.\n";
+			$blob .= "<{$row->lose_faction}>{$row->lose_faction}<end> have lost <highlight>{$row->num}<end> tower sites.\n";
 		}
+		
 		$msg = Text::make_blob("Tower Stats for the Last $timeString", $blob);
 		$chatBot->send($msg, $sendto);
 	}
