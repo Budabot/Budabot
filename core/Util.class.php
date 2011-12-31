@@ -325,10 +325,19 @@ class Util {
 	
 	public static function getStackTrace() {
 		$trace = debug_backtrace();
-		$str = '';
-		forEach($trace as $obj) {
+		$arr1 = array();
+		$arr2 = array();
+		forEach ($trace as $obj) {
 			$file = str_replace(getcwd(), "", $obj['file']);
-			$str .= "{$file}({$obj['line']}) : {$obj['function']}()\n";
+			$arr1 []= "{$file}({$obj['line']})";
+			$arr2 []= "{$obj['function']}()";
+		}
+		
+		array_shift($arr2);
+
+		$str = '';		
+		for ($i = 0; $i < count($arr1); $i++) {
+			$str .= "$arr1[$i] : $arr2[$i]\n";
 		}
 		return $str;
 	}
