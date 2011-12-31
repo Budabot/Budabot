@@ -11,7 +11,7 @@ class Logger {
 	public static $TIMESTAMP_FORMAT = "Ymd H:i:s";
 
 	public static function get_logging_directory() {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		
 		return "./logs/{$chatBot->vars['name']}.{$chatBot->vars['dimension']}";
 	}

@@ -2,7 +2,7 @@
 
 class Level {
 	public static function get_level_info($level) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 		
 		$sql = "SELECT * FROM levels WHERE level = ?";
@@ -10,7 +10,7 @@ class Level {
 	}
 	
 	public static function find_all_levels() {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 		
 		$sql = "SELECT * FROM levels ORDER BY level";

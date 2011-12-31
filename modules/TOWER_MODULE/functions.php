@@ -68,7 +68,7 @@ function getGasLevel($close_time) {
 }
 
 function formatSiteInfo($row) {
-	global $chatBot;
+	$chatBot = Registry::getInstance('chatBot');
 
 	$waypoint = Text::make_chatcmd($row->x_coord . "x" . $row->y_coord, "/waypoint {$row->x_coord} {$row->y_coord} {$row->playfield_id}");
 

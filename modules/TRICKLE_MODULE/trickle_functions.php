@@ -1,7 +1,7 @@
 <?php
   
 function getTrickleResults($abilities) {
-	global $chatBot;
+	$chatBot = Registry::getInstance('chatBot');
 	$db = Registry::getInstance('db');
 
 	$sql = "

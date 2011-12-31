@@ -2,7 +2,7 @@
 
 class Raid {
 	public static function get_current_loot_list() {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		global $loot;
 		global $raidloot;
 	
@@ -94,7 +94,7 @@ class Raid {
 	
 	public static function add_raid_to_loot_list($raid, $category) {
 		global $loot;
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 
 		// clear current loot list
@@ -120,7 +120,7 @@ class Raid {
 	}
 	
 	public static function find_raid_loot($raid, $category) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 
 		$sql = "SELECT * FROM raid_loot WHERE raid = ? AND category = ?";

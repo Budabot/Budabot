@@ -10,7 +10,7 @@ class Subcommand extends Annotation {
 	 * @description: Registers a subcommand
 	 */
 	public function register($module, $channel, $filename, $command, $admin = 'all', $parent_command, $description = 'none', $help = '') {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 
 		$command = strtolower($command);
 		$module = strtoupper($module);
@@ -62,7 +62,7 @@ class Subcommand extends Annotation {
 	public function loadSubcommands() {
 		Logger::log('DEBUG', 'Subcommand', "Loading enabled subcommands");
 	
-	  	global $chatBot;
+	  	$chatBot = Registry::getInstance('chatBot');
 
 		$data = $this->db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd' AND `status` = 1");
 		forEach ($data as $row) {

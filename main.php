@@ -179,9 +179,9 @@ Registry::setInstance('setting', new Setting);
 Registry::setInstance('buddyList', new BuddyList);
 Registry::setInstance('ban', new Ban);
 Registry::setInstance('accessLevel', new AccessLevel);
+Registry::setInstance('chatBot', new Budabot($vars));
 
-$chatBot = new Budabot($vars);
-Registry::injectDependencies($chatBot);
+$chatBot = Registry::getInstance('chatBot');
 $chatBot->init();
 $chatBot->connectAO($vars['login'], $vars['password'], $server, $port);
 

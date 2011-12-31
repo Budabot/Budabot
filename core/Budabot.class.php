@@ -289,7 +289,7 @@ class Budabot extends AOChat {
 	}
 	
 	function loadCoreModules() {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = $this->db;
 		$command = $this->command;
 		$subcommand = $this->subcommand;
@@ -314,7 +314,7 @@ class Budabot extends AOChat {
 	 * @description: load all user modules
 	 */
 	function loadModules(){
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = $this->db;
 		$command = $this->command;
 		$subcommand = $this->subcommand;
@@ -400,7 +400,7 @@ class Budabot extends AOChat {
 	}
 	
 	function process_all_packets($packet_type, $args) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = $this->db;
 
 		// modules can set this to true to stop execution after they are called
@@ -428,7 +428,7 @@ class Budabot extends AOChat {
 	}
 	
 	function process_group_announce($args) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = $this->db;
 
 		// modules can set this to true to stop execution after they are called
@@ -443,7 +443,7 @@ class Budabot extends AOChat {
 	}
 	
 	function process_private_channel_join($args) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = $this->db;
 
 		// modules can set this to true to stop execution after they are called
@@ -510,7 +510,7 @@ class Budabot extends AOChat {
 	}
 	
 	function process_private_channel_leave($args) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = $this->db;
 
 		// modules can set this to true to stop execution after they are called
@@ -571,7 +571,7 @@ class Budabot extends AOChat {
 	}
 	
 	function process_buddy_update($args) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = $this->db;
 
 		// modules can set this to true to stop execution after they are called
@@ -645,7 +645,7 @@ class Budabot extends AOChat {
 	}
 	
 	function process_private_message($args) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = $this->db;
 
 		// modules can set this to true to stop execution after they are called
@@ -725,7 +725,7 @@ class Budabot extends AOChat {
 	}
 	
 	function process_private_channel_message($args) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = $this->db;
 
 		// modules can set this to true to stop execution after they are called
@@ -810,7 +810,7 @@ class Budabot extends AOChat {
 	}
 	
 	function process_public_channel_message($args) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = $this->db;
 
 		// modules can set this to true to stop execution after they are called
@@ -919,7 +919,7 @@ class Budabot extends AOChat {
 	}
 	
 	function process_private_channel_invite($args) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = $this->db;
 
 		// modules can set this to true to stop execution after they are called
@@ -953,7 +953,7 @@ class Budabot extends AOChat {
 	}
 	
 	function process_command($type, $message, $sender, $sendto) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = $this->db;
 		
 		// Admin Code

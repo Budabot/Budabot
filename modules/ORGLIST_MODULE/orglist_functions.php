@@ -1,7 +1,7 @@
 <?php
 
 function orgmatesformat ($memberlist, $color, $timestart, $orgname) {
-	global $chatBot;
+	$chatBot = Registry::getInstance('chatBot');
 	
 	$map = $memberlist["orgtype"];
 
@@ -66,7 +66,7 @@ function orgmatesformat ($memberlist, $color, $timestart, $orgname) {
 }
 
 function checkOrglistEnd($forceEnd = false) {
-	global $chatBot;
+	$chatBot = Registry::getInstance('chatBot');
 
 	// Don't want to reboot to see changes in color edits, so I'll store them in an array outside the function.
 	$orgcolor["header"]  = "<font color='#FFFFFF'>";   // Org Rank title

@@ -31,7 +31,7 @@ class Ban {
 	}
 	
 	public function upload_banlist() {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		
 		$chatBot->banlist = array();
 		
@@ -42,7 +42,7 @@ class Ban {
 	}
 	
 	public function is_banned($char) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 	
 		return isset($chatBot->banlist[$char]);
 	}

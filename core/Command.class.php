@@ -10,7 +10,7 @@ class Command extends Annotation {
 	 * @description: Registers a command
 	 */
 	public function register($module, $channel, $filename, $command, $admin, $description = '', $help = ''){
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 
 		$command = strtolower($command);
 		$module = strtoupper($module);
@@ -60,7 +60,7 @@ class Command extends Annotation {
 	 * @description: Activates a command
 	 */
 	public static function activate($channel, $filename, $command, $admin = 'all') {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		
 		$command = strtolower($command);
 		$admin = strtolower($admin);
@@ -93,7 +93,7 @@ class Command extends Annotation {
 	 * @description: Deactivates a command
 	 */
 	public function deactivate($channel, $filename, $command) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 
 		$command = strtolower($command);
 		$channel = strtolower($channel);

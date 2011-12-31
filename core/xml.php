@@ -101,7 +101,7 @@ class history extends xml{
 	public $errorCode = 0;
 
     function __construct($name, $rk_num = 0, $cache = 0){
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 	
 		//if no server number is specified use the one on which the bot is logged in
 		if ($rk_num == 0) {

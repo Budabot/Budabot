@@ -38,7 +38,7 @@ if (!function_exists('get_admin_description')) {
 
 if (!function_exists('getCommandInfo')) {
 	function getCommandInfo($cmd, $type) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 	
 		$l = "";
@@ -80,7 +80,7 @@ if (!function_exists('getCommandInfo')) {
 
 if (!function_exists('getSubCommandInfo')) {
 	function getSubCommandInfo($cmd, $type) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 	
 		$subcmd_list = '';

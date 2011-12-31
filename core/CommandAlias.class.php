@@ -27,7 +27,7 @@ class CommandAlias {
 	 * @description: Registers a command alias
 	 */
 	public function register($module, $command, $alias, $status = 1) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 	
 		$module = strtoupper($module);
 		$command = strtolower($command);
@@ -49,7 +49,7 @@ class CommandAlias {
 	 * @description: Activates a command alias
 	 */
 	public function activate($command, $alias) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		
 		$alias = strtolower($alias);
 
@@ -63,7 +63,7 @@ class CommandAlias {
 	 * @description: Deactivates a command alias
 	 */
 	public function deactivate($alias) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 
 		$alias = strtolower($alias);
 

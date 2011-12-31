@@ -32,7 +32,7 @@ class Usage {
 	}
 	
 	public function getUsageInfo($lastSubmittedStats, $debug = false) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		global $version;
 
 		$botid = $this->setting->get('botid');

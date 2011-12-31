@@ -1,7 +1,7 @@
 <?php
 
 function send_message_to_relay($message) {
-	global $chatBot;
+	$chatBot = Registry::getInstance('chatBot');
 	
 	$relayBot = Setting::get('relaybot');
 	$message = str_ireplace("<myguild>", getGuildAbbreviation(), $message);
@@ -21,7 +21,7 @@ function send_message_to_relay($message) {
 }
 
 function getGuildAbbreviation() {
-	global $chatBot;
+	$chatBot = Registry::getInstance('chatBot');
 
 	if (Setting::get('relay_guild_abbreviation') != 'none') {
 		return Setting::get('relay_guild_abbreviation');

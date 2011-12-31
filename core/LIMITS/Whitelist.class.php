@@ -2,7 +2,7 @@
 
 class Whitelist {
 	public static function add($user, $sender) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 		$user = ucfirst(strtolower($user));
 		$sender = ucfirst(strtolower($sender));
@@ -21,7 +21,7 @@ class Whitelist {
 	}
 	
 	public static function remove($user) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 		$user = ucfirst(strtolower($user));
 
@@ -39,7 +39,7 @@ class Whitelist {
 	}
 	
 	public static function check($user) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 		$user = ucfirst(strtolower($user));
 
@@ -52,7 +52,7 @@ class Whitelist {
 	}
 	
 	public static function all() {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 	
 		return $db->query("SELECT * FROM whitelist ORDER BY name ASC");

@@ -2,7 +2,7 @@
 
 if (!function_exists('getNameHistory')) {
 	function getNameHistory($charid, $dimension) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 
 		$sql = "SELECT * FROM name_history WHERE charid = ? AND dimension = ? ORDER BY dt DESC";

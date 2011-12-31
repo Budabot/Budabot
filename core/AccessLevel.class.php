@@ -80,7 +80,7 @@ class AccessLevel extends Annotation {
 	}
 	
 	public function getSingleAccessLevel($sender) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		
 		if ($chatBot->vars["SuperAdmin"] == $sender){
 			return "superadmin";
@@ -131,7 +131,7 @@ class AccessLevel extends Annotation {
 	}
 	
 	public function checkGuildAdmin($sender, $accessLevel) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 
 		if (isset($chatBot->guildmembers[$sender]) && $chatBot->guildmembers[$sender] <= $this->setting->get('guild_admin_rank')) {
 			if ($this->compareAccessLevels($this->setting->get('guild_admin_access_level'), $accessLevel) >= 0) {

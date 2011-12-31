@@ -2,7 +2,7 @@
 
 class Player {
 	public static function get_by_name($name, $dimension = 0, $forceUpdate = false) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		
 		if ($dimension == 0) {
 			$dimension = $chatBot->vars['dimension'];
@@ -43,7 +43,7 @@ class Player {
 	}
 	
 	public static function findInDb($name, $dimension) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 
 		$sql = "SELECT * FROM players WHERE name LIKE ? AND dimension = ?";
@@ -97,7 +97,7 @@ class Player {
 	}
 	
 	public static function update(&$char) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 		
 		$sql = "DELETE FROM players WHERE `name` = ? AND `dimension` = ?";

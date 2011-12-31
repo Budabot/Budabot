@@ -1,7 +1,7 @@
 <?php
 
 function endraffle() {
-	global $chatBot;
+	$chatBot = Registry::getInstance('chatBot');
 
     // just to make sure there is a raffle to end
     if (!$chatBot->data["Raffles"]["running"]) {
@@ -94,7 +94,7 @@ function get_next_time($endtime) {
 }
 
 function show_raffle_reminder() {
-	global $chatBot;
+	$chatBot = Registry::getInstance('chatBot');
 
 	// there is a raffle running
 	$time_string = Util::unixtime_to_readable($chatBot->data["Raffles"]["time"] - $chatBot->data["Raffles"]["nextmsgtime"]);

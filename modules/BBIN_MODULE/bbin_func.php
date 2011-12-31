@@ -14,7 +14,7 @@
  */
 function parse_incoming_bbin($bbinmsg, $nick) {
 	global $bbinSocket;
-	global $chatBot;
+	$chatBot = Registry::getInstance('chatBot');
 	$db = Registry::getInstance('db');
 
 	if (preg_match("/^\[BBIN:LOGON:(.*?),(.),(.)\]/", $bbinmsg, $arr)) {
@@ -151,7 +151,7 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 
 function bbinConnect() {
 	global $bbinSocket;
-	global $chatBot;
+	$chatBot = Registry::getInstance('chatBot');
 	$db = Registry::getInstance('db');
 
 	IRC::connect($bbinSocket, Setting::get('bbin_nickname'), Setting::get('bbin_server'), Setting::get('bbin_port'), Setting::get('bbin_password'), Setting::get('bbin_channel'));

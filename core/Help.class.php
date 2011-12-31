@@ -23,7 +23,7 @@ class Help extends Annotation {
 	 * @description: Registers a help command
 	 */
 	public function register($module, $command, $filename, $admin, $description) {
-	  	global $chatBot;
+	  	$chatBot = Registry::getInstance('chatBot');
 		
 		Logger::log('DEBUG', 'Help', "Registering $module:help($command) Helpfile:($filename)");
 
@@ -60,7 +60,7 @@ class Help extends Annotation {
 	 * @description: Find a help topic by name if it exists and if the user has permissions to see it
 	 */
 	public function find($helpcmd, $char) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 	
 		$helpcmd = strtolower($helpcmd);
 

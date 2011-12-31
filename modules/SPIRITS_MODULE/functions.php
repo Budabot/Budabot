@@ -1,7 +1,7 @@
 <?php
 
 function formatSpiritOutput($data) {
-	global $chatBot;
+	$chatBot = Registry::getInstance('chatBot');
 	$db = Registry::getInstance('db');
 	
 	if (count($data) == 0) {

@@ -9,7 +9,7 @@ class Limits {
 	public $accessLevel;
 
 	public function check($sender, $message) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 
 		if (preg_match("/^about$/i", $message)) {
 			return true;

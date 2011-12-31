@@ -26,7 +26,7 @@ class Event extends Annotation {
 	 * @description: Registers an event on the bot so it can be configured
 	 */
 	public function register($module, $type, $filename, $description = 'none', $help = '', $defaultStatus = null) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		
 		$type = strtolower($type);
 		
@@ -78,7 +78,7 @@ class Event extends Annotation {
 	 */
 	public function activate($type, $filename) {
 		// for file includes
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = $this->db;
 		
 		$type = strtolower($type);
@@ -124,7 +124,7 @@ class Event extends Annotation {
 	 * @description: Deactivates an event
 	 */
 	public function deactivate($type, $filename) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		
 		$type = strtolower($type);
 
@@ -225,7 +225,7 @@ class Event extends Annotation {
 	 * @description: Call php-Scripts at certin time intervals. 2 sec, 1 min, 10min, 15 min, 30min, 1 hour, 24 hours
 	 */
 	public function crons() {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		
 		if ($chatBot->is_ready()) {
 			$time = time();
@@ -242,7 +242,7 @@ class Event extends Annotation {
 	
 	public function executeCronEvent($type, $filename) {
 		// for file includes
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = $this->db;
 		
 		$type = strtolower($type);
@@ -268,7 +268,7 @@ class Event extends Annotation {
 		Logger::log('DEBUG', 'Event', "Executing connected events");
 
 		// for file includes
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = $this->db;
 
 		// Check files, for all 'connect' events.

@@ -1,7 +1,7 @@
 <?php
 
 function download_newest_itemsdb() {
-	global $chatBot;
+	$chatBot = Registry::getInstance('chatBot');
 	$db = Registry::getInstance('db');
 
 	Logger::log('INFO', 'ITEMS_MODULE', "Starting items db update");
@@ -64,7 +64,7 @@ function download_newest_itemsdb() {
 }
 
 function find_items_from_local($search, $ql) {
-	global $chatBot;
+	$chatBot = Registry::getInstance('chatBot');
 	$db = Registry::getInstance('db');
 
 	$tmp = explode(" ", $search);

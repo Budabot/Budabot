@@ -2,6 +2,7 @@
 
 class Registry {
 	private static $repo = array();
+	private static $repo2 = array();
 	
 	public static function setInstance($name, &$obj) {
 		$name = strtolower($name);
@@ -11,7 +12,7 @@ class Registry {
 	public static function instanceExists($name) {
 		$name = strtolower($name);
 
-		if (isset(Registry::$repo[$name])) {
+		if (isset(Registry::$repo[$name]) || isset(Registry::$repo2[$name])) {
 			return true;
 		} else {
 			return false;
@@ -20,6 +21,11 @@ class Registry {
 	
 	public static function getInstance($name, $set = array()) {
 		$name = strtolower($name);
+		
+		$instance = Registry::$repo2[$name];
+		if ($instance != null) {
+			return $instance;
+		}
 
 		$instance = Registry::$repo[$name];
 		if ($instance == null) {
@@ -33,6 +39,8 @@ class Registry {
 		$set[$name] = $instance;
 		
 		Registry::injectDependencies($instance, $set);
+		
+		Registry::$repo2[$name] = $instance;
 		return $instance;
 	}
 	

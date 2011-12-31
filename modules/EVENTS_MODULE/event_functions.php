@@ -1,7 +1,7 @@
 <?php
 
 function getEvents() {
-	global $chatBot;
+	$chatBot = Registry::getInstance('chatBot');
 	$db = Registry::getInstance('db');
 
 	$data = $db->query("SELECT * FROM events ORDER BY `event_date` DESC LIMIT 0,5");

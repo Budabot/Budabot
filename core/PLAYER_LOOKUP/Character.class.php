@@ -34,7 +34,7 @@ class Character {
 	}
 
 	public function getCharId() {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		if ($this->charId === null) {
 			$this->charId = $chatBot->get_uid($name);
 		}

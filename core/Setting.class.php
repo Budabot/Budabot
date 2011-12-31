@@ -51,7 +51,7 @@ class Setting extends Annotation {
 	 * @description: Adds a new setting
 	 */	
 	public function add($module, $name, $description, $mode, $type, $value, $options = '', $intoptions = '', $admin = 'mod', $help = '') {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		
 		$name = strtolower($name);
 		$type = strtolower($type);
@@ -85,7 +85,7 @@ class Setting extends Annotation {
 	 * @return: the value of the setting, or false if a setting with that name does not exist
 	 */	
 	public static function get($name) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 	
 		$name = strtolower($name);
 		if (isset($chatBot->settings[$name])) {
@@ -103,7 +103,7 @@ class Setting extends Annotation {
 	 * @return: false if the setting with that name does not exist, true otherwise
 	 */	
 	public static function save($name, $value) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 
 		$name = strtolower($name);

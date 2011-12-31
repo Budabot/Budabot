@@ -12,7 +12,7 @@ class Buddylist {
     }
 	
 	public function get_buddy($name) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 
 		$uid = $chatBot->get_uid($name);
 		if ($uid === false || !isset($chatBot->buddyList[$uid])) {
@@ -23,7 +23,7 @@ class Buddylist {
     }
 	
 	public function add($name, $type) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 
 		$uid = $chatBot->get_uid($name);
 		if ($uid === false || $type === null || $type == '') {
@@ -44,7 +44,7 @@ class Buddylist {
 	}
 	
 	public function remove($name, $type = '') {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 
 		$uid = $chatBot->get_uid($name);
 		if ($uid === false) {

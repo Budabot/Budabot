@@ -6,7 +6,7 @@ class Guild {
     public $errorInfo;
 
 	public static function get_by_id($guild_id, $rk_num = 0, $force_update = false) {
-		global $chatBot;
+		$chatBot = Registry::getInstance('chatBot');
 
 		$data_found = false;
 		$data_save = false;
@@ -116,7 +116,7 @@ class Guild {
 		// this is done separately from the loop above to prevent nested transaction errors from occuring
 		// when looking up charids for characters
 		if ($data_save) {
-			global $chatBot;
+			$chatBot = Registry::getInstance('chatBot');
 			$db = Registry::getInstance('db');
 			$db->begin_transaction();
 			
