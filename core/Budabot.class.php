@@ -718,7 +718,8 @@ class Budabot extends AOChat {
 		}
 
 		// check tell limits
-		if (!Limits::check($sender, $message)) {
+		$limits = $this->getInstance('Limits');
+		if (!$limits->check($sender, $message)) {
 			return;
 		}
 		
