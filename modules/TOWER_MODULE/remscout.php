@@ -1,4 +1,7 @@
 <?php
+
+$towers = $chatBot->getInstance('towers');
+
 if (preg_match("/^remscout ([a-z0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	$playfield_name = $arr[1];
 	$site_number = $arr[2];
@@ -10,14 +13,14 @@ if (preg_match("/^remscout ([a-z0-9]+) ([0-9]+)$/i", $message, $arr)) {
 		return;
 	}
 	
-	$tower_info = Towers::get_tower_info($playfield->id, $site_number);
+	$tower_info = $towers->get_tower_info($playfield->id, $site_number);
 	if ($tower_info === null) {
 		$msg = "Invalid site number.";
 		$chatBot->send($msg, $sendto);
 		return;
 	}
 	
-	$num_rows = Towers::rem_scout_site($playfield->id, $site_number);
+	$num_rows = $towers->rem_scout_site($playfield->id, $site_number);
 	
 	if ($num_rows == 0) {
 		$msg = "Could not find a scout record for {$playfield->short_name} {$site_number}.";

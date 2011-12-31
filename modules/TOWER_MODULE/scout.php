@@ -1,4 +1,7 @@
 <?php
+
+$towers = $chatBot->getInstance('towers');
+
 if (preg_match("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[0-9]{2}) ([0-9]+) ([a-z]+) (.*)$/i", $message, $arr)) {
 	if (strtolower($arr[1]) == 'forcescout') {
 		$skip_checks = true;
@@ -26,7 +29,7 @@ if (preg_match("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[
 		return;
 	}
 	
-	$tower_info = Towers::get_tower_info($playfield->id, $site_number);
+	$tower_info = $towers->get_tower_info($playfield->id, $site_number);
 	if ($tower_info === null) {
 		$msg = "Invalid site number.";
 		$chatBot->send($msg, $sendto);
@@ -43,7 +46,7 @@ if (preg_match("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[
 	$closing_time_seconds = $closing_time_array[0] * 3600 + $closing_time_array[1] * 60 + $closing_time_array[2];
 	
 	if (!$skip_checks && Setting::get('check_close_time_on_scout') == 1) {
-		$last_victory = Towers::get_last_victory($tower_info->playfield_id, $tower_info->site_number);
+		$last_victory = $towers->get_last_victory($tower_info->playfield_id, $tower_info->site_number);
 		if ($last_victory !== null) {
 			$victory_time_of_day = $last_attack->time % 86400;
 			if ($victory_time_of_day > $closing_time_seconds) {
@@ -58,7 +61,7 @@ if (preg_match("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[
 	}
 	
 	if (!$skip_checks && Setting::get('check_guild_name_on_scout') == 1) {
-		if (!Towers::check_guild_name($guild_name)) {
+		if (!$towers->check_guild_name($guild_name)) {
 			$check_blob .= "- <green>Org name<end> The org name you entered has never attacked or been attacked.\n\n";
 		}
 	}
@@ -68,7 +71,7 @@ if (preg_match("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[
 		$check_blob .= "Please correct these errors, or, if you are sure the values you entered are correct, use !forcescout to bypass these checks";
 		$msg = Text::make_blob('Scouting problems', $check_blob);
 	} else {
-		Towers::add_scout_site($playfield->id, $site_number, $closing_time_seconds, $ct_ql, $faction, $guild_name, $sender);
+		$towers->add_scout_site($playfield->id, $site_number, $closing_time_seconds, $ct_ql, $faction, $guild_name, $sender);
 		$msg = "Scout info has been updated.";
 	}
 	$chatBot->send($msg, $sendto);

@@ -22,9 +22,11 @@ if ($playfield === null) {
 	return;
 }
 
-$last_attack = Towers::get_last_attack($win_faction, $win_guild_name, $lose_faction, $lose_guild_name, $playfield->id);
+$towers = $chatBot->getInstance('towers');
+
+$last_attack = $towers->get_last_attack($win_faction, $win_guild_name, $lose_faction, $lose_guild_name, $playfield->id);
 if ($last_attack !== null) {
-	Towers::rem_scout_site($last_attack->playfield_id, $last_attack->site_number);
+	$towers->rem_scout_site($last_attack->playfield_id, $last_attack->site_number);
 } else {
 	$last_attack = new stdClass;
 	$last_attack->att_guild_name = $win_guild_name;
@@ -35,6 +37,6 @@ if ($last_attack !== null) {
 	$last_attack->id = 'NULL';
 }
 
-Towers::record_victory($last_attack);
+$towers->record_victory($last_attack);
 
 ?>

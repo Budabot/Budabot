@@ -1,10 +1,58 @@
 <?php
 
 class Towers {
-	public static function get_tower_info($playfield_id, $site_number) {
-		global $chatBot;
-		$db = $chatBot->getInstance('db');
 
+	/** @Inject */
+	public $db;
+	
+	/**
+	 * @Command("towerstats")
+	 * @AccessLevel("all")
+	 * @Description("Show how many towers each faction has lost")
+	 */
+	public function towerStatsCommand($chatBot, $message, $channel, $sender, $sendto) {
+		if (preg_match("/^towerstats$/i", $message)) {
+			$budatime = "1d";
+		} else if (preg_match("/^towerstats (.+)$/i", $message, $arr)) {
+			$budatime = $arr[1];
+		}
+		
+		$time = Util::parseTime($budatime);
+		if ($time < 1) {
+			$msg = "You must enter a valid time parameter.";
+			$chatBot->send($msg, $sendto);
+			return;
+		}
+		
+		$timeString = Util::unixtime_to_readable($time);
+		
+		$sql = "SELECT
+				def_faction,
+				COUNT(def_faction) AS num
+			FROM
+				tower_attack_<myname>
+			WHERE
+				`time` >= ?
+			GROUP BY
+				def_faction
+			ORDER BY
+				num DESC";
+
+		$data = $this->db->query($sql, time() - $time);
+		if (count($data) == 0) {
+			$chatBot->send("No tower victories have happened in the last {$timeString}.", $sendto);
+			return;
+		}
+		
+		$blob = "<header> :::::: Tower Stats for the Last $timeString :::::: <end>\n\n";
+		forEach ($data as $row) {
+			$blob .= "<{$row->def_faction}>{$row->def_faction}<end> has lost <highlight>{$row->num}<end> tower sites.\n";
+		}
+		$msg = Text::make_blob("Tower Stats for the Last $timeString", $blob);
+		$chatBot->send($msg, $sendto);
+	}
+
+	public function get_tower_info($playfield_id, $site_number) {
 		$sql = "
 			SELECT
 				*
@@ -15,22 +63,16 @@ class Towers {
 				AND `site_number` = ?
 			LIMIT 1";
 		
-		return $db->queryRow($sql, $playfield_id, $site_number);
+		return $this->db->queryRow($sql, $playfield_id, $site_number);
 	}
 	
-	public static function find_sites_in_playfield($playfield_id) {
-		global $chatBot;
-		$db = $chatBot->getInstance('db');
-
+	public function find_sites_in_playfield($playfield_id) {
 		$sql = "SELECT * FROM tower_site WHERE `playfield_id` = ?";
 
-		return $db->query($sql, $playfield_id);
+		return $this->db->query($sql, $playfield_id);
 	}
 	
-	public static function get_closest_site($playfield_id, $x_coords, $y_coords) {
-		global $chatBot;
-		$db = $chatBot->getInstance('db');
-
+	public function get_closest_site($playfield_id, $x_coords, $y_coords) {
 		$sql = "
 			SELECT
 				*,
@@ -54,13 +96,10 @@ class Towers {
 				radius ASC
 			LIMIT 1";
 
-		return $db->queryRow($sql, $playfield_id);
+		return $this->db->queryRow($sql, $playfield_id);
 	}
 
-	public static function get_last_attack($att_faction, $att_guild_name, $def_faction, $def_guild_name, $playfield_id) {
-		global $chatBot;
-		$db = $chatBot->getInstance('db');
-		
+	public function get_last_attack($att_faction, $att_guild_name, $def_faction, $def_guild_name, $playfield_id) {
 		$time = time() - (7 * 3600);
 		
 		$sql = "
@@ -79,13 +118,10 @@ class Towers {
 				`time` DESC
 			LIMIT 1";
 		
-		return $db->queryRow($sql, $att_guild_name, $att_faction, $def_guild_name, $def_faction, $playfield_id, $time);
+		return $this->db->queryRow($sql, $att_guild_name, $att_faction, $def_guild_name, $def_faction, $playfield_id, $time);
 	}
 	
-	public static function record_attack($whois, $def_faction, $def_guild_name, $x_coords, $y_coords, $closest_site) {
-		global $chatBot;
-		$db = $chatBot->getInstance('db');
-		
+	public function record_attack($whois, $def_faction, $def_guild_name, $x_coords, $y_coords, $closest_site) {
 		$sql = "
 			INSERT INTO tower_attack_<myname> (
 				`time`,
@@ -117,14 +153,11 @@ class Towers {
 				?
 			)";
 		
-		return $db->exec($sql, time(), $whois->guild, $whois->faction, $whois->name, $whois->level, $whois->ai_level, $whois->profession,
+		return $this->db->exec($sql, time(), $whois->guild, $whois->faction, $whois->name, $whois->level, $whois->ai_level, $whois->profession,
 			$def_guild_name, $def_faction, $closest_site->playfield_id, $closest_site->site_number, $x_coords, $y_coords);
 	}
 	
-	public static function find_all_scouted_sites() {
-		global $chatBot;
-		$db = $chatBot->getInstance('db');
-		
+	public function find_all_scouted_sites() {
 		$sql = 
 			"SELECT
 				*
@@ -137,13 +170,10 @@ class Towers {
 			ORDER BY
 				guild_name, ct_ql";
 
-		return $db->query($sql);
+		return $this->db->query($sql);
 	}
 	
-	public static function get_last_victory($playfield_id, $site_number) {
-		global $chatBot;
-		$db = $chatBot->getInstance('db');
-		
+	public function get_last_victory($playfield_id, $site_number) {
 		$sql = "
 			SELECT
 				*
@@ -157,13 +187,10 @@ class Towers {
 				v.`time` DESC
 			LIMIT 1";
 		
-		return $db->queryRow($sql, $playfield_id, $site_number);
+		return $this->db->queryRow($sql, $playfield_id, $site_number);
 	}
 	
-	public static function record_victory($last_attack) {
-		global $chatBot;
-		$db = $chatBot->getInstance('db');
-		
+	public function record_victory($last_attack) {
 		$sql = "
 			INSERT INTO tower_victory_<myname> (
 				`time`,
@@ -181,16 +208,13 @@ class Towers {
 				?
 			)";
 		
-		return $db->exec($sql, time(), $last_attack->att_guild_name, $last_attack->att_faction, $last_attack->def_guild_name, $last_attack->def_faction, $last_attack->id);
+		return $this->db->exec($sql, time(), $last_attack->att_guild_name, $last_attack->att_faction, $last_attack->def_guild_name, $last_attack->def_faction, $last_attack->id);
 	}
 	
-	public static function add_scout_site($playfield_id, $site_number, $close_time, $ct_ql, $faction, $guild_name, $scouted_by) {
-		global $chatBot;
-		$db = $chatBot->getInstance('db');
+	public function add_scout_site($playfield_id, $site_number, $close_time, $ct_ql, $faction, $guild_name, $scouted_by) {
+		$this->db->begin_transaction();
 		
-		$db->begin_transaction();
-		
-		$db->exec("DELETE FROM scout_info WHERE `playfield_id` = ? AND `site_number` = ?", $playfield_id, $site_number);
+		$this->db->exec("DELETE FROM scout_info WHERE `playfield_id` = ? AND `site_number` = ?", $playfield_id, $site_number);
 		
 		$sql = "
 			INSERT INTO scout_info (
@@ -213,33 +237,27 @@ class Towers {
 				?
 			)";
 
-		$numrows = $db->exec($sql, $playfield_id, $site_number, time(), $scouted_by, $ct_ql, $guild_name, $faction, $close_time);
+		$numrows = $this->db->exec($sql, $playfield_id, $site_number, time(), $scouted_by, $ct_ql, $guild_name, $faction, $close_time);
 		
 		if ($numrows == 0) {
-			$db->rollback();
+			$this->db->rollback();
 		} else {
-			$db->commit();
+			$this->db->commit();
 		}
 		
 		return $numrows;
 	}
 	
-	public static function rem_scout_site($playfield_id, $site_number) {
-		global $chatBot;
-		$db = $chatBot->getInstance('db');
-		
+	public function rem_scout_site($playfield_id, $site_number) {
 		$sql = "DELETE FROM scout_info WHERE `playfield_id` = ? AND `site_number` = ?";
 
-		return $db->exec($sql, $playfield_id, $site_number);
+		return $this->db->exec($sql, $playfield_id, $site_number);
 	}
 	
-	public static function check_guild_name($guild_name) {
-		global $chatBot;
-		$db = $chatBot->getInstance('db');
-	
+	public function check_guild_name($guild_name) {
 		$sql = "SELECT * FROM tower_attack_<myname> WHERE `att_guild_name` LIKE ? OR `def_guild_name` LIKE ? LIMIT 1";
 		
-		$data = $db->query($sql, $guild_name, $guild_name);
+		$data = $this->db->query($sql, $guild_name, $guild_name);
 		if (count($data) === 0) {
 			return false;
 		} else {
@@ -247,10 +265,7 @@ class Towers {
 		}
 	}
 	
-	public static function getSitesInPenalty($time) {
-		global $chatBot;
-		$db = $chatBot->getInstance('db');
-		
+	public function getSitesInPenalty($time) {
 		$sql = "
 			SELECT att_guild_name, att_faction, MAX(IFNULL(t2.time, t1.time)) AS penalty_time
 			FROM tower_attack_<myname> t1
@@ -258,8 +273,10 @@ class Towers {
 			WHERE (t2.time IS NULL AND t1.time > ?) OR t2.time > ?
 			GROUP BY att_guild_name, att_faction
 			ORDER BY att_faction ASC, penalty_time DESC";
-		return $db->query($sql, $time, $time);
+		return $this->db->query($sql, $time, $time);
 	}
+	
+	
 }
 
 ?>

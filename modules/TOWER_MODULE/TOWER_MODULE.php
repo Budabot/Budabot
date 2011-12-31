@@ -1,6 +1,8 @@
 <?php
 	require_once 'Towers.class.php';
 	require_once 'functions.php';
+	
+	$chatBot->registerInstance($MODULE_NAME, 'Towers', new Towers);
 
 	$db->loadSQLFile($MODULE_NAME, "tower_attack");
 	$db->loadSQLFile($MODULE_NAME, "scout_info");

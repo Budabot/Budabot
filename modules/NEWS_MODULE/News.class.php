@@ -65,7 +65,6 @@ class News {
 	
 	/**
 	 * @Command("news")
-	 * @Channels("")
 	 * @AccessLevel("all")
 	 * @Description("Show News")
 	 */

@@ -7,6 +7,8 @@ $page_size = Setting::get('tower_page_size');
 $page_label = 1;
 $search = '';
 
+$towers = $chatBot->getInstance('towers');
+
 if (preg_match("/^attacks (\\d+)$/i", $message, $arr) || preg_match("/^attacks$/i", $message, $arr)) {
 	if (isset($arr[1])) {
 		$page_label = $arr[1];
@@ -34,7 +36,7 @@ if (preg_match("/^attacks (\\d+)$/i", $message, $arr) || preg_match("/^attacks$/
 		return;
 	}
 	
-	$tower_info = Towers::get_tower_info($playfield->id, $arr[2]);
+	$tower_info = $towers->get_tower_info($playfield->id, $arr[2]);
 	if ($tower_info === null) {
 		$msg = "Invalid site number.";
 		$chatBot->send($msg, $sendto);

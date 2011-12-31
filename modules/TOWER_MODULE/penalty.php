@@ -1,5 +1,7 @@
 <?php
 
+$towers = $chatBot->getInstance('towers');
+
 if (preg_match("/^penalty$/i", $message) || preg_match("/^penalty ([a-z0-9]+)$/i", $message, $arr)) {
 	if (isset($arr)) {
 		$time = Util::parseTime($arr[1]);
@@ -13,7 +15,7 @@ if (preg_match("/^penalty$/i", $message) || preg_match("/^penalty ([a-z0-9]+)$/i
 	}
 	$penaltyTimeString = Util::unixtime_to_readable($time, false);
 
-	$data = Towers::getSitesInPenalty(time() - $time);
+	$data = $towers->getSitesInPenalty(time() - $time);
 	
 	if (count($data) > 0) {
 		$blob = "<header> :::::: Orgs in penalty ($penaltyTimeString) :::::: <end>\n";

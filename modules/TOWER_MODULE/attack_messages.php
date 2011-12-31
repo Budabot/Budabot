@@ -3,6 +3,8 @@
 $colorlabel = "<font color=#00DE42>";
 $colorvalue = "<font color=#63AD63>";
 
+$towers = $chatBot->getInstance('towers');
+
 if (preg_match("/^The (Clan|Neutral|Omni) organization (.+) just entered a state of war! (.+) attacked the (Clan|Neutral|Omni) organization (.+)'s tower in (.+) at location \\((\\d+),(\\d+)\\)\\.$/i", $message, $arr)) {
 	$att_side = ucfirst(strtolower($arr[1]));  // comes across as a string instead of a reference, so convert to title case
 	$att_guild = $arr[2];
@@ -39,13 +41,13 @@ if (isset($att_guild)) {
 $whois->name = $att_player;
 
 $playfield = Playfields::get_playfield_by_name($playfield_name);
-$closest_site = Towers::get_closest_site($playfield->id, $x_coords, $y_coords);
+$closest_site = $towers->get_closest_site($playfield->id, $x_coords, $y_coords);
 if ($closest_site === null) {
 	Logger::log('error', "TowerInfo", "ERROR! Could not find closest site: ({$playfield_name}) '{$playfield->id}' '{$x_coords}' '{$y_coords}'");
 	$more = "[<red>UNKNOWN AREA!<end>]";
 } else {
 
-	Towers::record_attack($whois, $def_side, $def_guild, $x_coords, $y_coords, $closest_site);
+	$towers->record_attack($whois, $def_side, $def_guild, $x_coords, $y_coords, $closest_site);
 	Logger::log('debug', "TowerInfo", "Site being attacked: ({$playfield_name}) '{$closest_site->playfield_id}' '{$closest_site->site_number}'");
 
 	// Beginning of the 'more' window
