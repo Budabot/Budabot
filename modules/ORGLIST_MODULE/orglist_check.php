@@ -1,9 +1,9 @@
 <?php
 
 if (isset($chatBot->data["ORGLIST_MODULE"]["added"][$sender])) {
-	if ($type == "logOn") {
+	if ($type == "logon") {
 		$chatBot->data["ORGLIST_MODULE"]["result"][$sender]["online"] = 1;
-	} else if ($type == "logOff") {
+	} else if ($type == "logoff") {
 		$chatBot->data["ORGLIST_MODULE"]["result"][$sender]["online"] = 0;
 	}
 

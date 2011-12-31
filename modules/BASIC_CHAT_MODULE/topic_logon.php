@@ -4,7 +4,7 @@ if (Setting::get('topic') == '') {
 	return;
 }
 
-if ($type == 'joinPriv' || ($type == 'logOn' && isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready())) {
+if ($type == 'joinpriv' || ($type == 'logon' && isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready())) {
 	$date_string = Util::unixtime_to_readable(time() - Setting::get('topic_time'), false);
 	$topic = Setting::get('topic');
 	$set_by = Setting::get('topic_setby');

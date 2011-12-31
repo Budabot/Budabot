@@ -10,11 +10,11 @@
    
 global $bbinSocket;
 if (IRC::isConnectionActive($bbinSocket)) {
-	if ($type == "joinPriv") {
+	if ($type == "joinpriv") {
 		$msg = "[BBIN:LOGON:".$sender.",".$chatBot->vars["dimension"].",1]";
 		Logger::log('DEBUG', "BBIN Outgoing", $msg);
 		IRC::send($bbinSocket, Setting::get('bbin_channel'), $msg);
-	} else if ($type == "logOn" && isset($chatBot->guildmembers[$sender])) {
+	} else if ($type == "logon" && isset($chatBot->guildmembers[$sender])) {
 		$msg = "[BBIN:LOGON:".$sender.",".$chatBot->vars["dimension"].",0]";
 		Logger::log('DEBUG', "BBIN Outgoing", $msg);
 		IRC::send($bbinSocket, Setting::get('bbin_channel'), $msg);

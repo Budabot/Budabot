@@ -457,7 +457,7 @@ class Budabot extends AOChat {
 		Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_CLIJOIN => channel: '$channel' sender: '$sender'");
 		
 		if ($channel == $chatBot->vars['name']) {
-			$type = "joinPriv";
+			$type = "joinpriv";
 
 			Logger::log_chat("Priv Group", -1, "$sender joined the channel.");
 
@@ -489,7 +489,7 @@ class Budabot extends AOChat {
 				}
 			}
 		} else {
-			$type = "extJoinPriv";
+			$type = "extjoinpriv";
 			
 			forEach ($chatBot->events[$type] as $filename) {
 				$msg = '';
@@ -524,7 +524,7 @@ class Budabot extends AOChat {
 		Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_CLIPART => channel: '$channel' sender: '$sender'");
 		
 		if ($channel == $chatBot->vars['name']) {
-			$type = "leavePriv";
+			$type = "leavepriv";
 		
 			Logger::log_chat("Priv Group", -1, "$sender left the channel.");
 
@@ -550,7 +550,7 @@ class Budabot extends AOChat {
 				}
 			}
 		} else {
-			$type = "extLeavePriv";
+			$type = "extleavepriv";
 			
 			forEach ($chatBot->events[$type] as $filename) {
 				$msg = '';
@@ -598,7 +598,7 @@ class Budabot extends AOChat {
 
 		// Status => 0: logoff  1: logon
 		if ($status == 0) {
-			$type = "logOff";
+			$type = "logoff";
 			
 			Logger::log('DEBUG', "Buddy", "$sender logged off");
 
@@ -621,7 +621,7 @@ class Budabot extends AOChat {
 				}
 			}
 		} else if ($status == 1) {
-			$type = "logOn";
+			$type = "logon";
 			
 			Logger::log('INFO', "Buddy", "$sender logged on");
 
@@ -788,7 +788,7 @@ class Budabot extends AOChat {
 		
 		} else {  // ext priv group message
 			
-			$type = "extPriv";
+			$type = "extpriv";
 			
 			forEach ($chatBot->events[$type] as $filename) {
 				$msg = "";
@@ -926,7 +926,7 @@ class Budabot extends AOChat {
 		// modules can set this to true to stop execution after they are called
 		$stop_execution = false;
 	
-		$type = "extJoinPrivRequest"; // Set message type.
+		$type = "extjoinprivrequest"; // Set message type.
 		$uid = $args[0];
 		$sender = $chatBot->lookup_user($uid);
 

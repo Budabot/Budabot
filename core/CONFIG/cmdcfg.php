@@ -194,12 +194,12 @@ if (preg_match("/^config$/i", $message)) {
 } else if (preg_match("/^config (subcmd|mod|cmd|event) (.+) (enable|disable) (priv|msg|guild|all)$/i", $message, $arr)) {
 	if ($arr[1] == "event") {
 		$temp = explode(" ", $arr[2]);
-	  	$event_type = $temp[0];
+	  	$event_type = strtolower($temp[0]);
 	  	$file = $temp[1];
 	} else if ($arr[1] == 'cmd' || $arr[1] == 'subcmd') {
 		$cmd = strtolower($arr[2]);
 		$type = $arr[4];
-	} else {
+	} else { // $arr[1] == 'mod'
 		$module = strtoupper($arr[2]);
 		$type = $arr[4];
 	}

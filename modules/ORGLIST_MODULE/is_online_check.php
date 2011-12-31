@@ -1,9 +1,9 @@
 <?php
 
 if (isset($chatBot->data["ONLINE_MODULE"]) && $sender == $chatBot->data["ONLINE_MODULE"]['playername']) {
-    if ($type == "logOn") {
+    if ($type == "logon") {
 		$status = "<green>online<end>";
-	} else if ($type == "logOff") {
+	} else if ($type == "logoff") {
 		$status = "<red>offline<end>";
 	}
 	$msg = "Player <highlight>$sender<end> is $status";

@@ -23,4 +23,7 @@ if (!checkIfColumnExists($db, "news", "sticky")) {
 	$db->exec("ALTER TABLE news ADD `sticky` TINYINT NOT NULL DEFAULT 0");
 }
 
+
+$db->exec("UPDATE eventcfg_<myname> SET type = LOWER(type)")
+
 ?>

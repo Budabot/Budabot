@@ -5,10 +5,33 @@ class Worldnet {
 	public $setting;
 	
 	/** @Inject */
+	public $db;
+	
+	/** @Inject */
 	public $buddyList;
 	
 	/** @Inject */
 	public $ban;
+	
+	/** @Inject */
+	public $help;
+	
+	function init($MODULE_NAME) {
+		// since settings for channels are added dynamically, we need to re-add them manually
+		$data = $this->db->query("SELECT * FROM settings_<myname> WHERE module = ? AND name LIKE ?", $MODULE_NAME, "%_channel");
+		forEach ($data as $row) {
+			$this->setting->add($row->module, $row->name, $row->description, $row->mode, $row->type, $row->value, $row->options, $row->intoptions, $row->admin, $row->help);
+		}
+
+		$this->setting->add($MODULE_NAME, 'worldnet_bot', 'Name of bot', 'edit', "text", "Worldnet", "Worldnet;Dnet", '', 'mod', 'worldnet');
+
+		// colors
+		$this->setting->add($MODULE_NAME, 'worldnet_channel_color', "Color of channel text in worldnet messages", 'edit', "color", "<font color='#FFFFFF'>");
+		$this->setting->add($MODULE_NAME, 'worldnet_message_color', "Color of message text in worldnet messages", 'edit', "color", "<font color='#FFFFFF'>");
+		$this->setting->add($MODULE_NAME, 'worldnet_sender_color', "Color of sender text in worldnet messages", 'edit', "color", "<font color='#FFFFFF'>");
+
+		$this->help->register($MODULE_NAME, "worldnet", "worldnet.txt", "all", "How to use Worldnet");
+	}
 
 	/**
 	 * @Event("logOn")

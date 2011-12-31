@@ -1,6 +1,6 @@
 <?php
 
-if ($type == "joinPriv") {
+if ($type == "joinpriv") {
 	$whois = Player::get_by_name($sender);
 	
 	$altInfo = Alts::get_alt_info($sender);

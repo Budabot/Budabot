@@ -1,6 +1,6 @@
 <?php
 
-if ($type == "leavePriv") {
+if ($type == "leavepriv") {
 	$msg = "$sender has left the private channel";
 
 	if (Setting::get("guest_relay") == 1) {
