@@ -10,7 +10,7 @@
 	require_once 'functions.php';
 	require_once 'IRC.class.php';
 
-	$channel = Setting::get('irc_channel');
+	$channel = $setting->get('irc_channel');
 	if ($channel === false) {
 		if ($chatBot->vars['my_guild'] == "") {
 			$channel = "#".strtolower($chatBot->vars['name']);

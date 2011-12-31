@@ -16,7 +16,7 @@ class Usage {
 		$debug = false;
 		$time = time();
 		$settingName = 'last_submitted_stats';
-		$lastSubmittedStats = Setting::get($settingName);
+		$lastSubmittedStats = $this->setting->get($settingName);
 
 		$postArray['stats'] = json_encode($this->getUsageInfo($lastSubmittedStats, $debug));
 
@@ -28,14 +28,14 @@ class Usage {
 			echo $mycurl->__toString() . "\n";
 		}
 
-		Setting::save($settingName, $time);
+		$this->setting->save($settingName, $time);
 	}
 	
 	public function getUsageInfo($lastSubmittedStats, $debug = false) {
 		global $chatBot;
 		global $version;
 
-		$botid = Setting::get('botid');
+		$botid = $this->setting->get('botid');
 		if ($botid == '') {
 			$botid = Util::genRandomString(20);
 			$this->setting->add("USAGE", 'botid', 'botid', 'noedit', 'text', $botid);
@@ -49,23 +49,23 @@ class Usage {
 		$settings['is_guild_bot'] = ($chatBot->vars['my_guild'] == '' ? '0' : '1');
 		$settings['guildsize'] = $this->getGuildSizeClass(count($chatBot->guildmembers));
 		$settings['using_chat_proxy'] = $chatBot->vars['use_proxy'];
-		$settings['symbol'] = Setting::get('symbol');
-		$settings['spam_protection'] = Setting::get('spam_protection');
+		$settings['symbol'] = $this->setting->get('symbol');
+		$settings['spam_protection'] = $this->setting->get('spam_protection');
 		$settings['db_type'] = $this->db->get_type();
 		$settings['bot_version'] = $version;
 		$settings['using_svn'] = (file_exists("./modules/SVN_MODULE/svn.php") === true ? '1' : '0');
 		$settings['os'] = (isWindows() === true ? 'Windows' : 'Other');
-		$settings['relay_enabled'] = (Setting::get('relaybot') == 'Off' ? '0' : '1');
-		$settings['relay_type'] = Setting::get('relaytype');
-		$settings['alts_inherit_admin'] = Setting::get('alts_inherit_admin');
-		$settings['bbin_status'] = Setting::get('bbin_status');
-		$settings['irc_status'] = Setting::get('irc_status');
-		$settings['first_and_last_alt_only'] = Setting::get('first_and_last_alt_only');
-		$settings['aodb_db_version'] = Setting::get('aodb_db_version');
-		$settings['guild_admin_access_level'] = Setting::get('guild_admin_access_level');
-		$settings['guild_admin_rank'] = Setting::get('guild_admin_rank');
-		$settings['max_blob_size'] = Setting::get('max_blob_size');
-		$settings['logon_delay'] = Setting::get('logon_delay');
+		$settings['relay_enabled'] = ($this->setting->get('relaybot') == 'Off' ? '0' : '1');
+		$settings['relay_type'] = $this->setting->get('relaytype');
+		$settings['alts_inherit_admin'] = $this->setting->get('alts_inherit_admin');
+		$settings['bbin_status'] = $this->setting->get('bbin_status');
+		$settings['irc_status'] = $this->setting->get('irc_status');
+		$settings['first_and_last_alt_only'] = $this->setting->get('first_and_last_alt_only');
+		$settings['aodb_db_version'] = $this->setting->get('aodb_db_version');
+		$settings['guild_admin_access_level'] = $this->setting->get('guild_admin_access_level');
+		$settings['guild_admin_rank'] = $this->setting->get('guild_admin_rank');
+		$settings['max_blob_size'] = $this->setting->get('max_blob_size');
+		$settings['logon_delay'] = $this->setting->get('logon_delay');
 
 		$obj = new stdClass;
 		$obj->id = sha1($botid . $chatBot->vars['name'] . $chatBot->vars['dimension']);

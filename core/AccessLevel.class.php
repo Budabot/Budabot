@@ -5,6 +5,9 @@ class AccessLevel extends Annotation {
 
 	/** @Inject */
 	public $db;
+	
+	/** @Inject */
+	public $setting;
 
 	/**
 	 * @name: checkAccess
@@ -17,7 +20,7 @@ class AccessLevel extends Annotation {
 	
 		$returnVal = $this->checkSingleAccess($sender, $accessLevel);
 		
-		if ($returnVal === false && Setting::get('alts_inherit_admin') == 1) {
+		if ($returnVal === false && $this->setting->get('alts_inherit_admin') == 1) {
 			// if current character doesn't have access,
 			// and if alts_inherit_admin is enabled,
 			// and if the current character is not a main character,
@@ -114,7 +117,7 @@ class AccessLevel extends Annotation {
 
 		$accessLevel = $this->getSingleAccessLevel($sender);
 		
-		if (Setting::get('alts_inherit_admin') == 1) {
+		if ($this->setting->get('alts_inherit_admin') == 1) {
 			$altInfo = Alts::get_alt_info($sender);
 			if ($sender != $altInfo->main && $altInfo->is_validated($sender)) {
 				$mainAccessLevel = $this->getSingleAccessLevel($altInfo->main);
@@ -130,8 +133,8 @@ class AccessLevel extends Annotation {
 	public function checkGuildAdmin($sender, $accessLevel) {
 		global $chatBot;
 
-		if (isset($chatBot->guildmembers[$sender]) && $chatBot->guildmembers[$sender] <= Setting::get('guild_admin_rank')) {
-			if ($this->compareAccessLevels(Setting::get('guild_admin_access_level'), $accessLevel) >= 0) {
+		if (isset($chatBot->guildmembers[$sender]) && $chatBot->guildmembers[$sender] <= $this->setting->get('guild_admin_rank')) {
+			if ($this->compareAccessLevels($this->setting->get('guild_admin_access_level'), $accessLevel) >= 0) {
 				return true;
 			} else {
 				return false;

@@ -46,7 +46,7 @@
 	$setting->add($MODULE_NAME, 'version', "Bot version that database was created from", 'noedit', "text", 0);
 	
 	global $version;
-	Setting::save('version', $version);
+	$setting->save('version', $version);
 
 	$help->register($MODULE_NAME, "system", "system.txt", "admin", "Admin System Help file");
 	$help->register($MODULE_NAME, "guild_admin_rank", "guild_admin_rank.txt", "mod", "Change what guild rank is considered a guild admin");

@@ -259,7 +259,7 @@ class DB {
 		}
 		$d = dir($dir);
 		
-		$currentVersion = Setting::get($settingName);
+		$currentVersion = $this->setting->get($settingName);
 		if ($currentVersion === false) {
 			$currentVersion = 0;
 		}
@@ -301,7 +301,7 @@ class DB {
 				}
 				//$this->commit();
 			
-				if (!Setting::save($settingName, $maxFileVersion)) {
+				if (!$this->setting->save($settingName, $maxFileVersion)) {
 					$this->setting->add($module, $settingName, $settingName, 'noedit', 'text', $maxFileVersion);
 				}
 				

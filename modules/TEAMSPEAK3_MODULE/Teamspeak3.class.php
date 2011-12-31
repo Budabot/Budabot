@@ -67,18 +67,20 @@ class Teamspeak3 {
 }
 
 function getTeamspeak3Status() {
-	$ts = new Teamspeak3(Setting::get('ts_username'), Setting::get('ts_password'), Setting::get('ts_server'), Setting::get('ts_queryport'));
+	global $chatBot;
+	$setting = $chatBot->getInstance('setting');
+	$ts = new Teamspeak3($setting->get('ts_username'), $setting->get('ts_password'), $setting->get('ts_server'), $setting->get('ts_queryport'));
 
 	try {
-		$server = Setting::get('ts_server');
-		$clientPort = Setting::get('ts_clientport');
+		$server = $setting->get('ts_server');
+		$clientPort = $setting->get('ts_clientport');
 		$serverLink = Text::make_chatcmd($server, "/start http://ts3server:://$server:$clientPort");
 		
 		$users = $ts->exec('clientlist');
 		$count = 0;
 		$blob = "<header> :::::: Teamspeak 3 Info :::::: <end>\n\n";
 		$blob .= "Server: $serverLink\n";
-		$blob .= "Description: <highlight>" . Setting::get('ts_description') . "<end>\n\n";
+		$blob .= "Description: <highlight>" . $setting->get('ts_description') . "<end>\n\n";
 		$blob .= "Users:\n";
 		forEach ($users as $user) {
 			if ($user['client_type'] == 0) {

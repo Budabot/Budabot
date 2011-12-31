@@ -92,8 +92,8 @@ class Budabot extends AOChat {
 
 		Logger::log('INFO', 'StartUp', "All Systems ready!");
 		
-		Logger::log('DEBUG', 'Core', "Setting logondelay to '" . Setting::get("logon_delay") . "'");
-		$this->vars["logondelay"] = time() + Setting::get("logon_delay");
+		Logger::log('DEBUG', 'Core', "Setting logondelay to '" . $this->setting->get("logon_delay") . "'");
+		$this->vars["logondelay"] = time() + $this->setting->get("logon_delay");
 	}
 	
 	public function run() {
@@ -214,7 +214,7 @@ class Budabot extends AOChat {
 		}
 	
 		$message = Text::format_message($message);
-		$this->send_privgroup($group, Setting::get("default_priv_color").$message);
+		$this->send_privgroup($group, $this->setting->get("default_priv_color").$message);
 	}
 
 	/**
@@ -259,34 +259,34 @@ class Budabot extends AOChat {
 		$sender_link = Text::make_userlink($this->vars['name']);
 
 		if ($target == 'prv') {
-			$this->send_privgroup($this->vars["name"], Setting::get("default_priv_color").$message);
+			$this->send_privgroup($this->vars["name"], $this->setting->get("default_priv_color").$message);
 			
 			// relay to guild channel
-			if (!$disable_relay && Setting::get('guild_channel_status') == 1 && Setting::get("guest_relay") == 1 && Setting::get("guest_relay_commands") == 1) {
+			if (!$disable_relay && $this->setting->get('guild_channel_status') == 1 && $this->setting->get("guest_relay") == 1 && $this->setting->get("guest_relay_commands") == 1) {
 				$this->send_guild("</font>{$this->settings["guest_color_channel"]}[Guest]</font> {$sender_link}: {$this->settings["default_priv_color"]}$message</font>", "\0", $priority);
 			}
 
 			// relay to bot relay
-			if (!$disable_relay && Setting::get("relaybot") != "Off" && Setting::get("bot_relay_commands") == 1) {
+			if (!$disable_relay && $this->setting->get("relaybot") != "Off" && $this->setting->get("bot_relay_commands") == 1) {
 				send_message_to_relay("grc <grey>[{$this->vars["my_guild"]}] [Guest] {$sender_link}: $message");
 			}
-		} else if (($target == $this->vars["my_guild"] || $target == 'org') && Setting::get('guild_channel_status') == 1) {
-    		$this->send_guild(Setting::get("default_guild_color").$message, "\0", $priority);
+		} else if (($target == $this->vars["my_guild"] || $target == 'org') && $this->setting->get('guild_channel_status') == 1) {
+    		$this->send_guild($this->setting->get("default_guild_color").$message, "\0", $priority);
 			
 			// relay to private channel
-			if (!$disable_relay && Setting::get("guest_relay") == 1 && Setting::get("guest_relay_commands") == 1) {
+			if (!$disable_relay && $this->setting->get("guest_relay") == 1 && $this->setting->get("guest_relay_commands") == 1) {
 				$this->send_privgroup($this->vars["name"], "</font>{$this->settings["guest_color_channel"]}[{$this->vars["my_guild"]}]</font> {$sender_link}: {$this->settings["default_guild_color"]}$message</font>");
 			}
 			
 			// relay to bot relay
-			if (!$disable_relay && Setting::get("relaybot") != "Off" && Setting::get("bot_relay_commands") == 1) {
+			if (!$disable_relay && $this->setting->get("relaybot") != "Off" && $this->setting->get("bot_relay_commands") == 1) {
 				send_message_to_relay("grc <grey>[{$this->vars["my_guild"]}] {$sender_link}: $message");
 			}
 		} else if ($this->get_uid($target) != NULL) {// Target is a player.
 			Logger::log_chat("Out. Msg.", $target, $message);
-    		$this->send_tell($target, Setting::get("default_tell_color").$message, "\0", $priority);
+    		$this->send_tell($target, $this->setting->get("default_tell_color").$message, "\0", $priority);
 		} else { // Public channels that are not guild
-	    	$this->send_group($target, Setting::get("default_guild_color").$message, "\0", $priority);
+	    	$this->send_group($target, $this->setting->get("default_guild_color").$message, "\0", $priority);
 		}
 	}
 	
@@ -688,7 +688,7 @@ class Budabot extends AOChat {
 
 		if (Ban::is_banned($sender)) {
 			return;
-		} else if (Setting::get('spam_protection') == 1 && $chatBot->spam[$sender] > 100) {
+		} else if ($this->setting->get('spam_protection') == 1 && $chatBot->spam[$sender] > 100) {
 			$chatBot->spam[$sender] += 20;
 			return;
 		}
@@ -713,7 +713,7 @@ class Budabot extends AOChat {
 		}
 
 		// remove the symbol if there is one
-		if ($message[0] == Setting::get("symbol") && strlen($message) > 1) {
+		if ($message[0] == $this->setting->get("symbol") && strlen($message) > 1) {
 			$message = substr($message, 1);
 		}
 
@@ -744,7 +744,7 @@ class Budabot extends AOChat {
 			return;
 		}
 
-		if (Setting::get('spam_protection') == 1) {
+		if ($this->setting->get('spam_protection') == 1) {
 			if ($chatBot->spam[$sender] == 40) $chatBot->send("Error! Your client is sending a high frequency of chat messages. Stop or be kicked.", $sender);
 			if ($chatBot->spam[$sender] > 60) $chatBot->privategroup_kick($sender);
 			if (strlen($args[1]) > 400){
@@ -781,7 +781,7 @@ class Budabot extends AOChat {
 				}
 			}
 			
-			if ($message[0] == Setting::get("symbol") && strlen($message) > 1) {
+			if ($message[0] == $this->setting->get("symbol") && strlen($message) > 1) {
 				$message = substr($message, 1);
 				$chatBot->process_command($type, $message, $sender, $sendto);
 			}
@@ -889,7 +889,7 @@ class Budabot extends AOChat {
 				}
 			}
 			return;
-		} else if ($b[1] == 3 && Setting::get('guild_channel_status') == 1) {
+		} else if ($b[1] == 3 && $this->setting->get('guild_channel_status') == 1) {
 			$type = "guild";
 			$sendto = 'guild';
 			
@@ -912,7 +912,7 @@ class Budabot extends AOChat {
 				}
 			}
 			
-			if ($message[0] == Setting::get("symbol") && strlen($message) > 1) {
+			if ($message[0] == $this->setting->get("symbol") && strlen($message) > 1) {
 				$message = substr($message, 1);
 				$chatBot->process_command($type, $message, $sender, $sendto);
 			}
@@ -989,7 +989,7 @@ class Budabot extends AOChat {
 		
 		// if file doesn't exist
 		if ($filename == '') {
-			if ((Setting::get('guild_channel_cmd_feedback') == 0 && $type == 'guild') || ((Setting::get('private_channel_cmd_feedback') == 0 && $type == 'priv'))) {
+			if (($this->setting->get('guild_channel_cmd_feedback') == 0 && $type == 'guild') || (($this->setting->get('private_channel_cmd_feedback') == 0 && $type == 'priv'))) {
 				return;
 			}
 				
@@ -1001,7 +1001,7 @@ class Budabot extends AOChat {
 		// if the character doesn't have access
 		if ($this->accessLevel->checkAccess($sender, $admin) !== true) {
 			// if they've disabled feedback for guild or private channel, just return
-			if ((Setting::get('guild_channel_cmd_feedback') == 0 && $type == 'guild') || ((Setting::get('private_channel_cmd_feedback') == 0 && $type == 'priv'))) {
+			if (($this->setting->get('guild_channel_cmd_feedback') == 0 && $type == 'guild') || (($this->setting->get('private_channel_cmd_feedback') == 0 && $type == 'priv'))) {
 				return;
 			}
 				
@@ -1010,7 +1010,7 @@ class Budabot extends AOChat {
 			return;
 		}
 
-		if ($cmd != 'grc' && Setting::get('record_usage_stats') == 1) {
+		if ($cmd != 'grc' && $this->setting->get('record_usage_stats') == 1) {
 			$this->getInstance('usage')->record($type, $cmd, $sender);
 		}
 	
