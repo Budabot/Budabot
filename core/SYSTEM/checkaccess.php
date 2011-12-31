@@ -1,6 +1,6 @@
 <?php
 
-$accessLevel = $chatBot->getInstance('accessLevel');
+$accessLevel = Registry::getInstance('accessLevel');
 
 if (preg_match("/^checkaccess$/i", $message) || preg_match("/^checkaccess (.+)$/i", $message, $arr)) {
 	if (isset($arr)) {

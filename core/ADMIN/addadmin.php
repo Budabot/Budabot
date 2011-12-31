@@ -1,6 +1,6 @@
 <?php
 
-$accessLevel = $chatBot->getInstance('accessLevel');
+$accessLevel = Registry::getInstance('accessLevel');
 
 if (preg_match("/^addadmin (.+)$/i", $message, $arr)){
 	$who = ucfirst(strtolower($arr[1]));

@@ -1,7 +1,7 @@
 <?php
 
-$ban = $chatBot->getInstance('ban');
-$accessLevel = $chatBot->getInstance('accessLevel');
+$ban = Registry::getInstance('ban');
+$accessLevel = Registry::getInstance('accessLevel');
 
 if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 	$who = ucfirst(strtolower($arr[1]));

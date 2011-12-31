@@ -1,6 +1,6 @@
 <?php
 
-$towers = $chatBot->getInstance('towers');
+$towers = Registry::getInstance('towers');
 
 if (preg_match("/^penalty$/i", $message) || preg_match("/^penalty ([a-z0-9]+)$/i", $message, $arr)) {
 	if (isset($arr)) {

@@ -3,7 +3,7 @@
 if (preg_match("/^addalias ([a-z0-9]+) (.+)/i", $message, $arr)) {
 	$alias = strtolower($arr[1]);
 	$cmd = strtolower($arr[2]);
-	$commandAlias = $chatBot->getInstance('commandAlias');
+	$commandAlias = Registry::getInstance('commandAlias');
 	
 	$alias_obj = new stdClass;
 	$alias_obj->module = '';
@@ -11,7 +11,7 @@ if (preg_match("/^addalias ([a-z0-9]+) (.+)/i", $message, $arr)) {
 	$alias_obj->alias = $alias;
 	$alias_obj->status = 1;
 
-	$commands = $chatBot->getInstance('command')->get($alias);
+	$commands = Registry::getInstance('command')->get($alias);
 	$enabled = false;
 	forEach ($commands as $command) {
 		if ($command->status == '1') {

@@ -22,7 +22,7 @@ if ($playfield === null) {
 	return;
 }
 
-$towers = $chatBot->getInstance('towers');
+$towers = Registry::getInstance('towers');
 
 $last_attack = $towers->get_last_attack($win_faction, $win_guild_name, $lose_faction, $lose_guild_name, $playfield->id);
 if ($last_attack !== null) {

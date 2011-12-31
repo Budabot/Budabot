@@ -14,7 +14,7 @@ $table = "vote_<myname>";
 
 $delimiter = "|";
 
-$accessLevel = $chatBot->getInstance('accessLevel');
+$accessLevel = Registry::getInstance('accessLevel');
 
 // Listing of all votes
 if (preg_match("/^vote$/i", $message)) {

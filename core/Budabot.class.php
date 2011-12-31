@@ -38,8 +38,6 @@ class Budabot extends AOChat {
 	var $privCmds = array();
 	var $guildCmds = array();
 	
-	private $repo = array();
-	
 	// array where modules can store stateful session data
 	var $data = array();
 	
@@ -416,7 +414,7 @@ class Budabot extends AOChat {
 				require $filename;
 			} else {
 				list($name, $method) = explode(".", $filename);
-				$instance = $this->getInstance($name);
+				$instance = Registry::getInstance($name);
 				if ($instance === null) {
 					Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 				} else {
@@ -477,7 +475,7 @@ class Budabot extends AOChat {
 					require $filename;
 				} else {
 					list($name, $method) = explode(".", $filename);
-					$instance = $this->getInstance($name);
+					$instance = Registry::getInstance($name);
 					if ($instance === null) {
 						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 					} else {
@@ -497,7 +495,7 @@ class Budabot extends AOChat {
 					require $filename;
 				} else {
 					list($name, $method) = explode(".", $filename);
-					$instance = $this->getInstance($name);
+					$instance = Registry::getInstance($name);
 					if ($instance === null) {
 						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 					} else {
@@ -538,7 +536,7 @@ class Budabot extends AOChat {
 					require $filename;
 				} else {
 					list($name, $method) = explode(".", $filename);
-					$instance = $this->getInstance($name);
+					$instance = Registry::getInstance($name);
 					if ($instance === null) {
 						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 					} else {
@@ -558,7 +556,7 @@ class Budabot extends AOChat {
 					require $filename;
 				} else {
 					list($name, $method) = explode(".", $filename);
-					$instance = $this->getInstance($name);
+					$instance = Registry::getInstance($name);
 					if ($instance === null) {
 						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 					} else {
@@ -609,7 +607,7 @@ class Budabot extends AOChat {
 					require $filename;
 				} else {
 					list($name, $method) = explode(".", $filename);
-					$instance = $this->getInstance($name);
+					$instance = Registry::getInstance($name);
 					if ($instance === null) {
 						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 					} else {
@@ -632,7 +630,7 @@ class Budabot extends AOChat {
 					require $filename;
 				} else {
 					list($name, $method) = explode(".", $filename);
-					$instance = $this->getInstance($name);
+					$instance = Registry::getInstance($name);
 					if ($instance === null) {
 						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 					} else {
@@ -700,7 +698,7 @@ class Budabot extends AOChat {
 					require $filename;
 				} else {
 					list($name, $method) = explode(".", $filename);
-					$instance = $this->getInstance($name);
+					$instance = Registry::getInstance($name);
 					if ($instance === null) {
 						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 					} else {
@@ -718,7 +716,7 @@ class Budabot extends AOChat {
 		}
 
 		// check tell limits
-		$limits = $this->getInstance('Limits');
+		$limits = Registry::getInstance('Limits');
 		if (!$limits->check($sender, $message)) {
 			return;
 		}
@@ -770,7 +768,7 @@ class Budabot extends AOChat {
 					require $filename;
 				} else {
 					list($name, $method) = explode(".", $filename);
-					$instance = $this->getInstance($name);
+					$instance = Registry::getInstance($name);
 					if ($instance === null) {
 						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 					} else {
@@ -797,7 +795,7 @@ class Budabot extends AOChat {
 					require $filename;
 				} else {
 					list($name, $method) = explode(".", $filename);
-					$instance = $this->getInstance($name);
+					$instance = Registry::getInstance($name);
 					if ($instance === null) {
 						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 					} else {
@@ -857,7 +855,7 @@ class Budabot extends AOChat {
 					require $filename;
 				} else {
 					list($name, $method) = explode(".", $filename);
-					$instance = $this->getInstance($name);
+					$instance = Registry::getInstance($name);
 					if ($instance === null) {
 						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 					} else {
@@ -878,7 +876,7 @@ class Budabot extends AOChat {
 					require $filename;
 				} else {
 					list($name, $method) = explode(".", $filename);
-					$instance = $this->getInstance($name);
+					$instance = Registry::getInstance($name);
 					if ($instance === null) {
 						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 					} else {
@@ -901,7 +899,7 @@ class Budabot extends AOChat {
 					require $filename;
 				} else {
 					list($name, $method) = explode(".", $filename);
-					$instance = $this->getInstance($name);
+					$instance = Registry::getInstance($name);
 					if ($instance === null) {
 						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 					} else {
@@ -941,7 +939,7 @@ class Budabot extends AOChat {
 				require $filename;
 			} else {
 				list($name, $method) = explode(".", $filename);
-				$instance = $this->getInstance($name);
+				$instance = Registry::getInstance($name);
 				if ($instance === null) {
 					Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 				} else {
@@ -1012,7 +1010,7 @@ class Budabot extends AOChat {
 		}
 
 		if ($cmd != 'grc' && $this->setting->get('record_usage_stats') == 1) {
-			$this->getInstance('usage')->record($type, $cmd, $sender);
+			Registry::getInstance('usage')->record($type, $cmd, $sender);
 		}
 	
 		$syntax_error = false;
@@ -1021,7 +1019,7 @@ class Budabot extends AOChat {
 			require $filename;
 		} else {
 			list($name, $method) = explode(".", $filename);
-			$instance = $this->getInstance($name);
+			$instance = Registry::getInstance($name);
 			if ($instance === null) {
 				Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 			} else {
@@ -1053,10 +1051,10 @@ class Budabot extends AOChat {
 	public function registerInstance($MODULE_NAME, $name, &$obj) {
 		$name = strtolower($name);
 		Logger::log('DEBUG', 'CORE', "Registering instance name '$name' for module '$MODULE_NAME'");
-		if (isset($this->repo[$name])) {
+		if (Registry::instanceExists($name)) {
 			Logger::log('WARN', 'CORE', "Instance with name '$name' already registered--replaced with new instance");
 		}
-		$this->repo[$name] = $obj;
+		Registry::setInstance($name, $obj);
 
 		// register settings annotated on the class
 		$reflection = new ReflectionAnnotatedClass($obj);
@@ -1112,40 +1110,6 @@ class Budabot extends AOChat {
 					$method->getAnnotation('Help')->value,
 					$method->getAnnotation('DefaultStatus')->value
 				);
-			}
-		}
-	}
-	
-	public function getInstance($name, $set = array()) {
-		$name = strtolower($name);
-		Logger::log('DEBUG', 'CORE', "Retrieving instance '$name'");
-		$instance = $this->repo[$name];
-		if ($instance == null) {
-			return null;
-		}
-		
-		// this is to handle circular dependencies
-		if (isset($set[$name])) {
-			return $set[$name];
-		}
-		$set[$name] = $instance;
-		
-		$this->injectDependencies($instance, $set);
-		return $instance;
-	}
-	
-	public function injectDependencies(&$instance, $set = array()) {
-		// inject other instances that are annotated with @Inject
-		$reflection = new ReflectionAnnotatedClass($instance);
-		forEach ($reflection->getProperties() as $property) {
-			if ($property->hasAnnotation('Inject')) {
-				if ($property->getAnnotation('Inject')->value != '') {
-					$dependencyName = $property->getAnnotation('Inject')->value;
-				} else {
-					$dependencyName = $property->name;
-				}
-				$dependencyName = strtolower($dependencyName);
-				$instance->{$property->name} = $this->getInstance($dependencyName, $set);
 			}
 		}
 	}

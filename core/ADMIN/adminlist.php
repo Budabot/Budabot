@@ -1,6 +1,6 @@
 <?php
 
-$accessLevel = $chatBot->getInstance('accessLevel');
+$accessLevel = Registry::getInstance('accessLevel');
 
 if (preg_match("/^adminlist$/i", $message) || preg_match("/^admins$/i", $message)) {
 	$list = "<header>::::: List of administrators :::::<end>\n\n";

@@ -2,7 +2,7 @@
 
 if (preg_match("/^remalias ([a-z0-9]+)/i", $message, $arr)) {
 	$alias = strtolower($arr[1]);
-	$commandAlias = $chatBot->getInstance('commandAlias');
+	$commandAlias = Registry::getInstance('commandAlias');
 	
 	$row = $commandAlias->get($alias);
 	if ($row === null || $row->status != 1) {

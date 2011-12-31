@@ -38,7 +38,7 @@ forEach ($chatBot->banlist as $ban){
 }
 
 if ($update) {
-	$ban = $chatBot->getInstance('ban');
+	$ban = Registry::getInstance('ban');
 	$ban->upload_banlist();
 }
 

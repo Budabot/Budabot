@@ -1,6 +1,6 @@
 <?php
 
-$accessLevel = $chatBot->getInstance('accessLevel');
+$accessLevel = Registry::getInstance('accessLevel');
 
 if (preg_match("/^cmdsearch (.*)/i", $message, $arr)) {
 	$search = $arr[1];

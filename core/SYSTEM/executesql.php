@@ -1,6 +1,6 @@
 <?php
 
-$accessLevel = $chatBot->getInstance('accessLevel');
+$accessLevel = Registry::getInstance('accessLevel');
 
 if (preg_match("/^executesql (.*)$/i", $message, $arr)) {
 	if (!$accessLevel->checkAccess($sender, 'superadmin')) {

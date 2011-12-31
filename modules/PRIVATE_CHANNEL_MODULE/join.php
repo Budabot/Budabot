@@ -1,6 +1,6 @@
 <?php
 
-$accessLevel = $chatBot->getInstance('accessLevel');
+$accessLevel = Registry::getInstance('accessLevel');
    
 if (preg_match("/^join$/i", $message)) {
 	// if the channel is locked, only raidleaders or higher can join manually

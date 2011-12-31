@@ -39,7 +39,7 @@ if (!function_exists('get_admin_description')) {
 if (!function_exists('getCommandInfo')) {
 	function getCommandInfo($cmd, $type) {
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
+		$db = Registry::getInstance('db');
 	
 		$l = "";
 		$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = ? AND `type` = ?", $cmd, $type);
@@ -81,7 +81,7 @@ if (!function_exists('getCommandInfo')) {
 if (!function_exists('getSubCommandInfo')) {
 	function getSubCommandInfo($cmd, $type) {
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
+		$db = Registry::getInstance('db');
 	
 		$subcmd_list = '';
 		$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE dependson = ? AND `type` = ? AND `cmdevent` = 'subcmd'", $cmd, $type);
@@ -181,9 +181,9 @@ if (preg_match("/^config$/i", $message)) {
 	$data = $db->query($sql);
 	forEach ($data as $row) {
 	  	if ($status == 1) {
-			$chatBot->getInstance('command')->activate($row->type, $row->file, $row->cmd, $row->admin);
+			Registry::getInstance('command')->activate($row->type, $row->file, $row->cmd, $row->admin);
 		} else {
-			$chatBot->getInstance('command')->deactivate($row->type, $row->file, $row->cmd);
+			Registry::getInstance('command')->deactivate($row->type, $row->file, $row->cmd);
 		}
 	}
 	
@@ -278,15 +278,15 @@ if (preg_match("/^config$/i", $message)) {
 		if ($row->status != $status) {
 			if ($row->cmdevent == "event") {
 				if ($status == 1) {
-					$chatBot->getInstance('event')->activate($row->type, $row->file);
+					Registry::getInstance('event')->activate($row->type, $row->file);
 				} else {
-					$chatBot->getInstance('event')->deactivate($row->type, $row->file);
+					Registry::getInstance('event')->deactivate($row->type, $row->file);
 				}
 			} else if ($row->cmdevent == "cmd") {
 				if ($status == 1) {
-					$chatBot->getInstance('command')->activate($row->type, $row->file, $row->cmd, $row->admin);
+					Registry::getInstance('command')->activate($row->type, $row->file, $row->cmd, $row->admin);
 				} else {
-					$chatBot->getInstance('command')->deactivate($row->type, $row->file, $row->cmd, $row->admin);
+					Registry::getInstance('command')->deactivate($row->type, $row->file, $row->cmd, $row->admin);
 				}
 			}
 		}
@@ -315,15 +315,15 @@ if (preg_match("/^config$/i", $message)) {
 		if ($row->status != $status) {
 			if ($row->cmdevent == "event") {
 				if ($status == 1) {
-					$chatBot->getInstance('event')->activate($row->type, $row->file);
+					Registry::getInstance('event')->activate($row->type, $row->file);
 				} else {
-					$chatBot->getInstance('event')->deactivate($row->type, $row->file);
+					Registry::getInstance('event')->deactivate($row->type, $row->file);
 				}
 			} else if ($row->cmdevent == "cmd") {
 				if ($status == 1) {
-					$chatBot->getInstance('command')->activate($row->type, $row->file, $row->cmd, $row->admin);
+					Registry::getInstance('command')->activate($row->type, $row->file, $row->cmd, $row->admin);
 				} else {
-					$chatBot->getInstance('command')->deactivate($row->type, $row->file, $row->cmd, $row->admin);
+					Registry::getInstance('command')->deactivate($row->type, $row->file, $row->cmd, $row->admin);
 				}
 			}
 		}
@@ -331,7 +331,7 @@ if (preg_match("/^config$/i", $message)) {
 
 	// for subcommands which are handled differently
 	$chatBot->subcommands = array();
-	$chatBot->getInstance('subcommand')->loadSubcommands();
+	Registry::getInstance('subcommand')->loadSubcommands();
 } else if (preg_match("/^config (subcmd|cmd) (.+) admin (msg|priv|guild|all) (all|leader|rl|mod|admin|guild|member)$/i", $message, $arr)) {
 	$category = strtolower($arr[1]);
 	$command = strtolower($arr[2]);
@@ -390,7 +390,7 @@ if (preg_match("/^config$/i", $message)) {
 
 		$db->exec("UPDATE cmdcfg_<myname> SET `admin` = ? WHERE `type` = ? AND `cmdevent` = 'subcmd' AND `cmd` = ?", $admin, $channel, $command);
 		$chatBot->subcommands = array();
-		$chatBot->getInstance('subcommand')->loadSubcommands();
+		Registry::getInstance('subcommand')->loadSubcommands();
 		$msg = "Updated access of sub command <highlight>$command<end> in Channel <highlight>$channel<end> to <highlight>$admin<end>";
 	}
 	$chatBot->send($msg, $sendto);
@@ -400,7 +400,7 @@ if (preg_match("/^config$/i", $message)) {
 	$found_priv = 0;
 	$found_guild = 0;
 	
-	$commandAlias = $chatBot->getInstance('commandAlias');
+	$commandAlias = Registry::getInstance('commandAlias');
 
 	$alias_cmd = $commandAlias->get_command_by_alias($cmd);
 	if ($alias_cmd != null) {
@@ -453,7 +453,7 @@ if (preg_match("/^config$/i", $message)) {
 			$list[] = array("header" => "<header> ::: Subcommands ::: <end>\n\n", "content" => $subcmd_list);
 		}
 		
-		$help = $chatBot->getInstance('help')->find($cmd, $sender);
+		$help = Registry::getInstance('help')->find($cmd, $sender);
 		if ($help) {
 			$list[] = $help;
 		}

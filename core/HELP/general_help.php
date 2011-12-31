@@ -1,6 +1,6 @@
 <?php
 
-$accessLevel = $chatBot->getInstance('accessLevel');
+$accessLevel = Registry::getInstance('accessLevel');
 
 if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message)) {
 	global $version;
@@ -41,7 +41,7 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^help (.+)$/i", $message, $arr)) {
 	$helpcmd = ucfirst($arr[1]);
-	$blob = $chatBot->getInstance('help')->find($helpcmd, $sender);
+	$blob = Registry::getInstance('help')->find($helpcmd, $sender);
 	if ($blob !== false) {
 		$msg = Text::make_blob("Help ($helpcmd)", $blob);
 		$chatBot->send($msg, $sendto);

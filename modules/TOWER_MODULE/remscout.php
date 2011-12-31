@@ -1,6 +1,6 @@
 <?php
 
-$towers = $chatBot->getInstance('towers');
+$towers = Registry::getInstance('towers');
 
 if (preg_match("/^remscout ([a-z0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	$playfield_name = $arr[1];

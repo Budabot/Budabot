@@ -28,7 +28,7 @@ class Whompah {
 	
 	public static function find_city($search) {
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
+		$db = Registry::getInstance('db');
 		
 		$sql = "SELECT * FROM whompah_cities WHERE city_name LIKE ? OR short_name LIKE ?";
 		return $db->queryRow($sql, $search, $search);
@@ -36,7 +36,7 @@ class Whompah {
 	
 	public static function build_whompah_network() {
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
+		$db = Registry::getInstance('db');
 
 		$whompahs = array();
 

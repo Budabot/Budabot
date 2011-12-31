@@ -1,6 +1,6 @@
 <?php
 
-$towers = $chatBot->getInstance('towers');
+$towers = Registry::getInstance('towers');
 
 if (preg_match("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[0-9]{2}) ([0-9]+) ([a-z]+) (.*)$/i", $message, $arr)) {
 	if (strtolower($arr[1]) == 'forcescout') {

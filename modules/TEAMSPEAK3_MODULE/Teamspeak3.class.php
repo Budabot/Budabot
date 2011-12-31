@@ -68,7 +68,7 @@ class Teamspeak3 {
 
 function getTeamspeak3Status() {
 	global $chatBot;
-	$setting = $chatBot->getInstance('setting');
+	$setting = Registry::getInstance('setting');
 	$ts = new Teamspeak3($setting->get('ts_username'), $setting->get('ts_password'), $setting->get('ts_server'), $setting->get('ts_queryport'));
 
 	try {

@@ -29,7 +29,7 @@ class Character {
 	}
 
 	public function checkAccess($accessLevel) {
-		$accessLevel = $chatBot->getInstance('accessLevel');
+		$accessLevel = Registry::getInstance('accessLevel');
 		return $accessLevel->checkAccess($this->name, $accessLevel);
 	}
 

@@ -3,7 +3,7 @@
 // premade implant functions
 function searchByProfession($profession) {
 	global $chatBot;
-	$db = $chatBot->getInstance('db');
+	$db = Registry::getInstance('db');
 
 	$sql = "SELECT * FROM premade_implant WHERE profession = ? ORDER BY slot";
 	return $db->query($sql, $profession);
@@ -11,7 +11,7 @@ function searchByProfession($profession) {
 
 function searchBySlot($slot) {
 	global $chatBot;
-	$db = $chatBot->getInstance('db');
+	$db = Registry::getInstance('db');
 
 	$sql = "SELECT * FROM premade_implant WHERE slot = ? ORDER BY shiny, bright, faded";
 	return $db->query($sql, $slot);
@@ -19,7 +19,7 @@ function searchBySlot($slot) {
 
 function searchByModifier($modifier) {
 	global $chatBot;
-	$db = $chatBot->getInstance('db');
+	$db = Registry::getInstance('db');
 
 	$sql = "SELECT * FROM premade_implant WHERE shiny LIKE ? OR bright LIKE ? OR faded LIKE ?";
 	return $db->query($sql, "%{$modifier}%", "%{$modifier}%", "%{$modifier}%");
@@ -42,7 +42,7 @@ function getFormattedLine($implant) {
 // implant functions
 function getRequirements($ql) {
 	global $chatBot;
-	$db = $chatBot->getInstance('db');
+	$db = Registry::getInstance('db');
 
 	$sql = "SELECT * FROM implant_requirements WHERE ql = ?";
 
@@ -55,7 +55,7 @@ function getRequirements($ql) {
 
 function findMaxImplantQlByReqs($ability, $treatment) {
 	global $chatBot;
-	$db = $chatBot->getInstance('db');
+	$db = Registry::getInstance('db');
 
 	$sql = "SELECT * FROM implant_requirements WHERE ability <= ? AND treatment <= ? ORDER BY ql DESC LIMIT 1";
 
@@ -142,7 +142,7 @@ function add_info(&$obj) {
 
 function _setHighestAndLowestQls(&$obj, $var) {
 	global $chatBot;
-	$db = $chatBot->getInstance('db');
+	$db = Registry::getInstance('db');
 
 	$varValue = $obj->$var;
 

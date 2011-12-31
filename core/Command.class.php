@@ -28,7 +28,7 @@ class Command extends Annotation {
 			}
 		} else {
 			list($name, $method) = explode(".", $filename);
-			$instance = $chatBot->getInstance($name);
+			$instance = Registry::getInstance($name);
 			if ($instance === null) {
 				Logger::log('ERROR', 'Command', "Error registering method $filename for command $command.  Could not find instance '$name'.");
 				return;
@@ -76,7 +76,7 @@ class Command extends Annotation {
 			}
 		} else {
 			list($name, $method) = explode(".", $filename);
-			$instance = $chatBot->getInstance($name);
+			$instance = Registry::getInstance($name);
 			if ($instance === null) {
 				Logger::log('ERROR', 'Command', "Error activating method $filename for command $command.  Could not find instance '$name'.");
 				return;

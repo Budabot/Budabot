@@ -3,7 +3,7 @@
 class Preferences {
 	public static function save($sender, $name, $value) {
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
+		$db = Registry::getInstance('db');
 		
 		$sender = ucfirst(strtolower($sender));
 		$name = strtolower($name);
@@ -17,7 +17,7 @@ class Preferences {
 	
 	public static function get($sender, $name) {
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
+		$db = Registry::getInstance('db');
 		
 		$sender = ucfirst(strtolower($sender));
 		$name = strtolower($name);

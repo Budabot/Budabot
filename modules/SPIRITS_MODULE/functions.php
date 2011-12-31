@@ -2,7 +2,7 @@
 
 function formatSpiritOutput($data) {
 	global $chatBot;
-	$db = $chatBot->getInstance('db');
+	$db = Registry::getInstance('db');
 	
 	if (count($data) == 0) {
 		return "No matches found.";

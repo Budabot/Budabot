@@ -7,7 +7,7 @@ $page_size = Setting::get('tower_page_size');
 $page_label = 1;
 $search = '';
 
-$towers = $chatBot->getInstance('towers');
+$towers = Registry::getInstance('towers');
 
 if (preg_match("/^victory (\\d+)$/i", $message, $arr) || preg_match("/^victory$/i", $message, $arr)) {
 	if (isset($arr[1])) {

@@ -104,7 +104,7 @@ class Setting extends Annotation {
 	 */	
 	public static function save($name, $value) {
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
+		$db = Registry::getInstance('db');
 
 		$name = strtolower($name);
 

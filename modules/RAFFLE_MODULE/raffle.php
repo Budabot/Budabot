@@ -1,6 +1,6 @@
 <?php
 
-$accessLevel = $chatBot->getInstance('accessLevel');
+$accessLevel = Registry::getInstance('accessLevel');
 
 if (preg_match("/^raffle start (\d+) (.+)$/i", $message, $arr)) {
 	if ("msg" == $type) {

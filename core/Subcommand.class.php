@@ -28,7 +28,7 @@ class Subcommand extends Annotation {
 			}
 		} else {
 			list($name, $method) = explode(".", $filename);
-			$instance = $chatBot->getInstance($name);
+			$instance = Registry::getInstance($name);
 			if ($instance === null) {
 				Logger::log('ERROR', 'Command', "Error registering method $filename for subcommand $command.  Could not find instance '$name'.");
 				return;

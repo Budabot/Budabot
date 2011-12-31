@@ -12,7 +12,7 @@ if (preg_match("/^aliaslist$/i", $message)) {
 	$a = padRow("Alias", $paddingSize);
 	$blob .= "<header>{$a}Command<end>\n\n";
 	$count = 0;
-	forEach ($chatBot->getInstance('commandAlias')->getEnabledAliases() as $alias) {
+	forEach (Registry::getInstance('commandAlias')->getEnabledAliases() as $alias) {
 		if ($count++ % 2 == 0) {
 			$color = "white";
 		} else {

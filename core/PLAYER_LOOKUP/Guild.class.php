@@ -117,7 +117,7 @@ class Guild {
 		// when looking up charids for characters
 		if ($data_save) {
 			global $chatBot;
-			$db = $chatBot->getInstance('db');
+			$db = Registry::getInstance('db');
 			$db->begin_transaction();
 			
 			$sql = "UPDATE players SET guild_id = '', guild = '' WHERE guild_id = ? AND dimension = ?";

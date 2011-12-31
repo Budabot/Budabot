@@ -46,7 +46,7 @@ class Event extends Annotation {
 			}
 		} else {
 			list($name, $method) = explode(".", $filename);
-			$instance = $chatBot->getInstance($name);
+			$instance = Registry::getInstance($name);
 			if ($instance === null) {
 				Logger::log('ERROR', 'Command', "Error registering method $filename for event type $type.  Could not find instance '$name'.");
 				return;
@@ -93,7 +93,7 @@ class Event extends Annotation {
 			}
 		} else {
 			list($name, $method) = explode(".", $filename);
-			$instance = $chatBot->getInstance($name);
+			$instance = Registry::getInstance($name);
 			if ($instance === null) {
 				Logger::log('ERROR', 'Command', "Error activating method $filename for event type $type.  Could not find instance '$name'.");
 				return;
@@ -251,7 +251,7 @@ class Event extends Annotation {
 			require $filename;
 		} else {
 			list($name, $method) = explode(".", $filename);
-			$instance = $chatBot->getInstance($name);
+			$instance = Registry::getInstance($name);
 			if ($instance === null) {
 				Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 			} else {
@@ -277,7 +277,7 @@ class Event extends Annotation {
 				require $filename;
 			} else {
 				list($name, $method) = explode(".", $filename);
-				$instance = $chatBot->getInstance($name);
+				$instance = Registry::getInstance($name);
 				if ($instance === null) {
 					Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 				} else {

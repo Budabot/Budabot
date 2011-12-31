@@ -10,7 +10,7 @@
 ** Date(last modified): 14.06.2007
 */
 
-$accessLevel = $chatBot->getInstance('accessLevel');
+$accessLevel = Registry::getInstance('accessLevel');
 
 // Adding a quote
 if (preg_match("/^quote add (.+)$/si", $message, $arr)) {

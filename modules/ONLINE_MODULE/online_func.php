@@ -9,7 +9,7 @@
 
 function get_online_list($prof = "all") {
 	global $chatBot;
-	$db = $chatBot->getInstance('db');
+	$db = Registry::getInstance('db');
 	
 	if ($prof != 'all') {
 		$prof_query = "AND `profession` = '$prof'";
@@ -266,7 +266,7 @@ function get_org_info($show_org_info, $fancyColon, $guild, $guild_rank) {
 
 function get_admin_info($name, $fancyColon) {
 	global $chatBot;
-	$accessLevel = $chatBot->getInstance('accessLevel');
+	$accessLevel = Registry::getInstance('accessLevel');
 	if (Setting::get("online_admin") == 1) {
 		$alvl = $accessLevel->getAccessLevelForCharacter($name);
 		switch ($alvl) {

@@ -2,7 +2,7 @@
 
 function getEvents() {
 	global $chatBot;
-	$db = $chatBot->getInstance('db');
+	$db = Registry::getInstance('db');
 
 	$data = $db->query("SELECT * FROM events ORDER BY `event_date` DESC LIMIT 0,5");
 	if (count($data) > 0) {

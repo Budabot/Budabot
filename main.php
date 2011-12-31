@@ -85,11 +85,12 @@ require $config_file;
 require_once "./core/Logger.class.php";
 
 // Set error level.
-//error_reporting(-1);
 error_reporting(E_ERROR | E_PARSE);
+//error_reporting(-1);
 ini_set("log_errors", 1);
 ini_set("error_log", "./logs/{$vars['name']}.{$vars['dimension']}/php_errors.log");
 
+require_once './core/Registry.class.php';
 require_once './lib/addendum-0.4.1/annotations.php';
 require_once './core/annotations.php';
 require_once './core/AOChat.class.php';
@@ -168,18 +169,19 @@ if (file_exists('upgrade.php')) {
 	//unlink('upgrade.php');
 }
 
+Registry::setInstance('db', $db);
+Registry::setInstance('command', new Command);
+Registry::setInstance('subcommand', new Subcommand);
+Registry::setInstance('commandAlias', new CommandAlias);
+Registry::setInstance('event', new Event);
+Registry::setInstance('help', new Help);
+Registry::setInstance('setting', new Setting);
+Registry::setInstance('buddyList', new BuddyList);
+Registry::setInstance('ban', new Ban);
+Registry::setInstance('accessLevel', new AccessLevel);
+
 $chatBot = new Budabot($vars);
-$chatBot->registerInstance('CORE', 'db', $db);
-$chatBot->registerInstance('CORE', 'command', new Command);
-$chatBot->registerInstance('CORE', 'subcommand', new Subcommand);
-$chatBot->registerInstance('CORE', 'commandAlias', new CommandAlias);
-$chatBot->registerInstance('CORE', 'event', new Event);
-$chatBot->registerInstance('CORE', 'help', new Help);
-$chatBot->registerInstance('CORE', 'setting', new Setting);
-$chatBot->registerInstance('CORE', 'buddyList', new BuddyList);
-$chatBot->registerInstance('CORE', 'ban', new Ban);
-$chatBot->registerInstance('CORE', 'accessLevel', new AccessLevel);
-$chatBot->injectDependencies($chatBot);
+Registry::injectDependencies($chatBot);
 $chatBot->init();
 $chatBot->connectAO($vars['login'], $vars['password'], $server, $port);
 

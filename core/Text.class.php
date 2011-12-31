@@ -8,7 +8,7 @@ class Text {
 	 */
 	public static function make_header($title, $links = NULL) {
 		global $chatBot;
-		$setting = $chatBot->getInstance('setting');
+		$setting = Registry::getInstance('setting');
 
 		$color = $setting->get('default_header_color');
 		$baseR = hexdec(substr($color,14,2));
@@ -39,7 +39,7 @@ class Text {
 	 */
 	function make_blob($name, $content, $style = NULL) {
 		global $chatBot;
-		$setting = $chatBot->getInstance('setting');
+		$setting = Registry::getInstance('setting');
 
 		// escape double quotes
 		$content = str_replace('"', '&quot;', $content);
@@ -93,7 +93,7 @@ class Text {
 	 */
 	function make_structured_blob($name, $content, $style = NULL) {
 		global $chatBot;
-		$setting = $chatBot->getInstance('setting');
+		$setting = Registry::getInstance('setting');
 
 		// escape double quotes
 		$content = str_replace('"', '&quot;', $content);
@@ -313,7 +313,7 @@ class Text {
 	 */
 	public static function format_message($message) {
 		global $chatBot;
-		$setting = $chatBot->getInstance('setting');
+		$setting = Registry::getInstance('setting');
 		
 		$array = array(
 			"<header>" => $setting->get('default_header_color'),

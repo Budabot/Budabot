@@ -1,6 +1,6 @@
 <?php
 
-$accessLevel = $chatBot->getInstance('accessLevel');
+$accessLevel = Registry::getInstance('accessLevel');
 
 if (preg_match("/^timers view (.+)$/i", $message, $arr)) {
 	$timer_name = trim($arr[1]);
