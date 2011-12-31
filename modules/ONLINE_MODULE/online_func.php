@@ -265,8 +265,10 @@ function get_org_info($show_org_info, $fancyColon, $guild, $guild_rank) {
 }
 
 function get_admin_info($name, $fancyColon) {
+	global $chatBot;
+	$accessLevel = $chatBot->getInstance('accessLevel');
 	if (Setting::get("online_admin") == 1) {
-		$alvl = AccessLevel::getAccessLevelForCharacter($name);
+		$alvl = $accessLevel->getAccessLevelForCharacter($name);
 		switch ($alvl) {
 			case 'superadmin': $admin = " $fancyColon <red>SuperAdmin<end>";
 			case 'admin': $admin = " $fancyColon <red>Admin<end>"; break;

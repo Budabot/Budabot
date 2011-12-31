@@ -1,5 +1,7 @@
 <?php
 
+$accessLevel = $chatBot->getInstance('accessLevel');
+
 if (preg_match("/^raffle start (\d+) (.+)$/i", $message, $arr)) {
 	if ("msg" == $type) {
 		$msg = "You can't start a raffle in tells, please use org-chat or private channel.";
@@ -95,7 +97,7 @@ Click $link to join the raffle. Raffle will end in $timeString'.
 		return;
 	}
 
-	if (($chatBot->data["Raffles"]["owner"] != $sender) && !AccessLevel::check_access($sender, "raidleader")) {
+	if (($chatBot->data["Raffles"]["owner"] != $sender) && !$accessLevel->checkAccess($sender, "raidleader")) {
 		$msg = "<highlight>Only the owner or admins may cancel the raffle.";
 		$chatBot->send($msg, $sendto);
 		return;
@@ -121,7 +123,7 @@ Click $link to join the raffle. Raffle will end in $timeString'.
 		return;
 	}
 
-	if (($chatBot->data["Raffles"]["owner"] != $sender) && !AccessLevel::check_access($sender, "raidleader")) {
+	if (($chatBot->data["Raffles"]["owner"] != $sender) && !$accessLevel->checkAccess($sender, "raidleader")) {
 		$msg = "<highlight>Only the owner or admins may end the raffle.";
 		$chatBot->send($msg, $sendto);
 		return;

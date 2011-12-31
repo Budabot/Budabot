@@ -14,6 +14,9 @@ class Help extends Annotation {
 
 	/** @Inject */
 	public $db;
+	
+	/** @Inject */
+	public $accessLevel;
 
 	/**
 	 * @name: register
@@ -69,7 +72,7 @@ class Help extends Annotation {
 			if ($char === null) {
 				$access = true;
 			} else {
-				$access = AccessLevel::check_access($char, $admin);
+				$access = $this->accessLevel->checkAccess($char, $admin);
 			}
 			if ($access === true && file_exists($filename)) {
 				$data = file_get_contents($filename);

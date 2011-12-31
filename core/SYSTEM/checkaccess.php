@@ -1,5 +1,7 @@
 <?php
 
+$accessLevel = $chatBot->getInstance('accessLevel');
+
 if (preg_match("/^checkaccess$/i", $message) || preg_match("/^checkaccess (.+)$/i", $message, $arr)) {
 	if (isset($arr)) {
 		$name = ucfirst(strtolower($arr[1]));
@@ -7,7 +9,7 @@ if (preg_match("/^checkaccess$/i", $message) || preg_match("/^checkaccess (.+)$/
 		$name = $sender;
 	}
 	
-	$accessLevel = AccessLevel::getDisplayName(AccessLevel::getAccessLevelForCharacter($name));
+	$accessLevel = $accessLevel->getDisplayName($accessLevel->getAccessLevelForCharacter($name));
 	
 	$msg = "Access level for $name is <highlight>$accessLevel<end>.";
 	$chatBot->send($msg, $sendto);

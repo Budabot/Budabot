@@ -1,6 +1,8 @@
 <?php
 
 $ban = $chatBot->getInstance('ban');
+$accessLevel = $chatBot->getInstance('accessLevel');
+
 if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 	$who = ucfirst(strtolower($arr[1]));
 	$reason = $arr[4];
@@ -15,7 +17,7 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 		return;
 	}
 	
-	if (AccessLevel::compareCharacterAccessLevels($sender, $who) <= 0) {
+	if ($accessLevel->compareCharacterAccessLevels($sender, $who) <= 0) {
 		$chatBot->send("You must have a higher access level than $who to perform this function.", $sendto);
 		return;
 	}
@@ -47,7 +49,7 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 		return;
 	}
 	
-	if (AccessLevel::compareCharacterAccessLevels($sender, $who) <= 0) {
+	if ($accessLevel->compareCharacterAccessLevels($sender, $who) <= 0) {
 		$chatBot->send("You must have a higher access level than $who to perform this function.", $sendto);
 		return;
 	}
@@ -80,7 +82,7 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 		return;
 	}
 	
-	if (AccessLevel::compareCharacterAccessLevels($sender, $who) <= 0) {
+	if ($accessLevel->compareCharacterAccessLevels($sender, $who) <= 0) {
 		$chatBot->send("You must have a higher access level than $who to perform this function.", $sendto);
 		return;
 	}
@@ -104,7 +106,7 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 		return;
 	}
 	
-	if (AccessLevel::compareCharacterAccessLevels($sender, $who) <= 0) {
+	if ($accessLevel->compareCharacterAccessLevels($sender, $who) <= 0) {
 		$chatBot->send("You must have a higher access level than $who to perform this function.", $sendto);
 		return;
 	}

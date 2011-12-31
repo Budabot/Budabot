@@ -3,10 +3,11 @@
 class Limits {
 	public static function check($sender, $message) {
 		global $chatBot;
+		$accessLevel = $chatBot->getInstance('accessLevel');
 
 		if (preg_match("/^about$/i", $message)) {
 			return true;
-		} else if (Whitelist::check($sender) || AccessLevel::check_access($sender, Setting::get("tell_req_open")) || $sender == ucfirst(strtolower(Setting::get("relaybot")))) {
+		} else if (Whitelist::check($sender) || $accessLevel->checkAccess($sender, Setting::get("tell_req_open")) || $sender == ucfirst(strtolower(Setting::get("relaybot")))) {
 			return true;
 		} else {
 			// if neither minlvl or faction is set, then check passes

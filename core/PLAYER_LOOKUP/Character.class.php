@@ -29,7 +29,8 @@ class Character {
 	}
 
 	public function checkAccess($accessLevel) {
-		return AccessLevel::check_access($this->name, $accessLevel);
+		$accessLevel = $chatBot->getInstance('accessLevel');
+		return $accessLevel->checkAccess($this->name, $accessLevel);
 	}
 
 	public function getCharId() {

@@ -1,7 +1,9 @@
 <?php
 
+$accessLevel = $chatBot->getInstance('accessLevel');
+
 if (preg_match("/^executesql (.*)$/i", $message, $arr)) {
-	if (!AccessLevel::check_access($sender, 'superadmin')) {
+	if (!$accessLevel->checkAccess($sender, 'superadmin')) {
 		$msg = "This command may only be used by the super administrator.";
 		$chatBot->send($msg, $sendto);
 		return;

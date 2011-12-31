@@ -1,5 +1,7 @@
 <?php
 
+$accessLevel = $chatBot->getInstance('accessLevel');
+
 if (preg_match("/^timers view (.+)$/i", $message, $arr)) {
 	$timer_name = trim($arr[1]);
 	
@@ -50,7 +52,7 @@ if (preg_match("/^timers view (.+)$/i", $message, $arr)) {
 	$timer = Timer::get($timer_name);
 	if ($timer == null) {
 		$msg = "Could not find a timer named <highlight>$timer_name<end>.";
-	} else if ($timer->owner != $sender && !AccessLevel::check_access($sender, "rl")) {
+	} else if ($timer->owner != $sender && !$accessLevel->checkAccess($sender, "rl")) {
 		$msg = "You don't have the required access level (raidleader) to remove this timer.";
 	} else {
 		Timer::remove($timer_name);

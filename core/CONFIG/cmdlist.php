@@ -1,5 +1,7 @@
 <?php
 
+$accessLevel = $chatBot->getInstance('accessLevel');
+
 if (preg_match("/^cmdlist$/i", $message, $arr) || preg_match("/^cmdlist (.*)$/i", $message, $arr)) {
 	$list  = "<header> :::::: Command List :::::: <end>\n\n";
 	
@@ -44,7 +46,7 @@ if (preg_match("/^cmdlist$/i", $message, $arr) || preg_match("/^cmdlist (.*)$/i"
 			$cmd = $row->cmd;
 		}
 
-		if (AccessLevel::check_access($sender, 'moderator')) {
+		if ($accessLevel->checkAccess($sender, 'moderator')) {
 			$on = Text::make_chatcmd('ON', "/tell <myname> config cmd $cmd enable all");
 			$off = Text::make_chatcmd('OFF', "/tell <myname> config cmd $cmd disable all");
 			$adv = Text::make_chatcmd('Permissions', "/tell <myname> config cmd $cmd");

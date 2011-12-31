@@ -2,13 +2,9 @@
 
 class AccessLevel extends Annotation {
 	public static $ACCESS_LEVELS = array('none' => 0, 'superadmin' => 1,  'admin' => 2, 'mod' => 3, 'rl' => 4, 'leader' => 5, 'guild' => 6, 'member' => 7, 'all' => 8);
-	
-	/**
-	 * @deprecated: use checkAccess() instead
-	 */
-	public static function check_access($sender, $accessLevel) {
-		return AccessLevel::checkAccess($sender, $accessLevel);
-	}
+
+	/** @Inject */
+	public $db;
 
 	/**
 	 * @name: checkAccess
@@ -16,10 +12,10 @@ class AccessLevel extends Annotation {
 	 * @param: $accessLevel - can be one of: superadmin, admininistrator, moderator, raidleader, leader, guild, member, all
 	 * @returns: true if $sender has at least $accessLevel, false otherwise
 	 */
-	public static function checkAccess($sender, $accessLevel) {
+	public function checkAccess($sender, $accessLevel) {
 		Logger::log("DEBUG", "AccessLevel", "Checking access level '$accessLevel' against character '$sender'");
 	
-		$returnVal = AccessLevel::checkSingleAccess($sender, $accessLevel);
+		$returnVal = $this->checkSingleAccess($sender, $accessLevel);
 		
 		if ($returnVal === false && Setting::get('alts_inherit_admin') == 1) {
 			// if current character doesn't have access,
@@ -31,22 +27,22 @@ class AccessLevel extends Annotation {
 			$altInfo = Alts::get_alt_info($sender);
 			if ($sender != $altInfo->main && $altInfo->is_validated($sender)) {
 				Logger::log("DEBUG", "AccessLevel", "Checking access level '$accessLevel' against the main of '$sender' which is '$altInfo->main'");
-				$returnVal = AccessLevel::checkSingleAccess($altInfo->main, $accessLevel);
+				$returnVal = $this->checkSingleAccess($altInfo->main, $accessLevel);
 			}
 		}
 		
 		return $returnVal;
 	}
 	
-	public static function checkSingleAccess($sender, $accessLevel) {
+	public function checkSingleAccess($sender, $accessLevel) {
 		$sender = ucfirst(strtolower($sender));
-		$accessLevel = AccessLevel::normalizeAccessLevel($accessLevel);
+		$accessLevel = $this->normalizeAccessLevel($accessLevel);
 
-		$charAccessLevel = AccessLevel::getSingleAccessLevel($sender);
-		return (AccessLevel::compareAccessLevels($charAccessLevel, $accessLevel) >= 0);
+		$charAccessLevel = $this->getSingleAccessLevel($sender);
+		return ($this->compareAccessLevels($charAccessLevel, $accessLevel) >= 0);
 	}
 	
-	public static function normalizeAccessLevel($accessLevel) {
+	public function normalizeAccessLevel($accessLevel) {
 		$accessLevel = strtolower($accessLevel);
 		switch ($accessLevel) {
 			case "raidleader":
@@ -63,7 +59,7 @@ class AccessLevel extends Annotation {
 		return $accessLevel;
 	}
 	
-	public static function getDisplayName($accessLevel) {
+	public function getDisplayName($accessLevel) {
 		$displayName = strtolower($accessLevel);
 		switch ($displayName) {
 			case "rl":
@@ -80,22 +76,21 @@ class AccessLevel extends Annotation {
 		return $displayName;
 	}
 	
-	public static function getSingleAccessLevel($sender) {
+	public function getSingleAccessLevel($sender) {
 		global $chatBot;
-		$db = $chatBot->getInstance('db');
 		
 		if ($chatBot->vars["SuperAdmin"] == $sender){
 			return "superadmin";
 		}
 		if (isset($chatBot->admins[$sender])) {
 			$level = $chatBot->admins[$sender]["level"];
-			if ($level >= 4 || AccessLevel::checkGuildAdmin($sender, 'admin')) {
+			if ($level >= 4 || $this->checkGuildAdmin($sender, 'admin')) {
 				return "admin";
 			}
-			if ($level >= 3 || AccessLevel::checkGuildAdmin($sender, 'mod')) {
+			if ($level >= 3 || $this->checkGuildAdmin($sender, 'mod')) {
 				return "mod";
 			}
-			if ($level >= 2 || AccessLevel::checkGuildAdmin($sender, 'rl')) {
+			if ($level >= 2 || $this->checkGuildAdmin($sender, 'rl')) {
 				return "rl";
 			}
 		}
@@ -107,23 +102,23 @@ class AccessLevel extends Annotation {
 		}
 		
 		$sql = "SELECT name FROM members_<myname> WHERE `name` = ?";
-		$row = $db->queryRow($sql, $sender);
+		$row = $this->db->queryRow($sql, $sender);
 		if ($row !== null) {
 			return "member";
 		}
 		return "all";
 	}
 	
-	public static function getAccessLevelForCharacter($sender) {
+	public function getAccessLevelForCharacter($sender) {
 		$sender = ucfirst(strtolower($sender));
 
-		$accessLevel = AccessLevel::getSingleAccessLevel($sender);
+		$accessLevel = $this->getSingleAccessLevel($sender);
 		
 		if (Setting::get('alts_inherit_admin') == 1) {
 			$altInfo = Alts::get_alt_info($sender);
 			if ($sender != $altInfo->main && $altInfo->is_validated($sender)) {
-				$mainAccessLevel = AccessLevel::getSingleAccessLevel($altInfo->main);
-				if (AccessLevel::compareAccessLevels($mainAccessLevel, $accessLevel) > 0) {
+				$mainAccessLevel = $this->getSingleAccessLevel($altInfo->main);
+				if ($this->compareAccessLevels($mainAccessLevel, $accessLevel) > 0) {
 					$accessLevel = $mainAccessLevel;
 				}
 			}
@@ -132,11 +127,11 @@ class AccessLevel extends Annotation {
 		return $accessLevel;
 	}
 	
-	public static function checkGuildAdmin($sender, $accessLevel) {
+	public function checkGuildAdmin($sender, $accessLevel) {
 		global $chatBot;
 
 		if (isset($chatBot->guildmembers[$sender]) && $chatBot->guildmembers[$sender] <= Setting::get('guild_admin_rank')) {
-			if (AccessLevel::compareAccessLevels(Setting::get('guild_admin_access_level'), $accessLevel) >= 0) {
+			if ($this->compareAccessLevels(Setting::get('guild_admin_access_level'), $accessLevel) >= 0) {
 				return true;
 			} else {
 				return false;
@@ -151,21 +146,21 @@ class AccessLevel extends Annotation {
 	 *               a negative number if $accessLevel1 is a lesser access level than $accessLevel2,
 	 *               and 0 if the access levels are equal.
 	 */
-	public static function compareAccessLevels($accessLevel1, $accessLevel2) {
-		$accessLevel1 = AccessLevel::normalizeAccessLevel($accessLevel1);
-		$accessLevel2 = AccessLevel::normalizeAccessLevel($accessLevel2);
+	public function compareAccessLevels($accessLevel1, $accessLevel2) {
+		$accessLevel1 = $this->normalizeAccessLevel($accessLevel1);
+		$accessLevel2 = $this->normalizeAccessLevel($accessLevel2);
 	
 		return AccessLevel::$ACCESS_LEVELS[$accessLevel2] - AccessLevel::$ACCESS_LEVELS[$accessLevel1];
 	}
 	
-	public static function compareCharacterAccessLevels($char1, $char2) {
+	public function compareCharacterAccessLevels($char1, $char2) {
 		$char1 = ucfirst(strtolower($char1));
 		$char2 = ucfirst(strtolower($char2));
 		
-		$char1AccessLevel = AccessLevel::getAccessLevelForCharacter($char1);
-		$char2AccessLevel = AccessLevel::getAccessLevelForCharacter($char2);
+		$char1AccessLevel = $this->getAccessLevelForCharacter($char1);
+		$char2AccessLevel = $this->getAccessLevelForCharacter($char2);
 		
-		return AccessLevel::compareAccessLevels($char1AccessLevel, $char2AccessLevel);
+		return $this->compareAccessLevels($char1AccessLevel, $char2AccessLevel);
 	}
 }
 

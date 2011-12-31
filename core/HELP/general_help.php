@@ -1,5 +1,7 @@
 <?php
 
+$accessLevel = $chatBot->getInstance('accessLevel');
+
 if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message)) {
 	global $version;
 	$data = file_get_contents("./core/HELP/about.txt");
@@ -14,7 +16,7 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 	
 	$help_array = array();
 	forEach ($data as $row) {
-		if (AccessLevel::check_access($sender, $row->admin)) {
+		if ($accessLevel->checkAccess($sender, $row->admin)) {
 			$help_array []= $row;
 		}
 	}

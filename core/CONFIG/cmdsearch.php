@@ -1,5 +1,7 @@
 <?php
 
+$accessLevel = $chatBot->getInstance('accessLevel');
+
 if (preg_match("/^cmdsearch (.*)/i", $message, $arr)) {
 	$search = $arr[1];
 
@@ -21,7 +23,7 @@ if (preg_match("/^cmdsearch (.*)/i", $message, $arr)) {
 	$data = $db->query($sqlquery);
 	
 	$access = false;
-	if (AccessLevel::checkAccess($sender, 'mod')) {
+	if ($accessLevel->checkAccess($sender, 'mod')) {
 		$access = true;
 	}
 	

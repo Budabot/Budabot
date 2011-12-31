@@ -1,5 +1,7 @@
 <?php
 
+$accessLevel = $chatBot->getInstance('accessLevel');
+
 if (preg_match("/^adminlist$/i", $message) || preg_match("/^admins$/i", $message)) {
 	$list = "<header>::::: List of administrators :::::<end>\n\n";
 
@@ -9,7 +11,7 @@ if (preg_match("/^adminlist$/i", $message) || preg_match("/^admins$/i", $message
 			if ($who != "") {
 				$list.= "<tab>$who ";
 				
-				if (AccessLevel::check_access($who, 'superadmin')) {
+				if ($accessLevel->checkAccess($who, 'superadmin')) {
 					$list .= "(<orange>Super-administrator<end>) ";
 				}
 					

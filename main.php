@@ -178,6 +178,7 @@ $chatBot->registerInstance('CORE', 'help', new Help);
 $chatBot->registerInstance('CORE', 'setting', new Setting);
 $chatBot->registerInstance('CORE', 'buddyList', new BuddyList);
 $chatBot->registerInstance('CORE', 'ban', new Ban);
+$chatBot->registerInstance('CORE', 'accessLevel', new AccessLevel);
 $chatBot->injectDependencies($chatBot);
 $chatBot->init();
 $chatBot->connectAO($vars['login'], $vars['password'], $server, $port);

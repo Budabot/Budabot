@@ -1,14 +1,16 @@
 <?php
-   /*
-   ** Author: Lucier (RK1)
-   ** Description: Read/Write/Search Quotes
-   ** Version: 1.3
-   **
-   ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
-   **
-   ** Date(created): 12.03.2007
-   ** Date(last modified): 14.06.2007
-   */
+/*
+** Author: Lucier (RK1)
+** Description: Read/Write/Search Quotes
+** Version: 1.3
+**
+** Developed for: Budabot(http://sourceforge.net/projects/budabot)
+**
+** Date(created): 12.03.2007
+** Date(last modified): 14.06.2007
+*/
+
+$accessLevel = $chatBot->getInstance('accessLevel');
 
 // Adding a quote
 if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
@@ -79,7 +81,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 		$quoteMSG = $row->What;
 
 		//only author or admin can delete.
-		if (($quoteWHO == $sender) || AccessLevel::check_access($sender, 'moderator')) {
+		if (($quoteWHO == $sender) || $accessLevel->checkAccess($sender, 'moderator')) {
 			$db->exec("DELETE FROM `#__quote` WHERE `IDNumber` = ?", $quoteID);
 			$msg = "This quote has been deleted.";
 		} else {

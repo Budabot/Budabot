@@ -1,5 +1,7 @@
 <?php
 
+$accessLevel = $chatBot->getInstance('accessLevel');
+
 if (preg_match("/^remrl (.+)$/i", $message, $arr)) {
 	$who = ucfirst(strtolower($arr[1]));
 	
@@ -8,9 +10,9 @@ if (preg_match("/^remrl (.+)$/i", $message, $arr)) {
 		return;
 	}
 
-	$senderAccessLevel = AccessLevel::getAccessLevelForCharacter($sender);
-	$whoAccessLevel = AccessLevel::getSingleAccessLevel($who);
-	if (AccessLevel::compareAccessLevels($whoAccessLevel, $senderAccessLevel) >= 0) {
+	$senderAccessLevel = $accessLevel->getAccessLevelForCharacter($sender);
+	$whoAccessLevel = $accessLevel->getSingleAccessLevel($who);
+	if ($accessLevel->compareAccessLevels($whoAccessLevel, $senderAccessLevel) >= 0) {
 		$chatBot->send("You must have a higher access level than <highlight>$who<end> in order to change his access level.");
 		return;
 	}

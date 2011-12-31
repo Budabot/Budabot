@@ -1,19 +1,20 @@
 <?php
-   /*
-   ** Author: Lucier (RK1)
-   ** Description: Voting System
-   ** Version: 0.2
-   **
-   ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
-   **
-   ** Date(created): 02.05.2007
-   ** Date(last modified): 02.06.2007
-   */
-   
-   
+/*
+** Author: Lucier (RK1)
+** Description: Voting System
+** Version: 0.2
+**
+** Developed for: Budabot(http://sourceforge.net/projects/budabot)
+**
+** Date(created): 02.05.2007
+** Date(last modified): 02.06.2007
+*/
+
 $table = "vote_<myname>";
 
 $delimiter = "|";
+
+$accessLevel = $chatBot->getInstance('accessLevel');
 
 // Listing of all votes
 if (preg_match("/^vote$/i", $message)) {
@@ -48,7 +49,7 @@ if (preg_match("/^vote$/i", $message)) {
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^vote kill (.+)$/i", $message, $arr)) {
 	$topic = $arr[1];
-	if (AccessLevel::check_access($sender, "moderator")) {
+	if ($accessLevel->checkAccess($sender, "moderator")) {
 		$data = $db->query("SELECT * FROM $table WHERE `question` = ?", $topic);
 	} else {
 		$data = $db->query("SELECT * FROM $table WHERE `question` = ? AND `author` = ? AND `duration` IS NOT NULL", $topic, $sender);

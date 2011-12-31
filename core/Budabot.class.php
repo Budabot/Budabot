@@ -22,6 +22,9 @@ class Budabot extends AOChat {
 	
 	/** @Inject */
 	public $setting;
+	
+	/** @Inject */
+	public $accessLevel;
 
 	var $buddyList = array();
 	var $chatlist = array();
@@ -996,7 +999,7 @@ class Budabot extends AOChat {
 		}
 
 		// if the character doesn't have access
-		if (AccessLevel::check_access($sender, $admin) !== true) {
+		if ($this->accessLevel->checkAccess($sender, $admin) !== true) {
 			// if they've disabled feedback for guild or private channel, just return
 			if ((Setting::get('guild_channel_cmd_feedback') == 0 && $type == 'guild') || ((Setting::get('private_channel_cmd_feedback') == 0 && $type == 'priv'))) {
 				return;
