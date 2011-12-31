@@ -30,19 +30,19 @@ class Towers {
 		
 		$sql = "SELECT
 				att_faction,
-				COUNT(def_faction) AS num
+				COUNT(att_faction) AS num
 			FROM
 				tower_attack_<myname>
 			WHERE
 				`time` >= ?
 			GROUP BY
-				def_faction
+				att_faction
 			ORDER BY
 				num DESC";
 
 		$data = $this->db->query($sql, time() - $time);
 		forEach ($data as $row) {
-			$blob .= "<{$row->def_faction}>{$row->def_faction}<end> have attacked <highlight>{$row->num}<end> times.\n";
+			$blob .= "<{$row->att_faction}>{$row->att_faction}<end> have attacked <highlight>{$row->num}<end> times.\n";
 		}
 		if (count($data) > 0) {
 			$blob .= "\n";
