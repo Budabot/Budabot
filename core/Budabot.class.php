@@ -12,6 +12,9 @@ class Budabot extends AOChat {
 	public $subcommand;
 	
 	/** @Inject */
+	public $commandAlias;
+	
+	/** @Inject */
 	public $event;
 	
 	/** @Inject */
@@ -194,7 +197,7 @@ class Budabot extends AOChat {
 
 		$this->command->loadCommands();
 		$this->subcommand->loadSubcommands();
-		CommandAlias::load();
+		$this->commandAlias->load();
 		$this->event->loadEvents();
 	}
 
@@ -292,6 +295,7 @@ class Budabot extends AOChat {
 		$event = $this->event;
 		$help = $this->help;
 		$setting = $this->setting;
+		$commandAlias = $this->commandAlias;
 
 		// Load the Core Modules -- SETINGS must be first in case the other modules have settings
 		Logger::log('INFO', 'Core', "Loading CORE modules...");
@@ -316,6 +320,7 @@ class Budabot extends AOChat {
 		$event = $this->event;
 		$help = $this->help;
 		$setting = $this->setting;
+		$commandAlias = $this->commandAlias;
 
 		if ($d = dir("./modules")) {
 			$this->db->begin_transaction();

@@ -35,13 +35,13 @@
 	$command->register($MODULE_NAME, "", "aou.php", "aou", "all", "Search for or view a guide from AO-Universe");
 	
 	// aliases
-	CommandAlias::register($MODULE_NAME, "guides breed", "breed");
-	CommandAlias::register($MODULE_NAME, "guides healdelta", "healdelta");
-	CommandAlias::register($MODULE_NAME, "guides lag", "lag");
-	CommandAlias::register($MODULE_NAME, "guides nanodelta", "nanodelta");
-	CommandAlias::register($MODULE_NAME, "guides stats", "stats");
-	CommandAlias::register($MODULE_NAME, "guides buffs", "buffs");
-	CommandAlias::register($MODULE_NAME, "guides title", "title");
+	$commandAlias->register($MODULE_NAME, "guides breed", "breed");
+	$commandAlias->register($MODULE_NAME, "guides healdelta", "healdelta");
+	$commandAlias->register($MODULE_NAME, "guides lag", "lag");
+	$commandAlias->register($MODULE_NAME, "guides nanodelta", "nanodelta");
+	$commandAlias->register($MODULE_NAME, "guides stats", "stats");
+	$commandAlias->register($MODULE_NAME, "guides buffs", "buffs");
+	$commandAlias->register($MODULE_NAME, "guides title", "title");
 	
 	$help->register($MODULE_NAME, "guides", "guides.txt", "all", 'How to use guides');
 	$help->register($MODULE_NAME, "aou", "aou.txt", "all", "How to find a guide from AO-Universe");

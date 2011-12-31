@@ -15,10 +15,10 @@
 	$command->register($MODULE_NAME, "", "accept.php", "accept", "mod", "Accept a private channel invitation from another player");
 	
 	$command->register($MODULE_NAME, "api msg priv guild", "invite.php", "invite", "guild", "Invite players to the private channel", 'private_channel');
-	CommandAlias::register($MODULE_NAME, "invite", "inviteuser");
+	$commandAlias->register($MODULE_NAME, "invite", "inviteuser");
 	
 	$command->register($MODULE_NAME, "api msg priv guild", "kick.php", "kick", "guild", "Kick players from private channel", 'private_channel');
-	CommandAlias::register($MODULE_NAME, "kick", "kickuser");
+	$commandAlias->register($MODULE_NAME, "kick", "kickuser");
 
 	$setting->add($MODULE_NAME, "guest_color_channel", "Color for Private Channel relay(ChannelName)", "edit", "color", "<font color=#C3C3C3>");
 	$setting->add($MODULE_NAME, "guest_color_guild", "Private Channel relay color in guild channel", "edit", "color", "<font color=#C3C3C3>");

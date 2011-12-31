@@ -9,7 +9,7 @@
 	$command->register($MODULE_NAME, "", "timers.php", "timers", "guild", "Set timers/Show running timers");
 	
 	$command->register($MODULE_NAME, "", "countdown.php", "countdown", "guild", "Set a countdown");
-	CommandAlias::register($MODULE_NAME, "countdown", "cd");
+	$commandAlias->register($MODULE_NAME, "countdown", "cd");
 
 	$event->register($MODULE_NAME, "2sec", "timers_check.php", "Checks timers and periodically updates chat with time left");
 

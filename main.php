@@ -171,6 +171,7 @@ $chatBot = new Budabot($vars);
 $chatBot->registerInstance('CORE', 'db', $db);
 $chatBot->registerInstance('CORE', 'command', new Command);
 $chatBot->registerInstance('CORE', 'subcommand', new Subcommand);
+$chatBot->registerInstance('CORE', 'commandAlias', new CommandAlias);
 $chatBot->registerInstance('CORE', 'event', new Event);
 $chatBot->registerInstance('CORE', 'help', new Help);
 $chatBot->registerInstance('CORE', 'setting', new Setting);

@@ -2,7 +2,7 @@
 	$db->loadSQLFile($MODULE_NAME, 'org_city');
 
     $command->register($MODULE_NAME, "", "cloak.php", "cloak", "guild", "Shows the status of the city cloak");
-	CommandAlias::register($MODULE_NAME, "cloak", "city");
+	$commandAlias->register($MODULE_NAME, "cloak", "city");
 
 	$event->register($MODULE_NAME, "guild", "record_cloak_changes.php", "Records when the cloak is raised or lowered");
     $event->register($MODULE_NAME, "1min", "city_guild_timer.php", "Checks timer to see if cloak can be raised or lowered");

@@ -399,8 +399,10 @@ if (preg_match("/^config$/i", $message)) {
 	$found_msg = 0;
 	$found_priv = 0;
 	$found_guild = 0;
+	
+	$commandAlias = $chatBot->getInstance('commandAlias');
 
-	$alias_cmd = CommandAlias::get_command_by_alias($cmd);
+	$alias_cmd = $commandAlias->get_command_by_alias($cmd);
 	if ($alias_cmd != null) {
 		$cmd = $alias_cmd;
 	}
@@ -411,7 +413,7 @@ if (preg_match("/^config$/i", $message)) {
 	} else {
 		$list = array();
 		$list[] = "<header>::::: Configure command $cmd :::::<end>\n\n";
-		$aliases = CommandAlias::find_aliases_by_command($cmd);
+		$aliases = $commandAlias->find_aliases_by_command($cmd);
 		$count = 0;
 		forEach ($aliases as $row) {
 			if ($row->status == 1) {

@@ -16,7 +16,7 @@
 	$command->register($MODULE_NAME, "", "penalty.php", "penalty", "all", "Shows orgs in penalty");
 	$command->register($MODULE_NAME, "", "victory.php", "victory", "all", "Shows the last Tower Battle results");
 	$command->register($MODULE_NAME, "", "attacks.php", "attacks", "all", "Shows the last Tower Attack messages");
-	CommandAlias::register($MODULE_NAME, "attacks", "battles");
+	$commandAlias->register($MODULE_NAME, "attacks", "battles");
 
 	$setting->add($MODULE_NAME, "tower_attack_spam", "Layout types when displaying tower attacks", "edit", "options", "1", "off;compact;normal;full", '0;1;2;3');
 	$setting->add($MODULE_NAME, "tower_faction_def", "Display certain factions defending", "edit", "options", "7", "none;clan;neutral;clan+neutral;omni;clan+omni;neutral+omni;all", '0;1;2;3;4;5;6;7');

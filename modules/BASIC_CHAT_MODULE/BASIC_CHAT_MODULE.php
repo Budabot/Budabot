@@ -22,11 +22,11 @@
 
 	// Assist
 	$command->register($MODULE_NAME, "", "assist.php", "assist", "all", "Shows an Assist macro");
-	CommandAlias::register($MODULE_NAME, "assist", "callers");
+	$commandAlias->register($MODULE_NAME, "assist", "callers");
 	$subcommand->register($MODULE_NAME, "", "assist_set.php", "assist (.+)", "leader", "assist", "Set a new assist");
 	$command->register($MODULE_NAME, "", "healassist.php", "heal", "all", "Creates/showes an Doc Assist macro");
 	$subcommand->register($MODULE_NAME, "", "healassist_set.php", "heal (.+)", "leader", "heal", "Set a new Doc assist");
-	CommandAlias::register($MODULE_NAME, "heal", "healassist");
+	$commandAlias->register($MODULE_NAME, "heal", "healassist");
 
 	// Tell
 	$command->register($MODULE_NAME, "", "tell.php", "tell", "all", "Repeats a message 3 times");

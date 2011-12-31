@@ -9,9 +9,9 @@
 	$command->register($MODULE_NAME, "", "remloot.php", "remloot", "leader", "Remove item from loot list", 'flatroll');
 	$command->register($MODULE_NAME, "", "reroll.php", "reroll", "leader", "Rerolls the residual loot list", 'flatroll');
 	$command->register($MODULE_NAME, "", "flatroll.php", "flatroll", "leader", "Rolls the loot list", 'flatroll');
-	CommandAlias::register($MODULE_NAME, "flatroll", "rollloot");
-	CommandAlias::register($MODULE_NAME, "flatroll", "result");
-	CommandAlias::register($MODULE_NAME, "flatroll", "win");
+	$commandAlias->register($MODULE_NAME, "flatroll", "rollloot");
+	$commandAlias->register($MODULE_NAME, "flatroll", "result");
+	$commandAlias->register($MODULE_NAME, "flatroll", "win");
 	
 	$command->register($MODULE_NAME, "", "list.php", "list", "all", "Shows the loot list", 'flatroll');
 	$command->register($MODULE_NAME, "", "add.php", "add", "all", "Let a player adding to a slot", 'add_rem');	
