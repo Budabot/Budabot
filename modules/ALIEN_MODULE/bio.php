@@ -45,7 +45,7 @@ if (preg_match("/^bio(( *${bio_regex})+)$/i", $message, $arr)){
 				$bioinfo = "13";
 				$name = "Kyr'Ozch Bio-Material - Type 13";
 				break;
-			case 256035:
+			case 288699:
 			case 288700:
 				$bioinfo = "48";
 				$name = "Kyr'Ozch Bio-Material - Type 48";

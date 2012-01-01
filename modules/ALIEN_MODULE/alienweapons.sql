@@ -7,6 +7,7 @@ INSERT INTO `alienweaponspecials` (`type`, `specials`) VALUES (3, 'Fling Shot an
 INSERT INTO `alienweaponspecials` (`type`, `specials`) VALUES (5, 'Fling Shot and Burst');
 INSERT INTO `alienweaponspecials` (`type`, `specials`) VALUES (12, 'Burst and Full Auto');
 INSERT INTO `alienweaponspecials` (`type`, `specials`) VALUES (13, 'Burst, Fling Shot and Full Auto');
+INSERT INTO `alienweaponspecials` (`type`, `specials`) VALUES (48, 'Brawl and Dimach');
 INSERT INTO `alienweaponspecials` (`type`, `specials`) VALUES (76, 'Brawl and Fast Attack');
 INSERT INTO `alienweaponspecials` (`type`, `specials`) VALUES (112, 'Brawl, Dimach and Fast Attack');
 INSERT INTO `alienweaponspecials` (`type`, `specials`) VALUES (240, 'Brawl, Dimach, Fast Attack and Sneak Attack');
@@ -34,6 +35,7 @@ INSERT INTO `alienweapons` (`type`, `name`) VALUES (5, 'Kyr''Ozch Submachine Gun
 INSERT INTO `alienweapons` (`type`, `name`) VALUES (12, 'Kyr''Ozch Carbine - Type 12');
 INSERT INTO `alienweapons` (`type`, `name`) VALUES (12, 'Kyr''Ozch Submachine Gun - Type 12');
 INSERT INTO `alienweapons` (`type`, `name`) VALUES (13, 'Kyr''Ozch Carbine - Type 13');
+INSERT INTO `alienweapons` (`type`, `name`) VALUES (48, 'Kyr''Ozch Nunchacko - Type 48');
 INSERT INTO `alienweapons` (`type`, `name`) VALUES (76, 'Kyr''Ozch Energy Sword - Type 76');
 INSERT INTO `alienweapons` (`type`, `name`) VALUES (76, 'Kyr''Ozch Sledgehammer - Type 76');
 INSERT INTO `alienweapons` (`type`, `name`) VALUES (112, 'Kyr''Ozch Energy Hammer - Type 112');
