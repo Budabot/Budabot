@@ -99,10 +99,13 @@ class AOChat {
 	var $state, $debug, $id, $gid, $chars, $char, $grp, $buddies;
 	var $socket, $last_packet, $last_ping;
 	var $serverseed, $chatqueue;
+	
+	private $mmdbParser;
 
 	/* Initialization */
 	function __construct() {
 		$this->disconnect();
+		$this->mmdbParser = new MMDBParser();
 	}
 
 	function disconnect() {
@@ -252,7 +255,7 @@ class AOChat {
 
 			case AOCP_CHAT_NOTICE:
 				$category_id = 20000;
-				$packet->args[4] = MMDBParser::get_message_string($category_id, $packet->args[2]);
+				$packet->args[4] = $this->mmdbParser->get_message_string($category_id, $packet->args[2]);
 				if ($packet->args[4] !== null) {
 					$packet->args[5] = AOExtMsg::parse_params($packet->args[3]);
 					if ($packet->args[5] !== null) {

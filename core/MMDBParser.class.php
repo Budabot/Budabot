@@ -8,20 +8,20 @@
 class MMDBParser {
 	private static $mmdb = array();
 
-	public static function get_message_string($categoryId, $instanceId) {
+	public function get_message_string($categoryId, $instanceId) {
 		// check for entry in cache
 		if (isset(MMDBParser::$mmdb[$categoryId][$instanceId])) {
 			return MMDBParser::$mmdb[$categoryId][$instanceId];
 		}
 		
-		$in = MMDBParser::open_file();
+		$in = $this->open_file();
 		if ($in === null) {
 			return null;
 		}
 
 		// start at offset = 8 since that is where the categories start
 		// find the category
-		$category = MMDBParser::find_entry($in, $categoryId, 8);
+		$category = $this->find_entry($in, $categoryId, 8);
 		if ($category === null) {
 			echo "Could not find categoryID: '{$categoryId}'\n";
 			fclose($in);
@@ -29,7 +29,7 @@ class MMDBParser {
 		}
 
 		// find the instance
-		$instance = MMDBParser::find_entry($in, $instanceId, $category['offset']);
+		$instance = $this->find_entry($in, $instanceId, $category['offset']);
 		if ($instance === null) {
 			echo "Could not find instance id: '{$instanceId}' for categoryId: '{$categoryId}'\n";
 			fclose($in);
@@ -37,7 +37,7 @@ class MMDBParser {
 		}
 
 		fseek($in, $instance['offset']);
-		$message = MMDBParser::read_string($in);
+		$message = $this->read_string($in);
 		MMDBParser::$mmdb[$categoryId][$instanceId] = $message;
 
 		fclose($in);
@@ -45,15 +45,15 @@ class MMDBParser {
 		return $message;
 	}
 	
-	public static function find_all_instances_in_category($categoryId, $filename = "data/text.mdb") {
-		$in = MMDBParser::open_file();
+	public function find_all_instances_in_category($categoryId, $filename = "data/text.mdb") {
+		$in = $this->open_file();
 		if ($in === null) {
 			return null;
 		}
 		
 		// start at offset = 8 since that is where the categories start
 		// find the category
-		$category = MMDBParser::find_entry($in, $categoryId, 8);
+		$category = $this->find_entry($in, $categoryId, 8);
 		if ($category === null) {
 			echo "Could not find categoryID: '{$categoryId}'\n";
 			fclose($in);
@@ -65,7 +65,7 @@ class MMDBParser {
 		fseek($in, $category['offset']);
 		do {
 			$previousInstance = $instance;
-			$instance = MMDBParser::read_entry($in);
+			$instance = $this->read_entry($in);
 			$instances[] = $instance;
 		} while ($previousInstance == null || $instance['id'] > $previousInstance['id']);
 		
@@ -73,14 +73,14 @@ class MMDBParser {
 		$array = array();
 		forEach ($instances as $instance) {
 			fseek($in, $instance['offset']);
-			$message = MMDBParser::read_string($in);
+			$message = $this->read_string($in);
 			$array[$instance['id']] = $message;
 		}
 		
 		return $array;
 	}
 	
-	private static function open_file($filename = "data/text.mdb") {
+	private function open_file($filename = "data/text.mdb") {
 		$in = fopen($filename, 'rb');
 		if (!$in) {
 			echo "Could not open {$filename} file\n";
@@ -89,7 +89,7 @@ class MMDBParser {
 		}
 
 		// make sure first 4 chars are 'MMDB'
-		$entry = MMDBParser::read_entry($in);
+		$entry = $this->read_entry($in);
 		if ($entry['id'] != 1111772493) {
 			echo "Not an mmdb file: '{$filename}'\n";
 			fclose($in);
@@ -99,12 +99,12 @@ class MMDBParser {
 		return $in;
 	}
 	
-	private static function find_entry(&$in, $id, $offset) {
+	private function find_entry(&$in, $id, $offset) {
 		fseek($in, $offset);
 
 		do {
 			$previousEntry = $entry;
-			$entry = MMDBParser::read_entry($in);
+			$entry = $this->read_entry($in);
 			
 			if ($previousEntry != null && $entry['id'] < $previousEntry['id']) {
 				return null;
@@ -117,15 +117,15 @@ class MMDBParser {
 	/**
 	 * @returns array($id, $offset)
 	 */
-	private static function read_entry(&$in) {
-		return array('id' => MMDBParser::read_long($in), 'offset' => MMDBParser::read_long($in));
+	private function read_entry(&$in) {
+		return array('id' => $this->read_long($in), 'offset' => $this->read_long($in));
 	}
 	
-	private static function read_long(&$in) {
+	private function read_long(&$in) {
 		return array_pop(unpack("L", fread($in, 4)));
 	}
 	
-	private static function read_string(&$in) {
+	private function read_string(&$in) {
 		$message = '';
 		$char = '';
 		
