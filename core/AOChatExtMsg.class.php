@@ -66,11 +66,9 @@
 class AOExtMsg {
 	
 	public $args, $category, $instance, $message_string, $message;
-	private $mmdbParser;
 
 	function __construct($str) {
 		$this->read($str);
-		$this->mmdbParser = new MMDBParser();
 	}
 
 	function read($msg) {
@@ -85,7 +83,7 @@ class AOExtMsg {
 		if ($this->args === null) {
 			echo "Error parsing parameters for category: '$this->category' instance: '$this->instance' string: '$msg'\n";
 		} else {
-			$this->message_string = $this->mmdbParser->get_message_string($this->category, $this->instance);
+			$this->message_string = MMDBParser::get_message_string($this->category, $this->instance);
 			if ($this->message_string !== null) {
 				$this->message = vsprintf($this->message_string, $this->args);
 			}
@@ -127,7 +125,7 @@ class AOExtMsg {
 				case "R":
 					$cat = AOExtMsg::b85g($msg);
 					$ins = AOExtMsg::b85g($msg);
-					$str = $this->mmdbParser->get_message_string($cat, $ins);
+					$str = MMDBParser::get_message_string($cat, $ins);
 					if ($str === null) {
 						$str = "Unknown ($cat, $ins)";
 					}
@@ -139,7 +137,7 @@ class AOExtMsg {
 					$msg = substr($msg, 4);
 					$cat = 20000;
 					$ins = $array[1];
-					$str = $this->mmdbParser->get_message_string($cat, $ins);
+					$str = MMDBParser::get_message_string($cat, $ins);
 					if ($str === null) {
 						$str = "Unknown ($cat, $ins)";
 					}
