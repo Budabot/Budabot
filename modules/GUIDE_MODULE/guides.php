@@ -4,11 +4,7 @@ $path = getcwd() . "/modules/GUIDE_MODULE/guides/";
 $fileExt = ".txt";
 $msg = "";
 
-if ($message == "guides") {
-	$message = "guides guides";
-}
-
-if (preg_match("/^guides list$/i", $message)) {
+if (preg_match("/^guides$/i", $message)) {
 	if ($handle = opendir($path)) {
 		$topicList = array();
 

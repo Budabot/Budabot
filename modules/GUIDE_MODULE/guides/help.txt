@@ -1,6 +1,6 @@
 <header> :::::: In-Game Guides :::::: <end>
 
-<font color = #00FF00>Hint: To get an alphabetical list of all guides:</font> <a href='chatcmd:///tell <myname> <symbol>guides list'><symbol>guides list</a>
+<font color = #00FF00>Hint: To get an alphabetical list of all guides:</font> <a href='chatcmd:///tell <myname> <symbol>guides'><symbol>guides</a>
 
 These are some basic guides put together for new players. Most of this information has come from guides posted on the official forums, but may not be 100% accurate. Enjoy!
 

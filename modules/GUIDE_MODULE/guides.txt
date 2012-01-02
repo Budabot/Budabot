@@ -1,10 +1,10 @@
 <header> :::::: Guides Help :::::: <end>
 
-<highlight>To see a basic overview of what guides are available<end>
+<highlight>To see a list of all the guides in alphabetical order:<end>
 <tab><symbol>guides
 
-<highlight>To see a list of all the guides in alphabetical order<end>
-<tab><symbol>guides list
+<highlight>To see a basic overview of what guides are available:<end>
+<tab><symbol>guides help
 
 <highlight>To see a specific guide<end>
 <tab><symbol>guides name_of_guide
