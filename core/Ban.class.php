@@ -4,6 +4,8 @@ class Ban {
 
 	/** @Inject */
 	public $db;
+	
+	private $banlist = array();
 
 	public function add($char, $sender, $length, $reason) {
 		
@@ -31,20 +33,20 @@ class Ban {
 	}
 	
 	public function upload_banlist() {
-		$chatBot = Registry::getInstance('chatBot');
-		
-		$chatBot->banlist = array();
+		$this->banlist = array();
 		
 		$data = $this->db->query("SELECT * FROM banlist_<myname>");
 		forEach ($data as $row) {
-			$chatBot->banlist[$row->name] = $row;
+			$this->banlist[$row->name] = $row;
 		}
 	}
 	
 	public function is_banned($char) {
-		$chatBot = Registry::getInstance('chatBot');
+		return isset($this->banlist[$char]);
+	}
 	
-		return isset($chatBot->banlist[$char]);
+	public function getBanlist() {
+		return $this->banlist;
 	}
 }
 
