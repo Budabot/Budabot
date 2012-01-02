@@ -6,7 +6,7 @@ class Text {
 	 * @name: make_header
 	 * @description: creates a formatted header to go in a blob
 	 */
-	public static function make_header($title, $links = NULL) {
+	public function make_header($title, $links = NULL) {
 		$chatBot = Registry::getInstance('chatBot');
 		$setting = Registry::getInstance('setting');
 
@@ -295,7 +295,7 @@ class Text {
 	 * @name: make_item
 	 * @description: creates an item link
 	 */
-	public static function make_item($lowId, $highId,  $ql, $name) {
+	public function make_item($lowId, $highId,  $ql, $name) {
 		return "<a href='itemref://{$lowId}/{$highId}/{$ql}'>{$name}</a>";
 	}
 	
@@ -303,7 +303,7 @@ class Text {
 	 * @name: make_item
 	 * @description: creates an item link
 	 */
-	public static function make_image($imageId) {
+	public function make_image($imageId) {
 		return "<img src='rdb://{$imageId}'>";
 	}
 	
@@ -311,7 +311,7 @@ class Text {
 	 * @name: format_message
 	 * @description: formats a message with colors, bot name, symbol, etc
 	 */
-	public static function format_message($message) {
+	public function format_message($message) {
 		$chatBot = Registry::getInstance('chatBot');
 		$setting = Registry::getInstance('setting');
 		

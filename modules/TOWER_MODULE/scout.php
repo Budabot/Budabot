@@ -1,6 +1,7 @@
 <?php
 
 $towers = Registry::getInstance('towers');
+$playfields = Registry::getInstance('playfields');
 
 if (preg_match("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[0-9]{2}) ([0-9]+) ([a-z]+) (.*)$/i", $message, $arr)) {
 	if (strtolower($arr[1]) == 'forcescout') {
@@ -22,7 +23,7 @@ if (preg_match("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[
 		return;
 	}
 
-	$playfield = Playfields::get_playfield_by_name($playfield_name);
+	$playfield = $playfields->get_playfield_by_name($playfield_name);
 	if ($playfield === null) {
 		$msg = "Invalid playfield.";
 		$chatBot->send($msg, $sendto);

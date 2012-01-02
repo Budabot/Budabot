@@ -16,7 +16,7 @@ class Ban {
 		$sql = "INSERT INTO banlist_<myname> (`name`, `admin`, `time`, `reason`, `banend`) VALUES (?, ?, ?, ?, ?)";
 		$numrows = $this->db->exec($sql, $char, $sender, time(), $reason, $ban_end);
 		
-		Ban::upload_banlist();
+		$this->upload_banlist();
 		
 		return $numrows;
 	}
@@ -25,7 +25,7 @@ class Ban {
 		$sql = "DELETE FROM banlist_<myname> WHERE name = ?";
 		$numrows = $this->db->exec($sql, $char);
 		
-		Ban::upload_banlist();
+		$this->upload_banlist();
 		
 		return $numrows;
 	}

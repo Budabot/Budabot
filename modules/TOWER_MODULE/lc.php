@@ -1,5 +1,7 @@
 <?php
 
+$playfields = Registry::getInstance('playfields');
+
 if (preg_match("/^lc$/i", $message, $arr)) {
 	$sql = "SELECT * FROM playfields WHERE `id` IN (SELECT DISTINCT `playfield_id` FROM tower_site) ORDER BY `short_name`";
 	$data = $db->query($sql);
@@ -13,7 +15,7 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^lc ([0-9a-z]+)$/i", $message, $arr)) {
 	$playfield_name = strtoupper($arr[1]);
-	$playfield = Playfields::get_playfield_by_name($playfield_name);
+	$playfield = $playfields->get_playfield_by_name($playfield_name);
 	if ($playfield === null) {
 		$msg = "Playfield '$playfield_name' could not be found";
 		$chatBot->send($msg, $sendto);
@@ -36,7 +38,7 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^lc ([0-9a-z]+) ([0-9]+)$/i", $message, $arr)) {
 	$playfield_name = strtoupper($arr[1]);
-	$playfield = Playfields::get_playfield_by_name($playfield_name);
+	$playfield = $playfields->get_playfield_by_name($playfield_name);
 	if ($playfield === null) {
 		$msg = "Playfield '$playfield_name' could not be found";
 		$chatBot->send($msg, $sendto);

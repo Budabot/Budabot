@@ -8,6 +8,7 @@ $page_label = 1;
 $search = '';
 
 $towers = Registry::getInstance('towers');
+$playfields = Registry::getInstance('playfields');
 
 if (preg_match("/^victory (\\d+)$/i", $message, $arr) || preg_match("/^victory$/i", $message, $arr)) {
 	if (isset($arr[1])) {
@@ -29,7 +30,7 @@ if (preg_match("/^victory (\\d+)$/i", $message, $arr) || preg_match("/^victory$/
 		}
 	}
 	
-	$playfield = Playfields::get_playfield_by_name($arr[1]);
+	$playfield = $playfields->get_playfield_by_name($arr[1]);
 	if ($playfield === null) {
 		$msg = "Invalid playfield.";
 		$chatBot->send($msg, $sendto);

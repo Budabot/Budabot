@@ -1,11 +1,13 @@
 <?php
 
+$playfields = Registry::getInstance('playfields');
+
 if (preg_match("/^waypoint \\(?([0-9\\.]+) ([0-9\\.]+) y ([0-9\\.]+) ([0-9]+)\\)?$/i", $message, $arr)) {
 	$x_coords = $arr[1];
 	$y_coords = $arr[2];
 	$playfield_id = $arr[4];
 
-	$playfield = Playfields::get_playfield_by_id($playfield_id);
+	$playfield = $playfields->get_playfield_by_id($playfield_id);
 	if ($playfield === null) {
 		$playfield_name = $playfield_id;
 	} else {
@@ -16,7 +18,7 @@ if (preg_match("/^waypoint \\(?([0-9\\.]+) ([0-9\\.]+) y ([0-9\\.]+) ([0-9]+)\\)
 	$y_coords = $arr[3];
 	$playfield_id = $arr[5];
 	
-	$playfield = Playfields::get_playfield_by_id($playfield_id);
+	$playfield = $playfields->get_playfield_by_id($playfield_id);
 	if ($playfield === null) {
 		$playfield_name = $playfield_id;
 	} else {
@@ -27,7 +29,7 @@ if (preg_match("/^waypoint \\(?([0-9\\.]+) ([0-9\\.]+) y ([0-9\\.]+) ([0-9]+)\\)
 	$y_coords = $arr[3];
 	$playfield_name = $arr[5];
 	
-	$playfield = Playfields::get_playfield_by_name($playfield_name);
+	$playfield = $playfields->get_playfield_by_name($playfield_name);
 	if ($playfield === null) {
 		$chatBot->send("Could not find playfield '$playfield_name'", $sendto);
 		return;

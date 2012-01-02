@@ -4,6 +4,7 @@ $colorlabel = "<font color=#00DE42>";
 $colorvalue = "<font color=#63AD63>";
 
 $towers = Registry::getInstance('towers');
+$playfields = Registry::getInstance('playfields');
 
 if (preg_match("/^The (Clan|Neutral|Omni) organization (.+) just entered a state of war! (.+) attacked the (Clan|Neutral|Omni) organization (.+)'s tower in (.+) at location \\((\\d+),(\\d+)\\)\\.$/i", $message, $arr)) {
 	$att_side = ucfirst(strtolower($arr[1]));  // comes across as a string instead of a reference, so convert to title case
@@ -40,7 +41,7 @@ if (isset($att_guild)) {
 // in case it's not a player who causes attack message (pet, mob, etc)
 $whois->name = $att_player;
 
-$playfield = Playfields::get_playfield_by_name($playfield_name);
+$playfield = $playfields->get_playfield_by_name($playfield_name);
 $closest_site = $towers->get_closest_site($playfield->id, $x_coords, $y_coords);
 if ($closest_site === null) {
 	Logger::log('error', "TowerInfo", "ERROR! Could not find closest site: ({$playfield_name}) '{$playfield->id}' '{$x_coords}' '{$y_coords}'");

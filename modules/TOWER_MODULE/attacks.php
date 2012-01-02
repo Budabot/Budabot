@@ -29,7 +29,8 @@ if (preg_match("/^attacks (\\d+)$/i", $message, $arr) || preg_match("/^attacks$/
 		}
 	}
 	
-	$playfield = Playfields::get_playfield_by_name($arr[1]);
+	$playfields = Registry::getInstance('playfields');
+	$playfield = $playfields->get_playfield_by_name($arr[1]);
 	if ($playfield === null) {
 		$msg = "Please enter a valid playfield.";
 		$chatBot->send($msg, $sendto);

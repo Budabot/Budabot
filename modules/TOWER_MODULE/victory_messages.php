@@ -15,14 +15,15 @@ if (preg_match("/^The (Clan|Neutral|Omni) organization (.+) attacked the (Clan|N
 } else {
 	return;
 }
+
+$towers = Registry::getInstance('towers');
+$playfields = Registry::getInstance('playfields');
 	
-$playfield = Playfields::get_playfield_by_name($playfield_name);
+$playfield = $playfields->get_playfield_by_name($playfield_name);
 if ($playfield === null) {
 	Logger::log('error', 'Towers', "Could not find playfield for name '$playfield_name'");
 	return;
 }
-
-$towers = Registry::getInstance('towers');
 
 $last_attack = $towers->get_last_attack($win_faction, $win_guild_name, $lose_faction, $lose_guild_name, $playfield->id);
 if ($last_attack !== null) {

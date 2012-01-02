@@ -179,6 +179,7 @@ Registry::setInstance('setting', new Setting);
 Registry::setInstance('buddyList', new BuddyList);
 Registry::setInstance('ban', new Ban);
 Registry::setInstance('accessLevel', new AccessLevel);
+Registry::setInstance('playfields', new Playfields);
 Registry::setInstance('chatBot', new Budabot($vars));
 
 $chatBot = Registry::getInstance('chatBot');
