@@ -1,5 +1,7 @@
 <?php
 
+$whitelist = Registry::getInstance('whitelist');
+
 if (preg_match("/^broadcast$/i", $message)) {
 	$blob = "<header> :::::: Broadcast Bots :::::: <end>\n\n";
 
@@ -38,7 +40,7 @@ if (preg_match("/^broadcast$/i", $message)) {
 	// reload broadcast bot list
 	require 'setup.php';
 	
-	Whitelist::add($name, $sender . " (bot)");
+	$whitelist->add($name, $sender . " (bot)");
 
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^broadcast (rem|remove) (.+)$/i", $message, $arr)) {
@@ -55,7 +57,7 @@ if (preg_match("/^broadcast$/i", $message)) {
 	// reload broadcast bot list
 	require 'setup.php';
 	
-	Whitelist::remove($name);
+	$whitelist->remove($name);
 	
     $chatBot->send($msg, $sendto);
 } else {

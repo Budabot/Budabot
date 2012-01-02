@@ -25,6 +25,9 @@ class Budabot extends AOChat {
 	
 	/** @Inject */
 	public $accessLevel;
+	
+	/** @Inject */
+	public $ban;
 
 	var $buddyList = array();
 	var $chatlist = array();
@@ -460,7 +463,7 @@ class Budabot extends AOChat {
 			Logger::log_chat("Priv Group", -1, "$sender joined the channel.");
 
 			// Remove sender if they are banned or if spam filter is blocking them
-			if (Ban::is_banned($sender) || $chatBot->spam[$sender] > 100){
+			if ($this->ban->is_banned($sender) || $chatBot->spam[$sender] > 100){
 				$chatBot->privategroup_kick($sender);
 				return;
 			}
@@ -684,7 +687,7 @@ class Budabot extends AOChat {
 			return;
 		}
 
-		if (Ban::is_banned($sender)) {
+		if ($this->ban->is_banned($sender)) {
 			return;
 		} else if ($this->setting->get('spam_protection') == 1 && $chatBot->spam[$sender] > 100) {
 			$chatBot->spam[$sender] += 20;
@@ -739,7 +742,7 @@ class Budabot extends AOChat {
 		Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_MESSAGE => sender: '$sender' channel: '$channel' message: '$message'");
 		Logger::log_chat($channel, $sender, $message);
 		
-		if ($sender == $chatBot->vars["name"] || Ban::is_banned($sender)) {
+		if ($sender == $chatBot->vars["name"] || $this->ban->is_banned($sender)) {
 			return;
 		}
 
@@ -839,7 +842,7 @@ class Budabot extends AOChat {
 			if ($sender == $chatBot->vars["name"]) {
 				return;
 			}
-			if (Ban::is_banned($sender)) {
+			if ($this->ban->is_banned($sender)) {
 				return;
 			}
 		}

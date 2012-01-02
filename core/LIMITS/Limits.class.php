@@ -7,13 +7,16 @@ class Limits {
 	
 	/** @Inject */
 	public $accessLevel;
+	
+	/** @Inject */
+	public $whitelist;
 
 	public function check($sender, $message) {
 		$chatBot = Registry::getInstance('chatBot');
 
 		if (preg_match("/^about$/i", $message)) {
 			return true;
-		} else if (Whitelist::check($sender) || $this->accessLevel->checkAccess($sender, $this->setting->get("tell_req_open")) || $sender == ucfirst(strtolower($this->setting->get("relaybot")))) {
+		} else if ($this->whitelist->check($sender) || $this->accessLevel->checkAccess($sender, $this->setting->get("tell_req_open")) || $sender == ucfirst(strtolower($this->setting->get("relaybot")))) {
 			return true;
 		} else {
 			// if neither minlvl or faction is set, then check passes

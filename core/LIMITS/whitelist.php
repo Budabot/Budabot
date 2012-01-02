@@ -1,7 +1,9 @@
 <?php
 
+$whitelist = Registry::getInstance('whitelist');
+
 if (preg_match("/^whitelist$/", $message)) {
-	$list = Whitelist::all();
+	$list = $whitelist->all();
 	if (count($list) == 0) {
 		$chatBot->send("No entries in whitelist", $sendto);
 	} else {
@@ -14,9 +16,9 @@ if (preg_match("/^whitelist$/", $message)) {
 		$chatBot->send($msg, $sendto);
 	}
 } else if (preg_match("/^whitelist add (.+)$/", $message, $arr)) {
-	$chatBot->send(Whitelist::add($arr[1], $sender), $sendto);
+	$chatBot->send($whitelist->add($arr[1], $sender), $sendto);
 } else if (preg_match("/^whitelist (rem|remove|del|delete) (.+)$/", $message, $arr)) {
-	$chatBot->send(Whitelist::remove($arr[2]), $sendto);
+	$chatBot->send($whitelist->remove($arr[2]), $sendto);
 } else {
 	$syntax_error = true;
 }
