@@ -3,6 +3,9 @@
 class News {
 	/** @Inject */
 	public $db;
+	
+	/** @Inject */
+	public $chatBot;
 
 	/**
 	 * @Setting("news")
@@ -54,11 +57,13 @@ class News {
 	 * @Event("logOn")
 	 * @Description("Sends a tell with news to players logging in")
 	 */
-	public function logon($chatBot, $type, $sender, $args) {
-		if (isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
+	public function logon($eventObj) {
+		$sender = $eventObj->sender;
+
+		if (isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->is_ready()) {
 			$msg = $this->getNews();
 			if ($msg != '') {
-				$chatBot->send($msg, $sender);
+				$this->chatBot->send($msg, $sender);
 			}
 		}
 	}

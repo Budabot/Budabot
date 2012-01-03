@@ -18,6 +18,9 @@ class Event extends Annotation {
 	/** @Inject */
 	public $chatBot;
 	
+	/** @Inject */
+	public $setting;
+	
 	public $events = array();
 
 	public static $EVENT_TYPES = array(
@@ -284,19 +287,62 @@ class Event extends Annotation {
 		$chatBot = Registry::getInstance('chatBot');
 		$db = $this->db;
 		$setting = Registry::getInstance('setting');
+		
+		$eventObj = new stdClass;
+		$eventObj->type = 'connect';
 
-		// Check files, for all 'connect' events.
-		forEach ($this->events['connect'] as $filename) {
+		$this->fireEvent($eventObj);
+	}
+	
+	public function fireEvent($eventObj) {
+		$chatBot = $this->chatBot;
+		$db = $this->db;
+		$setting = $this->setting;
+
+		forEach ($this->events[$eventObj->type] as $filename) {
+			$type = $eventObj->type;
+			$stop_execution = false;
+			switch ($eventObj->type) {
+				case 'allpackets':
+					break;
+				case 'joinpriv':
+				case 'extjoinpriv':
+				case 'leavepriv':
+				case 'extleavepriv':
+					$channel = $eventObj->channel;
+					$sender = $eventObj->sender;
+					break;
+				case 'logon':
+				case 'logoff':
+				case 'msg':
+				case 'extjoinprivrequest':
+					$sender = $eventObj->sender;
+					break;
+				case 'priv':
+				case 'extpriv':
+				case 'towers':
+				case 'orgmsg':
+				case 'guild':
+					$channel = $eventObj->channel;
+					$sender = $eventObj->sender;
+					$message = $eventObj->message;
+					break;
+			}
+		
+			$msg = "";
 			if (preg_match("/\\.php$/i", $filename)) {
 				require $filename;
 			} else {
 				list($name, $method) = explode(".", $filename);
 				$instance = Registry::getInstance($name);
 				if ($instance === null) {
-					Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
+					Logger::log('ERROR', 'CORE', "Could not find instance for name '$name' in '$filename' for event type '$eventObj->type'");
 				} else {
-					$instance->$method($chatBot, 'connect');
+					$stop_execution = ($instance->$method($eventObj) === true ? true : false);
 				}
+			}
+			if ($stop_execution) {
+				return;
 			}
 		}
 	}

@@ -398,199 +398,90 @@ class Budabot extends AOChat {
 	}
 	
 	function process_all_packets($packet_type, $args) {
-		$chatBot = Registry::getInstance('chatBot');
-		$db = $this->db;
-		$setting = $this->setting;
-
-		// modules can set this to true to stop execution after they are called
-		$stop_execution = false;
-
-		$type = 'allpackets';
-
-		forEach ($this->event->events[$type] as $filename) {
-			$msg = "";
-			if (preg_match("/\\.php$/i", $filename)) {
-				require $filename;
-			} else {
-				list($name, $method) = explode(".", $filename);
-				$instance = Registry::getInstance($name);
-				if ($instance === null) {
-					Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
-				} else {
-					$instance->$method($this, $type, $args);
-				}
-			}
-			if ($stop_execution) {
-				return;
-			}
-		}
+		$eventObj = new stdClass;
+		$eventObj->type = 'allpackets';
+		$this->event->fireEvent($eventObj);
 	}
 	
 	function process_group_announce($args) {
-		$chatBot = Registry::getInstance('chatBot');
-		$db = $this->db;
-		$setting = $this->setting;
-
-		// modules can set this to true to stop execution after they are called
-		$stop_execution = false;
-	
 		$b = unpack("C*", $args[0]);
 		Logger::log('DEBUG', 'Packets', "AOCP_GROUP_ANNOUNCE => name: '$args[1]'");
 		if ($b[1] == 3) {
-			$chatBot->vars["my_guild_id"] = ($b[2] << 24) + ($b[3] << 16) + ($b[4] << 8) + ($b[5]);
+			$this->vars["my_guild_id"] = ($b[2] << 24) + ($b[3] << 16) + ($b[4] << 8) + ($b[5]);
 			//$this->vars["my_guild"] = $args[1];
 		}
 	}
 	
 	function process_private_channel_join($args) {
-		$chatBot = Registry::getInstance('chatBot');
-		$db = $this->db;
-		$setting = $this->setting;
-
-		// modules can set this to true to stop execution after they are called
-		$stop_execution = false;
-	
-		$channel = $chatBot->lookup_user($args[0]);
-		$sender = $chatBot->lookup_user($args[1]);
+		$eventObj = new stdClass;
+		$channel = $this->lookup_user($args[0]);
+		$sender = $this->lookup_user($args[1]);
+		$eventObj->channel = $channel;
+		$eventObj->sender = $sender;
 
 		Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_CLIJOIN => channel: '$channel' sender: '$sender'");
 		
-		if ($channel == $chatBot->vars['name']) {
-			$type = "joinpriv";
+		if ($channel == $this->vars['name']) {
+			$eventObj->type = "joinpriv";
 
 			Logger::log_chat("Priv Group", -1, "$sender joined the channel.");
 
 			// Remove sender if they are banned or if spam filter is blocking them
-			if ($this->ban->is_banned($sender) || $chatBot->spam[$sender] > 100){
-				$chatBot->privategroup_kick($sender);
+			if ($this->ban->is_banned($sender) || $this->spam[$sender] > 100){
+				$this->privategroup_kick($sender);
 				return;
 			}
 
 			// Add sender to the chatlist.
-			$chatBot->chatlist[$sender] = true;
+			$this->chatlist[$sender] = true;
 
-			// Check files, for all 'player joined channel events'.
-			forEach ($this->event->events[$type] as $filename) {
-				$msg = '';
-				if (preg_match("/\\.php$/i", $filename)) {
-					require $filename;
-				} else {
-					list($name, $method) = explode(".", $filename);
-					$instance = Registry::getInstance($name);
-					if ($instance === null) {
-						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
-					} else {
-						$instance->$method($this, $type, $sender, $channel, $args);
-					}
-				}
-				if ($stop_execution) {
-					return;
-				}
-			}
+			$this->event->fireEvent($eventObj);
 		} else {
-			$type = "extjoinpriv";
-			
-			forEach ($this->event->events[$type] as $filename) {
-				$msg = '';
-				if (preg_match("/\\.php$/i", $filename)) {
-					require $filename;
-				} else {
-					list($name, $method) = explode(".", $filename);
-					$instance = Registry::getInstance($name);
-					if ($instance === null) {
-						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
-					} else {
-						$instance->$method($this, $type, $sender, $channel, $args);
-					}
-				}
-				if ($stop_execution) {
-					return;
-				}
-			}
+			$eventObj->type = "extjoinpriv";
+			$this->event->fireEvent($eventObj);
 		}
 	}
 	
 	function process_private_channel_leave($args) {
-		$chatBot = Registry::getInstance('chatBot');
-		$db = $this->db;
-		$setting = $this->setting;
-
-		// modules can set this to true to stop execution after they are called
-		$stop_execution = false;
-	
-		$channel = $chatBot->lookup_user($args[0]);
-		$sender	= $chatBot->lookup_user($args[1]);
+		$eventObj = new stdClass;
+		$channel = $this->lookup_user($args[0]);
+		$sender = $this->lookup_user($args[1]);
+		$eventObj->channel = $channel;
+		$eventObj->sender = $sender;
 		
 		Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_CLIPART => channel: '$channel' sender: '$sender'");
 		
-		if ($channel == $chatBot->vars['name']) {
-			$type = "leavepriv";
+		if ($channel == $this->vars['name']) {
+			$eventObj->type = "leavepriv";
 		
 			Logger::log_chat("Priv Group", -1, "$sender left the channel.");
 
 			// Remove from Chatlist array.
-			unset($chatBot->chatlist[$sender]);
+			unset($this->chatlist[$sender]);
 			
-			// Check files, for all 'player left channel events'.
-			forEach ($this->event->events[$type] as $filename) {
-				$msg = '';
-				if (preg_match("/\\.php$/i", $filename)) {
-					require $filename;
-				} else {
-					list($name, $method) = explode(".", $filename);
-					$instance = Registry::getInstance($name);
-					if ($instance === null) {
-						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
-					} else {
-						$instance->$method($this, $type, $sender, $channel, $args);
-					}
-				}
-				if ($stop_execution) {
-					return;
-				}
-			}
+			$this->event->fireEvent($eventObj);
 		} else {
-			$type = "extleavepriv";
+			$eventObj->type = "extleavepriv";
 			
-			forEach ($this->event->events[$type] as $filename) {
-				$msg = '';
-				if (preg_match("/\\.php$/i", $filename)) {
-					require $filename;
-				} else {
-					list($name, $method) = explode(".", $filename);
-					$instance = Registry::getInstance($name);
-					if ($instance === null) {
-						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
-					} else {
-						$instance->$method($this, $type, $sender, $channel, $args);
-					}
-				}
-				if ($stop_execution) {
-					return;
-				}
-			}
+			$this->event->fireEvent($eventObj);
 		}
 	}
 	
 	function process_buddy_update($args) {
-		$chatBot = Registry::getInstance('chatBot');
-		$db = $this->db;
-		$setting = $this->setting;
-
-		// modules can set this to true to stop execution after they are called
-		$stop_execution = false;
-	
-		$sender	= $chatBot->lookup_user($args[0]);
+		$sender	= $this->lookup_user($args[0]);
 		$status	= 0 + $args[1];
+
+		$eventObj = new stdClass;
+		$eventObj->sender = $sender;
 		
 		Logger::log('DEBUG', 'Packets', "AOCP_BUDDY_ADD => sender: '$sender' status: '$status'");
 		
 		// store buddy info
 		list($bid, $bonline, $btype) = $args;
-		$chatBot->buddyList[$bid]['uid'] = $bid;
-		$chatBot->buddyList[$bid]['name'] = $sender;
-		$chatBot->buddyList[$bid]['online'] = ($bonline ? 1 : 0);
-		$chatBot->buddyList[$bid]['known'] = (ord($btype) ? 1 : 0);
+		$this->buddyList[$bid]['uid'] = $bid;
+		$this->buddyList[$bid]['name'] = $sender;
+		$this->buddyList[$bid]['online'] = ($bonline ? 1 : 0);
+		$this->buddyList[$bid]['known'] = (ord($btype) ? 1 : 0);
 
 		// Ignore Logon/Logoff from other bots or phantom logon/offs
 		if ($sender == "") {
@@ -599,66 +490,28 @@ class Budabot extends AOChat {
 
 		// Status => 0: logoff  1: logon
 		if ($status == 0) {
-			$type = "logoff";
+			$eventObj->type = "logoff";
 			
 			Logger::log('DEBUG', "Buddy", "$sender logged off");
 
-			// Check files, for all 'player logged off events'
-			forEach ($this->event->events[$type] as $filename) {
-				$msg = "";
-				if (preg_match("/\\.php$/i", $filename)) {
-					require $filename;
-				} else {
-					list($name, $method) = explode(".", $filename);
-					$instance = Registry::getInstance($name);
-					if ($instance === null) {
-						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
-					} else {
-						$instance->$method($this, $type, $sender, $args);
-					}
-				}
-				if ($stop_execution) {
-					return;
-				}
-			}
+			$this->event->fireEvent($eventObj);
 		} else if ($status == 1) {
-			$type = "logon";
+			$eventObj->type = "logon";
 			
 			Logger::log('INFO', "Buddy", "$sender logged on");
 
-			// Check files, for all 'player logged on events'.
-			forEach ($this->event->events[$type] as $filename) {
-				$msg = "";
-				if (preg_match("/\\.php$/i", $filename)) {
-					require $filename;
-				} else {
-					list($name, $method) = explode(".", $filename);
-					$instance = Registry::getInstance($name);
-					if ($instance === null) {
-						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
-					} else {
-						$instance->$method($this, $type, $sender, $args);
-					}
-				}
-				if ($stop_execution) {
-					return;
-				}
-			}
+			$this->event->fireEvent($eventObj);
 		}
 	}
 	
 	function process_private_message($args) {
-		$chatBot = Registry::getInstance('chatBot');
-		$db = $this->db;
-		$setting = $this->setting;
-
-		// modules can set this to true to stop execution after they are called
-		$stop_execution = false;
-		$restricted = false;
-	
 		$type = "msg";
-		$sender	= $chatBot->lookup_user($args[0]);
+		$sender	= $this->lookup_user($args[0]);
 		$sendto = $sender;
+		
+		$eventObj = new stdClass;
+		$eventObj->sender = $sender;
+		$eventObj->type = $type;
 		
 		Logger::log('DEBUG', 'Packets', "AOCP_MSG_PRIVATE => sender: '$sender' message: '$args[1]'");
 		
@@ -690,29 +543,12 @@ class Budabot extends AOChat {
 
 		if ($this->ban->is_banned($sender)) {
 			return;
-		} else if ($this->setting->get('spam_protection') == 1 && $chatBot->spam[$sender] > 100) {
-			$chatBot->spam[$sender] += 20;
+		} else if ($this->setting->get('spam_protection') == 1 && $this->spam[$sender] > 100) {
+			$this->spam[$sender] += 20;
 			return;
 		}
 		
-		// Events
-		forEach ($this->event->events[$type] as $filename) {
-			$msg = "";
-			if (preg_match("/\\.php$/i", $filename)) {
-					require $filename;
-				} else {
-					list($name, $method) = explode(".", $filename);
-					$instance = Registry::getInstance($name);
-					if ($instance === null) {
-						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
-					} else {
-						$instance->$method($this, $type, $sender, $message, $args);
-					}
-				}
-			if ($stop_execution) {
-				return;
-			}
-		}
+		$this->event->fireEvent($eventObj);
 
 		// remove the symbol if there is one
 		if ($message[0] == $this->setting->get("symbol") && strlen($message) > 1) {
@@ -729,107 +565,68 @@ class Budabot extends AOChat {
 	}
 	
 	function process_private_channel_message($args) {
-		$chatBot = Registry::getInstance('chatBot');
-		$db = $this->db;
-		$setting = $this->setting;
-
-		// modules can set this to true to stop execution after they are called
-		$stop_execution = false;
-	
-		$sender	= $chatBot->lookup_user($args[1]);
+		$sender	= $this->lookup_user($args[1]);
 		$sendto = 'prv';
-		$channel = $chatBot->lookup_user($args[0]);
+		$channel = $this->lookup_user($args[0]);
 		$message = $args[2];
+		
+		$eventObj = new stdClass;
+		$eventObj->sender = $sender;
+		$eventObj->channel = $channel;
+		$eventObj->message = $message;
 		
 		Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_MESSAGE => sender: '$sender' channel: '$channel' message: '$message'");
 		Logger::log_chat($channel, $sender, $message);
 		
-		if ($sender == $chatBot->vars["name"] || $this->ban->is_banned($sender)) {
+		if ($sender == $this->vars["name"] || $this->ban->is_banned($sender)) {
 			return;
 		}
 
 		if ($this->setting->get('spam_protection') == 1) {
-			if ($chatBot->spam[$sender] == 40) $chatBot->send("Error! Your client is sending a high frequency of chat messages. Stop or be kicked.", $sender);
-			if ($chatBot->spam[$sender] > 60) $chatBot->privategroup_kick($sender);
+			if ($this->spam[$sender] == 40) $this->send("Error! Your client is sending a high frequency of chat messages. Stop or be kicked.", $sender);
+			if ($this->spam[$sender] > 60) $this->privategroup_kick($sender);
 			if (strlen($args[1]) > 400){
-				$chatBot->largespam[$sender] = $chatBot->largespam[$sender] + 1;
-				if ($chatBot->largespam[$sender] > 1) {
-					$chatBot->privategroup_kick($sender);
+				$this->largespam[$sender] = $this->largespam[$sender] + 1;
+				if ($this->largespam[$sender] > 1) {
+					$this->privategroup_kick($sender);
 				}
-				if ($chatBot->largespam[$sender] > 0) {
-					$chatBot->send("Error! Your client is sending large chat messages. Stop or be kicked.", $sender);
+				if ($this->largespam[$sender] > 0) {
+					$this->send("Error! Your client is sending large chat messages. Stop or be kicked.", $sender);
 				}
 			}
 		}
 
-		if ($channel == $chatBot->vars['name']) {
-
+		if ($channel == $this->vars['name']) {
 			$type = "priv";
+			$eventObj->type = $type;
 
-			// Events
-			forEach ($this->event->events[$type] as $filename) {
-				$msg = "";
-				if (preg_match("/\\.php$/i", $filename)) {
-					require $filename;
-				} else {
-					list($name, $method) = explode(".", $filename);
-					$instance = Registry::getInstance($name);
-					if ($instance === null) {
-						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
-					} else {
-						$instance->$method($this, $type, $sender, $channel, $message, $args);
-					}
-				}
-				if ($stop_execution) {
-					return;
-				}
-			}
+			$this->event->fireEvent($eventObj);
 			
 			if ($message[0] == $this->setting->get("symbol") && strlen($message) > 1) {
 				$message = substr($message, 1);
 				$this->command->process($type, $message, $sender, $sendto);
 			}
-		
 		} else {  // ext priv group message
-			
 			$type = "extpriv";
+			$eventObj->type = $type;
 			
-			forEach ($this->event->events[$type] as $filename) {
-				$msg = "";
-				if (preg_match("/\\.php$/i", $filename)) {
-					require $filename;
-				} else {
-					list($name, $method) = explode(".", $filename);
-					$instance = Registry::getInstance($name);
-					if ($instance === null) {
-						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
-					} else {
-						$instance->$method($this, $type, $sender, $channel, $message, $args);
-					}
-				}
-				if ($stop_execution) {
-					return;
-				}
-			}
+			$this->event->fireEvent($eventObj);
 		}
 	}
 	
 	function process_public_channel_message($args) {
-		$chatBot = Registry::getInstance('chatBot');
-		$db = $this->db;
-		$setting = $this->setting;
-
-		// modules can set this to true to stop execution after they are called
-		$stop_execution = false;
-	
-		$syntax_error = false;
-		$sender	 = $chatBot->lookup_user($args[1]);
+		$sender	 = $this->lookup_user($args[1]);
 		$message = $args[2];
-		$channel = $chatBot->get_gname($args[0]);
+		$channel = $this->get_gname($args[0]);
+		
+		$eventObj = new stdClass;
+		$eventObj->sender = $sender;
+		$eventObj->channel = $channel;
+		$eventObj->message = $message;
 		
 		Logger::log('DEBUG', 'Packets', "AOCP_GROUP_MESSAGE => sender: '$sender' channel: '$channel' message: '$message'");
 
-		if (in_array($channel, $chatBot->channelsToIgnore)) {
+		if (in_array($channel, $this->channelsToIgnore)) {
 			return;
 		}
 
@@ -842,7 +639,7 @@ class Budabot extends AOChat {
 
 		if ($sender) {
 			// Ignore Message that are sent from the bot self
-			if ($sender == $chatBot->vars["name"]) {
+			if ($sender == $this->vars["name"]) {
 				return;
 			}
 			if ($this->ban->is_banned($sender)) {
@@ -853,69 +650,20 @@ class Budabot extends AOChat {
 		$b = unpack("C*", $args[0]);
 
 		if ($channel == "All Towers" || $channel == "Tower Battle Outcome") {
-			$type = "towers";
+			$eventObj->type = "towers";
 			
-			forEach ($this->event->events[$type] as $filename) {
-				$msg = "";
-				if (preg_match("/\\.php$/i", $filename)) {
-					require $filename;
-				} else {
-					list($name, $method) = explode(".", $filename);
-					$instance = Registry::getInstance($name);
-					if ($instance === null) {
-						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
-					} else {
-						$instance->$method($this, $type, $sender, $channel, $message, $args);
-					}
-				}
-				if ($stop_execution) {
-					return;
-				}
-			}
-			return;
+			$this->event->fireEvent($eventObj);
 		} else if ($channel == "Org Msg"){
-			$type = "orgmsg";
+			$eventObj->type = "orgmsg";
 
-			forEach ($this->event->events[$type] as $filename) {
-				$msg = "";
-				if (preg_match("/\\.php$/i", $filename)) {
-					require $filename;
-				} else {
-					list($name, $method) = explode(".", $filename);
-					$instance = Registry::getInstance($name);
-					if ($instance === null) {
-						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
-					} else {
-						$instance->$method($this, $type, $sender, $channel, $message, $args);
-					}
-				}
-				if ($stop_execution) {
-					return;
-				}
-			}
-			return;
+			$this->event->fireEvent($eventObj);
 		} else if ($b[1] == 3 && $this->setting->get('guild_channel_status') == 1) {
 			$type = "guild";
 			$sendto = 'guild';
 			
-			// Events
-			forEach ($this->event->events[$type] as $filename) {
-				$msg = "";
-				if (preg_match("/\\.php$/i", $filename)) {
-					require $filename;
-				} else {
-					list($name, $method) = explode(".", $filename);
-					$instance = Registry::getInstance($name);
-					if ($instance === null) {
-						Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
-					} else {
-						$instance->$method($this, $type, $sender, $channel, $message, $args);
-					}
-				}
-				if ($stop_execution) {
-					return;
-				}
-			}
+			$eventObj->type = $type;
+			
+			$this->event->fireEvent($eventObj);
 			
 			if ($message[0] == $this->setting->get("symbol") && strlen($message) > 1) {
 				$message = substr($message, 1);
@@ -925,38 +673,18 @@ class Budabot extends AOChat {
 	}
 	
 	function process_private_channel_invite($args) {
-		$chatBot = Registry::getInstance('chatBot');
-		$db = $this->db;
-		$setting = $this->setting;
-
-		// modules can set this to true to stop execution after they are called
-		$stop_execution = false;
-	
 		$type = "extjoinprivrequest"; // Set message type.
 		$uid = $args[0];
-		$sender = $chatBot->lookup_user($uid);
+		$sender = $this->lookup_user($uid);
+		
+		$eventObj = new stdClass;
+		$eventObj->sender = $sender;
 
 		Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_INVITE => sender: '$sender'");
 
 		Logger::log_chat("Priv Channel Invitation", -1, "$sender channel invited.");
 
-		forEach ($this->event->events[$type] as $filename) {
-			$msg = "";
-			if (preg_match("/\\.php$/i", $filename)) {
-				require $filename;
-			} else {
-				list($name, $method) = explode(".", $filename);
-				$instance = Registry::getInstance($name);
-				if ($instance === null) {
-					Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
-				} else {
-					$instance->$method($this, $type, $sender, $args);
-				}
-			}
-			if ($stop_execution) {
-				return;
-			}
-		}
+		$this->event->fireEvent($eventObj);
 	}
 	
 	public function registerInstance($MODULE_NAME, $name, &$obj) {

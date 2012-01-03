@@ -1,4 +1,34 @@
 *****************************
+	Version 2.4_RC1:
+*****************************
+added !nanoloc
+various fixes for IRC relay
+modules can now set a priority for messages sent from the bot
+added !macro
+!opentimes now groups by org and shows total ct ql for each org
+error message now distinguishes between "unknown command" and "access denied"
+!whois now deals with current data, !lookup deals with data from name_history
+fixed LIMITS check
+added !guides scc for the bastion armor
+replaced !impql and !impreq with !implant
+added core API_MODULE
+added core PREFERENCES
+added setting 'xml_timeout' to control how long to wait for a response from xml servers
+updated nanos db with nanos from recent patches
+added 'relay_guild_abbreviation' setting to RELAY_MODULE
+updated items db to 18.04.13
+$db->query() now returns the resultset
+added prepared statement support to DB.class.php
+added $db->queryRow() for returning the first row from the resultset
+!cmdsearch now replaces !searchcmd; !searchcmd is now a default alias for !cmdsearch
+news items can now be stickied
+consolidated !nlline, and !nlprof into !nanolines
+consolidated !impql and !impreq into !implant, which now displays its output on one line
+removed default aliases: !alt, !leproc, !event, !mission, !onlineorg, !fast, !fa, !timer, !battle
+commands, subcommands, and events can now be registered to call a method instead of including a file
+commands, subcommands, events, and settings can now be registered using annotations
+
+*****************************
 	Version 2.3_GA:
 *****************************
 -added !rtimers (repeating timers) and !timers view (intended to be used with aliases)

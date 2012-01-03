@@ -16,6 +16,9 @@ class Worldnet {
 	/** @Inject */
 	public $help;
 	
+	/** @Inject */
+	public $chatBot;
+	
 	function init($MODULE_NAME) {
 		// since settings for channels are added dynamically, we need to re-add them manually
 		$data = $this->db->query("SELECT * FROM settings_<myname> WHERE module = ? AND name LIKE ?", $MODULE_NAME, "%_channel");
@@ -37,11 +40,11 @@ class Worldnet {
 	 * @Event("logOn")
 	 * @Description("Requests invite from worldnet bot")
 	 */
-	function logon($chatBot, $type, $sender) {
-		if (strtolower($this->setting->get('worldnet_bot')) == strtolower($sender)) {
+	function logon($eventObj) {
+		if (strtolower($this->setting->get('worldnet_bot')) == strtolower($eventObj->sender)) {
 			$msg = "!join";
-			Logger::log_chat("Out. Msg.", $sender, $msg);
-			$chatBot->send_tell($sender, $msg);
+			Logger::log_chat("Out. Msg.", $eventObj->sender, $msg);
+			$this->chatBot->send_tell($eventObj->sender, $msg);
 		}
 	}
 	
@@ -49,7 +52,7 @@ class Worldnet {
 	 * @Event("connect")
 	 * @Description("Adds worldnet bot to buddylist")
 	 */
-	function connect($chatbot, $type) {
+	function connect($eventObj) {
 		$this->buddyList->add($this->setting->get('worldnet_bot'), 'worldnet');
 	}
 	
@@ -57,9 +60,9 @@ class Worldnet {
 	 * @Event("extJoinPrivRequest")
 	 * @Description("Accepts invites from worldnet bot")
 	 */
-	function acceptInvite($chatBot, $type, $sender) {
-		if (strtolower($this->setting->get('worldnet_bot')) == strtolower($sender)) {
-			$chatBot->privategroup_join($sender);
+	function acceptInvite($eventObj) {
+		if (strtolower($this->setting->get('worldnet_bot')) == strtolower($eventObj->sender)) {
+			$this->chatBot->privategroup_join($eventObj->sender);
 		}
 	}
 	
@@ -67,7 +70,10 @@ class Worldnet {
 	 * @Event("extPriv")
 	 * @Description("Relays incoming messages to the guild/private channel")
 	 */
-	function incomingMessage($chatBot, $type, $sender, $channel, $message) {
+	function incomingMessage($eventObj) {
+		$sender = $eventObj->sender;
+		$message = $eventObj->message;
+	
 		if (strtolower($this->setting->get('worldnet_bot')) != strtolower($sender)) {
 			return;
 		}
@@ -101,10 +107,10 @@ class Worldnet {
 			// only send to guild or priv if the channel is enabled on the bot,
 			// but don't restrict tell subscriptions
 			if ($this->setting->get('broadcast_to_guild') == 1) {
-				$chatBot->send($msg, 'guild', true);
+				$this->chatBot->send($msg, 'guild', true);
 			}
 			if ($this->setting->get('broadcast_to_privchan') == 1) {
-				$chatBot->send($msg, 'priv', true);
+				$this->chatBot->send($msg, 'priv', true);
 			}
 		}
 	}
