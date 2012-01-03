@@ -37,8 +37,9 @@ if (preg_match("/^system$/i", $message, $arr)) {
 	$blob .= "<highlight>Uptime:<end> $date_string.\n\n";
 
 	$eventnum = 0;
-	forEach ($chatBot->events as $module) {
-		$eventnum += count($module);
+	$event = Registry::getInstance('event');
+	forEach ($event->events as $type => $events) {
+		$eventnum += count($events);
 	}
 
 	$blob .= "<highlight>Number of active tell commands:<end> " . count($chatBot->commands['msg']) . "\n";

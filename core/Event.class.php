@@ -17,6 +17,8 @@ class Event extends Annotation {
 	
 	/** @Inject */
 	public $chatBot;
+	
+	public $events = array();
 
 	public static $EVENT_TYPES = array(
 		'msg','priv','extpriv','guild','joinpriv','extjoinpriv','leavepriv','extleavepriv',
@@ -116,15 +118,15 @@ class Event extends Annotation {
 				}
 			}
 		} else if (in_array($type, Event::$EVENT_TYPES)) {
-			if (!isset($chatBot->events[$type]) || !in_array($actual_filename, $chatBot->events[$type])) {
-				$chatBot->events[$type] []= $actual_filename;
+			if (!isset($this->events[$type]) || !in_array($actual_filename, $this->events[$type])) {
+				$this->events[$type] []= $actual_filename;
 			} else {
 				Logger::log('ERROR', 'Event', "Error activating event Type:($type) File:($filename). Event already activated!");
 			}
 		} else {
 			$time = Util::parseTime($type);
 			if ($time > 0) {
-				$chatBot->cronevents[] = array('nextevent' => 0, 'filename' => $actual_filename, 'time' => $time);
+				$this->cronevents[] = array('nextevent' => 0, 'filename' => $actual_filename, 'time' => $time);
 			} else {
 				Logger::log('ERROR', 'Event', "Error activating event Type:($type) File:($filename). The type is not a recognized event type!");
 			}
@@ -136,8 +138,6 @@ class Event extends Annotation {
 	 * @description: Deactivates an event
 	 */
 	public function deactivate($type, $filename) {
-		$chatBot = Registry::getInstance('chatBot');
-		
 		$type = strtolower($type);
 
 		Logger::log('debug', 'Event', "Deactivating event Type:($type) File:($filename)");
@@ -151,18 +151,18 @@ class Event extends Annotation {
 		}
 		
 		if (in_array($type, Event::$EVENT_TYPES)) {
-			if (in_array($actual_filename, $chatBot->events[$type])) {
+			if (in_array($actual_filename, $this->events[$type])) {
 				$found = true;
-				$temp = array_flip($chatBot->events[$type]);
-				unset($chatBot->events[$type][$temp[$actual_filename]]);
+				$temp = array_flip($this->events[$type]);
+				unset($this->events[$type][$temp[$actual_filename]]);
 			}
 		} else {
 			$time = Util::parseTime($type);
 			if ($time > 0) {
-				forEach ($chatBot->cronevents as $key => $event) {
+				forEach ($this->cronevents as $key => $event) {
 					if ($time == $event['time'] && $event['filename'] == $actual_filename) {
 						$found = true;
-						unset($chatBot->cronevents[$key]);
+						unset($this->cronevents[$key]);
 					}
 				}
 			} else {
@@ -242,11 +242,11 @@ class Event extends Annotation {
 		if ($this->chatBot->is_ready()) {
 			$time = time();
 			Logger::log('DEBUG', 'Cron', "Executing cron events at '$time'");
-			forEach ($chatBot->cronevents as $key => $event) {
+			forEach ($this->cronevents as $key => $event) {
 				if ($event['nextevent'] <= $time) {
 					Logger::log('DEBUG', 'Cron', "Executing cron event '${event['filename']}'");
 					$this->executeCronEvent($event['time'], $event['filename']);
-					$chatBot->cronevents[$key]['nextevent'] = $time + $event['time'];
+					$this->cronevents[$key]['nextevent'] = $time + $event['time'];
 				}
 			}
 		}
@@ -286,7 +286,7 @@ class Event extends Annotation {
 		$setting = Registry::getInstance('setting');
 
 		// Check files, for all 'connect' events.
-		forEach ($chatBot->events['connect'] as $filename) {
+		forEach ($this->events['connect'] as $filename) {
 			if (preg_match("/\\.php$/i", $filename)) {
 				require $filename;
 			} else {

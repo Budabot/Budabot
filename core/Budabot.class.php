@@ -126,11 +126,9 @@ class Budabot extends AOChat {
 		$this->db->exec("CREATE TABLE IF NOT EXISTS cmd_alias_<myname> (`cmd` VARCHAR(25) NOT NULL, `module` VARCHAR(50), `alias` VARCHAR(25) NOT NULL, `status` INT DEFAULT '0')");
 		
 		// Delete old vars in case they exist
-		$this->events = array();
 		$this->helpfiles = array();
 		$this->subcommands = array();
 		$this->cmd_aliases = array();
-
 		$this->commands = array();
 		
 		unset($this->privMsgs);
@@ -409,7 +407,7 @@ class Budabot extends AOChat {
 
 		$type = 'allpackets';
 
-		forEach ($chatBot->events[$type] as $filename) {
+		forEach ($this->event->events[$type] as $filename) {
 			$msg = "";
 			if (preg_match("/\\.php$/i", $filename)) {
 				require $filename;
@@ -472,7 +470,7 @@ class Budabot extends AOChat {
 			$chatBot->chatlist[$sender] = true;
 
 			// Check files, for all 'player joined channel events'.
-			forEach ($chatBot->events[$type] as $filename) {
+			forEach ($this->event->events[$type] as $filename) {
 				$msg = '';
 				if (preg_match("/\\.php$/i", $filename)) {
 					require $filename;
@@ -492,7 +490,7 @@ class Budabot extends AOChat {
 		} else {
 			$type = "extjoinpriv";
 			
-			forEach ($chatBot->events[$type] as $filename) {
+			forEach ($this->event->events[$type] as $filename) {
 				$msg = '';
 				if (preg_match("/\\.php$/i", $filename)) {
 					require $filename;
@@ -534,7 +532,7 @@ class Budabot extends AOChat {
 			unset($chatBot->chatlist[$sender]);
 			
 			// Check files, for all 'player left channel events'.
-			forEach ($chatBot->events[$type] as $filename) {
+			forEach ($this->event->events[$type] as $filename) {
 				$msg = '';
 				if (preg_match("/\\.php$/i", $filename)) {
 					require $filename;
@@ -554,7 +552,7 @@ class Budabot extends AOChat {
 		} else {
 			$type = "extleavepriv";
 			
-			forEach ($chatBot->events[$type] as $filename) {
+			forEach ($this->event->events[$type] as $filename) {
 				$msg = '';
 				if (preg_match("/\\.php$/i", $filename)) {
 					require $filename;
@@ -606,7 +604,7 @@ class Budabot extends AOChat {
 			Logger::log('DEBUG', "Buddy", "$sender logged off");
 
 			// Check files, for all 'player logged off events'
-			forEach ($chatBot->events[$type] as $filename) {
+			forEach ($this->event->events[$type] as $filename) {
 				$msg = "";
 				if (preg_match("/\\.php$/i", $filename)) {
 					require $filename;
@@ -629,7 +627,7 @@ class Budabot extends AOChat {
 			Logger::log('INFO', "Buddy", "$sender logged on");
 
 			// Check files, for all 'player logged on events'.
-			forEach ($chatBot->events[$type] as $filename) {
+			forEach ($this->event->events[$type] as $filename) {
 				$msg = "";
 				if (preg_match("/\\.php$/i", $filename)) {
 					require $filename;
@@ -698,7 +696,7 @@ class Budabot extends AOChat {
 		}
 		
 		// Events
-		forEach ($chatBot->events[$type] as $filename) {
+		forEach ($this->event->events[$type] as $filename) {
 			$msg = "";
 			if (preg_match("/\\.php$/i", $filename)) {
 					require $filename;
@@ -769,7 +767,7 @@ class Budabot extends AOChat {
 			$type = "priv";
 
 			// Events
-			forEach ($chatBot->events[$type] as $filename) {
+			forEach ($this->event->events[$type] as $filename) {
 				$msg = "";
 				if (preg_match("/\\.php$/i", $filename)) {
 					require $filename;
@@ -796,7 +794,7 @@ class Budabot extends AOChat {
 			
 			$type = "extpriv";
 			
-			forEach ($chatBot->events[$type] as $filename) {
+			forEach ($this->event->events[$type] as $filename) {
 				$msg = "";
 				if (preg_match("/\\.php$/i", $filename)) {
 					require $filename;
@@ -857,7 +855,7 @@ class Budabot extends AOChat {
 		if ($channel == "All Towers" || $channel == "Tower Battle Outcome") {
 			$type = "towers";
 			
-			forEach ($chatBot->events[$type] as $filename) {
+			forEach ($this->event->events[$type] as $filename) {
 				$msg = "";
 				if (preg_match("/\\.php$/i", $filename)) {
 					require $filename;
@@ -878,7 +876,7 @@ class Budabot extends AOChat {
 		} else if ($channel == "Org Msg"){
 			$type = "orgmsg";
 
-			forEach ($chatBot->events[$type] as $filename) {
+			forEach ($this->event->events[$type] as $filename) {
 				$msg = "";
 				if (preg_match("/\\.php$/i", $filename)) {
 					require $filename;
@@ -901,7 +899,7 @@ class Budabot extends AOChat {
 			$sendto = 'guild';
 			
 			// Events
-			forEach ($chatBot->events[$type] as $filename) {
+			forEach ($this->event->events[$type] as $filename) {
 				$msg = "";
 				if (preg_match("/\\.php$/i", $filename)) {
 					require $filename;
@@ -942,7 +940,7 @@ class Budabot extends AOChat {
 
 		Logger::log_chat("Priv Channel Invitation", -1, "$sender channel invited.");
 
-		forEach ($chatBot->events[$type] as $filename) {
+		forEach ($this->event->events[$type] as $filename) {
 			$msg = "";
 			if (preg_match("/\\.php$/i", $filename)) {
 				require $filename;
