@@ -39,6 +39,8 @@ class Setting extends Annotation {
 	
 	/** @Inject */
 	public $chatBot;
+	
+	public $settings = array();
 
 	/**
 	 * @name: add
@@ -76,7 +78,7 @@ class Setting extends Annotation {
 	  	} else {
 			$sql = "INSERT INTO settings_<myname> (`name`, `module`, `type`, `mode`, `value`, `options`, `intoptions`, `description`, `source`, `admin`, `verify`, `help`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			$this->db->exec($sql, $name, $module, $type, $mode, $value, $options, $intoptions, $description, 'db', $admin, '1', $help);
-		  	$this->chatBot->settings[$name] = $value;
+		  	$this->settings[$name] = $value;
 		}
 	}
 
@@ -87,8 +89,8 @@ class Setting extends Annotation {
 	 */	
 	public function get($name) {
 		$name = strtolower($name);
-		if (isset($this->chatBot->settings[$name])) {
-	  		return $this->chatBot->settings[$name];
+		if (isset($this->settings[$name])) {
+	  		return $this->settings[$name];
 	  	} else {
 			Logger::log("ERROR", "Setting", "Could not retrieve value for setting '$name' because setting does not exist");
 	  		return false;
@@ -105,9 +107,9 @@ class Setting extends Annotation {
 	public function save($name, $value) {
 		$name = strtolower($name);
 
-		if (isset($this->chatBot->settings[$name])) {
+		if (isset($this->settings[$name])) {
 			$this->db->exec("UPDATE settings_<myname> SET `verify` = 1, `value` = ? WHERE `name` = ?", $value, $name);
-			$this->chatBot->settings[$name] = $value;
+			$this->settings[$name] = $value;
 			return true;
 		} else {
 			Logger::log("ERROR", "Setting", "Could not save value '$value' for setting '$name' because setting does not exist");
