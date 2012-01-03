@@ -81,6 +81,7 @@ class Event extends Annotation {
 		// for file includes
 		$chatBot = Registry::getInstance('chatBot');
 		$db = $this->db;
+		$setting = $this->setting;
 		
 		$type = strtolower($type);
 		
@@ -103,7 +104,17 @@ class Event extends Annotation {
 		}
 		
 		if ($type == "setup") {
-			require $actual_filename;
+			if (preg_match("/\\.php$/i", $actual_filename)) {
+				require $actual_filename;
+			} else {
+				list($name, $method) = explode(".", $actual_filename);
+				$instance = Registry::getInstance($name);
+				if ($instance === null) {
+					Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
+				} else {
+					$instance->$method($chatBot, $type);
+				}
+			}
 		} else if (in_array($type, Event::$EVENT_TYPES)) {
 			if (!isset($chatBot->events[$type]) || !in_array($actual_filename, $chatBot->events[$type])) {
 				$chatBot->events[$type] []= $actual_filename;

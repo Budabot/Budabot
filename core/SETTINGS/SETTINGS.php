@@ -3,7 +3,7 @@
 	$command->activate("priv", "$MODULE_NAME/bot_settings.php", "settings", "mod");
 	$command->activate("guild", "$MODULE_NAME/bot_settings.php", "settings", "mod");
 
-	$event->activate("setup", "$MODULE_NAME/upload_settings.php");
+	$event->activate("setup", "Setting.upload");
 
 	$setting->add($MODULE_NAME, 'default_guild_color', "default guild color", 'edit', "color", "<font color='#84FFFF'>");
 	$setting->add($MODULE_NAME, 'default_priv_color', "default private channel color", 'edit', "color", "<font color='#84FFFF'>");

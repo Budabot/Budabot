@@ -92,6 +92,8 @@ class Setting extends Annotation {
 		if (isset($this->settings[$name])) {
 	  		return $this->settings[$name];
 	  	} else {
+			print_r($this);
+			sleep(100);
 			Logger::log("ERROR", "Setting", "Could not retrieve value for setting '$name' because setting does not exist");
 	  		return false;
 		}
@@ -130,6 +132,16 @@ class Setting extends Annotation {
 			return "<highlight>{$options[$key]}<end>\n";
 		} else {
 			return "<highlight>{$row->value}<end>\n";
+		}
+	}
+	
+	public function upload() {
+		$this->settings = array();
+
+		//Upload Settings from the db that are set by modules
+		$data = $this->db->query("SELECT * FROM settings_<myname>");
+		forEach ($data as $row) {
+			$this->settings[$row->name] = $row->value;
 		}
 	}
 }
