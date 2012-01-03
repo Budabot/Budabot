@@ -4,6 +4,18 @@ class Command extends Annotation {
 
 	/** @Inject */
 	public $db;
+	
+	/** @Inject */
+	public $chatBot;
+	
+	/** @Inject */
+	public $setting;
+	
+	/** @Inject */
+	public $accessLevel;
+	
+	/** @Inject */
+	public $help;
 
 	/**
 	 * @name: register
@@ -160,6 +172,103 @@ class Command extends Annotation {
 		
 		$sql = "SELECT * FROM cmdcfg_<myname> WHERE `cmd` = ? {$type_sql}";
 		return $this->db->query($sql, $command);
+	}
+	
+	function process($type, $message, $sender, $sendto) {
+		$chatBot = $this->chatBot;
+		$db = $this->db;
+		$setting = $this->setting;
+		
+		// Admin Code
+		list($cmd, $params) = explode(' ', $message, 2);
+		$cmd = strtolower($cmd);
+		
+		// Check if this is an alias for a command
+		if (isset($chatBot->cmd_aliases[$cmd])) {
+			Logger::log('DEBUG', 'Core', "Command alias found command: '{$chatBot->cmd_aliases[$cmd]}' alias: '{$cmd}'");
+			$cmd = $chatBot->cmd_aliases[$cmd];
+			if ($params) {
+				$message = $cmd . ' ' . $params;
+			} else {
+				$message = $cmd;
+			}
+			$chatBot->process_command($type, $message, $sender, $sendto);
+			return;
+		}
+		
+		$admin = $chatBot->commands[$type][$cmd]["admin"];
+		$filename = $chatBot->commands[$type][$cmd]["filename"];
+
+		// Check if a subcommands for this exists
+		if (isset($chatBot->subcommands[$cmd])) {
+			forEach ($chatBot->subcommands[$cmd] as $row) {
+				if ($row->type == $type && preg_match("/^{$row->cmd}$/i", $message)) {
+					$admin = $row->admin;
+					$filename = $row->file;
+				}
+			}
+		}
+		
+		// if file doesn't exist
+		if ($filename == '') {
+			if (($this->setting->get('guild_channel_cmd_feedback') == 0 && $type == 'guild') || (($this->setting->get('private_channel_cmd_feedback') == 0 && $type == 'priv'))) {
+				return;
+			}
+				
+			$chatBot->send("Error! Unknown command.", $sendto);
+			$chatBot->spam[$sender] = $chatBot->spam[$sender] + 20;
+			return;
+		}
+
+		// if the character doesn't have access
+		if ($this->accessLevel->checkAccess($sender, $admin) !== true) {
+			// if they've disabled feedback for guild or private channel, just return
+			if (($this->setting->get('guild_channel_cmd_feedback') == 0 && $type == 'guild') || (($this->setting->get('private_channel_cmd_feedback') == 0 && $type == 'priv'))) {
+				return;
+			}
+				
+			$chatBot->send("Error! Access denied.", $sendto);
+			$chatBot->spam[$sender] = $chatBot->spam[$sender] + 20;
+			return;
+		}
+
+		if ($cmd != 'grc' && $this->setting->get('record_usage_stats') == 1) {
+			Registry::getInstance('usage')->record($type, $cmd, $sender);
+		}
+	
+		$syntax_error = false;
+		$msg = "";
+		if (preg_match("/\\.php$/i", $filename)) {
+			require $filename;
+		} else {
+			list($name, $method) = explode(".", $filename);
+			$instance = Registry::getInstance($name);
+			if ($instance === null) {
+				Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
+			} else {
+				// methods will return false to indicate a syntax error, so when a false is returned,
+				// we set $syntax_error = true, otherwise we set it to false
+				$syntax_error = ($instance->$method($this, $message, $type, $sender, $sendto) !== false ? false : true);
+			}
+		}
+		if ($syntax_error === true) {
+			$results = $this->get($cmd, $type);
+			$result = $results[0];
+			if ($result->help != '') {
+				$blob = $this->help->find($result->help, $sender);
+				$helpcmd = ucfirst($result->help);
+			} else {
+				$blob = $this->help->find($cmd, $sender);
+				$helpcmd = ucfirst($cmd);
+			}
+			if ($blob !== false) {
+				$msg = Text::make_blob("Help ($helpcmd)", $blob);
+				$chatBot->send($msg, $sendto);
+			} else {
+				$chatBot->send("Error! Invalid syntax for this command.", $sendto);
+			}
+		}
+		$chatBot->spam[$sender] = $chatBot->spam[$sender] + 10;
 	}
 }
 

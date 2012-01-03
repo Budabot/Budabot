@@ -29,6 +29,7 @@ class Registry {
 
 		$instance = Registry::$repo[$name];
 		if ($instance == null) {
+			Logger::log("WARN", "Registry", "Could not find instance for $name.");
 			return null;
 		}
 		
