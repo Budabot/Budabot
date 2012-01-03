@@ -17,16 +17,16 @@ if (preg_match("/^settings$/i", $message)) {
 			$blob .= " ($editLink)";
 		}
 
-		$blob .= ": " . Setting::displayValue($row);
+		$blob .= ": " . $setting->displayValue($row);
 	}
 
   	$msg = Text::make_blob("Bot Settings", $blob);
  	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^settings change ([a-z0-9_]+)$/i", $message, $arr)) {
-	$setting = strtolower($arr[1]);
- 	$row = $db->queryRow("SELECT * FROM settings_<myname> WHERE `name` = ?", $setting);
+	$settingName = strtolower($arr[1]);
+ 	$row = $db->queryRow("SELECT * FROM settings_<myname> WHERE `name` = ?", $settingName);
 	if ($row === null) {
-		$msg = "Could not find setting <highlight>{$setting}<end>.";
+		$msg = "Could not find setting <highlight>{$settingName}<end>.";
 	} else {
 		if ($row->options != '') {
 			$options = explode(";", $row->options);
@@ -36,11 +36,11 @@ if (preg_match("/^settings$/i", $message)) {
 			$options_map = array_combine($intoptions, $options);
 		}
 
-		$blob = "<header> :::::: Settings Info for {$setting} :::::: <end>\n\n";
+		$blob = "<header> :::::: Settings Info for {$settingName} :::::: <end>\n\n";
 		$blob .= "Name: <highlight>{$row->name}<end>\n";
 		$blob .= "Module: <highlight>{$row->module}<end>\n";
 		$blob .= "Descrption: <highlight>{$row->description}<end>\n";
-		$blob .= "Current Value: " . Setting::displayValue($row) . "\n";
+		$blob .= "Current Value: " . $setting->displayValue($row) . "\n";
 
 		if ($row->type == 'color') {
 		  	$blob .= "For this setting you can set any Color in the HTML Hexadecimal Color Format.\n";
@@ -100,17 +100,17 @@ if (preg_match("/^settings$/i", $message)) {
 		if ($row->help != '') {
 			$help = Registry::getInstance('help')->find($row->help, null);
 			if ($help === false) {
-				Logger::log('ERROR', 'Settings', "Help command <highlight>{$row->help}<end> for setting <highlight>{$setting}<end> could not be found.");
+				Logger::log('ERROR', 'Settings', "Help command <highlight>{$row->help}<end> for setting <highlight>{$settingName}<end> could not be found.");
 			}
 		} else {
-			$help = Registry::getInstance('help')->find($setting, null);
+			$help = Registry::getInstance('help')->find($settingName, null);
 		}
 
 		if ($help !== false) {
 			$blob .= "\n\n" . $help;
 		}
 		
-		$msg = Text::make_blob("Settings Info for {$setting}", $blob);
+		$msg = Text::make_blob("Settings Info for {$settingName}", $blob);
 	}
 
  	$chatBot->send($msg, $sendto);
@@ -166,7 +166,7 @@ if (preg_match("/^settings$/i", $message)) {
 		}
 	}
 	if ($new_setting != "") {
-		Setting::save($name_setting, $new_setting);
+		$setting->save($name_setting, $new_setting);
 		$msg = "Setting successfull saved.";
 	}
  	$chatBot->send($msg, $sendto);

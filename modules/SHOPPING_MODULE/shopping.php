@@ -4,7 +4,7 @@ $fields = array();
 $fields['q'] = '';
 $fields['type'] = '';
 $fields['s'] = $chatBot->vars["dimension"];
-$fields['limit'] = Setting::get('max_shopping_results');
+$fields['limit'] = $setting->get('max_shopping_results');
 
 if (preg_match("/^wtb (.+)$/i", $message, $arr)) {
 	//WTS messages = 0, WTB messages = 1

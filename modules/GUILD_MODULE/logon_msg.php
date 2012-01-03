@@ -15,11 +15,11 @@ if (preg_match("/^logon$/i", $message)) {
 	if ($logon_msg == 'clear') {
 		Preferences::save($sender, 'logon_msg', '');
 		$msg = "Your logon message has been cleared.";
-	} else if (strlen($logon_msg) <= Setting::get('max_logon_msg_size')) {
+	} else if (strlen($logon_msg) <= $setting->get('max_logon_msg_size')) {
 		Preferences::save($sender, 'logon_msg', $logon_msg);
 		$msg = "Your logon message has been set.";
 	} else {
-		$msg = "Your logon message is too large. Your logon message may contain a maximum of " . Setting::get('max_logon_msg_size') . " characters.";
+		$msg = "Your logon message is too large. Your logon message may contain a maximum of " . $setting->get('max_logon_msg_size') . " characters.";
 	}
     $chatBot->send($msg, $sendto);
 } else {

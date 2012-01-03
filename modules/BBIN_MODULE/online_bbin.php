@@ -7,7 +7,7 @@ if (preg_match("/^onlinebbin$/i", $message)) {
 		return;
 	}
 
-	$names = IRC::getUsersInChannel($bbinSocket, Setting::get('bbin_channel'));
+	$names = IRC::getUsersInChannel($bbinSocket, $setting->get('bbin_channel'));
 	$numusers = count($names);
 	$blob = "<header> :::::: BBIN Online ($numusers) :::::: <end>\n\n";
 	forEach ($names as $value) {

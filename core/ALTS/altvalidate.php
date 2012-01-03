@@ -4,7 +4,7 @@ if (preg_match("/^altvalidate ([a-z0-9- ]+)$/i", $message, $arr)) {
 	$altInfo = Alts::get_alt_info($sender);
 	$alt = ucfirst(strtolower($arr[1]));
 
-	if (!$altInfo->is_validated($sender) || ($sender != $altInfo->main && Setting::get('validate_from_validated_alt') == 0)) {
+	if (!$altInfo->is_validated($sender) || ($sender != $altInfo->main && $setting->get('validate_from_validated_alt') == 0)) {
 		$chatBot->send("<highlight>$alt<end> cannot be validated from your current character.", $sendto);
 		return;
 	}

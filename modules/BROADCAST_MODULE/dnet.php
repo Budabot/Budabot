@@ -6,7 +6,7 @@ $whitelist = Registry::getInstance('whitelist');
 
 if (preg_match("/^dnet (enable|on|add)/i", $message)) {
 	if (!isset($chatBot->data["broadcast_list"][$name])) {
-		Setting::save('dnet_status', 1);
+		$setting->save('dnet_status', 1);
 		$db->query("INSERT INTO broadcast_<myname> (`name`, `added_by`, `dt`) VALUES (?, ?, ?)", $name, $sender, time());
 		$whitelist->add($name, $sender . " (broadcast bot)");
 
@@ -21,7 +21,7 @@ if (preg_match("/^dnet (enable|on|add)/i", $message)) {
 	$msg = "Dnet support has been <green>enabled<end>.";
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^dnet (disable|off|rem|remove)$/i", $message)) {
-	Setting::save('dnet_status', 0);
+	$setting->save('dnet_status', 0);
 	$db->exec("DELETE FROM broadcast_<myname> WHERE name = ?", $name);
 	$whitelist->remove($name);
 

@@ -9,7 +9,7 @@
 
 global $ircSocket;
 if (IRC::isConnectionActive($ircSocket)) {
-	if ($args[2][0] != Setting::get("symbol")) {
+	if ($args[2][0] != $setting->get("symbol")) {
 		
 		$pattern = '/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/';
 		$replace = chr(3) . chr(3) . '\4' . chr(3) . ' ' . chr(3) . '(http://auno.org/ao/db.php?id=\1&id2=\2&ql=\3)' . chr(3) . chr(3);
@@ -20,7 +20,7 @@ if (IRC::isConnectionActive($ircSocket)) {
 		if (Util::isValidSender($sender)) {
 			$msg = "$sender: $msg";
 		}
-		IRC::send($ircSocket, Setting::get('irc_channel'), encodeGuildMessage(getGuildAbbreviation(), $msg));
+		IRC::send($ircSocket, $setting->get('irc_channel'), encodeGuildMessage(getGuildAbbreviation(), $msg));
 		Logger::log_chat("Out. IRC Msg.", $sender, $msg);
 	}
 }

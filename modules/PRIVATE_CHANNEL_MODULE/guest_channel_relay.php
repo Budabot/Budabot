@@ -1,18 +1,18 @@
 <?php
 
 // Check if the private channel relay is enabled
-if (Setting::get("guest_relay") != 1) {
+if ($setting->get("guest_relay") != 1) {
 	return;
 }
 
 // Check that it's not a command or if it is a command, check that guest_relay_commands is not disabled
-if ($args[2][0] == Setting::get("symbol") && Setting::get("guest_relay_commands") != 1) {
+if ($args[2][0] == $setting->get("symbol") && $setting->get("guest_relay_commands") != 1) {
 	return;
 }
 
-$guest_color_channel = Setting::get("guest_color_channel");
-$guest_color_guest = Setting::get("guest_color_guest");
-$guest_color_guild = Setting::get("guest_color_guild");
+$guest_color_channel = $setting->get("guest_color_channel");
+$guest_color_guest = $setting->get("guest_color_guest");
+$guest_color_guild = $setting->get("guest_color_guild");
 
 if ($type == "priv") {
 	//Relay the message to the guild channel

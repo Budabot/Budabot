@@ -17,7 +17,7 @@ if (preg_match("/^raffle start (\d+) (.+)$/i", $message, $arr)) {
 
 	$item = $arr[2];
 	$count = $arr[1];
-	$seconds = Setting::get("defaultraffletime");
+	$seconds = $setting->get("defaultraffletime");
 	$timeString = Util::unixtime_to_readable($seconds);
 
 	$chatBot->data["Raffles"] = array(
@@ -61,7 +61,7 @@ Click $link to join the raffle. Raffle will end in $timeString.
 
 	$item = $arr[1];
 	$count = 1;
-	$seconds = Setting::get("defaultraffletime");
+	$seconds = $setting->get("defaultraffletime");
 	$timeString = Util::unixtime_to_readable($seconds);
 
 	$chatBot->data["Raffles"] = array(

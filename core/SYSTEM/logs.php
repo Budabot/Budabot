@@ -21,7 +21,7 @@ if (preg_match("/^logs$/i", $message)) {
 } else if (preg_match("/^logs ([a-zA-Z0-9_\\.]+)$/i", $message, $arr)) {
 	$filename = Logger::get_logging_directory() . "/" . $arr[1];
 	$size = filesize($filename);
-	$readsize = Setting::get('max_blob_size') - 500;
+	$readsize = $setting->get('max_blob_size') - 500;
 	
 	if ($fp = fopen($filename, 'r')) {
 		fseek($fp, $size - $readsize);

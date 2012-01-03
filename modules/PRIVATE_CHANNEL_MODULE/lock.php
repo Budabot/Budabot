@@ -30,7 +30,7 @@
    */
    
 if (preg_match("/^lock$/i", $message)) {
-  	if (Setting::get("priv_status") == "0") {
+  	if ($setting->get("priv_status") == "0") {
 	    $msg = "Private channel is already locked.";
 		$chatBot->send($msg, $sendto);
 		return;
@@ -43,10 +43,10 @@ if (preg_match("/^lock$/i", $message)) {
 		$chatBot->send($msg, $sender);
 	}
 	
-	Setting::save("priv_status", "0");
+	$setting->save("priv_status", "0");
 } else if (preg_match("/^lock (.+)$/i", $message, $arr)) {
   	$reason = $arr[1];
-	if (Setting::get("priv_status") == "0") {
+	if ($setting->get("priv_status") == "0") {
 	    $msg = "Private channel is already locked.";
     	$chatBot->send($msg, $sendto);
 		return;
@@ -59,10 +59,10 @@ if (preg_match("/^lock$/i", $message)) {
 		$chatBot->send($msg, $sender);
 	}
 	
-	Setting::save("priv_status", "0");
-	Setting::save("priv_status_reason", $reason);
+	$setting->save("priv_status", "0");
+	$setting->save("priv_status_reason", $reason);
 } else if (preg_match("/^unlock$/i", $message)) {
-  	if (Setting::get("priv_status") == "1") {
+  	if ($setting->get("priv_status") == "1") {
 	    $msg = "Private channel is already open.";
     	$chatBot->send($msg, $sendto);
 		return;
@@ -75,8 +75,8 @@ if (preg_match("/^lock$/i", $message)) {
 		$chatBot->send($msg, $sender);
 	}
 	
-	Setting::save("priv_status", "1");
-	Setting::save("priv_status_reason", "none");
+	$setting->save("priv_status", "1");
+	$setting->save("priv_status_reason", "none");
 } else {
 	$syntax_error = true;
 }

@@ -35,7 +35,7 @@ if (preg_match("/^nano (.+)$/i", $message, $arr)) {
 		ORDER BY
 			n1.lowql DESC, n1.name ASC
 		LIMIT
-			" . Setting::get("maxnano");
+			" . $setting->get("maxnano");
 	
 	$data = $db->query($sql);
 

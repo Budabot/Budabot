@@ -10,9 +10,9 @@ if (preg_match("/^tellrelay (.*)$/", $message, $arr)) {
 		return;
 	}
 	
-	Setting::save('relaytype', 1);  // 1 for 'tell'
-	Setting::save('relaysymbol', 'Always relay');
-	Setting::save('relaybot', $name);
+	$setting->save('relaytype', 1);  // 1 for 'tell'
+	$setting->save('relaysymbol', 'Always relay');
+	$setting->save('relaybot', $name);
 	
 	$msg = "Relay set up successfully with <highlight>$name<end>.  Please issue command '/tell $name tellrelay <myname>' if not done so already to complete the setup.";
 	$chatBot->send($msg, $sendto);

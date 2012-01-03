@@ -36,6 +36,9 @@ help = Helpfile for this setting
 class Setting extends Annotation {
 	/** @Inject */
 	public $db;
+	
+	/** @Inject */
+	public $chatBot;
 
 	/**
 	 * @name: add
@@ -51,8 +54,6 @@ class Setting extends Annotation {
 	 * @description: Adds a new setting
 	 */	
 	public function add($module, $name, $description, $mode, $type, $value, $options = '', $intoptions = '', $admin = 'mod', $help = '') {
-		$chatBot = Registry::getInstance('chatBot');
-		
 		$name = strtolower($name);
 		$type = strtolower($type);
 		
@@ -69,13 +70,13 @@ class Setting extends Annotation {
 			}
 		}
 
-		if (isset($chatBot->existing_settings[$name])) {
+		if (isset($this->chatBot->existing_settings[$name])) {
 			$sql = "UPDATE settings_<myname> SET `module` = ?, `type` = ?, `mode` = ?, `options` = ?, `intoptions` = ?, `description` = ?, `admin` = ?, `verify` = 1, `help` = ? WHERE `name` = ?";
 			$this->db->exec($sql, $module, $type, $mode, $options, $intoptions, $description, $admin, $help, $name);
 	  	} else {
 			$sql = "INSERT INTO settings_<myname> (`name`, `module`, `type`, `mode`, `value`, `options`, `intoptions`, `description`, `source`, `admin`, `verify`, `help`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			$this->db->exec($sql, $name, $module, $type, $mode, $value, $options, $intoptions, $description, 'db', $admin, '1', $help);
-		  	$chatBot->settings[$name] = $value;
+		  	$this->chatBot->settings[$name] = $value;
 		}
 	}
 
@@ -84,13 +85,12 @@ class Setting extends Annotation {
 	 * @description: Gets the value of a setting
 	 * @return: the value of the setting, or false if a setting with that name does not exist
 	 */	
-	public static function get($name) {
-		$chatBot = Registry::getInstance('chatBot');
-	
+	public function get($name) {
 		$name = strtolower($name);
-		if (isset($chatBot->settings[$name])) {
-	  		return $chatBot->settings[$name];
+		if (isset($this->chatBot->settings[$name])) {
+	  		return $this->chatBot->settings[$name];
 	  	} else {
+			Logger::log("ERROR", "Setting", "Could not retrieve value for setting '$name' because setting does not exist");
 	  		return false;
 		}
 	}
@@ -102,22 +102,20 @@ class Setting extends Annotation {
 	 * @param: @value - the new value to set the setting to
 	 * @return: false if the setting with that name does not exist, true otherwise
 	 */	
-	public static function save($name, $value) {
-		$chatBot = Registry::getInstance('chatBot');
-		$db = Registry::getInstance('db');
-
+	public function save($name, $value) {
 		$name = strtolower($name);
 
-		if (isset($chatBot->settings[$name])) {
-			$db->exec("UPDATE settings_<myname> SET `verify` = 1, `value` = ? WHERE `name` = ?", $value, $name);
-			$chatBot->settings[$name] = $value;
+		if (isset($this->chatBot->settings[$name])) {
+			$this->db->exec("UPDATE settings_<myname> SET `verify` = 1, `value` = ? WHERE `name` = ?", $value, $name);
+			$this->chatBot->settings[$name] = $value;
 			return true;
 		} else {
+			Logger::log("ERROR", "Setting", "Could not save value '$value' for setting '$name' because setting does not exist");
 			return false;
 		}
 	}
 	
-	public static function displayValue($row) {
+	public function displayValue($row) {
 		$options = explode(";", $row->options);
 		if ($row->type == "color") {
 			return $row->value."Current Color</font>\n";

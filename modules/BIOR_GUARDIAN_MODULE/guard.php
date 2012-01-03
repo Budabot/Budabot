@@ -49,7 +49,7 @@ if (preg_match("/^guard$/i", $message)) {
 			$num++;
 			$msg .= " [$num. <highlight>$player<end> $status]";
 			$chatBot->data['glist'][] = $player;
-			if ($num >= Setting::get("guard_max")) {
+			if ($num >= $setting->get("guard_max")) {
 				break;
 			}
 		}

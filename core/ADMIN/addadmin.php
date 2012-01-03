@@ -23,7 +23,7 @@ if (preg_match("/^addadmin (.+)$/i", $message, $arr)){
 	}
 
 	$ai = Alts::get_alt_info($who);
-	if (Setting::get("alts_inherit_admin") == 1 && $ai->main != $who) {
+	if ($setting->get("alts_inherit_admin") == 1 && $ai->main != $who) {
 		$msg = "<red>Alts inheriting admin is enabled, and $who is not a main character.<end>";
 		if ($chatBot->admins[$ai->main]["level"] == 4) {
 			$msg .= " <highlight>{$ai->main}<end> is already an administrator.";

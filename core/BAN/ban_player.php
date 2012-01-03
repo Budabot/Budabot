@@ -33,7 +33,7 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 	$ban->add($who, $sender, $length, $reason);
 
 	$chatBot->send("You have banned <highlight>$who<end> from this bot for $timeString.", $sendto);
-	if (Setting::get('notify_banned_player') == 1) {
+	if ($setting->get('notify_banned_player') == 1) {
 		$chatBot->send("You have been banned from this bot by <highlight>$sender<end> for $timeString. Reason: $reason", $who);
 	}
 } else if (preg_match("/^ban (.+) ([a-z0-9]+)$/i", $message, $arr)) {
@@ -64,7 +64,7 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 	
 	$ban->add($who, $sender, $length, '');
 
-	if (Setting::get('notify_banned_player') == 1) {
+	if ($setting->get('notify_banned_player') == 1) {
 		$chatBot->send("You have banned <highlight>$who<end> from this bot for $timeString.", $sendto);
 	}
 	$chatBot->send("You have been banned from this bot by <highlight>$sender<end> for $timeString.", $who);
@@ -89,7 +89,7 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 		
 	$ban->add($who, $sender, null, $reason);
 
-	if (Setting::get('notify_banned_player') == 1) {
+	if ($setting->get('notify_banned_player') == 1) {
 		$chatBot->send("You have permanently banned <highlight>$who<end> from this bot.", $sendto);
 	}
 	$chatBot->send("You have been permanently banned from this bot by <highlight>$sender<end>. Reason: $reason", $who);
@@ -113,7 +113,7 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 	
 	$ban->add($who, $sender, null, '');
 
-	if (Setting::get('notify_banned_player') == 1) {
+	if ($setting->get('notify_banned_player') == 1) {
 		$chatBot->send("You have permanently banned <highlight>$who<end> from this bot.", $sendto);
 	}
 	$chatBot->send("You have been permanently banned from this bot by <highlight>$sender<end>.", $who);

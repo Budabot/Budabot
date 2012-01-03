@@ -1,6 +1,6 @@
 <?php
 
-if (Setting::get('relaybot') != 'Off' && $type == "joinpriv") {
+if ($setting->get('relaybot') != 'Off' && $type == "joinpriv") {
 	$whois = Player::get_by_name($sender);
 	
 	$altInfo = Alts::get_alt_info($sender);

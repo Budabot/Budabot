@@ -36,7 +36,7 @@ if ($chatBot->is_ready()) {
 		}
 	}
 
-	$time_to_expire = ($time - Setting::get('online_expire'));
+	$time_to_expire = ($time - $setting->get('online_expire'));
 	$sql = "DELETE FROM `online` WHERE (`dt` < ? AND added_by = '<myname>') OR (`dt` < ?)";
 	$db->exec($sql, $time, $time_to_expire);
 

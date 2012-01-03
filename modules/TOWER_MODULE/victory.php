@@ -3,7 +3,7 @@
 $colorlabel = "<font color=#00DE42>";
 $colorvalue = "<font color=#63AD63>";
 
-$page_size = Setting::get('tower_page_size');
+$page_size = $setting->get('tower_page_size');
 $page_label = 1;
 $search = '';
 

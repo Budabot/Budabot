@@ -14,6 +14,9 @@ class Event extends Annotation {
 
 	/** @Inject */
 	public $db;
+	
+	/** @Inject */
+	public $chatBot;
 
 	public static $EVENT_TYPES = array(
 		'msg','priv','extpriv','guild','joinpriv','extjoinpriv','leavepriv','extleavepriv',
@@ -26,8 +29,6 @@ class Event extends Annotation {
 	 * @description: Registers an event on the bot so it can be configured
 	 */
 	public function register($module, $type, $filename, $description = 'none', $help = '', $defaultStatus = null) {
-		$chatBot = Registry::getInstance('chatBot');
-		
 		$type = strtolower($type);
 		
 		Logger::log('DEBUG', 'Event', "Registering event Type:($type) File:($filename) Module:($module)");
@@ -54,12 +55,12 @@ class Event extends Annotation {
 			$actual_filename = $filename;
 		}
 		
-		if (isset($chatBot->existing_events[$type][$actual_filename])) {
+		if (isset($this->chatBot->existing_events[$type][$actual_filename])) {
 			$sql = "UPDATE eventcfg_<myname> SET `verify` = 1, `description` = ?, `help` = ? WHERE `type` = ? AND `file` = ? AND `module` = ?";
 		  	$this->db->exec($sql, $description, $help, $type, $actual_filename, $module);
 		} else {
 			if ($defaultStatus === null) {
-				if ($chatBot->vars['default_module_status'] == 1) {
+				if ($this->chatBot->vars['default_module_status'] == 1) {
 					$status = 1;
 				} else {
 					$status = 0;
@@ -227,7 +228,7 @@ class Event extends Annotation {
 	public function crons() {
 		$chatBot = Registry::getInstance('chatBot');
 		
-		if ($chatBot->is_ready()) {
+		if ($this->chatBot->is_ready()) {
 			$time = time();
 			Logger::log('DEBUG', 'Cron', "Executing cron events at '$time'");
 			forEach ($chatBot->cronevents as $key => $event) {
@@ -244,6 +245,7 @@ class Event extends Annotation {
 		// for file includes
 		$chatBot = Registry::getInstance('chatBot');
 		$db = $this->db;
+		$setting = Registry::getInstance('setting');
 		
 		$type = strtolower($type);
 		
@@ -270,6 +272,7 @@ class Event extends Annotation {
 		// for file includes
 		$chatBot = Registry::getInstance('chatBot');
 		$db = $this->db;
+		$setting = Registry::getInstance('setting');
 
 		// Check files, for all 'connect' events.
 		forEach ($chatBot->events['connect'] as $filename) {

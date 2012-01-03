@@ -10,14 +10,15 @@
 function get_online_list($prof = "all") {
 	$chatBot = Registry::getInstance('chatBot');
 	$db = Registry::getInstance('db');
+	$setting = Registry::getInstance('setting');
 	
 	if ($prof != 'all') {
 		$prof_query = "AND `profession` = '$prof'";
 	}
 	
-	if (Setting::get('online_group_by') == 'profession') {
+	if ($setting->get('online_group_by') == 'profession') {
 		$order_by = "ORDER BY `profession`, `level` DESC";
-	} else if (Setting::get('online_group_by') == 'guild') {
+	} else if ($setting->get('online_group_by') == 'guild') {
 		$order_by = "ORDER BY `channel` ASC, `name` ASC";
 	}
 
@@ -37,7 +38,7 @@ function get_online_list($prof = "all") {
 	}
 	
 	// create the list with alts shown
-	createList($data, $list, true, Setting::get("online_show_org_guild"));
+	createList($data, $list, true, $setting->get("online_show_org_guild"));
 
 	// Private Channel Part
 	$data = $db->query("SELECT p.*, o.name, o.channel, o.afk FROM `online` o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE o.channel_type = 'priv' {$prof_query} {$order_by}");
@@ -50,7 +51,7 @@ function get_online_list($prof = "all") {
 	}
 
 	// create the list of guests, without showing alts
-	createList($data, $list, true, Setting::get("online_show_org_priv"));
+	createList($data, $list, true, $setting->get("online_show_org_priv"));
 	$numonline += $numguest;
 
 	if ($numonline == 1) {
@@ -60,7 +61,7 @@ function get_online_list($prof = "all") {
 	}
 
 	// BBIN part
-	if (Setting::get("bbin_status") == 1) {
+	if ($setting->get("bbin_status") == 1) {
 		// members
 		$data = $db->query("SELECT * FROM bbin_chatlist_<myname> WHERE (`guest` = 0) {$prof_query} ORDER BY `profession`, `level` DESC");
 		$numbbinmembers = count($data);
@@ -90,21 +91,25 @@ function get_online_list($prof = "all") {
 }
 
 function createList(&$data, &$list, $show_alts, $show_org_info) {
-	if (Setting::get('online_group_by') == 'profession') {
+	$setting = Registry::getInstance('setting');
+
+	if ($setting->get('online_group_by') == 'profession') {
 		return createListByProfession($data, $list, $show_alts, $show_org_info);
-	} else if (Setting::get('online_group_by') == 'guild') {
+	} else if ($setting->get('online_group_by') == 'guild') {
 		return createListByChannel($data, $list, $show_alts, $show_org_info);
 	}
 }
 
 function createListByChannel(&$data, &$list, $show_alts, $show_org_info) {
+	$setting = Registry::getInstance('setting');
+
 	//Colorful temporary var settings (avoid a mess of if statements later in the function)
 	$fancyColon = "::";
-	if (Setting::get("online_colorful") == "1") {
+	if ($setting->get("online_colorful") == "1") {
 		$fancyColon = "<highlight>::<end>";
 	}
 	
-	$orgShow = Setting::get("online_show_org");
+	$orgShow = $setting->get("online_show_org");
 	
 	$current_channel = "";
 	$current_header = "";
@@ -153,9 +158,11 @@ function createListByChannel(&$data, &$list, $show_alts, $show_org_info) {
 }
 
 function createListByProfession(&$data, &$list, $show_alts, $show_org_info) {
+	$setting = Registry::getInstance('setting');
+
 	//Colorful temporary var settings (avoid a mess of if statements later in the function)
 	$fancyColon = "::";
-	if (Setting::get("online_colorful") == "1") {
+	if ($setting->get("online_colorful") == "1") {
 		$fancyColon = "<highlight>::<end>";
 	}
 	
@@ -175,14 +182,14 @@ function createListByProfession(&$data, &$list, $show_alts, $show_org_info) {
 				$current_header = "";
 				$current_content = "";
 			}
-			if (Setting::get("fancy_online") == 0) {
+			if ($setting->get("fancy_online") == 0) {
 				// old style delimiters
 				$current_header = "\n<tab><highlight>$row->profession<end>\n";
 				$current_profession = $row->profession;
 			} else {
 				// fancy delimiters
 				$current_header = "\n<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
-				if (Setting::get("icon_fancy_online") == 1) {
+				if ($setting->get("icon_fancy_online") == 1) {
 					if ($row->profession == "Adventurer")
 						$current_header .= "<img src=rdb://84203>";
 					else if ($row->profession == "Agent")
@@ -267,7 +274,9 @@ function get_org_info($show_org_info, $fancyColon, $guild, $guild_rank) {
 function get_admin_info($name, $fancyColon) {
 	$chatBot = Registry::getInstance('chatBot');
 	$accessLevel = Registry::getInstance('accessLevel');
-	if (Setting::get("online_admin") == 1) {
+	$setting = Registry::getInstance('setting');
+
+	if ($setting->get("online_admin") == 1) {
 		$alvl = $accessLevel->getAccessLevelForCharacter($name);
 		switch ($alvl) {
 			case 'superadmin': $admin = " $fancyColon <red>SuperAdmin<end>";

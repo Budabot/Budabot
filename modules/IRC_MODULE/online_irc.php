@@ -14,7 +14,7 @@ if (preg_match("/^onlineirc$/i", $message)) {
 		return;
 	}
 
-	$names = IRC::getUsersInChannel($ircSocket, Setting::get('irc_channel'));
+	$names = IRC::getUsersInChannel($ircSocket, $setting->get('irc_channel'));
 	$numusers = count($names);
 	$blob = "<header> :::::: IRC Online ($numusers) :::::: <end>\n\n";
 	forEach ($names as $value) {

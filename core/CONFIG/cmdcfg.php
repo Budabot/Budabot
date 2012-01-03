@@ -527,7 +527,7 @@ if (preg_match("/^config$/i", $message)) {
 			$l .= " (<a href='chatcmd:///tell <myname> settings change $row->name'>Modify</a>)";
 		}
 	
-		$l .= ":  " . Setting::displayValue($row);
+		$l .= ":  " . $setting->displayValue($row);
 	}
 	
 	if ($lh != "") {

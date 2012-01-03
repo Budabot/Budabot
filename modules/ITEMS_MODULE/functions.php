@@ -3,6 +3,7 @@
 function download_newest_itemsdb() {
 	$chatBot = Registry::getInstance('chatBot');
 	$db = Registry::getInstance('db');
+	$setting = Registry::getInstance('setting');
 
 	Logger::log('INFO', 'ITEMS_MODULE', "Starting items db update");
 
@@ -30,7 +31,7 @@ function download_newest_itemsdb() {
 	}
 
 	if ($latestVersion !== null) {
-		$currentVersion = Setting::get("aodb_db_version");
+		$currentVersion = $setting->get("aodb_db_version");
 		
 		// if server version is greater than current version, download and load server version
 		if ($currentVersion === false || Util::compare_version_numbers($latestVersion, $currentVersion) > 0) {
@@ -66,6 +67,7 @@ function download_newest_itemsdb() {
 function find_items_from_local($search, $ql) {
 	$chatBot = Registry::getInstance('chatBot');
 	$db = Registry::getInstance('db');
+	$setting = Registry::getInstance('setting');
 
 	$tmp = explode(" ", $search);
 	$first = true;
@@ -83,7 +85,7 @@ function find_items_from_local($search, $ql) {
 		$query .= " AND `lowql` <= $ql AND `highql` >= $ql";
 	}
 
-	$sql = "SELECT * FROM aodb WHERE $query ORDER BY `name` ASC, highql DESC LIMIT 0, " . Setting::get("maxitems");
+	$sql = "SELECT * FROM aodb WHERE $query ORDER BY `name` ASC, highql DESC LIMIT 0, " . $setting->get("maxitems");
 	$data = $db->query($sql);
 	$num = count($data);
 	if ($num == 0) {
@@ -94,7 +96,7 @@ function find_items_from_local($search, $ql) {
 		}
 		return $msg;
 	} else if ($num > 3) {
-		$blob = "<header> :::::: Item Search Results (" . Setting::get('aodb_db_version') . ") :::::: <end>\n\n";
+		$blob = "<header> :::::: Item Search Results (" . $setting->get('aodb_db_version') . ") :::::: <end>\n\n";
 		$blob .= formatSearchResults($data, $ql, true);
 		$blob .= "\n\n<highlight>Item DB rips provied by MajorOutage (RK1)<end>";
 		$link = Text::make_blob("$num results in total", $blob);

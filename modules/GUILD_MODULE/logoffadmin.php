@@ -17,11 +17,11 @@ if (preg_match("/^logoffadmin ([a-zA-Z0-9-]+)$/i", $message, $arr)) {
 	if ($logoff_msg == 'clear') {
 		Preferences::save($name, 'logoff_msg', '');
 		$msg = "The logoff message for $name has been cleared.";
-	} else if (strlen($logoff_msg) <= Setting::get('max_logoff_msg_size')) {
+	} else if (strlen($logoff_msg) <= $setting->get('max_logoff_msg_size')) {
 		Preferences::save($name, 'logoff_msg', $logoff_msg);
 		$msg = "The logoff message for $name has been set.";
 	} else {
-		$msg = "The logoff message is too large. The logoff message may contain a maximum of " . Setting::get('max_logoff_msg_size') . " characters.";
+		$msg = "The logoff message is too large. The logoff message may contain a maximum of " . $setting->get('max_logoff_msg_size') . " characters.";
 	}
     $chatBot->send($msg, $sendto);
 } else {

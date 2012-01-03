@@ -143,7 +143,7 @@ forEach ($chatBot->data["Vote"] as $key => $value) {
 		if ($timeleft > 0) {
 			$msg .= "\n<black>___%<end> <a href='chatcmd:///tell <myname> vote remove $question'>Remove yourself from this vote</a>.\n";
 		}
-		if ($timeleft > 0 && Setting::get("vote_add_new_choices") == 1 && $status == 0) {
+		if ($timeleft > 0 && $setting->get("vote_add_new_choices") == 1 && $status == 0) {
 			$msg .="\n<highlight>Don't like these choices?  Add your own:<end>\n<tab>/tell ".$chatBot->vars['name']." <symbol>vote $question$delimiter"."<highlight>your choice<end>\n"; 
 		}
 		
@@ -155,12 +155,13 @@ forEach ($chatBot->data["Vote"] as $key => $value) {
 		
 		$msg = Text::make_blob($title, $msg);
 		
-		if (Setting::get("vote_channel_spam") == 0 || Setting::get("vote_channel_spam") == 2) {
+		if ($setting->get("vote_channel_spam") == 0 || $setting->get("vote_channel_spam") == 2) {
 			$chatBot->send($msg, 'guild', true);
 		}
-	   	if (Setting::get("vote_channel_spam") == 1 || Setting::get("vote_channel_spam") == 2) {
+	   	if ($setting->get("vote_channel_spam") == 1 || $setting->get("vote_channel_spam") == 2) {
 			$chatBot->send($msg, 'priv', true);
 		}
 	}
 }
+
 ?>

@@ -73,7 +73,7 @@ if (preg_match("/^nanolines$/i", $message, $arr)) {
 	$header = "$profession Nanolines";
 	$blob = Text::make_header($header, array('Help' => '/tell <myname> help nanolines'));
 	forEach ($data as $row) {
-		if (Setting::get("shownanolineicons") == "1") {
+		if ($setting->get("shownanolineicons") == "1") {
 			$blob .= "<img src='rdb://$row->image_id'>\n";
 		}
 		$blob .= Text::make_chatcmd("$row->name", "/tell <myname> <symbol>nanolines $row->id");

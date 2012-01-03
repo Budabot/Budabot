@@ -11,12 +11,12 @@
 global $bbinSocket;
 if (IRC::isConnectionActive($bbinSocket)) {
 	// do not relay commands and ignored chars
-	if ($args[2][0] != Setting::get("symbol")) {
+	if ($args[2][0] != $setting->get("symbol")) {
 		$outmsg = htmlspecialchars($message);
 		
 		$msg = "$sender: $message";
 		Logger::log_chat("Out. BBIN Msg.", $sender, $msg);
-		IRC::send($bbinSocket, Setting::get('bbin_channel'), $msg);
+		IRC::send($bbinSocket, $setting->get('bbin_channel'), $msg);
 	}
 }
 

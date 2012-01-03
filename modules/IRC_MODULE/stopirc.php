@@ -2,7 +2,7 @@
 
 global $ircSocket;
 if (preg_match("/^stopirc$/i", $message)) {
-	Setting::save("irc_status", "0");
+	$setting->save("irc_status", "0");
 
 	if (!IRC::isConnectionActive($ircSocket)) {
 		$chatBot->send("There is no active IRC connection.", $sendto);

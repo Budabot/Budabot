@@ -46,7 +46,7 @@ if (preg_match("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[
 	$closing_time_array = explode(':', $closing_time);
 	$closing_time_seconds = $closing_time_array[0] * 3600 + $closing_time_array[1] * 60 + $closing_time_array[2];
 	
-	if (!$skip_checks && Setting::get('check_close_time_on_scout') == 1) {
+	if (!$skip_checks && $setting->get('check_close_time_on_scout') == 1) {
 		$last_victory = $towers->get_last_victory($tower_info->playfield_id, $tower_info->site_number);
 		if ($last_victory !== null) {
 			$victory_time_of_day = $last_attack->time % 86400;
@@ -61,7 +61,7 @@ if (preg_match("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[
 		}
 	}
 	
-	if (!$skip_checks && Setting::get('check_guild_name_on_scout') == 1) {
+	if (!$skip_checks && $setting->get('check_guild_name_on_scout') == 1) {
 		if (!$towers->check_guild_name($guild_name)) {
 			$check_blob .= "- <green>Org name<end> The org name you entered has never attacked or been attacked.\n\n";
 		}

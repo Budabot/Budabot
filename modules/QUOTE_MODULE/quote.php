@@ -143,7 +143,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 	$chatBot->send($msg, $sendto);
 //Show the top quoters/quoted
 } else if (preg_match("/^quote stats$/i", $message, $arr)) {
-	$top = Setting::get("quote_stat_count");
+	$top = $setting->get("quote_stat_count");
 
 	//$quoters = setup a list of who quoted the most
 	$data = $db->query("SELECT * FROM `#__quote` ORDER BY `Who`");

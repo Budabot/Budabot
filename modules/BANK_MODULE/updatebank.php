@@ -1,10 +1,10 @@
 <?php
 
 if (preg_match("/^updatebank$/i", $message)) {
-	$lines = file(Setting::get('bank_file_location'));
+	$lines = file($setting->get('bank_file_location'));
 	
 	if ($lines === false) {
-		$msg = "Could not open file: '" . Setting::get('bank_file_location') . "'";
+		$msg = "Could not open file: '" . $setting->get('bank_file_location') . "'";
 		$chatBot->send($msg, $sendto);
 		return;
 	}

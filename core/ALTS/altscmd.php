@@ -42,7 +42,7 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 		}
 		
 		$validated = 0;
-		if ($sender == $senderAltInfo->main || (Setting::get("validate_from_validated_alt") == 1 && $senderAltInfo->is_validated($sender))) {
+		if ($sender == $senderAltInfo->main || ($setting->get("validate_from_validated_alt") == 1 && $senderAltInfo->is_validated($sender))) {
 			$validated = 1;
 		}
 		

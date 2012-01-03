@@ -6,7 +6,7 @@ if ($row !== null) {
     if ($row->action == "off") {
 		// send message to org chat every 5 minutes that the cloaking device is
 		// disabled past the the time that the cloaking device could be enabled.
-		$interval = Setting::get('cloak_reminder_interval');
+		$interval = $setting->get('cloak_reminder_interval');
 		if ($timeSinceChange >= 60*60 && ($timeSinceChange % $interval >= 0 && $timeSinceChange % $interval <= 60 )) {
 			$timeString = Util::unixtime_to_readable(time() - $row->time, false);
 			$chatBot->send("The cloaking device was disabled by <highlight>{$row->player}<end> $timeString ago. It is possible to enable it.", 'guild');

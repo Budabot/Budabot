@@ -46,7 +46,7 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 		if ($chatBot->vars['my_guild'] != "") {
 			$chatBot->send("<yellow>[BBIN]<end> $msg", "guild", true);
 		}
-		if ($chatBot->vars['my_guild'] == "" || Setting::get("guest_relay") == 1) {
+		if ($chatBot->vars['my_guild'] == "" || $setting->get("guest_relay") == 1) {
 			$chatBot->send("<yellow>[BBIN]<end> $msg", "priv", true);
 		}
 
@@ -70,7 +70,7 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 		if ($chatBot->vars['my_guild'] != "") {
 			$chatBot->send("<yellow>[BBIN]<end> $msg", "guild", true);
 		}
-		if ($chatBot->vars['my_guild'] == "" || Setting::get("guest_relay") == 1) {
+		if ($chatBot->vars['my_guild'] == "" || $setting->get("guest_relay") == 1) {
 			$chatBot->send("<yellow>[BBIN]<end> $msg", "priv", true);
 		}
 
@@ -98,7 +98,7 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 		$msg .= "]";
 
 		// send complete list back to bbin channel
-		fputs($bbinSocket, "PRIVMSG ".Setting::get('bbin_channel')." :$msg\n");
+		fputs($bbinSocket, "PRIVMSG ".$setting->get('bbin_channel')." :$msg\n");
 
 	} else if (preg_match("/^\[BBIN:ONLINELIST:(.):(.*?)\]/", $bbinmsg, $arr)) {
 		// received a synchronization list
@@ -143,7 +143,7 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 		if ($chatBot->vars['my_guild'] != "") {
 			$chatBot->send("<yellow>[BBIN]<end> $bbinmsg", "guild", true);
 		}
-		if ($chatBot->vars['my_guild'] == "" || Setting::get("guest_relay") == 1) {
+		if ($chatBot->vars['my_guild'] == "" || $setting->get("guest_relay") == 1) {
 			$chatBot->send("<yellow>[BBIN]<end> $bbinmsg", "priv", true);
 		}
 	}
@@ -154,11 +154,11 @@ function bbinConnect() {
 	$chatBot = Registry::getInstance('chatBot');
 	$db = Registry::getInstance('db');
 
-	IRC::connect($bbinSocket, Setting::get('bbin_nickname'), Setting::get('bbin_server'), Setting::get('bbin_port'), Setting::get('bbin_password'), Setting::get('bbin_channel'));
+	IRC::connect($bbinSocket, $setting->get('bbin_nickname'), $setting->get('bbin_server'), $setting->get('bbin_port'), $setting->get('bbin_password'), $setting->get('bbin_channel'));
 	if (IRC::isConnectionActive($bbinSocket)) {
-		Setting::save("bbin_status", "1");
+		$setting->save("bbin_status", "1");
 		$db->exec("DELETE FROM bbin_chatlist_<myname>");
-		fputs($bbinSocket, "PRIVMSG ".Setting::get('bbin_channel')." :[BBIN:SYNCHRONIZE]\n");
+		fputs($bbinSocket, "PRIVMSG ".$setting->get('bbin_channel')." :[BBIN:SYNCHRONIZE]\n");
 		parse_incoming_bbin("[BBIN:SYNCHRONIZE]", '');
 		return true;
 	} else {

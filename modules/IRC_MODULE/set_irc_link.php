@@ -1,8 +1,8 @@
 <?php
 
 global $ircSocket;
-if (Setting::get('irc_status') == '1' && !IRC::isConnectionActive($ircSocket)) {
-	IRC::connect($ircSocket, Setting::get('irc_nickname'), Setting::get('irc_server'), Setting::get('irc_port'), Setting::get('irc_password'), Setting::get('irc_channel'));
+if ($setting->get('irc_status') == '1' && !IRC::isConnectionActive($ircSocket)) {
+	IRC::connect($ircSocket, $setting->get('irc_nickname'), $setting->get('irc_server'), $setting->get('irc_port'), $setting->get('irc_password'), $setting->get('irc_channel'));
 }
 
 ?>

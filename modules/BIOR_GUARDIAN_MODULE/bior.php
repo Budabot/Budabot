@@ -40,7 +40,7 @@ if (preg_match("/^bior$/i", $message)) {
 			$num++;
 			$msg .= " [$num. <highlight>$player<end> $status]";
 			$chatBot->data['blist'][] = $player;
-			if ($num >= Setting::get("bior_max")) {
+			if ($num >= $setting->get("bior_max")) {
 				break;
 			}
 		}

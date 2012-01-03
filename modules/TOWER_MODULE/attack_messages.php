@@ -112,7 +112,7 @@ $targetorg = "<".strtolower($def_side).">".$def_guild."<end>";
 $msg .= "<font color=#FF67FF>[";
 
 // tower_attack_spam >= 2 (normal) includes attacker stats
-if (Setting::get("tower_attack_spam") >= 2) {
+if ($setting->get("tower_attack_spam") >= 2) {
 
 	if ($whois->profession == "") {
 		$msg .= "<".strtolower($whois->faction).">$att_player<end> (Unknown";
@@ -146,7 +146,7 @@ if (Setting::get("tower_attack_spam") >= 2) {
 $msg .= " attacked ".$targetorg."] ";
 
 // tower_attack_spam >= 3 (full) includes location.
-if (Setting::get("tower_attack_spam") >= 3) {
+if ($setting->get("tower_attack_spam") >= 3) {
 	if ($closest_site) {
 		$site_number = "<font color=#AAAAAA>#".$closest_site->site_number."<end>";
 	}
@@ -155,9 +155,9 @@ if (Setting::get("tower_attack_spam") >= 3) {
 
 $msg .= "$more<end>";
 
-$d = Setting::get("tower_faction_def");
-$a = Setting::get("tower_faction_atk");
-$s = Setting::get("tower_attack_spam");
+$d = $setting->get("tower_faction_def");
+$a = $setting->get("tower_faction_atk");
+$s = $setting->get("tower_attack_spam");
 
 if (($s > 0 && (
 	(strtolower($def_side) == "clan"    && ($d & 1)) ||

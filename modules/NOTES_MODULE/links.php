@@ -7,7 +7,7 @@ if (preg_match("/^links$/i", $message)) {
   	$data = $db->query($sql);
   	forEach ($data as $row) {
 	  	$remove = Text::make_chatcmd('Remove', "/tell <myname> <symbol>links rem $row->id");
-		if (Setting::get('showfullurls') == 1) {
+		if ($setting->get('showfullurls') == 1) {
 			$website = Text::make_chatcmd($row->website, "/start $row->website");
 		} else {
 			$website = Text::make_chatcmd('[Link]', "/start $row->website");

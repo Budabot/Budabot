@@ -9,7 +9,7 @@
 */
 
 global $bbinSocket;
-if (Setting::get('bbin_status') == '1' && !IRC::isConnectionActive($bbinSocket)) {
+if ($setting->get('bbin_status') == '1' && !IRC::isConnectionActive($bbinSocket)) {
 	bbinConnect();
 }
 

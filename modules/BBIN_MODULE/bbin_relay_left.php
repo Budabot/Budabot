@@ -13,11 +13,11 @@ if (IRC::isConnectionActive($bbinSocket)) {
 	if ($type == "leavepriv") {
 		$msg = "[BBIN:LOGOFF:".$sender.",".$chatBot->vars["dimension"].",1]";
 		Logger::log('DEBUG', "BBIN Outgoing", $msg);
-		IRC::send($bbinSocket, Setting::get('bbin_channel'), $msg);
+		IRC::send($bbinSocket, $setting->get('bbin_channel'), $msg);
 	} else if ($type == "logoff" && isset($chatBot->guildmembers[$sender])) {
 		$msg = "[BBIN:LOGOFF:".$sender.",".$chatBot->vars["dimension"].",0]";
 		Logger::log('DEBUG', "BBIN Outgoing", $msg);
-		IRC::send($bbinSocket, Setting::get('bbin_channel'), $msg);
+		IRC::send($bbinSocket, $setting->get('bbin_channel'), $msg);
 	}
 }
 

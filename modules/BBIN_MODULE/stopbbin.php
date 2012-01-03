@@ -2,7 +2,7 @@
 
 global $bbinSocket;
 if (preg_match("/^stopbbin$/i", $message)) {
-	Setting::save("bbin_status", "0");
+	$setting->save("bbin_status", "0");
 
 	if (!IRC::isConnectionActive($bbinSocket)) {
 		$chatBot->send("There is no active BBIN connection.", $sendto);

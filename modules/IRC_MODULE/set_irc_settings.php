@@ -8,17 +8,17 @@
 */
 
 if (preg_match("/^setirc server (.+)$/i", $message, $arr)) {
-	Setting::save("irc_server", trim($arr[1]));
+	$setting->save("irc_server", trim($arr[1]));
 	$chatBot->send("Setting saved.  Bot will connect to IRC server: {$arr[1]}.", $sendto);
 } else if (preg_match("/^setirc port (.+)$/i", $message, $arr)) {
 	if (is_numeric($arr[1])) {
-		Setting::save("irc_port", trim($arr[1]));
+		$setting->save("irc_port", trim($arr[1]));
 		$chatBot->send("Setting saved.  Bot will use port {$arr[1]} to connect to the IRC server.", $sendto);
 	} else {
 		$chatBot->send("Please check again.  The port should be a number.", $sendto);
 	}
 } else if (preg_match("/^setirc nickname (.+)$/i", $message, $arr)) {
-	Setting::save("irc_nickname", trim($arr[1]));
+	$setting->save("irc_nickname", trim($arr[1]));
 	$chatBot->send("Setting saved.  Bot will use {$arr[1]} as its nickname while in IRC.", $sendto);
 } else if (preg_match("/^setirc channel (.+)$/i", $message, $arr)) {
 	if (strpos($arr[1]," ")) {
@@ -33,10 +33,10 @@ if (preg_match("/^setirc server (.+)$/i", $message, $arr)) {
 	if (strpos($channel,"#") !== 0) {
 		$channel = "#".$channel;
 	}
-	Setting::save("irc_channel", trim($channel));
+	$setting->save("irc_channel", trim($channel));
 	$chatBot->send("Setting saved.  Bot will join $channel when it connects to IRC.", $sendto);
 } else if (preg_match("/^setirc password (.+)$/i", $message, $arr)) {
-	Setting::save("irc_password", trim($arr[1]));
+	$setting->save("irc_password", trim($arr[1]));
 	$chatBot->send("Setting saved.  Bot will use {$arr[1]} as the password when connecting to IRC.", $sendto);
 } else {
 	$syntax_error = true;

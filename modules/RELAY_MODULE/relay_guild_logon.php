@@ -1,6 +1,6 @@
 <?php
 
-if (Setting::get("relaybot") != "Off" && isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
+if ($setting->get("relaybot") != "Off" && isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
     $whois = Player::get_by_name($sender);
 	
 	$msg = '';

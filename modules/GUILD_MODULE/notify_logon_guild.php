@@ -1,7 +1,7 @@
 <?php
 
 if (isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
-	if (Setting::get('first_and_last_alt_only') == 1) {
+	if ($setting->get('first_and_last_alt_only') == 1) {
 		// if at least one alt/main is still online, don't show logoff message
 		$altInfo = Alts::get_alt_info($sender);
 		if (count($altInfo->get_online_alts()) > 1) {
@@ -33,7 +33,7 @@ if (isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
 	$chatBot->send($msg, "guild", true);
 
 	//private channel part
-	if (Setting::get("guest_relay") == 1) {
+	if ($setting->get("guest_relay") == 1) {
 		$chatBot->send($msg, "priv", true);
 	}
 }
