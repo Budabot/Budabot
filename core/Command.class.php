@@ -192,7 +192,7 @@ class Command extends Annotation {
 			} else {
 				$message = $cmd;
 			}
-			$chatBot->process_command($type, $message, $sender, $sendto);
+			$this->process($type, $message, $sender, $sendto);
 			return;
 		}
 		
@@ -248,7 +248,7 @@ class Command extends Annotation {
 			} else {
 				// methods will return false to indicate a syntax error, so when a false is returned,
 				// we set $syntax_error = true, otherwise we set it to false
-				$syntax_error = ($instance->$method($this->chatBot, $message, $type, $sender, $sendto) !== false ? false : true);
+				$syntax_error = ($instance->$method($message, $type, $sender, $sendto) !== false ? false : true);
 			}
 		}
 		if ($syntax_error === true) {

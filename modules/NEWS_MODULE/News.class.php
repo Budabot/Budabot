@@ -73,7 +73,7 @@ class News {
 	 * @AccessLevel("all")
 	 * @Description("Show News")
 	 */
-	public function newsCommand($chatBot, $message, $channel, $sender, $sendto) {
+	public function newsCommand($message, $channel, $sender, $sendto) {
 		if (!preg_match("/^news$/i", $message)) {
 			return false;
 		}
@@ -82,7 +82,7 @@ class News {
 			$msg = "No News recorded yet.";
 		}
 
-		$chatBot->send($msg, $sendto);
+		$this->chatBot->send($msg, $sendto);
 	}
 	
 	/**
@@ -91,13 +91,13 @@ class News {
 	 * @AccessLevel("rl")
 	 * @Description("Add a news entry")
 	 */
-	public function newsAddCommand($chatBot, $message, $channel, $sender, $sendto) {
+	public function newsAddCommand($message, $channel, $sender, $sendto) {
 		if (preg_match("/^news add (.+)$/si", $message, $arr)) {
 			$news = $arr[1];
 			$this->db->exec("INSERT INTO `#__news` (`time`, `name`, `news`, `sticky`) VALUES (?, ?, ?, 0)", time(), $sender, $news);
 			$msg = "News has been added successfully.";
 
-			$chatBot->send($msg, $sendto);
+			$this->chatBot->send($msg, $sendto);
 		} else {
 			return false;
 		}
@@ -109,7 +109,7 @@ class News {
 	 * @AccessLevel("rl")
 	 * @Description("Remove a news entry")
 	 */
-	public function newsRemCommand($chatBot, $message, $channel, $sender, $sendto) {
+	public function newsRemCommand($message, $channel, $sender, $sendto) {
 		if (preg_match("/^news rem ([0-9]+)$/i", $message, $arr)) {
 			$id = $arr[1];
 			$rows = $this->db->exec("DELETE FROM `#__news` WHERE `id` = ?", $id);
@@ -119,7 +119,7 @@ class News {
 				$msg = "News entry <highlight>{$id}<end> was deleted successfully.";
 			}
 
-			$chatBot->send($msg, $sendto);
+			$this->chatBot->send($msg, $sendto);
 		} else {
 			return false;
 		}
@@ -131,7 +131,7 @@ class News {
 	 * @AccessLevel("rl")
 	 * @Description("Stickies a news entry")
 	 */
-	public function stickyCommand($chatBot, $message, $channel, $sender, $sendto) {
+	public function stickyCommand($message, $channel, $sender, $sendto) {
 		if (preg_match("/^news sticky ([0-9]+)$/i", $message, $arr)) {
 			$id = $arr[1];
 
@@ -143,7 +143,7 @@ class News {
 				$this->db->exec("UPDATE `#__news` SET `sticky` = 1 WHERE `id` = ?", $id);
 				$msg = "News ID $id successfully stickied.";
 			}
-			$chatBot->send($msg, $sendto);
+			$this->chatBot->send($msg, $sendto);
 		} else {
 			return false;
 		}
@@ -155,7 +155,7 @@ class News {
 	 * @AccessLevel("rl")
 	 * @Description("Unstickies a news entry")
 	 */
-	public function unstickyCommand($chatBot, $message, $channel, $sender, $sendto) {
+	public function unstickyCommand($message, $channel, $sender, $sendto) {
 		if (preg_match("/^news unsticky ([0-9]+)$/i", $message, $arr)) {
 			$id = $arr[1];
 
@@ -167,7 +167,7 @@ class News {
 				$this->db->exec("UPDATE `#__news` SET `sticky` = 0 WHERE `id` = ?", $id);
 				$msg = "News ID $id successfully unstickied.";
 			}
-			$chatBot->send($msg, $sendto);
+			$this->chatBot->send($msg, $sendto);
 		} else {
 			return false;
 		}

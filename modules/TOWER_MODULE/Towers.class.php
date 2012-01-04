@@ -5,12 +5,15 @@ class Towers {
 	/** @Inject */
 	public $db;
 	
+	/** @Inject */
+	public $chatBot;
+	
 	/**
 	 * @Command("towerstats")
 	 * @AccessLevel("all")
 	 * @Description("Show how many towers each faction has lost")
 	 */
-	public function towerStatsCommand($chatBot, $message, $channel, $sender, $sendto) {
+	public function towerStatsCommand($message, $channel, $sender, $sendto) {
 		if (preg_match("/^towerstats$/i", $message)) {
 			$budatime = "1d";
 		} else if (preg_match("/^towerstats (.+)$/i", $message, $arr)) {
@@ -20,7 +23,7 @@ class Towers {
 		$time = Util::parseTime($budatime);
 		if ($time < 1) {
 			$msg = "You must enter a valid time parameter.";
-			$chatBot->send($msg, $sendto);
+			$this->chatBot->send($msg, $sendto);
 			return;
 		}
 		
@@ -66,7 +69,7 @@ class Towers {
 		}
 		
 		$msg = Text::make_blob("Tower Stats for the Last $timeString", $blob);
-		$chatBot->send($msg, $sendto);
+		$this->chatBot->send($msg, $sendto);
 	}
 
 	public function get_tower_info($playfield_id, $site_number) {
