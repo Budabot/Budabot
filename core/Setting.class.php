@@ -72,7 +72,7 @@ class Setting extends Annotation {
 			}
 		}
 
-		if (isset($this->chatBot->existing_settings[$name])) {
+		if (array_key_exists($name, $this->chatBot->existing_settings)) {
 			$sql = "UPDATE settings_<myname> SET `module` = ?, `type` = ?, `mode` = ?, `options` = ?, `intoptions` = ?, `description` = ?, `admin` = ?, `verify` = 1, `help` = ? WHERE `name` = ?";
 			$this->db->exec($sql, $module, $type, $mode, $options, $intoptions, $description, $admin, $help, $name);
 	  	} else {
@@ -89,7 +89,7 @@ class Setting extends Annotation {
 	 */	
 	public function get($name) {
 		$name = strtolower($name);
-		if (isset($this->settings[$name])) {
+		if (array_key_exists($name, $this->settings)) {
 	  		return $this->settings[$name];
 	  	} else {
 			Logger::log("ERROR", "Setting", "Could not retrieve value for setting '$name' because setting does not exist");
@@ -107,7 +107,7 @@ class Setting extends Annotation {
 	public function save($name, $value) {
 		$name = strtolower($name);
 
-		if (isset($this->settings[$name])) {
+		if (array_key_exists($name, $this->settings)) {
 			$this->db->exec("UPDATE settings_<myname> SET `verify` = 1, `value` = ? WHERE `name` = ?", $value, $name);
 			$this->settings[$name] = $value;
 			return true;
