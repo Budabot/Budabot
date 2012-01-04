@@ -1,0 +1,7 @@
+<header> :::::: Stopwatch Command :::::: <end>
+
+<highlight>To start the stopwatch:<end>
+<tab><symbol>stopwatch start
+
+<highlight>To stop the stopwatch and show the time elapsed:<end>
+<tab><symbol>stopwatch stop
