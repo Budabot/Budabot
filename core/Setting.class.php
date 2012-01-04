@@ -92,7 +92,6 @@ class Setting extends Annotation {
 		if (isset($this->settings[$name])) {
 	  		return $this->settings[$name];
 	  	} else {
-			print_r($this);
 			sleep(100);
 			Logger::log("ERROR", "Setting", "Could not retrieve value for setting '$name' because setting does not exist");
 	  		return false;
