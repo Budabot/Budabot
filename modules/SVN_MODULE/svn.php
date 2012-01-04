@@ -17,12 +17,23 @@ if (preg_match("/^svn dry$/i", $message)) {
 	
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^svn update$/i", $message)) {
-	$command = "$svnpath update --accept " . $setting->get('svnconflict') . " 2>&1";
+	$command = "$svnpath info 2>&1";
 	$output = array();
 	$return_var = '';
 	exec($command, $output, $return_var);
 	
 	$blob = "<header> :::::: SVN UPDATE output :::::: <end>\n\n";
+	$blob .= $command . "\n\n";
+	forEach ($output as $line) {
+		$blob .= $line . "\n";
+	}
+	$blob .= "\n";
+	
+	$command = "$svnpath update --accept " . $setting->get('svnconflict') . " 2>&1";
+	$output = array();
+	$return_var = '';
+	exec($command, $output, $return_var);
+	
 	$blob .= $command . "\n\n";
 	forEach ($output as $line) {
 		$blob .= $line . "\n";
