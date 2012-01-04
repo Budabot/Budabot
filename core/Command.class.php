@@ -279,9 +279,11 @@ class Command extends Annotation {
 	public function checkMatches($instance, $method, $message) {
 		$reflectedMethod = new ReflectionAnnotatedMethod($instance, $method);
 		
-		if ($reflectedMethod->hasAnnotation('Matches')) {
-			forEach ($reflectedMethod->getAllAnnotations('Matches') as $annotation) {
-				if (preg_match($annotation->value, $message, $arr)) {
+		$regexes = $this->retrieveRegexes($reflectedMethod);
+		
+		if (count($regexes) > 0) {
+			forEach ($regexes as $regex) {
+				if (preg_match($regex, $message, $arr)) {
 					return $arr;
 				}
 			}
@@ -289,6 +291,20 @@ class Command extends Annotation {
 		} else {
 			return true;
 		}
+	}
+	
+	public function retrieveRegexes($reflectedMethod) {
+		$regexes = array();
+		if ($reflectedMethod->hasAnnotation('Matches')) {
+			forEach ($reflectedMethod->getAllAnnotations('Matches') as $annotation) {
+				$regexes []= $annotation->value;
+			}
+		}
+		if ($reflectedMethod->hasAnnotation('Subcommand')) {
+			$subcmd = $reflectedMethod->getAnnotation('Subcommand');
+			$regexes []= "/^" . $subcmd->value . "$/is";
+		}
+		return $regexes;
 	}
 }
 
