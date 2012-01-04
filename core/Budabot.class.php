@@ -679,6 +679,7 @@ class Budabot extends AOChat {
 		
 		$eventObj = new stdClass;
 		$eventObj->sender = $sender;
+		$eventObj->type = $type;
 
 		Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_INVITE => sender: '$sender'");
 

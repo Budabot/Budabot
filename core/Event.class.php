@@ -302,32 +302,9 @@ class Event extends Annotation {
 		forEach ($this->events[$eventObj->type] as $filename) {
 			$type = $eventObj->type;
 			$stop_execution = false;
-			switch ($eventObj->type) {
-				case 'allpackets':
-					break;
-				case 'joinpriv':
-				case 'extjoinpriv':
-				case 'leavepriv':
-				case 'extleavepriv':
-					$channel = $eventObj->channel;
-					$sender = $eventObj->sender;
-					break;
-				case 'logon':
-				case 'logoff':
-				case 'msg':
-				case 'extjoinprivrequest':
-					$sender = $eventObj->sender;
-					break;
-				case 'priv':
-				case 'extpriv':
-				case 'towers':
-				case 'orgmsg':
-				case 'guild':
-					$channel = $eventObj->channel;
-					$sender = $eventObj->sender;
-					$message = $eventObj->message;
-					break;
-			}
+			$channel = $eventObj->channel;
+			$sender = $eventObj->sender;
+			$message = $eventObj->message;
 		
 			$msg = "";
 			if (preg_match("/\\.php$/i", $filename)) {
