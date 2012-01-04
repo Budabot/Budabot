@@ -509,10 +509,6 @@ class Budabot extends AOChat {
 		$sender	= $this->lookup_user($args[0]);
 		$sendto = $sender;
 		
-		$eventObj = new stdClass;
-		$eventObj->sender = $sender;
-		$eventObj->type = $type;
-		
 		Logger::log('DEBUG', 'Packets', "AOCP_MSG_PRIVATE => sender: '$sender' message: '$args[1]'");
 		
 		// Removing tell color
@@ -521,6 +517,11 @@ class Budabot extends AOChat {
 		} else {
 			$message = $args[1];
 		}
+		
+		$eventObj = new stdClass;
+		$eventObj->sender = $sender;
+		$eventObj->type = $type;
+		$eventObj->message = $message;
 
 		Logger::log_chat("Inc. Msg.", $sender, $message);
 
