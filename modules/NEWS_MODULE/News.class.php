@@ -72,11 +72,9 @@ class News {
 	 * @Command("news")
 	 * @AccessLevel("all")
 	 * @Description("Show News")
+	 * @Matches("/^news$/i")
 	 */
 	public function newsCommand($message, $channel, $sender, $sendto) {
-		if (!preg_match("/^news$/i", $message)) {
-			return false;
-		}
 		$msg = $this->getNews();
 		if ($msg == '') {
 			$msg = "No News recorded yet.";
@@ -87,90 +85,74 @@ class News {
 	
 	/**
 	 * @Subcommand("news add (.+)")
-	 * @Channels("")
 	 * @AccessLevel("rl")
 	 * @Description("Add a news entry")
+	 * @Matches("/^news add (.+)$/si")
 	 */
-	public function newsAddCommand($message, $channel, $sender, $sendto) {
-		if (preg_match("/^news add (.+)$/si", $message, $arr)) {
-			$news = $arr[1];
-			$this->db->exec("INSERT INTO `#__news` (`time`, `name`, `news`, `sticky`) VALUES (?, ?, ?, 0)", time(), $sender, $news);
-			$msg = "News has been added successfully.";
+	public function newsAddCommand($message, $channel, $sender, $sendto, $arr) {
+		$news = $arr[1];
+		$this->db->exec("INSERT INTO `#__news` (`time`, `name`, `news`, `sticky`) VALUES (?, ?, ?, 0)", time(), $sender, $news);
+		$msg = "News has been added successfully.";
 
-			$this->chatBot->send($msg, $sendto);
-		} else {
-			return false;
-		}
+		$this->chatBot->send($msg, $sendto);
 	}
 	
 	/**
 	 * @Subcommand("news rem (.+)")
-	 * @Channels("")
 	 * @AccessLevel("rl")
 	 * @Description("Remove a news entry")
+	 * @Matches("/^news rem ([0-9]+)$/i")
 	 */
-	public function newsRemCommand($message, $channel, $sender, $sendto) {
-		if (preg_match("/^news rem ([0-9]+)$/i", $message, $arr)) {
-			$id = $arr[1];
-			$rows = $this->db->exec("DELETE FROM `#__news` WHERE `id` = ?", $id);
-			if ($rows == 0) {
-				$msg = "No news entry found with the ID <highlight>{$id}<end>.";
-			} else {
-				$msg = "News entry <highlight>{$id}<end> was deleted successfully.";
-			}
-
-			$this->chatBot->send($msg, $sendto);
+	public function newsRemCommand($message, $channel, $sender, $sendto, $arr) {
+		$id = $arr[1];
+		$rows = $this->db->exec("DELETE FROM `#__news` WHERE `id` = ?", $id);
+		if ($rows == 0) {
+			$msg = "No news entry found with the ID <highlight>{$id}<end>.";
 		} else {
-			return false;
+			$msg = "News entry <highlight>{$id}<end> was deleted successfully.";
 		}
+
+		$this->chatBot->send($msg, $sendto);
 	}
 	
 	/**
 	 * @Subcommand("news sticky (.+)")
-	 * @Channels("")
 	 * @AccessLevel("rl")
 	 * @Description("Stickies a news entry")
+	 * @Matches("/^news sticky ([0-9]+)$/i")
 	 */
-	public function stickyCommand($message, $channel, $sender, $sendto) {
-		if (preg_match("/^news sticky ([0-9]+)$/i", $message, $arr)) {
-			$id = $arr[1];
+	public function stickyCommand($message, $channel, $sender, $sendto, $arr) {
+		$id = $arr[1];
 
-			$row = $this->db->queryRow("SELECT * FROM `#__news` WHERE `id` = ?", $id);
+		$row = $this->db->queryRow("SELECT * FROM `#__news` WHERE `id` = ?", $id);
 
-			if ($row->sticky == 1) {
-				$msg = "News ID $id is already stickied.";
-			} else {
-				$this->db->exec("UPDATE `#__news` SET `sticky` = 1 WHERE `id` = ?", $id);
-				$msg = "News ID $id successfully stickied.";
-			}
-			$this->chatBot->send($msg, $sendto);
+		if ($row->sticky == 1) {
+			$msg = "News ID $id is already stickied.";
 		} else {
-			return false;
+			$this->db->exec("UPDATE `#__news` SET `sticky` = 1 WHERE `id` = ?", $id);
+			$msg = "News ID $id successfully stickied.";
 		}
+		$this->chatBot->send($msg, $sendto);
 	}
 	
 	/**
 	 * @Subcommand("news unsticky (.+)")
-	 * @Channels("")
 	 * @AccessLevel("rl")
 	 * @Description("Unstickies a news entry")
+	 * @Matches("/^news unsticky ([0-9]+)$/i")
 	 */
-	public function unstickyCommand($message, $channel, $sender, $sendto) {
-		if (preg_match("/^news unsticky ([0-9]+)$/i", $message, $arr)) {
-			$id = $arr[1];
+	public function unstickyCommand($message, $channel, $sender, $sendto, $arr) {
+		$id = $arr[1];
 
-			$row = $this->db->queryRow("SELECT * FROM `#__news` WHERE `id` = ?", $id);
+		$row = $this->db->queryRow("SELECT * FROM `#__news` WHERE `id` = ?", $id);
 
-			if ($row->sticky == 0) {
-				$msg = "News ID $id is not stickied.";
-			} else if ($row->sticky == 1) {
-				$this->db->exec("UPDATE `#__news` SET `sticky` = 0 WHERE `id` = ?", $id);
-				$msg = "News ID $id successfully unstickied.";
-			}
-			$this->chatBot->send($msg, $sendto);
-		} else {
-			return false;
+		if ($row->sticky == 0) {
+			$msg = "News ID $id is not stickied.";
+		} else if ($row->sticky == 1) {
+			$this->db->exec("UPDATE `#__news` SET `sticky` = 0 WHERE `id` = ?", $id);
+			$msg = "News ID $id successfully unstickied.";
 		}
+		$this->chatBot->send($msg, $sendto);
 	}
 }
 

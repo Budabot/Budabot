@@ -24,4 +24,8 @@ class Inject extends Annotation {
 
 }
 
+class Matches extends Annotation {
+
+}
+
 ?>

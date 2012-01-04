@@ -246,9 +246,14 @@ class Command extends Annotation {
 			if ($instance === null) {
 				Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
 			} else {
-				// methods will return false to indicate a syntax error, so when a false is returned,
-				// we set $syntax_error = true, otherwise we set it to false
-				$syntax_error = ($instance->$method($message, $type, $sender, $sendto) !== false ? false : true);
+				$arr = $this->checkMatches($instance, $method, $message);
+				if ($arr === false) {
+					$syntax_error = true;
+				} else {
+					// methods will return false to indicate a syntax error, so when a false is returned,
+					// we set $syntax_error = true, otherwise we set it to false
+					$syntax_error = ($instance->$method($message, $type, $sender, $sendto, $arr) !== false ? false : true);
+				}
 			}
 		}
 		if ($syntax_error === true) {
@@ -269,6 +274,21 @@ class Command extends Annotation {
 			}
 		}
 		$chatBot->spam[$sender] = $chatBot->spam[$sender] + 10;
+	}
+	
+	public function checkMatches($instance, $method, $message) {
+		$reflectedMethod = new ReflectionAnnotatedMethod($instance, $method);
+		
+		if ($reflectedMethod->hasAnnotation('Matches')) {
+			forEach ($reflectedMethod->getAllAnnotations('Matches') as $annotation) {
+				if (preg_match($annotation->value, $message, $arr)) {
+					return $arr;
+				}
+			}
+			return false;
+		} else {
+			return true;
+		}
 	}
 }
 
