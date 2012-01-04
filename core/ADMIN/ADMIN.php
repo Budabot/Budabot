@@ -1,27 +1,31 @@
-<?php 
-	$command->activate("msg", "$MODULE_NAME/addadmin.php", "addadmin", "admin");
-	$command->activate("priv", "$MODULE_NAME/addadmin.php", "addadmin", "admin");
-	$command->activate("guild", "$MODULE_NAME/addadmin.php", "addadmin", "admin");
+<?php
+	require_once 'Admin.class.php';
+
+	$chatBot->registerInstance($MODULE_NAME, 'Admin', new Admin);
+
+	$command->activate("msg", "Admin.addCommand", "addadmin", "admin");
+	$command->activate("priv", "Admin.addCommand", "addadmin", "admin");
+	$command->activate("guild", "Admin.addCommand", "addadmin", "admin");
 	
-	$command->activate("msg", "$MODULE_NAME/remadmin.php", "remadmin", "superadmin");
-	$command->activate("priv", "$MODULE_NAME/remadmin.php", "remadmin", "superadmin");
-	$command->activate("guild", "$MODULE_NAME/remadmin.php", "remadmin", "superadmin");
+	$command->activate("msg", "Admin.removeCommand", "remadmin", "superadmin");
+	$command->activate("priv", "Admin.removeCommand", "remadmin", "superadmin");
+	$command->activate("guild", "Admin.removeCommand", "remadmin", "superadmin");
 	
-	$command->activate("msg", "$MODULE_NAME/addmod.php", "addmod", "admin");
-	$command->activate("priv", "$MODULE_NAME/addmod.php", "addmod", "admin");
-	$command->activate("guild", "$MODULE_NAME/addmod.php", "addmod", "admin");
+	$command->activate("msg", "Admin.addCommand", "addmod", "admin");
+	$command->activate("priv", "Admin.addCommand", "addmod", "admin");
+	$command->activate("guild", "Admin.addCommand", "addmod", "admin");
 	
-	$command->activate("msg", "$MODULE_NAME/remmod.php", "remmod", "admin");
-	$command->activate("priv", "$MODULE_NAME/remmod.php", "remmod", "admin");
-	$command->activate("guild", "$MODULE_NAME/remmod.php", "remmod", "admin");
+	$command->activate("msg", "Admin.removeCommand", "remmod", "admin");
+	$command->activate("priv", "Admin.removeCommand", "remmod", "admin");
+	$command->activate("guild", "Admin.removeCommand", "remmod", "admin");
 	
-	$command->activate("msg", "$MODULE_NAME/addrl.php", "addrl", "mod");
-	$command->activate("priv", "$MODULE_NAME/addrl.php", "addrl", "mod");
-	$command->activate("guild", "$MODULE_NAME/addrl.php", "addrl", "mod");
+	$command->activate("msg", "Admin.addCommand", "addrl", "mod");
+	$command->activate("priv", "Admin.addCommand", "addrl", "mod");
+	$command->activate("guild", "Admin.addCommand", "addrl", "mod");
 	
-	$command->activate("msg", "$MODULE_NAME/remrl.php", "remrl", "mod");
-	$command->activate("priv", "$MODULE_NAME/remrl.php", "remrl", "mod");
-	$command->activate("guild", "$MODULE_NAME/remrl.php", "remrl", "mod");
+	$command->activate("msg", "Admin.removeCommand", "remrl", "mod");
+	$command->activate("priv", "Admin.removeCommand", "remrl", "mod");
+	$command->activate("guild", "Admin.removeCommand", "remrl", "mod");
 
 	$command->activate("msg", "$MODULE_NAME/adminlist.php", "adminlist");
 	$command->activate("priv", "$MODULE_NAME/adminlist.php", "adminlist");
