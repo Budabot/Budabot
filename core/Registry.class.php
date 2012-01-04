@@ -21,6 +21,10 @@ class Registry {
 	
 	public static function getInstance($name, $set = array()) {
 		$name = strtolower($name);
+
+		if (USE_RUNKIT_CLASS_LOADING === true) {
+			Registry::importChanges(ucfirst($name) . ".class.php");
+		}
 		
 		$instance = Registry::$repo2[$name];
 		if ($instance != null) {
@@ -59,6 +63,22 @@ class Registry {
 				$instance->{$property->name} = Registry::getInstance($dependencyName, $set);
 			}
 		}
+	}
+	
+	public static function importChanges($name) {
+		$file = Registry::findInclude($name);
+		if ($file !== null) {
+			runkit_import($file);
+		}
+	}
+	
+	public static function findInclude($name) {
+		forEach (get_included_files() as $file) {
+			if (preg_match("/" . preg_quote($name) . "$/i", $file)) {
+				return $file;
+			}
+		}
+		return null;
 	}
 }
 

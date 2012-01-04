@@ -52,4 +52,6 @@ $vars['use_proxy'] = 0;
 $vars['proxy_server'] = "127.0.0.1";
 $vars['proxy_port'] = 9993;
 
+define("USE_RUNKIT_CLASS_LOADING", false);
+
 ?>
