@@ -109,17 +109,10 @@ class Event extends Annotation {
 		}
 		
 		if ($type == "setup") {
-			if (preg_match("/\\.php$/i", $actual_filename)) {
-				require $actual_filename;
-			} else {
-				list($name, $method) = explode(".", $actual_filename);
-				$instance = Registry::getInstance($name);
-				if ($instance === null) {
-					Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
-				} else {
-					$instance->$method($chatBot, $type);
-				}
-			}
+			$eventObj = new stdClass;
+			$eventObj->type = 'setup';
+
+			$this->callEventHandler($eventObj, $actual_filename);
 		} else if (in_array($type, Event::$EVENT_TYPES)) {
 			if (!isset($this->events[$type]) || !in_array($actual_filename, $this->events[$type])) {
 				$this->events[$type] []= $actual_filename;
@@ -248,30 +241,13 @@ class Event extends Annotation {
 			forEach ($this->cronevents as $key => $event) {
 				if ($event['nextevent'] <= $time) {
 					Logger::log('DEBUG', 'Cron', "Executing cron event '${event['filename']}'");
-					$this->executeCronEvent($event['time'], $event['filename']);
+					
+					$eventObj = new stdClass;
+					$eventObj->type = strtolower($event['time']);
+
+					$this->callEventHandler($eventObj, $event['filename']);
 					$this->cronevents[$key]['nextevent'] = $time + $event['time'];
 				}
-			}
-		}
-	}
-	
-	public function executeCronEvent($type, $filename) {
-		// for file includes
-		$chatBot = Registry::getInstance('chatBot');
-		$db = $this->db;
-		$setting = Registry::getInstance('setting');
-		
-		$type = strtolower($type);
-		
-		if (preg_match("/\\.php$/i", $filename)) {
-			require $filename;
-		} else {
-			list($name, $method) = explode(".", $filename);
-			$instance = Registry::getInstance($name);
-			if ($instance === null) {
-				Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
-			} else {
-				$instance->$method($chatBot, $type);
 			}
 		}
 	}
@@ -283,11 +259,6 @@ class Event extends Annotation {
 	public function executeConnectEvents(){
 		Logger::log('DEBUG', 'Event', "Executing connected events");
 
-		// for file includes
-		$chatBot = Registry::getInstance('chatBot');
-		$db = $this->db;
-		$setting = Registry::getInstance('setting');
-		
 		$eventObj = new stdClass;
 		$eventObj->type = 'connect';
 
@@ -295,33 +266,40 @@ class Event extends Annotation {
 	}
 	
 	public function fireEvent($eventObj) {
-		$chatBot = $this->chatBot;
-		$db = $this->db;
-		$setting = $this->setting;
-
 		forEach ($this->events[$eventObj->type] as $filename) {
-			$type = $eventObj->type;
-			$stop_execution = false;
-			$channel = $eventObj->channel;
-			$sender = $eventObj->sender;
-			$message = $eventObj->message;
-		
-			$msg = "";
-			if (preg_match("/\\.php$/i", $filename)) {
-				require $filename;
-			} else {
-				list($name, $method) = explode(".", $filename);
-				$instance = Registry::getInstance($name);
-				if ($instance === null) {
-					Logger::log('ERROR', 'CORE', "Could not find instance for name '$name' in '$filename' for event type '$eventObj->type'");
-				} else {
-					$stop_execution = ($instance->$method($eventObj) === true ? true : false);
-				}
-			}
-			if ($stop_execution) {
+			if ($this->callEventHandler($eventObj, $filename)) {
 				return;
 			}
 		}
+	}
+	
+	public function callEventHandler($eventObj, $handler) {
+		Logger::log('DEBUG', 'Event', "Executing handler '$handler' for event type '$eventObj->type'");
+	
+		$stop_execution = false;
+		$msg = "";
+
+		if (preg_match("/\\.php$/i", $handler)) {
+			$chatBot = $this->chatBot;
+			$db = $this->db;
+			$setting = $this->setting;
+			
+			$type = $eventObj->type;
+			$channel = $eventObj->channel;
+			$sender = $eventObj->sender;
+			$message = $eventObj->message;
+
+			require $handler;
+		} else {
+			list($name, $method) = explode(".", $handler);
+			$instance = Registry::getInstance($name);
+			if ($instance === null) {
+				Logger::log('ERROR', 'CORE', "Could not find instance for name '$name' in '$handler' for event type '$eventObj->type'");
+			} else {
+				$stop_execution = ($instance->$method($eventObj) === true ? true : false);
+			}
+		}
+		return $stop_execution;
 	}
 }
 
