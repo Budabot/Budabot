@@ -19,7 +19,7 @@ class Logger {
 	public static function log($category, $tag, $message) {
 		global $vars;
 		
-		if (strtolower($category) == 'WARN') {
+		if (strtolower($category) == 'warn') {
 			$category = 'ERROR';
 		}
 		
