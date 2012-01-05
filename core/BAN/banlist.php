@@ -1,6 +1,6 @@
 <?php
 
-$banInstance = Registry::getInstance('ban'); = Registry::getInstance('ban');
+$banInstance = Registry::getInstance('ban');
 
 if (preg_match("/^banlist$/i", $message)) {
   	if (count($banInstance = Registry::getInstance('ban');->getBanlist()) == 0) {
