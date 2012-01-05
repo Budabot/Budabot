@@ -54,7 +54,7 @@ class Event extends Annotation {
 			list($name, $method) = explode(".", $filename);
 			$instance = Registry::getInstance($name);
 			if ($instance === null) {
-				Logger::log('ERROR', 'Command', "Error registering method $filename for event type $type.  Could not find instance '$name'.");
+				Logger::log('ERROR', 'Event', "Error registering method $filename for event type $type.  Could not find instance '$name'.");
 				return;
 			}
 			$actual_filename = $filename;
@@ -102,7 +102,7 @@ class Event extends Annotation {
 			list($name, $method) = explode(".", $filename);
 			$instance = Registry::getInstance($name);
 			if ($instance === null) {
-				Logger::log('ERROR', 'Command', "Error activating method $filename for event type $type.  Could not find instance '$name'.");
+				Logger::log('ERROR', 'Event', "Error activating method $filename for event type $type.  Could not find instance '$name'.");
 				return;
 			}
 			$actual_filename = $filename;
@@ -140,10 +140,20 @@ class Event extends Annotation {
 		
 		// to remove this check we need to make sure to use $filename instead of $actual_filename
 		//Check if the file exists
-		$actual_filename = Util::verify_filename($filename);
-		if ($actual_filename == '') {
-			Logger::log('ERROR', 'Event', "Error deactivating event Type:($type) File:($filename). The file doesn't exist!");
-			return;
+		if (preg_match("/\\.php$/i", $filename)) {
+			$actual_filename = Util::verify_filename($filename);
+			if ($actual_filename == '') {
+				Logger::log('ERROR', 'Event', "Error deactivating event Type:($type) File:($filename). The file doesn't exist!");
+				return;
+			}
+		} else {
+			list($name, $method) = explode(".", $filename);
+			$instance = Registry::getInstance($name);
+			if ($instance === null) {
+				Logger::log('ERROR', 'Event', "Error deactivating method $filename for event type $type.  Could not find instance '$name'.");
+				return;
+			}
+			$actual_filename = $filename;
 		}
 		
 		if (in_array($type, Event::$EVENT_TYPES)) {
