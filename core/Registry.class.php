@@ -21,6 +21,7 @@ class Registry {
 	
 	public static function getInstance($name, $set = array()) {
 		$name = strtolower($name);
+		Logger::log("DEBUG", "Registry", "Requesting instance for '$name'");
 
 		if (USE_RUNKIT_CLASS_LOADING === true) {
 			Registry::importChanges(ucfirst($name) . ".class.php");
@@ -28,12 +29,13 @@ class Registry {
 		
 		$instance = Registry::$repo2[$name];
 		if ($instance != null) {
+			Logger::log("DEBUG", "Registry", "Using cache for '$name'");
 			return $instance;
 		}
 
 		$instance = Registry::$repo[$name];
 		if ($instance == null) {
-			Logger::log("WARN", "Registry", "Could not find instance for $name.");
+			Logger::log("WARN", "Registry", "Could not find instance for '$name'");
 			return null;
 		}
 		
@@ -68,7 +70,8 @@ class Registry {
 	public static function importChanges($name) {
 		$file = Registry::findInclude($name);
 		if ($file !== null) {
-			runkit_import($file);
+			Logger::log("DEBUG", "Registry", "Re-importing file '$file'");
+			runkit_import($file, RUNKIT_IMPORT_CLASSES | RUNKIT_IMPORT_OVERRIDE);
 		}
 	}
 	
