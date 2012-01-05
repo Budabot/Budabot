@@ -102,7 +102,8 @@ if (preg_match("/^bio(( *${bio_regex})+)$/i", $message, $arr)){
 	
 	if (count($bios) == 1) {
 		// make the bot think they actually typed the !bioinfo command
-		$chatBot->process_command($type, "bioinfo $bioinfo $ql", $sender, $sendto);
+		$command = Registry::getInstance('command');
+		$command->process($type, "bioinfo $bioinfo $ql", $sender, $sendto);
 	} else {
 		$msg = Text::make_blob("Identified Bio-Materials", $blob);
 		$chatBot->send($msg, $sendto);

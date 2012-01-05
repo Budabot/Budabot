@@ -52,6 +52,8 @@ $vars['use_proxy'] = 0;
 $vars['proxy_server'] = "127.0.0.1";
 $vars['proxy_port'] = 9993;
 
+// This should only be enabled during development and only if you understand the implications
+// see here: http://budabot.com/forum/viewtopic.php?p=3438#p3438
 define("USE_RUNKIT_CLASS_LOADING", false);
 
 ?>

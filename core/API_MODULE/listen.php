@@ -22,7 +22,8 @@ if ($client !== false) {
 		if ($apiRequest->type == API_ADVANCED_MSG) {
 			$type = 'api';
 		}
-		$chatBot->process_command($type, $apiRequest->command, $apiRequest->username, $clientHandler);
+		$command = Registry::getInstance('command');
+		$command->command($type, $apiRequest->command, $apiRequest->username, $clientHandler);
 	}
 }
 
