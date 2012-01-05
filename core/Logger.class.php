@@ -19,6 +19,10 @@ class Logger {
 	public static function log($category, $tag, $message) {
 		global $vars;
 		
+		if (strtolower($category) == 'WARN') {
+			$category = 'ERROR';
+		}
+		
 		if ($vars[strtolower($category) . "_console"] != 1 && $vars[strtolower($category) . "_file"] != 1) {
 			return;
 		}

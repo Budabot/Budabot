@@ -105,7 +105,7 @@ class DB {
 		$ps = $this->executeQuery($sql, $args);
 
 		if ($ps !== null && $ps !== false) {
-			$this->result = $ps->fetchAll(PDO::FETCH_OBJ);
+			$this->result = $ps->fetchAll(PDO::FETCH_CLASS, 'Row');
 		}
 		if (count($this->result) == 0) {
 			return null;
@@ -125,7 +125,7 @@ class DB {
 		$ps = $this->executeQuery($sql, $args);
 
 		if ($ps !== null && $ps !== false) {
-			$this->result = $ps->fetchAll(PDO::FETCH_OBJ);
+			$this->result = $ps->fetchAll(PDO::FETCH_CLASS, 'Row');
 		}
 		return $this->result;
 	}
@@ -330,4 +330,11 @@ class DB {
 		return $msg;
 	}
 }
+
+class Row {
+	function __get($value) {
+		Logger::log('WARN', 'DB', "Tried to get value '$value' from row that doesn't exist");
+	}
+}
+
 ?>
