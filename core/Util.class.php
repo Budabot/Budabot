@@ -288,13 +288,26 @@ class Util {
 	    }
 	}
 	
-	public static function get_ability($ability) {
-		$abilities = array('agi', 'int', 'psy', 'sta', 'str', 'sen');
+	
+	
+	public static function get_ability($ability, $getFullName = false) {
+		$abilities = array(
+			'agi' => 'Agility',
+			'int' => 'Intelligence',
+			'psy' => 'Psychic',
+			'sta' => 'Stamina',
+			'str' => 'Strength',
+			'sen' => 'Sense'
+		);
 		
 		$ability = strtolower(substr($ability, 0, 3));
 
-		if (in_array($ability, $abilities)) {
-			return $ability;
+		if (isset($abilities[$ability])) {
+			if ($getFullName) {
+				return $abilities[$ability];
+			} else {
+				return $ability;
+			}
 		} else {
 			return null;
 		}
