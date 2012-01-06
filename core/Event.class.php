@@ -52,8 +52,7 @@ class Event extends Annotation {
 			}
 		} else {
 			list($name, $method) = explode(".", $filename);
-			$instance = Registry::getInstance($name);
-			if ($instance === null) {
+			if (!Registry::instanceExists($name)) {
 				Logger::log('ERROR', 'Event', "Error registering method $filename for event type $type.  Could not find instance '$name'.");
 				return;
 			}
@@ -84,7 +83,7 @@ class Event extends Annotation {
 	 */
 	public function activate($type, $filename) {
 		// for file includes
-		$chatBot = Registry::getInstance('chatBot');
+		$chatBot = $this->chatBot;
 		$db = $this->db;
 		$setting = $this->setting;
 		
@@ -100,8 +99,7 @@ class Event extends Annotation {
 			}
 		} else {
 			list($name, $method) = explode(".", $filename);
-			$instance = Registry::getInstance($name);
-			if ($instance === null) {
+			if (!Registry::instanceExists($name)) {
 				Logger::log('ERROR', 'Event', "Error activating method $filename for event type $type.  Could not find instance '$name'.");
 				return;
 			}
@@ -147,12 +145,6 @@ class Event extends Annotation {
 				return;
 			}
 		} else {
-			list($name, $method) = explode(".", $filename);
-			$instance = Registry::getInstance($name);
-			if ($instance === null) {
-				Logger::log('ERROR', 'Event', "Error deactivating method $filename for event type $type.  Could not find instance '$name'.");
-				return;
-			}
 			$actual_filename = $filename;
 		}
 		

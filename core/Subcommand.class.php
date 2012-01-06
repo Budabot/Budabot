@@ -4,18 +4,19 @@ class Subcommand extends Annotation {
 
 	/** @Inject */
 	public $db;
+	
+	/** @Inject */
+	public $chatBot;
 
 	/**
 	 * @name: register
 	 * @description: Registers a subcommand
 	 */
 	public function register($module, $channel, $filename, $command, $admin = 'all', $parent_command, $description = 'none', $help = '') {
-		$chatBot = Registry::getInstance('chatBot');
-
 		$command = strtolower($command);
 		$module = strtoupper($module);
 
-		if (!$chatBot->processCommandArgs($channel, $admin)) {
+		if (!$this->chatBot->processCommandArgs($channel, $admin)) {
 			Logger::log('ERROR', 'Subcommand', "Invalid args for $module:subcommand($command)");
 			return;
 		}
@@ -28,15 +29,14 @@ class Subcommand extends Annotation {
 			}
 		} else {
 			list($name, $method) = explode(".", $filename);
-			$instance = Registry::getInstance($name);
-			if ($instance === null) {
+			if (!Registry::instanceExists($name)) {
 				Logger::log('ERROR', 'Command', "Error registering method $filename for subcommand $command.  Could not find instance '$name'.");
 				return;
 			}
 			$actual_filename = $filename;
 		}
 
-		if ($chatBot->vars['default_module_status'] == 1) {
+		if ($this->chatBot->vars['default_module_status'] == 1) {
 			$status = 1;
 		} else {
 			$status = 0;
@@ -45,7 +45,7 @@ class Subcommand extends Annotation {
 		for ($i = 0; $i < count($channel); $i++) {
 			Logger::log('debug', 'Subcommand', "Adding Subcommand to list:($command) File:($actual_filename) Admin:($admin) Channel:({$channel[$i]})");
 
-			if ($chatBot->existing_subcmds[$channel[$i]][$command] == true) {
+			if ($this->chatBot->existing_subcmds[$channel[$i]][$command] == true) {
 				$sql = "UPDATE cmdcfg_<myname> SET `module` = ?, `verify` = ?, `file` = ?, `description` = ?, `dependson` = ?, `help` = ? WHERE `cmd` = ? AND `type` = ?";
 				$this->db->exec($sql, $module, '1', $actual_filename, $description, $parent_command, $help, $command, $channel[$i]);
 			} else {
@@ -61,12 +61,10 @@ class Subcommand extends Annotation {
 	 */
 	public function loadSubcommands() {
 		Logger::log('DEBUG', 'Subcommand', "Loading enabled subcommands");
-	
-	  	$chatBot = Registry::getInstance('chatBot');
 
 		$data = $this->db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd' AND `status` = 1");
 		forEach ($data as $row) {
-			$chatBot->subcommands[$row->dependson] []= $row;
+			$this->chatBot->subcommands[$row->dependson] []= $row;
 		}
 	}
 }

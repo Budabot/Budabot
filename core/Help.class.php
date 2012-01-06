@@ -17,14 +17,15 @@ class Help extends Annotation {
 	
 	/** @Inject */
 	public $accessLevel;
+	
+	/** @Inject */
+	public $chatBot;
 
 	/**
 	 * @name: register
 	 * @description: Registers a help command
 	 */
 	public function register($module, $command, $filename, $admin, $description) {
-	  	$chatBot = Registry::getInstance('chatBot');
-		
 		Logger::log('DEBUG', 'Help', "Registering $module:help($command) Helpfile:($filename)");
 
 		$command = strtolower($command);
@@ -36,7 +37,7 @@ class Help extends Annotation {
 			return;
 		}
 
-		if (isset($chatBot->existing_helps[$command])) {
+		if (isset($this->chatBot->existing_helps[$command])) {
 			$sql = "UPDATE hlpcfg_<myname> SET `verify` = 1, `file` = ?, `module` = ?, `description` = ? WHERE `name` = ?";
 			$this->db->exec($sql, $actual_filename, $module, $description, $command);
 		} else {
@@ -45,13 +46,13 @@ class Help extends Annotation {
 		}
 
 		$row = $this->db->queryRow("SELECT * FROM hlpcfg_<myname> WHERE `name` = ?", $command);
-		$chatBot->helpfiles[$command]["filename"] = $actual_filename;
-		$chatBot->helpfiles[$command]["admin"] = $row->admin;
-		$chatBot->helpfiles[$command]["info"] = $description;
-		$chatBot->helpfiles[$command]["module"] = $module;
+		$this->chatBot->helpfiles[$command]["filename"] = $actual_filename;
+		$this->chatBot->helpfiles[$command]["admin"] = $row->admin;
+		$this->chatBot->helpfiles[$command]["info"] = $description;
+		$this->chatBot->helpfiles[$command]["module"] = $module;
 		
 		if (substr($actual_filename, 0, 7) == "./core/") {
-			$chatBot->helpfiles[$command]["status"] = "enabled";
+			$this->chatBot->helpfiles[$command]["status"] = "enabled";
 		}
 	}
 	
@@ -60,14 +61,12 @@ class Help extends Annotation {
 	 * @description: Find a help topic by name if it exists and if the user has permissions to see it
 	 */
 	public function find($helpcmd, $char) {
-		$chatBot = Registry::getInstance('chatBot');
-	
 		$helpcmd = strtolower($helpcmd);
 
 		$data = false;
-		if (isset($chatBot->helpfiles[$helpcmd])) {
-			$filename = $chatBot->helpfiles[$helpcmd]["filename"];
-			$admin = $chatBot->helpfiles[$helpcmd]["admin"];
+		if (isset($this->chatBot->helpfiles[$helpcmd])) {
+			$filename = $this->chatBot->helpfiles[$helpcmd]["filename"];
+			$admin = $this->chatBot->helpfiles[$helpcmd]["admin"];
 			
 			if ($char === null) {
 				$access = true;

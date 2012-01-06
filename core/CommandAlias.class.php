@@ -4,6 +4,9 @@ class CommandAlias {
 
 	/** @Inject */
 	public $db;
+	
+	/** @Inject */
+	public $chatBot;
 
 	/**
 	 * @name: load
@@ -27,15 +30,13 @@ class CommandAlias {
 	 * @description: Registers a command alias
 	 */
 	public function register($module, $command, $alias, $status = 1) {
-		$chatBot = Registry::getInstance('chatBot');
-	
 		$module = strtoupper($module);
 		$command = strtolower($command);
 		$alias = strtolower($alias);
 		
 		Logger::log('DEBUG', 'CommandAlias', "Registering alias: '{$alias}' for command: '$command'");
 		
-		if ($chatBot->existing_cmd_aliases[$alias] == true) {
+		if ($this->chatBot->existing_cmd_aliases[$alias] == true) {
 			$sql = "UPDATE cmd_alias_<myname> SET `module` = ?, `cmd` = ? WHERE `alias` = ?";
 			$this->db->exec($sql, $module, $command, $alias);
 		} else {
@@ -49,13 +50,11 @@ class CommandAlias {
 	 * @description: Activates a command alias
 	 */
 	public function activate($command, $alias) {
-		$chatBot = Registry::getInstance('chatBot');
-		
 		$alias = strtolower($alias);
 
 	  	Logger::log('DEBUG', 'CommandAlias', "Activate Command Alias command:($command) alias:($alias)");
 		
-		$chatBot->cmd_aliases[$alias] = $command;
+		$this->chatBot->cmd_aliases[$alias] = $command;
 	}
 	
 	/**
@@ -63,13 +62,11 @@ class CommandAlias {
 	 * @description: Deactivates a command alias
 	 */
 	public function deactivate($alias) {
-		$chatBot = Registry::getInstance('chatBot');
-
 		$alias = strtolower($alias);
 
 	  	Logger::log('DEBUG', 'CommandAlias', "Deactivate Command Alias:($alias)");
 		
-		unset($chatBot->cmd_aliases[$alias]);
+		unset($this->chatBot->cmd_aliases[$alias]);
 	}
 	
 	/**

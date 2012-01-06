@@ -11,8 +11,8 @@ class Timer {
 	private $timerEvents = array();
 	
 	public function executeTimerEvents() {
-		while (count(Timer::$timerEvents) > 0 && Timer::$timerEvents[0]->time <= time()) {
-			$timerEvent = array_shift(Timer::$timerEvents);
+		while (count($this->timerEvents) > 0 && $this->timerEvents[0]->time <= time()) {
+			$timerEvent = array_shift($this->timerEvents);
 			call_user_func($timerEvent->callback, $timerEvent->time, $timerEvent->callbackParam);
 		}
 	}
@@ -24,8 +24,8 @@ class Timer {
 		$timerEvent->callbackParam = $callbackParam;
 		$timerEvent->time = $time;
 		
-		Timer::$timerEvents []= $timerEvent;
-		usort(Timer::$timerEvents, "cmp");
+		$this->timerEvents []= $timerEvent;
+		usort($this->timerEvents, "cmp");
 	}
 }
 

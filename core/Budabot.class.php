@@ -278,7 +278,7 @@ class Budabot extends AOChat {
 	}
 	
 	function loadCoreModules() {
-		$chatBot = Registry::getInstance('chatBot');
+		$chatBot = $this;
 		$db = $this->db;
 		$command = $this->command;
 		$subcommand = $this->subcommand;
@@ -303,7 +303,7 @@ class Budabot extends AOChat {
 	 * @description: load all user modules
 	 */
 	function loadModules(){
-		$chatBot = Registry::getInstance('chatBot');
+		$chatBot = $this;
 		$db = $this->db;
 		$command = $this->command;
 		$subcommand = $this->subcommand;

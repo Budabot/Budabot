@@ -6,6 +6,9 @@ class Usage {
 	
 	/** @Inject */
 	public $setting;
+	
+	/** @Inject */
+	public $chatBot;
 
 	public function record($type, $cmd, $sender) {
 		$sql = "INSERT INTO usage_<myname> (type, command, sender, dt) VALUES (?, ?, ?, ?)";
@@ -32,7 +35,6 @@ class Usage {
 	}
 	
 	public function getUsageInfo($lastSubmittedStats, $debug = false) {
-		$chatBot = Registry::getInstance('chatBot');
 		global $version;
 
 		$botid = $this->setting->get('botid');
@@ -45,10 +47,10 @@ class Usage {
 		$data = $this->db->query($sql, $lastSubmittedStats);
 
 		$settings = array();
-		$settings['dimension'] = $chatBot->vars['dimension'];
-		$settings['is_guild_bot'] = ($chatBot->vars['my_guild'] == '' ? '0' : '1');
-		$settings['guildsize'] = $this->getGuildSizeClass(count($chatBot->guildmembers));
-		$settings['using_chat_proxy'] = $chatBot->vars['use_proxy'];
+		$settings['dimension'] = $this->chatBot->vars['dimension'];
+		$settings['is_guild_bot'] = ($this->chatBot->vars['my_guild'] == '' ? '0' : '1');
+		$settings['guildsize'] = $this->getGuildSizeClass(count($this->chatBot->guildmembers));
+		$settings['using_chat_proxy'] = $this->chatBot->vars['use_proxy'];
 		$settings['symbol'] = $this->setting->get('symbol');
 		$settings['spam_protection'] = $this->setting->get('spam_protection');
 		$settings['db_type'] = $this->db->get_type();
@@ -68,7 +70,7 @@ class Usage {
 		$settings['logon_delay'] = $this->setting->get('logon_delay');
 
 		$obj = new stdClass;
-		$obj->id = sha1($botid . $chatBot->vars['name'] . $chatBot->vars['dimension']);
+		$obj->id = sha1($botid . $this->chatBot->vars['name'] . $this->chatBot->vars['dimension']);
 		$obj->version = "1.3";
 		$obj->debug = ($debug == true ? '1' : '0');
 		$obj->commands = $data;
