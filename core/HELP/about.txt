@@ -11,9 +11,10 @@
 <highlight>-Dark Ninjas (RK2)<end>, <highlight>Devil Inside (RK2)<end> and <highlight>Conquered Dreams (RK2)<end> for letting me use their orgs to test new features.
 <highlight>-MajorOutage (RK1)<end> for providing items db rips.
 <highlight>-CaptainZero (RK1)<end> and <highlight>Greasegirl (RK2)<end> for hosting and moderating the budabot.com website.
-<highlight>-Mdkdoc420 (RK2)<end> for coding, testing new features, and testing the AO Chat Proxy in a live environment.
+<highlight>-Mdkdoc420 (RK2)<end> for coding, coming up with new ideas, testing new features, and testing the AO Chat Proxy in a live environment.
 <highlight>-Docteeko (RK2)<end> for helping manage the Budabot project, testing new features and suggesting needed finishing touches.
 <highlight>-Rosss (RK1)<end> and <highlight>Kinaton (RK1)<end> for testing the release candidates, reporting bugs, and continuously giving great feedback.
+<highlight>-Marebone (RK2)<end> for his help and suggestions on how to make Budabot more manageable and testable.
 -All the people who have contributed modules, ideas, and bug reports to help make Budabot the best bot AO has ever seen.
 
 To the AO Community:
