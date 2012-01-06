@@ -10,6 +10,9 @@ class API {
 	
 	/** @Inject */
 	public $chatBot;
+	
+	/** @Inject */
+	public $setting;
 
 	/**
 	 * @Setting("api_port")
@@ -30,7 +33,7 @@ class API {
 	public function connect($eventObj) {
 		// bind to port 5250 on any address
 		$address = '0.0.0.0';
-		$port = $setting->get('api_port');
+		$port = $this->setting->get('api_port');
 
 		// Create a TCP Stream socket
 		$this->apisocket = socket_create(AF_INET, SOCK_STREAM, 0);
