@@ -116,7 +116,7 @@ if (!function_exists('getSubCommandInfo')) {
 		return $subcmd_list;
 	}
 }
-   
+
 if (preg_match("/^config$/i", $message)) {
 	$list = array();
 	$list[] = array("header" => "<header>::::: Module Config :::::<end>\n\n", 
@@ -356,21 +356,8 @@ if (preg_match("/^config$/i", $message)) {
 		  	return;
 		}
 
-		if ($channel == 'all') {
-			if ($chatBot->commands['msg'][$command]) {
-				$chatBot->commands['msg']["admin"] = $admin;
-			}
-			if ($chatBot->commands['priv'][$command]) {
-				$chatBot->commands['priv'][$command]["admin"] = $admin;
-			}
-			if ($chatBot->commands['guild'][$command]) {
-				$chatBot->commands['guild'][$command]["admin"] = $admin;
-			}
-		} else {
-			if ($chatBot->commands[$channel][$command]) {
-				$chatBot->commands[$channel][$command]["admin"] = $admin;
-			}
-		}
+		$commandManager = Registry::getInstance('command');
+		$commandManager->update_status($channel, null, $command, $status, $admin);
 
 		if ($channel == "all") {
 			$db->exec("UPDATE cmdcfg_<myname> SET `admin` = ? WHERE `cmd` = ? AND `cmdevent` = 'cmd'", $admin, $command);

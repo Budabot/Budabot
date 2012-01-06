@@ -3,7 +3,7 @@
 	$command->register($MODULE_NAME, "", "check.php", "check", "rl", "Checks who of the raidgroup is in the area");
 
 	// Topic set/show
-	$event->register($MODULE_NAME, "joinPriv", "topic_logon.php", "Show Topic when someone joins PrivChat");
+	$event->register($MODULE_NAME, "joinPriv", "topic_logon.php", "Show topic when someone joins the private channel");
 	$event->register($MODULE_NAME, "logOn", "topic_logon.php", "Show Topic on logon of members");
 	$command->register($MODULE_NAME, "", "topic.php", "topic", "all", "Show Topic");
 	$subcommand->register($MODULE_NAME, "", "topic_change.php", "topic (.+)", "leader", "topic", "Change Topic");

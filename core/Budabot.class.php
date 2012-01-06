@@ -34,10 +34,6 @@ class Budabot extends AOChat {
 	var $helpfiles = array();
 	var $subcommands = array();
 	
-	var $tellCmds = array();
-	var $privCmds = array();
-	var $guildCmds = array();
-	
 	// array where modules can store stateful session data
 	var $data = array();
 	
@@ -129,12 +125,7 @@ class Budabot extends AOChat {
 		$this->helpfiles = array();
 		$this->subcommands = array();
 		$this->cmd_aliases = array();
-		$this->commands = array();
 		
-		unset($this->privMsgs);
-		unset($this->privChat);
-		unset($this->guildChat);
-
 		// Prepare command/event settings table
 		$this->db->exec("UPDATE cmdcfg_<myname> SET `verify` = 0");
 		$this->db->exec("UPDATE eventcfg_<myname> SET `verify` = 0");

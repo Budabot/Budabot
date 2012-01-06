@@ -16,18 +16,18 @@ class Command extends Annotation {
 	
 	/** @Inject */
 	public $help;
+	
+	public $commands;
 
 	/**
 	 * @name: register
 	 * @description: Registers a command
 	 */
 	public function register($module, $channel, $filename, $command, $admin, $description = '', $help = ''){
-		$chatBot = Registry::getInstance('chatBot');
-
 		$command = strtolower($command);
 		$module = strtoupper($module);
 		
-		if (!$chatBot->processCommandArgs($channel, $admin)) {
+		if (!$this->chatBot->processCommandArgs($channel, $admin)) {
 			Logger::log('ERROR', 'Command', "Invalid args for $module:command($command). Command not registered.");
 			return;
 		}
@@ -48,7 +48,7 @@ class Command extends Annotation {
 			$actual_filename = $filename;
 		}
 
-		if ($chatBot->vars['default_module_status'] == 1) {
+		if ($this->chatBot->vars['default_module_status'] == 1) {
 			$status = 1;
 		} else {
 			$status = 0;
@@ -57,7 +57,7 @@ class Command extends Annotation {
 		for ($i = 0; $i < count($channel); $i++) {
 			Logger::log('debug', 'Command', "Adding Command to list:($command) File:($actual_filename) Admin:({$admin[$i]}) Channel:({$channel[$i]})");
 			
-			if (isset($chatBot->existing_commands[$channel[$i]][$command])) {
+			if (isset($this->chatBot->existing_commands[$channel[$i]][$command])) {
 				$sql = "UPDATE cmdcfg_<myname> SET `module` = ?, `verify` = ?, `file` = ?, `description` = ?, `help` = ? WHERE `cmd` = ? AND `type` = ?";
 				$this->db->exec($sql, $module, '1', $actual_filename, $description, $help, $command, $channel[$i]);
 			} else {
@@ -71,9 +71,7 @@ class Command extends Annotation {
 	 * @name: activate
 	 * @description: Activates a command
 	 */
-	public static function activate($channel, $filename, $command, $admin = 'all') {
-		$chatBot = Registry::getInstance('chatBot');
-		
+	public function activate($channel, $filename, $command, $admin = 'all') {
 		$command = strtolower($command);
 		$admin = strtolower($admin);
 		$channel = strtolower($channel);
@@ -96,8 +94,8 @@ class Command extends Annotation {
 			$actual_filename = $filename;
 		}
 		
-		$chatBot->commands[$channel][$command]["filename"] = $actual_filename;
-		$chatBot->commands[$channel][$command]["admin"] = $admin;
+		$this->commands[$channel][$command]["filename"] = $actual_filename;
+		$this->commands[$channel][$command]["admin"] = $admin;
 	}
 	
 	/**
@@ -105,17 +103,15 @@ class Command extends Annotation {
 	 * @description: Deactivates a command
 	 */
 	public function deactivate($channel, $filename, $command) {
-		$chatBot = Registry::getInstance('chatBot');
-
 		$command = strtolower($command);
 		$channel = strtolower($channel);
 
 	  	Logger::log('DEBUG', 'Command', "Deactivate Command:($command) File:($filename) Channel:($channel)");
 
-		unset($chatBot->commands[$channel][$command]);
+		unset($this->commands[$channel][$command]);
 	}
 	
-	public function update_status($channel, $module, $cmd, $status) {
+	public function update_status($channel, $cmd, $module, $status, $admin) {
 		if ($channel == 'all' || $channel == '' || $channel == null) {
 			$type_sql = '';
 		} else {
@@ -133,6 +129,12 @@ class Command extends Annotation {
 		} else {
 			$module_sql = "AND `module` = '$module'";
 		}
+		
+		if ($admin == '' || $admin == null) {
+			$adminSql = '';
+		} else {
+			$adminSql = ", admin = $admin";
+		}
 	
 		$data = $this->db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' $module_sql $cmd_sql $type_sql");
 		if (count($data) == 0) {
@@ -141,13 +143,13 @@ class Command extends Annotation {
 		
 		forEach ($data as $row) {
 			if ($status == 1) {
-				$this->activate($row->type, $row->filename, $row->cmd, $row->admin);
+				$this->activate($row->type, $row->filename, $row->cmd, $admin);
 			} else if ($status == 0) {
 				$this->deactivate($row->type, $row->filename, $row->cmd);
 			}
 		}
 		
-		return $this->db->exec("UPDATE cmdcfg_<myname> SET status = '$status' WHERE `cmdevent` = 'cmd' $module_sql $cmd_sql $type_sql");
+		return $this->db->exec("UPDATE cmdcfg_<myname> SET status = '$status' $adminSql WHERE `cmdevent` = 'cmd' $module_sql $cmd_sql $type_sql");
 	}
 
 	/**
@@ -184,9 +186,9 @@ class Command extends Annotation {
 		$cmd = strtolower($cmd);
 		
 		// Check if this is an alias for a command
-		if (isset($chatBot->cmd_aliases[$cmd])) {
-			Logger::log('DEBUG', 'Core', "Command alias found command: '{$chatBot->cmd_aliases[$cmd]}' alias: '{$cmd}'");
-			$cmd = $chatBot->cmd_aliases[$cmd];
+		if (isset($this->chatBot->cmd_aliases[$cmd])) {
+			Logger::log('DEBUG', 'Core', "Command alias found command: '{$this->chatBot->cmd_aliases[$cmd]}' alias: '{$cmd}'");
+			$cmd = $this->chatBot->cmd_aliases[$cmd];
 			if ($params) {
 				$message = $cmd . ' ' . $params;
 			} else {
@@ -196,12 +198,12 @@ class Command extends Annotation {
 			return;
 		}
 		
-		$admin = $chatBot->commands[$type][$cmd]["admin"];
-		$filename = $chatBot->commands[$type][$cmd]["filename"];
+		$admin = $this->commands[$type][$cmd]["admin"];
+		$filename = $this->commands[$type][$cmd]["filename"];
 
 		// Check if a subcommands for this exists
-		if (isset($chatBot->subcommands[$cmd])) {
-			forEach ($chatBot->subcommands[$cmd] as $row) {
+		if (isset($this->chatBot->subcommands[$cmd])) {
+			forEach ($this->chatBot->subcommands[$cmd] as $row) {
 				if ($row->type == $type && preg_match("/^{$row->cmd}$/i", $message)) {
 					$admin = $row->admin;
 					$filename = $row->file;
@@ -215,8 +217,8 @@ class Command extends Annotation {
 				return;
 			}
 				
-			$chatBot->send("Error! Unknown command.", $sendto);
-			$chatBot->spam[$sender] = $chatBot->spam[$sender] + 20;
+			$this->chatBot->send("Error! Unknown command.", $sendto);
+			$this->chatBot->spam[$sender] += 20;
 			return;
 		}
 
@@ -227,8 +229,8 @@ class Command extends Annotation {
 				return;
 			}
 				
-			$chatBot->send("Error! Access denied.", $sendto);
-			$chatBot->spam[$sender] = $chatBot->spam[$sender] + 20;
+			$this->chatBot->send("Error! Access denied.", $sendto);
+			$this->chatBot->spam[$sender] += 20;
 			return;
 		}
 
@@ -268,12 +270,12 @@ class Command extends Annotation {
 			}
 			if ($blob !== false) {
 				$msg = Text::make_blob("Help ($helpcmd)", $blob);
-				$chatBot->send($msg, $sendto);
+				$this->chatBot->send($msg, $sendto);
 			} else {
-				$chatBot->send("Error! Invalid syntax for this command.", $sendto);
+				$this->chatBot->send("Error! Invalid syntax for this command.", $sendto);
 			}
 		}
-		$chatBot->spam[$sender] = $chatBot->spam[$sender] + 10;
+		$this->chatBot->spam[$sender] += 10;
 	}
 	
 	public function checkMatches($instance, $method, $message) {
