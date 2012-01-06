@@ -54,7 +54,7 @@ class CommandAlias {
 
 	  	Logger::log('DEBUG', 'CommandAlias', "Activate Command Alias command:($command) alias:($alias)");
 		
-		$this->chatBot->cmd_aliases[$alias] = $command;
+		$this->cmd_aliases[$alias] = $command;
 	}
 	
 	/**
@@ -66,7 +66,7 @@ class CommandAlias {
 
 	  	Logger::log('DEBUG', 'CommandAlias', "Deactivate Command Alias:($alias)");
 		
-		unset($this->chatBot->cmd_aliases[$alias]);
+		unset($this->cmd_aliases[$alias]);
 	}
 	
 	/**

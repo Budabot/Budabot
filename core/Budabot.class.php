@@ -123,7 +123,6 @@ class Budabot extends AOChat {
 		
 		// Delete old vars in case they exist
 		$this->subcommands = array();
-		$this->cmd_aliases = array();
 		
 		// Prepare command/event settings table
 		$this->db->exec("UPDATE cmdcfg_<myname> SET `verify` = 0");

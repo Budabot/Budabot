@@ -17,6 +17,9 @@ class Command extends Annotation {
 	/** @Inject */
 	public $help;
 	
+	/** @Inject */
+	public $commandAlias;
+	
 	public $commands;
 
 	/**
@@ -184,9 +187,9 @@ class Command extends Annotation {
 		$cmd = strtolower($cmd);
 		
 		// Check if this is an alias for a command
-		if (isset($this->chatBot->cmd_aliases[$cmd])) {
-			Logger::log('DEBUG', 'Core', "Command alias found command: '{$this->chatBot->cmd_aliases[$cmd]}' alias: '{$cmd}'");
-			$cmd = $this->chatBot->cmd_aliases[$cmd];
+		if (isset($this->commandAlias->cmd_aliases[$cmd])) {
+			Logger::log('DEBUG', 'Core', "Command alias found command: '{$this->commandAlias->cmd_aliases[$cmd]}' alias: '{$cmd}'");
+			$cmd = $this->commandAlias->cmd_aliases[$cmd];
 			if ($params) {
 				$message = $cmd . ' ' . $params;
 			} else {
