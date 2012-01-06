@@ -1,5 +1,9 @@
 <?php
 
+$event = Registry::getInstance('event');	
+$command = Registry::getInstance('command');
+$help = Registry::getInstance('help');
+
 if (preg_match("/^system$/i", $message, $arr)) {
 	global $version;
 
@@ -37,12 +41,9 @@ if (preg_match("/^system$/i", $message, $arr)) {
 	$blob .= "<highlight>Uptime:<end> $date_string.\n\n";
 
 	$eventnum = 0;
-	$event = Registry::getInstance('event');
 	forEach ($event->events as $type => $events) {
 		$eventnum += count($events);
 	}
-	
-	$command = Registry::getInstance('command');
 
 	$blob .= "<highlight>Number of active tell commands:<end> " . count($command->commands['msg']) . "\n";
 	$blob .= "<highlight>Number of active private channel commands:<end> " . count($command->commands['priv']) . "\n";
@@ -50,7 +51,7 @@ if (preg_match("/^system$/i", $message, $arr)) {
 	$blob .= "<highlight>Number of active subcommands:<end> " . count($chatBot->subcommands) . "\n";
 	$blob .= "<highlight>Number of active command aliases:<end> " . count($chatBot->cmd_aliases) . "\n";
 	$blob .= "<highlight>Number of active events:<end> " . $eventnum . "\n";
-	$blob .= "<highlight>Number of help commands:<end> " . count($chatBot->helpfiles) . "\n\n";
+	$blob .= "<highlight>Number of help commands:<end> " . count($help->helpfiles) . "\n\n";
 
 	$blob .= "<highlight>Number of characters on the friendlist:<end> $num_friendlist / " . count($chatBot->buddyList) . "\n";
 	$blob .= "<highlight>Number of characters in the private channel:<end> " . count($chatBot->chatlist) . "\n";

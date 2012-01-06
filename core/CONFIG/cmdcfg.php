@@ -449,18 +449,19 @@ if (preg_match("/^config$/i", $message)) {
 	}
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^config help (.+) admin (all|leader|rl|mod|admin|guild|member)$/i", $message, $arr)) {
-  	$help = strtolower($arr[1]);
+  	$helpTopic = strtolower($arr[1]);
 	$admin = $arr[2];
 	
-	$row = $db->queryRow("SELECT * FROM hlpcfg_<myname> WHERE `name` = ? ORDER BY `name`", $help);
+	$row = $db->queryRow("SELECT * FROM hlpcfg_<myname> WHERE `name` = ? ORDER BY `name`", $helpTopic);
 	if ($row === null) {
-		$chatBot->send("The help topic <highlight>$help<end> doesn't exist!", $sendto);		  	
+		$chatBot->send("The help topic <highlight>$helpTopic<end> doesn't exist!", $sendto);		  	
 		return;
 	}
 
-	$db->exec("UPDATE hlpcfg_<myname> SET `admin` = ? WHERE `name` = ?", $admin, $help);
-	$chatBot->helpfiles[$row->name]["admin"] = $admin;
-	$chatBot->send("Updated access for helpfile <highlight>$help<end> to <highlight>".ucfirst(strtolower($arr[2]))."<end>.", $sendto);
+	$help = Registry::getInstance('help');
+	$help->update($helpTopic, $admin);
+
+	$chatBot->send("Updated access for helpfile <highlight>$helpTopic<end> to <highlight>".ucfirst(strtolower($admin))."<end>.", $sendto);
 } else if (preg_match("/^config help (.+)$/i", $message, $arr)) {
   	$mod = strtoupper($arr[1]);
 	$blob = "<header> :::::: Configure helpfiles for $mod :::::: <end>\n\n";

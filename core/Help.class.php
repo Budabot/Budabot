@@ -46,13 +46,13 @@ class Help extends Annotation {
 		}
 
 		$row = $this->db->queryRow("SELECT * FROM hlpcfg_<myname> WHERE `name` = ?", $command);
-		$this->chatBot->helpfiles[$command]["filename"] = $actual_filename;
-		$this->chatBot->helpfiles[$command]["admin"] = $row->admin;
-		$this->chatBot->helpfiles[$command]["info"] = $description;
-		$this->chatBot->helpfiles[$command]["module"] = $module;
+		$this->helpfiles[$command]["filename"] = $actual_filename;
+		$this->helpfiles[$command]["admin"] = $row->admin;
+		$this->helpfiles[$command]["info"] = $description;
+		$this->helpfiles[$command]["module"] = $module;
 		
 		if (substr($actual_filename, 0, 7) == "./core/") {
-			$this->chatBot->helpfiles[$command]["status"] = "enabled";
+			$this->helpfiles[$command]["status"] = "enabled";
 		}
 	}
 	
@@ -64,9 +64,9 @@ class Help extends Annotation {
 		$helpcmd = strtolower($helpcmd);
 
 		$data = false;
-		if (isset($this->chatBot->helpfiles[$helpcmd])) {
-			$filename = $this->chatBot->helpfiles[$helpcmd]["filename"];
-			$admin = $this->chatBot->helpfiles[$helpcmd]["admin"];
+		if (isset($this->helpfiles[$helpcmd])) {
+			$filename = $this->helpfiles[$helpcmd]["filename"];
+			$admin = $this->helpfiles[$helpcmd]["admin"];
 			
 			if ($char === null) {
 				$access = true;
@@ -79,6 +79,14 @@ class Help extends Annotation {
 		}
 
 		return $data;
+	}
+	
+	public function update($helpTopic, $admin) {
+		$helpTopic = strtolower($helpTopic);
+		$admin = strtolower($admin);
+	
+		$this->db->exec("UPDATE hlpcfg_<myname> SET `admin` = ? WHERE `name` = ?", $admin, $helpTopic);
+		$this->helpfiles[$helpTopic]["admin"] = $admin;
 	}
 }
 

@@ -122,7 +122,6 @@ class Budabot extends AOChat {
 		$this->db->exec("CREATE TABLE IF NOT EXISTS cmd_alias_<myname> (`cmd` VARCHAR(25) NOT NULL, `module` VARCHAR(50), `alias` VARCHAR(25) NOT NULL, `status` INT DEFAULT '0')");
 		
 		// Delete old vars in case they exist
-		$this->helpfiles = array();
 		$this->subcommands = array();
 		$this->cmd_aliases = array();
 		
