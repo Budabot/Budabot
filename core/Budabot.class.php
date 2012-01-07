@@ -28,6 +28,8 @@ class Budabot extends AOChat {
 	
 	/** @Logger("Core") */
 	public $logger;
+	
+	public $ready = false;
 
 	var $buddyList = array();
 	var $chatlist = array();
@@ -50,9 +52,6 @@ class Budabot extends AOChat {
 
 		$this->vars = $vars;
 		
-		// don't fire logon events when the bot starts up
-		$this->vars["logondelay"] = time() + 100000;
-
 		// Set startup time
 		$this->vars["startup"] = time();
 	}
@@ -88,9 +87,6 @@ class Budabot extends AOChat {
 		}
 
 		$this->logger->log('INFO', "All Systems ready!");
-		
-		$this->logger->log('DEBUG', "Setting logondelay to '" . $this->setting->get("logon_delay") . "'");
-		$this->vars["logondelay"] = time() + $this->setting->get("logon_delay");
 	}
 	
 	public function run() {
@@ -98,7 +94,12 @@ class Budabot extends AOChat {
 		$exec_connected_events = false;
 		$time = 0;
 		while (true) {
-			$this->wait_for_packet();
+			$packet = $this->wait_for_packet();
+			if ($packet) {
+				$this->process_packet($packet);
+			} else {
+				$this->ready = true;
+			}
 			if ($this->is_ready()) {
 				if ($exec_connected_events == false)	{
 					$this->event->executeConnectEvents();
@@ -752,7 +753,7 @@ class Budabot extends AOChat {
 	 * @description: tells when the bot is logged on and all the start up events have finished
 	 */
 	public function is_ready() {
-		return time() >= $this->vars["logondelay"];
+		return $this->ready && (time() >= $this->vars["startup"] + $this->setting->get("logon_delay"));
 	}
 }
 

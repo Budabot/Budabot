@@ -266,17 +266,7 @@ class AOChat {
 
 		$this->last_packet = time();
 
-		$this->process_packet($packet);
-
 		return $packet;
-	}
-	
-	/**
-	* @name: process_packet
-	* @description: override this method
-	*/
-	function process_packet($packet) {
-		
 	}
 
 	function send_packet($packet)

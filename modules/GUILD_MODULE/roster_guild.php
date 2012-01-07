@@ -16,8 +16,6 @@ if ($chatBot->vars["my_guild_id"] != "") {
 		Logger::log('ERROR', 'GUILD_MODULE', "Guild xml file has no members! Aborting roster update.");
 		return;
 	}
-	
-	$chatBot->vars["logondelay"] = time() + 100000;
 
 	// Save the current org_members table in a var
 	$data = $db->query("SELECT * FROM org_members_<myname>");
@@ -30,6 +28,8 @@ if ($chatBot->vars["my_guild_id"] != "") {
 			$dbentrys[$row->name]["mode"] = $row->mode;
 		}
 	}
+	
+	$chatBot->ready = false;
 	
 	$db->begin_transaction();
 	
@@ -92,8 +92,6 @@ if ($chatBot->vars["my_guild_id"] != "") {
 		// in order to get them to appear on the online list
 		die();
 	}
-
-	$chatBot->vars["logondelay"] = time() + 5;
 }
 
 ?>
