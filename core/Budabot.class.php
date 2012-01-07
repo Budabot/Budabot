@@ -25,6 +25,9 @@ class Budabot extends AOChat {
 	
 	/** @Inject */
 	public $ban;
+	
+	/** @Logger("Core") */
+	public $logger;
 
 	var $buddyList = array();
 	var $chatlist = array();
@@ -60,33 +63,33 @@ class Budabot extends AOChat {
 	 */
 	function connectAO($login, $password, $server, $port){
 		// Begin the login process
-		Logger::log('INFO', 'StartUp', "Connecting to AO Server...({$server}:{$port})");
+		$this->logger->log('INFO', "Connecting to AO Server...({$server}:{$port})");
 		$this->connect($server, $port);
 		if ($this->state != "auth") {
-			Logger::log('ERROR', 'StartUp', "Connection failed! Please check your Internet connection and firewall.");
+			$this->logger->log('ERROR', "Connection failed! Please check your Internet connection and firewall.");
 			sleep(10);
 			die();
 		}
 
-		Logger::log('INFO', 'StartUp', "Authenticate login data...");
+		$this->logger->log('INFO', "Authenticate login data...");
 		$this->authenticate($login, $password);
 		if ($this->state != "login") {
-			Logger::log('ERROR', 'StartUp', "Authentication failed! Invalid username or password.");
+			$this->logger->log('ERROR', 'StartUp', "Authentication failed! Invalid username or password.");
 			sleep(10);
 			die();
 		}
 
-		Logger::log('INFO', 'StartUp', "Logging in {$this->vars["name"]}...");
+		$this->logger->log('INFO', "Logging in {$this->vars["name"]}...");
 		$this->login($this->vars["name"]);
 		if ($this->state != "ok") {
-			Logger::log('ERROR', 'StartUp', "Character selection failed! Could not login on as character '{$this->vars["name"]}'.");
+			$this->logger->log('ERROR', 'StartUp', "Character selection failed! Could not login on as character '{$this->vars["name"]}'.");
 			sleep(10);
 			die();
 		}
 
-		Logger::log('INFO', 'StartUp', "All Systems ready!");
+		$this->logger->log('INFO', "All Systems ready!");
 		
-		Logger::log('DEBUG', 'Core', "Setting logondelay to '" . $this->setting->get("logon_delay") . "'");
+		$this->logger->log('DEBUG', "Setting logondelay to '" . $this->setting->get("logon_delay") . "'");
 		$this->vars["logondelay"] = time() + $this->setting->get("logon_delay");
 	}
 	
@@ -112,7 +115,7 @@ class Budabot extends AOChat {
 	}
 	
 	function init() {
-		Logger::log('DEBUG', 'Core', 'Initializing bot');
+		$this->logger->log('DEBUG', 'Initializing bot');
 		
 		// Create core tables if not exists
 		$this->db->exec("CREATE TABLE IF NOT EXISTS cmdcfg_<myname> (`module` VARCHAR(50), `cmdevent` VARCHAR(6), `type` VARCHAR(18), `file` VARCHAR(255), `cmd` VARCHAR(25), `admin` VARCHAR(10), `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0', `dependson` VARCHAR(25) DEFAULT 'none', `help` VARCHAR(25))");
@@ -164,7 +167,7 @@ class Budabot extends AOChat {
 		
 		$this->loadCoreModules();
 
-		Logger::log('INFO', 'Core', "Loading USER modules...");
+		$this->logger->log('INFO', "Loading USER modules...");
 
 		//Load user modules
 		$this->loadModules();
@@ -208,7 +211,7 @@ class Budabot extends AOChat {
 	 */
 	function send($message, $target, $disable_relay = false, $priority = null) {
 		if ($target == null) {
-			Logger::log('ERROR', 'Core', "Could not send message as no target was specified. message: '{$message}'");
+			$this->logger->log('ERROR', "Could not send message as no target was specified. message: '{$message}'");
 			return;
 		}
 
@@ -268,7 +271,7 @@ class Budabot extends AOChat {
 				send_message_to_relay("grc <grey>[{$this->vars["my_guild"]}] {$sender_link}: $message");
 			}
 		} else if ($this->get_uid($target) != NULL) {// Target is a player.
-			Logger::log_chat("Out. Msg.", $target, $message);
+			$this->logger->log_chat("Out. Msg.", $target, $message);
     		$this->send_tell($target, $this->setting->get("default_tell_color").$message, "\0", $priority);
 		} else { // Public channels that are not guild
 	    	$this->send_group($target, $this->setting->get("default_guild_color").$message, "\0", $priority);
@@ -286,11 +289,11 @@ class Budabot extends AOChat {
 		$commandAlias = $this->commandAlias;
 
 		// Load the Core Modules -- SETINGS must be first in case the other modules have settings
-		Logger::log('INFO', 'Core', "Loading CORE modules...");
+		$this->logger->log('INFO', "Loading CORE modules...");
 		$core_modules = array('SETTINGS', 'SYSTEM', 'ADMIN', 'BAN', 'HELP', 'CONFIG', 'LIMITS', 'PLAYER_LOOKUP', 'FRIENDLIST', 'ALTS', 'USAGE', 'PREFERENCES', 'API_MODULE');
 		$this->db->begin_transaction();
 		forEach ($core_modules as $MODULE_NAME) {
-			Logger::log('DEBUG', 'Core', "MODULE_NAME:({$MODULE_NAME}.php)");
+			$this->logger->log('DEBUG', "MODULE_NAME:({$MODULE_NAME}.php)");
 			require "./core/{$MODULE_NAME}/{$MODULE_NAME}.php";
 		}
 		$this->db->commit();
@@ -317,10 +320,10 @@ class Budabot extends AOChat {
 				if (!is_dir($MODULE_NAME)) {
 					// Look for the plugin's declaration file
 					if (file_exists("./modules/{$MODULE_NAME}/{$MODULE_NAME}.php")) {
-						Logger::log('DEBUG', 'Core', "MODULE_NAME:({$MODULE_NAME}.php)");
+						$this->logger->log('DEBUG', "MODULE_NAME:({$MODULE_NAME}.php)");
 						require "./modules/{$MODULE_NAME}/{$MODULE_NAME}.php";
 					} else {
-						Logger::log('ERROR', 'Core', "Could not load module {$MODULE_NAME}. {$MODULE_NAME}.php does not exist!");
+						$this->logger->log('ERROR', "Could not load module {$MODULE_NAME}. {$MODULE_NAME}.php does not exist!");
 					}
 				}
 			}
@@ -344,7 +347,7 @@ class Budabot extends AOChat {
 		if (count($admin) == 1) {
 			$admin = array_fill(0, count($type), $admin[0]);
 		} else if (count($admin) != count($type)) {
-			Logger::log('ERROR', 'Core', "ERROR! the number of type arguments does not equal the number of admin arguments for command/subcommand registration!");
+			$this->logger->log('ERROR', "ERROR! the number of type arguments does not equal the number of admin arguments for command/subcommand registration!");
 			return false;
 		}
 		return true;
@@ -394,7 +397,7 @@ class Budabot extends AOChat {
 	
 	function process_group_announce($args) {
 		$b = unpack("C*", $args[0]);
-		Logger::log('DEBUG', 'Packets', "AOCP_GROUP_ANNOUNCE => name: '$args[1]'");
+		$this->logger->log('DEBUG', "AOCP_GROUP_ANNOUNCE => name: '$args[1]'");
 		if ($b[1] == 3) {
 			$this->vars["my_guild_id"] = ($b[2] << 24) + ($b[3] << 16) + ($b[4] << 8) + ($b[5]);
 			//$this->vars["my_guild"] = $args[1];
@@ -408,12 +411,12 @@ class Budabot extends AOChat {
 		$eventObj->channel = $channel;
 		$eventObj->sender = $sender;
 
-		Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_CLIJOIN => channel: '$channel' sender: '$sender'");
+		$this->logger->log('DEBUG', "AOCP_PRIVGRP_CLIJOIN => channel: '$channel' sender: '$sender'");
 		
 		if ($channel == $this->vars['name']) {
 			$eventObj->type = "joinpriv";
 
-			Logger::log_chat("Priv Group", -1, "$sender joined the channel.");
+			$this->logger->log_chat("Priv Group", -1, "$sender joined the channel.");
 
 			// Remove sender if they are banned or if spam filter is blocking them
 			if ($this->ban->is_banned($sender) || $this->spam[$sender] > 100){
@@ -438,12 +441,12 @@ class Budabot extends AOChat {
 		$eventObj->channel = $channel;
 		$eventObj->sender = $sender;
 		
-		Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_CLIPART => channel: '$channel' sender: '$sender'");
+		$this->logger->log('DEBUG', "AOCP_PRIVGRP_CLIPART => channel: '$channel' sender: '$sender'");
 		
 		if ($channel == $this->vars['name']) {
 			$eventObj->type = "leavepriv";
 		
-			Logger::log_chat("Priv Group", -1, "$sender left the channel.");
+			$this->logger->log_chat("Priv Group", -1, "$sender left the channel.");
 
 			// Remove from Chatlist array.
 			unset($this->chatlist[$sender]);
@@ -463,7 +466,7 @@ class Budabot extends AOChat {
 		$eventObj = new stdClass;
 		$eventObj->sender = $sender;
 		
-		Logger::log('DEBUG', 'Packets', "AOCP_BUDDY_ADD => sender: '$sender' status: '$status'");
+		$this->logger->log('DEBUG', "AOCP_BUDDY_ADD => sender: '$sender' status: '$status'");
 		
 		// store buddy info
 		list($bid, $bonline, $btype) = $args;
@@ -481,13 +484,13 @@ class Budabot extends AOChat {
 		if ($status == 0) {
 			$eventObj->type = "logoff";
 			
-			Logger::log('DEBUG', "Buddy", "$sender logged off");
+			$this->logger->log('DEBUG', "$sender logged off");
 
 			$this->event->fireEvent($eventObj);
 		} else if ($status == 1) {
 			$eventObj->type = "logon";
 			
-			Logger::log('INFO', "Buddy", "$sender logged on");
+			$this->logger->log('INFO', "$sender logged on");
 
 			$this->event->fireEvent($eventObj);
 		}
@@ -498,7 +501,7 @@ class Budabot extends AOChat {
 		$sender	= $this->lookup_user($args[0]);
 		$sendto = $sender;
 		
-		Logger::log('DEBUG', 'Packets', "AOCP_MSG_PRIVATE => sender: '$sender' message: '$args[1]'");
+		$this->logger->log('DEBUG', "AOCP_MSG_PRIVATE => sender: '$sender' message: '$args[1]'");
 		
 		// Removing tell color
 		if (preg_match("/^<font color='#([0-9a-f]+)'>(.+)$/si", $args[1], $arr)) {
@@ -512,7 +515,7 @@ class Budabot extends AOChat {
 		$eventObj->type = $type;
 		$eventObj->message = $message;
 
-		Logger::log_chat("Inc. Msg.", $sender, $message);
+		$this->logger->log_chat("Inc. Msg.", $sender, $message);
 
 		// AFK/bot check
 		if (preg_match("/$sender is AFK/si", $message, $arr)) {
@@ -565,8 +568,8 @@ class Budabot extends AOChat {
 		$eventObj->channel = $channel;
 		$eventObj->message = $message;
 		
-		Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_MESSAGE => sender: '$sender' channel: '$channel' message: '$message'");
-		Logger::log_chat($channel, $sender, $message);
+		$this->logger->log('DEBUG', "AOCP_PRIVGRP_MESSAGE => sender: '$sender' channel: '$channel' message: '$message'");
+		$this->logger->log_chat($channel, $sender, $message);
 		
 		if ($sender == $this->vars["name"] || $this->ban->is_banned($sender)) {
 			return;
@@ -614,7 +617,7 @@ class Budabot extends AOChat {
 		$eventObj->channel = $channel;
 		$eventObj->message = $message;
 		
-		Logger::log('DEBUG', 'Packets', "AOCP_GROUP_MESSAGE => sender: '$sender' channel: '$channel' message: '$message'");
+		$this->logger->log('DEBUG', "AOCP_GROUP_MESSAGE => sender: '$sender' channel: '$channel' message: '$message'");
 
 		if (in_array($channel, $this->channelsToIgnore)) {
 			return;
@@ -622,9 +625,9 @@ class Budabot extends AOChat {
 
 		// don't log tower messages with rest of chat messages
 		if ($channel != "All Towers" && $channel != "Tower Battle Outcome") {
-			Logger::log_chat($channel, $sender, $message);
+			$this->logger->log_chat($channel, $sender, $message);
 		} else {
-			Logger::log('DEBUG', $channel, $message);
+			$this->logger->log('DEBUG', "[" . $channel . "]: " . $message);
 		}
 
 		if ($sender) {
@@ -671,18 +674,18 @@ class Budabot extends AOChat {
 		$eventObj->sender = $sender;
 		$eventObj->type = $type;
 
-		Logger::log('DEBUG', 'Packets', "AOCP_PRIVGRP_INVITE => sender: '$sender'");
+		$this->logger->log('DEBUG', "AOCP_PRIVGRP_INVITE => sender: '$sender'");
 
-		Logger::log_chat("Priv Channel Invitation", -1, "$sender channel invited.");
+		$this->logger->log_chat("Priv Channel Invitation", -1, "$sender channel invited.");
 
 		$this->event->fireEvent($eventObj);
 	}
 	
 	public function registerInstance($MODULE_NAME, $name, &$obj) {
 		$name = strtolower($name);
-		Logger::log('DEBUG', 'CORE', "Registering instance name '$name' for module '$MODULE_NAME'");
+		$this->logger->log('DEBUG', "Registering instance name '$name' for module '$MODULE_NAME'");
 		if (Registry::instanceExists($name)) {
-			Logger::log('WARN', 'CORE', "Instance with name '$name' already registered--replaced with new instance");
+			$this->logger->log('WARN', "Instance with name '$name' already registered--replaced with new instance");
 		}
 		Registry::setInstance($name, $obj);
 

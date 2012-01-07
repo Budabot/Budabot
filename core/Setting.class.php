@@ -40,6 +40,9 @@ class Setting extends Annotation {
 	/** @Inject */
 	public $chatBot;
 	
+	/** @Logger */
+	public $logger;
+	
 	public $settings = array();
 
 	/**
@@ -60,14 +63,14 @@ class Setting extends Annotation {
 		$type = strtolower($type);
 		
 		if (!in_array($type, array('color', 'number', 'text', 'options', 'time'))) {
-			Logger::log('ERROR', 'Core', "Error in registering Setting $module:setting($name). Type should be one of: 'color', 'number', 'text', 'options', 'time'. Actual: '$type'.");
+			$this->logger->log('ERROR', "Error in registering Setting $module:setting($name). Type should be one of: 'color', 'number', 'text', 'options', 'time'. Actual: '$type'.");
 		}
 		
 		if ($type == 'time') {
 			$oldvalue = $value;
 			$value = Util::parseTime($value);
 			if ($value < 1) {
-				Logger::log('ERROR', 'Core', "Error in registering Setting $module:setting($name). Invalid time: '{$oldvalue}'.");
+				$this->logger->log('ERROR', "Error in registering Setting $module:setting($name). Invalid time: '{$oldvalue}'.");
 				return;
 			}
 		}
@@ -92,7 +95,7 @@ class Setting extends Annotation {
 		if (array_key_exists($name, $this->settings)) {
 	  		return $this->settings[$name];
 	  	} else {
-			Logger::log("ERROR", "Setting", "Could not retrieve value for setting '$name' because setting does not exist");
+			$this->logger->log("ERROR", "Could not retrieve value for setting '$name' because setting does not exist");
 	  		return false;
 		}
 	}
@@ -112,7 +115,7 @@ class Setting extends Annotation {
 			$this->settings[$name] = $value;
 			return true;
 		} else {
-			Logger::log("ERROR", "Setting", "Could not save value '$value' for setting '$name' because setting does not exist");
+			$this->logger->log("ERROR", "Could not save value '$value' for setting '$name' because setting does not exist");
 			return false;
 		}
 	}

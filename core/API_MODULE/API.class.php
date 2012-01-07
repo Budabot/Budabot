@@ -13,6 +13,9 @@ class API {
 	
 	/** @Inject */
 	public $setting;
+	
+	/** @Logger */
+	public $logger;
 
 	/**
 	 * @Setting("api_port")
@@ -40,9 +43,9 @@ class API {
 		socket_bind($this->apisocket, $address, $port);
 		$errno = socket_last_error();
 		if ($errno == 0) {
-			Logger::log('INFO', 'API_MODULE', 'API socket bound successfully');
+			$this->logger->log('INFO', 'API socket bound successfully');
 		} else {
-			Logger::log('ERROR', 'API_MODULE', socket_strerror($errno));
+			$this->logger->log('ERROR', socket_strerror($errno));
 		}
 		socket_listen($this->apisocket);
 		socket_set_nonblock($this->apisocket);

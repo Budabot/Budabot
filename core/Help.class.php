@@ -20,20 +20,23 @@ class Help extends Annotation {
 	
 	/** @Inject */
 	public $chatBot;
+	
+	/** @Logger */
+	public $logger;
 
 	/**
 	 * @name: register
 	 * @description: Registers a help command
 	 */
 	public function register($module, $command, $filename, $admin, $description) {
-		Logger::log('DEBUG', 'Help', "Registering $module:help($command) Helpfile:($filename)");
+		$this->logger->log('DEBUG', "Registering $module:help($command) Helpfile:($filename)");
 
 		$command = strtolower($command);
 
 		// Check if the file exists
 		$actual_filename = Util::verify_filename($module . '/' . $filename);
 		if ($actual_filename == '') {
-			Logger::log('ERROR', 'Help', "Error in registering the File $filename for Help command $module:help($command). The file doesn't exist!");
+			$this->logger->log('ERROR', "Error in registering the File $filename for Help command $module:help($command). The file doesn't exist!");
 			return;
 		}
 

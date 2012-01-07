@@ -21,6 +21,9 @@ class Event extends Annotation {
 	/** @Inject */
 	public $setting;
 	
+	/** @Logger */
+	public $logger;
+	
 	public $events = array();
 
 	public static $EVENT_TYPES = array(
@@ -36,24 +39,24 @@ class Event extends Annotation {
 	public function register($module, $type, $filename, $description = 'none', $help = '', $defaultStatus = null) {
 		$type = strtolower($type);
 		
-		Logger::log('DEBUG', 'Event', "Registering event Type:($type) File:($filename) Module:($module)");
+		$this->logger->log('DEBUG', "Registering event Type:($type) File:($filename) Module:($module)");
 		
 		$time = Util::parseTime($type);
 		if ($time <= 0 && !in_array($type, Event::$EVENT_TYPES)) {
-			Logger::log('ERROR', 'Event', "Error registering event Type:($type) File:($filename) Module:($module). The type is not a recognized event type!");
+			$this->logger->log('ERROR', "Error registering event Type:($type) File:($filename) Module:($module). The type is not a recognized event type!");
 			return;
 		}
 		
 		if (preg_match("/\\.php$/i", $filename)) {
 			$actual_filename = Util::verify_filename($module . '/' . $filename);
 			if ($actual_filename == '') {
-				Logger::log('ERROR', 'Event', "Error registering event Type:($type) File:($filename) Module:($module). The file doesn't exist!");
+				$this->logger->log('ERROR', "Error registering event Type:($type) File:($filename) Module:($module). The file doesn't exist!");
 				return;
 			}
 		} else {
 			list($name, $method) = explode(".", $filename);
 			if (!Registry::instanceExists($name)) {
-				Logger::log('ERROR', 'Event', "Error registering method $filename for event type $type.  Could not find instance '$name'.");
+				$this->logger->log('ERROR', "Error registering method $filename for event type $type.  Could not find instance '$name'.");
 				return;
 			}
 			$actual_filename = $filename;
@@ -89,18 +92,18 @@ class Event extends Annotation {
 		
 		$type = strtolower($type);
 		
-		Logger::log('DEBUG', 'Event', "Activating event Type:($type) File:($filename)");
+		$this->logger->log('DEBUG', "Activating event Type:($type) File:($filename)");
 
 		if (preg_match("/\\.php$/i", $filename)) {
 			$actual_filename = Util::verify_filename($filename);
 			if ($actual_filename == '') {
-				Logger::log('ERROR', 'Event', "Error activating event Type:($type) File:($filename). The file doesn't exist!");
+				$this->logger->log('ERROR', "Error activating event Type:($type) File:($filename). The file doesn't exist!");
 				return;
 			}
 		} else {
 			list($name, $method) = explode(".", $filename);
 			if (!Registry::instanceExists($name)) {
-				Logger::log('ERROR', 'Event', "Error activating method $filename for event type $type.  Could not find instance '$name'.");
+				$this->logger->log('ERROR', "Error activating method $filename for event type $type.  Could not find instance '$name'.");
 				return;
 			}
 			$actual_filename = $filename;
@@ -115,14 +118,14 @@ class Event extends Annotation {
 			if (!isset($this->events[$type]) || !in_array($actual_filename, $this->events[$type])) {
 				$this->events[$type] []= $actual_filename;
 			} else {
-				Logger::log('ERROR', 'Event', "Error activating event Type:($type) File:($filename). Event already activated!");
+				$this->logger->log('ERROR', "Error activating event Type:($type) File:($filename). Event already activated!");
 			}
 		} else {
 			$time = Util::parseTime($type);
 			if ($time > 0) {
 				$this->cronevents[] = array('nextevent' => 0, 'filename' => $actual_filename, 'time' => $time);
 			} else {
-				Logger::log('ERROR', 'Event', "Error activating event Type:($type) File:($filename). The type is not a recognized event type!");
+				$this->logger->log('ERROR', "Error activating event Type:($type) File:($filename). The type is not a recognized event type!");
 			}
 		}
 	}
@@ -134,14 +137,14 @@ class Event extends Annotation {
 	public function deactivate($type, $filename) {
 		$type = strtolower($type);
 
-		Logger::log('debug', 'Event', "Deactivating event Type:($type) File:($filename)");
+		$this->logger->log('debug', 'Event', "Deactivating event Type:($type) File:($filename)");
 		
 		// to remove this check we need to make sure to use $filename instead of $actual_filename
 		//Check if the file exists
 		if (preg_match("/\\.php$/i", $filename)) {
 			$actual_filename = Util::verify_filename($filename);
 			if ($actual_filename == '') {
-				Logger::log('ERROR', 'Event', "Error deactivating event Type:($type) File:($filename). The file doesn't exist!");
+				$this->logger->log('ERROR', "Error deactivating event Type:($type) File:($filename). The file doesn't exist!");
 				return;
 			}
 		} else {
@@ -164,13 +167,13 @@ class Event extends Annotation {
 					}
 				}
 			} else {
-				Logger::log('ERROR', 'Event', "Error deactivating event Type:($type) File:($filename). The type is not a recognized event type!");
+				$this->logger->log('ERROR', "Error deactivating event Type:($type) File:($filename). The type is not a recognized event type!");
 				return;
 			}
 		}
 
 		if (!$found) {
-			Logger::log('ERROR', 'Event', "Error deactivating event Type:($type) File:($filename). The event is not active or doesn't exist!");
+			$this->logger->log('ERROR', "Error deactivating event Type:($type) File:($filename). The event is not active or doesn't exist!");
 		}
 	}
 	
@@ -222,7 +225,7 @@ class Event extends Annotation {
 	 * @description: Loads the active events into memory and activates them
 	 */
 	public function loadEvents() {
-		Logger::log('DEBUG', 'Event', "Loading enabled events");
+		$this->logger->log('DEBUG', "Loading enabled events");
 
 		$data = $this->db->query("SELECT * FROM eventcfg_<myname> WHERE `status` = '1'");
 		forEach ($data as $row) {
@@ -239,10 +242,10 @@ class Event extends Annotation {
 		
 		if ($this->chatBot->is_ready()) {
 			$time = time();
-			Logger::log('DEBUG', 'Cron', "Executing cron events at '$time'");
+			$this->logger->log('DEBUG', "Executing cron events at '$time'");
 			forEach ($this->cronevents as $key => $event) {
 				if ($event['nextevent'] <= $time) {
-					Logger::log('DEBUG', 'Cron', "Executing cron event '${event['filename']}'");
+					$this->logger->log('DEBUG', "Executing cron event '${event['filename']}'");
 					
 					$eventObj = new stdClass;
 					$eventObj->type = strtolower($event['time']);
@@ -259,7 +262,7 @@ class Event extends Annotation {
 	** Execute Events that needs to be executed right after login
 	*/	
 	public function executeConnectEvents(){
-		Logger::log('DEBUG', 'Event', "Executing connected events");
+		$this->logger->log('DEBUG', "Executing connected events");
 
 		$eventObj = new stdClass;
 		$eventObj->type = 'connect';
@@ -276,7 +279,7 @@ class Event extends Annotation {
 	}
 	
 	public function callEventHandler($eventObj, $handler) {
-		Logger::log('DEBUG', 'Event', "Executing handler '$handler' for event type '$eventObj->type'");
+		$this->logger->log('DEBUG', "Executing handler '$handler' for event type '$eventObj->type'");
 	
 		$stop_execution = false;
 		$msg = "";
@@ -296,7 +299,7 @@ class Event extends Annotation {
 			list($name, $method) = explode(".", $handler);
 			$instance = Registry::getInstance($name);
 			if ($instance === null) {
-				Logger::log('ERROR', 'CORE', "Could not find instance for name '$name' in '$handler' for event type '$eventObj->type'");
+				$this->logger->log('ERROR', "Could not find instance for name '$name' in '$handler' for event type '$eventObj->type'");
 			} else {
 				$stop_execution = ($instance->$method($eventObj) === true ? true : false);
 			}

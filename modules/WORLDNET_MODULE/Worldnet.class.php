@@ -19,6 +19,9 @@ class Worldnet {
 	/** @Inject */
 	public $chatBot;
 	
+	/** @Logger */
+	public $logger;
+	
 	function init($MODULE_NAME) {
 		// since settings for channels are added dynamically, we need to re-add them manually
 		$data = $this->db->query("SELECT * FROM settings_<myname> WHERE module = ? AND name LIKE ?", $MODULE_NAME, "%_channel");
@@ -43,7 +46,7 @@ class Worldnet {
 	function logon($eventObj) {
 		if (strtolower($this->setting->get('worldnet_bot')) == strtolower($eventObj->sender)) {
 			$msg = "!join";
-			Logger::log_chat("Out. Msg.", $eventObj->sender, $msg);
+			$this->logger->log_chat("Out. Msg.", $eventObj->sender, $msg);
 			$this->chatBot->send_tell($eventObj->sender, $msg);
 		}
 	}

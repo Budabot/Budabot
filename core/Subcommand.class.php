@@ -7,6 +7,9 @@ class Subcommand extends Annotation {
 	
 	/** @Inject */
 	public $chatBot;
+	
+	/** @Logger */
+	public $logger;
 
 	/**
 	 * @name: register
@@ -17,20 +20,20 @@ class Subcommand extends Annotation {
 		$module = strtoupper($module);
 
 		if (!$this->chatBot->processCommandArgs($channel, $admin)) {
-			Logger::log('ERROR', 'Subcommand', "Invalid args for $module:subcommand($command)");
+			$this->logger->log('ERROR', "Invalid args for $module:subcommand($command)");
 			return;
 		}
 
 		if (preg_match("/\\.php$/i", $filename)) {
 			$actual_filename = Util::verify_filename($module . '/' . $filename);
 			if ($actual_filename == '') {
-				Logger::log('ERROR', 'Subcommand', "Error in registering the file $filename for Subcommand $command. The file doesn't exist!");
+				$this->logger->log('ERROR', "Error in registering the file $filename for Subcommand $command. The file doesn't exist!");
 				return;
 			}
 		} else {
 			list($name, $method) = explode(".", $filename);
 			if (!Registry::instanceExists($name)) {
-				Logger::log('ERROR', 'Command', "Error registering method $filename for subcommand $command.  Could not find instance '$name'.");
+				$this->logger->log('ERROR', "Error registering method $filename for subcommand $command.  Could not find instance '$name'.");
 				return;
 			}
 			$actual_filename = $filename;
@@ -43,7 +46,7 @@ class Subcommand extends Annotation {
 		}
 
 		for ($i = 0; $i < count($channel); $i++) {
-			Logger::log('debug', 'Subcommand', "Adding Subcommand to list:($command) File:($actual_filename) Admin:($admin) Channel:({$channel[$i]})");
+			$this->logger->log('DEBUG', "Adding Subcommand to list:($command) File:($actual_filename) Admin:($admin) Channel:({$channel[$i]})");
 
 			if ($this->chatBot->existing_subcmds[$channel[$i]][$command] == true) {
 				$sql = "UPDATE cmdcfg_<myname> SET `module` = ?, `verify` = ?, `file` = ?, `description` = ?, `dependson` = ?, `help` = ? WHERE `cmd` = ? AND `type` = ?";
@@ -60,7 +63,7 @@ class Subcommand extends Annotation {
 	 * @description: Loads the active subcommands into memory and activates them
 	 */
 	public function loadSubcommands() {
-		Logger::log('DEBUG', 'Subcommand', "Loading enabled subcommands");
+		$this->logger->log('DEBUG', "Loading enabled subcommands");
 
 		$data = $this->db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd' AND `status` = 1");
 		forEach ($data as $row) {

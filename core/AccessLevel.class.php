@@ -11,6 +11,9 @@ class AccessLevel extends Annotation {
 	
 	/** @Inject */
 	public $chatBot;
+	
+	/** @Logger */
+	public $logger;
 
 	/**
 	 * @name: checkAccess
@@ -19,7 +22,7 @@ class AccessLevel extends Annotation {
 	 * @returns: true if $sender has at least $accessLevel, false otherwise
 	 */
 	public function checkAccess($sender, $accessLevel) {
-		Logger::log("DEBUG", "AccessLevel", "Checking access level '$accessLevel' against character '$sender'");
+		$this->logger->log("DEBUG", "Checking access level '$accessLevel' against character '$sender'");
 	
 		$returnVal = $this->checkSingleAccess($sender, $accessLevel);
 		
@@ -32,7 +35,7 @@ class AccessLevel extends Annotation {
 			// otherwise just return the result
 			$altInfo = Alts::get_alt_info($sender);
 			if ($sender != $altInfo->main && $altInfo->is_validated($sender)) {
-				Logger::log("DEBUG", "AccessLevel", "Checking access level '$accessLevel' against the main of '$sender' which is '$altInfo->main'");
+				$this->logger->log("DEBUG", "Checking access level '$accessLevel' against the main of '$sender' which is '$altInfo->main'");
 				$returnVal = $this->checkSingleAccess($altInfo->main, $accessLevel);
 			}
 		}

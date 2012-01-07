@@ -7,13 +7,16 @@ class CommandAlias {
 	
 	/** @Inject */
 	public $chatBot;
+	
+	/** @Logger */
+	public $logger;
 
 	/**
 	 * @name: load
 	 * @description: loads active aliases into memory to activate them
 	 */
 	public function load() {
-		Logger::log('DEBUG', 'CommandAlias', "Loading enabled command aliases");
+		$this->logger->log('DEBUG', "Loading enabled command aliases");
 
 		$data = $this->db->query("SELECT * FROM cmd_alias_<myname> WHERE `status` = '1'");
 		forEach ($data as $row) {
@@ -34,7 +37,7 @@ class CommandAlias {
 		$command = strtolower($command);
 		$alias = strtolower($alias);
 		
-		Logger::log('DEBUG', 'CommandAlias', "Registering alias: '{$alias}' for command: '$command'");
+		$this->logger->log('DEBUG', "Registering alias: '{$alias}' for command: '$command'");
 		
 		if ($this->chatBot->existing_cmd_aliases[$alias] == true) {
 			$sql = "UPDATE cmd_alias_<myname> SET `module` = ?, `cmd` = ? WHERE `alias` = ?";
@@ -52,7 +55,7 @@ class CommandAlias {
 	public function activate($command, $alias) {
 		$alias = strtolower($alias);
 
-	  	Logger::log('DEBUG', 'CommandAlias', "Activate Command Alias command:($command) alias:($alias)");
+	  	$this->logger->log('DEBUG', "Activate Command Alias command:($command) alias:($alias)");
 		
 		$this->cmd_aliases[$alias] = $command;
 	}
@@ -64,7 +67,7 @@ class CommandAlias {
 	public function deactivate($alias) {
 		$alias = strtolower($alias);
 
-	  	Logger::log('DEBUG', 'CommandAlias', "Deactivate Command Alias:($alias)");
+	  	$this->logger->log('DEBUG', "Deactivate Command Alias:($alias)");
 		
 		unset($this->cmd_aliases[$alias]);
 	}
@@ -74,7 +77,7 @@ class CommandAlias {
 	 * @description: Adds a command alias to the db
 	 */
 	public function add(&$row) {
-		Logger::log('DEBUG', 'CommandAlias', "Adding alias: '{$alias}' for command: '$command'");
+		$this->logger->log('DEBUG', "Adding alias: '{$alias}' for command: '$command'");
 		
 		$sql = "INSERT INTO cmd_alias_<myname> (`module`, `cmd`, `alias`, `status`) VALUES (?, ?, ?, ?)";
 		return $this->db->exec($sql, $row->module, $row->cmd, $row->alias, $row->status);
@@ -85,7 +88,7 @@ class CommandAlias {
 	 * @description: Updates a command alias in the db
 	 */
 	public function update(&$row) {
-	  	Logger::log('DEBUG', 'CommandAlias', "Updating alias :($row->alias)");
+	  	$this->logger->log('DEBUG', "Updating alias :($row->alias)");
 		
 		$sql = "UPDATE cmd_alias_<myname> SET `module` = ?, `cmd` = ?, `status` = ? WHERE `alias` = ?";
 		return $this->db->exec($sql, $row->module, $row->cmd, $row->status, $row->alias);

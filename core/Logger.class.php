@@ -7,7 +7,7 @@
 //   chat
 //   error
 
-class Logger {
+class Logger extends Annotation {
 	public static $TIMESTAMP_FORMAT = "Ymd H:i:s";
 
 	public static function get_logging_directory() {

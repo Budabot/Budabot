@@ -82,7 +82,6 @@ if (!file_exists($config_file)) {
 }
 
 require $config_file;
-require_once "./core/Logger.class.php";
 
 // Set error level.
 error_reporting(E_ERROR | E_PARSE);
@@ -90,8 +89,9 @@ error_reporting(E_ERROR | E_PARSE);
 ini_set("log_errors", 1);
 ini_set("error_log", "./logs/{$vars['name']}.{$vars['dimension']}/php_errors.log");
 
-require_once './core/Registry.class.php';
 require_once './lib/addendum-0.4.1/annotations.php';
+require_once './core/Registry.class.php';
+require_once "./core/Logger.class.php";
 require_once './core/annotations.php';
 require_once './core/AOChat.class.php';
 require_once './core/Budabot.class.php';

@@ -63,6 +63,13 @@ class Registry {
 				}
 				$dependencyName = strtolower($dependencyName);
 				$instance->{$property->name} = Registry::getInstance($dependencyName, $set);
+			} else if ($property->hasAnnotation('Logger')) {
+				if ($property->getAnnotation('Logger')->value != '') {
+					$tag = $property->getAnnotation('Logger')->value;
+				} else {
+					$tag = $reflection->name;
+				}
+				$instance->{$property->name} = new LoggerWrapper($tag);
 			}
 		}
 	}
@@ -82,6 +89,22 @@ class Registry {
 			}
 		}
 		return null;
+	}
+}
+
+class LoggerWrapper {
+	private $tag;
+
+	public function __construct($tag) {
+		$this->tag = $tag;
+	}
+	
+	public function log($category, $message) {
+		Logger::log($category, $this->tag, $message);
+	}
+	
+	public function log_chat($channel, $sender, $message) {
+		Logger::log_chat($channel, $sender, $message);
 	}
 }
 

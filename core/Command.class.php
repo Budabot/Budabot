@@ -20,6 +20,9 @@ class Command extends Annotation {
 	/** @Inject */
 	public $commandAlias;
 	
+	/** @Logger */
+	public $logger;
+	
 	public $commands;
 
 	/**
@@ -31,20 +34,20 @@ class Command extends Annotation {
 		$module = strtoupper($module);
 		
 		if (!$this->chatBot->processCommandArgs($channel, $admin)) {
-			Logger::log('ERROR', 'Command', "Invalid args for $module:command($command). Command not registered.");
+			$this->logger->log('ERROR', "Invalid args for $module:command($command). Command not registered.");
 			return;
 		}
 		
 		if (preg_match("/\\.php$/i", $filename)) {
 			$actual_filename = Util::verify_filename($module . '/' . $filename);
 			if ($actual_filename == '') {
-				Logger::log('ERROR', 'Command', "Error registering file $filename for command $command. The file doesn't exist!");
+				$this->logger->log('ERROR', "Error registering file $filename for command $command. The file doesn't exist!");
 				return;
 			}
 		} else {
 			list($name, $method) = explode(".", $filename);
 			if (!Registry::instanceExists($name)) {
-				Logger::log('ERROR', 'Command', "Error registering method $filename for command $command.  Could not find instance '$name'.");
+				$this->logger->log('ERROR', "Error registering method $filename for command $command.  Could not find instance '$name'.");
 				return;
 			}
 			$actual_filename = $filename;
@@ -57,7 +60,7 @@ class Command extends Annotation {
 		}
 
 		for ($i = 0; $i < count($channel); $i++) {
-			Logger::log('debug', 'Command', "Adding Command to list:($command) File:($actual_filename) Admin:({$admin[$i]}) Channel:({$channel[$i]})");
+			$this->logger->log('debug', "Adding Command to list:($command) File:($actual_filename) Admin:({$admin[$i]}) Channel:({$channel[$i]})");
 			
 			if (isset($this->chatBot->existing_commands[$channel[$i]][$command])) {
 				$sql = "UPDATE cmdcfg_<myname> SET `module` = ?, `verify` = ?, `file` = ?, `description` = ?, `help` = ? WHERE `cmd` = ? AND `type` = ?";
@@ -78,18 +81,18 @@ class Command extends Annotation {
 		$admin = strtolower($admin);
 		$channel = strtolower($channel);
 
-	  	Logger::log('DEBUG', 'Command', "Activate Command:($command) Admin Type:($admin) File:($filename) Channel:($channel)");
+	  	$this->logger->log('DEBUG', "Activate Command:($command) Admin Type:($admin) File:($filename) Channel:($channel)");
 
 		if (preg_match("/\\.php$/i", $filename)) {
 			$actual_filename = Util::verify_filename($filename);
 			if ($actual_filename == '') {
-				Logger::log('ERROR', 'Command', "Error activating file $filename for command $command. The file doesn't exist!");
+				$this->logger->log('ERROR', "Error activating file $filename for command $command. The file doesn't exist!");
 				return;
 			}
 		} else {
 			list($name, $method) = explode(".", $filename);
 			if (!Registry::instanceExists($name)) {
-				Logger::log('ERROR', 'Command', "Error activating method $filename for command $command.  Could not find instance '$name'.");
+				$this->logger->log('ERROR', "Error activating method $filename for command $command.  Could not find instance '$name'.");
 				return;
 			}
 			$actual_filename = $filename;
@@ -107,7 +110,7 @@ class Command extends Annotation {
 		$command = strtolower($command);
 		$channel = strtolower($channel);
 
-	  	Logger::log('DEBUG', 'Command', "Deactivate Command:($command) File:($filename) Channel:($channel)");
+	  	$this->logger->log('DEBUG', "Deactivate Command:($command) File:($filename) Channel:($channel)");
 
 		unset($this->commands[$channel][$command]);
 	}
@@ -158,7 +161,7 @@ class Command extends Annotation {
 	 * @description: Loads the active commands into memory to activate them
 	 */
 	public function loadCommands() {
-		Logger::log('DEBUG', 'Command', "Loading enabled commands");
+		$this->logger->log('DEBUG', "Loading enabled commands");
 
 		$data = $this->db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'cmd'");
 		forEach ($data as $row) {
@@ -188,7 +191,7 @@ class Command extends Annotation {
 		
 		// Check if this is an alias for a command
 		if (isset($this->commandAlias->cmd_aliases[$cmd])) {
-			Logger::log('DEBUG', 'Core', "Command alias found command: '{$this->commandAlias->cmd_aliases[$cmd]}' alias: '{$cmd}'");
+			$this->logger->log('DEBUG', "Command alias found command: '{$this->commandAlias->cmd_aliases[$cmd]}' alias: '{$cmd}'");
 			$cmd = $this->commandAlias->cmd_aliases[$cmd];
 			if ($params) {
 				$message = $cmd . ' ' . $params;
@@ -247,7 +250,7 @@ class Command extends Annotation {
 			list($name, $method) = explode(".", $filename);
 			$instance = Registry::getInstance($name);
 			if ($instance === null) {
-				Logger::log('ERROR', 'CORE', "Could not find instance for name '$name'");
+				$this->logger->log('ERROR', "Could not find instance for name '$name'");
 			} else {
 				$arr = $this->checkMatches($instance, $method, $message);
 				if ($arr === false) {
