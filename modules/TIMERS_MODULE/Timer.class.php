@@ -10,6 +10,9 @@ class Timer {
 	
 	/** @Inject */
 	public $accessLevel;
+	
+	/** @Inject */
+	public $text;
 
 	private $timers = array();
 	
@@ -235,7 +238,7 @@ class Timer {
 			$name = $timer->name;
 			$owner = $timer->owner;
 
-			$remove_link = Text::make_chatcmd("Remove", "/tell <myname> timers rem $name");
+			$remove_link = $this->text->make_chatcmd("Remove", "/tell <myname> timers rem $name");
 
 			$repeatingInfo = '';
 			if ($timer->callback == 'repeating') {
@@ -247,7 +250,7 @@ class Timer {
 			$blob .= "Time left: <highlight>$time_left<end> $repeatingInfo\n";
 			$blob .= "Set by: <highlight>$owner<end>\n\n";
 		}
-		return Text::make_blob("Timers currently running", $blob);
+		return $this->text->make_blob("Timers currently running", $blob);
 	}
 	
 	public function add($name, $owner, $mode, $time, $callback = null, $callback_param = null) {

@@ -8,6 +8,9 @@ class Towers {
 	/** @Inject */
 	public $chatBot;
 	
+	/** @Inject */
+	public $text;
+	
 	/**
 	 * @Command("towerstats")
 	 * @AccessLevel("all")
@@ -68,7 +71,7 @@ class Towers {
 			$blob .= "<{$row->lose_faction}>{$row->lose_faction}<end> have lost <highlight>{$row->num}<end> tower sites.\n";
 		}
 		
-		$msg = Text::make_blob("Tower Stats for the Last $timeString", $blob);
+		$msg = $this->text->make_blob("Tower Stats for the Last $timeString", $blob);
 		$this->chatBot->send($msg, $sendto);
 	}
 

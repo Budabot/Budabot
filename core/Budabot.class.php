@@ -26,6 +26,9 @@ class Budabot extends AOChat {
 	/** @Inject */
 	public $ban;
 	
+	/** @Inject */
+	public $text;
+	
 	/** @Logger("Core") */
 	public $logger;
 	
@@ -194,7 +197,7 @@ class Budabot extends AOChat {
 	}
 
 	function sendPrivate($message, $group, $disable_relay = false) {
-		// for when Text::make_blob generates several pages
+		// for when $text->make_blob generates several pages
 		if (is_array($message)) {
 			forEach ($message as $page) {
 				$this->sendPrivate($page, $group, $disable_relay);
@@ -202,7 +205,7 @@ class Budabot extends AOChat {
 			return;
 		}
 	
-		$message = Text::format_message($message);
+		$message = $this->text->format_message($message);
 		$this->send_privgroup($group, $this->setting->get("default_priv_color").$message);
 	}
 
@@ -216,7 +219,7 @@ class Budabot extends AOChat {
 			return;
 		}
 
-		// for when Text::make_blob generates several pages
+		// for when $text->make_blob generates several pages
 		if (is_array($message)) {
 			forEach ($message as $page) {
 				$this->send($page, $target, $disable_relay, $priority);
@@ -244,8 +247,8 @@ class Budabot extends AOChat {
 			$target = 'prv';
 		}
 
-		$message = Text::format_message($message);
-		$sender_link = Text::make_userlink($this->vars['name']);
+		$message = $this->text->format_message($message);
+		$sender_link = $this->text->make_userlink($this->vars['name']);
 
 		if ($target == 'prv') {
 			$this->send_privgroup($this->vars["name"], $this->setting->get("default_priv_color").$message);

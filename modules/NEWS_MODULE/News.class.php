@@ -6,6 +6,9 @@ class News {
 	
 	/** @Inject */
 	public $chatBot;
+	
+	/** @Inject */
+	public $text;
 
 	/**
 	 * @Setting("news")
@@ -40,15 +43,15 @@ class News {
 
 				$blob .= "<highlight>{$row->news}<end>\n";
 				$blob .= "By {$row->name} " . date("dS M, H:i", $row->time) . " ";
-				$blob .= Text::make_chatcmd("Remove", "/tell <myname> news rem $row->id") . " ";
+				$blob .= $this->text->make_chatcmd("Remove", "/tell <myname> news rem $row->id") . " ";
 				if ($row->sticky == 1) {
-					$blob .= Text::make_chatcmd("Unsticky", "/tell <myname> news unsticky $row->id")."\n";
+					$blob .= $this->text->make_chatcmd("Unsticky", "/tell <myname> news unsticky $row->id")."\n";
 				} else if ($row->sticky == 0) {
-					$blob .= Text::make_chatcmd("Sticky", "/tell <myname> news sticky $row->id")."\n";
+					$blob .= $this->text->make_chatcmd("Sticky", "/tell <myname> news sticky $row->id")."\n";
 				}
 				$sticky = $row->sticky;
 			}
-			$msg = Text::make_blob("News", $blob)." [Last updated at ".date("dS M, H:i", $data[0]->time)."]";
+			$msg = $this->text->make_blob("News", $blob)." [Last updated at ".date("dS M, H:i", $data[0]->time)."]";
 		}
 		return $msg;
 	}
