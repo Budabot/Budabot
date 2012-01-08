@@ -1,6 +1,7 @@
 <?php
 	require_once 'db_utils.php';
 
+	$db->loadSQLFile($MODULE_NAME, "buffitems");
 	$db->loadSQLFile($MODULE_NAME, "roll");
 	$db->loadSQLFile($MODULE_NAME, "koslist");
 	$db->loadSQLFile($MODULE_NAME, "dyna");
@@ -8,6 +9,7 @@
 	$db->loadSQLFile($MODULE_NAME, "playfields");
 	$db->loadSQLFile($MODULE_NAME, "orgcities");
 
+	$command->register($MODULE_NAME, "", "bufftest.php", "bufftest", "leader", "test");
 	$command->register($MODULE_NAME, "", "kos.php", "kos", "guild", "Show the Kill On Sight List");
 	$command->register($MODULE_NAME, "", "time.php", "time", "all", "Show the time in the different timezones");
 	$command->register($MODULE_NAME, "", "calc.php", "calc", "all", "Calculator");
@@ -23,7 +25,6 @@
 	$command->register($MODULE_NAME, "", "waypoint.php", "waypoint", "all", "Create a waypoint link");
 	$command->register($MODULE_NAME, "", "orgcities.php", "orgcities", "all", "Show coords for org cities");
 	$command->register($MODULE_NAME, "", "server.php", "server", "all", "Show the Server status");
-	$command->register($MODULE_NAME, "", "buffs2.php", "buffs2", "all", "");
 
 	// Flip or Roll command
 	$command->register($MODULE_NAME, "", "roll.php", "flip", "all", "Flip a coin", 'roll');
