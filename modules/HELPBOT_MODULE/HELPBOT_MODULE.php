@@ -23,6 +23,7 @@
 	$command->register($MODULE_NAME, "", "waypoint.php", "waypoint", "all", "Create a waypoint link");
 	$command->register($MODULE_NAME, "", "orgcities.php", "orgcities", "all", "Show coords for org cities");
 	$command->register($MODULE_NAME, "", "server.php", "server", "all", "Show the Server status");
+	$command->register($MODULE_NAME, "", "buffs2.php", "buffs2", "all", ");
 
 	// Flip or Roll command
 	$command->register($MODULE_NAME, "", "roll.php", "flip", "all", "Flip a coin", 'roll');
