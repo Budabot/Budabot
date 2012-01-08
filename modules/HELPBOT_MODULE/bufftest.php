@@ -37,21 +37,21 @@ if (preg_match("/^bufftest$/i", $message, $arr)) {
 				$blob .= "\n<highlight>Weapon Buff List<end>\n\n";
 				$weap = 0;
 			}
-			$blob .= Text::make_item($row->lowid, $row->highid, $row->minql, $row->name) . " Buff Amount: <highlight>$row->buffed<end> - $row->info\n";
+			$blob .= Text::make_item($row->lowid, $row->highid, $row->minql, $row->name) . " Buff Amount: <highlight>$row->buffed<end> - <highlight>$row->info<end>\n";
 		}
 		if ($row->type == "armor") {
 			if ($armor == 1) {
 				$blob .= "\n<highlight>Armor Buff List<end>\n\n";
 				$armor = 0;
 			}
-			$blob .= Text::make_item($row->lowid, $row->highid, $row->minql, $row->name) . " Buff Amount: <highlight>$row->buffed<end> - $row->info\n";
+			$blob .= Text::make_item($row->lowid, $row->highid, $row->minql, $row->name) . " Buff Amount: <highlight>$row->buffed<end> - <highlight>$row->info<end>\n";
 		}
 		if ($row->type == "util") {
 			if ($util == 1) {
 				$blob .= "\n<highlight>Utility Buff List<end>\n\n";
 				$util = 0;
 			}
-			$blob .= Text::make_item($row->lowid, $row->highid, $row->minql, $row->name) . " Buff Amount: <highlight>$row->buffed<end> - $row->info\n";
+			$blob .= Text::make_item($row->lowid, $row->highid, $row->minql, $row->name) . " Buff Amount: <highlight>$row->buffed<end> - <highlight>$row->info<end>\n";
 		}
 	}
 	$msg = Text::make_blob("Buff Item list ($ability)", $blob);
