@@ -722,7 +722,8 @@ class Budabot extends AOChat {
 					$method->getAnnotation('Command')->value,
 					$method->getAnnotation('AccessLevel')->value,
 					$method->getAnnotation('Description')->value,
-					$method->getAnnotation('Help')->value
+					$method->getAnnotation('Help')->value,
+					$method->getAnnotation('DefaultStatus')->value
 				);
 			}
 			if ($method->hasAnnotation('Subcommand')) {
@@ -735,7 +736,8 @@ class Budabot extends AOChat {
 					$method->getAnnotation('AccessLevel')->value,
 					$parentCommand,
 					$method->getAnnotation('Description')->value,
-					$method->getAnnotation('Help')->value
+					$method->getAnnotation('Help')->value,
+					$method->getAnnotation('DefaultStatus')->value
 				);
 			}
 			if ($method->hasAnnotation('Event')) {

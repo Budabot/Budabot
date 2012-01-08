@@ -15,7 +15,7 @@ class Subcommand extends Annotation {
 	 * @name: register
 	 * @description: Registers a subcommand
 	 */
-	public function register($module, $channel, $filename, $command, $admin = 'all', $parent_command, $description = 'none', $help = '') {
+	public function register($module, $channel, $filename, $command, $admin = 'all', $parent_command, $description = 'none', $help = '', $defaultStatus = null) {
 		$command = strtolower($command);
 		$module = strtoupper($module);
 
@@ -39,10 +39,14 @@ class Subcommand extends Annotation {
 			$actual_filename = $filename;
 		}
 
-		if ($this->chatBot->vars['default_module_status'] == 1) {
-			$status = 1;
+		if ($defaultStatus === null) {
+			if ($this->chatBot->vars['default_module_status'] == 1) {
+				$status = 1;
+			} else {
+				$status = 0;
+			}
 		} else {
-			$status = 0;
+			$status = $defaultStatus;
 		}
 
 		for ($i = 0; $i < count($channel); $i++) {

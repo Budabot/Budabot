@@ -471,11 +471,11 @@ if (preg_match("/^config$/i", $message)) {
 		$msg = "Could not find any help files for module '<highlight>$mod<end>'";
 	} else {
 		forEach ($data as $row) {
-			$blob .= "<pagebreak><highlight><u>Helpfile</u><end>: $row->name\n";
-			$blob .= "<highlight><u>Description</u><end>: $row->description\n";
-			$blob .= "<highlight><u>Module</u><end>: $row->module\n";
-			$blob .= "<highlight><u>Current Permission</u><end>: $row->admin\n";
-			$blob .= "<highlight><u>Set Permission</u><end>: ";
+			$blob .= "<pagebreak><highlight>Helpfile<end>: $row->name\n";
+			$blob .= "<highlight>Description<end>: $row->description\n";
+			$blob .= "<highlight>Module<end>: $row->module\n";
+			$blob .= "<highlight>Current Permission<end>: $row->admin\n";
+			$blob .= "<highlight>Set Permission<end>: ";
 			$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin all'>All</a>  ";
 			$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin member'>Member</a>  ";
 			$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin guild'>Guild</a>  ";

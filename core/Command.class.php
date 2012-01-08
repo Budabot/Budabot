@@ -32,7 +32,7 @@ class Command extends Annotation {
 	 * @name: register
 	 * @description: Registers a command
 	 */
-	public function register($module, $channel, $filename, $command, $admin, $description = '', $help = ''){
+	public function register($module, $channel, $filename, $command, $admin, $description = '', $help = '', $defaultStatus = null) {
 		$command = strtolower($command);
 		$module = strtoupper($module);
 		
@@ -56,10 +56,14 @@ class Command extends Annotation {
 			$actual_filename = $filename;
 		}
 
-		if ($this->chatBot->vars['default_module_status'] == 1) {
-			$status = 1;
+		if ($defaultStatus === null) {
+			if ($this->chatBot->vars['default_module_status'] == 1) {
+				$status = 1;
+			} else {
+				$status = 0;
+			}
 		} else {
-			$status = 0;
+			$status = $defaultStatus;
 		}
 
 		for ($i = 0; $i < count($channel); $i++) {

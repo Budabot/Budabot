@@ -23,10 +23,10 @@
 	$command->activate("priv", "$MODULE_NAME/logs.php", "logs", "admin");
 	$command->activate("guild", "$MODULE_NAME/logs.php", "logs", "admin");
 	
-	$command->register($MODULE_NAME, "", "clearqueue.php", "clearqueue", "mod", "Clear outgoing chatqueue from all pending messages");
-	$command->register($MODULE_NAME, "", "loadsql.php", "loadsql", "mod", "Manually reload an sql file");
-	$command->register($MODULE_NAME, "", "checkaccess.php", "checkaccess", "all", "Check effective access level of a character");
-	$command->register($MODULE_NAME, "", "macro.php", "macro", "all", "Execute multiple commands at once");
+	$command->register($MODULE_NAME, "", "clearqueue.php", "clearqueue", "mod", "Clear outgoing chatqueue from all pending messages", '', 1);
+	$command->register($MODULE_NAME, "", "loadsql.php", "loadsql", "mod", "Manually reload an sql file", '', 1);
+	$command->register($MODULE_NAME, "", "checkaccess.php", "checkaccess", "all", "Check effective access level of a character", '', 1);
+	$command->register($MODULE_NAME, "", "macro.php", "macro", "all", "Execute multiple commands at once", '', 1);
 
 	$event->activate("1hour", "$MODULE_NAME/ping_db.php");
 	$event->activate("2sec", "$MODULE_NAME/reduce_spam_values.php");
