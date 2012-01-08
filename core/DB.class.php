@@ -31,8 +31,12 @@
 
 //Database Abstraction Class
 class DB {
+
 	/** @Inject */
 	public $setting;
+	
+	/** @Inject */
+	public $util;
 
 	private $type;
 	private $sql;
@@ -281,7 +285,7 @@ class DB {
 						break;
 					}
 					
-					if (Util::compare_version_numbers($arr[1], $maxFileVersion) >= 0) {
+					if ($this->util->compare_version_numbers($arr[1], $maxFileVersion) >= 0) {
 						$maxFileVersion = $arr[1];
 						$file = $entry;
 					}
@@ -292,7 +296,7 @@ class DB {
 		if ($file === false) {
 			$msg = "No SQL file found with name '$name' in module '$module'!";
 			Logger::log('ERROR', 'Core', "No SQL file found with name '$name' in '$dir'!");
-		} else if ($forceUpdate || Util::compare_version_numbers($maxFileVersion, $currentVersion) > 0) {
+		} else if ($forceUpdate || $this->util->compare_version_numbers($maxFileVersion, $currentVersion) > 0) {
 			$handle = @fopen("$dir/$file", "r");
 			if ($handle) {
 				//$this->begin_transaction();

@@ -23,6 +23,9 @@ class Command extends Annotation {
 	/** @Inject */
 	public $text;
 	
+	/** @Inject */
+	public $util;
+	
 	/** @Logger */
 	public $logger;
 	
@@ -42,7 +45,7 @@ class Command extends Annotation {
 		}
 		
 		if (preg_match("/\\.php$/i", $filename)) {
-			$actual_filename = Util::verify_filename($module . '/' . $filename);
+			$actual_filename = $this->util->verify_filename($module . '/' . $filename);
 			if ($actual_filename == '') {
 				$this->logger->log('ERROR', "Error registering file $filename for command $command. The file doesn't exist!");
 				return;
@@ -91,7 +94,7 @@ class Command extends Annotation {
 	  	$this->logger->log('DEBUG', "Activate Command:($command) Admin Type:($admin) File:($filename) Channel:($channel)");
 
 		if (preg_match("/\\.php$/i", $filename)) {
-			$actual_filename = Util::verify_filename($filename);
+			$actual_filename = $this->util->verify_filename($filename);
 			if ($actual_filename == '') {
 				$this->logger->log('ERROR', "Error activating file $filename for command $command. The file doesn't exist!");
 				return;

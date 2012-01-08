@@ -21,6 +21,9 @@ class Event extends Annotation {
 	/** @Inject */
 	public $setting;
 	
+	/** @Inject */
+	public $util;
+	
 	/** @Logger */
 	public $logger;
 	
@@ -41,14 +44,14 @@ class Event extends Annotation {
 		
 		$this->logger->log('DEBUG', "Registering event Type:($type) File:($filename) Module:($module)");
 		
-		$time = Util::parseTime($type);
+		$time = $this->util->parseTime($type);
 		if ($time <= 0 && !in_array($type, Event::$EVENT_TYPES)) {
 			$this->logger->log('ERROR', "Error registering event Type:($type) File:($filename) Module:($module). The type is not a recognized event type!");
 			return;
 		}
 		
 		if (preg_match("/\\.php$/i", $filename)) {
-			$actual_filename = Util::verify_filename($module . '/' . $filename);
+			$actual_filename = $this->util->verify_filename($module . '/' . $filename);
 			if ($actual_filename == '') {
 				$this->logger->log('ERROR', "Error registering event Type:($type) File:($filename) Module:($module). The file doesn't exist!");
 				return;
@@ -95,7 +98,7 @@ class Event extends Annotation {
 		$this->logger->log('DEBUG', "Activating event Type:($type) File:($filename)");
 
 		if (preg_match("/\\.php$/i", $filename)) {
-			$actual_filename = Util::verify_filename($filename);
+			$actual_filename = $this->util->verify_filename($filename);
 			if ($actual_filename == '') {
 				$this->logger->log('ERROR', "Error activating event Type:($type) File:($filename). The file doesn't exist!");
 				return;
@@ -121,7 +124,7 @@ class Event extends Annotation {
 				$this->logger->log('ERROR', "Error activating event Type:($type) File:($filename). Event already activated!");
 			}
 		} else {
-			$time = Util::parseTime($type);
+			$time = $this->util->parseTime($type);
 			if ($time > 0) {
 				$this->cronevents[] = array('nextevent' => 0, 'filename' => $actual_filename, 'time' => $time);
 			} else {
@@ -142,7 +145,7 @@ class Event extends Annotation {
 		// to remove this check we need to make sure to use $filename instead of $actual_filename
 		//Check if the file exists
 		if (preg_match("/\\.php$/i", $filename)) {
-			$actual_filename = Util::verify_filename($filename);
+			$actual_filename = $this->util->verify_filename($filename);
 			if ($actual_filename == '') {
 				$this->logger->log('ERROR', "Error deactivating event Type:($type) File:($filename). The file doesn't exist!");
 				return;
@@ -158,7 +161,7 @@ class Event extends Annotation {
 				unset($this->events[$type][$temp[$actual_filename]]);
 			}
 		} else {
-			$time = Util::parseTime($type);
+			$time = $this->util->parseTime($type);
 			if ($time > 0) {
 				forEach ($this->cronevents as $key => $event) {
 					if ($time == $event['time'] && $event['filename'] == $actual_filename) {

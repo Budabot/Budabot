@@ -1,7 +1,13 @@
 <?php
 
 class Fun {
-	public function fcCommand($chatBot, $message, $channel, $sender, $sendto) {
+	/** @Inject */
+	public $chatBot;
+	
+	/** @Inject */
+	public $util;
+
+	public function fcCommand($message, $channel, $sender, $sendto) {
 		if (!preg_match("/^fc$/i", $message)) {
 			return false;
 		}
@@ -31,11 +37,11 @@ class Fun {
 		
 		$dmg = rand(100,999);
 		$cred = rand(10000,9999999);
-		$msg = Util::rand_array_value($fc);
+		$msg = $this->util->rand_array_value($fc);
 		$msg = str_replace("*name*", $sender, $msg);
 		$msg = str_replace("*dmg*", $dmg, $msg);
 		$msg = str_replace("*creds*", $cred, $msg);
-		$chatBot->send($msg, $sendto);
+		$this->chatBot->send($msg, $sendto);
 	}
 }
 

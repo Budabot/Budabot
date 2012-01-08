@@ -1,7 +1,7 @@
 <?php
 
 class Util {
-	public static function bytes_convert($bytes) {
+	public function bytes_convert($bytes) {
 		$ext = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
 		$unitCount = 0;
 		for (; $bytes > 1024; $unitCount++) {
@@ -11,7 +11,7 @@ class Util {
 	}
 	
 	// taken from http://www.php.net/manual/en/function.date-diff.php
-	public static function unixtime_to_readable($time, $show_seconds = true) {
+	public function unixtime_to_readable($time, $show_seconds = true) {
 		if ($time == 0) {
 			return '0 secs';
 		}
@@ -55,7 +55,7 @@ class Util {
 		return trim($timeshift);
 	}
 	
-	public static function parseTime($budatime) {
+	public function parseTime($budatime) {
 		$unixtime = 0;
 		
 		$matches = array();
@@ -103,7 +103,7 @@ class Util {
 	 * Takes two version numbers.  Returns 1 if the first is greater than the second.
 	 * Returns -1 if the second is greater than the first.  Returns 0 if they are equal.
 	 */
-	public static function compare_version_numbers($ver1, $ver2) {
+	public function compare_version_numbers($ver1, $ver2) {
 		$ver1Array = explode('.', $ver1);
 		$ver2Array = explode('.', $ver2);
 		
@@ -128,7 +128,7 @@ class Util {
 	 * @name: get_profession_name
 	 * @description: returns the full profession name given the search string passed in
 	 */
-	public static function get_profession_name($search) {
+	public function get_profession_name($search) {
 		$search = strtolower($search);
 		switch ($search) {
 			case "adv":
@@ -199,7 +199,7 @@ class Util {
 		return $prof;
 	}
 	
-	public static function get_profession_abbreviation($profession) {
+	public function get_profession_abbreviation($profession) {
 		switch ($profession) {
 			case "Adventurer":
 				$prof = "Advy";
@@ -255,7 +255,7 @@ class Util {
 	 * @name: verify_name_convention
 	 * @description: returns true if filename matches budabot naming convention and false otherwise
 	 */
-	public static function verify_name_convention($filename) {
+	public function verify_name_convention($filename) {
 		if (preg_match("/^(.+)\\/([0-9a-z_]+)\\.(php|txt)$/i", $filename, $arr) && $arr[2] == strtolower($arr[2])) {
 			return true;
 		} else {
@@ -263,16 +263,16 @@ class Util {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * @name: verify_filename
 	 * @description: returns true if filename matches budabot naming convention and false otherwise
 	 */
-	public static function verify_filename($filename) {
+	public function verify_filename($filename) {
 		//Replace all \ characters with /
 		$filename = str_replace("\\", "/", $filename);
 
-		if (!Util::verify_name_convention($filename)) {
+		if (!$this->verify_name_convention($filename)) {
 			return "";
 		}
 
@@ -288,9 +288,7 @@ class Util {
 	    }
 	}
 	
-	
-	
-	public static function get_ability($ability, $getFullName = false) {
+	public function get_ability($ability, $getFullName = false) {
 		$abilities = array(
 			'agi' => 'Agility',
 			'int' => 'Intelligence',
@@ -313,7 +311,7 @@ class Util {
 		}
 	}
 	
-	public static function rand_array_value($array) {
+	public function rand_array_value($array) {
 		return $array[rand(0, sizeof($array) - 1)];
 	}
 	
@@ -322,12 +320,12 @@ class Util {
 	// $sender = -1 on 32bit
 	// $sender = 4294967295
 	// this function handles both 32 and 64 bit
-	public static function isValidSender($sender) {
+	public function isValidSender($sender) {
 		return (int)0xFFFFFFFF == $sender ? false : true;
 	}
 	
 	// taken from: http://www.lost-in-code.com/programming/php-code/php-random-string-with-numbers-and-letters/
-	public static function genRandomString($length = 10) {
+	public function genRandomString($length = 10) {
 		$characters = '0123456789abcdefghijklmnopqrstuvwxyz';
 		$string = '';    
 		for ($p = 0; $p < $length; $p++) {
@@ -336,7 +334,7 @@ class Util {
 		return $string;
 	}
 	
-	public static function getStackTrace() {
+	public function getStackTrace() {
 		$trace = debug_backtrace();
 		$arr1 = array();
 		$arr2 = array();

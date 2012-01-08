@@ -40,6 +40,9 @@ class Setting extends Annotation {
 	/** @Inject */
 	public $chatBot;
 	
+	/** @Inject */
+	public $util;
+	
 	/** @Logger */
 	public $logger;
 	
@@ -68,7 +71,7 @@ class Setting extends Annotation {
 		
 		if ($type == 'time') {
 			$oldvalue = $value;
-			$value = Util::parseTime($value);
+			$value = $this->util->parseTime($value);
 			if ($value < 1) {
 				$this->logger->log('ERROR', "Error in registering Setting $module:setting($name). Invalid time: '{$oldvalue}'.");
 				return;
@@ -125,7 +128,7 @@ class Setting extends Annotation {
 		if ($row->type == "color") {
 			return $row->value."Current Color</font>\n";
 		} else if ($row->type == 'time') {
-			return "<highlight>" . Util::unixtime_to_readable($row->value) . "<end>\n";
+			return "<highlight>" . $this->util->unixtime_to_readable($row->value) . "<end>\n";
 		} else if ($row->intoptions != "") {
 			$intoptions = explode(";", $row->intoptions);
 			$intoptions2 = array_flip($intoptions);

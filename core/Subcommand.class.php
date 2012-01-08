@@ -8,6 +8,9 @@ class Subcommand extends Annotation {
 	/** @Inject */
 	public $chatBot;
 	
+	/** @Inject */
+	public $util;
+	
 	/** @Logger */
 	public $logger;
 
@@ -25,7 +28,7 @@ class Subcommand extends Annotation {
 		}
 
 		if (preg_match("/\\.php$/i", $filename)) {
-			$actual_filename = Util::verify_filename($module . '/' . $filename);
+			$actual_filename = $this->util->verify_filename($module . '/' . $filename);
 			if ($actual_filename == '') {
 				$this->logger->log('ERROR', "Error in registering the file $filename for Subcommand $command. The file doesn't exist!");
 				return;

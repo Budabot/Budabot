@@ -31,7 +31,7 @@ class Logger extends Annotation {
 		$category = strtoupper($category);
 		
 		if ($category == "ERROR") {
-			$message .= "\n" . Util::getStackTrace();
+			$message .= "\n" . Registry->getInstance('util')->getStackTrace();
 		}
 
 		$line = str_pad($timestamp, 17) . ' ' .  str_pad($category, 5) . ' ' . "[$tag]" . ' ' . $message;

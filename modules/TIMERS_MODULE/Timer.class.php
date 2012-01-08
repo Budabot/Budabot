@@ -13,6 +13,9 @@ class Timer {
 	
 	/** @Inject */
 	public $text;
+	
+	/** @Inject */
+	public $util;
 
 	private $timers = array();
 	
@@ -109,8 +112,8 @@ class Timer {
 				return;
 			}
 
-			$initialRunTime = Util::parseTime($initialTimeString);
-			$runTime = Util::parseTime($timeString);
+			$initialRunTime = $this->util->parseTime($initialTimeString);
+			$runTime = $this->util->parseTime($timeString);
 
 			if ($runTime < 1) {
 				$msg = "You must enter a valid time parameter for the run time.";
@@ -128,8 +131,8 @@ class Timer {
 
 			$this->add($timerName, $sender, $channel, $time, "repeating", $runTime);
 
-			$initialTimerSet = Util::unixtime_to_readable($initialRunTime);
-			$timerSet = Util::unixtime_to_readable($runTime);
+			$initialTimerSet = $this->util->unixtime_to_readable($initialRunTime);
+			$timerSet = $this->util->unixtime_to_readable($runTime);
 			$msg = "Repeating timer <highlight>$timerName<end> will go off in $initialTimerSet and repeat every $timerSet.";
 				
 			$this->chatBot->send($msg, $sendto);
@@ -171,7 +174,7 @@ class Timer {
 				$name = $arr[3];
 			}
 			
-			$runTime = Util::parseTime($timeString);
+			$runTime = $this->util->parseTime($timeString);
 
 			$msg = $this->addTimer($sender, $name, $runTime, $channel);
 			$this->chatBot->send($msg, $sendto);
@@ -190,7 +193,7 @@ class Timer {
 			return "Could not find timer named <highlight>$name<end>.";
 		}
 		
-		$time_left = Util::unixtime_to_readable($timer->timer - time());
+		$time_left = $this->util->unixtime_to_readable($timer->timer - time());
 		$name = $timer->name;
 
 		return "Timer <highlight>$name<end> has <highlight>$time_left<end> left.";
@@ -222,7 +225,7 @@ class Timer {
 
 		$this->add($name, $sender, $channel, $timer);
 
-		$timerset = Util::unixtime_to_readable($runTime);
+		$timerset = $this->util->unixtime_to_readable($runTime);
 		return "Timer <highlight>$name<end> has been set for $timerset.";
 	}
 	
@@ -234,7 +237,7 @@ class Timer {
 
 		$blob = "<header> :::::: Timers Currently Running :::::: <end>\n\n";
 		forEach ($timers as $timer) {
-			$time_left = Util::unixtime_to_readable($timer->timer - time());
+			$time_left = $this->util->unixtime_to_readable($timer->timer - time());
 			$name = $timer->name;
 			$owner = $timer->owner;
 
@@ -242,7 +245,7 @@ class Timer {
 
 			$repeatingInfo = '';
 			if ($timer->callback == 'repeating') {
-				$repeatingTimeString = Util::unixtime_to_readable($timer->callback_param);
+				$repeatingTimeString = $this->util->unixtime_to_readable($timer->callback_param);
 				$repeatingInfo = " (Repeats every $repeatingTimeString)";
 			}
 

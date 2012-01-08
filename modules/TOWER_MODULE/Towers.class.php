@@ -11,6 +11,9 @@ class Towers {
 	/** @Inject */
 	public $text;
 	
+	/** @Inject */
+	public $util;
+	
 	/**
 	 * @Command("towerstats")
 	 * @AccessLevel("all")
@@ -23,14 +26,14 @@ class Towers {
 			$budatime = $arr[1];
 		}
 		
-		$time = Util::parseTime($budatime);
+		$time = $this->util->parseTime($budatime);
 		if ($time < 1) {
 			$msg = "You must enter a valid time parameter.";
 			$this->chatBot->send($msg, $sendto);
 			return;
 		}
 		
-		$timeString = Util::unixtime_to_readable($time);
+		$timeString = $this->util->unixtime_to_readable($time);
 		
 		$blob = "<header> :::::: Tower Stats for the Last $timeString :::::: <end>\n\n";
 		

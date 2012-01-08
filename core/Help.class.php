@@ -21,6 +21,9 @@ class Help extends Annotation {
 	/** @Inject */
 	public $chatBot;
 	
+	/** @Inject */
+	public $util;
+	
 	/** @Logger */
 	public $logger;
 
@@ -34,7 +37,7 @@ class Help extends Annotation {
 		$command = strtolower($command);
 
 		// Check if the file exists
-		$actual_filename = Util::verify_filename($module . '/' . $filename);
+		$actual_filename = $this->util->verify_filename($module . '/' . $filename);
 		if ($actual_filename == '') {
 			$this->logger->log('ERROR', "Error in registering the File $filename for Help command $module:help($command). The file doesn't exist!");
 			return;

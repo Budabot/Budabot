@@ -8,6 +8,9 @@ class Usage {
 	public $setting;
 	
 	/** @Inject */
+	public $util;
+	
+	/** @Inject */
 	public $chatBot;
 
 	public function record($type, $cmd, $sender) {
@@ -39,7 +42,7 @@ class Usage {
 
 		$botid = $this->setting->get('botid');
 		if ($botid == '') {
-			$botid = Util::genRandomString(20);
+			$botid = $this->util->genRandomString(20);
 			$this->setting->add("USAGE", 'botid', 'botid', 'noedit', 'text', $botid);
 		}
 

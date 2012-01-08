@@ -5,6 +5,9 @@ class Stopwatch {
 	/** @Inject */
 	public $chatBot;
 	
+	/** @Inject */
+	public $util;
+	
 	private $time = 0;
 
 	/**
@@ -41,7 +44,7 @@ class Stopwatch {
 		$time = time() - $this->time;
 		$this->time = 0;
 		
-		$timeString = Util::unixtime_to_readable($time);
+		$timeString = $this->util->unixtime_to_readable($time);
 		
 		return "Stopwatch has been stopped. Duration: $timeString";
 	}
