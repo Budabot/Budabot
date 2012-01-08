@@ -179,11 +179,12 @@ if (preg_match("/^config$/i", $message)) {
 	
 	$sql = "SELECT type, file, cmd, admin FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' AND ($typeSql)";
 	$data = $db->query($sql);
+	$command = Registry::getInstance('command');
 	forEach ($data as $row) {
 	  	if ($status == 1) {
-			Registry::getInstance('command')->activate($row->type, $row->file, $row->cmd, $row->admin);
+			$command->activate($row->type, $row->file, $row->cmd, $row->admin);
 		} else {
-			Registry::getInstance('command')->deactivate($row->type, $row->file, $row->cmd);
+			$command->deactivate($row->type, $row->file, $row->cmd);
 		}
 	}
 	
@@ -273,20 +274,22 @@ if (preg_match("/^config$/i", $message)) {
 
 	$chatBot->send($msg, $sendto);
 
+	$command = Registry::getInstance('command');
+	$event = Registry::getInstance('event');
 	forEach ($data as $row) {
 		// only update the status if the status is different
 		if ($row->status != $status) {
 			if ($row->cmdevent == "event") {
 				if ($status == 1) {
-					Registry::getInstance('event')->activate($row->type, $row->file);
+					$event->activate($row->type, $row->file);
 				} else {
-					Registry::getInstance('event')->deactivate($row->type, $row->file);
+					$event->deactivate($row->type, $row->file);
 				}
 			} else if ($row->cmdevent == "cmd") {
 				if ($status == 1) {
-					Registry::getInstance('command')->activate($row->type, $row->file, $row->cmd, $row->admin);
+					$command->activate($row->type, $row->file, $row->cmd, $row->admin);
 				} else {
-					Registry::getInstance('command')->deactivate($row->type, $row->file, $row->cmd, $row->admin);
+					$command->deactivate($row->type, $row->file, $row->cmd, $row->admin);
 				}
 			}
 		}
@@ -357,13 +360,11 @@ if (preg_match("/^config$/i", $message)) {
 		}
 
 		$commandManager = Registry::getInstance('command');
-		$commandManager->update_status($channel, null, $command, $status, $admin);
-
+		$commandManager->update_status($channel, $command, null, 1, $admin);
+		
 		if ($channel == "all") {
-			$db->exec("UPDATE cmdcfg_<myname> SET `admin` = ? WHERE `cmd` = ? AND `cmdevent` = 'cmd'", $admin, $command);
 			$msg = "Updated access of command <highlight>$command<end> to <highlight>$admin<end>";
 		} else {
-			$db->exec("UPDATE cmdcfg_<myname> SET `admin` = ? WHERE `cmd` = ? AND `type` = ? AND `cmdevent` = 'cmd'", $admin, $command, $channel);
 			$msg = "Updated access of command <highlight>$command<end> in Channel <highlight>$channel<end> to <highlight>$admin<end>";
 		}
 	} else {  // if ($category == 'subcmd')

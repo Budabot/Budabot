@@ -144,7 +144,7 @@ class Command extends Annotation {
 		if ($admin == '' || $admin == null) {
 			$adminSql = '';
 		} else {
-			$adminSql = ", admin = $admin";
+			$adminSql = ", admin = '$admin'";
 		}
 	
 		$data = $this->db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' $module_sql $cmd_sql $type_sql");
@@ -154,9 +154,9 @@ class Command extends Annotation {
 		
 		forEach ($data as $row) {
 			if ($status == 1) {
-				$this->activate($row->type, $row->filename, $row->cmd, $admin);
+				$this->activate($row->type, $row->file, $row->cmd, $admin);
 			} else if ($status == 0) {
-				$this->deactivate($row->type, $row->filename, $row->cmd);
+				$this->deactivate($row->type, $row->file, $row->cmd);
 			}
 		}
 		
