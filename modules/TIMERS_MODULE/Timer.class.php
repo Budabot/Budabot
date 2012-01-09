@@ -152,13 +152,13 @@ class Timer {
 			$this->chatBot->send($msg, $sendto);
 		} else if (preg_match("/^(timers|timers add) ([0-9]+)$/i", $message, $arr) || preg_match("/^(timers|timers add) ([0-9]+) (.+)$/i", $message, $arr)) {
 			if (isset($arr[3])) {
-				$timer_name = $arr[3];
+				$timerName = $arr[3];
 			} else {
-				$timer_name = $sender;
+				$timerName = $sender;
 			}
 			$runTime = $arr[2] * 60;
 			
-			$msg = $this->addTimer($sender, $name, $runTime, $channel);
+			$msg = $this->addTimer($sender, $timerName, $runTime, $channel);
 			$this->chatBot->send($msg, $sendto);
 		} else if (preg_match("/^timers (rem|del) (.+)$/i", $message, $arr)) {
 			$msg = $this->removeTimer($sender, $arr[2]);
@@ -213,6 +213,10 @@ class Timer {
 	}
 	
 	public function addTimer($sender, $name, $runTime, $channel) {
+		if ($name == '') {
+			return;
+		}
+	
 		if ($this->get($name) != null) {
 			return "A timer named <highlight>$name<end> is already running.";
 		}
