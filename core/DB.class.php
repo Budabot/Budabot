@@ -1,35 +1,5 @@
 <?php
-   /*
-   ** Author: Sebuda/Derroylo (both RK2)
-   ** Description: Database Class
-   ** Version: 0.6
-   **
-   ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
-   **
-   ** Date(created): 21.01.2006
-   ** Date(last modified): 23.11.2006
-   ** 
-   ** Copyright (C) 2005, 2006 Carsten Lohmann and J. Gracik
-   **
-   ** Licence Infos: 
-   ** This file is part of Budabot.
-   **
-   ** Budabot is free software; you can redistribute it and/or modify
-   ** it under the terms of the GNU General Public License as published by
-   ** the Free Software Foundation; either version 2 of the License, or
-   ** (at your option) any later version.
-   **
-   ** Budabot is distributed in the hope that it will be useful,
-   ** but WITHOUT ANY WARRANTY; without even the implied warranty of
-   ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   ** GNU General Public License for more details.
-   **
-   ** You should have received a copy of the GNU General Public License
-   ** along with Budabot; if not, write to the Free Software
-   ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-   */ 
 
-//Database Abstraction Class
 class DB {
 
 	/** @Inject */
@@ -54,7 +24,6 @@ class DB {
 	public $errorInfo;
 	public $table_replaces = array();
 	
-	//Constructor(opens the connection to the Database)
 	function __construct($type, $dbName, $host = NULL, $user = NULL, $pass = NULL) {
 		global $vars;
 		$this->type = strtolower($type);
@@ -181,7 +150,7 @@ class DB {
 				// fix for Sqlite schema changed error (retry the query)
 				return $this->executeQuery($sql, $params);
 			}
-			Logger::log('ERROR', "SqlError", "{$e->errorInfo[2]} in: $sql");
+			Logger::log('ERROR', "SqlError", "{$e->errorInfo[2]} in: $sql - " . print_r($params, true));
 		}
 
 		return null;
