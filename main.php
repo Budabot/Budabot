@@ -78,7 +78,7 @@ if (isWindows()) {
 // Load required files.
 $config_file = $argv[1];
 if (!file_exists($config_file)) {
-	copy('config.template.php', $config_file) or Logger::log('ERROR', 'StartUp', "could not create config file: {$config_file}");
+	copy('config.template.php', $config_file) or LegacyLogger::log('ERROR', 'StartUp', "could not create config file: {$config_file}");
 }
 
 require $config_file;
@@ -90,8 +90,9 @@ ini_set("log_errors", 1);
 ini_set("error_log", "./logs/{$vars['name']}.{$vars['dimension']}/php_errors.log");
 
 require_once './lib/addendum-0.4.1/annotations.php';
+require_once './lib/apache-log4php-2.2.0/Logger.php';
 require_once './core/Registry.class.php';
-require_once "./core/Logger.class.php";
+require_once './core/LegacyLogger.class.php';
 require_once './core/annotations.php';
 require_once './core/AOChat.class.php';
 require_once './core/Budabot.class.php';
@@ -111,6 +112,8 @@ require_once './core/Ban.class.php';
 require_once './core/Util.class.php';
 require_once './core/Text.class.php';
 
+Logger::configure('conf/log4php.xml');
+
 // Show setup dialog.
 if ($vars['login'] == "" || $vars['password'] == "" || $vars['name'] == "") {
 	include "./core/SETUP/setup.php";
@@ -126,7 +129,7 @@ if (isWindows()) {
 	system("title {$vars['name']} - Budabot");
 }
 
-Logger::log('INFO', 'StartUp', "Starting {$vars['name']}...");
+LegacyLogger::log('INFO', 'StartUp', "Starting {$vars['name']}...");
 
 // Choose server.
 if ($vars['use_proxy'] === 1) {
@@ -143,7 +146,7 @@ if ($vars['use_proxy'] === 1) {
 	$server = "chat.dt.funcom.com";
 	$port = 7109;
 } else {
-	Logger::log('ERROR', 'StartUp', "No valid server to connect with! Available dimensions are 1, 2 and 4.");
+	LegacyLogger::log('ERROR', 'StartUp', "No valid server to connect with! Available dimensions are 1, 2 and 4.");
 	sleep(10);
 	die();
 }
@@ -151,7 +154,7 @@ if ($vars['use_proxy'] === 1) {
 // Create new objects.
 $db = new DB($vars["DB Type"], $vars["DB Name"], $vars["DB Host"], $vars["DB username"], $vars["DB password"]);
 if ($db->errorCode != 0) {
-	Logger::log('ERROR', 'StartUp', "Error in creating database object: {$db->errorInfo}");
+	LegacyLogger::log('ERROR', 'StartUp', "Error in creating database object: {$db->errorInfo}");
 	sleep(5);
 	die();
 }

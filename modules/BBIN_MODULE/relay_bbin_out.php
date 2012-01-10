@@ -15,7 +15,7 @@ if (IRC::isConnectionActive($bbinSocket)) {
 		$outmsg = htmlspecialchars($message);
 		
 		$msg = "$sender: $message";
-		Logger::log_chat("Out. BBIN Msg.", $sender, $msg);
+		LegacyLogger::log_chat("Out. BBIN Msg.", $sender, $msg);
 		IRC::send($bbinSocket, $setting->get('bbin_channel'), $msg);
 	}
 }

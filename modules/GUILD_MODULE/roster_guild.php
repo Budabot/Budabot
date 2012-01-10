@@ -1,19 +1,19 @@
 <?php
 
 if ($chatBot->vars["my_guild_id"] != "") {
-	Logger::log('INFO', 'GUILD_MODULE', "Starting Roster update");
+	LegacyLogger::log('INFO', 'GUILD_MODULE', "Starting Roster update");
 
 	// Get the guild info
 	$org = Guild::get_by_id($chatBot->vars["my_guild_id"], $chatBot->vars["dimension"], true);
 	
 	// Check if guild xml file is correct if not abort
 	if ($org === null) {
-		Logger::log('ERROR', 'GUILD_MODULE', "Error downloading the guild roster xml file");
+		LegacyLogger::log('ERROR', 'GUILD_MODULE', "Error downloading the guild roster xml file");
 		return;
 	}
 	
 	if (count($org->members) == 0) {
-		Logger::log('ERROR', 'GUILD_MODULE', "Guild xml file has no members! Aborting roster update.");
+		LegacyLogger::log('ERROR', 'GUILD_MODULE', "Guild xml file has no members! Aborting roster update.");
 		return;
 	}
 
@@ -79,12 +79,12 @@ if ($chatBot->vars["my_guild_id"] != "") {
 		}
 	}
 
-	Logger::log('INFO', 'GUILD_MODULE', "Finished Roster update");
+	LegacyLogger::log('INFO', 'GUILD_MODULE', "Finished Roster update");
 
 	if ($restart == true) {
 		$chatBot->send("Guild roster has been loaded for the first time. Restarting...", "guild");
 
-		Logger::log('INFO', 'GUILD_MODULE', "The bot is restarting");
+		LegacyLogger::log('INFO', 'GUILD_MODULE', "The bot is restarting");
 
 		sleep(5);
 

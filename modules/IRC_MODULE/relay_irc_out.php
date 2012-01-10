@@ -21,7 +21,7 @@ if (IRC::isConnectionActive($ircSocket)) {
 			$msg = "$sender: $msg";
 		}
 		IRC::send($ircSocket, $setting->get('irc_channel'), encodeGuildMessage(getGuildAbbreviation(), $msg));
-		Logger::log_chat("Out. IRC Msg.", $sender, $msg);
+		LegacyLogger::log_chat("Out. IRC Msg.", $sender, $msg);
 	}
 }
 

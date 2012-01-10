@@ -1,7 +1,7 @@
 <?php
 
 if (preg_match("/^logs$/i", $message)) {
-	if ($handle = opendir(Logger::get_logging_directory())) {
+	if ($handle = opendir(LegacyLogger::get_logging_directory())) {
 		$blob .= "<header> :::::: Log Files :::::: <end>\n\n";
 		while (false !== ($file = readdir($handle))) {
 			if ($file == '.' || $file == '..') {
@@ -15,11 +15,11 @@ if (preg_match("/^logs$/i", $message)) {
 		
 		$msg = Text::make_blob('Log Files', $blob);
 	} else {
-		$msg = "Could not open log directory: '" . Logger::get_logging_directory() . "'";
+		$msg = "Could not open log directory: '" . LegacyLogger::get_logging_directory() . "'";
 	}
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^logs ([a-zA-Z0-9_\\.]+)$/i", $message, $arr)) {
-	$filename = Logger::get_logging_directory() . "/" . $arr[1];
+	$filename = LegacyLogger::get_logging_directory() . "/" . $arr[1];
 	$size = filesize($filename);
 	$readsize = $setting->get('max_blob_size') - 500;
 	

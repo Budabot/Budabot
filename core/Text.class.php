@@ -76,7 +76,7 @@ class Text {
 					$page_size = strlen($result[$page]);
 					
 					if ($page_size > $setting->get("max_blob_size")) {
-						Logger::log('ERROR', 'Text', "Could not successfully page blob with title '$name'");
+						LegacyLogger::log('ERROR', 'Text', "Could not successfully page blob with title '$name'");
 					}
 				}
 			}

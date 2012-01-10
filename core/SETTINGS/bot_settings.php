@@ -100,7 +100,7 @@ if (preg_match("/^settings$/i", $message)) {
 		if ($row->help != '') {
 			$help = Registry::getInstance('help')->find($row->help, null);
 			if ($help === false) {
-				Logger::log('ERROR', 'Settings', "Help command <highlight>{$row->help}<end> for setting <highlight>{$settingName}<end> could not be found.");
+				LegacyLogger::log('ERROR', 'Settings', "Help command <highlight>{$row->help}<end> for setting <highlight>{$settingName}<end> could not be found.");
 			}
 		} else {
 			$help = Registry::getInstance('help')->find($settingName, null);

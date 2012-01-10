@@ -21,7 +21,7 @@ class Registry {
 	
 	public static function getInstance($name, $set = array()) {
 		$name = strtolower($name);
-		Logger::log("DEBUG", "Registry", "Requesting instance for '$name'");
+		LegacyLogger::log("DEBUG", "Registry", "Requesting instance for '$name'");
 
 		if (USE_RUNKIT_CLASS_LOADING === true) {
 			Registry::importChanges(ucfirst($name) . ".class.php");
@@ -29,13 +29,13 @@ class Registry {
 		
 		$instance = Registry::$repo2[$name];
 		if ($instance != null) {
-			Logger::log("DEBUG", "Registry", "Using cache for '$name'");
+			LegacyLogger::log("DEBUG", "Registry", "Using cache for '$name'");
 			return $instance;
 		}
 
 		$instance = Registry::$repo[$name];
 		if ($instance == null) {
-			Logger::log("WARN", "Registry", "Could not find instance for '$name'");
+			LegacyLogger::log("WARN", "Registry", "Could not find instance for '$name'");
 			return null;
 		}
 		
@@ -77,7 +77,7 @@ class Registry {
 	public static function importChanges($name) {
 		$file = Registry::findInclude($name);
 		if ($file !== null) {
-			Logger::log("DEBUG", "Registry", "Re-importing file '$file'");
+			LegacyLogger::log("DEBUG", "Registry", "Re-importing file '$file'");
 			runkit_import($file, RUNKIT_IMPORT_CLASSES | RUNKIT_IMPORT_OVERRIDE);
 		}
 	}
@@ -93,18 +93,19 @@ class Registry {
 }
 
 class LoggerWrapper {
-	private $tag;
+	private $logger;
 
 	public function __construct($tag) {
-		$this->tag = $tag;
+		$this->logger = Logger::getLogger($tag);
 	}
 	
 	public function log($category, $message) {
-		Logger::log($category, $this->tag, $message);
+		$level = LegacyLogger::getLoggerLevel($category);
+		$this->logger->log($level, $message);
 	}
 	
 	public function log_chat($channel, $sender, $message) {
-		Logger::log_chat($channel, $sender, $message);
+		LegacyLogger::log_chat($channel, $sender, $message);
 	}
 }
 

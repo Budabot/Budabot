@@ -5,7 +5,7 @@ function download_newest_itemsdb() {
 	$db = Registry::getInstance('db');
 	$setting = Registry::getInstance('setting');
 
-	Logger::log('INFO', 'ITEMS_MODULE', "Starting items db update");
+	LegacyLogger::log('INFO', 'ITEMS_MODULE', "Starting items db update");
 
 	// get list of files in ITEMS_MODULE
 	$data = file_get_contents("http://budabot2.googlecode.com/svn/trunk/modules/ITEMS_MODULE");
@@ -26,7 +26,7 @@ function download_newest_itemsdb() {
 			}
 		}
 	} catch (Exception $e) {
-		Logger::log('ERROR', 'ITEMS_MODULE', "Error updating items db: " . $e->getMessage());
+		LegacyLogger::log('ERROR', 'ITEMS_MODULE', "Error updating items db: " . $e->getMessage());
 		return "Error updating items db: " . $e->getMessage();
 	}
 
@@ -48,18 +48,18 @@ function download_newest_itemsdb() {
 			
 			$db->commit();
 			
-			Logger::log('INFO', 'ITEMS_MODULE', "Items db updated from '$currentVersion' to '$latestVersion'");
+			LegacyLogger::log('INFO', 'ITEMS_MODULE', "Items db updated from '$currentVersion' to '$latestVersion'");
 			$msg = "The items database has been updated to the latest version.  Version: $latestVersion";
 		} else {
-			Logger::log('INFO', 'ITEMS_MODULE', "Items db already up to date '$currentVersion'");
+			LegacyLogger::log('INFO', 'ITEMS_MODULE', "Items db already up to date '$currentVersion'");
 			$msg = "The items database is already up to date.  Version: $currentVersion";
 		}
 	} else {
-		Logger::log('ERROR', 'ITEMS_MODULE', "Could not find latest items db on server");
+		LegacyLogger::log('ERROR', 'ITEMS_MODULE', "Could not find latest items db on server");
 		$msg = "There was a problem finding the latest version on the server";
 	}
 	
-	Logger::log('INFO', 'ITEMS_MODULE', "Finished items db update");
+	LegacyLogger::log('INFO', 'ITEMS_MODULE', "Finished items db update");
 	
 	return $msg;
 }

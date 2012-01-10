@@ -21,7 +21,7 @@ $playfields = Registry::getInstance('playfields');
 	
 $playfield = $playfields->get_playfield_by_name($playfield_name);
 if ($playfield === null) {
-	Logger::log('error', 'Towers', "Could not find playfield for name '$playfield_name'");
+	LegacyLogger::log('error', 'Towers', "Could not find playfield for name '$playfield_name'");
 	return;
 }
 

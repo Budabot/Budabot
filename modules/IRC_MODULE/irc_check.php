@@ -14,7 +14,7 @@ if (!IRC::isConnectionActive($ircSocket)) {
 
 if ($data = fgets($ircSocket)) {
 	$ex = explode(' ', $data);
-	Logger::log('DEBUG', "IRC", trim($data));
+	LegacyLogger::log('DEBUG', "IRC", trim($data));
 	$ex[3] = substr($ex[3],1,strlen($ex[3]));
 	
 	$channel = rtrim(strtolower($ex[2]));
@@ -31,7 +31,7 @@ if ($data = fgets($ircSocket)) {
 
 	if ("PING" == $ex[0]) {
 		fputs($ircSocket, "PONG ".$ex[1]."\n");
-		Logger::log('DEBUG', "IRC", "PING received. PONG sent");
+		LegacyLogger::log('DEBUG', "IRC", "PING received. PONG sent");
 	} else if ("NOTICE" == $ex[1]) {
 		if (false != stripos($data, "exiting")) {
 			// the irc server shut down (i guess)
@@ -86,7 +86,7 @@ if ($data = fgets($ircSocket)) {
 		
 		$rawcmd = rtrim(htmlspecialchars($ex[3]));
 		
-		Logger::log_chat("Inc. IRC Msg.", $nick, $ircmessage);
+		LegacyLogger::log_chat("Inc. IRC Msg.", $nick, $ircmessage);
 
 		if ($rawcmd == "!sayit") {
 			fputs($ircSocket, "PRIVMSG ".$channel." :".$args." \n");

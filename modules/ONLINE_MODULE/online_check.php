@@ -13,7 +13,7 @@ if ($chatBot->is_ready()) {
 		} else if ($row->channel_type == 'priv') {
 			$privArray []= $row->name;
 		} else {
-			Logger::log("WARN", "ONLINE_MODULE", "Unknown channel type: '$row->channel_type'. Expected: 'guild' or 'priv'");
+			LegacyLogger::log("WARN", "ONLINE_MODULE", "Unknown channel type: '$row->channel_type'. Expected: 'guild' or 'priv'");
 		}
 	}
 

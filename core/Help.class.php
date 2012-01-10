@@ -26,6 +26,8 @@ class Help extends Annotation {
 	
 	/** @Logger */
 	public $logger;
+	
+	private $helpfiles = array();
 
 	/**
 	 * @name: register

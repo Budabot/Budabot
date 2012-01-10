@@ -30,13 +30,13 @@ class Buddylist {
 			return false;
 		} else {
 			if (!isset($chatBot->buddyList[$uid])) {
-				Logger::log('debug', "Buddy", "$name buddy added");
+				LegacyLogger::log('debug', "Buddy", "$name buddy added");
 				$chatBot->buddy_add($uid);
 			}
 			
 			if (!isset($chatBot->buddyList[$uid]['types'][$type])) {
 				$chatBot->buddyList[$uid]['types'][$type] = 1;
-				Logger::log('debug', "Buddy", "$name buddy added (type: $type)");
+				LegacyLogger::log('debug', "Buddy", "$name buddy added (type: $type)");
 			}
 			
 			return true;
@@ -52,12 +52,12 @@ class Buddylist {
 		} else if (isset($chatBot->buddyList[$uid])) {
 			if (isset($chatBot->buddyList[$uid]['types'][$type])) {
 				unset($chatBot->buddyList[$uid]['types'][$type]);
-				Logger::log('debug', "Buddy", "$name buddy type removed (type: $type)");
+				LegacyLogger::log('debug', "Buddy", "$name buddy type removed (type: $type)");
 			}
 
 			if (count($chatBot->buddyList[$uid]['types']) == 0) {
 				unset($chatBot->buddyList[$uid]);
-				Logger::log('debug', "Buddy", "$name buddy removed");
+				LegacyLogger::log('debug', "Buddy", "$name buddy removed");
 				$chatBot->buddy_remove($uid);
 			}
 			

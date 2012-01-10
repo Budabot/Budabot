@@ -131,7 +131,7 @@ class DB {
 	
 	private function executeQuery($sql, $params) {
 		$this->lastQuery = $sql;
-		Logger::log('QUERY', "SQL", $sql);
+		LegacyLogger::log('DEBUG', "SQL", $sql);
 		
 		try {
 			$ps = $this->sql->prepare($sql);
@@ -150,7 +150,7 @@ class DB {
 				// fix for Sqlite schema changed error (retry the query)
 				return $this->executeQuery($sql, $params);
 			}
-			Logger::log('ERROR', "SqlError", "{$e->errorInfo[2]} in: $sql - " . print_r($params, true));
+			LegacyLogger::log('ERROR', "SqlError", "{$e->errorInfo[2]} in: $sql - " . print_r($params, true));
 		}
 
 		return null;
@@ -216,7 +216,7 @@ class DB {
 		// only letters, numbers, underscores are allowed
 		if (!preg_match('/^[a-z0-9_]+$/', $name)) {
 			$msg = "Invalid SQL file name: '$name' for module: '$module'!  Only numbers, letters, and underscores permitted!";
-			Logger::log('ERROR', 'Core', $msg);
+			LegacyLogger::log('ERROR', 'Core', $msg);
 			return $msg;
 		}
 		
@@ -231,7 +231,7 @@ class DB {
 			$dir = $core_dir;
 		} else {
 			$msg = "Could not find module '$module'.";
-			Logger::log('ERROR', 'Core', $msg);
+			LegacyLogger::log('ERROR', 'Core', $msg);
 			return $msg;
 		}
 		$d = dir($dir);
@@ -264,7 +264,7 @@ class DB {
 
 		if ($file === false) {
 			$msg = "No SQL file found with name '$name' in module '$module'!";
-			Logger::log('ERROR', 'Core', "No SQL file found with name '$name' in '$dir'!");
+			LegacyLogger::log('ERROR', 'Core', "No SQL file found with name '$name' in '$dir'!");
 		} else if ($forceUpdate || $this->util->compare_version_numbers($maxFileVersion, $currentVersion) > 0) {
 			$handle = @fopen("$dir/$file", "r");
 			if ($handle) {
@@ -284,17 +284,17 @@ class DB {
 				
 				if ($maxFileVersion != 0) {
 					$msg = "Updated '$name' database from '$currentVersion' to '$maxFileVersion'";
-					Logger::log('DEBUG', 'Core', "Updated '$name' database from '$currentVersion' to '$maxFileVersion'");
+					LegacyLogger::log('DEBUG', 'Core', "Updated '$name' database from '$currentVersion' to '$maxFileVersion'");
 				} else {
 					$msg = "Updated '$name' database";
-					Logger::log('DEBUG', 'Core', "Updated '$name' database");
+					LegacyLogger::log('DEBUG', 'Core', "Updated '$name' database");
 				}
 			} else {
-				Logger::log('ERROR', 'Core',  "Could not load SQL file: '$dir/$file'");
+				LegacyLogger::log('ERROR', 'Core',  "Could not load SQL file: '$dir/$file'");
 			}
 		} else {
 			$msg = "'$name' database already up to date! version: '$currentVersion'";
-			Logger::log('DEBUG', 'Core',  "'$name' database already up to date! version: '$currentVersion'");
+			LegacyLogger::log('DEBUG', 'Core',  "'$name' database already up to date! version: '$currentVersion'");
 			
 			//Make sure the settings table row isn't dropped during boot-up
 			$this->exec("UPDATE settings_<myname> SET `verify` = 1 WHERE `name` = '$settingName'");
@@ -306,7 +306,7 @@ class DB {
 
 class Row {
 	function __get($value) {
-		Logger::log('WARN', 'DB', "Tried to get value '$value' from row that doesn't exist");
+		LegacyLogger::log('WARN', 'DB', "Tried to get value '$value' from row that doesn't exist");
 	}
 }
 

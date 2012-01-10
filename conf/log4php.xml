@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://logging.apache.org/log4php/">
+ 
+    <appender name="myConsoleAppender" class="LoggerAppenderConsole">
+		<layout class="LoggerLayoutTTCC" />
+	</appender>
+    
+    <appender name="myFileAppender" class="LoggerAppenderFile">
+        <layout class="LoggerLayoutTTCC" />
+        <param name="file" value="./logs/myLog.log" />
+    </appender>
+ 
+	<!-- <logger name="Foo">
+        <appender_ref ref="myFileAppender" />
+    </logger> -->
+    
+    <root>
+        <level value="INFO" />
+        <appender_ref ref="myConsoleAppender" />
+		<appender_ref ref="myFileAppender" />
+    </root>
+</configuration>

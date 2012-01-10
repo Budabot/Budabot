@@ -14,7 +14,7 @@ if (preg_match("/^dnet (enable|on|add)/i", $message)) {
 		require 'setup.php';
 
 		$msg = "!join";
-		Logger::log_chat("Out. Msg.", $name, $msg);
+		LegacyLogger::log_chat("Out. Msg.", $name, $msg);
 		$chatBot->send_tell($name, $msg);
 	}
 

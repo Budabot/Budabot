@@ -11,7 +11,7 @@ class IRC {
 	}
 	
 	public static function connect(&$socket, $nick, $server, $port, $password, $channel) {
-		Logger::log('INFO', "IRC", "Intializing IRC connection");
+		LegacyLogger::log('INFO', "IRC", "Intializing IRC connection");
 		
 		$socket = fsockopen($server, $port);
 		
@@ -20,7 +20,7 @@ class IRC {
 		while ($logincount < 10) {
 			$logincount++;
 			$data = fgets($socket, 128);
-			Logger::log('DEBUG', "IRC", trim($data));
+			LegacyLogger::log('DEBUG', "IRC", trim($data));
 
 			$ex = explode(' ', $data);
 
@@ -37,9 +37,9 @@ class IRC {
 		}
 
 		while ($data = fgets($socket)) {
-			Logger::log('DEBUG', "IRC", trim($data));
+			LegacyLogger::log('DEBUG', "IRC", trim($data));
 			if (preg_match("/(ERROR)(.+)/", $data, $sandbox)) {
-				Logger::log('ERROR', "IRC", trim($data));
+				LegacyLogger::log('ERROR', "IRC", trim($data));
 			}
 			if ($ex[0] == "PING") {
 				fputs($socket, "PONG ".$ex[1]."\n");
@@ -49,7 +49,7 @@ class IRC {
 			}
 		}
 		stream_set_blocking($socket, 0);
-		Logger::log('INFO', "IRC", "Finished connecting to IRC");
+		LegacyLogger::log('INFO', "IRC", "Finished connecting to IRC");
 	}
 	
 	public static function getUsersInChannel(&$socket, $channel) {

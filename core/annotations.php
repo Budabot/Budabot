@@ -28,4 +28,8 @@ class Matches extends Annotation {
 
 }
 
+class Options extends Annotation {
+
+}
+
 ?>

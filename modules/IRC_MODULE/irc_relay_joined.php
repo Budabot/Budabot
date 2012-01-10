@@ -65,7 +65,7 @@ global $ircSocket;
 if (IRC::isConnectionActive($ircSocket)) {
 	if ($type == "joinpriv") {
 		$msg = getIRCPlayerInfo($sender);
-		Logger::log_chat("Out. IRC Msg.", -1, $msg);
+		LegacyLogger::log_chat("Out. IRC Msg.", -1, $msg);
 		IRC::send($ircSocket, $setting->get('irc_channel'), encodeGuildMessage(getGuildAbbreviation(), $msg));
 	} else if ($type == "logon" && isset($chatBot->guildmembers[$sender])) {
 		if ($setting->get('first_and_last_alt_only') == 1) {
@@ -77,7 +77,7 @@ if (IRC::isConnectionActive($ircSocket)) {
 		}
 		
 		$msg = getIRCPlayerInfo($sender);
-		Logger::log_chat("Out. IRC Msg.", -1, $msg);
+		LegacyLogger::log_chat("Out. IRC Msg.", -1, $msg);
 		IRC::send($ircSocket, $setting->get('irc_channel'), encodeGuildMessage(getGuildAbbreviation(), $msg));
 	}
 }

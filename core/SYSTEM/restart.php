@@ -35,6 +35,6 @@ $chatBot->send($msg, "prv", true);
 $chatBot->send($msg, "guild", true);
 
 $chatBot->disconnect();
-Logger::log('INFO', 'Core', "The Bot is restarting.");
+LegacyLogger::log('INFO', 'Core', "The Bot is restarting.");
 exit();
 ?>
