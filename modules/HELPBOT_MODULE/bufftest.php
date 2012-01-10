@@ -1,5 +1,52 @@
 <?php
-
+if (!function_exists("get_skill")) {
+	function get_skill($input) {
+		$input = strtolower($input);
+		switch ($input) {
+			case 'agi';
+			case 'agil';
+			case 'agility';
+				$skill = "Agility";
+				break;
+			case 'int';
+			case 'intel';
+			case 'intell';
+			case 'intelligence';
+				$skill = "Intelligence";
+				break;
+			case 'psy';
+			case 'psyc';
+			case 'psych';
+			case 'psychic';
+				$skill = "Psychic";
+				break;
+			case 'sen';
+			case 'sens';
+			case 'sense';
+				$skill = "Sense";
+				break;
+			case 'sta';
+			case 'stam';
+			case 'stami';
+			case 'stamina';
+				$skill = "Stamina";
+				break;
+			case 'str';
+			case 'stren';
+			case 'strength';
+				$skill = "Strength";
+				break;
+			case 'treat';
+				$skill = "Treatment";
+				break;
+			//Add new cases for each new skill
+			default:
+				$skill = '';
+			}
+		
+		return $skill;
+	}
+}	
 // Makes main selection screen
 if (preg_match("/^bufftest$/i", $message, $arr)) {
 	$blob = "<header> :::::: Buff item skill selection :::::: <end>\n\n";
@@ -14,22 +61,22 @@ if (preg_match("/^bufftest$/i", $message, $arr)) {
 	$blob .= "\n\n<highlight>Skill Listings:<end>\n";
 	$blob .= Text::make_chatcmd("Treatment", "/tell <myname> bufftest Treatment");
 
-	$msg = Text::make_blob("Buff Items", $blob);
+	$msg = Text::make_blob("Select Skill to Buff", $blob);
 	$chatBot->send($msg, $sendto);
 // Creates the list of items
 } else if (preg_match("/^bufftest (.+)$/i", $message, $arr)) {
 	$name = $arr[1];
-	$ability = Util::get_ability($arr[1], true);
+	$skill = get_skill($name);
 
-	// Allows only valid searches. Must add additional skills in the get_ability function to bypass check
-	if (!$ability){
+	// Allows only valid searches. Must add additional skills in the get_skill function to bypass check
+	if (!$skill){
 		$syntax_error = true;
 		return;
 	}
-	$data = $db->query("SELECT * FROM buffitems WHERE skill = ? ORDER BY type, buffed DESC", $ability);
+	$data = $db->query("SELECT * FROM buffitems WHERE skill = ? ORDER BY type, buffed DESC", $skill);
 	
 	if (count($data) > 0) {
-		$blob .=  "<header>:::::: $ability Buffing Items ::::::<end>\n";
+		$blob .=  "<header>:::::: $skill Buffing Items ::::::<end>\n";
 		$currentType == '';
 		forEach ($data as $row) {
 			if ($row->type != $currentType) {
@@ -45,9 +92,9 @@ if (preg_match("/^bufftest$/i", $message, $arr)) {
 			
 			$blob .= Text::make_item($row->lowid, $row->highid, $row->minql, $row->name) . " Buff Amount: <highlight>$row->buffed<end> - <highlight>$row->info<end>\n";
 		}
-		$msg = Text::make_blob("Buff Item list ($ability)", $blob);
+		$msg = Text::make_blob("Buff Item list ($skill)", $blob);
 	} else {
-		$msg = "No items that buff <highlight>$name<end> could be found.";
+		$msg = "No items that buff <highlight>$skill<end> could be found.";
 	}
 	$chatBot->send($msg, $sendto);
 } else {
