@@ -3,46 +3,47 @@ if (!function_exists("get_skill")) {
 	function get_skill($input) {
 		$input = strtolower($input);
 		switch ($input) {
-			case 'agi';
-			case 'agil';
-			case 'agility';
+			case 'agi':
+			case 'agil':
+			case 'agility':
 				$skill = "Agility";
 				break;
-			case 'int';
-			case 'intel';
-			case 'intell';
-			case 'intelligence';
+			case 'int':
+			case 'intel':
+			case 'intell':
+			case 'intelligence':
 				$skill = "Intelligence";
 				break;
-			case 'psy';
-			case 'psyc';
-			case 'psych';
-			case 'psychic';
+			case 'psy':
+			case 'psyc':
+			case 'psych':
+			case 'psychic':
 				$skill = "Psychic";
 				break;
-			case 'sen';
-			case 'sens';
-			case 'sense';
+			case 'sen':
+			case 'sens':
+			case 'sense':
 				$skill = "Sense";
 				break;
-			case 'sta';
-			case 'stam';
-			case 'stami';
-			case 'stamina';
+			case 'sta':
+			case 'stam':
+			case 'stami':
+			case 'stamina':
 				$skill = "Stamina";
 				break;
-			case 'str';
-			case 'stren';
-			case 'strength';
+			case 'str':
+			case 'stren':
+			case 'strength':
 				$skill = "Strength";
 				break;
-			case 'treat';
+			case 'treat':
+			case 'treatment':
 				$skill = "Treatment";
 				break;
 			//Add new cases for each new skill
 			default:
 				$skill = '';
-			}
+		}
 		
 		return $skill;
 	}
