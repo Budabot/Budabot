@@ -10,7 +10,6 @@ error message now distinguishes between "unknown command" and "access denied"
 !whois now deals with current data, !lookup deals with data from name_history
 fixed LIMITS check
 added !guides scc for the bastion armor
-replaced !impql and !impreq with !implant
 added core API_MODULE
 added core PREFERENCES
 added setting 'xml_timeout' to control how long to wait for a response from xml servers

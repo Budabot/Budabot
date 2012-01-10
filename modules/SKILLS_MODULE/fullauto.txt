@@ -1,6 +1,6 @@
 <header> :::::: Fullauto Command :::::: <end>
 
-/tell <myname> <symbol>fa [<orange>A<end>] [<orange>R<end>] [<orange>FA Rech<end>] [<orange>FA Skill<end>]
+/tell <myname> <symbol>fullauto [<orange>A<end>] [<orange>R<end>] [<orange>FA Rech<end>] [<orange>FA Skill<end>]
 [<orange>A<end>] = Weapon Attack Time
 [<orange>R<end>] = Weapon Recharge Time
 [<orange>FA Rech<end>] = Weapon Full Auto recharge value*
@@ -8,6 +8,6 @@
 
 Example:
 Your weapon has an attack and recharge time of <orange>1<end> second and a Full Auto recharge value* of <orange>5000<end>.  You have <orange>1200<end> Full Auto skill.
-<a href='chatcmd:///tell <myname> <symbol>fa 1 1 5000 1200'>/tell <myname> <symbol>fa 1 1 5000 1200</a>
+<a href='chatcmd:///tell <myname> <symbol>fullauto 1 1 5000 1200'>/tell <myname> <symbol>fullauto 1 1 5000 1200</a>
 
 * Your Full Auto recharge value (5000) can be found by using the <a href='chatcmd:///tell <myname> help specials'>specials</a> command or on <a href='chatcmd:///start http://www.auno.org'>auno.org</a> as FullAuto Cycle and <a href='chatcmd:///start http://aomainframe.net'>aomainframe.net</a> as FullAutoRecharge.
