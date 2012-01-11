@@ -1,3 +1,3 @@
 #!/bin/sh
-php -f mainloop.php config.php
+php -f mainloop.php ./conf/config.php
 

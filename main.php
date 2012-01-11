@@ -78,7 +78,7 @@ if (isWindows()) {
 // Load required files.
 $config_file = $argv[1];
 if (!file_exists($config_file)) {
-	copy('config.template.php', $config_file) or LegacyLogger::log('ERROR', 'StartUp', "could not create config file: {$config_file}");
+	copy('./conf/config.template.php', $config_file) or LegacyLogger::log('ERROR', 'StartUp', "could not create config file: {$config_file}");
 }
 
 require $config_file;

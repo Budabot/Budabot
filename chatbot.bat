@@ -1,2 +1,2 @@
 title Budabot
-.\win32\php -f mainloop.php config.php
+.\win32\php -f mainloop.php ./conf/config.php
