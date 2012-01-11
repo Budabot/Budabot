@@ -21,12 +21,20 @@ class SignupController {
 			$msg = $this->showSignupLists();
 		} else if (preg_match("/^signup add (.+)$/i", $message, $arr)) {
 			$msg = $this->addList($arr[1], $sender);
+		} else if (preg_match("/^signup rem (\\d+)$/i", $message, $arr)) {
+			$msg = $this->removeList($arr[1], $sender);
 		} else if (preg_match("/^signup assign (\\d+)$/i", $message, $arr)) {
 			$msg = $this->assignToList($arr[1], $sender);
 		} else if (preg_match("/^signup assign (\\d+) (.+)$/i", $message, $arr)) {
 			$msg = $this->assignToList($arr[1], $arr[2]);
+		} else if (preg_match("/^signup unassign (\\d+)$/i", $message, $arr)) {
+			$msg = $this->unassignFromList($arr[1], $sender);
+		} else if (preg_match("/^signup unassign (\\d+) (.+)$/i", $message, $arr)) {
+			$msg = $this->unassignFromList($arr[1], $arr[2]);
 		} else if (preg_match("/^signup (\\d+)$/i", $message, $arr)) {
 			$msg = $this->viewList($arr[1]);
+		} else {
+			return false;
 		}
 		
 		$this->chatBot->send($msg, $sendto);
@@ -57,6 +65,17 @@ class SignupController {
 		return "A list with name <highlight>$name<end> has been created successfully.";
 	}
 	
+	public function removeList($id, $owner) {
+		$row = $this->db->queryRow("SELECT id FROM signup_lists WHERE id = ?", $id);
+		if ($row === null) {
+			return "There is no list with id <highlight>$id<end>.";
+		}
+		
+		$this->db->exec("DELETE FROM signup_lists WHERE id = ?", $id);
+		$this->db->exec("DELETE FROM signup_characters WHERE list_id = ?", $id);
+		return "The list <highlight>$row->name<end> has been deleted successfully.";
+	}
+	
 	public function assignToList($id, $sender) {
 		$list = $this->db->queryRow("SELECT * FROM signup_lists WHERE id = ?", $id);
 		if ($list === null) {
@@ -70,6 +89,21 @@ class SignupController {
 		
 		$this->db->exec("INSERT INTO signup_characters (list_id, name) VALUES (?,?)", $id, $sender);
 		return "<highlight>$sender<end> has been assigned to the list <highlight>$list->name<end> successfully.";
+	}
+	
+	public function unassignFromList($id, $sender) {
+		$list = $this->db->queryRow("SELECT * FROM signup_lists WHERE id = ?", $id);
+		if ($list === null) {
+			return "There is no list that exists with that id.";
+		}
+	
+		$row = $this->db->queryRow("SELECT name FROM signup_characters WHERE list_id = ? AND name LIKE ?", $id, $sender);
+		if ($row === null) {
+			return "<highlight>$sender<end> is not assigned to the list <highlight>$list->name<end>.";
+		}
+		
+		$this->db->exec("DELETE FROM signup_characters WHERE list_id = ? AND name = ?", $id, $sender);
+		return "<highlight>$sender<end> has been unassigned from the list <highlight>$list->name<end> successfully.";
 	}
 	
 	public function viewList($id) {
