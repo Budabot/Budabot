@@ -22,7 +22,7 @@ if (preg_match("/^events add (.+)$/i", $message, $arr)) {
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^events setdate ([0-9]+) ([0-9]{4})-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]) ([0-1][0-9]|[2][0-3]):([0-5][0-9]):([0-5][0-9])$/i", $message, $arr)) {
 	// yyyy-dd-mm hh:mm:ss GMT
-	$eventDate = gmmktime($arr[5], $arr[6], 0, $arr[3], $arr[4], $arr[2]);
+	$eventDate = mktime($arr[5], $arr[6], 0, $arr[3], $arr[4], $arr[2]);
 	$db->exec("UPDATE events SET `event_date` = ? WHERE `id` = ?", $eventDate, $arr[1]);
 	$msg = "Date/Time Updated.";
 	$chatBot->send($msg, $sendto);

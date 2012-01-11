@@ -207,7 +207,7 @@ if (preg_match("/^vote$/i", $message)) {
 		$row = $db->queryRow("SELECT * FROM $table WHERE `question` = ? AND `duration` IS NOT NULL", $sect[0]);
 		$question = $row->question; $author = $row->author; $started = $row->started;
 		$duration = $row->duration; $status = $row->status; $answer = $row->answer;
-		$timeleft = $started+$duration-time();	
+		$timeleft = $started+$duration-time();
 		
 		if (!$duration) {
 			$msg = "Couldn't find any votes with this topic.";
@@ -250,8 +250,6 @@ if (preg_match("/^vote$/i", $message)) {
 		
 		if ($newtime == 0) {
 			$msg = "Found an invalid character for duration or the time you entered was 0 seconds. Time format should be: 1d2h3m4s";
-		} else if ($newtime < 30) {
-			$msg = "Need to have at least a 30 second span for duration of votes.";
 		} else {
 			$answer = explode($delimiter,$answers);
 			if (count($answer) < 2) {
