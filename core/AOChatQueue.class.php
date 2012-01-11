@@ -43,49 +43,49 @@
 
 /* Prioritized chat message queue. */
 
+define('AOC_PRIORITY_HIGH',           1000);
+define('AOC_PRIORITY_MED',             500);
+define('AOC_PRIORITY_LOW',             100);
+
 class AOChatQueue {
 
-	var $dfunc, $queue, $qsize;
-	var $point, $limit, $inc;
+	var $queue;
+	var $qsize;  // the number of items in the queue for any priority
+	var $point;  // everytime a message is sent, this is incremented by $increment; if $point > (time() + $limit) metering kicks in
+	var $limit;  // the amount of messages that can be sent before metering kicks in
+	var $increment;  // the amount of time in seconds to wait after the limit has been reached
 
-	function AOChatQueue($cb, $limit, $inc) {
-		$this->dfunc = $cb;
+	function AOChatQueue($limit, $increment) {
 		$this->limit = $limit;
-		$this->inc = $inc;
+		$this->increment = $increment;
 		$this->point = 0;
 		$this->queue = array();
 		$this->qsize = 0;
 	}
 
-	function push($priority) {
-		$args = array_slice(func_get_args(), 1);
+	function push($priority, $item) {
 		$now = time();
-		if ($this->point <= ($now + $this->limit)) {
-			call_user_func_array($this->dfunc, $args);
-			$this->point = (($this->point<$now) ? $now : $this->point) + $this->inc;
-			return 1;
-		}
+
 		if (isset($this->queue[$priority])) {
-			$this->queue[$priority][] = $args;
+			$this->queue[$priority][] = $item;
 		} else {
-			$this->queue[$priority] = array($args);
+			$this->queue[$priority] = array($item);
 			krsort($this->queue);
 		}
 		$this->qsize++;
-		return 2;
 	}
 
-	function run() {
+	function getNext() {
 		if ($this->qsize === 0) {
-			return 0;
+			return null;
 		}
 		$now = time();
 		if ($this->point < $now) {
 			$this->point = $now;
 		} else if ($this->point > ($now + $this->limit)) {
-			return 0;
+			return null;
 		}
-		$processed = 0;
+
 		forEach (array_keys($this->queue) as $priority) {
 			while (true) {
 				$item = array_shift($this->queue[$priority]);
@@ -93,16 +93,13 @@ class AOChatQueue {
 					unset($this->queue[$priority]);
 					break;
 				}
-				call_user_func_array($this->dfunc, $item);
-				$this->point += $this->inc;
-				$processed++;
-				if ($this->point > ($now + $this->limit)) {
-					break(2);
-				}
+
+				$this->point += $this->increment;
+				$this->qsize--;
+				return $item;
 			}
 		}
-		$this->qsize -= $processed;
-		return $processed;
+		return null;
 	}
 }
 

@@ -69,10 +69,6 @@ define('AOC_GROUP_LOG',         0x02020000);
 define('AOC_FLOOD_LIMIT',                7);
 define('AOC_FLOOD_INC',                  2);
 
-define('AOC_PRIORITY_HIGH',           1000);
-define('AOC_PRIORITY_MED',             500);
-define('AOC_PRIORITY_LOW',             100);
-
 define('AOEM_UNKNOWN',                0xFF);
 define('AOEM_ORG_JOIN',               0x10);
 define('AOEM_ORG_KICK',               0x11);
@@ -150,7 +146,7 @@ class AOChat {
 			return false;
 		}
 
-		$this->chatqueue = new AOChatQueue(array($this, 'send_packet'), AOC_FLOOD_LIMIT, AOC_FLOOD_INC);
+		$this->chatqueue = new AOChatQueue(AOC_FLOOD_LIMIT, AOC_FLOOD_INC);
 
 		return $s;
 	}
@@ -159,7 +155,11 @@ class AOChat {
 		$now = time();
 
 		if ($this->chatqueue !== NULL) {
-			$this->chatqueue->run();
+			$packet = $this->chatqueue->getNext();
+			while ($packet !== null) {
+				$this->send_packet($packet);
+				$packet = $this->chatqueue->getNext();
+			}
 		}
 
 		if (($now - $this->last_packet) > 60 && ($now - $this->last_ping) > 60) {
@@ -438,6 +438,7 @@ class AOChat {
 			$priority = AOC_PRIORITY_MED;
 		}
 		$this->chatqueue->push($priority, new AOChatPacket("out", AOCP_MSG_PRIVATE, array($uid, $msg, "\0")));
+		$this->iteration();
 		return true;
 	}
 	
@@ -456,6 +457,7 @@ class AOChat {
 			$priority = AOC_PRIORITY_MED;
 		}
 		$this->chatqueue->push($priority, new AOChatPacket("out", AOCP_GROUP_MESSAGE, array($guild_gid, $msg, "\0")));
+		$this->iteration();
 		return true;
 	}
 
@@ -467,6 +469,7 @@ class AOChat {
 			$priority = AOC_PRIORITY_MED;
 		}
 		$this->chatqueue->push(AOC_PRIORITY_MED, new AOChatPacket("out", AOCP_GROUP_MESSAGE, array($gid, $msg, "\0")));
+		$this->iteration();
 		return true;
 	}
 
