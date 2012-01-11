@@ -26,6 +26,9 @@ class Command extends Annotation {
 	/** @Inject */
 	public $util;
 	
+	/** @Inject */
+	public $subcommand;
+	
 	/** @Logger */
 	public $logger;
 	
@@ -216,8 +219,8 @@ class Command extends Annotation {
 		$filename = $this->commands[$type][$cmd]["filename"];
 
 		// Check if a subcommands for this exists
-		if (isset($this->chatBot->subcommands[$cmd])) {
-			forEach ($this->chatBot->subcommands[$cmd] as $row) {
+		if (isset($this->subcommand->subcommands[$cmd])) {
+			forEach ($this->subcommand->subcommands[$cmd] as $row) {
 				if ($row->type == $type && preg_match("/^{$row->cmd}$/i", $message)) {
 					$admin = $row->admin;
 					$filename = $row->file;

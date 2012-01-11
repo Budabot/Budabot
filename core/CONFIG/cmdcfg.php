@@ -333,7 +333,6 @@ if (preg_match("/^config$/i", $message)) {
 	}
 
 	// for subcommands which are handled differently
-	$chatBot->subcommands = array();
 	Registry::getInstance('subcommand')->loadSubcommands();
 } else if (preg_match("/^config (subcmd|cmd) (.+) admin (msg|priv|guild|all) (all|leader|rl|mod|admin|guild|member)$/i", $message, $arr)) {
 	$category = strtolower($arr[1]);
@@ -377,7 +376,6 @@ if (preg_match("/^config$/i", $message)) {
 		}
 
 		$db->exec("UPDATE cmdcfg_<myname> SET `admin` = ? WHERE `type` = ? AND `cmdevent` = 'subcmd' AND `cmd` = ?", $admin, $channel, $command);
-		$chatBot->subcommands = array();
 		Registry::getInstance('subcommand')->loadSubcommands();
 		$msg = "Updated access of sub command <highlight>$command<end> in Channel <highlight>$channel<end> to <highlight>$admin<end>";
 	}

@@ -72,9 +72,11 @@ class Subcommand extends Annotation {
 	public function loadSubcommands() {
 		$this->logger->log('DEBUG', "Loading enabled subcommands");
 
-		$data = $this->db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd' AND `status` = 1");
+		$this->subcommands = array();
+
+		$data = $this->db->query("SELECT * FROM cmdcfg_<myname> WHERE `status` = '1' AND `cmdevent` = 'subcmd'");
 		forEach ($data as $row) {
-			$this->chatBot->subcommands[$row->dependson] []= $row;
+			$this->subcommands[$row->dependson] []= $row;
 		}
 	}
 }

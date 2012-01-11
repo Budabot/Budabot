@@ -2,6 +2,7 @@
 
 $event = Registry::getInstance('event');
 $command = Registry::getInstance('command');
+$subcommand = Registry::getInstance('subcommand');
 $commandAlias = Registry::getInstance('commandAlias');
 $help = Registry::getInstance('help');
 
@@ -49,7 +50,7 @@ if (preg_match("/^system$/i", $message, $arr)) {
 	$blob .= "<highlight>Number of active tell commands:<end> " . count($command->commands['msg']) . "\n";
 	$blob .= "<highlight>Number of active private channel commands:<end> " . count($command->commands['priv']) . "\n";
 	$blob .= "<highlight>Number of active guild channel commands:<end> " . count($command->commands['guild']) . "\n";
-	$blob .= "<highlight>Number of active subcommands:<end> " . count($chatBot->subcommands) . "\n";
+	$blob .= "<highlight>Number of active subcommands:<end> " . count($subcommand->subcommands) . "\n";
 	$blob .= "<highlight>Number of active command aliases:<end> " . count($commandAlias->cmd_aliases) . "\n";
 	$blob .= "<highlight>Number of active events:<end> " . $eventnum . "\n";
 	$blob .= "<highlight>Number of help commands:<end> " . count($help->helpfiles) . "\n\n";
