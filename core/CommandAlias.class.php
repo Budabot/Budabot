@@ -84,21 +84,36 @@ class CommandAlias {
 	}
 	
 	public function process($message, $channel, $sender, $sendto) {
-		list($cmd, $params) = explode(' ', $message, 2);
-		$cmd = strtolower($cmd);
+		list($alias, $params) = explode(' ', $message, 2);
+		$alias = strtolower($alias);
 	
 		// Check if this is an alias for a command
-		if (isset($this->cmd_aliases[$cmd])) {
-			$this->logger->log('DEBUG', "Command alias found command: '{$this->cmd_aliases[$cmd]}' alias: '{$cmd}'");
-			$cmd = $this->cmd_aliases[$cmd];
-			if ($params) {
-				$newMessage = $cmd . ' ' . $params;
-			} else {
-				$newMessage = $cmd;
-			}
-			$this->command->process($channel, $newMessage, $sender, $sendto);
-		} else {
+		if (!isset($this->cmd_aliases[$alias])) {
 			return false;
+		}
+
+		$this->logger->log('DEBUG', "Command alias found command: '{$this->cmd_aliases[$alias]}' alias: '{$alias}'");
+		$cmd = $this->cmd_aliases[$alias];
+		if ($params) {
+			if (!preg_match("/{\\d+}/", $params)) {
+				$cmd .= " {0}";
+			}
+			
+			$aliasParams = explode(' ', $params);
+			
+			// add the entire param string as the {0} parameter
+			array_unshift($aliasParams, $params);
+
+			// replace parameter placeholders with their values
+			for ($i = 0; $i < count($aliasParams); $i++) {
+				$cmd = str_replace('{' . $i . '}', $aliasParams[$i], $cmd);
+			}
+		}
+		// if parameter placeholders still exist, then they did not pass enough parameters
+		if (preg_match("/{\\d+}/", $cmd)) {
+			return false;
+		} else {
+			$this->command->process($channel, $cmd, $sender, $sendto);
 		}
 	}
 	
