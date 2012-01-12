@@ -198,22 +198,8 @@ class Command extends Annotation {
 		$db = $this->db;
 		$setting = $this->setting;
 		
-		// Admin Code
 		list($cmd, $params) = explode(' ', $message, 2);
 		$cmd = strtolower($cmd);
-		
-		// Check if this is an alias for a command
-		if (isset($this->commandAlias->cmd_aliases[$cmd])) {
-			$this->logger->log('DEBUG', "Command alias found command: '{$this->commandAlias->cmd_aliases[$cmd]}' alias: '{$cmd}'");
-			$cmd = $this->commandAlias->cmd_aliases[$cmd];
-			if ($params) {
-				$message = $cmd . ' ' . $params;
-			} else {
-				$message = $cmd;
-			}
-			$this->process($type, $message, $sender, $sendto);
-			return;
-		}
 		
 		$admin = $this->commands[$type][$cmd]["admin"];
 		$filename = $this->commands[$type][$cmd]["filename"];

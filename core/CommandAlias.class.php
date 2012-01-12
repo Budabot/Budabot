@@ -8,8 +8,13 @@ class CommandAlias {
 	/** @Inject */
 	public $chatBot;
 	
+	/** @Inject */
+	public $command;
+	
 	/** @Logger */
 	public $logger;
+	
+	public $cmd_aliases = array();
 
 	/**
 	 * @name: load
@@ -57,6 +62,9 @@ class CommandAlias {
 
 	  	$this->logger->log('DEBUG', "Activate Command Alias command:($command) alias:($alias)");
 		
+		$this->command->activate('msg', "CommandAlias.process", $alias, 'all');
+		$this->command->activate('priv', "CommandAlias.process", $alias, 'all');
+		$this->command->activate('guild', "CommandAlias.process", $alias, 'all');
 		$this->cmd_aliases[$alias] = $command;
 	}
 	
@@ -69,7 +77,29 @@ class CommandAlias {
 
 	  	$this->logger->log('DEBUG', "Deactivate Command Alias:($alias)");
 		
+		$this->command->deactivate('msg', "CommandAlias.process", $alias);
+		$this->command->deactivate('priv', "CommandAlias.process", $alias);
+		$this->command->deactivate('guild', "CommandAlias.process", $alias);
 		unset($this->cmd_aliases[$alias]);
+	}
+	
+	public function process($message, $channel, $sender, $sendto) {
+		list($cmd, $params) = explode(' ', $message, 2);
+		$cmd = strtolower($cmd);
+	
+		// Check if this is an alias for a command
+		if (isset($this->cmd_aliases[$cmd])) {
+			$this->logger->log('DEBUG', "Command alias found command: '{$this->cmd_aliases[$cmd]}' alias: '{$cmd}'");
+			$cmd = $this->cmd_aliases[$cmd];
+			if ($params) {
+				$newMessage = $cmd . ' ' . $params;
+			} else {
+				$newMessage = $cmd;
+			}
+			$this->command->process($channel, $newMessage, $sender, $sendto);
+		} else {
+			return false;
+		}
 	}
 	
 	/**
