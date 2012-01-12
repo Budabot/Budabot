@@ -184,7 +184,7 @@ class Admin {
 	
 	public function add($who, $sender, $sendto, $intlevel, $rank) {
 		if ($this->chatBot->get_uid($who) == NULL){
-			$this->chatBot->send("The character <highlight>$who<end> does not exist.", $sendto);
+			$this->chatBot->send("Character <highlight>$who<end> does not exist.", $sendto);
 			return;
 		}
 		

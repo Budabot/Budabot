@@ -8,12 +8,12 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 	$reason = $arr[4];
 
 	if ($chatBot->get_uid($who) == NULL) {
-		$chatBot->send("The character you wish to ban does not exist.", $sendto);
+		$chatBot->send("Character <highlight$who<end> does not exist.", $sendto);
 		return;
 	}
 	
 	if ($ban->is_banned($who)) {
-	  	$chatBot->send("The character <highlight$who<end> is already banned.", $sendto);
+	  	$chatBot->send("Character <highlight$who<end> is already banned.", $sendto);
 		return;
 	}
 	
@@ -40,12 +40,12 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 	$who = ucfirst(strtolower($arr[1]));
 	
 	if ($chatBot->get_uid($who) == NULL) {
-		$chatBot->send("The character you wish to ban does not exist.", $sendto);
+		$chatBot->send("Character <highlight$who<end> does not exist.", $sendto);
 		return;
 	}
 	
 	if ($ban->is_banned($who)) {
-	  	$chatBot->send("The character <highlight>$who<end> is already banned.", $sendto);
+	  	$chatBot->send("Character <highlight>$who<end> is already banned.", $sendto);
 		return;
 	}
 	
@@ -73,12 +73,12 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 	$reason = $arr[3];
 	
 	if ($chatBot->get_uid($who) == NULL) {
-		$chatBot->send("The character you wish to ban does not exist.", $sendto);
+		$chatBot->send("Character <highlight$who<end> does not exist.", $sendto);
 		return;
 	}
 
 	if ($ban->is_banned($who)) {
-	  	$chatBot->send("The character <highlight>$who<end> is already banned.", $sendto);
+	  	$chatBot->send("Character <highlight>$who<end> is already banned.", $sendto);
 		return;
 	}
 	
@@ -97,12 +97,12 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 	$who = ucfirst(strtolower($arr[1]));
 	
 	if ($chatBot->get_uid($who) == NULL) {
-		$chatBot->send("The character you wish to ban does not exist.", $sendto);
+		$chatBot->send("Character <highlight$who<end> does not exist.", $sendto);
 		return;
 	}
 
 	if ($ban->is_banned($who)) {
-	  	$chatBot->send("The character <highlight>$who<end> is already banned.", $sendto);
+	  	$chatBot->send("Character <highlight>$who<end> is already banned.", $sendto);
 		return;
 	}
 	

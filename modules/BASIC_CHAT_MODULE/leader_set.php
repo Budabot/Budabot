@@ -12,9 +12,9 @@ if (preg_match("/^leader (.+)$/i", $message, $arr)) {
     $uid = $chatBot->get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
 	if (!$uid) {
-		$msg = "Player <highlight>{$name}<end> does not exist.";
+		$msg = "Character <highlight>{$name}<end> does not exist.";
 	} else if (!isset($chatBot->chatlist[$name])) {
-		$msg = "Player <highlight>{$name}<end> isn't in this channel.";
+		$msg = "Character <highlight>{$name}<end> is not in this channel.";
 	} else {
 		$chatBot->data["leader"] = $name;
 	  	$msg = "{$name} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";

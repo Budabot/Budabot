@@ -5,7 +5,7 @@ if (preg_match("/^alts main ([a-z0-9-]+)$/i", $message, $arr)) {
 
 	$uid = $chatBot->get_uid($new_main);
 	if (!$uid) {
-		$msg = "The character <highlight>$new_main<end> does not exist.";
+		$msg = "Character <highlight>$new_main<end> does not exist.";
 		$chatBot->send($msg, $sendto);
 		return;
 	}

@@ -35,7 +35,7 @@ if (preg_match("/^is (.+)$/i", $message, $arr)) {
     $uid = $chatBot->get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     if (!$uid) {
-        $msg = "Player <highlight>$name<end> does not exist.";
+        $msg = "Character <highlight>$name<end> does not exist.";
 		$chatBot->send($msg, $sendto);
     } else {
         //if the player is a buddy then
@@ -56,7 +56,7 @@ if (preg_match("/^is (.+)$/i", $message, $arr)) {
             } else {
                 $status = "<red>offline<end>".$logged_off;
 			}
-            $msg = "Player <highlight>$name<end> is $status";
+            $msg = "Character <highlight>$name<end> is $status.";
 			$chatBot->send($msg, $sendto);
         }
     }

@@ -5,7 +5,7 @@ if (preg_match("/^lastseen (.+)$/i", $message, $arr)) {
     $uid = $chatBot->get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     if (!$uid) {
-        $msg = "Player <highlight>$name<end> does not exist.";
+        $msg = "Character <highlight>$name<end> does not exist.";
     } else {
 		$altInfo = Alts::get_alt_info($name);
 		$onlineAlts = $altInfo->get_online_alts();

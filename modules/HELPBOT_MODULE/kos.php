@@ -84,7 +84,7 @@ if (preg_match("/^kos$/i", $message)) {
 		}
 		$msg = Text::make_blob("KOS-List from $name", $link);
 	} else {
-		$msg = "The player <highlight>$name<end> isn't on the KOS List.";
+		$msg = "Character <highlight>$name<end> is not on the KOS List.";
 	}
 
 	$chatBot->send($msg, $sendto);

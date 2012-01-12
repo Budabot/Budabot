@@ -17,7 +17,7 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 		
 		$uid = $chatBot->get_uid($name);
 		if (!$uid) {
-			$msg = "Player <highlight>{$name}<end> does not exist.";
+			$msg = "Character <highlight>{$name}<end> does not exist.";
 			$chatBot->send($msg, $sendto);
 			continue;
 		}
@@ -77,7 +77,7 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 	$new_main = ucfirst(strtolower($arr[1]));
 	$uid = $chatBot->get_uid($new_main);
 	if (!$uid) {
-		$msg = "Player <highlight>{$new_main}<end> does not exist.";
+		$msg = "Character <highlight>{$new_main}<end> does not exist.";
 		$chatBot->send($msg, $sendto);
 		return;
 	}

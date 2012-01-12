@@ -12,12 +12,12 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names)) {
 	$uid_alt = $chatBot->get_uid($name_alt);
 
 	if (!$uid_alt) {
-		$msg = "The character <highlight>$name_alt<end> does not exist.";
+		$msg = "Character <highlight>$name_alt<end> does not exist.";
 		$chatBot->send($msg, $sendto);
 		return;
 	}
 	if (!$uid_main) {
-		$msg = "The character <highlight>$name_main<end> does not exist.";
+		$msg = "Character <highlight>$name_main<end> does not exist.";
 		$chatBot->send($msg, $sendto);
 		return;
 	}
@@ -25,7 +25,7 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names)) {
 	$mainInfo = Alts::get_alt_info($name_main);
 	$altinfo = Alts::get_alt_info($name_alt);
 	if ($altinfo->main == $mainInfo->main) {
-		$msg = "The character <highlight>$name_alt<end> is already registered as an alt of <highlight>{$altinfo->main}<end>.";
+		$msg = "Character <highlight>$name_alt<end> is already registered as an alt of <highlight>{$altinfo->main}<end>.";
 		$chatBot->send($msg, $sendto);
 		return;
 	}
@@ -54,7 +54,7 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names)) {
 	$name_alt = ucfirst(strtolower($names[2]));
 
 	if (Alts::rem_alt($name_main, $name_alt) == 0) {
-		$msg = "The character <highlight>$name_alt<end> is not listed as an alt of <highlight>$name_main<end>.";
+		$msg = "Character <highlight>$name_alt<end> is not listed as an alt of <highlight>$name_main<end>.";
 	} else {
 		$msg = "<highlight>$name_alt<end> has been removed from the alt list of <highlight>$name_main<end>.";
 	}

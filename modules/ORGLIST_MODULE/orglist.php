@@ -73,7 +73,7 @@ if (preg_match("/^orglist end$/i", $message)) {
 			unset($chatBot->data["ORGLIST_MODULE"]);
 			return;
 		} else if (!$whois->guild_id) {
-			$msg = "Player <highlight>$name<end> does not seem to be in any org?";
+			$msg = "Character <highlight>$name<end> does not seem to be in an org.";
 			unset($whois);
 			$chatBot->send($msg, $sendto);
 			unset($chatBot->data["ORGLIST_MODULE"]);

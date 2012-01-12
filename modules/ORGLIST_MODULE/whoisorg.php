@@ -18,7 +18,7 @@ if (preg_match("/^whoisorg (\d+) (\d)$/i", $message, $arr1) || preg_match("/^who
 			$chatBot->send($msg, $sendto);
 			return;
 		} else if (!$whois->guild_id) {
-			$msg = "Player <highlight>$name<end> does not seem to be in any org.";
+			$msg = "Character <highlight>$name<end> does not seem to be in an org.";
 			$chatBot->send($msg, $sendto);
 			return;
 		} else {

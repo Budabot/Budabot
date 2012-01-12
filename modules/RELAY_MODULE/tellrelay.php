@@ -5,7 +5,7 @@ if (preg_match("/^tellrelay (.*)$/", $message, $arr)) {
 	$uid = $chatBot->get_uid($name);
 	
 	if (!$uid) {
-		$msg = "Player <highlight>$name<end> does not exist.";
+		$msg = "Character <highlight>$name<end> does not exist.";
 		$chatBot->send($msg, $sendto);
 		return;
 	}

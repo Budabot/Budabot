@@ -111,7 +111,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
             $msg .= " :: ".Text::make_blob("More info", $blob);
             $msg = "<highlight>Server $server:<end> ".$msg;
         } else {
-            $msg = "Server $server: Player <highlight>{$name}<end> does not exist.";
+            $msg = "Server $server: Character <highlight>{$name}<end> does not exist.";
 		}
 
         $chatBot->send($msg, $sendto);

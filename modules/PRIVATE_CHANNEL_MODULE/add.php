@@ -4,7 +4,7 @@ if (preg_match("/^adduser (.+)$/i", $message, $arr)) {
 	$uid = $chatBot->get_uid($arr[1]);
 	$name = ucfirst(strtolower($arr[1]));
 	if (!$uid) {
-		$msg = "Player <highlight>$name<end> does not exist.";
+		$msg = "Character <highlight>$name<end> does not exist.";
 	} else {
 		$data = $db->query("SELECT * FROM members_<myname> WHERE `name` = ?", $name);
 		if (count($data) != 0) {

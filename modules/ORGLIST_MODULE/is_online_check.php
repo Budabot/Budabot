@@ -6,7 +6,7 @@ if (isset($chatBot->data["ONLINE_MODULE"]) && $sender == $chatBot->data["ONLINE_
 	} else if ($type == "logoff") {
 		$status = "<red>offline<end>";
 	}
-	$msg = "Player <highlight>$sender<end> is $status";
+	$msg = "Character <highlight>$sender<end> is $status.";
 	$chatBot->send($msg, $chatBot->data["ONLINE_MODULE"]['sendto']);
 	Buddylist::remove($sender, 'is_online');
 	unset($chatBot->data["ONLINE_MODULE"]);

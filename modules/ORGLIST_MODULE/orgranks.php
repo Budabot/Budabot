@@ -21,7 +21,7 @@ if (preg_match("/^orgranks$/i", $message, $arr) || preg_match("/^orgranks ([0-9]
 				$chatBot->send($msg, $sendto);
 				return;
 			} else if (!$whois->guild_id) {
-				$msg = "Player <highlight>$name<end> does not seem to be in any org.";
+				$msg = "Character <highlight>$name<end> does not seem to be in an org.";
 				$chatBot->send($msg, $sendto);
 				return;
 			} else {

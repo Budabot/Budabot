@@ -7,7 +7,7 @@ if (preg_match("/^history (.+) (\d)$/i", $message, $arr) || preg_match("/^histor
 	} else {
 		$dimension = $chatBot->vars['dimension'];
 		if (!$chatBot->get_uid($name)) {
-			$msg = "Player <highlight>$name<end> doesn't exist.";
+			$msg = "Character <highlight>$name<end> does not exist.";
 			$chatBot->send($msg, $sendto);
 			return;
 		}

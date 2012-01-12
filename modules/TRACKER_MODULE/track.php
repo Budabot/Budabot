@@ -36,7 +36,7 @@ if (preg_match("/^track$/i", $message)) {
     $name = ucfirst(strtolower($arr[1]));
     
 	if (!$uid) {
-        $msg = "Player <highlight>$name<end> does not exist.";
+        $msg = "Character <highlight>$name<end> does not exist.";
     } else {
 	  	$data = $db->query("SELECT * FROM tracked_users_<myname> WHERE `uid` = ?", $uid);
 	  	if (count($data) == 0) {
@@ -54,7 +54,7 @@ if (preg_match("/^track$/i", $message)) {
     $name = ucfirst(strtolower($arr[1]));
     
 	if (!$uid) {
-        $msg = "Player <highlight>$name<end> does not exist.";
+        $msg = "Character <highlight>$name<end> does not exist.";
     } else {
 	  	$data = $db->query("SELECT * FROM tracked_users_<myname> WHERE `uid` = ?", $uid);
 	  	if (count($data) != 0) {

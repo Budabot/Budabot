@@ -7,12 +7,12 @@ if (preg_match("/^assist (.+)$/i", $message, $arr)) {
 		$name = ucfirst(strtolower($arr[1]));
 		$uid = $chatBot->get_uid($name);
 		if ($type == "priv" && !isset($chatBot->chatlist[$name])) {
-			$msg = "Player <highlight>$name<end> isn't in this bot.";
+			$msg = "Character <highlight>$name<end> is not in this bot.";
 			$chatBot->send($msg, $sendto);
 		}
 		
 		if (!$uid) {
-			$msg = "Player <highlight>$name<end> does not exist.";
+			$msg = "Character <highlight>$name<end> does not exist.";
 			$chatBot->send($msg, $sendto);
 		}
 		
@@ -24,12 +24,12 @@ if (preg_match("/^assist (.+)$/i", $message, $arr)) {
 			$name = ucfirst(strtolower($name));
 			$uid = $chatBot->get_uid($name);
 			if ($type == "priv" && !isset($chatBot->chatlist[$name])) {
-				$msg = "Player <highlight>$name<end> isn't in this bot.";
+				$msg = "Character <highlight>$name<end> is not in this bot.";
 				$chatBot->send($msg, $sendto);
 			}
 			
 			if (!$uid) {
-				$msg = "Player <highlight>$name<end> does not exist.";
+				$msg = "Character <highlight>$name<end> does not exist.";
 				$chatBot->send($msg, $sendto);
 			}
 			$nameArray[$key] = "/assist $name";
