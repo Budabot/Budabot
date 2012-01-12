@@ -12,10 +12,12 @@ class Admin {
 	public $db;
 	
 	/** @Inject */
-	public $buddylist;
+	public $buddyList;
 	
 	/** @Inject */
 	public $setting;
+	
+	public $admins = array();
 
 	public function removeCommand($message, $channel, $sender, $sendto) {
 		if (preg_match("/^remadmin (.+)$/i", $message, $arr)){
@@ -38,6 +40,100 @@ class Admin {
 			$this->remove($who, $sender, $sendto, $intlevel, $$rank);
 		} else {
 			return false;
+		}
+	}
+	
+	
+	public function adminlistCommand($message, $channel, $sender, $sendto) {
+		if (!preg_match("/^adminlist$/i", $message)) {
+			return false;
+		}
+	
+		$list = "<header>::::: List of administrators :::::<end>\n\n";
+
+		$list .= "<highlight>Administrators<end>\n";	
+		forEach ($this->admins as $who => $data) {
+			if ($this->admins[$who]["level"] == 4) {
+				if ($who != "") {
+					$list.= "<tab>$who ";
+					
+					if ($this->accessLevel->checkAccess($who, 'superadmin')) {
+						$list .= "(<orange>Super-administrator<end>) ";
+					}
+						
+					if ($this->buddyList->is_online($who) == 1 && isset($this->chatBot->chatlist[$who])) {
+						$list.="(<green>Online and in chat<end>)";
+					} else if ($this->buddyList->is_online($who) == 1) {
+						$list.="(<green>Online<end>)";
+					} else {
+						$list.="(<red>Offline<end>)";
+					}
+						
+					$list.= "\n";
+				}
+			}
+		}
+
+		$list .= "<highlight>Moderators<end>\n";
+		forEach ($this->admins as $who => $data){
+			if ($this->admins[$who]["level"] == 3){
+				if ($who != "") {
+					$list.= "<tab>$who ";
+					if ($this->buddyList->is_online($who) == 1 && isset($this->chatBot->chatlist[$who])) {
+						$list.="(<green>Online and in chat<end>)";
+					} else if ($this->buddyList->is_online($who) == 1) {
+						$list.="(<green>Online<end>)";
+					} else {
+						$list.="(<red>Offline<end>)";
+					}
+					$list.= "\n";
+				}
+			}
+		}
+
+		$list .= "<highlight>Raidleaders<end>\n";	
+		forEach ($this->admins as $who => $data){
+			if ($this->admins[$who]["level"] == 2){
+				if ($who != "") {
+					$list.= "<tab>$who ";
+					if ($this->buddyList->is_online($who) == 1 && isset($this->chatBot->chatlist[$who])) {
+						$list.="(<green>Online and in chat<end>)";
+					} else if ($this->buddyList->is_online($who) == 1) {
+						$list.="(<green>Online<end>)";
+					} else {
+						$list.="(<red>Offline<end>)";
+					}
+					$list.= "\n";
+				}
+			}
+		}
+
+		$link = Text::make_blob('Bot administrators', $list);	
+		$this->chatBot->send($link, $sendto);
+	}
+	
+	public function uploadAdmins() {
+		$this->db->exec("CREATE TABLE IF NOT EXISTS admin_<myname> (`name` VARCHAR(25) NOT NULL PRIMARY KEY, `adminlevel` INT)");
+
+		$this->chatBot->vars["SuperAdmin"] = ucfirst(strtolower($this->chatBot->vars["SuperAdmin"]));
+
+		$data = $this->db->query("SELECT * FROM admin_<myname> WHERE `name` = ?", $this->chatBot->vars["SuperAdmin"]);
+		if (count($data) == 0) {
+			$this->db->exec("INSERT INTO admin_<myname> (`adminlevel`, `name`) VALUES (?, ?)", '4', $this->chatBot->vars["SuperAdmin"]);
+		} else {
+			$this->db->exec("UPDATE admin_<myname> SET `adminlevel` = ? WHERE `name` = ?", '4', $this->chatBot->vars["SuperAdmin"]);
+		}
+
+		$data = $this->db->query("SELECT * FROM admin_<myname>");
+		forEach ($data as $row) {
+			$this->admins[$row->name]["level"] = $row->adminlevel;
+		}
+	}
+	
+	public function checkAdmins() {
+		$data = $this->db->query("SELECT * FROM admin_<myname>");
+		forEach ($data as $row) {
+			$this->buddyList->add($row->name, 'admin');
 		}
 	}
 	
@@ -104,7 +200,7 @@ class Admin {
 		
 		if (!$this->checkAltsInheritAdmin($who)) {
 			$msg = "<red>Alts inheriting admin is enabled, and $who is not a main character.<end>";
-			if ($this->chatBot->admins[$ai->main]["level"] == $intlevel) {
+			if ($this->admins[$ai->main]["level"] == $intlevel) {
 				$msg .= " <highlight>{$ai->main}<end> is already $rank.";
 			} else {
 				$msg .= " Try again with <highlight>$who<end>'s main, <highlight>{$ai->main}<end>.";
@@ -120,16 +216,16 @@ class Admin {
 	}
 	
 	public function removeFromLists($who) {
-		unset($this->chatBot->admins[$who]);
+		unset($this->admins[$who]);
 		$this->db->exec("DELETE FROM admin_<myname> WHERE `name` = ?", $who);
 		$this->buddylist->remove($who, 'admin');
 	}
 	
 	public function addToLists($who, $intlevel) {
 		$action = '';
-		if (isset($this->chatBot->admins[$who])) {
+		if (isset($this->admins[$who])) {
 			$this->db->exec("UPDATE admin_<myname> SET `adminlevel` = ? WHERE `name` = ?", $intlevel, $who);
-			if ($this->chatBot->admins[$who]["level"] > $intlevel) {
+			if ($this->admins[$who]["level"] > $intlevel) {
 				$action = "demoted";
 			} else {
 				$action = "promoted";
@@ -139,14 +235,14 @@ class Admin {
 			$action = "promoted";
 		}
 	
-		$this->chatBot->admins[$who]["level"] = $intlevel;
+		$this->admins[$who]["level"] = $intlevel;
 		$this->buddylist->add($who, 'admin');
 		
 		return $action;
 	}
 	
 	public function checkExisting($who, $level) {
-		if ($this->chatBot->admins[$who]["level"] != $level) {
+		if ($this->admins[$who]["level"] != $level) {
 			return false;
 		} else {
 			return true;

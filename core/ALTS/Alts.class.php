@@ -23,6 +23,7 @@ class AltInfo {
 		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 		$setting = Registry::getInstance('setting');
+		$player = Registry::getInstance('player');
 		
 		if (count($this->alts) == 0) {
 			return "No registered alts.";
@@ -30,7 +31,7 @@ class AltInfo {
 
 		$blob = "<header> :::::: Character List for {$this->main} :::::: <end>\n\n";
 		$blob .= "<tab><tab>{$this->main}";
-		$character = Player::get_by_name($this->main);
+		$character = $player->get_by_name($this->main);
 		if ($character !== null) {
 			$blob .= " (<highlight>{$character->level}<end>/<green>{$character->ai_level}<end> <highlight>{$character->profession}<end>)";
 		}

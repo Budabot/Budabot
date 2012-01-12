@@ -1,8 +1,11 @@
 <?php
 
+$admin = Registry::getInstance('admin');
+$buddyList = Registry::getInstance('buddyList');
+
 //Send Admin(s) a tell that the bot is online
-forEach ($chatBot->admins as $name => $info) {
-	if ($info["level"] == 4 && Buddylist::is_online($name) == 1) {
+forEach ($admin->admins as $name => $info) {
+	if ($info["level"] == 4 && $buddyList->is_online($name) == 1) {
 		$chatBot->send("<myname> is <green>online<end>. For updates or help use the Budabot Forums <highlight>http://budabot.com<end>", $name);
 	}
 }
