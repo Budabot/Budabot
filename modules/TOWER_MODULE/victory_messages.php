@@ -6,10 +6,10 @@ if (preg_match("/^The (Clan|Neutral|Omni) organization (.+) attacked the (Clan|N
 	$lose_faction = $arr[3];
 	$lose_guild_name = $arr[4];
 	$playfield_name = $arr[5];
-} else if (preg_match("/^Notum Wars Update: The (Clan|Neutral|Omni) organization (.+) lost their base in (.+).$/i", $message, $arr)) {
+} else if (preg_match("/^Notum Wars Update: The (clan|neutral|omni) organization (.+) lost their base in (.+).$/i", $message, $arr)) {
 	$win_faction = '';
 	$win_guild_name = '';
-	$lose_faction = $arr[1];
+	$lose_faction = ucfirst($arr[1]);  // capitalize the faction name to match the other messages
 	$lose_guild_name = $arr[2];
 	$playfield_name = $arr[3];
 } else {
