@@ -759,8 +759,8 @@ class AOChat {
 		$dataarr = unpack("V*", $str);
 
 		for ($i = 1; $i <= sizeof($dataarr); $i += 2) {
-			$now[0] = (int)$this -> ReduceTo32Bit($dataarr[$i]) ^ (int)$this -> ReduceTo32Bit($prev[0]);
-			$now[1] = (int)$this -> ReduceTo32Bit($dataarr[$i+1]) ^ (int)$this -> ReduceTo32Bit($prev[1]);
+			$now[0] = (int)$this -> ReduceTo32Bit($dataarr[$i]) ^ (int)$this -> ReduceTo32Bit(@$prev[0]);
+			$now[1] = (int)$this -> ReduceTo32Bit($dataarr[$i+1]) ^ (int)$this -> ReduceTo32Bit(@$prev[1]);
 			$prev   = $this -> aocrypt_permute($now, $keyarr);
 
 			$ret .= $this -> SafeDecHexReverseEndian($prev[0]);

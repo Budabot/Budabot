@@ -2,6 +2,9 @@
 
 class IRC {
 	public static function isConnectionActive(&$socket) {
+		if ($socket == null) {
+			return false;
+		}
 		$array = socket_get_status($socket);
 		if (empty($array) || $array['eof'] == '1') {
 			return false;

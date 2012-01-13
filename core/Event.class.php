@@ -274,9 +274,11 @@ class Event extends Annotation {
 	}
 	
 	public function fireEvent($eventObj) {
-		forEach ($this->events[$eventObj->type] as $filename) {
-			if ($this->callEventHandler($eventObj, $filename)) {
-				return;
+		if (isset($this->events[$eventObj->type])) {
+			forEach ($this->events[$eventObj->type] as $filename) {
+				if ($this->callEventHandler($eventObj, $filename)) {
+					return;
+				}
 			}
 		}
 	}
@@ -293,9 +295,11 @@ class Event extends Annotation {
 			$setting = $this->setting;
 			
 			$type = $eventObj->type;
-			$channel = $eventObj->channel;
-			$sender = $eventObj->sender;
-			$message = $eventObj->message;
+			@$channel = $eventObj->channel;
+			@$sender = $eventObj->sender;
+			@$message = $eventObj->message;
+			@$packet_type = $eventObj->packet->type;
+			@$args = $eventObj->packet->args;
 
 			require $handler;
 		} else {

@@ -355,7 +355,7 @@ class Budabot extends AOChat {
 	 * @description: Proccess all incoming messages that bot recives
 	 */	
 	function process_packet($packet) {
-		$this->process_all_packets($packet->type, $packet->args);
+		$this->process_all_packets($packet);
 		
 		// event handlers
 		switch ($packet->type){
@@ -386,9 +386,10 @@ class Budabot extends AOChat {
 		}
 	}
 	
-	function process_all_packets($packet_type, $args) {
+	function process_all_packets($packet) {
 		$eventObj = new stdClass;
 		$eventObj->type = 'allpackets';
+		$eventObj->packet = $packet;
 		$this->event->fireEvent($eventObj);
 	}
 	
@@ -697,10 +698,10 @@ class Budabot extends AOChat {
 					$property->getAnnotation('Visibility')->value,
 					$property->getAnnotation('Type')->value,
 					$obj->{$property->name},
-					$property->getAnnotation('Options')->value,
-					$property->getAnnotation('Intoptions')->value,
-					$property->getAnnotation('AccessLevel')->value,
-					$property->getAnnotation('Help')->value
+					@$property->getAnnotation('Options')->value,
+					@$property->getAnnotation('Intoptions')->value,
+					@$property->getAnnotation('AccessLevel')->value,
+					@$property->getAnnotation('Help')->value
 				);
 			}
 		}
@@ -710,27 +711,27 @@ class Budabot extends AOChat {
 			if ($method->hasAnnotation('Command')) {
 				$this->command->register(
 					$MODULE_NAME,
-					$method->getAnnotation('Channels')->value,
+					@$method->getAnnotation('Channels')->value,
 					$name . '.' . $method->name,
 					$method->getAnnotation('Command')->value,
 					$method->getAnnotation('AccessLevel')->value,
 					$method->getAnnotation('Description')->value,
-					$method->getAnnotation('Help')->value,
-					$method->getAnnotation('DefaultStatus')->value
+					@$method->getAnnotation('Help')->value,
+					@$method->getAnnotation('DefaultStatus')->value
 				);
 			}
 			if ($method->hasAnnotation('Subcommand')) {
 				list($parentCommand) = explode(" ", $method->getAnnotation('Subcommand')->value, 2);
 				$this->subcommand->register(
 					$MODULE_NAME,
-					$method->getAnnotation('Channels')->value,
+					@$method->getAnnotation('Channels')->value,
 					$name . '.' . $method->name,
 					$method->getAnnotation('Subcommand')->value,
 					$method->getAnnotation('AccessLevel')->value,
 					$parentCommand,
 					$method->getAnnotation('Description')->value,
-					$method->getAnnotation('Help')->value,
-					$method->getAnnotation('DefaultStatus')->value
+					@$method->getAnnotation('Help')->value,
+					@$method->getAnnotation('DefaultStatus')->value
 				);
 			}
 			if ($method->hasAnnotation('Event')) {
@@ -738,9 +739,9 @@ class Budabot extends AOChat {
 					$MODULE_NAME,
 					$method->getAnnotation('Event')->value,
 					$name . '.' . $method->name,
-					$method->getAnnotation('Description')->value,
-					$method->getAnnotation('Help')->value,
-					$method->getAnnotation('DefaultStatus')->value
+					@$method->getAnnotation('Description')->value,
+					@$method->getAnnotation('Help')->value,
+					@$method->getAnnotation('DefaultStatus')->value
 				);
 			}
 		}

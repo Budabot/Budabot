@@ -243,23 +243,27 @@ class Command extends Annotation {
 	
 		$syntax_error = false;
 		$msg = "";
-		if (preg_match("/\\.php$/i", $filename)) {
-			require $filename;
-		} else {
-			list($name, $method) = explode(".", $filename);
-			$instance = Registry::getInstance($name);
-			if ($instance === null) {
-				$this->logger->log('ERROR', "Could not find instance for name '$name'");
+		try {
+			if (preg_match("/\\.php$/i", $filename)) {
+				require $filename;
 			} else {
-				$arr = $this->checkMatches($instance, $method, $message);
-				if ($arr === false) {
-					$syntax_error = true;
+				list($name, $method) = explode(".", $filename);
+				$instance = Registry::getInstance($name);
+				if ($instance === null) {
+					$this->logger->log('ERROR', "Could not find instance for name '$name'");
 				} else {
-					// methods will return false to indicate a syntax error, so when a false is returned,
-					// we set $syntax_error = true, otherwise we set it to false
-					$syntax_error = ($instance->$method($message, $type, $sender, $sendto, $arr) !== false ? false : true);
+					$arr = $this->checkMatches($instance, $method, $message);
+					if ($arr === false) {
+						$syntax_error = true;
+					} else {
+						// methods will return false to indicate a syntax error, so when a false is returned,
+						// we set $syntax_error = true, otherwise we set it to false
+						$syntax_error = ($instance->$method($message, $type, $sender, $sendto, $arr) !== false ? false : true);
+					}
 				}
 			}
+		} catch (Exception $e) {
+			$chatBot->send("There was an error executing your command: " . $e->getMessage(), $sendto);
 		}
 		if ($syntax_error === true) {
 			$results = $this->get($cmd, $type);

@@ -58,7 +58,7 @@ class API {
 	 */
 	public function listen($eventObj) {
 		/* Accept incoming requests and handle them as child processes */
-		$client = socket_accept($this->apisocket);
+		$client = @socket_accept($this->apisocket);
 		if ($client !== false) {
 			$clientHandler = new ClientHandler($client);
 

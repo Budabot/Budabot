@@ -27,7 +27,7 @@ class Registry {
 			Registry::importChanges(ucfirst($name) . ".class.php");
 		}
 		
-		$instance = Registry::$repo2[$name];
+		$instance = @Registry::$repo2[$name];
 		if ($instance != null) {
 			LegacyLogger::log("DEBUG", "Registry", "Using cache for '$name'");
 			return $instance;
@@ -64,7 +64,7 @@ class Registry {
 				$dependencyName = strtolower($dependencyName);
 				$instance->{$property->name} = Registry::getInstance($dependencyName, $set);
 			} else if ($property->hasAnnotation('Logger')) {
-				if ($property->getAnnotation('Logger')->value != '') {
+				if (@$property->getAnnotation('Logger')->value != '') {
 					$tag = $property->getAnnotation('Logger')->value;
 				} else {
 					$tag = $reflection->name;

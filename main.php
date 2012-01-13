@@ -84,7 +84,8 @@ if (!file_exists($config_file)) {
 require $config_file;
 
 // Set error level.
-error_reporting(E_ERROR | E_PARSE);
+error_reporting(E_ERROR | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_COMPILE_WARNING);
+//error_reporting(E_ALL | ~E_STRICT);
 //error_reporting(-1);
 ini_set("log_errors", 1);
 ini_set("error_log", "./logs/{$vars['name']}.{$vars['dimension']}/php_errors.log");
