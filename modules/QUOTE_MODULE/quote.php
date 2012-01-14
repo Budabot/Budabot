@@ -21,7 +21,6 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 	} else {
 		if (strlen($arr[1]) <= 1000) {
 	
-			$quoteDATE = date("F j, Y, g:i a");
 			$quoteMSG = $arr[1];
 			$quoteWHO = $sender;
 	
@@ -61,7 +60,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 				//without a colon.. quoting him/her/itself?
 				$quoteOfWHO = $sender;
 			}
-			$db->exec("INSERT INTO `#__quote` (`IDNumber`, `Who`, `OfWho`, `When`, `What`) VALUES (?, ?, ?, ?, ?)", $quoteID, $quoteWHO, $quoteOfWHO, $quoteDATE, $quoteMSG);
+			$db->exec("INSERT INTO `#__quote` (`IDNumber`, `Who`, `OfWho`, `When`, `What`) VALUES (?, ?, ?, ?, ?)", $quoteID, $quoteWHO, $quoteOfWHO, time(), $quoteMSG);
 			$msg = "Quote <highlight>$quoteID<end> has been added.";
 		} else {
 			$msg = "This quote is too big.";
@@ -212,7 +211,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 		$msg .= "<tab>ID: (<highlight>$quoteID<end> of $count)\n";
 		$msg .= "<tab>Poster: <highlight>$quoteWHO<end>\n";
 		$msg .= "<tab>Quoting: <highlight>$quoteOfWHO<end>\n";
-		$msg .= "<tab>Date: <highlight>$quoteDATE<end>\n\n";
+		$msg .= "<tab>Date: <highlight>" . date(Util::DATETIME, $quoteDATE) . "<end>\n\n";
 		
 		$msg .= "<tab>Quotes posted by <highlight>$quoteWHO<end>: ";
 		$data = $db->query("SELECT * FROM `#__quote` WHERE `Who` = ?", $quoteWHO);
@@ -262,7 +261,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 		$msg .= "<tab>ID: (<highlight>$quoteID<end> of $count)\n";
 		$msg .= "<tab>Poster: <highlight>$quoteWHO<end>\n";
 		$msg .= "<tab>Quoting: <highlight>$quoteOfWHO<end>\n";
-		$msg .= "<tab>Date: <highlight>$quoteDATE<end>\n\n";
+		$msg .= "<tab>Date: <highlight>" . date(Util::DATETIME, $quoteDATE) . "<end>\n\n";
 		
 		$msg .= "<tab>Quotes posted by <highlight>$quoteWHO<end>: ";
 		$data = $db->query("SELECT * FROM `#__quote` WHERE `Who` = ?", $quoteWHO);
