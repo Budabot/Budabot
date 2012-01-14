@@ -7,24 +7,24 @@ class CommandSearchController {
 
 	/** @Inject */
 	public $db;
-    
-    /** @Inject */
-    public $accessLevel;
 	
+	/** @Inject */
+	public $accessLevel;
+
 	/** @Inject("CommandSearchView") */
 	public $view;
 
 	private $searchWords;
 
-    /**
+	/**
 	 * @Command("cmdsearch")
 	 * @AccessLevel("all")
 	 * @Description("Find commands based on key words")
 	 * @Matches("/^cmdsearch (.*)/i")
 	 * @DefaultStatus("1")
-     */
-    public function searchCommand($message, $channel, $sender, $sendto, $arr) {
-        $this->searchWords = explode(" ", $arr[1]);
+	 */
+	public function searchCommand($message, $channel, $sender, $sendto, $arr) {
+		$this->searchWords = explode(" ", $arr[1]);
 
 		$sqlquery = "SELECT DISTINCT module, cmd, help, description FROM cmdcfg_<myname> WHERE status = 1";
 		$data = $this->db->query($sqlquery);
@@ -52,18 +52,18 @@ class CommandSearchController {
 			usort($results, array($this, 'sortByDistance'));
 			$results = array_slice($results, 0, 5);
 		}
-		
-        $access = false;
-        if ($this->accessLevel->checkAccess($sender, 'mod')) {
-            $access = true;
-        }
-		
-		$msg = $this->view->render($results, $access, $exactMatch);
-        
-        $this->chatBot->send($msg, $sendto);
 
-        return true;
-    }
+		$access = false;
+		if ($this->accessLevel->checkAccess($sender, 'mod')) {
+			$access = true;
+		}
+
+		$msg = $this->view->render($results, $access, $exactMatch);
+
+		$this->chatBot->send($msg, $sendto);
+
+		return true;
+	}
 
 	public function exactFilter($row) {
 		forEach ($this->searchWords as $word) {
@@ -73,7 +73,7 @@ class CommandSearchController {
 		}
 		return true;
 	}
-	
+
 	public function sortByDistance($row1, $row2) {
 		$d1 = $row1->distance;
 		$d2 = $row2->distance;
