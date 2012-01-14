@@ -74,7 +74,7 @@ if (preg_match("/^kos$/i", $message)) {
 		$link .= "The following Players has added <highlight>$name<end> to his list\n\n";
 		forEach ($data as $row) {
 			$link .= "Name: <highlight>$row->sender<end>\n";
-			$link .= "Date: <highlight>".date("dS F Y, H:i", $row->time)."<end>\n";
+			$link .= "Date: <highlight>".date(Util::DATETIME, $row->time)."<end>\n";
 			if ($row->reason != "") {
 				// only show the reason if there is one
 				$link .= "Reason: <highlight>$row->reason<end>\n";

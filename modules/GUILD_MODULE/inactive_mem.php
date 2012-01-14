@@ -57,7 +57,7 @@ if (preg_match("/^inactivemem ([a-z0-9]+)/i", $message, $arr)) {
 		$logged = $row->logged_off;
 		$lasttoon = $row->name;
 		
-		$player = $row->name."; Main: $main; [{$alts}]$kick\nLast seen on [$lasttoon] on ".date("Y-m-d",$logged)."\n\n";
+		$player = $row->name."; Main: $main; [{$alts}]$kick\nLast seen on [$lasttoon] on ".date(Util::DATETIME, $logged)."\n\n";
 		if ($highlight == 1) {
 			$blob .= "<highlight>$player<end>";
 			$highlight = 0;

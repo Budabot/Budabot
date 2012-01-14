@@ -25,7 +25,7 @@ if (preg_match("/^orgmembers$/i", $message)) {
 		if (Buddylist::is_online($row->name) == 1) {
 			$logged_off = " :: <highlight>Last logoff:<end> <green>Online<end>";
         } else if ($row->logged_off != "0") {
-	        $logged_off = " :: <highlight>Last logoff:<end> " . date("l F d, Y - H:i", $row->logged_off)."(GMT)";
+	        $logged_off = " :: <highlight>Last logoff:<end> " . date(Util::DATETIME, $row->logged_off)."(GMT)";
 	    } else {
 	    	$logged_off = " :: <highlight>Last logoff:<end> <orange>Unknown<end>";
 		}

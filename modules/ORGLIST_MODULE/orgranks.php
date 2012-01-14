@@ -79,7 +79,7 @@ if (preg_match("/^orgranks$/i", $message, $arr) || preg_match("/^orgranks ([0-9]
 			if (Buddylist::is_online($row->name) == 1) {
 				$logged_off = "<green>Online<end>";
 			} else if ($row->logged_off != "0") {
-				$logged_off = date("l F d, Y - H:i", $row->logged_off)."(GMT)";
+				$logged_off = date(Util::DATETIME, $row->logged_off)."(GMT)";
 			} else {
 				$logged_off = "<orange>Unknown<end>";
 			}

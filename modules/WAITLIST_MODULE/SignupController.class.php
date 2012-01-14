@@ -114,7 +114,7 @@ class SignupController {
 		
 		$blob = "<header> :::::: $list->name List :::::: <end>\n\n";
 		$blob .= "Owner: <highlight>$list->owner<end>\n";
-		$blob .= "Added: <highlight>" . date("dS M, H:i", $list->dt) . "<end>\n\n";
+		$blob .= "Added: <highlight>" . date(Util::DATETIME, $list->dt) . "<end>\n\n";
 
 		$blob .= "<header> ::: Players Signed up ::: <end>\n\n";
 		$data = $this->db->query("SELECT * FROM signup_characters s LEFT JOIN players p ON s.name = p.name AND p.dimension = '<dim>' WHERE list_id = ?", $id);

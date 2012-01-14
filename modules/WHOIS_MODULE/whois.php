@@ -11,7 +11,7 @@ if (!function_exists('getNameHistory')) {
 		$blob = "<header> :::::: Name History :::::: <end>\n\n";
 		if (count($data) > 0) {
 			forEach ($data as $row) {
-				$blob .= "<green>{$row->name}<end> " . date("M j, Y, G:i", $row->dt) . "\n";
+				$blob .= "<green>{$row->name}<end> " . date(Util::DATETIME, $row->dt) . "\n";
 			}
 		} else {
 			$blob .= "No name history available\n";

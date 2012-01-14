@@ -1,33 +1,4 @@
 <?php
-   /*
-   ** Author: Derroylo (RK2)
-   ** Description: Shows the time in different timezones
-   ** Version: 1.0
-   **
-   ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
-   **
-   ** Date(created): 28.01.2006
-   ** Date(last modified): 28.01.2006
-   **
-   ** Copyright (C) 2006 Carsten Lohmann
-   **
-   ** Licence Infos:
-   ** This file is part of Budabot.
-   **
-   ** Budabot is free software; you can redistribute it and/or modify
-   ** it under the terms of the GNU General Public License as published by
-   ** the Free Software Foundation; either version 2 of the License, or
-   ** (at your option) any later version.
-   **
-   ** Budabot is distributed in the hope that it will be useful,
-   ** but WITHOUT ANY WARRANTY; without even the implied warranty of
-   ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   ** GNU General Public License for more details.
-   **
-   ** You should have received a copy of the GNU General Public License
-   ** along with Budabot; if not, write to the Free Software
-   ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-   */
 
 $date = new DateTime();
 $time = time() - $date->getOffset();
@@ -145,7 +116,7 @@ if (preg_match("/^time$/i", $message)) {
 	$link .= "<tab><tab>Standard Time (CST = GMT-6): {$timezone["CST"]["time"]}\n";
 	$link .= "<tab><tab>Summer Time (CDT = GMT-5): {$timezone["CDT"]["time"]}\n";
 
-	$msg = "<highlight>".date("dS M, H:i:s", $time)."<end> (GMT/AO)";
+	$msg = "<highlight>".date(Util::DATETIME, $time)."<end>";
 	$msg .= " ".Text::make_blob("All Timezones", $link);
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^time (.+)$/i", $message, $arr)) {

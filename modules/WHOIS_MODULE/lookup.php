@@ -9,7 +9,7 @@ if (preg_match("/^lookup (\\d+)$/i", $message, $arr)) {
 	if ($count > 0) {
 		forEach ($data as $row) {
 			$link = Text::make_chatcmd($row->name, "/tell <myname> lookup $row->name");
-			$blob .= "$link " . date("M j, Y, G:i", $row->dt) . "\n";
+			$blob .= "$link " . date(Util::DATETIME, $row->dt) . "\n";
 		}
 		$msg = Text::make_blob("Name History for $charid ($count)", $blob);
 	} else {
@@ -27,7 +27,7 @@ if (preg_match("/^lookup (\\d+)$/i", $message, $arr)) {
 	if ($count > 0) {
 		forEach ($data as $row) {
 			$link = Text::make_chatcmd($row->charid, "/tell <myname> lookup $row->charid");
-			$blob .= "$link " . date("M j, Y, G:i", $row->dt) . "\n";
+			$blob .= "$link " . date(Util::DATETIME, $row->dt) . "\n";
 		}
 		$msg = Text::make_blob("Character Ids for $name ($count)", $blob);
 	} else {

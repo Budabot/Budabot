@@ -8,7 +8,7 @@ if (preg_match("/^track$/i", $message)) {
 	  	forEach ($data as $row) {
 			$row2 = $db->queryRow("SELECT `event`, `dt` FROM tracking_<myname> WHERE `uid` = ? ORDER BY `dt` DESC LIMIT 1", $row->uid);
 			if ($row2 != null) {
-				$last_action = " <white>" . date(DATE_RFC850, $row2->dt) ."<end>";
+				$last_action = " <white>" . date(Util::DATETIME, $row2->dt) ."<end>";
 			}
 			
 			if ($row2->event == 'logon') {
@@ -75,7 +75,7 @@ if (preg_match("/^track$/i", $message)) {
 	if (count($data) == 0) {
 		$blob .= "<header> :::::: Track History for $name :::::: <end>\n\n";
 	  	forEach ($data as $row) {
-	  		$blob .= "$row->event <white>" . date(DATE_RFC850, $row->dt) ."<end>\n";
+	  		$blob .= "$row->event <white>" . date(Util::DATETIME, $row->dt) ."<end>\n";
 	  	}
 	  	
 	    $msg = Text::make_blob("Track History for $name", $blob);

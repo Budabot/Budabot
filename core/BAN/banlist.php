@@ -11,7 +11,7 @@ if (preg_match("/^banlist$/i", $message)) {
 	$list .= "<header> :::::: Banlist :::::: <end>\n\n";
 	forEach ($banlist as $ban) {
 		$list .= "<highlight>Name:<end> {$ban->name}\n";
-		$list .= "<highlight><tab>Date:<end> ".date(DATE_RFC850, $ban->time)."\n";
+		$list .= "<highlight><tab>Date:<end> ".date(Util::DATETIME, $ban->time)."\n";
 		$list .= "<highlight><tab>By:<end> {$ban->admin}\n";
 		if ($ban->banend != null) {
 			$list .= "<highlight><tab>Ban ends:<end> ". Util::unixtime_to_readable($ban->banend - time(), false)."\n";

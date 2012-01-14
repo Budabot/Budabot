@@ -1,6 +1,8 @@
 <?php
 
 class Util {
+	const DATETIME = "d-M-Y H:i T";
+
 	public function bytes_convert($bytes) {
 		$ext = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
 		$unitCount = 0;

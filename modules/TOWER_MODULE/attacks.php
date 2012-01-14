@@ -106,7 +106,7 @@ if (count($data) == 0) {
 	$blob .= $colorvalue;
 
 	forEach ($data as $row) {
-		$blob .= $colorlabel."Time:<end> ".date("M j, Y, G:i", $row->time)." (GMT)\n";
+		$blob .= $colorlabel."Time:<end> ".date(Util::DATETIME, $row->time)." (GMT)\n";
 		if ($row->att_faction == '') {
 			$att_faction = "unknown";
 		} else {

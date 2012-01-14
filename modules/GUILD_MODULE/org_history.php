@@ -15,7 +15,7 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 	$sql = "SELECT actor, actee, action, organization, time FROM `#__org_history` ORDER BY time DESC LIMIT $startingRecord, $pageSize";
 	$data = $db->query($sql);
 	forEach ($data as $row) {
-		$blob .= "$row->actor $row->action <highlight>$row->actee<end> in $row->organization at " . date("M j, Y, G:i", $row->time)." (GMT)\n";
+		$blob .= "$row->actor $row->action <highlight>$row->actee<end> in $row->organization at " . date(Util::DATETIME, $row->time)." (GMT)\n";
 	}
 
 	$msg = Text::make_blob('Org History', $blob);
@@ -31,14 +31,14 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 	$sql = "SELECT actor, actee, action, organization, time FROM `#__org_history` WHERE actee LIKE ? ORDER BY time DESC";
 	$data = $db->query($sql, $character);
 	forEach ($data as $row) {
-		$blob .= "$row->actor $row->action <highlight>$row->actee<end> in $row->organization at " . date("M j, Y, G:i", $row->time)." (GMT)\n";
+		$blob .= "$row->actor $row->action <highlight>$row->actee<end> in $row->organization at " . date(Util::DATETIME, $row->time)." (GMT)\n";
 	}
 
 	$blob .= "\n  Actions by $character\n";
 	$sql = "SELECT actor, actee, action, organization, time FROM `#__org_history` WHERE actor LIKE ? ORDER BY time DESC";
 	$data = $db->query($sql, $character);
 	forEach ($data as $row) {
-		$blob .= "$row->actor $row->action <highlight>$row->actee<end> in $row->organization at " . date("M j, Y, G:i", $row->time)." (GMT)\n";
+		$blob .= "$row->actor $row->action <highlight>$row->actee<end> in $row->organization at " . date(Util::DATETIME, $row->time)." (GMT)\n";
 	}
 
 	$msg = Text::make_blob('Org History', $blob);

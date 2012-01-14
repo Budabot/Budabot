@@ -108,7 +108,7 @@ if (count($data) == 0) {
 	$blob = Text::make_header("The last $page_size Tower Results (page $page_label)", $links);
 	$blob .= $colorvalue;
 	forEach ($data as $row) {
-		$blob .= $colorlabel."Time:<end> ".date("M j, Y, G:i", $row->victory_time)." (GMT)\n";
+		$blob .= $colorlabel."Time:<end> ".date(Util::DATETIME, $row->victory_time)." (GMT)\n";
 
 		if (!$win_side = strtolower($row->win_faction)) {
 			$win_side = "unknown";

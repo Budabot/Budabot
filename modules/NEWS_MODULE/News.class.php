@@ -42,7 +42,7 @@ class News {
 				}
 
 				$blob .= "<highlight>{$row->news}<end>\n";
-				$blob .= "By {$row->name} " . date("dS M, H:i", $row->time) . " ";
+				$blob .= "By {$row->name} " . date(Util::DATETIME, $row->time) . " ";
 				$blob .= $this->text->make_chatcmd("Remove", "/tell <myname> news rem $row->id") . " ";
 				if ($row->sticky == 1) {
 					$blob .= $this->text->make_chatcmd("Unsticky", "/tell <myname> news unsticky $row->id")."\n";
@@ -51,7 +51,7 @@ class News {
 				}
 				$sticky = $row->sticky;
 			}
-			$msg = $this->text->make_blob("News", $blob)." [Last updated at ".date("dS M, H:i", $data[0]->time)."]";
+			$msg = $this->text->make_blob("News", $blob)." [Last updated at ".date(Util::DATETIME, $data[0]->time)."]";
 		}
 		return $msg;
 	}
