@@ -50,8 +50,8 @@ $timezone["IST"]["name"] = "Indian Standard Time (GMT+5:30)";
 $timezone["IST"]["time"] = date($time_format, $time + (3600*5.5));
 $timezone["ICT"]["name"] = "Indochina Time (GMT+7)";
 $timezone["ICT"]["time"] = date($time_format, $time + (3600*7));
-$timezone["CST"]["name"] = "China Standard Time (GMT+8)";
-$timezone["CST"]["time"] = date($time_format, $time + (3600*8));
+$timezone["CCST"]["name"] = "China Standard Time (GMT+8)";
+$timezone["CCST"]["time"] = date($time_format, $time + (3600*8));
 $timezone["JST"]["name"] = "Japan Standard Time (GMT+9)";
 $timezone["JST"]["time"] = date($time_format, $time + (3600*9));
 $timezone["ACST"]["name"] = "Australian Central Standard Time (GMT+9:30)";
@@ -78,7 +78,7 @@ if (preg_match("/^time$/i", $message)) {
 
 	$link .= "<u>Asia</u>\n";
 	$link .= "<tab><highlight>Thailand/Vietnam/Kambodscha (ICT = GMT+7)<end>: {$timezone["ICT"]["time"]}\n";
-	$link .= "<tab><highlight>China/Malaysia/Singapur/Indonesien (CST = GMT+8)<end>: {$timezone["CST"]["time"]}\n";
+	$link .= "<tab><highlight>China/Malaysia/Singapur/Indonesien (CST = GMT+8)<end>: {$timezone["CCST"]["time"]}\n";
 	$link .= "<tab><highlight>Japan/Korea (JST = GMT+9)<end>: {$timezone["JST"]["time"]}\n\n";
 			
 	$link .= "<u>Europe</u>\n";
@@ -116,7 +116,7 @@ if (preg_match("/^time$/i", $message)) {
 	$link .= "<tab><tab>Standard Time (CST = GMT-6): {$timezone["CST"]["time"]}\n";
 	$link .= "<tab><tab>Summer Time (CDT = GMT-5): {$timezone["CDT"]["time"]}\n";
 
-	$msg = "<highlight>".date(Util::DATETIME, $time)."<end>";
+	$msg = "<highlight>".date(Util::DATETIME, time())."<end>";
 	$msg .= " ".Text::make_blob("All Timezones", $link);
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^time (.+)$/i", $message, $arr)) {
