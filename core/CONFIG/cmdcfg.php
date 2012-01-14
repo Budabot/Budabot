@@ -214,11 +214,11 @@ if (preg_match("/^config$/i", $message)) {
 	if ($arr[1] == "mod" && $type == "all") {
 		$sql = "SELECT status, type, file, cmd, admin, cmdevent FROM cmdcfg_<myname> WHERE `module` = '$module'
 					UNION
-					SELECT status, type, file, '' AS cmd, '' AS admin, 'event' AS cmdevent FROM eventcfg_<myname> WHERE `module` = '$module' AND `type` <> 'setup'";
+				SELECT status, type, file, '' AS cmd, '' AS admin, 'event' AS cmdevent FROM eventcfg_<myname> WHERE `module` = '$module' AND `type` <> 'setup'";
 	} else if ($arr[1] == "mod" && $type != "all") {
 		$sql = "SELECT status, type, file, cmd, admin, cmdevent FROM cmdcfg_<myname> WHERE `module` = '$module' AND `type` = '$type'
 					UNION
-					SELECT status, type, file, cmd AS '', admin AS '', cmdevent AS 'event' FROM eventcfg_<myname> WHERE `module` = '$module' AND `type` = '$event_type' AND `type` <> 'setup'";
+				SELECT status, type, file, cmd AS '', admin AS '', cmdevent AS 'event' FROM eventcfg_<myname> WHERE `module` = '$module' AND `type` = '$event_type' AND `type` <> 'setup'";
 	} else if ($arr[1] == "cmd" && $type != "all") {
 		$sql = "SELECT * FROM cmdcfg_<myname> WHERE `cmd` = '$cmd' AND `type` = '$type' AND `cmdevent` = 'cmd'";
 	} else if ($arr[1] == "cmd" && $type == "all") {
@@ -313,25 +313,6 @@ if (preg_match("/^config$/i", $message)) {
 		$db->exec("UPDATE eventcfg_<myname> SET `status` = ? WHERE `type` = ? AND `file` = ? AND `type` <> 'setup'", $status, $event_type, $file);
 	}
 	
-	forEach ($data as $row) {
-		// only update the status if the status is different
-		if ($row->status != $status) {
-			if ($row->cmdevent == "event") {
-				if ($status == 1) {
-					Registry::getInstance('event')->activate($row->type, $row->file);
-				} else {
-					Registry::getInstance('event')->deactivate($row->type, $row->file);
-				}
-			} else if ($row->cmdevent == "cmd") {
-				if ($status == 1) {
-					Registry::getInstance('command')->activate($row->type, $row->file, $row->cmd, $row->admin);
-				} else {
-					Registry::getInstance('command')->deactivate($row->type, $row->file, $row->cmd, $row->admin);
-				}
-			}
-		}
-	}
-
 	// for subcommands which are handled differently
 	Registry::getInstance('subcommand')->loadSubcommands();
 } else if (preg_match("/^config (subcmd|cmd) (.+) admin (msg|priv|guild|all) (all|leader|rl|mod|admin|guild|member)$/i", $message, $arr)) {
