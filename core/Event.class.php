@@ -126,7 +126,12 @@ class Event extends Annotation {
 		} else {
 			$time = $this->util->parseTime($type);
 			if ($time > 0) {
-				$this->cronevents[] = array('nextevent' => 0, 'filename' => $actual_filename, 'time' => $time);
+				$key = $this->getKeyForCronEvent($time, $actual_filename);
+				if ($key === null) {
+					$this->cronevents[] = array('nextevent' => 0, 'filename' => $actual_filename, 'time' => $time);
+				} else {
+					$this->logger->log('ERROR', "Error activating event Type:($type) File:($filename). Event already activated!");
+				}
 			} else {
 				$this->logger->log('ERROR', "Error activating event Type:($type) File:($filename). The type is not a recognized event type!");
 			}
@@ -163,11 +168,10 @@ class Event extends Annotation {
 		} else {
 			$time = $this->util->parseTime($type);
 			if ($time > 0) {
-				forEach ($this->cronevents as $key => $event) {
-					if ($time == $event['time'] && $event['filename'] == $actual_filename) {
-						$found = true;
-						unset($this->cronevents[$key]);
-					}
+				$key = $this->getKeyForCronEvent($time, $actual_filename);
+				if ($key != null) {
+					$found = true;
+					unset($this->cronevents[$key]);
 				}
 			} else {
 				$this->logger->log('ERROR', "Error deactivating event Type:($type) File:($filename). The type is not a recognized event type!");
@@ -178,6 +182,15 @@ class Event extends Annotation {
 		if (!$found) {
 			$this->logger->log('ERROR', "Error deactivating event Type:($type) File:($filename). The event is not active or doesn't exist!");
 		}
+	}
+	
+	public function getKeyForCronEvent($time, $filename) {
+		forEach ($this->cronevents as $key => $event) {
+			if ($time == $event['time'] && $event['filename'] == $filename) {
+				return $key;
+			}
+		}
+		return null;
 	}
 	
 	public function update_status($type, $module, $filename, $status) {
