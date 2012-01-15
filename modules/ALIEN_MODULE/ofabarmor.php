@@ -4,7 +4,7 @@ if (preg_match("/^ofabarmor$/i", $message, $arr)) {
 	$qls = $db->query("SELECT DISTINCT ql FROM ofabarmorcost ORDER BY ql ASC");
 
 	$data = $db->query("SELECT `type`, `profession` FROM ofabarmortype ORDER BY profession ASC");
-	$blob = "<header> :::::: Ofab Armor Bio-Material Types :::::: <end>\n\n";
+	$blob = '';
 	forEach ($data as $row) {
 		$blob .= "<pagebreak>{$row->profession} - Type {$row->type}\n";
 		forEach ($qls as $row2) {
@@ -39,7 +39,7 @@ if (preg_match("/^ofabarmor$/i", $message, $arr)) {
 		return;
 	}
 	
-	$blob = "<header> :::::: $profession Ofab Armor (QL $ql) :::::: <end>\n\n";
+	$blob = '';
 	$typeLink = Text::make_chatcmd("Kyr'Ozch Bio-Material - Type {$type}", "/tell <myname> bioinfo {$type}");
 	$typeQl = round(.8 * $ql);
 	$blob .= "Upgrade with $typeLink (minimum QL {$typeQl})\n\n";

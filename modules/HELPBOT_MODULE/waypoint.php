@@ -43,7 +43,7 @@ if (preg_match("/^waypoint \\(?([0-9\\.]+) ([0-9\\.]+) y ([0-9\\.]+) ([0-9]+)\\)
 }
 
 $link = Text::make_chatcmd("waypoint: {$x_coords}x{$y_coords} {$playfield_name}", "/waypoint {$x_coords} {$y_coords} {$playfield_id}");	
-$blob = "<header>:::::: Waypoint ::::::<end>\n\nClick here to use waypoint: $link";
+$blob = "Click here to use waypoint: $link";
 $msg = Text::make_blob("waypoint: {$x_coords}x{$y_coords} {$playfield_name}", $blob);
 $chatBot->send($msg, $sendto);
 

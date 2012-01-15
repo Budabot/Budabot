@@ -3,7 +3,7 @@
 if (preg_match("/^orgcities$/i", $message)) {
 	$data = $db->query("SELECT DISTINCT playfield_id, long_name, short_name FROM orgcities c JOIN playfields p ON c.playfield_id = p.id ORDER BY long_name ASC");
 	
-	$blob = "<header> :::::: Playfields with Org Cities :::::: <end>\n\n";
+	$blob = '';
 	forEach ($data as $row) {
 		$cityLink = Text::make_chatcmd($row->long_name, "/tell <myname> orgcities $row->short_name");
 		$blob .= $cityLink . "\n";
@@ -21,7 +21,7 @@ if (preg_match("/^orgcities$/i", $message)) {
 
 	$data = $db->query("SELECT * FROM orgcities WHERE playfield_id = ? ORDER BY cluster ASC, plot ASC", $playfield->id);
 	
-	$blob = "<header> :::::: Org cities in {$playfield->long_name} :::::: <end>\n";
+	$blob = '';
 	$current_cluster = '';
 	forEach ($data as $row) {
 		if ($current_cluster != $row->cluster) {

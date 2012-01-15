@@ -15,9 +15,8 @@ if (preg_match("/^assist (.+)$/i", $message, $arr)) {
 			$msg = "Character <highlight>$name<end> does not exist.";
 			$chatBot->send($msg, $sendto);
 		}
-		
-		$link = "<header>::::: Assist Macro for $name :::::\n\n";
-		$link .= "<a href='chatcmd:///macro $name /assist $name'>Click here to make an assist $name macro</a>";
+
+		$link = "<a href='chatcmd:///macro $name /assist $name'>Click here to make an assist $name macro</a>";
 		$chatBot->data['assist'] = Text::make_blob("Assist $name Macro", $link);
 	} else {
 		forEach ($nameArray as $key => $name) {

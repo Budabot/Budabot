@@ -11,15 +11,14 @@ if (preg_match("/^kos$/i", $message)) {
 
 		arsort($list);
 		$list = array_slice($list, 0, 25, true);
-		$link  = "<header>::::: Kill On Sight list :::::<end>\n\n";
-		$link .= "This list shows the top 25 of added Players\n\n";
+		$link = "This list shows the top 25 of added Players\n\n";
 		$i = 0;
 		forEach ($list as $key => $value) {
 			$i++;
 			$link .= "$i. $key <highlight>(Voted {$value} times)<end>\n";
 		}
 			
-		$msg = Text::make_blob("KOS-List", $link);
+		$msg = Text::make_blob("Kill On Sight list", $link);
 	}
 
 	$chatBot->send($msg, $sendto);
@@ -70,8 +69,7 @@ if (preg_match("/^kos$/i", $message)) {
 	$name = ucfirst(strtolower($arr[1]));
 	$data = $db->query("SELECT * FROM koslist WHERE `name` = ? LIMIT 0, 40", $name);
 	if (count($data) >= 1) {
-		$link  = "<header>::::: Kill On Sight list :::::<end>\n\n";
-		$link .= "The following Players has added <highlight>$name<end> to his list\n\n";
+		$link = "The following Players has added <highlight>$name<end> to his list\n\n";
 		forEach ($data as $row) {
 			$link .= "Name: <highlight>$row->sender<end>\n";
 			$link .= "Date: <highlight>".date(Util::DATETIME, $row->time)."<end>\n";
@@ -82,7 +80,7 @@ if (preg_match("/^kos$/i", $message)) {
 
 			$link .= "\n";
 		}
-		$msg = Text::make_blob("KOS-List from $name", $link);
+		$msg = Text::make_blob("Kill On Sight list from $name", $link);
 	} else {
 		$msg = "Character <highlight>$name<end> is not on the KOS List.";
 	}

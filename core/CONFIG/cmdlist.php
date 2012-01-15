@@ -3,8 +3,6 @@
 $accessLevel = Registry::getInstance('accessLevel');
 
 if (preg_match("/^cmdlist$/i", $message, $arr) || preg_match("/^cmdlist (.*)$/i", $message, $arr)) {
-	$list  = "<header> :::::: Command List :::::: <end>\n\n";
-	
 	if ($arr[1] != '') {
 		$cmdSearchSql = "AND c.cmd LIKE '%{$arr[1]}%'";
 	}
@@ -35,6 +33,7 @@ if (preg_match("/^cmdlist$/i", $message, $arr) || preg_match("/^cmdlist (.*)$/i"
 			cmd ASC";
 	$data = $db->query($sql);
 
+	$blob = '';
 	forEach ($data as $row) {
 		$guild = '';
 		$priv = '';
@@ -77,10 +76,10 @@ if (preg_match("/^cmdlist$/i", $message, $arr) || preg_match("/^cmdlist (.*)$/i"
 			$priv = "<red>P<end>";
 		}
 
-		$list .= "$row->cmd ({$tell}|{$guild}|{$priv}) {$adv_link} - ($row->description)\n";
+		$blob .= "$row->cmd ({$tell}|{$guild}|{$priv}) {$adv_link} - ($row->description)\n";
 	}
 
-	$msg = Text::make_blob("Bot Settings -- Command List", $list);
+	$msg = Text::make_blob("Command List", $list);
  	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;

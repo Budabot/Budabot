@@ -42,8 +42,7 @@ if (preg_match("/^aou (\\d+)$/i", $message, $arr)) {
 
 	$divs = $dom->getElementsByTagName('div');
 
-	$blob .= "<header> :::::: $title :::::: <end>\n\n";
-	$blob .= Text::make_chatcmd("Guide on AO-Universe.com", "/start http://www.ao-universe.com/main.php?site=knowledge&id={$guideid}") . "\n";
+	$blob = Text::make_chatcmd("Guide on AO-Universe.com", "/start http://www.ao-universe.com/main.php?site=knowledge&id={$guideid}") . "\n";
 	$blob .= Text::make_chatcmd("Guide on AO-Universe.com Mobile", "/start {$url}?id={$guideid}") . "\n\n";
 	forEach ($divs as $div) {
 		if ($div->attributes->getNamedItem("class")->nodeValue == "content guidetext") {
@@ -66,7 +65,7 @@ if (preg_match("/^aou (\\d+)$/i", $message, $arr)) {
 	
 	$divs = $dom->getElementsByTagName('div');
 
-	$blob .= "<header> :::::: Guides containing '$search' :::::: <end>\n\n";
+	$blob = '';
 	$found = false;
 	forEach ($divs as $div) {
 		if ($div->attributes->getNamedItem("class")->nodeValue == "guide") {

@@ -31,13 +31,11 @@ if (preg_match("/^raffle start (\d+) (.+)$/i", $message, $arr)) {
 		"sendto" => $sendto
 	);
 
-	$jnRflMsg = "<header> :::::: Raffle Controls :::::: <end>
-
-<white>A raffle for $item (count: $count) has been started by $sender!<end>
+	$jnRflMsg = "<white>A raffle for $item (count: $count) has been started by $sender!<end>
 
 Click <a href='chatcmd:///tell <myname> <symbol>raffle join'>here</a> to join the raffle!
 Click <a href='chatcmd:///tell <myname> <symbol>raffle leave'>here</a> if you wish to leave the raffle.";
-	$link = Text::make_blob("here", $jnRflMsg);
+	$link = Text::make_blob("here", $jnRflMsg, 'Raffle');
 	$msg = "
 -----------------------------------------------------------------------
 A raffle for $item (count: $count) has been started by $sender!
@@ -75,13 +73,11 @@ Click $link to join the raffle. Raffle will end in $timeString.
 		"sendto" => $sendto
 	);
 
-	$jnRflMsg = "<header> :::::: Raffle Controls :::::: <end>
-
-<white>A raffle for $item has been started by $sender!<end>
+	$jnRflMsg = "<white>A raffle for $item has been started by $sender!<end>
 
 Click <a href='chatcmd:///tell <myname> <symbol>raffle join'>here</a> to join the raffle!
 Click <a href='chatcmd:///tell <myname> <symbol>raffle leave'>here</a> if you wish to leave the raffle.";
-	$link = Text::make_blob("here", $jnRflMsg);
+	$link = Text::make_blob("here", $jnRflMsg, 'Raffle');
 	$msg = "
 -----------------------------------------------------------------------
 A raffle for $item has been started by $sender!

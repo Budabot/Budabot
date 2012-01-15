@@ -444,7 +444,7 @@ if (preg_match("/^config$/i", $message)) {
 	$chatBot->send("Updated access for helpfile <highlight>$helpTopic<end> to <highlight>".ucfirst(strtolower($admin))."<end>.", $sendto);
 } else if (preg_match("/^config help (.+)$/i", $message, $arr)) {
   	$mod = strtoupper($arr[1]);
-	$blob = "<header> :::::: Configure helpfiles for $mod :::::: <end>\n\n";
+	$blob = '';
 
 	$data = $db->query("SELECT * FROM hlpcfg_<myname> WHERE module = ? ORDER BY name", $mod);
 	if (count($data) == 0) {

@@ -25,8 +25,7 @@ if (preg_match("/^brawl ([0-9]+)$/i", $message, $arr)) {
 	$stunC = (($brawl_skill < 1000) ? "<orange>10<end>%, <font color=#cccccc>will become </font>20<font color=#cccccc>% above </font>1000<font color=#cccccc> brawl skill</font>" : "<orange>20<end>%");
 	$stunD = (($brawl_skill < 2001) ?  "<orange>3<end>s, <font color=#cccccc>will become </font>4<font color=#cccccc>s above </font>2001<font color=#cccccc> brawl skill</font>" :  "<orange>4<end>s");
 
-	$blob = "<header> :::::: Brawl Calculator :::::: <end>\n\n";
-	$blob .= "<u>Results</u>:\n";
+	$blob = "<u>Results</u>:\n";
 	$blob .= "Brawl Skill: <orange>".$brawl_skill."<end>\n";
 	$blob .= "Brawl recharge: <orange>15<end> seconds <font color=#ccccc>(constant)</font>\n";
 	$blob .= "Damage: <orange>".$min."<end>-<orange>".$max."<end>(<orange>".$crit."<end>)\n";
@@ -34,7 +33,7 @@ if (preg_match("/^brawl ([0-9]+)$/i", $message, $arr)) {
 	$blob .= "Stun duration: ".$stunD."\n";
 	$blob .= "\n\nby Imoutochan, RK1";
 	
-	$msg = Text::make_blob("::Your Brawl skill results::", $blob);
+	$msg = Text::make_blob("Brawl Results", $blob);
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;

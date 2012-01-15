@@ -65,9 +65,7 @@ $timezone["AEDT"]["time"] = date($time_format, $time + (3600*11));
 
 
 if (preg_match("/^time$/i", $message)) {
-	
-	$link = "<header>::::: Timezones :::::<end>\n\n";
-	$link .= "The following includes most of the timezones that exists but notice that this list doesn't show all countrys within the timezones and also that some country's have 2 timezones. \nTo see the time in a special timezone use time 'timezone' for example time CET\n\n";
+	$link = "The following includes most of the timezones that exists but notice that this list doesn't show all countrys within the timezones and also that some country's have 2 timezones. \nTo see the time in a special timezone use time 'timezone' for example time CET\n\n";
 	$link .= "<u>Australia</u>\n";
 	$link .= "<tab><highlight>Northern Territory/South Australia<end>\n";
 	$link .= "<tab><tab>Standard Time (ACST = GMT+9:30): {$timezone["ACST"]["time"]}\n";

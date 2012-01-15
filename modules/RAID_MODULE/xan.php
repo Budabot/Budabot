@@ -9,9 +9,7 @@ if (!function_exists('get_xan_loot')) {
 }
 
 if (preg_match("/^xan$/i", $message)){
-	$list = "<header>::::: Legacy of the Xan Loot :::::<end>\n\n";
-	
-	$list .= Text::make_chatcmd("Vortexx", "/tell <myname> <symbol>vortexx") . "\n";
+	$list = Text::make_chatcmd("Vortexx", "/tell <myname> <symbol>vortexx") . "\n";
 	$list .= "<tab>General\n";
 	$list .= "<tab>Symbiants (Beta)\n";
 	$list .= "<tab>Spirits (Beta)\n\n";
@@ -29,7 +27,7 @@ if (preg_match("/^xan$/i", $message)){
 
 	$list .= "\n\nXan Loot By Morgo (RK2)";
 
-	$msg = Text::make_blob("Xan Loot", $list);
+	$msg = Text::make_blob("Legacy of the Xan Loot", $list);
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^vortexx$/i", $message)){
 	$chatBot->send(get_xan_loot('Vortexx', 'General'), $sendto);

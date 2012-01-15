@@ -13,8 +13,7 @@ if (preg_match("/^as ([0-9]*\\.?[0-9]+) ([0-9]*\\.?[0-9]+) (\\d+)$/i", $message,
 	}
 	$MultiP	= round($InitS / 95,0);
 
-	$blob = "<header> :::::: Aimed Shot Calculator :::::: <end>\n\n";
-	$blob .= "Results:\n\n";
+	$blob = "Results:\n\n";
 	$blob .= "Attack: <orange>". $AttTim ." <end>second(s).\n";
 	$blob .= "Recharge: <orange>". $RechT ." <end>second(s).\n";
 	$blob .= "AS Skill: <orange>". $InitS ."<end>\n\n";
@@ -23,7 +22,7 @@ if (preg_match("/^as ([0-9]*\\.?[0-9]+) ([0-9]*\\.?[0-9]+) (\\d+)$/i", $message,
 	$blob .= "With your weap, your AS recharge will cap at <orange>".$cap."<end>s.\n";
 	$blob .= "You need <orange>".$ASCap."<end> AS skill to cap your recharge.";
 
-	$msg = Text::make_blob("::Your Aimed Shot Results::", $blob);
+	$msg = Text::make_blob("Aimed Shot Results", $blob);
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;

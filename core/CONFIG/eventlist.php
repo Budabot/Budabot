@@ -21,7 +21,7 @@ if (preg_match("/^eventlist$/i", $message) || preg_match("/^eventlist (.+)$/i", 
 	$data = $db->query($sql);
 	
 	if (count($data) > 0) {
-		$blob  = "<header> :::::: Event List :::::: <end>\n\n";
+		$blob = '';
 		forEach ($data as $row) {
 			$on = Text::make_chatcmd('ON', "/tell <myname> config event $row->type $row->file enable all");
 			$off = Text::make_chatcmd('OFF', "/tell <myname> config event $row->type $row->file disable all");

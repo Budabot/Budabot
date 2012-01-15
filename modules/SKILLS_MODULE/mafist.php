@@ -42,9 +42,8 @@ if (preg_match("/^mafist ([0-9]+)$/i", $message, $arr)) {
 		$speed = 1.65 + (0.2*(($fistql-1000)/500));
 	}
 	$speed = round($speed,2);
-	
-	$blob = "<header> :::::: MA Fist Calculator :::::: <end>\n\n";
-	$blob	.= "MA Skill: <orange>". $MaSkill ."<end>\n\n";
+
+	$blob = "MA Skill: <orange>". $MaSkill ."<end>\n\n";
 	$blob .= "<u>Results</u>:\n\n";
 	
 	$blob .= "Fist speed: <orange>".$speed."<end>s/<orange>".$speed."<end>s\n\n";
@@ -70,7 +69,7 @@ if (preg_match("/^mafist ([0-9]+)$/i", $message, $arr)) {
 	$blob .= "Class: <orange>All classes besides MA and Shade<end>\n";
 	$blob .= "Fist damage: ".$dmg."\n\n";
 
-	$msg = Text::make_blob("::Your MA skill results::", $blob);
+	$msg = Text::make_blob("Martial Arts Results", $blob);
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;

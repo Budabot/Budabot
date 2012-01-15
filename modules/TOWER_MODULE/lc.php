@@ -6,7 +6,7 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 	$sql = "SELECT * FROM playfields WHERE `id` IN (SELECT DISTINCT `playfield_id` FROM tower_site) ORDER BY `short_name`";
 	$data = $db->query($sql);
 	
-	$blob = "Land Control Index\n\n";
+	$blob = '';
 	forEach (data as $row) {
 		$baseLink = Text::make_chatcmd($row->long_name, "/tell <myname> lc $row->short_name");
 		$blob .= "$baseLink <highlight>($row->short_name)<end>\n";
@@ -27,7 +27,7 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 		WHERE t1.playfield_id = ?";
 
 	$data = $db->query($sql, $playfield->id);
-	$blob = "All bases in $playfield->long_name\n\n";
+	$blob = '';
 	forEach ($data as $row) {
 		$gas_level = getGasLevel($row->close_time);
 		$blob .= formatSiteInfo($row) . "\n\n";
@@ -51,7 +51,7 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 		WHERE t1.playfield_id = ? AND t1.site_number = ?";
 
 	$data = $db->query($sql, $playfield->id, $site_number);
-	$blob = "$playfield->short_name $site_number\n\n";
+	$blob = '';
 	forEach ($data as $row) {
 		$gas_level = getGasLevel($row->close_time);
 		$blob .= formatSiteInfo($row) . "\n\n";

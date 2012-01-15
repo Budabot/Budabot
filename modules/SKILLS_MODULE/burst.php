@@ -13,8 +13,7 @@ if (preg_match("/^burst ([0-9]*\\.?[0-9]+) ([0-9]*\\.?[0-9]+) (\\d+) (\\d+)$/i",
 		$burstrech = $cap;
 	}
 
-	$blob = "<header> :::::: Burst Calculator :::::: <end>\n\n";
-	$blob .= "Results:\n";
+	$blob = "Results:\n";
 	$blob .= "Attack: <orange>". $AttTim ." <end>second(s).\n";
 	$blob .= "Recharge: <orange>". $RechT ." <end>second(s).\n";
 	$blob .= "Burst Delay: <orange>". $BurstDelay ."<end>\n";
@@ -23,7 +22,7 @@ if (preg_match("/^burst ([0-9]*\\.?[0-9]+) ([0-9]*\\.?[0-9]+) (\\d+) (\\d+)$/i",
 	$blob .= "With your weap, your burst recharge will cap at <orange>".$cap."<end>s.\n";
 	$blob .= "You need <orange>".$burstskillcap."<end> Burst Skill to cap your recharge.";
 
-	$msg = Text::make_blob("::Your Burst Results::", $blob);
+	$msg = Text::make_blob("Burst Results", $blob);
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;

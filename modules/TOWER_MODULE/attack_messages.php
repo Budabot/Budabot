@@ -52,9 +52,7 @@ if ($closest_site === null) {
 	LegacyLogger::log('debug', "TowerInfo", "Site being attacked: ({$playfield_name}) '{$closest_site->playfield_id}' '{$closest_site->site_number}'");
 
 	// Beginning of the 'more' window
-	$link  = "<header> :::::: Advanced Tower Info :::::: <end>\n\n";
-	
-	$link .= "<highlight>Attacker:<end> <font color=#DEDE42>";
+	$link = "<highlight>Attacker:<end> <font color=#DEDE42>";
 	if ($whois->firstname) {
 		$link .= $whois->firstname." ";
 	}
@@ -103,7 +101,7 @@ if ($closest_site === null) {
 	$link .= "<highlight>Playfield:<end> {$colorvalue}{$base_link} ({$closest_site->min_ql}-{$closest_site->max_ql})<end>\n";
 	$link .= $colorlabel."Location:<end> {$colorvalue}{$closest_site->site_name} ({$attack_waypoint})<end>\n";
 
-	$more = "[".Text::make_blob("more", $link)."]";
+	$more = "[".Text::make_blob("more", $link, 'Advanced Tower Info')."]";
 }
 
 $targetorg = "<".strtolower($def_side).">".$def_guild."<end>";

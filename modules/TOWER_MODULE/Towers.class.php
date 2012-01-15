@@ -35,7 +35,7 @@ class Towers {
 		
 		$timeString = $this->util->unixtime_to_readable($time);
 		
-		$blob = "<header> :::::: Tower Stats for the Last $timeString :::::: <end>\n\n";
+		$blob = '';
 		
 		$sql = "SELECT
 				att_faction,

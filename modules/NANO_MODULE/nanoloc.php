@@ -3,13 +3,12 @@
 if (preg_match("/^nanoloc$/i", $message, $arr)) {
 	$data = $db->query("SELECT location, count(location) AS count FROM nanos GROUP BY location ORDER BY location ASC");
 	
-	$header = "Nano Locations";
-	$blob = Text::make_header($header, array('Help' => '/tell <myname> help nano'));
+	$blob = '';
 	forEach ($data as $row) {
 		$blob .= Text::make_chatcmd($row->location, "/tell <myname> nanoloc $row->location") . " ($row->count) \n";
 	}
 	
-	$msg = Text::make_blob($header, $blob);
+	$msg = Text::make_blob("Nano Locations", $blob);
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^nanoloc (.+)$/i", $message, $arr)) {
 	$location = $arr[1];
@@ -37,8 +36,7 @@ if (preg_match("/^nanoloc$/i", $message, $arr)) {
 	if ($count == 0) {
 		$msg = "No nanos found.";
 	} else {
-		$header = "Nanos for Location '$location' ($count)";
-		$blob = Text::make_header($header, array('Help' => '/tell <myname> help nano'));
+		$blob = '';
 		forEach ($data as $row) {
 			$blob .= Text::make_item($row->lowid, $row->lowid, $row->lowql, $row->name);
 			$blob .= " [$row->lowql] $row->location";
@@ -48,7 +46,7 @@ if (preg_match("/^nanoloc$/i", $message, $arr)) {
 			$blob .= "\n";
 		}
 		
-		$msg = Text::make_blob($header, $blob);
+		$msg = Text::make_blob("Nanos for Location '$location' ($count)", $blob);
 	}
 
 	$chatBot->send($msg, $sendto);

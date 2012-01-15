@@ -21,12 +21,11 @@ if (preg_match("/^research ([0-9]+)$/i",$message, $arr)) {
 		$xp = number_format($xp);
 		$sk = number_format($sk);
 		
-		$blob = "<header> ::::: XP/SK Needed for Research Levels ::::: <end>\n\n";
-		$blob .= "<green>You must be <blue>Level $levelcap<end> to reach <blue>Research Level $level<end>.\n";
+		$blob = "<green>You must be <blue>Level $levelcap<end> to reach <blue>Research Level $level<end>.\n";
 		$blob .= "You need <blue>$sk SK<end> to reach <blue>Research Level $level<end> per research line.\n\n";
 		$blob .= "This equals <orange>$xp XP<end>.\n\n";
 		$blob .= "Your research will cap at <yellow>~$capxp XP<end> or <yellow>~$capsk SK<end>.";
-		$msg = Text::make_blob("Research", $blob);
+		$msg = Text::make_blob("XP/SK Needed for Research Levels", $blob);
 	}
 	
 	$chatBot->send($msg, $sendto);
@@ -49,11 +48,10 @@ if (preg_match("/^research ([0-9]+)$/i",$message, $arr)) {
 		$xp = number_format($row->totalsk * 1000);
 		$sk = number_format($row->totalsk);
 		
-		$blob = "<header> ::::: XP/SK Needed for Research Levels ::::: <end>\n\n";
-		$blob .= "<green>You must be <blue>Level $row->levelcap<end> to reach Research Level <blue>$hilevel.<end>\n";
+		$blob = "<green>You must be <blue>Level $row->levelcap<end> to reach Research Level <blue>$hilevel.<end>\n";
 		$blob .= "It takes <blue>$sk SK<end> to go from Research Level <blue>$lolevel<end> to Research Level <blue>$hilevel<end> per research line.\n\n";
 		$blob .= "This equals <orange>$xp XP<end>.";
-		$msg = Text::make_blob("Research", $blob);
+		$msg = Text::make_blob("XP/SK Needed for Research Levels", $blob);
 	}
 	
 	$chatBot->send($msg, $sendto);

@@ -67,8 +67,7 @@ function findMaxImplantQlByReqs($ability, $treatment) {
 }
 
 function formatClusterBonuses(&$obj) {
-	$msg = "<header> :::::: Implant Info (ql $obj->ql) :::::: <end>\n\n";
-	$msg .= "For ql $obj->ql clusters,\n\n";
+	$msg = "For ql $obj->ql clusters,\n\n";
 
 	$msg .= "You will gain for most skills:\n" .
 		"<tab>Shiny    $obj->skillShiny ($obj->lowestSkillShiny - $obj->highestSkillShiny)\n" .

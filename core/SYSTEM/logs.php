@@ -2,7 +2,7 @@
 
 if (preg_match("/^logs$/i", $message)) {
 	if ($handle = opendir(LegacyLogger::get_logging_directory())) {
-		$blob .= "<header> :::::: Log Files :::::: <end>\n\n";
+		$blob = '';
 		while (false !== ($file = readdir($handle))) {
 			if ($file == '.' || $file == '..') {
 				continue;
@@ -28,8 +28,7 @@ if (preg_match("/^logs$/i", $message)) {
 		$contents = fread($fp, $readsize);
 		fclose($fp);
 		
-		$blob = "<header> :::::: {$arr[1]} :::::: <end>\n\n" . $contents;
-		$msg = Text::make_blob($arr[1], $blob);
+		$msg = Text::make_blob($arr[1], $contents);
 	} else {
 		$msg = "Could not open file: '{$filename}'";
 	}

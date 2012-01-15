@@ -1,7 +1,7 @@
 <?php
 
 if (preg_match("/^playfields$/i", $message)) {
-	$blob = "<header>:::::: Playfields ::::::<end>\n\n";
+	$blob = '';
 	
 	$sql = "SELECT * FROM playfields ORDER BY long_name";
 	$data = $db->query($sql);

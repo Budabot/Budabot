@@ -39,7 +39,7 @@ function endraffle() {
     // sort the list depending on roll results
     arsort($chatBot->data["Raffles"]["rafflees"]);
 
-    $blob = "<header>Raffle results<end>\n";
+    $blob = '';
     if (1 == $count) {
         $blob .= "Rolled $rollcount times for $item.\n \n Winner:";
     } else {
@@ -110,18 +110,15 @@ function show_raffle_reminder() {
 		$blob .= "No entrants yet.";
 	}
 
-	$blob .= "
-
-	Click <a href='chatcmd:///tell <myname> <symbol>raffle join'>here</a> to join the raffle!
-	Click <a href='chatcmd:///tell <myname> <symbol>raffle leave'>here</a> if you wish to leave the raffle.";
-
+	$blob .= "\n\nClick <a href='chatcmd:///tell <myname> <symbol>raffle join'>here</a> to join the raffle!";
+	$blob .= "\nClick <a href='chatcmd:///tell <myname> <symbol>raffle leave'>here</a> if you wish to leave the raffle.";
 	$blob .= "\n\n Time left: $time_string.";
 
-	$link = Text::make_blob("here", $blob);
+	$link = Text::make_blob("Raffle Info", $blob);
 	if (1 < $count) {
-		$msg = "<yellow>Reminder:<end> Raffle for $item (count: $count) has $time_string left. Click $link to join.";
+		$msg = "<yellow>Reminder:<end> Raffle for $item (count: $count) has $time_string left. $link";
 	} else {
-		$msg = "<yellow>Reminder:<end> Raffle for $item has $time_string left. Click $link to join.";
+		$msg = "<yellow>Reminder:<end> Raffle for $item has $time_string left. $link";
 	}
 
 	$chatBot->send($msg, $chatBot->data["Raffles"]["sendto"]);

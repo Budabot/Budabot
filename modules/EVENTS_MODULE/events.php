@@ -61,9 +61,7 @@ if (preg_match("/^events$/i", $message, $arr)) {
 	$id = $arr[1];
 	$row = $db->queryRow("SELECT event_attendees FROM events WHERE `id` = ?", $id);
 	if ($row !== null) {
-		$link = "<header> :::::: Players Attending Event $id :::::: <end>\n\n";
-		
-		$link .= Text::make_chatcmd("Join this event", "/tell <myname> event join $id")."\n";
+		$link = Text::make_chatcmd("Join this event", "/tell <myname> event join $id")."\n";
 		$link .= Text::make_chatcmd("Leave this event", "/tell <myname> event leave $id")."\n\n";
 
 		$eventlist = explode(",", $row->event_attendees);
@@ -86,7 +84,7 @@ if (preg_match("/^events$/i", $message, $arr)) {
 				
 				$link .= trim($name)."$info $alt\n";
 			}
-			$msg = Text::make_blob("Event Attendees", $link);
+			$msg = Text::make_blob("Players Attending Event $id", $link);
 		} else {
 			$msg = "No one has signed up to attend this event!";
 		}

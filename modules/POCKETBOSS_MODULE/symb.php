@@ -69,7 +69,7 @@ if (preg_match("/^symb ([a-z]+)$/i", $message, $arr) || preg_match("/^symb ([a-z
   	$data = $db->query("SELECT * FROM pbdb WHERE `slot` LIKE ? AND `type` LIKE ? ORDER BY `ql` DESC, `type` ASC", $slot, $symbtype);
 	$numrows = count($data);
 	if ($numrows != 0) {
-	  	$blob = "<header> :::::: Symbiants Search Results ($numrows) :::::: <end>\n\n";
+	  	$blob = '';
 		forEach ($data as $row) {
 		  	$name = "QL $row->ql $row->line $row->slot Symbiant, $row->type Unit Aban";
 		  	$blob .= "<pagebreak>" . Text::make_item($row->itemid, $row->itemid, $row->ql, $name)."\n";

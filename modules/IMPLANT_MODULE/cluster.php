@@ -24,8 +24,7 @@ if (preg_match("/^cluster (.+)$/i", $message, $arr)) {
 	} else if ($found == 1) {
 		$chatBot->send($info, $sendto);
 	} else {
-		$inside = "<header>::::: Cluster location helper :::::<end>\n\n";
-		$inside .= "Your query of <yellow>".$name."<end> returned the following results:\n\n";
+		$inside = "Your query of <yellow>".$name."<end> returned the following results:\n\n";
 		$inside .= $info;
 		$inside .= "\n\nby Imoutochan (RK1)";
 	

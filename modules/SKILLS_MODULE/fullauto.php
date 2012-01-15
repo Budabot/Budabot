@@ -15,8 +15,7 @@ if (preg_match("/^fullauto ([0-9]*\\.?[0-9]+) ([0-9]*\\.?[0-9]+) (\\d+) (\\d+)$/
 	
 	$MaxBullets = 5 + floor($FullAutoSkill / 100);
 	
-	$blob = "<header> :::::: Full Auto Calculator :::::: <end>\n\n";
-	$blob .= "Results:\n";
+	$blob = "Results:\n";
 	$blob .= "Weapon Attack: <orange>". $AttTim ."<end>s\n";
 	$blob .= "Weapon Recharge: <orange>". $RechT ."<end>s\n";
 	$blob .= "Full Auto Recharge value: <orange>". $FARecharge ."<end>\n";
@@ -30,7 +29,7 @@ if (preg_match("/^fullauto ([0-9]*\\.?[0-9]+) ([0-9]*\\.?[0-9]+) (\\d+) (\\d+)$/
 	$blob .= "From <orange>11K to 15K<end> damage, each bullet damage is halved again.\n";
 	$blob .= "<orange>15K<end> is the damage cap.\n\n";
 
-	$msg = Text::make_blob("::Your Full Auto Recharge Results::", $blob);
+	$msg = Text::make_blob("Full Auto Results", $blob);
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;

@@ -50,8 +50,7 @@ if (preg_match("/^nano (.+)$/i", $message, $arr)) {
 			$msg .= " - <highlight>$row->profession<end>";
 		}
 	} else {
-		$header = "Nano Search Results ($count)";
-		$blob = Text::make_header($header, array('Help' => '/tell <myname> help nano'));
+		$blob = '';
 		forEach ($data as $row) {
 			$blob .= Text::make_item($row->lowid, $row->lowid, $row->lowql, $row->name);
 			$blob .= " [$row->lowql] $row->location";

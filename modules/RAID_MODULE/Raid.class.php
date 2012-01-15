@@ -6,7 +6,7 @@ class Raid {
 		global $loot;
 	
 		if (is_array($loot)) {
-			$list = "<header>::::: Loot List :::::<end>\n\nUse <symbol>flatroll to roll.\n\n";
+			$list = "Use <symbol>flatroll to roll.\n\n";
 			forEach ($loot as $key => $item) {
 				$add = Text::make_chatcmd("Add", "/tell <myname> add $key");
 				$rem = Text::make_chatcmd("Remove", "/tell <myname> rem");
@@ -92,7 +92,7 @@ class Raid {
 			return null;
 		}
 
-		$blob = "<header>::::: $raid $category Loot :::::<end>\n\n\n";
+		$blob = "\n";
 		forEach ($data as $row) {
 			$blob .= "<pagebreak>";
 			$blob .= Text::make_item($row->lowid, $row->highid, $row->ql, "<img src=rdb://{$row->imageid}>");

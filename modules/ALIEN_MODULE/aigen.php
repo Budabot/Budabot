@@ -32,7 +32,7 @@
 if (preg_match("/^aigen (ankari|ilari|rimah|jaax|xoch|cha)$/i", $message, $arr)) {
 	$gen = ucfirst(strtolower($arr[1]));
 	
-	$blob = "<header>::::: Info about General $gen :::::<end>\n\n";
+	$blob = '';
 	switch ($gen) {
 		case "Ankari":
 			$blob .= "<red>Low Evade/Dodge,low AR, casting Viral/Virral nukes.<blue> \nBoss of this type drops:\n\n<img src=rdb://100337></img>\n<a href='itemref://247145/247145/300'>Arithmetic Lead Viralbots</a>.\n<orange>(Nanoskill / Tradeskill)<blue>\n<img src=rdb://255705></img>\n<a href='itemref://247684/247684/300'>Kyr'Ozch Bio-Material - Type 1</a>\n<img src=rdb://255705></img>\n<a href='itemref://247685/247685/300'>Kyr'Ozch Bio-Material - Type 2</a>\n<img src=rdb://255705></img>\n<a href='itemref://288672/288673/300'>Kyr'Ozch Bio-Material - Type 48</a>";

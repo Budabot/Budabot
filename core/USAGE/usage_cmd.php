@@ -18,13 +18,11 @@ if (preg_match("/^usage$/i", $message) || preg_match("/^usage ([a-z0-9]+)$/i", $
 	$timeString = Util::unixtime_to_readable($time);
 	$time = time() - $time;
 	
-	$blob = "<header> :::::: Usage Statistics ({$timeString}) :::::: <end>\n\n";
-	
 	// most used commands
 	$sql = "SELECT command, COUNT(command) AS count FROM usage_<myname> WHERE dt > ? GROUP BY command ORDER BY count DESC LIMIT $limit";
 	$data = $db->query($sql, $time);
 	
-	$blob .= "<header> ::: Most Used Commands ::: <end>\n";
+	$blob = "<header> ::: Most Used Commands ::: <end>\n";
 	forEach ($data as $row) {
 		$blob .= "<highlight>{$row->command}<end> ({$row->count})\n";
 	}

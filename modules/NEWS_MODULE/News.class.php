@@ -30,7 +30,7 @@ class News {
 		$data = $this->db->query("SELECT * FROM `#__news` ORDER BY `sticky` DESC, `time` DESC LIMIT 10");
 		$msg = '';
 		if (count($data) != 0) {
-			$blob = "<header> :::::: News :::::: <end>\n\n";
+			$blob = '';
 			$sticky = "";
 			forEach ($data as $row) {
 				if ($sticky != '') {

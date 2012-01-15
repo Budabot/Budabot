@@ -7,8 +7,7 @@ if (preg_match("/^pb (.+)$/i", $message, $arr)) {
   	if ($numrows >= 1 && $numrows <= 5) {
 		$msg = "Pocketbosses matching: ";
 		forEach ($data as $row) {
-			$blob  = "<header>:::::: Remains of $row->pb :::::<end>\n\n";
-			$blob .= "<highlight>Location:<end> $row->pb_location\n";
+			$blob = "<highlight>Location:<end> $row->pb_location\n";
 			$blob .= "<highlight>Found on:<end> $row->bp_mob\n";
 			$blob .= "<highlight>Mob Level:<end> $row->bp_lvl\n";
 			$blob .= "<highlight>General Location:<end> $row->bp_location\n";

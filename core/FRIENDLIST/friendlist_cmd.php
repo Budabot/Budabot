@@ -7,10 +7,9 @@ if (preg_match("/^friendlist$/i", $message) || preg_match("/^friendlist (clean)$
 
 	$orphanCount = 0;
 	if (count($chatBot->buddyList) == 0) {
-		$chatBot->send("Didn't find any names in the friendlist.", $sendto);
+		$chatBot->send("The are no characters on the friendlist.", $sendto);
 	} else {
 		$count = 0;
-		$blob = "<header> :::::: Friendlist :::::: <end>\n\n";
 		forEach ($chatBot->buddyList as $key => $value) {
 			if (!isset($value['name'])) {
 				// skip the buddies that have been added but the server hasn't sent back an update yet
@@ -40,10 +39,9 @@ if (preg_match("/^friendlist$/i", $message) || preg_match("/^friendlist (clean)$
 		}
 		
 		if ($cleanup) {
-			$msg = Text::make_blob("Removed $orphanCount friends from the friendlist", $blob);
-		} else {
-			$msg = Text::make_blob("Friendlist ($count)", $blob);
+			$chatBot->send("Removed $orphanCount friends from the friendlist.", $sendto);
 		}
+		$msg = Text::make_blob("Friendlist ($count)", $blob);
 		$chatBot->send($msg, $sendto);
 	}
 } else if (preg_match("/^friendlist (.*)$/i", $message, $arg)) {
@@ -63,7 +61,7 @@ if (preg_match("/^friendlist$/i", $message) || preg_match("/^friendlist (clean)$
 		}
 
 		if ($count > 0) {
-			$msg = Text::make_blob("Friendlist Search Details", $blob);
+			$msg = Text::make_blob("Friendlist Search ($count)", $blob);
 			$chatBot->send($msg, $sendto);
 		} else {
 			$chatBot->send("No friends on the friendlist found containing '$search'", $sendto);

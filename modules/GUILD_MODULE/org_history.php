@@ -10,7 +10,7 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 	
 	$startingRecord = ($page - 1) * $pageSize;
 
-	$blob = Text::make_header("Org History", array('Help' => '/tell <myname> help orghistory'));
+	$blob = '';
 	
 	$sql = "SELECT actor, actee, action, organization, time FROM `#__org_history` ORDER BY time DESC LIMIT $startingRecord, $pageSize";
 	$data = $db->query($sql);
@@ -25,7 +25,7 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 
 	$character = $arr[1];
 
-	$blob = Text::make_header("Org History", array('Help' => '/tell <myname> help orghistory'));
+	$blob = '';
 	
 	$window .= "\n  Actions on $character\n";
 	$sql = "SELECT actor, actee, action, organization, time FROM `#__org_history` WHERE actee LIKE ? ORDER BY time DESC";

@@ -5,11 +5,10 @@ if (preg_match("/^bior$/i", $message)) {
 		$msg = "No Adventurer, Keeper, Enforcer or Engineer 201+ in chat.";
 	} else {
 		$chatBot->data['blist'] = array();
-		$info  = "<header>::::: Info about Bio Regrowth macro :::::<end>\n\n";
-		$info .= "The bot has it's own Bio Regrowth macro to use it just do ";
+		$info = "The bot has it's own Bio Regrowth macro to use it just do ";
 		$info .= "<symbol>b in the chat. \n\n";
 		$info .= "<a href='chatcmd:///macro BR_Macro /g <myname> <symbol>b'>Click here to make an Bio Regrowth macro </a>";
-		$info = Text::make_blob("Info", $info);
+		$info = Text::make_blob("Info about Bio Regrowth macro", $info);
 
 		//Create Bio Regrowth Order
 		forEach ($chatBot->data['bior'] as $key => $value) {

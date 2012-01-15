@@ -6,7 +6,7 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 	global $version;
 	$data = file_get_contents("./core/HELP/about.txt");
 	$data = str_replace('<version>', $version, $data);
-	$msg = Text::make_blob("About Budabot", $data);
+	$msg = Text::make_legacy_blob("About Budabot", $data);
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^help$/i", $message)) {
 	global $version;
@@ -24,7 +24,7 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 	if (count($help_array) == 0) {
 		$msg = "<orange>No Helpfiles found.<end>";
 	} else {
-		$blob = "<header> :::::: Help Files for Budabot {$version} :::::: <end>\n\n";
+		$blob = '';
 		$current_module = '';
 		forEach ($help_array as $row) {
 			if ($current_module != $row->module) {
@@ -35,7 +35,7 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 			$blob .= "  *{$row->name}: {$row->description} <a href='chatcmd:///tell <myname> help {$row->name}'>Click here</a>\n";
 		}
 		
-		$msg = Text::make_blob("Help (main)", $blob);
+		$msg = Text::make_blob("Help (main)", $blob, "Help Files for Budabot {$version}");
 	}
 
 	$chatBot->send($msg, $sendto);
@@ -43,7 +43,7 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 	$helpcmd = ucfirst($arr[1]);
 	$blob = Registry::getInstance('help')->find($helpcmd, $sender);
 	if ($blob !== false) {
-		$msg = Text::make_blob("Help ($helpcmd)", $blob);
+		$msg = Text::make_legacy_blob("Help ($helpcmd)", $blob);
 		$chatBot->send($msg, $sendto);
 	} else {
 		$chatBot->send("No help found on this topic.", $sendto);

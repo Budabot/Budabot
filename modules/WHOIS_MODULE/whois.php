@@ -29,16 +29,14 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 		$lookupCharIdLink = Text::make_chatcmd("Lookup", "/tell <myname> lookup $uid");
         $whois = Player::get_by_name($name);
         if ($whois === null) {
-			$blob = "<header> :::::: Basic Info for {$name} :::::: <end>\n\n";
-			$blob .= "<orange>Note: Could not retrieve detailed info for character.<end>\n\n";
+			$blob = "<orange>Note: Could not retrieve detailed info for character.<end>\n\n";
 	        $blob .= "Name: <highlight>{$name}<end> {$lookupNameLink}\n";
 			$blob .= "Character ID: <highlight>{$uid}<end> {$lookupCharIdLink}\n\n";
 			$blob .= "<pagebreak>" . getNameHistory($uid, $chatBot->vars['dimension']);
         	
 			$msg = Text::make_blob("Basic Info for $name", $blob);
         } else {
-	        $blob = "<header> :::::: Detailed Info for {$name} :::::: <end>\n\n";
-	        $blob .= "Name: <highlight>{$whois->firstname} \"{$name}\" {$whois->lastname}<end> {$lookupNameLink}\n";
+	        $blob = "Name: <highlight>{$whois->firstname} \"{$name}\" {$whois->lastname}<end> {$lookupNameLink}\n";
 			if ($whois->guild) {
 				$blob .= "Guild: <highlight>{$whois->guild} ({$whois->guild_id})<end>\n";
 				$blob .= "Guild Rank: <highlight>{$whois->guild_rank} ({$whois->guild_rank_id})<end>\n";
@@ -64,7 +62,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 				$blob .= Text::make_chatcmd('Orglist', "/tell <myname> orglist $whois->guild_id") . "\n";
 			}
 			
-	        $msg = Player::get_info($whois) . " :: " . Text::make_blob("More Info", $blob);
+	        $msg = Player::get_info($whois) . " :: " . Text::make_blob("More Info", $blob, "Detailed Info for {$name}");
 
 			$altInfo = Alts::get_alt_info($name);
 			if (count($altInfo->alts) > 0) {
@@ -89,8 +87,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
         if ($whois !== null) {
             $msg = Player::get_info($whois);
 
-			$blob = "<header> :::::: Detailed info for {$name} :::::: <end>\n\n";
-	        $blob .= "Name: <highlight>{$whois->firstname} \"{$name}\" {$whois->lastname}<end>\n";
+	        $blob = "Name: <highlight>{$whois->firstname} \"{$name}\" {$whois->lastname}<end>\n";
 			if ($whois->guild) {
 				$blob .= "Guild: <highlight>{$whois->guild} ({$whois->guild_id})<end>\n";
 				$blob .= "Guild Rank: <highlight>{$whois->guild_rank} ({$whois->guild_rank_id})<end>\n";
@@ -108,7 +105,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 
             $blob .= "<a href='chatcmd:///tell <myname> history {$name} {$i}'>History</a>\n";
 			
-            $msg .= " :: ".Text::make_blob("More info", $blob);
+            $msg .= " :: ".Text::make_blob("More info", $blob, "Detailed Info for {$name}");
             $msg = "<highlight>Server $server:<end> ".$msg;
         } else {
             $msg = "Server $server: Character <highlight>{$name}<end> does not exist.";

@@ -8,9 +8,9 @@ if (!function_exists('padRow')) {
 
 if (preg_match("/^aliaslist$/i", $message)) {
 	$paddingSize = 30;
-	$blob = "<header> :::::: Alias List :::::: <end>\n\n";
+
 	$a = padRow("Alias", $paddingSize);
-	$blob .= "<header>{$a}Command<end>\n\n";
+	$blob = "<header>{$a}Command<end>\n\n";
 	$count = 0;
 	forEach (Registry::getInstance('commandAlias')->getEnabledAliases() as $alias) {
 		if ($count++ % 2 == 0) {

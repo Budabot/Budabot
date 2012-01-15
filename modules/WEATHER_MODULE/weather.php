@@ -85,11 +85,12 @@ if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 	
 	$locations = xml::spliceMultiData($geolookup, "<name>", "</name>");
 	if (count($locations) > 1){
+		$blob = "Multiple hits for $location.\n\n";
 		foreach ($locations as $spot) {
 			$blob .= Text::make_chatcmd($spot, "/tell <myname> weather $spot")."\n";
 		}
 
-		$msg = Text::make_blob('Multiple hits for '.$location.'.', $blob);
+		$msg = Text::make_blob('Weather Locations', $blob);
 		$chatBot->send($msg, $sendto);
 		return;
 	}
@@ -194,7 +195,7 @@ if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 	$simpleforecast = xml::spliceData($forecast, "<simpleforecast>", "</simpleforecast>");
 	$forecastday = xml::spliceMultiData($simpleforecast, "<forecastday>", "</forecastday>");
 	if (count($forecastday)>0) {
-		$blob .= "\n<header>Forecast:<end>\n\n";
+		$blob = '';
 		forEach ($forecastday as $day) {
 			
 			if (!($condition = xml::spliceData($day, "<conditions>", "</conditions>"))) {

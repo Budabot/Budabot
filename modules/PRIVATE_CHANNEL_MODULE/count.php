@@ -80,14 +80,14 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 	$data = $db->query($sql);
 	$numorgs = count($data);
 	
-	$blob = "<font color=#FFFF00>Organizations ($numorgs total)<end><white>\n\n";
+	$blob = '';
     forEach ($data as $row) {
 		$percent = round($row->cnt / $numonline, 2) * 100;
 		$avg_level = round($row->avg_level, 1);
    	    $blob .= "{$percent}% {$row->guild} - {$row->cnt} member(s), average level {$avg_level}\n";
 	}
 	
-	$msg = Text::make_blob("Organizations ($numorgs total)", $blob);
+	$msg = Text::make_blob("Organizations ($numorgs)", $blob);
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^count (.*)$/i", $message, $arr)) {
     switch (strtolower($arr[1])) {

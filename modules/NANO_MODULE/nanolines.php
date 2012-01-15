@@ -4,15 +4,15 @@ if (preg_match("/^nanolines$/i", $message, $arr)) {
 	$sql = "SELECT DISTINCT profession FROM nanolines ORDER BY profession ASC";
 	$data = $db->query($sql);
 
-	$window = Text::make_header("Nanolines - Professions", array('Help' => '/tell <myname> help nanolines'));
+	$blob = '';
 	forEach ($data as $row) {
-		$window .= Text::make_chatcmd($row->profession, "/tell <myname> <symbol>nanolines $row->profession");
-		$window .= "\n";
+		$blob .= Text::make_chatcmd($row->profession, "/tell <myname> <symbol>nanolines $row->profession");
+		$blob .= "\n";
 	}
-	$window .= "\n\nAO Nanos by Voriuste";
-	$window .= "\nModule created by Tyrence (RK2)";
+	$blob .= "\n\nAO Nanos by Voriuste";
+	$blob .= "\nModule created by Tyrence (RK2)";
 
-	$msg = Text::make_blob('Nanolines', $window);
+	$msg = Text::make_blob('Nanolines', $blob);
 
 	$chatBot->send($msg, $sendto);
 } else if (preg_match("/^nanolines ([0-9]+)$/i", $message, $arr)) {
@@ -23,10 +23,7 @@ if (preg_match("/^nanolines$/i", $message, $arr)) {
 
 	$msg = '';
 	if ($row !== null) {
-
-		$header = "$row->profession $row->name Nanos";
-
-		$window = Text::make_header($header, array('Help' => '/tell <myname> help nanolines'));
+		$blob = '';
 
 		$sql = "
 			SELECT
@@ -45,14 +42,14 @@ if (preg_match("/^nanolines$/i", $message, $arr)) {
 		$data = $db->query($sql, $nanoline_id);
 
 		forEach ($data as $row) {
-			$window .= Text::make_item($row->lowid, $row->lowid, $row->lowql, $row->name);
-			$window .= " [$row->lowql] $row->location\n";
+			$$blob .= Text::make_item($row->lowid, $row->lowid, $row->lowql, $row->name);
+			$$blob .= " [$row->lowql] $row->location\n";
 		}
 
-		$window .= "\n\nAO Nanos by Voriuste";
-		$window .= "\nModule created by Tyrence (RK2)";
+		$$blob .= "\n\nAO Nanos by Voriuste";
+		$$blob .= "\nModule created by Tyrence (RK2)";
 
-		$msg = Text::make_blob($header, $window);
+		$msg = Text::make_blob("$row->profession $row->name Nanos", $$blob);
 
 	} else {
 		$msg = "No nanoline found.";
@@ -70,8 +67,7 @@ if (preg_match("/^nanolines$/i", $message, $arr)) {
 	$sql = "SELECT * FROM nanolines WHERE profession LIKE ? ORDER BY name ASC";
 	$data = $db->query($sql, $profession);
 
-	$header = "$profession Nanolines";
-	$blob = Text::make_header($header, array('Help' => '/tell <myname> help nanolines'));
+	$blob = '';
 	forEach ($data as $row) {
 		if ($setting->get("shownanolineicons") == "1") {
 			$blob .= "<img src='rdb://$row->image_id'>\n";
@@ -81,7 +77,7 @@ if (preg_match("/^nanolines$/i", $message, $arr)) {
 	}
 	$blob .= "\n\nAO Nanos by Voriuste";
 	$blob .= "\nModule created by Tyrence (RK2)";
-	$msg = Text::make_blob($header, $blob);
+	$msg = Text::make_blob("$profession Nanolines", $blob);
 
 	$chatBot->send($msg, $sendto);
 } else {

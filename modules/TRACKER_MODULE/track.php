@@ -4,7 +4,7 @@ if (preg_match("/^track$/i", $message)) {
 	$data = $db->query("SELECT * FROM tracked_users_<myname> ORDER BY `name`");
 	$numrows = count($data);
 	if ($numrows != 0) {
-	  	$blob .= "<header> :::::: {$numrows} Users on Track List :::::: <end>\n\n";
+	  	$blob = '';
 	  	forEach ($data as $row) {
 			$row2 = $db->queryRow("SELECT `event`, `dt` FROM tracking_<myname> WHERE `uid` = ? ORDER BY `dt` DESC LIMIT 1", $row->uid);
 			if ($row2 != null) {
@@ -26,7 +26,7 @@ if (preg_match("/^track$/i", $message)) {
 	  		$blob .= "<tab>-[{$history}] {$row->name} ({$status}{$last_action}) - {$remove}\n";
 	  	}
 	  	
-	    $msg = Text::make_blob("<highlight>{$numrows}<end> players on the Track List", $blob);
+	    $msg = Text::make_blob("Tracklist ({$numrows})", $blob);
 		$chatBot->send($msg, $sendto);
 	} else {
        	$chatBot->send("No players are on the track list.", $sendto);
@@ -73,7 +73,7 @@ if (preg_match("/^track$/i", $message)) {
 	
 	$data = $db->query("SELECT `event`, `dt` FROM tracking_<myname> WHERE `uid` = $uid ORDER BY `dt` DESC");
 	if (count($data) == 0) {
-		$blob .= "<header> :::::: Track History for $name :::::: <end>\n\n";
+		$blob = '';
 	  	forEach ($data as $row) {
 	  		$blob .= "$row->event <white>" . date(Util::DATETIME, $row->dt) ."<end>\n";
 	  	}

@@ -276,7 +276,7 @@ class Command extends Annotation {
 				$helpcmd = ucfirst($cmd);
 			}
 			if ($blob !== false) {
-				$msg = $this->text->make_blob("Help ($helpcmd)", $blob);
+				$msg = $this->text->make_legacy_blob("Help ($helpcmd)", $blob);
 				$this->chatBot->send($msg, $sendto);
 			} else {
 				$this->chatBot->send("Error! Invalid syntax for this command.", $sendto);

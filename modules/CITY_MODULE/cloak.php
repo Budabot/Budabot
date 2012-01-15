@@ -19,8 +19,7 @@ if (preg_match("/^cloak$/i", $message)) {
             $msg = "The cloaking device is <green>enabled<end>. It is possible in $timeString to disable it.";
 		}
 
-        $list = "<header> :::::: Cloak History :::::: <end>\n\n";
-        $list .= "Time: <highlight>".date(Util::DATETIME, $row->time)." (GMT)<end>\n";
+        $list = "Time: <highlight>".date(Util::DATETIME, $row->time)." (GMT)<end>\n";
         $list .= "Action: <highlight>Cloaking device turned ".$row->action."<end>\n";
         $list .= "Player: <highlight>".$row->player."<end>\n\n";
         

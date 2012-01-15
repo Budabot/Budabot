@@ -4,7 +4,7 @@ $bio_regex = "<a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">Solid Clump o
 if (preg_match("/^bio(( *${bio_regex})+)$/i", $message, $arr)){
 	$bios = explode("*", preg_replace("/> *</", ">*<", $arr[1]));
 	
-	$blob = "<header> :::::: Identified Bio-Materials :::::: <end>\n\n";
+	$blob = '';
 	forEach ($bios as $bio) {
 		preg_match("/^${bio_regex}$/i", trim($bio), $arr2);
 		$highid = $arr2[2];

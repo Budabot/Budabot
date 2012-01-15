@@ -29,7 +29,6 @@ class AltInfo {
 			return "No registered alts.";
 		}
 
-		$blob = "<header> :::::: Character List for {$this->main} :::::: <end>\n\n";
 		$blob .= "<tab><tab>{$this->main}";
 		$character = $player->get_by_name($this->main);
 		if ($character !== null) {

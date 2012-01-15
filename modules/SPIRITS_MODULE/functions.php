@@ -29,4 +29,23 @@ function formatSpiritOutput($data) {
 	return $msg;
 }
 
+function getValidSlotTypes() {
+	$output = "Valid slot types are:\n";
+	$output .= "Head\n";
+	$output .= "Eye\n";
+	$output .= "Ear\n";
+	$output .= "Chest\n";
+	$output .= "Larm\n";
+	$output .= "Rarm\n";
+	$output .= "Waist\n";
+	$output .= "Lwrist\n";
+	$output .= "Rwrist\n";
+	$output .= "Legs\n";
+	$output .= "Lhand\n";
+	$output .= "Rhand\n";
+	$output .= "Feet\n";
+	
+	return $output;
+}
+
 ?>
