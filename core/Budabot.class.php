@@ -242,6 +242,7 @@ class Budabot extends AOChat {
 
 		$message = $this->text->format_message($message);
 		$sender_link = $this->text->make_userlink($this->vars['name']);
+		$guildNameForRelay = getGuildAbbreviation();
 
 		if ($target == 'prv') {
 			$this->send_privgroup($this->vars["name"], $this->setting->get("default_priv_color").$message);
@@ -253,19 +254,19 @@ class Budabot extends AOChat {
 
 			// relay to bot relay
 			if (!$disable_relay && $this->setting->get("relaybot") != "Off" && $this->setting->get("bot_relay_commands") == 1) {
-				send_message_to_relay("grc <grey>[{$this->vars["my_guild"]}] [Guest] {$sender_link}: $message");
+				send_message_to_relay("grc <grey>[{$guildNameForRelay}] [Guest] {$sender_link}: $message");
 			}
 		} else if (($target == $this->vars["my_guild"] || $target == 'org') && $this->setting->get('guild_channel_status') == 1) {
     		$this->send_guild($this->setting->get("default_guild_color").$message, "\0", $priority);
 			
 			// relay to private channel
 			if (!$disable_relay && $this->setting->get("guest_relay") == 1 && $this->setting->get("guest_relay_commands") == 1) {
-				$this->send_privgroup($this->vars["name"], "</font>{$this->setting->get('guest_color_channel')}[{$this->vars["my_guild"]}]</font> {$sender_link}: {$this->setting->get('default_guild_color')}$message</font>");
+				$this->send_privgroup($this->vars["name"], "</font>{$this->setting->get('guest_color_channel')}[{$guildNameForRelay}]</font> {$sender_link}: {$this->setting->get('default_guild_color')}$message</font>");
 			}
 			
 			// relay to bot relay
 			if (!$disable_relay && $this->setting->get("relaybot") != "Off" && $this->setting->get("bot_relay_commands") == 1) {
-				send_message_to_relay("grc <grey>[{$this->vars["my_guild"]}] {$sender_link}: $message");
+				send_message_to_relay("grc <grey>[{$guildNameForRelay}] {$sender_link}: $message");
 			}
 		} else if ($this->get_uid($target) != NULL) {// Target is a player.
 			$this->logger->log_chat("Out. Msg.", $target, $message);
