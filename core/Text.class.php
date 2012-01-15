@@ -38,53 +38,75 @@ class Text {
 	 * @description: creates an info window
 	 */
 	function make_blob($name, $content, $style = NULL) {
-		$chatBot = Registry::getInstance('chatBot');
 		$setting = Registry::getInstance('setting');
 
 		// escape double quotes
 		$content = str_replace('"', '&quot;', $content);
 		
 		$content = Text::format_message($content);
-		$tmp = str_replace('<pagebreak>', '', $content);
-
-		if (strlen($tmp) > $setting->get("max_blob_size")) {
-			$array = explode("<pagebreak>", $content);
-			$pagebreak = true;
-			
-			// if the blob doesn't specify <pagebreak>s, split on linebreaks
-			if (count($array) == 1) {
-				$array = explode("\n", $content);
-				$pagebreak = false;
-			}
-			$page = 1;
-			$page_size = 0;
-			forEach ($array as $line) {
-				// preserve newline char if we split on newlines
-				if ($pagebreak == false) {
-					$line .= "\n";
-				}
-				$line_length = strlen($line);
-				if ($page_size + $line_length < $setting->get("max_blob_size")) {
-					$result[$page] .= $line;
-					$page_size += $line_length;
-				} else {
-					$result[$page] = "<a $style href=\"text://".$setting->get("default_window_color").$result[$page]."\">$name</a> (Page <highlight>$page<end>)";
-					$page++;
-					
-					$result[$page] .= "<header>::::: $name Page $page :::::<end>\n\n";
-					$result[$page] .= $line;
-					$page_size = strlen($result[$page]);
-					
-					if ($page_size > $setting->get("max_blob_size")) {
-						LegacyLogger::log('ERROR', 'Text', "Could not successfully page blob with title '$name'");
-					}
-				}
-			}
-			$result[$page] = "<a $style href=\"text://".$setting->get("default_window_color").$result[$page]."\">$name</a> (Page <highlight>$page - End<end>)";
-			return $result;
+		
+		$pages = Text::paginate($content, $setting->get("max_blob_size"), array("<pagebreak>", "\n", " "));
+		$num = count($pages);
+		
+		if ($num == 1) {
+			return "<a $style href=\"text://".$setting->get("default_window_color").$pages[0]."\">$name</a>";
 		} else {
-			return "<a $style href=\"text://".$setting->get("default_window_color").$tmp."\">$name</a>";
+			$i = 1;
+			forEach ($pages as $key => $page) {
+				if ($i > 1) {
+					$page = "<header> :::::: $name (Page $i / $num) :::::: <end>\n\n" . $page;
+				}
+			
+				$page = "<a $style href=\"text://".$setting->get("default_window_color").$page."\">$name</a> (Page <highlight>$i / $num<end>)";
+				$pages[$key] = $page;
+				$i++;
+			}
+			return $pages;
 		}
+	}
+	
+	function paginate($input, $maxLength, $symbols) {
+		$pageSize = 0;
+		$currentPage = '';
+		$result = array();
+		$symbol = array_shift($symbols);
+
+		$lines = explode($symbol, $input);
+		forEach ($lines as $line) {
+			if ($symbol == "\n") {
+				$line .= "\n";
+			}
+			
+			$lineLength = strlen($line);
+			if ($lineLength > $maxLength) {
+				if ($pageSize != 0) {
+					$result []= $currentPage;
+					$currentPage = '';
+					$pageSize = 0;
+				}
+
+				if (count($symbols) > 0) {
+					$newResult = Text::paginate($line, $maxLength, $symbols);
+					$result = array_merge($result, $newResult);
+				} else {
+					LegacyLogger::log('ERROR', 'Text', "Could not successfully page blob");
+					$result []= $line;
+				}
+			} else if ($pageSize + $lineLength < $maxLength) {
+				$currentPage .= $line;
+				$pageSize += $lineLength;
+			} else {
+				$result []= $currentPage;
+				$currentPage = $line;
+				$pageSize = $lineLength;
+			}
+		}
+		
+		if ($pageSize > 0) {
+			$result []= $currentPage;
+		}
+
+		return $result;
 	}
 	
 	/**	
@@ -127,7 +149,7 @@ class Text {
 		 * 
 		 * Sample 2:
 		 * Blob #1: <header><content up to character 7000><footer_incomplete>
-		 * Blob #2: <header_incomplete><content from 7001 - 1000><footer>
+		 * Blob #2: <header_incomplete><content from 7001 - 10000><footer>
 		 * 
 		 */
 		
