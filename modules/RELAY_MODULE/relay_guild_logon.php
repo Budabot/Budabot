@@ -22,7 +22,7 @@ if ($setting->get("relaybot") != "Off" && isset($chatBot->guildmembers[$sender])
 		}
     }
 
-	send_message_to_relay("grc <grey>[<myguild>] ".$msg);
+	send_message_to_relay("grc [<myguild>] ".$msg);
 }
 
 ?>

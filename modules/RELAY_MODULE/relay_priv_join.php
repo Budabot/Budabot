@@ -19,7 +19,7 @@ if ($setting->get('relaybot') != 'Off' && $type == "joinpriv") {
 		}
 	}
 
-	send_message_to_relay("grc <grey>[<myguild>] ".$msg);
+	send_message_to_relay("grc [<myguild>] ".$msg);
 }
 
 ?>
