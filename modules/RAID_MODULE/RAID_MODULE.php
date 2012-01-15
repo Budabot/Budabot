@@ -3,7 +3,7 @@
 
 	$db->loadSQLFile($MODULE_NAME, 'raid_loot');
 
-	//Loot list and adding/removing of players	
+	// Loot list and adding/removing of players	
 	$command->register($MODULE_NAME, "", "loot.php", "loot", "leader", "Adds an item to the loot list", 'flatroll');
 	$command->register($MODULE_NAME, "", "multiloot.php", "multiloot", "leader", "Adds items using multiloot", 'flatroll');
 	$command->register($MODULE_NAME, "", "remloot.php", "remloot", "leader", "Remove item from loot list", 'flatroll');
@@ -18,9 +18,9 @@
 	$command->register($MODULE_NAME, "", "rem.php", "rem", "all", "Let a player removing from a slot", 'add_rem');
 	
 	// APFs
-	$command->register($MODULE_NAME, "", "13.php", "13", "leader", "Adds apf 13 loot list", 'apfloot');
-	$command->register($MODULE_NAME, "", "28.php", "28", "leader", "Adds apf 28 loot list", 'apfloot');
-	$command->register($MODULE_NAME, "", "35.php", "35", "leader", "Adds apf 35 loot list", 'apfloot');
+	$command->register($MODULE_NAME, "", "apfsector.php", "13", "leader", "Adds APF 13 loot to the loot list", 'apfloot');
+	$command->register($MODULE_NAME, "", "apfsector.php", "28", "leader", "Adds APF 28 loot to the loot list", 'apfloot');
+	$command->register($MODULE_NAME, "", "apfsector.php", "35", "leader", "Adds APF 35 loot to the loot list", 'apfloot');
 	$command->register($MODULE_NAME, "", "apf.php", "apf", "all", "Shows what drops of APF Boss", 'apfloot');
 	$command->register($MODULE_NAME, "", "apfloot.php", "apfloot", "all", "Shows what to make from apf items", 'apfloot');
 	
