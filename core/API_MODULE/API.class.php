@@ -83,7 +83,7 @@ class API {
 					return;
 				}
 
-				$this->command->command($type, $apiRequest->command, $apiRequest->username, $clientHandler);
+				$this->command->process($type, $apiRequest->command, $apiRequest->username, $clientHandler);
 			}
 		}
 	}
@@ -95,7 +95,7 @@ class API {
 	 * @Matches("/^apipassword (.*)$/i")
 	 */
 	public function apipasswordCommand($message, $channel, $sender, $sendto, $arr) {
-		$this->preferences->save($sender, 'apipassword', $password, $arr[1]);
+		$this->preferences->save($sender, 'apipassword', $arr[1]);
 		$this->chatBot->send("Your API password has been updated successfully.", $sendto);
 	}
 }
