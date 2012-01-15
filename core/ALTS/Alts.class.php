@@ -64,7 +64,7 @@ class AltInfo {
 			}
 			
 			if ($showValidateLinks && $setting->get('alts_inherit_admin') == 1 && $row->validated == 0) {
-				$blob .= " [Unvalidated] " . Text::make_link('Validate', "/tell <myname> <symbol>altvalidate {$row->alt}", 'chatcmd');
+				$blob .= " [Unvalidated] " . Text::make_chatcmd('Validate', "/tell <myname> <symbol>altvalidate {$row->alt}");
 			}
 			
 			$blob .= "\n";

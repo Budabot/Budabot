@@ -272,25 +272,6 @@ class Text {
 	}
 	
 	/**
-	 * @name: make_link
-	 * @deprecated: other methods in this class have replaced this method
-	 * @description: creates a clickable link
-	 * @param: $name - the name the link will show
-	 * @param: $content - the content of the link
-	 * @param: $type - can be either 'chatcmd' or 'user'
-	 * @param: $style (optional) - any styling you want applied to the link
-	 */
-	function make_link($name, $content, $type = NULL, $style = NULL) {
-		if ($type == 'blob' || $type == NULL) {
-			return Text::make_blob($name, $content, $style);
-		} else if ($type == "chatcmd") { // Chat command.
-			return Text::make_chatcmd($name, $content, $style);
-		} else if ($type == "user") { // Adds support for right clicking usernames in chat, providing you with a menu of options (ignore etc.) (see 18.1 AO patchnotes)
-			return Text::make_userlink($user, $style);
-		}
-	}
-	
-	/**
 	 * @name: make_chatcmd
 	 * @description: creates a chatcmd link
 	 * @param: $name - the name the link will show
