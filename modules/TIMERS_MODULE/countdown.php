@@ -1,7 +1,12 @@
 <?php
 
-if (preg_match("/^(countdown|cd)$/i", $message)) {
+if (preg_match("/^countdown$/i", $message) || preg_match("/^countdown (.+)$/i", $message, $arr)) {
   	global $countdown_last;
+	
+	$message = "GO GO GO";
+	if (isset($arr)) {
+		$message = $arr[1];
+	}
   	
   	if ($countdown_last >= (time() - 30)) {
 		$msg = "<red>You can only start a countdown every 30 seconds!<end>";
@@ -13,19 +18,17 @@ if (preg_match("/^(countdown|cd)$/i", $message)) {
 	
 	for ($i = 5; $i > 3; $i--) {
 		$msg = "<red>-------> $i <-------<end>";
-	    // Send info back
 	    $chatBot->send($msg, $sendto);
 	    sleep(1);
 	}
 
 	for ($i = 3; $i > 0; $i--) {
 		$msg = "<orange>-------> $i <-------<end>";
-	    // Send info back
 	    $chatBot->send($msg, $sendto);
 	    sleep(1);
 	}
 
-	$msg = "<green>-------> GO GO GO <-------<end>";
+	$msg = "<green>-------> $message <-------<end>";
     $chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;
