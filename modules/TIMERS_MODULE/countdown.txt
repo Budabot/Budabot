@@ -4,4 +4,8 @@
 
 <highlight>To create a 5 second countdown timer:<end>
 <tab><symbol>countdown
-<tab><symbol>cd
+
+<highlight>To create a 5 second countdown timer with a customized message:<end>
+<tab><symbol>countdown 'message'
+
+Note: <symbol>cd is a default alias for this command.
