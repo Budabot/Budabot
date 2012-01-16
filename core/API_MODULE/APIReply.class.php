@@ -3,7 +3,7 @@
 class APIReply implements CommandReply {
 	private $output = array();
 
-	public function reply($msg) {
+	public function reply($message) {
 		$this->output []= $message;
 	}
 	
