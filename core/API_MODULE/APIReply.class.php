@@ -4,7 +4,12 @@ class APIReply implements CommandReply {
 	private $output = array();
 
 	public function reply($message) {
-		$this->output []= $message;
+		// if it's a blob
+		if (is_array($message) {
+			$this->output = array_merge($this->output, $message);
+		} else {
+			$this->output []= $message;
+		}
 	}
 	
 	public function getOutput() {
