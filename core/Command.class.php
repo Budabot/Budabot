@@ -111,8 +111,11 @@ class Command extends Annotation {
 			$actual_filename = $filename;
 		}
 		
-		$this->commands[$channel][$command]["filename"] = $actual_filename;
-		$this->commands[$channel][$command]["admin"] = $admin;
+		$obj = new stdClass;
+		$obj->file = $actual_filename;
+		$obj->admin = $admin;
+		
+		$this->commands[$channel][$command] = $obj;
 	}
 	
 	/**
@@ -193,30 +196,16 @@ class Command extends Annotation {
 		return $this->db->query($sql, $command);
 	}
 	
-	function process($type, $message, $sender, $sendto) {
-		$chatBot = $this->chatBot;
-		$db = $this->db;
-		$setting = $this->setting;
-		
+	function process($channel, $message, $sender, $sendto) {
 		list($cmd, $params) = explode(' ', $message, 2);
 		$cmd = strtolower($cmd);
 		
-		$admin = $this->commands[$type][$cmd]["admin"];
-		$filename = $this->commands[$type][$cmd]["filename"];
-
-		// Check if a subcommands for this exists
-		if (isset($this->subcommand->subcommands[$cmd])) {
-			forEach ($this->subcommand->subcommands[$cmd] as $row) {
-				if ($row->type == $type && preg_match("/^{$row->cmd}$/i", $message)) {
-					$admin = $row->admin;
-					$filename = $row->file;
-				}
-			}
-		}
+		$commandHandler = $this->getActiveCommandHandler($cmd, $channel, $message);
 		
-		// if file doesn't exist
-		if ($filename == '') {
-			if (($this->setting->get('guild_channel_cmd_feedback') == 0 && $type == 'guild') || (($this->setting->get('private_channel_cmd_feedback') == 0 && $type == 'priv'))) {
+		// if command doesn't exist
+		if ($commandHandler === null) {
+			// if they've disabled feedback for guild or private channel, just return
+			if (($this->setting->get('guild_channel_cmd_feedback') == 0 && $channel == 'guild') || (($this->setting->get('private_channel_cmd_feedback') == 0 && $channel == 'priv'))) {
 				return;
 			}
 				
@@ -226,9 +215,9 @@ class Command extends Annotation {
 		}
 
 		// if the character doesn't have access
-		if ($this->accessLevel->checkAccess($sender, $admin) !== true) {
+		if ($this->accessLevel->checkAccess($sender, $commandHandler->admin) !== true) {
 			// if they've disabled feedback for guild or private channel, just return
-			if (($this->setting->get('guild_channel_cmd_feedback') == 0 && $type == 'guild') || (($this->setting->get('private_channel_cmd_feedback') == 0 && $type == 'priv'))) {
+			if (($this->setting->get('guild_channel_cmd_feedback') == 0 && $channel == 'guild') || (($this->setting->get('private_channel_cmd_feedback') == 0 && $channel == 'priv'))) {
 				return;
 			}
 				
@@ -237,17 +226,31 @@ class Command extends Annotation {
 			return;
 		}
 
+		// record usage stats
 		if ($cmd != 'grc' && $this->setting->get('record_usage_stats') == 1) {
-			Registry::getInstance('usage')->record($type, $cmd, $sender);
+			Registry::getInstance('usage')->record($channel, $cmd, $sender);
 		}
 	
+		$syntaxError = $this->callCommandHandler($commandHandler, $message, $channel, $sender, $sendto);
+		
+		if ($syntaxError === true) {
+			$help = $this->getHelpForCommand($cmd, $channel);
+			$this->chatBot->send($help, $sendto);
+		}
+		$this->chatBot->spam[$sender] += 10;
+	}
+	
+	public function callCommandHandler($commandHandler, $message, $channel, $sender, $sendto, $arr) {
 		$syntax_error = false;
-		$msg = "";
 		try {
-			if (preg_match("/\\.php$/i", $filename)) {
-				require $filename;
+			if (preg_match("/\\.php$/i", $commandHandler->file)) {
+				$chatBot = Registry::getInstance('chatBot');
+				$db = Registry::getInstance('db');
+				$setting = Registry::getInstance('setting');
+
+				require $commandHandler->file;
 			} else {
-				list($name, $method) = explode(".", $filename);
+				list($name, $method) = explode(".", $commandHandler->file);
 				$instance = Registry::getInstance($name);
 				if ($instance === null) {
 					$this->logger->log('ERROR', "Could not find instance for name '$name'");
@@ -258,31 +261,45 @@ class Command extends Annotation {
 					} else {
 						// methods will return false to indicate a syntax error, so when a false is returned,
 						// we set $syntax_error = true, otherwise we set it to false
-						$syntax_error = ($instance->$method($message, $type, $sender, $sendto, $arr) !== false ? false : true);
+						$syntax_error = ($instance->$method($message, $channel, $sender, $sendto, $arr) !== false ? false : true);
 					}
 				}
 			}
 		} catch (Exception $e) {
 			$chatBot->send("There was an error executing your command: " . $e->getMessage(), $sendto);
 		}
-		if ($syntax_error === true) {
-			$results = $this->get($cmd, $type);
-			$result = $results[0];
-			if ($result->help != '') {
-				$blob = $this->help->find($result->help, $sender);
-				$helpcmd = ucfirst($result->help);
-			} else {
-				$blob = $this->help->find($cmd, $sender);
-				$helpcmd = ucfirst($cmd);
-			}
-			if ($blob !== false) {
-				$msg = $this->text->make_legacy_blob("Help ($helpcmd)", $blob);
-				$this->chatBot->send($msg, $sendto);
-			} else {
-				$this->chatBot->send("Error! Invalid syntax for this command.", $sendto);
+		
+		return $syntax_error;
+	}
+	
+	public function getActiveCommandHandler($cmd, $channel, $message) {
+		// Check if a subcommands for this exists
+		if (isset($this->subcommand->subcommands[$cmd])) {
+			forEach ($this->subcommand->subcommands[$cmd] as $row) {
+				if ($row->type == $channel && preg_match("/^{$row->cmd}$/i", $message)) {
+					return $row;
+				}
 			}
 		}
-		$this->chatBot->spam[$sender] += 10;
+		return $this->commands[$channel][$cmd];
+	}
+	
+	public function getHelpForCommand($cmd, $channel) {
+		$results = $this->get($cmd, $channel);
+		$result = $results[0];
+		if ($result->help != '') {
+			$blob = $this->help->find($result->help, $sender);
+			$helpcmd = ucfirst($result->help);
+		} else {
+			$blob = $this->help->find($cmd, $sender);
+			$helpcmd = ucfirst($cmd);
+		}
+		if ($blob !== false) {
+			$msg = $this->text->make_legacy_blob("Help ($helpcmd)", $blob);
+		} else {
+			$msg = "Error! Invalid syntax for this command.";
+		}
+		return $msg;
 	}
 	
 	public function checkMatches($instance, $method, $message) {
