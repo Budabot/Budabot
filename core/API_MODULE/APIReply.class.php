@@ -5,7 +5,7 @@ class APIReply implements CommandReply {
 
 	public function reply($message) {
 		// if it's a blob
-		if (is_array($message) {
+		if (is_array($message)) {
 			$this->output = array_merge($this->output, $message);
 		} else {
 			$this->output []= $message;
