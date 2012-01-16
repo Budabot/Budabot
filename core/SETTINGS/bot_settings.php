@@ -21,7 +21,7 @@ if (preg_match("/^settings$/i", $message)) {
 	}
 
   	$msg = Text::make_blob("Bot Settings", $blob);
- 	$chatBot->send($msg, $sendto);
+ 	$sendto->reply($msg);
 } else if (preg_match("/^settings change ([a-z0-9_]+)$/i", $message, $arr)) {
 	$settingName = strtolower($arr[1]);
  	$row = $db->queryRow("SELECT * FROM settings_<myname> WHERE `name` = ?", $settingName);
@@ -112,7 +112,7 @@ if (preg_match("/^settings$/i", $message)) {
 		$msg = Text::make_blob("Settings Info for {$settingName}", $blob);
 	}
 
- 	$chatBot->send($msg, $sendto);
+ 	$sendto->reply($msg);
 } else if (preg_match("/^settings save ([a-z0-9_]+) (.+)$/i", $message, $arr)) {
   	$name_setting = strtolower($arr[1]);
   	$change_to_setting = $arr[2];
@@ -168,7 +168,7 @@ if (preg_match("/^settings$/i", $message)) {
 		$setting->save($name_setting, $new_setting);
 		$msg = "Setting successfull saved.";
 	}
- 	$chatBot->send($msg, $sendto);
+ 	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

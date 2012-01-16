@@ -15,11 +15,11 @@ if (preg_match("/^whoisorg (\d+) (\d)$/i", $message, $arr1) || preg_match("/^who
 
 		if ($whois === null) {
 			$msg = "Could not find character info for $name.";
-			$chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 			return;
 		} else if (!$whois->guild_id) {
 			$msg = "Character <highlight>$name<end> does not seem to be in an org.";
-			$chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 			return;
 		} else {
 			$org_id = $whois->guild_id;
@@ -33,12 +33,12 @@ if (preg_match("/^whoisorg (\d+) (\d)$/i", $message, $arr1) || preg_match("/^who
 	}
 
   	$msg = "Getting Org info. Please stand by...";
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 	
     $org = Guild::get_by_id($org_id, $dimension);
 	if ($org === null) {
 		$msg = "Error in getting the Org info. Either the org does not exist or AO's server was too slow to respond.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
@@ -157,7 +157,7 @@ if (preg_match("/^whoisorg (\d+) (\d)$/i", $message, $arr1) || preg_match("/^who
 	$link .= "<highlight>Traders:<end> $num_trad (".round(($num_trad*100)/$num_members, 1)."% of total)\n";		  			  			  	
 	$msg = Text::make_blob("Org Info $org->orgname", $link);
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

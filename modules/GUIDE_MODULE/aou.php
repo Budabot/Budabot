@@ -54,7 +54,7 @@ if (preg_match("/^aou (\\d+)$/i", $message, $arr)) {
 	$blob .= "\n\n<yellow>Powered by<end> " . Text::make_chatcmd("AO-Universe.com", "/start http://www.ao-universe.com");
 	
 	$msg = Text::make_blob($title, $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^aou (.+)$/i", $message, $arr)) {
 	$search = str_replace(' ', '%', $arr[1]);
 	
@@ -87,7 +87,7 @@ if (preg_match("/^aou (\\d+)$/i", $message, $arr)) {
 	} else {
 		$msg = "Could not find any guides containing: '$search'";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

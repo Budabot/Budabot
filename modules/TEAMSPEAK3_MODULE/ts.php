@@ -2,7 +2,7 @@
 
 if (preg_match("/^ts$/i", $message)) {
 	$msg = getTeamspeak3Status();	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

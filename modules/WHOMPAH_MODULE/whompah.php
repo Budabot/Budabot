@@ -13,19 +13,19 @@ if (preg_match("/^whompah$/i", $message, $arr)) {
 	
 	$msg = Text::make_blob('Whompah Cities', $blob);
 	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^whompah (.+) (.+)$/i", $message, $arr)) {
 	$startCity = Whompah::find_city($arr[1]);
 	$endCity = Whompah::find_city($arr[2]);
 	
 	if ($startCity === null) {
 		$msg = "Error! Could not find city '$arr[1]'!";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 	if ($endCity === null) {
 		$msg = "Error! Could not find city '$arr[2]'!";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 	
@@ -48,13 +48,13 @@ if (preg_match("/^whompah$/i", $message, $arr)) {
 		$msg .= "$obj->city_name";
 	}
 	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^whompah (.+)$/i", $message, $arr)) {
 	$city = Whompah::find_city($arr[1]);
 	
 	if ($city === null) {
 		$msg = "Error! Could not find city '$arr[1]'!";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 	
@@ -66,7 +66,7 @@ if (preg_match("/^whompah$/i", $message, $arr)) {
 		$msg .= "<yellow>{$row->city_name}<end> (<highlight>{$row->short_name}<end>), ";
 	}
 	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

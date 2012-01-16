@@ -14,7 +14,7 @@ if (preg_match("/^svn dry$/i", $message)) {
 	
 	$msg = Text::make_blob('svn merge –-dry-run output', $blob);
 	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^svn update$/i", $message)) {
 	$command = "$svnpath info 2>&1";
 	$output = array();
@@ -39,7 +39,7 @@ if (preg_match("/^svn dry$/i", $message)) {
 	
 	$msg = Text::make_blob('svn update output', $blob);
 	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^svn info$/i", $message)) {
 	$command = "$svnpath info 2>&1";
 	$output = array();
@@ -53,7 +53,7 @@ if (preg_match("/^svn dry$/i", $message)) {
 	
 	$msg = Text::make_blob('svn info output', $blob);
 	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^svn status$/i", $message) || preg_match("/^svn status (.*)$/i", $message, $arr)) {
 	$command = "$svnpath status $arr[1] 2>&1";
 	$output = array();
@@ -67,7 +67,7 @@ if (preg_match("/^svn dry$/i", $message)) {
 	
 	$msg = Text::make_blob("svn status $arr[1] output", $blob);
 	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

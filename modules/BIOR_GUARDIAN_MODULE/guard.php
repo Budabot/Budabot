@@ -58,7 +58,7 @@ if (preg_match("/^guard$/i", $message)) {
 			$chatBot->send($msg, $player);
 		}
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

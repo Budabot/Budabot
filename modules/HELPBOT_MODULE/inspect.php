@@ -53,7 +53,7 @@ if (preg_match("/^inspect (.+)$/i", $message, $arr)) {
 	} else {
 		$msg = "Cannot identify that item.";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

@@ -16,7 +16,7 @@ if (preg_match("/^calc (.+)$/i", $message, $arr)) {
    		if (is_numeric($result)) {
             $result = round($result, 4);
             $msg = $arr[1]." = <highlight>".$result."<end>";
-			$chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
         } else {
         	$syntax_error = true;
 		}

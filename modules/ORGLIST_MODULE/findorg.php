@@ -35,7 +35,7 @@ if (preg_match("/^findorg (.+) (\d)$/i", $message, $arr) || preg_match("/^findor
 	} else {
 		$msg = "No matches found.";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
     $syntax_error = true;
 }

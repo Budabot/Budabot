@@ -31,7 +31,7 @@
 
 if (preg_match("/^list$/i", $message)) {
 	$msg = Raid::get_current_loot_list();
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

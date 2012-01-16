@@ -95,6 +95,11 @@ require_once './lib/apache-log4php-2.2.0/Logger.php';
 require_once './core/Registry.class.php';
 require_once './core/LegacyLogger.class.php';
 require_once './core/annotations.php';
+
+require_once './core/PrivateChannelCommandReply.class.php';
+require_once './core/PrivateMessageCommandReply.class.php';
+require_once './core/GuildChannelCommandReply.class.php';
+
 require_once './core/AOChat.class.php';
 require_once './core/Budabot.class.php';
 require_once './core/DB.class.php';

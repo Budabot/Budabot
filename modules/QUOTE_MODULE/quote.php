@@ -66,7 +66,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 			$msg = "This quote is too big.";
 		}
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 // Removing a quote
 } else if (preg_match("/^quote (rem|del|remove|delete) (\\d+)$/i", $message, $arr)) {
 
@@ -89,7 +89,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 	} else {
 		$msg = "Could not find this quote.  Already deleted?";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 //Searching for authors or victims.
 } else if (preg_match("/^quote search (.+)$/i", $message, $arr)) {
 	
@@ -139,7 +139,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 	} else {
 		$msg = "Couldn't find any matches for this search.";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 //Show the top quoters/quoted
 } else if (preg_match("/^quote stats$/i", $message, $arr)) {
 	$top = $setting->get("quote_stat_count");
@@ -190,7 +190,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 	}
 
 	$msg = Text::make_blob("Quote stats", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 //View a specific quote
 } else if (preg_match("/^quote ([0-9]+)$/i", $message, $arr)) {
 	
@@ -232,7 +232,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 	} else {
 		$msg = "No quote found with that ID.";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 //View a random quote
 } else if (preg_match("/^quote$/i", $message)) {
 	//get total number of entries for rand (and see if we even have any quotes to show)
@@ -281,7 +281,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 	} else {
 		$msg = "I dont have any quotes to show!";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

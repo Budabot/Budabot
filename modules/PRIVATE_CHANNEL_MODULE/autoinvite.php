@@ -17,7 +17,7 @@ if (preg_match("/^autoinvite (on|off)$/i", $message, $arr)) {
 		$msg = "Your auto invite preference has been updated.";
 	}
 	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

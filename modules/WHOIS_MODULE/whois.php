@@ -73,7 +73,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
         $msg = "Character <highlight>{$name}<end> does not exist.";
 	}
 
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else if (preg_match("/^whoisall (.+)$/i", $message, $arr)) {
     $name = ucfirst(strtolower($arr[1]));
     for ($i = 1; $i <= 2; $i ++) {
@@ -111,7 +111,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
             $msg = "Server $server: Character <highlight>{$name}<end> does not exist.";
 		}
 
-        $chatBot->send($msg, $sendto);
+        $sendto->reply($msg);
     }
 } else {
 	$syntax_error = true;

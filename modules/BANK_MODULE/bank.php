@@ -9,7 +9,7 @@ if (preg_match("/^bank browse$/i", $message)) {
 	}
 	
 	$msg = Text::make_blob('Bank Characters', $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^bank browse ([a-z0-9-]+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 
@@ -25,7 +25,7 @@ if (preg_match("/^bank browse$/i", $message)) {
 	} else {
 		$msg = "Could not find a bank character named $name";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^bank browse ([a-z0-9-]+) (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 	$pack = htmlspecialchars_decode($arr[2], ENT_QUOTES);
@@ -44,7 +44,7 @@ if (preg_match("/^bank browse$/i", $message)) {
 	} else {
 		$msg = "Could not find a pack named '{$pack}' on a bank character named '{$name}'";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^bank search (.+)$/i", $message, $arr)) {
 	$search = explode(' ', $arr[1]);
 	$limit = $setting->get('max_bank_items');
@@ -68,7 +68,7 @@ if (preg_match("/^bank browse$/i", $message)) {
 	} else {
 		$msg = "Could not find any bank items when searching for '{$arr[1]}'";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

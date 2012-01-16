@@ -8,7 +8,7 @@ if (preg_match("/^logon$/i", $message)) {
 	} else {
 		$msg = "{$sender} logon: {$logon_msg}";
 	}
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else if (preg_match("/^logon (.+)$/i", $message, $arr)) {
 	$logon_msg = $arr[1];
 	
@@ -21,7 +21,7 @@ if (preg_match("/^logon$/i", $message)) {
 	} else {
 		$msg = "Your logon message is too large. Your logon message may contain a maximum of " . $setting->get('max_logon_msg_size') . " characters.";
 	}
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

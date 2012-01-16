@@ -27,7 +27,7 @@ if (preg_match("/^fp (\\d+)$/i", $message, $arr1) || preg_match("/^fp (.+)$/i", 
 		$data = file_get_contents($url, 0);
 		if (empty($data) || '<error>' == substr($data, 0, 7)) {
 			$msg = "Unable to query Items XML Database.";
-			$chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 			return;
 		}
 
@@ -64,7 +64,7 @@ if (preg_match("/^fp (\\d+)$/i", $message, $arr1) || preg_match("/^fp (.+)$/i", 
 		$msg = Text::make_blob("Nano Search Results ($count)", $blob);
 	}
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
   	$syntax_error = true; 	
 }

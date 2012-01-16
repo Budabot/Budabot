@@ -65,43 +65,43 @@ if (preg_match("/^pande$/i", $message)){
 	$list .= "\n\nPandemonium Loot By Marinerecon (RK2)";
 
 	$msg = Text::make_blob("Pandemonium Loot", $list);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^beastarmor$/i", $message)){
-	$chatBot->send(get_pande_loot('Pande', 'Beast Armor'), $sendto);
+	$sendto->reply(get_pande_loot('Pande', 'Beast Armor'));
 } else if (preg_match("/^beastweaps$/i", $message)){
-	$chatBot->send(get_pande_loot('Pande', 'Beast Weapons'), $sendto);
+	$sendto->reply(get_pande_loot('Pande', 'Beast Weapons'));
 } else if (preg_match("/^beaststars$/i", $message)){
-	$chatBot->send(get_pande_loot('Pande', 'Stars'), $sendto);
+	$sendto->reply(get_pande_loot('Pande', 'Stars'));
 } else if (preg_match("/^sb$/i", $message)){
-	$chatBot->send(get_pande_loot('Pande', 'Shadowbreeds'), $sendto);
+	$sendto->reply(get_pande_loot('Pande', 'Shadowbreeds'));
 } else if (preg_match("/^tnh$/i", $message)){
-	$chatBot->send(get_pande_loot('Pande', 'The Night Heart'), $sendto);
+	$sendto->reply(get_pande_loot('Pande', 'The Night Heart'));
 } else if (preg_match("/^aries$/i", $message)){
-	$chatBot->send(get_pande_loot('Pande', 'Aries'), $sendto);
+	$sendto->reply(get_pande_loot('Pande', 'Aries'));
 } else if (preg_match("/^leo$/i", $message)){
-	$chatBot->send(get_pande_loot('Pande', 'Leo'), $sendto);
+	$sendto->reply(get_pande_loot('Pande', 'Leo'));
 } else if (preg_match("/^virgo$/i", $message)){
-	$chatBot->send(get_pande_loot('Pande', 'Virgo'), $sendto);
+	$sendto->reply(get_pande_loot('Pande', 'Virgo'));
 } else if (preg_match("/^aquarius$/i", $message)){
-	$chatBot->send(get_pande_loot('Pande', 'Aquarius'), $sendto);
+	$sendto->reply(get_pande_loot('Pande', 'Aquarius'));
 } else if (preg_match("/^cancer$/i", $message)){
-	$chatBot->send(get_pande_loot('Pande', 'Cancer'), $sendto);
+	$sendto->reply(get_pande_loot('Pande', 'Cancer'));
 } else if (preg_match("/^gemini$/i", $message)){
-	$chatBot->send(get_pande_loot('Pande', 'Gemini'), $sendto);
+	$sendto->reply(get_pande_loot('Pande', 'Gemini'));
 } else if (preg_match("/^libra$/i", $message)){
-	$chatBot->send(get_pande_loot('Pande', 'Libra'), $sendto);
+	$sendto->reply(get_pande_loot('Pande', 'Libra'));
 } else if (preg_match("/^pisces$/i", $message)){
-	$chatBot->send(get_pande_loot('Pande', 'Pisces'), $sendto);
+	$sendto->reply(get_pande_loot('Pande', 'Pisces'));
 } else if (preg_match("/^taurus$/i", $message)){
-	$chatBot->send(get_pande_loot('Pande', 'Taurus'), $sendto);
+	$sendto->reply(get_pande_loot('Pande', 'Taurus'));
 } else if (preg_match("/^capricorn$/i", $message)){
-	$chatBot->send(get_pande_loot('Pande', 'Capricorn'), $sendto);
+	$sendto->reply(get_pande_loot('Pande', 'Capricorn'));
 } else if (preg_match("/^sagittarius$/i", $message)){
-	$chatBot->send(get_pande_loot('Pande', 'Sagittarius'), $sendto);
+	$sendto->reply(get_pande_loot('Pande', 'Sagittarius'));
 } else if (preg_match("/^scorpio$/i", $message)){
-	$chatBot->send(get_pande_loot('Pande', 'Scorpio'), $sendto);
+	$sendto->reply(get_pande_loot('Pande', 'Scorpio'));
 } else if (preg_match("/^bastion$/i", $message)){
-	$chatBot->send(get_pande_loot('Pande', 'Bastion'), $sendto);
+	$sendto->reply(get_pande_loot('Pande', 'Bastion'));
 } else {
 	$syntax_error = true;
 }

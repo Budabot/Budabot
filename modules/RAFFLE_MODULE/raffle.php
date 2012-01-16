@@ -5,13 +5,13 @@ $accessLevel = Registry::getInstance('accessLevel');
 if (preg_match("/^raffle start (\d+) (.+)$/i", $message, $arr)) {
 	if ("msg" == $type) {
 		$msg = "You can't start a raffle in tells, please use org-chat or private channel.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
 	if ($chatBot->data["Raffles"]["running"]) {
 		$msg = "<highlight>There is already a raffle in progress.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
@@ -43,17 +43,17 @@ Click $link to join the raffle. Raffle will end in $timeString.
 -----------------------------------------------------------------------";
 
 	$chatBot->data["Raffles"]["nextmsgtime"] = get_next_time($chatBot->data["Raffles"]["time"]);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^raffle start (.+)$/i", $message, $arr)) {
 	if ("msg" == $type) {
 		$msg = "You can't start a raffle in tells, please use org-chat or private channel.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
 	if ($chatBot->data["Raffles"]["running"]) {
 		$msg = "<highlight>There is already a raffle in progress.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
@@ -85,17 +85,17 @@ Click $link to join the raffle. Raffle will end in $timeString'.
 -----------------------------------------------------------------------";
 
 	$chatBot->data["Raffles"]["nextmsgtime"] = get_next_time($chatBot->data["Raffles"]["time"]);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^raffle cancel$/i", $message, $arr)) {
 	if (!$chatBot->data["Raffles"]["running"]) {
 		$msg = "<highlight>There is no active raffle.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
 	if (($chatBot->data["Raffles"]["owner"] != $sender) && !$accessLevel->checkAccess($sender, "raidleader")) {
 		$msg = "<highlight>Only the owner or admins may cancel the raffle.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 	$sendtobuffer = $chatBot->data["Raffles"]["sendto"];
@@ -115,13 +115,13 @@ Click $link to join the raffle. Raffle will end in $timeString'.
 } else if (preg_match("/^raffle end$/i", $message, $arr)) {
 	if (!$chatBot->data["Raffles"]["running"]) {
 		$msg = "<highlight>There is no active raffle.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
 	if (($chatBot->data["Raffles"]["owner"] != $sender) && !$accessLevel->checkAccess($sender, "raidleader")) {
 		$msg = "<highlight>Only the owner or admins may end the raffle.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
@@ -130,21 +130,21 @@ Click $link to join the raffle. Raffle will end in $timeString'.
 } else if (preg_match("/^raffle result$/i", $message, $arr)) {
 	if (!isset ($chatBot->data["Raffles"]["lastresult"])) {
 		$msg = "<highlight>Last raffles result could not be retrieved.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
-	$chatBot->send("Last raffle result: ".$chatBot->data["Raffles"]["lastresult"], $sendto);
+	$sendto->reply("Last raffle result: ".$chatBot->data["Raffles"]["lastresult"]);
 } else if (preg_match("/^raffle join$/i", $message, $arr)) {
 	if (!$chatBot->data["Raffles"]["running"]) {
 		$msg = "<highlight>There is no active raffle.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
 	if (isset( $chatBot->data["Raffles"]["rafflees"][$sender])) {
 		$msg = "<highlight>You are already in the raffle.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
@@ -155,13 +155,13 @@ Click $link to join the raffle. Raffle will end in $timeString'.
 } else if (preg_match("/^raffle leave$/i", $message, $arr)) {
 	if (!$chatBot->data["Raffles"]["running"]) {
 		$msg = "<highlight>There is no active raffle.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
 	if (!isset( $chatBot->data["Raffles"]["rafflees"][$sender])) {
 		$msg = "You are not currently signed up for the raffle.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 

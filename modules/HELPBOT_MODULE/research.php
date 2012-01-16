@@ -28,7 +28,7 @@ if (preg_match("/^research ([0-9]+)$/i",$message, $arr)) {
 		$msg = Text::make_blob("XP/SK Needed for Research Levels", $blob);
 	}
 	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^research ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	$lolevel = $arr[1];
 	$hilevel = $arr[2];
@@ -54,7 +54,7 @@ if (preg_match("/^research ([0-9]+)$/i",$message, $arr)) {
 		$msg = Text::make_blob("XP/SK Needed for Research Levels", $blob);
 	}
 	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

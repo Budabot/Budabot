@@ -11,12 +11,12 @@ if (preg_match("/^leprocs$/i", $message)) {
 	$blob .= "\n\nProc info provided by Wolfbiter (RK1), Gatester (RK2)";
 
 	$msg = Text::make_blob("LE Procs", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^leprocs (.+)$/i", $message, $arr)) {
 	$profession = Util::get_profession_name($arr[1]);
 	if ($profession == '') {
 		$msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, or trader";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
@@ -42,7 +42,7 @@ if (preg_match("/^leprocs$/i", $message)) {
 
 		$msg = Text::make_blob("$profession LE Procs", $blob);
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

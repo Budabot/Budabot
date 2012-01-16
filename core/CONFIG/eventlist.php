@@ -43,7 +43,7 @@ if (preg_match("/^eventlist$/i", $message) || preg_match("/^eventlist (.+)$/i", 
 	} else {
 		$msg = "No events could be found for event type '$arr[1]'.";
 	}
- 	$chatBot->send($msg, $sendto);
+ 	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

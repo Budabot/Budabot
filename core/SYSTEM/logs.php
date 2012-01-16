@@ -17,7 +17,7 @@ if (preg_match("/^logs$/i", $message)) {
 	} else {
 		$msg = "Could not open log directory: '" . LegacyLogger::get_logging_directory() . "'";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^logs ([a-zA-Z0-9_\\.]+)$/i", $message, $arr)) {
 	$filename = LegacyLogger::get_logging_directory() . "/" . $arr[1];
 	$size = filesize($filename);
@@ -32,7 +32,7 @@ if (preg_match("/^logs$/i", $message)) {
 	} else {
 		$msg = "Could not open file: '{$filename}'";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

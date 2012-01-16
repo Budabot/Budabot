@@ -68,7 +68,7 @@ if (preg_match("/^system$/i", $message, $arr)) {
 	}
 
 	$msg = Text::make_blob('System Info', $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

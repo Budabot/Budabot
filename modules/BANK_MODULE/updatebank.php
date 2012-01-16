@@ -5,7 +5,7 @@ if (preg_match("/^updatebank$/i", $message)) {
 	
 	if ($lines === false) {
 		$msg = "Could not open file: '" . $setting->get('bank_file_location') . "'";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
@@ -32,7 +32,7 @@ if (preg_match("/^updatebank$/i", $message)) {
 	$db->commit();
 	
 	$msg = "The bank database has been updated.";
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

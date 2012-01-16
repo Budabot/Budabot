@@ -16,7 +16,7 @@ if (preg_match("/^lookup (\\d+)$/i", $message, $arr)) {
 		$msg = "No history available for character id <highlight>$charid<end>.";
 	}
 	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^lookup (.*)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 	
@@ -34,7 +34,7 @@ if (preg_match("/^lookup (\\d+)$/i", $message, $arr)) {
 		$msg = "No history available for character <highlight>$name<end>.";
 	}
 	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

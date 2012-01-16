@@ -28,20 +28,20 @@ if (preg_match("/^xan$/i", $message)){
 	$list .= "\n\nXan Loot By Morgo (RK2)";
 
 	$msg = Text::make_blob("Legacy of the Xan Loot", $list);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^vortexx$/i", $message)){
-	$chatBot->send(get_xan_loot('Vortexx', 'General'), $sendto);
-	$chatBot->send(get_xan_loot('Vortexx', 'Symbiants'), $sendto);
-	$chatBot->send(get_xan_loot('Vortexx', 'Spirits'), $sendto);
+	$sendto->reply(get_xan_loot('Vortexx', 'General'));
+	$sendto->reply(get_xan_loot('Vortexx', 'Symbiants'));
+	$sendto->reply(get_xan_loot('Vortexx', 'Spirits'));
 } else if (preg_match("/^mitaar$/i", $message)){
-	$chatBot->send(get_xan_loot('Mitaar', 'General'), $sendto);
-	$chatBot->send(get_xan_loot('Mitaar', 'Symbiants'), $sendto);
-	$chatBot->send(get_xan_loot('Mitaar', 'Spirits'), $sendto);
+	$sendto->reply(get_xan_loot('Mitaar', 'General'));
+	$sendto->reply(get_xan_loot('Mitaar', 'Symbiants'));
+	$sendto->reply(get_xan_loot('Mitaar', 'Spirits'));
 } else if (preg_match("/^12m$/i", $message)){
-	$chatBot->send(get_xan_loot('12 Man', 'General'), $sendto);
-	$chatBot->send(get_xan_loot('12 Man', 'Symbiants'), $sendto);
-	$chatBot->send(get_xan_loot('12 Man', 'Spirits'), $sendto);
-	$chatBot->send(get_xan_loot('12 Man', 'Profession Gems'), $sendto);
+	$sendto->reply(get_xan_loot('12 Man', 'General'));
+	$sendto->reply(get_xan_loot('12 Man', 'Symbiants'));
+	$sendto->reply(get_xan_loot('12 Man', 'Spirits'));
+	$sendto->reply(get_xan_loot('12 Man', 'Profession Gems'));
 } else {
 	$syntax_error = true;
 }

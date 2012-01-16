@@ -30,7 +30,7 @@ if (preg_match("/^cloak$/i", $message)) {
         }
         $msg .= " ".Text::make_blob("Cloak History", $list);
     }
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else if (preg_match("/^cloak (raise|on)$/i", $message)) {
     $row = $db->queryRow("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 20");
 
@@ -41,7 +41,7 @@ if (preg_match("/^cloak$/i", $message)) {
 		$msg = "The cloaking device has been manually enabled in the bot (you must still enable the cloak if it's disabled).";
 	}
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

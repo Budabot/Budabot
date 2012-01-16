@@ -63,7 +63,7 @@ if (preg_match("/^nano (.+)$/i", $message, $arr)) {
 		$msg = Text::make_blob("Nano Search Results ($count)", $blob);
 	}
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
   	$syntax_error = true; 	
 }

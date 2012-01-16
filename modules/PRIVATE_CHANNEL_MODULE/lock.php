@@ -32,7 +32,7 @@
 if (preg_match("/^lock$/i", $message)) {
   	if ($setting->get("priv_status") == "0") {
 	    $msg = "Private channel is already locked.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
@@ -48,7 +48,7 @@ if (preg_match("/^lock$/i", $message)) {
   	$reason = $arr[1];
 	if ($setting->get("priv_status") == "0") {
 	    $msg = "Private channel is already locked.";
-    	$chatBot->send($msg, $sendto);
+    	$sendto->reply($msg);
 		return;
 	}
 
@@ -64,7 +64,7 @@ if (preg_match("/^lock$/i", $message)) {
 } else if (preg_match("/^unlock$/i", $message)) {
   	if ($setting->get("priv_status") == "1") {
 	    $msg = "Private channel is already open.";
-    	$chatBot->send($msg, $sendto);
+    	$sendto->reply($msg);
 		return;
 	}
 

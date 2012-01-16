@@ -70,7 +70,7 @@ if (preg_match("/^mafist ([0-9]+)$/i", $message, $arr)) {
 	$blob .= "Fist damage: ".$dmg."\n\n";
 
 	$msg = Text::make_blob("Martial Arts Results", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

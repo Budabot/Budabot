@@ -19,7 +19,7 @@ if (preg_match("/^dnet (enable|on|add)/i", $message)) {
 	}
 
 	$msg = "Dnet support has been <green>enabled<end>.";
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^dnet (disable|off|rem|remove)$/i", $message)) {
 	$setting->save('dnet_status', 0);
 	$db->exec("DELETE FROM broadcast_<myname> WHERE name = ?", $name);
@@ -31,7 +31,7 @@ if (preg_match("/^dnet (enable|on|add)/i", $message)) {
 	$chatBot->privategroup_leave($name);
 
 	$msg = "Dnet support has been <orange>disabled<end>.";
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

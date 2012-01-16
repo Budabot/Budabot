@@ -9,7 +9,7 @@ if (preg_match("/^logoffadmin ([a-zA-Z0-9-]+)$/i", $message, $arr)) {
 	} else {
 		$msg = "{$name} logoff: {$logoff_msg}";
 	}
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else if (preg_match("/^logoffadmin ([a-zA-Z0-9-]+) (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 	$logoff_msg = $arr[2];
@@ -23,7 +23,7 @@ if (preg_match("/^logoffadmin ([a-zA-Z0-9-]+)$/i", $message, $arr)) {
 	} else {
 		$msg = "The logoff message is too large. The logoff message may contain a maximum of " . $setting->get('max_logoff_msg_size') . " characters.";
 	}
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

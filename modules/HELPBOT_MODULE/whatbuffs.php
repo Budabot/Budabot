@@ -15,7 +15,7 @@ if (preg_match("/^whatbuffs (.+)$/i", $message, $arr)) {
 
 	switch (sizeof($skills)) {
 		case 0:  // skill does not exist
-			$chatBot->send("Could not find a skill by that name.", $sendto);
+			$sendto->reply("Could not find a skill by that name.");
 			return;
 
 		case 1:  // exactly one matching skill
@@ -33,11 +33,11 @@ if (preg_match("/^whatbuffs (.+)$/i", $message, $arr)) {
 				$inside .= $info;
 				$inside .= "\n\nby Imoutochan, RK1";
 				$windowlink = Text::make_blob(":: Your \"What buffs ...?\" results ::", $inside);
-				$chatBot->send($windowlink, $sendto); 
-				$chatBot->send("<highlight>$found<end> result(s) in total", $sendto);
+				$sendto->reply($windowlink); 
+				$sendto->reply("<highlight>$found<end> result(s) in total");
 				return;
 			} else {
-				$chatBot->send("Nothing that buffs ".$skills[0]." in my database.", $sendto);
+				$sendto->reply("Nothing that buffs ".$skills[0]." in my database.");
 				return; 
 			}
 			break;
@@ -51,8 +51,8 @@ if (preg_match("/^whatbuffs (.+)$/i", $message, $arr)) {
 			$inside .= $info;
 			$inside .= "\n\nby Imoutochan, RK1";
 			$windowlink = Text::make_blob(":: Your \"What buffs ...?\" results ::", $inside);
-			$chatBot->send($windowlink, $sendto); 
-			$chatBot->send("Found several skills matching your key words.", $sendto);
+			$sendto->reply($windowlink); 
+			$sendto->reply("Found several skills matching your key words.");
 			return;
 	}
 } else {

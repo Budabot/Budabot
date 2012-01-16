@@ -60,7 +60,7 @@ class CommandSearchController {
 
 		$msg = $this->view->render($results, $access, $exactMatch);
 
-		$this->chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 
 		return true;
 	}

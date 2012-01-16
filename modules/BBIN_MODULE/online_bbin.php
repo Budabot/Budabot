@@ -3,7 +3,7 @@
 global $bbinSocket;
 if (preg_match("/^onlinebbin$/i", $message)) {
 	if (!IRC::isConnectionActive($bbinSocket)) {
-		$chatBot->send("There is no active IRC connection.", $sendto);
+		$sendto->reply("There is no active IRC connection.");
 		return;
 	}
 
@@ -16,7 +16,7 @@ if (preg_match("/^onlinebbin$/i", $message)) {
 	
 	$msg = Text::make_blob("BBIN Online ($numusers)", $blob);
 	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

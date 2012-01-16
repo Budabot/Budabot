@@ -32,7 +32,7 @@ if (preg_match("/^capxp ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	$level = $arr[2];
 	
 	if ($level > 219 || $level < 1) {
-		$chatBot->send("Your level cannot be greater than 219 or less than 1.", $sendto);
+		$sendto->reply("Your level cannot be greater than 219 or less than 1.");
 		return;
 	}
 	
@@ -55,7 +55,7 @@ if (preg_match("/^capxp ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
 		$msg = "At lvl <highlight>".number_format($level)."<end> you need <highlight>".number_format($sk)."<end> sk to level. With a mission reward of <highlight>".number_format($reward)."<end> sk, set your research bar to <highlight>".ceil($research)."%<end> to receive maximum sk from this mission reward.";
 	}
 	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

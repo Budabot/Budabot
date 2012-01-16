@@ -29,7 +29,7 @@ class Towers {
 		$time = $this->util->parseTime($budatime);
 		if ($time < 1) {
 			$msg = "You must enter a valid time parameter.";
-			$this->chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 			return;
 		}
 		
@@ -75,7 +75,7 @@ class Towers {
 		}
 		
 		$msg = $this->text->make_blob("Tower Stats for the Last $timeString", $blob);
-		$this->chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 	}
 
 	public function get_tower_info($playfield_id, $site_number) {

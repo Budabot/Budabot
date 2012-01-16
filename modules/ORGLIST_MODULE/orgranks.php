@@ -4,7 +4,7 @@ if (preg_match("/^orgranks$/i", $message, $arr) || preg_match("/^orgranks ([0-9]
 	if (isset($arr[0])) {
 		if ($chatBot->vars["my_guild_id"] == "") {
 			$msg = "The bot does not belong to an org.";
-			$chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 		}
 		
 		$sql = "SELECT * FROM org_members_<myname> o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE `mode` != 'del' ORDER BY `guild_rank_id` ASC, o.name ASC";
@@ -18,11 +18,11 @@ if (preg_match("/^orgranks$/i", $message, $arr) || preg_match("/^orgranks ([0-9]
 
 			if ($whois === null) {
 				$msg = "Could not find character info for $name.";
-				$chatBot->send($msg, $sendto);
+				$sendto->reply($msg);
 				return;
 			} else if (!$whois->guild_id) {
 				$msg = "Character <highlight>$name<end> does not seem to be in an org.";
-				$chatBot->send($msg, $sendto);
+				$sendto->reply($msg);
 				return;
 			} else {
 				$guild_id = $whois->guild_id;
@@ -32,12 +32,12 @@ if (preg_match("/^orgranks$/i", $message, $arr) || preg_match("/^orgranks ([0-9]
 		}
 
 		$msg = "Getting guild info. Please wait...";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		
 		$org = Guild::get_by_id($guild_id);
 		if ($org === null) {
 			$msg = "Error in getting the Org info. Either org does not exist or AO's server was too slow to respond.";
-			$chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 			return;
 		}
 		
@@ -49,7 +49,7 @@ if (preg_match("/^orgranks$/i", $message, $arr) || preg_match("/^orgranks ([0-9]
 	$count = count($data);
 	if ($count == 0) {
 	  	$msg = "No org members found.";
-        $chatBot->send($msg, $sendto);
+        $sendto->reply($msg);
 		return;
 	}
 	
@@ -92,7 +92,7 @@ if (preg_match("/^orgranks$/i", $message, $arr) || preg_match("/^orgranks ([0-9]
 	$blob[] = array('header' => $lh, 'content' => $l);
 	
 	$msg = Text::make_structured_blob("Org ranks for '$orgname' ($count)", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

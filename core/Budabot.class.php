@@ -501,7 +501,6 @@ class Budabot extends AOChat {
 	function process_private_message($args) {
 		$type = "msg";
 		$sender	= $this->lookup_user($args[0]);
-		$sendto = $sender;
 		
 		$this->logger->log('DEBUG', "AOCP_MSG_PRIVATE => sender: '$sender' message: '$args[1]'");
 		
@@ -556,12 +555,12 @@ class Budabot extends AOChat {
 			return;
 		}
 		
+		$sendto = new PrivateMessageCommandReply($this, $sender);
 		$this->command->process($type, $message, $sender, $sendto);
 	}
 	
 	function process_private_channel_message($args) {
 		$sender	= $this->lookup_user($args[1]);
-		$sendto = 'prv';
 		$channel = $this->lookup_user($args[0]);
 		$message = $args[2];
 		
@@ -599,6 +598,7 @@ class Budabot extends AOChat {
 			
 			if ($message[0] == $this->setting->get("symbol") && strlen($message) > 1) {
 				$message = substr($message, 1);
+				$sendto = new PrivateChannelCommandReply($this);
 				$this->command->process($type, $message, $sender, $sendto);
 			}
 		} else {  // ext priv group message
@@ -662,6 +662,7 @@ class Budabot extends AOChat {
 			
 			if ($message[0] == $this->setting->get("symbol") && strlen($message) > 1) {
 				$message = substr($message, 1);
+				$sendto = new GuildChannelCommandReply($this);
 				$this->command->process($type, $message, $sender, $sendto);
 			}
 		}

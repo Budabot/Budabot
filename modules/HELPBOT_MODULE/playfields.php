@@ -10,7 +10,7 @@ if (preg_match("/^playfields$/i", $message)) {
 	}
 	
 	$msg = Text::make_blob("Playfields", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

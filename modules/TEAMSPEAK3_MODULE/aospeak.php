@@ -6,7 +6,7 @@ if (preg_match("/^aospeak$/i", $message) || preg_match("/^aospeak org$/i", $mess
 	
 	if ($results == "ORG_NOT_FOUND") {
 		$msg = "Your org is not currently set up on AOSpeak. Please have your org president set up a channel first.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
@@ -29,7 +29,7 @@ if (preg_match("/^aospeak$/i", $message) || preg_match("/^aospeak org$/i", $mess
 		$msg = Text::make_blob("AOSpeak Org ($count)", $blob);
 	}
 	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^aospeak all$/i", $message) || preg_match("/^aospeak (\\d)$/i", $message, $arr) || preg_match("/^aospeak (\\d)$/i", $message, $arr)) {
 	if (isset($arr)) {
 		$title = "AOSpeak Online RK" . $arr[1];
@@ -67,7 +67,7 @@ if (preg_match("/^aospeak$/i", $message) || preg_match("/^aospeak org$/i", $mess
 		$msg = Text::make_blob("$title ($count)", $blob);
 	}
 	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

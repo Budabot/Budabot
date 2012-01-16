@@ -24,7 +24,7 @@ if (preg_match("/^aliaslist$/i", $message)) {
 	}
 	
 	$msg = Text::make_blob('Alias List', $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

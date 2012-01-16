@@ -8,7 +8,7 @@ if (preg_match("/^accept (.+)/i", $message, $arr)) {
 		$chatBot->privategroup_join($name);
 		$msg = "Accepted private channel invitation from <highlight>$name<end>.";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

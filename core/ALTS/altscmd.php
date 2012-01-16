@@ -18,7 +18,7 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 		$uid = $chatBot->get_uid($name);
 		if (!$uid) {
 			$msg = "Character <highlight>{$name}<end> does not exist.";
-			$chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 			continue;
 		}
 		
@@ -26,7 +26,7 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 		if ($altInfo->main == $senderAltInfo->main) {
 			// already registered to self
 			$msg = "<highlight>$name<end> is already registered to you.";
-			$chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 			continue;
 		}
 		
@@ -37,7 +37,7 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 			} else {
 				$msg = "<highlight>$name<end> is already registered as an of alt of <highlight>{$altInfo->main}<end>.";
 			}
-			$chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 			continue;
 		}
 		
@@ -56,7 +56,7 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 	
 	if ($success > 0) {
 		$msg = ($success == 1 ? "Alt" : "$success alts") . " added successfully.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 	}
 } else if (preg_match("/^alts (rem|del|remove|delete) ([a-z0-9-]+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[2]));
@@ -71,14 +71,14 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 		Alts::rem_alt($altInfo->main, $name);
 		$msg = "<highlight>{$name}<end> has been deleted from your alt list.";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match('/^alts setmain ([a-z0-9-]+)$/i', $message, $arr)) {
 	// check if new main exists
 	$new_main = ucfirst(strtolower($arr[1]));
 	$uid = $chatBot->get_uid($new_main);
 	if (!$uid) {
 		$msg = "Character <highlight>{$new_main}<end> does not exist.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 	
@@ -86,13 +86,13 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 	
 	if (!array_key_exists($new_main, $altInfo->alts)) {
 		$msg = "<highlight>{$new_main}<end> must first be registered as your alt.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 	
 	if (!$altInfo->is_validated($sender)) {
 		$msg = "You must run this command from a validated character.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
@@ -114,7 +114,7 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 	$db->commit();
 
 	$msg = "Successfully set your new main as <highlight>{$new_main}<end>.";
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^alts ([a-z0-9-]+)$/i", $message, $arr) || preg_match("/^alts$/i", $message)) {
 	if (isset($arr[1])) {
 		$showValidateLinks = false;
@@ -131,7 +131,7 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 		$msg = $altInfo->get_alts_blob($showValidateLinks);
 	}
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

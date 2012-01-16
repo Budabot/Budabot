@@ -82,7 +82,7 @@ if (preg_match("/^aggdef ([0-9]*\\.?[0-9]+) ([0-9]*\\.?[0-9]+) (\\d+)$/i", $mess
 	$blob .= "Modified for Budabot by Healnjoo(RK2).";
 
 	$msg = Text::make_blob("Agg/Def Results", $blob);
-	$chatBot->send($msg, $sendto); 
+	$sendto->reply($msg); 
 } else {
 	$syntax_error = true;
 }

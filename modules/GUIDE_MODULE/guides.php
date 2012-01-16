@@ -33,7 +33,7 @@ if (preg_match("/^guides$/i", $message)) {
 	} else {
 		$msg = "Error reading topics.";	
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^guides ([a-z0-9_-]+)$/i", $message, $arr)) {
 	// get the filename and read in the file
 	$fileName = strtolower($arr[1]);
@@ -44,7 +44,7 @@ if (preg_match("/^guides$/i", $message)) {
 	} else {	
 		$msg = Text::make_legacy_blob(ucfirst($fileName), $info);
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

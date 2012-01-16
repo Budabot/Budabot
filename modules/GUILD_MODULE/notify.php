@@ -6,7 +6,7 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
 
 	if (!$uid) {
 		$msg = "<highlight>{$name}<end> does not exist.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 	
@@ -26,14 +26,14 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
     	$msg = "<highlight>{$name}<end> has been added to the Notify list.";
     }
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^notify (off|rem) (.+)$/i", $message, $arr)) {
     $uid = $chatBot->get_uid($arr[2]);
 	$name = ucfirst(strtolower($arr[2]));
 
 	if (!$uid) {
 		$msg = "<highlight>{$name}<end> does not exist.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
@@ -51,7 +51,7 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
         $msg = "Removed <highlight>{$name}<end> from the Notify list.";
     }
 
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

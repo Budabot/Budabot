@@ -16,7 +16,7 @@ if (preg_match("/^feedback$/i", $message)) {
 	
 	if ($count == 0) {
 		$msg = "There are no characters on the feedback list.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 	
@@ -26,7 +26,7 @@ if (preg_match("/^feedback$/i", $message)) {
 		$blob .= "$row->name  <green>+{$row->pos_rep}<end> <orange>-{$row->neg_rep}<end>   {$details_link}\n";
 	}
 	$msg = Text::make_blob("Feedback List ($count)", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^feedback ([a-z0-9-]*) (\\+1|\\-1) (.*)$/i", $message, $arr)) {
 	$charid = $chatBot->get_uid($arr[1]);
 	$name = ucfirst(strtolower($arr[1]));
@@ -35,12 +35,12 @@ if (preg_match("/^feedback$/i", $message)) {
 	$by_charid = $chatBot->get_uid($sender);
 
 	if ($charid == false) {
-		$chatBot->send("Could not find character '$name'.", $sendto);
+		$sendto->reply("Could not find character '$name'.");
 		return;
 	}
 	
 	if ($charid == $by_charid) {
-		$chatBot->send("You cannot give yourself feedback.", $sendto);
+		$sendto->reply("You cannot give yourself feedback.");
 		return;
 	}
 	
@@ -49,14 +49,14 @@ if (preg_match("/^feedback$/i", $message)) {
 	$sql = "SELECT name FROM feedback WHERE `by_charid` = ? AND `charid` = ? AND `dt` > ?";
 	$data = $db->query($sql, $by_charid, $charid, $time);
 	if (count($data) > 0) {
-		$chatBot->send("You may only submit feedback for a player once every 24 hours. Please try again later.", $sendto);
+		$sendto->reply("You may only submit feedback for a player once every 24 hours. Please try again later.");
 		return;
 	}
 	
 	$sql = "SELECT name FROM feedback WHERE `by_charid` = ?";
 	$data = $db->query($sql, $by_charid);
 	if (count($data) > 3) {
-		$chatBot->send("You may submit feedback a maximum of 3 times in a 24 hour period. Please try again later.", $sendto);
+		$sendto->reply("You may submit feedback a maximum of 3 times in a 24 hour period. Please try again later.");
 		return;
 	}
 
@@ -80,7 +80,7 @@ if (preg_match("/^feedback$/i", $message)) {
 		)";
 
 	$db->exec($sql, $name, $charid, $rep, $comment, $sender, $by_charid, time());
-	$chatBot->send("Feedback for $name added successfully.", $sendto);
+	$sendto->reply("Feedback for $name added successfully.");
 } else if (preg_match("/^feedback ([a-z0-9-]*)$/i", $message, $arr)) {
     $charid = $chatBot->get_uid($arr[1]);
 	$name = ucfirst(strtolower($arr[1]));
@@ -125,7 +125,7 @@ if (preg_match("/^feedback$/i", $message)) {
 		$msg = Text::make_blob("Feedback for {$name}", $blob);
 	}
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

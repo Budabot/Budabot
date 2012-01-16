@@ -48,12 +48,12 @@ if (preg_match("/^orglist end$/i", $message)) {
 	// Check if we are already doing a list.
 	if ($chatBot->data["ORGLIST_MODULE"]["start"]) {
 		$msg = "I'm already doing a list!";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	} else if (990 <= count($chatBot->buddyList)) {
 		// using the ao chatbot proxy this is no longer an issue
 		//$msg = "No room on the buddy-list!";
-		//$chatBot->send($msg, $sendto);
+		//$sendto->reply($msg);
 		//unset($chatBot->data["ORGLIST_MODULE"]);
 		//return;
 	}
@@ -69,13 +69,13 @@ if (preg_match("/^orglist end$/i", $message)) {
 		if ($whois === null) {
 			$msg = "Could not find character info for $name.";
 			unset($whois);
-			$chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 			unset($chatBot->data["ORGLIST_MODULE"]);
 			return;
 		} else if (!$whois->guild_id) {
 			$msg = "Character <highlight>$name<end> does not seem to be in an org.";
 			unset($whois);
-			$chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 			unset($chatBot->data["ORGLIST_MODULE"]);
 			return;
 		} else {
@@ -86,13 +86,13 @@ if (preg_match("/^orglist end$/i", $message)) {
 		$orgid = $arr[1];
 	}
 	
-	$chatBot->send("Downloading org list for org id $orgid...", $sendto);
+	$sendto->reply("Downloading org list for org id $orgid...");
 
 	$org = Guild::get_by_id($orgid);
 
 	if ($org === null) {
 		$msg = "Error in getting the Org info. Either org does not exist or AO's server was too slow to respond.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		unset($chatBot->data["ORGLIST_MODULE"]);
 		return;
 	}
@@ -152,7 +152,7 @@ if (preg_match("/^orglist end$/i", $message)) {
 		}
 	}
 	
-	$chatBot->send("Checking online status for " . count($org->members) ." members of '$org->orgname'...", $sendto);
+	$sendto->reply("Checking online status for " . count($org->members) ." members of '$org->orgname'...");
 
 	// prime the list and get things rolling by adding some buddies
 	$i = 0;

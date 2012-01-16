@@ -31,7 +31,7 @@ if (preg_match("/^buffitem (.+)$/i", $message, $arr)) {
 	}
 	
 	if ($found == 0) {
-		$chatBot->send("No matches, sorry.", $sendto);
+		$sendto->reply("No matches, sorry.");
 		return;
 	} else {
 		$blob = "Your query of <yellow>".$name."<end> returned the following item line(s):\n\n";
@@ -47,7 +47,7 @@ if (preg_match("/^buffitem (.+)$/i", $message, $arr)) {
 		$blob .= "\n\nby Imoutochan, RK1";
 		$msg = Text::make_blob("Buff item search results (<highlight>$found<end>)", $blob);
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

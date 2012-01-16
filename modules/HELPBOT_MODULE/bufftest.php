@@ -62,7 +62,7 @@ if (preg_match("/^bufftest$/i", $message, $arr)) {
 	$blob .= Text::make_chatcmd("Treatment", "/tell <myname> bufftest Treatment");
 
 	$msg = Text::make_blob("Buff item skill selection", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 // Creates the list of items
 } else if (preg_match("/^bufftest (.+)$/i", $message, $arr)) {
 	$name = $arr[1];
@@ -96,7 +96,7 @@ if (preg_match("/^bufftest$/i", $message, $arr)) {
 	} else {
 		$msg = "No items that buff <highlight>$skill<end> could be found.";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

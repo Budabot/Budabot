@@ -80,7 +80,7 @@ if (preg_match("/^cmdlist$/i", $message, $arr) || preg_match("/^cmdlist (.*)$/i"
 	}
 
 	$msg = Text::make_blob("Command List", $list);
- 	$chatBot->send($msg, $sendto);
+ 	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

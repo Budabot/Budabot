@@ -106,7 +106,7 @@ if (preg_match("/^bio(( *${bio_regex})+)$/i", $message, $arr)){
 		$command->process($type, "bioinfo $bioinfo $ql", $sender, $sendto);
 	} else {
 		$msg = Text::make_blob("Identified Bio-Materials", $blob);
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 	}
 } else {
 	$syntax_error = true;

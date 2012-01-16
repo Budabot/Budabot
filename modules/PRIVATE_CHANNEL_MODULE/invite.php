@@ -15,7 +15,7 @@ if (preg_match("/^invite (.+)$/i", $message, $arr)) {
 		$msg = "Character <highlight>{$name}<end> does not exist.";
 	}
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

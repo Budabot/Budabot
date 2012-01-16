@@ -113,7 +113,7 @@ if (preg_match("/^cybor/i", $message)) {
 	$msg = Util::rand_array_value($cybor);
     $msg = str_replace("*name*", $sender, $msg);
     $msg = str_replace("*creds*", $cred, $msg);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

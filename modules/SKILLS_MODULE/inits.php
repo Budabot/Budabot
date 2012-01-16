@@ -15,13 +15,13 @@ if (preg_match('/^inits \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\"\
 	$url .= "output=aoml";
 
 	$msg = "Calculating Inits... Please wait.";
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 
 	$msg = file_get_contents($url, 0);
 	if (empty($msg)) {
 		$msg = "Unable to query Central Items Database.";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

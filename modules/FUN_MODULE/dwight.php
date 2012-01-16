@@ -47,7 +47,7 @@ $dwight = array(
 );
 
 if (preg_match("/^dwight/i", $message)) {
-	$chatBot->send(Util::rand_array_value($dwight), $sendto);
+	$sendto->reply(Util::rand_array_value($dwight));
 } else {
 	$syntax_error = true;
 }

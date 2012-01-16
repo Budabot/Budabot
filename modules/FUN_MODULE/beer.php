@@ -54,7 +54,7 @@ if (preg_match("/^beer/i", $message)) {
     $msg = str_replace("*name*", $sender, $msg);
     $msg = str_replace("*dmg*", $dmg, $msg);
     $msg = str_replace("*creds*", $cred, $msg);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

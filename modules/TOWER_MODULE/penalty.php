@@ -7,7 +7,7 @@ if (preg_match("/^penalty$/i", $message) || preg_match("/^penalty ([a-z0-9]+)$/i
 		$time = Util::parseTime($arr[1]);
 		if ($time < 1) {
 			$msg = "You must enter a valid time parameter.";
-			$chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 			return;
 		}
 	} else {
@@ -35,7 +35,7 @@ if (preg_match("/^penalty$/i", $message) || preg_match("/^penalty ([a-z0-9]+)$/i
 	} else {
 		$msg = "There are no orgs who have attacked or won battles in the past $penaltyTimeString.";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

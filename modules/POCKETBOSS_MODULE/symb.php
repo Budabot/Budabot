@@ -81,7 +81,7 @@ if (preg_match("/^symb ([a-z]+)$/i", $message, $arr) || preg_match("/^symb ([a-z
 		$msg = "Could not find any symbiants that matched your search criteria.";
 	}
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

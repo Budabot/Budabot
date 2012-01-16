@@ -19,7 +19,7 @@ if (preg_match("/^fastattack ([0-9]*\\.?[0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	$blob .= "You need <orange>".$fastskillcap."<end> Fast Atk Skill to cap your fast attack at: <orange>".$fasthardcap."<end>s";
 
 	$msg = Text::make_blob("Fast Attack Results", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

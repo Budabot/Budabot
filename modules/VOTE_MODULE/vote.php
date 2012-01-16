@@ -46,7 +46,7 @@ if (preg_match("/^vote$/i", $message)) {
 	} else {
 		$msg = "There are currently no votes to view.";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^vote kill (.+)$/i", $message, $arr)) {
 	$topic = $arr[1];
 	if ($accessLevel->checkAccess($sender, "moderator")) {
@@ -62,7 +62,7 @@ if (preg_match("/^vote$/i", $message)) {
 	} else {
 		$msg = "Either this vote doesn't exist, or you didn't create it.";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^vote remove (.+)$/i", $message, $arr)) {
 	$topic = $arr[1];
 	if (!isset($chatBot->data["Vote"][$topic])) {
@@ -76,7 +76,7 @@ if (preg_match("/^vote$/i", $message)) {
 			$msg = "You have not voted on this topic.";
 		}
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^vote end (.+)$/i", $message, $arr)) {
 	$topic = $arr[1];
 	$row = $db->queryRow("SELECT * FROM $table WHERE `question` = ? AND `author` = ? AND `duration` IS NOT NULL", $topic, $sender);
@@ -99,7 +99,7 @@ if (preg_match("/^vote$/i", $message)) {
 			$msg = "There is only $timeleft seconds left.";
 		}
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^vote (.+)$/i", $message, $arr)) {
 	$sect = explode($delimiter, $arr[1],3);
 	
@@ -279,7 +279,7 @@ if (preg_match("/^vote$/i", $message)) {
 	// we have a message after all that? post it
 	/////////////////////////////////////////////////
 	if ($msg) {
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 	}
 }
 

@@ -8,7 +8,7 @@ if (preg_match("/^history (.+) (\d)$/i", $message, $arr) || preg_match("/^histor
 		$dimension = $chatBot->vars['dimension'];
 		if (!$chatBot->get_uid($name)) {
 			$msg = "Character <highlight>$name<end> does not exist.";
-			$chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 			return;
 		}
 	}
@@ -60,7 +60,7 @@ if (preg_match("/^history (.+) (\d)$/i", $message, $arr) || preg_match("/^histor
 		$msg = Text::make_structured_blob("History of $name for RK {$dimension}", $link);
 	}
 
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

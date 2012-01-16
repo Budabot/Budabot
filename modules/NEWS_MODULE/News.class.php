@@ -83,7 +83,7 @@ class News {
 			$msg = "No News recorded yet.";
 		}
 
-		$this->chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 	}
 	
 	/**
@@ -97,7 +97,7 @@ class News {
 		$this->db->exec("INSERT INTO `#__news` (`time`, `name`, `news`, `sticky`) VALUES (?, ?, ?, 0)", time(), $sender, $news);
 		$msg = "News has been added successfully.";
 
-		$this->chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 	}
 	
 	/**
@@ -115,7 +115,7 @@ class News {
 			$msg = "News entry <highlight>{$id}<end> was deleted successfully.";
 		}
 
-		$this->chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 	}
 	
 	/**
@@ -135,7 +135,7 @@ class News {
 			$this->db->exec("UPDATE `#__news` SET `sticky` = 1 WHERE `id` = ?", $id);
 			$msg = "News ID $id successfully stickied.";
 		}
-		$this->chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 	}
 	
 	/**
@@ -155,7 +155,7 @@ class News {
 			$this->db->exec("UPDATE `#__news` SET `sticky` = 0 WHERE `id` = ?", $id);
 			$msg = "News ID $id successfully unstickied.";
 		}
-		$this->chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 	}
 }
 

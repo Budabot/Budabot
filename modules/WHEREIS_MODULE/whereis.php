@@ -31,7 +31,7 @@ if (preg_match("/^whereis (.+)$/i", $message, $arr)) {
 	} else {
 		$msg = "There were no matches for your search.";
 	}
-	$chatBot->send($msg , $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

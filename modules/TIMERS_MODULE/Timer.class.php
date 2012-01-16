@@ -108,7 +108,7 @@ class Timer {
 			$timer = $this->get($timerName);
 			if ($timer != null) {
 				$msg = "A Timer with the name <highlight>$timerName<end> is already running.";
-				$this->chatBot->send($msg, $sendto);
+				$sendto->reply($msg);
 				return;
 			}
 
@@ -117,13 +117,13 @@ class Timer {
 
 			if ($runTime < 1) {
 				$msg = "You must enter a valid time parameter for the run time.";
-				$this->chatBot->send($msg, $sendto);
+				$sendto->reply($msg);
 				return;
 			}
 			
 			if ($initialRunTime < 1) {
 				$msg = "You must enter a valid time parameter for the initial run time.";
-				$this->chatBot->send($msg, $sendto);
+				$sendto->reply($msg);
 				return;
 			}
 
@@ -135,7 +135,7 @@ class Timer {
 			$timerSet = $this->util->unixtime_to_readable($runTime);
 			$msg = "Repeating timer <highlight>$timerName<end> will go off in $initialTimerSet and repeat every $timerSet.";
 				
-			$this->chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 		} else {
 			return false;
 		}
@@ -149,7 +149,7 @@ class Timer {
 	public function timerCommand($message, $channel, $sender, $sendto) {
 		if (preg_match("/^timers view (.+)$/i", $message, $arr)) {
 			$msg = $this->viewTimer($arr[1]);
-			$this->chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 		} else if (preg_match("/^(timers|timers add) ([0-9]+)$/i", $message, $arr) || preg_match("/^(timers|timers add) ([0-9]+) (.+)$/i", $message, $arr)) {
 			if (isset($arr[3])) {
 				$timerName = $arr[3];
@@ -159,10 +159,10 @@ class Timer {
 			$runTime = $arr[2] * 60;
 			
 			$msg = $this->addTimer($sender, $timerName, $runTime, $channel);
-			$this->chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 		} else if (preg_match("/^timers (rem|del) (.+)$/i", $message, $arr)) {
 			$msg = $this->removeTimer($sender, $arr[2]);
-			$this->chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 		} else if (preg_match("/^(timers add|timers) ([a-z0-9]+) (.+)$/i", $message, $arr) ||
 				preg_match("/^(timers add|timers) ([a-z0-9]+)$/i", $message, $arr2)) {
 
@@ -177,10 +177,10 @@ class Timer {
 			$runTime = $this->util->parseTime($timeString);
 
 			$msg = $this->addTimer($sender, $name, $runTime, $channel);
-			$this->chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 		} else if (preg_match("/^timers$/i", $message, $arr)) {
 			$msg = $this->showTimers();
-			$this->chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 		} else {
 			return false;
 		}

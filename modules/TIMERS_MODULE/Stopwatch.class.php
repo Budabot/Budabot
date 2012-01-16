@@ -24,7 +24,7 @@ class Stopwatch {
 			return false;
 		}
 		
-		$this->chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 	}
 	
 	public function start() {

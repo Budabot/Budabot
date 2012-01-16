@@ -190,7 +190,7 @@ if (preg_match("/^apf (13|28|35)$/i", $message, $arr)) {
 
 	$msg = Text::make_blob("Loot table for sector $sector", $list);
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

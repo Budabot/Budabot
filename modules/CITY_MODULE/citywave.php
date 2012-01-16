@@ -8,7 +8,7 @@ if (preg_match("/^citywave$/i", $message)) {
 	} else {
 		$msg = "Current wave: " . ($chatBot->data["CITY_WAVE"]['wave'] - 1);
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

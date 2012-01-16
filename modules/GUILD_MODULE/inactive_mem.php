@@ -7,14 +7,14 @@
 if (preg_match("/^inactivemem ([a-z0-9]+)/i", $message, $arr)) {
 	
 	if ($chatBot->vars["my_guild_id"] == "") {
-	    $chatBot->send("The Bot needs to be in an org to show the orgmembers.", $sendto);
+	    $sendto->reply("The Bot needs to be in an org to show the orgmembers.");
 		return;
 	}
 	
 	$time = Util::parseTime($arr[1]);
 	if ($time < 1) {
 		$msg = "You must enter a valid time parameter.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 	
@@ -24,7 +24,7 @@ if (preg_match("/^inactivemem ([a-z0-9]+)/i", $message, $arr)) {
 	$data = $db->query("SELECT * FROM org_members_<myname> o LEFT JOIN alts a ON o.name = a.alt WHERE `mode` != 'del' AND `logged_off` < ?  ORDER BY o.name", $time);  
 
   	if (count($data) == 0) {
-	    $chatBot->send("No members recorded.", $sendto);    
+	    $sendto->reply("No members recorded.");    
 		return;
 	}
 
@@ -67,7 +67,7 @@ if (preg_match("/^inactivemem ([a-z0-9]+)/i", $message, $arr)) {
 		}
 	}
 	$msg = Text::make_blob("$numinactive Inactive Org Members", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

@@ -11,7 +11,7 @@ if (preg_match("/^topic$/i", $message, $arr)) {
 		$msg = "<highlight>Topic:<end> {$topic} [set by <highlight>{$set_by}<end>][<highlight>{$date_string} ago<end>]";
 	}
 
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

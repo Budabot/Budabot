@@ -47,7 +47,7 @@ $aypwip = array(
 );
 
 if (preg_match("/^brain/i", $message)) {
-	$chatBot->send(Util::rand_array_value($aypwip), $sendto);
+	$sendto->reply(Util::rand_array_value($aypwip));
 } else {
 	$syntax_error = true;
 }

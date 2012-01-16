@@ -8,12 +8,12 @@ if (preg_match("/^assist (.+)$/i", $message, $arr)) {
 		$uid = $chatBot->get_uid($name);
 		if ($type == "priv" && !isset($chatBot->chatlist[$name])) {
 			$msg = "Character <highlight>$name<end> is not in this bot.";
-			$chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 		}
 		
 		if (!$uid) {
 			$msg = "Character <highlight>$name<end> does not exist.";
-			$chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 		}
 
 		$link = "<a href='chatcmd:///macro $name /assist $name'>Click here to make an assist $name macro</a>";
@@ -24,12 +24,12 @@ if (preg_match("/^assist (.+)$/i", $message, $arr)) {
 			$uid = $chatBot->get_uid($name);
 			if ($type == "priv" && !isset($chatBot->chatlist[$name])) {
 				$msg = "Character <highlight>$name<end> is not in this bot.";
-				$chatBot->send($msg, $sendto);
+				$sendto->reply($msg);
 			}
 			
 			if (!$uid) {
 				$msg = "Character <highlight>$name<end> does not exist.";
-				$chatBot->send($msg, $sendto);
+				$sendto->reply($msg);
 			}
 			$nameArray[$key] = "/assist $name";
 		}
@@ -39,12 +39,12 @@ if (preg_match("/^assist (.+)$/i", $message, $arr)) {
 		$chatBot->data['assist'] = '/macro assist ' . implode(" \\n ", $nameArray);
 	}
 	
-	$chatBot->send($chatBot->data['assist'], $sendto);
+	$sendto->reply($chatBot->data['assist']);
 	
 	// send message 2 more times (3 total) if used in private channel
 	if ($type == "priv") {
-		$chatBot->send($chatBot->data['assist'], $sendto);
-		$chatBot->send($chatBot->data['assist'], $sendto);
+		$sendto->reply($chatBot->data['assist']);
+		$sendto->reply($chatBot->data['assist']);
 	}
 } else {
 	$syntax_error = true;

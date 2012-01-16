@@ -18,9 +18,9 @@ if (preg_match("/^online$/i", $message) || preg_match("/^online (.*)$/i", $messa
 	list($numonline, $msg, $list) = get_online_list($prof);
 	if ($numonline != 0) {
 		$blob = Text::make_structured_blob($msg, $list);
-		$chatBot->send($blob, $sendto);
+		$sendto->reply($blob);
 	} else {
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 	}
 } else {
 	$syntax_error = true;

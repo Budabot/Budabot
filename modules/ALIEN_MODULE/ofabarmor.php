@@ -15,7 +15,7 @@ if (preg_match("/^ofabarmor$/i", $message, $arr)) {
 	}
 
 	$msg = Text::make_blob("Ofab Armor Bio-Material Types", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^ofabarmor (.+) (\\d+)$/i", $message, $arr) || preg_match("/^ofabarmor (.+)$/i", $message, $arr)) {
 	if ($arr[2]) {
 		$ql = $arr[2];
@@ -26,7 +26,7 @@ if (preg_match("/^ofabarmor$/i", $message, $arr)) {
 	$profession = Util::get_profession_name($arr[1]);
 	if ($profession == '') {
 		$msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, or trader";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
@@ -72,7 +72,7 @@ if (preg_match("/^ofabarmor$/i", $message, $arr)) {
 	$blob .= "\nVP Cost for full set: <highlight>$total_vp<end>";
 	
 	$msg = Text::make_blob("$profession Ofab Armor (QL $ql)", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

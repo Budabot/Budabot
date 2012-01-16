@@ -20,7 +20,7 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 
 	$msg = Text::make_blob('Org History', $blob);
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^orghistory (.+)$/i", $message, $arr)) {
 
 	$character = $arr[1];
@@ -43,7 +43,7 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 
 	$msg = Text::make_blob('Org History', $blob);
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

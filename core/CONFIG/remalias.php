@@ -14,7 +14,7 @@ if (preg_match("/^remalias ([a-z0-9]+)/i", $message, $arr)) {
 		
 		$msg = "Alias <highlight>{$alias}<end> removed successfully.";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

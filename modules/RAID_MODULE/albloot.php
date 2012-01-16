@@ -36,11 +36,11 @@ if (!function_exists('get_alb_loot')) {
 }
 
 if (preg_match("/^alb$/i", $message)) {
-	$chatBot->send(get_alb_loot('Albtraum', 'Crystals & Crystalised Memories'), $sendto);
-	$chatBot->send(get_alb_loot('Albtraum', 'Ancients'), $sendto);
-	$chatBot->send(get_alb_loot('Albtraum', 'Samples'), $sendto);
-	$chatBot->send(get_alb_loot('Albtraum', 'Rings and Preservation Units'), $sendto);
-	$chatBot->send(get_alb_loot('Albtraum', 'Pocket Boss Crystals'), $sendto);
+	$sendto->reply(get_alb_loot('Albtraum', 'Crystals & Crystalised Memories'));
+	$sendto->reply(get_alb_loot('Albtraum', 'Ancients'));
+	$sendto->reply(get_alb_loot('Albtraum', 'Samples'));
+	$sendto->reply(get_alb_loot('Albtraum', 'Rings and Preservation Units'));
+	$sendto->reply(get_alb_loot('Albtraum', 'Pocket Boss Crystals'));
 } else {
 	$syntax_error = true;
 }

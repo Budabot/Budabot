@@ -107,7 +107,7 @@ class Admin {
 		}
 
 		$link = Text::make_blob('Bot administrators', $blob);	
-		$this->chatBot->send($link, $sendto);
+		$sendto->reply($link);
 	}
 	
 	public function uploadAdmins() {
@@ -161,38 +161,38 @@ class Admin {
 	
 	public function remove($who, $sender, $sendto, $intlevel, $rank) {
 		if (!$this->checkExisting($who, $intlevel)) {
-			$this->chatBot->send("<highlight>$who<end> is not $rank.", $sendto);
+			$sendto->reply("<highlight>$who<end> is not $rank.");
 			return;
 		}
 		
 		if (!$this->checkAccessLevel($sender, $who, $sendto)) {
-			$this->chatBot->send("You must have a higher access level than <highlight>$who<end> in order to change his access level.", $sendto);
+			$sendto->reply("You must have a higher access level than <highlight>$who<end> in order to change his access level.");
 			return;
 		}
 
 		$this->removeFromLists($who);			
 
 		if (!$this->checkAltsInheritAdmin($who)) {
-			$this->chatBot->send("<red>WARNING<end>: alts inheriting admin is enabled, but $who is not a main character.  {$ai->main} is $who's main.  <red>This command did NOT affect either characters' admin privileges.<end>", $sendto);
+			$sendto->reply("<red>WARNING<end>: alts inheriting admin is enabled, but $who is not a main character.  {$ai->main} is $who's main.  <red>This command did NOT affect either characters' admin privileges.<end>");
 		}
 
-		$this->chatBot->send("<highlight>$who<end> has been removed as $rank.", $sendto);
+		$sendto->reply("<highlight>$who<end> has been removed as $rank.");
 		$this->chatBot->send("You have been removed as $rank by <highlight>$sender<end>.", $who);
 	}
 	
 	public function add($who, $sender, $sendto, $intlevel, $rank) {
 		if ($this->chatBot->get_uid($who) == NULL){
-			$this->chatBot->send("Character <highlight>$who<end> does not exist.", $sendto);
+			$sendto->reply("Character <highlight>$who<end> does not exist.");
 			return;
 		}
 		
 		if ($this->checkExisting($who, $intlevel)) {
-			$this->chatBot->send("<highlight>$who<end> is already $rank.", $sendto);
+			$sendto->reply("<highlight>$who<end> is already $rank.");
 			return;
 		}
 
 		if (!$this->checkAccessLevel($sender, $who, $sendto)) {
-			$this->chatBot->send("You must have a higher access level than <highlight>$who<end> in order to change his access level.", $sendto);
+			$sendto->reply("You must have a higher access level than <highlight>$who<end> in order to change his access level.");
 			return;
 		}
 		
@@ -203,13 +203,13 @@ class Admin {
 			} else {
 				$msg .= " Try again with <highlight>$who<end>'s main, <highlight>{$ai->main}<end>.";
 			}
-			$this->chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 			return;
 		}
 
 		$action = $this->addToLists($who, $intlevel);
 		
-		$this->chatBot->send("<highlight>$who<end> has been $action to $rank.", $sendto);
+		$sendto->reply("<highlight>$who<end> has been $action to $rank.");
 		$this->chatBot->send("You have been $action to $rank by <highlight>$sender<end>.", $who);
 	}
 	

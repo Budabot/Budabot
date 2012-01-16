@@ -7,7 +7,7 @@ if (preg_match("/^fight (.+) vs (.+)$/i", $message, $arr) || preg_match("/^fight
 	// Checks if user is trying to get Chuck Norris to fight another Chuck Norris
 	if ((strcasecmp($player1, "chuck") == 0 || strcasecmp($player1, "chuck norris") == 0) &&  (strcasecmp($player2, "chuck") == 0 || strcasecmp($player2, "chuck norris") == 0)) {
 		$msg = "Theres only enough room in this world for one Chuck Norris!";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
@@ -18,7 +18,7 @@ if (preg_match("/^fight (.+) vs (.+)$/i", $message, $arr) || preg_match("/^fight
 			"$player1 can't fight $player2, it may break the voids of space and time!",
 			"As much as I'd love to see $player1 punching himself/herself in the face, it just isn't theoretical...");
 
-		$chatBot->send(Util::rand_array_value($twin), $sendto);
+		$sendto->reply(Util::rand_array_value($twin));
 		return;
 	}
 
@@ -80,7 +80,7 @@ if (preg_match("/^fight (.+) vs (.+)$/i", $message, $arr) || preg_match("/^fight
 		$msg = Text::make_blob("$player1 vs $player2....It's a tie!", $list);
 	}
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

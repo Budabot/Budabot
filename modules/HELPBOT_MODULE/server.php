@@ -9,7 +9,7 @@ if (preg_match("/^server$/i", $message) || preg_match("/^server (.)$/i", $messag
 	}
 
 	$msg = "Getting Server status. Please standby.";
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 
 	$server = new server($servernum);
 	if ($server->errorCode != 0) {
@@ -44,7 +44,7 @@ if (preg_match("/^server$/i", $message) || preg_match("/^server (.)$/i", $messag
 		$msg = Text::make_blob("$server->name Server Status", $link);	    
 	}
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

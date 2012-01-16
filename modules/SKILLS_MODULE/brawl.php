@@ -34,7 +34,7 @@ if (preg_match("/^brawl ([0-9]+)$/i", $message, $arr)) {
 	$blob .= "\n\nby Imoutochan, RK1";
 	
 	$msg = Text::make_blob("Brawl Results", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

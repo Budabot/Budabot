@@ -5,7 +5,7 @@ $accessLevel = Registry::getInstance('accessLevel');
 if (preg_match("/^executesql (.*)$/i", $message, $arr)) {
 	if (!$accessLevel->checkAccess($sender, 'superadmin')) {
 		$msg = "This command may only be used by the super administrator.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
@@ -18,7 +18,7 @@ if (preg_match("/^executesql (.*)$/i", $message, $arr)) {
 	} else {
 		$msg = "$num_rows rows affected.";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

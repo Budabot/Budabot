@@ -16,14 +16,14 @@ if (preg_match("/^notes$/i", $message)) {
 		$msg = Text::make_blob("Notes for $sender", $blob);
 	}
   	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^notes add (.*)$/i", $message, $arr)) {
 	$note = $arr[1];
 
 	$db->exec("INSERT INTO notes (name, note) VALUES(?, ?)", $sender, $note);
 	$msg = "Note added successfully.";
 
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else if (preg_match("/^notes rem (\\d+)$/i", $message, $arr)) {
 	$id = $arr[1];
 
@@ -34,7 +34,7 @@ if (preg_match("/^notes$/i", $message)) {
 		$msg = "Note deleted successfully.";
 	}
 
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

@@ -58,7 +58,7 @@ if (preg_match("/^bioinfo (.+) (\\d+)$/i", $message, $arr) ||
 			break;
 	}
 	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

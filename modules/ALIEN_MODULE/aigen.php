@@ -55,7 +55,7 @@ if (preg_match("/^aigen (ankari|ilari|rimah|jaax|xoch|cha)$/i", $message, $arr))
 	}
 	
 	$msg = Text::make_blob("Info about General $gen", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

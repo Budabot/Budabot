@@ -15,7 +15,7 @@ if (preg_match("/^mobloot ([0-9]+)$/i", $message, $arr)) {
 		
 		$msg = Text::make_blob("Your loot QL results", $blob);
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

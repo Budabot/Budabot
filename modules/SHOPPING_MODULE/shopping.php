@@ -47,7 +47,7 @@ if (!$syntax_error) {
 		$msg = 'No items found.';
 	}
 	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 }
 
 ?>

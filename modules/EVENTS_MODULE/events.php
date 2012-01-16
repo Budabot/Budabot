@@ -12,7 +12,7 @@ if (preg_match("/^events$/i", $message, $arr)) {
   	if ($msg == '') {
 		$msg = "No events entered yet.";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^events join ([0-9]+)$/i", $message, $arr)) {
 	$row = $db->queryRow("SELECT * FROM events WHERE `id` = ?", $arr[1]);
 	if (time() < (($row->event_date)+(3600*3))) {
@@ -33,7 +33,7 @@ if (preg_match("/^events$/i", $message, $arr)) {
 	} else {
 		$msg = "You cannot join an event once it has already passed!";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^events leave ([0-9]+)$/i", $message, $arr)) {
 	$row = $db->queryRow("SELECT * FROM events WHERE `id` = ?", $arr[1]);
 	if (time() < (($row->event_date)+(3600*3))) { // cannot leave an event after 3 hours past its starttime
@@ -56,7 +56,7 @@ if (preg_match("/^events$/i", $message, $arr)) {
 	} else {
 		$msg = "You cannot leave an event once it has already passed!";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^events list ([0-9]+)$/i", $message, $arr)) {
 	$id = $arr[1];
 	$row = $db->queryRow("SELECT event_attendees FROM events WHERE `id` = ?", $id);
@@ -92,7 +92,7 @@ if (preg_match("/^events$/i", $message, $arr)) {
 		$msg = "That event doesn't exist!";
 	}
 	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

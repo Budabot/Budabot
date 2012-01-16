@@ -68,7 +68,7 @@ if (preg_match("/^axp$/i", $message)) {
 
     $msg = Text::make_blob("Alien Experience", $msg);
 
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else if (preg_match("/^axp ([0-9]+)$/i", $message, $arr)) {
     if ($arr[1] >= 0 && $arr[1] <= 30) {
         $msg = "With ai lvl <highlight>".$arr[1]."<end> you need <highlight>".number_format($axp[$arr[1] + 1])."<end> AXP to level up.";
@@ -76,7 +76,7 @@ if (preg_match("/^axp$/i", $message)) {
         $msg = "You need to specify a lvl between 0 and 30.";
 	}
 
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else if (preg_match("/^axp ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
     if ($arr[1] >= 0 && $arr[1] <= 30 && $arr[2] >= 0 && $arr[2] <= 30) {
         if ($arr[1] <= $arr[2]) {
@@ -92,7 +92,7 @@ if (preg_match("/^axp$/i", $message)) {
         $msg = "You need to specify a lvl between 0 and 30.";
 	}
 
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

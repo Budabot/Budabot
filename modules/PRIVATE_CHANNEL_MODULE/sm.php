@@ -15,9 +15,9 @@ if (preg_match("/^sm$/i", $message)) {
 	    }
 
 		$msg = Text::make_blob("Chatlist ($numguest)", $blob);
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 	} else {
-		$chatBot->send("No players are in the private channel.", $sendto);
+		$sendto->reply("No players are in the private channel.");
 	}
 } else {
 	$syntax_error = true;

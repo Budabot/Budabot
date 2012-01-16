@@ -57,7 +57,7 @@ if (preg_match("/^opentimes$/i", $message)) {
 	} else {
 		$msg = "No sites currently scouted.";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

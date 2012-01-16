@@ -35,7 +35,7 @@ if (preg_match("/^tellall (.+)$/i", $message, $arr)) {
 		$chatBot->send("Message from $sender: <yellow>".$arr[1]."<end>", $row->name);
 	}
 	
-	$chatBot->send("Your message has been sent to all online org members.", $sendto);
+	$sendto->reply("Your message has been sent to all online org members.");
 } else {
 	$syntax_error = true;
 }

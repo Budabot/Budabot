@@ -25,7 +25,7 @@ if (preg_match("/^pb (.+)$/i", $message, $arr)) {
 		$msg = "Could not find any Pocketbosses matching your search criteria.";
 	}
 	
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

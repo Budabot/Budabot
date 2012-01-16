@@ -30,7 +30,7 @@ if (preg_match("/^fullauto ([0-9]*\\.?[0-9]+) ([0-9]*\\.?[0-9]+) (\\d+) (\\d+)$/
 	$blob .= "<orange>15K<end> is the damage cap.\n\n";
 
 	$msg = Text::make_blob("Full Auto Results", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

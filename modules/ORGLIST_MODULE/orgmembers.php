@@ -3,7 +3,7 @@
 if (preg_match("/^orgmembers$/i", $message)) {
 	if ($chatBot->vars["my_guild_id"] == "") {
 	  	$msg = "The Bot needs to be in a org to show the orgmembers.";
-	    $chatBot->send($msg, $sendto);
+	    $sendto->reply($msg);
 		return;
 	}
 	
@@ -11,12 +11,12 @@ if (preg_match("/^orgmembers$/i", $message)) {
 	$members = count($data);
   	if ($members == 0) {
 	  	$msg = "No members recorded.";
-	    $chatBot->send($msg, $sendto);
+	    $sendto->reply($msg);
 		return;
 	}
 	
 	$msg = "Getting guild info. Please wait...";
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
     
     $first_char = "";
 	$blob = array("<header>::::: Members of the org <myguild> :::::<end>\n\n");
@@ -47,7 +47,7 @@ if (preg_match("/^orgmembers$/i", $message)) {
 	$blob[] = array("header" => $lh, "content" => $l);
 	
 	$msg = Text::make_structured_blob("<myguild> has $members members currently.", $blob);
- 	$chatBot->send($msg, $sendto);
+ 	$sendto->reply($msg);
 } else if (preg_match("/^orgmembers ([0-9]+)$/i", $message, $arr1) || preg_match("/^orgmembers ([a-z0-9-]+)$/i", $message, $arr2)) {
 	if ($arr2) {
 		// Someone's name.  Doing a whois to get an orgID.
@@ -56,11 +56,11 @@ if (preg_match("/^orgmembers$/i", $message)) {
 
 		if ($whois === null) {
 			$msg = "Could not find character info for $name.";
-			$chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 			return;
 		} else if (!$whois->guild_id) {
 			$msg = "Character <highlight>$name<end> does not seem to be in an org.";
-			$chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 			return;
 		} else {
 			$guild_id = $whois->guild_id;
@@ -70,12 +70,12 @@ if (preg_match("/^orgmembers$/i", $message)) {
 	}
 
   	$msg = "Getting guild info. Please wait...";
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 	
     $org = Guild::get_by_id($guild_id);
 	if ($org === null) {
 		$msg = "Error in getting the Org info. Either org does not exist or AO's server was too slow to respond.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 	
@@ -107,7 +107,7 @@ if (preg_match("/^orgmembers$/i", $message)) {
 	$blob[] = array("header" => $lh, "content" => $l);
 	
 	$msg = Text::make_structured_blob("Org members for '$org->orgname'", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

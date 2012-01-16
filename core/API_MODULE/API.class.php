@@ -96,7 +96,7 @@ class API {
 	 */
 	public function apipasswordCommand($message, $channel, $sender, $sendto, $arr) {
 		$this->preferences->save($sender, 'apipassword', $arr[1]);
-		$this->chatBot->send("Your API password has been updated successfully.", $sendto);
+		$sendto->reply("Your API password has been updated successfully.");
 	}
 }
 

@@ -50,7 +50,7 @@ else if (preg_match("/^spirits ([0-9]+)$/i", $message, $arr)) {
 	$ql = $arr[1];
     if ($ql <= 1 OR $ql >= 300) {
         $msg = "Invalid Ql specified(1-300)";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
         return;
     }
 	$title = "Spirits QL $ql";
@@ -63,7 +63,7 @@ else if (preg_match("/^spirits ([0-9]+)-([0-9]+)$/i", $message, $arr)) {
 	$qlhirange = $arr[2];
 	if ($qllorange < 1 OR $qlhirange > 219 OR $qllorange >= $qlhirange) {
 		$msg = "Invalid Ql range specified(1-219)";
-        $chatBot->send($msg, $sendto);
+        $sendto->reply($msg);
         return;
 	}
 	$title = "Spirits QL $qllorange to $qlhirange";
@@ -77,7 +77,7 @@ else if (preg_match("/^spirits ([0-9]+) (.+)$/i", $message, $arr)) {
 	$title = "$slot Spirits QL $ql";
     if ($ql < 1 OR $ql > 300) {
         $msg = "Invalid Ql specified(1-300)";
-        $chatBot->send($msg, $sendto);
+        $sendto->reply($msg);
         return;
     } else if (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i", $slot)) {
 		$spirits .= "<red>Invalid Input\n\n";
@@ -95,7 +95,7 @@ else if (preg_match("/^spirits ([0-9]+)-([0-9]+) (.+)$/i", $message, $arr)) {
 	$title = "$slot Spirits QL $qllorange to $qlhirange";
 	if ($qllorange < 1 OR $qlhirange > 300 OR $qllorange >= $qlhirange) {
 		$msg = "Invalid Ql range specified(1-300)";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
         return;
     } else if (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i", $slot)) {
 		$spirits .= "<red>Invalid Input\n\n";
@@ -110,7 +110,7 @@ else if (preg_match ("/^spiritslvl ([0-9]+)$/i", $message, $arr)) {
 	$lvl = $arr[1];
     if ($lvl < 1 OR $lvl > 219) {
         $msg = "Invalid Level specified(1-219)";
-        $chatBot->send($msg, $sendto);
+        $sendto->reply($msg);
         return;
     }
 	$title = "Spirits Level $lvl";
@@ -124,7 +124,7 @@ else if (preg_match("/^spiritslvl ([0-9]+)-([0-9]+)$/i", $message, $arr)) {
 	$lvlhirange = $arr[2];
 	if ($lvllorange < 1 OR $lvlhirange > 219 OR $lvllorange >= $lvlhirange) {
 		$msg = "Invalid Level range specified(1-219)";
-        $chatBot->send($msg, $sendto);
+        $sendto->reply($msg);
         return;
 	}
 	$title = "Spirits Level $lvllorange to $lvlhirange";
@@ -138,7 +138,7 @@ else if (preg_match ("/^spiritslvl ([0-9]+) (.+)$/i", $message, $arr)) {
 	$title = "$slot Spirits Level $lvl";
     if ($lvl < 1 OR $lvl > 219) {
         $msg = "Invalid Level specified(1-219)";
-        $chatBot->send($msg, $sendto);
+        $sendto->reply($msg);
         return;
     } else if (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i", $slot)) {
 		$spirits .= "<red>Invalid Input\n\n";
@@ -157,7 +157,7 @@ else if (preg_match("/^spiritslvl ([0-9]+)-([0-9]+) (.+)$/i", $message, $arr)) {
 	$title = "$slot Spirits Level $lvllorange to $lvlhirange";
 	if ($lvllorange < 1 OR $lvlhirange > 219 OR $lvllorange >= $lvlhirange) {
 		$msg = "Invalid Level range specified(1-219)";
-        $chatBot->send($msg, $sendto);
+        $sendto->reply($msg);
         return;
     } else if (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i", $slot)) {
 		$spirits .= "<red>Invalid Input\n\n";
@@ -172,7 +172,7 @@ else if (preg_match ("/^spiritsagi ([0-9]+)$/i", $message, $arr)) {
 	$agility = $arr[1];
 	if ($agility < 1) {
         $msg = "Invalid Agility specified(1-1276)";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
         return;
     }
 	$loagility = $agility - 10;
@@ -188,7 +188,7 @@ else if (preg_match ("/^spiritsagi ([0-9]+) (.+)$/i", $message, $arr)) {
 	$title = "$slot Spirits With Agility Req of $agility";
     if ($agility < 1) {
         $msg = "Invalid Agility specified(1-1276)";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
         return;
     }
 	else if (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i", $slot)) {
@@ -204,7 +204,7 @@ else if (preg_match ("/^spiritssen ([0-9]+)$/i", $message, $arr)) {
 	$sense = $arr[1];
 	if ($sense < 1) {
         $msg = "Invalid Sense specified(1-1276)";
-        $chatBot->send($msg, $sendto);
+        $sendto->reply($msg);
         return;
     }
 	$losense = $sense - 10;
@@ -220,7 +220,7 @@ else if (preg_match ("/^spiritssen ([0-9]+) (.+)$/i", $message, $arr)) {
 	$title = "$slot Spirits With Sense Req of $sense";
     if ($sense < 1) {
         $msg = "Invalid Sense specified(1-1276)";
-        $chatBot->send($msg, $sendto);
+        $sendto->reply($msg);
         return;
     } else if (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i", $slot)) {
 		$spirits .= "<red>Invalid Input\n\n";
@@ -236,5 +236,5 @@ else if (preg_match ("/^spiritssen ([0-9]+) (.+)$/i", $message, $arr)) {
 		
 $spirits = Text::make_blob("Spirits", $spirits, $title);
 		
-$chatBot->send($spirits, $sendto);
+$sendto->reply($spirits);
 ?>

@@ -23,7 +23,7 @@ if (preg_match("/^burst ([0-9]*\\.?[0-9]+) ([0-9]*\\.?[0-9]+) (\\d+) (\\d+)$/i",
 	$blob .= "You need <orange>".$burstskillcap."<end> Burst Skill to cap your recharge.";
 
 	$msg = Text::make_blob("Burst Results", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

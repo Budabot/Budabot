@@ -209,7 +209,7 @@ class Command extends Annotation {
 				return;
 			}
 				
-			$this->chatBot->send("Error! Unknown command.", $sendto);
+			$sendto->reply("Error! Unknown command.");
 			$this->chatBot->spam[$sender] += 20;
 			return;
 		}
@@ -221,7 +221,7 @@ class Command extends Annotation {
 				return;
 			}
 				
-			$this->chatBot->send("Error! Access denied.", $sendto);
+			$sendto->reply("Error! Access denied.");
 			$this->chatBot->spam[$sender] += 20;
 			return;
 		}
@@ -235,7 +235,7 @@ class Command extends Annotation {
 		
 		if ($syntaxError === true) {
 			$help = $this->getHelpForCommand($cmd, $channel);
-			$this->chatBot->send($help, $sendto);
+			$sendto->reply($help);
 		}
 		$this->chatBot->spam[$sender] += 10;
 	}
@@ -266,7 +266,7 @@ class Command extends Annotation {
 				}
 			}
 		} catch (Exception $e) {
-			$chatBot->send("There was an error executing your command: " . $e->getMessage(), $sendto);
+			$sendto->reply("There was an error executing your command: " . $e->getMessage());
 		}
 		
 		return $syntax_error;

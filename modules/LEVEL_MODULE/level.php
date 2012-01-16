@@ -8,7 +8,7 @@ if (preg_match("/^level ([0-9]+)$/i", $message, $arr)) {
         $msg = "The level must be between <highlight>1<end> and <highlight>220<end>";
     }
 
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

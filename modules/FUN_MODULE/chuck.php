@@ -738,7 +738,7 @@ $chuck = array(
 	"Chuck Norris is not only a noun, but a verb."); 
 
 if (preg_match("/^chuck/i", $message)) {
-	$chatBot->send(Util::rand_array_value($chuck), $sendto);
+	$sendto->reply(Util::rand_array_value($chuck));
 } else {
 	$syntax_error = true;
 }

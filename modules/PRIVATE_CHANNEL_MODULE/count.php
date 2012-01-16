@@ -29,7 +29,7 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 		}
     }
     $msg = "<highlight>$numonline<end> in total: TL1 <highlight>$tl1<end>, TL2 <highlight>$tl2<end>, TL3 <highlight>$tl3<end>, TL4 <highlight>$tl4<end>, TL5 <highlight>$tl5<end>, TL6 <highlight>$tl6<end>, TL7 <highlight>$tl7<end>";
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else if (preg_match("/^count (all|prof)$/i", $message)) {
     $online["Adventurer"] = 0;
 	$online["Agent"] = 0;
@@ -64,7 +64,7 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 
     $msg .= "<highlight>".$online['Adventurer']."<end> Adv, <highlight>".$online['Agent']."<end> Agent, <highlight>".$online['Bureaucrat']."<end> Crat, <highlight>".$online['Doctor']."<end> Doc, <highlight>".$online['Enforcer']."<end> Enf, <highlight>".$online['Engineer']."<end> Eng, <highlight>".$online['Fixer']."<end> Fix, <highlight>".$online['Keeper']."<end> Keeper, <highlight>".$online['Martial Artist']."<end> MA, <highlight>".$online['Meta-Physicist']."<end> MP, <highlight>".$online['Nano-Technician']."<end> NT, <highlight>".$online['Soldier']."<end> Sol, <highlight>".$online['Shade']."<end> Shade, <highlight>".$online['Trader']."<end> Trader";
 
-  	$chatBot->send($msg, $sendto);
+  	$sendto->reply($msg);
 } else if (preg_match("/^count org$/i", $message, $arr)) {
 	$sql = "SELECT * FROM online WHERE added_by = '<myname>' AND channel_type = 'priv'";
 	$data = $db->query($sql);
@@ -72,7 +72,7 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 	
 	if ($numonline == 0) {
 		$msg = "No players in channel.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
@@ -88,7 +88,7 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 	}
 	
 	$msg = Text::make_blob("Organizations ($numorgs)", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^count (.*)$/i", $message, $arr)) {
     switch (strtolower($arr[1])) {
         case "adv":
@@ -135,7 +135,7 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
             break;
 		default:
 			$msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, trader or all";
-			$chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 			return;
     }
    
@@ -151,7 +151,7 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 		}
         $msg .= " [<highlight>$row->name<end> - ".$row->level.$afk."]";
     }
-    $chatBot->send($msg, $sendto);  	
+    $sendto->reply($msg);  	
 } else {
 	$syntax_error = true;
 }

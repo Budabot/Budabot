@@ -26,7 +26,7 @@ if (preg_match("/^ofabweapons$/i", $message, $arr)) {
 	}
 
 	$msg = Text::make_blob("Ofab Weapons", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^ofabweapons (.+) (\\d+)$/i", $message, $arr) || preg_match("/^ofabweapons (.+)$/i", $message, $arr)) {
 	if ($arr[2]) {
 		$ql = $arr[2];
@@ -67,7 +67,7 @@ if (preg_match("/^ofabweapons$/i", $message, $arr)) {
 	}
 
 	$msg = Text::make_blob("Ofab $weapon (QL $ql)", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

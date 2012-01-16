@@ -21,7 +21,7 @@ if (preg_match("/^kos$/i", $message)) {
 		$msg = Text::make_blob("Kill On Sight list", $link);
 	}
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^kos add (.+)$/i", $message, $arr)) {
 	$explodemsg = explode(' ', $arr[1], 3);
 	$name = ucfirst(strtolower($explodemsg[0]));
@@ -45,7 +45,7 @@ if (preg_match("/^kos$/i", $message)) {
 		}
 	}
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^kos rem (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 	$row = $db->queryRow("SELECT * FROM koslist WHERE `sender` = ? AND `name` = ?", $sender, $name);
@@ -64,7 +64,7 @@ if (preg_match("/^kos$/i", $message)) {
 		$msg = "You don't have this player on your KOS List.";
 	}
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^kos (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 	$data = $db->query("SELECT * FROM koslist WHERE `name` = ? LIMIT 0, 40", $name);
@@ -85,7 +85,7 @@ if (preg_match("/^kos$/i", $message)) {
 		$msg = "Character <highlight>$name<end> is not on the KOS List.";
 	}
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

@@ -5,7 +5,7 @@ if (preg_match("/^altvalidate ([a-z0-9- ]+)$/i", $message, $arr)) {
 	$alt = ucfirst(strtolower($arr[1]));
 
 	if (!$altInfo->is_validated($sender) || ($sender != $altInfo->main && $setting->get('validate_from_validated_alt') == 0)) {
-		$chatBot->send("<highlight>$alt<end> cannot be validated from your current character.", $sendto);
+		$sendto->reply("<highlight>$alt<end> cannot be validated from your current character.");
 		return;
 	}
 
@@ -16,17 +16,17 @@ if (preg_match("/^altvalidate ([a-z0-9- ]+)$/i", $message, $arr)) {
 			$isAlt = true;
 
 			if ($validated == 1) {
-				$chatBot->send("<highlight>$alt<end> is already validated as your alt.", $sendto);
+				$sendto->reply("<highlight>$alt<end> is already validated as your alt.");
 				return;
 			}
 		}
 	}
 
 	if (!$isAlt) {
-		$chatBot->send("<highlight>$alt<end> is not registered as your alt.", $sendto);
+		$sendto->reply("<highlight>$alt<end> is not registered as your alt.");
 	} else {
 		$db->exec("UPDATE `alts` SET `validated` = ? WHERE `alt` LIKE ? AND `main` LIKE ?", '1', $alt, $altInfo->main);
-		$chatBot->send("<highlight>$alt<end> has been validated as your alt.", $sendto);
+		$sendto->reply("<highlight>$alt<end> has been validated as your alt.");
 	}
 } else {
 	$syntax_error = true;

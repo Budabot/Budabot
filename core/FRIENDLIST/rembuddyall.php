@@ -7,7 +7,7 @@ if (preg_match("/^rembuddyall$/i", $message, $arr)) {
 	$chatBot->buddyList = array();
 	
 	$msg = "All buddies have been removed from the buddy list.";
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

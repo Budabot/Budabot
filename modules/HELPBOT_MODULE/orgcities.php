@@ -10,12 +10,12 @@ if (preg_match("/^orgcities$/i", $message)) {
 	}
 	
 	$msg = Text::make_blob("Playfields with Org Cities", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^orgcities (.+)$/i", $message, $arr)) {
 	$playfields = Registry::getInstance('playfields');
 	$playfield = $playfields->get_playfield_by_name($arr[1]);
 	if ($playfield === null) {
-		$chatBot->send("Could not find playfield '{$arr[1]}'", $sendto);
+		$sendto->reply("Could not find playfield '{$arr[1]}'");
 		return;
 	}
 
@@ -33,7 +33,7 @@ if (preg_match("/^orgcities$/i", $message)) {
 	}
 	
 	$msg = Text::make_blob("Org cities in {$playfield->long_name}", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

@@ -27,9 +27,9 @@ if (preg_match("/^track$/i", $message)) {
 	  	}
 	  	
 	    $msg = Text::make_blob("Tracklist ({$numrows})", $blob);
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 	} else {
-       	$chatBot->send("No players are on the track list.", $sendto);
+       	$sendto->reply("No players are on the track list.");
 	}
 } else if (preg_match("/^track rem (.+)$/i", $message, $arr)) {
     $uid = $chatBot->get_uid($arr[1]);
@@ -48,7 +48,7 @@ if (preg_match("/^track$/i", $message)) {
 		}
 	}
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^track add (.+)$/i", $message, $arr)) {
     $uid = $chatBot->get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
@@ -66,7 +66,7 @@ if (preg_match("/^track$/i", $message)) {
 		}
 	}
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^track (.+)$/i", $message, $arr)) {
 	$uid = $chatBot->get_uid($arr[1]);
 	$name = ucfirst(strtolower($arr[1]));
@@ -82,7 +82,7 @@ if (preg_match("/^track$/i", $message)) {
 	} else {
 		$msg = "'$name' has never logged on or is not being tracked.";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

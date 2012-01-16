@@ -10,14 +10,14 @@ if (preg_match("/^remscout ([a-z0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	$playfield = $playfields->get_playfield_by_name($playfield_name);
 	if ($playfield === null) {
 		$msg = "Invalid playfield.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 	
 	$tower_info = $towers->get_tower_info($playfield->id, $site_number);
 	if ($tower_info === null) {
 		$msg = "Invalid site number.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 	
@@ -28,7 +28,7 @@ if (preg_match("/^remscout ([a-z0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	} else {
 		$msg = "{$playfield->short_name} {$site_number} removed successfully.";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

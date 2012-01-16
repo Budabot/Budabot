@@ -19,17 +19,17 @@ if (preg_match("/^cluster (.+)$/i", $message, $arr)) {
 		}
 	}
 	if ($found == 0) { 
-		$chatBot->send("No matches found.", $sendto);
+		$sendto->reply("No matches found.");
 		return; 
 	} else if ($found == 1) {
-		$chatBot->send($info, $sendto);
+		$sendto->reply($info);
 	} else {
 		$inside = "Your query of <yellow>".$name."<end> returned the following results:\n\n";
 		$inside .= $info;
 		$inside .= "\n\nby Imoutochan (RK1)";
 	
 		$windowlink = Text::make_blob("::Cluster search results ($found)::", $inside);
-		$chatBot->send($windowlink, $sendto);
+		$sendto->reply($windowlink);
 	}
 } else {
 	$syntax_error = true;

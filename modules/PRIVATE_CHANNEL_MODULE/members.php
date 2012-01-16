@@ -21,9 +21,9 @@ if (preg_match("/^members$/i", $message)) {
 	  	}
 	  	
 	    $msg = Text::make_blob("Members ($autoguests)", $list);
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 	} else {
-       	$chatBot->send("There are no members of this bot.", $sendto);
+       	$sendto->reply("There are no members of this bot.");
 	}
 } else {
 	$syntax_error = true;

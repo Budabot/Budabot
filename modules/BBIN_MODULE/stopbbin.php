@@ -5,11 +5,11 @@ if (preg_match("/^stopbbin$/i", $message)) {
 	$setting->save("bbin_status", "0");
 
 	if (!IRC::isConnectionActive($bbinSocket)) {
-		$chatBot->send("There is no active BBIN connection.", $sendto);
+		$sendto->reply("There is no active BBIN connection.");
 	} else {
 		IRC::disconnect($bbinSocket);
 		LegacyLogger::log('INFO', "BBIN", "Disconnected from BBIN");
-		$chatBot->send("The BBIN connection has been disconnected.", $sendto);
+		$sendto->reply("The BBIN connection has been disconnected.");
 	}
 } else {
 	$syntax_error = true;

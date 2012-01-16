@@ -27,7 +27,7 @@ if (preg_match("/^oe ([0-9]+)$/i", $message, $arr)) {
 	
 	$msg = "<orange>{$lowoe100}<end> - <yellow>{$oe}<end> - <orange>{$oe100}<end> " . Text::make_blob('More info', $blob, 'Over-equipped Calculation');
     
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 /*
 } else if (preg_match('/^oe \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\"\>/i', $message, $arr)) {
 	$url = "http://itemxml.xyphos.com/?";
@@ -38,7 +38,7 @@ if (preg_match("/^oe ([0-9]+)$/i", $message, $arr)) {
 	$data = file_get_contents($url, 0);
 	if (empty($data) || '<error>' == substr($data, 0, 7)) {
 		$msg = "Unable to query Items XML Database.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 */

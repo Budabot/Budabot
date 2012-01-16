@@ -52,7 +52,7 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 	} else {
 		$output = "There were no matches for your search.";
 	}
-	$chatBot->send($output, $sendto);
+	$sendto->reply($output);
 } else {
 	$syntax_error = true;
 }

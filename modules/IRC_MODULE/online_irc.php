@@ -10,7 +10,7 @@
 global $ircSocket;
 if (preg_match("/^onlineirc$/i", $message)) {
 	if (!IRC::isConnectionActive($ircSocket)) {
-		$chatBot->send("There is no active IRC connection.", $sendto);
+		$sendto->reply("There is no active IRC connection.");
 		return;
 	}
 
@@ -23,7 +23,7 @@ if (preg_match("/^onlineirc$/i", $message)) {
 	
 	$msg = Text::make_blob("IRC Online ($numusers)", $blob);
 	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

@@ -7,7 +7,7 @@ if (preg_match("/^friendlist$/i", $message) || preg_match("/^friendlist (clean)$
 
 	$orphanCount = 0;
 	if (count($chatBot->buddyList) == 0) {
-		$chatBot->send("The are no characters on the friendlist.", $sendto);
+		$sendto->reply("The are no characters on the friendlist.");
 	} else {
 		$count = 0;
 		forEach ($chatBot->buddyList as $key => $value) {
@@ -39,16 +39,16 @@ if (preg_match("/^friendlist$/i", $message) || preg_match("/^friendlist (clean)$
 		}
 		
 		if ($cleanup) {
-			$chatBot->send("Removed $orphanCount friends from the friendlist.", $sendto);
+			$sendto->reply("Removed $orphanCount friends from the friendlist.");
 		}
 		$msg = Text::make_blob("Friendlist ($count)", $blob);
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 	}
 } else if (preg_match("/^friendlist (.*)$/i", $message, $arg)) {
 	$search = $arg[1];
 
 	if (count($chatBot->buddyList) == 0) {
-		$chatBot->send("Didn't find any names in the friendlist.", $sendto);
+		$sendto->reply("Didn't find any names in the friendlist.");
 	} else {
 		$count = 0;
 		$blob = "Friendlist Search: '{$search}'\n\n";
@@ -62,9 +62,9 @@ if (preg_match("/^friendlist$/i", $message) || preg_match("/^friendlist (clean)$
 
 		if ($count > 0) {
 			$msg = Text::make_blob("Friendlist Search ($count)", $blob);
-			$chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 		} else {
-			$chatBot->send("No friends on the friendlist found containing '$search'", $sendto);
+			$sendto->reply("No friends on the friendlist found containing '$search'");
 		}
 	}
 }

@@ -9,7 +9,7 @@ if (preg_match("/^nanoloc$/i", $message, $arr)) {
 	}
 	
 	$msg = Text::make_blob("Nano Locations", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^nanoloc (.+)$/i", $message, $arr)) {
 	$location = $arr[1];
 
@@ -49,7 +49,7 @@ if (preg_match("/^nanoloc$/i", $message, $arr)) {
 		$msg = Text::make_blob("Nanos for Location '$location' ($count)", $blob);
 	}
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
   	$syntax_error = true; 	
 }

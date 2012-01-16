@@ -19,7 +19,7 @@ if (preg_match("/^dimach ([0-9]+)$/i", $message, $arr)) {
 	} elseif ($dim_skill < 3001) {
 		$i = 4; 
 	} else { 
-		$chatBot->send("Skill entered is out of range... please enter a number between <highlight>1 and 3000<end>.", $sendto);
+		$sendto->reply("Skill entered is out of range... please enter a number between <highlight>1 and 3000<end>.");
 		return;
 	}
 	
@@ -53,7 +53,7 @@ if (preg_match("/^dimach ([0-9]+)$/i", $message, $arr)) {
 	$blob .= "by Imoutochan, RK1";
 	
 	$msg = Text::make_blob("Dimach Results", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

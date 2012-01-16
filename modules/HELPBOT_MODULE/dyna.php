@@ -27,7 +27,7 @@ if (preg_match ("/^dyna ([\\d]+)$/i", $message, $arr)) {
 	}
 	
 	$msg = Text::make_blob("Dynacamps ($count)", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match ("/^dyna (.+)$/i", $message, $arr)) {
 	$search = str_replace(" ", "%", $arr[1]);
 	$data = $db->query("SELECT * FROM dynadb d JOIN playfields p ON d.playfield_id = p.id WHERE long_name LIKE ? OR short_name LIKE ? OR mob LIKE ? ORDER BY `minQl`", "%{$search}%", "%{$search}%", "%{$search}%");
@@ -44,7 +44,7 @@ if (preg_match ("/^dyna ([\\d]+)$/i", $message, $arr)) {
 	}
 	
 	$msg = Text::make_blob("Dynacamps ($count)", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

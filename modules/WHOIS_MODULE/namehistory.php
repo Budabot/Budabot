@@ -5,7 +5,7 @@ if (preg_match("/^namehistory (.+)$/i", $message, $arr)) {
 	$uid = $chatBot->get_uid($name);
 	if (!$uid) {
 		$msg = "<highlight>$name<end> does not exist.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 	
@@ -23,7 +23,7 @@ if (preg_match("/^namehistory (.+)$/i", $message, $arr)) {
 		$msg = "No name history available.";
 	}
 	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

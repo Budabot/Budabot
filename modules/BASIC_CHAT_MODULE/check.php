@@ -11,7 +11,7 @@ if (preg_match("/^check$/i", $message) || preg_match("/^check all$/i", $message)
 
 	$list .= "<a href='chatcmd:///text AssistAll: $content'>Click here to check who is here</a>";
 	$msg = Text::make_blob("Check on all", $list);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^check prof$/i", $message)) {
 	$list = '';
 	$data = $db->query("SELECT o.name, p.profession FROM online o LEFT JOIN players p ON (o.name = o.name AND p.dimension = '<dim>') WHERE added_by = '<myname>' AND channel_type = ? ORDER BY `profession` DESC", $channel_type);
@@ -26,7 +26,7 @@ if (preg_match("/^check$/i", $message) || preg_match("/^check all$/i", $message)
 	}
 
 	$msg = Text::make_blob("Check by profession", $list);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^check org$/i", $message)) {
 	$list = '';
 	$data = $db->query("SELECT o.name, p.guild FROM online o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE added_by = '<myname>' AND channel_type = ? ORDER BY `guild` DESC", $channel_type);
@@ -45,7 +45,7 @@ if (preg_match("/^check$/i", $message) || preg_match("/^check all$/i", $message)
 	}
 
 	$msg = Text::make_blob("Check by Organization", $list);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

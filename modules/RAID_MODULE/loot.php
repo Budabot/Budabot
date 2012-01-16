@@ -9,7 +9,7 @@ if (preg_match("/^loot clear$/i", $message)) {
   	$chatBot->send($msg, 'priv');
 
 	if ($type != 'priv') {
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 	}
 } else if (preg_match("/^loot ([0-9]+)$/i", $message, $arr)) {
 	$id = $arr[1];
@@ -19,7 +19,7 @@ if (preg_match("/^loot clear$/i", $message)) {
 	
 	if ($item === null) {
 		$msg = "Could not find item with id <highlight>$id<end> to add.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 	

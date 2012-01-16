@@ -15,7 +15,7 @@ if (preg_match("/^flip$/i", $message)) {
   		$msg = "You can only flip or roll once every 30 seconds.";
 	}
 
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else if (preg_match("/^roll ([0-9]+)$/i", $message, $arr)) {
   	if ($arr[1] > getrandmax()) {
 		$msg = "The maximum number that the roll number can be is <highlight>".getrandmax()."<end>";
@@ -31,7 +31,7 @@ if (preg_match("/^flip$/i", $message)) {
 		}
 	}
 	  	
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else if (preg_match("/^roll ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
   	if ($arr[2] >= getrandmax()) {
 		$msg = "The maximum number that the roll number can be is <highlight>".getrandmax()."<end>";
@@ -49,7 +49,7 @@ if (preg_match("/^flip$/i", $message)) {
 		}
 	}
 	
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else if (preg_match("/^verify ([0-9]+)$/i", $message, $arr)) {
 	$row = $db->queryRow("SELECT * FROM roll WHERE `id` = ?", $arr[1]);
 	if ($row === null) {
@@ -68,7 +68,7 @@ if (preg_match("/^flip$/i", $message)) {
 		}
 	}
 	
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

@@ -43,7 +43,7 @@ if (preg_match("/^trickle( ([a-zA-Z]+) ([0-9]+)){1,6}$/i", $message, $arr1) || p
 	$blob .= formatOutput($results, $amount, $abilities);
 	$blob .= "\nBy Tyrence (RK2), inspired by the Bebot command of the same name";
 	$msg = Text::make_blob("Trickle Results", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

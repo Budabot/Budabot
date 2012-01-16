@@ -28,7 +28,7 @@ if (preg_match("/^premade (.*)$/i", $message, $arr)) {
 		$msg = "No results found.";
 	}
   
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

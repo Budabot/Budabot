@@ -10,7 +10,7 @@ if (preg_match("/^rembuddy (.+) (.+)$/i", $message, $arr)) {
 		$msg = "Could not remove $name from the buddy list.";
 	}
 	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

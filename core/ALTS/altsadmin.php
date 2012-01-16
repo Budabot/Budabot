@@ -13,12 +13,12 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names)) {
 
 	if (!$uid_alt) {
 		$msg = "Character <highlight>$name_alt<end> does not exist.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 	if (!$uid_main) {
 		$msg = "Character <highlight>$name_main<end> does not exist.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
@@ -26,7 +26,7 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names)) {
 	$altinfo = Alts::get_alt_info($name_alt);
 	if ($altinfo->main == $mainInfo->main) {
 		$msg = "Character <highlight>$name_alt<end> is already registered as an alt of <highlight>{$altinfo->main}<end>.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 	
@@ -37,13 +37,13 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names)) {
 		} else {
 			$msg = "<highlight>$name<end> is already registered as an of alt of {$altInfo->main}.";
 		}
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
 	Alts::add_alt($mainInfo->main, $name_alt, 1);
 	$msg = "<highlight>$name_alt<end> has been registered as an alt of {$mainInfo->main}.";
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^altsadmin rem (.+) (.+)$/i", $message, $names)) {
 	if ($names[1] == '' || $names[2] == '') {
 		$syntax_error = true;
@@ -58,7 +58,7 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names)) {
 	} else {
 		$msg = "<highlight>$name_alt<end> has been removed from the alt list of <highlight>$name_main<end>.";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

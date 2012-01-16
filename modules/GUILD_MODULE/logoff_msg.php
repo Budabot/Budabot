@@ -8,7 +8,7 @@ if (preg_match("/^logoff$/i", $message)) {
 	} else {
 		$msg = "{$sender} logoff: {$logoff_msg}";
 	}
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else if (preg_match("/^logoff (.+)$/i", $message, $arr)) {
 	$logoff_msg = $arr[1];
 	
@@ -21,7 +21,7 @@ if (preg_match("/^logoff$/i", $message)) {
 	} else {
 		$msg = "Your logoff message is too large. Your logoff message may contain a maximum of " . $setting->get('max_logoff_msg_size') . " characters.";
 	}
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

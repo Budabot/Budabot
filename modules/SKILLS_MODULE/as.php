@@ -23,7 +23,7 @@ if (preg_match("/^as ([0-9]*\\.?[0-9]+) ([0-9]*\\.?[0-9]+) (\\d+)$/i", $message,
 	$blob .= "You need <orange>".$ASCap."<end> AS skill to cap your recharge.";
 
 	$msg = Text::make_blob("Aimed Shot Results", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

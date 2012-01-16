@@ -7,7 +7,7 @@ if (preg_match("/^usage$/i", $message) || preg_match("/^usage ([a-z0-9]+)$/i", $
 		$time = Util::parseTime($arr[1]);
 		if ($time == 0) {
 			$msg = "Please enter a valid time.";
-			$chatBot->send($msg, $sendto);
+			$sendto->reply($msg);
 			return;
 		}
 		$time = $time;
@@ -37,7 +37,7 @@ if (preg_match("/^usage$/i", $message) || preg_match("/^usage ([a-z0-9]+)$/i", $
 	}
 	
 	$msg = Text::make_blob("Usage Statistics ({$timeString})", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

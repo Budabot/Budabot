@@ -89,6 +89,6 @@ if ($error === false) {
 	$msg = "<orange>$error<end>";
 }
 
-$chatBot->send($msg, $sendto);
+$sendto->reply($msg);
 
 ?>

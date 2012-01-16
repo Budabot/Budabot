@@ -10,7 +10,7 @@ if (preg_match('/^specials \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)
 	$data = file_get_contents($url, 0);
 	if (empty($data) || '<error>' == substr($data, 0, 7)) {
 		$msg = "Unable to query Items XML Database.";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
@@ -82,7 +82,7 @@ if (preg_match('/^specials \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)
 		$msg = Text::make_blob("Weapon Specials for $name", $blob);
 	}
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

@@ -14,7 +14,7 @@ if (preg_match("/^nanolines$/i", $message, $arr)) {
 
 	$msg = Text::make_blob('Nanolines', $blob);
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^nanolines ([0-9]+)$/i", $message, $arr)) {
 	$nanoline_id = $arr[1];
 
@@ -55,12 +55,12 @@ if (preg_match("/^nanolines$/i", $message, $arr)) {
 		$msg = "No nanoline found.";
 	}
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^nanolines (.*)$/i", $message, $arr)) {
 	$profession = Util::get_profession_name($arr[1]);
 	if ($profession == '') {
 		$msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, or trader";
-		$chatBot->send($msg, $sendto);
+		$sendto->reply($msg);
 		return;
 	}
 
@@ -79,7 +79,7 @@ if (preg_match("/^nanolines$/i", $message, $arr)) {
 	$blob .= "\nModule created by Tyrence (RK2)";
 	$msg = Text::make_blob("$profession Nanolines", $blob);
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

@@ -16,7 +16,7 @@ if (preg_match("/^remuser (.+)$/i", $message, $arr)) {
 		}
 	}
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

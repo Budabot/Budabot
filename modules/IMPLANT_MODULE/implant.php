@@ -13,7 +13,7 @@ if (preg_match("/^implant ([0-9]+)$/i", $message, $arr)) {
 		$msg = "QL $ql implants--Ability: {$obj->ability}, Treatment: {$obj->treatment} $link";
 	}
 
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^implant ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	$ability = $arr[1];
 	$treatment = $arr[2];
@@ -27,7 +27,7 @@ if (preg_match("/^implant ([0-9]+)$/i", $message, $arr)) {
 
 		$msg = "The highest ql implant you can wear is $link which requires <highlight>$obj->treatment Treatment<end> and <highlight>$obj->ability Ability<end>.";
 	}
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

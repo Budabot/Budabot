@@ -21,14 +21,14 @@ if (preg_match("/^links$/i", $message)) {
 		$msg = Text::make_blob('Links', $blob);
 	}
   	
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else if (preg_match("/^links add ([^ ]+) (.+)$/i", $message, $arr)) {
 	$website = html_entity_decode($arr[1]);
 	$comments = $arr[2];
 
 	$db->query("INSERT INTO links (`name`, `website`, `comments`, `dt`) VALUES(?, ?, ?, ?)", $sender, $website, $comments, time());
 	$msg = "Link added successfully.";
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else if (preg_match("/^links rem ([0-9]+)$/i", $message, $arr)) {
 	$id = $arr[1];
 
@@ -38,7 +38,7 @@ if (preg_match("/^links$/i", $message)) {
 	} else {
 		$msg = "Link could not be found or was not submitted by you.";
 	}
-    $chatBot->send($msg, $sendto);
+    $sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

@@ -29,7 +29,7 @@ if (preg_match("/^nanoinit ([0-9]*\\.?[0-9]+) (\\d+)$/i", $message, $arr)) {
 	$blob .= "NanoC. Init needed to instacast at Full Def (0%):<orange> ". $Init3 ." <end>inits.";
 
 	$msg = Text::make_blob("Nano Init Results", $blob);
-	$chatBot->send($msg, $sendto);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

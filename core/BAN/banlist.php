@@ -4,7 +4,7 @@ $banlist = Registry::getInstance('ban')->getBanlist();
 
 if (preg_match("/^banlist$/i", $message)) {
   	if (count($banlist) == 0) {
-	    $chatBot->send("No one is currently banned from this bot.", $sendto);
+	    $sendto->reply("No one is currently banned from this bot.");
 	    return;
 	}
 	
@@ -25,7 +25,7 @@ if (preg_match("/^banlist$/i", $message)) {
 		$blob .= "\n";
 	}
 	$link = Text::make_blob('Banlist', $blob);
-	$chatBot->send($link, $sendto);
+	$sendto->reply($link);
 } else {
 	$syntax_error = true;
 }
