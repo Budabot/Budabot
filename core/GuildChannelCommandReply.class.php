@@ -9,7 +9,7 @@ class GuildChannelCommandReply implements CommandReply {
 		$this->chatBot = $chatBot;
 	}
 
-	public function send($msg) {
+	public function reply($msg) {
 		$this->chatBot->send($msg, 'guild');
 	}
 }

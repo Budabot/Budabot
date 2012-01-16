@@ -11,7 +11,7 @@ class PrivateMessageCommandReply implements CommandReply {
 		$this->sender = $sender;
 	}
 
-	public function send($msg) {
+	public function reply($msg) {
 		$this->chatBot->send($msg, $this->sender);
 	}
 }

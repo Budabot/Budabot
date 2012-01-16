@@ -1,7 +1,7 @@
 <?php
 
 interface CommandReply {
-	public function send($msg);
+	public function reply($msg);
 }
 
 ?>
