@@ -1,7 +1,7 @@
 <?php
 
 class Whompah {
-	public static function find_whompah_path(&$queue, &$whompahs, &$endCity) {
+	public static function find_whompah_path($queue, $whompahs, &$endCity) {
 		$current_whompah = array_shift($queue);
 		
 		if ($current_whompah == false) {
@@ -27,7 +27,6 @@ class Whompah {
 	}
 	
 	public static function find_city($search) {
-		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 		
 		$sql = "SELECT * FROM whompah_cities WHERE city_name LIKE ? OR short_name LIKE ?";
@@ -35,7 +34,6 @@ class Whompah {
 	}
 	
 	public static function build_whompah_network() {
-		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 
 		$whompahs = array();
@@ -44,6 +42,8 @@ class Whompah {
 		$data = $db->query($sql);
 		forEach ($data as $row) {
 			$whompahs[$row->id] = $row;
+			$whompahs[$row->id]->connections = array();
+			$whompahs[$row->id]->visited = false;
 		}
 		
 		$sql = "SELECT city1_id, city2_id FROM whompah_cities_rel";
