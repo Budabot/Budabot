@@ -68,8 +68,8 @@ class Text {
 		} else {
 			$i = 1;
 			forEach ($pages as $key => $page) {
-				$header = "<header> :::::: $header (Page $i / $num) :::::: <end>\n\n";
-				$page = "<a href=\"text://".$setting->get("default_window_color").$header.$page."\">$name</a> (Page <highlight>$i / $num<end>)";
+				$headerMarkup = "<header> :::::: $header (Page $i / $num) :::::: <end>\n\n";
+				$page = "<a href=\"text://".$setting->get("default_window_color").$headerMarkup.$page."\">$name</a> (Page <highlight>$i / $num<end>)";
 				$pages[$key] = $page;
 				$i++;
 			}
