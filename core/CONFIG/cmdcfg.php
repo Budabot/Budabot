@@ -268,7 +268,7 @@ if (preg_match("/^config$/i", $message)) {
 		$msg = "Updated status of subcommand <highlight>$cmd<end> to <highlight>".$arr[3]."d<end> in Channel <highlight>$type<end>";
 	} else if ($arr[1] == "subcmd" && $type == "all") {
 		$msg = "Updated status of subcommand <highlight>$cmd<end> to <highlight>".$arr[3]."d<end>";
-	} else if ($arr[1] == "event" && $type != "") {
+	} else if ($arr[1] == "event" && $file != "") {
 		$msg = "Updated status of event <highlight>$event_type<end> to <highlight>".$arr[3]."d<end>";
 	}
 
