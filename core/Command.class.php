@@ -227,8 +227,8 @@ class Command extends Annotation {
 		}
 
 		// record usage stats
-		if ($cmd != 'grc' && $this->setting->get('record_usage_stats') == 1) {
-			Registry::getInstance('usage')->record($channel, $cmd, $sender);
+		if ($this->setting->get('record_usage_stats') == 1) {
+			Registry::getInstance('usage')->record($channel, $cmd, $sender, $commandHandler);
 		}
 	
 		$syntaxError = $this->callCommandHandler($commandHandler, $message, $channel, $sender, $sendto);
@@ -240,7 +240,7 @@ class Command extends Annotation {
 		$this->chatBot->spam[$sender] += 10;
 	}
 	
-	public function callCommandHandler($commandHandler, $message, $channel, $sender, $sendto, $arr) {
+	public function callCommandHandler($commandHandler, $message, $channel, $sender, $sendto) {
 		$syntax_error = false;
 		try {
 			if (preg_match("/\\.php$/i", $commandHandler->file)) {

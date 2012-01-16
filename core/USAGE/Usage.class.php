@@ -13,7 +13,12 @@ class Usage {
 	/** @Inject */
 	public $chatBot;
 
-	public function record($type, $cmd, $sender) {
+	public function record($type, $cmd, $sender, $commandHandler) {
+		// don't record stats for !grc command or command aliases
+		if ($cmd == 'grc' || $commandHandler->file == CommandAlias::ALIAS_HANDLER) {
+			return;
+		}
+	
 		$sql = "INSERT INTO usage_<myname> (type, command, sender, dt) VALUES (?, ?, ?, ?)";
 		$this->db->exec($sql, $type, $cmd, $sender, time());
 	}
