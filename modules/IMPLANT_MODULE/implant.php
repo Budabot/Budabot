@@ -9,7 +9,7 @@ if (preg_match("/^implant ([0-9]+)$/i", $message, $arr)) {
 	} else {
 		$obj = getRequirements($ql);
 		$clusterInfo = formatClusterBonuses($obj);
-		$link = Text::make_blob('More info', $clusterInfo);
+		$link = Text::make_blob('More info', $clusterInfo, "Implant Info (ql $obj->ql)");
 		$msg = "QL $ql implants--Ability: {$obj->ability}, Treatment: {$obj->treatment} $link";
 	}
 
@@ -23,7 +23,7 @@ if (preg_match("/^implant ([0-9]+)$/i", $message, $arr)) {
 	} else {
 		$obj = findMaxImplantQlByReqs($ability, $treatment);
 		$clusterInfo = formatClusterBonuses($obj);
-		$link = Text::make_blob("ql $obj->ql", $clusterInfo);
+		$link = Text::make_blob("ql $obj->ql", $clusterInfo, , "Implant Info (ql $obj->ql)");
 
 		$msg = "The highest ql implant you can wear is $link which requires <highlight>$obj->treatment Treatment<end> and <highlight>$obj->ability Ability<end>.";
 	}

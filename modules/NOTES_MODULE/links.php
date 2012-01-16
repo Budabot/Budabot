@@ -1,7 +1,7 @@
 <?php
 
 if (preg_match("/^links$/i", $message)) {
-	$blob = "<header> :::::: Links :::::: <end>\n\n";
+	$blob = '';
 
 	$sql = "SELECT * FROM links ORDER BY name ASC";
   	$data = $db->query($sql);

@@ -135,7 +135,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 	}
 	
 	if ($msg) {
-		$msg = Text::make_blob("Results for: '$search'", "<header> :::::: Quote Info :::::: <end>\n\n$msg");
+		$msg = Text::make_blob("Results for: '$search'", $msg);
 	} else {
 		$msg = "Couldn't find any matches for this search.";
 	}
@@ -164,9 +164,8 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 		}
 	}
 	arsort($victims);
-	
-	$blob = "<header> :::::: Quote Stats :::::: <end>\n\n";
-	$blob .= "<highlight>Top $top Quoters:<end> (".count($quoters)." total)\n";
+
+	$blob = "<highlight>Top $top Quoters:<end> (".count($quoters)." total)\n";
 	$listnum = 0;
 	forEach ($quoters as $key => $val) {
 		$listnum++;
@@ -206,9 +205,8 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 		$quoteOfWHO = $row->OfWho;
 		$quoteDATE = $row->When;
 		$quoteMSG = $row->What;
-		
-		$msg = "<header> ::::: Quote Info ::::: <end>\n\n";
-		$msg .= "<tab>ID: (<highlight>$quoteID<end> of $count)\n";
+
+		$msg = "<tab>ID: (<highlight>$quoteID<end> of $count)\n";
 		$msg .= "<tab>Poster: <highlight>$quoteWHO<end>\n";
 		$msg .= "<tab>Quoting: <highlight>$quoteOfWHO<end>\n";
 		$msg .= "<tab>Date: <highlight>" . date(Util::DATETIME, $quoteDATE) . "<end>\n\n";
@@ -257,8 +255,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 			}
 		} while (true);
 		
-		$msg = "<header> :::::: Quote Info :::::: <end>\n\n";
-		$msg .= "<tab>ID: (<highlight>$quoteID<end> of $count)\n";
+		$msg = "<tab>ID: (<highlight>$quoteID<end> of $count)\n";
 		$msg .= "<tab>Poster: <highlight>$quoteWHO<end>\n";
 		$msg .= "<tab>Quoting: <highlight>$quoteOfWHO<end>\n";
 		$msg .= "<tab>Date: <highlight>" . date(Util::DATETIME, $quoteDATE) . "<end>\n\n";

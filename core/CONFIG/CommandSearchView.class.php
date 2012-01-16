@@ -6,7 +6,7 @@ class CommandSearchView {
 	public $text;
 
 	public function render($results, $hasAccess, $exactMatch) {
-		$blob = "<header> :::::: Command Search Results :::::: <end>\n\n";
+		$blob = '';
 		forEach ($results as $row) {
 			if ($row->help != '') {
 				$helpLink = $this->text->make_chatcmd("Help", "/tell <myname> help $row->help");
@@ -23,13 +23,14 @@ class CommandSearchView {
 			$blob .= "<highlight>{$cmd}<end> {$module} - {$row->description} ({$helpLink})\n";
 		}
 
-		if (count($results) == 0) {
+		$count = count($results);
+		if ($count == 0) {
 			$msg = "No results found.";
 		} else {
 			if ($exactMatch) {
-				$msg = $this->text->make_blob(count($results) . ' results found', $blob);
+				$msg = $this->text->make_blob("Command Search Results ($count)", $blob);
 			} else {
-				$msg = 'Exact match not found. ' . $this->text->make_blob('Did you mean one of these?', $blob);
+				$msg = $this->text->make_blob("Possible Matches ($count)", $blob);
 			}
 		}
 		return $msg;

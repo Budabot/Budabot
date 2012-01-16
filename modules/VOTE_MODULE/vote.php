@@ -33,16 +33,16 @@ if (preg_match("/^vote$/i", $message)) {
 			}
 		}
 		if ($running) {
-			$msg .= " <green>Running:<end>\n".$running;
+			$blob .= " <green>Running:<end>\n".$running;
 		}
 		if ($running && $over) {
-			$msg .= "\n";
+			$blob .= "\n";
 		}
 		if ($over) {
-			$msg .= " <red>Finshed:<end>\n".$over;
+			$blob .= " <red>Finshed:<end>\n".$over;
 		}
 
-		$msg = Text::make_blob("Vote Listing", $msg);
+		$msg = Text::make_blob("Vote Listing", $blob);
 	} else {
 		$msg = "There are currently no votes to view.";
 	}

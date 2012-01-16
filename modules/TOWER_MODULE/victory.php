@@ -105,7 +105,8 @@ if (count($data) == 0) {
 	}
 	$links['Next Page'] = "/tell <myname> victory {$cmd}" . ($page_label + 1);
 	
-	$blob = Text::make_header("The last $page_size Tower Results (page $page_label)", $links);
+	$blob = "The last $page_size Tower Results (page $page_label)\n\n";
+	$blob .= Text::make_header_links($links) . "\n\n";
 	$blob .= $colorvalue;
 	forEach ($data as $row) {
 		$blob .= $colorlabel."Time:<end> ".date(Util::DATETIME, $row->victory_time)." (GMT)\n";

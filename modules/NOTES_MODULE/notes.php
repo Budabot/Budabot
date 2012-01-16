@@ -1,7 +1,7 @@
 <?php
 
 if (preg_match("/^notes$/i", $message)) {
-	$blob = "<header> :::::: Notes for $sender :::::: <end>\n\n";
+	$blob = '';
 
 	$sql = "SELECT * FROM notes WHERE name LIKE ?";
   	$data = $db->query($sql, $sender);

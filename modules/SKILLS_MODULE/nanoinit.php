@@ -18,9 +18,8 @@ if (preg_match("/^nanoinit ([0-9]*\\.?[0-9]+) (\\d+)$/i", $message, $arr)) {
 	$Init1 = calc_inits($attack_time - 1);
 	$Init2 = calc_inits($attack_time);
 	$Init3 = calc_inits($attack_time + 1);
-			
-	$blob = "<header> :::::: Nano Init Calculator :::::: <end>\n\n";
-	$blob .= "Results:\n";
+
+	$blob = "Results:\n";
 	$blob .= "Attack: <orange>". $attack_time ." <end>second(s).\n";
 	$blob .= "Init Skill: <orange>". $init_skill ."<end>\n";
 	$blob .= "Def/Agg: <orange>". $bar_setting ."%<end>\n";
@@ -29,7 +28,7 @@ if (preg_match("/^nanoinit ([0-9]*\\.?[0-9]+) (\\d+)$/i", $message, $arr)) {
 	$blob .= "NanoC. Init needed to instacast at Neutral (88%):<orange> ". $Init2 ." <end>inits.\n";
 	$blob .= "NanoC. Init needed to instacast at Full Def (0%):<orange> ". $Init3 ." <end>inits.";
 
-	$msg = Text::make_blob("::Nano Init Results::", $blob);
+	$msg = Text::make_blob("Nano Init Results", $blob);
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;

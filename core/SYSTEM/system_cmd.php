@@ -23,8 +23,7 @@ if (preg_match("/^system$/i", $message, $arr)) {
 		$num_friendlist++;
 	}
 
-	$blob = "<header> :::::: System Info :::::: <end>\n\n";
-	$blob .= "Name: <highlight><myname><end>\n";
+	$blob = "Name: <highlight><myname><end>\n";
 	$blob .= "Budabot: <highlight>$version<end>\n";
 	$blob .= "PHP: <highlight>" . phpversion() . "<end>\n";
 	$blob .= "OS: <highlight>" . php_uname('s') . ' ' . php_uname('r') . ' ' . php_uname('m') . "<end>\n";

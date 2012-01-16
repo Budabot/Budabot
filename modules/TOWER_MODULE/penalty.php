@@ -18,7 +18,7 @@ if (preg_match("/^penalty$/i", $message) || preg_match("/^penalty ([a-z0-9]+)$/i
 	$data = $towers->getSitesInPenalty(time() - $time);
 	
 	if (count($data) > 0) {
-		$blob = "<header> :::::: Orgs in penalty ($penaltyTimeString) :::::: <end>\n";
+		$blob = '';
 		$current_faction = '';
 		forEach ($data as $row) {
 			if ($row->att_guild_name == '') {

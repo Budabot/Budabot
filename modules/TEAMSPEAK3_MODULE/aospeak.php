@@ -15,8 +15,7 @@ if (preg_match("/^aospeak$/i", $message) || preg_match("/^aospeak org$/i", $mess
 	if ($count == 0) {
 		$msg = "No org members currently connected to AOSpeak.";
 	} else {
-		$blob = "<header> :::::: AOSpeak <myguild> :::::: <end>\n\n";
-		$blob .= "Server: <highlight>voice.aospeak.com<end>";
+		$blob = "Server: <highlight>voice.aospeak.com<end>";
 		$blob .= "\n\nUsers:\n";
 		forEach ($users as $user) {
 			if ($user->idleTime >= 300000) {
@@ -46,8 +45,7 @@ if (preg_match("/^aospeak$/i", $message) || preg_match("/^aospeak org$/i", $mess
 	if ($count == 0) {
 		$msg = "No players currently connected to AOSpeak.";
 	} else {
-		$blob = "<header> :::::: $title :::::: <end>\n\n";
-		$blob .= "Server: <highlight>voice.aospeak.com<end>\n";
+		$blob = "Server: <highlight>voice.aospeak.com<end>\n";
 		
 		$channels = array();
 		forEach ($users as $user) {

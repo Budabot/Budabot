@@ -78,8 +78,7 @@ function getTeamspeak3Status() {
 		
 		$users = $ts->exec('clientlist');
 		$count = 0;
-		$blob = "<header> :::::: Teamspeak 3 Info :::::: <end>\n\n";
-		$blob .= "Server: $serverLink\n";
+		$blob = "Server: $serverLink\n";
 		$blob .= "Description: <highlight>" . $setting->get('ts_description') . "<end>\n\n";
 		$blob .= "Users:\n";
 		forEach ($users as $user) {

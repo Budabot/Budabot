@@ -50,7 +50,7 @@ if (preg_match("/^apf (13|28|35)$/i", $message, $arr)) {
 	$itemlink["EPP"] = Text::make_item(258345, 258345, 300, "Explosif's Polychromatic Pillows");	
 	$tradelink["VLRD"] = "<a href='chatcmd:///tell <myname> apfloot Visible Light Remodulation Device'>Click here</a>";
 	$itemlink["VNGW"] = Text::make_item(257123, 257123, 300, "Vektor ND Grand Wyrm");	
-	$list = "<header>::::: Loot table for Sector $sector :::::<end>\n\n";
+	$list = '';
 	
 	switch($sector) {
 	  	case "13":

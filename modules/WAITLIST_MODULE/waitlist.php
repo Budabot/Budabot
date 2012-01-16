@@ -71,7 +71,7 @@ if (preg_match("/^waitlist next$/i", $message)) {
 	$waitlist[$sender] = $random;
 	
 	$count = 0;
-	$blob = "<header> :::::: Waitlist for $sender :::::: <end>\n\n";
+	$blob = '';
 	forEach ($waitlist[$sender] as $name => $value) {
 		$count++;
 		$blob .= "{$count}. $name \n";
@@ -93,7 +93,7 @@ if (preg_match("/^waitlist next$/i", $message)) {
 	}
 	
 	$count = 0;
-	$blob = "<header> :::::: Waitlist for $char :::::: <end>\n\n";
+	$blob = '';
 	forEach ($waitlist[$char] as $name => $value) {
 		$count++;
 		$blob .= "{$count}. $name \n";

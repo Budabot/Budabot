@@ -28,8 +28,7 @@ if (preg_match("/^whatbuffs (.+)$/i", $message, $arr)) {
 				}
 			}
 			if ($found > 0) {								// found items that modify this skill
-				$inside = "<header> :::::: Buff item helper :::::: <end>\n\n";
-				$inside .= "Your query of <yellow>$name<end> yielded the following results:\n\n";
+				$inside = "Your query of <yellow>$name<end> yielded the following results:\n\n";
 				$inside .= "Items that buff ".$skills[0].":\n\n";
 				$inside .= $info;
 				$inside .= "\n\nby Imoutochan, RK1";
@@ -48,8 +47,7 @@ if (preg_match("/^whatbuffs (.+)$/i", $message, $arr)) {
 			forEach ($skills as $skill) {
 				$info .= "- " . Text::make_chatcmd($skill, "/tell <myname> <symbol>whatbuffs $skill") . "\n";
 			}
-			$inside = "<header> :::::: Buff item helper :::::: <end>\n\n";
-			$inside .= "Your query of <yellow>$name<end> matches more than one skill:\n\n";
+			$inside = "Your query of <yellow>$name<end> matches more than one skill:\n\n";
 			$inside .= $info;
 			$inside .= "\n\nby Imoutochan, RK1";
 			$windowlink = Text::make_blob(":: Your \"What buffs ...?\" results ::", $inside);

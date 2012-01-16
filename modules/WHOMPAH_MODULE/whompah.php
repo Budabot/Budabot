@@ -4,7 +4,7 @@ if (preg_match("/^whompah$/i", $message, $arr)) {
 	$sql = "SELECT * FROM `whompah_cities` ORDER BY city_name ASC";
 	$data = $db->query($sql);
 
-	$blob = "<header> :::::: Whompah Cities :::::: <end>\n\n<white>";
+	$blob = '';
 	forEach ($data as $row) {
 		$cityLink = Text::make_chatcmd($row->short_name, "/tell <myname> whompah {$row->short_name}");
 		$blob .= "{$row->city_name} ({$cityLink})\n";

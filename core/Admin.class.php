@@ -48,67 +48,65 @@ class Admin {
 		if (!preg_match("/^adminlist$/i", $message)) {
 			return false;
 		}
-	
-		$list = "<header>::::: List of administrators :::::<end>\n\n";
 
-		$list .= "<highlight>Administrators<end>\n";	
+		$blob .= "<highlight>Administrators<end>\n";	
 		forEach ($this->admins as $who => $data) {
 			if ($this->admins[$who]["level"] == 4) {
 				if ($who != "") {
-					$list.= "<tab>$who ";
+					$blob.= "<tab>$who ";
 					
 					if ($this->accessLevel->checkAccess($who, 'superadmin')) {
-						$list .= "(<orange>Super-administrator<end>) ";
+						$blob .= "(<orange>Super-administrator<end>) ";
 					}
 						
 					if ($this->buddylist->is_online($who) == 1 && isset($this->chatBot->chatlist[$who])) {
-						$list.="(<green>Online and in chat<end>)";
+						$blob.="(<green>Online and in chat<end>)";
 					} else if ($this->buddylist->is_online($who) == 1) {
-						$list.="(<green>Online<end>)";
+						$blob.="(<green>Online<end>)";
 					} else {
-						$list.="(<red>Offline<end>)";
+						$blob.="(<red>Offline<end>)";
 					}
 						
-					$list.= "\n";
+					$blob.= "\n";
 				}
 			}
 		}
 
-		$list .= "<highlight>Moderators<end>\n";
+		$blob .= "<highlight>Moderators<end>\n";
 		forEach ($this->admins as $who => $data){
 			if ($this->admins[$who]["level"] == 3){
 				if ($who != "") {
-					$list.= "<tab>$who ";
+					$blob.= "<tab>$who ";
 					if ($this->buddylist->is_online($who) == 1 && isset($this->chatBot->chatlist[$who])) {
-						$list.="(<green>Online and in chat<end>)";
+						$blob.="(<green>Online and in chat<end>)";
 					} else if ($this->buddylist->is_online($who) == 1) {
-						$list.="(<green>Online<end>)";
+						$blob.="(<green>Online<end>)";
 					} else {
-						$list.="(<red>Offline<end>)";
+						$blob.="(<red>Offline<end>)";
 					}
-					$list.= "\n";
+					$blob.= "\n";
 				}
 			}
 		}
 
-		$list .= "<highlight>Raidleaders<end>\n";	
+		$blob .= "<highlight>Raidleaders<end>\n";	
 		forEach ($this->admins as $who => $data){
 			if ($this->admins[$who]["level"] == 2){
 				if ($who != "") {
-					$list.= "<tab>$who ";
+					$blob.= "<tab>$who ";
 					if ($this->buddylist->is_online($who) == 1 && isset($this->chatBot->chatlist[$who])) {
-						$list.="(<green>Online and in chat<end>)";
+						$blob.="(<green>Online and in chat<end>)";
 					} else if ($this->buddylist->is_online($who) == 1) {
-						$list.="(<green>Online<end>)";
+						$blob.="(<green>Online<end>)";
 					} else {
-						$list.="(<red>Offline<end>)";
+						$blob.="(<red>Offline<end>)";
 					}
-					$list.= "\n";
+					$blob.= "\n";
 				}
 			}
 		}
 
-		$link = Text::make_blob('Bot administrators', $list);	
+		$link = Text::make_blob('Bot administrators', $blob);	
 		$this->chatBot->send($link, $sendto);
 	}
 	

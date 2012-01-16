@@ -13,7 +13,7 @@ if (preg_match("/^namehistory (.+)$/i", $message, $arr)) {
 	$data = $db->query($sql, $uid);
 	$count = count($data);
 
-	$blob = "<header> :::::: Name History for $name ($count) :::::: <end>\n\n";
+	$blob = '';
 	if ($count > 0) {
 		forEach ($data as $row) {
 			$blob .= "<green>{$row->name}<end> " . date(Util::DATETIME, $row->dt) . "\n";

@@ -31,7 +31,7 @@ if (preg_match("/^opentimes$/i", $message)) {
 	$data = $db->query($sql);
 	
 	if (count($data) > 0) {
-		$blob = "<header> :::::: Scouted Bases :::::: <end>\n";
+		$blob = '';
 		$currentGuildName = '';
 		forEach ($data as $row) {
 			if ($row->guild_name != $currentGuildName) {

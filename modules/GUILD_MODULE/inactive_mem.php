@@ -30,9 +30,9 @@ if (preg_match("/^inactivemem ([a-z0-9]+)/i", $message, $arr)) {
 
 	$numinactive = 0;
 	$highlight = 0;
-	$blob = "<header>::::: Inactive Members of <myguild> :::::<end>\n\n";
-	$blob .="Org members who have been inactive for atleast <highlight>{$timeString}<end>.\n\n";
-	$blob .="<red>**Be careful with clicking the Org Kick links.  It will cause you to /org kick, and the bot can't help you undo that.<end>\n\n";
+
+	$blob = "Org members who have been inactive for atleast <highlight>{$timeString}<end>.\n\n";
+	$blob .= "<red>**Be careful with clicking the Org Kick links.  It will cause you to /org kick, and the bot can't help you undo that.<end>\n\n";
 	
 	forEach ($data as $row) {
 		$logged = 0;

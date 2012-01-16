@@ -20,7 +20,7 @@ if (preg_match("/^feedback$/i", $message)) {
 		return;
 	}
 	
-	$blob = "<header> :::::: Feedback List :::::: <end>\n\n";
+	$blob = '';
 	forEach ($data as $row) {
 		$details_link = Text::make_chatcmd('Details', "/tell <myname> feedback $row->name");
 		$blob .= "$row->name  <green>+{$row->pos_rep}<end> <orange>-{$row->neg_rep}<end>   {$details_link}\n";
@@ -105,8 +105,7 @@ if (preg_match("/^feedback$/i", $message)) {
 			}
 		}
 
-		$blob = "<header>::::: Feedback for {$name} :::::<end>\n\n";
-		$blob .= "Positive feedback: <green>{$num_positive}<end>\n";
+		$blob = "Positive feedback: <green>{$num_positive}<end>\n";
 		$blob .= "Negative feedback: <orange>{$num_negative}<end>\n\n";
 		$blob .= "Last 10 comments about this user:\n\n";
 		

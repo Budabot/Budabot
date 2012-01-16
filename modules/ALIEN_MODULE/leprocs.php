@@ -2,7 +2,7 @@
 
 if (preg_match("/^leprocs$/i", $message)) {
 	$data = $db->query("SELECT DISTINCT profession FROM leprocs ORDER BY profession ASC");
-	$blob = "<header> :::::: LE Procs :::::: <end>\n\n";
+	$blob = '';
 	forEach ($data as $row) {
 		$professionLink = Text::make_chatcmd($row->profession, "/tell <myname> leprocs $row->profession");
 		$blob .= $professionLink . "\n";
@@ -24,7 +24,7 @@ if (preg_match("/^leprocs$/i", $message)) {
 	if (count($data) == 0) {
 	    $msg = "No procs found for profession '$profession'.";
 	} else {
-		$blob = "<header> :::::: $profession LE Procs :::::: <end>\n\n";
+		$blob = '';
 		$type = '';
 		forEach ($data as $row) {
 			if ($type != $row->proc_type) {

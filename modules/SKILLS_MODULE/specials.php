@@ -44,7 +44,7 @@ if (preg_match('/^specials \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)
 	$recharge_time /= 100;
 	$attack_time /= 100;
 	
-	$blob = "<header> :::::: Weapon Specials for $name :::::: <end>\n\n";
+	$blob = '';
 	if (in_array('FullAuto', $flags)) {
 		list($hard_cap, $skill_cap) = cap_full_auto($attack_time, $recharge_time, $full_auto_recharge);
 		$blob .= "FullAutoRecharge: $full_auto_recharge -- You will need at least <orange>".$skill_cap."<end> Full Auto skill to cap your recharge at: <orange>".$hard_cap."<end>s\n\n";

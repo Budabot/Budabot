@@ -42,7 +42,7 @@ if (preg_match("/^guides$/i", $message)) {
 	if (!$info) {
 		$msg = "No info for $fileName could be found";
 	} else {	
-		$msg = Text::make_blob(ucfirst($fileName), $info);
+		$msg = Text::make_legacy_blob(ucfirst($fileName), $info);
 	}
 	$chatBot->send($msg, $sendto);
 } else {

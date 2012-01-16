@@ -34,8 +34,7 @@ if (preg_match("/^buffitem (.+)$/i", $message, $arr)) {
 		$chatBot->send("No matches, sorry.", $sendto);
 		return;
 	} else {
-		$blob = "<header>::::: Buff item info :::::<end>\n\n";
-		$blob .= "Your query of <yellow>".$name."<end> returned the following item line(s):\n\n";
+		$blob = "Your query of <yellow>".$name."<end> returned the following item line(s):\n\n";
 		if ($found == 1) {
 			$blob .= $results[0][1]."\n\n";
 		} else {

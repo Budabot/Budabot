@@ -29,8 +29,7 @@ function ofabArmorBio($ql, $type) {
 	
 	$data = $db->query("SELECT * FROM ofabarmortype WHERE type = ?", $type);
 
-	$blob = "<header> :::::: $name (QL $ql) :::::: <end>\n\n";
-	$blob .= $item . "\n\n";
+	$blob = $item . "\n\n";
 	$blob .= "<highlight>Upgrades Ofab armor for:<end>\n";
 	forEach ($data as $row) {
 		$blob .= Text::make_chatcmd($row->profession, "/tell <myname> ofabarmor {$row->profession}") . "\n";
@@ -48,8 +47,7 @@ function ofabWeaponBio($ql, $type) {
 	
 	$data = $db->query("SELECT * FROM ofabweapons WHERE type = ?", $type);
 
-	$blob = "<header> :::::: $name (QL $ql) :::::: <end>\n\n";
-	$blob .= $item . "\n\n";
+	$blob = $item . "\n\n";
 	$blob .= "<highlight>Upgrades Ofab weapons:<end>\n";
 	forEach ($data as $row) {
 		$blob .= Text::make_chatcmd("Ofab {$row->name} Mk 1", "/tell <myname> ofabweapons {$row->name}") . "\n";
@@ -78,8 +76,7 @@ function alienWeaponBio($ql, $type) {
 	
 	$data = $db->query("SELECT * FROM alienweapons WHERE type = ?", $type);
 
-	$blob = "<header> :::::: $name (QL $ql) :::::: <end>\n\n";
-	$blob .= $item . "\n\n";
+	$blob = $item . "\n\n";
 	$blob .= "It will take <highlight>$ts_bio<end> EE & CL (<highlight>4.5 * QL<end>) to analyze the Bio-Material.\n\n";
 	$blob .= "<highlight>Adds {$specials} to:<end>\n";
 	forEach ($data as $row) {
@@ -122,9 +119,8 @@ function alienArmorBio($ql, $type) {
 	$ts_bio = floor($ql * 4.5);
 	
 	$item = findItem($ql, $name);
-	
-	$blob = "<header> :::::: $name (QL $ql) :::::: <end>\n\n";
-	$blob .= $item . "\n\n";
+
+	$blob = $item . "\n\n";
 	$blob .= "It will take <highlight>$ts_bio<end> EE & CL (<highlight>4.5 * QL<end>) to analyze the Bio-Material.\n\n";
 	
 	$blob .= "Used to build Alien Armor $extraInfo\n\n" .
@@ -158,9 +154,8 @@ function serumBio($ql, $type) {
 	$ee_ts = floor($ql * 4.5);
 	$cl_ts = floor($ql * 5);
 	$ts_bio = floor($ql * 4.5);
-	
-	$blob = "<header> :::::: $name (QL $ql) :::::: <end>\n\n";
-	$blob .= $item . "\n\n";
+
+	$blob = $item . "\n\n";
 	$blob .= "It will take <highlight>$ts_bio<end> EE & CL (<highlight>4.5 * QL<end>) to analyze the Bio-Material.\n\n";
 	
 	$blob .= "<highlight>Used to build city buildings<end>\n\n" .

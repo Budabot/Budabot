@@ -3,7 +3,7 @@
 $whitelist = Registry::getInstance('whitelist');
 
 if (preg_match("/^broadcast$/i", $message)) {
-	$blob = "<header> :::::: Broadcast Bots :::::: <end>\n\n";
+	$blob = '';
 
 	$sql = "SELECT * FROM broadcast_<myname> ORDER BY dt DESC";
   	$data = $db->query($sql);
@@ -16,7 +16,7 @@ if (preg_match("/^broadcast$/i", $message)) {
 	if (count($data) == 0) {
 		$msg = "No bots are on the broadcast list.";
 	} else {
-		$msg = Text::make_blob('Broadcast', $blob);
+		$msg = Text::make_blob('Broadcast Bots', $blob);
 	}
 
 	$chatBot->send($msg, $sendto);

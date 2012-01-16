@@ -1,7 +1,7 @@
 <?php
 
 if (preg_match("/^bank browse$/i", $message)) {
-	$blob = "<header> :::::: Bank Characters :::::: <end>\n\n";
+	$blob = '';
 	$data = $db->query("SELECT DISTINCT player FROM bank ORDER BY player ASC");
 	forEach ($data as $row) {
 		$character_link = Text::make_chatcmd($row->player, "/tell <myname> bank browse {$row->player}");
@@ -13,7 +13,7 @@ if (preg_match("/^bank browse$/i", $message)) {
 } else if (preg_match("/^bank browse ([a-z0-9-]+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 
-	$blob = "<header> :::::: Backpacks for $name :::::: <end>\n\n";
+	$blob = '';
 	$data = $db->query("SELECT DISTINCT container, player FROM bank WHERE player = ? ORDER BY container ASC", $name);
 	if (count($data) > 0) {
 		forEach ($data as $row) {
@@ -31,7 +31,7 @@ if (preg_match("/^bank browse$/i", $message)) {
 	$pack = htmlspecialchars_decode($arr[2], ENT_QUOTES);
 	$limit = $setting->get('max_bank_items');
 
-	$blob = "<header> :::::: Contents of $pack :::::: <end>\n\n";
+	$blob = '';
 	$data = $db->query("SELECT * FROM bank WHERE player = ? AND container = ? ORDER BY name ASC, ql ASC LIMIT {$limit}", $name, $pack);
 	
 	if (count($data) > 0) {
@@ -55,7 +55,7 @@ if (preg_match("/^bank browse$/i", $message)) {
 		$where_sql .= " AND name LIKE '%{$word}%'";
 	}
 
-	$blob = "<header> :::::: Bank Search Results for '{$arr[1]}' :::::: <end>\n\n";
+	$blob = '';
 	$data = $db->query("SELECT * FROM bank WHERE 1 = 1 {$where_sql} ORDER BY name ASC, ql ASC LIMIT {$limit}");
 	
 	if (count($data) > 0) {

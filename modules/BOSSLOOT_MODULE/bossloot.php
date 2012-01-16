@@ -13,8 +13,7 @@
 if (preg_match ("/^bossloot (.+)$/i", $message, $arr)) {
 	$search = strtolower($arr[1]);
 
-	$links = array("Help" => "/tell <myname> help boss");
-	$blob = Text::make_header("Mobs that drop $search", $links);
+	$blob = "Mobs that drop $search";
 	
 	$loot = $db->query("SELECT DISTINCT b2.bossid, b2.bossname, w.answer FROM boss_lootdb b1 JOIN boss_namedb b2 ON b2.bossid = b1.bossid LEFT JOIN whereis w ON w.name = b2.bossname WHERE b1.itemname LIKE ?", "%{$search}%");
 	$count = count($loot);
@@ -33,7 +32,7 @@ if (preg_match ("/^bossloot (.+)$/i", $message, $arr)) {
 			}
 			$blob .= "\n\n";
 		}
-		$output = Text::make_blob("Bossloot ($count result(s))", $blob);
+		$output = Text::make_blob("Bossloot Search Results ($count))", $blob);
 	} else {
 		$output .= "There were no matches for your search.";
 	}

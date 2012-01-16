@@ -1,7 +1,7 @@
 <?php
 
 if (preg_match("/^settings$/i", $message)) {
-  	$blob  = "<header> :::::: Bot Settings :::::: <end>\n\n";
+  	$blob = '';
  	$blob .= "<highlight>Changing any of these settings will take effect immediately. Please note that some of these settings are read-only and can't be changed.\n\n<end>";
  	$data = $db->query("SELECT * FROM settings_<myname> WHERE `mode` != 'hide' ORDER BY `module`");
 	$cur = '';
@@ -36,8 +36,7 @@ if (preg_match("/^settings$/i", $message)) {
 			$options_map = array_combine($intoptions, $options);
 		}
 
-		$blob = "<header> :::::: Settings Info for {$settingName} :::::: <end>\n\n";
-		$blob .= "Name: <highlight>{$row->name}<end>\n";
+		$blob = "Name: <highlight>{$row->name}<end>\n";
 		$blob .= "Module: <highlight>{$row->module}<end>\n";
 		$blob .= "Descrption: <highlight>{$row->description}<end>\n";
 		$blob .= "Current Value: " . $setting->displayValue($row) . "\n";
@@ -109,7 +108,7 @@ if (preg_match("/^settings$/i", $message)) {
 		if ($help !== false) {
 			$blob .= "\n\n" . $help;
 		}
-		
+
 		$msg = Text::make_blob("Settings Info for {$settingName}", $blob);
 	}
 

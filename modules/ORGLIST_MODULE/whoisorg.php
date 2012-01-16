@@ -125,8 +125,8 @@ if (preg_match("/^whoisorg (\d+) (\d)$/i", $message, $arr1) || preg_match("/^who
 		}
 	}
 	$lvl_avg = round($lvl_tot/$num_members);
-	$link  = "<header>::::: Organization Info ($org->orgname) :::::<end>\n\n";
-	$link .= "<u>General Infos</u>\n";
+
+	$link = "<u>General Info</u>\n";
 	$link .= "<highlight>Faction:<end> $faction\n";
 	$link .= "<highlight>Lowest lvl:<end> $lvl_min\n";
 	$link .= "<highlight>Highest lvl:<end> $lvl_max\n";

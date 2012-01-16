@@ -7,8 +7,7 @@ if (preg_match("/^svn dry$/i", $message)) {
 	$return_var = '';
 	exec($command, $output, $return_var);
 	
-	$blob = "<header> :::::: SVN MERGE --dry-run :::::: <end>\n\n";
-	$blob .= $command . "\n\n";
+	$blob = $command . "\n\n";
 	forEach ($output as $line) {
 		$blob .= $line . "\n";
 	}
@@ -22,8 +21,7 @@ if (preg_match("/^svn dry$/i", $message)) {
 	$return_var = '';
 	exec($command, $output, $return_var);
 	
-	$blob = "<header> :::::: SVN UPDATE output :::::: <end>\n\n";
-	$blob .= $command . "\n\n";
+	$blob = $command . "\n\n";
 	forEach ($output as $line) {
 		$blob .= $line . "\n";
 	}
@@ -47,9 +45,8 @@ if (preg_match("/^svn dry$/i", $message)) {
 	$output = array();
 	$return_var = '';
 	exec($command, $output, $return_var);
-	
-	$blob = "<header> :::::: SVN INFO output :::::: <end>\n\n";
-	$blob .= $command . "\n\n";
+
+	$blob = $command . "\n\n";
 	forEach ($output as $line) {
 		$blob .= $line . "\n";
 	}
@@ -63,8 +60,7 @@ if (preg_match("/^svn dry$/i", $message)) {
 	$return_var = '';
 	exec($command, $output, $return_var);
 	
-	$blob = "<header> :::::: SVN STATUS $arr[1] output :::::: <end>\n\n";
-	$blob .= $command . "\n\n";
+	$blob = $command . "\n\n";
 	forEach ($output as $line) {
 		$blob .= $line . "\n";
 	}

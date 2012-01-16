@@ -33,11 +33,51 @@ class Text {
 		return $header;
 	}
 	
+	public function make_header_links($links) {
+		$output = '';
+		forEach ($links as $title => $command){
+			$output .= " ::: " . Text::make_chatcmd($title, $command, 'style="text-decoration:none;"') . " ::: ";
+		}
+		return $output;
+	}
+	
 	/**	
 	 * @name: make_blob
 	 * @description: creates an info window
 	 */
-	function make_blob($name, $content, $style = NULL) {
+	function make_blob($name, $content, $header = NULL) {
+		$setting = Registry::getInstance('setting');
+		
+		if ($header === null) {
+			$header = $name;
+		}
+
+		// escape double quotes
+		$content = str_replace('"', '&quot;', $content);
+		
+		$content = Text::format_message($content);
+		
+		$pages = Text::paginate($content, $setting->get("max_blob_size"), array("<pagebreak>", "\n", " "));
+		$num = count($pages);
+		
+		if ($num == 1) {
+			$page = $pages[0];
+			$header = "<header> :::::: $header :::::: <end>\n\n";
+			$page = "<a href=\"text://".$setting->get("default_window_color").$header.$page."\">$name</a>";
+			return $page;
+		} else {
+			$i = 1;
+			forEach ($pages as $key => $page) {
+				$header = "<header> :::::: $header (Page $i / $num) :::::: <end>\n\n";
+				$page = "<a href=\"text://".$setting->get("default_window_color").$header.$page."\">$name</a> (Page <highlight>$i / $num<end>)";
+				$pages[$key] = $page;
+				$i++;
+			}
+			return $pages;
+		}
+	}
+	
+	function make_legacy_blob($name, $content) {
 		$setting = Registry::getInstance('setting');
 
 		// escape double quotes
@@ -49,15 +89,18 @@ class Text {
 		$num = count($pages);
 		
 		if ($num == 1) {
-			return "<a $style href=\"text://".$setting->get("default_window_color").$pages[0]."\">$name</a>";
+			$page = $pages[0];
+			$page = "<a href=\"text://".$setting->get("default_window_color").$page."\">$name</a>";
+			return $page;
 		} else {
 			$i = 1;
 			forEach ($pages as $key => $page) {
 				if ($i > 1) {
-					$page = "<header> :::::: $name (Page $i / $num) :::::: <end>\n\n" . $page;
+					$header = "<header> :::::: $name (Page $i / $num) :::::: <end>\n\n";
+				} else {
+					$header = '';
 				}
-			
-				$page = "<a $style href=\"text://".$setting->get("default_window_color").$page."\">$name</a> (Page <highlight>$i / $num<end>)";
+				$page = "<a href=\"text://".$setting->get("default_window_color").$header.$page."\">$name</a> (Page <highlight>$i / $num<end>)";
 				$pages[$key] = $page;
 				$i++;
 			}
@@ -256,7 +299,7 @@ class Text {
 		}
 		
 		// Turn all pages into clickable blobs
-		foreach ($outputArr as $index => $page) {
+		forEach ($outputArr as $index => $page) {
 			if (count($outputArr) > 1) {
 				if (count($outputArr) == $index + 1) {
 					$outputArr[$index] = "<a $style href=\"text://".$setting->get("default_window_color").str_replace("<pagebreak>", "", $page)."\">$name</a> (Page <highlight>" . ($index + 1) . " - End<end>)";

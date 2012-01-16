@@ -46,7 +46,7 @@ class SignupController {
 			return "No signup lists have been created yet.";
 		}
 		
-		$blob = "<header> :::::: Signup Lists :::::: <end>\n\n";
+		$blob = '';
 		forEach ($data as $row) {
 			$viewListLink = $this->text->make_chatcmd($row->name, "/tell <myname> signup $row->id");
 			$signupLink = $this->text->make_chatcmd("Signup", "/tell <myname> signup assign $row->id");
@@ -112,8 +112,7 @@ class SignupController {
 			return "There is no list that exists with that id.";
 		}
 		
-		$blob = "<header> :::::: $list->name List :::::: <end>\n\n";
-		$blob .= "Owner: <highlight>$list->owner<end>\n";
+		$blob = "Owner: <highlight>$list->owner<end>\n";
 		$blob .= "Added: <highlight>" . date(Util::DATETIME, $list->dt) . "<end>\n\n";
 
 		$blob .= "<header> ::: Players Signed up ::: <end>\n\n";

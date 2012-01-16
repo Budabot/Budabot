@@ -8,23 +8,23 @@ if (preg_match("/^banlist$/i", $message)) {
 	    return;
 	}
 	
-	$list .= "<header> :::::: Banlist :::::: <end>\n\n";
+	$blob = '';
 	forEach ($banlist as $ban) {
-		$list .= "<highlight>Name:<end> {$ban->name}\n";
-		$list .= "<highlight><tab>Date:<end> ".date(Util::DATETIME, $ban->time)."\n";
-		$list .= "<highlight><tab>By:<end> {$ban->admin}\n";
+		$blob .= "<highlight>Name:<end> {$ban->name}\n";
+		$blob .= "<highlight><tab>Date:<end> ".date(Util::DATETIME, $ban->time)."\n";
+		$blob .= "<highlight><tab>By:<end> {$ban->admin}\n";
 		if ($ban->banend != null) {
-			$list .= "<highlight><tab>Ban ends:<end> ". Util::unixtime_to_readable($ban->banend - time(), false)."\n";
+			$blob .= "<highlight><tab>Ban ends:<end> ". Util::unixtime_to_readable($ban->banend - time(), false)."\n";
 		} else {
-			$list .= "<highlight><tab>Ban ends:<end> Never.\n";
+			$blob .= "<highlight><tab>Ban ends:<end> Never.\n";
 		}
 		
 		if ($ban->reason != '') {
-			$list .= "<highlight><tab>Reason:<end> {$ban->reason}\n";
+			$blob .= "<highlight><tab>Reason:<end> {$ban->reason}\n";
 		}
-		$list .= "\n";
+		$blob .= "\n";
 	}
-	$link = Text::make_blob('Banlist', $list);
+	$link = Text::make_blob('Banlist', $blob);
 	$chatBot->send($link, $sendto);
 } else {
 	$syntax_error = true;

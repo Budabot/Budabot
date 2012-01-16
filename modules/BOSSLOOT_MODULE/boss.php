@@ -14,8 +14,7 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 
 	$search = strtolower($arr[1]);
 
-	$links = array("Help" => "/tell <myname> help boss");	
-	$blob = Text::make_header("Results of Search for '$search'", $links);
+	$blob = "Results of Search for '$search'\n\n";
 	
 	// Find boss by name or key
 	$bosses = $db->query("SELECT * FROM boss_namedb b LEFT JOIN whereis w ON b.bossname = w.name WHERE bossname LIKE ? OR keyname LIKE ?", "%{$search}%", "%{$search}%");
@@ -34,7 +33,7 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 			}
 			$blob .= "\n\n";
 		}
-		$output = Text::make_blob("Boss ($count results)", $blob);
+		$output = Text::make_blob("Boss Search Results ($count)", $blob);
 	} else if ($count == 1) {
 		//If single match found, output full loot table
 		$row = $bosses[0];
@@ -49,7 +48,7 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 			$blob .= "<img src=rdb://{$row2->icon}>\n";
 			$blob .= Text::make_item($row2->lowid, $row2->highid, $row2->highql, $row2->itemname) . "\n\n";
 		}
-		$output = Text::make_blob("Boss (1 result)", $blob);
+		$output = Text::make_blob("Boss Search Results (1)", $blob);
 	} else {
 		$output = "There were no matches for your search.";
 	}

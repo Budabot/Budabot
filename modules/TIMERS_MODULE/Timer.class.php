@@ -239,7 +239,7 @@ class Timer {
 			return "No timers currently running.";
 		}
 
-		$blob = "<header> :::::: Timers Currently Running :::::: <end>\n\n";
+		$blob = '';
 		forEach ($timers as $timer) {
 			$time_left = $this->util->unixtime_to_readable($timer->timer - time());
 			$name = $timer->name;

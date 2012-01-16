@@ -23,8 +23,7 @@ if (preg_match("/^dimach ([0-9]+)$/i", $message, $arr)) {
 		return;
 	}
 	
-	$blob = "<header> :::::: Dimach Calculator :::::: <end>\n\n";
-	$blob .= "<u>Results</u>:\n";
+	$blob = "<u>Results</u>:\n";
 	$blob .= "Dimach Skill: <orange>".$dim_skill."<end>\n\n";
 	
 	$MA_dmg 	 = interpolate($skill_list[$i], $skill_list[($i+1)], $MA_dmg_list[$i],  $MA_dmg_list[($i+1)],  $dim_skill);
@@ -53,7 +52,7 @@ if (preg_match("/^dimach ([0-9]+)$/i", $message, $arr)) {
 
 	$blob .= "by Imoutochan, RK1";
 	
-	$msg = Text::make_blob("::Your Dimach skill results::", $blob);
+	$msg = Text::make_blob("Dimach Results", $blob);
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;

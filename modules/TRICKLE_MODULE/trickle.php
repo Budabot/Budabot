@@ -31,19 +31,18 @@ if (preg_match("/^trickle( ([a-zA-Z]+) ([0-9]+)){1,6}$/i", $message, $arr1) || p
 		}
 	}
 
-	$header = "";
+	$blob = '';
 	forEach ($abilities as $ability => $value) {
 		if ($value != 0) {
-			$header .= " (" . ucfirst($ability) . " " . $value . ")";
+			$header .= "(" . ucfirst($ability) . " " . $value . ") ";
 		}
 	}
-
-	$output = Text::make_header("Trickle$header", array('Help' => '/tell <myname> help trickle'));
+	$blob = "\n\n";
 
 	$results = getTrickleResults($abilities);
-	$output .= formatOutput($results, $amount, $abilities);
-	$output .= "\nBy Tyrence (RK2), inspired by the Bebot command of the same name";
-	$msg = Text::make_blob("Trickle Results", $output);
+	$blob .= formatOutput($results, $amount, $abilities);
+	$blob .= "\nBy Tyrence (RK2), inspired by the Bebot command of the same name";
+	$msg = Text::make_blob("Trickle Results", $blob);
 	$chatBot->send($msg, $sendto);
 } else {
 	$syntax_error = true;

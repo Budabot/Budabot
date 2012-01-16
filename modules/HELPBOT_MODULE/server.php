@@ -15,7 +15,7 @@ if (preg_match("/^server$/i", $message) || preg_match("/^server (.)$/i", $messag
 	if ($server->errorCode != 0) {
 		$msg = $server->errorInfo;
 	} else {
-		$link  = "<header>::::: $server->name Server Status :::::<end>\n\n";
+		$link = '';
 
 		if ($server->servermanager == 1) {
 			$link .= "<highlight>Servermanager<end> is <green>UP<end>\n";
@@ -41,7 +41,7 @@ if (preg_match("/^server$/i", $message) || preg_match("/^server (.)$/i", $messag
 			$link .= "<highlight>$zone<end>: {$proz["players"]} \n";
 		}
 		
-		$msg = Text::make_blob("Status of $server->name", $link);	    
+		$msg = Text::make_blob("$server->name Server Status", $link);	    
 	}
 
 	$chatBot->send($msg, $sendto);

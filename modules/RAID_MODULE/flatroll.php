@@ -43,7 +43,7 @@ if (preg_match("/^flatroll$/i", $message)) {
 	
 	srand( ((int)((double)microtime()*1000003)) ); // get a good seed
   	
-  	$list = "<header> :::::: Win List :::::: <end>\n\n";
+  	$list = '';
   	//Roll the loot
 	$resnum = 1;
 	forEach ($loot as $key => $item) {

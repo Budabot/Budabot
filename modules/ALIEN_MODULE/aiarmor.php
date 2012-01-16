@@ -148,8 +148,8 @@ if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) ||
 	    	$highid_armor_trg = 246622;
 	    break;
 	}
-	$list = "<header>::::: Building process for $ql $name_armor_result :::::<end>\n\n";
-	$list .= "<u>Result</u> \n";
+
+	$list = "<u>Result</u> \n";
 	$list .= "<img src=rdb://$icon_armor_result>\n";
 	$list .= "<a href='itemref://$lowid_armor_result/$highid_armor_result/$ql'>QL$ql $name_armor_result</a>\n\n";
 
@@ -195,9 +195,7 @@ if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) ||
 		
   	$misc_ql = floor($ql * 0.8);
 
-	$list = "<header>::::: Building process for $ql $armortype :::::<end>\n\n";
-	
-	$list .= " Note: <highlight>All tradeskill processes are based on the lowest QL items usable.<end>\n\n";
+	$list = " Note: <highlight>All tradeskill processes are based on the lowest QL items usable.<end>\n\n";
 	$list .= "<highlight>You need the following items to build $armortype Armor:\n<end>";
 	$list .= "- Kyr'Ozch Viralbots\n";
 	$list .= "- Kyr'Ozch Atomic Re-Structulazing Tool\n";

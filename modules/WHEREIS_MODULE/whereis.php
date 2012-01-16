@@ -10,8 +10,6 @@
    Last Modified 5/14/07
    */
 
-$links = array("Help" => "/tell <myname> help whereis");
-
 $msg = '';
 if (preg_match("/^whereis (.+)$/i", $message, $arr)) {
 	$search = $arr[1];
@@ -20,7 +18,7 @@ if (preg_match("/^whereis (.+)$/i", $message, $arr)) {
 	$count = count($data);
 	
 	if ($count > 1) {
-		$blob = Text::make_header("Result of Whereis Search for '$search'", $links);
+		$blob = "Result of Whereis Search for '$search'\n\n";
 		$blob .= "There are $count matches to your query.\n\n";
 		forEach ($data as $row) {
 			$blob .= "<yellow>$row->name<end>\n<green>Can be found $row->answer<end>\n\n";

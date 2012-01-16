@@ -34,8 +34,7 @@ $axp[30] = 5968409;
 $axp[31] = 0;  // don't remove, needed
 
 if (preg_match("/^axp$/i", $message)) {
-    $msg = "<header>::::: Alien Experience List :::::<end>\n\n";
-    $msg .= "<u>AI Lvl - AXP   - Rank         - Lvl Req.</u>\n";
+    $msg = "<u>AI Lvl - AXP   - Rank         - Lvl Req.</u>\n";
     $msg .= " 1 -      1.500 - Fledgling - 5\n";
     $msg .= " 2 -     9.000 - Amateur - 15\n";
     $msg .= " 3 -    22.500 - Beginner - 25\n";
@@ -67,7 +66,7 @@ if (preg_match("/^axp$/i", $message)) {
     $msg .= "29 - 5.475.604 - Vanquisher - 195\n";
     $msg .= "30 - 5.968.409 - Vindicator - 200\n";
 
-    $msg = Text::make_blob("AXP Table", $msg);
+    $msg = Text::make_blob("Alien Experience", $msg);
 
     $chatBot->send($msg, $sendto);
 } else if (preg_match("/^axp ([0-9]+)$/i", $message, $arr)) {

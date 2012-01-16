@@ -35,7 +35,7 @@ if (!function_exists('get_pande_loot')) {
 }
 
 if (preg_match("/^pande$/i", $message)){
-	$list = "<header>::::: Pandemonium Loot :::::<end>\n\n\n";
+	$list = "\n";
 	$list .= "The Beast\n";
 	$list .= "<tab>".Text::make_chatcmd("Beast Armor\n", "/tell <myname> <symbol>beastarmor");
 	$list .= "<tab>".Text::make_chatcmd("Beast Weapons\n", "/tell <myname> <symbol>beastweaps");

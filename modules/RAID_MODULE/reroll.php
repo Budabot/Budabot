@@ -30,7 +30,7 @@ if (preg_match("/^reroll$/i", $message)) {
 		$chatBot->send($msg, $sendto);
 	}
 	if (is_array($loot)) {
-		$list = "<header> :::::: Loot List :::::: <end>\n\nUse <symbol>flatroll to roll.\n\n";
+		$list = "\n\nUse <symbol>flatroll to roll.\n\n";
 		forEach ($loot as $key => $item) {
 			$add = Text::make_chatcmd("Add", "/tell <myname> add $key");
 			$rem = Text::make_chatcmd("Remove", "/tell <myname> rem");
@@ -70,7 +70,7 @@ if (preg_match("/^reroll$/i", $message)) {
 			
 			$list .= "\n\n";
 		}
-		$msg2 = Text::make_blob("New loot List", $list);
+		$msg2 = Text::make_blob("Loot List", $list);
 	} else {
 		$msg2 = "No List exists yet.";
 	}

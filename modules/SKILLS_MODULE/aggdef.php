@@ -70,8 +70,7 @@ if (preg_match("/^aggdef ([0-9]*\\.?[0-9]+) ([0-9]*\\.?[0-9]+) (\\d+)$/i", $mess
 		$Init3 = $Initatta3;
 	}
 
-	$blob = "<header> :::::: Agg / Deff Calculator :::::: <end>\n\n";
-	$blob .= "Attack:<orange> ". $AttTim ." <end>second(s).\n";
+	$blob = "Attack:<orange> ". $AttTim ." <end>second(s).\n";
 	$blob .= "Recharge: <orange>". $RechT ." <end>second(s).\n";
 	$blob .= "Init Skill: <orange>". $InitS ."<end>\n";
 	$blob .= "Def/Agg: <orange>". $InitResult ."%<end>\n";
@@ -82,7 +81,7 @@ if (preg_match("/^aggdef ([0-9]*\\.?[0-9]+) ([0-9]*\\.?[0-9]+) (\\d+)$/i", $mess
 	$blob .= "\n\nBased upon a RINGBOT module made by NoGoal(RK2).\n";
 	$blob .= "Modified for Budabot by Healnjoo(RK2).";
 
-	$msg = Text::make_blob("::Your Agg/Def Settings::", $blob);
+	$msg = Text::make_blob("Agg/Def Results", $blob);
 	$chatBot->send($msg, $sendto); 
 } else {
 	$syntax_error = true;

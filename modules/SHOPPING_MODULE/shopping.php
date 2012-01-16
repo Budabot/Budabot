@@ -41,7 +41,7 @@ if (!$syntax_error) {
 	}
 	
 	if ($blob != '') {
-		$blob = "<header> :::::: Shopping results for '{$fields['q']}' :::::: <end>\n\n" . $blob . "\nSearch results provided by <a href='chatcmd:///start www.rubi-ka.com'>www.rubi-ka.com</a> - Zajin (RK1)";
+		$blob .= "\nSearch results provided by <a href='chatcmd:///start www.rubi-ka.com'>www.rubi-ka.com</a> - Zajin (RK1)";
 		$msg = Text::make_blob("Shopping results for '{$fields['q']}'", $blob);
 	} else {
 		$msg = 'No items found.';

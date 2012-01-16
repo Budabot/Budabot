@@ -14,11 +14,10 @@ if (preg_match("/^guard$/i", $message)) {
 		$msg = "No 205+ Soldiers in chat.";
 	} else {
 		$chatBot->data['glist'] = array();
-		$info  = "<header>::::: Info about Guardian macro :::::<end>\n\n";
-		$info .= "The bot has it's own Guardian macro to use it just do ";
+		$info = "The bot has it's own Guardian macro to use it just do ";
 		$info .= "<symbol>g in the chat. \n\n";
 		$info .= "<a href='chatcmd:///macro G_Macro /g <myname> <symbol>g'>Click here to make a G macro </a>";
-		$info = Text::make_blob("Info", $info);
+		$info = Text::make_blob("Info about Guardian macro", $info);
 
 		//Create g Order
 		forEach ($chatBot->data['guard'] as $key => $value) {

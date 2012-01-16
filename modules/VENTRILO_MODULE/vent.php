@@ -54,9 +54,8 @@ if ($setting->get("ventimplementation") == 1) {
 }
 
 if ($error === false) {
-	
-    $page = "<header>Ventrilo Server Information<end>\n\n";
-    $page .= "This is a <orange>PRIVATE<end> Ventrilo server.\n";
+
+    $page = "This is a <orange>PRIVATE<end> Ventrilo server.\n";
     $page .= "Please DO NOT give out this information without permission.\n";
 	$page .= "Channels highlighted <orange>ORANGE<end> are password protected.\n\n";
     $page .= "Hostname: <white>{$stat->m_cmdhost}<end>\n";
@@ -84,7 +83,7 @@ if ($error === false) {
 	}
 	
 	$page .= "\n\n*Please note that sometimes the server will not return the right information. If this happens, please try again.\n";
-	$msg = Text::make_blob("{$stat->m_clientcount} user(s) on Vent", $page);
+	$msg = Text::make_blob("Ventrilo Info ({$stat->m_clientcount})", $page);
 
 } else {
 	$msg = "<orange>$error<end>";
