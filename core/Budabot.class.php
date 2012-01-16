@@ -220,15 +220,6 @@ class Budabot extends AOChat {
 			return;
 		}
 		
-		if ($target instanceof ClientHandler) {
-			if ($message instanceof APIResponse) {
-				$target->writePacket($message);
-			} else {
-				$target->writePacket(new APIResponse(API_SUCCESS, $message));
-			}
-			return;
-		}
-
 		if ($priority == null) {
 			$priority = AOC_PRIORITY_MED;
 		}

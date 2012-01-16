@@ -83,7 +83,9 @@ class API {
 					return;
 				}
 
-				$this->command->process($type, $apiRequest->command, $apiRequest->username, $clientHandler);
+				$apiReply = new APIReply();
+				$this->command->process($type, $apiRequest->command, $apiRequest->username, $apiReply);
+				$clientHandler->writePacket(new APIResponse(API_SUCCESS, $apiReply->getOutput()));
 			}
 		}
 	}
