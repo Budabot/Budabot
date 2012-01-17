@@ -137,7 +137,7 @@ class DB {
 			$ps = $this->sql->prepare($sql);
 			$count = 1;
 			forEach ($params as $param) {
-				if ($param == "NULL") {
+				if ($param === "NULL") {
 					$ps->bindValue($count++, $param, PDO::PARAM_NULL);
 				} else {
 					$ps->bindValue($count++, $param);
