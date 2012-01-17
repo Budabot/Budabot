@@ -137,7 +137,7 @@ if (isWindows()) {
 	system("title {$vars['name']} - Budabot");
 }
 
-LegacyLogger::log('INFO', 'StartUp', "Starting {$vars['name']}...");
+LegacyLogger::log('INFO', 'StartUp', "Starting {$vars['name']} on RK{$vars['dimension']}...");
 
 // Choose server.
 if ($vars['use_proxy'] === 1) {
