@@ -1,8 +1,6 @@
 <?php
 
-function orgmatesformat ($memberlist, $color, $timestart, $orgname) {
-	$chatBot = Registry::getInstance('chatBot');
-	
+function orgmatesformat($memberlist, $color, $timestart, $orgname) {
 	$map = $memberlist["orgtype"];
 
 	$totalonline = 0;
@@ -76,7 +74,7 @@ function checkOrglistEnd($forceEnd = false) {
 	if (isset($chatBot->data["ORGLIST_MODULE"]) && count($chatBot->data["ORGLIST_MODULE"]["added"]) == 0 || $forceEnd) {
 		$blob = orgmatesformat($chatBot->data["ORGLIST_MODULE"], $orgcolor, $chatBot->data["ORGLIST_MODULE"]["start"], $chatBot->data["ORGLIST_MODULE"]["org"]);
 		$msg = Text::make_structured_blob("Orglist for '".$chatBot->data["ORGLIST_MODULE"]["org"]."'", $blob);
-		$chatBot->send($msg, $chatBot->data["ORGLIST_MODULE"]["sendto"]);
+		$chatBot->data["ORGLIST_MODULE"]["sendto"]->reply($msg);
 
 		// in case it was ended early
 		forEach ($chatBot->data["ORGLIST_MODULE"]["added"] as $name => $value) {
