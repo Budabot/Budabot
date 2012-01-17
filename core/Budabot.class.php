@@ -72,7 +72,7 @@ class Budabot extends AOChat {
 		$this->logger->log('INFO', "Authenticate login data...");
 		$this->authenticate($login, $password);
 		if ($this->state != "login") {
-			$this->logger->log('ERROR', 'StartUp', "Authentication failed! Invalid username or password.");
+			$this->logger->log('ERROR', "Authentication failed! Invalid username or password.");
 			sleep(10);
 			die();
 		}
@@ -80,7 +80,7 @@ class Budabot extends AOChat {
 		$this->logger->log('INFO', "Logging in {$this->vars["name"]}...");
 		$this->login($this->vars["name"]);
 		if ($this->state != "ok") {
-			$this->logger->log('ERROR', 'StartUp', "Character selection failed! Could not login on as character '{$this->vars["name"]}'.");
+			$this->logger->log('ERROR', "Character selection failed! Could not login on as character '{$this->vars["name"]}'.");
 			sleep(10);
 			die();
 		}
@@ -339,7 +339,7 @@ class Budabot extends AOChat {
 		if (count($admin) == 1) {
 			$admin = array_fill(0, count($type), $admin[0]);
 		} else if (count($admin) != count($type)) {
-			$this->logger->log('ERROR', "ERROR! the number of type arguments does not equal the number of admin arguments for command/subcommand registration!");
+			$this->logger->log('ERROR', "The number of type arguments does not equal the number of admin arguments for command/subcommand registration");
 			return false;
 		}
 		return true;

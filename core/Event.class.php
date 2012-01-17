@@ -145,7 +145,7 @@ class Event extends Annotation {
 	public function deactivate($type, $filename) {
 		$type = strtolower($type);
 
-		$this->logger->log('debug', 'Event', "Deactivating event Type:($type) File:($filename)");
+		$this->logger->log('debug', "Deactivating event Type:($type) File:($filename)");
 		
 		// to remove this check we need to make sure to use $filename instead of $actual_filename
 		//Check if the file exists
