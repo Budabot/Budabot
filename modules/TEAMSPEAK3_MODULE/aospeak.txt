@@ -1,10 +1,9 @@
 <header> :::::: AOSpeak Command :::::: <end>
 
 <highlight>Show all players AOSpeak server<end>
-<tab><symbol>aospeak all
+<tab><symbol>aospeak
 
 <highlight>Show org members currently connected to the AOSpeak server<end>
-<tab><symbol>aospeak
 <tab><symbol>aospeak org
 <orange>Note: Before you can use this command your org president must set up an org channel on the AOSpeak server.<end>
 

@@ -2,7 +2,7 @@
 	require_once 'Teamspeak3.class.php';
 
 	$command->register($MODULE_NAME, "", "ts.php", "ts", "guild", "Show users connected to Teamspeak3 server");
-	$command->register($MODULE_NAME, "", "aospeak.php", "aospeak", "guild", "Show org members connected to AOSpeak server");
+	$command->register($MODULE_NAME, "", "aospeak.php", "aospeak", "all", "Show org members connected to AOSpeak server");
 	
 	$event->register($MODULE_NAME, "logOn", "send_ts_status.php", "Sends TS status to org members logging on", '', 0);
 
@@ -15,5 +15,5 @@
 
 	//Help files
 	$help->register($MODULE_NAME, "ts", "ts.txt", "guild", "How to use teamspeak");
-	$help->register($MODULE_NAME, "aospeak", "aospeak.txt", "guild", "How to use AOSpeak");
+	$help->register($MODULE_NAME, "aospeak", "aospeak.txt", "all", "How to use AOSpeak");
 ?>
