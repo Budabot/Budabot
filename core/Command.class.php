@@ -247,6 +247,7 @@ class Command extends Annotation {
 				$chatBot = Registry::getInstance('chatBot');
 				$db = Registry::getInstance('db');
 				$setting = Registry::getInstance('setting');
+				$type = $channel;
 
 				require $commandHandler->file;
 			} else {
