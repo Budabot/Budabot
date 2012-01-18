@@ -9,7 +9,7 @@
 	$db->loadSQLFile($MODULE_NAME, "playfields");
 	$db->loadSQLFile($MODULE_NAME, "orgcities");
 
-	$command->register($MODULE_NAME, "", "bufftest.php", "bufftest", "leader", "test");
+	$command->register($MODULE_NAME, "", "bufftest.php", "bufftest", "all", "test");
 	$command->register($MODULE_NAME, "", "kos.php", "kos", "guild", "Show the Kill On Sight List");
 	$command->register($MODULE_NAME, "", "time.php", "time", "all", "Show the time in the different timezones");
 	$command->register($MODULE_NAME, "", "calc.php", "calc", "all", "Calculator");

@@ -6,9 +6,9 @@
 	$event->register($MODULE_NAME, "joinPriv", "guardian_joined_chat.php", "Add player to guardian list when he joins chat if he should be on it (Soldier)");
 	$event->register($MODULE_NAME, "2sec", "guard_check.php", "Timer check for guardian list");
 	
-	$command->register($MODULE_NAME, "", "bior.php", "bior", "leader", "Show Bio Regrowth Order");
+	$command->register($MODULE_NAME, "", "bior.php", "bior", "rl", "Show Bio Regrowth Order");
 	$command->register($MODULE_NAME, "", "cast_bior.php", "b", "all", "Show Bio Regrowth Cast");
-	$command->register($MODULE_NAME, "", "guard.php", "guard", "leader", "Show Guardian Order");
+	$command->register($MODULE_NAME, "", "guard.php", "guard", "rl", "Show Guardian Order");
 	$command->register($MODULE_NAME, "", "cast_guard.php", "g", "all", "Show Guardian Cast");
 	
 	$setting->add($MODULE_NAME, "bior_max", "Max Persons that are shown on BioR list", "edit", "number", "10", "10;15;20;25;30", '', "mod");

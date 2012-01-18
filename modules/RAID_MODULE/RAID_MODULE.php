@@ -4,11 +4,11 @@
 	$db->loadSQLFile($MODULE_NAME, 'raid_loot');
 
 	// Loot list and adding/removing of players	
-	$command->register($MODULE_NAME, "", "loot.php", "loot", "leader", "Adds an item to the loot list", 'flatroll');
-	$command->register($MODULE_NAME, "", "multiloot.php", "multiloot", "leader", "Adds items using multiloot", 'flatroll');
-	$command->register($MODULE_NAME, "", "remloot.php", "remloot", "leader", "Remove item from loot list", 'flatroll');
-	$command->register($MODULE_NAME, "", "reroll.php", "reroll", "leader", "Rerolls the residual loot list", 'flatroll');
-	$command->register($MODULE_NAME, "", "flatroll.php", "flatroll", "leader", "Rolls the loot list", 'flatroll');
+	$command->register($MODULE_NAME, "", "loot.php", "loot", "rl", "Adds an item to the loot list", 'flatroll');
+	$command->register($MODULE_NAME, "", "multiloot.php", "multiloot", "rl", "Adds items using multiloot", 'flatroll');
+	$command->register($MODULE_NAME, "", "remloot.php", "remloot", "rl", "Remove item from loot list", 'flatroll');
+	$command->register($MODULE_NAME, "", "reroll.php", "reroll", "rl", "Rerolls the residual loot list", 'flatroll');
+	$command->register($MODULE_NAME, "", "flatroll.php", "flatroll", "rl", "Rolls the loot list", 'flatroll');
 	$commandAlias->register($MODULE_NAME, "flatroll", "rollloot");
 	$commandAlias->register($MODULE_NAME, "flatroll", "result");
 	$commandAlias->register($MODULE_NAME, "flatroll", "win");
@@ -18,15 +18,15 @@
 	$command->register($MODULE_NAME, "", "rem.php", "rem", "all", "Let a player removing from a slot", 'add_rem');
 	
 	// APFs
-	$command->register($MODULE_NAME, "", "apfsector.php", "13", "leader", "Adds APF 13 loot to the loot list", 'apfloot');
-	$command->register($MODULE_NAME, "", "apfsector.php", "28", "leader", "Adds APF 28 loot to the loot list", 'apfloot');
-	$command->register($MODULE_NAME, "", "apfsector.php", "35", "leader", "Adds APF 35 loot to the loot list", 'apfloot');
+	$command->register($MODULE_NAME, "", "apfsector.php", "13", "rl", "Adds APF 13 loot to the loot list", 'apfloot');
+	$command->register($MODULE_NAME, "", "apfsector.php", "28", "rl", "Adds APF 28 loot to the loot list", 'apfloot');
+	$command->register($MODULE_NAME, "", "apfsector.php", "35", "rl", "Adds APF 35 loot to the loot list", 'apfloot');
 	$command->register($MODULE_NAME, "", "apf.php", "apf", "all", "Shows what drops of APF Boss", 'apfloot');
 	$command->register($MODULE_NAME, "", "apfloot.php", "apfloot", "all", "Shows what to make from apf items", 'apfloot');
 	
 	// DB loot manager
-	$command->register($MODULE_NAME, "", "dbloot.php", "db1", "leader", "Shows Possible DB1 Armor/NCUs/Programs", 'dbloot');
-	$command->register($MODULE_NAME, "", "dbloot.php", "db2", "leader", "Shows Possible DB2 Armor", 'dbloot');
+	$command->register($MODULE_NAME, "", "dbloot.php", "db1", "rl", "Shows Possible DB1 Armor/NCUs/Programs", 'dbloot');
+	$command->register($MODULE_NAME, "", "dbloot.php", "db2", "rl", "Shows Possible DB2 Armor", 'dbloot');
 	
 	// Pande loot manager
 	$command->register($MODULE_NAME, "", "pandeloot.php", "beastarmor", "all", "Shows Beast Armor loot", 'pande');
@@ -50,7 +50,7 @@
 	$command->register($MODULE_NAME, "", "pandeloot.php", "pande", "all", "Shows list of pande bosses and loot categories", 'pande');
 	
 	// Albtraum loot manager
-	$command->register($MODULE_NAME, "", "albloot.php", "alb", "leader", "Shows Possible Albtraum loots", 'albloot');
+	$command->register($MODULE_NAME, "", "albloot.php", "alb", "rl", "Shows Possible Albtraum loots", 'albloot');
 	
 	// Xan loot manager
 	$command->register($MODULE_NAME, "", "xan.php", "xan", "all", "Shows Possible Legacy of the Xan Loot", 'xan');
@@ -63,7 +63,7 @@
 
 	// Help files
 	$help->register($MODULE_NAME, "add_rem", "add_rem.txt", "all", "Adding to a lootitem");
-	$help->register($MODULE_NAME, "flatroll", "flatroll.txt", "leader", "Flatroll an item");
+	$help->register($MODULE_NAME, "flatroll", "flatroll.txt", "rl", "Flatroll an item");
 	$help->register($MODULE_NAME, "apfloot", "apfloot.txt", "guild", "Show the Loots of the APF");
 	$help->register($MODULE_NAME, "dbloot", "dbloot.txt", "all", "Loot manager for DB1/DB2 Instance");
 	$help->register($MODULE_NAME, "pande", "pande.txt", "all", "Loot manager for Pandemonium Raid loot");

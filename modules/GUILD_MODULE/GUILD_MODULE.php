@@ -11,7 +11,7 @@
 	$command->register($MODULE_NAME, "", "logoffadmin.php", "logoffadmin", "mod", "Admin command for editing another person's logoff message");
 	$command->register($MODULE_NAME, "", "org_history.php", "orghistory", "guild", "Shows the org history (invites and kicks and leaves) for a player");
 	$command->register($MODULE_NAME, "", "lastseen.php", "lastseen", "guild", "Shows the logoff time of a player");
-	$command->register($MODULE_NAME, "", "tellall.php", "tellall", "leader", "Sends a tell to all online guild members");
+	$command->register($MODULE_NAME, "", "tellall.php", "tellall", "rl", "Sends a tell to all online guild members");
 	$command->register($MODULE_NAME, "", "notify.php", "notify", "rl", "Adding a char manually to the notify list");
 	$command->register($MODULE_NAME, "", "inactive_mem.php", "inactivemem", "rl", "Check for inactive members");
 	$command->register($MODULE_NAME, "", "updateorg.php", "updateorg", "rl", "Forcing an update of the org roster");
@@ -35,6 +35,6 @@
 	$help->register($MODULE_NAME, "logonadmin", "logonadmin.txt", "mod", "Changing another character's logon message");
 	$help->register($MODULE_NAME, "logoffadmin", "logoffadmin.txt", "mod", "Changing another character's logoff message");
 	$help->register($MODULE_NAME, "notify", "notify.txt", "rl", "Add or remove a player from the notify list");
-	$help->register($MODULE_NAME, "tellall", "tellall.txt", "leader", "Send a tell to all online guild members");
+	$help->register($MODULE_NAME, "tellall", "tellall.txt", "rl", "Send a tell to all online guild members");
 	$help->register($MODULE_NAME, "orghistory", "org_history.txt", "guild", "How to use orghistory");
 ?>
