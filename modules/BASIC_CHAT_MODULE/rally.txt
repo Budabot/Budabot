@@ -1,0 +1,9 @@
+<header> :::::: Rally :::::: <end>
+
+<highlight>To see the current rally:<end>
+<tab><symbol>rally
+
+<highlight>To set the rally:<end>
+<tab><symbol>rally 'x' 'y' 'playfield'
+
+Note: 'playfield' can be the playfield id, or any of the short or long names defined in <symbol>playfields
