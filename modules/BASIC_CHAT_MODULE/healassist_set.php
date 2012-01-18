@@ -1,54 +1,45 @@
 <?php
-   /*
-   ** Author: Derroylo (RK2)
-   ** Description: Creates a Doc Assist Macro
-   ** Version: 1.0
-   **
-   ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
-   **
-   ** Date(created): 05.06.2006
-   ** Date(last modified): 05.06.2006
-   ** 
-   ** Copyright (C) 2006 Carsten Lohmann
-   **
-   ** Licence Infos: 
-   ** This file is part of Budabot.
-   **
-   ** Budabot is free software; you can redistribute it and/or modify
-   ** it under the terms of the GNU General Public License as published by
-   ** the Free Software Foundation; either version 2 of the License, or
-   ** (at your option) any later version.
-   **
-   ** Budabot is distributed in the hope that it will be useful,
-   ** but WITHOUT ANY WARRANTY; without even the implied warranty of
-   ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   ** GNU General Public License for more details.
-   **
-   ** You should have received a copy of the GNU General Public License
-   ** along with Budabot; if not, write to the Free Software
-   ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-   */
 
 if (preg_match("/^heal (.+)$/i", $message, $arr)) {
-    $name = $arr[1];
-    $uid = $chatBot->get_uid(ucfirst(strtolower($name)));
-    if ($uid) {
-		$name = ucfirst(strtolower($name));
-		$chatBot->data['heal_assist'] = $name;
-		$link = "<a href='chatcmd:///macro $name /assist $name'>Click here to make an healassist on $name macro</a>";
-		$msg = Text::make_blob("HealAssist Macro on $name", $link);
-		$chatBot->send($msg, 'priv');
-		$chatBot->send($msg, 'priv');
-		$chatBot->send($msg, 'priv');
+    $nameArray = explode(' ', $arr[1]);
+	
+	if (count($nameArray) == 1) {
+		$name = ucfirst(strtolower($arr[1]));
+		$uid = $chatBot->get_uid($name);
+		
+		if (!$uid) {
+			$msg = "Character <highlight>$name<end> does not exist.";
+			$sendto->reply($msg);
+		}
+
+		$link = "<a href='chatcmd:///macro heal /assist $name'>Click here to make a heal assist macro</a>";
+		$chatBot->data['heal_assist'] = Text::make_blob("Heal Assist Macro", $link);
 	} else {
-	  	$chatBot->data['heal_assist'] = $name;
-	  	$link = "<a href='chatcmd:///macro $name /assist $name'>Click here to make an healassist on $name macro</a>";
-	  	$msg = Text::make_blob("HealAssist Macro on $name", $link);
-		$chatBot->send($msg, 'priv');
-		$chatBot->send($msg, 'priv');
-		$chatBot->send($msg, 'priv');
+		forEach ($nameArray as $key => $name) {
+			$name = ucfirst(strtolower($name));
+			$uid = $chatBot->get_uid($name);
+			
+			if (!$uid) {
+				$msg = "Character <highlight>$name<end> does not exist.";
+				$sendto->reply($msg);
+			}
+			$nameArray[$key] = "/assist $name";
+		}
+		
+		// reverse array so that the first player will be the primary assist, and so on
+		$nameArray = array_reverse($nameArray);
+		$chatBot->data['heal_assist'] = '/macro heal ' . implode(" \\n ", $nameArray);
+	}
+	
+	$sendto->reply($chatBot->data['heal_assist']);
+	
+	// send message 2 more times (3 total) if used in private channel
+	if ($type == "priv") {
+		$sendto->reply($chatBot->data['heal_assist']);
+		$sendto->reply($chatBot->data['heal_assist']);
 	}
 } else {
 	$syntax_error = true;
 }
+
 ?>

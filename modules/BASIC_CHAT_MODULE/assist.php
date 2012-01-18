@@ -2,7 +2,7 @@
 
 if (preg_match("/^assist$/i", $message)) {
   	if (!isset($chatBot->data['assist'])) {
-		$msg = "No assist set atm.";
+		$msg = "No assist set.";
 		$sendto->reply($msg);
 		return;
 	} else {
