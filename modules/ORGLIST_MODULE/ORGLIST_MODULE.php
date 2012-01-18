@@ -1,8 +1,8 @@
 <?php
 	require_once 'orglist_functions.php';
 	
-	$command->register($MODULE_NAME, "", "orgmembers.php", "orgmembers", "rl", "Show guild members sorted by name");
-	$command->register($MODULE_NAME, "", "orgranks.php", "orgranks", "rl", "Show guild members sorted by guild rank");
+	$command->register($MODULE_NAME, "", "orgmembers.php", "orgmembers", "guild", "Show guild members sorted by name");
+	$command->register($MODULE_NAME, "", "orgranks.php", "orgranks", "guild", "Show guild members sorted by guild rank");
 	$command->register($MODULE_NAME, "", "whoisorg.php", "whoisorg", "all", "Display org info");
 	$command->register($MODULE_NAME, "", "findorg.php", "findorg", "all", "Find orgs by name");
 	$command->register($MODULE_NAME, "", "is_online.php", "is", "all", "Checks if a player is online");

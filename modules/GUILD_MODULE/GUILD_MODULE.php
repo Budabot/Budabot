@@ -12,9 +12,9 @@
 	$command->register($MODULE_NAME, "", "org_history.php", "orghistory", "guild", "Shows the org history (invites and kicks and leaves) for a player");
 	$command->register($MODULE_NAME, "", "lastseen.php", "lastseen", "guild", "Shows the logoff time of a player");
 	$command->register($MODULE_NAME, "", "tellall.php", "tellall", "rl", "Sends a tell to all online guild members");
-	$command->register($MODULE_NAME, "", "notify.php", "notify", "rl", "Adding a char manually to the notify list");
-	$command->register($MODULE_NAME, "", "inactive_mem.php", "inactivemem", "rl", "Check for inactive members");
-	$command->register($MODULE_NAME, "", "updateorg.php", "updateorg", "rl", "Forcing an update of the org roster");
+	$command->register($MODULE_NAME, "", "notify.php", "notify", "mod", "Adding a char manually to the notify list");
+	$command->register($MODULE_NAME, "", "inactive_mem.php", "inactivemem", "guild", "Check for inactive members");
+	$command->register($MODULE_NAME, "", "updateorg.php", "updateorg", "mod", "Forcing an update of the org roster");
 
 	$event->register($MODULE_NAME, "24hrs", "roster_guild.php", "Download guild roster xml and update guild members");
 	$event->register($MODULE_NAME, "orgmsg", "notify_auto.php", "Automatically add and remove chars from the guild roster as they leave and join the guild");
