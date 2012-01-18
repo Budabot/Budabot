@@ -14,14 +14,6 @@
 	$command->activate("msg", "Admin.removeCommand", "remmod", "admin");
 	$command->activate("priv", "Admin.removeCommand", "remmod", "admin");
 	$command->activate("guild", "Admin.removeCommand", "remmod", "admin");
-	
-	$command->activate("msg", "Admin.addCommand", "addrl", "mod");
-	$command->activate("priv", "Admin.addCommand", "addrl", "mod");
-	$command->activate("guild", "Admin.addCommand", "addrl", "mod");
-	
-	$command->activate("msg", "Admin.removeCommand", "remrl", "mod");
-	$command->activate("priv", "Admin.removeCommand", "remrl", "mod");
-	$command->activate("guild", "Admin.removeCommand", "remrl", "mod");
 
 	$command->activate("msg", "Admin.adminlistCommand", "adminlist", 'all');
 	$command->activate("priv", "Admin.adminlistCommand", "adminlist", 'all');

@@ -32,12 +32,6 @@ class Admin {
 			$rank = 'a moderator';
 
 			$this->remove($who, $sender, $sendto, $intlevel, $rank);
-		} else if (preg_match("/^remrl (.+)$/i", $message, $arr)){
-			$who = ucfirst(strtolower($arr[1]));
-			$intlevel = 2;
-			$rank = 'a raidleader';
-
-			$this->remove($who, $sender, $sendto, $intlevel, $rank);
 		} else {
 			return false;
 		}
@@ -75,23 +69,6 @@ class Admin {
 		$blob .= "<highlight>Moderators<end>\n";
 		forEach ($this->admins as $who => $data){
 			if ($this->admins[$who]["level"] == 3){
-				if ($who != "") {
-					$blob.= "<tab>$who ";
-					if ($this->buddylist->is_online($who) == 1 && isset($this->chatBot->chatlist[$who])) {
-						$blob.="(<green>Online and in chat<end>)";
-					} else if ($this->buddylist->is_online($who) == 1) {
-						$blob.="(<green>Online<end>)";
-					} else {
-						$blob.="(<red>Offline<end>)";
-					}
-					$blob.= "\n";
-				}
-			}
-		}
-
-		$blob .= "<highlight>Raidleaders<end>\n";	
-		forEach ($this->admins as $who => $data){
-			if ($this->admins[$who]["level"] == 2){
 				if ($who != "") {
 					$blob.= "<tab>$who ";
 					if ($this->buddylist->is_online($who) == 1 && isset($this->chatBot->chatlist[$who])) {
@@ -146,12 +123,6 @@ class Admin {
 			$who = ucfirst(strtolower($arr[1]));
 			$intlevel = 3;
 			$rank = 'a moderator';
-
-			$this->add($who, $sender, $sendto, $intlevel, $rank);
-		} else if (preg_match("/^addrl (.+)$/i", $message, $arr)){
-			$who = ucfirst(strtolower($arr[1]));
-			$intlevel = 2;
-			$rank = 'a raidleader';
 
 			$this->add($who, $sender, $sendto, $intlevel, $rank);
 		} else {

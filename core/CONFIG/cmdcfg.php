@@ -22,9 +22,7 @@
 if (!function_exists('get_admin_description')) {
 	function get_admin_description($admin) {
 		$admin = strtolower($admin);
-		if ($admin == "leader") {
-			return "Leader";
-		} else if ($admin == "rl") {
+		if ($admin == "rl") {
 			return "Raidleader";
 		} else if ($admin == "mod") {
 			return "Moderator";
@@ -67,7 +65,6 @@ if (!function_exists('getCommandInfo')) {
 			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} all'>All</a>  ";
 			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} member'>Member</a>  ";
 			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} guild'>Guild</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} leader'>Leader</a>  ";
 			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} rl'>RL</a>  ";
 			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} mod'>Mod</a>  ";
 			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} admin'>Admin</a>\n";
@@ -108,7 +105,6 @@ if (!function_exists('getSubCommandInfo')) {
 			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} admin {$type} all'>All</a>  ";
 			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} admin {$type} member'>Member</a>  ";
 			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} admin {$type} guild'>Guild</a>  ";
-			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} admin {$type} leader'>Leader</a>  ";
 			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} admin {$type} rl'>RL</a>  ";
 			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} admin {$type} mod'>Mod</a>  ";
 			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} admin {$type} admin'>Admin</a>\n\n";
@@ -315,7 +311,7 @@ if (preg_match("/^config$/i", $message)) {
 	
 	// for subcommands which are handled differently
 	Registry::getInstance('subcommand')->loadSubcommands();
-} else if (preg_match("/^config (subcmd|cmd) (.+) admin (msg|priv|guild|all) (all|leader|rl|mod|admin|guild|member)$/i", $message, $arr)) {
+} else if (preg_match("/^config (subcmd|cmd) (.+) admin (msg|priv|guild|all) (all|rl|mod|admin|guild|member)$/i", $message, $arr)) {
 	$category = strtolower($arr[1]);
 	$command = strtolower($arr[2]);
 	$channel = strtolower($arr[3]);
@@ -428,7 +424,7 @@ if (preg_match("/^config$/i", $message)) {
 		$msg = Text::make_structured_blob(ucfirst($cmd)." config", $list);
 	}
 	$sendto->reply($msg);
-} else if (preg_match("/^config help (.+) admin (all|leader|rl|mod|admin|guild|member)$/i", $message, $arr)) {
+} else if (preg_match("/^config help (.+) admin (all|rl|mod|admin|guild|member)$/i", $message, $arr)) {
   	$helpTopic = strtolower($arr[1]);
 	$admin = $arr[2];
 	
@@ -459,7 +455,6 @@ if (preg_match("/^config$/i", $message)) {
 			$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin all'>All</a>  ";
 			$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin member'>Member</a>  ";
 			$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin guild'>Guild</a>  ";
-			$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin leader'>Leader</a>  ";
 			$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin rl'>RL</a>  ";
 			$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin mod'>Mod</a>  ";
 			$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin admin'>Admin</a>\n\n";

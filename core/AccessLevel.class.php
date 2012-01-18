@@ -1,7 +1,7 @@
 <?php
 
 class AccessLevel extends Annotation {
-	public static $ACCESS_LEVELS = array('none' => 0, 'superadmin' => 1,  'admin' => 2, 'mod' => 3, 'rl' => 4, 'leader' => 5, 'guild' => 6, 'member' => 7, 'all' => 8);
+	public static $ACCESS_LEVELS = array('none' => 0, 'superadmin' => 1,  'admin' => 2, 'mod' => 3, 'rl' => 4, 'guild' => 6, 'member' => 7, 'all' => 8);
 
 	/** @Inject */
 	public $db;
@@ -21,7 +21,7 @@ class AccessLevel extends Annotation {
 	/**
 	 * @name: checkAccess
 	 * @param: $sender - the name of the person you want to check access on
-	 * @param: $accessLevel - can be one of: superadmin, admininistrator, moderator, raidleader, leader, guild, member, all
+	 * @param: $accessLevel - can be one of: superadmin, admininistrator, moderator, raidleader, guild, member, all
 	 * @returns: true if $sender has at least $accessLevel, false otherwise
 	 */
 	public function checkAccess($sender, $accessLevel) {
@@ -100,12 +100,9 @@ class AccessLevel extends Annotation {
 			if ($level >= 3 || $this->checkGuildAdmin($sender, 'mod')) {
 				return "mod";
 			}
-			if ($level >= 2 || $this->checkGuildAdmin($sender, 'rl')) {
-				return "rl";
-			}
 		}
 		if (isset($this->chatBot->data["leader"]) && $this->chatBot->data["leader"] == $sender) {
-			return "leader";
+			return "rl";
 		}
 		if (isset($this->chatBot->guildmembers[$sender])) {
 			return "guild";
