@@ -9,8 +9,8 @@ class PrivateChannelCommandReply implements CommandReply {
 		$this->chatBot = $chatBot;
 	}
 
-	public function reply($msg) {
-		$this->chatBot->send($msg, 'priv');
+	public function reply($msg, $disableRelay = false) {
+		$this->chatBot->send($msg, 'priv', $disableRelay);
 	}
 }
 

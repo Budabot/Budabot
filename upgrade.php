@@ -24,7 +24,7 @@ if (!checkIfColumnExists($db, "news", "sticky")) {
 }
 
 
-$db->exec("UPDATE eventcfg_<myname> SET type = LOWER(type)")
+$db->exec("UPDATE eventcfg_<myname> SET type = LOWER(type)");
 
 $db->exec("UPDATE cmdcfg_<myname> SET admin = 'rl' WHERE admin = 'leader'");
 $db->exec("UPDATE hlpcfg_<myname> SET admin = 'rl' WHERE admin = 'leader'");
