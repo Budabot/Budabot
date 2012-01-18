@@ -13,7 +13,7 @@ class APIReply implements CommandReply {
 	}
 	
 	public function getOutput() {
-		return implode("\n", $this->output);
+		return implode("\n\n", $this->output);
 	}
 }
 

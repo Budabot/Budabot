@@ -25,7 +25,7 @@ class StructuredMessage {
 		}
 
 		forEach ($this->content as $item) {
-			if ($item instanceof StructuredMessage) {
+			if (is_object($item) && method_exists($item, 'renderAOML')) {
 				$output .= '<pagebreak>' . $item->renderAOML(false) . "\n";
 			} else {
 				$output .= $item . "\n";

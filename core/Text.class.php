@@ -62,8 +62,8 @@ class Text {
 		
 		if ($num == 1) {
 			$page = $pages[0];
-			$header = "<header> :::::: $header :::::: <end>\n\n";
-			$page = "<a href=\"text://".$setting->get("default_window_color").$header.$page."\">$name</a>";
+			$headerMarkup = "<header> :::::: $header :::::: <end>\n\n";
+			$page = "<a href=\"text://".$setting->get("default_window_color").$headerMarkup.$page."\">$name</a>";
 			return $page;
 		} else {
 			$i = 1;
