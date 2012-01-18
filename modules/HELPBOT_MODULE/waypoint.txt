@@ -1,9 +1,9 @@
 <header> :::::: Waypoint Command :::::: <end>
 
+<highlight>To show a list of playfields, including their id, short name, and long name:<end>
+<tab><symbol>playfields
+
 <highlight>To create a waypoint link in chat:<end>
 <tab><symbol>waypoint 'x' 'y' 'playfield'
 
 Note: 'playfield' can be the playfield id, or any of the short or long names defined in <symbol>playfields
-
-<highlight>To show a list of playfields, including their id, short name, and long name:<end>
-<tab><symbol>playfields
