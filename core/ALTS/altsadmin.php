@@ -1,11 +1,6 @@
 <?php
 
-if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names)) {
-	if ($names[1] == '' || $names[2] == '') {
-		$syntax_error = true;
-		return;
-	}
-
+if (preg_match("/^altsadmin add ([a-z0-9-]+) ([a-z0-9-]+)$/i", $message, $names)) {
 	$name_main = ucfirst(strtolower($names[1]));
 	$name_alt = ucfirst(strtolower($names[2]));
 	$uid_main = $chatBot->get_uid($name_main);
@@ -44,12 +39,7 @@ if (preg_match("/^altsadmin add (.+) (.+)$/i", $message, $names)) {
 	Alts::add_alt($mainInfo->main, $name_alt, 1);
 	$msg = "<highlight>$name_alt<end> has been registered as an alt of {$mainInfo->main}.";
 	$sendto->reply($msg);
-} else if (preg_match("/^altsadmin rem (.+) (.+)$/i", $message, $names)) {
-	if ($names[1] == '' || $names[2] == '') {
-		$syntax_error = true;
-		return;
-	}
-
+} else if (preg_match("/^altsadmin rem ([a-z0-9-]+) ([a-z0-9-]+)$/i", $message, $names)) {
 	$name_main = ucfirst(strtolower($names[1]));
 	$name_alt = ucfirst(strtolower($names[2]));
 
