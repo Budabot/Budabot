@@ -79,7 +79,6 @@ class Help extends Annotation {
 			SELECT module, admin, file FROM hlpcfg_<myname> WHERE `name` = ?
 			GROUP BY module, admin, file";
 		$data = $this->db->query($sql, $helpcmd, $helpcmd, $helpcmd);
-		print_r($data);
 
 		$addedHelpFiles = array();
 		$output = '';
@@ -120,17 +119,31 @@ class Help extends Annotation {
 		}
 	}
 	
-	public function getAllHelpTopics() {
+	public function getAllHelpTopics($char) {
 		$sql = "
-			SELECT module, admin, help AS file FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' AND status = 1
+			SELECT module, admin, help AS file, name, description, 3 AS sort FROM settings_<myname> WHERE help <> ''
 			UNION
-			SELECT module, admin, help AS file FROM settings_<myname>
+			SELECT module, admin, help AS file, cmd AS name, description, 2 AS sort FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' AND status = 1 AND help <> ''
 			UNION
-			SELECT module, admin, help AS file FROM eventcfg_<myname>
-			UNION
-			SELECT module, admin, file FROM hlpcfg_<myname>
-			GROUP BY admin, file";
-		$data = $this->db->query($sql, $helpcmd, $helpcmd, $helpcmd);
+			SELECT module, admin, file, name, description, 1 AS sort FROM hlpcfg_<myname>
+			GROUP BY module, admin, file, description
+			ORDER BY module, name, sort DESC, description";
+		$data = $this->db->query($sql);
+		
+		$accessLevel = $this->accessLevel->getAccessLevelForCharacter($char);
+		
+		$topics = array();
+		forEach ($data as $row) {
+			if ($this->accessLevel->compareAccessLevels($accessLevel, $row->admin) >= 0) {
+				$obj = new stdClass;
+				$obj->module = $row->module;
+				$obj->name = $row->name;
+				$obj->description = $row->description;
+				$topics []= $obj;
+			}
+		}
+		
+		return $topics;
 	}
 }
 

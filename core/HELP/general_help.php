@@ -1,6 +1,7 @@
 <?php
 
 $accessLevel = Registry::getInstance('accessLevel');
+$help = Registry::getInstance('help');
 
 if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message)) {
 	global $version;
@@ -11,28 +12,20 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 } else if (preg_match("/^help$/i", $message)) {
 	global $version;
 
-	$sql = "SELECT * FROM hlpcfg_<myname> ORDER BY module ASC";
-	$data = $db->query($sql);
+	$data = $help->getAllHelpTopics($sender);
 	
-	$help_array = array();
-	forEach ($data as $row) {
-		if ($accessLevel->checkAccess($sender, $row->admin)) {
-			$help_array []= $row;
-		}
-	}
-
-	if (count($help_array) == 0) {
-		$msg = "<orange>No Helpfiles found.<end>";
+	if (count($data) == 0) {
+		$msg = "<orange>No help files found.<end>";
 	} else {
 		$blob = '';
 		$current_module = '';
-		forEach ($help_array as $row) {
+		forEach ($data as $row) {
 			if ($current_module != $row->module) {
 				$blob .= "\n<pagebreak><highlight><u>{$row->module}:</u><end>\n";
 				$current_module = $row->module;
 			}
-			
-			$blob .= "  *{$row->name}: {$row->description} <a href='chatcmd:///tell <myname> help {$row->name}'>Click here</a>\n";
+
+			$blob .= "  {$row->name}: {$row->description} <a href='chatcmd:///tell <myname> help {$row->name}'>Click here</a>\n";
 		}
 		
 		$msg = Text::make_blob("Help (main)", $blob, "Help Files for Budabot {$version}");
@@ -41,7 +34,7 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 	$sendto->reply($msg);
 } else if (preg_match("/^help (.+)$/i", $message, $arr)) {
 	$helpcmd = ucfirst($arr[1]);
-	$blob = Registry::getInstance('help')->find($helpcmd, $sender);
+	$blob = $help->find($helpcmd, $sender);
 	if ($blob !== false) {
 		$msg = Text::make_legacy_blob("Help ($helpcmd)", $blob);
 		$sendto->reply($msg);
