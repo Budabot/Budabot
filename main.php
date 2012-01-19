@@ -132,6 +132,13 @@ $vars["name"] = ucfirst(strtolower($vars["name"]));
 // Make sure logging directory exists.
 @mkdir("./logs/{$vars['name']}.{$vars['dimension']}", 0777, true);
 
+// configure log files to be separate for each bot
+$defaultFileAppender = Logger::getRootLogger()->getAppender('defaultFileAppender');
+$loggingFile = $defaultFileAppender->getFile();
+$loggingFile = str_replace("./logs/", "./logs/{$vars['name']}.{$vars['dimension']}/", $loggingFile);
+$defaultFileAppender->setFile($loggingFile);
+$defaultFileAppender->activateOptions();
+
 // Set the title of the command prompt window in Windows.
 if (isWindows()) {
 	system("title {$vars['name']} - Budabot");
