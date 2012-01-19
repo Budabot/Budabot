@@ -38,10 +38,10 @@ if (preg_match("/^xan$/i", $message)){
 	$sendto->reply(get_xan_loot('Mitaar', 'Symbiants'));
 	$sendto->reply(get_xan_loot('Mitaar', 'Spirits'));
 } else if (preg_match("/^12m$/i", $message)){
-	$sendto->reply(get_xan_loot('12 Man', 'General'));
-	$sendto->reply(get_xan_loot('12 Man', 'Symbiants'));
-	$sendto->reply(get_xan_loot('12 Man', 'Spirits'));
-	$sendto->reply(get_xan_loot('12 Man', 'Profession Gems'));
+	$sendto->reply(get_xan_loot('12Man', 'General'));
+	$sendto->reply(get_xan_loot('12Man', 'Symbiants'));
+	$sendto->reply(get_xan_loot('12Man', 'Spirits'));
+	$sendto->reply(get_xan_loot('12Man', 'Profession Gems'));
 } else {
 	$syntax_error = true;
 }
