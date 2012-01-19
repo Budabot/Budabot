@@ -24,13 +24,13 @@ if (preg_match("/^system$/i", $message, $arr)) {
 	}
 
 	$blob = "Name: <highlight><myname><end>\n";
+	$blob .= "SuperAdmin: <highlight>'{$chatBot->vars['SuperAdmin']}'<end>\n";
+	$blob .= "Guild: <highlight>'<myguild>' (" . $chatBot->vars['my_guild_id'] . ")<end>\n\n";
+	
 	$blob .= "Budabot: <highlight>$version<end>\n";
 	$blob .= "PHP: <highlight>" . phpversion() . "<end>\n";
 	$blob .= "OS: <highlight>" . php_uname('s') . ' ' . php_uname('r') . ' ' . php_uname('m') . "<end>\n";
 	$blob .= "Database: <highlight>" . $db->get_type() . "<end>\n\n";
-
-	$blob .= "SuperAdmin: <highlight>'{$chatBot->vars['SuperAdmin']}'<end>\n";
-	$blob .= "Guild: <highlight>'<myguild>' (" . $chatBot->vars['my_guild_id'] . ")<end>\n\n";
 
 	$blob .= "Current Memory Usage: <highlight>" . Util::bytes_convert(memory_get_usage()) . "<end>\n";
 	$blob .= "Current Memory Usage (Real): <highlight>" . Util::bytes_convert(memory_get_usage(1)) . "<end>\n";
@@ -47,13 +47,15 @@ if (preg_match("/^system$/i", $message, $arr)) {
 		$eventnum += count($events);
 	}
 
-	$blob .= "Number of active tell commands: <highlight>" . count($command->commands['msg']) . "<end>\n";
-	$blob .= "Number of active private channel commands: <highlight>" . count($command->commands['priv']) . "<end>\n";
-	$blob .= "Number of active guild channel commands: <highlight>" . count($command->commands['guild']) . "<end>\n";
+	$numAliases = count($commandAlias->cmd_aliases);
+
+	$blob .= "Number of active tell commands: <highlight>" . (count($command->commands['msg']) - $numAliases) . "<end>\n";
+	$blob .= "Number of active private channel commands: <highlight>" . (count($command->commands['priv']) - $numAliases) . "<end>\n";
+	$blob .= "Number of active guild channel commands: <highlight>" . (count($command->commands['guild']) - $numAliases) . "<end>\n";
 	$blob .= "Number of active subcommands: <highlight>" . count($subcommand->subcommands) . "<end>\n";
-	$blob .= "Number of active command aliases: <highlight>" . count($commandAlias->cmd_aliases) . "<end>\n";
+	$blob .= "Number of active command aliases: <highlight>" . $numAliases . "<end>\n";
 	$blob .= "Number of active events: <highlight>" . $eventnum . "<end>\n";
-	$blob .= "Number of help commands: <highlight>" . count($help->helpfiles) . "<end>\n\n";
+	$blob .= "Number of active help commands: <highlight>" . count($help->getAllHelpTopics(null)) . "<end>\n\n";
 
 	$blob .= "Number of characters on the friendlist: <highlight>$num_friendlist / " . count($chatBot->buddyList) . "<end>\n";
 	$blob .= "Number of characters in the private channel: <highlight>" . count($chatBot->chatlist) . "<end>\n";

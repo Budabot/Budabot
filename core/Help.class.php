@@ -130,11 +130,13 @@ class Help extends Annotation {
 			ORDER BY module, name, sort DESC, description";
 		$data = $this->db->query($sql);
 		
-		$accessLevel = $this->accessLevel->getAccessLevelForCharacter($char);
+		if ($char !== null) {
+			$accessLevel = $this->accessLevel->getAccessLevelForCharacter($char);
+		}
 		
 		$topics = array();
 		forEach ($data as $row) {
-			if ($this->accessLevel->compareAccessLevels($accessLevel, $row->admin) >= 0) {
+			if ($char === null || $this->accessLevel->compareAccessLevels($accessLevel, $row->admin) >= 0) {
 				$obj = new stdClass;
 				$obj->module = $row->module;
 				$obj->name = $row->name;
