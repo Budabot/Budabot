@@ -19,10 +19,10 @@ if (preg_match("/^nanolines$/i", $message, $arr)) {
 	$nanoline_id = $arr[1];
 
 	$sql = "SELECT * FROM nanolines WHERE id = ?";
-	$row = $db->queryRow($sql, $nanoline_id);
+	$nanoline = $db->queryRow($sql, $nanoline_id);
 
 	$msg = '';
-	if ($row !== null) {
+	if ($nanoline !== null) {
 		$blob = '';
 
 		$sql = "
@@ -41,15 +41,15 @@ if (preg_match("/^nanolines$/i", $message, $arr)) {
 				lowql DESC, name ASC";
 		$data = $db->query($sql, $nanoline_id);
 
-		forEach ($data as $row) {
-			$$blob .= Text::make_item($row->lowid, $row->lowid, $row->lowql, $row->name);
-			$$blob .= " [$row->lowql] $row->location\n";
+		forEach ($data as $nano) {
+			$$blob .= Text::make_item($nano->lowid, $nano->lowid, $nano->lowql, $nano->name);
+			$$blob .= " [$nano->lowql] $nano->location\n";
 		}
 
 		$$blob .= "\n\nAO Nanos by Voriuste";
 		$$blob .= "\nModule created by Tyrence (RK2)";
 
-		$msg = Text::make_blob("$row->profession $row->name Nanos", $$blob);
+		$msg = Text::make_blob("$nanoline->profession $nanoline->name Nanos", $$blob);
 
 	} else {
 		$msg = "No nanoline found.";
