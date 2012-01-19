@@ -1,5 +1,3 @@
-<header>::::: Help on Flip and Roll Commands. :::::<end>
-
 <highlight>Flip Command<end>
 
 To Flip a coin do:

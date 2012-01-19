@@ -1,5 +1,3 @@
-<header> :::::: Alias Commands :::::: <end>
-
 <highlight>To show a list of the current aliases:<end>
 <tab><symbol>aliaslist
 

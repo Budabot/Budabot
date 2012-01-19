@@ -1,5 +1,3 @@
-<header>::::: Feedback Commands :::::<end>
-
 <highlight>To see feedback on a character<end>
 <tab><symbol>feedback charater
 

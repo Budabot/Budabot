@@ -1,5 +1,3 @@
-<header>::::: Set a LogOn Message :::::<end>
-
 <highlight>To set a logon message use<end>
 <tab><symbol>logon 'insert message here'
 

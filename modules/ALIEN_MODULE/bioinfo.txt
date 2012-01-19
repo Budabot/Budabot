@@ -1,5 +1,3 @@
-<header> :::::: Bioinfo command :::::: <end>
-
 <highlight>To see info on a particular bio material type:<end>
 <tab><symbol>bioinfo 'type'
 

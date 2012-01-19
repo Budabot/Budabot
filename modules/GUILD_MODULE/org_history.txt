@@ -1,5 +1,3 @@
-<header>::::: Org History Commands :::::<end>
-
 Example:
 !orghistory user
 shows all the actions (invite, kick, leave) performed on and by 'user'

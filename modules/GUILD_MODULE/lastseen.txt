@@ -1,5 +1,3 @@
-<header>::::: Show when an orgmember was last online :::::<end>
-
 With this command you can check when an Member of your Organisation was the last time online.
 
 <tab><symbol>lastseen 'name'

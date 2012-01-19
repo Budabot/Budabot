@@ -1,4 +1,2 @@
-<header> :::::: Namehistory Command :::::: <end>
-
 <highlight>Show all the names the bot knows for this character<end>
 <tab><symbol>namehistory 'character name'

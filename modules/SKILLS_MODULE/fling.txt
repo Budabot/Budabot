@@ -1,5 +1,3 @@
-<header> :::::: Fling Command :::::: <end>
-
 /tell <myname> <symbol>fling [<orange>A<end>] [<orange>FS<end>]
 [<orange>A<end>] = Weapon Attack Time
 [<orange>FS<end>] = Fling Skill

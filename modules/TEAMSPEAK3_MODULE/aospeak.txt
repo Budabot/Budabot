@@ -1,5 +1,3 @@
-<header> :::::: AOSpeak Command :::::: <end>
-
 <highlight>Show all players AOSpeak server<end>
 <tab><symbol>aospeak
 

@@ -1,5 +1,3 @@
-<header> :::::: Help on BBIN :::::: <end>
-
 To start the Budabot IRC network, a moderator or higher needs to do <highlight>/tell <myname> <symbol>startbbin<end>, or you can set it to auto-connect on bot-startup in the <symbol>config.
 
 ...but before you do, please read these important setup instructions:

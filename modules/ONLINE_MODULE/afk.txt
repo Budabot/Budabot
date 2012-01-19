@@ -1,5 +1,3 @@
-<header> :::::: AFK command :::::: <end>
-
 <highlight>To set yourself as afk:<end>
 <tab>afk
 <tab>brb

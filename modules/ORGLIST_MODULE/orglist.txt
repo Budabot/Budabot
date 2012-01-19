@@ -1,5 +1,3 @@
-<header> :::::: Orglist Command :::::: <end>
-
 <highlight>Shows org roster of person<end>
 <tab><symbol>orglist person
 

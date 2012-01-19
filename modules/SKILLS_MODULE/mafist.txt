@@ -1,5 +1,3 @@
-<header> :::::: Mafist Command :::::: <end>
-
 /tell <myname> <symbol>mafist [<orange>MA<end>]
 [<orange>MA<end>] = MA Skill
 

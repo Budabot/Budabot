@@ -1,5 +1,3 @@
-<header> :::::: Logonadmin Command :::::: <end>
-
 <highlight>See what a character's logon message is set to:<end>
 <tab><symbol>logonadmin 'character'
 

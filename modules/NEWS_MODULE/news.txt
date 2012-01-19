@@ -1,5 +1,3 @@
-<header> :::::: News Commands :::::: <end>
-
 <highlight>To show the latest news entries:<end>
 <tab><symbol>news
 

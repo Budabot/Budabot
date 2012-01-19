@@ -1,5 +1,3 @@
-<header>::::: Pandemonium Loot Module :::::<end>
-
 This module is designed to assist in adding Pandemonium 'phatz boss' loot to a loot list.
 
 <highlight>To View Pande 'phatz bosses'<end>

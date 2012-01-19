@@ -1,5 +1,3 @@
-<header> :::::: Whereis command :::::: <end>
-
 <highlight>This command shows you infos about different locations or NPCs<end>
 <tab><symbol>whereis 'location or NPC'
 

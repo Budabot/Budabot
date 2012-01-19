@@ -1,5 +1,3 @@
-<header> :::::: Oe Command :::::: <end>
-
 <highlight>To check if your Weapon/Armor/Bot is going over-equiped use<end>
 <tab><symbol>oe 'insert needed skill here'
 or

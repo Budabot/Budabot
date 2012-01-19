@@ -1,5 +1,3 @@
-<header> :::::: Whoisorg Command :::::: <end>
-
 <highlight>Show info about an org on the current server by the org id<end>
 <tab><symbol>whoisorg 'org id'
 

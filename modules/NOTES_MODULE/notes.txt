@@ -1,5 +1,3 @@
-<header> :::::: Notes Command :::::: <end>
-
 <highlight>To show all yours notes:<end>
 <tab><symbol>notes
 

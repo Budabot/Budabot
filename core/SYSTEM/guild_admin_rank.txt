@@ -1,5 +1,3 @@
-<header> :::::: Help on Guild Admin Level :::::: <end>
-
 <highlight>Department<end>
 President        = 0
 General          = 1

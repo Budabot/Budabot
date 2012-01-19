@@ -1,5 +1,3 @@
-<header> :::::: Nanoline Commands :::::: <end>
-
 <highlight>To show all professions that have nanolines:<end>
 <tab><symbol>nanolines
 

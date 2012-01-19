@@ -1,5 +1,3 @@
-<header>::::: Help on Quote command :::::<end>
-
 <highlight>View random quote:<end>
 <tab><symbol>quote
 

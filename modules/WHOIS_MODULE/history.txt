@@ -1,5 +1,3 @@
-<header>::::: History of Players :::::<end>
-
 <highlight>To show the history of a Player<end>
 <tab><symbol>history 'Insert Playername'
 

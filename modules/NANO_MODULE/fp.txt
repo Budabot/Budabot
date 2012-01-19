@@ -1,5 +1,3 @@
-<header> ::::: Help on FP Command ::::: <end>
-
 <highlight>To check if a nano is usable in false profession by name:<end>
 <tab><symbol>fp hack quack
 

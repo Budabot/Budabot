@@ -1,5 +1,3 @@
-<header> :::::: Budatime :::::: <end>
-
 <highlight>Time units for Budatime<end>
 <tab>days => 1d, 1day, 1days
 <tab>hours => 1h, 1hr, 1hrs, 1hour, 1hours

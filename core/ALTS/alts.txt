@@ -1,5 +1,3 @@
-<header> :::::: Alt Commands :::::: <end>
-
 <highlight>To show your own alts:<end>
 <tab><symbol>alts
 

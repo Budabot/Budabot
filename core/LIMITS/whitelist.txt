@@ -1,5 +1,3 @@
-<header> :::::: Whitelist Command :::::: <end>
-
 Note: The <highlight>whitelist<end> command lets you specify certain characters that should be able to access the bot, but would not normally be able to due to limits being set. See <a href='chatcmd:///tell <myname> help limits'><symbol>!limits</a>
 
 <highlight>To see a list of character on the whitelist:<end>

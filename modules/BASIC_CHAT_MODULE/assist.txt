@@ -1,5 +1,3 @@
-<header> :::::: Creating an assist macro :::::: <end>
-
 <highlight>To create an assist macro for a single person:<end>
 <tab><symbol>assist 'name'
 

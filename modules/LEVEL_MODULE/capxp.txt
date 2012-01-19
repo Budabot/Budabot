@@ -1,5 +1,3 @@
-<header>::::: Cap Experience Command :::::<end>
-
 This module is designed to help you calculate where to put your research bar so that you get the maximum amount of the mission reward going into your xp bar, while letting the rest spill over into research.
 
 Experience(XP/SK)

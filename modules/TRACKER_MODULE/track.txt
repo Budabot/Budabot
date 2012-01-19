@@ -1,5 +1,3 @@
-<header> ::::: Track Commands ::::: <end>
-
 <highlight>To see the list of users on the track list:<end>
 <tab><symbol>track
 

@@ -1,5 +1,3 @@
-<header> :::::: Friendlist Commands :::::: <end>
-
 <highlight>Shows all the people on the friend list<end>
 <tab><symbol>friendlist
 

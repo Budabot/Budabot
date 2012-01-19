@@ -1,5 +1,3 @@
-<header>::::: Bio Regrowth List and Macro :::::<end>
-
 <highlight>Show the BioR list<end>
 <tab><symbol>bior
 

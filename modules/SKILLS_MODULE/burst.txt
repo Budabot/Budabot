@@ -1,5 +1,3 @@
-<header> :::::: Burst Command :::::: <end>
-
 /tell <myname> <symbol>burst [<orange>A<end>] [<orange>R<end>] [<orange>BD<end>] [<orange>BS<end>]
 [<orange>A<end>] = Weapon Attack Time
 [<orange>R<end>] = Weapon Recharge Time

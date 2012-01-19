@@ -1,5 +1,3 @@
-<header> :::::: Ofabarmor Command :::::: <end>
-
 <highlight>See a list of professions and their LE bio types:<end>
 <tab><symbol>ofabarmor
 

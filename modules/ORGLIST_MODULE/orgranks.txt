@@ -1,5 +1,3 @@
-<header> :::::: Orgranks :::::: <end>
-
 <highlight>Show members of your own guild sorted by guild rank<end>
 <tab><symbol>orgranks
 

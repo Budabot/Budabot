@@ -1,5 +1,3 @@
-<header> :::::: Links Command :::::: <end>
-
 <highlight>To shows all links:<end>
 <tab><symbol>links
 

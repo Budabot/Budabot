@@ -1,5 +1,3 @@
-<header> :::::: Land Control Commands :::::: <end>
-
 <highlight>To see a list of all the tower playfields<end>
 <tab><symbol>lc
 

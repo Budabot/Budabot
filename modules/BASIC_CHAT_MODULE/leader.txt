@@ -1,5 +1,3 @@
-<header> :::::: Set a leader of the Raid :::::: <end>
-
 <highlight>Set yourself as leader<end>
 <tab><symbol>leader
 

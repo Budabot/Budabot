@@ -1,5 +1,3 @@
-<header>  ::::: Research Database Help  :::::  <end>
-
 <blue>This command will give onformation regarding the amount of SK/XP needed to attain different Research levels, as well as the Level you need to be to attain the different Research Levels.
 
 <tab><yellow><symbol>research (#)<end>  Will return the amount of SK you need to get the specified level.  It will also return the minimum level you need to be, and will convert the SK into the equivelent amount of XP

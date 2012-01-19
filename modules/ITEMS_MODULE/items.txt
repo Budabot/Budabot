@@ -1,5 +1,3 @@
-<header> ::::: Help on Items Commands ::::: <end>
-
 <highlight>To search for an item:<end>
 <tab><symbol>items 'Insert itemname here'
 

@@ -1,5 +1,3 @@
-<header> :::::: Weather Command :::::: <end>
-
 <highlight>To search for weather data based on City/Zip/Airport:<end>
 <tab><symbol>weather city
 

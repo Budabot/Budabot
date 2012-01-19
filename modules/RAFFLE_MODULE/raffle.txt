@@ -1,5 +1,3 @@
-<header> :::::: Raffle Commands :::::: <end>
-
 <highlight>Raffle off items (if count is given, else one item is raffled)<end>
 <tab><symbol>raffle start (count) 'item'
 

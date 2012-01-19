@@ -1,5 +1,3 @@
-<header> :::::: Nanoinit Command :::::: <end>
-
 /tell <myname> <symbol>nanoinit [<orange>A<end>] [<orange>I<end>]
 [<orange>A<end>] = Nano Attack Time
 [<orange>I<end>] = Your nano init skill

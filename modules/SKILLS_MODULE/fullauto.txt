@@ -1,5 +1,3 @@
-<header> :::::: Fullauto Command :::::: <end>
-
 /tell <myname> <symbol>fullauto [<orange>A<end>] [<orange>R<end>] [<orange>FA Rech<end>] [<orange>FA Skill<end>]
 [<orange>A<end>] = Weapon Attack Time
 [<orange>R<end>] = Weapon Recharge Time

@@ -1,5 +1,3 @@
-<header> :::::: AIGen command :::::: <end>
-
 To see info about the Alien City Generals(like which Viralbots/items they drop) do
 <tab><symbol>aigen 'type'
 

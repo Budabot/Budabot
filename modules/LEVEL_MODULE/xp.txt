@@ -1,5 +1,3 @@
-<header> :::::: Help on Experience Commands :::::: <end>
-
 <highlight>Alien Knowledge(AXP)<end>
 
 To show a list of all Alien Levels

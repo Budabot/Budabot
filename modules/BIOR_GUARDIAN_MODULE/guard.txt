@@ -1,5 +1,3 @@
-<header>::::: Guardian List and Macro :::::<end>
-
 <highlight>Show the Guardian list<end>
 <tab><symbol>guard
 

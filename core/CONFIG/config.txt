@@ -1,5 +1,3 @@
-<header> :::::: Configuring the Bot :::::: <end>
-
 <highlight>To show a list of all the modules that can be configured:<end>
 <symbol>config
 

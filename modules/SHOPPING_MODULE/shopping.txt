@@ -1,5 +1,3 @@
-<header> :::::: Shopping Commands :::::: <end>
-
 <highlight>Find items for sale<end>
 <symbol>wtb 'name'
 

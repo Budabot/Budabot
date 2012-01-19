@@ -36,7 +36,7 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 	$helpcmd = ucfirst($arr[1]);
 	$blob = $help->find($helpcmd, $sender);
 	if ($blob !== false) {
-		$msg = Text::make_legacy_blob("Help ($helpcmd)", $blob);
+		$msg = Text::make_blob("Help ($helpcmd)", $blob);
 		$sendto->reply($msg);
 	} else {
 		$sendto->reply("No help found on this topic.");

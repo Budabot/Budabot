@@ -1,5 +1,3 @@
-<header>::::: Show the Time in different zones :::::<end>
-
 <highlight>To show all time zones do:<end>
 <tab><symbol>time
 

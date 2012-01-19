@@ -1,5 +1,3 @@
-<header> :::::: Dnet :::::: <end>
-
 <highlight>Enable Dnet support<end>
 <tab><symbol>dnet enable
 

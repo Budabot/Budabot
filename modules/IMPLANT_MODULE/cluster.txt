@@ -1,5 +1,3 @@
-<header>::::: Cluster location helper :::::<end>
-
 <font color=#3333CC>Cluster lookup usage:</font>
 /tell <myname> <symbol>cluster [<orange>name<end>]
 [<orange>name<end>] = full or partial name of the cluster

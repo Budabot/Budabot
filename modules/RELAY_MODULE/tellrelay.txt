@@ -1,5 +1,3 @@
-<header>:::::: Setting up an org relay over tells ::::::<end>
-
 Note: Relay over tells allows only two bots to be relayed.
 
 Usage:

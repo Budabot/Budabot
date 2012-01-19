@@ -1,5 +1,3 @@
-<header> :::::: Macro :::::: <end>
-
 <highlight>To execute multiple commands at once:<end>
 <tab><symbol>macro 'command1'|'command2'|'command3' ...
 

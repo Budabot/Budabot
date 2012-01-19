@@ -1,5 +1,3 @@
-<header> :::::: Count Command :::::: <end>
-
 <highlight>Show how many people are in the private channel list grouped by level<end>
 <tab><symbol>count level
 <tab><symbol>count lvl

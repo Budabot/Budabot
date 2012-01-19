@@ -1,5 +1,3 @@
-<header> :::::: Trickle Command :::::: <end>
-
 <highlight>To show which and how much your skills will increase by increasing an ability:<end>
 <tab><symbol>trickle 'ability' 'amount'
 

@@ -1,5 +1,3 @@
-<header> :::::: As Command :::::: <end>
-
 /tell <myname> <symbol>as [<orange>A<end>] [<orange>R<end>] [<orange>AS<end>]
 [<orange>A<end>] = Weapon Attack Time
 [<orange>R<end>] = Weapon Recharge Time

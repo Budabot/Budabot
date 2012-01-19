@@ -1,5 +1,3 @@
-<header> :::::: Autoinvite Command :::::: <end>
-
 <highlight>To set your autoinvite preference to on:<end>
 <tab><symbol>autoinvite on
 

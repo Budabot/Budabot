@@ -1,5 +1,3 @@
-<header>::::: Help on Notify Commands. :::::<end>
-
 <red>Use this only if autonotify is not available!<end>
 
 <highlight>Adding someone to the notify list<end>

@@ -1,5 +1,3 @@
-<header>  ::::::  Spirits Database Help  ::::::  <end>
-
 <blue>This command will return a list of Spirits according to a set of user defined criteria.  All searches are ordered from lowest to highest in level.
 
 <tab><yellow><symbol>spirits (ql) (lowql-highql) (name) (slot) (name,slot) (ql slot) (lowql-highql slot)<end> Will return a list of Spirits that meet the specified criteria.  The syntax above must be used, i.e. a "-" must be used between the two values in a ql range, and a "," must be used to seperate the name and slot when searching by both.

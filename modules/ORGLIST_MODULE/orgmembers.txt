@@ -1,5 +1,3 @@
-<header> :::::: Orgmembers :::::: <end>
-
 <highlight>Show members of your own guild sorted by name<end>
 <tab><symbol>orgmembers
 

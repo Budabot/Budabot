@@ -1,5 +1,3 @@
-<header> :::::: Ban Commands :::::: <end>
-
 <highlight>To show a list of the currently banned characters:<end>
 <tab><symbol>banlist
 

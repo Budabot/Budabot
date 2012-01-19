@@ -1,5 +1,3 @@
-<header> :::::: System Commands :::::: <end>
-
 <highlight>To restart the bot:<end>
 <tab><symbol>restart
 

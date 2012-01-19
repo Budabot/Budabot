@@ -1,5 +1,3 @@
-<header> :::::: Alternative Character Commands (admin) :::::: <end>
-
 <highlight>To add an alt to a character:<end>
 <tab><symbol>altsadmin add 'main' 'alt'
 

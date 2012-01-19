@@ -1,5 +1,3 @@
-<header> :::::: Nano Command :::::: <end>
-
 <highlight>To search for a nano:<end>
 <tab><symbol>nano 'name'
 

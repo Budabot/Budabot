@@ -1,5 +1,3 @@
-<header>::::: Help on the Kill On Sight List :::::<end>
-
 The KOS List is to warn your guild mates for other Players that are scammers, gankers or other things like that.
 
 <highlight>To show who is on this list, simple do:<end>

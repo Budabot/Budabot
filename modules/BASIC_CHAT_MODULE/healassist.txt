@@ -1,5 +1,3 @@
-<header>::::: Creating an healassist macro :::::<end>
-
 <highlight>Set a new healassist<end>
 <tab><symbol>heal 'name'
 

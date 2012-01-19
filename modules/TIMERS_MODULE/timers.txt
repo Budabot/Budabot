@@ -1,5 +1,3 @@
-<header> :::::: Timer Commands :::::: <end>
-
 <orange>Note: You can use <symbol>timers and <symbol>timer interchangeably.<end>
 
 <highlight>To show current timers running:<end>

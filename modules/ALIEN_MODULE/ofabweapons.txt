@@ -1,5 +1,3 @@
-<header> :::::: Ofabweapons Command :::::: <end>
-
 <highlight>See a list of Ofab weapons and the type needed to upgrade:<end>
 <tab><symbol>ofabweapons
 

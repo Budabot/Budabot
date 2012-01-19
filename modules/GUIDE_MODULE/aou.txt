@@ -1,5 +1,3 @@
-<header> :::::: AOU Command :::::: <end>
-
 <highlight>To search for a guide on AO-Universe:<end>
 <tab><symbol>aou 'search'
 

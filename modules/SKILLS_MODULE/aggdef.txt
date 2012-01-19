@@ -1,5 +1,3 @@
-<header> :::::: Aggdef Command :::::: <end>
-
 /tell <myname> <symbol>aggdef [<orange>A<end>] [<orange>R<end>] [<orange>I<end>]
 [<orange>A<end>] = Weapon Attack Time
 [<orange>R<end>] = Weapon Recharge Time

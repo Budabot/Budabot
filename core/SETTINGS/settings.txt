@@ -1,5 +1,3 @@
-<header> :::::: Settings command :::::: <end>
-
 <highlight>To see a list of all settings on the bot<end>
 <symbol>settings
 Note: When a setting is editable, it will include a 'Modify' link next to the setting name.

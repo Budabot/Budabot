@@ -1,5 +1,3 @@
-<header> :::::: Dimach Command :::::: <end>
-
 /tell <myname> <symbol>dimach [<orange>D<end>]
 [<orange>D<end>] = Dimach Skill
 

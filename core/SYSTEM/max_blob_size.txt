@@ -1,3 +1,1 @@
-<header> :::::: Maximum Blob Size Setting :::::: <end>
-
 The Limiting of the maximum characters in a window is useful to split large windows but keep in mind that also letters will be included in the calc from the colors f.e. A good startvalue is 7500.

@@ -1,5 +1,3 @@
-<header> :::::: Penalty Command :::::: <end>
-
 <highlight>To show orgs who have attack or won battles in the last 2 hours:<end>
 <tab><symbol>penalty
 <tab><symbol>penalty 'time'

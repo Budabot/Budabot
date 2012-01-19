@@ -1,5 +1,3 @@
-<header> :::::: Victory Message Commands and Options :::::: <end>
-
 <highlight>To see the last 20 victory messages:<end>
 <tab><symbol>victory
 

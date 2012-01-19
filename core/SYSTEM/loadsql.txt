@@ -1,5 +1,3 @@
-<header> :::::: Loadsql Command :::::: <end>
-
 <highlight>To manually load an sql file:<end>
 <tab><symbol>loadsql 'module' 'filename'
 Note: the filename should not include the version number or .sql extension

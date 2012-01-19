@@ -1,5 +1,3 @@
-<header>::::: Xan Loot Module :::::<end>
-
 <highlight>To View Xan raids<end>
 <tab><symbol>xan
 

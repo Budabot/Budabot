@@ -1,5 +1,3 @@
-<header> :::::: Vote Commands :::::: <end>
-
 <highlight>Start a new vote:<end>
 <tab><symbol>vote time|topic|option|option
 

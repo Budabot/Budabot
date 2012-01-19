@@ -1,5 +1,3 @@
-<header> :::::: Bank Command :::::: <end>
-
 <highlight>To list the bank characters in the database:<end>
 <tab><symbol>bank browse
 

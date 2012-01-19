@@ -1,4 +1,2 @@
-<header> :::::: Random Command :::::: <end>
-
 <highlight>To randomly order a list of elements:<end>
 <tab><symbol>random 'element 1' 'element 2' 'element 3' ...

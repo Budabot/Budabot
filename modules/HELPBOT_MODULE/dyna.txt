@@ -1,5 +1,3 @@
-<header> :::::: RK Dynacamp Help :::::: <end>
-
 This command will return a list of Dynacamps on RK according to a set of user defined criteria.  All searches are ordered from lowest to highest in level.
 
 <tab><highlight>dyna (#)<end> Will return a list of Dynacamps within -25 and +25 of the level input.

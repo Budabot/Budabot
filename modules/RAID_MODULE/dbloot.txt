@@ -1,5 +1,3 @@
-<header>::::: DB1/DB2 Instance Loot Module :::::<end>
-
 This module is designed to assist in adding DB1/DB2 loot to a loot list.
 
 <highlight>To View Loot<end>

@@ -1,5 +1,3 @@
-<header> :::::: Scout Commands :::::: <end>
-
 <highlight>To scout a tower site:<end>
 <tab><symbol>scout 'playfield' 'site number' 'closing time' 'ct ql' 'faction' 'guild name'
 

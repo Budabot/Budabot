@@ -1,5 +1,3 @@
-<header> :::::: Online Command :::::: <end>
-
 <highlight>Show the online list<end>
 <tab><symbol>online
 <tab><symbol>online all

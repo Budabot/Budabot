@@ -1,5 +1,3 @@
-<header> :::::: Attack Message Commands and Options :::::: <end>
-
 <highlight>To see the last 20 attack messages:<end>
 <tab><symbol>attacks
 

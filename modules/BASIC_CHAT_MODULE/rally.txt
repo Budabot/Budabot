@@ -1,5 +1,3 @@
-<header> :::::: Rally :::::: <end>
-
 <highlight>To see the current rally:<end>
 <tab><symbol>rally
 

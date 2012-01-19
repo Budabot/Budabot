@@ -1,5 +1,3 @@
-<header> ::::: Whompah Commands ::::: <end>
-
 <highlight>To see the list whompah cities:<end>
 <tab><symbol>whompah
 

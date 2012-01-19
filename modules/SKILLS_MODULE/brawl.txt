@@ -1,5 +1,3 @@
-<header> :::::: Brawl Command :::::: <end>
-
 /tell <myname> <symbol>Brawl [<orange>B<end>]
 [<orange>B<end>] = Brawl Skill
 

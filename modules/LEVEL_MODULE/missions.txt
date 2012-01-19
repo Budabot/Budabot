@@ -1,4 +1,2 @@
-<header>::::: Mission Informations :::::<end>
-
 <highlight>To see who can roll a specific ql of missions do<end>
 <tab><symbol>mission 'insert ql here'

@@ -1,5 +1,3 @@
-<header>::::: Premade Implants :::::<end>
-
 <highlight>Shows searches for implants in the premade implant booths that boost skill or ability
 <tab><symbol>premade &lt;profession or slot or modifier&gt;
 

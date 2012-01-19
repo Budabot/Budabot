@@ -1,5 +1,3 @@
-<header> :::::: Implant Command :::::: <end>
-
 <highlight>Shows stats for implants at given ql<end>
 <tab><symbol>implant 'implant_ql'
 

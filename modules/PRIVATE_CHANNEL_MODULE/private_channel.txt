@@ -1,5 +1,3 @@
-<header> :::::: Help on Private Channel :::::: <end>
-
 <highlight>To show who is in the private channel<end>
 <tab><symbol>sm
 

@@ -1,5 +1,3 @@
-<header> :::::: Store upcoming and past events :::::: <end>
-
 <highlight>To show the 5 closest past and upcoming events:<end>
 <tab><symbol>events
 

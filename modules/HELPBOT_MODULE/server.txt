@@ -1,5 +1,3 @@
-<header> :::::: Serverstatus Command :::::: <end>
-
 <highlight>Shows the status of the current server:<end>
 <tab><symbol>server
 

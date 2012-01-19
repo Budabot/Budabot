@@ -1,5 +1,3 @@
-<header> :::::: Joining or leaving a roll :::::: <end>
-
 <highlight>Joining a roll<end>
 <tab><symbol>add 'spot number'
 

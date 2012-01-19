@@ -1,5 +1,3 @@
-<header> :::::: Waypoint Command :::::: <end>
-
 <highlight>To show a list of playfields, including their id, short name, and long name:<end>
 <tab><symbol>playfields
 

@@ -1,5 +1,3 @@
-<header> :::::: City Cloak Commands :::::: <end>
-
 <highlight>To show the current status of the cloak:<end>
 <tab><symbol>cloak
 

@@ -1,5 +1,3 @@
-<header> :::::: Orgcities Command :::::: <end>
-
 <highlight>To show a list of all playfields that contain org cities:<end>
 <tab><symbol>orgcities
 

@@ -1,5 +1,3 @@
-<header>::::: Level Informations :::::<end>
-
 <highlight>To see what missions you can do or with who you can team at a specific level<end>
 <tab><symbol>level 'insert level here'
 or

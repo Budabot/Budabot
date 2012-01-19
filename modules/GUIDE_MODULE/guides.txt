@@ -1,5 +1,3 @@
-<header> :::::: Guides Help :::::: <end>
-
 <highlight>To see a list of all the guides in alphabetical order:<end>
 <tab><symbol>guides
 

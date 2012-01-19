@@ -1,5 +1,3 @@
-<header>::::: Check who of the ppls in the Bot are in the area :::::<end>
-
 <highlight>Check on all player<end>
 <tab><symbol>check all
 

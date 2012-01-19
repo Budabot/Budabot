@@ -1,4 +1,2 @@
-<header>::::: Creates a highly visible message :::::<end>
-
 <highlight>Use the command command<end>
 <tab><symbol>cmd 'message'

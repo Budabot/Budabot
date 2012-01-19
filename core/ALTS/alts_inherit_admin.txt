@@ -1,5 +1,3 @@
-<header> :::::: Setting: alts_inherit_admin :::::: <end>
-
 <orange>WARNING! When enabled, it may be possible for someone to gain unwanted access to your bot.
 
 <cyan><symbol>alts main<end> allows people to add themselves to someone else's altlist, however they will not inherit the admin privileges of the main until that character is <a href='chatcmd:///tell <myname> help altvalidate'>validated</a>.

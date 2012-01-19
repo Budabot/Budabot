@@ -1,5 +1,3 @@
-<header> :::::: Fastattack Command :::::: <end>
-
 /tell <myname> <symbol>fastattack [<orange>A<end>] [<orange>F<end>]
 [<orange>A<end>] = Weapon Attack Time
 [<orange>F<end>] = Your Fast Attack Skill

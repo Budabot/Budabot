@@ -1,5 +1,3 @@
-<header> :::::: Wave Counter :::::: <end>
-
 The Wave Counter should start and end automatically when enabled but you can manually start and end it if you desire.
 
 <highlight>Start the wave timer<end>

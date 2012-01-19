@@ -1,4 +1,2 @@
-<header>::::: Inspect Command :::::<end>
-
 <highlight>Inspects Christmas Gift, Light Perennium Container and Expensive Gift from Earth<end>
 <tab><symbol>inspect 'drop item'

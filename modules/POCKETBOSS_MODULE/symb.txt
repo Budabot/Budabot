@@ -1,5 +1,3 @@
-<header> :::::: Symbiant Commands :::::: <end>
-
 <highlight>Show a list of symbiants and which pocketboss drops it:<end>
 <tab><symbol>symb 'slotname' 'type'
 

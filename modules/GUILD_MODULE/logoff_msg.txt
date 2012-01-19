@@ -1,5 +1,3 @@
-<header>::::: Set a LogOff Message :::::<end>
-
 <highlight>To set a logoff message use<end>
 <tab><symbol>logoff 'insert message here'
 

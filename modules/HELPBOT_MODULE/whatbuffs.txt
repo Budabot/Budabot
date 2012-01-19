@@ -1,5 +1,3 @@
-<header>::::: Buff item helper :::::<end>
-
 <font color=#3333CC>How to use 'what buffs what':</font>
 /tell <myname> <symbol>whatbuffs [<orange>skill<end>]
 [<orange>skill<end>] = full or partial name of the skill

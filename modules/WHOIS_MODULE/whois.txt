@@ -1,5 +1,3 @@
-<header> :::::: Whois Commands :::::: <end>
-
 <highlight>Show info about a player on the current server:<end>
 <tab><symbol>whois 'character name'
 

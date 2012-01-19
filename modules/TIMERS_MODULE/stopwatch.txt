@@ -1,5 +1,3 @@
-<header> :::::: Stopwatch Command :::::: <end>
-
 <highlight>To start the stopwatch:<end>
 <tab><symbol>stopwatch start
 
