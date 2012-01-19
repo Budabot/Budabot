@@ -43,6 +43,9 @@ class Setting extends Annotation {
 	/** @Inject */
 	public $util;
 	
+	/** @Inject */
+	public $help;
+	
 	/** @Logger */
 	public $logger;
 	
@@ -65,6 +68,10 @@ class Setting extends Annotation {
 		$name = strtolower($name);
 		$type = strtolower($type);
 		
+		if ($admin == '') {
+			$admin = 'mod';
+		}
+		
 		if (!in_array($type, array('color', 'number', 'text', 'options', 'time'))) {
 			$this->logger->log('ERROR', "Error in registering Setting $module:setting($name). Type should be one of: 'color', 'number', 'text', 'options', 'time'. Actual: '$type'.");
 		}
@@ -77,6 +84,8 @@ class Setting extends Annotation {
 				return;
 			}
 		}
+		
+		$help = $this->help->checkForHelpFile($module, $help, $name);
 
 		if (array_key_exists($name, $this->chatBot->existing_settings)) {
 			$sql = "UPDATE settings_<myname> SET `module` = ?, `type` = ?, `mode` = ?, `options` = ?, `intoptions` = ?, `description` = ?, `admin` = ?, `verify` = 1, `help` = ? WHERE `name` = ?";

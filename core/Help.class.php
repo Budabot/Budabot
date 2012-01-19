@@ -71,22 +71,26 @@ class Help extends Annotation {
 	public function find($helpcmd, $char) {
 		$helpcmd = strtolower($helpcmd);
 
-		$data = false;
-		if (isset($this->helpfiles[$helpcmd])) {
-			$filename = $this->helpfiles[$helpcmd]["filename"];
-			$admin = $this->helpfiles[$helpcmd]["admin"];
-			
-			if ($char === null) {
-				$access = true;
-			} else {
-				$access = $this->accessLevel->checkAccess($char, $admin);
-			}
-			if ($access === true && file_exists($filename)) {
-				$data = file_get_contents($filename);
+		$sql = "
+			SELECT module, admin, help AS file FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' AND `cmd` = ?  AND status = 1
+			UNION
+			SELECT module, admin, help AS file FROM settings_<myname> WHERE `name` = ?
+			UNION
+			SELECT module, admin, file FROM hlpcfg_<myname> WHERE `name` = ?
+			GROUP BY module, admin, file";
+		$data = $this->db->query($sql, $helpcmd, $helpcmd, $helpcmd);
+		print_r($data);
+
+		$addedHelpFiles = array();
+		$output = '';
+		forEach ($data as $row) {
+			if (!in_array($row->file, $addedHelpFiles) && $this->accessLevel->checkAccess($char, $row->admin)) {
+				$output .= file_get_contents($row->file);
+				$addedHelpFiles []= $row->file;
 			}
 		}
 
-		return $data;
+		return ($output == '' ? false : $output);
 	}
 	
 	public function update($helpTopic, $admin) {
@@ -95,6 +99,38 @@ class Help extends Annotation {
 	
 		$this->db->exec("UPDATE hlpcfg_<myname> SET `admin` = ? WHERE `name` = ?", $admin, $helpTopic);
 		$this->helpfiles[$helpTopic]["admin"] = $admin;
+	}
+	
+	public function checkForHelpFile($module, $file, $name) {
+		if (empty($file)) {
+			$file = $name . ".txt";
+		} else {
+			$logError = true;
+		}
+		
+		if (file_exists("./core/$module/$file")) {
+			return "./core/$module/$file";
+		} else if (file_exists("./modules/$module/$file")) {
+			return "./modules/$module/$file";
+		} else {
+			if ($logError === true) {
+				$this->logger->log('ERROR', "Error in registering the File {$module}/{$file} for Help command $name. The file doesn't exist!");
+			}
+			return "";
+		}
+	}
+	
+	public function getAllHelpTopics() {
+		$sql = "
+			SELECT module, admin, help AS file FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' AND status = 1
+			UNION
+			SELECT module, admin, help AS file FROM settings_<myname>
+			UNION
+			SELECT module, admin, help AS file FROM eventcfg_<myname>
+			UNION
+			SELECT module, admin, file FROM hlpcfg_<myname>
+			GROUP BY admin, file";
+		$data = $this->db->query($sql, $helpcmd, $helpcmd, $helpcmd);
 	}
 }
 

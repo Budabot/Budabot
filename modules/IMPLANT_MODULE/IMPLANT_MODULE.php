@@ -6,12 +6,7 @@
 	$db->loadSQLFile($MODULE_NAME, "premade_implant");
 
 	// Private
-	$command->register($MODULE_NAME, "", "implant.php", "implant", "all", "Shows info about implants given a ql or stats");
-	$command->register($MODULE_NAME, "", "premade.php", "premade", "all", "Searches for implants out of the premade implants booths");
-	$command->register($MODULE_NAME, "", "cluster.php", "cluster", "all", "cluster location");
-
-	// Help
-	$help->register($MODULE_NAME, "implant", "implant.txt", "all", "How to find implant stats given ql or player stats");
-	$help->register($MODULE_NAME, "premade", "premade_implant.txt", "guild", "How to search for premade implants");
-	$help->register($MODULE_NAME, "cluster", "cluster.txt", "all", "How to use cluster");
+	$command->register($MODULE_NAME, "", "implant.php", "implant", "all", "Shows info about implants given a ql or stats", "implant.txt");
+	$command->register($MODULE_NAME, "", "premade.php", "premade", "all", "Searches for implants out of the premade implants booths", "premade_implant.txt");
+	$command->register($MODULE_NAME, "", "cluster.php", "cluster", "all", "cluster location", "cluster.txt");
 ?>

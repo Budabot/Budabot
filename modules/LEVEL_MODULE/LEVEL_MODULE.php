@@ -4,27 +4,21 @@
 	$db->loadSQLFile($MODULE_NAME, 'levels');
 
     // Level Info
-	$command->register($MODULE_NAME, "", "level.php", "level", "all", "Show level ranges");
+	$command->register($MODULE_NAME, "", "level.php", "level", "all", "Show level ranges", "level.txt");
 	$commandAlias->register($MODULE_NAME, "level", "pvp");
 	$commandAlias->register($MODULE_NAME, "level", "lvl");
 
 	// Missions
-	$command->register($MODULE_NAME, "", "missions.php", "missions", "all", "Shows what missions a specified level can roll");
+	$command->register($MODULE_NAME, "", "missions.php", "missions", "all", "Shows what missions a specified level can roll", "missions.txt");
 
 	// XP/SK Calculator
-	$command->register($MODULE_NAME, "", "xp.php", "xp", "all", "XP Calculator");
+	$command->register($MODULE_NAME, "", "xp.php", "xp", "all", "XP Calculator", "xp.txt");
 	$commandAlias->register($MODULE_NAME, "xp", "sk");
 
 	// AXP calculator
-	$command->register($MODULE_NAME, "", "axp.php", "axp", "all", "AXP Calculator", 'xp');
+	$command->register($MODULE_NAME, "", "axp.php", "axp", "all", "AXP Calculator", 'xp.txt');
 
 	// Max XP calculator
-	$command->register($MODULE_NAME, "", "capxp.php", "capxp", "all", "Max XP Calculator");
+	$command->register($MODULE_NAME, "", "capxp.php", "capxp", "all", "Max XP Calculator", "capxp.txt");
 	$commandAlias->register($MODULE_NAME, "capxp", "capsk");
-
-	// Help files
-    $help->register($MODULE_NAME, "level", "level.txt", "all", "How to use level");
-    $help->register($MODULE_NAME, "missions", "missions.txt", "all", "Who can roll a specific QL of a mission");
-	$help->register($MODULE_NAME, "xp", "xp.txt", "all", "XP/SK/AXP Info");
-	$help->register($MODULE_NAME, "capxp", "capxp.txt", "all", "Set your reasearch bar for max xp/sk");
 ?>

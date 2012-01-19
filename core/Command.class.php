@@ -38,7 +38,7 @@ class Command extends Annotation {
 	 * @name: register
 	 * @description: Registers a command
 	 */
-	public function register($module, $channel, $filename, $command, $admin, $description = '', $help = '', $defaultStatus = null) {
+	public function register($module, $channel, $filename, $command, $admin, $description, $help = '', $defaultStatus = null) {
 		$command = strtolower($command);
 		$module = strtoupper($module);
 		
@@ -61,6 +61,8 @@ class Command extends Annotation {
 			}
 			$actual_filename = $filename;
 		}
+		
+		$help = $this->help->checkForHelpFile($module, $help, $command);
 
 		if ($defaultStatus === null) {
 			if ($this->chatBot->vars['default_module_status'] == 1) {

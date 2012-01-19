@@ -14,6 +14,7 @@ class Stopwatch {
 	 * @Command("stopwatch")
 	 * @AccessLevel("guild")
 	 * @Description("Add a repeating timer")
+	 * @Help("stopwatch.txt")
 	 */
 	public function stopwatchCommand($message, $channel, $sender, $sendto) {
 		if (preg_match("/^stopwatch start$/i", $message)) {

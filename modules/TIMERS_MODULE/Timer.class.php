@@ -97,7 +97,7 @@ class Timer {
 	 * @Command("rtimer")
 	 * @AccessLevel("guild")
 	 * @Description("Add a repeating timer")
-	 * @Help("timers")
+	 * @Help("timers.txt")
 	 */
 	public function rtimerCommand($message, $channel, $sender, $sendto) {
 		if (preg_match("/^(rtimer add|rtimer) ([a-z0-9]+) ([a-z0-9]+) (.+)$/i", $message, $arr)) {
@@ -145,6 +145,7 @@ class Timer {
 	 * @Command("timers")
 	 * @AccessLevel("guild")
 	 * @Description("Set and show timers")
+	 * @Help("timers.txt")
 	 */
 	public function timerCommand($message, $channel, $sender, $sendto) {
 		if (preg_match("/^timers view (.+)$/i", $message, $arr)) {

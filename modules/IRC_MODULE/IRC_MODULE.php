@@ -30,10 +30,10 @@
 	$event->register($MODULE_NAME, "1min", "set_irc_link.php", "Automatically reconnect to IRC server", '', 0);
 	
 	// Commands
-	$command->register($MODULE_NAME, "", "irc_connect.php", "startirc", "mod", "Connect to IRC", 'irc');
-	$command->register($MODULE_NAME, "", "stopirc.php", "stopirc", "mod", "Disconnect from IRC", 'irc');
-	$command->register($MODULE_NAME, "", "online_irc.php", "onlineirc", "all", "View who is in IRC channel", 'irc');
-	$command->register($MODULE_NAME, "", "set_irc_settings.php", "setirc", "mod", "Manually set IRC settings", 'irc');
+	$command->register($MODULE_NAME, "", "irc_connect.php", "startirc", "mod", "Connect to IRC", "irc_help.txt");
+	$command->register($MODULE_NAME, "", "stopirc.php", "stopirc", "mod", "Disconnect from IRC", "irc_help.txt");
+	$command->register($MODULE_NAME, "", "online_irc.php", "onlineirc", "all", "View who is in IRC channel", "irc_help.txt");
+	$command->register($MODULE_NAME, "", "set_irc_settings.php", "setirc", "mod", "Manually set IRC settings", "irc_help.txt");
 	
 	// IRC Relay
   	$event->register($MODULE_NAME, "2sec", "irc_check.php", "Receive messages from IRC");
@@ -59,7 +59,4 @@
 	$setting->add($MODULE_NAME, 'irc_guild_name_color', "Color of guild names from other bots in the IRC channel", 'edit', "color", "<font color='#FFFFFF'>");
 	$setting->add($MODULE_NAME, 'irc_message_color', "Color of messages from users in the IRC channel", 'edit', "color", "<font color='#FFFFFF'>");
 	$setting->add($MODULE_NAME, 'irc_ignore', "Defines which characters to ignore", 'edit', "text", 'none', 'none');
-	
-	// Helpfiles
-	$help->register($MODULE_NAME, "irc", "irc_help.txt", "all", "How to use the IRC plugin");
 ?>

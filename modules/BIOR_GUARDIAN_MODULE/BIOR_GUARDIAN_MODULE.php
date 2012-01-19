@@ -6,16 +6,11 @@
 	$event->register($MODULE_NAME, "joinPriv", "guardian_joined_chat.php", "Add player to guardian list when he joins chat if he should be on it (Soldier)");
 	$event->register($MODULE_NAME, "2sec", "guard_check.php", "Timer check for guardian list");
 	
-	$command->register($MODULE_NAME, "", "bior.php", "bior", "rl", "Show Bio Regrowth Order");
-	$command->register($MODULE_NAME, "", "cast_bior.php", "b", "all", "Show Bio Regrowth Cast");
-	$command->register($MODULE_NAME, "", "guard.php", "guard", "rl", "Show Guardian Order");
-	$command->register($MODULE_NAME, "", "cast_guard.php", "g", "all", "Show Guardian Cast");
+	$command->register($MODULE_NAME, "", "bior.php", "bior", "rl", "Show Bio Regrowth Order", "bior.txt");
+	$command->register($MODULE_NAME, "", "cast_bior.php", "b", "all", "Show Bio Regrowth Cast", "bior.txt");
+	$command->register($MODULE_NAME, "", "guard.php", "guard", "rl", "Show Guardian Order", "guard.txt");
+	$command->register($MODULE_NAME, "", "cast_guard.php", "g", "all", "Show Guardian Cast", "guard.txt");
 	
-	$setting->add($MODULE_NAME, "bior_max", "Max Persons that are shown on BioR list", "edit", "number", "10", "10;15;20;25;30", '', "mod");
-	$setting->add($MODULE_NAME, "guard_max", "Max Persons that are shown on Guard list", "edit", "number", "10", "10;15;20;25;30", '', "mod");
-
-	$help->register($MODULE_NAME, "guard", "guard.txt", "all", "Guardian Macro and List");
-	$help->register($MODULE_NAME, "guard_max", "guard_max.txt", "mod", "Set the max numbers of players on the Guardian List");
-	$help->register($MODULE_NAME, "bior", "bior.txt", "all", "Bio Regrowth Macro and List");
-	$help->register($MODULE_NAME, "bior_max", "bior_max.txt", "mod", "Set the max numbers of players on the Bio Regrowth List");
+	$setting->add($MODULE_NAME, "bior_max", "Max Persons that are shown on BioR list", "edit", "number", "10", "10;15;20;25;30", '', "mod", "bior_max.txt");
+	$setting->add($MODULE_NAME, "guard_max", "Max Persons that are shown on Guard list", "edit", "number", "10", "10;15;20;25;30", '', "mod", "guard_max.txt");
 ?>

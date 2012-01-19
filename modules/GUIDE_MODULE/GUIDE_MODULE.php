@@ -31,8 +31,8 @@
    
 	require_once 'functions.php';
 
-	$command->register($MODULE_NAME, "", "guides.php", "guides", "all", "Guides for AO");
-	$command->register($MODULE_NAME, "", "aou.php", "aou", "all", "Search for or view a guide from AO-Universe");
+	$command->register($MODULE_NAME, "", "guides.php", "guides", "all", "Guides for AO", "guides.txt");
+	$command->register($MODULE_NAME, "", "aou.php", "aou", "all", "Search for or view a guide from AO-Universe", "aou.txt");
 	
 	// aliases
 	$commandAlias->register($MODULE_NAME, "guides breed", "breed");
@@ -42,7 +42,4 @@
 	$commandAlias->register($MODULE_NAME, "guides stats", "stats");
 	$commandAlias->register($MODULE_NAME, "guides buffs", "buffs");
 	$commandAlias->register($MODULE_NAME, "guides title", "title");
-	
-	$help->register($MODULE_NAME, "guides", "guides.txt", "all", 'How to use guides');
-	$help->register($MODULE_NAME, "aou", "aou.txt", "all", "How to find a guide from AO-Universe");
 ?>

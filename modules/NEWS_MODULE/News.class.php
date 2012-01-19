@@ -15,16 +15,9 @@ class News {
 	 * @Description("Private channel news")
 	 * @Visibility("hide")
 	 * @Type("text")
+	 * @Help("news.txt")
 	 */
 	public $defaultNews = "Not set.";
-	
-	/**
-	 * @Setting("adminnews")
-	 * @Description("Current admin news")
-	 * @Visibility("hide")
-	 * @Type("text")
-	 */
-	public $defaultAdminNews = "Not set.";
 
 	public function getNews() {
 		$data = $this->db->query("SELECT * FROM `#__news` ORDER BY `sticky` DESC, `time` DESC LIMIT 10");
@@ -76,6 +69,7 @@ class News {
 	 * @AccessLevel("all")
 	 * @Description("Show News")
 	 * @Matches("/^news$/i")
+	 * @Help("news.txt")
 	 */
 	public function newsCommand($message, $channel, $sender, $sendto) {
 		$msg = $this->getNews();

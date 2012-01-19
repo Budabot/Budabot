@@ -25,6 +25,7 @@ class Rally {
 	 * @Command("rally")
 	 * @AccessLevel("all")
 	 * @Description("Shows or sets the rally waypoint")
+	 * @Help("rally.txt")
 	 */
 	public function rallyCommand($message, $channel, $sender, $sendto) {
 		if (preg_match("/^rally$/i", $message)) {

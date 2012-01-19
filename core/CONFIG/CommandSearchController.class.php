@@ -22,6 +22,7 @@ class CommandSearchController {
 	 * @Description("Find commands based on key words")
 	 * @Matches("/^cmdsearch (.*)/i")
 	 * @DefaultStatus("1")
+	 * @Help("cmdsearch.txt")
 	 */
 	public function searchCommand($message, $channel, $sender, $sendto, $arr) {
 		$this->searchWords = explode(" ", $arr[1]);
