@@ -34,10 +34,10 @@ if (preg_match("/^trickle( ([a-zA-Z]+) ([0-9]+)){1,6}$/i", $message, $arr1) || p
 	$blob = '';
 	forEach ($abilities as $ability => $value) {
 		if ($value != 0) {
-			$header .= "(" . ucfirst($ability) . " " . $value . ") ";
+			$blob .= ucfirst($ability) . " <highlight>" . $value . "<end>, ";
 		}
 	}
-	$blob = "\n\n";
+	$blob .= "\n";
 
 	$results = getTrickleResults($abilities);
 	$blob .= formatOutput($results, $amount, $abilities);

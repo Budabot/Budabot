@@ -47,11 +47,11 @@ function formatOutput($results, $amount, &$abilities) {
 
 		if ($result->groupName != $groupName) {
 			$groupName = $result->groupName;
-			$msg .= "\n<tab><green>::: $groupName :::<end>\n";
+			$msg .= "\n<tab><header>::: $groupName :::<end>\n";
 		}
 
 		$amount = $result->amount / 4;
-		$msg .= "<yellow>$result->name<end> <orange>$amount<end>";
+		$msg .= "$result->name <highlight>$amount<end>";
 		
 		/*
 		forEach ($abilities as $ability => $value) {
