@@ -79,7 +79,7 @@ if (preg_match("/^cmdlist$/i", $message, $arr) || preg_match("/^cmdlist (.*)$/i"
 		$blob .= "$row->cmd ({$tell}|{$guild}|{$priv}) {$adv_link} - ($row->description)\n";
 	}
 
-	$msg = Text::make_blob("Command List", $list);
+	$msg = Text::make_blob("Command List", $blob);
  	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
