@@ -32,6 +32,7 @@ if (preg_match("/^logs$/i", $message)) {
 			}
 			$contents .= $line;
 		}
+		$file->close();
 		$msg = Text::make_blob($arr[1], $contents);
 	} catch (Exception $e) {
 		$msg = "Error: " . $e->getMessage();
