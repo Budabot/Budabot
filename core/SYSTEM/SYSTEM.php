@@ -1,4 +1,6 @@
-<?php 
+<?php
+	require_once './lib/ReverseFileReader.class.php';
+
 	$command->activate("msg", "$MODULE_NAME/restart.php", "restart", "admin");
 	$command->activate("priv", "$MODULE_NAME/restart.php", "restart", "admin");
 	$command->activate("guild", "$MODULE_NAME/restart.php", "restart", "admin");
