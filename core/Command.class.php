@@ -236,7 +236,7 @@ class Command extends Annotation {
 		$syntaxError = $this->callCommandHandler($commandHandler, $message, $channel, $sender, $sendto);
 		
 		if ($syntaxError === true) {
-			$help = $this->getHelpForCommand($cmd, $channel);
+			$help = $this->getHelpForCommand($cmd, $channel, $sender);
 			$sendto->reply($help);
 		}
 		$this->chatBot->spam[$sender] += 10;
@@ -287,20 +287,19 @@ class Command extends Annotation {
 		return $this->commands[$channel][$cmd];
 	}
 	
-	public function getHelpForCommand($cmd, $channel) {
+	public function getHelpForCommand($cmd, $channel, $sender) {
 		$results = $this->get($cmd, $channel);
 		$result = $results[0];
+
 		if ($result->help != '') {
-			$blob = $this->help->find($result->help, $sender);
-			$helpcmd = ucfirst($result->help);
+			$blob = file_get_contents($result->help);
 		} else {
 			$blob = $this->help->find($cmd, $sender);
-			$helpcmd = ucfirst($cmd);
 		}
-		if ($blob !== false) {
-			$msg = $this->text->make_legacy_blob("Help ($helpcmd)", $blob);
+		if (!empty($blob)) {
+			$msg = $this->text->make_blob("Help ($cmd)", $blob);
 		} else {
-			$msg = "Error! Invalid syntax for this command.";
+			$msg = "Error! Invalid syntax.";
 		}
 		return $msg;
 	}

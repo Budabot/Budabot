@@ -89,7 +89,7 @@ class Help extends Annotation {
 			}
 		}
 
-		return ($output == '' ? false : $output);
+		return (empty($output) ? false : $output);
 	}
 	
 	public function update($helpTopic, $admin) {
