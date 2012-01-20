@@ -55,7 +55,7 @@ if (preg_match("/^guard$/i", $message)) {
 
 		//Send Glist to all soldiers
 		forEach ($chatBot->data['glist'] as $player) {
-			$chatBot->send($msg, $player);
+			$chatBot->sendTell($msg, $player);
 		}
 	}
 	$sendto->reply($msg);

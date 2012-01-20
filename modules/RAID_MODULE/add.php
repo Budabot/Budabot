@@ -11,7 +11,7 @@ if (preg_match("/^add ([0-9]+)$/i", $message, $arr)) {
 		//Check if the slot exists
 	  	if (!isset($loot[$slot])) {
 	  		$msg = "The slot you trying to add in doesn't exist.";
-		  	$chatBot->send($msg, $sender);
+		  	$chatBot->sendTell($msg, $sender);
 		  	return;
 	  	}
 	
@@ -20,7 +20,7 @@ if (preg_match("/^add ([0-9]+)$/i", $message, $arr)) {
 		  	$whois = Player::get_by_name($sender);
 		  	if ($whois === null || $whois->lvl < $loot[$slot]["minlvl"]) {
 			    $msg = "You need to be at least lvl<highlight>{$loot[$slot]["minlvl"]}<end> to join this roll.";
-		  		$chatBot->send($msg, $sender);
+		  		$chatBot->sendTell($msg, $sender);
 		  		return;
 			}
 		}
@@ -43,9 +43,9 @@ if (preg_match("/^add ([0-9]+)$/i", $message, $arr)) {
 			$msg = "$sender has moved to <highlight>\"{$loot[$slot]["name"]}\"<end>.";
 		}
 		
-	  	$chatBot->send($msg, 'priv');
+	  	$chatBot->sendPrivate($msg);
 	} else {
-		$chatBot->send("No list available where you can add in.", $sender);
+		$chatBot->sendTell("No list available where you can add in.", $sender);
 	}
 } else {
 	$syntax_error = true;

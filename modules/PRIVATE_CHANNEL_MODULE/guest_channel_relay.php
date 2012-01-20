@@ -17,7 +17,7 @@ $guest_color_guild = $setting->get("guest_color_guild");
 if ($type == "priv") {
 	//Relay the message to the guild channel
 	$msg = "<end>{$guest_color_channel}[Guest]<end> ".Text::make_userlink($sender).": {$guest_color_guild}{$message}<end>";
-	$chatBot->send($msg, 'org', true);
+	$chatBot->sendGuild($msg, true);
 } else if ($type == "guild" && count($chatBot->chatlist) > 0) {
 	//Relay the message to the private channel if there is at least 1 char in private channel
 	$guildNameForRelay = getGuildAbbreviation();
@@ -27,7 +27,7 @@ if ($type == "priv") {
 	} else {
 		$msg = "<end>{$guest_color_channel}[$guildNameForRelay]<end> ".Text::make_userlink($sender).": {$guest_color_guest}{$message}<end>";
 	}
-	$chatBot->send($msg, 'prv', true);
+	$chatBot->sendPrivate($msg, true);
 }
 
 ?>

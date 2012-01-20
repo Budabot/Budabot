@@ -25,7 +25,7 @@ if (preg_match("/^reroll$/i", $message)) {
 	$residual = "";
 	//Show winner list
 	$msg = "All remaining items have been re-added by <highlight>$sender<end>. Check <symbol>list.";
-	$chatBot->send($msg, 'priv');
+	$chatBot->sendPrivate($msg);
 	if ($type != 'priv') {
 		$sendto->reply($msg);
 	}

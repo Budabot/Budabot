@@ -148,7 +148,7 @@ class Admin {
 		}
 
 		$sendto->reply("<highlight>$who<end> has been removed as $rank.");
-		$this->chatBot->send("You have been removed as $rank by <highlight>$sender<end>.", $who);
+		$this->chatBot->sendTell("You have been removed as $rank by <highlight>$sender<end>.", $who);
 	}
 	
 	public function add($who, $sender, $sendto, $intlevel, $rank) {
@@ -181,7 +181,7 @@ class Admin {
 		$action = $this->addToLists($who, $intlevel);
 		
 		$sendto->reply("<highlight>$who<end> has been $action to $rank.");
-		$this->chatBot->send("You have been $action to $rank by <highlight>$sender<end>.", $who);
+		$this->chatBot->sendTell("You have been $action to $rank by <highlight>$sender<end>.", $who);
 	}
 	
 	public function removeFromLists($who) {

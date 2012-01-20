@@ -35,7 +35,7 @@ if (preg_match("/^remloot ([0-9]+)$/i", $message, $arr)) {
 		// if removing this item empties the list, clear the loot list properly
 		if (count($loot) <= 1) {
 			$loot = "";
-			$chatBot->send("Item in slot <highlight>#".$key."<end> was the last item in the list. The list has been cleared.", 'priv');
+			$chatBot->sendPrivate("Item in slot <highlight>#".$key."<end> was the last item in the list. The list has been cleared.");
 			return;
 		} else {
 			// remove the item by shifting lower items up one slot and remove last slot
@@ -45,11 +45,11 @@ if (preg_match("/^remloot ([0-9]+)$/i", $message, $arr)) {
 				$loop++;
 			}
 			unset($loot[count($loot)]);
-			$chatBot->send("Deleting item in slot <highlight>#".$key."<end>", 'priv');
+			$chatBot->sendPrivate("Deleting item in slot <highlight>#".$key."<end>");
 			return;
 		}
 	} else {
-		$chatBot->send("There is no item at slot <highlight>#".$key."<end>", 'priv');
+		$chatBot->sendPrivate("There is no item at slot <highlight>#".$key."<end>");
 		return;
 	}
 } else {

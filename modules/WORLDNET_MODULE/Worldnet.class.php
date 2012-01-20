@@ -108,10 +108,10 @@ class Worldnet {
 			// only send to guild or priv if the channel is enabled on the bot,
 			// but don't restrict tell subscriptions
 			if ($this->setting->get('broadcast_to_guild') == 1) {
-				$this->chatBot->send($msg, 'guild', true);
+				$this->chatBot->sendGuild($msg, true);
 			}
 			if ($this->setting->get('broadcast_to_privchan') == 1) {
-				$this->chatBot->send($msg, 'priv', true);
+				$this->chatBot->sendPrivate($msg, true);
 			}
 		}
 	}

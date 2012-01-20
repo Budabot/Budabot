@@ -84,7 +84,7 @@ class Timer {
 
 			if ('' != $msg) {
 				if ('msg' == $mode) {
-					$this->chatBot->send($msg, $owner);
+					$this->chatBot->sendTell($msg, $owner);
 				} else {
 					$this->chatBot->send($msg, $mode);
 				}

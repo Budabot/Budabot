@@ -10,7 +10,7 @@ if ($type == 'joinpriv' || ($type == 'logon' && isset($chatBot->guildmembers[$se
 	$set_by = $setting->get('topic_setby');
 		
 	$msg = "<highlight>Topic:<end> {$topic} [set by <highlight>{$set_by}<end>][<highlight>{$date_string} ago<end>]";
-    $chatBot->send($msg, $sender);
+    $chatBot->sendTell($msg, $sender);
 }
 
 ?>

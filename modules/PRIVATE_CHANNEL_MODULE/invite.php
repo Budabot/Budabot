@@ -10,7 +10,7 @@ if (preg_match("/^invite (.+)$/i", $message, $arr)) {
 	  	$chatBot->privategroup_kick($name);
 	  	$chatBot->privategroup_invite($name);
 		$msg2 = "You have been invited to the <highlight><myname><end> channel by <highlight>$sender<end>";
-		$chatBot->send($msg2, $name);
+		$chatBot->sendTell($msg2, $name);
     } else {
 		$msg = "Character <highlight>{$name}<end> does not exist.";
 	}

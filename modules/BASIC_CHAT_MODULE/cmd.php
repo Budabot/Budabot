@@ -33,8 +33,8 @@ if (preg_match("/^cmd (.+)$/i", $message, $arr)) {
 	$msg = "\n<yellow>---------------------\n<red>".$arr[1]."<end>\n<yellow>---------------------";
 	
 	if ($type == "msg") {
-		$chatBot->send($msg, "guild", true);
-		$chatBot->send($msg, "priv", true);
+		$chatBot->sendGuild($msg, true);
+		$chatBot->sendPrivate($msg, true);
 	} else {
 		$sendto->reply($msg, true);
 	}

@@ -33,9 +33,9 @@ $msg = "";
 list($numonline, $msg, $list) = get_online_list();
 if ($numonline != 0) {
 	$blob = Text::make_structured_blob($msg, $list);
-	$chatBot->send($blob, $sender);
+	$chatBot->sendTell($blob, $sender);
 } else {
-	$chatBot->send($msg, $sender);
+	$chatBot->sendTell($msg, $sender);
 }
 
 ?>

@@ -82,7 +82,7 @@ if ($chatBot->vars["my_guild_id"] != "") {
 	LegacyLogger::log('INFO', 'GUILD_MODULE', "Finished Roster update");
 
 	if ($restart == true) {
-		$chatBot->send("Guild roster has been loaded for the first time. Restarting...", "guild");
+		$chatBot->sendGuild("Guild roster has been loaded for the first time. Restarting...");
 
 		LegacyLogger::log('INFO', 'GUILD_MODULE', "The bot is restarting");
 

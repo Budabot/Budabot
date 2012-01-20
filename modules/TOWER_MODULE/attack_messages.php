@@ -165,7 +165,7 @@ if (($s > 0 && (
 	(strtolower($whois->faction) == "neutral" && ($a & 2)) ||
 	(strtolower($whois->faction) == "omni"    && ($a & 4)) ))) {
 
-	$chatBot->send($msg, "guild", true);
+	$chatBot->sendGuild($msg, true);
 }
 
 ?>

@@ -45,10 +45,10 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 		$msg .= ".";
 
 		if ($chatBot->vars['my_guild'] != "") {
-			$chatBot->send("<yellow>[BBIN]<end> $msg", "guild", true);
+			$chatBot->sendGuild("<yellow>[BBIN]<end> $msg", true);
 		}
 		if ($chatBot->vars['my_guild'] == "" || $setting->get("guest_relay") == 1) {
-			$chatBot->send("<yellow>[BBIN]<end> $msg", "priv", true);
+			$chatBot->sendPrivate("<yellow>[BBIN]<end> $msg", true);
 		}
 
 	} else if (preg_match("/^\[BBIN:LOGOFF:(.*?),(.),(.)\]/", $bbinmsg, $arr)) {
@@ -69,10 +69,10 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 
 
 		if ($chatBot->vars['my_guild'] != "") {
-			$chatBot->send("<yellow>[BBIN]<end> $msg", "guild", true);
+			$chatBot->sendGuild("<yellow>[BBIN]<end> $msg", true);
 		}
 		if ($chatBot->vars['my_guild'] == "" || $setting->get("guest_relay") == 1) {
-			$chatBot->send("<yellow>[BBIN]<end> $msg", "priv", true);
+			$chatBot->sendPrivate("<yellow>[BBIN]<end> $msg", true);
 		}
 
 	} else if (preg_match("/^\[BBIN:SYNCHRONIZE\]/",$bbinmsg)) {
@@ -142,17 +142,16 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 	} else {
 		// normal message
 		if ($chatBot->vars['my_guild'] != "") {
-			$chatBot->send("<yellow>[BBIN]<end> $bbinmsg", "guild", true);
+			$chatBot->sendGuild("<yellow>[BBIN]<end> $bbinmsg", true);
 		}
 		if ($chatBot->vars['my_guild'] == "" || $setting->get("guest_relay") == 1) {
-			$chatBot->send("<yellow>[BBIN]<end> $bbinmsg", "priv", true);
+			$chatBot->sendPrivate("<yellow>[BBIN]<end> $bbinmsg", true);
 		}
 	}
 }
 
 function bbinConnect() {
 	global $bbinSocket;
-	$chatBot = Registry::getInstance('chatBot');
 	$db = Registry::getInstance('db');
 	$setting = Registry::getInstance('setting');
 

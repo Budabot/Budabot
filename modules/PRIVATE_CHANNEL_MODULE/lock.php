@@ -37,10 +37,10 @@ if (preg_match("/^lock$/i", $message)) {
 	}
 
 	$msg = "The private channel has been locked by <highlight>$sender<end>.";
-	$chatBot->send($msg, 'priv');
+	$chatBot->sendPrivate($msg);
 	$msg = "You have locked the private channel.";
 	if ($type == "msg") {
-		$chatBot->send($msg, $sender);
+		$chatBot->sendTell($msg, $sender);
 	}
 	
 	$setting->save("priv_status", "0");
@@ -53,10 +53,10 @@ if (preg_match("/^lock$/i", $message)) {
 	}
 
 	$msg = "The private channel has been locked by <highlight>$sender<end> - Reason: <highlight>$reason<end>.";
-	$chatBot->send($msg, 'priv');
+	$chatBot->sendPrivate($msg);
 	$msg = "You have locked the private channel.";
 	if ($type == "msg") {
-		$chatBot->send($msg, $sender);
+		$chatBot->sendTell($msg);
 	}
 	
 	$setting->save("priv_status", "0");
@@ -69,10 +69,10 @@ if (preg_match("/^lock$/i", $message)) {
 	}
 
 	$msg = "The private channel has been opened by <highlight>$sender<end>.";
-	$chatBot->send($msg, 'priv');
+	$chatBot->sendPrivate($msg);
 	$msg = "You have opened the private channel.";
 	if ($type == "msg") {
-		$chatBot->send($msg, $sender);
+		$chatBot->sendTell($msg, $sender);
 	}
 	
 	$setting->save("priv_status", "1");

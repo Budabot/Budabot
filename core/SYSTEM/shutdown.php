@@ -30,9 +30,9 @@
    */
 
 $msg = "The Bot is shutting down.";
-$chatBot->send($msg, $sender);
-$chatBot->send($msg, "prv", true);
-$chatBot->send($msg, "guild", true);
+$chatBot->sendTell($msg, $sender);
+$chatBot->sendPrivate($msg, true);
+$chatBot->sendGuild($msg, true);
 
 $chatBot->disconnect();
 LegacyLogger::log('INFO', 'Core', "The Bot is shutting down.");

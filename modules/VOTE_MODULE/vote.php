@@ -185,7 +185,7 @@ if (preg_match("/^vote$/i", $message)) {
 			
 			$msg = Text::make_blob("Vote: $question", $msg);
 			if ($privmsg) {
-				$chatBot->send($privmsg, $sender);
+				$sendto->reply($privmsg);
 			}
 		}
 	////////////////////////////////////////////////////////////////////////////////////
@@ -194,11 +194,11 @@ if (preg_match("/^vote$/i", $message)) {
 		$requirement = $setting->get("vote_use_min");
 		if ($requirement >= 0) {
 			if (!$chatBot->guildmembers[$sender]) {
-				$chatBot->send("Only org members can start a new vote.", $sender);
+				$sendto->reply("Only org members can start a new vote.");
 				return;
 			} else if ($requirement < $chatBot->guildmembers[$sender]) {
 				$rankdiff = $chatBot->guildmembers[$sender]-$requirement;
-				$chatBot->send("You need $rankdiff promotion(s) in order to vote.", $sender);
+				$sendto->reply("You need $rankdiff promotion(s) in order to vote.");
 				return;
 			}
 		}
@@ -237,11 +237,11 @@ if (preg_match("/^vote$/i", $message)) {
 		$requirement = $setting->get("vote_create_min");
 		if ($requirement >= 0) {
 			if (!$chatBot->guildmembers[$sender]) {
-				$chatBot->send("Only org members can start a new vote.", $sender);
+				$sendto->reply("Only org members can start a new vote.");
 				return;
 			} else if ($requirement < $chatBot->guildmembers[$sender]) {
 				$rankdiff = $chatBot->guildmembers[$sender]-$requirement;
-				$chatBot->send("You need $rankdiff promotion(s) in order to start a new vote.", $sender);
+				$sendto->reply("You need $rankdiff promotion(s) in order to start a new vote.");
 				return;
 			}
 		}

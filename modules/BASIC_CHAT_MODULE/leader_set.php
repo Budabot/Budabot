@@ -19,7 +19,7 @@ if (preg_match("/^leader (.+)$/i", $message, $arr)) {
 		$chatBot->data["leader"] = $name;
 	  	$msg = "{$name} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
 	}
-  	$chatBot->send($msg, 'priv');
+  	$chatBot->sendPrivate($msg);
 } else {
 	$syntax_error = true;
 }

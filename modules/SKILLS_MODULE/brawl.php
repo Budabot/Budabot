@@ -15,7 +15,7 @@ if (preg_match("/^brawl ([0-9]+)$/i", $message, $arr)) {
 	} else if ($brawl_skill < 3001) {
 		$i = 4; 
 	} else { 
-		$chatBot->send("Skill entered is out of range... please enter a number between <highlight>1 and 3000<end>.",$sendto);
+		$sendto->reply("Skill entered is out of range... please enter a number between <highlight>1 and 3000<end>.");
 		return;
 	}
 	

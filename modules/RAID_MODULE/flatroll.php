@@ -98,7 +98,7 @@ if (preg_match("/^flatroll$/i", $message)) {
 		$rerollmsg = "";
 	}
 
-	$chatBot->send($msg.$rerollmsg, 'priv');
+	$chatBot->sendPrivate($msg.$rerollmsg);
 
 	if ($type != 'priv') {
 		$sendto->reply($msg.$rerollmsg);

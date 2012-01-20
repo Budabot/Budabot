@@ -12,7 +12,7 @@ class PrivateMessageCommandReply implements CommandReply {
 	}
 
 	public function reply($msg) {
-		$this->chatBot->send($msg, $this->sender);
+		$this->chatBot->sendTell($msg, $this->sender);
 	}
 }
 

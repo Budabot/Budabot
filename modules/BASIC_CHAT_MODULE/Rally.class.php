@@ -97,7 +97,7 @@ class Rally {
 
 		$rally = $this->get();
 		if ('' != $rally) {
-			$this->chatBot->send($rally, $sender);
+			$this->chatBot->sendTell($rally, $sender);
 		}
 	}
 

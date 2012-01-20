@@ -59,7 +59,7 @@ class News {
 		if (isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->is_ready()) {
 			$msg = $this->getNews();
 			if ($msg != '') {
-				$this->chatBot->send($msg, $sender);
+				$this->chatBot->sendTell($msg, $sender);
 			}
 		}
 	}

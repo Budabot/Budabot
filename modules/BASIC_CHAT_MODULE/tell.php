@@ -31,15 +31,15 @@
 
 if (preg_match("/^tell (.+)$/i", $message, $arr)) {
 	if ($type = 'guild' || $type == "msg") {
-		$chatBot->send("<yellow>".$arr[1]."<end>", "guild", true);
-		$chatBot->send("<yellow>".$arr[1]."<end>", "guild", true);
-		$chatBot->send("<yellow>".$arr[1]."<end>", "guild", true);
+		$chatBot->sendGuild("<yellow>".$arr[1]."<end>", true);
+		$chatBot->sendGuild("<yellow>".$arr[1]."<end>", true);
+		$chatBot->sendGuild("<yellow>".$arr[1]."<end>", true);
 	}
 	
 	if ($type = 'priv' || $type == "msg") {
-		$chatBot->send("<yellow>".$arr[1]."<end>", "priv", true);
-		$chatBot->send("<yellow>".$arr[1]."<end>", "priv", true);
-		$chatBot->send("<yellow>".$arr[1]."<end>", "priv", true);
+		$chatBot->sendPrivate("<yellow>".$arr[1]."<end>", true);
+		$chatBot->sendPrivate("<yellow>".$arr[1]."<end>", true);
+		$chatBot->sendPrivate("<yellow>".$arr[1]."<end>", true);
 	}
 } else {
 	$syntax_error = true;

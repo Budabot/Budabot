@@ -34,7 +34,7 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 
 	$sendto->reply("You have banned <highlight>$who<end> from this bot for $timeString.");
 	if ($setting->get('notify_banned_player') == 1) {
-		$chatBot->send("You have been banned from this bot by <highlight>$sender<end> for $timeString. Reason: $reason", $who);
+		$chatBot->sendTell("You have been banned from this bot by <highlight>$sender<end> for $timeString. Reason: $reason", $who);
 	}
 } else if (preg_match("/^ban (.+) ([a-z0-9]+)$/i", $message, $arr)) {
 	$who = ucfirst(strtolower($arr[1]));
@@ -67,7 +67,7 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 	if ($setting->get('notify_banned_player') == 1) {
 		$sendto->reply("You have banned <highlight>$who<end> from this bot for $timeString.");
 	}
-	$chatBot->send("You have been banned from this bot by <highlight>$sender<end> for $timeString.", $who);
+	$chatBot->sendTell("You have been banned from this bot by <highlight>$sender<end> for $timeString.", $who);
 } else if (preg_match("/^ban (.+) (for|reason) (.+)$/i", $message, $arr)) {
 	$who = ucfirst(strtolower($arr[1]));
 	$reason = $arr[3];
@@ -92,7 +92,7 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 	if ($setting->get('notify_banned_player') == 1) {
 		$sendto->reply("You have permanently banned <highlight>$who<end> from this bot.");
 	}
-	$chatBot->send("You have been permanently banned from this bot by <highlight>$sender<end>. Reason: $reason", $who);
+	$chatBot->sendTell("You have been permanently banned from this bot by <highlight>$sender<end>. Reason: $reason", $who);
 } else if (preg_match("/^ban (.+)$/i", $message, $arr)) {
 	$who = ucfirst(strtolower($arr[1]));
 	
@@ -116,7 +116,7 @@ if (preg_match("/^ban (.+) ([a-z0-9]+) (for|reason) (.+)$/i", $message, $arr)) {
 	if ($setting->get('notify_banned_player') == 1) {
 		$sendto->reply("You have permanently banned <highlight>$who<end> from this bot.");
 	}
-	$chatBot->send("You have been permanently banned from this bot by <highlight>$sender<end>.", $who);
+	$chatBot->sendTell("You have been permanently banned from this bot by <highlight>$sender<end>.", $who);
 } else if (preg_match("/^banorg (.+)$/i", $message, $arr)) {
 	$who = $arr[1];
 	

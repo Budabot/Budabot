@@ -9,11 +9,11 @@ if ($row !== null) {
 		$interval = $setting->get('cloak_reminder_interval');
 		if ($timeSinceChange >= 60*60 && ($timeSinceChange % $interval >= 0 && $timeSinceChange % $interval <= 60 )) {
 			$timeString = Util::unixtime_to_readable(time() - $row->time, false);
-			$chatBot->send("The cloaking device was disabled by <highlight>{$row->player}<end> $timeString ago. It is possible to enable it.", 'guild');
+			$chatBot->sendGuild("The cloaking device was disabled by <highlight>{$row->player}<end> $timeString ago. It is possible to enable it.");
 		}
     } else if ($row->action == "on") {
         if ($timeSinceChange >= 60*60 && $timeSinceChange < 61*60) {
-            $chatBot->send("The cloaking device was enabled one hour ago. Alien attacks can now be initiated.", "guild");
+            $chatBot->sendGuild("The cloaking device was enabled one hour ago. Alien attacks can now be initiated.");
 		}
     }
 }

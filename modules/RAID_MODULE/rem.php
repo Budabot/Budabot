@@ -11,9 +11,9 @@ if (preg_match("/^rem$/i", $message)) {
 		}
 	
 		$msg = "$sender has been removed from all rolls.";
-	  	$chatBot->send($msg, 'priv');
+	  	$chatBot->sendPrivate($msg, 'priv');
 	} else {
-		$chatBot->send("There is nothing to remove you from.", $sender);
+		$chatBot->sendTell("There is nothing to remove you from.", $sender);
 	}
 } else {
 	$syntax_error = true;

@@ -27,7 +27,7 @@ if (preg_match("/^mafist ([0-9]+)$/i", $message, $arr)) {
 	} else if ($MaSkill < 3001) {
 		$i = 5; 
 	} else { 
-		$chatBot->send("Skill entered is out of range... please enter a number between <highlight>1 and 3000<end>.",$sendto);
+		$sendto->reply("Skill entered is out of range... please enter a number between <highlight>1 and 3000<end>.");
 		return;
 	}
 	

@@ -32,7 +32,7 @@
 if (preg_match("/^tellall (.+)$/i", $message, $arr)) {
 	$data = $db->query("SELECT name FROM online WHERE channel_type = 'guild'");
 	forEach ($data as $row) {
-		$chatBot->send("Message from $sender: <yellow>".$arr[1]."<end>", $row->name);
+		$chatBot->sendTell("Message from $sender: <yellow>".$arr[1]."<end>", $row->name);
 	}
 	
 	$sendto->reply("Your message has been sent to all online org members.");

@@ -11,7 +11,7 @@ if (preg_match("/^waitlist next$/i", $message)) {
 	$name = array_shift(array_keys($waitlist[$sender]));
 	unset($waitlist[$sender][$name]);
 	$waitlist[$sender][$name] = true;
-	$chatBot->send("<highlight>$sender waitlist<end>: You can come now!", $name);
+	$chatBot->sendTell("<highlight>$sender waitlist<end>: You can come now!", $name);
 
 	$msg = "<highlight>$name<end> has been called to come now.";
 	$sendto->reply($msg);
@@ -25,10 +25,10 @@ if (preg_match("/^waitlist next$/i", $message)) {
 	}
 	
 	$waitlist[$sender][$name] = true;
+	$chatBot->sendTell("You have been added to the waitlist of <highlight>$sender<end>.", $name);
+
 	$msg = "<highlight>$name<end> has been added to your waitlist.";
 	$sendto->reply($msg);
-	  	
-	$chatBot->send("You have been added to the waitlist of <highlight>$sender<end>.", $name);
 } else if (preg_match("/^waitlist (rem all|clear)$/i", $message)) {
   	if (count($waitlist[$sender]) == 0) {
 	  	$msg = "There is no one on your waitlist!";
@@ -51,7 +51,7 @@ if (preg_match("/^waitlist next$/i", $message)) {
 
 	unset($waitlist[$sender][$name]);
 	$msg = "You have been removed from {$sendto}'s waitlist.";
-	$chatBot->send($msg, $name);
+	$chatBot->sendTell($msg, $name);
 	
 	$msg = "<highlight>$name<end> has been removed from your waitlist.";
     $sendto->reply($msg);

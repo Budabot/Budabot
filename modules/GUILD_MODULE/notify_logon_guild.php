@@ -30,11 +30,11 @@ if (isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
 		$msg .= " - " . $logon_msg;
 	}
 
-	$chatBot->send($msg, "guild", true);
+	$chatBot->sendGuild($msg, true);
 
 	//private channel part
 	if ($setting->get("guest_relay") == 1) {
-		$chatBot->send($msg, "priv", true);
+		$chatBot->sendPrivate($msg, true);
 	}
 }
 

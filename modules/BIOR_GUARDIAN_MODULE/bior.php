@@ -46,7 +46,7 @@ if (preg_match("/^bior$/i", $message)) {
 
 		//Send Blist
 		forEach ($chatBot->data['blist'] as $player) {
-			$chatBot->send($msg, $player);
+			$chatBot->sendTell($msg, $player);
 		}
 	}
 	$sendto->reply($msg);

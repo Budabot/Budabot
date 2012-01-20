@@ -4,7 +4,7 @@
 // [Org Msg] Blammo! Player has launched an orbital attack!
 
 if (preg_match("/^Blammo! (.+) has launched an orbital attack!$/i", $message, $arr)) {
-	$chatBot->send("OS !timer was set for 15 minutes", "guild");
+	$chatBot->sendGuild("OS !timer was set for 15 minutes");
 	$orgName = $chatBot->vars["my_guild"];
 
 	$launcher = $arr[1];

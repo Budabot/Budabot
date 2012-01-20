@@ -18,7 +18,7 @@ if (preg_match("/^events$/i", $message, $arr)) {
 	if (time() < (($row->event_date)+(3600*3))) {
 		// cannot join an event after 3 hours past its starttime
 		if (strpos($row->event_attendees,$sender) !== false) {
-			$chatBot->send("You are already on the event list.",$sender);
+			$sendto->reply("You are already on the event list.");
 			return;
 		} else {
 			$row->event_attendees = trim($row->event_attendees);
@@ -50,7 +50,7 @@ if (preg_match("/^events$/i", $message, $arr)) {
 			$db->exec("UPDATE events SET `event_attendees`='".$event."' WHERE `id` = '$arr[1]'");
 			$msg = "You have been removed from the event.";
 		} else {
-			$chatBot->send("You are not on the event list.",$sender);
+			$sendto->reply("You are not on the event list.");
 			return;
 		}
 	} else {

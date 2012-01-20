@@ -156,10 +156,10 @@ forEach ($chatBot->data["Vote"] as $key => $value) {
 		$msg = Text::make_blob($title, $msg);
 		
 		if ($setting->get("vote_channel_spam") == 0 || $setting->get("vote_channel_spam") == 2) {
-			$chatBot->send($msg, 'guild', true);
+			$chatBot->sendGuild($msg, true);
 		}
 	   	if ($setting->get("vote_channel_spam") == 1 || $setting->get("vote_channel_spam") == 2) {
-			$chatBot->send($msg, 'priv', true);
+			$chatBot->sendPrivate($msg, true);
 		}
 	}
 }

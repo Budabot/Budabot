@@ -13,13 +13,13 @@ if (preg_match("/^unban (.+)$/i", $message, $arr)){
 
 	$sendto->reply("You have unbanned <highlight>$who<end> from this bot.");
 	if ($setting->get('notify_banned_player') == 1) {
-		$chatBot->send("You have been unbanned from this bot by $sender.", $who);
+		$chatBot->sendTell("You have been unbanned from this bot by $sender.", $who);
 	}
 } else if (preg_match("/^unbanorg (.+)$/i", $message, $arr)) {
 	$who = ucwords(strtolower($arr[1]));
 	
 	if (!$ban->is_banned($who)) {
-		$chatBot->send("The org <highlight>$who<end> is not banned on this bot.", $sender);
+		$sendto->reply("The org <highlight>$who<end> is not banned on this bot.");
 		return;		  
 	}
 		

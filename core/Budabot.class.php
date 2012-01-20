@@ -189,13 +189,17 @@ class Budabot extends AOChat {
 		$this->event->loadEvents();
 	}
 
-	public function sendPrivate($message, $group, $disable_relay = false) {
+	public function sendPrivate($message, $disable_relay = false, $group = null) {
 		// for when $text->make_blob generates several pages
 		if (is_array($message)) {
 			forEach ($message as $page) {
 				$this->sendPrivate($page, $group, $disable_relay);
 			}
 			return;
+		}
+		
+		if ($group == null) {
+			$group = $this->vars['name'];
 		}
 
 		$message = $this->text->format_message($message);
