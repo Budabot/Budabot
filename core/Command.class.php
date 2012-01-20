@@ -207,7 +207,7 @@ class Command extends Annotation {
 		// if command doesn't exist
 		if ($commandHandler === null) {
 			// if they've disabled feedback for guild or private channel, just return
-			if (($this->setting->get('guild_channel_cmd_feedback') == 0 && $channel == 'guild') || (($this->setting->get('private_channel_cmd_feedback') == 0 && $channel == 'priv'))) {
+			if (($channel == 'guild' && $this->setting->get('guild_channel_cmd_feedback') == 0) || ($channel == 'priv' && $this->setting->get('private_channel_cmd_feedback') == 0)) {
 				return;
 			}
 				
@@ -219,7 +219,7 @@ class Command extends Annotation {
 		// if the character doesn't have access
 		if ($this->accessLevel->checkAccess($sender, $commandHandler->admin) !== true) {
 			// if they've disabled feedback for guild or private channel, just return
-			if (($this->setting->get('guild_channel_cmd_feedback') == 0 && $channel == 'guild') || (($this->setting->get('private_channel_cmd_feedback') == 0 && $channel == 'priv'))) {
+			if (($channel == 'guild' && $this->setting->get('guild_channel_cmd_feedback') == 0) || ($channel == 'priv' && $this->setting->get('private_channel_cmd_feedback') == 0)) {
 				return;
 			}
 				

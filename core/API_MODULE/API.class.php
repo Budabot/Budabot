@@ -65,28 +65,61 @@ class API {
 			// Read the input from the client
 			$apiRequest = $clientHandler->readPacket();
 			if ($apiRequest->version != API_VERSION) {
-				$clientHandler->writePacket(new APIResponse(API_FAILURE, "API version must be: " . API_VERSION));
+				$clientHandler->writePacket(new APIResponse(API_INVALID_VERSION, "API version must be: " . API_VERSION));
 			}
 			
 			$password = $this->preferences->get($apiRequest->username, 'apipassword');
 			if ($password === false) {
-				$clientHandler->writePacket(new APIResponse(API_FAILURE, "Password has not been set for this user."));
+				$clientHandler->writePacket(new APIResponse(API_UNSET_PASSWORD, "Password has not been set for this user."));
 			} else if ($password != $apiRequest->password) {
-				$clientHandler->writePacket(new APIResponse(API_FAILURE, "Password was incorrect."));
+				$clientHandler->writePacket(new APIResponse(API_INVALID_PASSWORD, "Password was incorrect."));
 			} else {
 				if ($apiRequest->type == API_SIMPLE_MSG) {
 					$type = 'msg';
 				} else if ($apiRequest->type == API_ADVANCED_MSG) {
 					$type = 'api';
 				} else {
-					$clientHandler->writePacket(new APIResponse(API_FAILURE, "Invalid request type."));
+					$clientHandler->writePacket(new APIResponse(API_INVALID_REQUEST_TYPE, "Invalid request type."));
 					return;
 				}
 
 				$apiReply = new APIReply();
-				$this->command->process($type, $apiRequest->command, $apiRequest->username, $apiReply);
-				$clientHandler->writePacket(new APIResponse(API_SUCCESS, $apiReply->getOutput()));
+				$responseCode = $this->process($type, $apiRequest->command, $apiRequest->username, $apiReply);
+				$clientHandler->writePacket(new APIResponse($responseCode, $apiReply->getOutput()));
 			}
+		}
+	}
+	
+	private function process($channel, $message, $sender, $sendto) {
+		list($cmd, $params) = explode(' ', $message, 2);
+		$cmd = strtolower($cmd);
+		
+		$commandHandler = $this->command->getActiveCommandHandler($cmd, $channel, $message);
+		
+		// if command doesn't exist
+		if ($commandHandler === null) {
+			$this->chatBot->spam[$sender] += 20;
+			return API_UNKNOWN_COMMAND;
+		}
+
+		// if the character doesn't have access
+		if ($this->accessLevel->checkAccess($sender, $commandHandler->admin) !== true) {
+			$this->chatBot->spam[$sender] += 20;
+			return API_ACCESS_DENIED;
+		}
+
+		// record usage stats
+		if ($this->setting->get('record_usage_stats') == 1) {
+			Registry::getInstance('usage')->record($channel, $cmd, $sender, $commandHandler);
+		}
+	
+		$syntaxError = $this->command->callCommandHandler($commandHandler, $message, $channel, $sender, $sendto);
+		$this->chatBot->spam[$sender] += 10;
+		
+		if ($syntaxError === true) {
+			return API_SYNTAX_ERROR;
+		} else {
+			return API_SUCCESS;
 		}
 	}
 	
