@@ -34,6 +34,7 @@ class Fun {
 		$fc[] = "Our apologies. Your accounts have been closed due to unauthorized actives. Thank you for your understanding. --Lead GM Sojourn, Customer Satisfaction Manager";
 		$fc[] = "I disagree with everything you say in this thread...even including the idea that this is the \"most stupid\" idea we've ever had. We have done way dumber things than this. --Colin \"Means\" Cragg";
 		$fc[] = "Dear Arguru, You have received a warning at Anarchy Online Bulletin Board.  Reason: ------- Excessive Profanities  Joking or not, this is an inappropriate level of obscenities. Please make your point in other ways. Thank you.  --Anarrina";
+		$fc[] = "I usually try to be diplomatic and avoid insults, but I'm not particularly in that mood today. --Vhab";
 		
 		$dmg = rand(100,999);
 		$cred = rand(10000,9999999);
