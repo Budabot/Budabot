@@ -1,6 +1,6 @@
 <?php
 
-class APIReply implements CommandReply {
+class APISimpleReply implements CommandReply {
 	private $output = array();
 
 	public function reply($message) {

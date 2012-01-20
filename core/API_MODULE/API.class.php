@@ -76,16 +76,24 @@ class API {
 			} else {
 				if ($apiRequest->type == API_SIMPLE_MSG) {
 					$type = 'msg';
+					$apiReply = new APISimpleReply();
 				} else if ($apiRequest->type == API_ADVANCED_MSG) {
 					$type = 'api';
+					$apiReply = new APIAdvancedReply();
 				} else {
 					$clientHandler->writePacket(new APIResponse(API_INVALID_REQUEST_TYPE, "Invalid request type."));
 					return;
 				}
 
-				$apiReply = new APIReply();
-				$responseCode = $this->process($type, $apiRequest->command, $apiRequest->username, $apiReply);
-				$clientHandler->writePacket(new APIResponse($responseCode, $apiReply->getOutput()));
+				try {
+					$responseCode = $this->process($type, $apiRequest->command, $apiRequest->username, $apiReply);
+					$response = new APIResponse($responseCode, $apiReply->getOutput());
+				} catch (APIException $e) {
+					$response = new APIResponse(API_EXCEPTION, $e->getResponseMessage());
+				} catch (Exception $e) {
+					$response = new APIResponse(API_EXCEPTION, $e->getMessage());
+				}
+				$clientHandler->writePacket($response);
 			}
 		}
 	}

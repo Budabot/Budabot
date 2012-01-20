@@ -8,6 +8,7 @@ define('API_INVALID_REQUEST_TYPE', 4);
 define('API_UNKNOWN_COMMAND', 5);
 define('API_ACCESS_DENIED', 6);
 define('API_SYNTAX_ERROR', 7);
+define('API_EXCEPTION', 8);
 
 class APIResponse {
 	public $status;
