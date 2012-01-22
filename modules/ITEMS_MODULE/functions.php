@@ -98,7 +98,9 @@ function find_items_from_local($search, $ql) {
 	} else if ($num > 3) {
 		$blob = "Version: " . $setting->get('aodb_db_version') . "\n\n";
 		$blob .= formatSearchResults($data, $ql, true);
-		$blob .= "\n\n<highlight>Item DB rips provied by MajorOutage (RK1)<end>";
+		$xrdbLink = Text::make_chatcmd("XRDB", "/start http://www.xyphos.com/viewtopic.php?f=6&t=10000091");
+		$budabotItemsExtractorLink = Text::make_chatcmd("Budabot Items Extractor", "/start http://budabot.com/forum/viewtopic.php?f=7&t=873");
+		$blob .= "\n\n<highlight>Item DB rips provied by MajorOutage (RK1) using Xyphos' $xrdbLink tool and the $budabotItemsExtractorLink plugin<end>";
 		$link = Text::make_blob("Item Search Results ($num)", $blob);
 
 		return $link;
