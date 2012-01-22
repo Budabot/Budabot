@@ -1,5 +1,6 @@
 <?php
 
+/** @Instance */
 class News {
 	/** @Inject */
 	public $db;
@@ -9,6 +10,8 @@ class News {
 	
 	/** @Inject */
 	public $text;
+	
+	public $moduleName;
 
 	/**
 	 * @Setting("news")
@@ -18,6 +21,14 @@ class News {
 	 * @Help("news.txt")
 	 */
 	public $defaultNews = "Not set.";
+	
+	/**
+	 * @Event("setup")
+	 */
+	public function setup() {
+		$this->db->add_table_replace('#__news', 'news');
+		$this->db->loadSQLFile($this->moduleName, 'news');
+	}
 
 	public function getNews() {
 		$data = $this->db->query("SELECT * FROM `#__news` ORDER BY `sticky` DESC, `time` DESC LIMIT 10");
