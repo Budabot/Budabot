@@ -1,17 +1,14 @@
 <?php
 
 function getEvents() {
-	$chatBot = Registry::getInstance('chatBot');
 	$db = Registry::getInstance('db');
 
 	$data = $db->query("SELECT * FROM events ORDER BY `event_date` DESC LIMIT 0,5");
 	if (count($data) > 0) {
-		$upcoming_title = "<header> :::::: Upcoming Events :::::: <end>\n\n";
-		$past_title = "<header> :::::: Past Events :::::: <end>\n\n";
+		$upcoming_title = "<header> ::: Upcoming Events ::: <end>\n\n";
+		$past_title = "<header> ::: Past Events ::: <end>\n\n";
 		$updated = 0;
 		forEach ($data as $row) {
-			$row->event_name = stripslashes($row->event_name);
-			$row->event_desc = stripslashes($row->event_desc);
 			if ($row->event_attendees == '') {
 				$attendance = 0;
 			} else {
@@ -26,7 +23,7 @@ function getEvents() {
 				$upcoming .= "<highlight>Event Name:<end> $row->event_name     [Event ID $row->id]\n";
 				$upcoming .= "<highlight>Author:<end> $row->submitter_name\n";
 				$upcoming .= "<highlight>Attendance:<end> ".Text::make_chatcmd("$attendance signed up", "/tell <myname> events list $row->id")." [".Text::make_chatcmd("Join", "/tell <myname> events join $row->id")."/".Text::make_chatcmd("Leave", "/tell <myname> events leave $row->id")."]\n";
-				$upcoming .= "<highlight>Description:<end> ".stripslashes($row->event_desc)."\n";
+				$upcoming .= "<highlight>Description:<end> ".$row->event_desc."\n";
 				$upcoming .= "<highlight>Date Submitted:<end> ".date(Util::DATETIME, $row->time_submitted)."\n\n";
 				$upcoming_events = $upcoming.$upcoming_events;
 			} else {
@@ -34,7 +31,7 @@ function getEvents() {
 				$past .= "<highlight>Event Name:<end> $row->event_name     [Event ID $row->id]\n";
 				$past .= "<highlight>Author:<end> $row->submitter_name\n";
 				$past .= "<highlight>Attendance:<end> ".Text::make_chatcmd("$attendance signed up", "/tell <myname> events list $row->id")."\n";
-				$past .= "<highlight>Description:<end> ".stripslashes($row->event_desc)."\n";
+				$past .= "<highlight>Description:<end> ".$row->event_desc."\n";
 				$past .= "<highlight>Date Submitted:<end> ".date(Util::DATETIME, $row->time_submitted)."\n\n";
 				$past_events .= $past;
 			}
@@ -48,7 +45,7 @@ function getEvents() {
 			$link = $upcoming_title.$upcoming_events.$past_title.$past_events;
 		}
 		
-		return Text::make_blob("Latest Events", $link)." [Last updated ".date(Util::DATETIME, $updated)."]";
+		return Text::make_legacy_blob("Latest Events", $link)." [Last updated ".date(Util::DATETIME, $updated)."]";
 	} else {
 		return "";
 	}
