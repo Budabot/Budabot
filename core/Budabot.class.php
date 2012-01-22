@@ -546,8 +546,6 @@ class Budabot extends AOChat {
 			$message = $args[1];
 		}
 		
-		$message = htmlspecialchars_decode($message);
-		
 		$eventObj = new stdClass;
 		$eventObj->sender = $sender;
 		$eventObj->type = $type;
@@ -599,7 +597,7 @@ class Budabot extends AOChat {
 	function process_private_channel_message($args) {
 		$sender	= $this->lookup_user($args[1]);
 		$channel = $this->lookup_user($args[0]);
-		$message = htmlspecialchars_decode($args[2]);
+		$message = $args[2];
 		
 		$eventObj = new stdClass;
 		$eventObj->sender = $sender;
@@ -648,7 +646,7 @@ class Budabot extends AOChat {
 	
 	function process_public_channel_message($args) {
 		$sender	 = $this->lookup_user($args[1]);
-		$message = htmlspecialchars_decode($args[2]);
+		$message = $args[2];
 		$channel = $this->get_gname($args[0]);
 		
 		$eventObj = new stdClass;
@@ -706,7 +704,7 @@ class Budabot extends AOChat {
 	}
 	
 	function process_private_channel_invite($args) {
-		$type = "extjoinprivrequest";
+		$type = "extjoinprivrequest"; // Set message type.
 		$uid = $args[0];
 		$sender = $this->lookup_user($uid);
 		

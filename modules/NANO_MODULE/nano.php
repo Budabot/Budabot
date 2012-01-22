@@ -10,6 +10,7 @@
 if (preg_match("/^nano (.+)$/i", $message, $arr)) {
     $name = $arr[1];
 	
+	$name = htmlspecialchars_decode($name);
 	$name = str_replace("'", "''", $name);
 
 	$tmp = explode(" ", $name);

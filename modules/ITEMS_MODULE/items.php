@@ -17,6 +17,7 @@ if (preg_match("/^(xitems|litems|items) ([0-9]+) (.+)$/i", $message, $arr)) {
 }
 
 // ao automatically converts '&' to '&amp;', so we convert it back
+$search = htmlspecialchars_decode($search);
 $msg = find_items_from_local($search, $ql);
 $sendto->reply($msg);
 
