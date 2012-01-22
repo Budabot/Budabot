@@ -31,7 +31,7 @@
 
 $msg = "Bot is restarting.";
 $chatBot->sendTell($msg, $sender);
-$chatBot->sendPriv($msg, true);
+$chatBot->sendPrivate($msg, true);
 $chatBot->sendGuild($msg, true);
 
 $chatBot->disconnect();

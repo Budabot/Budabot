@@ -210,7 +210,7 @@ class Command extends Annotation {
 			if (($channel == 'guild' && $this->setting->get('guild_channel_cmd_feedback') == 0) || ($channel == 'priv' && $this->setting->get('private_channel_cmd_feedback') == 0)) {
 				return;
 			}
-				
+
 			$sendto->reply("Error! Unknown command.");
 			$this->chatBot->spam[$sender] += 20;
 			return;
@@ -222,7 +222,7 @@ class Command extends Annotation {
 			if (($channel == 'guild' && $this->setting->get('guild_channel_cmd_feedback') == 0) || ($channel == 'priv' && $this->setting->get('private_channel_cmd_feedback') == 0)) {
 				return;
 			}
-				
+
 			$sendto->reply("Error! Access denied.");
 			$this->chatBot->spam[$sender] += 20;
 			return;
