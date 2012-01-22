@@ -78,13 +78,13 @@ if ($data = fgets($ircSocket)) {
 	} else if ("PRIVMSG" == $ex[1] && $channel == trim(strtolower($setting->get('irc_channel')))) {
 		$args = NULL;
 		for ($i = 4; $i < count($ex); $i++) {
-			$args .= rtrim(htmlspecialchars($ex[$i])) . ' ';
+			$args .= rtrim($ex[$i]) . ' ';
 		}
 		for ($i = 3; $i < count($ex); $i++) {
-			$ircmessage .= rtrim(htmlspecialchars($ex[$i]))." ";
+			$ircmessage .= rtrim($ex[$i])." ";
 		}
 		
-		$rawcmd = rtrim(htmlspecialchars($ex[3]));
+		$rawcmd = rtrim($ex[3]);
 		
 		LegacyLogger::log_chat("Inc. IRC Msg.", $nick, $ircmessage);
 

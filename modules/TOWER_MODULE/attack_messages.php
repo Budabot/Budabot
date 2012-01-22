@@ -54,12 +54,12 @@ if ($closest_site === null) {
 	// Beginning of the 'more' window
 	$link = "<highlight>Attacker:<end> <font color=#DEDE42>";
 	if ($whois->firstname) {
-		$link .= $whois->firstname." ";
+		$link .= $whois->firstname . " ";
 	}
 
-	$link .= "&quot;{$att_player}&quot; ";
+	$link .= '"' . $att_player . '"';
 	if ($whois->lastname)  {
-		$link .= $whois->lastname." ";
+		$link .= " " . $whois->lastname;
 	}
 	$link .= "<end>\n";
 	

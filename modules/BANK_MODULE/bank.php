@@ -28,7 +28,7 @@ if (preg_match("/^bank browse$/i", $message)) {
 	$sendto->reply($msg);
 } else if (preg_match("/^bank browse ([a-z0-9-]+) (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
-	$pack = htmlspecialchars_decode($arr[2], ENT_QUOTES);
+	$pack = $arr[2];
 	$limit = $setting->get('max_bank_items');
 
 	$blob = '';

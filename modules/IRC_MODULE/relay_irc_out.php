@@ -14,8 +14,7 @@ if (IRC::isConnectionActive($ircSocket)) {
 		$pattern = '/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/';
 		$replace = chr(3) . chr(3) . '\4' . chr(3) . ' ' . chr(3) . '(http://auno.org/ao/db.php?id=\1&id2=\2&ql=\3)' . chr(3) . chr(3);
  
-		$msg = htmlspecialchars_decode(preg_replace($pattern, $replace, $message));
-		//$msg = htmlspecialchars_decode(preg_replace($patterns, $replaces, $message), ENT_QUOTES);
+		$msg = preg_replace($pattern, $replace, $message);
 
 		if (Util::isValidSender($sender)) {
 			$msg = "$sender: $msg";

@@ -76,7 +76,7 @@ if ($data = fgets($bbinSocket)) {
 		// tweak the third message a bit to remove beginning ":"
 		$ex[3] = substr($ex[3],1,strlen($ex[3]));
 		for ($i = 3; $i < count($ex); $i++) {
-			$bbinmessage .= rtrim(htmlspecialchars_decode($ex[$i]))." ";
+			$bbinmessage .= rtrim($ex[$i])." ";
 		}
 
 		LegacyLogger::log_chat("Inc. BBIN Msg.", $nick, $bbinmessage);
