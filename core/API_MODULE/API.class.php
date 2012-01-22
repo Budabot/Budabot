@@ -17,6 +17,9 @@ class API {
 	/** @Logger */
 	public $logger;
 
+	/** @Inject */
+	public $accessLevel;
+
 	/**
 	 * @Setting("api_port")
 	 * @Description("Port number to listen for API requests")
