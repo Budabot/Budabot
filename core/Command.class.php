@@ -233,43 +233,45 @@ class Command extends Annotation {
 			Registry::getInstance('usage')->record($channel, $cmd, $sender, $commandHandler);
 		}
 	
-		$syntaxError = $this->callCommandHandler($commandHandler, $message, $channel, $sender, $sendto);
-		
-		if ($syntaxError === true) {
-			$help = $this->getHelpForCommand($cmd, $channel, $sender);
-			$sendto->reply($help);
+		try {
+			$syntaxError = $this->callCommandHandler($commandHandler, $message, $channel, $sender, $sendto);
+			
+			if ($syntaxError === true) {
+				$help = $this->getHelpForCommand($cmd, $channel, $sender);
+				$sendto->reply($help);
+			}
+		} catch (Exception $e) {
+			$sendto->reply("There was an error executing your command: " . $e->getMessage());
 		}
+
 		$this->chatBot->spam[$sender] += 10;
 	}
 	
 	public function callCommandHandler($commandHandler, $message, $channel, $sender, $sendto) {
 		$syntax_error = false;
-		try {
-			if (preg_match("/\\.php$/i", $commandHandler->file)) {
-				$chatBot = Registry::getInstance('chatBot');
-				$db = Registry::getInstance('db');
-				$setting = Registry::getInstance('setting');
-				$type = $channel;
 
-				require $commandHandler->file;
+		if (preg_match("/\\.php$/i", $commandHandler->file)) {
+			$chatBot = Registry::getInstance('chatBot');
+			$db = Registry::getInstance('db');
+			$setting = Registry::getInstance('setting');
+			$type = $channel;
+
+			require $commandHandler->file;
+		} else {
+			list($name, $method) = explode(".", $commandHandler->file);
+			$instance = Registry::getInstance($name);
+			if ($instance === null) {
+				$this->logger->log('ERROR', "Could not find instance for name '$name'");
 			} else {
-				list($name, $method) = explode(".", $commandHandler->file);
-				$instance = Registry::getInstance($name);
-				if ($instance === null) {
-					$this->logger->log('ERROR', "Could not find instance for name '$name'");
+				$arr = $this->checkMatches($instance, $method, $message);
+				if ($arr === false) {
+					$syntax_error = true;
 				} else {
-					$arr = $this->checkMatches($instance, $method, $message);
-					if ($arr === false) {
-						$syntax_error = true;
-					} else {
-						// methods will return false to indicate a syntax error, so when a false is returned,
-						// we set $syntax_error = true, otherwise we set it to false
-						$syntax_error = ($instance->$method($message, $channel, $sender, $sendto, $arr) !== false ? false : true);
-					}
+					// methods will return false to indicate a syntax error, so when a false is returned,
+					// we set $syntax_error = true, otherwise we set it to false
+					$syntax_error = ($instance->$method($message, $channel, $sender, $sendto, $arr) !== false ? false : true);
 				}
 			}
-		} catch (Exception $e) {
-			$sendto->reply("There was an error executing your command: " . $e->getMessage());
 		}
 		
 		return $syntax_error;
