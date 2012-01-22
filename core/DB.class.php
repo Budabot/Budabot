@@ -277,10 +277,8 @@ class DB {
 					}
 				}
 				//$this->commit();
-			
-				if (!$this->setting->save($settingName, $maxFileVersion)) {
-					$this->setting->add($module, $settingName, $settingName, 'noedit', 'text', $maxFileVersion);
-				}
+				
+				$this->setting->save($settingName, $maxFileVersion);
 				
 				if ($maxFileVersion != 0) {
 					$msg = "Updated '$name' database from '$currentVersion' to '$maxFileVersion'";
@@ -295,10 +293,9 @@ class DB {
 		} else {
 			$msg = "'$name' database already up to date! version: '$currentVersion'";
 			LegacyLogger::log('DEBUG', 'Core',  "'$name' database already up to date! version: '$currentVersion'");
-			
-			//Make sure the settings table row isn't dropped during boot-up
-			$this->exec("UPDATE settings_<myname> SET `verify` = 1 WHERE `name` = '$settingName'");
 		}
+		
+		$this->setting->add($module, $settingName, $settingName, 'noedit', 'text', $maxFileVersion);
 		
 		return $msg;
 	}
