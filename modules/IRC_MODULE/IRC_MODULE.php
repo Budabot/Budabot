@@ -58,5 +58,5 @@
 	$setting->add($MODULE_NAME, 'irc_guild_message_color', "Color of messages from other bots in the IRC channel", 'edit', "color", "<font color='#FFFFFF'>");
 	$setting->add($MODULE_NAME, 'irc_guild_name_color', "Color of guild names from other bots in the IRC channel", 'edit', "color", "<font color='#FFFFFF'>");
 	$setting->add($MODULE_NAME, 'irc_message_color', "Color of messages from users in the IRC channel", 'edit', "color", "<font color='#FFFFFF'>");
-	$setting->add($MODULE_NAME, 'irc_ignore', "Defines which characters to ignore", 'edit', "text", 'none', 'none');
+	$setting->add($MODULE_NAME, 'irc_ignore', "Defines which characters to ignore", 'edit', "text", 'none', 'none', '', '', 'irc_ignore.txt');
 ?>
