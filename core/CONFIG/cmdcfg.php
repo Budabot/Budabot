@@ -418,7 +418,7 @@ if (preg_match("/^config$/i", $message)) {
 		
 		$help = Registry::getInstance('help')->find($cmd, $sender);
 		if ($help) {
-			$list[] = $help;
+			$list[] = "<header> ::: Help ($cmd) ::: <end>\n\n" . $help;
 		}
 		
 		$msg = Text::make_structured_blob(ucfirst($cmd)." config", $list);

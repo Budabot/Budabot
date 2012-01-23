@@ -96,17 +96,9 @@ if (preg_match("/^settings$/i", $message)) {
 		}
 
 		// show help topic if there is one
-		if ($row->help != '') {
-			$help = Registry::getInstance('help')->find($row->help, null);
-			if ($help === false) {
-				LegacyLogger::log('ERROR', 'Settings', "Help command <highlight>{$row->help}<end> for setting <highlight>{$settingName}<end> could not be found.");
-			}
-		} else {
-			$help = Registry::getInstance('help')->find($settingName, null);
-		}
-
+		$help = Registry::getInstance('help')->find($settingName, $sender);
 		if ($help !== false) {
-			$blob .= "\n\n" . $help;
+			$blob .= "\n\n<header> ::: Help ($settingName) ::: <end>\n\n" . $help;
 		}
 
 		$msg = Text::make_blob("Settings Info for {$settingName}", $blob);
