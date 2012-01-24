@@ -18,7 +18,7 @@ if (preg_match("/^logs$/i", $message)) {
 		$msg = "Could not open log directory: '" . LegacyLogger::get_logging_directory() . "'";
 	}
 	$sendto->reply($msg);
-} else if (preg_match("/^logs ([a-zA-Z0-9_\\.]+)$/i", $message, $arr)) {
+} else if (preg_match("/^logs ([a-zA-Z0-9-_\\.]+)$/i", $message, $arr)) {
 	$filename = LegacyLogger::get_logging_directory() . "/" . $arr[1];
 	$readsize = $setting->get('max_blob_size') - 500;
 	
