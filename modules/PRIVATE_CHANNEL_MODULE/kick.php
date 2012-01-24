@@ -1,6 +1,6 @@
 <?php
 
-if (preg_match("/^kick (.+)$/i", $message, $arr)) {
+if (preg_match("/^kickuser (.+)$/i", $message, $arr)) {
     $uid = $chatBot->get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
     if ($uid) {

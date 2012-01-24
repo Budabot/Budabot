@@ -1,6 +1,6 @@
 <?php
 
-if (preg_match("/^invite (.+)$/i", $message, $arr)) {
+if (preg_match("/^inviteuser (.+)$/i", $message, $arr)) {
     $uid = $chatBot->get_uid($arr[1]);
     $name = ucfirst(strtolower($arr[1]));
 	if ($chatBot->vars["name"] == $name) {
