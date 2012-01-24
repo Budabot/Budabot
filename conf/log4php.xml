@@ -8,12 +8,13 @@
 		</layout>
 	</appender>
     
-    <appender name="defaultFileAppender" class="LoggerAppenderFile">
+    <appender name="defaultFileAppender" class="LoggerAppenderDailyFile">
         <layout class="LoggerLayoutTTCC">
 			<param name="threadPrinting" value="false" />
 			<param name="microSecondsPrinting" value="false" />
 		</layout>
-        <param name="file" value="./logs/budabot.log" />
+        <param name="file" value="./logs/budabot_%s.log" />
+		<param name="datePattern" value="Y-m" />
     </appender>
  
 	<!-- <logger name="Foo">

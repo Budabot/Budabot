@@ -120,8 +120,6 @@ require_once './core/Ban.class.php';
 require_once './core/Util.class.php';
 require_once './core/Text.class.php';
 
-Logger::configure('conf/log4php.xml');
-
 // Show setup dialog.
 if ($vars['login'] == "" || $vars['password'] == "" || $vars['name'] == "") {
 	include "./core/SETUP/setup.php";
@@ -129,15 +127,13 @@ if ($vars['login'] == "" || $vars['password'] == "" || $vars['name'] == "") {
 
 $vars["name"] = ucfirst(strtolower($vars["name"]));
 
-// Make sure logging directory exists.
-@mkdir("./logs/{$vars['name']}.{$vars['dimension']}", 0777, true);
-
 // configure log files to be separate for each bot
-$defaultFileAppender = Logger::getRootLogger()->getAppender('defaultFileAppender');
-$loggingFile = $defaultFileAppender->getFile();
-$loggingFile = str_replace("./logs/", "./logs/{$vars['name']}.{$vars['dimension']}/", $loggingFile);
-$defaultFileAppender->setFile($loggingFile);
-$defaultFileAppender->activateOptions();
+$configurator = new LoggerConfiguratorDefault();
+$config = $configurator->parse('conf/log4php.xml');
+$file = $config['appenders']['defaultFileAppender']['params']['file'];
+$file = str_replace("./logs/", "./logs/{$vars['name']}.{$vars['dimension']}/", $file);
+$config['appenders']['defaultFileAppender']['params']['file'] = $file;
+Logger::configure($config);
 
 // Set the title of the command prompt window in Windows.
 if (isWindows()) {
