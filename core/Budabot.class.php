@@ -344,18 +344,12 @@ class Budabot extends AOChat {
 	}
 	
 	public function registerModule($baseDir, $MODULE_NAME) {
-		$chatBot = $this;
-		$db = $this->db;
-		$command = $this->command;
-		$subcommand = $this->subcommand;
-		$event = $this->event;
-		$help = $this->help;
-		$setting = $this->setting;
-		$commandAlias = $this->commandAlias;
-		
 		if (file_exists("{$baseDir}/{$MODULE_NAME}/{$MODULE_NAME}.php")) {
 			$this->logger->log('DEBUG', "MODULE_NAME:({$MODULE_NAME}.php)");
-			require "{$baseDir}/{$MODULE_NAME}/{$MODULE_NAME}.php";
+			$name = $MODULE_NAME . "LegacyController";
+			$this->registerInstance($MODULE_NAME, $name, new LegacyController);
+			$controller = Registry::getInstance($name);
+			$controller->loadLegacyModule($baseDir, $name);
 		} else {
 			$original = get_declared_classes();
 			if ($d = dir("{$baseDir}/{$MODULE_NAME}")) {

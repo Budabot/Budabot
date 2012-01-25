@@ -18,7 +18,7 @@ class Subcommand extends Annotation {
 	 * @name: register
 	 * @description: Registers a subcommand
 	 */
-	public function register($module, $channel, $filename, $command, $admin = 'all', $parent_command, $description = 'none', $help = '', $defaultStatus = null) {
+	public function register($module, $channel, $filename, $command, $admin, $parent_command, $description = 'none', $help = '', $defaultStatus = null) {
 		$command = strtolower($command);
 		$module = strtoupper($module);
 
