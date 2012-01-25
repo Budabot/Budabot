@@ -17,7 +17,7 @@ if (preg_match("/^events$/i", $message, $arr)) {
 	$row = $db->queryRow("SELECT * FROM events WHERE `id` = ?", $arr[1]);
 	if (time() < (($row->event_date)+(3600*3))) {
 		// cannot join an event after 3 hours past its starttime
-		if (strpos($row->event_attendees,$sender) !== false) {
+		if (strpos($row->event_attendees, $sender) !== false) {
 			$sendto->reply("You are already on the event list.");
 			return;
 		} else {
@@ -64,11 +64,12 @@ if (preg_match("/^events$/i", $message, $arr)) {
 		$link = Text::make_chatcmd("Join this event", "/tell <myname> event join $id")."\n";
 		$link .= Text::make_chatcmd("Leave this event", "/tell <myname> event leave $id")."\n\n";
 
-		$eventlist = explode(",", $row->event_attendees);
-		sort($eventlist);
 		if ($row->event_attendees != "") {
+			$eventlist = explode(",", $row->event_attendees);
+			sort($eventlist);
 			forEach ($eventlist as $key => $name) {
-				$row = $db->queryRow("SELECT * FROM players p WHERE name = ? AND p.dimension = '<dim>'", $name);
+				$row = $db->queryRow("SELECT * FROM players WHERE name = ? AND dimension = '<dim>'", $name);
+				$info = '';
 				if ($row !== null) {
 					$info = " <white>Lvl $row->level $row->profession<end>\n";
 				}
