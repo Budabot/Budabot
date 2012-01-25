@@ -16,8 +16,8 @@ if (preg_match("/^research ([0-9]+)$/i",$message, $arr)) {
 		$levelcap = $row->levelcap;
 		$sk = $row->sk;
 		$xp = $sk * 1000;
-		$capxp = round($xp * .04);
-		$capsk = round($sk * .04);
+		$capxp = round($xp * .05);
+		$capsk = round($sk * .05);
 		$xp = number_format($xp);
 		$sk = number_format($sk);
 		

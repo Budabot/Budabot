@@ -8,23 +8,23 @@ class AltInfo {
 		if ($sender == $this->main) {
 			return true;
 		}
-		
+
 		forEach ($this->alts as $alt => $validated) {
 			if ($sender == $alt) {
 				return ($validated == 1);
 			}
 		}
-		
+
 		// $sender is not an alt at all, return false
 		return false;
 	}
-	
+
 	public function get_alts_blob($showValidateLinks = false, $firstPageOnly = false) {
 		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 		$setting = Registry::getInstance('setting');
 		$player = Registry::getInstance('player');
-		
+
 		if (count($this->alts) == 0) {
 			return "No registered alts.";
 		}
@@ -38,15 +38,15 @@ class AltInfo {
 		if ($online === null) {
 			$blob .= " - No status\n";
 		} else if ($online == 1) {
-			$blob .= " - <green>Online<end>\n";
+			$blob .= " - <green>Online<end>\n " . Text::make_chatcmd("Send tell", "/tell $this->main");
 		} else {
 			$blob .= " - <red>Offline<end>\n";
 		}
-		
+
 		$sql = "SELECT `alt`, `main`, `validated`, p.* FROM `alts` a LEFT JOIN players p ON (a.alt = p.name AND p.dimension = '<dim>') WHERE `main` LIKE ? ORDER BY level DESC, ai_level DESC, profession ASC, name ASC";
 		$data = $db->query($sql, $this->main);
 		$count = count($data);
-		
+
 		$blob .= "\n:::::: Alt Characters ({$count})\n";
 		forEach ($data as $row) {
 			$blob .= "<tab><tab>{$row->alt}";
@@ -57,7 +57,7 @@ class AltInfo {
 			if ($online === null) {
 				$blob .= " - No status.";
 			} else if ($online == 1) {
-				$blob .= " - <green>Online<end>";
+				$blob .= " - <green>Online<end> " . Text::make_chatcmd("Send tell", "/tell $row->alt");
 			} else {
 				$blob .= " - <red>Offline<end>";
 			}
