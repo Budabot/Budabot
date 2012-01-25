@@ -12,7 +12,7 @@ class Registry {
 	public static function instanceExists($name) {
 		$name = strtolower($name);
 
-		if (isset(Registry::$repo[$name]) || isset(Registry::$repo2[$name])) {
+		if (isset(Registry::$repo[$name])) {
 			return true;
 		} else {
 			return false;
@@ -22,32 +22,31 @@ class Registry {
 	public static function getInstance($name, $set = array()) {
 		$name = strtolower($name);
 		LegacyLogger::log("DEBUG", "Registry", "Requesting instance for '$name'");
-
-		if (USE_RUNKIT_CLASS_LOADING === true) {
-			Registry::importChanges(ucfirst($name) . ".class.php");
-		}
 		
 		$instance = @Registry::$repo2[$name];
 		if ($instance != null) {
 			LegacyLogger::log("DEBUG", "Registry", "Using cache for '$name'");
-			return $instance;
+		} else {
+			$instance = Registry::$repo[$name];
+			if ($instance == null) {
+				LegacyLogger::log("WARN", "Registry", "Could not find instance for '$name'");
+			} else {
+				// this is to handle circular dependencies
+				if (isset($set[$name])) {
+					return $set[$name];
+				}
+				$set[$name] = $instance;
+				
+				Registry::injectDependencies($instance, $set);
+				
+				Registry::$repo2[$name] = $instance;
+			}
 		}
 
-		$instance = Registry::$repo[$name];
-		if ($instance == null) {
-			LegacyLogger::log("WARN", "Registry", "Could not find instance for '$name'");
-			return null;
+		if (USE_RUNKIT_CLASS_LOADING === true) {
+			Registry::importChanges($instance);
 		}
 		
-		// this is to handle circular dependencies
-		if (isset($set[$name])) {
-			return $set[$name];
-		}
-		$set[$name] = $instance;
-		
-		Registry::injectDependencies($instance, $set);
-		
-		Registry::$repo2[$name] = $instance;
 		return $instance;
 	}
 	
@@ -74,21 +73,10 @@ class Registry {
 		}
 	}
 	
-	public static function importChanges($name) {
-		$file = Registry::findInclude($name);
-		if ($file !== null) {
-			LegacyLogger::log("DEBUG", "Registry", "Re-importing file '$file'");
-			runkit_import($file, RUNKIT_IMPORT_CLASSES | RUNKIT_IMPORT_OVERRIDE);
-		}
-	}
-	
-	public static function findInclude($name) {
-		forEach (get_included_files() as $file) {
-			if (preg_match("/" . preg_quote($name) . "$/i", $file)) {
-				return $file;
-			}
-		}
-		return null;
+	public static function importChanges($instance) {
+		$reflection = new ReflectionClass($instance);
+		LegacyLogger::log("DEBUG", "Registry", "Re-importing file '$file'");
+		runkit_import($reflection->getFileName(), RUNKIT_IMPORT_CLASSES | RUNKIT_IMPORT_OVERRIDE);
 	}
 }
 
