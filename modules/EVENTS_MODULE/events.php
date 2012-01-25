@@ -75,6 +75,7 @@ if (preg_match("/^events$/i", $message, $arr)) {
 				}
 				
 				$altInfo = Alts::get_alt_info($name);
+				$alt = '';
 				if (count($altInfo->alts) > 0) {
 					if ($altInfo->main == $name) {
 						$alt = "<highlight>::<end> <a href='chatcmd:///tell <myname> alts {$name}'>Alts</a>";
