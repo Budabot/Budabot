@@ -49,25 +49,16 @@ class Event extends Annotation {
 			$this->logger->log('ERROR', "Error registering event Type:($type) File:($filename) Module:($module). The type is not a recognized event type!");
 			return;
 		}
-		
-		if (preg_match("/\\.php$/i", $filename)) {
-			$actual_filename = $this->util->verify_filename($module . '/' . $filename);
-			if ($actual_filename == '') {
-				$this->logger->log('ERROR', "Error registering event Type:($type) File:($filename) Module:($module). The file doesn't exist!");
-				return;
-			}
-		} else {
-			list($name, $method) = explode(".", $filename);
-			if (!Registry::instanceExists($name)) {
-				$this->logger->log('ERROR', "Error registering method $filename for event type $type.  Could not find instance '$name'.");
-				return;
-			}
-			$actual_filename = $filename;
+
+		list($name, $method) = explode(".", $filename);
+		if (!Registry::instanceExists($name)) {
+			$this->logger->log('ERROR', "Error registering method $filename for event type $type.  Could not find instance '$name'.");
+			return;
 		}
 		
-		if (isset($this->chatBot->existing_events[$type][$actual_filename])) {
+		if (isset($this->chatBot->existing_events[$type][$filename])) {
 			$sql = "UPDATE eventcfg_<myname> SET `verify` = 1, `description` = ?, `help` = ? WHERE `type` = ? AND `file` = ? AND `module` = ?";
-		  	$this->db->exec($sql, $description, $help, $type, $actual_filename, $module);
+		  	$this->db->exec($sql, $description, $help, $type, $filename, $module);
 		} else {
 			if ($defaultStatus === null) {
 				if ($this->chatBot->vars['default_module_status'] == 1) {
@@ -79,7 +70,7 @@ class Event extends Annotation {
 				$status = $defaultStatus;
 			}
 			$sql = "INSERT INTO eventcfg_<myname> (`module`, `type`, `file`, `verify`, `description`, `status`, `help`) VALUES (?, ?, ?, ?, ?, ?, ?)";
-			$this->db->exec($sql, $module, $type, $actual_filename, '1', $description, $status, $help);
+			$this->db->exec($sql, $module, $type, $filename, '1', $description, $status, $help);
 		}
 	}
 
@@ -97,38 +88,29 @@ class Event extends Annotation {
 		
 		$this->logger->log('DEBUG', "Activating event Type:($type) File:($filename)");
 
-		if (preg_match("/\\.php$/i", $filename)) {
-			$actual_filename = $this->util->verify_filename($filename);
-			if ($actual_filename == '') {
-				$this->logger->log('ERROR', "Error activating event Type:($type) File:($filename). The file doesn't exist!");
-				return;
-			}
-		} else {
-			list($name, $method) = explode(".", $filename);
-			if (!Registry::instanceExists($name)) {
-				$this->logger->log('ERROR', "Error activating method $filename for event type $type.  Could not find instance '$name'.");
-				return;
-			}
-			$actual_filename = $filename;
+		list($name, $method) = explode(".", $filename);
+		if (!Registry::instanceExists($name)) {
+			$this->logger->log('ERROR', "Error activating method $filename for event type $type.  Could not find instance '$name'.");
+			return;
 		}
 		
 		if ($type == "setup") {
 			$eventObj = new stdClass;
 			$eventObj->type = 'setup';
 
-			$this->callEventHandler($eventObj, $actual_filename);
+			$this->callEventHandler($eventObj, $filename);
 		} else if (in_array($type, Event::$EVENT_TYPES)) {
-			if (!isset($this->events[$type]) || !in_array($actual_filename, $this->events[$type])) {
-				$this->events[$type] []= $actual_filename;
+			if (!isset($this->events[$type]) || !in_array($filename, $this->events[$type])) {
+				$this->events[$type] []= $filename;
 			} else {
 				$this->logger->log('ERROR', "Error activating event Type:($type) File:($filename). Event already activated!");
 			}
 		} else {
 			$time = $this->util->parseTime($type);
 			if ($time > 0) {
-				$key = $this->getKeyForCronEvent($time, $actual_filename);
+				$key = $this->getKeyForCronEvent($time, $filename);
 				if ($key === null) {
-					$this->cronevents[] = array('nextevent' => 0, 'filename' => $actual_filename, 'time' => $time);
+					$this->cronevents[] = array('nextevent' => 0, 'filename' => $filename, 'time' => $time);
 				} else {
 					$this->logger->log('ERROR', "Error activating event Type:($type) File:($filename). Event already activated!");
 				}
@@ -147,28 +129,16 @@ class Event extends Annotation {
 
 		$this->logger->log('debug', "Deactivating event Type:($type) File:($filename)");
 		
-		// to remove this check we need to make sure to use $filename instead of $actual_filename
-		//Check if the file exists
-		if (preg_match("/\\.php$/i", $filename)) {
-			$actual_filename = $this->util->verify_filename($filename);
-			if ($actual_filename == '') {
-				$this->logger->log('ERROR', "Error deactivating event Type:($type) File:($filename). The file doesn't exist!");
-				return;
-			}
-		} else {
-			$actual_filename = $filename;
-		}
-		
 		if (in_array($type, Event::$EVENT_TYPES)) {
-			if (in_array($actual_filename, $this->events[$type])) {
+			if (in_array($filename, $this->events[$type])) {
 				$found = true;
 				$temp = array_flip($this->events[$type]);
-				unset($this->events[$type][$temp[$actual_filename]]);
+				unset($this->events[$type][$temp[$filename]]);
 			}
 		} else {
 			$time = $this->util->parseTime($type);
 			if ($time > 0) {
-				$key = $this->getKeyForCronEvent($time, $actual_filename);
+				$key = $this->getKeyForCronEvent($time, $filename);
 				if ($key != null) {
 					$found = true;
 					unset($this->cronevents[$key]);
@@ -302,28 +272,14 @@ class Event extends Annotation {
 		$stop_execution = false;
 		$msg = "";
 
-		if (preg_match("/\\.php$/i", $handler)) {
-			$chatBot = $this->chatBot;
-			$db = $this->db;
-			$setting = $this->setting;
-			
-			$type = $eventObj->type;
-			@$channel = $eventObj->channel;
-			@$sender = $eventObj->sender;
-			@$message = $eventObj->message;
-			@$packet_type = $eventObj->packet->type;
-			@$args = $eventObj->packet->args;
-
-			require $handler;
+		list($name, $method) = explode(".", $handler);
+		$instance = Registry::getInstance($name);
+		if ($instance === null) {
+			$this->logger->log('ERROR', "Could not find instance for name '$name' in '$handler' for event type '$eventObj->type'");
 		} else {
-			list($name, $method) = explode(".", $handler);
-			$instance = Registry::getInstance($name);
-			if ($instance === null) {
-				$this->logger->log('ERROR', "Could not find instance for name '$name' in '$handler' for event type '$eventObj->type'");
-			} else {
-				$stop_execution = ($instance->$method($eventObj) === true ? true : false);
-			}
+			$stop_execution = ($instance->$method($eventObj) === true ? true : false);
 		}
+
 		return $stop_execution;
 	}
 }

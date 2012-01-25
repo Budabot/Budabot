@@ -188,6 +188,74 @@ class Budabot extends AOChat {
 		$this->commandAlias->load();
 		$this->event->loadEvents();
 	}
+	
+	function loadCoreModules() {
+		// Load the Core Modules -- SETINGS must be first in case the other modules have settings
+		$this->logger->log('INFO', "Loading CORE modules...");
+		$core_modules = array('SETTINGS', 'SYSTEM', 'ADMIN', 'BAN', 'HELP', 'CONFIG', 'LIMITS', 'PLAYER_LOOKUP', 'FRIENDLIST', 'ALTS', 'USAGE', 'PREFERENCES', 'API_MODULE');
+		$this->db->begin_transaction();
+		forEach ($core_modules as $MODULE_NAME) {
+			$this->registerModule("./core", $MODULE_NAME);
+		}
+		$this->db->commit();
+	}
+
+	/**
+	 * @name: loadModules
+	 * @description: load all user modules
+	 */
+	function loadModules(){
+		if ($d = dir("./modules")) {
+			$this->db->begin_transaction();
+			while (false !== ($MODULE_NAME = $d->read())) {
+				// filters out ., .., .svn
+				if (!is_dir($MODULE_NAME)) {
+					$this->registerModule("./modules", $MODULE_NAME);
+				}
+			}
+			$d->close();
+			$this->db->commit();
+		}
+	}
+	
+	public function registerModule($baseDir, $MODULE_NAME) {
+		if (file_exists("{$baseDir}/{$MODULE_NAME}/{$MODULE_NAME}.php")) {
+			$this->logger->log('DEBUG', "MODULE_NAME:({$MODULE_NAME}.php)");
+			$name = ucfirst(strtolower($MODULE_NAME)) . "LegacyController";
+			$this->registerInstance($MODULE_NAME, $name, new LegacyController);
+			$controller = Registry::getInstance($name);
+			$controller->loadLegacyModule($baseDir, $name);
+		} else {
+			$original = get_declared_classes();
+			if ($d = dir("{$baseDir}/{$MODULE_NAME}")) {
+				while (false !== ($file = $d->read())) {
+					// filters out ., .., .svn
+					if (!is_dir($file) && preg_match("/\\.class\\.php$/i", $file)) {
+						require "{$baseDir}/{$MODULE_NAME}/{$file}";
+					}
+				}
+				$d->close();
+			}
+			$new = array_diff(get_declared_classes(), $original);
+			
+			if (count($new) == 0) {
+				$this->logger->log('ERROR', "Could not load module {$MODULE_NAME}. {$MODULE_NAME}.php does not exist!");
+				return;
+			}
+			
+			forEach ($new as $className) {
+				$reflection = new ReflectionAnnotatedClass($className);
+				if ($reflection->hasAnnotation('Instance')) {
+					if ($reflection->getAnnotation('Instance')->value != '') {
+						$name = $reflection->getAnnotation('Instance')->value;
+					} else {
+						$name = $className;
+					}
+					$this->registerInstance($MODULE_NAME, $name, new $className);
+				}
+			}
+		}
+	}
 
 	public function sendPrivate($message, $disable_relay = false, $group = null) {
 		// for when $text->make_blob generates several pages
@@ -311,74 +379,6 @@ class Budabot extends AOChat {
     		$this->sendTell($message, $target, $priority);
 		} else { // Public channels that are not guild
 	    	$this->sendPublic($message, $target, $priority);
-		}
-	}
-	
-	function loadCoreModules() {
-		// Load the Core Modules -- SETINGS must be first in case the other modules have settings
-		$this->logger->log('INFO', "Loading CORE modules...");
-		$core_modules = array('SETTINGS', 'SYSTEM', 'ADMIN', 'BAN', 'HELP', 'CONFIG', 'LIMITS', 'PLAYER_LOOKUP', 'FRIENDLIST', 'ALTS', 'USAGE', 'PREFERENCES', 'API_MODULE');
-		$this->db->begin_transaction();
-		forEach ($core_modules as $MODULE_NAME) {
-			$this->registerModule("./core", $MODULE_NAME);
-		}
-		$this->db->commit();
-	}
-
-	/**
-	 * @name: loadModules
-	 * @description: load all user modules
-	 */
-	function loadModules(){
-		if ($d = dir("./modules")) {
-			$this->db->begin_transaction();
-			while (false !== ($MODULE_NAME = $d->read())) {
-				// filters out ., .., .svn
-				if (!is_dir($MODULE_NAME)) {
-					$this->registerModule("./modules", $MODULE_NAME);
-				}
-			}
-			$d->close();
-			$this->db->commit();
-		}
-	}
-	
-	public function registerModule($baseDir, $MODULE_NAME) {
-		if (file_exists("{$baseDir}/{$MODULE_NAME}/{$MODULE_NAME}.php")) {
-			$this->logger->log('DEBUG', "MODULE_NAME:({$MODULE_NAME}.php)");
-			$name = $MODULE_NAME . "LegacyController";
-			$this->registerInstance($MODULE_NAME, $name, new LegacyController);
-			$controller = Registry::getInstance($name);
-			$controller->loadLegacyModule($baseDir, $name);
-		} else {
-			$original = get_declared_classes();
-			if ($d = dir("{$baseDir}/{$MODULE_NAME}")) {
-				while (false !== ($file = $d->read())) {
-					// filters out ., .., .svn
-					if (!is_dir($file) && preg_match("/\\.class\\.php$/i", $file)) {
-						require "{$baseDir}/{$MODULE_NAME}/{$file}";
-					}
-				}
-				$d->close();
-			}
-			$new = array_diff(get_declared_classes(), $original);
-			
-			if (count($new) == 0) {
-				$this->logger->log('ERROR', "Could not load module {$MODULE_NAME}. {$MODULE_NAME}.php does not exist!");
-				return;
-			}
-			
-			forEach ($new as $className) {
-				$reflection = new ReflectionAnnotatedClass($className);
-				if ($reflection->hasAnnotation('Instance')) {
-					if ($reflection->getAnnotation('Instance')->value != '') {
-						$name = $reflection->getAnnotation('Instance')->value;
-					} else {
-						$name = $className;
-					}
-					$this->registerInstance($MODULE_NAME, $name, new $className);
-				}
-			}
 		}
 	}
 

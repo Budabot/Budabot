@@ -281,7 +281,12 @@ class Command extends Annotation {
 	}
 	
 	public function checkMatches($instance, $method, $message) {
-		$reflectedMethod = new ReflectionAnnotatedMethod($instance, $method);
+		try {
+			$reflectedMethod = new ReflectionAnnotatedMethod($instance, $method);
+		} catch (ReflectionException $e) {
+			// method doesn't exist (probably handled dynamically)
+			return true;
+		}
 		
 		$regexes = $this->retrieveRegexes($reflectedMethod);
 		

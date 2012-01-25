@@ -27,19 +27,10 @@ class Subcommand extends Annotation {
 			return;
 		}
 
-		if (preg_match("/\\.php$/i", $filename)) {
-			$actual_filename = $this->util->verify_filename($module . '/' . $filename);
-			if ($actual_filename == '') {
-				$this->logger->log('ERROR', "Error in registering the file $filename for Subcommand $command. The file doesn't exist!");
-				return;
-			}
-		} else {
-			list($name, $method) = explode(".", $filename);
-			if (!Registry::instanceExists($name)) {
-				$this->logger->log('ERROR', "Error registering method $filename for subcommand $command.  Could not find instance '$name'.");
-				return;
-			}
-			$actual_filename = $filename;
+		list($name, $method) = explode(".", $filename);
+		if (!Registry::instanceExists($name)) {
+			$this->logger->log('ERROR', "Error registering method $filename for subcommand $command.  Could not find instance '$name'.");
+			return;
 		}
 
 		if ($defaultStatus === null) {
@@ -53,14 +44,14 @@ class Subcommand extends Annotation {
 		}
 
 		for ($i = 0; $i < count($channel); $i++) {
-			$this->logger->log('DEBUG', "Adding Subcommand to list:($command) File:($actual_filename) Admin:($admin) Channel:({$channel[$i]})");
+			$this->logger->log('DEBUG', "Adding Subcommand to list:($command) File:($filename) Admin:($admin) Channel:({$channel[$i]})");
 
 			if ($this->chatBot->existing_subcmds[$channel[$i]][$command] == true) {
 				$sql = "UPDATE cmdcfg_<myname> SET `module` = ?, `verify` = ?, `file` = ?, `description` = ?, `dependson` = ?, `help` = ? WHERE `cmd` = ? AND `type` = ?";
-				$this->db->exec($sql, $module, '1', $actual_filename, $description, $parent_command, $help, $command, $channel[$i]);
+				$this->db->exec($sql, $module, '1', $filename, $description, $parent_command, $help, $command, $channel[$i]);
 			} else {
 				$sql = "INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `dependson`, `status`, `help`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-				$this->db->exec($sql, $module, $channel[$i], $actual_filename, $command, $admin[$i], $description, '1', 'subcmd', $parent_command, $status, $help);
+				$this->db->exec($sql, $module, $channel[$i], $filename, $command, $admin[$i], $description, '1', 'subcmd', $parent_command, $status, $help);
 			}
 		}
 	}
