@@ -47,19 +47,10 @@ class Command extends Annotation {
 			return;
 		}
 		
-		if (preg_match("/\\.php$/i", $filename)) {
-			$actual_filename = $this->util->verify_filename($module . '/' . $filename);
-			if ($actual_filename == '') {
-				$this->logger->log('ERROR', "Error registering file $filename for command $command. The file doesn't exist!");
-				return;
-			}
-		} else {
-			list($name, $method) = explode(".", $filename);
-			if (!Registry::instanceExists($name)) {
-				$this->logger->log('ERROR', "Error registering method $filename for command $command.  Could not find instance '$name'.");
-				return;
-			}
-			$actual_filename = $filename;
+		list($name, $method) = explode(".", $filename);
+		if (!Registry::instanceExists($name)) {
+			$this->logger->log('ERROR', "Error registering method $filename for command $command.  Could not find instance '$name'.");
+			return;
 		}
 		
 		$help = $this->help->checkForHelpFile($module, $help, $command);
@@ -75,14 +66,14 @@ class Command extends Annotation {
 		}
 
 		for ($i = 0; $i < count($channel); $i++) {
-			$this->logger->log('debug', "Adding Command to list:($command) File:($actual_filename) Admin:({$admin[$i]}) Channel:({$channel[$i]})");
+			$this->logger->log('debug', "Adding Command to list:($command) File:($filename) Admin:({$admin[$i]}) Channel:({$channel[$i]})");
 			
 			if (isset($this->chatBot->existing_commands[$channel[$i]][$command])) {
 				$sql = "UPDATE cmdcfg_<myname> SET `module` = ?, `verify` = ?, `file` = ?, `description` = ?, `help` = ? WHERE `cmd` = ? AND `type` = ?";
-				$this->db->exec($sql, $module, '1', $actual_filename, $description, $help, $command, $channel[$i]);
+				$this->db->exec($sql, $module, '1', $filename, $description, $help, $command, $channel[$i]);
 			} else {
 				$sql = "INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`, `help`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-				$this->db->exec($sql, $module, $channel[$i], $actual_filename, $command, $admin[$i], $description, '1', 'cmd', $status, $help);
+				$this->db->exec($sql, $module, $channel[$i], $filename, $command, $admin[$i], $description, '1', 'cmd', $status, $help);
 			}
 		}
 	}
@@ -98,20 +89,12 @@ class Command extends Annotation {
 
 	  	$this->logger->log('DEBUG', "Activate Command:($command) Admin Type:($admin) File:($filename) Channel:($channel)");
 
-		if (preg_match("/\\.php$/i", $filename)) {
-			$actual_filename = $this->util->verify_filename($filename);
-			if ($actual_filename == '') {
-				$this->logger->log('ERROR', "Error activating file $filename for command $command. The file doesn't exist!");
-				return;
-			}
-		} else {
-			list($name, $method) = explode(".", $filename);
-			if (!Registry::instanceExists($name)) {
-				$this->logger->log('ERROR', "Error activating method $filename for command $command.  Could not find instance '$name'.");
-				return;
-			}
-			$actual_filename = $filename;
+		list($name, $method) = explode(".", $filename);
+		if (!Registry::instanceExists($name)) {
+			$this->logger->log('ERROR', "Error activating method $filename for command $command.  Could not find instance '$name'.");
+			return;
 		}
+		$actual_filename = $filename;
 		
 		$obj = new stdClass;
 		$obj->file = $actual_filename;
@@ -232,7 +215,7 @@ class Command extends Annotation {
 		if ($this->setting->get('record_usage_stats') == 1) {
 			Registry::getInstance('usage')->record($channel, $cmd, $sender, $commandHandler);
 		}
-	
+
 		try {
 			$syntaxError = $this->callCommandHandler($commandHandler, $message, $channel, $sender, $sendto);
 			
@@ -248,33 +231,24 @@ class Command extends Annotation {
 	}
 	
 	public function callCommandHandler($commandHandler, $message, $channel, $sender, $sendto) {
-		$syntax_error = false;
+		$syntaxError = false;
 
-		if (preg_match("/\\.php$/i", $commandHandler->file)) {
-			$chatBot = Registry::getInstance('chatBot');
-			$db = Registry::getInstance('db');
-			$setting = Registry::getInstance('setting');
-			$type = $channel;
-
-			require $commandHandler->file;
+		list($name, $method) = explode(".", $commandHandler->file);
+		$instance = Registry::getInstance($name);
+		if ($instance === null) {
+			$this->logger->log('ERROR', "Could not find instance for name '$name'");
 		} else {
-			list($name, $method) = explode(".", $commandHandler->file);
-			$instance = Registry::getInstance($name);
-			if ($instance === null) {
-				$this->logger->log('ERROR', "Could not find instance for name '$name'");
+			$arr = $this->checkMatches($instance, $method, $message);
+			if ($arr === false) {
+				$syntaxError = true;
 			} else {
-				$arr = $this->checkMatches($instance, $method, $message);
-				if ($arr === false) {
-					$syntax_error = true;
-				} else {
-					// methods will return false to indicate a syntax error, so when a false is returned,
-					// we set $syntax_error = true, otherwise we set it to false
-					$syntax_error = ($instance->$method($message, $channel, $sender, $sendto, $arr) !== false ? false : true);
-				}
+				// methods will return false to indicate a syntax error, so when a false is returned,
+				// we set $syntaxError = true, otherwise we set it to false
+				$syntaxError = ($instance->$method($message, $channel, $sender, $sendto, $arr) !== false ? false : true);
 			}
 		}
 		
-		return $syntax_error;
+		return $syntaxError;
 	}
 	
 	public function getActiveCommandHandler($cmd, $channel, $message) {
@@ -307,7 +281,12 @@ class Command extends Annotation {
 	}
 	
 	public function checkMatches($instance, $method, $message) {
-		$reflectedMethod = new ReflectionAnnotatedMethod($instance, $method);
+		try {
+			$reflectedMethod = new ReflectionAnnotatedMethod($instance, $method);
+		} catch (ReflectionException $e) {
+			// method doesn't exist (probably handled dynamically)
+			return true;
+		}
 		
 		$regexes = $this->retrieveRegexes($reflectedMethod);
 		

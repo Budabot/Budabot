@@ -36,4 +36,8 @@ class Instance extends Annotation {
 
 }
 
+class Setup extends Annotation {
+
+}
+
 ?>
