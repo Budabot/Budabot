@@ -21,6 +21,10 @@
 	$command->activate("priv", "$MODULE_NAME/executesql.php", "executesql", "admin");
 	$command->activate("guild", "$MODULE_NAME/executesql.php", "executesql", "admin");
 	
+	$command->activate("msg", "$MODULE_NAME/executesql.php", "querysql", "admin");
+	$command->activate("priv", "$MODULE_NAME/executesql.php", "querysql", "admin");
+	$command->activate("guild", "$MODULE_NAME/executesql.php", "querysql", "admin");
+	
 	$command->activate("msg", "$MODULE_NAME/logs.php", "logs", "admin");
 	$command->activate("priv", "$MODULE_NAME/logs.php", "logs", "admin");
 	$command->activate("guild", "$MODULE_NAME/logs.php", "logs", "admin");
