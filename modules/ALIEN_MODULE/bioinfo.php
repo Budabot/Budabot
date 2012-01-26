@@ -8,7 +8,11 @@ if (preg_match("/^bioinfo (.+) (\\d+)$/i", $message, $arr) ||
 	if ($arr[2]) {
 		$ql = $arr[2];
 	}
-
+	if ($ql < 1) {
+		$ql = 1;
+	} else if ($ql > 300) {
+		$ql = 300;
+	}
 	switch ($bio) {
 		// Ofab armor types
 		case '64':
