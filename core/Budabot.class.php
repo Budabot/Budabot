@@ -238,11 +238,7 @@ class Budabot extends AOChat {
 			}
 			$new = array_diff(get_declared_classes(), $original);
 			
-			if (count($new) == 0) {
-				$this->logger->log('ERROR', "Could not load module {$MODULE_NAME}. {$MODULE_NAME}.php does not exist!");
-				return;
-			}
-			
+			$count = 0;
 			forEach ($new as $className) {
 				$reflection = new ReflectionAnnotatedClass($className);
 				if ($reflection->hasAnnotation('Instance')) {
@@ -252,7 +248,13 @@ class Budabot extends AOChat {
 						$name = $className;
 					}
 					$this->registerInstance($MODULE_NAME, $name, new $className);
+					$count++;
 				}
+			}
+			
+			if ($count == 0) {
+				$this->logger->log('ERROR', "Could not load module {$MODULE_NAME}. No classes found with @Instance annotation!");
+				return;
 			}
 		}
 	}
@@ -763,7 +765,10 @@ class Budabot extends AOChat {
 		
 		// register commands, subcommands, and events annotated on the class
 		forEach ($reflection->getMethods() as $method) {
-			if ($method->hasAnnotation('Command')) {
+			if ($method->hasAnnotation('Setup') || ($method->hasAnnotation('Event') && $method->getAnnotation('Event')->value == 'setup')) {
+				$instance = Registry::getInstance($name);
+				$instance->{$method->name}();
+			} else if ($method->hasAnnotation('Command')) {
 				$this->command->register(
 					$MODULE_NAME,
 					@$method->getAnnotation('Channels')->value,
@@ -774,8 +779,7 @@ class Budabot extends AOChat {
 					@$method->getAnnotation('Help')->value,
 					@$method->getAnnotation('DefaultStatus')->value
 				);
-			}
-			if ($method->hasAnnotation('Subcommand')) {
+			} else if ($method->hasAnnotation('Subcommand')) {
 				list($parentCommand) = explode(" ", $method->getAnnotation('Subcommand')->value, 2);
 				$this->subcommand->register(
 					$MODULE_NAME,
@@ -788,8 +792,7 @@ class Budabot extends AOChat {
 					@$method->getAnnotation('Help')->value,
 					@$method->getAnnotation('DefaultStatus')->value
 				);
-			}
-			if ($method->hasAnnotation('Event')) {
+			} else if ($method->hasAnnotation('Event')) {
 				$this->event->register(
 					$MODULE_NAME,
 					$method->getAnnotation('Event')->value,
@@ -799,6 +802,7 @@ class Budabot extends AOChat {
 					@$method->getAnnotation('DefaultStatus')->value
 				);
 			}
+			
 		}
 	}
 	

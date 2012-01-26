@@ -23,7 +23,7 @@ class News {
 	public $defaultNews = "Not set.";
 	
 	/**
-	 * @Event("setup")
+	 * @Setup
 	 */
 	public function setup() {
 		$this->db->add_table_replace('#__news', 'news');
