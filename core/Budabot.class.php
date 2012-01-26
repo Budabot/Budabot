@@ -222,9 +222,7 @@ class Budabot extends AOChat {
 		if (file_exists("{$baseDir}/{$MODULE_NAME}/{$MODULE_NAME}.php")) {
 			$this->logger->log('DEBUG', "MODULE_NAME:({$MODULE_NAME}.php)");
 			$name = ucfirst(strtolower($MODULE_NAME)) . "LegacyController";
-			$this->registerInstance($MODULE_NAME, $name, new LegacyController);
-			$controller = Registry::getInstance($name);
-			$controller->loadLegacyModule($baseDir, $name);
+			$this->registerInstance($MODULE_NAME, $name, new LegacyController($baseDir, $name));
 		} else {
 			$original = get_declared_classes();
 			if ($d = dir("{$baseDir}/{$MODULE_NAME}")) {
@@ -765,7 +763,7 @@ class Budabot extends AOChat {
 		
 		// register commands, subcommands, and events annotated on the class
 		forEach ($reflection->getMethods() as $method) {
-			if ($method->hasAnnotation('Setup') || ($method->hasAnnotation('Event') && $method->getAnnotation('Event')->value == 'setup')) {
+			if ($method->hasAnnotation('Setup')) {
 				$instance = Registry::getInstance($name);
 				$instance->{$method->name}();
 			} else if ($method->hasAnnotation('Command')) {

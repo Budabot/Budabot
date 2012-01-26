@@ -20,9 +20,9 @@ class Timer {
 	private $timers = array();
 	
 	/**
-	 * @Event("setup")
+	 * @Setup
 	 */
-	public function setup($eventObj) {
+	public function setup() {
 		$this->timers = array();
 		$data = $this->db->query("SELECT * FROM timers_<myname>");
 		forEach ($data as $row) {
@@ -34,7 +34,7 @@ class Timer {
 	 * @Event("2sec")
 	 * @Description("Checks timers and periodically updates chat with time left")
 	 */
-	public function checkTimers($eventObj) {
+	public function checkTimers() {
 		//Check if at least one timer is running
 		if (count($this->timers) == 0) {
 			return;

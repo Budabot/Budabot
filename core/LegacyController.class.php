@@ -22,7 +22,18 @@ class LegacyController {
 	private $events = array();
 	private $subcommands = array();
 	
-	public function loadLegacyModule($baseDir, $name) {
+	private $baseDir;
+	private $name;
+	
+	public function __construct($baseDir, $name) {
+		$this->baseDir = $baseDir;
+		$this->name = $name;
+	}
+	
+	/**
+	 * @Setup
+	 */
+	public function setup() {
 		$setting = $this->setting;
 		$chatBot = $this->chatBot;
 		$db = $this->db;
@@ -30,19 +41,19 @@ class LegacyController {
 		$commandAlias = $this->commandAlias;
 		$MODULE_NAME = $this->moduleName;
 		
-		$command = new CommandProxy($name);
+		$command = new CommandProxy($this->name);
 		$command->commands = &$this->commands;
 		Registry::injectDependencies($command);
 		
-		$event = new EventProxy($name);
+		$event = new EventProxy($this->name);
 		$event->events = &$this->events;
 		Registry::injectDependencies($event);
 		
-		$subcommand = new SubcommandProxy($name);
+		$subcommand = new SubcommandProxy($this->name);
 		$subcommand->subcommands = &$this->subcommands;
 		Registry::injectDependencies($subcommand);
 
-		require "{$baseDir}/{$this->moduleName}/{$this->moduleName}.php";
+		require "{$this->baseDir}/{$this->moduleName}/{$this->moduleName}.php";
 	}
 	
 	public function eventHandler($filename, $eventObj) {
@@ -131,7 +142,7 @@ class CommandProxy {
 				$this->logger->log('ERROR', "Error activating file $filename for command $command. The file does not exist!");
 				return;
 			}
-			
+
 			$handlerName = "command_" . ($this->counter++);
 			$this->commands[$handlerName] = $actual_filename;
 			$this->command->activate($channel, $this->controller . "." . $handlerName, $command, $admin);
@@ -165,10 +176,10 @@ class EventProxy {
 		if (preg_match("/\\.php$/i", $filename)) {
 			$actual_filename = $this->util->verify_filename($module . '/' . $filename);
 			if ($actual_filename == '') {
-				$this->logger->log('ERROR', "Error registering event Type:($type) File:($filename) Module:($module). The file doesn't exist!");
+				$this->logger->log('ERROR', "Error registering event Type:($type) File:($filename) Module:($module). The file does not exist!");
 				return;
 			}
-			
+
 			$handlerName = "event_" . ($this->counter++);
 			$this->events[$handlerName] = $actual_filename;
 			$this->event->register($module, $type, $this->controller . "." . $handlerName, $description, $help, $defaultStatus);
@@ -181,10 +192,10 @@ class EventProxy {
 		if (preg_match("/\\.php$/i", $filename)) {
 			$actual_filename = $this->util->verify_filename($filename);
 			if ($actual_filename == '') {
-				$this->logger->log('ERROR', "Error activating event Type:($type) File:($filename). The file doesn't exist!");
+				$this->logger->log('ERROR', "Error activating event Type:($type) File:($filename). The file does not exist!");
 				return;
 			}
-			
+
 			$handlerName = "event_" . ($this->counter++);
 			$this->events[$handlerName] = $actual_filename;
 			$this->event->activate($type, $this->controller . "." . $handlerName);
@@ -218,7 +229,7 @@ class SubcommandProxy {
 		if (preg_match("/\\.php$/i", $filename)) {
 			$actual_filename = $this->util->verify_filename($module . '/' . $filename);
 			if ($actual_filename == '') {
-				$this->logger->log('ERROR', "Error in registering the file $filename for Subcommand $command. The file doesn't exist!");
+				$this->logger->log('ERROR', "Error in registering the file $filename for Subcommand $command. The file does not exist!");
 				return;
 			}
 			
