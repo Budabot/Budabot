@@ -21,7 +21,6 @@ if (preg_match("/^events$/i", $message, $arr)) {
 			$sendto->reply("You are already on the event list.");
 			return;
 		} else {
-			$row->event_attendees = trim($row->event_attendees);
 			if ($row->event_attendees == "") {
 				$row->event_attendees = "$sender";
 			} else {
@@ -46,7 +45,6 @@ if (preg_match("/^events$/i", $message, $arr)) {
 				}
 			}
 			$event = implode(",", $event);
-			$event = substr($event,1);
 			$db->exec("UPDATE events SET `event_attendees`='".$event."' WHERE `id` = '$arr[1]'");
 			$msg = "You have been removed from the event.";
 		} else {
