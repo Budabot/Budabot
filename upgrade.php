@@ -31,6 +31,6 @@ $db->exec("UPDATE hlpcfg_<myname> SET admin = 'rl' WHERE admin = 'leader'");
 $db->exec("UPDATE settings_<myname> SET admin = 'rl' WHERE admin = 'leader'");
 
 $db->exec("DELETE FROM cmd_alias_<myname> WHERE alias = 'kickuser'");
-$db->exec("DELETE FROM cmd_alias_<myname> WHERE alias = 'adduser'");
+$db->exec("DELETE FROM cmd_alias_<myname> WHERE alias = 'inviteuser'");
 
 ?>
