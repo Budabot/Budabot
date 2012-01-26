@@ -75,7 +75,7 @@ class Registry {
 	
 	public static function importChanges($instance) {
 		$reflection = new ReflectionClass($instance);
-		LegacyLogger::log("DEBUG", "Registry", "Re-importing file '$file'");
+		LegacyLogger::log("DEBUG", "Registry", "Re-importing file '" . $reflection->getFileName() . "'");
 		runkit_import($reflection->getFileName(), RUNKIT_IMPORT_CLASSES | RUNKIT_IMPORT_OVERRIDE);
 	}
 }
