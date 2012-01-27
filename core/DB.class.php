@@ -150,7 +150,7 @@ class DB {
 				// fix for Sqlite schema changed error (retry the query)
 				return $this->executeQuery($sql, $params);
 			}
-			LegacyLogger::log('ERROR', "SqlError", "{$e->errorInfo[2]} in: $sql - " . print_r($params, true));
+			throw new SQLException("{$e->errorInfo[2]} in: $sql - " . print_r($params, true), 0, $e);
 		}
 
 		return null;
