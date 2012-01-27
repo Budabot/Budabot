@@ -6,7 +6,7 @@ if (preg_match("/^members$/i", $message)) {
 	if ($autoguests != 0) {
 	  	$list = '';
 		forEach ($data as $row) {
-			$online = Buddylist::is_online($row->name);
+			$online = $buddyList->is_online($row->name);
 	  	  	if (isset($chatBot->chatlist[$row->name])) {
 				$status = "(<green>Online and in channel<end>)";
 			} else if ($online === 1) {

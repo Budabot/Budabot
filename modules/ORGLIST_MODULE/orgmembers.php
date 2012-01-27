@@ -22,7 +22,7 @@ if (preg_match("/^orgmembers$/i", $message)) {
 	$blob = array("<header>::::: Members of the org <myguild> :::::<end>\n\n");
 	$l = "";
 	forEach ($data as $row) {
-		if (Buddylist::is_online($row->name) == 1) {
+		if ($buddyList->is_online($row->name) == 1) {
 			$logged_off = " :: <highlight>Last logoff:<end> <green>Online<end>";
         } else if ($row->logged_off != "0") {
 	        $logged_off = " :: <highlight>Last logoff:<end> " . date(Util::DATETIME, $row->logged_off)."(GMT)";

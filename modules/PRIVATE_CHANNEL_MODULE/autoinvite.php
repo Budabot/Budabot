@@ -4,9 +4,9 @@ if (preg_match("/^autoinvite (on|off)$/i", $message, $arr)) {
 	$onOrOff = 0;
 	if ($arr[1] == 'on') {
 		$onOrOff = 1;
-		Buddylist::add($sender, 'member');
+		$buddyList->add($sender, 'member');
 	} else {
-		Buddylist::remove($sender, 'member');
+		$buddyList->remove($sender, 'member');
 	}
 
 	$data = $db->query("SELECT * FROM members_<myname> WHERE `name` = ?", $sender);

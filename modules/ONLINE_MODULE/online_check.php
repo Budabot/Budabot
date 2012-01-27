@@ -19,7 +19,7 @@ if ($chatBot->is_ready()) {
 
 	$time = time();
 	forEach ($chatBot->guildmembers as $name => $rank) {
-		if (Buddylist::is_online($name)) {
+		if ($buddyList->is_online($name)) {
 			if (in_array($name, $guildArray)) {
 				$db->exec("UPDATE `online` SET `dt` = ? WHERE `name` = ? AND added_by = '<myname>' AND channel_type = 'guild'", $time, $name);
 			} else {

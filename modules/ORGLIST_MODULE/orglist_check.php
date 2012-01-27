@@ -7,13 +7,13 @@ if (isset($chatBot->data["ORGLIST_MODULE"]["added"][$sender])) {
 		$chatBot->data["ORGLIST_MODULE"]["result"][$sender]["online"] = 0;
 	}
 
-	Buddylist::remove($sender, 'onlineorg');
+	$buddyList->remove($sender, 'onlineorg');
 	unset($chatBot->data["ORGLIST_MODULE"]["added"][$sender]);
 	
 	forEach ($chatBot->data["ORGLIST_MODULE"]["check"] as $name => $value) {
 		$chatBot->data["ORGLIST_MODULE"]["added"][$name] = 1;
 		unset($chatBot->data["ORGLIST_MODULE"]["check"][$name]);
-		Buddylist::add($name, 'onlineorg');
+		$buddyList->add($name, 'onlineorg');
 		break;
 	}
 	
