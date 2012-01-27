@@ -408,34 +408,38 @@ class Budabot extends AOChat {
 	 * @description: Proccess all incoming messages that bot recives
 	 */	
 	function process_packet($packet) {
-		$this->process_all_packets($packet);
-		
-		// event handlers
-		switch ($packet->type){
-			case AOCP_GROUP_ANNOUNCE: // 60
-				$this->process_group_announce($packet->args);
-				break;
-			case AOCP_PRIVGRP_CLIJOIN: // 55, Incoming player joined private chat
-				$this->process_private_channel_join($packet->args);
-				break;
-			case AOCP_PRIVGRP_CLIPART: // 56, Incoming player left private chat
-				$this->process_private_channel_leave($packet->args);
-				break;
-			case AOCP_BUDDY_ADD: // 40, Incoming buddy logon or off
-				$this->process_buddy_update($packet->args);
-				break;
-			case AOCP_MSG_PRIVATE: // 30, Incoming Msg
-				$this->process_private_message($packet->args);
-				break;
-			case AOCP_PRIVGRP_MESSAGE: // 57, Incoming priv message
-				$this->process_private_channel_message($packet->args);
-				break;
-			case AOCP_GROUP_MESSAGE: // 65, Public and guild channels
-				$this->process_public_channel_message($packet->args);
-				break;
-			case AOCP_PRIVGRP_INVITE: // 50, private channel invite
-				$this->process_private_channel_invite($packet->args);
-				break;
+		try {
+			$this->process_all_packets($packet);
+			
+			// event handlers
+			switch ($packet->type){
+				case AOCP_GROUP_ANNOUNCE: // 60
+					$this->process_group_announce($packet->args);
+					break;
+				case AOCP_PRIVGRP_CLIJOIN: // 55, Incoming player joined private chat
+					$this->process_private_channel_join($packet->args);
+					break;
+				case AOCP_PRIVGRP_CLIPART: // 56, Incoming player left private chat
+					$this->process_private_channel_leave($packet->args);
+					break;
+				case AOCP_BUDDY_ADD: // 40, Incoming buddy logon or off
+					$this->process_buddy_update($packet->args);
+					break;
+				case AOCP_MSG_PRIVATE: // 30, Incoming Msg
+					$this->process_private_message($packet->args);
+					break;
+				case AOCP_PRIVGRP_MESSAGE: // 57, Incoming priv message
+					$this->process_private_channel_message($packet->args);
+					break;
+				case AOCP_GROUP_MESSAGE: // 65, Public and guild channels
+					$this->process_public_channel_message($packet->args);
+					break;
+				case AOCP_PRIVGRP_INVITE: // 50, private channel invite
+					$this->process_private_channel_invite($packet->args);
+					break;
+			}
+		} catch (StopExecutionException $e) {
+			$this->logger->log('DEBUG', 'Execution stopped prematurely', $e);
 		}
 	}
 	

@@ -259,28 +259,21 @@ class Event extends Annotation {
 	public function fireEvent($eventObj) {
 		if (isset($this->events[$eventObj->type])) {
 			forEach ($this->events[$eventObj->type] as $filename) {
-				if ($this->callEventHandler($eventObj, $filename)) {
-					return;
-				}
+				$this->callEventHandler($eventObj, $filename);
 			}
 		}
 	}
 	
 	public function callEventHandler($eventObj, $handler) {
 		$this->logger->log('DEBUG', "Executing handler '$handler' for event type '$eventObj->type'");
-	
-		$stop_execution = false;
-		$msg = "";
 
 		list($name, $method) = explode(".", $handler);
 		$instance = Registry::getInstance($name);
 		if ($instance === null) {
 			$this->logger->log('ERROR', "Could not find instance for name '$name' in '$handler' for event type '$eventObj->type'");
 		} else {
-			$stop_execution = ($instance->$method($eventObj) === true ? true : false);
+			$instance->$method($eventObj);
 		}
-
-		return $stop_execution;
 	}
 }
 

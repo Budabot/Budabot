@@ -101,6 +101,7 @@ require_once './core/PrivateMessageCommandReply.class.php';
 require_once './core/GuildChannelCommandReply.class.php';
 require_once './core/StructuredMessage.class.php';
 require_once './core/LegacyController.class.php';
+require_once './core/StopExecutionException.class.php';
 
 require_once './core/AOChat.class.php';
 require_once './core/Budabot.class.php';

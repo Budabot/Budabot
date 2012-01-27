@@ -11,7 +11,7 @@ if (isset($chatBot->data["broadcast_list"][$sender])) {
 	}
 
 	// keeps the bot from sending a message back to the neutnet satellite bot
-	$stop_execution = true;
+	throw new StopExecutionException();
 }
 
 ?>
