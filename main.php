@@ -83,10 +83,24 @@ if (!file_exists($config_file)) {
 
 require $config_file;
 
+/*
+function exceptions_error_handler($severity, $message, $filename, $lineno) {
+  if (error_reporting() == 0) {
+    return;
+  }
+  if (error_reporting() & $severity) {
+    throw new ErrorException($message, 0, $severity, $filename, $lineno);
+  }
+}
+set_error_handler('exceptions_error_handler');
+*/
+
 // Set error level.
 //error_reporting(E_ERROR | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_COMPILE_WARNING);
 error_reporting(E_ALL & ~E_STRICT & ~E_WARNING & ~E_NOTICE);
 //error_reporting(-1);
+
+
 ini_set("log_errors", 1);
 ini_set("error_log", "./logs/{$vars['name']}.{$vars['dimension']}/php_errors.log");
 
