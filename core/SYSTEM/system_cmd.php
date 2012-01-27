@@ -14,7 +14,7 @@ if (preg_match("/^system$/i", $message, $arr)) {
 	$num_player_cache = $row->count;
 	
 	$num_friendlist = 0;
-	forEach ($chatBot->buddyList as $key => $value) {
+	forEach ($buddyList->buddyList as $key => $value) {
 		if (!isset($value['name'])) {
 			// skip the buddies that have been added but the server hasn't sent back an update yet
 			continue;
@@ -57,7 +57,7 @@ if (preg_match("/^system$/i", $message, $arr)) {
 	$blob .= "Number of active events: <highlight>" . $eventnum . "<end>\n";
 	$blob .= "Number of active help commands: <highlight>" . count($help->getAllHelpTopics(null)) . "<end>\n\n";
 
-	$blob .= "Number of characters on the friendlist: <highlight>$num_friendlist / " . count($chatBot->buddyList) . "<end>\n";
+	$blob .= "Number of characters on the friendlist: <highlight>$num_friendlist / " . count($buddyList->buddyList) . "<end>\n";
 	$blob .= "Number of characters in the private channel: <highlight>" . count($chatBot->chatlist) . "<end>\n";
 	$blob .= "Number of guild members: <highlight>" . count($chatBot->guildmembers) . "<end>\n";
 	$blob .= "Number of character infos in cache: <highlight>" . $num_player_cache . "<end>\n";

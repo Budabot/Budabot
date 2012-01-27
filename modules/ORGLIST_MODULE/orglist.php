@@ -50,7 +50,7 @@ if (preg_match("/^orglist end$/i", $message)) {
 		$msg = "I'm already doing a list!";
 		$sendto->reply($msg);
 		return;
-	} else if (990 <= count($chatBot->buddyList)) {
+	} else if (990 <= count($buddyList->buddyList)) {
 		// using the ao chatbot proxy this is no longer an issue
 		//$msg = "No room on the buddy-list!";
 		//$sendto->reply($msg);

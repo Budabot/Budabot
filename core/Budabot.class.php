@@ -29,12 +29,14 @@ class Budabot extends AOChat {
 	/** @Inject */
 	public $text;
 	
+	/** @Inject */
+	public $buddyList;
+	
 	/** @Logger("Core") */
 	public $logger;
 	
 	public $ready = false;
 
-	var $buddyList = array();
 	var $chatlist = array();
 	var $guildmembers = array();
 	
@@ -523,12 +525,7 @@ class Budabot extends AOChat {
 		
 		$this->logger->log('DEBUG', "AOCP_BUDDY_ADD => sender: '$sender' status: '$status'");
 		
-		// store buddy info
-		list($bid, $bonline, $btype) = $args;
-		$this->buddyList[$bid]['uid'] = $bid;
-		$this->buddyList[$bid]['name'] = $sender;
-		$this->buddyList[$bid]['online'] = ($bonline ? 1 : 0);
-		$this->buddyList[$bid]['known'] = (ord($btype) ? 1 : 0);
+		$this->buddyList->update($args);
 
 		// Ignore Logon/Logoff from other bots or phantom logon/offs
 		if ($sender == "") {
