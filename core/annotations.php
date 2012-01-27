@@ -40,4 +40,8 @@ class Setup extends Annotation {
 
 }
 
+class Command extends Annotation {
+
+}
+
 ?>

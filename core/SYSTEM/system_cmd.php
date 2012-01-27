@@ -1,7 +1,7 @@
 <?php
 
 $event = Registry::getInstance('event');
-$command = Registry::getInstance('command');
+$commandManager = Registry::getInstance('commandManager');
 $subcommand = Registry::getInstance('subcommand');
 $commandAlias = Registry::getInstance('commandAlias');
 $help = Registry::getInstance('help');
@@ -49,9 +49,9 @@ if (preg_match("/^system$/i", $message, $arr)) {
 
 	$numAliases = count($commandAlias->cmd_aliases);
 
-	$blob .= "Number of active tell commands: <highlight>" . (count($command->commands['msg']) - $numAliases) . "<end>\n";
-	$blob .= "Number of active private channel commands: <highlight>" . (count($command->commands['priv']) - $numAliases) . "<end>\n";
-	$blob .= "Number of active guild channel commands: <highlight>" . (count($command->commands['guild']) - $numAliases) . "<end>\n";
+	$blob .= "Number of active tell commands: <highlight>" . (count($commandManager->commands['msg']) - $numAliases) . "<end>\n";
+	$blob .= "Number of active private channel commands: <highlight>" . (count($commandManager->commands['priv']) - $numAliases) . "<end>\n";
+	$blob .= "Number of active guild channel commands: <highlight>" . (count($commandManager->commands['guild']) - $numAliases) . "<end>\n";
 	$blob .= "Number of active subcommands: <highlight>" . count($subcommand->subcommands) . "<end>\n";
 	$blob .= "Number of active command aliases: <highlight>" . $numAliases . "<end>\n";
 	$blob .= "Number of active events: <highlight>" . $eventnum . "<end>\n";

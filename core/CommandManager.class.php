@@ -1,6 +1,6 @@
 <?php
 
-class Command extends Annotation {
+class CommandManager {
 
 	/** @Inject */
 	public $db;

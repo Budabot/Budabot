@@ -126,7 +126,7 @@ require_once './core/MyCurl.class.php';
 require_once './core/Playfields.class.php';
 require_once './core/AccessLevel.class.php';
 require_once './core/Admin.class.php';
-require_once './core/Command.class.php';
+require_once './core/CommandManager.class.php';
 require_once './core/Subcommand.class.php';
 require_once './core/CommandAlias.class.php';
 require_once './core/Event.class.php';
@@ -201,7 +201,7 @@ if (file_exists('upgrade.php')) {
 }
 
 Registry::setInstance('db', $db);
-Registry::setInstance('command', new Command);
+Registry::setInstance('commandManager', new CommandManager);
 Registry::setInstance('subcommand', new Subcommand);
 Registry::setInstance('commandAlias', new CommandAlias);
 Registry::setInstance('event', new Event);

@@ -9,7 +9,7 @@ class CommandAlias {
 	public $chatBot;
 	
 	/** @Inject */
-	public $command;
+	public $commandManager;
 	
 	/** @Logger */
 	public $logger;
@@ -64,9 +64,9 @@ class CommandAlias {
 
 	  	$this->logger->log('DEBUG', "Activate Command Alias command:($command) alias:($alias)");
 		
-		$this->command->activate('msg', self::ALIAS_HANDLER, $alias, 'all');
-		$this->command->activate('priv', self::ALIAS_HANDLER, $alias, 'all');
-		$this->command->activate('guild', self::ALIAS_HANDLER, $alias, 'all');
+		$this->commandManager->activate('msg', self::ALIAS_HANDLER, $alias, 'all');
+		$this->commandManager->activate('priv', self::ALIAS_HANDLER, $alias, 'all');
+		$this->commandManager->activate('guild', self::ALIAS_HANDLER, $alias, 'all');
 		$this->cmd_aliases[$alias] = $command;
 	}
 	
@@ -79,9 +79,9 @@ class CommandAlias {
 
 	  	$this->logger->log('DEBUG', "Deactivate Command Alias:($alias)");
 		
-		$this->command->deactivate('msg', self::ALIAS_HANDLER, $alias);
-		$this->command->deactivate('priv', self::ALIAS_HANDLER, $alias);
-		$this->command->deactivate('guild', self::ALIAS_HANDLER, $alias);
+		$this->commandManager->deactivate('msg', self::ALIAS_HANDLER, $alias);
+		$this->commandManager->deactivate('priv', self::ALIAS_HANDLER, $alias);
+		$this->commandManager->deactivate('guild', self::ALIAS_HANDLER, $alias);
 		unset($this->cmd_aliases[$alias]);
 	}
 	
@@ -115,7 +115,7 @@ class CommandAlias {
 		if (preg_match("/{\\d+}/", $cmd)) {
 			return false;
 		} else {
-			$this->command->process($channel, $cmd, $sender, $sendto);
+			$this->commandManager->process($channel, $cmd, $sender, $sendto);
 		}
 	}
 	

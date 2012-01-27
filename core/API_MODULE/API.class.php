@@ -3,7 +3,7 @@
 class API {
 
 	/** @Inject */
-	public $command;
+	public $commandManager;
 	
 	/** @Inject */
 	public $preferences;
@@ -105,7 +105,7 @@ class API {
 		list($cmd, $params) = explode(' ', $message, 2);
 		$cmd = strtolower($cmd);
 		
-		$commandHandler = $this->command->getActiveCommandHandler($cmd, $channel, $message);
+		$commandHandler = $this->commandManager->getActiveCommandHandler($cmd, $channel, $message);
 		
 		// if command doesn't exist
 		if ($commandHandler === null) {
@@ -124,7 +124,7 @@ class API {
 			Registry::getInstance('usage')->record($channel, $cmd, $sender, $commandHandler);
 		}
 	
-		$syntaxError = $this->command->callCommandHandler($commandHandler, $message, $channel, $sender, $sendto);
+		$syntaxError = $this->commandManager->callCommandHandler($commandHandler, $message, $channel, $sender, $sendto);
 		$this->chatBot->spam[$sender] += 10;
 		
 		if ($syntaxError === true) {

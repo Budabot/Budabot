@@ -175,12 +175,12 @@ if (preg_match("/^config$/i", $message)) {
 	
 	$sql = "SELECT type, file, cmd, admin FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' AND ($typeSql)";
 	$data = $db->query($sql);
-	$command = Registry::getInstance('command');
+	$commandManager = Registry::getInstance('commandManager');
 	forEach ($data as $row) {
 	  	if ($status == 1) {
-			$command->activate($row->type, $row->file, $row->cmd, $row->admin);
+			$commandManager->activate($row->type, $row->file, $row->cmd, $row->admin);
 		} else {
-			$command->deactivate($row->type, $row->file, $row->cmd);
+			$commandManager->deactivate($row->type, $row->file, $row->cmd);
 		}
 	}
 	
@@ -270,7 +270,7 @@ if (preg_match("/^config$/i", $message)) {
 
 	$sendto->reply($msg);
 
-	$command = Registry::getInstance('command');
+	$commandManager = Registry::getInstance('commandManager');
 	$event = Registry::getInstance('event');
 	forEach ($data as $row) {
 		// only update the status if the status is different
@@ -283,9 +283,9 @@ if (preg_match("/^config$/i", $message)) {
 				}
 			} else if ($row->cmdevent == "cmd") {
 				if ($status == 1) {
-					$command->activate($row->type, $row->file, $row->cmd, $row->admin);
+					$commandManager->activate($row->type, $row->file, $row->cmd, $row->admin);
 				} else {
-					$command->deactivate($row->type, $row->file, $row->cmd, $row->admin);
+					$commandManager->deactivate($row->type, $row->file, $row->cmd, $row->admin);
 				}
 			}
 		}
@@ -335,7 +335,7 @@ if (preg_match("/^config$/i", $message)) {
 		  	return;
 		}
 
-		$commandManager = Registry::getInstance('command');
+		$commandManager = Registry::getInstance('commandManager');
 		$commandManager->update_status($channel, $command, null, 1, $admin);
 		
 		if ($channel == "all") {

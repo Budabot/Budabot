@@ -11,7 +11,7 @@ if (preg_match("/^addalias ([a-z0-9]+) (.+)/i", $message, $arr)) {
 	$alias_obj->alias = $alias;
 	$alias_obj->status = 1;
 
-	$commands = Registry::getInstance('command')->get($alias);
+	$commands = Registry::getInstance('commandManager')->get($alias);
 	$enabled = false;
 	forEach ($commands as $command) {
 		if ($command->status == '1') {

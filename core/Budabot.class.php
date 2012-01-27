@@ -6,7 +6,7 @@ class Budabot extends AOChat {
 	public $db;
 	
 	/** @Inject */
-	public $command;
+	public $commandManager;
 	
 	/** @Inject */
 	public $subcommand;
@@ -185,7 +185,7 @@ class Budabot extends AOChat {
 		$this->db->exec("DELETE FROM settings_<myname> WHERE `verify` = 0");
 		$this->db->exec("DELETE FROM hlpcfg_<myname> WHERE `verify` = 0");
 
-		$this->command->loadCommands();
+		$this->commandManager->loadCommands();
 		$this->subcommand->loadSubcommands();
 		$this->commandAlias->load();
 		$this->event->loadEvents();
@@ -606,7 +606,7 @@ class Budabot extends AOChat {
 		}
 		
 		$sendto = new PrivateMessageCommandReply($this, $sender);
-		$this->command->process($type, $message, $sender, $sendto);
+		$this->commandManager->process($type, $message, $sender, $sendto);
 	}
 	
 	function process_private_channel_message($args) {
@@ -649,7 +649,7 @@ class Budabot extends AOChat {
 			if ($message[0] == $this->setting->get("symbol") && strlen($message) > 1) {
 				$message = substr($message, 1);
 				$sendto = new PrivateChannelCommandReply($this);
-				$this->command->process($type, $message, $sender, $sendto);
+				$this->commandManager->process($type, $message, $sender, $sendto);
 			}
 		} else {  // ext priv group message
 			$type = "extpriv";
@@ -713,7 +713,7 @@ class Budabot extends AOChat {
 			if ($message[0] == $this->setting->get("symbol") && strlen($message) > 1) {
 				$message = substr($message, 1);
 				$sendto = new GuildChannelCommandReply($this);
-				$this->command->process($type, $message, $sender, $sendto);
+				$this->commandManager->process($type, $message, $sender, $sendto);
 			}
 		}
 	}
@@ -768,7 +768,7 @@ class Budabot extends AOChat {
 				$instance = Registry::getInstance($name);
 				$instance->{$method->name}();
 			} else if ($method->hasAnnotation('Command')) {
-				$this->command->register(
+				$this->commandManager->register(
 					$MODULE_NAME,
 					@$method->getAnnotation('Channels')->value,
 					$name . '.' . $method->name,

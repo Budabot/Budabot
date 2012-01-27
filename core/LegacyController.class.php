@@ -106,7 +106,7 @@ class LegacyController {
 
 class CommandProxy {
 	/** @Inject */
-	public $command;
+	public $commandManager;
 	
 	/** @Inject */
 	public $util;
@@ -134,9 +134,9 @@ class CommandProxy {
 			
 			$handlerName = "command_" . ($this->counter++);
 			$this->commands[$handlerName] = $actual_filename;
-			$this->command->register($module, $channel, $this->controller . "." . $handlerName, $command, $admin, $description, $help, $defaultStatus);
+			$this->commandManager->register($module, $channel, $this->controller . "." . $handlerName, $command, $admin, $description, $help, $defaultStatus);
 		} else {
-			$this->command->register($module, $channel, $filename, $command, $admin, $description, $help, $defaultStatus);
+			$this->commandManager->register($module, $channel, $filename, $command, $admin, $description, $help, $defaultStatus);
 		}
 	}
 	
@@ -150,9 +150,9 @@ class CommandProxy {
 
 			$handlerName = "command_" . ($this->counter++);
 			$this->commands[$handlerName] = $actual_filename;
-			$this->command->activate($channel, $this->controller . "." . $handlerName, $command, $admin);
+			$this->commandManager->activate($channel, $this->controller . "." . $handlerName, $command, $admin);
 		} else {
-			$this->command->activate($channel, $filename, $command, $admin);
+			$this->commandManager->activate($channel, $filename, $command, $admin);
 		}
 	}
 }
