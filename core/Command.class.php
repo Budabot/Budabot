@@ -210,10 +210,14 @@ class Command extends Annotation {
 			$this->chatBot->spam[$sender] += 20;
 			return;
 		}
-
-		// record usage stats
-		if ($this->setting->get('record_usage_stats') == 1) {
-			Registry::getInstance('usage')->record($channel, $cmd, $sender, $commandHandler);
+		
+		try {
+			// record usage stats (in try/catch loop in case there is an error)
+			if ($this->setting->get('record_usage_stats') == 1) {
+				Registry::getInstance('usage')->record($channel, $cmd, $sender, $commandHandler);
+			}
+		} catch (Exception $e) {
+			$this->logger->log("ERROR", $e->getMessage(), $e);
 		}
 
 		try {
