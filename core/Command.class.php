@@ -227,6 +227,8 @@ class Command extends Annotation {
 				$help = $this->getHelpForCommand($cmd, $channel, $sender);
 				$sendto->reply($help);
 			}
+		} catch (StopExecutionException $e) {
+			throw $e;
 		} catch (SQLException $e) {
 			$this->logger->log("ERROR", $e->getMessage(), $e);
 			$sendto->reply("There was an sql error executing your command.");

@@ -275,6 +275,8 @@ class Event extends Annotation {
 			} else {
 				$instance->$method($eventObj);
 			}
+		} catch (StopExecutionException $e) {
+			throw $e;
 		} catch (Exception $e) {
 			$this->logger->log('ERROR', $e->getMessage(), $e);
 		}
