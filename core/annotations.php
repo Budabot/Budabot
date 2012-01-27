@@ -44,4 +44,8 @@ class Command extends Annotation {
 
 }
 
+class Event extends Annotation {
+
+}
+
 ?>

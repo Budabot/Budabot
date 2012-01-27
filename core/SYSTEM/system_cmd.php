@@ -1,6 +1,6 @@
 <?php
 
-$event = Registry::getInstance('event');
+$eventManager = Registry::getInstance('eventManager');
 $commandManager = Registry::getInstance('commandManager');
 $subcommand = Registry::getInstance('subcommand');
 $commandAlias = Registry::getInstance('commandAlias');
@@ -43,7 +43,7 @@ if (preg_match("/^system$/i", $message, $arr)) {
 	$blob .= "Uptime: <highlight>$date_string<end>\n\n";
 
 	$eventnum = 0;
-	forEach ($event->events as $type => $events) {
+	forEach ($eventManager->events as $type => $events) {
 		$eventnum += count($events);
 	}
 

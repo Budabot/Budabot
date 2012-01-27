@@ -159,7 +159,7 @@ class CommandProxy {
 
 class EventProxy {
 	/** @Inject */
-	public $event;
+	public $eventManager;
 	
 	/** @Inject */
 	public $util;
@@ -187,9 +187,9 @@ class EventProxy {
 
 			$handlerName = "event_" . ($this->counter++);
 			$this->events[$handlerName] = $actual_filename;
-			$this->event->register($module, $type, $this->controller . "." . $handlerName, $description, $help, $defaultStatus);
+			$this->eventManager->register($module, $type, $this->controller . "." . $handlerName, $description, $help, $defaultStatus);
 		} else {
-			$this->event->register($module, $type, $filename, $description, $help, $defaultStatus);
+			$this->eventManager->register($module, $type, $filename, $description, $help, $defaultStatus);
 		}
 	}
 	
@@ -203,9 +203,9 @@ class EventProxy {
 
 			$handlerName = "event_" . ($this->counter++);
 			$this->events[$handlerName] = $actual_filename;
-			$this->event->activate($type, $this->controller . "." . $handlerName);
+			$this->eventManager->activate($type, $this->controller . "." . $handlerName);
 		} else {
-			$this->event->activate($type, $filename);
+			$this->eventManager->activate($type, $filename);
 		}
 	}
 }

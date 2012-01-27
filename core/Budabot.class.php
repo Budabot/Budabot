@@ -15,7 +15,7 @@ class Budabot extends AOChat {
 	public $commandAlias;
 	
 	/** @Inject */
-	public $event;
+	public $eventManager;
 	
 	/** @Inject */
 	public $help;
@@ -103,13 +103,13 @@ class Budabot extends AOChat {
 			}
 			if ($this->is_ready()) {
 				if ($exec_connected_events == false)	{
-					$this->event->executeConnectEvents();
+					$this->eventManager->executeConnectEvents();
 					$exec_connected_events = true;
 				}
 				
 				// execute crons at most once every second
 				if ($time < time()) {
-					$this->event->crons();
+					$this->eventManager->crons();
 					$time = time();
 				}
 			}
@@ -188,7 +188,7 @@ class Budabot extends AOChat {
 		$this->commandManager->loadCommands();
 		$this->subcommand->loadSubcommands();
 		$this->commandAlias->load();
-		$this->event->loadEvents();
+		$this->eventManager->loadEvents();
 	}
 	
 	function loadCoreModules() {
@@ -449,7 +449,7 @@ class Budabot extends AOChat {
 		$eventObj = new stdClass;
 		$eventObj->type = 'allpackets';
 		$eventObj->packet = $packet;
-		$this->event->fireEvent($eventObj);
+		$this->eventManager->fireEvent($eventObj);
 	}
 	
 	function process_group_announce($args) {
@@ -484,10 +484,10 @@ class Budabot extends AOChat {
 			// Add sender to the chatlist.
 			$this->chatlist[$sender] = true;
 
-			$this->event->fireEvent($eventObj);
+			$this->eventManager->fireEvent($eventObj);
 		} else {
 			$eventObj->type = "extjoinpriv";
-			$this->event->fireEvent($eventObj);
+			$this->eventManager->fireEvent($eventObj);
 		}
 	}
 	
@@ -508,11 +508,11 @@ class Budabot extends AOChat {
 			// Remove from Chatlist array.
 			unset($this->chatlist[$sender]);
 			
-			$this->event->fireEvent($eventObj);
+			$this->eventManager->fireEvent($eventObj);
 		} else {
 			$eventObj->type = "extleavepriv";
 			
-			$this->event->fireEvent($eventObj);
+			$this->eventManager->fireEvent($eventObj);
 		}
 	}
 	
@@ -538,13 +538,13 @@ class Budabot extends AOChat {
 			
 			$this->logger->log('DEBUG', "$sender logged off");
 
-			$this->event->fireEvent($eventObj);
+			$this->eventManager->fireEvent($eventObj);
 		} else if ($status == 1) {
 			$eventObj->type = "logon";
 			
 			$this->logger->log('INFO', "$sender logged on");
 
-			$this->event->fireEvent($eventObj);
+			$this->eventManager->fireEvent($eventObj);
 		}
 	}
 	
@@ -592,7 +592,7 @@ class Budabot extends AOChat {
 			return;
 		}
 		
-		$this->event->fireEvent($eventObj);
+		$this->eventManager->fireEvent($eventObj);
 
 		// remove the symbol if there is one
 		if ($message[0] == $this->setting->get("symbol") && strlen($message) > 1) {
@@ -644,7 +644,7 @@ class Budabot extends AOChat {
 			$type = "priv";
 			$eventObj->type = $type;
 
-			$this->event->fireEvent($eventObj);
+			$this->eventManager->fireEvent($eventObj);
 			
 			if ($message[0] == $this->setting->get("symbol") && strlen($message) > 1) {
 				$message = substr($message, 1);
@@ -655,7 +655,7 @@ class Budabot extends AOChat {
 			$type = "extpriv";
 			$eventObj->type = $type;
 			
-			$this->event->fireEvent($eventObj);
+			$this->eventManager->fireEvent($eventObj);
 		}
 	}
 	
@@ -697,18 +697,18 @@ class Budabot extends AOChat {
 		if ($channel == "All Towers" || $channel == "Tower Battle Outcome") {
 			$eventObj->type = "towers";
 			
-			$this->event->fireEvent($eventObj);
+			$this->eventManager->fireEvent($eventObj);
 		} else if ($channel == "Org Msg"){
 			$eventObj->type = "orgmsg";
 
-			$this->event->fireEvent($eventObj);
+			$this->eventManager->fireEvent($eventObj);
 		} else if ($b[1] == 3 && $this->setting->get('guild_channel_status') == 1) {
 			$type = "guild";
 			$sendto = 'guild';
 			
 			$eventObj->type = $type;
 			
-			$this->event->fireEvent($eventObj);
+			$this->eventManager->fireEvent($eventObj);
 			
 			if ($message[0] == $this->setting->get("symbol") && strlen($message) > 1) {
 				$message = substr($message, 1);
@@ -731,7 +731,7 @@ class Budabot extends AOChat {
 
 		$this->logger->log_chat("Priv Channel Invitation", -1, "$sender channel invited.");
 
-		$this->event->fireEvent($eventObj);
+		$this->eventManager->fireEvent($eventObj);
 	}
 	
 	public function registerInstance($MODULE_NAME, $name, &$obj) {
@@ -792,7 +792,7 @@ class Budabot extends AOChat {
 					@$method->getAnnotation('DefaultStatus')->value
 				);
 			} else if ($method->hasAnnotation('Event')) {
-				$this->event->register(
+				$this->eventManager->register(
 					$MODULE_NAME,
 					$method->getAnnotation('Event')->value,
 					$name . '.' . $method->name,

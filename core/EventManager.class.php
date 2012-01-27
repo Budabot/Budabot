@@ -10,7 +10,7 @@
 `status` INT DEFAULT 1
 */
 
-class Event extends Annotation {
+class EventManager extends Annotation {
 
 	/** @Inject */
 	public $db;
@@ -45,7 +45,7 @@ class Event extends Annotation {
 		$this->logger->log('DEBUG', "Registering event Type:($type) File:($filename) Module:($module)");
 		
 		$time = $this->util->parseTime($type);
-		if ($time <= 0 && !in_array($type, Event::$EVENT_TYPES)) {
+		if ($time <= 0 && !in_array($type, self::$EVENT_TYPES)) {
 			$this->logger->log('ERROR', "Error registering event Type:($type) File:($filename) Module:($module). The type is not a recognized event type!");
 			return;
 		}
@@ -99,7 +99,7 @@ class Event extends Annotation {
 			$eventObj->type = 'setup';
 
 			$this->callEventHandler($eventObj, $filename);
-		} else if (in_array($type, Event::$EVENT_TYPES)) {
+		} else if (in_array($type, self::$EVENT_TYPES)) {
 			if (!isset($this->events[$type]) || !in_array($filename, $this->events[$type])) {
 				$this->events[$type] []= $filename;
 			} else {
@@ -129,7 +129,7 @@ class Event extends Annotation {
 
 		$this->logger->log('debug', "Deactivating event Type:($type) File:($filename)");
 		
-		if (in_array($type, Event::$EVENT_TYPES)) {
+		if (in_array($type, self::$EVENT_TYPES)) {
 			if (in_array($filename, $this->events[$type])) {
 				$found = true;
 				$temp = array_flip($this->events[$type]);

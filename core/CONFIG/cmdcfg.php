@@ -271,15 +271,15 @@ if (preg_match("/^config$/i", $message)) {
 	$sendto->reply($msg);
 
 	$commandManager = Registry::getInstance('commandManager');
-	$event = Registry::getInstance('event');
+	$eventManager = Registry::getInstance('eventManager');
 	forEach ($data as $row) {
 		// only update the status if the status is different
 		if ($row->status != $status) {
 			if ($row->cmdevent == "event") {
 				if ($status == 1) {
-					$event->activate($row->type, $row->file);
+					$eventManager->activate($row->type, $row->file);
 				} else {
-					$event->deactivate($row->type, $row->file);
+					$eventManager->deactivate($row->type, $row->file);
 				}
 			} else if ($row->cmdevent == "cmd") {
 				if ($status == 1) {
