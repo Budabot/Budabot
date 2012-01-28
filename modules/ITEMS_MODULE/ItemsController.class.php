@@ -11,19 +11,20 @@ class ItemsController {
 	/** @Inject */
 	public $setting;
 	
+	public $moduleName;
+	
 	/**
 	 * @Setting("maxitems")
 	 * @Description("Number of Items shown on the list")
 	 * @Visibility("edit")
 	 * @Type("number")
 	 * @Options("30;40;50;60")
-	 * @Help("news.txt")
 	 */
 	public $defaultMaxitems = "40";
 	
 	/** @Setup */
 	public function setup() {
-		$this->db->loadSQLFile($MODULE_NAME, "aodb");
+		$this->db->loadSQLFile($this->moduleName, "aodb");
 	}
 
 	/**
