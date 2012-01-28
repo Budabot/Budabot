@@ -9,11 +9,11 @@ if (preg_match("/^is (.+)$/i", $message, $arr)) {
 		$sendto->reply($msg);
     } else {
         //if the player is a buddy then
-		$online_status = $buddyList->is_online($name);
+		$online_status = $buddylistManager->is_online($name);
 		if ($online_status === null) {
 			$chatBot->data["ONLINE_MODULE"]['playername'] = $name;
 			$chatBot->data["ONLINE_MODULE"]['sendto'] = $sendto;
-			$buddyList->add($name, 'is_online');
+			$buddylistManager->add($name, 'is_online');
 		} else {
             $row = $db->queryRow("SELECT * FROM org_members_<myname> WHERE `name` = ?", $name);
             if ($row !== null) {

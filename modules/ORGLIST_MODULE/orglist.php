@@ -50,7 +50,7 @@ if (preg_match("/^orglist end$/i", $message)) {
 		$msg = "I'm already doing a list!";
 		$sendto->reply($msg);
 		return;
-	} else if (990 <= count($buddyList->buddyList)) {
+	} else if (990 <= count($buddylistManager->buddyList)) {
 		// using the ao chatbot proxy this is no longer an issue
 		//$msg = "No room on the buddy-list!";
 		//$sendto->reply($msg);
@@ -139,7 +139,7 @@ if (preg_match("/^orglist end$/i", $message)) {
 			}
 		}
 		
-		$buddy_online_status = $buddyList->is_online($member->name);
+		$buddy_online_status = $buddylistManager->is_online($member->name);
 		if ($buddy_online_status !== null) {
 			$chatBot->data["ORGLIST_MODULE"]["result"][$member->name]["online"] = $buddy_online_status;
 		} else if ($chatBot->vars["name"] != $member->name) { // If the name being checked ISNT the bot.
@@ -159,7 +159,7 @@ if (preg_match("/^orglist end$/i", $message)) {
 	forEach ($chatBot->data["ORGLIST_MODULE"]["check"] as $name => $value) {
 		$chatBot->data["ORGLIST_MODULE"]["added"][$name] = 1;
 		unset($chatBot->data["ORGLIST_MODULE"]["check"][$name]);
-		$buddyList->add($name, 'onlineorg');
+		$buddylistManager->add($name, 'onlineorg');
 		if (++$i == 10) {
 			break;
 		}

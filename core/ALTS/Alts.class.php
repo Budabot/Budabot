@@ -24,7 +24,7 @@ class AltInfo {
 		$db = Registry::getInstance('db');
 		$setting = Registry::getInstance('setting');
 		$player = Registry::getInstance('player');
-		$buddyList = Registry::getInstance('buddyList');
+		$buddylistManager = Registry::getInstance('buddylistManager');
 
 		if (count($this->alts) == 0) {
 			return "No registered alts.";
@@ -35,7 +35,7 @@ class AltInfo {
 		if ($character !== null) {
 			$blob .= " (<highlight>{$character->level}<end>/<green>{$character->ai_level}<end> <highlight>{$character->profession}<end>)";
 		}
-		$online = $buddylist->is_online($this->main);
+		$online = $buddylistManager->is_online($this->main);
 		if ($online === null) {
 			$blob .= " - No status\n";
 		} else if ($online == 1) {
@@ -54,7 +54,7 @@ class AltInfo {
 			if ($row->profession !== null) {
 				$blob .= " (<highlight>{$row->level}<end>/<green>{$row->ai_level}<end> <highlight>{$row->profession}<end>)";
 			}
-			$online = $buddylist->is_online($row->alt);
+			$online = $buddylistManager->is_online($row->alt);
 			if ($online === null) {
 				$blob .= " - No status.";
 			} else if ($online == 1) {
@@ -81,14 +81,14 @@ class AltInfo {
 
 	public function get_online_alts() {
 		$online_list = array();
-		$buddyList = Registry::getInstance('buddyList');
+		$buddylistManager = Registry::getInstance('buddylistManager');
 
-		if ($buddylist->is_online($this->main)) {
+		if ($buddylistManager->is_online($this->main)) {
 			$online_list []= $this->main;
 		}
 		
 		forEach ($this->alts as $name => $validated) {
-			if ($buddylist->is_online($name)) {
+			if ($buddylistManager->is_online($name)) {
 				$online_list []= $name;
 			}
 		}

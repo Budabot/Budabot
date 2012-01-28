@@ -12,7 +12,7 @@ class Admin {
 	public $db;
 	
 	/** @Inject */
-	public $buddylist;
+	public $buddylistManager;
 	
 	/** @Inject */
 	public $setting;
@@ -43,7 +43,7 @@ class Admin {
 			return false;
 		}
 
-		$blob .= "<highlight>Administrators<end>\n";	
+		$blob .= "<highlight>Administrators<end>\n";
 		forEach ($this->admins as $who => $data) {
 			if ($this->admins[$who]["level"] == 4) {
 				if ($who != "") {
@@ -53,9 +53,9 @@ class Admin {
 						$blob .= "(<orange>Super-administrator<end>) ";
 					}
 						
-					if ($this->buddylist->is_online($who) == 1 && isset($this->chatBot->chatlist[$who])) {
+					if ($this->buddylistManager->is_online($who) == 1 && isset($this->chatBot->chatlist[$who])) {
 						$blob.="(<green>Online and in chat<end>)";
-					} else if ($this->buddylist->is_online($who) == 1) {
+					} else if ($this->buddylistManager->is_online($who) == 1) {
 						$blob.="(<green>Online<end>)";
 					} else {
 						$blob.="(<red>Offline<end>)";
@@ -71,9 +71,9 @@ class Admin {
 			if ($this->admins[$who]["level"] == 3){
 				if ($who != "") {
 					$blob.= "<tab>$who ";
-					if ($this->buddylist->is_online($who) == 1 && isset($this->chatBot->chatlist[$who])) {
+					if ($this->buddylistManager->is_online($who) == 1 && isset($this->chatBot->chatlist[$who])) {
 						$blob.="(<green>Online and in chat<end>)";
-					} else if ($this->buddylist->is_online($who) == 1) {
+					} else if ($this->buddylistManager->is_online($who) == 1) {
 						$blob.="(<green>Online<end>)";
 					} else {
 						$blob.="(<red>Offline<end>)";
@@ -108,7 +108,7 @@ class Admin {
 	public function checkAdmins() {
 		$data = $this->db->query("SELECT * FROM admin_<myname>");
 		forEach ($data as $row) {
-			$this->buddylist->add($row->name, 'admin');
+			$this->buddylistManager->add($row->name, 'admin');
 		}
 	}
 	
@@ -187,7 +187,7 @@ class Admin {
 	public function removeFromLists($who) {
 		unset($this->admins[$who]);
 		$this->db->exec("DELETE FROM admin_<myname> WHERE `name` = ?", $who);
-		$this->buddylist->remove($who, 'admin');
+		$this->buddylistManager->remove($who, 'admin');
 	}
 	
 	public function addToLists($who, $intlevel) {
@@ -205,7 +205,7 @@ class Admin {
 		}
 	
 		$this->admins[$who]["level"] = $intlevel;
-		$this->buddylist->add($who, 'admin');
+		$this->buddylistManager->add($who, 'admin');
 		
 		return $action;
 	}

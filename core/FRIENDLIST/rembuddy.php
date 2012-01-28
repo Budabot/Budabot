@@ -4,7 +4,7 @@ if (preg_match("/^rembuddy (.+) (.+)$/i", $message, $arr)) {
 	$name = $arr[1];
 	$type = $arr[2];
 	
-	if ($buddyList->remove($name, $type)) {
+	if ($buddylistManager->remove($name, $type)) {
 		$msg = "$name removed from the buddy list successfully.";
 	} else {
 		$msg = "Could not remove $name from the buddy list.";

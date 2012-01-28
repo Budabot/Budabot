@@ -1,6 +1,6 @@
 <?php
 
-class Buddylist {
+class BuddylistManager {
 
 	/** @Inject */
 	public $chatBot;

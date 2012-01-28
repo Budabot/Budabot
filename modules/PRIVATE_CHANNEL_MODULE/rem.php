@@ -12,7 +12,7 @@ if (preg_match("/^remuser (.+)$/i", $message, $arr)) {
 	  	} else {
 		    $db->exec("DELETE FROM members_<myname> WHERE `name` = ?", $name);
 		    $msg = "<highlight>$name<end> has been removed as a member of this bot.";
-			$buddyList->remove($name, 'member');
+			$buddylistManager->remove($name, 'member');
 		}
 	}
 

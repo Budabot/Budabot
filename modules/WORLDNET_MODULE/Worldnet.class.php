@@ -9,7 +9,7 @@ class Worldnet {
 	public $db;
 	
 	/** @Inject */
-	public $buddyList;
+	public $buddylistManager;
 	
 	/** @Inject */
 	public $ban;
@@ -60,7 +60,7 @@ class Worldnet {
 	 * @Description("Adds worldnet bot to buddylist")
 	 */
 	function connect($eventObj) {
-		$this->buddyList->add($this->setting->get('worldnet_bot'), 'worldnet');
+		$this->buddylistManager->add($this->setting->get('worldnet_bot'), 'worldnet');
 	}
 	
 	/**

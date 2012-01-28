@@ -6,11 +6,11 @@ if (preg_match("/^friendlist$/i", $message) || preg_match("/^friendlist (clean)$
 	}
 
 	$orphanCount = 0;
-	if (count($buddyList->buddyList) == 0) {
+	if (count($buddylistManager->buddyList) == 0) {
 		$sendto->reply("The are no characters on the friendlist.");
 	} else {
 		$count = 0;
-		forEach ($buddyList->buddyList as $key => $value) {
+		forEach ($buddylistManager->buddyList as $key => $value) {
 			if (!isset($value['name'])) {
 				// skip the buddies that have been added but the server hasn't sent back an update yet
 				continue;
@@ -21,7 +21,7 @@ if (preg_match("/^friendlist$/i", $message) || preg_match("/^friendlist (clean)$
 			if (count($value['types']) == 0) {
 				$orphanCount++;
 				if ($cleanup) {
-					$buddyList->remove($value['name']);
+					$buddylistManager->remove($value['name']);
 					$removed = "<red>REMOVED<end>";
 				}
 			}
@@ -47,12 +47,12 @@ if (preg_match("/^friendlist$/i", $message) || preg_match("/^friendlist (clean)$
 } else if (preg_match("/^friendlist (.*)$/i", $message, $arg)) {
 	$search = $arg[1];
 
-	if (count($buddyList->buddyList) == 0) {
+	if (count($buddylistManager->buddyList) == 0) {
 		$sendto->reply("Didn't find any names in the friendlist.");
 	} else {
 		$count = 0;
 		$blob = "Friendlist Search: '{$search}'\n\n";
-		forEach ($buddyList->buddyList as $key => $value) {
+		forEach ($buddylistManager->buddyList as $key => $value) {
 			$removed = '';
 			if (preg_match("/$search/i", $value['name'])) {
 				$count++;

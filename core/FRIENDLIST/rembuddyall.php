@@ -1,7 +1,7 @@
 <?php
 
 if (preg_match("/^rembuddyall$/i", $message, $arr)) {
-	forEach ($buddyList->buddyList as $uid => $buddy) {
+	forEach ($buddylistManager->buddyList as $uid => $buddy) {
 		$chatBot->buddy_remove($uid);
 	}
 	

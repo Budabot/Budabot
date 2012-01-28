@@ -30,7 +30,7 @@ class Budabot extends AOChat {
 	public $text;
 	
 	/** @Inject */
-	public $buddyList;
+	public $buddylistManager;
 	
 	/** @Logger("Core") */
 	public $logger;
@@ -525,7 +525,7 @@ class Budabot extends AOChat {
 		
 		$this->logger->log('DEBUG', "AOCP_BUDDY_ADD => sender: '$sender' status: '$status'");
 		
-		$this->buddyList->update($args);
+		$this->buddylistManager->update($args);
 
 		// Ignore Logon/Logoff from other bots or phantom logon/offs
 		if ($sender == "") {

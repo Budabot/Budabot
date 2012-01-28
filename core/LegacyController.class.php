@@ -17,7 +17,7 @@ class LegacyController {
 	public $commandAlias;
 	
 	/** @Inject */
-	public $buddyList;
+	public $buddylistManager;
 	
 	public $moduleName;
 
@@ -63,7 +63,7 @@ class LegacyController {
 		$chatBot = $this->chatBot;
 		$db = $this->db;
 		$setting = $this->setting;
-		$buddyList = $this->buddyList;
+		$buddylistManager = $this->buddylistManager;
 		
 		$type = $eventObj->type;
 		@$channel = $eventObj->channel;
@@ -81,7 +81,7 @@ class LegacyController {
 		$setting = $this->setting;
 		$chatBot = $this->chatBot;
 		$db = $this->db;
-		$buddyList = $this->buddyList;
+		$buddylistManager = $this->buddylistManager;
 		$type = $channel;
 
 		require $filename;

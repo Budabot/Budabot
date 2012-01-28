@@ -15,7 +15,7 @@ if (preg_match("/^adduser (.+)$/i", $message, $arr)) {
 		}
 
 		// always add in case 
-		$buddyList->add($name, 'member');
+		$buddylistManager->add($name, 'member');
 	}
 
 	$sendto->reply($msg);

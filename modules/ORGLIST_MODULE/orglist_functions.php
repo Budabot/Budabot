@@ -65,7 +65,7 @@ function orgmatesformat($memberlist, $color, $timestart, $orgname) {
 
 function checkOrglistEnd($forceEnd = false) {
 	$chatBot = Registry::getInstance('chatBot');
-	$buddyList = Registry::getInstance('buddyList');
+	$buddylistManager = Registry::getInstance('buddylistManager');
 
 	// Don't want to reboot to see changes in color edits, so I'll store them in an array outside the function.
 	$orgcolor["header"]  = "<font color='#FFFFFF'>";   // Org Rank title
@@ -79,7 +79,7 @@ function checkOrglistEnd($forceEnd = false) {
 
 		// in case it was ended early
 		forEach ($chatBot->data["ORGLIST_MODULE"]["added"] as $name => $value) {
-			$buddyList->remove($name, 'onlineorg');
+			$buddylistManager->remove($name, 'onlineorg');
 		}
 		unset($chatBot->data["ORGLIST_MODULE"]);
 	}

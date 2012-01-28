@@ -44,7 +44,7 @@ if (preg_match("/^track$/i", $message)) {
 	  	} else {
 		    $db->exec("DELETE FROM tracked_users_<myname> WHERE `uid` = ?", $uid);
 		    $msg = "<highlight>$name<end> has been removed from the track list.";
-			$buddyList->remove($name, 'tracking');
+			$buddylistManager->remove($name, 'tracking');
 		}
 	}
 
@@ -62,7 +62,7 @@ if (preg_match("/^track$/i", $message)) {
 	  	} else {
 		    $db->exec("INSERT INTO tracked_users_<myname> (`name`, `uid`, `added_by`, `added_dt`) VALUES (?, ?, ?, ?)", $name, $uid, $sender, time());
 		    $msg = "<highlight>$name<end> has been added to the track list.";
-	        $buddyList->add($name, 'tracking');
+	        $buddylistManager->add($name, 'tracking');
 		}
 	}
 
