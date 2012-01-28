@@ -10,7 +10,7 @@
 `status` INT DEFAULT 1
 */
 
-class EventManager extends Annotation {
+class EventManager {
 
 	/** @Inject */
 	public $db;

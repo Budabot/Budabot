@@ -102,12 +102,12 @@ class Budabot extends AOChat {
 				$this->ready = true;
 			}
 			if ($this->is_ready()) {
-				if ($exec_connected_events == false)	{
+				if ($exec_connected_events == false) {
 					$this->eventManager->executeConnectEvents();
 					$exec_connected_events = true;
 				}
 				
-				// execute crons at most once every second
+				// execute cron events at most once every second
 				if ($time < time()) {
 					$this->eventManager->crons();
 					$time = time();
@@ -206,7 +206,7 @@ class Budabot extends AOChat {
 	 * @name: loadModules
 	 * @description: load all user modules
 	 */
-	function loadModules(){
+	function loadModules() {
 		if ($d = dir("./modules")) {
 			$this->db->begin_transaction();
 			while (false !== ($MODULE_NAME = $d->read())) {
