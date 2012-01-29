@@ -1,0 +1,8 @@
+<highlight>To view the list of log files:<end>
+<tab><symbol>logs
+
+<highlight>To view a particular log file:<end>
+<tab><symbol>logs <i>filename</i>
+
+<highlight>To view lines in a particular log file that match a search critera:<end>
+<tab><symbol>logs <i>filename</i> <i>search</i>

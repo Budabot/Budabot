@@ -56,4 +56,5 @@
 
 	$help->register($MODULE_NAME, "system", "system.txt", "admin", "Admin System Help file");
 	$help->register($MODULE_NAME, "budatime", "budatime.txt", "all", "Format for budatime");
+	$help->register($MODULE_NAME, "logs", "logs.txt", "all", "View bot logs");
 ?>
