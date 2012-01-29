@@ -36,16 +36,17 @@ class ItemsController {
 	 * @Help("items.txt")
 	 */
 	public function itemsCommand($message, $channel, $sender, $sendto, $args) {
+		print_r($args);
 		if (count($args) == 3) {
-			$ql = $arr[2];
+			$ql = $args[1];
 			if (!($ql >= 1 && $ql <= 500)) {
-				$msg = "Invalid Ql specified (1-500)";
+				$msg = "QL must be between 1 and 500.";
 				$sendto->reply($msg);
 				return;
 			}
-			$search = $arr[3];
+			$search = $args[2];
 		} else {
-			$search = $arr[2];
+			$search = $args[1];
 			$ql = false;
 		}
 		
