@@ -36,7 +36,6 @@ class ItemsController {
 	 * @Help("items.txt")
 	 */
 	public function itemsCommand($message, $channel, $sender, $sendto, $args) {
-		print_r($args);
 		if (count($args) == 3) {
 			$ql = $args[1];
 			if (!($ql >= 1 && $ql <= 500)) {
