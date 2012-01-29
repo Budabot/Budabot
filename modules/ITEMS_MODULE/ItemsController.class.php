@@ -160,13 +160,18 @@ class ItemsController {
 		$num = count($data);
 		if ($num == 0) {
 			if ($ql) {
-				$msg = "No items found matching <highlight>$search<end> with QL <highlight>$ql<end>.";
+				$msg = "No QL <highlight>$ql<end> items found matching <highlight>$search<end>.";
 			} else {
 				$msg = "No items found matching <highlight>$search<end>.";
 			}
 			return $msg;
 		} else if ($num > 3) {
-			$blob = "Version: " . $this->setting->get('aodb_db_version') . "\n\n";
+			$blob = "Version: " . $this->setting->get('aodb_db_version') . "\n";
+			if ($ql) {
+				$blob .= "Search: QL $ql $search\n\n";
+			} else {
+				$blob .= "Search: $search\n\n";
+			}
 			$blob .= $this->formatSearchResults($data, $ql, true);
 			$xrdbLink = Text::make_chatcmd("XRDB", "/start http://www.xyphos.com/viewtopic.php?f=6&t=10000091");
 			$budabotItemsExtractorLink = Text::make_chatcmd("Budabot Items Extractor", "/start http://budabot.com/forum/viewtopic.php?f=7&t=873");
