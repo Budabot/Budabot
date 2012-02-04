@@ -9,10 +9,34 @@ class ClientHandler {
 	}
 
 	function readPacket() {
-		$size = array_pop(unpack("n", socket_read($this->client, 2)));
-		$obj = json_decode(socket_read($this->client, $size));
+		$size = array_pop(unpack("n", $this->readData(2)));
+		$data = $this->readData($size);
+		$obj = json_decode($data);
 		$this->syncId = $obj->syncId;
 		return $obj;
+	}
+	
+	function readData( $byteCount ) {
+		$result = '';
+		$remaining = $byteCount;
+		while ($remaining > 0) { // TODO: it might be wise to have some 
+								 // timeout here if the client doesn't sent all needed data
+			$data = socket_read($this->client, $remaining);
+			if ($data === false) {
+				$error = socket_last_error($this->client);
+				if($error != 10035)
+				{
+					// dumps for debugging purposes if stuff fails
+					var_dump( $error );
+					var_dump( socket_strerror( $error ) );
+					return false;
+				}
+			} else {
+				$remaining -= strlen($data);
+				$result .= $data;
+			}
+		}
+		return $result;
 	}
 
 	function writePacket($apiPacket) {
