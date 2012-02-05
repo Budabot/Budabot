@@ -29,14 +29,9 @@ class API {
 	 */
 	public $defaultAPIPort = "5250";
 	
-	private $apisocket;
+	private $apisocket = null;
 
-	/**
-	 * @Event("connect")
-	 * @Description("Opens a socket to listen for API requests")
-	 * @DefaultStatus("0")
-	 */
-	public function connect($eventObj) {
+	private function openApiSocket() {
 		// bind to port 5250 on any address
 		$address = '0.0.0.0';
 		$port = $this->setting->get('api_port');
@@ -60,6 +55,10 @@ class API {
 	 * @DefaultStatus("0")
 	 */
 	public function listen($eventObj) {
+		// open the api socket if it is not open yet
+		if ($this->apisocket === null) {
+			$this->openApiSocket();
+		}
 		/* Accept incoming requests and handle them as child processes */
 		$client = @socket_accept($this->apisocket);
 		if ($client !== false) {
