@@ -80,8 +80,8 @@ class AccessLevel extends Annotation {
 			case "mod":
 				$displayName = "moderator";
 				break;
-			case "administrator":
-				$displayName = "admin";
+			case "admin":
+				$displayName = "administrator";
 				break;
 		}
 
@@ -94,12 +94,18 @@ class AccessLevel extends Annotation {
 		}
 		if (isset($this->admin->admins[$sender])) {
 			$level = $this->admin->admins[$sender]["level"];
-			if ($level >= 4 || $this->checkGuildAdmin($sender, 'admin')) {
+			if ($level >= 4) {
 				return "admin";
 			}
-			if ($level >= 3 || $this->checkGuildAdmin($sender, 'mod')) {
+			if ($level >= 3) {
 				return "mod";
 			}
+		}
+		if ($this->checkGuildAdmin($sender, 'admin')) {
+			return "admin";
+		}
+		if ($this->checkGuildAdmin($sender, 'mod')) {
+			return "mod";
 		}
 		if (isset($this->chatBot->data["leader"]) && $this->chatBot->data["leader"] == $sender) {
 			return "rl";
