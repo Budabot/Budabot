@@ -1,7 +1,5 @@
 <?php
-
-// Blank commit
-
+	
 /* 
  * If the bot is running under Windows, use php.exe 
  * and the Windows-specific php-win.ini, else use 
