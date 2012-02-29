@@ -1,6 +1,9 @@
 <highlight>To show a list of playfields, including their id, short name, and long name:<end>
 <tab><symbol>playfields
 
+<highlight>To search for a specific playfield, append its short or long name:<end>
+<tab><symbol>playfields 'name'
+
 <highlight>To create a waypoint link in chat:<end>
 <tab><symbol>waypoint 'x' 'y' 'playfield'
 
