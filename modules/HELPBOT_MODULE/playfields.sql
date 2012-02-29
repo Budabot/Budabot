@@ -5,7 +5,7 @@ INSERT INTO playfields (id, long_name, short_name) VALUES (655, 'Andromeda', 'An
 INSERT INTO playfields (id, long_name, short_name) VALUES (585, 'Aegean', 'Aegean');
 INSERT INTO playfields (id, long_name, short_name) VALUES (540, 'Old Athen', 'OA');
 INSERT INTO playfields (id, long_name, short_name) VALUES (550, 'Athen Shire', 'AS');
-INSERT INTO playfields (id, long_name, short_name) VALUES (545, 'West Athens', 'WA')
+INSERT INTO playfields (id, long_name, short_name) VALUES (545, 'West Athens', 'WA');
 INSERT INTO playfields (id, long_name, short_name) VALUES (505, 'Avalon', 'Avalon');
 INSERT INTO playfields (id, long_name, short_name) VALUES (605, 'Belial Forest', 'BF');
 INSERT INTO playfields (id, long_name, short_name) VALUES (800, 'Borealis', 'Bor');
@@ -48,8 +48,13 @@ INSERT INTO playfields (id, long_name, short_name) VALUES (650, 'Upper Stret Eas
 INSERT INTO playfields (id, long_name, short_name) VALUES (600, 'Varmint Woods', 'VW');
 INSERT INTO playfields (id, long_name, short_name) VALUES (551, 'Wailing Wastes', 'WW');
 INSERT INTO playfields (id, long_name, short_name) VALUES (586, 'Wartorn Valley', 'WV');
+INSERT INTO playfields (id, long_name, short_name) VALUES (6550, 'Uturn Canyon', 'UC');
+INSERT INTO playfields (id, long_name, short_name) VALUES (6551, 'Uturn Forest', 'UF'); 
+INSERT INTO playfields (id, long_name, short_name) VALUES (6102, 'Three Craters East', '3CE');
+INSERT INTO playfields (id, long_name, short_name) VALUES (6101, 'Three Craters West', '3CW'); 
 
---SL
+
+#--SL
 INSERT INTO playfields (id, long_name, short_name) VALUES (4872, 'Adonis City', 'ADOCITY');
 INSERT INTO playfields (id, long_name, short_name) VALUES (4873, 'Adonis Abyss', 'ADO');
 INSERT INTO playfields (id, long_name, short_name) VALUES (4542, 'Elysium', 'ELY');
