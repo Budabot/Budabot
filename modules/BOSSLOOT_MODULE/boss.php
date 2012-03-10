@@ -43,7 +43,7 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 		$blob .= "<green>Can be found {$row->answer}<end>\n\n";
 		$blob .= "Loot:\n\n";
 
-		$data = $db->query("SELECT * FROM boss_lootdb b LEFT JOIN aodb a ON (b.itemid = a.lowid OR b.itemid = a.highid) WHERE b.bossid = ?". $row->bossid);
+		$data = $db->query("SELECT * FROM boss_lootdb b LEFT JOIN aodb a ON (b.itemid = a.lowid OR b.itemid = a.highid) WHERE b.bossid = ?", $row->bossid);
 		forEach ($data as $row2) {
 			$blob .= "<img src=rdb://{$row2->icon}>\n";
 			$blob .= Text::make_item($row2->lowid, $row2->highid, $row2->highql, $row2->itemname) . "\n\n";
