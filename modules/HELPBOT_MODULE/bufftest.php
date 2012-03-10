@@ -61,7 +61,7 @@ if (preg_match("/^bufftest$/i", $message, $arr)) {
 	$blob .= "\n\n<highlight>Skill Listings:<end>\n";
 	$blob .= Text::make_chatcmd("Treatment", "/tell <myname> bufftest Treatment");
 
-	$msg = Text::make_blob("Buff item skill selection", $blob);
+	$msg = Text::make_blob("Select Skill to Buff", $blob);
 	$sendto->reply($msg);
 // Creates the list of items
 } else if (preg_match("/^bufftest (.+)$/i", $message, $arr)) {
@@ -80,17 +80,18 @@ if (preg_match("/^bufftest$/i", $message, $arr)) {
 		$currentType == '';
 		forEach ($data as $row) {
 			if ($row->type != $currentType) {
+				//These few lines create each section of the list
 				if ($row->type == 'weap') {
-					$blob .= "\n<highlight>Weapon Buff List<end>\n\n";
+					$blob .= "\n-----------------------\n<highlight>Weapon Buff List<end>\n-----------------------\n\n";
 				} else if ($row->type == "armor") {
-					$blob .= "\n<highlight>Armor Buff List<end>\n\n";
+					$blob .= "\n-----------------------\n<highlight>Armor Buff List<end>\n-----------------------\n\n";
 				} else if ($row->type == "util") {
-					$blob .= "\n<highlight>Utility Buff List<end>\n\n";
+					$blob .= "\n-----------------------\n<highlight>Utility/Misc Buff List<end>\n-----------------------\n\n";
 				}
 				$currentType = $row->type;
 			}
 			
-			$blob .= Text::make_item($row->lowid, $row->highid, $row->minql, $row->name) . " Buff Amount: <highlight>$row->buffed<end> - <highlight>$row->info<end>\n";
+			$blob .= Text::make_item($row->lowid, $row->highid, $row->minql, $row->name) . "\nBuff Amount: <highlight>$row->buffed\n$row->info<end>\n\n";
 		}
 		$msg = Text::make_blob("Buff Item list ($skill)", $blob);
 	} else {
