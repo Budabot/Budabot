@@ -36,6 +36,7 @@ if (preg_match("/^opentimes$/i", $message)) {
 		forEach ($data as $row) {
 			if ($row->guild_name != $currentGuildName) {
 				$contractQl = $contractQls[$row->guild_name];
+				$contractQl = ($contractQl * 2);
 				$faction = strtolower($row->faction);
 
 				$blob .= "\n<u><$faction>$row->guild_name<end></u> (Total Contract QL: $contractQl)\n";
