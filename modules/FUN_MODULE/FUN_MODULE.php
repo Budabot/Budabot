@@ -14,5 +14,6 @@
 	$command->register($MODULE_NAME, "", "homer.php", "homer", "all", "Shows a random homer quote message", 'fun_module.txt');
 	$command->register($MODULE_NAME, "", "dwight.php", "dwight", "all", "Shows a random dwight quote message", 'fun_module.txt');
 	$command->register($MODULE_NAME, "", "brain.php", "brain", "all", "Shows a random pinky and the brain quote message", 'fun_module.txt');
+    $command->register($MODULE_NAME, "", "pirates.php", "Pirates", "all", "Shows a random Pirates of the Caribbean quote message", 'fun_module.txt');
 	$commandAlias->register($MODULE_NAME, "brain", "pinky");
 ?>

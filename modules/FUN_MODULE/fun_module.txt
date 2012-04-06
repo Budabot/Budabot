@@ -30,5 +30,8 @@
 <tab><symbol>pinky
 <tab><symbol>brain
 
+<highlight>Show a random quotes from the movie Pirates of the Caribbeane<end>  (Developed by JungleGeorge (RK2))
+<tab><symbol>pirates
+
 <highlight>Let 2 people fight each other<end>
 <tab><symbol>fight 'Person1' vs 'Person2'
