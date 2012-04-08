@@ -1,43 +1,61 @@
 <?php
-/* ********************************************	*/
-/* Configuration file for Budabot.              */
-/* ********************************************	*/
 
-// Account information.
-$vars['login']      = "";
-$vars['password']   = "";
-$vars['name']       = "";
-$vars['my_guild']   = "";
+	/* ********************************************	*/
+	/* Configuration file for Budabot.              */
+	/* ********************************************	*/
 
-// 1 for Atlantean, 2 for Rimor, 4 for Test Live.
-$vars['dimension']  = 1;
+	/*
+	 ** This file is part of Budabot.
+	 **
+	 ** Budabot is free software: you can redistribute it and/org modify
+	 ** it under the terms of the GNU General Public License as published by
+	 ** the Free Software Foundation, either version 3 of the License, or
+	 ** (at your option) any later version.
+	 **
+	 ** Budabot is distributed in the hope that it will be useful,
+	 ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+	 ** GNU General Public License for more details.
+	 **
+	 ** You should have received a copy of the GNU General Public License
+	 ** along with Budabot. If not, see <http://www.gnu.org/licenses/>.
+	*/
 
-// Character name of the Super Administrator.
-$vars['SuperAdmin'] = "";
+	// Account information.
+	$vars['login']      = "";
+	$vars['password']   = "";
+	$vars['name']       = "";
+	$vars['my_guild']   = "";
 
-// Database information.
-$vars['DB Type'] = "sqlite";		// What type of database should be used? ('sqlite' or 'mysql')
-$vars['DB Name'] = "budabot.db";	// Database name
-$vars['DB Host'] = "./data/";		// Hostname or file location
-$vars['DB username'] = "";		// MySQL username
-$vars['DB password'] = "";		// MySQL password
+	// 1 for Atlantean, 2 for Rimor, 4 for Test Live.
+	$vars['dimension']  = 1;
 
-// Show aoml markup in logs/console. 1 for enabled, 0 for disabled.
-$vars['show_aoml_markup'] = 0;
+	// Character name of the Super Administrator.
+	$vars['SuperAdmin'] = "";
 
-// Cache folder for storing organization XML files.
-$vars['cachefolder'] = "./cache/";
+	// Database information.
+	$vars['DB Type'] = "sqlite";		// What type of database should be used? ('sqlite' or 'mysql')
+	$vars['DB Name'] = "budabot.db";	// Database name
+	$vars['DB Host'] = "./data/";		// Hostname or file location
+	$vars['DB username'] = "";			// MySQL username
+	$vars['DB password'] = "";			// MySQL password
 
-// Default status for modules. 1 for enabled, 0 for disabled.
-$vars['default_module_status'] = 0;
+	// Show AOML markup in logs/console? 1 for enabled, 0 for disabled.
+	$vars['show_aoml_markup'] = 0;
 
-// AO Chat Proxy. 1 for enabled, 0 for disabled.
-$vars['use_proxy'] = 0;
-$vars['proxy_server'] = "127.0.0.1";
-$vars['proxy_port'] = 9993;
+	// Cache folder for storing organization XML files.
+	$vars['cachefolder'] = "./cache/";
 
-// This should only be enabled during development and only if you understand the implications
-// see here: http://budabot.com/forum/viewtopic.php?p=3438#p3438
-define("USE_RUNKIT_CLASS_LOADING", false);
+	// Default status for new modules? 1 for enabled, 0 for disabled.
+	$vars['default_module_status'] = 0;
+
+	// Use AO Chat Proxy? 1 for enabled, 0 for disabled.
+	$vars['use_proxy'] = 0;
+	$vars['proxy_server'] = "127.0.0.1";
+	$vars['proxy_port'] = 9993;
+
+	// This should only be enabled during development and only if you understand the implications
+	// seen here: <http://code.google.com/p/budabot2/wiki/CompilingRunkit>
+	define("USE_RUNKIT_CLASS_LOADING", false);
 
 ?>
