@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+
 <configuration xmlns="http://logging.apache.org/log4php/">
  
-    <appender name="defaultConsoleAppender" class="LoggerAppenderConsole">
+	<appender name="defaultConsoleAppender" class="LoggerAppenderConsole">
 		<layout class="LoggerLayoutTTCC">
 			<param name="threadPrinting" value="false" />
 			<param name="microSecondsPrinting" value="false" />
 		</layout>
 	</appender>
-    
-    <appender name="defaultFileAppender" class="LoggerAppenderDailyFile">
-        <layout class="LoggerLayoutTTCC">
+
+	<appender name="defaultFileAppender" class="LoggerAppenderDailyFile">
+		<layout class="LoggerLayoutTTCC">
 			<param name="threadPrinting" value="false" />
 			<param name="microSecondsPrinting" value="false" />
 		</layout>
-        <param name="file" value="./logs/budabot_%s.log" />
-		<param name="datePattern" value="Y-m" />
-    </appender>
+			<param name="file" value="./logs/budabot_%s.log" />
+			<param name="datePattern" value="Y-m" />
+	</appender>
  
 	<!-- <logger name="Foo">
-        <appender_ref ref="myFileAppender" />
-    </logger> -->
+		<appender_ref ref="myFileAppender" />
+	</logger> -->
     
-    <root>
-        <level value="INFO" />
-        <appender_ref ref="defaultConsoleAppender" />
+	<root>
+		<level value="INFO" />
+		<appender_ref ref="defaultConsoleAppender" />
 		<appender_ref ref="defaultFileAppender" />
-    </root>
+	</root>
+    
 </configuration>
