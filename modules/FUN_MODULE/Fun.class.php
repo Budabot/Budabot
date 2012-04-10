@@ -36,6 +36,7 @@ class Fun {
 		$fc[] = "Dear Arguru, You have received a warning at Anarchy Online Bulletin Board.  Reason: ------- Excessive Profanities  Joking or not, this is an inappropriate level of obscenities. Please make your point in other ways. Thank you.  --Anarrina";
 		$fc[] = "I usually try to be diplomatic and avoid insults, but I'm not particularly in that mood today. --Vhab";
 		$fc[] = "This sort of non-constructive trolling is not necessary to begin a thread. Should you have an issue with a particular policy, it is within forum rules to state so in a more polite manner. I have edited the objectional content in the post, you may edit it to include a calmer and more constructive criticism. --Anarrina";
+    $fc[] = "they're generated, but not in a way you guys can make sense of em :) -- Vhab [talking about how FC calculates values in AO]";
 		
 		$dmg = rand(100,999);
 		$cred = rand(10000,9999999);
