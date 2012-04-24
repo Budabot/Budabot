@@ -38,6 +38,7 @@ class Fun {
 		$fc[] = "This sort of non-constructive trolling is not necessary to begin a thread. Should you have an issue with a particular policy, it is within forum rules to state so in a more polite manner. I have edited the objectional content in the post, you may edit it to include a calmer and more constructive criticism. --Anarrina";
     $fc[] = "they're generated, but not in a way you guys can make sense of em :) -- Vhab [talking about how FC calculates values in AO]";
     $fc[] = "Last edited by Anarrina; Today at 18:32:45.. Reason: constantly mistyping someone else's name in an attempt to belittle them in harassment";
+     $fc[] = "\"I'm sorry my reality doesn't match the arguments you'd love to see in your hypothetical situation --Vhab\" ~ \"apology accepted. :) --Argure\"";
 		
 		$dmg = rand(100,999);
 		$cred = rand(10000,9999999);
