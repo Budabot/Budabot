@@ -30,6 +30,7 @@ class API {
 	public $defaultAPIPort = "5250";
 	
 	private $apisocket = null;
+	private $socketNotifier = null;
 
 	private function openApiSocket() {
 		// bind to port 5250 on any address
@@ -42,23 +43,32 @@ class API {
 		$errno = socket_last_error();
 		if ($errno == 0) {
 			$this->logger->log('INFO', 'API socket bound successfully');
+			socket_listen($this->apisocket);
+			socket_set_nonblock($this->apisocket);
+			$this->socketNotifier = new SocketNotifier($this->apisocket, 
+				SocketNotifier::ACTIVITY_READ, array($this, 'onApiActivity'));
+			$this->chatBot->addSocketNotifier($this->socketNotifier);
 		} else {
 			$this->logger->log('ERROR', socket_strerror($errno));
 		}
-		socket_listen($this->apisocket);
-		socket_set_nonblock($this->apisocket);
+		
 	}
 	
 	/**
-	 * @Event("2sec")
-	 * @Description("Checks for and processes API requests")
-	 * @DefaultStatus("0")
+	 * @Event("connect")
+	 * @Description("Start to listen for incoming command requests")
 	 */
-	public function listen($eventObj) {
+	function connectEvent($eventObj) {
 		// open the api socket if it is not open yet
 		if ($this->apisocket === null) {
 			$this->openApiSocket();
 		}
+	}
+
+	/**
+	 * This method is called there is activity in the API socket.
+	 */
+	public function onApiActivity($type) {
 		/* Accept incoming requests and handle them as child processes */
 		$client = @socket_accept($this->apisocket);
 		if ($client !== false) {

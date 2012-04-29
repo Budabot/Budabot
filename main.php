@@ -117,6 +117,7 @@
 	require_once './core/Ban.class.php';
 	require_once './core/Util.class.php';
 	require_once './core/Text.class.php';
+	require_once './core/SocketNotifier.class.php';
 
 	// Show setup dialog.
 	if ($vars['login'] == "" || $vars['password'] == "" || $vars['name'] == "") {
