@@ -138,7 +138,7 @@ class Budabot extends AOChat {
 					$time = time();
 				}
 				
-				usleep(10);
+				usleep(10000);
 			}
 		}
 	}
