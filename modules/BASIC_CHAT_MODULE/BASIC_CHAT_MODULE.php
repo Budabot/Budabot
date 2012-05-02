@@ -1,7 +1,9 @@
 <?php
 	require_once 'Rally.class.php';
+	require_once 'chatsay.class.php';
 	
 	$chatBot->registerInstance($MODULE_NAME, 'Rally', new Rally);
+	$chatBot->registerInstance($MODULE_NAME, 'ChatSay', new ChatSay);
 
 	// Check macros
 	$command->register($MODULE_NAME, "", "check.php", "check", "all", "Checks who of the raidgroup is in the area", "check.txt");
