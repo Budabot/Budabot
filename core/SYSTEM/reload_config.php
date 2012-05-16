@@ -1,9 +1,9 @@
 <?php
 
 if (preg_match("/^reloadconfig$/i", $message)) {
-	global $config_file;
-
-	require $config_file;
+	global $configFile;
+	$configFile->load();
+	$vars = $configFile->getVars();
 
 	// remove variables that shouldn't change without a restart
 	unset($vars['name']);

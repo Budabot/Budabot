@@ -29,24 +29,11 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-global $config_file;
+global $configFile;
 
 function read_input ($output = "") {
 	echo $output;
 	return trim(fgets(STDIN));
-}
-
-function savecfg($vars) {
-	global $config_file;
-	$lines = file($config_file);
-	forEach ($lines as $key => $line) {
-	  	if (preg_match("/^(.+)vars\[('|\")(.+)('|\")](.*)=(.*)\"(.*)\";(.*)$/si", $line, $arr)) {
-			$lines[$key] = "$arr[1]vars['$arr[3]']$arr[5]=$arr[6]\"{$vars[$arr[3]]}\";$arr[8]";
-		} else if (preg_match("/^(.+)vars\[('|\")(.+)('|\")](.*)=([ 	]+)([0-9]+);(.*)$/si", $line, $arr)) {
-			$lines[$key] = "$arr[1]vars['$arr[3]']$arr[5]=$arr[6]{$vars[$arr[3]]};$arr[8]";
-		}
-	}
-	file_put_contents($config_file, $lines);
 }
 
 echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
@@ -289,14 +276,15 @@ echo "             www.budabot.com\n";
 echo "             ----------------------------------------------\n";
 echo "             Have a good day on Rubi-Ka.\n";
 echo "             To rerun this setup simply delete your\n";
-echo "             config file: $config_file\n";
+echo "             config file: {$configFile->getFilePath()}\n";
 echo "             **********************************************\n";
 echo "         \n\n\n\n\n";
 $msg = "Press [Enter] to start the bot.\n";
 read_input($msg);
 
-//Save the entered info to $config_file
-savecfg($vars);
+//Save the entered info to $configFile
+$configFile->insertVars($vars);
+$configFile->save();
 
 die("Restarting bot");
 ?>

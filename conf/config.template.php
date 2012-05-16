@@ -54,6 +54,9 @@
 	$vars['proxy_server'] = "127.0.0.1";
 	$vars['proxy_port'] = 9993;
 
+	// API module configuration
+	$vars['API Port'] = 5250;
+
 	// This should only be enabled during development and only if you understand the implications
 	// seen here: <http://code.google.com/p/budabot2/wiki/CompilingRunkit>
 	define("USE_RUNKIT_CLASS_LOADING", false);

@@ -19,23 +19,20 @@ class API {
 
 	/** @Inject */
 	public $accessLevel;
-
-	/**
-	 * @Setting("api_port")
-	 * @Description("Port number to listen for API requests")
-	 * @Visibility("edit")
-	 * @Type("number")
-	 * @Options("5250")
-	 */
-	public $defaultAPIPort = "5250";
 	
 	private $apisocket = null;
 	private $socketNotifier = null;
 
 	private function openApiSocket() {
-		// bind to port 5250 on any address
+		// bind to any address
 		$address = '0.0.0.0';
-		$port = $this->setting->get('api_port');
+		
+		// read port from config-file
+		$port = intval($this->chatBot->vars['API Port']);
+		if ($port < 1 || $port > 65535) {
+			$this->logger->log('ERROR', "API's port must be within 1 and 65535, currently it is $port");
+			return;
+		}
 
 		// Create a TCP Stream socket
 		$this->apisocket = socket_create(AF_INET, SOCK_STREAM, 0);

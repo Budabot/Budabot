@@ -59,13 +59,13 @@
     	}
 	}
 
-	// Load required files.
-	$config_file = $argv[1];
-	if (!file_exists($config_file)) {
-		copy('./conf/config.template.php', $config_file) or LegacyLogger::log('ERROR', 'StartUp', "could not create config file: {$config_file}");
-	}
+	require_once './core/ConfigFile.class.php';
 
-	require $config_file;
+	// Load required files.
+	$configFilePath = $argv[1];
+	$configFile = new ConfigFile($configFilePath);
+	$configFile->load();
+	$vars = $configFile->getVars();
 
 	/* function exceptions_error_handler($severity, $message, $filename, $lineno) {
 		if (error_reporting() == 0) {
