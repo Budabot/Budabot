@@ -69,41 +69,53 @@ class API {
 		/* Accept incoming requests and handle them as child processes */
 		$client = @socket_accept($this->apisocket);
 		if ($client !== false) {
-			$clientHandler = new ClientHandler($client);
+			$clientHandler = new ClientHandler($client, $this->logger);
 
 			// Read the input from the client
 			$apiRequest = $clientHandler->readPacket();
 			if ($apiRequest->version != API_VERSION) {
 				$clientHandler->writePacket(new APIResponse(API_INVALID_VERSION, "API version must be: " . API_VERSION));
+				return;
 			}
 			
-			$password = $this->preferences->get($apiRequest->username, 'apipassword');
-			if ($password === false) {
-				$clientHandler->writePacket(new APIResponse(API_UNSET_PASSWORD, "Password has not been set for this user."));
-			} else if ($password != $apiRequest->password) {
-				$clientHandler->writePacket(new APIResponse(API_INVALID_PASSWORD, "Password was incorrect."));
-			} else {
-				if ($apiRequest->type == API_SIMPLE_MSG) {
-					$type = 'msg';
-					$apiReply = new APISimpleReply();
-				} else if ($apiRequest->type == API_ADVANCED_MSG) {
-					$type = 'api';
-					$apiReply = new APIAdvancedReply();
-				} else {
-					$clientHandler->writePacket(new APIResponse(API_INVALID_REQUEST_TYPE, "Invalid request type."));
+			$userPassword = $this->preferences->get($apiRequest->username, 'apipassword');
+
+			$isSuperAdmin = $apiRequest->username == $this->chatBot->vars['SuperAdmin'];
+			$fromLocalHost = $clientHandler->getClientAddress() == '127.0.0.1';
+			
+			// password is not needed for superadmin from 'localhost' if the superadmin hasn't set password yet
+			$noPasswordNeeded = $isSuperAdmin && $fromLocalHost && !$userPassword;
+
+			if (!$noPasswordNeeded) {
+				if ($userPassword === false) {
+					$clientHandler->writePacket(new APIResponse(API_UNSET_PASSWORD, "Password has not been set for this user."));
+					return;
+				} else if ($userPassword != $apiRequest->password) {
+					$clientHandler->writePacket(new APIResponse(API_INVALID_PASSWORD, "Password was incorrect."));
 					return;
 				}
-
-				try {
-					$responseCode = $this->process($type, $apiRequest->command, $apiRequest->username, $apiReply);
-					$response = new APIResponse($responseCode, $apiReply->getOutput());
-				} catch (APIException $e) {
-					$response = new APIResponse(API_EXCEPTION, $e->getResponseMessage());
-				} catch (Exception $e) {
-					$response = new APIResponse(API_EXCEPTION, $e->getMessage());
-				}
-				$clientHandler->writePacket($response);
 			}
+			
+			if ($apiRequest->type == API_SIMPLE_MSG) {
+				$type = 'msg';
+				$apiReply = new APISimpleReply();
+			} else if ($apiRequest->type == API_ADVANCED_MSG) {
+				$type = 'api';
+				$apiReply = new APIAdvancedReply();
+			} else {
+				$clientHandler->writePacket(new APIResponse(API_INVALID_REQUEST_TYPE, "Invalid request type."));
+				return;
+			}
+
+			try {
+				$responseCode = $this->process($type, $apiRequest->command, $apiRequest->username, $apiReply);
+				$response = new APIResponse($responseCode, $apiReply->getOutput());
+			} catch (APIException $e) {
+				$response = new APIResponse(API_EXCEPTION, $e->getResponseMessage());
+			} catch (Exception $e) {
+				$response = new APIResponse(API_EXCEPTION, $e->getMessage());
+			}
+			$clientHandler->writePacket($response);
 		}
 	}
 	
@@ -142,13 +154,18 @@ class API {
 	
 	/**
 	 * @Command("apipassword")
-	 * @AccessLevel("mod")
-	 * @Description("Set your api password")
+	 * @AccessLevel("all")
+	 * @Description("Sets your api password, use 'apipassword clear' to clear your password.")
 	 * @Matches("/^apipassword (.*)$/i")
 	 */
 	public function apipasswordCommand($message, $channel, $sender, $sendto, $arr) {
-		$this->preferences->save($sender, 'apipassword', $arr[1]);
-		$sendto->reply("Your API password has been updated successfully.");
+		if ($arr[1] == 'clear') {
+			$this->preferences->save($sender, 'apipassword', '');
+			$sendto->reply("Your API password has been cleared successfully.");
+		} else {
+			$this->preferences->save($sender, 'apipassword', $arr[1]);
+			$sendto->reply("Your API password has been updated successfully.");
+		}
 	}
 }
 

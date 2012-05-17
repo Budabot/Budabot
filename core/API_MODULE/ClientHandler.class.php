@@ -3,9 +3,11 @@
 class ClientHandler {
 	private $client;
 	private $syncId;
+	private $logger;
 
-	function __construct($client) {
+	function __construct($client, $logger) {
 		$this->client = $client;
+		$this->logger = $logger;
 	}
 
 	function readPacket() {
@@ -49,6 +51,17 @@ class ClientHandler {
 	
 	function close() {
 		socket_close($this->client);
+	}
+	
+	/**
+	 * Returns client's IP-address.
+	 */
+	public function getClientAddress() {
+		$address = null;
+		if (!socket_getpeername($this->client, $address)) {
+			$this->logger->log('ERROR', "Failed to get client's peer name");
+		}
+		return $address;
 	}
 }
 
