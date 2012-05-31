@@ -109,13 +109,13 @@ Weapons:
 <a href='itemref://204722/204722/1'>Tattered book: Tree of Enlightenment (section 3)</a>
 <a href='itemref://204723/204723/1'>Tattered book: Tree of Enlightenment (section 4)</a>
 <a href='itemref://204724/204724/1'>Tattered book: Tree of Enlightenment (section 5)</a>
-<a href='itemref://204725/204725/1'>Tattered book: Tree of Enlightenment (section 6)</a> MA Attack (120dmg + 290heal) when completed
+<a href='itemref://204725/204725/1'>Tattered book: Tree of Enlightenment (section 6)</a> MA Attack (120dmg + 290heal) when completed by visiting <a href='chatcmd:///waypoint 827 2298 647'>Hermit</a>
 
 <a href='itemref://204711/204711/1'>Tattered book: Ape Fist of Khalum (section 1)</a>
 <a href='itemref://204712/204712/1'>Tattered book: Ape Fist of Khalum (section 2)</a>
 <a href='itemref://204713/204713/1'>Tattered book: Ape Fist of Khalum (section 3)</a>
 <a href='itemref://204714/204714/1'>Tattered book: Ape Fist of Khalum (section 4)</a>
-<a href='itemref://204715/204715/1'>Tattered book: Ape Fist of Khalum (section 5)</a> MA Attack (97dmg, 2sec stun) when completed
+<a href='itemref://204715/204715/1'>Tattered book: Ape Fist of Khalum (section 5)</a> MA Attack (97dmg, 2sec stun) when completed by visiting <a href='chatcmd:///waypoint 827 2298 647'>Hermit</a>
 
 <pagebreak>Bracers:
 <a href='itemref://204756/204756/1'>Bracelet of Amplified Sound</a>
