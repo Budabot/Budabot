@@ -41,6 +41,23 @@ if (preg_match("/^fight (.+) vs (.+)$/i", $message, $arr) || preg_match("/^fight
 		$add_damage_P2 = 0;
 		$wep_P2 = "nerfstick";
 	}
+   
+   	// Checks if Player 1/2 is a Fixer, and if so, sets HP to 1 to ensure loss.
+	if(strcasecmp($player1, "fixer") == 0 OR strcasecmp($player1, "fix") == 0) {
+		$hp1 = 1;
+		$wep_P1 = "tickle";
+	} else {
+		$hp1 = 10000;
+		$add_damage_P1 = 0;
+		$wep_P1 = "nerfstick";
+	if(strcasecmp($player2, "fixer") == 0 OR strcasecmp($player2, "fix") == 0) {
+		$hp2 = 1;
+		$wep_P2 = "tickle";
+	} else {
+		$hp2 = 10000;
+		$add_damage_P2 = 0;
+		$wep_P2 = "nerfstick";
+	}
 
   	$list = "Fight <highlight>$player1<end> VS <highlight>$player2<end> \n\n";
   	while ($hp1 > 0 && $hp2 > 0) {
