@@ -119,12 +119,12 @@ do {
 do {
 	echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 	echo "             *********************************************************\n";		
-	echo "             Now we are coming to the 'heart' of this bot\n";
-	echo "             the Database system where nearly everything is\n";
+	echo "             Now we are coming to the 'heart' of this bot,\n";
+	echo "             the database system where nearly everything is\n";
 	echo "             stored. You have 2 options now. Either you can\n";
 	echo "             set it up manually or leave the default setting.\n";
-	echo "             The default settomg is recommended for normal\n";
-	echo "             Users. If you choose to set it up manually\n";
+	echo "             The default setting is recommended for normal\n";
+	echo "             users. If you choose to set it up manually\n";
 	echo "             you will be able to choose between\n";
 	echo "             Mysql and Sqlite.\n";
 	echo "             *********************************************************\n";
