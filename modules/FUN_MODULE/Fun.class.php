@@ -48,6 +48,7 @@ class Fun {
     $fc[] = "you are a poor liar. -- Anarrina";
     $fc[] = "\"ShadowGod, Anarrina, the !fc command needed a new batch, thanks =)\" --Argure ~ \"yeah.. i'm done with this now --ShadowGod\" You were banned from #anarchyonline by ShadowGod (find other people to troll)";
     $fc[] = "Argure: after your insensitive jackass stunt last night in #ao you're no longer welcome in my channel at least. 4chan may be more suited for your childish behavior. --Vhab";
+    $fc[] = "The only way to win the game - is to quit it completely. --Artyomis";
 		
 		$dmg = rand(100,999);
 		$cred = rand(10000,9999999);
