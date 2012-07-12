@@ -12,12 +12,12 @@ class IRC {
 			return true;
 		}
 	}
-	
+
 	public static function connect(&$socket, $nick, $server, $port, $password, $channel) {
 		LegacyLogger::log('INFO', "IRC", "Intializing IRC connection");
-		
+
 		$socket = fsockopen($server, $port);
-		
+
 		fputs($socket,"USER $nick $nick $nick $nick :$nick\n");
 		fputs($socket,"NICK $nick\n");
 		while ($logincount < 10) {
@@ -54,26 +54,26 @@ class IRC {
 		stream_set_blocking($socket, 0);
 		LegacyLogger::log('INFO', "IRC", "Finished connecting to IRC");
 	}
-	
+
 	public static function getUsersInChannel(&$socket, $channel) {
 		stream_set_blocking($socket, 1);
 		fputs($socket, "NAMES :".$channel."\n");
 		$data = fgets($socket);
-		
+
 		$names = array();
 		if (!preg_match("/(End of \/NAMES list)/", $data)) {
 			$start = strrpos($data,":")+1;
 			$names = explode(' ',substr($data, $start, strlen($data)));
 		}
 		stream_set_blocking($socket, 0);
-		
+
 		return $names;
 	}
-	
+
 	public static function disconnect(&$socket) {
 		fclose($socket);
 	}
-	
+
 	public static function send(&$socket, $channel, $message) {
 		fputs($socket, "PRIVMSG ".$channel. " :" . $message . "\n");
 	}

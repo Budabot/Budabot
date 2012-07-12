@@ -20,7 +20,7 @@ if (IRC::isConnectionActive($ircSocket)) {
 				return;
 			}
 		}
-		
+
 		IRC::send($ircSocket, $setting->get('irc_channel'), encodeGuildMessage(getGuildAbbreviation(), "$sender has logged off."));
 		LegacyLogger::log_chat("Out. IRC Msg.", -1, "$sender has left the channel");
 	}

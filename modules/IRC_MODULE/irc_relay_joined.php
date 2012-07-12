@@ -11,15 +11,15 @@ if (!function_exists('getIRCPlayerInfo')) {
 	function getIRCPlayerInfo($sender) {
 		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
-	
+
 		$whois = Player::get_by_name($sender);
 		if ($whois === null) {
 			$whois = new stdClass;
 			$whois->name = $sender;
 		}
-		
+
 		$msg = '';
-			
+
 		if ($whois->firstname) {
 			$msg = $whois->firstname." ";
 		}
@@ -39,7 +39,7 @@ if (!function_exists('getIRCPlayerInfo')) {
 		} else {
 			$msg .= ", Not in a guild)";
 		}
-		
+
 		if ($type == "joinpriv") {
 			$msg .= " has joined the private channel.";
 		} else {
@@ -56,7 +56,7 @@ if (!function_exists('getIRCPlayerInfo')) {
 		if ($logon_msg !== false && $logon_msg != '') {
 			$msg .= " - " . $logon_msg;
 		}
-		
+
 		return $msg;
 	}
 }
@@ -75,7 +75,7 @@ if (IRC::isConnectionActive($ircSocket)) {
 				return;
 			}
 		}
-		
+
 		$msg = getIRCPlayerInfo($sender);
 		LegacyLogger::log_chat("Out. IRC Msg.", -1, $msg);
 		IRC::send($ircSocket, $setting->get('irc_channel'), encodeGuildMessage(getGuildAbbreviation(), $msg));

@@ -10,10 +10,10 @@
 global $ircSocket;
 if (IRC::isConnectionActive($ircSocket)) {
 	if ($args[2][0] != $setting->get("symbol")) {
-		
+
 		$pattern = '/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/';
 		$replace = chr(3) . chr(3) . '\4' . chr(3) . ' ' . chr(3) . '(http://auno.org/ao/db.php?id=\1&id2=\2&ql=\3)' . chr(3) . chr(3);
- 
+
 		$msg = htmlspecialchars_decode(preg_replace($pattern, $replace, $message));
 		//$msg = htmlspecialchars_decode(preg_replace($patterns, $replaces, $message), ENT_QUOTES);
 

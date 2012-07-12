@@ -20,9 +20,9 @@ if (preg_match("/^onlineirc$/i", $message)) {
 	forEach ($names as $value) {
 		$blob .= "$value\n";
 	}
-	
+
 	$msg = Text::make_blob("IRC Online ($numusers)", $blob);
-	
+
 	$sendto->reply($msg);
 } else {
 	$syntax_error = true;

@@ -16,15 +16,15 @@ if ($data = fgets($ircSocket)) {
 	$ex = explode(' ', $data);
 	LegacyLogger::log('DEBUG', "IRC", trim($data));
 	$ex[3] = substr($ex[3],1,strlen($ex[3]));
-	
+
 	$channel = rtrim(strtolower($ex[2]));
 	$nicka = explode('@', $ex[0]);
 	$nickb = explode('!', $nicka[0]);
 	$nickc = explode(':', $nickb[0]);
-	
+
 	$host = $nicka[1];
 	$nick = $nickc[1];
-	
+
 	$msgColor = $setting->get('irc_message_color');
 	$guildMsgColor = $setting->get('irc_guild_message_color');
 	$guildNameColor = $setting->get('irc_guild_name_color');
@@ -83,9 +83,9 @@ if ($data = fgets($ircSocket)) {
 		for ($i = 3; $i < count($ex); $i++) {
 			$ircmessage .= rtrim(htmlspecialchars($ex[$i]))." ";
 		}
-		
+
 		$rawcmd = rtrim(htmlspecialchars($ex[3]));
-		
+
 		LegacyLogger::log_chat("Inc. IRC Msg.", $nick, $ircmessage);
 
 		if ($rawcmd == "!sayit") {
@@ -141,7 +141,7 @@ if ($data = fgets($ircSocket)) {
 			}
 			$membercount = "$numonline guildmembers and $numguest private chat members are online";
 			$list = substr($list,0,-2);
-			
+
 			fputs($ircSocket, "PRIVMSG ".$channel." :$membercount\n");
 			fputs($ircSocket, "PRIVMSG ".$channel." :$list\n");
 		} else {
@@ -149,19 +149,19 @@ if ($data = fgets($ircSocket)) {
 			if (in_array(strtolower($nick), $ircarray)) {
 				return;
 			}
-		
+
 			// handle relay messages from other bots
 			if (preg_match("/" . chr(2) . chr(2) . chr(2) . "(.+)" . chr(2) . " (.+)/i", $ircmessage, $arr)) {
 				$ircmessage = "{$guildNameColor}{$arr[1]}<end> {$guildMsgColor}{$arr[2]}<end>";
 			} else {
 				$ircmessage = "<yellow>[IRC]<end> {$msgColor}{$nick}: {$ircmessage}<end>";
 			}
-			
+
 			// handle item links from other bots
 			$pattern = "/" . chr(3) . chr(3) . "(.+?)" . chr(3) . ' ' . chr(3) . "[(](.+?)id=([0-9]+)&amp;id2=([0-9]+)&amp;ql=([0-9]+)[)]" . chr(3) . chr(3) . "/";
 			$replace = '<a href="itemref://\3/\4/\5">\1</a>';
 			$ircmessage = preg_replace($pattern, $replace, $ircmessage);
-			
+
 			if ($chatBot->vars['my_guild'] != "") {
 				$chatBot->sendGuild($ircmessage, true);
 			}
