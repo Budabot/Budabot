@@ -5,7 +5,7 @@ $playfields = Registry::getInstance('playfields');
 if (preg_match("/^lc$/i", $message, $arr)) {
 	$sql = "SELECT * FROM playfields WHERE `id` IN (SELECT DISTINCT `playfield_id` FROM tower_site) ORDER BY `short_name`";
 	$data = $db->query($sql);
-	
+
 	$blob = '';
 	forEach (data as $row) {
 		$baseLink = Text::make_chatcmd($row->long_name, "/tell <myname> lc $row->short_name");
@@ -32,9 +32,9 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 		$gas_level = getGasLevel($row->close_time);
 		$blob .= formatSiteInfo($row) . "\n\n";
 	}
-	
+
 	$msg = Text::make_blob("All Bases in $playfield->long_name", $blob);
-	
+
 	$sendto->reply($msg);
 } else if (preg_match("/^lc ([0-9a-z]+) ([0-9]+)$/i", $message, $arr)) {
 	$playfield_name = strtoupper($arr[1]);
@@ -56,13 +56,13 @@ if (preg_match("/^lc$/i", $message, $arr)) {
 		$gas_level = getGasLevel($row->close_time);
 		$blob .= formatSiteInfo($row) . "\n\n";
 	}
-	
+
 	if (count($data) > 0) {
 		$msg = Text::make_blob("$playfield->short_name $site_number", $blob);
 	} else {
 		$msg = "Invalid site number.";
 	}
-	
+
 	$sendto->reply($msg);
 } else {
 	$syntax_error = true;

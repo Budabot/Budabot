@@ -38,7 +38,7 @@ if (preg_match("/^cmdlist$/i", $message, $arr) || preg_match("/^cmdlist (.*)$/i"
 		$guild = '';
 		$priv = '';
 		$msg = '';
-		
+
 		if ($row->cmdevent == 'subcmd') {
 			$cmd = $row->dependson;
 		} else {
@@ -51,7 +51,7 @@ if (preg_match("/^cmdlist$/i", $message, $arr) || preg_match("/^cmdlist (.*)$/i"
 			$adv = Text::make_chatcmd('Permissions', "/tell <myname> config cmd $cmd");
 			$adv_link = " ($adv) $on  $off";
 		}
-		
+
 		if ($row->msg_avail == 0) {
 			$tell = "_";
 		} else if ($row->msg_status == 1) {
@@ -59,7 +59,7 @@ if (preg_match("/^cmdlist$/i", $message, $arr) || preg_match("/^cmdlist (.*)$/i"
 		} else {
 			$tell = "<red>T<end>";
 		}
-		
+
 		if ($row->guild_avail == 0) {
 			$guild = "_";
 		} else if ($row->guild_status == 1) {
@@ -67,7 +67,7 @@ if (preg_match("/^cmdlist$/i", $message, $arr) || preg_match("/^cmdlist (.*)$/i"
 		} else {
 			$guild = "<red>G<end>";
 		}
-		
+
 		if ($row->priv_avail == 0) {
 			$priv = "_";
 		} else if ($row->priv_status == 1) {
@@ -80,7 +80,7 @@ if (preg_match("/^cmdlist$/i", $message, $arr) || preg_match("/^cmdlist (.*)$/i"
 	}
 
 	$msg = Text::make_blob("Command List", $blob);
- 	$sendto->reply($msg);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

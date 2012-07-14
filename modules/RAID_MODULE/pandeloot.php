@@ -8,7 +8,7 @@
    **
    ** Date(created): 08.01.2009
    ** Date(last modified): 08.02.2009
-   ** 
+   **
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify

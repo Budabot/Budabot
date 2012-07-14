@@ -28,7 +28,7 @@
  * DEBUG - Now comes the current MyClass object:
  * DEBUG - Doe, John
  * </pre>
- * 
+ *
  * @version $Revision: 1166187 $
  * @package log4php
  * @subpackage renderers
@@ -74,15 +74,15 @@ class LoggerRendererMap {
 
 	/**
 	 * Find the appropriate renderer for the class type of the
-	 * <var>o</var> parameter. 
+	 * <var>o</var> parameter.
 	 *
-	 * This is accomplished by calling the {@link getByObject()} 
-	 * method if <var>o</var> is object or using {@link LoggerRendererDefault}. 
-	 * Once a renderer is found, it is applied on the object <var>o</var> and 
+	 * This is accomplished by calling the {@link getByObject()}
+	 * method if <var>o</var> is object or using {@link LoggerRendererDefault}.
+	 * Once a renderer is found, it is applied on the object <var>o</var> and
 	 * the result is returned as a string.
 	 *
 	 * @param mixed $o
-	 * @return string 
+	 * @return string
 	 */
 	public function findAndRender($o) {
 		if($o == null) {
@@ -105,7 +105,7 @@ class LoggerRendererMap {
 	/**
 	 * Syntactic sugar method that calls {@link PHP_MANUAL#get_class} with the
 	 * class of the object parameter.
-	 * 
+	 *
 	 * @param mixed $o
 	 * @return string
 	 */
@@ -115,7 +115,7 @@ class LoggerRendererMap {
 
 
 	/**
-	 * Search the parents of <var>clazz</var> for a renderer. 
+	 * Search the parents of <var>clazz</var> for a renderer.
 	 *
 	 * The renderer closest in the hierarchy will be returned. If no
 	 * renderers could be found, then the default renderer is returned.

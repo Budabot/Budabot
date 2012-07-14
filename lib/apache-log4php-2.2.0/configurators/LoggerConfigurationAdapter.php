@@ -14,16 +14,16 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * @package log4php
  */
 
 /**
  * The interface for configurator adapters.
- * 
- * Adapters convert configuration in several formats such as XML, ini and PHP 
- * file to a PHP array. 
- * 
+ *
+ * Adapters convert configuration in several formats such as XML, ini and PHP
+ * file to a PHP array.
+ *
  * @package log4php
  * @subpackage configurators
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
@@ -33,7 +33,7 @@
 interface LoggerConfigurationAdapter
 {
 	/** Converts the configuration file to PHP format usable by the configurator. */
-	public function convert($input); 
+	public function convert($input);
 
 }
 

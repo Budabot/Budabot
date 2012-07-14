@@ -4,23 +4,23 @@ if (preg_match("/^links$/i", $message)) {
 	$blob = '';
 
 	$sql = "SELECT * FROM links ORDER BY name ASC";
-  	$data = $db->query($sql);
-  	forEach ($data as $row) {
-	  	$remove = Text::make_chatcmd('Remove', "/tell <myname> <symbol>links rem $row->id");
+	$data = $db->query($sql);
+	forEach ($data as $row) {
+		$remove = Text::make_chatcmd('Remove', "/tell <myname> <symbol>links rem $row->id");
 		if ($setting->get('showfullurls') == 1) {
 			$website = Text::make_chatcmd($row->website, "/start $row->website");
 		} else {
 			$website = Text::make_chatcmd('[Link]', "/start $row->website");
 		}
-	  	$blob .= "$website <white>$row->comments<end> [<green>$row->name<end>] $remove\n";
+		$blob .= "$website <white>$row->comments<end> [<green>$row->name<end>] $remove\n";
 	}
-	
+
 	if (count($data) == 0) {
 		$msg = "No links found.";
 	} else {
 		$msg = Text::make_blob('Links', $blob);
 	}
-  	
+
 	$sendto->reply($msg);
 } else if (preg_match("/^links add ([^ ]+) (.+)$/i", $message, $arr)) {
 	$website = html_entity_decode($arr[1]);

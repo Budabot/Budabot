@@ -4,19 +4,19 @@ class StructuredMessage {
 	private $header;
 	private $content = array();
 	private $footer;
-	
+
 	public function setHeader($header) {
 		$this->header = $header;
 	}
-	
+
 	public function setFooter($footer) {
 		$this->footer = $footer;
 	}
-	
+
 	public function addContent($content) {
 		$this->content []= $content;
 	}
-	
+
 	public function renderAOML($blob = true) {
 		$output = '';
 

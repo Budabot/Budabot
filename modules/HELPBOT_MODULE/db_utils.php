@@ -37,8 +37,8 @@
 				$result = $alias;
 				return $result;
 			}
-		} 
-		
+		}
+
 	}
 
 	function make_info($n, $ary) {

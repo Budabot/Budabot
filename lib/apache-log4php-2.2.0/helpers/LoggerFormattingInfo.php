@@ -21,7 +21,7 @@
 /**
  * This class encapsulates the information obtained when parsing
  * formatting modifiers in conversion modifiers.
- * 
+ *
  * @package log4php
  * @subpackage helpers
  * @since 0.3
@@ -36,7 +36,7 @@ class LoggerFormattingInfo {
 	 * Constructor
 	 */
 	public function __construct() {}
-	
+
 	public function reset() {
 		$this->min = -1;
 		$this->max = 0x7FFFFFFF;

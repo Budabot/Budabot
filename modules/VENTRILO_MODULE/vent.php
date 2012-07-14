@@ -36,20 +36,20 @@ if ($setting->get("ventimplementation") == 1) {
 
 	$vent = new Vent;
 	$vent->setTimeout( 500000 );		// 300 ms timeout
-	
+
 	if (!$vent->makeRequest(2, $stat->m_cmdhost, $stat->m_cmdport)) {
 
 		$error = "Could not get ventrilo info";
-		
+
 	} else {
 		$rawresponse = $vent->getResponse();
-	
+
 		$nohtmltags = strip_tags($rawresponse);
 		$formattedResponse = preg_split("/[\r\n]+/", $nohtmltags, 0, REG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 
 		foreach($formattedResponse as $line) {
 			$stat->Parse( $line );
-    	}	
+	}
 	}
 }
 
@@ -60,14 +60,14 @@ if ($error === false) {
 	$page .= "Channels highlighted <orange>ORANGE<end> are password protected.\n\n";
     $page .= "Hostname: <white>{$stat->m_cmdhost}<end>\n";
     $page .= "Port Number: <white>{$stat->m_cmdport}<end>\n";
-    
+
     if ($setting->get("showventpassword") == 1) {
-    	$page .= "Password: <white>{$stat->m_cmdpass}<end>\n";
+	$page .= "Password: <white>{$stat->m_cmdpass}<end>\n";
 	}
 
     $page .= "\nServer Name: <white>{$stat->m_name}<end>\n";
     $page .= "Users: <white>{$stat->m_clientcount} / {$stat->m_maxclients}<end>\n";
-    
+
     if ($setting->get("showextendedinfo") == 1) {
 		$page .= "Voice Encoder: <white>{$stat->m_voicecodec_code}<end> - <grey>{$stat->m_voicecodec_desc}<end>\n";
 		$page .= "Voice Format: <white>{$stat->m_voiceformat_code}<end> - <grey>{$stat->m_voiceformat_desc}<end>\n";
@@ -81,7 +81,7 @@ if ($error === false) {
     forEach ($stat->m_channellist as $channel) {
 		displayChannel($channel, $stat->m_clientlist, "", $page);
 	}
-	
+
 	$page .= "\n\n*Please note that sometimes the server will not return the right information. If this happens, please try again.\n";
 	$msg = Text::make_blob("Ventrilo Info ({$stat->m_clientcount})", $page);
 

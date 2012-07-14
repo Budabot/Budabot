@@ -7,14 +7,14 @@ if (preg_match("/^logs$/i", $message)) {
 			if ($file == '.' || $file == '..') {
 				continue;
 			}
-			
+
 			$file_link = Text::make_chatcmd($file, "/tell <myname> logs $file");
 			$errorLink = Text::make_chatcmd("ERROR", "/tell <myname> logs $file ERROR");
 			$chatLink = Text::make_chatcmd("CHAT", "/tell <myname> logs $file CHAT");
 			$blob .= "$file_link [$errorLink] [$chatLink] \n";
 		}
 		closedir($handle);
-		
+
 		$msg = Text::make_blob('Log Files', $blob);
 	} else {
 		$msg = "Could not open log directory: '" . LegacyLogger::get_logging_directory() . "'";
@@ -23,18 +23,18 @@ if (preg_match("/^logs$/i", $message)) {
 } else if (preg_match("/^logs ([a-zA-Z0-9-_\\.]+)$/i", $message, $arr) || preg_match("/^logs ([a-zA-Z0-9-_\\.]+) (.+)$/i", $message, $arr)) {
 	$filename = LegacyLogger::get_logging_directory() . "/" . $arr[1];
 	$readsize = $setting->get('max_blob_size') - 500;
-	
+
 	try {
 		$file = new ReverseFileReader($filename);
 		$contents = '';
 		while (!$file->sof()) {
 			$line = $file->getLine();
-			
+
 			// if user entered search criteria, filter by that
 			if (isset($arr[2]) && !preg_match("/{$arr[2]}/i", $line)) {
 				continue;
 			}
-			
+
 			if (strlen($contents . $line) > $readsize) {
 				break;
 			}

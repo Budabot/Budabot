@@ -7,7 +7,7 @@ function calc_attack_time_reduction($init_skill) {
 	} else {
 		$attack_time_reduction = ($init_skill / 200);
 	}
-	
+
 	return $attack_time_reduction;
 }
 
@@ -64,7 +64,7 @@ function cap_full_auto($attack_time, $recharge_time, $full_auto_recharge) {
 function cap_burst($attack_time, $recharge_time, $burst_recharge) {
 	$hard_cap = round($attack_time + 8,0);
 	$skill_cap = floor((($recharge_time * 20) + ($burst_recharge / 100) - 8) * 25);
-	
+
 	return array($hard_cap, $skill_cap);
 }
 

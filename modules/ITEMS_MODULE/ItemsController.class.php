@@ -4,15 +4,15 @@
 class ItemsController {
 	/** @Inject */
 	public $db;
-	
+
 	/** @Inject */
 	public $chatBot;
-	
+
 	/** @Inject */
 	public $setting;
-	
+
 	public $moduleName;
-	
+
 	/**
 	 * @Setting("maxitems")
 	 * @Description("Number of Items shown on the list")
@@ -21,7 +21,7 @@ class ItemsController {
 	 * @Options("30;40;50;60")
 	 */
 	public $defaultMaxitems = "40";
-	
+
 	/** @Setup */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, "aodb");
@@ -48,12 +48,12 @@ class ItemsController {
 			$search = $args[1];
 			$ql = false;
 		}
-		
+
 		$search = htmlspecialchars_decode($search);
 		$msg = $this->find_items_from_local($search, $ql);
 		$sendto->reply($msg);
 	}
-	
+
 	/**
 	 * @Command("updateitems")
 	 * @AccessLevel("guild")
@@ -65,7 +65,7 @@ class ItemsController {
 		$msg = $this->download_newest_itemsdb();
 		$sendto->reply($msg);
 	}
-	
+
 	/**
 	 * @Event("24hrs")
 	 * @Description("Check to make sure items db is the latest version available")
@@ -73,7 +73,7 @@ class ItemsController {
 	public function checkForUpdate() {
 		$this->download_newest_itemsdb();
 	}
-	 
+
 	public function download_newest_itemsdb() {
 		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
@@ -106,7 +106,7 @@ class ItemsController {
 
 		if ($latestVersion !== null) {
 			$currentVersion = $setting->get("aodb_db_version");
-			
+
 			// if server version is greater than current version, download and load server version
 			if ($currentVersion === false || Util::compare_version_numbers($latestVersion, $currentVersion) > 0) {
 				// download server version and save to ITEMS_MODULE directory
@@ -114,14 +114,14 @@ class ItemsController {
 				$fh = fopen("./modules/ITEMS_MODULE/aodb{$latestVersion}.sql", 'w');
 				fwrite($fh, $contents);
 				fclose($fh);
-				
+
 				$db->begin_transaction();
-				
+
 				// load the sql file into the db
 				$db->loadSQLFile("ITEMS_MODULE", "aodb");
-				
+
 				$db->commit();
-				
+
 				LegacyLogger::log('INFO', 'ITEMS_MODULE', "Items db updated from '$currentVersion' to '$latestVersion'");
 				$msg = "The items database has been updated to the latest version.  Version: $latestVersion";
 			} else {
@@ -137,7 +137,7 @@ class ItemsController {
 
 		return $msg;
 	}
-	
+
 	public function find_items_from_local($search, $ql) {
 		$tmp = explode(" ", $search);
 		$first = true;
@@ -193,7 +193,7 @@ class ItemsController {
 			if ($ql) {
 				$list .= "QL $ql ".Text::make_item($row->lowid, $row->highid, $ql, $row->name);
 			} else {
-				$list .= Text::make_item($row->lowid, $row->highid, $row->highql, $row->name);		  
+				$list .= Text::make_item($row->lowid, $row->highid, $row->highql, $row->name);
 			}
 			if ($row->lowql != $row->highql) {
 				$list .= " (QL".$row->lowql." - ".$row->highql.")\n";

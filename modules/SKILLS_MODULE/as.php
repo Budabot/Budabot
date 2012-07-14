@@ -6,7 +6,7 @@ if (preg_match("/^as ([0-9]*\\.?[0-9]+) ([0-9]*\\.?[0-9]+) (\\d+)$/i", $message,
 	$InitS = $arr[3];
 
 	list($cap, $ASCap) = cap_aimed_shot($AttTim, $RechT);
-	
+
 	$ASRech	= ceil(($RechT * 40) - ($InitS * 3 / 100) + $AttTim - 1);
 	if ($ASRech < $cap) {
 		$ASRech = $cap;

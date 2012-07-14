@@ -10,7 +10,7 @@ if (isset($chatBot->data['guard'])) {
 				$pos = array_search($key, $chatBot->data['glist']);
 				if(isset($chatBot->data['glist'][$pos + 1]))
 					$next = " <yellow>Next is {$chatBot->data['glist'][$pos + 1]}<end>";
-				$msg = "<blue>6sec remaining on Guardian.$next<end>";  		
+				$msg = "<blue>6sec remaining on Guardian.$next<end>";
 				$sendto->reply($msg);
 			} elseif($rem >= 299 && $rem <= 301) {
 				$pos = array_search($key, $chatBot->data['glist']);

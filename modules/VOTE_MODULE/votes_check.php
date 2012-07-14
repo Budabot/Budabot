@@ -9,13 +9,13 @@
    ** Date(created): 02.05.2007
    ** Date(last modified): 02.06.2007
    */
-   
+
 if (!isset($chatBot->data["Vote"]) || count($chatBot->data["Vote"]) == 0) {
 	return;
 }
 $delimiter = "|";
 
-// I hate seeing a function in a module/plugin. 
+// I hate seeing a function in a module/plugin.
 // But this is just temporary until 0.7.0.
 if (!function_exists(timeLeft)) {
 	function timeLeft($origtime, $showbiggest=4) {
@@ -24,11 +24,11 @@ if (!function_exists(timeLeft)) {
 			$origtime = 0;
 		}
 		//week = day * 7, month = day*365/12, year = day * 365
-		$set = array( array("label" => "year", 'length' => 31536000), array("label" => "month", 'length' => 2628000), 
-		array("label" => "week", 'length' => 604800), array("label" => "day", 'length' => 86400), 
-		array("label" => "hour", 'length' => 3600), array("label" => "minute", 'length' => 60), 
+		$set = array( array("label" => "year", 'length' => 31536000), array("label" => "month", 'length' => 2628000),
+		array("label" => "week", 'length' => 604800), array("label" => "day", 'length' => 86400),
+		array("label" => "hour", 'length' => 3600), array("label" => "minute", 'length' => 60),
 		array("label" => "second", 'length' => 0));
-			
+
 		$thisset = 0;
 		while ($thisset <= 6) {
 			if ($thisset < 6) {
@@ -36,7 +36,7 @@ if (!function_exists(timeLeft)) {
 			} else if ($thisset == 6) {
 				$val = $origtime;
 			}
-				
+
 			if ($val && $showbiggest > 0) {
 				$retval .= "$val ".$set[$thisset]['label'];
 				$retval .= ($val > 1) ? 's, ' : ', ';
@@ -57,7 +57,7 @@ if (!function_exists(timeLeft)) {
 $table = "vote_<myname>";
 
 forEach ($chatBot->data["Vote"] as $key => $value) {
-   	
+
 	$author = $chatBot->data["Vote"][$key]["author"];
 	$question = $key;
 	$started = $chatBot->data["Vote"][$key]["started"];
@@ -66,7 +66,7 @@ forEach ($chatBot->data["Vote"] as $key => $value) {
 	$status = $chatBot->data["Vote"][$key]["status"];
 	$lockout = $chatBot->data["Vote"][$key]["lockout"];
 	// status = 0, just started, 1 = > 60 minutes left, 2 = 60 minutes left, 3 = 15 minutes left, 4 = 60 seconds, 9 = vote over
-	
+
 	$timeleft = ($started+$duration);
 	$timeleft -= time();
 
@@ -76,13 +76,13 @@ forEach ($chatBot->data["Vote"] as $key => $value) {
 		unset($chatBot->data["Vote"][$key]);
 	} else if ($status == 0) {
 		$title = "Vote: $question";
-		
+
 		if ($timeleft > 3600) {$mstatus = 1;}
 		else if ($timeleft > 900) {$mstatus = 2;}
-		else if ($timeleft > 60) {$mstatus = 3;}	
+		else if ($timeleft > 60) {$mstatus = 3;}
 		else {$mstatus = 4;}
 		$chatBot->data["Vote"][$key]["status"]=$mstatus;
-		
+
 	} else if ($timeleft <= 60 && $timeleft > 0 && $status != 4) {
 		$title = "60 seconds left: $question";
 		$chatBot->data["Vote"][$key]["status"]=4;
@@ -111,14 +111,14 @@ forEach ($chatBot->data["Vote"] as $key => $value) {
 				$results[$answer]++;
 				$totalresults++;
 			} else {				     // Main topic: $answer = "yes|no";
-					
+
 				$ans = explode($delimiter, $answer);
 				foreach ($ans as $value) {
 					if (!isset($results[$value])) {$results[$value] = 0;}
 				}
 			}
 		}
-			
+
 		$msg = "$author's Vote: <highlight>".$question."<end>\n";
 		if ($timeleft > 0) {
 			$msg .= timeLeft($timeleft)." till this vote closes!\n\n";
@@ -131,7 +131,7 @@ forEach ($chatBot->data["Vote"] as $key => $value) {
 			if ($val < 10) {$msg .= "<black>__<end>$val% ";}
 			else if ($val < 100) {$msg .= "<black>_<end>$val% ";}
 			else {$msg .= "$val% ";}
-			
+
 			if ($timeleft > 0) {
 				$msg .= "<a href='chatcmd:///tell <myname> vote $question";
 				$msg .= "$delimiter".$key."'>$key</a> (Votes: $value)\n";
@@ -139,26 +139,26 @@ forEach ($chatBot->data["Vote"] as $key => $value) {
 				$msg .= "<highlight>$key<end> (Votes: $value)\n";
 			}
 		}
-		
+
 		if ($timeleft > 0) {
 			$msg .= "\n<black>___%<end> <a href='chatcmd:///tell <myname> vote remove $question'>Remove yourself from this vote</a>.\n";
 		}
 		if ($timeleft > 0 && $setting->get("vote_add_new_choices") == 1 && $status == 0) {
-			$msg .="\n<highlight>Don't like these choices?  Add your own:<end>\n<tab>/tell ".$chatBot->vars['name']." <symbol>vote $question$delimiter"."<highlight>your choice<end>\n"; 
+			$msg .="\n<highlight>Don't like these choices?  Add your own:<end>\n<tab>/tell ".$chatBot->vars['name']." <symbol>vote $question$delimiter"."<highlight>your choice<end>\n";
 		}
-		
+
 		$msg .="\n<highlight>If you started this vote, you can:<end>\n";
 		$msg .="<tab><a href='chatcmd:///tell <myname> vote kill $question'>Kill</a> the vote completely.\n";
 		if ($timeleft > 0) {
 			$msg .="<tab><a href='chatcmd:///tell <myname> vote end $question'>End</a> the vote early.";
 		}
-		
+
 		$msg = Text::make_blob($title, $msg);
-		
+
 		if ($setting->get("vote_channel_spam") == 0 || $setting->get("vote_channel_spam") == 2) {
 			$chatBot->sendGuild($msg, true);
 		}
-	   	if ($setting->get("vote_channel_spam") == 1 || $setting->get("vote_channel_spam") == 2) {
+		if ($setting->get("vote_channel_spam") == 1 || $setting->get("vote_channel_spam") == 2) {
 			$chatBot->sendPrivate($msg, true);
 		}
 	}

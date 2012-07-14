@@ -4,7 +4,7 @@
    ** Developed by Sicarius Legion of Amra, a Age of Conan Guild on the Hyrkania server
    ** Converted to Budabot by Tyrence (RK2)
    */
-   
+
 $dwight = array(
 	"I am faster than 80% of all snakes.",
 	"Reject a woman, and she will never let it go. One of the many defects of their kind. Also, weak arms.",

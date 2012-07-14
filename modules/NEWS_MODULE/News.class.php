@@ -4,13 +4,13 @@
 class News {
 	/** @Inject */
 	public $db;
-	
+
 	/** @Inject */
 	public $chatBot;
-	
+
 	/** @Inject */
 	public $text;
-	
+
 	public $moduleName;
 
 	/**
@@ -21,7 +21,7 @@ class News {
 	 * @Help("news.txt")
 	 */
 	public $defaultNews = "Not set.";
-	
+
 	/**
 	 * @Setup
 	 */
@@ -59,7 +59,7 @@ class News {
 		}
 		return $msg;
 	}
-	
+
 	/**
 	 * @Event("logOn")
 	 * @Description("Sends a tell with news to players logging in")
@@ -74,7 +74,7 @@ class News {
 			}
 		}
 	}
-	
+
 	/**
 	 * @Command("news")
 	 * @AccessLevel("all")
@@ -90,7 +90,7 @@ class News {
 
 		$sendto->reply($msg);
 	}
-	
+
 	/**
 	 * @Subcommand("news add (.+)")
 	 * @AccessLevel("rl")
@@ -104,7 +104,7 @@ class News {
 
 		$sendto->reply($msg);
 	}
-	
+
 	/**
 	 * @Subcommand("news rem (.+)")
 	 * @AccessLevel("rl")
@@ -122,7 +122,7 @@ class News {
 
 		$sendto->reply($msg);
 	}
-	
+
 	/**
 	 * @Subcommand("news sticky (.+)")
 	 * @AccessLevel("rl")
@@ -142,7 +142,7 @@ class News {
 		}
 		$sendto->reply($msg);
 	}
-	
+
 	/**
 	 * @Subcommand("news unsticky (.+)")
 	 * @AccessLevel("rl")

@@ -11,7 +11,7 @@ if (preg_match("/^oe ([0-9]+)$/i", $message, $arr)) {
 	$oe25 = (int)floor($oe / 0.2);
 	$lowoe25 = (int)floor($oe * 0.2);
 
-	$blob = "With a weapons skill requirement of <highlight>$oe<end>, you will OE at:\n". 
+	$blob = "With a weapons skill requirement of <highlight>$oe<end>, you will OE at:\n".
 		"Out of OE: <highlight>$lowoe100<end> or higher\n".
 		"75%: <highlight>$lowoe75<end> - <highlight>" .($lowoe100 - 1). "<end>\n".
 		"50%: <highlight>" .($lowoe50 + 1). "<end> - <highlight>" .($lowoe75 - 1). "<end>\n".
@@ -24,9 +24,9 @@ if (preg_match("/^oe ([0-9]+)$/i", $message, $arr)) {
 		"25%: <highlight>$oe50<end> - <highlight>" .($oe25 - 1). "<end>\n".
 		"0%: <highlight>$oe25<end> or higher\n\n".
 		"WARNING: May be plus/minus 1 point!";
-	
+
 	$msg = "<orange>{$lowoe100}<end> - <yellow>{$oe}<end> - <orange>{$oe100}<end> " . Text::make_blob('More info', $blob, 'Over-equipped Calculation');
-    
+
     $sendto->reply($msg);
 /*
 } else if (preg_match('/^oe \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\"\>/i', $message, $arr)) {

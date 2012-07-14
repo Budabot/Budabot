@@ -4,7 +4,7 @@ $db->exec("CREATE TABLE IF NOT EXISTS vote_<myname> (`question` TEXT(500), `auth
 
 if (!isset($chatBot->data["Vote"])) {
 	// Upload to memory votes that are still running
-	
+
 	$data = $db->query("SELECT * FROM vote_<myname> WHERE `status` < '8' AND `duration` IS NOT NULL");
 	forEach ($data as $row) {
 		$chatBot->data["Vote"][$row->question] = array("author" => $row->author, "started" => $row->started, "duration" => $row->duration, "answer" => $row->answer, "lockout" => $row->status);

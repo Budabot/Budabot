@@ -9,7 +9,7 @@ class Teamspeak3 {
 	private $address;
 	private $port;
 	private $serverId;
-    
+
     public function __construct($username, $password, $address = '127.0.0.1', $port = 10011, $serverId = 1) {
         $this->username = $username; // Set to false for guest access
 		$this->password = $password;
@@ -43,7 +43,7 @@ class Teamspeak3 {
             return $finalData;
         } else {
             throw new Exception('Invalid TS3 query.');
-        } 
+        }
     }
 
     // Open the stream
@@ -59,7 +59,7 @@ class Teamspeak3 {
             throw new Exception('Unable to connect to the TS3 server.');
         }
     }
-    
+
     // Close the stream
     public function __destruct() {
         fclose($this->stream);
@@ -75,7 +75,7 @@ function getTeamspeak3Status() {
 		$server = $setting->get('ts_server');
 		$clientPort = $setting->get('ts_clientport');
 		$serverLink = Text::make_chatcmd($server, "/start http://ts3server:://$server:$clientPort");
-		
+
 		$users = $ts->exec('clientlist');
 		$count = 0;
 		$blob = "Server: $serverLink\n";
@@ -95,7 +95,7 @@ function getTeamspeak3Status() {
 	} catch (Exception $e) {
 		$msg = "Error! " . $e->getMessage();
 	}
-	
+
 	return $msg;
 }
 

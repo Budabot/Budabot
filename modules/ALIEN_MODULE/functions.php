@@ -135,10 +135,10 @@ function alienArmorBio($ql, $type) {
 		"Psychology - <highlight>$psyco<end> (<highlight>6 * QL<end>)\n\n" .
 		"Note:<highlight> Tradeskill requirements are based off the lowest QL items needed throughout the entire process.<end>";
 
-	$blob .= "\n\nFor Supple, Arithmetic, or Enduring:\n\n" . 
+	$blob .= "\n\nFor Supple, Arithmetic, or Enduring:\n\n" .
 		"<highlight>When completed, the armor piece can have as low as<end> QL $min_ql <highlight>combined into it, depending on available tradeskill options.\n\n" .
-		"Does not change QL's, therefore takes<end> $psyco <highlight>Psychology for available combinations.<end>\n\n" . 
-		"For Spiritual, Strong, or Observant:\n\n" . 
+		"Does not change QL's, therefore takes<end> $psyco <highlight>Psychology for available combinations.<end>\n\n" .
+		"For Spiritual, Strong, or Observant:\n\n" .
 		"<highlight>When completed, the armor piece can combine upto<end> QL $max_ql<highlight>, depending on available tradeskill options.\n\n" .
 		"Changes QL depending on targets QL. The max combination is: (<end>QL $max_ql<highlight>) (<end>$max_psyco Psychology required for this combination<highlight>)<end>";
 
@@ -178,14 +178,14 @@ function serumBio($ql, $type) {
 	} else {
 		$blob .= "<highlight>$chem_me_ts<end>";
 	}
-	
+
 	$blob .= " (<highlight>4 * QL<end>) 400 is minimum requirement\n" .
 		"Mechanical Engineering - <highlight>$chem_me_ts<end> (<highlight>4 * QL<end>)\n" .
 		"Electrical Engineering - <highlight>$ee_ts<end> (<highlight>4.5 * QL<end>)\n" .
 		"Comp Liter - <highlight>$cl_ts<end> (<highlight>5 * QL<end>)";
-		
+
 	$blob .= "\n\n<yellow>Tradeskilling info added by Mdkdoc420 (RK2)<end>";
-	
+
 	return Text::make_blob("$name (QL $ql)", $blob);
 }
 

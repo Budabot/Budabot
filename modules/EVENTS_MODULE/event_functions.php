@@ -17,7 +17,7 @@ function getEvents() {
 			if ($updated < $row->time_submitted) {
 				$updated = $row->time_submitted;
 			}
-			  
+
 			if ($row->event_date > time()) {
 				$upcoming = "<highlight>Event Date:<end> ".date(Util::DATETIME, $row->event_date)." GMT\n";
 				$upcoming .= "<highlight>Event Name:<end> $row->event_name     [Event ID $row->id]\n";
@@ -44,7 +44,7 @@ function getEvents() {
 		} else {
 			$link = $upcoming_title.$upcoming_events.$past_title.$past_events;
 		}
-		
+
 		return Text::make_legacy_blob("Latest Events", $link)." [Last updated ".date(Util::DATETIME, $updated)."]";
 	} else {
 		return "";

@@ -62,7 +62,7 @@ if ($closest_site === null) {
 		$link .= " " . $whois->lastname;
 	}
 	$link .= "<end>\n";
-	
+
 	if ($whois->breed) {
 		$link .= $colorlabel."Breed:<end> ".$colorvalue.$whois->breed."<end>\n";
 	}
@@ -77,9 +77,9 @@ if ($closest_site === null) {
 		$level_info = Level::get_level_info($whois->level);
 		$link .= $colorlabel."Level:<end> $colorvalue{$whois->level}<end>/<green>{$whois->ai_level}<end> <red>({$level_info->pvpMin}-{$level_info->pvpMax})<end>\n";
 	}
-		
+
 	$link .= $colorlabel."Alignment:<end> ".$colorvalue.$whois->faction."<end>\n";
-	
+
 	if ($whois->guild) {
 		if ($whois->faction == "Omni") {
 			$link .= $colorlabel."Detachment:<end> ".$colorvalue.$whois->guild."<end>\n";
@@ -134,7 +134,7 @@ if ($setting->get("tower_attack_spam") >= 2) {
 	} else {
 		$msg .= ", $whois->guild_rank of <".strtolower($whois->faction).">$whois->guild<end>)";
 	}
-	
+
 } else if ($whois->guild) {
 	$msg .= "<".strtolower($whois->faction).">$whois->guild<end>";
 } else {

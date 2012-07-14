@@ -7,7 +7,7 @@ if (preg_match("/^burst ([0-9]*\\.?[0-9]+) ([0-9]*\\.?[0-9]+) (\\d+) (\\d+)$/i",
 	$BurstSkill = $arr[4];
 
 	list($cap, $burstskillcap) = cap_burst($AttTim, $RechT, $BurstDelay);
-	
+
 	$burstrech = floor(($RechT * 20) + ($BurstDelay / 100) - ($BurstSkill / 25) + $AttTim);
 	if ($burstrech <= $cap) {
 		$burstrech = $cap;

@@ -1,5 +1,5 @@
 <?php
-   
+
 global $bbinSocket;
 if (preg_match("/^onlinebbin$/i", $message)) {
 	if (!IRC::isConnectionActive($bbinSocket)) {
@@ -13,9 +13,9 @@ if (preg_match("/^onlinebbin$/i", $message)) {
 	forEach ($names as $value) {
 		$blob .= "$value\n";
 	}
-	
+
 	$msg = Text::make_blob("BBIN Online ($numusers)", $blob);
-	
+
 	$sendto->reply($msg);
 } else {
 	$syntax_error = true;

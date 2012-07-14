@@ -2,15 +2,15 @@
 	$command->activate("msg", "Admin.addCommand", "addadmin", "admin");
 	$command->activate("priv", "Admin.addCommand", "addadmin", "admin");
 	$command->activate("guild", "Admin.addCommand", "addadmin", "admin");
-	
+
 	$command->activate("msg", "Admin.removeCommand", "remadmin", "superadmin");
 	$command->activate("priv", "Admin.removeCommand", "remadmin", "superadmin");
 	$command->activate("guild", "Admin.removeCommand", "remadmin", "superadmin");
-	
+
 	$command->activate("msg", "Admin.addCommand", "addmod", "admin");
 	$command->activate("priv", "Admin.addCommand", "addmod", "admin");
 	$command->activate("guild", "Admin.addCommand", "addmod", "admin");
-	
+
 	$command->activate("msg", "Admin.removeCommand", "remmod", "admin");
 	$command->activate("priv", "Admin.removeCommand", "remmod", "admin");
 	$command->activate("guild", "Admin.removeCommand", "remmod", "admin");

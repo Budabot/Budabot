@@ -5,13 +5,13 @@ if ($chatBot->vars["my_guild_id"] != "") {
 
 	// Get the guild info
 	$org = Guild::get_by_id($chatBot->vars["my_guild_id"], $chatBot->vars["dimension"], true);
-	
+
 	// Check if guild xml file is correct if not abort
 	if ($org === null) {
 		LegacyLogger::log('ERROR', 'GUILD_MODULE', "Error downloading the guild roster xml file");
 		return;
 	}
-	
+
 	if (count($org->members) == 0) {
 		LegacyLogger::log('ERROR', 'GUILD_MODULE', "Guild xml file has no members! Aborting roster update.");
 		return;
@@ -28,18 +28,18 @@ if ($chatBot->vars["my_guild_id"] != "") {
 			$dbentrys[$row->name]["mode"] = $row->mode;
 		}
 	}
-	
+
 	$chatBot->ready = false;
-	
+
 	$db->begin_transaction();
-	
+
 	// Going through each member of the org and add or update his/her
 	forEach ($org->members as $member) {
 		// don't do anything if $member is the bot itself
 		if (strtolower($member->name) == strtolower($chatBot->vars["name"])) {
 			continue;
 		}
-	
+
 		//If there exists already data about the player just update him/her
 		if (isset($dbentrys[$member->name])) {
 			if ($dbentrys[$member->name]["mode"] == "del") {
@@ -66,9 +66,9 @@ if ($chatBot->vars["my_guild_id"] != "") {
 		}
 		unset($dbentrys[$member->name]);
 	}
-	
+
 	$db->commit();
-	
+
 	// remove buddies who are no longer org members
 	forEach ($dbentrys as $buddy) {
 		if ($buddy['mode'] != 'add') {

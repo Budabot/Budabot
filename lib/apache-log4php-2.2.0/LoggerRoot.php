@@ -38,15 +38,15 @@ class LoggerRoot extends Logger {
 			$level = LoggerLevel::getLevelAll();
 		}
 		$this->setLevel($level);
-	} 
-	
+	}
+
 	/**
 	 * @return LoggerLevel the level
 	 */
 	public function getChainedLevel() {
 		return parent::getLevel();
-	} 
-	
+	}
+
 	/**
 	 * Setting a null value to the level of the root category may have catastrophic results.
 	 * @param LoggerLevel $level
@@ -54,9 +54,9 @@ class LoggerRoot extends Logger {
 	public function setLevel($level) {
 		if($level != null) {
 			parent::setLevel($level);
-		}	 
+		}
 	}
-	
+
 	/**
 	 * Always returns false.
 	 * Because LoggerRoot has no parents, it returns false.

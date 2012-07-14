@@ -37,7 +37,7 @@ if (preg_match("/^friendlist$/i", $message) || preg_match("/^friendlist (clean)$
 				$blob .= Text::make_chatcmd('Remove Orphans', '/tell <myname> <symbol>friendlist clean');
 			}
 		}
-		
+
 		if ($cleanup) {
 			$sendto->reply("Removed $orphanCount friends from the friendlist.");
 		}

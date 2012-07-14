@@ -3,16 +3,16 @@
 class Rally {
 	/** @Inject */
 	public $setting;
-	
+
 	/** @Inject */
 	public $text;
-	
+
 	/** @Inject */
 	public $playfields;
-	
+
 	/** @Inject */
 	public $chatBot;
-	
+
 	/**
 	 * @Setting("rally")
 	 * @Description("Rally waypoint for topic")
@@ -20,7 +20,7 @@ class Rally {
 	 * @Type("text")
 	 */
 	public $defaultRally = "";
-	
+
 	/**
 	 * @Command("rally")
 	 * @AccessLevel("all")
@@ -51,7 +51,7 @@ class Rally {
 			$y_coords = $arr[3];
 			$playfield_id = $arr[5];
 			$name = $playfield_id;
-			
+
 			$playfield = $this->playfields->get_playfield_by_id($playfield_id);
 			if ($playfield !== null) {
 				$name = $playfield->short_name;
@@ -61,13 +61,13 @@ class Rally {
 			$x_coords = $arr[1];
 			$y_coords = $arr[3];
 			$playfield_name = $arr[5];
-			
+
 			$playfield = $this->playfields->get_playfield_by_name($playfield_name);
 			if ($playfield === null) {
 				$sendto->reply("Could not find playfield '$playfield_name'");
 				return;
 			}
-			
+
 			$this->set($playfield_name, $playfield->id, $x_coords, $y_coords);
 		} else {
 			return false;
@@ -87,7 +87,7 @@ class Rally {
 			$sendto->reply($rally);
 		}
 	}
-	
+
 	/**
 	 * @Event("joinpriv")
 	 * @Description("Sends rally to players joining the private channel")
@@ -105,16 +105,16 @@ class Rally {
 		$link = $this->text->make_chatcmd("Rally: {$x_coords}x{$y_coords} {$name}", "/waypoint {$x_coords} {$y_coords} {$playfield_id}");
 		$blob = "Click here to use rally: $link";
 		$rally = $this->text->make_blob("Rally: {$x_coords}x{$y_coords} {$name}", $blob);
-		
+
 		$this->setting->save("rally", $rally);
-		
+
 		return $rally;
 	}
-	
+
 	public function get() {
 		return $this->setting->get("rally");
 	}
-	
+
 	public function clear() {
 		$this->setting->save("rally", '');
 	}

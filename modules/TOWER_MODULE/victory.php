@@ -29,14 +29,14 @@ if (preg_match("/^victory (\\d+)$/i", $message, $arr) || preg_match("/^victory$/
 			return;
 		}
 	}
-	
+
 	$playfield = $playfields->get_playfield_by_name($arr[1]);
 	if ($playfield === null) {
 		$msg = "Invalid playfield.";
 		$sendto->reply($msg);
 		return;
 	}
-	
+
 	$tower_info = $towers->get_tower_info($playfield->id, $arr[2]);
 	if ($tower_info === null) {
 		$msg = "Invalid site number.";
@@ -104,7 +104,7 @@ if (count($data) == 0) {
 		$links['Previous Page'] = '/tell <myname> victory ' . ($page_label - 1);
 	}
 	$links['Next Page'] = "/tell <myname> victory {$cmd}" . ($page_label + 1);
-	
+
 	$blob = "The last $page_size Tower Results (page $page_label)\n\n";
 	$blob .= Text::make_header_links($links) . "\n\n";
 	$blob .= $colorvalue;
@@ -117,7 +117,7 @@ if (count($data) == 0) {
 		if (!$lose_side = strtolower($row->lose_faction)) {
 			$lose_side = "unknown";
 		}
-		
+
 		if ($row->playfield_id != '' && $row->site_number != '') {
 			$base = Text::make_chatcmd("{$row->short_name} {$row->site_number}", "/tell <myname> lc {$row->short_name} {$row->site_number}");
 			$base .= " ({$row->min_ql}-{$row->max_ql})";
@@ -131,7 +131,7 @@ if (count($data) == 0) {
 	}
 	$msg = Text::make_blob("Tower Victories", $blob);
 }
- 
+
 $sendto->reply($msg);
 
 ?>

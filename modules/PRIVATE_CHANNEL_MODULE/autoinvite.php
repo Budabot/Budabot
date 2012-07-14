@@ -16,7 +16,7 @@ if (preg_match("/^autoinvite (on|off)$/i", $message, $arr)) {
 		$db->exec("UPDATE members_<myname> SET autoinv = ? WHERE name = ?", $onOrOff, $sender);
 		$msg = "Your auto invite preference has been updated.";
 	}
-	
+
 	$sendto->reply($msg);
 } else {
 	$syntax_error = true;

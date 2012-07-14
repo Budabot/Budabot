@@ -23,7 +23,7 @@
  * @subpackage helpers
  */
 class LoggerLocationPatternConverter extends LoggerPatternConverter {
-	
+
 	/**
 	 * @var integer
 	 */
@@ -57,7 +57,7 @@ class LoggerLocationPatternConverter extends LoggerPatternConverter {
 				return $locationInfo->getFileName();
 			case LoggerPatternParser::CLASS_LOCATION_CONVERTER:
 				return $locationInfo->getFullQualifiedClassname();
-			default: 
+			default:
 				return '';
 		}
 	}

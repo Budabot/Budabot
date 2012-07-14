@@ -62,9 +62,9 @@
 * ~: end of message
 *
 */
-   
+
 class AOExtMsg {
-	
+
 	public $args, $category, $instance, $message_string, $message;
 
 	function __construct($str) {
@@ -78,7 +78,7 @@ class AOExtMsg {
 		$msg = substr($msg, 2, -1);
 		$this->category = $this->b85g($msg);
 		$this->instance = $this->b85g($msg);
-		
+
 		$this->args = AOExtMsg::parse_params($msg);
 		if ($this->args === null) {
 			echo "Error parsing parameters for category: '$this->category' instance: '$this->instance' string: '$msg'\n";
@@ -89,7 +89,7 @@ class AOExtMsg {
 			}
 		}
 	}
-	
+
 	public static function parse_params($msg) {
 		$args = array();
 		while ($msg != '') {
@@ -102,14 +102,14 @@ class AOExtMsg {
 					$msg = substr($msg, $len + 2);
 					$args[] = $str;
 					break;
-				
+
 				case "s":
 					$len = ord($msg[0]) - 1;
 					$str = substr($msg, 1, $len);
 					$msg = substr($msg, $len + 1);
 					$args[] = $str;
 					break;
-					
+
 				case "I":
 					$array = unpack("N", $msg);
 					$args[] = $array[1];
@@ -131,7 +131,7 @@ class AOExtMsg {
 					}
 					$args[] = $str;
 					break;
-					
+
 				case "l":
 					$array = unpack("N", $msg);
 					$msg = substr($msg, 4);
@@ -150,7 +150,7 @@ class AOExtMsg {
 					break;
 			}
 		}
-		
+
 		return $args;
 	}
 

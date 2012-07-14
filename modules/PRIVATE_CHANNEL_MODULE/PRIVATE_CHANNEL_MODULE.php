@@ -1,6 +1,6 @@
 <?php
 	$db->loadSQLFile($MODULE_NAME, "private_chat");
-    
+
     $command->register($MODULE_NAME, "", "members.php", "members", "all", "Member list", 'private_channel.txt');
 	$command->register($MODULE_NAME, "", "sm.php", "sm", "all", "Shows who is in the private channel", 'private_channel.txt');
     $command->register($MODULE_NAME, "guild msg", "join.php", "join", "member", "Join command for guests", 'private_channel.txt');

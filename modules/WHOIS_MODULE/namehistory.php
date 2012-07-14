@@ -8,7 +8,7 @@ if (preg_match("/^namehistory (.+)$/i", $message, $arr)) {
 		$sendto->reply($msg);
 		return;
 	}
-	
+
 	$sql = "SELECT * FROM name_history WHERE charid = ? AND dimension = <dim> ORDER BY dt DESC";
 	$data = $db->query($sql, $uid);
 	$count = count($data);
@@ -22,7 +22,7 @@ if (preg_match("/^namehistory (.+)$/i", $message, $arr)) {
 	} else {
 		$msg = "No name history available.";
 	}
-	
+
 	$sendto->reply($msg);
 } else {
 	$syntax_error = true;

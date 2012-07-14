@@ -1,15 +1,15 @@
 <?php
    /*
-   ** The Majority of this code was written by Derroylo (RK2) for the 
+   ** The Majority of this code was written by Derroylo (RK2) for the
    ** Budabot Items Module.  I just hacked it to use Nano DB from a
    ** Similar Bebot nano Module.
    **
    ** Healnjoo RK2
    */
-   
+
 if (preg_match("/^nano (.+)$/i", $message, $arr)) {
     $name = $arr[1];
-	
+
 	$name = htmlspecialchars_decode($name);
 	$name = str_replace("'", "''", $name);
 
@@ -18,7 +18,7 @@ if (preg_match("/^nano (.+)$/i", $message, $arr)) {
 		$query .= " AND n1.`name` LIKE '%$value%'";
 	}
 
-	$sql = 
+	$sql =
 		"SELECT
 			n1.lowid,
 			n1.lowql,
@@ -35,7 +35,7 @@ if (preg_match("/^nano (.+)$/i", $message, $arr)) {
 			n1.lowql DESC, n1.name ASC
 		LIMIT
 			" . $setting->get("maxnano");
-	
+
 	$data = $db->query($sql);
 
 	$count = count($data);
@@ -58,13 +58,13 @@ if (preg_match("/^nano (.+)$/i", $message, $arr)) {
 			}
 			$blob .= "\n";
 		}
-		
+
 		$msg = Text::make_blob("Nano Search Results ($count)", $blob);
 	}
 
 	$sendto->reply($msg);
 } else {
-  	$syntax_error = true; 	
+	$syntax_error = true;
 }
 
 ?>

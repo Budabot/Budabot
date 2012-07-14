@@ -9,7 +9,7 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
 		$sendto->reply($msg);
 		return;
 	}
-	
+
 	$row = $db->queryRow("SELECT mode FROM org_members_<myname> WHERE `name` = ?", $name);
 
 	if ($row !== null && $row->mode != "del") {
@@ -22,8 +22,8 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
 		}
 		$db->exec("INSERT INTO online (`name`, `channel`, `channel_type`, `added_by`, `dt`) VALUES (?, '<myguild>', 'guild', '<myname>', ?)", $name, time());
         $buddylistManager->add($name, 'org');
-    	$chatBot->guildmembers[$name] = 6;
-    	$msg = "<highlight>{$name}<end> has been added to the Notify list.";
+	$chatBot->guildmembers[$name] = 6;
+	$msg = "<highlight>{$name}<end> has been added to the Notify list.";
     }
 
 	$sendto->reply($msg);
@@ -38,7 +38,7 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
 	}
 
     $row = $db->queryRow("SELECT mode FROM org_members_<myname> WHERE `name` = ?", $name);
-	
+
 	if ($row === null) {
 		$msg = "<highlight>{$name}<end> is not on the guild roster.";
 	} else if ($row->mode == "del") {

@@ -11,7 +11,7 @@ class Whitelist {
 		if ($user == '' || $sender == '') {
 			return "User or sender is blank";
 		}
-	
+
 		$data = $this->db->query("SELECT * FROM whitelist WHERE name = ?", $user);
 		if (count($data) != 0) {
 			return "Error! $user already added to the whitelist";
@@ -20,14 +20,14 @@ class Whitelist {
 			return "$user has been added to the whitelist";
 		}
 	}
-	
+
 	public function remove($user) {
 		$user = ucfirst(strtolower($user));
 
 		if ($user == '') {
 			return "User is blank";
 		}
-	
+
 		$data = $this->db->query("SELECT * FROM whitelist WHERE name = ?", $user);
 		if (count($data) == 0) {
 			return "Error! $user is not on the whitelist";
@@ -36,7 +36,7 @@ class Whitelist {
 			return "$user has been removed from the whitelist";
 		}
 	}
-	
+
 	public function check($user) {
 		$user = ucfirst(strtolower($user));
 
@@ -47,7 +47,7 @@ class Whitelist {
 			return true;
 		}
 	}
-	
+
 	public function all() {
 		return $this->db->query("SELECT * FROM whitelist ORDER BY name ASC");
 	}

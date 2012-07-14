@@ -23,7 +23,7 @@
  * @subpackage helpers
  */
 class LoggerLiteralPatternConverter extends LoggerPatternConverter {
-	
+
 	/**
 	 * @var string
 	 */

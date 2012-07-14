@@ -13,7 +13,7 @@ if (preg_match("/^logoffadmin ([a-zA-Z0-9-]+)$/i", $message, $arr)) {
 } else if (preg_match("/^logoffadmin ([a-zA-Z0-9-]+) (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 	$logoff_msg = $arr[2];
-	
+
 	if ($logoff_msg == 'clear') {
 		Preferences::save($name, 'logoff_msg', '');
 		$msg = "The logoff message for $name has been cleared.";

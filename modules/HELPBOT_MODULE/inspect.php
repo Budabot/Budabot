@@ -23,7 +23,7 @@ if (preg_match("/^inspect (.+)$/i", $message, $arr)) {
 		$lid = $idql[1];
 		$hid = $idql[2];
 		$ql = $idql[3];
-		
+
 		switch ($hid) {
 			case 205842:
 				$type = "Funny Arrow";

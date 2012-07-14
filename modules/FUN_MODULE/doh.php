@@ -8,7 +8,7 @@
    **
    ** Date(created): 15.07.2006
    ** Date(last modified): 15.07.2006
-   ** 
+   **
    */
 
 if (preg_match("/^doh/i", $message)) {

@@ -30,12 +30,12 @@ class LoggerRendererException implements LoggerRendererObject {
 	public function render($o) {
 		$strRep  = 'Throwable('.get_class($o).'): '.$o->getMessage().' in '.$o->getFile().' on line '.$o->getLine();
 		$strRep .= PHP_EOL.$o->getTraceAsString();
-		
+
 		if (method_exists($o, 'getPrevious') && $o->getPrevious() !== null) {
 			$strRep .= PHP_EOL.'Caused by: '.$this->render($o->getPrevious());
 		}
-		
-		return $strRep;		
+
+		return $strRep;
 	}
 }
 ?>

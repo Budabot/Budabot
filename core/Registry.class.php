@@ -3,12 +3,12 @@
 class Registry {
 	private static $repo = array();
 	private static $repo2 = array();
-	
+
 	public static function setInstance($name, &$obj) {
 		$name = strtolower($name);
 		Registry::$repo[$name] = $obj;
 	}
-	
+
 	public static function instanceExists($name) {
 		$name = strtolower($name);
 
@@ -18,11 +18,11 @@ class Registry {
 			return false;
 		}
 	}
-	
+
 	public static function getInstance($name, $set = array()) {
 		$name = strtolower($name);
 		LegacyLogger::log("DEBUG", "Registry", "Requesting instance for '$name'");
-		
+
 		$instance = @Registry::$repo2[$name];
 		if ($instance != null) {
 			LegacyLogger::log("DEBUG", "Registry", "Using cache for '$name'");
@@ -36,9 +36,9 @@ class Registry {
 					return $set[$name];
 				}
 				$set[$name] = $instance;
-				
+
 				Registry::injectDependencies($instance, $set);
-				
+
 				Registry::$repo2[$name] = $instance;
 			}
 		}
@@ -46,10 +46,10 @@ class Registry {
 		if (USE_RUNKIT_CLASS_LOADING === true) {
 			Registry::importChanges($instance);
 		}
-		
+
 		return $instance;
 	}
-	
+
 	public static function injectDependencies(&$instance, $set = array()) {
 		// inject other instances that are annotated with @Inject
 		$reflection = new ReflectionAnnotatedClass($instance);
@@ -72,7 +72,7 @@ class Registry {
 			}
 		}
 	}
-	
+
 	public static function importChanges($instance) {
 		$reflection = new ReflectionClass($instance);
 		LegacyLogger::log("DEBUG", "Registry", "Re-importing file '" . $reflection->getFileName() . "'");
@@ -86,12 +86,12 @@ class LoggerWrapper {
 	public function __construct($tag) {
 		$this->logger = Logger::getLogger($tag);
 	}
-	
+
 	public function log($category, $message, $throwable = null) {
 		$level = LegacyLogger::getLoggerLevel($category);
 		$this->logger->log($level, $message, $throwable);
 	}
-	
+
 	public function log_chat($channel, $sender, $message) {
 		LegacyLogger::log_chat($channel, $sender, $message);
 	}

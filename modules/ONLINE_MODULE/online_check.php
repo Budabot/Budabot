@@ -2,7 +2,7 @@
 
 if ($chatBot->is_ready()) {
 	$db->begin_transaction();
-	   
+
 	$sql = "SELECT name, channel_type FROM `online`";
 	$data = $db->query($sql);
 	$guildArray = array();

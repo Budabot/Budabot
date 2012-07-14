@@ -20,19 +20,19 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 		$msg = "This quote is already in as quote <highlight>$row->IDNumber<end>.";
 	} else {
 		if (strlen($arr[1]) <= 1000) {
-	
+
 			$quoteMSG = $arr[1];
 			$quoteWHO = $sender;
-	
+
 			// Search for highest ID and +1 for new ID.
 			$row = $db->queryRow("SELECT * FROM `#__quote` ORDER BY `IDNumber` DESC");
 
 			if ($row->IDNumber == "") {
 				$quoteID = 0;
 			} else {
-				$quoteID = $row->IDNumber+1;	
+				$quoteID = $row->IDNumber+1;
 			}
-			
+
 			//Trying to determine who is being quoted.
 			$findcolon = strpos($quoteMSG,":");
 			$findbracket = strpos($quoteMSG,"] ")+2;
@@ -43,7 +43,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 				} else if ((substr($quoteMSG,$findcolon-1,1) == "]") && (substr($quoteMSG,0,1) == "[")) {
 					//[Person]: message.
 					$quoteOfWHO = substr($quoteMSG,1,$findcolon-2);
-				} else if (($findbracket > 2) && ($findbracket < $findcolon)) {	
+				} else if (($findbracket > 2) && ($findbracket < $findcolon)) {
 					//[Neu. OOC] Lucier: message.
 					$quoteOfWHO = substr($quoteMSG,$findbracket,$findcolon-$findbracket);
 				} else if (substr($quoteMSG,$findcolon-7,7) == " shouts") {
@@ -92,9 +92,9 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 	$sendto->reply($msg);
 //Searching for authors or victims.
 } else if (preg_match("/^quote search (.+)$/i", $message, $arr)) {
-	
+
 	$search = ucfirst(strtolower($arr[1]));
-	
+
 	// Search for poster:
 	$list = "";
 	$data = $db->query("SELECT * FROM `#__quote` WHERE `Who` LIKE ?", $search);
@@ -104,8 +104,8 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 	if ($list) {
 		$msg .= "<tab>Quotes posted by <highlight>$search<end>: ";
 		$msg .= substr($list,0,strlen($list)-2);
-	}	
-	
+	}
+
 	// Search for victim:
 	$list = "";
 	$data = $db->query("SELECT * FROM `#__quote` WHERE `OfWho` LIKE ?", $search);
@@ -133,7 +133,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 		$msg .= "<tab>Quotes that contain '<highlight>$search<end>': ";
 		$msg .= substr($list,0,strlen($list)-2);
 	}
-	
+
 	if ($msg) {
 		$msg = Text::make_blob("Results for: '$search'", $msg);
 	} else {
@@ -193,11 +193,11 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 	$sendto->reply($msg);
 //View a specific quote
 } else if (preg_match("/^quote ([0-9]+)$/i", $message, $arr)) {
-	
+
 	//get total number of entries(by grabbing the Highest ID.)
     $row = $db->queryRow("SELECT * FROM `#__quote` ORDER BY `IDNumber` DESC");
 	$count = $row->IDNumber;
-	
+
 	$row = $db->queryRow("SELECT * FROM `#__quote` WHERE `IDNumber` = ?", $arr[1]);
 	if ($row !== null) {
 		$quoteID = $row->IDNumber;
@@ -210,7 +210,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 		$msg .= "<tab>Poster: <highlight>$quoteWHO<end>\n";
 		$msg .= "<tab>Quoting: <highlight>$quoteOfWHO<end>\n";
 		$msg .= "<tab>Date: <highlight>" . date(Util::DATETIME, $quoteDATE) . "<end>\n\n";
-		
+
 		$msg .= "<tab>Quotes posted by <highlight>$quoteWHO<end>: ";
 		$data = $db->query("SELECT * FROM `#__quote` WHERE `Who` = ?", $quoteWHO);
 		$list = "";
@@ -218,7 +218,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 			$list .= "<a href='chatcmd:///tell ".$chatBot->vars["name"]." quote $row->IDNumber>$row->IDNumber</a>, ";
 		}
 		$msg .= substr($list,0,strlen($list)-2)."\n\n";
-		
+
 		$msg .="<tab>Quotes <highlight>$quoteOfWHO<end> said: ";
 		$data = $db->query("SELECT * FROM `#__quote` WHERE `OfWho` = ?", $quoteOfWHO);
 		$list = "";
@@ -228,7 +228,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 		$msg .= substr($list,0,strlen($list)-2);
 
 		$msg = Text::make_blob("Quote", $msg).': "'.$quoteMSG.'"';
-		
+
 	} else {
 		$msg = "No quote found with that ID.";
 	}
@@ -236,7 +236,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 //View a random quote
 } else if (preg_match("/^quote$/i", $message)) {
 	//get total number of entries for rand (and see if we even have any quotes to show)
-	
+
 	// find the highest IDnumber
     $row = $db->queryRow("SELECT * FROM `#__quote` ORDER BY `IDNumber` DESC");
 	$count = $row->IDNumber;
@@ -254,12 +254,12 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 				break;
 			}
 		} while (true);
-		
+
 		$msg = "<tab>ID: (<highlight>$quoteID<end> of $count)\n";
 		$msg .= "<tab>Poster: <highlight>$quoteWHO<end>\n";
 		$msg .= "<tab>Quoting: <highlight>$quoteOfWHO<end>\n";
 		$msg .= "<tab>Date: <highlight>" . date(Util::DATETIME, $quoteDATE) . "<end>\n\n";
-		
+
 		$msg .= "<tab>Quotes posted by <highlight>$quoteWHO<end>: ";
 		$data = $db->query("SELECT * FROM `#__quote` WHERE `Who` = ?", $quoteWHO);
 		$list = "";
@@ -267,7 +267,7 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 			$list .= "<a href='chatcmd:///tell ".$chatBot->vars["name"]." quote $row->IDNumber>$row->IDNumber</a>, ";
 		}
 		$msg .= substr($list,0,strlen($list)-2)."\n\n";
-		
+
 		$msg .= "<tab>Quotes <highlight>$quoteOfWHO<end> said: ";
 		$data = $db->query("SELECT * FROM `#__quote` WHERE `OfWho` = ?", $quoteOfWHO);
 		$list = "";
@@ -275,9 +275,9 @@ if (preg_match("/^quote add (.+)$/si", $message, $arr)) {
 			$list .= "<a href='chatcmd:///tell ".$chatBot->vars["name"]." quote $row->IDNumber>$row->IDNumber</a>, ";
 		}
 		$msg .= substr($list, 0, strlen($list) - 2);
-		
+
 		$msg = Text::make_blob("Quote", $msg).': "'.$quoteMSG.'"';
-		
+
 	} else {
 		$msg = "I dont have any quotes to show!";
 	}

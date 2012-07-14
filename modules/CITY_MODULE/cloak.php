@@ -22,7 +22,7 @@ if (preg_match("/^cloak$/i", $message)) {
         $list = "Time: <highlight>".date(Util::DATETIME, $row->time)." (GMT)<end>\n";
         $list .= "Action: <highlight>Cloaking device turned ".$row->action."<end>\n";
         $list .= "Player: <highlight>".$row->player."<end>\n\n";
-        
+
         forEach ($data as $row) {
             $list .= "Time: <highlight>".date(Util::DATETIME, $row->time)." (GMT)<end>\n";
             $list .= "Action: <highlight>Cloaking device turned ".$row->action."<end>\n";

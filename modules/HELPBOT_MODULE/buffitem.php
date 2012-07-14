@@ -5,7 +5,7 @@ include 'buffstuffdb.php';
 
 if (preg_match("/^buffitem (.+)$/i", $message, $arr)) {
 	$name = $arr[1];
-	
+
 	$results = array();
 	$found = 0;
 	// search item line database
@@ -29,7 +29,7 @@ if (preg_match("/^buffitem (.+)$/i", $message, $arr)) {
 			array_unshift($results, array($key, $info, $alias));
 		}
 	}
-	
+
 	if ($found == 0) {
 		$sendto->reply("No matches, sorry.");
 		return;
@@ -51,5 +51,5 @@ if (preg_match("/^buffitem (.+)$/i", $message, $arr)) {
 } else {
 	$syntax_error = true;
 }
-	
+
 ?>

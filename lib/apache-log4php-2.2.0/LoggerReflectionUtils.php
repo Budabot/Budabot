@@ -14,10 +14,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * @package log4php
  */
- 
+
 /**
  * Provides methods for reflective use on php objects
  * @package log4php
@@ -25,17 +25,17 @@
 class LoggerReflectionUtils {
 		/** the target object */
 	private $obj;
-	
+
 	/**
-	 * Create a new LoggerReflectionUtils for the specified Object. 
-	 * This is done in prepartion for invoking {@link setProperty()} 
+	 * Create a new LoggerReflectionUtils for the specified Object.
+	 * This is done in prepartion for invoking {@link setProperty()}
 	 * one or more times.
 	 * @param object &$obj the object for which to set properties
 	 */
 	public function __construct($obj) {
 		$this->obj = $obj;
 	}
-	
+
 	/**
 	 * Set the properties of an object passed as a parameter in one
 	 * go. The <code>properties</code> are parsed relative to a
@@ -50,17 +50,17 @@ class LoggerReflectionUtils {
 		$pSetter = new LoggerReflectionUtils($obj);
 		return $pSetter->setProperties($properties, $prefix);
 	}
-	
-	
+
+
 	/**
 	 * Set the properites for the object that match the
 	 * <code>prefix</code> passed as parameter.
-	 * 
+	 *
 	 * Example:
-	 * 
+	 *
 	 * $arr['xxxname'] = 'Joe';
- 	 * $arr['xxxmale'] = true;
-	 * and prefix xxx causes setName and setMale.	
+	 * $arr['xxxmale'] = true;
+	 * and prefix xxx causes setName and setMale.
 	 *
 	 * @param array $properties An array containing keys and values.
 	 * @param string $prefix Only keys having the specified prefix will be set.
@@ -84,7 +84,7 @@ class LoggerReflectionUtils {
 		}
 		$this->activate();
 	}
-	
+
 	/**
 	 * Set a property on this PropertySetter's Object. If successful, this
 	 * method will invoke a setter method on the underlying Object. The
@@ -104,22 +104,22 @@ class LoggerReflectionUtils {
 		if($value === null) {
 			return;
 		}
-		
+
 		$method = "set" . ucfirst($name);
-		
+
 		if(!method_exists($this->obj, $method)) {
 			throw new Exception("Error setting log4php property $name to $value: no method $method in class ".get_class($this->obj)."!");
 		} else {
 			return call_user_func(array($this->obj, $method), $value);
-		} 
+		}
 	}
-	
+
 	public function activate() {
 		if(method_exists($this->obj, 'activateoptions')) {
 			return call_user_func(array($this->obj, 'activateoptions'));
-		} 
+		}
 	}
-	
+
 	/**
 	 * Creates an instances from the given class name.
 	 *
@@ -132,7 +132,7 @@ class LoggerReflectionUtils {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * @param object $object
 	 * @param string $name
@@ -149,5 +149,5 @@ class LoggerReflectionUtils {
 			return false;
 		}
 	}
-	
+
 }

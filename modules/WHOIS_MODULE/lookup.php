@@ -15,11 +15,11 @@ if (preg_match("/^lookup (\\d+)$/i", $message, $arr)) {
 	} else {
 		$msg = "No history available for character id <highlight>$charid<end>.";
 	}
-	
+
 	$sendto->reply($msg);
 } else if (preg_match("/^lookup (.*)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
-	
+
 	$data = $db->query("SELECT * FROM name_history WHERE name LIKE ? AND dimension = <dim> ORDER BY dt DESC", $name);
 	$count = count($data);
 
@@ -33,7 +33,7 @@ if (preg_match("/^lookup (\\d+)$/i", $message, $arr)) {
 	} else {
 		$msg = "No history available for character <highlight>$name<end>.";
 	}
-	
+
 	$sendto->reply($msg);
 } else {
 	$syntax_error = true;

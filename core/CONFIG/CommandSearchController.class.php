@@ -7,7 +7,7 @@ class CommandSearchController {
 
 	/** @Inject */
 	public $db;
-	
+
 	/** @Inject */
 	public $accessLevel;
 

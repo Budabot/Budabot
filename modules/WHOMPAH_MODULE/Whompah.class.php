@@ -3,15 +3,15 @@
 class Whompah {
 	public static function find_whompah_path($queue, $whompahs, &$endCity) {
 		$current_whompah = array_shift($queue);
-		
+
 		if ($current_whompah == false) {
 			return false;
 		}
-		
+
 		if ($current_whompah->id == $endCity) {
 			return $current_whompah;
 		}
-	
+
 		forEach ($whompahs[$current_whompah->id]->connections as $city2_id) {
 			if ($whompahs[$city2_id]->visited !== true) {
 				$whompahs[$city2_id]->visited = true;
@@ -22,17 +22,17 @@ class Whompah {
 				$queue []= $next_whompah;
 			}
 		}
-		
+
 		return Whompah::find_whompah_path($queue, $whompahs, $endCity);
 	}
-	
+
 	public static function find_city($search) {
 		$db = Registry::getInstance('db');
-		
+
 		$sql = "SELECT * FROM whompah_cities WHERE city_name LIKE ? OR short_name LIKE ?";
 		return $db->queryRow($sql, $search, $search);
 	}
-	
+
 	public static function build_whompah_network() {
 		$db = Registry::getInstance('db');
 
@@ -45,13 +45,13 @@ class Whompah {
 			$whompahs[$row->id]->connections = array();
 			$whompahs[$row->id]->visited = false;
 		}
-		
+
 		$sql = "SELECT city1_id, city2_id FROM whompah_cities_rel";
 		$data = $db->query($sql);
 		forEach ($data as $row) {
 			$whompahs[$row->city1_id]->connections[] = $row->city2_id;
 		}
-		
+
 		return $whompahs;
 	}
 }

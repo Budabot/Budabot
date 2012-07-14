@@ -355,7 +355,7 @@ class AOChat {
 	/* User and group lookup functions */
 	function lookup_user($u) {
 		$u = ucfirst(strtolower(trim($u)));
-		
+
 		if ($u == '') {
 			return false;
 		}
@@ -441,7 +441,7 @@ class AOChat {
 		$this->iteration();
 		return true;
 	}
-	
+
 	function send_guild($msg, $blob = "\0", $priority = null) {
 		$guild_gid = false;
 		forEach ($this->grp as $gid => $status) {
@@ -529,7 +529,7 @@ class AOChat {
 
 		return $this->send_packet(new AOChatPacket("out", AOCP_PRIVGRP_KICK, $uid));
 	}
-	
+
 	function privategroup_leave($user) {
 		if (($uid = $this->get_uid($user)) === false) {
 			return false;
@@ -651,7 +651,7 @@ class AOChat {
 	// http://www.hackersquest.com/boards/viewtopic.php?t=4884&start=75
 	function SafeDecHexReverseEndian($value) {
 		$result = "";
-		$value = (int)$this->ReduceTo32Bit($value);		
+		$value = (int)$this->ReduceTo32Bit($value);
 		$hex   = substr("00000000".dechex($value),-8);
 
 		$bytes = str_split($hex, 2);

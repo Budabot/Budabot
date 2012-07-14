@@ -44,10 +44,10 @@ if (!function_exists("get_skill")) {
 			default:
 				$skill = '';
 		}
-		
+
 		return $skill;
 	}
-}	
+}
 // Makes main selection screen
 if (preg_match("/^bufftest$/i", $message, $arr)) {
 	$blob = "<highlight>Ability Listings:<end>\n";
@@ -74,7 +74,7 @@ if (preg_match("/^bufftest$/i", $message, $arr)) {
 		return;
 	}
 	$data = $db->query("SELECT * FROM buffitems WHERE skill = ? ORDER BY type, buffed DESC", $skill);
-	
+
 	if (count($data) > 0) {
 		$blob = '';
 		$currentType == '';
@@ -90,7 +90,7 @@ if (preg_match("/^bufftest$/i", $message, $arr)) {
 				}
 				$currentType = $row->type;
 			}
-			
+
 			$blob .= Text::make_item($row->lowid, $row->highid, $row->minql, $row->name) . "\nBuff Amount: <highlight>$row->buffed\n$row->info<end>\n\n";
 		}
 		$msg = Text::make_blob("Buff Item list ($skill)", $blob);
@@ -101,5 +101,5 @@ if (preg_match("/^bufftest$/i", $message, $arr)) {
 } else {
 	$syntax_error = true;
 }
-	
+
 ?>

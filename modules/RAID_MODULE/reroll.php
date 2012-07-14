@@ -6,13 +6,13 @@ global $residual;
 if (preg_match("/^reroll$/i", $message)) {
 
 	//Check if a residual list exits
-  	if (!is_array($residual)) {
+	if (!is_array($residual)) {
 	    $msg = "There are no remaining items to re-add.";
 	    $sendto->reply($msg);
 	    return;
 	}
-  	
-  	// Readd remaining loot
+
+	// Readd remaining loot
 	forEach ($residual as $key => $item) {
 		$loot[$key]["name"] = $item["name"];
 		$loot[$key]["icon"] = $item["icon"];
@@ -57,7 +57,7 @@ if (preg_match("/^reroll$/i", $message)) {
 			if ($item["minlvl"] != "") {
 				$list .= "MinLvl set to <highlight>{$item["minlvl"]}<end>\n";
 			}
-		
+
 			$list .= "<highlight>$added_players<end> Total ($add/$rem)\n";
 			$list .= "Players added:";
 			if (count($item["users"]) > 0) {
@@ -67,7 +67,7 @@ if (preg_match("/^reroll$/i", $message)) {
 			} else {
 				$list .= " None added yet.";
 			}
-			
+
 			$list .= "\n\n";
 		}
 		$msg2 = Text::make_blob("Loot List", $list);

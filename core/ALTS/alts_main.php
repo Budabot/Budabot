@@ -9,21 +9,21 @@ if (preg_match("/^alts main ([a-z0-9-]+)$/i", $message, $arr)) {
 		$sendto->reply($msg);
 		return;
 	}
-	
+
 	$altInfo = Alts::get_alt_info($sender);
-	
+
 	if ($altInfo->main == $new_main) {
 		$msg = "You are already registered as an alt of <highlight>{$new_main}<end>.";
 		$sendto->reply($msg);
 		return;
 	}
-	
+
 	if ($altInfo->main == $sender && count($altInfo->alts) > 0) {
 		$msg = "You must not have any alts already registered.";
 		$sendto->reply($msg);
 		return;
 	}
-	
+
 	// let them know if they are changing the main for this character
 	if ($altInfo->main != $sender) {
 		Alts::rem_alt($altInfo->main, $sender);

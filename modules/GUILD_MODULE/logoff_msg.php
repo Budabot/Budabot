@@ -8,10 +8,10 @@
 		} else {
 			$msg = "{$sender} logoff: {$logoff_msg}";
 		}
-    	$sendto->reply($msg);
+	$sendto->reply($msg);
 	} else if (preg_match("/^logoff (.+)$/i", $message, $arr)) {
 		$logoff_msg = $arr[1];
-	
+
 		if ($logoff_msg == 'clear') {
 			Preferences::save($sender, 'logoff_msg', '');
 			$msg = "Your logoff message has been cleared.";
@@ -21,7 +21,7 @@
 		} else {
 			$msg = "Your logoff message is too large. Your logoff message may contain a maximum of " . $setting->get('max_logoff_msg_size') . " characters.";
 		}
-    	$sendto->reply($msg);
+	$sendto->reply($msg);
 	} else {
 		$syntax_error = true;
 	}

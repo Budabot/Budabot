@@ -20,7 +20,7 @@ if (preg_match("/^lastseen (.+)$/i", $message, $arr)) {
 				$namesSql .= "'$alt'";
 			}
 			$row = $db->queryRow("SELECT * FROM org_members_<myname> WHERE `name` IN ($namesSql) AND `mode` != 'del' ORDER BY logged_off DESC");
-			
+
 			if ($row !== null) {
 				if ($row->logged_off == 0) {
 					$msg = "<highlight>$name<end> has never logged on.";

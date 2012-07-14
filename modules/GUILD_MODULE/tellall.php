@@ -8,10 +8,10 @@
    **
    ** Date(created): 03.02.2007
    ** Date(last modified): 03.02.2007
-   ** 
+   **
    ** Copyright (C) 2007 Carsten Lohmann
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -34,7 +34,7 @@ if (preg_match("/^tellall (.+)$/i", $message, $arr)) {
 	forEach ($data as $row) {
 		$chatBot->sendTell("Message from $sender: <yellow>".$arr[1]."<end>", $row->name);
 	}
-	
+
 	$sendto->reply("Your message has been sent to all online org members.");
 } else {
 	$syntax_error = true;

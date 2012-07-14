@@ -8,10 +8,10 @@
    **
    ** Date(created): 15.12.2005
    ** Date(last modified): 15.12.2005
-   ** 
+   **
    ** Copyright (C) 2005 Carsten Lohmann
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify

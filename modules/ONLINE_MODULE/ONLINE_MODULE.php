@@ -1,17 +1,17 @@
 <?php
 	require_once "online_func.php";
-	
+
 	$db->loadSQLFile($MODULE_NAME, "online");
 
 	// Online
 	$command->register($MODULE_NAME, "", "online.php", "online", "member", "Shows who is the private channel", "online.txt");
-	
+
 	$event->register($MODULE_NAME, "logOn", "record_logon_guild.php", "Records an org member login in db");
 	$event->register($MODULE_NAME, "logOff", "record_logoff_guild.php", "Records an org member logoff in db");
-	
+
 	// Verifies the online list
 	$event->register($MODULE_NAME, "10mins", "online_check.php", "Online check");
-	
+
 	// Afk Check
 	$event->register($MODULE_NAME, "priv", "afk_check.php", "Afk check", "afk.txt");
 	$event->register($MODULE_NAME, "guild", "afk_check.php", "Afk check", "afk.txt");

@@ -8,8 +8,8 @@
    **
    ** Date(created): 7/13/2009
    ** Date(last modified): 7/24/2009
-   ** 
-   ** Licence Infos: 
+   **
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -30,12 +30,12 @@
 if (preg_match("/^capxp ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	$reward = $arr[1];
 	$level = $arr[2];
-	
+
 	if ($level > 219 || $level < 1) {
 		$sendto->reply("Your level cannot be greater than 219 or less than 1.");
 		return;
 	}
-	
+
 	$row = Level::get_level_info($level);
 
 	if ($level < 200) {
@@ -48,13 +48,13 @@ if (preg_match("/^capxp ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	if ($research < 0) {
 		$research = 0;
 	}
-	
+
 	if ($level < 200) {
 		$msg = "At lvl <highlight>".number_format($level)."<end> you need <highlight>".number_format($xp)."<end> xp to level. With a mission reward of <highlight>".number_format($reward)."<end> xp, set your research bar to <highlight>".ceil($research)."%<end> to receive maximum xp from this mission reward.";
 	} else {
 		$msg = "At lvl <highlight>".number_format($level)."<end> you need <highlight>".number_format($sk)."<end> sk to level. With a mission reward of <highlight>".number_format($reward)."<end> sk, set your research bar to <highlight>".ceil($research)."%<end> to receive maximum sk from this mission reward.";
 	}
-	
+
 	$sendto->reply($msg);
 } else {
 	$syntax_error = true;

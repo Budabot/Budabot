@@ -3,36 +3,36 @@
 class LegacyController {
 	/** @Inject */
 	public $chatBot;
-	
+
 	/** @Inject */
 	public $db;
-	
+
 	/** @Inject */
 	public $setting;
-	
+
 	/** @Inject */
 	public $help;
-	
+
 	/** @Inject */
 	public $commandAlias;
-	
+
 	/** @Inject */
 	public $buddylistManager;
-	
+
 	public $moduleName;
 
 	private $commands = array();
 	private $events = array();
 	private $subcommands = array();
-	
+
 	private $baseDir;
 	private $name;
-	
+
 	public function __construct($baseDir, $name) {
 		$this->baseDir = $baseDir;
 		$this->name = $name;
 	}
-	
+
 	/**
 	 * @Setup
 	 */
@@ -43,28 +43,28 @@ class LegacyController {
 		$help = $this->help;
 		$commandAlias = $this->commandAlias;
 		$MODULE_NAME = $this->moduleName;
-		
+
 		$command = new CommandProxy($this->name);
 		$command->commands = &$this->commands;
 		Registry::injectDependencies($command);
-		
+
 		$event = new EventProxy($this->name);
 		$event->events = &$this->events;
 		Registry::injectDependencies($event);
-		
+
 		$subcommand = new SubcommandProxy($this->name);
 		$subcommand->subcommands = &$this->subcommands;
 		Registry::injectDependencies($subcommand);
 
 		require "{$this->baseDir}/{$this->moduleName}/{$this->moduleName}.php";
 	}
-	
+
 	public function eventHandler($filename, $eventObj) {
 		$chatBot = $this->chatBot;
 		$db = $this->db;
 		$setting = $this->setting;
 		$buddylistManager = $this->buddylistManager;
-		
+
 		$type = $eventObj->type;
 		@$channel = $eventObj->channel;
 		@$sender = $eventObj->sender;
@@ -74,7 +74,7 @@ class LegacyController {
 
 		require $filename;
 	}
-	
+
 	public function commandHandler($filename, $message, $channel, $sender, $sendto) {
 		$syntax_error = false;
 
@@ -85,12 +85,12 @@ class LegacyController {
 		$type = $channel;
 
 		require $filename;
-		
+
 		if ($syntax_error === true) {
 			return false;
 		}
 	}
-	
+
 	public function __call($name, $arguments) {
 		if (isset($this->events[$name])) {
 			return $this->eventHandler($this->events[$name], $arguments[0]);
@@ -107,19 +107,19 @@ class LegacyController {
 class CommandProxy {
 	/** @Inject */
 	public $commandManager;
-	
+
 	/** @Inject */
 	public $util;
-	
+
 	/** @Logger */
 	public $logger;
-	
+
 	public $counter = 0;
-	
+
 	public $commands = array();
-	
+
 	private $controller;
-	
+
 	public function __construct($controller) {
 		$this->controller = $controller;
 	}
@@ -131,7 +131,7 @@ class CommandProxy {
 				$this->logger->log('ERROR', "Error registering file $filename for command $command. The file does not exist!");
 				return;
 			}
-			
+
 			$handlerName = "command_" . ($this->counter++);
 			$this->commands[$handlerName] = $actual_filename;
 			$this->commandManager->register($module, $channel, $this->controller . "." . $handlerName, $command, $admin, $description, $help, $defaultStatus);
@@ -139,7 +139,7 @@ class CommandProxy {
 			$this->commandManager->register($module, $channel, $filename, $command, $admin, $description, $help, $defaultStatus);
 		}
 	}
-	
+
 	public function activate($channel, $filename, $command, $admin = 'all') {
 		if (preg_match("/\\.php$/i", $filename)) {
 			$actual_filename = $this->util->verify_filename($filename);
@@ -160,19 +160,19 @@ class CommandProxy {
 class EventProxy {
 	/** @Inject */
 	public $eventManager;
-	
+
 	/** @Inject */
 	public $util;
-	
+
 	/** @Logger */
 	public $logger;
-	
+
 	public $counter = 0;
-	
+
 	public $events = array();
-	
+
 	private $controller;
-	
+
 	public function __construct($controller) {
 		$this->controller = $controller;
 	}
@@ -192,7 +192,7 @@ class EventProxy {
 			$this->eventManager->register($module, $type, $filename, $description, $help, $defaultStatus);
 		}
 	}
-	
+
 	public function activate($type, $filename) {
 		if (preg_match("/\\.php$/i", $filename)) {
 			$actual_filename = $this->util->verify_filename($filename);
@@ -213,19 +213,19 @@ class EventProxy {
 class SubcommandProxy {
 	/** @Inject */
 	public $subcommand;
-	
+
 	/** @Inject */
 	public $util;
-	
+
 	/** @Logger */
 	public $logger;
-	
+
 	public $counter = 0;
-	
+
 	public $subcommands = array();
-	
+
 	private $controller;
-	
+
 	public function __construct($controller) {
 		$this->controller = $controller;
 	}
@@ -237,7 +237,7 @@ class SubcommandProxy {
 				$this->logger->log('ERROR', "Error in registering the file $filename for Subcommand $command. The file does not exist!");
 				return;
 			}
-			
+
 			$handlerName = "subcommand_" . ($this->counter++);
 			$this->subcommands[$handlerName] = $actual_filename;
 			$this->subcommand->register($module, $channel, $this->controller . "." . $handlerName, $command, $admin, $parent_command, $description, $help, $defaultStatus);

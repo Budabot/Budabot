@@ -103,12 +103,12 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 
 	} else if (preg_match("/^\[BBIN:ONLINELIST:(.):(.*?)\]/", $bbinmsg, $arr)) {
 		// received a synchronization list
-		
+
 		$db->begin_transaction();
-		
+
 		// delete all buddies from that nick
 		$db->exec("DELETE FROM bbin_chatlist_<myname> WHERE `ircrelay` = ?", $nick);
-		
+
 		// Format: [BBIN:ONLINELIST:dimension:name,isguest,name,isguest....]
 		$dimension = $arr[1];
 		$listplode = explode(',', $arr[2]);
@@ -117,18 +117,18 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 		while (true) {
 			// as using array_pop will lead to null some time,
 			// this loop will exit when all chars are parsed
-				
+
 			// pop last value off array (isguest of last member)
 			$isguest = array_pop($listplode);
-				
+
 			// pop next value off array (name of last member)
 			$name = array_pop($listplode);
-				
+
 			if ($isguest == null || $name == null) {
 				// we popped all items of the array, break
 				break;
 			}
-				
+
 			// get character information
 			$character = Player::get_by_name($name, $dimension);
 
@@ -137,7 +137,7 @@ function parse_incoming_bbin($bbinmsg, $nick) {
 				"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			$db->exec($sql, $name, $isguest, $nick, $character->faction, $character->profession, $character->guild, $character->breed, $character->level, $character->ai_level, $dimension, '');
 		}
-		
+
 		$db->commit();
 	} else {
 		// normal message

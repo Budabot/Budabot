@@ -1,5 +1,5 @@
 <?php
-   
+
 if (preg_match("/^fp (\\d+)$/i", $message, $arr1) || preg_match("/^fp (.+)$/i", $message, $arr2)) {
 	if ($arr2) {
 		$name = str_replace("'", "''", $arr2[1]);
@@ -14,14 +14,14 @@ if (preg_match("/^fp (\\d+)$/i", $message, $arr1) || preg_match("/^fp (.+)$/i", 
 		$id = $arr1[1];
 		$data = $db->query("SELECT * FROM nanos WHERE `lowid` = $id ORDER BY lowql DESC, name LIMIT 0, " . $setting->get('maxnano'));
 	}
-	
+
 	$count = count($data);
 
 	if ($count == 0) {
 		$msg = "No nanos found.";
 	} else if ($count == 1) {
 		$row = $data[0];
-		
+
 		$url = "http://itemxml.xyphos.com/?id={$row->lowid}";  // use low id for id
 
 		$data = file_get_contents($url, 0);
@@ -34,7 +34,7 @@ if (preg_match("/^fp (\\d+)$/i", $message, $arr1) || preg_match("/^fp (.+)$/i", 
 		$doc = new DOMDocument();
 		$doc->prevservWhiteSpace = false;
 		$doc->loadXML($data);
-		
+
 		$name = $doc->getElementsByTagName('name')->item(0)->nodeValue;
 		$requirements = $doc->getElementsByTagName('actions')->item(0)->getElementsByTagName('action')->item(0)->getElementsByTagName('requirements')->item(0)->getElementsByTagName('requirement');
 
@@ -44,9 +44,9 @@ if (preg_match("/^fp (\\d+)$/i", $message, $arr1) || preg_match("/^fp (.+)$/i", 
 				$fpUsable = true;
 			}
 		}
-		
+
 		$item = Text::make_item($row->lowid, $row->lowid, $row->lowql, $row->name) . " ({$row->lowql})";
-		
+
 		if ($fpUsable) {
 			$msg = "$item <green>is<end> usable in false profession";
 		} else {
@@ -60,13 +60,13 @@ if (preg_match("/^fp (\\d+)$/i", $message, $arr1) || preg_match("/^fp (.+)$/i", 
 		}
 		$blob .= "Written by Tyrence(RK2)\n";
 		$blob .= "Stats provided by xyphos.com";
-		
+
 		$msg = Text::make_blob("Nano Search Results ($count)", $blob);
 	}
 
 	$sendto->reply($msg);
 } else {
-  	$syntax_error = true; 	
+	$syntax_error = true;
 }
 
 ?>

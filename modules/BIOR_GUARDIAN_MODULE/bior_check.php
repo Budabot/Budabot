@@ -12,7 +12,7 @@ if (isset($chatBot->data['bior'])) {
 				if (isset($chatBot->data['blist'][$pos + 1])) {
 					$next = " <yellow>Next is {$chatBot->data['blist'][$pos + 1]}<end>";
 				}
-				$msg = "<blue>6sec remaining on Bio Regrowth.$next<end>";  		
+				$msg = "<blue>6sec remaining on Bio Regrowth.$next<end>";
 				$sendto->reply($msg);
 			} else if ($rem >= 299 && $rem <= 301) {
 				$pos = array_search($key, $chatBot->data['blist']);

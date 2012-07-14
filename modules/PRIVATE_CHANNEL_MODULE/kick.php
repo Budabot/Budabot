@@ -15,7 +15,7 @@ if (preg_match("/^kickuser (.+)$/i", $message, $arr)) {
     } else {
 		$msg = "Character <highlight>{$name}<end> does not exist.";
 	}
-	
+
 	$sendto->reply($msg);
 } else {
 	$syntax_error = true;

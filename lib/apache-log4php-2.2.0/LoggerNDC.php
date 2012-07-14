@@ -20,7 +20,7 @@
 
 /**
  * The NDC class implements <i>nested diagnostic contexts</i>.
- * 
+ *
  * NDC was defined by Neil Harrison in the article "Patterns for Logging
  * Diagnostic Messages" part of the book <i>"Pattern Languages of
  * Program Design 3"</i> edited by Martin et al.
@@ -37,9 +37,9 @@
  * from different contexts had a distinctive stamp. This is where NDCs
  * come into play.
  *
- * <b>Note that NDCs are managed on a per thread basis</b>. 
- * 
- * NDC operations such as {@link push()}, {@link pop()}, 
+ * <b>Note that NDCs are managed on a per thread basis</b>.
+ *
+ * NDC operations such as {@link push()}, {@link pop()},
  * {@link clear()}, {@link getDepth()} and {@link setMaxDepth()}
  * affect the NDC of the <i>current</i> thread only. NDCs of other
  * threads remain unaffected.
@@ -49,7 +49,7 @@
  * the the request. <i>Cookies</i> are another source of distinctive
  * information. To build an NDC one uses the {@link push()}
  * operation.
- * 
+ *
  * Simply put,
  *
  * - Contexts can be nested.
@@ -58,13 +58,13 @@
  *	 current thread, this method will create it.
  * - When leaving a context, call <kbd>LoggerNDC::pop()</kbd>
  * - <b>When exiting a thread make sure to call {@link remove()}</b>
- *	 
+ *
  * There is no penalty for forgetting to match each
  * <kbd>push</kbd> operation with a corresponding <kbd>pop</kbd>,
  * except the obvious mismatch between the real application context
  * and the context set in the NDC.
  *
- * If configured to do so, {@link LoggerPatternLayout} and {@link LoggerLayoutTTCC} 
+ * If configured to do so, {@link LoggerPatternLayout} and {@link LoggerLayoutTTCC}
  * instances automatically retrieve the nested diagnostic
  * context for the current thread without any user intervention.
  * Hence, even if a servlet is serving multiple clients
@@ -73,31 +73,31 @@
  * request will have a different NDC tag.
  *
  * Example:
- *	
+ *
  * {@example ../../examples/php/ndc.php 19}<br>
  *
  * With the properties file:
- * 
+ *
  * {@example ../../examples/resources/ndc.properties 18}<br>
- * 
+ *
  * Will result in the following (notice the conn and client ids):
- * 
+ *
  * <pre>
  * 2009-09-13 19:04:27 DEBUG root conn=1234: just received a new connection in src/examples/php/ndc.php at 23
  * 2009-09-13 19:04:27 DEBUG root conn=1234 client=ab23: some more messages that can in src/examples/php/ndc.php at 25
  * 2009-09-13 19:04:27 DEBUG root conn=1234 client=ab23: now related to a client in src/examples/php/ndc.php at 26
  * 2009-09-13 19:04:27 DEBUG root : back and waiting for new connections in src/examples/php/ndc.php at 29
  * </pre>
- *	
+ *
  * @version $Revision: 1166187 $
- * @package log4php 
+ * @package log4php
  * @since 0.3
  */
 class LoggerNDC {
-	
+
 	/** This is the repository of NDC stack */
 	private static $stack = array();
-	
+
 	/**
 	 * Clear any nested diagnostic information if any. This method is
 	 * useful in cases where the same thread can be potentially used
@@ -117,7 +117,7 @@ class LoggerNDC {
 	public static function get() {
 		return implode(' ', self::$stack);
 	}
-  
+
 	/**
 	 * Get the current nesting depth of this diagnostic context.
 	 *
@@ -160,13 +160,13 @@ class LoggerNDC {
 			return '';
 		}
 	}
-  
+
 	/**
 	 * Push new diagnostic context information for the current thread.
 	 *
 	 * <p>The contents of the <var>message</var> parameter is
 	 * determined solely by the client.
-	 *	
+	 *
 	 * @param string $message The new diagnostic context information.
 	 */
 	public static function push($message) {
@@ -185,8 +185,8 @@ class LoggerNDC {
 	 * depth is smaller or equal to <var>maxDepth</var>, then no
 	 * action is taken.
 	 *
-	 * <p>This method is a convenient alternative to multiple 
-	 * {@link pop()} calls. Moreover, it is often the case that at 
+	 * <p>This method is a convenient alternative to multiple
+	 * {@link pop()} calls. Moreover, it is often the case that at
 	 * the end of complex call sequences, the depth of the NDC is
 	 * unpredictable. The {@link setMaxDepth()} method circumvents
 	 * this problem.

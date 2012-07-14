@@ -46,7 +46,7 @@ $beer[] = "Everybody has to believe in something.....I believe I'll have another
 $beer[] = "You're not drunk if you can lie on the floor without holding on. - Dean Martin";
 $beer[] = "God made pot. Man made beer. Who do you trust? - Restroom in The Irish Times, Washington DC";
 $beer[] = "You can't be a real country unless you have a beer and an airline - it helps if you have some kind of a football team, or some nuclear weapons, but at the very least you need a beer. - Frank Zappa";
-	
+
 if (preg_match("/^beer/i", $message)) {
 	$dmg = rand(100,999);
     $cred = rand(10000,9999999);

@@ -8,10 +8,10 @@
 **
 ** Date(created): 18.02.2006
 ** Date(last modified): 18.02.2006
-** 
+**
 ** Copyright (C) 2006 Carsten Lohmann
 **
-** Licence Infos: 
+** Licence Infos:
 ** This file is part of Budabot.
 **
 ** Budabot is free software; you can redistribute it and/or modify
@@ -31,7 +31,7 @@
 
 if (preg_match("/^cmd (.+)$/i", $message, $arr)) {
 	$msg = "\n<yellow>---------------------\n<red>".$arr[1]."<end>\n<yellow>---------------------";
-	
+
 	if ($type == "msg") {
 		$chatBot->sendGuild($msg, true);
 		$chatBot->sendPrivate($msg, true);

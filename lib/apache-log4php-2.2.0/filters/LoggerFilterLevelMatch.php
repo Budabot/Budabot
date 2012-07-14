@@ -23,31 +23,31 @@
  *
  * <p>The filter admits two options <b><var>LevelToMatch</var></b> and
  * <b><var>AcceptOnMatch</var></b>. If there is an exact match between the value
- * of the <b><var>LevelToMatch</var></b> option and the level of the 
- * {@link LoggerLoggingEvent}, then the {@link decide()} method returns 
- * {@link LoggerFilter::ACCEPT} in case the <b><var>AcceptOnMatch</var></b> 
- * option value is set to <i>true</i>, if it is <i>false</i> then 
- * {@link LoggerFilter::DENY} is returned. If there is no match, 
+ * of the <b><var>LevelToMatch</var></b> option and the level of the
+ * {@link LoggerLoggingEvent}, then the {@link decide()} method returns
+ * {@link LoggerFilter::ACCEPT} in case the <b><var>AcceptOnMatch</var></b>
+ * option value is set to <i>true</i>, if it is <i>false</i> then
+ * {@link LoggerFilter::DENY} is returned. If there is no match,
  * {@link LoggerFilter::NEUTRAL} is returned.</p>
- * 
+ *
  * <p>
  * An example for this filter:
- * 
+ *
  * {@example ../../examples/php/filter_levelmatch.php 19}
  *
  * <p>
  * The corresponding XML file:
- * 
+ *
  * {@example ../../examples/resources/filter_levelmatch.xml 18}
- * 
+ *
  * @version $Revision: 1213283 $
  * @package log4php
  * @subpackage filters
  * @since 0.6
  */
 class LoggerFilterLevelMatch extends LoggerFilter {
-  
-	/** 
+
+	/**
 	 * Indicates if this event should be accepted or denied on match
 	 * @var boolean
 	 */
@@ -58,14 +58,14 @@ class LoggerFilterLevelMatch extends LoggerFilter {
 	 * @var LoggerLevel
 	 */
 	protected $levelToMatch;
-  
+
 	/**
 	 * @param boolean $acceptOnMatch
 	 */
 	public function setAcceptOnMatch($acceptOnMatch) {
 		$this->setBoolean('acceptOnMatch', $acceptOnMatch);
 	}
-	
+
 	/**
 	 * @param string $l the level to match
 	 */
@@ -75,7 +75,7 @@ class LoggerFilterLevelMatch extends LoggerFilter {
 
 	/**
 	 * Return the decision of this filter.
-	 * 
+	 *
 	 * Returns {@link LoggerFilter::NEUTRAL} if the <b><var>LevelToMatch</var></b>
 	 * option is not set or if there is not match.	Otherwise, if there is a
 	 * match, then the returned decision is {@link LoggerFilter::ACCEPT} if the
@@ -90,8 +90,8 @@ class LoggerFilterLevelMatch extends LoggerFilter {
 		if($this->levelToMatch === null) {
 			return LoggerFilter::NEUTRAL;
 		}
-		
-		if($this->levelToMatch->equals($event->getLevel())) {	
+
+		if($this->levelToMatch->equals($event->getLevel())) {
 			return $this->acceptOnMatch ? LoggerFilter::ACCEPT : LoggerFilter::DENY;
 		} else {
 			return LoggerFilter::NEUTRAL;

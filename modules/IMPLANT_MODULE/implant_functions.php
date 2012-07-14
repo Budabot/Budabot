@@ -31,7 +31,7 @@ function formatResults($implants) {
 		$blob .= getFormattedLine($implant);
 		$count++;
 	}
-	
+
 	return $blob;
 }
 
@@ -60,7 +60,7 @@ function findMaxImplantQlByReqs($ability, $treatment) {
 	$sql = "SELECT * FROM implant_requirements WHERE ability <= ? AND treatment <= ? ORDER BY ql DESC LIMIT 1";
 
 	$row = $db->queryRow($sql, $ability, $treatment);
-	
+
 	add_info($row);
 
 	return $row;
@@ -109,14 +109,14 @@ function add_info(&$obj) {
 	if ($obj === null) {
 		return;
 	}
-	
+
 	_setHighestAndLowestQls($obj, 'abilityShiny');
 	_setHighestAndLowestQls($obj, 'abilityBright');
 	_setHighestAndLowestQls($obj, 'abilityFaded');
 	_setHighestAndLowestQls($obj, 'skillShiny');
 	_setHighestAndLowestQls($obj, 'skillBright');
 	_setHighestAndLowestQls($obj, 'skillFaded');
-	
+
 	$obj->abilityTotal = $obj->abilityShiny + $obj->abilityBright + $obj->abilityFaded;
 	$obj->skillTotal = $obj->skillShiny + $obj->skillBright + $obj->skillFaded;
 

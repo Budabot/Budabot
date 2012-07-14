@@ -33,7 +33,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 	        $blob .= "Name: <highlight>{$name}<end> {$lookupNameLink}\n";
 			$blob .= "Character ID: <highlight>{$uid}<end> {$lookupCharIdLink}\n\n";
 			$blob .= "<pagebreak>" . getNameHistory($uid, $chatBot->vars['dimension']);
-        	
+
 			$msg = Text::make_blob("Basic Info for $name", $blob);
         } else {
 	        $blob = "Name: <highlight>{$whois->firstname} \"{$name}\" {$whois->lastname}<end> {$lookupNameLink}\n";
@@ -48,20 +48,20 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 			$blob .= "AI Level: <highlight>{$whois->ai_level} ({$whois->ai_rank})<end>\n";
 			$blob .= "Faction: <highlight>{$whois->faction}<end>\n";
 			$blob .= "Character ID: <highlight>{$whois->charid}<end> {$lookupCharIdLink}\n\n";
-			
+
 			$blob .= "Source: $whois->source\n\n";
-			
+
 			$blob .= "<pagebreak>" . getNameHistory($uid, $chatBot->vars['dimension']);
 
 			$blob .= "\n<pagebreak><header> :::::: Options :::::: <end>\n\n";
-			
+
 	        $blob .= Text::make_chatcmd('History', "/tell <myname> history $name") . "\n";
 	        $blob .= Text::make_chatcmd('Online Status', "/tell <myname> is $name") . "\n";
 	        if (isset($whois->guild_id)) {
 		        $blob .= Text::make_chatcmd('Whoisorg', "/tell <myname> whoisorg $whois->guild_id") . "\n";
 				$blob .= Text::make_chatcmd('Orglist', "/tell <myname> orglist $whois->guild_id") . "\n";
 			}
-			
+
 	        $msg = Player::get_info($whois) . " :: " . Text::make_blob("More Info", $blob, "Detailed Info for {$name}");
 
 			$altInfo = Alts::get_alt_info($name);
@@ -98,13 +98,13 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 			$blob .= "Level: <highlight>{$whois->level}<end>\n";
 			$blob .= "AI Level: <highlight>{$whois->ai_level} ({$whois->ai_rank})<end>\n";
 			$blob .= "Faction: <highlight>{$whois->faction}<end>\n\n";
-			
+
 			$blob .= "Source: $whois->source\n\n";
 
 			$blob .= "<pagebreak><header> :::::: Options :::::: <end>\n\n";
 
             $blob .= "<a href='chatcmd:///tell <myname> history {$name} {$i}'>History</a>\n";
-			
+
             $msg .= " :: ".Text::make_blob("More info", $blob, "Detailed Info for {$name}");
             $msg = "<highlight>Server $server:<end> ".$msg;
         } else {

@@ -13,7 +13,7 @@ class MMDBParser {
 		if (isset(MMDBParser::$mmdb[$categoryId][$instanceId])) {
 			return MMDBParser::$mmdb[$categoryId][$instanceId];
 		}
-		
+
 		$in = MMDBParser::open_file();
 		if ($in === null) {
 			return null;
@@ -44,13 +44,13 @@ class MMDBParser {
 
 		return $message;
 	}
-	
+
 	public static function find_all_instances_in_category($categoryId, $filename = "data/text.mdb") {
 		$in = MMDBParser::open_file();
 		if ($in === null) {
 			return null;
 		}
-		
+
 		// start at offset = 8 since that is where the categories start
 		// find the category
 		$category = MMDBParser::find_entry($in, $categoryId, 8);
@@ -68,7 +68,7 @@ class MMDBParser {
 			$instance = MMDBParser::read_entry($in);
 			$instances[] = $instance;
 		} while ($previousInstance == null || $instance['id'] > $previousInstance['id']);
-		
+
 		// for each instance found, get the message and add to array (instanceId => message)
 		$array = array();
 		forEach ($instances as $instance) {
@@ -76,10 +76,10 @@ class MMDBParser {
 			$message = MMDBParser::read_string($in);
 			$array[$instance['id']] = $message;
 		}
-		
+
 		return $array;
 	}
-	
+
 	private static function open_file($filename = "data/text.mdb") {
 		$in = fopen($filename, 'rb');
 		if (!$in) {
@@ -95,17 +95,17 @@ class MMDBParser {
 			fclose($in);
 			return null;
 		}
-		
+
 		return $in;
 	}
-	
+
 	private static function find_entry(&$in, $id, $offset) {
 		fseek($in, $offset);
 
 		do {
 			$previousEntry = $entry;
 			$entry = MMDBParser::read_entry($in);
-			
+
 			if ($previousEntry != null && $entry['id'] < $previousEntry['id']) {
 				return null;
 			}
@@ -113,28 +113,28 @@ class MMDBParser {
 
 		return $entry;
 	}
-	
+
 	/**
 	 * @returns array($id, $offset)
 	 */
 	private static function read_entry(&$in) {
 		return array('id' => MMDBParser::read_long($in), 'offset' => MMDBParser::read_long($in));
 	}
-	
+
 	private static function read_long(&$in) {
 		return array_pop(unpack("L", fread($in, 4)));
 	}
-	
+
 	private static function read_string(&$in) {
 		$message = '';
 		$char = '';
-		
+
 		$char = fread($in, 1);
 		while ($char !== "\0") {
 			$message .= $char;
 			$char = fread($in, 1);
 		}
-		
+
 		return $message;
 	}
 }

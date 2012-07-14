@@ -21,19 +21,19 @@
 /**
  * This is a very simple filter based on level matching, which can be
  * used to reject messages with priorities outside a certain range.
- *	
+ *
  * <p>The filter admits three options <b><var>LevelMin</var></b>, <b><var>LevelMax</var></b>
  * and <b><var>AcceptOnMatch</var></b>.</p>
  *
  * <p>If the level of the {@link LoggerLoggingEvent} is not between Min and Max
  * (inclusive), then {@link LoggerFilter::DENY} is returned.</p>
- *	
+ *
  * <p>If the Logging event level is within the specified range, then if
- * <b><var>AcceptOnMatch</var></b> is <i>true</i>, 
+ * <b><var>AcceptOnMatch</var></b> is <i>true</i>,
  * {@link LoggerFilter::ACCEPT} is returned, and if
- * <b><var>AcceptOnMatch</var></b> is <i>false</i>, 
+ * <b><var>AcceptOnMatch</var></b> is <i>false</i>,
  * {@link LoggerFilter::NEUTRAL} is returned.</p>
- *	
+ *
  * <p>If <b><var>LevelMin</var></b> is not defined, then there is no
  * minimum acceptable level (i.e. a level is never rejected for
  * being too "low"/unimportant).  If <b><var>LevelMax</var></b> is not
@@ -41,21 +41,21 @@
  * level is never rejected for being too "high"/important).</p>
  *
  * <p>Refer to the {@link LoggerAppender::setThreshold()} method
- * available to <b>all</b> appenders extending {@link LoggerAppender} 
+ * available to <b>all</b> appenders extending {@link LoggerAppender}
  * for a more convenient way to filter out events by level.</p>
  *
  * <p>
  * An example for this filter:
- * 
+ *
  * {@example ../../examples/php/filter_levelrange.php 19}
  *
  * <p>
  * The corresponding XML file:
- * 
+ *
  * {@example ../../examples/resources/filter_levelrange.xml 18}
  *
  * @author Simon Kitching
- * @author based on the org.apache.log4j.varia.LevelRangeFilte Java code by Ceki G&uuml;lc&uuml; 
+ * @author based on the org.apache.log4j.varia.LevelRangeFilte Java code by Ceki G&uuml;lc&uuml;
  *
  * @version $Revision: 1213283 $
  * @package log4php
@@ -73,7 +73,7 @@ class LoggerFilterLevelRange extends LoggerFilter {
 	 * @var LoggerLevel
 	 */
 	protected $levelMin;
-  
+
 	/**
 	 * @var LoggerLevel
 	 */
@@ -83,9 +83,9 @@ class LoggerFilterLevelRange extends LoggerFilter {
 	 * @param boolean $acceptOnMatch
 	 */
 	public function setAcceptOnMatch($acceptOnMatch) {
-		$this->setBoolean('acceptOnMatch', $acceptOnMatch); 
+		$this->setBoolean('acceptOnMatch', $acceptOnMatch);
 	}
-	
+
 	/**
 	 * @param string $l the level min to match
 	 */
@@ -108,7 +108,7 @@ class LoggerFilterLevelRange extends LoggerFilter {
 	 */
 	public function decide(LoggerLoggingEvent $event) {
 		$level = $event->getLevel();
-		
+
 		if($this->levelMin !== null) {
 			if($level->isGreaterOrEqual($this->levelMin) == false) {
 				// level of event is less than minimum

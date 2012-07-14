@@ -3,13 +3,13 @@
 class Usage {
 	/** @Inject */
 	public $db;
-	
+
 	/** @Inject */
 	public $setting;
-	
+
 	/** @Inject */
 	public $util;
-	
+
 	/** @Inject */
 	public $chatBot;
 
@@ -18,7 +18,7 @@ class Usage {
 		if ($cmd == 'grc' || $commandHandler->file == CommandAlias::ALIAS_HANDLER) {
 			return;
 		}
-	
+
 		$sql = "INSERT INTO usage_<myname> (type, command, sender, dt) VALUES (?, ?, ?, ?)";
 		$this->db->exec($sql, $type, $cmd, $sender, time());
 	}
@@ -41,7 +41,7 @@ class Usage {
 
 		$this->setting->save($settingName, $time);
 	}
-	
+
 	public function getUsageInfo($lastSubmittedStats, $debug = false) {
 		global $version;
 
@@ -86,7 +86,7 @@ class Usage {
 
 		return $obj;
 	}
-	
+
 	public function getGuildSizeClass($size) {
 		$guildClass = "";
 		if ($size == 0) {

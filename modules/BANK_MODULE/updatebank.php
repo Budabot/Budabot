@@ -2,7 +2,7 @@
 
 if (preg_match("/^updatebank$/i", $message)) {
 	$lines = file($setting->get('bank_file_location'));
-	
+
 	if ($lines === false) {
 		$msg = "Could not open file: '" . $setting->get('bank_file_location') . "'";
 		$sendto->reply($msg);
@@ -18,19 +18,19 @@ if (preg_match("/^updatebank$/i", $message)) {
 
 	forEach ($lines as $line) {
 		list($name, $ql, $player, $container, $containerId, $location, $lowId, $highId) = str_getcsv($line);
-		
+
 		if ($location != 'Bank' && $location != 'Inventory') {
 			continue;
 		}
 		if ($container == '') {
 			$container = $location;
 		}
-		
+
 		$sql = "INSERT INTO bank (name, lowid, highid, ql, player, container, container_id, location) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		$db->exec($sql, $name, $lowId, $highId, $ql, $player, $container, $containerId, $location);
 	}
 	$db->commit();
-	
+
 	$msg = "The bank database has been updated.";
 	$sendto->reply($msg);
 } else {

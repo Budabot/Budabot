@@ -3,7 +3,7 @@
 if (preg_match("/^fastattack ([0-9]*\\.?[0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	$AttTim = $arr[1];
 	$fastSkill = $arr[2];
-	
+
 	list($fasthardcap, $fastskillcap) = cap_fast_attack($AttTim);
 
 	$fastrech =  round(($AttTim * 16) - ($fastSkill / 100));

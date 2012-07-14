@@ -25,7 +25,7 @@ if (preg_match ("/^dyna ([\\d]+)$/i", $message, $arr)) {
 		$blob .="<green>Mob Type:  $row->mob\n";
 		$blob .="<blue>Level:  $row->minQl<yellow>-<blue>$row->maxQl\n\n";
 	}
-	
+
 	$msg = Text::make_blob("Dynacamps ($count)", $blob);
 	$sendto->reply($msg);
 } else if (preg_match ("/^dyna (.+)$/i", $message, $arr)) {
@@ -42,7 +42,7 @@ if (preg_match ("/^dyna ([\\d]+)$/i", $message, $arr)) {
 		$blob .="<green>Mob Type:  $row->mob\n";
 		$blob .="<blue>Level: $row->minQl<yellow>-<blue>$row->maxQl\n\n";
 	}
-	
+
 	$msg = Text::make_blob("Dynacamps ($count)", $blob);
 	$sendto->reply($msg);
 } else {

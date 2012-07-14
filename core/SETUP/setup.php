@@ -8,10 +8,10 @@
    **
    ** Date(created): 15.01.2006
    ** Date(last modified): 22.07.2006
-   ** 
+   **
    ** Copyright (C) 2006 Carsten Lohmann
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -37,7 +37,7 @@ function read_input ($output = "") {
 }
 
 echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-echo "             ***************************************************\n";	
+echo "             ***************************************************\n";
 echo "             You will need to provide some information\n";
 echo "             regarding the basic configuration of the bot.\n";
 echo "             ***************************************************\n";
@@ -45,7 +45,7 @@ echo "             \n\n\n\n\n\n\n\n\n";
 $msg = "Press enter to continue. \n";
 $answer = strtolower(read_input($msg));
 
-do {		
+do {
 	echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 	echo "             ***************************************************\n";
 	echo "             Enter the account username that contains the\n";
@@ -59,17 +59,17 @@ do {
 
 do {
 	echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-	echo "             ************************************************\n";	
+	echo "             ************************************************\n";
 	echo "             Enter the Password for the for the account.\n";
 	echo "             Remember this is also case-sensitive!\n";
 	echo "             ************************************************\n";
 	echo "             \n\n\n\n\n\n\n\n\n";
 	$msg = "Enter the account password (case-senstitive): \n";
 	$vars["password"] = read_input($msg);
-} while ($vars["password"] == "");	
+} while ($vars["password"] == "");
 
 do {
-	echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";		
+	echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 	echo "             **************************************************\n";
 	echo "             Enter the dimension that the bot will run on.\n";
 	echo "             **************************************************\n";
@@ -93,7 +93,7 @@ do {
 } while ($vars["name"] == "");
 
 echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-echo "             ***************************************************\n";	
+echo "             ***************************************************\n";
 echo "             To run the bot as a raid bot, leave this setting blank.\n";
 echo "             To run the bot as an org bot, enter the organization name.\n";
 echo "             The organization name must match exactly including case\n";
@@ -105,20 +105,20 @@ $vars["my_guild"] = read_input($msg);
 
 do {
 	echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-	echo "             ********************************************************\n";	
+	echo "             ********************************************************\n";
 	echo "             Who should be the Administrator for this bot?\n";
 	echo "             This is the character that has access to all commands\n";
 	echo "             and settings for this bot.\n";
-	echo "             ********************************************************\n";	
+	echo "             ********************************************************\n";
 	echo "             \n\n\n\n\n\n\n\n\n";
 	$msg = "Enter the Administrator for this bot: \n";
-	
+
 	$vars["SuperAdmin"] = read_input($msg);
 } while ($vars["SuperAdmin"] == "");
 
 do {
 	echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-	echo "             *********************************************************\n";		
+	echo "             *********************************************************\n";
 	echo "             Now we are coming to the 'heart' of this bot,\n";
 	echo "             the database system where nearly everything is\n";
 	echo "             stored. You have 2 options now. Either you can\n";
@@ -136,7 +136,7 @@ do {
 if (strtolower($mansetupdb) == "yes") {
 	do {
 		echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-		echo "             *********************************************************\n";		
+		echo "             *********************************************************\n";
 		echo "             The bot is able to use 2 different Database Types.\n";
 		echo "             1 = Sqlite. It is the easiest way to go and provides.\n";
 		echo "                 faster bot startup than MySQL.\n";
@@ -160,7 +160,7 @@ if (strtolower($mansetupdb) == "yes") {
 		break;
 	}
 	echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-	echo "             *********************************************************\n";	
+	echo "             *********************************************************\n";
 	echo "             What is the name of the database that you\n";
 	echo "             wannna use?\n";
 	if ($vars["DB Type"] == "sqlite") {
@@ -169,20 +169,20 @@ if (strtolower($mansetupdb) == "yes") {
 	} else {
 		echo "             (Default: budabot)\n";
 	}
-	echo "             *********************************************************\n";	
+	echo "             *********************************************************\n";
 	echo "             \n\n\n\n\n\n\n\n";
 	$msg = "Enter the Databasename(leave blank for default setting): \n";
 	$vars["DB Name"] = read_input($msg);
-	
+
 	if ($vars["DB Name"] == "" && $vars["DB Type"] == "sqlite") {
 		$vars["DB Name"] = "budabot.db";
 	} else if ($vars["DB Name"] == "" && $vars["DB Type"] == "mysql") {
 		$vars["DB Name"] = "budabot";
 	}
-		
+
 	if ($vars["DB Type"] == "mysql") {
 		echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-		echo "             **********************************************\n";		
+		echo "             **********************************************\n";
 		echo "             On what Host is the Database running?\n";
 		echo "             If it is running on this PC use:\n";
 		echo "             localhost or 127.0.0.1\n";
@@ -223,7 +223,7 @@ if (strtolower($mansetupdb) == "yes") {
 		$vars["DB password"] = read_input($msg);
 	} else {
 		echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-		echo "             **********************************************\n";			
+		echo "             **********************************************\n";
 		echo "             Where is the Sqlite Database stored?\n";
 		echo "             You may leave this setting blank to use the default\n";
 		echo "             location which is the Data dir of your bot folder.\n";
@@ -243,7 +243,7 @@ if (strtolower($mansetupdb) == "yes") {
 
 do {
 	echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-	echo "             **********************************************\n";	
+	echo "             **********************************************\n";
 	echo "             Do you want to have all modules/commands enabled\n";
 	echo "             by default?\n";
 	echo "             This is usefull when you are using this bot the\n";
@@ -264,9 +264,9 @@ if ($vars["default_module_status"] == "yes") {
 if ($vars["default_module_status"] == "no") {
 	$vars["default_module_status"] = 0;
 }
-	
+
 echo "         \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-echo "             **********************************************\n";		
+echo "             **********************************************\n";
 echo "             If you have entered everything correctly \n";
 echo "             the bot should start.\n";
 echo "             ----------------------------------------------\n";

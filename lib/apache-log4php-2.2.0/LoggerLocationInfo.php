@@ -29,32 +29,32 @@ class LoggerLocationInfo {
 	/**
 	 * When location information is not available the constant
 	 * <i>NA</i> is returned. Current value of this string
-	 * constant is <b>?</b>.  
+	 * constant is <b>?</b>.
 	 */
 	const LOCATION_INFO_NA = 'NA';
-	
+
 	/**
 	* @var string Caller's line number.
 	*/
 	protected $lineNumber = null;
-	
+
 	/**
 	* @var string Caller's file name.
 	*/
 	protected $fileName = null;
-	
+
 	/**
 	* @var string Caller's fully qualified class name.
 	*/
 	protected $className = null;
-	
+
 	/**
 	* @var string Caller's method name.
 	*/
 	protected $methodName = null;
-	
+
 	/**
-	* @var string 
+	* @var string
 	*/
 	protected $fullInfo = null;
 
@@ -69,12 +69,12 @@ class LoggerLocationInfo {
 		$this->fileName = isset($trace['file']) ? $trace['file'] : null;
 		$this->className = isset($trace['class']) ? $trace['class'] : null;
 		$this->methodName = isset($trace['function']) ? $trace['function'] : null;
-		$this->fullInfo = $this->getClassName() . '.' . $this->getMethodName() . 
+		$this->fullInfo = $this->getClassName() . '.' . $this->getMethodName() .
 			'(' . $this->getFileName() . ':' . $this->getLineNumber() . ')';
 	}
 
 	public function getClassName() {
-		return ($this->className === null) ? self::LOCATION_INFO_NA : $this->className; 
+		return ($this->className === null) ? self::LOCATION_INFO_NA : $this->className;
 	}
 
 	/**
@@ -82,7 +82,7 @@ class LoggerLocationInfo {
 	 *	<p>This information is not always available.
 	 */
 	public function getFileName() {
-		return ($this->fileName === null) ? self::LOCATION_INFO_NA : $this->fileName; 
+		return ($this->fileName === null) ? self::LOCATION_INFO_NA : $this->fileName;
 	}
 
 	/**
@@ -90,14 +90,14 @@ class LoggerLocationInfo {
 	 *	<p>This information is not always available.
 	 */
 	public function getLineNumber() {
-		return ($this->lineNumber === null) ? self::LOCATION_INFO_NA : $this->lineNumber; 
+		return ($this->lineNumber === null) ? self::LOCATION_INFO_NA : $this->lineNumber;
 	}
 
 	/**
 	 *	Returns the method name of the caller.
 	 */
 	public function getMethodName() {
-		return ($this->methodName === null) ? self::LOCATION_INFO_NA : $this->methodName; 
+		return ($this->methodName === null) ? self::LOCATION_INFO_NA : $this->methodName;
 	}
 
 	/**

@@ -6,7 +6,7 @@ if (preg_match("/^online$/i", $message) || preg_match("/^online (.*)$/i", $messa
 		if ($prof != 'all') {
 			$prof = Util::get_profession_name($prof);
 		}
-		
+
 		if ($prof == null) {
 			$syntax_error = true;
 			return;

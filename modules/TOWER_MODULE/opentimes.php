@@ -17,7 +17,7 @@ if (preg_match("/^opentimes$/i", $message)) {
 	forEach ($data as $row) {
 		$contractQls[$row->guild_name] = $row->total_ql;
 	}
-	
+
 	$sql = "
 		SELECT
 			*
@@ -29,7 +29,7 @@ if (preg_match("/^opentimes$/i", $message)) {
 			guild_name ASC,
 			ct_ql DESC";
 	$data = $db->query($sql);
-	
+
 	if (count($data) > 0) {
 		$blob = '';
 		$currentGuildName = '';
@@ -53,7 +53,7 @@ if (preg_match("/^opentimes$/i", $message)) {
 
 			$blob .= "$site_link <white>- {$row->min_ql}-{$row->max_ql}, $row->ct_ql CT, $gas_change_string [by $row->scouted_by]<end>\n";
 		}
-		
+
 		$msg = Text::make_blob("Scouted Bases", $blob);
 	} else {
 		$msg = "No sites currently scouted.";

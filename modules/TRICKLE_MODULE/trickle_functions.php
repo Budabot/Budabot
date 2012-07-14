@@ -1,11 +1,11 @@
 <?php
-  
+
 function getTrickleResults($abilities) {
 	$chatBot = Registry::getInstance('chatBot');
 	$db = Registry::getInstance('db');
 
 	$sql = "
-		SELECT 
+		SELECT
 			groupName,
 			name,
 			amountAgi,
@@ -52,7 +52,7 @@ function formatOutput($results, $amount, &$abilities) {
 
 		$amount = $result->amount / 4;
 		$msg .= "$result->name <highlight>$amount<end>";
-		
+
 		/*
 		forEach ($abilities as $ability => $value) {
 			$ability = ucfirst($ability);
@@ -63,7 +63,7 @@ function formatOutput($results, $amount, &$abilities) {
 			}
 		}
 		*/
-		
+
 		$msg .= "\n";
 	}
 

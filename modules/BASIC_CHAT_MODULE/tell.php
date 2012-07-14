@@ -8,10 +8,10 @@
    **
    ** Date(created): 18.02.2006
    ** Date(last modified): 18.02.2006
-   ** 
+   **
    ** Copyright (C) 2006 Carsten Lohmann
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -35,7 +35,7 @@ if (preg_match("/^tell (.+)$/i", $message, $arr)) {
 		$chatBot->sendGuild("<yellow>".$arr[1]."<end>", true);
 		$chatBot->sendGuild("<yellow>".$arr[1]."<end>", true);
 	}
-	
+
 	if ($type = 'priv' || $type == "msg") {
 		$chatBot->sendPrivate("<yellow>".$arr[1]."<end>", true);
 		$chatBot->sendPrivate("<yellow>".$arr[1]."<end>", true);

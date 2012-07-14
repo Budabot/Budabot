@@ -50,7 +50,7 @@ class LoggerBasicPatternConverter extends LoggerPatternConverter {
 				$timeStamp = $event->getTimeStamp();
 				$startTime = LoggerLoggingEvent::getStartTime();
 				return (string)(int)($timeStamp * 1000 - $startTime * 1000);
-				
+
 			case LoggerPatternParser::THREAD_CONVERTER:
 				return $event->getThreadName();
 
@@ -63,8 +63,8 @@ class LoggerBasicPatternConverter extends LoggerPatternConverter {
 
 			case LoggerPatternParser::MESSAGE_CONVERTER:
 				return $event->getRenderedMessage();
-				
-			default: 
+
+			default:
 				return '';
 		}
 	}

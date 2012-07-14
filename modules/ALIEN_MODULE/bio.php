@@ -3,7 +3,7 @@
 $bio_regex = "<a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">Solid Clump of Kyr\'Ozch Bio-Material<\/a>";
 if (preg_match("/^bio(( *${bio_regex})+)$/i", $message, $arr)){
 	$bios = explode("*", preg_replace("/> *</", ">*<", $arr[1]));
-	
+
 	$blob = '';
 	forEach ($bios as $bio) {
 		preg_match("/^${bio_regex}$/i", trim($bio), $arr2);
@@ -95,11 +95,11 @@ if (preg_match("/^bio(( *${bio_regex})+)$/i", $message, $arr)){
 				$name = "Unknown Bio-Material";
 				continue;
 		}
-		
+
 		$biotype_link = Text::make_chatcmd($name, "/tell <myname> bioinfo $bioinfo $ql");
 		$blob .= $biotype_link . "\n\n";
 	}
-	
+
 	if (count($bios) == 1) {
 		// make the bot think they actually typed the !bioinfo command
 		$commandManager = Registry::getInstance('commandManager');

@@ -10,7 +10,7 @@ if (preg_match("/^executesql (.*)$/i", $message, $arr)) {
 	}
 
 	$sql = htmlspecialchars_decode($arr[1]);
-	
+
 	$num_rows = $db->exec($sql);
 	$msg = "$num_rows rows affected.";
 	$sendto->reply($msg);
@@ -22,7 +22,7 @@ if (preg_match("/^executesql (.*)$/i", $message, $arr)) {
 	}
 
 	$sql = htmlspecialchars_decode($arr[1]);
-	
+
 	$data = $db->query($sql);
 
 	if ($data === null) {

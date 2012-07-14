@@ -3,25 +3,25 @@
 if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 	/* get all names in an array */
 	$names = explode(' ', $arr[1]);
-	
+
 	$sender = ucfirst(strtolower($sender));
-	
+
 	$senderAltInfo = Alts::get_alt_info($sender);
 	$main = $senderAltInfo->main;
-	
+
 	$success = 0;
-	
+
 	/* Pop a name from the array until none are left (checking for null) */
 	forEach ($names as $name) {
 		$name = ucfirst(strtolower($name));
-		
+
 		$uid = $chatBot->get_uid($name);
 		if (!$uid) {
 			$msg = "Character <highlight>{$name}<end> does not exist.";
 			$sendto->reply($msg);
 			continue;
 		}
-		
+
 		$altInfo = Alts::get_alt_info($name);
 		if ($altInfo->main == $senderAltInfo->main) {
 			// already registered to self
@@ -29,7 +29,7 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 			$sendto->reply($msg);
 			continue;
 		}
-		
+
 		if (count($altInfo->alts) > 0) {
 			// already registered to someone else
 			if ($altInfo->main == $name) {
@@ -40,29 +40,29 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 			$sendto->reply($msg);
 			continue;
 		}
-		
+
 		$validated = 0;
 		if ($sender == $senderAltInfo->main || ($setting->get("validate_from_validated_alt") == 1 && $senderAltInfo->is_validated($sender))) {
 			$validated = 1;
 		}
-		
+
 		/* insert into database */
 		Alts::add_alt($senderAltInfo->main, $name, $validated);
 		$success++;
-		
+
 		// update character information
 		Player::get_by_name($name);
 	}
-	
+
 	if ($success > 0) {
 		$msg = ($success == 1 ? "Alt" : "$success alts") . " added successfully.";
 		$sendto->reply($msg);
 	}
 } else if (preg_match("/^alts (rem|del|remove|delete) ([a-z0-9-]+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[2]));
-	
+
 	$altInfo = Alts::get_alt_info($sender);
-	
+
 	if (!array_key_exists($name, $altInfo->alts)) {
 		$msg = "<highlight>{$name}<end> is not registered as your alt.";
 	} else if (!$altInfo->is_validated($sender) && $altInfo->is_validated($name)) {
@@ -81,15 +81,15 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 		$sendto->reply($msg);
 		return;
 	}
-	
+
 	$altInfo = Alts::get_alt_info($sender);
-	
+
 	if (!array_key_exists($new_main, $altInfo->alts)) {
 		$msg = "<highlight>{$new_main}<end> must first be registered as your alt.";
 		$sendto->reply($msg);
 		return;
 	}
-	
+
 	if (!$altInfo->is_validated($sender)) {
 		$msg = "You must run this command from a validated character.";
 		$sendto->reply($msg);
@@ -103,14 +103,14 @@ if (preg_match("/^alts add ([a-z0-9- ]+)$/i", $message, $arr)) {
 
 	// add current main to new main as an alt
 	Alts::add_alt($new_main, $altInfo->main, 1);
-	
+
 	// add current alts to new main
 	forEach ($altInfo->alts as $alt => $validated) {
 		if ($alt != $new_main) {
 			Alts::add_alt($new_main, $alt, $validated);
 		}
 	}
-	
+
 	$db->commit();
 
 	$msg = "Successfully set your new main as <highlight>{$new_main}<end>.";

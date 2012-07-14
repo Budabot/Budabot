@@ -19,18 +19,18 @@
  */
 
 /**
- * This class is specialized in retrieving loggers by name and also maintaining 
+ * This class is specialized in retrieving loggers by name and also maintaining
  * the logger hierarchy. The logger hierarchy is dealing with the several Log-Levels
  * Logger can have. From log4j website:
- * 
- * "A logger is said to be an ancestor of another logger if its name followed 
+ *
+ * "A logger is said to be an ancestor of another logger if its name followed
  * by a dot is a prefix of the descendant logger name. A logger is said to be
- * a parent of a child logger if there are no ancestors between itself and the 
+ * a parent of a child logger if there are no ancestors between itself and the
  * descendant logger."
- * 
+ *
  * Child Loggers do inherit their Log-Levels from their Ancestors. They can
  * increase their Log-Level compared to their Ancestors, but they cannot decrease it.
- * 
+ *
  * <p>The casual user does not have to deal with this class directly.</p>
  *
  * <p>The structure of the logger hierarchy is maintained by the
@@ -48,29 +48,29 @@
  * @package log4php
  */
 class LoggerHierarchy {
-	
+
 	/** Array holding all Logger instances. */
 	protected $loggers = array();
-	
-	/** 
+
+	/**
 	 * The root logger.
-	 * @var RootLogger 
+	 * @var RootLogger
 	 */
 	protected $root = null;
-	
-	/** 
+
+	/**
 	 * The logger renderer map.
-	 * @var LoggerRendererMap 
+	 * @var LoggerRendererMap
 	 */
 	protected $rendererMap;
 
-	/** 
-	 * Main level threshold. Events with lower level will not be logged by any 
+	/**
+	 * Main level threshold. Events with lower level will not be logged by any
 	 * logger, regardless of it's configuration.
-	 * @var LoggerLevel 
+	 * @var LoggerLevel
 	 */
 	protected $threshold;
-	
+
 	/**
 	 * Creates a new logger hierarchy.
 	 * @param LoggerRoot $root The root logger.
@@ -80,14 +80,14 @@ class LoggerHierarchy {
 		$this->setThreshold(LoggerLevel::getLevelAll());
 		$this->rendererMap = new LoggerRendererMap();
 	}
-	 
+
 	/**
 	 * Clears all loggers.
 	 */
 	public function clear() {
 		$this->loggers = array();
 	}
-	
+
 	/**
 	 * Check if the named logger exists in the hierarchy.
 	 * @param string $name
@@ -100,14 +100,14 @@ class LoggerHierarchy {
 	/**
 	 * Returns all the currently defined loggers in this hierarchy as an array.
 	 * @return array
-	 */	 
+	 */
 	public function getCurrentLoggers() {
 		return array_values($this->loggers);
 	}
-	
+
 	/**
 	 * Returns a named logger instance logger. If it doesn't exist, one is created.
-	 * 
+	 *
 	 * @param string $name Logger name
 	 * @return Logger Logger instance.
 	 */
@@ -117,15 +117,15 @@ class LoggerHierarchy {
 
 			$nodes = explode('.', $name);
 			$firstNode = array_shift($nodes);
-			
+
 			// if name is not a first node but another first node is their
 			if($firstNode != $name and isset($this->loggers[$firstNode])) {
 				$logger->setParent($this->loggers[$firstNode]);
 			} else {
 				// if there is no father, set root logger as father
 				$logger->setParent($this->root);
-			} 
-		
+			}
+
 			// if there are more nodes than one
 			if(count($nodes) > 0) {
 				// find parent node
@@ -137,39 +137,39 @@ class LoggerHierarchy {
 					$firstNode .= ".$node";
 				}
 			}
-			
+
 			$this->loggers[$name] = $logger;
-		}		
-		
+		}
+
 		return $this->loggers[$name];
-	} 
-	
+	}
+
 	/**
 	 * Returns the logger renderer map.
-	 * @return LoggerRendererMap 
+	 * @return LoggerRendererMap
 	 */
 	public function getRendererMap() {
 		return $this->rendererMap;
 	}
-	
+
 	/**
 	 * Returns the root logger.
 	 * @return LoggerRoot
-	 */ 
+	 */
 	public function getRootLogger() {
 		if(!isset($this->root) or $this->root == null) {
 			$this->root = new LoggerRoot();
 		}
 		return $this->root;
 	}
-	 
+
 	/**
 	 * Returns the main threshold level.
-	 * @return LoggerLevel 
+	 * @return LoggerLevel
 	 */
 	public function getThreshold() {
 		return $this->threshold;
-	} 
+	}
 
 	/**
 	 * Returns true if the hierarchy is disabled for given log level and false
@@ -179,16 +179,16 @@ class LoggerHierarchy {
 	public function isDisabled(LoggerLevel $level) {
 		return ($this->threshold->toInt() > $level->toInt());
 	}
-	
+
 	/**
 	 * Reset all values contained in this hierarchy instance to their
-	 * default. 
+	 * default.
 	 *
 	 * This removes all appenders from all loggers, sets
 	 * the level of all non-root loggers to <i>null</i>,
 	 * sets their additivity flag to <i>true</i> and sets the level
 	 * of the root logger to {@link LOGGER_LEVEL_DEBUG}.
-	 * 
+	 *
 	 * <p>Existing loggers are not removed. They are just reset.
 	 *
 	 * <p>This method should be used sparingly and with care as it will
@@ -196,21 +196,21 @@ class LoggerHierarchy {
 	 */
 	public function resetConfiguration() {
 		$root = $this->getRootLogger();
-		
+
 		$root->setLevel(LoggerLevel::getLevelDebug());
 		$this->setThreshold(LoggerLevel::getLevelAll());
 		$this->shutDown();
-		
+
 		foreach($this->loggers as $logger) {
 			$logger->setLevel(null);
 			$logger->setAdditivity(true);
 			$logger->removeAllAppenders();
 		}
-		
+
 		$this->rendererMap->clear();
 		LoggerAppenderPool::clear();
 	}
-	
+
 	/**
 	 * Sets the main threshold level.
 	 * @param LoggerLevel $l
@@ -218,23 +218,23 @@ class LoggerHierarchy {
 	public function setThreshold(LoggerLevel $threshold) {
 		$this->threshold = $threshold;
 	}
-	
+
 	/**
 	 * Shutting down a hierarchy will <i>safely</i> close and remove
 	 * all appenders in all loggers including the root logger.
-	 * 
+	 *
 	 * The shutdown method is careful to close nested
 	 * appenders before closing regular appenders. This is allows
 	 * configurations where a regular appender is attached to a logger
 	 * and again to a nested appender.
-	 * 
+	 *
 	 * @todo Check if the last paragraph is correct.
 	 */
 	public function shutdown() {
 		$this->root->removeAllAppenders();
-		
+
 		foreach($this->loggers as $logger) {
 			$logger->removeAllAppenders();
 		}
 	}
-} 
+}

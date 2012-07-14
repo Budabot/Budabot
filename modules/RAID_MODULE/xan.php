@@ -13,12 +13,12 @@ if (preg_match("/^xan$/i", $message)){
 	$list .= "<tab>General\n";
 	$list .= "<tab>Symbiants (Beta)\n";
 	$list .= "<tab>Spirits (Beta)\n\n";
-	
+
 	$list .= Text::make_chatcmd("Mitaar Hero", "/tell <myname> <symbol>mitaar") . "\n";
 	$list .= "<tab>General\n";
 	$list .= "<tab>Symbiants (Beta)\n";
 	$list .= "<tab>Spirits (Beta)\n\n";
-	
+
 	$list .= Text::make_chatcmd("12 Man", "/tell <myname> <symbol>12m") . "\n";
 	$list .= "<tab>General\n";
 	$list .= "<tab>Symbiants (Beta)\n";

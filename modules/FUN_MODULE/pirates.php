@@ -4,7 +4,7 @@
    ** Developed by Sicarius Legion of Amra, a Age of Conan Guild on the Hyrkania server
    ** Converted to Budabot by Tyrence (RK2)
    */
-   
+
 $pirates = array(
 	"Lord Beckett: You're mad!<br>Jack Sparrow: well thats good cause If I wasn't, this'd probably never work. ",
 	"Barbossa: There's not been a gathering like this in our lifetime.<br>Jack Sparrow: And I owe them all money.",
@@ -20,7 +20,7 @@ $pirates = array(
   "Jack Sparrow: Me? I'm dishonest, and a dishonest man you can always trust to be dishonest. Honestly. It's the honest ones you want to watch out for, because you can never predict when they're going to do something incredibly... stupid. ",
   "Barbossa: How the blazes did you get off that island?<br>Jack Sparrow: When you marooned me on that god forsaken spit of land, you forgot one very important thing, mate: I'm Captain Jack Sparrow.",
   "Tia Dalma: [hands Jack a jar of dirt]<br>Jack Sparrow: Dirt. This is a jar of dirt.<br>Tia Dalma: Yes.<br>Jack Sparrow: Is the jar of dirt going to help?<br>Tia Dalma: If ya dont want it. Give it back.",
-  "Man in Jail: The Black Pearl? I've heard stories. She's been preying on ships and settlements for near ten years. Never leaves any survivors.<br>Jack Sparrow: No survivors? Then where do the stories come from, I wonder?", 
+  "Man in Jail: The Black Pearl? I've heard stories. She's been preying on ships and settlements for near ten years. Never leaves any survivors.<br>Jack Sparrow: No survivors? Then where do the stories come from, I wonder?",
   "Will Turner: You cheated.<br>Jack Sparrow: Pirate.",
   "Anamaria: You're daft, lady! You both are!<br>Gibbs: Daft like Jack.",
   "Elizabeth Swann: This is the fastest ship in the Caribbean.<br>Anamaria: You can tell them that after they've caught us.",
@@ -41,12 +41,12 @@ $pirates = array(
   "Elizabeth Swann: I've had it! I've had it with wobbly-legged, rum-soaked PIRATES!",
   "Anamaria: It was a good plan... up 'til now.",
   "Elizabeth: Well you may tell the captain that I am disinclined to acquiesce to his request.",
-  "Jack Sparrow: Any man who falls behind, is left behind.", 
+  "Jack Sparrow: Any man who falls behind, is left behind.",
   "Jack Sparrow: Take what ye can!<br>Mr. Gibbs: Give nothin' back!",
   "Mr. Gibbs: Curse ya for breathin, ya slack-jawed idiot! " ,
   "Jack Sparrow: I think we've all arrived at a very special place... spiritually... ecumenically... grammatically",
   "Will Turner: You didn't beat me. You ignored the rules of engagement! In a fair fight, I'd kill you!<br>Jack Sparrow: Well, that's not much incentive for me to fight fair then, is it?",
-  "Jack Sparrow: Why is the rum gone?",  
+  "Jack Sparrow: Why is the rum gone?",
   "Will Turner: This is either madness, or brilliance.<br>Jack Sparrow: It's funny how often those traits coincide.",
   "Jack Sparrow: Wherever we want to go, we go. That's what a ship is, you know. It's not just a keel and a hull and sails; that's what a ship needs. Not what a ship is. What the Black Pearl really is, is freedom.",
   "Jack Sparrow: A wedding? I love weddings! Drinks all around!",

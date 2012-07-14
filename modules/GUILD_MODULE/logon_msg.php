@@ -11,7 +11,7 @@ if (preg_match("/^logon$/i", $message)) {
     $sendto->reply($msg);
 } else if (preg_match("/^logon (.+)$/i", $message, $arr)) {
 	$logon_msg = $arr[1];
-	
+
 	if ($logon_msg == 'clear') {
 		Preferences::save($sender, 'logon_msg', '');
 		$msg = "Your logon message has been cleared.";

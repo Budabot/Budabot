@@ -1,6 +1,6 @@
 <?php
 	require_once 'functions.php';
-	
+
 	$db->loadSQLFile($MODULE_NAME, 'leprocs');
 	$db->loadSQLFile($MODULE_NAME, 'ofabarmor');
 	$db->loadSQLFile($MODULE_NAME, 'ofabweapons');

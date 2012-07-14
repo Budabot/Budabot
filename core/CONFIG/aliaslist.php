@@ -22,7 +22,7 @@ if (preg_match("/^aliaslist$/i", $message)) {
 		$a = padRow($alias->alias, $paddingSize);
 		$blob .= "<{$color}>{$a}{$alias->cmd}<end> $removeLink\n";
 	}
-	
+
 	$msg = Text::make_blob('Alias List', $blob);
 	$sendto->reply($msg);
 } else {

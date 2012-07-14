@@ -22,26 +22,26 @@ if (preg_match("/^guides$/i", $message)) {
 
 		$linkContents = '';
 		forEach ($topicList as $topic) {
-			$linkContents .= Text::make_chatcmd($topic, "/tell <myname> <symbol>guides $topic") . "\n";  
+			$linkContents .= Text::make_chatcmd($topic, "/tell <myname> <symbol>guides $topic") . "\n";
 		}
-		
+
 		if ($linkContents) {
 			$msg = Text::make_blob('Topics (' . count($topicList) . ')', $linkContents);
 		} else {
-			$msg = "No topics available.";   
+			$msg = "No topics available.";
 		}
 	} else {
-		$msg = "Error reading topics.";	
+		$msg = "Error reading topics.";
 	}
 	$sendto->reply($msg);
 } else if (preg_match("/^guides ([a-z0-9_-]+)$/i", $message, $arr)) {
 	// get the filename and read in the file
 	$fileName = strtolower($arr[1]);
 	$info = getTopicContents($path, $fileName, $fileExt);
-	
+
 	if (!$info) {
 		$msg = "No info for $fileName could be found";
-	} else {	
+	} else {
 		$msg = Text::make_legacy_blob(ucfirst($fileName), $info);
 	}
 	$sendto->reply($msg);

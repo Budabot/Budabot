@@ -4,34 +4,34 @@ class CommandManager {
 
 	/** @Inject */
 	public $db;
-	
+
 	/** @Inject */
 	public $chatBot;
-	
+
 	/** @Inject */
 	public $setting;
-	
+
 	/** @Inject */
 	public $accessLevel;
-	
+
 	/** @Inject */
 	public $help;
-	
+
 	/** @Inject */
 	public $commandAlias;
-	
+
 	/** @Inject */
 	public $text;
-	
+
 	/** @Inject */
 	public $util;
-	
+
 	/** @Inject */
 	public $subcommand;
-	
+
 	/** @Logger */
 	public $logger;
-	
+
 	public $commands;
 
 	/**
@@ -41,18 +41,18 @@ class CommandManager {
 	public function register($module, $channel, $filename, $command, $admin, $description, $help = '', $defaultStatus = null) {
 		$command = strtolower($command);
 		$module = strtoupper($module);
-		
+
 		if (!$this->chatBot->processCommandArgs($channel, $admin)) {
 			$this->logger->log('ERROR', "Invalid args for $module:command($command). Command not registered.");
 			return;
 		}
-		
+
 		list($name, $method) = explode(".", $filename);
 		if (!Registry::instanceExists($name)) {
 			$this->logger->log('ERROR', "Error registering method $filename for command $command.  Could not find instance '$name'.");
 			return;
 		}
-		
+
 		$help = $this->help->checkForHelpFile($module, $help, $command);
 
 		if ($defaultStatus === null) {
@@ -67,7 +67,7 @@ class CommandManager {
 
 		for ($i = 0; $i < count($channel); $i++) {
 			$this->logger->log('debug', "Adding Command to list:($command) File:($filename) Admin:({$admin[$i]}) Channel:({$channel[$i]})");
-			
+
 			if (isset($this->chatBot->existing_commands[$channel[$i]][$command])) {
 				$sql = "UPDATE cmdcfg_<myname> SET `module` = ?, `verify` = ?, `file` = ?, `description` = ?, `help` = ? WHERE `cmd` = ? AND `type` = ?";
 				$this->db->exec($sql, $module, '1', $filename, $description, $help, $command, $channel[$i]);
@@ -87,7 +87,7 @@ class CommandManager {
 		$admin = strtolower($admin);
 		$channel = strtolower($channel);
 
-	  	$this->logger->log('DEBUG', "Activate Command:($command) Admin Type:($admin) File:($filename) Channel:($channel)");
+		$this->logger->log('DEBUG', "Activate Command:($command) Admin Type:($admin) File:($filename) Channel:($channel)");
 
 		list($name, $method) = explode(".", $filename);
 		if (!Registry::instanceExists($name)) {
@@ -95,14 +95,14 @@ class CommandManager {
 			return;
 		}
 		$actual_filename = $filename;
-		
+
 		$obj = new stdClass;
 		$obj->file = $actual_filename;
 		$obj->admin = $admin;
-		
+
 		$this->commands[$channel][$command] = $obj;
 	}
-	
+
 	/**
 	 * @name: deactivate
 	 * @description: Deactivates a command
@@ -111,41 +111,41 @@ class CommandManager {
 		$command = strtolower($command);
 		$channel = strtolower($channel);
 
-	  	$this->logger->log('DEBUG', "Deactivate Command:($command) File:($filename) Channel:($channel)");
+		$this->logger->log('DEBUG', "Deactivate Command:($command) File:($filename) Channel:($channel)");
 
 		unset($this->commands[$channel][$command]);
 	}
-	
+
 	public function update_status($channel, $cmd, $module, $status, $admin) {
 		if ($channel == 'all' || $channel == '' || $channel == null) {
 			$type_sql = '';
 		} else {
 			$type_sql = "AND `type` = '$channel'";
 		}
-		
+
 		if ($cmd == '' || $cmd == null) {
 			$cmd_sql = '';
 		} else {
 			$cmd_sql = "AND `cmd` = '$cmd'";
 		}
-		
+
 		if ($module == '' || $module == null) {
 			$module_sql = '';
 		} else {
 			$module_sql = "AND `module` = '$module'";
 		}
-		
+
 		if ($admin == '' || $admin == null) {
 			$adminSql = '';
 		} else {
 			$adminSql = ", admin = '$admin'";
 		}
-	
+
 		$data = $this->db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' $module_sql $cmd_sql $type_sql");
 		if (count($data) == 0) {
 			return 0;
 		}
-		
+
 		forEach ($data as $row) {
 			if ($status == 1) {
 				$this->activate($row->type, $row->file, $row->cmd, $admin);
@@ -153,7 +153,7 @@ class CommandManager {
 				$this->deactivate($row->type, $row->file, $row->cmd);
 			}
 		}
-		
+
 		return $this->db->exec("UPDATE cmdcfg_<myname> SET status = '$status' $adminSql WHERE `cmdevent` = 'cmd' $module_sql $cmd_sql $type_sql");
 	}
 
@@ -169,24 +169,24 @@ class CommandManager {
 			$this->activate($row->type, $row->file, $row->cmd, $row->admin);
 		}
 	}
-	
+
 	public function get($command, $channel = null) {
 		$command = strtolower($command);
-		
+
 		if ($channel !== null) {
 			$type_sql = "AND type = '{$channel}'";
 		}
-		
+
 		$sql = "SELECT * FROM cmdcfg_<myname> WHERE `cmd` = ? {$type_sql}";
 		return $this->db->query($sql, $command);
 	}
-	
+
 	function process($channel, $message, $sender, $sendto) {
 		list($cmd, $params) = explode(' ', $message, 2);
 		$cmd = strtolower($cmd);
-		
+
 		$commandHandler = $this->getActiveCommandHandler($cmd, $channel, $message);
-		
+
 		// if command doesn't exist
 		if ($commandHandler === null) {
 			// if they've disabled feedback for guild or private channel, just return
@@ -210,7 +210,7 @@ class CommandManager {
 			$this->chatBot->spam[$sender] += 20;
 			return;
 		}
-		
+
 		try {
 			// record usage stats (in try/catch loop in case there is an error)
 			if ($this->setting->get('record_usage_stats') == 1) {
@@ -222,7 +222,7 @@ class CommandManager {
 
 		try {
 			$syntaxError = $this->callCommandHandler($commandHandler, $message, $channel, $sender, $sendto);
-			
+
 			if ($syntaxError === true) {
 				$help = $this->getHelpForCommand($cmd, $channel, $sender);
 				$sendto->reply($help);
@@ -239,7 +239,7 @@ class CommandManager {
 
 		$this->chatBot->spam[$sender] += 10;
 	}
-	
+
 	public function callCommandHandler($commandHandler, $message, $channel, $sender, $sendto) {
 		$syntaxError = false;
 
@@ -257,10 +257,10 @@ class CommandManager {
 				$syntaxError = ($instance->$method($message, $channel, $sender, $sendto, $arr) !== false ? false : true);
 			}
 		}
-		
+
 		return $syntaxError;
 	}
-	
+
 	public function getActiveCommandHandler($cmd, $channel, $message) {
 		// Check if a subcommands for this exists
 		if (isset($this->subcommand->subcommands[$cmd])) {
@@ -272,7 +272,7 @@ class CommandManager {
 		}
 		return $this->commands[$channel][$cmd];
 	}
-	
+
 	public function getHelpForCommand($cmd, $channel, $sender) {
 		$results = $this->get($cmd, $channel);
 		$result = $results[0];
@@ -289,7 +289,7 @@ class CommandManager {
 		}
 		return $msg;
 	}
-	
+
 	public function checkMatches($instance, $method, $message) {
 		try {
 			$reflectedMethod = new ReflectionAnnotatedMethod($instance, $method);
@@ -297,9 +297,9 @@ class CommandManager {
 			// method doesn't exist (probably handled dynamically)
 			return true;
 		}
-		
+
 		$regexes = $this->retrieveRegexes($reflectedMethod);
-		
+
 		if (count($regexes) > 0) {
 			forEach ($regexes as $regex) {
 				if (preg_match($regex, $message, $arr)) {
@@ -311,7 +311,7 @@ class CommandManager {
 			return true;
 		}
 	}
-	
+
 	public function retrieveRegexes($reflectedMethod) {
 		$regexes = array();
 		if ($reflectedMethod->hasAnnotation('Matches')) {

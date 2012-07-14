@@ -8,7 +8,7 @@
 	$command->activate("msg", "$MODULE_NAME/shutdown.php", "shutdown", "admin");
 	$command->activate("priv", "$MODULE_NAME/shutdown.php", "shutdown", "admin");
 	$command->activate("guild", "$MODULE_NAME/shutdown.php", "shutdown", "admin");
-	
+
 	$command->activate("msg", "$MODULE_NAME/reload_config.php", "reloadconfig", "admin");
 	$command->activate("priv", "$MODULE_NAME/reload_config.php", "reloadconfig", "admin");
 	$command->activate("guild", "$MODULE_NAME/reload_config.php", "reloadconfig", "admin");
@@ -20,15 +20,15 @@
 	$command->activate("msg", "$MODULE_NAME/executesql.php", "executesql", "admin");
 	$command->activate("priv", "$MODULE_NAME/executesql.php", "executesql", "admin");
 	$command->activate("guild", "$MODULE_NAME/executesql.php", "executesql", "admin");
-	
+
 	$command->activate("msg", "$MODULE_NAME/executesql.php", "querysql", "admin");
 	$command->activate("priv", "$MODULE_NAME/executesql.php", "querysql", "admin");
 	$command->activate("guild", "$MODULE_NAME/executesql.php", "querysql", "admin");
-	
+
 	$command->activate("msg", "$MODULE_NAME/logs.php", "logs", "admin");
 	$command->activate("priv", "$MODULE_NAME/logs.php", "logs", "admin");
 	$command->activate("guild", "$MODULE_NAME/logs.php", "logs", "admin");
-	
+
 	$command->register($MODULE_NAME, "", "clearqueue.php", "clearqueue", "mod", "Clear outgoing chatqueue from all pending messages", "clearqueue.txt", 1);
 	$command->register($MODULE_NAME, "", "loadsql.php", "loadsql", "mod", "Manually reload an sql file", "loadsql.txt", 1);
 	$command->register($MODULE_NAME, "", "checkaccess.php", "checkaccess", "all", "Check effective access level of a character", "checkaccess.txt", 1);
@@ -38,7 +38,7 @@
 	$event->activate("2sec", "$MODULE_NAME/reduce_spam_values.php");
 	$event->activate("1min", "$MODULE_NAME/reduce_largespam_values.php");
 	$event->activate("connect", "$MODULE_NAME/systems_ready.php");
-	
+
 	$setting->add($MODULE_NAME, 'symbol', 'Command prefix symbol', 'edit', "text", '!', '!;#;*;@;$;+;-');
 	$setting->add($MODULE_NAME, 'guild_admin_rank', 'Guild rank required to be considered a guild admin', 'edit', "options", '1', '0;1;2;3;4;5;6', '', 'mod', "guild_admin_rank.txt");
 	$setting->add($MODULE_NAME, 'guild_admin_access_level', 'Access level that guild admins acquire', 'edit', "options", 'all', 'admin;mod;rl;all');
@@ -50,7 +50,7 @@
 	$setting->add($MODULE_NAME, 'guild_channel_cmd_feedback',   "Show message on invalid command in guild channel", 'edit', "options", 1, "true;false", "1;0");
 	$setting->add($MODULE_NAME, 'private_channel_cmd_feedback', "Show message on invalid command in private channel", 'edit', "options", 1, "true;false", "1;0");
 	$setting->add($MODULE_NAME, 'version', "Bot version that database was created from", 'noedit', "text", 0);
-	
+
 	global $version;
 	$setting->save('version', $version);
 

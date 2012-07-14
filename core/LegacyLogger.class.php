@@ -12,7 +12,7 @@ class LegacyLogger {
 
 	public static function get_logging_directory() {
 		$chatBot = Registry::getInstance('chatBot');
-		
+
 		return "./logs/{$chatBot->vars['name']}.{$chatBot->vars['dimension']}";
 	}
 
@@ -21,7 +21,7 @@ class LegacyLogger {
 		$level = LegacyLogger::getLoggerLevel($category);
 		$logger->log($level, $message);
 	}
-	
+
 	public static function getLoggerLevel($level) {
 		switch (strtolower($level)) {
 			case 'trace':
@@ -39,7 +39,7 @@ class LegacyLogger {
 			case 'fatal':
 				$level = LoggerLevel::getLevelFatal();
 				break;
-				
+
 			case 'info':
 			default:
 				$level = LoggerLevel::getLevelInfo();
@@ -47,14 +47,14 @@ class LegacyLogger {
 		}
 		return $level;
 	}
-	
+
 /*===============================
 ** Name: log
 ** Record incoming info into the chatbot's log.
 */	public static function log_chat($channel, $sender, $message) {
 
 		global $vars;
-		
+
 		if ($vars['show_aoml_markup'] == 0) {
 			$message = preg_replace("/<font(.+)>/U", "", $message);
 			$message = preg_replace("/<\/font>/U", "", $message);
@@ -70,7 +70,7 @@ class LegacyLogger {
 		} else {
 			$line = "[$channel] $sender: $message";
 		}
-		
+
 		LegacyLogger::log('INFO', 'CHAT', $line);
 	}
 }

@@ -14,19 +14,19 @@ class Help extends Annotation {
 
 	/** @Inject */
 	public $db;
-	
+
 	/** @Inject */
 	public $accessLevel;
-	
+
 	/** @Inject */
 	public $chatBot;
-	
+
 	/** @Inject */
 	public $util;
-	
+
 	/** @Logger */
 	public $logger;
-	
+
 	public $helpfiles = array();
 
 	/**
@@ -58,12 +58,12 @@ class Help extends Annotation {
 		$this->helpfiles[$command]["admin"] = $row->admin;
 		$this->helpfiles[$command]["info"] = $description;
 		$this->helpfiles[$command]["module"] = $module;
-		
+
 		if (substr($actual_filename, 0, 7) == "./core/") {
 			$this->helpfiles[$command]["status"] = "enabled";
 		}
 	}
-	
+
 	/**
 	 * @name: find
 	 * @description: Find a help topic by name if it exists and if the user has permissions to see it
@@ -91,22 +91,22 @@ class Help extends Annotation {
 
 		return (empty($output) ? false : $output);
 	}
-	
+
 	public function update($helpTopic, $admin) {
 		$helpTopic = strtolower($helpTopic);
 		$admin = strtolower($admin);
-	
+
 		$this->db->exec("UPDATE hlpcfg_<myname> SET `admin` = ? WHERE `name` = ?", $admin, $helpTopic);
 		$this->helpfiles[$helpTopic]["admin"] = $admin;
 	}
-	
+
 	public function checkForHelpFile($module, $file, $name) {
 		if (empty($file)) {
 			$file = $name . ".txt";
 		} else {
 			$logError = true;
 		}
-		
+
 		if (file_exists("./core/$module/$file")) {
 			return "./core/$module/$file";
 		} else if (file_exists("./modules/$module/$file")) {
@@ -118,7 +118,7 @@ class Help extends Annotation {
 			return "";
 		}
 	}
-	
+
 	public function getAllHelpTopics($char) {
 		$sql = "
 			SELECT module, admin, help AS file, name, description, 3 AS sort FROM settings_<myname> WHERE help <> ''
@@ -129,11 +129,11 @@ class Help extends Annotation {
 			GROUP BY module, admin, file, description
 			ORDER BY module, name, sort DESC, description";
 		$data = $this->db->query($sql);
-		
+
 		if ($char !== null) {
 			$accessLevel = $this->accessLevel->getAccessLevelForCharacter($char);
 		}
-		
+
 		$topics = array();
 		forEach ($data as $row) {
 			if ($char === null || $this->accessLevel->compareAccessLevels($accessLevel, $row->admin) >= 0) {
@@ -144,7 +144,7 @@ class Help extends Annotation {
 				$topics []= $obj;
 			}
 		}
-		
+
 		return $topics;
 	}
 }

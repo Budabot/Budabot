@@ -4,13 +4,13 @@ class Subcommand extends Annotation {
 
 	/** @Inject */
 	public $db;
-	
+
 	/** @Inject */
 	public $chatBot;
-	
+
 	/** @Inject */
 	public $util;
-	
+
 	/** @Logger */
 	public $logger;
 

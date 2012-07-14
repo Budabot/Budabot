@@ -9,7 +9,7 @@
 
 if (preg_match("/^events$/i", $message, $arr)) {
 	$msg = getEvents();
-  	if ($msg == '') {
+	if ($msg == '') {
 		$msg = "No events entered yet.";
 	}
 	$sendto->reply($msg);
@@ -71,7 +71,7 @@ if (preg_match("/^events$/i", $message, $arr)) {
 				if ($row !== null) {
 					$info = " <white>Lvl $row->level $row->profession<end>\n";
 				}
-				
+
 				$altInfo = Alts::get_alt_info($name);
 				$alt = '';
 				if (count($altInfo->alts) > 0) {
@@ -81,7 +81,7 @@ if (preg_match("/^events$/i", $message, $arr)) {
 						$alt = "<highlight>::<end> <a href='chatcmd:///tell <myname> alts {$name}'>Alts of {$altInfo->main}</a>";
 					}
 				}
-				
+
 				$link .= trim($name)."$info $alt\n";
 			}
 			$msg = Text::make_blob("Players Attending Event $id", $link);
@@ -91,7 +91,7 @@ if (preg_match("/^events$/i", $message, $arr)) {
 	} else {
 		$msg = "That event doesn't exist!";
 	}
-	
+
 	$sendto->reply($msg);
 } else {
 	$syntax_error = true;

@@ -2,18 +2,18 @@
 
 if (preg_match("/^nanoloc$/i", $message, $arr)) {
 	$data = $db->query("SELECT location, count(location) AS count FROM nanos GROUP BY location ORDER BY location ASC");
-	
+
 	$blob = '';
 	forEach ($data as $row) {
 		$blob .= Text::make_chatcmd($row->location, "/tell <myname> nanoloc $row->location") . " ($row->count) \n";
 	}
-	
+
 	$msg = Text::make_blob("Nano Locations", $blob);
 	$sendto->reply($msg);
 } else if (preg_match("/^nanoloc (.+)$/i", $message, $arr)) {
 	$location = $arr[1];
 
-	$sql = 
+	$sql =
 		"SELECT
 			n1.lowid,
 			n1.lowql,
@@ -45,13 +45,13 @@ if (preg_match("/^nanoloc$/i", $message, $arr)) {
 			}
 			$blob .= "\n";
 		}
-		
+
 		$msg = Text::make_blob("Nanos for Location '$location' ($count)", $blob);
 	}
 
 	$sendto->reply($msg);
 } else {
-  	$syntax_error = true; 	
+	$syntax_error = true;
 }
 
 ?>

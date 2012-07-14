@@ -233,8 +233,8 @@ else if (preg_match ("/^spiritssen ([0-9]+) (.+)$/i", $message, $arr)) {
 	$syntax_error = true;
 	return;
 }
-		
+
 $spirits = Text::make_blob("Spirits", $spirits, $title);
-		
+
 $sendto->reply($spirits);
 ?>

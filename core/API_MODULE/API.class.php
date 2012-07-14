@@ -4,29 +4,29 @@ class API {
 
 	/** @Inject */
 	public $commandManager;
-	
+
 	/** @Inject */
 	public $preferences;
-	
+
 	/** @Inject */
 	public $chatBot;
-	
+
 	/** @Inject */
 	public $setting;
-	
+
 	/** @Logger */
 	public $logger;
 
 	/** @Inject */
 	public $accessLevel;
-	
+
 	private $apisocket = null;
 	private $socketNotifier = null;
 
 	private function openApiSocket() {
 		// bind to any address
 		$address = '0.0.0.0';
-		
+
 		// read port from config-file
 		$port = intval($this->chatBot->vars['API Port']);
 		if ($port < 1 || $port > 65535) {
@@ -42,15 +42,15 @@ class API {
 			$this->logger->log('INFO', 'API socket bound successfully');
 			socket_listen($this->apisocket);
 			socket_set_nonblock($this->apisocket);
-			$this->socketNotifier = new SocketNotifier($this->apisocket, 
+			$this->socketNotifier = new SocketNotifier($this->apisocket,
 				SocketNotifier::ACTIVITY_READ, array($this, 'onApiActivity'));
 			$this->chatBot->addSocketNotifier($this->socketNotifier);
 		} else {
 			$this->logger->log('ERROR', socket_strerror($errno));
 		}
-		
+
 	}
-	
+
 	/**
 	 * @Event("connect")
 	 * @Description("Start to listen for incoming command requests")
@@ -77,12 +77,12 @@ class API {
 				$clientHandler->writePacket(new APIResponse(API_INVALID_VERSION, "API version must be: " . API_VERSION));
 				return;
 			}
-			
+
 			$userPassword = $this->preferences->get($apiRequest->username, 'apipassword');
 
 			$isSuperAdmin = $apiRequest->username == $this->chatBot->vars['SuperAdmin'];
 			$fromLocalHost = $clientHandler->getClientAddress() == '127.0.0.1';
-			
+
 			// password is not needed for superadmin from 'localhost' if the superadmin hasn't set password yet
 			$noPasswordNeeded = $isSuperAdmin && $fromLocalHost && !$userPassword;
 
@@ -95,7 +95,7 @@ class API {
 					return;
 				}
 			}
-			
+
 			if ($apiRequest->type == API_SIMPLE_MSG) {
 				$type = 'msg';
 				$apiReply = new APISimpleReply();
@@ -118,13 +118,13 @@ class API {
 			$clientHandler->writePacket($response);
 		}
 	}
-	
+
 	private function process($channel, $message, $sender, $sendto) {
 		list($cmd, $params) = explode(' ', $message, 2);
 		$cmd = strtolower($cmd);
-		
+
 		$commandHandler = $this->commandManager->getActiveCommandHandler($cmd, $channel, $message);
-		
+
 		// if command doesn't exist
 		if ($commandHandler === null) {
 			$this->chatBot->spam[$sender] += 20;
@@ -141,17 +141,17 @@ class API {
 		if ($this->setting->get('record_usage_stats') == 1) {
 			Registry::getInstance('usage')->record($channel, $cmd, $sender, $commandHandler);
 		}
-	
+
 		$syntaxError = $this->commandManager->callCommandHandler($commandHandler, $message, $channel, $sender, $sendto);
 		$this->chatBot->spam[$sender] += 10;
-		
+
 		if ($syntaxError === true) {
 			return API_SYNTAX_ERROR;
 		} else {
 			return API_SUCCESS;
 		}
 	}
-	
+
 	/**
 	 * @Command("apipassword")
 	 * @AccessLevel("all")

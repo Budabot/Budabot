@@ -29,7 +29,7 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-   
+
 $homer = array(
     "Your mom asked me to give you an apple instead",
     "Internet! Is that thing still around?",

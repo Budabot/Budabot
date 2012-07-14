@@ -19,7 +19,7 @@ if (preg_match("/^eventlist$/i", $message) || preg_match("/^eventlist (.+)$/i", 
 		ORDER BY
 			type ASC";
 	$data = $db->query($sql);
-	
+
 	if (count($data) > 0) {
 		$blob = '';
 		forEach ($data as $row) {
@@ -43,7 +43,7 @@ if (preg_match("/^eventlist$/i", $message) || preg_match("/^eventlist (.+)$/i", 
 	} else {
 		$msg = "No events could be found for event type '$arr[1]'.";
 	}
- 	$sendto->reply($msg);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

@@ -1,7 +1,7 @@
 <?php
 
 $channel_type = "priv";
-   
+
 if (preg_match("/^check$/i", $message) || preg_match("/^check all$/i", $message)) {
 	$list = '';
 	$data = $db->query("SELECT name FROM online WHERE added_by = '<myname>' AND channel_type = ?", $channel_type);
@@ -20,7 +20,7 @@ if (preg_match("/^check$/i", $message) || preg_match("/^check all$/i", $message)
 	}
 
 	ksort($prof);
-	
+
 	forEach ($prof as $key => $value) {
 		$list .= "<a href='chatcmd:///text Assist $key: $value'>Click here to check $key</a>\n";
 	}
@@ -37,9 +37,9 @@ if (preg_match("/^check$/i", $message) || preg_match("/^check all$/i", $message)
 			$org[$row->guild] .= " \\n /assist $row->name";
 		}
 	}
-	
+
 	ksort($org);
-	
+
 	forEach ($org as $key => $value) {
 		$list .= "<a href='chatcmd:///text Assist $key: $value'>Click here to check $key</a>\n";
 	}

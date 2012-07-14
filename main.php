@@ -15,7 +15,7 @@
 	 **
 	 ** You should have received a copy of the GNU General Public License
 	 ** along with Budabot. If not, see <http://www.gnu.org/licenses/>.
-	*/ 
+	*/
 
 	// Define the version.
 	$version = "3.0_Alpha";
@@ -44,19 +44,19 @@
 	}
 
 	if (isWindows()) {
-    	// Load database extensions and socket extension.
-    	dl("php_sockets.dll");
-    	dl("php_pdo_sqlite.dll");
-    	dl("php_pdo_mysql.dll");
+	// Load database extensions and socket extension.
+	dl("php_sockets.dll");
+	dl("php_pdo_sqlite.dll");
+	dl("php_pdo_mysql.dll");
 	} else {
-    	// Load database extensions, if not already loaded.
-     	// These are normally present in a modern Linux system. This is a safeguard.
-    	if (!extension_loaded('pdo_sqlite')) {
-        	@dl('pdo_sqlite.so');
-    	}
-    	if (!extension_loaded('pdo_mysql')) {
-        	@dl('pdo_mysql.so');
-    	}
+	// Load database extensions, if not already loaded.
+	// These are normally present in a modern Linux system. This is a safeguard.
+	if (!extension_loaded('pdo_sqlite')) {
+		@dl('pdo_sqlite.so');
+	}
+	if (!extension_loaded('pdo_mysql')) {
+		@dl('pdo_mysql.so');
+	}
 	}
 
 	require_once './core/ConfigFile.class.php';
@@ -69,11 +69,11 @@
 
 	/* function exceptions_error_handler($severity, $message, $filename, $lineno) {
 		if (error_reporting() == 0) {
-    		return;
-  		}
+		return;
+		}
 		if (error_reporting() & $severity) {
-    		throw new ErrorException($message, 0, $severity, $filename, $lineno);
-  		}
+		throw new ErrorException($message, 0, $severity, $filename, $lineno);
+		}
 	}
 	set_error_handler('exceptions_error_handler'); */
 
@@ -204,7 +204,7 @@
 	$chatBot->init();
 	$chatBot->connectAO($vars['login'], $vars['password'], $server, $port);
 
-	// Clear the login and the password.	
+	// Clear the login and the password.
 	unset($vars['login']);
 	unset($vars['password']);
 

@@ -6,6 +6,6 @@
 	require_once 'APISimpleReply.class.php';
 	require_once 'APIAdvancedReply.class.php';
 	require_once 'APIException.class.php';
-	
+
 	$chatBot->registerInstance($MODULE_NAME, 'API', new API);
 ?>

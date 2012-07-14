@@ -18,7 +18,7 @@ if (preg_match("/^The (Clan|Neutral|Omni) organization (.+) attacked the (Clan|N
 
 $towers = Registry::getInstance('towers');
 $playfields = Registry::getInstance('playfields');
-	
+
 $playfield = $playfields->get_playfield_by_name($playfield_name);
 if ($playfield === null) {
 	LegacyLogger::log('error', 'Towers', "Could not find playfield for name '$playfield_name'");

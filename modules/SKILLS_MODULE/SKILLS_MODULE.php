@@ -12,7 +12,7 @@
 	$command->register($MODULE_NAME, "", "dimach.php", "dimach", "all", "Dimach: Calculates dimach facts", "dimach.txt");
 	$command->register($MODULE_NAME, "", "brawl.php", "brawl", "all", "Brawl: Calculates brawl facts", "brawl.txt");
 	$command->register($MODULE_NAME, "", "fastattack.php", "fastattack", "all", "Fastattack: Calculates Fast Attack recharge", "fastattack.txt");
-	
+
 	//Xyphos' tools
 	$command->register($MODULE_NAME, "", "inits.php", "inits", "all", "shows how much inits you need for 1/1", "inits.txt");
 	$command->register($MODULE_NAME, "", "specials.php", "specials", "all", "shows how much skill you need to cap specials recycle", "specials.txt");

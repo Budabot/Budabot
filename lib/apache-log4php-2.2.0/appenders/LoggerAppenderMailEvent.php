@@ -20,9 +20,9 @@
 
 /**
  * Log every events as a separate email.
- * 
+ *
  * Configurable parameters for this appender are:
- * 
+ *
  * - layout             - Sets the layout class for this appender (required)
  * - to                 - Sets the recipient of the mail (required)
  * - from               - Sets the sender of the mail (optional)
@@ -31,12 +31,12 @@
  * - port               - Sets the port of the mail server (optional, default is 25)
  *
  * An example:
- * 
+ *
  * {@example ../../examples/php/appender_mailevent.php 19}
- *  
+ *
  * {@example ../../examples/resources/appender_mailevent.properties 18}
  *
- * 
+ *
  * The above will output something like:
  * <pre>
  *      Date: Tue,  8 Sep 2009 21:51:04 +0200 (CEST)
@@ -59,12 +59,12 @@ class LoggerAppenderMailEvent extends LoggerAppender {
 	protected $from;
 
 	/** Mailserver port (win32 only).
-	 * @var integer 
+	 * @var integer
 	 */
 	protected $port = 25;
 
 	/** Mailserver hostname (win32 only).
-	 * @var string   
+	 * @var string
 	 */
 	protected $smtpHost = null;
 
@@ -77,10 +77,10 @@ class LoggerAppenderMailEvent extends LoggerAppender {
 	 * @var string 'to' field
 	 */
 	protected $to = null;
-	
+
 	/** @var indiciates if this appender should run in dry mode */
 	protected $dry = false;
-	
+
 	public function activateOptions() {
 		if (empty($this->layout)) {
 			throw new LoggerException("LoggerAppenderMailEvent requires layout!");
@@ -88,31 +88,31 @@ class LoggerAppenderMailEvent extends LoggerAppender {
 		if (empty($this->to)) {
 			throw new LoggerException("LoggerAppenderMailEvent was initialized with empty 'from' ($this->from) or 'to' ($this->to) Adress!");
 		}
-		
+
 		$sendmail_from = ini_get('sendmail_from');
 		if (empty($this->from) and empty($sendmail_from)) {
 			throw new LoggerException("LoggerAppenderMailEvent requires 'from' or on win32 at least the ini variable sendmail_from!");
 		}
-		
+
 		$this->closed = false;
 	}
-	
+
 	public function setFrom($from) {
 		$this->setString('from', $from);
 	}
-	
+
 	public function setPort($port) {
 		$this->setPositiveInteger('port', $port);
 	}
-	
+
 	public function setSmtpHost($smtpHost) {
 		$this->setString('smtpHost', $smtpHost);
 	}
-	
+
 	public function setSubject($subject) {
 		$this->setString('subject',  $subject);
 	}
-	
+
 	public function setTo($to) {
 		$this->setString('to',  $to);
 	}
@@ -120,16 +120,16 @@ class LoggerAppenderMailEvent extends LoggerAppender {
 	public function setDry($dry) {
 		$this->setBoolean('dry', $dry);
 	}
-	
+
 	public function append(LoggerLoggingEvent $event) {
 		$smtpHost = $this->smtpHost;
 		$prevSmtpHost = ini_get('SMTP');
 		if(!empty($smtpHost)) {
 			ini_set('SMTP', $smtpHost);
-		} 
+		}
 
 		$smtpPort = $this->port;
-		$prevSmtpPort= ini_get('smtp_port');		
+		$prevSmtpPort= ini_get('smtp_port');
 		if($smtpPort > 0 and $smtpPort < 65535) {
 			ini_set('smtp_port', $smtpPort);
 		}
@@ -137,13 +137,13 @@ class LoggerAppenderMailEvent extends LoggerAppender {
 		// On unix only sendmail_path, which is PHP_INI_SYSTEM i.e. not changeable here, is used.
 
 		$addHeader = empty($this->from) ? '' : "From: {$this->from}\r\n";
-		
+
 		if(!$this->dry) {
-			$result = mail($this->to, $this->subject, $this->layout->getHeader() . $this->layout->format($event) . $this->layout->getFooter($event), $addHeader);			
+			$result = mail($this->to, $this->subject, $this->layout->getHeader() . $this->layout->format($event) . $this->layout->getFooter($event), $addHeader);
 		} else {
 			echo "DRY MODE OF MAIL APP.: Send mail to: ".$this->to." with additional headers '".trim($addHeader)."' and content: ".$this->layout->format($event);
 		}
-			
+
 		ini_set('SMTP', $prevSmtpHost);
 		ini_set('smtp_port', $prevSmtpPort);
 	}

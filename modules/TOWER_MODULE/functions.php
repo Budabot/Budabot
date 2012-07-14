@@ -2,7 +2,7 @@
 
 function getTowerType($ql) {
 	$towerType = '';
-	
+
 	if ($ql >= 276) {
 		$towerType = "VIII";
 	} else if ($ql >= 226) {
@@ -20,8 +20,8 @@ function getTowerType($ql) {
 	} else {
 		$towerType = "I";
 	}
-	
-	return $towerType;	
+
+	return $towerType;
 }
 
 function getOpenTimeSql($current_time) {
@@ -39,14 +39,14 @@ function getGasLevel($close_time) {
 	$site = new stdClass();
 	$site->current_time = $current_time;
 	$site->close_time = $close_time;
-	
+
 	if ($close_time < $current_time) {
 		$close_time += 86400;
 	}
 
 	$time_until_close_time = $close_time - $current_time;
 	$site->time_until_close_time = $time_until_close_time;
-	
+
 	if ($time_until_close_time < 3600 * 1) {
 		$site->gas_change = $time_until_close_time;
 		$site->gas_level = '5%';
@@ -63,7 +63,7 @@ function getGasLevel($close_time) {
 		$site->next_state = 'opens';
 		$site->color = "<red>";
 	}
-	
+
 	return $site;
 }
 

@@ -21,7 +21,7 @@
 /**
  * A convenience class to convert property values to specific types.
  *
- * @version $Revision: 1213283 $ 
+ * @version $Revision: 1213283 $
  * @package log4php
  * @subpackage helpers
  * @since 0.5
@@ -32,20 +32,20 @@ class LoggerOptionConverter {
 	const DELIM_STOP = '}';
 	const DELIM_START_LEN = 2;
 	const DELIM_STOP_LEN = 1;
-	
+
 	/** String values which are converted to boolean TRUE. */
 	private static $trueValues = array('1', 'true', 'yes', 'on');
-	
+
 	/** String values which are converted to boolean FALSE. */
 	private static $falseValues = array('0', 'false', 'no', 'off');
-	
+
 	/**
 	 * Read a predefined var.
 	 *
 	 * It returns a value referenced by <var>$key</var> using this search criteria:
 	 * - if <var>$key</var> is a constant then return it. Else
 	 * - if <var>$key</var> is set in <var>$_ENV</var> then return it. Else
-	 * - return <var>$def</var>. 
+	 * - return <var>$def</var>.
 	 *
 	 * @param string $key The key to search for.
 	 * @param string $def The default value to return.
@@ -89,9 +89,9 @@ class LoggerOptionConverter {
 		} elseif (is_bool($value)) {
 			return $value;
 		} elseif (is_int($value)) {
-			return !($value == 0); // true is everything but 0 like in C 
+			return !($value == 0); // true is everything but 0 like in C
 		}
-		
+
 		return $default;
 	}
 
@@ -109,10 +109,10 @@ class LoggerOptionConverter {
 				return false;
 			}
 		}
-		
+
 		throw new LoggerException("Given value [" . var_export($value, true) . "] cannot be converted to boolean.");
 	}
-	
+
 	/**
 	 * @param string $value
 	 * @param integer $default
@@ -126,10 +126,10 @@ class LoggerOptionConverter {
 			return $default;
 		}
 	}
-	
-	
-	/** 
-	 * Converts $value to integer, or throws an exception if not possible. 
+
+
+	/**
+	 * Converts $value to integer, or throws an exception if not possible.
 	 * Floats cannot be converted to integer.
 	 */
 	public static function toIntegerEx($value) {
@@ -139,10 +139,10 @@ class LoggerOptionConverter {
 		if (is_numeric($value) && ($value == (integer) $value)) {
 			return (integer) $value;
 		}
-	
+
 		throw new LoggerException("Given value [" . var_export($value, true) . "] cannot be converted to integer.");
 	}
-	
+
 	/**
 	 * Converts $value to integer, or throws an exception if not possible.
 	 * Floats cannot be converted to integer.
@@ -154,7 +154,7 @@ class LoggerOptionConverter {
 		if (is_numeric($value) && ($value == (integer) $value) && $value > 0) {
 			return (integer) $value;
 		}
-	
+
 		throw new LoggerException("Given value [" . var_export($value, true) . "] cannot be converted to a positive integer.");
 	}
 
@@ -215,11 +215,11 @@ class LoggerOptionConverter {
 			if(!$result instanceof LoggerLevel) {
 				$result = $defaultValue;
 			}
-		} 
+		}
 		return $result;
 	}
-	
-	
+
+
 	/** Converts the value to a level. Throws an exception if not possible. */
 	public static function toLevelEx($value) {
 		if ($value instanceof LoggerLevel) {
@@ -256,15 +256,15 @@ class LoggerOptionConverter {
 		}
 		if(is_numeric($s)) {
 			return (float)$s * $multiplier;
-		} 
+		}
 		return $default;
 	}
-	
+
 
 	/**
 	 * Converts a value to a valid file size (integer).
-	 * 
-	 * Supports 'KB', 'MB' and 'GB' suffixes, where KB = 1024 B etc. 
+	 *
+	 * Supports 'KB', 'MB' and 'GB' suffixes, where KB = 1024 B etc.
 	 *
 	 * The final value will be rounded to the nearest integer.
 	 *
@@ -273,49 +273,49 @@ class LoggerOptionConverter {
 	 * - '100.12' => 100
 	 * - '100KB' => 102400
 	 * - '1.5MB' => 1572864
-	 * 
+	 *
 	 * @param mixed $value File size (optionally with suffix).
 	 * @return integer Parsed file size.
 	 */
 	public static function toFileSizeEx($value) {
-		
+
 		if (empty($value)) {
 			throw new LoggerException("Empty value cannot be converted to a file size.");
 		}
-		
+
 		if (is_numeric($value)) {
 			return (integer) $value;
 		}
-		
+
 		if (!is_string($value)) {
 			throw new LoggerException("Given value [" . var_export($value, true) . "] cannot be converted to a file size.");
 		}
-		
+
 		$str = strtoupper(trim($value));
 		$count = preg_match('/^([0-9.]+)(KB|MB|GB)?$/', $str, $matches);
-		
+
 		if ($count > 0) {
 			$size = $matches[1];
 			$unit = $matches[2];
-			
+
 			switch($unit) {
 				case 'KB': $size *= pow(1024, 1); break;
 				case 'MB': $size *= pow(1024, 2); break;
 				case 'GB': $size *= pow(1024, 3); break;
 			}
-			
+
 			return (integer) $size;
 		}
-		
+
 		throw new LoggerException("Given value [$value] cannot be converted to a file size.");
 	}
 
-	/** 
-	 * Converts a value to string, or throws an exception if not possible. 
-	 * 
-	 * Objects can be converted to string if they implement the magic 
+	/**
+	 * Converts a value to string, or throws an exception if not possible.
+	 *
+	 * Objects can be converted to string if they implement the magic
 	 * __toString() method.
-	 * 
+	 *
 	 */
 	public static function toStringEx($value) {
 		if (is_string($value)) {
@@ -327,11 +327,11 @@ class LoggerOptionConverter {
 		if (is_object($value) && method_exists($value, '__toString')) {
 			return (string) $value;
 		}
-	
+
 		throw new LoggerException("Given value [" . var_export($value, true) . "] cannot be converted to string.");
 	}
-	
-	
+
+
 	/**
 	 * Find the value corresponding to <var>$key</var> in
 	 * <var>$props</var>. Then perform variable substitution on the
@@ -352,7 +352,7 @@ class LoggerOptionConverter {
 		// "1"|on|true        => string(1) "1"
 		// "true"             => string(4) "true"
 		// "false"            => string(5) "false"
-		// 
+		//
 		// As the integer 1 and the boolean true are therefore indistinguable
 		// it's up to the setter how to deal with it, they can not be cast
 		// into a boolean here. {@see toBoolean}
@@ -368,30 +368,30 @@ class LoggerOptionConverter {
 	/**
 	 * Perform variable substitution in string <var>$val</var> from the
 	 * values of keys found with the {@link getSystemProperty()} method.
-	 * 
+	 *
 	 * <p>The variable substitution delimeters are <b>${</b> and <b>}</b>.
-	 * 
+	 *
 	 * <p>For example, if the "MY_CONSTANT" contains "value", then
 	 * the call
 	 * <code>
 	 * $s = LoggerOptionConverter::substVars("Value of key is ${MY_CONSTANT}.");
 	 * </code>
 	 * will set the variable <i>$s</i> to "Value of key is value.".</p>
-	 * 
+	 *
 	 * <p>If no value could be found for the specified key, then the
 	 * <var>$props</var> parameter is searched, if the value could not
 	 * be found there, then substitution defaults to the empty string.</p>
-	 * 
+	 *
 	 * <p>For example, if {@link getSystemProperty()} cannot find any value for the key
 	 * "inexistentKey", then the call
 	 * <code>
 	 * $s = LoggerOptionConverter::substVars("Value of inexistentKey is [${inexistentKey}]");
 	 * </code>
 	 * will set <var>$s</var> to "Value of inexistentKey is []".</p>
-	 * 
-	 * <p>A warn is thrown if <var>$val</var> contains a start delimeter "${" 
+	 *
+	 * <p>A warn is thrown if <var>$val</var> contains a start delimeter "${"
 	 * which is not balanced by a stop delimeter "}" and an empty string is returned.</p>
-	 * 
+	 *
 	 * @param string $val The string on which variable substitution is performed.
 	 * @param array $props
 	 * @return string
@@ -411,7 +411,7 @@ class LoggerOptionConverter {
 					return $sbuf;
 				}
 			} else {
-			
+
 				$sbuf .= substr($val, $i, $j-$i);
 				$k = strpos($val, self::DELIM_STOP, $j);
 				if($k === false) {
@@ -429,7 +429,7 @@ class LoggerOptionConverter {
 
 					if(!empty($replacement)) {
 						// Do variable substitution on the replacement string
-						// such that we can solve "Hello ${x2}" as "Hello p1" 
+						// such that we can solve "Hello ${x2}" as "Hello p1"
 						// the where the properties are
 						// x1=p1
 						// x2=${x1}

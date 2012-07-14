@@ -2,9 +2,9 @@
 
 if ($setting->get('relaybot') != 'Off' && $type == "joinpriv") {
 	$whois = Player::get_by_name($sender);
-	
+
 	$altInfo = Alts::get_alt_info($sender);
-	
+
 	if ($whois !== null) {
 		if (count($altInfo->alts) > 0) {
 			$msg = Player::get_info($whois) . " has joined the private channel. " . $altInfo->get_alts_blob(false, true);

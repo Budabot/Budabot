@@ -1,7 +1,7 @@
 <?php
 	require_once 'Rally.class.php';
 	require_once 'chatsay.class.php';
-	
+
 	$chatBot->registerInstance($MODULE_NAME, 'Rally', new Rally);
 	$chatBot->registerInstance($MODULE_NAME, 'ChatSay', new ChatSay);
 
@@ -30,7 +30,7 @@
 	$command->register($MODULE_NAME, "", "assist.php", "assist", "all", "Shows an Assist macro", "assist.txt");
 	$commandAlias->register($MODULE_NAME, "assist", "callers");
 	$subcommand->register($MODULE_NAME, "", "assist_set.php", "assist (.+)", "rl", "assist", "Set a new assist");
-	
+
 	// Heal Assist
 	$command->register($MODULE_NAME, "", "healassist.php", "heal", "all", "Creates/showes an Doc Assist macro", "healassist.txt");
 	$subcommand->register($MODULE_NAME, "", "healassist_set.php", "heal (.+)", "rl", "heal", "Set a new Doc assist");

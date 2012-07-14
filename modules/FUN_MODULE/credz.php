@@ -8,10 +8,10 @@
    **
    ** Date(created): 24.07.2006
    ** Date(last modified): 24.07.2006
-   ** 
+   **
    ** Copyright (C) 2006 Carsten Lohmann
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -28,7 +28,7 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-   
+
 $credz = array(
 	"*name*, get lost you begging fr00b!",
 	"Credz! What do I look like a money tree *name*!!?",
@@ -43,7 +43,7 @@ $credz = array(
 	"/me does /ignore *name* ... damn beggers.",
 	"No I don't think so. You still owe me *creds* credits from last time *name*!",
 	"Sorry, I don't have any credits left. Would you like a RBP instead?");
-	
+
 if (preg_match("/^credz/i", $message)) {
 	$dmg = rand(100,999);
     $cred = rand(10000,9999999);

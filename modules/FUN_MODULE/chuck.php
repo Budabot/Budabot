@@ -2,7 +2,7 @@
 
 /*
 ** Author: Honge (RK2)
-** Description: Shows a random chuck quote 
+** Description: Shows a random chuck quote
 ** Version: 1.0
 **
 ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
@@ -10,7 +10,7 @@
 ** Date(created):2.6.08
 ** Date(last modified): 2.7.08
 **
-** Licence Infos: 
+** Licence Infos:
 ** This file is part of Budabot.
 **
 ** Budabot is free software; you can redistribute it and/or modify
@@ -28,8 +28,8 @@
 ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-$chuck = array( 
-    "Chuck Norris counted to infinity - twice.", 
+$chuck = array(
+    "Chuck Norris counted to infinity - twice.",
     "Some kids piss their name in the snow. Chuck Norris can piss his name into concrete.",
     "Leading hand sanitizers claim they can kill 99.9 percent of germs. Chuck Norris can kill 100 percent of whatever the fuck he wants.",
     "Chuck Norris' calendar goes straight from March 31st to April 2nd; no one fools Chuck Norris.",
@@ -133,7 +133,7 @@ $chuck = array(
     "They once made a Chuck Norris toilet paper, but it wouldn't take shit from anybody.",
     "A blind man once stepped on Chuck Norris' shoe. Chuck replied, Don't you know who I am? I'm Chuck Norris! The mere mention of his name cured this man blindness. Sadly the first, last, and only thing this man ever saw, was a fatal roundhouse delivered by Chuck Norris.",
     "There is no chin behind Chuck Norris' beard. There is only another fist.",
-    "In fine print on the last page of the Guinness Book of World Records it notes that all world records are held by Chuck Norris, and those listed in the book are simply the closest anyone else has ever gotten.", 
+    "In fine print on the last page of the Guinness Book of World Records it notes that all world records are held by Chuck Norris, and those listed in the book are simply the closest anyone else has ever gotten.",
     "The Great Wall of China was originally created to keep Chuck Norris out. It failed misserably.",
     "Crop circles are Chuck Norris' way of telling the world that sometimes corn needs to lie the fuck down.",
     "Chuck Norris once ate an entire ream of rice paper and shat out origami swans and Mister Miyagi from Karate Kid.",
@@ -292,7 +292,7 @@ $chuck = array(
 	"Thousands of years ago Chuck Norris came across a bear. It was so terrified that it fled north into the arctic. It was also so terrified that all of its decendents now have white hair.",
 	"Chuck Norris played Russian Roulette with a fully loaded gun and won.",
 	"It takes 14 puppeteers to make Chuck Norris smile, but only 2 to make him destroy an orphanage.",
-	"Chuck Norris is responsible for China's over-population. He hosted a Karate tournament in Beijing and all women within 1,000 miles became 	pregnant instantly.",
+	"Chuck Norris is responsible for China's over-population. He hosted a Karate tournament in Beijing and all women within 1,000 miles became pregnant instantly.",
 	"Some people wear Superman pajamas. Superman wears Chuck Norris pajamas.",
 	"Chuck Norris once worked as a weatherman for the San Diego evening news. Every night he would make the same forecast: Partly cloudy with a 75% chance of Pain.",
 	"Simply by pulling on both ends, Chuck Norris can stretch diamonds back into coal.",
@@ -411,9 +411,9 @@ $chuck = array(
 	"Sticks and stones may break your bones, but a Chuck Norris glare will liquefy your kidneys.",
 	"Human cloning is outlawed because if Chuck Norris were cloned, then it would be possible for a Chuck Norris roundhouse kick to meet another chuck Norris roundhouse kick. Physicists theorize that this contact would end the universe.",
 	"Chuck Norris once went skydiving, but promised never to do it again. One Grand Canyon is enough.",
-	"Chuck Norris's version of a &quot;chocolate milkshake&quot; is a raw porterhouse 	wrapped around ten Hershey bars, and doused in diesel fuel.",
-	"If Chuck Norris round-house kicks you, you will die. If Chuck Norris' 	misses you with the round-house kick, the wind behind the kick will tear out 	your pancreas.",
-	"In a fight between Batman and Darth Vader, the winner would be Chuck 	Norris.",
+	"Chuck Norris's version of a &quot;chocolate milkshake&quot; is a raw porterhouse wrapped around ten Hershey bars, and doused in diesel fuel.",
+	"If Chuck Norris round-house kicks you, you will die. If Chuck Norris' misses you with the round-house kick, the wind behind the kick will tear out your pancreas.",
+	"In a fight between Batman and Darth Vader, the winner would be Chuck Norris.",
 	"Chuck Norris puts his pants on one leg at a time, just like the rest of us. The only difference is, then he kills people. ",
 	"Everybody loves Raymond. Except Chuck Norris.",
 	"Contrary to popular belief, the Titanic didn't hit an iceberg. The ship was off course and accidentally ran into Chuck Norris while he was doing the backstroke across the Atlantic.",
@@ -735,7 +735,7 @@ $chuck = array(
 	"Some people say that Chuck Norris is a myth. Those &quot;some people&quot; are now dead.",
 	"When Chuck Norris sneezes, he doesn't say &quot;Atchoo&quot; he says &quot;DIE EVERYONE!!!&quot;. That's what happens next.",
 	"Chuck Norris eats a bowl of diamonds every morning.",
-	"Chuck Norris is not only a noun, but a verb."); 
+	"Chuck Norris is not only a noun, but a verb.");
 
 if (preg_match("/^chuck/i", $message)) {
 	$sendto->reply(Util::rand_array_value($chuck));

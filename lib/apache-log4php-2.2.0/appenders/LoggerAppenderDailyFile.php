@@ -21,27 +21,27 @@
 /**
  * An Appender that automatically creates a new logfile each day.
  *
- * The file is rolled over once a day. That means, for each day a new file 
- * is created. A formatted version of the date pattern is used as to create 
+ * The file is rolled over once a day. That means, for each day a new file
+ * is created. A formatted version of the date pattern is used as to create
  * the file name using the {@link PHP_MANUAL#sprintf} function.
  *
  * This appender uses a layout.
- * 
+ *
  * Configurable parameters for this appender are:
- * - datePattern - The date format for the file name. Should be set before 
+ * - datePattern - The date format for the file name. Should be set before
  *                 $file. Default value: "Ymd".
- * - file        - The path to the target log file. The filename should 
+ * - file        - The path to the target log file. The filename should
  *                 contain a '%s' which will be substituted by the date.
  * - append      - Sets if the appender should append to the end of the
- *                 file or overwrite content ("true" or "false"). Default 
+ *                 file or overwrite content ("true" or "false"). Default
  *                 value: true.
- * 
+ *
  * An example php file:
- * 
+ *
  * {@example ../../examples/php/appender_dailyfile.php 19}
- *  
+ *
  * An example configuration file:
- * 
+ *
  * {@example ../../examples/resources/appender_dailyfile.properties 18}
  *
  * The above will create a file like: daily_20090908.log
@@ -53,12 +53,12 @@
 class LoggerAppenderDailyFile extends LoggerAppenderFile {
 
 	/**
-	 * Format date. 
+	 * Format date.
 	 * It follows the {@link PHP_MANUAL#date()} formatting rules and <b>should always be set before {@link $file} param</b>.
 	 * @var string
 	 */
 	protected $datePattern = "Ymd";
-	
+
 	/**
 	 * Sets date format for the file name.
 	 * @param string $datePattern a regular date() string format
@@ -66,30 +66,30 @@ class LoggerAppenderDailyFile extends LoggerAppenderFile {
 	public function setDatePattern($datePattern) {
 		$this->setString('datePattern', $datePattern);
 	}
-	
+
 	/**
 	 * @return string returns date format for the filename
 	 */
 	public function getDatePattern() {
 		return $this->datePattern;
 	}
-	
-	/** 
-	 * Similar to parent method, but but replaces "%s" in the file name with 
+
+	/**
+	 * Similar to parent method, but but replaces "%s" in the file name with
 	 * the current date in format specified by the 'datePattern' parameter.
-	 */ 
+	 */
 	public function activateOptions() {
 		$fileName = $this->getFile();
 		$date = date($this->getDatePattern());
 		$fileName = sprintf($fileName, $date);
-		
+
 		if(!is_file($fileName)) {
 			$dir = dirname($fileName);
 			if(!is_dir($dir)) {
 				mkdir($dir, 0777, true);
 			}
 		}
-	
+
 		$this->fp = fopen($fileName, ($this->getAppend()? 'a':'w'));
 		if($this->fp) {
 			if(flock($this->fp, LOCK_EX)) {

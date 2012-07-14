@@ -12,7 +12,7 @@ if (preg_match("/^history (.+) (\d)$/i", $message, $arr) || preg_match("/^histor
 			return;
 		}
 	}
-	
+
 	$link = array();
 	$history = new history($name, $dimension);
 	if ($history->errorCode != 0) {
@@ -27,19 +27,19 @@ if (preg_match("/^history (.+) (\d)$/i", $message, $arr) || preg_match("/^histor
 		$lh .= "<tab><tab><a href='chatcmd:///tell <myname> whois $name'>Whois</a>\n";
 		$lh .= "<tab><tab><a href='chatcmd:///cc addbuddy $name'>Add to your friendslist</a>\n";
 		$lh .= "<tab><tab><a href='chatcmd:///cc rembuddy $name'>Remove from your friendslist</a>\n\n";
-		
+
 		$lh .= "Date           Level    AI     Faction      Guild(rank) \n";
 		$lh .= "________________________________________________ \n";
 		$l = "";
 		forEach ($history->data as $key => $data) {
 			$level = $data["level"];
-			
+
 			if ($data["ailevel"] == "") {
 				$ailevel = "<green>0<end>";
 			} else {
 				$ailevel = "<green>".$data["ailevel"]."<end>";
 			}
-			
+
 			if ($data["faction"] == "Omni") {
 				$faction = "<omni>Omni<end>";
 			} else if ($data["faction"] == "Clan") {

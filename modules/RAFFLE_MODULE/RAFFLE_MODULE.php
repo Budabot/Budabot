@@ -17,7 +17,7 @@
 
 	// Raffle message
 	$command->register($MODULE_NAME, "", "raffle.php", "raffle", "all", "Raffle off items to players", "raffle.txt");
-	
+
 	// Timer
 	$event->register($MODULE_NAME, "2sec", "check_raffle.php", "Checks to see if raffle is over");
 

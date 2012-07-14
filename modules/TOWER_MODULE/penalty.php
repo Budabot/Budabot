@@ -16,7 +16,7 @@ if (preg_match("/^penalty$/i", $message) || preg_match("/^penalty ([a-z0-9]+)$/i
 	$penaltyTimeString = Util::unixtime_to_readable($time, false);
 
 	$data = $towers->getSitesInPenalty(time() - $time);
-	
+
 	if (count($data) > 0) {
 		$blob = '';
 		$current_faction = '';

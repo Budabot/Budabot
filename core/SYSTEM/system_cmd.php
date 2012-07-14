@@ -12,7 +12,7 @@ if (preg_match("/^system$/i", $message, $arr)) {
 	$sql = "SELECT count(*) AS count FROM players";
 	$row = $db->queryRow($sql);
 	$num_player_cache = $row->count;
-	
+
 	$num_friendlist = 0;
 	forEach ($buddylistManager->buddyList as $key => $value) {
 		if (!isset($value['name'])) {
@@ -26,7 +26,7 @@ if (preg_match("/^system$/i", $message, $arr)) {
 	$blob = "Name: <highlight><myname><end>\n";
 	$blob .= "SuperAdmin: <highlight>'{$chatBot->vars['SuperAdmin']}'<end>\n";
 	$blob .= "Guild: <highlight>'<myguild>' (" . $chatBot->vars['my_guild_id'] . ")<end>\n\n";
-	
+
 	$blob .= "Budabot: <highlight>$version<end>\n";
 	$blob .= "PHP: <highlight>" . phpversion() . "<end>\n";
 	$blob .= "OS: <highlight>" . php_uname('s') . ' ' . php_uname('r') . ' ' . php_uname('m') . "<end>\n";

@@ -1,10 +1,10 @@
 <?php
     require_once 'CommandSearchView.class.php';
     require_once 'CommandSearchController.class.php';
-    
+
     $chatBot->registerInstance($MODULE_NAME, 'CommandSearchView', new CommandSearchView);
     $chatBot->registerInstance($MODULE_NAME, 'CommandSearchController', new CommandSearchController);
-    
+
 	$command->activate("msg", "$MODULE_NAME/cmdcfg.php", "config", "mod");
 	$command->activate("guild", "$MODULE_NAME/cmdcfg.php", "config", "mod");
 	$command->activate("priv", "$MODULE_NAME/cmdcfg.php", "config", "mod");

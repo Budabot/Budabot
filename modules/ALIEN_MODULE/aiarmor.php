@@ -28,124 +28,124 @@ if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) ||
 			$ql = 300;
 		}
 	}
-		
+
 	$trg_ql = $ql;
-  	$src_ql = floor($trg_ql * 0.8);
-  	
+	$src_ql = floor($trg_ql * 0.8);
+
 	switch ($armortype) {
 	    case 'cc':
-	    	//Result
-	    	$icon_armor_result = 256308;
-	    	$name_armor_result = "Combined Commando's";
-	    	$lowid_armor_result = 246659;
-	    	$highid_armor_result = 246660;
+		//Result
+		$icon_armor_result = 256308;
+		$name_armor_result = "Combined Commando's";
+		$lowid_armor_result = 246659;
+		$highid_armor_result = 246660;
 			//Source
 			$icon_armor_src = 256362;
-	    	$name_armor_src = "Strong";
-	    	$lowid_armor_src = 246615;
-	    	$highid_armor_src = 246616;
+		$name_armor_src = "Strong";
+		$lowid_armor_src = 246615;
+		$highid_armor_src = 246616;
 
 			//Target
 			$icon_armor_trg = 256296;
-	    	$name_armor_trg = "Supple";
-	    	$lowid_armor_trg = 246621;
-	    	$highid_armor_trg = 246622;
-	    	break;
+		$name_armor_trg = "Supple";
+		$lowid_armor_trg = 246621;
+		$highid_armor_trg = 246622;
+		break;
 	    case 'cm':
-	    	//Result
-	    	$icon_armor_result = 256356;
-	    	$name_armor_result = "Combined Mercenary's";
-	    	$lowid_armor_result = 246637;
-	    	$highid_armor_result = 246638;
+		//Result
+		$icon_armor_result = 256356;
+		$name_armor_result = "Combined Mercenary's";
+		$lowid_armor_result = 246637;
+		$highid_armor_result = 246638;
 
 			//Source
 			$icon_armor_src = 256362;
-	    	$name_armor_src = "Strong";
-	    	$lowid_armor_src = 246615;
-	    	$highid_armor_src = 246616;
+		$name_armor_src = "Strong";
+		$lowid_armor_src = 246615;
+		$highid_armor_src = 246616;
 
 			//Target
 			$icon_armor_trg = 256344;
-	    	$name_armor_trg = "Enduring";
-	    	$lowid_armor_trg = 246579;
-	    	$highid_armor_trg = 246580;
-	    	break;
+		$name_armor_trg = "Enduring";
+		$lowid_armor_trg = 246579;
+		$highid_armor_trg = 246580;
+		break;
 	    case 'co':
-	    	//Result
-	    	$icon_armor_result = 256320;
-	    	$name_armor_result = "Combined Officer's";
-	    	$lowid_armor_result = 246671;
-	    	$highid_armor_result = 246672;
+		//Result
+		$icon_armor_result = 256320;
+		$name_armor_result = "Combined Officer's";
+		$lowid_armor_result = 246671;
+		$highid_armor_result = 246672;
 
 			//Source
 			$icon_armor_src = 256332;
-	    	$name_armor_src = "Spiritual";
-	    	$lowid_armor_src = 246599;
-	    	$highid_armor_src = 246600;
+		$name_armor_src = "Spiritual";
+		$lowid_armor_src = 246599;
+		$highid_armor_src = 246600;
 
 			//Target
 			$icon_armor_trg = 256314;
-	    	$name_armor_trg = "Arithmetic";
-	    	$lowid_armor_trg = 246559;
-	    	$highid_armor_trg = 246560;
-	    	break;
+		$name_armor_trg = "Arithmetic";
+		$lowid_armor_trg = 246559;
+		$highid_armor_trg = 246560;
+		break;
 	    case 'cp':
-	    	//Result
-	    	$icon_armor_result = 256350;
-	    	$name_armor_result = "Combined Paramedic's";
-	    	$lowid_armor_result = 246647;
-	    	$highid_armor_result = 246648;
+		//Result
+		$icon_armor_result = 256350;
+		$name_armor_result = "Combined Paramedic's";
+		$lowid_armor_result = 246647;
+		$highid_armor_result = 246648;
 
 			//Source
 			$icon_armor_src = 256332;
-	    	$name_armor_src = "Spiritual";
-	    	$lowid_armor_src = 246599;
-	    	$highid_armor_src = 246600;
+		$name_armor_src = "Spiritual";
+		$lowid_armor_src = 246599;
+		$highid_armor_src = 246600;
 
 			//Target
 			$icon_armor_trg = 256344;
-	    	$name_armor_trg = "Enduring";
-	    	$lowid_armor_trg = 246579;
-	    	$highid_armor_trg = 246580;
-	    	break;
+		$name_armor_trg = "Enduring";
+		$lowid_armor_trg = 246579;
+		$highid_armor_trg = 246580;
+		break;
 	    case 'cs':
-	    	//Result
-	    	$icon_armor_result = 256326;
-	    	$name_armor_result = "Combined Scout's";
-	    	$lowid_armor_result = 246683;
-	    	$highid_armor_result = 246684;
+		//Result
+		$icon_armor_result = 256326;
+		$name_armor_result = "Combined Scout's";
+		$lowid_armor_result = 246683;
+		$highid_armor_result = 246684;
 
 			//Source
 			$icon_armor_src = 256338;
-	    	$name_armor_src = "Observant";
-	    	$lowid_armor_src = 246591;
-	    	$highid_armor_src = 246592;
+		$name_armor_src = "Observant";
+		$lowid_armor_src = 246591;
+		$highid_armor_src = 246592;
 
 			//Target
 			$icon_armor_trg = 256314;
-	    	$name_armor_trg = "Arithmetic";
-	    	$lowid_armor_trg = 246559;
-	    	$highid_armor_trg = 246560;
-	    	break;
+		$name_armor_trg = "Arithmetic";
+		$lowid_armor_trg = 246559;
+		$highid_armor_trg = 246560;
+		break;
 		case 'css':
 	    case 'ss':
-	    	//Result
-	    	$icon_armor_result = 256302;
-	    	$name_armor_result = "Combined Sharpshooter's";
-	    	$lowid_armor_result = 246695;
-	    	$highid_armor_result = 246696;
+		//Result
+		$icon_armor_result = 256302;
+		$name_armor_result = "Combined Sharpshooter's";
+		$lowid_armor_result = 246695;
+		$highid_armor_result = 246696;
 
 			//Source
 			$icon_armor_src = 256338;
-	    	$name_armor_src = "Observant";
-	    	$lowid_armor_src = 246591;
-	    	$highid_armor_src = 246592;
+		$name_armor_src = "Observant";
+		$lowid_armor_src = 246591;
+		$highid_armor_src = 246592;
 
 			//Target
 			$icon_armor_trg = 256296;
-	    	$name_armor_trg = "Supple";
-	    	$lowid_armor_trg = 246621;
-	    	$highid_armor_trg = 246622;
+		$name_armor_trg = "Supple";
+		$lowid_armor_trg = 246621;
+		$highid_armor_trg = 246622;
 	    break;
 	}
 
@@ -157,7 +157,7 @@ if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) ||
 	$list .= "<img src=rdb://$icon_armor_src>\n";
 	$list .= "<a href='itemref://$lowid_armor_src/$highid_armor_src/$src_ql'>QL$src_ql $name_armor_src</a> (";
 	$list .= Text::make_chatcmd("Tradeskill process for this item", "/tell <myname> aiarmor $name_armor_src $src_ql").")\n\n";
-	
+
 	$list .= "<u>Target Armor</u>\n";
 	$list .= "<img src=rdb://$icon_armor_trg>\n";
 	$list .= "<a href='itemref://$lowid_armor_trg/$highid_armor_trg/$trg_ql'>QL$trg_ql $name_armor_trg</a> (";
@@ -167,7 +167,7 @@ if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) ||
 } else if (preg_match("/^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual)$/i", $message, $arr) ||
 		preg_match("/^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual) ([0-9]+)/i", $message, $arr1) ||
 		preg_match("/^aiarmor ([0-9]+) (strong|supple|enduring|observant|arithmetic|spiritual)/i", $message, $arr2)) {
-	
+
 	if ($arr2) {
 		$armortype = ucfirst(strtolower($arr2[2]));
 		if ($arr2[1] >= 1 && $arr2[1] <= 300) {
@@ -192,8 +192,8 @@ if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) ||
 			$ql = 300;
 		}
 	}
-		
-  	$misc_ql = floor($ql * 0.8);
+
+	$misc_ql = floor($ql * 0.8);
 
 	$list = " Note: <highlight>All tradeskill processes are based on the lowest QL items usable.<end>\n\n";
 	$list .= "<highlight>You need the following items to build $armortype Armor:\n<end>";
@@ -230,7 +230,7 @@ if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) ||
 	$list .= "<tab><img src=rdb://255705>\n<a href='itemref://247108/247109/$ql'>QL$ql Mutated Kyr'Ozch Biomaterial</a> or <a href='itemref://247106/247107/$ql'>QL$ql Pristine Kyr'Ozch Biomaterial</a>\n";
 	$list .= "<highlight>Required Skills:<end>\n";
 	$list .= "- ".ceil($ql * 4.5)." Chemistry (Both require the same amount)\n\n";
-	
+
 	$list .= "<highlight><u>Step 4</u><end>\n";
 	$list .= "<tab><img src=rdb://255705>\n<a href='itemref://247108/247109/$ql'>QL$ql Mutated Kyr'Ozch Biomaterial</a> or <a href='itemref://247106/247107/$ql'>QL$ql Pristine Kyr'Ozch Biomaterial</a>\n";
 	$list .= "<tab><tab>+\n";
@@ -240,7 +240,7 @@ if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) ||
 	$list .= "<highlight>Required Skills:<end>\n";
 	$list .= "- ".ceil($ql * 4.5)." Chemistry(for Pristine)\n";
 	$list .= "- ".ceil($ql * 7)." Chemistry(for Mutated)\n\n";
-	
+
 	$list .= "<highlight><u>Step 5</u><end>\n";
 	$list .= "<tab><img src=rdb://247115>\n<a href='itemref://247111/247112/$ql'>Generic Kyr'Ozch DNA Soup</a>\n";
 	$list .= "<tab><tab>+\n";
@@ -268,7 +268,7 @@ if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) ||
 
 	$list .= "<highlight><u>Step 8</u><end>\n";
 	$list .= "<tab><img src=rdb://100337>\n";
-	
+
 	$vb_ql = floor($ql * 0.8);
 	switch ($armortype) {
 		case "Arithmetic":
@@ -315,7 +315,7 @@ if (preg_match("/^aiarmor (cc|cm|co|cp|cs|css|ss)$/i", $message, $arr) ||
 	}
 	$list .= "<highlight>Required Skills:<end>\n";
 	$list .= "- ".floor($ql * 6)." Psychology\n\n";
-		
+
 	$msg = Text::make_blob("Building process for $ql $armortype", $list);
 	$sendto->reply($msg);
 } else {

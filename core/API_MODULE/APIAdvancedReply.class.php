@@ -6,7 +6,7 @@ class APIAdvancedReply implements CommandReply {
 	public function reply($message) {
 		$this->output = $message;
 	}
-	
+
 	public function getOutput() {
 		return $this->output;
 	}

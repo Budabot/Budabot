@@ -4,10 +4,10 @@ class SignupController {
 
 	/** @Inject */
 	public $db;
-	
+
 	/** @Inject */
 	public $chatBot;
-	
+
 	/** @Inject */
 	public $text;
 
@@ -36,16 +36,16 @@ class SignupController {
 		} else {
 			return false;
 		}
-		
+
 		$sendto->reply($msg);
 	}
-	
+
 	public function showSignupLists() {
 		$data = $this->db->query("SELECT * FROM signup_lists ORDER BY name ASC");
 		if (count($data) == 0) {
 			return "No signup lists have been created yet.";
 		}
-		
+
 		$blob = '';
 		forEach ($data as $row) {
 			$viewListLink = $this->text->make_chatcmd($row->name, "/tell <myname> signup $row->id");
@@ -54,64 +54,64 @@ class SignupController {
 		}
 		return $this->text->make_blob("Signup Lists", $blob);
 	}
-	
+
 	public function addList($name, $owner) {
 		$row = $this->db->queryRow("SELECT id FROM signup_lists WHERE name LIKE ?", $name);
 		if ($row !== null) {
 			return "A list already exists with that name.";
 		}
-		
+
 		$this->db->exec("INSERT INTO signup_lists (name, owner, dt) VALUES (?, ?, ?)", $name, $owner, time());
 		return "A list with name <highlight>$name<end> has been created successfully.";
 	}
-	
+
 	public function removeList($id, $owner) {
 		$row = $this->db->queryRow("SELECT id FROM signup_lists WHERE id = ?", $id);
 		if ($row === null) {
 			return "There is no list with id <highlight>$id<end>.";
 		}
-		
+
 		$this->db->exec("DELETE FROM signup_lists WHERE id = ?", $id);
 		$this->db->exec("DELETE FROM signup_characters WHERE list_id = ?", $id);
 		return "The list <highlight>$row->name<end> has been deleted successfully.";
 	}
-	
+
 	public function assignToList($id, $sender) {
 		$list = $this->db->queryRow("SELECT * FROM signup_lists WHERE id = ?", $id);
 		if ($list === null) {
 			return "There is no list that exists with that id.";
 		}
-	
+
 		$row = $this->db->queryRow("SELECT name FROM signup_characters WHERE list_id = ? AND name LIKE ?", $id, $sender);
 		if ($row !== null) {
 			return "<highlight>$sender<end> has already been assigned to the list <highlight>$list->name<end>.";
 		}
-		
+
 		$this->db->exec("INSERT INTO signup_characters (list_id, name) VALUES (?,?)", $id, $sender);
 		return "<highlight>$sender<end> has been assigned to the list <highlight>$list->name<end> successfully.";
 	}
-	
+
 	public function unassignFromList($id, $sender) {
 		$list = $this->db->queryRow("SELECT * FROM signup_lists WHERE id = ?", $id);
 		if ($list === null) {
 			return "There is no list that exists with that id.";
 		}
-	
+
 		$row = $this->db->queryRow("SELECT name FROM signup_characters WHERE list_id = ? AND name LIKE ?", $id, $sender);
 		if ($row === null) {
 			return "<highlight>$sender<end> is not assigned to the list <highlight>$list->name<end>.";
 		}
-		
+
 		$this->db->exec("DELETE FROM signup_characters WHERE list_id = ? AND name = ?", $id, $sender);
 		return "<highlight>$sender<end> has been unassigned from the list <highlight>$list->name<end> successfully.";
 	}
-	
+
 	public function viewList($id) {
 		$list = $this->db->queryRow("SELECT * FROM signup_lists WHERE id LIKE ?", $id);
 		if ($list === null) {
 			return "There is no list that exists with that id.";
 		}
-		
+
 		$blob = "Owner: <highlight>$list->owner<end>\n";
 		$blob .= "Added: <highlight>" . date(Util::DATETIME, $list->dt) . "<end>\n\n";
 

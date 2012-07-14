@@ -15,17 +15,17 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 	$search = strtolower($arr[1]);
 
 	$blob = "Results of Search for '$search'\n\n";
-	
+
 	// Find boss by name or key
 	$bosses = $db->query("SELECT * FROM boss_namedb b LEFT JOIN whereis w ON b.bossname = w.name WHERE bossname LIKE ? OR keyname LIKE ?", "%{$search}%", "%{$search}%");
 	$count = count($bosses);
-	
+
 	if ($count > 1) {
 		//If multiple matches found output list of bosses
 		forEach ($bosses as $row) {
 			$blob .= '<pagebreak>' . Text::make_chatcmd($row->name, "/tell <myname> boss $row->name") . "\n";
 			$blob .= "<green>Can be found {$row->answer}<end>\nDrops: ";
-			
+
 			// get loot
 			$data = $db->query("SELECT * FROM boss_lootdb b LEFT JOIN aodb a ON (b.itemid = a.lowid OR b.itemid = a.highid) WHERE b.bossid = ?", $row->bossid);
 			forEach ($data as $row2) {
@@ -37,9 +37,9 @@ if (preg_match ("/^boss (.+)$/i", $message, $arr)) {
 	} else if ($count == 1) {
 		//If single match found, output full loot table
 		$row = $bosses[0];
-		
+
 		$blob .= "<yellow>{$row->bossname}<end>\n\n";
-		
+
 		$blob .= "<green>Can be found {$row->answer}<end>\n\n";
 		$blob .= "Loot:\n\n";
 

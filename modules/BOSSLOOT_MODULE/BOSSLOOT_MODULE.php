@@ -3,7 +3,7 @@
 	Bossloot Module Ver 1.1
 	Written By Jaqueme
 	For Budabot
-	Database Adapted From One Originally 
+	Database Adapted From One Originally
 	Compiled by Malosar For BeBot
 	Boss Drop Table Database Module
 	Written 5/11/07
@@ -12,7 +12,7 @@
 
     $db->loadSQLFile($MODULE_NAME, "boss_namedb");
 	$db->loadSQLFile($MODULE_NAME, "boss_lootdb");
-	
+
 	$command->register($MODULE_NAME, "", "boss.php", "boss", "all", "Show bosses and their loot", "boss.txt");
 	$command->register($MODULE_NAME, "", "bossloot.php", "bossloot", "all", "Find which boss drops certain loot", "boss.txt");
 ?>

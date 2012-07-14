@@ -3,7 +3,7 @@
 function formatSpiritOutput($data) {
 	$chatBot = Registry::getInstance('chatBot');
 	$db = Registry::getInstance('db');
-	
+
 	if (count($data) == 0) {
 		return "No matches found.";
 	}
@@ -14,7 +14,7 @@ function formatSpiritOutput($data) {
 		$lvl = $row->level;
 		$lowid = $row->id;
 		$agi = $row->agility;
-		
+
 		$data2 = $db->query("SELECT * FROM aodb WHERE lowid = ?", $lowid);
 		forEach ($data2 as $row); {
 			$highid = $row->highid;
@@ -44,7 +44,7 @@ function getValidSlotTypes() {
 	$output .= "Lhand\n";
 	$output .= "Rhand\n";
 	$output .= "Feet\n";
-	
+
 	return $output;
 }
 

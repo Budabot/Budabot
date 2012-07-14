@@ -56,7 +56,7 @@
  * M - mapping [see t.class in ao_nosign.jar] - unsupported
  *
  */
- 
+
 /* Packet type definitions - so we won't have to use the number IDs
 * .. I did not distinct between server and client message types, as
 * they are mostly the same for same type packets, but maybe it should
@@ -264,5 +264,5 @@ class AOChatPacket {
 		return true;
 	}
 }
-  
+
 ?>

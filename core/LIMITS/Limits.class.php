@@ -4,13 +4,13 @@ class Limits {
 
 	/** @Inject */
 	public $setting;
-	
+
 	/** @Inject */
 	public $accessLevel;
-	
+
 	/** @Inject */
 	public $player;
-	
+
 	/** @Inject */
 	public $whitelist;
 

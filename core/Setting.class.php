@@ -36,19 +36,19 @@ help = Helpfile for this setting
 class Setting extends Annotation {
 	/** @Inject */
 	public $db;
-	
+
 	/** @Inject */
 	public $chatBot;
-	
+
 	/** @Inject */
 	public $util;
-	
+
 	/** @Inject */
 	public $help;
-	
+
 	/** @Logger */
 	public $logger;
-	
+
 	public $settings = array();
 
 	/**
@@ -63,19 +63,19 @@ class Setting extends Annotation {
 	 * @param: $admin - the permission level needed to change this setting (default: mod) (optional)
 	 * @param: $help - a help file for this setting; if blank, will use a help topic with the same name as this setting if it exists (optional)
 	 * @description: Adds a new setting
-	 */	
+	 */
 	public function add($module, $name, $description, $mode, $type, $value, $options = '', $intoptions = '', $admin = 'mod', $help = '') {
 		$name = strtolower($name);
 		$type = strtolower($type);
-		
+
 		if ($admin == '') {
 			$admin = 'mod';
 		}
-		
+
 		if (!in_array($type, array('color', 'number', 'text', 'options', 'time'))) {
 			$this->logger->log('ERROR', "Error in registering Setting $module:setting($name). Type should be one of: 'color', 'number', 'text', 'options', 'time'. Actual: '$type'.");
 		}
-		
+
 		if ($type == 'time') {
 			$oldvalue = $value;
 			$value = $this->util->parseTime($value);
@@ -84,16 +84,16 @@ class Setting extends Annotation {
 				return;
 			}
 		}
-		
+
 		$help = $this->help->checkForHelpFile($module, $help, $name);
 
 		if (array_key_exists($name, $this->chatBot->existing_settings)) {
 			$sql = "UPDATE settings_<myname> SET `module` = ?, `type` = ?, `mode` = ?, `options` = ?, `intoptions` = ?, `description` = ?, `admin` = ?, `verify` = 1, `help` = ? WHERE `name` = ?";
 			$this->db->exec($sql, $module, $type, $mode, $options, $intoptions, $description, $admin, $help, $name);
-	  	} else {
+		} else {
 			$sql = "INSERT INTO settings_<myname> (`name`, `module`, `type`, `mode`, `value`, `options`, `intoptions`, `description`, `source`, `admin`, `verify`, `help`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			$this->db->exec($sql, $name, $module, $type, $mode, $value, $options, $intoptions, $description, 'db', $admin, '1', $help);
-		  	$this->settings[$name] = $value;
+			$this->settings[$name] = $value;
 		}
 	}
 
@@ -101,14 +101,14 @@ class Setting extends Annotation {
 	 * @name: get
 	 * @description: Gets the value of a setting
 	 * @return: the value of the setting, or false if a setting with that name does not exist
-	 */	
+	 */
 	public function get($name) {
 		$name = strtolower($name);
 		if (array_key_exists($name, $this->settings)) {
-	  		return $this->settings[$name];
-	  	} else {
+			return $this->settings[$name];
+		} else {
 			$this->logger->log("ERROR", "Could not retrieve value for setting '$name' because setting does not exist");
-	  		return false;
+			return false;
 		}
 	}
 
@@ -118,7 +118,7 @@ class Setting extends Annotation {
 	 * @param: $name - the name of the setting
 	 * @param: @value - the new value to set the setting to
 	 * @return: false if the setting with that name does not exist, true otherwise
-	 */	
+	 */
 	public function save($name, $value) {
 		$name = strtolower($name);
 
@@ -131,7 +131,7 @@ class Setting extends Annotation {
 			return false;
 		}
 	}
-	
+
 	public function displayValue($row) {
 		$options = explode(";", $row->options);
 		if ($row->type == "color") {
@@ -147,7 +147,7 @@ class Setting extends Annotation {
 			return "<highlight>{$row->value}<end>\n";
 		}
 	}
-	
+
 	public function upload() {
 		$this->settings = array();
 

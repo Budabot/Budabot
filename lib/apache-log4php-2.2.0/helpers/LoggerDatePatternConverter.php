@@ -28,7 +28,7 @@ class LoggerDatePatternConverter extends LoggerPatternConverter {
 	 * @var string
 	 */
 	private $df;
-	
+
 	/**
 	 * Constructor
 	 *

@@ -24,21 +24,21 @@
  * This appender has no configurable parameters.
  *
  * Levels are mapped as follows:
- * 
+ *
  * - <b>level < WARN</b> mapped to E_USER_NOTICE
  * - <b>WARN <= level < ERROR</b> mapped to E_USER_WARNING
- * - <b>level >= ERROR</b> mapped to E_USER_ERROR  
+ * - <b>level >= ERROR</b> mapped to E_USER_ERROR
  *
  * An example:
- * 
+ *
  * {@example ../../examples/php/appender_php.php 19}
- * 
+ *
  * {@example ../../examples/resources/appender_php.properties 18}
  *
  * @version $Revision: 1166182 $
  * @package log4php
  * @subpackage appenders
- */ 
+ */
 class LoggerAppenderPhp extends LoggerAppender {
 
 	public function append(LoggerLoggingEvent $event) {

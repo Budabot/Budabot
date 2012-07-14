@@ -3,7 +3,7 @@
 class AltInfo {
 	public $main; // The main for this character
 	public $alts = array(); // The list of alts for this character
-	
+
 	public function is_validated($sender) {
 		if ($sender == $this->main) {
 			return true;
@@ -62,16 +62,16 @@ class AltInfo {
 			} else {
 				$blob .= " - <red>Offline<end>";
 			}
-			
+
 			if ($showValidateLinks && $setting->get('alts_inherit_admin') == 1 && $row->validated == 0) {
 				$blob .= " [Unvalidated] " . Text::make_chatcmd('Validate', "/tell <myname> <symbol>altvalidate {$row->alt}");
 			}
-			
+
 			$blob .= "\n";
 		}
-		
+
 		$msg = Text::make_blob("Alts of {$this->main}", $blob);
-		
+
 		if ($firstPageOnly && is_array($msg)) {
 			return $msg[0];
 		} else {
@@ -86,28 +86,28 @@ class AltInfo {
 		if ($buddylistManager->is_online($this->main)) {
 			$online_list []= $this->main;
 		}
-		
+
 		forEach ($this->alts as $name => $validated) {
 			if ($buddylistManager->is_online($name)) {
 				$online_list []= $name;
 			}
 		}
-		
+
 		return $online_list;
 	}
-	
+
 	public function get_all_alts() {
 		$online_list = array();
 
 		$online_list []= $this->main;
-		
+
 		forEach ($this->alts as $name => $validated) {
 			$online_list []= $name;
 		}
-		
+
 		return $online_list;
 	}
-	
+
 	public function hasUnvalidatedAlts() {
 		forEach ($this->get_all_alts() as $alt) {
 			if (!$this->is_validated($alt)) {
@@ -122,16 +122,16 @@ class Alts {
 	public static function get_alt_info($player) {
 		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
-		
+
 		$player = ucfirst(strtolower($player));
-		
+
 		$ai = new AltInfo();
-		
+
 		$sql = "SELECT `alt`, `main`, `validated` FROM `alts` WHERE (`main` LIKE ?) OR (`main` LIKE (SELECT `main` FROM `alts` WHERE `alt` LIKE ?))";
 		$data = $db->query($sql, $player, $player);
-		
+
 		$isValidated = 0;
-		
+
 		if (count($data) > 0) {
 			forEach ($data as $row) {
 				$ai->main = $row->main;
@@ -140,25 +140,25 @@ class Alts {
 		} else {
 			$ai->main = $player;
 		}
-		
+
 		return $ai;
 	}
-	
+
 	public static function add_alt($main, $alt, $validated) {
 		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
-		
+
 		$main = ucfirst(strtolower($main));
 		$alt = ucfirst(strtolower($alt));
-		
+
 		$sql = "INSERT INTO `alts` (`alt`, `main`, `validated`) VALUES (?, ?, ?)";
 		return $db->exec($sql, $alt, $main, $validated);
 	}
-	
+
 	public static function rem_alt($main, $alt) {
 		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
-		
+
 		$sql = "DELETE FROM `alts` WHERE `alt` LIKE ? AND `main` LIKE ?";
 		return $db->exec($sql, $alt, $main);
 	}

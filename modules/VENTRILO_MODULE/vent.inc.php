@@ -15,10 +15,10 @@ define( "VENT_MAXPACKETNO", 32 );
 function displayChannel(&$channel, &$clientlist, $prefix, &$output) {
 	$prefix .= "    ";
 	$output .= "<grey>--+<end> ";
-	
+
 	if ($channel->m_prot == 1) {
-		$output .= "<orange>{$channel->m_name}<end>\n";	
-	} else {	
+		$output .= "<orange>{$channel->m_name}<end>\n";
+	} else {
 		$output .= "{$channel->m_name}\n";
 	}
 	forEach($clientlist as $user) {
@@ -168,7 +168,7 @@ class Vent {
 	function getClock()			{ return $this->clock; }
 	function getTimeout()			{ return $this->timeout; }
 	function setTimeout( $microsecs )	{ $this->timeout = $microsecs; }
-	function &getPackets()		{ return $this->packets; } 		// by ref
+	function &getPackets()		{ return $this->packets; } // by ref
 	function getResponse()		{ return $this->response; }
 
 /* makeRequest: send off a request to the vent server, return true/false. I'm not checking
@@ -314,8 +314,8 @@ class VentPacket {
 *	have lost the ordering.
 */
 	function mapHeader() {
-		$this->head_items = array( & $this->headkey, 	& $this->zero,	& $this->cmd,	& $this->id,
-		& $this->totlen, 	& $this->len,	& $this->totpck,	& $this->pck,
+		$this->head_items = array( & $this->headkey,	& $this->zero,	& $this->cmd,	& $this->id,
+		& $this->totlen,	& $this->len,	& $this->totpck,	& $this->pck,
 		& $this->datakey,	& $this->crc );
 	}
 
@@ -442,7 +442,7 @@ class VentResponsePacket extends VentPacket {
 		$a1 = smallCast( $key, 8 );
 		$a2 = $key >> 8;
 
-		if ( $a1 == 0 ) { 
+		if ( $a1 == 0 ) {
 			echo("ERROR: Invalid packet. Header key is invalid.\n");
 			return false;
 		}
@@ -490,7 +490,7 @@ class VentResponsePacket extends VentPacket {
 		$a1 = smallCast( $this->datakey, 8 );
 		$a2 = $this->datakey >> 8;
 
-		if ( $a1 == 0 ) { 
+		if ( $a1 == 0 ) {
 			echo("ERROR: Invalid packet. Data key is invalid.\n");
 			return false;
 		}

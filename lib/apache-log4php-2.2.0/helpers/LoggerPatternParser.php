@@ -19,13 +19,13 @@
  */
 
 /**
- * Most of the work of the {@link LoggerPatternLayout} class 
+ * Most of the work of the {@link LoggerPatternLayout} class
  * is delegated to the {@link LoggerPatternParser} class.
- * 
+ *
  * <p>It is this class that parses conversion patterns and creates
  * a chained list of {@link LoggerPatternConverter} converters.</p>
- * 
- * @version $Revision: 1163520 $ 
+ *
+ * @version $Revision: 1163520 $
  * @package log4php
  * @subpackage helpers
  *
@@ -34,27 +34,27 @@
 class LoggerPatternParser {
 
 	const ESCAPE_CHAR = '%';
-	
+
 	const LITERAL_STATE = 0;
 	const CONVERTER_STATE = 1;
 	const MINUS_STATE = 2;
 	const DOT_STATE = 3;
 	const MIN_STATE = 4;
 	const MAX_STATE = 5;
-	
+
 	const FULL_LOCATION_CONVERTER = 1000;
 	const METHOD_LOCATION_CONVERTER = 1001;
 	const CLASS_LOCATION_CONVERTER = 1002;
 	const FILE_LOCATION_CONVERTER = 1003;
 	const LINE_LOCATION_CONVERTER = 1004;
-	
+
 	const RELATIVE_TIME_CONVERTER = 2000;
 	const THREAD_CONVERTER = 2001;
 	const LEVEL_CONVERTER = 2002;
 	const NDC_CONVERTER = 2003;
 	const MESSAGE_CONVERTER = 2004;
-	
-	const DATE_FORMAT_ISO8601 = 'Y-m-d H:i:s,u'; 
+
+	const DATE_FORMAT_ISO8601 = 'Y-m-d H:i:s,u';
 	const DATE_FORMAT_ABSOLUTE = 'H:i:s';
 	const DATE_FORMAT_DATE = 'd M Y H:i:s,u';
 
@@ -62,29 +62,29 @@ class LoggerPatternParser {
 	private $currentLiteral;
 	private $patternLength;
 	private $i;
-	
+
 	/**
 	 * @var LoggerPatternConverter
 	 */
 	private $head = null;
-	 
+
 	/**
 	 * @var LoggerPatternConverter
 	 */
 	private $tail = null;
-	
+
 	/**
 	 * @var LoggerFormattingInfo
 	 */
 	private $formattingInfo;
-	
+
 	/**
 	 * @var string pattern to parse
 	 */
 	private $pattern;
 
 	/**
-	 * Constructor 
+	 * Constructor
 	 *
 	 * @param string $pattern
 	 */
@@ -125,7 +125,7 @@ class LoggerPatternParser {
 
 	/**
 	 * The option is expected to be in decimal and positive. In case of
-	 * error, zero is returned.	 
+	 * error, zero is returned.
 	 */
 	public function extractPrecisionOption() {
 		$opt = $this->extractOption();
@@ -141,9 +141,9 @@ class LoggerPatternParser {
 		return $r;
 	}
 
-	
+
 	/** Parser.
-	 * 
+	 *
 	 * @return LoggerPatternConverter Returns $this->head.
 	 */
 	public function parse() {
@@ -254,7 +254,7 @@ class LoggerPatternParser {
 
 				if($dOpt !== null)
 					$dateFormatStr = $dOpt;
-					
+
 				if($dateFormatStr == 'ISO8601') {
 					$df = self::DATE_FORMAT_ISO8601;
 				} else if($dateFormatStr == 'ABSOLUTE') {

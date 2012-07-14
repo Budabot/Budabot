@@ -3,8 +3,8 @@
 if (preg_match("/^premade (.*)$/i", $message, $arr)) {
 
 	$searchTerms = strtolower($arr[1]);
-  	$results = null;
-	
+	$results = null;
+
 	$profession = Util::get_profession_name($searchTerms);
 	if ($profession != '') {
 		$searchTerms = $profession;
@@ -18,7 +18,7 @@ if (preg_match("/^premade (.*)$/i", $message, $arr)) {
 	} else {
 		$results = searchByModifier($searchTerms);
 	}
-	
+
 	if ($results != null) {
 		$blob = formatResults($results);
 		$blob .= "\n\nWritten by Tyrence (RK2)";
@@ -27,7 +27,7 @@ if (preg_match("/^premade (.*)$/i", $message, $arr)) {
 	} else {
 		$msg = "No results found.";
 	}
-  
+
     $sendto->reply($msg);
 } else {
 	$syntax_error = true;

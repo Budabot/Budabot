@@ -8,10 +8,10 @@
    **
    ** Date(created): 10.03.2006
    ** Date(last modified): 31.01.2007
-   ** 
+   **
    ** Copyright (C) 2006, 2007 Carsten Lohmann
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -28,9 +28,9 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-   
+
 if (preg_match("/^lock$/i", $message)) {
-  	if ($setting->get("priv_status") == "0") {
+	if ($setting->get("priv_status") == "0") {
 	    $msg = "Private channel is already locked.";
 		$sendto->reply($msg);
 		return;
@@ -42,13 +42,13 @@ if (preg_match("/^lock$/i", $message)) {
 	if ($type == "msg") {
 		$chatBot->sendTell($msg, $sender);
 	}
-	
+
 	$setting->save("priv_status", "0");
 } else if (preg_match("/^lock (.+)$/i", $message, $arr)) {
-  	$reason = $arr[1];
+	$reason = $arr[1];
 	if ($setting->get("priv_status") == "0") {
 	    $msg = "Private channel is already locked.";
-    	$sendto->reply($msg);
+	$sendto->reply($msg);
 		return;
 	}
 
@@ -58,13 +58,13 @@ if (preg_match("/^lock$/i", $message)) {
 	if ($type == "msg") {
 		$chatBot->sendTell($msg);
 	}
-	
+
 	$setting->save("priv_status", "0");
 	$setting->save("priv_status_reason", $reason);
 } else if (preg_match("/^unlock$/i", $message)) {
-  	if ($setting->get("priv_status") == "1") {
+	if ($setting->get("priv_status") == "1") {
 	    $msg = "Private channel is already open.";
-    	$sendto->reply($msg);
+	$sendto->reply($msg);
 		return;
 	}
 
@@ -74,7 +74,7 @@ if (preg_match("/^lock$/i", $message)) {
 	if ($type == "msg") {
 		$chatBot->sendTell($msg, $sender);
 	}
-	
+
 	$setting->save("priv_status", "1");
 	$setting->save("priv_status_reason", "none");
 } else {

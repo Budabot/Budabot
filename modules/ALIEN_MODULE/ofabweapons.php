@@ -4,9 +4,9 @@ if (!function_exists('makeAlienWeapon')) {
 	function makeAlienWeapon($ql, $name) {
 		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
-	
+
 		$row = $db->queryRow("SELECT * FROM aodb WHERE name = ? AND lowql <= ? AND highql >= ?", $name, $ql, $ql);
-		
+
 		return Text::make_item($row->lowid, $row->highid, $ql, $row->name);
 	}
 }
@@ -41,12 +41,12 @@ if (preg_match("/^ofabweapons$/i", $message, $arr)) {
 		$syntax_error = true;
 		return;
 	}
-	
+
 	$blob = '';
 	$typeQl = round(.8 * $ql);
 	$typeLink = Text::make_chatcmd("Kyr'Ozch Bio-Material - Type {$row->type}", "/tell <myname> bioinfo {$row->type} {$typeQl}");
 	$blob .= "Upgrade with $typeLink (minimum QL {$typeQl})\n\n";
-	
+
 	$qls = $db->query("SELECT DISTINCT ql FROM ofabweaponscost ORDER BY ql ASC");
 	forEach ($qls as $row2) {
 		if ($row2->ql == $ql) {

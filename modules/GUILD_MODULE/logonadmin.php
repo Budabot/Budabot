@@ -13,7 +13,7 @@ if (preg_match("/^logonadmin ([a-zA-Z0-9-]+)$/i", $message, $arr)) {
 } else if (preg_match("/^logonadmin ([a-zA-Z0-9-]+) (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 	$logon_msg = $arr[2];
-	
+
 	if ($logon_msg == 'clear') {
 		Preferences::save($name, 'logon_msg', '');
 		$msg = "The logon message for $name has been cleared.";

@@ -31,16 +31,16 @@
 
 //class provide some basic function to splice XML Files or getting an XML file from a URL
 class xml {
-	//Extracts one entry of the XML file 	
+	//Extracts one entry of the XML file
 	public function spliceData($sourcefile, $start, $end){
-	 	$data = explode($start, $sourcefile, 2);
-	 	if (!$data || (is_array($data) && count($data) < 2)) {
-	 		return "";
+		$data = explode($start, $sourcefile, 2);
+		if (!$data || (is_array($data) && count($data) < 2)) {
+			return "";
 		}
-	 	$data = $data[1];
-	 	$data = explode($end, $data, 2);
-	 	if (!$data || (is_array($data) && count($data) < 2)) {
-	 		return "";
+		$data = $data[1];
+		$data = explode($end, $data, 2);
+		if (!$data || (is_array($data) && count($data) < 2)) {
+			return "";
 		}
 		return $data[0];
 	}
@@ -51,7 +51,7 @@ class xml {
 		$sourcedata = explode($start, $sourcefile);
 		array_shift($sourcedata);
         forEach ($sourcedata as $indsplit) {
-        	$target = explode($end, $indsplit, 2);
+		$target = explode($end, $indsplit, 2);
             $targetdata[] = $target[0];
         }
 		return $targetdata;
@@ -59,32 +59,32 @@ class xml {
 
 	//Trys to download a file from a URL
 	public function getUrl($url, $timeout = null) {
-	 	$url = strtolower($url);
-		
+		$url = strtolower($url);
+
 		if ($timeout === null) {
 			$setting = Registry::getInstance('setting');
 			$timeout = $setting->get('xml_timeout');
 		}
-	 	
+
 		//Remove any http tags
 		$url = str_replace("http://", "", $url);
 		//Put an / at the end of the url if not there
 		if (!strstr($url, '/')) {
 			$url .= '/';
 		}
-				
+
 		preg_match("/^(.+)(\.de|\.biz|\.com|\.org|\.info)\/(.*)$/i", $url, $tmp);
 		$host = $tmp[1].$tmp[2];
 		$uri = "/".$tmp[3];
 		$fp = @fsockopen($host, 80, $errno, $errstr, $timeout);
 		@stream_set_timeout($fp, $timeout);
- 		if ($fp) {
+		if ($fp) {
 			@fputs($fp, "GET $uri HTTP/1.0\nHost: $host\r\n\r\n");
 			$data = '';
 			while ($indata = fread($fp,1024)) {
 				$data .= $indata;
 			}
-	
+
 			fclose($fp);
 			return $data;
 		} else {
@@ -103,7 +103,7 @@ class history extends xml{
 
     function __construct($name, $rk_num = 0, $cache = 0){
 		$chatBot = Registry::getInstance('chatBot');
-	
+
 		//if no server number is specified use the one on which the bot is logged in
 		if ($rk_num == 0) {
 			$rk_num = $chatBot->vars["dimension"];
@@ -123,10 +123,10 @@ class history extends xml{
     }
 
     function lookup($name, $rk_num, $cache) {
-  	 	$data_found = false;
+		$data_found = false;
 		$data_save = false;
 		$name = ucfirst(strtolower($name));
-		
+
 		//Check if a xml file of the person exists and if it is uptodate
 		if (file_exists("$cache/$name.$rk_num.history.xml")) {
 	        $mins = (time() - filemtime("$cache/$name.$rk_num.history.xml")) / 60;
@@ -142,7 +142,7 @@ class history extends xml{
 				}
 			}
         }
-        		
+
 		//If no old history file was found or it was invalid try to update it from auno.org
 		if (!$data_found) {
 			$playerhistory = xml::getUrl("http://auno.org/ao/char.php?output=xml&dimension=$rk_num&name=$name", 20);
@@ -154,7 +154,7 @@ class history extends xml{
 				unset($playerhistory);
 			}
 		}
-		
+
 		//If the site was not responding or the data was invalid and a xml file exists get that one
 		if (!$data_found && file_exists("$cache/$name.$rk_num.history.xml")) {
 			$playerhistory = file_get_contents("$cache/$name.$rk_num.history.xml");
@@ -166,15 +166,15 @@ class history extends xml{
 				@unlink("$cache/$name.$rk_num.history.xml");
 			}
 		}
-		
+
 		//if there is still no valid data available give an error back
 		if (!$data_found) {
-           	$this->errorCode = 1;
-           	$this->errorInfo = "Couldn't get History of $name on RK $rk_num";
-           	return;
+			$this->errorCode = 1;
+			$this->errorInfo = "Couldn't get History of $name on RK $rk_num";
+			return;
 		}
 
-		//parsing of the xml file		
+		//parsing of the xml file
 		$data = xml::spliceData($playerhistory, "<history>", "</history>");
 		$data = xml::splicemultidata($data, "<entry", "/>");
 		forEach ($data as $hdata) {
@@ -183,15 +183,15 @@ class history extends xml{
 			$this->data[$arr[1]]["ailevel"] = $arr[3];
 			$this->data[$arr[1]]["faction"] = $arr[4];
 			$this->data[$arr[1]]["guild"] = $arr[5];
-			$this->data[$arr[1]]["rank"] = $arr[6];																				
+			$this->data[$arr[1]]["rank"] = $arr[6];
 		}
-		
+
 		//if he downloaded a new xml file save it in the cache folder
 		if ($data_save) {
 	        $fp = fopen("$cache/$name.$rk_num.history.xml", "w");
 	        fwrite($fp, $playerbio);
 	        fclose($fp);
-	    }    	
+	    }
 	} //end of lookup
 } //end of history class
 
@@ -210,33 +210,33 @@ class server extends xml{
 	public $errorCode = 0;
 
 	//the constructor
-    function __construct($rk_num = 0){
+	function __construct($rk_num = 0){
 		//if no server was specified use the one where the bot is logged in
 		if ($rk_num == '0') {
-		  	global $vars;
+			global $vars;
 			$rk_num = $vars["dimension"];
 		}
 
 		//get the server status
-        $this->lookup($rk_num);
-    }
+		$this->lookup($rk_num);
+	}
 
-    function lookup($rk_num) {
-	  	$serverstat = xml::getUrl("probes.funcom.com/ao.xml", 30);
+	function lookup($rk_num) {
+		$serverstat = xml::getUrl("probes.funcom.com/ao.xml", 30);
 
         if ($serverstat == NULL) {
-          	$this->errorCode = 1;
-           	$this->errorInfo = "Couldn't get Serverstatus for Dimension $rk_num";
-			return;
+		$this->errorCode = 1;
+		$this->errorInfo = "Couldn't get Serverstatus for Dimension $rk_num";
+		return;
         }
 
-       	$data = xml::spliceData($serverstat, "<dimension name=\"d$rk_num", "</dimension>");
-		if (!$data) {
-          	$this->errorCode = 1;
-           	$this->errorInfo = "Couldn't get Serverstatus for Dimension $rk_num";
-			return;
+	$data = xml::spliceData($serverstat, "<dimension name=\"d$rk_num", "</dimension>");
+	if (!$data) {
+		$this->errorCode = 1;
+		$this->errorInfo = "Couldn't get Serverstatus for Dimension $rk_num";
+		return;
         }
-		
+
 		preg_match("/locked=\"(0|1)\"/i", $data, $tmp);
 		$this->locked = $tmp[1];
 
@@ -253,17 +253,17 @@ class server extends xml{
 	    $this->clientmanager = $tmp[1];
 		preg_match("/<chatserver status=\"([0-9]+)\"\/>/i", $data, $tmp);
 	    $this->chatserver = $tmp[1];
-              	
+
 		preg_match("/display-name=\"(.+)\" loadmax/i", $data, $tmp);
 	    $this->name = $tmp[1];
 
-		$data = xml::spliceMultiData($data, "<playfield", "/>");			
+		$data = xml::spliceMultiData($data, "<playfield", "/>");
 		forEach ($data as $hdata) {
 			if (preg_match("/id=\"(.+)\" name=\"(.+)\" status=\"(.+)\" load=\"(.+)\" players=\"(.+)\"/i", $hdata, $arr)) {
 				$this->data[$arr[2]]["status"] = $arr[3];
 				$this->data[$arr[2]]["load"] = $arr[4];
 				$this->data[$arr[2]]["players"] = $arr[5];
-			}				
+			}
 		}
     }
 }

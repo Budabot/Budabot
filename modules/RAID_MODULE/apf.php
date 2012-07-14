@@ -13,19 +13,19 @@ if (preg_match("/^apf (13|28|35)$/i", $message, $arr)) {
 	$itemlink["DGRV"] = Text::make_item(257962, 257962, 250, "Dynamic Gas Redistribution Valves");
 	$itemlink["KBAP"] = Text::make_item(257529, 257529, 1, "Kyr'Ozch Battlesuit Audio Processor");
 	$itemlink["KVPU"] = Text::make_item(257533, 257533, 1, "Kyr'Ozch Video Processing Unit");
-	$itemlink["KRI"] = Text::make_item(257531, 257531, 1, "Kyr'Ozch Rank Identification");	
+	$itemlink["KRI"] = Text::make_item(257531, 257531, 1, "Kyr'Ozch Rank Identification");
 	$itemlink["ICEU"] = Text::make_item(257110, 257110, 1, "Intrusion Countermeasure Electronics Upgrade");
 	$itemlink["OTAE"] = Text::make_item(257112, 257112, 1, "Omni-Tek Award - Exemplar");
 	$itemlink["CMP"] = Text::make_item(257113, 257113, 1, "Clan Merits - Paragon");
 	$itemlink["EMCH"] = Text::make_item(257379, 257379, 200, "Extruder's Molybdenum Crash Helmet");
 	$itemlink["CKCNH"] = Text::make_item(257115, 257115, 200, "Conscientious Knight Commander Nizno's Helmet");
 	$itemlink["SKCGH"] = Text::make_item(257114, 257114, 200, "Sworn Knight Commander Genevra's Helmet");
-	$itemlink["BCOH"] = Text::make_item(257383, 257383, 300, "Blackmane's Combined Officer's Headwear");		
-	$itemlink["GCCH"] = Text::make_item(257381, 257381, 300, "Gannondorf's Combined Commando's Headwear");		
-	$itemlink["HCSH"] = Text::make_item(257384, 257384, 300, "Haitte's Combined Sharpshooter's Headwear");		
-	$itemlink["OCPH"] = Text::make_item(257377, 257377, 300, "Odum's Combined Paramedic's Headwear");		
-	$itemlink["SCMH"] = Text::make_item(257380, 257380, 300, "Sillum's Combined Mercenary's Headwear");		
-	$itemlink["YCSH"] = Text::make_item(257382, 257382, 300, "Yakomo's Combined Scout's Headwear");		
+	$itemlink["BCOH"] = Text::make_item(257383, 257383, 300, "Blackmane's Combined Officer's Headwear");
+	$itemlink["GCCH"] = Text::make_item(257381, 257381, 300, "Gannondorf's Combined Commando's Headwear");
+	$itemlink["HCSH"] = Text::make_item(257384, 257384, 300, "Haitte's Combined Sharpshooter's Headwear");
+	$itemlink["OCPH"] = Text::make_item(257377, 257377, 300, "Odum's Combined Paramedic's Headwear");
+	$itemlink["SCMH"] = Text::make_item(257380, 257380, 300, "Sillum's Combined Mercenary's Headwear");
+	$itemlink["YCSH"] = Text::make_item(257382, 257382, 300, "Yakomo's Combined Scout's Headwear");
 	$itemlink["HLOA"] = Text::make_item(257128, 257128, 300, "High Lord of Angst");
 	$itemlink["SKR2"] = Text::make_item(257967, 257967, 300, "Silenced Kyr'Ozch Rifle - Type 2");
 	$itemlink["SKR3"] = Text::make_item(257131, 257131, 300, "Silenced Kyr'Ozch Rifle - Type 3");
@@ -38,23 +38,23 @@ if (preg_match("/^apf (13|28|35)$/i", $message, $arr)) {
 	$itemlink["ONC"] = Text::make_item(257118, 257118, 250, "ObiTom's Nano Calculator");
 	$itemlink["AKC12"] = Text::make_item(257143, 257143, 300, "Amplified Kyr'Ozch Carbine - Type 12");
 	$itemlink["AKC13"] = Text::make_item(257142, 257142, 300, "Amplified Kyr'Ozch Carbine - Type 13");
-	$itemlink["AKC5"] = Text::make_item(257144, 257144, 300, "Amplified Kyr'Ozch Carbine - Type 5");	
+	$itemlink["AKC5"] = Text::make_item(257144, 257144, 300, "Amplified Kyr'Ozch Carbine - Type 5");
 	$tradelink["NAC"] = "<a href='chatcmd:///tell <myname> apfloot Notum Amplification Coil'>Click here</a>";
-	$itemlink["ERU"] = Text::make_item(257961, 257961, 250, "Energy Redistribution Unit");	
-	$itemlink["BOB"] = Text::make_item(257147, 257147, 300, "Blades of Boltar");	
-	$itemlink["DVLPR"] = Text::make_item(257116, 257116, 1, "De'Valos Lava Protection Ring");	
+	$itemlink["ERU"] = Text::make_item(257961, 257961, 250, "Energy Redistribution Unit");
+	$itemlink["BOB"] = Text::make_item(257147, 257147, 300, "Blades of Boltar");
+	$itemlink["DVLPR"] = Text::make_item(257116, 257116, 1, "De'Valos Lava Protection Ring");
 	$tradelink["ERU"] = "<a href='chatcmd:///tell <myname> apfloot Energy Redistribution Unit'>Click here</a>";
-	$itemlink["VLRD"] = Text::make_item(257964, 257964, 250, "Visible Light Remodulation Device");	
-	$itemlink["DVRPR"] = Text::make_item(257117, 257117, 1, "De'Valos Radiation Protection Ring");	
-	$itemlink["SSSS"] = Text::make_item(257141, 257141, 300, "Scoped Salabim Shotgun Supremo");	
-	$itemlink["EPP"] = Text::make_item(258345, 258345, 300, "Explosif's Polychromatic Pillows");	
+	$itemlink["VLRD"] = Text::make_item(257964, 257964, 250, "Visible Light Remodulation Device");
+	$itemlink["DVRPR"] = Text::make_item(257117, 257117, 1, "De'Valos Radiation Protection Ring");
+	$itemlink["SSSS"] = Text::make_item(257141, 257141, 300, "Scoped Salabim Shotgun Supremo");
+	$itemlink["EPP"] = Text::make_item(258345, 258345, 300, "Explosif's Polychromatic Pillows");
 	$tradelink["VLRD"] = "<a href='chatcmd:///tell <myname> apfloot Visible Light Remodulation Device'>Click here</a>";
-	$itemlink["VNGW"] = Text::make_item(257123, 257123, 300, "Vektor ND Grand Wyrm");	
+	$itemlink["VNGW"] = Text::make_item(257123, 257123, 300, "Vektor ND Grand Wyrm");
 	$list = '';
-	
+
 	switch($sector) {
-	  	case "13":
-	  		//CRU
+		case "13":
+			//CRU
 			$list .= "<img src=rdb://257196> \n";
 			$list .= "<highlight>Name:<end> {$itemlink["ICE"]}\n";
 			$list .= "<highlight>Purpose:<end> {$itemlink["ICEU"]}\n";
@@ -70,7 +70,7 @@ if (preg_match("/^apf (13|28|35)$/i", $message, $arr)) {
 			$list .= "<highlight>Name:<end> {$itemlink["KRI"]}\n";
 			$list .= "<highlight>Purpose:<end> Kyr'Ozch Rank Identification, Kyr'Ozch Video Processing Unit and Kyr'Ozch Battlesuit Audio Processor can be traded at your faction vendor at the Alien Playfield Bar for Tokens or Credits.\n";
 			$list .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss(One from each type).\n\n";
-			
+
 			//Token Board
 			$list .= "<img src=rdb://230855> \n";
 			$list .= "<highlight>Name:<end> {$itemlink["BOARD"]}\n";
@@ -78,7 +78,7 @@ if (preg_match("/^apf (13|28|35)$/i", $message, $arr)) {
 			$list .= "<tab><tab>     - {$itemlink["CMP"]}\n";
 			$list .= "<highlight>Guide:<end> {$tradelink["BOARD"]}\n";
 			$list .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss.\n\n";
-			
+
 			//Action Probability Estimator
 			$list .= "<img src=rdb://203502> \n";
 			$list .= "<highlight>Name:<end> {$itemlink["APE"]}\n";
@@ -86,24 +86,24 @@ if (preg_match("/^apf (13|28|35)$/i", $message, $arr)) {
 			$list .= "<tab><tab>     - {$itemlink["CKCNH"]}\n";
 			$list .= "<tab><tab>     - {$itemlink["SKCGH"]}\n";
 			$list .= "<tab><tab>     - {$itemlink["BCOH"]}\n";
-			$list .= "<tab><tab>     - {$itemlink["GCCH"]}\n";			
-			$list .= "<tab><tab>     - {$itemlink["HCSH"]}\n";			
-			$list .= "<tab><tab>     - {$itemlink["OCPH"]}\n";			
-			$list .= "<tab><tab>     - {$itemlink["SCMH"]}\n";			
-			$list .= "<tab><tab>     - {$itemlink["YCSH"]}\n";			
+			$list .= "<tab><tab>     - {$itemlink["GCCH"]}\n";
+			$list .= "<tab><tab>     - {$itemlink["HCSH"]}\n";
+			$list .= "<tab><tab>     - {$itemlink["OCPH"]}\n";
+			$list .= "<tab><tab>     - {$itemlink["SCMH"]}\n";
+			$list .= "<tab><tab>     - {$itemlink["YCSH"]}\n";
 			$list .= "<highlight>Guide:<end> {$tradelink["APE"]}\n\n";
 
 			//Dynamic Gas Redistribution Valves
 			$list .= "<img src=rdb://205508> \n";
 			$list .= "<highlight>Name:<end> {$itemlink["DGRV"]}\n";
 			$list .= "<highlight>Purpose:<end> - {$itemlink["HLOA"]}\n";
-			$list .= "<tab><tab>     - {$itemlink["SKR2"]}\n";			
+			$list .= "<tab><tab>     - {$itemlink["SKR2"]}\n";
 			$list .= "<tab><tab>     - {$itemlink["SKR3"]}\n";
 			$list .= "<tab><tab>     - {$itemlink["ASC"]}\n";
 			$list .= "<highlight>Guide:<end> {$tradelink["DGRV"]}\n\n";
-	  	break;
-	  	case "28":
-	  		//CRU
+		break;
+		case "28":
+			//CRU
 			$list .= "<img src=rdb://257196> \n";
 			$list .= "<highlight>Name:<end> {$itemlink["ICE"]}\n";
 			$list .= "<highlight>Purpose:<end> {$itemlink["ICEU"]}\n";
@@ -119,7 +119,7 @@ if (preg_match("/^apf (13|28|35)$/i", $message, $arr)) {
 			$list .= "<highlight>Name:<end> {$itemlink["KRI"]}\n";
 			$list .= "<highlight>Purpose:<end> Kyr'Ozch Rank Identification, Kyr'Ozch Video Processing Unit and Kyr'Ozch Battlesuit Audio Processor can be traded at your faction vendor at the Alien Playfield Bar for Tokens or Credits.\n";
 			$list .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss(One from each type).\n\n";
-			
+
 			//Token Board
 			$list .= "<img src=rdb://230855> \n";
 			$list .= "<highlight>Name:<end> {$itemlink["BOARD"]}\n";
@@ -127,25 +127,25 @@ if (preg_match("/^apf (13|28|35)$/i", $message, $arr)) {
 			$list .= "<tab><tab>     - {$itemlink["CMP"]}\n";
 			$list .= "<highlight>Guide:<end> {$tradelink["BOARD"]}\n";
 			$list .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss.\n\n";
-			
+
 			//APF Belt
 			$list .= "<img src=rdb://11618> \n";
 			$list .= "<highlight>Name:<end> {$itemlink["IAPU"]}\n";
 			$list .= "<highlight>Purpose:<end> - {$itemlink["HVBCP"]}\n";
-			$list .= "<highlight>Guide:<end> {$tradelink["BELT"]}\n\n";			
+			$list .= "<highlight>Guide:<end> {$tradelink["BELT"]}\n\n";
 
 			//Notum coil
 			$list .= "<img src=rdb://257195> \n";
 			$list .= "<highlight>Name:<end> {$itemlink["NAC"]}\n";
 			$list .= "<highlight>Purpose:<end> - {$itemlink["TAHSC"]}\n";
 			$list .= "<tab><tab>     - {$itemlink["ONC"]}\n";
-			$list .= "<tab><tab>     - {$itemlink["AKC12"]}\n";			
+			$list .= "<tab><tab>     - {$itemlink["AKC12"]}\n";
 			$list .= "<tab><tab>     - {$itemlink["AKC13"]}\n";
-			$list .= "<tab><tab>     - {$itemlink["AKC5"]}\n";			
+			$list .= "<tab><tab>     - {$itemlink["AKC5"]}\n";
 			$list .= "<highlight>Guide:<end> {$tradelink["NAC"]}\n";
-	  	break;
-	  	case "35":
-	  		//CRU
+		break;
+		case "35":
+			//CRU
 			$list .= "<img src=rdb://257196> \n";
 			$list .= "<highlight>Name:<end> {$itemlink["ICE"]}\n";
 			$list .= "<highlight>Purpose:<end> {$itemlink["ICEU"]}\n";
@@ -161,7 +161,7 @@ if (preg_match("/^apf (13|28|35)$/i", $message, $arr)) {
 			$list .= "<highlight>Name:<end> {$itemlink["KRI"]}\n";
 			$list .= "<highlight>Purpose:<end> Kyr'Ozch Rank Identification, Kyr'Ozch Video Processing Unit and Kyr'Ozch Battlesuit Audio Processor can be traded at your faction vendor at the Alien Playfield Bar for Tokens or Credits.\n";
 			$list .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss(One from each type).\n\n";
-			
+
 			//Token Board
 			$list .= "<img src=rdb://230855> \n";
 			$list .= "<highlight>Name:<end> {$itemlink["BOARD"]}\n";
@@ -177,7 +177,7 @@ if (preg_match("/^apf (13|28|35)$/i", $message, $arr)) {
 			$list .= "<tab><tab>     - {$itemlink["DVLPR"]}\n";
 			$list .= "<tab><tab>     - {$itemlink["VNGW"]}\n";
 			$list .= "<highlight>Guide:<end> {$tradelink["ERU"]}\n\n";
-			
+
 			//Visible Light Remodulation Device
 			$list .= "<img src=rdb://235270> \n";
 			$list .= "<highlight>Name:<end> {$itemlink["VLRD"]}\n";
@@ -185,7 +185,7 @@ if (preg_match("/^apf (13|28|35)$/i", $message, $arr)) {
 			$list .= "<tab><tab>     - {$itemlink["SSSS"]}\n";
 			$list .= "<tab><tab>     - {$itemlink["EPP"]}\n";
 			$list .= "<highlight>Guide:<end> {$tradelink["VLRD"]}\n";
-	  	break;
+		break;
 	}
 
 	$msg = Text::make_blob("Loot table for sector $sector", $list);

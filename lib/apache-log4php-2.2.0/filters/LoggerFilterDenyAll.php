@@ -19,21 +19,21 @@
  */
 
 /**
- * This filter drops all logging events. 
- * 
+ * This filter drops all logging events.
+ *
  * You can add this filter to the end of a filter chain to
  * switch from the default "accept all unless instructed otherwise"
  * filtering behaviour to a "deny all unless instructed otherwise"
  * behaviour.
- * 
+ *
  * <p>
  * An example for this filter:
- * 
+ *
  * {@example ../../examples/php/filter_denyall.php 19}
  *
  * <p>
  * The corresponding XML file:
- * 
+ *
  * {@example ../../examples/resources/filter_denyall.xml 18}
  *
  * @version $Revision: 883108 $
@@ -46,7 +46,7 @@ class LoggerFilterDenyAll extends LoggerFilter {
 	/**
 	 * Always returns the integer constant {@link LoggerFilter::DENY}
 	 * regardless of the {@link LoggerLoggingEvent} parameter.
-	 * 
+	 *
 	 * @param LoggerLoggingEvent $event The {@link LoggerLoggingEvent} to filter.
 	 * @return LoggerFilter::DENY Always returns {@link LoggerFilter::DENY}
 	 */

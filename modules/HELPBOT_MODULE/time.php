@@ -78,7 +78,7 @@ if (preg_match("/^time$/i", $message)) {
 	$link .= "<tab><highlight>Thailand/Vietnam/Kambodscha (ICT = GMT+7)<end>: {$timezone["ICT"]["time"]}\n";
 	$link .= "<tab><highlight>China/Malaysia/Singapur/Indonesien (CST = GMT+8)<end>: {$timezone["CCST"]["time"]}\n";
 	$link .= "<tab><highlight>Japan/Korea (JST = GMT+9)<end>: {$timezone["JST"]["time"]}\n\n";
-			
+
 	$link .= "<u>Europe</u>\n";
 	$link .= "<tab><highlight>England (GMT)<end>: {$timezone["GMT"]["time"]}\n";
 	$link .= "<tab><highlight>Germany/France/Netherlands/Italy/Austria<end>\n";
@@ -118,8 +118,8 @@ if (preg_match("/^time$/i", $message)) {
 	$msg .= " ".Text::make_blob("All Timezones", $link);
     $sendto->reply($msg);
 } else if (preg_match("/^time (.+)$/i", $message, $arr)) {
-  	$zone = strtoupper($arr[1]);
-  	if ($timezone[$zone]["name"]) {
+	$zone = strtoupper($arr[1]);
+	if ($timezone[$zone]["name"]) {
 		$msg = $timezone[$zone]["name"]." is <highlight>".$timezone[$zone]["time"]."<end>";
 	} else {
 		$msg = "This timezone doesn't exist or isn't known by this bot.";

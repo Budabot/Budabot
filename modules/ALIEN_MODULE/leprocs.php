@@ -7,7 +7,7 @@ if (preg_match("/^leprocs$/i", $message)) {
 		$professionLink = Text::make_chatcmd($row->profession, "/tell <myname> leprocs $row->profession");
 		$blob .= $professionLink . "\n";
 	}
-	
+
 	$blob .= "\n\nProc info provided by Wolfbiter (RK1), Gatester (RK2)";
 
 	$msg = Text::make_blob("LE Procs", $blob);
@@ -31,13 +31,13 @@ if (preg_match("/^leprocs$/i", $message)) {
 				$type = $row->proc_type;
 				$blob .= "\n<tab><yellow>$type<end>\n";
 			}
-			
+
 			$proc_trigger = "<green>" . substr($row->proc_trigger, 0, 3) . ".<end>";
 			$blob .= "$row->name <orange>$row->modifiers<end> $proc_trigger $row->duration\n";
 		}
-		
+
 		$blob .= "\n\nNote: Offensive procs have a 5% chance of firing every time you attack; Defensive procs have a 10% chance of firing every time something attacks you.";
-		
+
 		$blob .= "\n\nProc info provided by Wolfbiter (RK1), Gatester (RK2)";
 
 		$msg = Text::make_blob("$profession LE Procs", $blob);

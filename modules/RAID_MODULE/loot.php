@@ -3,26 +3,26 @@
 global $loot;
 global $residual;
 if (preg_match("/^loot clear$/i", $message)) {
-  	$loot = "";
+	$loot = "";
 	$residual = "";
-  	$msg = "Loot has been cleared by <highlight>$sender<end>.";
-  	$chatBot->sendPrivate($msg);
+	$msg = "Loot has been cleared by <highlight>$sender<end>.";
+	$chatBot->sendPrivate($msg);
 
 	if ($type != 'priv') {
 		$sendto->reply($msg);
 	}
 } else if (preg_match("/^loot ([0-9]+)$/i", $message, $arr)) {
 	$id = $arr[1];
-	
+
 	$sql = "SELECT * FROM raid_loot WHERE id = ?";
 	$item = $db->queryRow($sql, $id);
-	
+
 	if ($item === null) {
 		$msg = "Could not find item with id <highlight>$id<end> to add.";
 		$sendto->reply($msg);
 		return;
 	}
-	
+
 	$dontadd = 0;
 	forEach ($loot as $key => $value) {
 		if ($value["name"] == $item->name){
@@ -52,7 +52,7 @@ if (preg_match("/^loot clear$/i", $message)) {
 } else if (preg_match("/^loot (.+)$/i", $message, $arr)) {
 
 	//Check if the item is a link
-  	if (preg_match("/^<a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">(.+)<\/a>(.*)$/i", $arr[1], $item)) {
+	if (preg_match("/^<a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">(.+)<\/a>(.*)$/i", $arr[1], $item)) {
 	    $item_ql = $item[3];
 	    $item_highid = $item[1];
 	    $item_lowid = $item[2];
@@ -65,7 +65,7 @@ if (preg_match("/^loot clear$/i", $message)) {
 	} else {
 		$item_name = $arr[1];
 	}
-		
+
 	//Check if the item is already on the list (i.e. SMART LOOT)
 	forEach ($loot as $key => $item) {
 		if (strtolower($item["name"]) == strtolower($item_name)) {
@@ -88,15 +88,15 @@ if (preg_match("/^loot clear$/i", $message)) {
 	}
 
 	//get a slot for the item
-  	if (is_array($loot)) {
-	  	$num_loot = count($loot);
-	  	$num_loot++;
+	if (is_array($loot)) {
+		$num_loot = count($loot);
+		$num_loot++;
 	} else {
 		$num_loot = 1;
 	}
-	
+
 	//Check if max slots is reached
-  	if ($num_loot >= 30) {
+	if ($num_loot >= 30) {
 	    $msg = "You can only roll 30 items max at one time!";
 	    $chatBot->sendPrivate($msg);
 	    return;
@@ -105,7 +105,7 @@ if (preg_match("/^loot clear$/i", $message)) {
 	//Check if there is a icon available
 	$row = $db->queryRow("SELECT * FROM aodb WHERE `name` LIKE ?", $item_name);
 	if ($row !== null) {
-	  	$item_name = $row->name;
+		$item_name = $row->name;
 
 		//Save the icon
 		$looticon = $row->icon;
@@ -113,22 +113,22 @@ if (preg_match("/^loot clear$/i", $message)) {
 		if (!isset($item_highid)) {
 			$item_lowid = $row->lowid;
 			$item_highid = $row->highid;
-			$item_ql = $row->highql;	  
+			$item_ql = $row->highql;
 		}
 	}
 
 	//Save item
 	if (!$dontadd) {
 		if (isset($item_highid)) {
-			$loot[$num_loot]["linky"] = "<a href='itemref://$item_lowid/$item_highid/$item_ql'>$item_name</a>";	
+			$loot[$num_loot]["linky"] = "<a href='itemref://$item_lowid/$item_highid/$item_ql'>$item_name</a>";
 		}
-			
+
 		$loot[$num_loot]["name"] = $item_name;
 		$loot[$num_loot]["icon"] = $looticon;
 
 		//Save the person who has added the loot item
 		$loot[$num_loot]["added_by"] = $sender;
-	
+
 		//Save multiloot
 		$loot[$num_loot]["multiloot"] = $multiloot;
 

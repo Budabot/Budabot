@@ -1,8 +1,8 @@
 <?php
 
 if (preg_match("/^fight (.+) vs (.+)$/i", $message, $arr) || preg_match("/^fight (.+) (.+)$/i", $message, $arr)) {
-  	$player1 = $arr[1];
-  	$player2 = $arr[2];
+	$player1 = $arr[1];
+	$player2 = $arr[2];
 
 	// Checks if user is trying to get Chuck Norris to fight another Chuck Norris
 	if ((strcasecmp($player1, "chuck") == 0 || strcasecmp($player1, "chuck norris") == 0) &&  (strcasecmp($player2, "chuck") == 0 || strcasecmp($player2, "chuck norris") == 0)) {
@@ -41,8 +41,8 @@ if (preg_match("/^fight (.+) vs (.+)$/i", $message, $arr) || preg_match("/^fight
 		$add_damage_P2 = 0;
 		$wep_P2 = "nerfstick";
 	}
-   
-   	// Checks if Player 1/2 is a Fixer, and if so, sets HP to 1 to ensure loss.
+
+	// Checks if Player 1/2 is a Fixer, and if so, sets HP to 1 to ensure loss.
 	if(strcasecmp($player1, "fixer") == 0 OR strcasecmp($player1, "fix") == 0) {
 		$hp1 = 1;
 		$wep_P1 = "tickle";
@@ -59,8 +59,8 @@ if (preg_match("/^fight (.+) vs (.+)$/i", $message, $arr) || preg_match("/^fight
 		$wep_P2 = "nerfstick";
 	}
 
-  	$list = "Fight <highlight>$player1<end> VS <highlight>$player2<end> \n\n";
-  	while ($hp1 > 0 && $hp2 > 0) {
+	$list = "Fight <highlight>$player1<end> VS <highlight>$player2<end> \n\n";
+	while ($hp1 > 0 && $hp2 > 0) {
 		// player1 dmg to player2
 	    $dmg = rand(50, 4000) + $add_damage_P1;
 	    if ($dmg - $add_damage_P1 > 3000) {
@@ -68,10 +68,10 @@ if (preg_match("/^fight (.+) vs (.+)$/i", $message, $arr) || preg_match("/^fight
 		} else {
 			$crit = "";
 		}
-			
+
 		$list .= "<highlight>$player1<end> hit <highlight>$player2<end> for $dmg of $wep_P1 dmg.$crit\n";
 		$hp2 -= $dmg;
-		
+
 		// player2 dmg to player1
 		$dmg = rand(50, 4000) + $add_damage_P2;
 		if ($dmg - $add_damage_P2 > 3000) {
@@ -79,13 +79,13 @@ if (preg_match("/^fight (.+) vs (.+)$/i", $message, $arr) || preg_match("/^fight
 		} else {
 			$crit = "";
 		}
-			
+
 		$list .= "<highlight>$player2<end> hit <highlight>$player1<end> for $dmg of $wep_P2 dmg.$crit\n";
 		$hp1 -= $dmg;
-		
+
 		$list .= "\n";
 	}
-	
+
 	if ($hp1 > $hp2) {
 		$list .= "\nAnd the winner is ..... <highlight>$player1!<end>";
 		$msg = Text::make_blob("$player1 vs $player2....$player1 wins!", $list);

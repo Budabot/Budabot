@@ -1,17 +1,17 @@
 <?php
-   
+
 if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\\d+)$/i", $message, $arr)) {
-	
+
 	$pageSize = 20;
 	$page = 1;
 	if ($arr[1] != '') {
 		$page = $arr[1];
 	}
-	
+
 	$startingRecord = ($page - 1) * $pageSize;
 
 	$blob = '';
-	
+
 	$sql = "SELECT actor, actee, action, organization, time FROM `#__org_history` ORDER BY time DESC LIMIT $startingRecord, $pageSize";
 	$data = $db->query($sql);
 	forEach ($data as $row) {
@@ -26,7 +26,7 @@ if (preg_match("/^orghistory$/i", $message, $arr) || preg_match("/^orghistory (\
 	$character = $arr[1];
 
 	$blob = '';
-	
+
 	$window .= "\n  Actions on $character\n";
 	$sql = "SELECT actor, actee, action, organization, time FROM `#__org_history` WHERE actee LIKE ? ORDER BY time DESC";
 	$data = $db->query($sql, $character);

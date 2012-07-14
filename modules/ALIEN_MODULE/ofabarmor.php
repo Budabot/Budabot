@@ -32,18 +32,18 @@ if (preg_match("/^ofabarmor$/i", $message, $arr)) {
 
 	$typelist = $db->query("SELECT type FROM ofabarmortype WHERE profession = ?", $profession);
 	$type = $typelist[0]->type;
-	
+
 	$data = $db->query("SELECT * FROM ofabarmor o1 LEFT JOIN ofabarmorcost o2 ON o1.slot = o2.slot WHERE o1.profession = ? AND o2.ql = ? ORDER BY upgrade ASC, name ASC", $profession, $ql);
 	if (count($data) == 0) {
 		$syntax_error = true;
 		return;
 	}
-	
+
 	$blob = '';
 	$typeLink = Text::make_chatcmd("Kyr'Ozch Bio-Material - Type {$type}", "/tell <myname> bioinfo {$type}");
 	$typeQl = round(.8 * $ql);
 	$blob .= "Upgrade with $typeLink (minimum QL {$typeQl})\n\n";
-	
+
 	$qls = $db->query("SELECT DISTINCT ql FROM ofabarmorcost ORDER BY ql ASC");
 	forEach ($qls as $row2) {
 		if ($row2->ql == $ql) {
@@ -54,7 +54,7 @@ if (preg_match("/^ofabarmor$/i", $message, $arr)) {
 		}
 	}
 	$blob .= "\n";
-	
+
 	$current_upgrade = $row->upgrade;
 	forEach ($data as $row) {
 		if ($current_upgrade != $row->upgrade) {
@@ -70,7 +70,7 @@ if (preg_match("/^ofabarmor$/i", $message, $arr)) {
 		$blob .= "\n";
 	}
 	$blob .= "\nVP Cost for full set: <highlight>$total_vp<end>";
-	
+
 	$msg = Text::make_blob("$profession Ofab Armor (QL $ql)", $blob);
 	$sendto->reply($msg);
 } else {

@@ -1,6 +1,6 @@
 <?php
 	require_once 'orglist_functions.php';
-	
+
 	$command->register($MODULE_NAME, "", "orgmembers.php", "orgmembers", "guild", "Show guild members sorted by name", "orgmembers.txt");
 	$command->register($MODULE_NAME, "", "orgranks.php", "orgranks", "guild", "Show guild members sorted by guild rank", "orgranks.txt");
 	$command->register($MODULE_NAME, "", "whoisorg.php", "whoisorg", "all", "Display org info", "whoisorg.txt");

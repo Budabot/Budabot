@@ -8,10 +8,10 @@
    **
    ** Date(created): 23.11.2007
    ** Date(last modified): 23.11.2007
-   ** 
+   **
    ** Copyright (C) 2007 Jason Wheeler
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is module for of Budabot.
    **
    ** This module is free software; you can redistribute it and/or modify
@@ -28,13 +28,13 @@
    ** along with this module; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-  
+
 function getTopicContents($path, $fileName, $fileExt) {
 	// get the filename and read in the file
 	$file = "$path$fileName$fileExt";
 	$info = file_get_contents($file);
-	
+
 	return $info;
 }
-    
+
 ?>

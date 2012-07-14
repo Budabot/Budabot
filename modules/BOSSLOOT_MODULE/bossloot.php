@@ -14,7 +14,7 @@ if (preg_match ("/^bossloot (.+)$/i", $message, $arr)) {
 	$search = strtolower($arr[1]);
 
 	$blob = "Mobs that drop $search";
-	
+
 	$loot = $db->query("SELECT DISTINCT b2.bossid, b2.bossname, w.answer FROM boss_lootdb b1 JOIN boss_namedb b2 ON b2.bossid = b1.bossid LEFT JOIN whereis w ON w.name = b2.bossname WHERE b1.itemname LIKE ?", "%{$search}%");
 	$count = count($loot);
 

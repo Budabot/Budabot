@@ -3,13 +3,13 @@
 class Player {
 	public static function get_by_name($name, $dimension = 0, $forceUpdate = false) {
 		$chatBot = Registry::getInstance('chatBot');
-		
+
 		if ($dimension == 0) {
 			$dimension = $chatBot->vars['dimension'];
 		}
-		
+
 		$name = ucfirst(strtolower($name));
-		
+
 		$charid = '';
 		if ($dimension == $chatBot->vars['dimension']) {
 			$charid = $chatBot->get_uid($name);
@@ -17,7 +17,7 @@ class Player {
 				return null;
 			}
 		}
-	
+
 		$player = Player::findInDb($name, $dimension);
 
 		if ($player === null || $forceUpdate) {
@@ -38,10 +38,10 @@ class Player {
 		} else {
 			$player->source .= ' (current-cache)';
 		}
-		
+
 		return $player;
 	}
-	
+
 	public static function findInDb($name, $dimension) {
 		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
@@ -49,7 +49,7 @@ class Player {
 		$sql = "SELECT * FROM players WHERE name LIKE ? AND dimension = ?";
 		return $db->queryRow($sql, $name, $dimension);
 	}
-	
+
 	public static function lookup($name, $dimension) {
 		$xml = Player::lookup_url("http://people.anarchy-online.com/character/bio/d/$dimension/name/$name/bio.xml");
 		if ($xml->name == $name) {
@@ -92,14 +92,14 @@ class Player {
 		$xml->guild          = xml::spliceData($playerbio, '<organization_name>', '</organization_name>');
 		$xml->guild_rank     = xml::spliceData($playerbio, '<rank>', '</rank>');
 		$xml->guild_rank_id  = xml::spliceData($playerbio, '<rank_id>', '</rank_id>');
-		
+
 		return $xml;
 	}
-	
+
 	public static function update(&$char) {
 		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
-		
+
 		$sql = "DELETE FROM players WHERE `name` = ? AND `dimension` = ?";
 		$db->exec($sql, $char->name, $char->dimension);
 
@@ -145,12 +145,12 @@ class Player {
 				?,
 				?
 			)";
-		
+
 		$db->exec($sql, $char->charid, $char->firstname, $char->name, $char->lastname, $char->level, $char->breed, $char->gender, $char->faction,
 			$char->profession, $char->prof_title, $char->ai_rank, $char->ai_level, $char->guild_id, $char->guild, $char->guild_rank, $char->guild_rank_id,
 			$char->dimension, $char->source, time());
 	}
-	
+
 	public static function get_info(&$whois) {
 		$msg = '';
 

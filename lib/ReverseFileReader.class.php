@@ -72,7 +72,7 @@ class ReverseFileReader {
 	function sof() {
 		return ($this->filePos <= 0);
 	}
-	
+
 	function close() {
 		fclose($this->fileHandle);
 	}

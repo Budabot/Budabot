@@ -20,7 +20,7 @@
 
 /**
  * Interface for logger configurators.
- * 
+ *
  * @package log4php
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  * @version $Revision: 1213710 $
@@ -29,14 +29,14 @@
 interface LoggerConfigurator
 {
 	/**
-	 * Configures log4php based on the given configuration. 
-	 * 
+	 * Configures log4php based on the given configuration.
+	 *
 	 * All configurators implementations must implement this interface.
-	 * 
-	 * @param LoggerHierarchy $hierarchy The hierarchy on which to perform 
-	 * 		the configuration. 
-	 * @param mixed $input Either path to the config file or the 
-	 * 		configuration as an array.
+	 *
+	 * @param LoggerHierarchy $hierarchy The hierarchy on which to perform
+	 *		the configuration.
+	 * @param mixed $input Either path to the config file or the
+	 *		configuration as an array.
 	 */
 	public function configure(LoggerHierarchy $hierarchy, $input = null);
 }

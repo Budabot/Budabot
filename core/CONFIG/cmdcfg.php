@@ -38,7 +38,7 @@ if (!function_exists('getCommandInfo')) {
 	function getCommandInfo($cmd, $type) {
 		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
-	
+
 		$l = "";
 		$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = ? AND `type` = ?", $cmd, $type);
 		if (count($data) == 0) {
@@ -47,15 +47,15 @@ if (!function_exists('getCommandInfo')) {
 			$row = $data[0];
 
 			$found_msg = 1;
-			
+
 			$row->admin = get_admin_description($row->admin);
-		
+
 			if ($row->status == 1) {
 				$status = "<green>Enabled<end>";
 			} else {
 				$status = "<red>Disabled<end>";
 			}
-			
+
 			$l .= "Current Status: $status (Access: $row->admin) \n";
 			$l .= "Enable or Disable Command: ";
 			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} enable {$type}'>ON</a>  ";
@@ -79,7 +79,7 @@ if (!function_exists('getSubCommandInfo')) {
 	function getSubCommandInfo($cmd, $type) {
 		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
-	
+
 		$subcmd_list = '';
 		$data = $db->query("SELECT * FROM cmdcfg_<myname> WHERE dependson = ? AND `type` = ? AND `cmdevent` = 'subcmd'", $cmd, $type);
 		forEach ($data as $row) {
@@ -87,9 +87,9 @@ if (!function_exists('getSubCommandInfo')) {
 			if ($row->description != "") {
 				$subcmd_list .= "Description: $row->description\n";
 			}
-			
+
 			$row->admin = get_admin_description($row->admin);
-			
+
 			if ($row->status == 1) {
 				$status = "<green>Enabled<end>";
 			} else {
@@ -100,7 +100,7 @@ if (!function_exists('getSubCommandInfo')) {
 			$subcmd_list .= "Enable or Disable Command: ";
 			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} enable {$type}'>ON</a>  ";
 			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} disable {$type}'>OFF</a>\n";
-			
+
 			$subcmd_list .= "Set min. access lvl to use this command: ";
 			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} admin {$type} all'>All</a>  ";
 			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} admin {$type} member'>Member</a>  ";
@@ -115,20 +115,20 @@ if (!function_exists('getSubCommandInfo')) {
 
 if (preg_match("/^config$/i", $message)) {
 	$list = array();
-	$list[] = array("header" => "<header>::::: Module Config :::::<end>\n\n", 
+	$list[] = array("header" => "<header>::::: Module Config :::::<end>\n\n",
 	"content" => "Org Commands - " .
-		Text::make_chatcmd('Enable All', '/tell <myname> config cmd enable guild') . " " . 
-		Text::make_chatcmd('Disable All', '/tell <myname> config cmd disable guild') . "\n" . 
-	"Private Channel Commands - " . 
-		Text::make_chatcmd('Enable All', '/tell <myname> config cmd enable priv') . " " . 
-		Text::make_chatcmd('Disable All', '/tell <myname> config cmd disable priv') . "\n" . 
+		Text::make_chatcmd('Enable All', '/tell <myname> config cmd enable guild') . " " .
+		Text::make_chatcmd('Disable All', '/tell <myname> config cmd disable guild') . "\n" .
+	"Private Channel Commands - " .
+		Text::make_chatcmd('Enable All', '/tell <myname> config cmd enable priv') . " " .
+		Text::make_chatcmd('Disable All', '/tell <myname> config cmd disable priv') . "\n" .
 	"Private Message Commands - " .
-		Text::make_chatcmd('Enable All', '/tell <myname> config cmd enable msg') . " " . 
+		Text::make_chatcmd('Enable All', '/tell <myname> config cmd enable msg') . " " .
 		Text::make_chatcmd('Disable All', '/tell <myname> config cmd disable msg') . "\n" .
 	"ALL Commands - " .
-		Text::make_chatcmd('Enable All', '/tell <myname> config cmd enable all') . " " . 
+		Text::make_chatcmd('Enable All', '/tell <myname> config cmd enable all') . " " .
 		Text::make_chatcmd('Disable All', '/tell <myname> config cmd disable all') . "\n\n\n");
-	
+
 	$sql = "
 		SELECT
 			module,
@@ -151,7 +151,7 @@ if (preg_match("/^config$/i", $message)) {
 		} else {
 			$b = "";
 		}
-			
+
 		if ($row->count_enabled > 0 && $row->count_disabled > 0) {
 			$a = "(<yellow>Partial<end>)";
 		} else if ($row->count_disabled == 0) {
@@ -159,9 +159,9 @@ if (preg_match("/^config$/i", $message)) {
 		} else {
 			$a = "(<red>Disabled<end>)";
 		}
-			
+
 		$c = "(<a href='chatcmd:///tell <myname> config $row->module'>Configure</a>)";
-	
+
 		$on = "<a href='chatcmd:///tell <myname> config mod $row->module enable all'>On</a>";
 		$off = "<a href='chatcmd:///tell <myname> config mod $row->module disable all'>Off</a>";
 		$list[] = strtoupper($row->module)." $a ($on/$off) $c $b\n";
@@ -172,27 +172,27 @@ if (preg_match("/^config$/i", $message)) {
 } else if (preg_match("/^config cmd (enable|disable) (all|guild|priv|msg)$/i", $message, $arr)) {
 	$status = ($arr[1] == "enable" ? 1 : 0);
 	$typeSql = ($arr[2] == "all" ? "`type` = 'guild' OR `type` = 'priv' OR `type` = 'msg'" : "`type` = '{$arr[2]}'");
-	
+
 	$sql = "SELECT type, file, cmd, admin FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' AND ($typeSql)";
 	$data = $db->query($sql);
 	$commandManager = Registry::getInstance('commandManager');
 	forEach ($data as $row) {
-	  	if ($status == 1) {
+		if ($status == 1) {
 			$commandManager->activate($row->type, $row->file, $row->cmd, $row->admin);
 		} else {
 			$commandManager->deactivate($row->type, $row->file, $row->cmd);
 		}
 	}
-	
+
 	$sql = "UPDATE cmdcfg_<myname> SET `status` = $status WHERE (`cmdevent` = 'cmd' OR `cmdevent` = 'subcmd') AND ($typeSql)";
 	$db->exec($sql);
-	
-	$sendto->reply("Command(s) updated successfully.");	
+
+	$sendto->reply("Command(s) updated successfully.");
 } else if (preg_match("/^config (subcmd|mod|cmd|event) (.+) (enable|disable) (priv|msg|guild|all)$/i", $message, $arr)) {
 	if ($arr[1] == "event") {
 		$temp = explode(" ", $arr[2]);
-	  	$event_type = strtolower($temp[0]);
-	  	$file = $temp[1];
+		$event_type = strtolower($temp[0]);
+		$file = $temp[1];
 	} else if ($arr[1] == 'cmd' || $arr[1] == 'subcmd') {
 		$cmd = strtolower($arr[2]);
 		$type = $arr[4];
@@ -200,13 +200,13 @@ if (preg_match("/^config$/i", $message)) {
 		$module = strtoupper($arr[2]);
 		$type = $arr[4];
 	}
-		
+
 	if ($arr[3] == "enable") {
 		$status = 1;
 	} else {
 		$status = 0;
 	}
-	
+
 	if ($arr[1] == "mod" && $type == "all") {
 		$sql = "SELECT status, type, file, cmd, admin, cmdevent FROM cmdcfg_<myname> WHERE `module` = '$module'
 					UNION
@@ -229,7 +229,7 @@ if (preg_match("/^config$/i", $message)) {
 		$syntax_error = true;
 		return;
 	}
-	
+
 	$data = $db->query($sql);
 
 	if (count($data) == 0) {
@@ -255,7 +255,7 @@ if (preg_match("/^config$/i", $message)) {
 	if ($arr[1] == "mod" && $type == "all") {
 		$msg = "Updated status of the module <highlight>$module<end> to <highlight>".$arr[3]."d<end>";
 	} else if ($arr[1] == "mod" && $type != "all") {
-		$msg = "Updated status of the module <highlight>$module<end> in Channel <highlight>$type<end> to <highlight>".$arr[3]."d<end>"; 
+		$msg = "Updated status of the module <highlight>$module<end> in Channel <highlight>$type<end> to <highlight>".$arr[3]."d<end>";
 	} else if ($arr[1] == "cmd" && $type != "all") {
 		$msg = "Updated status of command <highlight>$cmd<end> to <highlight>".$arr[3]."d<end> in Channel <highlight>$type<end>";
 	} else if ($arr[1] == "cmd" && $type == "all") {
@@ -308,7 +308,7 @@ if (preg_match("/^config$/i", $message)) {
 	} else if ($arr[1] == "event" && $file != "") {
 		$db->exec("UPDATE eventcfg_<myname> SET `status` = ? WHERE `type` = ? AND `file` = ? AND `type` <> 'setup'", $status, $event_type, $file);
 	}
-	
+
 	// for subcommands which are handled differently
 	Registry::getInstance('subcommand')->loadSubcommands();
 } else if (preg_match("/^config (subcmd|cmd) (.+) admin (msg|priv|guild|all) (all|rl|mod|admin|guild|member)$/i", $message, $arr)) {
@@ -331,13 +331,13 @@ if (preg_match("/^config$/i", $message)) {
 			} else {
 				$msg = "Could not find the command <highlight>$command<end> for Channel <highlight>$channel<end>";
 			}
-		  	$sendto->reply($msg);
-		  	return;
+			$sendto->reply($msg);
+			return;
 		}
 
 		$commandManager = Registry::getInstance('commandManager');
 		$commandManager->update_status($channel, $command, null, 1, $admin);
-		
+
 		if ($channel == "all") {
 			$msg = "Updated access of command <highlight>$command<end> to <highlight>$admin<end>";
 		} else {
@@ -348,8 +348,8 @@ if (preg_match("/^config$/i", $message)) {
 		$data = $db->query($sql, $channel, $command);
 		if (count($data) == 0) {
 			$msg = "Could not find the subcmd <highlight>$command<end> for Channel <highlight>$channel<end>";
-		  	$sendto->reply($msg);
-		  	return;
+			$sendto->reply($msg);
+			return;
 		}
 
 		$db->exec("UPDATE cmdcfg_<myname> SET `admin` = ? WHERE `type` = ? AND `cmdevent` = 'subcmd' AND `cmd` = ?", $admin, $channel, $command);
@@ -362,7 +362,7 @@ if (preg_match("/^config$/i", $message)) {
 	$found_msg = 0;
 	$found_priv = 0;
 	$found_guild = 0;
-	
+
 	$commandAlias = Registry::getInstance('commandAlias');
 
 	$alias_cmd = $commandAlias->get_command_by_alias($cmd);
@@ -384,28 +384,28 @@ if (preg_match("/^config$/i", $message)) {
 				$aliases_blob .= "{$row->alias}, ";
 			}
 		}
-		
+
 		if ($count > 0) {
 			$list[] = "<highlight>Aliases:<end> $aliases_blob \n\n";
 		}
-		
+
 		$list[] = array("header" => "<u><highlight>Tells:<end></u>\n", "content" => getCommandInfo($cmd, 'msg'), "footer" => "\n\n");
 		$list[] = array("header" => "<u><highlight>Private Channel:<end></u>\n", "content" => getCommandInfo($cmd, 'priv'), "footer" => "\n\n");
 		$list[] = array("header" => "<u><highlight>Guild Channel:<end></u>\n", "content" => getCommandInfo($cmd, 'guild'), "footer" => "\n\n");
-		
+
 		$subcmd_list = '';
 		$output = getSubCommandInfo($cmd, 'msg');
 		if ($output) {
 			$subcmd_list .= "<u><highlight>Available Subcommands in tells<end></u>\n";
 			$subcmd_list .= $output;
 		}
-		
+
 		$output = getSubCommandInfo($cmd, 'priv');
 		if ($output) {
 			$subcmd_list .= "<u><highlight>Available Subcommands in Private Channel<end></u>\n";
 			$subcmd_list .= $output;
 		}
-		
+
 		$output = getSubCommandInfo($cmd, 'guild');
 		if ($output) {
 			$subcmd_list .= "<u><highlight>Available Subcommands in Guild Channel<end></u>\n";
@@ -415,22 +415,22 @@ if (preg_match("/^config$/i", $message)) {
 		if ($subcmd_list) {
 			$list[] = array("header" => "<header> ::: Subcommands ::: <end>\n\n", "content" => $subcmd_list);
 		}
-		
+
 		$help = Registry::getInstance('help')->find($cmd, $sender);
 		if ($help) {
 			$list[] = "<header> ::: Help ($cmd) ::: <end>\n\n" . $help;
 		}
-		
+
 		$msg = Text::make_structured_blob(ucfirst($cmd)." config", $list);
 	}
 	$sendto->reply($msg);
 } else if (preg_match("/^config help (.+) admin (all|rl|mod|admin|guild|member)$/i", $message, $arr)) {
-  	$helpTopic = strtolower($arr[1]);
+	$helpTopic = strtolower($arr[1]);
 	$admin = $arr[2];
-	
+
 	$row = $db->queryRow("SELECT * FROM hlpcfg_<myname> WHERE `name` = ? ORDER BY `name`", $helpTopic);
 	if ($row === null) {
-		$sendto->reply("The help topic <highlight>$helpTopic<end> doesn't exist!");		  	
+		$sendto->reply("The help topic <highlight>$helpTopic<end> doesn't exist!");
 		return;
 	}
 
@@ -439,7 +439,7 @@ if (preg_match("/^config$/i", $message)) {
 
 	$sendto->reply("Updated access for helpfile <highlight>$helpTopic<end> to <highlight>".ucfirst(strtolower($admin))."<end>.");
 } else if (preg_match("/^config help (.+)$/i", $message, $arr)) {
-  	$mod = strtoupper($arr[1]);
+	$mod = strtoupper($arr[1]);
 	$blob = '';
 
 	$data = $db->query("SELECT * FROM hlpcfg_<myname> WHERE module = ? ORDER BY name", $mod);
@@ -469,7 +469,7 @@ if (preg_match("/^config$/i", $message)) {
 	$on = "<a href='chatcmd:///tell <myname> config mod {$module} enable all'>Enable</a>";
 	$off = "<a href='chatcmd:///tell <myname> config mod {$module} disable all'>Disable</a>";
 	$configHelpFiles = Text::make_chatcmd('Configure', "/tell <myname> config help {$module}");
-	
+
 	$list = array();
 	$list[] = "<header> :::::: $module Configuration :::::: <end>\n\n";
 	$list[] = "Enable/disable entire module: ($on/$off)\n";
@@ -477,7 +477,7 @@ if (preg_match("/^config$/i", $message)) {
 	$l = "";
 	$lh = "";
 
- 	$data = $db->query("SELECT * FROM settings_<myname> WHERE `module` = ?", $module);
+	$data = $db->query("SELECT * FROM settings_<myname> WHERE `module` = ?", $module);
 	if (count($data) > 0) {
 		$found = true;
 		$lh = "\n<i>Settings</i>\n";
@@ -489,15 +489,15 @@ if (preg_match("/^config$/i", $message)) {
 		if ($row->mode == "edit") {
 			$l .= " (<a href='chatcmd:///tell <myname> settings change $row->name'>Modify</a>)";
 		}
-	
+
 		$l .= ":  " . $setting->displayValue($row);
 	}
-	
+
 	if ($lh != "") {
 		$list[] = array("header" => $lh, "content" => $l);
 	}
 
-	$sql = 
+	$sql =
 		"SELECT
 			*,
 			SUM(CASE WHEN type = 'guild' THEN 1 ELSE 0 END) guild_avail,
@@ -534,7 +534,7 @@ if (preg_match("/^config$/i", $message)) {
 			$off = "<a href='chatcmd:///tell <myname> config subcmd $row->cmd disable all'>OFF</a>";
 			//$adv = "<a href='chatcmd:///tell <myname> config subcmd $row->cmd'>Adv.</a>";
 		}
-		
+
 		if ($row->msg_avail == 0) {
 			$tell = "|_";
 		} else if ($row->msg_status == 1) {
@@ -542,7 +542,7 @@ if (preg_match("/^config$/i", $message)) {
 		} else {
 			$tell = "|<red>T<end>";
 		}
-		
+
 		if ($row->guild_avail == 0) {
 			$guild = "|_";
 		} else if ($row->guild_status == 1) {
@@ -550,7 +550,7 @@ if (preg_match("/^config$/i", $message)) {
 		} else {
 			$guild = "|<red>G<end>";
 		}
-		
+
 		if ($row->priv_avail == 0) {
 			$priv = "|_";
 		} else if ($row->priv_status == 1) {
@@ -568,7 +568,7 @@ if (preg_match("/^config$/i", $message)) {
 	if ($lh != "") {
 		$list[] = array("header" => $lh, "content" => $l);
 	}
-	
+
 	$l = "";
 	$lh = "";
 	$data = $db->query("SELECT * FROM eventcfg_<myname> WHERE `type` <> 'setup' AND `module` = ?", $module);
@@ -601,7 +601,7 @@ if (preg_match("/^config$/i", $message)) {
 	} else {
 		$msg = "Could not find module '<highlight>$module<end>'";
 	}
- 	$sendto->reply($msg);
+	$sendto->reply($msg);
 } else
 	$syntax_error = true;
 

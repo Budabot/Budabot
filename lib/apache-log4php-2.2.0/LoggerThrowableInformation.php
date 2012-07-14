@@ -25,51 +25,51 @@
  * @since 2.1
  */
 class LoggerThrowableInformation {
-	
+
 	/** @var Exception Throwable to log */
 	private $throwable;
-	
+
 	/** @var array Array of throwable messages */
 	private $throwableArray;
-	
+
 	/** @var Logger reference */
 	private $logger;
-	
+
 	/**
 	 * Create a new instance
-	 * 
+	 *
 	 * @param $throwable - a throwable as a exception
 	 * @param $logger - Logger reference
 	 */
 	public function __construct(Exception $throwable)  {
 		$this->throwable = $throwable;
 	}
-	
+
 	/**
 	* Return source exception
-	* 
+	*
 	* @return Exception
 	*/
 	public function getThrowable() {
 		return $this->throwable;
 	}
-	
+
 	/**
 	 * @desc Returns string representation of throwable
-	 * 
-	 * @return array 
+	 *
+	 * @return array
 	 */
 	public function getStringRepresentation() {
 		if (!is_array($this->throwableArray)) {
 			$renderer = LegacyLogger::getHierarchy()->getRendererMap()->getByClassName(get_class($this->throwable));
-			
+
 			// TODO: why this?
 			if ($renderer instanceof LoggerRendererDefault) {
 				$renderer = new LoggerRendererException();
 			}
 			$this->throwableArray = explode("\n", $renderer->render($this->throwable));
 		}
-		
+
 		return $this->throwableArray;
 	}
 }

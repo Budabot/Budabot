@@ -24,7 +24,7 @@ if (preg_match("/^altsadmin add ([a-z0-9-]+) ([a-z0-9-]+)$/i", $message, $names)
 		$sendto->reply($msg);
 		return;
 	}
-	
+
 	if (count($altInfo->alts) > 0) {
 		// already registered to someone else
 		if ($altInfo->main == $name) {

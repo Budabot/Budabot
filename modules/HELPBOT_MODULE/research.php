@@ -12,7 +12,7 @@ if (preg_match("/^research ([0-9]+)$/i",$message, $arr)) {
 	} else {
 		$sql = "SELECT * FROM research WHERE level = ?";
 		$row = $db->queryRow($sql, $level);
-		
+
 		$levelcap = $row->levelcap;
 		$sk = $row->sk;
 		$xp = $sk * 1000;
@@ -20,14 +20,14 @@ if (preg_match("/^research ([0-9]+)$/i",$message, $arr)) {
 		$capsk = round($sk * .05);
 		$xp = number_format($xp);
 		$sk = number_format($sk);
-		
+
 		$blob = "<green>You must be <blue>Level $levelcap<end> to reach <blue>Research Level $level<end>.\n";
 		$blob .= "You need <blue>$sk SK<end> to reach <blue>Research Level $level<end> per research line.\n\n";
 		$blob .= "This equals <orange>$xp XP<end>.\n\n";
 		$blob .= "Your research will cap at <yellow>~$capxp XP<end> or <yellow>~$capsk SK<end>.";
 		$msg = Text::make_blob("XP/SK Needed for Research Levels", $blob);
 	}
-	
+
 	$sendto->reply($msg);
 } else if (preg_match("/^research ([0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	$lolevel = $arr[1];
@@ -35,8 +35,8 @@ if (preg_match("/^research ([0-9]+)$/i",$message, $arr)) {
 	if ($lolevel < 0 OR $lolevel > 10 OR $hilevel < 0 OR $hilevel > 10) {
 		$research .= "<orange>Invalid Research Level Input. Valid reserch levels are from 0-10.<end>";
 	} else {
-		$sql = 
-			"SELECT 
+		$sql =
+			"SELECT
 				SUM(sk) totalsk,
 				MAX(levelcap) levelcap
 			FROM
@@ -44,16 +44,16 @@ if (preg_match("/^research ([0-9]+)$/i",$message, $arr)) {
 			WHERE
 				level > ? AND level <= ?";
 		$row = $db->queryRow($sql, $lolevel, $hilevel);
-		
+
 		$xp = number_format($row->totalsk * 1000);
 		$sk = number_format($row->totalsk);
-		
+
 		$blob = "<green>You must be <blue>Level $row->levelcap<end> to reach Research Level <blue>$hilevel.<end>\n";
 		$blob .= "It takes <blue>$sk SK<end> to go from Research Level <blue>$lolevel<end> to Research Level <blue>$hilevel<end> per research line.\n\n";
 		$blob .= "This equals <orange>$xp XP<end>.";
 		$msg = Text::make_blob("XP/SK Needed for Research Levels", $blob);
 	}
-	
+
 	$sendto->reply($msg);
 } else {
 	$syntax_error = true;

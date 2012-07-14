@@ -3,7 +3,7 @@
 if (preg_match("/^fling ([0-9]*\\.?[0-9]+) ([0-9]+)$/i", $message, $arr)) {
 	$AttTim = $arr[1];
 	$FlingSkill = $arr[2];
-	
+
 	list($flinghardcap, $flingskillcap) = cap_fling_shot($AttTim);
 
 	$flingrech =  round(($AttTim * 16) - ($FlingSkill / 100));

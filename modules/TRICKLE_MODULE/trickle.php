@@ -2,9 +2,9 @@
 
 if (preg_match("/^trickle( ([a-zA-Z]+) ([0-9]+)){1,6}$/i", $message, $arr1) || preg_match("/^trickle( ([0-9]+) ([a-zA-Z]+)){1,6}$/i", $message, $arr2)) {
 	$msg = "";
-	
+
 	$abilities = array('agi' => 0, 'int' => 0, 'psy' => 0, 'sta' => 0, 'str' => 0, 'sen' => 0);
-	
+
 	if ($arr1) {
 		$array = explode(" ", $message);
 		array_shift($array);
@@ -14,7 +14,7 @@ if (preg_match("/^trickle( ([a-zA-Z]+) ([0-9]+)){1,6}$/i", $message, $arr1) || p
 				$syntax_error = true;
 				return;
 			}
-			
+
 			$abilities[$ability] = $array[1 + $i];
 		}
 	} else {
@@ -26,7 +26,7 @@ if (preg_match("/^trickle( ([a-zA-Z]+) ([0-9]+)){1,6}$/i", $message, $arr1) || p
 				$syntax_error = true;
 				return;
 			}
-			
+
 			$abilities[$ability] = $array[$i];
 		}
 	}

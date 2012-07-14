@@ -10,16 +10,16 @@ if (preg_match("/^feedback$/i", $message)) {
 			feedback
 		GROUP BY
 			name";
-			
+
 	$data = $db->query($sql);
 	$count = count($data);
-	
+
 	if ($count == 0) {
 		$msg = "There are no characters on the feedback list.";
 		$sendto->reply($msg);
 		return;
 	}
-	
+
 	$blob = '';
 	forEach ($data as $row) {
 		$details_link = Text::make_chatcmd('Details', "/tell <myname> feedback $row->name");
@@ -38,21 +38,21 @@ if (preg_match("/^feedback$/i", $message)) {
 		$sendto->reply("Could not find character '$name'.");
 		return;
 	}
-	
+
 	if ($charid == $by_charid) {
 		$sendto->reply("You cannot give yourself feedback.");
 		return;
 	}
-	
+
 	$time = time() - 86400;
-	
+
 	$sql = "SELECT name FROM feedback WHERE `by_charid` = ? AND `charid` = ? AND `dt` > ?";
 	$data = $db->query($sql, $by_charid, $charid, $time);
 	if (count($data) > 0) {
 		$sendto->reply("You may only submit feedback for a player once every 24 hours. Please try again later.");
 		return;
 	}
-	
+
 	$sql = "SELECT name FROM feedback WHERE `by_charid` = ?";
 	$data = $db->query($sql, $by_charid);
 	if (count($data) > 3) {
@@ -84,13 +84,13 @@ if (preg_match("/^feedback$/i", $message)) {
 } else if (preg_match("/^feedback ([a-z0-9-]*)$/i", $message, $arr)) {
     $charid = $chatBot->get_uid($arr[1]);
 	$name = ucfirst(strtolower($arr[1]));
-	
+
 	if ($charid == false) {
 		$where_sql = "WHERE `name` = '$name'";
 	} else {
 		$where_sql = "WHERE `charid` = '$charid'";
 	}
-    
+
 	$data = $db->query("SELECT reputation, COUNT(*) count FROM feedback {$where_sql} GROUP BY `reputation`");
 	if (count($data) == 0) {
 		$msg = "<highlight>$name<end> has no feedback.";
@@ -108,7 +108,7 @@ if (preg_match("/^feedback$/i", $message)) {
 		$blob = "Positive feedback: <green>{$num_positive}<end>\n";
 		$blob .= "Negative feedback: <orange>{$num_negative}<end>\n\n";
 		$blob .= "Last 10 comments about this user:\n\n";
-		
+
 		$sql = "SELECT * FROM feedback {$where_sql} ORDER BY `dt` DESC LIMIT 10";
 		$data = $db->query($sql);
 		forEach ($data as $row) {
@@ -121,7 +121,7 @@ if (preg_match("/^feedback$/i", $message)) {
 			$time = Util::unixtime_to_readable(time() - $row->dt);
 			$blob .= "({$row->reputation}) $row->comment <end> $row->by <white>{$time} ago<end>\n\n";
 		}
-		
+
 		$msg = Text::make_blob("Feedback for {$name}", $blob);
 	}
 

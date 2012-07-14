@@ -19,9 +19,9 @@
  */
 
 /**
- * LoggerAppenderRollingFile extends LoggerAppenderFile to backup the log files 
+ * LoggerAppenderRollingFile extends LoggerAppenderFile to backup the log files
  * when they reach a certain size.
- * 
+ *
  * This appender uses a layout.
  *
  * Parameters are:
@@ -65,10 +65,10 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile {
 	 * @var integer
 	 */
 	protected $maxFileSize = 10485760;
-	
+
 	/**
 	 * Set the maximum number of backup files to keep around.
-	 * 
+	 *
 	 * <p>The <var>MaxBackupIndex</var> option determines how many backup
 	 * files are kept before the oldest is erased. This option takes
 	 * a positive integer value. If set to zero, then there will be no
@@ -76,10 +76,10 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile {
 	 * MaxFileSize.</p>
 	 * <p>There is one backup file by default.</p>
 	 *
-	 * @var integer 
+	 * @var integer
 	 */
 	protected $maxBackupIndex = 1;
-	
+
 	/**
 	 * @var string the filename expanded
 	 */
@@ -87,7 +87,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile {
 
 	/**
 	 * Returns the value of the MaxBackupIndex option.
-	 * @return integer 
+	 * @return integer
 	 */
 	private function getExpandedFileName() {
 		return $this->expandedFileName;
@@ -105,12 +105,12 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile {
 	/**
 	 * Implements the usual roll over behaviour.
 	 *
-	 * <p>If MaxBackupIndex is positive, then files File.1, ..., File.MaxBackupIndex -1 are renamed to File.2, ..., File.MaxBackupIndex. 
+	 * <p>If MaxBackupIndex is positive, then files File.1, ..., File.MaxBackupIndex -1 are renamed to File.2, ..., File.MaxBackupIndex.
 	 * Moreover, File is renamed File.1 and closed. A new File is created to receive further log output.
-	 * 
+	 *
 	 * <p>If MaxBackupIndex is equal to zero, then the File is truncated with no backup files created.
-	 * 
-	 * Rollover must be called while the file is locked so that it is safe for concurrent access. 
+	 *
+	 * Rollover must be called while the file is locked so that it is safe for concurrent access.
 	 */
 	private function rollOver() {
 		// If maxBackups <= 0, then there is no file renaming to be done.
@@ -130,16 +130,16 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile {
 					rename($file, $target);
 				}
 			}
-	
+
 			// Backup the active file
 			copy($fileName, "$fileName.1");
 		}
-		
+
 		// Truncate the active file
 		ftruncate($this->fp, 0);
 		rewind($this->fp);
 	}
-	
+
 	public function setFile($fileName) {
 		$this->file = $fileName;
 		// As LoggerAppenderFile does not create the directory, it has to exist.
@@ -152,7 +152,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile {
 
 	/**
 	 * Set the maximum number of backup files to keep around.
-	 * 
+	 *
 	 * <p>The <b>MaxBackupIndex</b> option determines how many backup
 	 * files are kept before the oldest is erased. This option takes
 	 * a positive integer value. If set to zero, then there will be no
@@ -201,26 +201,26 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile {
 
 				// Stats cache must be cleared, otherwise filesize() returns cached results
 				clearstatcache();
-				
+
 				// Rollover if needed
 				if (filesize($this->expandedFileName) > $this->maxFileSize) {
 					$this->rollOver();
 				}
-				
+
 				flock($this->fp, LOCK_UN);
 			} else {
 				$this->closed = true;
 			}
-		} 
+		}
 	}
-	
+
 	/**
 	 * @return Returns the maximum number of backup files to keep around.
 	 */
 	public function getMaxBackupIndex() {
 		return $this->maxBackupIndex;
 	}
-	
+
 	/**
 	 * @return Returns the maximum size that the output file is allowed to reach
 	 * before being rolled over to backup files.

@@ -4,8 +4,8 @@ if (preg_match("/^notes$/i", $message)) {
 	$blob = '';
 
 	$sql = "SELECT * FROM notes WHERE name LIKE ?";
-  	$data = $db->query($sql, $sender);
-	
+	$data = $db->query($sql, $sender);
+
 	if (count($data) == 0) {
 		$msg = "No notes for $sender.";
 	} else {
@@ -15,7 +15,7 @@ if (preg_match("/^notes$/i", $message)) {
 		}
 		$msg = Text::make_blob("Notes for $sender", $blob);
 	}
-  	
+
 	$sendto->reply($msg);
 } else if (preg_match("/^notes add (.*)$/i", $message, $arr)) {
 	$note = $arr[1];

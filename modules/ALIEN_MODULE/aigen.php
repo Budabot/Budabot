@@ -8,10 +8,10 @@
    **
    ** Date(created): 20.10.2006
    ** Date(last modified): 24.10.2006
-   ** 
+   **
    ** Copyright (C) 2006 Sarah H
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -31,7 +31,7 @@
 
 if (preg_match("/^aigen (ankari|ilari|rimah|jaax|xoch|cha)$/i", $message, $arr)) {
 	$gen = ucfirst(strtolower($arr[1]));
-	
+
 	$blob = '';
 	switch ($gen) {
 		case "Ankari":
@@ -53,7 +53,7 @@ if (preg_match("/^aigen (ankari|ilari|rimah|jaax|xoch|cha)$/i", $message, $arr))
 			$blob .= "<red>High Evade/NR, Low Dodge.<blue>\nBoss of this type drops:\n\n<img src=rdb://100337></img>\n<a href='itemref://247141/247141/300'>Supple Lead Viralbots</a>.<orange>\n(Ranged / Spec Ranged / Add All Off)\n<img src=rdb://255705></img>\n<a href='itemref://247696/247696/300'>Kyr'Ozch Bio-Material - Type 13</a>\n<img src=rdb://255705></img>\n<a href='itemref://247674/247674/300'>Kyr'Ozch Bio-Material - Type 76</a>";
 			break;
 	}
-	
+
 	$msg = Text::make_blob("Info about General $gen", $blob);
 	$sendto->reply($msg);
 } else {

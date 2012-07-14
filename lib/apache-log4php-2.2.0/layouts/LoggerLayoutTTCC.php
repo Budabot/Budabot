@@ -21,11 +21,11 @@
 /**
  * TTCC layout format consists of <b>t</b>ime, <b>t</b>hread, <b>c</b>ategory and nested
  * diagnostic <b>c</b>ontext information, hence the name.
- * 
+ *
  * <p>Each of the four fields can be individually enabled or
  * disabled. The time format depends on the <b>DateFormat</b> used.</p>
  *
- * <p>If no dateFormat is specified it defaults to '%c'. 
+ * <p>If no dateFormat is specified it defaults to '%c'.
  * See php {@link PHP_MANUAL#date} function for details.</p>
  *
  * Configurable parameters for this layout are:
@@ -36,9 +36,9 @@
  * - {@link $dateFormat} (string) set date format. See php {@link PHP_MANUAL#date} function for details.
  *
  * An example how to use this layout:
- * 
+ *
  * {@example ../../examples/php/layout_ttcc.php 19}<br>
- * 
+ *
  * {@example ../../examples/resources/layout_ttcc.properties 18}<br>
  *
  * The above would print:<br>
@@ -55,7 +55,7 @@ class LoggerLayoutTTCC extends LoggerLayout {
 	protected $categoryPrefixing = true;
 	protected $contextPrinting   = true;
 	protected $microSecondsPrinting = true;
-	
+
 	/**
 	 * @var string date format. See {@link PHP_MANUAL#strftime} for details
 	 */
@@ -119,7 +119,7 @@ class LoggerLayoutTTCC extends LoggerLayout {
 	public function getContextPrinting() {
 		return $this->contextPrinting;
 	}
-	
+
 	/**
 	 * The <b>MicroSecondsPrinting</b> option specifies if microseconds infos
 	 * should be printed at the end of timestamp.
@@ -135,12 +135,12 @@ class LoggerLayoutTTCC extends LoggerLayout {
 	public function getMicroSecondsPrinting() {
 		return $this->microSecondsPrinting;
 	}
-	
-	
+
+
 	public function setDateFormat($dateFormat) {
 		$this->setString('dateFormat', $dateFormat);
 	}
-	
+
 	/**
 	 * @return string
 	 */
@@ -159,35 +159,35 @@ class LoggerLayoutTTCC extends LoggerLayout {
 	public function format(LoggerLoggingEvent $event) {
 		$timeStamp = (float)$event->getTimeStamp();
 		$format = strftime($this->dateFormat, (int)$timeStamp);
-		
+
 		if ($this->microSecondsPrinting) {
 			$usecs = floor(($timeStamp - (int)$timeStamp) * 1000);
 			$format .= sprintf(',%03d', $usecs);
 		}
-			
+
 		$format .= ' ';
-		
+
 		if ($this->threadPrinting) {
 			$format .= '['.getmypid().'] ';
 		}
-		
+
 		$level = $event->getLevel();
 		$format .= $level.' ';
-		
+
 		if($this->categoryPrefixing) {
 			$format .= $event->getLoggerName().' ';
 		}
-	   
+
 		if($this->contextPrinting) {
 			$ndc = $event->getNDC();
 			if($ndc != null) {
 				$format .= $ndc.' ';
 			}
 		}
-		
+
 		$format .= '- '.$event->getRenderedMessage();
 		$format .= PHP_EOL;
-		
+
 		return $format;
 	}
 

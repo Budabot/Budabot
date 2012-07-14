@@ -11,7 +11,7 @@ if (isset($chatBot->data['name_history_cache']) && count($chatBot->data['name_hi
 		}
 	}
 	$db->commit();
-	
+
 	unset($chatBot->data['name_history_cache']);
 }
 

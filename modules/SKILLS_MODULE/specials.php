@@ -17,7 +17,7 @@ if (preg_match('/^specials \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)
 	$doc = new DOMDocument();
 	$doc->prevservWhiteSpace = false;
 	$doc->loadXML($data);
-	
+
 	$name = $doc->getElementsByTagName('name')->item(0)->nodeValue;
 	$attributes = $doc->getElementsByTagName('attributes')->item(0)->getElementsByTagName('attribute');
 
@@ -38,12 +38,12 @@ if (preg_match('/^specials \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)
 			case 'BurstRecharge':
 				$burst_recharge = $attribute->attributes->getNamedItem("value")->nodeValue;
 				break;
-		}		
+		}
 	}
 	$flags = explode(', ', $flags);
 	$recharge_time /= 100;
 	$attack_time /= 100;
-	
+
 	$blob = '';
 	if (in_array('FullAuto', $flags)) {
 		list($hard_cap, $skill_cap) = cap_full_auto($attack_time, $recharge_time, $full_auto_recharge);
@@ -70,10 +70,10 @@ if (preg_match('/^specials \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)
 		$blob .= "AimedShotRecharge: You need <orange>".$skill_cap."<end> AS skill to cap your recharge at: <orange>".$hard_cap."<end>s.\n\n";
 		$found = true;
 	}
-	
+
 	// brawl, dimach don't depend on weapon at all
 	// we don't have a formula for sneak attack
-	
+
 	if (!$found) {
 		$msg = "No specials on this weapon that could be calculated.";
 	} else {

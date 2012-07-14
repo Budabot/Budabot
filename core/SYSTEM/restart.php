@@ -8,10 +8,10 @@
    **
    ** Date(created): 01.10.2005
    ** Date(last modified): 26.11.2006
-   ** 
+   **
    ** Copyright (C) 2005, 2006 J. Gracik
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify

@@ -1,8 +1,8 @@
 <?php
 
 class Text {
-	
-	/**	
+
+	/**
 	 * @name: make_header
 	 * @description: creates a formatted header to go in a blob
 	 */
@@ -32,7 +32,7 @@ class Text {
 
 		return $header;
 	}
-	
+
 	public function make_header_links($links) {
 		$output = '';
 		forEach ($links as $title => $command){
@@ -40,26 +40,26 @@ class Text {
 		}
 		return $output;
 	}
-	
-	/**	
+
+	/**
 	 * @name: make_blob
 	 * @description: creates an info window
 	 */
 	function make_blob($name, $content, $header = NULL) {
 		$setting = Registry::getInstance('setting');
-		
+
 		if ($header === null) {
 			$header = $name;
 		}
 
 		// escape double quotes
 		$content = str_replace('"', '&quot;', $content);
-		
+
 		$content = Text::format_message($content);
-		
+
 		$pages = Text::paginate($content, $setting->get("max_blob_size"), array("<pagebreak>", "\n", " "));
 		$num = count($pages);
-		
+
 		if ($num == 1) {
 			$page = $pages[0];
 			$headerMarkup = "<header> :::::: $header :::::: <end>\n\n";
@@ -76,18 +76,18 @@ class Text {
 			return $pages;
 		}
 	}
-	
+
 	function make_legacy_blob($name, $content) {
 		$setting = Registry::getInstance('setting');
 
 		// escape double quotes
 		$content = str_replace('"', '&quot;', $content);
-		
+
 		$content = Text::format_message($content);
-		
+
 		$pages = Text::paginate($content, $setting->get("max_blob_size"), array("<pagebreak>", "\n", " "));
 		$num = count($pages);
-		
+
 		if ($num == 1) {
 			$page = $pages[0];
 			$page = "<a href=\"text://".$setting->get("default_window_color").$page."\">$name</a>";
@@ -107,7 +107,7 @@ class Text {
 			return $pages;
 		}
 	}
-	
+
 	function paginate($input, $maxLength, $symbols) {
 		$pageSize = 0;
 		$currentPage = '';
@@ -119,7 +119,7 @@ class Text {
 			if ($symbol == "\n") {
 				$line .= "\n";
 			}
-			
+
 			$lineLength = strlen($line);
 			if ($lineLength > $maxLength) {
 				if ($pageSize != 0) {
@@ -144,15 +144,15 @@ class Text {
 				$pageSize = $lineLength;
 			}
 		}
-		
+
 		if ($pageSize > 0) {
 			$result []= $currentPage;
 		}
 
 		return $result;
 	}
-	
-	/**	
+
+	/**
 	 * @name: make_structured_blob
 	 * @description: creates an info window
 	 */
@@ -162,11 +162,11 @@ class Text {
 
 		// escape double quotes
 		$content = str_replace('"', '&quot;', $content);
-		
+
 		// Format retaining blob.
 		/**
 		 * $content is expected to be delivered in the following format:
-		 * 
+		 *
 		 * $content => array(
 		 *  [0] => array(
 		 *   'header' => "", //If not set, uses ""
@@ -177,35 +177,35 @@ class Text {
 		 *   )
 		 *  [..] => array(..)
 		 * )
-		 * 
+		 *
 		 * This algorithm will attempt to split a large blob into multiple pages between indices if possible.  It will split up to 500 characters early to preserve formatting.
 		 * If it must split in the middle of content then it will append 'footer_incomplete' at the end of the first blob, 'header_incomplete' at the start of the second blob and continue the content.
 		 * This algorithm will always split on a line.
 		 * In the event that 'footer_incomplete' is not defined, it is treated as blank.  In the event that 'header_incomplete' is not defined, 'header' will be used instead.
-		 * 
+		 *
 		 * Note: In the event that 'footer' would go over a blob limit and be placed in another blob, 'footer' is omitted entirely.  'footer' should be used *only* to close up formatting tags or blank spaces.
 		 * Note: If an entry in the $content array is a string, it is treated as though the string is the content and there are is no attached 'header' or 'footer'.
-		 * 
-		 * 
+		 *
+		 *
 		 * Sample 1:
 		 * Blob: <header><content><footer>
-		 * 
+		 *
 		 * Sample 2:
 		 * Blob #1: <header><content up to character 7000><footer_incomplete>
 		 * Blob #2: <header_incomplete><content from 7001 - 10000><footer>
-		 * 
+		 *
 		 */
-		
+
 		$content = Text::format_message($content); //Budabot markup -> AOML (yay for str_ireplace innately handling arrays!)
-		
+
 		$output = "";
 		$outputArr = array();
-		
+
 		forEach ($content as $index => $arr) {
 			if (empty($arr) || (empty($arr['content']) && empty($arr['header']))) {
 				continue; //Skip it if it's empty
 			}
-			
+
 			// Make sure all the values of the current array are set (avoid any odd NULL output)
 			if (!is_array($arr)) { $arr = array("content" => $arr); }
 			if (isset($arr[0])) { $arr['header'] = $arr[0]; }
@@ -215,9 +215,9 @@ class Text {
 			if (!isset($arr['footer'])) { $arr['footer'] = ""; }
 			if (!isset($arr['header_incomplete'])) { $arr['header_incomplete'] = $arr['header']; }
 			if (!isset($arr['footer_incomplete'])) { $arr['footer_incomplete'] = ""; }
-			
+
 			$nextCount = strlen($output) + strlen($arr['header']) + strlen($arr['content']) + strlen($arr['footer']); //Character count if header+content+footer are added
-			
+
 			if ($nextCount < $setting->get("max_blob_size")) {
 				//If it's less than max_blob_size still, we're good
 				$output .= $arr['header'] . $arr['content'] . $arr['footer'];
@@ -234,7 +234,7 @@ class Text {
 					$outputArr[] = $output;
 					$output = "<header>::::: $name Page " . (count($outputArr) + 1) . " :::::<end>\n\n" . $arr['header'];
 				}
-				
+
 				//Now for the content
 				if (strlen($output) + strlen($arr['content']) < $setting->get("max_blob_size")) {
 					$output .= $arr['content'];
@@ -259,9 +259,9 @@ class Text {
 							}
 						}
 					}
-					
+
 					$i = 0;
-					
+
 					// Process all the sections of the content
 					while ($i < count($cArr)) {
 						$str = $cArr[$i];
@@ -280,7 +280,7 @@ class Text {
 						}
 					}
 				}
-				
+
 				//Now for the footer
 				if (strlen($output) + strlen($arr['footer']) < $setting->get("max_blob_size")) {
 					$output .= $arr['footer'];
@@ -291,13 +291,13 @@ class Text {
 					$output = "<header>::::: $name Page " . (count($outputArr) + 1) . " :::::<end>\n\n";
 				}
 			}
-			
+
 		}
-		
+
 		if (!empty($output)) {
 			$outputArr[] = $output;
 		}
-		
+
 		// Turn all pages into clickable blobs
 		forEach ($outputArr as $index => $page) {
 			if (count($outputArr) > 1) {
@@ -310,10 +310,10 @@ class Text {
 				$outputArr = "<a $style href=\"text://".$setting->get("default_window_color").str_replace("<pagebreak>", "", $page)."\">$name</a>";
 			}
 		}
-		
+
 		return $outputArr; //Return the result
 	}
-	
+
 	/**
 	 * @name: make_chatcmd
 	 * @description: creates a chatcmd link
@@ -326,7 +326,7 @@ class Text {
 		$content = str_replace("'", '&#39;', $content);
 		return "<a $style href='chatcmd://$content'>$name</a>";
 	}
-	
+
 	/**
 	 * @name: make_userlink
 	 * @description: creates a user link which adds support for right clicking usernames in chat, providing you with a menu of options (ignore etc.) (see 18.1 AO patchnotes)
@@ -336,31 +336,31 @@ class Text {
 	function make_userlink($user, $style = NULL) {
 		return "<a $style href='user://$user'>$user</a>";
 	}
-	
-	/**	
+
+	/**
 	 * @name: make_item
 	 * @description: creates an item link
 	 */
 	public function make_item($lowId, $highId,  $ql, $name) {
 		return "<a href='itemref://{$lowId}/{$highId}/{$ql}'>{$name}</a>";
 	}
-	
-	/**	
+
+	/**
 	 * @name: make_item
 	 * @description: creates an item link
 	 */
 	public function make_image($imageId) {
 		return "<img src='rdb://{$imageId}'>";
 	}
-	
-	/**	
+
+	/**
 	 * @name: format_message
 	 * @description: formats a message with colors, bot name, symbol, etc
 	 */
 	public function format_message($message) {
 		$chatBot = Registry::getInstance('chatBot');
 		$setting = Registry::getInstance('setting');
-		
+
 		$array = array(
 			"<header>" => $setting->get('default_header_color'),
 			"<highlight>" => $setting->get('default_highlight_color'),
@@ -373,7 +373,7 @@ class Text {
 			"<orange>" => "<font color='#FCA712'>",
 			"<grey>" => "<font color='#C3C3C3'>",
 			"<cyan>" => "<font color='#00FFFF'>",
-			
+
 			"<neutral>" => $setting->get('default_neut_color'),
 			"<omni>" => $setting->get('default_omni_color'),
 			"<clan>" => $setting->get('default_clan_color'),
@@ -384,7 +384,7 @@ class Text {
 			"<tab>" => "    ",
 			"<end>" => "</font>",
 			"<symbol>" => $setting->get("symbol"));
-		
+
 		$message = str_ireplace(array_keys($array), array_values($array), $message);
 
 		return $message;

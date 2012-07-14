@@ -1,15 +1,15 @@
 <?php
 
 if (preg_match("/^settings$/i", $message)) {
-  	$blob = '';
- 	$blob .= "<highlight>Changing any of these settings will take effect immediately. Please note that some of these settings are read-only and can't be changed.\n\n<end>";
- 	$data = $db->query("SELECT * FROM settings_<myname> WHERE `mode` != 'hide' ORDER BY `module`");
+	$blob = '';
+	$blob .= "<highlight>Changing any of these settings will take effect immediately. Please note that some of these settings are read-only and can't be changed.\n\n<end>";
+	$data = $db->query("SELECT * FROM settings_<myname> WHERE `mode` != 'hide' ORDER BY `module`");
 	$cur = '';
- 	forEach ($data as $row) {
+	forEach ($data as $row) {
 		if ($row->module != $cur) {
 			$blob .= "\n<pagebreak><highlight><u>".str_replace("_", " ", $row->module)."</u><end>\n";
 			$cur = $row->module;
-		}	
+		}
 		$blob .= "  *" . $row->description;
 
 		if ($row->mode == "edit") {
@@ -20,11 +20,11 @@ if (preg_match("/^settings$/i", $message)) {
 		$blob .= ": " . $setting->displayValue($row);
 	}
 
-  	$msg = Text::make_blob("Bot Settings", $blob);
- 	$sendto->reply($msg);
+	$msg = Text::make_blob("Bot Settings", $blob);
+	$sendto->reply($msg);
 } else if (preg_match("/^settings change ([a-z0-9_]+)$/i", $message, $arr)) {
 	$settingName = strtolower($arr[1]);
- 	$row = $db->queryRow("SELECT * FROM settings_<myname> WHERE `name` = ?", $settingName);
+	$row = $db->queryRow("SELECT * FROM settings_<myname> WHERE `name` = ?", $settingName);
 	if ($row === null) {
 		$msg = "Could not find setting <highlight>{$settingName}<end>.";
 	} else {
@@ -42,44 +42,44 @@ if (preg_match("/^settings$/i", $message)) {
 		$blob .= "Current Value: " . $setting->displayValue($row) . "\n";
 
 		if ($row->type == 'color') {
-		  	$blob .= "For this setting you can set any Color in the HTML Hexadecimal Color Format.\n";
-		  	$blob .= "You can change it manually with the command: \n\n";
-		  	$blob .= "/tell <myname> settings save {$row->name} #'HTML-Color'\n\n";
-		  	$blob .= "Or you can choose one of the following Colors\n\n";
-		  	$blob .= "Red: <font color='#ff0000'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #ff0000'>Save it</a>) \n";
-		  	$blob .= "White: <font color='#FFFFFF'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #FFFFFF'>Save it</a>) \n";
-			$blob .= "Grey: <font color='#808080'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #808080'>Save it</a>) \n";			
+			$blob .= "For this setting you can set any Color in the HTML Hexadecimal Color Format.\n";
+			$blob .= "You can change it manually with the command: \n\n";
+			$blob .= "/tell <myname> settings save {$row->name} #'HTML-Color'\n\n";
+			$blob .= "Or you can choose one of the following Colors\n\n";
+			$blob .= "Red: <font color='#ff0000'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #ff0000'>Save it</a>) \n";
+			$blob .= "White: <font color='#FFFFFF'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #FFFFFF'>Save it</a>) \n";
+			$blob .= "Grey: <font color='#808080'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #808080'>Save it</a>) \n";
 			$blob .= "Light Grey: <font color='#DDDDDD'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #DDDDDD'>Save it</a>) \n";
 			$blob .= "Dark Grey: <font color='#9CC6E7'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #9CC6E7'>Save it</a>) \n";
-		  	$blob .= "Black: <font color='#000000'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #000000'>Save it</a>) \n";
-		  	$blob .= "Yellow: <font color='#FFFF00'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #FFFF00'>Save it</a>) \n";
-		  	$blob .= "Blue: <font color='#8CB5FF'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #8CB5FF'>Save it</a>) \n";
-		  	$blob .= "Deep Sky Blue: <font color='#00BFFF'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #00BFFF'>Save it</a>) \n";
-		  	$blob .= "Green: <font color='#00DE42'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #00DE42'>Save it</a>) \n";			  			  			  		  	
-		  	$blob .= "Orange: <font color='#FCA712'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #FCA712'>Save it</a>) \n";
-		  	$blob .= "Gold: <font color='#FFD700'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #FFD700'>Save it</a>) \n";
-		  	$blob .= "Deep Pink: <font color='#FF1493'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #FF1493'>Save it</a>) \n";
-		  	$blob .= "Violet: <font color='#EE82EE'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #EE82EE'>Save it</a>) \n";
-		  	$blob .= "Brown: <font color='#8B7355'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #8B7355'>Save it</a>) \n";
-		  	$blob .= "Cyan: <font color='#00FFFF'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #00FFFF'>Save it</a>) \n";
-		  	$blob .= "Navy Blue: <font color='#000080'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #000080'>Save it</a>) \n";
-		  	$blob .= "Dark Orange: <font color='#FF8C00'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #FF8C00'>Save it</a>) \n";
+			$blob .= "Black: <font color='#000000'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #000000'>Save it</a>) \n";
+			$blob .= "Yellow: <font color='#FFFF00'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #FFFF00'>Save it</a>) \n";
+			$blob .= "Blue: <font color='#8CB5FF'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #8CB5FF'>Save it</a>) \n";
+			$blob .= "Deep Sky Blue: <font color='#00BFFF'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #00BFFF'>Save it</a>) \n";
+			$blob .= "Green: <font color='#00DE42'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #00DE42'>Save it</a>) \n";
+			$blob .= "Orange: <font color='#FCA712'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #FCA712'>Save it</a>) \n";
+			$blob .= "Gold: <font color='#FFD700'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #FFD700'>Save it</a>) \n";
+			$blob .= "Deep Pink: <font color='#FF1493'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #FF1493'>Save it</a>) \n";
+			$blob .= "Violet: <font color='#EE82EE'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #EE82EE'>Save it</a>) \n";
+			$blob .= "Brown: <font color='#8B7355'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #8B7355'>Save it</a>) \n";
+			$blob .= "Cyan: <font color='#00FFFF'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #00FFFF'>Save it</a>) \n";
+			$blob .= "Navy Blue: <font color='#000080'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #000080'>Save it</a>) \n";
+			$blob .= "Dark Orange: <font color='#FF8C00'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #FF8C00'>Save it</a>) \n";
 		} else if ($row->type == 'text') {
-	  		$blob .= "For this setting you can enter any text you want (max. 255 chararacters).\n";
-		  	$blob .= "To change this setting:\n\n";
-		  	$blob .= "<highlight>/tell <myname> settings save {$row->name} 'text'<end>\n\n";
+			$blob .= "For this setting you can enter any text you want (max. 255 chararacters).\n";
+			$blob .= "To change this setting:\n\n";
+			$blob .= "<highlight>/tell <myname> settings save {$row->name} 'text'<end>\n\n";
 		} else if ($row->type == 'number') {
 			$blob .= "For this setting you can set any number.\n";
-		  	$blob .= "To change this setting: \n\n";
-		  	$blob .= "<highlight>/tell <myname> settings save {$row->name} 'number'<end>\n\n";
+			$blob .= "To change this setting: \n\n";
+			$blob .= "<highlight>/tell <myname> settings save {$row->name} 'number'<end>\n\n";
 		} else if ($row->type == 'options') {
-		  	$blob .= "For this setting you must choose one of the options from the list below.\n\n";
+			$blob .= "For this setting you must choose one of the options from the list below.\n\n";
 		} else if ($row->type == 'time') {
 			$blob .= "For this setting you must enter a time value. See <a href='chatcmd:///tell <myname> help budatime'>budatime</a> for info on the format of the 'time' parameter.\n\n";
 			$blob .= "To change this setting:\n\n";
 			$blob .= "<highlight>/tell <myname> settings save {$row->name} 'time'<end>\n\n";
 		}
-		
+
 		if ($options) {
 			$blob .= "Predefined Options:\n";
 			if ($intoptions) {
@@ -104,11 +104,11 @@ if (preg_match("/^settings$/i", $message)) {
 		$msg = Text::make_blob("Settings Info for {$settingName}", $blob);
 	}
 
- 	$sendto->reply($msg);
+	$sendto->reply($msg);
 } else if (preg_match("/^settings save ([a-z0-9_]+) (.+)$/i", $message, $arr)) {
-  	$name_setting = strtolower($arr[1]);
-  	$change_to_setting = $arr[2];
- 	$row = $db->queryRow("SELECT * FROM settings_<myname> WHERE `name` = ?", $name_setting);
+	$name_setting = strtolower($arr[1]);
+	$change_to_setting = $arr[2];
+	$row = $db->queryRow("SELECT * FROM settings_<myname> WHERE `name` = ?", $name_setting);
 	if ($row === null) {
 		$msg = "Could not find setting <highlight>{$name_setting}<end>.";
 	} else {
@@ -160,7 +160,7 @@ if (preg_match("/^settings$/i", $message)) {
 		$setting->save($name_setting, $new_setting);
 		$msg = "Setting successfull saved.";
 	}
- 	$sendto->reply($msg);
+	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

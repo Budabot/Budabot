@@ -4,7 +4,7 @@ if (preg_match("/^addalias ([a-z0-9]+) (.+)/i", $message, $arr)) {
 	$alias = strtolower($arr[1]);
 	$cmd = strtolower($arr[2]);
 	$commandAlias = Registry::getInstance('commandAlias');
-	
+
 	$alias_obj = new stdClass;
 	$alias_obj->module = '';
 	$alias_obj->cmd = $cmd;

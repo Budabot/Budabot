@@ -11,21 +11,21 @@ if ($setting->get("leaderecho") == 1) {
 $accessLevel = Registry::getInstance('accessLevel');
 
 if (preg_match("/^leader$/i", $message)) {
-  	if ($chatBot->data["leader"] == $sender) {
+	if ($chatBot->data["leader"] == $sender) {
 		unset($chatBot->data["leader"]);
-	  	$msg = "Leader cleared.";
+		$msg = "Leader cleared.";
 	} else if ($chatBot->data["leader"] != "") {
 		if ($accessLevel->compareCharacterAccessLevels($sender, $chatBot->data["leader"])) {
-  			$chatBot->data["leader"] = $sender;
-		  	$msg = "{$sender} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
+			$chatBot->data["leader"] = $sender;
+			$msg = "{$sender} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
 		} else {
 			$msg = "You can't take leader from <highlight>{$chatBot->data["leader"]}<end>.";
 		}
 	} else {
 		$chatBot->data["leader"] = $sender;
-	  	$msg = "{$sender} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
+		$msg = "{$sender} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
 	}
-  	$chatBot->sendPrivate($msg);
+	$chatBot->sendPrivate($msg);
 
 } else {
 	$syntax_error = true;

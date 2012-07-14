@@ -2,13 +2,13 @@
 
 if (preg_match("/^orgcities$/i", $message)) {
 	$data = $db->query("SELECT DISTINCT playfield_id, long_name, short_name FROM orgcities c JOIN playfields p ON c.playfield_id = p.id ORDER BY long_name ASC");
-	
+
 	$blob = '';
 	forEach ($data as $row) {
 		$cityLink = Text::make_chatcmd($row->long_name, "/tell <myname> orgcities $row->short_name");
 		$blob .= $cityLink . "\n";
 	}
-	
+
 	$msg = Text::make_blob("Playfields with Org Cities", $blob);
 	$sendto->reply($msg);
 } else if (preg_match("/^orgcities (.+)$/i", $message, $arr)) {
@@ -20,7 +20,7 @@ if (preg_match("/^orgcities$/i", $message)) {
 	}
 
 	$data = $db->query("SELECT * FROM orgcities WHERE playfield_id = ? ORDER BY cluster ASC, plot ASC", $playfield->id);
-	
+
 	$blob = '';
 	$current_cluster = '';
 	forEach ($data as $row) {
@@ -31,7 +31,7 @@ if (preg_match("/^orgcities$/i", $message)) {
 		$coords = Text::make_chatcmd("{$row->xcoord}x{$row->ycoord}", "/waypoint {$row->xcoord} {$row->ycoord} {$row->playfield_id}");
 		$blob .= $row->cluster . $row->plot . " {$coords}\n";
 	}
-	
+
 	$msg = Text::make_blob("Org cities in {$playfield->long_name}", $blob);
 	$sendto->reply($msg);
 } else {

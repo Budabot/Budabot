@@ -21,7 +21,7 @@ if (preg_match("/^whatbuffs (.+)$/i", $message, $arr)) {
 		case 1:  // exactly one matching skill
 			$info = "";
 			$found = 0;
-			forEach ($buffitems as $key => $item_info) {	
+			forEach ($buffitems as $key => $item_info) {
 				if (contains($item_info, $skills[0])) {
 					$found++;
 					$info .= "- " . Text::make_chatcmd($key, "/tell <myname> <symbol>buffitem $key") . "\n";
@@ -33,12 +33,12 @@ if (preg_match("/^whatbuffs (.+)$/i", $message, $arr)) {
 				$inside .= $info;
 				$inside .= "\n\nby Imoutochan, RK1";
 				$windowlink = Text::make_blob(":: Your \"What buffs ...?\" results ::", $inside);
-				$sendto->reply($windowlink); 
+				$sendto->reply($windowlink);
 				$sendto->reply("<highlight>$found<end> result(s) in total");
 				return;
 			} else {
 				$sendto->reply("Nothing that buffs ".$skills[0]." in my database.");
-				return; 
+				return;
 			}
 			break;
 
@@ -51,7 +51,7 @@ if (preg_match("/^whatbuffs (.+)$/i", $message, $arr)) {
 			$inside .= $info;
 			$inside .= "\n\nby Imoutochan, RK1";
 			$windowlink = Text::make_blob(":: Your \"What buffs ...?\" results ::", $inside);
-			$sendto->reply($windowlink); 
+			$sendto->reply($windowlink);
 			$sendto->reply("Found several skills matching your key words.");
 			return;
 	}

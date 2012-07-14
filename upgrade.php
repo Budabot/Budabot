@@ -33,7 +33,7 @@
 			LegacyLogger::log("ERROR", 'Upgrade', $e->getMessage());
 			return false;
 		}
-	
+
 		// Else return true because both the table and the column exist.
 		return true;
 	}

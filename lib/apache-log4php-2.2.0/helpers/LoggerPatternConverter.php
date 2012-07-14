@@ -20,23 +20,23 @@
 
 
 /**
- * LoggerPatternConverter is an abstract class that provides the formatting 
+ * LoggerPatternConverter is an abstract class that provides the formatting
  * functionality that derived classes need.
- * 
+ *
  * <p>Conversion specifiers in a conversion patterns are parsed to
  * individual PatternConverters. Each of which is responsible for
  * converting a logging event in a converter specific manner.</p>
- * 
+ *
  * @version $Revision: 1166187 $
  * @package log4php
  * @subpackage helpers
  * @since 0.3
  */
 class LoggerPatternConverter {
-	
+
 	/**
 	 * Array for fast space padding
-	 * Used by {@link LoggerPatternConverter::spacePad()}.	
+	 * Used by {@link LoggerPatternConverter::spacePad()}.
 	 */
 	private $spaces = array(
 		" ", // 1 space
@@ -44,30 +44,30 @@ class LoggerPatternConverter {
 		"    ", // 4 spaces
 		"        ", // 8 spaces
 		"                ", // 16 spaces
-		"                                "); // 32 spaces 
-	 
+		"                                "); // 32 spaces
+
 	/**
 	 * @var LoggerPatternConverter next converter in converter chain
 	 */
 	public $next = null;
-	
+
 	public $min = -1;
 	public $max = 0x7FFFFFFF;
 	public $leftAlign = false;
 
 	/**
-	 * Constructor 
+	 * Constructor
 	 *
 	 * @param LoggerFormattingInfo $fi
 	 */
-	public function __construct($fi = null) {  
+	public function __construct($fi = null) {
 		if($fi !== null) {
 			$this->min = $fi->min;
 			$this->max = $fi->max;
 			$this->leftAlign = $fi->leftAlign;
 		}
 	}
-  
+
 	/**
 	 * Derived pattern converters must override this method in order to
 	 * convert conversion specifiers in the correct way.
@@ -84,20 +84,20 @@ class LoggerPatternConverter {
 	 */
 	public function format(&$sbuf, $e) {
 		$s = $this->convert($e);
-		
+
 		if($s == null or empty($s)) {
 			if(0 < $this->min) {
 				$this->spacePad($sbuf, $this->min);
 			}
 			return;
 		}
-		
+
 		$len = strlen($s);
-	
+
 		if($len > $this->max) {
 			$sbuf .= substr($s , 0, ($len - $this->max));
 		} else if($len < $this->min) {
-			if($this->leftAlign) {		
+			if($this->leftAlign) {
 				$sbuf .= $s;
 				$this->spacePad($sbuf, ($this->min - $len));
 			} else {
@@ -107,7 +107,7 @@ class LoggerPatternConverter {
 		} else {
 			$sbuf .= $s;
 		}
-	}	
+	}
 
 	/**
 	 * Fast space padding method.
@@ -122,8 +122,8 @@ class LoggerPatternConverter {
 		  $sbuf .= $this->spaces[5];
 		  $length -= 32;
 		}
-		
-		for($i = 4; $i >= 0; $i--) {	
+
+		for($i = 4; $i >= 0; $i--) {
 			if(($length & (1<<$i)) != 0) {
 				$sbuf .= $this->spaces[$i];
 			}

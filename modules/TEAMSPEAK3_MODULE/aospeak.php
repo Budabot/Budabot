@@ -3,7 +3,7 @@
 if (preg_match("/^aospeak org$/i", $message)) {
 	$url = "http://api.aospeak.com/org/" . $chatBot->vars['dimension'] . "/" . $chatBot->vars['my_guild_id'];
 	$results = file_get_contents($url);
-	
+
 	if ($results == "ORG_NOT_FOUND") {
 		$msg = "Your org is not currently set up on AOSpeak. Please have your org president set up a channel first.";
 		$sendto->reply($msg);
@@ -28,7 +28,7 @@ if (preg_match("/^aospeak org$/i", $message)) {
 		$blob .= "\n\nProvided by " . Text::make_chatcmd("AOSpeak.com", "/start http://www.aospeak.com");
 		$msg = Text::make_blob("AOSpeak Org ($count)", $blob);
 	}
-	
+
 	$sendto->reply($msg);
 } else if (preg_match("/^aospeak$/i", $message) || preg_match("/^aospeak (\\d)$/i", $message, $arr) || preg_match("/^aospeak (\\d)$/i", $message, $arr)) {
 	if (isset($arr)) {
@@ -39,19 +39,19 @@ if (preg_match("/^aospeak org$/i", $message)) {
 		$url = "http://api.aospeak.com/online/";
 	}
 	$results = file_get_contents($url);
-	
+
 	$users = json_decode($results);
 	$count = count($users);
 	if ($count == 0) {
 		$msg = "No players currently connected to AOSpeak.";
 	} else {
 		$blob = "Server: <highlight>voice.aospeak.com<end>\n";
-		
+
 		$channels = array();
 		forEach ($users as $user) {
 			$channels[$user->channelName] []= $user;
 		}
-		
+
 		forEach ($channels as $name => $users) {
 			$blob .= "\n<green>$name<end>\n";
 			forEach ($users as $user) {
@@ -66,7 +66,7 @@ if (preg_match("/^aospeak org$/i", $message)) {
 		$blob .= "\n\nProvided by " . Text::make_chatcmd("AOSpeak.com", "/start http://www.aospeak.com");
 		$msg = Text::make_blob("$title ($count)", $blob);
 	}
-	
+
 	$sendto->reply($msg);
 } else {
 	$syntax_error = true;

@@ -5,10 +5,10 @@
  * private (guest) channel.
  */
 class ChatSay {
-	
+
 	/** @Inject */
 	public $chatBot;
-	
+
 	/**
 	 * @Subcommand("say org (.+)")
 	 * @AccessLevel("all")

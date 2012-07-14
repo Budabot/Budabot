@@ -5,7 +5,7 @@ if (preg_match("/^(mission|missions) ([0-9]+)$/i", $message, $arr)) {
 
 	if ($missionQl > 0 && $missionQl <= 250) {
 		$msg = "QL{$missionQl} missions can be rolled from players who are these levels:";
-	
+
 		forEach (Level::find_all_levels() as $row) {
 			$array = explode(",", $row->missions);
 			if (in_array($missionQl, $array)) {

@@ -17,11 +17,11 @@ class ClientHandler {
 		$this->syncId = $obj->syncId;
 		return $obj;
 	}
-	
+
 	function readData( $byteCount ) {
 		$result = '';
 		$remaining = $byteCount;
-		while ($remaining > 0) { // TODO: it might be wise to have some 
+		while ($remaining > 0) { // TODO: it might be wise to have some
 								 // timeout here if the client doesn't sent all needed data
 			$data = socket_read($this->client, $remaining);
 			if ($data === false) {
@@ -48,11 +48,11 @@ class ClientHandler {
 		socket_write($this->client, $output);
 		$this->close();
 	}
-	
+
 	function close() {
 		socket_close($this->client);
 	}
-	
+
 	/**
 	 * Returns client's IP-address.
 	 */

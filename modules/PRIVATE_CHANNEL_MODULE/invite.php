@@ -6,9 +6,9 @@ if (preg_match("/^inviteuser (.+)$/i", $message, $arr)) {
 	if ($chatBot->vars["name"] == $name) {
 		$msg = "You cannot invite the bot to its own private channel.";
 	} else if ($uid) {
-      	$msg = "Invited <highlight>$name<end> to this channel.";
-	  	$chatBot->privategroup_kick($name);
-	  	$chatBot->privategroup_invite($name);
+	$msg = "Invited <highlight>$name<end> to this channel.";
+		$chatBot->privategroup_kick($name);
+		$chatBot->privategroup_invite($name);
 		$msg2 = "You have been invited to the <highlight><myname><end> channel by <highlight>$sender<end>";
 		$chatBot->sendTell($msg2, $name);
     } else {

@@ -8,7 +8,7 @@
    **
    ** Date(created): 15.07.2006
    ** Date(last modified): 15.07.2006
-   ** 
+   **
    */
 if (preg_match("/^ding$/i", $message)) {
 	$dingText = array(
@@ -17,10 +17,10 @@ if (preg_match("/^ding$/i", $message)) {
 		"When are you people going to start using me right! Gratz for your level though.",
 		"Gratz! But what are we looking at? I need a level next time.");
 
- 	$sendto->reply(Util::rand_array_value($dingText));
+	$sendto->reply(Util::rand_array_value($dingText));
 } else if (preg_match("/^ding dong$/i", $message)) {
 	$msg =	"Ditch, Bitch!";
- 	$sendto->reply($msg);
+	$sendto->reply($msg);
 } else if (preg_match("/^ding ([\-+]?[0-9]+)$/i", $message, $arr) ||
 		preg_match("/^ding ([\-+]?[0-9]+) (.+)$/i", $message, $arr)) {
 	if ($arr[1] == 100) {
@@ -92,7 +92,7 @@ if (preg_match("/^ding$/i", $message)) {
 			"Come on, COME ON! Only $lvl more levels to go until 220!");
 	}
 
- 	$sendto->reply(Util::rand_array_value($dingText));
+	$sendto->reply(Util::rand_array_value($dingText));
 } else {
 	$syntax_error = true;
 }

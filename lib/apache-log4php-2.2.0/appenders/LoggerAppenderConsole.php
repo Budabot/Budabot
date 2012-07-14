@@ -19,24 +19,24 @@
  */
 
 /**
- * ConsoleAppender appends log events to STDOUT or STDERR. 
- * 
- * <p><b>Note</b>: Use this Appender with command-line php scripts. 
+ * ConsoleAppender appends log events to STDOUT or STDERR.
+ *
+ * <p><b>Note</b>: Use this Appender with command-line php scripts.
  * On web scripts this appender has no effects.</p>
  *
  * Configurable parameters of this appender are:
  *
  * - layout     - The layout (required)
  * - target     - "stdout" or "stderr"
- * 
+ *
  * An example php file:
- * 
+ *
  * {@example ../../examples/php/appender_console.php 19}
- * 
+ *
  * An example configuration file:
- * 
+ *
  * {@example ../../examples/resources/appender_console.properties 18}
- * 
+ *
  * @version $Revision: 1213283 $
  * @package log4php
  * @subpackage appenders
@@ -47,12 +47,12 @@ class LoggerAppenderConsole extends LoggerAppender {
 	const STDERR = 'php://stderr';
 
 	/**
-	 * Can be 'php://stdout' or 'php://stderr'. But it's better to use keywords <b>STDOUT</b> and <b>STDERR</b> (case insensitive). 
+	 * Can be 'php://stdout' or 'php://stderr'. But it's better to use keywords <b>STDOUT</b> and <b>STDERR</b> (case insensitive).
 	 * Default is STDOUT
 	 * @var string
 	 */
 	protected $target = self::STDOUT;
-	
+
 	/**
 	 * @var mixed the resource used to open stdout/stderr
 	 */
@@ -85,7 +85,7 @@ class LoggerAppenderConsole extends LoggerAppender {
 		}
 		$this->closed = (bool)is_resource($this->fp) === false;
 	}
-	
+
 	public function close() {
 		if($this->closed != true) {
 			if (is_resource($this->fp) && $this->layout !== null) {

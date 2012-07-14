@@ -7,14 +7,14 @@ if (preg_match("/^fullauto ([0-9]*\\.?[0-9]+) ([0-9]*\\.?[0-9]+) (\\d+) (\\d+)$/
 	$FullAutoSkill = $arr[4];
 
 	list($FACap, $FA_Skill_Cap) = cap_full_auto($AttTim, $RechT, $FARecharge);
-	
+
 	$FA_Recharge = round(($RechT * 40) + ($FARecharge / 100) - ($FullAutoSkill / 25) + round($AttTim - 1));
 	if ($FA_Recharge < $FACap) {
 		$FA_Recharge = $FACap;
 	}
-	
+
 	$MaxBullets = 5 + floor($FullAutoSkill / 100);
-	
+
 	$blob = "Results:\n";
 	$blob .= "Weapon Attack: <orange>". $AttTim ."<end>s\n";
 	$blob .= "Weapon Recharge: <orange>". $RechT ."<end>s\n";

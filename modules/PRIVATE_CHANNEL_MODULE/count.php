@@ -8,24 +8,24 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 	$tl5 = 0;
 	$tl6 = 0;
 	$tl7 = 0;
-	
+
 	$data = $db->query("SELECT * FROM online o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE added_by = '<myname>' AND channel_type = 'priv'");
 	$numonline = count($data);
     forEach ($data as $row) {
-      	if ($row->level > 1 && $row->level <= 14) {
-      		$tl1++;
-      	} else if ($row->level >= 15 && $row->level <= 49) {
-      		$tl2++;
-      	} else if ($row->level >= 50 && $row->level <= 99) {
-      		$tl3++;
-      	} else if ($row->level >= 100 && $row->level <= 149) {
-      		$tl4++;
-      	} else if ($row->level >= 150 && $row->level <= 189) {
-      		$tl5++;
-      	} else if ($row->level >= 190 && $row->level <= 204) {
-      		$tl6++;
-      	} else if ($row->level >= 205 && $row->level <= 220) {
-      		$tl7++;
+	if ($row->level > 1 && $row->level <= 14) {
+		$tl1++;
+	} else if ($row->level >= 15 && $row->level <= 49) {
+		$tl2++;
+	} else if ($row->level >= 50 && $row->level <= 99) {
+		$tl3++;
+	} else if ($row->level >= 100 && $row->level <= 149) {
+		$tl4++;
+	} else if ($row->level >= 150 && $row->level <= 189) {
+		$tl5++;
+	} else if ($row->level >= 190 && $row->level <= 204) {
+		$tl6++;
+	} else if ($row->level >= 205 && $row->level <= 220) {
+		$tl7++;
 		}
     }
     $msg = "<highlight>$numonline<end> in total: TL1 <highlight>$tl1<end>, TL2 <highlight>$tl2<end>, TL3 <highlight>$tl3<end>, TL4 <highlight>$tl4<end>, TL5 <highlight>$tl5<end>, TL6 <highlight>$tl6<end>, TL7 <highlight>$tl7<end>";
@@ -48,10 +48,10 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 
 	$data = $db->query("SELECT count(*) AS count, profession FROM online o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE added_by = '<myname>' AND channel_type = 'priv' GROUP BY `profession`");
 	$numonline = count($data);
-	$msg = "<highlight>$numonline<end> in total: ";	
+	$msg = "<highlight>$numonline<end> in total: ";
 
     forEach ($data as $row) {
-   	    $online[$row->profession] = $row->count;
+	    $online[$row->profession] = $row->count;
 	}
 
 	/*
@@ -64,12 +64,12 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 
     $msg .= "<highlight>".$online['Adventurer']."<end> Adv, <highlight>".$online['Agent']."<end> Agent, <highlight>".$online['Bureaucrat']."<end> Crat, <highlight>".$online['Doctor']."<end> Doc, <highlight>".$online['Enforcer']."<end> Enf, <highlight>".$online['Engineer']."<end> Eng, <highlight>".$online['Fixer']."<end> Fix, <highlight>".$online['Keeper']."<end> Keeper, <highlight>".$online['Martial Artist']."<end> MA, <highlight>".$online['Meta-Physicist']."<end> MP, <highlight>".$online['Nano-Technician']."<end> NT, <highlight>".$online['Soldier']."<end> Sol, <highlight>".$online['Shade']."<end> Shade, <highlight>".$online['Trader']."<end> Trader";
 
-  	$sendto->reply($msg);
+	$sendto->reply($msg);
 } else if (preg_match("/^count org$/i", $message, $arr)) {
 	$sql = "SELECT * FROM online WHERE added_by = '<myname>' AND channel_type = 'priv'";
 	$data = $db->query($sql);
 	$numonline = count($data);
-	
+
 	if ($numonline == 0) {
 		$msg = "No players in channel.";
 		$sendto->reply($msg);
@@ -79,14 +79,14 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 	$sql = "SELECT `guild`, count(*) AS cnt, AVG(level) AS avg_level FROM online o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE added_by = '<myname>' AND channel_type = 'priv' AND `guild` <> '' GROUP BY `guild` ORDER BY `cnt` DESC, `avg_level` DESC";
 	$data = $db->query($sql);
 	$numorgs = count($data);
-	
+
 	$blob = '';
     forEach ($data as $row) {
 		$percent = round($row->cnt / $numonline, 2) * 100;
 		$avg_level = round($row->avg_level, 1);
-   	    $blob .= "{$percent}% {$row->guild} - {$row->cnt} member(s), average level {$avg_level}\n";
+	    $blob .= "{$percent}% {$row->guild} - {$row->cnt} member(s), average level {$avg_level}\n";
 	}
-	
+
 	$msg = Text::make_blob("Organizations ($numorgs)", $blob);
 	$sendto->reply($msg);
 } else if (preg_match("/^count (.*)$/i", $message, $arr)) {
@@ -138,7 +138,7 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 			$sendto->reply($msg);
 			return;
     }
-   
+
 	$data = $db->query("SELECT * FROM online o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE added_by = '<myname>' AND channel_type = 'priv' AND `profession` = ? ORDER BY `level`", $prof);
     $numonline = count($data);
     $msg = "<highlight>$numonline<end> $prof:";
@@ -151,7 +151,7 @@ if (preg_match("/^count (level|lvl)$/i", $message, $arr)) {
 		}
         $msg .= " [<highlight>$row->name<end> - ".$row->level.$afk."]";
     }
-    $sendto->reply($msg);  	
+    $sendto->reply($msg);
 } else {
 	$syntax_error = true;
 }

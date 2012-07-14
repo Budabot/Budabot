@@ -44,5 +44,5 @@ if (preg_match("/^alb$/i", $message)) {
 } else {
 	$syntax_error = true;
 }
-  
+
 ?>

@@ -2,13 +2,13 @@
 
 if (preg_match("/^whoisorg (\d+) (\d)$/i", $message, $arr1) || preg_match("/^whoisorg ([a-z0-9-]+) (\d)$/i", $message, $arr2) ||
 	preg_match("/^whoisorg ([0-9]+)$/i", $message, $arr1) || preg_match("/^whoisorg ([a-z0-9-]+)$/i", $message, $arr2)) {
-	
+
 	$dimension = $chatBot->vars['dimension'];
 	if ($arr2) {
 		if (isset($arr2[2])) {
 			$dimension = $arr2[2];
 		}
-	
+
 		// Someone's name.  Doing a whois to get an orgID.
 		$name = ucfirst(strtolower($arr2[1]));
 		$whois = Player::get_by_name($name, $dimension);
@@ -26,15 +26,15 @@ if (preg_match("/^whoisorg (\d+) (\d)$/i", $message, $arr1) || preg_match("/^who
 		}
 	} else {
 		$org_id = $arr1[1];
-		
+
 		if (isset($arr1[2])) {
 			$dimension = $arr1[2];
 		}
 	}
 
-  	$msg = "Getting Org info. Please stand by...";
+	$msg = "Getting Org info. Please stand by...";
     $sendto->reply($msg);
-	
+
     $org = Guild::get_by_id($org_id, $dimension);
 	if ($org === null) {
 		$msg = "Error in getting the Org info. Either the org does not exist or AO's server was too slow to respond.";
@@ -70,7 +70,7 @@ if (preg_match("/^whoisorg (\d+) (\d)$/i", $message, $arr1) || preg_match("/^who
 			$faction = $member->faction;
 		}
 		$lvl_tot += $member->level;
-		
+
 		if ($lvl_min > $member->level) {
 			$lvl_min = $member->level;
 		}
@@ -138,7 +138,7 @@ if (preg_match("/^whoisorg (\d+) (\d)$/i", $message, $arr1) || preg_match("/^who
 	$link .= "<highlight>Level:<end> $president_lvl\n";
 	$link .= "<highlight>Gender:<end> $president_gender\n";
 	$link .= "<highlight>Breed:<end> $president_breed\n\n";
-		
+
 	$link .= "<u>Members</u>\n";
 	$link .= "<highlight>Number of Members:<end> $num_members\n";
 	$link .= "<highlight>Adventurer:<end> $num_adv (".round(($num_adv*100)/$num_members, 1)."% of total)\n";
@@ -154,7 +154,7 @@ if (preg_match("/^whoisorg (\d+) (\d)$/i", $message, $arr1) || preg_match("/^who
 	$link .= "<highlight>Nano-Technicians:<end> $num_nt (".round(($num_nt*100)/$num_members, 1)."% of total)\n";
 	$link .= "<highlight>Shades:<end> $num_shade (".round(($num_shade*100)/$num_members, 1)."% of total)\n";
 	$link .= "<highlight>Soldiers:<end> $num_sol (".round(($num_sol*100)/$num_members, 1)."% of total)\n";
-	$link .= "<highlight>Traders:<end> $num_trad (".round(($num_trad*100)/$num_members, 1)."% of total)\n";		  			  			  	
+	$link .= "<highlight>Traders:<end> $num_trad (".round(($num_trad*100)/$num_members, 1)."% of total)\n";
 	$msg = Text::make_blob("Org Info $org->orgname", $link);
 
 	$sendto->reply($msg);

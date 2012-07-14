@@ -57,7 +57,7 @@ if (preg_match("/^orglist end$/i", $message)) {
 		//unset($chatBot->data["ORGLIST_MODULE"]);
 		//return;
 	}
-	
+
 	$chatBot->data["ORGLIST_MODULE"]["start"] = time();
 	$chatBot->data["ORGLIST_MODULE"]["sendto"] = $sendto;
 
@@ -85,7 +85,7 @@ if (preg_match("/^orglist end$/i", $message)) {
 		// assume org id
 		$orgid = $arr[1];
 	}
-	
+
 	$sendto->reply("Downloading org list for org id $orgid...");
 
 	$org = Guild::get_by_id($orgid);
@@ -96,9 +96,9 @@ if (preg_match("/^orglist end$/i", $message)) {
 		unset($chatBot->data["ORGLIST_MODULE"]);
 		return;
 	}
-	
+
 	$chatBot->data["ORGLIST_MODULE"]["org"] = $org->orgname;
-	
+
 	// Check each name if they are already on the buddylist (and get online status now)
 	// Or make note of the name so we can add it to the buddylist later.
 	forEach ($org->members as $member) {
@@ -112,7 +112,7 @@ if (preg_match("/^orglist end$/i", $message)) {
 		$thismember .= ", ".$member->gender;
 		$thismember .= " ".$member->breed;
 		$thismember .= " ".$orgcolor["onlineH"].$member->profession."<end>)";
-		
+
 		$chatBot->data["ORGLIST_MODULE"]["result"][$member->name]["post"] = $thismember;
 
 		$chatBot->data["ORGLIST_MODULE"]["result"][$member->name]["name"] = $member->name;
@@ -138,7 +138,7 @@ if (preg_match("/^orglist end$/i", $message)) {
 				$chatBot->data["ORGLIST_MODULE"]["orgtype"] = $orgrankmap["Department"];
 			}
 		}
-		
+
 		$buddy_online_status = $buddylistManager->is_online($member->name);
 		if ($buddy_online_status !== null) {
 			$chatBot->data["ORGLIST_MODULE"]["result"][$member->name]["online"] = $buddy_online_status;
@@ -151,7 +151,7 @@ if (preg_match("/^orglist end$/i", $message)) {
 			$chatBot->data["ORGLIST_MODULE"]["result"][$member->name]["online"] = 1;
 		}
 	}
-	
+
 	$sendto->reply("Checking online status for " . count($org->members) ." members of '$org->orgname'...");
 
 	// prime the list and get things rolling by adding some buddies
@@ -174,7 +174,7 @@ if (preg_match("/^orglist end$/i", $message)) {
 	unset($org);
 
 	// If we added names to the buddylist, this will kick in to determine if they are online or not.
-	// If no more names need to be checked, then post results.	
+	// If no more names need to be checked, then post results.
 	checkOrglistEnd();
 } else {
 	$syntax_error = true;

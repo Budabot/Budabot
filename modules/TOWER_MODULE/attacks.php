@@ -28,7 +28,7 @@ if (preg_match("/^attacks (\\d+)$/i", $message, $arr) || preg_match("/^attacks$/
 			return;
 		}
 	}
-	
+
 	$playfields = Registry::getInstance('playfields');
 	$playfield = $playfields->get_playfield_by_name($arr[1]);
 	if ($playfield === null) {
@@ -36,7 +36,7 @@ if (preg_match("/^attacks (\\d+)$/i", $message, $arr) || preg_match("/^attacks$/
 		$sendto->reply($msg);
 		return;
 	}
-	
+
 	$tower_info = $towers->get_tower_info($playfield->id, $arr[2]);
 	if ($tower_info === null) {
 		$msg = "Invalid site number.";
@@ -79,7 +79,7 @@ if (preg_match("/^attacks (\\d+)$/i", $message, $arr) || preg_match("/^attacks$/
 
 $start_row = ($page_label - 1) * $page_size;
 
-$sql = 
+$sql =
 	"SELECT
 		*
 	FROM
@@ -101,7 +101,7 @@ if (count($data) == 0) {
 		$links['Previous Page'] = '/tell <myname> attacks ' . ($page_label - 1);
 	}
 	$links['Next Page'] = "/tell <myname> attacks {$cmd}" . ($page_label + 1);
-	
+
 	$blob = "The last $page_size Tower Attacks (page $page_label)\n\n";
 	$blob .= Text::make_header_links($links) . "\n\n";
 	$blob .= $colorvalue;
@@ -127,7 +127,7 @@ if (count($data) == 0) {
 		} else {
 			$blob .= $colorlabel."Attacker:<end> {$row->att_player} ({$row->att_level}/<green>{$row->att_ai_level}<end> {$row->att_profession}) <{$att_faction}>{$row->att_guild_name}<end> ({$row->att_faction})\n";
 		}
-		
+
 		$base = Text::make_chatcmd("{$row->short_name} {$row->site_number}", "/tell <myname> lc {$row->short_name} {$row->site_number}");
 		$base .= " ({$row->min_ql}-{$row->max_ql})";
 

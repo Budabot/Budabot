@@ -20,31 +20,31 @@
 
 /**
  * Layout which formats the events using PHP's serialize() function.
- * 
+ *
  * Available options:
  * - locationInfo - If set to true, the event's location information will also
  *                  be serialized (slow, defaults to false).
- * 
+ *
  * @version $Revision: 1059292 $
  * @package log4php
  * @subpackage layouts
  * @since 2.2
- */  
+ */
 class LoggerLayoutSerialized extends LoggerLayout {
-	
+
 	/** Whether to include the event's location information (slow). */
 	protected $locationInfo = false;
-	
+
 	/** Sets the location information flag. */
 	public function setLocationInfo($value) {
 		$this->setBoolean('locationInfo', $value);
 	}
-	
+
 	/** Returns the location information flag. */
 	public function getLocationInfo() {
 		return $this->locationInfo;
 	}
-	
+
 	public function format(LoggerLoggingEvent $event) {
 		// If required, initialize the location data
 		if($this->locationInfo) {

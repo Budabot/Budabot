@@ -25,25 +25,25 @@
  * finsished and the appender is beeing closed.
  *
  * Configurable parameters for this appender:
- * 
+ *
  * - layout             - Sets the layout class for this appender (required)
  * - to                 - Sets the recipient of the mail (required)
  * - from               - Sets the sender of the mail (optional)
  * - subject            - Sets the subject of the mail (optional)
- * 
+ *
  * An example:
- * 
+ *
  * {@example ../../examples/php/appender_mail.php 19}
- * 
+ *
  * {@example ../../examples/resources/appender_mail.properties 18}
- * 
+ *
  * The above will output something like:
  * <pre>
  *      Date: Tue,  8 Sep 2009 21:51:04 +0200 (CEST)
  *      From: someone@example.com
  *      To: root@localhost
  *      Subject: Log4php test
- *      
+ *
  *      Tue Sep  8 21:51:04 2009,120 [5485] FATAL root - Some critical message!
  *      Tue Sep  8 21:51:06 2009,120 [5485] FATAL root - Some more critical message!
  * </pre>
@@ -59,7 +59,7 @@ class LoggerAppenderMail extends LoggerAppender {
 
 	/** @var string 'subject' field */
 	protected $subject = 'Log4php Report';
-	
+
 	/** @var string 'to' field */
 	protected $to = null;
 
@@ -68,17 +68,17 @@ class LoggerAppenderMail extends LoggerAppender {
 
 	/** @var string used to create mail body */
 	protected $body = '';
-	
+
 	public function close() {
 		if($this->closed != true) {
 			$from = $this->from;
 			$to = $this->to;
-	
+
 			if(!empty($this->body) and $from !== null and $to !== null and $this->layout !== null) {
 				$subject = $this->subject;
 				if(!$this->dry) {
 					mail(
-						$to, $subject, 
+						$to, $subject,
 						$this->layout->getHeader() . $this->body . $this->layout->getFooter(),
 						"From: {$from}\r\n");
 				} else {
@@ -88,11 +88,11 @@ class LoggerAppenderMail extends LoggerAppender {
 			$this->closed = true;
 		}
 	}
-	
+
 	public function setSubject($subject) {
 		$this->setString('subject', $subject);
 	}
-	
+
 	public function setTo($to) {
 		$this->setString('to', $to);
 	}
@@ -104,7 +104,7 @@ class LoggerAppenderMail extends LoggerAppender {
 	public function setDry($dry) {
 		$this->setBoolean('dry', $dry);
 	}
-	
+
 	public function append(LoggerLoggingEvent $event) {
 		if($this->layout !== null) {
 			$this->body .= $this->layout->format($event);

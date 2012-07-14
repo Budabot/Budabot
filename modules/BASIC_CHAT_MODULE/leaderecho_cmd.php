@@ -1,5 +1,5 @@
 <?php
-   
+
 if (preg_match("/^leaderecho on$/i", $message)) {
 	$setting->save("leaderecho", "1");
 	$chatBot->sendPrivate("Leader echo has been <green>enabled<end>");

@@ -18,14 +18,14 @@ class ConfigFile {
 		$this->filePath = $filePath;
 		$this->vars = array();
 	}
-	
+
 	/**
 	 * Returns file path to the config file.
 	 */
 	public function getFilePath() {
 		return $this->filePath;
 	}
-	
+
 	/**
 	 * Loads the config file, creating the file if it doesn't exist yet.
 	 */
@@ -57,7 +57,7 @@ class ConfigFile {
 	public function getVars() {
 		return $this->vars;
 	}
-	
+
 	/**
 	 * Returns var from the config file.
 	 *
@@ -69,7 +69,7 @@ class ConfigFile {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Inserts the $vars array's contents. Any existing indexes are replaced
 	 * with the new values.
@@ -89,7 +89,7 @@ class ConfigFile {
 	public function setVar($name, $value) {
 		$this->vars[$name] = $value;
 	}
-	
+
 	/**
 	 * Copies config.template.php to this config file if it doesn't exist yet.
 	 */

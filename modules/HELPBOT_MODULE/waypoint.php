@@ -17,7 +17,7 @@ if (preg_match("/^waypoint \\(?([0-9\\.]+) ([0-9\\.]+) y ([0-9\\.]+) ([0-9]+)\\)
 	$x_coords = $arr[1];
 	$y_coords = $arr[3];
 	$playfield_id = $arr[5];
-	
+
 	$playfield = $playfields->get_playfield_by_id($playfield_id);
 	if ($playfield === null) {
 		$playfield_name = $playfield_id;
@@ -28,7 +28,7 @@ if (preg_match("/^waypoint \\(?([0-9\\.]+) ([0-9\\.]+) y ([0-9\\.]+) ([0-9]+)\\)
 	$x_coords = $arr[1];
 	$y_coords = $arr[3];
 	$playfield_name = $arr[5];
-	
+
 	$playfield = $playfields->get_playfield_by_name($playfield_name);
 	if ($playfield === null) {
 		$sendto->reply("Could not find playfield '$playfield_name'");
@@ -42,7 +42,7 @@ if (preg_match("/^waypoint \\(?([0-9\\.]+) ([0-9\\.]+) y ([0-9\\.]+) ([0-9]+)\\)
 	return;
 }
 
-$link = Text::make_chatcmd("waypoint: {$x_coords}x{$y_coords} {$playfield_name}", "/waypoint {$x_coords} {$y_coords} {$playfield_id}");	
+$link = Text::make_chatcmd("waypoint: {$x_coords}x{$y_coords} {$playfield_name}", "/waypoint {$x_coords} {$y_coords} {$playfield_id}");
 $blob = "Click here to use waypoint: $link";
 $msg = Text::make_blob("waypoint: {$x_coords}x{$y_coords} {$playfield_name}", $blob);
 $sendto->reply($msg);

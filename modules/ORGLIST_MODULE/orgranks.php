@@ -6,7 +6,7 @@ if (preg_match("/^orgranks$/i", $message, $arr) || preg_match("/^orgranks ([0-9]
 			$msg = "The bot does not belong to an org.";
 			$sendto->reply($msg);
 		}
-		
+
 		$sql = "SELECT * FROM org_members_<myname> o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE `mode` != 'del' ORDER BY `guild_rank_id` ASC, o.name ASC";
 		$data = $db->query($sql);
 		$orgname = "<myguild>";
@@ -33,14 +33,14 @@ if (preg_match("/^orgranks$/i", $message, $arr) || preg_match("/^orgranks ([0-9]
 
 		$msg = "Getting guild info. Please wait...";
 		$sendto->reply($msg);
-		
+
 		$org = Guild::get_by_id($guild_id);
 		if ($org === null) {
 			$msg = "Error in getting the Org info. Either org does not exist or AO's server was too slow to respond.";
 			$sendto->reply($msg);
 			return;
 		}
-		
+
 		$sql = "SELECT * FROM players WHERE guild_id = ? AND dimension = '<dim>' ORDER BY guild_rank_id ASC, name ASC";
 		$data = $db->query($sql, $guild_id);
 		$orgname = $org->orgname;
@@ -48,13 +48,13 @@ if (preg_match("/^orgranks$/i", $message, $arr) || preg_match("/^orgranks ([0-9]
 
 	$count = count($data);
 	if ($count == 0) {
-	  	$msg = "No org members found.";
+		$msg = "No org members found.";
         $sendto->reply($msg);
 		return;
 	}
-	
+
 	$blob = array("{$orgname} has {$count} members.\n\n");
-	
+
 	$current_rank_id = '';
 	$l = "";
 	$lh = "";
@@ -68,13 +68,13 @@ if (preg_match("/^orgranks$/i", $message, $arr) || preg_match("/^orgranks ([0-9]
 			$current_rank_id = $row->guild_rank_id;
 			$lh = "<white>{$row->guild_rank}\n";
 		}
-		
+
 		$l .= "<tab><highlight>{$row->name} (Level {$row->level}";
 		if ($row->ai_level > 0) {
 			$l .= "<green>/{$row->ai_level}<end>";
 		}
 		$l .= ", {$row->gender} {$row->breed} {$row->profession})<end>";
-		
+
 		if (isset($row->logged_off)) {
 			if ($buddylistManager->is_online($row->name) == 1) {
 				$logged_off = "<green>Online<end>";
@@ -85,12 +85,12 @@ if (preg_match("/^orgranks$/i", $message, $arr) || preg_match("/^orgranks ([0-9]
 			}
 			$l .= " :: Last logoff: $logged_off";
 		}
-		
+
 		$l .= "\n";
 	}
-	
+
 	$blob[] = array('header' => $lh, 'content' => $l);
-	
+
 	$msg = Text::make_structured_blob("Org ranks for '$orgname' ($count)", $blob);
 	$sendto->reply($msg);
 } else {

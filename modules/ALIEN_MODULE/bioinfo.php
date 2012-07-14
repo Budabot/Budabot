@@ -61,7 +61,7 @@ if (preg_match("/^bioinfo (.+) (\\d+)$/i", $message, $arr) ||
 			$msg = "Unknown Bio-Material";
 			break;
 	}
-	
+
 	$sendto->reply($msg);
 } else {
 	$syntax_error = true;

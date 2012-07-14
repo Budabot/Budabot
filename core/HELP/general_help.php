@@ -13,7 +13,7 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 	global $version;
 
 	$data = $help->getAllHelpTopics($sender);
-	
+
 	if (count($data) == 0) {
 		$msg = "<orange>No help files found.<end>";
 	} else {
@@ -27,7 +27,7 @@ if (preg_match("/^about$/i", $message) || preg_match("/^help about$/i", $message
 
 			$blob .= "  {$row->name}: {$row->description} <a href='chatcmd:///tell <myname> help {$row->name}'>Click here</a>\n";
 		}
-		
+
 		$msg = Text::make_blob("Help (main)", $blob, "Help Files for Budabot {$version}");
 	}
 

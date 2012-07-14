@@ -4,45 +4,45 @@ class Budabot extends AOChat {
 
 	/** @Inject */
 	public $db;
-	
+
 	/** @Inject */
 	public $commandManager;
-	
+
 	/** @Inject */
 	public $subcommand;
-	
+
 	/** @Inject */
 	public $commandAlias;
-	
+
 	/** @Inject */
 	public $eventManager;
-	
+
 	/** @Inject */
 	public $help;
-	
+
 	/** @Inject */
 	public $setting;
-	
+
 	/** @Inject */
 	public $ban;
-	
+
 	/** @Inject */
 	public $text;
-	
+
 	/** @Inject */
 	public $buddylistManager;
-	
+
 	/** @Logger("Core") */
 	public $logger;
-	
+
 	public $ready = false;
 
 	var $chatlist = array();
 	var $guildmembers = array();
-	
+
 	// array where modules can store stateful session data
 	var $data = array();
-	
+
 	//Ignore Messages from Vicinity/IRRK New Wire/OT OOC/OT Newbie OOC...
 	var $channelsToIgnore = array("", 'IRRK News Wire', 'OT OOC', 'OT Newbie OOC', 'OT Jpn OOC', 'OT shopping 11-50',
 		'Tour Announcements', 'Neu. Newbie OOC', 'Neu. Jpn OOC', 'Neu. shopping 11-50', 'Neu. OOC', 'Clan OOC',
@@ -55,7 +55,7 @@ class Budabot extends AOChat {
 		parent::__construct();
 
 		$this->vars = $vars;
-		
+
 		// Set startup time
 		$this->vars["startup"] = time();
 	}
@@ -92,7 +92,7 @@ class Budabot extends AOChat {
 
 		$this->logger->log('INFO', "All Systems ready!");
 	}
-	
+
 	public function run() {
 		$start = time();
 		$exec_connected_events = false;
@@ -105,7 +105,7 @@ class Budabot extends AOChat {
 				$this->ready = true;
 			}
 			if ($this->is_ready()) {
-			
+
 				// check monitored sockets and notify socket-notifiers if any activity occur in their sockets
 				$read = $this->monitoredSocketsByType[SocketNotifier::ACTIVITY_READ];
 				$write = $this->monitoredSocketsByType[SocketNotifier::ACTIVITY_WRITE];
@@ -114,7 +114,7 @@ class Budabot extends AOChat {
 					foreach ($this->socketNotifiers as $notifier) {
 						$socket = $notifier->getSocket();
 						$type = $notifier->getType();
-						
+
 						if (in_array($socket, $read) && $type & SocketNotifier::ACTIVITY_READ) {
 							$notifier->notify(SocketNotifier::ACTIVITY_READ);
 						}
@@ -131,18 +131,18 @@ class Budabot extends AOChat {
 					$this->eventManager->executeConnectEvents();
 					$exec_connected_events = true;
 				}
-				
+
 				// execute cron events at most once every second
 				if ($time < time()) {
 					$this->eventManager->crons();
 					$time = time();
 				}
-				
+
 				usleep(10000);
 			}
 		}
 	}
-	
+
 	function init() {
 		$this->logger->log('DEBUG', 'Initializing bot');
 
@@ -163,12 +163,12 @@ class Budabot extends AOChat {
 		// To reduce queries load core items into memory
 		$data = $this->db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd'");
 		forEach ($data as $row) {
-		  	$this->existing_commands[$row->type][$row->cmd] = true;
+			$this->existing_commands[$row->type][$row->cmd] = true;
 		}
 
 		$data = $this->db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd'");
 		forEach ($data as $row) {
-		  	$this->existing_subcmds[$row->type][$row->cmd] = true;
+			$this->existing_subcmds[$row->type][$row->cmd] = true;
 		}
 
 		$data = $this->db->query("SELECT * FROM eventcfg_<myname>");
@@ -178,26 +178,26 @@ class Budabot extends AOChat {
 
 		$data = $this->db->query("SELECT * FROM hlpcfg_<myname>");
 		forEach ($data as $row) {
-		  	$this->existing_helps[$row->name] = true;
+			$this->existing_helps[$row->name] = true;
 		}
 
 		$data = $this->db->query("SELECT * FROM settings_<myname>");
 		forEach ($data as $row) {
-		  	$this->existing_settings[$row->name] = true;
+			$this->existing_settings[$row->name] = true;
 		}
-		
+
 		$data = $this->db->query("SELECT * FROM cmd_alias_<myname>");
 		forEach ($data as $row) {
-		  	$this->existing_cmd_aliases[$row->alias] = true;
+			$this->existing_cmd_aliases[$row->alias] = true;
 		}
-		
+
 		$this->loadCoreModules();
 
 		$this->logger->log('INFO', "Loading USER modules...");
 
 		//Load user modules
 		$this->loadModules();
-		
+
 		//remove arrays
 		unset($this->existing_commands);
 		unset($this->existing_events);
@@ -205,7 +205,7 @@ class Budabot extends AOChat {
 		unset($this->existing_settings);
 		unset($this->existing_helps);
 		unset($this->existing_cmd_aliases);
-		
+
 		//Delete old entrys in the DB
 		$this->db->exec("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0");
 		$this->db->exec("DELETE FROM eventcfg_<myname> WHERE `verify` = 0");
@@ -217,7 +217,7 @@ class Budabot extends AOChat {
 		$this->commandAlias->load();
 		$this->eventManager->loadEvents();
 	}
-	
+
 	function loadCoreModules() {
 		// Load the Core Modules -- SETINGS must be first in case the other modules have settings
 		$this->logger->log('INFO', "Loading CORE modules...");
@@ -246,7 +246,7 @@ class Budabot extends AOChat {
 			$this->db->commit();
 		}
 	}
-	
+
 	public function registerModule($baseDir, $MODULE_NAME) {
 		if (file_exists("{$baseDir}/{$MODULE_NAME}/{$MODULE_NAME}.php")) {
 			$this->logger->log('DEBUG', "MODULE_NAME:({$MODULE_NAME}.php)");
@@ -264,7 +264,7 @@ class Budabot extends AOChat {
 				$d->close();
 			}
 			$new = array_diff(get_declared_classes(), $original);
-			
+
 			$count = 0;
 			forEach ($new as $className) {
 				$reflection = new ReflectionAnnotatedClass($className);
@@ -278,7 +278,7 @@ class Budabot extends AOChat {
 					$count++;
 				}
 			}
-			
+
 			if ($count == 0) {
 				$this->logger->log('ERROR', "Could not load module {$MODULE_NAME}. No classes found with @Instance annotation!");
 				return;
@@ -294,7 +294,7 @@ class Budabot extends AOChat {
 			}
 			return;
 		}
-		
+
 		if ($group == null) {
 			$group = $this->vars['name'];
 		}
@@ -318,7 +318,7 @@ class Budabot extends AOChat {
 			}
 		}
 	}
-	
+
 	public function sendGuild($message, $disable_relay = false, $priority = null) {
 		// for when $text->make_blob generates several pages
 		if (is_array($message)) {
@@ -327,17 +327,17 @@ class Budabot extends AOChat {
 			}
 			return;
 		}
-		
+
 		if ($priority == null) {
 			$priority = AOC_PRIORITY_MED;
 		}
-	
+
 		$message = $this->text->format_message($message);
 		$senderLink = $this->text->make_userlink($this->vars['name']);
 		$guildNameForRelay = getGuildAbbreviation();
 		$guestColorChannel = $this->setting->get('guest_color_channel');
 		$guildColor = $this->setting->get("default_guild_color");
-	
+
 		$this->send_guild($guildColor.$message, "\0", $priority);
 
 		// relay to private channel
@@ -350,7 +350,7 @@ class Budabot extends AOChat {
 			send_message_to_relay("grc [{$guildNameForRelay}] {$senderLink}: $message");
 		}
 	}
-	
+
 	public function sendTell($message, $character, $priority = null) {
 		// for when $text->make_blob generates several pages
 		if (is_array($message)) {
@@ -359,18 +359,18 @@ class Budabot extends AOChat {
 			}
 			return;
 		}
-		
+
 		if ($priority == null) {
 			$priority = AOC_PRIORITY_MED;
 		}
-		
+
 		$message = $this->text->format_message($message);
 		$tellColor = $this->setting->get("default_tell_color");
-		
+
 		$this->logger->log_chat("Out. Msg.", $character, $message);
-    	$this->send_tell($character, $tellColor.$message, "\0", $priority);
+		$this->send_tell($character, $tellColor.$message, "\0", $priority);
 	}
-	
+
 	public function sendPublic($message, $channel, $priority = null) {
 		// for when $text->make_blob generates several pages
 		if (is_array($message)) {
@@ -379,11 +379,11 @@ class Budabot extends AOChat {
 			}
 			return;
 		}
-		
+
 		if ($priority == null) {
 			$priority = AOC_PRIORITY_MED;
 		}
-		
+
 		$message = $this->text->format_message($message);
 		$guildColor = $this->setting->get("default_guild_color");
 
@@ -403,11 +403,11 @@ class Budabot extends AOChat {
 		if ($target == 'prv' || $target == 'priv') {
 			$this->sendPrivate($message, $this->vars["name"], $disable_relay);
 		} else if (($target == $this->vars["my_guild"] || $target == 'org' || $target == 'guild') && $this->setting->get('guild_channel_status') == 1) {
-    		$this->sendGuild($message, $disable_relay, $priority);
+		$this->sendGuild($message, $disable_relay, $priority);
 		} else if ($this->get_uid($target) != NULL) {// Target is a player.
-    		$this->sendTell($message, $target, $priority);
+		$this->sendTell($message, $target, $priority);
 		} else { // Public channels that are not guild
-	    	$this->sendPublic($message, $target, $priority);
+		$this->sendPublic($message, $target, $priority);
 		}
 	}
 
@@ -435,11 +435,11 @@ class Budabot extends AOChat {
 	/**
 	 * @name: process_packet
 	 * @description: Proccess all incoming messages that bot recives
-	 */	
+	 */
 	function process_packet($packet) {
 		try {
 			$this->process_all_packets($packet);
-			
+
 			// event handlers
 			switch ($packet->type){
 				case AOCP_GROUP_ANNOUNCE: // 60
@@ -471,14 +471,14 @@ class Budabot extends AOChat {
 			$this->logger->log('DEBUG', 'Execution stopped prematurely', $e);
 		}
 	}
-	
+
 	function process_all_packets($packet) {
 		$eventObj = new stdClass;
 		$eventObj->type = 'allpackets';
 		$eventObj->packet = $packet;
 		$this->eventManager->fireEvent($eventObj);
 	}
-	
+
 	function process_group_announce($args) {
 		$b = unpack("C*", $args[0]);
 		$this->logger->log('DEBUG', "AOCP_GROUP_ANNOUNCE => name: '$args[1]'");
@@ -487,7 +487,7 @@ class Budabot extends AOChat {
 			//$this->vars["my_guild"] = $args[1];
 		}
 	}
-	
+
 	function process_private_channel_join($args) {
 		$eventObj = new stdClass;
 		$channel = $this->lookup_user($args[0]);
@@ -496,7 +496,7 @@ class Budabot extends AOChat {
 		$eventObj->sender = $sender;
 
 		$this->logger->log('DEBUG', "AOCP_PRIVGRP_CLIJOIN => channel: '$channel' sender: '$sender'");
-		
+
 		if ($channel == $this->vars['name']) {
 			$eventObj->type = "joinpriv";
 
@@ -517,41 +517,41 @@ class Budabot extends AOChat {
 			$this->eventManager->fireEvent($eventObj);
 		}
 	}
-	
+
 	function process_private_channel_leave($args) {
 		$eventObj = new stdClass;
 		$channel = $this->lookup_user($args[0]);
 		$sender = $this->lookup_user($args[1]);
 		$eventObj->channel = $channel;
 		$eventObj->sender = $sender;
-		
+
 		$this->logger->log('DEBUG', "AOCP_PRIVGRP_CLIPART => channel: '$channel' sender: '$sender'");
-		
+
 		if ($channel == $this->vars['name']) {
 			$eventObj->type = "leavepriv";
-		
+
 			$this->logger->log_chat("Priv Group", -1, "$sender left the channel.");
 
 			// Remove from Chatlist array.
 			unset($this->chatlist[$sender]);
-			
+
 			$this->eventManager->fireEvent($eventObj);
 		} else {
 			$eventObj->type = "extleavepriv";
-			
+
 			$this->eventManager->fireEvent($eventObj);
 		}
 	}
-	
+
 	function process_buddy_update($args) {
 		$sender	= $this->lookup_user($args[0]);
 		$status	= 0 + $args[1];
 
 		$eventObj = new stdClass;
 		$eventObj->sender = $sender;
-		
+
 		$this->logger->log('DEBUG', "AOCP_BUDDY_ADD => sender: '$sender' status: '$status'");
-		
+
 		$this->buddylistManager->update($args);
 
 		// Ignore Logon/Logoff from other bots or phantom logon/offs
@@ -562,32 +562,32 @@ class Budabot extends AOChat {
 		// Status => 0: logoff  1: logon
 		if ($status == 0) {
 			$eventObj->type = "logoff";
-			
+
 			$this->logger->log('DEBUG', "$sender logged off");
 
 			$this->eventManager->fireEvent($eventObj);
 		} else if ($status == 1) {
 			$eventObj->type = "logon";
-			
+
 			$this->logger->log('INFO', "$sender logged on");
 
 			$this->eventManager->fireEvent($eventObj);
 		}
 	}
-	
+
 	function process_private_message($args) {
 		$type = "msg";
 		$sender	= $this->lookup_user($args[0]);
-		
+
 		$this->logger->log('DEBUG', "AOCP_MSG_PRIVATE => sender: '$sender' message: '$args[1]'");
-		
+
 		// Removing tell color
 		if (preg_match("/^<font color='#([0-9a-f]+)'>(.+)$/si", $args[1], $arr)) {
 			$message = $arr[2];
 		} else {
 			$message = $args[1];
 		}
-		
+
 		$eventObj = new stdClass;
 		$eventObj->sender = $sender;
 		$eventObj->type = $type;
@@ -618,7 +618,7 @@ class Budabot extends AOChat {
 			$this->spam[$sender] += 20;
 			return;
 		}
-		
+
 		$this->eventManager->fireEvent($eventObj);
 
 		// remove the symbol if there is one
@@ -631,24 +631,24 @@ class Budabot extends AOChat {
 		if (!$limits->check($sender, $message)) {
 			return;
 		}
-		
+
 		$sendto = new PrivateMessageCommandReply($this, $sender);
 		$this->commandManager->process($type, $message, $sender, $sendto);
 	}
-	
+
 	function process_private_channel_message($args) {
 		$sender	= $this->lookup_user($args[1]);
 		$channel = $this->lookup_user($args[0]);
 		$message = $args[2];
-		
+
 		$eventObj = new stdClass;
 		$eventObj->sender = $sender;
 		$eventObj->channel = $channel;
 		$eventObj->message = $message;
-		
+
 		$this->logger->log('DEBUG', "AOCP_PRIVGRP_MESSAGE => sender: '$sender' channel: '$channel' message: '$message'");
 		$this->logger->log_chat($channel, $sender, $message);
-		
+
 		if ($sender == $this->vars["name"] || $this->ban->is_banned($sender)) {
 			return;
 		}
@@ -672,7 +672,7 @@ class Budabot extends AOChat {
 			$eventObj->type = $type;
 
 			$this->eventManager->fireEvent($eventObj);
-			
+
 			if ($message[0] == $this->setting->get("symbol") && strlen($message) > 1) {
 				$message = substr($message, 1);
 				$sendto = new PrivateChannelCommandReply($this);
@@ -681,21 +681,21 @@ class Budabot extends AOChat {
 		} else {  // ext priv group message
 			$type = "extpriv";
 			$eventObj->type = $type;
-			
+
 			$this->eventManager->fireEvent($eventObj);
 		}
 	}
-	
+
 	function process_public_channel_message($args) {
 		$sender	 = $this->lookup_user($args[1]);
 		$message = $args[2];
 		$channel = $this->get_gname($args[0]);
-		
+
 		$eventObj = new stdClass;
 		$eventObj->sender = $sender;
 		$eventObj->channel = $channel;
 		$eventObj->message = $message;
-		
+
 		$this->logger->log('DEBUG', "AOCP_GROUP_MESSAGE => sender: '$sender' channel: '$channel' message: '$message'");
 
 		if (in_array($channel, $this->channelsToIgnore)) {
@@ -718,12 +718,12 @@ class Budabot extends AOChat {
 				return;
 			}
 		}
-		
+
 		$b = unpack("C*", $args[0]);
 
 		if ($channel == "All Towers" || $channel == "Tower Battle Outcome") {
 			$eventObj->type = "towers";
-			
+
 			$this->eventManager->fireEvent($eventObj);
 		} else if ($channel == "Org Msg"){
 			$eventObj->type = "orgmsg";
@@ -732,11 +732,11 @@ class Budabot extends AOChat {
 		} else if ($b[1] == 3 && $this->setting->get('guild_channel_status') == 1) {
 			$type = "guild";
 			$sendto = 'guild';
-			
+
 			$eventObj->type = $type;
-			
+
 			$this->eventManager->fireEvent($eventObj);
-			
+
 			if ($message[0] == $this->setting->get("symbol") && strlen($message) > 1) {
 				$message = substr($message, 1);
 				$sendto = new GuildChannelCommandReply($this);
@@ -744,12 +744,12 @@ class Budabot extends AOChat {
 			}
 		}
 	}
-	
+
 	function process_private_channel_invite($args) {
 		$type = "extjoinprivrequest"; // Set message type.
 		$uid = $args[0];
 		$sender = $this->lookup_user($uid);
-		
+
 		$eventObj = new stdClass;
 		$eventObj->sender = $sender;
 		$eventObj->type = $type;
@@ -760,7 +760,7 @@ class Budabot extends AOChat {
 
 		$this->eventManager->fireEvent($eventObj);
 	}
-	
+
 	public function registerInstance($MODULE_NAME, $name, &$obj) {
 		$name = strtolower($name);
 		$this->logger->log('DEBUG', "Registering instance name '$name' for module '$MODULE_NAME'");
@@ -788,7 +788,7 @@ class Budabot extends AOChat {
 				);
 			}
 		}
-		
+
 		// register commands, subcommands, and events annotated on the class
 		forEach ($reflection->getMethods() as $method) {
 			if ($method->hasAnnotation('Setup')) {
@@ -828,10 +828,10 @@ class Budabot extends AOChat {
 					@$method->getAnnotation('DefaultStatus')->value
 				);
 			}
-			
+
 		}
 	}
-	
+
 	/**
 	 * @name: is_ready
 	 * @description: tells when the bot is logged on and all the start up events have finished
@@ -839,14 +839,14 @@ class Budabot extends AOChat {
 	public function is_ready() {
 		return $this->ready && (time() >= $this->vars["startup"] + $this->setting->get("logon_delay"));
 	}
-	
+
 	/**
 	 * Adds given socket notifier to list of sockets which are
 	 * monitored for activity.
 	 */
 	public function addSocketNotifier($socketNotifier) {
 		$this->socketNotifiers []= $socketNotifier;
-		
+
 		// add the socket to each activity category for faster access in the event loop
 		if ($socketNotifier->getType() & SocketNotifier::ACTIVITY_READ) {
 			$this->monitoredSocketsByType[SocketNotifier::ACTIVITY_READ][] = $socketNotifier->getSocket();
@@ -867,7 +867,7 @@ class Budabot extends AOChat {
 				   . 'if ($key !== false) {'
 				   . '	unset ($array[$key]);'
 				   . '}');
-		
+
 		$removeOne($this->socketNotifiers, $socketNotifier);
 
 		if ($socketNotifier->getType() & SocketNotifier::ACTIVITY_READ) {

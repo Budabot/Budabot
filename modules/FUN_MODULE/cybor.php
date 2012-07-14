@@ -9,10 +9,10 @@
    **
    ** Date(created): 24.07.2006
    ** Date(last modified): 24.07.2006
-   ** 
+   **
    ** Copyright (C) 2006 Carsten Lohmann
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is part of Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -29,11 +29,11 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-   
+
 $cybor = array("I touch you on your lettuce, you massage my spinach... sexily.",
 	"Don't worry about it.I'm wearing a lacy black bra.My soft breasts are rising and falling, as I breath harder and harder.",
 	"My turnips listen for the soft cry of your love. My insides turn to celery as I unleash my warm and sticky cauliflower of love.",
-	"I ride your buttocks like they were amber waves of grains.", 
+	"I ride your buttocks like they were amber waves of grains.",
 	"We're in my bedroom.There's soft music playing on the stereo and candles on my dresser and night table.I'm looking up into your eyes, smiling. My hand works its way down to your crotch and begins to fondle your huge, swelling bulge.",
 	"Noooo, i cant get my combined back on!",
 	"Are you ready for my fresh produce?",
@@ -107,7 +107,7 @@ $cybor = array("I touch you on your lettuce, you massage my spinach... sexily.",
 	"You start getting frisky so I put my hand down your undies.",
 	"You're wet already. I can smell your womanhood from here.",
 	"Your pants are off. I kiss you passionately-our naked bodies pressing each other.");
-		
+
 if (preg_match("/^cybor/i", $message)) {
     $cred = rand(10000,9999999);
 	$msg = Util::rand_array_value($cybor);

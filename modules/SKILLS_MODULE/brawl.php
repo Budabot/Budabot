@@ -2,23 +2,23 @@
 
 if (preg_match("/^brawl ([0-9]+)$/i", $message, $arr)) {
 	$brawl_skill = $arr[1];
-	
+
 	$skill_list = array( 1, 1000, 1001, 2000, 2001, 3000);
-	$min_list 	= array( 1,  100,  101,  170,  171,  235);
-	$max_list 	= array( 2,  500,  501,  850,  851, 1145);
-	$crit_list 	= array( 3,  500,  501,  600,  601,  725);
+	$min_list	= array( 1,  100,  101,  170,  171,  235);
+	$max_list	= array( 2,  500,  501,  850,  851, 1145);
+	$crit_list	= array( 3,  500,  501,  600,  601,  725);
 
 	if ($brawl_skill < 1001) {
-		$i = 0; 
+		$i = 0;
 	} else if ($brawl_skill < 2001) {
-		$i = 2; 
+		$i = 2;
 	} else if ($brawl_skill < 3001) {
-		$i = 4; 
-	} else { 
+		$i = 4;
+	} else {
 		$sendto->reply("Skill entered is out of range... please enter a number between <highlight>1 and 3000<end>.");
 		return;
 	}
-	
+
 	$min  = interpolate($skill_list[$i], $skill_list[($i+1)], $min_list[$i], $min_list[($i+1)], $brawl_skill);
 	$max  = interpolate($skill_list[$i], $skill_list[($i+1)], $max_list[$i], $max_list[($i+1)], $brawl_skill);
 	$crit = interpolate($skill_list[$i], $skill_list[($i+1)], $crit_list[$i], $crit_list[($i+1)], $brawl_skill);
@@ -32,7 +32,7 @@ if (preg_match("/^brawl ([0-9]+)$/i", $message, $arr)) {
 	$blob .= "Stun chance: ".$stunC."\n";
 	$blob .= "Stun duration: ".$stunD."\n";
 	$blob .= "\n\nby Imoutochan, RK1";
-	
+
 	$msg = Text::make_blob("Brawl Results", $blob);
 	$sendto->reply($msg);
 } else {

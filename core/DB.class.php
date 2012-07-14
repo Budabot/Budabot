@@ -4,7 +4,7 @@ class DB {
 
 	/** @Inject */
 	public $setting;
-	
+
 	/** @Inject */
 	public $util;
 
@@ -23,7 +23,7 @@ class DB {
 	public $errorCode = 0;
 	public $errorInfo;
 	public $table_replaces = array();
-	
+
 	function __construct($type, $dbName, $host = NULL, $user = NULL, $pass = NULL) {
 		global $vars;
 		$this->type = strtolower($type);
@@ -34,7 +34,7 @@ class DB {
 		$this->botname = strtolower($vars["name"]);
 		$this->dim = $vars["dimension"];
 		$this->guild = str_replace("'", "''", $vars["my_guild"]);
-			
+
 		if ($this->type == 'mysql') {
 			try {
 				$this->sql = new PDO("mysql:dbname=$dbName;host=$host", $user, $pass);
@@ -42,8 +42,8 @@ class DB {
 				$this->exec("SET sql_mode='NO_BACKSLASH_ESCAPES'");
 				$this->exec("SET time_zone = '+00:00'");
 			} catch (PDOException $e) {
-			  	$this->errorCode = 1;
-			  	$this->errorInfo = $e->getMessage();
+				$this->errorCode = 1;
+				$this->errorInfo = $e->getMessage();
 			}
 		} else if ($this->type == 'sqlite') {
 			if ($host == NULL || $host == "" || $host == "localhost") {
@@ -53,28 +53,28 @@ class DB {
 			}
 
 			try {
-				$this->sql = new PDO("sqlite:".$this->dbName);  
+				$this->sql = new PDO("sqlite:".$this->dbName);
 				$this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			} catch(PDOException $e) {
-			  	$this->errorCode = 1;
-			  	$this->errorInfo = $e->getMessage();
-			}			
+				$this->errorCode = 1;
+				$this->errorInfo = $e->getMessage();
+			}
 		} else {
 			throw new Exception("Invalid database type: '$type'.  Expecting 'mysql' or 'sqlite'.");
 		}
 	}
-	
+
 	function get_type() {
 		return $this->type;
 	}
-	
+
 	function queryRow($sql) {
 		$this->result = NULL;
 		$sql = $this->formatSql($sql);
-		
+
 		$args = func_get_args();
 		array_shift($args);
-		
+
 		$ps = $this->executeQuery($sql, $args);
 
 		if ($ps !== null && $ps !== false) {
@@ -86,15 +86,15 @@ class DB {
 			return $this->result[0];
 		}
 	}
-	
+
 	//Sends a query to the Database and gives the result back
 	function query($sql) {
 		$this->result = NULL;
 		$sql = $this->formatSql($sql);
-		
+
 		$args = func_get_args();
 		array_shift($args);
-		
+
 		$ps = $this->executeQuery($sql, $args);
 
 		if ($ps !== null && $ps !== false) {
@@ -102,8 +102,8 @@ class DB {
 		}
 		return $this->result;
 	}
-	
-	//Does Basicly the same thing just don't gives the result back(used for create table, Insert, delete etc), a bit faster as normal querys 
+
+	//Does Basicly the same thing just don't gives the result back(used for create table, Insert, delete etc), a bit faster as normal querys
 	function exec($sql) {
 		$this->result = NULL;
 		$sql = $this->formatSql($sql);
@@ -119,7 +119,7 @@ class DB {
 
 		$args = func_get_args();
 		array_shift($args);
-		
+
 		$ps = $this->executeQuery($sql, $args);
 
 		$affectedRows = 0;
@@ -128,11 +128,11 @@ class DB {
 		}
 		return $affectedRows;
 	}
-	
+
 	private function executeQuery($sql, $params) {
 		$this->lastQuery = $sql;
 		LegacyLogger::log('DEBUG', "SQL", $sql);
-		
+
 		try {
 			$ps = $this->sql->prepare($sql);
 			$count = 1;
@@ -155,30 +155,30 @@ class DB {
 
 		return null;
 	}
-	
-	//Start of an transaction	
+
+	//Start of an transaction
 	function begin_transaction() {
 		$this->in_transaction = true;
 		$this->sql->beginTransaction();
 	}
-	
-	//Commit an transaction	
+
+	//Commit an transaction
 	function commit() {
 		$this->in_transaction = false;
 		$this->sql->Commit();
 	}
-	
+
 	function rollback() {
 		$this->sql->rollback();
 	}
-	
+
 	function in_transaction() {
 		return $this->in_transaction;
 	}
 
 	//Return the last inserted ID
 	function lastInsertId() {
-		return $this->sql->lastInsertId();	
+		return $this->sql->lastInsertId();
 	}
 
 	function formatSql($sql) {
@@ -191,11 +191,11 @@ class DB {
 
 		return $sql;
 	}
-	
+
 	function getLastQuery() {
 		return $this->lastQuery;
 	}
-	
+
 	/**
 	 * @name: add_table_replace
 	 * @description: creates a replace string to run on queries
@@ -212,16 +212,16 @@ class DB {
 	 */
 	public function loadSQLFile($module, $name, $forceUpdate = false) {
 		$name = strtolower($name);
-		
+
 		// only letters, numbers, underscores are allowed
 		if (!preg_match('/^[a-z0-9_]+$/', $name)) {
 			$msg = "Invalid SQL file name: '$name' for module: '$module'!  Only numbers, letters, and underscores permitted!";
 			LegacyLogger::log('ERROR', 'Core', $msg);
 			return $msg;
 		}
-		
+
 		$settingName = $name . "_db_version";
-		
+
 		$core_dir = "./core/$module";
 		$modules_dir = "./modules/$module";
 		$dir = '';
@@ -235,7 +235,7 @@ class DB {
 			return $msg;
 		}
 		$d = dir($dir);
-		
+
 		$currentVersion = $this->setting->get($settingName);
 		if ($currentVersion === false) {
 			$currentVersion = 0;
@@ -246,14 +246,14 @@ class DB {
 		if ($d) {
 			while (false !== ($entry = $d->read())) {
 				if (is_file("$dir/$entry") && preg_match("/^" . $name . "([0-9.]*)\\.sql$/i", $entry, $arr)) {
-					
+
 					// If the file has no versioning in its filename, then we go off the modified timestamp
 					if ($arr[1] == '') {
 						$file = $entry;
 						$maxFileVersion = filemtime("$dir/$file");
 						break;
 					}
-					
+
 					if ($this->util->compare_version_numbers($arr[1], $maxFileVersion) >= 0) {
 						$maxFileVersion = $arr[1];
 						$file = $entry;
@@ -277,9 +277,9 @@ class DB {
 					}
 				}
 				//$this->commit();
-				
+
 				$this->setting->save($settingName, $maxFileVersion);
-				
+
 				if ($maxFileVersion != 0) {
 					$msg = "Updated '$name' database from '$currentVersion' to '$maxFileVersion'";
 					LegacyLogger::log('DEBUG', 'Core', "Updated '$name' database from '$currentVersion' to '$maxFileVersion'");
@@ -294,9 +294,9 @@ class DB {
 			$msg = "'$name' database already up to date! version: '$currentVersion'";
 			LegacyLogger::log('DEBUG', 'Core',  "'$name' database already up to date! version: '$currentVersion'");
 		}
-		
+
 		$this->setting->add($module, $settingName, $settingName, 'noedit', 'text', $maxFileVersion);
-		
+
 		return $msg;
 	}
 }

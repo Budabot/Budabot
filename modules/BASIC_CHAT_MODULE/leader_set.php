@@ -17,9 +17,9 @@ if (preg_match("/^leader (.+)$/i", $message, $arr)) {
 		$msg = "Character <highlight>{$name}<end> is not in this channel.";
 	} else {
 		$chatBot->data["leader"] = $name;
-	  	$msg = "{$name} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
+		$msg = "{$name} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
 	}
-  	$chatBot->sendPrivate($msg);
+	$chatBot->sendPrivate($msg);
 } else {
 	$syntax_error = true;
 }

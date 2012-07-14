@@ -8,10 +8,10 @@
    **
    ** Date(created): 12.21.2006
    ** Date(last modified): 12.21.2006
-   ** 
+   **
    ** Copyright (C) 2006 Donald Vanatta
    **
-   ** Licence Infos: 
+   ** Licence Infos:
    ** This file is for use with Budabot.
    **
    ** Budabot is free software; you can redistribute it and/or modify
@@ -28,12 +28,12 @@
    ** along with Budabot; if not, write to the Free Software
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
-   
+
 	require_once 'functions.php';
 
 	$command->register($MODULE_NAME, "", "guides.php", "guides", "all", "Guides for AO", "guides.txt");
 	$command->register($MODULE_NAME, "", "aou.php", "aou", "all", "Search for or view a guide from AO-Universe", "aou.txt");
-	
+
 	// aliases
 	$commandAlias->register($MODULE_NAME, "guides breed", "breed");
 	$commandAlias->register($MODULE_NAME, "guides healdelta", "healdelta");

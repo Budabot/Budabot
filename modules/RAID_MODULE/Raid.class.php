@@ -4,14 +4,14 @@ class Raid {
 	public static function get_current_loot_list() {
 		$chatBot = Registry::getInstance('chatBot');
 		global $loot;
-	
+
 		if (is_array($loot)) {
 			$list = "Use <symbol>flatroll to roll.\n\n";
 			forEach ($loot as $key => $item) {
 				$add = Text::make_chatcmd("Add", "/tell <myname> add $key");
 				$rem = Text::make_chatcmd("Remove", "/tell <myname> rem");
 				$added_players = count($item["users"]);
-	
+
 				$list .= "<u>Slot #<font color='#FF00AA'>$key</font></u>\n";
 				if ($item["icon"] != "") {
 					$list .= "<img src=rdb://{$item["icon"]}>\n";
@@ -22,18 +22,18 @@ class Raid {
 				} else {
 					$ml = "";
 				}
-				
+
 				if ($item["linky"]) {
 					$itmnm = $item["linky"];
 				} else {
 					$itmnm = $item["name"];
 				}
-	
+
 				$list .= "Item: <orange>$itmnm<end>".$ml."\n";
 				if ($item["minlvl"] != "") {
 					$list .= "MinLvl set to <highlight>{$item["minlvl"]}<end>\n";
 				}
-								
+
 				$list .= "<highlight>$added_players<end> Total ($add/$rem)\n";
 				$list .= "Players added:";
 				if (count($item["users"]) > 0) {
@@ -43,17 +43,17 @@ class Raid {
 				} else {
 					$list .= " None added yet.";
 				}
-				
+
 				$list .= "\n\n";
 			}
 			$msg = Text::make_blob("Loot List", $list);
 		} else {
 			$msg = "No List exists yet.";
 		}
-		
+
 		return $msg;
 	}
-	
+
 	public static function add_raid_to_loot_list($raid, $category) {
 		global $loot;
 		$chatBot = Registry::getInstance('chatBot');
@@ -80,7 +80,7 @@ class Raid {
 
 		return true;
 	}
-	
+
 	public static function find_raid_loot($raid, $category) {
 		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');

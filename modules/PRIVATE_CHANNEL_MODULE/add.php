@@ -14,7 +14,7 @@ if (preg_match("/^adduser (.+)$/i", $message, $arr)) {
 			$msg = "<highlight>$name<end> has been added as a member of this bot.";
 		}
 
-		// always add in case 
+		// always add in case
 		$buddylistManager->add($name, 'member');
 	}
 

@@ -22,20 +22,20 @@
  * FileAppender appends log events to a file.
  *
  * This appender uses a layout.
- * 
+ *
  * Configurable parameters for this appender are:
  * - file      - The target file to write to
  * - filename  - The target file to write to (deprecated, use "file" instead)
  * - append    - Sets if the appender should append to the end of the file or overwrite content ("true" or "false")
  *
  * An example php file:
- * 
+ *
  * {@example ../../examples/php/appender_file.php 19}
  *
  * An example configuration file:
- * 
+ *
  * {@example ../../examples/resources/appender_file.properties 18}
- * 
+ *
  * @version $Revision: 1213663 $
  * @package log4php
  * @subpackage appenders
@@ -46,7 +46,7 @@ class LoggerAppenderFile extends LoggerAppender {
 	 * @var boolean if {@link $file} exists, appends events.
 	 */
 	protected $append = true;
-	
+
 	/**
 	 * @var string the file name used to append events
 	 */
@@ -56,7 +56,7 @@ class LoggerAppenderFile extends LoggerAppender {
 	 * @var mixed file resource
 	 */
 	protected $fp = false;
-	
+
 	public function activateOptions() {
 		$fileName = $this->getFile();
 
@@ -65,7 +65,7 @@ class LoggerAppenderFile extends LoggerAppender {
 			$this->closed = true;
 			return;
 		}
-		
+
 		if(!is_file($fileName)) {
 			$dir = dirname($fileName);
 			if(!is_dir($dir)) {
@@ -85,12 +85,12 @@ class LoggerAppenderFile extends LoggerAppender {
 			} else {
 				// TODO: should we take some action in this case?
 				$this->closed = true;
-			}		 
+			}
 		} else {
 			$this->closed = true;
 		}
 	}
-	
+
 	public function close() {
 		if($this->closed != true) {
 			if($this->fp and $this->layout !== null) {
@@ -112,9 +112,9 @@ class LoggerAppenderFile extends LoggerAppender {
 			} else {
 				$this->closed = true;
 			}
-		} 
+		}
 	}
-	
+
 	/**
 	 * Sets the file where the log output will go.
 	 * @param string $file
@@ -122,14 +122,14 @@ class LoggerAppenderFile extends LoggerAppender {
 	public function setFile($file) {
 		$this->setString('file', $file);
 	}
-	
+
 	/**
 	 * @return string
 	 */
 	public function getFile() {
 		return $this->file;
 	}
-	
+
 	/**
 	 * @return boolean
 	 */
@@ -149,7 +149,7 @@ class LoggerAppenderFile extends LoggerAppender {
 	public function setFileName($fileName) {
 		$this->setFile($fileName);
 	}
-	
+
 	/**
 	 * @return string
 	 * @deprecated Use getFile() instead.
@@ -157,6 +157,6 @@ class LoggerAppenderFile extends LoggerAppender {
 	public function getFileName() {
 		return $this->getFile();
 	}
-	
-	 
+
+
 }

@@ -7,7 +7,7 @@
 ** Developed for: Budabot(http://budabot.com)
 **
 */
-   
+
 global $bbinSocket;
 if (IRC::isConnectionActive($bbinSocket)) {
 	if ($type == "joinpriv") {

@@ -4,27 +4,27 @@
 class Worldnet {
 	/** @Inject */
 	public $setting;
-	
+
 	/** @Inject */
 	public $db;
-	
+
 	/** @Inject */
 	public $buddylistManager;
-	
+
 	/** @Inject */
 	public $ban;
-	
+
 	/** @Inject */
 	public $help;
-	
+
 	/** @Inject */
 	public $chatBot;
-	
+
 	/** @Logger */
 	public $logger;
-	
+
 	public $moduleName;
-	
+
 	/**
 	 * @Setup
 	 */
@@ -54,7 +54,7 @@ class Worldnet {
 			$this->chatBot->send_tell($eventObj->sender, $msg);
 		}
 	}
-	
+
 	/**
 	 * @Event("connect")
 	 * @Description("Adds worldnet bot to buddylist")
@@ -62,7 +62,7 @@ class Worldnet {
 	function connect($eventObj) {
 		$this->buddylistManager->add($this->setting->get('worldnet_bot'), 'worldnet');
 	}
-	
+
 	/**
 	 * @Event("extJoinPrivRequest")
 	 * @Description("Accepts invites from worldnet bot")
@@ -72,7 +72,7 @@ class Worldnet {
 			$this->chatBot->privategroup_join($eventObj->sender);
 		}
 	}
-	
+
 	/**
 	 * @Event("extPriv")
 	 * @Description("Relays incoming messages to the guild/private channel")
@@ -80,7 +80,7 @@ class Worldnet {
 	function incomingMessage($eventObj) {
 		$sender = $eventObj->sender;
 		$message = $eventObj->message;
-	
+
 		if (strtolower($this->setting->get('worldnet_bot')) != strtolower($sender)) {
 			return;
 		}
@@ -95,7 +95,7 @@ class Worldnet {
 		$worldnetChannel = $arr[1];
 		$messageText = $arr[2];
 		$name = $arr[3];
-		
+
 		$channelSetting = strtolower($sender . '_' . $worldnetChannel . '_channel');
 		if ($this->setting->get($channelSetting) === false) {
 			$this->setting->add('WORLDNET_MODULE', $channelSetting, "Channel $worldnetChannel status", "edit", "options", "1", "true;false", "1;0");

@@ -22,7 +22,7 @@ if (preg_match("/^server$/i", $message) || preg_match("/^server (.)$/i", $messag
 		} else {
 			$link .= "<highlight>Servermanager<end> is <red>DOWN<end>\n";
 		}
-			
+
 		if ($server->clientmanager == 1) {
 			$link .= "<highlight>Clientmanager<end> is <green>UP<end>\n";
 		} else {
@@ -40,8 +40,8 @@ if (preg_match("/^server$/i", $message) || preg_match("/^server (.)$/i", $messag
 		forEach ($server->data as $zone => $proz) {
 			$link .= "<highlight>$zone<end>: {$proz["players"]} \n";
 		}
-		
-		$msg = Text::make_blob("$server->name Server Status", $link);	    
+
+		$msg = Text::make_blob("$server->name Server Status", $link);
 	}
 
 	$sendto->reply($msg);

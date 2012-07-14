@@ -8,9 +8,9 @@ if (preg_match("/^checkaccess$/i", $message) || preg_match("/^checkaccess (.+)$/
 	} else {
 		$name = $sender;
 	}
-	
+
 	$accessLevel = $accessLevel->getDisplayName($accessLevel->getAccessLevelForCharacter($name));
-	
+
 	$msg = "Access level for $name is <highlight>$accessLevel<end>.";
 	$sendto->reply($msg);
 } else {

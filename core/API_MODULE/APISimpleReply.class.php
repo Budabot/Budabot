@@ -11,7 +11,7 @@ class APISimpleReply implements CommandReply {
 			$this->output []= $message;
 		}
 	}
-	
+
 	public function getOutput() {
 		return implode("\n\n", $this->output);
 	}

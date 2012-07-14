@@ -11,11 +11,11 @@ function get_online_list($prof = "all") {
 	$chatBot = Registry::getInstance('chatBot');
 	$db = Registry::getInstance('db');
 	$setting = Registry::getInstance('setting');
-	
+
 	if ($prof != 'all') {
 		$prof_query = "AND `profession` = '$prof'";
 	}
-	
+
 	if ($setting->get('online_group_by') == 'profession') {
 		$order_by = "ORDER BY `profession`, `level` DESC";
 	} else if ($setting->get('online_group_by') == 'guild') {
@@ -36,7 +36,7 @@ function get_online_list($prof = "all") {
 	} else {
 		$list[] = array("content" => "<header> :::::: $numonline members online $guild_name:::::: <end>\n");
 	}
-	
+
 	// create the list with alts shown
 	createList($data, $list, true, $setting->get("online_show_org_guild"));
 
@@ -71,7 +71,7 @@ function get_online_list($prof = "all") {
 			$list[] = array("content" => "\n\n<highlight><u>$numbbinmembers members in BBIN</u><end>\n");
 		}
 		createListByProfession($data, $list, false, true);
-		
+
 		// guests
 		$data = $db->query("SELECT * FROM bbin_chatlist_<myname> WHERE (`guest` = 1) {$prof_query} ORDER BY `profession`, `level` DESC");
 		$numbbinguests = count($data);
@@ -81,9 +81,9 @@ function get_online_list($prof = "all") {
 			$list[] = array("content" => "\n\n<highlight><u>$numbbinguests guests in BBIN<end></u>\n");
 		}
 		createListByProfession($data, $list, false, true);
-		
+
 		$numonline += $numbbinguests + $numbbinmembers;
-		
+
 		$msg .= " <green>BBIN<end>:".($numbbinguests + $numbbinmembers)." online";
 	}
 
@@ -108,19 +108,19 @@ function createListByChannel(&$data, &$list, $show_alts, $show_org_info) {
 	if ($setting->get("online_colorful") == "1") {
 		$fancyColon = "<highlight>::<end>";
 	}
-	
+
 	$orgShow = $setting->get("online_show_org");
-	
+
 	$current_channel = "";
 	$current_header = "";
 	$current_content = "";
 	forEach ($data as $row) {
 		$name = Text::make_chatcmd($row->name, "/tell $row->name");
-		 
+
 		if ($row->profession == "") {
 			$row->profession = "Unknown";
 		}
-		
+
 		if ($current_channel != $row->channel) {
 			if (!empty($current_channel)) {
 				$list[] = array("header" => $current_header, "content" => $current_content); //And don't forget to store the last segment
@@ -131,13 +131,13 @@ function createListByChannel(&$data, &$list, $show_alts, $show_org_info) {
 		}
 
 		$afk = get_afk_info($row->afk, $fancyColon);
-		
+
 		if ($row->profession == "Unknown") {
 			$current_content .= "<tab><tab>$name - Unknown";
 			if ($show_alts == true) {
 				$alt = get_alt_char_info($row->name, $fancyColon);
 			}
-			
+
 			$current_content .= "$alt\n";
 		} else {
 			if ($show_alts == true) {
@@ -149,11 +149,11 @@ function createListByChannel(&$data, &$list, $show_alts, $show_org_info) {
 			}
 
 			$guild = get_org_info($show_org_info, $fancyColon, $row->guild, $row->guild_rank);
-			
+
 			$current_content .= "<tab><tab>$name (Lvl $row->level/<green>$row->ai_level<end>)$guild$afk$alt$admin\n";
 		}
 	}
-	
+
 	$list[] = array("header" => $current_header, "content" => $current_content); //And don't forget to store the last segment
 }
 
@@ -165,17 +165,17 @@ function createListByProfession(&$data, &$list, $show_alts, $show_org_info) {
 	if ($setting->get("online_colorful") == "1") {
 		$fancyColon = "<highlight>::<end>";
 	}
-	
+
 	$current_profession = "";
 	$current_header = "";
 	$current_content = "";
 	forEach ($data as $row) {
 		$name = Text::make_chatcmd($row->name, "/tell $row->name");
-		
+
 		if ($row->profession == "") {
 			$row->profession = "Unknown";
 		}
-		
+
 		if ($current_profession != $row->profession) {
 			if (!empty($current_profession)) {
 				$list[] = array("header" => $current_header, "content" => $current_content, "incomplete_footer" => "\nContinued...", "incomplete_header" => $current_header);
@@ -230,13 +230,13 @@ function createListByProfession(&$data, &$list, $show_alts, $show_org_info) {
 		}
 
 		$afk = get_afk_info($row->afk, $fancyColon);
-		
+
 		if ($row->profession == "Unknown") {
 			$current_content .= "<tab><tab>$name - Unknown";
 			if ($show_alts == true) {
 				$alt = get_alt_char_info($row->name, $fancyColon);
 			}
-			
+
 			$current_content .= "$alt\n";
 		} else {
 			if ($show_alts == true) {
@@ -246,13 +246,13 @@ function createListByProfession(&$data, &$list, $show_alts, $show_org_info) {
 				$alt = "";
 				$admin = "";
 			}
-			
+
 			$guild = get_org_info($show_org_info, $fancyColon, $row->guild, $row->guild_rank);
-			
+
 			$current_content .= "<tab><tab>$name (Lvl $row->level/<green>$row->ai_level<end>)$guild$afk$alt$admin\n";
 		}
 	}
-	
+
 	$list[] = array("header" => $current_header, "content" => $current_content); //And don't forget to store the last segment
 }
 

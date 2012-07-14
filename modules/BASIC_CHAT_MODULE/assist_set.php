@@ -2,7 +2,7 @@
 
 if (preg_match("/^assist (.+)$/i", $message, $arr)) {
     $nameArray = explode(' ', $arr[1]);
-	
+
 	if (count($nameArray) == 1) {
 		$name = ucfirst(strtolower($arr[1]));
 		$uid = $chatBot->get_uid($name);
@@ -10,7 +10,7 @@ if (preg_match("/^assist (.+)$/i", $message, $arr)) {
 			$msg = "Character <highlight>$name<end> is not in this bot.";
 			$sendto->reply($msg);
 		}
-		
+
 		if (!$uid) {
 			$msg = "Character <highlight>$name<end> does not exist.";
 			$sendto->reply($msg);
@@ -26,21 +26,21 @@ if (preg_match("/^assist (.+)$/i", $message, $arr)) {
 				$msg = "Character <highlight>$name<end> is not in this bot.";
 				$sendto->reply($msg);
 			}
-			
+
 			if (!$uid) {
 				$msg = "Character <highlight>$name<end> does not exist.";
 				$sendto->reply($msg);
 			}
 			$nameArray[$key] = "/assist $name";
 		}
-		
+
 		// reverse array so that the first player will be the primary assist, and so on
 		$nameArray = array_reverse($nameArray);
 		$chatBot->data['assist'] = '/macro assist ' . implode(" \\n ", $nameArray);
 	}
-	
+
 	$sendto->reply($chatBot->data['assist']);
-	
+
 	// send message 2 more times (3 total) if used in private channel
 	if ($type == "priv") {
 		$sendto->reply($chatBot->data['assist']);

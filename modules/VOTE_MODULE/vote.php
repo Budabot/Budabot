@@ -18,13 +18,13 @@ $accessLevel = Registry::getInstance('accessLevel');
 
 // Listing of all votes
 if (preg_match("/^vote$/i", $message)) {
-	
+
 	$data = $db->query("SELECT * FROM $table WHERE `duration` IS NOT NULL ORDER BY `started`");
 	if (count($data) > 0) {
 		forEach ($data as $row) {
 			$question = $row->question; $started = $row->started; $duration = $row->duration;
 			$line = "<tab>" . Text::make_chatcmd($question, "/tell <myname> vote $question");
-			
+
 			$timeleft = $started+$duration-time();
 			if ($timeleft>0) {
 				$running .= $line."\n(".Util::unixtime_to_readable($timeleft)." left)\n";
@@ -54,7 +54,7 @@ if (preg_match("/^vote$/i", $message)) {
 	} else {
 		$data = $db->query("SELECT * FROM $table WHERE `question` = ? AND `author` = ? AND `duration` IS NOT NULL", $topic, $sender);
 	}
-	
+
 	if (count($data) > 0) {
 		$db->exec("DELETE FROM $table WHERE `question` = ?", $topic);
 		unset($chatBot->data["Vote"][$topic]);
@@ -80,14 +80,14 @@ if (preg_match("/^vote$/i", $message)) {
 } else if (preg_match("/^vote end (.+)$/i", $message, $arr)) {
 	$topic = $arr[1];
 	$row = $db->queryRow("SELECT * FROM $table WHERE `question` = ? AND `author` = ? AND `duration` IS NOT NULL", $topic, $sender);
-	
+
 	if ($row === null) {
 		$msg = "Either this vote doesn't exist, or you didn't create it.";
 	} else {
 		$question = $row->question; $author = $row->author; $started = $row->started;
 		$duration = $row->duration; $status = $row->status;
-		$timeleft = $started+$duration-time();		
-	
+		$timeleft = $started+$duration-time();
+
 		if ($timeleft > 60) {
 			$duration = (time()-$started)+61;
 			$db->exec("UPDATE $table SET `duration` = ? WHERE `author` = ? AND `duration` IS NOT NULL AND `question` = ?", $duration, $sender, $topic);
@@ -102,10 +102,10 @@ if (preg_match("/^vote$/i", $message)) {
 	$sendto->reply($msg);
 } else if (preg_match("/^vote (.+)$/i", $message, $arr)) {
 	$sect = explode($delimiter, $arr[1],3);
-	
+
 	//////////////////////////////////////
 	if (count($sect) == 1) { // Show vote
-		
+
 		$data = $db->query("SELECT * FROM $table WHERE `question` = ?", $sect[0]);
 		if (count($data)<= 0) {
 			$msg = "Couldn't find any votes with this topic.";
@@ -135,14 +135,14 @@ if (preg_match("/^vote$/i", $message)) {
 					}
 				}
 			}
-			
+
 			$msg = "$author's Vote: <highlight>".$question."<end>\n";
 			if ($timeleft > 0) {
 				$msg .= Util::unixtime_to_readable($timeleft)." till this vote closes!\n\n";
 			} else {
 				$msg .= "<red>This vote has ended ".Util::unixtime_to_readable(time()-($started+$duration),1)." ago.<end>\n\n";
 			}
-			
+
 			forEach ($results as $key => $value) {
 				$val = number_format(100*($value/$totalresults),0);
 				if ($val < 10) {
@@ -152,44 +152,44 @@ if (preg_match("/^vote$/i", $message)) {
 				} else {
 					$msg .= "$val% ";
 				}
-				
+
 				if ($timeleft > 0) {
 					$msg .= Text::make_chatcmd($key, "/tell <myname> vote $question$delimiter$key") . "(Votes: $value)\n";
 				} else {
 					$msg .= "<highlight>$key<end> (Votes: $value)\n";
 				}
 			}
-			
+
 			//if ($didvote && $timeleft > 0) {
 			if ($timeleft > 0) { // Want this option avaiable for everyone if its run from org/priv chat.
 				$msg .= "\n<black>___%<end> ";
 				$msg .= Text::make_chatcmd('Remove yourself from this vote', "/tell <myname> vote remove $question") . "\n";
 			}
-			
+
 			if ($timeleft > 0 && $setting->get("vote_add_new_choices") == 1 && $status == 0) {
-				$msg .="\n<highlight>Don't like these choices?  Add your own:<end>\n<tab>/tell <myname> <symbol>vote $question$delimiter"."<highlight>your choice<end>\n"; 
+				$msg .="\n<highlight>Don't like these choices?  Add your own:<end>\n<tab>/tell <myname> <symbol>vote $question$delimiter"."<highlight>your choice<end>\n";
 			}
-			
+
 			$msg .="\n<highlight>If you started this vote, you can:<end>\n";
 			$msg .="<tab>" . Text::make_chatcmd('Kill the vote completely', "/tell <myname> vote kill $question") . "\n";
 			if ($timeleft > 0) {
 				$msg .="<tab>" . Text::make_chatcmd('End the vote early', "/tell <myname> vote end $question");
 			}
-			
+
 			$row = $db->queryRow("SELECT * FROM $table WHERE `author` = ? AND `question` = ? AND `duration` IS NULL", $sender, $question);
 			if ($row->answer && $timeleft > 0) {
 				$privmsg = "On this vote, you already selected: <highlight>(".$row->answer.")<end>.";
 			} else if ($timeleft > 0) {
 				$privmsg = "You haven't voted on this one yet.";
 			}
-			
+
 			$msg = Text::make_blob("Vote: $question", $msg);
 			if ($privmsg) {
 				$sendto->reply($privmsg);
 			}
 		}
 	////////////////////////////////////////////////////////////////////////////////////
-	} else if (count($sect) == 2) {		  			     // Adding vote
+	} else if (count($sect) == 2) {					     // Adding vote
 
 		$requirement = $setting->get("vote_use_min");
 		if ($requirement >= 0) {
@@ -203,12 +203,12 @@ if (preg_match("/^vote$/i", $message)) {
 			}
 		}
 
-		
+
 		$row = $db->queryRow("SELECT * FROM $table WHERE `question` = ? AND `duration` IS NOT NULL", $sect[0]);
 		$question = $row->question; $author = $row->author; $started = $row->started;
 		$duration = $row->duration; $status = $row->status; $answer = $row->answer;
 		$timeleft = $started+$duration-time();
-		
+
 		if (!$duration) {
 			$msg = "Couldn't find any votes with this topic.";
 		} else if ($timeleft <= 0) {
@@ -225,15 +225,15 @@ if (preg_match("/^vote$/i", $message)) {
 				$msg = "You have selected choice <highlight>$sect[1]<end> for: <highlight>$sect[0]<end>.";
 			}
 		}
-		
+
 	//////////////////////////////////////////////////////////////////////////////////////
 	} else if (count($sect) > 2) {					     // Creating vote
 		// !vote 16m|Does this module work?|yes|no
-		
+
 		$settime=trim($sect[0]);
 		$question = trim($sect[1]);
 		$answers = trim($sect[2]);
-		
+
 		$requirement = $setting->get("vote_create_min");
 		if ($requirement >= 0) {
 			if (!$chatBot->guildmembers[$sender]) {
@@ -247,7 +247,7 @@ if (preg_match("/^vote$/i", $message)) {
 		}
 
 		$newtime = Util::parseTime($settime);
-		
+
 		if ($newtime == 0) {
 			$msg = "Found an invalid character for duration or the time you entered was 0 seconds. Time format should be: 1d2h3m4s";
 		} else {

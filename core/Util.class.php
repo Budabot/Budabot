@@ -11,36 +11,36 @@ class Util {
 		}
 		return round($bytes, 2) ." ". $ext[$unitCount];
 	}
-	
+
 	// taken from http://www.php.net/manual/en/function.date-diff.php
 	public function unixtime_to_readable($time, $show_seconds = true) {
 		if ($time == 0) {
 			return '0 secs';
 		}
-	
+
 		if ($time > 0) {
 			$days = floor($time / 86400);
 		} else {
 			$days = ceil($time / 86400);
 		}
 		$remainder = $time % 86400;
-		
+
 		if ($remainder > 0) {
 			$hours = floor($remainder / 3600);
 		} else {
 			$hours = ceil($remainder / 3600);
 		}
 		$remainder = $remainder % 3600;
-		
+
 		if ($remainder > 0) {
 			$minutes = floor($remainder / 60);
 		} else {
 			$minutes = ceil($remainder / 60);
 		}
 		$remainder = $remainder % 60;
-		
+
 		$seconds = $remainder;
-		
+
 		$timeshift = '';
 		if ($days != 0) {
 			$timeshift .= $days . ' days ';
@@ -56,14 +56,14 @@ class Util {
 		}
 		return trim($timeshift);
 	}
-	
+
 	public function parseTime($budatime) {
 		$unixtime = 0;
-		
+
 		$matches = array();
 		$pattern = '/([0-9]+)([a-z]+)/';
 		preg_match_all($pattern, $budatime, $matches, PREG_SET_ORDER);
-		
+
 		forEach ($matches as $match) {
 			switch ($match[2]) {
 				case 'weeks':
@@ -97,10 +97,10 @@ class Util {
 					return 0;
 			}
 		}
-		
+
 		return $unixtime;
 	}
-	
+
 	/**
 	 * Takes two version numbers.  Returns 1 if the first is greater than the second.
 	 * Returns -1 if the second is greater than the first.  Returns 0 if they are equal.
@@ -108,7 +108,7 @@ class Util {
 	public function compare_version_numbers($ver1, $ver2) {
 		$ver1Array = explode('.', $ver1);
 		$ver2Array = explode('.', $ver2);
-		
+
 		for ($i = 0; $i < count($ver1Array) && $i < count($ver2Array); $i++) {
 			if ($ver1Array[$i] > $ver2Array[$i]) {
 				return 1;
@@ -116,7 +116,7 @@ class Util {
 				return -1;
 			}
 		}
-		
+
 		if (count($ver1Array) > count($ver2Array)) {
 			return 1;
 		} else if (count($ver1Array) < count($ver2Array)) {
@@ -125,7 +125,7 @@ class Util {
 			return 0;
 		}
 	}
-	
+
 	/**
 	 * @name: get_profession_name
 	 * @description: returns the full profession name given the search string passed in
@@ -197,10 +197,10 @@ class Util {
 			default:
 				$prof = '';
 		}
-		
+
 		return $prof;
 	}
-	
+
 	public function get_profession_abbreviation($profession) {
 		switch ($profession) {
 			case "Adventurer":
@@ -249,10 +249,10 @@ class Util {
 				$prof = "Unknown";
 				break;
 	    }
-		
+
 		return $prof;
 	}
-	
+
 	/**
 	 * @name: verify_name_convention
 	 * @description: returns true if filename matches budabot naming convention and false otherwise
@@ -279,17 +279,17 @@ class Util {
 		}
 
 		//check if the file exists
-	    if (file_exists("./core/$filename")) {
-	        return "./core/$filename";
-    	} else if (file_exists("./modules/$filename")) {
-        	return "./modules/$filename";
+		if (file_exists("./core/$filename")) {
+			return "./core/$filename";
+		} else if (file_exists("./modules/$filename")) {
+			return "./modules/$filename";
 		} else if (file_exists($filename)) {
-        	return $filename;
-	    } else {
-	     	return "";
-	    }
+			return $filename;
+		} else {
+			return "";
+		}
 	}
-	
+
 	public function get_ability($ability, $getFullName = false) {
 		$abilities = array(
 			'agi' => 'Agility',
@@ -299,7 +299,7 @@ class Util {
 			'str' => 'Strength',
 			'sen' => 'Sense'
 		);
-		
+
 		$ability = strtolower(substr($ability, 0, 3));
 
 		if (isset($abilities[$ability])) {
@@ -312,11 +312,11 @@ class Util {
 			return null;
 		}
 	}
-	
+
 	public function rand_array_value($array) {
 		return $array[rand(0, sizeof($array) - 1)];
 	}
-	
+
 	// checks to see if user is valid
 	// invalid values:
 	// $sender = -1 on 32bit
@@ -325,17 +325,17 @@ class Util {
 	public function isValidSender($sender) {
 		return (int)0xFFFFFFFF == $sender ? false : true;
 	}
-	
+
 	// taken from: http://www.lost-in-code.com/programming/php-code/php-random-string-with-numbers-and-letters/
 	public function genRandomString($length = 10) {
 		$characters = '0123456789abcdefghijklmnopqrstuvwxyz';
-		$string = '';    
+		$string = '';
 		for ($p = 0; $p < $length; $p++) {
 			$string .= $characters[mt_rand(0, strlen($characters))];
 		}
 		return $string;
 	}
-	
+
 	public function getStackTrace() {
 		$trace = debug_backtrace();
 		$arr1 = array();
@@ -345,10 +345,10 @@ class Util {
 			$arr1 []= "{$file}({$obj['line']})";
 			$arr2 []= "{$obj['function']}()";
 		}
-		
+
 		array_shift($arr2);
 
-		$str = '';		
+		$str = '';
 		for ($i = 0; $i < count($arr1); $i++) {
 			$str .= "$arr1[$i] : $arr2[$i]\n";
 		}

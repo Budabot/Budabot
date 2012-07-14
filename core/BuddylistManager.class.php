@@ -4,10 +4,10 @@ class BuddylistManager {
 
 	/** @Inject */
 	public $chatBot;
-	
+
 	/** @Logger */
 	public $logger;
-	
+
 	public $buddyList = array();
 
 	/**
@@ -18,7 +18,7 @@ class BuddylistManager {
 		$buddy = $this->get_buddy($name);
 		return ($buddy === null ? null : $buddy['online']);
     }
-	
+
 	public function get_buddy($name) {
 		$uid = $this->chatBot->get_uid($name);
 		if ($uid === false || !isset($this->buddyList[$uid])) {
@@ -27,7 +27,7 @@ class BuddylistManager {
 			return $this->buddyList[$uid];
 		}
     }
-	
+
 	public function add($name, $type) {
 		$uid = $this->chatBot->get_uid($name);
 		if ($uid === false || $type === null || $type == '') {
@@ -37,16 +37,16 @@ class BuddylistManager {
 				$this->logger->log('debug', "$name buddy added");
 				$this->chatBot->buddy_add($uid);
 			}
-			
+
 			if (!isset($this->buddyList[$uid]['types'][$type])) {
 				$this->buddyList[$uid]['types'][$type] = 1;
 				$this->logger->log('debug', "$name buddy added (type: $type)");
 			}
-			
+
 			return true;
 		}
 	}
-	
+
 	public function remove($name, $type = '') {
 		$uid = $this->chatBot->get_uid($name);
 		if ($uid === false) {
@@ -62,16 +62,16 @@ class BuddylistManager {
 				$this->logger->log('debug', "$name buddy removed");
 				$this->chatBot->buddy_remove($uid);
 			}
-			
+
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
+
 	public function update($args) {
 		$sender	= $this->chatBot->lookup_user($args[0]);
-	
+
 		// store buddy info
 		list($bid, $bonline, $btype) = $args;
 		$this->buddyList[$bid]['uid'] = $bid;

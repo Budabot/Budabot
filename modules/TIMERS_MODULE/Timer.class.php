@@ -1,24 +1,24 @@
 <?php
 
 class Timer {
-	
+
 	/** @Inject */
 	public $db;
-	
+
 	/** @Inject */
 	public $chatBot;
-	
+
 	/** @Inject */
 	public $accessLevel;
-	
+
 	/** @Inject */
 	public $text;
-	
+
 	/** @Inject */
 	public $util;
 
 	private $timers = array();
-	
+
 	/**
 	 * @Setup
 	 */
@@ -29,7 +29,7 @@ class Timer {
 			$this->timers[strtolower($row->name)] = $row;
 		}
 	}
-	
+
 	/**
 	 * @Event("2sec")
 	 * @Description("Checks timers and periodically updates chat with time left")
@@ -75,7 +75,7 @@ class Timer {
 						$msg = "<highlight>$owner<end> your timer named <highlight>$name<end> has gone off.";
 					}
 				}
-			
+
 				$this->remove($name);
 				if ($timer->callback == 'repeating') {
 					$this->add($name, $owner, $mode, $timer->callback_param + $timer->timer, $timer->callback, $timer->callback_param);
@@ -92,7 +92,7 @@ class Timer {
 		}
 
 	}
-	
+
 	/**
 	 * @Command("rtimer")
 	 * @AccessLevel("guild")
@@ -104,7 +104,7 @@ class Timer {
 			$initialTimeString = $arr[2];
 			$timeString = $arr[3];
 			$timerName = $arr[4];
-			
+
 			$timer = $this->get($timerName);
 			if ($timer != null) {
 				$msg = "A Timer with the name <highlight>$timerName<end> is already running.";
@@ -120,7 +120,7 @@ class Timer {
 				$sendto->reply($msg);
 				return;
 			}
-			
+
 			if ($initialRunTime < 1) {
 				$msg = "You must enter a valid time parameter for the initial run time.";
 				$sendto->reply($msg);
@@ -134,13 +134,13 @@ class Timer {
 			$initialTimerSet = $this->util->unixtime_to_readable($initialRunTime);
 			$timerSet = $this->util->unixtime_to_readable($runTime);
 			$msg = "Repeating timer <highlight>$timerName<end> will go off in $initialTimerSet and repeat every $timerSet.";
-				
+
 			$sendto->reply($msg);
 		} else {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * @Command("timers")
 	 * @AccessLevel("guild")
@@ -158,7 +158,7 @@ class Timer {
 				$timerName = $sender;
 			}
 			$runTime = $arr[2] * 60;
-			
+
 			$msg = $this->addTimer($sender, $timerName, $runTime, $channel);
 			$sendto->reply($msg);
 		} else if (preg_match("/^timers (rem|del) (.+)$/i", $message, $arr)) {
@@ -174,7 +174,7 @@ class Timer {
 				$timeString = $arr[2];
 				$name = $arr[3];
 			}
-			
+
 			$runTime = $this->util->parseTime($timeString);
 
 			$msg = $this->addTimer($sender, $name, $runTime, $channel);
@@ -186,20 +186,20 @@ class Timer {
 			return false;
 		}
 	}
-	
+
 	public function viewTimer($name) {
 		$name = strtolower($name);
 		$timer = $this->get($name);
 		if ($timer == null) {
 			return "Could not find timer named <highlight>$name<end>.";
 		}
-		
+
 		$time_left = $this->util->unixtime_to_readable($timer->timer - time());
 		$name = $timer->name;
 
 		return "Timer <highlight>$name<end> has <highlight>$time_left<end> left.";
 	}
-	
+
 	public function removeTimer($sender, $name) {
 		$name = strtolower($name);
 		$timer = $this->get($name);
@@ -212,12 +212,12 @@ class Timer {
 			return "Removed timer <highlight>$name<end>.";
 		}
 	}
-	
+
 	public function addTimer($sender, $name, $runTime, $channel) {
 		if ($name == '') {
 			return;
 		}
-	
+
 		if ($this->get($name) != null) {
 			return "A timer named <highlight>$name<end> is already running.";
 		}
@@ -233,7 +233,7 @@ class Timer {
 		$timerset = $this->util->unixtime_to_readable($runTime);
 		return "Timer <highlight>$name<end> has been set for $timerset.";
 	}
-	
+
 	public function showTimers() {
 		$timers = $this->getAllTimers();
 		if (count($timers) == 0) {
@@ -260,13 +260,13 @@ class Timer {
 		}
 		return $this->text->make_blob("Timers currently running", $blob);
 	}
-	
+
 	public function add($name, $owner, $mode, $time, $callback = null, $callback_param = null) {
 		$this->timers[strtolower($name)] = (object)array("name" => $name, "owner" => $owner, "mode" => $mode, "timer" => $time, "settime" => time(), 'callback' => $callback, 'callback_param' => $callback_param);
 		$sql = "INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`, `callback`, `callback_param`) VALUES (?, ?, ?, ?, ?, ?, ?)";
 		$this->db->exec($sql, $name, $owner, $mode, $time, time(), $callback, $callback_param);
 	}
-	
+
 	public function remove($name) {
 		$this->db->exec("DELETE FROM timers_<myname> WHERE `name` LIKE ?", $name);
 		unset($this->timers[strtolower($name)]);

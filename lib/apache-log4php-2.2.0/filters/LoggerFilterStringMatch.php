@@ -20,24 +20,24 @@
 
 /**
  * This is a very simple filter based on string matching.
- * 
+ *
  * <p>The filter admits two options {@link $stringToMatch} and
  * {@link $acceptOnMatch}. If there is a match (using {@link PHP_MANUAL#strpos}
- * between the value of the {@link $stringToMatch} option and the message 
+ * between the value of the {@link $stringToMatch} option and the message
  * of the {@link LoggerLoggingEvent},
  * then the {@link decide()} method returns {@link LoggerFilter::ACCEPT} if
  * the <b>AcceptOnMatch</b> option value is true, if it is false then
  * {@link LoggerFilter::DENY} is returned. If there is no match, {@link LoggerFilter::NEUTRAL}
  * is returned.</p>
- * 
+ *
  * <p>
  * An example for this filter:
- * 
+ *
  * {@example ../../examples/php/filter_stringmatch.php 19}
  *
  * <p>
  * The corresponding XML file:
- * 
+ *
  * {@example ../../examples/resources/filter_stringmatch.xml 18}
  *
  * @version $Revision: 1213283 $
@@ -63,7 +63,7 @@ class LoggerFilterStringMatch extends LoggerFilter {
 	public function setAcceptOnMatch($acceptOnMatch) {
 		$this->setBoolean('acceptOnMatch', $acceptOnMatch);
 	}
-	
+
 	/**
 	 * @param string $s the string to match
 	 */
@@ -76,11 +76,11 @@ class LoggerFilterStringMatch extends LoggerFilter {
 	 */
 	public function decide(LoggerLoggingEvent $event) {
 		$msg = $event->getRenderedMessage();
-		
+
 		if($msg === null or $this->stringToMatch === null) {
 			return LoggerFilter::NEUTRAL;
 		}
-		
+
 		if(strpos($msg, $this->stringToMatch) !== false ) {
 			return ($this->acceptOnMatch) ? LoggerFilter::ACCEPT : LoggerFilter::DENY;
 		}

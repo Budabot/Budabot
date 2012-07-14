@@ -35,29 +35,29 @@ global $residual;
 
 if (preg_match("/^flatroll$/i", $message)) {
 	//Check if a loot list exits
-  	if (!is_array($loot)) {
+	if (!is_array($loot)) {
 	    $msg = "There is nothing to roll atm.";
 	    $sendto->reply($msg);
 	    return;
 	}
-	
+
 	srand( ((int)((double)microtime()*1000003)) ); // get a good seed
-  	
-  	$list = '';
-  	//Roll the loot
+
+	$list = '';
+	//Roll the loot
 	$resnum = 1;
 	forEach ($loot as $key => $item) {
-  	  	$list .= "Item: <orange>{$item["name"]}<end>\n";
-  	  	$list .= "Winner(s): ";
+		$list .= "Item: <orange>{$item["name"]}<end>\n";
+		$list .= "Winner(s): ";
 	    $users = count($item["users"]);
-	 	if ($users == 0) {
-	 		$list .= "<highlight>None added.<end>\n\n";
+		if ($users == 0) {
+			$list .= "<highlight>None added.<end>\n\n";
 			$residual[$resnum]["name"] = $item["name"];
 			$residual[$resnum]["icon"] = $item["icon"];
 			$residual[$resnum]["linky"] = $item["linky"];
 			$residual[$resnum]["multiloot"] = $item["multiloot"];
 			$resnum++;
-	 	} else {
+		} else {
 			if ($item["multiloot"] > 1) {
 				if ($item["multiloot"] > sizeof($item["users"])) {
 					$arrolnum = sizeof($item["users"]);
@@ -80,7 +80,7 @@ if (preg_match("/^flatroll$/i", $message)) {
 					$resnum++;
 				}
 			} else {
-            	$winner = array_rand($item["users"], 1);
+				$winner = array_rand($item["users"], 1);
 				$list .= "<red>$winner<end>";
 			}
 			$list .= "\n\n";

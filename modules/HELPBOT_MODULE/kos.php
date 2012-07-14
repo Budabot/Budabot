@@ -16,7 +16,7 @@ if (preg_match("/^kos$/i", $message)) {
 			$i++;
 			$link .= "$i. $key <highlight>(Voted {$value} times)<end>\n";
 		}
-			
+
 		$msg = Text::make_blob("Kill On Sight list", $link);
 	}
 
@@ -24,7 +24,7 @@ if (preg_match("/^kos$/i", $message)) {
 } else if (preg_match("/^kos add (.+) reason (.+)$/i", $message, $arr) || preg_match("/^kos add (.+)$/i", $message, $arr)) {
 	$name = ucfirst(strtolower($arr[1]));
 	$reason = $arr[2];
-	
+
 	if (strlen($reason) >= 50) {
 		$msg = "The reason can't be longer than 50 characters.";
 	} else {
