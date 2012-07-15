@@ -12,9 +12,7 @@ function get_online_list($prof = "all") {
 	$db = Registry::getInstance('db');
 	$setting = Registry::getInstance('setting');
 
-	if ($prof != 'all') {
-		$prof_query = "AND `profession` = '$prof'";
-	}
+	if ($prof != 'all') $prof_query = "AND `profession` = '$prof'";
 
 	if ($setting->get('online_group_by') == 'profession') {
 		$order_by = "ORDER BY `profession`, `level` DESC";
@@ -22,65 +20,59 @@ function get_online_list($prof = "all") {
 		$order_by = "ORDER BY `channel` ASC, `name` ASC";
 	}
 
-	//$list = "";
 	$list = array();
+
+	// Guild Channel Part
 	$data = $db->query("SELECT p.*, o.name, o.channel, o.afk FROM `online` o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE o.channel_type = 'guild' {$prof_query} {$order_by}");
+	$numguild = count($data);
 
-	$oldprof = "";
-	$numonline = count($data);
-	if ($chatBot->vars['my_guild'] != '') {
-		$guild_name = "[<myguild>] ";
-	}
-	if ($numonline == 1) {
-		$list[] = array("content" => "<header> :::::: 1 member online $guild_name:::::: <end>\n");
-	} else {
-		$list[] = array("content" => "<header> :::::: $numonline members online $guild_name:::::: <end>\n");
-	}
+	if ($numguild >= 1) {
+		$list[] = array("content" => "<header>:::::: $numguild ".($numguild == 1 ? "Member":"Members")." online ".($chatBot->vars['my_guild'] != '' ? "[<myguild>] ":"")."::::::<end>\n");
 
-	// create the list with alts shown
-	createList($data, $list, true, $setting->get("online_show_org_guild"));
+		// create the list with alts shown
+		createList($data, $list, true, $setting->get("online_show_org_guild"));
+	}
 
 	// Private Channel Part
 	$data = $db->query("SELECT p.*, o.name, o.channel, o.afk FROM `online` o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE o.channel_type = 'priv' {$prof_query} {$order_by}");
-
 	$numguest = count($data);
-	if ($numguest == 1) {
-		$list[] = array("content" => "\n\n<highlight><u>1 User in Private Channel</u><end>\n");
-	} else {
-		$list[] = array("content" => "\n\n<highlight><u>$numguest Users in Private Channel</u><end>\n");
+
+	if ($numguest >= 1) {
+		if ($numguild >= 1) {
+			$list[] = array("content" => "\n\n<highlight><u>$numguest ".($numguest == 1 ? "User":"Users")." in Private Channel</u><end>\n");
+		} else {
+			$list[] = array("content" => "<header>:::::: $numguest ".($numguest == 1 ? "User":"Users")." in Private Channel ::::::<end>\n");
+		}
+
+		// create the list of guests, without showing alts
+		createList($data, $list, true, $setting->get("online_show_org_priv"));
 	}
 
-	// create the list of guests, without showing alts
-	createList($data, $list, true, $setting->get("online_show_org_priv"));
-	$numonline += $numguest;
+	$numonline = $numguild + $numguest;
 
-	if ($numonline == 1) {
-		$msg .= "1 member online";
-	} else {
-		$msg .= "{$numonline} members online";
-	}
+	$msg .= "$numonline ".($numonline == 1 ? "member":"members")." online ()";
 
 	// BBIN part
 	if ($setting->get("bbin_status") == 1) {
 		// members
 		$data = $db->query("SELECT * FROM bbin_chatlist_<myname> WHERE (`guest` = 0) {$prof_query} ORDER BY `profession`, `level` DESC");
 		$numbbinmembers = count($data);
-		if ($numbbinmembers == 1) {
-			$list[] = array("content" => "\n\n<highlight><u>1 member in BBIN</u><end>\n");
-		} else {
-			$list[] = array("content" => "\n\n<highlight><u>$numbbinmembers members in BBIN</u><end>\n");
+
+		if ($numbbinmembers >= 1) {
+			$list[] = array("content" => "\n\n<highlight><u>$numbbinmembers ".($numbbinmembers == 1 ? "Member":"Members")." in BBIN</u><end>\n");
+
+			createListByProfession($data, $list, false, true);
 		}
-		createListByProfession($data, $list, false, true);
 
 		// guests
 		$data = $db->query("SELECT * FROM bbin_chatlist_<myname> WHERE (`guest` = 1) {$prof_query} ORDER BY `profession`, `level` DESC");
 		$numbbinguests = count($data);
-		if ($numbbinguests == 1) {
-			$list[] = array("content" => "\n\n<highlight><u>1 guest in BBIN<end></u>\n");
-		} else {
-			$list[] = array("content" => "\n\n<highlight><u>$numbbinguests guests in BBIN<end></u>\n");
+
+		if ($numbbinguests >= 1) {
+			$list[] = array("content" => "\n\n<highlight><u>$numbbinguests ".($numbbinguests == 1 ? "Guest":"Guests")." in BBIN<end></u>\n");
+
+			createListByProfession($data, $list, false, true);
 		}
-		createListByProfession($data, $list, false, true);
 
 		$numonline += $numbbinguests + $numbbinmembers;
 
