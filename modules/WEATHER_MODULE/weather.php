@@ -99,7 +99,6 @@ if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 	$sendto->reply("Collecting data for <highlight>".$location."<end>.");
 
 	$current   = getweatherdata("api.wunderground.com", 80, $current);
-	var_dump($current);
 	$forecast  = getweatherdata("api.wunderground.com", 80, $forecast);
 	$alerts    = getweatherdata("api.wunderground.com", 80, $alerts);
 
