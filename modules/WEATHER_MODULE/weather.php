@@ -13,7 +13,7 @@ if (!function_exists(getweatherdata)){
 			return -2;
 		}
 
-		$request = "GET $url HTTP/1.1\r\nHost: $host\r\nUser-Agent: Mozilla/4.0 (compatible; MSIE 7.0b; Windows NT 6.0)\r\nAccept: text/xml,application/xml,application/xhtml+xml,text/html\r\nAccept-Language: en-us,en;q=0.5\r\nAccept-Encoding: gzip,deflate\r\nKeep-Alive: 300\r\nConnection: Keep-Alive\r\nCache-Control: max-age=0\r\n\r\n";
+		$request = "GET $url HTTP/1.1\r\nHost: $host\r\nUser-Agent: Mozilla/4.0 (compatible; MSIE 7.0b; Windows NT 6.0)\r\nAccept: text/xml,application/xml,application/xhtml+xml,text/html\r\nAccept-Language: en-us,en;q=0.5\r\nKeep-Alive: 300\r\nConnection: Keep-Alive\r\nCache-Control: max-age=0\r\n\r\n";
 		fputs($server, $request);
 		while (!feof($server)) {
 			$stream .= fread($server, 8192);
@@ -67,6 +67,7 @@ if (!function_exists(fix_num_space)){
 
 if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 	$location = $arr[1];
+	$blob = '';
 
 	$host      = "api.wunderground.com";
 	$geolookup = "/auto/wui/geo/GeoLookupXML/index.xml?query=".urlencode($location);
@@ -85,7 +86,7 @@ if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 
 	$locations = xml::spliceMultiData($geolookup, "<name>", "</name>");
 	if (count($locations) > 1){
-		$blob = "Multiple hits for $location.\n\n";
+		$blob .= "Multiple hits for $location.\n\n";
 		foreach ($locations as $spot) {
 			$blob .= Text::make_chatcmd($spot, "/tell <myname> weather $spot")."\n";
 		}
@@ -98,6 +99,7 @@ if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 	$sendto->reply("Collecting data for <highlight>".$location."<end>.");
 
 	$current   = getweatherdata("api.wunderground.com", 80, $current);
+	var_dump($current);
 	$forecast  = getweatherdata("api.wunderground.com", 80, $forecast);
 	$alerts    = getweatherdata("api.wunderground.com", 80, $alerts);
 
@@ -144,7 +146,7 @@ if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 	}
 	$latlonstr .= Text::make_chatcmd("Google Map", "/start http://maps.google.com/maps?q=$lat,$lon")." ";
 	$latlonstr .= Text::make_chatcmd("Wunder Map", "/start http://www.wunderground.com/wundermap/?lat=$lat&lon=$lon&zoom=10")."\n\n";
-	$blob  = "<highlight>Credit:<end> ".Text::make_chatcmd($credit, "/start $crediturl")."\n";
+	$blob .= "<highlight>Credit:<end> ".Text::make_chatcmd($credit, "/start $crediturl")."\n";
 	$blob .= "<highlight>Last Updated:<end> $updated\n\n";
 	$blob .= "<highlight>Location:<end> $fullLoc, $country\n";
 	$blob .= "<highlight>Lat/Lon:<end> $latlonstr";
@@ -173,7 +175,7 @@ if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 	$alertitems = xml::spliceMultiData($alerts, "<AlertItem>", "</AlertItem>");
 
 	if (count($alertitems) == 0) {
-		$blob .= "\n<header>Alerts:<end> None reported.\n";
+		$blob .= "\n<header>Alerts:<end> None reported.\n\n";
 	} else {
 		forEach ($alertitems as $thisalert) {
 
@@ -195,7 +197,6 @@ if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 	$simpleforecast = xml::spliceData($forecast, "<simpleforecast>", "</simpleforecast>");
 	$forecastday = xml::spliceMultiData($simpleforecast, "<forecastday>", "</forecastday>");
 	if (count($forecastday)>0) {
-		$blob = '';
 		forEach ($forecastday as $day) {
 
 			if (!($condition = xml::spliceData($day, "<conditions>", "</conditions>"))) {
