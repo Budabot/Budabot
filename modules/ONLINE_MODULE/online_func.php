@@ -249,18 +249,12 @@ function createListByProfession(&$data, &$list, $show_alts, $show_org_info) {
 }
 
 function get_org_info($show_org_info, $fancyColon, $guild, $guild_rank) {
-	if ($show_org_info == 2) {
-		if ($guild == "") {
-			return " $fancyColon Not in a guild";
-		} else {
-			return " $fancyColon {$guild} ({$guild_rank})";
-		}
-	} else if ($show_org_info == 1) {
-		if ($guild != "") {
-			return " $fancyColon {$guild_rank}";
-		}
+	switch ($show_org_info) {
+		case  3: return $guild != "" ? " $fancyColon {$guild}":" $fancyColon Not in a guild";
+		case  2: return $guild != "" ? " $fancyColon {$guild} ({$guild_rank})":" $fancyColon Not in a guild";
+		case  1: return $guild != "" ? " $fancyColon {$guild_rank}":"";
+		default: return '';
 	}
-	return '';
 }
 
 function get_admin_info($name, $fancyColon) {

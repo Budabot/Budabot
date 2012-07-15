@@ -24,8 +24,8 @@
 	$setting->add($MODULE_NAME, "fancy_online", "Show fancy delimiters on the online display", "edit", "options", "1", "true;false", "1;0");
 	$setting->add($MODULE_NAME, "icon_fancy_online", "Show profession icons in the online display", "edit", "options", "1", "true;false", "1;0");
 	$setting->add($MODULE_NAME, "online_group_by", "How to group online list", "edit", "options", "profession", "profession;guild");
-	$setting->add($MODULE_NAME, "online_show_org_guild", "Show org/rank for players in guild channel", "edit", "options", "1", "Show org and rank;Show rank only;Show no org info", "2;1;0");
-	$setting->add($MODULE_NAME, "online_show_org_priv", "Show org/rank for players in private channel", "edit", "options", "2", "Show org and rank;Show rank only;Show no org info", "2;1;0");
+	$setting->add($MODULE_NAME, "online_show_org_guild", "Show org/rank for players in guild channel", "edit", "options", "1", "Show org and rank;Show rank only;Show org only;Show no org info", "2;1;3;0");
+	$setting->add($MODULE_NAME, "online_show_org_priv", "Show org/rank for players in private channel", "edit", "options", "2", "Show org and rank;Show rank only;Show org only;Show no org info", "2;1;3;0");
 	$setting->add($MODULE_NAME, "online_colorful", "Use fancy coloring for online list", "edit", "options", "1", "true;false", "1;0");
 	$setting->add($MODULE_NAME, "online_admin", "Show admin levels in online list", "edit", "options", "0", "true;false", "1;0");
 
