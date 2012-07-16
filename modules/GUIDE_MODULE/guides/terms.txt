@@ -130,7 +130,7 @@ BRB - be right back
 
 BRT - be right there
 
-BS - 1. the Broken Shores playfield on Rubi-Ka 2. bulls**t
+BS - 1. the Broken Shores playfield on Rubi-Ka 2. bulls**t 3. BattleStation
 
 BTW - by the way
 
@@ -251,6 +251,8 @@ Ding - An exclamation used to explain that you levelled.
 Disk- Disks are unmade nano's. You get disks hacked and turned into nice stuff.
 
 DKN - Die Kleine Nadel, a piercing weapon held in the left hand most often used by shades
+
+DM - Daily Mission
 
 dmg - damage
 
