@@ -27,7 +27,8 @@
 
 	Project site:  http://code.google.com/p/budabot2
 	Support forum: http://www.budabot.com/forum
-	Chat:          #budabot on irc.funcom.com
+	Chat:          #budabot on irc.funcom.com, or
+	               /tell Budanet !join
 	Contacts:      Tyrence, Marebone, Laen
 	**************************************************
 	\n";
