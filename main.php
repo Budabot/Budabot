@@ -23,10 +23,12 @@
 	// Text block that is displayed when initially launching the process.
 	echo "\n\n\n\n\n
 	**************************************************
-	Budabot $version, by Tyrence (RK2)
+	Budabot $version
 
 	Project site:  http://code.google.com/p/budabot2
 	Support forum: http://www.budabot.com/forum
+	Chat:          #budabot on irc.funcom.com
+	Contacts:      Tyrence, Marebone, Laen
 	**************************************************
 	\n";
 
