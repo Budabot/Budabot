@@ -65,7 +65,7 @@ if (preg_match("/^recentseen ([a-z0-9]+)/i", $message, $arr)) {
 			$highlight = 1;
 		}
 	}
-	$msg = Text::make_blob("$numinactive Receent seen Org Members", $blob);
+	$msg = Text::make_blob("$numinactive Recent seen Org Members", $blob);
 	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
