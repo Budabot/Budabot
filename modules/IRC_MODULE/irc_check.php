@@ -12,12 +12,12 @@ if (!IRC::isConnectionActive($ircSocket)) {
 	return;
 }
 
-if ($data = fgets($ircSocket)) {
+if ($data = trim(fgets($ircSocket))) {
 	$ex = explode(' ', $data);
-	LegacyLogger::log('DEBUG', "IRC", trim($data));
+	LegacyLogger::log('DEBUG', "IRC", $data);
 	$ex[3] = substr($ex[3],1,strlen($ex[3]));
 
-	$channel = rtrim(strtolower($ex[2]));
+	$channel = rtrim($ex[2]);
 	$nicka = explode('@', $ex[0]);
 	$nickb = explode('!', $nicka[0]);
 	$nickc = explode(':', $nickb[0]);
@@ -62,6 +62,8 @@ if ($data = fgets($ircSocket)) {
 			}
 		}
 	} else if("QUIT" == $ex[1] || "PART" == $ex[1]) {
+		$db->exec("DELETE FROM online WHERE `name` = ? AND `channel_type` = 'irc' AND added_by = '<myname>'", $nick);
+
 		if ($chatBot->vars['my_guild'] != "") {
 			$chatBot->sendGuild("<yellow>[IRC]<end> {$msgColor}$nick left the channel.<end>", true);
 		}
@@ -69,13 +71,17 @@ if ($data = fgets($ircSocket)) {
 			$chatBot->sendPrivate("<yellow>[IRC]<end> {$msgColor}$nick left the channel.<end>", true);
 		}
 	} else if ("JOIN" == $ex[1]) {
+		$data = $db->query("SELECT name FROM online WHERE `name` = ? AND `channel_type` = 'irc' AND added_by = '<myname>'", $nick);
+		if (count($data) == 0)
+			$db->exec("INSERT INTO online (`name`, `channel`, `channel_type`, `added_by`, `dt`) VALUES (?, ?, 'irc', '<myname>', ?)", $nick, $channel, time());
+
 		if ($chatBot->vars['my_guild'] != "") {
 			$chatBot->sendGuild("<yellow>[IRC]<end> {$msgColor}$nick joined the channel.<end>", true);
 		}
 		if ($chatBot->vars['my_guild'] == "" || $setting->get("guest_relay") == 1) {
 			$chatBot->sendPrivate("<yellow>[IRC]<end> {$msgColor}$nick joined the channel.<end>", true);
 		}
-	} else if ("PRIVMSG" == $ex[1] && $channel == trim(strtolower($setting->get('irc_channel')))) {
+	} else if ("PRIVMSG" == $ex[1] && strtolower($channel) == trim(strtolower($setting->get('irc_channel')))) {
 		$args = NULL;
 		for ($i = 4; $i < count($ex); $i++) {
 			$args .= rtrim(htmlspecialchars($ex[$i])) . ' ';

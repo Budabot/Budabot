@@ -48,7 +48,22 @@ function get_online_list($prof = "all") {
 		createList($data, $list, true, $setting->get("online_show_org_priv"));
 	}
 
-	$numonline = $numguild + $numguest;
+	// IRC part
+	$data = $db->query("SELECT o.name, o.afk, o.channel, o.channel_type, '' AS profession FROM `online` o WHERE o.channel_type = 'irc' AND o.name <> '<myname>' ORDER BY `name` ASC");
+	$numirc = count($data);
+
+	if ($numirc >= 1) {
+		if ($numguild + $numguest >= 1) {
+			$list[] = array("content" => "\n\n<highlight><u>$numirc ".($numirc == 1 ? "User":"Users")." in IRC Channel(s)</u><end>\n");
+		} else {
+			$list[] = array("content" => "<header>:::::: $numirc ".($numirc == 1 ? "User":"Users")." in IRC Channel(s) ::::::<end>\n");
+		}
+
+		// create the list of guests
+		createListByChannel($data, $list, false, false);
+	}
+
+	$numonline = $numguild + $numguest + $numirc;
 
 	$msg .= "$numonline ".($numonline == 1 ? "member":"members")." online";
 
@@ -97,8 +112,6 @@ function createListByChannel(&$data, &$list, $show_alts, $show_org_info) {
 
 	//Colorful temporary var settings (avoid a mess of if statements later in the function)
 	$fancyColon = ($setting->get("online_colorful") == "1") ? "<highlight>::<end>":"::";
-
-	$orgShow = $setting->get("online_show_org");
 
 	$current_channel = "";
 	$current_header = "";

@@ -13,7 +13,7 @@
 	$channel = $setting->get('irc_channel');
 	if ($channel === false) {
 		if ($chatBot->vars['my_guild'] == "") {
-			$channel = "#".strtolower($chatBot->vars['name']);
+			$channel = "#".$chatBot->vars['name'];
 		} else {
 			if (strpos($chatBot->vars['my_guild']," ")) {
 				$sandbox = explode(" ", $chatBot->vars['my_guild']);
@@ -32,7 +32,6 @@
 	// Commands
 	$command->register($MODULE_NAME, "", "irc_connect.php", "startirc", "mod", "Connect to IRC", "irc_help.txt");
 	$command->register($MODULE_NAME, "", "stopirc.php", "stopirc", "mod", "Disconnect from IRC", "irc_help.txt");
-	$command->register($MODULE_NAME, "", "online_irc.php", "onlineirc", "all", "View who is in IRC channel", "irc_help.txt");
 	$command->register($MODULE_NAME, "", "set_irc_settings.php", "setirc", "mod", "Manually set IRC settings", "irc_help.txt");
 
 	// IRC Relay

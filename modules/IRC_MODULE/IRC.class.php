@@ -22,8 +22,8 @@ class IRC {
 		fputs($socket,"NICK $nick\n");
 		while ($logincount < 10) {
 			$logincount++;
-			$data = fgets($socket, 128);
-			LegacyLogger::log('DEBUG', "IRC", trim($data));
+			$data = trim(fgets($socket, 128));
+			LegacyLogger::log('DEBUG', "IRC", $data);
 
 			$ex = explode(' ', $data);
 
@@ -39,10 +39,10 @@ class IRC {
 			fputs($socket,"JOIN ".$channel."\n");
 		}
 
-		while ($data = fgets($socket)) {
-			LegacyLogger::log('DEBUG', "IRC", trim($data));
+		while ($data = trim(fgets($socket))) {
+			LegacyLogger::log('DEBUG', "IRC", $data);
 			if (preg_match("/(ERROR)(.+)/", $data, $sandbox)) {
-				LegacyLogger::log('ERROR', "IRC", trim($data));
+				LegacyLogger::log('ERROR', "IRC", $data);
 			}
 			if ($ex[0] == "PING") {
 				fputs($socket, "PONG ".$ex[1]."\n");
@@ -58,14 +58,16 @@ class IRC {
 	public static function getUsersInChannel(&$socket, $channel) {
 		stream_set_blocking($socket, 1);
 		fputs($socket, "NAMES :".$channel."\n");
-		$data = fgets($socket);
+
+		$data = trim(fgets($socket));
+		stream_set_blocking($socket, 0);
 
 		$names = array();
+
 		if (!preg_match("/(End of \/NAMES list)/", $data)) {
-			$start = strrpos($data,":")+1;
-			$names = explode(' ',substr($data, $start, strlen($data)));
+			$users = substr($data, strrpos($data,":")+1);
+			$names = explode(' ',trim(str_replace(array("@", "+", "%"), "", $users)));
 		}
-		stream_set_blocking($socket, 0);
 
 		return $names;
 	}
