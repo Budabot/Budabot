@@ -42,7 +42,7 @@ if ($chatBot->is_ready()) {
 		}
 	}
 
-	if (IRC::isConnectionActive($ircSocket)) forEach (IRC::getUsersInChannel($ircSocket, $setting->get('irc_channel')) as $name) {
+	if (class_exists(IRC) && IRC::isConnectionActive($ircSocket)) forEach (IRC::getUsersInChannel($ircSocket, $setting->get('irc_channel')) as $name) {
 		if (in_array($name, $ircArray)) {
 			$db->exec("UPDATE `online` SET `dt` = ? WHERE `name` = ? AND added_by = '<myname>' AND channel_type = 'irc'", $time, $name);
 		} else if ($name != $setting->get('irc_nickname')) {
