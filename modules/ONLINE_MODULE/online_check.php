@@ -11,14 +11,11 @@ if ($chatBot->is_ready()) {
 	$ircArray = array();
 
 	forEach ($data as $row) {
-		if ($row->channel_type == 'guild') {
-			$guildArray []= $row->name;
-		} else if ($row->channel_type == 'priv') {
-			$privArray []= $row->name;
-		} else if ($row->channel_type == 'irc') {
-			$ircArray []= $row->name;
-		} else {
-			LegacyLogger::log("WARN", "ONLINE_MODULE", "Unknown channel type: '$row->channel_type'. Expected: 'guild', 'priv' or 'irc'");
+		switch ($row->channel_type) {
+			case 'guild': $guildArray []= $row->name; break;
+			case 'priv' : $privArray []= $row->name; break;
+			case 'irc'  : $ircArray []= $row->name; break;
+			default     : LegacyLogger::log("WARN", "ONLINE_MODULE", "Unknown channel type: '$row->channel_type'. Expected: 'guild', 'priv' or 'irc'");
 		}
 	}
 

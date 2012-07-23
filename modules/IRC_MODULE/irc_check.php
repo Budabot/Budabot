@@ -99,28 +99,23 @@ if ($data = trim(fgets($ircSocket))) {
 		} else if ($rawcmd == "!md5") {
 			fputs($ircSocket, "PRIVMSG ".$channel." :MD5 ".md5($args)."\n");
 		} else if ($rawcmd == "!online") {
-			$numonline = 0;
+			$numguild = 0;
+
 			$numguest = 0;
 			//guild listing
 			if ($chatBot->vars['my_guild'] != "") {
 				$data = $db->query("SELECT * FROM online WHERE channel_type = 'guild'");
-				$numonline = count($data);
-				if ($numonline != 0) {
+				$numguild = count($data);
+				if ($numguild != 0) {
 					forEach ($data as $row) {
-						if ($row->afk == "kiting") {
-							$afk = " KITING";
-						} else if ($row->afk != "") {
-							$afk = " AFK";
-						} else {
-							$afk = "";
+						switch ($row->afk) {
+							case "kiting": $afk = " KITING"; break;
+							case       "": $afk = ""; break;
+							default      : $afk = " AFK"; break
 						}
+
 						$row1 = $db->queryRow("SELECT * FROM alts WHERE `alt` = ?", $row->name);
-						if ($row1 === null) {
-							$alt = "";
-						} else {
-							$alt = " ($row1->main)";
-						}
-						$list .= "$row->name"."$alt"."$afk, ";
+						$list .= "$row->name".($row1 === null ? "":" ($row1->main)")."$afk, ";
 						$g++;
 					}
 				}
@@ -130,31 +125,26 @@ if ($data = trim(fgets($ircSocket))) {
 			$numguest = count($data);
 			if ($numguest != 0) {
 				forEach ($data as $row) {
-					if ($row->afk != "") {
-						$afk = " AFK";
-					} else {
-						$afk = "";
+					switch ($row->afk) {
+						case "kiting": $afk = " KITING"; break;
+						case       "": $afk = ""; break;
+						default      : $afk = " AFK"; break
 					}
+
 					$row1 = $db->queryRow("SELECT * FROM alts WHERE `alt` = ?", $row->name);
-					if ($row1 === null) {
-						$alt = "";
-					} else {
-						$alt = " ($row1->main)";
-					}
-					$list .= $row->name . $alt . "$afk, ";
+					$list .= "$row->name".($row1 === null ? "":" ($row1->main)")."$afk, ";
 					$p++;
 				}
 			}
-			$membercount = "$numonline guildmembers and $numguest private chat members are online";
+
+			$membercount = "$numguild guildmembers and $numguest private chat members are online";
 			$list = substr($list,0,-2);
 
 			fputs($ircSocket, "PRIVMSG ".$channel." :$membercount\n");
 			fputs($ircSocket, "PRIVMSG ".$channel." :$list\n");
 		} else {
 			$ircarray = explode(",", strtolower($setting->get('irc_ignore')));
-			if (in_array(strtolower($nick), $ircarray)) {
-				return;
-			}
+			if (in_array(strtolower($nick), $ircarray)) return;
 
 			// handle relay messages from other bots
 			if (preg_match("/" . chr(2) . chr(2) . chr(2) . "(.+)" . chr(2) . " (.+)/i", $ircmessage, $arr)) {
