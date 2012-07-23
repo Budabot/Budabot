@@ -1,0 +1,344 @@
+[
+    {
+        "name": "evenement/evenement",
+        "version": "v1.0.0",
+        "version_normalized": "1.0.0.0",
+        "time": "2012-05-30 15:01:08",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/igorw/evenement",
+            "reference": "v1.0.0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://github.com/igorw/evenement/zipball/v1.0.0",
+            "reference": "v1.0.0",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "type": "library",
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Igor Wiedler",
+                "email": "igor@wiedler.ch",
+                "homepage": "http://wiedler.ch/igor/",
+                "role": null
+            }
+        ],
+        "description": "Événement is a very simple event dispatching library for PHP 5.3",
+        "keywords": [
+            "event-dispatcher"
+        ],
+        "autoload": {
+            "psr-0": {
+                "Evenement": "src"
+            }
+        }
+    },
+    {
+        "name": "react/stream",
+        "version": "v0.1.1",
+        "version_normalized": "0.1.1.0",
+        "target-dir": "React/Stream",
+        "time": "2012-07-12 23:08:01",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/react-php/stream",
+            "reference": "v0.1.1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://github.com/react-php/stream/zipball/v0.1.1",
+            "reference": "v0.1.1",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.2",
+            "evenement/evenement": "1.0.*"
+        },
+        "suggest": {
+            "react/event-loop": "dev-master"
+        },
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "0.1.1"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "description": "Basic readable and writable stream interfaces that support piping.",
+        "keywords": [
+            "stream",
+            "pipe"
+        ],
+        "autoload": {
+            "psr-0": {
+                "React\\Stream": ""
+            }
+        }
+    },
+    {
+        "name": "symfony/event-dispatcher",
+        "version": "v2.0.16",
+        "version_normalized": "2.0.16.0",
+        "target-dir": "Symfony/Component/EventDispatcher",
+        "time": "2012-05-26 07:48:33",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/EventDispatcher",
+            "reference": "v2.0.16"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://github.com/symfony/EventDispatcher/zipball/v2.0.16",
+            "reference": "v2.0.16",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "symfony/dependency-injection": "2.1.*"
+        },
+        "suggest": {
+            "symfony/dependency-injection": "v2.0.16",
+            "symfony/http-kernel": "v2.0.16"
+        },
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.1-dev"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com",
+                "homepage": null,
+                "role": null
+            },
+            {
+                "name": "Symfony Community",
+                "email": null,
+                "homepage": "http://symfony.com/contributors",
+                "role": null
+            }
+        ],
+        "description": "Symfony EventDispatcher Component",
+        "homepage": "http://symfony.com",
+        "autoload": {
+            "psr-0": {
+                "Symfony\\Component\\EventDispatcher": ""
+            }
+        }
+    },
+    {
+        "name": "guzzle/guzzle",
+        "version": "v2.5.0",
+        "version_normalized": "2.5.0.0",
+        "time": "2012-05-08 06:55:53",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/guzzle/guzzle",
+            "reference": "v2.5.0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://github.com/guzzle/guzzle/zipball/v2.5.0",
+            "reference": "v2.5.0",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.2",
+            "ext-curl": "*",
+            "symfony/event-dispatcher": "*"
+        },
+        "require-dev": {
+            "doctrine/common": "*",
+            "symfony/class-loader": "*",
+            "monolog/monolog": "*",
+            "zend/zend-cache": "2.0.0beta3",
+            "zend/zend-log": "2.0.0beta3",
+            "zend/zend-loader": "2.0.0beta3",
+            "zend/zend-stdlib": "2.0.0beta3",
+            "zend/zend-eventmanager": "2.0.0beta3",
+            "zend/zend-log1": "1.11",
+            "zend/zend-cache1": "1.11"
+        },
+        "type": "library",
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Michael Dowling",
+                "email": "mtdowling@gmail.com",
+                "homepage": "https://github.com/mtdowling",
+                "role": null
+            },
+            {
+                "name": "Guzzle Community",
+                "email": null,
+                "homepage": "https://github.com/guzzle/guzzle/contributors",
+                "role": null
+            }
+        ],
+        "description": "Guzzle is a PHP HTTP client library and framework for building RESTful web service clients",
+        "homepage": "http://www.guzzlephp.org/",
+        "keywords": [
+            "framework",
+            "curl",
+            "http",
+            "rest",
+            "web service"
+        ],
+        "autoload": {
+            "psr-0": {
+                "Guzzle\\Tests": "tests/",
+                "Guzzle": "src/"
+            }
+        }
+    },
+    {
+        "name": "react/event-loop",
+        "version": "v0.1.1",
+        "version_normalized": "0.1.1.0",
+        "target-dir": "React/EventLoop",
+        "time": "2012-07-12 21:02:32",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/react-php/event-loop.git",
+            "reference": "v0.1.1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://github.com/react-php/event-loop/zipball/v0.1.1",
+            "reference": "v0.1.1",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.2"
+        },
+        "suggest": {
+            "ext-libevent": ">=0.0.5"
+        },
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "0.1.1"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "description": "Event loop abstraction layer that libraries can use for evented I/O.",
+        "keywords": [
+            "event-loop"
+        ],
+        "autoload": {
+            "psr-0": {
+                "React\\EventLoop": ""
+            }
+        }
+    },
+    {
+        "name": "react/socket",
+        "version": "v0.1.1",
+        "version_normalized": "0.1.1.0",
+        "target-dir": "React/Socket",
+        "time": "2012-07-12 21:02:32",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/react-php/socket.git",
+            "reference": "v0.1.1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://github.com/react-php/socket/zipball/v0.1.1",
+            "reference": "v0.1.1",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.2",
+            "evenement/evenement": "1.0.*",
+            "react/event-loop": "0.1.*",
+            "react/stream": "0.1.*"
+        },
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "0.1.1"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "description": "Library for building an evented socket server.",
+        "keywords": [
+            "Socket"
+        ],
+        "autoload": {
+            "psr-0": {
+                "React\\Socket": ""
+            }
+        }
+    },
+    {
+        "name": "react/http",
+        "version": "v0.1.1",
+        "version_normalized": "0.1.1.0",
+        "target-dir": "React/Http",
+        "time": "2012-07-12 21:02:32",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/react-php/http.git",
+            "reference": "v0.1.1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://github.com/react-php/http/zipball/v0.1.1",
+            "reference": "v0.1.1",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.2",
+            "guzzle/guzzle": "2.5.*",
+            "react/socket": "0.1.*"
+        },
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "0.1.1"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "description": "Library for building an evented http server.",
+        "keywords": [
+            "http"
+        ],
+        "autoload": {
+            "psr-0": {
+                "React\\Http": ""
+            }
+        }
+    }
+]

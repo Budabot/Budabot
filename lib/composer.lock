@@ -1,0 +1,41 @@
+{
+    "hash": "8bb58946d673710aa2fc26b5bae92422",
+    "packages": [
+        {
+            "package": "evenement/evenement",
+            "version": "v1.0.0"
+        },
+        {
+            "package": "guzzle/guzzle",
+            "version": "v2.5.0"
+        },
+        {
+            "package": "react/event-loop",
+            "version": "v0.1.1"
+        },
+        {
+            "package": "react/http",
+            "version": "v0.1.1"
+        },
+        {
+            "package": "react/socket",
+            "version": "v0.1.1"
+        },
+        {
+            "package": "react/stream",
+            "version": "v0.1.1"
+        },
+        {
+            "package": "symfony/event-dispatcher",
+            "version": "v2.0.16"
+        }
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": [
+
+    ]
+}
