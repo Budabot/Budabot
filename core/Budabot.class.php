@@ -248,6 +248,22 @@ class Budabot extends AOChat {
 	}
 
 	public function registerModule($baseDir, $MODULE_NAME) {
+		// read module.ini file (if it exists) from module's directory
+		if (file_exists("{$baseDir}/{$MODULE_NAME}/module.ini")) {
+			$entries = parse_ini_file("{$baseDir}/{$MODULE_NAME}/module.ini");
+			// check that current PHP version is greater or equal than module's
+			// minimum required PHP version
+			if (isset($entries["minimum_php_version"])) {
+				$minimum = $entries["minimum_php_version"];
+				$current = phpversion();
+				if (strnatcmp($minimum, $current) > 0) {
+					$this->logger->log('WARN', "Could not load module"
+					." {$MODULE_NAME} as it requires at least PHP version '$minimum',"
+					." but current PHP version is '$current'");
+					return;
+				}
+			}
+		}
 		if (file_exists("{$baseDir}/{$MODULE_NAME}/{$MODULE_NAME}.php")) {
 			$this->logger->log('DEBUG', "MODULE_NAME:({$MODULE_NAME}.php)");
 			$name = ucfirst(strtolower($MODULE_NAME)) . "LegacyController";
