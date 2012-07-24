@@ -1,0 +1,6 @@
+<header> :::::: Help on Doja Commands :::::: <end>
+
+<highlight>DOJA Module<end>
+
+To show a info about Doja Chips
+<tab><symbol>doja
