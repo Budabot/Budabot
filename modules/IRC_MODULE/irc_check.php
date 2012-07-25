@@ -111,7 +111,7 @@ if ($data = trim(fgets($ircSocket))) {
 						switch ($row->afk) {
 							case "kiting": $afk = " KITING"; break;
 							case       "": $afk = ""; break;
-							default      : $afk = " AFK"; break
+							default      : $afk = " AFK"; break;
 						}
 
 						$row1 = $db->queryRow("SELECT * FROM alts WHERE `alt` = ?", $row->name);
@@ -128,7 +128,7 @@ if ($data = trim(fgets($ircSocket))) {
 					switch ($row->afk) {
 						case "kiting": $afk = " KITING"; break;
 						case       "": $afk = ""; break;
-						default      : $afk = " AFK"; break
+						default      : $afk = " AFK"; break;
 					}
 
 					$row1 = $db->queryRow("SELECT * FROM alts WHERE `alt` = ?", $row->name);
