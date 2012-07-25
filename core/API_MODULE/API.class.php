@@ -35,18 +35,15 @@ class API {
 		}
 
 		// Create a TCP Stream socket
-		$this->apisocket = socket_create(AF_INET, SOCK_STREAM, 0);
-		socket_bind($this->apisocket, $address, $port);
-		$errno = socket_last_error();
-		if ($errno == 0) {
+		$this->apisocket = stream_socket_server("tcp://$address:$port", $errno, $errstr);
+		if ($this->apisocket) {
 			$this->logger->log('INFO', 'API socket bound successfully');
-			socket_listen($this->apisocket);
-			socket_set_nonblock($this->apisocket);
+			stream_set_blocking($this->apisocket, 0);
 			$this->socketNotifier = new SocketNotifier($this->apisocket,
 				SocketNotifier::ACTIVITY_READ, array($this, 'onApiActivity'));
 			$this->chatBot->addSocketNotifier($this->socketNotifier);
 		} else {
-			$this->logger->log('ERROR', socket_strerror($errno));
+			$this->logger->log('ERROR', "$errstr ($errno)");
 		}
 
 	}
@@ -67,7 +64,7 @@ class API {
 	 */
 	public function onApiActivity($type) {
 		/* Accept incoming requests and handle them as child processes */
-		$client = @socket_accept($this->apisocket);
+		$client = @stream_socket_accept($this->apisocket);
 		if ($client !== false) {
 			$clientHandler = new ClientHandler($client, $this->logger);
 

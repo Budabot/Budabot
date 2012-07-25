@@ -23,17 +23,8 @@ class ClientHandler {
 		$remaining = $byteCount;
 		while ($remaining > 0) { // TODO: it might be wise to have some
 								 // timeout here if the client doesn't sent all needed data
-			$data = socket_read($this->client, $remaining);
-			if ($data === false) {
-				$error = socket_last_error($this->client);
-				if($error != 10035)
-				{
-					// dumps for debugging purposes if stuff fails
-					var_dump( $error );
-					var_dump( socket_strerror( $error ) );
-					return false;
-				}
-			} else {
+			$data = fread($this->client, $remaining);
+			if ($data !== false) {
 				$remaining -= strlen($data);
 				$result .= $data;
 			}
@@ -44,23 +35,20 @@ class ClientHandler {
 	function writePacket($apiPacket) {
 		$apiPacket->syncId = $this->syncId;
 		$output = json_encode($apiPacket);
-		socket_write($this->client, pack("n", strlen($output)));
-		socket_write($this->client, $output);
+		fwrite($this->client, pack("n", strlen($output)));
+		fwrite($this->client, $output);
 		$this->close();
 	}
 
 	function close() {
-		socket_close($this->client);
+		fclose($this->client);
 	}
 
 	/**
 	 * Returns client's IP-address.
 	 */
 	public function getClientAddress() {
-		$address = null;
-		if (!socket_getpeername($this->client, $address)) {
-			$this->logger->log('ERROR', "Failed to get client's peer name");
-		}
+		$address = stream_socket_get_name($this->client);
 		return $address;
 	}
 }

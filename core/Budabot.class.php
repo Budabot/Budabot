@@ -110,7 +110,7 @@ class Budabot extends AOChat {
 				$read = $this->monitoredSocketsByType[SocketNotifier::ACTIVITY_READ];
 				$write = $this->monitoredSocketsByType[SocketNotifier::ACTIVITY_WRITE];
 				$except = $this->monitoredSocketsByType[SocketNotifier::ACTIVITY_ERROR];
-				if (0 < socket_select($read, $write, $except, 0)) {
+				if (0 < stream_select($read, $write, $except, 0)) {
 					foreach ($this->socketNotifiers as $notifier) {
 						$socket = $notifier->getSocket();
 						$type = $notifier->getType();
