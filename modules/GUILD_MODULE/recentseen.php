@@ -7,7 +7,7 @@
 if (preg_match("/^recentseen ([a-z0-9]+)/i", $message, $arr)) {
 
 	if ($chatBot->vars["my_guild_id"] == "") {
-	    $sendto->reply("The Bot needs to be in an org to show the orgmembers.");
+	    $sendto->reply("The Bot needs to be in an org to show the org members.");
 		return;
 	}
 
@@ -32,7 +32,7 @@ if (preg_match("/^recentseen ([a-z0-9]+)/i", $message, $arr)) {
 	$numinactive = 0;
 	$highlight = 0;
   
-	$blob = "Org members who have logged on since <highlight>{$timeString}<end>.\n\n";
+	$blob = "Org members who have logged on within <highlight>{$timeString}<end>.\n\n";
 	
   $prevtoon = '';
 	forEach ($data as $row) {
@@ -53,7 +53,7 @@ if (preg_match("/^recentseen ([a-z0-9]+)/i", $message, $arr)) {
 		  }
     } 
 	}
-	$msg = Text::make_blob("$numrecentcount Recently seen Org Members", $blob);
+	$msg = Text::make_blob("$numrecentcount Recent seen org members", $blob);
 	$sendto->reply($msg);
 } else {
 	$syntax_error = true;

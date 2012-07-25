@@ -1,6 +1,13 @@
-With this command you can check when an Member of your Organisation was the last time online. It takes into accounts members ALTS.
+With this command you can list members who receently logged on. It takes into organization member ALTS.
 
 To show recent members logon
 <highlight><tab><symbol>recentseen 'time'<end>
+
+Example:
+
+ !recentseen 1d
+ 
+ List all org members who have logged on within 1 day.
+
 
 Note: it does not list anyone with no record recorded as being logged on by this bot. 
