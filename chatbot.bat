@@ -1,5 +1,5 @@
 title Budabot
-.\win32\php -f mainloop.php ./conf/config.php
+.\win32\php -c php-win.ini -f mainloop.php ./conf/config.php
 
 :: This file is part of Budabot.
 ::
