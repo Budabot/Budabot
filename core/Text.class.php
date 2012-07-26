@@ -346,11 +346,13 @@ class Text {
 	}
 
 	/**
-	 * @name: make_item
-	 * @description: creates an item link
+	 * @name: make_image
+	 * @description: creates an image.
+	 * @param $imageId id of the image
+	 * @param $db (optional) image database to use, by default uses rdb
 	 */
-	public function make_image($imageId) {
-		return "<img src='rdb://{$imageId}'>";
+	public function make_image($imageId, $db = "rdb") {
+		return "<img src='{$db}://{$imageId}'>";
 	}
 
 	/**
