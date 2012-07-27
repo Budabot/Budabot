@@ -74,7 +74,12 @@ class Registry {
 	}
 
 	public static function importChanges($instance) {
-		$reflection = new ReflectionClass($instance);
+		try {
+			$reflection = new ReflectionClass($instance);
+		} catch(ReflectionException $e) {
+			LegacyLogger::log("WARN", "Registry", "RUNKIT: Failed to reflect class, reason was: '" . $e->getMessage() . "'");
+			return;
+		}
 		LegacyLogger::log("DEBUG", "Registry", "Re-importing file '" . $reflection->getFileName() . "'");
 		runkit_import($reflection->getFileName(), RUNKIT_IMPORT_CLASSES | RUNKIT_IMPORT_OVERRIDE);
 	}
