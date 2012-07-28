@@ -806,21 +806,29 @@ class Budabot extends AOChat {
 		}
 
 		// register commands, subcommands, and events annotated on the class
+		$commands = array();
+		forEach ($reflection->getAllAnnotations() as $annotation) {
+			if ($annotation instanceof DefineCommand) {
+				$definition = array(
+					'channels'      => $annotation->channels,
+					'defaultStatus' => $annotation->defaultStatus,
+					'accessLevel'   => $annotation->accessLevel,
+					'description'   => $annotation->description,
+					'help'          => $annotation->help,
+					'handlers'      => array()
+				);
+				$commands[$annotation->command] = $definition;
+			}
+		}
+
 		forEach ($reflection->getMethods() as $method) {
 			if ($method->hasAnnotation('Setup')) {
 				$instance = Registry::getInstance($name);
 				$instance->{$method->name}();
-			} else if ($method->hasAnnotation('Command')) {
-				$this->commandManager->register(
-					$MODULE_NAME,
-					@$method->getAnnotation('Channels')->value,
-					$name . '.' . $method->name,
-					$method->getAnnotation('Command')->value,
-					$method->getAnnotation('AccessLevel')->value,
-					$method->getAnnotation('Description')->value,
-					@$method->getAnnotation('Help')->value,
-					@$method->getAnnotation('DefaultStatus')->value
-				);
+			} else if ($method->hasAnnotation('HandlesCommand')) {
+				$commandName = $method->getAnnotation('HandlesCommand')->value;
+				$methodName  = $method->name;
+				$commands[$commandName]['handlers'][] = "{$name}.{$method->name}";
 			} else if ($method->hasAnnotation('Subcommand')) {
 				list($parentCommand) = explode(" ", $method->getAnnotation('Subcommand')->value, 2);
 				$this->subcommand->register(
@@ -844,7 +852,19 @@ class Budabot extends AOChat {
 					@$method->getAnnotation('DefaultStatus')->value
 				);
 			}
+		}
 
+		forEach ($commands as $command => $definition) {
+			$this->commandManager->register(
+				$MODULE_NAME,
+				$definition['channels'],
+				implode(',', $definition['handlers']),
+				$command,
+				$definition['accessLevel'],
+				$definition['description'],
+				$definition['help'],
+				$definition['defaultStatus']
+			);
 		}
 	}
 

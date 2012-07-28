@@ -44,6 +44,19 @@ class Command extends Annotation {
 
 }
 
+class DefineCommand extends Annotation {
+	public $command;
+	public $channels;
+	public $accessLevel;
+	public $description;
+	public $help;
+	public $defaultStatus;
+}
+
+class HandlesCommand extends Annotation {
+
+}
+
 class Event extends Annotation {
 
 }
