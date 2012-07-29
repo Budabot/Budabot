@@ -330,12 +330,19 @@
 		private static $annotations = false;
 		
 		public static function getDocComment($reflection) {
+			$value = false;
 			if(self::checkRawDocCommentParsingNeeded()) {
 				$docComment = new DocComment();
-				return $docComment->get($reflection);
+				$value = $docComment->get($reflection);
 			} else {
-				return $reflection->getDocComment();
+				$value = $reflection->getDocComment();
 			}
+			if ($value) {
+				// get rid of useless '*' and white space from line's start
+				// this will allow dividing of one annotation to multiple lines
+				$value = preg_replace('/^[\\s*]*/m', '', $value);
+			}
+			return $value;
 		}
 		
 		/** Raw mode test */

@@ -1,14 +1,24 @@
 <?php
 /**
  * Authors: 
- *  - Tyrence (RK2), 
- *  - Marebone (RK2)
+ *	- Tyrence (RK2), 
+ *	- Marebone (RK2)
  *
  * @Instance
  *
  * Commands this controller contains:
- *   @DefineCommand(command = 'bank', accessLevel = 'guild', description = 'Browse and search the Org Bank', help = 'bank.txt')
- *   @DefineCommand(command = 'updatebank', accessLevel = 'admin', description = 'Reloads the bank database from the AO Items Assistant file', help = 'updatebank.txt')
+ *	@DefineCommand(
+ *		command     = 'bank', 
+ *		accessLevel = 'guild', 
+ *		description = 'Browse and search the Org Bank', 
+ *		help        = 'bank.txt'
+ *	)
+ *	@DefineCommand(
+ *		command     = 'updatebank',
+ *		accessLevel = 'admin', 
+ *		description = 'Reloads the bank database from the AO Items Assistant file', 
+ *		help        = 'updatebank.txt'
+ *	)
  */
 class BankController {
 
