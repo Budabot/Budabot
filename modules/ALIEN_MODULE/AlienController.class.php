@@ -8,6 +8,50 @@
  *  - Marebone (RK2)
  *
  * @Instance
+ *
+ * Commands this controller contains:
+ *	@DefineCommand(
+ *		command     = 'leprocs', 
+ *		accessLevel = 'all', 
+ *		description = "Shows each profession's LE procs", 
+ *		help        = 'leprocs.txt'
+ *	)
+ *	@DefineCommand(
+ *		command     = 'ofabarmor',
+ *		accessLevel = 'all', 
+ *		description = 'Shows ofab armors available to a given profession and their VP cost', 
+ *		help        = 'ofabarmor.txt'
+ *	)
+ *	@DefineCommand(
+ *		command     = 'ofabweapons',
+ *		accessLevel = 'all', 
+ *		description = 'Shows Ofab weapons, their marks, and VP cost', 
+ *		help        = 'ofabweapons.txt'
+ *	)
+ *	@DefineCommand(
+ *		command     = 'bio',
+ *		accessLevel = 'all', 
+ *		description = "Identifies Solid Clump of Kyr'Ozch Bio-Material", 
+ *		help        = 'bio.txt'
+ *	)
+ *	@DefineCommand(
+ *		command     = 'aigen',
+ *		accessLevel = 'all', 
+ *		description = 'Shows info about Alien City Generals', 
+ *		help        = 'aigen.txt'
+ *	)
+ *	@DefineCommand(
+ *		command     = 'aiarmor',
+ *		accessLevel = 'all', 
+ *		description = 'Shows tradeskill process for Alien Armor', 
+ *		help        = 'aiarmor.txt'
+ *	)
+ *	@DefineCommand(
+ *		command     = 'bioinfo',
+ *		accessLevel = 'all', 
+ *		description = 'Shows info about a particular bio type', 
+ *		help        = 'bioinfo.txt'
+ *	)
  */
 class AlienController {
 
@@ -45,12 +89,13 @@ class AlienController {
 	}
 
 	/**
-	 * @Command("leprocs")
-	 * @AccessLevel("all")
-	 * @Description("Shows menu of each profession's LE procs")
-	 * @Help("leprocs.txt")
+	 * This command handler shows menu of each profession's LE procs.
+	 *
+	 * @HandlesCommand("leprocs")
+	 * @Matches("/^leprocs$/i")
 	 */
 	public function leprocsCommand($message, $channel, $sender, $sendto, $args) {
+		print "leprocsCommand\n";
 		$data = $this->db->query("SELECT DISTINCT profession FROM leprocs ORDER BY profession ASC");
 
 		$blob = '';
@@ -65,12 +110,13 @@ class AlienController {
 	}
 	
 	/**
-	 * @Subcommand("leprocs (.+)")
-	 * @AccessLevel("all")
-	 * @Description("Shows the LE procs for a particular profession")
-	 * @Help("leprocs.txt")
+	 * This command handler shows the LE procs for a particular profession.
+	 *
+	 * @HandlesCommand("leprocs")
+	 * @Matches("/^leprocs (.+)$/i")
 	 */
 	public function leprocsInfoCommand($message, $channel, $sender, $sendto, $args) {
+		print "leprocsInfoCommand\n";
 		$profession = Util::get_profession_name($args[1]);
 		if ($profession == '') {
 			$msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, or trader";
@@ -102,10 +148,10 @@ class AlienController {
 	}
 
 	/**
-	 * @Command("ofabarmor")
-	 * @AccessLevel("all")
-	 * @Description("Show Ofab armor and VP cost")
-	 * @Help("ofabarmor.txt")
+	 * This command handler shows Ofab armors and VP cost.
+	 *
+	 * @HandlesCommand("ofabarmor")
+	 * @Matches("/^ofabarmor$/i")
 	 */
 	public function ofabarmorCommand($message, $channel, $sender, $sendto, $args) {
 		$qls = $this->db->query("SELECT DISTINCT ql FROM ofabarmorcost ORDER BY ql ASC");
@@ -126,10 +172,10 @@ class AlienController {
 	}
 
 	/**
-	 * @Subcommand("ofabarmor (.+)")
-	 * @AccessLevel("all")
-	 * @Description("Shows list of ofab armors available to a given profession")
-	 * @Help("ofabarmor.txt")
+	 * This command handler shows list of ofab armors available to a given profession.
+	 *
+	 * @HandlesCommand("ofabarmor")
+	 * @Matches("/^ofabarmor (.+)$/i")
 	 */
 	public function ofabarmorInfoCommand($message, $channel, $sender, $sendto, $args) {
 		if (preg_match("/^(.+) (\\d+)$/i", $args[1], $arr)) {
@@ -191,10 +237,10 @@ class AlienController {
 	}
 
 	/**
-	 * @Command("ofabweapons")
-	 * @AccessLevel("all")
-	 * @Description("Show Ofab weapons and VP cost")
-	 * @Help("ofabweapons.txt")
+	 * This command handler shows Ofab weapons and VP cost.
+	 *
+	 * @HandlesCommand("ofabweapons")
+	 * @Matches("/^ofabweapons$/i")
 	 */
 	public function ofabweaponsCommand($message, $channel, $sender, $sendto, $args) {
 		$qls = $this->db->query("SELECT DISTINCT ql FROM ofabweaponscost ORDER BY ql ASC");
@@ -215,10 +261,10 @@ class AlienController {
 	}
 
 	/**
-	 * @Subcommand("ofabweapons (.+)")
-	 * @AccessLevel("all")
-	 * @Description("Show all six marks of th Ofab weapon")
-	 * @Help("ofabweapons.txt")
+	 * This command handler shows all six marks of the Ofab weapon.
+	 *
+	 * @HandlesCommand("ofabweapons")
+	 * @Matches("/^ofabweapons (.+)$/i")
 	 */
 	public function ofabweaponsInfoCommand($message, $channel, $sender, $sendto, $args) {
 		if (preg_match("/^(.+) (\\d+)$/i", $args[1], $arr)) {
@@ -263,11 +309,10 @@ class AlienController {
 	}
 
 	/**
-	 * @Command("bio")
-	 * @AccessLevel("all")
-	 * @Description("Identify Solid Clump of Kyr'Ozch Bio-Material")
+	 * This command handler identifies Solid Clump of Kyr'Ozch Bio-Material.
+	 *
+	 * @HandlesCommand("bio")
 	 * @Matches("/^bio (.+)$/i")
-	 * @Help("bio.txt")
 	 */
 	public function bioCommand($message, $channel, $sender, $sendto, $args) {
 		$bio_regex = "<a href=\"itemref:\/\/(\\d+)\/(\\d+)\/(\\d+)\">Solid Clump of Kyr\'Ozch Bio-Material<\/a>";
@@ -383,11 +428,10 @@ class AlienController {
 	}
 
 	/**
-	 * @Command("aigen")
-	 * @AccessLevel("all")
-	 * @Description("Shows info about Alien City Generals")
+	 * This command handler shows info about Alien City Generals.
+	 *
+	 * @HandlesCommand("aigen")
 	 * @Matches("/^aigen (ankari|ilari|rimah|jaax|xoch|cha)$/i")
-	 * @Help("aigen.txt")
 	 */
 	public function aigenCommand($message, $channel, $sender, $sendto, $args) {
 		$gen = ucfirst(strtolower($args[1]));
@@ -419,13 +463,12 @@ class AlienController {
 	}
 
 	/**
-	 * @Command("aiarmor")
-	 * @AccessLevel("all")
-	 * @Description("Shows tradeskill process for Alien Armor")
+	 * This command handler shows tradeskill process for Alien Armor.
+	 *
+	 * @HandlesCommand("aiarmor")
 	 * @Matches("/^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual|cc|cm|co|cp|cs|css|ss)$/i")
 	 * @Matches("/^aiarmor (strong|supple|enduring|observant|arithmetic|spiritual|cc|cm|co|cp|cs|css|ss) (\d+)$/i")
 	 * @Matches("/^aiarmor (\d+) (strong|supple|enduring|observant|arithmetic|spiritual|cc|cm|co|cp|cs|css|ss)$/i")
-	 * @Help("aiarmor.txt")
 	 */
 	public function aiarmorCommand($message, $channel, $sender, $sendto, $args) {
 		$armortype = '';
@@ -716,12 +759,10 @@ class AlienController {
 	}
 
 	/**
-	 * @Command("bioinfo")
-	 * @AccessLevel("all")
-	 * @Description("Shows info about a particular bio type")
+	 * This command handler shows info about a particular bio type.
+	 * @HandlesCommand("bioinfo")
 	 * @Matches("/^bioinfo (.+) (\d+)$/i")
 	 * @Matches("/^bioinfo (.+)$/i")
-	 * @Help("bioinfo.txt")
 	 */
 	public function bioinfoCommand($message, $channel, $sender, $sendto, $args) {
 		$bio = strtolower($args[1]);
