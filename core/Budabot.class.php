@@ -809,6 +809,10 @@ class Budabot extends AOChat {
 		$commands = array();
 		forEach ($reflection->getAllAnnotations() as $annotation) {
 			if ($annotation instanceof DefineCommand) {
+				if (!$annotation->command) {
+					$fileName = $reflection->getFileName();
+					$this->logger->log('WARN', "Cannot parse @DefineCommand annotation from $fileName.");
+				}
 				$definition = array(
 					'channels'      => $annotation->channels,
 					'defaultStatus' => $annotation->defaultStatus,
