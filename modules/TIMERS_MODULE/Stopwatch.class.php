@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Commands this class contains:
+ *	@DefineCommand(
+ *		command     = 'stopwatch',
+ *		accessLevel = 'guild',
+ *		description = 'Adds a repeating timer',
+ *		help        = 'stopwatch.txt'
+ *	)
+ */
 class Stopwatch {
 
 	/** @Inject */
@@ -11,10 +20,8 @@ class Stopwatch {
 	private $time = 0;
 
 	/**
-	 * @Command("stopwatch")
-	 * @AccessLevel("guild")
-	 * @Description("Add a repeating timer")
-	 * @Help("stopwatch.txt")
+	 * This command handler adds a repeating timer.
+	 * @HandlesCommand("stopwatch")
 	 */
 	public function stopwatchCommand($message, $channel, $sender, $sendto) {
 		if (preg_match("/^stopwatch start$/i", $message)) {

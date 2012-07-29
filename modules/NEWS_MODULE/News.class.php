@@ -1,6 +1,16 @@
 <?php
 
-/** @Instance */
+/**
+ * @Instance
+ *
+ * Commands this class contains:
+ *	@DefineCommand(
+ *		command     = 'news',
+ *		accessLevel = 'all',
+ *		description = 'Shows news',
+ *		help        = 'news.txt'
+ *	)
+ */
 class News {
 	/** @Inject */
 	public $db;
@@ -76,11 +86,10 @@ class News {
 	}
 
 	/**
-	 * @Command("news")
-	 * @AccessLevel("all")
-	 * @Description("Show News")
+	 * This command handler shows latest news.
+	 *
+	 * @HandlesCommand("news")
 	 * @Matches("/^news$/i")
-	 * @Help("news.txt")
 	 */
 	public function newsCommand($message, $channel, $sender, $sendto) {
 		$msg = $this->getNews();

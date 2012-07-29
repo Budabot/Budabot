@@ -1,6 +1,22 @@
 <?php
 
-/** @Instance */
+/**
+ * @Instance
+ *
+ * Commands this controller contains:
+ *	@DefineCommand(
+ *		command     = 'items',
+ *		accessLevel = 'all',
+ *		description = 'Searches for an item',
+ *		help        = 'items.txt'
+ *	)
+ *	@DefineCommand(
+ *		command     = 'updateitems',
+ *		accessLevel = 'guild',
+ *		description = 'Downloads the latest version of the items db',
+ *		help        = 'updateitems.txt'
+ *	)
+ */
 class ItemsController {
 	/** @Inject */
 	public $db;
@@ -28,12 +44,11 @@ class ItemsController {
 	}
 
 	/**
-	 * @Command("items")
-	 * @AccessLevel("all")
-	 * @Description("Search for an item")
+	 * This command handler searches for an item.
+	 *
+	 * @HandlesCommand("items")
 	 * @Matches("/^items ([0-9]+) (.+)$/i")
 	 * @Matches("/^items (.+)$/i")
-	 * @Help("items.txt")
 	 */
 	public function itemsCommand($message, $channel, $sender, $sendto, $args) {
 		if (count($args) == 3) {
@@ -55,11 +70,9 @@ class ItemsController {
 	}
 
 	/**
-	 * @Command("updateitems")
-	 * @AccessLevel("guild")
-	 * @Description("Download the latest version of the items db")
-	 * @Matches("/^updateitems$/i")
-	 * @Help("updateitems.txt")
+	 * This command handler downloads the latest version of the items db.
+	 *
+	 * @HandlesCommand("updateitems")
 	 */
 	public function updateitemsCommand($message, $channel, $sender, $sendto) {
 		$msg = $this->download_newest_itemsdb();

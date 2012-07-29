@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Commands this class contains:
+ *	@DefineCommand(
+ *		command     = 'rally',
+ *		accessLevel = 'all',
+ *		description = 'Shows or sets the rally waypoint',
+ *		help        = 'rally.txt'
+ *	)
+ */
 class Rally {
 	/** @Inject */
 	public $setting;
@@ -22,10 +31,7 @@ class Rally {
 	public $defaultRally = "";
 
 	/**
-	 * @Command("rally")
-	 * @AccessLevel("all")
-	 * @Description("Shows or sets the rally waypoint")
-	 * @Help("rally.txt")
+	 * @HandlesCommand("rally")
 	 */
 	public function rallyCommand($message, $channel, $sender, $sendto) {
 		if (preg_match("/^rally$/i", $message)) {

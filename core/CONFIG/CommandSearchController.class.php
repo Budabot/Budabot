@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * Commands this controller contains:
+ *	@DefineCommand(
+ *		command       = 'cmdsearch',
+ *		accessLevel   = 'all',
+ *		description   = 'Finds commands based on key words',
+ *		defaultStatus = 1,
+ *		help          = 'cmdsearch.txt'
+ *	)
+ */
 class CommandSearchController {
 
 	/** @Inject */
@@ -17,12 +27,8 @@ class CommandSearchController {
 	private $searchWords;
 
 	/**
-	 * @Command("cmdsearch")
-	 * @AccessLevel("all")
-	 * @Description("Find commands based on key words")
+	 * @HandlesCommand("cmdsearch")
 	 * @Matches("/^cmdsearch (.*)/i")
-	 * @DefaultStatus("1")
-	 * @Help("cmdsearch.txt")
 	 */
 	public function searchCommand($message, $channel, $sender, $sendto, $arr) {
 		$this->searchWords = explode(" ", $arr[1]);

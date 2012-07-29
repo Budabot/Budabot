@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Commands this class contains:
+ *	@DefineCommand(
+ *		command     = 'towerstats',
+ *		accessLevel = 'all',
+ *		description = 'Shows how many towers each faction has lost'
+ *	)
+ */
 class Towers {
 
 	/** @Inject */
@@ -15,9 +23,9 @@ class Towers {
 	public $util;
 
 	/**
-	 * @Command("towerstats")
-	 * @AccessLevel("all")
-	 * @Description("Show how many towers each faction has lost")
+	 * This command handler shows how many towers each faction has lost.
+	 *
+	 * @HandlesCommand("towerstats")
 	 */
 	public function towerStatsCommand($message, $channel, $sender, $sendto) {
 		if (preg_match("/^towerstats$/i", $message)) {
