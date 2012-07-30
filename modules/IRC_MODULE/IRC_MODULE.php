@@ -9,6 +9,7 @@
 
 	require_once 'functions.php';
 	require_once 'IRC.class.php';
+	require_once 'IRCCommandReply.class.php';
 
 	$channel = $setting->get('irc_channel');
 	if ($channel === false) {
