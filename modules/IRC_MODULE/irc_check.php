@@ -94,12 +94,7 @@ if ($data = trim(fgets($ircSocket))) {
 
 		LegacyLogger::log_chat("Inc. IRC Msg.", $nick, $ircmessage);
 
-		if ($ircmessage[0] == $setting->get('symbol')) {
-			$sendto = new IRCCommandReply($chatBot);
-			Registry::injectDependencies($sendto);
-			$command = Registry::getInstance('commandManager');
-			$command->process('msg', substr(rtrim($ircmessage), 1), '', $sendto);
-		} else if ($rawcmd == "!online") {
+		if ($rawcmd == "!online") {
 			$numguild = 0;
 
 			$numguest = 0;
@@ -143,6 +138,11 @@ if ($data = trim(fgets($ircSocket))) {
 
 			fputs($ircSocket, "PRIVMSG ".$channel." :$membercount\n");
 			fputs($ircSocket, "PRIVMSG ".$channel." :$list\n");
+		} else if ($ircmessage[0] == $setting->get('symbol')) {
+			$sendto = new IRCCommandReply($chatBot);
+			Registry::injectDependencies($sendto);
+			$command = Registry::getInstance('commandManager');
+			$command->process('msg', substr(rtrim($ircmessage), 1), '', $sendto);
 		} else {
 			$ircarray = explode(",", strtolower($setting->get('irc_ignore')));
 			if (in_array(strtolower($nick), $ircarray)) return;
