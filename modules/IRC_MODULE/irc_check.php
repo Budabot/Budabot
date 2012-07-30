@@ -168,6 +168,5 @@ if ($data = trim(fgets($ircSocket))) {
 			flush();
 		}
 	}
-	unset($sandbox);
 }
 ?>

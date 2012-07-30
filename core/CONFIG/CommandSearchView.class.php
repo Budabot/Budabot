@@ -9,9 +9,7 @@ class CommandSearchView {
 		$blob = '';
 		forEach ($results as $row) {
 			if ($row->help != '') {
-				$helpLink = $this->text->make_chatcmd("Help", "/tell <myname> help $row->help");
-			} else {
-				$helpLink = $this->text->make_chatcmd("Help", "/tell <myname> help $row->cmd");
+				$helpLink = ' (' . $this->text->make_chatcmd("Help", "/tell <myname> help $row->cmd") . ')';
 			}
 			if ($hasAccess) {
 				$module = $this->text->make_chatcmd($row->module, "/tell <myname> config {$row->module}");
@@ -20,7 +18,7 @@ class CommandSearchView {
 			}
 
 			$cmd = str_pad($row->cmd . " ", 20, ".");
-			$blob .= "<highlight>{$cmd}<end> {$module} - {$row->description} ({$helpLink})\n";
+			$blob .= "<highlight>{$cmd}<end> {$module} - {$row->description}{$helpLink}\n";
 		}
 
 		$count = count($results);
