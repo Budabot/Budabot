@@ -19,12 +19,22 @@ class Limits {
 
 		if (preg_match("/^about$/i", $message)) {
 			return true;
-		} else if ($this->whitelist->check($sender) || $this->accessLevel->checkAccess($sender, $this->setting->get("tell_req_open")) || $sender == ucfirst(strtolower($this->setting->get("relaybot")))) {
+		} else if ($this->whitelist->check($sender) || $sender == ucfirst(strtolower($this->setting->get("relaybot")))) {
 			return true;
 		} else {
 			// if neither minlvl or faction is set, then check passes
-			if ($this->setting->get("tell_req_lvl") == 0 && $this->setting->get("tell_req_faction") == "all") {
+			if ($this->setting->get("tell_req_lvl") == 0 &&
+					$this->setting->get("tell_req_faction") == "all" &&
+					$this->setting->get("tell_req_open") == "all") {
+
 				return true;
+			}
+			
+			// check access level
+			if (!$this->accessLevel->checkAccess($sender, $this->setting->get("tell_req_open"))) {
+				$msg = "<orange>Error! You must have an access level of at least '" . $this->setting->get("tell_req_open") . "' to send a tell to this bot.<end>";
+				$chatBot->sendTell($msg, $sender);
+				return false;
 			}
 
 			// get player info which is needed for following checks
