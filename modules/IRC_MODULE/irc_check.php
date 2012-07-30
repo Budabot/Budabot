@@ -94,10 +94,11 @@ if ($data = trim(fgets($ircSocket))) {
 
 		LegacyLogger::log_chat("Inc. IRC Msg.", $nick, $ircmessage);
 
-		if ($rawcmd == "!sayit") {
-			fputs($ircSocket, "PRIVMSG ".$channel." :".$args." \n");
-		} else if ($rawcmd == "!md5") {
-			fputs($ircSocket, "PRIVMSG ".$channel." :MD5 ".md5($args)."\n");
+		if ($ircmessage[0] == $setting->get('symbol')) {
+			$sendto = new IRCCommandReply($chatBot);
+			Registry::injectDependencies($sendto);
+			$command = Registry::getInstance('commandManager');
+			$command->process('msg', substr(rtrim($ircmessage), 1), '', $sendto);
 		} else if ($rawcmd == "!online") {
 			$numguild = 0;
 
