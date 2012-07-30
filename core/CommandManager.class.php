@@ -329,10 +329,6 @@ class CommandManager {
 				$regexes []= $annotation->value;
 			}
 		}
-		if ($reflectedMethod->hasAnnotation('Subcommand')) {
-			$subcmd = $reflectedMethod->getAnnotation('Subcommand');
-			$regexes []= "/^" . $subcmd->value . "$/is";
-		}
 		return $regexes;
 	}
 }

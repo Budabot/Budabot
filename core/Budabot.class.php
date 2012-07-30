@@ -807,12 +807,14 @@ class Budabot extends AOChat {
 
 		// register commands, subcommands, and events annotated on the class
 		$commands = array();
+		$subcommands = array();
 		forEach ($reflection->getAllAnnotations() as $annotation) {
 			if ($annotation instanceof DefineCommand) {
 				if (!$annotation->command) {
 					$fileName = $reflection->getFileName();
 					$this->logger->log('WARN', "Cannot parse @DefineCommand annotation from $fileName.");
 				}
+				$command = $annotation->command;
 				$definition = array(
 					'channels'      => $annotation->channels,
 					'defaultStatus' => $annotation->defaultStatus,
@@ -821,7 +823,13 @@ class Budabot extends AOChat {
 					'help'          => $annotation->help,
 					'handlers'      => array()
 				);
-				$commands[$annotation->command] = $definition;
+				list($parentCommand, $subCommand) = explode(" ", $command, 2);
+				if ($subCommand) {
+					$definition['parentCommand'] = $parentCommand;
+					$subcommands[$command] = $definition;
+				} else {
+					$commands[$command] = $definition;
+				}
 			}
 		}
 
@@ -832,20 +840,14 @@ class Budabot extends AOChat {
 			} else if ($method->hasAnnotation('HandlesCommand')) {
 				$commandName = $method->getAnnotation('HandlesCommand')->value;
 				$methodName  = $method->name;
-				$commands[$commandName]['handlers'][] = "{$name}.{$method->name}";
-			} else if ($method->hasAnnotation('Subcommand')) {
-				list($parentCommand) = explode(" ", $method->getAnnotation('Subcommand')->value, 2);
-				$this->subcommand->register(
-					$MODULE_NAME,
-					@$method->getAnnotation('Channels')->value,
-					$name . '.' . $method->name,
-					$method->getAnnotation('Subcommand')->value,
-					$method->getAnnotation('AccessLevel')->value,
-					$parentCommand,
-					$method->getAnnotation('Description')->value,
-					@$method->getAnnotation('Help')->value,
-					@$method->getAnnotation('DefaultStatus')->value
-				);
+				$handlerName = "{$name}.{$method->name}";
+				if (isset($commands[$commandName])) {
+					$commands[$commandName]['handlers'][] = $handlerName;
+				} else if (isset($subcommands[$commandName])) {
+					$subcommands[$commandName]['handlers'][] = $handlerName;
+				} else {
+					$this->logger->log('WARN', "Cannot handle command '$commandName' as it is not defined with @DefineCommand in class's doc comments.");
+				}
 			} else if ($method->hasAnnotation('Event')) {
 				$this->eventManager->register(
 					$MODULE_NAME,
@@ -865,6 +867,19 @@ class Budabot extends AOChat {
 				implode(',', $definition['handlers']),
 				$command,
 				$definition['accessLevel'],
+				$definition['description'],
+				$definition['help'],
+				$definition['defaultStatus']
+			);
+		}
+		forEach ($subcommands as $subCommand => $definition) {
+			$this->subcommand->register(
+				$MODULE_NAME,
+				$definition['channels'],
+				implode(',', $definition['handlers']),
+				$subCommand,
+				$definition['accessLevel'],
+				$definition['parentCommand'],
 				$definition['description'],
 				$definition['help'],
 				$definition['defaultStatus']
