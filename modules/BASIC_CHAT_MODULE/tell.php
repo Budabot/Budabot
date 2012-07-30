@@ -30,13 +30,13 @@
    */
 
 if (preg_match("/^tell (.+)$/i", $message, $arr)) {
-	if ($type = 'guild' || $type == "msg") {
+	if ($type == 'guild' || $type == "msg") {
 		$chatBot->sendGuild("<yellow>".$arr[1]."<end>", true);
 		$chatBot->sendGuild("<yellow>".$arr[1]."<end>", true);
 		$chatBot->sendGuild("<yellow>".$arr[1]."<end>", true);
 	}
 
-	if ($type = 'priv' || $type == "msg") {
+	if ($type == 'priv' || $type == "msg") {
 		$chatBot->sendPrivate("<yellow>".$arr[1]."<end>", true);
 		$chatBot->sendPrivate("<yellow>".$arr[1]."<end>", true);
 		$chatBot->sendPrivate("<yellow>".$arr[1]."<end>", true);
