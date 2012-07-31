@@ -98,16 +98,16 @@ if (!function_exists('getSubCommandInfo')) {
 
 			$subcmd_list .= "Current Status: $status (Access: $row->admin) \n";
 			$subcmd_list .= "Enable or Disable Command: ";
-			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} enable {$type}'>ON</a>  ";
-			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} disable {$type}'>OFF</a>\n";
+			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} enable {$type}'>ON</a>  ";
+			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} disable {$type}'>OFF</a>\n";
 
 			$subcmd_list .= "Set min. access lvl to use this command: ";
-			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} admin {$type} all'>All</a>  ";
-			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} admin {$type} member'>Member</a>  ";
-			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} admin {$type} guild'>Guild</a>  ";
-			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} admin {$type} rl'>RL</a>  ";
-			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} admin {$type} mod'>Mod</a>  ";
-			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$cmd} admin {$type} admin'>Admin</a>\n\n";
+			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} admin {$type} all'>All</a>  ";
+			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} admin {$type} member'>Member</a>  ";
+			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} admin {$type} guild'>Guild</a>  ";
+			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} admin {$type} rl'>RL</a>  ";
+			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} admin {$type} mod'>Mod</a>  ";
+			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} admin {$type} admin'>Admin</a>\n\n";
 		}
 		return $subcmd_list;
 	}

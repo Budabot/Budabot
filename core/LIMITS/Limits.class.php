@@ -22,7 +22,7 @@ class Limits {
 		} else if ($this->whitelist->check($sender) || $sender == ucfirst(strtolower($this->setting->get("relaybot")))) {
 			return true;
 		} else {
-			// if neither minlvl or faction is set, then check passes
+			// if neither minlvl, faction, or access level is set, then check passes
 			if ($this->setting->get("tell_req_lvl") == 0 &&
 					$this->setting->get("tell_req_faction") == "all" &&
 					$this->setting->get("tell_req_open") == "all") {
