@@ -32,22 +32,31 @@ class CommandSearchController {
 	 */
 	public function searchCommand($message, $channel, $sender, $sendto, $arr) {
 		$this->searchWords = explode(" ", $arr[1]);
-
-		$sqlquery = "SELECT DISTINCT module, cmd, help, description FROM cmdcfg_<myname> WHERE status = 1";
+		
+		$access = false;
+		if ($this->accessLevel->checkAccess($sender, 'mod')) {
+			$access = true;
+		}
+		
+		// if a mod or higher, show all commands, not just enabled commands
+		if ($access) {
+			$sqlquery = "SELECT DISTINCT module, cmd, help, description FROM cmdcfg_<myname>";
+		} else {
+			$sqlquery = "SELECT DISTINCT module, cmd, help, description FROM cmdcfg_<myname> WHERE status = 1";
+		}
 		$data = $this->db->query($sqlquery);
 
 		$results = array_filter($data, array($this, 'exactFilter'));
 		$exactMatch = !empty($results);
 
-		if (!$exactMatch)
-		{
+		if (!$exactMatch) {
 			// oops! no results, lets try to find similar commands
 			forEach ($data as $row) {
 				$keywords = explode(' ', $row->description);
 				array_push($keywords, $row->cmd);
 				$keywords = array_unique($keywords);
 				$row->distance = 0;
-				forEach($this->searchWords as $searchWord) {
+				forEach ($this->searchWords as $searchWord) {
 					$distance = 9999;
 					forEach ($keywords as $keyword) {
 						$distance = min($distance, levenshtein($keyword, $searchWord));
@@ -58,11 +67,6 @@ class CommandSearchController {
 			$results = $data;
 			usort($results, array($this, 'sortByDistance'));
 			$results = array_slice($results, 0, 5);
-		}
-
-		$access = false;
-		if ($this->accessLevel->checkAccess($sender, 'mod')) {
-			$access = true;
 		}
 
 		$msg = $this->view->render($results, $access, $exactMatch);
