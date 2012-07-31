@@ -1,10 +1,24 @@
 <?php
 /**
  * Authors: 
- *  - Tyrence (RK2), 
- *  - Marebone (RK2)
+ *	- Tyrence (RK2), 
+ *	- Marebone (RK2)
  *
  * @Instance
+ *
+ * Commands this controller contains:
+ *	@DefineCommand(
+ *		command     = 'bank', 
+ *		accessLevel = 'guild', 
+ *		description = 'Browse and search the Org Bank', 
+ *		help        = 'bank.txt'
+ *	)
+ *	@DefineCommand(
+ *		command     = 'updatebank',
+ *		accessLevel = 'admin', 
+ *		description = 'Reloads the bank database from the AO Items Assistant file', 
+ *		help        = 'updatebank.txt'
+ *	)
  */
 class BankController {
 
@@ -41,23 +55,10 @@ class BankController {
 	public $defaultMaxBankItems = "200";
 
 	/**
-	 * @Command("bank")
-	 * @AccessLevel("guild")
-	 * @Description("Browse the Org Bank")
-	 * @Help("bank.txt")
-	 */
-	public function bankCommand($message, $channel, $sender, $sendto, $args) {
-		// nothing here, just show help to user
-		return false;
-	}
-
-	/**
 	 * Lists all known org banks.
 	 *
-	 * @Subcommand("bank browse")
-	 * @AccessLevel("guild")
-	 * @Description("Browse the Org Bank")
-	 * @Help("bank.txt")
+	 * @HandlesCommand("bank")
+	 * @Matches("/^bank browse$/i")
 	 */
 	public function bankBrowseCommand($message, $channel, $sender, $sendto, $args) {
 		$blob = '';
@@ -74,10 +75,8 @@ class BankController {
 	/**
 	 * Lists player's all containers from his org bank.
 	 *
-	 * @Subcommand("bank browse ([a-z0-9-]+)")
-	 * @AccessLevel("guild")
-	 * @Description("Browse the Org Bank")
-	 * @Help("bank.txt")
+	 * @HandlesCommand("bank")
+	 * @Matches("/^bank browse ([a-z0-9-]+)$/i")
 	 */
 	public function bankBrowsePlayerCommand($message, $channel, $sender, $sendto, $args) {
 		$name = ucfirst(strtolower($args[1]));
@@ -100,10 +99,8 @@ class BankController {
 	/**
 	 * Lists contents of a container from player's org bank.
 	 *
-	 * @Subcommand("bank browse ([a-z0-9-]+) (.+)")
-	 * @AccessLevel("guild")
-	 * @Description("Browse the Org Bank")
-	 * @Help("bank.txt")
+	 * @HandlesCommand("bank")
+	 * @Matches("/^bank browse ([a-z0-9-]+) (.+)$/i")
 	 */
 	public function bankBrowseContainerCommand($message, $channel, $sender, $sendto, $args) {
 		$name = ucfirst(strtolower($args[1]));
@@ -129,10 +126,8 @@ class BankController {
 	/**
 	 * Searches given words from org banks.
 	 *
-	 * @Subcommand("bank search (.+)")
-	 * @AccessLevel("guild")
-	 * @Description("Search from Org Bank")
-	 * @Help("bank.txt")
+	 * @HandlesCommand("bank")
+	 * @Matches("/^bank search (.+)$/i")
 	 */
 	public function bankSearchCommand($message, $channel, $sender, $sendto, $args) {
 		$search = explode(' ', $args[1]);
@@ -161,10 +156,7 @@ class BankController {
 	}
 
 	/**
-	 * @Command("updatebank")
-	 * @AccessLevel("admin")
-	 * @Description("Reloads the bank database from the AO Items Assistant file")
-	 * @Help("updatebank.txt")
+	 * @HandlesCommand("updatebank")
 	 */
 	public function updatebankCommand($message, $channel, $sender, $sendto, $args) {
 		$lines = file($this->setting->get('bank_file_location'));

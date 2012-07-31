@@ -47,10 +47,12 @@ class CommandManager {
 			return;
 		}
 
-		list($name, $method) = explode(".", $filename);
-		if (!Registry::instanceExists($name)) {
-			$this->logger->log('ERROR', "Error registering method $filename for command $command.  Could not find instance '$name'.");
-			return;
+		forEach (explode(',', $filename) as $handler) {
+			list($name, $method) = explode(".", $handler);
+			if (!Registry::instanceExists($name)) {
+				$this->logger->log('ERROR', "Error registering method $handler for command $command.  Could not find instance '$name'.");
+				return;
+			}
 		}
 
 		$help = $this->help->checkForHelpFile($module, $help, $command);
@@ -89,10 +91,12 @@ class CommandManager {
 
 		$this->logger->log('DEBUG', "Activate Command:($command) Admin Type:($admin) File:($filename) Channel:($channel)");
 
-		list($name, $method) = explode(".", $filename);
-		if (!Registry::instanceExists($name)) {
-			$this->logger->log('ERROR', "Error activating method $filename for command $command.  Could not find instance '$name'.");
-			return;
+		forEach (explode(',', $filename) as $handler) {
+			list($name, $method) = explode(".", $handler);
+			if (!Registry::instanceExists($name)) {
+				$this->logger->log('ERROR', "Error activating method $handler for command $command.  Could not find instance '$name'.");
+				return;
+			}
 		}
 		$actual_filename = $filename;
 
@@ -243,18 +247,24 @@ class CommandManager {
 	public function callCommandHandler($commandHandler, $message, $channel, $sender, $sendto) {
 		$syntaxError = false;
 
-		list($name, $method) = explode(".", $commandHandler->file);
-		$instance = Registry::getInstance($name);
-		if ($instance === null) {
-			$this->logger->log('ERROR', "Could not find instance for name '$name'");
-		} else {
-			$arr = $this->checkMatches($instance, $method, $message);
-			if ($arr === false) {
-				$syntaxError = true;
+		forEach (explode(',', $commandHandler->file) as $handler) {
+			list($name, $method) = explode(".", $handler);
+			$instance = Registry::getInstance($name);
+			if ($instance === null) {
+				$this->logger->log('ERROR', "Could not find instance for name '$name'");
 			} else {
-				// methods will return false to indicate a syntax error, so when a false is returned,
-				// we set $syntaxError = true, otherwise we set it to false
-				$syntaxError = ($instance->$method($message, $channel, $sender, $sendto, $arr) !== false ? false : true);
+				$arr = $this->checkMatches($instance, $method, $message);
+				if ($arr === false) {
+					$syntaxError = true;
+				} else {
+					// methods will return false to indicate a syntax error, so when a false is returned,
+					// we set $syntaxError = true, otherwise we set it to false
+					$syntaxError = ($instance->$method($message, $channel, $sender, $sendto, $arr) !== false ? false : true);
+					if ($syntaxError == false) {
+						// we can stop looking, command was handled succesfully
+						break;
+					}
+				}
 			}
 		}
 
@@ -318,10 +328,6 @@ class CommandManager {
 			forEach ($reflectedMethod->getAllAnnotations('Matches') as $annotation) {
 				$regexes []= $annotation->value;
 			}
-		}
-		if ($reflectedMethod->hasAnnotation('Subcommand')) {
-			$subcmd = $reflectedMethod->getAnnotation('Subcommand');
-			$regexes []= "/^" . $subcmd->value . "$/is";
 		}
 		return $regexes;
 	}

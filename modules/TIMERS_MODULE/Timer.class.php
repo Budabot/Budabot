@@ -1,5 +1,20 @@
 <?php
 
+/**
+ * Commands this class contains:
+ *	@DefineCommand(
+ *		command     = 'rtimer',
+ *		accessLevel = 'guild',
+ *		description = 'Adds a repeating timer',
+ *		help        = 'timers.txt'
+ *	)
+ *	@DefineCommand(
+ *		command     = 'timers',
+ *		accessLevel = 'guild',
+ *		description = 'Sets and shows timers',
+ *		help        = 'timers.txt'
+ *	)
+ */
 class Timer {
 
 	/** @Inject */
@@ -94,10 +109,9 @@ class Timer {
 	}
 
 	/**
-	 * @Command("rtimer")
-	 * @AccessLevel("guild")
-	 * @Description("Add a repeating timer")
-	 * @Help("timers.txt")
+	 * This command handler adds a repeating timer.
+	 *
+	 * @HandlesCommand("rtimer")
 	 */
 	public function rtimerCommand($message, $channel, $sender, $sendto) {
 		if (preg_match("/^(rtimer add|rtimer) ([a-z0-9]+) ([a-z0-9]+) (.+)$/i", $message, $arr)) {
@@ -142,10 +156,9 @@ class Timer {
 	}
 
 	/**
-	 * @Command("timers")
-	 * @AccessLevel("guild")
-	 * @Description("Set and show timers")
-	 * @Help("timers.txt")
+	 * This command handler sets and shows timers.
+	 *
+	 * @HandlesCommand("timers")
 	 */
 	public function timerCommand($message, $channel, $sender, $sendto) {
 		if (preg_match("/^timers view (.+)$/i", $message, $arr)) {

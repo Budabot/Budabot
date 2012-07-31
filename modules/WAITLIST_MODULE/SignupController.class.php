@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * Commands this controller contains:
+ *	@DefineCommand(
+ *		command     = 'signup',
+ *		accessLevel = 'all',
+ *		description = 'Shows and manages signup lists'
+ *	)
+ */
 class SignupController {
 
 	/** @Inject */
@@ -12,9 +19,9 @@ class SignupController {
 	public $text;
 
 	/**
-	 * @Command("signup")
-	 * @AccessLevel("all")
-	 * @Description("Show and manage signup lists")
+	 * This command handler shows and manages signup lists.
+	 *
+	 * @HandlesCommand("signup")
 	 */
 	public function listCommand($message, $channel, $sender, $sendto) {
 		if (preg_match("/^signup$/i", $message)) {

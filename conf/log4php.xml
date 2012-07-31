@@ -3,13 +3,32 @@
 
 <configuration xmlns="http://logging.apache.org/log4php/">
  
-	<appender name="defaultConsoleAppender" class="LoggerAppenderConsole">
+	<!-- Direct log levels from TRACE to INFO to STDOUT -->
+	<appender name="defaultConsoleAppenderStdOut" class="LoggerAppenderConsole">
+		<param name="target" value="STDOUT" />
 		<layout class="LoggerLayoutTTCC">
 			<param name="threadPrinting" value="false" />
 			<param name="microSecondsPrinting" value="false" />
 		</layout>
+		<filter class="LoggerFilterLevelRange">
+			<param name="levelMin" value="trace" />
+			<param name="levelMax" value="info" />
+		</filter>
 	</appender>
 
+	<!-- Direct log levels from WARN to ERROR to STDERR -->
+	<appender name="defaultConsoleAppenderStdErr" class="LoggerAppenderConsole">
+		<param name="target" value="STDERR" />
+		<layout class="LoggerLayoutTTCC">
+			<param name="threadPrinting" value="false" />
+			<param name="microSecondsPrinting" value="false" />
+		</layout>
+		<filter class="LoggerFilterLevelRange">
+			<param name="levelMin" value="warn" />
+			<param name="levelMax" value="error" />
+		</filter>
+	</appender>
+	
 	<appender name="defaultFileAppender" class="LoggerAppenderDailyFile">
 		<layout class="LoggerLayoutTTCC">
 			<param name="threadPrinting" value="false" />
@@ -25,7 +44,8 @@
     
 	<root>
 		<level value="INFO" />
-		<appender_ref ref="defaultConsoleAppender" />
+		<appender_ref ref="defaultConsoleAppenderStdOut" />
+		<appender_ref ref="defaultConsoleAppenderStdErr" />
 		<appender_ref ref="defaultFileAppender" />
 	</root>
     

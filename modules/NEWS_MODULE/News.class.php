@@ -1,6 +1,22 @@
 <?php
 
-/** @Instance */
+/**
+ * @Instance
+ *
+ * Commands this class contains:
+ *	@DefineCommand(
+ *		command     = 'news',
+ *		accessLevel = 'all',
+ *		description = 'Shows news',
+ *		help        = 'news.txt'
+ *	)
+ *	@DefineCommand(
+ *		command     = 'news .+',
+ *		accessLevel = 'rl',
+ *		description = 'Adds, removes, stickies or unstickies a news entry',
+ *		help        = 'news.txt'
+ *	)
+ */
 class News {
 	/** @Inject */
 	public $db;
@@ -76,11 +92,10 @@ class News {
 	}
 
 	/**
-	 * @Command("news")
-	 * @AccessLevel("all")
-	 * @Description("Show News")
+	 * This command handler shows latest news.
+	 *
+	 * @HandlesCommand("news")
 	 * @Matches("/^news$/i")
-	 * @Help("news.txt")
 	 */
 	public function newsCommand($message, $channel, $sender, $sendto) {
 		$msg = $this->getNews();
@@ -92,9 +107,9 @@ class News {
 	}
 
 	/**
-	 * @Subcommand("news add (.+)")
-	 * @AccessLevel("rl")
-	 * @Description("Add a news entry")
+	 * This command handler adds a news entry.
+	 *
+	 * @HandlesCommand("news .+")
 	 * @Matches("/^news add (.+)$/si")
 	 */
 	public function newsAddCommand($message, $channel, $sender, $sendto, $arr) {
@@ -106,9 +121,9 @@ class News {
 	}
 
 	/**
-	 * @Subcommand("news rem (.+)")
-	 * @AccessLevel("rl")
-	 * @Description("Remove a news entry")
+	 * This command handler removes a news entry.
+	 *
+	 * @HandlesCommand("news .+")
 	 * @Matches("/^news rem ([0-9]+)$/i")
 	 */
 	public function newsRemCommand($message, $channel, $sender, $sendto, $arr) {
@@ -124,9 +139,9 @@ class News {
 	}
 
 	/**
-	 * @Subcommand("news sticky (.+)")
-	 * @AccessLevel("rl")
-	 * @Description("Stickies a news entry")
+	 * This command handler stickies a news entry.
+	 *
+	 * @HandlesCommand("news .+")
 	 * @Matches("/^news sticky ([0-9]+)$/i")
 	 */
 	public function stickyCommand($message, $channel, $sender, $sendto, $arr) {
@@ -144,9 +159,9 @@ class News {
 	}
 
 	/**
-	 * @Subcommand("news unsticky (.+)")
-	 * @AccessLevel("rl")
-	 * @Description("Unstickies a news entry")
+	 * This command handler unstickies a news entry.
+	 *
+	 * @HandlesCommand("news .+")
 	 * @Matches("/^news unsticky ([0-9]+)$/i")
 	 */
 	public function unstickyCommand($message, $channel, $sender, $sendto, $arr) {

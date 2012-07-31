@@ -1,5 +1,19 @@
 <?php
 
+/**
+ * Authors: 
+ *  - Tyrence (RK2), 
+ *  - Marebone (RK2)
+ *
+ * @Instance
+ *
+ * Commands this class contains:
+ *	@DefineCommand(
+ *		command     = 'apipassword',
+ *		accessLevel = 'all',
+ *		description = "Sets your api password, use 'apipassword clear' to clear your password."
+ *	)
+ */
 class API {
 
 	/** @Inject */
@@ -150,9 +164,9 @@ class API {
 	}
 
 	/**
-	 * @Command("apipassword")
-	 * @AccessLevel("all")
-	 * @Description("Sets your api password, use 'apipassword clear' to clear your password.")
+	 * This command handler either sets or clears character's API password.
+	 *
+	 * @HandlesCommand("apipassword")
 	 * @Matches("/^apipassword (.*)$/i")
 	 */
 	public function apipasswordCommand($message, $channel, $sender, $sendto, $arr) {

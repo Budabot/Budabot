@@ -7,6 +7,14 @@
  * Special thanks to Marebone (RK2)
  * Doja Chip Module
  * Developed for: Budabot(http://budabot.com/)
+ *
+ * Commands this controller contains:
+ *	@DefineCommand(
+ *		command     = 'doja',
+ *		accessLevel = 'all',
+ *		description = 'Shows info of DOJA chips and which chip you need at your level',
+ *		help        = 'doja.txt'
+ *	)
  */
 class DojaController {
 
@@ -14,13 +22,11 @@ class DojaController {
 	public $text;
 
 	/**
-	 * @Command("doja")
-	 * @AccessLevel("all")
-	 * @Description("Shows info of DOJA chips")
+	 * This command handler shows info of DOJA chips.
+	 *
+	 * @HandlesCommand("doja")
 	 * @Matches("/^doja$/i")
-	 * @Help("doja.txt")
 	 */
-	 
 	public function dojaCommand($message, $channel, $sender, $sendto, $arr) {
 		$msg  = "<highlight>Below you can read about where to loot DOJA Chips. This information will show you the level requirements and the mobs that will drop the DOJA Chips for each level range. There are two types of Doja Chips, normal and special. You can turn one normal and one special chip in each day. Clicking the monster links below will set a waypoint to help you find your way.\n\n\n";
 		$msg .= "<center>".$this->text->make_image("id:GFX_GUI_FRIENDLIST_SPLITTER", "tdb")."\n";
@@ -73,10 +79,10 @@ class DojaController {
 	}
 
 	/**
-	 * @Subcommand("doja ([0-9]+)")
-	 * @AccessLevel("all")
-	 * @Description("Shows which DOJA chip you need at your level")
-	 * @Help("doja.txt")
+	 * This command handler shows which DOJA chip you need at given level.
+	 *
+	 * @HandlesCommand("doja")
+	 * @Matches("/^doja ([0-9]+)$/i")
 	 */
 	public function dojaLevelCommand($message, $channel, $sender, $sendto, $arr) {
 		if ($arr[1] >=1 && $arr[1] <= 60) {
