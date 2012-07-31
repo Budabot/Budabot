@@ -138,5 +138,5 @@
 		LegacyLogger::log("ERROR", 'Upgrade', $e->getMessage());
 		$db->rollback();
 	}
-	exit(1);
+
 ?>
