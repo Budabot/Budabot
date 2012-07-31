@@ -17,6 +17,51 @@
 	 ** along with Budabot. If not, see <http://www.gnu.org/licenses/>.
 	*/
 
+	/**
+	 * Returns array of information of each column in the given $table.
+	 */
+	function describeTable($db, $table) {
+		$results = array();
+		try {
+			switch ($db->get_type()) {
+			case 'mysql':
+				$rows = $db->query("DESCRIBE $table");
+				// normalize the output somewhat to make it more compatible
+				// with sqlite
+				forEach ($rows as $row) {
+					$row->name = $row->Field;
+					unset($row->Field);
+					$row->type = $row->Type;
+					unset($row->Type);
+				}
+				return $rows;
+
+			case 'sqlite':
+				return $db->query("PRAGMA table_info($table)");
+
+			default:
+				LegacyLogger::log("ERROR", 'Upgrade', "Unknown database type '". $db->get_type() ."'");
+				break;
+			}
+		} catch (SQLException $e) {
+			LegacyLogger::log("ERROR", 'Upgrade', $e->getMessage());
+		}
+		return array();
+	}
+	
+	/**
+	 * Returns db-type of given $column name as a string.
+	 */
+	function getColumnType($db, $table, $column) {
+		$column = strtolower($column);
+		$columns = describeTable($db, $table);
+		forEach ($columns as $col) {
+			if (strtolower($col->name) == $column) {
+				return strtolower($col->type);
+			}
+		}
+	}
+	
 	function checkIfColumnExists($db, $table, $column) {
 		// If the table doesn't exist, return true since the table will be created with the correct column.
 		try {
@@ -78,4 +123,8 @@
 	upgrade($db, "DELETE FROM cmd_alias_<myname> WHERE alias = 'kickuser'");
 	upgrade($db, "DELETE FROM cmd_alias_<myname> WHERE alias = 'inviteuser'");
 
+	if (getColumnType($db, 'cmdcfg_<myname>', 'file') == 'varchar(255)') {
+		// TODO: the actual upgrade commands, kthxbai
+		print "TOO OLD!!!!!!!!!!!!!!!\n";
+	}
 ?>
