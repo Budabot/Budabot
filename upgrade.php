@@ -123,8 +123,20 @@
 	upgrade($db, "DELETE FROM cmd_alias_<myname> WHERE alias = 'kickuser'");
 	upgrade($db, "DELETE FROM cmd_alias_<myname> WHERE alias = 'inviteuser'");
 
-	if (getColumnType($db, 'cmdcfg_<myname>', 'file') == 'varchar(255)') {
-		// TODO: the actual upgrade commands, kthxbai
-		print "TOO OLD!!!!!!!!!!!!!!!\n";
+	// change cmdcfg_<myname> table's file-column type from VARCHAR(255) to TEXT
+	try {
+		if (getColumnType($db, 'cmdcfg_<myname>', 'file') == 'varchar(255)') {
+			$db->begin_transaction();
+			$db->exec("ALTER TABLE cmdcfg_<myname> RENAME TO tmp_cmdcfg_<myname>");
+			// copied from Budabot.class.php (without 'IF NOT EXISTS')
+			$db->exec("CREATE TABLE cmdcfg_<myname> (`module` VARCHAR(50), `cmdevent` VARCHAR(6), `type` VARCHAR(18), `file` TEXT, `cmd` VARCHAR(25), `admin` VARCHAR(10), `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0', `dependson` VARCHAR(25) DEFAULT 'none', `help` VARCHAR(25))");
+			$db->exec("INSERT INTO cmdcfg_<myname> SELECT * FROM tmp_cmdcfg_<myname>");
+			$db->exec("DROP TABLE tmp_cmdcfg_<myname>");
+			$db->commit();
+		}
+	} catch (SQLException $e) {
+		LegacyLogger::log("ERROR", 'Upgrade', $e->getMessage());
+		$db->rollback();
 	}
+	exit(1);
 ?>
