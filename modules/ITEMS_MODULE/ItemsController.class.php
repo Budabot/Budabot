@@ -1,6 +1,17 @@
 <?php
 
 /**
+ * Defines API for other modules to access the item database.
+ */
+interface ItemsAPI {
+	/**
+	 * Returns item reference to item with given $ql and $name.
+	 * Used by: ALIEN_MODULE
+	 */
+	public function findItem($ql, $name);
+}
+
+/**
  * @Instance
  *
  * Commands this controller contains:
@@ -17,7 +28,7 @@
  *		help        = 'updateitems.txt'
  *	)
  */
-class ItemsController {
+class ItemsController implements ItemsAPI {
 	/** @Inject */
 	public $db;
 
@@ -26,6 +37,9 @@ class ItemsController {
 
 	/** @Inject */
 	public $setting;
+
+	/** @Inject */
+	public $text;
 
 	public $moduleName;
 
@@ -218,6 +232,14 @@ class ItemsController {
 			}
 		}
 		return $list;
+	}
+
+	/**
+	 * Implemented from ItemsAPI interface.
+	 */
+	public function findItem($ql, $name) {
+		$row = $this->db->queryRow("SELECT * FROM aodb WHERE name = ? AND lowql <= ? AND highql >= ?", $name, $ql, $ql);
+		return $this->text->make_item($row->lowid, $row->highid, $ql, $row->name);
 	}
 }
 
