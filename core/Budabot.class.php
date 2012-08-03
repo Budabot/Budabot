@@ -50,6 +50,7 @@ class Budabot extends AOChat {
 
 	private $socketNotifiers = array();
 	private $monitoredSocketsByType = array();
+	private $setupHandlers = array();
 
 	function __construct(&$vars){
 		parent::__construct();
@@ -197,7 +198,7 @@ class Budabot extends AOChat {
 
 		//Load user modules
 		$this->loadModules();
-
+		
 		//remove arrays
 		unset($this->existing_commands);
 		unset($this->existing_events);
@@ -227,6 +228,7 @@ class Budabot extends AOChat {
 			$this->registerModule("./core", $MODULE_NAME);
 		}
 		$this->db->commit();
+		$this->callAndClearSetupHandlers();
 	}
 
 	/**
@@ -245,6 +247,20 @@ class Budabot extends AOChat {
 			$d->close();
 			$this->db->commit();
 		}
+		$this->callAndClearSetupHandlers();
+	}
+	
+	/**
+	 * Calls all so far collected @Setup handlers and clears them after use.
+	 */
+	private function callAndClearSetupHandlers() {
+		forEach ($this->setupHandlers as $handler) {
+			$handler[0] = Registry::getInstance($handler[0]);
+			if (call_user_func($handler) === false) {
+				$this->logger->log('ERROR', "Failed to call setup handler");
+			}
+		}
+		$this->setupHandlers = array();
 	}
 
 	public function registerModule($baseDir, $MODULE_NAME) {
@@ -835,8 +851,7 @@ class Budabot extends AOChat {
 
 		forEach ($reflection->getMethods() as $method) {
 			if ($method->hasAnnotation('Setup')) {
-				$instance = Registry::getInstance($name);
-				$instance->{$method->name}();
+				$this->setupHandlers[] = array($name, $method->name);
 			} else if ($method->hasAnnotation('HandlesCommand')) {
 				$commandName = $method->getAnnotation('HandlesCommand')->value;
 				$methodName  = $method->name;
