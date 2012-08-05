@@ -32,6 +32,10 @@ class Options extends Annotation {
 
 }
 
+class Intoptions extends Annotation {
+
+}
+
 class Instance extends Annotation {
 
 }
