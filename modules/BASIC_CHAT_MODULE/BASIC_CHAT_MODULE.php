@@ -2,22 +2,15 @@
 	require_once 'Rally.class.php';
 	require_once 'chatsay.class.php';
 	require_once 'ChatAssistController.class.php';
+	require_once 'ChatTopicController.class.php';
 
 	$chatBot->registerInstance($MODULE_NAME, 'Rally', new Rally);
 	$chatBot->registerInstance($MODULE_NAME, 'ChatSay', new ChatSay);
 	$chatBot->registerInstance($MODULE_NAME, 'ChatAssistController', new ChatAssistController);
+	$chatBot->registerInstance($MODULE_NAME, 'ChatTopicController', new ChatTopicController);
 
 	// Check macros
 	$command->register($MODULE_NAME, "", "check.php", "check", "all", "Checks who of the raidgroup is in the area", "check.txt");
-
-	// Topic set/show
-	$event->register($MODULE_NAME, "joinPriv", "topic_logon.php", "Show topic when someone joins the private channel");
-	$event->register($MODULE_NAME, "logOn", "topic_logon.php", "Show Topic on logon of members");
-	$command->register($MODULE_NAME, "", "topic.php", "topic", "all", "Show Topic", "topic.txt");
-	$subcommand->register($MODULE_NAME, "", "topic_change.php", "topic (.+)", "rl", "topic", "Change Topic");
-	$setting->add($MODULE_NAME, "topic", "Topic for Priv Channel", "noedit", "text", '');
-	$setting->add($MODULE_NAME, "topic_setby", "Character who set the topic", "noedit", "text", '');
-	$setting->add($MODULE_NAME, "topic_time", "Time the topic was set", "noedit", "text", '');
 
 	// Leader/Leader echo
 	$command->register($MODULE_NAME, "priv", "leader.php", "leader", "all", "Sets the Leader of the raid", "leader.txt");

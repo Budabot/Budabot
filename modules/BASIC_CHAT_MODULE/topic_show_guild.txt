@@ -1,1 +1,0 @@
-With this setting you are able to show the topic in guild channel too when someone does !join in guild channel to join the bot.
