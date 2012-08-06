@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * @Instance
+ *
  * Commands this class contains:
  *	@DefineCommand(
  *		command     = 'check',

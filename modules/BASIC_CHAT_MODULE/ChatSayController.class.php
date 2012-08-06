@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * @Instance
+ *
  * Authors:
  *  - Legendadv (RK2)
  *  - Derroylo (RK2)
