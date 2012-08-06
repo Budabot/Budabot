@@ -144,7 +144,7 @@ class Setting extends Annotation {
 			$key = $intoptions2[$row->value];
 			return "<highlight>{$options[$key]}<end>\n";
 		} else {
-			return "<highlight>{$row->value}<end>\n";
+			return "<highlight>" . htmlspecialchars($row->value) . "<end>\n";
 		}
 	}
 
