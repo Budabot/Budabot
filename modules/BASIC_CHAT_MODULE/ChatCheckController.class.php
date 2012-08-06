@@ -45,7 +45,7 @@ class ChatCheckController {
 	public function checkProfCommand($message, $channel, $sender, $sendto, $args) {
 		$list = '';
 		$data = $this->db->query("SELECT o.name, p.profession
-			FROM online o LEFT JOIN players p ON (o.name = o.name AND p.dimension = '<dim>')
+			FROM online o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>')
 			WHERE added_by = '<myname>' AND channel_type = ? ORDER BY `profession` DESC", self::CHANNEL_TYPE);
 		forEach ($data as $row) {
 			$prof[$row->profession] .= " \\n /assist $row->name";
