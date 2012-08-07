@@ -227,8 +227,8 @@ class Budabot extends AOChat {
 		forEach ($core_modules as $MODULE_NAME) {
 			$this->registerModule("./core", $MODULE_NAME);
 		}
-		$this->db->commit();
 		$this->callAndClearSetupHandlers();
+		$this->db->commit();
 	}
 
 	/**
@@ -236,8 +236,8 @@ class Budabot extends AOChat {
 	 * @description: load all user modules
 	 */
 	function loadModules() {
+		$this->db->begin_transaction();
 		if ($d = dir("./modules")) {
-			$this->db->begin_transaction();
 			while (false !== ($MODULE_NAME = $d->read())) {
 				// filters out ., .., .svn
 				if (!is_dir($MODULE_NAME)) {
@@ -245,9 +245,9 @@ class Budabot extends AOChat {
 				}
 			}
 			$d->close();
-			$this->db->commit();
 		}
 		$this->callAndClearSetupHandlers();
+		$this->db->commit();
 	}
 	
 	/**
