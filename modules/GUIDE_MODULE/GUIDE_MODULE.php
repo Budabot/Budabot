@@ -30,9 +30,11 @@
    */
 
 	require_once 'functions.php';
+	require_once 'AOUController.class.php';
+	
+	$chatBot->registerInstance($MODULE_NAME, 'AOUController', new AOUController());
 
 	$command->register($MODULE_NAME, "", "guides.php", "guides", "all", "Guides for AO", "guides.txt");
-	$command->register($MODULE_NAME, "", "aou.php", "aou", "all", "Search for or view a guide from AO-Universe", "aou.txt");
 
 	// aliases
 	$commandAlias->register($MODULE_NAME, "guides breed", "breed");
