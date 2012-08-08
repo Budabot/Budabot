@@ -83,9 +83,9 @@ class Towers {
 		}
 
 		if ($blob == '') {
-			$msg = $this->text->make_blob("Tower Stats for the Last $timeString", $blob);
-		} else {
 			$msg = "No tower attacks or victories have been recorded.";
+		} else {
+			$msg = $this->text->make_blob("Tower Stats for the Last $timeString", $blob);
 		}
 		$sendto->reply($msg);
 	}
