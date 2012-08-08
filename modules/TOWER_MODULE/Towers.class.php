@@ -82,7 +82,11 @@ class Towers {
 			$blob .= "<{$row->lose_faction}>{$row->lose_faction}<end> have lost <highlight>{$row->num}<end> tower sites.\n";
 		}
 
-		$msg = $this->text->make_blob("Tower Stats for the Last $timeString", $blob);
+		if ($blob == '') {
+			$msg = $this->text->make_blob("Tower Stats for the Last $timeString", $blob);
+		} else {
+			$msg = "No tower attacks or victories have been recorded.";
+		}
 		$sendto->reply($msg);
 	}
 
