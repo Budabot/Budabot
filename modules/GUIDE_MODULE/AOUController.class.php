@@ -46,13 +46,22 @@ class AOUController {
 		$content = $dom->getElementsByTagName('content')->item(0);
 
 		$title = $content->getElementsByTagName('name')->item(0)->nodeValue;
-		
+
 		$pattern = "/(\\[[^\\]]+\\])/";
 		$matches = preg_split($pattern, $content->getElementsByTagName('text')->item(0)->nodeValue, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
 
-		$blob = $this->text->make_chatcmd("Guide on AO-Universe.com", "/start http://www.ao-universe.com/main.php?site=knowledge&id={$guideid}") . "\n";
-		$blob .= $this->text->make_chatcmd("Guide on AO-Universe.com Mobile", "/start {$url}?id={$guideid}") . "\n\n";
+		$blob = '';
+		$blob .= $this->text->make_chatcmd("Guide on AO-Universe.com", "/start http://www.ao-universe.com/main.php?site=knowledge&id={$guideid}") . "\n";
+		$blob .= $this->text->make_chatcmd("Guide on AO-Universe.com Mobile", "/start http://www.ao-universe.com/mobile/index.php?id=14&pid={$guideid}") . "\n\n";
+
+		$blob .= "Update: <highlight>" . $content->getElementsByTagName('update')->item(0)->nodeValue . "<end>\n";
+		$blob .= "Class: <highlight>" . $content->getElementsByTagName('class')->item(0)->nodeValue . "<end>\n";
+		$blob .= "Faction: <highlight>" . $content->getElementsByTagName('faction')->item(0)->nodeValue . "<end>\n";
+		$blob .= "Level: <highlight>" . $content->getElementsByTagName('level')->item(0)->nodeValue . "<end>\n";
+		$blob .= "Author: <highlight>" . $content->getElementsByTagName('author')->item(0)->nodeValue . "<end>\n\n";
+
 		$blob .= $this->processMatches($matches);
+
 		$blob .= "\n\n<yellow>Powered by<end> " . $this->text->make_chatcmd("AO-Universe.com", "/start http://www.ao-universe.com");
 
 		$msg = $this->text->make_blob($title, $blob);
@@ -106,17 +115,17 @@ class AOUController {
 	}
 	
 	private function processTag($tag) {
-		if (substr($tag, 0, 6) == "[size=") {
-			return "";
-		}
 		switch ($tag) {
 			case "[b]":
 				return "<highlight>";
 			case "[/b]":
-			case "[/size]":
 				return "<end>";
-			default:
-				return $tag;
 		}
+		
+		if ($tag[0] == '[') {
+			return "";
+		}
+		
+		return $tag;
 	}
 }
