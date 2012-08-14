@@ -5,6 +5,7 @@ class IRC {
 		if ($socket == null) {
 			return false;
 		}
+		fputs($socket, "PING ping\n");
 		$array = socket_get_status($socket);
 		if (empty($array) || $array['eof'] == '1') {
 			return false;
@@ -20,6 +21,7 @@ class IRC {
 
 		fputs($socket,"USER $nick $nick $nick $nick :$nick\n");
 		fputs($socket,"NICK $nick\n");
+		$logincount = 0;
 		while ($logincount < 10) {
 			$logincount++;
 			$data = trim(fgets($socket, 128));
