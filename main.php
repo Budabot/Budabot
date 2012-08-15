@@ -47,19 +47,19 @@
 	}
 
 	if (isWindows()) {
-	// Load database extensions and socket extension.
-	dl("php_sockets.dll");
-	dl("php_pdo_sqlite.dll");
-	dl("php_pdo_mysql.dll");
+		// Load database extensions and socket extension.
+		dl("php_sockets.dll");
+		dl("php_pdo_sqlite.dll");
+		dl("php_pdo_mysql.dll");
 	} else {
-	// Load database extensions, if not already loaded.
-	// These are normally present in a modern Linux system. This is a safeguard.
-	if (!extension_loaded('pdo_sqlite')) {
-		@dl('pdo_sqlite.so');
-	}
-	if (!extension_loaded('pdo_mysql')) {
-		@dl('pdo_mysql.so');
-	}
+		// Load database extensions, if not already loaded.
+		// These are normally present in a modern Linux system. This is a safeguard.
+		if (!extension_loaded('pdo_sqlite')) {
+			@dl('pdo_sqlite.so');
+		}
+		if (!extension_loaded('pdo_mysql')) {
+			@dl('pdo_mysql.so');
+		}
 	}
 
 	require_once './core/ConfigFile.class.php';
@@ -92,6 +92,7 @@
 	require_once './lib/apache-log4php-2.2.0/Logger.php';
 	require_once './core/Registry.class.php';
 	require_once './core/LegacyLogger.class.php';
+	require_once './core/LoggerWrapper.class.php';
 	require_once './core/annotations.php';
 
 	require_once './core/PrivateChannelCommandReply.class.php';
