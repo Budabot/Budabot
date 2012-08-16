@@ -1,4 +1,4 @@
-With this command you can list members who receently logged on. It takes into organization member ALTS.
+With this command you can list all members who recently logged on. It will take into account all organization member's ALTS when reporting their last logon time.
 
 To show recent members logon
 <highlight><tab><symbol>recentseen 'time'<end>
@@ -10,4 +10,3 @@ Example:
  List all org members who have logged on within 1 day.
 
 
-Note: it does not list anyone with no record recorded as being logged on by this bot. 
