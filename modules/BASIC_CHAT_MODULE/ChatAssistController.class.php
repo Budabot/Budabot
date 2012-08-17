@@ -6,6 +6,7 @@
  * Commands this controller contains:
  *	@DefineCommand(
  *		command     = 'assist', 
+ *      alias       = 'callers',
  *		accessLevel = 'all', 
  *		description = 'Shows an Assist macro', 
  *		help        = 'assist.txt'
@@ -17,7 +18,8 @@
  *		help        = 'assist.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'heal', 
+ *		command     = 'heal',
+ *      alias       = 'healassist',
  *		accessLevel = 'all', 
  *		description = 'Creates/showes an Doc Assist macro', 
  *		help        = 'healassist.txt'
@@ -39,9 +41,6 @@ class ChatAssistController {
 	
 	/** @Inject */
 	public $chatBot;
-
-	/** @Inject */
-	public $commandAlias;
 	
 	/**
 	 * Contains the assist macro message.
@@ -52,16 +51,6 @@ class ChatAssistController {
 	 * Contains the heal assist macro message.
 	 */
 	private $healMessage;
-
-	/**
-	 * @Setup
-	 * This handler is called on bot startup.
-	 */
-	public function setup() {
-		// define aliases for assist and heal commands
-		$this->commandAlias->register($this->moduleName, "assist", "callers");
-		$this->commandAlias->register($this->moduleName, "heal", "healassist");
-	}
 
 	/**
 	 * This command handler shows an Assist macro.

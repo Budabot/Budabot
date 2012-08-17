@@ -846,6 +846,10 @@ class Budabot extends AOChat {
 				} else {
 					$commands[$command] = $definition;
 				}
+				// register command alias if defined
+				if ($annotation->alias) {
+					$this->commandAlias->register($MODULE_NAME, $command, $annotation->alias);
+				}
 			}
 		}
 

@@ -18,6 +18,7 @@
  *	)
  *	@DefineCommand(
  *		command     = 'bioinfo',
+ *      alias       = 'biotype',
  *		accessLevel = 'all', 
  *		description = 'Shows info about a particular bio type', 
  *		help        = 'bioinfo.txt'
@@ -30,9 +31,6 @@ class AlienBioController {
 	 * Set automatically by module loader.
 	 */
 	public $moduleName;
-	
-	/** @Inject */
-	public $commandAlias;
 
 	/** @Inject */
 	public $db;
@@ -58,8 +56,6 @@ class AlienBioController {
 			$this->logger->log("WARN", "ITEMS_MODULE is not available, the functionality is degrated without it");
 			$this->items = null;
 		}
-		// TODO: Need annotation for command alias
-		$this->commandAlias->register($this->moduleName, "bioinfo", "biotype");
 		
 		// load database tables from .sql-files
 		$this->db->loadSQLFile($this->moduleName, 'alienweapons');

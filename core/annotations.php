@@ -55,6 +55,7 @@ class DefineCommand extends Annotation {
 	public $description;
 	public $help;
 	public $defaultStatus;
+	public $alias;
 }
 
 class HandlesCommand extends Annotation {
