@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * @Instance
+ *
+ * Commands this controller contains:
+ *      @DefineCommand(
+ *              command     = 'fc',
+ *              accessLevel = 'all',
+ *              description = 'Shows a random FC quote',
+ *              help        = 'fun_module.txt'
+ *      )
+ */
 class Fun {
 	/** @Inject */
 	public $chatBot;
@@ -7,11 +18,12 @@ class Fun {
 	/** @Inject */
 	public $util;
 
+	/**
+	 * This command handler shows a random FC quote.
+	 *
+	 * @HandlesCommand("fc")
+	 */
 	public function fcCommand($message, $channel, $sender, $sendto) {
-		if (!preg_match("/^fc$/i", $message)) {
-			return false;
-		}
-
 		$fc = array();
 		$fc[] = "[in the same thread that topics got deleted for not agreeing with how moderation was happening] This is what I hate - This prevalant attitude that we restrict or otherwise take issue with people having differing opinions from us. --Kintaii";
 		$fc[] = "We're more open and honest than probably pretty much any other game development team out there. --Kintaii";
@@ -36,19 +48,19 @@ class Fun {
 		$fc[] = "Dear Arguru, You have received a warning at Anarchy Online Bulletin Board.  Reason: ------- Excessive Profanities  Joking or not, this is an inappropriate level of obscenities. Please make your point in other ways. Thank you.  --Anarrina";
 		$fc[] = "I usually try to be diplomatic and avoid insults, but I'm not particularly in that mood today. --Vhab";
 		$fc[] = "This sort of non-constructive trolling is not necessary to begin a thread. Should you have an issue with a particular policy, it is within forum rules to state so in a more polite manner. I have edited the objectional content in the post, you may edit it to include a calmer and more constructive criticism. --Anarrina";
-    $fc[] = "they're generated, but not in a way you guys can make sense of em :) -- Vhab [talking about how FC calculates values in AO]";
-    $fc[] = "Last edited by Anarrina; Today at 18:32:45.. Reason: constantly mistyping someone else's name in an attempt to belittle them in harassment";
-    $fc[] = "\"I'm sorry my reality doesn't match the arguments you'd love to see in your hypothetical situation --Vhab\" ~ \"apology accepted. :) --Argure\"";
-    $fc[] = "no, it doesn\'t, Argure.  For someone espousing logic you are lacking some, there. -- Anarrina";
-    $fc[] = "god, Argure, honestly.  If you're so confident you can manage teh business, please apply for a damned job. -- Anarrina";
-    $fc[] = "you are not at all impressing anyone with your \"logic and reason\" which comes across much more as \"adolescent petulance\" -- Anarrina";
-    $fc[] = "then maybe you need to read the AO forums, specifically the MP forums.. and gain some education about my \"bias\"... -- ShadowGod";
-    $fc[] = "oh for god's sake. grow up -- Anarrina";
-    $fc[] = "alot of players of video games dont see the big picture... heheh -- ShadowGod";
-    $fc[] = "you are a poor liar. -- Anarrina";
-    $fc[] = "\"ShadowGod, Anarrina, the !fc command needed a new batch, thanks =)\" --Argure ~ \"yeah.. i'm done with this now --ShadowGod\" You were banned from #anarchyonline by ShadowGod (find other people to troll)";
-    $fc[] = "Argure: after your insensitive jackass stunt last night in #ao you're no longer welcome in my channel at least. 4chan may be more suited for your childish behavior. --Vhab";
-    $fc[] = "The only way to win the game - is to quit it completely. --Artyomis";
+		$fc[] = "they're generated, but not in a way you guys can make sense of em :) -- Vhab [talking about how FC calculates values in AO]";
+		$fc[] = "Last edited by Anarrina; Today at 18:32:45.. Reason: constantly mistyping someone else's name in an attempt to belittle them in harassment";
+		$fc[] = "\"I'm sorry my reality doesn't match the arguments you'd love to see in your hypothetical situation --Vhab\" ~ \"apology accepted. :) --Argure\"";
+		$fc[] = "no, it doesn\'t, Argure.  For someone espousing logic you are lacking some, there. -- Anarrina";
+		$fc[] = "god, Argure, honestly.  If you're so confident you can manage teh business, please apply for a damned job. -- Anarrina";
+		$fc[] = "you are not at all impressing anyone with your \"logic and reason\" which comes across much more as \"adolescent petulance\" -- Anarrina";
+		$fc[] = "then maybe you need to read the AO forums, specifically the MP forums.. and gain some education about my \"bias\"... -- ShadowGod";
+		$fc[] = "oh for god's sake. grow up -- Anarrina";
+		$fc[] = "alot of players of video games dont see the big picture... heheh -- ShadowGod";
+		$fc[] = "you are a poor liar. -- Anarrina";
+		$fc[] = "\"ShadowGod, Anarrina, the !fc command needed a new batch, thanks =)\" --Argure ~ \"yeah.. i'm done with this now --ShadowGod\" You were banned from #anarchyonline by ShadowGod (find other people to troll)";
+		$fc[] = "Argure: after your insensitive jackass stunt last night in #ao you're no longer welcome in my channel at least. 4chan may be more suited for your childish behavior. --Vhab";
+		$fc[] = "The only way to win the game - is to quit it completely. --Artyomis";
 
 		$dmg = rand(100,999);
 		$cred = rand(10000,9999999);

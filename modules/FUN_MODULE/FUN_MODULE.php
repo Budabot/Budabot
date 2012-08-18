@@ -5,7 +5,6 @@
 
 	$command->register($MODULE_NAME, "", "fight.php", "fight", "all", "Let two persons fight against each other", 'fun_module.txt');
 	$command->register($MODULE_NAME, "", "ding.php", "ding", "all", "Shows a random ding gratz message", 'fun_module.txt');
-	$command->register($MODULE_NAME, "", "Fun.fcCommand", "fc", "all", "Shows a random FC quote", 'fun_module.txt');
 	$command->register($MODULE_NAME, "", "doh.php", "doh", "all", "Shows a random doh message", 'fun_module.txt');
 	$command->register($MODULE_NAME, "", "beer.php", "beer", "all", "Shows a random beer message", 'fun_module.txt');
 	$command->register($MODULE_NAME, "", "cybor.php", "cybor", "all", "Shows a random cybor message", 'fun_module.txt');

@@ -50,6 +50,7 @@ if (preg_match("/^fight (.+) vs (.+)$/i", $message, $arr) || preg_match("/^fight
 		$hp1 = 10000;
 		$add_damage_P1 = 0;
 		$wep_P1 = "nerfstick";
+	}
 	if(strcasecmp($player2, "fixer") == 0 OR strcasecmp($player2, "fix") == 0) {
 		$hp2 = 1;
 		$wep_P2 = "tickle";
