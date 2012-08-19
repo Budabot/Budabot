@@ -29,19 +29,6 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-// Some rankings (Will be used to help distinguish which org type is used.)
-$orgrankmap["Anarchism"]  = array("Anarchist");
-$orgrankmap["Monarchy"]   = array("Monarch",   "Counsel",      "Follower");
-$orgrankmap["Feudalism"]  = array("Lord",      "Knight",       "Vassal",          "Peasant");
-$orgrankmap["Republic"]   = array("President", "Advisor",      "Veteran",         "Member",         "Applicant");
-$orgrankmap["Faction"]    = array("Director",  "Board Member", "Executive",       "Member",         "Applicant");
-$orgrankmap["Department"] = array("President", "General",      "Squad Commander", "Unit Commander", "Unit Leader", "Unit Member", "Applicant");
-
-// Don't want to reboot to see changes in color edits, so I'll store them in an array outside the function.
-$orgcolor["header"]  = "<font color='#FFFFFF'>";   // Org Rank title
-$orgcolor["onlineH"] = "<highlight>";              // Highlights on whois info
-$orgcolor["offline"] = "<font color='#555555'>";   // Offline names
-
 if (preg_match("/^orglist end$/i", $message)) {
 	checkOrglistEnd(true);
 } else if (preg_match("/^orglist (.+)$/i", $message, $arr)) {
@@ -57,6 +44,19 @@ if (preg_match("/^orglist end$/i", $message)) {
 		//unset($chatBot->data["ORGLIST_MODULE"]);
 		//return;
 	}
+
+	// Some rankings (Will be used to help distinguish which org type is used.)
+	$orgrankmap["Anarchism"]  = array("Anarchist");
+	$orgrankmap["Monarchy"]   = array("Monarch",   "Counsel",      "Follower");
+	$orgrankmap["Feudalism"]  = array("Lord",      "Knight",       "Vassal",          "Peasant");
+	$orgrankmap["Republic"]   = array("President", "Advisor",      "Veteran",         "Member",         "Applicant");
+	$orgrankmap["Faction"]    = array("Director",  "Board Member", "Executive",       "Member",         "Applicant");
+	$orgrankmap["Department"] = array("President", "General",      "Squad Commander", "Unit Commander", "Unit Leader", "Unit Member", "Applicant");
+
+	// Don't want to reboot to see changes in color edits, so I'll store them in an array outside the function.
+	$orgcolor["header"]  = "<font color='#FFFFFF'>";   // Org Rank title
+	$orgcolor["onlineH"] = "<highlight>";              // Highlights on whois info
+	$orgcolor["offline"] = "<font color='#555555'>";   // Offline names
 
 	$chatBot->data["ORGLIST_MODULE"]["start"] = time();
 	$chatBot->data["ORGLIST_MODULE"]["sendto"] = $sendto;
