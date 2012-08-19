@@ -1,7 +1,7 @@
 <?php
 
-global $waitlist;
 if (preg_match("/^waitlist next$/i", $message)) {
+	global $waitlist;
 	if (count($waitlist[$sender]) == 0) {
 		$msg = "There is no one on your waitlist!";
 	    $sendto->reply($msg);
@@ -16,6 +16,7 @@ if (preg_match("/^waitlist next$/i", $message)) {
 	$msg = "<highlight>$name<end> has been called to come now.";
 	$sendto->reply($msg);
 } else if (preg_match("/^waitlist add (.+)$/i", $message, $arr)) {
+	global $waitlist;
     $name = ucfirst(strtolower($arr[1]));
 
 	if (isset($waitlist[$sender][$name])) {
@@ -30,6 +31,7 @@ if (preg_match("/^waitlist next$/i", $message)) {
 	$msg = "<highlight>$name<end> has been added to your waitlist.";
 	$sendto->reply($msg);
 } else if (preg_match("/^waitlist (rem all|clear)$/i", $message)) {
+	global $waitlist;
 	if (count($waitlist[$sender]) == 0) {
 		$msg = "There is no one on your waitlist!";
 		$sendto->reply($msg);
@@ -41,6 +43,7 @@ if (preg_match("/^waitlist next$/i", $message)) {
 	$msg = "Your waitlist has been cleared.";
     $sendto->reply($msg);
 } else if (preg_match("/^waitlist rem (.+)$/i", $message, $arr)) {
+	global $waitlist;
     $name = ucfirst(strtolower($arr[1]));
 
 	if (!isset($waitlist[$sender][$name])) {
@@ -56,6 +59,7 @@ if (preg_match("/^waitlist next$/i", $message)) {
 	$msg = "<highlight>$name<end> has been removed from your waitlist.";
     $sendto->reply($msg);
 } else if (preg_match("/^waitlist shuffle$/i", $message)) {
+	global $waitlist;
 	if (count($waitlist[$sender]) == 0) {
 		$msg = "There is no one on your waitlist!";
 		$sendto->reply($msg);
@@ -80,6 +84,7 @@ if (preg_match("/^waitlist next$/i", $message)) {
 	$msg = "Your waitlist has been shuffled. " . Text::make_blob("Waitlist for $sender ($count)", $blob);
     $sendto->reply($msg);
 } else if (preg_match("/^waitlist$/i", $message) || preg_match("/^waitlist ([a-z0-9-]+)$/i", $message, $arr2)) {
+	global $waitlist;
 	if (isset($arr2)) {
 		$char = ucfirst(strtolower($arr[1]));
 	} else {
