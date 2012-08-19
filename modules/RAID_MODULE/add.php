@@ -1,8 +1,7 @@
 <?php
 
-global $loot;
-
 if (preg_match("/^add ([0-9]+)$/i", $message, $arr)) {
+	global $loot;
 	$slot = $arr[1];
 	$found = false;
 	if (count($loot) > 0) {

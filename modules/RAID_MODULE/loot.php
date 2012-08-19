@@ -1,8 +1,8 @@
 <?php
 
-global $loot;
-global $residual;
 if (preg_match("/^loot clear$/i", $message)) {
+	global $loot;
+	global $residual;
 	$loot = "";
 	$residual = "";
 	$msg = "Loot has been cleared by <highlight>$sender<end>.";
@@ -12,6 +12,7 @@ if (preg_match("/^loot clear$/i", $message)) {
 		$sendto->reply($msg);
 	}
 } else if (preg_match("/^loot ([0-9]+)$/i", $message, $arr)) {
+	global $loot;
 	$id = $arr[1];
 
 	$sql = "SELECT * FROM raid_loot WHERE id = ?";
@@ -50,6 +51,8 @@ if (preg_match("/^loot clear$/i", $message)) {
 	$msg .= "\nTo add use <symbol>add ".$nextloot.", or <symbol>rem to remove yourself";
 	$chatBot->sendPrivate($msg);
 } else if (preg_match("/^loot (.+)$/i", $message, $arr)) {
+	global $loot;
+	global $residual;
 
 	//Check if the item is a link
 	if (preg_match("/^<a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">(.+)<\/a>(.*)$/i", $arr[1], $item)) {

@@ -26,9 +26,8 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-global $loot;
-
 if (preg_match("/^remloot ([0-9]+)$/i", $message, $arr)) {
+	global $loot;
 	$key = $arr[1];
 	// validate item existance on loot list
 	if ($key > 0 && $key <= count($loot)) {

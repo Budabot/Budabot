@@ -1,9 +1,8 @@
 <?php
 
-global $loot;
-global $residual;
-
 if (preg_match("/^reroll$/i", $message)) {
+	global $loot;
+	global $residual;
 
 	//Check if a residual list exits
 	if (!is_array($residual)) {

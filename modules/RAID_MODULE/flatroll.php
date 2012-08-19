@@ -29,11 +29,10 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-global $loot;
-global $loot_winners;
-global $residual;
-
 if (preg_match("/^flatroll$/i", $message)) {
+	global $loot;
+	global $loot_winners;
+	global $residual;
 	//Check if a loot list exits
 	if (!is_array($loot)) {
 	    $msg = "There is nothing to roll atm.";

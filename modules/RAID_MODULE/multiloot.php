@@ -29,10 +29,9 @@
    ** Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    */
 
-global $loot;
-global $residual;
-
 if (preg_match("/^multiloot (.+)$/i", $message, $arr)) {
+	global $loot;
+	global $residual;
 
 	//Check if it is a valid multiloot
 	if(preg_match("/^([0-9]+)x (.+)$/i", $arr[1], $lewt) || preg_match("/^([0-9]+) (.+)$/i", $arr[1], $lewt)){

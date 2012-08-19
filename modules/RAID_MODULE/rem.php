@@ -1,8 +1,7 @@
 <?php
 
-global $loot;
-
 if (preg_match("/^rem$/i", $message)) {
+	global $loot;
 	if (count($loot) > 0) {
 		forEach ($loot as $key => $item) {
 			if ($loot[$key]["users"][$sender] == true) {
