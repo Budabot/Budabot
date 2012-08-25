@@ -87,7 +87,6 @@ class BanController {
 	 * This handler is called on bot startup.
 	 */
 	public function setup() {
-		print __FUNCTION__ ."\n";
 		$this->db->exec("CREATE TABLE IF NOT EXISTS banlist_<myname> (name VARCHAR(25) NOT NULL PRIMARY KEY, admin VARCHAR(25), time INT, reason TEXT, banend INT)");
 		$this->ban->upload_banlist();
 		$this->eventManager->activate('1min', 'BanController.checkTempBan');
@@ -105,7 +104,6 @@ class BanController {
 	 * @Matches("/^ban ([a-z0-9-]+) ([a-z0-9]+) (for|reason) (.+)$/i")
 	 */
 	public function banPlayerWithTimeAndReasonCommand($message, $channel, $sender, $sendto, $args) {
-		print __FUNCTION__ ."\n";
 		$who = ucfirst(strtolower($args[1]));
 		$length = $this->util->parseTime($args[2]);
 		$reason = $args[4];
@@ -132,7 +130,6 @@ class BanController {
 	 * @Matches("/^ban ([a-z0-9-]+) ([a-z0-9]+)$/i")
 	 */
 	public function banPlayerWithTimeCommand($message, $channel, $sender, $sendto, $args) {
-		print __FUNCTION__ ."\n";
 		$who = ucfirst(strtolower($args[1]));
 		$length = $this->util->parseTime($args[2]);
 	
@@ -158,7 +155,6 @@ class BanController {
 	 * @Matches("/^ban ([a-z0-9-]+) (for|reason) (.+)$/i")
 	 */
 	public function banPlayerWithReasonCommand($message, $channel, $sender, $sendto, $args) {
-		print __FUNCTION__ ."\n";
 		$who = ucfirst(strtolower($args[1]));
 		$reason = $args[3];
 	
@@ -182,7 +178,6 @@ class BanController {
 	 * @Matches("/^ban ([a-z0-9-]+)$/i")
 	 */
 	public function banPlayerCommand($message, $channel, $sender, $sendto, $args) {
-		print __FUNCTION__ ."\n";
 		$who = ucfirst(strtolower($args[1]));
 
 		if (!$result = $this->banPlayer($who, $sender, null, '', $sendto)) {
@@ -202,7 +197,6 @@ class BanController {
 	 * @Matches("/^banlist$/i")
 	 */
 	public function banlistCommand($message, $channel, $sender, $sendto, $args) {
-		print __FUNCTION__ ."\n";
 		$banlist = $this->ban->getBanlist();
 		if (count($banlist) == 0) {
 		    $sendto->reply("No one is currently banned from this bot.");
@@ -239,7 +233,6 @@ class BanController {
 	 * @Matches("/^banorg (.+)$/i")
 	 */
 	public function banorgCommand($message, $channel, $sender, $sendto, $args) {
-		print __FUNCTION__ ."\n";
 		$who = $args[1];
 	
 		if ($this->ban->is_banned($who)) {
@@ -262,7 +255,6 @@ class BanController {
 	 * @Matches("/^unban (.+)$/i")
 	 */
 	public function unbanCommand($message, $channel, $sender, $sendto, $args) {
-		print __FUNCTION__ ."\n";
 		$who = ucfirst(strtolower($args[1]));
 	
 		if (!$this->ban->is_banned($who)) {
@@ -288,7 +280,6 @@ class BanController {
 	 * @Matches("/^unbanorg (.+)$/i")
 	 */
 	public function unbanorgCommand($message, $channel, $sender, $sendto, $args) {
-		print __FUNCTION__ ."\n";
 		$who = ucwords(strtolower($args[1]));
 	
 		if (!$this->ban->is_banned($who)) {
