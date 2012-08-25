@@ -14,7 +14,7 @@
  *		description = "Sets your api password, use 'apipassword clear' to clear your password."
  *	)
  */
-class API {
+class APIController {
 
 	/** @Inject */
 	public $commandManager;
