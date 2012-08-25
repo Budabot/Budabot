@@ -12,9 +12,6 @@ class AdminController {
 	public $moduleName;
 
 	/** @Inject */
-	public $db;
-
-	/** @Inject */
 	public $commandManager;
 
 	/** @Inject */
@@ -22,6 +19,9 @@ class AdminController {
 
 	/** @Inject */
 	public $help;
+
+	/** @Inject */
+	public $admin;
 
 	/**
 	 * @Setup
@@ -49,7 +49,8 @@ class AdminController {
 		$this->commandManager->activate("guild", "Admin.adminlistCommand", "adminlist", 'all');
 
 		$this->eventManager->activate("connect", "Admin.checkAdmins");
-		$this->eventManager->activate("setup", "Admin.uploadAdmins");
+		
+		$this->admin->uploadAdmins();
 
 		$this->help->register($this->moduleName, "admin", "admin.txt", "mod", "Mod/admin help file");
 	}
