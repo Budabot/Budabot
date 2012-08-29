@@ -15,6 +15,10 @@ class LoggerWrapper {
 	public function log_chat($channel, $sender, $message) {
 		LegacyLogger::log_chat($channel, $sender, $message);
 	}
+
+	public function get_logging_directory() {
+		return LegacyLogger::get_logging_directory();
+	}
 }
 
 ?>
