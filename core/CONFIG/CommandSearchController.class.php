@@ -4,6 +4,7 @@
  * Commands this controller contains:
  *	@DefineCommand(
  *		command       = 'cmdsearch',
+ *      alias         = 'searchcmd',
  *		accessLevel   = 'all',
  *		description   = 'Finds commands based on key words',
  *		defaultStatus = 1,
