@@ -7,7 +7,8 @@ if (preg_match("/^lastseen (.+)$/i", $message, $arr)) {
     if (!$uid) {
         $msg = "Character <highlight>$name<end> does not exist.";
     } else {
-		$altInfo = Alts::get_alt_info($name);
+		$alts = Registry::getInstance('alts');
+		$altInfo = $alts->get_alt_info($name);
 		$onlineAlts = $altInfo->get_online_alts();
 		if (count($onlineAlts) > 0) {
 			$msg = "This player is currently <green>online<end> as " . implode(', ', $onlineAlts) . ".";

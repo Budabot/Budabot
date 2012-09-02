@@ -11,6 +11,7 @@ if (!function_exists('getIRCPlayerInfo')) {
 	function getIRCPlayerInfo($sender) {
 		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
+		$alts = Registry::getInstance('alts');
 
 		$whois = Player::get_by_name($sender);
 		if ($whois === null) {
@@ -47,7 +48,7 @@ if (!function_exists('getIRCPlayerInfo')) {
 		}
 
 		// Alternative Characters Part
-		$altInfo = Alts::get_alt_info($sender);
+		$altInfo = $alts->get_alt_info($sender);
 		if ($altInfo->main != $sender) {
 			$msg .= " Alt of {$altInfo->main}";
 		}
@@ -68,9 +69,10 @@ if (IRC::isConnectionActive($ircSocket)) {
 		LegacyLogger::log_chat("Out. IRC Msg.", -1, $msg);
 		IRC::send($ircSocket, $setting->get('irc_channel'), encodeGuildMessage(getGuildAbbreviation(), $msg));
 	} else if ($type == "logon" && isset($chatBot->guildmembers[$sender])) {
+		$alts = Registry::getInstance('alts');
 		if ($setting->get('first_and_last_alt_only') == 1) {
 			// if at least one alt/main is still online, don't show logoff message
-			$altInfo = Alts::get_alt_info($sender);
+			$altInfo = $alts->get_alt_info($sender);
 			if (count($altInfo->get_online_alts()) > 1) {
 				return;
 			}

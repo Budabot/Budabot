@@ -20,7 +20,6 @@ class AltInfo {
 	}
 
 	public function get_alts_blob($showValidateLinks = false, $firstPageOnly = false) {
-		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 		$setting = Registry::getInstance('setting');
 		$player = Registry::getInstance('player');
@@ -117,51 +116,3 @@ class AltInfo {
 		return false;
 	}
 }
-
-class Alts {
-	public static function get_alt_info($player) {
-		$chatBot = Registry::getInstance('chatBot');
-		$db = Registry::getInstance('db');
-
-		$player = ucfirst(strtolower($player));
-
-		$ai = new AltInfo();
-
-		$sql = "SELECT `alt`, `main`, `validated` FROM `alts` WHERE (`main` LIKE ?) OR (`main` LIKE (SELECT `main` FROM `alts` WHERE `alt` LIKE ?))";
-		$data = $db->query($sql, $player, $player);
-
-		$isValidated = 0;
-
-		if (count($data) > 0) {
-			forEach ($data as $row) {
-				$ai->main = $row->main;
-				$ai->alts[$row->alt] = $row->validated;
-			}
-		} else {
-			$ai->main = $player;
-		}
-
-		return $ai;
-	}
-
-	public static function add_alt($main, $alt, $validated) {
-		$chatBot = Registry::getInstance('chatBot');
-		$db = Registry::getInstance('db');
-
-		$main = ucfirst(strtolower($main));
-		$alt = ucfirst(strtolower($alt));
-
-		$sql = "INSERT INTO `alts` (`alt`, `main`, `validated`) VALUES (?, ?, ?)";
-		return $db->exec($sql, $alt, $main, $validated);
-	}
-
-	public static function rem_alt($main, $alt) {
-		$chatBot = Registry::getInstance('chatBot');
-		$db = Registry::getInstance('db');
-
-		$sql = "DELETE FROM `alts` WHERE `alt` LIKE ? AND `main` LIKE ?";
-		return $db->exec($sql, $alt, $main);
-	}
-}
-
-?>

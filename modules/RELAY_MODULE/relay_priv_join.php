@@ -2,8 +2,8 @@
 
 if ($setting->get('relaybot') != 'Off' && $type == "joinpriv") {
 	$whois = Player::get_by_name($sender);
-
-	$altInfo = Alts::get_alt_info($sender);
+	$alts = Registry::getInstance('alts');
+	$altInfo = $alts->get_alt_info($sender);
 
 	if ($whois !== null) {
 		if (count($altInfo->alts) > 0) {

@@ -257,7 +257,8 @@ function get_afk_info($afk, $fancyColon) {
 }
 
 function get_alt_char_info($name, $fancyColon) {
-	$altinfo = Alts::get_alt_info($name);
+	$alts = Registry::getInstance('alts');
+	$altinfo = $alts->get_alt_info($name);
 
 	if (count($altinfo->alts) > 0)
 		$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts {$name}'>".($altinfo->main == $name ? "Alts":"Alt of {$altinfo->main}")."</a>";

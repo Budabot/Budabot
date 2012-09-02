@@ -17,6 +17,9 @@ class Admin {
 	/** @Inject */
 	public $setting;
 
+	/** @Inject */
+	public $alts;
+
 	public $admins = array();
 
 	public function removeCommand($message, $channel, $sender, $sendto) {
@@ -219,7 +222,7 @@ class Admin {
 	}
 
 	public function checkAltsInheritAdmin($who) {
-		$ai = Alts::get_alt_info($who);
+		$ai = $this->alts->get_alt_info($who);
 		if ($this->setting->get("alts_inherit_admin") == 1 && $ai->main != $who) {
 			return false;
 		} else {

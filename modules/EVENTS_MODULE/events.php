@@ -72,7 +72,8 @@ if (preg_match("/^events$/i", $message, $arr)) {
 					$info = " <white>Lvl $row->level $row->profession<end>\n";
 				}
 
-				$altInfo = Alts::get_alt_info($name);
+				$alts = Registry::getInstance('alts');
+				$altInfo = $alts->get_alt_info($name);
 				$alt = '';
 				if (count($altInfo->alts) > 0) {
 					if ($altInfo->main == $name) {

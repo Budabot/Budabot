@@ -3,7 +3,8 @@
 if (isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
 	if ($setting->get('first_and_last_alt_only') == 1) {
 		// if at least one alt/main is still online, don't show logoff message
-		$altInfo = Alts::get_alt_info($sender);
+		$alts = Registry::getInstance('alts');
+		$altInfo = $alts->get_alt_info($sender);
 		if (count($altInfo->get_online_alts()) > 1) {
 			return;
 		}
@@ -19,7 +20,8 @@ if (isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
 
         $msg .= " logged on.";
 
-		$altInfo = Alts::get_alt_info($sender);
+		$alts = Registry::getInstance('alts');
+		$altInfo = $alts->get_alt_info($sender);
 		if (count($altInfo->alts) > 0) {
 			$msg .= " " . $altInfo->get_alts_blob(false, true);
 		}

@@ -14,8 +14,9 @@ if (IRC::isConnectionActive($ircSocket)) {
 		LegacyLogger::log_chat("Out. IRC Msg.", -1, "$sender has left the channel");
 	} else if ($type == "logoff" && isset($chatBot->guildmembers[$sender])) {
 		if ($setting->get('first_and_last_alt_only') == 1) {
+			$alts = Registry::getInstance('alts');
 			// if at least one alt/main is already online, don't show logon message
-			$altInfo = Alts::get_alt_info($sender);
+			$altInfo = $alts->get_alt_info($sender);
 			if (count($altInfo->get_online_alts()) > 0) {
 				return;
 			}

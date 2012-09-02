@@ -16,7 +16,8 @@ class Character {
 
 	public function getAltInfo() {
 		if ($this->altInfo === null) {
-			$this->altInfo = Alts::get_alt_info($this->name);
+			$alts = Registry::getInstance('alts');
+			$this->altInfo = $alts->get_alt_info($this->name);
 		}
 		return $this->altInfo;
 	}

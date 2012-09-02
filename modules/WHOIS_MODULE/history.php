@@ -18,7 +18,8 @@ if (preg_match("/^history (.+) (\d)$/i", $message, $arr) || preg_match("/^histor
 	if ($history->errorCode != 0) {
 		$msg = $history->errorInfo;
 	} else {
-		$altInfo = Alts::get_alt_info($name);
+		$alts = Registry::getInstance('alts');
+		$altInfo = $alts->get_alt_info($name);
 		$link[] = "<header>::::: History of $name for RK {$dimension} ::::::<end>\n\n";
 		$lh = "<highlight>Options:<end>\n";
 		if (count($altInfo->alts) > 0) {

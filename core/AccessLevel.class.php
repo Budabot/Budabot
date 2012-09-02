@@ -18,6 +18,9 @@ class AccessLevel extends Annotation {
 	/** @Logger */
 	public $logger;
 
+	/** @Inject */
+	public $alts;
+
 	/**
 	 * @name: checkAccess
 	 * @param: $sender - the name of the person you want to check access on
@@ -36,7 +39,7 @@ class AccessLevel extends Annotation {
 			// and if the current character is validated,
 			// then check access against the main character,
 			// otherwise just return the result
-			$altInfo = Alts::get_alt_info($sender);
+			$altInfo = $this->alts->get_alt_info($sender);
 			if ($sender != $altInfo->main && $altInfo->is_validated($sender)) {
 				$this->logger->log("DEBUG", "Checking access level '$accessLevel' against the main of '$sender' which is '$altInfo->main'");
 				$returnVal = $this->checkSingleAccess($altInfo->main, $accessLevel);
@@ -128,7 +131,7 @@ class AccessLevel extends Annotation {
 		$accessLevel = $this->getSingleAccessLevel($sender);
 
 		if ($this->setting->get('alts_inherit_admin') == 1) {
-			$altInfo = Alts::get_alt_info($sender);
+			$altInfo = $this->alts->get_alt_info($sender);
 			if ($sender != $altInfo->main && $altInfo->is_validated($sender)) {
 				$mainAccessLevel = $this->getSingleAccessLevel($altInfo->main);
 				if ($this->compareAccessLevels($mainAccessLevel, $accessLevel) > 0) {

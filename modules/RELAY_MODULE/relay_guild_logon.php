@@ -2,6 +2,7 @@
 
 if ($setting->get("relaybot") != "Off" && isset($chatBot->guildmembers[$sender]) && $chatBot->is_ready()) {
     $whois = Player::get_by_name($sender);
+	$alts = Registry::getInstance('alts');
 
 	$msg = '';
 	if ($whois === null) {
@@ -11,7 +12,7 @@ if ($setting->get("relaybot") != "Off" && isset($chatBot->guildmembers[$sender])
 
         $msg .= " logged on.";
 
-		$altInfo = Alts::get_alt_info($sender);
+		$altInfo = $alts->get_alt_info($sender);
 		if (count($altInfo->alts) > 0) {
 			$msg .= " " . $altInfo->get_alts_blob(false, true);
 		}

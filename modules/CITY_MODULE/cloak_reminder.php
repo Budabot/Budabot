@@ -23,7 +23,8 @@ if ($row !== null) {
 
 		if ($msg) {
 			// send message to all online alts
-			$altInfo = Alts::get_alt_info($row->player);
+			$alts = Registry::getInstance('alts');
+			$altInfo = $alts->get_alt_info($row->player);
 			forEach ($altInfo->get_online_alts() as $name) {
 				$chatBot->sendTell($msg, $name);
 			}
