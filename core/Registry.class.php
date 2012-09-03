@@ -2,11 +2,12 @@
 
 class Registry {
 	private static $repo = array();
-	private static $repo2 = array();
+	private static $dependencies = array();
 
-	public static function setInstance($name, &$obj) {
+	public static function setInstance($name, $obj) {
 		$name = strtolower($name);
 		Registry::$repo[$name] = $obj;
+		self::injectDependencies($obj);
 	}
 
 	public static function instanceExists($name) {
@@ -19,28 +20,13 @@ class Registry {
 		}
 	}
 
-	public static function getInstance($name, $set = array()) {
+	public static function getInstance($name) {
 		$name = strtolower($name);
 		LegacyLogger::log("DEBUG", "Registry", "Requesting instance for '$name'");
 
-		$instance = @Registry::$repo2[$name];
-		if ($instance != null) {
-			LegacyLogger::log("DEBUG", "Registry", "Using cache for '$name'");
-		} else {
-			$instance = Registry::$repo[$name];
-			if ($instance == null) {
-				LegacyLogger::log("WARN", "Registry", "Could not find instance for '$name'");
-			} else {
-				// this is to handle circular dependencies
-				if (isset($set[$name])) {
-					return $set[$name];
-				}
-				$set[$name] = $instance;
-
-				Registry::injectDependencies($instance, $set);
-
-				Registry::$repo2[$name] = $instance;
-			}
+		$instance = Registry::$repo[$name];
+		if ($instance == null) {
+			LegacyLogger::log("WARN", "Registry", "Could not find instance for '$name'");
 		}
 
 		if (USE_RUNKIT_CLASS_LOADING === true) {
@@ -50,7 +36,7 @@ class Registry {
 		return $instance;
 	}
 
-	public static function injectDependencies(&$instance, $set = array()) {
+	public static function injectDependencies($instance) {
 		// inject other instances that are annotated with @Inject
 		$reflection = new ReflectionAnnotatedClass($instance);
 		forEach ($reflection->getProperties() as $property) {
@@ -61,7 +47,7 @@ class Registry {
 					$dependencyName = $property->name;
 				}
 				$dependencyName = strtolower($dependencyName);
-				$instance->{$property->name} = Registry::getInstance($dependencyName, $set);
+				self::$dependencies[$dependencyName] []= array($instance, $property->name);
 			} else if ($property->hasAnnotation('Logger')) {
 				if (@$property->getAnnotation('Logger')->value != '') {
 					$tag = $property->getAnnotation('Logger')->value;
@@ -71,6 +57,19 @@ class Registry {
 				$instance->{$property->name} = new LoggerWrapper($tag);
 			}
 		}
+		forEach (self::$repo as $instanceName => $instance) {
+			if (isset(self::$dependencies[$instanceName]) && !empty(self::$dependencies[$instanceName])) {
+				forEach (self::$dependencies[$instanceName] as $injection) {
+					list($injectObject, $injectVariable) = $injection;
+					$injectObject->{$injectVariable} = $instance;
+				}
+				unset(self::$dependencies[$instanceName]);
+			}
+		}
+	}
+
+	public static function getMissingDependencyNames() {
+		return array_keys(self::$dependencies);
 	}
 
 	public static function importChanges($instance) {
