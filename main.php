@@ -100,6 +100,9 @@
 	require_once './core/GuildChannelCommandReply.class.php';
 	require_once './core/StructuredMessage.class.php';
 	require_once './core/LegacyController.class.php';
+	require_once './core/LegacyEventProxy.class.php';
+	require_once './core/LegacyCommandProxy.class.php';
+	require_once './core/LegacySubcommandProxy.class.php';
 	require_once './core/StopExecutionException.class.php';
 	require_once './core/SQLException.class.php';
 
