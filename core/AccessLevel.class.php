@@ -29,10 +29,10 @@ class AccessLevel extends Annotation {
 	public $alts;
 
 	/**
-	 * @name: checkAccess
-	 * @param: $sender - the name of the person you want to check access on
-	 * @param: $accessLevel - can be one of: superadmin, admininistrator, moderator, raidleader, guild, member, all
-	 * @returns: true if $sender has at least $accessLevel, false otherwise
+	 * @name checkAccess
+	 * @param string $sender - the name of the person you want to check access on
+	 * @param string $accessLevel - can be one of: superadmin, admininistrator, moderator, raidleader, guild, member, all
+	 * @return bool true if $sender has at least $accessLevel, false otherwise
 	 */
 	public function checkAccess($sender, $accessLevel) {
 		$this->logger->log("DEBUG", "Checking access level '$accessLevel' against character '$sender'");
