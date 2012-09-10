@@ -47,6 +47,8 @@ templates:
 #			filename: robots.txt
 #			template: robots.txt.latte
 
-#options:
+options:
 #	elementDetailsCollapsed: Yes
 #	elementsOrder: natural # alphabetical
+	extensions:
+		helpers.php
