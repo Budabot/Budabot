@@ -23,25 +23,55 @@ Or:
 }}}
 {/if}
 
-{* Print class's methods *}
-{if $class->ownMethods}
-==Methods summary==
-{foreach $class->ownMethods as $method}
-{var $annotations = $method->annotations}
-{block|strip|trim}
-||
 
-{* Print method's signature title *}
-<h3>{block|strip}
-{ifset $annotations['return']}{!$annotations['return'][0]|typeLinks:$method}{/ifset}
+{* Define method's signature return value *}
+{define #methodSignatureReturn}{block|strip|trim}
+{ifset $method->annotations['return']}{!$method->annotations['return'][0]|typeLinks:$method}{else}null{/ifset}
 {if $method->returnsReference()}&amp;{/if}
-{$method->name} (
+{/block}{/define}
+
+
+{* Define method's signature parameters *}
+{define #methodSignatureParams}{block|strip|trim}
+(
 {foreach $method->parameters as $parameter}
 {!$parameter->typeHint|typeLinks:$method}
 <var>{if $parameter->passedByReference}&amp; {/if}${$parameter->name}</var>{if $parameter->defaultValueAvailable} = {!$parameter->defaultValueDefinition|highlightPHP:$class}{elseif $parameter->unlimited},…{/if}{sep}, {/sep}
 {/foreach}
-) _{if !$class->interface && $method->abstract}abstract{elseif $method->final}final{/if} {if $method->protected}protected{elseif $method->private}private{/if} {if $method->static}static{/if}_
-{/block}</h3>
+)
+{/block}{/define}
+
+
+{* Define method's signature *}
+{define #methodSignature}{block|strip|trim}
+{include #methodSignatureReturn, method => $method} {$method->name} {include #methodSignatureParams, method => $method}
+{/block}{/define}
+
+
+{* Define method's anchor link *}
+{define #methodAnchor}{block|replace:"<var>":" "|replace:"</var>":" "|replace:"  ":" "|replace:" ":"_"|truncate:63:""}
+{include #methodSignature, method => $method}{/block}{/define}
+
+
+{* Print class's method list *}
+{if $class->ownMethods}
+==Methods==
+{foreach $class->ownMethods as $method}
+    * {include #methodSignatureReturn, method => $method} [#{include #methodAnchor, method => $method} {$method->name}] {include #methodSignatureParams, method => $method}
+{/foreach}
+{/if}
+{* End of method list *}
+
+
+{* Print class's methods *}
+{if $class->ownMethods}
+==Methods Documentation==
+{foreach $class->ownMethods as $method}
+{var $annotations = $method->annotations}
+
+{* Print method's signature title *}
+==={include #methodSignature, method => $method}===
+
 
 {* Print method's description *}
 {!$method|shortDescription:true}
@@ -75,8 +105,9 @@ Or:
 {/foreach}
 </div>
 {/foreach}
-||
-{/block}
+
+
+
 {/foreach}
 {/if}
 {* End of methods *}
@@ -131,12 +162,13 @@ Or:
 {if empty($properties) == false}
 ==Properties summary==
 {foreach $properties as $property}
-	{var $annotations = $property->annotations}
+{var $annotations = $property->annotations}
 
-	<td class="attributes"><code>
-		{if $property->protected}protected{elseif $property->private}private{else}public{/if} {if $property->static}static{/if} {if $property->readOnly}read-only{elseif $property->writeOnly}write-only{/if}
-		{!$property->typeHint|typeLinks:$property}
-	</code></td>
+
+{if $property->protected}protected{elseif $property->private}private{else}public{/if} {if $property->static}static{/if} {if $property->readOnly}read-only{elseif $property->writeOnly}write-only{/if}
+{!$property->typeHint|typeLinks:$property}
+<var>${$property->name}</var> = {!$property->defaultValueDefinition}
+
 
 	<td class="name">
 		{if $class->internal}
