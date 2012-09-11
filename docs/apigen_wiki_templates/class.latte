@@ -23,10 +23,18 @@ Or:
 }}}
 {/if}
 
+{* Print class's member variable list *}
+{var $properties = filterOutLogger(filterOutInjects($class->ownProperties))}
+{if empty($properties) == false}
+==Variables==
+{foreach $properties as $property}
+    * {!$property->typeHint|typeLinks:$property} [#{block|titleToAnchor}Variable ${$property->name}{/block} ${$property->name}] {if $property->static}_`[static`]_{/if}
+{/foreach}
+{/if}
 
 {* Define method's signature return value *}
 {define #methodSignatureReturn}{block|strip|trim}
-{ifset $method->annotations['return']}{!$method->annotations['return'][0]|typeLinks:$method}{else}null{/ifset}
+{ifset $method->annotations['return']}{!$method->annotations['return'][0]|typeLinks:$method}{else}mixed{/ifset}
 {if $method->returnsReference()}&amp;{/if}
 {/block}{/define}
 
@@ -58,8 +66,43 @@ Or:
 {* End of method list *}
 
 
+{* Print class's member variables, TODO: Not adjusted yet for wiki printing! *}
+{if empty($properties) == false}
+----
+==Variables Documentation==
+{foreach $properties as $property}
+{var $annotations = $property->annotations}
+===Variable ${$property->name}===
+
+{!$property|longDescription}
+
+<h4>Type</h4>
+    {!$property->typeHint|typeLinks:$property}
+
+{if $property->defaultValueDefinition}
+<h4>Default Value</h4>
+{{{
+{!$property->defaultValueDefinition}
+}}}
+{/if}
+
+{foreach $template->annotationSort($template->annotationFilter($annotations, array('var'))) as $annotation => $descriptions}
+<h4>{$annotation|annotationBeautify}</h4>
+{foreach $descriptions as $description}
+{if $description}
+    {!$description|annotation:$annotation:$property}<br>
+{/if}
+{/foreach}
+{/foreach}
+{/foreach}
+{/if}
+{/if}
+{* End of member variables *}
+
+
 {* Print class's methods *}
 {if $class->ownMethods}
+----
 ==Methods Documentation==
 {foreach $class->ownMethods as $method}
 {var $annotations = $method->annotations}
@@ -150,53 +193,5 @@ Or:
 </tr>
 </table>
 {* End of constants *}
-
-
-{* Print class's properties, TODO: Not adjusted yet for wiki printing! *}
-{var $properties = filterOutLogger(filterOutInjects($class->ownProperties))}
-{if empty($properties) == false}
-==Properties summary==
-{foreach $properties as $property}
-{var $annotations = $property->annotations}
-
-
-{if $property->protected}protected{elseif $property->private}private{else}public{/if} {if $property->static}static{/if} {if $property->readOnly}read-only{elseif $property->writeOnly}write-only{/if}
-{!$property->typeHint|typeLinks:$property}
-<var>${$property->name}</var> = {!$property->defaultValueDefinition}
-
-
-	<td class="name">
-		{if $class->internal}
-			<a href="{$property|manualUrl}" title="Go to PHP documentation"><var>${$property->name}</var></a>
-		{else}
-			<a n:tag-if="$config->sourceCode" href="{$property|sourceUrl}" title="Go to source code"><var>${$property->name}</var></a>
-		{/if}
-	</td>
-	<td class="value"><code>{!$property->defaultValueDefinition|highlightValue:$class}</code></td>
-	<td class="description"><div>
-		<a href="#${$property->name}" class="anchor">#</a>
-
-		<div class="description short">
-			{!$property|shortDescription:true}
-		</div>
-
-		<div n:class="description, detailed">
-			{!$property|longDescription}
-
-			{foreach $template->annotationSort($template->annotationFilter($annotations, array('var'))) as $annotation => $descriptions}
-				<h4>{$annotation|annotationBeautify}</h4>
-				<div class="list">
-				{foreach $descriptions as $description}
-					{if $description}
-						{!$description|annotation:$annotation:$property}<br>
-					{/if}
-				{/foreach}
-				</div>
-			{/foreach}
-		</div>
-	</div></td>
-{/foreach}
-{/if}
-{/if}
 
 
