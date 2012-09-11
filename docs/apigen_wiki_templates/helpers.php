@@ -33,6 +33,22 @@ class Helpers implements ApiGen\IHelperSet {
 		}
 		return "";
 	}
+	
+	/**
+	 * Converts given $title text to anchor text.
+	 *
+	 * @param string $title title text
+	 * @return string
+	 */
+	public static function titleToAnchor($title) {
+		// algorithm found by trial and error (unit tests pls!)
+		$title = preg_replace('/<[^>]+>/', ' ', $title);
+		$title = str_replace('  ', ' ', $title);
+		$title = substr($title, 0, 64);
+		$title = trim($title);
+		$title = str_replace(' ', '_', $title);
+		return $title;
+	}
 }
 
 function filterOutInjects($properties) {

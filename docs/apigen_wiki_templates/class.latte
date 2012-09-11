@@ -48,16 +48,11 @@ Or:
 {/block}{/define}
 
 
-{* Define method's anchor link *}
-{define #methodAnchor}{block|replace:"<var>":" "|replace:"</var>":" "|replace:"  ":" "|replace:" ":"_"|truncate:63:""}
-{include #methodSignature, method => $method}{/block}{/define}
-
-
 {* Print class's method list *}
 {if $class->ownMethods}
 ==Methods==
 {foreach $class->ownMethods as $method}
-    * {include #methodSignatureReturn, method => $method} [#{include #methodAnchor, method => $method} {$method->name}] {include #methodSignatureParams, method => $method}
+    * {include #methodSignatureReturn, method => $method} [#{block|titleToAnchor}{include #methodSignature, method => $method}{/block} {$method->name}] {include #methodSignatureParams, method => $method}
 {/foreach}
 {/if}
 {* End of method list *}
