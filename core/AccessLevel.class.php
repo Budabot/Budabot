@@ -163,9 +163,9 @@ class AccessLevel extends Annotation {
 	}
 
 	/**
-	 * @description: Returns a positive number if $accessLevel1 is a greater access level than $accessLevel2,
-	 *               a negative number if $accessLevel1 is a lesser access level than $accessLevel2,
-	 *               and 0 if the access levels are equal.
+	 * Returns a positive number if $accessLevel1 is a greater access level than $accessLevel2,
+	 * a negative number if $accessLevel1 is a lesser access level than $accessLevel2,
+	 * and 0 if the access levels are equal.
 	 */
 	public function compareAccessLevels($accessLevel1, $accessLevel2) {
 		$accessLevel1 = $this->normalizeAccessLevel($accessLevel1);
