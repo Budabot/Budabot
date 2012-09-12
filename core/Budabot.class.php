@@ -300,7 +300,7 @@ class Budabot extends AOChat {
 				while (false !== ($file = $d->read())) {
 					// filters out ., .., .svn
 					if (!is_dir($file) && preg_match("/\\.php$/i", $file)) {
-						require "{$baseDir}/{$MODULE_NAME}/{$file}";
+						require_once "{$baseDir}/{$MODULE_NAME}/{$file}";
 					}
 				}
 				$d->close();
