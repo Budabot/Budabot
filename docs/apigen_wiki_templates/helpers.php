@@ -49,6 +49,42 @@ class Helpers implements ApiGen\IHelperSet {
 		$title = str_replace(' ', '_', $title);
 		return $title;
 	}
+	
+	/**
+	 * Extracts description from @param annotation.
+	 *
+	 * @param string $paramAnnotation annotation
+	 * @return string
+	 */
+	public static function getParamDescription($paramAnnotation) {
+		if (preg_match('/- (.*)$/', $paramAnnotation, $matches)) {
+			return $matches[1];
+		}
+		return '';
+	}
+
+	/**
+	 * Extracts description from @return annotation.
+	 *
+	 * @param string $returnAnnotation annotation
+	 * @return string
+	 */
+	public static function getReturnDescription($returnAnnotation) {
+		if (preg_match('/(\s+)(.*)$/', $returnAnnotation, $matches)) {
+			return $matches[2];
+		}
+		return '';
+	}
+	
+	/**
+	 * Attempts to collpase multiple empty new lines to one new line.
+	 *
+	 * @param string $contents data to collapse
+	 * @return string
+	 */
+	public static function collapseExtraNewLines($contents) {
+		return preg_replace("/[\\n]{3,}/", "\n", $contents);
+	}
 }
 
 function filterOutInjects($properties) {
