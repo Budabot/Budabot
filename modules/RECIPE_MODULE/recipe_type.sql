@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS `type`;
+CREATE TABLE `type` (  `type_id` INT PRIMARY KEY AUTOINCREMENT,  `type_name` text NOT NULL,  `type_visible` int(11) NOT NULL DEFAULT '0');
+INSERT INTO `type` VALUES (1,'Tools',1);
+INSERT INTO `type` VALUES (2,'Armors',1);
+INSERT INTO `type` VALUES (3,'Weapons',1);
+INSERT INTO `type` VALUES (4,'Medical',1);
+INSERT INTO `type` VALUES (5,'Quests',1);
+INSERT INTO `type` VALUES (6,'Aucune',0);
+INSERT INTO `type` VALUES (7,'Standard Weapon',0);
+INSERT INTO `type` VALUES (8,'Construction Kits',1);
