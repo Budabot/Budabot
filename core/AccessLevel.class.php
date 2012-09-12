@@ -29,7 +29,41 @@ class AccessLevel extends Annotation {
 	public $alts;
 
 	/**
-	 * @name checkAccess
+	 * This method checks if given $sender has at least $accessLevel rights.
+	 *
+	 * Normally, you don't have to worry about access levels in the bot.
+	 * The bot will automatically restrict access to commands based on the
+	 * access level setting on the command and the access level of the user
+	 * trying to access the command.
+	 * 
+	 * However, there are some cases where you may need this functionality.
+	 * For instance, you may have a command that displays the names of the last
+	 * ten people to send a tell to the bot.  You may wish to display a "ban"
+	 * link when a moderator or higher uses that command.
+	 * 
+	 * The $accessLevel is any one of: superadmin, admininistrator, moderator,
+	 * raidleader, guildadmin, leader, guild, member, or all.
+	 * 
+	 * To check if a player named 'Tyrence' has raidleader access,
+	 * you would do:
+	 * 
+	 * <code>
+	 * if ($this->accessLevel->checkAccess("Tyrence", "raidleader")) {
+	 *    // Tyrence has [at least] raidleader access level
+	 * } else {
+	 *    // Tyrence does not have raidleader access level
+	 * }
+	 * </code>
+	 * 
+	 * Note that this will return true if 'Tyrence' is a raidleader on your
+	 * bot, but also if he is anything higher, such as moderator,
+	 * administrator, or superadmin.
+	 *
+	 * If the setting 'alts_inherit_admin' is enabled, this command will return
+	 * the character's "effective" admin level - Not necessarily that
+	 * character's set access level, but the access level inherited from its
+	 * main (if it has one).
+	 * 
 	 * @param string $sender - the name of the person you want to check access on
 	 * @param string $accessLevel - can be one of: superadmin, admininistrator, moderator, raidleader, guild, member, all
 	 * @return bool true if $sender has at least $accessLevel, false otherwise

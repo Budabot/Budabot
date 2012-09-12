@@ -9,7 +9,7 @@
 {if $class->valid}
 
 {* Print class's description *}
-{!$class|longDescription|striptags}
+{!$class->getLongDescription()}
 
 {* Print instructions of how this class's instance can be @Inject-ed to module *}
 {if $class|getInstanceName}
@@ -113,7 +113,7 @@ Or:
 
 
 {* Print method's description *}
-{!$method|longDescription}
+{!$method->getLongDescription()}
 
 {* Print information of method's parameters *}
 {if $method->parameters && isset($annotations['param'])}
