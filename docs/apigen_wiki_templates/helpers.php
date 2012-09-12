@@ -83,7 +83,7 @@ class Helpers implements ApiGen\IHelperSet {
 	 * @return string
 	 */
 	public static function collapseExtraNewLines($contents) {
-		return preg_replace("/[\\n]{3,}/", "\n", $contents);
+		return preg_replace("/[\\n]{3,}/", "\n\n", $contents);
 	}
 }
 
