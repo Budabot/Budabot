@@ -22,6 +22,12 @@ interface ItemsAPI {
  *		help        = 'items.txt'
  *	)
  *	@DefineCommand(
+ *		command     = 'itemid',
+ *		accessLevel = 'all',
+ *		description = 'Searches for an item by id',
+ *		help        = 'items.txt'
+ *	)
+ *	@DefineCommand(
  *		command     = 'updateitems',
  *		accessLevel = 'guild',
  *		description = 'Downloads the latest version of the items db',
@@ -81,6 +87,27 @@ class ItemsController implements ItemsAPI {
 		$search = htmlspecialchars_decode($search);
 		$msg = $this->find_items_from_local($search, $ql);
 		$sendto->reply($msg);
+	}
+	
+	/**
+	 * This command handler searches for an item by id.
+	 *
+	 * @HandlesCommand("itemid")
+	 * @Matches("/^itemid ([0-9]+)$/i")
+	 */
+	public function itemIdCommand($message, $channel, $sender, $sendto, $args) {
+		$id = $args[1];
+
+		$sql = "SELECT * FROM aodb WHERE lowid = ? OR highid = ? ORDER BY `name` ASC, highql DESC LIMIT 0, " . $this->setting->get("maxitems");
+		$data = $this->db->query($sql, $id, $id);
+		$num = count($data);
+		if ($num == 0) {
+			$output = "No item found with id <highlight>$id<end>.";
+		} else {
+			$output = trim($this->formatSearchResults($data, $ql, false));
+		}
+
+		$sendto->reply($output);
 	}
 
 	/**

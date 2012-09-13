@@ -4,9 +4,15 @@
 <highlight>To search for an specific QL of an item:<end>
 <tab><symbol>items 'Insert QL here' 'Insert itemname here'
 
+<highlight>To search for an item by id:<end>
+<tab><symbol>itemid 'id'
+
 <highlight>For example:<end>
 <tab><symbol>items first tier nano
 <tab>Shows the First tier Armor for the Nano-Technician
 
 <tab><symbol>items 133 first tier nano
 <tab>Shows the First tier Armor for the Nano-Technician QL133
+
+<tab><symbol>itemid 244718
+<tab>Shows Burden of Competence
