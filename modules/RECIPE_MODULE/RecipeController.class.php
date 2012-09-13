@@ -36,7 +36,6 @@ class RecipeController {
 
 	/** @Setup */
 	public function setup() {
-		$this->db->loadSQLFile($this->moduleName, "itemsdb");
 		$this->db->loadSQLFile($this->moduleName, "recipes");
 		$this->db->loadSQLFile($this->moduleName, "recipe_items");
 		$this->db->loadSQLFile($this->moduleName, "recipe_type");
@@ -111,24 +110,41 @@ class RecipeController {
 	 * @Matches("/^recipe (.+)$/i")
 	 */
 	public function recipeSearchCommand($message, $channel, $sender, $sendto, $args) {
-		$search = strtolower($args[1]);
-		
-		$results = $this->db->query("SELECT * FROM recipes WHERE recipe_text like ? AND recipe_type != '8'", "%{$search}%");
-		$count = count($results);
+		if (preg_match('/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/', $args[1], $itemValues)) {
+			$lowId = $itemValues[1];
+			$itemName = $itemValues[4];
+			
+			$results = $this->db->query("SELECT r1.recipe_id, r1.recipe_name FROM recipes r1 JOIN recipe_items r2 ON r1.recipe_id = r2.recipe_id WHERE r2.item_id = ?", $lowId);
+			$count = count($results);
 
-		if ($count > 0) {
-			$blob = '';
-		
-			forEach ($results as $row) {
-				$blob .= $this->text->make_chatcmd($row->recipe_name, "/tell <myname> rshow $row->recipe_id") . "\n";
+			if (count($results) == 0) {
+				$output = "This item is not used in any known recipe.";
+			} else {
+				$blob = $this->makeRecipeSearchBlob($results);
+				$output = $this->text->make_blob("Recipes matching '{$itemName}' ($count)", $blob);
 			}
-		
-			$output = $this->text->make_blob("Recipes matching '$search' ($count)", $blob);
-		
 		} else {
-			$output = "There were no matches for your search.";
+			$search = strtolower($args[1]);
+			
+			$results = $this->db->query("SELECT * FROM recipes WHERE recipe_text like ? AND recipe_type != '8'", "%{$search}%");
+			$count = count($results);
+
+			if ($count > 0) {
+				$blob = $this->makeRecipeSearchBlob($results);
+				$output = $this->text->make_blob("Recipes matching '$search' ($count)", $blob);
+			} else {
+				$output = "There were no matches for your search.";
+			}
 		}
 		$sendto->reply($output);
+	}
+	
+	private function makeRecipeSearchBlob($results) {
+		$blob = '';
+		forEach ($results as $row) {
+			$blob .= $this->text->make_chatcmd($row->recipe_name, "/tell <myname> rshow $row->recipe_id") . "\n";
+		}
+		return $blob;
 	}
 }
 
