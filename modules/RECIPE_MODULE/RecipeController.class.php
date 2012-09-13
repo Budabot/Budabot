@@ -58,9 +58,10 @@ class RecipeController {
 			$recipe_name = $row->recipe_name;
 			
 			$recipe_text = $row->recipe_text;
-			$recipe_text = str_replace("\\r\\n", "\n", $recipe_text);
-			$recipe_text = ereg_replace("#C([0-9]+)","[16,\\1]",$recipe_text);
-			$recipe_text = ereg_replace('#L "([^"]+)" "([0-9]+)"','#L "\\1" "/tell <myname> ishow \\2"',$recipe_text);
+			$recipe_text = str_replace("\\n", "\n", $recipe_text);
+			$recipe_text = preg_replace("/#C([0-9]+)/", "[16,\\1]", $recipe_text);
+			$recipe_text = preg_replace('/#L "([^"]+)" "([0-9]+)"/', '#L "\\1" "/tell <myname> itemid \\2"', $recipe_text);
+			$recipe_text = preg_replace('/#L "([^"]+)" "([^"]+)"/', "<a href='chatcmd://\\2'>\\1</a>", $recipe_text);
 
 			$recipe_text = str_replace("[16,1]", "<font color=#FFFFFF>",
 				str_replace("[16,2]", "</font><font color=#FFFFFF>",
@@ -95,8 +96,6 @@ class RecipeController {
 				str_replace("[16,31]","</font><font color=#FFFFFF>",
 				str_replace("[17]",chr(17),
 				str_replace("[18]",chr(18),$recipe_text)))))))))))))))))))))))))))))))));
-	
-			$recipe_text = ereg_replace('#L "([^"]+)" "([^"]+)"',"<a href='chatcmd://\\2'>\\1</a>",$recipe_text);
 
 			$output = $this->text->make_blob("Recipe for $recipe_name", $recipe_text);
 		}
