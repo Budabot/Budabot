@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @Instance
+ */
 class CommandSearchView {
 
 	/** @Inject */

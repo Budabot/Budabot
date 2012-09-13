@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * @Instance
+ *
  * Commands this controller contains:
  *	@DefineCommand(
  *		command       = 'cmdsearch',
