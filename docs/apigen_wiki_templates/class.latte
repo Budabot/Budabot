@@ -12,7 +12,7 @@
 {!$class->getLongDescription()}
 
 {* Print instructions of how this class's instance can be @Inject-ed to module *}
-{if $class|getInstanceName}
+{if Helpers::getInstanceName($class)}
 {{{
 There is an instance of this class with name '{$class|getInstanceName}' available.
 You can include it into a module via injection:
@@ -147,49 +147,7 @@ Or:
 {/if}
 {* End of methods *}
 
-{* Print class's constants, TODO: Not adjusted yet for wiki printing! *}
-{var $ownConstants = $class->ownConstants}
-<table class="summary" id="constants" n:if="$ownConstants">
-<caption>Constants summary</caption>
-<tr n:foreach="$ownConstants as $constant" data-order="{$constant->name}" id="{$constant->name}">
-	{var $annotations = $constant->annotations}
 
-	<td class="attributes"><code>
-		{ifset $annotations['var']}{!$annotations['var'][0]|typeLinks:$constant}{else}{$constant->value|type}{/ifset}
-	</code></td>
-	<td class="name"><code>
-		{if $class->internal}
-			<a href="{$constant|manualUrl}" title="Go to PHP documentation"><b>{$constant->name}</b></a>
-		{else}
-			<a n:tag-if="$config->sourceCode" href="{$constant|sourceUrl}" title="Go to source code"><b>{$constant->name}</b></a>
-		{/if}
-	</code></td>
-	<td class="value"><code>{!$constant->valueDefinition|highlightValue:$class}</code></td>
-	<td class="description"><div>
-		<a href="#{$constant->name}" class="anchor">#</a>
-
-		<div class="description short">
-			{!$constant|shortDescription:true}
-		</div>
-
-		<div n:class="description, detailed">
-			{!$constant|longDescription}
-
-			{foreach $template->annotationSort($template->annotationFilter($annotations, array('var'))) as $annotation => $descriptions}
-				<h4>{$annotation|annotationBeautify}</h4>
-				<div class="list">
-				{foreach $descriptions as $description}
-					{if $description}
-						{!$description|annotation:$annotation:$constant}<br>
-					{/if}
-				{/foreach}
-				</div>
-			{/foreach}
-		</div>
-	</div></td>
-</tr>
-</table>
-{* End of constants *}
 {/block}
 <br/>
 ----

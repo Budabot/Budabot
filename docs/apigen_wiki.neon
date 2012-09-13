@@ -1,20 +1,20 @@
 # Source file or directory to parse
 source:
-#	- ../core/DB.class.php
-#	- ../core/CommandManager.class.php
-#	- ../core/Subcommand.class.php
-#	- ../core/CommandAlias.class.php
-#	- ../core/EventManager.class.php
-#	- ../core/Help.class.php
-#	- ../core/Setting.class.php
-#	- ../core/BuddylistManager.class.php
-#	- ../core/Ban.class.php
+	- ../core/DB.class.php
+	- ../core/CommandManager.class.php
+	- ../core/Subcommand.class.php
+	- ../core/CommandAlias.class.php
+	- ../core/EventManager.class.php
+	- ../core/Help.class.php
+	- ../core/Setting.class.php
+	- ../core/BuddylistManager.class.php
+	- ../core/Ban.class.php
 	- ../core/AccessLevel.class.php
-#	- ../core/Admin.class.php
-#	- ../core/Playfields.class.php
-#	- ../core/Text.class.php
-#	- ../core/Util.class.php
-#	- ../core/Budabot.class.php
+	- ../core/Admin.class.php
+	- ../core/Playfields.class.php
+	- ../core/Text.class.php
+	- ../core/Util.class.php
+	- ../core/Budabot.class.php
 #	- ../core/ALTS/Alts.interface.php
 #	- ../modules/ITEMS_MODULE/ItemsController.class.php
 
