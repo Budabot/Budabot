@@ -112,9 +112,10 @@ class RecipeController {
 	public function recipeSearchCommand($message, $channel, $sender, $sendto, $args) {
 		if (preg_match('/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/', $args[1], $itemValues)) {
 			$lowId = $itemValues[1];
+			$highId = $itemValues[2];
 			$itemName = $itemValues[4];
 			
-			$results = $this->db->query("SELECT r1.recipe_id, r1.recipe_name FROM recipes r1 JOIN recipe_items r2 ON r1.recipe_id = r2.recipe_id WHERE r2.item_id = ?", $lowId);
+			$results = $this->db->query("SELECT r1.recipe_id, r1.recipe_name FROM recipes r1 JOIN recipe_items r2 ON r1.recipe_id = r2.recipe_id WHERE r2.item_id = ? OR r2.item_id = ?", $lowId, $highId);
 			$count = count($results);
 
 			if (count($results) == 0) {
