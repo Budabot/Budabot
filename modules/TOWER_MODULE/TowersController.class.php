@@ -150,7 +150,7 @@ class TowerController {
 	 * This command handler shows the last tower attack messages.
 	 *
 	 * @HandlesCommand("attacks")
-	 * @Matches("/^attacks (\\d+)$/i")
+	 * @Matches("/^attacks (\d+)$/i")
 	 * @Matches("/^attacks$/i")
 	 */
 	public function attacksCommand($message, $channel, $sender, $sendto, $args) {
@@ -162,8 +162,8 @@ class TowerController {
 	 * and optionally by page.
 	 *
 	 * @HandlesCommand("attacks")
-	 * @Matches("/^attacks ([a-z0-9]+) (\\d+) (\\d+)$/i")
-	 * @Matches("/^attacks ([a-z0-9]+) (\\d+)$/i")
+	 * @Matches("/^attacks (?!org|player)([a-z0-9]+) (\d+) (\d+)$/i")
+	 * @Matches("/^attacks (?!org|player)([a-z0-9]+) (\d+)$/i")
 	 */
 	public function attacks2Command($message, $channel, $sender, $sendto, $args) {
 		$playfield = $this->playfields->get_playfield_by_name($args[1]);
@@ -190,7 +190,7 @@ class TowerController {
 	 * org has been an attacker or defender.
 	 *
 	 * @HandlesCommand("attacks")
-	 * @Matches("/^attacks org (.+) (\\d+)$/i")
+	 * @Matches("/^attacks org (.+) (\d+)$/i")
 	 * @Matches("/^attacks org (.+)$/i")
 	 */
 	public function attacksOrgCommand($message, $channel, $sender, $sendto, $args) {
@@ -205,7 +205,7 @@ class TowerController {
 	 * player has been as attacker.
 	 *
 	 * @HandlesCommand("attacks")
-	 * @Matches("/^attacks player (.+) (\\d+)$/i")
+	 * @Matches("/^attacks player (.+) (\d+)$/i")
 	 * @Matches("/^attacks player (.+)$/i")
 	 */
 	public function attacksPlayerCommand($message, $channel, $sender, $sendto, $args) {
@@ -303,12 +303,11 @@ class TowerController {
 	 * @Matches("/^lc$/i")
 	 */
 	public function lcCommand($message, $channel, $sender, $sendto, $args) {
-		$playfields = $this->playfields;
 		$sql = "SELECT * FROM playfields WHERE `id` IN (SELECT DISTINCT `playfield_id` FROM tower_site) ORDER BY `short_name`";
 		$data = $this->db->query($sql);
 
 		$blob = '';
-		forEach (data as $row) {
+		forEach ($data as $row) {
 			$baseLink = $this->text->make_chatcmd($row->long_name, "/tell <myname> lc $row->short_name");
 			$blob .= "$baseLink <highlight>($row->short_name)<end>\n";
 		}
@@ -684,7 +683,7 @@ class TowerController {
 	 * This command handler shows the last tower battle results.
 	 *
 	 * @HandlesCommand("victory")
-	 * @Matches("/^victory (\\d+)$/i")
+	 * @Matches("/^victory (\d+)$/i")
 	 * @Matches("/^victory$/i")
 	 */
 	public function victoryCommand($message, $channel, $sender, $sendto, $args) {
@@ -695,8 +694,8 @@ class TowerController {
 	 * This command handler shows the last tower battle results.
 	 *
 	 * @HandlesCommand("victory")
-	 * @Matches("/^victory ([a-z0-9]+) (\\d+) (\\d+)$/i")
-	 * @Matches("/^victory ([a-z0-9]+) (\\d+)$/i")
+	 * @Matches("/^victory (?!org|player)([a-z0-9]+) (\d+) (\d+)$/i")
+	 * @Matches("/^victory (?!org|player)([a-z0-9]+) (\d+)$/i")
 	 */
 	public function victory2Command($message, $channel, $sender, $sendto, $args) {
 		$playfield = $this->playfields->get_playfield_by_name($args[1]);
@@ -722,7 +721,7 @@ class TowerController {
 	 * This command handler shows the last tower battle results.
 	 *
 	 * @HandlesCommand("victory")
-	 * @Matches("/^victory org (.+) (\\d+)$/i")
+	 * @Matches("/^victory org (.+) (\d+)$/i")
 	 * @Matches("/^victory org (.+)$/i")
 	 */
 	public function victoryOrgCommand($message, $channel, $sender, $sendto, $args) {
@@ -736,7 +735,7 @@ class TowerController {
 	 * This command handler shows the last tower battle results.
 	 *
 	 * @HandlesCommand("victory")
-	 * @Matches("/^victory player (.+) (\\d+)$/i")
+	 * @Matches("/^victory player (.+) (\d+)$/i")
 	 * @Matches("/^victory player (.+)$/i")
 	 */
 	public function victoryPlayerCommand($message, $channel, $sender, $sendto, $args) {
