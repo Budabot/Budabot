@@ -696,16 +696,11 @@ class Budabot extends AOChat {
 		}
 
 		if ($this->setting->get('spam_protection') == 1) {
-			if ($this->spam[$sender] == 40) $this->send("Error! Your client is sending a high frequency of chat messages. Stop or be kicked.", $sender);
-			if ($this->spam[$sender] > 60) $this->privategroup_kick($sender);
-			if (strlen($args[1]) > 400){
-				$this->largespam[$sender] = $this->largespam[$sender] + 1;
-				if ($this->largespam[$sender] > 1) {
-					$this->privategroup_kick($sender);
-				}
-				if ($this->largespam[$sender] > 0) {
-					$this->send("Error! Your client is sending large chat messages. Stop or be kicked.", $sender);
-				}
+			if ($this->spam[$sender] == 40) {
+				$this->send("Error! Your client is sending a high frequency of chat messages. Stop or be kicked.", $sender);
+			}
+			if ($this->spam[$sender] > 60) {
+				$this->privategroup_kick($sender);
 			}
 		}
 

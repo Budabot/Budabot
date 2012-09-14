@@ -224,7 +224,6 @@ class SystemController {
 		// don't register, only activate these events to prevent them from appearing in !config
 		$this->eventManager->activate("1hour", "$name.refreshMySQLConnectionEvent");
 		$this->eventManager->activate("2sec", "$name.reduceSpamValuesEvent");
-		$this->eventManager->activate("1min", "$name.reduceLargespamValuesEvent");
 		$this->eventManager->activate("connect", "$name.onConnectEvent");
 
 		global $version;
@@ -571,22 +570,6 @@ class SystemController {
 					$this->chatBot->spam[$key] = $value - 10;
 				} else {
 					$this->chatBot->spam[$key] = 0;
-				}
-			}
-		}
-	}
-
-	/**
-	 * This event handler is called every minute to reduce large spam values.
-	 * Note: This handler has not been not registered, only activated.
-	 */
-	public function reduceLargespamValuesEvent($eventObj) {
-		if (isset($this->chatBot->largespam)) {
-			forEach ($this->chatBot->largespam as $key => $value){
-				if ($value > 0) {
-					$this->chatBot->largespam[$key] = $value - 1;
-				} else {
-					$this->chatBot->largespam[$key] = 0;
 				}
 			}
 		}
