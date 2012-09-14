@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS `recipe_items`;
-CREATE TABLE `recipe_items` (  `item_id` INT NOT NULL DEFAULT '0',  `recipe_id` INT NOT NULL DEFAULT '0',  PRIMARY KEY (`item_id`,`recipe_id`));
+CREATE TABLE `recipe_items` (`item_id` INT NOT NULL, `recipe_id` INT NOT NULL, PRIMARY KEY (`item_id`,`recipe_id`));
 INSERT INTO `recipe_items` VALUES (21601,32);
 INSERT INTO `recipe_items` VALUES (21793,16);
 INSERT INTO `recipe_items` VALUES (21801,16);
