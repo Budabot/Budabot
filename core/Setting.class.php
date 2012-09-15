@@ -51,6 +51,8 @@ class Setting extends Annotation {
 
 	public $settings = array();
 
+	private $changeListeners = array();
+
 	/**
 	 * @name: add
 	 * @param: $module - the module name
@@ -124,7 +126,16 @@ class Setting extends Annotation {
 
 		if (array_key_exists($name, $this->settings)) {
 			$this->db->exec("UPDATE settings_<myname> SET `verify` = 1, `value` = ? WHERE `name` = ?", $value, $name);
-			$this->settings[$name] = $value;
+
+			if ($this->settings[$name] !== $value) {
+				$this->settings[$name] = $value;
+				// notify any listeners
+				if (isset($this->changeListeners[$name])) {
+					forEach ($this->changeListeners[$name] as $listener) {
+						call_user_func($listener->callback, $value, $listener->data);
+					}
+				}
+			}
 			return true;
 		} else {
 			$this->logger->log("ERROR", "Could not save value '$value' for setting '$name' because setting does not exist");
@@ -156,6 +167,38 @@ class Setting extends Annotation {
 		forEach ($data as $row) {
 			$this->settings[$row->name] = $row->value;
 		}
+	}
+
+	/**
+	 * Adds listener callback which will be called if given $settingName changes.
+	 *
+	 * The callback has following signature:
+	 * <code>function callback($value, $data)</code>
+	 * $value: new value of the setting
+	 * $data:  optional data variable given on register
+	 *
+	 * Example usage:
+	 * <code>
+	 *	$this->setting->registerChangeListener("some_setting_name", function($value) {
+	 *		// ...
+	 *	} );
+	 * </code>
+	 *
+	 * @param string   $settingName changed setting's name 
+	 * @param callback $callback    the callback function to call
+	 * $param mixed    $data        any data which will be passed to to the callback (optional)
+	 */
+	public function registerChangeListener($settingName, $callback, $data) {
+		if (!is_callable($callback)) {
+			$this->logger->log('ERROR', 'Given callback is not valid.');
+			return;
+		}
+		$settingName = strtolower($settingName);
+
+		$listener = new StdClass();
+		$listener->callback = $callback;
+		$listener->data = $data;
+		$this->changeListeners[$settingName] []= $listener;
 	}
 }
 
