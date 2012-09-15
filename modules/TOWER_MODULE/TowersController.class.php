@@ -1,6 +1,6 @@
 <?php
 /**
- * @Instance
+ * @Instance("towers")
  *
  * Commands this controller contains:
  *	@DefineCommand(
@@ -93,6 +93,8 @@ class TowerController {
 	const COLOR_LABEL = "<font color=#00DE42>";
 	const COLOR_VALUE = "<font color=#63AD63>";
 
+	private $attackListeners = array();
+
 	/**
 	 * @Setting("tower_attack_spam")
 	 * @Description("Layout types when displaying tower attacks")
@@ -135,6 +137,20 @@ class TowerController {
 	 * @AccessLevel("mod")
 	 */
 	public $defaultTowerPageSize = "15";
+
+	/**
+	 * Adds listener callback which will be called when tower attacks occur.
+	 */
+	public function registerAttackListener($callback, $data = null) {
+		if (!is_callable($callback)) {
+			$this->logger->log('ERROR', 'Given callback is not valid.');
+			return;
+		}
+		$listener = new StdClass();
+		$listener->callback = $callback;
+		$listener->data = $data;
+		$this->attackListeners []= $listener;
+	}
 
 	/**
 	 * @Setup
@@ -752,8 +768,6 @@ class TowerController {
 	 * @Description("Record attack messages")
 	 */
 	public function attackMessagesEvent($eventObj) {
-		$playfields = $this->playfields;
-		
 		if (preg_match("/^The (Clan|Neutral|Omni) organization (.+) just entered a state of war! (.+) attacked the (Clan|Neutral|Omni) organization (.+)'s tower in (.+) at location \\((\\d+),(\\d+)\\)\\.$/i", $eventObj->message, $arr)) {
 			$att_side = ucfirst(strtolower($arr[1]));  // comes across as a string instead of a reference, so convert to title case
 			$att_guild = $arr[2];
@@ -779,6 +793,7 @@ class TowerController {
 		$whois = $this->player->get_by_name($att_player);
 		if ($whois === null) {
 			$whois = new stdClass;
+			$whois->type = 'npc';
 		}
 		if (isset($att_side)) {
 			$whois->faction = $att_side;
@@ -789,8 +804,19 @@ class TowerController {
 		// in case it's not a player who causes attack message (pet, mob, etc)
 		$whois->name = $att_player;
 		
-		$playfield = $playfields->get_playfield_by_name($playfield_name);
+		$playfield = $this->playfields->get_playfield_by_name($playfield_name);
 		$closest_site = $this->get_closest_site($playfield->id, $x_coords, $y_coords);
+
+		$defender = new StdClass();
+		$defender->faction   = $def_side;
+		$defender->guild     = $def_guild;
+		$defender->playfield = $playfield;
+		$defender->site      = $closest_site;
+
+		forEach ($this->attackListeners as $listener) {
+			call_user_func($listener->callback, $whois, $defender, $listener->data);
+		}
+
 		if ($closest_site === null) {
 			$this->logger->log('error', "TowerInfo", "ERROR! Could not find closest site: ({$playfield_name}) '{$playfield->id}' '{$x_coords}' '{$y_coords}'");
 			$more = "[<red>UNKNOWN AREA!<end>]";

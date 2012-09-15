@@ -396,7 +396,7 @@ class AltsController implements AltsInterface {
 	/**
 	 * This event handler reminds players logging in to validate alts.
 	 *
-	 * @Type("logOn")
+	 * @Event("logOn")
 	 * @Description("Reminds players logging in to validate alts")
 	 */
 	public function checkUnvalidatedAltsEvent($eventObj) {
