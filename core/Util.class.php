@@ -354,6 +354,44 @@ class Util {
 		}
 		return $str;
 	}
+	
+	/**
+	 * Requests contents of given $uri and on completion calls $callback.
+	 *
+	 * Uses GET HTTP method.
+	 * 
+	 * This method is asyncronous, the execution should return immediately
+	 * from this method. The callback will be called later on when the remote
+	 * server has responded.
+	 *
+	 * You can get both HTTP and HTTPS URIs with method.
+	 *
+	 * The callback has following signature:
+	 * <code>function callback($response, $data)</code>
+	 *  * $response - Response as an object, it has properties:
+	 *                $error: error message, if any
+	 *                $headers: received HTTP headers as an array
+	 *                $body: received contents
+	 *  * $data     - optional value which is same as given as argument to
+	 *                this method.
+	 *
+	 * Example usage:
+	 * <code>
+	 * $this->util->httpGet( "http://www.google.com/", function($response) {
+	 *     print $response->body;
+	 * });
+	 * </code>
+	 *
+	 * @param string   $uri the requested URI
+	 * @param callback $callback callback which is called when response is gotten
+	 * @param mixed    $data optional parameter which will be passed to the
+	 *                 callback as second argument
+	 */
+	public function httpGet($uri, $callback, $data = null) {
+		$http = new AsyncHttp();
+		Registry::injectDependencies($http);
+		$http->execute($uri, $callback, $data);
+	}
 }
 
 ?>
