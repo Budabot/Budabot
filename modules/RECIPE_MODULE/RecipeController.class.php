@@ -117,7 +117,20 @@ class RecipeController {
 			$highId = $itemValues[2];
 			$itemName = $itemValues[4];
 			
-			$results = $this->db->query("SELECT r1.recipe_id, r1.recipe_name FROM recipes r1 JOIN recipe_items r2 ON r1.recipe_id = r2.recipe_id WHERE r2.item_id = ? OR r2.item_id = ?", $lowId, $highId);
+			$sql = "
+				SELECT
+					r1.recipe_id,
+					r1.recipe_name
+				FROM
+					recipes r1
+					JOIN recipe_items r2
+						ON r1.recipe_id = r2.recipe_id
+				WHERE
+					r2.item_id = ? OR r2.item_id = ?
+				ORDER BY
+					recipe_name ASC";
+			
+			$results = $this->db->query($sql, $lowId, $highId);
 			$count = count($results);
 
 			if (count($results) == 0) {
@@ -129,7 +142,18 @@ class RecipeController {
 		} else {
 			$search = strtolower($args[1]);
 			
-			$results = $this->db->query("SELECT * FROM recipes WHERE recipe_text like ? AND recipe_type != '8'", "%{$search}%");
+			$sql = "
+				SELECT
+					recipe_id,
+					recipe_name
+				FROM
+					recipes
+				WHERE
+					recipe_text like ? AND recipe_type != '8'
+				ORDER BY
+					recipe_name ASC";
+
+			$results = $this->db->query($sql, "%{$search}%");
 			$count = count($results);
 
 			if ($count > 0) {
