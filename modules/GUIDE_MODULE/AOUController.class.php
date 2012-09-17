@@ -109,18 +109,27 @@ class AOUController {
 	private function replaceItem($arr) {
 		$type = $arr[1];
 		$id = $arr[3];
+		
+		$output = '';
 
 		$data = $this->itemsController->findById($id);
 		if (count($data) > 0) {
 			$row = $data[0];
-			if ($type == "itemicon") {
-				return $this->text->make_image($row->imageid);
-			} else {
-				return $this->text->make_item($row->lowid, $row->highid, $row->highql, $row->name);
+			if ($type == "item" || $type == "itemicon") {
+				$output .= $this->text->make_image($row->icon) . "\n";
+			}
+			
+			if ($type == "item" || $type == "itemname") {
+				$output .=  $this->text->make_item($row->lowid, $row->highid, $row->highql, $row->name);
+			}
+			
+			if ($type == "item") {
+				$output .= "\n";
 			}
 		} else {
-			return $id;
+			$output .= $id;
 		}
+		return $output;
 	}
 	
 	private function processInput($input) {
@@ -142,6 +151,12 @@ class AOUController {
 				return "<highlight>";
 			case "[/b]":
 				return "<end>";
+			case "[ts_ts]":
+				return "\n+\n";
+			case "[ts_ts2]":
+				return "\n=\n";
+			case "[cttr]":
+				return "\n";
 		}
 		
 		if ($tag[0] == '[') {
