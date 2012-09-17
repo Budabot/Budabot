@@ -81,19 +81,18 @@ class AOUController {
 
 		$dom = new DOMDocument;
 		$dom->loadXML($results);
-
-		$guides = $dom->getElementsByTagName('guide');
-
+		
+		$sections = $dom->getElementsByTagName('section');
 		$blob = '';
 		$count = 0;
-		forEach ($guides as $guide) {
+		forEach ($sections as $section) {
 			$count++;
-			$id = $guide->getElementsByTagName('id')->item(0)->nodeValue;
-			$name = $guide->getElementsByTagName('name')->item(0)->nodeValue;
-			$desc = $guide->getElementsByTagName('desc')->item(0)->nodeValue;
-			$guide_link = $this->text->make_chatcmd("$name", "/tell <myname> aou $id");
-
-			$blob .= "$guide_link\n{$desc}\n\n";
+			$blob .= "<header>" . $this->getSearchResultCategory($section) . "<end>\n";
+			$guides = $section->getElementsByTagName('guide');
+			forEach ($guides as $guide) {
+				$blob .= '  ' . $this->getGuideLink($guide) . "\n";
+			}
+			$blob .= "\n";
 		}
 
 		$blob .= "\n<yellow>Powered by<end> " . $this->text->make_chatcmd("AO-Universe.com", "/start http://www.ao-universe.com");
@@ -104,6 +103,22 @@ class AOUController {
 			$msg = "Could not find any guides containing: '$search'";
 		}
 		$sendto->reply($msg);
+	}
+	
+	private function getSearchResultCategory($section) {
+		$folders = $section->getElementsByTagName('folder');
+		$output = array();
+		forEach ($folders as $folder) {
+			$output []= $folder->getElementsByTagName('name')->item(0)->nodeValue;
+		}
+		return implode(" - ", $output);
+	}
+	
+	private function getGuideLink($guide) {
+		$id = $guide->getElementsByTagName('id')->item(0)->nodeValue;
+		$name = $guide->getElementsByTagName('name')->item(0)->nodeValue;
+		$desc = $guide->getElementsByTagName('desc')->item(0)->nodeValue;
+		return $this->text->make_chatcmd("$name", "/tell <myname> aou $id") . " - " . $desc;
 	}
 	
 	private function replaceItem($arr) {
