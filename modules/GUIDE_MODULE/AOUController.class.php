@@ -111,7 +111,7 @@ class AOUController {
 		forEach ($folders as $folder) {
 			$output []= $folder->getElementsByTagName('name')->item(0)->nodeValue;
 		}
-		return implode(" - ", $output);
+		return implode(" - ", array_reverse($output));
 	}
 	
 	private function getGuideLink($guide) {
