@@ -62,43 +62,18 @@ class RecipeController {
 			
 			$recipe_text = $row->recipe_text;
 			$recipe_text = str_replace("\\n", "\n", $recipe_text);
-			$recipe_text = preg_replace("/#C([0-9]+)/", "[16,\\1]", $recipe_text);
+			$recipe_text = preg_replace("/#C([0-9]{2})/", "[16,\\1]", $recipe_text);
 			$recipe_text = preg_replace_callback('/#L "([^"]+)" "([0-9]+)"/', array($this, 'replaceItem'), $recipe_text);
 			$recipe_text = preg_replace('/#L "([^"]+)" "([^"]+)"/', "<a href='chatcmd://\\2'>\\1</a>", $recipe_text);
 
-			$recipe_text = str_replace("[16,1]", "<font color=#FFFFFF>",
-				str_replace("[16,2]", "</font><font color=#FFFFFF>",
-				str_replace("[16,3]", "</font><font color=#FFFFFF>",
-				str_replace("[16,4]", "</font><font color=#FFFFFF>",
-				str_replace("[16,5]", "</font><font color=#FFFFFF>",
-				str_replace("[16,6]", "</font><font color=#FFFFFF>",
-				str_replace("[16,7]", "</font><font color=#FFFFFF>",
-				str_replace("[16,8]", "</font><font color=#FFFFFF>",
-				str_replace("[16,9]", "</font><font color=#FFFFFF>",
-				str_replace("[16,10]","</font><font color=#FFFFFF>",
-				str_replace("[16,11]","</font><font color=#FFFFFF>",
+			$recipe_text = str_replace("[16,09]","</font><font color=#FFFFFF>",
 				str_replace("[16,12]","</font><font color=#FF0000>",
 				str_replace("[16,13]","</font><font color=#FFFFFF>",
 				str_replace("[16,14]","</font><font color=#FFFFFF>",
 				str_replace("[16,15]","</font><font color=#FFFFFF>",
 				str_replace("[16,16]","</font><font color=#FFFF00>",
-				str_replace("[16,17]","</font><font color=#FFFFFF>",
 				str_replace("[16,18]","</font><font color=#AAFF00>",
-				str_replace("[16,19]","</font><font color=#FFFFFF>",
-				str_replace("[16,20]","</font><font color=#009B00>",
-				str_replace("[16,21]","</font><font color=#FFFFFF>",
-				str_replace("[16,22]","</font><font color=#FFFFFF>",
-				str_replace("[16,23]","</font><font color=#FFFFFF>",
-				str_replace("[16,24]","</font><font color=#FFFFFF>",
-				str_replace("[16,25]","</font><font color=#FFFFFF>",
-				str_replace("[16,26]","</font><font color=#FFFFFF>",
-				str_replace("[16,27]","</font><font color=#FFFFFF>",
-				str_replace("[16,28]","</font><font color=#FFFFFF>",
-				str_replace("[16,29]","</font><font color=#FFFFFF>",
-				str_replace("[16,30]","</font><font color=#FFFFFF>",
-				str_replace("[16,31]","</font><font color=#FFFFFF>",
-				str_replace("[17]",chr(17),
-				str_replace("[18]",chr(18),$recipe_text)))))))))))))))))))))))))))))))));
+				str_replace("[16,20]","</font><font color=#009B00>",$recipe_text))))))));
 
 			$output = $this->text->make_blob("Recipe for $recipe_name", $recipe_text);
 		}
