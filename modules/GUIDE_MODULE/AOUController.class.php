@@ -107,19 +107,24 @@ class AOUController {
 	}
 	
 	private function replaceItem($arr) {
-		$id = $arr[1];
+		$type = $arr[1];
+		$id = $arr[3];
+
 		$data = $this->itemsController->findById($id);
 		if (count($data) > 0) {
 			$row = $data[0];
-			return $this->text->make_item($row->lowid, $row->highid, $row->highql, $row->name);
+			if ($type == "itemicon") {
+				return $this->text->make_image($row->imageid);
+			} else {
+				return $this->text->make_item($row->lowid, $row->highid, $row->highql, $row->name);
+			}
 		} else {
 			return $id;
 		}
 	}
 	
 	private function processInput($input) {
-		$input = preg_replace_callback("/\\[item\\](\\d+)\\[\\/item\\]/i", array($this, 'replaceItem'), $input);
-		$input = preg_replace_callback("/\\[itemname\\](\\d+)\\[\\/itemname\\]/i", array($this, 'replaceItem'), $input);
+		$input = preg_replace_callback("/\\[(item|itemname|itemicon)( nolink)?\\](\\d+)\\[\\/(item|itemname|itemicon)\\]/i", array($this, 'replaceItem'), $input);
 	
 		$pattern = "/(\\[[^\\]]+\\])/";
 		$matches = preg_split($pattern, $input, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
