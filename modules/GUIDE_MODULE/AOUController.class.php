@@ -149,10 +149,10 @@ class AOUController {
 	
 	private function processInput($input) {
 		$input = preg_replace_callback("/\\[(item|itemname|itemicon)( nolink)?\\](\\d+)\\[\\/(item|itemname|itemicon)\\]/i", array($this, 'replaceItem'), $input);
-	
+
 		$pattern = "/(\\[[^\\]]+\\])/";
 		$matches = preg_split($pattern, $input, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
-	
+
 		$output = '';
 		forEach ($matches as $match) {
 			$output .= $this->processTag($match);
@@ -171,13 +171,14 @@ class AOUController {
 			case "[ts_ts2]":
 				return "\n=\n";
 			case "[cttr]":
+			case "[br]":
 				return "\n";
 		}
-		
+
 		if ($tag[0] == '[') {
 			return "";
 		}
-		
+
 		return $tag;
 	}
 }
