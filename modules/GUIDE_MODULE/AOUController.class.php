@@ -86,10 +86,10 @@ class AOUController {
 		$blob = '';
 		$count = 0;
 		forEach ($sections as $section) {
-			$count++;
 			$blob .= "<header>" . $this->getSearchResultCategory($section) . "<end>\n";
 			$guides = $section->getElementsByTagName('guide');
 			forEach ($guides as $guide) {
+				$count++;
 				$blob .= '  ' . $this->getGuideLink($guide) . "\n";
 			}
 			$blob .= "\n";
