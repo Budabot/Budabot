@@ -98,16 +98,21 @@ class ItemsController implements ItemsAPI {
 	public function itemIdCommand($message, $channel, $sender, $sendto, $args) {
 		$id = $args[1];
 
-		$sql = "SELECT * FROM aodb WHERE lowid = ? OR highid = ? ORDER BY `name` ASC, highql DESC LIMIT 0, " . $this->setting->get("maxitems");
-		$data = $this->db->query($sql, $id, $id);
+		$data = $this->findById($id);
 		$num = count($data);
 		if ($num == 0) {
 			$output = "No item found with id <highlight>$id<end>.";
 		} else {
-			$output = trim($this->formatSearchResults($data, $ql, false));
+			$output = trim($this->formatSearchResults($data, false, false));
 		}
 
 		$sendto->reply($output);
+	}
+	
+	public function findById($id) {
+		$sql = "SELECT * FROM aodb WHERE highid = ? UNION SELECT * FROM aodb WHERE lowid = ? LIMIT 1";
+		$data = $this->db->query($sql, $id, $id);
+		return $data;
 	}
 
 	/**

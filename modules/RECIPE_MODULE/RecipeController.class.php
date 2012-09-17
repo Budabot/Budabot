@@ -33,6 +33,9 @@ class RecipeController {
 
 	/** @Inject */
 	public $text;
+	
+	/** @Inject */
+	public $itemsController;
 
 	/** @Setup */
 	public function setup() {
@@ -60,7 +63,7 @@ class RecipeController {
 			$recipe_text = $row->recipe_text;
 			$recipe_text = str_replace("\\n", "\n", $recipe_text);
 			$recipe_text = preg_replace("/#C([0-9]+)/", "[16,\\1]", $recipe_text);
-			$recipe_text = preg_replace('/#L "([^"]+)" "([0-9]+)"/', '#L "\\1" "/tell <myname> itemid \\2"', $recipe_text);
+			$recipe_text = preg_replace_callback('/#L "([^"]+)" "([0-9]+)"/', array($this, 'replaceItem'), $recipe_text);
 			$recipe_text = preg_replace('/#L "([^"]+)" "([^"]+)"/', "<a href='chatcmd://\\2'>\\1</a>", $recipe_text);
 
 			$recipe_text = str_replace("[16,1]", "<font color=#FFFFFF>",
@@ -137,6 +140,17 @@ class RecipeController {
 			}
 		}
 		$sendto->reply($output);
+	}
+	
+	private function replaceItem($arr) {
+		$id = $arr[2];
+		$data = $this->itemsController->findById($id);
+		if (count($data) > 0) {
+			$row = $data[0];
+			return $this->text->make_item($row->lowid, $row->highid, $row->highql, $row->name);
+		} else {
+			return '#L "{$arr[1]}" "/tell <myname> itemid {$arr[2]}"';
+		}
 	}
 	
 	private function makeRecipeSearchBlob($results) {
