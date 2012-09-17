@@ -948,6 +948,10 @@ class Budabot extends AOChat {
 	 * Removes given socket notifier from list of sockets being monitored.
 	 */
 	public function removeSocketNotifier($socketNotifier) {
+		if (is_object($socketNotifier) == false) {
+			return;
+		}
+
 		$removeOne = create_function('&$array,$value', '$key = array_search($value, $array, true);'
 				   . 'if ($key !== false) {'
 				   . '	unset ($array[$key]);'

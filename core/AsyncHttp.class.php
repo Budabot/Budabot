@@ -20,16 +20,11 @@ class AsyncHttp {
 	private $callback;
 	private $data;
 	
-	// uri components
-	private $host;
-	private $path;
-	private $query;
-	
 	// stream
 	private $stream;
 	private $notifier;
-	private $headersSent = false;
 	private $headerReceived = false;
+	private $request = '';
 	private $headerData = '';
 	private $responseHeaders = array();
 	private $responseBody = '';
@@ -40,14 +35,16 @@ class AsyncHttp {
 	/**
 	 * Executes HTTP query to $uri.
 	 *
+	 * @param string   $method   http method to use (get/post)
 	 * @param string   $uri      URI which should be requested
+	 * @param array    $params   array of key/value pair parameters passed as a query
 	 * @param callback $callback callbakc which will be called when request is done
 	 * @param mixed    $data     extra data which will be passed as second argument to the callback
 	 */
-	public function execute($uri, $callback, $data) {
-		$this->uri = $uri;
+	public function execute($method, $uri, $params, $callback, $data) {
+		$this->uri      = $uri;
 		$this->callback = $callback;
-		$this->data = $data;
+		$this->data     = $data;
 		
 		// parse URI's contents
 		$components = parse_url($uri);
@@ -79,16 +76,36 @@ class AsyncHttp {
 		}
 		
 		if (isset($components['host'])) {
-			$this->host = $components['host'];
+			$host = $components['host'];
 		} else {
 			$this->setError("Host not specified in uri: '$uri'");
 			$this->callCallback();
 			return;
 		}
 
-		$this->path  = isset($components['path'])? $components['path']: '/';
-		$this->path .= isset($components['query'])? "?$components[query]": '';
-		
+		// combine uri's query and passed in $params array to single query string
+		if (isset($components['query'])) {
+			parse_str($components['query'], $params);
+		}
+		$query = http_build_query($params);
+
+		$path  = isset($components['path'])? $components['path']: '/';
+		// with get-method we'll add the query to path
+		if ($method == 'get' && $query) {
+			$path .= "?{$query}";
+		}
+		$this->request  = strtoupper($method) . " $path HTTP/1.0\r\n";
+		$this->request .= "Host: $host\r\n";
+		if ($method == 'post' && $query) {
+			$this->request .= "Content-Type: application/x-www-form-urlencoded\r\n";
+			$this->request .= "Content-Length: " . strlen($query) . "\r\n";
+		}
+		$this->request .= "\r\n";
+		if ($method == 'post') {
+			$this->request .= $query;
+		}
+		$this->logger->log('DEBUG', "Sending request: {$this->request}");
+
 		// start connection
 		$flags = STREAM_CLIENT_ASYNC_CONNECT|STREAM_CLIENT_CONNECT;
 		// don't use asyncronous stream on Windows with SSL
@@ -96,7 +113,7 @@ class AsyncHttp {
 		if ($scheme == 'ssl' && strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 			$flags = STREAM_CLIENT_CONNECT;
 		}
-		$this->stream = stream_socket_client("$scheme://{$this->host}:$port", $errno, $errstr, 10, $flags);
+		$this->stream = stream_socket_client("$scheme://$host:$port", $errno, $errstr, 10, $flags);
 		if ($this->stream === false) {
 			$this->setError("Failed to create socket stream, reason: $errstr ($errno)");
 			$this->callCallback();
@@ -164,25 +181,15 @@ class AsyncHttp {
 			break;
 
 		case SocketNotifier::ACTIVITY_WRITE:
-			// the stream is ready for writing so lets dump request headers there
-			if ($this->headersSent == false) {
-				$headers  = "GET {$this->path} HTTP/1.0\r\n";
-				$headers .= "Host: {$this->host}\r\n";
-				$headers .= "\r\n";
-
-				$this->logger->log('DEBUG', "Sending request with headers: $headers");
-
-				$written  = fwrite($this->stream, $headers);
+			if ($this->request) {
+				$written = fwrite($this->stream, $this->request);
 				if ($written === false) {
 					$this->setError("Cannot write request headers for uri '{$this->uri}' to stream");
 					$this->close();
 					$this->callCallback();
-				} else if ($written != strlen($headers)) {
-					$this->setError("Failed to write all http headers in one go for uri '{$this->uri}' to stream");
-					$this->close();
-					$this->callCallback();
+				} else if ($written > 0) {
+					$this->request = substr($this->request, $written);
 				}
-				$this->headersSent = true;
 			}
 			break;
 
@@ -208,7 +215,6 @@ class AsyncHttp {
 	 * @param string $errorString error string
 	 */
 	private function setError($errorString) {
-		debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
 		$this->errorString = $errorString;
 		$this->logger->log('ERROR', $errorString);
 	}
@@ -217,10 +223,12 @@ class AsyncHttp {
 	 * Calls the user supplied callback.
 	 */
 	private function callCallback() {
-		$response = new StdClass();
-		$response->error   = $this->errorString;
-		$response->headers = $this->responseHeaders;
-		$response->body    = $this->responseBody;
-		call_user_func($this->callback, $response, $this->data);
+		if ($this->callback !== null) {
+			$response = new StdClass();
+			$response->error   = $this->errorString;
+			$response->headers = $this->responseHeaders;
+			$response->body    = $this->responseBody;
+			call_user_func($this->callback, $response, $this->data);
+		}
 	}
 }

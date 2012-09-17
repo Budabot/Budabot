@@ -377,20 +377,40 @@ class Util {
 	 *
 	 * Example usage:
 	 * <code>
-	 * $this->util->httpGet( "http://www.google.com/", function($response) {
+	 * $this->util->httpGet( "http://www.google.com/", array(), function($response) {
 	 *     print $response->body;
 	 * });
 	 * </code>
 	 *
 	 * @param string   $uri the requested URI
-	 * @param callback $callback callback which is called when response is gotten
+	 * @param array    $params optional array of key/value pair parameters passed as a query
+	 * @param callback $callback optional callback which is called when response is gotten
 	 * @param mixed    $data optional parameter which will be passed to the
 	 *                 callback as second argument
 	 */
-	public function httpGet($uri, $callback, $data = null) {
+	public function httpGet($uri, $params = array(), $callback = null, $data = null) {
 		$http = new AsyncHttp();
 		Registry::injectDependencies($http);
-		$http->execute($uri, $callback, $data);
+		$http->execute('get', $uri, $params, $callback, $data);
+	}
+
+	/**
+	 * Requests contents of given $uri and on completion calls $callback.
+	 *
+	 * This method works exactly as httpGet(), but it uses HTTP POST method
+	 * instead GET method. Parameters in $params are passed as url-encoded
+	 * query in the request's body.
+	 *
+	 * @param string   $uri the requested URI
+	 * @param array    $params optional array of key/value pair parameters passed as a query
+	 * @param callback $callback optional callback which is called when response is gotten
+	 * @param mixed    $data optional parameter which will be passed to the
+	 *                 callback as second argument
+	 */
+	public function httpPost($uri, $params = array(), $callback = null, $data = null) {
+		$http = new AsyncHttp();
+		Registry::injectDependencies($http);
+		$http->execute('post', $uri, $params, $callback, $data);
 	}
 }
 

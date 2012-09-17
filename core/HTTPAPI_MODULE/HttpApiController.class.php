@@ -4,6 +4,12 @@
  * @Instance("HttpApi")
  * 
  * Author: Marebone
+ *
+ * @DefineCommand(
+ *		command     = 'httpapi',
+ *      description = "Provides web browser link to bot's HTTP API",
+ *		accessLevel = 'all'
+ * )
  */
 class HttpApiController {
 
@@ -12,6 +18,9 @@ class HttpApiController {
 
 	/** @Inject */
 	public $setting;
+
+	/** @Inject */
+	public $text;
 
 	/** @Logger */
 	public $logger;
@@ -164,5 +173,17 @@ class HttpApiController {
 		} catch(Exception $e) {
 			$this->logger->log('ERROR', 'Starting HTTP API failed, reason: ' . $e->getMessage());
 		}
+	}
+
+	/**
+	 * This command handler shows web link to user.
+	 *
+	 * @HandlesCommand("httpapi")
+	 */
+	public function httpapiCommand($message, $channel, $sender, $sendto, $args) {
+		$uri  = $this->getUri('/');
+		$link = $this->text->make_chatcmd( $uri, "/start $uri" );
+		$msg  = $this->text->make_blob('HTTP API', "Open $link to web browser.");
+		$sendto->reply($msg);
 	}
 }
