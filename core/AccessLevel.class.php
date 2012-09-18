@@ -92,7 +92,6 @@ class AccessLevel extends Annotation {
 
 	public function checkSingleAccess($sender, $accessLevel) {
 		$sender = ucfirst(strtolower($sender));
-		$accessLevel = $this->normalizeAccessLevel($accessLevel);
 
 		$charAccessLevel = $this->getSingleAccessLevel($sender);
 		return ($this->compareAccessLevels($charAccessLevel, $accessLevel) >= 0);

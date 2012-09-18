@@ -489,7 +489,7 @@ class SystemController {
 	 * @Matches("/^checkaccess (.+)$/i")
 	 */
 	public function checkaccessCommand($message, $channel, $sender, $sendto, $args) {
-		if (isset($args)) {
+		if (isset($args[1])) {
 			$name = ucfirst(strtolower($args[1]));
 		} else {
 			$name = $sender;

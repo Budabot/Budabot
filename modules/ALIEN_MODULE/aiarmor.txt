@@ -23,7 +23,7 @@
 <highlight>- cs<end>
 <tab>Combined Scout's
 
-<highlight>- ss<end>
+<highlight>- ss,css<end>
 <tab>Combined Sharpshooter's
 
 <highlight>- strong<end>
