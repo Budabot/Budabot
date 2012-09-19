@@ -64,17 +64,7 @@ class BosslootController {
 		if ($count > 1) {
 			//If multiple matches found output list of bosses
 			forEach ($bosses as $row) {
-				$blob .= '<pagebreak>' . $this->text->make_chatcmd($row->name, "/tell <myname> boss $row->name") . "\n";
-				$blob .= "<green>Can be found {$row->answer}<end>\nDrops: ";
-
-				// get loot
-				$data = $this->db->query("SELECT * FROM boss_lootdb b LEFT JOIN
-					aodb a ON (b.itemid = a.lowid OR b.itemid = a.highid) WHERE
-					b.bossid = ?", $row->bossid);
-				forEach ($data as $row2) {
-					$blob .= $this->text->make_item($row2->lowid, $row2->highid, $row2->highql, $row2->itemname) . ', ';
-				}
-				$blob .= "\n\n";
+				$blob .= $this->getBossLootOutput($row);
 			}
 			$output = $this->text->make_blob("Boss Search Results ($count)", $blob);
 		} else if ($count == 1) {
@@ -93,7 +83,7 @@ class BosslootController {
 				$blob .= "<img src=rdb://{$row2->icon}>\n";
 				$blob .= $this->text->make_item($row2->lowid, $row2->highid, $row2->highql, $row2->itemname) . "\n\n";
 			}
-			$output = $this->text->make_blob("Boss Search Results (1)", $blob);
+			$output = $this->text->make_blob("{$row->bossname}", $blob);
 		} else {
 			$output = "There were no matches for your search.";
 		}
@@ -117,26 +107,28 @@ class BosslootController {
 		$count = count($loot);
 
 		if ($count != 0) {
-			//Find loot item and associated boss and his location
 			forEach ($loot as $row) {
-				$blob .= '<pagebreak>' . $this->text->make_chatcmd($row->bossname, "/tell <myname> boss $row->bossname") . "\n";
-				$oldbossid = $bossname;
-				$blob .= "<green>Can be found {$row->answer}<end>\nDrops: ";
-
-				// get loot
-				$data = $this->db->query("SELECT * FROM boss_lootdb b JOIN aodb a
-					ON b.itemid = a.lowid WHERE b.bossid = ? AND b.itemname LIKE ?", $row->bossid, "%{$search}%");
-				forEach ($data as $row2) {
-					$blob .= $this->text->make_item($row2->lowid, $row2->highid, $row2->highql, $row2->itemname) . ', ';
-				}
-				$blob .= "\n\n";
+				$blob .= $this->getBossLootOutput($row);
 			}
-			$output = $this->text->make_blob("Bossloot Search Results ($count))", $blob);
+			$output = $this->text->make_blob("Bossloot Search Results ($count)", $blob);
 		} else {
 			$output .= "There were no matches for your search.";
 		}
 		$sendto->reply($output);
 	}
 
+	public function getBossLootOutput($row) {
+		$data = $this->db->query("SELECT * FROM boss_lootdb b LEFT JOIN
+			aodb a ON (b.itemid = a.lowid OR b.itemid = a.highid) WHERE
+			b.bossid = ?", $row->bossid);
+			
+		$blob = '<pagebreak>' . $this->text->make_chatcmd($row->bossname, "/tell <myname> boss $row->bossname") . "\n";
+		$blob .= "<green>Can be found {$row->answer}<end>\nDrops: ";
+		forEach ($data as $row2) {
+			$blob .= $this->text->make_item($row2->lowid, $row2->highid, $row2->highql, $row2->itemname) . ', ';
+		}
+		$blob .= "\n\n";
+		return $blob;
+	}
 }
 
