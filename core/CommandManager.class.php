@@ -187,6 +187,10 @@ class CommandManager {
 		$sql = "SELECT * FROM cmdcfg_<myname> WHERE `cmd` = ? {$type_sql}";
 		return $this->db->query($sql, $command);
 	}
+	
+	private function mapToCmd($sc) {
+		return $sc->cmd;
+	}
 
 	function process($channel, $message, $sender, $sendto) {
 		list($cmd, $params) = explode(' ', $message, 2);
@@ -204,7 +208,7 @@ class CommandManager {
 			$similarCommands = $this->commandSearchController->findSimilarCommands(array($cmd));
 			$similarCommands = $this->commandSearchController->filterResultsByAccessLevel($sender, $similarCommands);
 			$similarCommands = array_slice($similarCommands, 0, 5);
-			$cmdNames = array_map(function($sc) { return $sc->cmd; }, $similarCommands);
+			$cmdNames = array_map(array($this, 'mapToCmd'), $similarCommands);
 
 			$sendto->reply("Error! Unknown command. Did you mean..." . implode(", ", $cmdNames) . '?');
 			$this->chatBot->spam[$sender] += 20;
