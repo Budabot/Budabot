@@ -28,6 +28,9 @@ class CommandManager {
 
 	/** @Inject */
 	public $subcommand;
+	
+	/** @Inject */
+	public $commandSearchController;
 
 	/** @Logger */
 	public $logger;
@@ -198,7 +201,12 @@ class CommandManager {
 				return;
 			}
 
-			$sendto->reply("Error! Unknown command.");
+			$similarCommands = $this->commandSearchController->findSimilarCommands(array($cmd));
+			$similarCommands = $this->commandSearchController->filterResultsByAccessLevel($sender, $similarCommands);
+			$similarCommands = array_slice($similarCommands, 0, 5);
+			$cmdNames = array_map(function($sc) { return $sc->cmd; }, $similarCommands);
+
+			$sendto->reply("Error! Unknown command. Did you mean..." . implode(", ", $cmdNames) . '?');
 			$this->chatBot->spam[$sender] += 20;
 			return;
 		}
