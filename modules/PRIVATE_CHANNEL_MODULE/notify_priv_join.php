@@ -4,7 +4,7 @@ if ($type == "joinpriv") {
 	$whois = Player::get_by_name($sender);
 	$alts = Registry::getInstance('alts');
 
-	$altInfo = $alt->get_alt_info($sender);
+	$altInfo = $alts->get_alt_info($sender);
 
 	if ($whois !== null) {
 		if (count($altInfo->alts) > 0) {
