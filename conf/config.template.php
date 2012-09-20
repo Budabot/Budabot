@@ -57,6 +57,11 @@
 	// API module configuration
 	$vars['API Port'] = 5250;
 
+	// Define additional paths from where Budabot should load modules at startup
+	$vars['module_load_paths'] = array(
+		// 'C:\my_budabot_modules'
+	);
+
 	// This should only be enabled during development and only if you understand the implications
 	// seen here: <http://code.google.com/p/budabot2/wiki/CompilingRunkit>
 	define("USE_RUNKIT_CLASS_LOADING", false);

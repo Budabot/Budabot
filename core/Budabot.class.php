@@ -248,19 +248,24 @@ class Budabot extends AOChat {
 	 */
 	function loadModules() {
 		$this->db->begin_transaction();
-		if ($d = dir("./modules")) {
-			while (false !== ($MODULE_NAME = $d->read())) {
-				// filters out ., .., .svn
-				if (!is_dir($MODULE_NAME)) {
-					$this->registerModule("./modules", $MODULE_NAME);
+		$loadPaths = array('./modules');
+		if (isset($this->vars['module_load_paths']) && is_array($this->vars['module_load_paths'])) {
+			$loadPaths = array_merge($loadPaths, $this->vars['module_load_paths']);
+		}
+		forEach ($loadPaths as $path) {
+			if ($d = dir($path)) {
+				while (false !== ($MODULE_NAME = $d->read())) {
+					// filters out ., .., .svn
+					if (!is_dir($MODULE_NAME)) {
+						$this->registerModule($path, $MODULE_NAME);
+					}
 				}
+				$d->close();
 			}
-			$d->close();
 		}
 		$this->callAndClearSetupHandlers();
 		$missingDeps = Registry::getMissingDependencyNames();
 		if (empty($missingDeps) == false) {
-			print "bar!\n";
 			$this->logger->log('WARN', 'Following instances were not found: ' . implode(', ', $missingDeps));
 		}
 		$this->db->commit();
