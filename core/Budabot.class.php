@@ -39,6 +39,12 @@ class Budabot extends AOChat {
 
 	var $chatlist = array();
 	var $guildmembers = array();
+	
+	/**
+	 * @internal
+	 * Array of waiting timer events.
+	 */
+	private $timerEvents = array();
 
 	// array where modules can store stateful session data
 	var $data = array();
@@ -137,6 +143,12 @@ class Budabot extends AOChat {
 				if ($exec_connected_events == false) {
 					$this->eventManager->executeConnectEvents();
 					$exec_connected_events = true;
+				}
+
+				// execute timer events
+				while (count($this->timerEvents) > 0 && $this->timerEvents[0]->time <= time()) {
+					$timerEvent = array_shift($this->timerEvents);
+					call_user_func_array($timerEvent->callback, $timerEvent->args);
 				}
 
 				// execute cron events at most once every second
@@ -973,6 +985,29 @@ class Budabot extends AOChat {
 		if ($socketNotifier->getType() & SocketNotifier::ACTIVITY_ERROR) {
 			$removeOne($this->monitoredSocketsByType[SocketNotifier::ACTIVITY_ERROR], $socketNotifier->getSocket());
 		}
+	}
+
+	/**
+	 * @internal
+	 *
+	 * Adds new timer event.
+	 * $callback will be called with arguments $args array after $delay seconds.
+	 * 
+	 * You shouldn't call this method, use Util's callLater() instead.
+	 */
+	public function addTimerEvent($delay, $callback, $args) {
+		$timerEvent = new stdClass;
+		$timerEvent->callback = $callback;
+		$timerEvent->args = $args;
+		$timerEvent->time = time() + intval($delay);
+
+		$this->timerEvents []= $timerEvent;
+		usort($this->timerEvents, create_function('$a, $b',
+			'if ($a->time == $b->time) {
+				return 0;
+			}
+			return ($a->time < $b->time) ? -1 : 1;'
+		));
 	}
 }
 
