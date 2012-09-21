@@ -27,6 +27,9 @@ class AccessLevel extends Annotation {
 
 	/** @Inject */
 	public $alts;
+	
+	/** @Inject */
+	public $chatLeaderController;
 
 	/**
 	 * This method checks if given $sender has at least $accessLevel rights.
@@ -150,7 +153,7 @@ class AccessLevel extends Annotation {
 		if ($this->checkGuildAdmin($sender, 'mod')) {
 			return "mod";
 		}
-		if (isset($this->chatBot->data["leader"]) && $this->chatBot->data["leader"] == $sender) {
+		if ($this->chatLeaderController !== null && $this->chatLeaderController->getLeader() == $sender) {
 			return "rl";
 		}
 		if (isset($this->chatBot->guildmembers[$sender])) {

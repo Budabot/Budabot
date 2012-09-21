@@ -175,5 +175,9 @@ class ChatLeaderController {
 		$msg = "{$this->leader} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
 		return $msg;
 	}
+	
+	public function getLeader() {
+		return $this->leader;
+	}
 }
 	
