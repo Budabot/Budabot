@@ -285,13 +285,19 @@ class Util {
 		//check if the file exists
 		if (file_exists("./core/$filename")) {
 			return "./core/$filename";
-		} else if (file_exists("./modules/$filename")) {
-			return "./modules/$filename";
-		} else if (file_exists($filename)) {
-			return $filename;
-		} else {
-			return "";
 		}
+		if (file_exists("./modules/$filename")) {
+			return "./modules/$filename";
+		}
+		forEach ($this->chatBot->vars['module_load_paths'] as $modulePath) {
+			if (file_exists("$modulePath/$filename")) {
+				return "$modulePath/$filename";
+			}
+		}
+		if (file_exists($filename)) {
+			return $filename;
+		}
+		return "";
 	}
 
 	public function get_ability($ability, $getFullName = false) {

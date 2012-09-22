@@ -66,6 +66,11 @@ class Budabot extends AOChat {
 		// Set startup time
 		$this->vars["startup"] = time();
 
+		// set default value for module load paths if not set correctly
+		if (!isset($this->vars['module_load_paths']) || !is_array($this->vars['module_load_paths'])) {
+			$this->vars['module_load_paths'] = array();
+		}
+
 		$this->monitoredSocketsByType[SocketNotifier::ACTIVITY_READ] = array();
 		$this->monitoredSocketsByType[SocketNotifier::ACTIVITY_WRITE] = array();
 		$this->monitoredSocketsByType[SocketNotifier::ACTIVITY_ERROR] = array();
@@ -260,9 +265,7 @@ class Budabot extends AOChat {
 	function loadModules() {
 		$this->db->begin_transaction();
 		$loadPaths = array('./modules');
-		if (isset($this->vars['module_load_paths']) && is_array($this->vars['module_load_paths'])) {
-			$loadPaths = array_merge($loadPaths, $this->vars['module_load_paths']);
-		}
+		$loadPaths = array_merge($loadPaths, $this->vars['module_load_paths']);
 		forEach ($loadPaths as $path) {
 			if ($d = dir($path)) {
 				while (false !== ($MODULE_NAME = $d->read())) {
