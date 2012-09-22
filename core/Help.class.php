@@ -106,16 +106,11 @@ class Help extends Annotation {
 		} else {
 			$logError = true;
 		}
-
-		if (file_exists("./core/$module/$file")) {
-			return "./core/$module/$file";
-		} else if (file_exists("./modules/$module/$file")) {
-			return "./modules/$module/$file";
-		} else {
-			if ($logError === true) {
-				$this->logger->log('ERROR', "Error in registering the File {$module}/{$file} for Help command $name. The file doesn't exist!");
-			}
-			return "";
+	
+		$actual_filename = $this->util->verify_filename("$module/$file");
+		if ($actual_filename == '' && $logError === true) {
+			$this->logger->log('ERROR', "Error in registering the File {$module}/{$file} for Help command $name. The file doesn't exist!");
+			return '';
 		}
 	}
 
