@@ -107,11 +107,12 @@ class Help extends Annotation {
 			$logError = true;
 		}
 	
-		$actual_filename = $this->util->verify_filename("$module/$file");
-		if ($actual_filename == '' && $logError === true) {
+		$actualFilename = $this->util->verify_filename("$module/$file");
+		if ($actualFilename == '' && $logError === true) {
 			$this->logger->log('ERROR', "Error in registering the File {$module}/{$file} for Help command $name. The file doesn't exist!");
 			return '';
 		}
+		return $actualFilename;
 	}
 
 	public function getAllHelpTopics($char) {
