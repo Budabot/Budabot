@@ -47,19 +47,21 @@ class WhereisController {
 	public function whereisCommand($message, $channel, $sender, $sendto, $args) {
 		$search = $args[1];
 		$search = strtolower($search);
-		$data = $this->db->query("SELECT * FROM whereis WHERE name LIKE ?", '%' . $search . '%');
+		$sql = "SELECT * FROM whereis w LEFT JOIN playfields p ON w.playfield_id = p.id WHERE name LIKE ?";
+		$data = $this->db->query($sql, '%' . $search . '%');
 		$count = count($data);
 
-		if ($count > 1) {
+		if ($count > 0) {
 			$blob = "Result of Whereis Search for '$search'\n\n";
 			forEach ($data as $row) {
-				$blob .= "<yellow>$row->name<end>\n<green>Can be found $row->answer<end>\n\n";
+				$blob .= "<yellow>$row->name<end>\n<green>Can be found $row->answer<end>";
+				if ($row->playfield_id != 0) {
+					$blob .= " " . $this->text->make_chatcmd("waypoint: {$row->xcoord}x{$row->ycoord} {$row->short_name}", "/waypoint {$row->xcoord} {$row->ycoord} {$row->playfield_id}");
+				}
+				$blob .= "\n\n";
 			}
 
 			$msg = $this->text->make_blob("Whereis ($count)", $blob);
-		} else if ($count == 1) {
-			$row = $data[0];
-			$msg = "<yellow>$row->name<end>\n<green>Can be found $row->answer<end>";
 		} else {
 			$msg = "There were no matches for your search.";
 		}
