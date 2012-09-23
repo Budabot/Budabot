@@ -37,7 +37,6 @@ INSERT INTO `whereis` VALUES (37,'Athen Shire','in the northwest part of the wor
 INSERT INTO `whereis` VALUES (38,'Athen West','in the northwest part of the world. It has a grid access point at 472 x 410 and no whompa. To the north, south and west is Athen Shire, to the east Athen Old.','Athen West Athens Athenwest Old Weat Grid');
 INSERT INTO `whereis` VALUES (39,'Avalon','in the north west part of the world. It has a grid entry at 2070 x 3760 and a whompa to Athens and Wailing Wastes at 2175x3815. There is no zone available to the north, east and west. Southeast is Wailing Wastes. camelot castle (dungeon) at 2090 x 3820. clan op with scanner at 1540 x 3730 and 2140 x 3110. Omni outposts with scanner at 800 x 1630 and at 1870 x 1230.','Avalon Avolon Omni Outpost');
 INSERT INTO `whereis` VALUES (40,'Calamity Eremite','in Inferno SouthEast of Sorrow (South of Anansi Devotees) 1685 x 1164, Area: Burning Marshes (south of the rock)',NULL);
-INSERT INTO `whereis` VALUES (41,'Aztur','in the Temple of the Three Winds,  The Dungeon Boss, he drops the red sword called Sygian Desolator. You need to kill Uklesh the Frozen and Khalum before he spawns.',NULL);
 INSERT INTO `whereis` VALUES (42,'Baboons','in Omni Entertainment at 766 x 766.',NULL);
 INSERT INTO `whereis` VALUES (43,'Beer And Booze Bar','in Mort at 2840 x 1920, in the city called Hope. The bar has a 5% supression gas.','Beer &amp; Booze And Bar N');
 INSERT INTO `whereis` VALUES (44,'Best In Brass','in Galway Shire, Rome Stretch 400 x750','Bestinbrass Brast');
@@ -485,7 +484,7 @@ INSERT INTO `whereis` VALUES (512,'The Re-animator','Temple Of The Three Winds G
 INSERT INTO `whereis` VALUES (513,'Lien The Memorystalker','Temple Of The Three Winds Greater Tir County',NULL);
 INSERT INTO `whereis` VALUES (514,'Guardian Of Tomorrow','Temple Of The Three Winds Greater Tir County',NULL);
 INSERT INTO `whereis` VALUES (515,'Uklesh The Frozen','Temple Of The Three Winds Greater Tir County',NULL);
-INSERT INTO `whereis` VALUES (516,'Aztur The Immortal','Temple Of The Three Winds Greater Tir County',NULL);
+INSERT INTO `whereis` VALUES (516,'Aztur The Immortal','Temple Of The Three Winds, Greater Tir County. You need to kill Uklesh the Frozen and Khalum before he spawns.',NULL);
 INSERT INTO `whereis` VALUES (517,'Gartua The Doorkeeper','Temple Of The Three Winds Greater Tir County',NULL);
 INSERT INTO `whereis` VALUES (518,'Windcaller Yatilla','Temple Of The Three Winds Greater Tir County',NULL);
 INSERT INTO `whereis` VALUES (519,'Den Smuggler Pilot','Smugglers Den, 1755 x 872, SFH.',NULL);
