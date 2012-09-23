@@ -365,6 +365,7 @@ class Text {
 
 		$array = array(
 			"<header>" => $setting->get('default_header_color'),
+			"<header2>" => $setting->get('default_header2_color'),
 			"<highlight>" => $setting->get('default_highlight_color'),
 			"<black>" => "<font color='#000000'>",
 			"<white>" => "<font color='#FFFFFF'>",

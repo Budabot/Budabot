@@ -8,7 +8,7 @@ if (!function_exists('getNameHistory')) {
 		$sql = "SELECT * FROM name_history WHERE charid = ? AND dimension = ? ORDER BY dt DESC";
 		$data = $db->query($sql, $charid, $dimension);
 
-		$blob = "<header> :::::: Name History :::::: <end>\n\n";
+		$blob = "<header2> :::::: Name History :::::: <end>\n\n";
 		if (count($data) > 0) {
 			forEach ($data as $row) {
 				$blob .= "<green>{$row->name}<end> " . date(Util::DATETIME, $row->dt) . "\n";
@@ -53,7 +53,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 
 			$blob .= "<pagebreak>" . getNameHistory($uid, $chatBot->vars['dimension']);
 
-			$blob .= "\n<pagebreak><header> :::::: Options :::::: <end>\n\n";
+			$blob .= "\n<pagebreak><header2> :::::: Options :::::: <end>\n\n";
 
 	        $blob .= Text::make_chatcmd('History', "/tell <myname> history $name") . "\n";
 	        $blob .= Text::make_chatcmd('Online Status', "/tell <myname> is $name") . "\n";
@@ -102,7 +102,7 @@ if (preg_match("/^whois (.+)$/i", $message, $arr)) {
 
 			$blob .= "Source: $whois->source\n\n";
 
-			$blob .= "<pagebreak><header> :::::: Options :::::: <end>\n\n";
+			$blob .= "<pagebreak><header2> :::::: Options :::::: <end>\n\n";
 
             $blob .= "<a href='chatcmd:///tell <myname> history {$name} {$i}'>History</a>\n";
 

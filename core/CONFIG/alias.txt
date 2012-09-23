@@ -9,7 +9,7 @@
 
 Note that while 'command name' can have multiple words, the 'alias name' can only be a single word.  The first word is interpreted as the alias name and all subsequent words are interpreted as the command name.
 
-<header> ::: Examples ::: <end>
+<header2> ::: Examples ::: <end>
 
 <highlight>Create an alias for a single-worded command:<end>
 <tab><symbol>addalias o online

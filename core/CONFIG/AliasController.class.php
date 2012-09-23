@@ -87,7 +87,7 @@ class AliasController {
 		$paddingSize = 30;
 	
 		$a = $this->padRow("Alias", $paddingSize);
-		$blob = "<header>{$a}Command<end>\n\n";
+		$blob = "<header2>{$a}Command<end>\n\n";
 		$count = 0;
 		forEach ($this->commandAlias->getEnabledAliases() as $alias) {
 			if ($count++ % 2 == 0) {

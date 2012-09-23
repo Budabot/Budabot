@@ -174,11 +174,11 @@ if  (preg_match("/^weather (.+)$/i", $message, $arr)) {
 	$alertitems = xml::spliceMultiData($alerts, "<AlertItem>", "</AlertItem>");
 
 	if (count($alertitems) == 0) {
-		$blob .= "\n<header>Alerts:<end> None reported.\n\n";
+		$blob .= "\n<header2>Alerts:<end> None reported.\n\n";
 	} else {
 		forEach ($alertitems as $thisalert) {
 
-			$blob .= "\n<header>Alert: ".xml::spliceData($thisalert, "<description>", "</description>")."<end>\n\n";
+			$blob .= "\n<header2>Alert: ".xml::spliceData($thisalert, "<description>", "</description>")."<end>\n\n";
 			// gotta find date/expire manually.
 			$start = strpos($thisalert, ">", strpos($thisalert, "<date epoch="))+1;
 			$end = strpos($thisalert, "<", $start);

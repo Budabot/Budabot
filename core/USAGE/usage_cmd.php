@@ -22,7 +22,7 @@ if (preg_match("/^usage$/i", $message) || preg_match("/^usage ([a-z0-9]+)$/i", $
 	$sql = "SELECT command, COUNT(command) AS count FROM usage_<myname> WHERE dt > ? GROUP BY command ORDER BY count DESC LIMIT $limit";
 	$data = $db->query($sql, $time);
 
-	$blob = "<header> ::: Most Used Commands ::: <end>\n";
+	$blob = "<header2> ::: Most Used Commands ::: <end>\n";
 	forEach ($data as $row) {
 		$blob .= "<highlight>{$row->command}<end> ({$row->count})\n";
 	}
@@ -31,7 +31,7 @@ if (preg_match("/^usage$/i", $message) || preg_match("/^usage ([a-z0-9]+)$/i", $
 	$sql = "SELECT sender, COUNT(sender) AS count FROM usage_<myname> WHERE dt > ? GROUP BY sender ORDER BY count DESC LIMIT $limit";
 	$data = $db->query($sql, $time);
 
-	$blob .= "\n<header> ::: Most Active Users ::: <end>\n";
+	$blob .= "\n<header2> ::: Most Active Users ::: <end>\n";
 	forEach ($data as $row) {
 		$blob .= "<highlight>{$row->sender}<end> ({$row->count})\n";
 	}

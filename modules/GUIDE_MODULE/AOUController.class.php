@@ -86,7 +86,7 @@ class AOUController {
 		$blob = '';
 		$count = 0;
 		forEach ($sections as $section) {
-			$blob .= "<pagebreak><header>" . $this->getSearchResultCategory($section) . "<end>\n";
+			$blob .= "<pagebreak><header2>" . $this->getSearchResultCategory($section) . "<end>\n";
 			$guides = $section->getElementsByTagName('guide');
 			forEach ($guides as $guide) {
 				$count++;

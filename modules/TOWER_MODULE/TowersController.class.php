@@ -496,7 +496,7 @@ class TowerController {
 					continue;
 				}
 				if ($current_faction != $row->att_faction) {
-					$blob .= "\n<header> ::: {$row->att_faction} ::: <end>\n";
+					$blob .= "\n<header2> ::: {$row->att_faction} ::: <end>\n";
 					$current_faction = $row->att_faction;
 				}
 				$timeString = $this->util->unixtime_to_readable(time() - $row->penalty_time, false);

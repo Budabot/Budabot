@@ -81,6 +81,15 @@ class SettingsController {
 	 * @AccessLevel("mod")
 	 */
 	public $defaultDefaultHeaderColor = "<font color='#FFFF00'>";
+	
+	/**
+	 * @Setting("default_header2_color")
+	 * @Description("default header2 color")
+	 * @Visibility("edit")
+	 * @Type("color")
+	 * @AccessLevel("mod")
+	 */
+	public $defaultDefaultHeader2Color = "<font color='#FCA712'>";
 
 	/**
 	 * @Setting("default_clan_color")
@@ -247,7 +256,7 @@ class SettingsController {
 			// show help topic if there is one
 			$help = $this->help->find($settingName, $sender);
 			if ($help !== false) {
-				$blob .= "\n\n<header> ::: Help ($settingName) ::: <end>\n\n" . $help;
+				$blob .= "\n\n<header2> ::: Help ($settingName) ::: <end>\n\n" . $help;
 			}
 
 			$msg = $this->text->make_blob("Settings Info for {$settingName}", $blob);

@@ -23,7 +23,7 @@ if (preg_match("/^history (.+) (\d)$/i", $message, $arr) || preg_match("/^histor
 		$link[] = "<header>::::: History of $name for RK {$dimension} ::::::<end>\n\n";
 		$lh = "<highlight>Options:<end>\n";
 		if (count($altInfo->alts) > 0) {
-		$lh .= "<tab><tab><a href='chatcmd:///tell <myname> alts $name'>Show Alts</a> \n";
+			$lh .= "<tab><tab><a href='chatcmd:///tell <myname> alts $name'>Show Alts</a> \n";
 		}
 		$lh .= "<tab><tab><a href='chatcmd:///tell <myname> whois $name'>Whois</a>\n";
 		$lh .= "<tab><tab><a href='chatcmd:///cc addbuddy $name'>Add to your friendslist</a>\n";
