@@ -158,7 +158,7 @@ class AOUController {
 			$$name = $value;
 		}
 		
-		return $this->text->make_chatcmd("/waypoint $x $y $pid", $label);
+		return $this->text->make_chatcmd($label, "/waypoint $x $y $pid");
 	}
 	
 	private function processInput($input) {
