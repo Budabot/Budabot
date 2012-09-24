@@ -150,8 +150,20 @@ class AOUController {
 		return $output;
 	}
 	
+	private function replaceWaypoint($arr) {
+		$label = $arr[2];
+		$params = explode(" ", $arr[1]);
+		forEach($params as $param) {
+			list($name, $value) = explode("=", $param);
+			$$name = $value;
+		}
+		
+		return $this->text->make_chatcmd("/waypoint $x $y $pid", $label);
+	}
+	
 	private function processInput($input) {
 		$input = preg_replace_callback("/\\[(item|itemname|itemicon)( nolink)?\\](\\d+)\\[\\/(item|itemname|itemicon)\\]/i", array($this, 'replaceItem'), $input);
+		$input = preg_replace_callback("/\\[waypoint ([^\\]]+)\\](.*?)\\[\\/waypoint\\]/", array($this, 'replaceWaypoint'), $input);
 
 		$pattern = "/(\\[[^\\]]+\\])/";
 		$matches = preg_split($pattern, $input, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
