@@ -28,20 +28,6 @@ if (preg_match("/^oe ([0-9]+)$/i", $message, $arr)) {
 	$msg = "<orange>{$lowoe100}<end> - <yellow>{$oe}<end> - <orange>{$oe100}<end> " . Text::make_blob('More info', $blob, 'Over-equipped Calculation');
 
     $sendto->reply($msg);
-/*
-} else if (preg_match('/^oe \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\"\>/i', $message, $arr)) {
-	$url = "http://itemxml.xyphos.com/?";
-	$url .= "id={$arr[1]}&";  // use low id for id
-	//$url .= "id={$arr[2]}&";  // use high id for id
-	$url .= "ql={$arr[3]}&";
-
-	$data = file_get_contents($url, 0);
-	if (empty($data) || '<error>' == substr($data, 0, 7)) {
-		$msg = "Unable to query Items XML Database.";
-		$sendto->reply($msg);
-		return;
-	}
-*/
 } else {
 	$syntax_error = true;
 }
