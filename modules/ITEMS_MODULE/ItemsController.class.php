@@ -46,6 +46,9 @@ class ItemsController implements ItemsAPI {
 
 	/** @Inject */
 	public $text;
+	
+	/** @Inject */
+	public $util;
 
 	public $moduleName;
 
@@ -134,10 +137,6 @@ class ItemsController implements ItemsAPI {
 	}
 
 	public function download_newest_itemsdb() {
-		$chatBot = Registry::getInstance('chatBot');
-		$db = Registry::getInstance('db');
-		$setting = Registry::getInstance('setting');
-
 		LegacyLogger::log('INFO', 'ITEMS_MODULE', "Starting items db update");
 
 		// get list of files in ITEMS_MODULE
@@ -153,7 +152,7 @@ class ItemsController implements ItemsAPI {
 				if (preg_match("/^aodb(.*)\\.sql$/i", $item->a, $arr)) {
 					if ($latestVersion === null) {
 						$latestVersion = $arr[1];
-					} else if (Util::compare_version_numbers($arr[1], $currentVersion)) {
+					} else if ($this->util->compare_version_numbers($arr[1], $currentVersion)) {
 						$latestVersion = $arr[1];
 					}
 				}
@@ -164,22 +163,22 @@ class ItemsController implements ItemsAPI {
 		}
 
 		if ($latestVersion !== null) {
-			$currentVersion = $setting->get("aodb_db_version");
+			$currentVersion = $this->setting->get("aodb_db_version");
 
 			// if server version is greater than current version, download and load server version
-			if ($currentVersion === false || Util::compare_version_numbers($latestVersion, $currentVersion) > 0) {
+			if ($currentVersion === false || $this->util->compare_version_numbers($latestVersion, $currentVersion) > 0) {
 				// download server version and save to ITEMS_MODULE directory
 				$contents = file_get_contents("http://budabot2.googlecode.com/svn/trunk/modules/ITEMS_MODULE/aodb{$latestVersion}.sql");
 				$fh = fopen("./modules/ITEMS_MODULE/aodb{$latestVersion}.sql", 'w');
 				fwrite($fh, $contents);
 				fclose($fh);
 
-				$db->begin_transaction();
+				$this->db->begin_transaction();
 
 				// load the sql file into the db
-				$db->loadSQLFile("ITEMS_MODULE", "aodb");
+				$this->db->loadSQLFile("ITEMS_MODULE", "aodb");
 
-				$db->commit();
+				$this->db->commit();
 
 				LegacyLogger::log('INFO', 'ITEMS_MODULE', "Items db updated from '$currentVersion' to '$latestVersion'");
 				$msg = "The items database has been updated to the latest version.  Version: $latestVersion";
@@ -232,10 +231,10 @@ class ItemsController implements ItemsAPI {
 				$blob .= "Search: $search\n\n";
 			}
 			$blob .= $this->formatSearchResults($data, $ql, true);
-			$xrdbLink = Text::make_chatcmd("XRDB", "/start http://www.xyphos.com/viewtopic.php?f=6&t=10000091");
-			$budabotItemsExtractorLink = Text::make_chatcmd("Budabot Items Extractor", "/start http://budabot.com/forum/viewtopic.php?f=7&t=873");
+			$xrdbLink = $this->text->make_chatcmd("XRDB", "/start http://www.xyphos.com/viewtopic.php?f=6&t=10000091");
+			$budabotItemsExtractorLink = $this->text->make_chatcmd("Budabot Items Extractor", "/start http://budabot.com/forum/viewtopic.php?f=7&t=873");
 			$blob .= "\n\n<highlight>Item DB rips provied by MajorOutage (RK1) using Xyphos' $xrdbLink tool and the $budabotItemsExtractorLink plugin<end>";
-			$link = Text::make_blob("Item Search Results ($num)", $blob);
+			$link = $this->text->make_blob("Item Search Results ($num)", $blob);
 
 			return $link;
 		} else {
@@ -250,9 +249,9 @@ class ItemsController implements ItemsAPI {
 				$list .= "<img src='rdb://".$row->icon."'> \n";
 			}
 			if ($ql) {
-				$list .= "QL $ql ".Text::make_item($row->lowid, $row->highid, $ql, $row->name);
+				$list .= "QL $ql ".$this->text->make_item($row->lowid, $row->highid, $ql, $row->name);
 			} else {
-				$list .= Text::make_item($row->lowid, $row->highid, $row->highql, $row->name);
+				$list .= $this->text->make_item($row->lowid, $row->highid, $row->highql, $row->name);
 			}
 			if ($row->lowql != $row->highql) {
 				$list .= " (QL".$row->lowql." - ".$row->highql.")\n";
@@ -264,6 +263,36 @@ class ItemsController implements ItemsAPI {
 			}
 		}
 		return $list;
+	}
+	
+	public function doXyphosLookup($id) {
+		$url = "http://itemxml.xyphos.com/?id={$id}";
+		$data = file_get_contents($url, 0);
+		
+		if (empty($data) || '<error>' == substr($data, 0, 7)) {
+			return null;
+		}
+		
+		$doc = new DOMDocument();
+		$doc->prevservWhiteSpace = false;
+		$doc->loadXML($data);
+		
+		$obj = new stdClass;
+		
+		$obj->lowid = $doc->getElementsByTagName('low')->item(0)->attributes->getNamedItem("id")->nodeValue;
+		$obj->highid = $doc->getElementsByTagName('high')->item(0)->attributes->getNamedItem("id")->nodeValue;
+		$obj->highql = $doc->getElementsByTagName('high')->item(0)->attributes->getNamedItem("ql")->nodeValue;
+		$obj->name = $doc->getElementsByTagName('name')->item(0)->nodeValue;
+
+		$attributes = $doc->getElementsByTagName('attribute');
+		$obj->icon = 0;
+		forEach ($attributes as $attribute) {
+			if ($attribute->attributes->getNamedItem("name")->nodeValue == "Icon") {
+				$obj->icon = $attribute->attributes->getNamedItem("value")->nodeValue;
+			}
+		}
+
+		return $obj;
 	}
 
 	/**

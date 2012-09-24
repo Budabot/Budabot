@@ -45,6 +45,13 @@ class AOUController {
 
 		$dom = new DOMDocument;
 		$dom->loadXML($guide);
+		
+		if ($dom->getElementsByTagName('error')->length > 0) {
+			$msg = "An error occurred while trying to retrieve AOU guide with id <highlight>$guideid<end>: " .
+				$dom->getElementsByTagName('text')->item(0)->nodeValue;
+			$sendto->reply($msg);
+			return;
+		}
 
 		$content = $dom->getElementsByTagName('content')->item(0);
 
@@ -129,20 +136,16 @@ class AOUController {
 
 		$data = $this->itemsController->findById($id);
 		if (count($data) > 0) {
-			$row = $data[0];
-			if ($type == "item" || $type == "itemicon") {
-				$output .= $this->text->make_image($row->icon) . "\n";
-			}
-			
-			if ($type == "item" || $type == "itemname") {
-				$output .=  $this->text->make_item($row->lowid, $row->highid, $row->highql, $row->name);
-			}
-			
-			if ($type == "item") {
-				$output .= "\n";
-			}
+			$output = $this->generateItemMarkup($type, $data[0]);
 		} else {
-			$output .= $id;
+			$obj = $this->itemsController->doXyphosLookup($id);
+			if (null == $obj) {
+				$output = $id;
+			} else if ($obj->icon == 0) {  // for perks and items that aren't displayable in game
+				$output = $this->text->make_chatcmd($obj->name, "/start http://www.xyphos.com/ao/aodb.php?id={$obj->lowid}");
+			} else {
+				$output = $this->generateItemMarkup($type, $obj);
+			}
 		}
 		return $output;
 	}
@@ -180,5 +183,21 @@ class AOUController {
 		}
 
 		return $tag;
+	}
+	
+	private function generateItemMarkup($type, $obj) {
+		$output = '';
+		if ($type == "item" || $type == "itemicon") {
+			$output .= $this->text->make_image($obj->icon) . "\n";
+		}
+		
+		if ($type == "item" || $type == "itemname") {
+			$output .= $this->text->make_item($obj->lowid, $obj->highid, $obj->highql, $obj->name);
+		}
+		
+		if ($type == "item") {
+			$output .= "\n";
+		}
+		return $output;
 	}
 }
