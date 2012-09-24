@@ -67,7 +67,7 @@ class TowerController {
 	public $moduleName;
 
 	/** @Inject */
-	public $playfields;
+	public $playfieldController;
 
 	/** @Inject */
 	public $player;
@@ -182,7 +182,7 @@ class TowerController {
 	 * @Matches("/^attacks (?!org|player)([a-z0-9]+) (\d+)$/i")
 	 */
 	public function attacks2Command($message, $channel, $sender, $sendto, $args) {
-		$playfield = $this->playfields->get_playfield_by_name($args[1]);
+		$playfield = $this->playfieldController->get_playfield_by_name($args[1]);
 		if ($playfield === null) {
 			$msg = "Please enter a valid playfield.";
 			$sendto->reply($msg);
@@ -238,7 +238,6 @@ class TowerController {
 	 * @Matches("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[0-9]{2}) ([0-9]+) ([a-z]+) (.*)$/i")
 	 */
 	public function forcescoutCommand($message, $channel, $sender, $sendto, $args) {
-		$playfields = $this->playfields;
 		if (strtolower($args[1]) == 'forcescout') {
 			$skip_checks = true;
 		} else {
@@ -258,7 +257,7 @@ class TowerController {
 			return;
 		}
 	
-		$playfield = $playfields->get_playfield_by_name($playfield_name);
+		$playfield = $this->playfieldController->get_playfield_by_name($playfield_name);
 		if ($playfield === null) {
 			$msg = "Invalid playfield.";
 			$sendto->reply($msg);
@@ -338,9 +337,8 @@ class TowerController {
 	 * @Matches("/^lc ([0-9a-z]+)$/i")
 	 */
 	public function lc2Command($message, $channel, $sender, $sendto, $args) {
-		$playfields = $this->playfields;
 		$playfield_name = strtoupper($args[1]);
-		$playfield = $playfields->get_playfield_by_name($playfield_name);
+		$playfield = $this->playfieldController->get_playfield_by_name($playfield_name);
 		if ($playfield === null) {
 			$msg = "Playfield '$playfield_name' could not be found";
 			$sendto->reply($msg);
@@ -370,9 +368,8 @@ class TowerController {
 	 * @Matches("/^lc ([0-9a-z]+) ([0-9]+)$/i")
 	 */
 	public function lc3Command($message, $channel, $sender, $sendto, $args) {
-		$playfields = $this->playfields;
 		$playfield_name = strtoupper($args[1]);
-		$playfield = $playfields->get_playfield_by_name($playfield_name);
+		$playfield = $this->playfieldController->get_playfield_by_name($playfield_name);
 		if ($playfield === null) {
 			$msg = "Playfield '$playfield_name' could not be found";
 			$sendto->reply($msg);
@@ -516,11 +513,10 @@ class TowerController {
 	 * @Matches("/^remscout ([a-z0-9]+) ([0-9]+)$/i")
 	 */
 	public function remscoutCommand($message, $channel, $sender, $sendto, $args) {
-		$playfields = $this->playfields;
 		$playfield_name = $args[1];
 		$site_number = $args[2];
 	
-		$playfield = $playfields->get_playfield_by_name($playfield_name);
+		$playfield = $this->playfieldController->get_playfield_by_name($playfield_name);
 		if ($playfield === null) {
 			$msg = "Invalid playfield.";
 			$sendto->reply($msg);
@@ -551,7 +547,6 @@ class TowerController {
 	 * @Matches("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[0-9]{2}) ([0-9]+) ([a-z]+) (.*)$/i")
 	 */
 	public function scoutCommand($message, $channel, $sender, $sendto, $args) {
-		$playfields = $this->playfields;
 		if (strtolower($args[1]) == 'forcescout') {
 			$skip_checks = true;
 		} else {
@@ -571,7 +566,7 @@ class TowerController {
 			return;
 		}
 	
-		$playfield = $playfields->get_playfield_by_name($playfield_name);
+		$playfield = $this->playfieldController->get_playfield_by_name($playfield_name);
 		if ($playfield === null) {
 			$msg = "Invalid playfield.";
 			$sendto->reply($msg);
@@ -714,7 +709,7 @@ class TowerController {
 	 * @Matches("/^victory (?!org|player)([a-z0-9]+) (\d+)$/i")
 	 */
 	public function victory2Command($message, $channel, $sender, $sendto, $args) {
-		$playfield = $this->playfields->get_playfield_by_name($args[1]);
+		$playfield = $this->playfieldController->get_playfield_by_name($args[1]);
 		if ($playfield === null) {
 			$msg = "Invalid playfield.";
 			$sendto->reply($msg);
@@ -804,7 +799,7 @@ class TowerController {
 		// in case it's not a player who causes attack message (pet, mob, etc)
 		$whois->name = $att_player;
 		
-		$playfield = $this->playfields->get_playfield_by_name($playfield_name);
+		$playfield = $this->playfieldController->get_playfield_by_name($playfield_name);
 		$closest_site = $this->get_closest_site($playfield->id, $x_coords, $y_coords);
 
 		$defender = new StdClass();
@@ -966,9 +961,7 @@ class TowerController {
 			return;
 		}
 		
-		$playfields = $this->playfields;
-		
-		$playfield = $playfields->get_playfield_by_name($playfield_name);
+		$playfield = $this->playfieldController->get_playfield_by_name($playfield_name);
 		if ($playfield === null) {
 			$this->logger->log('error', 'Towers', "Could not find playfield for name '$playfield_name'");
 			return;

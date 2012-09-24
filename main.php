@@ -111,7 +111,6 @@
 	require_once './core/DB.class.php';
 	require_once './core/xml.php';
 	require_once './core/MyCurl.class.php';
-	require_once './core/Playfields.class.php';
 	require_once './core/AccessLevel.class.php';
 	require_once './core/Admin.class.php';
 	require_once './core/CommandManager.class.php';
@@ -202,7 +201,6 @@
 	Registry::setInstance('ban', new Ban);
 	Registry::setInstance('accessLevel', new AccessLevel);
 	Registry::setInstance('admin', new Admin);
-	Registry::setInstance('playfields', new Playfields);
 	Registry::setInstance('text', new Text);
 	Registry::setInstance('util', new Util);
 	Registry::setInstance('chatBot', new Budabot($vars));

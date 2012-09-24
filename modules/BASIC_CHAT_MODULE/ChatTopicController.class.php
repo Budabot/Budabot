@@ -30,6 +30,9 @@ class ChatTopicController {
 	
 	/** @Inject */
 	public $setting;
+	
+	/** @Inject */
+	public $util;
 
 	/**
 	 * @Setting("topic")
@@ -126,7 +129,7 @@ class ChatTopicController {
 	 * Builds current topic information message and returns it.
 	 */
 	private function buildTopicMessage() {
-		$date_string = Util::unixtime_to_readable(time() - $this->setting->get('topic_time'), false);
+		$date_string = $this->util->unixtime_to_readable(time() - $this->setting->get('topic_time'), false);
 		$topic = $this->setting->get('topic');
 		$set_by = $this->setting->get('topic_setby');
 		$msg = "<highlight>Topic:<end> {$topic} [set by <highlight>{$set_by}<end>][<highlight>{$date_string} ago<end>]";

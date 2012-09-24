@@ -19,7 +19,7 @@ class ChatRallyController {
 	public $text;
 
 	/** @Inject */
-	public $playfields;
+	public $playfieldController;
 
 	/** @Inject */
 	public $chatBot;
@@ -64,7 +64,7 @@ class ChatRallyController {
 		$playfield_id = $args[4];
 		$name = $playfield_id;
 
-		$playfield = $this->playfields->get_playfield_by_id($playfield_id);
+		$playfield = $this->playfieldController->get_playfield_by_id($playfield_id);
 		if ($playfield !== null) {
 			$name = $playfield->short_name;
 		}
@@ -91,13 +91,13 @@ class ChatRallyController {
 			$playfield_id = $args[5];
 			$playfield_name = $playfield_id;
 
-			$playfield = $this->playfields->get_playfield_by_id($playfield_id);
+			$playfield = $this->playfieldController->get_playfield_by_id($playfield_id);
 			if ($playfield !== null) {
 				$playfield_name = $playfield->short_name;
 			}
 		} else {
 			$playfield_name = $args[5];
-			$playfield = $this->playfields->get_playfield_by_name($playfield_name);
+			$playfield = $this->playfieldController->get_playfield_by_name($playfield_name);
 			if ($playfield === null) {
 				$sendto->reply("Could not find playfield '$playfield_name'");
 				return;

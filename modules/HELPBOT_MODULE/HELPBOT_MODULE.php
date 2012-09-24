@@ -1,15 +1,16 @@
 <?php
 	require_once 'db_utils.php';
 	require_once 'PlayfieldController.class.php';
+	require_once 'OrgCitiesController.class.php';
 	
 	$chatBot->registerInstance($MODULE_NAME, 'PlayfieldController', new PlayfieldController());
+	$chatBot->registerInstance($MODULE_NAME, 'OrgCitiesController', new OrgCitiesController());
 
 	$db->loadSQLFile($MODULE_NAME, "buffitems");
 	$db->loadSQLFile($MODULE_NAME, "roll");
 	$db->loadSQLFile($MODULE_NAME, "koslist");
 	$db->loadSQLFile($MODULE_NAME, "dyna");
 	$db->loadSQLFile($MODULE_NAME, "research");
-	$db->loadSQLFile($MODULE_NAME, "orgcities");
 
 	$command->register($MODULE_NAME, "", "bufftest.php", "bufftest", "all", "test");
 	$command->register($MODULE_NAME, "", "kos.php", "kos", "guild", "Show the Kill On Sight List", "kos.txt");
@@ -23,7 +24,6 @@
 	$command->register($MODULE_NAME, "", "whatbuffs.php", "whatbuffs", "all", "Find items that buff", "whatbuffs.txt");
 	$command->register($MODULE_NAME, "", "dyna.php", "dyna", "all", "Search for RK Dynaboss", "dyna.txt");
 	$command->register($MODULE_NAME, "", "research.php", "research", "all", "Show info on Research", "research.txt");
-	$command->register($MODULE_NAME, "", "orgcities.php", "orgcities", "all", "Show coords for org cities", "orgcities.txt");
 	$command->register($MODULE_NAME, "", "server.php", "server", "all", "Show the Server status", "server.txt");
 
 	// Flip or Roll command
