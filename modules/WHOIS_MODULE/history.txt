@@ -1,5 +1,7 @@
-<highlight>To show the history of a Player<end>
-<tab><symbol>history 'Insert Playername'
+<highlight>To show the history of a player:<end>
+<tab><symbol>history 'playername'
 
-for example
-<tab><symbol>history Sebuda
+<highlight>To show the history of a player on specific dimension:<end>
+<tab><symbol>history 'playername' 'dimension'
+
+Note: valid values for dimension are 1 and 2.

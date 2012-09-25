@@ -1,9 +1,12 @@
 <?php
+	require_once 'PlayerHistoryController.class.php';
+	
+	$chatBot->registerInstance($MODULE_NAME, 'PlayerHistoryController', new PlayerHistoryController());
+
 	$db->loadSQLFile($MODULE_NAME, 'name_history');
 
 	$command->register($MODULE_NAME, "", "whois.php", "whois", "all", "Show character info and name history", "whois.txt");
 	$command->register($MODULE_NAME, "", "whois.php", "whoisall", "all", "Show character info and name history for all dimensions", "whois.txt");
-	$command->register($MODULE_NAME, "", "history.php", "history", "all", "Show history of a player", "history.txt");
 	$command->register($MODULE_NAME, "", "namehistory.php", "namehistory", "all", "Show name history of a character", "namehistory.txt");
 	$command->register($MODULE_NAME, "", "lookup.php", "lookup", "all", "Find the uid for a character", "lookup.txt");
 
