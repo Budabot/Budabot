@@ -161,9 +161,17 @@ class AOUController {
 		return $this->text->make_chatcmd($label, "/waypoint $x $y $pf");
 	}
 	
+	private function replaceGuideLinks($arr) {
+		$id = $arr[2];
+		$label = $arr[3];
+		
+		return $this->text->make_chatcmd($label, "/tell <myname> aou $id");
+	}
+	
 	private function processInput($input) {
 		$input = preg_replace_callback("/\\[(item|itemname|itemicon)( nolink)?\\](\\d+)\\[\\/(item|itemname|itemicon)\\]/i", array($this, 'replaceItem'), $input);
 		$input = preg_replace_callback("/\\[waypoint ([^\\]]+)\\]([^\\]]*)\\[\\/waypoint\\]/", array($this, 'replaceWaypoint'), $input);
+		$input = preg_replace_callback("/\\[url=index\\.php\\?id=(\\d+)&pid=(\\d+)\\]([^\\[]+)\\[\\/url\\]/", array($this, 'replaceGuideLinks'), $input);
 
 		$pattern = "/(\\[[^\\]]+\\])/";
 		$matches = preg_split($pattern, $input, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
@@ -182,9 +190,9 @@ class AOUController {
 			case "[/b]":
 				return "<end>";
 			case "[ts_ts]":
-				return "\n+\n";
+				return " + ";
 			case "[ts_ts2]":
-				return "\n=\n";
+				return " = ";
 			case "[cttr]":
 			case "[br]":
 				return "\n";
@@ -200,16 +208,13 @@ class AOUController {
 	private function generateItemMarkup($type, $obj) {
 		$output = '';
 		if ($type == "item" || $type == "itemicon") {
-			$output .= $this->text->make_image($obj->icon) . "\n";
+			$output .= $this->text->make_image($obj->icon);
 		}
 		
 		if ($type == "item" || $type == "itemname") {
 			$output .= $this->text->make_item($obj->lowid, $obj->highid, $obj->highql, $obj->name);
 		}
-		
-		if ($type == "item") {
-			$output .= "\n";
-		}
+
 		return $output;
 	}
 }
