@@ -50,10 +50,15 @@ class CommandManager {
 			return;
 		}
 
+		if (empty($filename)) {
+			$this->logger->log('ERROR', "Error registering $module:command($command).  Handler is blank.");
+			return;
+		}
+
 		forEach (explode(',', $filename) as $handler) {
 			list($name, $method) = explode(".", $handler);
 			if (!Registry::instanceExists($name)) {
-				$this->logger->log('ERROR', "Error registering method $handler for command $command.  Could not find instance '$name'.");
+				$this->logger->log('ERROR', "Error registering method '$handler' for command '$command'.  Could not find instance '$name'.");
 				return;
 			}
 		}
