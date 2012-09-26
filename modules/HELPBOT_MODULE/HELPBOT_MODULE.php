@@ -6,13 +6,11 @@
 	$chatBot->registerInstance($MODULE_NAME, 'PlayfieldController', new PlayfieldController());
 	$chatBot->registerInstance($MODULE_NAME, 'OrgCitiesController', new OrgCitiesController());
 
-	$db->loadSQLFile($MODULE_NAME, "buffitems");
 	$db->loadSQLFile($MODULE_NAME, "roll");
 	$db->loadSQLFile($MODULE_NAME, "koslist");
 	$db->loadSQLFile($MODULE_NAME, "dyna");
 	$db->loadSQLFile($MODULE_NAME, "research");
 
-	$command->register($MODULE_NAME, "", "bufftest.php", "bufftest", "all", "test");
 	$command->register($MODULE_NAME, "", "kos.php", "kos", "guild", "Show the Kill On Sight List", "kos.txt");
 	$command->register($MODULE_NAME, "", "time.php", "time", "all", "Show the time in the different timezones", "time.txt");
 	$command->register($MODULE_NAME, "", "calc.php", "calc", "all", "Calculator", "calculator.txt");

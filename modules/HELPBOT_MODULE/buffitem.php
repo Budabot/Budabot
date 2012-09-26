@@ -34,18 +34,20 @@ if (preg_match("/^buffitem (.+)$/i", $message, $arr)) {
 		$sendto->reply("No matches, sorry.");
 		return;
 	} else {
-		$blob = "Your query of <yellow>".$name."<end> returned the following item line(s):\n\n";
 		if ($found == 1) {
 			$blob .= $results[0][1]."\n\n";
+			$blob .= "\n\nby Imoutochan, RK1";
+			$msg = Text::make_blob("Buff Item - " . $results[0][0], $blob);
 		} else {
+			$blob = "Your query of <yellow>".$name."<end> returned the following item line(s):\n\n";
 			forEach ($results as $result) {
 				$blob .= "- <a href='chatcmd:///tell <myname> <symbol>buffitem ".$result[0]."'>".$result[0]."</a>".
 						   (sizeof($result) == 3 ? " (".$result[2].")" : "")."\n";
 			}
 			$blob .= "\n".sizeof($results)." results found, please pick one by clicking it";
+			$blob .= "\n\nby Imoutochan, RK1";
+			$msg = Text::make_blob("Buff item search results (<highlight>$found<end>)", $blob);
 		}
-		$blob .= "\n\nby Imoutochan, RK1";
-		$msg = Text::make_blob("Buff item search results (<highlight>$found<end>)", $blob);
 	}
 	$sendto->reply($msg);
 } else {

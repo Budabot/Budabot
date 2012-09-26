@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * Author: Tyrence (RK2)
+ *
  * @Instance
  *
  * Commands this controller contains:
@@ -23,7 +25,7 @@ class Fun {
 	 *
 	 * @HandlesCommand("fc")
 	 */
-	public function fcCommand($message, $channel, $sender, $sendto) {
+	public function fcCommand($message, $channel, $sender, $sendto, $args) {
 		$fc = array();
 		$fc[] = "[in the same thread that topics got deleted for not agreeing with how moderation was happening] This is what I hate - This prevalant attitude that we restrict or otherwise take issue with people having differing opinions from us. --Kintaii";
 		$fc[] = "We're more open and honest than probably pretty much any other game development team out there. --Kintaii";
