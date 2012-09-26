@@ -54,6 +54,7 @@ class Text {
 
 		// escape double quotes
 		$content = str_replace('"', '&quot;', $content);
+		$header = str_replace('"', '&quot;', $header);
 
 		$content = Text::format_message($content);
 
