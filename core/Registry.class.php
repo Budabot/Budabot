@@ -67,9 +67,16 @@ class Registry {
 			}
 		}
 	}
-
-	public static function getMissingDependencyNames() {
-		return array_keys(self::$dependencies);
+	
+	public static function checkForMissingDependencies() {
+		forEach (self::$dependencies as $name => $arr) {
+			$dependers = array();
+			forEach ($arr as $obj) {
+				list($injectObject, $injectVariable) = $obj;
+				$dependers []= get_class($injectObject);
+			}
+			LegacyLogger::log("WARN", "Registry", "Could not find instance '$name' to inject to: ". implode(",", $dependers));
+		}
 	}
 
 	public static function importChanges($instance) {

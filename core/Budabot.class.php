@@ -222,6 +222,8 @@ class Budabot extends AOChat {
 		//Load user modules
 		$this->loadModules();
 		
+		Registry::checkForMissingDependencies();
+		
 		//remove arrays
 		unset($this->existing_commands);
 		unset($this->existing_events);
@@ -251,10 +253,6 @@ class Budabot extends AOChat {
 			$this->registerModule("./core", $MODULE_NAME);
 		}
 		$this->callAndClearSetupHandlers();
-		$missingDeps = Registry::getMissingDependencyNames();
-		if (empty($missingDeps) == false) {
-			$this->logger->log('WARN', 'Following instances were not found: ' . implode(', ', $missingDeps));
-		}
 		$this->db->commit();
 	}
 
@@ -278,10 +276,6 @@ class Budabot extends AOChat {
 			}
 		}
 		$this->callAndClearSetupHandlers();
-		$missingDeps = Registry::getMissingDependencyNames();
-		if (empty($missingDeps) == false) {
-			$this->logger->log('WARN', 'Following instances were not found: ' . implode(', ', $missingDeps));
-		}
 		$this->db->commit();
 	}
 	
