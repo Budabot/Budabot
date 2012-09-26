@@ -86,6 +86,9 @@ class TowerController {
 
 	/** @Inject */
 	public $util;
+	
+	/** @Inject */
+	public $levelController;
 
 	/** @Logger */
 	public $logger;
@@ -843,7 +846,7 @@ class TowerController {
 				$link .= self::COLOR_LABEL."Profession:<end> ".self::COLOR_VALUE.$whois->profession."<end>\n";
 			}
 			if ($whois->level) {
-				$level_info = Level::get_level_info($whois->level);
+				$level_info = $this->levelController->get_level_info($whois->level);
 				$link .= self::COLOR_LABEL."Level:<end> ".self::COLOR_VALUE."{$whois->level}<end>/<green>{$whois->ai_level}<end> <red>({$level_info->pvpMin}-{$level_info->pvpMax})<end>\n";
 			}
 		
