@@ -8,12 +8,14 @@ if (preg_match("/^Blammo! (.+) has launched an orbital attack!$/i", $message, $a
 	$orgName = $chatBot->vars["my_guild"];
 
 	$launcher = $arr[1];
+	
+	$timerController = Registry::getInstance('timerController');
 
 	for ($i = 1; $i <= 10; $i++) {
 		$name = "$orgName OS/AS $i";
-		if (Timer::get($name) == null) {
+		if ($timerController->get($name) == null) {
 			$timer = time() + (15*60); // set timer for 15 minutes
-			Timer::add($name, $launcher, 'guild', $timer);
+			$timerController->add($name, $launcher, 'guild', $timer);
 			break;
 		}
 	}

@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * Authors: 
+ *  - Tyrence (RK2)
+ *
+ * @Instance
+ *
  * Commands this class contains:
  *	@DefineCommand(
  *		command     = 'rtimer',
@@ -15,7 +20,13 @@
  *		help        = 'timers.txt'
  *	)
  */
-class Timer {
+class TimerController {
+
+	/**
+	 * Name of the module.
+	 * Set automatically by module loader.
+	 */
+	public $moduleName;
 
 	/** @Inject */
 	public $db;
@@ -38,6 +49,8 @@ class Timer {
 	 * @Setup
 	 */
 	public function setup() {
+		$this->db->loadSQLFile($this->moduleName, 'timers');
+	
 		$this->timers = array();
 		$data = $this->db->query("SELECT * FROM timers_<myname>");
 		forEach ($data as $row) {
@@ -112,121 +125,107 @@ class Timer {
 	 * This command handler adds a repeating timer.
 	 *
 	 * @HandlesCommand("rtimer")
+	 * @Matches("/^(rtimer add|rtimer) ([a-z0-9]+) ([a-z0-9]+) (.+)$/i")
 	 */
-	public function rtimerCommand($message, $channel, $sender, $sendto) {
-		if (preg_match("/^(rtimer add|rtimer) ([a-z0-9]+) ([a-z0-9]+) (.+)$/i", $message, $arr)) {
-			$initialTimeString = $arr[2];
-			$timeString = $arr[3];
-			$timerName = $arr[4];
+	public function rtimerCommand($message, $channel, $sender, $sendto, $args) {
+		$initialTimeString = $args[2];
+		$timeString = $args[3];
+		$timerName = $args[4];
 
-			$timer = $this->get($timerName);
-			if ($timer != null) {
-				$msg = "A Timer with the name <highlight>$timerName<end> is already running.";
-				$sendto->reply($msg);
-				return;
-			}
-
-			$initialRunTime = $this->util->parseTime($initialTimeString);
-			$runTime = $this->util->parseTime($timeString);
-
-			if ($runTime < 1) {
-				$msg = "You must enter a valid time parameter for the run time.";
-				$sendto->reply($msg);
-				return;
-			}
-
-			if ($initialRunTime < 1) {
-				$msg = "You must enter a valid time parameter for the initial run time.";
-				$sendto->reply($msg);
-				return;
-			}
-
-			$time = time() + $initialRunTime;
-
-			$this->add($timerName, $sender, $channel, $time, "repeating", $runTime);
-
-			$initialTimerSet = $this->util->unixtime_to_readable($initialRunTime);
-			$timerSet = $this->util->unixtime_to_readable($runTime);
-			$msg = "Repeating timer <highlight>$timerName<end> will go off in $initialTimerSet and repeat every $timerSet.";
-
+		$timer = $this->get($timerName);
+		if ($timer != null) {
+			$msg = "A Timer with the name <highlight>$timerName<end> is already running.";
 			$sendto->reply($msg);
-		} else {
-			return false;
+			return;
 		}
+
+		$initialRunTime = $this->util->parseTime($initialTimeString);
+		$runTime = $this->util->parseTime($timeString);
+
+		if ($runTime < 1) {
+			$msg = "You must enter a valid time parameter for the run time.";
+			$sendto->reply($msg);
+			return;
+		}
+
+		if ($initialRunTime < 1) {
+			$msg = "You must enter a valid time parameter for the initial run time.";
+			$sendto->reply($msg);
+			return;
+		}
+
+		$time = time() + $initialRunTime;
+
+		$this->add($timerName, $sender, $channel, $time, "repeating", $runTime);
+
+		$initialTimerSet = $this->util->unixtime_to_readable($initialRunTime);
+		$timerSet = $this->util->unixtime_to_readable($runTime);
+		$msg = "Repeating timer <highlight>$timerName<end> will go off in $initialTimerSet and repeat every $timerSet.";
+
+		$sendto->reply($msg);
+	}
+	
+	/**
+	 * @HandlesCommand("timers")
+	 * @Matches("/^timers view (.+)$/i")
+	 */
+	public function timersViewCommand($message, $channel, $sender, $sendto, $args) {
+		$name = strtolower($args[1]);
+		$timer = $this->get($name);
+		if ($timer == null) {
+			$msg = "Could not find timer named <highlight>$name<end>.";
+		} else {
+			$time_left = $this->util->unixtime_to_readable($timer->timer - time());
+			$name = $timer->name;
+
+			$msg = "Timer <highlight>$name<end> has <highlight>$time_left<end> left.";
+		}
+		$sendto->reply($msg);
 	}
 
 	/**
-	 * This command handler sets and shows timers.
-	 *
 	 * @HandlesCommand("timers")
+	 * @Matches("/^timers (rem|del) (.+)$/i")
 	 */
-	public function timerCommand($message, $channel, $sender, $sendto) {
-		if (preg_match("/^timers view (.+)$/i", $message, $arr)) {
-			$msg = $this->viewTimer($arr[1]);
-			$sendto->reply($msg);
-		} else if (preg_match("/^(timers|timers add) ([0-9]+)$/i", $message, $arr) || preg_match("/^(timers|timers add) ([0-9]+) (.+)$/i", $message, $arr)) {
-			if (isset($arr[3])) {
-				$timerName = $arr[3];
-			} else {
-				$timerName = $sender;
-			}
-			$runTime = $arr[2] * 60;
-
-			$msg = $this->addTimer($sender, $timerName, $runTime, $channel);
-			$sendto->reply($msg);
-		} else if (preg_match("/^timers (rem|del) (.+)$/i", $message, $arr)) {
-			$msg = $this->removeTimer($sender, $arr[2]);
-			$sendto->reply($msg);
-		} else if (preg_match("/^(timers add|timers) ([a-z0-9]+) (.+)$/i", $message, $arr) ||
-				preg_match("/^(timers add|timers) ([a-z0-9]+)$/i", $message, $arr2)) {
-
-			if (isset($arr2)) {
-				$timeString = $arr2[2];
-				$name = $sender;
-			} else {
-				$timeString = $arr[2];
-				$name = $arr[3];
-			}
-
-			$runTime = $this->util->parseTime($timeString);
-
-			$msg = $this->addTimer($sender, $name, $runTime, $channel);
-			$sendto->reply($msg);
-		} else if (preg_match("/^timers$/i", $message, $arr)) {
-			$msg = $this->showTimers();
-			$sendto->reply($msg);
-		} else {
-			return false;
-		}
-	}
-
-	public function viewTimer($name) {
-		$name = strtolower($name);
+	public function timersRemoveCommand($message, $channel, $sender, $sendto, $args) {
+		$name = strtolower($args[2]);
 		$timer = $this->get($name);
 		if ($timer == null) {
-			return "Could not find timer named <highlight>$name<end>.";
-		}
-
-		$time_left = $this->util->unixtime_to_readable($timer->timer - time());
-		$name = $timer->name;
-
-		return "Timer <highlight>$name<end> has <highlight>$time_left<end> left.";
-	}
-
-	public function removeTimer($sender, $name) {
-		$name = strtolower($name);
-		$timer = $this->get($name);
-		if ($timer == null) {
-			return "Could not find a timer named <highlight>$name<end>.";
+			$msg = "Could not find a timer named <highlight>$name<end>.";
 		} else if ($timer->owner != $sender && !$this->accessLevel->checkAccess($sender, "rl")) {
-			return "You don't have the required access level (raidleader) to remove this timer.";
+			$msg = "You don't have the required access level (raidleader) to remove this timer.";
 		} else {
 			$this->remove($name);
-			return "Removed timer <highlight>$name<end>.";
+			$msg = "Removed timer <highlight>$name<end>.";
 		}
+		$sendto->reply($msg);
+	}
+	
+	/**
+	 * @HandlesCommand("timers")
+	 * @Matches("/^(timers add|timers) ([a-z0-9]+) (.+)$/i")
+	 * @Matches("/^(timers add|timers) ([a-z0-9]+)$/i")
+	 */
+	public function timersAddCommand($message, $channel, $sender, $sendto, $args) {
+		if (count($args) == 3) {
+			$timeString = $args[2];
+			$name = $sender;
+		} else {
+			$timeString = $args[2];
+			$name = $args[3];
+		}
+		
+		if (preg_match("/^\\d+$/", $timeString)) {
+			$runTime = $args[2] * 60;
+		} else {
+			$runTime = $this->util->parseTime($timeString);
+		}
+
+		$msg = $this->addTimer($sender, $name, $runTime, $channel);
+		$sendto->reply($msg);
 	}
 
-	public function addTimer($sender, $name, $runTime, $channel) {
+	private function addTimer($sender, $name, $runTime, $channel) {
 		if ($name == '') {
 			return;
 		}
@@ -247,31 +246,36 @@ class Timer {
 		return "Timer <highlight>$name<end> has been set for $timerset.";
 	}
 
-	public function showTimers() {
+	/**
+	 * @HandlesCommand("timers")
+	 * @Matches("/^timers$/i")
+	 */
+	public function timersListCommand($message, $channel, $sender, $sendto, $args) {
 		$timers = $this->getAllTimers();
 		if (count($timers) == 0) {
-			return "No timers currently running.";
-		}
+			$msg = "No timers currently running.";
+		} else {
+			$blob = '';
+			forEach ($timers as $timer) {
+				$time_left = $this->util->unixtime_to_readable($timer->timer - time());
+				$name = $timer->name;
+				$owner = $timer->owner;
 
-		$blob = '';
-		forEach ($timers as $timer) {
-			$time_left = $this->util->unixtime_to_readable($timer->timer - time());
-			$name = $timer->name;
-			$owner = $timer->owner;
+				$remove_link = $this->text->make_chatcmd("Remove", "/tell <myname> timers rem $name");
 
-			$remove_link = $this->text->make_chatcmd("Remove", "/tell <myname> timers rem $name");
+				$repeatingInfo = '';
+				if ($timer->callback == 'repeating') {
+					$repeatingTimeString = $this->util->unixtime_to_readable($timer->callback_param);
+					$repeatingInfo = " (Repeats every $repeatingTimeString)";
+				}
 
-			$repeatingInfo = '';
-			if ($timer->callback == 'repeating') {
-				$repeatingTimeString = $this->util->unixtime_to_readable($timer->callback_param);
-				$repeatingInfo = " (Repeats every $repeatingTimeString)";
+				$blob .= "Name: <highlight>$name<end> {$remove_link}\n";
+				$blob .= "Time left: <highlight>$time_left<end> $repeatingInfo\n";
+				$blob .= "Set by: <highlight>$owner<end>\n\n";
 			}
-
-			$blob .= "Name: <highlight>$name<end> {$remove_link}\n";
-			$blob .= "Time left: <highlight>$time_left<end> $repeatingInfo\n";
-			$blob .= "Set by: <highlight>$owner<end>\n\n";
+			$msg = $this->text->make_blob("Timers currently running", $blob);
 		}
-		return $this->text->make_blob("Timers currently running", $blob);
+		$sendto->reply($msg);
 	}
 
 	public function add($name, $owner, $mode, $time, $callback = null, $callback_param = null) {

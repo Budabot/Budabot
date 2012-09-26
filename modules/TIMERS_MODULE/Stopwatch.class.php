@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * Authors: 
+ *  - Tyrence (RK2)
+ *
+ * @Instance
+ *
  * Commands this class contains:
  *	@DefineCommand(
  *		command     = 'stopwatch',
@@ -11,6 +16,12 @@
  */
 class Stopwatch {
 
+	/**
+	 * Name of the module.
+	 * Set automatically by module loader.
+	 */
+	public $moduleName;
+
 	/** @Inject */
 	public $chatBot;
 
@@ -20,41 +31,35 @@ class Stopwatch {
 	private $time = 0;
 
 	/**
-	 * This command handler adds a repeating timer.
 	 * @HandlesCommand("stopwatch")
+	 * @Matches("/^stopwatch start$/i")
 	 */
-	public function stopwatchCommand($message, $channel, $sender, $sendto) {
-		if (preg_match("/^stopwatch start$/i", $message)) {
-			$msg = $this->start();
-		} else if (preg_match("/^stopwatch stop$/i", $message)) {
-			$msg = $this->stop();
+	public function stopwatchStartCommand($message, $channel, $sender, $sendto, $args) {
+		if ($this->time != 0) {
+			$msg = "The stopwatch is already running.";
 		} else {
-			return false;
+			$this->time = time();
+			$msg = "Stopwatch has been started.";
 		}
-
 		$sendto->reply($msg);
 	}
 
-	public function start() {
-		if ($this->time != 0) {
-			return "The stopwatch is already running.";
-		}
-
-		$this->time = time();
-		return "Stopwatch has been started.";
-	}
-
-	public function stop() {
+	/**
+	 * @HandlesCommand("stopwatch")
+	 * @Matches("/^stopwatch stop$/i")
+	 */
+	public function stopwatchStopCommand($message, $channel, $sender, $sendto, $args) {
 		if ($this->time == 0) {
-			return "The stopwatch is not running.";
+			$msg = "The stopwatch is not running.";
+		} else {
+			$time = time() - $this->time;
+			$this->time = 0;
+
+			$timeString = $this->util->unixtime_to_readable($time);
+
+			$msg = "Stopwatch has been stopped. Duration: $timeString";
 		}
-
-		$time = time() - $this->time;
-		$this->time = 0;
-
-		$timeString = $this->util->unixtime_to_readable($time);
-
-		return "Stopwatch has been stopped. Duration: $timeString";
+		$sendto->reply($msg);
 	}
 }
 

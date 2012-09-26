@@ -66,7 +66,7 @@ class VoteController {
 	 * This event handler checks for votes ending.
 	 *
 	 * @Event("2sec")
-	 * @Description("Checks timer and periodically updates chat with time left on vote")
+	 * @Description("Checks votes and periodically updates chat with time left")
 	 */
 	public function checkVote($eventObj) {
 		if (count($this->votes) == 0) {
