@@ -1,6 +1,0 @@
-<highlight>Show the Guardian list<end>
-<tab><symbol>guard
-
-The list shows the players that should be able to have this perk. As long the ppls use the macro too, the bot can show how long till the perk is ready again and is ordering his list so that at the first places are always one which has it ready.
-
-There is also a macro available(reachable over the Info link behind the list) which shows in the Bot when someone casted it, how till it ends and when it has ended and who is the next in the line.
