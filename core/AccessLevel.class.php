@@ -44,9 +44,6 @@ class AccessLevel extends Annotation {
 	 * ten people to send a tell to the bot.  You may wish to display a "ban"
 	 * link when a moderator or higher uses that command.
 	 * 
-	 * The $accessLevel is any one of: superadmin, admininistrator, moderator,
-	 * raidleader, guildadmin, leader, guild, member, or all.
-	 * 
 	 * To check if a player named 'Tyrence' has raidleader access,
 	 * you would do:
 	 * 

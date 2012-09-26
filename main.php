@@ -125,6 +125,7 @@
 	require_once './core/Text.class.php';
 	require_once './core/SocketNotifier.class.php';
 	require_once './core/AsyncHttp.class.php';
+	require_once './core/Timer.class.php';
 
 	// Show setup dialog.
 	if ($vars['login'] == "" || $vars['password'] == "" || $vars['name'] == "") {
@@ -203,6 +204,7 @@
 	Registry::setInstance('admin', new Admin);
 	Registry::setInstance('text', new Text);
 	Registry::setInstance('util', new Util);
+	Registry::setInstance('timer', new Timer);
 	Registry::setInstance('chatBot', new Budabot($vars));
 
 	// Initialize connection to server.

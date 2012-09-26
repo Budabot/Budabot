@@ -4,6 +4,9 @@ class Util {
 
 	/** @Inject */
 	public $chatBot;
+	
+	/** @Inject */
+	public $timer;
 
 	const DATETIME = "d-M-Y H:i T";
 
@@ -401,7 +404,7 @@ class Util {
 	public function httpGet($uri, $params = array(), $callback = null, $data = null) {
 		$http = new AsyncHttp();
 		Registry::injectDependencies($http);
-		$this->callLater(0, array($http, 'execute'), 'get', $uri, $params, $callback, $data);
+		$this->timer->callLater(0, array($http, 'execute'), 'get', $uri, $params, $callback, $data);
 	}
 
 	/**
@@ -420,7 +423,7 @@ class Util {
 	public function httpPost($uri, $params = array(), $callback = null, $data = null) {
 		$http = new AsyncHttp();
 		Registry::injectDependencies($http);
-		$this->callLater(0, array($http, 'execute'), 'post', $uri, $params, $callback, $data);
+		$this->timer->callLater(0, array($http, 'execute'), 'post', $uri, $params, $callback, $data);
 	}
 
 	/**
@@ -442,34 +445,6 @@ class Util {
 		}
 		ksort($seeks);
 		return $seeks;
-	}
-
-	/**
-	 * Calls given callback asyncronously after $delay seconds.
-	 *
-	 * The callback has following signature:
-	 * <code>
-	 * function callback($data)
-	 * </code>
-	 *  * $data - optional value which is same as given as argument to this method.
-	 *
-	 * Example usage:
-	 * <code>
-	 * $this->util->callLater(5, function($message) {
-	 *     print $message;
-	 * }, 'Hello World');
-	 * </code>
-	 * Prints 'Hello World' after 5 seconds.
-	 *
-	 * @param integer  $delay time in seconds to delay the call
-	 * @param callback $callback callback which is called after timeout
-	 * @param ... any additional parameters are passed to the callback
-	 */
-	public function callLater($delay, $callback) {
-		$additionalArgs = func_get_args();
-		array_shift($additionalArgs); // remove $delay
-		array_shift($additionalArgs); // remove $callback
-		$this->chatBot->addTimerEvent($delay, $callback, $additionalArgs);
 	}
 }
 
