@@ -1,5 +1,10 @@
 <?php
 /**
+ * Authors: 
+ *	- Tyrence (RK2)
+ *
+ * @Instance
+ *
  * Commands this controller contains:
  *	@DefineCommand(
  *		command     = 'signup',
@@ -9,6 +14,12 @@
  */
 class SignupController {
 
+	/**
+	 * Name of the module.
+	 * Set automatically by module loader.
+	 */
+	public $moduleName;
+
 	/** @Inject */
 	public $db;
 
@@ -17,13 +28,21 @@ class SignupController {
 
 	/** @Inject */
 	public $text;
+	
+	/**
+	 * This handler is called on bot startup.
+	 * @Setup
+	 */
+	public function setup() {
+		$this->db->loadSQLFile($this->moduleName, "signup");
+	}
 
 	/**
 	 * This command handler shows and manages signup lists.
 	 *
 	 * @HandlesCommand("signup")
 	 */
-	public function listCommand($message, $channel, $sender, $sendto) {
+	public function listCommand($message, $channel, $sender, $sendto, $args) {
 		if (preg_match("/^signup$/i", $message)) {
 			$msg = $this->showSignupLists();
 		} else if (preg_match("/^signup add (.+)$/i", $message, $arr)) {
