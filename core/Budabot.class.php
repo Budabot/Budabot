@@ -276,13 +276,15 @@ class Budabot extends AOChat {
 	 * Calls all so far collected @Setup handlers and clears them after use.
 	 */
 	private function callAndClearSetupHandlers() {
-		forEach ($this->setupHandlers as $handler) {
+		// changed to while loop since other setupHandlers can be added
+		// during the loop due to LegacyController
+		while (!empty($this->setupHandlers)) {
+			$handler = array_shift($this->setupHandlers);
 			$handler[0] = Registry::getInstance($handler[0]);
 			if (call_user_func($handler) === false) {
 				$this->logger->log('ERROR', "Failed to call setup handler");
 			}
 		}
-		$this->setupHandlers = array();
 	}
 
 	public function registerModule($baseDir, $MODULE_NAME) {
