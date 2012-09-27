@@ -140,6 +140,28 @@ class TowerController {
 	 * @AccessLevel("mod")
 	 */
 	public $defaultTowerPageSize = "15";
+	
+	/**
+	 * @Setting("check_close_time_on_scout")
+	 * @Description("Check that close time is within one hour of last victory on site")
+	 * @Visibility("edit")
+	 * @Type("options")
+	 * @Options("true;false")
+	 * @Intoptions("1;0")
+	 * @AccessLevel("mod")
+	 */
+	public $defaultCheckCloseTimeOnScout = "1";
+	
+	/**
+	 * @Setting("check_guild_name_on_scout")
+	 * @Description("Check that guild name has attacked or been attacked before")
+	 * @Visibility("edit")
+	 * @Type("options")
+	 * @Options("true;false")
+	 * @Intoptions("1;0")
+	 * @AccessLevel("mod")
+	 */
+	public $defaultCheckGuildNameOnScout = "1";
 
 	/**
 	 * Adds listener callback which will be called when tower attacks occur.
@@ -386,7 +408,6 @@ class TowerController {
 		$data = $this->db->query($sql, $playfield->id, $site_number);
 		$blob = '';
 		forEach ($data as $row) {
-			$gas_level = $this->getGasLevel($row->close_time);
 			$blob .= $this->formatSiteInfo($row) . "\n\n";
 		}
 
