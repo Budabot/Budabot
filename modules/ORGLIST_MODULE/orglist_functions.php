@@ -9,7 +9,7 @@ function orgmatesformat($memberlist, $color, $timestart, $orgname) {
 		$newlist[$amember["rank_id"]][] = $amember["name"];
 	}
 
-	$blob = array("");
+	$blob = '';
 
 	for ($rankid = 0; $rankid < count($map); $rankid++) {
 		$onlinelist = "";
@@ -37,28 +37,23 @@ function orgmatesformat($memberlist, $color, $timestart, $orgname) {
 
 		$totalonline += $rank_online;
 
-		$bh = $color["header"] . $map[$rankid] . "</font> ";
-		$bh .= "(" . $color["onlineH"] . "{$rank_online}</font> online of " . $color["onlineH"] . "{$rank_total}</font>)";
+		$blob .= "\n" . $color["header"] . $map[$rankid] . "</font> ";
+		$blob .= "(" . $color["onlineH"] . "{$rank_online}</font> online of " . $color["onlineH"] . "{$rank_total}</font>)\n";
 
-		$bhi = $bh . " cont...\n";
-		$bh .= "\n";
-
-		$b = "";
 		if ($onlinelist != "") {
-			$b .= $onlinelist;
+			$blob .= $onlinelist;
 		}
 		if ($offlinelist != "") {
-			$b .= $color["offline"] . $offlinelist . "<end>\n";
+			$blob .= $color["offline"] . $offlinelist . "<end>\n";
 		}
-
-		$blob[] = array("header" => $bh, "content" => $b, "footer" => "\n\n", "header_incomplete" => $bhi, "footer_incomplete" => "\n");
+		$blob .= "\n";
 	}
 
 	$totaltime = time() - $timestart;
 	$header  = $color["onlineH"].$orgname."<end> has ";
 	$header .= $color["onlineH"]."$totalonline</font> online out of a total of ".$color["onlineH"]."$totalcount</font> members. ";
 	$header .= "(".$color["onlineH"]."$totaltime</font> seconds)\n\n";
-	$blob[0] = $header;
+	$blob = $header . $blob;
 
 	return $blob;
 }
@@ -74,7 +69,7 @@ function checkOrglistEnd($forceEnd = false) {
 
 	if (isset($chatBot->data["ORGLIST_MODULE"]) && count($chatBot->data["ORGLIST_MODULE"]["added"]) == 0 || $forceEnd) {
 		$blob = orgmatesformat($chatBot->data["ORGLIST_MODULE"], $orgcolor, $chatBot->data["ORGLIST_MODULE"]["start"], $chatBot->data["ORGLIST_MODULE"]["org"]);
-		$msg = Text::make_structured_blob("Orglist for '".$chatBot->data["ORGLIST_MODULE"]["org"]."'", $blob);
+		$msg = Text::make_blob("Orglist for '".$chatBot->data["ORGLIST_MODULE"]["org"]."'", $blob);
 		$chatBot->data["ORGLIST_MODULE"]["sendto"]->reply($msg);
 
 		// in case it was ended early
