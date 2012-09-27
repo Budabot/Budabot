@@ -1,7 +1,5 @@
 <?php
 
-global $version;
-
 /**
  * Authors: 
  *	- Tyrence (RK2)
