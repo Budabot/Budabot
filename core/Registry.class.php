@@ -80,6 +80,9 @@ class Registry {
 	}
 
 	public static function importChanges($instance) {
+		if (get_class($instance) == 'LegacyController') {
+			return;
+		}
 		try {
 			$reflection = new ReflectionClass($instance);
 		} catch(ReflectionException $e) {

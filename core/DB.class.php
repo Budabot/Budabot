@@ -1,5 +1,7 @@
 <?php
 
+require_once 'DBRow.class.php';
+
 class DB {
 
 	/** @Inject */
@@ -78,7 +80,7 @@ class DB {
 		$ps = $this->executeQuery($sql, $args);
 
 		if ($ps !== null && $ps !== false) {
-			$this->result = $ps->fetchAll(PDO::FETCH_CLASS, 'Row');
+			$this->result = $ps->fetchAll(PDO::FETCH_CLASS, 'DBRow');
 		}
 		if (count($this->result) == 0) {
 			return null;
@@ -98,7 +100,7 @@ class DB {
 		$ps = $this->executeQuery($sql, $args);
 
 		if ($ps !== null && $ps !== false) {
-			$this->result = $ps->fetchAll(PDO::FETCH_CLASS, 'Row');
+			$this->result = $ps->fetchAll(PDO::FETCH_CLASS, 'DBRow');
 		}
 		return $this->result;
 	}
@@ -298,12 +300,6 @@ class DB {
 		$this->setting->add($module, $settingName, $settingName, 'noedit', 'text', $maxFileVersion);
 
 		return $msg;
-	}
-}
-
-class Row {
-	function __get($value) {
-		LegacyLogger::log('WARN', 'DB', "Tried to get value '$value' from row that doesn't exist");
 	}
 }
 
