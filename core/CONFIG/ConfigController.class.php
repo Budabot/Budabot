@@ -471,31 +471,23 @@ class ConfigController {
 		$off = "<a href='chatcmd:///tell <myname> config mod {$module} disable all'>Disable</a>";
 		$configHelpFiles = $this->text->make_chatcmd('Configure', "/tell <myname> config help {$module}");
 	
-		$list = array();
-		$list[] = "<header> :::::: $module Configuration :::::: <end>\n\n";
-		$list[] = "Enable/disable entire module: ($on/$off)\n";
-		$list[] = "Helpfiles: ($configHelpFiles)\n";
-		$l = "";
-		$lh = "";
+		$blob = "Enable/disable entire module: ($on/$off)\n";
+		$blob .= "Helpfiles: ($configHelpFiles)\n";
 	
 		$data = $this->db->query("SELECT * FROM settings_<myname> WHERE `module` = ?", $module);
 		if (count($data) > 0) {
 			$found = true;
-			$lh = "\n<i>Settings</i>\n";
+			$blob .= "\n<i>Settings</i>\n";
 		}
 	
 		forEach ($data as $row) {
-			$l .= $row->description;
+			$blob .= $row->description;
 	
 			if ($row->mode == "edit") {
-				$l .= " (<a href='chatcmd:///tell <myname> settings change $row->name'>Modify</a>)";
+				$blob .= " (<a href='chatcmd:///tell <myname> settings change $row->name'>Modify</a>)";
 			}
 	
-			$l .= ":  " . $this->setting->displayValue($row);
-		}
-	
-		if ($lh != "") {
-			$list[] = array("header" => $lh, "content" => $l);
+			$blob .= ":  " . $this->setting->displayValue($row);
 		}
 	
 		$sql =
@@ -515,11 +507,9 @@ class ConfigController {
 			GROUP BY
 				cmd";
 		$data = $this->db->query($sql, $module);
-		$l = "";
-		$lh = "";
 		if (count($data) > 0) {
 			$found = true;
-			$lh = "\n<i>Commands</i>\n";
+			$blob .= "\n<i>Commands</i>\n";
 		}
 		forEach ($data as $row) {
 			$guild = '';
@@ -561,21 +551,16 @@ class ConfigController {
 			}
 	
 			if ($row->description != "") {
-				$l .= "$row->cmd ($adv$tell$guild$priv): $on  $off - ($row->description)\n";
+				$blob .= "$row->cmd ($adv$tell$guild$priv): $on  $off - ($row->description)\n";
 			} else {
-				$l .= "$row->cmd - ($adv$tell$guild$priv): $on  $off\n";
+				$blob .= "$row->cmd - ($adv$tell$guild$priv): $on  $off\n";
 			}
 		}
-		if ($lh != "") {
-			$list[] = array("header" => $lh, "content" => $l);
-		}
 	
-		$l = "";
-		$lh = "";
 		$data = $this->db->query("SELECT * FROM eventcfg_<myname> WHERE `type` <> 'setup' AND `module` = ?", $module);
 		if (count($data) > 0) {
 			$found = true;
-			$lh = "\n<i>Events</i>\n";
+			$blob .= "\n<i>Events</i>\n";
 		}
 		forEach ($data as $row) {
 			$on = "<a href='chatcmd:///tell <myname> config event ".$row->type." ".$row->file." enable all'>ON</a>";
@@ -588,17 +573,14 @@ class ConfigController {
 			}
 	
 			if ($row->description != "none") {
-				$l .= "$row->type ($row->description) - ($status): $on  $off \n";
+				$blob .= "$row->type ($row->description) - ($status): $on  $off \n";
 			} else {
-				$l .= "$row->type - ($status): $on  $off \n";
+				$blob .= "$row->type - ($status): $on  $off \n";
 			}
-		}
-		if ($lh != "") {
-			$list[] = array("header" => $lh, "content" => $l);
 		}
 	
 		if ($found) {
-			$msg = $this->text->make_structured_blob("$module Configuration", $list);
+			$msg = $this->text->make_blob("$module Configuration", $blob);
 		} else {
 			$msg = "Could not find module '<highlight>$module<end>'";
 		}
