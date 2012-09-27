@@ -53,27 +53,20 @@ if (preg_match("/^orgranks$/i", $message, $arr) || preg_match("/^orgranks ([0-9]
 		return;
 	}
 
-	$blob = array("{$orgname} has {$count} members.\n\n");
+	$blob = '';
 
 	$current_rank_id = '';
-	$l = "";
-	$lh = "";
 	forEach ($data as $row) {
 		if ($current_rank_id != $row->guild_rank_id) {
-			if ($current_rank_id != '') {
-				$blob []= array('header' => $lh, 'content' => $l, 'footer' => "\n");
-				$l = "";
-				$lh = "";
-			}
 			$current_rank_id = $row->guild_rank_id;
-			$lh = "<white>{$row->guild_rank}\n";
+			$blob .= "\n<header2>{$row->guild_rank}<end>\n";
 		}
 
-		$l .= "<tab><highlight>{$row->name} (Level {$row->level}";
+		$blob .= "<tab><highlight>{$row->name} (Level {$row->level}";
 		if ($row->ai_level > 0) {
-			$l .= "<green>/{$row->ai_level}<end>";
+			$blob .= "<green>/{$row->ai_level}<end>";
 		}
-		$l .= ", {$row->gender} {$row->breed} {$row->profession})<end>";
+		$blob .= ", {$row->gender} {$row->breed} {$row->profession})<end>";
 
 		if (isset($row->logged_off)) {
 			if ($buddylistManager->is_online($row->name) == 1) {
@@ -83,15 +76,13 @@ if (preg_match("/^orgranks$/i", $message, $arr) || preg_match("/^orgranks ([0-9]
 			} else {
 				$logged_off = "<orange>Unknown<end>";
 			}
-			$l .= " :: Last logoff: $logged_off";
+			$blob .= " :: Last logoff: $logged_off";
 		}
 
-		$l .= "\n";
+		$blob .= "\n";
 	}
 
-	$blob[] = array('header' => $lh, 'content' => $l);
-
-	$msg = Text::make_structured_blob("Org ranks for '$orgname' ($count)", $blob);
+	$msg = Text::make_blob("Org ranks for '$orgname' ($count)", $blob);
 	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
