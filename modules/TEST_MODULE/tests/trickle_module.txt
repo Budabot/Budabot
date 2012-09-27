@@ -1,0 +1,17 @@
+#trickle_module
+/text Start TRICKLE_MODULE
+!trickle
+/delay %1
+!trickle error
+/delay %1
+!trickle agi 20
+/delay %1
+!trickle 20 agi
+/delay %1
+!trickle 1 agi 2 str 3 sta 4 int 5 psyc 6 sen
+/delay %1
+!trickle agi 1 str 2 sta 3 int 4 psyc 5 sen 6
+/delay %1
+/text End TRICKLE_MODULE
+
+/tracker_module.txt %1

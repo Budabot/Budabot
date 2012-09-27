@@ -1,0 +1,11 @@
+#weather_module
+/text Start WEATHER_MODULE
+!weather 90210
+/delay %1
+!weather sea
+/delay %1
+!weather error
+/delay %1
+/text End WEATHER_MODULE
+
+/waitlist_module.txt %1

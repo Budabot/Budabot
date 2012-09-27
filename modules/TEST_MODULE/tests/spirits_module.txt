@@ -1,0 +1,91 @@
+#spirtis_module
+/text Start SPIRITS_MODULE
+!spirits
+/delay %1
+!spirits error
+/delay %1
+!spirits feet
+/delay %1
+!spirits Bitter Spirit of Feet Strength
+/delay %1
+!spirits error,bitter
+/delay %1
+!spirits feet,error
+/delay %1
+!spirits feet,bitter
+/delay %1
+!spirits 301
+/delay %1
+!spirits 0
+/delay %1
+!spirits 150
+/delay %1
+!spirits 0-219
+/delay %1
+!spirits 1-221
+/delay %1
+!spirits 110-125
+/delay %1
+!spirits 110 error
+/delay %1
+!spirits 110 feet
+/delay %1
+!spirits 0-219 error
+/delay %1
+!spirits 1-221 error
+/delay %1
+!spirits 110-125 error
+/delay %1
+!spirits 0-219 feet
+/delay %1
+!spirits 1-221 feet
+/delay %1
+!spirits 110-125 feet
+/delay %1
+!spiritslvl 0
+/delay %1
+!spiritslvl 220
+/delay %1
+!spiritslvl 150
+/delay %1
+!spiritslvl 0-219
+/delay %1
+!spiritslvl 1-221
+/delay %1
+!spiritslvl 110-125
+/delay %1
+!spiritslvl 110 error
+/delay %1
+!spiritslvl 110 feet
+/delay %1
+!spiritslvl 0-219 error
+/delay %1
+!spiritslvl 1-221 error
+/delay %1
+!spiritslvl 110-125 error
+/delay %1
+!spiritslvl 0-219 feet
+/delay %1
+!spiritslvl 1-221 feet
+/delay %1
+!spiritslvl 110-125 feet
+/delay %1
+!spiritsagi 0
+/delay %1
+!spiritsagi 600
+/delay %1
+!spiritsagi 0 feet
+/delay %1
+!spiritsagi 600 feet
+/delay %1
+!spiritssen 0
+/delay %1
+!spiritssen 600
+/delay %1
+!spiritssen 0 feet
+/delay %1
+!spiritssen 600 feet
+/delay %1
+/text End SPIRITS_MODULE
+
+/skills_module.txt %1

@@ -1,0 +1,87 @@
+#tower_module
+/text Start TOWER_MODULE
+!victory
+/delay %1
+!victory 2
+/delay %1
+!victory error 4
+/delay %1
+!victory pw 22
+/delay %1
+!victory pw 4
+/delay %1
+!victory pw 4 2
+/delay %1
+!victory org error
+/delay %1
+!victory org Conquered Dreams
+/delay %1
+!victory org Conquered Dreams 2
+/delay %1
+!victory player error
+/delay %1
+!victory player Arato
+/delay %1
+!victory player Arato 2
+/delay %1
+!attacks
+/delay %1
+!attacks 2
+/delay %1
+!attacks error 4
+/delay %1
+!attacks pw 22
+/delay %1
+!attacks pw 4
+/delay %1
+!attacks pw 4 2
+/delay %1
+!attacks org error
+/delay %1
+!attacks org %
+/delay %1
+!attacks org % 2
+/delay %1
+!attacks player error
+/delay %1
+!attacks player %
+/delay %1
+!attacks player % 2
+/delay %1
+!lc
+/delay %1
+!lc error
+/delay %1
+!lc pw
+/delay %1
+!lc pw 44
+/delay %1
+!lc pw 4
+/delay %1
+!opentimes
+/delay %1
+!scout error 4 12:24:48 190 Omni Conquered Dreams
+/delay %1
+!scout pw 44 12:24:48 190 Omni Conquered Dreams
+/delay %1
+!scout pw 4 12:24:48 90 error Conquered Dreams
+/delay %1
+!scout pw 4 12:24:48 90 Omni Conquered Dreams
+/delay %1
+!scout pw 4 12:24:48 190 Omni Conquered Dreams
+/delay %1
+!scout pw 4 12:24:48 190 Omni Conquering Dreams
+/delay %1
+!opentimes
+/delay %1
+!remscout pw 4
+/delay %1
+!opentimes
+/delay %1
+!penalty
+/delay %1
+!penalty 4h
+/delay %1
+/text End TOWER_MODULE
+
+/timers_module.txt %1

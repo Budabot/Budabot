@@ -1,0 +1,31 @@
+#waitlist_module
+/text Start WAITLIST_MODULE
+!waitlist
+/delay %1
+!waitlist %m
+/delay %1
+!waitlist shuffle
+/delay %1
+!waitlist rem error
+/delay %1
+!waitlist rem all
+/delay %1
+!waitlist clear
+/delay %1
+!waitlist add test1
+/delay %1
+!waitlist add test2
+/delay %1
+!waitlist add test3
+/delay %1
+!waitlist shuffle
+/delay %1
+!waitlist rem test2
+/delay %1
+!waitlist
+/delay %1
+!waitlist clear
+/delay %1
+/text End WAITLIST_MODULE
+
+/vote_module.txt %1

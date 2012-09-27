@@ -1,0 +1,4 @@
+#end
+!time
+/delay %1
+/text Finished Budabot tests...

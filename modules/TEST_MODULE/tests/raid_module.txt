@@ -1,0 +1,151 @@
+#raid_module
+/text Start RAID_MODULE
+!list
+/delay %1
+!loot
+/delay %1
+!loot clear
+/delay %1
+!loot 1
+/delay %1
+!loot 1234567890
+/delay %1
+!loot test
+/delay %1
+!list
+/delay %1
+!loot clear
+/delay %1
+!multiloot
+/delay %1
+!multiloot 9x test1
+/delay %1
+!multiloot 5 test2
+/delay %1
+!list
+/delay %1
+!add 2
+/delay %1
+!list
+/delay %1
+!add 1
+/delay %1
+!list
+/delay %1
+!remloot
+/delay %1
+!remloot 1234567890
+/delay %1
+!remloot 1
+/delay %1
+!list
+/delay %1
+!add 1
+/delay %1
+!list
+/delay %1
+!flatroll
+/delay %1
+!reroll
+/delay %1
+!rem
+/delay %1
+!add 1
+/delay %1
+!list
+/delay %1
+!rem
+/delay %1
+!list
+/delay %1
+!add 1
+/delay %1
+!flatroll
+/delay %1
+!reroll
+/delay %1
+!list
+/delay %1
+!13
+/delay %1
+!28
+/delay %1
+!35
+/delay %1
+!apf
+/delay %1
+!apf 13
+/delay %1
+!apf 28
+/delay %1
+!apf 35
+/delay %1
+!apfloot Hacker ICE-Breaker Source
+/delay %1
+!apfloot KyrOzch Helmet
+/delay %1
+!apfloot Action Probability Estimator
+/delay %1
+!apfloot Dynamic Gas Redistribution Valves
+/delay %1
+!apfloot Inertial Adjustment Processing Unit
+/delay %1
+!apfloot Notum Amplification Coil
+/delay %1
+!apfloot Energy Redistribution Unit
+/delay %1
+!apfloot Visible Light Remodulation Device
+/delay %1
+!db1
+/delay %1
+!db2
+/delay %1
+!pande
+/delay %1
+!beastarmor
+/delay %1
+!beastweaps
+/delay %1
+!beaststars
+/delay %1
+!tnh
+/delay %1
+!sb
+/delay %1
+!aries
+/delay %1
+!leo
+/delay %1
+!virgo
+/delay %1
+!aquarius
+/delay %1
+!cancer
+/delay %1
+!gemini
+/delay %1
+!libra
+/delay %1
+!pisces
+/delay %1
+!taurus
+/delay %1
+!capricorn
+/delay %1
+!sagittarius
+/delay %1
+!scorpio
+/delay %1
+!alb
+/delay %1
+!xan
+/delay %1
+!vortexx
+/delay %1
+!mitaar
+/delay %1
+!12m
+/delay %1
+/text End RAID_MODULE
+
+/raffle_module.txt %1

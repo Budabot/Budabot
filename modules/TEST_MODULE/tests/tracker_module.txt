@@ -1,0 +1,22 @@
+#tracker_module
+/text Start TRACKER_MODULE
+/delay %1
+!track
+/delay %1
+!track rem error
+/delay %1
+!track add error
+/delay %1
+!track error
+/delay %1
+!track add tyrence
+/delay %1
+!track tyrence
+/delay %1
+!track
+/delay %1
+!track rem tyrence
+/delay %1
+/text End TRACKER_MODULE
+
+/tower_module.txt %1

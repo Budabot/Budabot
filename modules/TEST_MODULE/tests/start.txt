@@ -1,0 +1,6 @@
+#start
+/text Started Budabot tests...
+!time
+/delay %1
+
+/whompah_module.txt %1

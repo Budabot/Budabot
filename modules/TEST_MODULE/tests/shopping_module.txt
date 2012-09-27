@@ -1,0 +1,13 @@
+#shopping_module
+/text Start SHOPPING_MODULE
+!wtb combined
+/delay %1
+!wts combined
+/delay %1
+!wtb errorerrorerror
+/delay %1
+!wts errorerrorerror
+/delay %1
+/text End SHOPPING_MODULE
+
+/relay_module.txt %1

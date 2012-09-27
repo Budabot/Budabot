@@ -1,0 +1,15 @@
+#whompah_module
+/text Start WHOMPAH_MODULE
+!whompah
+/delay %1
+!whompah bor
+/delay %1
+!whompah error
+/delay %1
+!whompah oa rome
+/delay %1
+!whompah oa error
+/delay %1
+/text End WHOMPAH_MODULE
+
+/whois_module.txt %1

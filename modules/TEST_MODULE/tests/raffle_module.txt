@@ -1,0 +1,31 @@
+#raffle_module
+/text Start RAFFLE_MODULE
+!raffle
+/delay %1
+!raffle join
+/delay %1
+!raffle leave
+/delay %1
+!raffle start test1
+/delay %1
+!raffle start error
+/delay %1
+!raffle cancel
+/delay %1
+!raffle start 10 test1
+/delay %1
+!raffle join
+/delay %1
+!raffle leave
+/delay %1
+!raffle join
+/delay %1
+!raffle result
+/delay %1
+!raffle end
+/delay %1
+!raffle result
+/delay %1
+/text End RAFFLE_MODULE
+
+/quote_module.txt %1

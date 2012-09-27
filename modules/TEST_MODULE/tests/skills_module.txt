@@ -1,0 +1,75 @@
+#skills_module
+/text Start SKILLS_MODULE
+!aggdef
+/delay %1
+!aggdef 2.2 2.4 1000
+/delay %1
+!aggdef 2.2 2.4 2000
+/delay %1
+!as
+/delay %1
+!as 2.2 2.4 1000
+/delay %1
+!as 2.2 2.4 2000
+/delay %1
+!brawl
+/delay %1
+!brawl 100
+/delay %1
+!brawl 1100
+/delay %1
+!brawl 2100
+/delay %1
+!brawl 3100
+/delay %1
+!burst
+/delay %1
+!burst 2.2 2.4 2000 550
+/delay %1
+!dimach
+/delay %1
+!dimach 100
+/delay %1
+!dimach 1100
+/delay %1
+!dimach 2100
+/delay %1
+!dimach 3100
+/delay %1
+!fa
+/delay %1
+!fa 2.2 2.4 2000 550
+/delay %1
+!fastattack
+/delay %1
+!fastattack 1.2 900
+/delay %1
+!fling
+/delay %1
+!fling 1.2 900
+/delay %1
+!inits
+/delay %1
+!inits <a href="itemref://280727/280727/300">Sloth of the Xan</a>
+/delay %1
+!mafist
+/delay %1
+!mafist 100
+/delay %1
+!mafist 1100
+/delay %1
+!mafist 2100
+/delay %1
+!mafist 3100
+/delay %1
+!nanoinit
+/delay %1
+!nanoinit 1.2 1200
+/delay %1
+!specials
+/delay %1
+!specials <a href="itemref://280727/280727/300">Sloth of the Xan</a>
+/delay %1
+/text End SKILLS_MODULE
+
+/shopping_module.txt %1

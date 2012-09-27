@@ -1,0 +1,11 @@
+#whereis_module
+/text Start WHEREIS_MODULE
+!whereis ofoz
+/delay %1
+!whereis com
+/delay %1
+!whereis error
+/delay %1
+/text End WHEREIS_MODULE
+
+/weather_module.txt %1

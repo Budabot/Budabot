@@ -1,0 +1,13 @@
+#svn_module
+/text Start SVN_MODULE
+!svn dry
+/delay %1
+!svn update
+/delay %1
+!svn info
+/delay %1
+!svn status
+/delay %1
+/text End SVN_MODULE
+
+/spirits_module.txt %1

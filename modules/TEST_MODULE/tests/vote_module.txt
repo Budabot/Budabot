@@ -1,0 +1,27 @@
+#vote_module
+/text Start VOTE_MODULE
+!vote
+/delay %1
+!vote kill error
+/delay %1
+!vote remove error
+/delay %1
+!vote end error
+/delay %1
+!vote 1h|test|option1|option2|option3
+/delay %1
+!vote error|option4
+/delay %1
+!vote test|option4
+/delay %1
+!vote remove test
+/delay %1
+!vote test|option3
+/delay %1
+!vote end test
+/delay %1
+!vote kill test
+/delay %1
+/text End VOTE_MODULE
+
+/ventrilo_module.txt %1

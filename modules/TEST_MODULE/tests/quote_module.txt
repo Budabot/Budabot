@@ -1,0 +1,25 @@
+#quote_module
+/text Start QUOTE_MODULE
+!quote
+/delay %1
+!quote rem 0
+/delay %1
+!quote 0
+/delay %1
+!quote add TESTING!
+/delay %1
+!quote 0
+/delay %1
+!quote search error
+/delay %1
+!quote search test
+/delay %1
+!quote
+/delay %1
+!quote stats
+/delay %1
+!quote rem 0
+/delay %1
+/text End QUOTE_MODULE
+
+/stop.txt %1

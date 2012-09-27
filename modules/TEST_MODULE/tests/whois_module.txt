@@ -1,0 +1,21 @@
+#whois_module
+/text Start WHOIS_MODULE
+!whois tyrence
+/delay %1
+!whois tyrenceerror
+/delay %1
+!whoisall tyrence
+/delay %1
+!whoisall tyrenceerror
+/delay %1
+!history tyrence
+/delay %1
+!history tyrenceerror
+/delay %1
+!history tyrence 1
+/delay %1
+!history tyrenceerror 1
+/delay %1
+/text End WHOIS_MODULE
+
+/whereis_module.txt %1

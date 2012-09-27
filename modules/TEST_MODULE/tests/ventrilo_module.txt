@@ -1,0 +1,13 @@
+#ventrilo_module
+/text Start VENTRILO_MODULE
+!settings save ventimplementation 1
+/delay %1
+!vent
+/delay %1
+!settings save ventimplementation 2
+/delay %1
+!vent
+/delay %1
+/text End VENTRILO_MODULE
+
+/trickle_module.txt %1
