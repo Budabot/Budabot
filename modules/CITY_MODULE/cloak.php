@@ -32,7 +32,7 @@ if (preg_match("/^cloak$/i", $message)) {
     }
     $sendto->reply($msg);
 } else if (preg_match("/^cloak (raise|on)$/i", $message)) {
-    $row = $db->queryRow("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 20");
+    $row = $db->queryRow("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 1");
 
 	if ($row->action == "on") {
 		$msg = "The cloaking device is already <green>enabled<end>.";

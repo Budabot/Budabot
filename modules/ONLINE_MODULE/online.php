@@ -15,10 +15,10 @@ if (preg_match("/^online$/i", $message) || preg_match("/^online (.*)$/i", $messa
 		$prof = 'all';
 	}
 
-	list($numonline, $msg, $list) = get_online_list($prof);
+	list($numonline, $msg, $blob) = get_online_list($prof);
 	if ($numonline != 0) {
-		$blob = Text::make_structured_blob($msg, $list);
-		$sendto->reply($blob);
+		$msg = Text::make_blob($msg, $blob);
+		$sendto->reply($msg);
 	} else {
 		$sendto->reply($msg);
 	}

@@ -12,7 +12,9 @@ function get_online_list($prof = "all") {
 	$db = Registry::getInstance('db');
 	$setting = Registry::getInstance('setting');
 
-	if ($prof != 'all') $prof_query = "AND `profession` = '$prof'";
+	if ($prof != 'all') {
+		$prof_query = "AND `profession` = '$prof'";
+	}
 
 	if ($setting->get('online_group_by') == 'profession') {
 		$order_by = "ORDER BY `profession`, `level` DESC";
@@ -20,17 +22,17 @@ function get_online_list($prof = "all") {
 		$order_by = "ORDER BY `channel` ASC, `name` ASC";
 	}
 
-	$list = array();
+	$blob = '';
 
 	// Guild Channel Part
 	$data = $db->query("SELECT p.*, o.name, o.channel, o.afk FROM `online` o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE o.channel_type = 'guild' {$prof_query} {$order_by}");
 	$numguild = count($data);
 
 	if ($numguild >= 1) {
-		$list[] = array("content" => "<header>:::::: $numguild ".($numguild == 1 ? "Member":"Members")." online ".($chatBot->vars['my_guild'] != '' ? "[<myguild>] ":"")."::::::<end>\n");
+		$blob .= "<header2> :::::: $numguild ".($numguild == 1 ? "Member":"Members")." online ".($chatBot->vars['my_guild'] != '' ? "[<myguild>] ":"")." ::::::<end>\n";
 
 		// create the list with alts shown
-		createList($data, $list, true, $setting->get("online_show_org_guild"));
+		$blob .= createList($data, $list, true, $setting->get("online_show_org_guild"));
 	}
 
 	// Private Channel Part
@@ -39,13 +41,13 @@ function get_online_list($prof = "all") {
 
 	if ($numguest >= 1) {
 		if ($numguild >= 1) {
-			$list[] = array("content" => "\n\n<highlight><u>$numguest ".($numguest == 1 ? "User":"Users")." in Private Channel</u><end>\n");
+			$blob .= "\n\n<header2>$numguest ".($numguest == 1 ? "User":"Users")." in Private Channel<end>\n";
 		} else {
-			$list[] = array("content" => "<header>:::::: $numguest ".($numguest == 1 ? "User":"Users")." in Private Channel ::::::<end>\n");
+			$blob .= "<header2> :::::: $numguest ".($numguest == 1 ? "User":"Users")." in Private Channel ::::::<end>\n";
 		}
 
 		// create the list of guests, without showing alts
-		createList($data, $list, true, $setting->get("online_show_org_priv"));
+		$blob .= createList($data, $list, true, $setting->get("online_show_org_priv"));
 	}
 
 	// IRC part
@@ -54,13 +56,13 @@ function get_online_list($prof = "all") {
 
 	if ($numirc >= 1) {
 		if ($numguild + $numguest >= 1) {
-			$list[] = array("content" => "\n\n<highlight><u>$numirc ".($numirc == 1 ? "User":"Users")." in IRC Channel(s)</u><end>\n");
+			$blob .= "\n\n<header2>$numirc ".($numirc == 1 ? "User":"Users")." in IRC Channel(s) <end>\n";
 		} else {
-			$list[] = array("content" => "<header>:::::: $numirc ".($numirc == 1 ? "User":"Users")." in IRC Channel(s) ::::::<end>\n");
+			$blob .= "<header2> :::::: $numirc ".($numirc == 1 ? "User":"Users")." in IRC Channel(s) :::::: end>\n";
 		}
 
 		// create the list of guests
-		createListByChannel($data, $list, false, false);
+		$blob .= createListByChannel($data, $list, false, false);
 	}
 
 	$numonline = $numguild + $numguest + $numirc;
@@ -74,9 +76,9 @@ function get_online_list($prof = "all") {
 		$numbbinmembers = count($data);
 
 		if ($numbbinmembers >= 1) {
-			$list[] = array("content" => "\n\n<highlight><u>$numbbinmembers ".($numbbinmembers == 1 ? "Member":"Members")." in BBIN</u><end>\n");
+			$blob .= "\n\n<header2>$numbbinmembers ".($numbbinmembers == 1 ? "Member":"Members")." in BBIN<end>\n";
 
-			createListByProfession($data, $list, false, true);
+			$blob .= createListByProfession($data, $list, false, true);
 		}
 
 		// guests
@@ -84,9 +86,9 @@ function get_online_list($prof = "all") {
 		$numbbinguests = count($data);
 
 		if ($numbbinguests >= 1) {
-			$list[] = array("content" => "\n\n<highlight><u>$numbbinguests ".($numbbinguests == 1 ? "Guest":"Guests")." in BBIN<end></u>\n");
+			$blob .= "\n\n<header2>$numbbinguests ".($numbbinguests == 1 ? "Guest":"Guests")." in BBIN<end>\n";
 
-			createListByProfession($data, $list, false, true);
+			$blob .= createListByProfession($data, $list, false, true);
 		}
 
 		$numonline += $numbbinguests + $numbbinmembers;
@@ -94,7 +96,7 @@ function get_online_list($prof = "all") {
 		$msg .= " <green>BBIN<end>:".($numbbinguests + $numbbinmembers)." online";
 	}
 
-	return array($numonline, $msg, $list);
+	return array($numonline, $msg, $blob);
 }
 
 function createList(&$data, &$list, $show_alts, $show_org_info) {
@@ -113,33 +115,30 @@ function createListByChannel(&$data, &$list, $show_alts, $show_org_info) {
 	//Colorful temporary var settings (avoid a mess of if statements later in the function)
 	$fancyColon = ($setting->get("online_colorful") == "1") ? "<highlight>::<end>":"::";
 
-	$current_channel = "";
-	$current_header = "";
-	$current_content = "";
-
+	$blob = '';
 	forEach ($data as $row) {
 		$name = Text::make_chatcmd($row->name, "/tell $row->name");
 
 		if ($current_channel != $row->channel) {
-			if (!empty($current_channel)) $list[] = array("header" => $current_header, "content" => $current_content);
-
-			$current_header = "\n<tab><highlight>$row->channel<end>\n";
-			$current_content = "";
 			$current_channel = $row->channel;
+			$blob .= "\n<tab><highlight>$current_channel<end>\n";
 		}
 
 		$afk = get_afk_info($row->afk, $fancyColon);
 		$alt = ($show_alts == true) ? get_alt_char_info($row->name, $fancyColon):"";
 
 		switch ($row->profession) {
-			case "": $current_content .= "<tab><tab>$name - Unknown$alt\n"; break;
-			default: $admin = ($show_alts == true) ? get_admin_info($row->name, $fancyColon):"";
-				 $guild = get_org_info($show_org_info, $fancyColon, $row->guild, $row->guild_rank);
-				 $current_content .= "<tab><tab>$name (Lvl $row->level/<green>$row->ai_level<end>)$guild$afk$alt$admin\n";
+			case "":
+				$blob .= "<tab><tab>$name - Unknown$alt\n";
+				break;
+			default:
+				$admin = ($show_alts == true) ? get_admin_info($row->name, $fancyColon):"";
+				$guild = get_org_info($show_org_info, $fancyColon, $row->guild, $row->guild_rank);
+				$blob .= "<tab><tab>$name (Lvl $row->level/<green>$row->ai_level<end>)$guild$afk$alt$admin\n";
 		}
 	}
 
-	$list[] = array("header" => $current_header, "content" => $current_content);
+	return $blob;
 }
 
 function createListByProfession(&$data, &$list, $show_alts, $show_org_info) {
@@ -149,60 +148,52 @@ function createListByProfession(&$data, &$list, $show_alts, $show_org_info) {
 	$fancyColon = ($setting->get("online_colorful") == "1") ? "<highlight>::<end>":"::";
 
 	$current_profession = "";
-	$current_header = "";
-	$current_content = "";
 
+	$blob = '';
 	forEach ($data as $row) {
 		if ($current_profession != $row->profession) {
-			if (!empty($current_profession)) {
-				$list[] = array("header" => $current_header, "content" => $current_content, "incomplete_footer" => "\nContinued...", "incomplete_header" => $current_header);
-
-				$current_header = "";
-				$current_content = "";
-			}
-
 			if ($setting->get("fancy_online") == 0) {
 				// old style delimiters
-				$current_header = "\n<tab><highlight>$row->profession<end>\n";
+				$blob .= "\n<tab><highlight>$row->profession<end>\n";
 			} else {
 				// fancy delimiters
-				$current_header = "\n<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
+				$blob .= "\n<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
 
 				if ($setting->get("icon_fancy_online") == 1) {
-					if ($row->profession == "Adventurer")
-						$current_header .= "<img src=rdb://84203>";
-					else if ($row->profession == "Agent")
-						$current_header .= "<img src=rdb://16186>";
-					else if ($row->profession == "Bureaucrat")
-						$current_header .= "<img src=rdb://46271>";
-					else if ($row->profession == "Doctor")
-						$current_header .= "<img src=rdb://44235>";
-					else if ($row->profession == "Enforcer")
-						$current_header .= "<img src=rdb://117926>";
-					else if ($row->profession == "Engineer")
-						$current_header .= "<img src=rdb://16307>";
-					else if ($row->profession == "Fixer")
-						$current_header .= "<img src=rdb://16300>";
-					else if ($row->profession == "Keeper")
-						$current_header .= "<img src=rdb://38911>";
-					else if ($row->profession == "Martial Artist")
-						$current_header .= "<img src=rdb://16289>";
-					else if ($row->profession == "Meta-Physicist")
-						$current_header .= "<img src=rdb://16283>";
-					else if ($row->profession == "Nano-Technician")
-						$current_header .= "<img src=rdb://45190>";
-					else if ($row->profession == "Soldier")
-						$current_header .= "<img src=rdb://16195>";
-					else if ($row->profession == "Shade")
-						$current_header .= "<img src=rdb://39290>";
-					else if ($row->profession == "Trader")
-						$current_header .= "<img src=rdb://118049>";
-					else {
-						$current_header .= "<img src=rdb://46268>";
+					if ($row->profession == "Adventurer") {
+						$blob .= "<img src=rdb://84203>";
+					} else if ($row->profession == "Agent") {
+						$blob .= "<img src=rdb://16186>";
+					} else if ($row->profession == "Bureaucrat") {
+						$blob .= "<img src=rdb://46271>";
+					} else if ($row->profession == "Doctor") {
+						$blob .= "<img src=rdb://44235>";
+					} else if ($row->profession == "Enforcer") {
+						$blob .= "<img src=rdb://117926>";
+					} else if ($row->profession == "Engineer") {
+						$blob .= "<img src=rdb://16307>";
+					} else if ($row->profession == "Fixer") {
+						$blob .= "<img src=rdb://16300>";
+					} else if ($row->profession == "Keeper") {
+						$blob .= "<img src=rdb://38911>";
+					} else if ($row->profession == "Martial Artist") {
+						$blob .= "<img src=rdb://16289>";
+					} else if ($row->profession == "Meta-Physicist") {
+						$blob .= "<img src=rdb://16283>";
+					} else if ($row->profession == "Nano-Technician") {
+						$blob .= "<img src=rdb://45190>";
+					} else if ($row->profession == "Soldier") {
+						$blob .= "<img src=rdb://16195>";
+					} else if ($row->profession == "Shade") {
+						$blob .= "<img src=rdb://39290>";
+					} else if ($row->profession == "Trader") {
+						$blob .= "<img src=rdb://118049>";
+					} else {
+						$blob .= "<img src=rdb://46268>";
 					}
 				}
 
-				$current_header .= " <highlight>$row->profession<end>\n<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
+				$blob .= " <highlight>$row->profession<end>\n<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
 			}
 
 			$current_profession = $row->profession;
@@ -213,14 +204,17 @@ function createListByProfession(&$data, &$list, $show_alts, $show_org_info) {
 		$alt  = ($show_alts == true) ? get_alt_char_info($row->name, $fancyColon):"";
 
 		switch ($row->profession) {
-			case "": $current_content .= "<tab><tab>$name - Unknown$alt\n"; break;
-			default: $admin = ($show_alts == true) ? get_admin_info($row->name, $fancyColon):"";
-				 $guild = get_org_info($show_org_info, $fancyColon, $row->guild, $row->guild_rank);
-				 $current_content .= "<tab><tab>$name (Lvl $row->level/<green>$row->ai_level<end>)$guild$afk$alt$admin\n";
+			case "":
+				$blob .= "<tab><tab>$name - Unknown$alt\n";
+				break;
+			default:
+				$admin = ($show_alts == true) ? get_admin_info($row->name, $fancyColon):"";
+				$guild = get_org_info($show_org_info, $fancyColon, $row->guild, $row->guild_rank);
+				$blob .= "<tab><tab>$name (Lvl $row->level/<green>$row->ai_level<end>)$guild$afk$alt$admin\n";
 		}
 	}
 
-	$list[] = array("header" => $current_header, "content" => $current_content);
+	return $blob;
 }
 
 function get_org_info($show_org_info, $fancyColon, $guild, $guild_rank) {
@@ -260,8 +254,9 @@ function get_alt_char_info($name, $fancyColon) {
 	$alts = Registry::getInstance('alts');
 	$altinfo = $alts->get_alt_info($name);
 
-	if (count($altinfo->alts) > 0)
+	if (count($altinfo->alts) > 0) {
 		$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts {$name}'>".($altinfo->main == $name ? "Alts":"Alt of {$altinfo->main}")."</a>";
+	}
 	return $alt;
 }
 
