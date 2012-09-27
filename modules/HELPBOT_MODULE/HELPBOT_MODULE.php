@@ -3,12 +3,13 @@
 	require_once 'PlayfieldController.class.php';
 	require_once 'OrgCitiesController.class.php';
 	require_once 'ResearchController.class.php';
+	require_once 'RollController.class.php';
 	
 	$chatBot->registerInstance($MODULE_NAME, 'PlayfieldController', new PlayfieldController());
 	$chatBot->registerInstance($MODULE_NAME, 'OrgCitiesController', new OrgCitiesController());
 	$chatBot->registerInstance($MODULE_NAME, 'ResearchController', new ResearchController());
+	$chatBot->registerInstance($MODULE_NAME, 'RollController', new RollController());
 
-	$db->loadSQLFile($MODULE_NAME, "roll");
 	$db->loadSQLFile($MODULE_NAME, "koslist");
 	$db->loadSQLFile($MODULE_NAME, "dyna");
 
@@ -23,9 +24,4 @@
 	$command->register($MODULE_NAME, "", "whatbuffs.php", "whatbuffs", "all", "Find items that buff", "whatbuffs.txt");
 	$command->register($MODULE_NAME, "", "dyna.php", "dyna", "all", "Search for RK Dynaboss", "dyna.txt");
 	$command->register($MODULE_NAME, "", "server.php", "server", "all", "Show the Server status", "server.txt");
-
-	// Flip or Roll command
-	$command->register($MODULE_NAME, "", "roll.php", "flip", "all", "Flip a coin", "roll.txt");
-	$command->register($MODULE_NAME, "", "roll.php", "roll", "all", "Roll a random number", "roll.txt");
-	$command->register($MODULE_NAME, "", "roll.php", "verify", "all", "Verifies a flip/roll", "roll.txt");
 ?>
