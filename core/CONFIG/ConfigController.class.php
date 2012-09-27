@@ -64,20 +64,19 @@ class ConfigController {
 	 * @Matches("/^config$/i")
 	 */
 	public function configCommand($message, $channel, $sender, $sendto, $args) {
-		$list = array();
-		$list[] = array("header" => "<header>::::: Module Config :::::<end>\n\n",
-		"content" => "Org Commands - " .
-			$this->text->make_chatcmd('Enable All', '/tell <myname> config cmd enable guild') . " " .
-			$this->text->make_chatcmd('Disable All', '/tell <myname> config cmd disable guild') . "\n" .
-		"Private Channel Commands - " .
-			$this->text->make_chatcmd('Enable All', '/tell <myname> config cmd enable priv') . " " .
-			$this->text->make_chatcmd('Disable All', '/tell <myname> config cmd disable priv') . "\n" .
-		"Private Message Commands - " .
-			$this->text->make_chatcmd('Enable All', '/tell <myname> config cmd enable msg') . " " .
-			$this->text->make_chatcmd('Disable All', '/tell <myname> config cmd disable msg') . "\n" .
-		"ALL Commands - " .
-			$this->text->make_chatcmd('Enable All', '/tell <myname> config cmd enable all') . " " .
-			$this->text->make_chatcmd('Disable All', '/tell <myname> config cmd disable all') . "\n\n\n");
+		$blob = 
+			"Org Commands - " .
+				$this->text->make_chatcmd('Enable All', '/tell <myname> config cmd enable guild') . " " .
+				$this->text->make_chatcmd('Disable All', '/tell <myname> config cmd disable guild') . "\n" .
+			"Private Channel Commands - " .
+				$this->text->make_chatcmd('Enable All', '/tell <myname> config cmd enable priv') . " " .
+				$this->text->make_chatcmd('Disable All', '/tell <myname> config cmd disable priv') . "\n" .
+			"Private Message Commands - " .
+				$this->text->make_chatcmd('Enable All', '/tell <myname> config cmd enable msg') . " " .
+				$this->text->make_chatcmd('Disable All', '/tell <myname> config cmd disable msg') . "\n" .
+			"ALL Commands - " .
+				$this->text->make_chatcmd('Enable All', '/tell <myname> config cmd enable all') . " " .
+				$this->text->make_chatcmd('Disable All', '/tell <myname> config cmd disable all') . "\n\n\n";
 	
 		$sql = "
 			SELECT
@@ -95,13 +94,6 @@ class ConfigController {
 	
 		$data = $this->db->query($sql);
 		forEach ($data as $row) {
-			$data = $this->db->query("SELECT * FROM hlpcfg_<myname> WHERE `module` = ?", strtoupper($row->module));
-			if (count($data) > 0) {
-				$b = "(<a href='chatcmd:///tell <myname> config help $row->module'>Helpfiles</a>)";
-			} else {
-				$b = "";
-			}
-	
 			if ($row->count_enabled > 0 && $row->count_disabled > 0) {
 				$a = "(<yellow>Partial<end>)";
 			} else if ($row->count_disabled == 0) {
@@ -114,10 +106,10 @@ class ConfigController {
 	
 			$on = "<a href='chatcmd:///tell <myname> config mod $row->module enable all'>On</a>";
 			$off = "<a href='chatcmd:///tell <myname> config mod $row->module disable all'>Off</a>";
-			$list[] = strtoupper($row->module)." $a ($on/$off) $c $b\n";
+			$blob .= strtoupper($row->module)." $a ($on/$off) $c\n";
 		}
 	
-		$msg = $this->text->make_structured_blob("Module Config", $list);
+		$msg = $this->text->make_blob("Module Config", $blob);
 		$sendto->reply($msg);
 	}
 
@@ -352,8 +344,7 @@ class ConfigController {
 		if (count($data) == 0) {
 			$msg = "Could not find the command '<highlight>$cmd<end>'";
 		} else {
-			$list = array();
-			$list[] = "<header>::::: Configure command $cmd :::::<end>\n\n";
+			$blob = '';
 			$aliases = $this->commandAlias->find_aliases_by_command($cmd);
 			$count = 0;
 			forEach ($aliases as $row) {
@@ -364,95 +355,51 @@ class ConfigController {
 			}
 	
 			if ($count > 0) {
-				$list[] = "<highlight>Aliases:<end> $aliases_blob \n\n";
+				$blob .= "<highlight>Aliases:<end> $aliases_blob \n\n";
 			}
 	
-			$list[] = array("header" => "<u><highlight>Tells:<end></u>\n", "content" => $this->getCommandInfo($cmd, 'msg'), "footer" => "\n\n");
-			$list[] = array("header" => "<u><highlight>Private Channel:<end></u>\n", "content" => $this->getCommandInfo($cmd, 'priv'), "footer" => "\n\n");
-			$list[] = array("header" => "<u><highlight>Guild Channel:<end></u>\n", "content" => $this->getCommandInfo($cmd, 'guild'), "footer" => "\n\n");
+			$blob .= "<header2>Tells:<end>\n";
+			$blob .= $this->getCommandInfo($cmd, 'msg');
+			$blob .= "\n\n";
+
+			$blob .= "<header2>Private Channel:<end>\n";
+			$blob .= $this->getCommandInfo($cmd, 'priv');
+			$blob .= "\n\n";
+			
+			$blob .= "<header2>Guild Channel:<end>\n";
+			$blob .= $this->getCommandInfo($cmd, 'guild');
+			$blob .= "\n\n";
 	
 			$subcmd_list = '';
 			$output = $this->getSubCommandInfo($cmd, 'msg');
 			if ($output) {
-				$subcmd_list .= "<u><highlight>Available Subcommands in tells<end></u>\n";
+				$subcmd_list .= "<header2>Available Subcommands in tells<end>\n";
 				$subcmd_list .= $output;
 			}
 	
 			$output = $this->getSubCommandInfo($cmd, 'priv');
 			if ($output) {
-				$subcmd_list .= "<u><highlight>Available Subcommands in Private Channel<end></u>\n";
+				$subcmd_list .= "<header2>Available Subcommands in Private Channel<end>\n";
 				$subcmd_list .= $output;
 			}
 	
 			$output = $this->getSubCommandInfo($cmd, 'guild');
 			if ($output) {
-				$subcmd_list .= "<u><highlight>Available Subcommands in Guild Channel<end></u>\n";
+				$subcmd_list .= "<header2>Available Subcommands in Guild Channel<end>\n";
 				$subcmd_list .= $output;
 			}
 	
 			if ($subcmd_list) {
-				$list[] = array("header" => "<header> ::: Subcommands ::: <end>\n\n", "content" => $subcmd_list);
+				$blob .= "<header> ::: Subcommands ::: <end>\n\n";
+				$blob .= $subcmd_list;
 			}
 	
 			$help = $this->help->find($cmd, $sender);
 			if ($help) {
-				$list[] = "<header> ::: Help ($cmd) ::: <end>\n\n" . $help;
+				$blob .= "<header> ::: Help ($cmd) ::: <end>\n\n" . $help;
 			}
 	
-			$msg = $this->text->make_structured_blob(ucfirst($cmd)." config", $list);
-		}
-		$sendto->reply($msg);
-	}
-
-	/**
-	 * This command handler sets access level of a help file.
-	 * Note: This handler has not been not registered, only activated.
-	 *
-	 * @Matches("/^config help (.+) admin (all|rl|mod|admin|guild|member)$/i")
-	 */
-	public function setAccessLevelOfHelpfileCommand($message, $channel, $sender, $sendto, $args) {
-		$helpTopic = strtolower($args[1]);
-		$admin = $args[2];
-	
-		$row = $this->db->queryRow("SELECT * FROM hlpcfg_<myname> WHERE `name` = ? ORDER BY `name`", $helpTopic);
-		if ($row === null) {
-			$sendto->reply("The help topic <highlight>$helpTopic<end> doesn't exist!");
-			return;
-		}
-	
-		$this->help->update($helpTopic, $admin);
-	
-		$sendto->reply("Updated access for helpfile <highlight>$helpTopic<end> to <highlight>".ucfirst(strtolower($admin))."<end>.");
-	}
-
-	/**
-	 * This command handler shows configuration of a helpfile.
-	 * Note: This handler has not been not registered, only activated.
-	 *
-	 * @Matches("/^config help ([a-z0-9_]+)$/i")
-	 */
-	public function configHelpfileCommand($message, $channel, $sender, $sendto, $args) {
-		$mod = strtoupper($args[1]);
-		$blob = '';
-	
-		$data = $this->db->query("SELECT * FROM hlpcfg_<myname> WHERE module = ? ORDER BY name", $mod);
-		if (count($data) == 0) {
-			$msg = "Could not find any help files for module '<highlight>$mod<end>'";
-		} else {
-			forEach ($data as $row) {
-				$blob .= "<pagebreak><highlight>Helpfile<end>: $row->name\n";
-				$blob .= "<highlight>Description<end>: $row->description\n";
-				$blob .= "<highlight>Module<end>: $row->module\n";
-				$blob .= "<highlight>Current Permission<end>: $row->admin\n";
-				$blob .= "<highlight>Set Permission<end>: ";
-				$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin all'>All</a>  ";
-				$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin member'>Member</a>  ";
-				$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin guild'>Guild</a>  ";
-				$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin rl'>RL</a>  ";
-				$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin mod'>Mod</a>  ";
-				$blob .= "<a href='chatcmd:///tell <myname> config help $row->name admin admin'>Admin</a>\n\n";
-			}
-			$msg = $this->text->make_blob("Configure helpfiles for $mod", $blob);
+			$msg = $this->text->make_blob(ucfirst($cmd)." config", $blob);
 		}
 		$sendto->reply($msg);
 	}
@@ -469,10 +416,8 @@ class ConfigController {
 	
 		$on = "<a href='chatcmd:///tell <myname> config mod {$module} enable all'>Enable</a>";
 		$off = "<a href='chatcmd:///tell <myname> config mod {$module} disable all'>Disable</a>";
-		$configHelpFiles = $this->text->make_chatcmd('Configure', "/tell <myname> config help {$module}");
 	
 		$blob = "Enable/disable entire module: ($on/$off)\n";
-		$blob .= "Helpfiles: ($configHelpFiles)\n";
 	
 		$data = $this->db->query("SELECT * FROM settings_<myname> WHERE `module` = ?", $module);
 		if (count($data) > 0) {
