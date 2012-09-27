@@ -1,10 +1,10 @@
 <highlight>Shows the status of the current server:<end>
 <tab><symbol>server
 
-<highlight>Show the status of a server:<end>
-<tab><symbol>server 'Insert Servernumber'
+<highlight>Show the status of a specific server:<end>
+<tab><symbol>server 'server id'
 
-<highlight>Servernumber:<end>
+<highlight>Server ids:<end>
 <tab>1 = Atlantean(RK1)
 <tab>2 = Rimor(RK2)
-<tab>3 = Test Server
+<tab>t = Test Server
