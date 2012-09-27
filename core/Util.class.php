@@ -446,6 +446,19 @@ class Util {
 		ksort($seeks);
 		return $seeks;
 	}
+	
+	public function getFilesInDirectory($path) {
+		$files = array();
+		if ($handle = opendir($path)) {
+			while (false !== ($entry = readdir($handle))) {
+				if ($entry != "." && $entry != "..") {
+					$files []= $entry;
+				}
+			}
+			closedir($handle);
+		}
+		return $files;
+	}
 }
 
 ?>

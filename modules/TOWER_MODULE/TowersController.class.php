@@ -355,7 +355,6 @@ class TowerController {
 		$data = $this->db->query($sql, $playfield->id);
 		$blob = '';
 		forEach ($data as $row) {
-			$gas_level = $this->getGasLevel($row->close_time);
 			$blob .= $this->formatSiteInfo($row) . "\n\n";
 		}
 

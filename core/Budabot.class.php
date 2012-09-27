@@ -459,11 +459,11 @@ class Budabot extends AOChat {
 		if ($target == 'prv' || $target == 'priv') {
 			$this->sendPrivate($message, $this->vars["name"], $disable_relay);
 		} else if (($target == $this->vars["my_guild"] || $target == 'org' || $target == 'guild') && $this->setting->get('guild_channel_status') == 1) {
-		$this->sendGuild($message, $disable_relay, $priority);
+			$this->sendGuild($message, $disable_relay, $priority);
 		} else if ($this->get_uid($target) != NULL) {// Target is a player.
-		$this->sendTell($message, $target, $priority);
+			$this->sendTell($message, $target, $priority);
 		} else { // Public channels that are not guild
-		$this->sendPublic($message, $target, $priority);
+			$this->sendPublic($message, $target, $priority);
 		}
 	}
 
