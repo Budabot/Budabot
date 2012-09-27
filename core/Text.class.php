@@ -2,37 +2,6 @@
 
 class Text {
 
-	/**
-	 * @name: make_header
-	 * @description: creates a formatted header to go in a blob
-	 */
-	public function make_header($title, $links = NULL) {
-		$chatBot = Registry::getInstance('chatBot');
-		$setting = Registry::getInstance('setting');
-
-		$color = $setting->get('default_header_color');
-		$baseR = hexdec(substr($color,14,2));
-		$baseG = hexdec(substr($color,16,2));
-		$baseB = hexdec(substr($color,18,2));
-		$color2 = "<font color='#".strtoupper(substr("00".dechex($baseR*.75),-2).substr("00".dechex($baseG*.75),-2).substr("00".dechex($baseB*.75),-2))."'>";
-		$color3 = "<font color='#".strtoupper(substr("00".dechex($baseR*.60),-2).substr("00".dechex($baseG*.60),-2).substr("00".dechex($baseB*.60),-2))."'>";
-		$color4 = "<font color='#".strtoupper(substr("00".dechex($baseR*.45),-2).substr("00".dechex($baseG*.45),-2).substr("00".dechex($baseB*.45),-2))."'>";
-
-		//Title
-		$header = $color4.":::".$color3.":::".$color2.":::".$color;
-		$header .= " $title ";
-		$header .= "</font>:::</font>:::</font>:::</font>\n\n";
-
-		if ($links !== NULL) {
-			forEach ($links as $title => $command){
-				$header .= " ::: " . Text::make_chatcmd($title, $command, 'style="text-decoration:none;"') . " ::: ";
-			}
-			$header .= "\n\n";
-		}
-
-		return $header;
-	}
-
 	public function make_header_links($links) {
 		$output = '';
 		forEach ($links as $title => $command){
