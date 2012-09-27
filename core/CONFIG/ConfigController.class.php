@@ -553,10 +553,10 @@ class ConfigController {
 	 * This helper method builds information and controls for given command.
 	 */
 	private function getCommandInfo($cmd, $type) {
-		$l = "";
+		$msg = "";
 		$data = $this->db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = ? AND `type` = ?", $cmd, $type);
 		if (count($data) == 0) {
-			$l .= "Current Status: <red>Unused<end>. \n";
+			$msg .= "Current Status: <red>Unused<end>. \n";
 		} else if (count($data) == 1) {
 			$row = $data[0];
 
@@ -570,22 +570,22 @@ class ConfigController {
 				$status = "<red>Disabled<end>";
 			}
 
-			$l .= "Current Status: $status (Access: $row->admin) \n";
-			$l .= "Enable or Disable Command: ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} enable {$type}'>ON</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} disable {$type}'>OFF</a>\n";
+			$msg .= "Current Status: $status (Access: $row->admin) \n";
+			$msg .= "Enable or Disable Command: ";
+			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} enable {$type}'>ON</a>  ";
+			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} disable {$type}'>OFF</a>\n";
 
-			$l .= "Set minimum access lvl to use this command: ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} all'>All</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} member'>Member</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} guild'>Guild</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} rl'>RL</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} mod'>Mod</a>  ";
-			$l .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} admin'>Admin</a>\n";
+			$msg .= "Set minimum access lvl to use this command: ";
+			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} all'>All</a>  ";
+			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} member'>Member</a>  ";
+			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} guild'>Guild</a>  ";
+			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} rl'>RL</a>  ";
+			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} mod'>Mod</a>  ";
+			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} admin'>Admin</a>\n";
 		} else {
 			LegacyLogger::log("ERROR", "CONFIG", "Multiple rows exists for cmd: '$cmd' and type: '$type'");
 		}
-		return $l;
+		return $msg;
 	}
 
 	/**

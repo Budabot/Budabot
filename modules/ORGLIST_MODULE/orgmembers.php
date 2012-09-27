@@ -18,35 +18,28 @@ if (preg_match("/^orgmembers$/i", $message)) {
 	$msg = "Getting guild info. Please wait...";
     $sendto->reply($msg);
 
-    $first_char = "";
-	$blob = array("<header>::::: Members of the org <myguild> :::::<end>\n\n");
-	$l = "";
+    $currentLetter = "";
+	$blob = '';
 	forEach ($data as $row) {
+	    if ($row->name[0] != $currentLetter) {
+			$currentLetter = $row->name[0];
+			$blob .= "\n\n<header2>$currentLetter<end>\n";
+		}
+		
 		if ($buddylistManager->is_online($row->name) == 1) {
 			$logged_off = " :: <highlight>Last logoff:<end> <green>Online<end>";
         } else if ($row->logged_off != "0") {
 	        $logged_off = " :: <highlight>Last logoff:<end> " . date(Util::DATETIME, $row->logged_off)."(GMT)";
 	    } else {
-		$logged_off = " :: <highlight>Last logoff:<end> <orange>Unknown<end>";
-		}
-
-	    if ($row->name[0] != $first_char) {
-			if ($first_char != "") {
-				$blob[] = array("header" => $lh, "content" => $l, "footer" => "\n\n");
-				$l = "";
-			}
-		$first_char = $row->name[0];
-			$lh = "<white><u>$first_char</u><end>\n";
+			$logged_off = " :: <highlight>Last logoff:<end> <orange>Unknown<end>";
 		}
 
 		$prof = Util::get_profession_abbreviation($row->profession);
 
-		$l .= "<tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end>/$prof/$row->guild_rank)$logged_off\n";
+		$blob .= "<tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end>/$prof/$row->guild_rank)$logged_off\n";
 	}
 
-	$blob[] = array("header" => $lh, "content" => $l);
-
-	$msg = Text::make_structured_blob("<myguild> has $members members currently.", $blob);
+	$msg = Text::make_blob("<myguild> has $members members currently.", $blob);
 	$sendto->reply($msg);
 } else if (preg_match("/^orgmembers ([0-9]+)$/i", $message, $arr1) || preg_match("/^orgmembers ([a-z0-9-]+)$/i", $message, $arr2)) {
 	if ($arr2) {
@@ -83,30 +76,23 @@ if (preg_match("/^orgmembers$/i", $message)) {
 	$data = $db->query($sql, $guild_id);
 	$numrows = count($data);
 
-	$blob = array("{$org->orgname} has {$numrows} members.\n\n");
+	$blob = '';
 
-	$l = "";
-	$current_letter = '';
+	$currentLetter = '';
 	forEach ($data as $row) {
-		if ($current_letter != $row->name[0]) {
-			if ($current_letter != "") {
-				$blob[] = array("header" => $lh, "content" => $l, "footer" => "\n\n");
-				$l = "";
-			}
-			$current_letter = $row->name[0];
-			$lh = "<white><u>{$row->name[0]}</u><end>\n";
+		if ($currentLetter != $row->name[0]) {
+			$currentLetter = $row->name[0];
+			$blob .= "\n\n<header2>$currentLetter<end>\n";
 		}
 
-		$l .= "<tab><highlight>{$row->name}, {$row->guild_rank} (Level {$row->level}";
+		$blob .= "<tab><highlight>{$row->name}, {$row->guild_rank} (Level {$row->level}";
 		if ($row->ai_level > 0) {
-			$l .= "<green>/{$row->ai_level}<end>";
+			$blob .= "<green>/{$row->ai_level}<end>";
 		}
-		$l .= ", {$row->gender} {$row->breed} {$row->profession})<end>\n";
+		$blob .= ", {$row->gender} {$row->breed} {$row->profession})<end>\n";
 	}
 
-	$blob[] = array("header" => $lh, "content" => $l);
-
-	$msg = Text::make_structured_blob("Org members for '$org->orgname'", $blob);
+	$msg = Text::make_blob("Org members for '$org->orgname' ($numrows)", $blob);
 	$sendto->reply($msg);
 } else {
 	$syntax_error = true;
