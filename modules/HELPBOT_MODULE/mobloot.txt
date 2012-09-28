@@ -1,1 +1,2 @@
-<font color=#3333CC>Mob Loot Usage:</font>/tell <myname> <symbol>mobloot [<orange>lvl<end>][<orange>lvl<end>] = monster levelExample:You have Lvl 150 Monster.<a href='chatcmd:///tell <myname> <symbol>mobloot 150'>/tell <myname> <symbol>mobloot 150</a>
+<highlight>To see the ql of items that a mob can drop:<end>
+<tab><symbol>mobloot 'ql of mob'
