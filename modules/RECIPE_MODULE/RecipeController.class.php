@@ -19,6 +19,18 @@
  *		description = 'Show a recipe',
  *		help        = 'recipe.txt'
  *	)
+ *  @DefineCommand(
+ *		command     = 'rb',
+ *		accessLevel = 'all',
+ *		description = 'Show a recipe',
+ *		help        = 'recipe.txt'
+ *	)
+ *  @DefineCommand(
+ *		command     = 'rbshow',
+ *		accessLevel = 'all',
+ *		description = 'Show a recipe',
+ *		help        = 'recipe.txt'
+ *	)
  */
 class RecipeController {
 
@@ -36,12 +48,71 @@ class RecipeController {
 	
 	/** @Inject */
 	public $itemsController;
+	
+	private $baseUrl = "http://aodevnet.com/recipes/api";
 
 	/** @Setup */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, "recipes");
 		$this->db->loadSQLFile($this->moduleName, "recipe_items");
 		$this->db->loadSQLFile($this->moduleName, "recipe_type");
+	}
+	
+	/**
+	 * @HandlesCommand("rb")
+	 * @Matches("/^rb (.+)$/i")
+	 */
+	public function rbSearchCommand($message, $channel, $sender, $sendto, $args) {
+		$search = $args[1];
+		
+		$url = "/search/kw/" . rawurlencode($search) . "/mode/default/format/json/bot/budabot";
+		$curl = new MyCurl($this->baseUrl . $url);
+		$curl->createCurl();
+		$contents = $curl->__toString();
+
+		$obj = json_decode($contents);
+		if (!empty($obj->error)) {
+			$msg = "Error searching for recipe: " . $obj->error;
+		} else {
+			$blob = '';
+			forEach ($obj as $recipe) {
+				$blob .= $this->text->make_chatcmd($recipe->recipe_name, "/tell <myname> rbshow $recipe->recipe_id") . "\n";
+			}
+			
+			$blob .= $this->getAORecipebookFooter();
+			
+			$msg = $this->text->make_blob("Recipes matching '$search'", $blob);
+		}
+		$sendto->reply($msg);
+	}
+	
+	/**
+	 * @HandlesCommand("rbshow")
+	 * @Matches("/^rbshow (\d+)$/i")
+	 */
+	public function rbShowCommand($message, $channel, $sender, $sendto, $args) {
+		$id = $args[1];
+		
+		$url = "/show/id/" . $id . "/format/json/bot/budabot";
+		$curl = new MyCurl($this->baseUrl . $url);
+		$curl->createCurl();
+		$contents = $curl->__toString();
+
+		$obj = json_decode($contents);
+		if (!empty($obj->error)) {
+			$msg = "Error showing recipe: " . $obj->error;
+		} else {
+			$recipe_name = $obj->recipe_name;
+			
+			$recipe_text = $obj->recipe_text;
+			$recipe_text = str_replace("\\r\\n", "\n", $recipe_text);
+			$recipe_text = $this->formatRecipeText($recipe_text);
+			
+			$recipe_text .= $this->getAORecipebookFooter();
+			
+			$msg = $this->text->make_blob("Recipe for $recipe_name", $recipe_text);
+		}
+		$sendto->reply($msg);
 	}
 	
 	/**
@@ -56,28 +127,38 @@ class RecipeController {
 		$row = $this->db->queryRow("SELECT * FROM recipes WHERE recipe_id = ?", $id);
 		
 		if ($row === null) {
-			$output = "A recipe with id <highlight>$id<end> could not be found.";
+			$msg = "A recipe with id <highlight>$id<end> could not be found.";
 		} else {
 			$recipe_name = $row->recipe_name;
 			
-			$recipe_text = $row->recipe_text;
-			$recipe_text = str_replace("\\n", "\n", $recipe_text);
-			$recipe_text = preg_replace("/#C([0-9]{2})/", "[16,\\1]", $recipe_text);
-			$recipe_text = preg_replace_callback('/#L "([^"]+)" "([0-9]+)"/', array($this, 'replaceItem'), $recipe_text);
-			$recipe_text = preg_replace('/#L "([^"]+)" "([^"]+)"/', "<a href='chatcmd://\\2'>\\1</a>", $recipe_text);
+			$recipe_text = $this->formatRecipeText($row->recipe_text);			
 
-			$recipe_text = str_replace("[16,09]","</font><font color=#FFFFFF>",
-				str_replace("[16,12]","</font><font color=#FF0000>",
-				str_replace("[16,13]","</font><font color=#FFFFFF>",
-				str_replace("[16,14]","</font><font color=#FFFFFF>",
-				str_replace("[16,15]","</font><font color=#FFFFFF>",
-				str_replace("[16,16]","</font><font color=#FFFF00>",
-				str_replace("[16,18]","</font><font color=#AAFF00>",
-				str_replace("[16,20]","</font><font color=#009B00>",$recipe_text))))))));
-
-			$output = $this->text->make_blob("Recipe for $recipe_name", $recipe_text);
+			$msg = $this->text->make_blob("Recipe for $recipe_name", $recipe_text);
 		}
-		$sendto->reply($output);
+		$sendto->reply($msg);
+	}
+	
+	private function getAORecipebookFooter() {
+		return "\n\n<header>Powered by " . $this->text->make_chatcmd("AORecipebook.com", "/start http://aorecipebook.com") . "<end>\n" .
+			"For more information, " . $this->text->make_chatcmd("/tell recipebook about", "/tell recipebook about");
+	}
+	
+	private function formatRecipeText($input) {
+		$input = str_replace("\\n", "\n", $input);
+		//$input = preg_replace("/#C([0-9]{2})/", "[16,\\1]", $input);
+		$input = preg_replace_callback('/#L "([^"]+)" "([0-9]+)"/', array($this, 'replaceItem'), $input);
+		$input = preg_replace('/#L "([^"]+)" "([^"]+)"/', "<a href='chatcmd://\\2'>\\1</a>", $input);
+
+		$input = str_replace("#C09","</font><font color=#FFFFFF>",
+			str_replace("#C12","</font><font color=#FF0000>",
+			str_replace("#C13","</font><font color=#FFFFFF>",
+			str_replace("#C14","</font><font color=#FFFFFF>",
+			str_replace("#C15","</font><font color=#FFFFFF>",
+			str_replace("#C16","</font><font color=#FFFF00>",
+			str_replace("#C18","</font><font color=#AAFF00>",
+			str_replace("#C20","</font><font color=#009B00>",$input))))))));
+			
+		return $input;
 	}
 
 	/**
@@ -128,7 +209,7 @@ class RecipeController {
 				ORDER BY
 					recipe_name ASC";
 
-			$results = $this->db->query($sql, "%{$search}%");
+			$results = $this->db->query($sql, "%" . str_replace(" ", "%", $search) . "%");
 			$count = count($results);
 
 			if ($count > 0) {
@@ -146,10 +227,18 @@ class RecipeController {
 		$data = $this->itemsController->findById($id);
 		if (count($data) > 0) {
 			$row = $data[0];
-			return $this->text->make_item($row->lowid, $row->highid, $row->highql, $row->name);
+			$output = $this->text->make_item($row->lowid, $row->highid, $row->highql, $row->name);
 		} else {
-			return '#L "{$arr[1]}" "/tell <myname> itemid {$arr[2]}"';
+			$obj = $this->itemsController->doXyphosLookup($id);
+			if (null == $obj) {
+				$output = "#L \"{$arr[1]}\" \"/tell <myname> itemid {$arr[2]}\"";
+			} else if ($obj->icon == 0) {  // for perks and items that aren't displayable in game
+				$output = $this->text->make_chatcmd($obj->name, "/start http://www.xyphos.com/ao/aodb.php?id={$obj->lowid}");
+			} else {
+				$output = $this->text->make_item($obj->lowid, $obj->highid, $obj->highql, $obj->name);
+			}
 		}
+		return $output;
 	}
 	
 	private function makeRecipeSearchBlob($results) {
