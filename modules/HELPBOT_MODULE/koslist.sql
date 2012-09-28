@@ -1,1 +1,0 @@
-CREATE TABLE IF NOT EXISTS koslist (`time` INT PRIMARY KEY NOT NULL, `name` VARCHAR(25), `sender` VARCHAR(25), `reason` VARCHAR(50) DEFAULT '0');

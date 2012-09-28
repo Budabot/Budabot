@@ -12,10 +12,8 @@
 	$chatBot->registerInstance($MODULE_NAME, 'RandomController', new RandomController());
 	$chatBot->registerInstance($MODULE_NAME, 'ServerStatusController', new ServerStatusController());
 
-	$db->loadSQLFile($MODULE_NAME, "koslist");
 	$db->loadSQLFile($MODULE_NAME, "dyna");
 
-	$command->register($MODULE_NAME, "", "kos.php", "kos", "guild", "Show the Kill On Sight List", "kos.txt");
 	$command->register($MODULE_NAME, "", "time.php", "time", "all", "Show the time in the different timezones", "time.txt");
 	$command->register($MODULE_NAME, "", "calc.php", "calc", "all", "Calculator", "calculator.txt");
 	$command->register($MODULE_NAME, "", "oe.php", "oe", "all", "Over-equipped calculation", "oe.txt");

@@ -145,7 +145,6 @@ class RecipeController {
 	
 	private function formatRecipeText($input) {
 		$input = str_replace("\\n", "\n", $input);
-		//$input = preg_replace("/#C([0-9]{2})/", "[16,\\1]", $input);
 		$input = preg_replace_callback('/#L "([^"]+)" "([0-9]+)"/', array($this, 'replaceItem'), $input);
 		$input = preg_replace('/#L "([^"]+)" "([^"]+)"/', "<a href='chatcmd://\\2'>\\1</a>", $input);
 
