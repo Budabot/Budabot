@@ -8,13 +8,13 @@
  *
  * Commands this controller contains:
  *	@DefineCommand(
- *		command     = 'feedback', 
+ *		command     = 'reputation', 
  *		accessLevel = 'all', 
- *		description = 'Allows people to add and see feedback', 
- *		help        = 'feedback.txt'
+ *		description = 'Allows people to add and see reputation of other players', 
+ *		help        = 'reputation.txt'
  *	)
  */
-class FeedbackController {
+class ReputationController {
 
 	/**
 	 * Name of the module.
@@ -39,21 +39,21 @@ class FeedbackController {
 	 * @Setup
 	 */
 	public function setup() {
-		$this->db->loadSQLFile($this->moduleName, 'feedback');
+		$this->db->loadSQLFile($this->moduleName, 'reputation');
 	}
 
 	/**
-	 * @HandlesCommand("feedback")
-	 * @Matches("/^feedback$/i")
+	 * @HandlesCommand("reputation")
+	 * @Matches("/^reputation$/i")
 	 */
-	public function feedbackListCommand($message, $channel, $sender, $sendto, $args) {
+	public function reputationListCommand($message, $channel, $sender, $sendto, $args) {
 		$sql = "
 			SELECT
 				name,
 				SUM(CASE WHEN reputation = '+1' THEN 1 ELSE 0 END) pos_rep,
 				SUM(CASE WHEN reputation = '-1' THEN 1 ELSE 0 END) neg_rep
 			FROM
-				feedback
+				reputation
 			GROUP BY
 				name";
 
@@ -61,25 +61,25 @@ class FeedbackController {
 		$count = count($data);
 
 		if ($count == 0) {
-			$msg = "There are no characters on the feedback list.";
+			$msg = "There are no characters on the reputation list.";
 			$sendto->reply($msg);
 			return;
 		}
 
 		$blob = '';
 		forEach ($data as $row) {
-			$details_link = $this->text->make_chatcmd('Details', "/tell <myname> feedback $row->name");
+			$details_link = $this->text->make_chatcmd('Details', "/tell <myname> reputation $row->name");
 			$blob .= "$row->name  <green>+{$row->pos_rep}<end> <orange>-{$row->neg_rep}<end>   {$details_link}\n";
 		}
-		$msg = $this->text->make_blob("Feedback List ($count)", $blob);
+		$msg = $this->text->make_blob("Reputation List ($count)", $blob);
 		$sendto->reply($msg);
 	}
 	
 	/**
-	 * @HandlesCommand("feedback")
-	 * @Matches("/^feedback ([a-z0-9-]+) (\+1|\-1) (.+)$/i")
+	 * @HandlesCommand("reputation")
+	 * @Matches("/^reputation ([a-z0-9-]+) (\+1|\-1) (.+)$/i")
 	 */
-	public function feedbackAddCommand($message, $channel, $sender, $sendto, $args) {
+	public function reputationAddCommand($message, $channel, $sender, $sendto, $args) {
 		$name = ucfirst(strtolower($args[1]));
 		$charid = $this->chatBot->get_uid($name);
 		$rep = $args[2];
@@ -92,28 +92,28 @@ class FeedbackController {
 		}
 
 		if ($charid == $by_charid) {
-			$sendto->reply("You cannot give yourself feedback.");
+			$sendto->reply("You cannot give yourself reputation.");
 			return;
 		}
 
 		$time = time() - 86400;
 
-		$sql = "SELECT name FROM feedback WHERE `by_charid` = ? AND `charid` = ? AND `dt` > ?";
+		$sql = "SELECT name FROM reputation WHERE `by_charid` = ? AND `charid` = ? AND `dt` > ?";
 		$data = $this->db->query($sql, $by_charid, $charid, $time);
 		if (count($data) > 0) {
-			$sendto->reply("You may only submit feedback for a player once every 24 hours. Please try again later.");
+			$sendto->reply("You may only submit reputation for a player once every 24 hours. Please try again later.");
 			return;
 		}
 
-		$sql = "SELECT name FROM feedback WHERE `by_charid` = ?";
+		$sql = "SELECT name FROM reputation WHERE `by_charid` = ?";
 		$data = $this->db->query($sql, $by_charid);
 		if (count($data) > 3) {
-			$sendto->reply("You may submit feedback a maximum of 3 times in a 24 hour period. Please try again later.");
+			$sendto->reply("You may submit reputation a maximum of 3 times in a 24 hour period. Please try again later.");
 			return;
 		}
 
 		$sql = "
-			INSERT INTO feedback (
+			INSERT INTO reputation (
 				`name`,
 				`charid`,
 				`reputation`,
@@ -132,14 +132,14 @@ class FeedbackController {
 			)";
 
 		$this->db->exec($sql, $name, $charid, $rep, $comment, $sender, $by_charid, time());
-		$sendto->reply("Feedback for $name added successfully.");
+		$sendto->reply("Reputation for $name added successfully.");
 	}
 	
 	/**
-	 * @HandlesCommand("feedback")
-	 * @Matches("/^feedback ([a-z0-9-]+)$/i")
+	 * @HandlesCommand("reputation")
+	 * @Matches("/^reputation ([a-z0-9-]+)$/i")
 	 */
-	public function feedbackViewCommand($message, $channel, $sender, $sendto, $args) {
+	public function reputationViewCommand($message, $channel, $sender, $sendto, $args) {
 		$name = ucfirst(strtolower($args[1]));
 		$charid = $this->chatBot->get_uid($name);
 
@@ -149,9 +149,9 @@ class FeedbackController {
 			$where_sql = "WHERE `charid` = '$charid'";
 		}
 
-		$data = $this->db->query("SELECT reputation, COUNT(*) count FROM feedback {$where_sql} GROUP BY `reputation`");
+		$data = $this->db->query("SELECT reputation, COUNT(*) count FROM reputation {$where_sql} GROUP BY `reputation`");
 		if (count($data) == 0) {
-			$msg = "<highlight>$name<end> has no feedback.";
+			$msg = "<highlight>$name<end> has no reputation.";
 		} else {
 			$num_positive = 0;
 			$num_negative = 0;
@@ -163,11 +163,11 @@ class FeedbackController {
 				}
 			}
 
-			$blob = "Positive feedback: <green>{$num_positive}<end>\n";
-			$blob .= "Negative feedback: <orange>{$num_negative}<end>\n\n";
+			$blob = "Positive reputation: <green>{$num_positive}<end>\n";
+			$blob .= "Negative reputation: <orange>{$num_negative}<end>\n\n";
 			$blob .= "Last 10 comments about this user:\n\n";
 
-			$sql = "SELECT * FROM feedback {$where_sql} ORDER BY `dt` DESC LIMIT 10";
+			$sql = "SELECT * FROM reputation {$where_sql} ORDER BY `dt` DESC LIMIT 10";
 			$data = $this->db->query($sql);
 			forEach ($data as $row) {
 				if ($row->reputation == '-1') {
@@ -180,7 +180,7 @@ class FeedbackController {
 				$blob .= "({$row->reputation}) $row->comment <end> $row->by <white>{$time} ago<end>\n\n";
 			}
 
-			$msg = $this->text->make_blob("Feedback for {$name}", $blob);
+			$msg = $this->text->make_blob("Reputation for {$name}", $blob);
 		}
 
 		$sendto->reply($msg);

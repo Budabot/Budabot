@@ -1,8 +1,0 @@
-<highlight>To see feedback on a character<end>
-<tab><symbol>feedback charater
-
-<highlight>To add positive feedback for a player<end>
-<tab><symbol>feedback charater +1 this player was a good raid leader
-
-<highlight>To add negative feedback for a player<end>
-<tab><symbol>feedback charater -1 this player ninja looted both BoCs

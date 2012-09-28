@@ -1,0 +1,8 @@
+<highlight>To see reputation on a character<end>
+<tab><symbol>reputation charater
+
+<highlight>To add positive reputation for a player<end>
+<tab><symbol>reputation charater +1 this player was a good raid leader
+
+<highlight>To add negative reputation for a player<end>
+<tab><symbol>reputation charater -1 this player ninja looted both BoCs
