@@ -65,7 +65,7 @@ $timezone["AEDT"]["time"] = date($time_format, $time + (3600*11));
 
 
 if (preg_match("/^time$/i", $message)) {
-	$link = "The following includes most of the timezones that exists but notice that this list doesn't show all countrys within the timezones and also that some country's have 2 timezones. \nTo see the time in a special timezone use time 'timezone' for example time CET\n\n";
+	$link = "The following includes most of the timezones that exist but notice that this list doesn't show all countries within the timezones and also that some countries have 2 timezones.\n\nTo see the time in a specific timezone use <symbol>time 'timezone'.\n\nFor example <symbol>time CET\n\n";
 	$link .= "<u>Australia</u>\n";
 	$link .= "<tab><highlight>Northern Territory/South Australia<end>\n";
 	$link .= "<tab><tab>Standard Time (ACST = GMT+9:30): {$timezone["ACST"]["time"]}\n";
@@ -122,7 +122,7 @@ if (preg_match("/^time$/i", $message)) {
 	if ($timezone[$zone]["name"]) {
 		$msg = $timezone[$zone]["name"]." is <highlight>".$timezone[$zone]["time"]."<end>";
 	} else {
-		$msg = "This timezone doesn't exist or isn't known by this bot.";
+		$msg = "Unknown timezone.";
 	}
 
     $sendto->reply($msg);

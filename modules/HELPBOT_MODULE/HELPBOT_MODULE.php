@@ -15,9 +15,6 @@
 	$chatBot->registerInstance($MODULE_NAME, 'HelpbotController', new HelpbotController());
 
 	$command->register($MODULE_NAME, "", "time.php", "time", "all", "Show the time in the different timezones", "time.txt");
-	$command->register($MODULE_NAME, "", "calc.php", "calc", "all", "Calculator", "calculator.txt");
-	$command->register($MODULE_NAME, "", "oe.php", "oe", "all", "Over-equipped calculation", "oe.txt");
-	$command->register($MODULE_NAME, "", "inspect.php", "inspect", "all", "Inspect Christmas/Eart Gifts and Peren. Containers", "inspect.txt");
 	$command->register($MODULE_NAME, "", "buffitem.php", "buffitem", "all", "Buffitem look up", "buffitem.txt");
 	$command->register($MODULE_NAME, "", "whatbuffs.php", "whatbuffs", "all", "Find items that buff", "whatbuffs.txt");
 ?>
