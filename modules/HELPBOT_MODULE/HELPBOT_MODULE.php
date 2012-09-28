@@ -3,13 +3,13 @@
 	require_once 'PlayfieldController.class.php';
 	require_once 'OrgCitiesController.class.php';
 	require_once 'ResearchController.class.php';
-	require_once 'RollController.class.php';
+	require_once 'RandomController.class.php';
 	require_once 'ServerStatusController.class.php';
 	
 	$chatBot->registerInstance($MODULE_NAME, 'PlayfieldController', new PlayfieldController());
 	$chatBot->registerInstance($MODULE_NAME, 'OrgCitiesController', new OrgCitiesController());
 	$chatBot->registerInstance($MODULE_NAME, 'ResearchController', new ResearchController());
-	$chatBot->registerInstance($MODULE_NAME, 'RollController', new RollController());
+	$chatBot->registerInstance($MODULE_NAME, 'RandomController', new RandomController());
 	$chatBot->registerInstance($MODULE_NAME, 'ServerStatusController', new ServerStatusController());
 
 	$db->loadSQLFile($MODULE_NAME, "koslist");
@@ -21,7 +21,6 @@
 	$command->register($MODULE_NAME, "", "oe.php", "oe", "all", "Over-equipped calculation", "oe.txt");
 	$command->register($MODULE_NAME, "", "inspect.php", "inspect", "all", "Inspect Christmas/Eart Gifts and Peren. Containers", "inspect.txt");
 	$command->register($MODULE_NAME, "", "mobloot.php", "mobloot", "all", "Show loot QL info", "mobloot.txt");
-	$command->register($MODULE_NAME, "", "random.php", "random", "all", "Randomize a list of names/items", "random.txt");
 	$command->register($MODULE_NAME, "", "buffitem.php", "buffitem", "all", "Buffitem look up", "buffitem.txt");
 	$command->register($MODULE_NAME, "", "whatbuffs.php", "whatbuffs", "all", "Find items that buff", "whatbuffs.txt");
 	$command->register($MODULE_NAME, "", "dyna.php", "dyna", "all", "Search for RK Dynaboss", "dyna.txt");

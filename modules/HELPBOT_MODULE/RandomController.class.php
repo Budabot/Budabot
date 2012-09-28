@@ -8,6 +8,12 @@
  *
  * Commands this controller contains:
  *	@DefineCommand(
+ *		command     = 'random', 
+ *		accessLevel = 'all', 
+ *		description = 'Randomize a list of names/items', 
+ *		help        = 'random.txt'
+ *	)
+ *	@DefineCommand(
  *		command     = 'roll', 
  *		accessLevel = 'all', 
  *		description = 'Roll a random number', 
@@ -26,7 +32,7 @@
  *		help        = 'roll.txt'
  *	)
  */
-class RollController {
+class RandomController {
 
 	/**
 	 * Name of the module.
@@ -46,6 +52,47 @@ class RollController {
 	 */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, 'roll');
+	}
+	
+	/**
+	 * @HandlesCommand("random")
+	 * @Matches("/^random (.+)$/i")
+	 */
+	public function randomCommand($message, $channel, $sender, $sendto, $args) {
+		$text = explode(" ", trim($args[1]));
+		$low = 0;
+		$high = count($text) - 1;
+		while (true) {
+			$random = rand($low, $high);
+			if (!isset($marked[$random])) {
+				$count++;
+				$newtext .= " $count: ".$text[$random];
+				$marked[$random] = 1;
+				if (count($marked) == count($text)) {
+					break;
+				}
+			}
+			$i = $low;
+			while (true) {
+				if ($marked[$i] != 1) {
+					$low = $i;
+					break;
+				} else {
+					$i++;
+				}
+			}
+			$i = $high;
+			while (true) {
+				if ($marked[$i] != 1) {
+					$high = $i;
+					break;
+				} else {
+					$i--;
+				}
+			}
+		}
+		
+		$sendto->reply($newtext);
 	}
 
 	/**
