@@ -13,29 +13,31 @@ require_once './lib/ReverseFileReader.class.php';
  *		command       = 'checkaccess',
  *		accessLevel   = 'all',
  *		description   = 'Check effective access level of a character',
- *		help          = 'checkaccess.txt',
- *		defaultStatus = '1'
+ *		help          = 'checkaccess.txt'
  *	)
  *	@DefineCommand(
  *		command       = 'clearqueue',
  *		accessLevel   = 'mod',
  *		description   = 'Clear outgoing chatqueue from all pending messages',
- *		help          = 'clearqueue.txt',
- *		defaultStatus = '1'
+ *		help          = 'clearqueue.txt'
  *	)
  *	@DefineCommand(
  *		command       = 'loadsql',
  *		accessLevel   = 'mod',
  *		description   = 'Manually reload an sql file',
- *		help          = 'loadsql.txt',
- *		defaultStatus = '1'
+ *		help          = 'loadsql.txt'
  *	)
  *	@DefineCommand(
  *		command       = 'macro',
  *		accessLevel   = 'all',
  *		description   = 'Execute multiple commands at once',
- *		help          = 'macro.txt',
- *		defaultStatus = '1'
+ *		help          = 'macro.txt'
+ *	)
+ *	@DefineCommand(
+ *		command       = 'showcommand',
+ *		accessLevel   = 'mod',
+ *		description   = 'Execute a command and have output send to another player',
+ *		help          = 'showcommand.txt'
  *	)
  */
 class SystemController {
@@ -590,5 +592,18 @@ class SystemController {
 		// send a message to guild channel
 		$this->chatBot->sendGuild("Logon Complete :: All systems ready to use.", true);
 		$this->chatBot->sendPrivate("Logon Complete :: All systems ready to use.", true);
+	}
+	
+	/**
+	 * @HandlesCommand("showcommand")
+	 * @Matches("/^showcommand ([^ ]+) (.+)$/i")
+	 */
+	public function showCommandCommand($message, $channel, $sender, $sendto, $args) {
+		$name = ucfirst(strtolower($args[1]));
+		$cmd = $args[2];
+		$type = "msg";
+	
+		$sendto = new PrivateMessageCommandReply($this->chatBot, $name);
+		$this->commandManager->process($type, $cmd, $sender, $sendto);
 	}
 }

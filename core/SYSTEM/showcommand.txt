@@ -1,0 +1,6 @@
+<highlight>To show command output to another player:<end>
+<tab><symbol>showcommand 'player' 'command'
+
+<highlight>Example:<end>
+<tab><symbol>showcommand Tyrence online
+Executing this command will show the online list to 'Tyrence'
