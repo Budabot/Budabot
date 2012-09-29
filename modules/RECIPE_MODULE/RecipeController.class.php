@@ -82,13 +82,14 @@ class RecipeController {
 			$msg = "Error searching for recipe: " . $obj->error;
 		} else {
 			$blob = '';
+			$count = count($obj);
 			forEach ($obj as $recipe) {
 				$blob .= $this->text->make_chatcmd($recipe->recipe_name, "/tell <myname> rbshow $recipe->recipe_id") . "\n";
 			}
-			
+
 			$blob .= $this->getAORecipebookFooter();
-			
-			$msg = $this->text->make_blob("Recipes matching '$search'", $blob);
+
+			$msg = $this->text->make_blob("Recipes matching '$search' ($count)", $blob);
 		}
 		$sendto->reply($msg);
 	}

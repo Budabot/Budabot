@@ -58,8 +58,8 @@ class LevelController {
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, 'levels');
 		
-		$this->commandAlias->register($MODULE_NAME, "level", "pvp");
-		$this->commandAlias->register($MODULE_NAME, "level", "lvl");
+		$this->commandAlias->register($this->moduleName, "level", "pvp");
+		$this->commandAlias->register($this->moduleName, "level", "lvl");
 	}
 	
 	/**

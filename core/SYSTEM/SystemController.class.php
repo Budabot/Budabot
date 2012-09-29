@@ -603,7 +603,9 @@ class SystemController {
 		$cmd = $args[2];
 		$type = "msg";
 	
-		$sendto = new PrivateMessageCommandReply($this->chatBot, $name);
-		$this->commandManager->process($type, $cmd, $sender, $sendto);
+		$showSendto = new PrivateMessageCommandReply($this->chatBot, $name);
+		$this->commandManager->process($type, $cmd, $sender, $showSendto);
+		
+		$sendto->reply("Command <highlight>$cmd<end> has been sent to <highlight>$name<end>.");
 	}
 }
