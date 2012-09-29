@@ -114,7 +114,7 @@ class WhoisController {
 		$blob = '';
 		if ($count > 0) {
 			forEach ($data as $row) {
-				$blob .= "<green>{$row->name}<end> " . date($this->util->DATETIME, $row->dt) . "\n";
+				$blob .= "<green>{$row->name}<end> " . $this->util->date($row->dt) . "\n";
 			}
 			$msg = $this->text->make_blob("Name History for $name ($count)", $blob);
 		} else {
@@ -137,7 +137,7 @@ class WhoisController {
 		if ($count > 0) {
 			forEach ($data as $row) {
 				$link = $this->text->make_chatcmd($row->name, "/tell <myname> lookup $row->name");
-				$blob .= "$link " . date($this->util->DATETIME, $row->dt) . "\n";
+				$blob .= "$link " . $this->util->date($row->dt) . "\n";
 			}
 			$msg = $this->text->make_blob("Name History for $charid ($count)", $blob);
 		} else {
@@ -161,7 +161,7 @@ class WhoisController {
 		if ($count > 0) {
 			forEach ($data as $row) {
 				$link = $this->text->make_chatcmd($row->charid, "/tell <myname> lookup $row->charid");
-				$blob .= "$link " . date($this->util->DATETIME, $row->dt) . "\n";
+				$blob .= "$link " . $this->util->date($row->dt) . "\n";
 			}
 			$msg = $this->text->make_blob("Character Ids for $name ($count)", $blob);
 		} else {
@@ -178,7 +178,7 @@ class WhoisController {
 		$blob = "<header2> :::::: Name History :::::: <end>\n\n";
 		if (count($data) > 0) {
 			forEach ($data as $row) {
-				$blob .= "<green>{$row->name}<end> " . date($this->util->DATETIME, $row->dt) . "\n";
+				$blob .= "<green>{$row->name}<end> " . $this->util->date($row->dt) . "\n";
 			}
 		} else {
 			$blob .= "No name history available\n";

@@ -206,7 +206,7 @@ class BanController {
 		$blob = '';
 		forEach ($banlist as $ban) {
 			$blob .= "<highlight>Name:<end> {$ban->name}\n";
-			$blob .= "<highlight><tab>Date:<end> ".date($this->util->DATETIME, $ban->time)."\n";
+			$blob .= "<highlight><tab>Date:<end> ".$this->util->date($ban->time)."\n";
 			$blob .= "<highlight><tab>By:<end> {$ban->admin}\n";
 			if ($ban->banend != null) {
 				$blob .= "<highlight><tab>Ban ends:<end> ". $this->util->unixtime_to_readable($ban->banend - time(), false)."\n";

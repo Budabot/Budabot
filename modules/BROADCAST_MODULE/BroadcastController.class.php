@@ -86,7 +86,7 @@ class BroadcastController {
 		$data = $this->db->query($sql);
 		forEach ($data as $row) {
 			$remove = $this->text->make_chatcmd('Remove', "/tell <myname> <symbol>broadcast rem $row->name");
-			$dt = date($this->util->DATETIME, $row->dt);
+			$dt = $this->util->date($row->dt);
 			$blob .= "<white>{$row->name}<end> [<green>added by {$row->added_by}<end>] <white>{$dt}<end> {$remove}\n";
 		}
 

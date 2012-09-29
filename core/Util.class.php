@@ -459,6 +459,10 @@ class Util {
 		}
 		return $files;
 	}
+	
+	public function date($unixtime) {
+		return date(self::DATETIME, $unixtime);
+	}
 }
 
 ?>
