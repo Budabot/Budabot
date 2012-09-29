@@ -63,9 +63,16 @@ class RecipeController {
 	 * @Matches("/^rb (.+)$/i")
 	 */
 	public function rbSearchCommand($message, $channel, $sender, $sendto, $args) {
-		$search = $args[1];
+		if (preg_match('/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/', $args[1], $matches)) {
+			$lowId = $matches[1];
+			
+			$url = "/byitem/id/$lowId/mode/default/format/json/bot/budabot";
+		} else {
+			$search = $args[1];
+			
+			$url = "/search/kw/" . rawurlencode($search) . "/mode/default/format/json/bot/budabot";
+		}
 		
-		$url = "/search/kw/" . rawurlencode($search) . "/mode/default/format/json/bot/budabot";
 		$curl = new MyCurl($this->baseUrl . $url);
 		$curl->createCurl();
 		$contents = $curl->__toString();
@@ -167,10 +174,10 @@ class RecipeController {
 	 * @Matches("/^recipe (.+)$/i")
 	 */
 	public function recipeSearchCommand($message, $channel, $sender, $sendto, $args) {
-		if (preg_match('/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/', $args[1], $itemValues)) {
-			$lowId = $itemValues[1];
-			$highId = $itemValues[2];
-			$itemName = $itemValues[4];
+		if (preg_match('/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/', $args[1], $matches)) {
+			$lowId = $matches[1];
+			$highId = $matches[2];
+			$itemName = $matches[4];
 			
 			$sql = "
 				SELECT
