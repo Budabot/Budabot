@@ -81,6 +81,7 @@ class AOUController {
 	 */
 	public function aouSearch($message, $channel, $sender, $sendto, $args) {
 		$search = $args[1];
+		$searchTerms = explode(" ", $search);
 
 		$results = file_get_contents($this->url . "&mode=search&search=" . rawurlencode($search));
 
@@ -91,13 +92,27 @@ class AOUController {
 		$blob = '';
 		$count = 0;
 		forEach ($sections as $section) {
-			$blob .= "<pagebreak><header2>" . $this->getSearchResultCategory($section) . "<end>\n";
+			$category = $this->getSearchResultCategory($section);
+		
 			$guides = $section->getElementsByTagName('guide');
+			$tempBlob = '';
+			$found = false;
 			forEach ($guides as $guide) {
-				$count++;
-				$blob .= '  ' . $this->getGuideLink($guide) . "\n";
+				$guideObj = $this->getGuideObject($guide);
+				// since aou returns guides that have keywords in the guide body, we filter the results again
+				// to only include guides that contain the keywords in the category, name, or description
+				if ($this->striposarray($category . ' ' . $guideObj->name . ' ' . $guideObj->description, $searchTerms)) {
+					$count++;
+					$tempBlob .= '  ' . $this->text->make_chatcmd("$guideObj->name", "/tell <myname> aou $guideObj->id") . " - " . $guideObj->description . "\n";
+					$found = true;
+				}
 			}
-			$blob .= "\n";
+			
+			if ($found) {
+				$blob .= "<pagebreak><header2>" . $category . "<end>\n";
+				$blob .= $tempBlob;
+				$blob .= "\n";
+			}
 		}
 
 		$blob .= "\n<yellow>Powered by<end> " . $this->text->make_chatcmd("AO-Universe.com", "/start http://www.ao-universe.com");
@@ -110,6 +125,15 @@ class AOUController {
 		$sendto->reply($msg);
 	}
 	
+	private function striposarray($haystack, $needles) {
+		forEach ($needles as $needle) {
+			if (stripos($haystack, $needle) === false) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	private function getSearchResultCategory($section) {
 		$folders = $section->getElementsByTagName('folder');
 		$output = array();
@@ -119,11 +143,12 @@ class AOUController {
 		return implode(" - ", array_reverse($output));
 	}
 	
-	private function getGuideLink($guide) {
-		$id = $guide->getElementsByTagName('id')->item(0)->nodeValue;
-		$name = $guide->getElementsByTagName('name')->item(0)->nodeValue;
-		$desc = $guide->getElementsByTagName('desc')->item(0)->nodeValue;
-		return $this->text->make_chatcmd("$name", "/tell <myname> aou $id") . " - " . $desc;
+	private function getGuideObject($guide) {
+		$obj = new stdClass;
+		$obj->id = $guide->getElementsByTagName('id')->item(0)->nodeValue;
+		$obj->name = $guide->getElementsByTagName('name')->item(0)->nodeValue;
+		$obj->description = $guide->getElementsByTagName('desc')->item(0)->nodeValue;
+		return $obj;
 	}
 	
 	private function replaceItem($arr) {
