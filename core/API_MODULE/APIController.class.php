@@ -24,6 +24,9 @@ class APIController {
 
 	/** @Inject */
 	public $chatBot;
+	
+	/** @Inject */
+	public $socketManager;
 
 	/** @Inject */
 	public $setting;
@@ -55,7 +58,7 @@ class APIController {
 			stream_set_blocking($this->apisocket, 0);
 			$this->socketNotifier = new SocketNotifier($this->apisocket,
 				SocketNotifier::ACTIVITY_READ, array($this, 'onApiActivity'));
-			$this->chatBot->addSocketNotifier($this->socketNotifier);
+			$this->socketManager->addSocketNotifier($this->socketNotifier);
 		} else {
 			$this->logger->log('ERROR', "$errstr ($errno)");
 		}

@@ -14,7 +14,7 @@
 class HttpApiController {
 
 	/** @Inject */
-	public $chatBot;
+	public $socketManager;
 
 	/** @Inject */
 	public $setting;
@@ -52,7 +52,7 @@ class HttpApiController {
 	 * @Setup
 	 */
 	public function setup() {
-		$this->loop = new ReactLoopAdapter($this->chatBot);
+		$this->loop = new ReactLoopAdapter($this->socketManager);
 		$this->socket = new React\Socket\Server($this->loop);
 		$this->http = new React\Http\Server($this->socket);
 

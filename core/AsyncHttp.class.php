@@ -10,7 +10,7 @@
 class AsyncHttp {
 
 	/** @Inject */
-	public $chatBot;
+	public $socketManager;
 
 	/** @Logger */
 	public $logger;
@@ -126,7 +126,7 @@ class AsyncHttp {
 			SocketNotifier::ACTIVITY_READ|SocketNotifier::ACTIVITY_WRITE|SocketNotifier::ACTIVITY_ERROR,
 			array($this, 'onStreamActivity')
 		);
-		$this->chatBot->addSocketNotifier($this->notifier);
+		$this->socketManager->addSocketNotifier($this->notifier);
 	}
 	
 	/**
@@ -204,7 +204,7 @@ class AsyncHttp {
 	 * Removes socket notifier from bot's reactor loop and closes the stream.
 	 */
 	private function close() {
-		$this->chatBot->removeSocketNotifier($this->notifier);
+		$this->socketManager->removeSocketNotifier($this->notifier);
 		$this->notifier = null;
 		fclose($this->stream);
 	}

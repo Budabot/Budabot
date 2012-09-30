@@ -5,8 +5,8 @@
  * activity happens in a socket.
  *
  * You can add instance of SocketNotifier to Budabot's event loop with method
- * Budabot::addSocketNotifier() and remove it with
- * Budabot::removeSocketNotifier().
+ * SocketManager::addSocketNotifier() and remove it with
+ * SocketManager::removeSocketNotifier().
  *
  * When some activity happens in the given socket the event loop will call the
  * given callback to notify of the activity.

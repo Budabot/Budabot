@@ -4,12 +4,12 @@ require __DIR__ . '/../../lib/vendor/autoload.php';
 
 class ReactLoopAdapter implements React\EventLoop\LoopInterface {
 
-	private $chatBot;
+	private $socketManager;
 	private $readNotifiers;
 	private $writeNotifiers;
 
-	public function __construct($chatBot) {
-		$this->chatBot        = $chatBot;
+	public function __construct($socketManager) {
+		$this->socketManager        = $socketManager;
 		$this->readNotifiers  = array();
 		$this->writeNotifiers = array();
 	}
@@ -23,7 +23,7 @@ class ReactLoopAdapter implements React\EventLoop\LoopInterface {
 					$loop->removeReadStream($stream);
 				}
 			});
-			$this->chatBot->addSocketNotifier($notifier);
+			$this->socketManager->addSocketNotifier($notifier);
 			$this->readNotifiers[$id] = $notifier;
 		}
 	}
@@ -37,7 +37,7 @@ class ReactLoopAdapter implements React\EventLoop\LoopInterface {
 					$loop->removeWriteStream($stream);
 				}
 			});
-			$this->chatBot->addSocketNotifier($notifier);
+			$this->socketManager->addSocketNotifier($notifier);
 			$this->writeNotifiers[$id] = $notifier;
 		}
 	}
@@ -45,7 +45,7 @@ class ReactLoopAdapter implements React\EventLoop\LoopInterface {
     public function removeReadStream($stream) {
 		$id = (int)$stream;
 		if (isset($this->readNotifiers[$id])) {
-			$this->chatBot->removeSocketNotifier($this->readNotifiers[$id]);
+			$this->socketManager->removeSocketNotifier($this->readNotifiers[$id]);
 			unset ($this->readNotifiers[$id]);
 		}
 	}
@@ -53,7 +53,7 @@ class ReactLoopAdapter implements React\EventLoop\LoopInterface {
     public function removeWriteStream($stream) {
 		$id = (int)$stream;
 		if (isset($this->writeNotifiers[$id])) {
-			$this->chatBot->removeSocketNotifier($this->writeNotifiers[$id]);
+			$this->socketManager->removeSocketNotifier($this->writeNotifiers[$id]);
 			unset ($this->writeNotifiers[$id]);
 		}
 	}
