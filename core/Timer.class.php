@@ -40,7 +40,7 @@ class Timer {
 		$additionalArgs = func_get_args();
 		array_shift($additionalArgs); // remove $delay
 		array_shift($additionalArgs); // remove $callback
-		$this->chatBot->addTimerEvent($delay, $callback, $additionalArgs);
+		$this->addTimerEvent($delay, $callback, $additionalArgs);
 	}
 
 	/**
