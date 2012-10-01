@@ -5,6 +5,7 @@
 		forEach ($bits as $substr) {
 			if (stripos($probe, $substr) === false) {
 				$match = false;
+				break;
 			}
 		}
 		return $match;
@@ -26,6 +27,7 @@
 		forEach ($ary as $value) {
 			if ($value[0] == $str) {
 				$result = true;
+				break;
 			}
 		}
 		return $result;
@@ -34,21 +36,21 @@
 	function get_alias($ary, $comp) {
 		forEach ($ary as $alias) {
 			if (matches($alias, $comp)) {
-				$result = $alias;
-				return $result;
+				return $alias;
 			}
 		}
-
+		return null;
 	}
 
-	function make_info($n, $ary) {
-		$result = "<green><u>".$n."</u><end>:\n\n".
-				  "<font color=#33ff66>Category</font>: ".array_shift($ary)."\n".
-				  "<font color=#33ff66>Boosts</font>: ".array_shift($ary)."\n".
-				  "<font color=#33ff66>QL range</font>: ".array_shift($ary)."\n".
-				  "<font color=#33ff66>Aquisition</font>:\n<tab>".array_shift($ary)."\n".
+	function make_info($row) {
+		$result = "<green><u>$row->item_name</u><end>:\n\n".
+				  "<font color=#33ff66>Category</font>: $row->category\n".
+				  "<font color=#33ff66>Boosts</font>: $row->boosts\n".
+				  "<font color=#33ff66>QL range</font>: $row->ql_range\n".
+				  "<font color=#33ff66>Aquisition</font>:\n<tab>$row->acquisition\n".
 				  "<font color=#33ff66>Buff Break points</font>:\n";
-		forEach ($ary as $breakpoint) {
+		
+		forEach (explode("\\n", $row->buff_break_points) as $breakpoint) {
 			$result .= "<tab>QL ".$breakpoint."\n";
 		}
 		return $result;

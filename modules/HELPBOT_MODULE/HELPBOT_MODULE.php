@@ -8,6 +8,8 @@
 	require_once 'HelpbotController.class.php';
 	require_once 'TimeController.class.php';
 	
+	$db->loadSQLFile($MODULE_NAME, 'buffitems');
+	
 	$chatBot->registerInstance($MODULE_NAME, 'PlayfieldController', new PlayfieldController());
 	$chatBot->registerInstance($MODULE_NAME, 'OrgCitiesController', new OrgCitiesController());
 	$chatBot->registerInstance($MODULE_NAME, 'ResearchController', new ResearchController());
