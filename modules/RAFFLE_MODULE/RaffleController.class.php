@@ -62,7 +62,7 @@ class RaffleController {
 	 * @Matches("/^raffle start (.+)$/i")
 	 */
 	public function raffleStartCommand($message, $channel, $sender, $sendto, $args) {
-		if ("msg" == $type) {
+		if ("msg" == $channel) {
 			$msg = "You can't start a raffle in tells, please use org-chat or private channel.";
 			$sendto->reply($msg);
 			return;
