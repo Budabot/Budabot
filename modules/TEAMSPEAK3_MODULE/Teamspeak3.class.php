@@ -66,37 +66,4 @@ class Teamspeak3 {
     }
 }
 
-function getTeamspeak3Status() {
-	$chatBot = Registry::getInstance('chatBot');
-	$setting = Registry::getInstance('setting');
-	$ts = new Teamspeak3($setting->get('ts_username'), $setting->get('ts_password'), $setting->get('ts_server'), $setting->get('ts_queryport'));
-
-	try {
-		$server = $setting->get('ts_server');
-		$clientPort = $setting->get('ts_clientport');
-		$serverLink = Text::make_chatcmd($server, "/start http://ts3server:://$server:$clientPort");
-
-		$users = $ts->exec('clientlist');
-		$count = 0;
-		$blob = "Server: $serverLink\n";
-		$blob .= "Description: <highlight>" . $setting->get('ts_description') . "<end>\n\n";
-		$blob .= "Users:\n";
-		forEach ($users as $user) {
-			if ($user['client_type'] == 0) {
-				$blob .= "<highlight>{$user['client_nickname']}<end>\n";
-				$count++;
-			}
-		}
-		if ($count == 0) {
-			$blob .= "<i>No users connected</i>\n";
-		}
-		$blob .= "\n\nTeamspeak 3 support by Tshaar (RK2)";
-		$msg = Text::make_blob("{$count} user(s) on Teamspeak", $blob);
-	} catch (Exception $e) {
-		$msg = "Error! " . $e->getMessage();
-	}
-
-	return $msg;
-}
-
 ?>
