@@ -17,4 +17,4 @@
 <tab><symbol>raffle leave
 
 <highlight>To change the raffle duration in minutes:<end>
-<tab>/tell <myname> settings save defaultraffletime 'duration'
+<tab><symbol>settings save defaultraffletime 'duration'
