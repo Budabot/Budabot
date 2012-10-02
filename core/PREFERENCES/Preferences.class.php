@@ -2,7 +2,6 @@
 
 class Preferences {
 	public static function save($sender, $name, $value) {
-		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 
 		$sender = ucfirst(strtolower($sender));
@@ -16,7 +15,6 @@ class Preferences {
 	}
 
 	public static function get($sender, $name) {
-		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 
 		$sender = ucfirst(strtolower($sender));

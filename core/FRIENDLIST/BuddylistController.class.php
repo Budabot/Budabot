@@ -168,7 +168,6 @@ class BuddylistController {
 	 * @Matches("/^rembuddyall$/i")
 	 */
 	public function rembuddyallCommand($message, $channel, $sender, $sendto, $args) {
-		print_r($this->buddylistManager->buddyList);
 		forEach ($this->buddylistManager->buddyList as $uid => $buddy) {
 			$this->chatBot->buddy_remove($uid);
 		}
