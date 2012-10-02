@@ -49,6 +49,9 @@ class ItemsController implements ItemsAPI {
 	
 	/** @Inject */
 	public $util;
+	
+	/** @Logger */
+	public $logger;
 
 	public $moduleName;
 
@@ -137,7 +140,7 @@ class ItemsController implements ItemsAPI {
 	}
 
 	public function download_newest_itemsdb() {
-		LegacyLogger::log('INFO', 'ITEMS_MODULE', "Starting items db update");
+		$this->logger->log('INFO', "Starting items db update");
 
 		// get list of files in ITEMS_MODULE
 		$data = file_get_contents("http://budabot2.googlecode.com/svn/trunk/modules/ITEMS_MODULE");
@@ -158,7 +161,7 @@ class ItemsController implements ItemsAPI {
 				}
 			}
 		} catch (Exception $e) {
-			LegacyLogger::log('ERROR', 'ITEMS_MODULE', "Error updating items db: " . $e->getMessage());
+			$this->logger->log('ERROR', "Error updating items db: " . $e->getMessage());
 			return "Error updating items db: " . $e->getMessage();
 		}
 
@@ -180,18 +183,18 @@ class ItemsController implements ItemsAPI {
 
 				$this->db->commit();
 
-				LegacyLogger::log('INFO', 'ITEMS_MODULE', "Items db updated from '$currentVersion' to '$latestVersion'");
+				$this->logger->log('INFO', "Items db updated from '$currentVersion' to '$latestVersion'");
 				$msg = "The items database has been updated to the latest version.  Version: $latestVersion";
 			} else {
-				LegacyLogger::log('INFO', 'ITEMS_MODULE', "Items db already up to date '$currentVersion'");
+				$this->logger->log('INFO', "Items db already up to date '$currentVersion'");
 				$msg = "The items database is already up to date.  Version: $currentVersion";
 			}
 		} else {
-			LegacyLogger::log('ERROR', 'ITEMS_MODULE', "Could not find latest items db on server");
+			$this->logger->log('ERROR', "Could not find latest items db on server");
 			$msg = "There was a problem finding the latest version on the server";
 		}
 
-		LegacyLogger::log('INFO', 'ITEMS_MODULE', "Finished items db update");
+		$this->logger->log('INFO', "Finished items db update");
 
 		return $msg;
 	}

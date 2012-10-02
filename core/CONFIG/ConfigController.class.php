@@ -33,6 +33,9 @@ class ConfigController {
 
 	/** @Inject */
 	public $setting;
+	
+	/** @Logger */
+	public $logger;
 
 	/**
 	 * @Setup
@@ -583,7 +586,7 @@ class ConfigController {
 			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} mod'>Mod</a>  ";
 			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} admin'>Admin</a>\n";
 		} else {
-			LegacyLogger::log("ERROR", "CONFIG", "Multiple rows exists for cmd: '$cmd' and type: '$type'");
+			$this->logger->log("ERROR", "Multiple rows exists for cmd: '$cmd' and type: '$type'");
 		}
 		return $msg;
 	}

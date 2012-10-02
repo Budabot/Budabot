@@ -247,7 +247,7 @@ class SystemController {
 		$this->chatBot->sendGuild($msg, true);
 
 		$this->chatBot->disconnect();
-		LegacyLogger::log('INFO', 'Core', "The Bot is restarting.");
+		$this->logger->log('INFO', "The Bot is restarting.");
 		exit();
 	}
 
@@ -262,7 +262,7 @@ class SystemController {
 		$this->chatBot->sendGuild($msg, true);
 
 		$this->chatBot->disconnect();
-		LegacyLogger::log('INFO', 'Core', "The Bot is shutting down.");
+		$this->logger->log('INFO', "The Bot is shutting down.");
 		die("The Bot is shutting down.");
 	}
 
@@ -556,7 +556,7 @@ class SystemController {
 	 */
 	public function refreshMySQLConnectionEvent($eventObj) {
 		// if the bot doesn't query the mysql database for 8 hours the db connection is closed
-		$this->logger->log('DEBUG', 'CORE', "Pinging database");
+		$this->logger->log('DEBUG', "Pinging database");
 		$sql = "SELECT * FROM settings_<myname>";
 		$this->db->query($sql);
 	}
