@@ -142,29 +142,25 @@ class ImplantController {
 		$count = count($results);
 
 		if ($count == 0) {
-			$sendto->reply("No matches found.");
+			$msg = "No skills found that match <highlight>$name<end>.";
 		} else if ($count == 1) {
 			$row = $results[0];
-			$msg = "<u>$row->skill Cluster</u>:\n<tab><font color=#ffcc33>Shiny</font>: ".$row->shiny.
-					 "<tab><font color=#ffff55>Bright</font>: ".$row->bright.
-					 "<tab><font color=#FFFF99>Faded</font>: ".$row->faded;
-			$sendto->reply($msg);
+			$msg = "$row->skill Cluster: $row->shiny, $row->bright, $row->faded";
 		} else {
+			$blob .= "";
 			forEach ($results as $row) {
-				$info .= "<pagebreak>";
-				$info .= "<u>$row->skill Cluster</u>:\n<tab><font color=#ffcc33>Shiny</font>: ".$row->shiny.
+				$blob .= "<pagebreak>";
+				$blob .= "<highlight>$row->skill Cluster<end>:\n<tab><font color=#ffcc33>Shiny</font>: ".$row->shiny.
 						 "<tab><font color=#ffff55>Bright</font>: ".$row->bright.
 						 "<tab><font color=#FFFF99>Faded</font>: ".$row->faded;
-				$info .= "\n\n";
+				$blob .= "\n\n";
 			}
 		
-			$inside = "Your query of <highlight>$name<end> returned the following results:\n\n";
-			$inside .= $info;
-			$inside .= "\n\nby Imoutochan (RK1)";
+			$blob .= "\n\nby Imoutochan (RK1)";
 
-			$windowlink = $this->text->make_blob("Cluster search results ($count)", $inside);
-			$sendto->reply($windowlink);
+			$msg = $this->text->make_blob("Cluster search results ($count)", $blob);
 		}
+		$sendto->reply($msg);
 	}
 	
 	// premade implant functions

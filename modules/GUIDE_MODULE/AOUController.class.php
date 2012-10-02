@@ -195,6 +195,7 @@ class AOUController {
 		$input = preg_replace_callback("/\\[(item|itemname|itemicon)( nolink)?\\](\\d+)\\[\\/(item|itemname|itemicon)\\]/i", array($this, 'replaceItem'), $input);
 		$input = preg_replace_callback("/\\[waypoint ([^\\]]+)\\]([^\\]]*)\\[\\/waypoint\\]/", array($this, 'replaceWaypoint'), $input);
 		$input = preg_replace_callback("/\\[url=index\\.php\\?id=(\\d+)&pid=(\\d+)\\]([^\\[]+)\\[\\/url\\]/", array($this, 'replaceGuideLinks'), $input);
+		$input = preg_replace("/\\[img\\]([^\\[]+)\\[\\/img\\]/", "-image-", $input);
 
 		$pattern = "/(\\[[^\\]]+\\])/";
 		$matches = preg_split($pattern, $input, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);

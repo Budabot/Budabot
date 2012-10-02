@@ -97,8 +97,8 @@ class RaffleController {
 
 		$jnRflMsg = "<white>A raffle for $item (count: $count) has been started by $sender!<end>
 
-	Click <a href='chatcmd:///tell <myname> <symbol>raffle join'>here</a> to join the raffle!
-	Click <a href='chatcmd:///tell <myname> <symbol>raffle leave'>here</a> if you wish to leave the raffle.";
+	Click <a href='chatcmd:///tell <myname> raffle join'>here</a> to join the raffle!
+	Click <a href='chatcmd:///tell <myname> raffle leave'>here</a> if you wish to leave the raffle.";
 		$link = $this->text->make_blob("here", $jnRflMsg, 'Raffle');
 		$msg = "
 	-----------------------------------------------------------------------
@@ -343,8 +343,8 @@ class RaffleController {
 			$blob .= "No entrants yet.";
 		}
 
-		$blob .= "\n\nClick <a href='chatcmd:///tell <myname> <symbol>raffle join'>here</a> to join the raffle!";
-		$blob .= "\nClick <a href='chatcmd:///tell <myname> <symbol>raffle leave'>here</a> if you wish to leave the raffle.";
+		$blob .= "\n\nClick <a href='chatcmd:///tell <myname> raffle join'>here</a> to join the raffle!";
+		$blob .= "\nClick <a href='chatcmd:///tell <myname> raffle leave'>here</a> if you wish to leave the raffle.";
 		$blob .= "\n\n Time left: $time_string.";
 
 		$link = $this->text->make_blob("Raffle Info", $blob);
