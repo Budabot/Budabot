@@ -70,7 +70,11 @@ class BBINController {
 	 * @Setup
 	 */
 	public function setup() {
-		$channel = $this->setting->get('bbin_channel');
+		if ($this->setting->exists('bbin_channel')) {
+			$channel = $this->setting->get('bbin_channel');
+		} else {
+			$channel = false;
+		}
 		if ($channel === false) {
 			if ($this->chatBot->vars['my_guild'] == "") {
 				$channel = "#".strtolower($this->chatBot->vars['name']);

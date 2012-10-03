@@ -101,6 +101,15 @@ class Setting extends Annotation {
 			$this->settings[$name] = $value;
 		}
 	}
+	
+	/**
+	 * @name: exists
+	 * @description: Determine if a setting with a given name exists
+	 * @return: true if the setting exists, false otherwise
+	 */
+	public function exists($name) {
+		return array_key_exists($name, $this->settings);
+	}
 
 	/**
 	 * @name: get

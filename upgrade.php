@@ -62,12 +62,19 @@
 		}
 	}
 	
-	function checkIfColumnExists($db, $table, $column) {
+	function checkIfTableExists($db, $table) {
 		// If the table doesn't exist, return true since the table will be created with the correct column.
 		try {
 			$data = $db->query("SELECT * FROM $table");
 		} catch (SQLException $e) {
-			LegacyLogger::log("ERROR", 'Upgrade', $e->getMessage());
+			return false;
+		}
+		return true;
+	}
+	
+	function checkIfColumnExists($db, $table, $column) {
+		// If the table doesn't exist, return true since the table will be created with the correct column.
+		if (checkIfTableExists($db, $table) == false) {
 			return true;
 		}
 
@@ -75,7 +82,6 @@
 		try {
 			$data = $db->query("SELECT $column FROM $table");
 		} catch (SQLException $e) {
-			LegacyLogger::log("ERROR", 'Upgrade', $e->getMessage());
 			return false;
 		}
 
@@ -94,38 +100,50 @@
 	require_once 'core/PREFERENCES/Preferences.class.php';
 
 	try {
-		$data = $db->query("SELECT * FROM org_members_<myname>");
-		if (property_exists($data[0], 'logon_msg') || property_exists($data[0], 'logoff_msg')) {
-			forEach ($data as $row) {
-				if (isset($row->logon_msg) && $row->logon_msg != '') {
-					Preferences::save($row->name, 'logon_msg', $row->logon_msg);
+		if (checkIfTableExists($db, "org_members_<myname>")) {
+			$data = $db->query("SELECT * FROM org_members_<myname>");
+			if (property_exists($data[0], 'logon_msg') || property_exists($data[0], 'logoff_msg')) {
+				forEach ($data as $row) {
+					if (isset($row->logon_msg) && $row->logon_msg != '') {
+						Preferences::save($row->name, 'logon_msg', $row->logon_msg);
+					}
+					if (isset($row->logoff_msg) && $row->logoff_msg != '') {
+						Preferences::save($row->name, 'logoff_msg', $row->logoff_msg);
+					}
 				}
-				if (isset($row->logoff_msg) && $row->logoff_msg != '') {
-					Preferences::save($row->name, 'logoff_msg', $row->logoff_msg);
-				}
+				upgrade($db, "UPDATE org_members_<myname> SET logon_msg = '', logoff_msg = ''");
 			}
-			upgrade($db, "UPDATE org_members_<myname> SET logon_msg = '', logoff_msg = ''");
 		}
 	} catch (SQLException $e) {
-		// Table doesn't exist so don't update it.
+		LegacyLogger::log("ERROR", 'Upgrade', $e->getMessage());
 	}
 
 	if (!checkIfColumnExists($db, "news", "sticky")) {
 		upgrade($db, "ALTER TABLE news ADD `sticky` TINYINT NOT NULL DEFAULT 0");
 	}
 
-	upgrade($db, "UPDATE eventcfg_<myname> SET type = LOWER(type)");
+	if (checkIfTableExists($db, "eventcfg_<myname>")) {
+		upgrade($db, "UPDATE eventcfg_<myname> SET type = LOWER(type)");
+	}
 
-	upgrade($db, "UPDATE cmdcfg_<myname> SET admin = 'rl' WHERE admin = 'leader'");
-	upgrade($db, "UPDATE hlpcfg_<myname> SET admin = 'rl' WHERE admin = 'leader'");
-	upgrade($db, "UPDATE settings_<myname> SET admin = 'rl' WHERE admin = 'leader'");
+	if (checkIfTableExists($db, "cmdcfg_<myname>")) {
+		upgrade($db, "UPDATE cmdcfg_<myname> SET admin = 'rl' WHERE admin = 'leader'");
+	}
+	if (checkIfTableExists($db, "hlpcfg_<myname>")) {
+		upgrade($db, "UPDATE hlpcfg_<myname> SET admin = 'rl' WHERE admin = 'leader'");
+	}
+	if (checkIfTableExists($db, "settings_<myname>")) {
+		upgrade($db, "UPDATE settings_<myname> SET admin = 'rl' WHERE admin = 'leader'");
+	}
 
-	upgrade($db, "DELETE FROM cmd_alias_<myname> WHERE alias = 'kickuser'");
-	upgrade($db, "DELETE FROM cmd_alias_<myname> WHERE alias = 'inviteuser'");
+	if (checkIfTableExists($db, "cmd_alias_<myname>")) {
+		upgrade($db, "DELETE FROM cmd_alias_<myname> WHERE alias = 'kickuser'");
+		upgrade($db, "DELETE FROM cmd_alias_<myname> WHERE alias = 'inviteuser'");
+	}
 
 	// change cmdcfg_<myname> table's file-column type from VARCHAR(255) to TEXT
 	try {
-		if (getColumnType($db, 'cmdcfg_<myname>', 'file') == 'varchar(255)') {
+		if (checkIfTableExists($db, "cmdcfg_<myname>") && getColumnType($db, 'cmdcfg_<myname>', 'file') == 'varchar(255)') {
 			$db->begin_transaction();
 			$db->exec("ALTER TABLE cmdcfg_<myname> RENAME TO tmp_cmdcfg_<myname>");
 			// copied from Budabot.class.php (without 'IF NOT EXISTS')

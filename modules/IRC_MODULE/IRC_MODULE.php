@@ -11,7 +11,11 @@
 	require_once 'IRC.class.php';
 	require_once 'IRCCommandReply.class.php';
 
-	$channel = $setting->get('irc_channel');
+	if ($setting->exists('irc_channel')) {
+		$channel = $setting->get('irc_channel');
+	} else {
+		$channel = false;
+	}
 	if ($channel === false) {
 		if ($chatBot->vars['my_guild'] == "") {
 			$channel = "#".$chatBot->vars['name'];

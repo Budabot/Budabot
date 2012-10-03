@@ -241,7 +241,11 @@ class DB {
 		}
 		$d = dir($dir);
 
-		$currentVersion = $this->setting->get($settingName);
+		if ($this->setting->exists($settingName)) {
+			$currentVersion = $this->setting->get($settingName);
+		} else {
+			$currentVersion = false;
+		}
 		if ($currentVersion === false) {
 			$currentVersion = 0;
 		}
@@ -272,6 +276,7 @@ class DB {
 			LegacyLogger::log('ERROR', 'Core', "No SQL file found with name '$name' in '$dir'!");
 		} else if ($forceUpdate || $this->util->compare_version_numbers($maxFileVersion, $currentVersion) > 0) {
 			$handle = @fopen("$dir/$file", "r");
+			$this->setting->add($module, $settingName, $settingName, 'noedit', 'text', 0);
 			if ($handle) {
 				//$this->begin_transaction();
 				while (($line = fgets($handle)) !== false) {
@@ -299,8 +304,6 @@ class DB {
 			$msg = "'$name' database already up to date! version: '$currentVersion'";
 			LegacyLogger::log('DEBUG', 'Core',  "'$name' database already up to date! version: '$currentVersion'");
 		}
-
-		$this->setting->add($module, $settingName, $settingName, 'noedit', 'text', $maxFileVersion);
 
 		return $msg;
 	}
