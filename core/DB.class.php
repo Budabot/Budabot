@@ -2,6 +2,9 @@
 
 require_once 'DBRow.class.php';
 
+/**
+ * @Instance
+ */
 class DB {
 
 	/** @Inject */
@@ -26,7 +29,7 @@ class DB {
 	public $errorInfo;
 	public $table_replaces = array();
 
-	function __construct($type, $dbName, $host = NULL, $user = NULL, $pass = NULL) {
+	function connect($type, $dbName, $host = NULL, $user = NULL, $pass = NULL) {
 		global $vars;
 		$this->type = strtolower($type);
 		$this->dbName = $dbName;

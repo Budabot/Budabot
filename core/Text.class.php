@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @Instance
+ */
 class Text {
 
 	public function make_header_links($links) {

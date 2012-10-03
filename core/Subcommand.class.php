@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @Instance
+ */
 class Subcommand extends Annotation {
 
 	/** @Inject */

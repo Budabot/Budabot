@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @Instance
+ */
 class SocketManager {
 	private $socketNotifiers = array();
 	private $monitoredSocketsByType = array();

@@ -33,6 +33,9 @@ access_level = access level that is needed for this setting (admin or mod)
 help = Helpfile for this setting
 */
 
+/**
+ * @Instance
+ */
 class Setting extends Annotation {
 	/** @Inject */
 	public $db;

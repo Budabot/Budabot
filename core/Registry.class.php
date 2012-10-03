@@ -92,6 +92,34 @@ class Registry {
 		LegacyLogger::log("DEBUG", "Registry", "Re-importing file '" . $reflection->getFileName() . "'");
 		runkit_import($reflection->getFileName(), RUNKIT_IMPORT_CLASSES | RUNKIT_IMPORT_FUNCTIONS | RUNKIT_IMPORT_OVERRIDE);
 	}
+	
+	public static function getNewInstancesInDir($dir) {
+		$original = get_declared_classes();
+		if ($d = dir($dir)) {
+			while (false !== ($file = $d->read())) {
+				// filters out ., .., .svn
+				if (!is_dir($file) && preg_match("/\\.php$/i", $file)) {
+					require_once "{$dir}/{$file}";
+				}
+			}
+			$d->close();
+		}
+		$new = array_diff(get_declared_classes(), $original);
+
+		$newInstances = array();
+		forEach ($new as $className) {
+			$reflection = new ReflectionAnnotatedClass($className);
+			if ($reflection->hasAnnotation('Instance')) {
+				if ($reflection->getAnnotation('Instance')->value != '') {
+					$name = $reflection->getAnnotation('Instance')->value;
+				} else {
+					$name = $className;
+				}
+				$newInstances[$name] = $className;
+			}
+		}
+		return $newInstances;
+	}
 }
 
 ?>

@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @Instance("chatBot")
+ */
 class Budabot extends AOChat {
 
 	/** @Inject */
@@ -55,10 +58,8 @@ class Budabot extends AOChat {
 		'Clan Newbie OOC', 'Clan Jpn OOC', 'Clan shopping 11-50', 'OT German OOC', 'Clan German OOC', 'Neu. German OOC');
 
 	private $setupHandlers = array();
-
-	function __construct(&$vars){
-		parent::__construct();
-
+	
+	public function init(&$vars) {
 		$this->vars = $vars;
 
 		// Set startup time
@@ -68,76 +69,7 @@ class Budabot extends AOChat {
 		if (!isset($this->vars['module_load_paths']) || !is_array($this->vars['module_load_paths'])) {
 			$this->vars['module_load_paths'] = array();
 		}
-	}
-
-	/**
-	 * @name: connect
-	 * @description: connect to AO chat servers
-	 */
-	function connectAO($login, $password, $server, $port){
-		// Begin the login process
-		$this->logger->log('INFO', "Connecting to AO Server...({$server}:{$port})");
-		$this->connect($server, $port);
-		if ($this->state != "auth") {
-			$this->logger->log('ERROR', "Connection failed! Please check your Internet connection and firewall.");
-			sleep(10);
-			die();
-		}
-
-		$this->logger->log('INFO', "Authenticate login data...");
-		$this->authenticate($login, $password);
-		if ($this->state != "login") {
-			$this->logger->log('ERROR', "Authentication failed! Invalid username or password.");
-			sleep(10);
-			die();
-		}
-
-		$this->logger->log('INFO', "Logging in {$this->vars["name"]}...");
-		$this->login($this->vars["name"]);
-		if ($this->state != "ok") {
-			$this->logger->log('ERROR', "Character selection failed! Could not login on as character '{$this->vars["name"]}'.");
-			sleep(10);
-			die();
-		}
-
-		$this->logger->log('INFO', "All Systems ready!");
-	}
-
-	public function run() {
-		$start = time();
-		$exec_connected_events = false;
-		$time = 0;
-		while (true) {
-			$packet = $this->wait_for_packet($this->is_ready()? 0: 1);
-			if ($packet) {
-				$this->process_packet($packet);
-			} else {
-				$this->ready = true;
-			}
-			if ($this->is_ready()) {
-
-				// check monitored sockets and notify socket-notifiers if any activity occur in their sockets
-				$this->socketManager->checkMonitoredSockets();
-
-				if ($exec_connected_events == false) {
-					$this->eventManager->executeConnectEvents();
-					$exec_connected_events = true;
-				}
-
-				$this->timer->executeTimerEvents();
-
-				// execute cron events at most once every second
-				if ($time < time()) {
-					$this->eventManager->crons();
-					$time = time();
-				}
-
-				usleep(10000);
-			}
-		}
-	}
-
-	function init() {
+	
 		$this->logger->log('DEBUG', 'Initializing bot');
 
 		// Create core tables if not exists
@@ -214,6 +146,73 @@ class Budabot extends AOChat {
 		$this->eventManager->loadEvents();
 	}
 
+	/**
+	 * @name: connect
+	 * @description: connect to AO chat servers
+	 */
+	function connectAO($login, $password, $server, $port){
+		// Begin the login process
+		$this->logger->log('INFO', "Connecting to AO Server...({$server}:{$port})");
+		$this->connect($server, $port);
+		if ($this->state != "auth") {
+			$this->logger->log('ERROR', "Connection failed! Please check your Internet connection and firewall.");
+			sleep(10);
+			die();
+		}
+
+		$this->logger->log('INFO', "Authenticate login data...");
+		$this->authenticate($login, $password);
+		if ($this->state != "login") {
+			$this->logger->log('ERROR', "Authentication failed! Invalid username or password.");
+			sleep(10);
+			die();
+		}
+
+		$this->logger->log('INFO', "Logging in {$this->vars["name"]}...");
+		$this->login($this->vars["name"]);
+		if ($this->state != "ok") {
+			$this->logger->log('ERROR', "Character selection failed! Could not login on as character '{$this->vars["name"]}'.");
+			sleep(10);
+			die();
+		}
+
+		$this->logger->log('INFO', "All Systems ready!");
+	}
+
+	public function run() {
+		$start = time();
+		$exec_connected_events = false;
+		$time = 0;
+		while (true) {
+			$packet = $this->wait_for_packet($this->is_ready()? 0: 1);
+			if ($packet) {
+				$this->process_packet($packet);
+			} else {
+				$this->ready = true;
+			}
+			if ($this->is_ready()) {
+
+				// check monitored sockets and notify socket-notifiers if any activity occur in their sockets
+				$this->socketManager->checkMonitoredSockets();
+
+				if ($exec_connected_events == false) {
+					$this->eventManager->executeConnectEvents();
+					$exec_connected_events = true;
+				}
+
+				$this->timer->executeTimerEvents();
+
+				// execute cron events at most once every second
+				if ($time < time()) {
+					$this->eventManager->crons();
+					$time = time();
+				}
+
+				usleep(10000);
+			}
+		}
+	}
+
 	function loadCoreModules() {
 		// Load the Core Modules -- SETINGS must be first in case the other modules have settings
 		$this->logger->log('INFO', "Loading CORE modules...");
@@ -286,33 +285,12 @@ class Budabot extends AOChat {
 			$name = ucfirst(strtolower($MODULE_NAME)) . "LegacyController";
 			$this->registerInstance($MODULE_NAME, $name, new LegacyController($baseDir, $name));
 		} else {
-			$original = get_declared_classes();
-			if ($d = dir("{$baseDir}/{$MODULE_NAME}")) {
-				while (false !== ($file = $d->read())) {
-					// filters out ., .., .svn
-					if (!is_dir($file) && preg_match("/\\.php$/i", $file)) {
-						require_once "{$baseDir}/{$MODULE_NAME}/{$file}";
-					}
-				}
-				$d->close();
-			}
-			$new = array_diff(get_declared_classes(), $original);
-
-			$count = 0;
-			forEach ($new as $className) {
-				$reflection = new ReflectionAnnotatedClass($className);
-				if ($reflection->hasAnnotation('Instance')) {
-					if ($reflection->getAnnotation('Instance')->value != '') {
-						$name = $reflection->getAnnotation('Instance')->value;
-					} else {
-						$name = $className;
-					}
-					$this->registerInstance($MODULE_NAME, $name, new $className);
-					$count++;
-				}
+			$newInstances = Registry::getNewInstancesInDir("{$baseDir}/{$MODULE_NAME}");
+			forEach ($newInstances as $name => $className) {
+				$this->registerInstance($MODULE_NAME, $name, new $className);
 			}
 
-			if ($count == 0) {
+			if (count($newInstances) == 0) {
 				$this->logger->log('ERROR', "Could not load module {$MODULE_NAME}. No classes found with @Instance annotation!");
 				return;
 			}

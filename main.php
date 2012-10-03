@@ -95,39 +95,6 @@
 	require_once './core/LoggerWrapper.class.php';
 	require_once './core/annotations.php';
 
-	require_once './core/PrivateChannelCommandReply.class.php';
-	require_once './core/PrivateMessageCommandReply.class.php';
-	require_once './core/GuildChannelCommandReply.class.php';
-	require_once './core/StructuredMessage.class.php';
-	require_once './core/LegacyController.class.php';
-	require_once './core/LegacyEventProxy.class.php';
-	require_once './core/LegacyCommandProxy.class.php';
-	require_once './core/LegacySubcommandProxy.class.php';
-	require_once './core/StopExecutionException.class.php';
-	require_once './core/SQLException.class.php';
-
-	require_once './core/AOChat.class.php';
-	require_once './core/Budabot.class.php';
-	require_once './core/DB.class.php';
-	require_once './core/xml.php';
-	require_once './core/MyCurl.class.php';
-	require_once './core/AccessLevel.class.php';
-	require_once './core/Admin.class.php';
-	require_once './core/CommandManager.class.php';
-	require_once './core/Subcommand.class.php';
-	require_once './core/CommandAlias.class.php';
-	require_once './core/EventManager.class.php';
-	require_once './core/Setting.class.php';
-	require_once './core/Help.class.php';
-	require_once './core/BuddylistManager.class.php';
-	require_once './core/Ban.class.php';
-	require_once './core/Util.class.php';
-	require_once './core/Text.class.php';
-	require_once './core/SocketNotifier.class.php';
-	require_once './core/AsyncHttp.class.php';
-	require_once './core/Timer.class.php';
-	require_once './core/SocketManager.class.php';
-
 	// Show setup dialog.
 	if ($vars['login'] == "" || $vars['password'] == "" || $vars['name'] == "") {
 		include "./core/SETUP/setup.php";
@@ -169,9 +136,16 @@
 		sleep(10);
 		die();
 	}
+	
+	// Create global instances.
+	$newInstances = Registry::getNewInstancesInDir("./core");
+	forEach ($newInstances as $name => $className) {
+		Registry::setInstance($name, new $className);
+	}
 
 	// Create new objects.
-	$db = new DB($vars["DB Type"], $vars["DB Name"], $vars["DB Host"], $vars["DB username"], $vars["DB password"]);
+	$db = Registry::getInstance('db');
+	$db->connect($vars["DB Type"], $vars["DB Name"], $vars["DB Host"], $vars["DB username"], $vars["DB password"]);
 	if ($db->errorCode != 0) {
 		LegacyLogger::log('ERROR', 'StartUp', "Error in creating database object: {$db->errorInfo}");
 		sleep(5);
@@ -191,27 +165,9 @@
 		//unlink('upgrade.php');
 	}
 
-	// Create global instances.
-	Registry::setInstance('db', $db);
-	Registry::setInstance('commandManager', new CommandManager);
-	Registry::setInstance('subcommand', new Subcommand);
-	Registry::setInstance('commandAlias', new CommandAlias);
-	Registry::setInstance('eventManager', new EventManager);
-	Registry::setInstance('help', new Help);
-	Registry::setInstance('setting', new Setting);
-	Registry::setInstance('buddylistManager', new BuddylistManager);
-	Registry::setInstance('ban', new Ban);
-	Registry::setInstance('accessLevel', new AccessLevel);
-	Registry::setInstance('admin', new Admin);
-	Registry::setInstance('text', new Text);
-	Registry::setInstance('util', new Util);
-	Registry::setInstance('timer', new Timer);
-	Registry::setInstance('socketManager', new SocketManager);
-	Registry::setInstance('chatBot', new Budabot($vars));
-
 	// Initialize connection to server.
 	$chatBot = Registry::getInstance('chatBot');
-	$chatBot->init();
+	$chatBot->init($vars);
 	$chatBot->connectAO($vars['login'], $vars['password'], $server, $port);
 
 	// Clear the login and the password.

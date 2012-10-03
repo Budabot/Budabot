@@ -10,6 +10,9 @@
 `verify` INT Default 1
 */
 
+/**
+ * @Instance
+ */
 class Help extends Annotation {
 
 	/** @Inject */

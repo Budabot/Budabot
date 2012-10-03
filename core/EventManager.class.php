@@ -10,6 +10,9 @@
 `status` INT DEFAULT 1
 */
 
+/**
+ * @Instance
+ */
 class EventManager {
 
 	/** @Inject */
