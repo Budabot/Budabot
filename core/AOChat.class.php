@@ -745,8 +745,7 @@ class AOChat {
 		return $dhX . "-" . $crypted;
 	}
 
-	function aochat_crypt($key, $str)
-	{
+	function aochat_crypt($key, $str) {
 		if (strlen($key) != 32 || strlen($str) % 8 != 0) {
 			return false;
 		}

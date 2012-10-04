@@ -119,10 +119,8 @@ class Budabot extends AOChat {
 
 		$this->loadCoreModules();
 
-		$this->logger->log('INFO', "Loading USER modules...");
-
 		//Load user modules
-		$this->loadModules();
+		$this->loadUserModules();
 		
 		Registry::checkForMissingDependencies();
 		
@@ -226,10 +224,11 @@ class Budabot extends AOChat {
 	}
 
 	/**
-	 * @name: loadModules
+	 * @name: loadUserModules
 	 * @description: load all user modules
 	 */
-	function loadModules() {
+	function loadUserModules() {
+		$this->logger->log('INFO', "Loading USER modules...");
 		$this->db->begin_transaction();
 		forEach ($this->vars['module_load_paths'] as $path) {
 			if ($d = dir($path)) {
