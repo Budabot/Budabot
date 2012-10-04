@@ -30,7 +30,7 @@ class CommandManager {
 	public $util;
 
 	/** @Inject */
-	public $subcommand;
+	public $subcommandManager;
 	
 	/** @Inject */
 	public $commandSearchController;
@@ -293,8 +293,8 @@ class CommandManager {
 
 	public function getActiveCommandHandler($cmd, $channel, $message) {
 		// Check if a subcommands for this exists
-		if (isset($this->subcommand->subcommands[$cmd])) {
-			forEach ($this->subcommand->subcommands[$cmd] as $row) {
+		if (isset($this->subcommandManager->subcommands[$cmd])) {
+			forEach ($this->subcommandManager->subcommands[$cmd] as $row) {
 				if ($row->type == $channel && preg_match("/^{$row->cmd}$/i", $message)) {
 					return $row;
 				}

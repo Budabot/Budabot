@@ -3,7 +3,7 @@
 /**
  * @Instance
  */
-class Subcommand extends Annotation {
+class SubcommandManager extends Annotation {
 
 	/** @Inject */
 	public $db;

@@ -23,7 +23,7 @@ class ConfigController {
 	public $eventManager;
 
 	/** @Inject */
-	public $subcommand;
+	public $subcommandManager;
 
 	/** @Inject */
 	public $commandAlias;
@@ -269,7 +269,7 @@ class ConfigController {
 		}
 	
 		// for subcommands which are handled differently
-		$this->subcommand->loadSubcommands();
+		$this->subcommandManager->loadSubcommands();
 	}
 
 	/**
@@ -319,7 +319,7 @@ class ConfigController {
 			}
 	
 			$this->db->exec("UPDATE cmdcfg_<myname> SET `admin` = ? WHERE `type` = ? AND `cmdevent` = 'subcmd' AND `cmd` = ?", $admin, $channel, $command);
-			$this->subcommand->loadSubcommands();
+			$this->subcommandManager->loadSubcommands();
 			$msg = "Updated access of sub command <highlight>$command<end> in Channel <highlight>$channel<end> to <highlight>$admin<end>";
 		}
 		$sendto->reply($msg);

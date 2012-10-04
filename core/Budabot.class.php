@@ -12,7 +12,7 @@ class Budabot extends AOChat {
 	public $commandManager;
 
 	/** @Inject */
-	public $subcommand;
+	public $subcommandManager;
 
 	/** @Inject */
 	public $commandAlias;
@@ -141,7 +141,7 @@ class Budabot extends AOChat {
 		$this->db->exec("DELETE FROM hlpcfg_<myname> WHERE `verify` = 0");
 
 		$this->commandManager->loadCommands();
-		$this->subcommand->loadSubcommands();
+		$this->subcommandManager->loadSubcommands();
 		$this->commandAlias->load();
 		$this->eventManager->loadEvents();
 	}
@@ -863,7 +863,7 @@ class Budabot extends AOChat {
 			);
 		}
 		forEach ($subcommands as $subCommand => $definition) {
-			$this->subcommand->register(
+			$this->subcommandManager->register(
 				$MODULE_NAME,
 				$definition['channels'],
 				implode(',', $definition['handlers']),

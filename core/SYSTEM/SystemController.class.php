@@ -70,7 +70,7 @@ class SystemController {
 	public $commandAlias;
 
 	/** @Inject */
-	public $subcommand;
+	public $subcommandManager;
 
 	/** @Inject */
 	public $help;
@@ -462,7 +462,7 @@ class SystemController {
 		$blob .= "Number of active tell commands: <highlight>" . (count($this->commandManager->commands['msg']) - $numAliases) . "<end>\n";
 		$blob .= "Number of active private channel commands: <highlight>" . (count($this->commandManager->commands['priv']) - $numAliases) . "<end>\n";
 		$blob .= "Number of active guild channel commands: <highlight>" . (count($this->commandManager->commands['guild']) - $numAliases) . "<end>\n";
-		$blob .= "Number of active subcommands: <highlight>" . count($this->subcommand->subcommands) . "<end>\n";
+		$blob .= "Number of active subcommands: <highlight>" . count($this->subcommandManager->subcommands) . "<end>\n";
 		$blob .= "Number of active command aliases: <highlight>" . $numAliases . "<end>\n";
 		$blob .= "Number of active events: <highlight>" . $eventnum . "<end>\n";
 		$blob .= "Number of active help commands: <highlight>" . count($this->help->getAllHelpTopics(null)) . "<end>\n\n";

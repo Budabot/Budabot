@@ -2,7 +2,7 @@
 
 class LegacySubcommandProxy {
 	/** @Inject */
-	public $subcommand;
+	public $subcommandManager;
 
 	/** @Inject */
 	public $util;
@@ -30,9 +30,9 @@ class LegacySubcommandProxy {
 
 			$handlerName = "subcommand_" . ($this->counter++);
 			$this->subcommands[$handlerName] = $actual_filename;
-			$this->subcommand->register($module, $channel, $this->controller . "." . $handlerName, $command, $admin, $parent_command, $description, $help, $defaultStatus);
+			$this->subcommandManager->register($module, $channel, $this->controller . "." . $handlerName, $command, $admin, $parent_command, $description, $help, $defaultStatus);
 		} else {
-			$this->subcommand->register($module, $channel, $filename, $command, $admin, $parent_command, $description, $help, $defaultStatus);
+			$this->subcommandManager->register($module, $channel, $filename, $command, $admin, $parent_command, $description, $help, $defaultStatus);
 		}
 	}
 }
