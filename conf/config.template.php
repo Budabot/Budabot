@@ -59,7 +59,7 @@
 
 	// Define additional paths from where Budabot should load modules at startup
 	$vars['module_load_paths'] = array(
-		// 'C:\my_budabot_modules'
+		'./modules'
 	);
 
 	// This should only be enabled during development and only if you understand the implications

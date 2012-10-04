@@ -67,7 +67,7 @@ class Budabot extends AOChat {
 
 		// set default value for module load paths if not set correctly
 		if (!isset($this->vars['module_load_paths']) || !is_array($this->vars['module_load_paths'])) {
-			$this->vars['module_load_paths'] = array();
+			$this->vars['module_load_paths'] = array('./modules');
 		}
 	
 		$this->logger->log('DEBUG', 'Initializing bot');
@@ -231,9 +231,7 @@ class Budabot extends AOChat {
 	 */
 	function loadModules() {
 		$this->db->begin_transaction();
-		$loadPaths = array('./modules');
-		$loadPaths = array_merge($loadPaths, $this->vars['module_load_paths']);
-		forEach ($loadPaths as $path) {
+		forEach ($this->vars['module_load_paths'] as $path) {
 			if ($d = dir($path)) {
 				while (false !== ($MODULE_NAME = $d->read())) {
 					// filters out ., .., .svn
