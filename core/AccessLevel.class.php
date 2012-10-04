@@ -20,7 +20,7 @@ class AccessLevel extends Annotation {
 	public $chatBot;
 
 	/** @Inject */
-	public $admin;
+	public $adminManager;
 
 	/** @Logger */
 	public $logger;
@@ -135,8 +135,8 @@ class AccessLevel extends Annotation {
 		if ($this->chatBot->vars["SuperAdmin"] == $sender){
 			return "superadmin";
 		}
-		if (isset($this->admin->admins[$sender])) {
-			$level = $this->admin->admins[$sender]["level"];
+		if (isset($this->adminManager->admins[$sender])) {
+			$level = $this->adminManager->admins[$sender]["level"];
 			if ($level >= 4) {
 				return "admin";
 			}
