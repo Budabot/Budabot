@@ -182,7 +182,7 @@ class Budabot extends AOChat {
 		$exec_connected_events = false;
 		$time = 0;
 		while (true) {
-			$packet = $this->wait_for_packet($this->is_ready()? 0: 1);
+			$packet = $this->wait_for_packet($this->is_ready() ? 0 : 1);
 			if ($packet) {
 				$this->process_packet($packet);
 			} else {
@@ -383,7 +383,7 @@ class Budabot extends AOChat {
 		// for when $text->make_blob generates several pages
 		if (is_array($message)) {
 			forEach ($message as $page) {
-				$this->send($page, $channel, $disable_relay, $priority);
+				$this->sendPublic($page, $channel, $priority);
 			}
 			return;
 		}
@@ -396,27 +396,6 @@ class Budabot extends AOChat {
 		$guildColor = $this->setting->get("default_guild_color");
 
 		$this->send_group($channel, $guildColor.$message, "\0", $priority);
-	}
-
-	/**
-	 * @name: send
-	 * @description: format a message and send it to private channel, guild channel, or a player
-	 */
-	function send($message, $target, $disable_relay = false, $priority = null) {
-		if ($target == null) {
-			$this->logger->log('ERROR', "Could not send message as no target was specified. message: '{$message}'");
-			return;
-		}
-
-		if ($target == 'prv' || $target == 'priv') {
-			$this->sendPrivate($message, $this->vars["name"], $disable_relay);
-		} else if (($target == $this->vars["my_guild"] || $target == 'org' || $target == 'guild') && $this->setting->get('guild_channel_status') == 1) {
-			$this->sendGuild($message, $disable_relay, $priority);
-		} else if ($this->get_uid($target) != NULL) {// Target is a player.
-			$this->sendTell($message, $target, $priority);
-		} else { // Public channels that are not guild
-			$this->sendPublic($message, $target, $priority);
-		}
 	}
 
 	/**
@@ -663,7 +642,7 @@ class Budabot extends AOChat {
 
 		if ($this->setting->get('spam_protection') == 1) {
 			if ($this->spam[$sender] == 40) {
-				$this->send("Error! Your client is sending a high frequency of chat messages. Stop or be kicked.", $sender);
+				$this->sendTell("Error! Your client is sending a high frequency of chat messages. Stop or be kicked.", $sender);
 			}
 			if ($this->spam[$sender] > 60) {
 				$this->privategroup_kick($sender);
