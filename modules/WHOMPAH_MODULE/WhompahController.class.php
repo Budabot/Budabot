@@ -14,7 +14,7 @@
  *		help        = 'whompah.txt'
  *	)
  */
-class Whompah {
+class WhompahController {
 
 	/**
 	 * Name of the module.
