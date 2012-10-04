@@ -54,7 +54,7 @@ class APIController {
 		// Create a TCP Stream socket
 		$this->apisocket = stream_socket_server("tcp://$address:$port", $errno, $errstr);
 		if ($this->apisocket) {
-			$this->logger->log('INFO', 'API socket bound successfully');
+			$this->logger->log('DEBUG', 'API socket bound successfully');
 			stream_set_blocking($this->apisocket, 0);
 			$this->socketNotifier = new SocketNotifier($this->apisocket,
 				SocketNotifier::ACTIVITY_READ, array($this, 'onApiActivity'));

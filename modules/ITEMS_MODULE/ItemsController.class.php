@@ -140,7 +140,7 @@ class ItemsController implements ItemsAPI {
 	}
 
 	public function download_newest_itemsdb() {
-		$this->logger->log('INFO', "Starting items db update");
+		$this->logger->log('DEBUG', "Starting items db update");
 
 		// get list of files in ITEMS_MODULE
 		$data = file_get_contents("http://budabot2.googlecode.com/svn/trunk/modules/ITEMS_MODULE");
@@ -186,7 +186,7 @@ class ItemsController implements ItemsAPI {
 				$this->logger->log('INFO', "Items db updated from '$currentVersion' to '$latestVersion'");
 				$msg = "The items database has been updated to the latest version.  Version: $latestVersion";
 			} else {
-				$this->logger->log('INFO', "Items db already up to date '$currentVersion'");
+				$this->logger->log('DEBUG', "Items db already up to date '$currentVersion'");
 				$msg = "The items database is already up to date.  Version: $currentVersion";
 			}
 		} else {
@@ -194,7 +194,7 @@ class ItemsController implements ItemsAPI {
 			$msg = "There was a problem finding the latest version on the server";
 		}
 
-		$this->logger->log('INFO', "Finished items db update");
+		$this->logger->log('DEBUG', "Finished items db update");
 
 		return $msg;
 	}
