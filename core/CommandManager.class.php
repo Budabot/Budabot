@@ -200,7 +200,7 @@ class CommandManager {
 		return $sc->cmd;
 	}
 
-	function process($channel, $message, $sender, $sendto) {
+	function process($channel, $message, $sender, CommandReply $sendto) {
 		list($cmd, $params) = explode(' ', $message, 2);
 		$cmd = strtolower($cmd);
 
@@ -264,7 +264,7 @@ class CommandManager {
 		$this->chatBot->spam[$sender] += 10;
 	}
 
-	public function callCommandHandler($commandHandler, $message, $channel, $sender, $sendto) {
+	public function callCommandHandler($commandHandler, $message, $channel, $sender, CommandReply $sendto) {
 		$syntaxError = false;
 
 		forEach (explode(',', $commandHandler->file) as $handler) {

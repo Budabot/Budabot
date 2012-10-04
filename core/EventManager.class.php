@@ -82,11 +82,6 @@ class EventManager {
 	 * @description: Activates an event
 	 */
 	public function activate($type, $filename) {
-		// for file includes
-		$chatBot = $this->chatBot;
-		$db = $this->db;
-		$setting = $this->setting;
-
 		$type = strtolower($type);
 
 		$this->logger->log('DEBUG', "Activating event Type:($type) File:($filename)");
@@ -227,8 +222,6 @@ class EventManager {
 	 * @description: Call php-Scripts at certin time intervals. 2 sec, 1 min, 10min, 15 min, 30min, 1 hour, 24 hours
 	 */
 	public function crons() {
-		$chatBot = Registry::getInstance('chatBot');
-
 		if ($this->chatBot->is_ready()) {
 			$time = time();
 			$this->logger->log('DEBUG', "Executing cron events at '$time'");

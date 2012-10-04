@@ -495,7 +495,7 @@ class Budabot extends AOChat {
 				return;
 			}
 
-			// Add sender to the chatlist.
+			// Add sender to the chatlist
 			$this->chatlist[$sender] = true;
 
 			$this->eventManager->fireEvent($eventObj);
@@ -519,7 +519,7 @@ class Budabot extends AOChat {
 
 			$this->logger->log_chat("Priv Group", -1, "$sender left the channel.");
 
-			// Remove from Chatlist array.
+			// Remove from Chatlist array
 			unset($this->chatlist[$sender]);
 
 			$this->eventManager->fireEvent($eventObj);

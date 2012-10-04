@@ -88,7 +88,7 @@ class CommandAlias {
 		unset($this->cmd_aliases[$alias]);
 	}
 
-	public function process($message, $channel, $sender, $sendto) {
+	public function process($message, $channel, $sender, CommandReply $sendto) {
 		list($alias, $params) = explode(' ', $message, 2);
 		$alias = strtolower($alias);
 

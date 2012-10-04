@@ -1,12 +1,5 @@
 <?php
 
-// category is one of:
-//   debug
-//   query
-//   info
-//   chat
-//   error
-
 class LegacyLogger {
 	public static $TIMESTAMP_FORMAT = "Ymd H:i:s";
 
