@@ -1,9 +1,0 @@
-<header>::::: Guide To Rubi-Ka Static Dungeons  :::::<end>
-
-<a href='chatcmd:///tell <myname> <symbol>guides som'><font color = yellow>Steps of Madness</font> - A dungeon introduced on Halloween, for teams lvl 30-50</a>
-<a href='chatcmd:///tell <myname> <symbol>guides totw'><font color = yellow>Temple of the Three Winds</font> For level 30-60</a>
-<a href='chatcmd:///tell <myname> <symbol>guides biomare'><font color = yellow>Biomare (aka Foremans)</font> For Levels 60-100</a>
-<a href='chatcmd:///tell <myname> <symbol>guides coh'><font color = yellow>Crypt Of Home aka COH</font> For Levels 80+</a>
-<a href='chatcmd:///tell <myname> <symbol>guides is'><font color = yellow>Inner Sanctum</font>  - A Continuation of TOTW for Levels 125+</a>
-<a href='chatcmd:///tell <myname> <symbol>guides smugden'><font color = yellow>Smuggler's Den</font>  - for Levels 125+</a>
-<a href='chatcmd:///tell <myname> <symbol>guides hi'><font color = yellow>Hollow Island</font> - For Level 190+ teams</a>
