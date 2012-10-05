@@ -196,6 +196,14 @@ class AOUController {
 		$input = preg_replace_callback("/\\[waypoint ([^\\]]+)\\]([^\\]]*)\\[\\/waypoint\\]/", array($this, 'replaceWaypoint'), $input);
 		$input = preg_replace_callback("/\\[url=index\\.php\\?id=(\\d+)&pid=(\\d+)\\]([^\\[]+)\\[\\/url\\]/", array($this, 'replaceGuideLinks'), $input);
 		$input = preg_replace("/\\[img\\]([^\\[]+)\\[\\/img\\]/", "-image-", $input);
+		$input = preg_replace("/\\[color=#([0-9A-F]+)\\]([^\\[]+)\\[\\/color\\]/", "<font color=#\\1>\\2</font>", $input);
+		$input = preg_replace("/\\[color=([^\\]]+)\\]([^\\[]+)\\[\\/color\\]/", "<\\1>\\2<end>", $input);
+		$input = str_replace("[center]", "<center>", $input);
+		$input = str_replace("[/center]", "</center>", $input);
+		$input = str_replace("[i]", "<i>", $input);
+		$input = str_replace("[/i]", "</i>", $input);
+		$input = str_replace("[b]", "<header>", $input);
+		$input = str_replace("[/b]", "<end>", $input);
 
 		$pattern = "/(\\[[^\\]]+\\])/";
 		$matches = preg_split($pattern, $input, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
