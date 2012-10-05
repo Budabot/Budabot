@@ -37,9 +37,6 @@ class AlienBioController {
 
 	/** @Inject */
 	public $text;
-	
-	/** @Inject */
-	public $commandManager;
 
 	/** @Inject("ItemsController") */
 	public $items;
@@ -172,8 +169,8 @@ class AlienBioController {
 		}
 
 		if (count($bios) == 1) {
-			// make the bot think they actually typed the !bioinfo command
-			$this->commandManager->process($channel, "bioinfo $bioinfo $ql", $sender, $sendto);
+			// if there is only one bio, show detailed info by calling !bioinfo command handler directly
+			$this->bioinfoCommand("", $channel, $sender, $sendto, array("bioinfo $bioinfo $ql", $bioinfo, $ql));
 		} else {
 			$msg = $this->text->make_blob("Identified Bio-Materials", $blob);
 			$sendto->reply($msg);
