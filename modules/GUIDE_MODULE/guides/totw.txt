@@ -87,7 +87,7 @@ Weapons:
 
 <pagebreak>NCU & Belt:
 <a href='itemref://204601/204601/1'>Guardian Circuit Board</a>
-/a href='itemref://204602/204602/1'>Dark Memories</a>
+<a href='itemref://204602/204602/1'>Dark Memories</a>
 <a href='itemref://204603/204603/1'>Memory Loop</a> |VeryRare|
 
 <pagebreak>Implants:

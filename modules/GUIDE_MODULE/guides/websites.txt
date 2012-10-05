@@ -7,10 +7,8 @@
 Guides and Other Information
 <a href='chatcmd:///start http://www.ao-universe.com/'>AO Universe</a>
 <a href='chatcmd:///start http://wiki.aodevs.com/wiki/Main_Page'>AO Wiki</a>
-<a href='chatcmd:///start http://www.jexai.co.uk/anarchy/index.php'>Jexai's AO Site</a>
 <a href='chatcmd:///start http://aovault.ign.com/'>The Vault</a> 
 <a href='chatcmd:///start http://arcanum.aodevs.com/index.html'>Anarchy Arcanum</a> 
-<a href='chatcmd:///start http://www.tirschool.com/'>Tir School Of Engineering</a> (<a href='chatcmd:///start http://www.tirschool.com/ai/index.html'>Alien Invasion</a>)
 <a href='chatcmd:///start http://www.aotradeskills.co.uk/'>AO Tradeskills</a> 
 <a href='chatcmd:///start http://towerwars.info/'>Towerwars Tracking</a>
 <a href='chatcmd:///start http://arpa3.net/anarchy-online/'>Kimi's AO Resources</a>
@@ -27,7 +25,7 @@ Forums
 <a href='chatcmd:///start http://www.aofroobs.com/'>AO Froobs.com</a>
 <a href='chatcmd:///start http://www.ao-universe.com/index.php?sf=1'>AO Universe Forums</a>
 <a href='chatcmd:///start http://aodevs.com/forums//'>AODevs</a> 
-<a href='chatcmd:///start http://forums.vhabot.net/'>Vhabot.net</a>
+<a href='chatcmd:///start http://www.budabot.com/forum'>Budabot forums</a>
 
 Item Databases
 <a href='chatcmd:///start http://www.xyphos.com/'>XYPHOS</a>
@@ -40,7 +38,6 @@ Item Databases
 Tools
 <a href='chatcmd:///start http://frellu.net/ia/'>Item Assistent</a> tracks your character inventory
 <a href='chatcmd:///start http://www.lastmanut.pwp.blueyonder.co.uk/implantHelperWebPage/implanthelper.html'>Implant Helper</a> 
-<a href='chatcmd:///start http://flw.nu/portal/?page=tools_premadeimps'>Premade Implants Search</a>
 <a href='chatcmd:///start http://www.ao-universe.com/main.php?site=tools&link=download&action=tools'>AO Universe Clicksaver</a>
 <a href='chatcmd:///start http://arpa3.net/ao/clicksaver.html'>Kimi Clicksaver</a>
 <a href='chatcmd:///start http://www.phuncom.com/Scripts/index.html'>Argenteum Astrum Scripts for Rubi-Ka</a> useful script collection
@@ -49,4 +46,4 @@ Tools
 
 <font color = yellow>Note: These links will be automatically opened in your web browser.</font>
 
-Website links cleaned up and organizaed by JungleGeorge (RK2)
+Website links cleaned up and organized by JungleGeorge (RK2)

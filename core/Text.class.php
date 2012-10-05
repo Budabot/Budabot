@@ -187,6 +187,7 @@ class Text {
 			"<orange>" => "<font color='#FCA712'>",
 			"<grey>" => "<font color='#C3C3C3'>",
 			"<cyan>" => "<font color='#00FFFF'>",
+			"<violet>" => "<font color='#8F00FF'>",
 
 			"<neutral>" => $setting->get('default_neut_color'),
 			"<omni>" => $setting->get('default_omni_color'),

@@ -1,9 +1,0 @@
-<header> ::::: Title Levels ::::: <end>
-
-<orange>1:<end> Level 1 (5K IP/level)
-<orange>2:<end> Level 15 (10K IP/level)
-<orange>3:<end> Level 50 (20K IP/level)
-<orange>4:<end> Level 100 (40K IP/level)
-<orange>5:<end> Level 150 (80K IP/level)
-<orange>6:<end> Level 190 (150K IP/level)
-<orange>7:<end> Level 205 (400K IP/level)
