@@ -236,7 +236,7 @@ class ItemsController implements ItemsAPI {
 			$blob .= $this->formatSearchResults($data, $ql, true);
 			$xrdbLink = $this->text->make_chatcmd("XRDB", "/start http://www.xyphos.com/viewtopic.php?f=6&t=10000091");
 			$budabotItemsExtractorLink = $this->text->make_chatcmd("Budabot Items Extractor", "/start http://budabot.com/forum/viewtopic.php?f=7&t=873");
-			$blob .= "\n\n<highlight>Item DB rips provied by MajorOutage (RK1) using Xyphos' $xrdbLink tool and the $budabotItemsExtractorLink plugin<end>";
+			$blob .= "\n\n<highlight>Item DB rips created using Xyphos' $xrdbLink tool and the $budabotItemsExtractorLink plugin<end>";
 			$link = $this->text->make_blob("Item Search Results ($num)", $blob);
 
 			return $link;
