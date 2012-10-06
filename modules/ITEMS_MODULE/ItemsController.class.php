@@ -136,7 +136,10 @@ class ItemsController implements ItemsAPI {
 	 * @Description("Check to make sure items db is the latest version available")
 	 */
 	public function checkForUpdate() {
-		$this->download_newest_itemsdb();
+		$msg = $this->download_newest_itemsdb();
+		if (preg_match("/^The items database has been updated/", $msg)) {
+			$this->chatBot->sendGuild($msg);
+		}
 	}
 
 	public function download_newest_itemsdb() {
