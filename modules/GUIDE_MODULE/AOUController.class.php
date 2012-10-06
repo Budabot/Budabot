@@ -201,16 +201,20 @@ class AOUController {
 	}
 	
 	private function replaceGuideLinks($arr) {
-		$id = $arr[2];
+		$url = $arr[2];
 		$label = $arr[3];
 		
-		return $this->text->make_chatcmd($label, "/tell <myname> aou $id");
+		if (preg_match("/pid=(\\d+)/", $url, $idArray)) {
+			return $this->text->make_chatcmd($label, "/tell <myname> aou " . $idArray[1]);
+		} else {
+			return $this->text->make_chatcmd($label, "/start $url");
+		}
 	}
 	
 	private function processInput($input) {
 		$input = preg_replace_callback("/\\[(item|itemname|itemicon)( nolink)?\\](\\d+)\\[\\/(item|itemname|itemicon)\\]/i", array($this, 'replaceItem'), $input);
 		$input = preg_replace_callback("/\\[waypoint ([^\\]]+)\\]([^\\]]*)\\[\\/waypoint\\]/", array($this, 'replaceWaypoint'), $input);
-		$input = preg_replace_callback("/\\[url=index\\.php\\?id=(\\d+)&pid=(\\d+)\\]([^\\[]+)\\[\\/url\\]/", array($this, 'replaceGuideLinks'), $input);
+		$input = preg_replace_callback("/\\[(localurl|url)=([^ \\]]+)\\]([^\\[]+)\\[\\/(localurl|url)\\]/", array($this, 'replaceGuideLinks'), $input);
 		$input = preg_replace("/\\[img\\]([^\\[]+)\\[\\/img\\]/", "-image-", $input);
 		$input = preg_replace("/\\[color=#([0-9A-F]+)\\]([^\\[]+)\\[\\/color\\]/", "<font color=#\\1>\\2</font>", $input);
 		$input = preg_replace("/\\[color=([^\\]]+)\\]([^\\[]+)\\[\\/color\\]/", "<\\1>\\2<end>", $input);
