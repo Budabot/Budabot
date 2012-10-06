@@ -34,14 +34,6 @@ class AOUController {
 	private $url = "http://www.ao-universe.com/mobile/parser.php?bot=budabot";
 	
 	/**
-	 * This handler is called on bot startup.
-	 * @Setup
-	 */
-	public function setup() {
-		$this->setting->add($this->moduleName, "auto_add_waypoint_links", "Parse playfield coordinates and generate waypoint links", "edit", "options", "1", "true;false", "1;0");
-	}
-
-	/**
 	 * View an AO-U guide.
 	 *
 	 * @HandlesCommand("aou")
@@ -137,6 +129,7 @@ class AOUController {
 	}
 	
 	private function striposarray($haystack, $needles) {
+		return true;
 		forEach ($needles as $needle) {
 			if (stripos($haystack, $needle) === false) {
 				return false;
@@ -231,10 +224,6 @@ class AOUController {
 		$output = '';
 		forEach ($matches as $match) {
 			$output .= $this->processTag($match);
-		}
-		
-		if ($this->setting->get('auto_add_waypoint_links') == 1) {
-			$output = preg_replace_callback("/(\\d+)(,|x|X)(\\d+)/", array($this, 'replacePossibleWaypoint'), $output);
 		}
 
 		return $output;
