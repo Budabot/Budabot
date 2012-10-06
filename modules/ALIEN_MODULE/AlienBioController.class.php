@@ -50,7 +50,7 @@ class AlienBioController {
 	 */
 	public function setup() {
 		if (!($this->items instanceof ItemsAPI) || !method_exists($this->items, 'findItem')) {
-			$this->logger->log("WARN", "ITEMS_MODULE is not available, the functionality is degrated without it");
+			$this->logger->log("WARN", "ITEMS_MODULE is not available, the functionality is degraded without it");
 			$this->items = null;
 		}
 		
