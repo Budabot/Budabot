@@ -21,18 +21,18 @@ class PlayerHistoryManager {
 				return false;
 			}');
 
-		$file = $this->cacheManager->lookup($url, $groupName, $filename, $cb, $maxCacheAge);
+		$cacheResult = $this->cacheManager->lookup($url, $groupName, $filename, $cb, $maxCacheAge);
 		
 		$obj = new PlayerHistory();
 		$obj->name = $name;
 
 		//if there is still no valid data available give an error back
-		if ($file === null) {
+		if ($cacheResult->success !== true) {
 			$obj->errorCode = 1;
 			$obj->errorInfo = "Could not get History of $name on RK $rk_num";
 		} else {
 			//parsing of the xml file
-			$data = xml::spliceData($file, "<history>", "</history>");
+			$data = xml::spliceData($cacheResult->data, "<history>", "</history>");
 			$data = xml::splicemultidata($data, "<entry", "/>");
 			forEach ($data as $hdata) {
 				preg_match("/date=\"(.+)\" level=\"(.+)\" ailevel=\"(.*)\" faction=\"(.+)\" guild=\"(.*)\" rank=\"(.*)\"/i", $hdata, $arr);
