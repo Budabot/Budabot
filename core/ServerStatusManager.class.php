@@ -3,7 +3,7 @@
 /**
  * @Instance
  */
-class ServerStatusManager extends Annotation {
+class ServerStatusManager {
 
 	public function lookup($rk_num = 0) {
 		$serverstat = xml::getUrl("probes.funcom.com/ao.xml", 30);
