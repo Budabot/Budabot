@@ -27,6 +27,9 @@ class ServerStatusController {
 
 	/** @Inject */
 	public $text;
+	
+	/** @Inject */
+	public $serverStatusManager;
 
 	/**
 	 * @HandlesCommand("server")
@@ -49,7 +52,7 @@ class ServerStatusController {
 			return false;
 		}
 
-		$server = new server($servernum);
+		$server = $this->serverStatusManager->lookup($servernum);
 		if ($server->errorCode != 0) {
 			$msg = $server->errorInfo;
 		} else {

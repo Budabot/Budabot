@@ -23,7 +23,13 @@ class PlayerHistoryController {
 	public $moduleName;
 
 	/** @Inject */
+	public $chatBot;
+	
+		/** @Inject */
 	public $text;
+	
+	/** @Inject */
+	public $playerHistoryManager;
 
 	/**
 	 * @HandlesCommand("history")
@@ -35,10 +41,10 @@ class PlayerHistoryController {
 		if (count($args) == 3) {
 			$dimension = $args[2];
 		} else {
-			$dimension = $chatBot->vars['dimension'];
+			$dimension = $this->chatBot->vars['dimension'];
 		}
 
-		$history = new history($name, $dimension);
+		$history = $this->playerHistoryManager->lookup($name, $dimension);
 		if ($history->errorCode != 0) {
 			$msg = $history->errorInfo;
 		} else {
