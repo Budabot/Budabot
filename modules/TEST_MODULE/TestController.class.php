@@ -22,6 +22,9 @@ class TestController {
 	public $moduleName;
 
 	/** @Inject */
+	public $chatBot;
+	
+	/** @Inject */
 	public $util;
 
 	/** @Inject */
@@ -53,9 +56,9 @@ class TestController {
 			$lines = file($this->path . $file, FILE_IGNORE_NEW_LINES);
 			forEach ($lines as $line) {
 				if ($line[0] == "!") {
-					echo $line . "\n";
+					$this->chatBot->sendTell($line, $sender);
 					$line = substr($line, 1);
-					$this->commandManager->process($type, $line, $sender, $mockSendto);
+					$this->commandManager->process($type, $line, $sender, $sendto);
 				}
 			}
 		}

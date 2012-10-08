@@ -80,22 +80,6 @@
 /delay %1
 !apf 35
 /delay %1
-!apfloot Hacker ICE-Breaker Source
-/delay %1
-!apfloot KyrOzch Helmet
-/delay %1
-!apfloot Action Probability Estimator
-/delay %1
-!apfloot Dynamic Gas Redistribution Valves
-/delay %1
-!apfloot Inertial Adjustment Processing Unit
-/delay %1
-!apfloot Notum Amplification Coil
-/delay %1
-!apfloot Energy Redistribution Unit
-/delay %1
-!apfloot Visible Light Remodulation Device
-/delay %1
 !db1
 /delay %1
 !db2
