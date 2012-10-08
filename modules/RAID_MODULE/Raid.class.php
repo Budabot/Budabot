@@ -2,7 +2,6 @@
 
 class Raid {
 	public static function get_current_loot_list() {
-		$chatBot = Registry::getInstance('chatBot');
 		global $loot;
 
 		if (is_array($loot)) {
@@ -48,7 +47,7 @@ class Raid {
 			}
 			$msg = Text::make_blob("Loot List", $list);
 		} else {
-			$msg = "No List exists yet.";
+			$msg = "No loot list exists yet.";
 		}
 
 		return $msg;
@@ -56,7 +55,6 @@ class Raid {
 
 	public static function add_raid_to_loot_list($raid, $category) {
 		global $loot;
-		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 
 		// clear current loot list
@@ -82,7 +80,6 @@ class Raid {
 	}
 
 	public static function find_raid_loot($raid, $category) {
-		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 
 		$sql = "SELECT * FROM raid_loot WHERE raid = ? AND category = ?";

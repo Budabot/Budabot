@@ -18,11 +18,10 @@
 	$command->register($MODULE_NAME, "", "rem.php", "rem", "all", "Let a player removing from a slot", "add_rem.txt");
 
 	// APFs
-	$command->register($MODULE_NAME, "", "apfsector.php", "13", "rl", "Adds APF 13 loot to the loot list", "apfloot.txt");
-	$command->register($MODULE_NAME, "", "apfsector.php", "28", "rl", "Adds APF 28 loot to the loot list", "apfloot.txt");
-	$command->register($MODULE_NAME, "", "apfsector.php", "35", "rl", "Adds APF 35 loot to the loot list", "apfloot.txt");
-	$command->register($MODULE_NAME, "", "apf.php", "apf", "all", "Shows what drops of APF Boss", "apfloot.txt");
-	$command->register($MODULE_NAME, "", "apfloot.php", "apfloot", "all", "Shows what to make from apf items", "apfloot.txt");
+	$command->register($MODULE_NAME, "", "apfsector.php", "13", "rl", "Adds APF 13 loot to the loot list", "apf.txt");
+	$command->register($MODULE_NAME, "", "apfsector.php", "28", "rl", "Adds APF 28 loot to the loot list", "apf.txt");
+	$command->register($MODULE_NAME, "", "apfsector.php", "35", "rl", "Adds APF 35 loot to the loot list", "apf.txt");
+	$command->register($MODULE_NAME, "", "apf.php", "apf", "all", "Shows what drops of APF Boss", "apf.txt");
 
 	// DB loot manager
 	$command->register($MODULE_NAME, "", "dbloot.php", "db1", "rl", "Shows Possible DB1 Armor/NCUs/Programs", "dbloot.txt");
