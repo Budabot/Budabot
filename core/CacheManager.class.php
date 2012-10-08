@@ -39,7 +39,7 @@ class CacheManager {
 		if (file_exists($cacheFile)) {
 			$cacheAge = time() - filemtime($cacheFile);
             if ($cacheAge < $maxCacheAge) {
-				$data = file_get_contents($cacheFile);
+				$data = $this->retrieve($groupName, $filename);
 				if (call_user_func($isValidCallback, $data)) {
 					$cacheResult->data = $data;
 					$cacheResult->cacheAge = $cacheAge;
@@ -69,7 +69,7 @@ class CacheManager {
 
 		//If the site was not responding or the data was invalid and a xml file exists get that one
 		if ($cacheResult->success !== true && file_exists($cacheFile)) {
-			$data = file_get_contents($cacheFile);
+			$data = $this->retrieve($groupName, $filename);
 			if (call_user_func($isValidCallback, $data)) {
 				$cacheResult->data = $data;
 				$cacheResult->cacheAge = time() - filemtime($cacheFile);
@@ -84,17 +84,37 @@ class CacheManager {
 		
 		// if a new file was downloaded, save it in the cache
 		if ($cacheResult->usedCache === false) {
-			// at least in windows, modifcation timestamp will not change unless this is done
-			// not sure why that is the case --Tyrence
-			@unlink($cacheFile);
-
-	        $fp = fopen($cacheFile, "w");
-	        fwrite($fp, $cacheResult->data);
-	        fclose($fp);
+			$this->store($groupName, $filename, $cacheResult->data);
 	    }
 		
 		return $cacheResult;
     }
+	
+	public function store($groupName, $filename, $contents) {
+		if (!dir($this->cache . '/' . $groupName)) {
+	        mkdir($this->cache . '/' . $groupName, 0777);
+		}
+		
+		$cacheFile = "$this->cache/$groupName/$filename";
+	
+		// at least in windows, modifcation timestamp will not change unless this is done
+		// not sure why that is the case -tyrence
+		@unlink($cacheFile);
+
+		$fp = fopen($cacheFile, "w");
+		fwrite($fp, $contents);
+		fclose($fp);
+	}
+	
+	public function retrieve($groupName, $filename) {
+		$cacheFile = "$this->cache/$groupName/$filename";
+		
+		if (file_exists($cacheFile)) {
+			return file_get_contents($cacheFile);
+		} else {
+			return null;
+		}
+	}
 }
 
 class CacheResult {
