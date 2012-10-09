@@ -1,7 +1,5 @@
 <header> :::::: Yalm Shops  :::::: <end>
 
-<highlight>-=Yalm Shops=-<end>
-
 The "Yalmaha XL - 29478" is one of the most popular flying vehicles in Rubi-ka. It is purchasable by all players including free accounts. It comes in a variety of quality levels with different run spead modifiers, but it appears the actual run speed is the same regardless of QL. With that in mind getting a Yalm at QL 30 with its low requirement of Vehicle Air 81 will save money and make is easier to equip. Many players equip implants to buff their Vehicle Air skill instead of spending IP on it. The Trader shop sells Experienced Aviator Sunglasses which buffs vehicle air by 15 but cost around 850k.
 
 Yalms are NODROP and the shop terminals that sell them change their inventory unless a player keeps an open trade with the shop terminal. The shop terminal name is Car Shop Terminal. They are located in shops that also have the trader Specialist Commerce terminal. These shops have names such as luxury store or special shop. There are superior shops but for QL 30 look for the advance shops. 
@@ -22,8 +20,8 @@ Advanced Vehicle Shop Locations:
 <Neutral>Neutral<end>
 <a href='chatcmd:///waypoint 653 575 800'>/waypoint 653 575 800</a> <font color = #31D6FF>Borealis</font>
 <a href='chatcmd:///waypoint 290 315 566'>/waypoint 290 315 566</a> <font color = #31D6FF>Newland City - In alley near Newland Shops</font>
-<a href='chatcmd:///waypoint 3045 3034 695'>/waypoint 3045 3034</a> <font color = #31D6FF>Harry's</font>
-<a href='chatcmd:///waypoint 1190 2351 630'>/waypoint 1190 2351</a> <font color = #31D6FF>Pleasant Meadows (20K) - NW of Whompah</font>
+<a href='chatcmd:///waypoint 3045 3034 695'>/waypoint 3045 3034 695</a> <font color = #31D6FF>Harry's</font>
+<a href='chatcmd:///waypoint 1190 2351 630'>/waypoint 1190 2351 630</a> <font color = #31D6FF>Pleasant Meadows (20K) - NW of Whompah</font>
 
 <Clan>Clan<end>
 <a href='chatcmd:///waypoint 364 474 540'>/waypoint 364 474 540</a> <font color = #31D6FF>Old Athens</font>
