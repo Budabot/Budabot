@@ -38,7 +38,7 @@ class TestController {
 	 * @Setup
 	 */
 	public function setup() {
-		$this->path = getcwd() . "/modules/TEST_MODULE/tests/";
+		$this->path = getcwd() . "/modules/" . $this->moduleName . "/tests/";
 	}
 
 	/**

@@ -1,0 +1,7 @@
+<highlight>To the list of available profiles on the bot:<end>
+<tab><symbol>profile
+
+<highlight>To load a specific profile:<end>
+<tab><symbol>profile 'profile name'
+
+Note: Profiles are stored in ./core/PROFILE/profiles.  Only lines that start with '!' will be executed and all other lines will be ignored.  Feel free to add profiles or edit profiles as you wish.

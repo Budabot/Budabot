@@ -1,0 +1,4 @@
+#This profile configures the bot to act as a raid bot.
+
+!config mod GUILD_MODULE disable all
+!config mod RAID_MODULE enable all
