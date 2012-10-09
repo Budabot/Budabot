@@ -139,11 +139,12 @@ class QuoteController {
 	 * @Matches("/^quote search (.+)$/i")
 	 */
 	public function quoteSearchCommand($message, $channel, $sender, $sendto, $args) {
-		$search = ucfirst(strtolower($args[1]));
+		$search = $args[1];
+		$searchParam = '%' . $search . '%';
 
 		// Search for poster:
 		$list = "";
-		$data = $this->db->query("SELECT * FROM `#__quote` WHERE `Who` LIKE ?", $search);
+		$data = $this->db->query("SELECT * FROM `#__quote` WHERE `Who` LIKE ?", $searchParam);
 		forEach ($data as $row) {
 			$list .= "<a href='chatcmd:///tell <myname> quote $row->IDNumber'>$row->IDNumber</a>, ";
 		}
@@ -154,7 +155,7 @@ class QuoteController {
 
 		// Search for victim:
 		$list = "";
-		$data = $this->db->query("SELECT * FROM `#__quote` WHERE `OfWho` LIKE ?", $search);
+		$data = $this->db->query("SELECT * FROM `#__quote` WHERE `OfWho` LIKE ?", $searchParam);
 		forEach ($data as $row) {
 			$list .= "<a href='chatcmd:///tell <myname> quote $row->IDNumber'>$row->IDNumber</a>, ";
 		}
@@ -168,7 +169,7 @@ class QuoteController {
 
 		// Search inside quotes:
 		$list = "";
-		$data = $this->db->query("SELECT * FROM `#__quote` WHERE `OfWho` NOT LIKE ? AND `What` LIKE ?", $search, $search);
+		$data = $this->db->query("SELECT * FROM `#__quote` WHERE `OfWho` NOT LIKE ? AND `What` LIKE ?", $searchParam, $searchParam);
 		forEach ($data as $row) {
 			$list .= "<a href='chatcmd:///tell <myname> quote $row->IDNumber'>$row->IDNumber</a>, ";
 		}

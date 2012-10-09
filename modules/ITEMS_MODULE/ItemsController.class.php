@@ -273,7 +273,7 @@ class ItemsController implements ItemsAPI {
 	
 	public function doXyphosLookup($id) {
 		$url = "http://itemxml.xyphos.com/?id={$id}";
-		$data = file_get_contents($url, 0);
+		$data = file_get_contents($url);
 		
 		if (empty($data) || '<error>' == substr($data, 0, 7)) {
 			return null;

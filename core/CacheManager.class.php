@@ -26,18 +26,11 @@ class CacheManager {
 			throw new Exception("Cache group name cannot be empty");
 		}
 		
-		if (!dir($this->cache . '/' . $groupName)) {
-	        mkdir($this->cache . '/' . $groupName, 0777);
-		}
-		
 		$cacheResult = new CacheResult();
 	
-		$data_found = false;
-		$cacheFile = "$this->cache/$groupName/$filename";
-
 		// Check if a xml file of the person exists and if it is uptodate
-		if (file_exists($cacheFile)) {
-			$cacheAge = time() - filemtime($cacheFile);
+		if ($this->cacheExists($groupName, $filename)) {
+			$cacheAge = $this->getCacheAge($groupName, $filename);
             if ($cacheAge < $maxCacheAge) {
 				$data = $this->retrieve($groupName, $filename);
 				if (call_user_func($isValidCallback, $data)) {
@@ -48,7 +41,7 @@ class CacheManager {
 					$cacheResult->success = true;
 				} else {
 					unset($data);
-					@unlink($cacheFile);
+					$this->remove($groupName, $filename);
 				}
 			}
         }
@@ -68,17 +61,17 @@ class CacheManager {
 		}
 
 		//If the site was not responding or the data was invalid and a xml file exists get that one
-		if ($cacheResult->success !== true && file_exists($cacheFile)) {
+		if ($cacheResult->success !== true && $this->cacheExists($groupName, $filename)) {
 			$data = $this->retrieve($groupName, $filename);
 			if (call_user_func($isValidCallback, $data)) {
 				$cacheResult->data = $data;
-				$cacheResult->cacheAge = time() - filemtime($cacheFile);
+				$cacheResult->cacheAge = $this->getCacheAge($groupName, $filename);
 				$cacheResult->usedCache = true;
 				$cacheResult->oldCache = true;
 				$cacheResult->success = true;
 			} else {
 				unset($data);
-				@unlink($cacheFile);
+				$this->remove($groupName, $filename);
 			}
 		}
 		
@@ -114,6 +107,28 @@ class CacheManager {
 		} else {
 			return null;
 		}
+	}
+	
+	public function getCacheAge($groupName, $filename) {
+		$cacheFile = "$this->cache/$groupName/$filename";
+		
+		if (file_exists($cacheFile)) {
+			return time() - filemtime($cacheFile);
+		} else {
+			return null;
+		}
+	}
+	
+	public function cacheExists($groupName, $filename) {
+		$cacheFile = "$this->cache/$groupName/$filename";
+		
+		return file_exists($cacheFile);
+	}
+	
+	public function remove($groupName, $filename) {
+		$cacheFile = "$this->cache/$groupName/$filename";
+		
+		@unlink($cacheFile);
 	}
 }
 

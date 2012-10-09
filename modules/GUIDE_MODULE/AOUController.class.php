@@ -185,12 +185,7 @@ class AOUController {
 			$$name = $value;
 		}
 		
-		return $this->text->make_chatcmd($label, "/waypoint $x $y $pf");
-	}
-	
-	private function replacePossibleWaypoint($arr) {
-		list($label, $x, $separator, $y) = $arr;
-		return $this->text->make_chatcmd($label, "/waypoint $x $y 0");
+		return $this->text->make_chatcmd($label . " ({$x}x{$y})", "/waypoint $x $y $pf");
 	}
 	
 	private function replaceGuideLinks($arr) {
