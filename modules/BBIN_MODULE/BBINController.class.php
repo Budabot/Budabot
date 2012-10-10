@@ -180,11 +180,11 @@ class BBINController {
 	 */
 	public function setBBINChannelCommand($message, $channel, $sender, $sendto, $args) {
 		$channel = trim($args[1]);
-		if (strpos($channel, " ")) {
+		if (strpos($channel, " ") !== false) {
 			$msg = "IRC channels cannot have spaces in them";
 		} else {
-			if (strpos($channel, "#") !== 0) {
-				$channel = "#".$channel;
+			if (strpos($channel, "#") === false) {
+				$channel = "#" . $channel;
 			}
 			$this->setting->save("bbin_channel", $channel);
 			$msg = "Setting saved.  Bot will join $channel when it connects to IRC.";
