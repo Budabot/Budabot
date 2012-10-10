@@ -85,19 +85,27 @@ class CIAController {
 		/* Accept incoming requests and handle them as child processes */
 		$client = @stream_socket_accept($this->apisocket);
 		if ($client !== false) {
-			while (!feof($client)) {
-				$data .= fread($client, 8192);
-			}
-		}
-		fwrite($client, "200 OK HTTP/1.1\r\n"
+			// read headers
+			$headerString = stream_get_line($client, 8192, "\r\n\r\n");
+			$headers = $this->http_parse_headers($headerString);
+
+			// read payload
+			$payload = fread($client, $headers['Content-Length']);
+
+			// send response
+			fwrite($client, "200 OK HTTP/1.1\r\n"
                         . "Connection: close\r\n"
                         . "Content-Type: text/html\r\n");
-		fclose($client);
-		$headers = $this->http_parse_headers($data);
-		$obj = json_decode($headers['Payload']);
-		forEach ($obj->revisions as $revision) {
-			$msg = "r{$revision->revision}: $revision->author ($revision->path_count file(s)) - $revision->message";
-			$this->ircRelayController->sendMessageToIRC($msg);
+
+			// close connection
+			fclose($client);
+
+			// process payload and notify IRC channel
+			$obj = json_decode($payload);
+			forEach ($obj->revisions as $revision) {
+				$msg = "r{$revision->revision}: $revision->author ($revision->path_count file(s)) - $revision->message";
+				$this->ircRelayController->sendMessageToIRC($msg);
+			}
 		}
 	}
 	
