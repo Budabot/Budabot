@@ -93,7 +93,7 @@ class CIAController {
 			$payload = fread($client, $headers['Content-Length']);
 
 			// send response
-			fwrite($client, "200 OK HTTP/1.1\r\n"
+			fwrite($client, "HTTP/1.1 200 OK\r\n"
                         . "Connection: close\r\n"
                         . "Content-Type: text/html\r\n");
 
