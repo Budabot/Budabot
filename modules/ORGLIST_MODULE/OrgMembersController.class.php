@@ -30,6 +30,9 @@ class OrgMembersController {
 	/** @Inject */
 	public $text;
 	
+	/** @Inject */
+	public $util;
+	
 	/**
 	 * @HandlesCommand("orgmembers")
 	 * @Matches("/^orgmembers$/i")
