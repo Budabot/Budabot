@@ -1,0 +1,2 @@
+<highlight>To run tests on the bot:<end>
+<tab><symbol>test

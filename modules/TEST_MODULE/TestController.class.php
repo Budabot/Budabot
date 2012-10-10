@@ -10,7 +10,7 @@
  *		command     = 'test', 
  *		accessLevel = 'all', 
  *		description = "Test the bot commands", 
- *		help        = 'text.txt'
+ *		help        = 'test.txt'
  *	)
  */
 class TestController {
