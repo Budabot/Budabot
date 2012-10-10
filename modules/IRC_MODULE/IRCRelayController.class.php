@@ -390,7 +390,6 @@ class IRCRelayController {
 				$msg = "$eventObj->sender: $msg";
 			}
 			$this->sendMessageToIRC($msg);
-			$this->logger->log_chat("Out. IRC Msg.", $eventObj->sender, $msg);
 		}
 	}
 	
@@ -409,7 +408,6 @@ class IRCRelayController {
 				$msg = "$eventObj->sender: $msg";
 			}
 			$this->sendMessageToIRC($msg);
-			$this->logger->log_chat("Out. IRC Msg.", $eventObj->sender, $msg);
 		}
 	}
 	
@@ -420,7 +418,6 @@ class IRCRelayController {
 	public function joinPrivEvent($eventObj) {
 		if (IRC::isConnectionActive($this->ircSocket)) {
 			$msg = $this->getIRCPlayerInfo($eventObj->sender);
-			$this->logger->log_chat("Out. IRC Msg.", -1, $msg);
 			$this->sendMessageToIRC($msg);
 		}
 	}
@@ -441,7 +438,6 @@ class IRCRelayController {
 				}
 
 				$msg = $this->getIRCPlayerInfo($eventObj->sender);
-				$this->logger->log_chat("Out. IRC Msg.", -1, $msg);
 				$this->sendMessageToIRC($msg);
 			}
 		}
@@ -455,7 +451,6 @@ class IRCRelayController {
 		if (IRC::isConnectionActive($this->ircSocket)) {
 			$msg = "$eventObj->sender has left the private channel.";
 			$this->sendMessageToIRC($msg);
-			$this->logger->log_chat("Out. IRC Msg.", -1, $msg);
 		}
 	}
 	
@@ -476,7 +471,6 @@ class IRCRelayController {
 
 				$msg = "$eventObj->sender has logged off.";
 				$this->sendMessageToIRC($msg);
-				$this->logger->log_chat("Out. IRC Msg.", -1, $msg);
 			}
 		}
 	}
@@ -535,6 +529,7 @@ class IRCRelayController {
 	}
 	
 	public function sendMessageToIRC($message) {
+		$this->logger->log_chat("Out. IRC Msg.", -1, $message);
 		IRC::send($this->ircSocket, $this->setting->get('irc_channel'), $this->encodeGuildMessage(getGuildAbbreviation(), $message));
 	}
 }
