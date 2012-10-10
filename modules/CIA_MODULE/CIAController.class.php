@@ -89,9 +89,16 @@ class CIAController {
 				$data .= fread($client, 8192);
 			}
 		}
-		$obj = $this->http_parse_headers($data);
-		print_r($obj);
-		//$this->ircRelayController->sendMessageToIRC($data);
+		fwrite($client, "200 OK HTTP/1.1\r\n"
+                        . "Connection: close\r\n"
+                        . "Content-Type: text/html\r\n");
+		fclose($client);
+		$headers = $this->http_parse_headers($data);
+		$obj = json_decode($headers['Payload']);
+		forEach ($obj->revisions as $revision) {
+			$msg = "r{$revision->revision}: $revision->author ($revision->path_count file(s)) - $revision->message";
+			$this->ircRelayController->sendMessageToIRC($msg);
+		}
 	}
 	
 	// taken from (with modifcations): http://php.net/manual/en/function.http-parse-headers.php
