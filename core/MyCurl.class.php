@@ -56,7 +56,7 @@ class MyCurl {
 		$this->_cookieFileLocation = $path;
 	}
 
-	public function setPost ($postFields) {
+	public function setPost($postFields) {
 		$this->_post = true;
 		$this->_postFields = $postFields;
 	}
