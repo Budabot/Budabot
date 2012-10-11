@@ -76,13 +76,8 @@ class IsOnlineController {
 	 */
 	public function logonEvent($eventObj) {
 		$sender = $eventObj->sender;
-		$type = $eventObj->type;
 		if ($this->player !== null && $sender == $this->player['playername']) {
-			if ($type == "logon") {
-				$status = "<green>online<end>";
-			} else if ($type == "logoff") {
-				$status = "<red>offline<end>";
-			}
+			$status = "<green>online<end>";
 			$msg = "Character <highlight>$sender<end> is $status.";
 			$this->player['sendto']->reply($msg);
 			$this->buddylistManager->remove($sender, 'is_online');
@@ -96,13 +91,8 @@ class IsOnlineController {
 	 */
 	public function logoffEvent($eventObj) {
 		$sender = $eventObj->sender;
-		$type = $eventObj->type;
 		if ($this->player !== null && $sender == $this->player['playername']) {
-			if ($type == "logon") {
-				$status = "<green>online<end>";
-			} else if ($type == "logoff") {
-				$status = "<red>offline<end>";
-			}
+			$status = "<red>offline<end>";
 			$msg = "Character <highlight>$sender<end> is $status.";
 			$this->player['sendto']->reply($msg);
 			$this->buddylistManager->remove($sender, 'is_online');
