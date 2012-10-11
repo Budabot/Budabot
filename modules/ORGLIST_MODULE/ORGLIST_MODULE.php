@@ -8,7 +8,6 @@
 	$chatBot->registerInstance($MODULE_NAME, 'OrgMembersController', new OrgMembersController());
 	$chatBot->registerInstance($MODULE_NAME, 'FindOrgController', new FindOrgController());
 
-	$command->register($MODULE_NAME, "", "orgranks.php", "orgranks", "guild", "Show guild members sorted by guild rank", "orgranks.txt");
 	$command->register($MODULE_NAME, "", "whoisorg.php", "whoisorg", "all", "Display org info", "whoisorg.txt");
 	$command->register($MODULE_NAME, "", "orglist.php", "orglist", "guild", "Check someones org roster", "orglist.txt");
 
