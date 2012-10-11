@@ -22,7 +22,6 @@ function send_message_to_relay($message) {
 }
 
 function getGuildAbbreviation() {
-	$chatBot = Registry::getInstance('chatBot');
 	$setting = Registry::getInstance('setting');
 
 	if ($setting->get('relay_guild_abbreviation') != 'none') {

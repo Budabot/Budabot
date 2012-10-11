@@ -530,7 +530,13 @@ class IRCRelayController {
 	
 	public function sendMessageToIRC($message) {
 		$this->logger->log_chat("Out. IRC Msg.", -1, $message);
-		IRC::send($this->ircSocket, $this->setting->get('irc_channel'), $this->encodeGuildMessage(getGuildAbbreviation(), $message));
+		$guild = getGuildAbbreviation();
+		if (empty($guild)) {
+			$ircmsg = $message;
+		} else {
+			$ircmsg = $this->encodeGuildMessage($guild, $message);
+		}
+		IRC::send($this->ircSocket, $this->setting->get('irc_channel'), $ircmsg);
 	}
 }
 
