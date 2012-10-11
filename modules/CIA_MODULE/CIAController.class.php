@@ -31,7 +31,7 @@ class CIAController {
 	public $ircRelayController;
 	
 	/** @Inject */
-	public $socketManager;
+	public $httpApi;
 	
 	/** @Logger */
 	public $logger;
@@ -45,16 +45,32 @@ class CIAController {
 	
 	/**
 	 * @HandlesCommand("testcia")
-	 * @Matches("/^testcia (.+)$/i")
+	 * @Matches("/^testcia$/i")
 	 */
 	public function testCIACommand($message, $channel, $sender, $sendto, $args) {
-		$input = $args[1];
-		
-		$curl = new MyCurl("http://127.0.0.1:9200");
-		$curl->setPost($input);
-		$curl->createCurl();
-		$contents = $curl->__toString();
-		$sendto->reply("Test sent.");
+		$output = "POST /CIA_MODULE/processCommit HTTP/1.1\r\n";
+		$output .= "Google-Code-Project-Hosting-Hook-HMAC: 17877aa4ea14ae8354af5514c438a77b\r\n";
+		$output .= "Content-Type: application/json; charset=UTF-8\r\n";
+		$output .= "User-Agent: Google Code Project Hosting (+http://code.google.com/p/support/wiki/PostCommitWebHooks)\r\n";
+		//$output .= "Host: stats.jkbff.com:9200\r\n";
+		$output .= "Content-Length: 383\r\n";
+		$output .= "Accept-Encoding: gzip\r\n";
+		$output .= "\r\n";
+		$output .= '{"repository_path":"https://budabot2.googlecode.com/svn/","project_name":"budabot2","revisions":[{"added":[],"author":"bigwheels16","url":"http://budabot2.googlecode.com/svn-history/r2883/","timestamp":1349898813,"message":"latest fixes for CIA_MODULE","path_count":1,"removed":[],"modified":["/trunk/modules/CIA_MODULE/CIAController.class.php"],"revision":2883}],"revision_count":1}';
+
+		$fp = fsockopen("127.0.0.1", 11234, $errno, $errstr, 30);
+		if (!$fp) {
+			echo "$errstr ($errno)<br />\n";
+		} else {
+			echo "writing...\n";
+			fwrite($fp, $output);
+			/*while (!feof($fp)) {
+				echo fgets($fp, 8192);
+			}*/
+			echo "done writing...\n";
+			fclose($fp);
+		}
+		$sendto->reply("Message sent.");
 	}
 
 	/**
@@ -63,71 +79,19 @@ class CIAController {
 	 * @DefaultStatus("0")
 	 */
 	public function openApiSocket() {
-		// bind to any address
-		$address = '0.0.0.0';
-
-		$port = 9200;
-
-		// Create a TCP Stream socket
-		$this->apisocket = stream_socket_server("tcp://$address:$port", $errno, $errstr);
-		if ($this->apisocket) {
-			$this->logger->log('DEBUG', 'CIA socket bound successfully');
-			stream_set_blocking($this->apisocket, 0);
-			
-			$socketNotifier = new SocketNotifier($this->apisocket, SocketNotifier::ACTIVITY_READ, array($this, 'processIncomingCommit'));
-			$this->socketManager->addSocketNotifier($socketNotifier);
-		} else {
-			$this->logger->log('ERROR', "$errstr ($errno)");
-		}
+		// register context path for processing incoming commits
+		$this->httpApi->registerHandler("|^/{$this->moduleName}/processCommit|i", array($this, 'processCommit'));
 	}
 	
-	public function processIncomingCommit($type) {
-		/* Accept incoming requests and handle them as child processes */
-		$client = @stream_socket_accept($this->apisocket);
-		if ($client !== false) {
-			// read headers
-			$headerString = stream_get_line($client, 8192, "\r\n\r\n");
-			$headers = $this->http_parse_headers($headerString);
+	public function processCommit($request, $response, $requestBody) {
+		$response->writeHead(200, array('Content-Type' => 'text/plain'));
+		$response->end();
 
-			// read payload
-			$payload = fread($client, $headers['Content-Length']);
-
-			// send response
-			fwrite($client, "HTTP/1.1 200 OK\r\n"
-                        . "Connection: close\r\n"
-                        . "Content-Type: text/html\r\n");
-
-			// close connection
-			fclose($client);
-
-			// process payload and notify IRC channel
-			$obj = json_decode($payload);
-			forEach ($obj->revisions as $revision) {
-				$msg = "r{$revision->revision}: $revision->author ($revision->path_count file(s)) - $revision->message";
-				$this->ircRelayController->sendMessageToIRC($msg);
-			}
+		$obj = json_decode($requestBody);
+		forEach ($obj->revisions as $revision) {
+			$msg = "r{$revision->revision}: $revision->author ($revision->path_count file(s)) - $revision->message";
+			$this->ircRelayController->sendMessageToIRC($msg);
 		}
 	}
-	
-	// taken from (with modifcations): http://php.net/manual/en/function.http-parse-headers.php
-	public function http_parse_headers($header) {
-		list($params, $payload) = explode("\r\n\r\n", $header, 2);
-		
-		$retVal = array();
-		$retVal['Payload'] = $payload;
-        
-		$fields = explode("\r\n", preg_replace('/\x0D\x0A[\x09\x20]+/', ' ', $params));
-        forEach ($fields as $field) {
-            if (preg_match('/([^:]+): (.+)/m', $field, $match)) {
-                $match[1] = preg_replace('/(?<=^|[\x09\x20\x2D])./e', 'strtoupper("\0")', strtolower(trim($match[1])));
-                if (isset($retVal[$match[1]])) {
-                    $retVal[$match[1]] = array($retVal[$match[1]], $match[2]);
-                } else {
-                    $retVal[$match[1]] = trim($match[2]);
-                }
-            }
-        }
-        return $retVal;
-    }
 }
 

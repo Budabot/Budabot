@@ -58,18 +58,20 @@ class HttpApiController {
 
 		$that = $this;
 		$this->http->on('request', function ($request, $response) use ($that) {
-			$handled = false;
-			forEach ($that->handlers as $handler) {
-				if (preg_match($handler->path, $request->getPath())) {
-					call_user_func($handler->callback, $request, $response, $handler->data);
-					$handled = true;
-					break;
+			$request->on('data', function ($bodyBuffer) use ($that, $request, $response) {
+				$handled = false;
+				forEach ($that->handlers as $handler) {
+					if (preg_match($handler->path, $request->getPath())) {
+						call_user_func($handler->callback, $request, $response, $bodyBuffer, $handler->data);
+						$handled = true;
+						break;
+					}
 				}
-			}
-			if ($handled == false) {
-				$response->writeHead(404);
-				$response->end();
-			}
+				if ($handled == false) {
+					$response->writeHead(404);
+					$response->end();
+				}
+			});
 		});
 
 		// setup handler for root path
@@ -99,7 +101,7 @@ class HttpApiController {
 	 *
 	 * Example usage:
 	 * <code>
-	 *	$this->httpApi->registerHandler("|^/{$this->moduleName}/foo|i", function($request, $response) {
+	 *	$this->httpApi->registerHandler("|^/{$this->moduleName}/foo|i", function($request, $response, $requestBody) {
 	 *		// ...
 	 *	} );
 	 * </code>
