@@ -289,7 +289,7 @@ class OnlineController {
 		}
 	}
 	
-	public function addPlayerToOnlineList($name, $channel, $channelType) {
+	public function addPlayerToOnlineList($sender, $channel, $channelType) {
 		$sql = "SELECT name FROM `online` WHERE `name` = ? AND `channel_type` = ? AND added_by = '<myname>'";
 		$data = $this->db->query($sql, $sender, $channelType);
 		if (count($data) == 0) {
@@ -298,7 +298,7 @@ class OnlineController {
 		}
 	}
 	
-	public function removePlayerFromOnlineList($name, $channelType) {
+	public function removePlayerFromOnlineList($sender, $channelType) {
 		$sql = "DELETE FROM `online` WHERE `name` = ? AND `channel_type` = ? AND added_by = '<myname>'";
 		$this->db->exec($sql, $sender, $channelType);
 	}
