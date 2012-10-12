@@ -538,5 +538,9 @@ class IRCRelayController {
 		}
 		IRC::send($this->ircSocket, $this->setting->get('irc_channel'), $ircmsg);
 	}
+	
+	public function getIRCSocket() {
+		return $this->ircSocket;
+	}
 }
 

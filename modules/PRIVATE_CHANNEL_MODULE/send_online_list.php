@@ -30,7 +30,8 @@
  */
 
 $msg = "";
-list($numonline, $msg, $blob) = get_online_list();
+$onlineController = Registry::getInstance('onlineController');
+list($numonline, $msg, $blob) = $onlineController->get_online_list();
 if ($numonline != 0) {
 	$msg = Text::make_blob($msg, $blob);
 	$chatBot->sendTell($msg, $sender);
