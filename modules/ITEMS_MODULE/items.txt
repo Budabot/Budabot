@@ -7,12 +7,18 @@
 <highlight>To search for an item by id:<end>
 <tab><symbol>itemid 'id'
 
-<highlight>For example:<end>
+Note: To not include results that match a certain search term, precede term with a minus ('-').
+
+<header2>Examples:<end>
+
+<highlight>Shows the First tier Armor for the Nano-Technician<end>
 <tab><symbol>items first tier nano
-<tab>Shows the First tier Armor for the Nano-Technician
 
+<highlight>Shows the First tier Armor for the Nano-Technician QL133<end>
 <tab><symbol>items 133 first tier nano
-<tab>Shows the First tier Armor for the Nano-Technician QL133
 
+<highlight>Shows results with 'panther' but not 'ofab' in the name<end>
+<tab><symbol>items panther -ofab
+
+<highlight>Shows Burden of Competence<end>
 <tab><symbol>itemid 244718
-<tab>Shows Burden of Competence
