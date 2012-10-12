@@ -105,12 +105,7 @@ class OnlineController {
 	public function recordLogonEvent($eventObj) {
 		$sender = $eventObj->sender;
 		if (isset($this->chatBot->guildmembers[$sender])) {
-			$sql = "SELECT name FROM `online` WHERE `name` = ? AND `channel_type` = 'guild' AND added_by = '<myname>'";
-			$data = $this->db->query($sql, $sender);
-			if (count($data) == 0) {
-				$sql = "INSERT INTO `online` (`name`, `channel`,  `channel_type`, `added_by`, `dt`) VALUES (?, '<myguild>', 'guild', '<myname>', ?)";
-				$this->db->exec($sql, $sender, time());
-			}
+			$this->addPlayerToOnlineList($sender, $chatBot->vars['guild'], 'guild');
 		}
 	}
 	
@@ -121,11 +116,7 @@ class OnlineController {
 	public function recordLogoffEvent($eventObj) {
 		$sender = $eventObj->sender;
 		if (isset($this->chatBot->guildmembers[$sender])) {
-			$sql = "DELETE FROM `online` WHERE `name` = ? AND `channel_type` = 'guild' AND added_by = '<myname>'";
-			$this->db->exec($sql, $sender);
-			if ($this->chatBot->is_ready()) {
-				$this->db->exec("UPDATE org_members_<myname> SET `logged_off` = ? WHERE `name` = ?", time(), $sender);
-			}
+			$this->removePlayerFromOnlineList($sender, 'guild');
 		}
 	}
 	
@@ -296,6 +287,20 @@ class OnlineController {
 			}
 			throw new StopExecutionException();
 		}
+	}
+	
+	public function addPlayerToOnlineList($name, $channel, $channelType) {
+		$sql = "SELECT name FROM `online` WHERE `name` = ? AND `channel_type` = ? AND added_by = '<myname>'";
+		$data = $this->db->query($sql, $sender, $channelType);
+		if (count($data) == 0) {
+			$sql = "INSERT INTO `online` (`name`, `channel`,  `channel_type`, `added_by`, `dt`) VALUES (?, ?, ?, '<myname>', ?)";
+			$this->db->exec($sql, $sender, $channel, $channelType, time());
+		}
+	}
+	
+	public function removePlayerFromOnlineList($name, $channelType) {
+		$sql = "DELETE FROM `online` WHERE `name` = ? AND `channel_type` = ? AND added_by = '<myname>'";
+		$this->db->exec($sql, $sender, $channelType);
 	}
 	
 	public function get_online_list($prof = "all") {

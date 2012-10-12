@@ -22,8 +22,8 @@ if (preg_match("/^notify (on|add) (.+)$/i", $message, $arr)) {
 		}
 		$db->exec("INSERT INTO online (`name`, `channel`, `channel_type`, `added_by`, `dt`) VALUES (?, '<myguild>', 'guild', '<myname>', ?)", $name, time());
         $buddylistManager->add($name, 'org');
-	$chatBot->guildmembers[$name] = 6;
-	$msg = "<highlight>{$name}<end> has been added to the Notify list.";
+		$chatBot->guildmembers[$name] = 6;
+		$msg = "<highlight>{$name}<end> has been added to the Notify list.";
     }
 
 	$sendto->reply($msg);

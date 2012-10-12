@@ -55,6 +55,9 @@ class IRCRelayController {
 	/** @Inject */
 	public $commandManager;
 	
+	/** @Inject */
+	public $onlineController;
+	
 	/** @Logger */
 	public $logger;
 	
@@ -268,7 +271,7 @@ class IRCRelayController {
 					}
 				}
 			} else if("QUIT" == $ex[1] || "PART" == $ex[1]) {
-				$this->db->exec("DELETE FROM online WHERE `name` = ? AND `channel_type` = 'irc' AND added_by = '<myname>'", $nick);
+				$this->onlineController->removePlayerFromOnlineList($nick, 'irc');
 
 				if ($this->chatBot->vars['my_guild'] != "") {
 					$this->chatBot->sendGuild("<yellow>[IRC]<end> {$msgColor}$nick left the channel.<end>", true);
@@ -277,9 +280,7 @@ class IRCRelayController {
 					$this->chatBot->sendPrivate("<yellow>[IRC]<end> {$msgColor}$nick left the channel.<end>", true);
 				}
 			} else if ("JOIN" == $ex[1]) {
-				$data = $this->db->query("SELECT name FROM online WHERE `name` = ? AND `channel_type` = 'irc' AND added_by = '<myname>'", $nick);
-				if (count($data) == 0)
-					$this->db->exec("INSERT INTO online (`name`, `channel`, `channel_type`, `added_by`, `dt`) VALUES (?, ?, 'irc', '<myname>', ?)", $nick, $channel, time());
+				$this->onlineController->addPlayerToOnlineList($nick, $channel, 'irc');
 
 				if ($this->chatBot->vars['my_guild'] != "") {
 					$this->chatBot->sendGuild("<yellow>[IRC]<end> {$msgColor}$nick joined the channel.<end>", true);
