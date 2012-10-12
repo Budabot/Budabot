@@ -81,8 +81,8 @@ class HttpApiController {
 		});
 
 		// switch server's port if httpapi_port setting is changed
-		$this->setting->registerChangeListener('httpapi_port', function($value) use ($that) {
-			$that->listen($value);
+		$this->setting->registerChangeListener('httpapi_port', function($name, $oldValue, $newValue) use ($that) {
+			$that->listen($newValue);
 		});
 
 		$port = $this->setting->get('httpapi_port');

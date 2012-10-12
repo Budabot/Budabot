@@ -137,16 +137,18 @@ class Setting extends Annotation {
 		$name = strtolower($name);
 
 		if (array_key_exists($name, $this->settings)) {
-			$this->db->exec("UPDATE settings_<myname> SET `verify` = 1, `value` = ? WHERE `name` = ?", $value, $name);
-
 			if ($this->settings[$name] !== $value) {
-				$this->settings[$name] = $value;
 				// notify any listeners
 				if (isset($this->changeListeners[$name])) {
 					forEach ($this->changeListeners[$name] as $listener) {
-						call_user_func($listener->callback, $value, $listener->data);
+						$result = call_user_func($listener->callback, $name, $this->settings[$name], $value, $listener->data);
+						if ($result === false) {
+							return false;
+						}
 					}
 				}
+				$this->settings[$name] = $value;
+				$this->db->exec("UPDATE settings_<myname> SET `verify` = 1, `value` = ? WHERE `name` = ?", $value, $name);
 			}
 			return true;
 		} else {
@@ -191,7 +193,7 @@ class Setting extends Annotation {
 	 *
 	 * Example usage:
 	 * <code>
-	 *	$this->setting->registerChangeListener("some_setting_name", function($value) {
+	 *	registerChangeListener("some_setting_name", function($settingName, $oldValue, $newValue, $data) {
 	 *		// ...
 	 *	} );
 	 * </code>

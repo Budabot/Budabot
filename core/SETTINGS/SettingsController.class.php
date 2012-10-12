@@ -323,8 +323,11 @@ class SettingsController {
 			}
 		}
 		if ($new_setting != "") {
-			$this->setting->save($name_setting, $new_setting);
-			$msg = "Setting successfull saved.";
+			if ($this->setting->save($name_setting, $new_setting)) {
+				$msg = "Setting successfull saved.";
+			} else {
+				$msg = "Error! Setting could not be saved.";
+			}
 		}
 		$sendto->reply($msg);
 	}
