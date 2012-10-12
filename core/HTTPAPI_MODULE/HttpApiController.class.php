@@ -37,6 +37,7 @@ class HttpApiController {
 	 * @Description("IP port where the HTTP api server listens at")
 	 * @Visibility("edit")
 	 * @Type("number")
+	 * @Options("80;8080")
 	 */
 	public $defaultPort = "80";
 
@@ -47,6 +48,16 @@ class HttpApiController {
 	 * @Type("text")
 	 */
 	public $defaultBaseUri = "";
+	
+	/**
+	 * @Setting("httpapi_enabled")
+	 * @Description("HTTP api server is enabled")
+	 * @Visibility("edit")
+	 * @Type("options")
+	 * @Options("true;false")
+	 * @Intoptions("1;0")
+	 */
+	public $defaultEnabled = "0";
 
 	/**
 	 * @Setup
@@ -84,9 +95,21 @@ class HttpApiController {
 		$this->setting->registerChangeListener('httpapi_port', function($name, $oldValue, $newValue) use ($that) {
 			$that->listen($newValue);
 		});
+		
+		// listen or stop listening when httpapi_enabled setting is changed
+		$this->setting->registerChangeListener('httpapi_enabled', function($name, $oldValue, $newValue) use ($that) {
+			if ($newValue == 1) {
+				$port = $that->setting->get('httpapi_port');
+				$that->listen($port);
+			} else {
+				$that->stopListening();
+			}
+		});
 
-		$port = $this->setting->get('httpapi_port');
-		$that->listen($port);
+		if ($this->setting->get('httpapi_enabled') == 1) {
+			$port = $this->setting->get('httpapi_port');
+			$that->listen($port);
+		}
 	}
 
 	/**
@@ -153,6 +176,10 @@ class HttpApiController {
 		}
 	}
 	
+	public function stopListening() {
+		$this->socket->shutdown();
+	}
+	
 	/**
 	 * This method (re)starts the http server.
 	 *
@@ -160,7 +187,7 @@ class HttpApiController {
 	 * @internal
 	 */
 	public function listen($port) {
-		$this->socket->shutdown();
+		$this->stopListening();
 
 		// test if the port is available
 		$socket = socket_create(AF_INET, SOCK_STREAM, 0);
