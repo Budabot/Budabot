@@ -234,7 +234,7 @@ class Budabot extends AOChat {
 			if ($d = dir($path)) {
 				while (false !== ($MODULE_NAME = $d->read())) {
 					// filters out ., .., .svn
-					if (!is_dir($MODULE_NAME)) {
+					if (!is_dir($MODULE_NAME) && $MODULE_NAME != '.svn') {
 						$this->registerModule($path, $MODULE_NAME);
 					}
 				}
