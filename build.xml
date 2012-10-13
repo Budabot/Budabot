@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project>
+<project name="Budabot" default="build" basedir=".">
+	<!-- include custom task for reading budabot's version from main.php file -->
+	<taskdef classname="lib.PhingTasks.BudabotVersionTask" name="budabotversion" />
+
+    <!-- ============================================  -->
+    <!-- (DEFAULT) Target: build                        --> 
+    <!-- ============================================  -->
+	<target name="build">
+		<echo>Create release package of Budabot.</echo>
+		<svnlastrevision workingcopy="."       propertyname="svn.revision" />
+		<budabotversion  sourcefile="main.php" propertyname="budabot.version" />
+		<mkdir dir="build" />
+		<zip destfile="build/Budabot${budabot.version}_build${svn.revision}.zip">
+			<fileset dir=".">
+				<!-- TODO: define more closely what we should include in the archive! -->
+				<include name="**/**" />
+			</fileset>
+		</zip>
+	</target>
+
+    <!-- ============================================  -->
+    <!-- Target: Wikidoc                               -->
+    <!-- ============================================  -->
+	<target name="wikidoc">
+		<echo>Generate Google Wiki documentation with ApiGen.</echo>
+		<apigen config="docs/apigen_wiki.neon" />
+	</target>
+
+    <!-- ============================================  -->
+    <!-- Target: Apidoc                               -->
+    <!-- ============================================  -->
+	<target name="apidoc">
+		<echo>Generate API documentation with ApiGen.</echo>
+		<apigen source="core,modules" destination="docs/api" title="Budabot" />
+	</target>
+
+</project>
