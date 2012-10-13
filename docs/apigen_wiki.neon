@@ -18,7 +18,7 @@ source:
 #	- ../modules/ITEMS_MODULE/ItemsController.class.php
 
 # Directory where to save the generated documentation
-destination: wiki
+# destination: wiki
 # List of allowed file extensions
 # extensions: [php]
 # Mask to exclude file or directory from processing

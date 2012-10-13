@@ -25,7 +25,9 @@
     <!-- ============================================  -->
 	<target name="wikidoc">
 		<echo>Generate Google Wiki documentation with ApiGen.</echo>
-		<apigen config="docs/apigen_wiki.neon" />
+		<!-- destination can be overridden at command line -->
+		<property name="wikidoc.destination" value="docs/wiki" />
+		<apigen config="docs/apigen_wiki.neon" destination="${wikidoc.destination}" />
 	</target>
 
     <!-- ============================================  -->
@@ -33,7 +35,9 @@
     <!-- ============================================  -->
 	<target name="apidoc">
 		<echo>Generate API documentation with ApiGen.</echo>
-		<apigen source="core,modules" destination="docs/api" title="Budabot" />
+		<!-- destination can be overridden at command line -->
+		<property name="apidoc.destination" value="docs/api" />
+		<apigen source="core,modules" destination="${apidoc.destination}" title="Budabot" />
 	</target>
 
 </project>
