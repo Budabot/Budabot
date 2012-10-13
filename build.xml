@@ -11,13 +11,32 @@
 		<echo>Create release package of Budabot.</echo>
 		<svnlastrevision workingcopy="."       propertyname="svn.revision" />
 		<budabotversion  sourcefile="main.php" propertyname="budabot.version" />
-		<mkdir dir="build" />
-		<zip destfile="build/Budabot${budabot.version}_build${svn.revision}.zip">
+		<property name="build.basename" value="Budabot${budabot.version}_build${svn.revision}" />
+
+		<delete dir="build" quiet="true" />
+		<copy todir="build/contents/${build.basename}">
 			<fileset dir=".">
-				<!-- TODO: define more closely what we should include in the archive! -->
-				<include name="**/**" />
+				<include name="conf/log4php.xml" />
+				<include name="conf/config.template.php" />
+				<include name="core/**" />
+				<include name="data/text.mdb" />
+				<include name="docs/*.txt" />
+				<include name="lib/**" />
+				<exclude name="lib/composer.*" />
+				<exclude name="lib/*.patch" />
+				<exclude name="lib/PhingTasks**" />
+				<include name="win32/**" />
+				<include name="*.*" />
+				<exclude name="build.xml" />
+				<include name="modules/**" />
+				<!-- define here modules which you wish to leave out of the archive -->
+				<exclude name="modules/CIA_MODULE**" />
+				<exclude name="modules/SVN_MODULE**" />
+				<exclude name="modules/TEST_MODULE**" />
+				<exclude name="modules/WORLDNET_MODULE**" />
 			</fileset>
-		</zip>
+		</copy>
+		<zip basedir="build/contents" destfile="build/${build.basename}.zip" />
 	</target>
 
     <!-- ============================================  -->
