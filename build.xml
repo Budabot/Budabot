@@ -84,6 +84,18 @@
     <!-- ============================================  -->
 	<target name="apidoc+upload" depends="apidoc">
 		<echo>Upload API documentation to remote server.</echo>
+		<!--
+			NOTE that you need to provide these properties:
+				upload.username:			username for the remote host
+				upload.password:			password for the remote host
+				upload.hostname:			remote server host name or address
+				apidoc.upload_destination:	folder path where the archive will be stored on remote server
+		-->
+		<scp username="${upload.username}" password="${upload.password}" host="${upload.hostname}" todir="${apidoc.upload_destination}">
+			<fileset dir="${apidoc.destination}">
+				<include name="**/**" />
+			</fileset>
+		</scp>
 	</target>
 
 </project>
