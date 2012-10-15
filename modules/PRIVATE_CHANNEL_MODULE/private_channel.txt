@@ -17,7 +17,7 @@
 <tab><symbol>members
 
 <highlight>To join the Bot<end>
-<tab>/tell <myname> join
+<tab><symbol>join
 
 <highlight>To leave the bot<end>
 <tab><symbol>leave

@@ -72,27 +72,27 @@ class QuoteController {
 				}
 
 				//Trying to determine who is being quoted.
-				$findcolon = strpos($quoteMSG,":");
-				$findbracket = strpos($quoteMSG,"] ")+2;
+				$findcolon = strpos($quoteMSG, ":");
+				$findbracket = strpos($quoteMSG, "] ") + 2;
 				if ($findcolon > 0) {
-					if (substr($quoteMSG,0,4) == "To [") {
+					if (substr($quoteMSG, 0, 4) == "To [") {
 						//To [Person]: message
 						$quoteOfWHO = $sender;
-					} else if ((substr($quoteMSG,$findcolon-1,1) == "]") && (substr($quoteMSG,0,1) == "[")) {
+					} else if ((substr($quoteMSG, $findcolon - 1, 1) == "]") && (substr($quoteMSG, 0, 1) == "[")) {
 						//[Person]: message.
-						$quoteOfWHO = substr($quoteMSG,1,$findcolon-2);
+						$quoteOfWHO = substr($quoteMSG, 1, $findcolon - 2);
 					} else if (($findbracket > 2) && ($findbracket < $findcolon)) {
 						//[Neu. OOC] Lucier: message.
-						$quoteOfWHO = substr($quoteMSG,$findbracket,$findcolon-$findbracket);
-					} else if (substr($quoteMSG,$findcolon-7,7) == " shouts") {
+						$quoteOfWHO = substr($quoteMSG, $findbracket, $findcolon - $findbracket);
+					} else if (substr($quoteMSG,$findcolon - 7, 7) == " shouts") {
 						//Lucier shouts: message
-						$quoteOfWHO = substr($quoteMSG,0,$findcolon-7);
-					} else if (substr($quoteMSG,$findcolon-9,9) == " whispers") {
+						$quoteOfWHO = substr($quoteMSG, 0, $findcolon - 7);
+					} else if (substr($quoteMSG, $findcolon - 9, 9) == " whispers") {
 						//Lucier whispers: message
-						$quoteOfWHO = substr($quoteMSG,0,$findcolon-9);
+						$quoteOfWHO = substr($quoteMSG, 0, $findcolon - 9);
 					} else {
 						//Lucier: message
-						$quoteOfWHO = substr($quoteMSG,0,$findcolon);
+						$quoteOfWHO = substr($quoteMSG, 0, $findcolon);
 					}
 				} else {
 					//without a colon.. quoting him/her/itself?
