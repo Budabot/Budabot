@@ -8,7 +8,13 @@
  * Commands this controller contains:
  *	@DefineCommand(
  *		command     = 'test', 
- *		accessLevel = 'all', 
+ *		accessLevel = 'admin', 
+ *		description = "Test the bot commands", 
+ *		help        = 'test.txt'
+ *	)
+ *	@DefineCommand(
+ *		command     = 'testorgjoin', 
+ *		accessLevel = 'admin', 
  *		description = "Test the bot commands", 
  *		help        = 'test.txt'
  *	)
@@ -34,7 +40,6 @@ class TestController {
 	public $logger;
 
 	/**
-	 * This handler is called on bot startup.
 	 * @Setup
 	 */
 	public function setup() {
@@ -42,8 +47,6 @@ class TestController {
 	}
 
 	/**
-	 * This command handler shows menu of each profession's LE procs.
-	 *
 	 * @HandlesCommand("test")
 	 * @Matches("/^test$/i")
 	 */
@@ -62,6 +65,21 @@ class TestController {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * @HandlesCommand("testorgjoin")
+	 * @Matches("/^testorgjoin (.+)$/i")
+	 */
+	public function testorgjoinCommand($message, $channel, $sender, $sendto, $args) {
+		$packet = new stdClass;
+		$packet->type = AOCP_GROUP_MESSAGE;
+		$packet->args = array();
+		$packet->args[0] = $this->chatBot->gid['org msg'];
+		$packet->args[1] = (int)0xFFFFFFFF;
+		$packet->args[2] = "$sender invited $args[1] to your organization.";
+
+		$this->chatBot->process_packet($packet);
 	}
 }
 
