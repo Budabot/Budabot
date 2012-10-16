@@ -54,8 +54,8 @@ class OrgMembersController {
 		}
 
 		$data = $this->db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE `mode` != 'del' ORDER BY o.name");
-		$members = count($data);
-		if ($members == 0) {
+		$count = count($data);
+		if ($count == 0) {
 			$msg = "No members recorded.";
 			$sendto->reply($msg);
 			return;
@@ -82,7 +82,7 @@ class OrgMembersController {
 			$blob .= "<tab><highlight>$row->name<end> (Lvl $row->level/<green>$row->ai_level<end>/$prof/$row->guild_rank)$logged_off\n";
 		}
 
-		$msg = $this->text->make_blob("<myguild> has $members members currently.", $blob);
+		$msg = $this->text->make_blob("<myguild> has $count members currently.", $blob);
 		$sendto->reply($msg);
 	}
 	

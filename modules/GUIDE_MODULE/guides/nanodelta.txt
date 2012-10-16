@@ -1,4 +1,4 @@
-<header>::::: Nano Delta :::::<end>
+<header> :::::: Nano Delta :::::: <end>
 
 Psychic  -> nd tick delay
 <img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>

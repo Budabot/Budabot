@@ -1,4 +1,4 @@
-<header>::::: Heal Delta :::::<end>
+<header> :::::: Heal Delta :::::: <end>
 
 Stamina  -> HD tick standing/sitting
 <tab><img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>

@@ -1,4 +1,4 @@
-<header>::::: Armor Information :::::<end>
+<header> :::::: Armor Information :::::: <end>
 
 Information on Armor by stats and type
 

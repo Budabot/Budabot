@@ -1,5 +1,5 @@
-Miy Armor for Buffing Abilities
-----------
+<header> :::::: Miy Armor for Buffing Abilities :::::: <end>
+
 Helmet -- Int Psy (Nano)
 Body -- Sta Str (Ranged or Tank)
 Sleeve -- Psy Int (Nano or Scary)

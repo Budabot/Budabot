@@ -1,19 +1,16 @@
 <header> :::::: Hacked Boosted Grafts :::::: <end>
 
-
 <header> ::: Misc ::: <end>
 <a href='itemref://94578/128349/200'>Boosted-Graft: Sparrow Flight (Team)</a> BM 203/MM 180/SI 180 - Lock BM
 <a href='itemref://94577/128345/200'>Boosted-Graft: Sparrow Flight</a> BM 133/MM 112/SI 112 - Lock BM
 <a href='itemref://94574/128353/200'>Boosted-Graft: Playful Cub</a> BM 237/MM 212/SI 212 - Lock BM
 <a href='itemref://125881/125882/200'>Boosted-Graft: Enhanced Senses</a> 15 Sense - BM/PM 134 - Lock BM
 
-
 <header> ::: Roots ::: <end>
 <a href='itemref://94583/128167/200'>Boosted-Graft: Lesser Paralyze with Indecision</a> PM/SI 159 - Lock PM
 <a href='itemref://95243/128163/200'>Boosted-Graft: Feet of Stone</a> MC/MM 74 - Lock MC
 <a href='itemref://94677/127659/200'>Boosted-Graft: Leaden Feet</a> PM/SI 35 - Lock PM
 <a href='itemref://94581/128171/200'>Boosted-Graft: Detain Suspect</a> PM/TS 22 - Lock PM
-
 
 <header> ::: Reflect Dmg ::: <end>
 <a href='itemref://95249/128199/200'>Boosted-Graft: Lesser Deflection Shield (Extended)</a> 13 all Dmg Reflect/Max 7 Reflect - MC 153/TS 123 - Lock TS
@@ -23,7 +20,6 @@
 <a href='itemref://94609/128175/200'>Boosted-Graft: Partial Harmonic Cocoon</a> 10 all Dmg Reflect/Max 3 Reflect - MC/TS 148 - Lock TS
 <a href='itemref://95255/128179/200'>Boosted-Graft: Partial Deflection Shield (Extended)</a> 10 all Dmg Reflect/Max 2 Reflect - MC 46/TS 36 - Lock TS
 <a href='itemref://95254/128183/200'>Boosted-Graft: Partial Deflection Shield</a> 10 all Dmg Reflect/Max 1 Reflect - MC 21/TS 18 - Lock TS
-
 
 <header> ::: Dmg ::: <end>
 <a href='itemref://94612/128325/200'>Boosted-Graft: Hasty Augmentation Cloud</a> 10 All Dmg Types - MM/SI 208 - Lock SI
@@ -37,7 +33,6 @@
 <a href='itemref://95256/128119/200'>Boosted-Graft: Balanced Striker</a> 4 Proj/Energy Dmg - 15 ranged init - MC 55/MM 44 - Lock MM
 <a href='itemref://95245/128091/200'>Boosted-Graft: Damage Multiplier</a> 4 Proj/Energy Dmg - MC 38/MM 39 - Lock MM
 
-
 <header> ::: Healing ::: <end>
 <a href='itemref://94586/128131/200'>Boosted-Graft: Company Policy</a> 95-255 Heal all team members - BM 187/MM 163 - Lock BM
 <a href='itemref://94585/128079/200'>Boosted-Graft: Blood Circle</a> 67-171 Heal all team members - 4 heal delta - BM 128/MM 108 - Lock BM
@@ -48,7 +43,6 @@
 <a href='itemref://94576/128341/200'>Boosted-Graft: Rough Stitching</a> 41-72 Heal - BM 52/MM 44 - Lock BM
 <a href='itemref://94587/128083/200'>Boosted-Graft: Improved Healing</a> 16-30 Heal - BM 9/MM 7 - Lock BM
 <a href='itemref://94575/127651/200'>Boosted-Graft: Quick Heal</a> 15-25 Heal - BM 8/MM 7 - Lock BM
-
 
 <header> ::: Shield Dmg ::: <end>
 <a href='itemref://94569/128151/200'>Boosted-Graft: Cloak of Fire</a> 15 all Dmg Shield - 60 absorb fire - MC/MM 188 - Lock MM
@@ -61,7 +55,6 @@
 <a href='itemref://94570/128159/200'>Boosted-Graft: Frost With Snow</a> 3 all Dmg Shield - 20 Absorb cold - MC/MM 53 - Lock MM
 <a href='itemref://94611/128115/200'>Boosted-Graft: Spike Shield</a> 1 all Dmg Shield - 40 Melee AC - MC/MM 41 - Lock MM
 <a href='itemref://94590/128135/200'>Boosted-Graft: Avenging Shield</a> 1 all Dmg Shield - MC/MM 25 - Lock MM
-
 
 <header> ::: ACs ::: <end>
 <a href='itemref://94593/128273/200'>Boosted-Graft: Advanced Shielding Barrier</a> 343 all ACs - MC/MM 513 - Lock MC
@@ -83,7 +76,6 @@
 <a href='itemref://95251/128313/200'>Boosted-Graft: Minor Combat Barrier</a> 21 all ACs - MC 34/MM 35 - Lock MC
 <a href='itemref://94573/128297/200'>Boosted-Graft: Minor Wilderness Protection</a> 18 all ACs - MC/MM 26 - Lock MC
 <a href='itemref://94594/128099/200'>Boosted-Graft: Armor Megaboost</a> 13 all ACs - MC/MM 19 - Lock MM
-
 
 <highlight>Compiled by Neutralguard (RK2)<end>
 Taken from <a href='chatcmd:///start http://forums.anarchy-online.com/showthread.php?t=495650'>http://forums.anarchy-online.com/showthread.php?t=495650</a>
