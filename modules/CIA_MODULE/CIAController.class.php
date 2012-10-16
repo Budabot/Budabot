@@ -33,6 +33,9 @@ class CIAController {
 	/** @Inject */
 	public $httpApi;
 	
+	/** @Inject */
+	public $setting;
+	
 	/** @Logger */
 	public $logger;
 	
@@ -58,7 +61,7 @@ class CIAController {
 		$output .= "\r\n";
 		$output .= '{"repository_path":"https://budabot2.googlecode.com/svn/","project_name":"budabot2","revisions":[{"added":[],"author":"bigwheels16","url":"http://budabot2.googlecode.com/svn-history/r2883/","timestamp":1349898813,"message":"latest fixes for CIA_MODULE","path_count":1,"removed":[],"modified":["/trunk/modules/CIA_MODULE/CIAController.class.php"],"revision":2883}],"revision_count":1}';
 
-		$fp = fsockopen("127.0.0.1", 11234, $errno, $errstr, 30);
+		$fp = fsockopen("127.0.0.1", $this->setting->get('httpapi_port'), $errno, $errstr, 30);
 		if (!$fp) {
 			echo "$errstr ($errno)<br />\n";
 		} else {
