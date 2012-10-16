@@ -59,7 +59,7 @@ class CIAController {
 		$output .= "Content-Length: 383\r\n";
 		$output .= "Accept-Encoding: gzip\r\n";
 		$output .= "\r\n";
-		$output .= '{"repository_path":"https://budabot2.googlecode.com/svn/","project_name":"budabot2","revisions":[{"added":[],"author":"bigwheels16","url":"http://budabot2.googlecode.com/svn-history/r2883/","timestamp":1349898813,"message":"latest fixes for CIA_MODULE","path_count":1,"removed":[],"modified":["/trunk/modules/CIA_MODULE/CIAController.class.php"],"revision":2883}],"revision_count":1}';
+		$output .= '{"repository_path":"https://budabot2.googlecode.com/svn/","project_name":"budabot2","revisions":[{"added":[],"author":"bigwheels16","url":"http://budabot2.googlecode.com/svn-history/r1/","timestamp":1349898813,"message":"test CIA_MODULE commit hook","path_count":1,"removed":[],"modified":["/trunk/modules/CIA_MODULE/CIAController.class.php"],"revision":1}],"revision_count":1}';
 
 		$fp = fsockopen("127.0.0.1", $this->setting->get('httpapi_port'), $errno, $errstr, 30);
 		if (!$fp) {
