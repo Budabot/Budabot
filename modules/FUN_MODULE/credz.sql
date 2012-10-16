@@ -1,0 +1,14 @@
+DELETE FROM fun WHERE type = 'credz';
+INSERT INTO fun (type, content) VALUES ('credz', '*name*, get lost you begging fr00b!');
+INSERT INTO fun (type, content) VALUES ('credz', 'Credz! What do I look like a money tree *name*!!?');
+INSERT INTO fun (type, content) VALUES ('credz', 'Cybor with me and I might think about giving you some credits *name*.');
+INSERT INTO fun (type, content) VALUES ('credz', 'Sure *name* but there''s a 100% Interest Rate compounded Hourly. Still interested?');
+INSERT INTO fun (type, content) VALUES ('credz', '/me sneaks up and thumps *name* in the head with a roll of coins doing *dmg* points of melee damage!');
+INSERT INTO fun (type, content) VALUES ('credz', 'Sure, I would love some credits. How much you wanna give me?');
+INSERT INTO fun (type, content) VALUES ('credz', '1 or 2 Credz?');
+INSERT INTO fun (type, content) VALUES ('credz', 'No credz for j00!!');
+INSERT INTO fun (type, content) VALUES ('credz', 'Ok, I''m feeling generous, here''s *creds* for you *name*.');
+INSERT INTO fun (type, content) VALUES ('credz', 'Sorry, I''m flat ass broke hun. I''m just a Bot I don''t get paid.');
+INSERT INTO fun (type, content) VALUES ('credz', '/me does /ignore *name* ... damn beggers.');
+INSERT INTO fun (type, content) VALUES ('credz', 'No I don''t think so. You still owe me *creds* credits from last time *name*!');
+INSERT INTO fun (type, content) VALUES ('credz', 'Sorry, I don''t have any credits left. Would you like a RBP instead?');
