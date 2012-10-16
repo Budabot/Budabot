@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Author: Tyrence (RK2)
+ * Author:
+ *  - Tyrence (RK2)
  *
  * @Instance
  *
@@ -68,7 +69,7 @@
  *		help        = 'fun_module.txt'
  *	)
  */
-class Fun {
+class FunController {
 
 	/**
 	 * Name of the module.
