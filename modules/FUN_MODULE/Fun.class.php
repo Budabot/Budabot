@@ -121,7 +121,7 @@ class Fun {
 	 * @Matches("/^beer$/i")
 	 */
 	public function beerCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->getRandomFunItem('fc', $sender);
+		$msg = $this->getRandomFunItem('beer', $sender);
 		$sendto->reply($msg);
 	}
 	
@@ -230,7 +230,7 @@ class Fun {
 	 * Converted to Budabot by Tyrence (RK2)
 	 */
 	public function piratesCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->getRandomFunItem('homer', $sender);
+		$msg = $this->getRandomFunItem('pirates', $sender);
 		$sendto->reply($msg);
 	}
 }
