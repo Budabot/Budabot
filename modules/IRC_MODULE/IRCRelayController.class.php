@@ -58,6 +58,9 @@ class IRCRelayController {
 	/** @Inject */
 	public $onlineController;
 	
+	/** @Inject */
+	public $relayController;
+	
 	/** @Logger */
 	public $logger;
 	
@@ -531,7 +534,7 @@ class IRCRelayController {
 	
 	public function sendMessageToIRC($message) {
 		$this->logger->log_chat("Out. IRC Msg.", -1, $message);
-		$guild = getGuildAbbreviation();
+		$guild = $this->relayController->getGuildAbbreviation();
 		if (empty($guild)) {
 			$ircmsg = $message;
 		} else {

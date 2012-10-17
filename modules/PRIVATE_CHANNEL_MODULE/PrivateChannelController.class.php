@@ -130,6 +130,9 @@ class PrivateChannelController {
 	public $onlineController;
 	
 	/** @Inject */
+	public $relayController;
+	
+	/** @Inject */
 	public $timer;
 	
 	/**
@@ -594,7 +597,7 @@ class PrivateChannelController {
 
 		if (count($this->chatBot->chatlist) > 0) {
 			//Relay the message to the private channel if there is at least 1 char in private channel
-			$guildNameForRelay = getGuildAbbreviation();
+			$guildNameForRelay = $this->relayController->getGuildAbbreviation();
 			if (!$this->util->isValidSender($sender)) {
 				// for relaying city alien raid messages where $sender == -1
 				$msg = "<end>{$guest_color_channel}[$guildNameForRelay]<end> {$guest_color_guest}{$message}<end>";

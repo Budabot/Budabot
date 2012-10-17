@@ -40,6 +40,9 @@ class Budabot extends AOChat {
 	
 	/** @Inject */
 	public $socketManager;
+	
+	/** @Inject */
+	public $relayController;
 
 	/** @Logger("Core") */
 	public $logger;
@@ -309,7 +312,7 @@ class Budabot extends AOChat {
 
 		$message = $this->text->format_message($message);
 		$senderLink = $this->text->make_userlink($this->vars['name']);
-		$guildNameForRelay = getGuildAbbreviation();
+		$guildNameForRelay = $this->relayController->getGuildAbbreviation();
 		$guestColorChannel = $this->setting->get('guest_color_channel');
 		$privColor = $this->setting->get('default_priv_color');
 
@@ -322,7 +325,7 @@ class Budabot extends AOChat {
 
 			// relay to bot relay
 			if (!$disable_relay && $this->setting->get("relaybot") != "Off" && $this->setting->get("bot_relay_commands") == 1) {
-				send_message_to_relay("grc [{$guildNameForRelay}] [Guest] {$senderLink}: $message");
+				$this->relayController->send_message_to_relay("grc [{$guildNameForRelay}] [Guest] {$senderLink}: $message");
 			}
 		}
 	}
@@ -342,7 +345,7 @@ class Budabot extends AOChat {
 
 		$message = $this->text->format_message($message);
 		$senderLink = $this->text->make_userlink($this->vars['name']);
-		$guildNameForRelay = getGuildAbbreviation();
+		$guildNameForRelay = $this->relayController->getGuildAbbreviation();
 		$guestColorChannel = $this->setting->get('guest_color_channel');
 		$guildColor = $this->setting->get("default_guild_color");
 
@@ -355,7 +358,7 @@ class Budabot extends AOChat {
 
 		// relay to bot relay
 		if (!$disable_relay && $this->setting->get("relaybot") != "Off" && $this->setting->get("bot_relay_commands") == 1) {
-			send_message_to_relay("grc [{$guildNameForRelay}] {$senderLink}: $message");
+			$this->relayController->send_message_to_relay("grc [{$guildNameForRelay}] {$senderLink}: $message");
 		}
 	}
 
