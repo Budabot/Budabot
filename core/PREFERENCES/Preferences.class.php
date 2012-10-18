@@ -17,7 +17,6 @@ class Preferences {
 	
 	/**
 	 * @Setup
-	 * This handler is called on bot startup.
 	 */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, 'preferences');

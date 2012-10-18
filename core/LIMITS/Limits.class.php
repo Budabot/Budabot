@@ -1,6 +1,16 @@
 <?php
-
+/**
+ * Authors:
+ *  - Tyrence (RK2)
+ *
+ * @Instance
+ */
 class Limits {
+	/**
+	 * Name of the module.
+	 * Set automatically by module loader.
+	 */
+	public $moduleName;
 
 	/** @Inject */
 	public $setting;
@@ -16,6 +26,15 @@ class Limits {
 
 	/** @Inject */
 	public $whitelist;
+	
+	/**
+	 * @Setup
+	 */
+	public function setup() {
+		$this->setting->add($this->moduleName, "tell_req_lvl", "Tells Min Level", "edit", "number", "0", "0;10;50;100;150;190;205;215", "", "mod", "tell_req_lvl.txt");
+		$this->setting->add($this->moduleName, "tell_req_faction", "Tell Faction Limit", "edit", "options", "all", "all;Omni;Neutral;Clan;not Omni;not Neutral;not Clan", "", "mod", "tell_req_faction.txt");
+		$this->setting->add($this->moduleName, "tell_req_open", "Tell General Limit", "edit", "options", "all", "all;member;guild;rl;mod", "", "mod", "tell_req_open.txt");
+	}
 
 	public function check($sender, $message) {
 		if (preg_match("/^about$/i", $message)) {

@@ -12,7 +12,7 @@
  *		accessLevel   = 'guild',
  *		description   = 'Shows usage stats',
  *		help          = 'usage.txt',
- *		defaultStatus = 1
+ *		defaultStatus = '1'
  *	)
  */
 class UsageController {
@@ -39,7 +39,6 @@ class UsageController {
 
 	/**
 	 * @Setup
-	 * This handler is called on bot startup.
 	 */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, 'usage');
