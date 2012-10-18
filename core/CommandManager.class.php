@@ -109,10 +109,9 @@ class CommandManager {
 				return;
 			}
 		}
-		$actual_filename = $filename;
 
 		$obj = new stdClass;
-		$obj->file = $actual_filename;
+		$obj->file = $filename;
 		$obj->admin = $admin;
 
 		$this->commands[$channel][$command] = $obj;

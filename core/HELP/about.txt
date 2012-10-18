@@ -1,5 +1,3 @@
-<header> :::::: About Budabot <version> :::::: <end>
-
 <highlight>Version:<end> <version>
 <highlight>Project Site:<end> <a href='chatcmd:///start http://code.google.com/p/budabot2'>http://code.google.com/p/budabot2</a>
 <highlight>Project Forum:<end> <a href='chatcmd:///start http://budabot.com'>http://budabot.com</a>

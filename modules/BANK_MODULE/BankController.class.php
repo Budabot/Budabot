@@ -1,7 +1,7 @@
 <?php
 /**
  * Authors: 
- *	- Tyrence (RK2), 
+ *	- Tyrence (RK2)
  *	- Marebone (RK2)
  *
  * @Instance
