@@ -1,6 +1,27 @@
 <?php
 
-class Usage {
+/**
+ * Authors:
+ *  - Tyrence (RK2)
+ *
+ * @Instance
+ *
+ * Commands this class contains:
+ *	@DefineCommand(
+ *		command       = 'usage',
+ *		accessLevel   = 'guild',
+ *		description   = 'Shows usage stats',
+ *		help          = 'usage.txt',
+ *		defaultStatus = 1
+ *	)
+ */
+class UsageController {
+	/**
+	 * Name of the module.
+	 * Set automatically by module loader.
+	 */
+	public $moduleName;
+
 	/** @Inject */
 	public $db;
 
@@ -9,9 +30,68 @@ class Usage {
 
 	/** @Inject */
 	public $util;
+	
+	/** @Inject */
+	public $text;
 
 	/** @Inject */
 	public $chatBot;
+
+	/**
+	 * @Setup
+	 * This handler is called on bot startup.
+	 */
+	public function setup() {
+		$this->db->loadSQLFile($this->moduleName, 'usage');
+		
+		$this->setting->add($this->moduleName, "record_usage_stats", "Enable recording usage stats", "edit", "options", "1", "true;false", "1;0");
+		$this->setting->add($this->moduleName, 'botid', 'Botid', 'noedit', 'text', '');
+		$this->setting->add($this->moduleName, 'last_submitted_stats', 'last_submitted_stats', 'noedit', 'text', 0);
+	}
+	
+	/**
+	 * @HandlesCommand("usage")
+	 * @Matches("/^usage$/i")
+	 * @Matches("/^usage ([a-z0-9]+)$/i")
+	 */
+	public function cloakCommand($message, $channel, $sender, $sendto, $args) {
+		if (count($args) == 2) {
+			$time = $this->util->parseTime($args[1]);
+			if ($time == 0) {
+				$msg = "Please enter a valid time.";
+				$sendto->reply($msg);
+				return;
+			}
+			$time = $time;
+		} else {
+			$time = 604800;
+		}
+
+		$timeString = $this->util->unixtime_to_readable($time);
+		$time = time() - $time;
+		$limit = 25;
+
+		// most used commands
+		$sql = "SELECT command, COUNT(command) AS count FROM usage_<myname> WHERE dt > ? GROUP BY command ORDER BY count DESC LIMIT $limit";
+		$data = $this->db->query($sql, $time);
+
+		$blob = "<header2> ::: Most Used Commands ::: <end>\n";
+		forEach ($data as $row) {
+			$blob .= "<highlight>{$row->command}<end> ({$row->count})\n";
+		}
+
+		// users who have used the most commands
+		$sql = "SELECT sender, COUNT(sender) AS count FROM usage_<myname> WHERE dt > ? GROUP BY sender ORDER BY count DESC LIMIT $limit";
+		$data = $this->db->query($sql, $time);
+
+		$blob .= "\n<header2> ::: Most Active Users ::: <end>\n";
+		forEach ($data as $row) {
+			$blob .= "<highlight>{$row->sender}<end> ({$row->count})\n";
+		}
+
+		$msg = $this->text->make_blob("Usage Statistics ({$timeString})", $blob);
+		$sendto->reply($msg);
+	}
 
 	public function record($type, $cmd, $sender, $commandHandler) {
 		// don't record stats for !grc command or command aliases
@@ -23,7 +103,12 @@ class Usage {
 		$this->db->exec($sql, $type, $cmd, $sender, time());
 	}
 
-	public function submitUsage() {
+	/**
+	 * @Event("24hrs")
+	 * @Description("Submits anonymous usage stats to Budabot website")
+	 * @DefaultStatus("1")
+	 */
+	public function submitUsage($eventObj) {
 		$debug = false;
 		$time = time();
 		$settingName = 'last_submitted_stats';
@@ -48,7 +133,7 @@ class Usage {
 		$botid = $this->setting->get('botid');
 		if ($botid == '') {
 			$botid = $this->util->genRandomString(20);
-			$this->setting->add("USAGE", 'botid', 'botid', 'noedit', 'text', $botid);
+			$this->setting->save('botid', $botid);
 		}
 
 		$sql = "SELECT type, command FROM usage_<myname> WHERE dt >= ?";

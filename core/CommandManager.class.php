@@ -34,6 +34,9 @@ class CommandManager {
 	
 	/** @Inject */
 	public $commandSearchController;
+	
+	/** @Inject */
+	public $usageController;
 
 	/** @Logger */
 	public $logger;
@@ -237,7 +240,7 @@ class CommandManager {
 		try {
 			// record usage stats (in try/catch loop in case there is an error)
 			if ($this->setting->get('record_usage_stats') == 1) {
-				Registry::getInstance('usage')->record($channel, $cmd, $sender, $commandHandler);
+				$this->usageController->record($channel, $cmd, $sender, $commandHandler);
 			}
 		} catch (Exception $e) {
 			$this->logger->log("ERROR", $e->getMessage(), $e);

@@ -36,6 +36,9 @@ class APIController {
 
 	/** @Inject */
 	public $accessLevel;
+	
+	/** @Inject */
+	public $usageController;
 
 	private $apisocket = null;
 	private $socketNotifier = null;
@@ -153,7 +156,7 @@ class APIController {
 
 		// record usage stats
 		if ($this->setting->get('record_usage_stats') == 1) {
-			Registry::getInstance('usage')->record($channel, $cmd, $sender, $commandHandler);
+			$this->usageController->record($channel, $cmd, $sender, $commandHandler);
 		}
 
 		$syntaxError = $this->commandManager->callCommandHandler($commandHandler, $message, $channel, $sender, $sendto);
