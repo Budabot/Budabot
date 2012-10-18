@@ -1,7 +1,13 @@
 <?php
 
+/**
+ * Authors:
+ *  - Tyrence (RK2)
+ *
+ * @Instance
+ */
 class Player {
-	public static function get_by_name($name, $dimension = 0, $forceUpdate = false) {
+	public function get_by_name($name, $dimension = 0, $forceUpdate = false) {
 		$chatBot = Registry::getInstance('chatBot');
 
 		if ($dimension == 0) {
@@ -42,7 +48,7 @@ class Player {
 		return $player;
 	}
 
-	public static function findInDb($name, $dimension) {
+	public function findInDb($name, $dimension) {
 		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 
@@ -50,7 +56,7 @@ class Player {
 		return $db->queryRow($sql, $name, $dimension);
 	}
 
-	public static function lookup($name, $dimension) {
+	public function lookup($name, $dimension) {
 		$xml = Player::lookup_url("http://people.anarchy-online.com/character/bio/d/$dimension/name/$name/bio.xml");
 		if ($xml->name == $name) {
 			$xml->source = 'people.anarchy-online.com';
@@ -71,7 +77,7 @@ class Player {
 		return null;
 	}
 
-	private static function lookup_url($url) {
+	private function lookup_url($url) {
 		$playerbio = xml::getUrl($url);
 
 		$xml = new stdClass;
@@ -96,7 +102,7 @@ class Player {
 		return $xml;
 	}
 
-	public static function update(&$char) {
+	public function update(&$char) {
 		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 
@@ -151,7 +157,7 @@ class Player {
 			$char->dimension, $char->source, time());
 	}
 
-	public static function get_info(&$whois) {
+	public function get_info(&$whois) {
 		$msg = '';
 
 		if ($whois->firstname) {

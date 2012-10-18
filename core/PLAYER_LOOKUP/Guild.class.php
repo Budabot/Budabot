@@ -1,11 +1,17 @@
 <?php
 
+/**
+ * Authors:
+ *  - Tyrence (RK2)
+ *
+ * @Instance
+ */
 class Guild {
     public $members = array();
     public $errorCode = 0;
     public $errorInfo;
 
-	public static function get_by_id($guild_id, $rk_num = 0, $force_update = false) {
+	public function get_by_id($guild_id, $rk_num = 0, $force_update = false) {
 		$chatBot = Registry::getInstance('chatBot');
 		$db = Registry::getInstance('db');
 		$cacheManager = Registry::getInstance('cacheManager');
