@@ -12,7 +12,7 @@ or
 <tab><symbol>loot clear
 
 <highlight>Show the loot list<end>
-<tab><symbol>list
+<tab><symbol>loot
 
 <highlight>Rolling the items<end>
 <tab><symbol>flatroll
