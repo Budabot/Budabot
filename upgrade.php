@@ -97,8 +97,6 @@
 		}
 	}
 
-	require_once 'core/PREFERENCES/Preferences.class.php';
-
 	try {
 		if (checkIfTableExists($db, "org_members_<myname>")) {
 			$data = $db->query("SELECT * FROM org_members_<myname>");
