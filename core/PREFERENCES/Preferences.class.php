@@ -1,7 +1,29 @@
 <?php
-
+/**
+ * Authors:
+ *  - Tyrence (RK2)
+ *
+ * @Instance
+ */
 class Preferences {
-	public static function save($sender, $name, $value) {
+	/**
+	 * Name of the module.
+	 * Set automatically by module loader.
+	 */
+	public $moduleName;
+
+	/** @Inject */
+	public $db;
+	
+	/**
+	 * @Setup
+	 * This handler is called on bot startup.
+	 */
+	public function setup() {
+		$this->db->loadSQLFile($this->moduleName, 'preferences');
+	}
+	
+	public function save($sender, $name, $value) {
 		$db = Registry::getInstance('db');
 
 		$sender = ucfirst(strtolower($sender));
@@ -14,7 +36,7 @@ class Preferences {
 		}
 	}
 
-	public static function get($sender, $name) {
+	public function get($sender, $name) {
 		$db = Registry::getInstance('db');
 
 		$sender = ucfirst(strtolower($sender));
