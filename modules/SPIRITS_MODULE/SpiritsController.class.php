@@ -325,8 +325,6 @@ class SpiritsController {
 	}
 	
 	public function formatSpiritOutput($data) {
-		$db = Registry::getInstance('db');
-
 		if (count($data) == 0) {
 			return "No matches found.";
 		}

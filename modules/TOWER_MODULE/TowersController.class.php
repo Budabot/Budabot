@@ -1046,7 +1046,7 @@ class TowerController {
 			$blob .= self::COLOR_VALUE;
 
 			forEach ($data as $row) {
-				$blob .= self::COLOR_LABEL."Time:<end> " . $this->util->date($row->time) . " (GMT)\n";
+				$blob .= self::COLOR_LABEL."Time:<end> " . $this->util->date($row->time) . "\n";
 				if ($row->att_faction == '') {
 					$att_faction = "unknown";
 				} else {
@@ -1121,7 +1121,7 @@ class TowerController {
 			$blob .= $this->text->make_header_links($links) . "\n\n";
 			$blob .= self::COLOR_VALUE;
 			forEach ($data as $row) {
-				$blob .= self::COLOR_LABEL."Time:<end> " . $this->util->date($row->victory_time) . " (GMT)\n";
+				$blob .= self::COLOR_LABEL."Time:<end> " . $this->util->date($row->victory_time) . "\n";
 
 				if (!$win_side = strtolower($row->win_faction)) {
 					$win_side = "unknown";

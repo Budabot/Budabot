@@ -49,6 +49,9 @@ class AlienMiscController {
 	/** @Inject */
 	public $text;
 	
+	/** @Inject */
+	public $util;
+	
 	/** @Inject("ItemsController") */
 	public $items;
 
@@ -97,7 +100,7 @@ class AlienMiscController {
 	 * @Matches("/^leprocs (.+)$/i")
 	 */
 	public function leprocsInfoCommand($message, $channel, $sender, $sendto, $args) {
-		$profession = Util::get_profession_name($args[1]);
+		$profession = $this->util->get_profession_name($args[1]);
 		if ($profession == '') {
 			$msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, or trader";
 			$sendto->reply($msg);
@@ -161,7 +164,7 @@ class AlienMiscController {
 	public function ofabarmorInfoCommand($message, $channel, $sender, $sendto, $args) {
 		$ql = isset($args[2])? intval($args[2]): 300;
 
-		$profession = Util::get_profession_name($args[1]);
+		$profession = $this->util->get_profession_name($args[1]);
 
 		if ($profession == '') {
 			$msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, or trader";

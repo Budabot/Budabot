@@ -42,6 +42,9 @@ class ChatAssistController {
 	/** @Inject */
 	public $chatBot;
 	
+	/** @Inject */
+	public $text;
+	
 	/**
 	 * Contains the assist macro message.
 	 */
@@ -95,7 +98,7 @@ class ChatAssistController {
 			}
 
 			$link = "<a href='chatcmd:///macro $name /assist $name'>Click here to make an assist $name macro</a>";
-			$this->assistMessage = Text::make_blob("Assist $name Macro", $link);
+			$this->assistMessage = $this->text->make_blob("Assist $name Macro", $link);
 		} else {
 			forEach ($nameArray as $key => $name) {
 				$name = ucfirst(strtolower($name));
@@ -165,7 +168,7 @@ class ChatAssistController {
 			}
 
 			$link = "<a href='chatcmd:///macro heal /assist $name'>Click here to make a heal assist macro</a>";
-			$this->healMessage = Text::make_blob("Heal Assist Macro", $link);
+			$this->healMessage = $this->text->make_blob("Heal Assist Macro", $link);
 		} else {
 			forEach ($nameArray as $key => $name) {
 				$name = ucfirst(strtolower($name));

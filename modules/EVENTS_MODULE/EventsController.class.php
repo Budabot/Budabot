@@ -234,7 +234,7 @@ class EventsController {
 		if ($row === null) {
 			$msg = "Could not find an event with id $id.";
 		} else {
-			// yyyy-dd-mm hh:mm:ss GMT
+			// yyyy-dd-mm hh:mm:ss
 			$eventDate = mktime($args[5], $args[6], 0, $args[3], $args[4], $args[2]);
 			$this->db->exec("UPDATE events SET `event_date` = ? WHERE `id` = ?", $eventDate, $id);
 			$msg = "Date/Time for event with id $id has been updated.";

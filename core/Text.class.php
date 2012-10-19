@@ -5,10 +5,19 @@
  */
 class Text {
 
+	/** @Inject */
+	public $chatBot;
+	
+	/** @Inject */
+	public $setting;
+	
+	/** @Logger */
+	public $logger;
+
 	public function make_header_links($links) {
 		$output = '';
 		forEach ($links as $title => $command){
-			$output .= " ::: " . Text::make_chatcmd($title, $command, 'style="text-decoration:none;"') . " ::: ";
+			$output .= " ::: " . $this->make_chatcmd($title, $command, 'style="text-decoration:none;"') . " ::: ";
 		}
 		return $output;
 	}
@@ -18,8 +27,6 @@ class Text {
 	 * @description: creates an info window
 	 */
 	function make_blob($name, $content, $header = NULL) {
-		$setting = Registry::getInstance('setting');
-
 		if ($header === null) {
 			$header = $name;
 		}
@@ -28,21 +35,21 @@ class Text {
 		$content = str_replace('"', '&quot;', $content);
 		$header = str_replace('"', '&quot;', $header);
 
-		$content = Text::format_message($content);
+		$content = $this->format_message($content);
 
-		$pages = Text::paginate($content, $setting->get("max_blob_size"), array("<pagebreak>", "\n", " "));
+		$pages = $this->paginate($content, $this->setting->get("max_blob_size"), array("<pagebreak>", "\n", " "));
 		$num = count($pages);
 
 		if ($num == 1) {
 			$page = $pages[0];
 			$headerMarkup = "<header> :::::: $header :::::: <end>\n\n";
-			$page = "<a href=\"text://".$setting->get("default_window_color").$headerMarkup.$page."\">$name</a>";
+			$page = "<a href=\"text://".$this->setting->get("default_window_color").$headerMarkup.$page."\">$name</a>";
 			return $page;
 		} else {
 			$i = 1;
 			forEach ($pages as $key => $page) {
 				$headerMarkup = "<header> :::::: $header (Page $i / $num) :::::: <end>\n\n";
-				$page = "<a href=\"text://".$setting->get("default_window_color").$headerMarkup.$page."\">$name</a> (Page <highlight>$i / $num<end>)";
+				$page = "<a href=\"text://".$this->setting->get("default_window_color").$headerMarkup.$page."\">$name</a> (Page <highlight>$i / $num<end>)";
 				$pages[$key] = $page;
 				$i++;
 			}
@@ -51,19 +58,17 @@ class Text {
 	}
 
 	function make_legacy_blob($name, $content) {
-		$setting = Registry::getInstance('setting');
-
 		// escape double quotes
 		$content = str_replace('"', '&quot;', $content);
 
-		$content = Text::format_message($content);
+		$content = $this->format_message($content);
 
-		$pages = Text::paginate($content, $setting->get("max_blob_size"), array("<pagebreak>", "\n", " "));
+		$pages = $this->paginate($content, $this->setting->get("max_blob_size"), array("<pagebreak>", "\n", " "));
 		$num = count($pages);
 
 		if ($num == 1) {
 			$page = $pages[0];
-			$page = "<a href=\"text://".$setting->get("default_window_color").$page."\">$name</a>";
+			$page = "<a href=\"text://".$this->setting->get("default_window_color").$page."\">$name</a>";
 			return $page;
 		} else {
 			$i = 1;
@@ -73,7 +78,7 @@ class Text {
 				} else {
 					$header = '';
 				}
-				$page = "<a href=\"text://".$setting->get("default_window_color").$header.$page."\">$name</a> (Page <highlight>$i / $num<end>)";
+				$page = "<a href=\"text://".$this->setting->get("default_window_color").$header.$page."\">$name</a> (Page <highlight>$i / $num<end>)";
 				$pages[$key] = $page;
 				$i++;
 			}
@@ -102,7 +107,7 @@ class Text {
 				}
 
 				if (count($symbols) > 0) {
-					$newResult = Text::paginate($line, $maxLength, $symbols);
+					$newResult = $this->paginate($line, $maxLength, $symbols);
 					$result = array_merge($result, $newResult);
 				} else {
 					LegacyLogger::log('ERROR', 'Text', "Could not successfully page blob");
@@ -171,13 +176,10 @@ class Text {
 	 * @description: formats a message with colors, bot name, symbol, etc
 	 */
 	public function format_message($message) {
-		$chatBot = Registry::getInstance('chatBot');
-		$setting = Registry::getInstance('setting');
-
 		$array = array(
-			"<header>" => $setting->get('default_header_color'),
-			"<header2>" => $setting->get('default_header2_color'),
-			"<highlight>" => $setting->get('default_highlight_color'),
+			"<header>" => $this->setting->get('default_header_color'),
+			"<header2>" => $this->setting->get('default_header2_color'),
+			"<highlight>" => $this->setting->get('default_highlight_color'),
 			"<black>" => "<font color='#000000'>",
 			"<white>" => "<font color='#FFFFFF'>",
 			"<yellow>" => "<font color='#FFFF00'>",
@@ -189,16 +191,16 @@ class Text {
 			"<cyan>" => "<font color='#00FFFF'>",
 			"<violet>" => "<font color='#8F00FF'>",
 
-			"<neutral>" => $setting->get('default_neut_color'),
-			"<omni>" => $setting->get('default_omni_color'),
-			"<clan>" => $setting->get('default_clan_color'),
-			"<unknown>" => $setting->get('default_unknown_color'),
+			"<neutral>" => $this->setting->get('default_neut_color'),
+			"<omni>" => $this->setting->get('default_omni_color'),
+			"<clan>" => $this->setting->get('default_clan_color'),
+			"<unknown>" => $this->setting->get('default_unknown_color'),
 
-			"<myname>" => $chatBot->vars["name"],
-			"<myguild>" => $chatBot->vars["my_guild"],
+			"<myname>" => $this->chatBot->vars["name"],
+			"<myguild>" => $this->chatBot->vars["my_guild"],
 			"<tab>" => "    ",
 			"<end>" => "</font>",
-			"<symbol>" => $setting->get("symbol"));
+			"<symbol>" => $this->setting->get("symbol"));
 
 		$message = str_ireplace(array_keys($array), array_values($array), $message);
 
