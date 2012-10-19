@@ -18,7 +18,7 @@
 	*/
 
 	// Define the version.
-	$version = "3.0_Alpha";
+	$version = "3.0_RC1";
 
 	// Text block that is displayed when initially launching the process.
 	echo "\n\n\n\n\n
@@ -29,7 +29,7 @@
 	Support forum: http://www.budabot.com/forum
 	Chat:          #budabot on irc.funcom.com, or
 	               /tell Budanet !join
-	Contacts:      Tyrence, Marebone, Laen
+	Contacts:      Tyrence, Marebone
 	**************************************************
 	\n";
 

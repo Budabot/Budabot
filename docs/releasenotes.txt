@@ -1,31 +1,41 @@
 *****************************
-	Version 2.4_RC1:
+	Version 3.0_RC1:
 *****************************
-added !nanoloc
-various fixes for IRC relay
-modules can now set a priority for messages sent from the bot
-added !macro
-!opentimes now groups by org and shows total ct ql for each org
-error message now distinguishes between "unknown command" and "access denied"
-!whois now deals with current data, !lookup deals with data from name_history
-fixed LIMITS check
-added !guides scc for the bastion armor
-added core API_MODULE
-added core PREFERENCES
-added setting 'xml_timeout' to control how long to wait for a response from xml servers
-updated nanos db with nanos from recent patches
-added 'relay_guild_abbreviation' setting to RELAY_MODULE
-updated items db to 18.04.13
-$db->query() now returns the resultset
-added prepared statement support to DB.class.php
-added $db->queryRow() for returning the first row from the resultset
-!cmdsearch now replaces !searchcmd; !searchcmd is now a default alias for !cmdsearch
-news items can now be stickied
-consolidated !nlline, and !nlprof into !nanolines
-consolidated !impql and !impreq into !implant, which now displays its output on one line
-removed default aliases: !alt, !leproc, !event, !mission, !onlineorg, !fast, !fa, !timer, !battle
-commands, subcommands, and events can now be registered to call a method instead of including a file
-commands, subcommands, events, and settings can now be registered using annotations
+-modules are now declared and defined using an OO approach with annotations
+-PHP supported version increased to 5.3
+-fix for logoff spam in org chat when the bot restarts
+-added a new and improved BotManager (gui)
+-!aou once again works (removed some guides in !guides that were adequately represented with !aou)
+-added !recipe
+-added !rally
+-logging now goes to a single file by default
+-added !towerstats
+-added !nanoloc
+-added !showcommand
+-removed !kos and replaced with !reputation
+-removed BIOR_GUARDIAN_MODULE and WAITLIST_MODULE due to low usage
+-various fixes for IRC relay
+-people in IRC now show up in !online
+-the bot will now respond to commands from the irc channel (if access is set to 'all')
+-modules can now set a priority for messages sent from the bot
+-added !macro (to execute multiple commands at once)
+-!opentimes now groups by org and shows total ct ql for each org
+-error message now distinguishes between "unknown command" and "access denied"
+-!whois now deals with current data, !lookup deals with data from name_history
+-fixed LIMITS check
+-bastion loot info added (!guides ssc, !bastion)
+-added core API_MODULE (to allow remote management of bot)
+-added setting 'xml_timeout' to control how long to wait for a response from xml servers
+-updated nanos db with nanos from recent patches
+-updated items db to 18.05.02
+-$db->query() now returns the resultset
+-added prepared statement support to DB.class.php
+-added $db->queryRow() for returning the first row from the resultset
+-!cmdsearch now replaces !searchcmd; !searchcmd is now a default alias for !cmdsearch
+-news items can now be stickied
+-consolidated !nlline, and !nlprof into !nanolines
+-consolidated !impql and !impreq into !implant, which now displays its output on one line
+-removed default aliases: !alt, !leproc, !event, !mission, !onlineorg, !fast, !fa, !timer, !battle
 
 *****************************
 	Version 2.3_GA:
