@@ -280,20 +280,15 @@ class Budabot extends AOChat {
 				}
 			}
 		}
-		if (file_exists("{$baseDir}/{$MODULE_NAME}/{$MODULE_NAME}.php")) {
-			$this->logger->log('DEBUG', "MODULE_NAME:({$MODULE_NAME}.php)");
-			$name = ucfirst(strtolower($MODULE_NAME)) . "LegacyController";
-			$this->registerInstance($MODULE_NAME, $name, new LegacyController($baseDir, $name));
-		} else {
-			$newInstances = Registry::getNewInstancesInDir("{$baseDir}/{$MODULE_NAME}");
-			forEach ($newInstances as $name => $className) {
-				$this->registerInstance($MODULE_NAME, $name, new $className);
-			}
 
-			if (count($newInstances) == 0) {
-				$this->logger->log('ERROR', "Could not load module {$MODULE_NAME}. No classes found with @Instance annotation!");
-				return;
-			}
+		$newInstances = Registry::getNewInstancesInDir("{$baseDir}/{$MODULE_NAME}");
+		forEach ($newInstances as $name => $className) {
+			$this->registerInstance($MODULE_NAME, $name, new $className);
+		}
+
+		if (count($newInstances) == 0) {
+			$this->logger->log('ERROR', "Could not load module {$MODULE_NAME}. No classes found with @Instance annotation!");
+			return;
 		}
 	}
 
