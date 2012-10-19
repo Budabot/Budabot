@@ -113,15 +113,20 @@ class RecipeController {
 		} else {
 			$recipe_name = $obj->recipe_name;
 			
-			$recipe_text = $obj->recipe_text;
-			$recipe_text = str_replace("\\r\\n", "\n", $recipe_text);
-			$recipe_text = $this->formatRecipeText($recipe_text);
+			$recipeText = $obj->recipe_text;
+			$recipeText = str_replace("\\r\\n", "\n", $recipeText);
+			$recipeText = $this->formatRecipeText($recipeText);
 			
-			$recipe_text .= $this->getAORecipebookFooter();
+			$recipeText .= $this->getAORecipebookFooter();
 			
-			$msg = $this->text->make_blob("Recipe for $recipe_name", $recipe_text);
+			$msg = $this->text->make_blob("Recipe for $recipe_name", $recipeText);
 		}
 		$sendto->reply($msg);
+	}
+	
+	private function getAORecipebookFooter() {
+		return "\n\n<header>Powered by " . $this->text->make_chatcmd("AORecipebook.com", "/start http://aorecipebook.com") . "<end>\n" .
+			"For more information, " . $this->text->make_chatcmd("/tell recipebook about", "/tell recipebook about");
 	}
 	
 	/**
@@ -139,17 +144,18 @@ class RecipeController {
 			$msg = "A recipe with id <highlight>$id<end> could not be found.";
 		} else {
 			$recipe_name = $row->recipe_name;
+			$author = $row->author;
 			
-			$recipe_text = $this->formatRecipeText($row->recipe_text);			
+			$recipeText = "";
+			if (!empty($author)) {
+				$recipeText .= "Author: <highlight>$author<end>\n\n";
+			}
+			
+			$recipeText .= $this->formatRecipeText($row->recipe_text);
 
-			$msg = $this->text->make_blob("Recipe for $recipe_name", $recipe_text);
+			$msg = $this->text->make_blob("Recipe for $recipe_name", $recipeText);
 		}
 		$sendto->reply($msg);
-	}
-	
-	private function getAORecipebookFooter() {
-		return "\n\n<header>Powered by " . $this->text->make_chatcmd("AORecipebook.com", "/start http://aorecipebook.com") . "<end>\n" .
-			"For more information, " . $this->text->make_chatcmd("/tell recipebook about", "/tell recipebook about");
 	}
 	
 	private function formatRecipeText($input) {
