@@ -15,7 +15,8 @@
  *	@DefineCommand(
  *		command     = 'say',
  *		accessLevel = 'all',
- *		description = 'Sends message to org chat or private chat'
+ *		description = 'Sends message to org chat or private chat',
+ *		help        = 'say.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'tell',
