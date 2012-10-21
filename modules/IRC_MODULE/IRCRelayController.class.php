@@ -384,7 +384,7 @@ class IRCRelayController {
 	 * @Description("Relay private messages to IRC")
 	 */
 	public function relayPrivMessagesEvent($eventObj) {
-		if (IRC::isConnectionActive($this->ircSocket)) {
+		if (IRC::isConnectionActive($this->ircSocket) && $eventObj->message[0] != $this->setting->get('symbol')) {
 			$pattern = '/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/';
 			$replace = chr(3) . chr(3) . '\4' . chr(3) . ' ' . chr(3) . '(http://auno.org/ao/db.php?id=\1&id2=\2&ql=\3)' . chr(3) . chr(3);
 
@@ -402,7 +402,7 @@ class IRCRelayController {
 	 * @Description("Relay guild messages to IRC")
 	 */
 	public function relayGuildMessagesEvent($eventObj) {
-		if (IRC::isConnectionActive($this->ircSocket)) {
+		if (IRC::isConnectionActive($this->ircSocket) && $eventObj->message[0] != $this->setting->get('symbol')) {
 			$pattern = '/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/';
 			$replace = chr(3) . chr(3) . '\4' . chr(3) . ' ' . chr(3) . '(http://auno.org/ao/db.php?id=\1&id2=\2&ql=\3)' . chr(3) . chr(3);
 
