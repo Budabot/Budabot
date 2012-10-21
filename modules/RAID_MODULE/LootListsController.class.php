@@ -213,6 +213,9 @@ class LootListsController {
 	/** @Inject */
 	public $util;
 	
+	/** @Inject */
+	public $raidController;
+	
 	/**
 	 * @Setup
 	 */
@@ -235,7 +238,7 @@ class LootListsController {
 	}
 
 	public function getAlbatraumLoot($raid, $category) {
-		$blob = Raid::find_raid_loot($raid, $category);
+		$blob = $this->find_raid_loot($raid, $category);
 		$blob .= "\n\nAlbtraum Loot By Dare2005 (RK2)";
 		return $this->text->make_blob("$raid $category Loot", $blob);
 	}
@@ -263,7 +266,7 @@ class LootListsController {
 	}
 	
 	public function getDustBrigadeLoot($raid, $category) {
-		$blob = Raid::find_raid_loot($raid, $category);
+		$blob = $this->find_raid_loot($raid, $category);
 		$blob .= "\n\nDust Brigrade Loot By Chachy (RK2)";
 		return $this->text->make_blob("$raid $category Loot", $blob);
 	}
@@ -294,11 +297,11 @@ class LootListsController {
 	
 	public function addAPFLootToList($sector) {
 		// adding apf stuff
-		Raid::add_raid_to_loot_list('APF', "Sector $sector");
+		$this->raidController->add_raid_to_loot_list('APF', "Sector $sector");
 		$msg = "Sector $sector loot table was added to the loot list.";
 		$this->chatBot->sendPrivate($msg);
 
-		$msg = Raid::get_current_loot_list();
+		$msg = $this->raidController->get_current_loot_list();
 		$this->chatBot->sendPrivate($msg);
 	}
 	
@@ -660,7 +663,7 @@ class LootListsController {
 	}
 	
 	public function getPandemoniumLoot($raid, $category) {
-		$blob = Raid::find_raid_loot($raid, $category);
+		$blob = $this->find_raid_loot($raid, $category);
 		$blob .= "\n\nPande Loot By Marinerecon (RK2)";
 		return $this->text->make_blob("$raid $category Loot", $blob);
 	}
@@ -742,7 +745,7 @@ class LootListsController {
 	}
 	
 	public function getXanLoot($raid, $category) {
-		$blob = Raid::find_raid_loot($raid, $category);
+		$blob = $this->find_raid_loot($raid, $category);
 		$blob .= "\n\nXan Loot By Morgo (RK2)";
 		return $this->text->make_blob("$raid $category Loot", $blob);
 	}
@@ -774,6 +777,26 @@ class LootListsController {
 
 		$msg = $this->text->make_blob("Legacy of the Xan Loot", $list);
 		$sendto->reply($msg);
+	}
+	
+	public function find_raid_loot($raid, $category) {
+		$sql = "SELECT * FROM raid_loot WHERE raid = ? AND category = ?";
+		$data = $this->db->query($sql, $raid, $category);
+
+		if (count($data) == 0) {
+			return null;
+		}
+
+		$blob = "\n";
+		forEach ($data as $row) {
+			$blob .= "<pagebreak>";
+			$blob .= $this->text->make_item($row->lowid, $row->highid, $row->ql, "<img src=rdb://{$row->imageid}>");
+			$blob .= "\nItem: <highlight>{$row->name}<end>\n";
+			$blob .= $this->text->make_chatcmd("Add to Loot List", "/tell <myname> loot $row->id");
+			$blob .= "\n\n";
+		}
+
+		return $blob;
 	}
 }
 
