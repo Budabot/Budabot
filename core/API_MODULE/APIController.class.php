@@ -11,7 +11,8 @@
  *	@DefineCommand(
  *		command     = 'apipassword',
  *		accessLevel = 'all',
- *		description = "Sets your api password, use 'apipassword clear' to clear your password."
+ *		description = 'Set your api password',
+ *		help        = 'apipassword.txt'
  *	)
  */
 class APIController {
