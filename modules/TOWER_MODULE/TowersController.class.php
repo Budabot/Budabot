@@ -6,55 +6,56 @@
  *	@DefineCommand(
  *		command     = 'towerstats',
  *		accessLevel = 'all',
- *		description = 'Shows how many towers each faction has lost'
+ *		description = 'Show how many towers each faction has lost',
+ *		help        = 'towerstats.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'attacks',
  *      alias       = 'battles',
  *		accessLevel = 'all',
- *		description = 'Shows the last Tower Attack messages',
+ *		description = 'Show the last Tower Attack messages',
  *		help        = 'attacks.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'forcescout',
  *		accessLevel = 'guild',
- *		description = 'Adds tower info to watch list (bypasses some of the checks)',
+ *		description = 'Add tower info to watch list (bypasses some of the checks)',
  *		help        = 'scout.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'lc',
  *		accessLevel = 'all',
- *		description = 'Shows status of towers',
+ *		description = 'Show status of towers',
  *		help        = 'lc.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'opentimes',
  *		accessLevel = 'guild',
- *		description = 'Shows status of towers',
+ *		description = 'Show status of towers',
  *		help        = 'scout.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'penalty',
  *		accessLevel = 'all',
- *		description = 'Shows orgs in penalty',
+ *		description = 'Show orgs in penalty',
  *		help        = 'penalty.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'remscout',
  *		accessLevel = 'guild',
- *		description = 'Removes tower info to watch list',
+ *		description = 'Remove tower info from watch list',
  *		help        = 'scout.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'scout',
  *		accessLevel = 'guild',
- *		description = 'Adds tower info to watch list',
+ *		description = 'Add tower info to watch list',
  *		help        = 'scout.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'victory',
  *		accessLevel = 'all',
- *		description = 'Shows the last Tower Battle results',
+ *		description = 'Show the last Tower Battle results',
  *		help        = 'victory.txt'
  *	)
  */

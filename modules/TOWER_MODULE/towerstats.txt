@@ -1,0 +1,5 @@
+<highlight>To see how many tower sites each faction has taken and lost in the past 24 hours:<end>
+<tab><symbol>towerstats
+
+<highlight>To see how many tower sites each faction has taken and lost in the past specified amount of time:<end>
+<tab><symbol>towerstats 'time'
