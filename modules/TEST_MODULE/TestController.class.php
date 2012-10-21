@@ -30,6 +30,12 @@
  *		description = "Test the bot commands", 
  *		help        = 'test.txt'
  *	)
+ *	@DefineCommand(
+ *		command     = 'showcmdregex', 
+ *		accessLevel = 'admin', 
+ *		description = "Test the bot commands", 
+ *		help        = 'test.txt'
+ *	)
  */
 class TestController {
 
@@ -47,9 +53,15 @@ class TestController {
 	
 	/** @Inject */
 	public $util;
+	
+	/** @Inject */
+	public $text;
 
 	/** @Inject */
 	public $commandManager;
+
+	/** @Inject */
+	public $subcommandManager;
 	
 	/** @Logger */
 	public $logger;
@@ -123,6 +135,44 @@ class TestController {
 		$packet->args[2] = "The $args[1] organization $args[2] attacked the $args[3] $args[4] at their base in $args[5]. The attackers won!!";
 
 		$this->chatBot->process_packet($packet);
+	}
+	
+	/**
+	 * @HandlesCommand("showcmdregex")
+	 * @Matches("/^showcmdregex (.+)$/i")
+	 */
+	public function showcmdregexCommand($message, $channel, $sender, $sendto, $args) {
+		$cmd = $args[1];
+		$handlers = array();
+		if (isset($this->commandManager->commands[$channel][$cmd])) {
+			$commandHandler = $this->commandManager->commands[$channel][$cmd];
+			$handlers = array_merge($handlers, explode(',', $commandHandler->file));
+		}
+		if (isset($this->subcommandManager->subcommands[$cmd])) {
+			forEach ($this->subcommandManager->subcommands[$cmd] as $commandHandler) {
+				if ($commandHandler->type == $channel) {
+					$handlers = array_merge($handlers, explode(',', $commandHandler->file));
+				}
+			}
+		}
+		$regexes = array();
+		forEach ($handlers as $handler) {
+			list($name, $method) = explode(".", $handler);
+			$instance = Registry::getInstance($name);
+			try {
+				$reflectedMethod = new ReflectionAnnotatedMethod($instance, $method);
+				$regexes = array_merge($regexes, $this->commandManager->retrieveRegexes($reflectedMethod));
+			} catch (ReflectionException $e) {
+				continue;
+			}
+		}
+	
+		$blob = '';
+		forEach ($regexes as $regex) {
+			$blob .= $regex . "\n";
+		}
+		$msg = $this->text->make_blob("Regexes for $cmd", $blob);
+		$sendto->reply($msg);
 	}
 }
 
