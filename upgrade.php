@@ -96,17 +96,35 @@
 			LegacyLogger::log("ERROR", 'Upgrade', $e->getMessage());
 		}
 	}
+	
+	function loadSQLFile($filename) {
+		$lines = explode("\n", file_get_contents($filename));
+		forEach ($lines as $line) {
+			upgrade($db, $line);
+		}
+	}
 
 	try {
 		if (checkIfTableExists($db, "org_members_<myname>")) {
 			$data = $db->query("SELECT * FROM org_members_<myname>");
 			if (property_exists($data[0], 'logon_msg') || property_exists($data[0], 'logoff_msg')) {
+				loadSQLFile("./core/PREFERENCES/preferences.sql");
 				forEach ($data as $row) {
 					if (isset($row->logon_msg) && $row->logon_msg != '') {
-						Preferences::save($row->name, 'logon_msg', $row->logon_msg);
+						$logon = $db->queryRow("SELECT * FROM preferences_<myname> WHERE sender = ? AND name = ?", $row->name, 'logon_msg');
+						if ($logon === null) {
+							$db->exec("INSERT INTO preferences_<myname> (sender, name, value) VALUES (?, ?, ?)", $row->name, 'logon_msg', $row->logon_msg);
+						} else {
+							$db->exec("UPDATE preferences_<myname> SET value = ? WHERE sender = ? AND name = ?", $row->logon_msg, $row->name, 'logon_msg');
+						}
 					}
 					if (isset($row->logoff_msg) && $row->logoff_msg != '') {
-						Preferences::save($row->name, 'logoff_msg', $row->logoff_msg);
+						$logoff = $db->queryRow("SELECT * FROM preferences_<myname> WHERE sender = ? AND name = ?", $row->name, 'logoff_msg');
+						if ($logoff === null) {
+							$db->exec("INSERT INTO preferences_<myname> (sender, name, value) VALUES (?, ?, ?)", $row->name, 'logoff_msg', $row->logoff_msg);
+						} else {
+							$db->exec("UPDATE preferences_<myname> SET value = ? WHERE sender = ? AND name = ?", $row->logoff_msg, $row->name, 'logoff_msg');
+						}
 					}
 				}
 				upgrade($db, "UPDATE org_members_<myname> SET logon_msg = '', logoff_msg = ''");
