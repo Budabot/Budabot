@@ -837,12 +837,12 @@ class TowerController {
 		}
 
 		if ($closest_site === null) {
-			$this->logger->log('error', "TowerInfo", "ERROR! Could not find closest site: ({$playfield_name}) '{$playfield->id}' '{$x_coords}' '{$y_coords}'");
+			$this->logger->log('error', "ERROR! Could not find closest site: ({$playfield_name}) '{$playfield->id}' '{$x_coords}' '{$y_coords}'");
 			$more = "[<red>UNKNOWN AREA!<end>]";
 		} else {
 		
 			$this->record_attack($whois, $def_side, $def_guild, $x_coords, $y_coords, $closest_site);
-			$this->logger->log('debug', "TowerInfo", "Site being attacked: ({$playfield_name}) '{$closest_site->playfield_id}' '{$closest_site->site_number}'");
+			$this->logger->log('debug', "Site being attacked: ({$playfield_name}) '{$closest_site->playfield_id}' '{$closest_site->site_number}'");
 		
 			// Beginning of the 'more' window
 			$link = "<highlight>Attacker:<end> <font color=#DEDE42>";
@@ -987,7 +987,7 @@ class TowerController {
 		
 		$playfield = $this->playfieldController->get_playfield_by_name($playfield_name);
 		if ($playfield === null) {
-			$this->logger->log('error', 'Towers', "Could not find playfield for name '$playfield_name'");
+			$this->logger->log('error', "Could not find playfield for name '$playfield_name'");
 			return;
 		}
 		
