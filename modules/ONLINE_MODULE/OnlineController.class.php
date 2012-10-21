@@ -350,7 +350,7 @@ class OnlineController {
 			if ($numguild + $numguest >= 1) {
 				$blob .= "\n\n<header2>$numirc ".($numirc == 1 ? "User":"Users")." in IRC Channel(s) <end>\n";
 			} else {
-				$blob .= "<header2> :::::: $numirc ".($numirc == 1 ? "User":"Users")." in IRC Channel(s) :::::: end>\n";
+				$blob .= "<header2> :::::: $numirc ".($numirc == 1 ? "User":"Users")." in IRC Channel(s) :::::: <end>\n";
 			}
 
 			// create the list of guests
