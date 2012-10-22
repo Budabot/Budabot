@@ -70,7 +70,7 @@ class IRCRelayController {
 	/** @Logger */
 	public $logger;
 	
-	private $apisocket = null;
+	private $ircSocket = null;
 
 	/** @Setup */
 	public function setup() {
@@ -215,7 +215,7 @@ class IRCRelayController {
 	 */
 	public function autoReconnectEvent() {
 		// make sure eof flag is set
-		fputs($this->ircSocket, "PONG ping\n");
+		fputs($this->ircSocket, "PING ping\n");
 		if ($this->setting->get('irc_status') == '1' && !IRC::isConnectionActive($this->ircSocket)) {
 			IRC::connect($this->ircSocket, $this->setting->get('irc_nickname'), $this->setting->get('irc_server'), $this->setting->get('irc_port'), $this->setting->get('irc_password'), $this->setting->get('irc_channel'));
 		}

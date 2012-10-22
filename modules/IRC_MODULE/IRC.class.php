@@ -5,7 +5,7 @@ class IRC {
 		if ($socket == null) {
 			return false;
 		}
-		fputs($socket, "PING ping\n");
+
 		$array = socket_get_status($socket);
 		if (empty($array) || $array['eof'] == '1') {
 			return false;
