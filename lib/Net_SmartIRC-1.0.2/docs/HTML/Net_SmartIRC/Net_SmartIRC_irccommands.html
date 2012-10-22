@@ -1,0 +1,1745 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+ <title>PEAR API Documentation :: Net_SmartIRC</title>
+ <link rel="stylesheet" href="../media/style.css" />
+  <script language="javascript" type="text/javascript">
+    var subdir = "../";
+  </script>
+  <script src="../media/lib/classTree.js"></script>
+  <link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
+  <script type="text/javascript" src="../media/lib/tabpane.js"></script>
+  <meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+  <script language="javascript" type="text/javascript" src="../media/TreeMenu.js"></script>
+  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
+  <script language="javascript" type="text/javascript">
+	var imgPlus = new Image();
+	var imgMinus = new Image();
+	imgPlus.src = "../media/images/plus.gif";
+	imgMinus.src = "../media/images/minus.gif";
+
+	
+	function showNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgMinus.src;
+		oTable.style.display = "block";
+	}
+	
+	function hideNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgPlus.src;
+		oTable.style.display = "none";
+	}
+	
+	function nodeIsVisible(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+        		break;
+        }
+		return (oTable && oTable.style.display == "block");
+	}
+	
+	function toggleNodeVisibility(Node){
+		if (nodeIsVisible(Node)){
+			hideNode(Node);
+		}else{
+			showNode(Node);
+		}
+	}
+</script>
+</head>
+
+<body   topmargin="0" leftmargin="0"
+	    marginheight="0" marginwidth="0"
+        bgcolor="#ffffff"
+        text="#000000"
+        link="#006600"
+        alink="#cccc00"
+        vlink="#003300"
+>
+<a name="TOP" /></a>
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr bgcolor="#339900">
+    <td align="left" width="120">
+      <a href="http://pear.php.net">
+	    <img src="../media/images/pearlogo.gif" width="104" height="50" vspace="2" hspace="5" alt="PEAR" border="0">
+ 	  </a>
+    </td>
+    <td align="left" valign="middle" width="20">
+      &nbsp;
+    </td>
+    <td align="left" valign="middle">
+      <span class="Headline">PEAR API Documentation :: Net_SmartIRC</span>
+    </td>
+    <td align="right" valign="bottom" class="upperright">
+      <a href="http://pear.php.net/package-info.php?package=Net_SmartIRC" class="upperright">Package Homepage</a>&nbsp;|&nbsp;
+      <a href="http://pear.php.net/package-info.php?package=Net_SmartIRC" class="upperright">Download ApiDoc</a>
+	  &nbsp;<br>
+    </td>
+  </tr>
+
+  <tr bgcolor="#003300"><td colspan="4"></td></tr>
+
+  <tr bgcolor="#006600">
+    <td align="right" valign="top" colspan="4" class="menu">
+  		  [ <a href="../classtrees_Net_SmartIRC.html" class="menu">class tree: Net_SmartIRC</a> ]
+		  [ <a href="../elementindex_Net_SmartIRC.html" class="menu">index: Net_SmartIRC</a> ]
+		  [ <a href="../elementindex.html" class="menu">all elements</a> ]
+        &nbsp;<br />
+    </td>
+  </tr>
+
+  <tr bgcolor="#003300"><td colspan="4"></td></tr>
+</table>
+<table cellpadding="0" cellspacing="0" width="100%">
+ <tr valign="top">
+  <td bgcolor="#f0f0f0" width="100">
+   <table width="280" border="0" cellpadding="4" cellspacing="0">
+    <tr valign="top">
+     <td style="font-size: 90%" align="left" width="280">
+	<div id="ric">
+					<a href="../ric_CHANGELOG.html">CHANGELOG</a><br />
+					<a href="../ric_README.html">README</a><br />
+			</div>
+	<br>
+      <span class="green"><b>Packages:</b></span><br />
+	  <ul>
+              <li><a href="../li_Net_SmartIRC.html">Net_SmartIRC</a></li>
+      	  </ul>
+      <br /><br />
+
+<div class="menu">
+<script language="Javascript">
+if (document.getElementById) {
+  var tree = new WebFXTree('Package : Net_SmartIRC', '../li_Net_SmartIRC.html');
+  tree.setBehavior('classic');
+  tree.openIcon = '../media/images/Disk.gif';
+  tree.icon = '../media/images/Disk.gif';
+    var elements = new WebFXTreeItem('Index of elements', '../elementindex_Net_SmartIRC.html');
+    elements.openIcon = '../media/images/file.png';
+    elements.icon = '../media/images/file.png';
+	tree.add(elements);
+
+    var tree_function = new WebFXTreeItem('Function(s)', '');
+    tree_function.openIcon = '../media/images/Functions.gif';
+    tree_function.icon = '../media/images/Functions.gif';
+    	tree.add(tree_function);
+	
+	var iconClassFolder = '../media/images/classFolder.gif';
+	var iconClass = '../media/images/Class.gif';
+	var iconFunctionFolder = '../media/images/Functions.gif';
+	var iconFunction = '../media/images/PublicMethod.gif';
+	var iconFileFolderOpen = '../media/images/FolderOpened.gif';
+	var iconFileFolderClosed = '../media/images/foldericon.png';
+	var iconFile = '../media/images/file.png';
+
+	var subpackagetree_classe = new WebFXTreeItem('Class(es)', '../classtrees_Net_SmartIRC.html');
+	subpackagetree_classe.openIcon = iconClassFolder;;
+	subpackagetree_classe.icon = iconClassFolder;
+					  var classe = new WebFXTreeItem('mybot', '../Net_SmartIRC/mybot.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC', '../Net_SmartIRC/Net_SmartIRC.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_actionhandler', '../Net_SmartIRC/Net_SmartIRC_actionhandler.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_base', '../Net_SmartIRC/Net_SmartIRC_base.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_channel', '../Net_SmartIRC/Net_SmartIRC_channel.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_channeluser', '../Net_SmartIRC/Net_SmartIRC_channeluser.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_data', '../Net_SmartIRC/Net_SmartIRC_data.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_Error', '../Net_SmartIRC/Net_SmartIRC_Error.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_irccommands', '../Net_SmartIRC/Net_SmartIRC_irccommands.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_ircuser', '../Net_SmartIRC/Net_SmartIRC_ircuser.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_listenfor', '../Net_SmartIRC/Net_SmartIRC_listenfor.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_messagehandler', '../Net_SmartIRC/Net_SmartIRC_messagehandler.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_timehandler', '../Net_SmartIRC/Net_SmartIRC_timehandler.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_user', '../Net_SmartIRC/Net_SmartIRC_user.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				tree.add(subpackagetree_classe);
+
+	var subpackagetree_classe = new WebFXTreeItem('File(s)', '');
+	subpackagetree_classe.openIcon = iconFileFolderOpen;
+	subpackagetree_classe.icon = iconFileFolderClosed;
+					  var classe = new WebFXTreeItem('defines.php', '../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example.php', '../Net_SmartIRC/_SmartIRC-0.5.5_examples_example_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example2.php', '../Net_SmartIRC/_SmartIRC-0.5.5_examples_example2_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example3.php', '../Net_SmartIRC/_SmartIRC-0.5.5_examples_example3_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example4.php', '../Net_SmartIRC/_SmartIRC-0.5.5_examples_example4_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example5.php', '../Net_SmartIRC/_SmartIRC-0.5.5_examples_example5_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example6.php', '../Net_SmartIRC/_SmartIRC-0.5.5_examples_example6_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example7.php', '../Net_SmartIRC/_SmartIRC-0.5.5_examples_example7_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('irccommands.php', '../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_irccommands_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('messagehandler.php', '../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_messagehandler_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('SmartIRC.php', '../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				tree.add(subpackagetree_classe);
+
+  document.write(tree);
+  
+  
+      var classtree = new WebFXTree('Net_SmartIRC_irccommands', 'Net_SmartIRC_irccommands.html');
+	classtree.setBehavior('classic');
+	classtree.openIcon = '../media/images/Class.gif';
+	classtree.icon = '../media/images/Class.gif';
+			var methodtree = new WebFXTreeItem('Methods', '');
+	  	methodtree.openIcon = '../media/images/Functions.gif';
+	  	methodtree.icon = '../media/images/Functions.gif';
+		
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html#ban">ban</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html#changeNick">changeNick</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html#channel">channel</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html#deop">deop</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html#devoice">devoice</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html#getList">getList</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html#getTopic">getTopic</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html#invite">invite</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html#join">join</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html#kick">kick</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html#message">message</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html#mode">mode</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html#names">names</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html#op">op</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html#part">part</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html#quit">quit</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html#setTopic">setTopic</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html#unban">unban</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html#voice">voice</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html#who">who</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html#whois">whois</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html#whowas">whowas</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+				
+		classtree.add(methodtree);
+    		document.write('<br><br>');
+	document.write(classtree);
+  
+}
+</script>
+</div>
+<noscript>
+<img src="../media/images/Disk.gif" border="0" align="top">&nbsp;<a href="../li_Net_SmartIRC.html" class="green" ><span valign="middle" class="green">Package: Net_SmartIRC</span></a><br>
+<img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../elementindex_Net_SmartIRC.html" class="green" ><span valign="middle" class="green">Index of elements</span></a><br>
+<img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Functions.gif" border="0" align="top">&nbsp;<span valign="middle" class="green">Function(s)</span><br>
+<img src="../media/images/Tminus.png" border="0" align="top"><img src="../media/images/classFolder.gif" border="0" align="top">&nbsp;<a href="../classtrees_Net_SmartIRC.html" class="green" ><span valign="middle" class="green">Class(es)</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/mybot.html" class="green" ><span valign="middle" class="green">mybot</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC.html" class="green" ><span valign="middle" class="green">Net_SmartIRC</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_actionhandler.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_actionhandler</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_base.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_base</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_channel.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_channel</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_channeluser.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_channeluser</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_data.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_data</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_Error.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_Error</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_irccommands</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_ircuser.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_ircuser</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_listenfor.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_listenfor</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_messagehandler.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_messagehandler</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_timehandler.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_timehandler</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/L.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_user.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_user</span></a><br>
+<img src="../media/images/Lminus.png" border="0" align="top"><img src="../media/images/FolderOpened.gif" border="0" align="top">&nbsp;<span valign="middle" class="green">File(s)</span><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html" class="green" ><span valign="middle" class="green">defines.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_examples_example_php.html" class="green" ><span valign="middle" class="green">example.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_examples_example2_php.html" class="green" ><span valign="middle" class="green">example2.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_examples_example3_php.html" class="green" ><span valign="middle" class="green">example3.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_examples_example4_php.html" class="green" ><span valign="middle" class="green">example4.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_examples_example5_php.html" class="green" ><span valign="middle" class="green">example5.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_examples_example6_php.html" class="green" ><span valign="middle" class="green">example6.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_examples_example7_php.html" class="green" ><span valign="middle" class="green">example7.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_irccommands_php.html" class="green" ><span valign="middle" class="green">irccommands.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_messagehandler_php.html" class="green" ><span valign="middle" class="green">messagehandler.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/L.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_php.html" class="green" ><span valign="middle" class="green">SmartIRC.php</span></a><br>
+
+  <bR>
+  <img src="../media/images/Class.gif" border="0" align="top">&nbsp;<span valign="middle" class="green">Net_SmartIRC_irccommands</span><br>
+<img src="../media/images/Tminus.png" border="0" align="top"><img src="../media/images/Functions.gif" border="0" align="top">&nbsp;<span valign="middle" class="green">Methods</span><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#ban" class="green" ><span valign="middle" class="green">ban</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#changeNick" class="green" ><span valign="middle" class="green">changeNick</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#channel" class="green" ><span valign="middle" class="green">channel</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#deop" class="green" ><span valign="middle" class="green">deop</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#devoice" class="green" ><span valign="middle" class="green">devoice</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#getList" class="green" ><span valign="middle" class="green">getList</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#getTopic" class="green" ><span valign="middle" class="green">getTopic</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#invite" class="green" ><span valign="middle" class="green">invite</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#join" class="green" ><span valign="middle" class="green">join</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#kick" class="green" ><span valign="middle" class="green">kick</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#message" class="green" ><span valign="middle" class="green">message</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#mode" class="green" ><span valign="middle" class="green">mode</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#names" class="green" ><span valign="middle" class="green">names</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#op" class="green" ><span valign="middle" class="green">op</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#part" class="green" ><span valign="middle" class="green">part</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#quit" class="green" ><span valign="middle" class="green">quit</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#setTopic" class="green" ><span valign="middle" class="green">setTopic</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#unban" class="green" ><span valign="middle" class="green">unban</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#voice" class="green" ><span valign="middle" class="green">voice</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#who" class="green" ><span valign="middle" class="green">who</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#whois" class="green" ><span valign="middle" class="green">whois</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/L.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#whowas" class="green" ><span valign="middle" class="green">whowas</span></a><br>
+<img src="../media/images/L.png" border="0" align="top"><img src="../media/images/Vars.gif" border="0" align="top">&nbsp;<span valign="middle" class="green">Properties</span><br>
+
+</noscript>
+     </td>
+    </tr>
+   </table>
+  </td>
+  <td bgcolor="#cccccc" width="2" background="../media/images/checkerboard.gif"><img src="../media/images/spacer.gif" width="2" height="1" border="0" alt=""  /><br /></td>
+  <td>
+   <table width="100%" cellpadding="10" cellspacing="0">
+    <tr>
+     <td valign="top">
+
+
+
+
+<table width="100%" border="0">
+<tr><td valign="top">
+
+<a href="#class_details"><span class="title">Class Net_SmartIRC_irccommands</span></a>
+<pre><a href="../Net_SmartIRC/Net_SmartIRC_base.html">Net_SmartIRC_base</a>
+   |
+   --Net_SmartIRC_irccommands</pre><br />
+<div class="description">$Id: Net_SmartIRC_irccommands.html 135710 2003-07-23 18:08:55Z meebey $</div><br /><br />
+<ul>
+                  	  <li><b>Author: </b> - Mirco 'meebey' Bauer &lt;<a href="mailto:mail@meebey.net">mailto:mail@meebey.net</a>&gt;</li>
+      
+
+                      
+  <li><b>Package:</b> - Net_SmartIRC</li>
+
+  <li><b>Version:</b> - 0.5.5</li>
+
+</ul>
+
+</td>
+</tr></table>
+
+<hr />
+<span class="title">Child classes:</span><br>
+<div class="tags">
+<dl>
+<dt><img src="../media/images/Class.gif" border="0" /> <a href="../Net_SmartIRC/Net_SmartIRC_messagehandler.html">Net_SmartIRC_messagehandler</a></dt>
+	<dd>$Id: Net_SmartIRC_irccommands.html 135710 2003-07-23 18:08:55Z meebey $</dd>
+</dl>
+</div>
+
+<hr />
+<span class="title">Inherited Variables</span><br>
+<div class="tags">
+<br>
+<span style="color: #006600">Class: <a href="../Net_SmartIRC/Net_SmartIRC_base.html">Net_SmartIRC_base</a></span><br><br>
+  <img src="../media/images/PublicProperty.gif" border="0" />
+  <span style="color: #006600"><a href="../Net_SmartIRC/Net_SmartIRC_base.html#$channel">Net_SmartIRC_base::$channel</a></span>
+  <br>
+  <img src="../media/images/PublicProperty.gif" border="0" />
+  <span style="color: #006600"><a href="../Net_SmartIRC/Net_SmartIRC_base.html#$nreplycodes">Net_SmartIRC_base::$nreplycodes</a></span>
+  <br>
+  <img src="../media/images/PublicProperty.gif" border="0" />
+  <span style="color: #006600"><a href="../Net_SmartIRC/Net_SmartIRC_base.html#$replycodes">Net_SmartIRC_base::$replycodes</a></span>
+  <br>
+</div>
+
+<hr />
+<span class="title">Inherited Methods</span>
+<div class="tags">
+<br>
+<span style="color: #006600">Class: <a href="../Net_SmartIRC/Net_SmartIRC_base.html">Net_SmartIRC_base</a></span><bR><br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">connect</span>
+    	 - 
+	 Creates the sockets and connects to the IRC server on the given port.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">disconnect</span>
+    	 - 
+	 Disconnects from the IRC server nicely with a QUIT or just destroys the socket.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">getMotd</span>
+    	 - 
+	 Returns the full motd.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">getUsermode</span>
+    	 - 
+	 Returns the usermode.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">isBanned</span>
+    	 - 
+	 Checks if the hostmask is on the specified channel banned and returns the result.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">isError</span>
+    	<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">isJoined</span>
+    	 - 
+	 checks if we or the given user is joined to the specified channel and returns the result  ChannelSyncing is required for this.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">isOpped</span>
+    	 - 
+	 Checks if we or the given user is opped on the specified channel and returns the result.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">isVoiced</span>
+    	 - 
+	 Checks if we or the given user is voiced on the specified channel and returns the result.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">listen</span>
+    	 - 
+	 goes into receive mode
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">listenFor</span>
+    	 - 
+	 waits for a special message type and puts the answer in $result
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">log</span>
+    	 - 
+	 Adds an entry to the log.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">login</span>
+    	 - 
+	 login and register nickname on the IRC network
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">Net_SmartIRC</span>
+    	 - 
+	 Constructor. Initiales the messagebuffer and "links" the replycodes from  global into properties. Also some PHP runtime settings are configured.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">reconnect</span>
+    	 - 
+	 Reconnects to the IRC server with the same login info,  it also rejoins the channels
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">registerActionhandler</span>
+    	 - 
+	 registers a new actionhandler and returns the assigned id
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">registerTimehandler</span>
+    	 - 
+	 registers a timehandler and returns the assigned id
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">setAutoReconnect</span>
+    	 - 
+	 Enables/disables autoreconnecting.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">setAutoRetry</span>
+    	 - 
+	 Enables/disables autoretry for connecting to a server.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">setBenchmark</span>
+    	 - 
+	 Enables/disables the benchmark engine.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">setChannelSynching</span>
+    	 - 
+	 Deprecated, use setChannelSyncing() instead!
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">setChannelSyncing</span>
+    	 - 
+	 Enables/disables channel syncing.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">setCtcpVersion</span>
+    	 - 
+	 Sets the CTCP version reply string.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">setDebug</span>
+    	 - 
+	 Sets the level of debug messages.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">setDisconnecttime</span>
+    	 - 
+	 Sets the delaytime before closing the socket when disconnect.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">setLogdestination</span>
+    	 - 
+	 Sets the destination of all log messages.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">setLogfile</span>
+    	 - 
+	 Sets the file for the log if the destination is set to file.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">setReceivedelay</span>
+    	 - 
+	 Sets the delay for receiving data from the IRC server.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">setReceiveTimeout</span>
+    	 - 
+	 Sets the receive timeout.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">setSenddelay</span>
+    	 - 
+	 Sets the delay for sending data to the IRC server.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">setTransmitTimeout</span>
+    	 - 
+	 Sets the transmit timeout.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">setUseSockets</span>
+    	 - 
+	 Enables/disables the usage of real sockets.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">showBenchmark</span>
+    	 - 
+	 Shows the benchmark result.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">startBenchmark</span>
+    	 - 
+	 Starts the benchmark (sets the counters).
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">stopBenchmark</span>
+    	 - 
+	 Stops the benchmark and displays the result.
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">throwError</span>
+    	<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">unregisterActionhandler</span>
+    	 - 
+	 unregisters an existing actionhandler
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">unregisterActionid</span>
+    	 - 
+	 unregisters an existing actionhandler via the id
+		<br>
+      <img src="../media/images/PublicMethod.gif" border="0" />
+    <span style="color: #006600">unregisterTimeid</span>
+    	 - 
+	 unregisters an existing timehandler via the id
+		<br>
+  </div>
+
+
+<hr />
+<a name="class_methods"></a>
+<h3>Class Methods</h3>
+<div class="tags">
+	<a name="ban"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">ban</strong> (line <span class="linenumber">323</span>)
+<br> 
+<i>void</i> <strong>ban ( $channel, [$hostmask = null], [$priority = SMARTIRC_MEDIUM] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$channel</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$hostmask</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$priority</b>&nbsp;&nbsp;</td>
+	        <td>message priority, default is SMARTIRC_MEDIUM</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>bans a hostmask for the given channel or requests the current banlist
+<br /><br /><p>The banlist will be requested if no hostmask is specified</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="changeNick"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">changeNick</strong> (line <span class="linenumber">370</span>)
+<br> 
+<i>void</i> <strong>changeNick ( $newnick, [$priority = SMARTIRC_MEDIUM] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$newnick</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$priority</b>&nbsp;&nbsp;</td>
+	        <td>message priority, default is SMARTIRC_MEDIUM</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>changes the own nickname
+<br /><br /><p>Trys to set a new nickname, nickcollisions are handled.</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="channel"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">channel</strong> (line <span class="linenumber">77</span>)
+<br> 
+<i>object</i> <strong>&channel ( $channelname )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$channelname</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>returns an object reference to the specified channel
+<br /><br /><p>If the channel does not exist (because not joint) false will be returned.</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Return:</b>&nbsp;-&nbsp;reference to the channel object</li>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="deop"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">deop</strong> (line <span class="linenumber">279</span>)
+<br> 
+<i>void</i> <strong>deop ( $channel, $nickname, [$priority = SMARTIRC_MEDIUM] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$channel</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$nickname</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$priority</b>&nbsp;&nbsp;</td>
+	        <td>message priority, default is SMARTIRC_MEDIUM</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>deops an user in the given channel
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="devoice"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">devoice</strong> (line <span class="linenumber">307</span>)
+<br> 
+<i>void</i> <strong>devoice ( $channel, $nickname, [$priority = SMARTIRC_MEDIUM] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$channel</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$nickname</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$priority</b>&nbsp;&nbsp;</td>
+	        <td>message priority, default is SMARTIRC_MEDIUM</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>devoice a user in the given channel
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="getList"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">getList</strong> (line <span class="linenumber">171</span>)
+<br> 
+<i>void</i> <strong>getList ( [$channelarray = null], [$priority = SMARTIRC_MEDIUM] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">mixed&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$channelarray</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$priority</b>&nbsp;&nbsp;</td>
+	        <td>message priority, default is SMARTIRC_MEDIUM</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>gets a list of one ore more channels
+<br /><br /><p>Requests a full channellist if $channelarray is not given.  (use it with care, usualy its a looooong list)</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="getTopic"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">getTopic</strong> (line <span class="linenumber">231</span>)
+<br> 
+<i>void</i> <strong>getTopic ( $channel, [$priority = SMARTIRC_MEDIUM] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$channel</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$priority</b>&nbsp;&nbsp;</td>
+	        <td>message priority, default is SMARTIRC_MEDIUM</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>gets the topic of a channel
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="invite"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">invite</strong> (line <span class="linenumber">355</span>)
+<br> 
+<i>void</i> <strong>invite ( $nickname, $channel, [$priority = SMARTIRC_MEDIUM] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$nickname</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$channel</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$priority</b>&nbsp;&nbsp;</td>
+	        <td>message priority, default is SMARTIRC_MEDIUM</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>invites a user to the specified channel
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="join"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">join</strong> (line <span class="linenumber">96</span>)
+<br> 
+<i>void</i> <strong>join ( $channelarray, [$key = null], [$priority = SMARTIRC_MEDIUM] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">mixed&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$channelarray</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$key</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$priority</b>&nbsp;&nbsp;</td>
+	        <td>message priority, default is SMARTIRC_MEDIUM</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>Joins one or more IRC channels with an optional key.
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="kick"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">kick</strong> (line <span class="linenumber">145</span>)
+<br> 
+<i>void</i> <strong>kick ( $channel, $nicknamearray, [$reason = null], [$priority = SMARTIRC_MEDIUM] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$channel</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">mixed&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$nicknamearray</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$reason</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$priority</b>&nbsp;&nbsp;</td>
+	        <td>message priority, default is SMARTIRC_MEDIUM</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>Kicks one or more user from an IRC channel with an optional reason.
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="message"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">message</strong> (line <span class="linenumber">41</span>)
+<br> 
+<i>boolean</i> <strong>message ( $type, $destination, $message, [$priority = SMARTIRC_MEDIUM] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$type</b>&nbsp;&nbsp;</td>
+	        <td>specifies the type, like QUERY/ACTION or CTCP see 'Message Types'</td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$destination</b>&nbsp;&nbsp;</td>
+	        <td>can be a user or channel</td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$message</b>&nbsp;&nbsp;</td>
+	        <td>the message</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>sends a new message
+<br /><br /><p>Sends a message to a channel or user.</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+    <li><b>See:</b>&nbsp;-&nbsp;DOCUMENTATION</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="mode"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">mode</strong> (line <span class="linenumber">247</span>)
+<br> 
+<i>void</i> <strong>mode ( $target, [$newmode = null], [$priority = SMARTIRC_MEDIUM] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$target</b>&nbsp;&nbsp;</td>
+	        <td>the target, can be an user (only yourself) or a channel</td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$newmode</b>&nbsp;&nbsp;</td>
+	        <td>the new mode like +mt</td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$priority</b>&nbsp;&nbsp;</td>
+	        <td>message priority, default is SMARTIRC_MEDIUM</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>sets or gets the mode of an user or channel
+<br /><br /><p>Changes/requests the mode of the given target.</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="names"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">names</strong> (line <span class="linenumber">195</span>)
+<br> 
+<i>void</i> <strong>names ( [$channelarray = null], [$priority = SMARTIRC_MEDIUM] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">mixed&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$channelarray</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$priority</b>&nbsp;&nbsp;</td>
+	        <td>message priority, default is SMARTIRC_MEDIUM</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>requests all nicknames of one or more channels
+<br /><br /><p>The requested nickname list also includes op and voice state</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="op"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">op</strong> (line <span class="linenumber">265</span>)
+<br> 
+<i>void</i> <strong>op ( $channel, $nickname, [$priority = SMARTIRC_MEDIUM] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$channel</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$nickname</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$priority</b>&nbsp;&nbsp;</td>
+	        <td>message priority, default is SMARTIRC_MEDIUM</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>ops an user in the given channel
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="part"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">part</strong> (line <span class="linenumber">120</span>)
+<br> 
+<i>void</i> <strong>part ( $channelarray, [$reason = null], [$priority = SMARTIRC_MEDIUM] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">mixed&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$channelarray</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$reason</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$priority</b>&nbsp;&nbsp;</td>
+	        <td>message priority, default is SMARTIRC_MEDIUM</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>parts from one or more IRC channels with an optional reason
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="quit"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">quit</strong> (line <span class="linenumber">423</span>)
+<br> 
+<i>void</i> <strong>quit ( [$quitmessage = null], [$priority = SMARTIRC_MEDIUM] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$quitmessage</b>&nbsp;&nbsp;</td>
+	        <td>optional quitmessage</td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$priority</b>&nbsp;&nbsp;</td>
+	        <td>message priority, default is SMARTIRC_MEDIUM</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>sends QUIT to IRC server and disconnects
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="setTopic"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">setTopic</strong> (line <span class="linenumber">218</span>)
+<br> 
+<i>void</i> <strong>setTopic ( $channel, $newtopic, [$priority = SMARTIRC_MEDIUM] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$channel</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$newtopic</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$priority</b>&nbsp;&nbsp;</td>
+	        <td>message priority, default is SMARTIRC_MEDIUM</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>sets a new topic of a channel
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="unban"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">unban</strong> (line <span class="linenumber">341</span>)
+<br> 
+<i>void</i> <strong>unban ( $channel, $hostmask, [$priority = SMARTIRC_MEDIUM] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$channel</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$hostmask</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$priority</b>&nbsp;&nbsp;</td>
+	        <td>message priority, default is SMARTIRC_MEDIUM</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>unbans a hostmask on the given channel
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="voice"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">voice</strong> (line <span class="linenumber">293</span>)
+<br> 
+<i>void</i> <strong>voice ( $channel, $nickname, [$priority = SMARTIRC_MEDIUM] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$channel</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$nickname</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$priority</b>&nbsp;&nbsp;</td>
+	        <td>message priority, default is SMARTIRC_MEDIUM</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>voice a user in the given channel
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="who"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">who</strong> (line <span class="linenumber">383</span>)
+<br> 
+<i>void</i> <strong>who ( $target, [$priority = SMARTIRC_MEDIUM] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$target</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$priority</b>&nbsp;&nbsp;</td>
+	        <td>message priority, default is SMARTIRC_MEDIUM</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>requests a 'WHO' from the specified target
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="whois"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">whois</strong> (line <span class="linenumber">396</span>)
+<br> 
+<i>void</i> <strong>whois ( $target, [$priority = SMARTIRC_MEDIUM] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$target</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$priority</b>&nbsp;&nbsp;</td>
+	        <td>message priority, default is SMARTIRC_MEDIUM</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>requests a 'WHOIS' from the specified target
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="whowas"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">whowas</strong> (line <span class="linenumber">410</span>)
+<br> 
+<i>void</i> <strong>whowas ( $target, [$priority = SMARTIRC_MEDIUM] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$target</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$priority</b>&nbsp;&nbsp;</td>
+	        <td>message priority, default is SMARTIRC_MEDIUM</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>requests a 'WHOWAS' from the specified target  (if he left the IRC network)
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+</div><br />
+
+        <div class="credit">
+		    <hr />
+		    Documentation generated on Wed, 23 Jul 2003 19:59:09 +0200 by <a href="http://www.phpdoc.org" class="green">phpDocumentor 1.2.0beta1c</a><br>
+			HTML layout done by <a href="http://pear.php.net/wishlist.php/dickmann" class="green">Christian Dickmann</a> and originally
+		    <i>inspired by </i><a href="http://www.phpedit.com" class="green">PHPEdit</a><br>
+			
+			
+			
+	      </div>
+</td>
+    </tr>
+   </table>
+  </td>
+
+ </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,388 @@
+a {
+    color:#000000; 
+    text-decoration: none;
+}
+a:visited {
+    color:#000000; 
+    text-decoration: none;
+}
+a:active {
+    color:#000000; 
+    text-decoration: none;
+}
+a:hover {
+    color:#000000; 
+    text-decoration: underline;
+}
+
+a.green {
+    color:#006600; 
+    text-decoration: none;
+}
+a.green:visited {
+    color:#006600; 
+    text-decoration: none;
+}
+a.green:active {
+    color:#006600; 
+    text-decoration: none;
+}
+a.green:hover {
+    color:#006600; 
+    text-decoration: underline;
+}
+
+a.upperright {
+    font-size: 11px;
+    color:#000000; 
+	font-weight: bold;
+    text-decoration: none;
+}
+a.upperright:visited {
+    font-size: 11px;
+    color:#000000; 
+	font-weight: bold;
+    text-decoration: none;
+}
+a.upperright:active {
+    font-size: 11px;
+    color:#000000; 
+	font-weight: bold;
+    text-decoration: none;
+}
+a.upperright:hover {
+    font-size: 11px;
+    color:#000000; 
+	font-weight: bold;
+    text-decoration: none;
+}
+
+.upperright {
+    font-size: 11px;
+    color:#000000; 
+	font-weight: bold;
+}
+
+a.menu {
+    color:#ffffff; 
+    text-decoration: none;
+}
+a.menu:visited {
+    color:#ffffff; 
+    text-decoration: none;
+}
+a.menu:active {
+    color:#ffffff; 
+    text-decoration: none;
+}
+a.menu:hover {
+    color:#ffffff; 
+    text-decoration: underline;
+}
+
+body {
+    font-family: verdana,arial,helvetica,sans-serif;
+    font-size: 10pt;
+  margin:             0;
+  padding:            0;
+  background-color:   #ffffff;
+  color:              #000000;
+}
+
+td, th {
+    font-family: verdana,arial,helvetica,sans-serif;
+    font-size: 10pt;
+}
+
+p {
+    font-family: verdana,arial,helvetica,sans-serif;
+}
+
+.menu {
+	font-size: 8pt;
+	color: #ffffff;
+}
+
+ul li { 
+	margin: 0.2em 0em 0.2em 0em; padding: 0em; 
+	list-style-position: outside; 
+	list-style-type: square; 
+	font-size: 8pt;
+}
+span.li { 
+	color: #000000; 
+}
+ul { 
+	/* color: #014fbe; */
+	color: #006600;
+	margin: 3px 0em 3px 16px; 
+}
+
+
+th.pack {
+    color: #FFFFFF;
+    background: #009933;
+    text-align: right;
+}
+
+td.package_info_title {
+    color: #006600;
+    font-weight: bold;
+}    
+
+th.others {
+    color: #006600;
+    text-align: left;
+}
+
+em {
+    font-weight: bold;
+    font-style: italic;
+}
+
+span.green {
+    color: #006600;
+}
+
+span.headline {
+    font-family: verdana,arial,helvetica,sans-serif;
+    font-size: 125%;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+span.title {
+    font-family: verdana,arial,helvetica,sans-serif;
+    font-size: 110%;
+    font-weight: bold;
+    color: #006600;
+}
+
+.newsDate {
+    font-size: 85%;
+    font-style: italic;
+    color: #66cc66;
+}
+
+.compact {
+    font-family: arial, helvetica, sans-serif;
+    font-size: 90%;
+}
+
+.menuWhite {
+    font-family: verdana,arial,helvetica,sans-serif;
+    font-size: 75%;
+    color: #ffffff;
+}
+.menuBlack {
+    font-family: verdana,arial,helvetica,sans-serif;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 75%;
+    color: #000000;
+}
+
+.sidebar {
+    font-size: 85%;
+}
+
+code, pre, tt {
+    font-family: Courier, "Courier New", monospace;
+    font-size: 90%;
+}
+
+pre.php {
+    border-color:       black;
+    border-style:       dashed;
+    border-width:       1px;
+    background-color:   #eeeeee;
+    padding:            5px;
+}
+
+h1 {
+    font-family: verdana,arial,helvetica,sans-serif;
+    font-size: 140%;
+    font-weight: bold;
+    color: #006600;
+}
+
+h2 {
+    font-family: verdana,arial,helvetica,sans-serif;
+    font-size: 125%;
+    font-weight: bold;
+    color: #006600;
+}
+
+h3 {
+    font-family: verdana,arial,helvetica,sans-serif;
+    font-size: 110%;
+    font-weight: bold;
+    color: #006600;
+}
+
+small {
+    font-family: verdana,arial,helvetica,sans-serif;
+    font-size: 75%;
+}
+
+a.small {
+    font-family: verdana,arial,helvetica,sans-serif;
+    font-size: 75%;
+    text-decoration: none;
+}
+
+.tableTitle {
+    font-family: verdana,arial,helvetica,sans-serif;
+    font-weight: bold;
+}
+
+.tableExtras {
+    font-family: verdana,arial,helvetica,sans-serif;
+    font-size: 85%;
+    color: #FFFFFF;
+}
+
+input {
+    font-family: verdana,arial,helvetica,sans-serif;
+}
+
+textarea {
+    font-family: verdana,arial,helvetica,sans-serif;
+}
+
+input.small, select.small {
+    font-family: verdana,arial,helvetica,sans-serif;
+    font-size: 75%;
+}
+
+textarea.small {
+    font-family: verdana,arial,helvetica,sans-serif;
+    font-size: 75%;
+}
+
+form {
+    margin-bottom : 0;
+}
+
+a
+{
+  color:              #006600;
+  background-color:   transparent;
+  text-decoration:    none;
+}
+
+a:hover
+{
+  text-decoration:    underline;
+}
+
+a.menu
+{
+  color:              #ffffff;
+  background-color:   transparent;
+}
+
+td
+{
+  font-size:          10pt;
+}
+
+td.header_top
+{
+  color:              #ffffff;
+  background-color:   #9999cc;
+  font-size:          16pt;
+  font-weight:        bold;
+  text-align:         right;
+  padding:            10px;
+}
+
+td.header_line
+{
+  color:              #ffffff;
+  background-color:   #333366;
+}
+
+td.header_menu
+{
+  color:              #ffffff;
+  background-color:   #666699;
+  font-size:          8pt;
+  text-align:         right;
+  padding:            2px;
+  padding-right:      5px;
+}
+
+td.menu
+{
+  padding:            2px;
+  padding-left:       5px;
+}
+
+td.code_border
+{
+  color:              #000000;
+  background-color:   #c0c0c0;
+}
+
+td.code
+{
+  color:              #000000;
+  background-color:   #f0f0f0;
+}
+
+.type
+{
+  font-style:         italic;
+}
+
+div.credit
+{
+  font-size:          8pt;
+  text-align:         center;
+}
+
+div.package
+{
+  padding-left:       5px;
+}
+
+div.tags
+{
+  padding-left:       15px;
+}
+
+div.function
+{
+  padding-left:       15px;
+}
+
+div.top
+{
+  font-size:          8pt;
+}
+
+div.warning
+{
+  color:              #ff0000;
+  background-color:   transparent;
+}
+
+div.description
+{
+  padding-left:       15px;
+}
+
+hr
+{
+  height:             1px;
+  border-style:       solid;
+  border-color:       #c0c0c0;
+  margin-top:         10px;
+  margin-bottom:      10px;
+}
+
+span.smalllinenumber
+{
+  font-size:          8pt;
+}

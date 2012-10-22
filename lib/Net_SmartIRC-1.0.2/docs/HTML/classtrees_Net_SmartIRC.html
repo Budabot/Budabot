@@ -1,0 +1,435 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+ <title>PEAR API Documentation :: Net_SmartIRC</title>
+ <link rel="stylesheet" href="media/style.css" />
+  <script language="javascript" type="text/javascript">
+    var subdir = "";
+  </script>
+  <script src="media/lib/classTree.js"></script>
+  <link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="media/lib/tab.webfx.css" />
+  <script type="text/javascript" src="media/lib/tabpane.js"></script>
+  <meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+  <script language="javascript" type="text/javascript" src="media/TreeMenu.js"></script>
+  <script language="javascript" type="text/javascript" src="media/lib/ua.js"></script>
+  <script language="javascript" type="text/javascript">
+	var imgPlus = new Image();
+	var imgMinus = new Image();
+	imgPlus.src = "media/images/plus.gif";
+	imgMinus.src = "media/images/minus.gif";
+
+	
+	function showNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgMinus.src;
+		oTable.style.display = "block";
+	}
+	
+	function hideNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgPlus.src;
+		oTable.style.display = "none";
+	}
+	
+	function nodeIsVisible(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+        		break;
+        }
+		return (oTable && oTable.style.display == "block");
+	}
+	
+	function toggleNodeVisibility(Node){
+		if (nodeIsVisible(Node)){
+			hideNode(Node);
+		}else{
+			showNode(Node);
+		}
+	}
+</script>
+</head>
+
+<body   topmargin="0" leftmargin="0"
+	    marginheight="0" marginwidth="0"
+        bgcolor="#ffffff"
+        text="#000000"
+        link="#006600"
+        alink="#cccc00"
+        vlink="#003300"
+>
+<a name="TOP" /></a>
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr bgcolor="#339900">
+    <td align="left" width="120">
+      <a href="http://pear.php.net">
+	    <img src="media/images/pearlogo.gif" width="104" height="50" vspace="2" hspace="5" alt="PEAR" border="0">
+ 	  </a>
+    </td>
+    <td align="left" valign="middle" width="20">
+      &nbsp;
+    </td>
+    <td align="left" valign="middle">
+      <span class="Headline">PEAR API Documentation :: Net_SmartIRC</span>
+    </td>
+    <td align="right" valign="bottom" class="upperright">
+      <a href="http://pear.php.net/package-info.php?package=Net_SmartIRC" class="upperright">Package Homepage</a>&nbsp;|&nbsp;
+      <a href="http://pear.php.net/package-info.php?package=Net_SmartIRC" class="upperright">Download ApiDoc</a>
+	  &nbsp;<br>
+    </td>
+  </tr>
+
+  <tr bgcolor="#003300"><td colspan="4"></td></tr>
+
+  <tr bgcolor="#006600">
+    <td align="right" valign="top" colspan="4" class="menu">
+  		  [ <a href="classtrees_Net_SmartIRC.html" class="menu">class tree: Net_SmartIRC</a> ]
+		  [ <a href="elementindex_Net_SmartIRC.html" class="menu">index: Net_SmartIRC</a> ]
+		  [ <a href="elementindex.html" class="menu">all elements</a> ]
+        &nbsp;<br />
+    </td>
+  </tr>
+
+  <tr bgcolor="#003300"><td colspan="4"></td></tr>
+</table>
+<table cellpadding="0" cellspacing="0" width="100%">
+ <tr valign="top">
+  <td bgcolor="#f0f0f0" width="100">
+   <table width="280" border="0" cellpadding="4" cellspacing="0">
+    <tr valign="top">
+     <td style="font-size: 90%" align="left" width="280">
+	<div id="ric">
+					<a href="ric_CHANGELOG.html">CHANGELOG</a><br />
+					<a href="ric_README.html">README</a><br />
+			</div>
+	<br>
+      <span class="green"><b>Packages:</b></span><br />
+	  <ul>
+              <li><a href="li_Net_SmartIRC.html">Net_SmartIRC</a></li>
+      	  </ul>
+      <br /><br />
+
+<div class="menu">
+<script language="Javascript">
+if (document.getElementById) {
+  var tree = new WebFXTree('Package : Net_SmartIRC', 'li_Net_SmartIRC.html');
+  tree.setBehavior('classic');
+  tree.openIcon = 'media/images/Disk.gif';
+  tree.icon = 'media/images/Disk.gif';
+    var elements = new WebFXTreeItem('Index of elements', 'elementindex_Net_SmartIRC.html');
+    elements.openIcon = 'media/images/file.png';
+    elements.icon = 'media/images/file.png';
+	tree.add(elements);
+
+    var tree_function = new WebFXTreeItem('Function(s)', '');
+    tree_function.openIcon = 'media/images/Functions.gif';
+    tree_function.icon = 'media/images/Functions.gif';
+    	tree.add(tree_function);
+	
+	var iconClassFolder = 'media/images/classFolder.gif';
+	var iconClass = 'media/images/Class.gif';
+	var iconFunctionFolder = 'media/images/Functions.gif';
+	var iconFunction = 'media/images/PublicMethod.gif';
+	var iconFileFolderOpen = 'media/images/FolderOpened.gif';
+	var iconFileFolderClosed = 'media/images/foldericon.png';
+	var iconFile = 'media/images/file.png';
+
+	var subpackagetree_classe = new WebFXTreeItem('Class(es)', 'classtrees_Net_SmartIRC.html');
+	subpackagetree_classe.openIcon = iconClassFolder;;
+	subpackagetree_classe.icon = iconClassFolder;
+					  var classe = new WebFXTreeItem('mybot', 'Net_SmartIRC/mybot.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC', 'Net_SmartIRC/Net_SmartIRC.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_actionhandler', 'Net_SmartIRC/Net_SmartIRC_actionhandler.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_base', 'Net_SmartIRC/Net_SmartIRC_base.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_channel', 'Net_SmartIRC/Net_SmartIRC_channel.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_channeluser', 'Net_SmartIRC/Net_SmartIRC_channeluser.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_data', 'Net_SmartIRC/Net_SmartIRC_data.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_Error', 'Net_SmartIRC/Net_SmartIRC_Error.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_irccommands', 'Net_SmartIRC/Net_SmartIRC_irccommands.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_ircuser', 'Net_SmartIRC/Net_SmartIRC_ircuser.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_listenfor', 'Net_SmartIRC/Net_SmartIRC_listenfor.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_messagehandler', 'Net_SmartIRC/Net_SmartIRC_messagehandler.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_timehandler', 'Net_SmartIRC/Net_SmartIRC_timehandler.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_user', 'Net_SmartIRC/Net_SmartIRC_user.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				tree.add(subpackagetree_classe);
+
+	var subpackagetree_classe = new WebFXTreeItem('File(s)', '');
+	subpackagetree_classe.openIcon = iconFileFolderOpen;
+	subpackagetree_classe.icon = iconFileFolderClosed;
+					  var classe = new WebFXTreeItem('defines.php', 'Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example.php', 'Net_SmartIRC/_SmartIRC-0.5.5_examples_example_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example2.php', 'Net_SmartIRC/_SmartIRC-0.5.5_examples_example2_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example3.php', 'Net_SmartIRC/_SmartIRC-0.5.5_examples_example3_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example4.php', 'Net_SmartIRC/_SmartIRC-0.5.5_examples_example4_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example5.php', 'Net_SmartIRC/_SmartIRC-0.5.5_examples_example5_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example6.php', 'Net_SmartIRC/_SmartIRC-0.5.5_examples_example6_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example7.php', 'Net_SmartIRC/_SmartIRC-0.5.5_examples_example7_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('irccommands.php', 'Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_irccommands_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('messagehandler.php', 'Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_messagehandler_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('SmartIRC.php', 'Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				tree.add(subpackagetree_classe);
+
+  document.write(tree);
+  
+  
+  
+}
+</script>
+</div>
+<noscript>
+<img src="media/images/Disk.gif" border="0" align="top">&nbsp;<a href="li_Net_SmartIRC.html" class="green" ><span valign="middle" class="green">Package: Net_SmartIRC</span></a><br>
+<img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="elementindex_Net_SmartIRC.html" class="green" ><span valign="middle" class="green">Index of elements</span></a><br>
+<img src="media/images/T.png" border="0" align="top"><img src="media/images/Functions.gif" border="0" align="top">&nbsp;<span valign="middle" class="green">Function(s)</span><br>
+<img src="media/images/Tminus.png" border="0" align="top"><img src="media/images/classFolder.gif" border="0" align="top">&nbsp;<a href="classtrees_Net_SmartIRC.html" class="green" ><span valign="middle" class="green">Class(es)</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/mybot.html" class="green" ><span valign="middle" class="green">mybot</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC.html" class="green" ><span valign="middle" class="green">Net_SmartIRC</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC_actionhandler.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_actionhandler</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC_base.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_base</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC_channel.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_channel</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC_channeluser.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_channeluser</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC_data.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_data</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC_Error.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_Error</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC_irccommands.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_irccommands</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC_ircuser.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_ircuser</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC_listenfor.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_listenfor</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_messagehandler</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC_timehandler.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_timehandler</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/L.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC_user.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_user</span></a><br>
+<img src="media/images/Lminus.png" border="0" align="top"><img src="media/images/FolderOpened.gif" border="0" align="top">&nbsp;<span valign="middle" class="green">File(s)</span><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html" class="green" ><span valign="middle" class="green">defines.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="Net_SmartIRC/_SmartIRC-0.5.5_examples_example_php.html" class="green" ><span valign="middle" class="green">example.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="Net_SmartIRC/_SmartIRC-0.5.5_examples_example2_php.html" class="green" ><span valign="middle" class="green">example2.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="Net_SmartIRC/_SmartIRC-0.5.5_examples_example3_php.html" class="green" ><span valign="middle" class="green">example3.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="Net_SmartIRC/_SmartIRC-0.5.5_examples_example4_php.html" class="green" ><span valign="middle" class="green">example4.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="Net_SmartIRC/_SmartIRC-0.5.5_examples_example5_php.html" class="green" ><span valign="middle" class="green">example5.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="Net_SmartIRC/_SmartIRC-0.5.5_examples_example6_php.html" class="green" ><span valign="middle" class="green">example6.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="Net_SmartIRC/_SmartIRC-0.5.5_examples_example7_php.html" class="green" ><span valign="middle" class="green">example7.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_irccommands_php.html" class="green" ><span valign="middle" class="green">irccommands.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_messagehandler_php.html" class="green" ><span valign="middle" class="green">messagehandler.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/L.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_php.html" class="green" ><span valign="middle" class="green">SmartIRC.php</span></a><br>
+
+</noscript>
+     </td>
+    </tr>
+   </table>
+  </td>
+  <td bgcolor="#cccccc" width="2" background="media/images/checkerboard.gif"><img src="media/images/spacer.gif" width="2" height="1" border="0" alt=""  /><br /></td>
+  <td>
+   <table width="100%" cellpadding="10" cellspacing="0">
+    <tr>
+     <td valign="top">
+
+
+<h1>Class Trees for Package Net_SmartIRC</h1>
+<hr />
+<div class="classtree">Root class mybot</div><br>
+<ul>
+<li><a href="Net_SmartIRC/mybot.html">mybot</a></li></ul>
+
+<hr />
+<div class="classtree">Root class mybot</div><br>
+<ul>
+<li><a href="Net_SmartIRC/mybot.html">mybot</a></li></ul>
+
+<hr />
+<div class="classtree">Root class mybot</div><br>
+<ul>
+<li><a href="Net_SmartIRC/mybot.html">mybot</a></li></ul>
+
+<hr />
+<div class="classtree">Root class mybot</div><br>
+<ul>
+<li><a href="Net_SmartIRC/mybot.html">mybot</a></li></ul>
+
+<hr />
+<div class="classtree">Root class mybot</div><br>
+<ul>
+<li><a href="Net_SmartIRC/mybot.html">mybot</a></li></ul>
+
+<hr />
+<div class="classtree">Root class mybot</div><br>
+<ul>
+<li><a href="Net_SmartIRC/mybot.html">mybot</a></li></ul>
+
+<hr />
+<div class="classtree">Root class Net_SmartIRC_actionhandler</div><br>
+<ul>
+<li><a href="Net_SmartIRC/Net_SmartIRC_actionhandler.html">Net_SmartIRC_actionhandler</a></li></ul>
+
+<hr />
+<div class="classtree">Root class Net_SmartIRC_base</div><br>
+<ul>
+<li><a href="Net_SmartIRC/Net_SmartIRC_base.html">Net_SmartIRC_base</a><ul>
+<li><a href="Net_SmartIRC/Net_SmartIRC_irccommands.html">Net_SmartIRC_irccommands</a><ul>
+<li><a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html">Net_SmartIRC_messagehandler</a><ul>
+<li><a href="Net_SmartIRC/Net_SmartIRC.html">Net_SmartIRC</a></li></ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr />
+<div class="classtree">Root class Net_SmartIRC_channel</div><br>
+<ul>
+<li><a href="Net_SmartIRC/Net_SmartIRC_channel.html">Net_SmartIRC_channel</a></li></ul>
+
+<hr />
+<div class="classtree">Root class Net_SmartIRC_data</div><br>
+<ul>
+<li><a href="Net_SmartIRC/Net_SmartIRC_data.html">Net_SmartIRC_data</a></li></ul>
+
+<hr />
+<div class="classtree">Root class Net_SmartIRC_Error</div><br>
+<ul>
+<li><a href="Net_SmartIRC/Net_SmartIRC_Error.html">Net_SmartIRC_Error</a></li></ul>
+
+<hr />
+<div class="classtree">Root class Net_SmartIRC_listenfor</div><br>
+<ul>
+<li><a href="Net_SmartIRC/Net_SmartIRC_listenfor.html">Net_SmartIRC_listenfor</a></li></ul>
+
+<hr />
+<div class="classtree">Root class Net_SmartIRC_timehandler</div><br>
+<ul>
+<li><a href="Net_SmartIRC/Net_SmartIRC_timehandler.html">Net_SmartIRC_timehandler</a></li></ul>
+
+<hr />
+<div class="classtree">Root class Net_SmartIRC_user</div><br>
+<ul>
+<li><a href="Net_SmartIRC/Net_SmartIRC_user.html">Net_SmartIRC_user</a><ul>
+<li><a href="Net_SmartIRC/Net_SmartIRC_channeluser.html">Net_SmartIRC_channeluser</a></li><li><a href="Net_SmartIRC/Net_SmartIRC_ircuser.html">Net_SmartIRC_ircuser</a></li></ul></li>
+</ul>
+
+        <div class="credit">
+		    <hr />
+		    Documentation generated on Wed, 23 Jul 2003 19:59:08 +0200 by <a href="http://www.phpdoc.org" class="green">phpDocumentor 1.2.0beta1c</a><br>
+			HTML layout done by <a href="http://pear.php.net/wishlist.php/dickmann" class="green">Christian Dickmann</a> and originally
+		    <i>inspired by </i><a href="http://www.phpedit.com" class="green">PHPEdit</a><br>
+			
+			
+			
+	      </div>
+</td>
+    </tr>
+   </table>
+  </td>
+
+ </tr>
+</table>
+</body>
+</html>

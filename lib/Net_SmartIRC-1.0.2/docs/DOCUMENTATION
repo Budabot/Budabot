@@ -1,0 +1,91 @@
+/**
+ * $Id: DOCUMENTATION 135642 2003-07-22 17:52:10Z meebey $
+ * $Revision: 135642 $
+ * $Author: meebey $
+ * $Date: 2003-07-23 03:22:10 +0930 (Wed, 23 Jul 2003) $
+ *
+ * Copyright (c) 2002-2003 Mirco "MEEBEY" Bauer <mail@meebey.net> <http://www.meebey.net>
+ * 
+ * Full LGPL License: <http://www.meebey.net/lgpl.txt>
+ * 
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+API Documention of SmartIRC
+-------------------------------
+
+Contents:
+- Message Types
+- Debug Levels
+
+
+Message Types:
+--------------
+For RegisterActionhandler() and message() you pass a message type.
+The IRC protocol defines different kinds of messages. I don't cover all of them because
+there are just too many of them.
+RegisterActionhandler() uses bitwise constats, eg. SMARTIRC_TYPE_QUERY|SMARTIRC_TYPE_NOTICE would match
+if the message is SMARTIRC_TYPE_QUERY _or_ SMARTIRC_TYPE_NOTICE.
+SmartIRC supports currently the following message types:
+SMARTIRC_TYPE_UNKNOWN
+SMARTIRC_TYPE_CHANNEL
+SMARTIRC_TYPE_QUERY
+SMARTIRC_TYPE_CTCP
+SMARTIRC_TYPE_CTCP_REQUEST
+SMARTIRC_TYPE_CTCP_REPLY
+SMARTIRC_TYPE_NOTICE
+SMARTIRC_TYPE_WHO
+SMARTIRC_TYPE_JOIN
+SMARTIRC_TYPE_INVITE
+SMARTIRC_TYPE_ACTION
+SMARTIRC_TYPE_TOPICCHANGE
+SMARTIRC_TYPE_NICKCHANGE
+SMARTIRC_TYPE_KICK
+SMARTIRC_TYPE_QUIT
+SMARTIRC_TYPE_LOGIN
+SMARTIRC_TYPE_INFO
+SMARTIRC_TYPE_LIST
+SMARTIRC_TYPE_NAME
+SMARTIRC_TYPE_MOTD
+SMARTIRC_TYPE_MODECHANGE
+SMARTIRC_TYPE_PART
+SMARTIRC_TYPE_ERROR
+SMARTIRC_TYPE_BANLIST
+SMARTIRC_TYPE_TOPIC
+SMARTIRC_TYPE_NONRELEVANT
+SMARTIRC_TYPE_WHOIS
+SMARTIRC_TYPE_WHOWAS
+SMARTIRC_TYPE_USERMODE
+SMARTIRC_TYPE_CHANNELMODE
+SMARTIRC_TYPE_CTCP_REQUEST
+SMARTIRC_TYPE_CTCP_REPLY
+
+Debug Levels:
+------------
+Here the list of avialable debug levels, used for the setDebug() setting and log() method:
+SMARTIRC_DEBUG_NONE
+SMARTIRC_DEBUG_NOTICE
+SMARTIRC_DEBUG_CONNECTION
+SMARTIRC_DEBUG_SOCKET
+SMARTIRC_DEBUG_IRCMESSAGES
+SMARTIRC_DEBUG_MESSAGETYPES
+SMARTIRC_DEBUG_ACTIONHANDLER
+SMARTIRC_DEBUG_TIMEHANDLER
+SMARTIRC_DEBUG_MESSAGEHANDLER
+SMARTIRC_DEBUG_CHANNELSYNCHING
+SMARTIRC_DEBUG_MODULES
+SMARTIRC_DEBUG_USERSYNCING
+SMARTIRC_DEBUG_MESSAGEPARSER
+SMARTIRC_DEBUG_ALL

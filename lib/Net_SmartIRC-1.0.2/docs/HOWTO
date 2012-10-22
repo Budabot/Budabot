@@ -1,0 +1,132 @@
+/**
+ * $Id: HOWTO 112185 2003-01-16 23:02:34Z meebey $
+ * $Revision: 112185 $
+ * $Author: meebey $
+ * $Date: 2003-01-17 09:32:34 +1030 (Fri, 17 Jan 2003) $
+ *
+ * Copyright (c) 2002-2003 Mirco "MEEBEY" Bauer <mail@meebey.net> <http://www.meebey.net>
+ * 
+ * Full LGPL License: <http://www.meebey.net/lgpl.txt>
+ * 
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+Mini-HowTo for Net_SmartIRC
+-------------------------------
+
+Contents
+- Write your bot methods
+- Creating an object of Net_SmartIRC
+- Get Net_SmartIRC set up right
+- Register actionhandlers for your bot methods
+- Get things happen
+- Test the bot
+- Smart words
+
+Here is a guide for setting up the Net_SmartIRC and using it for a little IRC bot.
+ie.. You want to create a bot that reacts when the message in a channel is "!test".
+
+Write your bot methods:
+----------------------
+First you have to write your methods that will be executed when the event ("!test") happens.
+The imported thing is that the methods you write have to be methods in a class,
+since PHP doesn't allow references to normal PHP functions, only to objects...
+All methods you write have to have _2_ parameters and use a '&' in front of the variable name.
+With "function yourfunction( &$irc, &$data )" you are on the good side.
+
+The objectname for Net_SmartIRC we use in this howto is $irc
+After your class, you must make a object out of it, so Net_SmartIRC can call later your
+defined methods.
+
+Example:
+class mybot
+{
+    function test_command(&$irc, &$data)
+    {
+        $irc->message(SMARTIRC_TYPE_CHANNEL, '#bots', $data->nick.': no I don't like tests!');
+    }
+}
+
+$mybot = &new mybot();
+
+this will send a channel message to the #bots channel and will tell the guy who said !test, that the bot
+doesn't like tests..
+
+Creating an object of Net_SmartIRC:
+------------------------------------
+If you want to use Net_SmartIRC for your program/script you first have to create a object of the class
+before you can use the methods or the class itself.
+Here is an example:
+include('SmartIRC.php');
+$irc = &new Net_SmartIRC();
+
+now you can call the methods of the class, with $irc->METHODNAME....
+
+Get Net_SmartIRC set up right:
+-------------------------------
+Before you can let the Net_SmartIRC do the IRC handling for you, you first have to tell it which server, username, realname etc..
+if you want to use real sockets instead of fsocks you would do this (highly recommend):
+$irc->setUseSockets(true);
+
+or if you want to get debug messages for testing:
+$irc->setDebug(SMARTIRC_DEBUG_ALL);
+
+for all settings see the DOCUMENTATION file.
+
+Register actionhandlers for your bot methods:
+-----------------------------------------
+You have a !test method but no relation to Net_SmartIRC yet.
+All your bot methods must be registered, or they won't be called, because Net_SmartIRC doesn't
+know them... logical...
+The test_command() method should be called when someone says "!test" in the channels where the bot is.
+Here is an example:
+$irc->registerActionhandler(SMARTIRC_TYPE_CHANNEL, '!test', &$mybot, 'test_command');
+
+This tells Net_SmartIRC to call method called "test_command" from the object $mybot, when
+a message in a channel is "!test"...
+There are also different message types. These you will find in DOCUMENTATION 
+
+Ok now we have everything ready to go!
+
+Get things happening:
+-------------------
+connect to the IRC server and port:
+$irc->connect('irc.server.net', 6667);
+
+login with nickname, realname, usermode, username:
+$irc->login('MyBot', 'MyBotty Bot', 0,'MyBotty');
+
+let the bot join a channel
+$irc->join('#bots');
+
+now wait for the actionhandlers to happen, or idle:
+$irc->listen();
+
+If the function listen() will return because of a return signal, 
+then we should make a clean disconnect from the IRC server.
+$irc->disconnect();
+
+Test the bot:
+-----------
+Spawn the bot with this command "php yourbot.php" (assumes that you have the CGI/CLI version of PHP)
+Now just join the same IRC server that the bot is on and goto #bots
+and say !test
+You should get the "yourNickname: I don't like test" reply from your bot,
+yeah thats it... pretty easy if you wrote some methods...
+
+Smart words:
+-----------
+And don't forget, all people on IRC are humans like you and me, be friendly and respect everyone
+like you want to be respected!

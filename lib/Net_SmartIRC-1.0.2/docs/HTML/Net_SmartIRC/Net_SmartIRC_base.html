@@ -1,0 +1,2010 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+ <title>PEAR API Documentation :: Net_SmartIRC</title>
+ <link rel="stylesheet" href="../media/style.css" />
+  <script language="javascript" type="text/javascript">
+    var subdir = "../";
+  </script>
+  <script src="../media/lib/classTree.js"></script>
+  <link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
+  <script type="text/javascript" src="../media/lib/tabpane.js"></script>
+  <meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+  <script language="javascript" type="text/javascript" src="../media/TreeMenu.js"></script>
+  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
+  <script language="javascript" type="text/javascript">
+	var imgPlus = new Image();
+	var imgMinus = new Image();
+	imgPlus.src = "../media/images/plus.gif";
+	imgMinus.src = "../media/images/minus.gif";
+
+	
+	function showNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgMinus.src;
+		oTable.style.display = "block";
+	}
+	
+	function hideNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgPlus.src;
+		oTable.style.display = "none";
+	}
+	
+	function nodeIsVisible(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+        		break;
+        }
+		return (oTable && oTable.style.display == "block");
+	}
+	
+	function toggleNodeVisibility(Node){
+		if (nodeIsVisible(Node)){
+			hideNode(Node);
+		}else{
+			showNode(Node);
+		}
+	}
+</script>
+</head>
+
+<body   topmargin="0" leftmargin="0"
+	    marginheight="0" marginwidth="0"
+        bgcolor="#ffffff"
+        text="#000000"
+        link="#006600"
+        alink="#cccc00"
+        vlink="#003300"
+>
+<a name="TOP" /></a>
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr bgcolor="#339900">
+    <td align="left" width="120">
+      <a href="http://pear.php.net">
+	    <img src="../media/images/pearlogo.gif" width="104" height="50" vspace="2" hspace="5" alt="PEAR" border="0">
+ 	  </a>
+    </td>
+    <td align="left" valign="middle" width="20">
+      &nbsp;
+    </td>
+    <td align="left" valign="middle">
+      <span class="Headline">PEAR API Documentation :: Net_SmartIRC</span>
+    </td>
+    <td align="right" valign="bottom" class="upperright">
+      <a href="http://pear.php.net/package-info.php?package=Net_SmartIRC" class="upperright">Package Homepage</a>&nbsp;|&nbsp;
+      <a href="http://pear.php.net/package-info.php?package=Net_SmartIRC" class="upperright">Download ApiDoc</a>
+	  &nbsp;<br>
+    </td>
+  </tr>
+
+  <tr bgcolor="#003300"><td colspan="4"></td></tr>
+
+  <tr bgcolor="#006600">
+    <td align="right" valign="top" colspan="4" class="menu">
+  		  [ <a href="../classtrees_Net_SmartIRC.html" class="menu">class tree: Net_SmartIRC</a> ]
+		  [ <a href="../elementindex_Net_SmartIRC.html" class="menu">index: Net_SmartIRC</a> ]
+		  [ <a href="../elementindex.html" class="menu">all elements</a> ]
+        &nbsp;<br />
+    </td>
+  </tr>
+
+  <tr bgcolor="#003300"><td colspan="4"></td></tr>
+</table>
+<table cellpadding="0" cellspacing="0" width="100%">
+ <tr valign="top">
+  <td bgcolor="#f0f0f0" width="100">
+   <table width="280" border="0" cellpadding="4" cellspacing="0">
+    <tr valign="top">
+     <td style="font-size: 90%" align="left" width="280">
+	<div id="ric">
+					<a href="../ric_CHANGELOG.html">CHANGELOG</a><br />
+					<a href="../ric_README.html">README</a><br />
+			</div>
+	<br>
+      <span class="green"><b>Packages:</b></span><br />
+	  <ul>
+              <li><a href="../li_Net_SmartIRC.html">Net_SmartIRC</a></li>
+      	  </ul>
+      <br /><br />
+
+<div class="menu">
+<script language="Javascript">
+if (document.getElementById) {
+  var tree = new WebFXTree('Package : Net_SmartIRC', '../li_Net_SmartIRC.html');
+  tree.setBehavior('classic');
+  tree.openIcon = '../media/images/Disk.gif';
+  tree.icon = '../media/images/Disk.gif';
+    var elements = new WebFXTreeItem('Index of elements', '../elementindex_Net_SmartIRC.html');
+    elements.openIcon = '../media/images/file.png';
+    elements.icon = '../media/images/file.png';
+	tree.add(elements);
+
+    var tree_function = new WebFXTreeItem('Function(s)', '');
+    tree_function.openIcon = '../media/images/Functions.gif';
+    tree_function.icon = '../media/images/Functions.gif';
+    	tree.add(tree_function);
+	
+	var iconClassFolder = '../media/images/classFolder.gif';
+	var iconClass = '../media/images/Class.gif';
+	var iconFunctionFolder = '../media/images/Functions.gif';
+	var iconFunction = '../media/images/PublicMethod.gif';
+	var iconFileFolderOpen = '../media/images/FolderOpened.gif';
+	var iconFileFolderClosed = '../media/images/foldericon.png';
+	var iconFile = '../media/images/file.png';
+
+	var subpackagetree_classe = new WebFXTreeItem('Class(es)', '../classtrees_Net_SmartIRC.html');
+	subpackagetree_classe.openIcon = iconClassFolder;;
+	subpackagetree_classe.icon = iconClassFolder;
+					  var classe = new WebFXTreeItem('mybot', '../Net_SmartIRC/mybot.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC', '../Net_SmartIRC/Net_SmartIRC.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_actionhandler', '../Net_SmartIRC/Net_SmartIRC_actionhandler.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_base', '../Net_SmartIRC/Net_SmartIRC_base.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_channel', '../Net_SmartIRC/Net_SmartIRC_channel.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_channeluser', '../Net_SmartIRC/Net_SmartIRC_channeluser.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_data', '../Net_SmartIRC/Net_SmartIRC_data.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_Error', '../Net_SmartIRC/Net_SmartIRC_Error.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_irccommands', '../Net_SmartIRC/Net_SmartIRC_irccommands.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_ircuser', '../Net_SmartIRC/Net_SmartIRC_ircuser.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_listenfor', '../Net_SmartIRC/Net_SmartIRC_listenfor.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_messagehandler', '../Net_SmartIRC/Net_SmartIRC_messagehandler.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_timehandler', '../Net_SmartIRC/Net_SmartIRC_timehandler.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_user', '../Net_SmartIRC/Net_SmartIRC_user.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				tree.add(subpackagetree_classe);
+
+	var subpackagetree_classe = new WebFXTreeItem('File(s)', '');
+	subpackagetree_classe.openIcon = iconFileFolderOpen;
+	subpackagetree_classe.icon = iconFileFolderClosed;
+					  var classe = new WebFXTreeItem('defines.php', '../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example.php', '../Net_SmartIRC/_SmartIRC-0.5.5_examples_example_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example2.php', '../Net_SmartIRC/_SmartIRC-0.5.5_examples_example2_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example3.php', '../Net_SmartIRC/_SmartIRC-0.5.5_examples_example3_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example4.php', '../Net_SmartIRC/_SmartIRC-0.5.5_examples_example4_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example5.php', '../Net_SmartIRC/_SmartIRC-0.5.5_examples_example5_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example6.php', '../Net_SmartIRC/_SmartIRC-0.5.5_examples_example6_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example7.php', '../Net_SmartIRC/_SmartIRC-0.5.5_examples_example7_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('irccommands.php', '../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_irccommands_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('messagehandler.php', '../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_messagehandler_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('SmartIRC.php', '../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				tree.add(subpackagetree_classe);
+
+  document.write(tree);
+  
+  
+      var classtree = new WebFXTree('Net_SmartIRC_base', 'Net_SmartIRC_base.html');
+	classtree.setBehavior('classic');
+	classtree.openIcon = '../media/images/Class.gif';
+	classtree.icon = '../media/images/Class.gif';
+			var methodtree = new WebFXTreeItem('Methods', '');
+	  	methodtree.openIcon = '../media/images/Functions.gif';
+	  	methodtree.icon = '../media/images/Functions.gif';
+		
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#connect">connect</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#disconnect">disconnect</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#getMotd">getMotd</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#getUsermode">getUsermode</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#isBanned">isBanned</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#isError">isError</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#isJoined">isJoined</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#isOpped">isOpped</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#isVoiced">isVoiced</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#listen">listen</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#listenFor">listenFor</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#log">log</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#login">login</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#Net_SmartIRC">Net_SmartIRC</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#reconnect">reconnect</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#registerActionhandler">registerActionhandler</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#registerTimehandler">registerTimehandler</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#setAutoReconnect">setAutoReconnect</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#setAutoRetry">setAutoRetry</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#setBenchmark">setBenchmark</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#setChannelSynching">setChannelSynching</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#setChannelSyncing">setChannelSyncing</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#setCtcpVersion">setCtcpVersion</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#setDebug">setDebug</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#setDisconnecttime">setDisconnecttime</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#setLogdestination">setLogdestination</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#setLogfile">setLogfile</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#setReceivedelay">setReceivedelay</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#setReceiveTimeout">setReceiveTimeout</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#setSenddelay">setSenddelay</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#setTransmitTimeout">setTransmitTimeout</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#setUseSockets">setUseSockets</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#showBenchmark">showBenchmark</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#startBenchmark">startBenchmark</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#stopBenchmark">stopBenchmark</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#throwError">throwError</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#unregisterActionhandler">unregisterActionhandler</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#unregisterActionid">unregisterActionid</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+					  var method = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#unregisterTimeid">unregisterTimeid</a>', '');
+		      method.openIcon = '../media/images/PublicMethod.gif';
+		      method.icon = '../media/images/PublicMethod.gif';
+		      methodtree.add(method);
+				
+		classtree.add(methodtree);
+    			var proptree = new WebFXTreeItem('Properties', '');
+	  	proptree.openIcon = '../media/images/Vars.gif';
+	  	proptree.icon = '../media/images/Vars.gif';
+		
+					  var prop = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#$channel">$channel</a>', '');
+		      prop.openIcon = '../media/images/PublicProperty.gif';
+		      prop.icon = '../media/images/PublicProperty.gif';
+		      proptree.add(prop);
+					  var prop = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#$nreplycodes">$nreplycodes</a>', '');
+		      prop.openIcon = '../media/images/PublicProperty.gif';
+		      prop.icon = '../media/images/PublicProperty.gif';
+		      proptree.add(prop);
+					  var prop = new WebFXTreeItem('<a href="../Net_SmartIRC/Net_SmartIRC_base.html#$replycodes">$replycodes</a>', '');
+		      prop.openIcon = '../media/images/PublicProperty.gif';
+		      prop.icon = '../media/images/PublicProperty.gif';
+		      proptree.add(prop);
+				
+		classtree.add(proptree);
+    	document.write('<br><br>');
+	document.write(classtree);
+  
+}
+</script>
+</div>
+<noscript>
+<img src="../media/images/Disk.gif" border="0" align="top">&nbsp;<a href="../li_Net_SmartIRC.html" class="green" ><span valign="middle" class="green">Package: Net_SmartIRC</span></a><br>
+<img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../elementindex_Net_SmartIRC.html" class="green" ><span valign="middle" class="green">Index of elements</span></a><br>
+<img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Functions.gif" border="0" align="top">&nbsp;<span valign="middle" class="green">Function(s)</span><br>
+<img src="../media/images/Tminus.png" border="0" align="top"><img src="../media/images/classFolder.gif" border="0" align="top">&nbsp;<a href="../classtrees_Net_SmartIRC.html" class="green" ><span valign="middle" class="green">Class(es)</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/mybot.html" class="green" ><span valign="middle" class="green">mybot</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC.html" class="green" ><span valign="middle" class="green">Net_SmartIRC</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_actionhandler.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_actionhandler</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_base.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_base</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_channel.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_channel</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_channeluser.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_channeluser</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_data.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_data</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_Error.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_Error</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_irccommands</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_ircuser.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_ircuser</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_listenfor.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_listenfor</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_messagehandler.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_messagehandler</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_timehandler.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_timehandler</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/L.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_user.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_user</span></a><br>
+<img src="../media/images/Lminus.png" border="0" align="top"><img src="../media/images/FolderOpened.gif" border="0" align="top">&nbsp;<span valign="middle" class="green">File(s)</span><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html" class="green" ><span valign="middle" class="green">defines.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_examples_example_php.html" class="green" ><span valign="middle" class="green">example.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_examples_example2_php.html" class="green" ><span valign="middle" class="green">example2.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_examples_example3_php.html" class="green" ><span valign="middle" class="green">example3.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_examples_example4_php.html" class="green" ><span valign="middle" class="green">example4.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_examples_example5_php.html" class="green" ><span valign="middle" class="green">example5.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_examples_example6_php.html" class="green" ><span valign="middle" class="green">example6.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_examples_example7_php.html" class="green" ><span valign="middle" class="green">example7.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_irccommands_php.html" class="green" ><span valign="middle" class="green">irccommands.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_messagehandler_php.html" class="green" ><span valign="middle" class="green">messagehandler.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/L.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_php.html" class="green" ><span valign="middle" class="green">SmartIRC.php</span></a><br>
+
+  <bR>
+  <img src="../media/images/Class.gif" border="0" align="top">&nbsp;<span valign="middle" class="green">Net_SmartIRC_base</span><br>
+<img src="../media/images/Tminus.png" border="0" align="top"><img src="../media/images/Functions.gif" border="0" align="top">&nbsp;<span valign="middle" class="green">Methods</span><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#connect" class="green" ><span valign="middle" class="green">connect</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#disconnect" class="green" ><span valign="middle" class="green">disconnect</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#getMotd" class="green" ><span valign="middle" class="green">getMotd</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#getUsermode" class="green" ><span valign="middle" class="green">getUsermode</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#isBanned" class="green" ><span valign="middle" class="green">isBanned</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#isError" class="green" ><span valign="middle" class="green">isError</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#isJoined" class="green" ><span valign="middle" class="green">isJoined</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#isOpped" class="green" ><span valign="middle" class="green">isOpped</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#isVoiced" class="green" ><span valign="middle" class="green">isVoiced</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#listen" class="green" ><span valign="middle" class="green">listen</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#listenFor" class="green" ><span valign="middle" class="green">listenFor</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#log" class="green" ><span valign="middle" class="green">log</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#login" class="green" ><span valign="middle" class="green">login</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#Net_SmartIRC" class="green" ><span valign="middle" class="green">Net_SmartIRC</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#reconnect" class="green" ><span valign="middle" class="green">reconnect</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#registerActionhandler" class="green" ><span valign="middle" class="green">registerActionhandler</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#registerTimehandler" class="green" ><span valign="middle" class="green">registerTimehandler</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#setAutoReconnect" class="green" ><span valign="middle" class="green">setAutoReconnect</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#setAutoRetry" class="green" ><span valign="middle" class="green">setAutoRetry</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#setBenchmark" class="green" ><span valign="middle" class="green">setBenchmark</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#setChannelSynching" class="green" ><span valign="middle" class="green">setChannelSynching</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#setChannelSyncing" class="green" ><span valign="middle" class="green">setChannelSyncing</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#setCtcpVersion" class="green" ><span valign="middle" class="green">setCtcpVersion</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#setDebug" class="green" ><span valign="middle" class="green">setDebug</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#setDisconnecttime" class="green" ><span valign="middle" class="green">setDisconnecttime</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#setLogdestination" class="green" ><span valign="middle" class="green">setLogdestination</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#setLogfile" class="green" ><span valign="middle" class="green">setLogfile</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#setReceivedelay" class="green" ><span valign="middle" class="green">setReceivedelay</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#setReceiveTimeout" class="green" ><span valign="middle" class="green">setReceiveTimeout</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#setSenddelay" class="green" ><span valign="middle" class="green">setSenddelay</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#setTransmitTimeout" class="green" ><span valign="middle" class="green">setTransmitTimeout</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#setUseSockets" class="green" ><span valign="middle" class="green">setUseSockets</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#showBenchmark" class="green" ><span valign="middle" class="green">showBenchmark</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#startBenchmark" class="green" ><span valign="middle" class="green">startBenchmark</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#stopBenchmark" class="green" ><span valign="middle" class="green">stopBenchmark</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#throwError" class="green" ><span valign="middle" class="green">throwError</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#unregisterActionhandler" class="green" ><span valign="middle" class="green">unregisterActionhandler</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#unregisterActionid" class="green" ><span valign="middle" class="green">unregisterActionid</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/L.png" border="0" align="top"><img src="../media/images/PublicMethod.gif" border="0" align="top">&nbsp;<a href="#unregisterTimeid" class="green" ><span valign="middle" class="green">unregisterTimeid</span></a><br>
+<img src="../media/images/Lminus.png" border="0" align="top"><img src="../media/images/Vars.gif" border="0" align="top">&nbsp;<span valign="middle" class="green">Properties</span><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicProperty.gif" border="0" align="top">&nbsp;<a href="#$channel" class="green" ><span valign="middle" class="green">$channel</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/PublicProperty.gif" border="0" align="top">&nbsp;<a href="#$nreplycodes" class="green" ><span valign="middle" class="green">$nreplycodes</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/L.png" border="0" align="top"><img src="../media/images/PublicProperty.gif" border="0" align="top">&nbsp;<a href="#$replycodes" class="green" ><span valign="middle" class="green">$replycodes</span></a><br>
+
+</noscript>
+     </td>
+    </tr>
+   </table>
+  </td>
+  <td bgcolor="#cccccc" width="2" background="../media/images/checkerboard.gif"><img src="../media/images/spacer.gif" width="2" height="1" border="0" alt=""  /><br /></td>
+  <td>
+   <table width="100%" cellpadding="10" cellspacing="0">
+    <tr>
+     <td valign="top">
+
+
+
+
+<table width="100%" border="0">
+<tr><td valign="top">
+
+<a href="#class_details"><span class="title">Class Net_SmartIRC_base</span></a>
+<pre></pre><br />
+<div class="description">main SmartIRC class</div><br /><br />
+<ul>
+                  	  <li><b>Author: </b> - Mirco 'meebey' Bauer &lt;<a href="mailto:mail@meebey.net">mailto:mail@meebey.net</a>&gt;</li>
+            
+
+                            
+  <li><b>Package:</b> - Net_SmartIRC</li>
+
+  <li><b>Version:</b> - 0.5.5</li>
+
+</ul>
+
+</td>
+</tr></table>
+
+<hr />
+<span class="title">Child classes:</span><br>
+<div class="tags">
+<dl>
+<dt><img src="../media/images/Class.gif" border="0" /> <a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html">Net_SmartIRC_irccommands</a></dt>
+	<dd>main SmartIRC class</dd>
+</dl>
+</div>
+
+
+
+<hr />
+<a name="class_vars"></a>
+<h3>Class Variables</h3>
+<div class="tags">
+	<a name="$channel"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+<img src="../media/images/PublicProperty.gif" border="0" /> <strong class="property">$channel</strong> (line <span class="linenumber">331</span>)
+<br>
+Data type: <span class="type">array</span><br><br>
+<span class="title">Description:</span><br>Stores all channels in this array where we are joined, works only if channelsyncing is activated.
+<br /><br /><p>Eg. for accessing a user, use it like this: (in this example the SmartIRC object is stored in $irc)  $irc-&gt;channel['#test']-&gt;users['meebey']-&gt;nick;</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+    <li><b>See:</b>&nbsp;-&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_channeluser.html">Net_SmartIRC_channeluser</a></li>
+    <li><b>See:</b>&nbsp;-&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_channel.html">Net_SmartIRC_channel</a></li>
+    <li><b>See:</b>&nbsp;-&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_base.html#setChannelSyncing">Net_SmartIRC_base::setChannelSyncing()</a></li>
+</ul>
+</div>
+
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+</div>
+	<hr>
+	<a name="$nreplycodes"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+<img src="../media/images/PublicProperty.gif" border="0" /> <strong class="property">$nreplycodes</strong> (line <span class="linenumber">318</span>)
+<br>
+Data type: <span class="type">array</span><br><br>
+<span class="title">Description:</span><br>All numeric IRC replycodes, the index is the numeric replycode.
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+    <li><b>See:</b>&nbsp;-&nbsp;$SMARTIRC_nreplycodes</li>
+</ul>
+</div>
+
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+</div>
+	<hr>
+	<a name="$replycodes"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+<img src="../media/images/PublicProperty.gif" border="0" /> <strong class="property">$replycodes</strong> (line <span class="linenumber">309</span>)
+<br>
+Data type: <span class="type">array</span><br><br>
+<span class="title">Description:</span><br>All IRC replycodes, the index is the replycode name.
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+    <li><b>See:</b>&nbsp;-&nbsp;$SMARTIRC_replycodes</li>
+</ul>
+</div>
+
+	<div class="top">[ <a href="#top">Top</a> ]</div><br />
+</div>
+	<hr>
+</div><br />
+
+<hr />
+<a name="class_methods"></a>
+<h3>Class Methods</h3>
+<div class="tags">
+	<a name="connect"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">connect</strong> (line <span class="linenumber">822</span>)
+<br> 
+<i>void</i> <strong>connect ( $address, $port )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$address</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$port</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>Creates the sockets and connects to the IRC server on the given port.
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="disconnect"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">disconnect</strong> (line <span class="linenumber">890</span>)
+<br> 
+<i>boolean</i> <strong>disconnect ( [$quickdisconnect = false] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">boolean&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$quickdisconnect</b>&nbsp;&nbsp;</td>
+	        <td>default: false</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>Disconnects from the IRC server nicely with a QUIT or just destroys the socket.
+<br /><br /><p>Disconnects from the IRC server in the given quickness mode.  $quickdisconnect:  true, just close the socket  false, send QUIT and wait $_disconnectime before closing the socket</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="getMotd"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">getMotd</strong> (line <span class="linenumber">798</span>)
+<br> 
+<i>array</i> <strong>getMotd (  )</strong><br>
+<br>
+
+
+
+<span class="title">Description:</span><br>Returns the full motd.
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="getUsermode"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">getUsermode</strong> (line <span class="linenumber">809</span>)
+<br> 
+<i>string</i> <strong>getUsermode (  )</strong><br>
+<br>
+
+
+
+<span class="title">Description:</span><br>Returns the usermode.
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="isBanned"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">isBanned</strong> (line <span class="linenumber">1108</span>)
+<br> 
+<i>boolean</i> <strong>isBanned ( $channel, $hostmask )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$channel</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$hostmask</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>Checks if the hostmask is on the specified channel banned and returns the result.
+<br /><br /><p>ChannelSyncing is required for this.</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+    <li><b>See:</b>&nbsp;-&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_base.html#setChannelSyncing">Net_SmartIRC_base::setChannelSyncing()</a></li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="isError"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">isError</strong> (line <span class="linenumber">2191</span>)
+<br> 
+<i>void</i> <strong>isError ( $object )</strong><br>
+<br>
+
+
+
+
+
+
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="isJoined"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">isJoined</strong> (line <span class="linenumber">1020</span>)
+<br> 
+<i>boolean</i> <strong>isJoined ( $channel, [$nickname = null] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$channel</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$nickname</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>checks if we or the given user is joined to the specified channel and returns the result  ChannelSyncing is required for this.
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+    <li><b>See:</b>&nbsp;-&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_base.html#setChannelSyncing">Net_SmartIRC_base::setChannelSyncing()</a></li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="isOpped"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">isOpped</strong> (line <span class="linenumber">1048</span>)
+<br> 
+<i>boolean</i> <strong>isOpped ( $channel, [$nickname = null] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$channel</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$nickname</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>Checks if we or the given user is opped on the specified channel and returns the result.
+<br /><br /><p>ChannelSyncing is required for this.</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+    <li><b>See:</b>&nbsp;-&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_base.html#setChannelSyncing">Net_SmartIRC_base::setChannelSyncing()</a></li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="isVoiced"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">isVoiced</strong> (line <span class="linenumber">1078</span>)
+<br> 
+<i>boolean</i> <strong>isVoiced ( $channel, [$nickname = null] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$channel</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$nickname</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>Checks if we or the given user is voiced on the specified channel and returns the result.
+<br /><br /><p>ChannelSyncing is required for this.</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+    <li><b>See:</b>&nbsp;-&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_base.html#setChannelSyncing">Net_SmartIRC_base::setChannelSyncing()</a></li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="listen"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">listen</strong> (line <span class="linenumber">1135</span>)
+<br> 
+<i>boolean</i> <strong>listen (  )</strong><br>
+<br>
+
+
+
+<span class="title">Description:</span><br>goes into receive mode
+<br /><br /><p>Goes into receive and idle mode. Only call this if you want to "spawn" the bot.  No further lines of PHP code will be processed after this call, only the bot methods!</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="listenFor"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">listenFor</strong> (line <span class="linenumber">1156</span>)
+<br> 
+<i>array</i> <strong>listenFor ( $messagetype )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$messagetype</b>&nbsp;&nbsp;</td>
+	        <td>see in the documentation 'Message Types'</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>waits for a special message type and puts the answer in $result
+<br /><br /><p>Creates a special actionhandler for that given TYPE and returns the answer.  This will only receive the requested type, immediately quit and disconnect from the IRC server.  Made for showing IRC statistics on your homepage, or other IRC related information.</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Return:</b>&nbsp;-&nbsp;answer from the IRC server for this $messagetype</li>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="log"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">log</strong> (line <span class="linenumber">735</span>)
+<br> 
+<i>void</i> <strong>log ( $level, $entry, [$file = null], [$line = null] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$level</b>&nbsp;&nbsp;</td>
+	        <td>bit constants (SMARTIRC_DEBUG_*)</td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$entry</b>&nbsp;&nbsp;</td>
+	        <td>the new log entry</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>Adds an entry to the log.
+<br /><br /><p>Adds an entry to the log with Linux style log format.  Possible $level constants (can also be combined with "|"s)  SMARTIRC_DEBUG_NONE  SMARTIRC_DEBUG_NOTICE  SMARTIRC_DEBUG_CONNECTION  SMARTIRC_DEBUG_SOCKET  SMARTIRC_DEBUG_IRCMESSAGES  SMARTIRC_DEBUG_MESSAGETYPES  SMARTIRC_DEBUG_ACTIONHANDLER  SMARTIRC_DEBUG_TIMEHANDLER  SMARTIRC_DEBUG_MESSAGEHANDLER  SMARTIRC_DEBUG_CHANNELSYNCING  SMARTIRC_DEBUG_MODULES  SMARTIRC_DEBUG_USERSYNCING  SMARTIRC_DEBUG_ALL</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+    <li><b>See:</b>&nbsp;-&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_DEBUG_NOTICE">SMARTIRC_DEBUG_NOTICE</a></li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="login"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">login</strong> (line <span class="linenumber">981</span>)
+<br> 
+<i>void</i> <strong>login ( $nick, $realname, [$usermode = 0], [$username = null], [$password = null] )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$nick</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$realname</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$usermode</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$username</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$password</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>login and register nickname on the IRC network
+<br /><br /><p>Registers the nickname and user information on the IRC network.</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="Net_SmartIRC"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Net_SmartIRC</strong> (line <span class="linenumber">340</span>)
+<br> 
+<i>void</i> <strong>Net_SmartIRC (  )</strong><br>
+<br>
+
+
+
+<span class="title">Description:</span><br>Constructor. Initiales the messagebuffer and "links" the replycodes from  global into properties. Also some PHP runtime settings are configured.
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="reconnect"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">reconnect</strong> (line <span class="linenumber">940</span>)
+<br> 
+<i>void</i> <strong>reconnect (  )</strong><br>
+<br>
+
+
+
+<span class="title">Description:</span><br>Reconnects to the IRC server with the same login info,  it also rejoins the channels
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="registerActionhandler"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">registerActionhandler</strong> (line <span class="linenumber">1184</span>)
+<br> 
+<i>integer</i> <strong>registerActionhandler ( $handlertype, $regexhandler, &$object, $methodname )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$handlertype</b>&nbsp;&nbsp;</td>
+	        <td>bits constants, see in this documentation Message Types</td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$regexhandler</b>&nbsp;&nbsp;</td>
+	        <td>the message that has to be in the IRC message in regex syntax</td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">object&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$object</b>&nbsp;&nbsp;</td>
+	        <td>a reference to the objects of the method</td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$methodname</b>&nbsp;&nbsp;</td>
+	        <td>the methodname that will be called when the handler happens</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>registers a new actionhandler and returns the assigned id
+<br /><br /><p>Registers an actionhandler in Net_SmartIRC for calling it later.  The actionhandler id is needed for unregistering the actionhandler.</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Return:</b>&nbsp;-&nbsp;assigned actionhandler id</li>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+    <li><b>See:</b>&nbsp;-&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_examples_example_php.html">example.php</a></li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="registerTimehandler"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">registerTimehandler</strong> (line <span class="linenumber">1292</span>)
+<br> 
+<i>integer</i> <strong>registerTimehandler ( $interval, &$object, $methodname )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$interval</b>&nbsp;&nbsp;</td>
+	        <td>interval time in milliseconds</td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">object&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$object</b>&nbsp;&nbsp;</td>
+	        <td>a reference to the objects of the method</td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$methodname</b>&nbsp;&nbsp;</td>
+	        <td>the methodname that will be called when the handler happens</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>registers a timehandler and returns the assigned id
+<br /><br /><p>Registers a timehandler in Net_SmartIRC, which will be called in the specified interval.  The timehandler id is needed for unregistering the timehandler.</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Return:</b>&nbsp;-&nbsp;assigned timehandler id</li>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+    <li><b>See:</b>&nbsp;-&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_examples_example7_php.html">example7.php</a></li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="setAutoReconnect"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">setAutoReconnect</strong> (line <span class="linenumber">608</span>)
+<br> 
+<i>void</i> <strong>setAutoReconnect ( $boolean )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">boolean&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$boolean</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>Enables/disables autoreconnecting.
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="setAutoRetry"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">setAutoRetry</strong> (line <span class="linenumber">624</span>)
+<br> 
+<i>void</i> <strong>setAutoRetry ( $boolean )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">boolean&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$boolean</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>Enables/disables autoretry for connecting to a server.
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="setBenchmark"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">setBenchmark</strong> (line <span class="linenumber">439</span>)
+<br> 
+<i>void</i> <strong>setBenchmark ( $boolean )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">boolean&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$boolean</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>Enables/disables the benchmark engine.
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="setChannelSynching"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">setChannelSynching</strong> (line <span class="linenumber">456</span>)
+<br> 
+<i>void</i> <strong>setChannelSynching ( $boolean )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">boolean&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$boolean</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>Deprecated, use setChannelSyncing() instead!
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+    <li><b>Deprecated:</b>&nbsp;-&nbsp;</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="setChannelSyncing"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">setChannelSyncing</strong> (line <span class="linenumber">472</span>)
+<br> 
+<i>void</i> <strong>setChannelSyncing ( $boolean )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">boolean&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$boolean</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>Enables/disables channel syncing.
+<br /><br /><p>Channel syncing means, all users on all channel we are joined are tracked in the  channel array. This makes it very handy for botcoding.</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="setCtcpVersion"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">setCtcpVersion</strong> (line <span class="linenumber">494</span>)
+<br> 
+<i>void</i> <strong>setCtcpVersion ( $versionstring )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$versionstring</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>Sets the CTCP version reply string.
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="setDebug"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">setDebug</strong> (line <span class="linenumber">427</span>)
+<br> 
+<i>void</i> <strong>setDebug ( $level )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$level</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>Sets the level of debug messages.
+<br /><br /><p>Sets the debug level (bitwise), useful for testing/developing your code.  Here the list of all possible debug levels:  SMARTIRC_DEBUG_NONE  SMARTIRC_DEBUG_NOTICE  SMARTIRC_DEBUG_CONNECTION  SMARTIRC_DEBUG_SOCKET  SMARTIRC_DEBUG_IRCMESSAGES  SMARTIRC_DEBUG_MESSAGETYPES  SMARTIRC_DEBUG_ACTIONHANDLER  SMARTIRC_DEBUG_TIMEHANDLER  SMARTIRC_DEBUG_MESSAGEHANDLER  SMARTIRC_DEBUG_CHANNELSYNCING  SMARTIRC_DEBUG_MODULES  SMARTIRC_DEBUG_USERSYNCING  SMARTIRC_DEBUG_ALL</p><p>Default: SMARTIRC_DEBUG_NOTICE</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+    <li><b>See:</b>&nbsp;-&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_DEBUG_NOTICE">SMARTIRC_DEBUG_NOTICE</a></li>
+    <li><b>See:</b>&nbsp;-&nbsp;DOCUMENTATION</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="setDisconnecttime"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">setDisconnecttime</strong> (line <span class="linenumber">552</span>)
+<br> 
+<i>void</i> <strong>setDisconnecttime ( $milliseconds )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$milliseconds</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>Sets the delaytime before closing the socket when disconnect.
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="setLogdestination"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">setLogdestination</strong> (line <span class="linenumber">514</span>)
+<br> 
+<i>void</i> <strong>setLogdestination ( $type )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$type</b>&nbsp;&nbsp;</td>
+	        <td>must be on of the constants</td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>Sets the destination of all log messages.
+<br /><br /><p>Sets the destination of log messages.  $type can be:  SMARTIRC_FILE for saving the log into a file  SMARTIRC_STDOUT for echoing the log to stdout  SMARTIRC_SYSLOG for sending the log to the syslog  Default: SMARTIRC_STDOUT</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+    <li><b>See:</b>&nbsp;-&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_STDOUT">SMARTIRC_STDOUT</a></li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="setLogfile"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">setLogfile</strong> (line <span class="linenumber">540</span>)
+<br> 
+<i>void</i> <strong>setLogfile ( $file )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$file</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>Sets the file for the log if the destination is set to file.
+<br /><br /><p>Sets the logfile, if <a href="../Net_SmartIRC/Net_SmartIRC_base.html#setLogdestination">logdestination</a> is set to SMARTIRC_FILE.  This should be only used with full path!</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="setReceivedelay"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">setReceivedelay</strong> (line <span class="linenumber">572</span>)
+<br> 
+<i>void</i> <strong>setReceivedelay ( $milliseconds )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$milliseconds</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>Sets the delay for receiving data from the IRC server.
+<br /><br /><p>Sets the delaytime between messages that are received, this reduces your CPU load.  Don't set this too low (min 100ms).  Default: 100</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="setReceiveTimeout"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">setReceiveTimeout</strong> (line <span class="linenumber">643</span>)
+<br> 
+<i>void</i> <strong>setReceiveTimeout ( $seconds )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$seconds</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>Sets the receive timeout.
+<br /><br /><p>If the timeout occurs, the connection will be reinitialized  Default: 300 seconds</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="setSenddelay"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">setSenddelay</strong> (line <span class="linenumber">592</span>)
+<br> 
+<i>void</i> <strong>setSenddelay ( $milliseconds )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$milliseconds</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>Sets the delay for sending data to the IRC server.
+<br /><br /><p>Sets the delaytime between messages that are sent, because IRC servers doesn't like floods.  This will avoid sending your messages too fast to the IRC server.  Default: 250</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="setTransmitTimeout"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">setTransmitTimeout</strong> (line <span class="linenumber">662</span>)
+<br> 
+<i>void</i> <strong>setTransmitTimeout ( $seconds )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$seconds</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>Sets the transmit timeout.
+<br /><br /><p>If the timeout occurs, the connection will be reinitialized  Default: 300 seconds</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="setUseSockets"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">setUseSockets</strong> (line <span class="linenumber">378</span>)
+<br> 
+<i>void</i> <strong>setUseSockets ( $boolean )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">bool&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$boolean</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>Enables/disables the usage of real sockets.
+<br /><br /><p>Enables/disables the usage of real sockets instead of fsocks  (works only if your PHP build has loaded the PHP socket extension)  Default: false</p>
+<br />
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="showBenchmark"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">showBenchmark</strong> (line <span class="linenumber">705</span>)
+<br> 
+<i>void</i> <strong>showBenchmark (  )</strong><br>
+<br>
+
+
+
+<span class="title">Description:</span><br>Shows the benchmark result.
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="startBenchmark"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">startBenchmark</strong> (line <span class="linenumber">677</span>)
+<br> 
+<i>void</i> <strong>startBenchmark (  )</strong><br>
+<br>
+
+
+
+<span class="title">Description:</span><br>Starts the benchmark (sets the counters).
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="stopBenchmark"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">stopBenchmark</strong> (line <span class="linenumber">689</span>)
+<br> 
+<i>void</i> <strong>stopBenchmark (  )</strong><br>
+<br>
+
+
+
+<span class="title">Description:</span><br>Stops the benchmark and displays the result.
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="throwError"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">throwError</strong> (line <span class="linenumber">2195</span>)
+<br> 
+<i>void</i> <strong>&throwError ( $message )</strong><br>
+<br>
+
+
+
+
+
+
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="unregisterActionhandler"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">unregisterActionhandler</strong> (line <span class="linenumber">1216</span>)
+<br> 
+<i>boolean</i> <strong>unregisterActionhandler ( $handlertype, $regexhandler, &$object, $methodname )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$handlertype</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$regexhandler</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">object&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$object</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">string&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$methodname</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>unregisters an existing actionhandler
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="unregisterActionid"></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">unregisterActionid</strong> (line <span class="linenumber">1257</span>)
+<br> 
+<i>boolean</i> <strong>unregisterActionid ( $id )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$id</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>unregisters an existing actionhandler via the id
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+	<a name="unregisterTimeid"></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">unregisterTimeid</strong> (line <span class="linenumber">1321</span>)
+<br> 
+<i>boolean</i> <strong>unregisterTimeid ( $id )</strong><br>
+<br>
+
+
+	<span class="title">Parameters:</span><br>
+	<div class="tags">
+		    <table border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		    <td valign="top"><ul><li>&nbsp;</li></ul></td>
+	        <td class="type" valign="top">integer&nbsp;&nbsp;</td>
+	        <td valign="top"><b>$id</b>&nbsp;&nbsp;</td>
+	        <td></td>
+	      </tr>
+		</table>
+		</div>
+	<br>
+
+<span class="title">Description:</span><br>unregisters an existing timehandler via the id
+<br /><br />
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Access:</b>&nbsp;-&nbsp;public</li>
+    <li><b>See:</b>&nbsp;-&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_examples_example7_php.html">example7.php</a></li>
+</ul>
+</div>
+    <div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+</div><br />
+
+        <div class="credit">
+		    <hr />
+		    Documentation generated on Wed, 23 Jul 2003 19:59:12 +0200 by <a href="http://www.phpdoc.org" class="green">phpDocumentor 1.2.0beta1c</a><br>
+			HTML layout done by <a href="http://pear.php.net/wishlist.php/dickmann" class="green">Christian Dickmann</a> and originally
+		    <i>inspired by </i><a href="http://www.phpedit.com" class="green">PHPEdit</a><br>
+			
+			
+			
+	      </div>
+</td>
+    </tr>
+   </table>
+  </td>
+
+ </tr>
+</table>
+</body>
+</html>

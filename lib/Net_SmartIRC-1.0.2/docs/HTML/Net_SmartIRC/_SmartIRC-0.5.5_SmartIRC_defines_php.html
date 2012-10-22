@@ -1,0 +1,1159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+ <title>PEAR API Documentation :: Net_SmartIRC</title>
+ <link rel="stylesheet" href="../media/style.css" />
+  <script language="javascript" type="text/javascript">
+    var subdir = "../";
+  </script>
+  <script src="../media/lib/classTree.js"></script>
+  <link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
+  <script type="text/javascript" src="../media/lib/tabpane.js"></script>
+  <meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+  <script language="javascript" type="text/javascript" src="../media/TreeMenu.js"></script>
+  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
+  <script language="javascript" type="text/javascript">
+	var imgPlus = new Image();
+	var imgMinus = new Image();
+	imgPlus.src = "../media/images/plus.gif";
+	imgMinus.src = "../media/images/minus.gif";
+
+	
+	function showNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgMinus.src;
+		oTable.style.display = "block";
+	}
+	
+	function hideNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgPlus.src;
+		oTable.style.display = "none";
+	}
+	
+	function nodeIsVisible(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+        		break;
+        }
+		return (oTable && oTable.style.display == "block");
+	}
+	
+	function toggleNodeVisibility(Node){
+		if (nodeIsVisible(Node)){
+			hideNode(Node);
+		}else{
+			showNode(Node);
+		}
+	}
+</script>
+</head>
+
+<body   topmargin="0" leftmargin="0"
+	    marginheight="0" marginwidth="0"
+        bgcolor="#ffffff"
+        text="#000000"
+        link="#006600"
+        alink="#cccc00"
+        vlink="#003300"
+>
+<a name="TOP" /></a>
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr bgcolor="#339900">
+    <td align="left" width="120">
+      <a href="http://pear.php.net">
+	    <img src="../media/images/pearlogo.gif" width="104" height="50" vspace="2" hspace="5" alt="PEAR" border="0">
+ 	  </a>
+    </td>
+    <td align="left" valign="middle" width="20">
+      &nbsp;
+    </td>
+    <td align="left" valign="middle">
+      <span class="Headline">PEAR API Documentation :: Net_SmartIRC</span>
+    </td>
+    <td align="right" valign="bottom" class="upperright">
+      <a href="http://pear.php.net/package-info.php?package=Net_SmartIRC" class="upperright">Package Homepage</a>&nbsp;|&nbsp;
+      <a href="http://pear.php.net/package-info.php?package=Net_SmartIRC" class="upperright">Download ApiDoc</a>
+	  &nbsp;<br>
+    </td>
+  </tr>
+
+  <tr bgcolor="#003300"><td colspan="4"></td></tr>
+
+  <tr bgcolor="#006600">
+    <td align="right" valign="top" colspan="4" class="menu">
+  		  [ <a href="../classtrees_Net_SmartIRC.html" class="menu">class tree: Net_SmartIRC</a> ]
+		  [ <a href="../elementindex_Net_SmartIRC.html" class="menu">index: Net_SmartIRC</a> ]
+		  [ <a href="../elementindex.html" class="menu">all elements</a> ]
+        &nbsp;<br />
+    </td>
+  </tr>
+
+  <tr bgcolor="#003300"><td colspan="4"></td></tr>
+</table>
+<table cellpadding="0" cellspacing="0" width="100%">
+ <tr valign="top">
+  <td bgcolor="#f0f0f0" width="100">
+   <table width="280" border="0" cellpadding="4" cellspacing="0">
+    <tr valign="top">
+     <td style="font-size: 90%" align="left" width="280">
+	<div id="ric">
+					<a href="../ric_CHANGELOG.html">CHANGELOG</a><br />
+					<a href="../ric_README.html">README</a><br />
+			</div>
+	<br>
+      <span class="green"><b>Packages:</b></span><br />
+	  <ul>
+              <li><a href="../li_Net_SmartIRC.html">Net_SmartIRC</a></li>
+      	  </ul>
+      <br /><br />
+
+<div class="menu">
+<script language="Javascript">
+if (document.getElementById) {
+  var tree = new WebFXTree('Package : Net_SmartIRC', '../li_Net_SmartIRC.html');
+  tree.setBehavior('classic');
+  tree.openIcon = '../media/images/Disk.gif';
+  tree.icon = '../media/images/Disk.gif';
+    var elements = new WebFXTreeItem('Index of elements', '../elementindex_Net_SmartIRC.html');
+    elements.openIcon = '../media/images/file.png';
+    elements.icon = '../media/images/file.png';
+	tree.add(elements);
+
+    var tree_function = new WebFXTreeItem('Function(s)', '');
+    tree_function.openIcon = '../media/images/Functions.gif';
+    tree_function.icon = '../media/images/Functions.gif';
+    	tree.add(tree_function);
+	
+	var iconClassFolder = '../media/images/classFolder.gif';
+	var iconClass = '../media/images/Class.gif';
+	var iconFunctionFolder = '../media/images/Functions.gif';
+	var iconFunction = '../media/images/PublicMethod.gif';
+	var iconFileFolderOpen = '../media/images/FolderOpened.gif';
+	var iconFileFolderClosed = '../media/images/foldericon.png';
+	var iconFile = '../media/images/file.png';
+
+	var subpackagetree_classe = new WebFXTreeItem('Class(es)', '../classtrees_Net_SmartIRC.html');
+	subpackagetree_classe.openIcon = iconClassFolder;;
+	subpackagetree_classe.icon = iconClassFolder;
+					  var classe = new WebFXTreeItem('mybot', '../Net_SmartIRC/mybot.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC', '../Net_SmartIRC/Net_SmartIRC.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_actionhandler', '../Net_SmartIRC/Net_SmartIRC_actionhandler.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_base', '../Net_SmartIRC/Net_SmartIRC_base.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_channel', '../Net_SmartIRC/Net_SmartIRC_channel.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_channeluser', '../Net_SmartIRC/Net_SmartIRC_channeluser.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_data', '../Net_SmartIRC/Net_SmartIRC_data.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_Error', '../Net_SmartIRC/Net_SmartIRC_Error.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_irccommands', '../Net_SmartIRC/Net_SmartIRC_irccommands.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_ircuser', '../Net_SmartIRC/Net_SmartIRC_ircuser.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_listenfor', '../Net_SmartIRC/Net_SmartIRC_listenfor.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_messagehandler', '../Net_SmartIRC/Net_SmartIRC_messagehandler.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_timehandler', '../Net_SmartIRC/Net_SmartIRC_timehandler.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_user', '../Net_SmartIRC/Net_SmartIRC_user.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				tree.add(subpackagetree_classe);
+
+	var subpackagetree_classe = new WebFXTreeItem('File(s)', '');
+	subpackagetree_classe.openIcon = iconFileFolderOpen;
+	subpackagetree_classe.icon = iconFileFolderClosed;
+					  var classe = new WebFXTreeItem('defines.php', '../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example.php', '../Net_SmartIRC/_SmartIRC-0.5.5_examples_example_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example2.php', '../Net_SmartIRC/_SmartIRC-0.5.5_examples_example2_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example3.php', '../Net_SmartIRC/_SmartIRC-0.5.5_examples_example3_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example4.php', '../Net_SmartIRC/_SmartIRC-0.5.5_examples_example4_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example5.php', '../Net_SmartIRC/_SmartIRC-0.5.5_examples_example5_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example6.php', '../Net_SmartIRC/_SmartIRC-0.5.5_examples_example6_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example7.php', '../Net_SmartIRC/_SmartIRC-0.5.5_examples_example7_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('irccommands.php', '../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_irccommands_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('messagehandler.php', '../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_messagehandler_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('SmartIRC.php', '../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				tree.add(subpackagetree_classe);
+
+  document.write(tree);
+  
+  
+  
+}
+</script>
+</div>
+<noscript>
+<img src="../media/images/Disk.gif" border="0" align="top">&nbsp;<a href="../li_Net_SmartIRC.html" class="green" ><span valign="middle" class="green">Package: Net_SmartIRC</span></a><br>
+<img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../elementindex_Net_SmartIRC.html" class="green" ><span valign="middle" class="green">Index of elements</span></a><br>
+<img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Functions.gif" border="0" align="top">&nbsp;<span valign="middle" class="green">Function(s)</span><br>
+<img src="../media/images/Tminus.png" border="0" align="top"><img src="../media/images/classFolder.gif" border="0" align="top">&nbsp;<a href="../classtrees_Net_SmartIRC.html" class="green" ><span valign="middle" class="green">Class(es)</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/mybot.html" class="green" ><span valign="middle" class="green">mybot</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC.html" class="green" ><span valign="middle" class="green">Net_SmartIRC</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_actionhandler.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_actionhandler</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_base.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_base</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_channel.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_channel</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_channeluser.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_channeluser</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_data.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_data</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_Error.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_Error</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_irccommands.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_irccommands</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_ircuser.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_ircuser</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_listenfor.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_listenfor</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_messagehandler.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_messagehandler</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_timehandler.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_timehandler</span></a><br>
+<img src="../media/images/I.png" border="0" align="top"><img src="../media/images/L.png" border="0" align="top"><img src="../media/images/Class.gif" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/Net_SmartIRC_user.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_user</span></a><br>
+<img src="../media/images/Lminus.png" border="0" align="top"><img src="../media/images/FolderOpened.gif" border="0" align="top">&nbsp;<span valign="middle" class="green">File(s)</span><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html" class="green" ><span valign="middle" class="green">defines.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_examples_example_php.html" class="green" ><span valign="middle" class="green">example.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_examples_example2_php.html" class="green" ><span valign="middle" class="green">example2.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_examples_example3_php.html" class="green" ><span valign="middle" class="green">example3.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_examples_example4_php.html" class="green" ><span valign="middle" class="green">example4.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_examples_example5_php.html" class="green" ><span valign="middle" class="green">example5.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_examples_example6_php.html" class="green" ><span valign="middle" class="green">example6.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_examples_example7_php.html" class="green" ><span valign="middle" class="green">example7.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_irccommands_php.html" class="green" ><span valign="middle" class="green">irccommands.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/T.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_messagehandler_php.html" class="green" ><span valign="middle" class="green">messagehandler.php</span></a><br>
+<img src="../media/images/spacer2.gif" border="0" align="top"><img src="../media/images/L.png" border="0" align="top"><img src="../media/images/file.png" border="0" align="top">&nbsp;<a href="../Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_php.html" class="green" ><span valign="middle" class="green">SmartIRC.php</span></a><br>
+
+</noscript>
+     </td>
+    </tr>
+   </table>
+  </td>
+  <td bgcolor="#cccccc" width="2" background="../media/images/checkerboard.gif"><img src="../media/images/spacer.gif" width="2" height="1" border="0" alt=""  /><br /></td>
+  <td>
+   <table width="100%" cellpadding="10" cellspacing="0">
+    <tr>
+     <td valign="top">
+
+
+<br>
+<br>
+
+<div class="contents">
+<h2>Classes:</h2>
+</div><br /><br />
+
+<h2>Page Details:</h2>
+
+
+
+<span class="title">Tags:</span><br>
+<div class="tags">
+<ul>
+    <li><b>Package:</b>&nbsp;-&nbsp;Net_SmartIRC</li>
+</ul>
+</div>
+<br /><br />
+<br /><br />
+<br /><br />
+<span class="title">Constants:</span><br>
+<a name="%27SMARTIRC_%27.%24key"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">'SMARTIRC_'.$key</strong> (line <span class="linenumber">231</span>)
+ <br>
+'SMARTIRC_'.$key: $value<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_BROWSEROUT"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_BROWSEROUT</strong> (line <span class="linenumber">33</span>)
+ <br>
+SMARTIRC_BROWSEROUT: 3<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_CRITICAL"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_CRITICAL</strong> (line <span class="linenumber">38</span>)
+ <br>
+SMARTIRC_CRITICAL: 3<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_CRLF"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_CRLF</strong> (line <span class="linenumber">28</span>)
+ <br>
+SMARTIRC_CRLF: &quot;\r\n&quot;<br>
+<span class="title">Description:</span><br>$Id: _SmartIRC-0.5.5_SmartIRC_defines_php.html 135710 2003-07-23 18:08:55Z meebey $
+<br /><br /><p>$Revision: 135710 $  $Author: meebey $  $Date: 2003-07-24 03:38:55 +0930 (Thu, 24 Jul 2003) $</p><p>Copyright (c) 2002-2003 Mirco "MEEBEY" Bauer &lt;mail@meebey.net&gt; &lt;http://www.meebey.net&gt;</p><p>Full LGPL License: &lt;http://www.meebey.net/lgpl.txt&gt;</p><p>This library is free software; you can redistribute it and/or  modify it under the terms of the GNU Lesser General Public  License as published by the Free Software Foundation; either  version 2.1 of the License, or (at your option) any later version.</p><p>This library is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU  Lesser General Public License for more details.</p><p>You should have received a copy of the GNU Lesser General Public  License along with this library; if not, write to the Free Software  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
+<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_DEBUG_ACTIONHANDLER"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_DEBUG_ACTIONHANDLER</strong> (line <span class="linenumber">48</span>)
+ <br>
+SMARTIRC_DEBUG_ACTIONHANDLER: 32<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_DEBUG_ALL"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_DEBUG_ALL</strong> (line <span class="linenumber">55</span>)
+ <br>
+SMARTIRC_DEBUG_ALL: 4095<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_DEBUG_CHANNELSYNCING"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_DEBUG_CHANNELSYNCING</strong> (line <span class="linenumber">51</span>)
+ <br>
+SMARTIRC_DEBUG_CHANNELSYNCING: 256<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_DEBUG_CONNECTION"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_DEBUG_CONNECTION</strong> (line <span class="linenumber">44</span>)
+ <br>
+SMARTIRC_DEBUG_CONNECTION: 2<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_DEBUG_IRCMESSAGES"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_DEBUG_IRCMESSAGES</strong> (line <span class="linenumber">46</span>)
+ <br>
+SMARTIRC_DEBUG_IRCMESSAGES: 8<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_DEBUG_MESSAGEHANDLER"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_DEBUG_MESSAGEHANDLER</strong> (line <span class="linenumber">50</span>)
+ <br>
+SMARTIRC_DEBUG_MESSAGEHANDLER: 128<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_DEBUG_MESSAGEPARSER"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_DEBUG_MESSAGEPARSER</strong> (line <span class="linenumber">54</span>)
+ <br>
+SMARTIRC_DEBUG_MESSAGEPARSER: 2048<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_DEBUG_MESSAGETYPES"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_DEBUG_MESSAGETYPES</strong> (line <span class="linenumber">47</span>)
+ <br>
+SMARTIRC_DEBUG_MESSAGETYPES: 16<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_DEBUG_MODULES"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_DEBUG_MODULES</strong> (line <span class="linenumber">52</span>)
+ <br>
+SMARTIRC_DEBUG_MODULES: 512<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_DEBUG_NONE"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_DEBUG_NONE</strong> (line <span class="linenumber">42</span>)
+ <br>
+SMARTIRC_DEBUG_NONE: <br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_DEBUG_NOTICE"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_DEBUG_NOTICE</strong> (line <span class="linenumber">43</span>)
+ <br>
+SMARTIRC_DEBUG_NOTICE: 1<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_DEBUG_SOCKET"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_DEBUG_SOCKET</strong> (line <span class="linenumber">45</span>)
+ <br>
+SMARTIRC_DEBUG_SOCKET: 4<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_DEBUG_TIMEHANDLER"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_DEBUG_TIMEHANDLER</strong> (line <span class="linenumber">49</span>)
+ <br>
+SMARTIRC_DEBUG_TIMEHANDLER: 64<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_DEBUG_USERSYNCING"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_DEBUG_USERSYNCING</strong> (line <span class="linenumber">53</span>)
+ <br>
+SMARTIRC_DEBUG_USERSYNCING: 1024<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_FILE"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_FILE</strong> (line <span class="linenumber">31</span>)
+ <br>
+SMARTIRC_FILE: 1<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_HIGH"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_HIGH</strong> (line <span class="linenumber">37</span>)
+ <br>
+SMARTIRC_HIGH: 2<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_LOW"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_LOW</strong> (line <span class="linenumber">35</span>)
+ <br>
+SMARTIRC_LOW: <br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_MEDIUM"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_MEDIUM</strong> (line <span class="linenumber">36</span>)
+ <br>
+SMARTIRC_MEDIUM: 1<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_NONE"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_NONE</strong> (line <span class="linenumber">34</span>)
+ <br>
+SMARTIRC_NONE: 4<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_STATE_CONNECTED"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_STATE_CONNECTED</strong> (line <span class="linenumber">41</span>)
+ <br>
+SMARTIRC_STATE_CONNECTED: 2<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_STATE_CONNECTING"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_STATE_CONNECTING</strong> (line <span class="linenumber">40</span>)
+ <br>
+SMARTIRC_STATE_CONNECTING: 1<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_STATE_DISCONNECTED"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_STATE_DISCONNECTED</strong> (line <span class="linenumber">39</span>)
+ <br>
+SMARTIRC_STATE_DISCONNECTED: <br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_STDOUT"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_STDOUT</strong> (line <span class="linenumber">30</span>)
+ <br>
+SMARTIRC_STDOUT: <br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_SYSLOG"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_SYSLOG</strong> (line <span class="linenumber">32</span>)
+ <br>
+SMARTIRC_SYSLOG: 2<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_ACTION"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_ACTION</strong> (line <span class="linenumber">64</span>)
+ <br>
+SMARTIRC_TYPE_ACTION: 256<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_ALL"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_ALL</strong> (line <span class="linenumber">86</span>)
+ <br>
+SMARTIRC_TYPE_ALL: 1073741823<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_BANLIST"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_BANLIST</strong> (line <span class="linenumber">77</span>)
+ <br>
+SMARTIRC_TYPE_BANLIST: 2097152<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_CHANNEL"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_CHANNEL</strong> (line <span class="linenumber">57</span>)
+ <br>
+SMARTIRC_TYPE_CHANNEL: 2<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_CHANNELMODE"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_CHANNELMODE</strong> (line <span class="linenumber">83</span>)
+ <br>
+SMARTIRC_TYPE_CHANNELMODE: 134217728<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_CTCP"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_CTCP</strong> (line <span class="linenumber">59</span>)
+ <br>
+SMARTIRC_TYPE_CTCP: 8<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_CTCP_REPLY"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_CTCP_REPLY</strong> (line <span class="linenumber">85</span>)
+ <br>
+SMARTIRC_TYPE_CTCP_REPLY: 536870912<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_CTCP_REQUEST"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_CTCP_REQUEST</strong> (line <span class="linenumber">84</span>)
+ <br>
+SMARTIRC_TYPE_CTCP_REQUEST: 268435456<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_ERROR"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_ERROR</strong> (line <span class="linenumber">76</span>)
+ <br>
+SMARTIRC_TYPE_ERROR: 1048576<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_INFO"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_INFO</strong> (line <span class="linenumber">70</span>)
+ <br>
+SMARTIRC_TYPE_INFO: 16384<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_INVITE"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_INVITE</strong> (line <span class="linenumber">63</span>)
+ <br>
+SMARTIRC_TYPE_INVITE: 128<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_JOIN"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_JOIN</strong> (line <span class="linenumber">62</span>)
+ <br>
+SMARTIRC_TYPE_JOIN: 64<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_KICK"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_KICK</strong> (line <span class="linenumber">67</span>)
+ <br>
+SMARTIRC_TYPE_KICK: 2048<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_LIST"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_LIST</strong> (line <span class="linenumber">71</span>)
+ <br>
+SMARTIRC_TYPE_LIST: 32768<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_LOGIN"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_LOGIN</strong> (line <span class="linenumber">69</span>)
+ <br>
+SMARTIRC_TYPE_LOGIN: 8192<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_MODECHANGE"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_MODECHANGE</strong> (line <span class="linenumber">74</span>)
+ <br>
+SMARTIRC_TYPE_MODECHANGE: 262144<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_MOTD"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_MOTD</strong> (line <span class="linenumber">73</span>)
+ <br>
+SMARTIRC_TYPE_MOTD: 131072<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_NAME"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_NAME</strong> (line <span class="linenumber">72</span>)
+ <br>
+SMARTIRC_TYPE_NAME: 65536<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_NICKCHANGE"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_NICKCHANGE</strong> (line <span class="linenumber">66</span>)
+ <br>
+SMARTIRC_TYPE_NICKCHANGE: 1024<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_NONRELEVANT"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_NONRELEVANT</strong> (line <span class="linenumber">79</span>)
+ <br>
+SMARTIRC_TYPE_NONRELEVANT: 8388608<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_NOTICE"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_NOTICE</strong> (line <span class="linenumber">60</span>)
+ <br>
+SMARTIRC_TYPE_NOTICE: 16<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_PART"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_PART</strong> (line <span class="linenumber">75</span>)
+ <br>
+SMARTIRC_TYPE_PART: 524288<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_QUERY"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_QUERY</strong> (line <span class="linenumber">58</span>)
+ <br>
+SMARTIRC_TYPE_QUERY: 4<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_QUIT"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_QUIT</strong> (line <span class="linenumber">68</span>)
+ <br>
+SMARTIRC_TYPE_QUIT: 4096<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_TOPIC"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_TOPIC</strong> (line <span class="linenumber">78</span>)
+ <br>
+SMARTIRC_TYPE_TOPIC: 4194304<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_TOPICCHANGE"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_TOPICCHANGE</strong> (line <span class="linenumber">65</span>)
+ <br>
+SMARTIRC_TYPE_TOPICCHANGE: 512<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_UNKNOWN"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_UNKNOWN</strong> (line <span class="linenumber">56</span>)
+ <br>
+SMARTIRC_TYPE_UNKNOWN: 1<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_USERMODE"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_USERMODE</strong> (line <span class="linenumber">82</span>)
+ <br>
+SMARTIRC_TYPE_USERMODE: 67108864<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_WHO"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_WHO</strong> (line <span class="linenumber">61</span>)
+ <br>
+SMARTIRC_TYPE_WHO: 32<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_WHOIS"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_WHOIS</strong> (line <span class="linenumber">80</span>)
+ <br>
+SMARTIRC_TYPE_WHOIS: 16777216<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_TYPE_WHOWAS"><!-- --></a>
+<div style="background-color: #ffffff; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_TYPE_WHOWAS</strong> (line <span class="linenumber">81</span>)
+ <br>
+SMARTIRC_TYPE_WHOWAS: 33554432<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<a name="SMARTIRC_UNUSED"><!-- --></a>
+<div style="background-color: #eeeeee; font-size: 10pt">
+
+  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">SMARTIRC_UNUSED</strong> (line <span class="linenumber">29</span>)
+ <br>
+SMARTIRC_UNUSED: '*'<br>
+
+
+
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<hr>
+
+<br />
+
+        <div class="credit">
+		    <hr />
+		    Documentation generated on Wed, 23 Jul 2003 19:59:08 +0200 by <a href="http://www.phpdoc.org" class="green">phpDocumentor 1.2.0beta1c</a><br>
+			HTML layout done by <a href="http://pear.php.net/wishlist.php/dickmann" class="green">Christian Dickmann</a> and originally
+		    <i>inspired by </i><a href="http://www.phpedit.com" class="green">PHPEdit</a><br>
+			
+			
+			
+	      </div>
+</td>
+    </tr>
+   </table>
+  </td>
+
+ </tr>
+</table>
+</body>
+</html>
