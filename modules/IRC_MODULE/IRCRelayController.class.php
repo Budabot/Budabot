@@ -61,6 +61,9 @@ class IRCRelayController {
 	/** @Inject */
 	public $relayController;
 	
+	/** @Inject */
+	public $preferences;
+	
 	/** @Logger */
 	public $logger;
 	
@@ -518,7 +521,7 @@ class IRCRelayController {
 			$msg .= " Alt of {$altInfo->main}";
 		}
 
-		$logon_msg = Preferences::get($sender, 'logon_msg');
+		$logon_msg = $this->preferences->get($sender, 'logon_msg');
 		if ($logon_msg !== false && $logon_msg != '') {
 			$msg .= " - " . $logon_msg;
 		}

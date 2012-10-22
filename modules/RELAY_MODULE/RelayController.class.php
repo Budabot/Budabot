@@ -45,6 +45,9 @@ class RelayController {
 	/** @Inject */
 	public $alts;
 	
+	/** @Inject */
+	public $preferences;
+	
 	/** @Logger */
 	public $logger;
 
@@ -201,7 +204,7 @@ class RelayController {
 					$msg .= " " . $altInfo->get_alts_blob(false, true);
 				}
 
-				$logon_msg = Preferences::get($sender, 'logon_msg');
+				$logon_msg = $this->preferences->get($sender, 'logon_msg');
 				if ($logon_msg !== false && $logon_msg != '') {
 					$msg .= " - " . $logon_msg;
 				}

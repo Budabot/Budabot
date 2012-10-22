@@ -104,6 +104,9 @@ class GuildController {
 	/** @Inject */
 	public $alts;
 	
+	/** @Inject */
+	public $preferences;
+	
 	/** @Logger */
 	public $logger;
 	
@@ -133,7 +136,7 @@ class GuildController {
 	 * @Matches("/^logon$/i")
 	 */
 	public function logonMessageShowCommand($message, $channel, $sender, $sendto, $args) {
-		$logon_msg = Preferences::get($sender, 'logon_msg');
+		$logon_msg = $this->preferences->get($sender, 'logon_msg');
 
 		if ($logon_msg === false || $logon_msg == '') {
 			$msg = "Your logon message has not been set.";
@@ -151,10 +154,10 @@ class GuildController {
 		$logon_msg = $args[1];
 
 		if ($logon_msg == 'clear') {
-			Preferences::save($sender, 'logon_msg', '');
+			$this->preferences->save($sender, 'logon_msg', '');
 			$msg = "Your logon message has been cleared.";
 		} else if (strlen($logon_msg) <= $this->setting->get('max_logon_msg_size')) {
-			Preferences::save($sender, 'logon_msg', $logon_msg);
+			$this->preferences->save($sender, 'logon_msg', $logon_msg);
 			$msg = "Your logon message has been set.";
 		} else {
 			$msg = "Your logon message is too large. Your logon message may contain a maximum of " . $this->setting->get('max_logon_msg_size') . " characters.";
@@ -167,7 +170,7 @@ class GuildController {
 	 * @Matches("/^logoff$/i")
 	 */
 	public function logoffMessageShowCommand($message, $channel, $sender, $sendto, $args) {
-		$logoff_msg = Preferences::get($sender, 'logoff_msg');
+		$logoff_msg = $this->preferences->get($sender, 'logoff_msg');
 
 		if ($logoff_msg === false || $logoff_msg == '') {
 			$msg = "Your logoff message has not been set.";
@@ -185,10 +188,10 @@ class GuildController {
 		$logoff_msg = $args[1];
 
 		if ($logoff_msg == 'clear') {
-			Preferences::save($sender, 'logoff_msg', '');
+			$this->preferences->save($sender, 'logoff_msg', '');
 			$msg = "Your logoff message has been cleared.";
 		} else if (strlen($logoff_msg) <= $this->setting->get('max_logoff_msg_size')) {
-			Preferences::save($sender, 'logoff_msg', $logoff_msg);
+			$this->preferences->save($sender, 'logoff_msg', $logoff_msg);
 			$msg = "Your logoff message has been set.";
 		} else {
 			$msg = "Your logoff message is too large. Your logoff message may contain a maximum of " . $this->setting->get('max_logoff_msg_size') . " characters.";
@@ -202,7 +205,7 @@ class GuildController {
 	 */
 	public function logonadminMessageShowCommand($message, $channel, $sender, $sendto, $args) {
 		$name = ucfirst(strtolower($args[1]));
-		$logon_msg = Preferences::get($name, 'logon_msg');
+		$logon_msg = $this->preferences->get($name, 'logon_msg');
 
 		if ($logon_msg === false || $logon_msg == '') {
 			$msg = "The logon message for $name has not been set.";
@@ -221,10 +224,10 @@ class GuildController {
 		$logon_msg = $args[2];
 
 		if ($logon_msg == 'clear') {
-			Preferences::save($name, 'logon_msg', '');
+			$this->preferences->save($name, 'logon_msg', '');
 			$msg = "The logon message for $name has been cleared.";
 		} else if (strlen($logon_msg) <= $this->setting->get('max_logon_msg_size')) {
-			Preferences::save($name, 'logon_msg', $logon_msg);
+			$this->preferences->save($name, 'logon_msg', $logon_msg);
 			$msg = "The logon message for $name has been set.";
 		} else {
 			$msg = "The logon message is too large. The logon message may contain a maximum of " . $this->setting->get('max_logon_msg_size') . " characters.";
@@ -238,7 +241,7 @@ class GuildController {
 	 */
 	public function logoffadminMessageShowCommand($message, $channel, $sender, $sendto, $args) {
 		$name = ucfirst(strtolower($args[1]));
-		$logoff_msg = Preferences::get($name, 'logoff_msg');
+		$logoff_msg = $this->preferences->get($name, 'logoff_msg');
 
 		if ($logoff_msg === false || $logoff_msg == '') {
 			$msg = "The logoff message for $name has not been set.";
@@ -257,10 +260,10 @@ class GuildController {
 		$logoff_msg = $args[2];
 
 		if ($logoff_msg == 'clear') {
-			Preferences::save($name, 'logoff_msg', '');
+			$this->preferences->save($name, 'logoff_msg', '');
 			$msg = "The logoff message for $name has been cleared.";
 		} else if (strlen($logoff_msg) <= $this->setting->get('max_logoff_msg_size')) {
-			Preferences::save($name, 'logoff_msg', $logoff_msg);
+			$this->preferences->save($name, 'logoff_msg', $logoff_msg);
 			$msg = "The logoff message for $name has been set.";
 		} else {
 			$msg = "The logoff message is too large. The logoff message may contain a maximum of " . $this->setting->get('max_logoff_msg_size') . " characters.";
@@ -764,7 +767,7 @@ class GuildController {
 				}
 			}
 
-			$logon_msg = Preferences::get($sender, 'logon_msg');
+			$logon_msg = $this->preferences->get($sender, 'logon_msg');
 			if ($logon_msg !== false && $logon_msg != '') {
 				$msg .= " - " . $logon_msg;
 			}
@@ -794,7 +797,7 @@ class GuildController {
 			}
 
 			$msg = "$sender logged off.";
-			$logoff_msg = Preferences::get($sender, 'logoff_msg');
+			$logoff_msg = $this->preferences->get($sender, 'logoff_msg');
 			if ($logoff_msg !== false && $logoff_msg != '') {
 				$msg .= " - " . $logoff_msg;
 			}
