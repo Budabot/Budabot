@@ -97,7 +97,7 @@
 		}
 	}
 	
-	function loadSQLFile($filename) {
+	function loadSQLFile($db, $filename) {
 		$lines = explode("\n", file_get_contents($filename));
 		forEach ($lines as $line) {
 			upgrade($db, $line);
@@ -108,7 +108,7 @@
 		if (checkIfTableExists($db, "org_members_<myname>")) {
 			$data = $db->query("SELECT * FROM org_members_<myname>");
 			if (property_exists($data[0], 'logon_msg') || property_exists($data[0], 'logoff_msg')) {
-				loadSQLFile("./core/PREFERENCES/preferences.sql");
+				loadSQLFile($db, "./core/PREFERENCES/preferences.sql");
 				forEach ($data as $row) {
 					if (isset($row->logon_msg) && $row->logon_msg != '') {
 						$logon = $db->queryRow("SELECT * FROM preferences_<myname> WHERE sender = ? AND name = ?", $row->name, 'logon_msg');
