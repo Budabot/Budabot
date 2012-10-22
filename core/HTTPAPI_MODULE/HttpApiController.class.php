@@ -110,6 +110,11 @@ class HttpApiController {
 			$port = $this->setting->get('httpapi_port');
 			$that->listen($port);
 		}
+		
+		// make sure we close the socket before exit
+		register_shutdown_function(function() use ($that) {
+			$that->stopListening();
+		});
 	}
 
 	/**
