@@ -7,6 +7,8 @@
 <project name="Budabot" default="build" basedir=".">
 	<!-- include custom task for reading budabot's version from main.php file -->
 	<taskdef classname="lib.PhingTasks.BudabotVersionTask" name="budabotversion" />
+	<!-- include custom task for running Behat -->
+	<taskdef classname="lib.PhingTasks.BehatTask" name="behat" />
 
     <!-- ============================================  -->
     <!-- (DEFAULT) Target: build                        --> 
@@ -96,6 +98,14 @@
 				<include name="**/**" />
 			</fileset>
 		</scp>
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: behat                                 --> 
+	<!-- ============================================  -->
+	<target name="behat">
+		<echo>Run integration tests with Behat.</echo>
+		<behat workingdir="tests" executable="tests/behat/bin/behat" />
 	</target>
 
 </project>
