@@ -42,6 +42,12 @@ class OrgMembersController {
 	/** @Inject */
 	public $util;
 	
+	/** @Inject */
+	public $playerManager;
+	
+	/** @Inject */
+	public $guildManager;
+	
 	/**
 	 * @HandlesCommand("orgmembers")
 	 * @Matches("/^orgmembers$/i")
@@ -96,7 +102,7 @@ class OrgMembersController {
 		} else {
 			// Someone's name.  Doing a whois to get an orgID.
 			$name = ucfirst(strtolower($args[1]));
-			$whois = Player::get_by_name($name);
+			$whois = $this->playerManager->get_by_name($name);
 
 			if ($whois === null) {
 				$msg = "Could not find character info for $name.";
@@ -114,7 +120,7 @@ class OrgMembersController {
 		$msg = "Getting guild info. Please wait...";
 		$sendto->reply($msg);
 
-		$org = Guild::get_by_id($guild_id);
+		$org = $this->guildManager->get_by_id($guild_id);
 		if ($org === null) {
 			$msg = "Error in getting the Org info. Either org does not exist or AO's server was too slow to respond.";
 			$sendto->reply($msg);
@@ -179,7 +185,7 @@ class OrgMembersController {
 		} else {
 			// Someone's name.  Doing a whois to get an orgID.
 			$name = ucfirst(strtolower($args[1]));
-			$whois = Player::get_by_name($name);
+			$whois = $this->playerManager->get_by_name($name);
 
 			if ($whois === null) {
 				$msg = "Could not find character info for $name.";
@@ -197,7 +203,7 @@ class OrgMembersController {
 		$msg = "Getting guild info. Please wait...";
 		$sendto->reply($msg);
 
-		$org = Guild::get_by_id($guild_id);
+		$org = $this->guildManager->get_by_id($guild_id);
 		if ($org === null) {
 			$msg = "Error in getting the Org info. Either org does not exist or AO's server was too slow to respond.";
 		} else {

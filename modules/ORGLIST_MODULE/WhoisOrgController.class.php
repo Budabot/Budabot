@@ -33,6 +33,12 @@ class WhoisOrgController {
 	/** @Inject */
 	public $util;
 	
+	/** @Inject */
+	public $playerManager;
+	
+	/** @Inject */
+	public $guildManager;
+	
 	/**
 	 * @HandlesCommand("whoisorg")
 	 * @Matches("/^whoisorg ([a-z0-9-]+) (\d)$/i")
@@ -49,7 +55,7 @@ class WhoisOrgController {
 		} else {
 			// Someone's name.  Doing a whois to get an orgID.
 			$name = ucfirst(strtolower($args[1]));
-			$whois = Player::get_by_name($name, $dimension);
+			$whois = $this->playerManager->get_by_name($name, $dimension);
 
 			if ($whois === null) {
 				$msg = "Could not find character info for $name.";
@@ -67,7 +73,7 @@ class WhoisOrgController {
 		$msg = "Getting Org info. Please stand by...";
 		$sendto->reply($msg);
 
-		$org = Guild::get_by_id($org_id, $dimension);
+		$org = $this->guildManager->get_by_id($org_id, $dimension);
 		if ($org === null) {
 			$msg = "Error in getting the Org info. Either the org does not exist or AO's server was too slow to respond.";
 			$sendto->reply($msg);

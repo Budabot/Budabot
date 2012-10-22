@@ -48,6 +48,9 @@ class RelayController {
 	/** @Inject */
 	public $preferences;
 	
+	/** @Inject */
+	public $playerManager;
+	
 	/** @Logger */
 	public $logger;
 
@@ -189,13 +192,13 @@ class RelayController {
 	public function relayLogonMessagesEvent($eventObj) {
 		$sender = $eventObj->sender;
 		if ($this->setting->get("relaybot") != "Off" && isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->is_ready()) {
-			$whois = Player::get_by_name($sender);
+			$whois = $this->playerManager->get_by_name($sender);
 
 			$msg = '';
 			if ($whois === null) {
 				$msg = "$sender logged on.";
 			} else {
-				$msg = Player::get_info($whois);
+				$msg = $this->playerManager->get_info($whois);
 
 				$msg .= " logged on.";
 
@@ -231,14 +234,14 @@ class RelayController {
 	 */
 	public function relayJoinPrivMessagesEvent($eventObj) {
 		if ($this->setting->get('relaybot') != 'Off') {
-			$whois = Player::get_by_name($sender);
+			$whois = $this->playerManager->get_by_name($sender);
 			$altInfo = $this->alts->get_alt_info($sender);
 
 			if ($whois !== null) {
 				if (count($altInfo->alts) > 0) {
-					$msg = Player::get_info($whois) . " has joined the private channel. " . $altInfo->get_alts_blob(false, true);
+					$msg = $this->playerManager->get_info($whois) . " has joined the private channel. " . $altInfo->get_alts_blob(false, true);
 				} else {
-					$msg = Player::get_info($whois) . " has joined the private channel.";
+					$msg = $this->playerManager->get_info($whois) . " has joined the private channel.";
 				}
 			} else {
 				if (count($altInfo->alts) > 0) {

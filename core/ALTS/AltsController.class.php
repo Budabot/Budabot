@@ -49,7 +49,7 @@ class AltsController implements AltsInterface {
 	public $setting;
 
 	/** @Inject */
-	public $player;
+	public $playerManager;
 
 	/** @Inject */
 	public $db;
@@ -142,7 +142,7 @@ class AltsController implements AltsInterface {
 			$success++;
 	
 			// update character information
-			$this->player->get_by_name($name);
+			$this->playerManager->get_by_name($name);
 		}
 	
 		if ($success > 0) {

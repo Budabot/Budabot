@@ -30,12 +30,18 @@ class OrglistController {
 	
 	/** @Inject */
 	public $buddylistManager;
+	
+	/** @Inject */
+	public $guildManager;
 
 	/** @Inject */
 	public $text;
 	
 	/** @Inject */
 	public $util;
+	
+	/** @Inject */
+	public $playerManager;
 	
 	/**
 	 * @HandlesCommand("orglist")
@@ -84,7 +90,7 @@ class OrglistController {
 		} else {
 			// Someone's name.  Doing a whois to get an orgID.
 			$name = ucfirst(strtolower($args[1]));
-			$whois = Player::get_by_name($name);
+			$whois = $this->playerManager->get_by_name($name);
 
 			if ($whois === null) {
 				$msg = "Could not find character info for $name.";
@@ -105,7 +111,7 @@ class OrglistController {
 
 		$sendto->reply("Downloading org list for org id $orgid...");
 
-		$org = Guild::get_by_id($orgid);
+		$org = $this->guildManager->get_by_id($orgid);
 
 		if ($org === null) {
 			$msg = "Error in getting the Org info. Either org does not exist or AO's server was too slow to respond.";

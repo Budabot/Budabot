@@ -55,6 +55,9 @@ class WhoisController {
 	/** @Inject */
 	public $alts;
 	
+	/** @Inject */
+	public $playerManager;
+	
 	private $nameHistoryCache = array();
 	
 	/** @Setup */
@@ -197,7 +200,7 @@ class WhoisController {
 		if ($uid) {
 			$lookupNameLink = $this->text->make_chatcmd("Lookup", "/tell <myname> lookup $name");
 			$lookupCharIdLink = $this->text->make_chatcmd("Lookup", "/tell <myname> lookup $uid");
-			$whois = Player::get_by_name($name);
+			$whois = $this->playerManager->get_by_name($name);
 			if ($whois === null) {
 				$blob = "<orange>Note: Could not retrieve detailed info for character.<end>\n\n";
 				$blob .= "Name: <highlight>{$name}<end> {$lookupNameLink}\n";
@@ -232,7 +235,7 @@ class WhoisController {
 					$blob .= $this->text->make_chatcmd('Orglist', "/tell <myname> orglist $whois->guild_id") . "\n";
 				}
 
-				$msg = Player::get_info($whois) . " :: " . $this->text->make_blob("More Info", $blob, "Detailed Info for {$name}");
+				$msg = $this->playerManager->get_info($whois) . " :: " . $this->text->make_blob("More Info", $blob, "Detailed Info for {$name}");
 
 				$altInfo = $this->alts->get_alt_info($name);
 				if (count($altInfo->alts) > 0) {
@@ -259,9 +262,9 @@ class WhoisController {
 				$server = "Rimor";
 			}
 
-			$whois = Player::lookup($name, $i);
+			$whois = $this->playerManager->lookup($name, $i);
 			if ($whois !== null) {
-				$msg = Player::get_info($whois);
+				$msg = $this->playerManager->get_info($whois);
 
 				$blob = "Name: <highlight>{$whois->firstname} \"{$name}\" {$whois->lastname}<end>\n";
 				if ($whois->guild) {

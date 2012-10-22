@@ -6,26 +6,30 @@
  *
  * @Instance
  */
-class Guild {
-    public $members = array();
-    public $errorCode = 0;
-    public $errorInfo;
+class GuildManager {
+	/** @Inject */
+	public $chatBot;
+	
+	/** @Inject */
+	public $db;
+	
+	/** @Inject */
+	public $cacheManager;
+	
+	/** @Inject */
+	public $playerManager;
 
 	public function get_by_id($guild_id, $rk_num = 0, $force_update = false) {
-		$chatBot = Registry::getInstance('chatBot');
-		$db = Registry::getInstance('db');
-		$cacheManager = Registry::getInstance('cacheManager');
-		
 		// if no server number is specified use the one on which the bot is logged in
 		if ($rk_num == 0) {
-			$rk_num = $chatBot->vars["dimension"];
+			$rk_num = $this->chatBot->vars["dimension"];
 		}
 		
 		$name = ucfirst(strtolower($name));
 		$url = "http://people.anarchy-online.com/org/stats/d/$rk_num/name/$guild_id/basicstats.xml";
 		$groupName = "guild_roster";
 		$filename = "$guild_id.$rk_num.xml";
-		if ($chatBot->vars["my_guild_id"] == $guild_id) {
+		if ($this->chatBot->vars["my_guild_id"] == $guild_id) {
 			$maxCacheAge = 21600;
 		} else {
 			$maxCacheAge = 86400;
@@ -37,14 +41,14 @@ class Guild {
 				return false;
 			}');
 
-		$cacheResult = $cacheManager->lookup($url, $groupName, $filename, $cb, $maxCacheAge);
+		$cacheResult = $this->cacheManager->lookup($url, $groupName, $filename, $cb, $maxCacheAge);
 
 		// if there is still no valid data available give an error back
 		if ($cacheResult->success !== true) {
 			return null;
 		}
 		
-		$guild = new Guild();
+		$guild = new stdClass;
 		$guild->guild_id = $guild_id;
 
 		// parsing of the memberdata
@@ -55,14 +59,14 @@ class Guild {
 		// pre fetch the charids...this speeds things up immensely
 		forEach ($members as $xmlmember) {
 			$name = xml::splicedata($xmlmember, "<nickname>", "</nickname>");
-			if (!isset($chatBot->id[$name])) {
-				$chatBot->send_packet(new AOChatPacket("out", AOCP_CLIENT_LOOKUP, $name));
+			if (!isset($this->chatBot->id[$name])) {
+				$this->chatBot->send_packet(new AOChatPacket("out", AOCP_CLIENT_LOOKUP, $name));
 			}
 		}
 
         forEach ($members as $member) {
 			$name = xml::splicedata($member, "<nickname>", "</nickname>");
-			$charid = $chatBot->get_uid($name);
+			$charid = $this->chatBot->get_uid($name);
 			if ($charid == null) {
 				$charid = 0;
 			}
@@ -91,16 +95,16 @@ class Guild {
 		// this is done separately from the loop above to prevent nested transaction errors from occuring
 		// when looking up charids for characters
 		if ($cacheResult->usedCache === false) {
-			$db->begin_transaction();
+			$this->db->begin_transaction();
 
 			$sql = "UPDATE players SET guild_id = '', guild = '' WHERE guild_id = ? AND dimension = ?";
-			$db->exec($sql, $guild->guild_id, $rk_num);
+			$this->db->exec($sql, $guild->guild_id, $rk_num);
 
 			forEach ($guild->members as $member) {
-				Player::update($member);
+				$this->playerManager->update($member);
 			}
 
-			$db->commit();
+			$this->db->commit();
 		}
 
 		return $guild;

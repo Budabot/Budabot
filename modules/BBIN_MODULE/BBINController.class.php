@@ -50,6 +50,9 @@ class BBINController {
 	
 	/** @Inject */
 	public $chatBot;
+	
+	/** @Inject */
+	public $playerManager;
 
 	/** @Inject */
 	public $setting;
@@ -402,7 +405,7 @@ class BBINController {
 			$isguest = $arr[3];
 
 			// get character information
-			$character = Player::get_by_name($name, $dimension);
+			$character = $this->playerManager->get_by_name($name, $dimension);
 
 			// add user to bbin_chatlist_<myname>
 			$sql = "INSERT INTO bbin_chatlist_<myname> (`name`, `guest`, `ircrelay`, `faction`, `profession`, `guild`, `breed`, `level`, `ai_level`, `dimension`, `afk`) " .
@@ -506,7 +509,7 @@ class BBINController {
 				}
 
 				// get character information
-				$character = Player::get_by_name($name, $dimension);
+				$character = $this->playerManager->get_by_name($name, $dimension);
 
 				// add user to bbin_chatlist_<myname>
 				$sql = "INSERT INTO bbin_chatlist_<myname> (`name`, `guest`, `ircrelay`, `faction`, `profession`, `guild`, `breed`, `level`, `ai_level`, `dimension`, `afk`) " .

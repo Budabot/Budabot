@@ -96,6 +96,12 @@ class GuildController {
 	public $buddylistManager;
 	
 	/** @Inject */
+	public $playerManager;
+	
+	/** @Inject */
+	public $guildManager;
+	
+	/** @Inject */
 	public $text;
 	
 	/** @Inject */
@@ -586,7 +592,7 @@ class GuildController {
 			$this->logger->log('INFO', "Starting Roster update");
 
 			// Get the guild info
-			$org = Guild::get_by_id($this->chatBot->vars["my_guild_id"], $this->chatBot->vars["dimension"], true);
+			$org = $this->guildManager->get_by_id($this->chatBot->vars["my_guild_id"], $this->chatBot->vars["dimension"], true);
 
 			// Check if guild xml file is correct if not abort
 			if ($org === null) {
@@ -710,7 +716,7 @@ class GuildController {
 			$this->chatBot->sendGuild($msg);
 
 			// update character info
-			Player::get_by_name($name);
+			$this->playerManager->get_by_name($name);
 		} else if (preg_match("/^(.+) kicked (.+) from your organization.$/", $message, $arr) || preg_match("/^(.+) removed inactive character (.+) from your organization.$/", $message, $arr)) {
 			$name = ucfirst(strtolower($arr[2]));
 
@@ -751,13 +757,13 @@ class GuildController {
 				}
 			}
 
-			$whois = Player::get_by_name($sender);
+			$whois = $this->playerManager->get_by_name($sender);
 
 			$msg = '';
 			if ($whois === null) {
 				$msg = "$sender logged on.";
 			} else {
-				$msg = Player::get_info($whois);
+				$msg = $this->playerManager->get_info($whois);
 
 				$msg .= " logged on.";
 

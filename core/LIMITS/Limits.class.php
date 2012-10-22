@@ -22,7 +22,7 @@ class Limits {
 	public $accessLevel;
 
 	/** @Inject */
-	public $player;
+	public $playerManager;
 
 	/** @Inject */
 	public $whitelist;
@@ -58,7 +58,7 @@ class Limits {
 			}
 
 			// get player info which is needed for following checks
-			$whois = $this->player->get_by_name($sender);
+			$whois = $this->playerManager->get_by_name($sender);
 			if ($whois === null) {
 				$msg = "<orange>Error! Unable to get your character info. Please try again later.<end>";
 				$this->chatBot->sendTell($msg, $sender);

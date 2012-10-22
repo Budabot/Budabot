@@ -6,38 +6,42 @@
  *
  * @Instance
  */
-class Player {
-	public function get_by_name($name, $dimension = 0, $forceUpdate = false) {
-		$chatBot = Registry::getInstance('chatBot');
+class PlayerManager {
+	/** @Inject */
+	public $db;
+	
+	/** @Inject */
+	public $chatBot;
 
+	public function get_by_name($name, $dimension = 0, $forceUpdate = false) {
 		if ($dimension == 0) {
-			$dimension = $chatBot->vars['dimension'];
+			$dimension = $this->chatBot->vars['dimension'];
 		}
 
 		$name = ucfirst(strtolower($name));
 
 		$charid = '';
-		if ($dimension == $chatBot->vars['dimension']) {
-			$charid = $chatBot->get_uid($name);
+		if ($dimension == $this->chatBot->vars['dimension']) {
+			$charid = $this->chatBot->get_uid($name);
 			if ($charid == null) {
 				return null;
 			}
 		}
 
-		$player = Player::findInDb($name, $dimension);
+		$player = $this->findInDb($name, $dimension);
 
 		if ($player === null || $forceUpdate) {
-			$player = Player::lookup($name, $dimension);
+			$player = $this->lookup($name, $dimension);
 			if ($player !== null) {
 				$player->charid = $charid;
-				Player::update($player);
+				$this->update($player);
 			}
 		} else if ($player->last_update < (time() - 86400)) {
-			$player2 = Player::lookup($name, $dimension);
+			$player2 = $this->lookup($name, $dimension);
 			if ($player2 !== null) {
 				$player = $player2;
 				$player->charid = $charid;
-				Player::update($player);
+				$this->update($player);
 			} else {
 				$player->source .= ' (old-cache)';
 			}
@@ -49,15 +53,12 @@ class Player {
 	}
 
 	public function findInDb($name, $dimension) {
-		$chatBot = Registry::getInstance('chatBot');
-		$db = Registry::getInstance('db');
-
 		$sql = "SELECT * FROM players WHERE name LIKE ? AND dimension = ?";
-		return $db->queryRow($sql, $name, $dimension);
+		return $this->db->queryRow($sql, $name, $dimension);
 	}
 
 	public function lookup($name, $dimension) {
-		$xml = Player::lookup_url("http://people.anarchy-online.com/character/bio/d/$dimension/name/$name/bio.xml");
+		$xml = $this->lookup_url("http://people.anarchy-online.com/character/bio/d/$dimension/name/$name/bio.xml");
 		if ($xml->name == $name) {
 			$xml->source = 'people.anarchy-online.com';
 			$xml->dimension = $dimension;
@@ -66,7 +67,7 @@ class Player {
 		}
 
 		// if people.anarchy-online.com was too slow to respond or returned invalid data then try to update from auno.org
-		$xml = Player::lookup_url("http://auno.org/ao/char.php?output=xml&dimension=$dimension&name=$name");
+		$xml = $this->lookup_url("http://auno.org/ao/char.php?output=xml&dimension=$dimension&name=$name");
 		if ($xml->name == $name) {
 			$xml->source = 'auno.org';
 			$xml->dimension = $dimension;
@@ -103,11 +104,8 @@ class Player {
 	}
 
 	public function update(&$char) {
-		$chatBot = Registry::getInstance('chatBot');
-		$db = Registry::getInstance('db');
-
 		$sql = "DELETE FROM players WHERE `name` = ? AND `dimension` = ?";
-		$db->exec($sql, $char->name, $char->dimension);
+		$this->db->exec($sql, $char->name, $char->dimension);
 
 		$sql = "
 			INSERT INTO players (
@@ -152,7 +150,7 @@ class Player {
 				?
 			)";
 
-		$db->exec($sql, $char->charid, $char->firstname, $char->name, $char->lastname, $char->level, $char->breed, $char->gender, $char->faction,
+		$this->db->exec($sql, $char->charid, $char->firstname, $char->name, $char->lastname, $char->level, $char->breed, $char->gender, $char->faction,
 			$char->profession, $char->prof_title, $char->ai_rank, $char->ai_level, $char->guild_id, $char->guild, $char->guild_rank, $char->guild_rank_id,
 			$char->dimension, $char->source, time());
 	}

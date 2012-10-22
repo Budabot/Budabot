@@ -62,6 +62,9 @@ class IRCRelayController {
 	public $relayController;
 	
 	/** @Inject */
+	public $playerManager;
+	
+	/** @Inject */
 	public $preferences;
 	
 	/** @Logger */
@@ -481,7 +484,7 @@ class IRCRelayController {
 	}
 	
 	public function getIRCPlayerInfo($sender) {
-		$whois = Player::get_by_name($sender);
+		$whois = $this->playerManager->get_by_name($sender);
 		if ($whois === null) {
 			$whois = new stdClass;
 			$whois->name = $sender;
