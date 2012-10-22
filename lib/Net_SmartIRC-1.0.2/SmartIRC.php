@@ -899,14 +899,12 @@ class Net_SmartIRC_base
     function log($level, $entry, $file = null, $line = null)
     {
         // prechecks
-        if (!(is_integer($level)) ||
-            !($level & SMARTIRC_DEBUG_ALL)) {
+        if (!(is_integer($level)) || !($level & SMARTIRC_DEBUG_ALL)) {
             $this->log(SMARTIRC_DEBUG_NOTICE, 'WARNING: invalid log level passed to log() ('.$level.')', __FILE__, __LINE__);
             return;
         }
         
-        if (!($level & $this->_debug) ||
-             ($this->_logdestination == SMARTIRC_NONE)) {
+        if (!($level & $this->_debug) || ($this->_logdestination == SMARTIRC_NONE)) {
             return;
         }
         
@@ -914,8 +912,7 @@ class Net_SmartIRC_base
             $entry .= "\n";
         }
         
-        if ($file !== null &&
-            $line !== null) {
+        if ($file !== null && $line !== null) {
             $file = basename($file);
             $entry = $file.'('.$line.') '.$entry;
         } else {
@@ -1403,7 +1400,7 @@ class Net_SmartIRC_base
      */
     function listenFor($messagetype)
     {
-        $listenfor = &new Net_SmartIRC_listenfor();
+        $listenfor = new Net_SmartIRC_listenfor();
         $this->registerActionhandler($messagetype, '.*', $listenfor, 'handler');
         $this->listen();
         $result = $listenfor->result;
@@ -1438,7 +1435,7 @@ class Net_SmartIRC_base
         }
         
         $id = $this->_actionhandlerid++;
-        $newactionhandler = &new Net_SmartIRC_actionhandler();
+        $newactionhandler = new Net_SmartIRC_actionhandler();
         
         $newactionhandler->id = $id;
         $newactionhandler->type = $handlertype;
@@ -1540,7 +1537,7 @@ class Net_SmartIRC_base
     function registerTimehandler($interval, &$object, $methodname)
     {
         $id = $this->_timehandlerid++;
-        $newtimehandler = &new Net_SmartIRC_timehandler();
+        $newtimehandler = new Net_SmartIRC_timehandler();
         
         $newtimehandler->id = $id;
         $newtimehandler->interval = $interval;
@@ -1646,7 +1643,7 @@ class Net_SmartIRC_base
         }
         
         // looks like the module satisfies us
-        $module = &new $classname;
+        $module = new $classname;
         $this->log(SMARTIRC_DEBUG_MODULES, 'DEBUG_MODULES: successful created instance of: '.$classname, __FILE__, __LINE__);
         
         $this->log(SMARTIRC_DEBUG_MODULES, 'DEBUG_MODULES: calling '.$classname.'::module_init()', __FILE__, __LINE__);
@@ -1935,7 +1932,7 @@ class Net_SmartIRC_base
             $this->log(SMARTIRC_DEBUG_IRCMESSAGES, 'DEBUG_IRCMESSAGES: received: "'.$rawline.'"', __FILE__, __LINE__);
             
             // building our data packet
-            $ircdata = &new Net_SmartIRC_data();
+            $ircdata = new Net_SmartIRC_data();
             $ircdata->rawmessage = $rawline;
             $lineex = explode(' ', $rawline);
             $ircdata->rawmessageex = $lineex;
