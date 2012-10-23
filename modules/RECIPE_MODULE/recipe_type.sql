@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS `type`;
-CREATE TABLE `type` (`type_id` INT PRIMARY KEY AUTOINCREMENT, `type_name` text NOT NULL, `type_visible` INT NOT NULL);
+CREATE TABLE `type` (`type_id` INT PRIMARY KEY AUTO_INCREMENT, `type_name` text NOT NULL, `type_visible` INT NOT NULL);
 INSERT INTO `type` VALUES (1,'Tools',1);
 INSERT INTO `type` VALUES (2,'Armors',1);
 INSERT INTO `type` VALUES (3,'Weapons',1);

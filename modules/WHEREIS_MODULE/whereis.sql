@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS whereis;
-CREATE TABLE whereis (`id` int not null primary key,`name` varchar(255),`answer` text,`keywords` text, `playfield_id` INT NOT NULL, `xcoord` INT NOT NULL, `ycoord` INT NOT NULL);
+CREATE TABLE whereis (`id` INT PRIMARY KEY AUTO_INCREMENT,`name` varchar(255),`answer` text,`keywords` text, `playfield_id` INT NOT NULL, `xcoord` INT NOT NULL, `ycoord` INT NOT NULL);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('A Spoiled Brat', 'in a park in Omni-Ent', NULL, 705, 946, 350);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Ellsolan', 'behind you, trying to kill you', NULL, 0, 0, 0);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Glarawyn', 'lost. Where are you?', NULL, 0, 0, 0);
