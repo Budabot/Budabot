@@ -1,5 +1,7 @@
 <?php
 
+require_once 'AOChat.class.php';
+
 /**
  * @Instance("chatBot")
  */
