@@ -150,6 +150,14 @@
 	}
 	if (checkIfTableExists($db, "settings_<myname>")) {
 		upgrade($db, "UPDATE settings_<myname> SET admin = 'rl' WHERE admin = 'leader'");
+		$row = $db->queryRow("SELECT * FROM settings_<myname> WHERE name = 'relaysymbol'");
+		if ($row->value = 'Always relay') {
+			upgrade($db, "UPDATE settings_<myname> SET value = '@' WHERE name = 'relaysymbol'");
+			upgrade($db, "UPDATE settings_<myname> SET value = '0' WHERE name = 'relaysymbolmethod'");
+		} else {
+			upgrade($db, "UPDATE settings_<myname> SET value = ? WHERE name = 'relaysymbol'", $row->value);
+			upgrade($db, "UPDATE settings_<myname> SET value = '1' WHERE name = 'relaysymbolmethod'");
+		}
 	}
 
 	if (checkIfTableExists($db, "cmd_alias_<myname>")) {
