@@ -57,7 +57,8 @@ class RelayController {
 	/** @Setup */
 	public function setup() {
 		$this->setting->add($this->moduleName, "relaytype", "Type of relay", "edit", "options", "1", "tell;private channel", '1;2', "mod");
-		$this->setting->add($this->moduleName, "relaysymbol", "Symbol for external relay", "edit", "options", "@", "!;#;*;@;$;+;-;Always relay", '', "mod");
+		$this->setting->add($this->moduleName, "relaysymbol", "Symbol for external relay", "edit", "options", "@", "!;#;*;@;$;+;-", '', "mod");
+		$this->setting->add($this->moduleName, "relaysymbolmethod", "When to relay messages", "edit", "options", "0", "Always relay;Relay when symbol;Relay unless symbol", '0;1;2', "mod");
 		$this->setting->add($this->moduleName, "relaybot", "Bot for Guildrelay", "edit", "text", "Off", "Off", '', "mod", "relaybot.txt");
 		$this->setting->add($this->moduleName, "bot_relay_commands", "Relay commands and results over the bot relay", "edit", "options", "0", "true;false", "1;0");
 		$this->setting->add($this->moduleName, 'relay_color_guild', "Color of messages from relay to guild channel", 'edit', "color", "<font color='#C3C3C3'>");
@@ -140,10 +141,12 @@ class RelayController {
 	public function processOutgoingRelayMessage($sender, $message, $type) {
 		if (($this->setting->get("relaybot") != "Off") && ($this->setting->get("bot_relay_commands") == 1 || $message[0] != $this->setting->get("symbol"))) {
 			$relayMessage = '';
-			if ($this->setting->get('relaysymbol') == 'Always relay') {
+			if ($this->setting->get('relaysymbolmethod') == '0') {
 				$relayMessage = $message;
-			} else if ($message[0] == $this->setting->get('relaysymbol')) {
+			} else if ($this->setting->get('relaysymbolmethod') == '1' && $message[0] == $this->setting->get('relaysymbol')) {
 				$relayMessage = substr($message, 1);
+			} else if ($this->setting->get('relaysymbolmethod') == '2' && $message[0] != $this->setting->get('relaysymbol')) {
+				$relayMessage = $message;
 			} else {
 				return;
 			}
