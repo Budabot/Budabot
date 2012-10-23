@@ -236,6 +236,7 @@ class RelayController {
 	 * @Description("Sends a message to the relay when someone joins the private channel")
 	 */
 	public function relayJoinPrivMessagesEvent($eventObj) {
+		$sender = $eventObj->sender;
 		if ($this->setting->get('relaybot') != 'Off') {
 			$whois = $this->playerManager->get_by_name($sender);
 			$altInfo = $this->alts->get_alt_info($sender);
@@ -263,6 +264,7 @@ class RelayController {
 	 * @Description("Sends a message to the relay when someone leaves the private channel")
 	 */
 	public function relayLeavePrivMessagesEvent($eventObj) {
+		$sender = $eventObj->sender;
 		if ($this->setting->get('relaybot') != 'Off') {
 			$msg = "<highlight>{$sender}<end> has left the private channel.";
 			$this->send_message_to_relay("grc [<myguild>] " . $msg);

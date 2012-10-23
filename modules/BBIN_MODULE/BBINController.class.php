@@ -314,6 +314,7 @@ class BBINController {
 	 */
 	public function relayPrivMessagesEvent($eventObj) {
 		$message = $eventObj->message;
+		$sender = $eventObj->sender;
 		if (IRC::isConnectionActive($this->bbinSocket)) {
 			// do not relay commands and ignored chars
 			if ($message[0] != $this->setting->get("symbol")) {
@@ -332,6 +333,7 @@ class BBINController {
 	 */
 	public function relayGuildMessagesEvent($eventObj) {
 		$message = $eventObj->message;
+		$sender = $eventObj->sender;
 		if (IRC::isConnectionActive($this->bbinSocket)) {
 			// do not relay commands and ignored chars
 			if ($message[0] != $this->setting->get("symbol")) {

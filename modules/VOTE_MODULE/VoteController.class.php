@@ -488,8 +488,8 @@ class VoteController {
 			} else if (!$question) {
 				$msg = "What are we voting on?";
 			} else {
-				if (substr($question,0,1) == "@") {
-					$question = substr($question,1);
+				if (substr($question, 0, 1) == "@") {
+					$question = substr($question, 1);
 					$status = 1;
 				} else {
 					$status = 0;
