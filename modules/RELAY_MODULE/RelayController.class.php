@@ -126,7 +126,7 @@ class RelayController {
 	 * @Description("Sends org chat to relay")
 	 */
 	public function orgChatToRelayEvent($eventObj) {
-		$this->processOutgoingRelayMessage($eventObj->sender, $eventObj->message);
+		$this->processOutgoingRelayMessage($eventObj->sender, $eventObj->message, $eventObj->type);
 	}
 	
 	/**
@@ -134,32 +134,35 @@ class RelayController {
 	 * @Description("Sends private channel chat to relay")
 	 */
 	public function privChatToRelayEvent($eventObj) {
-		$this->processOutgoingRelayMessage($eventObj->sender, $eventObj->message);
+		$this->processOutgoingRelayMessage($eventObj->sender, $eventObj->message, $eventObj->type);
 	}
 	
-	public function processOutgoingRelayMessage($sender, $message) {
+	public function processOutgoingRelayMessage($sender, $message, $type) {
 		if (($this->setting->get("relaybot") != "Off") && ($this->setting->get("bot_relay_commands") == 1 || $message[0] != $this->setting->get("symbol"))) {
 			$relayMessage = '';
 			if ($this->setting->get('relaysymbol') == 'Always relay') {
 				$relayMessage = $message;
 			} else if ($message[0] == $this->setting->get('relaysymbol')) {
 				$relayMessage = substr($message, 1);
+			} else {
+				return;
 			}
 
-			if ($relayMessage != '') {
-				if (!$this->util->isValidSender($sender)) {
-					$sender_link = '';
-				} else {
-					$sender_link = ' ' . $this->text->make_userlink($sender) . ':';
-				}
-
-				if ($type == "guild") {
-					$msg = "grc [<myguild>]{$sender_link} {$relayMessage}";
-				} else if ($type == "priv") {
-					$msg = "grc [<myguild>] [Guest]{$sender_link} {$relayMessage}";
-				}
-				$this->send_message_to_relay($msg);
+			if (!$this->util->isValidSender($sender)) {
+				$sender_link = '';
+			} else {
+				$sender_link = ' ' . $this->text->make_userlink($sender) . ':';
 			}
+
+			if ($type == "guild") {
+				$msg = "grc [<myguild>]{$sender_link} {$relayMessage}";
+			} else if ($type == "priv") {
+				$msg = "grc [<myguild>] [Guest]{$sender_link} {$relayMessage}";
+			} else {
+				$this->logger->log('WARN', "Invalid type; expecting 'guild' or 'priv'.  Actual: '$type'");
+				return;
+			}
+			$this->send_message_to_relay($msg);
 		}
 	}
 	

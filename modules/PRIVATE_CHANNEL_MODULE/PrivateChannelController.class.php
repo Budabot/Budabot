@@ -492,7 +492,7 @@ class PrivateChannelController {
 		}
 		$this->chatBot->sendPrivate($msg);
 		
-		if ($type != "priv") {
+		if ($channel != "priv") {
 			$msg = "You have locked the private channel.";
 			$sendto->reply($msg);
 		}
@@ -513,7 +513,7 @@ class PrivateChannelController {
 
 		$msg = "The private channel has been opened by <highlight>$sender<end>.";
 		$this->chatBot->sendPrivate($msg);
-		if ($type != "priv") {
+		if ($channel != "priv") {
 			$msg = "You have opened the private channel.";
 			$this->chatBot->sendTell($msg, $sender);
 		}

@@ -421,7 +421,7 @@ class IRCRelayController {
 	 */
 	public function joinPrivEvent($eventObj) {
 		if (IRC::isConnectionActive($this->ircSocket)) {
-			$msg = $this->getIRCPlayerInfo($eventObj->sender);
+			$msg = $this->getIRCPlayerInfo($eventObj->sender, $eventObj->type);
 			$this->sendMessageToIRC($msg);
 		}
 	}
@@ -441,7 +441,7 @@ class IRCRelayController {
 					}
 				}
 
-				$msg = $this->getIRCPlayerInfo($eventObj->sender);
+				$msg = $this->getIRCPlayerInfo($eventObj->sender, $eventObj->type);
 				$this->sendMessageToIRC($msg);
 			}
 		}
@@ -483,7 +483,7 @@ class IRCRelayController {
 		return chr(2) . chr(2) . chr(2) . "[{$guild}]" .  chr(2) . ' ' . $msg;
 	}
 	
-	public function getIRCPlayerInfo($sender) {
+	public function getIRCPlayerInfo($sender, $type) {
 		$whois = $this->playerManager->get_by_name($sender);
 		if ($whois === null) {
 			$whois = new stdClass;
