@@ -100,7 +100,7 @@ class BBINController {
 		$this->setting->add($this->moduleName, "bbin_status", "Status of BBIN uplink", "noedit", "options", "0", "Offline;Online", "0;1", "mod", "bbin_help.txt");
 		$this->setting->add($this->moduleName, "bbin_server", "IRC server to connect to", "noedit", "text", "irc.funcom.com", "", "", "mod", "bbin_help.txt");
 		$this->setting->add($this->moduleName, "bbin_port", "IRC server port to use", "noedit", "number", "6667", "", "", "mod", "bbin_help.txt");
-		$this->setting->add($this->moduleName, "bbin_nickname", "Nickname to use while in IRC", "noedit", "text", $chatBot->vars['name'], "", "", "mod", "bbin_help.txt");
+		$this->setting->add($this->moduleName, "bbin_nickname", "Nickname to use while in IRC", "noedit", "text", $this->chatBot->vars['name'], "", "", "mod", "bbin_help.txt");
 		$this->setting->add($this->moduleName, "bbin_channel", "Channel to join", "noedit", "text", $channel, "", "", "mod", "bbin_help.txt");
 		$this->setting->add($this->moduleName, "bbin_password", "IRC password to join channel", "edit", "text", "none", "none");
 	}

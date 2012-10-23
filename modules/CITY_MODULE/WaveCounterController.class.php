@@ -45,7 +45,7 @@ class WaveCounterController {
 	 */
 	public function startraidCommand($message, $channel, $sender, $sendto, $args) {
 		if (isset($this->wave)) {
-			$chatBot->sendGuild("A raid is already in progress.");
+			$this->chatBot->sendGuild("A raid is already in progress.");
 		} else {
 			$this->chatBot->sendGuild("Wave counter started.");
 			$this->wave['time'] = time();

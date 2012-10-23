@@ -35,3 +35,4 @@
 
 <highlight>Let 2 people fight each other<end>
 <tab><symbol>fight 'Person1' vs 'Person2'
+Note: Chuck Norris never loses

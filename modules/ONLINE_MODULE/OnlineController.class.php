@@ -105,7 +105,7 @@ class OnlineController {
 	public function recordLogonEvent($eventObj) {
 		$sender = $eventObj->sender;
 		if (isset($this->chatBot->guildmembers[$sender])) {
-			$this->addPlayerToOnlineList($sender, $chatBot->vars['guild'], 'guild');
+			$this->addPlayerToOnlineList($sender, $this->chatBot->vars['guild'], 'guild');
 		}
 	}
 	

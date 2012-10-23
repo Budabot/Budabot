@@ -113,7 +113,7 @@ class RelayController {
 	public function processIncomingRelayMessage($sender, $message) {
 		if (($sender == ucfirst(strtolower($this->setting->get('relaybot'))) || $channel == ucfirst(strtolower($this->setting->get('relaybot')))) && preg_match("/^grc (.+)$/s", $message, $arr)) {
 			$msg = $arr[1];
-			$this->chatBot->sendGuild($setting->get('relay_color_guild') . $msg, true);
+			$this->chatBot->sendGuild($this->setting->get('relay_color_guild') . $msg, true);
 
 			if ($this->setting->get("guest_relay") == 1) {
 				$this->chatBot->sendPrivate($this->setting->get('relay_color_priv') . $msg, true);
@@ -288,7 +288,7 @@ class RelayController {
 		if ($this->setting->get('relay_guild_abbreviation') != 'none') {
 			return $this->setting->get('relay_guild_abbreviation');
 		} else {
-			return $chatBot->vars["my_guild"];
+			return $this->chatBot->vars["my_guild"];
 		}
 	}
 }
