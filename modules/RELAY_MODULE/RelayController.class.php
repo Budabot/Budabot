@@ -99,7 +99,7 @@ class RelayController {
 	 * @Description("Receive relay messages from other bots in the relay bot private channel")
 	 */
 	public function receiveRelayMessageExtPrivEvent($eventObj) {
-		$this->processIncomingRelayMessage($eventObj->sender, $eventObj->message);
+		$this->processIncomingRelayMessage($eventObj->channel, $eventObj->message);
 	}
 	
 	/**
