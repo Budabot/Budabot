@@ -56,6 +56,9 @@ class TestController {
 	
 	/** @Inject */
 	public $text;
+	
+	/** @Inject */
+	public $accessLevel;
 
 	/** @Inject */
 	public $commandManager;
@@ -143,21 +146,25 @@ class TestController {
 	 */
 	public function showcmdregexCommand($message, $channel, $sender, $sendto, $args) {
 		$cmd = $args[1];
-		$handlers = array();
-		if (isset($this->commandManager->commands[$channel][$cmd])) {
-			$commandHandler = $this->commandManager->commands[$channel][$cmd];
-			$handlers = array_merge($handlers, explode(',', $commandHandler->file));
-		}
-		if (isset($this->subcommandManager->subcommands[$cmd])) {
-			forEach ($this->subcommandManager->subcommands[$cmd] as $commandHandler) {
-				if ($commandHandler->type == $channel) {
-					$handlers = array_merge($handlers, explode(',', $commandHandler->file));
-				}
-			}
-		}
+		
+		// get all command handlers
+		$handlers = $this->getAllCommandHandlers($cmd, $channel);
+		
+		// filter command handlers by access level
+		$accessLevel = $this->accessLevel;
+		$handlers = array_filter($handlers, function ($handler) use ($sender, $accessLevel) {
+			return $accessLevel->checkAccess($sender, $handler->admin);
+		});
+		
+		// get calls for handlers
+		$calls = array_reduce($handlers, function ($handlers, $handler) {
+			return array_merge($handlers, explode(',', $handler->file));
+		}, array());
+
+		// get regexes for calls
 		$regexes = array();
-		forEach ($handlers as $handler) {
-			list($name, $method) = explode(".", $handler);
+		forEach ($calls as $call) {
+			list($name, $method) = explode(".", $call);
 			$instance = Registry::getInstance($name);
 			try {
 				$reflectedMethod = new ReflectionAnnotatedMethod($instance, $method);
@@ -166,13 +173,32 @@ class TestController {
 				continue;
 			}
 		}
-	
-		$blob = '';
-		forEach ($regexes as $regex) {
-			$blob .= $regex . "\n";
+
+		if (count($regexes) > 0) {
+			$blob = '';
+			forEach ($regexes as $regex) {
+				$blob .= $regex . "\n";
+			}
+			$msg = $this->text->make_blob("Regexes for $cmd", $blob);
+		} else {
+			$msg = "No regexes found for command <highlight>$cmd<end>.";
 		}
-		$msg = $this->text->make_blob("Regexes for $cmd", $blob);
 		$sendto->reply($msg);
+	}
+	
+	public function getAllCommandHandlers($cmd, $channel) {
+		$handlers = array();
+		if (isset($this->commandManager->commands[$channel][$cmd])) {
+			$handlers []= $this->commandManager->commands[$channel][$cmd];
+		}
+		if (isset($this->subcommandManager->subcommands[$cmd])) {
+			forEach ($this->subcommandManager->subcommands[$cmd] as $handler) {
+				if ($handler->type == $channel) {
+					$handlers []= $handler;
+				}
+			}
+		}
+		return $handlers;
 	}
 }
 
