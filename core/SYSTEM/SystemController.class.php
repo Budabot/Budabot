@@ -349,24 +349,17 @@ class SystemController {
 	 * @Matches("/^logs$/i")
 	 */
 	public function logsCommand($message, $channel, $sender, $sendto, $args) {
-		if ($handle = opendir($this->logger->get_logging_directory())) {
-			$blob = '';
-			while (false !== ($file = readdir($handle))) {
-				if ($file == '.' || $file == '..') {
-					continue;
-				}
-
-				$file_link = $this->text->make_chatcmd($file, "/tell <myname> logs $file");
-				$errorLink = $this->text->make_chatcmd("ERROR", "/tell <myname> logs $file ERROR");
-				$chatLink = $this->text->make_chatcmd("CHAT", "/tell <myname> logs $file CHAT");
-				$blob .= "$file_link [$errorLink] [$chatLink] \n";
-			}
-			closedir($handle);
-
-			$msg = $this->text->make_blob('Log Files', $blob);
-		} else {
-			$msg = "Could not open log directory: '" . $this->logger->get_logging_directory() . "'";
+		$files = $this->util->getFilesInDirectory($this->logger->get_logging_directory());
+		sort($files);
+		$blob = '';
+		forEach ($files as $file) {
+			$file_link = $this->text->make_chatcmd($file, "/tell <myname> logs $file");
+			$errorLink = $this->text->make_chatcmd("ERROR", "/tell <myname> logs $file ERROR");
+			$chatLink = $this->text->make_chatcmd("CHAT", "/tell <myname> logs $file CHAT");
+			$blob .= "$file_link [$errorLink] [$chatLink] \n";
 		}
+
+		$msg = $this->text->make_blob('Log Files', $blob);
 		$sendto->reply($msg);
 	}
 
