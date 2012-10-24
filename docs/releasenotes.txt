@@ -1,6 +1,7 @@
 *****************************
-	Version 3.0_RC1:
+	Version 3.0_RC2:
 *****************************
+-added setting 'relaysymbolmethod' for controlling whether the relay symbol relays or does not relay messages
 -modules are now declared and defined using an OO approach with annotations
 -PHP supported version increased to 5.3
 -fix for logoff spam in org chat when the bot restarts
