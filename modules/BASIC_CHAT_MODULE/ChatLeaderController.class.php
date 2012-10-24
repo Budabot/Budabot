@@ -68,12 +68,11 @@ class ChatLeaderController {
 			unset($this->leader);
 			$msg = "Leader cleared.";
 		} else if ($this->leader != "") {
-			// TODO: is this access level check correct?
-			if ($this->accessLevel->compareCharacterAccessLevels($sender, $this->leader)) {
+			if ($this->accessLevel->compareCharacterAccessLevels($sender, $this->leader) > 0) {
 				$this->leader = $sender;
 				$msg = $this->getLeaderStatusText();
 			} else {
-				$msg = "You can't take leader from <highlight>{$this->leader}<end>.";
+				$msg = "You cannot take leader from <highlight>{$this->leader}<end>.";
 			}
 		} else {
 			$this->leader = $sender;
