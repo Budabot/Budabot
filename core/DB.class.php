@@ -136,7 +136,7 @@ class DB {
 
 	private function executeQuery($sql, $params) {
 		$this->lastQuery = $sql;
-		LegacyLogger::log('DEBUG', "SQL", $sql);
+		LegacyLogger::log('DEBUG', "SQL", $sql . " - " . print_r($params, true));
 
 		try {
 			$ps = $this->sql->prepare($sql);
@@ -274,11 +274,15 @@ class DB {
 		if ($file === false) {
 			$msg = "No SQL file found with name '$name' in module '$module'!";
 			LegacyLogger::log('ERROR', 'Core', "No SQL file found with name '$name' in '$dir'!");
-		} else if ($forceUpdate || $this->util->compare_version_numbers($maxFileVersion, $currentVersion) > 0) {
+			return;
+		}
+		
+		// make sure setting is verified so it doesn't get deleted
+		$this->setting->add($module, $settingName, $settingName, 'noedit', 'text', 0);
+		
+		if ($forceUpdate || $this->util->compare_version_numbers($maxFileVersion, $currentVersion) > 0) {
 			$handle = @fopen("$dir/$file", "r");
-			$this->setting->add($module, $settingName, $settingName, 'noedit', 'text', 0);
 			if ($handle) {
-				//$this->begin_transaction();
 				while (($line = fgets($handle)) !== false) {
 					$line = trim($line);
 					// don't process comment lines or blank lines
@@ -286,7 +290,6 @@ class DB {
 						$this->exec($line);
 					}
 				}
-				//$this->commit();
 
 				$this->setting->save($settingName, $maxFileVersion);
 
