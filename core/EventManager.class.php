@@ -151,6 +151,67 @@ class EventManager {
 			$this->logger->log('ERROR', "Error deactivating event Type:($type) File:($filename). The event is not active or doesn't exist!");
 		}
 	}
+	
+	/**
+	 * Activates events that are annotated on one or more method names
+	 * if the events are not already activated
+	 *
+	 * @param Object obj
+	 * @param String methodName1
+	 * @param String methodName2 ...
+	 */
+	public function activateIfDeactivated($obj) {
+		$eventMethods = func_get_args();
+		array_shift($eventMethods);
+		forEach ($eventMethods as $eventMethod) {
+			$call = get_class($obj) . "." . $eventMethod;
+			$type = $this->getEventTypeByMethod($obj, $eventMethod);
+			if ($type !== null) {
+				if (isset($this->events[$type]) && in_array($call, $this->events[$type])) {
+					// event already activated
+					continue;
+				}
+				$this->activate($type, $call);
+			} else {
+				$this->logger->log('ERROR', "Could not find event for '$call'");
+			}
+		}
+	}
+	
+	/**
+	 * Deactivates events that are annotated on one or more method names
+	 * if the events are not already deactivated
+	 *
+	 * @param Object obj
+	 * @param String methodName1
+	 * @param String methodName2 ...
+	 */
+	public function deactivateIfActivated($obj) {
+		$eventMethods = func_get_args();
+		array_shift($eventMethods);
+		forEach ($eventMethods as $eventMethod) {
+			$call = get_class($obj) . "." . $eventMethod;
+			$type = $this->getEventTypeByMethod($obj, $eventMethod);
+			if ($type !== null) {
+				if (!isset($this->events[$type]) || !in_array($call, $this->events[$type])) {
+					// event already deactivated
+					continue;
+				}
+				$this->deactivate($type, $call);
+			} else {
+				$this->logger->log('ERROR', "Could not find event for '$call'");
+			}
+		}
+	}
+	
+	public function getEventTypeByMethod($obj, $methodName) {
+		$method = new ReflectionAnnotatedMethod($obj, $methodName);
+		if ($method->hasAnnotation('Event')) {
+			return strtolower($method->getAnnotation('Event')->value);
+		} else {
+			return null;
+		}
+	}
 
 	public function getKeyForCronEvent($time, $filename) {
 		forEach ($this->cronevents as $key => $event) {
