@@ -285,6 +285,8 @@ class ItemsController implements ItemsAPI {
 			return null;
 		}
 		
+		$data = preg_replace_callback("|<description>(.+)</description>|s", array($this, 'escapeDescription'), $data);
+		
 		$doc = new DOMDocument();
 		$doc->prevservWhiteSpace = false;
 		$doc->loadXML($data);
@@ -305,6 +307,10 @@ class ItemsController implements ItemsAPI {
 		}
 
 		return $obj;
+	}
+	
+	private function escapeDescription($arr) {
+		return "<description>" . htmlspecialchars($arr[1]) . "</description>";
 	}
 
 	/**
