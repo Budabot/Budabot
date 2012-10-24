@@ -53,7 +53,7 @@ class UsageController {
 	 * @Matches("/^usage$/i")
 	 * @Matches("/^usage ([a-z0-9]+)$/i")
 	 */
-	public function cloakCommand($message, $channel, $sender, $sendto, $args) {
+	public function usageCommand($message, $channel, $sender, $sendto, $args) {
 		if (count($args) == 2) {
 			$time = $this->util->parseTime($args[1]);
 			if ($time == 0) {
@@ -89,6 +89,46 @@ class UsageController {
 		}
 
 		$msg = $this->text->make_blob("Usage Statistics ({$timeString})", $blob);
+		$sendto->reply($msg);
+	}
+	
+	/**
+	 * @HandlesCommand("usage")
+	 * @Matches("/^usage player ([0-9a-z-]+)$/i")
+	 * @Matches("/^usage player ([0-9a-z-]+) ([a-z0-9]+)$/i")
+	 */
+	public function usagePlayerCommand($message, $channel, $sender, $sendto, $args) {
+		if (count($args) == 3) {
+			$time = $this->util->parseTime($args[2]);
+			if ($time == 0) {
+				$msg = "Please enter a valid time.";
+				$sendto->reply($msg);
+				return;
+			}
+			$time = $time;
+		} else {
+			$time = 604800;
+		}
+
+		$timeString = $this->util->unixtime_to_readable($time);
+		$time = time() - $time;
+	
+		$player = ucfirst(strtolower($args[1]));
+	
+		// most used commands
+		$sql = "SELECT command, COUNT(command) AS count FROM usage_<myname> WHERE sender = ? AND dt > ? GROUP BY command ORDER BY count DESC";
+		$data = $this->db->query($sql, $player, $time);
+
+		if (count($data) > 0) {
+			$blob .= '';
+			forEach ($data as $row) {
+				$blob .= "<highlight>{$row->command}<end> ({$row->count})\n";
+			}
+
+			$msg = $this->text->make_blob("Usage for $player ({$timeString})", $blob);
+		} else {
+			$msg = "No usage statistics found for <highlight>$player<end>.";
+		}
 		$sendto->reply($msg);
 	}
 
