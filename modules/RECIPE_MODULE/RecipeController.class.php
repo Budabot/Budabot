@@ -66,6 +66,7 @@ class RecipeController {
 	public function rbSearchCommand($message, $channel, $sender, $sendto, $args) {
 		if (preg_match('/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/', $args[1], $matches)) {
 			$lowId = $matches[1];
+			$search = $matches[4];
 			
 			$url = "/byitem/id/$lowId/mode/default/format/json/bot/budabot";
 		} else {
