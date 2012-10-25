@@ -36,8 +36,8 @@ class BuffItemsController {
 	public $text;
 	
 	private $skill_list = array("Strength", "Stamina", "Agility", "Sense", "Psychic", "Intelligence", "Martial Arts", "Brawling", "Dimach", "Riposte", "Adventuring", "Swimming",
-					"Body Dev", "Nano Pool", "1hb", "2hb", "1he", "2he", "piercing", "melee energy", "parry", "sneak attack", "multi melee", "fast attack",
-					"Sharp Obj", "Grenade", "Heavy Weapons", "Bow", "Pistol", "Assault Rif", "MG/SMG", "Shotgun", "Rifle", "Ranged Energy", "Fling Shot",
+					"Body Dev", "Nano Pool", "1hb", "2hb", "1he", "2he", "Piercing", "Melee Energy", "Parry", "Sneak Attack", "Multi Melee", "Fast Attack",
+					"Sharp Obj", "Grenade", "Heavy Weapons", "Bow", "Pistol", "Assault Rifle", "MG/SMG", "Shotgun", "Rifle", "Ranged Energy", "Fling Shot",
 					"Aimed Shot", "Burst", "Full Auto", "Bow Special Attack", "Multi Ranged", "Mech Eng", "Pharma Tech", "Nano Prog", "Chemistry", "Psychology",
 					"Elec Eng", "Quantum FT", "Weap Smith", "Comp Lit", "Tutoring", "Bio Met", "Mat Met", "Psy Mod", "Mat Crea", "Time Space", "Sens Imp",
 					"First Aid", "Treatment", "Map Nav");
@@ -91,6 +91,21 @@ class BuffItemsController {
 	
 	/**
 	 * @HandlesCommand("whatbuffs")
+	 * @Matches("/^whatbuffs$/i")
+	 */
+	public function whatbuffsListCommand($message, $channel, $sender, $sendto, $args) {
+		$blob = '';
+		forEach ($this->skill_list as $skill) {
+			$link = $this->text->make_chatcmd($skill, "/tell <myname> whatbuffs $skill");
+			$blob .= $link . "\n";
+		}
+		$blob .= "\n\nby Imoutochan (RK1)";
+		$msg = $this->text->make_blob("What Buffs Skills List", $blob);
+		$sendto->reply($msg);
+	}
+	
+	/**
+	 * @HandlesCommand("whatbuffs")
 	 * @Matches("/^whatbuffs (.+)$/i")
 	 */
 	public function whatbuffsCommand($message, $channel, $sender, $sendto, $args) {
@@ -122,7 +137,7 @@ class BuffItemsController {
 					$inside = "Your query of <yellow>$name<end> yielded the following results:\n\n";
 					$inside .= "Items that buff ".$skills[0].":\n\n";
 					$inside .= $info;
-					$inside .= "\n\nby Imoutochan, RK1";
+					$inside .= "\n\nby Imoutochan (RK1)";
 					$windowlink = $this->text->make_blob("What Buffs '$name' ($found)", $inside);
 					$sendto->reply($windowlink);
 					return;
@@ -139,7 +154,7 @@ class BuffItemsController {
 				}
 				$inside = "Your query of <yellow>$name<end> matches more than one skill:\n\n";
 				$inside .= $info;
-				$inside .= "\n\nby Imoutochan, RK1";
+				$inside .= "\n\nby Imoutochan (RK1)";
 				$windowlink = $this->text->make_blob("What Buffs Skills (" . count($skills) . ")", $inside);
 				$sendto->reply($windowlink);
 				return;
@@ -159,12 +174,12 @@ class BuffItemsController {
 	}
 
 	public function make_info($row) {
-		$result = "<green><u>$row->item_name</u><end>:\n\n".
-				  "<font color=#33ff66>Category</font>: $row->category\n".
-				  "<font color=#33ff66>Boosts</font>: $row->boosts\n".
-				  "<font color=#33ff66>QL range</font>: $row->ql_range\n".
-				  "<font color=#33ff66>Aquisition</font>:\n<tab>$row->acquisition\n".
-				  "<font color=#33ff66>Buff Break points</font>:\n";
+		$result = "<header2>$row->item_name<end>:\n\n".
+				  "<highlight>Category<end>: $row->category\n".
+				  "<highlight>Boosts<end>: $row->boosts\n".
+				  "<highlight>QL range<end>: $row->ql_range\n".
+				  "<highlight>Aquisition<end>:\n<tab>$row->acquisition\n".
+				  "<highlight>Buff Break points<end>:\n";
 		
 		forEach (explode("\\n", $row->buff_break_points) as $breakpoint) {
 			$result .= "<tab>QL ".$breakpoint."\n";
