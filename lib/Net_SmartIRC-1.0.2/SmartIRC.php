@@ -398,6 +398,8 @@ class Net_SmartIRC_base
      * @access public
      */
     var $user;
+	
+	var $logger;
     
     /**
      * Constructor. Initiales the messagebuffer and "links" the replycodes from
@@ -431,6 +433,8 @@ class Net_SmartIRC_base
             // to SMARTIRC_BROWSEROUT (makes browser friendly output)
             $this->setLogdestination(SMARTIRC_BROWSEROUT);
         }
+		
+		$this->logger = Logger::getLogger("SmartIRC");
     }
     
     /**
@@ -903,51 +907,14 @@ class Net_SmartIRC_base
             $this->log(SMARTIRC_DEBUG_NOTICE, 'WARNING: invalid log level passed to log() ('.$level.')', __FILE__, __LINE__);
             return;
         }
-        
-        if (!($level & $this->_debug) || ($this->_logdestination == SMARTIRC_NONE)) {
-            return;
-        }
-        
-        if (substr($entry, -1) != "\n") {
-            $entry .= "\n";
-        }
-        
-        if ($file !== null && $line !== null) {
-            $file = basename($file);
-            $entry = $file.'('.$line.') '.$entry;
-        } else {
-            $entry = 'unknown(0) '.$entry;
-        }
-        
-        $formatedentry = date('M d H:i:s ').$entry;
-        switch ($this->_logdestination) {
-            case SMARTIRC_STDOUT:
-                echo $formatedentry;
-                flush();
-            break;
-            case SMARTIRC_BROWSEROUT:
-                echo '<pre>'.htmlentities($formatedentry).'</pre>';
-            break;
-            case SMARTIRC_FILE:
-                if (!is_resource($this->_logfilefp)) {
-                    if ($this->_logfilefp === null) {
-                        // we reconncted and don't want to destroy the old log entries
-                        $this->_logfilefp = fopen($this->_logfile,'a');
-                    } else {
-                        $this->_logfilefp = fopen($this->_logfile,'w');
-                    }
-                }
-                fwrite($this->_logfilefp, $formatedentry);
-                fflush($this->_logfilefp);
-            break;
-            case SMARTIRC_SYSLOG:
-                define_syslog_variables();
-                if (!is_int($this->_logfilefp)) {
-                    $this->_logfilefp = openlog('Net_SmartIRC', LOG_NDELAY, LOG_DAEMON);
-                }
-                syslog(LOG_INFO, $entry);
-            break;
-        }
+
+		if ($level & SMARTIRC_DEBUG_NOTICE) {
+			$logLevel = LoggerLevel::getLevelInfo();
+		} else {
+			$logLevel = LoggerLevel::getLevelDebug();
+		}
+		
+		$this->logger->log($logLevel, $entry);
     }
     
     /**
@@ -1352,7 +1319,7 @@ class Net_SmartIRC_base
      */
     function listen()
     {
-        while ($this->_state() == SMARTIRC_STATE_CONNECTED) {
+        if ($this->_state() == SMARTIRC_STATE_CONNECTED) {
             $this->listenOnce();
         }
 
@@ -1889,7 +1856,7 @@ class Net_SmartIRC_base
         $timeout = $this->_selecttimeout();
         if ($this->_usesockets == true) {
             $sread = array($this->_socket);
-            $result = socket_select($sread, $w = null, $e = null, 0, $timeout*1000);
+            $result = socket_select($sread, $w = null, $e = null, 0);
             
             if ($result == 1) {
                 // the socket got data to read
