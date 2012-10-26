@@ -36,6 +36,18 @@
  *		description = "Test the bot commands", 
  *		help        = 'test.txt'
  *	)
+ *	@DefineCommand(
+ *		command     = 'connectirc', 
+ *		accessLevel = 'admin', 
+ *		description = "Test the bot commands", 
+ *		help        = 'test.txt'
+ *	)
+ *	@DefineCommand(
+ *		command     = 'disconnectirc', 
+ *		accessLevel = 'admin', 
+ *		description = "Test the bot commands", 
+ *		help        = 'test.txt'
+ *	)
  */
 class TestController {
 
@@ -68,6 +80,8 @@ class TestController {
 	
 	/** @Logger */
 	public $logger;
+	
+	private $irc;
 
 	/**
 	 * @Setup
@@ -186,6 +200,47 @@ class TestController {
 		$sendto->reply($msg);
 	}
 	
+	/**
+	 * @HandlesCommand("connectirc")
+	 * @Matches("/^connectirc$/i")
+	 */
+	public function connectircCommand($message, $channel, $sender, $sendto, $args) {
+		if ($this->irc != null) {
+			$this->irc->disconnect();
+			$this->irc = null;
+		}
+		$bot = new IRCListener();
+		$this->irc = new Net_SmartIRC();
+		$this->irc->setUseSockets(TRUE);
+		$this->irc->registerActionhandler(SMARTIRC_TYPE_CHANNEL, '^!test', $bot, 'test');
+		$this->irc->connect('irc.funcom.com', 6667);
+		$this->irc->login('Net_SmartIRC', 'Net_SmartIRC Client '.SMARTIRC_VERSION.' (yourfilename.php)', 0, 'Net_SmartIRC');
+		$this->irc->join(array('#budabot'));
+		//$this->irc->setSenddelay(0);
+		$this->irc->listen();
+	}
+	
+	/**
+	 * @HandlesCommand("disconnectirc")
+	 * @Matches("/^disconnectirc$/i")
+	 */
+	public function disconnectircCommand($message, $channel, $sender, $sendto, $args) {
+		if ($this->irc != null) {
+			$this->irc->disconnect();
+			$this->irc = null;
+		}
+	}
+	
+	/**
+	 * @Event("2s")
+	 * @Description("Listen to IRC")
+	 */
+	public function checkForIRCEvent($eventObj) {
+		if ($this->irc != null) {
+			$this->irc->listen();
+		}
+	}
+	
 	public function getAllCommandHandlers($cmd, $channel) {
 		$handlers = array();
 		if (isset($this->commandManager->commands[$channel][$cmd])) {
@@ -206,5 +261,17 @@ class MockCommandReply implements CommandReply {
 	public function reply($msg) {
 		echo "got reply\n";
 		//echo $msg . "\n";
+	}
+}
+
+class IRCListener {
+	function test(&$irc, &$data) {
+		$irc->message(SMARTIRC_TYPE_CHANNEL, $data->channel, $data->nick.': It works!');
+	}
+
+	function quit(&$irc, &$data) {
+		if ($data->nick == "Tyrence") {
+			$irc->disconnect();
+		}
 	}
 }

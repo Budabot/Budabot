@@ -343,7 +343,7 @@ class OnlineController {
 		}
 
 		// IRC part
-		$data = $this->db->query("SELECT o.name, o.afk, o.channel, o.channel_type, '' AS profession FROM `online` o WHERE o.channel_type = 'irc' AND o.name <> '<myname>' ORDER BY `name` ASC");
+		$data = $this->db->query("SELECT o.name, o.afk, o.channel, o.channel_type FROM `online` o WHERE o.channel_type = 'irc' AND o.name <> '<myname>' ORDER BY `name` ASC");
 		$numirc = count($data);
 
 		if ($numirc >= 1) {
