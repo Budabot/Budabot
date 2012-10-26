@@ -324,7 +324,7 @@ class OnlineController {
 			$blob .= "<header2> :::::: $numguild ".($numguild == 1 ? "Member":"Members")." online ".($this->chatBot->vars['my_guild'] != '' ? "[<myguild>] ":"")." ::::::<end>\n";
 
 			// create the list with alts shown
-			$blob .= $this->createList($data, $list, true, $this->setting->get("online_show_org_guild"));
+			$blob .= $this->createList($data, true, $this->setting->get("online_show_org_guild"));
 		}
 
 		// Private Channel Part
@@ -339,7 +339,7 @@ class OnlineController {
 			}
 
 			// create the list of guests, without showing alts
-			$blob .= $this->createList($data, $list, true, $this->setting->get("online_show_org_priv"));
+			$blob .= $this->createList($data, true, $this->setting->get("online_show_org_priv"));
 		}
 
 		// IRC part
@@ -354,7 +354,7 @@ class OnlineController {
 			}
 
 			// create the list of guests
-			$blob .= $this->createListByChannel($data, $list, false, false);
+			$blob .= $this->createListIRC($data);
 		}
 
 		$numonline = $numguild + $numguest + $numirc;
@@ -370,7 +370,7 @@ class OnlineController {
 			if ($numbbinmembers >= 1) {
 				$blob .= "\n\n<header2>$numbbinmembers ".($numbbinmembers == 1 ? "Member":"Members")." in BBIN<end>\n";
 
-				$blob .= $this->createListByProfession($data, $list, false, true);
+				$blob .= $this->createListByProfession($data, false, true);
 			}
 
 			// guests
@@ -380,7 +380,7 @@ class OnlineController {
 			if ($numbbinguests >= 1) {
 				$blob .= "\n\n<header2>$numbbinguests ".($numbbinguests == 1 ? "Guest":"Guests")." in BBIN<end>\n";
 
-				$blob .= $this->createListByProfession($data, $list, false, true);
+				$blob .= $this->createListByProfession($data, false, true);
 			}
 
 			$numonline += $numbbinguests + $numbbinmembers;
@@ -391,15 +391,29 @@ class OnlineController {
 		return array($numonline, $msg, $blob);
 	}
 
-	public function createList(&$data, &$list, $show_alts, $show_org_info) {
+	public function createList(&$data, $show_alts, $show_org_info) {
 		if ($this->setting->get('online_group_by') == 'profession') {
-			return $this->createListByProfession($data, $list, $show_alts, $show_org_info);
+			return $this->createListByProfession($data, $show_alts, $show_org_info);
 		} else if ($this->setting->get('online_group_by') == 'guild') {
-			return $this->createListByChannel($data, $list, $show_alts, $show_org_info);
+			return $this->createListByChannel($data, $show_alts, $show_org_info);
 		}
 	}
+	
+	public function createListIRC(&$data) {
+		$blob = '';
+		forEach ($data as $row) {
+			if ($current_channel != $row->channel) {
+				$current_channel = $row->channel;
+				$blob .= "\n<tab><highlight>$current_channel<end>\n";
+			}
 
-	public function createListByChannel(&$data, &$list, $show_alts, $show_org_info) {
+			$blob .= "<tab><tab>$row->name\n";
+		}
+
+		return $blob;
+	}
+
+	public function createListByChannel(&$data, $show_alts, $show_org_info) {
 		//Colorful temporary var settings (avoid a mess of if statements later in the function)
 		$fancyColon = ($this->setting->get("online_colorful") == "1") ? "<highlight>::<end>":"::";
 
@@ -413,14 +427,14 @@ class OnlineController {
 			}
 
 			$afk = $this->get_afk_info($row->afk, $fancyColon);
-			$alt = ($show_alts == true) ? $this->get_alt_char_info($row->name, $fancyColon):"";
+			$alt = ($show_alts === true) ? $this->get_alt_char_info($row->name, $fancyColon) : "";
 
 			switch ($row->profession) {
 				case "":
 					$blob .= "<tab><tab>$name - Unknown$alt\n";
 					break;
 				default:
-					$admin = ($show_alts == true) ? $this->get_admin_info($row->name, $fancyColon):"";
+					$admin = ($show_alts === true) ? $this->get_admin_info($row->name, $fancyColon) : "";
 					$guild = $this->get_org_info($show_org_info, $fancyColon, $row->guild, $row->guild_rank);
 					$blob .= "<tab><tab>$name (Lvl $row->level/<green>$row->ai_level<end>)$guild$afk$alt$admin\n";
 			}
@@ -429,7 +443,7 @@ class OnlineController {
 		return $blob;
 	}
 
-	public function createListByProfession(&$data, &$list, $show_alts, $show_org_info) {
+	public function createListByProfession(&$data, $show_alts, $show_org_info) {
 		//Colorful temporary var settings (avoid a mess of if statements later in the function)
 		$fancyColon = ($this->setting->get("online_colorful") == "1") ? "<highlight>::<end>":"::";
 
