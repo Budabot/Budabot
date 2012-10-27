@@ -12,6 +12,13 @@ class JSONRPCServer extends Evenement\EventEmitter {
 
 		$this->httpServer->on('request', function ($request, $response) use ($that) {
 			$request->on('data', function ($data) use ($response, $that) {
+			
+				// for some reason the server sometimes emits empty $data so
+				// try to ignore those
+				if (!trim($data)) {
+					return;
+				}
+
 				$responseRequired = true;
 				$rpcResponse = new StdClass();
 				$rpcResponse->jsonrpc = '2.0';
@@ -47,7 +54,7 @@ class JSONRPCServer extends Evenement\EventEmitter {
 					}
 					$callee = array($that->handler, $rpcRequest->method);
 					if (!is_callable($callee)) {
-						throw new Exception('Method not found.', -32601);
+						throw new Exception("Method '{$rpcRequest->method}' not found.", -32601);
 					}
 					$rpcResponse->result = call_user_func_array($callee, $rpcRequest->params);
 

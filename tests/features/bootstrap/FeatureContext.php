@@ -29,7 +29,6 @@ class LegacyLogger {
 	}
 }
 
-
 // load all composer dependencies
 require_once ROOT_PATH . '/lib/vendor/autoload.php';
 require_once ROOT_PATH . '/lib/TestAOChatServer/AOChatServerStub.php';
@@ -41,6 +40,7 @@ require_once ROOT_PATH . '/core/ConfigFile.class.php';
 class FeatureContext extends BehatContext
 {
 	private static $chatServer = null;
+	private static $botProcess = null;
 
 	// this is the port where the fake aochat test server will listen for bot
 	// to connect
@@ -50,6 +50,7 @@ class FeatureContext extends BehatContext
 	// calls made from this test suite
 	private static $chatJsonRpcPort = 8000;
 
+	private static $botName    = 'Testbot';
 	private static $superAdmin = 'Adminnoob';
 	private static $dbFileName = 'test_budabot.db';
 
@@ -65,39 +66,72 @@ class FeatureContext extends BehatContext
 	}
 
 	/**
-	 * @Given /^the bot is running$/
+	 * @BeforeSuite
+	 * Prepare system for test suite before it runs.
 	 */
-	public function theBotIsRunning() {
+	public static function prepareSuite()
+	{
 		self::startAOChatServer();
 		self::startBudabot();
+		self::$chatServer->buddyLogin(self::$superAdmin);
 	}
 
 	/**
-	 * @Given /^I am logged in$/
+	 * @BeforeScenario
+	 * Prepare system for scenario before it runs.
 	 */
-	public function iAmLoggedIn() {
-		throw new PendingException();
-	}
+	public static function prepareScenario()
+	{
+		self::$chatServer->clearTellMessagesOfCharacter(self::$superAdmin);
+	} 
+
+    /**
+     * @Given /^"([^"]*)" module is enabled$/
+     */
+    public function moduleIsEnabled($module)
+    {
+		self::$chatServer->sendTellMessageToBot(self::$superAdmin, "!config mod $module enable all");
+    }
 
 	/**
 	 * @When /^I give command "([^"]*)"$/
 	 */
-	public function iGiveCommand($arg1) {
-		throw new PendingException();
+	public function iGiveCommand($command) {
+		self::$chatServer->sendTellMessageToBot(self::$superAdmin, $command);
 	}
 
 	/**
 	 * @Then /^the response should contain words:$/
 	 */
-	public function theResponseShouldContainWords(TableNode $table) {
-		throw new PendingException();
+	public function theResponseShouldContainWords(TableNode $words) {
+		sleep(2);
+		$messages = self::$chatServer->getTellMessagesOfCharacter(self::$superAdmin);
+
+		forEach($words as $word) {
+			$found = false;
+			forEach($messages as $message) {
+				if (stripos($message, $word) !== false) {
+					$found = true;
+				}
+			}
+			if (!$found) {
+				throw new Exception("Word '$word' not included in any received tell messages!");
+			}
+		}
 	}
 
 	/**
-	 * @Then /^the response should contain word "([^"]*)"$/
+	 * @Then /^the response should contain phrase "([^"]*)"$/
 	 */
-	public function theResponseShouldContainWord($arg1) {
-		throw new PendingException();
+	public function theResponseShouldContainPhrase($phrase) {
+		sleep(5);
+		$messages = self::$chatServer->getTellMessagesOfCharacter(self::$superAdmin);
+		forEach($messages as $message) {
+			if (stripos($message, $phrase) !== false) {
+				return;
+			}
+		}
+		throw new Exception("Phrase '$phrase' not found from any tell messages!");
 	}
 
 	/**
@@ -105,29 +139,58 @@ class FeatureContext extends BehatContext
 	 * Calling this more than once has no effect unless the bot is not running.
 	 */
 	private static function startBudabot() {
+		if (self::$botProcess) {
+			return;
+		}
+
+		$configPath = ROOT_PATH . '/conf/test_config.php';
+
 		// delete old DB-file if it exists
 		@unlink(ROOT_PATH . '/data/' . self::$dbFileName);
 		// delete old config-file if it exists
-		@unlink(ROOT_PATH . '/config/test_config.php');
+		@unlink($configPath);
 
 		// build new config file for the bot
-		$config = new ConfigFile(ROOT_PATH . '/conf/test_config.php');
+		$config = new ConfigFile($configPath);
 		$config->load();
 		$config->setVar('login', 'testdummy');
 		$config->setVar('password', '1234');
-		$config->setVar('name', 'Testbot');
+		$config->setVar('name', self::$botName);
 		$config->setVar('SuperAdmin', self::$superAdmin);
 		$config->setVar('DB Name', self::$dbFileName);
 		$config->setVar('override_chat_server_host', '127.0.0.1');
 		$config->setVar('override_chat_server_port', self::$chatServerPort);
 		$config->save();
 
-		// start budabot
-		throw new PendingException();
-		
-		// wait for the bot to be ready
-		self::$chatServer->waitPrivateMessage(60 * 5 /* 5 minutes */,
-			"Logon Complete :: All systems ready to use.");
+		// start budabot instance
+		$spec = array(
+			1 => array('file', 'nul', 'w')
+		);
+		$process = proc_open("php -f mainloop.php $configPath", $spec, $pipes, ROOT_PATH, null, array('bypass_shell' => true));
+		if (!is_resource($process)) {
+			throw new Exception("Failed to start Budabot!");
+		}
+
+		$terminateBot = function() use ($process, $pipes) {
+			forEach($pipes as $pipe) {
+				fclose($pipe);
+			}
+			proc_terminate($process);
+		};
+
+		// wait for the bot instance to be ready
+		try {
+			self::$chatServer->waitPrivateMessage(60 * 5 /* 5 minutes */,
+				"Logon Complete :: All systems ready to use.");
+		} catch (Exception $e) {
+			$terminateBot();
+			throw $e;
+		}
+
+		// make sure that the bot instance is terminated on exit
+		register_shutdown_function($terminateBot);
+
+		self::$botProcess = $process;
 	}
 
 	/**
@@ -135,16 +198,20 @@ class FeatureContext extends BehatContext
 	 * Calling this more than once has no effect unless the server is not running.
 	 */
 	private static function startAOChatServer() {
-		if (!self::$chatServer) {
-			$server = new AOChatServerStub();
-			$server->startServer(self::$chatServerPort, self::$chatJsonRpcPort);
-
-			// make sure that the server is stopped on exit
-			register_shutdown_function(function() use ($server) {
-				$server->stopServer();
-			});
-
-			self::$chatServer = $server;
+		if (self::$chatServer) {
+			return;
 		}
+
+		$server = new AOChatServerStub();
+		$server->startServer(self::$chatServerPort, self::$chatJsonRpcPort);
+
+		// make sure that the server is stopped on exit
+		register_shutdown_function(function() use ($server) {
+			$server->stopServer();
+		});
+		
+		$server->setAccountCharacters(array(self::$botName));
+
+		self::$chatServer = $server;
 	}
 }

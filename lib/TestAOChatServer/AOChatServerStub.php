@@ -3,9 +3,13 @@
 class AOChatServerStub {
 	private $process = null;
 	private $rpcClient = null;
+	private $pipes = array();
 
 	public function startServer($chatPort, $rpcPort) {
-		$this->process = proc_open("php server.php $chatPort $rpcPort", array(), $pipes, __DIR__, null, array('bypass_shell' => true));
+		$spec = array(
+			1 => array('file', 'nul', 'w')
+		);
+		$this->process = proc_open("php server.php $chatPort $rpcPort", $spec, $this->pipes, __DIR__, null, array('bypass_shell' => true));
 		if (!is_resource($this->process)) {
 			throw new Exception("Failed to start aochat server!");
 		}
@@ -13,6 +17,10 @@ class AOChatServerStub {
 	}
 
 	public function stopServer() {
+		forEach($this->pipes as $pipe) {
+			fclose($pipe);
+		}
+		$this->pipes = array();
 		proc_terminate($this->process);
 		$this->process = null;
 		$this->rpcClient = null;

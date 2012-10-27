@@ -14,18 +14,21 @@ class AOChatServer extends EventEmitter {
 
 	private $charsInfo = array();
 
+	public $client;
+
 	public function __construct($loop, $port) {
 		$this->serverSocket = new React\Socket\Server($loop);
 		$that = $this;
 
 		$this->serverSocket->on('connection', function ($conn) use ($that) {
 			print "Client connects\n";
-			$conn->write($that->packetToData(new AOChatServerPacket('out', AOCP_LOGIN_SEED, 'testloginseed')));
+			$that->client = $conn;
+			$that->client->write($that->packetToData(new AOChatServerPacket('out', AOCP_LOGIN_SEED, 'testloginseed')));
 
-			$conn->on('data', function ($data) use ($conn, $that) {
+			$that->client->on('data', function ($data) use ($that) {
 				if (strlen($data) < 4) {
 					print 'Error: Packet length not available\n';
-					$conn->close();
+					$that->client->close();
 					return;
 				}
 				$head = substr($data, 0, 4);
@@ -34,11 +37,11 @@ class AOChatServer extends EventEmitter {
 				$data = substr($data, 4);
 
 				$packet = new AOChatServerPacket('in', $type, $data);
-				$that->emit('packet', array($conn, $packet));
+				$that->emit('packet', array($packet));
 			});
 		});
 		
-		$this->on('packet', function ($conn, $packet) use ($that) {
+		$this->on('packet', function ($packet) use ($that) {
 			switch ($packet->type) {
 				case AOCP_LOGIN_REQUEST:
 					print "Client requests list of characters on the account when logging in\n";
@@ -51,7 +54,7 @@ class AOChatServer extends EventEmitter {
 						$data[3] []= $info->online;
 					}
 					$response = new AOChatServerPacket('out', AOCP_LOGIN_CHARLIST, $data);
-					$conn->write($that->packetToData($response));
+					$that->client->write($that->packetToData($response));
 					break;
 
 				case AOCP_LOGIN_SELECT:
@@ -60,14 +63,14 @@ class AOChatServer extends EventEmitter {
 					print "Client logs in with character (id: $id): {$info->name}\n";
 
 					$response = new AOChatServerPacket('out', AOCP_LOGIN_OK, null);
-					$conn->write($that->packetToData($response));
+					$that->client->write($that->packetToData($response));
 
 					$data = array(
 						$info->id,
 						$info->name
 					);
 					$response = new AOChatServerPacket('out', AOCP_CLIENT_NAME, $data);
-					$conn->write($that->packetToData($response));
+					$that->client->write($that->packetToData($response));
 					break;
 
 				case AOCP_CLIENT_LOOKUP:
@@ -79,12 +82,19 @@ class AOChatServer extends EventEmitter {
 					);
 					print "Client looks up user {$name}'s id: {$info->id}\n";
 					$response = new AOChatServerPacket('out', AOCP_CLIENT_LOOKUP, $data);
-					$conn->write($that->packetToData($response));
+					$that->client->write($that->packetToData($response));
+					break;
+
+				case AOCP_MSG_PRIVATE:
+					list($gid, $msg, $blob) = $packet->args;
+					print "Client sends tell message (gid: $gid): $msg, blob: $blob\n";
+					$that->emit('tell_message', array($gid, $msg, $blob));
 					break;
 
 				case AOCP_PRIVGRP_MESSAGE:
 					list($gid, $msg, $blob) = $packet->args;
 					print "Client sends private group message (gid: $gid): $msg, blob: $blob\n";
+					$that->emit('private_message', array($gid, $msg, $blob));
 					break;
 
 				case AOCP_BUDDY_ADD:
@@ -96,13 +106,13 @@ class AOChatServer extends EventEmitter {
 				case AOCP_PING:
 					print "Client sends ping message: {$packet->args[0]}\n";
 					$response = new AOChatServerPacket('out', AOCP_PING, $packet->args[0]);
-					$conn->write($that->packetToData($response));
+					$that->client->write($that->packetToData($response));
 					break;
 
 				default:
 					print "Error: Client sends unknown packet type (type: {$packet->type})\n";
 					var_dump($packet);
-					$conn->close();
+					$that->client->close();
 					break;
 			}
 		});
@@ -114,7 +124,25 @@ class AOChatServer extends EventEmitter {
 		$this->model = $model;
 	}
 
-	public function sendTellMessage() {
+	public function sendTellMessage($name, $message) {
+		$info = $this->getCharInfo($name);
+		$response = new AOChatServerPacket("out", AOCP_MSG_PRIVATE, array(
+			$info->id, 
+			$message, 
+			"\0"
+		));
+		$this->client->write($this->packetToData($response));
+	}
+
+	public function addBuddy($name, $online) {
+		$info = $this->getCharInfo($name);
+		$info->online = $online;
+		$response = new AOChatServerPacket('out', AOCP_BUDDY_ADD, array(
+			$info->id,
+			$online,
+			'unknown value'
+		));
+		$this->client->write($this->packetToData($response));
 	}
 
 	public function getCharInfo($char) {
