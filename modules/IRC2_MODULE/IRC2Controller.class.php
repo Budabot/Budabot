@@ -66,23 +66,23 @@ class IRC2Controller {
 	}
 	
 	public function getOnlineList() {
+		$numirc = 0;
+		$blob = '';
 		if ($this->ircActive()) {
 			$channel = $this->irc->getChannel($this->setting->irc_channel);
 			$numirc = count($channel->users);
 
-			$blob = '';
 			if ($numirc > 0) {
-				$blob .= "<header2> :::::: $numirc ".($numirc == 1 ? "User":"Users")." in IRC Channel(s) :::::: <end>\n";
+				$blob .= "\n\n<header2> :::::: $numirc ".($numirc == 1 ? "User":"Users")." in IRC Channel(s) :::::: <end>\n";
 
 				$blob .= "\n<tab><highlight>{$channel->name}<end>\n";
 				forEach ($channel->users as $user) {
 					$blob .= "<tab><tab>{$user->nick}\n";
 				}
 			}
-			return array($numirc, $blob);
-		} else {
-			return array(0, '');
+			
 		}
+		return array($numirc, $blob);
 	}
 	
 	/**

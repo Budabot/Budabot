@@ -330,41 +330,14 @@ class OnlineController {
 			$blob .= $this->createList($data, true, $this->setting->get("online_show_org_priv"));
 		}
 
-		// IRC part
+		// IRC/BBIN part
 		forEach ($this->instances as $instance) {
 			list($num, $window) = $instance->getOnlineList();
 			$numonline += $num;
-			$blob .= "\n\n" . $window;
+			$blob .= $window;
 		}
 
 		$msg .= "$numonline ".($numonline == 1 ? "member":"members")." online";
-
-		// BBIN part
-		if ($this->setting->get("bbin_status") == 1) {
-			// members
-			$data = $this->db->query("SELECT * FROM bbin_chatlist_<myname> WHERE (`guest` = 0) {$prof_query} ORDER BY `profession`, `level` DESC");
-			$numbbinmembers = count($data);
-
-			if ($numbbinmembers >= 1) {
-				$blob .= "\n\n<header2>$numbbinmembers ".($numbbinmembers == 1 ? "Member":"Members")." in BBIN<end>\n";
-
-				$blob .= $this->createListByProfession($data, false, true);
-			}
-
-			// guests
-			$data = $this->db->query("SELECT * FROM bbin_chatlist_<myname> WHERE (`guest` = 1) {$prof_query} ORDER BY `profession`, `level` DESC");
-			$numbbinguests = count($data);
-
-			if ($numbbinguests >= 1) {
-				$blob .= "\n\n<header2>$numbbinguests ".($numbbinguests == 1 ? "Guest":"Guests")." in BBIN<end>\n";
-
-				$blob .= $this->createListByProfession($data, false, true);
-			}
-
-			$numonline += $numbbinguests + $numbbinmembers;
-
-			$msg .= " <green>BBIN<end>:".($numbbinguests + $numbbinmembers)." online";
-		}
 
 		return array($numonline, $msg, $blob);
 	}

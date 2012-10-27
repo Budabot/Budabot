@@ -103,6 +103,39 @@ class BBINController {
 		$this->setting->add($this->moduleName, "bbin_nickname", "Nickname to use while in IRC", "noedit", "text", $this->chatBot->vars['name'], "", "", "mod", "bbin_help.txt");
 		$this->setting->add($this->moduleName, "bbin_channel", "Channel to join", "noedit", "text", $channel, "", "", "mod", "bbin_help.txt");
 		$this->setting->add($this->moduleName, "bbin_password", "IRC password to join channel", "edit", "text", "none", "none");
+		
+		$this->onlineController->register($this);
+	}
+	
+	public function getOnlineList() {
+		$blob = '';
+		$numonline = 0;
+		if ($this->setting->get("bbin_status") == 1) {
+			
+			
+			// members
+			$data = $this->db->query("SELECT * FROM bbin_chatlist_<myname> WHERE (`guest` = 0) {$prof_query} ORDER BY `profession`, `level` DESC");
+			$numbbinmembers = count($data);
+
+			if ($numbbinmembers >= 1) {
+				$blob .= "\n\n<header2>$numbbinmembers ".($numbbinmembers == 1 ? "Member":"Members")." in BBIN<end>\n";
+
+				$blob .= $this->onlineController->createListByProfession($data, false, true);
+			}
+
+			// guests
+			$data = $this->db->query("SELECT * FROM bbin_chatlist_<myname> WHERE (`guest` = 1) {$prof_query} ORDER BY `profession`, `level` DESC");
+			$numbbinguests = count($data);
+
+			if ($numbbinguests >= 1) {
+				$blob .= "\n\n<header2>$numbbinguests ".($numbbinguests == 1 ? "Guest":"Guests")." in BBIN<end>\n";
+
+				$blob .= $this->onlineController->createListByProfession($data, false, true);
+			}
+
+			$numonline = $numbbinguests + $numbbinmembers;
+		}
+		return array($numonline, $blob);
 	}
 	
 	/**
