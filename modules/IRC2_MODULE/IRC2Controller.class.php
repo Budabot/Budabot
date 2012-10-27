@@ -40,16 +40,10 @@ class IRC2Controller {
 	public $util;
 	
 	/** @Inject */
-	public $setting;
-	
-	/** @Inject */
 	public $text;
 	
 	/** @Inject */
 	public $accessLevel;
-
-	/** @Inject */
-	public $commandManager;
 
 	/** @Inject */
 	public $commandManager;
@@ -59,8 +53,16 @@ class IRC2Controller {
 	
 	/** @Logger */
 	public $logger;
-	
+
+	public $setting;
+
 	private $irc;
+	
+	/** @Setup */
+	public function setup() {
+		$this->setting = new Set();
+		Registry::injectDependencies($this->setting);
+	}
 	
 	/**
 	 * @HandlesCommand("connectirc")
@@ -72,7 +74,24 @@ class IRC2Controller {
 			$this->irc = null;
 		}
 		
+		if ($this->setting->irc_server == "") {
+			$sendto->reply("The IRC <highlight>server address<end> seems to be missing. <highlight>/tell <myname> help irc<end> for details on setting this.");
+			return;
+		}
+		if ($this->setting->irc_port == "") {
+			$sendto->reply("The IRC <highlight>server port<end> seems to be missing. <highlight>/tell <myname> help irc<end> for details on setting this.");
+			return;
+		}
+
+		$sendto->reply("Intializing IRC connection. Please wait...");
+		
 		$this->connect();
+		if ($this->ircActive()) {
+			$this->setting->irc_status = "1";
+			$sendto->reply("Finished connecting to IRC.");
+		} else {
+			$sendto->reply("Error connecting to IRC.");
+		}
 	}
 	
 	public function connect() {
@@ -88,9 +107,9 @@ class IRC2Controller {
 		$this->irc->registerActionhandler(SMARTIRC_TYPE_KICK, '', $this, 'kickMessage');
 		$this->irc->registerActionhandler(SMARTIRC_TYPE_NAME, '', $this, 'nameMessage');
 		$this->irc->registerActionhandler(SMARTIRC_TYPE_NOTICE, '', $this, 'noticeMessage');
-		$this->irc->connect($this->setting->get('irc_server'), $this->setting->get('irc_port'));
-		$this->irc->login($this->setting->get('irc_nickname'), $realname, 0, $this->setting->get('irc_password'));
-		$this->irc->join(array($this->setting->get('irc_channel')));
+		$this->irc->connect($this->setting->irc_server, $this->setting->irc_port);
+		$this->irc->login($this->setting->irc_nickname, $realname, 0, $this->setting->irc_password);
+		$this->irc->join(array($this->setting->irc_channel));
 		$this->irc->listenOnce();
 	}
 	
@@ -99,9 +118,15 @@ class IRC2Controller {
 	 * @Matches("/^disconnectirc$/i")
 	 */
 	public function disconnectircCommand($message, $channel, $sender, $sendto, $args) {
-		if ($this->irc != null) {
+		$this->setting->irc_status = "0";
+
+		if ($this->ircActive()) {
 			$this->irc->disconnect();
 			$this->irc = null;
+			$this->logger->log('INFO', "Disconnected from IRC");
+			$sendto->reply("The IRC connection has been disconnected.");
+		} else {
+			$sendto->reply("There is no active IRC connection.");
 		}
 	}
 	
@@ -116,14 +141,14 @@ class IRC2Controller {
 	}
 	
 	public function channelMessage(&$irc, &$obj) {
-		$ircIgnore = explode(",", strtolower($this->setting->get('irc_ignore')));
+		$ircIgnore = explode(",", strtolower($this->setting->irc_ignore));
 		if (in_array(strtolower($obj->nick), $ircIgnore)) {
 			return;
 		}
 		
 		if ($obj->message == "!online") {
 			$this->handleOnlineCmd($obj);
-		} else if ($obj->message[0] == $this->setting->get('symbol')) {
+		} else if ($obj->message[0] == $this->setting->symbol) {
 			$sendto = new IRCCommandReply2($irc, $obj->channel, $obj->type);
 			$this->commandManager->process('msg', substr(rtrim($obj->message), 1), '', $sendto);
 		} else {
@@ -177,9 +202,9 @@ class IRC2Controller {
 	}
 	
 	public function handleIncomingIRCMessage($obj) {
-		$msgColor = $this->setting->get('irc_message_color');
-		$guildMsgColor = $this->setting->get('irc_guild_message_color');
-		$guildNameColor = $this->setting->get('irc_guild_name_color');
+		$msgColor = $this->setting->irc_message_color;
+		$guildMsgColor = $this->setting->irc_guild_message_color;
+		$guildNameColor = $this->setting->irc_guild_name_color;
 
 		// handle relay messages from other bots
 		if (preg_match("/" . chr(2) . chr(2) . chr(2) . "(.+)" . chr(2) . " (.+)/i", $obj->message, $arr)) {
@@ -196,7 +221,7 @@ class IRC2Controller {
 		if ($this->chatBot->vars['my_guild'] != "") {
 			$this->chatBot->sendGuild($ircmessage, true);
 		}
-		if ($this->chatBot->vars['my_guild'] == "" || $this->setting->get("guest_relay") == 1) {
+		if ($this->chatBot->vars['my_guild'] == "" || $this->setting->guest_relay == 1) {
 			$this->chatBot->sendPrivate($ircmessage, true);
 		}
 	}
@@ -208,13 +233,13 @@ class IRC2Controller {
 	public function joinMessage(&$irc, &$obj) {
 		$this->onlineController->addPlayerToOnlineList($obj->nick, $obj->channel, 'irc');
 		
-		$msgColor = $this->setting->get('irc_message_color');
+		$msgColor = $this->setting->irc_message_color;
 		$msg = "<yellow>[IRC]<end> {$msgColor}$obj->nick joined the channel.<end>";
 
 		if ($this->chatBot->vars['my_guild'] != "") {
 			$this->chatBot->sendGuild($msg, true);
 		}
-		if ($this->chatBot->vars['my_guild'] == "" || $this->setting->get("guest_relay") == 1) {
+		if ($this->chatBot->vars['my_guild'] == "" || $this->setting->guest_relay == 1) {
 			$this->chatBot->sendPrivate($msg, true);
 		}
 	}
@@ -222,30 +247,34 @@ class IRC2Controller {
 	public function leaveMessage(&$irc, &$obj) {
 		$this->onlineController->removePlayerFromOnlineList($obj->nick, 'irc');
 		
-		$msgColor = $this->setting->get('irc_message_color');
+		$msgColor = $this->setting->irc_message_color;
 		$msg = "<yellow>[IRC]<end> {$msgColor}$obj->nick left the channel.<end>";
 		
 		if ($this->chatBot->vars['my_guild'] != "") {
 			$this->chatBot->sendGuild($msg, true);
 		}
-		if ($this->chatBot->vars['my_guild'] == "" || $this->setting->get("guest_relay") == 1) {
+		if ($this->chatBot->vars['my_guild'] == "" || $this->setting->guest_relay == 1) {
 			$this->chatBot->sendPrivate($msg, true);
 		}
 	}
 	
 	public function nameMessage(&$irc, &$obj) {
-		print_r($obj);
-		echo "nameMessage\n";
+		if ($obj->channel != 'End') {
+			$names = explode(' ', $obj->message);
+			forEach ($names as $name) {
+				$this->onlineController->addPlayerToOnlineList($name, $obj->channel, 'irc');
+			}
+		}
 	}
 	
 	public function kickMessage(&$irc, &$obj) {
 		$extendedinfo = $this->text->make_blob("Extended information", $obj->message);
-		if ($ex[3] == $this->setting->get('irc_nickname')) {
+		if ($ex[3] == $this->setting->irc_nickname) {
 			$msg = "<yellow>[IRC]<end> Bot was kicked from the server:".$extendedinfo;
 			if ($this->chatBot->vars['my_guild'] != "") {
 				$this->chatBot->sendGuild($msg, true);
 			}
-			if ($this->chatBot->vars['my_guild'] == "" || $this->setting->get("guest_relay") == 1) {
+			if ($this->chatBot->vars['my_guild'] == "" || $this->setting->guest_relay == 1) {
 				$this->chatBot->sendPrivate($msg, true);
 			}
 		} else {
@@ -253,7 +282,7 @@ class IRC2Controller {
 			if ($this->chatBot->vars['my_guild'] != "") {
 				$this->chatBot->sendGuild($msg, true);
 			}
-			if ($this->chatBot->vars['my_guild'] == "" || $this->setting->get("guest_relay") == 1) {
+			if ($this->chatBot->vars['my_guild'] == "" || $this->setting->guest_relay == 1) {
 				$this->chatBot->sendPrivate($msg, true);
 			}
 		}
@@ -268,13 +297,12 @@ class IRC2Controller {
 			if ($this->chatBot->vars['my_guild'] != "") {
 				$this->chatBot->sendGuild($msg, true);
 			}
-			if ($this->chatBot->vars['my_guild'] == "" || $this->setting->get("guest_relay") == 1) {
+			if ($this->chatBot->vars['my_guild'] == "" || $this->setting->guest_relay == 1) {
 				$this->chatBot->sendPrivate($msg, true);
 			}
 		}
 	
 		print_r($obj);
-		echo "nameMessage\n";
 	}
 	
 	public function ircActive() {
@@ -297,7 +325,7 @@ class IRC2Controller {
 	public function autoReconnectEvent() {
 		// make sure eof flag is set
 		//fputs($this->ircSocket, "PING ping\n");
-		if ($this->setting->get('irc_status') == '1' && !$this->ircActive()) {
+		if ($this->setting->irc_status == '1' && !$this->ircActive()) {
 			$this->connect();
 		}
 	}
@@ -319,7 +347,7 @@ class IRC2Controller {
 	}
 	
 	public function relayMessageToIRC($sender, $message) {
-		if ($this->ircActive() && $message[0] != $this->setting->get('symbol')) {
+		if ($this->ircActive() && $message[0] != $this->setting->symbol) {
 			$pattern = '/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/';
 			$replace = chr(3) . chr(3) . '\4' . chr(3) . ' ' . chr(3) . '(http://auno.org/ao/db.php?id=\1&id2=\2&ql=\3)' . chr(3) . chr(3);
 
@@ -350,7 +378,7 @@ class IRC2Controller {
 	public function logonEvent($eventObj) {
 		if ($this->ircActive()) {
 			if (isset($this->chatBot->guildmembers[$eventObj->sender])) {
-				if ($this->setting->get('first_and_last_alt_only') == 1) {
+				if ($this->setting->first_and_last_alt_only == 1) {
 					// if at least one alt/main is still online, don't show logoff message
 					$altInfo = $this->alts->get_alt_info($eventObj->sender);
 					if (count($altInfo->get_online_alts()) > 1) {
@@ -382,7 +410,7 @@ class IRC2Controller {
 	public function logoffEvent($eventObj) {
 		if ($this->ircActive()) {
 			if (isset($this->chatBot->guildmembers[$eventObj->sender])) {
-				if ($this->setting->get('first_and_last_alt_only') == 1) {
+				if ($this->setting->first_and_last_alt_only == 1) {
 					// if at least one alt/main is already online, don't show logon message
 					$altInfo = $this->alts->get_alt_info($eventObj->sender);
 					if (count($altInfo->get_online_alts()) > 0) {
@@ -457,7 +485,7 @@ class IRC2Controller {
 		} else {
 			$ircmsg = $this->encodeGuildMessage($guild, $message);
 		}
-		$irc->message(SMARTIRC_TYPE_CHANNEL, $this->setting->get('irc_channel'), $ircmsg);
+		$irc->message(SMARTIRC_TYPE_CHANNEL, $this->setting->irc_channel, $ircmsg);
 	}
 }
 
