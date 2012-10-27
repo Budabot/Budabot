@@ -66,6 +66,9 @@ class BBINController {
 	/** @Inject */
 	public $util;
 	
+	/** @Inject */
+	public $onlineController;
+	
 	private $bbinSocket;
 	
 	/**

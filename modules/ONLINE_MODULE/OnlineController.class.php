@@ -329,6 +329,8 @@ class OnlineController {
 			// create the list of guests, without showing alts
 			$blob .= $this->createList($data, true, $this->setting->get("online_show_org_priv"));
 		}
+		
+		$numonline = $numguild + $numguest;
 
 		// IRC/BBIN part
 		forEach ($this->instances as $instance) {
