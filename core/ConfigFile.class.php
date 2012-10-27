@@ -39,15 +39,35 @@ class ConfigFile {
 	 * Saves the config file, creating the file if it doesn't exist yet.
 	 */
 	public function save() {
+		$vars = $this->vars;
 		$this->copyFromTemplateIfNeeded();
 		$lines = file($this->filePath);
 		forEach ($lines as $key => $line) {
 			if (preg_match("/^(.+)vars\[('|\")(.+)('|\")](.*)=(.*)\"(.*)\";(.*)$/si", $line, $arr)) {
-				$lines[$key] = "$arr[1]vars['$arr[3]']$arr[5]=$arr[6]\"{$this->vars[$arr[3]]}\";$arr[8]";
+				$lines[$key] = "$arr[1]vars['$arr[3]']$arr[5]=$arr[6]\"{$vars[$arr[3]]}\";$arr[8]";
+				unset($vars[$arr[3]]);
 			} else if (preg_match("/^(.+)vars\[('|\")(.+)('|\")](.*)=([ 	]+)([0-9]+);(.*)$/si", $line, $arr)) {
-				$lines[$key] = "$arr[1]vars['$arr[3]']$arr[5]=$arr[6]{$this->vars[$arr[3]]};$arr[8]";
+				$lines[$key] = "$arr[1]vars['$arr[3]']$arr[5]=$arr[6]{$vars[$arr[3]]};$arr[8]";
+				unset($vars[$arr[3]]);
 			}
 		}
+
+		unset($vars['module_load_paths']); // hacky
+
+		// if there are additional vars which were not present in the config
+		// file or in template file then add them at end of the config file
+		if (!empty($vars)) {
+			$lines []= "<?php\n";
+			forEach ($vars as $name => $value) {
+				if (is_string($value)) {
+					$lines []= "\$vars['$name'] = \"$value\";\n";
+				} else {
+					$lines []= "\$vars['$name'] = $value;\n";
+				}
+			}
+			$lines []= "?>\n";
+		}
+
 		file_put_contents($this->filePath, $lines);
 	}
 
@@ -94,8 +114,9 @@ class ConfigFile {
 	 * Copies config.template.php to this config file if it doesn't exist yet.
 	 */
 	private function copyFromTemplateIfNeeded() {
+		$templatePath = __DIR__ . '/../conf/config.template.php';
 		if (!file_exists($this->filePath)) {
-			copy('./conf/config.template.php', $this->filePath) or LegacyLogger::log('ERROR', 'StartUp', "could not create config file: {$this->filePath}");
+			copy($templatePath, $this->filePath) or LegacyLogger::log('ERROR', 'StartUp', "could not create config file: {$this->filePath}");
 		}
 	}
 }

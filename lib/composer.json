@@ -1,5 +1,11 @@
 {
 	"require": { 
-		"react/http": "0.1.1" 
+		"react/http": "0.2.1",
+		"behat/behat": "2.4.*@stable",
+		"dhaarbrink/jsonrpc": "1.1.4"
+	},
+
+	"config": {
+		"bin-dir": "bin/"
 	}
 } 

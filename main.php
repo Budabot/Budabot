@@ -140,6 +140,14 @@ if ($vars['use_proxy'] === 1) {
 	die();
 }
 
+// override $server and $port if overriding variables are present
+if (isset($vars['override_chat_server_host'])) {
+	$server = $vars['override_chat_server_host'];
+}
+if (isset($vars['override_chat_server_port'])) {
+	$port = $vars['override_chat_server_port'];
+}
+
 // Create global instances
 $newInstances = Registry::getNewInstancesInDir("./core");
 forEach ($newInstances as $name => $className) {

@@ -4,9 +4,10 @@
     "keywords": ["http"],
     "license": "MIT",
     "require": {
-        "php": ">=5.3.2",
-        "guzzle/guzzle": "2.5.*",
-        "react/socket": "0.1.*"
+        "php": ">=5.3.3",
+        "guzzle/http": "2.8.*",
+        "guzzle/parser": "2.8.*",
+        "react/socket": "0.2.*"
     },
     "autoload": {
         "psr-0": { "React\\Http": "" }
@@ -14,7 +15,7 @@
     "target-dir": "React/Http",
     "extra": {
         "branch-alias": {
-            "dev-master": "0.1.1"
+            "dev-master": "0.2"
         }
     }
 }
