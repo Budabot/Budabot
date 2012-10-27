@@ -8,7 +8,7 @@ Feature: ALIEN_MODULE module
 
 	Scenario: Command leprocs lists all professions
 		When I give command "!leprocs"
-		Then the response should contain words:
+		Then the response should contain phrases:
 			| profession      |
 			| Adventurer      |
 			| Agent           |

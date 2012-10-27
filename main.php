@@ -140,7 +140,7 @@ if ($vars['use_proxy'] === 1) {
 	die();
 }
 
-// override $server and $port if overriding variables are present
+// override $server and $port if overriding variables are present (used for integration tests)
 if (isset($vars['override_chat_server_host'])) {
 	$server = $vars['override_chat_server_host'];
 }
@@ -184,6 +184,11 @@ $chatBot->connectAO($vars['login'], $vars['password'], $server, $port);
 // Clear the login and the password
 unset($vars['login']);
 unset($vars['password']);
+
+// disable flood limiting (used for integration tests)
+if (isset($vars['disable_flood_limiting']) && $vars['disable_flood_limiting']) {
+	$chatBot->chatqueue->increment = 0;
+}
 
 $chatBot->run();
 

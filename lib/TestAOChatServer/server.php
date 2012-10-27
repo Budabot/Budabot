@@ -49,16 +49,17 @@ class ServerController implements IAOChatModel {
 	 * Called by the test runner via JSON-RPC call.
 	 */
 	public function waitPrivateMessage($timeout, $value) {
-		$endTime = time() + intval($timeout);
-		while (time() < $endTime) {
-			forEach($this->privateMessages as $message) {
+		$that = $this;
+		$result = $this->blockUntil($timeout, function() use ($that, $value) {
+			forEach($that->privateMessages as $message) {
 				if (stripos($message, $value) !== false) {
-					return;
+					return true;
 				}
 			}
-			$this->loop->tick();
+		});
+		if (!$result) {
+			throw new Exception("Failed to receive message: $message");
 		}
-		throw new Exception("Timeout while waiting for message: $message");
 	}
 
 	/**
@@ -97,8 +98,43 @@ class ServerController implements IAOChatModel {
 		return array();
 	}
 
+	/**
+	 * Waits until a tell message with given array of phrases have been received.
+	 * Throws an exception if $timeout occurs.
+	 * Called by the test runner via JSON-RPC call.
+	 */
+	public function waitForTellMessageWithPhrases($timeout, $phrases) {
+		$that = $this;
+		$result = $this->blockUntil($timeout, function() use ($that, $phrases) {
+			forEach($that->tellMessages as $name => $messages) {
+				forEach($messages as $message) {
+					forEach($phrases as $phrase) {
+						if (stripos($message, $phrase) !== false) {
+							return true;
+						}
+					}
+				}
+			}
+		});
+		if (!$result) {
+			throw new Exception("Failed to receive tell message with phrases:\n" . print_r($phrases, true));
+		}
+	}
+
 	public function getAccountCharacters() {
 		return $this->accountChars;
+	}
+
+	private function blockUntil($timeout, $callback) {
+		$endTime = time() + intval($timeout);
+		while (time() < $endTime) {
+			$result = call_user_func($callback);
+			if ($result) {
+				return true;
+			}
+			$this->loop->tick();
+		}
+		return false;
 	}
 }
 

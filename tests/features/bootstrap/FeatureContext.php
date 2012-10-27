@@ -101,37 +101,21 @@ class FeatureContext extends BehatContext
 	}
 
 	/**
-	 * @Then /^the response should contain words:$/
+	 * @Then /^the response should contain phrases:$/
 	 */
-	public function theResponseShouldContainWords(TableNode $words) {
-		sleep(2);
-		$messages = self::$chatServer->getTellMessagesOfCharacter(self::$superAdmin);
-
-		forEach($words as $word) {
-			$found = false;
-			forEach($messages as $message) {
-				if (stripos($message, $word) !== false) {
-					$found = true;
-				}
-			}
-			if (!$found) {
-				throw new Exception("Word '$word' not included in any received tell messages!");
-			}
+	public function theResponseShouldContainPhrases($table) {
+		$phrases = array();
+		foreach ($table->getHash() as $hash) {
+			$phrases []= $hash['profession'];
 		}
+		self::$chatServer->waitForTellMessageWithPhrases(15, $phrases);
 	}
 
 	/**
 	 * @Then /^the response should contain phrase "([^"]*)"$/
 	 */
 	public function theResponseShouldContainPhrase($phrase) {
-		sleep(5);
-		$messages = self::$chatServer->getTellMessagesOfCharacter(self::$superAdmin);
-		forEach($messages as $message) {
-			if (stripos($message, $phrase) !== false) {
-				return;
-			}
-		}
-		throw new Exception("Phrase '$phrase' not found from any tell messages!");
+		self::$chatServer->waitForTellMessageWithPhrases(15, array($phrase));
 	}
 
 	/**
@@ -160,6 +144,7 @@ class FeatureContext extends BehatContext
 		$config->setVar('DB Name', self::$dbFileName);
 		$config->setVar('override_chat_server_host', '127.0.0.1');
 		$config->setVar('override_chat_server_port', self::$chatServerPort);
+		$config->setVar('disable_flood_limiting', 1);
 		$config->save();
 
 		// start budabot instance
