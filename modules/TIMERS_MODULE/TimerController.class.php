@@ -112,7 +112,7 @@ class TimerController {
 
 			if ('' != $msg) {
 				if ('priv' == $mode) {
-					$this->chatBot->sendPriv($msg);
+					$this->chatBot->sendPrivate($msg);
 				} else if ('guild' == $mode) {
 					$this->chatBot->sendGuild($msg);
 				} else {

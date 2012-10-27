@@ -255,7 +255,7 @@ class OnlineController {
 				$msg = "<highlight>{$sender}<end> is back";
 				
 				if ('priv' == $type) {
-					$this->chatBot->sendPriv($msg);
+					$this->chatBot->sendPrivate($msg);
 				} else if ('guild' == $type) {
 					$this->chatBot->sendGuild($msg);
 				}
@@ -281,7 +281,7 @@ class OnlineController {
 
 		if ('' != $msg) {
 			if ('priv' == $type) {
-				$this->chatBot->sendPriv($msg);
+				$this->chatBot->sendPrivate($msg);
 			} else if ('guild' == $type) {
 				$this->chatBot->sendGuild($msg);
 			}
