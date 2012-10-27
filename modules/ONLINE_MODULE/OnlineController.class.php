@@ -39,9 +39,6 @@ class OnlineController {
 	public $buddylistManager;
 	
 	/** @Inject */
-	public $ircRelayController;
-	
-	/** @Inject */
 	public $alts;
 
 	/** @Inject */
@@ -52,6 +49,8 @@ class OnlineController {
 	
 	/** @Logger */
 	public $logger;
+	
+	private $instances = array();
 	
 	/**
 	 * @Setup
@@ -68,6 +67,10 @@ class OnlineController {
 		$this->setting->add($this->moduleName, "online_show_org_priv", "Show org/rank for players in private channel", "edit", "options", "2", "Show org and rank;Show rank only;Show org only;Show no org info", "2;1;3;0");
 		$this->setting->add($this->moduleName, "online_colorful", "Use fancy coloring for online list", "edit", "options", "1", "true;false", "1;0");
 		$this->setting->add($this->moduleName, "online_admin", "Show admin levels in online list", "edit", "options", "0", "true;false", "1;0");
+	}
+	
+	public function register($instance) {
+		$this->instances []= $instance;
 	}
 	
 	/**
@@ -180,21 +183,6 @@ class OnlineController {
 				} else {
 					$sql = "INSERT INTO `online` (`name`, `channel`,  `channel_type`, `added_by`, `dt`) VALUES (?, '<myguild> Guest', 'priv', '<myname>', ?)";
 					$this->db->exec($sql, $name, $time);
-				}
-			}
-
-			if ($this->ircRelayController !== null) {
-				$ircSocket = $this->ircRelayController->getIRCSocket();
-				if (IRC::isConnectionActive($ircSocket)) {
-					forEach (IRC::getUsersInChannel($ircSocket, $this->setting->get('irc_channel')) as $name) {
-						if (in_array($name, $ircArray)) {
-							$sql = "UPDATE `online` SET `dt` = ? WHERE `name` = ? AND added_by = '<myname>' AND channel_type = 'irc'";
-							$this->db->exec($sql, $time, $name);
-						} else if ($name != $this->setting->get('irc_nickname')) {
-							$sql = "INSERT INTO `online` (`name`, `channel`,  `channel_type`, `added_by`, `dt`) VALUES (?, ?, 'irc', '<myname>', ?)";
-							$this->db->exec($sql, $name, $this->setting->get('irc_channel'), $time);
-						}
-					}
 				}
 			}
 
@@ -343,21 +331,11 @@ class OnlineController {
 		}
 
 		// IRC part
-		$data = $this->db->query("SELECT o.name, o.afk, o.channel, o.channel_type FROM `online` o WHERE o.channel_type = 'irc' AND o.name <> '<myname>' ORDER BY `name` ASC");
-		$numirc = count($data);
-
-		if ($numirc >= 1) {
-			if ($numguild + $numguest >= 1) {
-				$blob .= "\n\n<header2>$numirc ".($numirc == 1 ? "User":"Users")." in IRC Channel(s) <end>\n";
-			} else {
-				$blob .= "<header2> :::::: $numirc ".($numirc == 1 ? "User":"Users")." in IRC Channel(s) :::::: <end>\n";
-			}
-
-			// create the list of guests
-			$blob .= $this->createListIRC($data);
+		forEach ($this->instances as $instance) {
+			list($num, $window) = $instance->getOnlineList();
+			$numonline += $num;
+			$blob .= "\n\n" . $window;
 		}
-
-		$numonline = $numguild + $numguest + $numirc;
 
 		$msg .= "$numonline ".($numonline == 1 ? "member":"members")." online";
 
@@ -397,20 +375,6 @@ class OnlineController {
 		} else if ($this->setting->get('online_group_by') == 'guild') {
 			return $this->createListByChannel($data, $show_alts, $show_org_info);
 		}
-	}
-	
-	public function createListIRC(&$data) {
-		$blob = '';
-		forEach ($data as $row) {
-			if ($current_channel != $row->channel) {
-				$current_channel = $row->channel;
-				$blob .= "\n<tab><highlight>$current_channel<end>\n";
-			}
-
-			$blob .= "<tab><tab>$row->name\n";
-		}
-
-		return $blob;
 	}
 
 	public function createListByChannel(&$data, $show_alts, $show_org_info) {

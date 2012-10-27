@@ -369,7 +369,6 @@ class Net_SmartIRC_messagehandler extends Net_SmartIRC_irccommands
                  
                 $user->hopcount = substr($ircdata->rawmessageex[9], 1);
                 $user->realname = implode(array_slice($ircdata->rawmessageex, 10), ' ');
-                
                 $this->_adduser($channel, $user);
             }
         }
@@ -404,7 +403,7 @@ class Net_SmartIRC_messagehandler extends Net_SmartIRC_irccommands
                     default:
                         $user->nick = $userarray[$i];
                 }
-                
+
                 $this->_adduser($channel, $user);
             }
         }

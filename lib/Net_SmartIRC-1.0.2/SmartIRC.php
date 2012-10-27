@@ -2361,7 +2361,7 @@ class Net_SmartIRC_base
      * @return void
      * @access private
      */
-    function _adduser(&$channel, &$newuser)
+    function _adduser($channel, $newuser)
     {
         $lowerednick = strtolower($newuser->nick);
         if ($this->isJoined($channel->name, $newuser->nick)) {
@@ -2399,7 +2399,6 @@ class Net_SmartIRC_base
             }
         } else {
             $this->log(SMARTIRC_DEBUG_CHANNELSYNCING, 'DEBUG_CHANNELSYNCING: adding user: '.$newuser->nick.' to channel: '.$channel->name, __FILE__, __LINE__);
-            
             // he is new just add the reference to him
             $channel->users[$lowerednick] = &$newuser;
         }

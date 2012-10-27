@@ -62,6 +62,27 @@ class IRC2Controller {
 	public function setup() {
 		$this->setting = new Set();
 		Registry::injectDependencies($this->setting);
+		$this->onlineController->register($this);
+	}
+	
+	public function getOnlineList() {
+		if ($this->ircActive()) {
+			$channel = $this->irc->getChannel($this->setting->irc_channel);
+			$numirc = count($channel->users);
+
+			$blob = '';
+			if ($numirc > 0) {
+				$blob .= "<header2> :::::: $numirc ".($numirc == 1 ? "User":"Users")." in IRC Channel(s) :::::: <end>\n";
+
+				$blob .= "\n<tab><highlight>{$channel->name}<end>\n";
+				forEach ($channel->users as $user) {
+					$blob .= "<tab><tab>{$user->nick}\n";
+				}
+			}
+			return array($numirc, $blob);
+		} else {
+			return array(0, '');
+		}
 	}
 	
 	/**
@@ -98,14 +119,15 @@ class IRC2Controller {
 		$realname = 'Budabot - SmartIRC Client ' . SMARTIRC_VERSION;
 
 		$this->irc = new Net_SmartIRC();
-		$this->irc->setUseSockets(TRUE);
+		$this->irc->setUseSockets(true);
+		$this->irc->setChannelSyncing(true);
 		$this->irc->registerActionhandler(SMARTIRC_TYPE_CHANNEL, '', $this, 'channelMessage');
 		$this->irc->registerActionhandler(SMARTIRC_TYPE_QUERY, '', $this, 'queryMessage');
 		$this->irc->registerActionhandler(SMARTIRC_TYPE_JOIN, '', $this, 'joinMessage');
 		$this->irc->registerActionhandler(SMARTIRC_TYPE_PART, '', $this, 'leaveMessage');
 		$this->irc->registerActionhandler(SMARTIRC_TYPE_QUIT, '', $this, 'leaveMessage');
 		$this->irc->registerActionhandler(SMARTIRC_TYPE_KICK, '', $this, 'kickMessage');
-		$this->irc->registerActionhandler(SMARTIRC_TYPE_NAME, '', $this, 'nameMessage');
+		//$this->irc->registerActionhandler(SMARTIRC_TYPE_NAME, '', $this, 'nameMessage');
 		$this->irc->registerActionhandler(SMARTIRC_TYPE_NOTICE, '', $this, 'noticeMessage');
 		$this->irc->connect($this->setting->irc_server, $this->setting->irc_port);
 		$this->irc->login($this->setting->irc_nickname, $realname, 0, $this->setting->irc_password);
@@ -231,8 +253,6 @@ class IRC2Controller {
 	}
 	
 	public function joinMessage(&$irc, &$obj) {
-		$this->onlineController->addPlayerToOnlineList($obj->nick, $obj->channel, 'irc');
-		
 		$msgColor = $this->setting->irc_message_color;
 		$msg = "<yellow>[IRC]<end> {$msgColor}$obj->nick joined the channel.<end>";
 
@@ -245,8 +265,6 @@ class IRC2Controller {
 	}
 	
 	public function leaveMessage(&$irc, &$obj) {
-		$this->onlineController->removePlayerFromOnlineList($obj->nick, 'irc');
-		
 		$msgColor = $this->setting->irc_message_color;
 		$msg = "<yellow>[IRC]<end> {$msgColor}$obj->nick left the channel.<end>";
 		
@@ -255,15 +273,6 @@ class IRC2Controller {
 		}
 		if ($this->chatBot->vars['my_guild'] == "" || $this->setting->guest_relay == 1) {
 			$this->chatBot->sendPrivate($msg, true);
-		}
-	}
-	
-	public function nameMessage(&$irc, &$obj) {
-		if ($obj->channel != 'End') {
-			$names = explode(' ', $obj->message);
-			forEach ($names as $name) {
-				$this->onlineController->addPlayerToOnlineList($name, $obj->channel, 'irc');
-			}
 		}
 	}
 	
