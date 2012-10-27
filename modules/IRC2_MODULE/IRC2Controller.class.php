@@ -51,6 +51,9 @@ class IRC2Controller {
 	/** @Inject */
 	public $onlineController;
 	
+	/** @Inject */
+	public $relayController;
+	
 	/** @Logger */
 	public $logger;
 
