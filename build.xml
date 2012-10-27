@@ -34,6 +34,13 @@
 				<exclude name="lib/bin**" />
 				<exclude name="lib/vendor/behat**" />
 				<exclude name="lib/vendor/dhaarbrink**" />
+				<exclude name="lib/vendor/symfony/config**" />
+				<exclude name="lib/vendor/symfony/console**" />
+				<exclude name="lib/vendor/symfony/dependency-injection**" />
+				<exclude name="lib/vendor/symfony/finder**" />
+				<exclude name="lib/vendor/symfony/translation**" />
+				<exclude name="lib/vendor/symfony/yaml**" />
+
 				<include name="win32/**" />
 				<include name="*.*" />
 				<exclude name="build.xml" />
