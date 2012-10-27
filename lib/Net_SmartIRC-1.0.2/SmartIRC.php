@@ -1319,7 +1319,7 @@ class Net_SmartIRC_base
      */
     function listen()
     {
-        if ($this->_state() == SMARTIRC_STATE_CONNECTED) {
+        while ($this->_state() == SMARTIRC_STATE_CONNECTED) {
             $this->listenOnce();
         }
 
