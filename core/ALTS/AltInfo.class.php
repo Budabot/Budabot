@@ -39,7 +39,7 @@ class AltInfo {
 		if ($online === null) {
 			$blob .= " - No status\n";
 		} else if ($online == 1) {
-			$blob .= " - <green>Online<end>\n " . $text->make_chatcmd("Send tell", "/tell $this->main");
+			$blob .= " - <green>Online<end> " . $text->make_chatcmd("Send tell", "/tell $this->main") . "\n";
 		} else {
 			$blob .= " - <red>Offline<end>\n";
 		}

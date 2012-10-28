@@ -180,7 +180,9 @@ class IRCController {
 					$blob .= "<tab><tab>{$user->nick}\n";
 				}
 			}
-			$blob = "\n\n<header2> ::: IRC ($numirc) ::: <end>\n" . $blob;
+			if ($numirc > 0) {
+				$blob = "\n\n<header2> ::: IRC ($numirc) ::: <end>\n" . $blob;
+			}
 		}
 		return array($numirc, $blob);
 	}

@@ -289,7 +289,6 @@ class ItemsController implements ItemsAPI {
 		
 		$doc = new DOMDocument();
 		$doc->prevservWhiteSpace = false;
-		$doc->strictErrorChecking = false;
 		$doc->loadXML($data);
 		
 		$obj = new stdClass;

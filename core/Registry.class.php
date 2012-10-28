@@ -5,6 +5,7 @@ class Registry {
 	private static $dependencies = array();
 
 	public static function setInstance($name, $obj) {
+		LegacyLogger::log("DEBUG", "Registry", "Adding instance '$name'");
 		$name = strtolower($name);
 		Registry::$repo[$name] = $obj;
 		self::injectDependencies($obj);
