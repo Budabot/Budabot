@@ -22,8 +22,7 @@ class ServerController implements IAOChatModel {
 			$that->privateMessages []= $msg;
 		});
 		$this->aoServer->on('tell_message', function($uid, $msg, $blob) use ($that) {
-			$info = $that->aoServer->getCharInfo($uid);
-			$that->tellMessages[strtolower($info->name)] []= $msg;
+			$that->tellMessages []= $msg;
 		});
 	}
 
@@ -71,11 +70,11 @@ class ServerController implements IAOChatModel {
 	}
 
 	/**
-	 * Clears any tell messages send to given character.
+	 * Clears any tell messages send by the bot.
 	 * Called by the test runner via JSON-RPC call.
 	 */
-	public function clearTellMessagesOfCharacter($name) {
-		$this->tellMessages[strtolower($name)] = array();
+	public function clearTellMessages() {
+		$this->tellMessages = array();
 	}
 
 	/**
@@ -87,37 +86,25 @@ class ServerController implements IAOChatModel {
 	}
 
 	/**
-	 * Returns array of tell messages send to character $name.
-	 * Called by the test runner via JSON-RPC call.
-	 */
-	public function getTellMessagesOfCharacter($name) {
-		$name = strtolower($name);
-		if (isset($this->tellMessages[$name])) {
-			return $this->tellMessages[$name];
-		}
-		return array();
-	}
-
-	/**
 	 * Waits until a tell message with given array of phrases have been received.
 	 * Throws an exception if $timeout occurs.
 	 * Called by the test runner via JSON-RPC call.
 	 */
 	public function waitForTellMessageWithPhrases($timeout, $phrases) {
 		$that = $this;
-		$result = $this->blockUntil($timeout, function() use ($that, $phrases) {
-			forEach($that->tellMessages as $name => $messages) {
-				forEach($messages as $message) {
-					forEach($phrases as $phrase) {
-						if (stripos($message, $phrase) !== false) {
-							return true;
-						}
+		$result = $this->blockUntil($timeout, function() use ($that, &$phrases) {
+			forEach($phrases as $phrase) {
+				forEach($that->tellMessages as $message) {
+					if (stripos($message, $phrase) !== false) {
+						$i = array_search($phrase, $phrases);
+						unset($phrases[$i]);
 					}
 				}
 			}
+			return empty($phrases);
 		});
 		if (!$result) {
-			throw new Exception("Failed to receive tell message with phrases:\n" . print_r($phrases, true));
+			throw new Exception("Failed to receive tell messages with phrase(s): " . implode($phrases, ', '));
 		}
 	}
 

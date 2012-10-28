@@ -31,6 +31,7 @@ class LegacyLogger {
 
 // load all composer dependencies
 require_once ROOT_PATH . '/lib/vendor/autoload.php';
+require_once ROOT_PATH . '/lib/Process.class.php';
 require_once ROOT_PATH . '/lib/TestAOChatServer/AOChatServerStub.php';
 require_once ROOT_PATH . '/core/ConfigFile.class.php';
 
@@ -82,7 +83,7 @@ class FeatureContext extends BehatContext
 	 */
 	public static function prepareScenario()
 	{
-		self::$chatServer->clearTellMessagesOfCharacter(self::$superAdmin);
+		self::$chatServer->clearTellMessages();
 	} 
 
     /**
@@ -148,32 +149,29 @@ class FeatureContext extends BehatContext
 		$config->save();
 
 		// start budabot instance
-		$spec = array(
+		$process = new Process();
+		$process->setCommand("php -f mainloop.php $configPath");
+		$process->setDescriptorspec(array(
 			1 => array('file', 'nul', 'w')
-		);
-		$process = proc_open("php -f mainloop.php $configPath", $spec, $pipes, ROOT_PATH, null, array('bypass_shell' => true));
-		if (!is_resource($process)) {
+		));
+		$process->setWorkingDir(ROOT_PATH);
+		if (!$process->start()) {
 			throw new Exception("Failed to start Budabot!");
 		}
-
-		$terminateBot = function() use ($process, $pipes) {
-			forEach($pipes as $pipe) {
-				fclose($pipe);
-			}
-			proc_terminate($process);
-		};
 
 		// wait for the bot instance to be ready
 		try {
 			self::$chatServer->waitPrivateMessage(60 * 5 /* 5 minutes */,
 				"Logon Complete :: All systems ready to use.");
 		} catch (Exception $e) {
-			$terminateBot();
+			$process->stop();
 			throw $e;
 		}
 
 		// make sure that the bot instance is terminated on exit
-		register_shutdown_function($terminateBot);
+		register_shutdown_function(function() use ($process) {
+			$process->stop();
+		});
 
 		self::$botProcess = $process;
 	}

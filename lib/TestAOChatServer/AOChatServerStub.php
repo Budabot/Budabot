@@ -1,27 +1,30 @@
 <?php
 
+require_once __DIR__ . '/../Process.class.php';
+
 class AOChatServerStub {
 	private $process = null;
 	private $rpcClient = null;
-	private $pipes = array();
 
 	public function startServer($chatPort, $rpcPort) {
-		$spec = array(
+		$this->process = new Process();
+		$this->process->setCommand("php server.php $chatPort $rpcPort");
+		$this->process->setDescriptorspec(array(
 			1 => array('file', 'nul', 'w')
-		);
-		$this->process = proc_open("php server.php $chatPort $rpcPort", $spec, $this->pipes, __DIR__, null, array('bypass_shell' => true));
-		if (!is_resource($this->process)) {
+		));
+		$this->process->setWorkingDir(__DIR__);
+		if (!$this->process->start()) {
 			throw new Exception("Failed to start aochat server!");
 		}
+
 		$this->rpcClient = new JsonRpc\RpcClient("http://127.0.0.1:$rpcPort/");
 	}
 
 	public function stopServer() {
-		forEach($this->pipes as $pipe) {
-			fclose($pipe);
+		if ($this->process) {
+			$this->process->stop();
 		}
-		$this->pipes = array();
-		proc_terminate($this->process);
+
 		$this->process = null;
 		$this->rpcClient = null;
 	}
