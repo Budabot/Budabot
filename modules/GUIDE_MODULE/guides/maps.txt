@@ -63,3 +63,5 @@ Each map has a certain MapNav requirement to load (except for the startup maps).
 <font color=#ff9900> 700</font>      <font color=#00ccff>|</font>    <font color=#00ff00>Map - Deep Artery Valley </font>
 <font color=#ff9900> 700</font>      <font color=#00ccff>|</font>    <font color=#00ff00>Map - Perpetual Wastelands </font>
 
+Written by Shassandrafx (RK2)
+Submitted By Spectin(RK2) 

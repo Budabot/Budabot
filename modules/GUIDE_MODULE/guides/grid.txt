@@ -36,3 +36,5 @@ The grid is a fast way to teleport to other locations within Rubi-Ka.  Fixers ha
 <font color = red>*</font>450 Camelot (Avalon)
 
 <font color = red>*</font> denotes CompLit needed to use the exit.
+
+Updates from Shassandrafx (RK2), Spectin(RK2) 

@@ -74,3 +74,6 @@ Broken Shores {L,R]
 <header2>Level 10<end>
 Perpetual Wastelands [L,M,R]
 Eastern Fouls Plains [L,M,R]
+
+Written by Shassandrafx (RK2)
+Submitted By Spectin(RK2) 
