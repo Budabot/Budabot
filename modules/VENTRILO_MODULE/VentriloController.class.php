@@ -44,12 +44,28 @@ class VentriloController {
 		$this->setting->add($this->moduleName, "showventpassword", "Show password with vent info?", "edit", "options", "1", "true;false", "1;0");
 		$this->setting->add($this->moduleName, "showextendedinfo", "Show extended vent server info?", "edit", "options", "1", "true;false", "1;0");
 	}
+	
+	/**
+	 * @Event("logOn")
+	 * @Description("Sends Vent status to org members logging on")
+	 * @DefaultStatus("0")
+	 */
+	public function sendVentStatusLogonEvent($eventObj) {
+		if ($this->chatBot->is_ready() && isset($this->chatBot->guildmembers[$eventObj->sender])) {
+			$msg = $this->getVentStatus();
+			$this->chatBot->sendTell($msg, $eventObj->sender);
+		}
+	}
 
 	/**
 	 * @HandlesCommand("vent")
 	 * @Matches("/^vent$/i")
 	 */
 	public function ventCommand($message, $channel, $sender, $sendto, $args) {
+		$sendto->reply($this->getVentStatus());
+	}
+	
+	public function getVentStatus() {
 		$stat = new CVentriloStatus;
 		$stat->m_cmdprog	= '"' . getcwd() . '/modules/VENTRILO_MODULE/ventrilo_status.exe"';
 		$stat->m_cmdcode	= "2";					// Detail mode. 1=General Status, 2=Detail
@@ -132,7 +148,6 @@ class VentriloController {
 		} else {
 			$msg = "<orange>$error<end>";
 		}
-
-		$sendto->reply($msg);
+		return $msg;
 	}
 }
