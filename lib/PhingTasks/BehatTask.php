@@ -38,8 +38,14 @@ class BehatTask extends Task {
 		$pipes = array();
 		$process = proc_open($this->executable, array(), $pipes, $this->workingDir);
 
-		if (is_resource($process)) {
-			proc_close($process);
+		if (!is_resource($process)) {
+			throw new BuildException("Failed to start Behat");
+		}
+
+		// test if the behat failed or not
+		$code = proc_close($process);
+		if ($code) {
+			throw new BuildException("Behat reported failure");
 		}
 	}
 }
