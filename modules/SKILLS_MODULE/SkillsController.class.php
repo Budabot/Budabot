@@ -428,7 +428,7 @@ class SkillsController {
 	
 	/**
 	 * @HandlesCommand("inits")
-	 * @Matches("/^inits \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\"\>/i")
+	 * @Matches('|^inits <a href="itemref://([0-9]+)/([0-9]+)/([0-9]+)">|i')
 	 */
 	public function initsCommand($message, $channel, $sender, $sendto, $args) {
 		$url = "http://inits.xyphos.com/?";
@@ -559,7 +559,7 @@ class SkillsController {
 	
 	/**
 	 * @HandlesCommand("specials")
-	 * @Matches("/^specials \<a href\=\"itemref\:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\"\>/i")
+	 * @Matches('|^specials <a href="itemref://([0-9]+)/([0-9]+)/([0-9]+)">|i')
 	 */
 	public function specialsCommand($message, $channel, $sender, $sendto, $args) {
 		$url = "http://itemxml.xyphos.com/?";
