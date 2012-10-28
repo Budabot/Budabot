@@ -289,20 +289,26 @@ class ItemsController implements ItemsAPI {
 		
 		$doc = new DOMDocument();
 		$doc->prevservWhiteSpace = false;
+		$doc->strictErrorChecking = false;
 		$doc->loadXML($data);
 		
 		$obj = new stdClass;
 		
-		$obj->lowid = $doc->getElementsByTagName('low')->item(0)->attributes->getNamedItem("id")->nodeValue;
-		$obj->highid = $doc->getElementsByTagName('high')->item(0)->attributes->getNamedItem("id")->nodeValue;
-		$obj->highql = $doc->getElementsByTagName('high')->item(0)->attributes->getNamedItem("ql")->nodeValue;
-		$obj->name = $doc->getElementsByTagName('name')->item(0)->nodeValue;
+		if ($doc->documentElement === null) {
+			$this->logger->log('WARN', "Could not parse xml: '$url'");
+			return null;
+		} else {
+			$obj->lowid = $doc->getElementsByTagName('low')->item(0)->attributes->getNamedItem("id")->nodeValue;
+			$obj->highid = $doc->getElementsByTagName('high')->item(0)->attributes->getNamedItem("id")->nodeValue;
+			$obj->highql = $doc->getElementsByTagName('high')->item(0)->attributes->getNamedItem("ql")->nodeValue;
+			$obj->name = $doc->getElementsByTagName('name')->item(0)->nodeValue;
 
-		$attributes = $doc->getElementsByTagName('attribute');
-		$obj->icon = 0;
-		forEach ($attributes as $attribute) {
-			if ($attribute->attributes->getNamedItem("name")->nodeValue == "Icon") {
-				$obj->icon = $attribute->attributes->getNamedItem("value")->nodeValue;
+			$attributes = $doc->getElementsByTagName('attribute');
+			$obj->icon = 0;
+			forEach ($attributes as $attribute) {
+				if ($attribute->attributes->getNamedItem("name")->nodeValue == "Icon") {
+					$obj->icon = $attribute->attributes->getNamedItem("value")->nodeValue;
+				}
 			}
 		}
 
