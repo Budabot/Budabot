@@ -28,6 +28,7 @@
 				<include name="data/text.mdb" />
 				<include name="docs/*.txt" />
 				<include name="lib/**" />
+				<exclude name="lib/Process.class.php" />
 				<exclude name="lib/composer.*" />
 				<exclude name="lib/*.patch" />
 				<exclude name="lib/PhingTasks**" />
