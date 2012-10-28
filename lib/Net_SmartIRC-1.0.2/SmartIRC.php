@@ -2547,6 +2547,10 @@ class Net_SmartIRC_base
         $error = new Net_SmartIRC_Error($message);
         return $error;
     }
+	
+	function getChannels() {
+		return $this->_channels;
+	}
 }
 
 // includes must be after the base class definition, required for PHP5

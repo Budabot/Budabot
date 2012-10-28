@@ -8,18 +8,30 @@
  * Commands this controller contains:
  *	@DefineCommand(
  *		command     = 'connectirc', 
- *		accessLevel = 'admin', 
- *		description = "Test the bot commands", 
- *		help        = 'test.txt'
+ *		accessLevel = 'mod', 
+ *		description = "Connect to IRC", 
+ *		help        = 'irc.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'disconnectirc', 
- *		accessLevel = 'admin', 
- *		description = "Test the bot commands", 
- *		help        = 'test.txt'
+ *		accessLevel = 'mod', 
+ *		description = "Disconnect from IRC", 
+ *		help        = 'irc.txt'
+ *	)
+ *	@DefineCommand(
+ *		command     = 'setirc',
+ *		accessLevel = 'mod',
+ *		description = 'Manually set IRC settings',
+ *		help        = 'irc_help.txt'
+ *	)
+ *	@DefineCommand(
+ *		command     = 'onlineirc', 
+ *		accessLevel = 'all', 
+ *		description = 'Show users in IRC channel', 
+ *		help        = 'irc.txt'
  *	)
  */
-class IRC2Controller {
+class IRCController {
 
 	/**
 	 * Name of the module.
@@ -34,16 +46,13 @@ class IRC2Controller {
 	public $chatBot;
 	
 	/** @Inject */
-	public $eventManager;
-	
-	/** @Inject */
 	public $util;
 	
 	/** @Inject */
 	public $text;
 	
 	/** @Inject */
-	public $accessLevel;
+	public $alts;
 
 	/** @Inject */
 	public $commandManager;
@@ -53,6 +62,15 @@ class IRC2Controller {
 	
 	/** @Inject */
 	public $relayController;
+	
+	/** @Inject */
+	public $playerManager;
+	
+	/** @Inject */
+	public $preferences;
+	
+	/** @Inject("setting") */
+	public $settingManager;
 	
 	/** @Logger */
 	public $logger;
@@ -66,26 +84,123 @@ class IRC2Controller {
 		$this->setting = new Set();
 		Registry::injectDependencies($this->setting);
 		$this->onlineController->register($this);
+		
+		if ($this->chatBot->vars['my_guild'] == "") {
+			$channel = "#".$this->chatBot->vars['name'];
+		} else {
+			$sandbox = explode(" ", $this->chatBot->vars['my_guild']);
+			for ($i = 0; $i < count($sandbox); $i++) {
+				$channel .= ucfirst(strtolower($sandbox[$i]));
+			}
+			$channel = "#".$channel;
+		}
+		
+		$this->settingManager->add($this->moduleName, "irc_status", "Status of IRC uplink", "noedit", "options", "0", "Offline;Online", "0;1");
+		$this->settingManager->add($this->moduleName, "irc_server", "IRC server to connect to", "noedit", "text", "irc.funcom.com", "irc.funcom.com");
+		$this->settingManager->add($this->moduleName, "irc_port", "IRC server port to use", "noedit", "number", "6667", "6667");
+		$this->settingManager->add($this->moduleName, "irc_nickname", "Nickname to use while in IRC", "noedit", "text", $this->chatBot->vars['name'], $this->chatBot->vars['name']);
+		$this->settingManager->add($this->moduleName, "irc_channel", "Channel to join", "noedit", "text", $channel, $channel);
+		$this->settingManager->add($this->moduleName, "irc_password", "IRC password to join channel", "edit", "text", "none", "none");
+		$this->settingManager->add($this->moduleName, 'irc_guild_message_color', "Color of messages from other bots in the IRC channel", 'edit', "color", "<font color='#FFFFFF'>");
+		$this->settingManager->add($this->moduleName, 'irc_guild_name_color', "Color of guild names from other bots in the IRC channel", 'edit', "color", "<font color='#FFFFFF'>");
+		$this->settingManager->add($this->moduleName, 'irc_message_color', "Color of messages from users in the IRC channel", 'edit', "color", "<font color='#FFFFFF'>");
+		$this->settingManager->add($this->moduleName, 'irc_ignore', "Defines which characters to ignore", 'edit', "text", 'none', 'none', '', '', 'irc_ignore.txt');
+	}
+	
+	/**
+	 * @HandlesCommand("setirc")
+	 * @Matches("/^setirc server (.+)$/i")
+	 */
+	public function setIRCServerCommand($message, $channel, $sender, $sendto, $args) {
+		$server = trim($args[1]);
+		$this->setting->irc_server = $server;
+		$sendto->reply("Setting saved.  Bot will connect to IRC server: {$server}.");
+	}
+	
+	/**
+	 * @HandlesCommand("setirc")
+	 * @Matches("/^setirc port (.+)$/i")
+	 */
+	public function setIRCPortCommand($message, $channel, $sender, $sendto, $args) {
+		$port = trim($args[1]);
+		if (is_numeric($port)) {
+			$this->setting->irc_port = trim($port);
+			$sendto->reply("Setting saved.  Bot will use port {$port} to connect to the IRC server.");
+		} else {
+			$sendto->reply("Please check again.  The port should be a number.");
+		}
+	}
+	
+	/**
+	 * @HandlesCommand("setirc")
+	 * @Matches("/^setirc nickname (.+)$/i")
+	 */
+	public function setIRCNicknameCommand($message, $channel, $sender, $sendto, $args) {
+		$nickname = trim($args[1]);
+		$this->setting->irc_nickname = $nickname;
+		$sendto->reply("Setting saved.  Bot will use {$nickname} as its nickname while in IRC.");
+	}
+	
+	/**
+	 * @HandlesCommand("setirc")
+	 * @Matches("/^setirc channel (.+)$/i")
+	 */
+	public function setIRCChannelCommand($message, $channel, $sender, $sendto, $args) {
+		$channel = trim($args[1]);
+		if (strpos($channel, " ") !== false) {
+			$sendto->reply("IRC channels cannot have spaces in them");
+		} else {
+			if (strpos($channel, "#") === false) {
+				$channel = "#" . $channel;
+			}
+			$this->setting->irc_channel = $channel;
+			$sendto->reply("Setting saved.  Bot will join $channel when it connects to IRC.");
+		}
+	}
+	
+	/**
+	 * @HandlesCommand("setirc")
+	 * @Matches("/^setirc password (.+)$/i")
+	 */
+	public function setIRCPasswordCommand($message, $channel, $sender, $sendto, $args) {
+		$password = trim($args[1]);
+		$this->setting->irc_password = $password;
+		$sendto->reply("Setting saved.  Bot will use {$password} as the password when connecting to IRC.");
 	}
 	
 	public function getOnlineList() {
 		$numirc = 0;
 		$blob = '';
 		if ($this->ircActive()) {
-			$channel = $this->irc->getChannel($this->setting->irc_channel);
-			$numirc = count($channel->users);
-
-			if ($numirc > 0) {
-				$blob .= "\n\n<header2> :::::: $numirc ".($numirc == 1 ? "User":"Users")." in IRC Channel(s) :::::: <end>\n";
+			forEach ($this->irc->getChannels() as $channel) {
+				$numirc += count($channel->users);
 
 				$blob .= "\n<tab><highlight>{$channel->name}<end>\n";
 				forEach ($channel->users as $user) {
 					$blob .= "<tab><tab>{$user->nick}\n";
 				}
 			}
-			
+			$blob = "\n\n<header2> ::: IRC ($numirc) ::: <end>\n" . $blob;
 		}
 		return array($numirc, $blob);
+	}
+	
+	/**
+	 * @HandlesCommand("onlineirc")
+	 * @Matches("/^onlineirc$/i")
+	 */
+	public function onlineircCommand($message, $channel, $sender, $sendto, $args) {
+		if ($this->ircActive()) {
+			list($num, $blob) = $this->getOnlineList();
+			if ($num == 0) {
+				$msg = "There are no users in the IRC channel.";
+			} else {
+				$msg = $this->text->make_blob("IRC Online ($num)", $blob);
+			}
+		} else {
+			$msg = "There is no active IRC connection.";
+		}
+		$sendto->reply($msg);
 	}
 	
 	/**
@@ -93,11 +208,6 @@ class IRC2Controller {
 	 * @Matches("/^connectirc$/i")
 	 */
 	public function connectircCommand($message, $channel, $sender, $sendto, $args) {
-		if ($this->irc != null) {
-			$this->irc->disconnect();
-			$this->irc = null;
-		}
-		
 		if ($this->setting->irc_server == "") {
 			$sendto->reply("The IRC <highlight>server address<end> seems to be missing. <highlight>/tell <myname> help irc<end> for details on setting this.");
 			return;
@@ -105,6 +215,11 @@ class IRC2Controller {
 		if ($this->setting->irc_port == "") {
 			$sendto->reply("The IRC <highlight>server port<end> seems to be missing. <highlight>/tell <myname> help irc<end> for details on setting this.");
 			return;
+		}
+		
+		if ($this->irc != null) {
+			$this->irc->disconnect();
+			$this->irc = null;
 		}
 
 		$sendto->reply("Intializing IRC connection. Please wait...");
@@ -156,11 +271,24 @@ class IRC2Controller {
 	}
 	
 	/**
+	 * @Event("1min")
+	 * @Description("Automatically reconnect to IRC server")
+	 * @DefaultStatus("0")
+	 */
+	public function autoReconnectEvent() {
+		// make sure eof flag is set
+		//fputs($this->ircSocket, "PING ping\n");
+		if ($this->setting->irc_status == '1' && !$this->ircActive()) {
+			$this->connect();
+		}
+	}
+	
+	/**
 	 * @Event("2s")
-	 * @Description("Listen to IRC")
+	 * @Description("Listen for IRC messages")
 	 */
 	public function checkForIRCEvent($eventObj) {
-		if ($this->irc != null) {
+		if ($this->ircActive()) {
 			$this->irc->listenOnce();
 		}
 	}
@@ -174,7 +302,7 @@ class IRC2Controller {
 		if ($obj->message == "!online") {
 			$this->handleOnlineCmd($obj);
 		} else if ($obj->message[0] == $this->setting->symbol) {
-			$sendto = new IRCCommandReply2($irc, $obj->channel, $obj->type);
+			$sendto = new IRCCommandReply($irc, $obj->channel, $obj->type);
 			$this->commandManager->process('msg', substr(rtrim($obj->message), 1), '', $sendto);
 		} else {
 			$this->handleIncomingIRCMessage($obj);
@@ -281,7 +409,7 @@ class IRC2Controller {
 	
 	public function kickMessage(&$irc, &$obj) {
 		$extendedinfo = $this->text->make_blob("Extended information", $obj->message);
-		if ($ex[3] == $this->setting->irc_nickname) {
+		if ($obj->nick == $this->setting->irc_nickname) {
 			$msg = "<yellow>[IRC]<end> Bot was kicked from the server:".$extendedinfo;
 			if ($this->chatBot->vars['my_guild'] != "") {
 				$this->chatBot->sendGuild($msg, true);
@@ -290,7 +418,7 @@ class IRC2Controller {
 				$this->chatBot->sendPrivate($msg, true);
 			}
 		} else {
-			$msg = "<yellow>[IRC]<end> ".$ex[3]." was kicked from the server:".$extendedinfo;
+			$msg = "<yellow>[IRC]<end> ".$obj->nick." was kicked from the server:".$extendedinfo;
 			if ($this->chatBot->vars['my_guild'] != "") {
 				$this->chatBot->sendGuild($msg, true);
 			}
@@ -327,19 +455,6 @@ class IRC2Controller {
 		}
 		
 		return true;
-	}
-	
-	/**
-	 * @Event("1min")
-	 * @Description("Automatically reconnect to IRC server")
-	 * @DefaultStatus("0")
-	 */
-	public function autoReconnectEvent() {
-		// make sure eof flag is set
-		//fputs($this->ircSocket, "PING ping\n");
-		if ($this->setting->irc_status == '1' && !$this->ircActive()) {
-			$this->connect();
-		}
 	}
 	
 	/**
@@ -497,22 +612,6 @@ class IRC2Controller {
 		} else {
 			$ircmsg = $this->encodeGuildMessage($guild, $message);
 		}
-		$irc->message(SMARTIRC_TYPE_CHANNEL, $this->setting->irc_channel, $ircmsg);
-	}
-}
-
-class IRCCommandReply2 implements CommandReply {
-	private $irc;
-	private $channel;
-	private $type;
-
-	public function __construct(&$irc, $channel, $type) {
-		$this->irc = $irc;
-		$this->channel = $channel;
-		$this->type = $type;
-	}
-
-	public function reply($msg) {
-		$this->irc->message($this->type, $this->channel, strip_tags($msg));
+		$this->irc->message(SMARTIRC_TYPE_CHANNEL, $this->setting->irc_channel, $ircmsg);
 	}
 }

@@ -30,7 +30,7 @@
  *	@DefineCommand(
  *		command     = 'onlinebbin', 
  *		accessLevel = 'all', 
- *		description = 'View who is in IRC channel', 
+ *		description = 'Show users in BBIN channel', 
  *		help        = 'bbin_help.txt'
  *	)
  */
@@ -54,8 +54,8 @@ class BBINController {
 	/** @Inject */
 	public $playerManager;
 
-	/** @Inject */
-	public $setting;
+	/** @Inject("setting") */
+	public $settingManager;
 	
 	/** @Inject */
 	public $whitelist;
@@ -69,43 +69,37 @@ class BBINController {
 	/** @Inject */
 	public $onlineController;
 	
-	private $bbinSocket;
+	private $setting;
+	
+	private $irc;
 	
 	/**
 	 * This handler is called on bot startup.
 	 * @Setup
 	 */
 	public function setup() {
-		if ($this->setting->exists('bbin_channel')) {
-			$channel = $this->setting->get('bbin_channel');
+		$this->setting = new Set();
+		Registry::injectDependencies($this->setting);
+		
+		if ($this->chatBot->vars['my_guild'] == "") {
+			$channel = "#".strtolower($this->chatBot->vars['name']);
 		} else {
-			$channel = false;
-		}
-		if ($channel === false) {
-			if ($this->chatBot->vars['my_guild'] == "") {
-				$channel = "#".strtolower($this->chatBot->vars['name']);
-			} else {
-				if (strpos($this->chatBot->vars['my_guild']," ")) {
-					$sandbox = explode(" ", $this->chatBot->vars['my_guild']);
-					for ($i = 0; $i < count($sandbox); $i++) {
-						$channel .= ucfirst(strtolower($sandbox[$i]));
-					}
-					$channel = "#".$channel;
-				} else {
-					$channel = "#".$this->chatBot->vars['my_guild'];
-				}
+			$sandbox = explode(" ", $this->chatBot->vars['my_guild']);
+			for ($i = 0; $i < count($sandbox); $i++) {
+				$channel .= ucfirst(strtolower($sandbox[$i]));
 			}
+			$channel = "#".$channel;
 		}
 
 		// Setup
 		$this->db->loadSQLFile($this->moduleName, "bbin_chatlist");
 		
-		$this->setting->add($this->moduleName, "bbin_status", "Status of BBIN uplink", "noedit", "options", "0", "Offline;Online", "0;1", "mod", "bbin_help.txt");
-		$this->setting->add($this->moduleName, "bbin_server", "IRC server to connect to", "noedit", "text", "irc.funcom.com", "", "", "mod", "bbin_help.txt");
-		$this->setting->add($this->moduleName, "bbin_port", "IRC server port to use", "noedit", "number", "6667", "", "", "mod", "bbin_help.txt");
-		$this->setting->add($this->moduleName, "bbin_nickname", "Nickname to use while in IRC", "noedit", "text", $this->chatBot->vars['name'], "", "", "mod", "bbin_help.txt");
-		$this->setting->add($this->moduleName, "bbin_channel", "Channel to join", "noedit", "text", $channel, "", "", "mod", "bbin_help.txt");
-		$this->setting->add($this->moduleName, "bbin_password", "IRC password to join channel", "edit", "text", "none", "none");
+		$this->settingManager->add($this->moduleName, "bbin_status", "Status of BBIN uplink", "noedit", "options", "0", "Offline;Online", "0;1", "mod", "bbin_help.txt");
+		$this->settingManager->add($this->moduleName, "bbin_server", "IRC server to connect to", "noedit", "text", "irc.funcom.com", "", "", "mod", "bbin_help.txt");
+		$this->settingManager->add($this->moduleName, "bbin_port", "IRC server port to use", "noedit", "number", "6667", "", "", "mod", "bbin_help.txt");
+		$this->settingManager->add($this->moduleName, "bbin_nickname", "Nickname to use while in IRC", "noedit", "text", $this->chatBot->vars['name'], "", "", "mod", "bbin_help.txt");
+		$this->settingManager->add($this->moduleName, "bbin_channel", "Channel to join", "noedit", "text", $channel, "", "", "mod", "bbin_help.txt");
+		$this->settingManager->add($this->moduleName, "bbin_password", "IRC password to join channel", "edit", "text", "none", "none");
 		
 		$this->onlineController->register($this);
 	}
@@ -113,15 +107,13 @@ class BBINController {
 	public function getOnlineList() {
 		$blob = '';
 		$numonline = 0;
-		if ($this->setting->get("bbin_status") == 1) {
-			
-			
+		if ($this->setting->bbin_status == 1) {
 			// members
 			$data = $this->db->query("SELECT * FROM bbin_chatlist_<myname> WHERE (`guest` = 0) {$prof_query} ORDER BY `profession`, `level` DESC");
 			$numbbinmembers = count($data);
 
 			if ($numbbinmembers >= 1) {
-				$blob .= "\n\n<header2>$numbbinmembers ".($numbbinmembers == 1 ? "Member":"Members")." in BBIN<end>\n";
+				$blob .= "\n\n<header2> ::: BBIN ($numbbinmembers) ::: <end>\n";
 
 				$blob .= $this->onlineController->createListByProfession($data, false, true);
 			}
@@ -131,7 +123,7 @@ class BBINController {
 			$numbbinguests = count($data);
 
 			if ($numbbinguests >= 1) {
-				$blob .= "\n\n<header2>$numbbinguests ".($numbbinguests == 1 ? "Guest":"Guests")." in BBIN<end>\n";
+				$blob .= "\n\n<header2> ::: BBIN Guests ($numbbinguests) ::: <end>\n";
 
 				$blob .= $this->onlineController->createListByProfession($data, false, true);
 			}
@@ -146,21 +138,53 @@ class BBINController {
 	 * @Matches("/^startbbin$/i")
 	 */
 	public function startBBINCommand($message, $channel, $sender, $sendto, $args) {
-		if ($this->setting->get('bbin_server') == "") {
+		if ($this->setting->bbin_server == "") {
 			$sendto->reply("The BBIN <highlight>server address<end> seems to be missing. <highlight>/tell <myname> <symbol>help bbin<end> for details on setting this.");
 			return;
 		}
-		if ($this->setting->get('bbin_port') == "") {
+		if ($this->setting->bbin_port == "") {
 			$sendto->reply("The BBIN <highlight>server port<end> seems to be missing. <highlight>/tell <myname> <symbol>help bbin<end> for details on setting this.");
 			return;
 		}
+		
+		if ($this->irc != null) {
+			$this->irc->disconnect();
+			$this->irc = null;
+		}
 
 		$sendto->reply("Intializing BBIN connection. Please wait...");
-		if ($this->bbinConnect()) {
+
+		$this->connect();
+		if ($this->ircActive()) {
+			$this->setting->irc_status = "1";
 			$sendto->reply("Finished connecting to BBIN.");
 		} else {
-			$sendto->reply("Error connectiong to BBIN.");
+			$sendto->reply("Error connecting to BBIN.");
 		}
+	}
+	
+	public function connect() {
+		$this->db->exec("DELETE FROM bbin_chatlist_<myname>");
+	
+		$realname = 'Budabot - SmartIRC Client ' . SMARTIRC_VERSION;
+
+		$this->irc = new Net_SmartIRC();
+		$this->irc->setUseSockets(true);
+		$this->irc->setChannelSyncing(true);
+		$this->irc->registerActionhandler(SMARTIRC_TYPE_CHANNEL, '', $this, 'channelMessage');
+		$this->irc->registerActionhandler(SMARTIRC_TYPE_QUERY, '', $this, 'queryMessage');
+		$this->irc->registerActionhandler(SMARTIRC_TYPE_JOIN, '', $this, 'joinMessage');
+		$this->irc->registerActionhandler(SMARTIRC_TYPE_PART, '', $this, 'leaveMessage');
+		$this->irc->registerActionhandler(SMARTIRC_TYPE_QUIT, '', $this, 'leaveMessage');
+		$this->irc->registerActionhandler(SMARTIRC_TYPE_KICK, '', $this, 'kickMessage');
+		//$this->irc->registerActionhandler(SMARTIRC_TYPE_NAME, '', $this, 'nameMessage');
+		$this->irc->registerActionhandler(SMARTIRC_TYPE_NOTICE, '', $this, 'noticeMessage');
+		$this->irc->connect($this->setting-bbin_server, $this->setting->bbin_port);
+		$this->irc->login($this->setting->bbin_nickname, $realname, 0, $this->setting-bbin_password);
+		$this->irc->join(array($this->setting->bbin_channel));
+		$this->irc->listenOnce();
+		$this->sendMessageToBBIN("PRIVMSG ".$this->setting->bbin_channel." :[BBIN:SYNCHRONIZE]");
+		$this->parse_incoming_bbin("[BBIN:SYNCHRONIZE]", '');
 	}
 	
 	/**
@@ -168,14 +192,17 @@ class BBINController {
 	 * @Matches("/^stopbbin$/i")
 	 */
 	public function stopBBINCommand($message, $channel, $sender, $sendto, $args) {
-		$this->setting->save("bbin_status", "0");
+		$this->setting->bbin_status = "0";
+		
+		$this->setting->irc_status = "0";
 
-		if (!IRC::isConnectionActive($this->bbinSocket)) {
-			$sendto->reply("There is no active BBIN connection.");
-		} else {
-			IRC::disconnect($this->bbinSocket);
+		if ($this->ircActive()) {
+			$this->irc->disconnect();
+			$this->irc = null;
 			$this->logger->log('INFO', "Disconnected from BBIN");
 			$sendto->reply("The BBIN connection has been disconnected.");
+		} else {
+			$sendto->reply("There is no active BBIN connection.");
 		}
 	}
 	
@@ -185,7 +212,7 @@ class BBINController {
 	 */
 	public function setBBINServerCommand($message, $channel, $sender, $sendto, $args) {
 		$server = trim($args[1]);
-		$this->setting->save("bbin_server", $server);
+		$this->setting->bbin_server = $server;
 		$sendto->reply("Setting saved.  Bot will connect to IRC server: $server.");
 	}
 	
@@ -196,7 +223,7 @@ class BBINController {
 	public function setBBINPortCommand($message, $channel, $sender, $sendto, $args) {
 		$port = trim($args[1]);
 		if (is_numeric($port)) {
-			$this->setting->save("bbin_port", $port);
+			$this->setting->bbin_port = $port;
 			$sendto->reply("Setting saved.  Bot will use port {$port} to connect to the IRC server.");
 		} else {
 			$sendto->reply("The port should be a number.");
@@ -209,7 +236,7 @@ class BBINController {
 	 */
 	public function setBBINNicknameCommand($message, $channel, $sender, $sendto, $args) {
 		$nickname = trim($args[1]);
-		$this->setting->save("bbin_nickname", $nickname);
+		$this->setting->bbin_nickname = $nickname;
 		$sendto->reply("Setting saved.  Bot will use $nickname as its nickname while in IRC.");
 	}
 	
@@ -225,7 +252,7 @@ class BBINController {
 			if (strpos($channel, "#") === false) {
 				$channel = "#" . $channel;
 			}
-			$this->setting->save("bbin_channel", $channel);
+			$this->setting->bbin_channel = $channel;
 			$msg = "Setting saved.  Bot will join $channel when it connects to IRC.";
 		}
 		$sendto->reply($msg);
@@ -236,17 +263,11 @@ class BBINController {
 	 * @Matches("/^onlinebbin$/i")
 	 */
 	public function onlineBBINCommand($message, $channel, $sender, $sendto, $args) {
-		if (!IRC::isConnectionActive($this->bbinSocket)) {
-			$msg = "There is no active IRC connection.";
+		if ($this->ircActive()) {
+			list($num, $blob) = $this->getOnlineList();
+			$msg = $this->text->make_blob("BBIN Online ($num)", $blob);
 		} else {
-			$names = IRC::getUsersInChannel($this->bbinSocket, $this->setting->get('bbin_channel'));
-			$numusers = count($names);
-			$blob = '';
-			forEach ($names as $value) {
-				$blob .= "$value\n";
-			}
-
-			$msg = $this->text->make_blob("BBIN Online ($numusers)", $blob);
+			$msg = "There is no active BBIN connection.";
 		}
 		$sendto->reply($msg);
 	}
@@ -257,91 +278,86 @@ class BBINController {
 	 * @DefaultStatus("0")
 	 */
 	public function autoReconnectEvent($eventObj) {
-		if ($this->setting->get('bbin_status') == '1' && !IRC::isConnectionActive($this->bbinSocket)) {
-			$this->bbinConnect();
+		// make sure eof flag is set
+		//fputs($this->ircSocket, "PING ping\n");
+		if ($this->setting->bbin_status == '1' && !$this->ircActive()) {
+			$this->connect();
 		}
 	}
 	
 	/**
-	 * @Event("2sec")
-	 * @Description("The main BBIN message loop")
+	 * @Event("2s")
+	 * @Description("Listen for IRC messages")
 	 */
-	public function checkForBBINMessagesEvent($eventObj) {
-		if (!IRC::isConnectionActive($this->bbinSocket)) {
-			return;
+	public function checkForIRCEvent($eventObj) {
+		if ($this->ircActive()) {
+			$this->irc->listenOnce();
 		}
-
-		if ($data = fgets($this->bbinSocket)) {
-			$ex = explode(' ', $data);
-			$this->logger->log('DEBUG', trim($data));
-			$channel = rtrim(strtolower($ex[2]));
-			$nicka = explode('@', $ex[0]);
-			$nickb = explode('!', $nicka[0]);
-			$nickc = explode(':', $nickb[0]);
-
-			$host = $nicka[1];
-			$nick = $nickc[1];
-			if ($ex[0] == "PING") {
-				fputs($this->bbinSocket, "PONG ".$ex[1]."\n");
-				$this->logger->log('DEBUG', "PING received. PONG sent.");
-			} else if ($ex[1] == "NOTICE") {
-				if (false != stripos($data, "exiting")) {
-					// the irc server shut down (i guess)
-					// send notification to channel
-					$extendedinfo = $this->text->make_blob("Extended information", $data);
-					if ($this->chatBot->vars['my_guild'] != "") {
-						$this->chatBot->sendGuild("<yellow>[BBIN]<end> Lost connection with server:".$extendedinfo, true);
-					}
-					if ($this->chatBot->vars['my_guild'] == "" || $this->setting->get("guest_relay") == 1) {
-						$this->chatBot->sendPrivate("<yellow>[BBIN]<end> Lost connection with server:".$extendedinfo, true);
-					}
-				}
-			} else if ("KICK" == $ex[1]) {
-				$extendedinfo = $this->text->make_blob("Extended information", $data);
-				if ($ex[3] == $this->setting->get('bbin_nickname')) {
-					if ($this->chatBot->vars['my_guild'] != "") {
-						$this->chatBot->sendGuild("<yellow>[BBIN]<end> Our uplink was kicked from the server:".$extendedinfo, true);
-					}
-					if ($this->chatBot->vars['my_guild'] == "" || $this->setting->get("guest_relay") == 1) {
-						$this->chatBot->sendPrivate("<yellow>[BBIN]<end> Our uplink was kicked from the server:".$extendedinfo, true);
-					}
-				} else {
-					// yay someone else was kicked
-					$this->db->exec("DELETE FROM bbin_chatlist_<myname> WHERE `ircrelay` = '$ex[3]'");
-					if ($this->chatBot->vars['my_guild'] != "") {
-						$this->chatBot->sendGuild("<yellow>[BBIN]<end> The uplink ".$ex[3]." was kicked from the server:".$extendedinfo, true);
-					}
-					if ($this->chatBot->vars['my_guild'] == "" || $this->setting->get("guest_relay") == 1) {
-						$this->chatBot->sendPrivate("<yellow>[BBIN]<end> The uplink ".$ex[3]." was kicked from the server:".$extendedinfo, true);
-					}
-				}
-			} else if (($ex[1] == "QUIT") || ($ex[1] == "PART")) {
-				$this->db->exec("DELETE FROM bbin_chatlist_<myname> WHERE `ircrelay` = '$nick'");
-				if ($this->chatBot->vars['my_guild'] != "") {
-					$this->chatBot->sendGuild("<yellow>[BBIN]<end> Lost uplink with $nick", true);
-				}
-				if ($this->chatBot->vars['my_guild'] == "" || $this->setting->get("guest_relay") == 1) {
-					$this->chatBot->sendPrivate("<yellow>[BBIN]<end> Lost uplink with $nick", true);
-				}
-			} else if ($ex[1] == "JOIN") {
-				if ($this->chatBot->vars['my_guild'] != "") {
-					$this->chatBot->sendGuild("<yellow>[BBIN]<end> Uplink established with $nick.", true);
-				}
-				if ($this->chatBot->vars['my_guild'] == "" || $this->setting->get("guest_relay") == 1) {
-					$this->chatBot->sendPrivate("<yellow>[BBIN]<end> Uplink established with $nick.", true);
-				}
-			} else if ("PRIVMSG" == $ex[1] && $channel == trim(strtolower($this->setting->get('bbin_channel')))) {
-				// tweak the third message a bit to remove beginning ":"
-				$ex[3] = substr($ex[3],1,strlen($ex[3]));
-				for ($i = 3; $i < count($ex); $i++) {
-					$bbinmessage .= rtrim(htmlspecialchars_decode($ex[$i]))." ";
-				}
-
-				$this->logger->log_chat("Inc. BBIN Msg.", $nick, $bbinmessage);
-				$this->parse_incoming_bbin($bbinmessage, $nick);
+	}
+	
+	public function noticeMessage(&$irc, &$obj) {
+		if (false != stripos($obj->message, "exiting")) {
+			// the irc server shut down (i guess)
+			// send notification to channel
+			$extendedinfo = $this->text->make_blob("Extended information", $obj->message);
+			$msg = "<yellow>[BBIN]<end> Lost connection with server:".$extendedinfo;
+			if ($this->chatBot->vars['my_guild'] != "") {
+				$this->chatBot->sendGuild($msg, true);
 			}
-			unset($sandbox);
+			if ($this->chatBot->vars['my_guild'] == "" || $this->setting->guest_relay == 1) {
+				$this->chatBot->sendPrivate($msg, true);
+			}
 		}
+	}
+	
+	public function kickMessage(&$irc, &$obj) {
+		$extendedinfo = $this->text->make_blob("Extended information", $obj->message);
+		if ($obj->nick == $this->setting->bbin_nickname) {
+			$msg = "<yellow>[BBIN]<end> Our uplink was kicked from the server:".$extendedinfo;
+			if ($this->chatBot->vars['my_guild'] != "") {
+				$this->chatBot->sendGuild($msg, true);
+			}
+			if ($this->chatBot->vars['my_guild'] == "" || $this->setting->guest_relay == 1) {
+				$this->chatBot->sendPrivate($msg, true);
+			}
+		} else {
+			$this->db->exec("DELETE FROM bbin_chatlist_<myname> WHERE `ircrelay` = ?", $obj->nick);
+			$msg = "<yellow>[BBIN]<end> Uplink to ".$obj->nick." was kicked from the server:".$extendedinfo;
+			if ($this->chatBot->vars['my_guild'] != "") {
+				$this->chatBot->sendGuild($msg, true);
+			}
+			if ($this->chatBot->vars['my_guild'] == "" || $this->setting->guest_relay == 1) {
+				$this->chatBot->sendPrivate($msg, true);
+			}
+		}
+	}
+	
+	public function leaveMessage(&$irc, &$obj) {
+		$this->db->exec("DELETE FROM bbin_chatlist_<myname> WHERE `ircrelay` = ?", $nick);
+		$msg = "<yellow>[BBIN]<end> Lost uplink with $obj->nick";
+		
+		if ($this->chatBot->vars['my_guild'] != "") {
+			$this->chatBot->sendGuild($msg, true);
+		}
+		if ($this->chatBot->vars['my_guild'] == "" || $this->setting->guest_relay == 1) {
+			$this->chatBot->sendPrivate($msg, true);
+		}
+	}
+	
+	public function joinMessage(&$irc, &$obj) {
+		$msg = "<yellow>[BBIN]<end> Uplink established with $obj->nick.";
+
+		if ($this->chatBot->vars['my_guild'] != "") {
+			$this->chatBot->sendGuild($msg, true);
+		}
+		if ($this->chatBot->vars['my_guild'] == "" || $this->setting->guest_relay == 1) {
+			$this->chatBot->sendPrivate($msg, true);
+		}
+	}
+	
+	public function channelMessage(&$irc, &$obj) {
+		$this->logger->log_chat("Inc. BBIN Msg.", $obj->nick, $obj->message);
+		$this->parse_incoming_bbin($obj->message, $obj->nick);
 	}
 	
 	/**
@@ -351,14 +367,14 @@ class BBINController {
 	public function relayPrivMessagesEvent($eventObj) {
 		$message = $eventObj->message;
 		$sender = $eventObj->sender;
-		if (IRC::isConnectionActive($this->bbinSocket)) {
+		if ($this->ircActive()) {
 			// do not relay commands and ignored chars
-			if ($message[0] != $this->setting->get("symbol")) {
+			if ($message[0] != $this->setting->symbol) {
 				$outmsg = htmlspecialchars($message);
 
 				$msg = "$sender: $message";
 				$this->logger->log_chat("Out. BBIN Msg.", $sender, $msg);
-				IRC::send($this->bbinSocket, $this->setting->get('bbin_channel'), $msg);
+				$this->sendMessageToBBIN($msg);
 			}
 		}
 	}
@@ -370,14 +386,14 @@ class BBINController {
 	public function relayGuildMessagesEvent($eventObj) {
 		$message = $eventObj->message;
 		$sender = $eventObj->sender;
-		if (IRC::isConnectionActive($this->bbinSocket)) {
+		if ($this->ircActive()) {
 			// do not relay commands and ignored chars
-			if ($message[0] != $this->setting->get("symbol")) {
+			if ($message[0] != $this->setting->symbol) {
 				$outmsg = htmlspecialchars($message);
 
 				$msg = "$sender: $message";
 				$this->logger->log_chat("Out. BBIN Msg.", $sender, $msg);
-				IRC::send($this->bbinSocket, $this->setting->get('bbin_channel'), $msg);
+				$this->sendMessageToBBIN($msg);
 			}
 		}
 	}
@@ -387,10 +403,10 @@ class BBINController {
 	 * @Description("Sends joined channel messages")
 	 */
 	public function joinPrivEvent($eventObj) {
-		if (IRC::isConnectionActive($this->bbinSocket)) {
+		if ($this->ircActive()) {
 			$msg = "[BBIN:LOGON:".$eventObj->sender.",".$this->chatBot->vars["dimension"].",1]";
 			$this->logger->log('DEBUG', $msg);
-			IRC::send($this->bbinSocket, $this->setting->get('bbin_channel'), $msg);
+			$this->sendMessageToBBIN($msg);
 		}
 	}
 	
@@ -399,10 +415,10 @@ class BBINController {
 	 * @Description("Shows a logon from a member")
 	 */
 	public function logonEvent($eventObj) {
-		if (IRC::isConnectionActive($this->bbinSocket) && isset($this->chatBot->guildmembers[$eventObj->sender])) {
+		if ($this->ircActive() && isset($this->chatBot->guildmembers[$eventObj->sender])) {
 			$msg = "[BBIN:LOGON:".$eventObj->sender.",".$this->chatBot->vars["dimension"].",0]";
 			$this->logger->log('DEBUG', $msg);
-			IRC::send($this->bbinSocket, $this->setting->get('bbin_channel'), $msg);
+			$this->sendMessageToBBIN($msg);
 		}
 	}
 	
@@ -411,10 +427,10 @@ class BBINController {
 	 * @Description("Sends left channel messages")
 	 */
 	public function leavePrivEvent($eventObj) {
-		if (IRC::isConnectionActive($this->bbinSocket)) {
+		if ($this->ircActive()) {
 			$msg = "[BBIN:LOGOFF:".$eventObj->sender.",".$this->chatBot->vars["dimension"].",1]";
 			$this->logger->log('DEBUG', $msg);
-			IRC::send($this->bbinSocket, $this->setting->get('bbin_channel'), $msg);
+			$this->sendMessageToBBIN($msg);
 		}
 	}
 	
@@ -423,10 +439,10 @@ class BBINController {
 	 * @Description("Shows a logoff from a member")
 	 */
 	public function logoffEvent($eventObj) {
-		if (IRC::isConnectionActive($this->bbinSocket) && isset($this->chatBot->guildmembers[$eventObj->sender])) {
+		if ($this->ircActive() && isset($this->chatBot->guildmembers[$eventObj->sender])) {
 			$msg = "[BBIN:LOGOFF:".$eventObj->sender.",".$this->chatBot->vars["dimension"].",0]";
 			$this->logger->log('DEBUG', $msg);
-			IRC::send($this->bbinSocket, $this->setting->get('bbin_channel'), $msg);
+			$this->sendMessageToBBIN($msg);
 		}
 	}
 
@@ -464,7 +480,7 @@ class BBINController {
 			if ($this->chatBot->vars['my_guild'] != "") {
 				$this->chatBot->sendGuild("<yellow>[BBIN]<end> $msg", true);
 			}
-			if ($this->chatBot->vars['my_guild'] == "" || $this->setting->get("guest_relay") == 1) {
+			if ($this->chatBot->vars['my_guild'] == "" || $this->setting->guest_relay == 1) {
 				$this->chatBot->sendPrivate("<yellow>[BBIN]<end> $msg", true);
 			}
 
@@ -488,7 +504,7 @@ class BBINController {
 			if ($this->chatBot->vars['my_guild'] != "") {
 				$this->chatBot->sendGuild("<yellow>[BBIN]<end> $msg", true);
 			}
-			if ($this->chatBot->vars['my_guild'] == "" || $this->setting->get("guest_relay") == 1) {
+			if ($this->chatBot->vars['my_guild'] == "" || $this->setting->guest_relay == 1) {
 				$this->chatBot->sendPrivate("<yellow>[BBIN]<end> $msg", true);
 			}
 
@@ -516,7 +532,7 @@ class BBINController {
 			$msg .= "]";
 
 			// send complete list back to bbin channel
-			fputs($this->bbinSocket, "PRIVMSG ".$this->setting->get('bbin_channel')." :$msg\n");
+			fputs($this->bbinSocket, "PRIVMSG ".$this->setting->bbin_channel." :$msg\n");
 
 		} else if (preg_match("/^\[BBIN:ONLINELIST:(.):(.*?)\]/", $bbinmsg, $arr)) {
 			// received a synchronization list
@@ -561,29 +577,25 @@ class BBINController {
 			if ($this->chatBot->vars['my_guild'] != "") {
 				$this->chatBot->sendGuild("<yellow>[BBIN]<end> $bbinmsg", true);
 			}
-			if ($this->chatBot->vars['my_guild'] == "" || $this->setting->get("guest_relay") == 1) {
+			if ($this->chatBot->vars['my_guild'] == "" || $this->setting->guest_relay == 1) {
 				$this->chatBot->sendPrivate("<yellow>[BBIN]<end> $bbinmsg", true);
 			}
 		}
 	}
-
-	public function bbinConnect() {
-		IRC::connect(
-			$this->bbinSocket,
-			$this->setting->get('bbin_nickname'),
-			$this->setting->get('bbin_server'),
-			$this->setting->get('bbin_port'),
-			$this->setting->get('bbin_password'),
-			$this->setting->get('bbin_channel'));
-
-		if (IRC::isConnectionActive($this->bbinSocket)) {
-			$this->setting->save("bbin_status", "1");
-			$this->db->exec("DELETE FROM bbin_chatlist_<myname>");
-			fputs($this->bbinSocket, "PRIVMSG ".$this->setting->get('bbin_channel')." :[BBIN:SYNCHRONIZE]\n");
-			$this->parse_incoming_bbin("[BBIN:SYNCHRONIZE]", '');
-			return true;
-		} else {
+	
+	public function sendMessageToBBIN($msg) {
+		$this->irc->message(SMARTIRC_TYPE_CHANNEL, $this->setting->bbin_channel, $msg);
+	}
+	
+	public function ircActive() {
+		if ($this->irc === null) {
 			return false;
 		}
+		
+		if ($this->irc->_state() !== SMARTIRC_STATE_CONNECTED) {
+			return false;
+		}
+		
+		return true;
 	}
 }

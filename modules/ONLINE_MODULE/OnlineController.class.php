@@ -309,7 +309,7 @@ class OnlineController {
 		$numguild = count($data);
 
 		if ($numguild >= 1) {
-			$blob .= "<header2> :::::: $numguild ".($numguild == 1 ? "Member":"Members")." online ".($this->chatBot->vars['my_guild'] != '' ? "[<myguild>] ":"")." ::::::<end>\n";
+			$blob .= "<header2> ::: Guild Channel ($numguild) ::: <end>\n";
 
 			// create the list with alts shown
 			$blob .= $this->createList($data, true, $this->setting->get("online_show_org_guild"));
@@ -321,10 +321,9 @@ class OnlineController {
 
 		if ($numguest >= 1) {
 			if ($numguild >= 1) {
-				$blob .= "\n\n<header2>$numguest ".($numguest == 1 ? "User":"Users")." in Private Channel<end>\n";
-			} else {
-				$blob .= "<header2> :::::: $numguest ".($numguest == 1 ? "User":"Users")." in Private Channel ::::::<end>\n";
+				$blob .= "\n\n";
 			}
+			$blob .= "<header2> ::: Private Channel ($numguest) ::: <end>\n";
 
 			// create the list of guests, without showing alts
 			$blob .= $this->createList($data, true, $this->setting->get("online_show_org_priv"));
@@ -339,7 +338,7 @@ class OnlineController {
 			$blob .= $window;
 		}
 
-		$msg .= "$numonline ".($numonline == 1 ? "member":"members")." online";
+		$msg .= "Online ($numonline)";
 
 		return array($numonline, $msg, $blob);
 	}

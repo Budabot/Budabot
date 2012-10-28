@@ -28,7 +28,7 @@ class CIAController {
 	public $text;
 	
 	/** @Inject */
-	public $ircRelayController;
+	public $ircController;
 	
 	/** @Inject */
 	public $httpApi;
