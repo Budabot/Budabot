@@ -87,13 +87,13 @@ class AOChatServer extends EventEmitter {
 
 				case AOCP_MSG_PRIVATE:
 					list($gid, $msg, $blob) = $packet->args;
-					print "Client sends tell message (gid: $gid): $msg, blob: $blob\n";
+					print "Client sends tell message (gid: $gid): " . $that->limitText($msg, 200) . "\n";
 					$that->emit('tell_message', array($gid, $msg, $blob));
 					break;
 
 				case AOCP_PRIVGRP_MESSAGE:
 					list($gid, $msg, $blob) = $packet->args;
-					print "Client sends private group message (gid: $gid): $msg, blob: $blob\n";
+					print "Client sends private group message (gid: $gid): " . $that->limitText($msg, 200) . "\n";
 					$that->emit('private_message', array($gid, $msg, $blob));
 					break;
 
@@ -181,5 +181,16 @@ class AOChatServer extends EventEmitter {
 	public function packetToData($packet) {
 		$data = pack("n2", $packet->type, strlen($packet->data)) . $packet->data;
 		return $data;
+	}
+
+	/**
+	 * Limits given $text to length $limit, adds ... to end of string and
+	 * returns the new string.
+	 */
+	public function limitText($text, $limit) {
+		if (strlen($text) > $limit) {
+			$text = substr($text, 0, $limit-3) . '...';
+		}
+		return $text;
 	}
 }
