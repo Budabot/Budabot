@@ -117,6 +117,14 @@
 	<target name="behat">
 		<echo>Run integration tests with Behat.</echo>
 		<property name="behat.profile" value="" />
+		<!-- create logs folder for log files when ran as continuous integration server -->
+		<if>
+			<equals arg1="${behat.profile}" arg2="ci"/>
+			<then>
+				<mkdir dir="logs" />
+			</then>
+		</if>
+		<!-- run test suite -->
 		<behat workingdir="tests" executable="lib/bin/behat" profile="${behat.profile}" />
 	</target>
 
