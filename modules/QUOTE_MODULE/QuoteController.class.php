@@ -146,7 +146,7 @@ class QuoteController {
 		$list = "";
 		$data = $this->db->query("SELECT * FROM `#__quote` WHERE `Who` LIKE ?", $searchParam);
 		forEach ($data as $row) {
-			$list .= "<a href='chatcmd:///tell <myname> quote $row->IDNumber'>$row->IDNumber</a>, ";
+			$list .= $this->text->make_chatcmd($row->IDNumber, "/tell <myname> quote $row->IDNumber") . ", ";
 		}
 		if ($list) {
 			$msg .= "<tab>Quotes posted by <highlight>$search<end>: ";
@@ -157,7 +157,7 @@ class QuoteController {
 		$list = "";
 		$data = $this->db->query("SELECT * FROM `#__quote` WHERE `OfWho` LIKE ?", $searchParam);
 		forEach ($data as $row) {
-			$list .= "<a href='chatcmd:///tell <myname> quote $row->IDNumber'>$row->IDNumber</a>, ";
+			$list .= $this->text->make_chatcmd($row->IDNumber, "/tell <myname> quote $row->IDNumber") . ", ";
 		}
 		if ($list) {
 			if ($msg) {
@@ -171,7 +171,7 @@ class QuoteController {
 		$list = "";
 		$data = $this->db->query("SELECT * FROM `#__quote` WHERE `OfWho` NOT LIKE ? AND `What` LIKE ?", $searchParam, $searchParam);
 		forEach ($data as $row) {
-			$list .= "<a href='chatcmd:///tell <myname> quote $row->IDNumber'>$row->IDNumber</a>, ";
+			$list .= $this->text->make_chatcmd($row->IDNumber, "/tell <myname> quote $row->IDNumber") . ", ";
 		}
 		if ($list) {
 			if ($msg) {
@@ -222,7 +222,7 @@ class QuoteController {
 		forEach ($quoters as $key => $val) {
 			$listnum++;
 			$blob .= "<tab>$listnum) ".
-				"<a href='chatcmd:///tell <myname> quote search $key>$key</a>".
+				$this->row->chatcmd($key, "/tell <myname> quote search $key") .
 				": <highlight>$val<end> " . number_format((100 * ($val / $count)), 0) . "%\n";
 			if ($listnum >= $top) {
 				break;
@@ -234,7 +234,7 @@ class QuoteController {
 		forEach ($victims as $key => $val) {
 			$listnum++;
 			$blob .= "<tab>$listnum) ".
-				"<a href='chatcmd:///tell <myname> quote search $key>$key</a>".
+				$this->text->make_chatcmd($key, "/tell <myname> quote search $key") .
 				": <highlight>$val<end> " . number_format((100 * ($val / $count)), 0) . "%\n";
 			if ($listnum >= $top) {
 				break;
@@ -272,7 +272,7 @@ class QuoteController {
 			$data = $this->db->query("SELECT * FROM `#__quote` WHERE `Who` = ?", $quoteWHO);
 			$list = "";
 			forEach ($data as $row) {
-				$list .= "<a href='chatcmd:///tell <myname> quote $row->IDNumber>$row->IDNumber</a>, ";
+				$list .= $this->text->make_chatcmd($row->IDNumber, "/tell <myname> quote $row->IDNumber") . ", ";
 			}
 			$msg .= substr($list, 0, strlen($list) - 2) . "\n\n";
 
@@ -280,7 +280,7 @@ class QuoteController {
 			$data = $this->db->query("SELECT * FROM `#__quote` WHERE `OfWho` = ?", $quoteOfWHO);
 			$list = "";
 			forEach ($data as $row) {
-				$list .= "<a href='chatcmd:///tell <myname> quote $row->IDNumber>$row->IDNumber</a>, ";
+				$list .= $this->text->make_chatcmd($row->IDNumber, "/tell <myname> quote $row->IDNumber") . ", ";
 			}
 			$msg .= substr($list, 0, strlen($list) - 2);
 
@@ -326,7 +326,7 @@ class QuoteController {
 			$data = $this->db->query("SELECT * FROM `#__quote` WHERE `Who` = ?", $quoteWHO);
 			$list = "";
 			forEach ($data as $row) {
-				$list .= "<a href='chatcmd:///tell <myname> quote $row->IDNumber>$row->IDNumber</a>, ";
+				$list .= $this->text->make_chatcmd($row->IDNumber, "/tell <myname> quote $row->IDNumber") . ", ";
 			}
 			$msg .= substr($list, 0, strlen($list) - 2) . "\n\n";
 
@@ -334,7 +334,7 @@ class QuoteController {
 			$data = $this->db->query("SELECT * FROM `#__quote` WHERE `OfWho` = ?", $quoteOfWHO);
 			$list = "";
 			forEach ($data as $row) {
-				$list .= "<a href='chatcmd:///tell <myname> quote $row->IDNumber>$row->IDNumber</a>, ";
+				$list .= $this->text->make_chatcmd($row->IDNumber, "/tell <myname> quote $row->IDNumber") . ", ";
 			}
 			$msg .= substr($list, 0, strlen($list) - 2);
 

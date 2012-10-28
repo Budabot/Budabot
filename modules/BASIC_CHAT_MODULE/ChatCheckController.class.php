@@ -28,13 +28,12 @@ class ChatCheckController {
 	 * @Matches("/^check all$/i")
 	 */
 	public function checkAllCommand($message, $channel, $sender, $sendto, $args) {
-		$list = '';
 		$data = $this->db->query("SELECT name FROM online WHERE added_by = '<myname>' AND channel_type = ?", self::CHANNEL_TYPE);
 		forEach ($data as $row) {
 			$content .= " \\n /assist $row->name";
 		}
 
-		$list .= "<a href='chatcmd:///text AssistAll: $content'>Click here to check who is here</a>";
+		$list = $this->text->make_chatcmd("Click here to check who is here", "/text AssistAll: $content");
 		$msg = $this->text->make_blob("Check on all", $list);
 		$sendto->reply($msg);
 	}
@@ -56,7 +55,7 @@ class ChatCheckController {
 		ksort($prof);
 
 		forEach ($prof as $key => $value) {
-			$list .= "<a href='chatcmd:///text Assist $key: $value'>Click here to check $key</a>\n";
+			$list .= $this->text->make_chatcmd("Click here to check $key", "/text Assist $key: $value") . "\n";
 		}
 
 		$msg = $this->text->make_blob("Check by profession", $list);
@@ -84,7 +83,7 @@ class ChatCheckController {
 		ksort($org);
 
 		forEach ($org as $key => $value) {
-			$list .= "<a href='chatcmd:///text Assist $key: $value'>Click here to check $key</a>\n";
+			$list .= $this->text->make_chatcmd("Click here to check $key", "/text Assist $key: $value") . "\n";
 		}
 
 		$msg = $this->text->make_blob("Check by Organization", $list);

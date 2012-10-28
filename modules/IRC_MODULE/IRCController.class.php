@@ -441,8 +441,6 @@ class IRCController {
 				$this->chatBot->sendPrivate($msg, true);
 			}
 		}
-	
-		print_r($obj);
 	}
 	
 	public function ircActive() {

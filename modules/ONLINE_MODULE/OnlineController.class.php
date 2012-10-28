@@ -490,7 +490,8 @@ class OnlineController {
 		$altinfo = $this->alts->get_alt_info($name);
 
 		if (count($altinfo->alts) > 0) {
-			$alt = " $fancyColon <a href='chatcmd:///tell <myname> alts {$name}'>".($altinfo->main == $name ? "Alts":"Alt of {$altinfo->main}")."</a>";
+			$altsLink = $this->text->make_chatcmd(($altinfo->main == $name ? "Alts":"Alt of {$altinfo->main}"), "/tell <myname> alts {$name}");
+			$alt = " $fancyColon $altsLink";
 		}
 		return $alt;
 	}

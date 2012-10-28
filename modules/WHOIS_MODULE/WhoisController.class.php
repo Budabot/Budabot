@@ -282,7 +282,7 @@ class WhoisController {
 
 				$blob .= "<pagebreak><header2> :::::: Options :::::: <end>\n\n";
 
-				$blob .= "<a href='chatcmd:///tell <myname> history {$name} {$i}'>History</a>\n";
+				$blob .= $this->text->make_chatcmd("History", "/tell <myname> history {$name} {$i}") . "\n";
 
 				$msg .= " :: ".$this->text->make_blob("More info", $blob, "Detailed Info for {$name}");
 				$msg = "<highlight>Server $server:<end> ".$msg;

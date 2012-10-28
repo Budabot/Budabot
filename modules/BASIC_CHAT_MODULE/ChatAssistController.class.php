@@ -97,7 +97,7 @@ class ChatAssistController {
 				$sendto->reply($msg);
 			}
 
-			$link = "<a href='chatcmd:///macro $name /assist $name'>Click here to make an assist $name macro</a>";
+			$link = $this->text->make_chatcmd("Click here to make an assist $name macro", "/macro $name /assist $name");
 			$this->assistMessage = $this->text->make_blob("Assist $name Macro", $link);
 		} else {
 			forEach ($nameArray as $key => $name) {
@@ -167,7 +167,7 @@ class ChatAssistController {
 				$sendto->reply($msg);
 			}
 
-			$link = "<a href='chatcmd:///macro heal /assist $name'>Click here to make a heal assist macro</a>";
+			$link = $this->text->make_chatcmd("Click here to make a heal assist macro", "/macro heal /assist $name");
 			$this->healMessage = $this->text->make_blob("Heal Assist Macro", $link);
 		} else {
 			forEach ($nameArray as $key => $name) {

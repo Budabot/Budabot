@@ -1407,15 +1407,16 @@ class TowerController {
 	}
 	
 	private function formatSiteInfo($row) {
-		$waypoint = $this->text->make_chatcmd($row->x_coord . "x" . $row->y_coord, "/waypoint {$row->x_coord} {$row->y_coord} {$row->playfield_id}");
+		$waypointLink = $this->text->make_chatcmd($row->x_coord . "x" . $row->y_coord, "/waypoint {$row->x_coord} {$row->y_coord} {$row->playfield_id}");
+		$attacksLink = $this->text->make_chatcmd("Recent attacks on this base", "/tell <myname> attacks {$row->short_name} {$row->site_number}");
+		$victoryLink = $this->text->make_chatcmd("Recent victories on this base", "/tell <myname> victory {$row->short_name} {$row->site_number}");
 
-		$blob =
-"<font color=#66aa66>Short name:</font> <white>{$row->short_name} {$row->site_number}<end>
-<font color=#66aa66>Long name:</font> <white>{$row->site_name}, {$row->long_name}<end>
-<font color=#66aa66>Level range:</font> <white>{$row->min_ql}-{$row->max_ql}<end>
-<font color=#66aa66>Centre coordinates:</font> <a href='chatcmd:///waypoint {$row->x_coord} {$row->y_coord} {$row->playfield_id}'>{$row->x_coord}x{$row->y_coord}</a>
-<a href='chatcmd:///tell <myname> attacks {$row->short_name} {$row->site_number}'>Recent attacks on this base</a>
-<a href='chatcmd:///tell <myname> victory {$row->short_name} {$row->site_number}'>Recent victories on this base</a>";
+		$blob = "<font color=#66aa66>Short name:</font> <white>{$row->short_name} {$row->site_number}<end>\n";
+		$blob .= "<font color=#66aa66>Long name:</font> <white>{$row->site_name}, {$row->long_name}<end>\n";
+		$blob .= "<font color=#66aa66>Level range:</font> <white>{$row->min_ql}-{$row->max_ql}<end>\n";
+		$blob .= "<font color=#66aa66>Centre coordinates:</font> $waypointLink\n";
+		$blob .= $attacksLink . "\n";
+		$blob .= $victoryLink;
 		
 		return $blob;
 	}

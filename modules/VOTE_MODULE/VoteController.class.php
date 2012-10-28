@@ -163,24 +163,25 @@ class VoteController {
 					}
 
 					if ($timeleft > 0) {
-						$msg .= "<a href='chatcmd:///tell <myname> vote show $question";
-						$msg .= "$this->delimiter".$key2."'>$key2</a> (Votes: $value)\n";
+						$msg .= $this->text->make_chatcmd($key2, "/tell <myname> vote show ".$question.$this->delimiter.$key2);
+						$msg .= " (Votes: $value)\n";
 					} else {
 						$msg .= "<highlight>$key2<end> (Votes: $value)\n";
 					}
 				}
 
 				if ($timeleft > 0) {
-					$msg .= "\n<black>___%<end> <a href='chatcmd:///tell <myname> vote remove $question'>Remove yourself from this vote</a>.\n";
+					$removeLink = $this->text->make_chatcmd("Remove yourself from this vote", "/tell <myname> vote remove $question");
+					$msg .= "\n<black>___%<end> $removeLink.\n";
 				}
 				if ($timeleft > 0 && $this->setting->get("vote_add_new_choices") == 1 && $status == 0) {
 					$msg .="\n<highlight>Don't like these choices?  Add your own:<end>\n<tab>/tell <myname> vote $question{$this->delimiter}<highlight>your choice<end>\n";
 				}
 
 				$msg .="\n<highlight>If you started this vote, you can:<end>\n";
-				$msg .="<tab><a href='chatcmd:///tell <myname> vote kill $question'>Kill</a> the vote completely.\n";
+				$msg .= "<tab>" . $this->text->make_chatcmd("Kill", "/tell <myname> vote kill $question") . " the vote completely.\n";
 				if ($timeleft > 0) {
-					$msg .="<tab><a href='chatcmd:///tell <myname> vote end $question'>End</a> the vote early.";
+					$msg .= "<tab>" . $this->text->make_chatcmd("End", "/tell <myname> vote end $question") . " the vote early.";
 				}
 
 				$msg = $this->text->make_blob($title, $msg);

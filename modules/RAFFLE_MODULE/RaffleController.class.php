@@ -94,11 +94,14 @@ class RaffleController {
 			"lastresult" => NULL,
 			"sendto" => $sendto
 		);
+		
+		$joinLink = $this->text->make_chatcmd("here", "/tell <myname> raffle join");
+		$leaveLink = $this->text->make_chatcmd("here", "/tell <myname> raffle leave");
 
 		$jnRflMsg = "<white>A raffle for $item (count: $count) has been started by $sender!<end>
 
-	Click <a href='chatcmd:///tell <myname> raffle join'>here</a> to join the raffle!
-	Click <a href='chatcmd:///tell <myname> raffle leave'>here</a> if you wish to leave the raffle.";
+	Click $joinLink to join the raffle!
+	Click $leaveLink if you wish to leave the raffle.";
 		$link = $this->text->make_blob("here", $jnRflMsg, 'Raffle');
 		$msg = "
 	-----------------------------------------------------------------------
@@ -342,9 +345,12 @@ class RaffleController {
 		if (count($this->raffles["rafflees"]) == 0) {
 			$blob .= "No entrants yet.";
 		}
+		
+		$joinLink = $this->text->make_chatcmd("here", "/tell <myname> raffle join");
+		$leaveLink = $this->text->make_chatcmd("here", "/tell <myname> raffle leave");
 
-		$blob .= "\n\nClick <a href='chatcmd:///tell <myname> raffle join'>here</a> to join the raffle!";
-		$blob .= "\nClick <a href='chatcmd:///tell <myname> raffle leave'>here</a> if you wish to leave the raffle.";
+		$blob .= "\n\nClick $joinLink to join the raffle!";
+		$blob .= "\nClick $leaveLink if you wish to leave the raffle.";
 		$blob .= "\n\n Time left: $time_string.";
 
 		$link = $this->text->make_blob("Raffle Info", $blob);
