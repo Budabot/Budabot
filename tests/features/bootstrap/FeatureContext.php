@@ -175,21 +175,20 @@ class FeatureContext extends BehatContext
 			throw new Exception("Failed to start Budabot!");
 		}
 
-		// wait for the bot instance to be ready
-		try {
-			self::$chatServer->waitPrivateMessage(60 * 5 /* 5 minutes */,
-				"Logon Complete :: All systems ready to use.");
-		} catch (Exception $e) {
-			$process->stop();
-			throw $e;
-		}
-
 		// make sure that the bot instance is terminated on exit
 		register_shutdown_function(function() use ($process) {
 			$process->stop();
 		});
 
 		self::$botProcess = $process;
+
+		// wait for the bot instance to be ready
+		self::$chatServer->waitPrivateMessage(60 * 5 /* 5 minutes */,
+			"Logon Complete :: All systems ready to use.");
+
+		// check that the bot is ready to accept commands
+		self::$chatServer->sendTellMessageToBot(self::$superAdmin, "hello botty");
+		self::$chatServer->waitForTellMessageWithPhrases(60, array("Unknown command"));
 	}
 
 	/**
