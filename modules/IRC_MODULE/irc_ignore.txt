@@ -1,0 +1,1 @@
+This setting tells the bot which characters to ignore in the IRC channel.  To specify multiple characters to ignore, separate names by commas (no spaces).
