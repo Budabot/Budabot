@@ -6,12 +6,25 @@ class AOChatServerStub {
 	private $process = null;
 	private $rpcClient = null;
 
-	public function startServer($chatPort, $rpcPort) {
+	public function startServer($chatPort, $rpcPort, $logfile) {
 		$this->process = new Process();
 		$this->process->setCommand("php server.php $chatPort $rpcPort");
-		$this->process->setDescriptorspec(array(
-			1 => array('file', 'nul', 'w')
-		));
+
+		if (is_string($logfile)) {
+			$file = fopen($logfile, 'w');
+			$this->process->setDescriptorspec(array(
+				1 => $file,
+				2 => $file
+			));
+		} else if ($logfile) {
+			$this->process->setDescriptorspec(array());
+		} else {
+			$this->process->setDescriptorspec(array(
+				1 => array('file', 'nul', 'w'),
+				2 => array('file', 'nul', 'w')
+			));
+		}
+
 		$this->process->setWorkingDir(__DIR__);
 		if (!$this->process->start()) {
 			throw new Exception("Failed to start aochat server!");

@@ -42,6 +42,7 @@ class FeatureContext extends BehatContext
 {
 	private static $chatServer = null;
 	private static $botProcess = null;
+	private static $parameters = array();
 
 	// this is the port where the fake aochat test server will listen for bot
 	// to connect
@@ -64,6 +65,7 @@ class FeatureContext extends BehatContext
 	public function __construct(array $parameters)
 	{
 		// Initialize your context here
+		self::$parameters = $parameters;
 	}
 
 	/**
@@ -151,9 +153,23 @@ class FeatureContext extends BehatContext
 		// start budabot instance
 		$process = new Process();
 		$process->setCommand("php -f mainloop.php $configPath");
-		$process->setDescriptorspec(array(
-			1 => array('file', 'nul', 'w')
-		));
+		
+		$path = self::$parameters['budabot_log'];
+		if (is_string($path)) {
+			$file = fopen($path, 'w');
+			$process->setDescriptorspec(array(
+				1 => $file,
+				2 => $file
+			));
+		} else if ($path) {
+			$process->setDescriptorspec(array());
+		} else {
+			$process->setDescriptorspec(array(
+				1 => array('file', 'nul', 'w'),
+				2 => array('file', 'nul', 'w')
+			));
+		}
+
 		$process->setWorkingDir(ROOT_PATH);
 		if (!$process->start()) {
 			throw new Exception("Failed to start Budabot!");
@@ -186,7 +202,7 @@ class FeatureContext extends BehatContext
 		}
 
 		$server = new AOChatServerStub();
-		$server->startServer(self::$chatServerPort, self::$chatJsonRpcPort);
+		$server->startServer(self::$chatServerPort, self::$chatJsonRpcPort, self::$parameters['aochatserver_log']);
 
 		// make sure that the server is stopped on exit
 		register_shutdown_function(function() use ($server) {

@@ -8,6 +8,7 @@
 class BehatTask extends Task {
 	private $workingDir = '.';
 	private $executable = 'behat';
+	private $profile = null;
 
 	/**
 	 * Sets path to Behat's executable.
@@ -24,6 +25,13 @@ class BehatTask extends Task {
 	}
 
 	/**
+	 * Sets profile to use.
+	 */
+	function setProfile($profile) {
+		$this->profile = $profile;
+	}
+
+	/**
 	 * The main entry point.
 	 *
 	 * @throws BuildException
@@ -35,8 +43,13 @@ class BehatTask extends Task {
 		if (!$this->executable) {
 			throw new BuildException("Executable path is incorrect");
 		}
+		$command = $this->executable;
+		if ($this->profile) {
+			$command .= " --profile {$this->profile}";
+		}
+
 		$pipes = array();
-		$process = proc_open($this->executable, array(), $pipes, $this->workingDir);
+		$process = proc_open($command, array(), $pipes, $this->workingDir);
 
 		if (!is_resource($process)) {
 			throw new BuildException("Failed to start Behat");

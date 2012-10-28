@@ -1,0 +1,25 @@
+# behat.yml
+default:
+    paths:
+        features: 'features'
+        bootstrap: '%behat.paths.features%/bootstrap'
+    context:
+        parameters:
+            budabot_log:      false
+            aochatserver_log: false
+
+verbose:
+    context:
+        parameters:
+            budabot_log:      true
+            aochatserver_log: true
+
+ci:
+    context:
+        parameters:
+            budabot_log:      '%behat.paths.base%/../logs/test_budabot.log'
+            aochatserver_log: '%behat.paths.base%/../logs/test_aochatserver.log'
+    formatter:
+        name:        html
+        parameters:
+            output_path: '%behat.paths.base%/../logs/test_behat.html'
