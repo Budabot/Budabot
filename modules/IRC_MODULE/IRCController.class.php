@@ -603,13 +603,17 @@ class IRCController {
 	}
 	
 	public function sendMessageToIRC($message) {
-		$this->logger->log_chat("Out. IRC Msg.", -1, $message);
-		$guild = $this->relayController->getGuildAbbreviation();
-		if (empty($guild)) {
-			$ircmsg = $message;
+		if ($this->ircActive()) {
+			$this->logger->log_chat("Out. IRC Msg.", -1, $message);
+			$guild = $this->relayController->getGuildAbbreviation();
+			if (empty($guild)) {
+				$ircmsg = $message;
+			} else {
+				$ircmsg = $this->encodeGuildMessage($guild, $message);
+			}
+			$this->irc->message(SMARTIRC_TYPE_CHANNEL, $this->setting->irc_channel, $ircmsg);
 		} else {
-			$ircmsg = $this->encodeGuildMessage($guild, $message);
+			$this->logger->log("WARN", "Could not send message to IRC, not connected: $message");
 		}
-		$this->irc->message(SMARTIRC_TYPE_CHANNEL, $this->setting->irc_channel, $ircmsg);
 	}
 }
