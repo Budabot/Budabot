@@ -43,6 +43,7 @@ class FeatureContext extends BehatContext
 	private static $chatServer = null;
 	private static $botProcess = null;
 	private static $parameters = array();
+	private static $enabledModules = array();
 
 	// this is the port where the fake aochat test server will listen for bot
 	// to connect
@@ -76,7 +77,6 @@ class FeatureContext extends BehatContext
 	{
 		self::startAOChatServer();
 		self::startBudabot();
-		self::$chatServer->buddyLogin(self::$superAdmin);
 	}
 
 	/**
@@ -93,7 +93,10 @@ class FeatureContext extends BehatContext
      */
     public function moduleIsEnabled($module)
     {
-		self::$chatServer->sendTellMessageToBot(self::$superAdmin, "!config mod $module enable all");
+		if (!isset(self::$enabledModules[$module])) {
+			self::$chatServer->sendTellMessageToBot(self::$superAdmin, "!config mod $module enable all");
+			self::$enabledModules[$module] = true;
+		}
     }
 
 	/**
@@ -185,6 +188,8 @@ class FeatureContext extends BehatContext
 		// wait for the bot instance to be ready
 		self::$chatServer->waitPrivateMessage(60 * 5 /* 5 minutes */,
 			"Logon Complete :: All systems ready to use.");
+
+		self::$chatServer->buddyLogin(self::$superAdmin);
 
 		// check that the bot is ready to accept commands
 		self::$chatServer->sendTellMessageToBot(self::$superAdmin, "hello botty");
