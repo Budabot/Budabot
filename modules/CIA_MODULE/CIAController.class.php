@@ -93,7 +93,7 @@ class CIAController {
 		$obj = json_decode($requestBody);
 		forEach ($obj->revisions as $revision) {
 			$msg = "r{$revision->revision}: $revision->author ($revision->path_count file(s)) - $revision->message";
-			$this->ircRelayController->sendMessageToIRC($msg);
+			$this->ircController->sendMessageToIRC($msg);
 		}
 	}
 }
