@@ -177,7 +177,7 @@ class SpiritsController {
 			}
 			$title = "Spirits Level $lvl";
 			$lolvl = $lvl-10;
-			$data = $this->db->query("SELECT * FROM spiritsdb where level < ? AND level > ? ORDER BY level", $lvl, $lolvl);
+			$data = $this->db->query("SELECT * FROM spiritsdb where level <= ? AND level >= ? ORDER BY level", $lvl, $lolvl);
 			$spirits .= $this->formatSpiritOutput($data);
 		}
 			// If searched by minimum level range
@@ -207,7 +207,7 @@ class SpiritsController {
 				$spirits .= $this->getValidSlotTypes();
 			} else {
 				$lolvl = $lvl-10;
-				$data = $this->db->query("SELECT * FROM spiritsdb where spot = ? AND level < ? AND level > ? ORDER BY level", $slot, $lvl, $lolvl);
+				$data = $this->db->query("SELECT * FROM spiritsdb where spot = ? AND level <= ? AND level >= ? ORDER BY level", $slot, $lvl, $lolvl);
 				$spirits .= $this->formatSpiritOutput($data);
 			}
 		}
@@ -251,7 +251,7 @@ class SpiritsController {
 			}
 			$loagility = $agility - 10;
 			$title = "Spirits Database for Agility Requirement of $agility";
-			$data = $this->db->query("SELECT * FROM spiritsdb WHERE agility < ? AND agility > ? ORDER BY level", $agility, $loagility);
+			$data = $this->db->query("SELECT * FROM spiritsdb WHERE agility <= ? AND agility >= ? ORDER BY level", $agility, $loagility);
 			$spirits .= $this->formatSpiritOutput($data);
 		}
 			// If searched by Agility and slot
@@ -269,7 +269,7 @@ class SpiritsController {
 				$spirits .= "<red>Invalid Input\n\n";
 				$spirits .= $this->getValidSlotTypes();
 			} else {
-				$data = $this->db->query("SELECT * FROM spiritsdb where spot = ? AND agility < ? AND agility > ? ORDER BY ql", $slot, $agility, $loagility);
+				$data = $this->db->query("SELECT * FROM spiritsdb where spot = ? AND agility <= ? AND agility >= ? ORDER BY ql", $slot, $agility, $loagility);
 				$spirits .= $this->formatSpiritOutput($data);
 			}
 		}
@@ -295,7 +295,7 @@ class SpiritsController {
 			}
 			$losense = $sense - 10;
 			$title = "Spirits Database for Sense Requirement of $sense";
-			$data = $this->db->query("SELECT * FROM spiritsdb WHERE sense < ? AND sense > ? ORDER BY level", $sense, $losense);
+			$data = $this->db->query("SELECT * FROM spiritsdb WHERE sense <= ? AND sense >= ? ORDER BY level", $sense, $losense);
 			$spirits .= $this->formatSpiritOutput($data);
 		}
 			// If searched by Sensel and slot
@@ -312,7 +312,7 @@ class SpiritsController {
 				$spirits .= "<red>Invalid Input\n\n";
 				$spirits .= $this->getValidSlotTypes();
 			} else {
-				$data = $this->db->query("SELECT * FROM spiritsdb where spot = ? AND sense < ? AND sense > ? ORDER BY ql", $slot, $sense, $losense);
+				$data = $this->db->query("SELECT * FROM spiritsdb where spot = ? AND sense <= ? AND sense >= ? ORDER BY ql", $slot, $sense, $losense);
 				$spirits .= $this->formatSpiritOutput($data);
 			}
 		}
