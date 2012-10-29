@@ -167,6 +167,11 @@
 	if ($db->get_type() == "mysql" && checkIfTableExists($db, "hlpcfg_<myname>") && getColumnType($db, 'hlpcfg_<myname>', 'description') == 'varchar(50)') {
 		upgrade($db, "ALTER TABLE hlpcfg_<myname> CHANGE COLUMN description description VARCHAR(75)");
 	}
+	
+	// increase size of setting.name from varchar(30) to varchar(50)
+	if ($db->get_type() == "mysql" && checkIfTableExists($db, "settings_<myname>") && getColumnType($db, 'settings_<myname>', 'name') == 'varchar(30)') {
+		upgrade($db, "ALTER TABLE settings_<myname> CHANGE COLUMN name name VARCHAR(50)");
+	}
 
 	// change 'leader' access level to 'rl' access level
 	if (checkIfTableExists($db, "cmdcfg_<myname>")) {
