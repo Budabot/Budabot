@@ -16,7 +16,6 @@ class DB {
 	private $type;
 	private $sql;
 	private $dbName;
-	private $result;
 	private $user;
 	private $pass;
 	private $host;
@@ -25,8 +24,6 @@ class DB {
 	private $guild;
 	private $lastQuery;
 	private $in_transaction = false;
-	public $errorCode = 0;
-	public $errorInfo;
 	public $table_replaces = array();
 
 	function connect($type, $dbName, $host = NULL, $user = NULL, $pass = NULL) {
@@ -41,15 +38,10 @@ class DB {
 		$this->guild = str_replace("'", "''", $vars["my_guild"]);
 
 		if ($this->type == 'mysql') {
-			try {
-				$this->sql = new PDO("mysql:dbname=$dbName;host=$host", $user, $pass);
-				$this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$this->exec("SET sql_mode='TRADITIONAL,NO_BACKSLASH_ESCAPES'");
-				$this->exec("SET time_zone = '+00:00'");
-			} catch (PDOException $e) {
-				$this->errorCode = 1;
-				$this->errorInfo = $e->getMessage();
-			}
+			$this->sql = new PDO("mysql:dbname=$dbName;host=$host", $user, $pass);
+			$this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$this->exec("SET sql_mode='TRADITIONAL,NO_BACKSLASH_ESCAPES'");
+			$this->exec("SET time_zone = '+00:00'");
 		} else if ($this->type == 'sqlite') {
 			if ($host == NULL || $host == "" || $host == "localhost") {
 				$this->dbName = "./data/$this->dbName";
@@ -57,13 +49,8 @@ class DB {
 				$this->dbName = "$host/$this->dbName";
 			}
 
-			try {
-				$this->sql = new PDO("sqlite:".$this->dbName);
-				$this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			} catch(PDOException $e) {
-				$this->errorCode = 1;
-				$this->errorInfo = $e->getMessage();
-			}
+			$this->sql = new PDO("sqlite:".$this->dbName);
+			$this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} else {
 			throw new Exception("Invalid database type: '$type'.  Expecting 'mysql' or 'sqlite'.");
 		}
@@ -74,43 +61,34 @@ class DB {
 	}
 
 	function queryRow($sql) {
-		$this->result = NULL;
 		$sql = $this->formatSql($sql);
 
 		$args = func_get_args();
 		array_shift($args);
 
 		$ps = $this->executeQuery($sql, $args);
+		$result = $ps->fetchAll(PDO::FETCH_CLASS, 'DBRow');
 
-		if ($ps !== null && $ps !== false) {
-			$this->result = $ps->fetchAll(PDO::FETCH_CLASS, 'DBRow');
-		}
-		if (count($this->result) == 0) {
+		if (count($result) == 0) {
 			return null;
 		} else {
-			return $this->result[0];
+			return $result[0];
 		}
 	}
 
 	//Sends a query to the Database and gives the result back
 	function query($sql) {
-		$this->result = NULL;
 		$sql = $this->formatSql($sql);
 
 		$args = func_get_args();
 		array_shift($args);
 
 		$ps = $this->executeQuery($sql, $args);
-
-		if ($ps !== null && $ps !== false) {
-			$this->result = $ps->fetchAll(PDO::FETCH_CLASS, 'DBRow');
-		}
-		return $this->result;
+		return $ps->fetchAll(PDO::FETCH_CLASS, 'DBRow');
 	}
 
 	//Does Basicly the same thing just don't gives the result back(used for create table, Insert, delete etc), a bit faster as normal querys
 	function exec($sql) {
-		$this->result = NULL;
 		$sql = $this->formatSql($sql);
 
 		if (substr_compare($sql, "create", 0, 6, true) == 0) {
@@ -127,11 +105,7 @@ class DB {
 
 		$ps = $this->executeQuery($sql, $args);
 
-		$affectedRows = 0;
-		if ($ps !== null && $ps !== false) {
-			$affectedRows = $ps->rowCount();
-		}
-		return $affectedRows;
+		return $ps->rowCount();
 	}
 
 	private function executeQuery($sql, $params) {
@@ -157,8 +131,6 @@ class DB {
 			}
 			throw new SQLException("{$e->errorInfo[2]} in: $sql - " . print_r($params, true), 0, $e);
 		}
-
-		return null;
 	}
 
 	//Start of an transaction

@@ -157,11 +157,6 @@ forEach ($newInstances as $name => $className) {
 // Create new objects
 $db = Registry::getInstance('db');
 $db->connect($vars["DB Type"], $vars["DB Name"], $vars["DB Host"], $vars["DB username"], $vars["DB password"]);
-if ($db->errorCode != 0) {
-	LegacyLogger::log('ERROR', 'StartUp', "Error in creating database object: {$db->errorInfo}");
-	sleep(5);
-	die();
-}
 
 // Clear database information
 unset($vars["DB Type"]);
