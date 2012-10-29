@@ -101,14 +101,14 @@ class ReputationController {
 		$sql = "SELECT name FROM reputation WHERE `by_charid` = ? AND `charid` = ? AND `dt` > ?";
 		$data = $this->db->query($sql, $by_charid, $charid, $time);
 		if (count($data) > 0) {
-			$sendto->reply("You may only submit reputation for a player once every 24 hours. Please try again later.");
+			$sendto->reply("You may only submit reputation for a player once every 24 hours.");
 			return;
 		}
 
 		$sql = "SELECT name FROM reputation WHERE `by_charid` = ?";
 		$data = $this->db->query($sql, $by_charid);
 		if (count($data) > 3) {
-			$sendto->reply("You may submit reputation a maximum of 3 times in a 24 hour period. Please try again later.");
+			$sendto->reply("You may submit reputation a maximum of 3 times in a 24 hour period.");
 			return;
 		}
 

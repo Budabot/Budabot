@@ -1,8 +1,8 @@
 <highlight>To see reputation on a character<end>
-<tab><symbol>reputation charater
+<tab><symbol>reputation 'character'
 
 <highlight>To add positive reputation for a player<end>
-<tab><symbol>reputation 'charater' +1 'reason'
+<tab><symbol>reputation 'character' +1 'reason'
 
 <highlight>To add negative reputation for a player<end>
-<tab><symbol>reputation 'charater' -1 'reason'
+<tab><symbol>reputation 'character' -1 'reason'
