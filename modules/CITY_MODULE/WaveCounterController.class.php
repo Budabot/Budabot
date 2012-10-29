@@ -8,13 +8,13 @@
  *
  * Commands this class contains:
  *	@DefineCommand(
- *		command     = 'startraid',
+ *		command     = 'startwave',
  *		accessLevel = 'guild',
  *		description = 'Manually start wave counter',
  *		help        = 'wavecounter.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'stopraid',
+ *		command     = 'stopwave',
  *		accessLevel = 'guild',
  *		description = 'Manually stops wave counter',
  *		help        = 'wavecounter.txt'
@@ -40,24 +40,24 @@ class WaveCounterController {
 	private $wave = null;
 	
 	/**
-	 * @HandlesCommand("startraid")
-	 * @Matches("/^startraid$/i")
+	 * @HandlesCommand("startwave")
+	 * @Matches("/^startwave$/i")
 	 */
-	public function startraidCommand($message, $channel, $sender, $sendto, $args) {
+	public function startwaveCommand($message, $channel, $sender, $sendto, $args) {
 		if (isset($this->wave)) {
 			$this->chatBot->sendGuild("A raid is already in progress.");
 		} else {
-			$this->chatBot->sendGuild("Wave counter started.");
+			$this->chatBot->sendGuild("Wave counter started by $sender.");
 			$this->wave['time'] = time();
 			$this->wave['wave'] = 1;
 		}
 	}
 
 	/**
-	 * @HandlesCommand("stopraid")
-	 * @Matches("/^stopraid$/i")
+	 * @HandlesCommand("stopwave")
+	 * @Matches("/^stopwave$/i")
 	 */
-	public function stopraidCommand($message, $channel, $sender, $sendto, $args) {
+	public function stopwaveCommand($message, $channel, $sender, $sendto, $args) {
 		unset($this->wave);
 		$this->chatBot->sendGuild("Wave counter stopped by $sender.");
 	}
@@ -66,7 +66,7 @@ class WaveCounterController {
 	 * @HandlesCommand("citywave")
 	 * @Matches("/^citywave$/i")
 	 */
-	public function svnInfoCommand($message, $channel, $sender, $sendto, $args) {
+	public function citywaveCommand($message, $channel, $sender, $sendto, $args) {
 		if (!isset($this->wave)) {
 			$msg = "There is no raid in progress at this time.";
 		} else if ($this->wave['wave'] == 1) {
