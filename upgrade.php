@@ -104,6 +104,7 @@
 		}
 	}
 
+	// move logon_msg and logoff_msg from org_members to preferences
 	try {
 		if (checkIfTableExists($db, "org_members_<myname>")) {
 			$data = $db->query("SELECT * FROM org_members_<myname>");
@@ -134,14 +135,40 @@
 		LegacyLogger::log("ERROR", 'Upgrade', $e->getMessage());
 	}
 
+	// add sticky column to news table
 	if (!checkIfColumnExists($db, "news", "sticky")) {
 		upgrade($db, "ALTER TABLE news ADD `sticky` TINYINT NOT NULL DEFAULT 0");
 	}
 
+	// set all event types to lower case
 	if (checkIfTableExists($db, "eventcfg_<myname>")) {
 		upgrade($db, "UPDATE eventcfg_<myname> SET type = LOWER(type)");
 	}
+	
+	// increase size of help and description
+	if ($db->get_type() == "mysql" && checkIfTableExists($db, "cmdcfg_<myname>") && getColumnType($db, 'cmdcfg_<myname>', 'help') == 'varchar(25)') {
+		upgrade($db, "ALTER TABLE cmdcfg_<myname> CHANGE COLUMN help help VARCHAR(255)");
+	}
+	if ($db->get_type() == "mysql" && checkIfTableExists($db, "cmdcfg_<myname>") && getColumnType($db, 'cmdcfg_<myname>', 'description') == 'varchar(50)') {
+		upgrade($db, "ALTER TABLE cmdcfg_<myname> CHANGE COLUMN description description VARCHAR(75)");
+	}
+	if ($db->get_type() == "mysql" && checkIfTableExists($db, "eventcfg_<myname>") && getColumnType($db, 'eventcfg_<myname>', 'help') == 'varchar(25)') {
+		upgrade($db, "ALTER TABLE eventcfg_<myname> CHANGE COLUMN help help VARCHAR(255)");
+	}
+	if ($db->get_type() == "mysql" && checkIfTableExists($db, "eventcfg_<myname>") && getColumnType($db, 'eventcfg_<myname>', 'description') == 'varchar(50)') {
+		upgrade($db, "ALTER TABLE eventcfg_<myname> CHANGE COLUMN description description VARCHAR(75)");
+	}
+	if ($db->get_type() == "mysql" && checkIfTableExists($db, "settings_<myname>") && getColumnType($db, 'settings_<myname>', 'help') == 'varchar(25)') {
+		upgrade($db, "ALTER TABLE settings_<myname> CHANGE COLUMN help help VARCHAR(255)");
+	}
+	if ($db->get_type() == "mysql" && checkIfTableExists($db, "settings_<myname>") && getColumnType($db, 'settings_<myname>', 'description') == 'varchar(50)') {
+		upgrade($db, "ALTER TABLE settings_<myname> CHANGE COLUMN description description VARCHAR(75)");
+	}
+	if ($db->get_type() == "mysql" && checkIfTableExists($db, "hlpcfg_<myname>") && getColumnType($db, 'hlpcfg_<myname>', 'description') == 'varchar(50)') {
+		upgrade($db, "ALTER TABLE hlpcfg_<myname> CHANGE COLUMN description description VARCHAR(75)");
+	}
 
+	// change 'leader' access level to 'rl' access level
 	if (checkIfTableExists($db, "cmdcfg_<myname>")) {
 		upgrade($db, "UPDATE cmdcfg_<myname> SET admin = 'rl' WHERE admin = 'leader'");
 	}
@@ -150,6 +177,10 @@
 	}
 	if (checkIfTableExists($db, "settings_<myname>")) {
 		upgrade($db, "UPDATE settings_<myname> SET admin = 'rl' WHERE admin = 'leader'");
+	}
+
+	// update for relaysymbolmethod
+	if (checkIfTableExists($db, "settings_<myname>")) {
 		$row = $db->queryRow("SELECT * FROM settings_<myname> WHERE name = 'relaysymbol'");
 		if ($row->value = 'Always relay') {
 			upgrade($db, "UPDATE settings_<myname> SET value = '@' WHERE name = 'relaysymbol'");
@@ -160,6 +191,7 @@
 		}
 	}
 
+	// remove cyclical aliases that conflict with actual commands
 	if (checkIfTableExists($db, "cmd_alias_<myname>")) {
 		upgrade($db, "DELETE FROM cmd_alias_<myname> WHERE alias = 'kickuser'");
 		upgrade($db, "DELETE FROM cmd_alias_<myname> WHERE alias = 'inviteuser'");
