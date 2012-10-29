@@ -321,7 +321,7 @@ class SystemController {
 	 * This command handler executes a SQL query.
 	 * Note: This handler has not been not registered, only activated.
 	 *
-	 * @Matches("/^querysql (.*)$/i")
+	 * @Matches("/^querysql (.*)$/si")
 	 */
 	public function querysqlCommand($message, $channel, $sender, $sendto, $args) {
 		if (!$this->accessLevel->checkAccess($sender, 'superadmin')) {
@@ -333,11 +333,12 @@ class SystemController {
 		$sql = htmlspecialchars_decode($args[1]);
 
 		$data = $this->db->query($sql);
+		$count = count($data);
 
 		if ($data === null) {
 			$msg = "There was en error executing your query.";
 		} else {
-			$msg = $this->text->make_blob("Result", print_r($data, true));
+			$msg = $this->text->make_blob("Results ($count)", print_r($data, true));
 		}
 		$sendto->reply($msg);
 	}
