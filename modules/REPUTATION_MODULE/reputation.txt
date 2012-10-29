@@ -1,6 +1,9 @@
 <highlight>To see reputation on a character<end>
 <tab><symbol>reputation 'character'
 
+<highlight>To see all reputation on a character<end>
+<tab><symbol>reputation 'character' all
+
 <highlight>To add positive reputation for a player<end>
 <tab><symbol>reputation 'character' +1 'reason'
 

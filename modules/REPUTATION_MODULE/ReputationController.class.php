@@ -137,11 +137,17 @@ class ReputationController {
 	
 	/**
 	 * @HandlesCommand("reputation")
+	 * @Matches("/^reputation ([a-z0-9-]+) (all)$/i")
 	 * @Matches("/^reputation ([a-z0-9-]+)$/i")
 	 */
 	public function reputationViewCommand($message, $channel, $sender, $sendto, $args) {
 		$name = ucfirst(strtolower($args[1]));
 		$charid = $this->chatBot->get_uid($name);
+		
+		$limit = 10;
+		if (count($args) == 3) {
+			$limit = 1000;
+		}
 
 		if ($charid == false) {
 			$where_sql = "WHERE `name` = '$name'";
@@ -165,9 +171,13 @@ class ReputationController {
 
 			$blob = "Positive reputation: <green>{$num_positive}<end>\n";
 			$blob .= "Negative reputation: <orange>{$num_negative}<end>\n\n";
-			$blob .= "Last 10 comments about this user:\n\n";
+			if ($limit != 1000) {
+				$blob .= "Last $limit comments about this user:\n\n";
+			} else {
+				$blob .= "All comments about this user:\n\n";
+			}
 
-			$sql = "SELECT * FROM reputation {$where_sql} ORDER BY `dt` DESC LIMIT 10";
+			$sql = "SELECT * FROM reputation {$where_sql} ORDER BY `dt` DESC LIMIT " . $limit;
 			$data = $this->db->query($sql);
 			forEach ($data as $row) {
 				if ($row->reputation == '-1') {
@@ -178,6 +188,10 @@ class ReputationController {
 
 				$time = $this->util->unixtime_to_readable(time() - $row->dt);
 				$blob .= "({$row->reputation}) $row->comment <end> $row->by <white>{$time} ago<end>\n\n";
+			}
+			
+			if ($limit != 1000) {
+				$blob .= $this->text->make_chatcmd("Show all comments", "/tell <myname> reputation $name all");
 			}
 
 			$msg = $this->text->make_blob("Reputation for {$name}", $blob);
