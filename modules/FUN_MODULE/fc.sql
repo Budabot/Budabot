@@ -25,7 +25,7 @@ INSERT INTO fun (type, content) VALUES ('fc', 'This sort of non-constructive tro
 INSERT INTO fun (type, content) VALUES ('fc', 'they''re generated, but not in a way you guys can make sense of em :) -- Vhab [talking about how FC calculates values in AO]');
 INSERT INTO fun (type, content) VALUES ('fc', 'Last edited by Anarrina; Today at 18:32:45.. Reason: constantly mistyping someone else''s name in an attempt to belittle them in harassment');
 INSERT INTO fun (type, content) VALUES ('fc', '"I''m sorry my reality doesn''t match the arguments you''d love to see in your hypothetical situation --Vhab" ~ "apology accepted. :) --Argure"');
-INSERT INTO fun (type, content) VALUES ('fc', 'no, it doesn\''t, Argure.  For someone espousing logic you are lacking some, there. -- Anarrina');
+INSERT INTO fun (type, content) VALUES ('fc', 'no, it doesn''t, Argure.  For someone espousing logic you are lacking some, there. -- Anarrina');
 INSERT INTO fun (type, content) VALUES ('fc', 'god, Argure, honestly.  If you''re so confident you can manage teh business, please apply for a damned job. -- Anarrina');
 INSERT INTO fun (type, content) VALUES ('fc', 'you are not at all impressing anyone with your "logic and reason" which comes across much more as "adolescent petulance" -- Anarrina');
 INSERT INTO fun (type, content) VALUES ('fc', 'then maybe you need to read the AO forums, specifically the MP forums.. and gain some education about my "bias"... -- ShadowGod');

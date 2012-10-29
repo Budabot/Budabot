@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS boss_namedb;
-CREATE TABLE boss_namedb (`bossid` int(10) PRIMARY KEY,`bossname` varchar(50),`location` varchar(50), `keyname` varchar(200));
+CREATE TABLE boss_namedb (`bossid` int(10) PRIMARY KEY,`bossname` varchar(50),`location` varchar(75), `keyname` varchar(200));
 INSERT INTO `boss_namedb` VALUES (1,'Afreet Ellis','NE of Frontier Garden','Afreet, Ellis');
 INSERT INTO `boss_namedb` VALUES (2,'Akshki','South of Frontier','Ashki'); 
 INSERT INTO `boss_namedb` VALUES (3,'Alpha Skincrawler','Crypt of Home, Broken Shores','Skincrawler Coh Crypt Of Home');

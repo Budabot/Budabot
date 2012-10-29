@@ -693,7 +693,7 @@ class GuildController {
 	
 	/**
 	 * @Event("orgmsg")
-	 * @Description("Automatically add and remove players from the guild roster as they leave and join the guild")
+	 * @Description("Automatically update guild roster as players join and leave the guild")
 	 */
 	public function autoNotifyOrgMembersEvent($eventObj) {
 		$message = $eventObj->message;

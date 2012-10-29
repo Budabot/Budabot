@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS raid_loot;
-CREATE TABLE raid_loot (`id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT, raid VARCHAR(30) NOT NULL, category VARCHAR(20) NOT NULL, lowid INT NOT NULL, highid INT NOT NULL, ql INT NOT NULL, name VARCHAR(255) NOT NULL, imageid INT NOT NULL, multiloot INT NOT NULL);
+CREATE TABLE raid_loot (`id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT, raid VARCHAR(30) NOT NULL, category VARCHAR(50) NOT NULL, lowid INT NOT NULL, highid INT NOT NULL, ql INT NOT NULL, name VARCHAR(255) NOT NULL, imageid INT NOT NULL, multiloot INT NOT NULL);
 
 -- Vortexx
 INSERT INTO raid_loot (raid, category, lowid, highid, ql, name, imageid, multiloot) VALUES ('Vortexx', 'General', 277436, 277436, 300, 'Base NCU - Type 00 (0/6)', 276942, 1);
