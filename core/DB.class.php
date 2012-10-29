@@ -44,7 +44,7 @@ class DB {
 			try {
 				$this->sql = new PDO("mysql:dbname=$dbName;host=$host", $user, $pass);
 				$this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$this->exec("SET sql_mode='TRADITIONAL'");
+				$this->exec("SET sql_mode='TRADITIONAL,NO_BACKSLASH_ESCAPES'");
 				$this->exec("SET time_zone = '+00:00'");
 			} catch (PDOException $e) {
 				$this->errorCode = 1;
