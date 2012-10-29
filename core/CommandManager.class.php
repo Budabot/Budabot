@@ -84,12 +84,16 @@ class CommandManager {
 		for ($i = 0; $i < count($channel); $i++) {
 			$this->logger->log('debug', "Adding Command to list:($command) File:($filename) Admin:({$admin[$i]}) Channel:({$channel[$i]})");
 
-			if (isset($this->chatBot->existing_commands[$channel[$i]][$command])) {
-				$sql = "UPDATE cmdcfg_<myname> SET `module` = ?, `verify` = ?, `file` = ?, `description` = ?, `help` = ? WHERE `cmd` = ? AND `type` = ?";
-				$this->db->exec($sql, $module, '1', $filename, $description, $help, $command, $channel[$i]);
-			} else {
-				$sql = "INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`, `help`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-				$this->db->exec($sql, $module, $channel[$i], $filename, $command, $admin[$i], $description, '1', 'cmd', $status, $help);
+			try {
+				if (isset($this->chatBot->existing_commands[$channel[$i]][$command])) {
+					$sql = "UPDATE cmdcfg_<myname> SET `module` = ?, `verify` = ?, `file` = ?, `description` = ?, `help` = ? WHERE `cmd` = ? AND `type` = ?";
+					$this->db->exec($sql, $module, '1', $filename, $description, $help, $command, $channel[$i]);
+				} else {
+					$sql = "INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`, `help`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					$this->db->exec($sql, $module, $channel[$i], $filename, $command, $admin[$i], $description, '1', 'cmd', $status, $help);
+				}
+			} catch (SQLException $e) {
+				$this->logger->log('ERROR', "Error registering method '$handler' for command '$command': " . $e->getMessage());
 			}
 		}
 	}

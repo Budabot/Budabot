@@ -92,13 +92,17 @@ class Setting extends Annotation {
 
 		$help = $this->help->checkForHelpFile($module, $help, $name);
 
-		if (array_key_exists($name, $this->chatBot->existing_settings)) {
-			$sql = "UPDATE settings_<myname> SET `module` = ?, `type` = ?, `mode` = ?, `options` = ?, `intoptions` = ?, `description` = ?, `admin` = ?, `verify` = 1, `help` = ? WHERE `name` = ?";
-			$this->db->exec($sql, $module, $type, $mode, $options, $intoptions, $description, $admin, $help, $name);
-		} else {
-			$sql = "INSERT INTO settings_<myname> (`name`, `module`, `type`, `mode`, `value`, `options`, `intoptions`, `description`, `source`, `admin`, `verify`, `help`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-			$this->db->exec($sql, $name, $module, $type, $mode, $value, $options, $intoptions, $description, 'db', $admin, '1', $help);
-			$this->settings[$name] = $value;
+		try {
+			if (array_key_exists($name, $this->chatBot->existing_settings)) {
+				$sql = "UPDATE settings_<myname> SET `module` = ?, `type` = ?, `mode` = ?, `options` = ?, `intoptions` = ?, `description` = ?, `admin` = ?, `verify` = 1, `help` = ? WHERE `name` = ?";
+				$this->db->exec($sql, $module, $type, $mode, $options, $intoptions, $description, $admin, $help, $name);
+			} else {
+				$sql = "INSERT INTO settings_<myname> (`name`, `module`, `type`, `mode`, `value`, `options`, `intoptions`, `description`, `source`, `admin`, `verify`, `help`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				$this->db->exec($sql, $name, $module, $type, $mode, $value, $options, $intoptions, $description, 'db', $admin, '1', $help);
+				$this->settings[$name] = $value;
+			}
+		} catch (SQLException $e) {
+			$this->logger->log('ERROR', "Error in registering Setting $module:setting($name): " . $e->getMessage());
 		}
 	}
 	

@@ -59,21 +59,25 @@ class EventManager {
 			return;
 		}
 
-		if (isset($this->chatBot->existing_events[$type][$filename])) {
-			$sql = "UPDATE eventcfg_<myname> SET `verify` = 1, `description` = ?, `help` = ? WHERE `type` = ? AND `file` = ? AND `module` = ?";
-			$this->db->exec($sql, $description, $help, $type, $filename, $module);
-		} else {
-			if ($defaultStatus === null) {
-				if ($this->chatBot->vars['default_module_status'] == 1) {
-					$status = 1;
-				} else {
-					$status = 0;
-				}
+		try {
+			if (isset($this->chatBot->existing_events[$type][$filename])) {
+				$sql = "UPDATE eventcfg_<myname> SET `verify` = 1, `description` = ?, `help` = ? WHERE `type` = ? AND `file` = ? AND `module` = ?";
+				$this->db->exec($sql, $description, $help, $type, $filename, $module);
 			} else {
-				$status = $defaultStatus;
+				if ($defaultStatus === null) {
+					if ($this->chatBot->vars['default_module_status'] == 1) {
+						$status = 1;
+					} else {
+						$status = 0;
+					}
+				} else {
+					$status = $defaultStatus;
+				}
+				$sql = "INSERT INTO eventcfg_<myname> (`module`, `type`, `file`, `verify`, `description`, `status`, `help`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+				$this->db->exec($sql, $module, $type, $filename, '1', $description, $status, $help);
 			}
-			$sql = "INSERT INTO eventcfg_<myname> (`module`, `type`, `file`, `verify`, `description`, `status`, `help`) VALUES (?, ?, ?, ?, ?, ?, ?)";
-			$this->db->exec($sql, $module, $type, $filename, '1', $description, $status, $help);
+		} catch (SQLException $e) {
+			$this->logger->log('ERROR', "Error registering method $filename for event type $type: " . $e->getMessage());
 		}
 	}
 

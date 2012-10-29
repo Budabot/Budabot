@@ -44,7 +44,7 @@ class DB {
 			try {
 				$this->sql = new PDO("mysql:dbname=$dbName;host=$host", $user, $pass);
 				$this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$this->exec("SET sql_mode='NO_BACKSLASH_ESCAPES'");
+				$this->exec("SET sql_mode='TRADITIONAL'");
 				$this->exec("SET time_zone = '+00:00'");
 			} catch (PDOException $e) {
 				$this->errorCode = 1;
@@ -221,7 +221,7 @@ class DB {
 		// only letters, numbers, underscores are allowed
 		if (!preg_match('/^[a-z0-9_]+$/', $name)) {
 			$msg = "Invalid SQL file name: '$name' for module: '$module'!  Only numbers, letters, and underscores permitted!";
-			LegacyLogger::log('ERROR', 'Core', $msg);
+			LegacyLogger::log('ERROR', 'SQL', $msg);
 			return $msg;
 		}
 
@@ -236,7 +236,7 @@ class DB {
 			$dir = $core_dir;
 		} else {
 			$msg = "Could not find module '$module'.";
-			LegacyLogger::log('ERROR', 'Core', $msg);
+			LegacyLogger::log('ERROR', 'SQL', $msg);
 			return $msg;
 		}
 		$d = dir($dir);
@@ -273,7 +273,7 @@ class DB {
 
 		if ($file === false) {
 			$msg = "No SQL file found with name '$name' in module '$module'!";
-			LegacyLogger::log('ERROR', 'Core', "No SQL file found with name '$name' in '$dir'!");
+			LegacyLogger::log('ERROR', 'SQL', "No SQL file found with name '$name' in '$dir'!");
 			return;
 		}
 		
@@ -283,29 +283,33 @@ class DB {
 		if ($forceUpdate || $this->util->compare_version_numbers($maxFileVersion, $currentVersion) > 0) {
 			$handle = @fopen("$dir/$file", "r");
 			if ($handle) {
-				while (($line = fgets($handle)) !== false) {
-					$line = trim($line);
-					// don't process comment lines or blank lines
-					if ($line != '' && substr($line, 0, 1) != "#" && substr($line, 0, 2) != "--") {
-						$this->exec($line);
+				try {
+					while (($line = fgets($handle)) !== false) {
+						$line = trim($line);
+						// don't process comment lines or blank lines
+						if ($line != '' && substr($line, 0, 1) != "#" && substr($line, 0, 2) != "--") {
+							$this->exec($line);
+						}
 					}
-				}
 
-				$this->setting->save($settingName, $maxFileVersion);
+					$this->setting->save($settingName, $maxFileVersion);
 
-				if ($maxFileVersion != 0) {
-					$msg = "Updated '$name' database from '$currentVersion' to '$maxFileVersion'";
-					LegacyLogger::log('DEBUG', 'Core', "Updated '$name' database from '$currentVersion' to '$maxFileVersion'");
-				} else {
-					$msg = "Updated '$name' database";
-					LegacyLogger::log('DEBUG', 'Core', "Updated '$name' database");
+					if ($maxFileVersion != 0) {
+						$msg = "Updated '$name' database from '$currentVersion' to '$maxFileVersion'";
+						LegacyLogger::log('DEBUG', 'SQL', "Updated '$name' database from '$currentVersion' to '$maxFileVersion'");
+					} else {
+						$msg = "Updated '$name' database";
+						LegacyLogger::log('DEBUG', 'SQL', "Updated '$name' database");
+					}
+				} catch (SQLException $e) {
+					LegacyLogger::log('ERROR', 'SQL', "Error loading sql file '$file': " . $e->getMessage());
 				}
 			} else {
-				LegacyLogger::log('ERROR', 'Core',  "Could not load SQL file: '$dir/$file'");
+				LegacyLogger::log('ERROR', 'SQL',  "Could not load SQL file: '$dir/$file'");
 			}
 		} else {
 			$msg = "'$name' database already up to date! version: '$currentVersion'";
-			LegacyLogger::log('DEBUG', 'Core',  "'$name' database already up to date! version: '$currentVersion'");
+			LegacyLogger::log('DEBUG', 'SQL',  "'$name' database already up to date! version: '$currentVersion'");
 		}
 
 		return $msg;
