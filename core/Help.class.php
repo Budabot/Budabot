@@ -120,12 +120,13 @@ class Help extends Annotation {
 
 	public function getAllHelpTopics($char) {
 		$sql = "
-			SELECT module, admin, help AS file, name, description, 3 AS sort FROM settings_<myname> WHERE help <> ''
-			UNION
-			SELECT module, admin, help AS file, cmd AS name, description, 2 AS sort FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' AND status = 1 AND help <> ''
-			UNION
-			SELECT module, admin, file, name, description, 1 AS sort FROM hlpcfg_<myname>
-			GROUP BY module, admin, file, description
+			SELECT module, file, name, description, sort, GROUP_CONCAT(admin) as admin_list FROM (
+				SELECT module, admin, help AS file, name, description, 3 AS sort FROM settings_<myname> WHERE help <> ''
+				UNION
+				SELECT module, admin, help AS file, cmd AS name, description, 2 AS sort FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' AND status = 1 AND help <> ''
+				UNION
+				SELECT module, admin, file, name, description, 1 AS sort FROM hlpcfg_<myname>) t
+			GROUP BY module, file, name, description, sort
 			ORDER BY module, name, sort DESC, description";
 		$data = $this->db->query($sql);
 
@@ -135,7 +136,7 @@ class Help extends Annotation {
 
 		$topics = array();
 		forEach ($data as $row) {
-			if ($char === null || $this->accessLevel->compareAccessLevels($accessLevel, $row->admin) >= 0) {
+			if ($char === null || $this->checkAccessLevels($accessLevel, explode(",", $row->admin_list))) {
 				$obj = new stdClass;
 				$obj->module = $row->module;
 				$obj->name = $row->name;
@@ -145,6 +146,15 @@ class Help extends Annotation {
 		}
 
 		return $topics;
+	}
+	
+	public function checkAccessLevels($accessLevel1, $accessLevelsArray) {
+		forEach ($accessLevelsArray as $accessLevel2) {
+			if ($this->accessLevel->compareAccessLevels($accessLevel1, $accessLevel2) >= 0) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
 
