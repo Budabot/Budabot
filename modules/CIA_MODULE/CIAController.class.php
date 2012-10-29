@@ -36,6 +36,9 @@ class CIAController {
 	/** @Inject */
 	public $setting;
 	
+	/** @Inject */
+	public $chatBot;
+	
 	/** @Logger */
 	public $logger;
 	
@@ -94,6 +97,7 @@ class CIAController {
 		forEach ($obj->revisions as $revision) {
 			$msg = "r{$revision->revision}: $revision->author ($revision->path_count file(s)) - $revision->message";
 			$this->ircController->sendMessageToIRC($msg);
+			$this->chatBot->sendPrivate($msg);
 		}
 	}
 }
