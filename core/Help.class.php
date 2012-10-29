@@ -75,18 +75,21 @@ class Help extends Annotation {
 		$helpcmd = strtolower($helpcmd);
 
 		$sql = "
-			SELECT module, admin, help AS file FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' AND `cmd` = ?  AND status = 1
-			UNION
-			SELECT module, admin, help AS file FROM settings_<myname> WHERE `name` = ?
-			UNION
-			SELECT module, admin, file FROM hlpcfg_<myname> WHERE `name` = ?
-			GROUP BY module, admin, file";
+			SELECT module, file, GROUP_CONCAT(admin) AS admin_list FROM
+				(SELECT module, admin, help AS file FROM cmdcfg_<myname> WHERE cmdevent = 'cmd' AND cmd = ?  AND status = 1
+				UNION
+				SELECT module, admin, help AS file FROM settings_<myname> WHERE name = ?
+				UNION
+				SELECT module, admin, file FROM hlpcfg_<myname> WHERE name = ?) t
+			GROUP BY module, file";
 		$data = $this->db->query($sql, $helpcmd, $helpcmd, $helpcmd);
+		
+		$accessLevel = $this->accessLevel->getAccessLevelForCharacter($char);
 
 		$addedHelpFiles = array();
 		$output = '';
 		forEach ($data as $row) {
-			if (!in_array($row->file, $addedHelpFiles) && $this->accessLevel->checkAccess($char, $row->admin)) {
+			if ($this->checkAccessLevels($accessLevel, explode(",", $row->admin_list))) {
 				$output .= file_get_contents($row->file);
 				$addedHelpFiles []= $row->file;
 			}
@@ -120,7 +123,7 @@ class Help extends Annotation {
 
 	public function getAllHelpTopics($char) {
 		$sql = "
-			SELECT module, file, name, description, sort, GROUP_CONCAT(admin) as admin_list FROM (
+			SELECT module, file, name, description, sort, GROUP_CONCAT(admin) AS admin_list FROM (
 				SELECT module, admin, help AS file, name, description, 3 AS sort FROM settings_<myname> WHERE help <> ''
 				UNION
 				SELECT module, admin, help AS file, cmd AS name, description, 2 AS sort FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' AND status = 1 AND help <> ''
