@@ -98,7 +98,7 @@ class OrglistController {
 				$sendto->reply($msg);
 				unset($this->orglist);
 				return;
-			} else if (!$whois->guild_id) {
+			} else if ($whois->guild_id == 0) {
 				$msg = "Character <highlight>$name<end> does not seem to be in an org.";
 				unset($whois);
 				$sendto->reply($msg);

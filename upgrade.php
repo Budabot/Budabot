@@ -237,4 +237,9 @@
 	if ($db->get_type() == "mysql" && checkIfTableExists($db, "name_history") && getColumnType($db, 'name_history', 'charid') != 'bigint(20)') {
 		upgrade($db, "ALTER TABLE name_history CHANGE COLUMN charid charid BIGINT NOT NULL");
 	}
+	
+	// update guild ids that are blank to be 0
+	if ($db->get_type() == "sqlite" && checkIfTableExists($db, "players")) {
+		upgrade($db, "UPDATE players SET guild_id = 0 WHERE guild_id = ''");
+	}
 ?>

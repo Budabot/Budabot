@@ -108,7 +108,7 @@ class OrgMembersController {
 				$msg = "Could not find character info for $name.";
 				$sendto->reply($msg);
 				return;
-			} else if (!$whois->guild_id) {
+			} else if ($whois->guild_id == 0) {
 				$msg = "Character <highlight>$name<end> does not seem to be in an org.";
 				$sendto->reply($msg);
 				return;
@@ -191,7 +191,7 @@ class OrgMembersController {
 				$msg = "Could not find character info for $name.";
 				$sendto->reply($msg);
 				return;
-			} else if (!$whois->guild_id) {
+			} else if ($whois->guild_id == 0) {
 				$msg = "Character <highlight>$name<end> does not seem to be in an org.";
 				$sendto->reply($msg);
 				return;

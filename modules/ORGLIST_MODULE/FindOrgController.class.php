@@ -49,7 +49,7 @@ class FindOrgController {
 			$blob = '';
 
 			forEach ($data as $row) {
-				if ($row->guild_id != '') {
+				if ($row->guild_id != 0) {
 					$whoisorg = $this->text->make_chatcmd('Whoisorg', "/tell <myname> whoisorg {$row->guild_id} $dimension");
 					if ($dimension == $this->chatBot->vars['dimension']) {
 						$orglist = $this->text->make_chatcmd('Orglist', "/tell <myname> orglist {$row->guild_id}");

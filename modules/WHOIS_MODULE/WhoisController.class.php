@@ -230,7 +230,7 @@ class WhoisController {
 
 				$blob .= $this->text->make_chatcmd('History', "/tell <myname> history $name") . "\n";
 				$blob .= $this->text->make_chatcmd('Online Status', "/tell <myname> is $name") . "\n";
-				if (isset($whois->guild_id)) {
+				if ($whois->guild_id != 0) {
 					$blob .= $this->text->make_chatcmd('Whoisorg', "/tell <myname> whoisorg $whois->guild_id") . "\n";
 					$blob .= $this->text->make_chatcmd('Orglist', "/tell <myname> orglist $whois->guild_id") . "\n";
 				}

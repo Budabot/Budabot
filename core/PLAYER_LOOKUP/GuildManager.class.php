@@ -97,7 +97,7 @@ class GuildManager {
 		if ($cacheResult->usedCache === false) {
 			$this->db->begin_transaction();
 
-			$sql = "UPDATE players SET guild_id = '', guild = '' WHERE guild_id = ? AND dimension = ?";
+			$sql = "UPDATE players SET guild_id = 0, guild = '' WHERE guild_id = ? AND dimension = ?";
 			$this->db->exec($sql, $guild->guild_id, $rk_num);
 
 			forEach ($guild->members as $member) {

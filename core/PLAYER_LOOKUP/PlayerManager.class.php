@@ -106,6 +106,10 @@ class PlayerManager {
 	public function update(&$char) {
 		$sql = "DELETE FROM players WHERE `name` = ? AND `dimension` = ?";
 		$this->db->exec($sql, $char->name, $char->dimension);
+		
+		if (empty($char->guild_id)) {
+			$char->guild_id = 0;
+		}
 
 		$sql = "
 			INSERT INTO players (
