@@ -1,7 +1,16 @@
-<highlight>To the list of available profiles on the bot:<end>
+<highlight>To see the list of available profiles:<end>
 <tab><symbol>profile
 
-<highlight>To load a specific profile:<end>
-<tab><symbol>profile 'profile name'
+<highlight>To load a profile:<end>
+<tab><symbol>profile load 'profile name'
+
+<highlight>To view a profile:<end>
+<tab><symbol>profile view 'profile name'
+
+<highlight>To save the current configuration as a profile:<end>
+<tab><symbol>profile save 'profile name'
+
+<highlight>To remove a profile:<end>
+<tab><symbol>profile rem 'profile name'
 
 Note: Profiles are stored in ./core/PROFILE/profiles.  Only lines that start with '!' will be executed and all other lines will be ignored.  Feel free to add profiles or edit profiles as you wish.
