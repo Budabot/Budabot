@@ -217,5 +217,24 @@
 		LegacyLogger::log("ERROR", 'Upgrade', $e->getMessage());
 		$db->rollback();
 	}
-
+	
+	// update charid columns from int to bigint
+	if ($db->get_type() == "mysql" && checkIfTableExists($db, "players") && getColumnType($db, 'players', 'charid') != 'bigint(20)') {
+		upgrade($db, "ALTER TABLE players CHANGE COLUMN charid charid BIGINT NOT NULL");
+	}
+	if ($db->get_type() == "mysql" && checkIfTableExists($db, "reputation") && getColumnType($db, 'reputation', 'charid') != 'bigint(20)') {
+		upgrade($db, "ALTER TABLE reputation CHANGE COLUMN charid charid BIGINT NOT NULL");
+	}
+	if ($db->get_type() == "mysql" && checkIfTableExists($db, "reputation") && getColumnType($db, 'reputation', 'by_charid') != 'bigint(20)') {
+		upgrade($db, "ALTER TABLE reputation CHANGE COLUMN by_charid by_charid BIGINT NOT NULL");
+	}
+	if ($db->get_type() == "mysql" && checkIfTableExists($db, "tracked_users_<myname>") && getColumnType($db, 'tracked_users_<myname>', 'uid') != 'bigint(20)') {
+		upgrade($db, "ALTER TABLE tracked_users_<myname> CHANGE COLUMN uid uid BIGINT NOT NULL");
+	}
+	if ($db->get_type() == "mysql" && checkIfTableExists($db, "tracking_<myname>") && getColumnType($db, 'tracking_<myname>', 'uid') != 'bigint(20)') {
+		upgrade($db, "ALTER TABLE tracking_<myname> CHANGE COLUMN uid uid BIGINT NOT NULL");
+	}
+	if ($db->get_type() == "mysql" && checkIfTableExists($db, "name_history") && getColumnType($db, 'name_history', 'charid') != 'bigint(20)') {
+		upgrade($db, "ALTER TABLE name_history CHANGE COLUMN charid charid BIGINT NOT NULL");
+	}
 ?>
