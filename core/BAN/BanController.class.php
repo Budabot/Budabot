@@ -138,10 +138,10 @@ class BanController {
 		}
 	
 		$timeString = $this->util->unixtime_to_readable($length);
+		$sendto->reply("You have banned <highlight>$who<end> from this bot for $timeString.");
 		if ($this->setting->get('notify_banned_player') == 1) {
-			$sendto->reply("You have banned <highlight>$who<end> from this bot for $timeString.");
+			$this->chatBot->sendTell("You have been banned from this bot by <highlight>$sender<end> for $timeString.", $who);
 		}
-		$this->chatBot->sendTell("You have been banned from this bot by <highlight>$sender<end> for $timeString.", $who);
 	}
 
 	/**
@@ -162,10 +162,10 @@ class BanController {
 			return $result;
 		}
 	
+		$sendto->reply("You have permanently banned <highlight>$who<end> from this bot.");
 		if ($this->setting->get('notify_banned_player') == 1) {
-			$sendto->reply("You have permanently banned <highlight>$who<end> from this bot.");
+			$this->chatBot->sendTell("You have been permanently banned from this bot by <highlight>$sender<end>. Reason: $reason", $who);
 		}
-		$this->chatBot->sendTell("You have been permanently banned from this bot by <highlight>$sender<end>. Reason: $reason", $who);
 	}
 
 	/**
@@ -184,10 +184,10 @@ class BanController {
 			return $result;
 		}
 	
+		$sendto->reply("You have permanently banned <highlight>$who<end> from this bot.");
 		if ($this->setting->get('notify_banned_player') == 1) {
-			$sendto->reply("You have permanently banned <highlight>$who<end> from this bot.");
+			$this->chatBot->sendTell("You have been permanently banned from this bot by <highlight>$sender<end>.", $who);
 		}
-		$this->chatBot->sendTell("You have been permanently banned from this bot by <highlight>$sender<end>.", $who);
 	}
 
 	/**
