@@ -40,8 +40,9 @@ class DB {
 		if ($this->type == 'mysql') {
 			$this->sql = new PDO("mysql:dbname=$dbName;host=$host", $user, $pass);
 			$this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$this->exec("SET sql_mode='TRADITIONAL,NO_BACKSLASH_ESCAPES'");
+			$this->exec("SET sql_mode = 'TRADITIONAL,NO_BACKSLASH_ESCAPES'");
 			$this->exec("SET time_zone = '+00:00'");
+			$this->exec("SET storage_engine = MyISAM");
 		} else if ($this->type == 'sqlite') {
 			if ($host == NULL || $host == "" || $host == "localhost") {
 				$this->dbName = "./data/$this->dbName";
