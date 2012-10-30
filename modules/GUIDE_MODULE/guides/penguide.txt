@@ -1,26 +1,12 @@
-Name Penumbra Guide 
-Faction  All 
-Approximate Level  N/A 
-Author  Silirrion, Adrius 
-Main  
-
-This guide is designed to give you an overview of the area that makes up Penumbra and talk you through the garden and sanctuary quests as well as your route to Inferno! The zone itself is an icy wasteland just waiting to be explored! (the first few minutes of which will be spent admiring the rather cool 'cold breath' effect puffing out from your character!) 
-
-The mobs start at around 150ish all the way through to the usual 200+ brink mobs. Of course that's a Shadowlands 150 and don't expect many of the mobs to be hitting for less then 1k damage as the norm. There is some solo hunting to be had below level 200 but you need to learn the terrain a little as all that white and all the trees can mean unexpected adds when you least expect it, so get to know the area first. 
-
-Players from 160+ though can effectively team in Penumbra providing they have the ability to tank against that kind of damage. 
-
-<font color = yellow>Penumbra Quests </font>
-
-Before doing any of the Penumbra quests there is one important thing to bear in mind and thats the ettiquete that the players have adopted around the temples in the later Shadowlands zones. Lots of people are doing different things around the factioned temples. Some will be doing the same quest as you, some the opposite quest, some another quest or some faction hunting. There can be a lot going in the temples so make sure that you try and respect the other players there. 
-
-<font color = yellow>Inferno Access Quest </font>
-
-This might be the first time you've done an access quest, since the previous quests were changed from being mandatory in the post release patches for Shadowlands, but at any rate it's slightly different to the previous versions in that there is a seperate version for redeemed and unredeemed alligned players, just like the garden quests. 
+Name: Inferno Access Quest
+Faction:  All 
+Approximate Level:  N/A 
+Author:  Silirrion, Adrius
+Credits: AOVault.com, Herodotus2
 
 Like the garden quests both versions are very similar and both end up with the same objective - getting your hands on a pattern for a pocket boss called the 'Great Ice Golem'. So without further delay, here's the run down. 
 
-<pagebreak><font color = red>Clan Version </font>
+<pagebreak><header2>Clan Version </font>
 
 1. First off head to the Adonis Catacombs and with a raid team farm some Yomi Grimoir pages off of the Yomi Grimoir and the other boss mobs in that dungeon. 
 
@@ -44,7 +30,7 @@ Like the garden quests both versions are very similar and both end up with the s
 
 11. The Golem can now be spawned at the Incarnator. When you kill him, he will drop 6 molars. This is enough to get 6 people their +7 Inferno Rings.
 
-<pagebreak><font color = yellow>Omni Version </font>
+<pagebreak><header2>Omni Version </font>
 
 As mentioned above this one is pretty much the same accept for the mobs / temples that need killing / visiting. 
 
@@ -70,14 +56,6 @@ As mentioned above this one is pretty much the same accept for the mobs / temple
 
 11. He can now be spawned at the Incarnator. When you kill him, he will drop 6 molars. This is enough to get 6 people their +7 Inferno Rings.
 
-<pagebreak><font color = yellow>Head to Ergo!</font>
+<pagebreak><header2>Head to Ergo!</font>
 
 You'll then have to head to Ergo for the +7 ring that will see you into Inferno. As usual the little floating chatterbox is in the far north of Penumbra (in the Penumbra Valley area) but isn't that hard to find. Chat to Ergo about getting to Inferno and then hand him the molar looted from the Golem and viola - access to Inferno is yours.
-
-Surviving in Inferno is another matter altogether, probably not the best time to mention this, but you'll need to kill a dragon next! Check out our guide to getting your Inferno boots!
-
-<font color = green>Conclusion</font>
-
-Huge, huge thanks to Herodotus2 for allowing us to use the material and screenshots he has collected on his superb Shadowlands forum that can be found here. The forum is a great site with stack loads of information about everything Shadowlands, this guide would not have been possible without everyone who posts there.
- 
-Credit: AOVault.com
