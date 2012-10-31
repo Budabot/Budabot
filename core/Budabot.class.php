@@ -328,6 +328,10 @@ class Budabot extends AOChat {
 	}
 
 	public function sendGuild($message, $disable_relay = false, $priority = null) {
+		if ($this->setting->get('guild_channel_status') != 1) {
+			return;
+		}
+	
 		$message = $this->text->format_message($message);
 		
 		$message = $this->paginateMessage($message);
@@ -687,6 +691,13 @@ class Budabot extends AOChat {
 		if (in_array($channel, $this->channelsToIgnore)) {
 			return;
 		}
+		
+		$b = unpack("C*", $args[0]);
+		
+		// if it's a guild channel message and guild channel is disabled, then ignore
+		if ($b[1] == 3 && $this->setting->get('guild_channel_status') != 1) {
+			return;
+		}
 
 		// don't log tower messages with rest of chat messages
 		if ($channel != "All Towers" && $channel != "Tower Battle Outcome") {
@@ -705,8 +716,6 @@ class Budabot extends AOChat {
 			}
 		}
 
-		$b = unpack("C*", $args[0]);
-
 		if ($channel == "All Towers" || $channel == "Tower Battle Outcome") {
 			$eventObj->type = "towers";
 
@@ -715,7 +724,7 @@ class Budabot extends AOChat {
 			$eventObj->type = "orgmsg";
 
 			$this->eventManager->fireEvent($eventObj);
-		} else if ($b[1] == 3 && $this->setting->get('guild_channel_status') == 1) {
+		} else if ($b[1] == 3) {
 			$type = "guild";
 			$sendto = 'guild';
 
