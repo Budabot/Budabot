@@ -21,12 +21,20 @@ class Text {
 		}
 		return $output;
 	}
+	
+	function make_blob($name, $content, $header = NULL) {
+		if ($header === null) {
+			return "<blob name=\"$name\" header=\"$name\">$content</blob>";
+		} else {
+			return "<blob name=\"$name\" header=\"$header\">$content</blob>";
+		}
+	}
 
 	/**
 	 * @name: make_blob
 	 * @description: creates an info window
 	 */
-	function make_blob($name, $content, $header = NULL) {
+	function make_blob2($name, $content, $header = NULL) {
 		if ($header === null) {
 			$header = $name;
 		}

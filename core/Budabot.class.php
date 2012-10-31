@@ -298,107 +298,107 @@ class Budabot extends AOChat {
 	}
 
 	public function sendPrivate($message, $disable_relay = false, $group = null) {
-		// for when $text->make_blob generates several pages
-		if (is_array($message)) {
-			forEach ($message as $page) {
-				$this->sendPrivate($page, $group, $disable_relay);
-			}
-			return;
-		}
+		$message = $this->text->format_message($message);
+		
+		$message = $this->paginateMessage($message);
 
 		if ($group == null) {
 			$group = $this->vars['name'];
 		}
 
-		$message = $this->text->format_message($message);
 		$senderLink = $this->text->make_userlink($this->vars['name']);
 		$guildNameForRelay = $this->relayController->getGuildAbbreviation();
 		$guestColorChannel = $this->setting->get('guest_color_channel');
 		$privColor = $this->setting->get('default_priv_color');
 
-		$this->send_privgroup($group, $privColor.$message);
-		if ($group == $this->vars["name"]) {
-			// relay to guild channel
-			if (!$disable_relay && $this->setting->get('guild_channel_status') == 1 && $this->setting->get("guest_relay") == 1 && $this->setting->get("guest_relay_commands") == 1) {
-				$this->send_guild("</font>{$guestColorChannel}[Guest]</font> {$senderLink}: {$privColor}$message</font>", "\0");
-			}
+		forEach ($message as $page) {
+			$this->send_privgroup($group, $privColor.$page);
+			if ($group == $this->vars["name"]) {
+				// relay to guild channel
+				if (!$disable_relay && $this->setting->get('guild_channel_status') == 1 && $this->setting->get("guest_relay") == 1 && $this->setting->get("guest_relay_commands") == 1) {
+					$this->send_guild("</font>{$guestColorChannel}[Guest]</font> {$senderLink}: {$privColor}$page</font>", "\0");
+				}
 
-			// relay to bot relay
-			if (!$disable_relay && $this->setting->get("relaybot") != "Off" && $this->setting->get("bot_relay_commands") == 1) {
-				$this->relayController->send_message_to_relay("grc [{$guildNameForRelay}] [Guest] {$senderLink}: $message");
+				// relay to bot relay
+				if (!$disable_relay && $this->setting->get("relaybot") != "Off" && $this->setting->get("bot_relay_commands") == 1) {
+					$this->relayController->send_message_to_relay("grc [{$guildNameForRelay}] [Guest] {$senderLink}: $page");
+				}
 			}
 		}
 	}
 
 	public function sendGuild($message, $disable_relay = false, $priority = null) {
-		// for when $text->make_blob generates several pages
-		if (is_array($message)) {
-			forEach ($message as $page) {
-				$this->sendGuild($page, $disable_relay, $priority);
-			}
-			return;
-		}
+		$message = $this->text->format_message($message);
+		
+		$message = $this->paginateMessage($message);
 
 		if ($priority == null) {
 			$priority = AOC_PRIORITY_MED;
 		}
-
-		$message = $this->text->format_message($message);
+		
 		$senderLink = $this->text->make_userlink($this->vars['name']);
 		$guildNameForRelay = $this->relayController->getGuildAbbreviation();
 		$guestColorChannel = $this->setting->get('guest_color_channel');
 		$guildColor = $this->setting->get("default_guild_color");
 
-		$this->send_guild($guildColor.$message, "\0", $priority);
+		forEach ($message as $page) {
+			$this->send_guild($guildColor.$page, "\0", $priority);
 
-		// relay to private channel
-		if (!$disable_relay && $this->setting->get("guest_relay") == 1 && $this->setting->get("guest_relay_commands") == 1) {
-			$this->send_privgroup($this->vars["name"], "</font>{$guestColorChannel}[{$guildNameForRelay}]</font> {$senderLink}: {$guildColor}$message</font>");
-		}
+			// relay to private channel
+			if (!$disable_relay && $this->setting->get("guest_relay") == 1 && $this->setting->get("guest_relay_commands") == 1) {
+				$this->send_privgroup($this->vars["name"], "</font>{$guestColorChannel}[{$guildNameForRelay}]</font> {$senderLink}: {$guildColor}$page</font>");
+			}
 
-		// relay to bot relay
-		if (!$disable_relay && $this->setting->get("relaybot") != "Off" && $this->setting->get("bot_relay_commands") == 1) {
-			$this->relayController->send_message_to_relay("grc [{$guildNameForRelay}] {$senderLink}: $message");
+			// relay to bot relay
+			if (!$disable_relay && $this->setting->get("relaybot") != "Off" && $this->setting->get("bot_relay_commands") == 1) {
+				$this->relayController->send_message_to_relay("grc [{$guildNameForRelay}] {$senderLink}: $page");
+			}
 		}
 	}
 
 	public function sendTell($message, $character, $priority = null) {
-		// for when $text->make_blob generates several pages
-		if (is_array($message)) {
-			forEach ($message as $page) {
-				$this->sendTell($page, $character, $priority);
-			}
-			return;
-		}
-
+		$message = $this->text->format_message($message);
+		
+		$message = $this->paginateMessage($message);
+		
+		$tellColor = $this->setting->get("default_tell_color");
+		
 		if ($priority == null) {
 			$priority = AOC_PRIORITY_MED;
 		}
 
-		$message = $this->text->format_message($message);
-		$tellColor = $this->setting->get("default_tell_color");
-
-		$this->logger->log_chat("Out. Msg.", $character, $message);
-		$this->send_tell($character, $tellColor.$message, "\0", $priority);
+		forEach ($message as $page) {
+			$this->logger->log_chat("Out. Msg.", $character, $page);
+			$this->send_tell($character, $tellColor.$page, "\0", $priority);
+		}
 	}
 
 	public function sendPublic($message, $channel, $priority = null) {
-		// for when $text->make_blob generates several pages
-		if (is_array($message)) {
-			forEach ($message as $page) {
-				$this->sendPublic($page, $channel, $priority);
-			}
-			return;
-		}
-
+		$message = $this->text->format_message($message);
+	
+		$message = $this->paginateMessage($message);
+		
 		if ($priority == null) {
 			$priority = AOC_PRIORITY_MED;
 		}
-
-		$message = $this->text->format_message($message);
+		
 		$guildColor = $this->setting->get("default_guild_color");
+		
+		forEach ($message as $page) {
+			$this->send_group($channel, $guildColor.$page, "\0", $priority);
+		}
+	}
+	
+	private function paginateMessage($message) {
+		if (preg_match('|<blob name="([^"]+)" header="([^"]+)">(.+?)</blob>|s', $message, $arr)) {
+			$message = $this->text->make_blob2($arr[1], $arr[3], $arr[2]);
+		}
 
-		$this->send_group($channel, $guildColor.$message, "\0", $priority);
+		if (!is_array($message)) {
+			$message = array($message);
+		}
+		
+		return $message;
 	}
 
 	/**
