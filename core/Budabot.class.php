@@ -390,15 +390,17 @@ class Budabot extends AOChat {
 	}
 	
 	private function paginateMessage($message) {
-		if (preg_match('|<blob name="([^"]+)" header="([^"]+)">(.+?)</blob>|s', $message, $arr)) {
-			$message = $this->text->make_blob2($arr[1], $arr[3], $arr[2]);
-		}
+		$message = preg_replace_callback('|<blob name="([^"]+)" header="([^"]+)">(.+?)</blob>|s', array($this, 'makeBlob'), $message);
 
 		if (!is_array($message)) {
 			$message = array($message);
 		}
 		
 		return $message;
+	}
+	
+	private function makeBlob($arr) {
+		return $this->text->make_blob2($arr[1], $arr[3], $arr[2]);
 	}
 
 	/**
