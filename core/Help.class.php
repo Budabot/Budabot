@@ -84,6 +84,19 @@ class Help extends Annotation {
 			GROUP BY module, file";
 		$data = $this->db->query($sql, $helpcmd, $helpcmd, $helpcmd);
 		
+		if (count($data) == 0) {
+			$helpcmd = strtoupper($helpcmd);
+			$sql = "
+				SELECT module, file, GROUP_CONCAT(admin) AS admin_list FROM
+					(SELECT module, admin, help AS file FROM cmdcfg_<myname> WHERE cmdevent = 'cmd' AND module = ?  AND status = 1
+					UNION
+					SELECT module, admin, help AS file FROM settings_<myname> WHERE module = ?
+					UNION
+					SELECT module, admin, file FROM hlpcfg_<myname> WHERE module = ?) t
+			GROUP BY module, file";
+			$data = $this->db->query($sql, $helpcmd, $helpcmd, $helpcmd);
+		}
+		
 		$accessLevel = $this->accessLevel->getAccessLevelForCharacter($char);
 
 		$addedHelpFiles = array();
