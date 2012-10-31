@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project>
+<project name="Budabot Bot Manager" default="build_exe" basedir=".">
+
+	<!-- ============================================  -->
+	<!-- (DEFAULT) Target: build_exe                   --> 
+	<!-- ============================================  -->
+	<target name="build_exe">
+		<echo>Create Windows executable of Budabot Bot Manager.</echo>
+		<property name="pyinstaller.dirpath" value="c:/pyinstaller" />
+
+		<delete dir="build" quiet="true" />
+		<delete dir="dist"  quiet="true" />
+		<delete dir="*.log" quiet="true" />
+
+		<exec dir="." command="python ${pyinstaller.dirpath}/pyinstaller.py botmanager.spec" passthru="true" />
+	</target>
+
+</project>

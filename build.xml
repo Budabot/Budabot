@@ -10,55 +10,70 @@
 	<!-- include custom task for running Behat -->
 	<taskdef classname="lib.PhingTasks.BehatTask" name="behat" />
 
-    <!-- ============================================  -->
-    <!-- (DEFAULT) Target: build                        --> 
-    <!-- ============================================  -->
+	<svnlastrevision workingcopy="."       propertyname="svn.revision" />
+	<budabotversion  sourcefile="main.php" propertyname="budabot.version" />
+
+	<patternset id="common_files">
+		<include name="conf/log4php.xml" />
+		<include name="conf/config.template.php" />
+		<include name="core/**" />
+		<include name="data/text.mdb" />
+		<include name="docs/*.txt" />
+		<include name="lib/**" />
+		<exclude name="lib/Process.class.php" />
+		<exclude name="lib/composer.*" />
+		<exclude name="lib/*.patch" />
+		<exclude name="lib/PhingTasks**" />
+		<exclude name="lib/bin**" />
+		<exclude name="lib/vendor/behat**" />
+		<exclude name="lib/vendor/dhaarbrink**" />
+		<exclude name="lib/vendor/symfony/config**" />
+		<exclude name="lib/vendor/symfony/console**" />
+		<exclude name="lib/vendor/symfony/dependency-injection**" />
+		<exclude name="lib/vendor/symfony/finder**" />
+		<exclude name="lib/vendor/symfony/translation**" />
+		<exclude name="lib/vendor/symfony/yaml**" />
+
+		<include name="*.php" />
+		<include name="modules/**" />
+		<!-- define here modules which you wish to leave out of the archive -->
+		<exclude name="modules/CIA_MODULE**" />
+		<exclude name="modules/SVN_MODULE**" />
+		<exclude name="modules/TEST_MODULE**" />
+		<exclude name="modules/WORLDNET_MODULE**" />
+	</patternset>
+
+	<patternset id="win32_files">
+		<include name="win32/**" />
+		<include name="chatbot.bat" />
+		<include name="php-win.ini" />
+	</patternset>
+
+	<patternset id="linux_files">
+		<include name="chatbot.sh" />
+	</patternset>
+
+	<!-- ============================================  -->
+	<!-- (DEFAULT) Target: build                       --> 
+	<!-- ============================================  -->
 	<target name="build">
 		<echo>Create release package of Budabot.</echo>
-		<svnlastrevision workingcopy="."       propertyname="svn.revision" />
-		<budabotversion  sourcefile="main.php" propertyname="budabot.version" />
 		<property name="build.basename" value="Budabot${budabot.version}_build${svn.revision}" />
 
 		<delete dir="build" quiet="true" />
 		<copy todir="build/contents/${build.basename}">
 			<fileset dir=".">
-				<include name="conf/log4php.xml" />
-				<include name="conf/config.template.php" />
-				<include name="core/**" />
-				<include name="data/text.mdb" />
-				<include name="docs/*.txt" />
-				<include name="lib/**" />
-				<exclude name="lib/Process.class.php" />
-				<exclude name="lib/composer.*" />
-				<exclude name="lib/*.patch" />
-				<exclude name="lib/PhingTasks**" />
-				<exclude name="lib/bin**" />
-				<exclude name="lib/vendor/behat**" />
-				<exclude name="lib/vendor/dhaarbrink**" />
-				<exclude name="lib/vendor/symfony/config**" />
-				<exclude name="lib/vendor/symfony/console**" />
-				<exclude name="lib/vendor/symfony/dependency-injection**" />
-				<exclude name="lib/vendor/symfony/finder**" />
-				<exclude name="lib/vendor/symfony/translation**" />
-				<exclude name="lib/vendor/symfony/yaml**" />
-
-				<include name="win32/**" />
-				<include name="*.*" />
-				<exclude name="build.xml" />
-				<include name="modules/**" />
-				<!-- define here modules which you wish to leave out of the archive -->
-				<exclude name="modules/CIA_MODULE**" />
-				<exclude name="modules/SVN_MODULE**" />
-				<exclude name="modules/TEST_MODULE**" />
-				<exclude name="modules/WORLDNET_MODULE**" />
+				<patternset refid="common_files" />
+				<patternset refid="win32_files" />
+				<patternset refid="linux_files" />
 			</fileset>
 		</copy>
 		<zip basedir="build/contents" destfile="build/${build.basename}.zip" />
 	</target>
 
-    <!-- ============================================  -->
-    <!-- Target: Build & Upload                        -->
-    <!-- ============================================  -->
+	<!-- ============================================  -->
+	<!-- Target: Build & Upload                        -->
+	<!-- ============================================  -->
 	<target name="build+upload" depends="build">
 		<echo>Upload release archive to remote server using SCP.</echo>
 		<!--
@@ -72,9 +87,50 @@
 			todir="${build.upload_destination}" file="build/${build.basename}.zip" />
 	</target>
 
-    <!-- ============================================  -->
-    <!-- Target: Wikidoc                               -->
-    <!-- ============================================  -->
+	<!-- ============================================  -->
+	<!-- (DEFAULT) Target: Build_win32                 --> 
+	<!-- ============================================  -->
+	<target name="build_win32">
+		<echo>Create release package of Budabot (Windows version).</echo>
+		<property name="build.basename" value="Budabot${budabot.version}_build${svn.revision}_win32" />
+
+		<delete dir="build" quiet="true" />
+
+		<!-- Include Bot Manager -->
+		<phing dir="botmanager" target="build_exe" />
+		<copy file="botmanager/dist/botmanager.exe" todir="build/contents/${build.basename}" />
+
+		<!-- Include Budabot's files -->
+		<copy todir="build/contents/${build.basename}">
+			<fileset dir=".">
+				<patternset refid="common_files" />
+				<patternset refid="win32_files" />
+			</fileset>
+		</copy>
+
+		<!-- Compress the files into an archive -->
+		<zip basedir="build/contents" destfile="build/${build.basename}.zip" />
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: Build_win32 & Upload                  -->
+	<!-- ============================================  -->
+	<target name="build_win32+upload" depends="build_win32">
+		<echo>Upload Windows release archive to remote server using SCP.</echo>
+		<!--
+			NOTE that you need to provide these properties:
+				upload.username:			username for the remote host
+				upload.password:			password for the remote host
+				upload.hostname:			remote server host name or address
+				build.upload_destination:	folder path where the archive will be stored on remote server
+		-->
+		<scp username="${upload.username}" password="${upload.password}" host="${upload.hostname}"
+			todir="${build.upload_destination}" file="build/${build.basename}.zip" />
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: Wikidoc                               -->
+	<!-- ============================================  -->
 	<target name="wikidoc">
 		<echo>Generate Google Wiki documentation with ApiGen.</echo>
 		<!-- destination can be overridden at command line -->
@@ -82,9 +138,9 @@
 		<apigen config="docs/apigen_wiki.neon" destination="${wikidoc.destination}" />
 	</target>
 
-    <!-- ============================================  -->
-    <!-- Target: Apidoc                               -->
-    <!-- ============================================  -->
+	<!-- ============================================  -->
+	<!-- Target: Apidoc                                -->
+	<!-- ============================================  -->
 	<target name="apidoc">
 		<echo>Generate API documentation with ApiGen.</echo>
 		<!-- destination can be overridden at command line -->
@@ -92,9 +148,9 @@
 		<apigen source="core,modules" destination="${apidoc.destination}" title="Budabot" />
 	</target>
 
-    <!-- ============================================  -->
-    <!-- Target: Apidoc & Upload                       -->
-    <!-- ============================================  -->
+	<!-- ============================================  -->
+	<!-- Target: Apidoc & Upload                       -->
+	<!-- ============================================  -->
 	<target name="apidoc+upload" depends="apidoc">
 		<echo>Upload API documentation to remote server.</echo>
 		<!--
