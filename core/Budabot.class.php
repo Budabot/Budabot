@@ -694,7 +694,7 @@ class Budabot extends AOChat {
 		}
 
 		if ($sender) {
-			// Ignore Message that are sent from the bot self
+			// ignore messages that are sent from the bot self
 			if ($sender == $this->vars["name"]) {
 				return;
 			}

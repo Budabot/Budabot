@@ -36,7 +36,7 @@ require_once './lib/ReverseFileReader.class.php';
  *	@DefineCommand(
  *		command       = 'showcommand',
  *		accessLevel   = 'mod',
- *		description   = 'Execute a command and have output send to another player',
+ *		description   = 'Execute a command and have output sent to another player',
  *		help          = 'showcommand.txt'
  *	)
  */

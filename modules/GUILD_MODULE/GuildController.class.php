@@ -380,7 +380,7 @@ class GuildController {
 	 * @Matches("/^recentseen ([a-z0-9]+)/i")
 	 */
 	public function recentseenCommand($message, $channel, $sender, $sendto, $args) {
-		if ($this->chatBot->vars["my_guild_id"] == "") {
+		if (!$this->isGuildBot()) {
 			$sendto->reply("The bot must be in an org.");
 			return;
 		}
@@ -514,7 +514,7 @@ class GuildController {
 	 * @Matches("/^inactivemem ([a-z0-9]+)/i")
 	 */
 	public function inactivememCommand($message, $channel, $sender, $sendto, $args) {
-		if ($this->chatBot->vars["my_guild_id"] == "") {
+		if (!$this->isGuildBot()) {
 			$sendto->reply("The bot must be in an org.");
 			return;
 		}
@@ -588,7 +588,7 @@ class GuildController {
 	}
 	
 	public function updateOrgRoster() {
-		if ($this->chatBot->vars["my_guild_id"] != "") {
+		if ($this->isGuildBot()) {
 			$this->logger->log('INFO', "Starting Roster update");
 
 			// Get the guild info
@@ -867,6 +867,10 @@ class GuildController {
 			$sql = "INSERT INTO `#__org_history` (actor, actee, action, organization, time) VALUES (?, ?, ?, '<myguild>', ?) ";
 			$this->db->exec($sql, $actor, $actee, $action, $time);
 		}
+	}
+	
+	public function isGuildBot() {
+		return !empty($this->chatBot->vars["my_guild"]) && !empty($this->chatBot->vars["my_guild_id"]);
 	}
 }
 

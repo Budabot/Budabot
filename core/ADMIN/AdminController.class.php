@@ -50,9 +50,9 @@ class AdminController {
 	 */
 	public function setup() {
 		$className = get_class($this);
-		$this->commandManager->activate("msg", "$className.addCommand", "addadmin", "admin");
-		$this->commandManager->activate("priv", "$className.addCommand", "addadmin", "admin");
-		$this->commandManager->activate("guild", "$className.addCommand", "addadmin", "admin");
+		$this->commandManager->activate("msg", "$className.addCommand", "addadmin", "superadmin");
+		$this->commandManager->activate("priv", "$className.addCommand", "addadmin", "superadmin");
+		$this->commandManager->activate("guild", "$className.addCommand", "addadmin", "superadmin");
 
 		$this->commandManager->activate("msg", "$className.removeCommand", "remadmin", "superadmin");
 		$this->commandManager->activate("priv", "$className.removeCommand", "remadmin", "superadmin");
