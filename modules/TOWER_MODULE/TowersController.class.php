@@ -378,7 +378,7 @@ class TowerController {
 		$data = $this->db->query($sql, $playfield->id);
 		$blob = '';
 		forEach ($data as $row) {
-			$blob .= $this->formatSiteInfo($row) . "\n\n";
+			$blob .= "<pagebreak>" . $this->formatSiteInfo($row) . "\n\n";
 		}
 
 		$msg = $this->text->make_blob("All Bases in $playfield->long_name", $blob);
@@ -402,17 +402,49 @@ class TowerController {
 		}
 
 		$site_number = $args[2];
-		$sql = "SELECT * FROM tower_site t1
+		$sql = "SELECT *, t1.playfield_id, t1.site_number FROM tower_site t1
 			JOIN playfields p ON (t1.playfield_id = p.id)
 			WHERE t1.playfield_id = ? AND t1.site_number = ?";
 
-		$data = $this->db->query($sql, $playfield->id, $site_number);
-		$blob = '';
-		forEach ($data as $row) {
-			$blob .= $this->formatSiteInfo($row) . "\n\n";
-		}
+		$row = $this->db->queryRow($sql, $playfield->id, $site_number);
+		if ($row !== null) {
+			$blob = $this->formatSiteInfo($row) . "\n\n";
 
-		if (count($data) > 0) {
+			// show last attacks and victories
+			$sql = "
+				SELECT
+					t.i,
+					a.*,
+					v.*,
+					a2.playfield_id AS win_playfield_id,
+					a2.site_number AS win_site_number,
+					COALESCE(a.time, v.time) dt
+				FROM
+					(SELECT 0 AS i UNION ALL SELECT 1 AS i) t
+					LEFT JOIN tower_attack_<myname> a
+						ON 0 = t.i AND a.playfield_id = ? AND a.site_number = ?
+					LEFT JOIN tower_victory_<myname> v
+						ON 1 = t.i AND v.attack_id IS NOT NULL
+					LEFT JOIN tower_attack_<myname> a2
+						ON v.attack_id = a2.id
+				WHERE
+					(a2.playfield_id = ? OR a2.playfield_id IS NULL)
+					AND (a2.site_number = ? OR a2.site_number IS NULL)
+					AND (a.id IS NOT NULL OR v.id IS NOT NULL)
+				ORDER BY
+					dt DESC
+				LIMIT 10";
+			$data = $this->db->query($sql, $playfield->id, $site_number, $playfield->id, $site_number);
+			forEach ($data as $row) {
+				if ($row->i == 0) {
+					// attack
+					$blob .= "<$row->att_faction>$row->att_guild_name<end> attacked <$row->def_faction>$row->def_guild_name<end>\n";
+				} else {
+					// victory
+					$blob .= "<$row->win_faction>$row->win_guild_name<end> won against <$row->lose_faction>$row->lose_guild_name<end>\n";
+				}
+			}
+
 			$msg = $this->text->make_blob("$playfield->short_name $site_number", $blob);
 		} else {
 			$msg = "Invalid site number.";
@@ -422,8 +454,6 @@ class TowerController {
 	}
 
 	/**
-	 * This command handler shows status of towers.
-	 *
 	 * @HandlesCommand("opentimes")
 	 * @Matches("/^opentimes$/i")
 	 */
