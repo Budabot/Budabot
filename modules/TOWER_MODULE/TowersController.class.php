@@ -525,15 +525,16 @@ class TowerController {
 	 * @Matches("/^penalty ([a-z0-9]+)$/i")
 	 */
 	public function penaltyCommand($message, $channel, $sender, $sendto, $args) {
-		if (isset($args)) {
+		if (count($args) == 2) {
 			$time = $this->util->parseTime($args[1]);
-			if ($time < 1) {
-				$msg = "You must enter a valid time parameter.";
-				$sendto->reply($msg);
-				return;
-			}
 		} else {
 			$time = 7200;  // default to 2 hours
+		}
+		
+		if ($time < 1) {
+			$msg = "You must enter a valid time parameter.";
+			$sendto->reply($msg);
+			return;
 		}
 		$penaltyTimeString = $this->util->unixtime_to_readable($time, false);
 	
@@ -682,7 +683,7 @@ class TowerController {
 	 * @Matches("/^towerstats$/i")
 	 */
 	public function towerStatsCommand($message, $channel, $sender, $sendto, $args) {
-		if (isset($args[1])) {
+		if (count($args) == 2) {
 			$budatime = $args[1];
 		} else {
 			$budatime = "1d";
