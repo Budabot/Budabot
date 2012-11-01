@@ -1044,10 +1044,9 @@ class TowerController {
 
 			$blob = "The last $page_size Tower Attacks (page $page_label)\n\n";
 			$blob .= $this->text->make_header_links($links) . "\n\n";
-			$blob .= self::COLOR_VALUE;
 
 			forEach ($data as $row) {
-				$blob .= self::COLOR_LABEL."Time:<end> " . $this->util->date($row->time) . "\n";
+				$blob .= "Time: " . $this->util->date($row->time) . "\n";
 				if ($row->att_faction == '') {
 					$att_faction = "unknown";
 				} else {
@@ -1061,17 +1060,17 @@ class TowerController {
 				}
 
 				if ($row->att_profession == 'Unknown') {
-					$blob .= self::COLOR_LABEL."Attacker:<end> <{$att_faction}>{$row->att_player}<end> ({$row->att_faction})\n";
+					$blob .= "Attacker: <{$att_faction}>{$row->att_player}<end> ({$row->att_faction})\n";
 				} else if ($row->att_guild_name == '') {
-					$blob .= self::COLOR_LABEL."Attacker:<end> <{$att_faction}>{$row->att_player}<end> ({$row->att_level}/<green>{$row->att_ai_level}<end> {$row->att_profession}) ({$row->att_faction})\n";
+					$blob .= "Attacker: <{$att_faction}>{$row->att_player}<end> ({$row->att_level}/<green>{$row->att_ai_level}<end> {$row->att_profession}) ({$row->att_faction})\n";
 				} else {
-					$blob .= self::COLOR_LABEL."Attacker:<end> {$row->att_player} ({$row->att_level}/<green>{$row->att_ai_level}<end> {$row->att_profession}) <{$att_faction}>{$row->att_guild_name}<end> ({$row->att_faction})\n";
+					$blob .= "Attacker: {$row->att_player} ({$row->att_level}/<green>{$row->att_ai_level}<end> {$row->att_profession}) <{$att_faction}>{$row->att_guild_name}<end> ({$row->att_faction})\n";
 				}
 
 				$base = $this->text->make_chatcmd("{$row->short_name} {$row->site_number}", "/tell <myname> lc {$row->short_name} {$row->site_number}");
 				$base .= " ({$row->min_ql}-{$row->max_ql})";
 
-				$blob .= self::COLOR_LABEL."Defender:<end> <{$def_faction}>{$row->def_guild_name}<end> ({$row->def_faction})\n";
+				$blob .= "Defender: <{$def_faction}>{$row->def_guild_name}<end> ({$row->def_faction})\n";
 				$blob .= "Site: $base\n\n";
 			}
 			$msg = $this->text->make_blob("Tower Attacks", $blob);
@@ -1120,9 +1119,8 @@ class TowerController {
 
 			$blob = "The last $page_size Tower Results (page $page_label)\n\n";
 			$blob .= $this->text->make_header_links($links) . "\n\n";
-			$blob .= self::COLOR_VALUE;
 			forEach ($data as $row) {
-				$blob .= self::COLOR_LABEL."Time:<end> " . $this->util->date($row->victory_time) . "\n";
+				$blob .= "Time: " . $this->util->date($row->victory_time) . "\n";
 
 				if (!$win_side = strtolower($row->win_faction)) {
 					$win_side = "unknown";
@@ -1138,8 +1136,8 @@ class TowerController {
 					$base = "Unknown";
 				}
 
-				$blob .= self::COLOR_LABEL."Winner:<end> <{$win_side}>{$row->win_guild_name}<end> (".ucfirst($win_side).")\n";
-				$blob .= self::COLOR_LABEL."Loser:<end> <{$lose_side}>{$row->lose_guild_name}<end> (".ucfirst($lose_side).")\n";
+				$blob .= "Winner: <{$win_side}>{$row->win_guild_name}<end> (".ucfirst($win_side).")\n";
+				$blob .= "Loser: <{$lose_side}>{$row->lose_guild_name}<end> (".ucfirst($lose_side).")\n";
 				$blob .= "Site: $base\n\n";
 			}
 			$msg = $this->text->make_blob("Tower Victories", $blob);
