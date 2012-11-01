@@ -526,16 +526,18 @@ class TowerController {
 	 */
 	public function penaltyCommand($message, $channel, $sender, $sendto, $args) {
 		if (count($args) == 2) {
-			$time = $this->util->parseTime($args[1]);
+			$budatime = $args[1];
 		} else {
-			$time = 7200;  // default to 2 hours
+			$budatime = '2h';  // default to 2 hours
 		}
 		
+		$time = $this->util->parseTime($budatime);
 		if ($time < 1) {
 			$msg = "You must enter a valid time parameter.";
 			$sendto->reply($msg);
 			return;
 		}
+
 		$penaltyTimeString = $this->util->unixtime_to_readable($time, false);
 	
 		$data = $this->getSitesInPenalty(time() - $time);
@@ -544,9 +546,6 @@ class TowerController {
 			$blob = '';
 			$current_faction = '';
 			forEach ($data as $row) {
-				if ($row->att_guild_name == '') {
-					continue;
-				}
 				if ($current_faction != $row->att_faction) {
 					$blob .= "\n<header2> ::: {$row->att_faction} ::: <end>\n";
 					$current_faction = $row->att_faction;
@@ -1395,7 +1394,10 @@ class TowerController {
 			SELECT att_guild_name, att_faction, MAX(IFNULL(t2.time, t1.time)) AS penalty_time
 			FROM tower_attack_<myname> t1
 				LEFT JOIN tower_victory_<myname> t2 ON t1.id = t2.id
-			WHERE (t2.time IS NULL AND t1.time > ?) OR t2.time > ?
+			WHERE
+				att_guild_name <> ''
+				AND (t2.time IS NULL AND t1.time > ?)
+				OR t2.time > ?
 			GROUP BY att_guild_name, att_faction
 			ORDER BY att_faction ASC, penalty_time DESC";
 		return $this->db->query($sql, $time, $time);
