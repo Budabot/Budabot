@@ -1409,10 +1409,10 @@ class TowerController {
 		$attacksLink = $this->text->make_chatcmd("Recent attacks on this base", "/tell <myname> attacks {$row->short_name} {$row->site_number}");
 		$victoryLink = $this->text->make_chatcmd("Recent victories on this base", "/tell <myname> victory {$row->short_name} {$row->site_number}");
 
-		$blob = "<font color=#66aa66>Short name:</font> <white>{$row->short_name} {$row->site_number}<end>\n";
-		$blob .= "<font color=#66aa66>Long name:</font> <white>{$row->site_name}, {$row->long_name}<end>\n";
-		$blob .= "<font color=#66aa66>Level range:</font> <white>{$row->min_ql}-{$row->max_ql}<end>\n";
-		$blob .= "<font color=#66aa66>Centre coordinates:</font> $waypointLink\n";
+		$blob = "Short name: <highlight>{$row->short_name} {$row->site_number}<end>\n";
+		$blob .= "Long name: <highlight>{$row->site_name}, {$row->long_name}<end>\n";
+		$blob .= "Level range: <highlight>{$row->min_ql}-{$row->max_ql}<end>\n";
+		$blob .= "Centre coordinates: $waypointLink\n";
 		$blob .= $attacksLink . "\n";
 		$blob .= $victoryLink;
 		
