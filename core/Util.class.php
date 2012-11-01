@@ -466,6 +466,13 @@ class Util {
 	public function date($unixtime) {
 		return date(self::DATETIME, $unixtime);
 	}
+	
+	public function endsWith($string, $test) {
+		$strlen = strlen($string);
+		$testlen = strlen($test);
+		if ($testlen > $strlen) return false;
+		return substr_compare($string, $test, -$testlen) === 0;
+	}
 }
 
 ?>

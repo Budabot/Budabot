@@ -33,6 +33,9 @@ class ProfileController {
 	public $text;
 	
 	/** @Inject */
+	public $util;
+	
+	/** @Inject */
 	public $commandManager;
 	
 	private $path;
@@ -57,7 +60,7 @@ class ProfileController {
 			/* This is the correct way to loop over the directory. */
 			while (false !== ($fileName = readdir($handle))) {
 				// if file has the correct extension, it's a profile file
-				if (stripos($fileName, $this->fileExt) !== false) {
+				if ($this->util->endsWith($fileName, $this->fileExt)) {
 					$profileList[] =  str_replace($this->fileExt, '', $fileName);
 				}
 			}

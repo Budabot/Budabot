@@ -28,6 +28,9 @@ class GuidesController {
 	public $text;
 	
 	/** @Inject */
+	public $util;
+	
+	/** @Inject */
 	public $commandAlias;
 	
 	private $path;
@@ -60,7 +63,7 @@ class GuidesController {
 			/* This is the correct way to loop over the directory. */
 			while (false !== ($fileName = readdir($handle))) {
 				// if file has the correct extension, it's a topic file
-				if (stripos($fileName, $this->fileExt) !== -1) {
+				if ($this->util->endsWith($fileName, $this->fileExt)) {
 					$topicList[] =  str_replace($this->fileExt, '', $fileName);
 				}
 			}
