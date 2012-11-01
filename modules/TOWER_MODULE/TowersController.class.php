@@ -371,7 +371,7 @@ class TowerController {
 			return;
 		}
 
-		$sql = "SELECT * FROM tower_site t1
+		$sql = "SELECT *, t1.playfield_id, t1.site_number FROM tower_site t1
 			JOIN playfields p ON (t1.playfield_id = p.id)
 			WHERE t1.playfield_id = ?";
 	
