@@ -76,11 +76,11 @@ class Help extends Annotation {
 
 		$sql = "
 			SELECT module, file, GROUP_CONCAT(admin) AS admin_list FROM
-				(SELECT module, admin, help AS file FROM cmdcfg_<myname> WHERE cmdevent = 'cmd' AND cmd = ?  AND status = 1
+				(SELECT module, admin, help AS file FROM cmdcfg_<myname> WHERE cmdevent = 'cmd' AND cmd = ?  AND status = 1 AND help <> ''
 				UNION
-				SELECT module, admin, help AS file FROM settings_<myname> WHERE name = ?
+				SELECT module, admin, help AS file FROM settings_<myname> WHERE name = ? AND help <> ''
 				UNION
-				SELECT module, admin, file FROM hlpcfg_<myname> WHERE name = ?) t
+				SELECT module, admin, file FROM hlpcfg_<myname> WHERE name = ? AND file <> '') t
 			GROUP BY module, file";
 		$data = $this->db->query($sql, $helpcmd, $helpcmd, $helpcmd);
 		
@@ -88,23 +88,21 @@ class Help extends Annotation {
 			$helpcmd = strtoupper($helpcmd);
 			$sql = "
 				SELECT module, file, GROUP_CONCAT(admin) AS admin_list FROM
-					(SELECT module, admin, help AS file FROM cmdcfg_<myname> WHERE cmdevent = 'cmd' AND module = ?  AND status = 1
+					(SELECT module, admin, help AS file FROM cmdcfg_<myname> WHERE cmdevent = 'cmd' AND module = ? AND status = 1 AND help <> ''
 					UNION
-					SELECT module, admin, help AS file FROM settings_<myname> WHERE module = ?
+					SELECT module, admin, help AS file FROM settings_<myname> WHERE module = ? AND help <> ''
 					UNION
-					SELECT module, admin, file FROM hlpcfg_<myname> WHERE module = ?) t
+					SELECT module, admin, file FROM hlpcfg_<myname> WHERE module = ? AND file <> '') t
 			GROUP BY module, file";
 			$data = $this->db->query($sql, $helpcmd, $helpcmd, $helpcmd);
 		}
 		
 		$accessLevel = $this->accessLevel->getAccessLevelForCharacter($char);
 
-		$addedHelpFiles = array();
 		$output = '';
 		forEach ($data as $row) {
 			if ($this->checkAccessLevels($accessLevel, explode(",", $row->admin_list))) {
-				$output .= file_get_contents($row->file);
-				$addedHelpFiles []= $row->file;
+				$output .= trim(file_get_contents($row->file)) . "\n\n";
 			}
 		}
 

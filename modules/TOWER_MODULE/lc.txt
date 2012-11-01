@@ -1,10 +1,10 @@
-<highlight>To see a list of all the tower playfields<end>
+<highlight>To see a list of all the tower playfields:<end>
 <tab><symbol>lc
 
-<highlight>To see info about all sites in a playfield<end>
+<highlight>To see info about all sites in a playfield:<end>
 <tab><symbol>lc 'playfield'
 <green><tab><symbol>lc GTC<end>
 
-<highlight>To see a info about a specific site<end>
+<highlight>To see a info about a specific site:<end>
 <tab><symbol>lc 'playfield' 'site_number'
 <green><tab><symbol>lc GTC 3<end>
