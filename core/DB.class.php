@@ -246,7 +246,7 @@ class DB {
 
 		if ($file === false) {
 			$msg = "No SQL file found with name '$name' in module '$module'!";
-			LegacyLogger::log('ERROR', 'SQL', "No SQL file found with name '$name' in '$dir'!");
+			LegacyLogger::log('ERROR', 'SQL', $msg);
 			return;
 		}
 		
@@ -269,20 +269,22 @@ class DB {
 
 					if ($maxFileVersion != 0) {
 						$msg = "Updated '$name' database from '$currentVersion' to '$maxFileVersion'";
-						LegacyLogger::log('DEBUG', 'SQL', "Updated '$name' database from '$currentVersion' to '$maxFileVersion'");
+						LegacyLogger::log('DEBUG', 'SQL', $msg);
 					} else {
 						$msg = "Updated '$name' database";
-						LegacyLogger::log('DEBUG', 'SQL', "Updated '$name' database");
+						LegacyLogger::log('DEBUG', 'SQL', $msg);
 					}
 				} catch (SQLException $e) {
-					LegacyLogger::log('ERROR', 'SQL', "Error loading sql file '$file': " . $e->getMessage());
+					$msg = "Error loading sql file '$file': " . $e->getMessage();
+					LegacyLogger::log('ERROR', 'SQL', $msg);
 				}
 			} else {
-				LegacyLogger::log('ERROR', 'SQL',  "Could not load SQL file: '$dir/$file'");
+				$msg = "Could not load SQL file: '$dir/$file'";
+				LegacyLogger::log('ERROR', 'SQL', $msg);
 			}
 		} else {
 			$msg = "'$name' database already up to date! version: '$currentVersion'";
-			LegacyLogger::log('DEBUG', 'SQL',  "'$name' database already up to date! version: '$currentVersion'");
+			LegacyLogger::log('DEBUG', 'SQL', $msg);
 		}
 
 		return $msg;

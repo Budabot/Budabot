@@ -48,7 +48,7 @@ class SVNController {
 	 */
 	public function svnDryCommand($message, $channel, $sender, $sendto, $args) {
 		$svnpath = $this->setting->get('svnpath');
-		$command = "$svnpath merge –-dry-run -r BASE:HEAD . 2>&1";
+		$command = "$svnpath merge --dry-run -r BASE:HEAD . 2>&1";
 		$output = array();
 		$return_var = '';
 		exec($command, $output, $return_var);
@@ -58,7 +58,7 @@ class SVNController {
 			$blob .= $line . "\n";
 		}
 
-		$msg = $this->text->make_blob('svn merge –-dry-run output', $blob);
+		$msg = $this->text->make_blob('svn merge --dry-run output', $blob);
 
 		$sendto->reply($msg);
 	}
