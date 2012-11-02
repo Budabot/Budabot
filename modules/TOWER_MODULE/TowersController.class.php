@@ -255,86 +255,6 @@ class TowerController {
 	}
 
 	/**
-	 * This command handler adds tower info to watch list (bypasses some of the checks).
-	 *
-	 * @HandlesCommand("forcescout")
-	 * @Matches("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[0-9]{2}) ([0-9]+) ([a-z]+) (.*)$/i")
-	 */
-	public function forcescoutCommand($message, $channel, $sender, $sendto, $args) {
-		if (strtolower($args[1]) == 'forcescout') {
-			$skip_checks = true;
-		} else {
-			$skip_checks = false;
-		}
-	
-		$playfield_name = $args[2];
-		$site_number = $args[3];
-		$closing_time = $args[4];
-		$ct_ql = $args[5];
-		$faction = ucfirst(strtolower($args[6]));
-		$guild_name = $args[7];
-	
-		if ($faction != 'Omni' && $faction != 'Neutral' && $faction != 'Clan') {
-			$msg = "Valid values for faction are: 'Omni', 'Neutral', and 'Clan'.";
-			$sendto->reply($msg);
-			return;
-		}
-	
-		$playfield = $this->playfieldController->get_playfield_by_name($playfield_name);
-		if ($playfield === null) {
-			$msg = "Invalid playfield.";
-			$sendto->reply($msg);
-			return;
-		}
-	
-		$tower_info = $this->get_tower_info($playfield->id, $site_number);
-		if ($tower_info === null) {
-			$msg = "Invalid site number.";
-			$sendto->reply($msg);
-			return;
-		}
-	
-		if ($ct_ql < $tower_info->min_ql || $ct_ql > $tower_info->max_ql) {
-			$msg = "$playfield->short_name $tower_info->site_number can only accept Control Tower of ql {$tower_info->min_ql}-{$tower_info->max_ql}";
-			$sendto->reply($msg);
-			return;
-		}
-	
-		$closing_time_array = explode(':', $closing_time);
-		$closing_time_seconds = $closing_time_array[0] * 3600 + $closing_time_array[1] * 60 + $closing_time_array[2];
-	
-		if (!$skip_checks && $this->setting->get('check_close_time_on_scout') == 1) {
-			$last_victory = $this->get_last_victory($tower_info->playfield_id, $tower_info->site_number);
-			if ($last_victory !== null) {
-				$victory_time_of_day = $last_attack->time % 86400;
-				if ($victory_time_of_day > $closing_time_seconds) {
-					$victory_time_of_day -= 86400;
-				}
-	
-				if ($closing_time_seconds - $victory_time_of_day > 3600) {
-					$check_blob .= "- <green>Closing time<end> The closing time you have specified is more than 1 hour after the site was destroyed.";
-					$check_blob .= " Please verify that you are using the closing time and not the gas change time and that the closing time is correct.\n\n";
-				}
-			}
-		}
-	
-		if (!$skip_checks && $this->setting->get('check_guild_name_on_scout') == 1) {
-			if (!$this->check_guild_name($guild_name)) {
-				$check_blob .= "- <green>Org name<end> The org name you entered has never attacked or been attacked.\n\n";
-			}
-		}
-	
-		if ($check_blob) {
-			$check_blob .= "Please correct these errors, or, if you are sure the values you entered are correct, use !forcescout to bypass these checks";
-			$msg = $this->text->make_blob('Scouting problems', $check_blob);
-		} else {
-			$this->add_scout_site($playfield->id, $site_number, $closing_time_seconds, $ct_ql, $faction, $guild_name, $sender);
-			$msg = "Scout info has been updated.";
-		}
-		$sendto->reply($msg);
-	}
-
-	/**
 	 * This command handler shows status of towers.
 	 *
 	 * @HandlesCommand("lc")
@@ -592,49 +512,58 @@ class TowerController {
 	}
 
 	/**
-	 * This command handler adds tower info to watch list.
-	 *
 	 * @HandlesCommand("scout")
-	 * @Matches("/^(scout|forcescout) ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[0-9]{2}) ([0-9]+) ([a-z]+) (.*)$/i")
+	 * @Matches("/^scout ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[0-9]{2}) ([0-9]+) ([a-z]+) (.*)$/i")
 	 */
 	public function scoutCommand($message, $channel, $sender, $sendto, $args) {
-		if (strtolower($args[1]) == 'forcescout') {
-			$skip_checks = true;
-		} else {
-			$skip_checks = false;
-		}
+		$skip_checks = false;
 	
-		$playfield_name = $args[2];
-		$site_number = $args[3];
-		$closing_time = $args[4];
-		$ct_ql = $args[5];
-		$faction = ucfirst(strtolower($args[6]));
-		$guild_name = $args[7];
+		$playfield_name = $args[1];
+		$site_number = $args[2];
+		$closing_time = $args[3];
+		$ct_ql = $args[4];
+		$faction = ucfirst(strtolower($args[5]));
+		$guild_name = $args[6];
 	
+		$msg = $this->addScoutInfo($playfield_name, $site_number, $closing_time, $ct_ql, $faction, $guild_name, $skip_checks);
+		$sendto->reply($msg);
+	}
+	
+	/**
+	 * @HandlesCommand("forcescout")
+	 * @Matches("/^forcescout ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[0-9]{2}) ([0-9]+) ([a-z]+) (.*)$/i")
+	 */
+	public function forcescoutCommand($message, $channel, $sender, $sendto, $args) {
+		$skip_checks = true;
+	
+		$playfield_name = $args[1];
+		$site_number = $args[2];
+		$closing_time = $args[3];
+		$ct_ql = $args[4];
+		$faction = ucfirst(strtolower($args[5]));
+		$guild_name = $args[6];
+	
+		$msg = $this->addScoutInfo($playfield_name, $site_number, $closing_time, $ct_ql, $faction, $guild_name, $skip_checks);
+		$sendto->reply($msg);
+	}
+	
+	public function addScoutInfo($playfield_name, $site_number, $closing_time, $ct_ql, $faction, $guild_name, $skip_checks) {
 		if ($faction != 'Omni' && $faction != 'Neutral' && $faction != 'Clan') {
-			$msg = "Valid values for faction are: 'Omni', 'Neutral', and 'Clan'.";
-			$sendto->reply($msg);
-			return;
+			return "Valid values for faction are: 'Omni', 'Neutral', and 'Clan'.";
 		}
 	
 		$playfield = $this->playfieldController->get_playfield_by_name($playfield_name);
 		if ($playfield === null) {
-			$msg = "Invalid playfield.";
-			$sendto->reply($msg);
-			return;
+			return "Invalid playfield.";
 		}
 	
 		$tower_info = $this->get_tower_info($playfield->id, $site_number);
 		if ($tower_info === null) {
-			$msg = "Invalid site number.";
-			$sendto->reply($msg);
-			return;
+			return "Invalid site number.";
 		}
 	
 		if ($ct_ql < $tower_info->min_ql || $ct_ql > $tower_info->max_ql) {
-			$msg = "$playfield->short_name $tower_info->site_number can only accept Control Tower of ql {$tower_info->min_ql}-{$tower_info->max_ql}";
-			$sendto->reply($msg);
-			return;
+			return "$playfield->short_name $tower_info->site_number can only accept Control Tower of ql {$tower_info->min_ql}-{$tower_info->max_ql}";
 		}
 	
 		$closing_time_array = explode(':', $closing_time);
@@ -663,17 +592,14 @@ class TowerController {
 	
 		if ($check_blob) {
 			$check_blob .= "Please correct these errors, or, if you are sure the values you entered are correct, use !forcescout to bypass these checks";
-			$msg = $this->text->make_blob('Scouting problems', $check_blob);
+			return $this->text->make_blob('Scouting problems', $check_blob);
 		} else {
 			$this->add_scout_site($playfield->id, $site_number, $closing_time_seconds, $ct_ql, $faction, $guild_name, $sender);
-			$msg = "Scout info has been updated.";
+			return "Scout info has been updated.";
 		}
-		$sendto->reply($msg);
 	}
 
 	/**
-	 * This command handler shows how many towers each faction has lost.
-	 *
 	 * @HandlesCommand("towerstats")
 	 * @Matches("/^towerstats (.+)$/i")
 	 * @Matches("/^towerstats$/i")
