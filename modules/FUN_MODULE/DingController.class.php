@@ -36,7 +36,7 @@ class DingController {
 	 */
 	public function ding1Command($message, $channel, $sender, $sendto, $args) {
 		$dingText = array(
-			"Yeah yeah gratz, I would give you a better response but you didn't say what you dinged\n<red>Usage: !ding 'level'<end>",
+			"Yeah yeah gratz, I would give you a better response but you didn't say what level you dinged.",
 			"Hmmm, I really want to know what level you dinged, but gratz anyways nub.",
 			"When are you people going to start using me right! Gratz for your level though.",
 			"Gratz! But what are we looking at? I need a level next time.");

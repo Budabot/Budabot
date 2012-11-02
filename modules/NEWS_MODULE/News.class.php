@@ -81,9 +81,9 @@ class News {
 
 	/**
 	 * @Event("logOn")
-	 * @Description("Sends a tell with news to players logging in")
+	 * @Description("Sends news to org members logging in")
 	 */
-	public function logon($eventObj) {
+	public function logonEvent($eventObj) {
 		$sender = $eventObj->sender;
 
 		if (isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->is_ready()) {
@@ -91,6 +91,19 @@ class News {
 			if ($msg != '') {
 				$this->chatBot->sendTell($msg, $sender);
 			}
+		}
+	}
+	
+	/**
+	 * @Event("joinPriv")
+	 * @Description("Sends news to players joining private channel")
+	 */
+	public function privateChannelJoinEvent($eventObj) {
+		$sender = $eventObj->sender;
+
+		$msg = $this->getNews();
+		if ($msg != '') {
+			$this->chatBot->sendTell($msg, $sender);
 		}
 	}
 
