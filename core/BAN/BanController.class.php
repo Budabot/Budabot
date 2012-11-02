@@ -224,28 +224,6 @@ class BanController {
 	}
 
 	/**
-	 * This command handler bans an organization from this bot.
-	 *
-	 * Command parameter is:
-	 *  - name of the organization
-	 *
-	 * @HandlesCommand("banorg")
-	 * @Matches("/^banorg (.+)$/i")
-	 */
-	public function banorgCommand($message, $channel, $sender, $sendto, $args) {
-		$who = $args[1];
-	
-		if ($this->ban->is_banned($who)) {
-			$sendto->reply("The organization <highlight>$who<end> is already banned.");
-			return;
-		}
-	
-		$this->ban->add($who, $sender, null, '');
-	
-		$sendto->reply("You have banned the organization <highlight>$who<end> from this bot.");
-	}
-
-	/**
 	 * This command handler unbans a player from this bot.
 	 *
 	 * Command parameter is:
@@ -269,6 +247,28 @@ class BanController {
 			$this->chatBot->sendTell("You have been unbanned from this bot by $sender.", $who);
 		}
 	}
+	
+	/**
+	 * This command handler bans an organization from this bot.
+	 *
+	 * Command parameter is:
+	 *  - name of the organization
+	 *
+	 * @HandlesCommand("banorg")
+	 * @Matches("/^banorg (.+)$/i")
+	 */
+	public function banorgCommand($message, $channel, $sender, $sendto, $args) {
+		$who = $args[1];
+	
+		if ($this->ban->is_banned($who)) {
+			$sendto->reply("The organization <highlight>$who<end> is already banned.");
+			return;
+		}
+	
+		$this->ban->add($who, $sender, null, '');
+	
+		$sendto->reply("You have banned the organization <highlight>$who<end> from this bot.");
+	}
 
 	/**
 	 * This command handler unbans an organization from this bot.
@@ -280,7 +280,7 @@ class BanController {
 	 * @Matches("/^unbanorg (.+)$/i")
 	 */
 	public function unbanorgCommand($message, $channel, $sender, $sendto, $args) {
-		$who = ucwords(strtolower($args[1]));
+		$who = $args[1];
 	
 		if (!$this->ban->is_banned($who)) {
 			$sendto->reply("The org <highlight>$who<end> is not banned on this bot.");
