@@ -525,7 +525,7 @@ class TowerController {
 		$faction = ucfirst(strtolower($args[5]));
 		$guild_name = $args[6];
 	
-		$msg = $this->addScoutInfo($playfield_name, $site_number, $closing_time, $ct_ql, $faction, $guild_name, $skip_checks);
+		$msg = $this->addScoutInfo($sender, $playfield_name, $site_number, $closing_time, $ct_ql, $faction, $guild_name, $skip_checks);
 		$sendto->reply($msg);
 	}
 	
@@ -543,11 +543,11 @@ class TowerController {
 		$faction = ucfirst(strtolower($args[5]));
 		$guild_name = $args[6];
 	
-		$msg = $this->addScoutInfo($playfield_name, $site_number, $closing_time, $ct_ql, $faction, $guild_name, $skip_checks);
+		$msg = $this->addScoutInfo($sender, $playfield_name, $site_number, $closing_time, $ct_ql, $faction, $guild_name, $skip_checks);
 		$sendto->reply($msg);
 	}
 	
-	public function addScoutInfo($playfield_name, $site_number, $closing_time, $ct_ql, $faction, $guild_name, $skip_checks) {
+	public function addScoutInfo($sender, $playfield_name, $site_number, $closing_time, $ct_ql, $faction, $guild_name, $skip_checks) {
 		if ($faction != 'Omni' && $faction != 'Neutral' && $faction != 'Clan') {
 			return "Valid values for faction are: 'Omni', 'Neutral', and 'Clan'.";
 		}
