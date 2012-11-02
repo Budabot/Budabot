@@ -94,9 +94,6 @@ class TowerController {
 	/** @Logger */
 	public $logger;
 
-	const COLOR_LABEL = "<font color=#00DE42>";
-	const COLOR_VALUE = "<font color=#63AD63>";
-
 	private $attackListeners = array();
 
 	/**
@@ -875,7 +872,7 @@ class TowerController {
 			$this->logger->log('debug', "Site being attacked: ({$playfield_name}) '{$closest_site->playfield_id}' '{$closest_site->site_number}'");
 		
 			// Beginning of the 'more' window
-			$link = "<highlight>Attacker:<end> <font color=#DEDE42>";
+			$link = "Attacker: <highlight>";
 			if ($whois->firstname) {
 				$link .= $whois->firstname . " ";
 			}
@@ -887,42 +884,42 @@ class TowerController {
 			$link .= "<end>\n";
 		
 			if ($whois->breed) {
-				$link .= self::COLOR_LABEL."Breed:<end> ".self::COLOR_VALUE.$whois->breed."<end>\n";
+				$link .= "Breed: <highlight>$whois->breed<end>\n";
 			}
 			if ($whois->gender) {
-				$link .= self::COLOR_LABEL."Gender:<end> ".self::COLOR_VALUE.$whois->gender."<end>\n";
+				$link .= "Gender: <highlight>$whois->gender<end>\n";
 			}
 		
 			if ($whois->profession) {
-				$link .= self::COLOR_LABEL."Profession:<end> ".self::COLOR_VALUE.$whois->profession."<end>\n";
+				$link .= "Profession: <highlight>$whois->profession<end>\n";
 			}
 			if ($whois->level) {
 				$level_info = $this->levelController->get_level_info($whois->level);
-				$link .= self::COLOR_LABEL."Level:<end> ".self::COLOR_VALUE."{$whois->level}<end>/<green>{$whois->ai_level}<end> <red>({$level_info->pvpMin}-{$level_info->pvpMax})<end>\n";
+				$link .= "Level: <highlight>{$whois->level}/<green>{$whois->ai_level}<end> ({$level_info->pvpMin}-{$level_info->pvpMax})<end>\n";
 			}
 		
-			$link .= self::COLOR_LABEL."Alignment:<end> ".self::COLOR_VALUE.$whois->faction."<end>\n";
+			$link .= "Alignment: <highlight>$whois->faction<end>\n";
 		
 			if ($whois->guild) {
 				if ($whois->faction == "Omni") {
-					$link .= self::COLOR_LABEL."Detachment:<end> ".self::COLOR_VALUE.$whois->guild."<end>\n";
+					$link .= "Detachment: <highlight>$whois->guild\n";
 				} else {
-					$link .= self::COLOR_LABEL."Clan:<end> ".self::COLOR_VALUE.$whois->guild."<end>\n";
+					$link .= "Clan: <highlight>$whois->guild<end>\n";
 				}
 				if ($whois->guild_rank) {
-					$link .= self::COLOR_LABEL."Organization Rank:<end> <white>".$whois->guild_rank."<end>\n";
+					$link .= "Organization Rank: <highlight>$whois->guild_rank<end>\n";
 				}
 			}
 		
 			$link .= "\n";
 		
-			$link .= "<highlight>Defender:<end> ".self::COLOR_VALUE.$def_guild."<end>\n";
-			$link .= self::COLOR_LABEL."Alignment:<end> ".self::COLOR_VALUE.$def_side."<end>\n\n";
+			$link .= "Defender: <highlight>$def_guild<end>\n";
+			$link .= "Alignment: <highlight>$def_side<end>\n\n";
 		
 			$base_link = $this->text->make_chatcmd("{$playfield->short_name} {$closest_site->site_number}", "/tell <myname> lc {$playfield->short_name} {$closest_site->site_number}");
 			$attack_waypoint = $this->text->make_chatcmd("{$x_coords}x{$y_coords}", "/waypoint {$x_coords} {$y_coords} {$playfield->id}");
-			$link .= "<highlight>Playfield:<end> ".self::COLOR_VALUE."{$base_link} ({$closest_site->min_ql}-{$closest_site->max_ql})<end>\n";
-			$link .= self::COLOR_LABEL."Location:<end> ".self::COLOR_VALUE."{$closest_site->site_name} ({$attack_waypoint})<end>\n";
+			$link .= "Playfield: <highlight>{$base_link} ({$closest_site->min_ql}-{$closest_site->max_ql})<end>\n";
+			$link .= "Location: <highlight>{$closest_site->site_name} ({$attack_waypoint})<end>\n";
 		
 			$more = "[".$this->text->make_blob("more", $link, 'Advanced Tower Info')."]";
 		}
