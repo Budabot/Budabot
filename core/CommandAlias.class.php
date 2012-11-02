@@ -100,7 +100,7 @@ class CommandAlias {
 		$this->logger->log('DEBUG', "Command alias found command: '{$this->cmd_aliases[$alias]}' alias: '{$alias}'");
 		$cmd = $this->cmd_aliases[$alias];
 		if ($params) {
-			if (!preg_match("/{\\d+}/", $params)) {
+			if (!preg_match("/{\\d+}/", $cmd)) {
 				$cmd .= " {0}";
 			}
 
