@@ -164,8 +164,9 @@ class ItemsController implements ItemsAPI {
 				}
 			}
 		} catch (Exception $e) {
-			$this->logger->log('ERROR', "Error updating items db: " . $e->getMessage());
-			return "Error updating items db: " . $e->getMessage();
+			$msg = "Error updating items db: " . $e->getMessage();
+			$this->logger->log('ERROR', $msg);
+			return $msg;
 		}
 
 		if ($latestVersion !== null) {

@@ -263,7 +263,7 @@ class CommandManager {
 			$this->logger->log("ERROR", $e->getMessage(), $e);
 			$sendto->reply("There was an sql error executing your command.");
 		} catch (Exception $e) {
-			$this->logger->log("ERROR", $e->getMessage(), $e);
+			$this->logger->log("ERROR", "Error executing '$message': " . $e->getMessage(), $e);
 			$sendto->reply("There was an error executing your command: " . $e->getMessage());
 		}
 

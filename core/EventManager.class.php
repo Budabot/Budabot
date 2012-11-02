@@ -339,7 +339,7 @@ class EventManager {
 		} catch (StopExecutionException $e) {
 			throw $e;
 		} catch (Exception $e) {
-			$this->logger->log('ERROR', $e->getMessage(), $e);
+			$this->logger->log('ERROR', "Error calling event handler '$handler': " . $e->getMessage(), $e);
 		}
 	}
 }
