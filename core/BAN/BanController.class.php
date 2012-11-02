@@ -208,7 +208,7 @@ class BanController {
 			$blob .= "<highlight>Name:<end> {$ban->name}\n";
 			$blob .= "<highlight><tab>Date:<end> ".$this->util->date($ban->time)."\n";
 			$blob .= "<highlight><tab>By:<end> {$ban->admin}\n";
-			if ($ban->banend != null) {
+			if ($ban->banend != 0) {
 				$blob .= "<highlight><tab>Ban ends:<end> ". $this->util->unixtime_to_readable($ban->banend - time(), false)."\n";
 			} else {
 				$blob .= "<highlight><tab>Ban ends:<end> Never.\n";
@@ -299,7 +299,7 @@ class BanController {
 	public function checkTempBan($eventObj) {
 		$update = false;
 		forEach ($this->ban->getBanlist() as $ban){
-			if ($ban->banend != null && ((time() - $ban->banend) >= 0)) {
+			if ($ban->banend != 0 && ((time() - $ban->banend) >= 0)) {
 				$update = true;
 				$this->db->exec("DELETE FROM banlist_<myname> WHERE name = ?", $ban->name);
 			}

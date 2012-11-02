@@ -13,7 +13,7 @@ class Ban {
 	public function add($char, $sender, $length, $reason) {
 
 		if ($length == null) {
-			$ban_end = "NULL";
+			$ban_end = "0";
 		} else {
 			$ban_end = time() + $length;
 		}
