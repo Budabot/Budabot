@@ -58,7 +58,7 @@
 	<!-- ============================================  -->
 	<target name="build">
 		<echo>Create release package of Budabot.</echo>
-		<property name="build.basename" value="Budabot${budabot.version}_build${svn.revision}" />
+		<property name="build.basename" value="Budabot${budabot.version}_build${svn.revision}" override="true" />
 
 		<delete dir="build" quiet="true" />
 		<copy todir="build/contents/${build.basename}">
@@ -92,7 +92,7 @@
 	<!-- ============================================  -->
 	<target name="build_win32">
 		<echo>Create release package of Budabot (Windows version).</echo>
-		<property name="build.basename" value="Budabot${budabot.version}_build${svn.revision}_win32" />
+		<property name="build.basename" value="Budabot${budabot.version}_build${svn.revision}_win32" override="true" />
 
 		<delete dir="build" quiet="true" />
 
