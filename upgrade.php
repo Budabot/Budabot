@@ -242,4 +242,9 @@
 	if ($db->get_type() == "sqlite" && checkIfTableExists($db, "players")) {
 		upgrade($db, "UPDATE players SET guild_id = 0 WHERE guild_id = ''");
 	}
+	
+	// update prof_title from varchar(20) to varchar(50)
+	if ($db->get_type() == "mysql" && checkIfTableExists($db, "players") && getColumnType($db, 'players', 'prof_title') != 'varchar(20)') {
+		upgrade($db, "ALTER TABLE players CHANGE COLUMN prof_title prof_title VARCHAR(50) NOT NULL DEFAULT ''");
+	}
 ?>
