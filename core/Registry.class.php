@@ -32,6 +32,7 @@ class Registry {
 
 		if ($instance !== null && USE_RUNKIT_CLASS_LOADING === true) {
 			Registry::importChanges($instance);
+			Registry::injectDependencies($instance);
 		}
 
 		return $instance;

@@ -222,6 +222,7 @@ class TestController {
 			$msg = "Could not find instance <highlight>$instanceName<end>.";
 		} else {
 			Registry::importChanges($instance);
+			Registry::injectDependencies($instance);
 			$msg = "Instance <highlight>$instanceName<end> has been reloaded.";
 		}
 		$sendto->reply($msg);

@@ -227,7 +227,7 @@ class TimerController {
 		$sendto->reply($msg);
 	}
 
-	private function addTimer($sender, $name, $runTime, $channel) {
+	public function addTimer($sender, $name, $runTime, $channel) {
 		if ($name == '') {
 			return;
 		}
