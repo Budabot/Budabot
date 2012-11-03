@@ -766,6 +766,10 @@ class TowerController {
 		if ($whois === null) {
 			$whois = new stdClass;
 			$whois->type = 'npc';
+			
+			// in case it's not a player who causes attack message (pet, mob, etc)
+			$whois->name = $att_player;
+			$whois->faction = 'Neutral';
 		}
 		if (isset($att_side)) {
 			$whois->faction = $att_side;
@@ -773,13 +777,11 @@ class TowerController {
 		if (isset($att_guild)) {
 			$whois->guild = $att_guild;
 		}
-		// in case it's not a player who causes attack message (pet, mob, etc)
-		$whois->name = $att_player;
 		
 		$playfield = $this->playfieldController->get_playfield_by_name($playfield_name);
 		$closest_site = $this->get_closest_site($playfield->id, $x_coords, $y_coords);
 
-		$defender = new StdClass();
+		$defender = new stdClass();
 		$defender->faction   = $def_side;
 		$defender->guild     = $def_guild;
 		$defender->playfield = $playfield;
@@ -1099,7 +1101,7 @@ class TowerController {
 		$sendto->reply($msg);
 	}
 
-	private function get_tower_info($playfield_id, $site_number) {
+	public function get_tower_info($playfield_id, $site_number) {
 		$sql = "
 			SELECT
 				*
