@@ -100,11 +100,19 @@ class CommandAlias {
 		$this->logger->log('DEBUG', "Command alias found command: '{$this->cmd_aliases[$alias]}' alias: '{$alias}'");
 		$cmd = $this->cmd_aliases[$alias];
 		if ($params) {
-			if (!preg_match("/{\\d+}/", $cmd)) {
+			// count number of parameters and don't split more than that so that the
+			// last parameter will have whatever is left
+
+			// TODO: figure out highest numbered parameter and use that as $numMatches
+			// otherwise this will break if the parameters do not include every number
+			// from 1 to MAX -Tyrence
+			preg_match_all("/{\\d+}/", $cmd, $matches);
+			$numMatches = count(array_unique($matches[0]));
+			if ($numMatches == 0) {
 				$cmd .= " {0}";
 			}
 
-			$aliasParams = explode(' ', $params);
+			$aliasParams = explode(' ', $params, $numMatches);
 
 			// add the entire param string as the {0} parameter
 			array_unshift($aliasParams, $params);
