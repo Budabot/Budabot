@@ -76,15 +76,55 @@ class ServerStatusController {
 				$link .= "<highlight>Chatserver<end> is <red>DOWN<end>\n\n";
 			}
 
-			$link .= "<highlight>Player distribution in % of total players online.<end>\n";
 			ksort($server->data);
-			forEach ($server->data as $zone => $proz) {
-				$link .= "<highlight>$zone<end>: {$proz["players"]} \n";
+			
+			$vals = array_map(function($proz) {
+				return str_replace('%', '', $proz["players"]);
+			}, $server->data);
+			
+			$totalp = 0;
+			forEach ($vals as $zone => $p) {
+				$totalp += $p;
+			}
+
+			$y = $this->findLowestGreaterThanZero($vals);
+			
+			$sum = round($totalp / $y);
+			do {
+				$total = $sum;
+				$y = $totalp / $total;  // percent per person
+				$sum = 0;
+				forEach ($vals as $zone => $p) {
+					$num = round($p / $y);
+					if ($p > 0 && $num == 0) {
+						$num = 1;
+					}
+					$sum += $num;
+				}
+			} while ($total != $sum);
+			
+			$a = round($total / $totalp * 100);
+			$link .= "Estimated total players online: <highlight>$a<end>\n\n";
+			
+			$link .= "Player distribution in % of total players online.\n";
+			forEach ($vals as $zone => $p) {
+				$num = round($p / $y);
+				$link .= "$zone: <highlight>$num<end> ({$p}%)\n";
 			}
 
 			$msg = $this->text->make_blob("$server->name Server Status", $link);
 		}
 
 		$sendto->reply($msg);
+	}
+	
+	public function findLowestGreaterThanZero($arr) {
+		$val = 100;
+		forEach ($arr as $p) {
+			if ($p > 0 && $p < $val) {
+				$val = $p;
+			}
+		}
+		return $val;
 	}
 }
