@@ -1,6 +1,6 @@
 <?php
 /**
- * @Instance("towers")
+ * @Instance
  *
  * Commands this controller contains:
  *	@DefineCommand(
