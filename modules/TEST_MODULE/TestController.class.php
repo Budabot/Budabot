@@ -36,6 +36,12 @@
  *		description = "Test the bot commands", 
  *		help        = 'test.txt'
  *	)
+ *	@DefineCommand(
+ *		command     = 'reloadinstance', 
+ *		accessLevel = 'admin', 
+ *		description = "Test the bot commands", 
+ *		help        = 'test.txt'
+ *	)
  */
 class TestController {
 
@@ -202,6 +208,23 @@ class TestController {
 			}
 		}
 		return $handlers;
+	}
+	
+	/**
+	 * @HandlesCommand("reloadinstance")
+	 * @Matches("/^reloadinstance (.+)$/i")
+	 */
+	public function reloadinstanceCommand($message, $channel, $sender, $sendto, $args) {
+		$instanceName = $args[1];
+		
+		$instance = Registry::getInstance($instanceName);
+		if ($instance === null) {
+			$msg = "Could not find instance <highlight>$instanceName<end>.";
+		} else {
+			Registry::importChanges($instance);
+			$msg = "Instance <highlight>$instanceName<end> has been reloaded.";
+		}
+		$sendto->reply($msg);
 	}
 }
 

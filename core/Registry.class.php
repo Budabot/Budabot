@@ -30,7 +30,7 @@ class Registry {
 			LegacyLogger::log("WARN", "Registry", "Could not find instance for '$name'");
 		}
 
-		if (USE_RUNKIT_CLASS_LOADING === true) {
+		if ($instance !== null && USE_RUNKIT_CLASS_LOADING === true) {
 			Registry::importChanges($instance);
 		}
 
