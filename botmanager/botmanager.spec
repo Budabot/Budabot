@@ -40,7 +40,7 @@ binaries = []
 binaries += [(os.path.join(enginesPath, 'libclearlooks.dll'), os.path.join(absEnginesPath, 'libclearlooks.dll'), 'BINARY')]
 binaries += [(os.path.join(enginesPath, 'libpixmap.dll'),     os.path.join(absEnginesPath, 'libpixmap.dll'),     'BINARY')]
 
-a = Analysis(['botmanager.py'],
+a = Analysis(['__main__.py'],
              hiddenimports=[],
              hookspath=None)
 
