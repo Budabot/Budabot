@@ -56,15 +56,14 @@
 	<!-- ============================================  -->
 	<!-- (DEFAULT) Target: build                       --> 
 	<!-- ============================================  -->
-	<target name="build">
+	<target name="build_linux">
 		<echo>Create release package of Budabot.</echo>
-		<property name="build.basename" value="Budabot${budabot.version}_build${svn.revision}" override="true" />
+		<property name="build.basename" value="Budabot${budabot.version}_build${svn.revision}_linux" override="true" />
 
 		<delete dir="build" quiet="true" />
 		<copy todir="build/contents/${build.basename}">
 			<fileset dir=".">
 				<patternset refid="common_files" />
-				<patternset refid="win32_files" />
 				<patternset refid="linux_files" />
 			</fileset>
 		</copy>
@@ -72,9 +71,9 @@
 	</target>
 
 	<!-- ============================================  -->
-	<!-- Target: Build & Upload                        -->
+	<!-- Target: Build_linux & Upload                  -->
 	<!-- ============================================  -->
-	<target name="build+upload" depends="build">
+	<target name="build_linux+upload" depends="build_linux">
 		<echo>Upload release archive to remote server using SCP.</echo>
 		<!--
 			NOTE that you need to provide these properties:
