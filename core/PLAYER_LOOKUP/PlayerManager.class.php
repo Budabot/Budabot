@@ -110,6 +110,10 @@ class PlayerManager {
 		if (empty($char->guild_id)) {
 			$char->guild_id = 0;
 		}
+		
+		if (empty($char->guild_rank_id)) {
+			$char->guild_rank_id = -1;
+		}
 
 		$sql = "
 			INSERT INTO players (
