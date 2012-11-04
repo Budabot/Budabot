@@ -1,19 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE project>
-<project name="Budabot Bot Manager" default="build_exe" basedir=".">
+<project name="Budabot Bot Manager" default="build" basedir=".">
 
 	<!-- ============================================  -->
-	<!-- (DEFAULT) Target: build_exe                   --> 
+	<!-- Target: build                                 --> 
 	<!-- ============================================  -->
-	<target name="build_exe">
+	<target name="build" depends="clean">
 		<echo>Create Windows executable of Budabot Bot Manager.</echo>
 		<property name="pyinstaller.dirpath" value="c:/pyinstaller" />
+		<exec dir="." command="python ${pyinstaller.dirpath}/pyinstaller.py botmanager.spec" passthru="true" />
+	</target>
 
+	<!-- ============================================  -->
+	<!-- Target: copy                                 --> 
+	<!-- ============================================  -->
+	<target name="copy" depends="clean">
+		<echo>Copy Budabot Bot Manager's files to another directory.</echo>
+		<property name="botmanager.copyto" value="dist" />
+		<mkdir dir="${botmanager.copyto}" />
+		<copy todir="${botmanager.copyto}">
+			<fileset dir=".">
+				<include name="icon**" />
+				<include name="themes**" />
+				<include name="*.py" />
+				<include name="*.glade" />
+				<include name="settingsspec.ini" />
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: clean                                 --> 
+	<!-- ============================================  -->
+	<target name="clean">
+		<echo>Clean up any generated files.</echo>
+		<delete quiet="true">
+			<fileset dir=".">
+				<include name="logdict*.log" />
+				<include name="*.pyc" />
+			</fileset>
+		</delete>
 		<delete dir="build" quiet="true" />
 		<delete dir="dist"  quiet="true" />
-		<delete dir="*.log" quiet="true" />
 
-		<exec dir="." command="python ${pyinstaller.dirpath}/pyinstaller.py botmanager.spec" passthru="true" />
 	</target>
 
 </project>

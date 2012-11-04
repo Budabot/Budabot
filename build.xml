@@ -51,6 +51,7 @@
 
 	<patternset id="linux_files">
 		<include name="chatbot.sh" />
+		<include name="botmanager.sh" />
 	</patternset>
 
 	<!-- ============================================  -->
@@ -58,16 +59,24 @@
 	<!-- ============================================  -->
 	<target name="build_linux">
 		<echo>Create release package of Budabot.</echo>
-		<property name="build.basename" value="Budabot${budabot.version}_build${svn.revision}_linux" override="true" />
+		<property name="build.basename"    value="Budabot${budabot.version}_build${svn.revision}_linux" override="true" />
+		<property name="build.contentsdir" value="${project.basedir}/build/contents" override="true" />
+		<property name="build.archivedir"  value="${project.basedir}/build/contents/${build.basename}" override="true" />
 
 		<delete dir="build" quiet="true" />
-		<copy todir="build/contents/${build.basename}">
+
+		<!-- Include Bot Manager -->
+		<phing dir="botmanager" target="copy">
+			<property name="botmanager.copyto" value="${build.archivedir}/botmanager" />
+		</phing>
+
+		<copy todir="${build.archivedir}">
 			<fileset dir=".">
 				<patternset refid="common_files" />
 				<patternset refid="linux_files" />
 			</fileset>
 		</copy>
-		<zip basedir="build/contents" destfile="build/${build.basename}.zip" />
+		<zip basedir="${build.contentsdir}" destfile="build/${build.basename}.zip" />
 	</target>
 
 	<!-- ============================================  -->
@@ -91,16 +100,18 @@
 	<!-- ============================================  -->
 	<target name="build_win32">
 		<echo>Create release package of Budabot (Windows version).</echo>
-		<property name="build.basename" value="Budabot${budabot.version}_build${svn.revision}_win32" override="true" />
+		<property name="build.basename"    value="Budabot${budabot.version}_build${svn.revision}_win32" override="true" />
+		<property name="build.contentsdir" value="${project.basedir}/build/contents" override="true" />
+		<property name="build.archivedir"  value="${project.basedir}/build/contents/${build.basename}" override="true" />
 
 		<delete dir="build" quiet="true" />
 
 		<!-- Include Bot Manager -->
-		<phing dir="botmanager" target="build_exe" />
-		<copy file="botmanager/dist/botmanager.exe" todir="build/contents/${build.basename}" />
+		<phing dir="botmanager" target="build" />
+		<copy file="botmanager/dist/botmanager.exe" todir="${build.archivedir}" />
 
 		<!-- Include Budabot's files -->
-		<copy todir="build/contents/${build.basename}">
+		<copy todir="${build.archivedir}">
 			<fileset dir=".">
 				<patternset refid="common_files" />
 				<patternset refid="win32_files" />
@@ -108,7 +119,7 @@
 		</copy>
 
 		<!-- Compress the files into an archive -->
-		<zip basedir="build/contents" destfile="build/${build.basename}.zip" />
+		<zip basedir="${build.contentsdir}" destfile="build/${build.basename}.zip" />
 	</target>
 
 	<!-- ============================================  -->
