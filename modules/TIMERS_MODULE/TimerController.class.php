@@ -198,7 +198,7 @@ class TimerController {
 			$msg = "You don't have the required access level (raidleader) to remove this timer.";
 		} else {
 			$this->remove($name);
-			$msg = "Removed timer <highlight>$name<end>.";
+			$msg = "Removed timer <highlight>$timer->name<end>.";
 		}
 		$sendto->reply($msg);
 	}
