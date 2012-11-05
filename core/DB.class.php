@@ -147,6 +147,7 @@ class DB {
 	}
 
 	function rollback() {
+		$this->in_transaction = false;
 		$this->sql->rollback();
 	}
 

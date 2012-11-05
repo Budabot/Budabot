@@ -205,9 +205,9 @@ class PrivateChannelController {
 		$blob = '';
 		forEach ($data as $row) {
 			if ($row->profession == null) {
-				$blob .= "<white>$row->name<white> - Unknown\n";
+				$blob .= "$row->name - Unknown\n";
 			} else {
-				$blob .= "<white>$row->name - $row->level<end><green>/$row->ai_level<end><white> $row->profession, $row->guild<end>\n";
+				$blob .= "$row->name - $row->level<green>/$row->ai_level<end> $row->profession, $row->guild\n";
 			}
 		}
 

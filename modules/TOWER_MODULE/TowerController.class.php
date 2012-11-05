@@ -424,7 +424,7 @@ class TowerController {
 					$open_time += 86400;
 				}
 	
-				$blob .= "$site_link <white>- {$row->min_ql}-{$row->max_ql}, $row->ct_ql CT, $gas_change_string [by $row->scouted_by]<end>\n";
+				$blob .= "$site_link - {$row->min_ql}-{$row->max_ql}, $row->ct_ql CT, $gas_change_string [by $row->scouted_by]\n";
 			}
 	
 			$msg = $this->text->make_blob("Scouted Bases", $blob);
@@ -468,7 +468,7 @@ class TowerController {
 					$current_faction = $row->att_faction;
 				}
 				$timeString = $this->util->unixtime_to_readable(time() - $row->penalty_time, false);
-				$blob .= "<{$row->att_faction}>{$row->att_guild_name}<end> - <white>$timeString ago<end>\n";
+				$blob .= "<{$row->att_faction}>{$row->att_guild_name}<end> - $timeString ago\n";
 			}
 			$msg = $this->text->make_blob("Orgs in penalty ($penaltyTimeString)", $blob);
 		} else {
