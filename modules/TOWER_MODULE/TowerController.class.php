@@ -591,7 +591,11 @@ class TowerController {
 		}
 	
 		if ($check_blob) {
-			$check_blob .= "Please correct these errors, or, if you are sure the values you entered are correct, use !forcescout to bypass these checks";
+			$forceCmd = "forcescout $playfield->short_name $site_number $closing_time $ct_ql $faction $guild_name";
+			$forcescoutLink = $this->text->make_chatcmd("<symbol>$forceCmd", "/tell <myname> $forceCmd");
+			$check_blob .= "Please correct these errors, or, if you are sure the values you entered are correct, use !forcescout to bypass these checks.\n\n";
+			$check_blob .= $forcescoutLink;
+
 			return $this->text->make_blob('Scouting problems', $check_blob);
 		} else {
 			$this->add_scout_site($playfield->id, $site_number, $closing_time_seconds, $ct_ql, $faction, $guild_name, $sender);
