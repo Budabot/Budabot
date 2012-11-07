@@ -315,12 +315,12 @@ class BanController {
 	 */
 	private function banPlayer($who, $sender, $length, $reason, $sendto) {
 		if ($this->chatBot->get_uid($who) == NULL) {
-			$sendto->reply("Character <highlight>$who<end> does not exist.");
+			$sendto->reply("Player <highlight>$who<end> does not exist.");
 			return;
 		}
 
 		if ($this->ban->is_banned($who)) {
-			$sendto->reply("Character <highlight>$who<end> is already banned.");
+			$sendto->reply("Player <highlight>$who<end> is already banned.");
 			return;
 		}
 	

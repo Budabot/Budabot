@@ -7,6 +7,9 @@ class Ban {
 
 	/** @Inject */
 	public $db;
+	
+	/** @Inject */
+	public $playerManager;
 
 	private $banlist = array();
 
@@ -44,8 +47,13 @@ class Ban {
 		}
 	}
 
-	public function is_banned($char) {
-		return isset($this->banlist[$char]);
+	public function is_banned($name) {
+		if (isset($this->banlist[$name])) {
+			return true;
+		} else {
+			$whois = $this->playerManager->get_by_name($name);
+			return isset($this->banlist[$whois->guild]);
+		}
 	}
 
 	public function getBanlist() {
