@@ -40,7 +40,6 @@ class VentriloController {
 		$this->setting->add($this->moduleName, "ventport", "Ventrilo Server Port", "edit", "number", "unknown");
 		$this->setting->add($this->moduleName, "ventpass", "Ventrilo Server Password", "edit", "text", "unknown");
 
-		$this->setting->add($this->moduleName, "ventimplementation", "Platform your bot runs on", "edit", "options", "1", "Windows;Linux", "1;2");
 		$this->setting->add($this->moduleName, "showventpassword", "Show password with vent info?", "edit", "options", "1", "true;false", "1;0");
 		$this->setting->add($this->moduleName, "showextendedinfo", "Show extended vent server info?", "edit", "options", "1", "true;false", "1;0");
 	}
@@ -67,7 +66,6 @@ class VentriloController {
 	
 	public function getVentStatus() {
 		$stat = new CVentriloStatus;
-		$stat->m_cmdprog	= '"' . getcwd() . '/modules/VENTRILO_MODULE/ventrilo_status.exe"';
 		$stat->m_cmdcode	= "2";					// Detail mode. 1=General Status, 2=Detail
 
 		// change config below this line only
@@ -84,37 +82,11 @@ class VentriloController {
 		$stat->m_channellist[] = $lobby;
 
 		$msg = '';
-		$error = false;
-		if ($this->setting->get("ventimplementation") == 1) {
 
-			$rc = $stat->Request();
-			if ($rc) {
-				$error =  "Could not get ventrilo info: $stat->m_error";
-			}
-
-		} else if ($this->setting->get("ventimplementation") == 2) {
-
-			$vent = new Vent;
-			$vent->setTimeout( 500000 );		// 300 ms timeout
-
-			if (!$vent->makeRequest(2, $stat->m_cmdhost, $stat->m_cmdport)) {
-
-				$error = "Could not get ventrilo info.";
-
-			} else {
-				$rawresponse = $vent->getResponse();
-
-				$nohtmltags = strip_tags($rawresponse);
-				$formattedResponse = preg_split("/[\r\n]+/", $nohtmltags, 0, REG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
-
-				forEach($formattedResponse as $line) {
-					$stat->Parse( $line );
-				}
-			}
-		}
-
-		if ($error === false) {
-
+		$rc = $stat->Request();
+		if ($rc !== 0) {
+			$msg = "<orange>Could not get ventrilo info: $stat->m_error<end>";
+		} else {
 			$page = "This is a <orange>PRIVATE<end> Ventrilo server.\n";
 			$page .= "Please DO NOT give out this information without permission.\n";
 			$page .= "Channels highlighted <orange>ORANGE<end> are password protected.\n\n";
@@ -139,15 +111,27 @@ class VentriloController {
 			$page .= "\nChannels:\n";
 
 			forEach ($stat->m_channellist as $channel) {
-				displayChannel($channel, $stat->m_clientlist, "", $page);
+				$this->displayChannel($channel, $stat->m_clientlist, "", $page);
 			}
 
-			$page .= "\n\n*Please note that sometimes the server will not return the right information. If this happens, please try again.\n";
 			$msg = $this->text->make_blob("Ventrilo Info ({$stat->m_clientcount})", $page);
-
-		} else {
-			$msg = "<orange>$error<end>";
 		}
 		return $msg;
+	}
+	
+	public function displayChannel(&$channel, &$clientlist, $prefix, &$output) {
+		$prefix .= "    ";
+		$output .= "<grey>--+<end> ";
+
+		if ($channel->m_prot == 1) {
+			$output .= "<orange>{$channel->m_name}<end>\n";
+		} else {
+			$output .= "{$channel->m_name}\n";
+		}
+		forEach($clientlist as $user) {
+			if ($channel->m_cid == $user->m_cid) {
+				$output .= "     <grey>|---<end> <white>{$user->m_name}<end> \n";
+			}
+		}
 	}
 }
