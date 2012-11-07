@@ -41,6 +41,9 @@ class Limits {
 			return true;
 		} else if ($this->whitelist->check($sender) || $sender == ucfirst(strtolower($this->setting->get("relaybot")))) {
 			return true;
+		} else if ($this->accessLevel->checkAccess($sender, 'mod')) {
+			// if mod or higher, grant access automatically
+			return true;
 		} else {
 			// if neither minlvl, faction, or access level is set, then check passes
 			if ($this->setting->get("tell_req_lvl") == 0 &&
