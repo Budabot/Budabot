@@ -237,7 +237,7 @@ class CloakController {
 				$name = "$orgName OS/AS $i";
 				if ($this->timerController->get($name) == null) {
 					$timer = time() + (15*60); // set timer for 15 minutes
-					$this->timerController->add($name, $launcher, 'guild', $timer);
+					$this->timerController->add($name, $launcher, 'guild', $timer, null);
 					break;
 				}
 			}

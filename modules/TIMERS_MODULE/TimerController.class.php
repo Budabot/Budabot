@@ -54,6 +54,7 @@ class TimerController {
 		$this->timers = array();
 		$data = $this->db->query("SELECT * FROM timers_<myname>");
 		forEach ($data as $row) {
+			$row->alerts = json_decode($row->alerts);
 			$this->timers[strtolower($row->name)] = $row;
 		}
 	}
@@ -77,40 +78,10 @@ class TimerController {
 			$owner = $timer->owner;
 			$mode = $timer->mode;
 
-			if ($tleft >= 3599 && $tleft < 3601 && ((time() - $set_time) >= 30)) {
-				if ($name == $owner) {
-					$msg = "Reminder: Timer has <highlight>1 hour<end> left. [set by <highlight>$owner<end>]";
-				} else {
-					$msg = "Reminder: Timer <highlight>$name<end> has <highlight>1 hour<end> left. [set by <highlight>$owner<end>]";
-				}
-			} else if ($tleft >= 899 && $tleft < 901 && ((time() - $set_time) >= 30)) {
-				if ($name == $owner) {
-					$msg = "Reminder: Timer has <highlight>15 minutes<end> left [set by <highlight>$owner<end>]";
-				} else {
-					$msg = "Reminder: Timer <highlight>$name<end> has <highlight>15 minutes<end> left. [set by <highlight>$owner<end>]";
-				}
-			} else if ($tleft >= 59 && $tleft < 61 && ((time() - $set_time) >= 30)) {
-				if ($name == $owner) {
-					$msg = "Reminder: Timer has <highlight>1 minute<end> left [set by <highlight>$owner<end>]";
-				} else {
-					$msg = "Reminder: Timer <highlight>$name<end> has <highlight>1 minute<end> left. [set by <highlight>$owner<end>]";
-				}
-			} else if ($tleft <= 0) {
-				if ($tleft >= -600) {
-					if ($name == $owner) {
-						$msg = "<highlight>$owner<end> your timer has gone off.";
-					} else {
-						$msg = "<highlight>$owner<end> your timer named <highlight>$name<end> has gone off.";
-					}
-				}
-
-				$this->remove($name);
-				if ($timer->callback == 'repeating') {
-					$this->add($name, $owner, $mode, $timer->callback_param + $timer->timer, $timer->callback, $timer->callback_param);
-				}
-			}
-
-			if ('' != $msg) {
+			if ($timer->alerts[0]->time <= time()) {
+				$alert = array_shift($timer->alerts);
+				$msg = $alert->message;
+				
 				if ('priv' == $mode) {
 					$this->chatBot->sendPrivate($msg);
 				} else if ('guild' == $mode) {
@@ -118,6 +89,14 @@ class TimerController {
 				} else {
 					$this->chatBot->sendTell($msg, $owner);
 				}
+			}
+
+			if (count($timer->alerts) == 0) {
+				$this->remove($name);
+			}
+
+			if ($timer->callback == 'repeating') {
+				$this->add($name, $owner, $mode, $timer->callback_param + $timer->timer, null, $timer->callback, $timer->callback_param);
 			}
 		}
 
@@ -158,7 +137,7 @@ class TimerController {
 
 		$time = time() + $initialRunTime;
 
-		$this->add($timerName, $sender, $channel, $time, "repeating", $runTime);
+		$this->add($timerName, $sender, $channel, $time, null, "repeating", $runTime);
 
 		$initialTimerSet = $this->util->unixtime_to_readable($initialRunTime);
 		$timerSet = $this->util->unixtime_to_readable($runTime);
@@ -205,8 +184,8 @@ class TimerController {
 	
 	/**
 	 * @HandlesCommand("timers")
-	 * @Matches("/^(timers add|timers) ([a-z0-9]+) (.+)$/i")
 	 * @Matches("/^(timers add|timers) ([a-z0-9]+)$/i")
+	 * @Matches("/^(timers add|timers) ([a-z0-9]+) (.+)$/i")
 	 */
 	public function timersAddCommand($message, $channel, $sender, $sendto, $args) {
 		if (count($args) == 3) {
@@ -226,8 +205,42 @@ class TimerController {
 		$msg = $this->addTimer($sender, $name, $runTime, $channel);
 		$sendto->reply($msg);
 	}
+	
+	public function generateAlerts($sender, $name, $endTime) {
+		$alerts = array();
+		
+		if ($endTime - 60*60 > time()) {
+			$alert = new stdClass;
+			$alert->message = "Reminder: Timer <highlight>$name<end> has <highlight>1 hour<end> left. [set by <highlight>$sender<end>]";
+			$alert->time = $endTime - 60*60;
+			$alerts []= $alert;
+		}
+		
+		if ($endTime - 60*15 > time()) {
+			$alert = new stdClass;
+			$alert->message = "Reminder: Timer <highlight>$name<end> has <highlight>15 minutes<end> left. [set by <highlight>$sender<end>]";
+			$alert->time = $endTime - 60*15;
+			$alerts []= $alert;
+		}
+		
+		if ($endTime - 60 > time()) {
+			$alert = new stdClass;
+			$alert->message = "Reminder: Timer <highlight>$name<end> has <highlight>1 minute<end> left. [set by <highlight>$sender<end>]";
+			$alert->time = $endTime - 60;
+			$alerts []= $alert;
+		}
+		
+		if ($endTime > time()) {
+			$alert = new stdClass;
+			$alert->message = "<highlight>$sender<end> your timer named <highlight>$name<end> has gone off.";
+			$alert->time = $endTime;
+			$alerts []= $alert;
+		}
+		
+		return $alerts;
+	}
 
-	public function addTimer($sender, $name, $runTime, $channel) {
+	public function addTimer($sender, $name, $runTime, $channel, $alerts = null) {
 		if ($name == '') {
 			return;
 		}
@@ -240,9 +253,13 @@ class TimerController {
 			return "You must enter a valid time parameter.";
 		}
 
-		$timer = time() + $runTime;
+		$endTime = time() + $runTime;
+		
+		if ($alerts === null) {
+			$alerts = $this->generateAlerts($sender, $name, $endTime);
+		}
 
-		$this->add($name, $sender, $channel, $timer);
+		$this->add($name, $sender, $channel, $endTime, $alerts);
 
 		$timerset = $this->util->unixtime_to_readable($runTime);
 		return "Timer <highlight>$name<end> has been set for $timerset.";
@@ -280,10 +297,21 @@ class TimerController {
 		$sendto->reply($msg);
 	}
 
-	public function add($name, $owner, $mode, $time, $callback = null, $callback_param = null) {
-		$this->timers[strtolower($name)] = (object)array("name" => $name, "owner" => $owner, "mode" => $mode, "timer" => $time, "settime" => time(), 'callback' => $callback, 'callback_param' => $callback_param);
-		$sql = "INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`, `callback`, `callback_param`) VALUES (?, ?, ?, ?, ?, ?, ?)";
-		$this->db->exec($sql, $name, $owner, $mode, $time, time(), $callback, $callback_param);
+	public function add($name, $owner, $mode, $time, $alerts, $callback = null, $callback_param = null) {
+		$timer = new stdClass;
+		$timer->name = $name;
+		$timer->owner = $owner;
+		$timer->mode = $mode;
+		$timer->timer = $time;
+		$timer->settime = time();
+		$timer->callback = $callback;
+		$timer->callback_param = $callback_param;
+		$timer->alerts = $alerts;
+		
+		$this->timers[strtolower($name)] = $timer;
+		
+		$sql = "INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`, `callback`, `callback_param`, alerts) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		$this->db->exec($sql, $name, $owner, $mode, $time, time(), $callback, $callback_param, json_encode($alerts));
 	}
 
 	public function remove($name) {

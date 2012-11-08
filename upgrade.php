@@ -252,4 +252,9 @@
 	if ($db->get_type() == "mysql" && checkIfTableExists($db, "cmd_alias_<myname>") && getColumnType($db, 'cmd_alias_<myname>', 'cmd') != 'varchar(255)') {
 		upgrade($db, "ALTER TABLE cmd_alias_<myname> CHANGE COLUMN cmd cmd VARCHAR(255) NOT NULL");
 	}
+	
+	// add timers.alerts column
+	if (!checkIfColumnExists($db, "timers_<myname>", 'alerts')) {
+		upgrade($db, "ALTER TABLE timers_<myname> ADD COLUMN alerts TEXT");
+	}
 ?>
