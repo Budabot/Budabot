@@ -1,6 +1,12 @@
 @title Budabot Bot Manager
 python botmanager
 
+@echo OFF
+if errorlevel 1 goto pause
+exit
+:pause
+pause
+
 :: This file is part of Budabot.
 ::
 :: Budabot is free software: you can redistribute it and/org modify
