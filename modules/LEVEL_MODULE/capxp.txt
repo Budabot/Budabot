@@ -7,4 +7,4 @@ To show needed research % to cap xp
 
 You can also use <highlight>!capsk<end> ...the two are interchangeable
 
-If you are above level 200, specify the reward amount in sk. If you are under lvl 200, specify the reward amount in xp.  Ie. just copy paste the reward amount from your mission info-window.
+If you are level 200 or above, specify the reward amount in sk. If you are under level 200, specify the reward amount in xp.  Ie. just copy paste the reward amount from your mission info-window.

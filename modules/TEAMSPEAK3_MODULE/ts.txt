@@ -1,4 +1,4 @@
-<red>Note: Before you can use this plugin you have to set the Server data (over the settings cmd)<end>
+To show the current Teamspeak3 Server Status:
+<highlight><tab><symbol>ts<end>
 
-<highlight>To show the current Teamspeak3 Server Status:<end>
-<tab><symbol>ts
+Note: before you can use this plugin you have to set the Server data (over the settings cmd).

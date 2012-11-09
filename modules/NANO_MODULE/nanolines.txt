@@ -1,8 +1,8 @@
-<highlight>To show all professions that have nanolines:<end>
-<tab><symbol>nanolines
+To show all professions that have nanolines:
+<highlight><tab><symbol>nanolines<end>
 
-<highlight>To show the nanolines for a particular profession:<end>
-<tab><symbol>nanolines 'profession'
+To show the nanolines for a particular profession:
+<highlight><tab><symbol>nanolines 'profession'<end>
 
-<highlight>To show the nanos in a particular nanoline:<end>
-<tab><symbol>nanolines 'nanoline id'
+To show the nanos in a particular nanoline:
+<highlight><tab><symbol>nanolines 'nanoline id'<end>

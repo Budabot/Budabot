@@ -1,11 +1,11 @@
-<highlight>See a list of Ofab weapons and the type needed to upgrade:<end>
-<tab><symbol>ofabweapons
+To see a list of Ofab weapons and the type needed to upgrade:
+<highlight><tab><symbol>ofabweapons<end>
 
-<highlight>See all 6 marks for a particular Ofab weapon at ql 300:<end>
-<tab><symbol>ofabweapons 'ofabweapon'
+To see all 6 marks for a particular Ofab weapon at ql 300:
+<highlight><tab><symbol>ofabweapons 'ofabweapon'<end>
 
-<highlight>See all 6 marks for a particular Ofab weapon at a certain ql:<end>
-<tab><symbol>ofabweapons 'ofabweapon' 'ql'
+To see all 6 marks for a particular Ofab weapon at a certain ql:
+<highlight><tab><symbol>ofabweapons 'ofabweapon' 'ql'<end>
 
 <highlight>Valid Ofab weapons are:<end>
 <tab>Bear, Cobra, Hawk, Mongoose, Panther, Peregrine, Shark, Silverback, Tiger, Viper, Wolf

@@ -1,2 +1,2 @@
-<highlight>To see who is in the vent channel:<end>
-<tab><symbol>vent
+To see who is in the Ventrilo channel:
+<highlight><tab><symbol>vent<end>

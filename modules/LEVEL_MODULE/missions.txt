@@ -1,2 +1,2 @@
-<highlight>To see who can roll a specific ql mission:<end>
-<tab><symbol>missions 'insert ql here'
+To see who can roll a specific QL mission:
+<highlight><tab><symbol>missions 'QL'<end>

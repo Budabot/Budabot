@@ -1,5 +1,5 @@
-<highlight>To set a logon message use<end>
-<tab><symbol>logon 'insert message here'
+To set your logon message:
+<highlight><tab><symbol>logon 'logon message'<end>
 
-<highlight>To clear your logon message use<end>
-<tab><symbol>logon clear
+To clear your logon message:
+<highlight><tab><symbol>logon clear<end>

@@ -1,6 +1,6 @@
-<highlight>To show orgs who have attack or won battles in the last 2 hours:<end>
-<tab><symbol>penalty
-<tab><symbol>penalty 'time'
+To show orgs who have attack or won battles in the last 2 hours:
+<highlight><tab><symbol>penalty<end>
+<highlight><tab><symbol>penalty 'time'<end>
 
 Note: if you leave off the 'time' parameter, the bot will use 2 hours as the time.
 

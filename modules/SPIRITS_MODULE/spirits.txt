@@ -1,10 +1,20 @@
-<blue>This command will return a list of Spirits according to a set of user defined criteria.  All searches are ordered from lowest to highest in level.
+To return a list of Spirits that meet the specified criteria.  The syntax above must be used, i.e. a "-" must be used between the two values in a ql range, and a "," must be used to seperate the name and slot when searching by both.
+<highlight><tab><symbol>spirits 'ql'<end>
+<highlight><tab><symbol>spirits 'lowql-highql'<end>
+<highlight><tab><symbol>spirits 'name'<end>
+<highlight><tab><symbol>spirits 'slot'<end>
+<highlight><tab><symbol>spirits 'name' 'slot'<end>
+<highlight><tab><symbol>spirits 'ql' 'slot'<end>
+<highlight><tab><symbol>spirits 'lowql-highql' 'slot'<end>
 
-<tab><yellow><symbol>spirits (ql) (lowql-highql) (name) (slot) (name,slot) (ql slot) (lowql-highql slot)<end> Will return a list of Spirits that meet the specified criteria.  The syntax above must be used, i.e. a "-" must be used between the two values in a ql range, and a "," must be used to seperate the name and slot when searching by both.
+To return a list of Spirits that meet the specified criteria.  The syntax above must be used, i.e. a "-" must be used between the two values in a level range.
+<highlight><tab><symbol>spiritslvl 'level'<end>
+<highlight><tab><symbol>spiritslvl 'lowlevel-highlevel'<end>
+<highlight><tab><symbol>spiritslvl 'level' 'slot'<end>
+<highlight><tab><symbol>spiritslvl 'lowlevel-highlevel' 'slot'<end>
 
-<tab><yellow><symbol>spiritslvl (level) (lowlevel-highlevel) (level slot) (lowlevel-highlevel slot)<end> Will return a list of Spirits that meet the specified criteria.  The syntax above must be used, i.e. a "-" must be used between the two values in a level range.
+To return a list of spirits that require the specified amount of Agility:
+<highlight><tab><symbol>spiritsagi 'amount'<end>
 
-<tab><yellow><symbol>spiritsagi (#)<end> Will return a list of spirits that require the specified Agility level.
-
-<tab><yellow><symbol>spiritssen (#)<end> Will return a list of spirits that require the specified Sense level.  
-
+To return a list of spirits that require the specified amount of Sense:
+<highlight><tab><symbol>spiritssen 'amount'<end>

@@ -1,5 +1,5 @@
-<highlight>To use the minicalculator do:<end>
-<tab><symbol>calc 'insert your formula here'
+To use the calculator:
+<highlight><tab><symbol>calc 'insert your formula here'<end>
 
-<highlight>For example:<end>
-<tab><symbol>calc 1+1
+<header2>For example:<end>
+<highlight><tab><symbol>calc 1+1<end>

@@ -1,0 +1,8 @@
+To show all actions (invite, kick, leave) performed on and by an org member:
+<highlight><tab><symbol>!orghistory 'player'<end>
+
+To show the last 20 org actions (invite, kick, leave):
+<highlight><tab><symbol>!orghistory<end>
+
+To show page 2 of the last 20 org actions (invite, kick, leave):
+<highlight><tab><symbol>!orghistory 2<end>

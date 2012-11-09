@@ -1,5 +1,5 @@
-<highlight>To show a list of all playfields that contain org cities:<end>
-<tab><symbol>orgcities
+To show a list of all playfields that contain org cities:
+<highlight><tab><symbol>orgcities<end>
 
-<highlight>To the coords for all org cities in a playfield:<end>
-<tab><symbol>orgcities 'playfield'
+To show the coords for all org cities in a playfield:
+<highlight><tab><symbol>orgcities 'playfield'<end>

@@ -1,4 +1,2 @@
-<highlight>To look up the recipes on any item type:<end>
-<tab>recipe -drop your item here-
-
-Make sure you have a space between the word 'rec' and the item or it wont work.
+To look up the recipes:
+<tab>recipe 'item search'

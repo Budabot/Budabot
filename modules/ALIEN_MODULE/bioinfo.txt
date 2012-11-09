@@ -1,20 +1,5 @@
-<highlight>To see info on a particular bio material type:<end>
-<tab><symbol>bioinfo 'type'
+To see all bio material types:
+<highlight><tab><symbol>bioinfo<end>
 
-Valid types:
-<a href='chatcmd:///tell <myname> bioinfo 1'>Type 1</a>
-<a href='chatcmd:///tell <myname> bioinfo 2'>Type 2</a>
-<a href='chatcmd:///tell <myname> bioinfo 3'>Type 3</a>
-<a href='chatcmd:///tell <myname> bioinfo 4'>Type 4</a>
-<a href='chatcmd:///tell <myname> bioinfo 5'>Type 5</a>
-<a href='chatcmd:///tell <myname> bioinfo 12'>Type 12</a>
-<a href='chatcmd:///tell <myname> bioinfo 13'>Type 13</a>
-<a href='chatcmd:///tell <myname> bioinfo 48'>Type 48</a>
-<a href='chatcmd:///tell <myname> bioinfo 76'>Type 76</a>
-<a href='chatcmd:///tell <myname> bioinfo 112'>Type 112</a>
-<a href='chatcmd:///tell <myname> bioinfo 240'>Type 240</a>
-<a href='chatcmd:///tell <myname> bioinfo 880'>Type 880</a>
-<a href='chatcmd:///tell <myname> bioinfo 992'>Type 992</a>
-<a href='chatcmd:///tell <myname> bioinfo pristine'>Pristine</a>
-<a href='chatcmd:///tell <myname> bioinfo mutated'>Mutated</a>
-<a href='chatcmd:///tell <myname> bioinfo serum'>Serum</a>
+To see info on a particular bio material type:
+<highlight><tab><symbol>bioinfo 'type'<end>

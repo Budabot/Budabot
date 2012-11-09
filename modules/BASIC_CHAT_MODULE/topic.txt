@@ -1,10 +1,5 @@
-Info: The Topic will be shown when you join the private channel(as tell)
+To show the current topic:
+<highlight><tab><symbol>topic<end>
 
-<highlight>Show the current Topic<end>
-<tab><symbol>topic
-
-<highlight>Set a Topic<end>
-<tab><symbol>topic 'text'
-
-For example
-<tab><symbol>topic Some cool stuff is going on
+To set the topic:
+<highlight><tab><symbol>topic 'text'<end>

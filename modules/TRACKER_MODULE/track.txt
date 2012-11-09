@@ -1,11 +1,11 @@
-<highlight>To see the list of users on the track list:<end>
-<tab><symbol>track
+To see the list of users on the track list:
+<highlight><tab><symbol>track<end>
 
-<highlight>To see the track history for a specific player:<end>
-<tab><symbol>track player
+To see the track history for a specific player:
+<highlight><tab><symbol>track player<end>
 
-<highlight>To add a player to the track history:<end>
-<tab><symbol>track add player
+To add a player to the track history:
+<highlight><tab><symbol>track add player<end>
 
-<highlight>To remove a player from the track history:<end>
-<tab><symbol>track rem player
+To remove a player from the track history:
+<highlight><tab><symbol>track rem player<end>

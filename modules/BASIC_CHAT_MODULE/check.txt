@@ -1,8 +1,8 @@
-<highlight>Check on all player<end>
-<tab><symbol>check all
+To check for all players in vicinity:
+<highlight><tab><symbol>check all<end>
 
-<highlight>Check after proffessions<end>
-<tab><symbol>check prof
+To check for proffessions in vicinity:
+<highlight><tab><symbol>check prof<end>
 
-<highlight>Check after orgs<end>
-<tab><symbol>check org
+To check for orgs in vicinity:
+<highlight><tab><symbol>check org<end>

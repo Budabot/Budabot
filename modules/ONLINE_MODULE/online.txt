@@ -1,10 +1,6 @@
-<highlight>Show the online list<end>
-<tab><symbol>online
-<tab><symbol>online all
+To show the online list:
+<highlight><tab><symbol>online<end>
+<highlight><tab><symbol>online all<end>
 
-<highlight>Show the online list filtered by profession<end>
-<tab><symbol>online 'prof'
-
-<highlight>Valid profession names are:<end>
-<tab>adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, 
-<tab>shade, trad, all. Full profession names work as well.
+To show the online list filtered by profession:
+<highlight><tab><symbol>online 'prof'<end>

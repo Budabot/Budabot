@@ -1,14 +1,14 @@
-<highlight>Set yourself as leader or remove yourself as leader<end>
-<tab><symbol>leader
+To set yourself as leader or remove yourself as leader:
+<highlight><tab><symbol>leader<end>
 
-<highlight>Give someone else leader<end>
-<tab><symbol>leader 'player name'
+To give someone else leader:
+<highlight><tab><symbol>leader 'player name'<end>
 
-<highlight>See the current status of leaderecho<end>
-<tab><symbol>leaderecho
+To see the current status of leaderecho:
+<highlight><tab><symbol>leaderecho<end>
 
-<highlight>Enable leaderecho<end>
-<tab><symbol>leaderecho on
+To enable leaderecho:
+<highlight><tab><symbol>leaderecho on<end>
 
-<highlight>Disable leaderecho<end>
-<tab><symbol>leaderecho off
+To disable leaderecho:
+<highlight><tab><symbol>leaderecho off<end>

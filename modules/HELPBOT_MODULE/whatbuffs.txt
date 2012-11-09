@@ -1,9 +1,8 @@
-<font color=#3333CC>How to use 'what buffs what':</font>
-/tell <myname> <symbol>whatbuffs [<orange>skill<end>]
-[<orange>skill<end>] = full or partial name of the skill
+To look up items that buff skills or abilities:
+<highlight><tab><symbol>whatbuffs 'skill or ability'<end>
 
-Example:
-You want to know what item is commonly used to get extra computer literacy skill.
-<a href='chatcmd:///tell <myname> <symbol>whatbuffs comp lit'>/tell <myname> <symbol>whatbuffs comp lit</a>
+<header2>Example<end>
+To find what items can buff comp lit:
+<highlight><tab><symbol>whatbuffs comp lit<end>
 
 by Imoutochan, RK1

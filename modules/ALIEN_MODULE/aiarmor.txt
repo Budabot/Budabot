@@ -1,12 +1,12 @@
-<highlight>To show the Process for an Alien Armor piece do:<end>
-<tab><symbol>aiarmor 'type'
+To show the Process for an Alien Armor piece:
+<highlight><tab><symbol>aiarmor 'type'<end>
 
-<highlight>If you want to specify the QL do:<end>
-<tab><symbol>aiarmor 'type' 'ql of the armor'
-<highlight>Or<end>
-<tab><symbol>aiarmor 'ql of the armor' 'type'
+To show the Process for an Alien Armor piece at a certain QL:
+<highlight><tab><symbol>aiarmor 'type' 'ql'<end>
+or
+<highlight><tab><symbol>aiarmor 'ql' 'type'<end>
 
-<highlight>Allowed Types:<end>
+<header2>Allowed Types:<end>
 
 <highlight>- cc<end>
 <tab>Combined Commando's

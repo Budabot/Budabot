@@ -1,2 +1,5 @@
-<highlight>To see the LE procs for a specifc profession:<end>
-<tab><symbol>leprocs 'profession'
+To see a list of professions that have LE procs:
+<highlight><tab><symbol>leprocs<end>
+
+To see the LE procs for a specifc profession:
+<highlight><tab><symbol>leprocs 'profession'<end>

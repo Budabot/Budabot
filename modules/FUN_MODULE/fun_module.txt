@@ -1,38 +1,38 @@
-<highlight>Show a random Funcom quote<end>
-<tab><symbol>fc
+To show a random Funcom quote:
+<highlight><tab><symbol>fc<end>
 
-<highlight>Show a ding gratz message<end>
-<tab><symbol>ding 'insert you new level here'
-<tab><symbol>ding
+To show a ding gratz message:
+<highlight><tab><symbol>ding 'your new level'<end>
+<highlight><tab><symbol>ding<end>
 
-<highlight>Show a random doh message<end>
-<tab><symbol>doh
+To show a random doh message:
+<highlight><tab><symbol>doh<end>
 
-<highlight>Show a random beer message<end>
-<tab><symbol>beer
+To show a random beer message:
+<highlight><tab><symbol>beer<end>
 
-<highlight>Show a random credits message<end>
-<tab><symbol>credz
+To show a random credits message:
+<highlight><tab><symbol>credz<end>
 
-<highlight>Show a random Chuck Norris joke<end>
-<tab><symbol>chuck
+To show a random Chuck Norris joke:
+<highlight><tab><symbol>chuck<end>
 
-<highlight>Show a random cybor message<end>
-<tab><symbol>cybor
+To show a random cybor message:
+<highlight><tab><symbol>cybor<end>
 
-<highlight>Show a random Homer quote<end>
-<tab><symbol>homer
+To show a random Homer quote:
+<highlight><tab><symbol>homer<end>
 
-<highlight>Show a random Dwight quote<end> (Developed by Sicarius of Legion of Amra, an Age of Conan Guild on the Hyrkania server)
-<tab><symbol>dwight
+To show a random Dwight quote: (Developed by Sicarius of Legion of Amra, an Age of Conan Guild on the Hyrkania server)
+<highlight><tab><symbol>dwight<end>
 
-<highlight>Show a random Pink/Brain quote<end> (Developed by Mastura (RK2) of Shadow Ops)
-<tab><symbol>pinky
-<tab><symbol>brain
+To show a random Pink/Brain quote: (Developed by Mastura (RK2) of Shadow Ops)
+<highlight><tab><symbol>pinky<end>
+<highlight><tab><symbol>brain<end>
 
-<highlight>Show a random quotes from the movie Pirates of the Caribbeane<end>  (Developed by JungleGeorge (RK2))
-<tab><symbol>pirates
+To show a random quotes from the movie Pirates of the Caribbeane:  (Developed by JungleGeorge (RK2))
+<highlight><tab><symbol>pirates<end>
 
-<highlight>Let 2 people fight each other<end>
-<tab><symbol>fight 'Person1' vs 'Person2'
+To let two players fight each other:
+<highlight><tab><symbol>fight 'player1' vs 'player2'<end>
 Note: Chuck Norris never loses

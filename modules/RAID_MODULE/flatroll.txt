@@ -1,21 +1,23 @@
-<highlight>Adding an item to the list<end>
-<tab><symbol>loot 'item name'
+To add an item to the roll list:
+<highlight><tab><symbol>loot 'item name'<end>
 or
-<tab><symbol>loot 'item reference'
+<highlight><tab><symbol>loot 'item reference'<end>
 
-<tab><symbol>multiloot #x 'item reference' (e.g.: <symbol>multiloot 3x Lockpick)
+To add an item multiple times to the roll list:
+<highlight><tab><symbol>multiloot #x 'item reference'<end>
+(e.g.: <symbol>multiloot 3x Lockpick)
 
-<highlight>Removing an item from the list<end>
-<tab><symbol>remloot 'item number'
+To remove an item from the roll list:
+<highlight><tab><symbol>remloot 'item number'<end>
 
-<highlight>Clearing the list<end>
-<tab><symbol>loot clear
+To clear the roll list:
+<highlight><tab><symbol>loot clear<end>
 
-<highlight>Show the loot list<end>
-<tab><symbol>loot
+To show the roll list:
+<highlight><tab><symbol>loot<end>
 
-<highlight>Rolling the items<end>
-<tab><symbol>flatroll
+To roll the roll list:
+<highlight><tab><symbol>flatroll<end>
 
-<highlight>Re-adding remaining items after a roll<end>
-<tab><symbol>reroll
+To re-add remaining items after a roll:
+<highlight><tab><symbol>reroll<end>

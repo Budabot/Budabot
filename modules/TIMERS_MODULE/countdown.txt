@@ -1,9 +1,8 @@
-<orange>Note: This command will prevent the bot from responding to any other requests until the countdown finishes, so once it is run it can't be run again for another 30 seconds.<end>
+To create a 5 second countdown timer:
+<highlight><tab><symbol>countdown<end>
 
-<highlight>To create a 5 second countdown timer:<end>
-<tab><symbol>countdown
-
-<highlight>To create a 5 second countdown timer with a customized message:<end>
-<tab><symbol>countdown 'message'
+To create a 5 second countdown timer with a customized message:
+<highlight><tab><symbol>countdown 'message'<end>
 
 Note: <symbol>cd is a default alias for this command.
+Note: This command will prevent the bot from responding to any other requests until the countdown finishes, so once it is run it can't be run again for another 30 seconds.

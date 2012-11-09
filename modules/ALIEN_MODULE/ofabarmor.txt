@@ -1,11 +1,11 @@
-<highlight>See a list of professions and their LE bio types:<end>
-<tab><symbol>ofabarmor
+To see a list of professions and their LE bio types:
+<highlight><tab><symbol>ofabarmor<end>
 
-<highlight>See Ofab armor for a particular profession at ql 300:<end>
-<tab><symbol>ofabarmor 'profession'
+To see Ofab armor for a particular profession at ql 300:
+<highlight><tab><symbol>ofabarmor 'profession'<end>
 
-<highlight>See Ofab armor for a particular profession at a certain ql:<end>
-<tab><symbol>ofabarmor 'profession' 'ql'
+To see Ofab armor for a particular profession at a certain ql:
+<highlight><tab><symbol>ofabarmor 'profession' 'ql'<end>
 
 <highlight>Valid QL's are:<end>
 <tab>1, 25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, and 300.

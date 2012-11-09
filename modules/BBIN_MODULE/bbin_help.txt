@@ -2,7 +2,7 @@ To start the Budabot IRC network, a moderator or higher needs to do <highlight>/
 
 ...but before you do, please read these important setup instructions:
 
-In the bots <symbol>config, you will find the details that lets you control how and when you connect to BBIN.  If the BBIN-status reads 0 you are not currently connected to BBIN.  When it reads 1, it means a connection was successful.
+In <highlight><symbol>config BBIN_MODULE<end> you will find the details that lets you control how and when you connect to BBIN.  If the BBIN-status reads 0 you are not currently connected to BBIN.  When it reads 1, it means a connection was successful.
 
 There are various settings you need to set in order to connect to BBIN (All of them have been set by default, but you may customize them).  They are: the server address, the server port, the nickname the bot will use, and the irc channel it should connect to.
 

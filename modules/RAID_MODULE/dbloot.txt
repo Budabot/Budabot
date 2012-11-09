@@ -1,7 +1,7 @@
-This module is designed to assist in adding DB1/DB2 loot to a loot list.
+To view Dust Brigade 1 (Old DB/Twister) loot lists:
+<highlight><tab><symbol>db1<end>
 
-<highlight>To View Loot<end>
-<tab><symbol>db1 - DB1/Old DB/Twister
-<tab><symbol>db2 - DB2/New DB/Inside the Machine
+To view Dust Brigade 2 (New DB/Inside the Machine) loot lists:
+<highlight><tab><symbol>db2<end>
 
-<orange>Developed by <highlight>Chachy<end> (RK2), based on code for Pande Loot Module by <highlight>Marinerecon<end> (RK2)<end>
+Developed by <highlight>Chachy<end> (RK2), based on code for Pande Loot Module by <highlight>Marinerecon<end> (RK2)

@@ -1,2 +1,2 @@
-<highlight>To randomly order a list of elements:<end>
-<tab><symbol>random 'element 1' 'element 2' 'element 3' ...
+To randomly order a list of elements:
+<highlight><tab><symbol>random 'element 1' 'element 2' 'element 3' ...<end>

@@ -1,6 +1,4 @@
-This module is designed to assist in adding Albtraum loot to a loot list.
+To view the Albtraum loot list<end>
+<highlight><tab><symbol>alb<end>
 
-<highlight>To View Loot<end>
-<tab><symbol>alb - Albtraum
-
-<orange>Developed by <highlight>Dare2005<end> (RK2), based on code for DB Loot Module by <highlight>Chachy<end> (RK2)<end>
+Developed by <highlight>Dare2005<end> (RK2), based on code for DB Loot Module by <highlight>Chachy<end> (RK2)

@@ -1,11 +1,11 @@
-<highlight>Shows stats for implants at given ql<end>
-<tab><symbol>implant 'implant_ql'
+To shows stats for implants at given QL:
+<highlight><tab><symbol>implant 'QL'<end>
 
-<highlight>Shows implant for a given ability and treatment<end>
-<tab><symbol>implant 'ability_amount' 'treatment_skill'
+To shows highest QL implant for a given ability and treatment:
+<highlight><tab><symbol>implant 'ability' 'treatment'<end>
 
 For instance, if you had 404 agility and 951 treatment, you would do
-<tab><symbol>implant 404 951
+<highlight><tab><symbol>implant 404 951<end>
 And the bot would tell you the highest ql implant you could wear.
 
 Note that this command works for normal and refined implants from ql 1 up to ql 300, but not implants with Jobe clusters in them.

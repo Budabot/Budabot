@@ -1,5 +1,5 @@
-<highlight>To the current time and a list of time zones:<end>
-<tab><symbol>time
+To the current time and a list of time zones:
+<highlight><tab><symbol>time<end>
 
-<highlight>To show the current time in a specific time zone:<end>
-<tab><symbol>time 'timezone'
+To show the current time in a specific time zone:
+<highlight><tab><symbol>time 'timezone'<end>

@@ -1,12 +1,11 @@
-With this command you can list all members who recently logged on. It will take into account all organization member's ALTS when reporting their last logon time.
-
-To show recent members logon
+To show members who have logged on within a specified amount of time:
 <highlight><tab><symbol>recentseen 'time'<end>
 
-Example:
+Note: this will take into account each member's alts when reporting their last logon time.
 
- !recentseen 1d
- 
- List all org members who have logged on within 1 day.
+<header2>Example<end>
+<highlight><tab><symbol>recentseen 1d<end>
+
+This will list all org members who have logged on within 1 day.
 
 

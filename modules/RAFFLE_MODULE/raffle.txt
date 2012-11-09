@@ -1,20 +1,17 @@
-<highlight>Raffle off items (if count is given, else one item is raffled)<end>
-<tab><symbol>raffle start (count) 'item'
+To start a raffle:
+<highlight><tab><symbol>raffle start (count) 'item'<end>
 
-<highlight>Cancel the raffle immediately<end>
-<tab><symbol>raffle cancel
+To cancel the raffle immediately:
+<highlight><tab><symbol>raffle cancel<end>
 
-<highlight>End the raffle immediately and post the result<end>
-<tab><symbol>raffle end
+To end the raffle immediately and post the result:
+<highlight><tab><symbol>raffle end<end>
 
-<highlight>Display the last result again<end>
-<tab><symbol>raffle result
+To display the last raffle result:
+<highlight><tab><symbol>raffle result<end>
 
-<highlight>Join the raffle<end>
-<tab><symbol>raffle join
+To join the raffle:
+<highlight><tab><symbol>raffle join<end>
 
-<highlight>Leave the raffle<end>
-<tab><symbol>raffle leave
-
-<highlight>To change the raffle duration in minutes:<end>
-<tab><symbol>settings save defaultraffletime 'duration'
+To leave the raffle:
+<highlight><tab><symbol>raffle leave<end>

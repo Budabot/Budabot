@@ -1,8 +1,8 @@
-<highlight>See what a character's logoff message is set to:<end>
-<tab><symbol>logoffadmin 'character'
+To see what a player's logoff message is set to:
+<highlight><tab><symbol>logoffadmin 'player'<end>
 
-<highlight>Set a character's logoff message:<end>
-<tab><symbol>logoffadmin 'character' 'logon message'
+To set a player's logoff message:
+<highlight><tab><symbol>logoffadmin 'player' 'logoff message'<end>
 
-<highlight>Clear a character's logoff message:<end>
-<tab><symbol>logoffadmin 'character' clear
+To clear a player's logoff message:
+<highlight><tab><symbol>logoffadmin 'player' clear<end>

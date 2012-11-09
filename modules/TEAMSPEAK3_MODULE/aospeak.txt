@@ -1,12 +1,12 @@
-<highlight>Show all players AOSpeak server<end>
-<tab><symbol>aospeak
+To show all players AOSpeak server:
+<highlight><tab><symbol>aospeak<end>
 
-<highlight>Show org members currently connected to the AOSpeak server<end>
-<tab><symbol>aospeak org
-<orange>Note: Before you can use this command your org president must set up an org channel on the AOSpeak server.<end>
+To show org members currently connected to the AOSpeak server:
+<highlight><tab><symbol>aospeak org<end>
+Note: Before you can use this command your org president must set up an org channel on the AOSpeak server.
 
-<highlight>Show all players from RK1 on AOSpeak server<end>
-<tab><symbol>aospeak 1
+To show all players from RK1 on AOSpeak server:
+<highlight><tab><symbol>aospeak 1<end>
 
-<highlight>Show all players from RK2 on AOSpeak server<end>
-<tab><symbol>aospeak 2
+To show all players from RK2 on AOSpeak server:
+<highlight><tab><symbol>aospeak 2<end>

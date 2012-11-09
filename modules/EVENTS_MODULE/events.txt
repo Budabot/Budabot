@@ -1,24 +1,24 @@
-<highlight>To show the 5 closest past and upcoming events:<end>
-<tab><symbol>events
+To show the five closest past and upcoming events:
+<highlight><tab><symbol>events<end>
 
-<highlight>To add an event:<end>
-<tab><symbol>events add 'event name'
+To add an event:
+<highlight><tab><symbol>events add 'event name'<end>
 
-<i>An Event ID is returned when you submit an event. This is the ID you will use to change data regarding that event.</i>
+Note: An Event ID is returned when you submit an event. This is the ID you will use to change data regarding that event.
 
-<highlight>To remove an event:<end>
-<tab><symbol>events rem 'event id'
+To remove an event:
+<highlight><tab><symbol>events rem 'event id'<end>
 
-<highlight>To set an event's description:<end>
-<tab><symbol>events setdesc 'event id' 'event description'
+To set an event's description:
+<highlight><tab><symbol>events setdesc 'event id' 'event description'<end>
 
-<highlight>To set an event's Date/Time:<end>
-<tab><symbol>events setdate 'event id' 'yyyy-mm-dd hh:mm:ss'
+To set an event's Date/Time:
+<highlight><tab><symbol>events setdate 'event id' 'yyyy-mm-dd hh:mm:ss'<end>
 
-<i>Event Dates/Times should be entered in GMT, since the bot won't know what time zone the submitter is from.</i>
+Note: Event Dates/Times should be entered in UTC (GMT).
 
-<highlight>To join an event:<end>
-<tab><symbol>events join 'event id'
+To join an event:
+<highlight><tab><symbol>events join 'event id'<end>
 
-<highlight>To leave an event:<end>
-<tab><symbol>events leave 'event id'
+To leave an event:
+<highlight><tab><symbol>events leave 'event id'<end>

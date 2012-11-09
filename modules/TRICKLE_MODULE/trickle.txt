@@ -1,8 +1,8 @@
-<highlight>To show which and how much your skills will increase by increasing an ability:<end>
-<tab><symbol>trickle 'ability' 'amount'
+To show which and how much your skills will increase by increasing an ability:
+<highlight><tab><symbol>trickle 'ability' 'amount'<end>
 
 <highlight>Example:<end>
-<tab><symbol>trickle agi 20
-<tab><symbol>trickle agi 20 intel 40 psychic 60
+<highlight><tab><symbol>trickle agi 20<end>
+<highlight><tab><symbol>trickle agi 20 intel 40 psychic 60<end>
 
 Valid abilities are: agi, int, psy, sta, str, sen

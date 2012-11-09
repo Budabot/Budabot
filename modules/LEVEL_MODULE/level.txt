@@ -1,6 +1,2 @@
-<highlight>To see what missions you can do or with who you can team at a specific level<end>
-<tab><symbol>level 'insert level here'
-or
-<tab><symbol>lvl 'insert level here'
-
-These two commands shows a few infos about the given level, like team or pvp ranges.
+To information about a player level:
+<highlight><tab><symbol>level 'level'<end>

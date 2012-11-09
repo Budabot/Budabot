@@ -1,6 +1,58 @@
-This module is designed to assist in adding Pandemonium 'phatz boss' loot to a loot list.
+To view Pande bosses:
+<highlight><tab><symbol>pande<end>
 
-<highlight>To View Pande 'phatz bosses'<end>
-<tab><symbol>pande
+To view Shadowbreeds loot list:
+<highlight><tab><symbol>sb<end>
 
-<orange>Developed by <highlight>Marinerecon<end> (RK2)<end>
+To view Bastion loot list:
+<highlight><tab><symbol>bastion<end>
+
+To view Beast armor:
+<highlight><tab><symbol>beastarmor<end>
+
+To view Beast weapons:
+<highlight><tab><symbol>beastweaps<end>
+
+To view Beast stars
+<highlight><tab><symbol>beaststars<end>
+
+To view The Night Heart loot list:
+<highlight><tab><symbol>tnh<end>
+
+To view Aries loot list:
+<highlight><tab><symbol>aries<end>
+
+To view Leo loot list:
+<highlight><tab><symbol>leo<end>
+
+To view Virgo loot list:
+<highlight><tab><symbol>virgo<end>
+
+To view Aquarius loot list:
+<highlight><tab><symbol>aquarius<end>
+
+To view Cancer loot list:
+<highlight><tab><symbol>cancer<end>
+
+To view Gemini loot list:
+<highlight><tab><symbol>gemini<end>
+
+To view Libra loot list:
+<highlight><tab><symbol>libra<end>
+
+To view Pisces loot list:
+<highlight><tab><symbol>pisces<end>
+
+To view Taurus loot list:
+<highlight><tab><symbol>taurus<end>
+
+To view Capricorn loot list:
+<highlight><tab><symbol>capricorn<end>
+
+To view Sagittarius loot list:
+<highlight><tab><symbol>sagittarius<end>
+
+To view Scorpio loot list:
+<highlight><tab><symbol>scorpio<end>
+
+Developed by <highlight>Marinerecon<end> (RK2)

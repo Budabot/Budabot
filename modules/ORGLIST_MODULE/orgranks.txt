@@ -1,6 +1,6 @@
-<highlight>To show members of your own guild sorted by guild rank:<end>
-<tab><symbol>orgranks
+To show members of your own guild sorted by guild rank:
+<highlight><tab><symbol>orgranks<end>
 
-<highlight>To show members of another guild sorted by guild rank:<end>
-<tab><symbol>orgranks 'character'
-<tab><symbol>orgranks 'guild_id'
+To show members of another guild sorted by guild rank:
+<highlight><tab><symbol>orgranks 'character'<end>
+<highlight><tab><symbol>orgranks 'guild id'<end>

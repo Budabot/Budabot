@@ -1,38 +1,35 @@
-<highlight>To see a list of all the guides in alphabetical order:<end>
-<tab><symbol>guides
+To see a list of all the guides in alphabetical order:
+<highlight><tab><symbol>guides<end>
 
-<highlight>To see a basic overview of what guides are available:<end>
-<tab><symbol>guides help
+To see a specific guide:
+<highlight><tab><symbol>guides 'guide name'<end>
 
-<highlight>To see a specific guide<end>
-<tab><symbol>guides name_of_guide
+<header2>Common guides<end>
 
-<orange>Common guides<end>
+To see infomation about the different breeds:
+<highlight><tab><symbol>guides breed<end>
+<highlight><tab><symbol>breed<end>
 
-<highlight>To see infomation about the different breeds<end>
-<tab><symbol>guides breed
-<tab><symbol>breed
+To see infomation about healdelta:
+<highlight><tab><symbol>guides healdelta<end>
+<highlight><tab><symbol>healdelta<end>
 
-<highlight>To see infomation about healdelta<end>
-<tab><symbol>guides healdelta
-<tab><symbol>healdelta
+To see infomation about nanodelta:
+<highlight><tab><symbol>guides nanodelta<end>
+<highlight><tab><symbol>nanodelta<end>
 
-<highlight>To see infomation about nanodelta<end>
-<tab><symbol>guides nanodelta
-<tab><symbol>nanodelta
+To see options for reducing client-side lag:
+<highlight><tab><symbol>guides lag<end>
+<highlight><tab><symbol>lag<end>
 
-<highlight>To see options for reducing client-side lag<end>
-<tab><symbol>guides lag
-<tab><symbol>lag
+To see hidden character stats:
+<highlight><tab><symbol>guides stats<end>
+<highlight><tab><symbol>stats<end>
 
-<highlight>To see character stats not available from the skill window<end>
-<tab><symbol>guides stats
-<tab><symbol>stats
+To see nanos and items that buff abilities and common skills:
+<highlight><tab><symbol>guides buffs<end>
+<highlight><tab><symbol>buffs<end>
 
-<highlight>To see nanos and items that buff abilities and common skills<end>
-<tab><symbol>guides buffs
-<tab><symbol>buffs
-
-<highlight>To see information about title levels<end>
-<tab><symbol>guides title
-<tab><symbol>title
+To see information about title levels:
+<highlight><tab><symbol>guides title<end>
+<highlight><tab><symbol>title<end>

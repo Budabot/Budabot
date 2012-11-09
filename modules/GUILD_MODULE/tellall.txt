@@ -1,2 +1,2 @@
-<highlight>Send a tell to all online guild members<end>
-<tab><symbol>tellall 'message'
+To send a tell to all online guild members:
+<highlight><tab><symbol>tellall 'message'<end>

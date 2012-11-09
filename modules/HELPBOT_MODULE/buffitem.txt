@@ -1,9 +1,8 @@
-<font color=#3333CC>Buffitem:</font>
-/tell <myname> <symbol>buffitem [<orange>name<end>]
-[<orange>name<end>] = full or partial name of the item
+To look up buff items:
+<highlight><tab><symbol>buffitem 'item name'<end>
 
-Example:
-You want to look up Nova Dillon armor.
-<a href='chatcmd:///tell <myname> <symbol>buffitem nova dil'>/tell <myname> <symbol>buffitem nova dil</a>
+<header2>Example<end>
+To to look up Nova Dillon armor:
+<highlight><tab><symbol>buffitem nova dil<end>
 
 by Imoutochan, RK1

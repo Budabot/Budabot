@@ -1,9 +1,7 @@
-<highlight>To show where to get Doja Chips, and what level they require.<end>
+To show a info about all Doja Chips:
+<highlight><tab><symbol>doja<end>
 
-To show a info about all Doja Chips
-<tab><symbol>doja
-
-To show which Doja Chip you need at your level (1 - 220)
-<tab><symbol>doja 'insert level here'
+To show which Doja Chip you need at your level (1 - 220):
+<highlight><tab><symbol>doja 'insert level here'<end>
 
 Written by Mackten (RK1), with special thanks to Marebone (RK2)

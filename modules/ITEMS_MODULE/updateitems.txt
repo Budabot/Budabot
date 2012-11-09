@@ -1,2 +1,2 @@
-<highlight>To update your local items db:<end>
-<tab><symbol>updateitems
+To update the local items db:
+<highlight><tab><symbol>updateitems<end>

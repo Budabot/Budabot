@@ -1,11 +1,11 @@
-<highlight>Show a list of symbiants and which pocketboss drops it:<end>
-<tab><symbol>symb 'slotname' 'type'
+To show a list of symbiants and which pocketboss drops it:
+<highlight><tab><symbol>symb 'slotname' 'type'<end>
 
-<highlight>Show all symbiants of a certain type:<end>
-<tab><symbol>symb 'type'
+To show all symbiants of a certain type:
+<highlight><tab><symbol>symb 'type'<end>
 
-<highlight>Show all symbiants which go in a certain slot:<end>
-<tab><symbol>symb 'slot'
+To show all symbiants which go in a certain slot:
+<highlight><tab><symbol>symb 'slot'<end>
 
 Allowed Slotnames
 <tab>- eye

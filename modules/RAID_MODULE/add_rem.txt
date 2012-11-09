@@ -1,5 +1,5 @@
-<highlight>Joining a roll<end>
-<tab><symbol>add 'spot number'
+To join a roll:
+<highlight><tab><symbol>add 'loot number'<end>
 
-<highlight>Leaving a roll<end>
-<tab><symbol>rem
+To leave a roll:
+<highlight><tab><symbol>rem<end>

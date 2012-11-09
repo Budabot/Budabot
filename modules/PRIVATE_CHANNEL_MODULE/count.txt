@@ -1,13 +1,13 @@
-<highlight>Show how many people are in the private channel list grouped by level<end>
-<tab><symbol>count level
-<tab><symbol>count lvl
+To show how many people are in the private channel grouped by level:
+<highlight><tab><symbol>count level<end>
+<highlight><tab><symbol>count lvl<end>
 
-<highlight>Show how many people are in the private channel list grouped by profession<end>
-<tab><symbol>count all
-<tab><symbol>count prof
+To show how many people are in the private channel grouped by profession:
+<highlight><tab><symbol>count all<end>
+<highlight><tab><symbol>count prof<end>
 
-<highlight>Show how many people are in the private channel list grouped by organization<end>
-<tab><symbol>count org
+To show how many people are in the private channel grouped by organization:
+<highlight><tab><symbol>count org<end>
 
-<highlight>Show how many people are in the private channel list of a particular profession<end>
-<tab><symbol>count 'prof'
+To show how many people are in the private channel of a particular profession:
+<highlight><tab><symbol>count 'prof'<end>

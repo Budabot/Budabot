@@ -2,7 +2,7 @@ To start the IRC relay, a moderator or higher needs to do <highlight>/tell <myna
 
 ...but before you do, please read these important setup instructions:
 
-In the bots <symbol>settings, you will find the details that lets you control how and when you connect to IRC.  If the IRC-status reads 0 you are not currently connected to IRC.  When it reads 1, it means a connection was successful.
+In <highlight><symbol>config IRC_MODULE<end> you will find the details that lets you control how and when you connect to IRC.  If the IRC-status reads 0 you are not currently connected to IRC.  When it reads 1, it means a connection was successful.
 
 There are various settings you need to set in order to connect to IRC (All of them have been set by default, but you may customize them).  They are: the server address, the server port, the nickname the bot will use, and the irc channel it should connect to.
 

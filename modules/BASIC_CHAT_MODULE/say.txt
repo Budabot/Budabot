@@ -1,5 +1,5 @@
-<highlight>To have the bot say something in the org channel:<end>
-<tab><symbol>say org 'message'
+To have the bot say something in the org channel:
+<highlight><tab><symbol>say org 'message'<end>
 
-<highlight>To have the bot say something in the private channel:<end>
-<tab><symbol>say priv 'message'
+To have the bot say something in the private channel:
+<highlight><tab><symbol>say priv 'message'<end>

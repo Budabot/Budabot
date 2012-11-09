@@ -1,11 +1,8 @@
-<highlight>To show all yours notes:<end>
-<tab><symbol>notes
+To show all yours notes:
+<highlight><tab><symbol>notes<end>
 
+To add a note to your list:
+<highlight><tab><symbol>notes add 'message'<end>
 
-<highlight>To add a note to your list:<end>
-<tab><symbol>notes add 'message'
-
-
-<highlight>To remove a note from your list:<end>
-<tab><symbol>notes rem 'note id'
-
+To remove a note from your list:
+<highlight><tab><symbol>notes rem 'note id'<end>

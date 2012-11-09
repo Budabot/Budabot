@@ -1,11 +1,11 @@
-<highlight>To list the bank characters in the database:<end>
-<tab><symbol>bank browse
+To list the bank characters in the database:
+<highlight><tab><symbol>bank browse<end>
 
-<highlight>to list the backpacks of a particular bank character:<end>
-<tab><symbol>bank browse 'character'
+To list the backpacks of a particular bank character:
+<highlight><tab><symbol>bank browse 'character'<end>
 
-<highlight>To see the contents of a backpack on a bank character<end>
-<tab><symbol>bank browse 'character' 'backpackname'
+To see the contents of a backpack on a bank character:
+<highlight><tab><symbol>bank browse 'character' 'backpackname'<end>
 
-<highlight>To search for an item on a bank character<end>
-<tab><symbol>bank search 'items to search for'
+To search for an item on a bank character:
+<highlight><tab><symbol>bank search 'items to search for'<end>

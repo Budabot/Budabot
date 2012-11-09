@@ -1,23 +1,23 @@
 <header2>Alien Knowledge(AXP)<end>
 
-To show a list of all Alien Levels
-<tab><symbol>axp
+To show a list of all Alien Levels:
+<highlight><tab><symbol>axp<end>
 
-To show how much axp you need from a level to another
-<tab><symbol>axp 'Insert Startlevel' 'Insert Endlevel'
+To show how much axp you need from a level to another:
+<highlight><tab><symbol>axp 'Insert Startlevel' 'Insert Endlevel'<end>
 
 <header2>Experience(XP)<end>
 
-To show needed XP for a single Levels
-<tab><symbol>xp 'Insert Level'
+To show needed XP for a single Levels:
+<highlight><tab><symbol>xp 'Insert Level'<end>
 
-To show how much xp you need from a level to another
-<tab><symbol>xp 'Insert Startlevel' 'Insert Endlevel'
+To show how much xp you need from a level to another:
+<highlight><tab><symbol>xp 'Insert Startlevel' 'Insert Endlevel'<end>
 
 <header2>Shadow Knowledge(SK)<end>
 
-To show needed SK for a single Levels
-<tab><symbol>sk 'Insert Level'
+To show needed SK for a single Levels:
+<highlight><tab><symbol>sk 'Insert Level'<end>
 
-To show how much sk you need from a level to another
-<tab><symbol>sk 'Insert Startlevel' 'Insert Endlevel'
+To show how much sk you need from a level to another:
+<highlight><tab><symbol>sk 'Insert Startlevel' 'Insert Endlevel'<end>

@@ -1,12 +1,12 @@
-The Wave Counter should start and end automatically when enabled but you can manually start and end it if you desire.
+To show the current wave:
+<highlight><tab><symbol>citywave<end>
 
-<highlight>Start the wave timer<end>
-<tab><symbol>startwave
+To start the wave timer:
+<highlight><tab><symbol>startwave<end>
 
-<highlight>Stop the wave timer<end>
-<tab><symbol>stopwave
+To stop the wave timer:
+<highlight><tab><symbol>stopwave<end>
 
-<highlight>Show the current wave<end>
-<tab><symbol>citywave
+Note: the Wave Counter should start and end automatically and normally these commands are not needed.
 
 By Funkman (RK2)

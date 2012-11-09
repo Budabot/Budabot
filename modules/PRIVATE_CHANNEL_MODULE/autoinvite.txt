@@ -1,5 +1,5 @@
-<highlight>To set your autoinvite preference to on:<end>
-<tab><symbol>autoinvite on
+To set your autoinvite preference to on:
+<highlight><tab><symbol>autoinvite on<end>
 
-<highlight>To set your autoinvite preference to off:<end>
-<tab><symbol>autoinvite off
+To set your autoinvite preference to off:
+<highlight><tab><symbol>autoinvite off<end>

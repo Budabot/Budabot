@@ -1,5 +1,5 @@
-<highlight>This command shows you infos about different locations or NPCs<end>
-<tab><symbol>whereis 'location or NPC'
+To show the location of NPCs or places:
+<highlight><tab><symbol>whereis 'place or NPC'<end>
 
-<highlight>Example:<end>
-<tab><symbol>whereis elmer ragg
+<header2>Example:<end>
+<highlight><tab><symbol>whereis elmer ragg<end>

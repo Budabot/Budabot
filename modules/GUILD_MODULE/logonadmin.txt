@@ -1,8 +1,8 @@
-<highlight>See what a character's logon message is set to:<end>
-<tab><symbol>logonadmin 'character'
+To see what a player's logon message is set to:
+<highlight><tab><symbol>logonadmin 'player'<end>
 
-<highlight>Set a character's logon message:<end>
-<tab><symbol>logonadmin 'character' 'logon message'
+To set a player's logon message:
+<highlight><tab><symbol>logonadmin 'player' 'logon message'<end>
 
-<highlight>Clear a character's logon message:<end>
-<tab><symbol>logonadmin 'character' clear
+To clear a player's logon message:
+<highlight><tab><symbol>logonadmin 'player' clear<end>

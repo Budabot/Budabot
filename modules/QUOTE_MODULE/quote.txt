@@ -1,17 +1,20 @@
-<highlight>View random quote:<end>
-<tab><symbol>quote
+To view a random quote:
+<highlight><tab><symbol>quote<end>
 
-<highlight>View a specific quote:<end>
-<tab><symbol>quote 1
+To view a specific quote:
+<highlight><tab><symbol>quote 'quote id'<end>
 
-<highlight>Search for specific author/victim/text:<end>
-<tab><symbol>quote search person/text
+To search for specific author/victim/text:
+<highlight><tab><symbol>quote search 'person/text'<end>
 
-<highlight>View statistics (most quoters/quoted):<end>
-<tab><symbol>quote stats  (page gets updated once a day)
+To view quote statistics (most quoters/quoted):
+<highlight><tab><symbol>quote stats  (page gets updated once a day)<end>
 
-<highlight>Add a quote:<end>
-<tab><symbol>quote add message
+To remove a quote:
+<highlight><tab><symbol>quote rem 'quote id'<end>
+
+To add a quote:
+<highlight><tab><symbol>quote add 'quote'<end>
 
 ** <highlight>When adding a quote, try to grab the quote to something like these examples, in order for module to determine who wrote it:<end>
 <tab>To [Person]: message
@@ -20,6 +23,3 @@
 <tab>Person shouts: message
 <tab>Person whispers: message
 <tab>Person: message
-
-<highlight>Remove a quote:<end>
-<tab><symbol>quote rem 1

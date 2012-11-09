@@ -1,2 +1,2 @@
-<highlight>To force an update of the orgroster do:<end>
-<tab><symbol>updateorg
+To force an update of the org roster:
+<highlight><tab><symbol>updateorg<end>

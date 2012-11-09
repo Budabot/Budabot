@@ -1,2 +1,2 @@
-<highlight>Kick everyone out of the Bot after 10 seconds<end>
-<tab><symbol>kickall
+To kick everyone out of the private channel after 10 seconds:
+<highlight><tab><symbol>kickall<end>

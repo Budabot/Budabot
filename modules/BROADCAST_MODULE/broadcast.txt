@@ -1,10 +1,10 @@
-The BROADCAST_MODULE allows you to receive tells from other bots and then relay those into your guild channel.
+To show the list of players on the broadcast list:
+<highlight><tab><symbol>broadcast<end>
 
-<highlight>Show the list of characters on the broadcast list<end>
-<tab><symbol>broadcast
+To add a player to the broadcast list:
+<highlight><tab><symbol>broadcast add 'player'<end>
 
-<highlight>Add a character to the broadcast list<end>
-<tab><symbol>broadcast add 'character'
+To remove a player from the broadcast list:
+<highlight><tab><symbol>broadcast rem 'player'<end>
 
-<highlight>Remove a character from the broadcast list<end>
-<tab><symbol>broadcast rem 'character'
+Note: the BROADCAST_MODULE allows you to receive tells from other bots and then relay those into your guild channel.

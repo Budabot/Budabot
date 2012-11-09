@@ -36,7 +36,7 @@
  *		command     = "orghistory", 
  *		accessLevel = "guild", 
  *		description = "Shows the org history (invites and kicks and leaves) for a player", 
- *		help        = "org_history.txt"
+ *		help        = "orghistory.txt"
  *	)
  *	@DefineCommand(
  *		command     = "lastseen", 

@@ -1,8 +1,4 @@
-This module is designed to help you figure out who's been inactive within the org for a <highlight>specified<end> number of months or more.  This is especially useful to know if you org is reaching 1k+ members and the bot is having subsequent buddy list issues.
-
-To show inactive members
+To show members who have not logged on for a specified amount of time:
 <highlight><tab><symbol>inactivemem 'time'<end>
 
 See <a href='chatcmd:///tell <myname> help budatime'><symbol>help budatime</a> for info on the format of the 'time' parameter.
-
-**Important: The kick function/link actually runs a script on your computer that will send a generic message/tell to the kicked org member letting them know why they've been kicked and how to get a reinvite.  Please copy the file called "<highlight>k<end>" (included with this module) to your Anarchy Online\Scripts\ folder.  You can open up the "k" file in notepad to custom-edit the message that will get sent to kicked org mates.

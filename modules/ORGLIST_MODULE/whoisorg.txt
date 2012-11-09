@@ -1,11 +1,11 @@
-<highlight>Show info about an org on the current server by the org id<end>
-<tab><symbol>whoisorg 'org id'
+To shhow info about an org on the current server:
+<highlight><tab><symbol>whoisorg 'org id'<end>
 
-<highlight>Show info about an org on the current server by a character in that org<end>
-<tab><symbol>whoisorg 'character'
+To show info about a player's org on the current server:
+<highlight><tab><symbol>whoisorg 'player'<end>
 
-<highlight>Show info about an org on a specified server by the org id<end>
-<tab><symbol>whoisorg 'org id' 'server number'
+To show info about an org on a specified server:
+<highlight><tab><symbol>whoisorg 'org id' 'server number'<end>
 
-<highlight>Show info about an org on a specified server by a character in that org<end>
-<tab><symbol>whoisorg 'character' 'server number'
+To show info about a player's org on a specified server:
+<highlight><tab><symbol>whoisorg 'player' 'server number'<end>

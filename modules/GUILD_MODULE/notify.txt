@@ -1,7 +1,5 @@
-<red>Use this only if autonotify is not available!<end>
+To manually add a player to the notify list:
+<highlight><tab><symbol>notify on 'player'<end>
 
-<highlight>Adding someone to the notify list<end>
-<tab><symbol>notify on 'insert name here'
-
-<highlight>Remove someone from the notify list<end>
-<tab><symbol>notify off 'insert name here'
+To manually remove a player from the notify list:
+<highlight><tab><symbol>notify off 'player'<end>

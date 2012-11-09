@@ -1,7 +1,3 @@
-<highlight>To see the loot of a specific sector do<end>
-<tab><symbol>apf 'Sector number'
+To see the loot of a specific sector:
+<highlight><tab><symbol>apf 'sector number'<end>
 <tab>(Allowed Sector numbers are 13, 28 and 35)
-
-For example
-<tab><symbol>apf 13
-shows what drops from the Generals in Sector 13 and which use they have.

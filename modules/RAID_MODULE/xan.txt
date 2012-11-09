@@ -1,13 +1,13 @@
-<highlight>To View Xan raids<end>
-<tab><symbol>xan
+To view Xan raids:
+<highlight><tab><symbol>xan<end>
 
-<highlight>To View Vortexx loot<end>
-<tab><symbol>vortexx
+To view Vortexx loot list:
+<highlight><tab><symbol>vortexx<end>
 
-<highlight>To View Mitaar Hero loot<end>
-<tab><symbol>mitaar
+To view Mitaar Hero loot list:
+<highlight><tab><symbol>mitaar<end>
 
-<highlight>To View 12 Man loot<end>
-<tab><symbol>12m
+To view 12 Man loot list:
+<highlight><tab><symbol>12m<end>
 
-<orange>Developed by Morgo (RK2)<end>
+Developed by Morgo (RK2)

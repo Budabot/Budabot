@@ -1,5 +1,5 @@
-<highlight>To start the stopwatch:<end>
-<tab><symbol>stopwatch start
+To start the stopwatch:
+<highlight><tab><symbol>stopwatch start<end>
 
-<highlight>To stop the stopwatch and show the time elapsed:<end>
-<tab><symbol>stopwatch stop
+To stop the stopwatch and show the time elapsed:
+<highlight><tab><symbol>stopwatch stop<end>

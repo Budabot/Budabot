@@ -1,25 +1,25 @@
-<highlight>To see the last 20 attack messages:<end>
-<tab><symbol>attacks
+To see the last 20 attack messages:
+<highlight><tab><symbol>attacks<end>
 
-<highlight>To see page 2 of the last attack messages:<end>
-<tab><symbol>attacks 'page number'
+To see page 2 of the last attack messages:
+<highlight><tab><symbol>attacks 'page number'<end>
 
-<highlight>To see the last 20 attack messages for a certain site:<end>
-<tab><symbol>attacks 'playfield' 'site number'
+To see the last 20 attack messages for a certain site:
+<highlight><tab><symbol>attacks 'playfield' 'site number'<end>
 
-<highlight>To see page 2 of the last attack messages for a certain site:<end>
-<tab><symbol>attacks 'playfield' 'site number' 'page number'
+To see page 2 of the last attack messages for a certain site:
+<highlight><tab><symbol>attacks 'playfield' 'site number' 'page number'<end>
 
-<highlight>To see the last 20 attack messages for specific person:<end>
-<tab><symbol>attacks player 'character name'
+To see the last 20 attack messages for specific person:
+<highlight><tab><symbol>attacks player 'character name'<end>
 
-<highlight>To see page 2 of the last attack messages for specific person:<end>
-<tab><symbol>attacks player 'character name' 'page number'
+To see page 2 of the last attack messages for specific person:
+<highlight><tab><symbol>attacks player 'character name' 'page number'<end>
 
-<highlight>To see the last 20 attack messages for specific guild:<end>
-<tab><symbol>attacks org 'exact guild name'
+To see the last 20 attack messages for specific guild:
+<highlight><tab><symbol>attacks org 'exact guild name'<end>
 
-<highlight>To see page 2 of the last attack messages for specific guild:<end>
-<tab><symbol>attacks org 'exact guild name' 'page number'
+To see page 2 of the last attack messages for specific guild:
+<highlight><tab><symbol>attacks org 'exact guild name' 'page number'<end>
 
-Note: You can use '%' as a wildcard in guild and player names
+Note: you can use '%' as a wildcard in guild and player names

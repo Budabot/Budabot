@@ -1,5 +1,5 @@
-To see info about the Alien City Generals(like which Viralbots/items they drop) do
-<tab><symbol>aigen 'type'
+To see info about the Alien City Generals:
+<highlight><tab><symbol>aigen 'type'<end>
 
 Allowed types are:
 <highlight>ilari, rimah, jaax, ankari, xoch or cha<end>

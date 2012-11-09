@@ -1,14 +1,14 @@
-<highlight>To update the bot from SVN:<end>
-<tab><symbol>svn update
+To update the bot from SVN:
+<highlight><tab><symbol>svn update<end>
 
-<highlight>To do a dry run update from SVN (no files actually changed):<end>
-<tab><symbol>svn dry
+To do a dry run update from SVN (no files actually changed):
+<highlight><tab><symbol>svn dry<end>
 
-<highlight>To see information on the current SVN repository the bot was checked out from:<end>
-<tab><symbol>svn info
+To see information on the current SVN repository the bot was checked out from:
+<highlight><tab><symbol>svn info<end>
 
-<highlight>To see SVN status on changed/added/deleted files:<end>
-<tab><symbol>svn status
+To see SVN status on changed/added/deleted files:
+<highlight><tab><symbol>svn status<end>
 
-<highlight>To see SVN status on a particular file:<end>
-<tab><symbol>svn status 'filepath'
+To see SVN status on a particular file:
+<highlight><tab><symbol>svn status 'filepath'<end>

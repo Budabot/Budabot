@@ -1,11 +1,11 @@
-<highlight>To see the list whompah cities:<end>
-<tab><symbol>whompah
+To see the list whompah cities:
+<highlight><tab><symbol>whompah<end>
 
-<highlight>To see the list of destinations for a whompah city:<end>
-<tab><symbol>whompah 'city'
+To see the list of destinations for a whompah city:
+<highlight><tab><symbol>whompah 'city'<end>
 
-<highlight>To see a whompah path from one city to another:<end>
-<tab><symbol>whompah 'city1' 'city2'
+To see a whompah path from one city to another:
+<highlight><tab><symbol>whompah 'city1' 'city2'<end>
 
-Written By Tyrence (RK2)
+Written by Tyrence (RK2)
 Database from a Bebot module written by POD13

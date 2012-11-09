@@ -1,23 +1,23 @@
-<highlight>To show who is in the private channel<end>
-<tab><symbol>sm
+To show who is in the private channel:
+<highlight><tab><symbol>sm<end>
 
-<highlight>To invite someone to private channel<end>
-<tab><symbol>inviteuser 'insert name here'
+To invite a player to the private channel:
+<highlight><tab><symbol>inviteuser 'player'<end>
 
-<highlight>To kick someone from private channel<end>
-<tab><symbol>kickuser 'insert name here'
+To kick a player from the private channel
+<highlight><tab><symbol>kickuser 'player'<end>
 
-<highlight>To add someone to the guestlist(he will get auto-invited after he logs on)<end>
-<tab><symbol>adduser 'insert name here'
+To add a player to the guestlist(he will get auto-invited after he logs on):
+<highlight><tab><symbol>adduser 'player'<end>
 
-<highlight>To remove someone from the guestlist<end>
-<tab><symbol>remuser 'insert name here'
+To remove a player from the guestlist:
+<highlight><tab><symbol>remuser 'player'<end>
 
-<highlight>To show who is on the guestlist<end>
-<tab><symbol>members
+To show who is on the guestlist:
+<highlight><tab><symbol>members<end>
 
-<highlight>To join the Bot<end>
-<tab><symbol>join
+To join the private channel:
+<highlight><tab><symbol>join<end>
 
-<highlight>To leave the bot<end>
-<tab><symbol>leave
+To leave the private channel:
+<highlight><tab><symbol>leave<end>

@@ -1,27 +1,32 @@
-<highlight>Start a new vote:<end>
-<tab><symbol>vote add 'time'|'topic'|'option'|'option'...
+To remove a vote from a vote topic:
+<highlight><tab><symbol>vote remove 'topic'<end>
 
-<highlight>eg:<end><symbol>vote add 4d3h2m1s|WHAT... Is your favorite color?!?|Blue|Yellow
-<highlight>eg:A vote for: 'WHAT... Is your favorite color?!?' with two options: 'Blue and Yellow' with a deadline of: 4 days, 3 hours, 2 minutes, 1 second.<end>
+To vote for a vote topic:
+<highlight><tab><symbol>vote choose 'topic'<end>
 
-<highlight>When 'vote_add_new_choices' is set to yes, the person who initiated the vote can set whether or not voters can create there own choices.<end>
+To start a new vote topic:
+<highlight><tab><symbol>vote add 'time'|'topic'|'option'|'option'...<end>
 
-<highlight>Allow voters to add in there own choice.<end>
-<tab><symbol>vote add 1h|WHAT... Is your favorite color?!?|Blue|Yellow
-<highlight>Prevent voters to add in there own choice.<end>
-<tab><symbol>vote add 1h|@WHAT... Is your favorite color?!?|Blue|Yellow
+<header2>Example<end>
+<highlight><tab><symbol>vote add 4d3h2m1s|WHAT... Is your favorite color?!?|Blue|Yellow<end>
+A vote topic for: 'WHAT... Is your favorite color?!?' with two options: 'Blue and Yellow' with a deadline of: 4 days, 3 hours, 2 minutes, 1 second.<end>
 
-<highlight>To see all the votes:<end>
-<tab><symbol>vote
+When 'vote_add_new_choices' is set to yes, the person who initiated the vote topic can set whether or not voters can create their own choices.
 
-<highlight>View specific vote:<end>
-<tab><symbol>vote show 'topic'
+To allow voters to add in their own choice:
+<highlight><tab><symbol>vote add 1h|WHAT... Is your favorite color?!?|Blue|Yellow<end>
 
-<highlight>Delete a vote: (Topic and all votes)<end>
-<tab><symbol>vote kill 'topic'  <highlight> Or press the Kill link in specific vote<end>
+To prevent voters to add in their own choice:
+<highlight><tab><symbol>vote add 1h|@WHAT... Is your favorite color?!?|Blue|Yellow<end>
 
-<highlight>Remove a vote: (Personal vote only)<end>
-<tab><symbol>vote remove 'topic'  <highlight> Or press the Remove yourself link in specific vote<end>
+To see all the vote topics:
+<highlight><tab><symbol>vote<end>
 
-<highlight>End a vote: (change duration so vote ends in 60 seconds.)<end>
-<tab><symbol>vote end 'topic'  <highlight> Or press the End link in specific vote<end>
+To view a specific vote topic:
+<highlight><tab><symbol>vote show 'topic'<end>
+
+To delete a vote topic:
+<highlight><tab><symbol>vote kill 'topic'<end>
+
+To end a vote topic (vote will end in 60 seconds):
+<highlight><tab><symbol>vote end 'topic'<end>

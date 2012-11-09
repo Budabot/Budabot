@@ -1,5 +1,5 @@
-<blue>This command will give onformation regarding the amount of SK/XP needed to attain different Research levels, as well as the Level you need to be to attain the different Research Levels.
+To show information about a specified research level:
+<highlight><tab><symbol>research 'level'<end>
 
-<tab><yellow><symbol>research (#)<end>  Will return the amount of SK you need to get the specified level.  It will also return the minimum level you need to be, and will convert the SK into the equivelent amount of XP
-
-<tab><yellow><symbol>research (low# High#) Will return the amount of SK between the specified levels.  It will also return the level you need to be to attain the higher of the two ueried levels, and also converts the needed SK to the needed XP
+To show the amount of SK needed from one research level to another:
+<highlight><tab><symbol>research 'start level' 'end level'<end>

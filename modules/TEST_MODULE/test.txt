@@ -1,6 +1,5 @@
-<highlight>To run tests on the bot:<end>
-<tab><symbol>test
-
-!testorgjoin
-!testtowerattack
-!testtowervictory
+To run tests on the bot:
+<highlight><tab><symbol>test<end>
+<highlight><tab><symbol>testorgjoin<end>
+<highlight><tab><symbol>testtowerattack<end>
+<highlight><tab><symbol>testtowervictory<end>

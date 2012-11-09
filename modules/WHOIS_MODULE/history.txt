@@ -1,7 +1,7 @@
-<highlight>To show the history of a player:<end>
-<tab><symbol>history 'playername'
+To show the history of a player:
+<highlight><tab><symbol>history 'player'<end>
 
-<highlight>To show the history of a player on specific dimension:<end>
-<tab><symbol>history 'playername' 'dimension'
+To show the history of a player on specific dimension:
+<highlight><tab><symbol>history 'playername' 'dimension'<end>
 
 Note: valid values for dimension are 1 and 2.

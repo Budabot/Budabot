@@ -1,24 +1,24 @@
-<highlight>To search for an item:<end>
-<tab><symbol>items 'Insert itemname here'
+To search for an item:
+<highlight><tab><symbol>items 'item name'<end>
 
-<highlight>To search for an specific QL of an item:<end>
-<tab><symbol>items 'Insert QL here' 'Insert itemname here'
+To search for a specific QL of an item:
+<highlight><tab><symbol>items 'QL' 'item name'<end>
 
-<highlight>To search for an item by id:<end>
-<tab><symbol>itemid 'id'
+To search for an item by id:
+<highlight><tab><symbol>itemid 'id'<end>
 
-Note: To not include results that match a certain search term, precede term with a minus ('-').
+Note: to not include results that match a certain search term, precede term with a minus ('-').
 
 <header2>Examples:<end>
 
-<highlight>Shows the First tier Armor for the Nano-Technician<end>
-<tab><symbol>items first tier nano
+Shows the First tier Armor for the Nano-Technician:
+<highlight><tab><symbol>items first tier nano<end>
 
-<highlight>Shows the First tier Armor for the Nano-Technician QL133<end>
-<tab><symbol>items 133 first tier nano
+Shows the First tier Armor for the Nano-Technician QL133
+<highlight><tab><symbol>items 133 first tier nano<end>
 
-<highlight>Shows results with 'panther' but not 'ofab' in the name<end>
-<tab><symbol>items panther -ofab
+Shows results with 'panther' but not 'ofab' in the name
+<highlight><tab><symbol>items panther -ofab<end>
 
-<highlight>Shows Burden of Competence<end>
-<tab><symbol>itemid 244718
+Shows Burden of Competence
+<highlight><tab><symbol>itemid 244718<end>

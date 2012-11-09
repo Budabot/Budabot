@@ -1,5 +1,5 @@
-<blue>This command will return list of the Drop Table for Bosses and Unique Mobs.  If an item is searched instead, it will return a list of the Bosses that drop the queried item.  The Boss Names in this list will be clickable links that will open the full Drop Table for that boss..
+To see the drop table for a boss:
+<highlight><tab><symbol>boss 'boss name'<end>
 
-<tab><yellow>!boss (boss_name)<end> Will return a Drop Table for queried boss, or a list of bosses that fit the search criteria.  Can search by full or partial name.  Search results that return a list of bosses will display the boss name as a clickable link to that bosses full loot table.
-
-<tab><yellow>!bossloot (Item)<end> Will return a list of the Bosses that drop the queried item.  Can search by full or partial name.  Will display what items meet the search criteria.  The bosses name will be a clickable link to that bosses full loot table.
+To see which boss drops an item:
+<highlight><tab><symbol>bossloot 'item'<end>

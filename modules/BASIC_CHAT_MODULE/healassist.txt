@@ -1,5 +1,5 @@
-<highlight>Set a new healassist<end>
-<tab><symbol>heal 'name'
+To show the current healassist:
+<highlight><tab><symbol>heal<end>
 
-<highlight>Show current healassist<end>
-<tab><symbol>heal
+To set a new healassist:
+<highlight><tab><symbol>heal 'player'<end>

@@ -1,5 +1,5 @@
-<highlight>Shows org roster of person<end>
-<tab><symbol>orglist person
+To show who is online in a player's org:
+<highlight><tab><symbol>orglist 'player'<end>
 
-<highlight>Shows org roster by org id<end>
-<tab><symbol>orglist orgid
+To show who is online in an org:
+<highlight><tab><symbol>orglist 'org id'<end>

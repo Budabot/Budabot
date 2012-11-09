@@ -1,5 +1,5 @@
-<highlight>Show info about a player on the current server:<end>
-<tab><symbol>whois 'character name'
+To show info about a player on the current server:
+<highlight><tab><symbol>whois 'player'<end>
 
-<highlight>Show info about a player on all servers:<end>
-<tab><symbol>whoisall 'character name'
+To show info about a player on all servers:
+<highlight><tab><symbol>whoisall 'player'<end>

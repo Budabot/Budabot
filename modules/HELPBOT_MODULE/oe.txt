@@ -1,10 +1,10 @@
-<highlight>To check if your Weapon/Armor/Bot is over-equiped:<end>
-<tab><symbol>oe 'insert needed skill here'
+To check if your Weapon/Armor/Bot is over-equiped:
+<highlight><tab><symbol>oe 'insert needed skill here'<end>
 or
-<tab><symbol>oe 'insert your skill here'
+<highlight><tab><symbol>oe 'insert your skill here'<end>
 
-For example you have 112 Pistol and wanna check what the max Pistol requirement is you can wear without going oe
-<tab><symbol>oe 112
+For example you have 112 Pistol and wanna check what the max Pistol requirement is you can wear without going oe:
+<highlight><tab><symbol>oe 112<end>
 
 Another Example. If your favorite Weapon needs 1200 Pistol and you wanna know how much pistol you need to not OE do:
-<tab><symbol>oe 1200
+<highlight><tab><symbol>oe 1200<end>

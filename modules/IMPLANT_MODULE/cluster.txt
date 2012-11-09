@@ -1,9 +1,8 @@
-<font color=#3333CC>Cluster lookup usage:</font>
-/tell <myname> <symbol>cluster [<orange>name<end>]
-[<orange>name<end>] = full or partial name of the cluster
+To find a cluster for a skill:
+<highlight><tab><symbol>cluster 'cluster name'<end>
 
-Example:
-You want to know the locations of computer literacy clusters.
-<a href='chatcmd:///tell <myname> <symbol>cluster comp lit'>/tell <myname> <symbol>cluster comp lit</a>
+<header2>Example<end>
+To find the clusters that buff computer literacy:
+<highlight><tab><symbol>cluster comp lit<end>
 
 by Imoutochan, RK1

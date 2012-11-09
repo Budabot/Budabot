@@ -1,7 +1,7 @@
-<highlight>To check if a nano is usable in false profession by name:<end>
-<tab><symbol>fp hack quack
+To check if a nano is usable in false profession:
+<highlight><tab><symbol>fp hack quack<end>
 
-<highlight>To check if a nano is usable in false profession by aoid (use the lowid of the crystal):<end>
-<tab><symbol>fp 162735
+To check if a nano is usable in false profession by aoid (use the lowid of the crystal):
+<highlight><tab><symbol>fp 162735<end>
 
 Thanks to Wolfbiter (RK1) who first implemented this command on his bot and gave me the idea.

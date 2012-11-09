@@ -1,9 +1,6 @@
-<highlight>To set yourself as afk:<end>
-<tab>afk
-<tab>brb
+To set yourself as afk:
+<highlight><tab><symbol>afk<end>
+<highlight><tab><symbol>brb<end>
 
-<highlight>or with a reason:<end>
-<tab>afk 'reason'
-
-<highlight>To set that you are kiting:<end>
-<tab>kiting
+To set yourself as afk with a reason:
+<highlight><tab><symbol>afk 'reason'<end>

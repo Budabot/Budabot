@@ -1,2 +1,2 @@
-<highlight>To see how many inits you need for 1/1 with your aggdef bar at different positions:<end>
-<tab><symbol>inits [drop weapon in chat]
+To see how many inits you need for 1/1 with your aggdef bar at different positions:
+<highlight><tab><symbol>inits [drop weapon in chat]<end>

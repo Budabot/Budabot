@@ -1,3 +1,2 @@
-<highlight>To see if a player is online do<end>
-<tab><symbol>is 'insert name here'
-(when he is an org member and offline then he shows at which time he logged off)
+To see if a player is online:
+<highlight><tab><symbol>is 'player'<end>
