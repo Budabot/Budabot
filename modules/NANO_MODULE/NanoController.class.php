@@ -27,12 +27,6 @@
  *		description = 'Browse nanos by location', 
  *		help        = 'nano.txt'
  *	)
- *	@DefineCommand(
- *		command     = 'fp', 
- *		accessLevel = 'all', 
- *		description = 'Shows whether or not a nano is usable in false profession', 
- *		help        = 'fp.txt'
- *	)
  */
 class NanoController {
 
@@ -285,77 +279,6 @@ class NanoController {
 			}
 
 			$msg = $this->text->make_blob("Nanos for Location '$location' ($count)", $blob);
-		}
-
-		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("fp")
-	 * @Matches("/^fp (.+)$/i")
-	 */
-	public function fpCommand($message, $channel, $sender, $sendto, $args) {
-		if (preg_match("/^[0-9]+$/", $args[1])) {
-			$id = $args[1];
-			$data = $this->db->query("SELECT * FROM nanos WHERE `lowid` = ? ORDER BY lowql DESC, name LIMIT 0, " . $this->setting->get('maxnano'), $id);
-		} else {
-			$name = str_replace("'", "''", $args[1]);
-
-			$tmp = explode(" ", $name);
-			forEach ($tmp as $key => $value) {
-				$query .= " AND `name` LIKE '%$value%'";
-			}
-
-			$data = $this->db->query("SELECT * FROM nanos WHERE 1=1 $query ORDER BY lowql DESC, name LIMIT 0, " . $this->setting->get('maxnano'));
-		}
-
-		$count = count($data);
-
-		if ($count == 0) {
-			$msg = "No nanos found.";
-		} else if ($count == 1) {
-			$row = $data[0];
-
-			$url = "http://itemxml.xyphos.com/?id={$row->lowid}";  // use low id for id
-
-			$data = file_get_contents($url, 0);
-			if (empty($data) || '<error>' == substr($data, 0, 7)) {
-				$msg = "Unable to query Items XML Database.";
-				$sendto->reply($msg);
-				return;
-			}
-
-			$doc = new DOMDocument();
-			$doc->prevservWhiteSpace = false;
-			$doc->loadXML($data);
-
-			$name = $doc->getElementsByTagName('name')->item(0)->nodeValue;
-			$requirements = $doc->getElementsByTagName('actions')->item(0)->getElementsByTagName('action')->item(0)->getElementsByTagName('requirements')->item(0)->getElementsByTagName('requirement');
-
-			$fpUsable = false;
-			forEach ($requirements as $requirement) {
-				if ($requirement->getElementsByTagName('stat')->item(0)->attributes->getNamedItem("name")->nodeValue == "VisualProfession") {
-					$fpUsable = true;
-				}
-			}
-
-			$item = $this->text->make_item($row->lowid, $row->lowid, $row->lowql, $row->name) . " ({$row->lowql})";
-
-			if ($fpUsable) {
-				$msg = "$item <green>is<end> usable in false profession.";
-			} else {
-				$msg = "$item <orange>is not<end> usable in false profession.";
-			}
-		} else {
-			$blob = '';
-			forEach ($data as $row) {
-				$check_fp = $this->text->make_chatcmd("Check False Profession", "/tell <myname> fp $row->lowid");
-				$blob .= $this->text->make_item($row->lowid, $row->lowid, $row->lowql, $row->name) . " ({$row->lowql}) $check_fp\n\n";
-			}
-			$blob .= "Written by Tyrence (RK2)\n";
-			$blob .= "Stats provided by xyphos.com";
-
-			$msg = $this->text->make_blob("Nano Search Results ($count)", $blob);
 		}
 
 		$sendto->reply($msg);
