@@ -43,6 +43,11 @@ class AlienBioController {
 
 	/** @Logger */
 	public $logger;
+	
+	private $leArmorTypes = array('64', '295', '468', '935');
+	private $leWeaponTypes = array('18', '34', '687', '812');
+	private $aiArmorTypes = array('mutated', 'pristine');
+	private $aiWeaponTypes = array('1', '2', '3', '4', '5', '12', '13', '48', '76', '112', '240', '880', '992');
 
 	/**
 	 * This handler is called on bot startup.
@@ -176,6 +181,35 @@ class AlienBioController {
 			$sendto->reply($msg);
 		}
 	}
+	
+	/**
+	 * @HandlesCommand("bioinfo")
+	 * @Matches("/^bioinfo$/i")
+	 */
+	public function bioinfoListCommand($message, $channel, $sender, $sendto, $args) {
+		$blob .= "<header2>OFAB Armor Types<end>\n";
+		$blob .= $this->getTypeBlob($this->leArmorTypes);
+		
+		$blob .= "\n<header2>OFAB Weapon Types<end>\n";
+		$blob .= $this->getTypeBlob($this->leWeaponTypes);
+		
+		$blob .= "\n<header2>AI Armor Types<end>\n";
+		$blob .= $this->getTypeBlob($this->aiArmorTypes);
+		
+		$blob .= "\n<header2>AI Weapon Types<end>\n";
+		$blob .= $this->getTypeBlob($this->aiWeaponTypes);
+		
+		$msg = $this->text->make_blob("Bio-Material Types", $blob);
+		$sendto->reply($msg);
+	}
+	
+	public function getTypeBlob($types) {
+		$blob = '';
+		forEach ($types as $type) {
+			$blob .= $this->text->make_chatcmd($type, "/tell <myname> bioinfo $type") . "\n";
+		}
+		return $blob;
+	}
 
 	/**
 	 * This command handler shows info about a particular bio type.
@@ -194,53 +228,19 @@ class AlienBioController {
 		} else if ($ql > 300) {
 			$ql = 300;
 		}
-		switch ($bio) {
-			// Ofab armor types
-			case '64':
-			case '295':
-			case '468':
-			case '935':
-				$msg = $this->ofabArmorBio($ql, $bio);
-				break;
 
-			// Ofab weapon types
-			case '18':
-			case '34':
-			case '687':
-			case '812':
-				$msg = $this->ofabWeaponBio($ql, $bio);
-				break;
-
-			// AI weapon types
-			case '1':
-			case '2':
-			case '3':
-			case '4':
-			case '5':
-			case '12':
-			case '13':
-			case '48':
-			case '76':
-			case '112':
-			case '240':
-			case '880':
-			case '992':
-				$msg = $this->alienWeaponBio($ql, $bio);
-				break;
-
-			// AI armor types
-			case 'pristine':
-			case 'mutated':
-				$msg = $this->alienArmorBio($ql, $bio);
-				break;
-
-			case 'serum':
-				$msg = $this->serumBio($ql, $bio);
-				break;
-
-			default:
-				$msg = "Unknown Bio-Material";
-				break;
+		if (in_array($bio, $this->leArmorTypes)) {
+			$msg = $this->ofabArmorBio($ql, $bio);
+		} else if (in_array($bio, $this->leWeaponTypes)) {
+			$msg = $this->ofabWeaponBio($ql, $bio);
+		} else if (in_array($bio, $this->aiArmorTypes)) {
+			$msg = $this->alienArmorBio($ql, $bio);
+		} else if (in_array($bio, $this->aiWeaponTypes)) {
+			$msg = $this->alienWeaponBio($ql, $bio);
+		} else if ($bio == 'serum') {
+			$msg = $this->serumBio($ql, $bio);
+		} else {
+			$msg = "Unknown Bio-Material";
 		}
 
 		$sendto->reply($msg);
