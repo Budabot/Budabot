@@ -262,9 +262,6 @@ class OnlineController {
 			$reason = $arr[1];
 			$this->db->exec("UPDATE online SET `afk` = ? WHERE `name` = ? AND added_by = '<myname>' AND channel_type = ?", $reason, $sender, $type);
 			$msg = "<highlight>$sender<end> is now AFK";
-		} else if (preg_match("/^.?kiting$/i", $message, $arr) && $numrows != 0) {
-			$this->db->exec("UPDATE online SET `afk` = ? WHERE `name` = ? AND added_by = '<myname>' AND channel_type = ?", 'kiting', $sender, $type);
-			$msg = "<highlight>$sender<end> is now kiting";
 		}
 
 		if ('' != $msg) {
@@ -480,7 +477,6 @@ class OnlineController {
 	public function get_afk_info($afk, $fancyColon) {
 		switch ($afk) {
 			case       "": return "";
-			case "kiting": return " $fancyColon <red>KITING<end>";
 			case      "1": return " $fancyColon <red>AFK<end>";
 			default      : return " $fancyColon <red>AFK - {$afk}<end>";
 		}
