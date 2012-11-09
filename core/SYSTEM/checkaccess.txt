@@ -1,2 +1,2 @@
-<highlight>To check the access level of character:<end>
-<tab><symbol>checkaccess 'character'
+To check the access level of character:
+<highlight><tab><symbol>checkaccess 'character'<end>

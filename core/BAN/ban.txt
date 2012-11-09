@@ -1,31 +1,31 @@
-<highlight>To show a list of the currently banned characters:<end>
-<tab><symbol>banlist
+To show a list of the currently banned characters:
+<highlight><tab><symbol>banlist<end>
 
-<highlight>To permanent ban a character from the bot (without a reason specified):<end>
-<tab><symbol>ban 'playername'
+To permanent ban a character from the bot (without a reason specified):
+<highlight><tab><symbol>ban 'playername'<end>
 
-<highlight>To remove a character from the banlist:<end>
-<tab><symbol>unban 'playername'
+To remove a character from the banlist:
+<highlight><tab><symbol>unban 'playername'<end>
 
-<highlight>To temporarily ban a character from the bot (without a reason specified):<end>
-<tab><symbol>ban 'time' 'playername'
+To temporarily ban a character from the bot (without a reason specified):
+<highlight><tab><symbol>ban 'time' 'playername'<end>
 
-<tab><highlight>For example:<end>
-<tab><symbol>ban 2weeks badplayer
+<tab><header2>For example:<end>
+<highlight><tab><symbol>ban 2weeks badplayer<end>
 <tab>(bans badplayer for 2weeks from the bot)
 
-<highlight>To temporarily ban a character from the bot (with a reason specified):<end>
-<tab><symbol>ban 'time' 'playername' reason 'reason for the ban'
+To temporarily ban a character from the bot (with a reason specified):
+<highlight><tab><symbol>ban 'time' 'playername' reason 'reason for the ban'<end>
 
-<tab><highlight>For example:<end>
-<tab><symbol>ban 2weeks badplayer reason Ninjalooter
+<tab><header2>For example:<end>
+<highlight><tab><symbol>ban 2weeks badplayer reason Ninjalooter<end>
 <tab>(bans badplayer for 2 weeks from the bot with the reason 'Ninjalooter')
 
-<highlight>To permanently ban a character from the bot (with a reason specified):<end>
-<tab><symbol>ban 'playername' reason 'reason for the ban'
+To permanently ban a character from the bot (with a reason specified):
+<highlight><tab><symbol>ban 'playername' reason 'reason for the ban'<end>
 
-<tab><highlight>For example:<end>
-<tab><symbol>ban badplayer reason Ninjalooter
+<tab><header2>For example:<end>
+<highlight><tab><symbol>ban badplayer reason Ninjalooter<end>
 <tab>(permanently bans badplayer from the bot with the reason 'Ninjalooter')
 
 See <a href='chatcmd:///tell <myname> help budatime'><symbol>help budatime</a> for info on the format of the 'time' parameter.

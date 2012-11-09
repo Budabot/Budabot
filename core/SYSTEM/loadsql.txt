@@ -1,3 +1,4 @@
-<highlight>To manually load an sql file:<end>
-<tab><symbol>loadsql 'module' 'filename'
+To manually load an sql file:
+<highlight><tab><symbol>loadsql 'module' 'filename'<end>
+
 Note: the filename should not include the version number or .sql extension

@@ -1,18 +1,24 @@
-<highlight>To restart the bot:<end>
-<tab><symbol>restart
+To restart the bot:
+<highlight><tab><symbol>restart<end>
 
-<highlight>To shutdown the bot:<end>
-<tab><symbol>shutdown
+To shutdown the bot:
+<highlight><tab><symbol>shutdown<end>
 
-<highlight>To manually load changes from the config file:<end>
-<tab><symbol>reloadconfig
+To manually load changes from the config file:
+<highlight><tab><symbol>reloadconfig<end>
 
-<highlight>To see an overview of the bot systems:<end>
-<tab><symbol>system
+To see an overview of the bot systems:
+<highlight><tab><symbol>system<end>
 
-<highlight>To execute a query on the database:<end>
-<tab><symbol>executesql 'query'
+To execute a query on the database:
+<highlight><tab><symbol>executesql 'query'<end>
+
 Note: 'query' should be an INSERT, UPDATE, or DELETE only as it won't return a result set
 
-<highlight>To show the last lines in a log file:<end>
-<tab><symbol>logs
+To query the database:
+<highlight><tab><symbol>querysql 'query'<end>
+
+Note: 'query' should be a SELECT
+
+To show the last lines in a log file:
+<highlight><tab><symbol>logs<end>

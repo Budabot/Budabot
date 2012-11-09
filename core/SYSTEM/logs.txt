@@ -1,8 +1,8 @@
-<highlight>To view the list of log files:<end>
-<tab><symbol>logs
+To view the list of log files:
+<highlight><tab><symbol>logs<end>
 
-<highlight>To view a particular log file:<end>
-<tab><symbol>logs <i>filename</i>
+To view a particular log file:
+<highlight><tab><symbol>logs <i>filename</i><end>
 
-<highlight>To view lines in a particular log file that match a search critera:<end>
-<tab><symbol>logs <i>filename</i> <i>search</i>
+To view lines in a particular log file that match a search critera:
+<highlight><tab><symbol>logs <i>filename</i> <i>search</i><end>

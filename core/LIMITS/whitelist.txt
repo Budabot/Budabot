@@ -1,10 +1,10 @@
-Note: The <highlight>whitelist<end> command lets you specify certain characters that should be able to access the bot, but would not normally be able to due to limits being set. See <a href='chatcmd:///tell <myname> help limits'><symbol>!limits</a>
+To see a list of character on the whitelist:
+<highlight><tab><symbol>whitelist<end>
 
-<highlight>To see a list of character on the whitelist:<end>
-<tab><symbol>whitelist
+To add a character to the whitelist:
+<highlight><tab><symbol>whitelist add 'character'<end>
 
-<highlight>To add a character to the whitelist:<end>
-<tab><symbol>whitelist add 'character'
+To remove a character from the whitelist:
+<highlight><tab><symbol>whitelist rem 'character'<end>
 
-<highlight>To remove a character from the whitelist:<end>
-<tab><symbol>whitelist rem 'character'
+Note: The <highlight>whitelist<end> command lets you specify certain characters that should be able to access the bot, but would not normally be able to due to limits being set. See <a href='chatcmd:///tell <myname> help limits'><symbol>limits</a>

@@ -1,14 +1,17 @@
-<highlight>Shows all the people on the friend list<end>
-<tab><symbol>friendlist
+To show all players on the friendlist:
+<highlight><tab><symbol>friendlist<end>
 
-<highlight>Remove characters from the friendlist that don't need to be on it<end>
-<tab><symbol>friendlist clean
+To search the friendlist:
+<highlight><tab><symbol>friendlist 'search'<end>
 
-<highlight>Add a character to the friendlist<end>
-<tab><symbol>addbuddy 'name' 'type'
+To remove unneeded players on the friendlist:
+<highlight><tab><symbol>friendlist clean<end>
 
-<highlight>Remove a character from the friendlist<end>
-<tab><symbol>rembuddy 'name' 'type'
+To add a player to the friendlist:
+<highlight><tab><symbol>addbuddy 'name' 'type'<end>
 
-<highlight>Remove all characters from the friendlist<end>
-<tab><symbol>rembuddyall
+To remove a player from the friendlist:
+<highlight><tab><symbol>rembuddy 'name' 'type'<end>
+
+To remove all characters from the friendlist:
+<highlight><tab><symbol>rembuddyall<end>

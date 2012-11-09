@@ -1,3 +1,0 @@
-With this setting you can restrict responding on tells only for players above a specific level.
-
-To change it you can use the command limits or tminlvl. For a more detailed description of this commands use the help function.

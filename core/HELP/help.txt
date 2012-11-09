@@ -1,0 +1,11 @@
+To see a list of all help topics:
+<highlight><tab><symbol>help<end>
+
+To see a list of all help topics for a module:
+<highlight><tab><symbol>help 'module name'<end>
+
+To see a help topic:
+<highlight><tab><symbol>help 'topic'<end>
+
+To see the help topic for a command:
+<highlight><tab><symbol>help 'command'<end>

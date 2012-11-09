@@ -1,5 +1,5 @@
-<highlight>To show the list of all commands and their statuses:<end>
-<tab><symbol>cmdlist
+To show the list of all commands and their statuses:
+<highlight><tab><symbol>cmdlist<end>
 
-<highlight>To search for a particular command by name:<end>
-<tab><symbol>cmdlist 'command name'
+To search for a particular command by name:
+<highlight><tab><symbol>cmdlist 'command name'<end>

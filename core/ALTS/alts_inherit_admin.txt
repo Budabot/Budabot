@@ -1,5 +1,5 @@
-<orange>WARNING! When enabled, it may be possible for someone to gain unwanted access to your bot.
+<highlight2>WARNING! When enabled, it may be possible for someone to gain unwanted access to your bot.<end>
 
-<cyan><symbol>alts main<end> allows people to add themselves to someone else's altlist, however they will not inherit the admin privileges of the main until that character is <a href='chatcmd:///tell <myname> help altvalidate'>validated</a>.
+<highlight><symbol>alts main<end> allows people to add themselves to someone else's altlist, however they will not inherit the admin privileges of the main until that character is <a href='chatcmd:///tell <myname> help altvalidate'>validated</a>.
 
 Please note that while this is a secure system, it is still possible through inattention to accidentally grant unwanted access to the bot.

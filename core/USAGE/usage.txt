@@ -1,11 +1,11 @@
-<highlight>To show usage stats for the past 7 days:<end>
-<tab><symbol>usage
+To show usage stats for the past 7 days:
+<highlight><tab><symbol>usage<end>
 
-<highlight>To show usage stats for the past specific time period:<end>
-<tab><symbol>usage 'budatime'
+To show usage stats for the past specific time period:
+<highlight><tab><symbol>usage 'budatime'<end>
 
-<highlight>To show usage stats for the past 7 days for a particular player:<end>
-<tab><symbol>usage player 'player'
+To show usage stats for the past 7 days for a particular player:
+<highlight><tab><symbol>usage player 'player'<end>
 
-<highlight>To show usage stats for the past specific time period for a particular player:<end>
-<tab><symbol>usage player 'player' 'budatime'
+To show usage stats for the past specific time period for a particular player:
+<highlight><tab><symbol>usage player 'player' 'budatime'<end>

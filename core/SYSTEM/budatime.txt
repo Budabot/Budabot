@@ -1,10 +1,10 @@
-<highlight>Time units for Budatime<end>
+<header2>Time units for Budatime<end>
 <tab>days => 1d, 1day, 1days
 <tab>hours => 1h, 1hr, 1hrs, 1hour, 1hours
 <tab>minutes => 1m, 1min, 1mins
 <tab>seconds => 1s, 1sec, 1secs
 
-<highlight>Examples<end>
+<header2>Examples<end>
 <tab>2d9h5m43s       <highlight>--2 days, 9 hours, 5 minutes, 43 seconds<end>
 <tab>4day8s             <highlight>--4 days, 8 seconds<end>
 <tab>18hr20mins       <highlight>--18 hours, 20 minutes<end>

@@ -1,5 +1,5 @@
-<highlight>To add an alt to a character:<end>
-<tab><symbol>altsadmin add 'main' 'alt'
+To add an alt to a character:
+<highlight><tab><symbol>altsadmin add 'main' 'alt'<end>
 
-<highlight>To remove an alt from a character:<end>
-<tab><symbol>altsadmin rem 'main' 'alt'
+To remove an alt from a character:
+<highlight><tab><symbol>altsadmin rem 'main' 'alt'<end>

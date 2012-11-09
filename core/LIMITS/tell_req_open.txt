@@ -1,3 +1,0 @@
-With this setting you can restrict responding on tells only for players that are in the Organisation or Members of the Bot.
-
-To change it you can use the command limits or topen. For a more detailed description of this commands use the help function.

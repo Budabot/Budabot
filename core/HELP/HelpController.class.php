@@ -38,6 +38,7 @@ class HelpController {
 		$this->commandManager->activate("guild", "$className.helpShowCommand,$className.helpListCommand", "help", "all");
 
 		$this->help->register($this->moduleName, "about", "about.txt", "all", "Basic info about Budabot");
+		$this->help->register($this->moduleName, "help", "help.txt", "all", "How to use help");
 	}
 
 	/**

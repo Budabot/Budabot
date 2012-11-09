@@ -1,2 +1,2 @@
-<highlight>To find a command:<end>
-<tab><symbol>cmdsearch 'search'
+To find a command:
+<highlight><tab><symbol>cmdsearch 'search'<end>

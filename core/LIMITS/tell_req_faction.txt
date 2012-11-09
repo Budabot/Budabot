@@ -1,3 +1,0 @@
-With this setting you can restrict responding on tells only to one or two faction.
-
-To change it you can use the command limits or tfaction. For a more detailed description of this commands use the help function.

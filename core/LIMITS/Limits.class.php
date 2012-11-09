@@ -31,9 +31,9 @@ class Limits {
 	 * @Setup
 	 */
 	public function setup() {
-		$this->setting->add($this->moduleName, "tell_req_lvl", "Tells Min Level", "edit", "number", "0", "0;10;50;100;150;190;205;215", "", "mod", "tell_req_lvl.txt");
-		$this->setting->add($this->moduleName, "tell_req_faction", "Tell Faction Limit", "edit", "options", "all", "all;Omni;Neutral;Clan;not Omni;not Neutral;not Clan", "", "mod", "tell_req_faction.txt");
-		$this->setting->add($this->moduleName, "tell_req_open", "Tell General Limit", "edit", "options", "all", "all;member;guild;rl;mod", "", "mod", "tell_req_open.txt");
+		$this->setting->add($this->moduleName, "tell_req_lvl", "Minimum level required to send tell to bot", "edit", "number", "0", "0;10;50;100;150;190;205;215");
+		$this->setting->add($this->moduleName, "tell_req_faction", "Faction required to send tell to bot", "edit", "options", "all", "all;Omni;Neutral;Clan;not Omni;not Neutral;not Clan");
+		$this->setting->add($this->moduleName, "tell_req_open", "General requirements to send tell to bot", "edit", "options", "all", "all;member;guild;rl;mod");
 	}
 
 	public function check($sender, $message) {

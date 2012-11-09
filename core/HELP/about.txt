@@ -1,9 +1,9 @@
-<highlight>Version:<end> <version>
-<highlight>Project Site:<end> <a href='chatcmd:///start http://code.google.com/p/budabot2'>http://code.google.com/p/budabot2</a>
-<highlight>Project Forum:<end> <a href='chatcmd:///start http://budabot.com'>http://budabot.com</a>
-<highlight>Project Statistics:<end> <a href='chatcmd:///start https://www.ohloh.net/p/budabot2'>https://www.ohloh.net/p/budabot2</a>
+Version: <version>
+Project Site: <a href='chatcmd:///start http://code.google.com/p/budabot2'>http://code.google.com/p/budabot2</a>
+Project Forum: <a href='chatcmd:///start http://budabot.com'>http://budabot.com</a>
+Project Statistics: <a href='chatcmd:///start https://www.ohloh.net/p/budabot2'>https://www.ohloh.net/p/budabot2</a>
 
-<orange>I would like to give special thanks to:<end>
+I would like to give special thanks to:
 <highlight>-Derroylo (RK2)<end>, <highlight>Sebuda (RK2)<end>, and <highlight>Lucier (RK1)<end> for creating the original Budabot.
 <highlight>-Mindrila (RK1)<end> for his large contributions to version 1.0.
 <highlight>-Insanity-inc (RK2)<end> for all the support and help they gave me when I first started developing Budabot modules and <highlight>Capnsfix (RK2)<end> for all of his ideas.
@@ -16,11 +16,7 @@
 <highlight>-Marebone (RK2)<end> for his help and suggestions on how to make Budabot more manageable and testable.
 -All the people who have contributed modules, ideas, and bug reports to help make Budabot the best bot AO has ever seen.
 
-To the AO Community:
-
-I played this game for several years and have really enjoyed it.  Unfortunately I was permanently banned from AO in Nov 2010.  I did nothing to deserve that but FC insists that I should be banned.  After 3 months of trying to get my ban lifted, I have given up.  It is unfortunate that a game this good is managed by people that fail so hard.  This version 2.3 of Budabot will be my last gift to the AO Community.  Enjoy! :)
-
-<orange>Tyrence (RK2)<end>
+Tyrence (RK2)
 Budabot Lead Developer
 
 Funcom Failure: <a href='chatcmd:///start http://www.anarchy-online.biz/Tyrence1.html'>http://www.anarchy-online.biz/Tyrence1.html</a>

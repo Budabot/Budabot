@@ -1,17 +1,17 @@
-<highlight>To show your own alts:<end>
-<tab><symbol>alts
+To show your own alts:
+<highlight><tab><symbol>alts<end>
 
-<highlight>To show alts from other users:<end>
-<tab><symbol>alts <i>name</i>
+To show alts from other users:
+<highlight><tab><symbol>alts <i>name</i><end>
 
-<highlight>To add characters as your alts:<end>
-<tab><symbol>alts add <i>alt1</i> <i>alt2</i> <i>alt3</i> ...
+To add characters as your alts:
+<highlight><tab><symbol>alts add <i>alt1</i> <i>alt2</i> <i>alt3</i> ...<end>
 
-<highlight>To add yourself as an alt of a character:<end>
-<tab><symbol>alts main <i>name</i>
+To add yourself as an alt of a character:
+<highlight><tab><symbol>alts main <i>name</i><end>
 
-<highlight>To choose one of your alts to be your new main:<end>
-<tab><symbol>alts setmain <i>name</i>
+To choose one of your alts to be your new main:
+<highlight><tab><symbol>alts setmain <i>name</i><end>
 
-<highlight>To remove alts from your list:<end>
-<tab><symbol>alts rem <i>alt</i>
+To remove alts from your list:
+<highlight><tab><symbol>alts rem <i>alt</i><end>
