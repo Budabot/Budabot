@@ -205,6 +205,38 @@ class TimerController {
 		$msg = $this->addTimer($sender, $name, $runTime, $channel);
 		$sendto->reply($msg);
 	}
+
+	/**
+	 * @HandlesCommand("timers")
+	 * @Matches("/^timers$/i")
+	 */
+	public function timersListCommand($message, $channel, $sender, $sendto, $args) {
+		$timers = $this->getAllTimers();
+		if (count($timers) == 0) {
+			$msg = "No timers currently running.";
+		} else {
+			$blob = '';
+			forEach ($timers as $timer) {
+				$time_left = $this->util->unixtime_to_readable($timer->timer - time());
+				$name = $timer->name;
+				$owner = $timer->owner;
+
+				$remove_link = $this->text->make_chatcmd("Remove", "/tell <myname> timers rem $name");
+
+				$repeatingInfo = '';
+				if ($timer->callback == 'repeating') {
+					$repeatingTimeString = $this->util->unixtime_to_readable($timer->callback_param);
+					$repeatingInfo = " (Repeats every $repeatingTimeString)";
+				}
+
+				$blob .= "Name: <highlight>$name<end> {$remove_link}\n";
+				$blob .= "Time left: <highlight>$time_left<end> $repeatingInfo\n";
+				$blob .= "Set by: <highlight>$owner<end>\n\n";
+			}
+			$msg = $this->text->make_blob("Timers currently running", $blob);
+		}
+		$sendto->reply($msg);
+	}
 	
 	public function generateAlerts($sender, $name, $endTime) {
 		$alerts = array();
@@ -263,38 +295,6 @@ class TimerController {
 
 		$timerset = $this->util->unixtime_to_readable($runTime);
 		return "Timer <highlight>$name<end> has been set for $timerset.";
-	}
-
-	/**
-	 * @HandlesCommand("timers")
-	 * @Matches("/^timers$/i")
-	 */
-	public function timersListCommand($message, $channel, $sender, $sendto, $args) {
-		$timers = $this->getAllTimers();
-		if (count($timers) == 0) {
-			$msg = "No timers currently running.";
-		} else {
-			$blob = '';
-			forEach ($timers as $timer) {
-				$time_left = $this->util->unixtime_to_readable($timer->timer - time());
-				$name = $timer->name;
-				$owner = $timer->owner;
-
-				$remove_link = $this->text->make_chatcmd("Remove", "/tell <myname> timers rem $name");
-
-				$repeatingInfo = '';
-				if ($timer->callback == 'repeating') {
-					$repeatingTimeString = $this->util->unixtime_to_readable($timer->callback_param);
-					$repeatingInfo = " (Repeats every $repeatingTimeString)";
-				}
-
-				$blob .= "Name: <highlight>$name<end> {$remove_link}\n";
-				$blob .= "Time left: <highlight>$time_left<end> $repeatingInfo\n";
-				$blob .= "Set by: <highlight>$owner<end>\n\n";
-			}
-			$msg = $this->text->make_blob("Timers currently running", $blob);
-		}
-		$sendto->reply($msg);
 	}
 
 	public function add($name, $owner, $mode, $time, $alerts, $callback = null, $callback_param = null) {

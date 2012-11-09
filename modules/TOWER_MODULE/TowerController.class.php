@@ -960,7 +960,7 @@ class TowerController {
 			$last_attack->att_faction = $win_faction;
 			$last_attack->def_faction = $lose_faction;
 			$last_attack->playfield_id = $playfield->id;
-			$last_attack->id = 'NULL';
+			$last_attack->id = '-1';
 		}
 		
 		$this->record_victory($last_attack);
