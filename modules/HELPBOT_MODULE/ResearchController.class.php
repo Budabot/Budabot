@@ -44,7 +44,7 @@ class ResearchController {
 	public function researchSingleCommand($message, $channel, $sender, $sendto, $args) {
 		$level = $args[1];
 		if ($level < 1 OR $level > 10) {
-			$msg .= "<orange>Invalid Research Level Input. Valid reserch levels are from 1-10.<end>";
+			$msg .= "Invalid Research Level Input. Valid reserch levels are from 1-10.";
 		} else {
 			$sql = "SELECT * FROM research WHERE level = ?";
 			$row = $this->db->queryRow($sql, $level);
@@ -57,10 +57,10 @@ class ResearchController {
 			$xp = number_format($xp);
 			$sk = number_format($sk);
 
-			$blob = "<green>You must be <blue>Level $levelcap<end> to reach <blue>Research Level $level<end>.\n";
-			$blob .= "You need <blue>$sk SK<end> to reach <blue>Research Level $level<end> per research line.\n\n";
-			$blob .= "This equals <orange>$xp XP<end>.\n\n";
-			$blob .= "Your research will cap at <yellow>~$capxp XP<end> or <yellow>~$capsk SK<end>.";
+			$blob = "You must be <highlight>Level $levelcap<end> to reach <highlight>Research Level $level<end>.\n";
+			$blob .= "You need <highlight>$sk SK<end> to reach <highlight>Research Level $level<end> per research line.\n\n";
+			$blob .= "This equals <highlight>$xp XP<end>.\n\n";
+			$blob .= "Your research will cap at <highlight>~$capxp XP<end> or <highlight>~$capsk SK<end>.";
 			$msg = $this->text->make_blob("XP/SK Needed for Research Levels", $blob);
 		}
 
@@ -75,7 +75,7 @@ class ResearchController {
 		$lolevel = $args[1];
 		$hilevel = $args[2];
 		if ($lolevel < 0 OR $lolevel > 10 OR $hilevel < 0 OR $hilevel > 10) {
-			$research .= "<orange>Invalid Research Level Input. Valid reserch levels are from 0-10.<end>";
+			$research .= "Invalid Research Level Input. Valid reserch levels are from 0-10.";
 		} else {
 			$sql =
 				"SELECT
@@ -90,9 +90,9 @@ class ResearchController {
 			$xp = number_format($row->totalsk * 1000);
 			$sk = number_format($row->totalsk);
 
-			$blob = "<green>You must be <blue>Level $row->levelcap<end> to reach Research Level <blue>$hilevel.<end>\n";
-			$blob .= "It takes <blue>$sk SK<end> to go from Research Level <blue>$lolevel<end> to Research Level <blue>$hilevel<end> per research line.\n\n";
-			$blob .= "This equals <orange>$xp XP<end>.";
+			$blob = "You must be <highlight>Level $row->levelcap<end> to reach Research Level <highlight>$hilevel.<end>\n";
+			$blob .= "It takes <highlight>$sk SK<end> to go from Research Level <highlight>$lolevel<end> to Research Level <highlight>$hilevel<end> per research line.\n\n";
+			$blob .= "This equals <highlight>$xp XP<end>.";
 			$msg = $this->text->make_blob("XP/SK Needed for Research Levels", $blob);
 		}
 
