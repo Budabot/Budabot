@@ -78,10 +78,10 @@ class TimerController {
 			$owner = $timer->owner;
 			$mode = $timer->mode;
 
-			if ($timer->alerts[0]->time <= time()) {
+			while ($timer->alerts[0]->time <= time()) {
 				$alert = array_shift($timer->alerts);
 				$msg = $alert->message;
-				
+
 				if ('priv' == $mode) {
 					$this->chatBot->sendPrivate($msg);
 				} else if ('guild' == $mode) {
