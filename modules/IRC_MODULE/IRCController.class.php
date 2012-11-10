@@ -177,12 +177,14 @@ class IRCController {
 
 				$blob .= "\n<tab><highlight>{$channel->name}<end>\n";
 				forEach ($channel->users as $user) {
-					$blob .= "<tab><tab>{$user->nick}\n";
+					if ($user->nick == $this->setting->irc_nickname) {
+						$numirc--;
+					} else {
+						$blob .= "<tab><tab>{$user->nick}\n";
+					}
 				}
 			}
-			if ($numirc > 0) {
-				$blob = "\n\n<header2> ::: IRC ($numirc) ::: <end>\n" . $blob;
-			}
+			$blob = "\n\n<header2> ::: IRC ($numirc) ::: <end>\n" . $blob;
 		}
 		return array($numirc, $blob);
 	}
