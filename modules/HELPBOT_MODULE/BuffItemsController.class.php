@@ -114,6 +114,13 @@ class BuffItemsController {
 		// check if key words are unambiguous
 		$skills = array();
 		forEach ($this->skill_list as $skill) {
+			// hack so that skills which are part of another skill's name
+			// are not hidden
+			// eg. "bow" vs "bow special attack"
+			if (strcasecmp($skill, $name) == 0) {
+				$skills = array($skill);
+				break;
+			}
 			if ($this->matches($skill, $name)) {
 				$skills []= $skill;
 			}
@@ -134,11 +141,10 @@ class BuffItemsController {
 					$info .= "- " . $this->text->make_chatcmd($row->item_name, "/tell <myname> buffitem $row->item_name") . "\n";
 				}
 				if ($found > 0) {								// found items that modify this skill
-					$inside = "Your query of <yellow>$name<end> yielded the following results:\n\n";
 					$inside .= "Items that buff ".$skills[0].":\n\n";
 					$inside .= $info;
 					$inside .= "\n\nby Imoutochan (RK1)";
-					$windowlink = $this->text->make_blob("What Buffs '$name' ($found)", $inside);
+					$windowlink = $this->text->make_blob("What Buffs '$skills[0]' ($found)", $inside);
 					$sendto->reply($windowlink);
 					return;
 				} else {
