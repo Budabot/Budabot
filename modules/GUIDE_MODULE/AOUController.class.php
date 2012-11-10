@@ -234,6 +234,8 @@ class AOUController {
 				return " + ";
 			case "[ts_ts2]":
 				return " = ";
+			case "[cttd]":
+				return " | ";
 			case "[cttr]":
 			case "[br]":
 				return "\n";
