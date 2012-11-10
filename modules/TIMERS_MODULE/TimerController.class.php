@@ -78,7 +78,7 @@ class TimerController {
 			$owner = $timer->owner;
 			$mode = $timer->mode;
 
-			while ($timer->alerts[0]->time <= time()) {
+			while (count($timer->alerts) > 0 && $timer->alerts[0]->time <= time()) {
 				$alert = array_shift($timer->alerts);
 				$msg = $alert->message;
 
