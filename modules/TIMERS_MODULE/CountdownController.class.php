@@ -59,19 +59,24 @@ class CountdownController {
 
 		$this->lastCountdown = time();
 
-		for ($i = 5; $i > 3; $i--) {
-			$msg = "<red>-------> $i <-------<end>";
+		for ($i = 5; $i > 0; $i--) {
+			if ($i == 5) {
+				$color = "<font color='#FF0000'>";
+			} else if ($i == 4) {
+				$color = "<font color='#FF0000'>";
+			} else if ($i == 3) {
+				$color = "<font color='#FCA712'>";
+			} else if ($i == 2) {
+				$color = "<font color='#FCA712'>";
+			} else if ($i == 1) {
+				$color = "<font color='#FCA712'>";
+			}
+			$msg = "$color-------&gt; $i &lt;-------<end>";
 			$sendto->reply($msg);
 			sleep(1);
 		}
 
-		for ($i = 3; $i > 0; $i--) {
-			$msg = "<orange>-------> $i <-------<end>";
-			$sendto->reply($msg);
-			sleep(1);
-		}
-
-		$msg = "<green>-------> $message <-------<end>";
+		$msg = "<font color='#00DE42'>------&gt; $message &lt;-------<end>";
 		$sendto->reply($msg);
 	}
 }
