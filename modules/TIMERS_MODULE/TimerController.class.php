@@ -60,7 +60,7 @@ class TimerController {
 	}
 
 	/**
-	 * @Event("2sec")
+	 * @Event("1sec")
 	 * @Description("Checks timers and periodically updates chat with time left")
 	 */
 	public function checkTimers() {
