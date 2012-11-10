@@ -216,7 +216,10 @@ class Budabot extends AOChat {
 	}
 	
 	public function processNextPacket() {
-		$packet = $this->wait_for_packet(0);
+		// when bot isn't ready we wait for packets
+		// to make sure the server has finished sending them
+		// before marking the bot as ready
+		$packet = $this->wait_for_packet($this->is_ready() ? 0 : 1);
 		if ($packet) {
 			$this->process_packet($packet);
 			return true;
