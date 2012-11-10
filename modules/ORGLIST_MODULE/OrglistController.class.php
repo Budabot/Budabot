@@ -48,7 +48,11 @@ class OrglistController {
 	 * @Matches("/^orglist end$/i")
 	 */
 	public function orglistEndCommand($message, $channel, $sender, $sendto, $args) {
-		$this->checkOrglistEnd(true);
+		if (isset($this->orglist)) {
+			$this->checkOrglistEnd(true);
+		} else {
+			$sendto->reply("There is no orglist currently running.");
+		}
 	}
 	
 	/**
@@ -58,7 +62,7 @@ class OrglistController {
 	public function orglistCommand($message, $channel, $sender, $sendto, $args) {
 		// Check if we are already doing a list.
 		if ($this->orglist["start"]) {
-			$msg = "I'm already doing a list!";
+			$msg = "There is already an orglist running.";
 			$sendto->reply($msg);
 			return;
 		} else if (990 <= count($this->buddylistManager->buddyList)) {
@@ -93,13 +97,13 @@ class OrglistController {
 			$whois = $this->playerManager->get_by_name($name);
 
 			if ($whois === null) {
-				$msg = "Could not find character info for $name.";
+				$msg = "Could not find player info for <highlight>$name<end>.";
 				unset($whois);
 				$sendto->reply($msg);
 				unset($this->orglist);
 				return;
 			} else if ($whois->guild_id == 0) {
-				$msg = "Character <highlight>$name<end> does not seem to be in an org.";
+				$msg = "Player <highlight>$name<end> does not seem to be in an org.";
 				unset($whois);
 				$sendto->reply($msg);
 				unset($this->orglist);
@@ -207,7 +211,7 @@ class OrglistController {
 		$orgcolor["onlineH"] = "<highlight>";              // Highlights on whois info
 		$orgcolor["offline"] = "<font color='#555555'>";   // Offline names
 
-		if (isset($this->orglist) && count($this->orglist["added"]) == 0 || $forceEnd) {
+		if (isset($this->orglist) && (count($this->orglist["added"]) == 0 || $forceEnd)) {
 			$blob = $this->orgmatesformat($this->orglist, $orgcolor, $this->orglist["start"], $this->orglist["org"]);
 			$msg = $this->text->make_blob("Orglist for '".$this->orglist["org"]."'", $blob);
 			$this->orglist["sendto"]->reply($msg);
