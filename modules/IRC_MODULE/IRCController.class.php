@@ -229,7 +229,6 @@ class IRCController {
 		$this->connect();
 		if ($this->ircActive()) {
 			$this->setting->irc_status = "1";
-			$sendto->reply("Finished connecting to IRC.");
 		} else {
 			$sendto->reply("Error connecting to IRC.");
 		}
@@ -387,8 +386,11 @@ class IRCController {
 	
 	public function joinMessage(&$irc, &$obj) {
 		$msgColor = $this->setting->irc_message_color;
-		$msg = "<yellow>[IRC]<end> {$msgColor}$obj->nick joined the channel.<end>";
-
+		if ($obj->nick == $this->setting->irc_nickname) {
+			$msg = "<yellow>[IRC]<end> {$msgColor}Connected to IRC {$this->setting->irc_server}: $obj->channel.<end>";
+		} else {
+			$msg = "<yellow>[IRC]<end> {$msgColor}$obj->nick joined the channel.<end>";
+		}
 		if ($this->chatBot->vars['my_guild'] != "") {
 			$this->chatBot->sendGuild($msg, true);
 		}
