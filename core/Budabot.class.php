@@ -190,9 +190,10 @@ class Budabot extends AOChat {
 		$exec_connected_events = false;
 		$time = 0;
 		while (true) {
-			$this->processNextPacket();
-			if ($this->is_ready()) {
+			while ($this->processNextPacket()) {
 
+			}
+			if ($this->is_ready()) {
 				// check monitored sockets and notify socket-notifiers if any activity occur in their sockets
 				$this->socketManager->checkMonitoredSockets();
 
@@ -215,11 +216,13 @@ class Budabot extends AOChat {
 	}
 	
 	public function processNextPacket() {
-		$packet = $this->wait_for_packet(1);
+		$packet = $this->wait_for_packet(0);
 		if ($packet) {
 			$this->process_packet($packet);
+			return true;
 		} else {
 			$this->ready = true;
+			return false;
 		}
 	}
 
