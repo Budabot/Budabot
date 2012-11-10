@@ -43,6 +43,8 @@ class OrglistController {
 	/** @Inject */
 	public $playerManager;
 	
+	private $orglist = null;
+	
 	/**
 	 * @HandlesCommand("orglist")
 	 * @Matches("/^orglist end$/i")
@@ -113,7 +115,7 @@ class OrglistController {
 			}
 		}
 
-		$sendto->reply("Downloading org list for org id $orgid...");
+		$sendto->reply("Downloading org roster for org id $orgid...");
 
 		$org = $this->guildManager->get_by_id($orgid);
 
@@ -180,14 +182,14 @@ class OrglistController {
 		}
 
 		$sendto->reply("Checking online status for " . count($org->members) ." members of '$org->orgname'...");
+		$this->orglist["maxsize"] = ceil(count($this->buddylistManager->buddyList) / 1000) * 1000 - count($this->buddylistManager->buddyList);
 
 		// prime the list and get things rolling by adding some buddies
-		$i = 0;
 		forEach ($this->orglist["check"] as $name => $value) {
 			$this->orglist["added"][$name] = 1;
 			unset($this->orglist["check"][$name]);
 			$this->buddylistManager->add($name, 'onlineorg');
-			if (++$i == 10) {
+			if (!$this->checkBuddylistSize()) {
 				break;
 			}
 		}
@@ -310,14 +312,20 @@ class OrglistController {
 			unset($this->orglist["added"][$sender]);
 
 			forEach ($this->orglist["check"] as $name => $value) {
+				if (!$this->checkBuddylistSize()) {
+					break;
+				}
 				$this->orglist["added"][$name] = 1;
 				unset($this->orglist["check"][$name]);
 				$this->buddylistManager->add($name, 'onlineorg');
-				break;
 			}
 
 			$this->checkOrglistEnd();
 		}
+	}
+	
+	public function checkBuddylistSize() {
+		return count($this->buddylistManager->buddyList) < $this->orglist["maxsize"];
 	}
 }
 
