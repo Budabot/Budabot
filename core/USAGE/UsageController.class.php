@@ -109,12 +109,28 @@ class UsageController {
 		$timeString = $this->util->unixtime_to_readable($time);
 		$time = time() - $time;
 		$limit = 25;
-
+		
+		// channel usage
+		$sql = "SELECT type, COUNT(type) cnt FROM usage_<myname> WHERE dt > ? GROUP BY type ORDER BY type";
+		$data = $this->db->query($sql, $time);
+		
+		$blob = "<header2> ::: Channel Usage ::: <end>\n";
+		forEach ($data as $row) {
+			if ($row->type == "msg") {
+				$blob .= "Number of commands executed in tells: <highlight>$row->cnt<end>\n";
+			} else if ($row->type == "priv") {
+				$blob .= "Number of commands executed in private channel: <highlight>$row->cnt<end>\n";
+			} else if ($row->type == "guild") {
+				$blob .= "Number of commands executed in guild channel: <highlight>$row->cnt<end>\n";
+			}
+		}
+		$blob .= "\n";
+		
 		// most used commands
 		$sql = "SELECT command, COUNT(command) AS count FROM usage_<myname> WHERE dt > ? GROUP BY command ORDER BY count DESC LIMIT $limit";
 		$data = $this->db->query($sql, $time);
 
-		$blob = "<header2> ::: Most Used Commands ::: <end>\n";
+		$blob .= "<header2> ::: Most Used Commands ::: <end>\n";
 		forEach ($data as $row) {
 			$blob .= "<highlight>{$row->command}<end> ({$row->count})\n";
 		}
