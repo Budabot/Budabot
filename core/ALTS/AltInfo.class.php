@@ -21,7 +21,7 @@ class AltInfo {
 
 	public function get_alts_blob($showValidateLinks = false, $firstPageOnly = false) {
 		$db = Registry::getInstance('db');
-		$setting = Registry::getInstance('setting');
+		$setting = Registry::getInstance('settingManager');
 		$playerManager = Registry::getInstance('playerManager');
 		$buddylistManager = Registry::getInstance('buddylistManager');
 		$text = Registry::getInstance('text');

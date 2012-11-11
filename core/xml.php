@@ -62,7 +62,7 @@ class xml {
 		$url = strtolower($url);
 
 		if ($timeout === null) {
-			$setting = Registry::getInstance('setting');
+			$setting = Registry::getInstance('settingManager');
 			$timeout = $setting->get('xml_timeout');
 		}
 
