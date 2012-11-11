@@ -55,6 +55,12 @@ class TimerController {
 		$data = $this->db->query("SELECT * FROM timers_<myname>");
 		forEach ($data as $row) {
 			$row->alerts = json_decode($row->alerts);
+
+			// remove alerts that have already passed
+			while (count($row->alerts) > 0 && $row->alerts[0]->time <= time()) {
+				array_shift($timer->alerts);
+			}
+
 			$this->timers[strtolower($row->name)] = $row;
 		}
 	}
