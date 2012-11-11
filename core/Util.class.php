@@ -76,6 +76,17 @@ class Util {
 
 		forEach ($matches as $match) {
 			switch ($match[2]) {
+				case 'y':
+				case 'yr':
+				case 'year':
+				case 'years':
+					$unixtime += $match[1] * 31536000;
+					break;
+				case 'mo':
+				case 'month':
+				case 'months':
+					$unixtime += $match[1] * 2592000;
+					break;
 				case 'weeks':
 				case 'week':
 				case 'w':
