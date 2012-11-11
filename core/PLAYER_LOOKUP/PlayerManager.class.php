@@ -111,7 +111,7 @@ class PlayerManager {
 			$char->guild_id = 0;
 		}
 		
-		if (empty($char->guild_rank_id)) {
+		if ($char->guild_rank_id == '') {
 			$char->guild_rank_id = -1;
 		}
 
