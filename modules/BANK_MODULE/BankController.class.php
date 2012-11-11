@@ -35,7 +35,7 @@ class BankController {
 	public $text;
 	
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 
 	/**
 	 * @Setting("bank_file_location")
@@ -105,7 +105,7 @@ class BankController {
 	public function bankBrowseContainerCommand($message, $channel, $sender, $sendto, $args) {
 		$name = ucfirst(strtolower($args[1]));
 		$pack = htmlspecialchars_decode($args[2]);
-		$limit = $this->setting->get('max_bank_items');
+		$limit = $this->settingManager->get('max_bank_items');
 
 		$blob = '';
 		$data = $this->db->query("SELECT * FROM bank WHERE player = ? AND container = ? ORDER BY name ASC, ql ASC LIMIT {$limit}", $name, $pack);
@@ -131,7 +131,7 @@ class BankController {
 	 */
 	public function bankSearchCommand($message, $channel, $sender, $sendto, $args) {
 		$search = explode(' ', $args[1]);
-		$limit = $this->setting->get('max_bank_items');
+		$limit = $this->settingManager->get('max_bank_items');
 
 		$where_sql = '';
 		forEach ($search as $word) {
@@ -159,10 +159,10 @@ class BankController {
 	 * @HandlesCommand("updatebank")
 	 */
 	public function updatebankCommand($message, $channel, $sender, $sendto, $args) {
-		$lines = file($this->setting->get('bank_file_location'));
+		$lines = file($this->settingManager->get('bank_file_location'));
 
 		if ($lines === false) {
-			$msg = "Could not open file: '" . $this->setting->get('bank_file_location') . "'";
+			$msg = "Could not open file: '" . $this->settingManager->get('bank_file_location') . "'";
 			$sendto->reply($msg);
 			return;
 		}

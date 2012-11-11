@@ -27,7 +27,7 @@ class QuoteController {
 	public $db;
 	
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 	
 	/** @Inject */
 	public $accessLevel;
@@ -45,7 +45,7 @@ class QuoteController {
 	public function setup() {
 		$this->db->add_table_replace('#__quote', 'quote');
 		$this->db->loadSQLFile($this->moduleName, "quote");
-		$this->setting->add($this->moduleName, "quote_stat_count", "Number of users shown in stats", "edit", "number", "10");
+		$this->settingManager->add($this->moduleName, "quote_stat_count", "Number of users shown in stats", "edit", "number", "10");
 	}
 
 	/**
@@ -194,7 +194,7 @@ class QuoteController {
 	 * @Matches("/^quote stats$/i")
 	 */
 	public function quoteStatsCommand($message, $channel, $sender, $sendto, $args) {
-		$top = $this->setting->get("quote_stat_count");
+		$top = $this->settingManager->get("quote_stat_count");
 
 		//$quoters = setup a list of who quoted the most
 		$data = $this->db->query("SELECT * FROM `#__quote` ORDER BY `Who`");

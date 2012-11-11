@@ -27,7 +27,7 @@ class CloakController {
 	public $chatBot;
 	
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 	
 	/** @Inject */
 	public $db;
@@ -50,8 +50,8 @@ class CloakController {
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, 'org_city');
 	
-		$this->setting->add($this->moduleName, "showcloakstatus", "Show cloak status to players at logon", "edit", "options", "1", "Never;When cloak is down;Always", "0;1;2");
-		$this->setting->add($this->moduleName, "cloak_reminder_interval", "How often to spam guild channel when cloak is down", "edit", "time", "5m", "2m;5m;10m;15m;20m");
+		$this->settingManager->add($this->moduleName, "showcloakstatus", "Show cloak status to players at logon", "edit", "options", "1", "Never;When cloak is down;Always", "0;1;2");
+		$this->settingManager->add($this->moduleName, "cloak_reminder_interval", "How often to spam guild channel when cloak is down", "edit", "time", "5m", "2m;5m;10m;15m;20m");
 	}
 	
 	/**
@@ -129,7 +129,7 @@ class CloakController {
 			if ($row->action == "off") {
 				// send message to org chat every 5 minutes that the cloaking device is
 				// disabled past the the time that the cloaking device could be enabled.
-				$interval = $this->setting->get('cloak_reminder_interval');
+				$interval = $this->settingManager->get('cloak_reminder_interval');
 				if ($timeSinceChange >= 60*60 && ($timeSinceChange % $interval >= 0 && $timeSinceChange % $interval <= 60 )) {
 					$timeString = $this->util->unixtime_to_readable(time() - $row->time, false);
 					$this->chatBot->sendGuild("The cloaking device was disabled by <highlight>{$row->player}<end> $timeString ago. It is possible to enable it.");
@@ -212,7 +212,7 @@ class CloakController {
 					$case = 1;
 				}
 
-				if ($case <= $this->setting->get("showcloakstatus")) {
+				if ($case <= $this->settingManager->get("showcloakstatus")) {
 					$this->chatBot->sendTell($msg, $eventObj->sender);
 				}
 			}

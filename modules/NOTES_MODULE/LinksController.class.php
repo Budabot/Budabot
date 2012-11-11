@@ -26,7 +26,7 @@ class LinksController {
 	public $db;
 	
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 
 	/** @Inject */
 	public $text;
@@ -36,7 +36,7 @@ class LinksController {
 	 */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, "links");
-		$this->setting->add($this->moduleName, 'showfullurls', 'Enable full urls in the link list output', 'edit', "options", 0, "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, 'showfullurls', 'Enable full urls in the link list output', 'edit', "options", 0, "true;false", "1;0");
 	}
 	
 	/**
@@ -50,7 +50,7 @@ class LinksController {
 		$data = $this->db->query($sql);
 		forEach ($data as $row) {
 			$remove = $this->text->make_chatcmd('Remove', "/tell <myname> <symbol>links rem $row->id");
-			if ($this->setting->get('showfullurls') == 1) {
+			if ($this->settingManager->get('showfullurls') == 1) {
 				$website = $this->text->make_chatcmd($row->website, "/start $row->website");
 			} else {
 				$website = $this->text->make_chatcmd('[Link]', "/start $row->website");

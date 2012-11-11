@@ -73,7 +73,7 @@ class RaidController {
 	public $chatBot;
 	
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 	
 	/** @Inject */
 	public $commandAlias;
@@ -87,7 +87,7 @@ class RaidController {
 	 * @Setup
 	 */
 	public function setup() {
-		$this->setting->add($this->moduleName, "add_on_loot", "Adding to loot show on", "edit", "options", "2", "tells;privatechat;privatechat and tells", '1;2;3', "mod");
+		$this->settingManager->add($this->moduleName, "add_on_loot", "Adding to loot show on", "edit", "options", "2", "tells;privatechat;privatechat and tells", '1;2;3', "mod");
 		
 		$this->commandAlias->register($this->moduleName, "flatroll", "rollloot");
 		$this->commandAlias->register($this->moduleName, "flatroll", "result");

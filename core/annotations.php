@@ -44,6 +44,10 @@ class Setup extends Annotation {
 
 }
 
+class Setting extends Annotation {
+
+}
+
 class Command extends Annotation {
 
 }

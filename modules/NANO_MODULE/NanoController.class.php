@@ -40,7 +40,7 @@ class NanoController {
 	public $db;
 	
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 	
 	/** @Inject */
 	public $text;
@@ -57,8 +57,8 @@ class NanoController {
 		$this->db->loadSQLFile($this->moduleName, 'nanolines');
 		$this->db->loadSQLFile($this->moduleName, 'nanolines_ref');
 		
-		$this->setting->add($this->moduleName, 'maxnano', 'Number of Nanos shown on the list', 'edit', "number", '40', '30;40;50;60', "", "mod");
-		$this->setting->add($this->moduleName, "shownanolineicons", "Show icons for the nanolines", "edit", "options", "0", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, 'maxnano', 'Number of Nanos shown on the list', 'edit', "number", '40', '30;40;50;60', "", "mod");
+		$this->settingManager->add($this->moduleName, "shownanolineicons", "Show icons for the nanolines", "edit", "options", "0", "true;false", "1;0");
 	}
 
 	/**
@@ -92,7 +92,7 @@ class NanoController {
 			ORDER BY
 				n1.lowql DESC, n1.name ASC
 			LIMIT
-				" . $this->setting->get("maxnano");
+				" . $this->settingManager->get("maxnano");
 
 		$data = $this->db->query($sql);
 
@@ -209,7 +209,7 @@ class NanoController {
 
 		$blob = '';
 		forEach ($data as $row) {
-			if ($this->setting->get("shownanolineicons") == "1") {
+			if ($this->settingManager->get("shownanolineicons") == "1") {
 				$blob .= "<img src='rdb://$row->image_id'>\n";
 			}
 			$blob .= $this->text->make_chatcmd("$row->name", "/tell <myname> nanolines $row->id");

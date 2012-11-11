@@ -27,7 +27,7 @@ class ProfileController {
 	public $db;
 	
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 	
 	/** @Inject */
 	public $text;
@@ -117,7 +117,7 @@ class ProfileController {
 			$msg = "Profile <highlight>$profileName<end> already exists.";
 		} else {
 			$contents = "# Settings\n";
-			forEach ($this->setting->settings as $name => $value) {
+			forEach ($this->settingManager->settings as $name => $value) {
 				$contents .= "!settings save $name $value\n";
 			}
 			$contents .= "\n# Events\n";

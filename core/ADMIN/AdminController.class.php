@@ -39,7 +39,7 @@ class AdminController {
 	public $db;
 	
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 	
 	/** @Inject */
 	public $alts;
@@ -225,7 +225,7 @@ class AdminController {
 	
 	public function checkAltsInheritAdmin($who) {
 		$ai = $this->alts->get_alt_info($who);
-		if ($this->setting->get("alts_inherit_admin") == 1 && $ai->main != $who) {
+		if ($this->settingManager->get("alts_inherit_admin") == 1 && $ai->main != $who) {
 			return false;
 		} else {
 			return true;

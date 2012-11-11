@@ -30,7 +30,7 @@ class ChatLeaderController {
 	public $chatBot;
 	
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 
 	/** @Inject */
 	public $accessLevel;
@@ -106,7 +106,7 @@ class ChatLeaderController {
 	 * @Matches("/^leaderecho on$/i")
 	 */
 	public function leaderechoOnCommand($message, $channel, $sender, $sendto, $args) {
-		$this->setting->save("leaderecho", "1");
+		$this->settingManager->save("leaderecho", "1");
 		$this->chatBot->sendPrivate("Leader echo has been " . $this->getEchoStatusText());
 	}
 
@@ -116,7 +116,7 @@ class ChatLeaderController {
 	 * @Matches("/^leaderecho off$/i")
 	 */
 	public function leaderechoOffCommand($message, $channel, $sender, $sendto, $args) {
-		$this->setting->save("leaderecho", "0");
+		$this->settingManager->save("leaderecho", "0");
 		$this->chatBot->sendPrivate("Leader echo has been " . $this->getEchoStatusText());
 	}
 
@@ -135,8 +135,8 @@ class ChatLeaderController {
 	 * @Description("Repeats what the leader says in the color of leaderecho_color setting")
 	 */
 	public function privEvent($eventObj) {
-		if ($this->setting->get("leaderecho") == 1 && $this->leader == $eventObj->sender && $eventObj->message[0] != $this->setting->get("symbol")) {
-			$msg = $this->setting->get("leaderecho_color") . $eventObj->message . "<end>";
+		if ($this->settingManager->get("leaderecho") == 1 && $this->leader == $eventObj->sender && $eventObj->message[0] != $this->settingManager->get("symbol")) {
+			$msg = $this->settingManager->get("leaderecho_color") . $eventObj->message . "<end>";
 			$this->chatBot->sendPrivate($msg);
 		}
 	}
@@ -157,7 +157,7 @@ class ChatLeaderController {
 	 * Returns echo's status message based on 'leaderecho' setting.
 	 */
 	private function getEchoStatusText() {
-		if ($this->setting->get("leaderecho") == 1) {
+		if ($this->settingManager->get("leaderecho") == 1) {
 			$status = "<green>Enabled<end>";
 		} else {
 			$status = "<red>Disabled<end>";
@@ -169,7 +169,7 @@ class ChatLeaderController {
 	 * Returns current leader and echo's current status.
 	 */
 	private function getLeaderStatusText() {
-		$cmd = $this->setting->get("leaderecho") == 1? "off": "on";
+		$cmd = $this->settingManager->get("leaderecho") == 1? "off": "on";
 		$status = $this->getEchoStatusText();
 		$msg = "{$this->leader} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
 		return $msg;

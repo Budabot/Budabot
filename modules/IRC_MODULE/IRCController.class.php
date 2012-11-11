@@ -69,13 +69,13 @@ class IRCController {
 	/** @Inject */
 	public $preferences;
 	
-	/** @Inject("setting") */
+	/** @Inject */
 	public $settingManager;
 	
 	/** @Logger */
 	public $logger;
 
-	public $setting;
+	private $setting;
 
 	private $irc;
 	

@@ -26,7 +26,7 @@ class TeamspeakController {
 	public $chatBot;
 
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 
 	/** @Inject */
 	public $text;
@@ -35,12 +35,12 @@ class TeamspeakController {
 	 * @Setup
 	 */
 	public function setup() {
-		$this->setting->add($this->moduleName, "ts_username", "Username for TS server", "edit", "text", 'serveradmin', 'serveradmin');
-		$this->setting->add($this->moduleName, "ts_password", "Password for TS server", "edit", "text", 'password');
-		$this->setting->add($this->moduleName, "ts_queryport", "ServerQuery port for the TS server", "edit", "number", '10011', '10011');
-		$this->setting->add($this->moduleName, "ts_clientport", "Client port for the TS server", "edit", "number", '9987', '9987');
-		$this->setting->add($this->moduleName, "ts_description", "Description for TS server", "edit", "text", 'Teamspeak 3 Server');
-		$this->setting->add($this->moduleName, "ts_server", "IP/Domain name of the TS server", "edit", "text", '127.0.0.1', '127.0.0.1');
+		$this->settingManager->add($this->moduleName, "ts_username", "Username for TS server", "edit", "text", 'serveradmin', 'serveradmin');
+		$this->settingManager->add($this->moduleName, "ts_password", "Password for TS server", "edit", "text", 'password');
+		$this->settingManager->add($this->moduleName, "ts_queryport", "ServerQuery port for the TS server", "edit", "number", '10011', '10011');
+		$this->settingManager->add($this->moduleName, "ts_clientport", "Client port for the TS server", "edit", "number", '9987', '9987');
+		$this->settingManager->add($this->moduleName, "ts_description", "Description for TS server", "edit", "text", 'Teamspeak 3 Server');
+		$this->settingManager->add($this->moduleName, "ts_server", "IP/Domain name of the TS server", "edit", "text", '127.0.0.1', '127.0.0.1');
 	}
 
 	/**
@@ -65,17 +65,17 @@ class TeamspeakController {
 	}
 
 	public function getTeamspeak3Status() {
-		$ts = new Teamspeak3($this->setting->get('ts_username'), $this->setting->get('ts_password'), $this->setting->get('ts_server'), $this->setting->get('ts_queryport'));
+		$ts = new Teamspeak3($this->settingManager->get('ts_username'), $this->settingManager->get('ts_password'), $this->settingManager->get('ts_server'), $this->settingManager->get('ts_queryport'));
 
 		try {
-			$server = $this->setting->get('ts_server');
-			$clientPort = $this->setting->get('ts_clientport');
+			$server = $this->settingManager->get('ts_server');
+			$clientPort = $this->settingManager->get('ts_clientport');
 			$serverLink = $this->text->make_chatcmd($server, "/start http://ts3server:://$server:$clientPort");
 
 			$users = $ts->exec('clientlist');
 			$count = 0;
 			$blob = "Server: $serverLink\n";
-			$blob .= "Description: <highlight>" . $this->setting->get('ts_description') . "<end>\n\n";
+			$blob .= "Description: <highlight>" . $this->settingManager->get('ts_description') . "<end>\n\n";
 			$blob .= "Users:\n";
 			forEach ($users as $user) {
 				if ($user['client_type'] == 0) {

@@ -35,7 +35,7 @@ class VoteController {
 	public $util;
 	
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 	
 	/** @Inject */
 	public $accessLevel;
@@ -51,10 +51,10 @@ class VoteController {
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, 'vote');
 		
-		$this->setting->add($this->moduleName, "vote_channel_spam", "Showing Vote status messages in", "edit", "options", "2", "Private Channel;Guild;Private Channel and Guild;Neither", "0;1;2;3", "mod", "votesettings.txt");
-		$this->setting->add($this->moduleName, "vote_add_new_choices", "Users can add in there own choices", "edit", "options", "1", "true;false", "1;0", "mod", "votesettings.txt");
-		$this->setting->add($this->moduleName, "vote_create_min", "Minimum org level needed to create votes.", "edit", "options", "-1", "None;0;1;2;3;4;5;6", "-1;0;1;2;3;4;5;6", "mod", "votesettings.txt");
-		$this->setting->add($this->moduleName, "vote_use_min", "Minimum org level needed to vote.", "edit", "options", "-1", "None;0;1;2;3;4;5;6", "-1;0;1;2;3;4;5;6", "mod", "votesettings.txt");
+		$this->settingManager->add($this->moduleName, "vote_channel_spam", "Showing Vote status messages in", "edit", "options", "2", "Private Channel;Guild;Private Channel and Guild;Neither", "0;1;2;3", "mod", "votesettings.txt");
+		$this->settingManager->add($this->moduleName, "vote_add_new_choices", "Users can add in there own choices", "edit", "options", "1", "true;false", "1;0", "mod", "votesettings.txt");
+		$this->settingManager->add($this->moduleName, "vote_create_min", "Minimum org level needed to create votes.", "edit", "options", "-1", "None;0;1;2;3;4;5;6", "-1;0;1;2;3;4;5;6", "mod", "votesettings.txt");
+		$this->settingManager->add($this->moduleName, "vote_use_min", "Minimum org level needed to vote.", "edit", "options", "-1", "None;0;1;2;3;4;5;6", "-1;0;1;2;3;4;5;6", "mod", "votesettings.txt");
 		
 		$data = $this->db->query("SELECT * FROM vote_<myname> WHERE `status` < ? AND `duration` IS NOT NULL", 8);
 		forEach ($data as $row) {
@@ -174,7 +174,7 @@ class VoteController {
 					$removeLink = $this->text->make_chatcmd("Remove yourself from this vote", "/tell <myname> vote remove $question");
 					$msg .= "\n<black>___%<end> $removeLink.\n";
 				}
-				if ($timeleft > 0 && $this->setting->get("vote_add_new_choices") == 1 && $status == 0) {
+				if ($timeleft > 0 && $this->settingManager->get("vote_add_new_choices") == 1 && $status == 0) {
 					$msg .="\n<highlight>Don't like these choices?  Add your own:<end>\n<tab>/tell <myname> vote $question{$this->delimiter}<highlight>your choice<end>\n";
 				}
 
@@ -186,10 +186,10 @@ class VoteController {
 
 				$msg = $this->text->make_blob($title, $msg);
 
-				if ($this->setting->get("vote_channel_spam") == 0 || $this->setting->get("vote_channel_spam") == 2) {
+				if ($this->settingManager->get("vote_channel_spam") == 0 || $this->settingManager->get("vote_channel_spam") == 2) {
 					$this->chatBot->sendGuild($msg, true);
 				}
-				if ($this->setting->get("vote_channel_spam") == 1 || $this->setting->get("vote_channel_spam") == 2) {
+				if ($this->settingManager->get("vote_channel_spam") == 1 || $this->settingManager->get("vote_channel_spam") == 2) {
 					$this->chatBot->sendPrivate($msg, true);
 				}
 			}
@@ -383,7 +383,7 @@ class VoteController {
 				$blob .= $this->text->make_chatcmd('Remove yourself from this vote', "/tell <myname> vote remove $question") . "\n";
 			}
 
-			if ($timeleft > 0 && $this->setting->get("vote_add_new_choices") == 1 && $status == 0) {
+			if ($timeleft > 0 && $this->settingManager->get("vote_add_new_choices") == 1 && $status == 0) {
 				$blob .="\n<highlight>Don't like these choices?  Add your own:<end>\n<tab>/tell <myname> vote $question{$this->delimiter}<highlight>your choice<end>\n";
 			}
 
@@ -415,7 +415,7 @@ class VoteController {
 	public function voteChooseCommand($message, $channel, $sender, $sendto, $args) {
 		list($question, $choice) = explode($this->delimiter, $args[1], 2);
 		
-		$requirement = $this->setting->get("vote_use_min");
+		$requirement = $this->settingManager->get("vote_use_min");
 		if ($requirement >= 0) {
 			if (!$this->chatBot->guildmembers[$sender]) {
 				$sendto->reply("Only org members can vote.");
@@ -440,7 +440,7 @@ class VoteController {
 			$msg = "Couldn't find any votes with this topic.";
 		} else if ($timeleft <= 0) {
 			$msg = "No longer accepting votes for this topic.";
-		} else if (($this->setting->get("vote_add_new_choices") == 0 || ($this->setting->get("vote_add_new_choices") == 1 && $status == 1)) &&
+		} else if (($this->settingManager->get("vote_add_new_choices") == 0 || ($this->settingManager->get("vote_add_new_choices") == 1 && $status == 1)) &&
 				strpos($this->delimiter.$answer.$this->delimiter, $this->delimiter.$choice.$this->delimiter) === false) {
 
 			$msg = "Cannot accept this choice.  Please choose one from the menu.";
@@ -466,7 +466,7 @@ class VoteController {
 
 		// !vote 16m|Does this module work?|yes|no
 
-		$requirement = $this->setting->get("vote_create_min");
+		$requirement = $this->settingManager->get("vote_create_min");
 		if ($requirement >= 0) {
 			if (!$this->chatBot->guildmembers[$sender]) {
 				$sendto->reply("Only org members can start a new vote.");

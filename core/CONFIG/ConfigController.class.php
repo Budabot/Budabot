@@ -32,7 +32,7 @@ class ConfigController {
 	public $help;
 
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 	
 	/** @Inject */
 	public $accessLevel;
@@ -438,7 +438,7 @@ class ConfigController {
 				$blob .= " (<a href='chatcmd:///tell <myname> settings change $row->name'>Modify</a>)";
 			}
 	
-			$blob .= ":  " . $this->setting->displayValue($row);
+			$blob .= ":  " . $this->settingManager->displayValue($row);
 		}
 	
 		$sql =

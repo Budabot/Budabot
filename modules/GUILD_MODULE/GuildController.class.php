@@ -90,7 +90,7 @@ class GuildController {
 	public $chatBot;
 	
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 	
 	/** @Inject */
 	public $buddylistManager;
@@ -124,9 +124,9 @@ class GuildController {
 		$this->db->loadSQLFile($this->moduleName, "org_members");
 		$this->db->loadSQLFile($this->moduleName, "org_history");
 		
-		$this->setting->add($this->moduleName, "max_logon_msg_size", "Maximum characters a logon message can have", "edit", "number", "200", "100;200;300;400", '', "mod");
-		$this->setting->add($this->moduleName, "max_logoff_msg_size", "Maximum characters a logoff message can have", "edit", "number", "200", "100;200;300;400", '', "mod");
-		$this->setting->add($this->moduleName, "first_and_last_alt_only", "Show logon/logoff for first/last alt only", "edit", "options", "0", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, "max_logon_msg_size", "Maximum characters a logon message can have", "edit", "number", "200", "100;200;300;400", '', "mod");
+		$this->settingManager->add($this->moduleName, "max_logoff_msg_size", "Maximum characters a logoff message can have", "edit", "number", "200", "100;200;300;400", '', "mod");
+		$this->settingManager->add($this->moduleName, "first_and_last_alt_only", "Show logon/logoff for first/last alt only", "edit", "options", "0", "true;false", "1;0");
 		
 		unset($this->chatBot->guildmembers);
 		$data = $this->db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE mode <> 'del'");
@@ -162,11 +162,11 @@ class GuildController {
 		if ($logon_msg == 'clear') {
 			$this->preferences->save($sender, 'logon_msg', '');
 			$msg = "Your logon message has been cleared.";
-		} else if (strlen($logon_msg) <= $this->setting->get('max_logon_msg_size')) {
+		} else if (strlen($logon_msg) <= $this->settingManager->get('max_logon_msg_size')) {
 			$this->preferences->save($sender, 'logon_msg', $logon_msg);
 			$msg = "Your logon message has been set.";
 		} else {
-			$msg = "Your logon message is too large. Your logon message may contain a maximum of " . $this->setting->get('max_logon_msg_size') . " characters.";
+			$msg = "Your logon message is too large. Your logon message may contain a maximum of " . $this->settingManager->get('max_logon_msg_size') . " characters.";
 		}
 		$sendto->reply($msg);
 	}
@@ -196,11 +196,11 @@ class GuildController {
 		if ($logoff_msg == 'clear') {
 			$this->preferences->save($sender, 'logoff_msg', '');
 			$msg = "Your logoff message has been cleared.";
-		} else if (strlen($logoff_msg) <= $this->setting->get('max_logoff_msg_size')) {
+		} else if (strlen($logoff_msg) <= $this->settingManager->get('max_logoff_msg_size')) {
 			$this->preferences->save($sender, 'logoff_msg', $logoff_msg);
 			$msg = "Your logoff message has been set.";
 		} else {
-			$msg = "Your logoff message is too large. Your logoff message may contain a maximum of " . $this->setting->get('max_logoff_msg_size') . " characters.";
+			$msg = "Your logoff message is too large. Your logoff message may contain a maximum of " . $this->settingManager->get('max_logoff_msg_size') . " characters.";
 		}
 		$sendto->reply($msg);
 	}
@@ -232,11 +232,11 @@ class GuildController {
 		if ($logon_msg == 'clear') {
 			$this->preferences->save($name, 'logon_msg', '');
 			$msg = "The logon message for $name has been cleared.";
-		} else if (strlen($logon_msg) <= $this->setting->get('max_logon_msg_size')) {
+		} else if (strlen($logon_msg) <= $this->settingManager->get('max_logon_msg_size')) {
 			$this->preferences->save($name, 'logon_msg', $logon_msg);
 			$msg = "The logon message for $name has been set.";
 		} else {
-			$msg = "The logon message is too large. The logon message may contain a maximum of " . $this->setting->get('max_logon_msg_size') . " characters.";
+			$msg = "The logon message is too large. The logon message may contain a maximum of " . $this->settingManager->get('max_logon_msg_size') . " characters.";
 		}
 		$sendto->reply($msg);
 	}
@@ -268,11 +268,11 @@ class GuildController {
 		if ($logoff_msg == 'clear') {
 			$this->preferences->save($name, 'logoff_msg', '');
 			$msg = "The logoff message for $name has been cleared.";
-		} else if (strlen($logoff_msg) <= $this->setting->get('max_logoff_msg_size')) {
+		} else if (strlen($logoff_msg) <= $this->settingManager->get('max_logoff_msg_size')) {
 			$this->preferences->save($name, 'logoff_msg', $logoff_msg);
 			$msg = "The logoff message for $name has been set.";
 		} else {
-			$msg = "The logoff message is too large. The logoff message may contain a maximum of " . $this->setting->get('max_logoff_msg_size') . " characters.";
+			$msg = "The logoff message is too large. The logoff message may contain a maximum of " . $this->settingManager->get('max_logoff_msg_size') . " characters.";
 		}
 		$sendto->reply($msg);
 	}
@@ -749,7 +749,7 @@ class GuildController {
 	public function orgMemberLogonMessageEvent($eventObj) {
 		$sender = $eventObj->sender;
 		if (isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->is_ready()) {
-			if ($this->setting->get('first_and_last_alt_only') == 1) {
+			if ($this->settingManager->get('first_and_last_alt_only') == 1) {
 				// if at least one alt/main is still online, don't show logoff message
 				$altInfo = $this->alts->get_alt_info($sender);
 				if (count($altInfo->get_online_alts()) > 1) {
@@ -781,7 +781,7 @@ class GuildController {
 			$this->chatBot->sendGuild($msg, true);
 
 			//private channel part
-			if ($this->setting->get("guest_relay") == 1) {
+			if ($this->settingManager->get("guest_relay") == 1) {
 				$this->chatBot->sendPrivate($msg, true);
 			}
 		}
@@ -794,7 +794,7 @@ class GuildController {
 	public function orgMemberLogoffMessageEvent($eventObj) {
 		$sender = $eventObj->sender;
 		if (isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->is_ready()) {
-			if ($this->setting->get('first_and_last_alt_only') == 1) {
+			if ($this->settingManager->get('first_and_last_alt_only') == 1) {
 				// if at least one alt/main is already online, don't show logoff message
 				$altInfo = $alts->get_alt_info($sender);
 				if (count($altInfo->get_online_alts()) > 0) {
@@ -811,7 +811,7 @@ class GuildController {
 			$this->chatBot->sendGuild($msg, true);
 
 			//private channel part
-			if ($this->setting->get("guest_relay") == 1) {
+			if ($this->settingManager->get("guest_relay") == 1) {
 				$this->chatBot->sendPrivate($msg, true);
 			}
 		}

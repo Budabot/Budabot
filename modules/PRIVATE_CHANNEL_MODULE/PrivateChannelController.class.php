@@ -109,7 +109,7 @@ class PrivateChannelController {
 	public $chatBot;
 	
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 	
 	/** @Inject */
 	public $buddylistManager;
@@ -144,13 +144,13 @@ class PrivateChannelController {
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, "private_chat");
 		
-		$this->setting->add($this->moduleName, "guest_color_channel", "Color for Private Channel relay(ChannelName)", "edit", "color", "<font color=#C3C3C3>");
-		$this->setting->add($this->moduleName, "guest_color_guild", "Private Channel relay color in guild channel", "edit", "color", "<font color=#C3C3C3>");
-		$this->setting->add($this->moduleName, "guest_color_guest", "Private Channel relay color in private channel", "edit", "color", "<font color=#C3C3C3>");
-		$this->setting->add($this->moduleName, "guest_relay", "Relay the Private Channel with the Guild Channel", "edit", "options", "1", "true;false", "1;0");
-		$this->setting->add($this->moduleName, "guest_relay_commands", "Relay commands and results from/to Private Channel", "edit", "options", "0", "true;false", "1;0");
-		$this->setting->add($this->moduleName, "priv_status", "Private channel status", "edit", "options", "1", "open;closed", "1;0");
-		$this->setting->add($this->moduleName, "priv_status_reason", "Reason for private channel status", "edit", "text", "none");
+		$this->settingManager->add($this->moduleName, "guest_color_channel", "Color for Private Channel relay(ChannelName)", "edit", "color", "<font color=#C3C3C3>");
+		$this->settingManager->add($this->moduleName, "guest_color_guild", "Private Channel relay color in guild channel", "edit", "color", "<font color=#C3C3C3>");
+		$this->settingManager->add($this->moduleName, "guest_color_guest", "Private Channel relay color in private channel", "edit", "color", "<font color=#C3C3C3>");
+		$this->settingManager->add($this->moduleName, "guest_relay", "Relay the Private Channel with the Guild Channel", "edit", "options", "1", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, "guest_relay_commands", "Relay commands and results from/to Private Channel", "edit", "options", "0", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, "priv_status", "Private channel status", "edit", "options", "1", "open;closed", "1;0");
+		$this->settingManager->add($this->moduleName, "priv_status_reason", "Reason for private channel status", "edit", "text", "none");
 	}
 
 	/**
@@ -481,7 +481,7 @@ class PrivateChannelController {
 	 * @Matches("/^lock (.+)$/i")
 	 */
 	public function lockCommand($message, $channel, $sender, $sendto, $args) {
-		if ($this->setting->get("priv_status") == "0") {
+		if ($this->settingManager->get("priv_status") == "0") {
 			$msg = "Private channel is already locked.";
 			$sendto->reply($msg);
 			return;
@@ -490,7 +490,7 @@ class PrivateChannelController {
 		if (count($args) == 2) {
 			$reason = $args[1];
 			$msg = "The private channel has been locked by <highlight>$sender<end> - Reason: <highlight>$reason<end>.";
-			$this->setting->save("priv_status_reason", $reason);
+			$this->settingManager->save("priv_status_reason", $reason);
 		} else {
 			$msg = "The private channel has been locked by <highlight>$sender<end>.";
 		}
@@ -501,7 +501,7 @@ class PrivateChannelController {
 			$sendto->reply($msg);
 		}
 
-		$this->setting->save("priv_status", "0");
+		$this->settingManager->save("priv_status", "0");
 	}
 	
 	/**
@@ -509,7 +509,7 @@ class PrivateChannelController {
 	 * @Matches("/^unlock$/i")
 	 */
 	public function unlockCommand($message, $channel, $sender, $sendto, $args) {
-		if ($this->setting->get("priv_status") == "1") {
+		if ($this->settingManager->get("priv_status") == "1") {
 			$msg = "Private channel is already open.";
 			$sendto->reply($msg);
 			return;
@@ -522,8 +522,8 @@ class PrivateChannelController {
 			$this->chatBot->sendTell($msg, $sender);
 		}
 
-		$this->setting->save("priv_status", "1");
-		$this->setting->save("priv_status_reason", "none");
+		$this->settingManager->save("priv_status", "1");
+		$this->settingManager->save("priv_status_reason", "none");
 	}
 	
 	/**
@@ -547,9 +547,9 @@ class PrivateChannelController {
 	 */
 	public function joinCommand($message, $channel, $sender, $sendto, $args) {
 		// if the channel is locked, only raidleaders or higher can join manually
-		if ($this->setting->get("priv_status") == "0" && !$this->accessLevel->checkAccess($sender, 'raidleader')) {
-			if ($this->setting->get("priv_status_reason") != "none") {
-				$sendto->reply("The private channel is locked. Reason: " . $this->setting->get("priv_status_reason"));
+		if ($this->settingManager->get("priv_status") == "0" && !$this->accessLevel->checkAccess($sender, 'raidleader')) {
+			if ($this->settingManager->get("priv_status_reason") != "none") {
+				$sendto->reply("The private channel is locked. Reason: " . $this->settingManager->get("priv_status_reason"));
 			} else {
 				$sendto->reply("The private channel is locked.");
 			}
@@ -589,18 +589,18 @@ class PrivateChannelController {
 		$message = $eventObj->message;
 	
 		// Check if the private channel relay is enabled
-		if ($this->setting->get("guest_relay") != 1) {
+		if ($this->settingManager->get("guest_relay") != 1) {
 			return;
 		}
 
 		// Check that it's not a command or if it is a command, check that guest_relay_commands is not disabled
-		if ($message[0] == $this->setting->get("symbol") && $this->setting->get("guest_relay_commands") != 1) {
+		if ($message[0] == $this->settingManager->get("symbol") && $this->settingManager->get("guest_relay_commands") != 1) {
 			return;
 		}
 
-		$guest_color_channel = $this->setting->get("guest_color_channel");
-		$guest_color_guest = $this->setting->get("guest_color_guest");
-		$guest_color_guild = $this->setting->get("guest_color_guild");
+		$guest_color_channel = $this->settingManager->get("guest_color_channel");
+		$guest_color_guest = $this->settingManager->get("guest_color_guest");
+		$guest_color_guild = $this->settingManager->get("guest_color_guild");
 
 		if (count($this->chatBot->chatlist) > 0) {
 			//Relay the message to the private channel if there is at least 1 char in private channel
@@ -624,18 +624,18 @@ class PrivateChannelController {
 		$message = $eventObj->message;
 		
 		// Check if the private channel relay is enabled
-		if ($this->setting->get("guest_relay") != 1) {
+		if ($this->settingManager->get("guest_relay") != 1) {
 			return;
 		}
 
 		// Check that it's not a command or if it is a command, check that guest_relay_commands is not disabled
-		if ($message[0] == $this->setting->get("symbol") && $this->setting->get("guest_relay_commands") != 1) {
+		if ($message[0] == $this->settingManager->get("symbol") && $this->settingManager->get("guest_relay_commands") != 1) {
 			return;
 		}
 
-		$guest_color_channel = $this->setting->get("guest_color_channel");
-		$guest_color_guest = $this->setting->get("guest_color_guest");
-		$guest_color_guild = $this->setting->get("guest_color_guild");
+		$guest_color_channel = $this->settingManager->get("guest_color_channel");
+		$guest_color_guest = $this->settingManager->get("guest_color_guest");
+		$guest_color_guild = $this->settingManager->get("guest_color_guild");
 
 		//Relay the message to the guild channel
 		$msg = "<end>{$guest_color_channel}[Guest]<end> ".$this->text->make_userlink($sender).": {$guest_color_guild}{$message}<end>";
@@ -680,7 +680,7 @@ class PrivateChannelController {
 			}
 		}
 
-		if ($this->setting->get("guest_relay") == 1) {
+		if ($this->settingManager->get("guest_relay") == 1) {
 			$this->chatBot->sendGuild($msg, true);
 		}
 		$this->chatBot->sendPrivate($msg, true);
@@ -694,7 +694,7 @@ class PrivateChannelController {
 		$sender = $eventObj->sender;
 		$msg = "$sender has left the private channel";
 
-		if ($this->setting->get("guest_relay") == 1) {
+		if ($this->settingManager->get("guest_relay") == 1) {
 			$this->chatBot->sendGuild($msg, true);
 		}
 

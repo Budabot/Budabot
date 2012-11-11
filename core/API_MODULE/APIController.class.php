@@ -30,7 +30,7 @@ class APIController {
 	public $socketManager;
 
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 
 	/** @Logger */
 	public $logger;
@@ -156,7 +156,7 @@ class APIController {
 		}
 
 		// record usage stats
-		if ($this->setting->get('record_usage_stats') == 1) {
+		if ($this->settingManager->get('record_usage_stats') == 1) {
 			$this->usageController->record($channel, $cmd, $sender, $commandHandler);
 		}
 

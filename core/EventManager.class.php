@@ -22,7 +22,7 @@ class EventManager {
 	public $chatBot;
 
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 
 	/** @Inject */
 	public $util;

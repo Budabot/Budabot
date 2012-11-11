@@ -42,7 +42,7 @@ class ItemsController implements ItemsAPI {
 	public $chatBot;
 
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 
 	/** @Inject */
 	public $text;
@@ -170,7 +170,7 @@ class ItemsController implements ItemsAPI {
 		}
 
 		if ($latestVersion !== null) {
-			$currentVersion = $this->setting->get("aodb_db_version");
+			$currentVersion = $this->settingManager->get("aodb_db_version");
 
 			// if server version is greater than current version, download and load server version
 			if ($currentVersion === false || $this->util->compare_version_numbers($latestVersion, $currentVersion) > 0) {
@@ -226,7 +226,7 @@ class ItemsController implements ItemsAPI {
 			$query .= " AND `lowql` <= $ql AND `highql` >= $ql";
 		}
 
-		$sql = "SELECT * FROM aodb WHERE $query ORDER BY `name` ASC, highql DESC LIMIT 0, " . $this->setting->get("maxitems");
+		$sql = "SELECT * FROM aodb WHERE $query ORDER BY `name` ASC, highql DESC LIMIT 0, " . $this->settingManager->get("maxitems");
 		$data = $this->db->query($sql);
 		$num = count($data);
 		if ($num == 0) {
@@ -237,7 +237,7 @@ class ItemsController implements ItemsAPI {
 			}
 			return $msg;
 		} else if ($num > 3) {
-			$blob = "Version: " . $this->setting->get('aodb_db_version') . "\n";
+			$blob = "Version: " . $this->settingManager->get('aodb_db_version') . "\n";
 			if ($ql) {
 				$blob .= "Search: QL $ql $search\n\n";
 			} else {

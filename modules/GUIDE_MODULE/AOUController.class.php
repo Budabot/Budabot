@@ -26,7 +26,7 @@ class AOUController {
 	public $text;
 	
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 	
 	/** @Inject */
 	public $itemsController;

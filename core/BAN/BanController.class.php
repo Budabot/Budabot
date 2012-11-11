@@ -60,7 +60,7 @@ class BanController {
 	public $chatBot;
 
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 
 	/** @Inject */
 	public $text;
@@ -114,7 +114,7 @@ class BanController {
 
 		$timeString = $this->util->unixtime_to_readable($length);
 		$sendto->reply("You have banned <highlight>$who<end> from this bot for $timeString.");
-		if ($this->setting->get('notify_banned_player') == 1) {
+		if ($this->settingManager->get('notify_banned_player') == 1) {
 			$this->chatBot->sendTell("You have been banned from this bot by <highlight>$sender<end> for $timeString. Reason: $reason", $who);
 		}
 	}
@@ -139,7 +139,7 @@ class BanController {
 	
 		$timeString = $this->util->unixtime_to_readable($length);
 		$sendto->reply("You have banned <highlight>$who<end> from this bot for $timeString.");
-		if ($this->setting->get('notify_banned_player') == 1) {
+		if ($this->settingManager->get('notify_banned_player') == 1) {
 			$this->chatBot->sendTell("You have been banned from this bot by <highlight>$sender<end> for $timeString.", $who);
 		}
 	}
@@ -163,7 +163,7 @@ class BanController {
 		}
 	
 		$sendto->reply("You have permanently banned <highlight>$who<end> from this bot.");
-		if ($this->setting->get('notify_banned_player') == 1) {
+		if ($this->settingManager->get('notify_banned_player') == 1) {
 			$this->chatBot->sendTell("You have been permanently banned from this bot by <highlight>$sender<end>. Reason: $reason", $who);
 		}
 	}
@@ -185,7 +185,7 @@ class BanController {
 		}
 	
 		$sendto->reply("You have permanently banned <highlight>$who<end> from this bot.");
-		if ($this->setting->get('notify_banned_player') == 1) {
+		if ($this->settingManager->get('notify_banned_player') == 1) {
 			$this->chatBot->sendTell("You have been permanently banned from this bot by <highlight>$sender<end>.", $who);
 		}
 	}
@@ -243,7 +243,7 @@ class BanController {
 		$this->banManager->remove($who);
 	
 		$sendto->reply("You have unbanned <highlight>$who<end> from this bot.");
-		if ($this->setting->get('notify_banned_player') == 1) {
+		if ($this->settingManager->get('notify_banned_player') == 1) {
 			$this->chatBot->sendTell("You have been unbanned from this bot by $sender.", $who);
 		}
 	}

@@ -61,7 +61,7 @@ class TestController {
 	public $util;
 	
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 	
 	/** @Inject */
 	public $text;

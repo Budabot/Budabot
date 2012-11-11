@@ -79,7 +79,7 @@ class SystemController {
 	public $buddylistManager;
 
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 
 	/** @Inject */
 	public $text;
@@ -229,7 +229,7 @@ class SystemController {
 		$this->eventManager->activate("connect", "$name.onConnectEvent");
 
 		global $version;
-		$this->setting->save('version', $version);
+		$this->settingManager->save('version', $version);
 
 		$this->help->register($this->moduleName, "system", "system.txt", "admin", "Admin System Help file");
 		$this->help->register($this->moduleName, "budatime", "budatime.txt", "all", "Format for budatime");
@@ -373,7 +373,7 @@ class SystemController {
 	 */
 	public function logsFileCommand($message, $channel, $sender, $sendto, $args) {
 		$filename = $this->logger->get_logging_directory() . "/" . $args[1];
-		$readsize = $this->setting->get('max_blob_size') - 500;
+		$readsize = $this->settingManager->get('max_blob_size') - 500;
 
 		try {
 			$file = new ReverseFileReader($filename);

@@ -17,7 +17,7 @@ class SettingsController {
 	public $db;
 
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 
 	/** @Inject */
 	public $help;
@@ -139,7 +139,7 @@ class SettingsController {
 		$this->commandManager->activate("priv", $methods, "settings", "mod");
 		$this->commandManager->activate("guild", $methods, "settings", "mod");
 
-		$this->setting->upload();
+		$this->settingManager->upload();
 
 		$this->help->register($this->moduleName, "settings", "settings.txt", "mod", "Change Settings of the Bot");
 	}
@@ -167,7 +167,7 @@ class SettingsController {
 				$blob .= " ($editLink)";
 			}
 
-			$blob .= ": " . $this->setting->displayValue($row);
+			$blob .= ": " . $this->settingManager->displayValue($row);
 		}
 
 		$msg = $this->text->make_blob("Bot Settings", $blob);
@@ -197,7 +197,7 @@ class SettingsController {
 			$blob = "Name: <highlight>{$row->name}<end>\n";
 			$blob .= "Module: <highlight>{$row->module}<end>\n";
 			$blob .= "Descrption: <highlight>{$row->description}<end>\n";
-			$blob .= "Current Value: " . $this->setting->displayValue($row) . "\n";
+			$blob .= "Current Value: " . $this->settingManager->displayValue($row) . "\n";
 
 			if ($row->type == 'color') {
 				$blob .= "For this setting you can set any Color in the HTML Hexadecimal Color Format.\n";
@@ -323,7 +323,7 @@ class SettingsController {
 			}
 		}
 		if ($new_setting != "") {
-			if ($this->setting->save($name_setting, $new_setting)) {
+			if ($this->settingManager->save($name_setting, $new_setting)) {
 				$msg = "Setting successfull saved.";
 			} else {
 				$msg = "Error! Setting could not be saved.";

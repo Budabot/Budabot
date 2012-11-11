@@ -77,7 +77,7 @@ class TowerController {
 	public $text;
 
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 
 	/** @Inject */
 	public $chatBot;
@@ -569,7 +569,7 @@ class TowerController {
 		$closing_time_array = explode(':', $closing_time);
 		$closing_time_seconds = $closing_time_array[0] * 3600 + $closing_time_array[1] * 60 + $closing_time_array[2];
 	
-		if (!$skip_checks && $this->setting->get('check_close_time_on_scout') == 1) {
+		if (!$skip_checks && $this->settingManager->get('check_close_time_on_scout') == 1) {
 			$last_victory = $this->get_last_victory($tower_info->playfield_id, $tower_info->site_number);
 			if ($last_victory !== null) {
 				$victory_time_of_day = $last_attack->time % 86400;
@@ -584,7 +584,7 @@ class TowerController {
 			}
 		}
 	
-		if (!$skip_checks && $this->setting->get('check_guild_name_on_scout') == 1) {
+		if (!$skip_checks && $this->settingManager->get('check_guild_name_on_scout') == 1) {
 			if (!$this->check_guild_name($guild_name)) {
 				$check_blob .= "- <green>Org name<end> The org name you entered has never attacked or been attacked.\n\n";
 			}
@@ -862,7 +862,7 @@ class TowerController {
 		$msg .= "<font color=#FF67FF>[";
 		
 		// tower_attack_spam >= 2 (normal) includes attacker stats
-		if ($this->setting->get("tower_attack_spam") >= 2) {
+		if ($this->settingManager->get("tower_attack_spam") >= 2) {
 		
 			if ($whois->profession == "") {
 				$msg .= "<".strtolower($whois->faction).">$att_player<end> (Unknown";
@@ -896,7 +896,7 @@ class TowerController {
 		$msg .= " attacked ".$targetorg."] ";
 		
 		// tower_attack_spam >= 3 (full) includes location.
-		if ($this->setting->get("tower_attack_spam") >= 3) {
+		if ($this->settingManager->get("tower_attack_spam") >= 3) {
 			if ($closest_site) {
 				$site_number = "<font color=#AAAAAA>#".$closest_site->site_number."<end>";
 			}
@@ -905,9 +905,9 @@ class TowerController {
 		
 		$msg .= "$more<end>";
 		
-		$d = $this->setting->get("tower_faction_def");
-		$a = $this->setting->get("tower_faction_atk");
-		$s = $this->setting->get("tower_attack_spam");
+		$d = $this->settingManager->get("tower_faction_def");
+		$a = $this->settingManager->get("tower_faction_atk");
+		$s = $this->settingManager->get("tower_attack_spam");
 		
 		if (($s > 0 && (
 			(strtolower($def_side) == "clan"    && ($d & 1)) ||
@@ -975,7 +975,7 @@ class TowerController {
 			return;
 		}
 
-		$page_size = $this->setting->get('tower_page_size');
+		$page_size = $this->settingManager->get('tower_page_size');
 		$start_row = ($page_label - 1) * $page_size;
 
 		$sql =
@@ -1047,7 +1047,7 @@ class TowerController {
 			return;
 		}
 
-		$page_size = $this->setting->get('tower_page_size');
+		$page_size = $this->settingManager->get('tower_page_size');
 		$start_row = ($page_label - 1) * $page_size;
 
 		$sql = "

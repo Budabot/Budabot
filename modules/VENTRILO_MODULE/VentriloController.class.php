@@ -26,7 +26,7 @@ class VentriloController {
 	public $moduleName;
 	
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 
 	/** @Inject */
 	public $text;
@@ -36,12 +36,12 @@ class VentriloController {
 	
 	/** @Setup */
 	public function setup() {
-		$this->setting->add($this->moduleName, "ventaddress", "Ventrilo Server Address", "edit", "text", "unknown");
-		$this->setting->add($this->moduleName, "ventport", "Ventrilo Server Port", "edit", "number", "unknown");
-		$this->setting->add($this->moduleName, "ventpass", "Ventrilo Server Password", "edit", "text", "unknown");
+		$this->settingManager->add($this->moduleName, "ventaddress", "Ventrilo Server Address", "edit", "text", "unknown");
+		$this->settingManager->add($this->moduleName, "ventport", "Ventrilo Server Port", "edit", "number", "unknown");
+		$this->settingManager->add($this->moduleName, "ventpass", "Ventrilo Server Password", "edit", "text", "unknown");
 
-		$this->setting->add($this->moduleName, "showventpassword", "Show password with vent info?", "edit", "options", "1", "true;false", "1;0");
-		$this->setting->add($this->moduleName, "showextendedinfo", "Show extended vent server info?", "edit", "options", "1", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, "showventpassword", "Show password with vent info?", "edit", "options", "1", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, "showextendedinfo", "Show extended vent server info?", "edit", "options", "1", "true;false", "1;0");
 	}
 	
 	/**
@@ -69,9 +69,9 @@ class VentriloController {
 		$stat->m_cmdcode	= "2";					// Detail mode. 1=General Status, 2=Detail
 
 		// change config below this line only
-		$stat->m_cmdhost	= $this->setting->get("ventaddress");	// enter your vent server ip or hostname here
-		$stat->m_cmdport	= $this->setting->get("ventport");		// enter your vent server port number
-		$stat->m_cmdpass	= $this->setting->get("ventpass");		// Status password if necessary.
+		$stat->m_cmdhost	= $this->settingManager->get("ventaddress");	// enter your vent server ip or hostname here
+		$stat->m_cmdport	= $this->settingManager->get("ventport");		// enter your vent server port number
+		$stat->m_cmdpass	= $this->settingManager->get("ventpass");		// Status password if necessary.
 
 		$lobby = new CVentriloChannel;
 		$lobby->m_cid = 0;			// Channel ID.
@@ -93,14 +93,14 @@ class VentriloController {
 			$page .= "Hostname: <white>{$stat->m_cmdhost}<end>\n";
 			$page .= "Port Number: <white>{$stat->m_cmdport}<end>\n";
 
-			if ($this->setting->get("showventpassword") == 1) {
+			if ($this->settingManager->get("showventpassword") == 1) {
 				$page .= "Password: <white>{$stat->m_cmdpass}<end>\n";
 			}
 
 			$page .= "\nServer Name: <white>{$stat->m_name}<end>\n";
 			$page .= "Users: <white>{$stat->m_clientcount} / {$stat->m_maxclients}<end>\n";
 
-			if ($this->setting->get("showextendedinfo") == 1) {
+			if ($this->settingManager->get("showextendedinfo") == 1) {
 				$page .= "Voice Encoder: <white>{$stat->m_voicecodec_code}<end> - <grey>{$stat->m_voicecodec_desc}<end>\n";
 				$page .= "Voice Format: <white>{$stat->m_voiceformat_code}<end> - <grey>{$stat->m_voiceformat_desc}<end>\n";
 				$page .= "Server Uptime: " . $this->util->unixtime_to_readable($stat->m_uptime, false) . "\n";

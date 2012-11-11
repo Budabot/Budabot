@@ -13,7 +13,7 @@
  */
 class ChatRallyController {
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 
 	/** @Inject */
 	public $text;
@@ -127,17 +127,17 @@ class ChatRallyController {
 		$blob = "Click here to use rally: $link";
 		$rally = $this->text->make_blob("Rally: {$x_coords}x{$y_coords} {$name}", $blob);
 
-		$this->setting->save("rally", $rally);
+		$this->settingManager->save("rally", $rally);
 
 		return $rally;
 	}
 
 	private function get() {
-		return $this->setting->get("rally");
+		return $this->settingManager->get("rally");
 	}
 
 	private function clear() {
-		$this->setting->save("rally", '');
+		$this->settingManager->save("rally", '');
 	}
 	
 	private function replyCurrentRally($channel, $sendto) {

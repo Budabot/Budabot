@@ -54,7 +54,7 @@ class BBINController {
 	/** @Inject */
 	public $playerManager;
 
-	/** @Inject("setting") */
+	/** @Inject */
 	public $settingManager;
 	
 	/** @Inject */

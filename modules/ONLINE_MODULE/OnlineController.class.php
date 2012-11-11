@@ -30,7 +30,7 @@ class OnlineController {
 	public $chatBot;
 	
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 	
 	/** @Inject */
 	public $accessLevel;
@@ -58,15 +58,15 @@ class OnlineController {
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, "online");
 		
-		$this->setting->add($this->moduleName, "online_expire", "How long to wait before clearing online list", "edit", "time", "15m", "2m;5m;10m;15m;20m", '', "mod");
-		$this->setting->add($this->moduleName, "chatlist_tell", "Mode for Chatlist Cmd in tells", "edit", "options", "1", "Shows online privatechat members;Shows online guild members", "1;0");
-		$this->setting->add($this->moduleName, "fancy_online", "Show fancy delimiters on the online display", "edit", "options", "1", "true;false", "1;0");
-		$this->setting->add($this->moduleName, "icon_fancy_online", "Show profession icons in the online display", "edit", "options", "1", "true;false", "1;0");
-		$this->setting->add($this->moduleName, "online_group_by", "How to group online list", "edit", "options", "profession", "profession;guild");
-		$this->setting->add($this->moduleName, "online_show_org_guild", "Show org/rank for players in guild channel", "edit", "options", "1", "Show org and rank;Show rank only;Show org only;Show no org info", "2;1;3;0");
-		$this->setting->add($this->moduleName, "online_show_org_priv", "Show org/rank for players in private channel", "edit", "options", "2", "Show org and rank;Show rank only;Show org only;Show no org info", "2;1;3;0");
-		$this->setting->add($this->moduleName, "online_colorful", "Use fancy coloring for online list", "edit", "options", "1", "true;false", "1;0");
-		$this->setting->add($this->moduleName, "online_admin", "Show admin levels in online list", "edit", "options", "0", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, "online_expire", "How long to wait before clearing online list", "edit", "time", "15m", "2m;5m;10m;15m;20m", '', "mod");
+		$this->settingManager->add($this->moduleName, "chatlist_tell", "Mode for Chatlist Cmd in tells", "edit", "options", "1", "Shows online privatechat members;Shows online guild members", "1;0");
+		$this->settingManager->add($this->moduleName, "fancy_online", "Show fancy delimiters on the online display", "edit", "options", "1", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, "icon_fancy_online", "Show profession icons in the online display", "edit", "options", "1", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, "online_group_by", "How to group online list", "edit", "options", "profession", "profession;guild");
+		$this->settingManager->add($this->moduleName, "online_show_org_guild", "Show org/rank for players in guild channel", "edit", "options", "1", "Show org and rank;Show rank only;Show org only;Show no org info", "2;1;3;0");
+		$this->settingManager->add($this->moduleName, "online_show_org_priv", "Show org/rank for players in private channel", "edit", "options", "2", "Show org and rank;Show rank only;Show org only;Show no org info", "2;1;3;0");
+		$this->settingManager->add($this->moduleName, "online_colorful", "Use fancy coloring for online list", "edit", "options", "1", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, "online_admin", "Show admin levels in online list", "edit", "options", "0", "true;false", "1;0");
 	}
 	
 	public function register($instance) {
@@ -187,7 +187,7 @@ class OnlineController {
 			}
 
 			$sql = "DELETE FROM `online` WHERE (`dt` < ? AND added_by = '<myname>') OR (`dt` < ?)";
-			$this->db->exec($sql, $time, ($time - $this->setting->get('online_expire')));
+			$this->db->exec($sql, $time, ($time - $this->settingManager->get('online_expire')));
 			$this->db->commit();
 		}
 	}
@@ -293,9 +293,9 @@ class OnlineController {
 			$prof_query = "AND `profession` = '$prof'";
 		}
 
-		if ($this->setting->get('online_group_by') == 'profession') {
+		if ($this->settingManager->get('online_group_by') == 'profession') {
 			$order_by = "ORDER BY `profession`, `level` DESC";
-		} else if ($this->setting->get('online_group_by') == 'guild') {
+		} else if ($this->settingManager->get('online_group_by') == 'guild') {
 			$order_by = "ORDER BY `channel` ASC, `name` ASC";
 		}
 
@@ -309,7 +309,7 @@ class OnlineController {
 			$blob .= "<header2> ::: Guild Channel ($numguild) ::: <end>\n";
 
 			// create the list with alts shown
-			$blob .= $this->createList($data, true, $this->setting->get("online_show_org_guild"));
+			$blob .= $this->createList($data, true, $this->settingManager->get("online_show_org_guild"));
 		}
 
 		// Private Channel Part
@@ -323,7 +323,7 @@ class OnlineController {
 			$blob .= "<header2> ::: Private Channel ($numguest) ::: <end>\n";
 
 			// create the list of guests, without showing alts
-			$blob .= $this->createList($data, true, $this->setting->get("online_show_org_priv"));
+			$blob .= $this->createList($data, true, $this->settingManager->get("online_show_org_priv"));
 		}
 		
 		$numonline = $numguild + $numguest;
@@ -341,16 +341,16 @@ class OnlineController {
 	}
 
 	public function createList(&$data, $show_alts, $show_org_info) {
-		if ($this->setting->get('online_group_by') == 'profession') {
+		if ($this->settingManager->get('online_group_by') == 'profession') {
 			return $this->createListByProfession($data, $show_alts, $show_org_info);
-		} else if ($this->setting->get('online_group_by') == 'guild') {
+		} else if ($this->settingManager->get('online_group_by') == 'guild') {
 			return $this->createListByChannel($data, $show_alts, $show_org_info);
 		}
 	}
 
 	public function createListByChannel(&$data, $show_alts, $show_org_info) {
 		//Colorful temporary var settings (avoid a mess of if statements later in the function)
-		$fancyColon = ($this->setting->get("online_colorful") == "1") ? "<highlight>::<end>":"::";
+		$fancyColon = ($this->settingManager->get("online_colorful") == "1") ? "<highlight>::<end>":"::";
 
 		$blob = '';
 		forEach ($data as $row) {
@@ -380,21 +380,21 @@ class OnlineController {
 
 	public function createListByProfession(&$data, $show_alts, $show_org_info) {
 		//Colorful temporary var settings (avoid a mess of if statements later in the function)
-		$fancyColon = ($this->setting->get("online_colorful") == "1") ? "<highlight>::<end>":"::";
+		$fancyColon = ($this->settingManager->get("online_colorful") == "1") ? "<highlight>::<end>":"::";
 
 		$current_profession = "";
 
 		$blob = '';
 		forEach ($data as $row) {
 			if ($current_profession != $row->profession) {
-				if ($this->setting->get("fancy_online") == 0) {
+				if ($this->settingManager->get("fancy_online") == 0) {
 					// old style delimiters
 					$blob .= "\n<tab><highlight>$row->profession<end>\n";
 				} else {
 					// fancy delimiters
 					$blob .= "\n<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
 
-					if ($this->setting->get("icon_fancy_online") == 1) {
+					if ($this->settingManager->get("icon_fancy_online") == 1) {
 						if ($row->profession == "Adventurer") {
 							$blob .= "<img src=rdb://84203>";
 						} else if ($row->profession == "Agent") {
@@ -462,7 +462,7 @@ class OnlineController {
 	}
 
 	public function get_admin_info($name, $fancyColon) {
-		if ($this->setting->get("online_admin") != 1) {
+		if ($this->settingManager->get("online_admin") != 1) {
 			return "";
 		}
 

@@ -26,7 +26,7 @@ class UsageController {
 	public $db;
 
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 
 	/** @Inject */
 	public $util;
@@ -43,9 +43,9 @@ class UsageController {
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, 'usage');
 		
-		$this->setting->add($this->moduleName, "record_usage_stats", "Enable recording usage stats", "edit", "options", "1", "true;false", "1;0");
-		$this->setting->add($this->moduleName, 'botid', 'Botid', 'noedit', 'text', '');
-		$this->setting->add($this->moduleName, 'last_submitted_stats', 'last_submitted_stats', 'noedit', 'text', 0);
+		$this->settingManager->add($this->moduleName, "record_usage_stats", "Enable recording usage stats", "edit", "options", "1", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, 'botid', 'Botid', 'noedit', 'text', '');
+		$this->settingManager->add($this->moduleName, 'last_submitted_stats', 'last_submitted_stats', 'noedit', 'text', 0);
 	}
 	
 	/**
@@ -152,7 +152,7 @@ class UsageController {
 		$debug = false;
 		$time = time();
 		$settingName = 'last_submitted_stats';
-		$lastSubmittedStats = $this->setting->get($settingName);
+		$lastSubmittedStats = $this->settingManager->get($settingName);
 
 		$postArray['stats'] = json_encode($this->getUsageInfo($lastSubmittedStats, $debug));
 
@@ -164,16 +164,16 @@ class UsageController {
 			echo $mycurl->__toString() . "\n";
 		}
 
-		$this->setting->save($settingName, $time);
+		$this->settingManager->save($settingName, $time);
 	}
 
 	public function getUsageInfo($lastSubmittedStats, $debug = false) {
 		global $version;
 
-		$botid = $this->setting->get('botid');
+		$botid = $this->settingManager->get('botid');
 		if ($botid == '') {
 			$botid = $this->util->genRandomString(20);
-			$this->setting->save('botid', $botid);
+			$this->settingManager->save('botid', $botid);
 		}
 
 		$sql = "SELECT type, command FROM usage_<myname> WHERE dt >= ?";
@@ -184,23 +184,23 @@ class UsageController {
 		$settings['is_guild_bot'] = ($this->chatBot->vars['my_guild'] == '' ? '0' : '1');
 		$settings['guildsize'] = $this->getGuildSizeClass(count($this->chatBot->guildmembers));
 		$settings['using_chat_proxy'] = $this->chatBot->vars['use_proxy'];
-		$settings['symbol'] = $this->setting->get('symbol');
-		$settings['spam_protection'] = $this->setting->get('spam_protection');
+		$settings['symbol'] = $this->settingManager->get('symbol');
+		$settings['spam_protection'] = $this->settingManager->get('spam_protection');
 		$settings['db_type'] = $this->db->get_type();
 		$settings['bot_version'] = $version;
 		$settings['using_svn'] = (file_exists("./modules/SVN_MODULE/svn.php") === true ? '1' : '0');
 		$settings['os'] = (isWindows() === true ? 'Windows' : 'Other');
-		$settings['relay_enabled'] = ($this->setting->get('relaybot') == 'Off' ? '0' : '1');
-		$settings['relay_type'] = $this->setting->get('relaytype');
-		$settings['alts_inherit_admin'] = $this->setting->get('alts_inherit_admin');
-		$settings['bbin_status'] = $this->setting->get('bbin_status');
-		$settings['irc_status'] = $this->setting->get('irc_status');
-		$settings['first_and_last_alt_only'] = $this->setting->get('first_and_last_alt_only');
-		$settings['aodb_db_version'] = $this->setting->get('aodb_db_version');
-		$settings['guild_admin_access_level'] = $this->setting->get('guild_admin_access_level');
-		$settings['guild_admin_rank'] = $this->setting->get('guild_admin_rank');
-		$settings['max_blob_size'] = $this->setting->get('max_blob_size');
-		$settings['logon_delay'] = $this->setting->get('logon_delay');
+		$settings['relay_enabled'] = ($this->settingManager->get('relaybot') == 'Off' ? '0' : '1');
+		$settings['relay_type'] = $this->settingManager->get('relaytype');
+		$settings['alts_inherit_admin'] = $this->settingManager->get('alts_inherit_admin');
+		$settings['bbin_status'] = $this->settingManager->get('bbin_status');
+		$settings['irc_status'] = $this->settingManager->get('irc_status');
+		$settings['first_and_last_alt_only'] = $this->settingManager->get('first_and_last_alt_only');
+		$settings['aodb_db_version'] = $this->settingManager->get('aodb_db_version');
+		$settings['guild_admin_access_level'] = $this->settingManager->get('guild_admin_access_level');
+		$settings['guild_admin_rank'] = $this->settingManager->get('guild_admin_rank');
+		$settings['max_blob_size'] = $this->settingManager->get('max_blob_size');
+		$settings['logon_delay'] = $this->settingManager->get('logon_delay');
 
 		$obj = new stdClass;
 		$obj->id = sha1($botid . $this->chatBot->vars['name'] . $this->chatBot->vars['dimension']);

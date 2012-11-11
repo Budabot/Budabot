@@ -29,7 +29,7 @@ class ChatTopicController {
 	public $chatBot;
 	
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 	
 	/** @Inject */
 	public $util;
@@ -64,7 +64,7 @@ class ChatTopicController {
 	 * @Matches("/^topic$/i")
 	 */
 	public function topicCommand($message, $channel, $sender, $sendto, $args) {
-		if ($this->setting->get('topic') == '') {
+		if ($this->settingManager->get('topic') == '') {
 			$msg = 'No topic set.';
 		} else {
 			$msg = $this->buildTopicMessage();
@@ -79,9 +79,9 @@ class ChatTopicController {
 	 * @Matches("/^topic (?!clear)(.+)$/i")
 	 */
 	public function topicSetCommand($message, $channel, $sender, $sendto, $args) {
-		$this->setting->save("topic_time", time());
-		$this->setting->save("topic_setby", $sender);
-		$this->setting->save("topic", $args[1]);
+		$this->settingManager->save("topic_time", time());
+		$this->settingManager->save("topic_setby", $sender);
+		$this->settingManager->save("topic", $args[1]);
 		$msg = "Topic has been updated.";
 		$sendto->reply($msg);
 	}
@@ -92,9 +92,9 @@ class ChatTopicController {
 	 * @Matches("/^topic clear$/i")
 	 */
 	public function topicClearCommand($message, $channel, $sender, $sendto, $args) {
-		$this->setting->save("topic_time", time());
-		$this->setting->save("topic_setby", $sender);
-		$this->setting->save("topic", "");
+		$this->settingManager->save("topic_time", time());
+		$this->settingManager->save("topic_setby", $sender);
+		$this->settingManager->save("topic", "");
 		$msg = "Topic has been cleared.";
 		$sendto->reply($msg);
 	}
@@ -104,7 +104,7 @@ class ChatTopicController {
 	 * @Description("Shows topic on logon of members")
 	 */
 	public function logonEvent($eventObj) {
-		if ($this->setting->get('topic') == '') {
+		if ($this->settingManager->get('topic') == '') {
 			return;
 		}
 		if (isset($this->chatBot->guildmembers[$eventObj->sender]) && $this->chatBot->is_ready()) {
@@ -118,7 +118,7 @@ class ChatTopicController {
 	 * @Description("Shows topic when someone joins the private channel")
 	 */
 	public function joinPrivEvent($eventObj) {
-		if ($this->setting->get('topic') == '') {
+		if ($this->settingManager->get('topic') == '') {
 			return;
 		}
 		$msg = $this->buildTopicMessage();
@@ -129,9 +129,9 @@ class ChatTopicController {
 	 * Builds current topic information message and returns it.
 	 */
 	private function buildTopicMessage() {
-		$date_string = $this->util->unixtime_to_readable(time() - $this->setting->get('topic_time'), false);
-		$topic = $this->setting->get('topic');
-		$set_by = $this->setting->get('topic_setby');
+		$date_string = $this->util->unixtime_to_readable(time() - $this->settingManager->get('topic_time'), false);
+		$topic = $this->settingManager->get('topic');
+		$set_by = $this->settingManager->get('topic_setby');
 		$msg = "<highlight>Topic:<end> {$topic} [set by <highlight>{$set_by}<end>][<highlight>{$date_string} ago<end>]";
 		return $msg;
 	}

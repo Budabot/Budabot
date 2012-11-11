@@ -26,7 +26,7 @@ class Budabot extends AOChat {
 	public $help;
 
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 
 	/** @Inject */
 	public $banManager;
@@ -323,18 +323,18 @@ class Budabot extends AOChat {
 		$message = $this->text->format_message($message);
 		$senderLink = $this->text->make_userlink($this->vars['name']);
 		$guildNameForRelay = $this->relayController->getGuildAbbreviation();
-		$guestColorChannel = $this->setting->get('guest_color_channel');
-		$privColor = $this->setting->get('default_priv_color');
+		$guestColorChannel = $this->settingManager->get('guest_color_channel');
+		$privColor = $this->settingManager->get('default_priv_color');
 
 		$this->send_privgroup($group, $privColor.$message);
 		if ($group == $this->vars["name"]) {
 			// relay to guild channel
-			if (!$disable_relay && $this->setting->get('guild_channel_status') == 1 && $this->setting->get("guest_relay") == 1 && $this->setting->get("guest_relay_commands") == 1) {
+			if (!$disable_relay && $this->settingManager->get('guild_channel_status') == 1 && $this->settingManager->get("guest_relay") == 1 && $this->settingManager->get("guest_relay_commands") == 1) {
 				$this->send_guild("</font>{$guestColorChannel}[Guest]</font> {$senderLink}: {$privColor}$message</font>", "\0");
 			}
 
 			// relay to bot relay
-			if (!$disable_relay && $this->setting->get("relaybot") != "Off" && $this->setting->get("bot_relay_commands") == 1) {
+			if (!$disable_relay && $this->settingManager->get("relaybot") != "Off" && $this->settingManager->get("bot_relay_commands") == 1) {
 				$this->relayController->send_message_to_relay("grc [{$guildNameForRelay}] [Guest] {$senderLink}: $message");
 			}
 		}
@@ -356,18 +356,18 @@ class Budabot extends AOChat {
 		$message = $this->text->format_message($message);
 		$senderLink = $this->text->make_userlink($this->vars['name']);
 		$guildNameForRelay = $this->relayController->getGuildAbbreviation();
-		$guestColorChannel = $this->setting->get('guest_color_channel');
-		$guildColor = $this->setting->get("default_guild_color");
+		$guestColorChannel = $this->settingManager->get('guest_color_channel');
+		$guildColor = $this->settingManager->get("default_guild_color");
 
 		$this->send_guild($guildColor.$message, "\0", $priority);
 
 		// relay to private channel
-		if (!$disable_relay && $this->setting->get("guest_relay") == 1 && $this->setting->get("guest_relay_commands") == 1) {
+		if (!$disable_relay && $this->settingManager->get("guest_relay") == 1 && $this->settingManager->get("guest_relay_commands") == 1) {
 			$this->send_privgroup($this->vars["name"], "</font>{$guestColorChannel}[{$guildNameForRelay}]</font> {$senderLink}: {$guildColor}$message</font>");
 		}
 
 		// relay to bot relay
-		if (!$disable_relay && $this->setting->get("relaybot") != "Off" && $this->setting->get("bot_relay_commands") == 1) {
+		if (!$disable_relay && $this->settingManager->get("relaybot") != "Off" && $this->settingManager->get("bot_relay_commands") == 1) {
 			$this->relayController->send_message_to_relay("grc [{$guildNameForRelay}] {$senderLink}: $message");
 		}
 	}
@@ -386,7 +386,7 @@ class Budabot extends AOChat {
 		}
 
 		$message = $this->text->format_message($message);
-		$tellColor = $this->setting->get("default_tell_color");
+		$tellColor = $this->settingManager->get("default_tell_color");
 
 		$this->logger->log_chat("Out. Msg.", $character, $message);
 		$this->send_tell($character, $tellColor.$message, "\0", $priority);
@@ -406,7 +406,7 @@ class Budabot extends AOChat {
 		}
 
 		$message = $this->text->format_message($message);
-		$guildColor = $this->setting->get("default_guild_color");
+		$guildColor = $this->settingManager->get("default_guild_color");
 
 		$this->send_group($channel, $guildColor.$message, "\0", $priority);
 	}
@@ -614,7 +614,7 @@ class Budabot extends AOChat {
 
 		if ($this->banManager->is_banned($sender)) {
 			return;
-		} else if ($this->setting->get('spam_protection') == 1 && $this->spam[$sender] > 100) {
+		} else if ($this->settingManager->get('spam_protection') == 1 && $this->spam[$sender] > 100) {
 			$this->spam[$sender] += 20;
 			return;
 		}
@@ -622,7 +622,7 @@ class Budabot extends AOChat {
 		$this->eventManager->fireEvent($eventObj);
 
 		// remove the symbol if there is one
-		if ($message[0] == $this->setting->get("symbol") && strlen($message) > 1) {
+		if ($message[0] == $this->settingManager->get("symbol") && strlen($message) > 1) {
 			$message = substr($message, 1);
 		}
 
@@ -652,7 +652,7 @@ class Budabot extends AOChat {
 			return;
 		}
 
-		if ($this->setting->get('spam_protection') == 1) {
+		if ($this->settingManager->get('spam_protection') == 1) {
 			if ($this->spam[$sender] == 40) {
 				$this->sendTell("Error! Your client is sending a high frequency of chat messages. Stop or be kicked.", $sender);
 			}
@@ -667,7 +667,7 @@ class Budabot extends AOChat {
 
 			$this->eventManager->fireEvent($eventObj);
 
-			if ($message[0] == $this->setting->get("symbol") && strlen($message) > 1) {
+			if ($message[0] == $this->settingManager->get("symbol") && strlen($message) > 1) {
 				$message = substr($message, 1);
 				$sendto = new PrivateChannelCommandReply($this);
 				$this->commandManager->process($type, $message, $sender, $sendto);
@@ -723,7 +723,7 @@ class Budabot extends AOChat {
 			$eventObj->type = "orgmsg";
 
 			$this->eventManager->fireEvent($eventObj);
-		} else if ($b[1] == 3 && $this->setting->get('guild_channel_status') == 1) {
+		} else if ($b[1] == 3 && $this->settingManager->get('guild_channel_status') == 1) {
 			$type = "guild";
 			$sendto = 'guild';
 
@@ -731,7 +731,7 @@ class Budabot extends AOChat {
 
 			$this->eventManager->fireEvent($eventObj);
 
-			if ($message[0] == $this->setting->get("symbol") && strlen($message) > 1) {
+			if ($message[0] == $this->settingManager->get("symbol") && strlen($message) > 1) {
 				$message = substr($message, 1);
 				$sendto = new GuildChannelCommandReply($this);
 				$this->commandManager->process($type, $message, $sender, $sendto);
@@ -768,7 +768,7 @@ class Budabot extends AOChat {
 		$reflection = new ReflectionAnnotatedClass($obj);
 		forEach ($reflection->getProperties() as $property) {
 			if ($property->hasAnnotation('Setting')) {
-				$this->setting->add(
+				$this->settingManager->add(
 					$MODULE_NAME,
 					$property->getAnnotation('Setting')->value,
 					$property->getAnnotation('Description')->value,
@@ -872,7 +872,7 @@ class Budabot extends AOChat {
 	 * @description: tells when the bot is logged on and all the start up events have finished
 	 */
 	public function is_ready() {
-		return $this->ready && (time() >= $this->vars["startup"] + $this->setting->get("logon_delay"));
+		return $this->ready && (time() >= $this->vars["startup"] + $this->settingManager->get("logon_delay"));
 	}
 }
 

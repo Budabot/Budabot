@@ -26,7 +26,7 @@ class SVNController {
 	public $chatBot;
 	
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 
 	/** @Inject */
 	public $text;
@@ -38,8 +38,8 @@ class SVNController {
 	 * @Setup
 	 */
 	public function setup() {
-		$this->setting->add($this->moduleName, "svnconflict", "How to handle conflicts", "edit", "options", "theirs-conflict", "theirs-conflict;mine-conflict;theirs-full;mine-full;postpone", '', "admin", "");
-		$this->setting->add($this->moduleName, "svnpath", "Path to svn binary", "edit", "text", "svn", "svn;/usr/bin/svn");
+		$this->settingManager->add($this->moduleName, "svnconflict", "How to handle conflicts", "edit", "options", "theirs-conflict", "theirs-conflict;mine-conflict;theirs-full;mine-full;postpone", '', "admin", "");
+		$this->settingManager->add($this->moduleName, "svnpath", "Path to svn binary", "edit", "text", "svn", "svn;/usr/bin/svn");
 	}
 	
 	/**
@@ -47,7 +47,7 @@ class SVNController {
 	 * @Matches("/^svn dry$/i")
 	 */
 	public function svnDryCommand($message, $channel, $sender, $sendto, $args) {
-		$svnpath = $this->setting->get('svnpath');
+		$svnpath = $this->settingManager->get('svnpath');
 		$command = "$svnpath merge --dry-run -r BASE:HEAD . 2>&1";
 		$output = array();
 		$return_var = '';
@@ -68,7 +68,7 @@ class SVNController {
 	 * @Matches("/^svn update$/i")
 	 */
 	public function svnUpdateCommand($message, $channel, $sender, $sendto, $args) {
-		$svnpath = $this->setting->get('svnpath');
+		$svnpath = $this->settingManager->get('svnpath');
 		$command = "$svnpath info 2>&1";
 		$output = array();
 		$return_var = '';
@@ -80,7 +80,7 @@ class SVNController {
 		}
 		$blob .= "\n";
 
-		$command = "$svnpath update --accept " . $this->setting->get('svnconflict') . " 2>&1";
+		$command = "$svnpath update --accept " . $this->settingManager->get('svnconflict') . " 2>&1";
 		$output = array();
 		$return_var = '';
 		exec($command, $output, $return_var);
@@ -100,7 +100,7 @@ class SVNController {
 	 * @Matches("/^svn info$/i")
 	 */
 	public function svnInfoCommand($message, $channel, $sender, $sendto, $args) {
-		$svnpath = $this->setting->get('svnpath');
+		$svnpath = $this->settingManager->get('svnpath');
 		$command = "$svnpath info 2>&1";
 		$output = array();
 		$return_var = '';
@@ -122,7 +122,7 @@ class SVNController {
 	 * @Matches("/^svn status (.*)$/i")
 	 */
 	public function svnStatusCommand($message, $channel, $sender, $sendto, $args) {
-		$svnpath = $this->setting->get('svnpath');
+		$svnpath = $this->settingManager->get('svnpath');
 		if (count($args) == 2) {
 			$param = $args[1];
 		}

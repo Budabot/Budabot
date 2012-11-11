@@ -24,7 +24,7 @@ class RaffleController {
 	public $moduleName;
 	
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 	
 	/** @Inject */
 	public $accessLevel;
@@ -53,7 +53,7 @@ class RaffleController {
 			);
 		}
 	
-		$this->setting->add($this->moduleName, "defaultraffletime", "How long the raffle should go for", "edit", "time", '3m', '1m;2m;3m;4m;5m', '', 'mod', "raffle.txt");
+		$this->settingManager->add($this->moduleName, "defaultraffletime", "How long the raffle should go for", "edit", "time", '3m', '1m;2m;3m;4m;5m', '', 'mod', "raffle.txt");
 	}
 	
 	/**
@@ -81,7 +81,7 @@ class RaffleController {
 			$item = $args[1];
 			$count = 1;
 		}
-		$seconds = $this->setting->get("defaultraffletime");
+		$seconds = $this->settingManager->get("defaultraffletime");
 		$timeString = $this->util->unixtime_to_readable($seconds);
 
 		$this->raffles = array(

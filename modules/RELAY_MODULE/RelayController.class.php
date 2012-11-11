@@ -34,7 +34,7 @@ class RelayController {
 	public $chatBot;
 	
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 
 	/** @Inject */
 	public $text;
@@ -56,14 +56,14 @@ class RelayController {
 
 	/** @Setup */
 	public function setup() {
-		$this->setting->add($this->moduleName, "relaytype", "Type of relay", "edit", "options", "1", "tell;private channel", '1;2', "mod");
-		$this->setting->add($this->moduleName, "relaysymbol", "Symbol for external relay", "edit", "options", "@", "!;#;*;@;$;+;-", '', "mod");
-		$this->setting->add($this->moduleName, "relaysymbolmethod", "When to relay messages", "edit", "options", "0", "Always relay;Relay when symbol;Relay unless symbol", '0;1;2', "mod");
-		$this->setting->add($this->moduleName, "relaybot", "Bot for Guildrelay", "edit", "text", "Off", "Off", '', "mod", "relaybot.txt");
-		$this->setting->add($this->moduleName, "bot_relay_commands", "Relay commands and results over the bot relay", "edit", "options", "0", "true;false", "1;0");
-		$this->setting->add($this->moduleName, 'relay_color_guild', "Color of messages from relay to guild channel", 'edit', "color", "<font color='#C3C3C3'>");
-		$this->setting->add($this->moduleName, 'relay_color_priv', "Color of messages from relay to private channel", 'edit', "color", "<font color='#C3C3C3'>");
-		$this->setting->add($this->moduleName, 'relay_guild_abbreviation', 'Abbreviation to use for org name', 'edit', 'text', 'none', 'none');
+		$this->settingManager->add($this->moduleName, "relaytype", "Type of relay", "edit", "options", "1", "tell;private channel", '1;2', "mod");
+		$this->settingManager->add($this->moduleName, "relaysymbol", "Symbol for external relay", "edit", "options", "@", "!;#;*;@;$;+;-", '', "mod");
+		$this->settingManager->add($this->moduleName, "relaysymbolmethod", "When to relay messages", "edit", "options", "0", "Always relay;Relay when symbol;Relay unless symbol", '0;1;2', "mod");
+		$this->settingManager->add($this->moduleName, "relaybot", "Bot for Guildrelay", "edit", "text", "Off", "Off", '', "mod", "relaybot.txt");
+		$this->settingManager->add($this->moduleName, "bot_relay_commands", "Relay commands and results over the bot relay", "edit", "options", "0", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, 'relay_color_guild', "Color of messages from relay to guild channel", 'edit', "color", "<font color='#C3C3C3'>");
+		$this->settingManager->add($this->moduleName, 'relay_color_priv', "Color of messages from relay to private channel", 'edit', "color", "<font color='#C3C3C3'>");
+		$this->settingManager->add($this->moduleName, 'relay_guild_abbreviation', 'Abbreviation to use for org name', 'edit', 'text', 'none', 'none');
 	}
 	
 	/**
@@ -80,9 +80,9 @@ class RelayController {
 			return;
 		}
 
-		$this->setting->save('relaytype', 1);  // 1 for 'tell'
-		$this->setting->save('relaysymbol', 'Always relay');
-		$this->setting->save('relaybot', $name);
+		$this->settingManager->save('relaytype', 1);  // 1 for 'tell'
+		$this->settingManager->save('relaysymbol', 'Always relay');
+		$this->settingManager->save('relaybot', $name);
 
 		$msg = "Relay set up successfully with <highlight>$name<end>.  Please issue command '/tell $name tellrelay <myname>' if not done so already to complete the setup.";
 		$sendto->reply($msg);
@@ -112,12 +112,12 @@ class RelayController {
 	}
 	
 	public function processIncomingRelayMessage($sender, $message) {
-		if (($sender == ucfirst(strtolower($this->setting->get('relaybot'))) || $channel == ucfirst(strtolower($this->setting->get('relaybot')))) && preg_match("/^grc (.+)$/s", $message, $arr)) {
+		if (($sender == ucfirst(strtolower($this->settingManager->get('relaybot'))) || $channel == ucfirst(strtolower($this->settingManager->get('relaybot')))) && preg_match("/^grc (.+)$/s", $message, $arr)) {
 			$msg = $arr[1];
-			$this->chatBot->sendGuild($this->setting->get('relay_color_guild') . $msg, true);
+			$this->chatBot->sendGuild($this->settingManager->get('relay_color_guild') . $msg, true);
 
-			if ($this->setting->get("guest_relay") == 1) {
-				$this->chatBot->sendPrivate($this->setting->get('relay_color_priv') . $msg, true);
+			if ($this->settingManager->get("guest_relay") == 1) {
+				$this->chatBot->sendPrivate($this->settingManager->get('relay_color_priv') . $msg, true);
 			}
 		}
 	}
@@ -139,13 +139,13 @@ class RelayController {
 	}
 	
 	public function processOutgoingRelayMessage($sender, $message, $type) {
-		if (($this->setting->get("relaybot") != "Off") && ($this->setting->get("bot_relay_commands") == 1 || $message[0] != $this->setting->get("symbol"))) {
+		if (($this->settingManager->get("relaybot") != "Off") && ($this->settingManager->get("bot_relay_commands") == 1 || $message[0] != $this->settingManager->get("symbol"))) {
 			$relayMessage = '';
-			if ($this->setting->get('relaysymbolmethod') == '0') {
+			if ($this->settingManager->get('relaysymbolmethod') == '0') {
 				$relayMessage = $message;
-			} else if ($this->setting->get('relaysymbolmethod') == '1' && $message[0] == $this->setting->get('relaysymbol')) {
+			} else if ($this->settingManager->get('relaysymbolmethod') == '1' && $message[0] == $this->settingManager->get('relaysymbol')) {
 				$relayMessage = substr($message, 1);
-			} else if ($this->setting->get('relaysymbolmethod') == '2' && $message[0] != $this->setting->get('relaysymbol')) {
+			} else if ($this->settingManager->get('relaysymbolmethod') == '2' && $message[0] != $this->settingManager->get('relaysymbol')) {
 				$relayMessage = $message;
 			} else {
 				return;
@@ -175,7 +175,7 @@ class RelayController {
 	 */
 	public function acceptPrivJoinEvent($eventObj) {
 		$sender = $eventObj->sender;
-		if ($this->setting->get("relaytype") == 2 && strtolower($sender) == strtolower($this->setting->get("relaybot"))) {
+		if ($this->settingManager->get("relaytype") == 2 && strtolower($sender) == strtolower($this->settingManager->get("relaybot"))) {
 			$this->chatBot->privategroup_join($sender);
 		}
 	}
@@ -185,7 +185,7 @@ class RelayController {
 	 * @Description("Relay Org Messages")
 	 */
 	public function relayOrgMessagesEvent($eventObj) {
-		if ($this->setting->get("relaybot") != "Off") {
+		if ($this->settingManager->get("relaybot") != "Off") {
 			$msg = "grc [<myguild>] {$eventObj->message}<end>";
 			$this->send_message_to_relay($msg);
 		}
@@ -197,7 +197,7 @@ class RelayController {
 	 */
 	public function relayLogonMessagesEvent($eventObj) {
 		$sender = $eventObj->sender;
-		if ($this->setting->get("relaybot") != "Off" && isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->is_ready()) {
+		if ($this->settingManager->get("relaybot") != "Off" && isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->is_ready()) {
 			$whois = $this->playerManager->get_by_name($sender);
 
 			$msg = '';
@@ -229,7 +229,7 @@ class RelayController {
 	 */
 	public function relayLogoffMessagesEvent($eventObj) {
 		$sender = $eventObj->sender;
-		if ($this->setting->get("relaybot") != "Off" && isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->is_ready()) {
+		if ($this->settingManager->get("relaybot") != "Off" && isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->is_ready()) {
 			$this->send_message_to_relay("grc [<myguild>] <highlight>{$sender}<end> logged off");
 		}
 	}
@@ -240,7 +240,7 @@ class RelayController {
 	 */
 	public function relayJoinPrivMessagesEvent($eventObj) {
 		$sender = $eventObj->sender;
-		if ($this->setting->get('relaybot') != 'Off') {
+		if ($this->settingManager->get('relaybot') != 'Off') {
 			$whois = $this->playerManager->get_by_name($sender);
 			$altInfo = $this->alts->get_alt_info($sender);
 
@@ -268,23 +268,23 @@ class RelayController {
 	 */
 	public function relayLeavePrivMessagesEvent($eventObj) {
 		$sender = $eventObj->sender;
-		if ($this->setting->get('relaybot') != 'Off') {
+		if ($this->settingManager->get('relaybot') != 'Off') {
 			$msg = "<highlight>{$sender}<end> has left the private channel.";
 			$this->send_message_to_relay("grc [<myguild>] " . $msg);
 		}
 	}
 	
 	function send_message_to_relay($message) {
-		$relayBot = $this->setting->get('relaybot');
+		$relayBot = $this->settingManager->get('relaybot');
 		$message = str_ireplace("<myguild>", $this->getGuildAbbreviation(), $message);
 
 		// since we are using the aochat methods, we have to call format_message manually to handle colors and bot name replacement
 		$message = $this->text->format_message($message);
 
 		// we use the aochat methods so the bot doesn't prepend default colors
-		if ($this->setting->get('relaytype') == 2) {
+		if ($this->settingManager->get('relaytype') == 2) {
 			$this->chatBot->send_privgroup($relayBot, $message);
-		} else if ($this->setting->get('relaytype') == 1) {
+		} else if ($this->settingManager->get('relaytype') == 1) {
 			$this->chatBot->send_tell($relayBot, $message);
 
 			// manual logging is only needed for tell relay
@@ -293,8 +293,8 @@ class RelayController {
 	}
 
 	function getGuildAbbreviation() {
-		if ($this->setting->get('relay_guild_abbreviation') != 'none') {
-			return $this->setting->get('relay_guild_abbreviation');
+		if ($this->settingManager->get('relay_guild_abbreviation') != 'none') {
+			return $this->settingManager->get('relay_guild_abbreviation');
 		} else {
 			return $this->chatBot->vars["my_guild"];
 		}

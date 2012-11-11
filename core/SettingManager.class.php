@@ -36,7 +36,7 @@ help = Helpfile for this setting
 /**
  * @Instance
  */
-class Setting extends Annotation {
+class SettingManager extends Annotation {
 	/** @Inject */
 	public $db;
 

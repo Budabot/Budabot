@@ -38,7 +38,7 @@ class BroadcastController {
 	public $chatBot;
 
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 	
 	/** @Inject */
 	public $whitelist;
@@ -61,9 +61,9 @@ class BroadcastController {
 		
 		$this->loadBroadcastListIntoMemory();
 		
-		$this->setting->add($this->moduleName, "broadcast_to_guild", "Send broadcast message to guild channel", "edit", "options", "1", "true;false", "1;0");
-		$this->setting->add($this->moduleName, "broadcast_to_privchan", "Send broadcast message to private channel", "edit", "options", "0", "true;false", "1;0");
-		$this->setting->add($this->moduleName, "dnet_status", "Enable Dnet support", "noedit", "options", "0", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, "broadcast_to_guild", "Send broadcast message to guild channel", "edit", "options", "1", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, "broadcast_to_privchan", "Send broadcast message to private channel", "edit", "options", "0", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, "dnet_status", "Enable Dnet support", "noedit", "options", "0", "true;false", "1;0");
 	}
 	
 	private function loadBroadcastListIntoMemory() {
@@ -157,7 +157,7 @@ class BroadcastController {
 	 */
 	public function dnetEnableCommand($message, $channel, $sender, $sendto, $args) {
 		if (!isset($this->broadcastList[$this->dnetBot])) {
-			$this->setting->save('dnet_status', 1);
+			$this->settingManager->save('dnet_status', 1);
 			$this->db->query("INSERT INTO broadcast_<myname> (`name`, `added_by`, `dt`) VALUES (?, ?, ?)", $this->dnetBot, $sender, time());
 			$this->whitelist->add($this->dnetBot, $sender . " (broadcast bot)");
 
@@ -178,7 +178,7 @@ class BroadcastController {
 	 * @Matches("/^dnet (disable|off|rem|remove)$/i")
 	 */
 	public function dnetDisableCommand($message, $channel, $sender, $sendto, $args) {
-		$this->setting->save('dnet_status', 0);
+		$this->settingManager->save('dnet_status', 0);
 		$this->db->exec("DELETE FROM broadcast_<myname> WHERE name = ?", $this->dnetBot);
 		$this->whitelist->remove($this->dnetBot);
 
@@ -222,7 +222,7 @@ class BroadcastController {
 	 * @Description("Joins Dnet channel if enabled")
 	 */
 	public function joinDnetOnConnectEvent($eventObj) {
-		if ($this->setting->get('dnet_status') == 1) {
+		if ($this->settingManager->get('dnet_status') == 1) {
 			$msg = "!join";
 			$this->logger->log_chat("Out. Msg.", $this->dnetBot, $msg);
 			$this->chatBot->send_tell($this->dnetBot, $msg);
@@ -233,10 +233,10 @@ class BroadcastController {
 		if (isset($this->broadcastList[$sender])) {
 			$msg = "[$sender]: $message";
 
-			if ($this->setting->get('broadcast_to_guild')) {
+			if ($this->settingManager->get('broadcast_to_guild')) {
 				$this->chatBot->sendGuild($msg, true);
 			}
-			if ($this->setting->get('broadcast_to_privchan')) {
+			if ($this->settingManager->get('broadcast_to_privchan')) {
 				$this->chatBot->sendPrivate($msg, true);
 			}
 

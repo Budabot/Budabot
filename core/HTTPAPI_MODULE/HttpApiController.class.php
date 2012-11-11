@@ -17,7 +17,7 @@ class HttpApiController {
 	public $socketManager;
 
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 
 	/** @Inject */
 	public $text;
@@ -92,12 +92,12 @@ class HttpApiController {
 		});
 
 		// switch server's port if httpapi_port setting is changed
-		$this->setting->registerChangeListener('httpapi_port', function($name, $oldValue, $newValue) use ($that) {
+		$this->settingManager->registerChangeListener('httpapi_port', function($name, $oldValue, $newValue) use ($that) {
 			$that->listen($newValue);
 		});
 		
 		// listen or stop listening when httpapi_enabled setting is changed
-		$this->setting->registerChangeListener('httpapi_enabled', function($name, $oldValue, $newValue) use ($that) {
+		$this->settingManager->registerChangeListener('httpapi_enabled', function($name, $oldValue, $newValue) use ($that) {
 			if ($newValue == 1) {
 				$port = $that->setting->get('httpapi_port');
 				$that->listen($port);
@@ -106,8 +106,8 @@ class HttpApiController {
 			}
 		});
 
-		if ($this->setting->get('httpapi_enabled') == 1) {
-			$port = $this->setting->get('httpapi_port');
+		if ($this->settingManager->get('httpapi_enabled') == 1) {
+			$port = $this->settingManager->get('httpapi_port');
 			$that->listen($port);
 		}
 		
@@ -167,12 +167,12 @@ class HttpApiController {
 	 */
 	public function getUri($path) {
 		$path    = ltrim($path, '/');
-		$baseUri = $this->setting->get('httpapi_base_uri');
+		$baseUri = $this->settingManager->get('httpapi_base_uri');
 		if ($baseUri) {
 			$baseUri = rtrim($baseUri, '/');
 			return "$baseUri/$path";
 		} else {
-			$port = $this->setting->get('httpapi_port');
+			$port = $this->settingManager->get('httpapi_port');
 			if ($port == 80) {
 				return "http://localhost/$path";
 			} else {

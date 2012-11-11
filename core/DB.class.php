@@ -8,7 +8,7 @@ require_once 'DBRow.class.php';
 class DB {
 
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 
 	/** @Inject */
 	public $util;
@@ -215,8 +215,8 @@ class DB {
 		}
 		$d = dir($dir);
 
-		if ($this->setting->exists($settingName)) {
-			$currentVersion = $this->setting->get($settingName);
+		if ($this->settingManager->exists($settingName)) {
+			$currentVersion = $this->settingManager->get($settingName);
 		} else {
 			$currentVersion = false;
 		}
@@ -252,7 +252,7 @@ class DB {
 		}
 		
 		// make sure setting is verified so it doesn't get deleted
-		$this->setting->add($module, $settingName, $settingName, 'noedit', 'text', 0);
+		$this->settingManager->add($module, $settingName, $settingName, 'noedit', 'text', 0);
 		
 		if ($forceUpdate || $this->util->compare_version_numbers($maxFileVersion, $currentVersion) > 0) {
 			$handle = @fopen("$dir/$file", "r");
@@ -266,7 +266,7 @@ class DB {
 						}
 					}
 
-					$this->setting->save($settingName, $maxFileVersion);
+					$this->settingManager->save($settingName, $maxFileVersion);
 
 					if ($maxFileVersion != 0) {
 						$msg = "Updated '$name' database from '$currentVersion' to '$maxFileVersion'";

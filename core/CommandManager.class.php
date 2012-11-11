@@ -12,7 +12,7 @@ class CommandManager {
 	public $chatBot;
 
 	/** @Inject */
-	public $setting;
+	public $settingManager;
 
 	/** @Inject */
 	public $accessLevel;
@@ -215,7 +215,7 @@ class CommandManager {
 		// if command doesn't exist
 		if ($commandHandler === null) {
 			// if they've disabled feedback for guild or private channel, just return
-			if (($channel == 'guild' && $this->setting->get('guild_channel_cmd_feedback') == 0) || ($channel == 'priv' && $this->setting->get('private_channel_cmd_feedback') == 0)) {
+			if (($channel == 'guild' && $this->settingManager->get('guild_channel_cmd_feedback') == 0) || ($channel == 'priv' && $this->settingManager->get('private_channel_cmd_feedback') == 0)) {
 				return;
 			}
 
@@ -232,7 +232,7 @@ class CommandManager {
 		// if the character doesn't have access
 		if ($this->accessLevel->checkAccess($sender, $commandHandler->admin) !== true) {
 			// if they've disabled feedback for guild or private channel, just return
-			if (($channel == 'guild' && $this->setting->get('guild_channel_cmd_feedback') == 0) || ($channel == 'priv' && $this->setting->get('private_channel_cmd_feedback') == 0)) {
+			if (($channel == 'guild' && $this->settingManager->get('guild_channel_cmd_feedback') == 0) || ($channel == 'priv' && $this->settingManager->get('private_channel_cmd_feedback') == 0)) {
 				return;
 			}
 
@@ -243,7 +243,7 @@ class CommandManager {
 
 		try {
 			// record usage stats (in try/catch loop in case there is an error)
-			if ($this->setting->get('record_usage_stats') == 1) {
+			if ($this->settingManager->get('record_usage_stats') == 1) {
 				$this->usageController->record($channel, $cmd, $sender, $commandHandler);
 			}
 		} catch (Exception $e) {
