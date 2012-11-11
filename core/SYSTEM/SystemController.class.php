@@ -5,6 +5,7 @@ require_once './lib/ReverseFileReader.class.php';
 /**
  * Authors: 
  *  - Sebuda (RK2)
+ *  - Tyrence (RK2)
  *
  * @Instance
  *
@@ -20,12 +21,6 @@ require_once './lib/ReverseFileReader.class.php';
  *		accessLevel   = 'mod',
  *		description   = 'Clear outgoing chatqueue from all pending messages',
  *		help          = 'clearqueue.txt'
- *	)
- *	@DefineCommand(
- *		command       = 'loadsql',
- *		accessLevel   = 'mod',
- *		description   = 'Manually reload an sql file',
- *		help          = 'loadsql.txt'
  *	)
  *	@DefineCommand(
  *		command       = 'macro',
@@ -218,8 +213,6 @@ class SystemController {
 			$this->commandManager->activate($channel, "$name.shutdownCommand", "shutdown", "admin");
 			$this->commandManager->activate($channel, "$name.reloadconfigCommand", "reloadconfig", "admin");
 			$this->commandManager->activate($channel, "$name.systemCommand", "system", "mod");
-			$this->commandManager->activate($channel, "$name.executesqlCommand", "executesql", "admin");
-			$this->commandManager->activate($channel, "$name.querysqlCommand", "querysql", "admin");
 			$this->commandManager->activate($channel, "$name.logsCommand,$name.logsFileCommand", "logs", "admin");
 		}
 
@@ -295,52 +288,6 @@ class SystemController {
 		}
 
 		$sendto->reply('Config file has been reloaded.');
-	}
-
-	/**
-	 * This command handler executes a SQL statement.
-	 * Note: This handler has not been not registered, only activated.
-	 *
-	 * @Matches("/^executesql (.*)$/i")
-	 */
-	public function executesqlCommand($message, $channel, $sender, $sendto, $args) {
-		if (!$this->accessLevel->checkAccess($sender, 'superadmin')) {
-			$msg = "This command may only be used by the super administrator.";
-			$sendto->reply($msg);
-			return;
-		}
-
-		$sql = htmlspecialchars_decode($args[1]);
-
-		$num_rows = $this->db->exec($sql);
-		$msg = "$num_rows rows affected.";
-		$sendto->reply($msg);
-	}
-
-	/**
-	 * This command handler executes a SQL query.
-	 * Note: This handler has not been not registered, only activated.
-	 *
-	 * @Matches("/^querysql (.*)$/si")
-	 */
-	public function querysqlCommand($message, $channel, $sender, $sendto, $args) {
-		if (!$this->accessLevel->checkAccess($sender, 'superadmin')) {
-			$msg = "This command may only be used by the super administrator.";
-			$sendto->reply($msg);
-			return;
-		}
-
-		$sql = htmlspecialchars_decode($args[1]);
-
-		$data = $this->db->query($sql);
-		$count = count($data);
-
-		if ($data === null) {
-			$msg = "There was en error executing your query.";
-		} else {
-			$msg = $this->text->make_blob("Results ($count)", print_r($data, true));
-		}
-		$sendto->reply($msg);
 	}
 
 	/**
@@ -442,6 +389,8 @@ class SystemController {
 			$blob .= "Peak Memory Usage: <highlight>" . $this->util->bytes_convert(memory_get_peak_usage()) . "<end>\n";
 			$blob .= "Peak Memory Usage (Real): <highlight>" . $this->util->bytes_convert(memory_get_peak_usage(1)) . "<end>\n\n";
 		}
+		
+		$blob .= "Runkit Classloading: <highlight>" . (USE_RUNKIT_CLASS_LOADING ? "enabled" : "disabled") . "<end>\n";
 
 		$date_string = $this->util->unixtime_to_readable(time() - $this->chatBot->vars['startup']);
 		$blob .= "Uptime: <highlight>$date_string<end>\n\n";
@@ -510,25 +459,6 @@ class SystemController {
 		$this->chatBot->chatqueue->queue = array();
 	
 		$sendto->reply("Chat queue has been cleared of $num messages.");
-	}
-
-	/**
-	 * This command handler manually reload an sql file.
-	 *
-	 * @HandlesCommand("loadsql")
-	 * @Matches("/^loadsql (.*) (.*)$/i")
-	 */
-	public function loadsqlCommand($message, $channel, $sender, $sendto, $args) {
-		$module = strtoupper($args[1]);
-		$name = strtolower($args[2]);
-	
-		$this->db->begin_transaction();
-	
-		$msg = $this->db->loadSQLFile($module, $name, true);
-	
-		$this->db->commit();
-	
-		$sendto->reply($msg);
 	}
 
 	/**
