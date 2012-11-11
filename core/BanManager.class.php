@@ -3,7 +3,7 @@
 /**
  * @Instance
  */
-class Ban {
+class BanManager {
 
 	/** @Inject */
 	public $db;

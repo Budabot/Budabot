@@ -48,7 +48,7 @@ class BanController {
 	public $moduleName;
 
 	/** @Inject */
-	public $ban;
+	public $banManager;
 
 	/** @Inject */
 	public $accessLevel;
@@ -88,7 +88,7 @@ class BanController {
 	 */
 	public function setup() {
 		$this->db->exec("CREATE TABLE IF NOT EXISTS banlist_<myname> (name VARCHAR(25) NOT NULL PRIMARY KEY, admin VARCHAR(25), time INT, reason TEXT, banend INT)");
-		$this->ban->upload_banlist();
+		$this->banManager->upload_banlist();
 		$this->eventManager->activate('1min', 'BanController.checkTempBan');
 	}
 
@@ -197,7 +197,7 @@ class BanController {
 	 * @Matches("/^banlist$/i")
 	 */
 	public function banlistCommand($message, $channel, $sender, $sendto, $args) {
-		$banlist = $this->ban->getBanlist();
+		$banlist = $this->banManager->getBanlist();
 		if (count($banlist) == 0) {
 		    $sendto->reply("No one is currently banned from this bot.");
 		    return;
@@ -235,12 +235,12 @@ class BanController {
 	public function unbanCommand($message, $channel, $sender, $sendto, $args) {
 		$who = ucfirst(strtolower($args[1]));
 	
-		if (!$this->ban->is_banned($who)) {
+		if (!$this->banManager->is_banned($who)) {
 			$sendto->reply("<highlight>$who<end> is not banned on this bot.");
 			return;
 		}
 	
-		$this->ban->remove($who);
+		$this->banManager->remove($who);
 	
 		$sendto->reply("You have unbanned <highlight>$who<end> from this bot.");
 		if ($this->setting->get('notify_banned_player') == 1) {
@@ -260,12 +260,12 @@ class BanController {
 	public function banorgCommand($message, $channel, $sender, $sendto, $args) {
 		$who = $args[1];
 	
-		if ($this->ban->is_banned($who)) {
+		if ($this->banManager->is_banned($who)) {
 			$sendto->reply("The organization <highlight>$who<end> is already banned.");
 			return;
 		}
 	
-		$this->ban->add($who, $sender, null, '');
+		$this->banManager->add($who, $sender, null, '');
 	
 		$sendto->reply("You have banned the organization <highlight>$who<end> from this bot.");
 	}
@@ -282,12 +282,12 @@ class BanController {
 	public function unbanorgCommand($message, $channel, $sender, $sendto, $args) {
 		$who = $args[1];
 	
-		if (!$this->ban->is_banned($who)) {
+		if (!$this->banManager->is_banned($who)) {
 			$sendto->reply("The org <highlight>$who<end> is not banned on this bot.");
 			return;
 		}
 	
-		$this->ban->remove($who);
+		$this->banManager->remove($who);
 	
 		$sendto->reply("You have unbanned the org <highlight>$who<end> from this bot.");
 	}
@@ -298,7 +298,7 @@ class BanController {
 	 */
 	public function checkTempBan($eventObj) {
 		$update = false;
-		forEach ($this->ban->getBanlist() as $ban){
+		forEach ($this->banManager->getBanlist() as $ban){
 			if ($ban->banend != 0 && ((time() - $ban->banend) >= 0)) {
 				$update = true;
 				$this->db->exec("DELETE FROM banlist_<myname> WHERE name = ?", $ban->name);
@@ -306,7 +306,7 @@ class BanController {
 		}
 
 		if ($update) {
-			$this->ban->upload_banlist();
+			$this->banManager->upload_banlist();
 		}
 	}
 
@@ -319,7 +319,7 @@ class BanController {
 			return;
 		}
 
-		if ($this->ban->is_banned($who)) {
+		if ($this->banManager->is_banned($who)) {
 			$sendto->reply("Player <highlight>$who<end> is already banned.");
 			return;
 		}
@@ -333,7 +333,7 @@ class BanController {
 			return false;
 		}
 
-		$this->ban->add($who, $sender, $length, $reason);
+		$this->banManager->add($who, $sender, $length, $reason);
 		return true;
 	}
 }

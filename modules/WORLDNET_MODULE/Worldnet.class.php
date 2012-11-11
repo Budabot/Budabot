@@ -12,7 +12,7 @@ class Worldnet {
 	public $buddylistManager;
 
 	/** @Inject */
-	public $ban;
+	public $banManager;
 
 	/** @Inject */
 	public $help;
@@ -101,7 +101,7 @@ class Worldnet {
 			$this->setting->add('WORLDNET_MODULE', $channelSetting, "Channel $worldnetChannel status", "edit", "options", "1", "true;false", "1;0");
 		}
 
-		if ($this->ban->is_banned($name)) {
+		if ($this->banManager->is_banned($name)) {
 			return;
 		}
 
