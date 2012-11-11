@@ -31,6 +31,12 @@
  *		help        = 'test.txt'
  *	)
  *	@DefineCommand(
+ *		command     = 'testos', 
+ *		accessLevel = 'admin', 
+ *		description = "Test the bot commands", 
+ *		help        = 'test.txt'
+ *	)
+ *	@DefineCommand(
  *		command     = 'showcmdregex', 
  *		accessLevel = 'admin', 
  *		description = "Test the bot commands", 
@@ -145,6 +151,23 @@ class TestController {
 		$packet->args[0] = $this->chatBot->get_gid('tower battle outcome');
 		$packet->args[1] = (int)0xFFFFFFFF;
 		$packet->args[2] = "The $args[1] organization $args[2] attacked the $args[3] $args[4] at their base in $args[5]. The attackers won!!";
+
+		$this->chatBot->process_packet($packet);
+	}
+	
+	/**
+	 * @HandlesCommand("testos")
+	 * @Matches("/^testos (.+)$/i")
+	 */
+	public function testosCommand($message, $channel, $sender, $sendto, $args) {
+		$launcher = ucfirst(strtolower($args[1]));
+	
+		$packet = new stdClass;
+		$packet->type = AOCP_GROUP_MESSAGE;
+		$packet->args = array();
+		$packet->args[0] = $this->chatBot->get_gid('org msg');
+		$packet->args[1] = (int)0xFFFFFFFF;
+		$packet->args[2] = "Blammo! $launcher has launched an orbital attack!";
 
 		$this->chatBot->process_packet($packet);
 	}
