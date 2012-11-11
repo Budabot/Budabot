@@ -31,6 +31,9 @@ class Text {
 			$header = $name;
 		}
 
+		// trim extra whitespace from beginning and ending
+		$content = trim($content);
+
 		// escape double quotes
 		$content = str_replace('"', '&quot;', $content);
 		$header = str_replace('"', '&quot;', $header);
@@ -185,7 +188,7 @@ class Text {
 			"<yellow>" => "<font color='#FFFF00'>",
 			"<blue>" => "<font color='#8CB5FF'>",
 			"<green>" => "<font color='#00DE42'>",
-			"<red>" => "<font color='#ff0000'>",
+			"<red>" => "<font color='#FF0000'>",
 			"<orange>" => "<font color='#FCA712'>",
 			"<grey>" => "<font color='#C3C3C3'>",
 			"<cyan>" => "<font color='#00FFFF'>",

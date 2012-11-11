@@ -61,22 +61,22 @@ class CountdownController {
 
 		for ($i = 5; $i > 0; $i--) {
 			if ($i == 5) {
-				$color = "<font color='#FF0000'>";
+				$color = "<red>";
 			} else if ($i == 4) {
-				$color = "<font color='#FF0000'>";
+				$color = "<red>";
 			} else if ($i == 3) {
-				$color = "<font color='#FCA712'>";
+				$color = "<orange>";
 			} else if ($i == 2) {
-				$color = "<font color='#FCA712'>";
+				$color = "<orange>";
 			} else if ($i == 1) {
-				$color = "<font color='#FCA712'>";
+				$color = "<orange>";
 			}
 			$msg = "$color-------&gt; $i &lt;-------<end>";
 			$sendto->reply($msg);
 			sleep(1);
 		}
 
-		$msg = "<font color='#00DE42'>------&gt; $message &lt;-------<end>";
+		$msg = "<green>------&gt; $message &lt;-------<end>";
 		$sendto->reply($msg);
 	}
 }
