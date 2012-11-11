@@ -20,7 +20,7 @@ class SettingsController {
 	public $settingManager;
 
 	/** @Inject */
-	public $help;
+	public $helpManager;
 
 	/** @Inject */
 	public $util;
@@ -141,7 +141,7 @@ class SettingsController {
 
 		$this->settingManager->upload();
 
-		$this->help->register($this->moduleName, "settings", "settings.txt", "mod", "Change Settings of the Bot");
+		$this->helpManager->register($this->moduleName, "settings", "settings.txt", "mod", "Change Settings of the Bot");
 	}
 
 	/**
@@ -254,7 +254,7 @@ class SettingsController {
 			}
 
 			// show help topic if there is one
-			$help = $this->help->find($settingName, $sender);
+			$help = $this->helpManager->find($settingName, $sender);
 			if ($help !== false) {
 				$blob .= "\n\n<header2> ::: Help ($settingName) ::: <end>\n\n" . $help;
 			}

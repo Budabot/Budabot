@@ -68,7 +68,7 @@ class SystemController {
 	public $subcommandManager;
 
 	/** @Inject */
-	public $help;
+	public $helpManager;
 	
 	/** @Inject */
 	public $buddylistManager;
@@ -224,9 +224,9 @@ class SystemController {
 		global $version;
 		$this->settingManager->save('version', $version);
 
-		$this->help->register($this->moduleName, "system", "system.txt", "admin", "Admin System Help file");
-		$this->help->register($this->moduleName, "budatime", "budatime.txt", "all", "Format for budatime");
-		$this->help->register($this->moduleName, "logs", "logs.txt", "all", "View bot logs");
+		$this->helpManager->register($this->moduleName, "system", "system.txt", "admin", "Admin System Help file");
+		$this->helpManager->register($this->moduleName, "budatime", "budatime.txt", "all", "Format for budatime");
+		$this->helpManager->register($this->moduleName, "logs", "logs.txt", "all", "View bot logs");
 	}
 	
 	/**
@@ -408,7 +408,7 @@ class SystemController {
 		$blob .= "Number of active subcommands: <highlight>" . count($this->subcommandManager->subcommands) . "<end>\n";
 		$blob .= "Number of active command aliases: <highlight>" . $numAliases . "<end>\n";
 		$blob .= "Number of active events: <highlight>" . $eventnum . "<end>\n";
-		$blob .= "Number of active help commands: <highlight>" . count($this->help->getAllHelpTopics(null)) . "<end>\n\n";
+		$blob .= "Number of active help commands: <highlight>" . count($this->helpManager->getAllHelpTopics(null)) . "<end>\n\n";
 
 		$blob .= "Number of characters on the friendlist: <highlight>$num_friendlist / " . count($this->buddylistManager->buddyList) . "<end>\n";
 		$blob .= "Number of characters in the private channel: <highlight>" . count($this->chatBot->chatlist) . "<end>\n";

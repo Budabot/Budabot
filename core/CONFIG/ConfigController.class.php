@@ -29,7 +29,7 @@ class ConfigController {
 	public $commandAlias;
 
 	/** @Inject */
-	public $help;
+	public $helpManager;
 
 	/** @Inject */
 	public $settingManager;
@@ -60,7 +60,7 @@ class ConfigController {
 		$this->commandManager->activate("guild", $filename, "config", "mod");
 		$this->commandManager->activate("priv", $filename, "config", "mod");
 
-		$this->help->register($this->moduleName, "config", "config.txt", "mod", "Configure Commands/Events of the Bot");
+		$this->helpManager->register($this->moduleName, "config", "config.txt", "mod", "Configure Commands/Events of the Bot");
 	}
 
 	/**
@@ -400,7 +400,7 @@ class ConfigController {
 				$blob .= $subcmd_list;
 			}
 	
-			$help = $this->help->find($cmd, $sender);
+			$help = $this->helpManager->find($cmd, $sender);
 			if ($help) {
 				$blob .= "<header> ::: Help ($cmd) ::: <end>\n\n" . $help;
 			}

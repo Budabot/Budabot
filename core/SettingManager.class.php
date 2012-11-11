@@ -36,7 +36,7 @@ help = Helpfile for this setting
 /**
  * @Instance
  */
-class SettingManager extends Annotation {
+class SettingManager {
 	/** @Inject */
 	public $db;
 
@@ -47,7 +47,7 @@ class SettingManager extends Annotation {
 	public $util;
 
 	/** @Inject */
-	public $help;
+	public $helpManager;
 
 	/** @Logger */
 	public $logger;
@@ -90,7 +90,7 @@ class SettingManager extends Annotation {
 			}
 		}
 
-		$help = $this->help->checkForHelpFile($module, $help, $name);
+		$help = $this->helpManager->checkForHelpFile($module, $help, $name);
 
 		try {
 			if (array_key_exists($name, $this->chatBot->existing_settings)) {

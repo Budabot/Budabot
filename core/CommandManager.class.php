@@ -18,7 +18,7 @@ class CommandManager {
 	public $accessLevel;
 
 	/** @Inject */
-	public $help;
+	public $helpManager;
 
 	/** @Inject */
 	public $commandAlias;
@@ -69,7 +69,7 @@ class CommandManager {
 			}
 		}
 
-		$help = $this->help->checkForHelpFile($module, $help, $command);
+		$help = $this->helpManager->checkForHelpFile($module, $help, $command);
 
 		if ($defaultStatus === null) {
 			if ($this->chatBot->vars['default_module_status'] == 1) {
@@ -316,7 +316,7 @@ class CommandManager {
 		if ($result->help != '') {
 			$blob = file_get_contents($result->help);
 		} else {
-			$blob = $this->help->find($cmd, $sender);
+			$blob = $this->helpManager->find($cmd, $sender);
 		}
 		if (!empty($blob)) {
 			$msg = $this->text->make_blob("Help ($cmd)", $blob);

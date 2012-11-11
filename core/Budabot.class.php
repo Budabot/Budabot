@@ -23,7 +23,7 @@ class Budabot extends AOChat {
 	public $eventManager;
 
 	/** @Inject */
-	public $help;
+	public $helpManager;
 
 	/** @Inject */
 	public $settingManager;

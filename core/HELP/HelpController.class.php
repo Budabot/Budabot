@@ -18,7 +18,7 @@ class HelpController {
 	public $commandManager;
 
 	/** @Inject */
-	public $help;
+	public $helpManager;
 
 	/** @Inject */
 	public $text;
@@ -37,8 +37,8 @@ class HelpController {
 		$this->commandManager->activate("priv", "$className.helpShowCommand,$className.helpListCommand", "help", "all");
 		$this->commandManager->activate("guild", "$className.helpShowCommand,$className.helpListCommand", "help", "all");
 
-		$this->help->register($this->moduleName, "about", "about.txt", "all", "Basic info about Budabot");
-		$this->help->register($this->moduleName, "help", "help.txt", "all", "How to use help");
+		$this->helpManager->register($this->moduleName, "about", "about.txt", "all", "Basic info about Budabot");
+		$this->helpManager->register($this->moduleName, "help", "help.txt", "all", "How to use help");
 	}
 
 	/**
@@ -62,7 +62,7 @@ class HelpController {
 	public function helpListCommand($message, $channel, $sender, $sendto) {
 		global $version;
 
-		$data = $this->help->getAllHelpTopics($sender);
+		$data = $this->helpManager->getAllHelpTopics($sender);
 
 		if (count($data) == 0) {
 			$msg = "No help files found.";
@@ -89,7 +89,7 @@ class HelpController {
 	 */
 	public function helpShowCommand($message, $channel, $sender, $sendto, $args) {
 		$helpcmd = ucfirst($args[1]);
-		$blob = $this->help->find($helpcmd, $sender);
+		$blob = $this->helpManager->find($helpcmd, $sender);
 		if ($blob !== false) {
 			$msg = $this->text->make_blob("Help ($helpcmd)", $blob);
 			$sendto->reply($msg);

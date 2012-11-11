@@ -18,7 +18,7 @@ class AdminController {
 	public $eventManager;
 
 	/** @Inject */
-	public $help;
+	public $helpManager;
 
 	/** @Inject */
 	public $adminManager;
@@ -74,7 +74,7 @@ class AdminController {
 		
 		$this->adminManager->uploadAdmins();
 
-		$this->help->register($this->moduleName, "admin", "admin.txt", "mod", "Mod/admin help file");
+		$this->helpManager->register($this->moduleName, "admin", "admin.txt", "mod", "Mod/admin help file");
 	}
 	
 	public function addCommand($message, $channel, $sender, $sendto) {

@@ -70,4 +70,8 @@ class Event extends Annotation {
 
 }
 
+class Help extends Annotation {
+
+}
+
 ?>

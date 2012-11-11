@@ -13,7 +13,7 @@
 /**
  * @Instance
  */
-class Help extends Annotation {
+class HelpManager extends Annotation {
 
 	/** @Inject */
 	public $db;

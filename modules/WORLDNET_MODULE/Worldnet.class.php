@@ -15,9 +15,6 @@ class Worldnet {
 	public $banManager;
 
 	/** @Inject */
-	public $help;
-
-	/** @Inject */
 	public $chatBot;
 
 	/** @Logger */
