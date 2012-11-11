@@ -42,7 +42,7 @@ class SystemController {
 	public $moduleName;
 
 	/** @Inject */
-	public $accessLevel;
+	public $accessManager;
 
 	/** @Inject */
 	public $adminManager;
@@ -438,7 +438,7 @@ class SystemController {
 			$name = $sender;
 		}
 	
-		$accessLevel = $this->accessLevel->getDisplayName($this->accessLevel->getAccessLevelForCharacter($name));
+		$accessLevel = $this->accessManager->getDisplayName($this->accessManager->getAccessLevelForCharacter($name));
 	
 		$msg = "Access level for $name is <highlight>$accessLevel<end>.";
 		$sendto->reply($msg);

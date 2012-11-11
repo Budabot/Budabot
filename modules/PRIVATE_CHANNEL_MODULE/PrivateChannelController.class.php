@@ -124,7 +124,7 @@ class PrivateChannelController {
 	public $alts;
 	
 	/** @Inject */
-	public $accessLevel;
+	public $accessManager;
 	
 	/** @Inject */
 	public $onlineController;
@@ -547,7 +547,7 @@ class PrivateChannelController {
 	 */
 	public function joinCommand($message, $channel, $sender, $sendto, $args) {
 		// if the channel is locked, only raidleaders or higher can join manually
-		if ($this->settingManager->get("priv_status") == "0" && !$this->accessLevel->checkAccess($sender, 'raidleader')) {
+		if ($this->settingManager->get("priv_status") == "0" && !$this->accessManager->checkAccess($sender, 'raidleader')) {
 			if ($this->settingManager->get("priv_status_reason") != "none") {
 				$sendto->reply("The private channel is locked. Reason: " . $this->settingManager->get("priv_status_reason"));
 			} else {

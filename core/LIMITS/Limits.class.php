@@ -19,7 +19,7 @@ class Limits {
 	public $chatBot;
 
 	/** @Inject */
-	public $accessLevel;
+	public $accessManager;
 
 	/** @Inject */
 	public $playerManager;
@@ -41,7 +41,7 @@ class Limits {
 			return true;
 		} else if ($this->whitelist->check($sender) || $sender == ucfirst(strtolower($this->settingManager->get("relaybot")))) {
 			return true;
-		} else if ($this->accessLevel->checkAccess($sender, 'mod')) {
+		} else if ($this->accessManager->checkAccess($sender, 'mod')) {
 			// if mod or higher, grant access automatically
 			return true;
 		} else {
@@ -54,7 +54,7 @@ class Limits {
 			}
 			
 			// check access level
-			if (!$this->accessLevel->checkAccess($sender, $this->settingManager->get("tell_req_open"))) {
+			if (!$this->accessManager->checkAccess($sender, $this->settingManager->get("tell_req_open"))) {
 				$msg = "<orange>Error! You must have an access level of at least '" . $this->settingManager->get("tell_req_open") . "' to send a tell to this bot.<end>";
 				$this->chatBot->sendTell($msg, $sender);
 				return false;

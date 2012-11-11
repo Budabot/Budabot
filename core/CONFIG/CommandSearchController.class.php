@@ -22,7 +22,7 @@ class CommandSearchController {
 	public $db;
 
 	/** @Inject */
-	public $accessLevel;
+	public $accessManager;
 
 	/** @Inject("CommandSearchView") */
 	public $view;
@@ -38,7 +38,7 @@ class CommandSearchController {
 
 		// if a mod or higher, show all commands, not just enabled commands
 		$access = false;
-		if ($this->accessLevel->checkAccess($sender, 'mod')) {
+		if ($this->accessManager->checkAccess($sender, 'mod')) {
 			$access = true;
 		}
 
@@ -66,9 +66,9 @@ class CommandSearchController {
 	
 	public function filterResultsByAccessLevel($sender, $data) {
 		$results = array();
-		$charAccessLevel = $this->accessLevel->getSingleAccessLevel($sender);
+		$charAccessLevel = $this->accessManager->getSingleAccessLevel($sender);
 		forEach ($data as $key => $row) {
-			if ($this->accessLevel->compareAccessLevels($charAccessLevel, $row->admin) >= 0) {
+			if ($this->accessManager->compareAccessLevels($charAccessLevel, $row->admin) >= 0) {
 				$results []= $row;
 			}
 		}

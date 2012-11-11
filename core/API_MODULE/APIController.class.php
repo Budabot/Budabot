@@ -36,7 +36,7 @@ class APIController {
 	public $logger;
 
 	/** @Inject */
-	public $accessLevel;
+	public $accessManager;
 	
 	/** @Inject */
 	public $usageController;
@@ -150,7 +150,7 @@ class APIController {
 		}
 
 		// if the character doesn't have access
-		if ($this->accessLevel->checkAccess($sender, $commandHandler->admin) !== true) {
+		if ($this->accessManager->checkAccess($sender, $commandHandler->admin) !== true) {
 			$this->chatBot->spam[$sender] += 20;
 			return API_ACCESS_DENIED;
 		}

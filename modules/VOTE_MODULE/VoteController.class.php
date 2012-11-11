@@ -38,7 +38,7 @@ class VoteController {
 	public $settingManager;
 	
 	/** @Inject */
-	public $accessLevel;
+	public $accessManager;
 	
 	private $votes = array();
 	private $delimiter = "|";
@@ -243,7 +243,7 @@ class VoteController {
 	 */
 	public function voteKillCommand($message, $channel, $sender, $sendto, $args) {
 		$question = $args[1];
-		if ($this->accessLevel->checkAccess($sender, "moderator")) {
+		if ($this->accessManager->checkAccess($sender, "moderator")) {
 			$row = $this->db->queryRow("SELECT * FROM $this->table WHERE `question` = ?", $question);
 		} else {
 			$row = $this->db->queryRow("SELECT * FROM $this->table WHERE `question` = ? AND `author` = ? AND `duration` IS NOT NULL", $question, $sender);

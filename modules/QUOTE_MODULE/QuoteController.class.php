@@ -30,7 +30,7 @@ class QuoteController {
 	public $settingManager;
 	
 	/** @Inject */
-	public $accessLevel;
+	public $accessManager;
 
 	/** @Inject */
 	public $text;
@@ -122,7 +122,7 @@ class QuoteController {
 			$quoteMSG = $row->What;
 
 			//only author or admin can delete.
-			if (($quoteWHO == $sender) || $this->accessLevel->checkAccess($sender, 'moderator')) {
+			if (($quoteWHO == $sender) || $this->accessManager->checkAccess($sender, 'moderator')) {
 				$this->db->exec("DELETE FROM `#__quote` WHERE `IDNumber` = ?", $quoteID);
 				$msg = "This quote has been deleted.";
 			} else {

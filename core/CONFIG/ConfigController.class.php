@@ -35,7 +35,7 @@ class ConfigController {
 	public $settingManager;
 	
 	/** @Inject */
-	public $accessLevel;
+	public $accessManager;
 	
 	/** @Logger */
 	public $logger;
@@ -542,7 +542,7 @@ class ConfigController {
 	 * This helper method converts given short access level name to long name.
 	 */
 	private function get_admin_description($admin) {
-		$desc = $this->accessLevel->getDisplayName($admin);
+		$desc = $this->accessManager->getDisplayName($admin);
 		return ucfirst(strtolower($desc));
 	}
 

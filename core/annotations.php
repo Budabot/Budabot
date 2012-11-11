@@ -74,4 +74,8 @@ class Help extends Annotation {
 
 }
 
+class AccessLevel extends Annotation {
+
+}
+
 ?>

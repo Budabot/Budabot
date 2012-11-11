@@ -14,7 +14,7 @@
 class CommandlistController {
 
 	/** @Inject */
-	public $accessLevel;
+	public $accessManager;
 
 	/** @Inject */
 	public $text;
@@ -74,7 +74,7 @@ class CommandlistController {
 				$cmd = $row->cmd;
 			}
 	
-			if ($this->accessLevel->checkAccess($sender, 'moderator')) {
+			if ($this->accessManager->checkAccess($sender, 'moderator')) {
 				$on = $this->text->make_chatcmd('ON', "/tell <myname> config cmd $cmd enable all");
 				$off = $this->text->make_chatcmd('OFF', "/tell <myname> config cmd $cmd disable all");
 				$adv = $this->text->make_chatcmd('Permissions', "/tell <myname> config cmd $cmd");

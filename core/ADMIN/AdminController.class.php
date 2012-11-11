@@ -30,7 +30,7 @@ class AdminController {
 	public $buddylistManager;
 	
 	/** @Inject */
-	public $accessLevel;
+	public $accessManager;
 	
 	/** @Inject */
 	public $text;
@@ -124,7 +124,7 @@ class AdminController {
 				if ($who != "") {
 					$blob .= "<tab>$who ";
 
-					if ($this->accessLevel->checkAccess($who, 'superadmin')) {
+					if ($this->accessManager->checkAccess($who, 'superadmin')) {
 						$blob .= "(<orange>Super-administrator<end>) ";
 					}
 
@@ -233,9 +233,9 @@ class AdminController {
 	}
 	
 	public function checkAccessLevel($actor, $actee) {
-		$senderAccessLevel = $this->accessLevel->getAccessLevelForCharacter($actor);
-		$whoAccessLevel = $this->accessLevel->getSingleAccessLevel($actee);
-		if ($this->accessLevel->compareAccessLevels($whoAccessLevel, $senderAccessLevel) >= 0) {
+		$senderAccessLevel = $this->accessManager->getAccessLevelForCharacter($actor);
+		$whoAccessLevel = $this->accessManager->getSingleAccessLevel($actee);
+		if ($this->accessManager->compareAccessLevels($whoAccessLevel, $senderAccessLevel) >= 0) {
 			return false;
 		} else {
 			return true;

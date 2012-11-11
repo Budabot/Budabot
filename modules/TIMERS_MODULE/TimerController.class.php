@@ -35,7 +35,7 @@ class TimerController {
 	public $chatBot;
 
 	/** @Inject */
-	public $accessLevel;
+	public $accessManager;
 
 	/** @Inject */
 	public $text;
@@ -179,7 +179,7 @@ class TimerController {
 		$timer = $this->get($name);
 		if ($timer == null) {
 			$msg = "Could not find a timer named <highlight>$name<end>.";
-		} else if ($timer->owner != $sender && !$this->accessLevel->checkAccess($sender, "rl")) {
+		} else if ($timer->owner != $sender && !$this->accessManager->checkAccess($sender, "rl")) {
 			$msg = "You don't have the required access level (raidleader) to remove this timer.";
 		} else {
 			$this->remove($name);

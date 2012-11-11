@@ -3,11 +3,9 @@
 /**
  * The AccessLevel class provides functionality for checking character's level of access.
  *
- * Lond description here.
- *
  * @Instance
  */
-class AccessLevel extends Annotation {
+class AccessManager {
 	public static $ACCESS_LEVELS = array('none' => 0, 'superadmin' => 1,  'admin' => 2, 'mod' => 3, 'rl' => 4, 'guild' => 6, 'member' => 7, 'all' => 8);
 
 	/** @Inject */
@@ -48,7 +46,7 @@ class AccessLevel extends Annotation {
 	 * you would do:
 	 * 
 	 * <code>
-	 * if ($this->accessLevel->checkAccess("Tyrence", "raidleader")) {
+	 * if ($this->accessManager->checkAccess("Tyrence", "raidleader")) {
 	 *    // Tyrence has [at least] raidleader access level
 	 * } else {
 	 *    // Tyrence does not have raidleader access level
@@ -204,7 +202,7 @@ class AccessLevel extends Annotation {
 		$accessLevel1 = $this->normalizeAccessLevel($accessLevel1);
 		$accessLevel2 = $this->normalizeAccessLevel($accessLevel2);
 
-		return AccessLevel::$ACCESS_LEVELS[$accessLevel2] - AccessLevel::$ACCESS_LEVELS[$accessLevel1];
+		return self::$ACCESS_LEVELS[$accessLevel2] - self::$ACCESS_LEVELS[$accessLevel1];
 	}
 
 	public function compareCharacterAccessLevels($char1, $char2) {

@@ -67,7 +67,7 @@ class TestController {
 	public $text;
 	
 	/** @Inject */
-	public $accessLevel;
+	public $accessManager;
 
 	/** @Inject */
 	public $commandManager;
@@ -160,9 +160,9 @@ class TestController {
 		$handlers = $this->getAllCommandHandlers($cmd, $channel);
 		
 		// filter command handlers by access level
-		$accessLevel = $this->accessLevel;
-		$handlers = array_filter($handlers, function ($handler) use ($sender, $accessLevel) {
-			return $accessLevel->checkAccess($sender, $handler->admin);
+		$accessManager = $this->accessManager;
+		$handlers = array_filter($handlers, function ($handler) use ($sender, $accessManager) {
+			return $accessManager->checkAccess($sender, $handler->admin);
 		});
 		
 		// get calls for handlers

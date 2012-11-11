@@ -27,7 +27,7 @@ class RaffleController {
 	public $settingManager;
 	
 	/** @Inject */
-	public $accessLevel;
+	public $accessManager;
 
 	/** @Inject */
 	public $text;
@@ -124,7 +124,7 @@ class RaffleController {
 			return;
 		}
 
-		if (($this->raffles["owner"] != $sender) && !$this->accessLevel->checkAccess($sender, "mod")) {
+		if (($this->raffles["owner"] != $sender) && !$this->accessManager->checkAccess($sender, "mod")) {
 			$msg = "Only the owner or a moderator may cancel the raffle.";
 			$sendto->reply($msg);
 			return;
@@ -156,7 +156,7 @@ class RaffleController {
 			return;
 		}
 
-		if (($this->raffles["owner"] != $sender) && !$this->accessLevel->checkAccess($sender, "mod")) {
+		if (($this->raffles["owner"] != $sender) && !$this->accessManager->checkAccess($sender, "mod")) {
 			$msg = "Only the owner or a moderator may end the raffle.";
 			$sendto->reply($msg);
 			return;

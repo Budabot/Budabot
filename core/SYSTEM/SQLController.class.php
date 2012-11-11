@@ -25,7 +25,7 @@ class SQLController {
 	public $moduleName;
 
 	/** @Inject */
-	public $accessLevel;
+	public $accessManager;
 	
 	/** @Inject */
 	public $db;
@@ -57,7 +57,7 @@ class SQLController {
 	 * @Matches("/^executesql (.*)$/i")
 	 */
 	public function executesqlCommand($message, $channel, $sender, $sendto, $args) {
-		if (!$this->accessLevel->checkAccess($sender, 'superadmin')) {
+		if (!$this->accessManager->checkAccess($sender, 'superadmin')) {
 			$msg = "This command may only be used by the super administrator.";
 			$sendto->reply($msg);
 			return;
@@ -81,7 +81,7 @@ class SQLController {
 	 * @Matches("/^querysql (.*)$/si")
 	 */
 	public function querysqlCommand($message, $channel, $sender, $sendto, $args) {
-		if (!$this->accessLevel->checkAccess($sender, 'superadmin')) {
+		if (!$this->accessManager->checkAccess($sender, 'superadmin')) {
 			$msg = "This command may only be used by the super administrator.";
 			$sendto->reply($msg);
 			return;

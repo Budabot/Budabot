@@ -19,7 +19,7 @@ class HelpManager extends Annotation {
 	public $db;
 
 	/** @Inject */
-	public $accessLevel;
+	public $accessManager;
 
 	/** @Inject */
 	public $chatBot;
@@ -97,7 +97,7 @@ class HelpManager extends Annotation {
 			$data = $this->db->query($sql, $helpcmd, $helpcmd, $helpcmd);
 		}
 		
-		$accessLevel = $this->accessLevel->getAccessLevelForCharacter($char);
+		$accessLevel = $this->accessManager->getAccessLevelForCharacter($char);
 
 		$output = '';
 		forEach ($data as $row) {
@@ -145,7 +145,7 @@ class HelpManager extends Annotation {
 		$data = $this->db->query($sql);
 
 		if ($char !== null) {
-			$accessLevel = $this->accessLevel->getAccessLevelForCharacter($char);
+			$accessLevel = $this->accessManager->getAccessLevelForCharacter($char);
 		}
 
 		$topics = array();
@@ -164,7 +164,7 @@ class HelpManager extends Annotation {
 	
 	public function checkAccessLevels($accessLevel1, $accessLevelsArray) {
 		forEach ($accessLevelsArray as $accessLevel2) {
-			if ($this->accessLevel->compareAccessLevels($accessLevel1, $accessLevel2) >= 0) {
+			if ($this->accessManager->compareAccessLevels($accessLevel1, $accessLevel2) >= 0) {
 				return true;
 			}
 		}

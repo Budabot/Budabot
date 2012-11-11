@@ -33,7 +33,7 @@ class OnlineController {
 	public $settingManager;
 	
 	/** @Inject */
-	public $accessLevel;
+	public $accessManager;
 	
 	/** @Inject */
 	public $buddylistManager;
@@ -466,7 +466,7 @@ class OnlineController {
 			return "";
 		}
 
-		switch ($this->accessLevel->getAccessLevelForCharacter($name)) {
+		switch ($this->accessManager->getAccessLevelForCharacter($name)) {
 			case 'superadmin': return " $fancyColon <red>SuperAdmin<end>";
 			case 'admin'     : return " $fancyColon <red>Admin<end>";
 			case 'mod'       : return " $fancyColon <green>Mod<end>";

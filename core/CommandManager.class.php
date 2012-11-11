@@ -15,7 +15,7 @@ class CommandManager {
 	public $settingManager;
 
 	/** @Inject */
-	public $accessLevel;
+	public $accessManager;
 
 	/** @Inject */
 	public $helpManager;
@@ -230,7 +230,7 @@ class CommandManager {
 		}
 
 		// if the character doesn't have access
-		if ($this->accessLevel->checkAccess($sender, $commandHandler->admin) !== true) {
+		if ($this->accessManager->checkAccess($sender, $commandHandler->admin) !== true) {
 			// if they've disabled feedback for guild or private channel, just return
 			if (($channel == 'guild' && $this->settingManager->get('guild_channel_cmd_feedback') == 0) || ($channel == 'priv' && $this->settingManager->get('private_channel_cmd_feedback') == 0)) {
 				return;

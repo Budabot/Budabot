@@ -30,7 +30,7 @@ class CountdownController {
 	public $chatBot;
 
 	/** @Inject */
-	public $accessLevel;
+	public $accessManager;
 
 	/** @Inject */
 	public $text;

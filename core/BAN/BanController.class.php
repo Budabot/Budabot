@@ -51,7 +51,7 @@ class BanController {
 	public $banManager;
 
 	/** @Inject */
-	public $accessLevel;
+	public $accessManager;
 
 	/** @Inject */
 	public $util;
@@ -324,7 +324,7 @@ class BanController {
 			return;
 		}
 	
-		if ($this->accessLevel->compareCharacterAccessLevels($sender, $who) <= 0) {
+		if ($this->accessManager->compareCharacterAccessLevels($sender, $who) <= 0) {
 			$sendto->reply("You must have a higher access level than <highlight>$who<end> to perform this function.");
 			return;
 		}
