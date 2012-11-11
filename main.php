@@ -93,6 +93,7 @@ ini_set("error_log", "./logs/{$vars['name']}.{$vars['dimension']}/php_errors.log
 require_once './lib/addendum-0.4.1/annotations.php';
 require_once './lib/apache-log4php-2.2.0/Logger.php';
 require_once './lib/Net_SmartIRC-1.0.2/SmartIRC.php';
+require_once './lib/ReverseFileReader.class.php';
 require_once './core/Registry.class.php';
 require_once './core/LegacyLogger.class.php';
 require_once './core/LoggerWrapper.class.php';
