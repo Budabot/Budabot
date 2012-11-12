@@ -13,6 +13,26 @@
 !aigen cha
 /delay %1
 !aigen unknown
+
+!aiarmor strong
+!aiarmor supple
+!aiarmor enduring
+!aiarmor observant
+!aiarmor arithmetic
+!aiarmor spiritual
+!aiarmor 200 spiritual
+!aiarmor spiritual 200
+
+!aiarmor cc
+!aiarmor cm
+!aiarmor co
+!aiarmor cp
+!aiarmor cs
+!aiarmor css
+!aiarmor ss
+!aiarmor ss 200
+!aiarmor 200 ss
+
 /text End ALIEN_MODULE
 
 /stop.txt %1
