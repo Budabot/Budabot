@@ -95,19 +95,42 @@ class TestController {
 	 * @HandlesCommand("test")
 	 * @Matches("/^test$/i")
 	 */
-	public function testCommand($message, $channel, $sender, $sendto, $args) {
+	public function testAllCommand($message, $channel, $sender, $sendto, $args) {
 		$type = "msg";
 		$mockSendto = new MockCommandReply();
 	
 		$files = $this->util->getFilesInDirectory($this->path);
 		forEach ($files as $file) {
 			$lines = file($this->path . $file, FILE_IGNORE_NEW_LINES);
-			forEach ($lines as $line) {
-				if ($line[0] == "!") {
-					$this->chatBot->sendTell($line, $sender);
-					$line = substr($line, 1);
-					$this->commandManager->process($type, $line, $sender, $sendto);
-				}
+			$this->runTests($lines, $sender, $type, $mockSendto);
+		}
+	}
+	
+	/**
+	 * @HandlesCommand("test")
+	 * @Matches("/^test ([a-z0-9_-]+)$/i")
+	 */
+	public function testModuleCommand($message, $channel, $sender, $sendto, $args) {
+		$file = $args[1] . ".txt";
+		echo $file . "\n";
+		
+		$type = "msg";
+		$mockSendto = new MockCommandReply();
+	
+		$lines = file($this->path . $file, FILE_IGNORE_NEW_LINES);
+		if ($lines === false) {
+			$sendto->reply("Could not find a test <highlight>$file<end> to run.");
+		} else {
+			$this->runTests($lines, $sender, $type, $sendto);
+		}
+	}
+	
+	public function runTests($commands, $sender, $type, $sendto) {
+		forEach ($commands as $line) {
+			if ($line[0] == "!") {
+				$this->chatBot->sendTell($line, $sender);
+				$line = substr($line, 1);
+				$this->commandManager->process($type, $line, $sender, $sendto);
 			}
 		}
 	}
