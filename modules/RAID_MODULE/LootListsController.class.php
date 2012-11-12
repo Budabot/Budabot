@@ -356,30 +356,30 @@ class LootListsController {
 		switch($sector) {
 			case "13":
 				//CRU
-				$list .= "<img src=rdb://257196> \n";
+				$list .= $this->text->make_image(257196) . "\n";
 				$list .= "<highlight>Name:<end> {$itemlink["ICE"]}\n";
 				$list .= "<highlight>Purpose:<end> {$itemlink["ICEU"]}\n";
 				$list .= "<highlight>Note:<end> Drops on all Alien Playfield 5 times from the Boss.\n\n";
 
 				//Token Credit Items
-				$list .= "<img src=rdb://218775> \n";
+				$list .= $this->text->make_image(218775) . "\n";
 				$list .= "<highlight>Name:<end> {$itemlink["KBAP"]}\n";
-				$list .= "<img src=rdb://218758> \n";
+				$list .= $this->text->make_image(218758) . "\n";
 				$list .= "<highlight>Name:<end> {$itemlink["KVPU"]}\n";
-				$list .= "<img src=rdb://218768> \n";
+				$list .= $this->text->make_image(218768) . "\n";
 				$list .= "<highlight>Name:<end> {$itemlink["KRI"]}\n";
 				$list .= "<highlight>Purpose:<end> Kyr'Ozch Rank Identification, Kyr'Ozch Video Processing Unit and Kyr'Ozch Battlesuit Audio Processor can be traded at your faction vendor at the Alien Playfield Bar for Tokens or Credits.\n";
 				$list .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss(One from each type).\n\n";
 
 				//Token Board
-				$list .= "<img src=rdb://230855> \n";
+				$list .= $this->text->make_image(230855) . "\n";
 				$list .= "<highlight>Name:<end> {$itemlink["BOARD"]}\n";
 				$list .= "<highlight>Purpose:<end> - {$itemlink["OTAE"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["CMP"]}\n";
 				$list .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss.\n\n";
 
 				//Action Probability Estimator
-				$list .= "<img src=rdb://203502> \n";
+				$list .= $this->text->make_image(203502) . "\n";
 				$list .= "<highlight>Name:<end> {$itemlink["APE"]}\n";
 				$list .= "<highlight>Purpose:<end> - {$itemlink["EMCH"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["CKCNH"]}\n";
@@ -392,7 +392,7 @@ class LootListsController {
 				$list .= "<tab><tab>     - {$itemlink["YCSH"]}\n\n";
 
 				//Dynamic Gas Redistribution Valves
-				$list .= "<img src=rdb://205508> \n";
+				$list .= $this->text->make_image(205508) . "\n";
 				$list .= "<highlight>Name:<end> {$itemlink["DGRV"]}\n";
 				$list .= "<highlight>Purpose:<end> - {$itemlink["HLOA"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["SKR2"]}\n";
@@ -401,35 +401,35 @@ class LootListsController {
 				break;
 			case "28":
 				//CRU
-				$list .= "<img src=rdb://257196> \n";
+				$list .= $this->text->make_image(257196) . "\n";
 				$list .= "<highlight>Name:<end> {$itemlink["ICE"]}\n";
 				$list .= "<highlight>Purpose:<end> {$itemlink["ICEU"]}\n";
 				$list .= "<highlight>Note:<end> Drops on all Alien Playfield 5 times from the Boss.\n\n";
 
 				//Token Credit Items
-				$list .= "<img src=rdb://218775> \n";
+				$list .= $this->text->make_image(218775) . "\n";
 				$list .= "<highlight>Name:<end> {$itemlink["KBAP"]}\n";
-				$list .= "<img src=rdb://218758> \n";
+				$list .= $this->text->make_image(218758) . "\n";
 				$list .= "<highlight>Name:<end> {$itemlink["KVPU"]}\n";
-				$list .= "<img src=rdb://218768> \n";
+				$list .= $this->text->make_image(218768) . "\n";
 				$list .= "<highlight>Name:<end> {$itemlink["KRI"]}\n";
 				$list .= "<highlight>Purpose:<end> Kyr'Ozch Rank Identification, Kyr'Ozch Video Processing Unit and Kyr'Ozch Battlesuit Audio Processor can be traded at your faction vendor at the Alien Playfield Bar for Tokens or Credits.\n";
 				$list .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss(One from each type).\n\n";
 
 				//Token Board
-				$list .= "<img src=rdb://230855> \n";
+				$list .= $this->text->make_image(230855) . "\n";
 				$list .= "<highlight>Name:<end> {$itemlink["BOARD"]}\n";
 				$list .= "<highlight>Purpose:<end> - {$itemlink["OTAE"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["CMP"]}\n";
 				$list .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss.\n\n";
 
 				//APF Belt
-				$list .= "<img src=rdb://11618> \n";
+				$list .= $this->text->make_image(11618) . "\n";
 				$list .= "<highlight>Name:<end> {$itemlink["IAPU"]}\n";
 				$list .= "<highlight>Purpose:<end> - {$itemlink["HVBCP"]}\n\n";
 
 				//Notum coil
-				$list .= "<img src=rdb://257195> \n";
+				$list .= $this->text->make_image(257195) . "\n";
 				$list .= "<highlight>Name:<end> {$itemlink["NAC"]}\n";
 				$list .= "<highlight>Purpose:<end> - {$itemlink["TAHSC"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["ONC"]}\n";
@@ -439,37 +439,37 @@ class LootListsController {
 				break;
 			case "35":
 				//CRU
-				$list .= "<img src=rdb://257196> \n";
+				$list .= $this->text->make_image(257196) . "\n";
 				$list .= "<highlight>Name:<end> {$itemlink["ICE"]}\n";
 				$list .= "<highlight>Purpose:<end> {$itemlink["ICEU"]}\n";
 				$list .= "<highlight>Note:<end> Drops on all Alien Playfield 5 times from the Boss.\n\n";
 
 				//Token Credit Items
-				$list .= "<img src=rdb://218775> \n";
+				$list .= $this->text->make_image(218775) . "\n";
 				$list .= "<highlight>Name:<end> {$itemlink["KBAP"]}\n";
-				$list .= "<img src=rdb://218758> \n";
+				$list .= $this->text->make_image(218758) . "\n";
 				$list .= "<highlight>Name:<end> {$itemlink["KVPU"]}\n";
-				$list .= "<img src=rdb://218768> \n";
+				$list .= $this->text->make_image(218768) . "\n";
 				$list .= "<highlight>Name:<end> {$itemlink["KRI"]}\n";
 				$list .= "<highlight>Purpose:<end> Kyr'Ozch Rank Identification, Kyr'Ozch Video Processing Unit and Kyr'Ozch Battlesuit Audio Processor can be traded at your faction vendor at the Alien Playfield Bar for Tokens or Credits.\n";
 				$list .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss(One from each type).\n\n";
 
 				//Token Board
-				$list .= "<img src=rdb://230855> \n";
+				$list .= $this->text->make_image(230855) . "\n";
 				$list .= "<highlight>Name:<end> {$itemlink["BOARD"]}\n";
 				$list .= "<highlight>Purpose:<end> - {$itemlink["OTAE"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["CMP"]}\n";
 				$list .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss.\n\n";
 
 				//Energy Redistribution Unit
-				$list .= "<img src=rdb://257197> \n";
+				$list .= $this->text->make_image(257197) . "\n";
 				$list .= "<highlight>Name:<end> {$itemlink["ERU"]}\n";
 				$list .= "<highlight>Purpose:<end> - {$itemlink["BOB"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["DVLPR"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["VNGW"]}\n\n";
 
 				//Visible Light Remodulation Device
-				$list .= "<img src=rdb://235270> \n";
+				$list .= $this->text->make_image(235270) . "\n";
 				$list .= "<highlight>Name:<end> {$itemlink["VLRD"]}\n";
 				$list .= "<highlight>Purpose:<end> - {$itemlink["DVRPR"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["SSSS"]}\n";

@@ -80,7 +80,7 @@ class BosslootController {
 				aodb a ON (b.itemid = a.lowid OR b.itemid = a.highid)
 				WHERE b.bossid = ?", $row->bossid);
 			forEach ($data as $row2) {
-				$blob .= "<img src=rdb://{$row2->icon}>\n";
+				$blob .= $this->text->make_image($row2->icon) . "\n";
 				$blob .= $this->text->make_item($row2->lowid, $row2->highid, $row2->highql, $row2->itemname) . "\n\n";
 			}
 			$output = $this->text->make_blob("{$row->bossname}", $blob);

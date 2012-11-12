@@ -210,7 +210,7 @@ class NanoController {
 		$blob = '';
 		forEach ($data as $row) {
 			if ($this->settingManager->get("shownanolineicons") == "1") {
-				$blob .= "<img src='rdb://$row->image_id'>\n";
+				$blob .= $this->text->make_image($row->image_id) . "\n";
 			}
 			$blob .= $this->text->make_chatcmd("$row->name", "/tell <myname> nanolines $row->id");
 			$blob .= "\n";

@@ -259,7 +259,7 @@ class ItemsController implements ItemsAPI {
 		$list = '';
 		forEach ($data as $row) {
 			if ($showImages) {
-				$list .= "<img src='rdb://".$row->icon."'> \n";
+				$list .= $this->text->make_image($row->icon) . "\n";
 			}
 			if ($ql) {
 				$list .= "QL $ql ".$this->text->make_item($row->lowid, $row->highid, $ql, $row->name);

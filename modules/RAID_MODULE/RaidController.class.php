@@ -645,7 +645,7 @@ class RaidController {
 
 				$list .= "<u>Slot #<font color='#FF00AA'>$key</font></u>\n";
 				if ($item["icon"] != "") {
-					$list .= "<img src=rdb://{$item["icon"]}>\n";
+					$list .= $this->text->make_image($item["icon"]) . "\n";
 				}
 
 				if ($item["multiloot"] > 1) {

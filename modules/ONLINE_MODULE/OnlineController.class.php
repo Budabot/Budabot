@@ -396,35 +396,35 @@ class OnlineController {
 
 					if ($this->settingManager->get("icon_fancy_online") == 1) {
 						if ($row->profession == "Adventurer") {
-							$blob .= "<img src=rdb://84203>";
+							$blob .= $this->text->make_image(84203);
 						} else if ($row->profession == "Agent") {
-							$blob .= "<img src=rdb://16186>";
+							$blob .= $this->text->make_image(16186);
 						} else if ($row->profession == "Bureaucrat") {
-							$blob .= "<img src=rdb://46271>";
+							$blob .= $this->text->make_image(46271);
 						} else if ($row->profession == "Doctor") {
-							$blob .= "<img src=rdb://44235>";
+							$blob .= $this->text->make_image(44235);
 						} else if ($row->profession == "Enforcer") {
-							$blob .= "<img src=rdb://117926>";
+							$blob .= $this->text->make_image(117926);
 						} else if ($row->profession == "Engineer") {
-							$blob .= "<img src=rdb://16307>";
+							$blob .= $this->text->make_image(16307);
 						} else if ($row->profession == "Fixer") {
-							$blob .= "<img src=rdb://16300>";
+							$blob .= $this->text->make_image(16300);
 						} else if ($row->profession == "Keeper") {
-							$blob .= "<img src=rdb://38911>";
+							$blob .= $this->text->make_image(38911);
 						} else if ($row->profession == "Martial Artist") {
-							$blob .= "<img src=rdb://16289>";
+							$blob .= $this->text->make_image(16289);
 						} else if ($row->profession == "Meta-Physicist") {
-							$blob .= "<img src=rdb://16283>";
+							$blob .= $this->text->make_image(16283);
 						} else if ($row->profession == "Nano-Technician") {
-							$blob .= "<img src=rdb://45190>";
+							$blob .= $this->text->make_image(45190);
 						} else if ($row->profession == "Soldier") {
-							$blob .= "<img src=rdb://16195>";
+							$blob .= $this->text->make_image(16195);
 						} else if ($row->profession == "Shade") {
-							$blob .= "<img src=rdb://39290>";
+							$blob .= $this->text->make_image(39290);
 						} else if ($row->profession == "Trader") {
-							$blob .= "<img src=rdb://118049>";
+							$blob .= $this->text->make_image(118049);
 						} else {
-							$blob .= "<img src=rdb://46268>";
+							$blob .= $this->text->make_image(46268);
 						}
 					}
 
