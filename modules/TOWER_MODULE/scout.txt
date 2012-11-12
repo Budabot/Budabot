@@ -6,6 +6,8 @@ For instance:
 
 Note that the closing time is the "Created at" time, but only the time part, not the date part.
 
+Note that you can use <symbol>forcescout to bypass some of the integrity checks if they are enabled but this should only be used if you understand the implications.
+
 To remove a scouted tower site:
 <highlight><tab><symbol>remscout 'playfield' 'site number'<end>
 

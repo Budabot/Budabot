@@ -284,22 +284,20 @@ class EventManager {
 
 	/**
 	 * @name: crons
-	 * @description: Call php-Scripts at certin time intervals. 2 sec, 1 min, 10min, 15 min, 30min, 1 hour, 24 hours
+	 * @description: Call timer events
 	 */
 	public function crons() {
-		if ($this->chatBot->is_ready()) {
-			$time = time();
-			$this->logger->log('DEBUG', "Executing cron events at '$time'");
-			forEach ($this->cronevents as $key => $event) {
-				if ($event['nextevent'] <= $time) {
-					$this->logger->log('DEBUG', "Executing cron event '${event['filename']}'");
+		$time = time();
+		$this->logger->log('DEBUG', "Executing cron events at '$time'");
+		forEach ($this->cronevents as $key => $event) {
+			if ($event['nextevent'] <= $time) {
+				$this->logger->log('DEBUG', "Executing cron event '${event['filename']}'");
 
-					$eventObj = new stdClass;
-					$eventObj->type = strtolower($event['time']);
+				$eventObj = new stdClass;
+				$eventObj->type = strtolower($event['time']);
 
-					$this->callEventHandler($eventObj, $event['filename']);
-					$this->cronevents[$key]['nextevent'] = $time + $event['time'];
-				}
+				$this->callEventHandler($eventObj, $event['filename']);
+				$this->cronevents[$key]['nextevent'] = $time + $event['time'];
 			}
 		}
 	}
