@@ -1,0 +1,18 @@
+#alien_module
+/text Start ALIEN_MODULE
+!aigen ankari
+/delay %1
+!aigen ilari
+/delay %1
+!aigen rimah
+/delay %1
+!aigen jaax
+/delay %1
+!aigen xoch
+/delay %1
+!aigen cha
+/delay %1
+!aigen unknown
+/text End ALIEN_MODULE
+
+/stop.txt %1

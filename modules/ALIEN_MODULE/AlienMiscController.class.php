@@ -300,64 +300,64 @@ class AlienMiscController {
 			case "Ankari":
 				$blob .= "Low Evade/Dodge, Low AR, Casts Viral/Virral nukes\n\n";
 				$blob .= $this->text->make_image(100337) . "\n";
-				$blob .= "<a href='itemref://247145/247145/300'>Arithmetic Lead Viralbots</a>\n";
+				$blob .= $this->text->make_item(247145, 247145, 300, "Arithmetic Lead Viralbots") . "\n";
 				$blob .= "(Nanoskill / Tradeskill)\n\n";
 				$blob .= $this->text->make_image(255705) . "\n";
-				$blob .= "<a href='itemref://247684/247684/300'>Kyr'Ozch Bio-Material - Type 1</a>\n\n";
+				$blob .= $this->text->make_item(247684, 247684, 300, "Kyr'Ozch Bio-Material - Type 1") . "\n\n";
 				$blob .= $this->text->make_image(255705) . "\n";
-				$blob .= "<a href='itemref://247685/247685/300'>Kyr'Ozch Bio-Material - Type 2</a>\n\n";
+				$blob .= $this->text->make_item(247685, 247685, 300, "Kyr'Ozch Bio-Material - Type 2") . "\n\n";
 				$blob .= $this->text->make_image(255705) . "\n";
-				$blob .= "<a href='itemref://288672/288673/300'>Kyr'Ozch Bio-Material - Type 48</a>";
+				$blob .= $this->text->make_item(288672, 288673, 300, "Kyr'Ozch Bio-Material - Type 48");
 				break;
 			case "Ilari":
 				$blob .= "Low Evade/Dodge\n\n";
 				$blob .= $this->text->make_image(100337) . "\n";
-				$blob .= "<a href='itemref://247146/247146/300'>Spiritual Lead Viralbots</a>\n";
+				$blob .= $this->text->make_item(247146, 247146, 300, "Spiritual Lead Viralbots") . "\n";
 				$blob .= "(Nanocost / Nanopool / Max Nano)\n\n";
 				$blob .= $this->text->make_image(255705) . "\n";
-				$blob .= "<a href='itemref://247681/247681/300'>Kyr'Ozch Bio-Material - Type 992</a>\n\n";
+				$blob .= $this->text->make_item(247681, 247681, 300, "Kyr'Ozch Bio-Material - Type 992") . "\n\n";
 				$blob .= $this->text->make_image(255705) . "\n";
-				$blob .= "<a href='itemref://247679/247679/300'>Kyr'Ozch Bio-Material - Type 880</a>";
+				$blob .= $this->text->make_item(247679, 247679, 300, "Kyr'Ozch Bio-Material - Type 880");
 				break;
 			case "Rimah":
 				$blob .= "Low Evade/Dodge\n\n";
 				$blob .= $this->text->make_image(100337) . "\n";
-				$blob .= "<a href='itemref://247143/247143/300'>Observant Lead Viralbots</a>\n";
+				$blob .= $this->text->make_item(247143, 247143, 300, "Observant Lead Viralbots") . "\n";
 				$blob .= "(Init / Evades)\n\n";
 				$blob .= $this->text->make_image(255705) . "\n";
-				$blob .= "<a href='itemref://247675/247675/300'>Kyr'Ozch Bio-Material - Type 112</a>\n\n";
+				$blob .= $this->text->make_item(247675, 247675, 300, "Kyr'Ozch Bio-Material - Type 112") . "\n\n";
 				$blob .= $this->text->make_image(255705) . "\n";
-				$blob .= "<a href='itemref://247678/247678/300'>Kyr'Ozch Bio-Material - Type 240</a>";
+				$blob .= $this->text->make_item(247678, 247678, 300, "Kyr'Ozch Bio-Material - Type 240");
 				break;
 			case "Jaax":
 				$blob .= "High Evade, Low Dodge\n\n";
 				$blob .= $this->text->make_image(100337) . "\n";
-				$blob .= "<a href='itemref://247139/247139/300'>Strong Lead Viralbots</a>\n";
+				$blob .= $this->text->make_item(247139, 247139, 300, "Strong Lead Viralbots") . "\n";
 				$blob .= "(Melee / Spec Melee / Add All Def / Add Damage)\n\n";
 				$blob .= $this->text->make_image(255705) . "\n";
-				$blob .= "<a href='itemref://247694/247694/300'>Kyr'Ozch Bio-Material - Type 3</a>\n\n";
+				$blob .= $this->text->make_item(247694, 247694, 300, "Kyr'Ozch Bio-Material - Type 3") . "\n\n";
 				$blob .= $this->text->make_image(255705) . "\n";
-				$blob .= "<a href='itemref://247688/247688/300'>Kyr'Ozch Bio-Material - Type 4</a>";
+				$blob .= $this->text->make_item(247688, 247688, 300, "Kyr'Ozch Bio-Material - Type 4");
 				break;
 			case "Xoch":
 				$blob .= "High Evade/Dodge, Casts Ilari Biorejuvenation heals\n\n";
 				$blob .= $this->text->make_image(100337) . "\n";
-				$blob .= "<a href='itemref://247137/247137/300'>Enduring Lead Viralbots</a>\n";
+				$blob .= $this->text->make_item(247137, 247137, 300, "Enduring Lead Viralbots") . "\n";
 				$blob .= "(Max Health / Body Dev)\n\n";
 				$blob .= $this->text->make_image(255705) . "\n";
-				$blob .= "<a href='itemref://247690/247690/300'>Kyr'Ozch Bio-Material - Type 5</a>\n\n";
+				$blob .= $this->text->make_item(247690, 247690, 300, "Kyr'Ozch Bio-Material - Type 5") . "\n\n";
 				$blob .= $this->text->make_image(255705) . "\n";
-				$blob .= "<a href='itemref://247692/247692/300'>Kyr'Ozch Bio-Material - Type 12</a>";
+				$blob .= $this->text->make_item(247692, 247692, 300, "Kyr'Ozch Bio-Material - Type 12");
 				break;
 			case "Cha":
 				$blob .= "High Evade/NR, Low Dodge\n\n";
 				$blob .= $this->text->make_image(100337) . "\n";
-				$blob .= "<a href='itemref://247141/247141/300'>Supple Lead Viralbots</a>\n";
+				$blob .= $this->text->make_item(247141, 247141, 300, "Supple Lead Viralbots") . "\n";
 				$blob .= "(Ranged / Spec Ranged / Add All Off)\n\n";
 				$blob .= $this->text->make_image(255705) . "\n";
-				$blob .= "<a href='itemref://247696/247696/300'>Kyr'Ozch Bio-Material - Type 13</a>\n\n";
+				$blob .= $this->text->make_item(247696, 247696, 300, "Kyr'Ozch Bio-Material - Type 13") . "\n\n";
 				$blob .= $this->text->make_image(255705) . "\n";
-				$blob .= "<a href='itemref://247674/247674/300'>Kyr'Ozch Bio-Material - Type 76</a>";
+				$blob .= $this->text->make_item(247674, 247674, 300, "Kyr'Ozch Bio-Material - Type 76");
 				break;
 		}
 
