@@ -729,7 +729,7 @@ class GuildController {
 		if (isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->is_ready()) {
 			if ($this->settingManager->get('first_and_last_alt_only') == 1) {
 				// if at least one alt/main is already online, don't show logoff message
-				$altInfo = $alts->get_alt_info($sender);
+				$altInfo = $this->alts->get_alt_info($sender);
 				if (count($altInfo->get_online_alts()) > 0) {
 					return;
 				}

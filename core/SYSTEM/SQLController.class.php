@@ -46,7 +46,6 @@ class SQLController {
 		forEach (array('msg', 'priv', 'guild') as $channel) {
 			$this->commandManager->activate($channel, "$name.executesqlCommand", "executesql", "admin");
 			$this->commandManager->activate($channel, "$name.querysqlCommand", "querysql", "admin");
-			$this->commandManager->activate($channel, "$name.logsCommand,$name.logsFileCommand", "logs", "admin");
 		}
 	}
 	

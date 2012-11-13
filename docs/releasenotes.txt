@@ -9,9 +9,9 @@
 -timer events can now be called reliably every second
 -removed !fp since AO now shows this information in the nano crystal description
 -fixed some issues with VENTRILO_MODULE
--!banorg now correctly works
+-!banorg now works correctly
 -various fixes for MySQL
--win32 build now includes botmanager
+-build now includes botmanager
 -!server now estimates the number of players online
 -improved alias handling with parameters
 -!help module_name will now show all help files for the specified module
