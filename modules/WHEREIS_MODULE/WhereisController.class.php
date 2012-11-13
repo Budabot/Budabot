@@ -54,7 +54,7 @@ class WhereisController {
 		if ($count > 0) {
 			$blob = "Result of Whereis Search for '$search'\n\n";
 			forEach ($data as $row) {
-				$blob .= "<yellow>$row->name<end>\n<green>Can be found $row->answer<end>";
+				$blob .= "<header2>$row->name<end>\nCan be found <highlight>$row->answer<end>";
 				if ($row->playfield_id != 0) {
 					$blob .= " " . $this->text->make_chatcmd("waypoint: {$row->xcoord}x{$row->ycoord} {$row->short_name}", "/waypoint {$row->xcoord} {$row->ycoord} {$row->playfield_id}");
 				}

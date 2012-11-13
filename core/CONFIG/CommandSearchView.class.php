@@ -17,7 +17,7 @@ class CommandSearchView {
 			if ($hasAccess) {
 				$module = $this->text->make_chatcmd($row->module, "/tell <myname> config {$row->module}");
 			} else {
-				$module = "<yellow>{$row->module}<end>";
+				$module = "{$row->module}";
 			}
 
 			$cmd = str_pad($row->cmd . " ", 20, ".");

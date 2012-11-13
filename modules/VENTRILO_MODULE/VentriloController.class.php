@@ -87,26 +87,24 @@ class VentriloController {
 		if ($rc !== 0) {
 			$msg = "<orange>Could not get ventrilo info: $stat->m_error<end>";
 		} else {
-			$page = "This is a <orange>PRIVATE<end> Ventrilo server.\n";
-			$page .= "Please DO NOT give out this information without permission.\n";
 			$page .= "Channels highlighted <orange>ORANGE<end> are password protected.\n\n";
-			$page .= "Hostname: <white>{$stat->m_cmdhost}<end>\n";
-			$page .= "Port Number: <white>{$stat->m_cmdport}<end>\n";
+			$page .= "Hostname: <highlight>{$stat->m_cmdhost}<end>\n";
+			$page .= "Port Number: <highlight>{$stat->m_cmdport}<end>\n";
 
 			if ($this->settingManager->get("showventpassword") == 1) {
-				$page .= "Password: <white>{$stat->m_cmdpass}<end>\n";
+				$page .= "Password: <highlight>{$stat->m_cmdpass}<end>\n";
 			}
 
-			$page .= "\nServer Name: <white>{$stat->m_name}<end>\n";
-			$page .= "Users: <white>{$stat->m_clientcount} / {$stat->m_maxclients}<end>\n";
+			$page .= "\nServer Name: <highlight>{$stat->m_name}<end>\n";
+			$page .= "Users: <highlight>{$stat->m_clientcount} / {$stat->m_maxclients}<end>\n";
 
 			if ($this->settingManager->get("showextendedinfo") == 1) {
-				$page .= "Voice Encoder: <white>{$stat->m_voicecodec_code}<end> - <grey>{$stat->m_voicecodec_desc}<end>\n";
-				$page .= "Voice Format: <white>{$stat->m_voiceformat_code}<end> - <grey>{$stat->m_voiceformat_desc}<end>\n";
+				$page .= "Voice Encoder: <highlight>{$stat->m_voicecodec_code}<end> - {$stat->m_voicecodec_desc}\n";
+				$page .= "Voice Format: <highlight>{$stat->m_voiceformat_code}<end> - {$stat->m_voiceformat_desc}\n";
 				$page .= "Server Uptime: " . $this->util->unixtime_to_readable($stat->m_uptime, false) . "\n";
-				$page .= "Server Platform: <white>{$stat->m_platform}<end>\n";
-				$page .= "Server Version: <white>{$stat->m_version}<end>\n";
-				$page .= "Number of channels: <white>{$stat->m_channelcount}<end>\n";
+				$page .= "Server Platform: <highlight>{$stat->m_platform}<end>\n";
+				$page .= "Server Version: <highlight>{$stat->m_version}<end>\n";
+				$page .= "Number of channels: <highlight>{$stat->m_channelcount}<end>\n";
 			}
 			$page .= "\nChannels:\n";
 
@@ -130,7 +128,7 @@ class VentriloController {
 		}
 		forEach($clientlist as $user) {
 			if ($channel->m_cid == $user->m_cid) {
-				$output .= "     <grey>|---<end> <white>{$user->m_name}<end> \n";
+				$output .= "     <grey>|---<end> <highlight>{$user->m_name}<end> \n";
 			}
 		}
 	}

@@ -34,7 +34,7 @@ class TimeController {
 	 */
 	public function timeListCommand($message, $channel, $sender, $sendto, $args) {
 		$link = "The following includes most of the timezones that exist but notice that this list doesn't show all countries within the timezones and also that some countries have 2 timezones.\n\nTo see the time in a specific timezone use <symbol>time 'timezone'.\n\nFor example <symbol>time CET\n\n";
-		$link .= "<u>Australia</u>\n";
+		$link .= "<header2>Australia<end>\n";
 		$link .= "<tab><highlight>Northern Territory/South Australia<end>\n";
 		$link .= "<tab><tab>Standard Time (ACST = GMT+9:30): " . $this->getTimezone("ACST")->time . "\n";
 		$link .= "<tab><tab>Summer Time (ACDT = GMT+10:30): " . $this->getTimezone("ACDT")->time . "\n";
@@ -42,12 +42,12 @@ class TimeController {
 		$link .= "<tab><tab>Standard Time (AEST = GMT+10): " . $this->getTimezone("AEST")->time . "\n";
 		$link .= "<tab><tab>Summer Time (AEDT = GMT+11): " . $this->getTimezone("AEDT")->time . "\n\n";
 
-		$link .= "<u>Asia</u>\n";
+		$link .= "<header2>Asia<end>\n";
 		$link .= "<tab><highlight>Thailand/Vietnam/Kambodscha (ICT = GMT+7)<end>: " . $this->getTimezone("ICT")->time . "\n";
 		$link .= "<tab><highlight>China/Malaysia/Singapur/Indonesien (CST = GMT+8)<end>: " . $this->getTimezone("CCST")->time . "\n";
 		$link .= "<tab><highlight>Japan/Korea (JST = GMT+9)<end>: " . $this->getTimezone("JST")->time . "\n\n";
 
-		$link .= "<u>Europe</u>\n";
+		$link .= "<header2>Europe<end>\n";
 		$link .= "<tab><highlight>England (GMT)<end>: " . $this->getTimezone("GMT")->time . "\n";
 		$link .= "<tab><highlight>Germany/France/Netherlands/Italy/Austria<end>\n";
 		$link .= "<tab><tab>Standard Time (CET = GMT+1): " . $this->getTimezone("CET")->time . "\n";
@@ -61,11 +61,11 @@ class TimeController {
 		$link .= "<highlight>Indien (GMT+5:30)<end>: " . $this->getTimezone("IST")->time . "\n\n";
 		$link .= "<highlight>Iran (GMT+3:30)<end>: " . $this->getTimezone("IRT")->time . "\n\n";
 
-		$link .= "<u>Canada</u>\n";
+		$link .= "<header2>Canada<end>\n";
 		$link .= "<tab>Standard Time (NST = GMT-3:30): " . $this->getTimezone("NST")->time . "\n";
 		$link .= "<tab>Summer Time (NDT = GMT-2:30): " . $this->getTimezone("NDT")->time . "\n\n";
 
-		$link .= "<u>USA</u>\n";
+		$link .= "<header2>USA<end>\n";
 		$link .= "<tab><highlight>Florida/Indiana/New York/Maine/New Jersey/Washington D.C.<end>\n";
 		$link .= "<tab><tab>Standard Time (EST = GMT-5): " . $this->getTimezone("EST")->time . "\n";
 		$link .= "<tab><tab>Summer Time (EDT = GMT-4): " . $this->getTimezone("EDT")->time . "\n";

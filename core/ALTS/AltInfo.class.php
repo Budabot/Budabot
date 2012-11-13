@@ -33,7 +33,7 @@ class AltInfo {
 		$blob .= "<tab><tab>{$this->main}";
 		$character = $playerManager->get_by_name($this->main);
 		if ($character !== null) {
-			$blob .= " (<highlight>{$character->level}<end>/<green>{$character->ai_level}<end> <highlight>{$character->profession}<end>)";
+			$blob .= " ({$character->level}/<green>{$character->ai_level}<end> {$character->profession})";
 		}
 		$online = $buddylistManager->is_online($this->main);
 		if ($online === null) {
@@ -52,7 +52,7 @@ class AltInfo {
 		forEach ($data as $row) {
 			$blob .= "<tab><tab>{$row->alt}";
 			if ($row->profession !== null) {
-				$blob .= " (<highlight>{$row->level}<end>/<green>{$row->ai_level}<end> <highlight>{$row->profession}<end>)";
+				$blob .= " ({$row->level}/<green>{$row->ai_level}<end> {$row->profession})";
 			}
 			$online = $buddylistManager->is_online($row->alt);
 			if ($online === null) {

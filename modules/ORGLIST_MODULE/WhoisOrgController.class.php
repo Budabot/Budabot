@@ -165,34 +165,34 @@ class WhoisOrgController {
 		$lvl_avg = round($lvl_tot/$num_members);
 
 		$link = "<header2>General Info<end>\n";
-		$link .= "<highlight>Faction:<end> $faction\n";
-		$link .= "<highlight>Lowest lvl:<end> $lvl_min\n";
-		$link .= "<highlight>Highest lvl:<end> $lvl_max\n";
-		$link .= "<highlight>Average lvl:<end> $lvl_avg\n\n";
+		$link .= "Faction: <highlight>$faction<end>\n";
+		$link .= "Lowest lvl: <highlight>$lvl_min<end>\n";
+		$link .= "Highest lvl: <highlight>$lvl_max<end>\n";
+		$link .= "Average lvl: <highlight>$lvl_avg<end>\n\n";
 
 		$link .= "<header2>President<end>\n";
-		$link .= "<highlight>Name:<end> $president_name\n";
-		$link .= "<highlight>Profession:<end> $president_prof\n";
-		$link .= "<highlight>Level:<end> $president_lvl\n";
-		$link .= "<highlight>Gender:<end> $president_gender\n";
-		$link .= "<highlight>Breed:<end> $president_breed\n\n";
+		$link .= "Name: <highlight>$president_name<end>\n";
+		$link .= "Profession: <highlight>$president_prof<end>\n";
+		$link .= "Level: <highlight>$president_lvl<end>\n";
+		$link .= "Gender: <highlight>$president_gender<end>\n";
+		$link .= "Breed: <highlight>$president_breed<end>\n\n";
 
 		$link .= "<header2>Members<end>\n";
-		$link .= "<highlight>Number of Members:<end> $num_members\n";
-		$link .= "<highlight>Adventurer:<end> $num_adv (".round(($num_adv*100)/$num_members, 1)."% of total)\n";
-		$link .= "<highlight>Agents:<end> $num_agent (".round(($num_agent*100)/$num_members, 1)."% of total)\n";
-		$link .= "<highlight>Bureaucrats:<end> $num_crat (".round(($num_crat*100)/$num_members, 1)."% of total)\n";
-		$link .= "<highlight>Doctors:<end> $num_doc (".round(($num_doc*100)/$num_members, 1)."% of total)\n";
-		$link .= "<highlight>Enforcers:<end> $num_enf (".round(($num_enf*100)/$num_members, 1)."% of total)\n";
-		$link .= "<highlight>Engineers:<end> $num_eng (".round(($num_eng*100)/$num_members, 1)."% of total)\n";
-		$link .= "<highlight>Fixers:<end> $num_fix (".round(($num_fix*100)/$num_members, 1)."% of total)\n";
-		$link .= "<highlight>Keepers:<end> $num_keep (".round(($num_keep*100)/$num_members, 1)."% of total)\n";
-		$link .= "<highlight>Martial Artists:<end> $num_ma (".round(($num_ma*100)/$num_members, 1)."% of total)\n";
-		$link .= "<highlight>Meta-Physicists:<end> $num_mp (".round(($num_mp*100)/$num_members, 1)."% of total)\n";
-		$link .= "<highlight>Nano-Technicians:<end> $num_nt (".round(($num_nt*100)/$num_members, 1)."% of total)\n";
-		$link .= "<highlight>Shades:<end> $num_shade (".round(($num_shade*100)/$num_members, 1)."% of total)\n";
-		$link .= "<highlight>Soldiers:<end> $num_sol (".round(($num_sol*100)/$num_members, 1)."% of total)\n";
-		$link .= "<highlight>Traders:<end> $num_trad (".round(($num_trad*100)/$num_members, 1)."% of total)\n";
+		$link .= "Number of Members: <highlight>$num_members<end>\n";
+		$link .= "Adventurer: <highlight>$num_adv<end> (".round(($num_adv*100)/$num_members, 1)."% of total)\n";
+		$link .= "Agents: <highlight>$num_agent<end> (".round(($num_agent*100)/$num_members, 1)."% of total)\n";
+		$link .= "Bureaucrats: <highlight>$num_crat<end> (".round(($num_crat*100)/$num_members, 1)."% of total)\n";
+		$link .= "Doctors: <highlight>$num_doc<end> (".round(($num_doc*100)/$num_members, 1)."% of total)\n";
+		$link .= "Enforcers: <highlight>$num_enf<end> (".round(($num_enf*100)/$num_members, 1)."% of total)\n";
+		$link .= "Engineers: <highlight>$num_eng<end> (".round(($num_eng*100)/$num_members, 1)."% of total)\n";
+		$link .= "Fixers: <highlight>$num_fix<end> (".round(($num_fix*100)/$num_members, 1)."% of total)\n";
+		$link .= "Keepers: <highlight>$num_keep<end> (".round(($num_keep*100)/$num_members, 1)."% of total)\n";
+		$link .= "Martial Artists: <highlight>$num_ma<end> (".round(($num_ma*100)/$num_members, 1)."% of total)\n";
+		$link .= "Meta-Physicists: <highlight>$num_mp<end> (".round(($num_mp*100)/$num_members, 1)."% of total)\n";
+		$link .= "Nano-Technicians: <highlight>$num_nt<end> (".round(($num_nt*100)/$num_members, 1)."% of total)\n";
+		$link .= "Shades: <highlight>$num_shade<end> (".round(($num_shade*100)/$num_members, 1)."% of total)\n";
+		$link .= "Soldiers: <highlight>$num_sol<end> (".round(($num_sol*100)/$num_members, 1)."% of total)\n";
+		$link .= "Traders: <highlight>$num_trad<end> (".round(($num_trad*100)/$num_members, 1)."% of total)\n";
 		$msg = $this->text->make_blob("Org Info $org->orgname", $link);
 
 		$sendto->reply($msg);

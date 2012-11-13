@@ -61,7 +61,7 @@ class ReputationController {
 		$count = count($data);
 
 		if ($count == 0) {
-			$msg = "There are no characters on the reputation list.";
+			$msg = "There are no character on the reputation list.";
 			$sendto->reply($msg);
 			return;
 		}
@@ -87,7 +87,7 @@ class ReputationController {
 		$by_charid = $this->chatBot->get_uid($sender);
 
 		if ($charid == false) {
-			$sendto->reply("Could not find character '$name'.");
+			$sendto->reply("Character <highlight>$name<end> does not exist.");
 			return;
 		}
 
@@ -101,7 +101,7 @@ class ReputationController {
 		$sql = "SELECT name FROM reputation WHERE `by_charid` = ? AND `charid` = ? AND `dt` > ?";
 		$data = $this->db->query($sql, $by_charid, $charid, $time);
 		if (count($data) > 0) {
-			$sendto->reply("You may only submit reputation for a player once every 24 hours.");
+			$sendto->reply("You may only submit reputation for a character once every 24 hours.");
 			return;
 		}
 

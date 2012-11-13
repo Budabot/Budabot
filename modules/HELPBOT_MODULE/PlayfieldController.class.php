@@ -72,13 +72,13 @@ class PlayfieldController {
 		if ($count > 1) {
 			$blob = "Result of Playfield Search for '$search'\n\n";
 			forEach ($data as $row) {
-				$blob .= "<green>$row->long_name<end> has ID <yellow>$row->id<end>\n\n";
+				$blob .= "$row->long_name has ID <highlight>$row->id<end>\n\n";
 			}
 
 			$msg = $this->text->make_blob("Playfields ($count)", $blob);
 		} else if ($count == 1) {
 			$row = $data[0];
-			$msg = "<green>$row->long_name<end> has ID <yellow>$row->id<end>";
+			$msg = "$row->long_name has ID <highlight>$row->id<end>";
 		} else {
 			$msg = "There were no matches for your search.";
 		}

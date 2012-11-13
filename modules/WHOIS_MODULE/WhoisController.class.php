@@ -10,25 +10,25 @@
  *	@DefineCommand(
  *		command     = 'whois',
  *		accessLevel = 'all', 
- *		description = 'Show character info and name history', 
+ *		description = 'Show player info and name history', 
  *		help        = 'whois.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'whoisall',
  *		accessLevel = 'all', 
- *		description = 'Show character info for all dimensions', 
+ *		description = 'Show player info for all dimensions', 
  *		help        = 'whois.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'namehistory',
  *		accessLevel = 'all', 
- *		description = 'Show name history of a character', 
+ *		description = 'Show name history of a player', 
  *		help        = 'namehistory.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'lookup',
  *		accessLevel = 'all', 
- *		description = 'Find the charId for a character', 
+ *		description = 'Find the charId for a player', 
  *		help        = 'lookup.txt'
  *	)
  */

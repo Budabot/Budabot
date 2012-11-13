@@ -57,12 +57,12 @@ class FindOrgController {
 						$orgmembers = $this->text->make_chatcmd('Orgmembers', "/tell <myname> orgmembers {$row->guild_id}");
 						$tower_attacks = $this->text->make_chatcmd('Tower Attacks', "/tell <myname> attacks org {$row->guild}");
 						$tower_victories = $this->text->make_chatcmd('Tower Victories', "/tell <myname> victory org {$row->guild}");
-						$blob .= "<green>{$row->guild} ({$row->guild_id})<end> [$whoisorg] [$orglist] [$orgranks] [$orgmembers] [$tower_attacks] [$tower_victories]\n";
+						$blob .= "{$row->guild} ({$row->guild_id}) [$whoisorg] [$orglist] [$orgranks] [$orgmembers] [$tower_attacks] [$tower_victories]\n";
 					} else {
-						$blob .= "<green>{$row->guild} ({$row->guild_id})<end> [$whoisorg]\n";
+						$blob .= "{$row->guild} ({$row->guild_id}) [$whoisorg]\n";
 					}
 				} else {
-					$blob .= "<green>{$row->guild}<end>\n";
+					$blob .= "{$row->guild}\n";
 				}
 			}
 

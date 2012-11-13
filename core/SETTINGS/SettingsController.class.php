@@ -152,12 +152,12 @@ class SettingsController {
 	 */
 	public function settingsCommand($message, $channel, $sender, $sendto, $args) {
 		$blob = '';
-		$blob .= "<highlight>Changing any of these settings will take effect immediately. Please note that some of these settings are read-only and can't be changed.\n\n<end>";
+		$blob .= "Changing any of these settings will take effect immediately. Please note that some of these settings are read-only and can't be changed.\n\n";
 		$data = $this->db->query("SELECT * FROM settings_<myname> WHERE `mode` != 'hide' ORDER BY `module`");
 		$cur = '';
 		forEach ($data as $row) {
 			if ($row->module != $cur) {
-				$blob .= "\n<pagebreak><highlight><u>".str_replace("_", " ", $row->module)."</u><end>\n";
+				$blob .= "\n<pagebreak><header2>".str_replace("_", " ", $row->module)."<end>\n";
 				$cur = $row->module;
 			}
 			$blob .= "  *" . $row->description;
@@ -288,7 +288,7 @@ class SettingsController {
 				}
 			} else if ($row->type == "text") {
 				if (strlen($change_to_setting) > 255) {
-					$msg = "Your text can't be longer than 255 characters.";
+					$msg = "Your text can not be longer than 255 characters.";
 				} else {
 					$new_setting = $change_to_setting;
 				}
@@ -304,13 +304,13 @@ class SettingsController {
 					if (in_array($change_to_setting, $intoptions)) {
 						$new_setting = $change_to_setting;
 					} else {
-						$msg = "This isn't a correct option for this setting.";
+						$msg = "This is not a correct option for this setting.";
 					}
 				} else {
 					if (in_array($change_to_setting, $options)) {
 						$new_setting = $change_to_setting;
 					} else {
-						$msg = "This isn't a correct option for this setting.";
+						$msg = "This is not a correct option for this setting.";
 					}
 				}
 			} else if ($row->type == "time") {
@@ -318,7 +318,7 @@ class SettingsController {
 				if ($time > 0) {
 					$new_setting = $time;
 				} else {
-					$msg = "This isn't a valid time for this setting.";
+					$msg = "This is not a valid time for this setting.";
 				}
 			}
 		}

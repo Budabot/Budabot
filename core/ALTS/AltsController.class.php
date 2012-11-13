@@ -220,7 +220,7 @@ class AltsController implements AltsInterface {
 	
 		$this->db->commit();
 	
-		$msg = "Successfully set your new main as <highlight>{$new_main}<end>.";
+		$msg = "Your new main is now <highlight>{$new_main}<end>.";
 		$sendto->reply($msg);
 	}
 
@@ -280,7 +280,7 @@ class AltsController implements AltsInterface {
 			return;
 		}
 	
-		// let them know if they are changing the main for this character
+		// let them know if they are changing the main for this player
 		if ($altInfo->main != $sender) {
 			$this->rem_alt($altInfo->main, $sender);
 			$msg = "You have been removed as an alt of <highlight>{$altInfo->main}<end>.";
@@ -293,7 +293,7 @@ class AltsController implements AltsInterface {
 	}
 
 	/**
-	 * This command handler adds a player as alt of an main, requires moderator rights.
+	 * This command handler adds a character as alt of an main, requires moderator rights.
 	 *
 	 * @HandlesCommand("altsadmin")
 	 * @Matches("/^altsadmin add ([a-z0-9-]+) ([a-z0-9-]+)$/i")
@@ -340,7 +340,7 @@ class AltsController implements AltsInterface {
 	}
 
 	/**
-	 * This command handler removes alt from a main character, requires moderator rights.
+	 * This command handler removes alt from a main player, requires moderator rights.
 	 *
 	 * @HandlesCommand("altsadmin")
 	 * @Matches("/^altsadmin rem ([a-z0-9-]+) ([a-z0-9-]+)$/i")

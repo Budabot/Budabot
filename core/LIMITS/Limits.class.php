@@ -55,7 +55,7 @@ class Limits {
 			
 			// check access level
 			if (!$this->accessManager->checkAccess($sender, $this->settingManager->get("tell_req_open"))) {
-				$msg = "<orange>Error! You must have an access level of at least '" . $this->settingManager->get("tell_req_open") . "' to send a tell to this bot.<end>";
+				$msg = "Error! You must have an access level of at least '" . $this->settingManager->get("tell_req_open") . "' to send a tell to this bot.";
 				$this->chatBot->sendTell($msg, $sender);
 				return false;
 			}
@@ -63,27 +63,27 @@ class Limits {
 			// get player info which is needed for following checks
 			$whois = $this->playerManager->get_by_name($sender);
 			if ($whois === null) {
-				$msg = "<orange>Error! Unable to get your character info. Please try again later.<end>";
+				$msg = "Error! Unable to get your character info. Please try again later.";
 				$this->chatBot->sendTell($msg, $sender);
 				return false;
 			}
 
 			// check minlvl
 			if ($this->settingManager->get("tell_req_lvl") != 0 && $this->settingManager->get("tell_req_lvl") > $whois->level) {
-				$msg = "<orange>Error! You must be higher than level " . $this->settingManager->get("tell_req_lvl") . " to send a tell to this bot.<end>";
+				$msg = "Error! You must be higher than level " . $this->settingManager->get("tell_req_lvl") . " to send a tell to this bot.";
 				$this->chatBot->sendTell($msg, $sender);
 				return false;
 			}
 
 			// check faction limit
 			if (($this->settingManager->get("tell_req_faction") == "Omni" || $this->settingManager->get("tell_req_faction") == "Clan" || $this->settingManager->get("tell_req_faction") == "Neutral") && $this->settingManager->get("tell_req_faction") != $whois->faction) {
-				$msg = "<orange>Error! You must be " . $this->settingManager->get("tell_req_faction") . " to send a tell to this bot.<end>";
+				$msg = "Error! You must be " . $this->settingManager->get("tell_req_faction") . " to send a tell to this bot.";
 				$this->chatBot->sendTell($msg, $sender);
 				return false;
 			} else if ($this->settingManager->get("tell_req_faction") == "not Omni" || $this->settingManager->get("tell_req_faction") == "not Clan" || $this->settingManager->get("tell_req_faction") == "not Neutral") {
 				$tmp = explode(" ", $this->settingManager->get("tell_req_faction"));
 				if ($tmp[1] == $whois->faction) {
-					$msg = "<orange>Error! You must not be {$tmp[1]} to send a tell to this bot.<end>";
+					$msg = "Error! You must not be {$tmp[1]} to send a tell to this bot.";
 					$this->chatBot->sendTell($msg, $sender);
 					return false;
 				}

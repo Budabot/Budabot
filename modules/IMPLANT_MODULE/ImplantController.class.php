@@ -219,18 +219,18 @@ class ImplantController {
 		$msg = "For ql $obj->ql clusters,\n\n";
 
 		$msg .= "You will gain for most skills:\n" .
-			"<tab>Shiny    $obj->skillShiny ($obj->lowestSkillShiny - $obj->highestSkillShiny)\n" .
-			"<tab>Bright    $obj->skillBright ($obj->lowestSkillBright - $obj->highestSkillBright)\n" .
-			"<tab>Faded   $obj->skillFaded ($obj->lowestSkillFaded - $obj->highestSkillFaded)\n" .
+			"<tab>Shiny    <highlight>$obj->skillShiny<end> ($obj->lowestSkillShiny - $obj->highestSkillShiny)\n" .
+			"<tab>Bright    <highlight>$obj->skillBright<end> ($obj->lowestSkillBright - $obj->highestSkillBright)\n" .
+			"<tab>Faded   <highlight>$obj->skillFaded<end> ($obj->lowestSkillFaded - $obj->highestSkillFaded)\n" .
 			"-----------------------\n" .
 			"<tab>Total   $obj->skillTotal\n";
 
 		$msg .= "\n\n";
 
 		$msg .= "You will gain for abilities:\n" .
-			"<tab>Shiny    $obj->abilityShiny ($obj->lowestAbilityShiny - $obj->highestAbilityShiny)\n" .
-			"<tab>Bright    $obj->abilityBright ($obj->lowestAbilityBright - $obj->highestAbilityBright)\n" .
-			"<tab>Faded   $obj->abilityFaded ($obj->lowestAbilityFaded - $obj->highestAbilityFaded)\n" .
+			"<tab>Shiny    <highlight>$obj->abilityShiny<end> ($obj->lowestAbilityShiny - $obj->highestAbilityShiny)\n" .
+			"<tab>Bright    <highlight>$obj->abilityBright<end> ($obj->lowestAbilityBright - $obj->highestAbilityBright)\n" .
+			"<tab>Faded   <highlight>$obj->abilityFaded<end> ($obj->lowestAbilityFaded - $obj->highestAbilityFaded)\n" .
 			"-----------------------\n" .
 			"<tab>Total   $obj->abilityTotal\n";
 

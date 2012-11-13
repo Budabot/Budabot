@@ -53,8 +53,6 @@ class BosslootController {
 	public function bossCommand($message, $channel, $sender, $sendto, $args) {
 		$search = strtolower($args[1]);
 
-		$blob = "Results of Search for '$search'\n\n";
-
 		// Find boss by name or key
 		$bosses = $this->db->query("SELECT * FROM boss_namedb b LEFT JOIN
 			whereis w ON b.bossname = w.name WHERE bossname LIKE ? OR keyname
@@ -62,6 +60,7 @@ class BosslootController {
 		$count = count($bosses);
 
 		if ($count > 1) {
+			$blob = "Results of Search for '$search'\n\n";
 			//If multiple matches found output list of bosses
 			forEach ($bosses as $row) {
 				$blob .= $this->getBossLootOutput($row);
@@ -71,9 +70,7 @@ class BosslootController {
 			//If single match found, output full loot table
 			$row = $bosses[0];
 
-			$blob .= "<yellow>{$row->bossname}<end>\n\n";
-
-			$blob .= "<green>Can be found {$row->answer}<end>\n\n";
+			$blob .= "Location: <highlight>{$row->answer}<end>\n\n";
 			$blob .= "Loot:\n\n";
 
 			$data = $this->db->query("SELECT * FROM boss_lootdb b LEFT JOIN
@@ -83,7 +80,7 @@ class BosslootController {
 				$blob .= $this->text->make_image($row2->icon) . "\n";
 				$blob .= $this->text->make_item($row2->lowid, $row2->highid, $row2->highql, $row2->itemname) . "\n\n";
 			}
-			$output = $this->text->make_blob("{$row->bossname}", $blob);
+			$output = $this->text->make_blob($row->bossname, $blob);
 		} else {
 			$output = "There were no matches for your search.";
 		}
@@ -123,7 +120,8 @@ class BosslootController {
 			b.bossid = ?", $row->bossid);
 			
 		$blob = '<pagebreak>' . $this->text->make_chatcmd($row->bossname, "/tell <myname> boss $row->bossname") . "\n";
-		$blob .= "<green>Can be found {$row->answer}<end>\nDrops: ";
+		$blob .= "Location: <highlight>{$row->answer}<end>\n";
+		$blob .= "Loot: ";
 		forEach ($data as $row2) {
 			$blob .= $this->text->make_item($row2->lowid, $row2->highid, $row2->highql, $row2->itemname) . ', ';
 		}

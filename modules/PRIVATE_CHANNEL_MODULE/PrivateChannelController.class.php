@@ -193,7 +193,7 @@ class PrivateChannelController {
 			$msg = $this->getChatlist();
 			$sendto->reply($msg);
 		} else {
-			$sendto->reply("No players are in the private channel.");
+			$sendto->reply("No character are in the private channel.");
 		}
 	}
 	
@@ -418,7 +418,7 @@ class PrivateChannelController {
 		$numonline = count($data);
 
 		if ($numonline == 0) {
-			$msg = "No players in channel.";
+			$msg = "No characters in channel.";
 		} else {
 			$sql = "SELECT `guild`, count(*) AS cnt, AVG(level) AS avg_level FROM online o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE added_by = '<myname>' AND channel_type = 'priv' GROUP BY `guild` ORDER BY `cnt` DESC, `avg_level` DESC";
 			$data = $this->db->query($sql);

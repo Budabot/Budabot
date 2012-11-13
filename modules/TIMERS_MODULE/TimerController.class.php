@@ -179,8 +179,8 @@ class TimerController {
 		$timer = $this->get($name);
 		if ($timer == null) {
 			$msg = "Could not find a timer named <highlight>$name<end>.";
-		} else if ($timer->owner != $sender && !$this->accessManager->checkAccess($sender, "rl")) {
-			$msg = "You don't have the required access level (raidleader) to remove this timer.";
+		} else if ($timer->owner != $sender && !$this->accessManager->checkAccess($sender, "mod")) {
+			$msg = "You must own this timer or have moderator access in order to remove it.";
 		} else {
 			$this->remove($name);
 			$msg = "Removed timer <highlight>$timer->name<end>.";

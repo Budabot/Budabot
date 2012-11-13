@@ -9,7 +9,7 @@
  *	@DefineCommand(
  *		command     = "orghistory", 
  *		accessLevel = "guild", 
- *		description = "Shows the org history (invites and kicks and leaves) for a player", 
+ *		description = "Shows the org history (invites and kicks and leaves) for a character", 
  *		help        = "orghistory.txt"
  *	)
  */
@@ -57,7 +57,7 @@ class OrgHistoryController {
 		$data = $this->db->query($sql);
 		if (count($data) != 0) {
 			forEach ($data as $row) {
-				$blob .= "$row->actor $row->action <highlight>$row->actee<end> in $row->organization at " . $this->util->date($row->time) . "\n";
+				$blob .= "<highlight>$row->actor<end> $row->action <highlight>$row->actee<end> in $row->organization at " . $this->util->date($row->time) . "\n";
 			}
 
 			$msg = $this->text->make_blob('Org History', $blob);

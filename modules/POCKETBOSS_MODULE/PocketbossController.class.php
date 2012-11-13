@@ -53,10 +53,10 @@ class PocketbossController {
 		if ($numrows >= 1 && $numrows <= 5) {
 			$msg = "Pocketbosses matching: ";
 			forEach ($data as $row) {
-				$blob = "<highlight>Location:<end> $row->pb_location\n";
-				$blob .= "<highlight>Found on:<end> $row->bp_mob\n";
-				$blob .= "<highlight>Mob Level:<end> $row->bp_lvl\n";
-				$blob .= "<highlight>General Location:<end> $row->bp_location\n";
+				$blob = "Location: <highlight>$row->pb_location<end>\n";
+				$blob .= "Found on: <highlight>$row->bp_mob<end>\n";
+				$blob .= "Mob Level: <highlight>$row->bp_lvl<end>\n";
+				$blob .= "General Location: <highlight>$row->bp_location<end>\n";
 				$blob .= "_____________________________\n";
 				$data2 = $this->db->query("SELECT * FROM pbdb WHERE pb = ? ORDER BY ql", $row->pb);
 				forEach ($data2 as $symb) {

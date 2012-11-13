@@ -56,7 +56,7 @@ class QuoteController {
 		$quoteMSG = trim($args[1]);
 		$row = $this->db->queryRow("SELECT * FROM `#__quote` WHERE `What` LIKE ?", $quoteMSG);
 		if ($row !== null) {
-			$msg = "This quote is already in as quote <highlight>$row->IDNumber<end>.";
+			$msg = "This quote has already been added as quote <highlight>$row->IDNumber<end>.";
 		} else {
 			if (strlen($quoteMSG) <= 1000) {
 
@@ -184,7 +184,7 @@ class QuoteController {
 		if ($msg) {
 			$msg = $this->text->make_blob("Results for: '$search'", $msg);
 		} else {
-			$msg = "Couldn't find any matches for this search.";
+			$msg = "Could not find any matches for this search.";
 		}
 		$sendto->reply($msg);
 	}
@@ -221,9 +221,9 @@ class QuoteController {
 		$listnum = 0;
 		forEach ($quoters as $key => $val) {
 			$listnum++;
-			$blob .= "<tab>$listnum) ".
-				$this->row->chatcmd($key, "/tell <myname> quote search $key") .
-				": <highlight>$val<end> " . number_format((100 * ($val / $count)), 0) . "%\n";
+			$blob .= "<tab>$listnum) ";
+			$blob .= $this->text->make_chatcmd($key, "/tell <myname> quote search $key");
+			$blob .= ": <highlight>$val<end> " . number_format((100 * ($val / $count)), 0) . "%\n";
 			if ($listnum >= $top) {
 				break;
 			}
@@ -341,7 +341,7 @@ class QuoteController {
 			$msg = $this->text->make_blob("Quote", $msg).': "'.$quoteMSG.'"';
 
 		} else {
-			$msg = "I dont have any quotes to show!";
+			$msg = "There are no quotes to show.";
 		}
 		$sendto->reply($msg);
 	}

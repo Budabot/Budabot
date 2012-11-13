@@ -119,7 +119,7 @@ class TrackerController {
 
 			$msg = $this->text->make_blob("Tracklist ({$numrows})", $blob);
 		} else {
-			$msg = "No players are on the track list.";
+			$msg = "No characters are on the track list.";
 		}
 		$sendto->reply($msg);
 	}
@@ -133,14 +133,14 @@ class TrackerController {
 		$uid = $this->chatBot->get_uid($name);
 
 		if (!$uid) {
-			$msg = "Player <highlight>$name<end> does not exist.";
+			$msg = "Character <highlight>$name<end> does not exist.";
 		} else {
 			$data = $this->db->query("SELECT * FROM tracked_users_<myname> WHERE `uid` = ?", $uid);
 			if (count($data) == 0) {
-				$msg = "Player <highlight>$name<end> is not on the track list.";
+				$msg = "Character <highlight>$name<end> is not on the track list.";
 			} else {
 				$this->db->exec("DELETE FROM tracked_users_<myname> WHERE `uid` = ?", $uid);
-				$msg = "Player <highlight>$name<end> has been removed from the track list.";
+				$msg = "Character <highlight>$name<end> has been removed from the track list.";
 				$this->buddylistManager->remove($name, 'tracking');
 			}
 		}
@@ -157,14 +157,14 @@ class TrackerController {
 		$uid = $this->chatBot->get_uid($name);
 
 		if (!$uid) {
-			$msg = "Player <highlight>$name<end> does not exist.";
+			$msg = "Character <highlight>$name<end> does not exist.";
 		} else {
 			$data = $this->db->query("SELECT * FROM tracked_users_<myname> WHERE `uid` = ?", $uid);
 			if (count($data) != 0) {
-				$msg = "Player <highlight>$name<end> is already on the track list.";
+				$msg = "Character <highlight>$name<end> is already on the track list.";
 			} else {
 				$this->db->exec("INSERT INTO tracked_users_<myname> (`name`, `uid`, `added_by`, `added_dt`) VALUES (?, ?, ?, ?)", $name, $uid, $sender, time());
-				$msg = "Player <highlight>$name<end> has been added to the track list.";
+				$msg = "Character <highlight>$name<end> has been added to the track list.";
 				$this->buddylistManager->add($name, 'tracking');
 			}
 		}
@@ -181,7 +181,7 @@ class TrackerController {
 		$uid = $this->chatBot->get_uid($name);
 
 		if (!$uid) {
-			$msg = "Player <highlight>$name<end> does not exist.";
+			$msg = "Character <highlight>$name<end> does not exist.";
 		} else {
 			$data = $this->db->query("SELECT `event`, `dt` FROM tracking_<myname> WHERE `uid` = $uid ORDER BY `dt` DESC");
 			if (count($data) > 0) {
@@ -192,7 +192,7 @@ class TrackerController {
 
 				$msg = $this->text->make_blob("Track History for $name", $blob);
 			} else {
-				$msg = "Player <highlight>$name<end> has never logged on or is not being tracked.";
+				$msg = "Character <highlight>$name<end> has never logged on or is not being tracked.";
 			}
 		}
 		$sendto->reply($msg);

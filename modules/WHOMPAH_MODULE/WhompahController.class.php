@@ -122,7 +122,7 @@ class WhompahController {
 
 		$msg = "From {$city->city_name} you can get to: ";
 		forEach ($data as $row) {
-			$msg .= "<yellow>{$row->city_name}<end> (<highlight>{$row->short_name}<end>), ";
+			$msg .= "<highlight>{$row->city_name}<end> ({$row->short_name}), ";
 		}
 
 		$sendto->reply($msg);

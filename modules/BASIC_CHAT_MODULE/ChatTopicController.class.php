@@ -132,7 +132,7 @@ class ChatTopicController {
 		$date_string = $this->util->unixtime_to_readable(time() - $this->settingManager->get('topic_time'), false);
 		$topic = $this->settingManager->get('topic');
 		$set_by = $this->settingManager->get('topic_setby');
-		$msg = "<highlight>Topic:<end> {$topic} [set by <highlight>{$set_by}<end>][<highlight>{$date_string} ago<end>]";
+		$msg = "Topic: <highlight>{$topic}<end> [set by <highlight>{$set_by}<end>][<highlight>{$date_string} ago<end>]";
 		return $msg;
 	}
 }

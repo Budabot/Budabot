@@ -87,7 +87,7 @@ class BroadcastController {
 		forEach ($data as $row) {
 			$remove = $this->text->make_chatcmd('Remove', "/tell <myname> <symbol>broadcast rem $row->name");
 			$dt = $this->util->date($row->dt);
-			$blob .= "<white>{$row->name}<end> [<green>added by {$row->added_by}<end>] <white>{$dt}<end> {$remove}\n";
+			$blob .= "<highlight>{$row->name}<end> [added by {$row->added_by}] {$dt} {$remove}\n";
 		}
 
 		if (count($data) == 0) {

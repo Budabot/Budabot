@@ -85,7 +85,7 @@ class ProfileController {
 				$msg = "No profiles available.";
 			}
 		} else {
-			$msg = "Error profiles topics.";
+			$msg = "Could not open profiles directory.";
 		}
 		$sendto->reply($msg);
 	}

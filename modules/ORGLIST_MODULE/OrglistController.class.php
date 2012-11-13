@@ -99,13 +99,13 @@ class OrglistController {
 			$whois = $this->playerManager->get_by_name($name);
 
 			if ($whois === null) {
-				$msg = "Could not find player info for <highlight>$name<end>.";
+				$msg = "Could not find character info for <highlight>$name<end>.";
 				unset($whois);
 				$sendto->reply($msg);
 				unset($this->orglist);
 				return;
 			} else if ($whois->guild_id == 0) {
-				$msg = "Player <highlight>$name<end> does not seem to be in an org.";
+				$msg = "Character <highlight>$name<end> does not seem to be in an org.";
 				unset($whois);
 				$sendto->reply($msg);
 				unset($this->orglist);

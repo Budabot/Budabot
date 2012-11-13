@@ -417,7 +417,7 @@ class SystemController {
 		$blob .= "Public Channels:\n";
 		forEach ($this->chatBot->grp as $gid => $status) {
 			$string = unpack("N", substr($gid, 1));
-			$blob .= "<tab><highlight>'{$this->chatBot->gid[$gid]}' (" . ord(substr($gid, 0, 1)) . " " . $string[1] . ")<end>\n";
+			$blob .= "<tab><highlight>'{$this->chatBot->gid[$gid]}'<end> (" . ord(substr($gid, 0, 1)) . " " . $string[1] . ")\n";
 		}
 
 		$msg = $this->text->make_blob('System Info', $blob);

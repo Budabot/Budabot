@@ -175,10 +175,10 @@ class VoteController {
 					$msg .= "\n<black>___%<end> $removeLink.\n";
 				}
 				if ($timeleft > 0 && $this->settingManager->get("vote_add_new_choices") == 1 && $status == 0) {
-					$msg .="\n<highlight>Don't like these choices?  Add your own:<end>\n<tab>/tell <myname> vote $question{$this->delimiter}<highlight>your choice<end>\n";
+					$msg .="\nDon't like these choices?  Add your own:\n<tab>/tell <myname> vote $question{$this->delimiter}<highlight>your choice<end>\n";
 				}
 
-				$msg .="\n<highlight>If you started this vote, you can:<end>\n";
+				$msg .="\nIf you started this vote, you can:\n";
 				$msg .= "<tab>" . $this->text->make_chatcmd("Kill", "/tell <myname> vote kill $question") . " the vote completely.\n";
 				if ($timeleft > 0) {
 					$msg .= "<tab>" . $this->text->make_chatcmd("End", "/tell <myname> vote end $question") . " the vote early.";
@@ -254,7 +254,7 @@ class VoteController {
 			unset($this->votes[$row->question]);
 			$msg = "'$row->question' has been removed.";
 		} else {
-			$msg = "Either this vote doesn't exist, or you didn't create it.";
+			$msg = "Either this vote does not exist, or you did not create it.";
 		}
 		$sendto->reply($msg);
 	}
@@ -268,7 +268,7 @@ class VoteController {
 	public function voteRemoveCommand($message, $channel, $sender, $sendto, $args) {
 		$question = $args[1];
 		if (!isset($this->votes[$question])) {
-			$msg = "Vote '<highlight>$question<end>' could not be found.";
+			$msg = "Vote <highlight>$question<end> could not be found.";
 		} else {
 			$data = $this->db->query("SELECT * FROM $this->table WHERE `question` = ? AND `author` = ? AND `duration` IS NULL", $question, $sender);
 			if (count($data) > 0) {
@@ -293,7 +293,7 @@ class VoteController {
 		$row = $this->db->queryRow("SELECT * FROM $this->table WHERE `question` = ? AND `author` = ? AND `duration` IS NOT NULL", $question, $sender);
 
 		if ($row === null) {
-			$msg = "Either this vote doesn't exist, or you didn't create it.";
+			$msg = "Either this vote does not exist, or you did not create it.";
 		} else {
 			$started = $row->started;
 			$duration = $row->duration;
@@ -307,7 +307,7 @@ class VoteController {
 			} else if ($timeleft <= 0) {
 				$msg = "This vote has already finished.";
 			} else {
-				$msg = "There is only $timeleft seconds left.";
+				$msg = "There is only <highlight>$timeleft<end> seconds left.";
 			}
 		}
 		$sendto->reply($msg);
@@ -322,7 +322,7 @@ class VoteController {
 	
 		$data = $this->db->query("SELECT * FROM $this->table WHERE `question` = ?", $question);
 		if (count($data) == 0) {
-			$msg = "Couldn't find any votes with this topic.";
+			$msg = "Could not find any votes with this topic.";
 		} else {
 			$results = array();
 			forEach ($data as $row) {
@@ -384,10 +384,10 @@ class VoteController {
 			}
 
 			if ($timeleft > 0 && $this->settingManager->get("vote_add_new_choices") == 1 && $status == 0) {
-				$blob .="\n<highlight>Don't like these choices?  Add your own:<end>\n<tab>/tell <myname> vote $question{$this->delimiter}<highlight>your choice<end>\n";
+				$blob .="\nDon't like these choices?  Add your own:\n<tab>/tell <myname> vote $question{$this->delimiter}<highlight>your choice<end>\n";
 			}
 
-			$blob .="\n<highlight>If you started this vote, you can:<end>\n";
+			$blob .="\nIf you started this vote, you can:\n";
 			$blob .="<tab>" . $this->text->make_chatcmd('Kill the vote completely', "/tell <myname> vote kill $question") . "\n";
 			if ($timeleft > 0) {
 				$blob .="<tab>" . $this->text->make_chatcmd('End the vote early', "/tell <myname> vote end $question");
@@ -448,10 +448,10 @@ class VoteController {
 			$data = $this->db->query("SELECT * FROM $this->table WHERE `question` = ? AND `duration` IS NULL AND `author` = ?", $question, $sender);
 			if (count($data) > 0) {
 				$this->db->exec("UPDATE $this->table SET `answer` = ? WHERE `author` = ? AND `duration` IS NULL AND `question` = ?", $choice, $sender, $question);
-				$msg = "You have altered your choice to <highlight>$choice<end> for: <highlight>$question<end>.";
+				$msg = "You have altered your choice to <highlight>$choice<end> for: $question.";
 			} else {
 				$this->db->exec("INSERT INTO $this->table (`author`, `answer`, `question`) VALUES (?, ?, ?)", $sender, $choice, $question);
-				$msg = "You have selected choice <highlight>$choice<end> for: <highlight>$question<end>.";
+				$msg = "You have selected choice <highlight>$choice<end> for: $question.";
 			}
 		}
 		$sendto->reply($msg);
@@ -481,13 +481,13 @@ class VoteController {
 		$newtime = $this->util->parseTime($settime);
 
 		if ($newtime == 0) {
-			$msg = "Found an invalid character for duration or the time you entered was 0 seconds. Time format should be: 1d2h3m4s";
+			$msg = "Invalid time entered. Time format should be: 1d2h3m4s";
 		} else {
 			$answer = explode($this->delimiter, $answers);
 			if (count($answer) < 2) {
-				$msg = "Need to have at least 2 options for this vote.";
+				$msg = "You must have at least two options for this vote.";
 			} else if (!$question) {
-				$msg = "What are we voting on?";
+				$msg = "You must specify a question to vote on.";
 			} else {
 				if (substr($question, 0, 1) == "@") {
 					$question = substr($question, 1);
@@ -508,7 +508,7 @@ class VoteController {
 					$this->votes[$question] = $obj;
 					$msg = "Vote has been added.";
 				} else {
-					$msg = "There's already a vote with this topic.";
+					$msg = "There is already a vote with this topic.";
 				}
 			}
 		}

@@ -71,7 +71,7 @@ class HelpController {
 			$current_module = '';
 			forEach ($data as $row) {
 				if ($current_module != $row->module) {
-					$blob .= "\n<pagebreak><highlight><u>{$row->module}:</u><end>\n";
+					$blob .= "\n<pagebreak><header2>{$row->module}:<end>\n";
 					$current_module = $row->module;
 				}
 				$helpLink = $this->text->make_chatcmd("Click here", "/tell <myname> help $row->name");

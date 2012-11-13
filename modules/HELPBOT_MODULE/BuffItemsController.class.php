@@ -69,19 +69,18 @@ class BuffItemsController {
 		}
 
 		if ($found == 0) {
-			$msg = "No matches, sorry.";
+			$msg = "Could not find any buff items that matched your search criteria.";
 		} else {
 			if ($found == 1) {
 				$blob .= $matches[0][1];
 				$blob .= "\n\nby Imoutochan, RK1";
 				$msg = $this->text->make_blob("Buff Item - " . $matches[0][0], $blob);
 			} else {
-				$blob = "Your query of <yellow>".$name."<end> returned the following item line(s):\n\n";
+				$blob = "Buff item search results for <highlight>$name<end>:\n\n";
 				forEach ($matches as $result) {
 					$buffItemLink = $this->text->make_chatcmd($result[0], "/tell <myname> buffitem ".$result[0]);
 					$blob .= "- $buffItemLink" . (sizeof($result) == 3 ? " (".$result[2].")" : "")."\n";
 				}
-				$blob .= "\n".sizeof($matches)." results found, please pick one by clicking it";
 				$blob .= "\n\nby Imoutochan, RK1";
 				$msg = $this->text->make_blob("Buff item search results (<highlight>$found<end>)", $blob);
 			}
@@ -128,28 +127,25 @@ class BuffItemsController {
 
 		switch (sizeof($skills)) {
 			case 0:  // skill does not exist
-				$sendto->reply("Could not find a skill by that name.");
-				return;
+				$msg = "Could not find a skill by that name.";
 
 			case 1:  // exactly one matching skill
 				$info = "";
 				$found = 0;
-				$dbparam = '%' . $skills[0] . '%';
+				$skill = $skills[0];
+				$dbparam = '%' . $skill . '%';
 				$results = $this->db->query("SELECT * FROM buffitems WHERE boosts LIKE ? OR buff_break_points LIKE ?", $dbparam, $dbparam);
 				forEach ($results as $row) {
 					$found++;
 					$info .= "- " . $this->text->make_chatcmd($row->item_name, "/tell <myname> buffitem $row->item_name") . "\n";
 				}
-				if ($found > 0) {								// found items that modify this skill
-					$inside .= "Items that buff ".$skills[0].":\n\n";
+				if ($found > 0) {
+					$inside .= "Items that buff $skill:\n\n";
 					$inside .= $info;
 					$inside .= "\n\nby Imoutochan (RK1)";
-					$windowlink = $this->text->make_blob("What Buffs '$skills[0]' ($found)", $inside);
-					$sendto->reply($windowlink);
-					return;
+					$msg = $this->text->make_blob("What Buffs '$skill' ($found)", $inside);
 				} else {
-					$sendto->reply("Nothing that buffs ".$skills[0]." in my database.");
-					return;
+					$msg = "Could not find any items that buff $skill.";
 				}
 				break;
 
@@ -158,13 +154,12 @@ class BuffItemsController {
 				forEach ($skills as $skill) {
 					$info .= "- " . $this->text->make_chatcmd($skill, "/tell <myname> whatbuffs $skill") . "\n";
 				}
-				$inside = "Your query of <yellow>$name<end> matches more than one skill:\n\n";
-				$inside .= $info;
-				$inside .= "\n\nby Imoutochan (RK1)";
-				$windowlink = $this->text->make_blob("What Buffs Skills (" . count($skills) . ")", $inside);
-				$sendto->reply($windowlink);
-				return;
+				$blob = "Your query of <yellow>$name<end> matches more than one skill:\n\n";
+				$blob .= $info;
+				$blob .= "\n\nby Imoutochan (RK1)";
+				$msg = $this->text->make_blob("What Buffs Skills (" . count($skills) . ")", $blob);
 		}
+		$sendto->reply($msg);
 	}
 	
 	public function matches($probe, $comp) {
@@ -181,14 +176,14 @@ class BuffItemsController {
 
 	public function make_info($row) {
 		$result = "<header2>$row->item_name<end>:\n\n".
-				  "<highlight>Category<end>: $row->category\n".
-				  "<highlight>Boosts<end>: $row->boosts\n".
-				  "<highlight>QL range<end>: $row->ql_range\n".
-				  "<highlight>Aquisition<end>:\n<tab>$row->acquisition\n".
-				  "<highlight>Buff Break points<end>:\n";
+				  "Category: <highlight>$row->category<end>\n".
+				  "Boosts: <highlight>$row->boosts<end>\n".
+				  "QL range: <highlight>$row->ql_range<end>\n".
+				  "Aquisition:\n<tab><highlight>$row->acquisition<end>\n".
+				  "Buff Break points:\n";
 		
 		forEach (explode("\\n", $row->buff_break_points) as $breakpoint) {
-			$result .= "<tab>QL ".$breakpoint."\n";
+			$result .= "<tab><highlight>QL ".$breakpoint."<end>\n";
 		}
 		return $result;
 	}

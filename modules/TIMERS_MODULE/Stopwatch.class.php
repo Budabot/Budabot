@@ -57,7 +57,7 @@ class Stopwatch {
 
 			$timeString = $this->util->unixtime_to_readable($time);
 
-			$msg = "Stopwatch has been stopped. Duration: $timeString";
+			$msg = "Stopwatch has been stopped. Duration: <highlight>$timeString<end>.";
 		}
 		$sendto->reply($msg);
 	}

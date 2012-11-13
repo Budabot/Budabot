@@ -357,31 +357,31 @@ class LootListsController {
 			case "13":
 				//CRU
 				$list .= $this->text->make_image(257196) . "\n";
-				$list .= "<highlight>Name:<end> {$itemlink["ICE"]}\n";
-				$list .= "<highlight>Purpose:<end> {$itemlink["ICEU"]}\n";
-				$list .= "<highlight>Note:<end> Drops on all Alien Playfield 5 times from the Boss.\n\n";
+				$list .= "Name: {$itemlink["ICE"]}\n";
+				$list .= "Purpose: {$itemlink["ICEU"]}\n";
+				$list .= "Note: <highlight>Drops on all Alien Playfield 5 times from the Boss.<end>\n\n";
 
 				//Token Credit Items
 				$list .= $this->text->make_image(218775) . "\n";
-				$list .= "<highlight>Name:<end> {$itemlink["KBAP"]}\n";
+				$list .= "Name: {$itemlink["KBAP"]}\n";
 				$list .= $this->text->make_image(218758) . "\n";
-				$list .= "<highlight>Name:<end> {$itemlink["KVPU"]}\n";
+				$list .= "Name: {$itemlink["KVPU"]}\n";
 				$list .= $this->text->make_image(218768) . "\n";
-				$list .= "<highlight>Name:<end> {$itemlink["KRI"]}\n";
-				$list .= "<highlight>Purpose:<end> Kyr'Ozch Rank Identification, Kyr'Ozch Video Processing Unit and Kyr'Ozch Battlesuit Audio Processor can be traded at your faction vendor at the Alien Playfield Bar for Tokens or Credits.\n";
-				$list .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss(One from each type).\n\n";
+				$list .= "Name: {$itemlink["KRI"]}\n";
+				$list .= "Purpose: <highlight>Kyr'Ozch Rank Identification, Kyr'Ozch Video Processing Unit and Kyr'Ozch Battlesuit Audio Processor can be traded at your faction vendor at the Alien Playfield Bar for Tokens or Credits.<end>\n";
+				$list .= "Note: <highlight>Drops on all Alien Playfield from the Boss (one from each type).<end>\n\n";
 
 				//Token Board
 				$list .= $this->text->make_image(230855) . "\n";
-				$list .= "<highlight>Name:<end> {$itemlink["BOARD"]}\n";
-				$list .= "<highlight>Purpose:<end> - {$itemlink["OTAE"]}\n";
+				$list .= "Name: {$itemlink["BOARD"]}\n";
+				$list .= "Purpose: - {$itemlink["OTAE"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["CMP"]}\n";
-				$list .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss.\n\n";
+				$list .= "Note: <highlight>Drops on all Alien Playfield from the Boss.<end>\n\n";
 
 				//Action Probability Estimator
 				$list .= $this->text->make_image(203502) . "\n";
-				$list .= "<highlight>Name:<end> {$itemlink["APE"]}\n";
-				$list .= "<highlight>Purpose:<end> - {$itemlink["EMCH"]}\n";
+				$list .= "Name: {$itemlink["APE"]}\n";
+				$list .= "Purpose: - {$itemlink["EMCH"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["CKCNH"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["SKCGH"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["BCOH"]}\n";
@@ -393,8 +393,8 @@ class LootListsController {
 
 				//Dynamic Gas Redistribution Valves
 				$list .= $this->text->make_image(205508) . "\n";
-				$list .= "<highlight>Name:<end> {$itemlink["DGRV"]}\n";
-				$list .= "<highlight>Purpose:<end> - {$itemlink["HLOA"]}\n";
+				$list .= "Name: {$itemlink["DGRV"]}\n";
+				$list .= "Purpose: - {$itemlink["HLOA"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["SKR2"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["SKR3"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["ASC"]}\n\n";
@@ -402,36 +402,36 @@ class LootListsController {
 			case "28":
 				//CRU
 				$list .= $this->text->make_image(257196) . "\n";
-				$list .= "<highlight>Name:<end> {$itemlink["ICE"]}\n";
-				$list .= "<highlight>Purpose:<end> {$itemlink["ICEU"]}\n";
-				$list .= "<highlight>Note:<end> Drops on all Alien Playfield 5 times from the Boss.\n\n";
+				$list .= "Name: {$itemlink["ICE"]}\n";
+				$list .= "Purpose: {$itemlink["ICEU"]}\n";
+				$list .= "Note: <highlight>Drops on all Alien Playfield 5 times from the Boss.<end>\n\n";
 
 				//Token Credit Items
 				$list .= $this->text->make_image(218775) . "\n";
-				$list .= "<highlight>Name:<end> {$itemlink["KBAP"]}\n";
+				$list .= "Name: {$itemlink["KBAP"]}\n";
 				$list .= $this->text->make_image(218758) . "\n";
-				$list .= "<highlight>Name:<end> {$itemlink["KVPU"]}\n";
+				$list .= "Name: {$itemlink["KVPU"]}\n";
 				$list .= $this->text->make_image(218768) . "\n";
-				$list .= "<highlight>Name:<end> {$itemlink["KRI"]}\n";
-				$list .= "<highlight>Purpose:<end> Kyr'Ozch Rank Identification, Kyr'Ozch Video Processing Unit and Kyr'Ozch Battlesuit Audio Processor can be traded at your faction vendor at the Alien Playfield Bar for Tokens or Credits.\n";
-				$list .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss(One from each type).\n\n";
+				$list .= "Name: {$itemlink["KRI"]}\n";
+				$list .= "Purpose: <highlight>Kyr'Ozch Rank Identification, Kyr'Ozch Video Processing Unit and Kyr'Ozch Battlesuit Audio Processor can be traded at your faction vendor at the Alien Playfield Bar for Tokens or Credits.<end>\n";
+				$list .= "Note: <highlight>Drops on all Alien Playfields from the Boss (one from each type).<end>\n\n";
 
 				//Token Board
 				$list .= $this->text->make_image(230855) . "\n";
-				$list .= "<highlight>Name:<end> {$itemlink["BOARD"]}\n";
-				$list .= "<highlight>Purpose:<end> - {$itemlink["OTAE"]}\n";
+				$list .= "Name: {$itemlink["BOARD"]}\n";
+				$list .= "Purpose: - {$itemlink["OTAE"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["CMP"]}\n";
-				$list .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss.\n\n";
+				$list .= "Note: <highlight>Drops on all Alien Playfield from the Boss.<end>\n\n";
 
 				//APF Belt
 				$list .= $this->text->make_image(11618) . "\n";
-				$list .= "<highlight>Name:<end> {$itemlink["IAPU"]}\n";
-				$list .= "<highlight>Purpose:<end> - {$itemlink["HVBCP"]}\n\n";
+				$list .= "Name: {$itemlink["IAPU"]}\n";
+				$list .= "Purpose: - {$itemlink["HVBCP"]}\n\n";
 
 				//Notum coil
 				$list .= $this->text->make_image(257195) . "\n";
-				$list .= "<highlight>Name:<end> {$itemlink["NAC"]}\n";
-				$list .= "<highlight>Purpose:<end> - {$itemlink["TAHSC"]}\n";
+				$list .= "Name: {$itemlink["NAC"]}\n";
+				$list .= "Purpose: - {$itemlink["TAHSC"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["ONC"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["AKC12"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["AKC13"]}\n";
@@ -440,38 +440,38 @@ class LootListsController {
 			case "35":
 				//CRU
 				$list .= $this->text->make_image(257196) . "\n";
-				$list .= "<highlight>Name:<end> {$itemlink["ICE"]}\n";
-				$list .= "<highlight>Purpose:<end> {$itemlink["ICEU"]}\n";
-				$list .= "<highlight>Note:<end> Drops on all Alien Playfield 5 times from the Boss.\n\n";
+				$list .= "Name: {$itemlink["ICE"]}\n";
+				$list .= "Purpose: {$itemlink["ICEU"]}\n";
+				$list .= "Note: <highlight>Drops on all Alien Playfield 5 times from the Boss.<end>\n\n";
 
 				//Token Credit Items
 				$list .= $this->text->make_image(218775) . "\n";
-				$list .= "<highlight>Name:<end> {$itemlink["KBAP"]}\n";
+				$list .= "Name: {$itemlink["KBAP"]}\n";
 				$list .= $this->text->make_image(218758) . "\n";
-				$list .= "<highlight>Name:<end> {$itemlink["KVPU"]}\n";
+				$list .= "Name: {$itemlink["KVPU"]}\n";
 				$list .= $this->text->make_image(218768) . "\n";
-				$list .= "<highlight>Name:<end> {$itemlink["KRI"]}\n";
-				$list .= "<highlight>Purpose:<end> Kyr'Ozch Rank Identification, Kyr'Ozch Video Processing Unit and Kyr'Ozch Battlesuit Audio Processor can be traded at your faction vendor at the Alien Playfield Bar for Tokens or Credits.\n";
-				$list .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss(One from each type).\n\n";
+				$list .= "Name: {$itemlink["KRI"]}\n";
+				$list .= "Purpose: <highlight>Kyr'Ozch Rank Identification, Kyr'Ozch Video Processing Unit and Kyr'Ozch Battlesuit Audio Processor can be traded at your faction vendor at the Alien Playfield Bar for Tokens or Credits.<end>\n";
+				$list .= "Note: <highlight>Drops on all Alien Playfield from the Boss (one from each type).<end>\n\n";
 
 				//Token Board
 				$list .= $this->text->make_image(230855) . "\n";
-				$list .= "<highlight>Name:<end> {$itemlink["BOARD"]}\n";
-				$list .= "<highlight>Purpose:<end> - {$itemlink["OTAE"]}\n";
+				$list .= "Name:{$itemlink["BOARD"]}\n";
+				$list .= "Purpose: - {$itemlink["OTAE"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["CMP"]}\n";
-				$list .= "<highlight>Note:<end> Drops on all Alien Playfield from the Boss.\n\n";
+				$list .= "Note: <highlight>Drops on all Alien Playfield from the Boss.<end>\n\n";
 
 				//Energy Redistribution Unit
 				$list .= $this->text->make_image(257197) . "\n";
-				$list .= "<highlight>Name:<end> {$itemlink["ERU"]}\n";
-				$list .= "<highlight>Purpose:<end> - {$itemlink["BOB"]}\n";
+				$list .= "Name: {$itemlink["ERU"]}\n";
+				$list .= "Purpose: - {$itemlink["BOB"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["DVLPR"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["VNGW"]}\n\n";
 
 				//Visible Light Remodulation Device
 				$list .= $this->text->make_image(235270) . "\n";
-				$list .= "<highlight>Name:<end> {$itemlink["VLRD"]}\n";
-				$list .= "<highlight>Purpose:<end> - {$itemlink["DVRPR"]}\n";
+				$list .= "Name: {$itemlink["VLRD"]}\n";
+				$list .= "Purpose: - {$itemlink["DVRPR"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["SSSS"]}\n";
 				$list .= "<tab><tab>     - {$itemlink["EPP"]}\n\n";
 				break;
@@ -675,29 +675,29 @@ class LootListsController {
 	 * @Matches("/^pande$/i")
 	 */
 	public function pandeCommand($message, $channel, $sender, $sendto, $args) {
-		$list .= "The Beast\n";
+		$list .= "<header2>The Beast<end>\n";
 		$list .= "<tab>".$this->text->make_chatcmd("Beast Armor\n", "/tell <myname> beastarmor");
 		$list .= "<tab>".$this->text->make_chatcmd("Beast Weapons\n", "/tell <myname> beastweaps");
 		$list .= "<tab>".$this->text->make_chatcmd("Beast Stars\n", "/tell <myname> beaststars");
-		$list .= "\nThe Night Heart\n";
+		$list .= "\n<header2>The Night Heart<end>\n";
 		$list .= "<tab>".$this->text->make_chatcmd("TNH\n", "/tell <myname> tnh");
-		$list .= "\nWest Zodiacs\n";
+		$list .= "\n<header2>West Zodiacs<end>\n";
 		$list .= "<tab>".$this->text->make_chatcmd("Aries\n", "/tell <myname> aries");
 		$list .= "<tab>".$this->text->make_chatcmd("Leo\n", "/tell <myname> leo");
 		$list .= "<tab>".$this->text->make_chatcmd("Virgo\n", "/tell <myname> virgo");
-		$list .= "\nEast Zodiacs\n";
+		$list .= "\n<header2>East Zodiacs<end>\n";
 		$list .= "<tab>".$this->text->make_chatcmd("Aquarius\n", "/tell <myname> aquarius");
 		$list .= "<tab>".$this->text->make_chatcmd("Cancer\n", "/tell <myname> cancer");
 		$list .= "<tab>".$this->text->make_chatcmd("Gemini\n", "/tell <myname> gemini");
-		$list .= "\nMiddle Zodiacs\n";
+		$list .= "\n<header2>Middle Zodiacs<end>\n";
 		$list .= "<tab>".$this->text->make_chatcmd("Libra\n", "/tell <myname> libra");
 		$list .= "<tab>".$this->text->make_chatcmd("Pisces\n", "/tell <myname> pisces");
 		$list .= "<tab>".$this->text->make_chatcmd("Taurus\n", "/tell <myname> taurus");
-		$list .= "\nNorth Zodiacs\n";
+		$list .= "\n<header2>North Zodiacs<end>\n";
 		$list .= "<tab>".$this->text->make_chatcmd("Capricorn\n", "/tell <myname> capricorn");
 		$list .= "<tab>".$this->text->make_chatcmd("Sagittarius\n", "/tell <myname> sagittarius");
 		$list .= "<tab>".$this->text->make_chatcmd("Scorpio\n", "/tell <myname> scorpio");
-		$list .= "\nOther\n";
+		$list .= "\n<header2>Other<end>\n";
 		$list .= "<tab>".$this->text->make_chatcmd("Shadowbreeds\n", "/tell <myname> sb");
 		$list .= "<tab>".$this->text->make_chatcmd("Bastion\n", "/tell <myname> bastion");
 

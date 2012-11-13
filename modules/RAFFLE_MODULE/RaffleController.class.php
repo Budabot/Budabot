@@ -185,13 +185,13 @@ class RaffleController {
 	 */
 	public function raffleJoinCommand($message, $channel, $sender, $sendto, $args) {
 		if (!$this->raffles["running"]) {
-			$msg = "<highlight>There is no active raffle.";
+			$msg = "There is no active raffle.";
 			$sendto->reply($msg);
 			return;
 		}
 
 		if (isset($this->raffles["rafflees"][$sender])) {
-			$msg = "<highlight>You are already in the raffle.";
+			$msg = "You are already in the raffle.";
 			$sendto->reply($msg);
 			return;
 		}
@@ -207,7 +207,7 @@ class RaffleController {
 	 */
 	public function raffleLeaveCommand($message, $channel, $sender, $sendto, $args) {
 		if (!$this->raffles["running"]) {
-			$msg = "<highlight>There is no active raffle.";
+			$msg = "There is no active raffle.";
 			$sendto->reply($msg);
 			return;
 		}
@@ -254,7 +254,7 @@ class RaffleController {
 		$rafflees_num = count($rafflees);
 
 		if (0 == $rafflees_num) {
-			$msg = "<highlight>No one joined the raffle, $item is free for all.";
+			$msg = "No one joined the raffle, $item is free for all.";
 			$this->raffles["lastresult"] = $msg;
 
 			$this->raffles["sendto"]->reply($msg);
@@ -338,7 +338,7 @@ class RaffleController {
 		$count = $this->raffles["count"];
 
 		// generate an info window
-		$blob = "<white>Current Members:<end>";
+		$blob = "<header2>Current Members:<end>";
 		forEach (array_keys($this->raffles["rafflees"]) as $tempName) {
 			$blob .= "\n$tempName";
 		}
@@ -355,9 +355,9 @@ class RaffleController {
 
 		$link = $this->text->make_blob("Raffle Info", $blob);
 		if (1 < $count) {
-			$msg = "<yellow>Reminder:<end> Raffle for $item (count: $count) has $time_string left. $link";
+			$msg = "Reminder: Raffle for $item (count: $count) has $time_string left. $link";
 		} else {
-			$msg = "<yellow>Reminder:<end> Raffle for $item has $time_string left. $link";
+			$msg = "Reminder: Raffle for $item has $time_string left. $link";
 		}
 
 		$this->raffles["sendto"]->reply($msg);

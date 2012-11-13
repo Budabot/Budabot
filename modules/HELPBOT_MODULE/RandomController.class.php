@@ -112,14 +112,14 @@ class RandomController {
 		if ($max >= getrandmax()) {
 			$msg = "The maximum number that the roll number can be is <highlight>".getrandmax()."<end>.";
 		} else if ($min >= $max) {
-			$msg = "The first number can't be higher than or equal to the second number.";
+			$msg = "The first number cannot be higher than or equal to the second number.";
 		} else {
 			$row = $this->db->queryRow("SELECT * FROM roll WHERE `name` = ? AND `time` >= ? LIMIT 1", $sender, time() - 30);
 			if ($row === null) {
 				$num = rand($min, $max);
 				$this->db->exec("INSERT INTO roll (`time`, `name`, `type`, `start`, `end`, `result`) VALUES (?, ?, ?, ?, ?, ?)", time(), $sender, 1, $min, $max, $num);
 				$ver_num = $this->db->lastInsertId();
-				$msg = "Between $min and $max I rolled a $num, to verify do /tell <myname> verify $ver_num";
+				$msg = "Between $min and $max I rolled a <highlight>$num<end>, to verify do /tell <myname> verify $ver_num";
 			} else {
 				$msg = "You can only flip or roll once every 30 seconds.";
 			}

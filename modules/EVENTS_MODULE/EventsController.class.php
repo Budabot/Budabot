@@ -259,22 +259,22 @@ class EventsController {
 				}
 
 				if ($row->event_date > time()) {
-					$upcoming = "<highlight>Event Date:<end> " . $this->util->date($row->event_date) . "\n";
-					$upcoming .= "<highlight>Event Name:<end> $row->event_name     [Event ID $row->id]\n";
-					$upcoming .= "<highlight>Author:<end> $row->submitter_name\n";
-					$upcoming .= "<highlight>Attendance:<end> " . $this->text->make_chatcmd("$attendance signed up", "/tell <myname> events list $row->id") .
+					$upcoming = "Event Date: <highlight>" . $this->util->date($row->event_date) . "<end>\n";
+					$upcoming .= "Event Name: <highlight>$row->event_name<end>     [Event ID $row->id]\n";
+					$upcoming .= "Author: <highlight>$row->submitter_name<end>\n";
+					$upcoming .= "Attendance: <highlight>" . $this->text->make_chatcmd("$attendance signed up", "/tell <myname> events list $row->id") . "<end>" .
 						" [" . $this->text->make_chatcmd("Join", "/tell <myname> events join $row->id") . "/" . 
 						$this->text->make_chatcmd("Leave", "/tell <myname> events leave $row->id") . "]\n";
-					$upcoming .= "<highlight>Description:<end> " . $row->event_desc . "\n";
-					$upcoming .= "<highlight>Date Submitted:<end> " . $this->util->date($row->time_submitted) . "\n\n";
+					$upcoming .= "Description: <highlight>" . $row->event_desc . "<end>\n";
+					$upcoming .= "Date Submitted: <highlight>" . $this->util->date($row->time_submitted) . "<end>\n\n";
 					$upcoming_events = $upcoming.$upcoming_events;
 				} else {
-					$past = "<highlight>Event Date:<end> " . $this->util->date($row->event_date) . "\n";
-					$past .= "<highlight>Event Name:<end> $row->event_name     [Event ID $row->id]\n";
-					$past .= "<highlight>Author:<end> $row->submitter_name\n";
-					$past .= "<highlight>Attendance:<end> " . $this->text->make_chatcmd("$attendance signed up", "/tell <myname> events list $row->id") . "\n";
-					$past .= "<highlight>Description:<end> " . $row->event_desc . "\n";
-					$past .= "<highlight>Date Submitted:<end> " . $this->util->date($row->time_submitted) . "\n\n";
+					$past = "Event Date: <highlight>" . $this->util->date($row->event_date) . "<end>\n";
+					$past .= "Event Name: <highlight>$row->event_name<end>     [Event ID $row->id]\n";
+					$past .= "Author: <highlight>$row->submitter_name<end>\n";
+					$past .= "Attendance: <highlight>" . $this->text->make_chatcmd("$attendance signed up", "/tell <myname> events list $row->id") . "<end>\n";
+					$past .= "Description: <highlight>" . $row->event_desc . "<end>\n";
+					$past .= "Date Submitted: <highlight>" . $this->util->date($row->time_submitted) . "<end>\n\n";
 					$past_events .= $past;
 				}
 			}
@@ -287,7 +287,7 @@ class EventsController {
 				$link = $upcoming_title.$upcoming_events.$past_title.$past_events;
 			}
 
-			return $this->text->make_legacy_blob("Latest Events", $link)." [Last updated " . $this->util->date($updated)."]";
+			return $this->text->make_legacy_blob("Latest Events", $link) . " [Last updated " . $this->util->date($updated)."]";
 		} else {
 			return "";
 		}

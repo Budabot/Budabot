@@ -361,7 +361,7 @@ class ConfigController {
 			}
 	
 			if ($count > 0) {
-				$blob .= "<highlight>Aliases:<end> $aliases_blob \n\n";
+				$blob .= "Aliases: <highlight>$aliases_blob<end>\n\n";
 			}
 	
 			$blob .= "<header2>Tells:<end>\n";
@@ -428,7 +428,7 @@ class ConfigController {
 		$data = $this->db->query("SELECT * FROM settings_<myname> WHERE `module` = ?", $module);
 		if (count($data) > 0) {
 			$found = true;
-			$blob .= "\n<i>Settings</i>\n";
+			$blob .= "\n<header2>Settings<end>\n";
 		}
 	
 		forEach ($data as $row) {
@@ -460,7 +460,7 @@ class ConfigController {
 		$data = $this->db->query($sql, $module);
 		if (count($data) > 0) {
 			$found = true;
-			$blob .= "\n<i>Commands</i>\n";
+			$blob .= "\n<header2>Commands<end>\n";
 		}
 		forEach ($data as $row) {
 			$guild = '';
@@ -511,7 +511,7 @@ class ConfigController {
 		$data = $this->db->query("SELECT * FROM eventcfg_<myname> WHERE `type` <> 'setup' AND `module` = ?", $module);
 		if (count($data) > 0) {
 			$found = true;
-			$blob .= "\n<i>Events</i>\n";
+			$blob .= "\n<header2>Events<end>\n";
 		}
 		forEach ($data as $row) {
 			$on = "<a href='chatcmd:///tell <myname> config event ".$row->type." ".$row->file." enable all'>ON</a>";

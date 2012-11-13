@@ -75,7 +75,7 @@ class OrgCitiesController {
 		$current_cluster = '';
 		forEach ($data as $row) {
 			if ($current_cluster != $row->cluster) {
-				$blob .= "\n<highlight>Cluster {$row->cluster}<end>\n";
+				$blob .= "\n<header2>Cluster {$row->cluster}<end>\n";
 				$current_cluster = $row->cluster;
 			}
 			$coords = $this->text->make_chatcmd("{$row->xcoord}x{$row->ycoord}", "/waypoint {$row->xcoord} {$row->ycoord} {$row->playfield_id}");

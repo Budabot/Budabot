@@ -55,7 +55,7 @@ class LinksController {
 			} else {
 				$website = $this->text->make_chatcmd('[Link]', "/start $row->website");
 			}
-			$blob .= "$website <white>$row->comments<end> [<green>$row->name<end>] $remove\n";
+			$blob .= "$website <highlight>$row->comments<end> [$row->name] $remove\n";
 		}
 
 		if (count($data) == 0) {

@@ -108,29 +108,29 @@ class WeatherController {
 		}
 		$latlonstr .= $this->text->make_chatcmd("Google Map", "/start http://maps.google.com/maps?q=$lat,$lon")." ";
 		$latlonstr .= $this->text->make_chatcmd("Wunder Map", "/start http://www.wunderground.com/wundermap/?lat=$lat&lon=$lon&zoom=10")."\n\n";
-		$blob .= "<highlight>Credit:<end> ".$this->text->make_chatcmd($credit, "/start $crediturl")."\n";
-		$blob .= "<highlight>Last Updated:<end> $updated\n\n";
-		$blob .= "<highlight>Location:<end> $fullLoc, $country\n";
-		$blob .= "<highlight>Lat/Lon:<end> $latlonstr";
+		$blob .= "Credit: <highlight>".$this->text->make_chatcmd($credit, "/start $crediturl")."<end>\n";
+		$blob .= "Last Updated: <highlight>$updated<end>\n\n";
+		$blob .= "Location: <highlight>$fullLoc, $country<end>\n";
+		$blob .= "Lat/Lon: <highlight>$latlonstr<end>";
 
-		$blob .= "<highlight>Currently:<end> $tempstr, $weather\n";
-		$blob .= "<highlight>Humidity:<end> $humidity\n";
-		$blob .= "<highlight>Dew Point:<end> $dewstr\n";
-		$blob .= "<highlight>Wind:<end> $windstr";
+		$blob .= "Currently: <highlight>$tempstr, $weather<end>\n";
+		$blob .= "Humidity: <highlight>$humidity<end>\n";
+		$blob .= "Dew Point: <highlight>$dewstr<end>\n";
+		$blob .= "Wind: <highlight>$windstr<end>";
 		if ($windgust) {
 			$blob .= " (Gust:$windgust mph)\n";
 		} else {
 			$blob .= "\n";
 		}
 		if ($heatstr != "NA") {
-			$blob .= "<highlight>Heat Index:<end> $heatstr\n";
+			$blob .= "Heat Index: <highlight>$heatstr<end>\n";
 		}
 		if ($windchillstr != "NA") {
-			$blob .= "<highlight>Windchill:<end> $windchillstr\n";
+			$blob .= "Windchill: <highlight>$windchillstr<end>\n";
 		}
-		$blob .= "<highlight>Pressure:<end> $pressurestr\n";
-		$blob .= "<highlight>Visibility:<end> $visibilitymi miles, $visibilitykm km\n";
-		$blob .= "<highlight>Elevation:<end> $elevation\n";
+		$blob .= "Pressure: <highlight>$pressurestr<end>\n";
+		$blob .= "Visibility: <highlight>$visibilitymi miles, $visibilitykm km<end>\n";
+		$blob .= "Elevation: <highlight>$elevation<end>\n";
 
 		// ALERTS
 		$alertitems = xml::spliceMultiData($alerts, "<AlertItem>", "</AlertItem>");
@@ -144,11 +144,11 @@ class WeatherController {
 				// gotta find date/expire manually.
 				$start = strpos($thisalert, ">", strpos($thisalert, "<date epoch="))+1;
 				$end = strpos($thisalert, "<", $start);
-				$blob .= "<highlight>Issued:<end>".substr($thisalert,$start,$end-$start)."\n";
+				$blob .= "Issued:<highlight>" . substr($thisalert, $start, $end - $start) . "<end>\n";
 
 				$start = strpos($thisalert, ">", strpos($thisalert, "<expires epoch="))+1;
 				$end = strpos($thisalert, "<", $start);
-				$blob .= "<highlight>Expires:<end>".substr($thisalert,$start,$end-$start)."\n";
+				$blob .= "Expires:<highlight>" . substr($thisalert, $start, $end - $start) . "<end>\n";
 				$blob .= xml::spliceData($thisalert, "<message>", "</message>")."";
 			}
 		}
@@ -171,19 +171,19 @@ class WeatherController {
 				$high[2] = xml::spliceData($high[0], "<celsius>", "</celsius");
 				$pop = xml::spliceData($day, "<pop>", "</pop>");
 
-				$blob .= "<highlight>".xml::spliceData($day, "<weekday>", "</weekday>").":<end> $condition";
+				$blob .= xml::spliceData($day, "<weekday>", "</weekday>").": <highlight>$condition<end>";
 				if (0 == $pop) {
 					$blob .= "\n";
 				} else {
 					$blob .= " ($pop% Precip)\n";
 				}
 
-				$blob .= "<highlight>High:<end> ";
+				$blob .= "High: <highlight>";
 				$blob .= $this->fix_num_space($high[1],3)."F";
-				$blob .= $this->fix_num_space($high[2],3)."C    ";
+				$blob .= $this->fix_num_space($high[2],3)."C<end>    ";
 
-				$blob .= "<highlight>Low:<end> ".$this->fix_num_space($low[1],3)."F";
-				$blob .= $this->fix_num_space($low[2],3)."C\n\n";
+				$blob .= "Low: <highlight>".$this->fix_num_space($low[1],3)."F";
+				$blob .= $this->fix_num_space($low[2],3)."C<end>\n\n";
 
 			}
 		}

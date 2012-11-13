@@ -118,7 +118,7 @@ class AdminController {
 			return false;
 		}
 
-		$blob .= "<highlight>Administrators<end>\n";
+		$blob .= "<header2>Administrators<end>\n";
 		forEach ($this->adminManager->admins as $who => $data) {
 			if ($this->adminManager->admins[$who]["level"] == 4) {
 				if ($who != "") {
@@ -141,7 +141,7 @@ class AdminController {
 			}
 		}
 
-		$blob .= "<highlight>Moderators<end>\n";
+		$blob .= "<header2>Moderators<end>\n";
 		forEach ($this->adminManager->admins as $who => $data){
 			if ($this->adminManager->admins[$who]["level"] == 3){
 				if ($who != "") {
@@ -186,7 +186,7 @@ class AdminController {
 		}
 
 		if (!$this->checkAltsInheritAdmin($who)) {
-			$msg = "<red>Alts inheriting admin is enabled, and $who is not a main character.<end>";
+			$msg = "<red>Alts inheriting admin is enabled, and $who is not a main.<end>";
 			if ($this->adminManager->admins[$ai->main]["level"] == $intlevel) {
 				$msg .= " <highlight>{$ai->main}<end> is already $rank.";
 			} else {
@@ -216,7 +216,7 @@ class AdminController {
 		$this->adminManager->removeFromLists($who);
 
 		if (!$this->checkAltsInheritAdmin($who)) {
-			$sendto->reply("<red>WARNING<end>: alts inheriting admin is enabled, but $who is not a main character.  {$ai->main} is $who's main.  <red>This command did NOT affect either characters' admin privileges.<end>");
+			$sendto->reply("<red>WARNING<end>: alts inheriting admin is enabled, but $who is not a main.  {$ai->main} is $who's main.  <red>This command did NOT affect either characters' admin privileges.<end>");
 		}
 
 		$sendto->reply("<highlight>$who<end> has been removed as $rank.");

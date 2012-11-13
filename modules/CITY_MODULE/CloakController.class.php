@@ -76,12 +76,12 @@ class CloakController {
 
 			$list = "Time: <highlight>" . $this->util->date($row->time) . "<end>\n";
 			$list .= "Action: <highlight>Cloaking device turned " . $row->action . "<end>\n";
-			$list .= "Player: <highlight>" . $row->player . "<end>\n\n";
+			$list .= "Character: <highlight>" . $row->player . "<end>\n\n";
 
 			forEach ($data as $row) {
 				$list .= "Time: <highlight>" . $this->util->date($row->time) . "<end>\n";
 				$list .= "Action: <highlight>Cloaking device turned " . $row->action . "<end>\n";
-				$list .= "Player: <highlight>" . $row->player . "<end>\n\n";
+				$list .= "Character: <highlight>" . $row->player . "<end>\n\n";
 			}
 			$msg .= " " . $this->text->make_blob("Cloak History", $list);
 		}
@@ -205,7 +205,7 @@ class CloakController {
 					$msg = "The cloaking device is <green>enabled<end>. It is possible in $timeString to disable it.";
 					$case = 2;
 				} else {
-					$msg = "<highlight>Unknown status on city cloak!<end>";
+					$msg = "Unknown status on city cloak!";
 					$case = 1;
 				}
 

@@ -115,7 +115,7 @@ class ChatAssistController {
 				$nameArray[$key] = "/assist $name";
 			}
 
-			// reverse array so that the first player will be the primary assist, and so on
+			// reverse array so that the first character will be the primary assist, and so on
 			$nameArray = array_reverse($nameArray);
 			$this->assistMessage = '/macro assist ' . implode(" \\n ", $nameArray);
 		}
@@ -181,7 +181,7 @@ class ChatAssistController {
 				$nameArray[$key] = "/assist $name";
 			}
 
-			// reverse array so that the first player will be the primary assist, and so on
+			// reverse array so that the first character will be the primary assist, and so on
 			$nameArray = array_reverse($nameArray);
 			$this->healMessage = '/macro heal ' . implode(" \\n ", $nameArray);
 		}

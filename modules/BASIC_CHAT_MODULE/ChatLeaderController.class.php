@@ -66,13 +66,13 @@ class ChatLeaderController {
 	public function leaderCommand($message, $channel, $sender, $sendto, $args) {
 		if ($this->leader == $sender) {
 			unset($this->leader);
-			$msg = "Leader cleared.";
+			$msg = "Raid Leader cleared.";
 		} else if ($this->leader != "") {
 			if ($this->accessManager->compareCharacterAccessLevels($sender, $this->leader) > 0) {
 				$this->leader = $sender;
 				$msg = $this->getLeaderStatusText();
 			} else {
-				$msg = "You cannot take leader from <highlight>{$this->leader}<end>.";
+				$msg = "You cannot take Raid Leader from <highlight>{$this->leader}<end>.";
 			}
 		} else {
 			$this->leader = $sender;
@@ -171,7 +171,7 @@ class ChatLeaderController {
 	private function getLeaderStatusText() {
 		$cmd = $this->settingManager->get("leaderecho") == 1? "off": "on";
 		$status = $this->getEchoStatusText();
-		$msg = "{$this->leader} is now Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
+		$msg = "{$this->leader} is now Raid Leader. Leader echo is currently {$status}. You can change it with <symbol>leaderecho {$cmd}";
 		return $msg;
 	}
 	

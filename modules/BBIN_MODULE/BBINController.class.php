@@ -139,11 +139,11 @@ class BBINController {
 	 */
 	public function startBBINCommand($message, $channel, $sender, $sendto, $args) {
 		if ($this->setting->bbin_server == "") {
-			$sendto->reply("The BBIN <highlight>server address<end> seems to be missing. <highlight>/tell <myname> <symbol>help bbin<end> for details on setting this.");
+			$sendto->reply("The BBIN <highlight>server address<end> seems to be missing. <highlight><symbol>help bbin<end> for details on setting this.");
 			return;
 		}
 		if ($this->setting->bbin_port == "") {
-			$sendto->reply("The BBIN <highlight>server port<end> seems to be missing. <highlight>/tell <myname> <symbol>help bbin<end> for details on setting this.");
+			$sendto->reply("The BBIN <highlight>server port<end> seems to be missing. <highlight><symbol>help bbin<end> for details on setting this.");
 			return;
 		}
 		

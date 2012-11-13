@@ -59,21 +59,21 @@ class ServerStatusController {
 			$link = '';
 
 			if ($server->servermanager == 1) {
-				$link .= "<highlight>Servermanager<end> is <green>UP<end>\n";
+				$link .= "Servermanager is <green>UP<end>\n";
 			} else {
-				$link .= "<highlight>Servermanager<end> is <red>DOWN<end>\n";
+				$link .= "Servermanager is <red>DOWN<end>\n";
 			}
 
 			if ($server->clientmanager == 1) {
-				$link .= "<highlight>Clientmanager<end> is <green>UP<end>\n";
+				$link .= "Clientmanager is <green>UP<end>\n";
 			} else {
-				$link .= "<highlight>Clientmanager<end> is <red>DOWN<end>\n";
+				$link .= "Clientmanager is <red>DOWN<end>\n";
 			}
 
 			if ($server->chatserver == 1) {
-				$link .= "<highlight>Chatserver<end> is <green>UP<end>\n\n";
+				$link .= "Chatserver is <green>UP<end>\n\n";
 			} else {
-				$link .= "<highlight>Chatserver<end> is <red>DOWN<end>\n\n";
+				$link .= "Chatserver is <red>DOWN<end>\n\n";
 			}
 
 			ksort($server->data);

@@ -217,13 +217,6 @@ class RaidController {
 			$num_loot = 1;
 		}
 
-		//Check if max slots is reached
-		if ($num_loot >= 30) {
-			$msg = "You can only roll 30 items max at one time!";
-			$this->chatBot->sendPrivate($msg);
-			return;
-		}
-
 		//Check if there is a icon available
 		$row = $this->db->queryRow("SELECT * FROM aodb WHERE `name` LIKE ?", $item_name);
 		if ($row !== null) {
@@ -289,8 +282,7 @@ class RaidController {
 		if(preg_match("/^([0-9]+)x (.+)$/i", $input, $lewt) || preg_match("/^([0-9]+) (.+)$/i", $input, $lewt)){
 			$multiloot = $lewt[1];
 		} else {
-			$this->chatBot->sendPrivate("The data you entered is not a multiloot. Please check <highlight>/tell <myname> <symbol>help multiloot<end> for the correct syntax.");
-			return;
+			return false;
 		}
 
 		//Check if the item is a link
@@ -336,13 +328,6 @@ class RaidController {
 			$num_loot++;
 		} else {
 			$num_loot = 1;
-		}
-
-		//Check if max slots is reached
-		if ($num_loot >= 30) {
-			$msg = "You can only roll 30items max at one time!";
-			$this->chatBot->sendPrivate($msg);
-			return;
 		}
 
 		//Check if there is a icon available

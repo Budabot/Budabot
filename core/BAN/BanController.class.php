@@ -6,7 +6,7 @@
  *	@DefineCommand(
  *		command       = 'ban',
  *		accessLevel   = 'mod',
- *		description   = 'Ban a player from this bot',
+ *		description   = 'Ban a character from this bot',
  *		help          = 'ban.txt',
  *		defaultStatus = '1'
  *	)
@@ -27,7 +27,7 @@
  *	@DefineCommand(
  *		command       = 'unban',
  *		accessLevel   = 'mod',
- *		description   = 'Unban a player from this bot',
+ *		description   = 'Unban a character from this bot',
  *		help          = 'ban.txt',
  *		defaultStatus = '1'
  *	)
@@ -73,7 +73,7 @@ class BanController {
 
 	/**
 	 * @Setting("notify_banned_player")
-	 * @Description("Notify player when banned from bot")
+	 * @Description("Notify character when banned from bot")
 	 * @Visibility("edit")
 	 * @Type("options")
 	 * @Options("true;false")
@@ -93,10 +93,8 @@ class BanController {
 	}
 
 	/**
-	 * This command handler bans a player from this bot.
-	 *
 	 * Command parameters are:
-	 *  - name of the player
+	 *  - name of the character
 	 *  - time of ban
 	 *  - banning reason string
 	 *
@@ -316,12 +314,12 @@ class BanController {
 	 */
 	private function banPlayer($who, $sender, $length, $reason, $sendto) {
 		if ($this->chatBot->get_uid($who) == NULL) {
-			$sendto->reply("Player <highlight>$who<end> does not exist.");
+			$sendto->reply("Character <highlight>$who<end> does not exist.");
 			return;
 		}
 
 		if ($this->banManager->is_banned($who)) {
-			$sendto->reply("Player <highlight>$who<end> is already banned.");
+			$sendto->reply("Character <highlight>$who<end> is already banned.");
 			return;
 		}
 	
