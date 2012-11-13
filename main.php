@@ -18,7 +18,7 @@
 */
 
 // Define the version
-$version = "3.0_RC2";
+$version = "3.0_RC3";
 
 // Text block that is displayed when initially launching the process
 echo "\n\n\n\n\n

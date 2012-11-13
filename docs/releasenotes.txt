@@ -1,6 +1,23 @@
 *****************************
-	Version 3.0_RC2:
+	Version 3.0_RC3:
 *****************************
+-color settings should now affect most modules and commands
+-budatime now accepts months (mo) and years (y)
+-!usage now breaks down usage by channel
+-several fixes and improvements for !whatbuffs
+-!orglist may now return results even faster on some bot setups
+-timer events can now be called reliably every second
+-removed !fp since AO now shows this information in the nano crystal description
+-fixed some issues with VENTRILO_MODULE
+-!banorg now correctly works
+-various fixes for MySQL
+-win32 build now includes botmanager
+-!server now estimates the number of players online
+-improved alias handling with parameters
+-!help module_name will now show all help files for the specified module
+-added core PROFILE module (!profile) for saving and loading bot configuration profiles
+-converted IRC_MODULE and BBIN_MODULE to use SmartIRC for IRC support
+-added !usage player to show usage for a particular player
 -added setting 'relaysymbolmethod' for controlling whether the relay symbol relays or does not relay messages
 -modules are now declared and defined using an OO approach with annotations
 -PHP supported version increased to 5.3
