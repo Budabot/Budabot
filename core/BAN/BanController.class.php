@@ -198,29 +198,30 @@ class BanController {
 	 */
 	public function banlistCommand($message, $channel, $sender, $sendto, $args) {
 		$banlist = $this->banManager->getBanlist();
-		if (count($banlist) == 0) {
-		    $sendto->reply("No one is currently banned from this bot.");
-		    return;
-		}
-	
-		$blob = '';
-		forEach ($banlist as $ban) {
-			$blob .= "<highlight>Name:<end> {$ban->name}\n";
-			$blob .= "<highlight><tab>Date:<end> ".$this->util->date($ban->time)."\n";
-			$blob .= "<highlight><tab>By:<end> {$ban->admin}\n";
-			if ($ban->banend != 0) {
-				$blob .= "<highlight><tab>Ban ends:<end> ". $this->util->unixtime_to_readable($ban->banend - time(), false)."\n";
-			} else {
-				$blob .= "<highlight><tab>Ban ends:<end> Never.\n";
+		$count = count($banlist);
+
+		if ($count == 0) {
+		    $msg = "No one is currently banned from this bot.";
+		} else {
+			$blob = '';
+			forEach ($banlist as $ban) {
+				$blob .= "Name: <highlight>{$ban->name}<end>\n";
+				$blob .= "<tab>Date: <highlight>" . $this->util->date($ban->time) . "<end>\n";
+				$blob .= "<tab>By: <highlight>{$ban->admin}<end>\n";
+				if ($ban->banend != 0) {
+					$blob .= "<tab>Ban ends: <highlight>" . $this->util->unixtime_to_readable($ban->banend - time(), false) . "<end>\n";
+				} else {
+					$blob .= "<tab>Ban ends: <highlight>Never<end>\n";
+				}
+		
+				if ($ban->reason != '') {
+					$blob .= "<tab>Reason: <highlight>{$ban->reason}<end>\n";
+				}
+				$blob .= "\n";
 			}
-	
-			if ($ban->reason != '') {
-				$blob .= "<highlight><tab>Reason:<end> {$ban->reason}\n";
-			}
-			$blob .= "\n";
+			$msg = $this->text->make_blob("Banlist ($count)", $blob);
 		}
-		$link = $this->text->make_blob('Banlist', $blob);
-		$sendto->reply($link);
+		$sendto->reply($msg);
 	}
 
 	/**
