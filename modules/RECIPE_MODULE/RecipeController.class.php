@@ -184,55 +184,30 @@ class RecipeController {
 	 */
 	public function recipeSearchCommand($message, $channel, $sender, $sendto, $args) {
 		if (preg_match('/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/', $args[1], $matches)) {
-			$lowId = $matches[1];
-			$highId = $matches[2];
-			$itemName = $matches[4];
-			
-			$sql = "
-				SELECT
-					r1.recipe_id,
-					r1.recipe_name
-				FROM
-					recipes r1
-					JOIN recipe_items r2
-						ON r1.recipe_id = r2.recipe_id
-				WHERE
-					r2.item_id = ? OR r2.item_id = ?
-				ORDER BY
-					recipe_name ASC";
-			
-			$results = $this->db->query($sql, $lowId, $highId);
-			$count = count($results);
-
-			if (count($results) == 0) {
-				$output = "This item is not used in any known recipe.";
-			} else {
-				$blob = $this->makeRecipeSearchBlob($results);
-				$output = $this->text->make_blob("Recipes matching '{$itemName}' ($count)", $blob);
-			}
+			$search = $matches[4];
 		} else {
 			$search = strtolower($args[1]);
+		}
 			
-			$sql = "
-				SELECT
-					recipe_id,
-					recipe_name
-				FROM
-					recipes
-				WHERE
-					recipe_text like ? AND recipe_type != '8'
-				ORDER BY
-					recipe_name ASC";
+		$sql = "
+			SELECT
+				recipe_id,
+				recipe_name
+			FROM
+				recipes
+			WHERE
+				recipe_text LIKE ? AND recipe_type != '8'
+			ORDER BY
+				recipe_name ASC";
 
-			$results = $this->db->query($sql, "%" . str_replace(" ", "%", $search) . "%");
-			$count = count($results);
+		$results = $this->db->query($sql, "%" . str_replace(" ", "%", $search) . "%");
+		$count = count($results);
 
-			if ($count > 0) {
-				$blob = $this->makeRecipeSearchBlob($results);
-				$output = $this->text->make_blob("Recipes matching '$search' ($count)", $blob);
-			} else {
-				$output = "There were no matches for your search.";
-			}
+		if ($count > 0) {
+			$blob = $this->makeRecipeSearchBlob($results);
+			$output = $this->text->make_blob("Recipes matching '$search' ($count)", $blob);
+		} else {
+			$output = "There were no matches for your search.";
 		}
 		$sendto->reply($output);
 	}
