@@ -278,10 +278,12 @@ class BBINController {
 	 * @DefaultStatus("0")
 	 */
 	public function autoReconnectEvent($eventObj) {
-		// make sure eof flag is set
-		//fputs($this->ircSocket, "PING ping\n");
-		if ($this->setting->bbin_status == '1' && !$this->ircActive()) {
-			$this->connect();
+		if ($this->setting->bbin_status == '1') {
+			// get the topic to test the connection
+			$this->irc->getTopic($this->setting->irc_channel);
+			if (!$this->ircActive()) {
+				$this->connect();
+			}
 		}
 	}
 	

@@ -281,10 +281,12 @@ class IRCController {
 	 * @DefaultStatus("0")
 	 */
 	public function autoReconnectEvent() {
-		// make sure eof flag is set
-		//fputs($this->ircSocket, "PING ping\n");
-		if ($this->setting->irc_status == '1' && !$this->ircActive()) {
-			$this->connect();
+		if ($this->setting->irc_status == '1') {
+			// get the topic to test the connection
+			$this->irc->getTopic($this->setting->irc_channel);
+			if (!$this->ircActive()) {
+				$this->connect();
+			}
 		}
 	}
 	
