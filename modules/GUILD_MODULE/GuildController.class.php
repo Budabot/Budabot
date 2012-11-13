@@ -33,12 +33,6 @@
  *		help        = "logoffadmin.txt"
  *	)
  *	@DefineCommand(
- *		command     = "orghistory", 
- *		accessLevel = "guild", 
- *		description = "Shows the org history (invites and kicks and leaves) for a player", 
- *		help        = "orghistory.txt"
- *	)
- *	@DefineCommand(
  *		command     = "lastseen", 
  *		accessLevel = "guild", 
  *		description = "Shows the last logoff time of a player", 
@@ -120,9 +114,7 @@ class GuildController {
 	 * @Setup
 	 */
 	public function setup() {
-		$this->db->add_table_replace('#__org_history', 'org_history');
 		$this->db->loadSQLFile($this->moduleName, "org_members");
-		$this->db->loadSQLFile($this->moduleName, "org_history");
 		
 		$this->settingManager->add($this->moduleName, "max_logon_msg_size", "Maximum characters a logon message can have", "edit", "number", "200", "100;200;300;400", '', "mod");
 		$this->settingManager->add($this->moduleName, "max_logoff_msg_size", "Maximum characters a logoff message can have", "edit", "number", "200", "100;200;300;400", '', "mod");
@@ -278,65 +270,6 @@ class GuildController {
 	}
 	
 	/**
-	 * @HandlesCommand("orghistory")
-	 * @Matches("/^orghistory$/i")
-	 * @Matches("/^orghistory ([0-9]+)$/i")
-	 */
-	public function orghistoryCommand($message, $channel, $sender, $sendto, $args) {
-		$pageSize = 20;
-		$page = 1;
-		if (count($args) == 2) {
-			$page = $args[1];
-		}
-
-		$startingRecord = ($page - 1) * $pageSize;
-
-		$blob = '';
-
-		$sql = "SELECT actor, actee, action, organization, time FROM `#__org_history` ORDER BY time DESC LIMIT $startingRecord, $pageSize";
-		$data = $this->db->query($sql);
-		if (count($data) != 0) {
-			forEach ($data as $row) {
-				$blob .= "$row->actor $row->action <highlight>$row->actee<end> in $row->organization at " . $this->util->date($row->time) . "\n";
-			}
-
-			$msg = $this->text->make_blob('Org History', $blob);
-		} else {
-			$msg = "No org history has been recorded.";
-		}
-
-		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("orghistory")
-	 * @Matches("/^orghistory (.+)$/i")
-	 */
-	public function orghistoryPlayerCommand($message, $channel, $sender, $sendto, $args) {
-		$character = $args[1];
-
-		$blob = '';
-
-		$blob .= "\n<header2>Actions on $character<end>\n";
-		$sql = "SELECT actor, actee, action, organization, time FROM `#__org_history` WHERE actee LIKE ? ORDER BY time DESC";
-		$data = $this->db->query($sql, $character);
-		forEach ($data as $row) {
-			$blob .= "$row->actor $row->action <highlight>$row->actee<end> - $row->organization - " . $this->util->date($row->time) . "\n";
-		}
-
-		$blob .= "\n<header2>Actions by $character<end>\n";
-		$sql = "SELECT actor, actee, action, organization, time FROM `#__org_history` WHERE actor LIKE ? ORDER BY time DESC";
-		$data = $this->db->query($sql, $character);
-		forEach ($data as $row) {
-			$blob .= "$row->actor $row->action <highlight>$row->actee<end> - $row->organization - " . $this->util->date($row->time) . "\n";
-		}
-
-		$msg = $this->text->make_blob('Org History', $blob);
-
-		$sendto->reply($msg);
-	}
-	
-	/**
 	 * @HandlesCommand("lastseen")
 	 * @Matches("/^lastseen (.+)$/i")
 	 */
@@ -344,7 +277,7 @@ class GuildController {
 		$name = ucfirst(strtolower($args[1]));
 		$uid = $this->chatBot->get_uid($name);
 		if (!$uid) {
-			$msg = "Character <highlight>$name<end> does not exist.";
+			$msg = "player <highlight>$name<end> does not exist.";
 		} else {
 			$altInfo = $this->alts->get_alt_info($name);
 			$onlineAlts = $altInfo->get_online_alts();
@@ -825,47 +758,6 @@ class GuildController {
 		$sender = $eventObj->sender;
 		if (isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->is_ready()) {
 			$this->db->exec("UPDATE org_members_<myname> SET `logged_off` = ? WHERE `name` = ?", time(), $sender);
-		}
-	}
-	
-	/**
-	 * @Event("orgmsg")
-	 * @Description("Capture Org Invite/Kick/Leave messages for orghistory")
-	 */
-	public function captureOrgMessagesEvent($eventObj) {
-		$message = $eventObj->message;
-		if (preg_match("/^(.+) just left your organization.$/", $message, $arr)) {
-			$actor = $arr[1];
-			$actee = "";
-			$action = "left";
-			$time = time();
-
-			$sql = "INSERT INTO `#__org_history` (actor, actee, action, organization, time) VALUES (?, ?, ?, '<myguild>', ?) ";
-			$this->db->exec($sql, $actor, $actee, $action, $time);
-		} else if (preg_match("/^(.+) kicked (.+) from your organization.$/", $message, $arr)) {
-			$actor = $arr[1];
-			$actee = $arr[2];
-			$action = "kicked";
-			$time = time();
-
-			$sql = "INSERT INTO `#__org_history` (actor, actee, action, organization, time) VALUES (?, ?, ?, '<myguild>', ?) ";
-			$this->db->exec($sql, $actor, $actee, $action, $time);
-		} else if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
-			$actor = $arr[1];
-			$actee = $arr[2];
-			$action = "invited";
-			$time = time();
-
-			$sql = "INSERT INTO `#__org_history` (actor, actee, action, organization, time) VALUES (?, ?, ?, '<myguild>', ?) ";
-			$this->db->exec($sql, $actor, $actee, $action, $time);
-		} else if (preg_match("/^(.+) removed inactive character (.+) from your organization.$/", $message, $arr)) {
-			$actor = $arr[1];
-			$actee = $arr[2];
-			$action = "removed";
-			$time = time();
-
-			$sql = "INSERT INTO `#__org_history` (actor, actee, action, organization, time) VALUES (?, ?, ?, '<myguild>', ?) ";
-			$this->db->exec($sql, $actor, $actee, $action, $time);
 		}
 	}
 	
