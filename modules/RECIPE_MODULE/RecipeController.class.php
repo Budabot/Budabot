@@ -55,7 +55,6 @@ class RecipeController {
 	/** @Setup */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, "recipes");
-		$this->db->loadSQLFile($this->moduleName, "recipe_items");
 		$this->db->loadSQLFile($this->moduleName, "recipe_type");
 	}
 	
