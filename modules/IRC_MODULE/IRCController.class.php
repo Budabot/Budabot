@@ -10,13 +10,15 @@
  *		command     = 'connectirc', 
  *		accessLevel = 'mod', 
  *		description = "Connect to IRC", 
- *		help        = 'irc.txt'
+ *		help        = 'irc.txt',
+ *		alias       = 'startirc'
  *	)
  *	@DefineCommand(
  *		command     = 'disconnectirc', 
  *		accessLevel = 'mod', 
  *		description = "Disconnect from IRC", 
- *		help        = 'irc.txt'
+ *		help        = 'irc.txt',
+ *		alias       = 'stopirc'
  *	)
  *	@DefineCommand(
  *		command     = 'setirc',
@@ -302,6 +304,8 @@ class IRCController {
 			return;
 		}
 		
+		$this->logger->log_chat("Inc. IRC Msg.", -1, $obj->message);
+		
 		if ($obj->message == "!online") {
 			$this->handleOnlineCmd($obj);
 		} else if ($obj->message[0] == $this->setting->symbol) {
@@ -321,15 +325,7 @@ class IRCController {
 			$numguild = count($data);
 			if ($numguild != 0) {
 				forEach ($data as $row) {
-					switch ($row->afk) {
-						case "kiting": $afk = " KITING"; break;
-						case       "": $afk = ""; break;
-						default      : $afk = " AFK"; break;
-					}
-
-					$row1 = $this->db->queryRow("SELECT * FROM alts WHERE `alt` = ?", $row->name);
-					$list .= "$row->name".($row1 === null ? "":" ($row1->main)")."$afk, ";
-					$g++;
+					$list .= $row->name . " ";
 				}
 			}
 		}
@@ -338,23 +334,13 @@ class IRCController {
 		$numguest = count($data);
 		if ($numguest != 0) {
 			forEach ($data as $row) {
-				switch ($row->afk) {
-					case "kiting": $afk = " KITING"; break;
-					case       "": $afk = ""; break;
-					default      : $afk = " AFK"; break;
-				}
-
-				$row1 = $this->db->queryRow("SELECT * FROM alts WHERE `alt` = ?", $row->name);
-				$list .= "$row->name".($row1 === null ? "":" ($row1->main)")."$afk, ";
-				$p++;
+				$list .= $row->name . " ";
 			}
 		}
 
-		$membercount = "$numguild guildmembers and $numguest private chat members are online";
-		$list = substr($list, 0, -2);
-
-		$this->irc->message($obj->type, $obj->channel, $membercount);
-		$this->irc->message($obj->type, $obj->channel, $list);
+		$msg = "Guild ($numguild), Private Channel($numguest): " . $list;
+		$this->logger->log_chat("Out. IRC Msg.", -1, $msg);
+		$this->irc->message($obj->type, $obj->channel, $msg);
 	}
 	
 	public function handleIncomingIRCMessage($obj) {
