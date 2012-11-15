@@ -151,7 +151,7 @@ class BroadcastController {
 		if ($this->isValidBroadcastSender($eventObj->sender)) {
 			$this->processIncomingMessage($eventObj->sender, $eventObj->message);
 			
-			// keeps the bot from sending a message back to the neutnet satellite bot
+			// keeps the bot from sending a message back
 			throw new StopExecutionException();
 		}
 	}

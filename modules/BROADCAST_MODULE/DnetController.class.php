@@ -32,6 +32,9 @@ class DnetController {
 	public $settingManager;
 	
 	/** @Inject */
+	public $banManager;
+	
+	/** @Inject */
 	public $text;
 	
 	/** @Inject */
@@ -50,6 +53,13 @@ class DnetController {
 	 */
 	public function setup() {
 		$this->settingManager->add($this->moduleName, "dnet_status", "Enable Dnet support", "noedit", "options", "0", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, "dnet_channel_pvp", "Enable Dnet PVP Channel", "edit", "options", "1", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, "dnet_channel_pvm", "Enable Dnet PVM Channel", "edit", "options", "1", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, "dnet_channel_event", "Enable Dnet Event Channel", "edit", "options", "1", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, "dnet_channel_shopping", "Enable Dnet Shopping Channel", "edit", "options", "1", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, "dnet_channel_lootrights", "Enable Dnet Lootrights Channel", "edit", "options", "1", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, "dnet_channel_general", "Enable Dnet General Channel", "edit", "options", "1", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, "dnet_channel_announce", "Enable Dnet Announce Channel", "noedit", "options", "1", "true;false", "1;0");
 	}
 
 	/**
@@ -93,10 +103,28 @@ class DnetController {
 			}
 
 			forEach ($messages as $msg) {
-				$this->broadcastController->processIncomingMessage("Dnet", strip_tags($msg));
+				if (preg_match("/\\[([^\\]]+)\\] (.+) \\[([^\\]]+)\\]/", strip_tags($msg), $parts)) {
+					$channel = $parts[1];
+					$text = $parts[2];
+					$sender = $parts[3];
+
+					if ($this->banManager->is_banned($sender)) {
+						continue;
+					}
+
+					if (!$this->isChannelEnabled($channel)) {
+						continue;
+					}
+					
+					$spamMessage = "[<highlight>$channel<end>] $text [<highlight>$sender<end>]";
+					$this->broadcastController->processIncomingMessage("Dnet", $spamMessage);
+				} else {
+					$this->logger->log("WARN", "Invalid Dnet message format: $msg");
+				}
+				
 			}
 
-			// keeps the bot from sending a message back to the neutnet satellite bot
+			// keeps the bot from sending a message back
 			throw new StopExecutionException();
 		}
 	}
@@ -125,5 +153,36 @@ class DnetController {
 	
 	private function isDnetBot($eventObj) {
 		return $this->dnetBot == $eventObj->sender;
+	}
+	
+	private function isChannelEnabled($channel) {
+		$val = 0;
+		switch ($channel) {
+			case "PVP":
+				$val = $this->settingManager->get("dnet_channel_pvp");
+				break;
+			case "PVM":
+				$val = $this->settingManager->get("dnet_channel_pvm");
+				break;
+			case "Event":
+				$val = $this->settingManager->get("dnet_channel_event");
+				break;
+			case "Shopping":
+				$val = $this->settingManager->get("dnet_channel_shopping");
+				break;
+			case "Lootrights":
+				$val = $this->settingManager->get("dnet_channel_lootrights");
+				break;
+			case "General":
+				$val = $this->settingManager->get("dnet_channel_general");
+				break;
+			case "Announce":
+				$val = $this->settingManager->get("dnet_channel_announce");
+				break;
+			default:
+				$this->logger->log("WARN", "Unknown channel '$channel'");
+				$val = 0;
+		}
+		return $val == 1;
 	}
 }
