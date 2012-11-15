@@ -13,12 +13,6 @@
  *		description = 'View/edit the broadcast bots list', 
  *		help        = 'broadcast.txt'
  *	)
- *	@DefineCommand(
- *		command     = 'dnet', 
- *		accessLevel = 'mod', 
- *		description = 'Enable/disable Dnet support (RK 1 only)', 
- *		help        = 'dnet.txt'
- *	)
  */
 class BroadcastController {
 
@@ -50,7 +44,6 @@ class BroadcastController {
 	public $util;
 	
 	private $broadcastList = array();
-	private $dnetBot = "Dnetorg";
 	
 	/**
 	 * This handler is called on bot startup.
@@ -63,7 +56,6 @@ class BroadcastController {
 		
 		$this->settingManager->add($this->moduleName, "broadcast_to_guild", "Send broadcast message to guild channel", "edit", "options", "1", "true;false", "1;0");
 		$this->settingManager->add($this->moduleName, "broadcast_to_privchan", "Send broadcast message to private channel", "edit", "options", "0", "true;false", "1;0");
-		$this->settingManager->add($this->moduleName, "dnet_status", "Enable Dnet support", "noedit", "options", "0", "true;false", "1;0");
 	}
 	
 	private function loadBroadcastListIntoMemory() {
@@ -150,98 +142,32 @@ class BroadcastController {
 
 		$sendto->reply($msg);
 	}
-	
-	/**
-	 * @HandlesCommand("dnet")
-	 * @Matches("/^dnet (enable|on|add)/i")
-	 */
-	public function dnetEnableCommand($message, $channel, $sender, $sendto, $args) {
-		if (!isset($this->broadcastList[$this->dnetBot])) {
-			$this->settingManager->save('dnet_status', 1);
-			$this->db->query("INSERT INTO broadcast_<myname> (`name`, `added_by`, `dt`) VALUES (?, ?, ?)", $this->dnetBot, $sender, time());
-			$this->whitelist->add($this->dnetBot, $sender . " (broadcast bot)");
-
-			// reload broadcast bot list
-			$this->loadBroadcastListIntoMemory();
-
-			$msg = "!join";
-			$this->logger->log_chat("Out. Msg.", $this->dnetBot, $msg);
-			$this->chatBot->send_tell($this->dnetBot, $msg);
-		}
-
-		$msg = "Dnet support has been <green>enabled<end>.";
-		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("dnet")
-	 * @Matches("/^dnet (disable|off|rem|remove)$/i")
-	 */
-	public function dnetDisableCommand($message, $channel, $sender, $sendto, $args) {
-		$this->settingManager->save('dnet_status', 0);
-		$this->db->exec("DELETE FROM broadcast_<myname> WHERE name = ?", $this->dnetBot);
-		$this->whitelist->remove($this->dnetBot);
-
-		// reload broadcast bot list
-		$this->loadBroadcastListIntoMemory();
-
-		$this->chatBot->privategroup_leave($this->dnetBot);
-
-		$msg = "Dnet support has been <orange>disabled<end>.";
-		$sendto->reply($msg);
-	}
 
 	/**
 	 * @Event("msg")
 	 * @Description("Relays incoming messages to the guild/private channel")
 	 */
 	public function incomingMessageEvent($eventObj) {
-		$this->processIncomingMessage($eventObj->sender, $eventObj->message);
-	}
-	
-	/**
-	 * @Event("extPriv")
-	 * @Description("Relays incoming private channel messages to the guild/private channel")
-	 */
-	public function incomingPrivateChannelMessageEvent($eventObj) {
-		$this->processIncomingMessage($eventObj->sender, $eventObj->message);
-	}
-	
-	/**
-	 * @Event("extjoinprivrequest")
-	 * @Description("Accepts private channel invites from broadcast bots")
-	 */
-	public function incomingPrivateChannelJoinEvent($eventObj) {
-		if (isset($this->broadcastList[$eventObj->sender])) {
-			$this->chatBot->privategroup_join($eventObj->sender);
+		if ($this->isValidBroadcastSender($eventObj->sender)) {
+			$this->processIncomingMessage($eventObj->sender, $eventObj->message);
 		}
 	}
 	
-	/**
-	 * @Event("connect")
-	 * @Description("Joins Dnet channel if enabled")
-	 */
-	public function joinDnetOnConnectEvent($eventObj) {
-		if ($this->settingManager->get('dnet_status') == 1) {
-			$msg = "!join";
-			$this->logger->log_chat("Out. Msg.", $this->dnetBot, $msg);
-			$this->chatBot->send_tell($this->dnetBot, $msg);
-		}
+	public function isValidBroadcastSender($sender) {
+		return isset($this->broadcastList[$sender]);
 	}
 
-	private function processIncomingMessage($sender, $message) {
-		if (isset($this->broadcastList[$sender])) {
-			$msg = "[$sender]: $message";
+	public function processIncomingMessage($sender, $message) {
+		$msg = "[$sender]: $message";
 
-			if ($this->settingManager->get('broadcast_to_guild')) {
-				$this->chatBot->sendGuild($msg, true);
-			}
-			if ($this->settingManager->get('broadcast_to_privchan')) {
-				$this->chatBot->sendPrivate($msg, true);
-			}
-
-			// keeps the bot from sending a message back to the neutnet satellite bot
-			throw new StopExecutionException();
+		if ($this->settingManager->get('broadcast_to_guild')) {
+			$this->chatBot->sendGuild($msg, true);
 		}
+		if ($this->settingManager->get('broadcast_to_privchan')) {
+			$this->chatBot->sendPrivate($msg, true);
+		}
+
+		// keeps the bot from sending a message back to the neutnet satellite bot
+		throw new StopExecutionException();
 	}
 }
