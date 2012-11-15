@@ -89,6 +89,9 @@ class TestController {
 	 */
 	public function setup() {
 		$this->path = getcwd() . "/modules/" . $this->moduleName . "/tests/";
+		
+		$this->settingManager->add($this->moduleName, "show_test_commands", "Show test commands as they are executed", "edit", "options", "0", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, "show_test_results", "Show test results from test commands", "edit", "options", "0", "true;false", "1;0");
 	}
 
 	/**
@@ -97,7 +100,11 @@ class TestController {
 	 */
 	public function testAllCommand($message, $channel, $sender, $sendto, $args) {
 		$type = "msg";
-		$mockSendto = new MockCommandReply();
+		if ($this->settingManager->get('show_test_results') == 1) {
+			$mockSendto = $sendto;
+		} else {
+			$mockSendto = new MockCommandReply();
+		}
 	
 		$files = $this->util->getFilesInDirectory($this->path);
 		forEach ($files as $file) {
@@ -115,20 +122,26 @@ class TestController {
 		echo $file . "\n";
 		
 		$type = "msg";
-		$mockSendto = new MockCommandReply();
+		if ($this->settingManager->get('show_test_results') == 1) {
+			$mockSendto = $sendto;
+		} else {
+			$mockSendto = new MockCommandReply();
+		}
 	
 		$lines = file($this->path . $file, FILE_IGNORE_NEW_LINES);
 		if ($lines === false) {
-			$sendto->reply("Could not find a test <highlight>$file<end> to run.");
+			$sendto->reply("Could not find test <highlight>$file<end> to run.");
 		} else {
-			$this->runTests($lines, $sender, $type, $sendto);
+			$this->runTests($lines, $sender, $type, $mockSendto);
 		}
 	}
 	
 	public function runTests($commands, $sender, $type, $sendto) {
 		forEach ($commands as $line) {
 			if ($line[0] == "!") {
-				$this->chatBot->sendTell($line, $sender);
+				if ($this->settingManager->get('show_test_commands') == 1) {
+					$this->chatBot->sendTell($line, $sender);
+				}
 				$line = substr($line, 1);
 				$this->commandManager->process($type, $line, $sender, $sendto);
 			}
