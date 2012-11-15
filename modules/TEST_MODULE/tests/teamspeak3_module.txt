@@ -1,13 +1,12 @@
 #teamspeak3_module
 /text Start TEAMSPEAK3_MODULE
+
 !aospeak
-/delay %1
 !aospeak org
-/delay %1
-!aospeak all
-/delay %1
+!aospeak 1
+!aospeak 2
 !ts
-/delay %1
+
 /text End TEAMSPEAK3_MODULE
 
 /svn_module.txt %1

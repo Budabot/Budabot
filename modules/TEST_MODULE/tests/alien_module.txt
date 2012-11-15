@@ -22,6 +22,8 @@
 !aiarmor spiritual
 !aiarmor 200 spiritual
 !aiarmor spiritual 200
+!aiarmor spiritual error
+!aiarmor error
 
 !aiarmor cc
 !aiarmor cm
@@ -32,6 +34,87 @@
 !aiarmor ss
 !aiarmor ss 200
 !aiarmor 200 ss
+!aiarmor error
+!aiarmor error ss
+
+!leprocs
+!leprocs adv
+!leprocs error
+
+!ofabarmor
+!ofabarmor adv
+!ofabarmor adv 200
+!ofabarmor error
+!ofabarmor error 200
+
+!ofabweapons
+!ofabweapons bear
+!ofabweapons bear 200
+!ofabweapons error
+!ofabweapons error 200
+
+!bioinfo
+!bioinfo 64
+!bioinfo 295
+!bioinfo 468
+!bioinfo 935
+!bioinfo 18
+!bioinfo 34
+!bioinfo 687
+!bioinfo 812
+!bioinfo mutated
+!bioinfo pristine
+!bioinfo 1
+!bioinfo 2
+!bioinfo 3
+!bioinfo 4
+!bioinfo 5
+!bioinfo 12
+!bioinfo 13
+!bioinfo 48
+!bioinfo 76
+!bioinfo 112
+!bioinfo 240
+!bioinfo 880
+!bioinfo 992
+!bioinfo error
+!bioinfo 992 200
+!bioinfo 992 error
+
+!bio <a href="itemref://247707/247707/1">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247708/247708/300">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247709/247709/1">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247710/247710/300">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247717/247717/1">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247718/247718/300">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247711/247711/1">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247712/247712/300">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247713/247713/1">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247714/247714/300">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247715/247715/1">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247716/247716/300">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247719/247719/1">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247720/247720/300">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://288699/288699/1">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://288700/288700/300">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247697/247697/1">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247698/247698/300">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247699/247699/1">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247700/247700/300">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247701/247701/1">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247702/247702/300">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247703/247703/1">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247704/247704/300">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247705/247705/1">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247706/247706/300">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247102/247102/1">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247103/247103/300">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247104/247104/1">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247105/247105/300">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://247764/247764/1">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://254804/254804/300">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio <a href="itemref://1/1/1">Solid Clump of Kyr'Ozch Bio-Material</a>
+!bio error
 
 /text End ALIEN_MODULE
 

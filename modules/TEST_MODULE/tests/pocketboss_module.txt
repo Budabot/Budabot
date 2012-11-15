@@ -1,0 +1,36 @@
+#pcoketboss_module
+/text Start POCKETBOSS_MODULE
+
+!pb spirit master
+!pb a
+!pb error
+
+!symb eye
+!symb ocular
+!symb brain
+!symb head
+!symb ear
+!symb rarm
+!symb chest
+!symb larm
+!symb rwrist
+!symb waist
+!symb lwrist
+!symb rhand
+!symb leg
+!symb legs
+!symb thigh
+!symb lhand
+!symb feet
+
+!symb Artillery
+!symb Support
+!symb Infantry
+!symb Extermination
+!symb Control
+
+!symb Artillery feet
+!symb feet Artillery
+
+
+/text End POCKETBOSS_MODULE

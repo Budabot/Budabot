@@ -82,6 +82,11 @@
 /delay %1
 !penalty 4h
 /delay %1
+
+!towerstats
+!towerstats 20d
+!towerstats error
+
 /text End TOWER_MODULE
 
 /timers_module.txt %1

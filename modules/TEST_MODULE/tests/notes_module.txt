@@ -1,0 +1,18 @@
+#notes_module
+/text Start NOTES_MODULE
+
+!notes
+!notes add test1
+!notes
+!notes rem 0
+!notes rem 1
+!notes
+
+!links
+!links add budabot.com Budabot Website
+!links
+!links rem 0
+!links rem 1
+!links
+
+/text End NOTES_MODULE

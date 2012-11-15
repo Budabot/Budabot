@@ -1,25 +1,37 @@
 #timers_module
 /text Start TIMERS_MODULE
-!cd
-/delay %1
 !timers
-/delay %1
 !timers rem error
-/delay %1
 !timers add 2
-/delay %1
+!timers add 2
 !timers add 2 test1
-/delay %1
+!timers add 2 test1
 !timers
-/delay %1
 !timers add 2m
-/delay %1
+!timers add 2m
 !timers add 2m test2
-/delay %1
+!timers add 2m test2
 !timers rem test1
-/delay %1
+!timers rem test1
 !timers
-/delay %1
+
+!rtimer add 2
+!rtimer add 2
+!rtimer add 2 test3
+!rtimer add 2 test3
+!rtimer add 2m
+!rtimer add 2m
+!rtimer add 2m test3
+!rtimer add 2m test3
+
+!stopwatch stop
+!stopwatch start
+!stopwatch start
+!stopwatch stop
+
+!cd
+!cd MESSAGE!
+
 /text End TIMERS_MODULE
 
 /teamspeak3_module.txt %1

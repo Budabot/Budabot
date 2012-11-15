@@ -16,6 +16,14 @@
 /delay %1
 !history tyrenceerror 1
 /delay %1
+
+!namehistory tyrence
+!namehistory tyrenceerror
+!lookup tyrenceerror
+!lookup error
+!lookup 893395803
+!lookup 11
+
 /text End WHOIS_MODULE
 
 /whereis_module.txt %1

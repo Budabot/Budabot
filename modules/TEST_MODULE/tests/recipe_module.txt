@@ -1,0 +1,16 @@
+#recipe_module
+/text Start RECIPE_MODULE
+
+!recipe
+!recipe aaaaa
+!recipe comp
+!rshow 30
+!rshow 3000
+
+!rb
+!rb aaaaa
+!rb comp
+!rbshow 30
+!rbshow 3000
+
+/text End RECIPE_MODULE
