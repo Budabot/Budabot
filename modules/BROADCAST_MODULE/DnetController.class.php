@@ -86,7 +86,18 @@ class DnetController {
 	 */
 	public function incomingPrivateChannelMessageEvent($eventObj) {
 		if ($this->isDnetBot($eventObj)) {
-			$this->broadcastController->processIncomingMessage("Dnet", $eventObj->message);
+			if (preg_match("~<a href=\"text://(.+)\">([^<]+)</a>~s", $eventObj->message, $arr)) {
+				$messages = explode("\n", trim($arr[1]));
+			} else {
+				$messages = array($eventObj->message);
+			}
+
+			forEach ($messages as $msg) {
+				$this->broadcastController->processIncomingMessage("Dnet", strip_tags($msg));
+			}
+
+			// keeps the bot from sending a message back to the neutnet satellite bot
+			throw new StopExecutionException();
 		}
 	}
 	
@@ -113,6 +124,6 @@ class DnetController {
 	}
 	
 	private function isDnetBot($eventObj) {
-		return $this->dnetBot == $eventObj->sender && $this->dnetBot == $eventObj->channel;
+		return $this->dnetBot == $eventObj->sender;
 	}
 }

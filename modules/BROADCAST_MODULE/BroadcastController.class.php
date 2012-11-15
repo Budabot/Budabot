@@ -150,6 +150,9 @@ class BroadcastController {
 	public function incomingMessageEvent($eventObj) {
 		if ($this->isValidBroadcastSender($eventObj->sender)) {
 			$this->processIncomingMessage($eventObj->sender, $eventObj->message);
+			
+			// keeps the bot from sending a message back to the neutnet satellite bot
+			throw new StopExecutionException();
 		}
 	}
 	
@@ -166,8 +169,5 @@ class BroadcastController {
 		if ($this->settingManager->get('broadcast_to_privchan')) {
 			$this->chatBot->sendPrivate($msg, true);
 		}
-
-		// keeps the bot from sending a message back to the neutnet satellite bot
-		throw new StopExecutionException();
 	}
 }
