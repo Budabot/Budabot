@@ -1,4 +1,4 @@
-To view the Albtraum loot list<end>
+To view the Albtraum loot list:
 <highlight><tab><symbol>alb<end>
 
 Developed by <highlight>Dare2005<end> (RK2), based on code for DB Loot Module by <highlight>Chachy<end> (RK2)

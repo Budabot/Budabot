@@ -1,7 +1,4 @@
 <?php
-
-require_once './lib/ReverseFileReader.class.php';
-
 /**
  * Authors: 
  *  - Tyrence (RK2)

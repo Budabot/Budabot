@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Authors: 
  *  - Sebuda (RK2)
