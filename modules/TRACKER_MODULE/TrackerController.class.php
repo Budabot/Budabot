@@ -99,7 +99,7 @@ class TrackerController {
 				$row2 = $this->db->queryRow("SELECT `event`, `dt` FROM tracking_<myname> WHERE `uid` = ? ORDER BY `dt` DESC LIMIT 1", $row->uid);
 				$last_action = '';
 				if ($row2 != null) {
-					$last_action = " <white>" . $this->util->date($row2->dt) ."<end>";
+					$last_action = " " . $this->util->date($row2->dt);
 				}
 
 				if ($row2->event == 'logon') {
@@ -187,7 +187,7 @@ class TrackerController {
 			if (count($data) > 0) {
 				$blob = '';
 				forEach ($data as $row) {
-					$blob .= "$row->event <white>" . $this->util->date($row->dt) ."<end>\n";
+					$blob .= "<highlight>$row->event<end> " . $this->util->date($row->dt) ."\n";
 				}
 
 				$msg = $this->text->make_blob("Track History for $name", $blob);
