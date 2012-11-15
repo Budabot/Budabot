@@ -280,7 +280,9 @@ class BBINController {
 	public function autoReconnectEvent($eventObj) {
 		if ($this->setting->bbin_status == '1') {
 			// get the topic to test the connection
-			$this->irc->getTopic($this->setting->irc_channel);
+			if ($this->irc !== null) {
+				$this->irc->getTopic($this->setting->irc_channel);
+			}
 			if (!$this->ircActive()) {
 				$this->connect();
 			}
