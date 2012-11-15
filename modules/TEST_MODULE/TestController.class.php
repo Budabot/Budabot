@@ -93,10 +93,27 @@ class TestController {
 		$this->settingManager->add($this->moduleName, "show_test_commands", "Show test commands as they are executed", "edit", "options", "0", "true;false", "1;0");
 		$this->settingManager->add($this->moduleName, "show_test_results", "Show test results from test commands", "edit", "options", "0", "true;false", "1;0");
 	}
-
+	
 	/**
 	 * @HandlesCommand("test")
 	 * @Matches("/^test$/i")
+	 */
+	public function testListCommand($message, $channel, $sender, $sendto, $args) {
+		$files = $this->util->getFilesInDirectory($this->path);
+		$count = count($files);
+		sort($files);
+		$blob = $this->text->make_chatcmd("All Tests", "/tell <myname> test all") . "\n";
+		forEach ($files as $file) {
+			$name = str_replace(".txt", "", $file);
+			$blob .= $this->text->make_chatcmd($name, "/tell <myname> test $name") . "\n";
+		}
+		$msg = $this->text->make_blob("Tests Available ($count)", $blob);
+		$sendto->reply($msg);
+	}
+
+	/**
+	 * @HandlesCommand("test")
+	 * @Matches("/^test all$/i")
 	 */
 	public function testAllCommand($message, $channel, $sender, $sendto, $args) {
 		$type = "msg";
@@ -107,10 +124,14 @@ class TestController {
 		}
 	
 		$files = $this->util->getFilesInDirectory($this->path);
+		$starttime = time();
+		$sendto->reply("Starting tests...");
 		forEach ($files as $file) {
 			$lines = file($this->path . $file, FILE_IGNORE_NEW_LINES);
 			$this->runTests($lines, $sender, $type, $mockSendto);
 		}
+		$time = $this->util->unixtime_to_readable(time() - $starttime);
+		$sendto->reply("Finished tests. Time: $time");
 	}
 	
 	/**
@@ -119,7 +140,6 @@ class TestController {
 	 */
 	public function testModuleCommand($message, $channel, $sender, $sendto, $args) {
 		$file = $args[1] . ".txt";
-		echo $file . "\n";
 		
 		$type = "msg";
 		if ($this->settingManager->get('show_test_results') == 1) {
@@ -132,7 +152,11 @@ class TestController {
 		if ($lines === false) {
 			$sendto->reply("Could not find test <highlight>$file<end> to run.");
 		} else {
+			$starttime = time();
+			$sendto->reply("Starting test $file...");
 			$this->runTests($lines, $sender, $type, $mockSendto);
+			$time = $this->util->unixtime_to_readable(time() - $starttime);
+			$sendto->reply("Finished test $file. Time: $time");
 		}
 	}
 	
@@ -290,7 +314,7 @@ class TestController {
 
 class MockCommandReply implements CommandReply {
 	public function reply($msg) {
-		echo "got reply\n";
+		//echo "got reply\n";
 		//echo $msg . "\n";
 	}
 }
