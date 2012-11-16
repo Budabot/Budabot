@@ -27,6 +27,9 @@ class VentriloController {
 	
 	/** @Inject */
 	public $settingManager;
+	
+	/** @Inject */
+	public $chatBot;
 
 	/** @Inject */
 	public $text;
