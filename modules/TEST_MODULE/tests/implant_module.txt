@@ -1,0 +1,19 @@
+#implant_module
+/text Start IMPLANT_MODULE
+
+!implant 0
+!implant 200
+!implant 301
+!implant 200 400
+!implant 5 200
+!implant 200 10
+
+!premade adv
+!premade rwrist
+!premade comp lit
+!premade error
+
+!cluster comp lit
+!cluster error
+
+/text End IMPLANT_MODULE

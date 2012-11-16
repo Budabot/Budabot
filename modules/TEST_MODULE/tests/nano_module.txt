@@ -1,0 +1,16 @@
+#nano_module
+/text Start NANO_MODULE
+
+!nano errorerror
+!nano gridspace freedom team
+!nano gridspace
+!nanolines
+!nanolines adv
+!nanolines 10
+!nanolines error
+!nanolines 1000
+!nanoloc
+!nanoloc Biodome
+!nanoloc error
+
+/text End NANO_MODULE

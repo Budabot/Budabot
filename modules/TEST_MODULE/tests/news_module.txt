@@ -1,0 +1,14 @@
+#news_module
+/text Start NEWS_MODULE
+
+!news
+!news add test1
+!news
+!news unsticky 0
+!news sticky 0
+!news sticky 0
+!news rem 0
+!news rem 0
+!news
+
+/text End NEWS_MODULE

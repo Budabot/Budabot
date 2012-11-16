@@ -1,0 +1,38 @@
+#level_module
+/text Start LEVEL_MODULE
+
+!axp
+!axp -1
+!axp 10
+!axp 31
+!axp 1 10
+!axp 10 1
+!axp -1 31
+
+!xp
+!xp -1
+!xp 10
+!xp 221
+!xp 1 10
+!xp 10 1
+!xp -1 221
+
+!level 1
+!level 0
+!level -1
+!level 220
+!level 221
+
+!capxp 10000 200
+!capxp 10000 2
+!capxp 10000 -1
+!capxp 10000 221
+
+!missions 1
+!missions 200
+!missions 250
+!missions 251
+!missions 0
+!missions -1
+
+/text End LEVEL_MODULE
