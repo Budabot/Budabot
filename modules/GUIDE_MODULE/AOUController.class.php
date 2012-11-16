@@ -161,9 +161,9 @@ class AOUController {
 		
 		$output = '';
 
-		$data = $this->itemsController->findById($id);
-		if (count($data) > 0) {
-			$output = $this->generateItemMarkup($type, $data[0]);
+		$row = $this->itemsController->findById($id);
+		if ($row !== null) {
+			$output = $this->generateItemMarkup($type, $row);
 		} else {
 			$obj = $this->itemsController->doXyphosLookup($id);
 			if (null == $obj) {

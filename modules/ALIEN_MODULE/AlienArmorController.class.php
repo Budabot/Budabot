@@ -21,6 +21,9 @@ class AlienArmorController {
 
 	/** @Inject */
 	public $text;
+	
+	/** @Inject */
+	public $itemsController;
 
 	/**
 	 * This command handler shows tradeskill process for normal Alien Armor.
@@ -43,156 +46,127 @@ class AlienArmorController {
 		$list .= "- Arithmetic/Strong/Enduring/Spiritual/Observant/Supple Viralbots\n\n";
 
 		$list .= "<header2>Step 1<end>\n";
-		$list .= "<tab>" . $this->text->make_image(100330) . "\n";
-		$list .= $this->text->make_item(247113, 247114, $misc_ql, "Kyr'Ozch Viralbots");
-		$list .= " (<highlight>Drops of Alien City Generals<end>)\n";
+		$list .= "<tab>" . $this->itemsController->getItemAndIcon("Kyr'Ozch Viralbots", $misc_ql);
+		$list .= " (<highlight>Drops from Alien City Generals<end>)\n";
 		$list .= "<tab><tab>+\n";
-		$list .= "<tab>" . $this->text->make_image(247098) . "\n";
-		$list .= $this->text->make_item(247099, 247099, 100, "Kyr'Ozch Atomic Re-Structuralizing Tool");
-		$list .= " (<highlight>Drops of every Alien<end>)\n";
+		$list .= "<tab>" . $this->itemsController->getItemAndIcon("Kyr'Ozch Atomic Re-Structuralizing Tool", 100);
+		$list .= " (<highlight>Drops from every Alien<end>)\n";
 		$list .= "<tab><tab>=\n";
-		$list .= "<tab>" . $this->text->make_image(100331) . "\n";
-		$list .= $this->text->make_item(247118, 247119, $misc_ql, "Memory-Wiped Kyr'Ozch Viralbots") . "\n";
+		$list .= "<tab>" . $this->itemsController->getItemAndIcon("Memory-Wiped Kyr'Ozch Viralbots", $misc_ql) . "\n";
 		$list .= "<highlight>Required Skills:<end>\n";
 		$list .= "- ".ceil($misc_ql * 4.5)." Computer Literacy\n";
 		$list .= "- ".ceil($misc_ql * 4.5)." Nano Programming\n\n";
 
 		$list .= "<header2>Step 2<end>\n";
-		$list .= "<tab>" . $this->text->make_image(99279) . "\n";
-		$list .= $this->text->make_item(161699, 161699, 1, "Nano Programming Interface");
+		$list .= "<tab>" . $this->itemsController->getItemAndIcon("Nano Programming Interface", 1);
 		$list .= " (<highlight>Can be bought in General Shops<end>)\n";
 		$list .= "<tab><tab>+\n";
-		$list .= "<tab>" . $this->text->make_image(100331) . "\n";
-		$list .= $this->text->make_item(247118, 247119, $misc_ql, "Memory-Wiped Kyr'Ozch Viralbots") . "\n";
+		$list .= "<tab>" . $this->itemsController->getItemAndIcon("Memory-Wiped Kyr'Ozch Viralbots", $misc_ql) . "\n";
 		$list .= "<tab><tab>=\n";
-		$list .= "<tab>" . $this->text->make_image(100334) . "\n";
-		$list .= $this->text->make_item(247120, 247121, $misc_ql, "Formatted Kyr'Ozch Viralbots") . "\n";
+		$list .= "<tab>" . $this->itemsController->getItemAndIcon("Formatted Kyr'Ozch Viralbots", $misc_ql) . "\n";
 		$list .= "<highlight>Required Skills:<end>\n";
 		$list .= "- ".ceil($misc_ql * 4.5)." Computer Literacy\n";
 		$list .= "- ".ceil($misc_ql * 6)." Nano Programming\n\n";
 
 		$list .= "<header2>Step 3<end>\n";
-		$list .= "<tab>" . $this->text->make_image(247097) . "\n";
-		$list .= $this->text->make_item(247100, 247100, 100, "Kyr'Ozch Structural Analyzer") . "\n";
+		$list .= "<tab>" . $this->itemsController->getItemAndIcon("Kyr'Ozch Structural Analyzer", 100) . "\n";
 		$list .= "<tab><tab>+\n";
-		$list .= "<tab>" . $this->text->make_image(247101) . "\n";
-		$list .= $this->text->make_item(247102, 247103, $ql, "QL$ql Solid Clump of Kyr'Ozch Biomaterial");
-		$list .= " (<highlight>Drops of every Alien<end>)\n";
+		$list .= "<tab>" . $this->itemsController->getItemAndIcon("Solid Clump of Kyr'Ozch Bio-Material", $ql) . " QL$ql";
+		$list .= " (<highlight>Drops from every Alien<end>)\n";
 		$list .= "<tab><tab>=\n";
-		$list .= "<tab>" . $this->text->make_image(255705) . "\n";
-		$list .= $this->text->make_item(247108, 247109, $ql, "QL$ql Mutated Kyr'Ozch Biomaterial");
-		$list .= " or " . $this->text->make_item(247106, 247107, $ql, "QL$ql Pristine Kyr'Ozch Biomaterial") . "\n";
+		$list .= "<tab>" . $this->itemsController->getItemAndIcon("Mutated Kyr'Ozch Bio-Material", $ql) . " QL$ql";
+		$list .= "\n\nor\n\n<tab>" . $this->itemsController->getItemAndIcon("Pristine Kyr'Ozch Bio-Material", $ql) . " QL$ql\n";
 		$list .= "<highlight>Required Skills:<end>\n";
 		$list .= "- ".ceil($ql * 4.5)." Chemistry (Both require the same amount)\n\n";
 
 		$list .= "<header2>Step 4<end>\n";
-		$list .= "<tab>" . $this->text->make_image(255705) . "\n";
-		$list .= $this->text->make_item(247108, 247109, $ql, "QL$ql Mutated Kyr'Ozch Biomaterial");
-		$list .= " or " . $this->text->make_item(247106, 247107, $ql, "QL$ql Pristine Kyr'Ozch Biomaterial") . "\n";
+		$list .= "<tab>" . $this->itemsController->getItemAndIcon("Mutated Kyr'Ozch Bio-Material", $ql) . " QL$ql";
+		$list .= "\n\nor\n\n<tab>" . $this->itemsController->getItemAndIcon("Pristine Kyr'Ozch Bio-Material", $ql) . " QL$ql\n";
 		$list .= "<tab><tab>+\n";
-		$list .= "<tab>" . $this->text->make_image(100333) . "\n";
-		$list .= $this->text->make_item(247110, 247110, 100, "Uncle Bazzit's Generic Nano Solvent");
+		$list .= "<tab>" . $this->itemsController->getItemAndIcon("Uncle Bazzit's Generic Nano-Solvent", 100);
 		$list .= " (<highlight>Can be bought in Bazzit Shop in MMD<end>)\n";
 		$list .= "<tab><tab>=\n";
-		$list .= "<tab>" . $this->text->make_image(247115) . "\n";
-		$list .= $this->text->make_item(247111, 247112, $ql, "Generic Kyr'Ozch DNA Soup") . "\n";
+		$list .= "<tab>" . $this->itemsController->getItemAndIcon("Generic Kyr'Ozch DNA-Soup", $ql) . "\n";
 		$list .= "<highlight>Required Skills:<end>\n";
 		$list .= "- ".ceil($ql * 4.5)." Chemistry(for Pristine)\n";
 		$list .= "- ".ceil($ql * 7)." Chemistry(for Mutated)\n\n";
 
 		$list .= "<header2>Step 5<end>\n";
-		$list .= "<tab>" . $this->text->make_image(247115) . "\n";
-		$list .= $this->text->make_item(247111, 247112, $ql, "Generic Kyr'Ozch DNA Soup") . "\n";
+		$list .= "<tab>" . $this->itemsController->getItemAndIcon("Generic Kyr'Ozch DNA-Soup", $ql) . "\n";
 		$list .= "<tab><tab>+\n";
-		$list .= "<tab>" . $this->text->make_image(247122) . "\n";
-		$list .= $this->text->make_item(247123, 247123, 100, "Essential Human DNA");
+		$list .= "<tab>" . $this->itemsController->getItemAndIcon("Essential Human DNA", 100);
 		$list .= " (<highlight>Can be bought in Bazzit Shop in MMD<end>)\n";
 		$list .= "<tab><tab>=\n";
-		$list .= "<tab>" . $this->text->make_image(247116) . "\n";
-		$list .= $this->text->make_item(247124, 247125, $ql, "DNA Cocktail") . "\n";
+		$list .= "<tab>" . $this->itemsController->getItemAndIcon("DNA Cocktail", $ql) . "\n";
 		$list .= "<highlight>Required Skills:<end>\n";
 		$list .= "- ".ceil($ql * 6)." Pharma Tech\n\n";
 
 		$list .= "<header2>Step 6<end>\n";
-		$list .= "<tab>" . $this->text->make_image(100334) . "\n";
-		$list .= $this->text->make_item(247120, 247121, $misc_ql, "Formatted Kyr'Ozch Viralbots") . "\n";
+		$list .= "<tab>" . $this->itemsController->getItemAndIcon("Formatted Kyr'Ozch Viralbots", $misc_ql) . "\n";
 		$list .= "<tab><tab>+\n";
-		$list .= "<tab>" . $this->text->make_image(247116) . "\n";
-		$list .= $this->text->make_item(247124, 247125, $ql, "DNA Cocktail") . "\n";
+		$list .= "<tab>" . $this->itemsController->getItemAndIcon("DNA Cocktail", $ql) . "\n";
 		$list .= "<tab><tab>=\n";
-		$list .= "<tab>" . $this->text->make_image(247117) . "\n";
-		$list .= $this->text->make_item(247126, 247127, $ql, "Kyr'Ozch Formatted Viralbot Solution") . "\n";
+		$list .= "<tab>" . $this->itemsController->getItemAndIcon("Kyr'Ozch Formatted Viralbot Solution", $ql) . "\n";
 		$list .= "<highlight>Required Skills:<end>\n";
 		$list .= "- ".ceil($ql * 6)." Pharma Tech\n\n";
 
 		$list .= "<header2>Step 7<end>\n";
-		$list .= "<tab>" . $this->text->make_image(247117) . "\n";
-		$list .= $this->text->make_item(247126, 247127, $ql, "Kyr'Ozch Formatted Viralbot Solution") . "\n";
+		$list .= "<tab>" . $this->itemsController->getItemAndIcon("Kyr'Ozch Formatted Viralbot Solution", $ql) . "\n";
 		$list .= "<tab><tab>+\n";
-		$list .= "<tab>" . $this->text->make_image(245924) . "\n";
-		$list .= $this->text->make_item(247163, 247163, 1, "Basic Vest") . " (<highlight>Can be obtained by the Basic Armor Quest<end>)\n";
+		$list .= "<tab>" . $this->itemsController->getItemAndIcon("Basic Fashion Vest", 1) . " (<highlight>Can be obtained by the Basic Armor Quest<end>)\n";
 		$list .= "<tab><tab>=\n";
-		$list .= "<tab>" . $this->text->make_image(245924) . "\n";
-		$list .= $this->text->make_item(247172, 247173, $ql, "Formatted Viralbot Vest") . "\n\n";
+		$list .= "<tab>" . $this->itemsController->getItemAndIcon("Formatted Viralbot Vest", $ql) . "\n\n";
 
 		$list .= "<header2>Step 8<end>\n";
-		$list .= "<tab>" . $this->text->make_image(100337) . "\n";
 
 		$vb_ql = floor($ql * 0.8);
 		switch ($armortype) {
 			case "Arithmetic":
-				$list .= $this->text->make_item(247144, 247145, $vb_ql, "QL$vb_ql Arithmetic Lead Viralbots");
+				$list .= "<tab>" . $this->itemsController->getItemAndIcon("Arithmetic Lead Viralbots", $vb_ql) . " QL$vb_ql";
 				$list .= " (<highlight>Rare Drop off Alien City Generals<end>)\n";
 				break;
 			case "Supple":
-				$list .= $this->text->make_item(247140, 247141, $vb_ql, "QL$vb_ql Supple Lead Viralbots");
+				$list .= "<tab>" . $this->itemsController->getItemAndIcon("Supple Lead Viralbots", $vb_ql) . " QL$vb_ql";
 				$list .= " (<highlight>Rare Drop off Alien City Generals<end>)\n";
 				break;
 			case "Enduring":
-				$list .= $this->text->make_item(247136, 247137, $vb_ql, "QL$vb_ql Enduring Lead Viralbots");
+				$list .= "<tab>" . $this->itemsController->getItemAndIcon("Enduring Lead Viralbots", $vb_ql) . " QL$vb_ql";
 				$list .= " (<highlight>Rare Drop off Alien City Generals<end>)\n";
 				break;
 			case "Observant":
-				$list .= $this->text->make_item(247142, 247143, $vb_ql, "QL$vb_ql Observant Lead Viralbots");
+				$list .= "<tab>" . $this->itemsController->getItemAndIcon("Observant Lead Viralbots", $vb_ql) . " QL$vb_ql";
 				$list .= " (<highlight>Rare Drop off Alien City Generals<end>)\n";
 				break;
 			case "Strong":
-				$list .= $this->text->make_item(247138, 247139, $vb_ql, "QL$vb_ql Strong Lead Viralbots");
+				$list .= "<tab>" . $this->itemsController->getItemAndIcon("Strong Lead Viralbots", $vb_ql) . " QL$vb_ql";
 				$list .= " (<highlight>Rare Drop off Alien City Generals<end>)\n";
 				break;
 			case "Spiritual":
-				$list .= $this->text->make_item(247146, 247147, $vb_ql, "QL$vb_ql Spiritual Lead Viralbots");
+				$list .= "<tab>" . $this->itemsController->getItemAndIcon("Spiritual Lead Viralbots", $vb_ql) . " QL$vb_ql";
 				$list .= " (<highlight>Rare Drop off Alien City Generals<end>)\n";
 				break;
 		}
 		$list .= "<tab><tab>+\n";
-		$list .= "<tab>" . $this->text->make_image(245924) . "\n";
-		$list .= $this->text->make_item(247172, 247173, $ql, "Formatted Viralbot Vest") . "\n";
+		$list .= "<tab>" . $this->itemsController->getItemAndIcon("Formatted Viralbot Vest", $ql) . "\n";
 		$list .= "<tab><tab>=\n";
 		switch ($armortype) {
 			case "Arithmetic":
-				$list .= "<tab>" . $this->text->make_image(256314) . "\n";
-				$list .= $this->text->make_item(246559, 246560, $ql, "QL$ql Arithmetic Body Armor") . "\n";
+				$list .= "<tab>" . $this->itemsController->getItemAndIcon("Arithmetic Body Armor", $ql) . " QL$ql\n";
 				break;
 			case "Supple":
-				$list .= "<tab>" . $this->text->make_image(256296) . "\n";
-				$list .= $this->text->make_item(246621, 246622, $ql, "QL$ql Supple Body Armor") . "\n";
+				$list .= "<tab>" . $this->itemsController->getItemAndIcon("Supple Body Armor", $ql) . " QL$ql\n";
 				break;
 			case "Enduring":
-				$list .= "<tab>" . $this->text->make_image(256344) . "\n";
-				$list .= $this->text->make_item(246579, 246580, $ql, "QL$ql Enduring Body Armor") . "\n";
+				$list .= "<tab>" . $this->itemsController->getItemAndIcon("Enduring Body Armor", $ql) . " QL$ql\n";
 				break;
 			case "Observant":
-				$list .= "<tab>" . $this->text->make_image(256338) . "\n";
-				$list .= $this->text->make_item(246591, 246592, $ql, "QL$ql Observant Body Armor") . "\n";
+				$list .= "<tab>" . $this->itemsController->getItemAndIcon("Observant Body Armor", $ql) . " QL$ql\n";
 				break;
 			case "Strong":
-				$list .= "<tab>" . $this->text->make_image(256362) . "\n";
-				$list .= $this->text->make_item(246615, 246616, $ql, "QL$ql Strong Body Armor") . "\n";
+				$list .= "<tab>" . $this->itemsController->getItemAndIcon("Strong Body Armor", $ql) . " QL$ql\n";
 				break;
 			case "Spiritual":
-				$list .= "<tab>" . $this->text->make_image(256332) . "\n";
-				$list .= $this->text->make_item(246600, 246601, $ql, "QL$ql Spiritual Body Armor") . "\n";
+				$list .= "<tab>" . $this->itemsController->getItemAndIcon("Spiritual Body Armor", $ql) . " QL$ql\n";
 				break;
 		}
 		$list .= "<highlight>Required Skills:<end>\n";
@@ -218,137 +192,81 @@ class AlienArmorController {
 		switch ($armortype) {
 			case 'cc':
 				//Result
-				$icon_armor_result = 256308;
-				$name_armor_result = "Combined Commando's";
-				$lowid_armor_result = 246659;
-				$highid_armor_result = 246660;
+				$name_armor_result = "Combined Commando's Jacket";
+
 				//Source
-				$icon_armor_src = 256362;
-				$name_armor_src = "Strong";
-				$lowid_armor_src = 246615;
-				$highid_armor_src = 246616;
+				$name_armor_src = "Strong Body Armor";
 
 				//Target
-				$icon_armor_trg = 256296;
-				$name_armor_trg = "Supple";
-				$lowid_armor_trg = 246621;
-				$highid_armor_trg = 246622;
+				$name_armor_trg = "Supple Body Armor";
 				break;
 
 			case 'cm':
 				//Result
-				$icon_armor_result = 256356;
-				$name_armor_result = "Combined Mercenary's";
-				$lowid_armor_result = 246637;
-				$highid_armor_result = 246638;
+				$name_armor_result = "Combined Mercenary's Jacket";
 
 				//Source
-				$icon_armor_src = 256362;
-				$name_armor_src = "Strong";
-				$lowid_armor_src = 246615;
-				$highid_armor_src = 246616;
+				$name_armor_src = "Strong Body Armor";
 
 				//Target
-				$icon_armor_trg = 256344;
-				$name_armor_trg = "Enduring";
-				$lowid_armor_trg = 246579;
-				$highid_armor_trg = 246580;
+				$name_armor_trg = "Enduring Body Armor";
 				break;
 
 			case 'co':
 				//Result
-				$icon_armor_result = 256320;
-				$name_armor_result = "Combined Officer's";
-				$lowid_armor_result = 246671;
-				$highid_armor_result = 246672;
+				$name_armor_result = "Combined Officer's Jacket";
 
 				//Source
-				$icon_armor_src = 256332;
-				$name_armor_src = "Spiritual";
-				$lowid_armor_src = 246599;
-				$highid_armor_src = 246600;
+				$name_armor_src = "Spiritual Body Armor";
 
 				//Target
-				$icon_armor_trg = 256314;
-				$name_armor_trg = "Arithmetic";
-				$lowid_armor_trg = 246559;
-				$highid_armor_trg = 246560;
+				$name_armor_trg = "Arithmetic Body Armor";
 				break;
 
 			case 'cp':
 				//Result
-				$icon_armor_result = 256350;
-				$name_armor_result = "Combined Paramedic's";
-				$lowid_armor_result = 246647;
-				$highid_armor_result = 246648;
+				$name_armor_result = "Combined Paramedic's Jacket";
 
 				//Source
-				$icon_armor_src = 256332;
-				$name_armor_src = "Spiritual";
-				$lowid_armor_src = 246599;
-				$highid_armor_src = 246600;
+				$name_armor_src = "Spiritual Body Armor";
 
 				//Target
-				$icon_armor_trg = 256344;
-				$name_armor_trg = "Enduring";
-				$lowid_armor_trg = 246579;
-				$highid_armor_trg = 246580;
+				$name_armor_trg = "Enduring Body Armor";
 				break;
 
 			case 'cs':
 				//Result
-				$icon_armor_result = 256326;
-				$name_armor_result = "Combined Scout's";
-				$lowid_armor_result = 246683;
-				$highid_armor_result = 246684;
+				$name_armor_result = "Combined Scout's Jacket";
 
 				//Source
-				$icon_armor_src = 256338;
-				$name_armor_src = "Observant";
-				$lowid_armor_src = 246591;
-				$highid_armor_src = 246592;
+				$name_armor_src = "Observant Body Armor";
 
 				//Target
-				$icon_armor_trg = 256314;
-				$name_armor_trg = "Arithmetic";
-				$lowid_armor_trg = 246559;
-				$highid_armor_trg = 246560;
+				$name_armor_trg = "Arithmetic Body Armor";
 				break;
 
 			case 'css':
 			case 'ss':
 				//Result
-				$icon_armor_result = 256302;
-				$name_armor_result = "Combined Sharpshooter's";
-				$lowid_armor_result = 246695;
-				$highid_armor_result = 246696;
+				$name_armor_result = "Combined Sharpshooter's Jacket";
 
 				//Source
-				$icon_armor_src = 256338;
-				$name_armor_src = "Observant";
-				$lowid_armor_src = 246591;
-				$highid_armor_src = 246592;
+				$name_armor_src = "Observant Body Armor";
 
 				//Target
-				$icon_armor_trg = 256296;
-				$name_armor_trg = "Supple";
-				$lowid_armor_trg = 246621;
-				$highid_armor_trg = 246622;
+				$name_armor_trg = "Supple Body Armor";
 				break;
 		}
 
 		$list = "<header2>Result<end>\n";
-		$list .= $this->text->make_image($icon_armor_result) . "\n";
-		$list .= $this->text->make_item($lowid_armor_result, $highid_armor_result, $ql, "QL$ql $name_armor_result") . "\n\n";
+		$list .= $this->itemsController->getItemAndIcon($name_armor_result, $ql) . " QL$ql\n\n";
 
 		$list .= "<header2>Source Armor<end>\n";
-		$list .= $this->text->make_image($icon_armor_src) . "\n";
-		$list .= $this->text->make_item($lowid_armor_src, $highid_armor_src, $src_ql, "QL$src_ql $name_armor_src");
+		$list .= $this->itemsController->getItemAndIcon($name_armor_src, $src_ql) . " QL$src_ql";
 		$list .= " (" . $this->text->make_chatcmd("Tradeskill process for this item", "/tell <myname> aiarmor $name_armor_src $src_ql") . ")\n\n";
 
 		$list .= "<header2>Target Armor<end>\n";
-		$list .= $this->text->make_image($icon_armor_trg) . "\n";
-		$list .= $this->text->make_item($lowid_armor_trg, $highid_armor_trg, $trg_ql, "QL$trg_ql $name_armor_trg");
+		$list .= $this->itemsController->getItemAndIcon($name_armor_trg, $trg_ql) . " QL$trg_ql";
 		$list .= " (" . $this->text->make_chatcmd("Tradeskill process for this item", "/tell <myname> aiarmor $name_armor_trg $trg_ql") . ")";
 		$msg = $this->text->make_blob("Building process for $ql $name_armor_result", $list);
 		$sendto->reply($msg);

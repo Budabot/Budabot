@@ -213,9 +213,8 @@ class RecipeController {
 	
 	private function replaceItem($arr) {
 		$id = $arr[2];
-		$data = $this->itemsController->findById($id);
-		if (count($data) > 0) {
-			$row = $data[0];
+		$row = $this->itemsController->findById($id);
+		if ($row !== null) {
 			$output = $this->text->make_item($row->lowid, $row->highid, $row->highql, $row->name);
 		} else {
 			$obj = $this->itemsController->doXyphosLookup($id);

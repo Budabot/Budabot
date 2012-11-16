@@ -38,8 +38,8 @@ class AlienBioController {
 	/** @Inject */
 	public $text;
 
-	/** @Inject("ItemsController") */
-	public $items;
+	/** @Inject */
+	public $itemsController;
 
 	/** @Logger */
 	public $logger;
@@ -54,11 +54,6 @@ class AlienBioController {
 	 * @Setup
 	 */
 	public function setup() {
-		if (!($this->items instanceof ItemsAPI) || !method_exists($this->items, 'findItem')) {
-			$this->logger->log("WARN", "ITEMS_MODULE is not available, the functionality is degraded without it");
-			$this->items = null;
-		}
-		
 		// load database tables from .sql-files
 		$this->db->loadSQLFile($this->moduleName, 'alienweapons');
 	}
@@ -267,7 +262,7 @@ class AlienBioController {
 	 */
 	private function ofabArmorBio($ql, $type) {
 		$name = "Kyr'Ozch Bio-Material - Type $type";
-		$item = $this->items? $this->items->findItem($ql, $name): '';
+		$item = $this->itemsController->getItem($name, $ql);
 
 		$data = $this->db->query("SELECT * FROM ofabarmortype WHERE type = ?", $type);
 
@@ -286,7 +281,7 @@ class AlienBioController {
 	 */
 	private function ofabWeaponBio($ql, $type) {
 		$name = "Kyr'Ozch Bio-Material - Type $type";
-		$item = $this->items? $this->items->findItem($ql, $name): '';
+		$item = $this->itemsController->getItem($name, $ql);
 
 		$data = $this->db->query("SELECT * FROM ofabweapons WHERE type = ?", $type);
 
@@ -306,7 +301,7 @@ class AlienBioController {
 	 */
 	private function alienWeaponBio($ql, $type) {
 		$name = "Kyr'Ozch Bio-Material - Type $type";
-		$item = $this->items? $this->items->findItem($ql, $name): '';
+		$item = $this->itemsController->getItem($name, $ql);
 
 		// Ensures that the maximum AI weapon that combines into doesn't go over QL 300 when the user presents a QL 271+ bio-material
 		$maxaitype = floor($ql / 0.9);
@@ -323,12 +318,12 @@ class AlienBioController {
 
 		$blob = $item . "\n\n";
 		$blob .= "It will take <highlight>$ts_bio<end> EE & CL (<highlight>4.5 * QL<end>) to analyze the Bio-Material.\n\n";
-		if ($this->items) {
-			$blob .= "<highlight>Adds {$specials} to:<end>\n";
-			forEach ($data as $row) {
-				$blob .= $this->items->findItem($maxaitype, $row->name) . "\n";
-			}
+
+		$blob .= "<highlight>Adds {$specials} to:<end>\n";
+		forEach ($data as $row) {
+			$blob .= $this->itemsController->getItem($maxaitype, $row->name) . "\n";
 		}
+
 		$blob .= $this->getWeaponInfo($maxaitype);
 		$blob .= "\n\n<yellow>Tradeskilling info added by Mdkdoc420 (RK2)<end>";
 
@@ -371,7 +366,7 @@ class AlienBioController {
 		}
 		//End of tradeskill processes
 
-		$item = $this->items? $this->items->findItem($ql, $name): '';
+		$item = $this->itemsController->getItem($name, $ql);
 
 		$blob = $item . "\n\n";
 		$blob .= "It will take <highlight>$ts_bio<end> EE & CL (<highlight>4.5 * QL<end>) to analyze the Bio-Material.\n\n";
@@ -404,7 +399,7 @@ class AlienBioController {
 	 */
 	private function serumBio($ql, $type) {
 		$name = "Kyr'Ozch Viral Serum";
-		$item = $this->items? $this->items->findItem($ql, $name): '';
+		$item = $this->itemsController->getItem($name, $ql);
 
 		$pharma_ts = floor($ql * 3.5);
 		$chem_me_ts = floor($ql * 4);

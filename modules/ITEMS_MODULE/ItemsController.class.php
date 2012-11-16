@@ -1,17 +1,6 @@
 <?php
 
 /**
- * Defines API for other modules to access the item database.
- */
-interface ItemsAPI {
-	/**
-	 * Returns item reference to item with given $ql and $name.
-	 * Used by: ALIEN_MODULE
-	 */
-	public function findItem($ql, $name);
-}
-
-/**
  * @Instance
  *
  * Commands this controller contains:
@@ -34,7 +23,7 @@ interface ItemsAPI {
  *		help        = 'updateitems.txt'
  *	)
  */
-class ItemsController implements ItemsAPI {
+class ItemsController {
 	/** @Inject */
 	public $db;
 
@@ -104,12 +93,11 @@ class ItemsController implements ItemsAPI {
 	public function itemIdCommand($message, $channel, $sender, $sendto, $args) {
 		$id = $args[1];
 
-		$data = $this->findById($id);
-		$num = count($data);
-		if ($num == 0) {
+		$row = $this->findById($id);
+		if ($row === null) {
 			$output = "No item found with id <highlight>$id<end>.";
 		} else {
-			$output = trim($this->formatSearchResults($data, false, false));
+			$output = trim($this->formatSearchResults(array($row), false, false));
 		}
 
 		$sendto->reply($output);
@@ -117,8 +105,7 @@ class ItemsController implements ItemsAPI {
 	
 	public function findById($id) {
 		$sql = "SELECT * FROM aodb WHERE highid = ? UNION SELECT * FROM aodb WHERE lowid = ? LIMIT 1";
-		$data = $this->db->query($sql, $id, $id);
-		return $data;
+		return $this->db->queryRow($sql, $id, $id);
 	}
 
 	/**
@@ -318,13 +305,32 @@ class ItemsController implements ItemsAPI {
 	private function escapeDescription($arr) {
 		return "<description>" . htmlspecialchars($arr[1]) . "</description>";
 	}
+	
+	public function findByName($name, $ql = null) {
+		if ($ql === null) {
+			return $this->db->queryRow("SELECT * FROM aodb WHERE name = ? ORDER BY highql DESC", $name);
+		} else {
+			return $this->db->queryRow("SELECT * FROM aodb WHERE name = ? AND lowql <= ? AND highql >= ?", $name, $ql, $ql);
+		}
+	}
 
-	/**
-	 * Implemented from ItemsAPI interface.
-	 */
-	public function findItem($ql, $name) {
-		$row = $this->db->queryRow("SELECT * FROM aodb WHERE name = ? AND lowql <= ? AND highql >= ?", $name, $ql, $ql);
-		return $this->text->make_item($row->lowid, $row->highid, $ql, $row->name);
+	public function getItem($name, $ql) {
+		$row = $this->findByName($name, $ql);
+		if ($row === null) {
+			$this->logger->log("WARN", "Could not find item '$name' at QL '$ql'");
+		} else {
+			return $this->text->make_item($row->lowid, $row->highid, $ql, $row->name);
+		}
+	}
+	
+	public function getItemAndIcon($name, $ql) {
+		$row = $this->findByName($name, $ql);
+		if ($row === null) {
+			$this->logger->log("WARN", "Could not find item '$name' at QL '$ql'");
+		} else {
+			return $this->text->make_image($row->icon) . "\n" .
+				$this->text->make_item($row->lowid, $row->highid, $row->highql, $row->name);
+		}
 	}
 }
 
