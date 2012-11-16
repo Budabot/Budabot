@@ -178,17 +178,24 @@ class ProfileController {
 			$info = file_get_contents($filename);
 			$lines = explode("\n", $info);
 			$output = '';
-			forEach ($lines as $line) {
-				if ($line[0] == "!") {
-					$output .= "<pagebreak>" . $line . "\n";
-					$line = substr(trim($line), 1);
-					$profileSendTo = new ProfileCommandReply();
-					$this->commandManager->process("msg", $line, $sender, $profileSendTo);
-					$output .= $profileSendTo->result . "\n\n";
+			$this->db->begin_transaction();
+			try {
+				forEach ($lines as $line) {
+					if ($line[0] == "!") {
+						$output .= "<pagebreak>" . $line . "\n";
+						$line = substr(trim($line), 1);
+						$profileSendTo = new ProfileCommandReply();
+						$this->commandManager->process("msg", $line, $sender, $profileSendTo);
+						$output .= $profileSendTo->result . "\n\n";
+					}
 				}
+				$msg = $this->text->make_blob("$name Profile Results", $output);
+				$this->db->commit();
+			} catch (Exception $e) {
+				$this->logger->log("ERROR", "Could not load profile", $e);
+				$msg = "There was an error loading the profile.";
+				$this->db->rollback();
 			}
-			
-			$msg = $this->text->make_blob("$name Profile Results", $output);
 		}
 		$sendto->reply($msg);
 	}
