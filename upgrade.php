@@ -65,7 +65,7 @@
 	function checkIfTableExists($db, $table) {
 		// If the table doesn't exist, return true since the table will be created with the correct column.
 		try {
-			$data = $db->query("SELECT * FROM $table");
+			$data = $db->query("SELECT * FROM $table LIMIT 1");
 		} catch (SQLException $e) {
 			return false;
 		}
