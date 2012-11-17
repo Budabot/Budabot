@@ -79,9 +79,6 @@ class TimerController {
 			$msg = "";
 
 			$tleft = $timer->timer - time();
-			$set_time = $timer->settime;
-			$name = $timer->name;
-			$owner = $timer->owner;
 			$mode = $timer->mode;
 
 			while (count($timer->alerts) > 0 && $timer->alerts[0]->time <= time()) {
@@ -93,19 +90,20 @@ class TimerController {
 				} else if ('guild' == $mode) {
 					$this->chatBot->sendGuild($msg);
 				} else {
-					$this->chatBot->sendTell($msg, $owner);
+					$this->chatBot->sendTell($msg, $timer->owner);
 				}
 			}
 
-			if (count($timer->alerts) == 0) {
-				$this->remove($name);
-			}
-
-			if ($timer->callback == 'repeating') {
-				$this->add($name, $owner, $mode, $timer->callback_param + $timer->timer, null, $timer->callback, $timer->callback_param);
+			if ($tleft <= 0) {
+				$this->remove($timer->name);
+				
+				if ($timer->callback == 'repeating') {
+					$endTime = $timer->callback_param + $timer->timer;
+					$alerts = $this->generateAlerts($timer->owner, $timer->name, $endTime);
+					$this->add($timer->name, $timer->owner, $mode, $endTime, $alerts, $timer->callback, $timer->callback_param);
+				}
 			}
 		}
-
 	}
 
 	/**
@@ -141,9 +139,11 @@ class TimerController {
 			return;
 		}
 
-		$time = time() + $initialRunTime;
+		$endTime = time() + $initialRunTime;
+		
+		$alerts = $this->generateAlerts($sender, $timerName, $endTime);
 
-		$this->add($timerName, $sender, $channel, $time, null, "repeating", $runTime);
+		$this->add($timerName, $sender, $channel, $endTime, $alerts, "repeating", $runTime);
 
 		$initialTimerSet = $this->util->unixtime_to_readable($initialRunTime);
 		$timerSet = $this->util->unixtime_to_readable($runTime);
