@@ -45,8 +45,8 @@ class PlayerHistoryController {
 		}
 
 		$history = $this->playerHistoryManager->lookup($name, $dimension);
-		if ($history->errorCode != 0) {
-			$msg = $history->errorInfo;
+		if ($history === null) {
+			$msg = "Could not get History of $name on RK$dimension.";
 		} else {
 			$blob = "Date           Level    AI     Faction      Guild(rank) \n";
 			$blob .= "________________________________________________ \n";

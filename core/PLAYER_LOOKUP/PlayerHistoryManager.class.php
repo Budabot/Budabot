@@ -28,8 +28,7 @@ class PlayerHistoryManager {
 
 		//if there is still no valid data available give an error back
 		if ($cacheResult->success !== true) {
-			$obj->errorCode = 1;
-			$obj->errorInfo = "Could not get History of $name on RK $rk_num";
+			return null;
 		} else {
 			//parsing of the xml file
 			$data = xml::spliceData($cacheResult->data, "<history>", "</history>");
@@ -54,6 +53,4 @@ class PlayerHistoryManager {
 class PlayerHistory {
 	public $name;
 	public $data;
-	public $errorInfo;
-	public $errorCode = 0;
 }
