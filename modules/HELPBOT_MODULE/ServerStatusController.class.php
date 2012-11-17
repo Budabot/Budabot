@@ -38,25 +38,30 @@ class ServerStatusController {
 	 */
 	public function playfieldListCommand($message, $channel, $sender, $sendto, $args) {
 		if (count($args) == 1) {
-			$servernum = $this->chatBot->vars['dimension'];
+			$dimension = $this->chatBot->vars['dimension'];
 		} else {
-			$servernum = $args[1];
+			$dimension = $args[1];
 		}
 		
 		// config file uses '4' to indicate test server
-		if ($servernum == '4') {
-			$servernum = 't';
+		if ($dimension == '4') {
+			$dimension = 't';
 		}
 		
-		if ($servernum != 1 && $servernum != 2 && $servernum != 't') {
+		if ($dimension != 1 && $dimension != 2 && $dimension != 't') {
 			return false;
 		}
 
-		$server = $this->serverStatusManager->lookup($servernum);
-		if ($server->errorCode != 0) {
-			$msg = $server->errorInfo;
+		$server = $this->getServerInfo($dimension);
+		if ($server === null) {
+			$msg = "Could not get server status for RK$dimension.";
 		} else {
-			$link = '';
+			// sort by playfield name
+			usort($server->data, function($playfield1, $playfield2) {
+				return strcmp($playfield1->long_name, $playfield2->long_name);
+			});
+			
+			$blob = '';
 
 			if ($server->servermanager == 1) {
 				$link .= "Servermanager is <green>UP<end>\n";
@@ -75,41 +80,12 @@ class ServerStatusController {
 			} else {
 				$link .= "Chatserver is <red>DOWN<end>\n\n";
 			}
-
-			ksort($server->data);
 			
-			$vals = array_map(function($proz) {
-				return str_replace('%', '', $proz["players"]);
-			}, $server->data);
-			
-			$totalp = 0;
-			forEach ($vals as $zone => $p) {
-				$totalp += $p;
-			}
-
-			$y = $this->findLowestGreaterThanZero($vals);
-			
-			$sum = round($totalp / $y);
-			do {
-				$total = $sum;
-				$y = $totalp / $total;  // percent per person
-				$sum = 0;
-				forEach ($vals as $zone => $p) {
-					$num = round($p / $y);
-					if ($p > 0 && $num == 0) {
-						$num = 1;
-					}
-					$sum += $num;
-				}
-			} while ($total != $sum);
-			
-			$a = round($total / $totalp * 100);
-			$link .= "Estimated total players online: <highlight>$a<end>\n\n";
+			$link .= "Estimated total players online: <highlight>$server->totalPlayers<end>\n\n";
 			
 			$link .= "Player distribution in % of total players online.\n";
-			forEach ($vals as $zone => $p) {
-				$num = round($p / $y);
-				$link .= "$zone: <highlight>$num<end> ({$p}%)\n";
+			forEach ($server->data as $playfield) {
+				$link .= "$playfield->long_name: <highlight>$playfield->numPlayers<end> ({$playfield->percent}%)\n";
 			}
 
 			$msg = $this->text->make_blob("$server->name Server Status", $link);
@@ -120,11 +96,53 @@ class ServerStatusController {
 	
 	public function findLowestGreaterThanZero($arr) {
 		$val = 100;
-		forEach ($arr as $p) {
-			if ($p > 0 && $p < $val) {
-				$val = $p;
+		forEach ($arr as $playfield) {
+			if ($playfield->percent > 0 && $playfield->percent < $val) {
+				$val = $playfield->percent;
 			}
 		}
 		return $val;
+	}
+	
+	public function addNumPlayers($arr, $y) {
+		forEach ($arr as $playfield) {
+			$playfield->numPlayers = $num = round($playfield->percent / $y);
+		}
+	}
+	
+	public function getServerInfo($dimension) {
+		$server = $this->serverStatusManager->lookup($dimension);
+
+		$totalp = $this->getTotalPercent($server->data);
+
+		$y = $this->findLowestGreaterThanZero($server->data);
+		
+		$sum = round($totalp / $y);
+		do {
+			$total = $sum;
+			$y = $totalp / $total;  // percent per person
+			$sum = 0;
+			forEach ($server->data as $playfield) {
+				$num = round($playfield->percent / $y);
+				if ($playfield->percent > 0 && $num == 0) {
+					$num = 1;
+				}
+				$sum += $num;
+			}
+		} while ($total != $sum);
+		
+		$server->totalPlayers = round($total / $totalp * 100);
+		
+		$this->addNumPlayers($server->data, $y);
+		
+		return $server;
+	}
+	
+	public function getTotalPercent($arr) {
+		$totalp = 0;
+		forEach ($arr as $playfield) {
+			$totalp += $playfield->percent;
+		}
+		return $totalp;
 	}
 }

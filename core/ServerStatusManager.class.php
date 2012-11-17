@@ -5,23 +5,19 @@
  */
 class ServerStatusManager {
 
-	public function lookup($rk_num = 0) {
+	public function lookup($rk_num) {
 		$serverstat = xml::getUrl("probes.funcom.com/ao.xml", 30);
 		
-		$obj = new ServerStatus();
-
         if ($serverstat == NULL) {
-			$obj->errorCode = 1;
-			$obj->errorInfo = "Could not get server status for Dimension $rk_num";
-			return;
+			return null;
         }
 
 		$data = xml::spliceData($serverstat, "<dimension name=\"d$rk_num", "</dimension>");
 		if (!$data) {
-			$obj->errorCode = 1;
-			$obj->errorInfo = "Could not get server status for Dimension $rk_num";
-			return;
+			return null;
 		}
+		
+		$obj = new ServerStatus();
 
 		preg_match("/locked=\"(0|1)\"/i", $data, $tmp);
 		$obj->locked = $tmp[1];
@@ -45,10 +41,14 @@ class ServerStatusManager {
 
 		$data = xml::spliceMultiData($data, "<playfield", "/>");
 		forEach ($data as $hdata) {
-			if (preg_match("/id=\"(.+)\" name=\"(.+)\" status=\"(.+)\" load=\"(.+)\" players=\"(.+)\"/i", $hdata, $arr)) {
-				$obj->data[$arr[2]]["status"] = $arr[3];
-				$obj->data[$arr[2]]["load"] = $arr[4];
-				$obj->data[$arr[2]]["players"] = $arr[5];
+			if (preg_match("/id=\"(.+)\" name=\"(.+)\" status=\"(.+)\" load=\"(.+)\" players=\"(.+)%\"/i", $hdata, $arr)) {
+				$playfield = new stdClass;
+				$playfield->id = $arr[1];
+				$playfield->long_name = $arr[2];
+				$playfield->status = $arr[3];
+				$playfield->load = $arr[4];
+				$playfield->percent = $arr[5];
+				$obj->data[$arr[1]] = $playfield;
 			}
 		}
 		
@@ -66,6 +66,4 @@ class ServerStatus {
 	public $neutral;
 	public $clan;
 	public $name;
-	public $errorInfo;
-	public $errorCode = 0;
 }
