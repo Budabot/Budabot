@@ -87,7 +87,7 @@ class PlayfieldController {
 	
 	/**
 	 * @HandlesCommand("waypoint")
-	 * @Matches("/^waypoint \\(?([0-9\\.]+) ([0-9\\.]+) y ([0-9\\.]+) ([0-9]+)\\)?$/i")
+	 * @Matches("/^waypoint \(?([0-9.]+) ([0-9.]+) y ([0-9.]+) ([0-9]+)\)?$/i")
 	 */
 	public function waypoint1Command($message, $channel, $sender, $sendto, $args) {
 		$x_coords = $args[1];
@@ -106,7 +106,7 @@ class PlayfieldController {
 	
 	/**
 	 * @HandlesCommand("waypoint")
-	 * @Matches("/^waypoint ([0-9\\.]+)([x,. ]+)([0-9\\.]+)([x,. ]+)([0-9]+)$/i")
+	 * @Matches("/^waypoint ([0-9.]+)([x,. ]+)([0-9.]+)([x,. ]+)([0-9]+)$/i")
 	 */
 	public function waypoint2Command($message, $channel, $sender, $sendto, $args) {
 		$x_coords = $args[1];

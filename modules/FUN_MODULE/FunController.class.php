@@ -161,7 +161,6 @@ class FunController {
 	 * Additions taken from a module written by Temar for Bebot: http://bebot.shadow-realm.org/0-3-x-customunofficial-modules/chuck-norris/
 	 */
 	public function chuckCommand($message, $channel, $sender, $sendto, $args) {
-		print_r($args);
 		$msg = $this->getFunItem('chuck', $sender, $args[1]);
 		$sendto->reply($msg);
 	}

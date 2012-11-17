@@ -1,0 +1,91 @@
+#helpbot_module
+/text Start HELPBOT_MODULE
+
+!buffitem error
+!buffitem rifle
+!buffitem windchaser
+!whatbuffs
+!whatbuffs error
+!whatbuffs met
+!whatbuffs bio met
+
+!mobloot 0
+!mobloot 301
+!mobloot 225
+
+!dyna 200
+!dyna -1
+!dyna 1000
+!dyna error
+!dyna a
+!dyna hounds
+
+!inspect <a href="itemref://205842/205842/1">Item</a>
+!inspect <a href="itemref://205843/205843/1">Item</a>
+!inspect <a href="itemref://205844/205844/1">Item</a>
+!inspect <a href="itemref://216286/216286/1">Item</a>
+!inspect <a href="itemref://245658/245658/1">Item</a>
+!inspect <a href="itemref://245596/245596/1">Item</a>
+!inspect <a href="itemref://245594/245594/1">Item</a>
+!inspect <a href="itemref://10/10/1">Item</a>
+!inspect error
+
+!oe -10
+!oe 0
+!oe 200
+!oe 10000
+
+!calc 1+1
+
+!orgcities
+!orgcities pw
+!orgcities error
+
+!playfields
+!playfields pw
+!playfields error
+
+!waypoint 200.2 400.3 y 400.5 760
+!waypoint 200.2x400.3 760
+!waypoint 200.400 760
+!waypoint 200.2x400.3 pw
+
+!random 1 2 3 4 5
+!random 1
+!roll -10
+!roll 0
+!roll 5
+!roll 5 10
+!roll 10 5
+
+!flip
+
+!verify -1
+!verify 0
+!verify 1
+!verify 10000
+
+!research -1
+!research 0
+!research 5
+!research 10
+!research 20
+
+!research -1 10
+!research 0 10
+!research 5 8
+!research 10 10
+!research 20 30
+!research 8 5
+
+!server
+!server 1
+!server 2
+!server t
+!server 10
+
+!time
+!time est
+!time error
+
+/text End HELPBOT_MODULE

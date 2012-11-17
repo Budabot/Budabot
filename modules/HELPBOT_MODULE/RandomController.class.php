@@ -66,7 +66,7 @@ class RandomController {
 			$random = rand($low, $high);
 			if (!isset($marked[$random])) {
 				$count++;
-				$newtext .= " $count: ".$text[$random];
+				$list []= $text[$random];
 				$marked[$random] = 1;
 				if (count($marked) == count($text)) {
 					break;
@@ -92,7 +92,7 @@ class RandomController {
 			}
 		}
 		
-		$sendto->reply($newtext);
+		$sendto->reply(implode(" ", $list));
 	}
 
 	/**
@@ -109,9 +109,7 @@ class RandomController {
 			$max = $args[1];
 		}
 		
-		if ($max >= getrandmax()) {
-			$msg = "The maximum number that the roll number can be is <highlight>".getrandmax()."<end>.";
-		} else if ($min >= $max) {
+		if ($min >= $max) {
 			$msg = "The first number cannot be higher than or equal to the second number.";
 		} else {
 			$row = $this->db->queryRow("SELECT * FROM roll WHERE `name` = ? AND `time` >= ? LIMIT 1", $sender, time() - 30);

@@ -139,11 +139,11 @@ class HelpbotController {
 	 */
 	public function inspectCommand($message, $channel, $sender, $sendto, $args) {
 		$search = $args[1];
-		if (preg_match("/<a href=\"itemref:\/\/(\d{6})\/(\d{6})\/(\d{1,3})\">([^<])<\/a>/i", $search, $matches)) {
+		if (preg_match("~<a href=\"itemref://(\\d{6})/(\\d{6})/(\\d{1,3})\">([^<]+)</a>~i", $search, $matches)) {
 			$highId = $matches[2];
 			$ql = $matches[3];
 
-			switch ($higid) {
+			switch ($highId) {
 				case 205842:
 					$type = "Funny Arrow";
 					break;

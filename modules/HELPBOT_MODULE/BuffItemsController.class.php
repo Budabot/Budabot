@@ -125,9 +125,10 @@ class BuffItemsController {
 			}
 		}
 
-		switch (sizeof($skills)) {
+		switch (count($skills)) {
 			case 0:  // skill does not exist
 				$msg = "Could not find a skill by that name.";
+				break;
 
 			case 1:  // exactly one matching skill
 				$info = "";

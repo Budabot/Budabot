@@ -43,8 +43,8 @@ class ResearchController {
 	 */
 	public function researchSingleCommand($message, $channel, $sender, $sendto, $args) {
 		$level = $args[1];
-		if ($level < 1 OR $level > 10) {
-			$msg .= "Invalid Research Level Input. Valid reserch levels are from 1-10.";
+		if ($level < 1 || $level > 10) {
+			return false;
 		} else {
 			$sql = "SELECT * FROM research WHERE level = ?";
 			$row = $this->db->queryRow($sql, $level);
@@ -74,8 +74,8 @@ class ResearchController {
 	public function researchDoubleCommand($message, $channel, $sender, $sendto, $args) {
 		$lolevel = $args[1];
 		$hilevel = $args[2];
-		if ($lolevel < 0 OR $lolevel > 10 OR $hilevel < 0 OR $hilevel > 10) {
-			$research .= "Invalid Research Level Input. Valid reserch levels are from 0-10.";
+		if ($lolevel < 0 || $lolevel > 10 || $hilevel < 0 || $hilevel > 10) {
+			return false;
 		} else {
 			$sql =
 				"SELECT
