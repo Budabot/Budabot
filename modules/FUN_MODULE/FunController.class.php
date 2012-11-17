@@ -103,16 +103,24 @@ class FunController {
 		$this->db->loadSQLFile($this->moduleName, "pirates");
 	}
 	
-	public function getRandomFunItem($type, $sender) {
+	public function getFunItem($type, $sender, $number = null) {
 		$data = $this->db->query("SELECT * FROM fun WHERE type = ?", $type);
-		$row = $this->util->rand_array_value($data);
+		if ($number === null) {
+			$row = $this->util->rand_array_value($data);
+		} else {
+			$row = $data[$number];
+		}
 		
-		$dmg = rand(100, 999);
-		$cred = rand(10000, 9999999);
-		$msg = $row->content;
-		$msg = str_replace("*name*", $sender, $msg);
-		$msg = str_replace("*dmg*", $dmg, $msg);
-		$msg = str_replace("*creds*", $cred, $msg);
+		if ($row === null) {
+			$msg = "There is no item with that id.";
+		} else {
+			$dmg = rand(100, 999);
+			$cred = rand(10000, 9999999);
+			$msg = $row->content;
+			$msg = str_replace("*name*", $sender, $msg);
+			$msg = str_replace("*dmg*", $dmg, $msg);
+			$msg = str_replace("*creds*", $cred, $msg);
+		}
 		
 		return $msg;
 	}
@@ -120,15 +128,17 @@ class FunController {
 	/**
 	 * @HandlesCommand("beer")
 	 * @Matches("/^beer$/i")
+	 * @Matches("/^beer (\d+)$/i")
 	 */
 	public function beerCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->getRandomFunItem('beer', $sender);
+		$msg = $this->getFunItem('beer', $sender, $args[1]);
 		$sendto->reply($msg);
 	}
 	
 	/**
 	 * @HandlesCommand("brain")
 	 * @Matches("/^brain$/i")
+	 * @Matches("/^brain (\d+)$/i")
 	 *
 	 * aypwip.php - A Social Worrrrrld Domination! Module
 	 *
@@ -137,101 +147,110 @@ class FunController {
 	 * converted to Budabot by Tyrence (RK2)
 	 */
 	public function brainCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->getRandomFunItem('brain', $sender);
+		$msg = $this->getFunItem('brain', $sender, $args[1]);
 		$sendto->reply($msg);
 	}
 	
 	/**
 	 * @HandlesCommand("chuck")
-	 * @Matches("/^chuck/i")
+	 * @Matches("/^chuck$/i")
+	 * @Matches("/^chuck (\d+)$/i")
 	 *
 	 * Author: Honge (RK2)
 	 *
 	 * Additions taken from a module written by Temar for Bebot: http://bebot.shadow-realm.org/0-3-x-customunofficial-modules/chuck-norris/
 	 */
 	public function chuckCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->getRandomFunItem('chuck', $sender);
+		print_r($args);
+		$msg = $this->getFunItem('chuck', $sender, $args[1]);
 		$sendto->reply($msg);
 	}
 	
 	/**
 	 * @HandlesCommand("credz")
-	 * @Matches("/^credz/i")
+	 * @Matches("/^credz$/i")
+	 * @Matches("/^credz (\d+)$/i")
 	 *
 	 * Author: Derroylo (RK2)
 	 */
 	public function credzCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->getRandomFunItem('credz', $sender);
+		$msg = $this->getFunItem('credz', $sender, $args[1]);
 		$sendto->reply($msg);
 	}
 	
 	/**
 	 * @HandlesCommand("cybor")
-	 * @Matches("/^cybor/i")
+	 * @Matches("/^cybor$/i")
+	 * @Matches("/^cybor (\d+)$/i")
 	 *
 	 * Author: Derroylo (RK2)
 	 *
 	 * Ported over from a bebot plugin written by Xenixa (RK1)
 	 */
 	public function cyborCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->getRandomFunItem('cybor', $sender);
+		$msg = $this->getFunItem('cybor', $sender, $args[1]);
 		$sendto->reply($msg);
 	}
 	
 	/**
 	 * @HandlesCommand("doh")
-	 * @Matches("/^doh/i")
+	 * @Matches("/^doh$/i")
+	 * @Matches("/^doh (\d+)$/i")
 	 *
 	 * Author: Neksus (RK2)
 	 */
 	public function dohCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->getRandomFunItem('doh', $sender);
+		$msg = $this->getFunItem('doh', $sender, $args[1]);
 		$sendto->reply($msg);
 	}
 	
 	/**
 	 * @HandlesCommand("dwight")
-	 * @Matches("/^dwight/i")
+	 * @Matches("/^dwight$/i")
+	 * @Matches("/^dwight (\d+)$/i")
 	 *
 	 * Developed by Sicarius Legion of Amra, a Age of Conan Guild on the Hyrkania server
 	 * Converted to Budabot by Tyrence (RK2)
 	 */
 	public function dwightCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->getRandomFunItem('dwight', $sender);
+		$msg = $this->getFunItem('dwight', $sender, $args[1]);
 		$sendto->reply($msg);
 	}
 
 	/**
 	 * @HandlesCommand("fc")
 	 * @Matches("/^fc$/i")
+	 * @Matches("/^fc (\d+)$/i")
 	 */
 	public function fcCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->getRandomFunItem('fc', $sender);
+		$msg = $this->getFunItem('fc', $sender, $args[1]);
 		$sendto->reply($msg);
 	}
 	
 	/**
 	 * @HandlesCommand("homer")
-	 * @Matches("/^homer/i")
+	 * @Matches("/^homer$/i")
+	 * @Matches("/^homer (\d+)$/i")
 	 *
 	 * Author: Derroylo (RK2)
 	 * 
 	 * Some entries taken from a module developed by MysterF aka Floryn from Band of Brothers - CROM originally for Bebot: http://bebot.shadow-realm.org/generic-custom-modules/homer-social-mod-for-bebot-0-6-2
 	 */
 	public function homerCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->getRandomFunItem('homer', $sender);
+		$msg = $this->getFunItem('homer', $sender, $args[1]);
 		$sendto->reply($msg);
 	}
 	
 	/**
 	 * @HandlesCommand("pirates")
-	 * @Matches("/^pirates/i")
+	 * @Matches("/^pirates$/i")
+	 * @Matches("/^pirates (\d+)$/i")
 	 *
 	 * Developed by Sicarius Legion of Amra, a Age of Conan Guild on the Hyrkania server
 	 * Converted to Budabot by Tyrence (RK2)
 	 */
 	public function piratesCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->getRandomFunItem('pirates', $sender);
+		$msg = $this->getFunItem('pirates', $sender, $args[1]);
 		$sendto->reply($msg);
 	}
 }
