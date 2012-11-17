@@ -283,7 +283,7 @@ class TowerController {
 		$playfield_name = strtoupper($args[1]);
 		$playfield = $this->playfieldController->get_playfield_by_name($playfield_name);
 		if ($playfield === null) {
-			$msg = "Playfield '$playfield_name' could not be found";
+			$msg = "Playfield '$playfield_name' could not be found.";
 			$sendto->reply($msg);
 			return;
 		}
@@ -293,12 +293,16 @@ class TowerController {
 			WHERE t1.playfield_id = ?";
 	
 		$data = $this->db->query($sql, $playfield->id);
-		$blob = '';
-		forEach ($data as $row) {
-			$blob .= "<pagebreak>" . $this->formatSiteInfo($row) . "\n\n";
-		}
+		if (count($data)) {
+			$blob = '';
+			forEach ($data as $row) {
+				$blob .= "<pagebreak>" . $this->formatSiteInfo($row) . "\n\n";
+			}
 
-		$msg = $this->text->make_blob("All Bases in $playfield->long_name", $blob);
+			$msg = $this->text->make_blob("All Bases in $playfield->long_name", $blob);
+		} else {
+			$msg = "Playfield <highlight>$playfield->long_name<end> does not have any tower sites.";
+		}
 
 		$sendto->reply($msg);
 	}
@@ -313,7 +317,7 @@ class TowerController {
 		$playfield_name = strtoupper($args[1]);
 		$playfield = $this->playfieldController->get_playfield_by_name($playfield_name);
 		if ($playfield === null) {
-			$msg = "Playfield '$playfield_name' could not be found";
+			$msg = "Playfield '$playfield_name' could not be found.";
 			$sendto->reply($msg);
 			return;
 		}
@@ -330,32 +334,29 @@ class TowerController {
 			// show last attacks and victories
 			$sql = "
 				SELECT
-					t.i,
 					a.*,
 					v.*,
-					a2.playfield_id AS win_playfield_id,
-					a2.site_number AS win_site_number,
-					COALESCE(a.time, v.time) dt
+					COALESCE(v.time, a.time) dt
 				FROM
-					(SELECT 0 AS i UNION ALL SELECT 1 AS i) t
-					LEFT JOIN tower_attack_<myname> a
-						ON 0 = t.i AND a.playfield_id = ? AND a.site_number = ?
+					tower_attack_<myname> a
 					LEFT JOIN tower_victory_<myname> v
-						ON 1 = t.i AND v.attack_id IS NOT NULL
-					LEFT JOIN tower_attack_<myname> a2
-						ON v.attack_id = a2.id
+						ON v.attack_id = a.id
 				WHERE
-					(a2.playfield_id = ? OR a2.playfield_id IS NULL)
-					AND (a2.site_number = ? OR a2.site_number IS NULL)
-					AND (a.id IS NOT NULL OR v.id IS NOT NULL)
+					a.playfield_id = ?
+					AND a.site_number = ?
 				ORDER BY
 					dt DESC
 				LIMIT 10";
-			$data = $this->db->query($sql, $playfield->id, $site_number, $playfield->id, $site_number);
+			$data = $this->db->query($sql, $playfield->id, $site_number);
 			forEach ($data as $row) {
-				if ($row->i == 0) {
+				if (empty($row->attack_id)) {
 					// attack
-					$blob .= "<$row->att_faction>$row->att_guild_name<end> attacked <$row->def_faction>$row->def_guild_name<end>\n";
+					if (!empty($row->att_guild_name)) {
+						$name = $row->att_guild_name;
+					} else {
+						$name = $row->att_player;
+					}
+					$blob .= "<$row->att_faction>$name<end> attacked <$row->def_faction>$row->def_guild_name<end>\n";
 				} else {
 					// victory
 					$blob .= "<$row->win_faction>$row->win_guild_name<end> won against <$row->lose_faction>$row->lose_guild_name<end>\n";
