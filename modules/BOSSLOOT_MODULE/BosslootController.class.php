@@ -96,7 +96,7 @@ class BosslootController {
 	public function bosslootCommand($message, $channel, $sender, $sendto, $args) {
 		$search = strtolower($args[1]);
 
-		$blob = "Mobs that drop an item matching '$search':\n\n";
+		$blob = "Bosses that drop items matching '$search':\n\n";
 
 		$loot = $this->db->query("SELECT DISTINCT b2.bossid, b2.bossname, w.answer
 			FROM boss_lootdb b1 JOIN boss_namedb b2 ON b2.bossid = b1.bossid

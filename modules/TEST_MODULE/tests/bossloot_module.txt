@@ -1,0 +1,10 @@
+#bossloot_module
+/text Start BOSSLOOT_MODULE
+
+!boss immortal
+!boss hezak
+!boss error
+!bossloot error
+!bossloot stygian
+
+/text End BOSSLOOT_MODULE
