@@ -25,7 +25,7 @@ class PlayerHistoryController {
 	/** @Inject */
 	public $chatBot;
 	
-		/** @Inject */
+	/** @Inject */
 	public $text;
 	
 	/** @Inject */
@@ -50,30 +50,28 @@ class PlayerHistoryController {
 		} else {
 			$blob = "Date           Level    AI     Faction      Guild(rank) \n";
 			$blob .= "________________________________________________ \n";
-			forEach ($history->data as $key => $data) {
-				$level = $data["level"];
-
-				if ($data["ailevel"] == "") {
+			forEach ($history->data as $entry) {
+				if ($entry->aiLevel == "") {
 					$ailevel = "<green>0<end>";
 				} else {
-					$ailevel = "<green>".$data["ailevel"]."<end>";
+					$ailevel = "<green>$entry->aiLevel<end>";
 				}
 
-				if ($data["faction"] == "Omni") {
+				if ($entry->faction == "Omni") {
 					$faction = "<omni>Omni<end>";
-				} else if ($data["faction"] == "Clan") {
+				} else if ($entry->faction == "Clan") {
 					$faction = "<clan>Clan<end>";
 				} else {
 					$faction = "<neutral>Neutral<end>";
 				}
 
-				if ($data["guild"] == "") {
+				if ($entry->guild == "") {
 					$guild = "Not in a guild";
 				} else {
-					$guild = $data["guild"]."(".$data["rank"].")";
+					$guild = $entry->guild . "(" . $entry->rank . ")";
 				}
 
-				$blob .= "$key |  $level  | $ailevel | $faction | $guild\n";
+				$blob .= "$entry->date |  $entry->level  | $ailevel | $faction | $guild\n";
 			}
 			$msg = $this->text->make_blob("History of $name for RK{$dimension}", $blob);
 		}

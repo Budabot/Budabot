@@ -8,7 +8,7 @@ class PlayerHistoryManager {
 	/** @Inject */
 	public $cacheManager;
 	
-	public function lookup($name, $rk_num = 0) {
+	public function lookup($name, $rk_num) {
 		$name = ucfirst(strtolower($name));
 		$url = "http://auno.org/ao/char.php?output=xml&dimension=$rk_num&name=$name";
 		$groupName = "player_history";
@@ -36,11 +36,14 @@ class PlayerHistoryManager {
 			$data = xml::splicemultidata($data, "<entry", "/>");
 			forEach ($data as $hdata) {
 				preg_match("/date=\"(.+)\" level=\"(.+)\" ailevel=\"(.*)\" faction=\"(.+)\" guild=\"(.*)\" rank=\"(.*)\"/i", $hdata, $arr);
-				$obj->data[$arr[1]]["level"] = $arr[2];
-				$obj->data[$arr[1]]["ailevel"] = $arr[3];
-				$obj->data[$arr[1]]["faction"] = $arr[4];
-				$obj->data[$arr[1]]["guild"] = $arr[5];
-				$obj->data[$arr[1]]["rank"] = $arr[6];
+				$entry = new stdClass;
+				$entry->date = $arr[1];
+				$entry->level = $arr[2];
+				$entry->aiLevel = $arr[3];
+				$entry->faction = $arr[4];
+				$entry->guild = $arr[5];
+				$entry->rank = $arr[6];
+				$obj->data []= $entry;
 			}
 		}
 		
