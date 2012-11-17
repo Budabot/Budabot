@@ -1,0 +1,1 @@
+<highlight>tell_min_player_age<end> - set to 1s to disable, any other valid time value will enable it
