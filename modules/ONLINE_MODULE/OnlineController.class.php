@@ -238,9 +238,11 @@ class OnlineController {
 			$row = $this->db->queryRow("SELECT afk FROM online WHERE `name` = ? AND added_by = '<myname>' AND channel_type = ?", $sender, $type);
 
 			if ($row !== null && $row->afk != '') {
+				list($time, $reason) = explode('|', $row->afk);
+				$timeString = $this->util->unixtime_to_readable(time() - $time);
 				// $sender is back
 				$this->db->exec("UPDATE online SET `afk` = '' WHERE `name` = ? AND added_by = '<myname>' AND channel_type = ?", $sender, $type);
-				$msg = "<highlight>{$sender}<end> is back";
+				$msg = "<highlight>{$sender}<end> is back after $timeString.";
 				
 				if ('priv' == $type) {
 					$this->chatBot->sendPrivate($msg);
@@ -253,15 +255,17 @@ class OnlineController {
 	
 	public function afk($sender, $message, $type) {
 		if (preg_match("/^.?afk$/i", $message)) {
-			$this->db->exec("UPDATE online SET `afk` = ? WHERE `name` = ? AND added_by = '<myname>' AND channel_type = ?", '1', $sender, $type);
-			$msg = "<highlight>$sender<end> is now AFK";
-		} else if (preg_match("/^.?brb(.*)$/i", $message, $arr)) {
-			$this->db->exec("UPDATE online SET `afk` = ? WHERE `name` = ? AND added_by = '<myname>' AND channel_type = ?", 'brb', $sender, $type);
-			$msg = "<highlight>$sender<end> is now AFK";
-		} else if (preg_match("/^.?afk (.*)$/i", $message, $arr)) {
-			$reason = $arr[1];
+			$reason = time();
 			$this->db->exec("UPDATE online SET `afk` = ? WHERE `name` = ? AND added_by = '<myname>' AND channel_type = ?", $reason, $sender, $type);
-			$msg = "<highlight>$sender<end> is now AFK";
+			$msg = "<highlight>$sender<end> is now AFK.";
+		} else if (preg_match("/^.?brb(.*)$/i", $message, $arr)) {
+			$reason = time() . '|brb';
+			$this->db->exec("UPDATE online SET `afk` = ? WHERE `name` = ? AND added_by = '<myname>' AND channel_type = ?", $reason, $sender, $type);
+			$msg = "<highlight>$sender<end> is now AFK.";
+		} else if (preg_match("/^.?afk (.*)$/i", $message, $arr)) {
+			$reason = time() . '|' . $arr[1];
+			$this->db->exec("UPDATE online SET `afk` = ? WHERE `name` = ? AND added_by = '<myname>' AND channel_type = ?", $reason, $sender, $type);
+			$msg = "<highlight>$sender<end> is now AFK.";
 		}
 
 		if ('' != $msg) {
@@ -475,10 +479,15 @@ class OnlineController {
 	}
 
 	public function get_afk_info($afk, $fancyColon) {
-		switch ($afk) {
-			case       "": return "";
-			case      "1": return " $fancyColon <red>AFK<end>";
-			default      : return " $fancyColon <red>AFK - {$afk}<end>";
+		list($time, $reason) = explode("|", $afk);
+		if (empty($afk)) {
+			return '';
+		} else if (empty($reason)) {
+			$timeString = $this->util->unixtime_to_readable(time() - $time);
+			return " $fancyColon <red>AFK for $timeString<end>";
+		} else {
+			$timeString = $this->util->unixtime_to_readable(time() - $time);
+			return " $fancyColon <red>AFK for $timeString - {$reason}<end>";
 		}
 	}
 
