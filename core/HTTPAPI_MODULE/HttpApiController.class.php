@@ -69,19 +69,18 @@ class HttpApiController {
 
 		$that = $this;
 		$this->http->on('request', function ($request, $response) use ($that) {
-			$request->on('data', function ($bodyBuffer) use ($that, $request, $response) {
-				$handled = false;
-				forEach ($that->handlers as $handler) {
-					if (preg_match($handler->path, $request->getPath())) {
-						call_user_func($handler->callback, $request, $response, $bodyBuffer, $handler->data);
-						$handled = true;
-						break;
-					}
+			$session = new StdClass();
+			$session->request  = $request;
+			$session->response = $response;
+			$session->body     = '';
+
+			$request->on('data', function ($bodyBuffer) use ($that, $session) {
+				$session->body .= $bodyBuffer;
+				if (!$that->isRequestBodyFullyReceived($session)) {
+					return;
 				}
-				if ($handled == false) {
-					$response->writeHead(404);
-					$response->end();
-				}
+				$handler = $that->findHandlerForRequest($session);
+				$that->handleRequest($handler, $session);
 			});
 		});
 
@@ -99,7 +98,7 @@ class HttpApiController {
 		// listen or stop listening when httpapi_enabled setting is changed
 		$this->settingManager->registerChangeListener('httpapi_enabled', function($name, $oldValue, $newValue) use ($that) {
 			if ($newValue == 1) {
-				$port = $that->setting->get('httpapi_port');
+				$port = $that->settingManager->get('httpapi_port');
 				$that->listen($port);
 			} else {
 				$that->stopListening();
@@ -219,5 +218,31 @@ class HttpApiController {
 		$link = $this->text->make_chatcmd( $uri, "/start $uri" );
 		$msg  = $this->text->make_blob('HTTP API', "Open $link to web browser.");
 		$sendto->reply($msg);
+	}
+
+	public function isRequestBodyFullyReceived($session) {
+		$headers = $session->request->getHeaders();
+		$currentLength  = strlen($session->body);
+		$requiredLength = intval($headers['Content-Length']);
+		return $currentLength == $requiredLength;
+	}
+
+	public function findHandlerForRequest($session) {
+		forEach ($this->handlers as $handler) {
+			if (preg_match($handler->path, $session->request->getPath())) {
+				return $handler;
+			}
+		}
+		return null;
+	}
+
+	public function handleRequest($handler, $session) {
+		if ($handler) {
+			call_user_func($handler->callback, $session->request,
+				$session->response, $session->body, $handler->data);
+		} else {
+			$session->response->writeHead(404);
+			$session->response->end();
+		}
 	}
 }
