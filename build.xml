@@ -166,6 +166,7 @@
 			<fileset dir=".">
 				<include name="**/*.php" />
 				<exclude name="lib**" />
+				<exclude name="build**" />
 			</fileset>
 			<formatter type="default" usefile="false" />
 			<formatter type="checkstyle" outfile="build/checkstyle.xml" />
