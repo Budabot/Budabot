@@ -162,7 +162,7 @@
 		<mkdir dir="build" />
 
 		<!-- run the checker -->
-		<phpcodesniffer standard="conf/CodingStandard">
+		<phpcodesniffer standard="conf/CodingStandard" haltonwarning="true" haltonerror="true">
 			<fileset dir=".">
 				<include name="**/*.php" />
 				<exclude name="lib**" />
