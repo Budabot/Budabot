@@ -2,4 +2,9 @@
 <ruleset name="MyStandard">
 	<description>Coding standard for Budabot project.</description>
 	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
+	<rule ref="Generic.Files.LineEndings">
+		<properties>
+			<property name="eolChar" value="\n"/>
+		</properties>
+	</rule>
 </ruleset>
