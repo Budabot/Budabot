@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<ruleset name="MyStandard">
+	<description>Coding standard for Budabot project.</description>
+	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
+</ruleset>
