@@ -32,7 +32,7 @@
 global $configFile;
 
 function read_input ($output = "") {
-    echo $output;
+	echo $output;
 	return trim(fgets(STDIN));
 }
 
