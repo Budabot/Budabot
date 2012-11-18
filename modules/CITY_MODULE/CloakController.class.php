@@ -145,7 +145,7 @@ class CloakController {
 	 */
 	public function cloakReminderEvent($eventObj) {
 		// valid states for action are: 'on', 'off'
-		$row = $this->db->queryRow("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 1 ");
+		$row = $this->db->queryRow("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 1");
 		if ($row !== null) {
 			$msg = "";
 

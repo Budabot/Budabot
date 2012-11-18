@@ -112,7 +112,7 @@ class RelayController {
 	}
 	
 	public function processIncomingRelayMessage($sender, $message) {
-		if (($sender == ucfirst(strtolower($this->settingManager->get('relaybot'))) || $channel == ucfirst(strtolower($this->settingManager->get('relaybot')))) && preg_match("/^grc (.+)$/s", $message, $arr)) {
+		if ($sender == ucfirst(strtolower($this->settingManager->get('relaybot'))) && preg_match("/^grc (.+)$/s", $message, $arr)) {
 			$msg = $arr[1];
 			$this->chatBot->sendGuild($this->settingManager->get('relay_color_guild') . $msg, true);
 

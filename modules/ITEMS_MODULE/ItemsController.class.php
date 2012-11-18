@@ -85,8 +85,6 @@ class ItemsController {
 	}
 	
 	/**
-	 * This command handler searches for an item by id.
-	 *
 	 * @HandlesCommand("itemid")
 	 * @Matches("/^itemid ([0-9]+)$/i")
 	 */
@@ -109,9 +107,8 @@ class ItemsController {
 	}
 
 	/**
-	 * This command handler downloads the latest version of the items db.
-	 *
 	 * @HandlesCommand("updateitems")
+	 * @Matches("/^updateitems$/i")
 	 */
 	public function updateitemsCommand($message, $channel, $sender, $sendto) {
 		$msg = $this->download_newest_itemsdb();
