@@ -56,9 +56,9 @@ class RelayController {
 
 	/** @Setup */
 	public function setup() {
-		$this->settingManager->add($this->moduleName, "relaytype", "Type of relay", "edit", "options", "1", "tell;private channel", '1;2', "mod");
-		$this->settingManager->add($this->moduleName, "relaysymbol", "Symbol for external relay", "edit", "options", "@", "!;#;*;@;$;+;-", '', "mod");
-		$this->settingManager->add($this->moduleName, "relaysymbolmethod", "When to relay messages", "edit", "options", "0", "Always relay;Relay when symbol;Relay unless symbol", '0;1;2', "mod");
+		$this->settingManager->add($this->moduleName, "relaytype", "Type of relay", "edit", "options", "1", "tell;private channel", '1;2');
+		$this->settingManager->add($this->moduleName, "relaysymbol", "Symbol for external relay", "edit", "options", "@", "!;#;*;@;$;+;-");
+		$this->settingManager->add($this->moduleName, "relaysymbolmethod", "When to relay messages", "edit", "options", "0", "Always relay;Relay when symbol;Relay unless symbol", '0;1;2');
 		$this->settingManager->add($this->moduleName, "relaybot", "Bot for Guildrelay", "edit", "text", "Off", "Off", '', "mod", "relaybot.txt");
 		$this->settingManager->add($this->moduleName, "bot_relay_commands", "Relay commands and results over the bot relay", "edit", "options", "0", "true;false", "1;0");
 		$this->settingManager->add($this->moduleName, 'relay_color_guild', "Color of messages from relay to guild channel", 'edit', "color", "<font color='#C3C3C3'>");

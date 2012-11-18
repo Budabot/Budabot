@@ -187,12 +187,8 @@
 	// update for relaysymbolmethod
 	if (checkIfTableExists($db, "settings_<myname>")) {
 		$row = $db->queryRow("SELECT * FROM settings_<myname> WHERE name = 'relaysymbol'");
-		if ($row->value = 'Always relay') {
+		if ($row->value == 'Always relay') {
 			upgrade($db, "UPDATE settings_<myname> SET value = '@' WHERE name = 'relaysymbol'");
-			upgrade($db, "UPDATE settings_<myname> SET value = '0' WHERE name = 'relaysymbolmethod'");
-		} else {
-			upgrade($db, "UPDATE settings_<myname> SET value = ? WHERE name = 'relaysymbol'", $row->value);
-			upgrade($db, "UPDATE settings_<myname> SET value = '1' WHERE name = 'relaysymbolmethod'");
 		}
 	}
 
