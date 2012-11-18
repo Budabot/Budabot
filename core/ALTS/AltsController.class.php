@@ -334,7 +334,7 @@ class AltsController implements AltsInterface {
 			return;
 		}
 	
-		$this->add_alt($mainInfo->main, $name_alt, 1);
+		$this->add_alt($mainInfo->main, $name_alt, 0);
 		$msg = "<highlight>$name_alt<end> has been registered as an alt of {$mainInfo->main}.";
 		$sendto->reply($msg);
 	}
