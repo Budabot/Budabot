@@ -47,7 +47,7 @@ class PlayerHistoryManager {
 		}
 		
 		return $obj;
-    }
+	}
 }
 
 class PlayerHistory {

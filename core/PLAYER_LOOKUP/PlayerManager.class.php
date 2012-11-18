@@ -167,23 +167,23 @@ class PlayerManager {
 		$msg = '';
 
 		if ($whois->firstname) {
-            $msg = $whois->firstname." ";
+			$msg = $whois->firstname." ";
 		}
 
-        $msg .= "<highlight>\"{$whois->name}\"<end> ";
+		$msg .= "<highlight>\"{$whois->name}\"<end> ";
 
-        if ($whois->lastname) {
-            $msg .= $whois->lastname." ";
+		if ($whois->lastname) {
+			$msg .= $whois->lastname." ";
 		}
 
 		$msg .= "(<highlight>{$whois->level}<end>/<green>{$whois->ai_level}<end>";
 		$msg .= ", {$whois->gender} {$whois->breed} <highlight>{$whois->profession}<end>";
 		$msg .= ", <" . strtolower($whois->faction) . ">$whois->faction<end>";
 
-        if ($whois->guild) {
-            $msg .= ", {$whois->guild_rank} of <highlight>{$whois->guild}<end>)";
-        } else {
-            $msg .= ", Not in a guild)";
+		if ($whois->guild) {
+			$msg .= ", {$whois->guild_rank} of <highlight>{$whois->guild}<end>)";
+		} else {
+			$msg .= ", Not in a guild)";
 		}
 
 		return $msg;

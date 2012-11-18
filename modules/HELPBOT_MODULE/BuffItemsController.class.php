@@ -176,12 +176,13 @@ class BuffItemsController {
 	}
 
 	public function make_info($row) {
-		$result = "<header2>$row->item_name<end>:\n\n".
-				  "Category: <highlight>$row->category<end>\n".
-				  "Boosts: <highlight>$row->boosts<end>\n".
-				  "QL range: <highlight>$row->ql_range<end>\n".
-				  "Aquisition:\n<tab><highlight>$row->acquisition<end>\n".
-				  "Buff Break points:\n";
+		$result = 
+			"<header2>$row->item_name<end>:\n\n".
+			"Category: <highlight>$row->category<end>\n".
+			"Boosts: <highlight>$row->boosts<end>\n".
+			"QL range: <highlight>$row->ql_range<end>\n".
+			"Aquisition:\n<tab><highlight>$row->acquisition<end>\n".
+			"Buff Break points:\n";
 		
 		forEach (explode("\\n", $row->buff_break_points) as $breakpoint) {
 			$result .= "<tab><highlight>QL ".$breakpoint."<end>\n";

@@ -1,11 +1,11 @@
 <?php
 
 use Behat\Behat\Context\ClosuredContextInterface,
-    Behat\Behat\Context\TranslatedContextInterface,
-    Behat\Behat\Context\BehatContext,
-    Behat\Behat\Exception\PendingException;
+	Behat\Behat\Context\TranslatedContextInterface,
+	Behat\Behat\Context\BehatContext,
+	Behat\Behat\Exception\PendingException;
 use Behat\Gherkin\Node\PyStringNode,
-    Behat\Gherkin\Node\TableNode;
+	Behat\Gherkin\Node\TableNode;
 
 //
 // Require 3rd-party libraries here:
@@ -88,16 +88,16 @@ class FeatureContext extends BehatContext
 		self::$chatServer->clearTellMessages();
 	} 
 
-    /**
-     * @Given /^"([^"]*)" module is enabled$/
-     */
-    public function moduleIsEnabled($module)
-    {
+	/**
+	 * @Given /^"([^"]*)" module is enabled$/
+	 */
+	public function moduleIsEnabled($module)
+	{
 		if (!isset(self::$enabledModules[$module])) {
 			self::$chatServer->sendTellMessageToBot(self::$superAdmin, "!config mod $module enable all");
 			self::$enabledModules[$module] = true;
 		}
-    }
+	}
 
 	/**
 	 * @When /^I give command "([^"]*)"$/

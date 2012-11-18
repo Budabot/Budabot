@@ -21,8 +21,9 @@ class ClientHandler {
 	function readData( $byteCount ) {
 		$result = '';
 		$remaining = $byteCount;
-		while ($remaining > 0) { // TODO: it might be wise to have some
-								 // timeout here if the client doesn't sent all needed data
+		// TODO: it might be wise to have some timeout here if the client
+		// doesn't sent all needed data
+		while ($remaining > 0) {
 			$data = fread($this->client, $remaining);
 			if ($data !== false) {
 				$remaining -= strlen($data);

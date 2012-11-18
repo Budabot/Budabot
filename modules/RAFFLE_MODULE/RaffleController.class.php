@@ -297,7 +297,7 @@ class RaffleController {
 		if (1 == $count) {
 			$msg = "The raffle for $item is over. Winner: ";
 		} else {
-		   $msg = "The raffle for $item (count: $count) is over. Winners: ";
+			$msg = "The raffle for $item (count: $count) is over. Winners: ";
 		}
 
 		$i = 0;

@@ -199,7 +199,7 @@ class BanController {
 		$count = count($banlist);
 
 		if ($count == 0) {
-		    $msg = "No one is currently banned from this bot.";
+			$msg = "No one is currently banned from this bot.";
 		} else {
 			$blob = '';
 			forEach ($banlist as $ban) {

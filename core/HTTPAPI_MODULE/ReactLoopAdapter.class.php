@@ -14,7 +14,7 @@ class ReactLoopAdapter implements React\EventLoop\LoopInterface {
 		$this->writeNotifiers = array();
 	}
 
-    public function addReadStream($stream, $listener) {
+	public function addReadStream($stream, $listener) {
 		$id = (int)$stream;
 		if (isset($this->readNotifiers[$id]) == false) {
 			$loop = $this;
@@ -28,7 +28,7 @@ class ReactLoopAdapter implements React\EventLoop\LoopInterface {
 		}
 	}
 
-    public function addWriteStream($stream, $listener) {
+	public function addWriteStream($stream, $listener) {
 		$id = (int)$stream;
 		if (isset($this->writeNotifiers[$id]) == false) {
 			$loop = $this;
@@ -42,7 +42,7 @@ class ReactLoopAdapter implements React\EventLoop\LoopInterface {
 		}
 	}
 
-    public function removeReadStream($stream) {
+	public function removeReadStream($stream) {
 		$id = (int)$stream;
 		if (isset($this->readNotifiers[$id])) {
 			$this->socketManager->removeSocketNotifier($this->readNotifiers[$id]);
@@ -50,38 +50,40 @@ class ReactLoopAdapter implements React\EventLoop\LoopInterface {
 		}
 	}
 
-    public function removeWriteStream($stream) {
+	public function removeWriteStream($stream) {
 		$id = (int)$stream;
 		if (isset($this->writeNotifiers[$id])) {
 			$this->socketManager->removeSocketNotifier($this->writeNotifiers[$id]);
 			unset ($this->writeNotifiers[$id]);
 		}
 	}
-    public function removeStream($stream) {
+
+	public function removeStream($stream) {
 		$this->removeReadStream($stream);
 		$this->removeWriteStream($stream);
 	}
 
-    public function addTimer($interval, $callback) {
+	public function addTimer($interval, $callback) {
 		throw new BadMethodCallException("Timers are not implemented by this event loop!");
 	}
 
-    public function addPeriodicTimer($interval, $callback) {
+	public function addPeriodicTimer($interval, $callback) {
 		throw new BadMethodCallException("Timers are not implemented by this event loop!");
 	}
 
-    public function cancelTimer($signature) {
+	public function cancelTimer($signature) {
 		throw new BadMethodCallException("Timers are not implemented by this event loop!");
 	}
 
-    public function tick() {
+	public function tick() {
 		throw new BadMethodCallException("Ticking is not implemented by this event loop!");
 	}
-    public function run() {
+
+	public function run() {
 		throw new BadMethodCallException("Running is not implemented by this event loop!");
 	}
 
-    public function stop() {
+	public function stop() {
 		throw new BadMethodCallException("Running is not implemented by this event loop!");
 	}
 }

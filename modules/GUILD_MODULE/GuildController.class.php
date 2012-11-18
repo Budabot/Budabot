@@ -338,7 +338,7 @@ class GuildController {
 
 		$numinactive = 0;
 		$highlight = 0;
-	  
+
 		$blob = "Org members who have logged off since <highlight>{$timeString}<end> ago.\n\n";
 		
 		$prevtoon = '';

@@ -269,7 +269,7 @@ class Util {
 			default:
 				$prof = "Unknown";
 				break;
-	    }
+		}
 
 		return $prof;
 	}

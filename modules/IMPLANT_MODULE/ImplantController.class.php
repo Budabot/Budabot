@@ -151,8 +151,8 @@ class ImplantController {
 			forEach ($results as $row) {
 				$blob .= "<pagebreak>";
 				$blob .= "<highlight>$row->skill Cluster<end>:\n<tab><font color=#ffcc33>Shiny</font>: ".$row->shiny.
-						 "<tab><font color=#ffff55>Bright</font>: ".$row->bright.
-						 "<tab><font color=#FFFF99>Faded</font>: ".$row->faded;
+					"<tab><font color=#ffff55>Bright</font>: ".$row->bright.
+					"<tab><font color=#FFFF99>Faded</font>: ".$row->faded;
 				$blob .= "\n\n";
 			}
 		

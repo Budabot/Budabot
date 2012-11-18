@@ -16,8 +16,8 @@ class CacheManager {
 		$this->cache = $vars["cachefolder"];
 
 		//Making sure that the cache folder exists
-        if (!dir($this->cache)) {
-	        mkdir($this->cache, 0777);
+		if (!dir($this->cache)) {
+			mkdir($this->cache, 0777);
 		}
 	}
 
@@ -31,7 +31,7 @@ class CacheManager {
 		// Check if a xml file of the person exists and if it is uptodate
 		if ($this->cacheExists($groupName, $filename)) {
 			$cacheAge = $this->getCacheAge($groupName, $filename);
-            if ($cacheAge < $maxCacheAge) {
+			if ($cacheAge < $maxCacheAge) {
 				$data = $this->retrieve($groupName, $filename);
 				if (call_user_func($isValidCallback, $data)) {
 					$cacheResult->data = $data;
@@ -44,7 +44,7 @@ class CacheManager {
 					$this->remove($groupName, $filename);
 				}
 			}
-        }
+		}
 
 		//If no old history file was found or it was invalid try to update it from auno.org
 		if ($cacheResult->success !== true) {
@@ -78,14 +78,14 @@ class CacheManager {
 		// if a new file was downloaded, save it in the cache
 		if ($cacheResult->usedCache === false) {
 			$this->store($groupName, $filename, $cacheResult->data);
-	    }
+		}
 		
 		return $cacheResult;
-    }
+	}
 	
 	public function store($groupName, $filename, $contents) {
 		if (!dir($this->cache . '/' . $groupName)) {
-	        mkdir($this->cache . '/' . $groupName, 0777);
+			mkdir($this->cache . '/' . $groupName, 0777);
 		}
 		
 		$cacheFile = "$this->cache/$groupName/$filename";

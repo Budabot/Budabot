@@ -8,9 +8,9 @@ class ServerStatusManager {
 	public function lookup($rk_num) {
 		$serverstat = xml::getUrl("probes.funcom.com/ao.xml", 30);
 		
-        if ($serverstat == NULL) {
+		if ($serverstat == NULL) {
 			return null;
-        }
+		}
 
 		$data = xml::spliceData($serverstat, "<dimension name=\"d$rk_num", "</dimension>");
 		if (!$data) {
@@ -25,19 +25,19 @@ class ServerStatusManager {
 		preg_match("/<omni percent=\"([0-9.]+)\"\/>/i", $data, $tmp);
 		$obj->omni = $tmp[1];
 		preg_match("/<neutral percent=\"([0-9.]+)\"\/>/i", $data, $tmp);
-	    $obj->neutral = $tmp[1];
+		$obj->neutral = $tmp[1];
 		preg_match("/<clan percent=\"([0-9.]+)\"\/>/i", $data, $tmp);
-	    $obj->clan = $tmp[1];
+		$obj->clan = $tmp[1];
 
 		preg_match("/<servermanager status=\"([0-9]+)\"\/>/i", $data, $tmp);
-	    $obj->servermanager = $tmp[1];
+		$obj->servermanager = $tmp[1];
 		preg_match("/<clientmanager status=\"([0-9]+)\"\/>/i", $data, $tmp);
-	    $obj->clientmanager = $tmp[1];
+		$obj->clientmanager = $tmp[1];
 		preg_match("/<chatserver status=\"([0-9]+)\"\/>/i", $data, $tmp);
-	    $obj->chatserver = $tmp[1];
+		$obj->chatserver = $tmp[1];
 
 		preg_match("/display-name=\"(.+)\" loadmax/i", $data, $tmp);
-	    $obj->name = $tmp[1];
+		$obj->name = $tmp[1];
 
 		$data = xml::spliceMultiData($data, "<playfield", "/>");
 		forEach ($data as $hdata) {
@@ -51,9 +51,9 @@ class ServerStatusManager {
 				$obj->data[$arr[1]] = $playfield;
 			}
 		}
-		
+
 		return $obj;
-    }
+	}
 }
 
 class ServerStatus {

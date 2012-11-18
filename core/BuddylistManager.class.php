@@ -20,7 +20,7 @@ class BuddylistManager {
 	public function is_online($name) {
 		$buddy = $this->get_buddy($name);
 		return ($buddy === null ? null : $buddy['online']);
-    }
+	}
 
 	public function get_buddy($name) {
 		$uid = $this->chatBot->get_uid($name);
@@ -29,7 +29,7 @@ class BuddylistManager {
 		} else {
 			return $this->buddyList[$uid];
 		}
-    }
+	}
 
 	public function add($name, $type) {
 		$uid = $this->chatBot->get_uid($name);
