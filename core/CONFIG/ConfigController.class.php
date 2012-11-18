@@ -132,6 +132,9 @@ class ConfigController {
 		$sql = "SELECT type, file, cmd, admin FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd' AND ($typeSql)";
 		$data = $this->db->query($sql);
 		forEach ($data as $row) {
+			if (!$this->accessManager->checkAccess($sender, $row->admin)) {
+				continue;
+			}
 			if ($status == 1) {
 				$this->commandManager->activate($row->type, $row->file, $row->cmd, $row->admin);
 			} else {
@@ -195,6 +198,14 @@ class ConfigController {
 		}
 	
 		$data = $this->db->query($sql);
+		
+		if ($args[1] == 'cmd' || $args[1] == 'subcmd') {
+			if (!$this->checkCommandAccessLevels($data, $sender)) {
+				$msg = "You do not have the required access level to change this command.";
+				$sendto->reply($msg);
+				return;
+			}
+		}
 	
 		if (count($data) == 0) {
 			if ($args[1] == "mod" && $type == "all") {
@@ -301,31 +312,40 @@ class ConfigController {
 				} else {
 					$msg = "Could not find the command <highlight>$command<end> for Channel <highlight>$channel<end>";
 				}
-				$sendto->reply($msg);
-				return;
-			}
-	
-			$this->commandManager->update_status($channel, $command, null, 1, $admin);
-	
-			if ($channel == "all") {
-				$msg = "Updated access of command <highlight>$command<end> to <highlight>$admin<end>";
+			} else if (!$this->checkCommandAccessLevels($data, $sender)) {
+				$msg = "You do not have the required access level to change this command.";
 			} else {
-				$msg = "Updated access of command <highlight>$command<end> in Channel <highlight>$channel<end> to <highlight>$admin<end>";
+				$this->commandManager->update_status($channel, $command, null, 1, $admin);
+		
+				if ($channel == "all") {
+					$msg = "Updated access of command <highlight>$command<end> to <highlight>$admin<end>";
+				} else {
+					$msg = "Updated access of command <highlight>$command<end> in Channel <highlight>$channel<end> to <highlight>$admin<end>";
+				}
 			}
 		} else {  // if ($category == 'subcmd')
 			$sql = "SELECT * FROM cmdcfg_<myname> WHERE `type` = ? AND `cmdevent` = 'subcmd' AND `cmd` = ?";
 			$data = $this->db->query($sql, $channel, $command);
 			if (count($data) == 0) {
 				$msg = "Could not find the subcmd <highlight>$command<end> for Channel <highlight>$channel<end>";
-				$sendto->reply($msg);
-				return;
+			} else if (!$this->checkCommandAccessLevels($data, $sender)) {
+				$msg = "You do not have the required access level to change this subcommand.";
+			} else {
+				$this->db->exec("UPDATE cmdcfg_<myname> SET `admin` = ? WHERE `type` = ? AND `cmdevent` = 'subcmd' AND `cmd` = ?", $admin, $channel, $command);
+				$this->subcommandManager->loadSubcommands();
+				$msg = "Updated access of sub command <highlight>$command<end> in Channel <highlight>$channel<end> to <highlight>$admin<end>";
 			}
-	
-			$this->db->exec("UPDATE cmdcfg_<myname> SET `admin` = ? WHERE `type` = ? AND `cmdevent` = 'subcmd' AND `cmd` = ?", $admin, $channel, $command);
-			$this->subcommandManager->loadSubcommands();
-			$msg = "Updated access of sub command <highlight>$command<end> in Channel <highlight>$channel<end> to <highlight>$admin<end>";
 		}
 		$sendto->reply($msg);
+	}
+	
+	public function checkCommandAccessLevels($data, $sender) {
+		forEach ($data as $row) {
+			if (!$this->accessManager->checkAccess($sender, $row->admin)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/**
