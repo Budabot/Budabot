@@ -2,6 +2,44 @@
 
 /**
  * @Instance
+ *
+ * Commands this controller contains:
+ *	@DefineCommand(
+ *		command       = 'adminlist',
+ *		accessLevel   = 'all',
+ *		description   = 'Shows the list of administrators and moderators',
+ *		help          = 'admin.txt',
+ *		alias         = 'admins',
+ *		defaultStatus = '1'
+ *	)
+ *	@DefineCommand(
+ *		command       = 'addadmin',
+ *		accessLevel   = 'superadmin',
+ *		description   = 'Add an administrator',
+ *		help          = 'admin.txt',
+ *		defaultStatus = '1'
+ *	)
+ *	@DefineCommand(
+ *		command       = 'remadmin',
+ *		accessLevel   = 'superadmin',
+ *		description   = 'Remove an administrator',
+ *		help          = 'admin.txt',
+ *		defaultStatus = '1'
+ *	)
+ *	@DefineCommand(
+ *		command       = 'addmod',
+ *		accessLevel   = 'admin',
+ *		description   = 'Add a moderator',
+ *		help          = 'admin.txt',
+ *		defaultStatus = '1'
+ *	)
+ *	@DefineCommand(
+ *		command       = 'remmod',
+ *		accessLevel   = 'admin',
+ *		description   = 'Remove a moderator',
+ *		help          = 'admin.txt',
+ *		defaultStatus = '1'
+ *	)
  */
 class AdminController {
 
@@ -10,15 +48,6 @@ class AdminController {
 	 * Set automatically by module loader.
 	 */
 	public $moduleName;
-
-	/** @Inject */
-	public $commandManager;
-
-	/** @Inject */
-	public $eventManager;
-
-	/** @Inject */
-	public $helpManager;
 
 	/** @Inject */
 	public $adminManager;
@@ -50,69 +79,62 @@ class AdminController {
 	 */
 	public function setup() {
 		$className = get_class($this);
-		$this->commandManager->activate("msg", "$className.addCommand", "addadmin", "superadmin");
-		$this->commandManager->activate("priv", "$className.addCommand", "addadmin", "superadmin");
-		$this->commandManager->activate("guild", "$className.addCommand", "addadmin", "superadmin");
-
-		$this->commandManager->activate("msg", "$className.removeCommand", "remadmin", "superadmin");
-		$this->commandManager->activate("priv", "$className.removeCommand", "remadmin", "superadmin");
-		$this->commandManager->activate("guild", "$className.removeCommand", "remadmin", "superadmin");
-
-		$this->commandManager->activate("msg", "$className.addCommand", "addmod", "admin");
-		$this->commandManager->activate("priv", "$className.addCommand", "addmod", "admin");
-		$this->commandManager->activate("guild", "$className.addCommand", "addmod", "admin");
-
-		$this->commandManager->activate("msg", "$className.removeCommand", "remmod", "admin");
-		$this->commandManager->activate("priv", "$className.removeCommand", "remmod", "admin");
-		$this->commandManager->activate("guild", "$className.removeCommand", "remmod", "admin");
-
-		$this->commandManager->activate("msg", "$className.adminlistCommand", "adminlist", 'all');
-		$this->commandManager->activate("priv", "$className.adminlistCommand", "adminlist", 'all');
-		$this->commandManager->activate("guild", "$className.adminlistCommand", "adminlist", 'all');
-
-		$this->eventManager->activate("connect", "$className.checkAdmins");
 		
 		$this->adminManager->uploadAdmins();
-
-		$this->helpManager->register($this->moduleName, "admin", "admin.txt", "mod", "Mod/admin help file");
 	}
 	
-	public function addCommand($message, $channel, $sender, $sendto) {
-		if (preg_match("/^addadmin (.+)$/i", $message, $arr)){
-			$who = ucfirst(strtolower($arr[1]));
-			$intlevel = 4;
-			$rank = 'an administrator';
+	/**
+	 * @HandlesCommand("addadmin")
+	 * @Matches("/^addadmin (.+)$/i")
+	 */
+	public function addAdminCommand($message, $channel, $sender, $sendto, $args) {
+		$who = ucfirst(strtolower($args[1]));
+		$intlevel = 4;
+		$rank = 'an administrator';
 
-			$this->add($who, $sender, $sendto, $intlevel, $rank);
-		} else if (preg_match("/^addmod (.+)$/i", $message, $arr)){
-			$who = ucfirst(strtolower($arr[1]));
-			$intlevel = 3;
-			$rank = 'a moderator';
-
-			$this->add($who, $sender, $sendto, $intlevel, $rank);
-		} else {
-			return false;
-		}
+		$this->add($who, $sender, $sendto, $intlevel, $rank);
 	}
 	
-	public function removeCommand($message, $channel, $sender, $sendto) {
-		if (preg_match("/^remadmin (.+)$/i", $message, $arr)){
-			$who = ucfirst(strtolower($arr[1]));
-			$intlevel = 4;
-			$rank = 'an administrator';
+	/**
+	 * @HandlesCommand("addmod")
+	 * @Matches("/^addmod (.+)$/i")
+	 */
+	public function addModeratorCommand($message, $channel, $sender, $sendto, $args) {
+		$who = ucfirst(strtolower($args[1]));
+		$intlevel = 3;
+		$rank = 'a moderator';
 
-			$this->remove($who, $sender, $sendto, $intlevel, $rank);
-		} else if (preg_match("/^remmod (.+)$/i", $message, $arr)){
-			$who = ucfirst(strtolower($arr[1]));
-			$intlevel = 3;
-			$rank = 'a moderator';
-
-			$this->remove($who, $sender, $sendto, $intlevel, $rank);
-		} else {
-			return false;
-		}
+		$this->add($who, $sender, $sendto, $intlevel, $rank);
 	}
 	
+	/**
+	 * @HandlesCommand("remadmin")
+	 * @Matches("/^remadmin (.+)$/i")
+	 */
+	public function removeAdminCommand($message, $channel, $sender, $sendto, $args) {
+		$who = ucfirst(strtolower($args[1]));
+		$intlevel = 4;
+		$rank = 'an administrator';
+
+		$this->remove($who, $sender, $sendto, $intlevel, $rank);
+	}
+	
+	/**
+	 * @HandlesCommand("remmod")
+	 * @Matches("/^remmod (.+)$/i")
+	 */
+	public function removeModeratorCommand($message, $channel, $sender, $sendto, $args) {
+		$who = ucfirst(strtolower($args[1]));
+		$intlevel = 3;
+		$rank = 'a moderator';
+
+		$this->remove($who, $sender, $sendto, $intlevel, $rank);
+	}
+	
+	/**
+	 * @HandlesCommand("adminlist")
+	 * @Matches("/^adminlist$/i")
+	 */
 	public function adminlistCommand($message, $channel, $sender, $sendto) {
 		if (!preg_match("/^adminlist$/i", $message)) {
 			return false;
@@ -162,7 +184,11 @@ class AdminController {
 		$sendto->reply($link);
 	}
 	
-	public function checkAdmins() {
+	/**
+	 * @Event("connect")
+	 * @Description("Add administrators and moderators to the buddy list")
+	 */
+	public function checkAdminsEvent($eventObj) {
 		$data = $this->db->query("SELECT * FROM admin_<myname>");
 		forEach ($data as $row) {
 			$this->buddylistManager->add($row->name, 'admin');

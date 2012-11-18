@@ -12,6 +12,16 @@
  *		description   = 'Manually reload an sql file',
  *		help          = 'loadsql.txt'
  *	)
+ *	@DefineCommand(
+ *		command       = 'querysql',
+ *		accessLevel   = 'superadmin',
+ *		description   = 'Run an SQL query and see the results'
+ *	)
+ *	@DefineCommand(
+ *		command       = 'executesql',
+ *		accessLevel   = 'superadmin',
+ *		description   = 'Execute an SQL statement'
+ *	)
  */
 class SQLController {
 
@@ -38,27 +48,14 @@ class SQLController {
 	 * This handler is called on bot startup.
 	 */
 	public function setup() {
-		$name = 'SQLController';
-		// don't register, only activate these commands to prevent them from appearing in !config
-		forEach (array('msg', 'priv', 'guild') as $channel) {
-			$this->commandManager->activate($channel, "$name.executesqlCommand", "executesql", "admin");
-			$this->commandManager->activate($channel, "$name.querysqlCommand", "querysql", "admin");
-		}
+
 	}
 	
 	/**
-	 * This command handler executes a SQL statement.
-	 * Note: This handler has not been not registered, only activated.
-	 *
+	 * @HandlesCommand("executesql")
 	 * @Matches("/^executesql (.*)$/i")
 	 */
 	public function executesqlCommand($message, $channel, $sender, $sendto, $args) {
-		if (!$this->accessManager->checkAccess($sender, 'superadmin')) {
-			$msg = "This command may only be used by the super administrator.";
-			$sendto->reply($msg);
-			return;
-		}
-
 		$sql = htmlspecialchars_decode($args[1]);
 
 		try {
@@ -71,18 +68,10 @@ class SQLController {
 	}
 
 	/**
-	 * This command handler executes a SQL query.
-	 * Note: This handler has not been not registered, only activated.
-	 *
+	 * @HandlesCommand("querysql")
 	 * @Matches("/^querysql (.*)$/si")
 	 */
 	public function querysqlCommand($message, $channel, $sender, $sendto, $args) {
-		if (!$this->accessManager->checkAccess($sender, 'superadmin')) {
-			$msg = "This command may only be used by the super administrator.";
-			$sendto->reply($msg);
-			return;
-		}
-
 		$sql = htmlspecialchars_decode($args[1]);
 
 		try {

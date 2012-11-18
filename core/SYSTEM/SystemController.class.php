@@ -31,6 +31,38 @@
  *		description   = 'Execute a command and have output sent to another player',
  *		help          = 'showcommand.txt'
  *	)
+ *	@DefineCommand(
+ *		command       = 'system',
+ *		accessLevel   = 'mod',
+ *		description   = 'Show detailed information about the bot',
+ *		help          = 'system.txt'
+ *	)
+ *	@DefineCommand(
+ *		command       = 'restart',
+ *		accessLevel   = 'admin',
+ *		description   = 'Restart the bot',
+ *		help          = 'system.txt',
+ *      defaultStatus = '1'
+ *	)
+ *	@DefineCommand(
+ *		command       = 'shutdown',
+ *		accessLevel   = 'admin',
+ *		description   = 'Shutdown the bot',
+ *		help          = 'system.txt',
+ *		defaultStatus = '1'
+ *	)
+ *	@DefineCommand(
+ *		command       = 'reloadconfig',
+ *		accessLevel   = 'admin',
+ *		description   = 'Reload the config file',
+ *		help          = 'system.txt'
+ *	)
+ *	@DefineCommand(
+ *		command       = 'logs',
+ *		accessLevel   = 'admin',
+ *		description   = 'View bot logs',
+ *		help          = 'logs.txt'
+ *	)
  */
 class SystemController {
 
@@ -191,7 +223,7 @@ class SystemController {
 
 	/**
 	 * @Setting("version")
-	 * @Description("Bot version that database was created from")
+	 * @Description("Database version")
 	 * @Visibility("noedit")
 	 * @Type("text")
 	 * @AccessLevel("mod")
@@ -203,32 +235,15 @@ class SystemController {
 	 * This handler is called on bot startup.
 	 */
 	public function setup() {
-		$name = 'SystemController';
-		// don't register, only activate these commands to prevent them from appearing in !config
-		forEach (array('msg', 'priv', 'guild') as $channel) {
-			$this->commandManager->activate($channel, "$name.restartCommand", "restart", "admin");
-			$this->commandManager->activate($channel, "$name.shutdownCommand", "shutdown", "admin");
-			$this->commandManager->activate($channel, "$name.reloadconfigCommand", "reloadconfig", "admin");
-			$this->commandManager->activate($channel, "$name.systemCommand", "system", "mod");
-			$this->commandManager->activate($channel, "$name.logsCommand,$name.logsFileCommand", "logs", "admin");
-		}
-
-		// don't register, only activate these events to prevent them from appearing in !config
-		$this->eventManager->activate("1hour", "$name.refreshMySQLConnectionEvent");
-		$this->eventManager->activate("2sec", "$name.reduceSpamValuesEvent");
-		$this->eventManager->activate("connect", "$name.onConnectEvent");
-
 		global $version;
 		$this->settingManager->save('version', $version);
 
-		$this->helpManager->register($this->moduleName, "system", "system.txt", "admin", "Admin System Help file");
 		$this->helpManager->register($this->moduleName, "budatime", "budatime.txt", "all", "Format for budatime");
-		$this->helpManager->register($this->moduleName, "logs", "logs.txt", "all", "View bot logs");
 	}
 	
 	/**
-	 * This command handler restarts the bot.
-	 * Note: This handler has not been not registered, only activated.
+	 * @HandlesCommand("restart")
+	 * @Matches("/^restart$/i")
 	 */
 	public function restartCommand($message, $channel, $sender, $sendto, $args) {
 		$msg = "Bot is restarting.";
@@ -242,8 +257,8 @@ class SystemController {
 	}
 
 	/**
-	 * This command handler shutdowns the bot.
-	 * Note: This handler has not been not registered, only activated.
+	 * @HandlesCommand("shutdown")
+	 * @Matches("/^shutdown$/i")
 	 */
 	public function shutdownCommand($message, $channel, $sender, $sendto, $args) {
 		$msg = "The Bot is shutting down.";
@@ -257,8 +272,8 @@ class SystemController {
 	}
 
 	/**
-	 * This command handler reloads the configuration file.
-	 * Note: This handler has not been not registered, only activated.
+	 * @HandlesCommand("reloadconfig")
+	 * @Matches("/^reloadconfig$/i")
 	 */
 	public function reloadconfigCommand($message, $channel, $sender, $sendto, $args) {
 		global $configFile;
@@ -288,9 +303,7 @@ class SystemController {
 	}
 
 	/**
-	 * This command handler lists log files available in the bot's log folder.
-	 * Note: This handler has not been not registered, only activated.
-	 *
+	 * @HandlesCommand("logs")
 	 * @Matches("/^logs$/i")
 	 */
 	public function logsCommand($message, $channel, $sender, $sendto, $args) {
@@ -309,11 +322,9 @@ class SystemController {
 	}
 
 	/**
-	 * This command handler returns contents of given log file.
-	 * Note: This handler has not been not registered, only activated.
-	 *
-	 * @Matches("/^logs ([a-zA-Z0-9-_\\.]+)$/i")
-	 * @Matches("/^logs ([a-zA-Z0-9-_\\.]+) (.+)$/i")
+	 * @HandlesCommand("logs")
+	 * @Matches("/^logs ([a-zA-Z0-9-_\.]+)$/i")
+	 * @Matches("/^logs ([a-zA-Z0-9-_\.]+) (.+)$/i")
 	 */
 	public function logsFileCommand($message, $channel, $sender, $sendto, $args) {
 		$filename = $this->logger->get_logging_directory() . "/" . $args[1];
@@ -351,8 +362,8 @@ class SystemController {
 	}
 
 	/**
-	 * This command handler shows system information.
-	 * Note: This handler has not been not registered, only activated.
+	 * @HandlesCommand("system")
+	 * @Matches("/^system$/i")
 	 */
 	public function systemCommand($message, $channel, $sender, $sendto, $args) {
 		global $version;
@@ -424,8 +435,6 @@ class SystemController {
 	}
 
 	/**
-	 * This command handler check effective access level of a character.
-	 *
 	 * @HandlesCommand("checkaccess")
 	 * @Matches("/^checkaccess$/i")
 	 * @Matches("/^checkaccess (.+)$/i")
@@ -472,8 +481,9 @@ class SystemController {
 	}
 
 	/**
-	 * This event handler is called every hour to keep MySQL connection active.
-	 * Note: This handler has not been not registered, only activated.
+	 * @Event("1hour")
+	 * @Description("This event handler is called every hour to keep MySQL connection active")
+	 * @DefaultStatus("1")
 	 */
 	public function refreshMySQLConnectionEvent($eventObj) {
 		// if the bot doesn't query the mysql database for 8 hours the db connection is closed
@@ -483,8 +493,9 @@ class SystemController {
 	}
 
 	/**
-	 * This event handler is called every 2 seconds to reduce spam values.
-	 * Note: This handler has not been not registered, only activated.
+	 * @Event("2sec")
+	 * @Description("Reduces spam values for players")
+	 * @DefaultStatus("1")
 	 */
 	public function reduceSpamValuesEvent($eventObj) {
 		if (isset($this->chatBot->spam)) {
@@ -499,8 +510,8 @@ class SystemController {
 	}
 
 	/**
-	 * This event handler is called on 'connect' event.
-	 * Note: This handler has not been not registered, only activated.
+	 * @Event("connect")
+	 * @Description("Notify private channel, guild channel, and admins that bot is online")
 	 */
 	public function onConnectEvent($eventObj) {
 		// send Admin(s) a tell that the bot is online

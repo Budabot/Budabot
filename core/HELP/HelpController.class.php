@@ -5,6 +5,22 @@
  *  - Tyrence (RK2)
  *
  * @Instance
+ *
+ * Commands this class contains:
+ *	@DefineCommand(
+ *		command       = 'help',
+ *		accessLevel   = 'all',
+ *		description   = 'Show help topics',
+ *		help          = 'help.txt',
+ *		defaultStatus = '1'
+ *	)
+ *	@DefineCommand(
+ *		command       = 'about',
+ *		accessLevel   = 'all',
+ *		description   = 'Basic info about Budabot',
+ *		help          = 'about.txt',
+ *		defaultStatus = '1'
+ *	)
  */
 class HelpController {
 
@@ -28,20 +44,11 @@ class HelpController {
 	 * This handler is called on bot startup.
 	 */
 	public function setup() {
-		$className = get_class($this);
-		$this->commandManager->activate("msg", "$className.aboutCommand", "about", "all");
-		$this->commandManager->activate("priv", "$className.aboutCommand", "about", "all");
-		$this->commandManager->activate("guild", "$className.aboutCommand", "about", "all");
-		
-		$this->commandManager->activate("msg", "$className.helpShowCommand,$className.helpListCommand", "help", "all");
-		$this->commandManager->activate("priv", "$className.helpShowCommand,$className.helpListCommand", "help", "all");
-		$this->commandManager->activate("guild", "$className.helpShowCommand,$className.helpListCommand", "help", "all");
 
-		$this->helpManager->register($this->moduleName, "about", "about.txt", "all", "Basic info about Budabot");
-		$this->helpManager->register($this->moduleName, "help", "help.txt", "all", "How to use help");
 	}
 
 	/**
+	 * @HandlesCommand("about")
 	 * @Matches("/^about$/i")
 	 */
 	public function aboutCommand($message, $channel, $sender, $sendto) {
@@ -57,6 +64,7 @@ class HelpController {
 	}
 	
 	/**
+	 * @HandlesCommand("help")
 	 * @Matches("/^help$/i")
 	 */
 	public function helpListCommand($message, $channel, $sender, $sendto) {
@@ -85,6 +93,7 @@ class HelpController {
 	}
 	
 	/**
+	 * @HandlesCommand("help")
 	 * @Matches("/^help (.+)$/i")
 	 */
 	public function helpShowCommand($message, $channel, $sender, $sendto, $args) {

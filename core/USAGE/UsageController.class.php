@@ -43,7 +43,7 @@ class UsageController {
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, 'usage');
 		
-		$this->settingManager->add($this->moduleName, "record_usage_stats", "Enable recording usage stats", "edit", "options", "1", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, "record_usage_stats", "Record usage stats", "edit", "options", "1", "true;false", "1;0");
 		$this->settingManager->add($this->moduleName, 'botid', 'Botid', 'noedit', 'text', '');
 		$this->settingManager->add($this->moduleName, 'last_submitted_stats', 'last_submitted_stats', 'noedit', 'text', 0);
 	}

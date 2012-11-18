@@ -1,6 +1,15 @@
 <?php
 /**
  * @Instance
+ *
+ * Commands this controller contains:
+ *	@DefineCommand(
+ *		command     = 'settings', 
+ *		accessLevel = 'mod', 
+ *		description = 'Change settings on the bot', 
+ *		help        = 'settings.txt',
+ *		defaultStatus = '1'
+ *	)
  */
 class SettingsController {
 
@@ -132,22 +141,11 @@ class SettingsController {
 	 * This handler is called on bot startup.
 	 */
 	public function setup() {
-		// activate command handlers
-		$objname = 'SettingsController';
-		$methods = "$objname.settingsCommand,$objname.changeCommand,$objname.saveCommand";
-		$this->commandManager->activate("msg", $methods, "settings", "mod");
-		$this->commandManager->activate("priv", $methods, "settings", "mod");
-		$this->commandManager->activate("guild", $methods, "settings", "mod");
-
 		$this->settingManager->upload();
-
-		$this->helpManager->register($this->moduleName, "settings", "settings.txt", "mod", "Change Settings of the Bot");
 	}
 
 	/**
-	 * This command handler lists all settings the bot has.
-	 * Note: This handler has not been not registered, only activated.
-	 *
+	 * @HandlesCommand("settings")
 	 * @Matches("/^settings$/i")
 	 */
 	public function settingsCommand($message, $channel, $sender, $sendto, $args) {
@@ -175,9 +173,7 @@ class SettingsController {
 	}
 
 	/**
-	 * This command handler shows config window for a single setting.
-	 * Note: This handler has not been not registered, only activated.
-	 *
+	 * @HandlesCommand("settings")
 	 * @Matches("/^settings change ([a-z0-9_]+)$/i")
 	 */
 	public function changeCommand($message, $channel, $sender, $sendto, $args) {
@@ -266,9 +262,7 @@ class SettingsController {
 	}
 
 	/**
-	 * This command handler sets value of given setting.
-	 * Note: This handler has not been not registered, only activated.
-	 *
+	 * @HandlesCommand("settings")
 	 * @Matches("/^settings save ([a-z0-9_]+) (.+)$/i")
 	 */
 	public function saveCommand($message, $channel, $sender, $sendto, $args) {

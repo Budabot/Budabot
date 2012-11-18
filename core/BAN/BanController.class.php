@@ -66,9 +66,6 @@ class BanController {
 	public $text;
 
 	/** @Inject */
-	public $eventManager;
-
-	/** @Inject */
 	public $db;
 
 	/**
@@ -89,7 +86,6 @@ class BanController {
 	public function setup() {
 		$this->db->exec("CREATE TABLE IF NOT EXISTS banlist_<myname> (name VARCHAR(25) NOT NULL PRIMARY KEY, admin VARCHAR(25), time INT, reason TEXT, banend INT)");
 		$this->banManager->upload_banlist();
-		$this->eventManager->activate('1min', 'BanController.checkTempBan');
 	}
 
 	/**
@@ -292,8 +288,8 @@ class BanController {
 	}
 
 	/**
-	 * This event handler is called every minute to check temp bans.
-	 * Note: This handler is only activated and not registered.
+	 * @Event("1min")
+	 * @Description("Check temp bans to see if they have expired")
 	 */
 	public function checkTempBan($eventObj) {
 		$update = false;
