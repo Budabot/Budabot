@@ -512,6 +512,7 @@ class SystemController {
 	/**
 	 * @Event("connect")
 	 * @Description("Notify private channel, guild channel, and admins that bot is online")
+	 * @DefaultStatus("1")
 	 */
 	public function onConnectEvent($eventObj) {
 		// send Admin(s) a tell that the bot is online
