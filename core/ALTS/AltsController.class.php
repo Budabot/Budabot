@@ -10,28 +10,24 @@ require_once 'Alts.interface.php';
  *		command       = 'alts',
  *		accessLevel   = 'member',
  *		description   = 'Alt character handling',
- *		help          = 'alts.txt',
- *		defaultStatus = '1'
+ *		help          = 'alts.txt'
  *	)
  *	@DefineCommand(
  *		command       = 'alts main (.+)',
  *		accessLevel   = 'member',
- *		description   = 'Add yourself as an alt to a main',
- *		defaultStatus = '1'
+ *		description   = 'Add yourself as an alt to a main'
  *	)
  *	@DefineCommand(
  *		command       = 'altsadmin',
  *		accessLevel   = 'mod',
  *		description   = 'Alt character handling (admin)',
- *		help          = 'altsadmin.txt',
- *		defaultStatus = '1'
+ *		help          = 'altsadmin.txt'
  *	)
  *	@DefineCommand(
  *		command       = 'altvalidate',
  *		accessLevel   = 'member',
  *		description   = 'Validate alts for admin privileges',
- *		help          = 'altvalidate.txt',
- *		defaultStatus = '1'
+ *		help          = 'altvalidate.txt'
  *	)
  */
 class AltsController implements AltsInterface {
@@ -394,8 +390,6 @@ class AltsController implements AltsInterface {
 	}
 
 	/**
-	 * This event handler reminds players logging in to validate alts.
-	 *
 	 * @Event("logOn")
 	 * @Description("Reminds players logging in to validate alts")
 	 */

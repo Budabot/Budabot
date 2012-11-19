@@ -290,6 +290,7 @@ class BanController {
 	/**
 	 * @Event("1min")
 	 * @Description("Check temp bans to see if they have expired")
+	 * @DefaultStatus("1")
 	 */
 	public function checkTempBan($eventObj) {
 		$update = false;

@@ -187,6 +187,7 @@ class AdminController {
 	/**
 	 * @Event("connect")
 	 * @Description("Add administrators and moderators to the buddy list")
+	 * @DefaultStatus("1")
 	 */
 	public function checkAdminsEvent($eventObj) {
 		$data = $this->db->query("SELECT * FROM admin_<myname>");
