@@ -108,7 +108,7 @@ class BuffItemsController {
 	 * @Matches("/^whatbuffs (.+)$/i")
 	 */
 	public function whatbuffsCommand($message, $channel, $sender, $sendto, $args) {
-		$name = trim($args[1]);
+		$name = htmlspecialchars_decode(trim($args[1]), ENT_QUOTES);
 		
 		// check if key words are unambiguous
 		$skills = array();

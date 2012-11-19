@@ -212,7 +212,7 @@ class AdminController {
 		}
 
 		if (!$this->checkAltsInheritAdmin($who)) {
-			$msg "<red>WARNING<end>: alts_inherit_admin is enabled, but $who is not a main.  This command did NOT affect $who's access level.";
+			$msg = "<red>WARNING<end>: alts_inherit_admin is enabled, but $who is not a main.  This command did NOT affect $who's access level.";
 			$sendto->reply($msg);
 			return;
 		}
@@ -237,7 +237,7 @@ class AdminController {
 		$this->adminManager->removeFromLists($who);
 
 		if (!$this->checkAltsInheritAdmin($who)) {
-			$msg "<red>WARNING<end>: alts_inherit_admin is enabled, but $who is not a main.  This command did NOT affect $who's access level.";
+			$msg = "<red>WARNING<end>: alts_inherit_admin is enabled, but $who is not a main.  This command did NOT affect $who's access level.";
 			$sendto->reply($msg);
 		}
 
