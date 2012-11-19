@@ -44,7 +44,7 @@ class AliasController {
 	 */
 	public function addaliasCommand($message, $channel, $sender, $sendto, $args) {
 		$alias = strtolower($args[1]);
-		$cmd = strtolower($args[2]);
+		$cmd = $args[2];
 	
 		$alias_obj = new stdClass;
 		$alias_obj->module = '';
