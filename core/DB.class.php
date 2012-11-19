@@ -193,7 +193,7 @@ class DB {
 		$name = strtolower($name);
 
 		// only letters, numbers, underscores are allowed
-		if (!preg_match('/^[a-z0-9_]+$/', $name)) {
+		if (!preg_match('/^[a-z0-9_]+$/i', $name)) {
 			$msg = "Invalid SQL file name: '$name' for module: '$module'!  Only numbers, letters, and underscores permitted!";
 			LegacyLogger::log('ERROR', 'SQL', $msg);
 			return $msg;

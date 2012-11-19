@@ -68,7 +68,7 @@ class RelayController {
 	
 	/**
 	 * @HandlesCommand("tellrelay")
-	 * @Matches("/^tellrelay (.*)$/")
+	 * @Matches("/^tellrelay (.*)$/i")
 	 */
 	public function tellrelayCommand($message, $channel, $sender, $sendto, $args) {
 		$name = ucfirst(strtolower($args[1]));

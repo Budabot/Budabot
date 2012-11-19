@@ -87,7 +87,7 @@ class WeatherController {
 		$humidity = xml::spliceData($current, "<relative_humidity>", "</relative_humidity>");
 		$windstr = xml::spliceData($current, "<wind_string>", "</wind_string>");
 		$windgust = xml::spliceData($current, "<wind_gust_mph>", "</wind_gust_mph>");
-		$pressurestr = str_replace('"', "&quot;", xml::spliceData($current, "<pressure_string>", "</pressure_string>"));
+		$pressurestr = xml::spliceData($current, "<pressure_string>", "</pressure_string>");
 		$dewstr = xml::spliceData($current, "<dewpoint_string>", "</dewpoint_string>");
 		$heatstr = xml::spliceData($current, "<heat_index_string>", "</heat_index_string>");
 		$windchillstr = xml::spliceData($current, "<windchill_string>", "</windchill_string>");

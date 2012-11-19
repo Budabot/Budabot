@@ -36,7 +36,7 @@ class Whitelist {
 	
 	/**
 	 * @HandlesCommand("whitelist")
-	 * @Matches("/^whitelist$/")
+	 * @Matches("/^whitelist$/i")
 	 */
 	public function whitelistCommand($message, $channel, $sender, $sendto, $args) {
 		$list = $this->all();
@@ -55,7 +55,7 @@ class Whitelist {
 	
 	/**
 	 * @HandlesCommand("whitelist")
-	 * @Matches("/^whitelist add (.+)$/")
+	 * @Matches("/^whitelist add (.+)$/i")
 	 */
 	public function whitelistAddCommand($message, $channel, $sender, $sendto, $args) {
 		$sendto->reply($this->add($args[1], $sender));
@@ -63,7 +63,7 @@ class Whitelist {
 	
 	/**
 	 * @HandlesCommand("whitelist")
-	 * @Matches("/^whitelist (rem|remove|del|delete) (.+)$/")
+	 * @Matches("/^whitelist (rem|remove|del|delete) (.+)$/i")
 	 */
 	public function whitelistRemoveCommand($message, $channel, $sender, $sendto, $args) {
 		$sendto->reply($this->remove($args[2]));

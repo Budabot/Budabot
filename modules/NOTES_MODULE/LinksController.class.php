@@ -72,7 +72,7 @@ class LinksController {
 	 * @Matches("/^links add ([^ ]+) (.+)$/i")
 	 */
 	public function linksAddCommand($message, $channel, $sender, $sendto, $args) {
-		$website = html_entity_decode($args[1]);
+		$website = htmlspecialchars($args[1]);
 		$comments = $args[2];
 
 		$this->db->query("INSERT INTO links (`name`, `website`, `comments`, `dt`) VALUES(?, ?, ?, ?)", $sender, $website, $comments, time());
