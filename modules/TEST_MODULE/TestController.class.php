@@ -48,6 +48,12 @@
  *		description = "Test the bot commands", 
  *		help        = 'test.txt'
  *	)
+ *	@DefineCommand(
+ *		command     = 'testevent', 
+ *		accessLevel = 'admin', 
+ *		description = "Test the bot commands", 
+ *		help        = 'test.txt'
+ *	)
  */
 class TestController {
 
@@ -59,9 +65,6 @@ class TestController {
 
 	/** @Inject */
 	public $chatBot;
-	
-	/** @Inject */
-	public $eventManager;
 	
 	/** @Inject */
 	public $util;
@@ -80,6 +83,9 @@ class TestController {
 
 	/** @Inject */
 	public $subcommandManager;
+	
+	/** @Inject */
+	public $eventManager;
 	
 	/** @Logger */
 	public $logger;
@@ -309,6 +315,16 @@ class TestController {
 			$msg = "Instance <highlight>$instanceName<end> has been reloaded.";
 		}
 		$sendto->reply($msg);
+	}
+	
+	/**
+	 * @HandlesCommand("testevent")
+	 * @Matches("/^testevent (.+)$/i")
+	 */
+	public function testeventCommand($message, $channel, $sender, $sendto, $args) {
+		$event = $args[1];
+		
+		$this->eventManager->callEventHandler(null, $event);
 	}
 }
 
