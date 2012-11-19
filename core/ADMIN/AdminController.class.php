@@ -212,12 +212,7 @@ class AdminController {
 		}
 
 		if (!$this->checkAltsInheritAdmin($who)) {
-			$msg = "<red>Alts inheriting admin is enabled, and $who is not a main.<end>";
-			if ($this->adminManager->admins[$ai->main]["level"] == $intlevel) {
-				$msg .= " <highlight>{$ai->main}<end> is already $rank.";
-			} else {
-				$msg .= " Try again with <highlight>$who<end>'s main, <highlight>{$ai->main}<end>.";
-			}
+			$msg "<red>WARNING<end>: alts_inherit_admin is enabled, but $who is not a main.  This command did NOT affect $who's access level.";
 			$sendto->reply($msg);
 			return;
 		}
@@ -242,7 +237,8 @@ class AdminController {
 		$this->adminManager->removeFromLists($who);
 
 		if (!$this->checkAltsInheritAdmin($who)) {
-			$sendto->reply("<red>WARNING<end>: alts inheriting admin is enabled, but $who is not a main.  {$ai->main} is $who's main.  <red>This command did NOT affect either characters' admin privileges.<end>");
+			$msg "<red>WARNING<end>: alts_inherit_admin is enabled, but $who is not a main.  This command did NOT affect $who's access level.";
+			$sendto->reply($msg);
 		}
 
 		$sendto->reply("<highlight>$who<end> has been removed as $rank.");
