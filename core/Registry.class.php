@@ -119,6 +119,10 @@ class Registry {
 		}
 		return $newInstances;
 	}
+	
+	public static function getAllInstances() {
+		return self::$repo;
+	}
 }
 
 ?>

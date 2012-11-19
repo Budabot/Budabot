@@ -301,9 +301,26 @@ class TestController {
 	
 	/**
 	 * @HandlesCommand("reloadinstance")
-	 * @Matches("/^reloadinstance (.+)$/i")
+	 * @Matches("/^reloadinstance all$/i")
 	 */
 	public function reloadinstanceCommand($message, $channel, $sender, $sendto, $args) {
+		$instances = Registry::getAllInstances();
+		$count = count($instances);
+		$blob = '';
+		forEach ($instances as $name =>$instance) {
+			$blob .= $name . ' (' . get_class($instance) . ")\n";
+			Registry::importChanges($instance);
+			Registry::injectDependencies($instance);
+		}
+		$msg = $this->text->make_blob("All instances have been reloaded ($count)", $blob);
+		$sendto->reply($msg);
+	}
+	
+	/**
+	 * @HandlesCommand("reloadinstance")
+	 * @Matches("/^reloadinstance (.+)$/i")
+	 */
+	public function reloadinstanceAllCommand($message, $channel, $sender, $sendto, $args) {
 		$instanceName = $args[1];
 		
 		$instance = Registry::getInstance($instanceName);
