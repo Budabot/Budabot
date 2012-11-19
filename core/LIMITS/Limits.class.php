@@ -40,7 +40,7 @@ class Limits {
 		$this->settingManager->add($this->moduleName, "tell_req_lvl", "Minimum level required to send tell to bot", "edit", "number", "0", "0;10;50;100;150;190;205;215");
 		$this->settingManager->add($this->moduleName, "tell_req_faction", "Faction required to send tell to bot", "edit", "options", "all", "all;Omni;Neutral;Clan;not Omni;not Neutral;not Clan");
 		$this->settingManager->add($this->moduleName, "tell_req_open", "General requirements to send tell to bot", "edit", "options", "all", "all;member;guild;rl;mod");
-		$this->settingManager->add($this->moduleName, "tell_min_player_age", "Minimum age of player to send tell to bot", "edit", "time", "1s", "1s;7days;1month;1year;2years", '', 'mod', 'limits.txt');
+		$this->settingManager->add($this->moduleName, "tell_min_player_age", "Minimum age of player to send tell to bot", "edit", "time", "1s", "1s;7days;14days;1month;2months;6months;1year;2years", '', 'mod', 'limits.txt');
 		$this->settingManager->add($this->moduleName, "tell_generic_error_msg", "Show generic (not specific) messages when limit requirements are not met", "edit", "options", "0", "enable;disable", "1;0");
 	}
 	

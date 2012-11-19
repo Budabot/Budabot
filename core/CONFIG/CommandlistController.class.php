@@ -32,8 +32,10 @@ class CommandlistController {
 	 * @Matches("/^cmdlist (.*)$/i")
 	 */
 	public function cmdlistCommand($message, $channel, $sender, $sendto, $args) {
+		$params = array();
 		if ($args[1] != '') {
-			$cmdSearchSql = "AND c.cmd LIKE '%{$args[1]}%'";
+			$params []= '%' . $args[1] . '%';
+			$cmdSearchSql = "AND c.cmd LIKE ?";
 		}
 	
 		$sql = "
@@ -60,55 +62,60 @@ class CommandlistController {
 				c.cmd, c.description, c.module
 			ORDER BY
 				cmd ASC";
-		$data = $this->db->query($sql);
+		$data = $this->db->query($sql, $params);
+		$count = count($data);
 	
-		$blob = '';
-		forEach ($data as $row) {
-			$guild = '';
-			$priv = '';
-			$msg = '';
-	
-			if ($row->cmdevent == 'subcmd') {
-				$cmd = $row->dependson;
-			} else {
-				$cmd = $row->cmd;
+		if ($count > 0) {
+			$blob = '';
+			forEach ($data as $row) {
+				$guild = '';
+				$priv = '';
+				$msg = '';
+		
+				if ($row->cmdevent == 'subcmd') {
+					$cmd = $row->dependson;
+				} else {
+					$cmd = $row->cmd;
+				}
+		
+				if ($this->accessManager->checkAccess($sender, 'moderator')) {
+					$on = $this->text->make_chatcmd('ON', "/tell <myname> config cmd $cmd enable all");
+					$off = $this->text->make_chatcmd('OFF', "/tell <myname> config cmd $cmd disable all");
+					$adv = $this->text->make_chatcmd('Permissions', "/tell <myname> config cmd $cmd");
+					$adv_link = " ($adv) $on  $off";
+				}
+		
+				if ($row->msg_avail == 0) {
+					$tell = "_";
+				} else if ($row->msg_status == 1) {
+					$tell = "<green>T<end>";
+				} else {
+					$tell = "<red>T<end>";
+				}
+		
+				if ($row->guild_avail == 0) {
+					$guild = "_";
+				} else if ($row->guild_status == 1) {
+					$guild = "<green>G<end>";
+				} else {
+					$guild = "<red>G<end>";
+				}
+		
+				if ($row->priv_avail == 0) {
+					$priv = "_";
+				} else if ($row->priv_status == 1) {
+					$priv = "<green>P<end>";
+				} else {
+					$priv = "<red>P<end>";
+				}
+		
+				$blob .= "$row->cmd ({$tell}|{$guild}|{$priv}) {$adv_link} - ($row->description)\n";
 			}
-	
-			if ($this->accessManager->checkAccess($sender, 'moderator')) {
-				$on = $this->text->make_chatcmd('ON', "/tell <myname> config cmd $cmd enable all");
-				$off = $this->text->make_chatcmd('OFF', "/tell <myname> config cmd $cmd disable all");
-				$adv = $this->text->make_chatcmd('Permissions', "/tell <myname> config cmd $cmd");
-				$adv_link = " ($adv) $on  $off";
-			}
-	
-			if ($row->msg_avail == 0) {
-				$tell = "_";
-			} else if ($row->msg_status == 1) {
-				$tell = "<green>T<end>";
-			} else {
-				$tell = "<red>T<end>";
-			}
-	
-			if ($row->guild_avail == 0) {
-				$guild = "_";
-			} else if ($row->guild_status == 1) {
-				$guild = "<green>G<end>";
-			} else {
-				$guild = "<red>G<end>";
-			}
-	
-			if ($row->priv_avail == 0) {
-				$priv = "_";
-			} else if ($row->priv_status == 1) {
-				$priv = "<green>P<end>";
-			} else {
-				$priv = "<red>P<end>";
-			}
-	
-			$blob .= "$row->cmd ({$tell}|{$guild}|{$priv}) {$adv_link} - ($row->description)\n";
+		
+			$msg = $this->text->make_blob("Command List ($count)", $blob);
+		} else {
+			$msg = "No commands were found.";
 		}
-	
-		$msg = $this->text->make_blob("Command List", $blob);
 		$sendto->reply($msg);
 	}
 }

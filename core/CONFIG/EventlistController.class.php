@@ -28,9 +28,10 @@ class EventlistController {
 	 * @Matches("/^eventlist (.+)$/i")
 	 */
 	public function eventlistCommand($message, $channel, $sender, $sendto, $args) {
+		$params = array();
 		if (isset($args[1])) {
-			$eventType = str_replace("'", "''", $args[1]);
-			$cmdSearchSql = "WHERE type LIKE '%{$eventType}%'";
+			$params []= '%' . $args[1] . '%';
+			$cmdSearchSql = "WHERE type LIKE ?";
 		}
 	
 		$sql = "
@@ -45,9 +46,10 @@ class EventlistController {
 			$cmdSearchSql
 			ORDER BY
 				type ASC";
-		$data = $this->db->query($sql);
+		$data = $this->db->query($sql, $params);
+		$count = count($data);
 	
-		if (count($data) > 0) {
+		if ($count > 0) {
 			$blob = '';
 			forEach ($data as $row) {
 				$on = $this->text->make_chatcmd('ON', "/tell <myname> config event $row->type $row->file enable all");
@@ -66,9 +68,9 @@ class EventlistController {
 				}
 			}
 	
-			$msg = $this->text->make_blob("Event List", $blob);
+			$msg = $this->text->make_blob("Event List ($count)", $blob);
 		} else {
-			$msg = "No events could be found for event type '$args[1]'.";
+			$msg = "No events were found.";
 		}
 		$sendto->reply($msg);
 	}

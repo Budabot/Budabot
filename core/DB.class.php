@@ -64,8 +64,7 @@ class DB {
 	function queryRow($sql) {
 		$sql = $this->formatSql($sql);
 
-		$args = func_get_args();
-		array_shift($args);
+		$args = $this->getParameters(func_get_args());
 
 		$ps = $this->executeQuery($sql, $args);
 		$result = $ps->fetchAll(PDO::FETCH_CLASS, 'DBRow');
@@ -77,18 +76,15 @@ class DB {
 		}
 	}
 
-	//Sends a query to the Database and gives the result back
 	function query($sql) {
 		$sql = $this->formatSql($sql);
 
-		$args = func_get_args();
-		array_shift($args);
+		$args = $this->getParameters(func_get_args());
 
 		$ps = $this->executeQuery($sql, $args);
 		return $ps->fetchAll(PDO::FETCH_CLASS, 'DBRow');
 	}
 
-	//Does Basicly the same thing just don't gives the result back(used for create table, Insert, delete etc), a bit faster as normal querys
 	function exec($sql) {
 		$sql = $this->formatSql($sql);
 
@@ -101,12 +97,20 @@ class DB {
 			}
 		}
 
-		$args = func_get_args();
-		array_shift($args);
+		$args = $this->getParameters(func_get_args());
 
 		$ps = $this->executeQuery($sql, $args);
 
 		return $ps->rowCount();
+	}
+	
+	private function getParameters($args) {
+		array_shift($args);
+		if (isset($args[0]) && is_array($args[0])) {
+			return $args[0];
+		} else {
+			return $args;
+		}
 	}
 
 	private function executeQuery($sql, $params) {

@@ -134,13 +134,14 @@ class BankController {
 		$limit = $this->settingManager->get('max_bank_items');
 
 		$where_sql = '';
+		$params = array();
 		forEach ($search as $word) {
-			$word = str_replace("'", "''", $word);
-			$where_sql .= " AND name LIKE '%{$word}%'";
+			$params []= '%' . $word . '%';
+			$where_sql .= " AND name LIKE ?";
 		}
 
 		$blob = '';
-		$data = $this->db->query("SELECT * FROM bank WHERE 1 = 1 {$where_sql} ORDER BY name ASC, ql ASC LIMIT {$limit}");
+		$data = $this->db->query("SELECT * FROM bank WHERE 1 = 1 {$where_sql} ORDER BY name ASC, ql ASC LIMIT {$limit}", $params);
 
 		if (count($data) > 0) {
 			forEach ($data as $row) {

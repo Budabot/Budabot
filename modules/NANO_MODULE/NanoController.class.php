@@ -72,8 +72,10 @@ class NanoController {
 		$name = str_replace("'", "''", $name);
 
 		$tmp = explode(" ", $name);
+		$params = array();
 		forEach ($tmp as $key => $value) {
-			$query .= " AND n1.`name` LIKE '%$value%'";
+			$params []= '%' . $value . '%';
+			$query .= " AND n1.`name` LIKE ?";
 		}
 
 		$sql =
@@ -94,7 +96,7 @@ class NanoController {
 			LIMIT
 				" . $this->settingManager->get("maxnano");
 
-		$data = $this->db->query($sql);
+		$data = $this->db->query($sql, $params);
 
 		$count = count($data);
 		if ($count == 0) {
