@@ -443,13 +443,13 @@ class Util {
 	
 	public function getFilesInDirectory($path) {
 		$files = array();
-		if ($handle = opendir($path)) {
-			while (false !== ($entry = readdir($handle))) {
-				if ($entry != "." && $entry != "..") {
+		if ($dir = dir($path)) {
+			while (false !== ($entry = $dir->read())) {
+				if (!is_dir($path . "/" . $entry)) {
 					$files []= $entry;
 				}
 			}
-			closedir($handle);
+			$dir->close();
 		}
 		return $files;
 	}

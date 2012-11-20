@@ -92,16 +92,15 @@ class Registry {
 		runkit_import($reflection->getFileName(), RUNKIT_IMPORT_CLASSES | RUNKIT_IMPORT_FUNCTIONS | RUNKIT_IMPORT_OVERRIDE);
 	}
 	
-	public static function getNewInstancesInDir($dir) {
+	public static function getNewInstancesInDir($path) {
 		$original = get_declared_classes();
-		if ($d = dir($dir)) {
-			while (false !== ($file = $d->read())) {
-				// filters out ., .., .svn
-				if (!is_dir($file) && preg_match("/\\.php$/i", $file)) {
-					require_once "{$dir}/{$file}";
+		if ($dir = dir($path)) {
+			while (false !== ($file = $dir->read())) {
+				if (!is_dir($path . '/' . $file) && preg_match("/\\.php$/i", $file)) {
+					require_once "{$path}/{$file}";
 				}
 			}
-			$d->close();
+			$dir->close();
 		}
 		$new = array_diff(get_declared_classes(), $original);
 
