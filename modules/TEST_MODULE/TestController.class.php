@@ -55,40 +55,13 @@
  *		help        = 'test.txt'
  *	)
  */
-class TestController {
+class TestController extends AutoInject {
 
 	/**
 	 * Name of the module.
 	 * Set automatically by module loader.
 	 */
 	public $moduleName;
-
-	/** @Inject */
-	public $chatBot;
-	
-	/** @Inject */
-	public $util;
-	
-	/** @Inject */
-	public $settingManager;
-	
-	/** @Inject */
-	public $text;
-	
-	/** @Inject */
-	public $accessManager;
-
-	/** @Inject */
-	public $commandManager;
-
-	/** @Inject */
-	public $subcommandManager;
-	
-	/** @Inject */
-	public $eventManager;
-	
-	/** @Logger */
-	public $logger;
 
 	/**
 	 * @Setup
