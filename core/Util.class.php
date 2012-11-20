@@ -321,7 +321,7 @@ class Util {
 	}
 
 	public function rand_array_value($array) {
-		return $array[rand(0, sizeof($array) - 1)];
+		return $array[rand(0, count($array) - 1)];
 	}
 
 	// checks to see if user is valid

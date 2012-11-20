@@ -72,14 +72,14 @@ class MyCurl {
 
 		$s = curl_init();
 
-		curl_setopt($s,CURLOPT_URL,$this->_url);
-		curl_setopt($s,CURLOPT_HTTPHEADER,array('Expect:'));
-		curl_setopt($s,CURLOPT_TIMEOUT,$this->_timeout);
-		curl_setopt($s,CURLOPT_MAXREDIRS,$this->_maxRedirects);
-		curl_setopt($s,CURLOPT_RETURNTRANSFER,true);
-		curl_setopt($s,CURLOPT_FOLLOWLOCATION,$this->_followlocation);
-		curl_setopt($s,CURLOPT_COOKIEJAR,$this->_cookieFileLocation);
-		curl_setopt($s,CURLOPT_COOKIEFILE,$this->_cookieFileLocation);
+		curl_setopt($s, CURLOPT_URL, $this->_url);
+		curl_setopt($s, CURLOPT_HTTPHEADER, array('Expect:'));
+		curl_setopt($s, CURLOPT_TIMEOUT, $this->_timeout);
+		curl_setopt($s, CURLOPT_MAXREDIRS, $this->_maxRedirects);
+		curl_setopt($s, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($s, CURLOPT_FOLLOWLOCATION, $this->_followlocation);
+		curl_setopt($s, CURLOPT_COOKIEJAR, $this->_cookieFileLocation);
+		curl_setopt($s, CURLOPT_COOKIEFILE, $this->_cookieFileLocation);
 
 		if ($this->authentication == 1) {
 			curl_setopt($s, CURLOPT_USERPWD, $this->auth_name.':'.$this->auth_pass);

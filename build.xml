@@ -162,11 +162,12 @@
 		<mkdir dir="build" />
 
 		<!-- run the checker -->
-		<phpcodesniffer standard="conf/CodingStandard" haltonwarning="true" haltonerror="true">
+		<phpcodesniffer standard="conf/CodingStandard" haltonerror="true">
 			<fileset dir=".">
 				<include name="**/*.php" />
 				<exclude name="lib**" />
 				<exclude name="build**" />
+				<exclude name="conf/test_config.php" />
 			</fileset>
 			<formatter type="default" usefile="false" />
 			<formatter type="checkstyle" outfile="build/checkstyle.xml" />

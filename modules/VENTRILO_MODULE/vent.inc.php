@@ -150,11 +150,25 @@ class Vent {
 	var $packets = array();	// hold all the decoded response packets, in correct order
 	var $response;			// all the decoded data
 
-	function getClock()			{ return $this->clock; }
-	function getTimeout()			{ return $this->timeout; }
-	function setTimeout( $microsecs )	{ $this->timeout = $microsecs; }
-	function &getPackets()		{ return $this->packets; } // by ref
-	function getResponse()		{ return $this->response; }
+	function getClock() {
+		return $this->clock;
+	}
+
+	function getTimeout() {
+		return $this->timeout;
+	}
+
+	function setTimeout( $microsecs ) {
+		$this->timeout = $microsecs;
+	}
+
+	function &getPackets() { 
+		return $this->packets;
+	}
+
+	function getResponse() {
+		return $this->response;
+	}
 	
 	function __construct() {
 		$this->timeout = 5000000;		// default to 5 second timeout

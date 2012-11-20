@@ -136,4 +136,3 @@ class ChatTopicController {
 		return $msg;
 	}
 }
-	

@@ -79,7 +79,7 @@ class BuffItemsController {
 				$blob = "Buff item search results for <highlight>$name<end>:\n\n";
 				forEach ($matches as $result) {
 					$buffItemLink = $this->text->make_chatcmd($result[0], "/tell <myname> buffitem ".$result[0]);
-					$blob .= "- $buffItemLink" . (sizeof($result) == 3 ? " (".$result[2].")" : "")."\n";
+					$blob .= "- $buffItemLink" . (count($result) == 3 ? " (".$result[2].")" : "")."\n";
 				}
 				$blob .= "\n\nby Imoutochan, RK1";
 				$msg = $this->text->make_blob("Buff item search results (<highlight>$found<end>)", $blob);

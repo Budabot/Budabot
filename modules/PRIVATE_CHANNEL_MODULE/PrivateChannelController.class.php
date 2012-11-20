@@ -403,7 +403,21 @@ class PrivateChannelController {
 		}
 		*/
 
-		$msg .= "<highlight>".$online['Adventurer']."<end> Adv, <highlight>".$online['Agent']."<end> Agent, <highlight>".$online['Bureaucrat']."<end> Crat, <highlight>".$online['Doctor']."<end> Doc, <highlight>".$online['Enforcer']."<end> Enf, <highlight>".$online['Engineer']."<end> Eng, <highlight>".$online['Fixer']."<end> Fix, <highlight>".$online['Keeper']."<end> Keeper, <highlight>".$online['Martial Artist']."<end> MA, <highlight>".$online['Meta-Physicist']."<end> MP, <highlight>".$online['Nano-Technician']."<end> NT, <highlight>".$online['Soldier']."<end> Sol, <highlight>".$online['Shade']."<end> Shade, <highlight>".$online['Trader']."<end> Trader";
+		// TODO: Holy nerd batman! that's a lot of duplicated code!
+		$msg .= "<highlight>".$online['Adventurer']."<end> Adv, "
+			. "<highlight>".$online['Agent']."<end> Agent, "
+			. "<highlight>".$online['Bureaucrat']."<end> Crat, "
+			. "<highlight>".$online['Doctor']."<end> Doc, "
+			. "<highlight>".$online['Enforcer']."<end> Enf, "
+			. "<highlight>".$online['Engineer']."<end> Eng, "
+			. "<highlight>".$online['Fixer']."<end> Fix, "
+			. "<highlight>".$online['Keeper']."<end> Keeper, "
+			. "<highlight>".$online['Martial Artist']."<end> MA, "
+			. "<highlight>".$online['Meta-Physicist']."<end> MP, "
+			. "<highlight>".$online['Nano-Technician']."<end> NT, "
+			. "<highlight>".$online['Soldier']."<end> Sol, "
+			. "<highlight>".$online['Shade']."<end> Shade, "
+			. "<highlight>".$online['Trader']."<end> Trader";
 
 		$sendto->reply($msg);
 	}

@@ -7,7 +7,7 @@ class SocketManager {
 	private $socketNotifiers = array();
 	private $monitoredSocketsByType = array();
 	
-	public function __construct(&$vars){
+	public function __construct(&$vars) {
 		$this->monitoredSocketsByType[SocketNotifier::ACTIVITY_READ] = array();
 		$this->monitoredSocketsByType[SocketNotifier::ACTIVITY_WRITE] = array();
 		$this->monitoredSocketsByType[SocketNotifier::ACTIVITY_ERROR] = array();

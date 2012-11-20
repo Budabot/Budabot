@@ -42,14 +42,14 @@ class RaffleController {
 		if (!isset($this->raffles)) {
 			$this->raffles = array(
 				"running" => false,
-				"owner" => NULL,
-				"item" => NULL,
-				"count" => NULL,
-				"time" => NULL,
-				"rafflees" => NULL,
-				"lastresult" => NULL,
-				"nextmsgtime" => NULL,
-				"sendto" => NULL
+				"owner" => null,
+				"item" => null,
+				"count" => null,
+				"time" => null,
+				"rafflees" => null,
+				"lastresult" => null,
+				"nextmsgtime" => null,
+				"sendto" => null
 			);
 		}
 	
@@ -91,7 +91,7 @@ class RaffleController {
 			"count" => $count,
 			"time" => time() +  $seconds,
 			"rafflees" => array(),
-			"lastresult" => NULL,
+			"lastresult" => null,
 			"sendto" => $sendto
 		);
 		
@@ -132,11 +132,11 @@ class RaffleController {
 		$sendtobuffer = $this->raffles["sendto"];
 		$this->raffles = array(
 			"running" => false,
-			"owner" => NULL,
-			"item" => NULL,
-			"count" => NULL,
-			"time" => NULL,
-			"rafflees" => NULL,
+			"owner" => null,
+			"item" => null,
+			"count" => null,
+			"time" => null,
+			"rafflees" => null,
 			"lastresult" => "The last raffle was cancelled.",
 			"sendto" => $sendtobuffer
 		);

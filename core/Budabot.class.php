@@ -156,7 +156,7 @@ class Budabot extends AOChat {
 	 * @name: connect
 	 * @description: connect to AO chat servers
 	 */
-	function connectAO($login, $password, $server, $port){
+	function connectAO($login, $password, $server, $port) {
 		// Begin the login process
 		$this->logger->log('INFO', "Connecting to AO Server...({$server}:{$port})");
 		$this->connect($server, $port);

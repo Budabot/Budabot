@@ -26,7 +26,7 @@ class Text {
 	 * @name: make_blob
 	 * @description: creates an info window
 	 */
-	function make_blob($name, $content, $header = NULL) {
+	function make_blob($name, $content, $header = null) {
 		if ($header === null) {
 			$header = $name;
 		}
@@ -140,7 +140,7 @@ class Text {
 	 * @param: $content - the chatcmd to execute
 	 * @param: $style (optional) - any styling you want applied to the link
 	 */
-	function make_chatcmd($name, $content, $style = NULL) {
+	function make_chatcmd($name, $content, $style = null) {
 		$content = str_replace('"', '&quot;', $content);
 		$content = str_replace("'", '&#39;', $content);
 		return "<a $style href='chatcmd://$content'>$name</a>";
@@ -152,7 +152,7 @@ class Text {
 	 * @param: $name - the name the user to create a link for
 	 * @param: $style (optional) - any styling you want applied to the link
 	 */
-	function make_userlink($user, $style = NULL) {
+	function make_userlink($user, $style = null) {
 		return "<a $style href='user://$user'>$user</a>";
 	}
 

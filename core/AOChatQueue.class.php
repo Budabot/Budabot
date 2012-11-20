@@ -55,7 +55,7 @@ class AOChatQueue {
 	var $limit;  // the amount of messages that can be sent before metering kicks in
 	var $increment;  // the amount of time in seconds to wait after the limit has been reached
 
-	function AOChatQueue($limit, $increment) {
+	function __construct($limit, $increment) {
 		$this->limit = $limit;
 		$this->increment = $increment;
 		$this->point = 0;
@@ -89,7 +89,7 @@ class AOChatQueue {
 		forEach (array_keys($this->queue) as $priority) {
 			while (true) {
 				$item = array_shift($this->queue[$priority]);
-				if ($item === NULL) {
+				if ($item === null) {
 					unset($this->queue[$priority]);
 					break;
 				}

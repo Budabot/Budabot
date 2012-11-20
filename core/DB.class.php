@@ -26,7 +26,7 @@ class DB {
 	private $in_transaction = false;
 	public $table_replaces = array();
 
-	function connect($type, $dbName, $host = NULL, $user = NULL, $pass = NULL) {
+	function connect($type, $dbName, $host = null, $user = null, $pass = null) {
 		global $vars;
 		$this->type = strtolower($type);
 		$this->dbName = $dbName;
@@ -44,7 +44,7 @@ class DB {
 			$this->exec("SET time_zone = '+00:00'");
 			$this->exec("SET storage_engine = MyISAM");
 		} else if ($this->type == 'sqlite') {
-			if ($host == NULL || $host == "" || $host == "localhost") {
+			if ($host == null || $host == "" || $host == "localhost") {
 				$this->dbName = "./data/$this->dbName";
 			} else {
 				$this->dbName = "$host/$this->dbName";

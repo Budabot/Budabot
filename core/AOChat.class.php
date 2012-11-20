@@ -105,10 +105,10 @@ class AOChat {
 		if (is_resource($this->socket)) {
 			socket_close($this->socket);
 		}
-		$this->socket      = NULL;
-		$this->serverseed  = NULL;
-		$this->chars       = NULL;
-		$this->char        = NULL;
+		$this->socket      = null;
+		$this->serverseed  = null;
+		$this->chars       = null;
+		$this->char        = null;
 		$this->last_packet = 0;
 		$this->last_ping   = 0;
 		$this->state       = "connect";
@@ -116,7 +116,7 @@ class AOChat {
 		$this->gid         = array();
 		$this->grp         = array();
 		$this->chars       = array();
-		$this->chatqueue   = NULL;
+		$this->chatqueue   = null;
 	}
 
 	/* Network stuff */
@@ -154,7 +154,7 @@ class AOChat {
 	function iteration() {
 		$now = time();
 
-		if ($this->chatqueue !== NULL) {
+		if ($this->chatqueue !== null) {
 			$packet = $this->chatqueue->getNext();
 			while ($packet !== null) {
 				$this->send_packet($packet);
@@ -178,7 +178,7 @@ class AOChat {
 		}
 
 		if (!socket_select($a = array($this->socket), $b = null, $c = null, $sec, $usec)) {
-			return NULL;
+			return null;
 		} else {
 			return $this->get_packet();
 		}
@@ -269,8 +269,7 @@ class AOChat {
 		return $packet;
 	}
 
-	function send_packet($packet)
-	{
+	function send_packet($packet) {
 		$data = pack("n2", $packet->type, strlen($packet->data)) . $packet->data;
 		if (is_resource($this->debug)) {
 			fwrite($this->debug, ">>>>>\n");
@@ -295,7 +294,7 @@ class AOChat {
 			return false;
 		}
 
-		for ($i = 0; $i < sizeof($packet->args[0]); $i++) {
+		for ($i = 0; $i < count($packet->args[0]); $i++) {
 			$this->chars[] = array(
 			"id"     => $packet->args[0][$i],
 			"name"   => ucfirst(strtolower($packet->args[1][$i])),
@@ -656,7 +655,7 @@ class AOChat {
 	function SafeDecHexReverseEndian($value) {
 		$result = "";
 		$value = (int)$this->ReduceTo32Bit($value);
-		$hex   = substr("00000000".dechex($value),-8);
+		$hex   = substr("00000000".dechex($value), -8);
 
 		$bytes = str_split($hex, 2);
 
@@ -691,7 +690,7 @@ class AOChat {
 		}
 
 		// Subtract out bits above 32 from $value
-		while (NULL != ($bit = array_pop($bits))) {
+		while (null != ($bit = array_pop($bits))) {
 			if (bccomp($value, $bit) >= 0) {
 				$value = bcsub($value, $bit);
 			}
@@ -761,7 +760,7 @@ class AOChat {
 		$keyarr  = unpack("V*", pack("H*", $key));
 		$dataarr = unpack("V*", $str);
 
-		for ($i = 1; $i <= sizeof($dataarr); $i += 2) {
+		for ($i = 1; $i <= count($dataarr); $i += 2) {
 			$now[0] = (int)$this -> ReduceTo32Bit($dataarr[$i]) ^ (int)$this -> ReduceTo32Bit(@$prev[0]);
 			$now[1] = (int)$this -> ReduceTo32Bit($dataarr[$i+1]) ^ (int)$this -> ReduceTo32Bit(@$prev[1]);
 			$prev   = $this -> aocrypt_permute($now, $keyarr);

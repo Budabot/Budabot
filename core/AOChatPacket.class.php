@@ -247,7 +247,7 @@ class AOChatPacket {
 						break;
 
 					case "s":
-						$data .= pack("n", sizeof($it));
+						$data .= pack("n", count($it));
 						forEach ($it as $it_elem) {
 							$data .= pack("n", strlen($it_elem)) . $it_elem;
 						}

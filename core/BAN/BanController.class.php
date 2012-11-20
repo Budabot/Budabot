@@ -310,7 +310,7 @@ class BanController {
 	 * This helper method bans player with given arguments.
 	 */
 	private function banPlayer($who, $sender, $length, $reason, $sendto) {
-		if ($this->chatBot->get_uid($who) == NULL) {
+		if ($this->chatBot->get_uid($who) == null) {
 			$sendto->reply("Character <highlight>$who<end> does not exist.");
 			return;
 		}

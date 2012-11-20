@@ -516,8 +516,8 @@ class RaidController {
 				$resnum++;
 			} else {
 				if ($item["multiloot"] > 1) {
-					if ($item["multiloot"] > sizeof($item["users"])) {
-						$arrolnum = sizeof($item["users"]);
+					if ($item["multiloot"] > count($item["users"])) {
+						$arrolnum = count($item["users"]);
 					} else {
 						$arrolnum = $item["multiloot"];
 					}

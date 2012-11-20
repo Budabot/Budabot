@@ -63,8 +63,7 @@ class FeatureContext extends BehatContext
 	 *
 	 * @param array $parameters context parameters (set them up through behat.yml)
 	 */
-	public function __construct(array $parameters)
-	{
+	public function __construct(array $parameters) {
 		// Initialize your context here
 		self::$parameters = $parameters;
 	}
@@ -73,8 +72,7 @@ class FeatureContext extends BehatContext
 	 * @BeforeSuite
 	 * Prepare system for test suite before it runs.
 	 */
-	public static function prepareSuite()
-	{
+	public static function prepareSuite() {
 		self::startAOChatServer();
 		self::startBudabot();
 	}
@@ -83,16 +81,14 @@ class FeatureContext extends BehatContext
 	 * @BeforeScenario
 	 * Prepare system for scenario before it runs.
 	 */
-	public static function prepareScenario()
-	{
+	public static function prepareScenario() {
 		self::$chatServer->clearTellMessages();
 	} 
 
 	/**
 	 * @Given /^"([^"]*)" module is enabled$/
 	 */
-	public function moduleIsEnabled($module)
-	{
+	public function moduleIsEnabled($module) {
 		if (!isset(self::$enabledModules[$module])) {
 			self::$chatServer->sendTellMessageToBot(self::$superAdmin, "!config mod $module enable all");
 			self::$enabledModules[$module] = true;

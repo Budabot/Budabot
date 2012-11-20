@@ -195,7 +195,8 @@ class WeatherController {
 	
 	private function getweatherdata ($host, $port, $url) {
 
-		$ip = gethostbyname($host); $port = 80;
+		$ip = gethostbyname($host);
+		$port = 80;
 		if ($ip == $host) {
 			return -1;
 		} // Failed to get host
@@ -215,13 +216,13 @@ class WeatherController {
 
 		while(true) {
 			$pos = @strpos($stream, "\r\n", 0);
-			if(!($pos === false) && $size === NULL) {
+			if(!($pos === false) && $size === null) {
 				// we found CRLF, get len from hex
 				$size = hexdec(substr($stream, 0, $pos));
 				// get the actual chunk-len, reset $response, $size
 				$temp .= substr($stream, $pos+2, $size);
 				$stream = substr($stream, ($pos+2) + $size);
-				$size = NULL;
+				$size = null;
 			} else {
 				break;
 			}
@@ -236,7 +237,8 @@ class WeatherController {
 			return "ERR";
 		}
 
-		$digits--; $number = strrev($number);
+		$digits--;
+		$number = strrev($number);
 		for ($pos=$digits; $pos>=0; $pos--) {
 
 			$setpoint = substr($number,$pos,1);

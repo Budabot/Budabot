@@ -197,7 +197,7 @@ class AdminController {
 	}
 	
 	public function add($who, $sender, $sendto, $intlevel, $rank) {
-		if ($this->chatBot->get_uid($who) == NULL){
+		if ($this->chatBot->get_uid($who) == null){
 			$sendto->reply("Character <highlight>$who<end> does not exist.");
 			return;
 		}

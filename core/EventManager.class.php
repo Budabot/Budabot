@@ -306,7 +306,7 @@ class EventManager {
 	** Name: executeConnectEvents
 	** Execute Events that needs to be executed right after login
 	*/
-	public function executeConnectEvents(){
+	public function executeConnectEvents() {
 		$this->logger->log('DEBUG', "Executing connected events");
 
 		$eventObj = new stdClass;

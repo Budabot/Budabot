@@ -8,7 +8,7 @@ class ServerStatusManager {
 	public function lookup($rk_num) {
 		$serverstat = xml::getUrl("probes.funcom.com/ao.xml", 30);
 		
-		if ($serverstat == NULL) {
+		if ($serverstat == null) {
 			return null;
 		}
 

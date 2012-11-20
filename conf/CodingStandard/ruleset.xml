@@ -1,10 +1,50 @@
 <?xml version="1.0"?>
 <ruleset name="MyStandard">
 	<description>Coding standard for Budabot project.</description>
+	<rule ref="Generic">
+		<!-- TODO: Sniffs we should enable -->
+		<exclude name="Generic.Formatting.MultipleStatementAlignment" />
+		<exclude name="Generic.CodeAnalysis.UnusedFunctionParameter" />
+		<exclude name="Generic.Functions.FunctionCallArgumentSpacing" />
+		<exclude name="Generic.NamingConventions.CamelCapsFunctionName" />
+		<exclude name="Generic.Strings.UnnecessaryStringConcat" />
+		<exclude name="Generic.Metrics.CyclomaticComplexity" />
+
+		<!-- TODO: Not sure what to with these sniffs -->
+		<exclude name="Generic.Files.OneClassPerFile" />
+		<exclude name="Generic.PHP.NoSilencedErrors" />
+
+		<!-- Mutually exclusive with DisallowSpaceIndent -->
+		<exclude name="Generic.WhiteSpace.DisallowTabIndent" />
+		<exclude name="Generic.WhiteSpace.ScopeIndent" />
+		<!-- Mutually exclusive with OpeningFunctionBraceKernighanRitchie -->
+		<exclude name="Generic.Functions.OpeningFunctionBraceBsdAllman" />
+		<!-- Mutually exclusive with LowerCaseConstant -->
+		<exclude name="Generic.PHP.UpperCaseConstant" />
+		<!-- Mutually exclusive with NoSpaceAfterCast -->
+		<exclude name="Generic.Formatting.SpaceAfterCast" />
+
+		<!-- Sniffs we don't need -->
+		<exclude name="Generic.PHP.ClosingPHPTag" />
+		<exclude name="Generic.Formatting.SpaceAfterCast" />
+		<exclude name="Generic.CodeAnalysis.ForLoopWithTestFunctionCall" />
+	</rule>
+
+	<!-- Additional sniffs and properties -->
 	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
+	<rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
+	<rule ref="Generic.PHP.LowerCaseConstant" />
+	<rule ref="Generic.Formatting.NoSpaceAfterCast" />
 	<rule ref="Generic.Files.LineEndings">
 		<properties>
 			<property name="eolChar" value="\n"/>
+		</properties>
+	</rule>
+	<rule ref="Generic.Files.LineLength">
+		<properties>
+			<!-- TODO: Line lengths should be set to sane values -->
+			<property name="lineLimit" value="500"/>
+			<property name="absoluteLineLimit" value="500"/>
 		</properties>
 	</rule>
 </ruleset>

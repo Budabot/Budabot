@@ -179,4 +179,3 @@ class ChatLeaderController {
 		return $this->leader;
 	}
 }
-	
