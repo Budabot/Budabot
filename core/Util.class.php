@@ -275,19 +275,6 @@ class Util {
 	}
 
 	/**
-	 * @name: verify_name_convention
-	 * @description: returns true if filename matches budabot naming convention and false otherwise
-	 */
-	public function verify_name_convention($filename) {
-		if (preg_match("/^(.+)\\/([0-9a-z_]+)\\.(php|txt)$/i", $filename, $arr) && $arr[2] == strtolower($arr[2])) {
-			return true;
-		} else {
-			LegacyLogger::log('ERROR', 'Core', "Warning: $filename does not match the nameconvention(All php files needs to be in lowercases except loading files)!");
-			return false;
-		}
-	}
-
-	/**
 	 * @name: verify_filename
 	 * @description: returns true if filename matches budabot naming convention and false otherwise
 	 */
@@ -295,21 +282,14 @@ class Util {
 		//Replace all \ characters with /
 		$filename = str_replace("\\", "/", $filename);
 
-		if (!$this->verify_name_convention($filename)) {
-			return "";
-		}
-
 		//check if the file exists
-		if (file_exists("./core/$filename")) {
-			return "./core/$filename";
-		}
-		if (file_exists("./modules/$filename")) {
-			return "./modules/$filename";
-		}
-		forEach ($this->chatBot->vars['module_load_paths'] as $modulePath) {
+		forEach (array_reverse($this->chatBot->vars['module_load_paths']) as $modulePath) {
 			if (file_exists("$modulePath/$filename")) {
 				return "$modulePath/$filename";
 			}
+		}
+		if (file_exists("./core/$filename")) {
+			return "./core/$filename";
 		}
 		if (file_exists($filename)) {
 			return $filename;

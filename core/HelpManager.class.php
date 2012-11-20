@@ -107,11 +107,7 @@ class HelpManager extends Annotation {
 	}
 
 	public function checkForHelpFile($module, $file) {
-		if (empty($file)) {
-			return '';
-		}
-	
-		$actualFilename = $this->util->verify_filename("$module/$file");
+		$actualFilename = $this->util->verify_filename($module . '/' . $file);
 		if ($actualFilename == '') {
 			$this->logger->log('ERROR', "Error in registering the help file {$module}/{$file}. The file doesn't exist!");
 		}
