@@ -296,12 +296,10 @@ class TestController extends AutoInject {
 	public function reloadinstanceAllCommand($message, $channel, $sender, $sendto, $args) {
 		$instanceName = $args[1];
 		
-		$instance = Registry::getInstance($instanceName);
+		$instance = Registry::getInstance($instanceName, true);
 		if ($instance === null) {
 			$msg = "Could not find instance <highlight>$instanceName<end>.";
 		} else {
-			Registry::importChanges($instance);
-			Registry::injectDependencies($instance);
 			$msg = "Instance <highlight>$instanceName<end> has been reloaded.";
 		}
 		$sendto->reply($msg);

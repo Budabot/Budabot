@@ -21,7 +21,7 @@ class Registry {
 		}
 	}
 
-	public static function getInstance($name) {
+	public static function getInstance($name, $reload = false) {
 		$name = strtolower($name);
 		LegacyLogger::log("DEBUG", "Registry", "Requesting instance for '$name'");
 
@@ -30,7 +30,7 @@ class Registry {
 			LegacyLogger::log("WARN", "Registry", "Could not find instance for '$name'");
 		}
 
-		if ($instance !== null && USE_RUNKIT_CLASS_LOADING === true) {
+		if ($instance !== null && (USE_RUNKIT_CLASS_LOADING === true || $reload === true)) {
 			Registry::importChanges($instance);
 			Registry::injectDependencies($instance);
 		}
