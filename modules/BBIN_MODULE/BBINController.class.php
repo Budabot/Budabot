@@ -179,8 +179,8 @@ class BBINController {
 		$this->irc->registerActionhandler(SMARTIRC_TYPE_KICK, '', $this, 'kickMessage');
 		//$this->irc->registerActionhandler(SMARTIRC_TYPE_NAME, '', $this, 'nameMessage');
 		$this->irc->registerActionhandler(SMARTIRC_TYPE_NOTICE, '', $this, 'noticeMessage');
-		$this->irc->connect($this->setting-bbin_server, $this->setting->bbin_port);
-		$this->irc->login($this->setting->bbin_nickname, $realname, 0, $this->setting-bbin_password);
+		$this->irc->connect($this->setting->bbin_server, $this->setting->bbin_port);
+		$this->irc->login($this->setting->bbin_nickname, $realname, 0, $this->setting->bbin_password);
 		$this->irc->join(array($this->setting->bbin_channel));
 		$this->irc->listenOnce();
 		$this->sendMessageToBBIN("PRIVMSG ".$this->setting->bbin_channel." :[BBIN:SYNCHRONIZE]");

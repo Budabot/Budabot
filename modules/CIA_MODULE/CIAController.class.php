@@ -9,8 +9,7 @@
  *	@DefineCommand(
  *		command     = 'testcia',
  *		accessLevel = 'all',
- *		description = 'Relay commit messages into IRC channel',
- *		help        = 'cia.txt'
+ *		description = 'Relay commit messages into IRC channel'
  *	)
  */
 class CIAController {

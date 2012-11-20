@@ -98,7 +98,7 @@ class GuidesController {
 		$info = $this->getTopicContents($this->path, $fileName, $this->fileExt);
 
 		if (!$info) {
-			$msg = "No info for $fileName could be found";
+			$msg = "No guide named <highlight>$fileName<end> was found.";
 		} else {
 			$msg = $this->text->make_legacy_blob(ucfirst($fileName), $info);
 		}
