@@ -90,7 +90,7 @@ class SettingManager {
 			}
 		}
 
-		$help = $this->helpManager->checkForHelpFile($module, $help, $name);
+		$help = $this->helpManager->checkForHelpFile($module, $help);
 
 		try {
 			if (array_key_exists($name, $this->chatBot->existing_settings)) {

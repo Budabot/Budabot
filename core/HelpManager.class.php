@@ -30,8 +30,6 @@ class HelpManager extends Annotation {
 	/** @Logger */
 	public $logger;
 
-	public $helpfiles = array();
-
 	/**
 	 * @name: register
 	 * @description: Registers a help command
@@ -57,14 +55,6 @@ class HelpManager extends Annotation {
 		}
 
 		$row = $this->db->queryRow("SELECT * FROM hlpcfg_<myname> WHERE `name` = ?", $command);
-		$this->helpfiles[$command]["filename"] = $actual_filename;
-		$this->helpfiles[$command]["admin"] = $row->admin;
-		$this->helpfiles[$command]["info"] = $description;
-		$this->helpfiles[$command]["module"] = $module;
-
-		if (substr($actual_filename, 0, 7) == "./core/") {
-			$this->helpfiles[$command]["status"] = "enabled";
-		}
 	}
 
 	/**
@@ -114,20 +104,16 @@ class HelpManager extends Annotation {
 		$admin = strtolower($admin);
 
 		$this->db->exec("UPDATE hlpcfg_<myname> SET `admin` = ? WHERE `name` = ?", $admin, $helpTopic);
-		$this->helpfiles[$helpTopic]["admin"] = $admin;
 	}
 
-	public function checkForHelpFile($module, $file, $name) {
+	public function checkForHelpFile($module, $file) {
 		if (empty($file)) {
-			$file = $name . ".txt";
-		} else {
-			$logError = true;
+			return '';
 		}
 	
 		$actualFilename = $this->util->verify_filename("$module/$file");
-		if ($actualFilename == '' && $logError === true) {
-			$this->logger->log('ERROR', "Error in registering the File {$module}/{$file} for Help command $name. The file doesn't exist!");
-			return '';
+		if ($actualFilename == '') {
+			$this->logger->log('ERROR', "Error in registering the help file {$module}/{$file}. The file doesn't exist!");
 		}
 		return $actualFilename;
 	}

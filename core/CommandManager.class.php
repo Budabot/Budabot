@@ -69,7 +69,7 @@ class CommandManager {
 			}
 		}
 
-		$help = $this->helpManager->checkForHelpFile($module, $help, $command);
+		$help = $this->helpManager->checkForHelpFile($module, $help);
 
 		if ($defaultStatus === null) {
 			if ($this->chatBot->vars['default_module_status'] == 1) {
