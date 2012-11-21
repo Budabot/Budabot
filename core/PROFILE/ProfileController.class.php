@@ -118,7 +118,9 @@ class ProfileController {
 		} else {
 			$contents = "# Settings\n";
 			forEach ($this->settingManager->settings as $name => $value) {
-				$contents .= "!settings save $name $value\n";
+				if ($name != "botid" && $name != "version" && !$this->util->endsWith($name, "_db_version")) {
+					$contents .= "!settings save $name $value\n";
+				}
 			}
 			$contents .= "\n# Events\n";
 			$data = $this->db->query("SELECT * FROM eventcfg_<myname>");
