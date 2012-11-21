@@ -144,18 +144,18 @@ class AdminController {
 		forEach ($this->adminManager->admins as $who => $data) {
 			if ($this->adminManager->admins[$who]["level"] == 4) {
 				if ($who != "") {
-					$blob .= "<tab>$who ";
+					$blob .= "<tab>$who";
 
 					if ($this->accessManager->checkAccess($who, 'superadmin')) {
-						$blob .= "(<orange>Super-administrator<end>) ";
+						$blob .= " (<highlight>Super-administrator<end>) ";
 					}
 
 					if ($this->buddylistManager->is_online($who) == 1 && isset($this->chatBot->chatlist[$who])) {
-						$blob .= "(<green>Online and in chat<end>)";
+						$blob .= " (<green>Online and in chat<end>)";
 					} else if ($this->buddylistManager->is_online($who) == 1) {
-						$blob .= "(<green>Online<end>)";
+						$blob .= " (<green>Online<end>)";
 					} else {
-						$blob .= "(<red>Offline<end>)";
+						$blob .= " (<red>Offline<end>)";
 					}
 
 					$blob.= "\n";
@@ -167,13 +167,13 @@ class AdminController {
 		forEach ($this->adminManager->admins as $who => $data){
 			if ($this->adminManager->admins[$who]["level"] == 3){
 				if ($who != "") {
-					$blob .= "<tab>$who ";
+					$blob .= "<tab>$who";
 					if ($this->buddylistManager->is_online($who) == 1 && isset($this->chatBot->chatlist[$who])) {
-						$blob .= "(<green>Online and in chat<end>)";
+						$blob .= " (<green>Online and in chat<end>)";
 					} else if ($this->buddylistManager->is_online($who) == 1) {
-						$blob .= "(<green>Online<end>)";
+						$blob .= " (<green>Online<end>)";
 					} else {
-						$blob .= "(<red>Offline<end>)";
+						$blob .= " (<red>Offline<end>)";
 					}
 					$blob.= "\n";
 				}

@@ -141,7 +141,6 @@ class Text {
 	 * @param: $style (optional) - any styling you want applied to the link
 	 */
 	function make_chatcmd($name, $content, $style = null) {
-		$content = str_replace('"', '&quot;', $content);
 		$content = str_replace("'", '&#39;', $content);
 		return "<a $style href='chatcmd://$content'>$name</a>";
 	}

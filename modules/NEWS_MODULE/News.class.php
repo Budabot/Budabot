@@ -33,15 +33,6 @@ class News {
 	public $moduleName;
 
 	/**
-	 * @Setting("news")
-	 * @Description("Private channel news")
-	 * @Visibility("hide")
-	 * @Type("text")
-	 * @Help("news.txt")
-	 */
-	public $defaultNews = "Not set.";
-
-	/**
 	 * @Setup
 	 */
 	public function setup() {
