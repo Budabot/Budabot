@@ -67,7 +67,7 @@ class BBINController {
 	public $onlineController;
 	
 	/** @Inject */
-	private $setting;
+	public $setting;
 	
 	/** @Logger */
 	public $logger;

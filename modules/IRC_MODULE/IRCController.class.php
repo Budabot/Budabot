@@ -75,7 +75,7 @@ class IRCController {
 	public $settingManager;
 	
 	/** @Inject */
-	private $setting;
+	public $setting;
 	
 	/** @Logger */
 	public $logger;
