@@ -1,6 +1,8 @@
 <?php
-
-class Set {
+/**
+ * @Instance
+ */
+class Setting {
 	/** @Inject */
 	public $settingManager;
 

@@ -21,7 +21,7 @@ class AltInfo {
 
 	public function get_alts_blob($showValidateLinks = false, $firstPageOnly = false) {
 		$db = Registry::getInstance('db');
-		$setting = Registry::getInstance('settingManager');
+		$settingManager = Registry::getInstance('settingManager');
 		$playerManager = Registry::getInstance('playerManager');
 		$buddylistManager = Registry::getInstance('buddylistManager');
 		$text = Registry::getInstance('text');
@@ -63,7 +63,7 @@ class AltInfo {
 				$blob .= " - <red>Offline<end>";
 			}
 
-			if ($showValidateLinks && $setting->get('alts_inherit_admin') == 1 && $row->validated == 0) {
+			if ($showValidateLinks && $settingManager->get('alts_inherit_admin') == 1 && $row->validated == 0) {
 				$blob .= " [Unvalidated] " . $text->make_chatcmd('Validate', "/tell <myname> <symbol>altvalidate {$row->alt}");
 			}
 

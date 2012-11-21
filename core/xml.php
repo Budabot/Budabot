@@ -62,8 +62,8 @@ class xml {
 		$url = strtolower($url);
 
 		if ($timeout === null) {
-			$setting = Registry::getInstance('settingManager');
-			$timeout = $setting->get('xml_timeout');
+			$settingManager = Registry::getInstance('settingManager');
+			$timeout = $settingManager->get('xml_timeout');
 		}
 
 		//Remove any http tags

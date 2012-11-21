@@ -42,9 +42,6 @@ class BBINController {
 	 */
 	public $moduleName;
 	
-	/** @Logger */
-	public $logger;
-	
 	/** @Inject */
 	public $db;
 	
@@ -69,7 +66,11 @@ class BBINController {
 	/** @Inject */
 	public $onlineController;
 	
+	/** @Inject */
 	private $setting;
+	
+	/** @Logger */
+	public $logger;
 	
 	private $irc;
 	
@@ -78,9 +79,6 @@ class BBINController {
 	 * @Setup
 	 */
 	public function setup() {
-		$this->setting = new Set();
-		Registry::injectDependencies($this->setting);
-		
 		if ($this->chatBot->vars['my_guild'] == "") {
 			$channel = "#".strtolower($this->chatBot->vars['name']);
 		} else {

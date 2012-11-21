@@ -74,17 +74,16 @@ class IRCController {
 	/** @Inject */
 	public $settingManager;
 	
+	/** @Inject */
+	private $setting;
+	
 	/** @Logger */
 	public $logger;
-
-	private $setting;
 
 	private $irc;
 	
 	/** @Setup */
 	public function setup() {
-		$this->setting = new Set();
-		Registry::injectDependencies($this->setting);
 		$this->onlineController->register($this);
 		
 		if ($this->chatBot->vars['my_guild'] == "") {
