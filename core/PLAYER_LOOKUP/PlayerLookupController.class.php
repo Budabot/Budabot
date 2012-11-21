@@ -22,9 +22,9 @@ class PlayerLookupController {
 	 * This handler is called on bot startup.
 	 */
 	public function setup() {
-		if ($this->db->get_type() == 'mysql') {
+		if ($this->db->get_type() == DB::MYSQL) {
 			$this->db->loadSQLFile($this->moduleName, 'players_mysql');
-		} else if ($this->db->get_type() == 'sqlite') {
+		} else if ($this->db->get_type() == DB::SQLITE) {
 			$this->db->loadSQLFile($this->moduleName, 'players_sqlite');
 		}
 	}

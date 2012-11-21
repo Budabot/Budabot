@@ -24,7 +24,7 @@
 		$results = array();
 		try {
 			switch ($db->get_type()) {
-			case 'mysql':
+			case DB::MYSQL:
 				$rows = $db->query("DESCRIBE $table");
 				// normalize the output somewhat to make it more compatible
 				// with sqlite
@@ -36,7 +36,7 @@
 				}
 				return $rows;
 
-			case 'sqlite':
+			case DB::SQLITE:
 				return $db->query("PRAGMA table_info($table)");
 
 			default:
@@ -146,30 +146,30 @@
 	}
 	
 	// increase size of help and description
-	if ($db->get_type() == "mysql" && checkIfTableExists($db, "cmdcfg_<myname>") && getColumnType($db, 'cmdcfg_<myname>', 'help') == 'varchar(25)') {
+	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, "cmdcfg_<myname>") && getColumnType($db, 'cmdcfg_<myname>', 'help') == 'varchar(25)') {
 		upgrade($db, "ALTER TABLE cmdcfg_<myname> CHANGE COLUMN help help VARCHAR(255)");
 	}
-	if ($db->get_type() == "mysql" && checkIfTableExists($db, "cmdcfg_<myname>") && getColumnType($db, 'cmdcfg_<myname>', 'description') == 'varchar(50)') {
+	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, "cmdcfg_<myname>") && getColumnType($db, 'cmdcfg_<myname>', 'description') == 'varchar(50)') {
 		upgrade($db, "ALTER TABLE cmdcfg_<myname> CHANGE COLUMN description description VARCHAR(75)");
 	}
-	if ($db->get_type() == "mysql" && checkIfTableExists($db, "eventcfg_<myname>") && getColumnType($db, 'eventcfg_<myname>', 'help') == 'varchar(25)') {
+	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, "eventcfg_<myname>") && getColumnType($db, 'eventcfg_<myname>', 'help') == 'varchar(25)') {
 		upgrade($db, "ALTER TABLE eventcfg_<myname> CHANGE COLUMN help help VARCHAR(255)");
 	}
-	if ($db->get_type() == "mysql" && checkIfTableExists($db, "eventcfg_<myname>") && getColumnType($db, 'eventcfg_<myname>', 'description') == 'varchar(50)') {
+	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, "eventcfg_<myname>") && getColumnType($db, 'eventcfg_<myname>', 'description') == 'varchar(50)') {
 		upgrade($db, "ALTER TABLE eventcfg_<myname> CHANGE COLUMN description description VARCHAR(75)");
 	}
-	if ($db->get_type() == "mysql" && checkIfTableExists($db, "settings_<myname>") && getColumnType($db, 'settings_<myname>', 'help') == 'varchar(25)') {
+	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, "settings_<myname>") && getColumnType($db, 'settings_<myname>', 'help') == 'varchar(25)') {
 		upgrade($db, "ALTER TABLE settings_<myname> CHANGE COLUMN help help VARCHAR(255)");
 	}
-	if ($db->get_type() == "mysql" && checkIfTableExists($db, "settings_<myname>") && getColumnType($db, 'settings_<myname>', 'description') == 'varchar(50)') {
+	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, "settings_<myname>") && getColumnType($db, 'settings_<myname>', 'description') == 'varchar(50)') {
 		upgrade($db, "ALTER TABLE settings_<myname> CHANGE COLUMN description description VARCHAR(75)");
 	}
-	if ($db->get_type() == "mysql" && checkIfTableExists($db, "hlpcfg_<myname>") && getColumnType($db, 'hlpcfg_<myname>', 'description') == 'varchar(50)') {
+	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, "hlpcfg_<myname>") && getColumnType($db, 'hlpcfg_<myname>', 'description') == 'varchar(50)') {
 		upgrade($db, "ALTER TABLE hlpcfg_<myname> CHANGE COLUMN description description VARCHAR(75)");
 	}
 	
 	// increase size of setting.name from varchar(30) to varchar(50)
-	if ($db->get_type() == "mysql" && checkIfTableExists($db, "settings_<myname>") && getColumnType($db, 'settings_<myname>', 'name') == 'varchar(30)') {
+	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, "settings_<myname>") && getColumnType($db, 'settings_<myname>', 'name') == 'varchar(30)') {
 		upgrade($db, "ALTER TABLE settings_<myname> CHANGE COLUMN name name VARCHAR(50)");
 	}
 
@@ -215,37 +215,37 @@
 	}
 	
 	// update charid columns from int to bigint
-	if ($db->get_type() == "mysql" && checkIfTableExists($db, "players") && getColumnType($db, 'players', 'charid') != 'bigint(20)') {
+	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, "players") && getColumnType($db, 'players', 'charid') != 'bigint(20)') {
 		upgrade($db, "ALTER TABLE players CHANGE COLUMN charid charid BIGINT NOT NULL");
 	}
-	if ($db->get_type() == "mysql" && checkIfTableExists($db, "reputation") && getColumnType($db, 'reputation', 'charid') != 'bigint(20)') {
+	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, "reputation") && getColumnType($db, 'reputation', 'charid') != 'bigint(20)') {
 		upgrade($db, "ALTER TABLE reputation CHANGE COLUMN charid charid BIGINT NOT NULL");
 	}
-	if ($db->get_type() == "mysql" && checkIfTableExists($db, "reputation") && getColumnType($db, 'reputation', 'by_charid') != 'bigint(20)') {
+	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, "reputation") && getColumnType($db, 'reputation', 'by_charid') != 'bigint(20)') {
 		upgrade($db, "ALTER TABLE reputation CHANGE COLUMN by_charid by_charid BIGINT NOT NULL");
 	}
-	if ($db->get_type() == "mysql" && checkIfTableExists($db, "tracked_users_<myname>") && getColumnType($db, 'tracked_users_<myname>', 'uid') != 'bigint(20)') {
+	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, "tracked_users_<myname>") && getColumnType($db, 'tracked_users_<myname>', 'uid') != 'bigint(20)') {
 		upgrade($db, "ALTER TABLE tracked_users_<myname> CHANGE COLUMN uid uid BIGINT NOT NULL");
 	}
-	if ($db->get_type() == "mysql" && checkIfTableExists($db, "tracking_<myname>") && getColumnType($db, 'tracking_<myname>', 'uid') != 'bigint(20)') {
+	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, "tracking_<myname>") && getColumnType($db, 'tracking_<myname>', 'uid') != 'bigint(20)') {
 		upgrade($db, "ALTER TABLE tracking_<myname> CHANGE COLUMN uid uid BIGINT NOT NULL");
 	}
-	if ($db->get_type() == "mysql" && checkIfTableExists($db, "name_history") && getColumnType($db, 'name_history', 'charid') != 'bigint(20)') {
+	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, "name_history") && getColumnType($db, 'name_history', 'charid') != 'bigint(20)') {
 		upgrade($db, "ALTER TABLE name_history CHANGE COLUMN charid charid BIGINT NOT NULL");
 	}
 	
 	// update guild ids that are blank to be 0
-	if ($db->get_type() == "sqlite" && checkIfTableExists($db, "players")) {
+	if ($db->get_type() == DB::SQLITE && checkIfTableExists($db, "players")) {
 		upgrade($db, "UPDATE players SET guild_id = 0 WHERE guild_id = ''");
 	}
 	
 	// update prof_title from varchar(20) to varchar(50)
-	if ($db->get_type() == "mysql" && checkIfTableExists($db, "players") && getColumnType($db, 'players', 'prof_title') != 'varchar(50)') {
+	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, "players") && getColumnType($db, 'players', 'prof_title') != 'varchar(50)') {
 		upgrade($db, "ALTER TABLE players CHANGE COLUMN prof_title prof_title VARCHAR(50) NOT NULL DEFAULT ''");
 	}
 	
 	// update cmd_alias.cmd from varchar(25) to varchar(255)
-	if ($db->get_type() == "mysql" && checkIfTableExists($db, "cmd_alias_<myname>") && getColumnType($db, 'cmd_alias_<myname>', 'cmd') != 'varchar(255)') {
+	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, "cmd_alias_<myname>") && getColumnType($db, 'cmd_alias_<myname>', 'cmd') != 'varchar(255)') {
 		upgrade($db, "ALTER TABLE cmd_alias_<myname> CHANGE COLUMN cmd cmd VARCHAR(255) NOT NULL");
 	}
 	

@@ -25,6 +25,9 @@ class DB {
 	private $lastQuery;
 	private $in_transaction = false;
 	public $table_replaces = array();
+	
+	const MYSQL = 'mysql';
+	const SQLITE = 'sqlite';
 
 	function connect($type, $dbName, $host = null, $user = null, $pass = null) {
 		global $vars;
@@ -37,13 +40,13 @@ class DB {
 		$this->dim = $vars["dimension"];
 		$this->guild = str_replace("'", "''", $vars["my_guild"]);
 
-		if ($this->type == 'mysql') {
+		if ($this->type == self::MYSQL) {
 			$this->sql = new PDO("mysql:dbname=$dbName;host=$host", $user, $pass);
 			$this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$this->exec("SET sql_mode = 'TRADITIONAL,NO_BACKSLASH_ESCAPES'");
 			$this->exec("SET time_zone = '+00:00'");
 			$this->exec("SET storage_engine = MyISAM");
-		} else if ($this->type == 'sqlite') {
+		} else if ($this->type == self::SQLITE) {
 			if ($host == null || $host == "" || $host == "localhost") {
 				$this->dbName = "./data/$this->dbName";
 			} else {
@@ -53,7 +56,7 @@ class DB {
 			$this->sql = new PDO("sqlite:".$this->dbName);
 			$this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} else {
-			throw new Exception("Invalid database type: '$type'.  Expecting 'mysql' or 'sqlite'.");
+			throw new Exception("Invalid database type: '$type'.  Expecting '" . self::MYSQL . "' or '" . self::SQLITE . "'.");
 		}
 	}
 
@@ -89,9 +92,9 @@ class DB {
 		$sql = $this->formatSql($sql);
 
 		if (substr_compare($sql, "create", 0, 6, true) == 0) {
-			if ($this->type == "mysql") {
+			if ($this->type == self::MYSQL) {
 				$sql = str_ireplace("AUTOINCREMENT", "AUTO_INCREMENT", $sql);
-			} else if ($this->type == "sqlite") {
+			} else if ($this->type == self::SQLITE) {
 				$sql = str_ireplace("AUTO_INCREMENT", "AUTOINCREMENT", $sql);
 				$sql = str_ireplace(" INT ", " INTEGER ", $sql);
 			}
@@ -130,7 +133,7 @@ class DB {
 			$ps->execute();
 			return $ps;
 		} catch (PDOException $e) {
-			if ($this->type == "Sqlite" && $e->errorInfo[1] == 17) {
+			if ($this->type == self::SQLITE && $e->errorInfo[1] == 17) {
 				// fix for Sqlite schema changed error (retry the query)
 				return $this->executeQuery($sql, $params);
 			}

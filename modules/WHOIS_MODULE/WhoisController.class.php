@@ -74,9 +74,9 @@ class WhoisController {
 			$this->db->begin_transaction();
 			forEach ($this->nameHistoryCache as $entry) {
 				list($charid, $name) = $entry;
-				if ($this->db->get_type() == "sqlite") {
+				if ($this->db->get_type() == DB::SQLITE) {
 					$this->db->exec("INSERT OR IGNORE INTO name_history (name, charid, dimension, dt) VALUES (?, ?, <dim>, ?)", $name, $charid, time());
-				} else { // if ($this->db->get_type() == "mysql")
+				} else { // if ($this->db->get_type() == DB::MYSQL)
 					$this->db->exec("INSERT IGNORE INTO name_history (name, charid, dimension, dt) VALUES (?, ?, <dim>, ?)", $name, $charid, time());
 				}
 			}
