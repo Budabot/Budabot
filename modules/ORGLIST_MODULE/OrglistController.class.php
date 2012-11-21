@@ -44,6 +44,16 @@ class OrglistController {
 	public $playerManager;
 	
 	private $orglist = null;
+	private $orgrankmap = array();
+	
+	public function __construct() {
+		$this->orgrankmap["Anarchism"]  = array("Anarchist");
+		$this->orgrankmap["Monarchy"]   = array("Monarch",   "Counsel",      "Follower");
+		$this->orgrankmap["Feudalism"]  = array("Lord",      "Knight",       "Vassal",          "Peasant");
+		$this->orgrankmap["Republic"]   = array("President", "Advisor",      "Veteran",         "Member",         "Applicant");
+		$this->orgrankmap["Faction"]    = array("Director",  "Board Member", "Executive",       "Member",         "Applicant");
+		$this->orgrankmap["Department"] = array("President", "General",      "Squad Commander", "Unit Commander", "Unit Leader", "Unit Member", "Applicant");
+	}
 	
 	/**
 	 * @HandlesCommand("orglist")
@@ -51,7 +61,7 @@ class OrglistController {
 	 */
 	public function orglistEndCommand($message, $channel, $sender, $sendto, $args) {
 		if (isset($this->orglist)) {
-			$this->checkOrglistEnd(true);
+			$this->orglistEnd();
 		} else {
 			$sendto->reply("There is no orglist currently running.");
 		}
@@ -63,25 +73,11 @@ class OrglistController {
 	 */
 	public function orglistCommand($message, $channel, $sender, $sendto, $args) {
 		// Check if we are already doing a list.
-		if ($this->orglist["start"]) {
+		if (isset($this->orglist)) {
 			$msg = "There is already an orglist running.";
 			$sendto->reply($msg);
 			return;
-		} else if (990 <= count($this->buddylistManager->buddyList)) {
-			// using the ao chatbot proxy this is no longer an issue
-			//$msg = "No room on the buddy-list!";
-			//$sendto->reply($msg);
-			//unset($this->orglist);
-			//return;
 		}
-
-		// Some rankings (Will be used to help distinguish which org type is used.)
-		$orgrankmap["Anarchism"]  = array("Anarchist");
-		$orgrankmap["Monarchy"]   = array("Monarch",   "Counsel",      "Follower");
-		$orgrankmap["Feudalism"]  = array("Lord",      "Knight",       "Vassal",          "Peasant");
-		$orgrankmap["Republic"]   = array("President", "Advisor",      "Veteran",         "Member",         "Applicant");
-		$orgrankmap["Faction"]    = array("Director",  "Board Member", "Executive",       "Member",         "Applicant");
-		$orgrankmap["Department"] = array("President", "General",      "Squad Commander", "Unit Commander", "Unit Leader", "Unit Member", "Applicant");
 
 		// Don't want to reboot to see changes in color edits, so I'll store them in an array outside the function.
 		$orgcolor["header"]  = "<font color='#FFFFFF'>";   // Org Rank title
@@ -127,6 +123,7 @@ class OrglistController {
 		}
 
 		$this->orglist["org"] = $org->orgname;
+		$this->orglist["orgtype"] = $this->getOrgGoverningForm($org->members);
 
 		// Check each name if they are already on the buddylist (and get online status now)
 		// Or make note of the name so we can add it to the buddylist later.
@@ -146,45 +143,58 @@ class OrglistController {
 
 			$this->orglist["result"][$member->name]["name"] = $member->name;
 			$this->orglist["result"][$member->name]["rank_id"] = $member->guild_rank_id;
+		}
 
-			// If we havent found an org type yet, check this member if they have a unique rank.
-			if (!isset($this->orglist["orgtype"])) {
-				if (($member->guild_rank_id == 0 && $member->guild_rank == "President") ||
-					($member->guild_rank_id == 3 && $member->guild_rank == "Member") ||
-					($member->guild_rank_id == 4 && $member->guild_rank == "Applicant")) {
-					// Dont do anything. Can't do a match cause this rank is in multiple orgtypes.
-				} else if ($member->guild_rank == $orgrankmap["Anarchism"][$member->guild_rank_id]) {
-					$this->orglist["orgtype"] = $orgrankmap["Anarchism"];
-				} else if ($member->guild_rank == $orgrankmap["Monarchy"][$member->guild_rank_id]) {
-					$this->orglist["orgtype"] = $orgrankmap["Monarchy"];
-				} else if ($member->guild_rank == $orgrankmap["Feudalism"][$member->guild_rank_id]) {
-					$this->orglist["orgtype"] = $orgrankmap["Feudalism"];
-				} else if ($member->guild_rank == $orgrankmap["Republic"][$member->guild_rank_id]) {
-					$this->orglist["orgtype"] = $orgrankmap["Republic"];
-				} else if ($member->guild_rank == $orgrankmap["Faction"][$member->guild_rank_id]) {
-					$this->orglist["orgtype"] = $orgrankmap["Faction"];
-				} else if ($member->guild_rank == $orgrankmap["Department"][$member->guild_rank_id]) {
-					$this->orglist["orgtype"] = $orgrankmap["Department"];
+		$sendto->reply("Checking online status for " . count($org->members) ." members of '$org->orgname'...");
+		
+		$this->checkOnline($org->members);
+
+		unset($org);
+		
+		if (count($this->orglist["added"]) == 0) {
+			$this->orglistEnd();
+		}
+	}
+	
+	public function getOrgGoverningForm($members) {
+		$governingForm = '';
+		$forms = $this->orgrankmap;
+		forEach ($members as $member) {
+			forEach ($forms as $name => $ranks) {
+				if (!in_array($member->guild_rank, $ranks)) {
+					unset($forms[$name]);
 				}
 			}
-
+			if (count($forms) == 1) {
+				break;
+			}
+		}
+		
+		// it's possible we haven't narrowed it down to 1 at this point
+		// If we haven't found the org yet, it can only be
+		// Republic or Department with only a president.
+		// choose the first one
+		return array_shift($forms);
+	}
+	
+	public function checkOnline($members, $callback) {
+		// round to nearest thousand and then subtract 5
+		$this->orglist["maxsize"] = ceil(count($this->buddylistManager->buddyList) / 1000) * 1000 - count($this->buddylistManager->buddyList) - 5;
+	
+		forEach ($members as $member) {
 			$buddy_online_status = $this->buddylistManager->is_online($member->name);
 			if ($buddy_online_status !== null) {
 				$this->orglist["result"][$member->name]["online"] = $buddy_online_status;
-			} else if ($this->chatBot->vars["name"] != $member->name) { // If the name being checked ISNT the bot.
+			} else if ($this->chatBot->vars["name"] == $member->name) {
+				$this->orglist["result"][$member->name]["online"] = 1;
+			} else {
 				// check if they exist
 				if ($this->chatBot->get_uid($member->name)) {
 					$this->orglist["check"][$member->name] = 1;
 				}
-			} else if ($this->chatBot->vars["name"] == $member->name) { // Yes, this bot is online. Don't need a buddylist to tell me.
-				$this->orglist["result"][$member->name]["online"] = 1;
 			}
 		}
 
-		$sendto->reply("Checking online status for " . count($org->members) ." members of '$org->orgname'...");
-		$this->orglist["maxsize"] = ceil(count($this->buddylistManager->buddyList) / 1000) * 1000 - count($this->buddylistManager->buddyList);
-
-		// prime the list and get things rolling by adding some buddies
 		forEach ($this->orglist["check"] as $name => $value) {
 			$this->orglist["added"][$name] = 1;
 			unset($this->orglist["check"][$name]);
@@ -193,37 +203,23 @@ class OrglistController {
 				break;
 			}
 		}
-
-		if (!isset($this->orglist["orgtype"]) && !$msg) {
-			// If we haven't found the org yet, it can only be
-			// Department or Republic with only a president.
-			$this->orglist["orgtype"] = $orgrankmap["Republic"];
-		}
-
-		unset($org);
-
-		// If we added names to the buddylist, this will kick in to determine if they are online or not.
-		// If no more names need to be checked, then post results.
-		$this->checkOrglistEnd();
 	}
 	
-	public function checkOrglistEnd($forceEnd = false) {
+	public function orglistEnd() {
 		// Don't want to reboot to see changes in color edits, so I'll store them in an array outside the function.
 		$orgcolor["header"]  = "<font color='#FFFFFF'>";   // Org Rank title
 		$orgcolor["onlineH"] = "<highlight>";              // Highlights on whois info
 		$orgcolor["offline"] = "<font color='#555555'>";   // Offline names
 
-		if (isset($this->orglist) && (count($this->orglist["added"]) == 0 || $forceEnd)) {
-			$blob = $this->orgmatesformat($this->orglist, $orgcolor, $this->orglist["start"], $this->orglist["org"]);
-			$msg = $this->text->make_blob("Orglist for '".$this->orglist["org"]."'", $blob);
-			$this->orglist["sendto"]->reply($msg);
+		$blob = $this->orgmatesformat($this->orglist, $orgcolor, $this->orglist["start"], $this->orglist["org"]);
+		$msg = $this->text->make_blob("Orglist for '".$this->orglist["org"]."'", $blob);
+		$this->orglist["sendto"]->reply($msg);
 
-			// in case it was ended early
-			forEach ($this->orglist["added"] as $name => $value) {
-				$this->buddylistManager->remove($name, 'onlineorg');
-			}
-			unset($this->orglist);
+		// in case it was ended early
+		forEach ($this->orglist["added"] as $name => $value) {
+			$this->buddylistManager->remove($name, 'onlineorg');
 		}
+		unset($this->orglist);
 	}
 	
 	function orgmatesformat($memberlist, $color, $timestart, $orgname) {
@@ -320,7 +316,9 @@ class OrglistController {
 				$this->buddylistManager->add($name, 'onlineorg');
 			}
 
-			$this->checkOrglistEnd();
+			if (count($this->orglist["added"]) == 0) {
+				$this->orglistEnd();
+			}
 		}
 	}
 	
