@@ -96,36 +96,28 @@ class DnetController {
 	 */
 	public function incomingPrivateChannelMessageEvent($eventObj) {
 		if ($this->isDnetBot($eventObj)) {
-			if (preg_match("~<a href=\"text://(.+)\">([^<]+)</a>~s", $eventObj->message, $arr)) {
-				$messages = explode("\n", trim($arr[1]));
+			$rawmsg = $this->util->stripColors($eventObj->message);
+			if (preg_match_all("/\\[([^\\]]+)\\] (.+?) \\[([^\\]]+)\\]/s", $rawmsg, $arr, PREG_SET_ORDER) > 0) {
 			} else {
-				$messages = array($eventObj->message);
+				$this->logger->log("WARN", "Invalid Dnet message format: $rawmsg");
 			}
 
-			forEach ($messages as $msg) {
-				if (preg_match("/\\[([^\\]]+)\\] (.+) \\[([^\\]]+)\\]/", strip_tags($msg), $parts)) {
-					$channel = $parts[1];
-					$text = $parts[2];
-					$sender = $parts[3];
+			forEach ($arr as $entry) {
+				$channel = $entry[1];
+				$text = $entry[2];
+				$sender = $entry[3];
 
-					if ($this->banManager->is_banned($sender)) {
-						continue;
-					}
+				if ($this->banManager->is_banned($sender)) {
+					continue;
+				}
 
-					if (!$this->isChannelEnabled($channel)) {
-						continue;
-					}
-					
-					$spamMessage = "[<highlight>$channel<end>] $text [<highlight>$sender<end>]";
-					$this->broadcastController->processIncomingMessage("Dnet", $spamMessage);
-				} else {
-					$this->logger->log("WARN", "Invalid Dnet message format: $msg");
+				if (!$this->isChannelEnabled($channel)) {
+					continue;
 				}
 				
+				$spamMessage = "[<highlight>$channel<end>] $text [<highlight>$sender<end>]";
+				$this->broadcastController->processIncomingMessage("Dnet", $spamMessage);
 			}
-
-			// keeps the bot from sending a message back
-			throw new StopExecutionException();
 		}
 	}
 	

@@ -466,6 +466,12 @@ class Util {
 		}
 		return substr_compare($string, $test, -$testlen) === 0;
 	}
+	
+	public function stripColors($msg) {
+		$msg = preg_replace("~<font color=#.{6}>~", "", $msg);
+		$msg = preg_replace("~</font>~", "", $msg);
+		return $msg;
+	}
 }
 
 ?>
