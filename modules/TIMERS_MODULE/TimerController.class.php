@@ -58,7 +58,7 @@ class TimerController {
 
 			// remove alerts that have already passed
 			while (count($row->alerts) > 0 && $row->alerts[0]->time <= time()) {
-				array_shift($timer->alerts);
+				array_shift($row->alerts);
 			}
 
 			$this->timers[strtolower($row->name)] = $row;
