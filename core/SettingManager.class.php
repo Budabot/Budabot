@@ -163,22 +163,6 @@ class SettingManager {
 		}
 	}
 
-	public function displayValue($row) {
-		$options = explode(";", $row->options);
-		if ($row->type == "color") {
-			return $row->value."Current Color</font>\n";
-		} else if ($row->type == 'time') {
-			return "<highlight>" . $this->util->unixtime_to_readable($row->value) . "<end>\n";
-		} else if ($row->intoptions != "") {
-			$intoptions = explode(";", $row->intoptions);
-			$intoptions2 = array_flip($intoptions);
-			$key = $intoptions2[$row->value];
-			return "<highlight>{$options[$key]}<end>\n";
-		} else {
-			return "<highlight>" . htmlspecialchars($row->value) . "<end>\n";
-		}
-	}
-
 	public function upload() {
 		$this->settings = array();
 
@@ -219,6 +203,31 @@ class SettingManager {
 		$listener->callback = $callback;
 		$listener->data = $data;
 		$this->changeListeners[$settingName] []= $listener;
+	}
+	
+	public function getSettingHandler($row) {
+		$handler = null;
+		switch ($row->type) {
+			case 'color':
+				$handler = new ColorSettingHandler($row);
+				break;
+			case 'text':
+				$handler = new TextSettingHandler($row);
+				break;
+			case 'number':
+				$handler = new NumberSettingHandler($row);
+				break;
+			case 'options':
+				$handler = new OptionsSettingHandler($row);
+				break;
+			case 'time':
+				$handler = new TimeSettingHandler($row);
+				break;
+			default:
+				$this->loggger->log('ERROR', "Could not find setting handler for setting type: '$row->type'");
+		}
+		Registry::injectDependencies($handler);
+		return $handler;
 	}
 }
 

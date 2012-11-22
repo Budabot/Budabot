@@ -150,7 +150,7 @@ class SettingsController {
 	 */
 	public function settingsCommand($message, $channel, $sender, $sendto, $args) {
 		$blob = '';
-		$blob .= "Changing any of these settings will take effect immediately. Please note that some of these settings are read-only and can't be changed.\n\n";
+		$blob .= "Changing any of these settings will take effect immediately. Please note that some of these settings are read-only and cannot be changed.\n\n";
 		$data = $this->db->query("SELECT * FROM settings_<myname> WHERE `mode` != 'hide' ORDER BY `module`");
 		$cur = '';
 		forEach ($data as $row) {
@@ -165,7 +165,8 @@ class SettingsController {
 				$blob .= " ($editLink)";
 			}
 
-			$blob .= ": " . $this->settingManager->displayValue($row);
+			$settingHandler = $this->settingManager->getSettingHandler($row);
+			$blob .= ": " . $settingHandler->displayValue() . "\n";
 		}
 
 		$msg = $this->text->make_blob("Bot Settings", $blob);
@@ -182,72 +183,13 @@ class SettingsController {
 		if ($row === null) {
 			$msg = "Could not find setting <highlight>{$settingName}<end>.";
 		} else {
-			if ($row->options != '') {
-				$options = explode(";", $row->options);
-			}
-			if ($row->intoptions != '') {
-				$intoptions = explode(";", $row->intoptions);
-				$options_map = array_combine($intoptions, $options);
-			}
-
+			$settingHandler = $this->settingManager->getSettingHandler($row);
 			$blob = "Name: <highlight>{$row->name}<end>\n";
 			$blob .= "Module: <highlight>{$row->module}<end>\n";
 			$blob .= "Descrption: <highlight>{$row->description}<end>\n";
-			$blob .= "Current Value: " . $this->settingManager->displayValue($row) . "\n";
-
-			if ($row->type == 'color') {
-				$blob .= "For this setting you can set any Color in the HTML Hexadecimal Color Format.\n";
-				$blob .= "You can change it manually with the command: \n\n";
-				$blob .= "/tell <myname> settings save {$row->name} #'HTML-Color'\n\n";
-				$blob .= "Or you can choose one of the following Colors\n\n";
-				$blob .= "Red: <font color='#ff0000'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #ff0000'>Save it</a>) \n";
-				$blob .= "White: <font color='#FFFFFF'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #FFFFFF'>Save it</a>) \n";
-				$blob .= "Grey: <font color='#808080'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #808080'>Save it</a>) \n";
-				$blob .= "Light Grey: <font color='#DDDDDD'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #DDDDDD'>Save it</a>) \n";
-				$blob .= "Dark Grey: <font color='#9CC6E7'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #9CC6E7'>Save it</a>) \n";
-				$blob .= "Black: <font color='#000000'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #000000'>Save it</a>) \n";
-				$blob .= "Yellow: <font color='#FFFF00'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #FFFF00'>Save it</a>) \n";
-				$blob .= "Blue: <font color='#8CB5FF'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #8CB5FF'>Save it</a>) \n";
-				$blob .= "Deep Sky Blue: <font color='#00BFFF'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #00BFFF'>Save it</a>) \n";
-				$blob .= "Green: <font color='#00DE42'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #00DE42'>Save it</a>) \n";
-				$blob .= "Orange: <font color='#FCA712'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #FCA712'>Save it</a>) \n";
-				$blob .= "Gold: <font color='#FFD700'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #FFD700'>Save it</a>) \n";
-				$blob .= "Deep Pink: <font color='#FF1493'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #FF1493'>Save it</a>) \n";
-				$blob .= "Violet: <font color='#EE82EE'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #EE82EE'>Save it</a>) \n";
-				$blob .= "Brown: <font color='#8B7355'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #8B7355'>Save it</a>) \n";
-				$blob .= "Cyan: <font color='#00FFFF'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #00FFFF'>Save it</a>) \n";
-				$blob .= "Navy Blue: <font color='#000080'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #000080'>Save it</a>) \n";
-				$blob .= "Dark Orange: <font color='#FF8C00'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$row->name} #FF8C00'>Save it</a>) \n";
-			} else if ($row->type == 'text') {
-				$blob .= "For this setting you can enter any text you want (max. 255 chararacters).\n";
-				$blob .= "To change this setting:\n\n";
-				$blob .= "<highlight>/tell <myname> settings save {$row->name} 'text'<end>\n\n";
-			} else if ($row->type == 'number') {
-				$blob .= "For this setting you can set any number.\n";
-				$blob .= "To change this setting: \n\n";
-				$blob .= "<highlight>/tell <myname> settings save {$row->name} 'number'<end>\n\n";
-			} else if ($row->type == 'options') {
-				$blob .= "For this setting you must choose one of the options from the list below.\n\n";
-			} else if ($row->type == 'time') {
-				$blob .= "For this setting you must enter a time value. See <a href='chatcmd:///tell <myname> help budatime'>budatime</a> for info on the format of the 'time' parameter.\n\n";
-				$blob .= "To change this setting:\n\n";
-				$blob .= "<highlight>/tell <myname> settings save {$row->name} 'time'<end>\n\n";
-			}
-
-			if ($options) {
-				$blob .= "Predefined Options:\n";
-				if ($intoptions) {
-					forEach ($options_map as $key => $label) {
-						$save_link = $this->text->make_chatcmd('Select', "/tell <myname> settings save {$row->name} {$key}");
-						$blob .= "<tab> <highlight>{$label}<end> ({$save_link})\n";
-					}
-				} else {
-					forEach ($options as $char) {
-						$save_link = $this->text->make_chatcmd('Select', "/tell <myname> settings save {$row->name} {$char}");
-						$blob .= "<tab> <highlight>{$char}<end> ({$save_link})\n";
-					}
-				}
-			}
+			$blob .= "Current Value: " . $settingHandler->displayValue() . "\n\n";
+			$blob .= $settingHandler->getDescription();
+			$blob .= $settingHandler->getOptions();
 
 			// show help topic if there is one
 			$help = $this->helpManager->find($settingName, $sender);
@@ -278,7 +220,7 @@ class SettingsController {
 				if (preg_match("/^#([0-9a-f]{6})$/i", $change_to_setting)) {
 					$new_setting = "<font color='$change_to_setting'>";
 				} else {
-					$msg = "<highlight>{$change_to_setting}<end> isn't a valid HTML-Color (example: '#FF33DD').";
+					$msg = "<highlight>{$change_to_setting}<end> is not a valid HTML-Color (example: '#FF33DD').";
 				}
 			} else if ($row->type == "text") {
 				if (strlen($change_to_setting) > 255) {

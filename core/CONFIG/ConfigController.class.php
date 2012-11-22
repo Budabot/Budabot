@@ -458,7 +458,8 @@ class ConfigController {
 				$blob .= " (<a href='chatcmd:///tell <myname> settings change $row->name'>Modify</a>)";
 			}
 	
-			$blob .= ":  " . $this->settingManager->displayValue($row);
+			$settingHandler = $this->settingManager->getSettingHandler($row);
+			$blob .= ":  " . $settingHandler->displayValue() . "\n";
 		}
 	
 		$sql =
