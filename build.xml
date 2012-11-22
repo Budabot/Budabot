@@ -40,7 +40,6 @@
 		<exclude name="modules/CIA_MODULE**" />
 		<exclude name="modules/SVN_MODULE**" />
 		<exclude name="modules/TEST_MODULE**" />
-		<exclude name="modules/WORLDNET_MODULE**" />
 	</patternset>
 
 	<patternset id="win32_files">
