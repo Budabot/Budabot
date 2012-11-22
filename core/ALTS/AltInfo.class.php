@@ -30,7 +30,7 @@ class AltInfo {
 			return "No registered alts.";
 		}
 
-		$blob .= "<tab><tab>{$this->main}";
+		$blob .= "{$this->main}";
 		$character = $playerManager->get_by_name($this->main);
 		if ($character !== null) {
 			$blob .= " ({$character->level}/<green>{$character->ai_level}<end> {$character->profession})";
@@ -47,10 +47,8 @@ class AltInfo {
 		$sql = "SELECT `alt`, `main`, `validated`, p.* FROM `alts` a LEFT JOIN players p ON (a.alt = p.name AND p.dimension = '<dim>') WHERE `main` LIKE ? ORDER BY level DESC, ai_level DESC, profession ASC, name ASC";
 		$data = $db->query($sql, $this->main);
 		$count = count($data);
-
-		$blob .= "\n:::::: Alt Characters ({$count})\n";
 		forEach ($data as $row) {
-			$blob .= "<tab><tab>{$row->alt}";
+			$blob .= "{$row->alt}";
 			if ($row->profession !== null) {
 				$blob .= " ({$row->level}/<green>{$row->ai_level}<end> {$row->profession})";
 			}
